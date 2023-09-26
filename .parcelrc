@@ -10,13 +10,6 @@
       "@parcel/optimizer-esbuild"
     ]
   },
-  "compressors": {
-    "*.{html,css,js,svg,map}": [
-      "...",
-      "@parcel/compressor-gzip",
-      "@parcel/compressor-brotli"
-    ]
-  },
   "reporters": [
     "...",
     "parcel-reporter-static-files-copy"
