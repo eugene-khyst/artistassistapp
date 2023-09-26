@@ -5,6 +5,11 @@
       "@parcel/transformer-raw"
     ]
   },
+  "optimizers": {
+    "*.js": [
+      "@parcel/optimizer-esbuild"
+    ]
+  },
   "compressors": {
     "*.{html,css,js,svg,map}": [
       "...",
