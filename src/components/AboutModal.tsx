@@ -4,7 +4,7 @@
  */
 
 import {MailOutlined, QuestionCircleOutlined} from '@ant-design/icons';
-import {Button, Col, Modal, Row, theme} from 'antd';
+import {Button, Col, Modal, Row} from 'antd';
 import {Dispatch, SetStateAction} from 'react';
 import {Logo} from './Logo';
 
@@ -14,22 +14,10 @@ type Props = {
 };
 
 export const AboutModal: React.FC<Props> = ({open, setOpen}: Props) => {
-  const {
-    token: {fontSizeLG, fontSizeXL},
-  } = theme.useToken();
-
   return (
     <Modal title="ArtistAssistApp" open={open} footer={null} onCancel={() => setOpen(false)}>
       <div style={{textAlign: 'center'}}>
-        <Logo style={{width: 150}} />
-        <div
-          style={{fontFamily: 'Kalam', fontSize: fontSizeXL, fontWeight: 'bold', color: '#3D3A3D'}}
-        >
-          ArtistAssistApp
-        </div>
-        <div style={{marginBottom: 8, fontFamily: 'Kalam', fontSize: fontSizeLG, color: '#3D3A3D'}}>
-          The web app that simplifies painting
-        </div>
+        <Logo name={true} tagline={true} />
         <Row>
           <Col xs={12}>
             <Button

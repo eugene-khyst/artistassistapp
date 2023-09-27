@@ -3,14 +3,52 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {CSSProperties} from 'react';
+import {Space, theme} from 'antd';
 
 const LOGO = new URL('../assets/images/logo.svg', import.meta.url);
 
 type Props = {
-  style?: CSSProperties;
+  name?: boolean;
+  tagline?: boolean;
+  size?: number;
 };
 
-export const Logo: React.FC<Props> = ({style}: Props) => {
-  return <img src={LOGO.toString()} alt="ArtistAssistApp logo" {...{style}} />;
+export const Logo: React.FC<Props> = ({name, tagline, size}: Props) => {
+  const {
+    token: {fontSizeLG, fontSizeXL},
+  } = theme.useToken();
+
+  return (
+    <Space size="small" align="center">
+      <img src={LOGO.toString()} alt="ArtistAssistApp logo" style={{width: size ?? 150}} />
+      <div>
+        {!!name && (
+          <div
+            style={{
+              textAlign: 'left',
+              fontFamily: 'Kalam',
+              fontSize: fontSizeXL,
+              fontWeight: 'bold',
+              color: '#3D3A3D',
+            }}
+          >
+            ArtistAssistApp
+          </div>
+        )}
+        {!!tagline && (
+          <div
+            style={{
+              marginBottom: 8,
+              textAlign: 'left',
+              fontFamily: 'Kalam',
+              fontSize: fontSizeLG,
+              color: '#3D3A3D',
+            }}
+          >
+            The web app that simplifies painting
+          </div>
+        )}
+      </div>
+    </Space>
+  );
 };
