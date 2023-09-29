@@ -45,7 +45,7 @@ export const Logo: React.FC<Props> = ({name, tagline, size}: Props) => {
               color: '#3D3A3D',
             }}
           >
-            The web app that simplifies painting
+            The web app to paint better with ease
           </div>
         )}
       </div>
