@@ -19,7 +19,7 @@ export const Logo: React.FC<Props> = ({name, tagline, size}: Props) => {
   } = theme.useToken();
 
   return (
-    <Space size="small" align="center">
+    <Space size="small" align="center" wrap>
       <img src={LOGO.toString()} alt="ArtistAssistApp logo" style={{width: size ?? 150}} />
       <div>
         {!!name && (
