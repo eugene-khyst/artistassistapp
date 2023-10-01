@@ -13,7 +13,8 @@ import {
   ReadOutlined,
 } from '@ant-design/icons';
 import {Button, Col, Modal, Row, Space} from 'antd';
-import {Dispatch, SetStateAction} from 'react';
+import {Dispatch, SetStateAction, useContext} from 'react';
+import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
 import {Logo} from './Logo';
 
 type Props = {
@@ -22,6 +23,7 @@ type Props = {
 };
 
 export const AboutModal: React.FC<Props> = ({open, setOpen}: Props) => {
+  const {websiteUrl} = useContext<AppConfig>(AppConfigContext);
   return (
     <Modal title="ArtistAssistApp" open={open} footer={null} onCancel={() => setOpen(false)}>
       <Space direction="vertical" align="center" size="small" style={{width: '100%'}}>
@@ -31,7 +33,7 @@ export const AboutModal: React.FC<Props> = ({open, setOpen}: Props) => {
             <Space direction="vertical" align="start" size={0}>
               <Button
                 type="link"
-                href="https://artistassistapp.com/tutorials/"
+                href={`${websiteUrl}/tutorials/`}
                 target="_blank"
                 icon={<ReadOutlined />}
                 size="large"
@@ -62,7 +64,7 @@ export const AboutModal: React.FC<Props> = ({open, setOpen}: Props) => {
             <Space direction="vertical" align="start" size={0}>
               <Button
                 type="link"
-                href="https://artistassistapp.com/about/"
+                href={`${websiteUrl}/about/`}
                 target="_blank"
                 icon={<InfoCircleOutlined />}
                 size="large"
@@ -71,7 +73,7 @@ export const AboutModal: React.FC<Props> = ({open, setOpen}: Props) => {
               </Button>
               <Button
                 type="link"
-                href="https://artistassistapp.com/contact/"
+                href={`${websiteUrl}/contact/`}
                 target="_blank"
                 icon={<MailOutlined />}
                 size="large"
@@ -80,7 +82,7 @@ export const AboutModal: React.FC<Props> = ({open, setOpen}: Props) => {
               </Button>
               <Button
                 type="link"
-                href="https://artistassistapp.com/privacy-policy/"
+                href={`${websiteUrl}/privacy-policy/`}
                 target="_blank"
                 icon={<FileProtectOutlined />}
                 size="large"
@@ -89,7 +91,7 @@ export const AboutModal: React.FC<Props> = ({open, setOpen}: Props) => {
               </Button>
               <Button
                 type="link"
-                href="https://artistassistapp.com/terms-of-use/"
+                href={`${websiteUrl}/terms-of-use/`}
                 target="_blank"
                 icon={<FileTextOutlined />}
                 size="large"

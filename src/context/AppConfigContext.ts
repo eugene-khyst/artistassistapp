@@ -15,7 +15,7 @@ export interface AppConfig {
 }
 
 export const AppConfigContext: Context<AppConfig> = createContext<AppConfig>({
-  websiteUrl: 'https://www.artistassistapp.com',
+  websiteUrl: 'https://artistassistapp.com',
   limitResultsForMixes: 5,
   defaultSampleDiameter: 10,
   maxSampleDiameter: 50,
