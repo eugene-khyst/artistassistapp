@@ -13,7 +13,6 @@ import {
 import {Button, Card, Dropdown, MenuProps, Popover, Rate, Space, theme} from 'antd';
 import {PaintMix, SimilarColor} from '../../services/color';
 import {RgbTuple} from '../../services/color/model';
-import {arrayEquals} from '../../utils';
 import {PaintMixDescription} from './PaintMixDescription';
 
 function getRate(deltaE: number) {
@@ -49,12 +48,7 @@ export const SimilarColorCard: React.FC<Props> = ({
     token: {fontSize, colorTextSecondary, colorTextTertiary},
   } = theme.useToken();
   const rate = getRate(deltaE);
-  const saveDisabled = paintMixes?.some(
-    (pm: PaintMix) =>
-      pm.id === paintMix.id &&
-      arrayEquals(pm.fractions, paintMix.fractions) &&
-      arrayEquals(pm.backgroundRgb, paintMix.backgroundRgb)
-  );
+  const saveDisabled = paintMixes?.some((pm: PaintMix) => pm.id === paintMix.id);
 
   const handleSaveButtonClicked = () => {
     savePaintMix({...paintMix, dataIndex: Date.now()});

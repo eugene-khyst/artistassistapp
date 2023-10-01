@@ -71,11 +71,13 @@ export const ArtistAssistApp: React.FC = () => {
       key: TabKey.Paints,
       label: 'Paints',
       children: <PaintSetChooser {...{setPaintSet, setActiveTabKey, file}} />,
+      forceRender: true,
     },
     {
       key: TabKey.Photo,
       label: 'Photo',
       children: <SelectImage {...{setFile, setActiveTabKey}} />,
+      forceRender: true,
       disabled: !paintSet,
     },
     {

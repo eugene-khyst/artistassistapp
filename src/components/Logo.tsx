@@ -13,7 +13,7 @@ type Props = {
   size?: number;
 };
 
-export const Logo: React.FC<Props> = ({name, tagline, size}: Props) => {
+export const Logo: React.FC<Props> = ({name = false, tagline = false, size}: Props) => {
   const {
     token: {fontSizeLG, fontSizeXL},
   } = theme.useToken();
@@ -22,7 +22,7 @@ export const Logo: React.FC<Props> = ({name, tagline, size}: Props) => {
     <Space size="small" align="center" wrap>
       <img src={LOGO.toString()} alt="ArtistAssistApp logo" style={{width: size ?? 150}} />
       <div>
-        {!!name && (
+        {name && (
           <div
             style={{
               textAlign: 'left',
@@ -35,7 +35,7 @@ export const Logo: React.FC<Props> = ({name, tagline, size}: Props) => {
             ArtistAssistApp
           </div>
         )}
-        {!!tagline && (
+        {tagline && (
           <div
             style={{
               marginBottom: 8,
