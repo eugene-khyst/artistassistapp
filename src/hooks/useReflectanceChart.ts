@@ -6,10 +6,12 @@
 import {MutableRefObject, RefCallback, useCallback, useRef} from 'react';
 import {ReflectanceChart} from '../services/canvas/chart';
 
-export function useReflectanceChart(): {
+interface Result {
   ref: RefCallback<HTMLCanvasElement>;
   reflectanceChartRef: MutableRefObject<ReflectanceChart | undefined>;
-} {
+}
+
+export function useReflectanceChart(): Result {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const reflectanceChartRef = useRef<ReflectanceChart>();
   const ref = useCallback((node: HTMLCanvasElement | null) => {

@@ -9,14 +9,16 @@ import {useDebounce, useWindowSize} from 'usehooks-ts';
 import {useVisibilityChange} from '.';
 import {ZoomableImageCanvas} from '../services/canvas/image';
 
-export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
-  zoomableImageCanvasSupplier: (canvas: HTMLCanvasElement) => T,
-  file?: File
-): {
+interface Result<T> {
   ref: RefCallback<HTMLCanvasElement>;
   isLoading: boolean;
   zoomableImageCanvasRef: MutableRefObject<T | undefined>;
-} {
+}
+
+export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
+  zoomableImageCanvasSupplier: (canvas: HTMLCanvasElement) => T,
+  file?: File
+): Result<T> {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const zoomableImageCanvasRef = useRef<T>();
   const ref = useCallback(
@@ -33,7 +35,7 @@ export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
   const isVisible = useVisibilityChange(canvasRef);
   const windowSize = useDebounce(useWindowSize(), 300);
   const screens = Grid.useBreakpoint();
-  const [isFileLoading, setIsFileLoading] = useState<boolean>(false);
+  const [fileLoadingCount, setFileLoadingCount] = useState<number>(0);
 
   useEffect(() => {
     const zoomableImageCanvas = zoomableImageCanvasRef.current;
@@ -50,15 +52,15 @@ export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
       if (!zoomableImageCanvas || !file) {
         return;
       }
-      setIsFileLoading(true);
+      setFileLoadingCount((prev: number) => prev + 1);
       await zoomableImageCanvas.setFile(file);
-      setIsFileLoading(false);
+      setFileLoadingCount((prev: number) => prev - 1);
     })();
   }, [file]);
 
   return {
     ref,
-    isLoading: isFileLoading,
+    isLoading: fileLoadingCount > 0,
     zoomableImageCanvasRef,
   };
 }

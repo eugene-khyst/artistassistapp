@@ -46,7 +46,7 @@ export const PaletteGrid: React.FC<Props> = ({
 }: Props) => {
   const [sort, setSort] = useState<Sort>(Sort.ByDataIndex);
 
-  const handleDelteAllButtonClicked = () => {
+  const handleDelteAllButtonClick = () => {
     deleteAllPaintMixes(paintType);
   };
 
@@ -76,7 +76,7 @@ export const PaletteGrid: React.FC<Props> = ({
             <Popconfirm
               title="Delete the paint mix"
               description="Are you sure to delete all paint mixes?"
-              onConfirm={handleDelteAllButtonClicked}
+              onConfirm={handleDelteAllButtonClick}
               okText="Yes"
               cancelText="No"
             >

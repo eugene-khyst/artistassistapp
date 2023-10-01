@@ -50,7 +50,7 @@ export const SimilarColorCard: React.FC<Props> = ({
   const rate = getRate(deltaE);
   const saveDisabled = paintMixes?.some((pm: PaintMix) => pm.id === paintMix.id);
 
-  const handleSaveButtonClicked = () => {
+  const handleSaveButtonClick = () => {
     savePaintMix({...paintMix, dataIndex: Date.now()});
   };
 
@@ -84,7 +84,7 @@ export const SimilarColorCard: React.FC<Props> = ({
       }
       extra={
         <Space.Compact block style={{display: 'flex', justifyContent: 'flex-end'}}>
-          <Button icon={<HeartTwoTone />} onClick={handleSaveButtonClicked} disabled={saveDisabled}>
+          <Button icon={<HeartTwoTone />} onClick={handleSaveButtonClick} disabled={saveDisabled}>
             Save
           </Button>
           <Dropdown menu={{items}}>

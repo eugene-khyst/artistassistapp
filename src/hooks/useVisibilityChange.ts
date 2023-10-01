@@ -6,7 +6,7 @@
 import {RefObject} from 'react';
 import {useIntersectionObserver} from 'usehooks-ts';
 
-export function useVisibilityChange(elementRef: RefObject<Element>) {
+export function useVisibilityChange(elementRef: RefObject<Element>): boolean {
   const entry = useIntersectionObserver(elementRef, {});
   return !!entry?.isIntersecting;
 }
