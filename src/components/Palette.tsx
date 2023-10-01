@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Col, Collapse, CollapseProps, Empty, Row, Typography} from 'antd';
+import {Collapse, CollapseProps, Empty, Typography} from 'antd';
 import {Dispatch, SetStateAction, useCallback, useEffect} from 'react';
 import {PAINT_TYPES, PAINT_TYPE_LABELS, PaintMix, PaintType} from '../services/color';
 import {RgbTuple} from '../services/color/model';
@@ -100,11 +100,9 @@ export const Palette: React.FC<Props> = ({
         Palette
       </Typography.Title>
       {!paintMixes?.length ? (
-        <Row gutter={[16, 16]} justify="start">
-          <Col xs={24} style={{textAlign: 'center'}}>
-            <Empty />
-          </Col>
-        </Row>
+        <div style={{textAlign: 'center'}}>
+          <Empty />
+        </div>
       ) : (
         <Collapse size="large" bordered={false} {...{defaultActiveKey, items}} />
       )}

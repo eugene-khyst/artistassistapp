@@ -81,10 +81,14 @@ export const ImageColorPicker: React.FC<Props> = ({
 }: Props) => {
   const screens = Grid.useBreakpoint();
 
-  const {limitResultsForMixes, sampleMaxSize, sampleSizeSliderMarkValues} =
-    useContext<AppConfig>(AppConfigContext);
-  const sampleSizeSliderMarks: SliderMarks = Object.fromEntries(
-    sampleSizeSliderMarkValues.map((i: number) => [i, i])
+  const {
+    limitResultsForMixes,
+    defaultSampleDiameter,
+    maxSampleDiameter,
+    sampleDiameterSliderMarkValues,
+  } = useContext<AppConfig>(AppConfigContext);
+  const sampleDiameterSliderMarks: SliderMarks = Object.fromEntries(
+    sampleDiameterSliderMarkValues.map((i: number) => [i, i])
   );
 
   const {
@@ -93,7 +97,7 @@ export const ImageColorPicker: React.FC<Props> = ({
     zoomableImageCanvasRef: colorPickerCanvasRef,
   } = useZoomableImageCanvas<ImageColorPickerCanvas>(imageColorPickerCanvasSupplier, file);
 
-  const [sampleSize, setSampleSize] = useState<number>(10);
+  const [sampleDiameter, setSampleDiameter] = useState<number>(defaultSampleDiameter);
   const [targetColor, setTargetColor] = useState<string>(OFF_WHITE_HEX);
   const [similarColors, setSimilarColors] = useState<SimilarColor[]>([]);
   const [sort, setSort] = useState<Sort>(Sort.BySimilarity);
@@ -110,7 +114,7 @@ export const ImageColorPicker: React.FC<Props> = ({
       if (settings) {
         setBackgroundColor(settings.backgroundColorHex);
         setIsGlaze(settings.isGlaze);
-        setSampleSize(settings.sampleSize);
+        setSampleDiameter(settings.sampleDiameter);
         setTargetColor(settings.backgroundColorHex);
       }
     })();
@@ -172,8 +176,8 @@ export const ImageColorPicker: React.FC<Props> = ({
     if (!colorPickerCanvas) {
       return;
     }
-    colorPickerCanvas.setPipetDiameter(sampleSize);
-  }, [colorPickerCanvasRef, sampleSize]);
+    colorPickerCanvas.setPipetDiameter(sampleDiameter);
+  }, [colorPickerCanvasRef, sampleDiameter]);
 
   const savePaintMix = useCallback(
     (paintMix: PaintMix) => {
@@ -193,13 +197,13 @@ export const ImageColorPicker: React.FC<Props> = ({
         setBackgroundColor(OFF_WHITE_HEX);
       }
     }
-    if (changedValues.sampleSize) {
-      setSampleSize(changedValues.sampleSize);
+    if (changedValues.sampleDiameter) {
+      setSampleDiameter(changedValues.sampleDiameter);
     }
     saveColorPickerSettings({
       backgroundColorHex: backgroundColor,
       isGlaze,
-      sampleSize,
+      sampleDiameter: sampleDiameter,
       ...changedValues,
     });
   };
@@ -275,11 +279,11 @@ export const ImageColorPicker: React.FC<Props> = ({
               style={{marginBottom: 0}}
             >
               <Slider
-                value={sampleSize}
-                onChange={(value: number) => handleValuesChange({sampleSize: value})}
+                value={sampleDiameter}
+                onChange={(value: number) => handleValuesChange({sampleDiameter: value})}
                 min={MIN_COLOR_PICKER_DIAMETER}
-                max={sampleMaxSize}
-                marks={sampleSizeSliderMarks}
+                max={maxSampleDiameter}
+                marks={sampleDiameterSliderMarks}
               />
             </Form.Item>
             <Form.Item style={{marginBottom: 0}}>

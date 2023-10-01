@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {CheckboxOptionType, Col, Radio, RadioChangeEvent, Row, Spin} from 'antd';
+import {CheckboxOptionType, Radio, RadioChangeEvent, Spin} from 'antd';
 import {Remote, wrap} from 'comlink';
 import {useEffect, useState} from 'react';
 import {useZoomableImageCanvas} from '../hooks/';
@@ -50,23 +50,19 @@ export const ImageTonalValues: React.FC<Props> = ({file}: Props) => {
 
   return (
     <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
-      <Row style={{textAlign: 'center'}}>
-        <Col xs={24}>
-          <Radio.Group
-            options={TONES_OPTIONS}
-            value={imageIndex}
-            onChange={(e: RadioChangeEvent) => setImageIndex(e.target.value)}
-            optionType="button"
-            buttonStyle="solid"
-            style={{marginBottom: 8}}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col xs={24}>
-          <canvas ref={canvasRef} style={{width: '100%', height: `calc(100vh - 115px)`}} />
-        </Col>
-      </Row>
+      <div style={{textAlign: 'center'}}>
+        <Radio.Group
+          options={TONES_OPTIONS}
+          value={imageIndex}
+          onChange={(e: RadioChangeEvent) => setImageIndex(e.target.value)}
+          optionType="button"
+          buttonStyle="solid"
+          style={{marginBottom: 8}}
+        />
+      </div>
+      <div>
+        <canvas ref={canvasRef} style={{width: '100%', height: `calc(100vh - 115px)`}} />
+      </div>
     </Spin>
   );
 };

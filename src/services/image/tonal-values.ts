@@ -25,34 +25,34 @@ export class TonalValues {
     const [canvas, ctx] = imageBitmapToOffscreenCanvas(image, medianFilterRadius);
     const imageData: ImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     image.close();
-    const {data, width, height} = imageData;
+    const {data: origData, width, height} = imageData;
     thresholds.sort((a: number, b: number) => b - a);
     const {length} = thresholds;
-    const tonalValuesData = Array.from({length}, () => new Uint8ClampedArray(data.length));
-    for (let i = 0; i < data.length; i += 4) {
-      const r = data[i];
-      const g = data[i + 1];
-      const b = data[i + 2];
+    const tonesData = Array.from({length}, () => new Uint8ClampedArray(origData.length));
+    for (let i = 0; i < origData.length; i += 4) {
+      const r = origData[i];
+      const g = origData[i + 1];
+      const b = origData[i + 2];
       const l = getLightness(getLuminance(r, g, b));
-      tonalValuesData.forEach((result: Uint8ClampedArray, j: number) => {
+      tonesData.forEach((data: Uint8ClampedArray, j: number) => {
         let v = 255;
         for (let k = 0; k <= j; k++) {
           if (l <= thresholds[k]) {
             v = Math.trunc((255 * (length - k - 1)) / length);
           }
         }
-        result[i] = v;
-        result[i + 1] = v;
-        result[i + 2] = v;
-        result[i + 3] = 255;
+        data[i] = v;
+        data[i + 1] = v;
+        data[i + 2] = v;
+        data[i + 3] = 255;
       });
     }
     const tones: ImageBitmap[] = await Promise.all(
-      tonalValuesData.map((result: Uint8ClampedArray): Promise<ImageBitmap> => {
-        const tonalValuesImageData = new ImageData(result, width, height);
-        medianFilter(tonalValuesImageData, medianFilterRadius, 1);
+      tonesData.map((toneData: Uint8ClampedArray): Promise<ImageBitmap> => {
+        const toneImageData = new ImageData(toneData, width, height);
+        medianFilter(toneImageData, medianFilterRadius, 1);
         ctx.clearRect(0, 0, width, height);
-        ctx.putImageData(tonalValuesImageData, 0, 0);
+        ctx.putImageData(toneImageData, 0, 0);
         const cropedImageData = ctx.getImageData(
           medianFilterRadius,
           medianFilterRadius,

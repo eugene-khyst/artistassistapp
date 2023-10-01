@@ -24,7 +24,7 @@ export const OFF_WHITE_HEX: string = OFF_WHITE.toHex();
 export interface ColorPickerSettings {
   backgroundColorHex: string;
   isGlaze: boolean;
-  sampleSize: number;
+  sampleDiameter: number;
 }
 
 export interface PaintFraction {

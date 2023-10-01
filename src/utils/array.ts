@@ -13,6 +13,10 @@ export function create2DArray<T>(rows: number, cols: number, element: T): T[][] 
     .map(() => Array(cols).fill(element));
 }
 
+export function range(min: number, max: number): number[] {
+  return Array.from({length: max - min + 1}, (_, i) => i + min);
+}
+
 export function unique<T, S extends string | number>(array: T[], identityFn: (element: T) => S) {
   const identities = new Set<S>();
   return array.filter((element: T) => {
