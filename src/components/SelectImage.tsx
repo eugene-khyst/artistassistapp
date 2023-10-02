@@ -58,7 +58,7 @@ export const SelectImage: React.FC<Props> = ({setFile, setActiveTabKey}: Props) 
       {!!recentFiles.length && (
         <>
           <Divider orientation="left">or select a recent photo</Divider>
-          <Row gutter={[16, 16]} justify="start">
+          <Row gutter={[16, 16]} justify="start" style={{marginBottom: 16}}>
             {recentFiles.map((imageFile: ImageFile) => (
               <Col key={imageFile.id} xs={24} md={12} lg={8}>
                 <RecentImage {...{imageFile, setFile, setActiveTabKey}} />

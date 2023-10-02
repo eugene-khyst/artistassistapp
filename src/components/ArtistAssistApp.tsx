@@ -49,7 +49,9 @@ export const ArtistAssistApp: React.FC = () => {
   const [paintMixes, setPaintMixes] = useState<PaintMix[] | undefined>();
   const [isAboutModelOpen, setIsAboutModalOpen] = useState<boolean>(false);
 
-  useEventListener('beforeunload', () => true);
+  useEventListener('beforeunload', event => {
+    event.returnValue = 'Are you sure you want to leave?';
+  });
 
   const setAsBackground = useCallback(
     (background: string | RgbTuple) => {
