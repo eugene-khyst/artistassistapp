@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {createArray, getIndexForCoord} from '../../utils';
+import {create2DArray, createArray, getIndexForCoord} from '../../utils';
 
 export function medianFilter(imageData: ImageData, radius: number, colors = 3): void {
   if (colors !== 1 && colors !== 3) {
@@ -14,43 +14,30 @@ export function medianFilter(imageData: ImageData, radius: number, colors = 3): 
   }
   const {data, width, height} = imageData;
   const origData: Uint8ClampedArray = new Uint8ClampedArray(data);
-  const radiusPow2 = radius * radius;
-  const kernelSize = 2 * radius + 1;
+
+  const kernelSize = 2 * radius;
   const median = (kernelSize * kernelSize) / 2;
+
+  const mask: boolean[][] = getMask(radius);
+  const removedMask: boolean[][] = maskDifference(mask, 0, 1);
+  const addedMask: boolean[][] = maskDifference(mask, 1, 0);
+  const maskIndexes: number[][] = maskToIndexes(mask);
+  const removedMaskIndexes: number[][] = maskToIndexes(removedMask);
+  const addedMaskIndexes: number[][] = maskToIndexes(addedMask);
+
   for (let c = 0; c < colors; c++) {
     for (let y = radius; y < height - radius; y++) {
       const hist: number[] = createArray(256, 0);
-      for (let j = y - radius; j <= y + radius; j++) {
-        const jMinusYPow2 = Math.pow(j - y, 2);
-        for (let i = 0; i <= 2 * radius; i++) {
-          if (Math.pow(i - radius, 2) + jMinusYPow2 - radiusPow2 <= 1) {
-            hist[origData[getIndexForCoord(i, j, width, c)]] += 1;
-          }
-        }
-      }
+      maskIndexes.forEach(([j, i]) => {
+        hist[origData[getIndexForCoord(i, j + y - radius, width, c)]] += 1;
+      });
       for (let x = radius; x < width - radius; x++) {
-        for (let j = y - radius; j <= y + radius; j++) {
-          const jMinusYPow2 = Math.pow(j - y, 2);
-          for (let i = x - radius; i <= x + radius; i++) {
-            if (
-              Math.pow(i - x, 2) + jMinusYPow2 - radiusPow2 <= 1 &&
-              Math.pow(i - (x + 1), 2) + jMinusYPow2 - radiusPow2 > 1
-            ) {
-              hist[origData[getIndexForCoord(i, j, width, c)]] -= 1;
-            }
-          }
-        }
-        for (let j = y - radius; j <= y + radius; j++) {
-          const jMinusYPow2 = Math.pow(j - y, 2);
-          for (let i = x - radius; i <= x + radius + 1; i++) {
-            if (
-              Math.pow(i - x, 2) + jMinusYPow2 - radiusPow2 > 1 &&
-              Math.pow(i - (x + 1), 2) + jMinusYPow2 - radiusPow2 <= 1
-            ) {
-              hist[origData[getIndexForCoord(i, j, width, c)]] += 1;
-            }
-          }
-        }
+        removedMaskIndexes.forEach(([j, i]) => {
+          hist[origData[getIndexForCoord(i + x - radius, j + y - radius, width, c)]] -= 1;
+        });
+        addedMaskIndexes.forEach(([j, i]) => {
+          hist[origData[getIndexForCoord(i + x - radius, j + y - radius, width, c)]] += 1;
+        });
         const v = getIndexInHistogram(hist, median);
         const index = getIndexForCoord(x, y, width, c);
         data[index] = v;
@@ -61,6 +48,54 @@ export function medianFilter(imageData: ImageData, radius: number, colors = 3): 
       }
     }
   }
+}
+
+function getMask(radius: number): boolean[][] {
+  const diameter = 2 * radius;
+  const radiusPow2 = radius * radius;
+  const mask: boolean[][] = create2DArray(diameter + 1, diameter + 1, false);
+  for (let j = 0; j <= diameter; j++) {
+    const jMinusRadiusPow2 = Math.pow(j - radius, 2);
+    for (let i = 0; i <= diameter; i++) {
+      if (Math.pow(i - radius, 2) + jMinusRadiusPow2 - radiusPow2 <= 1) {
+        mask[j][i] = true;
+      }
+    }
+  }
+  return mask;
+}
+
+function maskDifference(
+  mask: boolean[][],
+  minuendXOffset: number,
+  subtrahendXOffset: number
+): boolean[][] {
+  const maxOffset = Math.max(minuendXOffset, subtrahendXOffset);
+  const difference: boolean[][] = create2DArray(mask.length, mask[0].length + maxOffset, false);
+  for (let j = 0; j < difference.length; j++) {
+    const row: boolean[] = mask[j];
+    const {length: rowLength} = mask;
+    for (let i = 0; i < difference[j].length; i++) {
+      const i1 = i - minuendXOffset;
+      const i2 = i - subtrahendXOffset;
+      if (i1 >= 0 && i1 < rowLength && row[i1] && (i2 < 0 || i2 >= rowLength || !row[i2])) {
+        difference[j][i] = true;
+      }
+    }
+  }
+  return difference;
+}
+
+function maskToIndexes(mask: boolean[][]): number[][] {
+  const indexes: number[][] = [];
+  mask.forEach((row: boolean[], j: number) =>
+    row.forEach((element: boolean, i: number) => {
+      if (element) {
+        indexes.push([j, i]);
+      }
+    })
+  );
+  return indexes;
 }
 
 function getIndexInHistogram(histogram: number[], value: number): number {
