@@ -12,6 +12,7 @@ import type {TabsProps} from 'antd';
 import {Alert, Button, Col, FloatButton, Row, Tabs, Tooltip, theme} from 'antd';
 import {useCallback, useState} from 'react';
 import StickyBox from 'react-sticky-box';
+import {useEventListener} from 'usehooks-ts';
 import {useFullScreen} from '../hooks/useFullscreen';
 import {OFF_WHITE_HEX, PaintMix, PaintSet} from '../services/color';
 import {Rgb, RgbTuple} from '../services/color/model';
@@ -47,6 +48,8 @@ export const ArtistAssistApp: React.FC = () => {
   const [isOpenReflectanceChart, setIsOpenReflectanceChart] = useState<boolean>(false);
   const [paintMixes, setPaintMixes] = useState<PaintMix[] | undefined>();
   const [isAboutModelOpen, setIsAboutModalOpen] = useState<boolean>(false);
+
+  useEventListener('beforeunload', () => true);
 
   const setAsBackground = useCallback(
     (background: string | RgbTuple) => {

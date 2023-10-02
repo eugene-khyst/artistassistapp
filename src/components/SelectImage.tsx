@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {App, Button, Divider, Form, Image, Input, Space, Typography} from 'antd';
+import {App, Col, Divider, Form, Input, Row, Typography} from 'antd';
 import {ChangeEvent, Dispatch, SetStateAction, useEffect, useState} from 'react';
-import {getImageFile, saveImageFile} from '../services/db/image-file-db';
+import {ImageFile} from '../services/db/db';
+import {getImageFiles, saveImageFile} from '../services/db/image-file-db';
+import {RecentImage} from './RecentImage';
 import {TabKey} from './types';
 
 type Props = {
@@ -16,31 +18,15 @@ type Props = {
 export const SelectImage: React.FC<Props> = ({setFile, setActiveTabKey}: Props) => {
   const {message} = App.useApp();
 
-  const [prevFile, setPrevFile] = useState<File | undefined>();
-  const [prevFileUrl, setPrevFileUrl] = useState<string | undefined>();
+  const [recentFiles, setRecentFiles] = useState<ImageFile[]>([]);
 
   useEffect(() => {
     (async () => {
-      const fileFromDb: File | undefined = await getImageFile();
-      if (fileFromDb) {
-        setPrevFile(fileFromDb);
-      }
+      setRecentFiles(await getImageFiles());
     })();
-  }, [setFile]);
+  }, []);
 
-  useEffect(() => {
-    if (!prevFile) {
-      return;
-    }
-    setPrevFileUrl((url?: string) => {
-      if (url) {
-        URL.revokeObjectURL(url);
-      }
-      return URL.createObjectURL(prevFile);
-    });
-  }, [prevFile]);
-
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | undefined = e.target.files?.[0];
     if (!file) {
       return;
@@ -51,14 +37,9 @@ export const SelectImage: React.FC<Props> = ({setFile, setActiveTabKey}: Props) 
       return;
     }
     setFile(file);
-    setPrevFile(file);
-    saveImageFile(file);
     setActiveTabKey(TabKey.Colors);
-  };
-
-  const handlePrevImageButtonClick = () => {
-    setFile(prevFile);
-    setActiveTabKey(TabKey.Colors);
+    await saveImageFile(file);
+    setRecentFiles(await getImageFiles());
   };
 
   return (
@@ -74,14 +55,16 @@ export const SelectImage: React.FC<Props> = ({setFile, setActiveTabKey}: Props) 
       >
         <Input type="file" size="large" onChange={handleFileChange} accept="image/*" />
       </Form.Item>
-      {prevFile && (
+      {!!recentFiles.length && (
         <>
-          <Divider orientation="left">or</Divider>
-          <Space direction="vertical" size="small">
-            <Button onClick={handlePrevImageButtonClick}>Select this photo</Button>
-            {prevFileUrl && <Image width={300} src={prevFileUrl} alt={prevFile.name} />}
-            {<b>{prevFile.name}</b>}
-          </Space>
+          <Divider orientation="left">or select a recent photo</Divider>
+          <Row gutter={[16, 16]} justify="start">
+            {recentFiles.map((imageFile: ImageFile) => (
+              <Col key={imageFile.id} xs={24} md={12} lg={8}>
+                <RecentImage {...{imageFile, setFile, setActiveTabKey}} />
+              </Col>
+            ))}
+          </Row>
         </>
       )}
     </div>

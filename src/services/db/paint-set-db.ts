@@ -13,9 +13,11 @@ export async function getLastPaintSet(): Promise<PaintSetDefinition | undefined>
 }
 
 export async function getPaintSetByType(type: PaintType): Promise<PaintSetDefinition | undefined> {
-  return (await dbPromise).get('paint-sets', type);
+  const db = await dbPromise;
+  return await db.get('paint-sets', type);
 }
 
 export async function savePaintSet(paintSet: PaintSetDefinition): Promise<void> {
-  (await dbPromise).put('paint-sets', {...paintSet, timestamp: Date.now()});
+  const db = await dbPromise;
+  await db.put('paint-sets', {...paintSet, timestamp: Date.now()});
 }

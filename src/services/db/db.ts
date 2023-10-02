@@ -6,14 +6,20 @@
 import {DBSchema, IDBPDatabase, openDB} from 'idb';
 import {ColorPickerSettings, PaintMix, PaintSetDefinition, PaintType} from '../color';
 
+export interface ImageFile {
+  id?: number;
+  file: File;
+  date: Date;
+}
+
 interface ArtistAssistAppDB extends DBSchema {
   'paint-sets': {
     value: PaintSetDefinition;
     key: PaintType;
     indexes: {'by-timestamp': number};
   };
-  'image-file': {
-    value: File;
+  'image-files': {
+    value: ImageFile;
     key: number;
   };
   'color-picker': {
@@ -28,7 +34,7 @@ interface ArtistAssistAppDB extends DBSchema {
 
 export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<ArtistAssistAppDB>(
   'artist-assist-app-db',
-  2,
+  3,
   {
     upgrade(db: IDBPDatabase<ArtistAssistAppDB>) {
       if (!db.objectStoreNames.contains('paint-sets')) {
@@ -37,6 +43,12 @@ export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artist
         });
         paintSetStore.createIndex('by-timestamp', 'timestamp');
       }
+      if (!db.objectStoreNames.contains('image-files')) {
+        db.createObjectStore('image-files', {
+          keyPath: 'id',
+          autoIncrement: true,
+        });
+      }
       if (!db.objectStoreNames.contains('color-picker')) {
         db.createObjectStore('color-picker');
       }
@@ -44,9 +56,6 @@ export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artist
         db.createObjectStore('paint-mixes', {
           keyPath: 'id',
         });
-      }
-      if (!db.objectStoreNames.contains('image-file')) {
-        db.createObjectStore('image-file');
       }
     },
   }
