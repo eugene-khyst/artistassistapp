@@ -360,8 +360,8 @@ export class ColorMixer {
   findSimilarColors(
     targetColor: string | RgbTuple,
     isGlaze = false,
-    maxDeltaE = 4,
-    limitResultsForMixes = 10
+    maxDeltaE = 2,
+    limitResultsForMixes = 5
   ): SimilarColor[] {
     const rgb = Rgb.fromHexOrTuple(targetColor);
     if (this.background?.equals(rgb)) {
@@ -370,8 +370,7 @@ export class ColorMixer {
     const lab: Lab = rgb.toXyz().toLab();
     const onlyThickConsistency = this.paintType !== PaintType.Watercolor && !isGlaze;
     const allSimilarColors: SimilarColor[] = [];
-    let closestLayer: PaintLayer | null = null;
-    let closestDeltaE: number = Number.MAX_VALUE;
+    const topNSimilarColors: SimilarColor[] = [];
     for (const layers of [
       this.onePaintMixLayers,
       this.twoPaintsMixLayers,
@@ -386,31 +385,26 @@ export class ColorMixer {
         if (isGlaze && (fluidFraction === 0 || layer.paint.isOpaque())) {
           continue;
         }
-        const deltaE = layer.lab.getDeltaE2000(lab);
-        if (closestLayer == null || deltaE < closestDeltaE) {
-          closestLayer = layer;
-          closestDeltaE = deltaE;
+        const deltaE: number = layer.lab.getDeltaE2000(lab);
+        const similarColor: SimilarColor = {
+          paintMix: layer.toPaintMix(),
+          deltaE,
+        };
+        if (similarColors.length === 0) {
+          topNSimilarColors.push(similarColor);
+          topNSimilarColors.sort(compareSimilarColorsByDeltaE);
+          if (topNSimilarColors.length > limitResultsForMixes) {
+            topNSimilarColors.pop();
+          }
         }
         if (deltaE <= maxDeltaE) {
-          similarColors.push({
-            paintMix: layer.toPaintMix(),
-            deltaE,
-          });
+          similarColors.push(similarColor);
         }
       }
       similarColors.sort(compareSimilarColorsByDeltaE);
       allSimilarColors.push(...uniqueSimilarColors(similarColors).slice(0, limitResultsForMixes));
     }
     allSimilarColors.sort(compareSimilarColorsByDeltaE);
-    return allSimilarColors.length > 0
-      ? allSimilarColors
-      : !closestLayer
-      ? []
-      : [
-          {
-            paintMix: closestLayer.toPaintMix(),
-            deltaE: closestDeltaE,
-          },
-        ];
+    return allSimilarColors.length > 0 ? allSimilarColors : topNSimilarColors;
   }
 }
