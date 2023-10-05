@@ -15,15 +15,13 @@ export function medianFilter(imageData: ImageData, radius: number, colors = 3): 
   const {data, width, height} = imageData;
   const origData: Uint8ClampedArray = new Uint8ClampedArray(data);
 
-  const kernelSize = 2 * radius;
-  const median = (kernelSize * kernelSize) / 2;
-
   const mask: boolean[][] = getMask(radius);
   const removedMask: boolean[][] = maskDifference(mask, 0, 1);
   const addedMask: boolean[][] = maskDifference(mask, 1, 0);
   const maskIndexes: number[][] = maskToIndexes(mask);
   const removedMaskIndexes: number[][] = maskToIndexes(removedMask);
   const addedMaskIndexes: number[][] = maskToIndexes(addedMask);
+  const median: number = getMedianFromMask(mask);
 
   for (let c = 0; c < colors; c++) {
     for (let y = radius; y < height - radius; y++) {
@@ -96,6 +94,18 @@ function maskToIndexes(mask: boolean[][]): number[][] {
     })
   );
   return indexes;
+}
+
+function getMedianFromMask(mask: boolean[][]): number {
+  let maskArea = 0;
+  mask.forEach((row: boolean[]) =>
+    row.forEach((element: boolean) => {
+      if (element) {
+        maskArea += 1;
+      }
+    })
+  );
+  return maskArea / 2;
 }
 
 function getIndexInHistogram(histogram: number[], value: number): number {
