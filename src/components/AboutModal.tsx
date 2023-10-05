@@ -64,7 +64,7 @@ export const AboutModal: React.FC<Props> = ({open, setOpen}: Props) => {
             <Space direction="vertical" align="start" size={0}>
               <Button
                 type="link"
-                href={`${websiteUrl}/about/`}
+                href={`${websiteUrl}`}
                 target="_blank"
                 icon={<InfoCircleOutlined />}
                 size="large"
