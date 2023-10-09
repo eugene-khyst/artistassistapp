@@ -370,7 +370,7 @@ export class ColorMixer {
     const lab: Lab = rgb.toXyz().toLab();
     const onlyThickConsistency = this.paintType !== PaintType.Watercolor && !isGlaze;
     const allSimilarColors: SimilarColor[] = [];
-    const topNSimilarColors: SimilarColor[] = [];
+    let topNSimilarColors: SimilarColor[] = [];
     for (const layers of [
       this.onePaintMixLayers,
       this.twoPaintsMixLayers,
@@ -393,6 +393,7 @@ export class ColorMixer {
         if (similarColors.length === 0) {
           topNSimilarColors.push(similarColor);
           topNSimilarColors.sort(compareSimilarColorsByDeltaE);
+          topNSimilarColors = uniqueSimilarColors(topNSimilarColors);
           if (topNSimilarColors.length > limitResultsForMixes) {
             topNSimilarColors.pop();
           }
