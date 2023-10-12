@@ -8,7 +8,7 @@ import {ImageFile, dbPromise} from './db';
 const MAX_IMAGE_FILES = 3;
 
 function compareImageFilesByDate(a: ImageFile, b: ImageFile) {
-  return a.date.getTime() - b.date.getDate();
+  return b.date.getTime() - a.date.getTime();
 }
 
 export async function getImageFiles(): Promise<ImageFile[]> {
