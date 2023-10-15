@@ -3,7 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Checkbox, Col, ColorPicker, Form, Grid, Row, Select, Slider, Space, Spin} from 'antd';
+import {
+  Checkbox,
+  Col,
+  ColorPicker,
+  Empty,
+  Form,
+  Grid,
+  Row,
+  Select,
+  Slider,
+  Space,
+  Spin,
+} from 'antd';
 import {CheckboxChangeEvent} from 'antd/es/checkbox';
 import {Color} from 'antd/es/color-picker';
 import {SliderMarks} from 'antd/es/slider';
@@ -320,7 +332,11 @@ export const ImageColorPicker: React.FC<Props> = ({
               </Form.Item>
             </Form.Item>
           </div>
-          {!!similarColors.length && (
+          {!similarColors.length ? (
+            <div style={{padding: '16px', textAlign: 'center'}}>
+              <Empty />
+            </div>
+          ) : (
             <div style={{padding: '8px 16px'}}>
               <Space direction="vertical" size="small" style={{width: '100%'}}>
                 {similarColors
