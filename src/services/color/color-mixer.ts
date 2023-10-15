@@ -8,6 +8,8 @@ import {unique} from '../../utils';
 import {gcd} from '../math';
 import {Lab, Reflectance, Rgb, RgbTuple} from './model';
 
+const DELTA_E_LIMIT = 10;
+
 type PaintConsistency = [paint: number, fluid: number];
 
 const CONSISTENCIES: PaintConsistency[] = [
@@ -386,6 +388,9 @@ export class ColorMixer {
           continue;
         }
         const deltaE: number = layer.lab.getDeltaE2000(lab);
+        if (deltaE > DELTA_E_LIMIT) {
+          continue;
+        }
         const similarColor: SimilarColor = {
           paintMix: layer.toPaintMix(),
           deltaE,

@@ -24,7 +24,7 @@ const popoverContent = (
     <li>&lt;=1 - Not perceptible by human eyes</li>
     <li>1-2 - Perceptible through close observation</li>
     <li>2-10 - Perceptible at a glance</li>
-    <li>11-49 - Colors are more similar than opposite</li>
+    <li>10-49 - Colors are more similar than opposite</li>
     <li>&gt;=100 - Colors are exact opposite</li>
   </ul>
 );
