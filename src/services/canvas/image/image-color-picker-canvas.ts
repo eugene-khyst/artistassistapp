@@ -38,7 +38,9 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
   constructor(canvas: HTMLCanvasElement, props: ImageColorPickerCanvasProps = {}) {
     super(canvas, {
       getImages: async (file: File): Promise<OffscreenCanvas[]> => {
-        const [canvas] = imageBitmapToOffscreenCanvas(await createImageBitmap(file));
+        const bitmap = await createImageBitmap(file);
+        const [canvas] = imageBitmapToOffscreenCanvas(bitmap);
+        bitmap.close();
         return [canvas];
       },
       ...props,
