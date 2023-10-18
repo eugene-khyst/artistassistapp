@@ -4,6 +4,17 @@
  */
 
 export function imageBitmapToOffscreenCanvas(
+  image: ImageBitmap
+): [OffscreenCanvas, OffscreenCanvasRenderingContext2D] {
+  const canvas = new OffscreenCanvas(image.width, image.height);
+  const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d', {
+    willReadFrequently: true,
+  })!;
+  ctx.drawImage(image, 0, 0);
+  return [canvas, ctx];
+}
+
+export function imageBitmapToOffscreenCanvasWithScaling(
   image: ImageBitmap,
   expandBy = 0,
   maxCanvasArea = 1280 * 720

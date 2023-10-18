@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {ZoomableImageCanvas, ZoomableImageCanvasProps} from '.';
-import {imageBitmapToImageData} from '../../../utils';
+import {ImageSource, ZoomableImageCanvas, ZoomableImageCanvasProps} from '.';
+import {imageBitmapToOffscreenCanvas} from '../../../utils';
 import {Rgb} from '../../color/model';
 import {EventManager} from '../../event';
 import {getAverageColor} from '../../image';
-import {Vector, Rectangle, clamp} from '../../math';
+import {Rectangle, Vector, clamp} from '../../math';
 
 export const MIN_COLOR_PICKER_DIAMETER = 1;
 export const MAX_COLOR_PICKER_DIAMETER = 100;
@@ -36,7 +36,13 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
   public events: EventManager<ColorPickerEventType> = new EventManager();
 
   constructor(canvas: HTMLCanvasElement, props: ImageColorPickerCanvasProps = {}) {
-    super(canvas, props);
+    super(canvas, {
+      getImages: async (file: File): Promise<OffscreenCanvas[]> => {
+        const [canvas] = imageBitmapToOffscreenCanvas(await createImageBitmap(file));
+        return [canvas];
+      },
+      ...props,
+    });
 
     ({cursorDiameter: this.cursorDiameter = 20} = props);
 
@@ -105,21 +111,20 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
   }
 
   private async getAverageRgb({x, y}: Vector): Promise<Rgb | null> {
-    const image: ImageBitmap | null = this.getImage();
-    if (!image) {
+    const image: ImageSource | null = this.getImage();
+    if (!(image instanceof OffscreenCanvas)) {
+      console.error('Expected "image" to be an instance of OffscreenCanvas');
       return null;
     }
     const diameter = Math.round(this.pipetDiameter);
     const radius = diameter / 2;
-    const imageArea = await createImageBitmap(
-      image,
+    const ctx: OffscreenCanvasRenderingContext2D = image.getContext('2d')!;
+    const imageData: ImageData = ctx.getImageData(
       Math.round(x - radius),
       Math.round(y - radius),
       diameter,
       diameter
     );
-    const imageData = imageBitmapToImageData(imageArea);
-    imageArea.close();
     return getAverageColor(imageData);
   }
 

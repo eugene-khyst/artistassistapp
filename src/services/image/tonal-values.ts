@@ -5,7 +5,7 @@
 
 import {transfer} from 'comlink';
 import {medianFilter} from '.';
-import {imageBitmapToOffscreenCanvas} from '../../utils';
+import {imageBitmapToOffscreenCanvasWithScaling} from '../../utils';
 import {getLightness, getLuminance} from '../color/model';
 
 interface Result {
@@ -22,7 +22,7 @@ export class TonalValues {
       console.time('tones');
     }
     const image: ImageBitmap = await createImageBitmap(file);
-    const [canvas, ctx] = imageBitmapToOffscreenCanvas(image, medianFilterRadius);
+    const [canvas, ctx] = imageBitmapToOffscreenCanvasWithScaling(image, medianFilterRadius);
     const imageData: ImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     image.close();
     const {data: origData, width, height} = imageData;

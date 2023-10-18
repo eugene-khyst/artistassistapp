@@ -160,7 +160,7 @@ export const ArtistAssistApp: React.FC = () => {
             tabBarGutter={0}
             tabBarExtraContent={{
               right: (
-                <Tooltip title="Help">
+                <Tooltip title="Help" placement="left">
                   <Button type="link" icon={<QuestionCircleOutlined />} onClick={showAboutModal} />
                 </Tooltip>
               ),

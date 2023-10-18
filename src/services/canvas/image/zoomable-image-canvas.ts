@@ -6,15 +6,17 @@
 import {Rectangle, Vector, clamp} from '../../math';
 import {Canvas} from '../canvas';
 
+export type ImageSource = ImageBitmap | OffscreenCanvas;
+
 export interface ZoomableImageCanvasProps {
-  getImages?: (file: File) => Promise<ImageBitmap[]>;
+  getImages?: (file: File) => Promise<ImageSource[]>;
   zoomFactor?: number;
   maxZoom?: number;
 }
 
 export class ZoomableImageCanvas extends Canvas {
-  protected getImages: (file: File) => Promise<ImageBitmap[]>;
-  protected images: ImageBitmap[] = [];
+  protected getImages: (file: File) => Promise<ImageSource[]>;
+  protected images: ImageSource[] = [];
   protected imageDimensions: Rectangle[] = [];
   protected imageIndex = 0;
   private offset = Vector.ZERO;
@@ -32,7 +34,7 @@ export class ZoomableImageCanvas extends Canvas {
     super(canvas);
 
     ({
-      getImages: this.getImages = async (file: File): Promise<ImageBitmap[]> => {
+      getImages: this.getImages = async (file: File): Promise<ImageSource[]> => {
         return [await createImageBitmap(file)];
       },
       zoomFactor: this.zoomFactor = 1.1,
@@ -62,10 +64,14 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   async setFile(file: File): Promise<void> {
-    this.images.forEach((image: ImageBitmap) => image.close);
+    this.images.forEach((image: ImageSource) => {
+      if (image instanceof ImageBitmap) {
+        image.close();
+      }
+    });
     this.images = await this.getImages(file);
     this.imageDimensions = this.images.map(
-      (image: ImageBitmap) => new Rectangle(new Vector(image.width, image.height))
+      (image: ImageSource) => new Rectangle(new Vector(image.width, image.height))
     );
     this.offset = Vector.ZERO;
     this.zoom = 1;
@@ -88,7 +94,7 @@ export class ZoomableImageCanvas extends Canvas {
     this.draw();
   }
 
-  protected getImage(): ImageBitmap | null {
+  protected getImage(): ImageSource | null {
     return this.images.length > this.imageIndex ? this.images[this.imageIndex] : null;
   }
 
@@ -101,7 +107,7 @@ export class ZoomableImageCanvas extends Canvas {
   protected draw(): void {
     const ctx: CanvasRenderingContext2D = this.context;
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    const image: ImageBitmap | null = this.getImage();
+    const image: ImageSource | null = this.getImage();
     if (image) {
       ctx.imageSmoothingEnabled = false;
       ctx.save();
@@ -144,7 +150,7 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   private getMinZoom(): number {
-    const image: ImageBitmap | null = this.getImage();
+    const image: ImageSource | null = this.getImage();
     return !image
       ? 1
       : Math.min(this.canvas.width / image.width, this.canvas.height / image.height);
