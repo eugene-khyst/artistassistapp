@@ -155,6 +155,13 @@ export const ImageColorPicker: React.FC<Props> = ({
   }, [paintSet]);
 
   useEffect(() => {
+    setBackgroundColor(OFF_WHITE_HEX);
+    setIsGlaze(false);
+    setTargetColor(OFF_WHITE_HEX);
+    setSimilarColors([]);
+  }, [file, setBackgroundColor, setIsGlaze]);
+
+  useEffect(() => {
     (async () => {
       if (!backgroundColor) {
         return;
