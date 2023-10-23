@@ -24,8 +24,6 @@ const OFF_WHITE: Rgb = new Rgb(250, 249, 246);
 export const OFF_WHITE_HEX: string = OFF_WHITE.toHex();
 
 export interface ColorPickerSettings {
-  backgroundColorHex: string;
-  isGlaze: boolean;
   sampleDiameter: number;
 }
 

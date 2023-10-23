@@ -123,14 +123,11 @@ export const ImageColorPicker: React.FC<Props> = ({
   useEffect(() => {
     (async () => {
       const settings: ColorPickerSettings | undefined = await getColorPickerSettings();
-      if (settings) {
-        setBackgroundColor(settings.backgroundColorHex);
-        setIsGlaze(settings.isGlaze);
+      if (settings?.sampleDiameter) {
         setSampleDiameter(settings.sampleDiameter);
-        setTargetColor(settings.backgroundColorHex);
       }
     })();
-  }, [setBackgroundColor, setIsGlaze]);
+  }, []);
 
   useEffect(() => {
     const colorPickerCanvas = colorPickerCanvasRef.current;
@@ -199,24 +196,21 @@ export const ImageColorPicker: React.FC<Props> = ({
     [setPaintMixes]
   );
 
-  const handleValuesChange = (changedValues: Partial<ColorPickerSettings>) => {
-    if (changedValues.backgroundColorHex) {
-      setBackgroundColor(changedValues.backgroundColorHex);
+  const handleBackgroundColorChange = (backgroundColorHex: string) => {
+    setBackgroundColor(backgroundColorHex);
+  };
+
+  const handleIsGlazeChange = (isGlaze: boolean) => {
+    setIsGlaze(isGlaze);
+    if (!isGlaze) {
+      setBackgroundColor(OFF_WHITE_HEX);
     }
-    if (changedValues.isGlaze !== undefined) {
-      setIsGlaze(changedValues.isGlaze);
-      if (!changedValues.isGlaze) {
-        setBackgroundColor(OFF_WHITE_HEX);
-      }
-    }
-    if (changedValues.sampleDiameter) {
-      setSampleDiameter(changedValues.sampleDiameter);
-    }
+  };
+
+  const handleSampleDiameterChange = (sampleDiameter: number) => {
+    setSampleDiameter(sampleDiameter);
     saveColorPickerSettings({
-      backgroundColorHex: backgroundColor,
-      isGlaze,
       sampleDiameter: sampleDiameter,
-      ...changedValues,
     });
   };
 
@@ -263,7 +257,7 @@ export const ImageColorPicker: React.FC<Props> = ({
                     },
                   ]}
                   onChangeComplete={(color: Color) => {
-                    handleValuesChange({backgroundColorHex: color.toHexString(true)});
+                    handleBackgroundColorChange(color.toHexString(true));
                   }}
                   showText
                   disabledAlpha
@@ -280,7 +274,7 @@ export const ImageColorPicker: React.FC<Props> = ({
                 <Checkbox
                   checked={isGlaze}
                   onChange={(e: CheckboxChangeEvent) => {
-                    handleValuesChange({isGlaze: e.target.checked});
+                    handleIsGlazeChange(e.target.checked);
                   }}
                 />
               </Form.Item>
@@ -292,7 +286,7 @@ export const ImageColorPicker: React.FC<Props> = ({
             >
               <Slider
                 value={sampleDiameter}
-                onChange={(value: number) => handleValuesChange({sampleDiameter: value})}
+                onChange={(value: number) => handleSampleDiameterChange(value)}
                 min={MIN_COLOR_PICKER_DIAMETER}
                 max={maxSampleDiameter}
                 marks={sampleDiameterSliderMarks}
