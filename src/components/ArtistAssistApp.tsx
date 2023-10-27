@@ -9,7 +9,7 @@ import {
   QuestionCircleOutlined,
 } from '@ant-design/icons';
 import type {TabsProps} from 'antd';
-import {Alert, Button, Col, FloatButton, Row, Tabs, Tooltip, theme} from 'antd';
+import {Alert, App, Button, Col, FloatButton, Row, Tabs, Tooltip, theme} from 'antd';
 import {useCallback, useState} from 'react';
 import StickyBox from 'react-sticky-box';
 import {useEventListener} from 'usehooks-ts';
@@ -37,11 +37,13 @@ export const ArtistAssistApp: React.FC = () => {
     token: {colorBgContainer},
   } = theme.useToken();
 
+  const {message} = App.useApp();
+
   const {isFullscreen, toggleFullScreen} = useFullScreen();
 
   const [activeTabKey, setActiveTabKey] = useState<TabKey>(TabKey.Paints);
   const [paintSet, setPaintSet] = useState<PaintSet | undefined>();
-  const [file, setFile] = useState<File | undefined>();
+  const [blob, setBlob] = useState<Blob | undefined>();
   const [backgroundColor, setBackgroundColor] = useState<string>(OFF_WHITE_HEX);
   const [isGlaze, setIsGlaze] = useState<boolean>(false);
   const [reflectanceChartPaintMix, setReflectanceChartPaintMix] = useState<PaintMix | undefined>();
@@ -67,6 +69,10 @@ export const ArtistAssistApp: React.FC = () => {
     setIsOpenReflectanceChart(true);
   }, []);
 
+  const showZoomAndPanMessage = useCallback(() => {
+    message.info('🔎 Pinch to zoom (or use the mouse wheel) and drag to pan');
+  }, [message]);
+
   const showAboutModal = () => {
     setIsAboutModalOpen(true);
   };
@@ -75,13 +81,13 @@ export const ArtistAssistApp: React.FC = () => {
     {
       key: TabKey.Paints,
       label: 'Paints',
-      children: <PaintSetChooser {...{setPaintSet, setActiveTabKey, file}} />,
+      children: <PaintSetChooser {...{setPaintSet, setActiveTabKey, blob}} />,
       forceRender: true,
     },
     {
       key: TabKey.Photo,
       label: 'Photo',
-      children: <SelectImage {...{setFile, setActiveTabKey}} />,
+      children: <SelectImage {...{setBlob, setActiveTabKey, showZoomAndPanMessage}} />,
       forceRender: true,
       disabled: !paintSet,
     },
@@ -92,7 +98,7 @@ export const ArtistAssistApp: React.FC = () => {
         <ImageColorPicker
           {...{
             paintSet,
-            file,
+            blob,
             backgroundColor,
             setBackgroundColor,
             isGlaze,
@@ -116,16 +122,16 @@ export const ArtistAssistApp: React.FC = () => {
     {
       key: TabKey.Sketch,
       label: 'Sketch',
-      children: <ImageSketch file={file} />,
+      children: <ImageSketch blob={blob} />,
       forceRender: true,
-      disabled: !paintSet || !file,
+      disabled: !paintSet || !blob,
     },
     {
       key: TabKey.TonalValues,
       label: 'Tonal Values',
-      children: <ImageTonalValues file={file} />,
+      children: <ImageTonalValues blob={blob} />,
       forceRender: true,
-      disabled: !paintSet || !file,
+      disabled: !paintSet || !blob,
     },
   ];
 
@@ -134,6 +140,10 @@ export const ArtistAssistApp: React.FC = () => {
       <DefaultTabBar {...props} style={{background: colorBgContainer}} />
     </StickyBox>
   );
+
+  const handleTabChange = (activeKey: string) => {
+    setActiveTabKey(activeKey as TabKey);
+  };
 
   if (!isBrowserSupported) {
     return (
@@ -155,7 +165,7 @@ export const ArtistAssistApp: React.FC = () => {
             renderTabBar={renderTabBar}
             items={items}
             activeKey={activeTabKey}
-            onChange={(activeKey: string) => setActiveTabKey(activeKey as TabKey)}
+            onChange={handleTabChange}
             size="large"
             tabBarGutter={0}
             tabBarExtraContent={{

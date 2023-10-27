@@ -25,16 +25,16 @@ const MEDIAN_FILTER_RADIUSES = range(MIN_MEDIAN_FILTER_RADIUS, MAX_MEDIAN_FILTER
 
 const zoomableImageCanvasSupplier = (canvas: HTMLCanvasElement): ZoomableImageCanvas => {
   return new ZoomableImageCanvas(canvas, {
-    getImages: async (file): Promise<ImageBitmap[]> =>
-      (await sketch.getSketches(file, MEDIAN_FILTER_RADIUSES)).sketches,
+    getImages: async (blob: Blob): Promise<ImageBitmap[]> =>
+      (await sketch.getSketches(blob, MEDIAN_FILTER_RADIUSES)).sketches,
   });
 };
 
 type Props = {
-  file?: File;
+  blob?: Blob;
 };
 
-export const ImageSketch: React.FC<Props> = ({file}: Props) => {
+export const ImageSketch: React.FC<Props> = ({blob}: Props) => {
   const {defaultMedianFilterSize} = useContext<AppConfig>(AppConfigContext);
   const medianFilterSizeSliderMarks: SliderMarks = Object.fromEntries(
     MEDIAN_FILTER_RADIUSES.map((i: number) => [i, i])
@@ -44,7 +44,7 @@ export const ImageSketch: React.FC<Props> = ({file}: Props) => {
     ref: canvasRef,
     isLoading,
     zoomableImageCanvasRef,
-  } = useZoomableImageCanvas<ZoomableImageCanvas>(zoomableImageCanvasSupplier, file);
+  } = useZoomableImageCanvas<ZoomableImageCanvas>(zoomableImageCanvasSupplier, blob);
 
   const [medianFilterSize, setMedianFilterSize] = useState<number>(defaultMedianFilterSize);
   const imageIndex = medianFilterSize - MIN_MEDIAN_FILTER_RADIUS;

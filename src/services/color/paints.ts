@@ -8,9 +8,10 @@ import {Rgb, RgbTuple} from './model';
 export enum PaintType {
   Watercolor = 1,
   OilPaint = 2,
+  AcrylicPaint = 3,
 }
 
-export const PAINT_TYPES = [PaintType.Watercolor, PaintType.OilPaint];
+export const PAINT_TYPES = [PaintType.Watercolor, PaintType.OilPaint, PaintType.AcrylicPaint];
 
 export enum PaintBrand {
   Rembrandt = 1,
@@ -19,6 +20,7 @@ export enum PaintBrand {
   SchminckeHoradam = 4,
   SchminckeMussini = 5,
   SchminckeNormaProfessional = 6,
+  SchminckePrimacryl = 13,
   WinsorNewtonProfessional = 7,
   Sennelier = 8,
   OldHolland = 9,
@@ -72,6 +74,7 @@ export interface Label {
 export const PAINT_TYPE_LABELS: Record<PaintType, string> = {
   [PaintType.Watercolor]: 'Watercolor',
   [PaintType.OilPaint]: 'Oil paint',
+  [PaintType.AcrylicPaint]: 'Acrylic paint',
 };
 
 export const PAINT_BRAND_LABELS: Record<PaintType, Partial<Record<PaintBrand, Label>>> = {
@@ -119,6 +122,20 @@ export const PAINT_BRAND_LABELS: Record<PaintType, Partial<Record<PaintBrand, La
     },
     [PaintBrand.OldHolland]: {
       fullText: 'Old Holland Classic Oil Colours',
+      shortText: 'Old Holland',
+    },
+  },
+  [PaintType.AcrylicPaint]: {
+    [PaintBrand.SchminckePrimacryl]: {
+      fullText: 'Schmincke PRIMAcryl',
+      shortText: 'PRIMAcryl',
+    },
+    [PaintBrand.WinsorNewtonProfessional]: {
+      fullText: 'Winsor & Newton Professional Acrylic',
+      shortText: 'Winsor & Newton Professional',
+    },
+    [PaintBrand.OldHolland]: {
+      fullText: 'Old Holland New Masters Classic Acrylics',
       shortText: 'Old Holland',
     },
   },
@@ -179,6 +196,20 @@ const PAINTS: Record<PaintType, Partial<Record<PaintBrand, [paints: URL, paintSe
     [PaintBrand.OldHolland]: [
       new URL('../../data/oil-paint/old-holland/colors.json', import.meta.url),
       new URL('../../data/oil-paint/old-holland/sets.json', import.meta.url),
+    ],
+  },
+  [PaintType.AcrylicPaint]: {
+    [PaintBrand.SchminckePrimacryl]: [
+      new URL('../../data/acrylic-paint/primacryl/colors.json', import.meta.url),
+      new URL('../../data/acrylic-paint/primacryl/sets.json', import.meta.url),
+    ],
+    [PaintBrand.WinsorNewtonProfessional]: [
+      new URL('../../data/acrylic-paint/winsor-newton/colors.json', import.meta.url),
+      new URL('../../data/acrylic-paint/winsor-newton/sets.json', import.meta.url),
+    ],
+    [PaintBrand.OldHolland]: [
+      new URL('../../data/acrylic-paint/old-holland/colors.json', import.meta.url),
+      new URL('../../data/acrylic-paint/old-holland/sets.json', import.meta.url),
     ],
   },
 };

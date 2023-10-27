@@ -27,21 +27,21 @@ const MEDIAN_FILTER_RADIUS = 3;
 
 const zoomableImageCanvasSupplier = (canvas: HTMLCanvasElement): ZoomableImageCanvas => {
   return new ZoomableImageCanvas(canvas, {
-    getImages: async (file): Promise<ImageBitmap[]> =>
-      (await tonalValues.getTones(file, THRESHOLDS, MEDIAN_FILTER_RADIUS)).tones,
+    getImages: async (blob: Blob): Promise<ImageBitmap[]> =>
+      (await tonalValues.getTones(blob, THRESHOLDS, MEDIAN_FILTER_RADIUS)).tones,
   });
 };
 
 type Props = {
-  file?: File;
+  blob?: Blob;
 };
 
-export const ImageTonalValues: React.FC<Props> = ({file}: Props) => {
+export const ImageTonalValues: React.FC<Props> = ({blob}: Props) => {
   const {
     ref: canvasRef,
     isLoading,
     zoomableImageCanvasRef,
-  } = useZoomableImageCanvas<ZoomableImageCanvas>(zoomableImageCanvasSupplier, file);
+  } = useZoomableImageCanvas<ZoomableImageCanvas>(zoomableImageCanvasSupplier, blob);
   const [imageIndex, setImageIndex] = useState<number>(0);
 
   useEffect(() => {

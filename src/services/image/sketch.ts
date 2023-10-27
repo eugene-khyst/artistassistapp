@@ -12,11 +12,11 @@ interface Result {
 }
 
 export class Sketch {
-  async getSketches(file: File, medianFilterRadiuses: number[] = [2, 3, 4]): Promise<Result> {
+  async getSketches(blob: Blob, medianFilterRadiuses: number[] = [2, 3, 4]): Promise<Result> {
     if (process.env.NODE_ENV !== 'production') {
       console.time('sketches');
     }
-    const image: ImageBitmap = await createImageBitmap(file);
+    const image: ImageBitmap = await createImageBitmap(blob);
     const maxMedianFilterRadius: number = Math.max(...medianFilterRadiuses);
     const [canvas, ctx] = imageBitmapToOffscreenCanvasWithScaling(image, maxMedianFilterRadius);
     const imageData: ImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);

@@ -9,13 +9,13 @@ import {Canvas} from '../canvas';
 export type ImageSource = ImageBitmap | OffscreenCanvas;
 
 export interface ZoomableImageCanvasProps {
-  getImages?: (file: File) => Promise<ImageSource[]>;
+  getImages?: (blob: Blob) => Promise<ImageSource[]>;
   zoomFactor?: number;
   maxZoom?: number;
 }
 
 export class ZoomableImageCanvas extends Canvas {
-  protected getImages: (file: File) => Promise<ImageSource[]>;
+  protected getImages: (blob: Blob) => Promise<ImageSource[]>;
   protected images: ImageSource[] = [];
   protected imageDimensions: Rectangle[] = [];
   protected imageIndex = 0;
@@ -34,8 +34,8 @@ export class ZoomableImageCanvas extends Canvas {
     super(canvas);
 
     ({
-      getImages: this.getImages = async (file: File): Promise<ImageSource[]> => {
-        return [await createImageBitmap(file)];
+      getImages: this.getImages = async (blob: Blob): Promise<ImageSource[]> => {
+        return [await createImageBitmap(blob)];
       },
       zoomFactor: this.zoomFactor = 1.1,
       maxZoom: this.maxZoom = 20,
@@ -63,13 +63,13 @@ export class ZoomableImageCanvas extends Canvas {
     return 'grab';
   }
 
-  async setFile(file: File): Promise<void> {
+  async setBlob(blob: Blob): Promise<void> {
     this.images.forEach((image: ImageSource) => {
       if (image instanceof ImageBitmap) {
         image.close();
       }
     });
-    this.images = await this.getImages(file);
+    this.images = await this.getImages(blob);
     this.imageDimensions = this.images.map(
       (image: ImageSource) => new Rectangle(new Vector(image.width, image.height))
     );

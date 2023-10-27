@@ -25,7 +25,7 @@ const root: Root = createRoot(document.getElementById('root')!);
 root.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App>
+      <App message={{maxCount: 1, duration: 5, top: 60}}>
         <ArtistAssistApp />
       </App>
     </QueryClientProvider>

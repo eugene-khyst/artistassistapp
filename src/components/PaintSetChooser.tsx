@@ -132,10 +132,10 @@ const formInitialValues: PaintSetDefinition = {
 type Props = {
   setPaintSet: Dispatch<SetStateAction<PaintSet | undefined>>;
   setActiveTabKey: Dispatch<SetStateAction<TabKey>>;
-  file?: File;
+  blob?: Blob;
 };
 
-export const PaintSetChooser: React.FC<Props> = ({setPaintSet, setActiveTabKey, file}: Props) => {
+export const PaintSetChooser: React.FC<Props> = ({setPaintSet, setActiveTabKey, blob}: Props) => {
   const {message} = App.useApp();
   const [form] = Form.useForm<PaintSetDefinition>();
   const paintType = Form.useWatch<PaintType | undefined>('type', form);
@@ -216,7 +216,7 @@ export const PaintSetChooser: React.FC<Props> = ({setPaintSet, setActiveTabKey, 
     savePaintSet(values);
     const paintSet: PaintSet = toPaintSet(values, paints);
     setPaintSet(paintSet);
-    setActiveTabKey(!file ? TabKey.Photo : TabKey.Colors);
+    setActiveTabKey(!blob ? TabKey.Photo : TabKey.Colors);
   };
 
   const handleSubmitFailed = () => {

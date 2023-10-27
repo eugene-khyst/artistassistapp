@@ -14,14 +14,14 @@ interface Result {
 
 export class TonalValues {
   async getTones(
-    file: File,
+    blob: Blob,
     thresholds: number[] = [75, 50, 25],
     medianFilterRadius = 3
   ): Promise<Result> {
     if (process.env.NODE_ENV !== 'production') {
       console.time('tones');
     }
-    const image: ImageBitmap = await createImageBitmap(file);
+    const image: ImageBitmap = await createImageBitmap(blob);
     const [canvas, ctx] = imageBitmapToOffscreenCanvasWithScaling(image, medianFilterRadius);
     const imageData: ImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     image.close();

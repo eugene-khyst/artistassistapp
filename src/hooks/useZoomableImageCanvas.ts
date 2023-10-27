@@ -17,7 +17,7 @@ interface Result<T> {
 
 export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
   zoomableImageCanvasSupplier: (canvas: HTMLCanvasElement) => T,
-  file?: File
+  blob?: Blob
 ): Result<T> {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const zoomableImageCanvasRef = useRef<T>();
@@ -49,14 +49,14 @@ export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
   useEffect(() => {
     (async () => {
       const zoomableImageCanvas = zoomableImageCanvasRef.current;
-      if (!zoomableImageCanvas || !file) {
+      if (!zoomableImageCanvas || !blob) {
         return;
       }
       setFileLoadingCount((prev: number) => prev + 1);
-      await zoomableImageCanvas.setFile(file);
+      await zoomableImageCanvas.setBlob(blob);
       setFileLoadingCount((prev: number) => prev - 1);
     })();
-  }, [file]);
+  }, [blob]);
 
   return {
     ref,

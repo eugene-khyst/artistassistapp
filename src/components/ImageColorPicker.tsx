@@ -68,7 +68,7 @@ const imageColorPickerCanvasSupplier = (canvas: HTMLCanvasElement): ImageColorPi
 
 type Props = {
   paintSet?: PaintSet;
-  file?: File;
+  blob?: Blob;
   backgroundColor: string;
   setBackgroundColor: Dispatch<SetStateAction<string>>;
   isGlaze: boolean;
@@ -81,7 +81,7 @@ type Props = {
 
 export const ImageColorPicker: React.FC<Props> = ({
   paintSet,
-  file,
+  blob,
   backgroundColor,
   setBackgroundColor,
   isGlaze,
@@ -107,7 +107,7 @@ export const ImageColorPicker: React.FC<Props> = ({
     ref: canvasRef,
     isLoading: isColorPickerLoading,
     zoomableImageCanvasRef: colorPickerCanvasRef,
-  } = useZoomableImageCanvas<ImageColorPickerCanvas>(imageColorPickerCanvasSupplier, file);
+  } = useZoomableImageCanvas<ImageColorPickerCanvas>(imageColorPickerCanvasSupplier, blob);
 
   const [sampleDiameter, setSampleDiameter] = useState<number>(defaultSampleDiameter);
   const [targetColor, setTargetColor] = useState<string>(OFF_WHITE_HEX);
@@ -159,7 +159,7 @@ export const ImageColorPicker: React.FC<Props> = ({
     setIsGlaze(false);
     setTargetColor(OFF_WHITE_HEX);
     setSimilarColors([]);
-  }, [file, setBackgroundColor, setIsGlaze]);
+  }, [blob, setBackgroundColor, setIsGlaze]);
 
   useEffect(() => {
     (async () => {

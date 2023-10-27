@@ -7,15 +7,22 @@ import {App, Col, Divider, Form, Input, Row, Typography} from 'antd';
 import {ChangeEvent, Dispatch, SetStateAction, useEffect, useState} from 'react';
 import {ImageFile} from '../services/db/db';
 import {getImageFiles, saveImageFile} from '../services/db/image-file-db';
-import {RecentImage} from './RecentImage';
+import {SAMPLE_IMAGES, SampleImageUrl} from '../services/image/sample-images';
+import {RecentImage} from './image/RecentImage';
+import {SampleImage} from './image/SampleImage';
 import {TabKey} from './types';
 
 type Props = {
-  setFile: Dispatch<SetStateAction<File | undefined>>;
+  setBlob: Dispatch<SetStateAction<Blob | undefined>>;
   setActiveTabKey: Dispatch<SetStateAction<TabKey>>;
+  showZoomAndPanMessage: () => void;
 };
 
-export const SelectImage: React.FC<Props> = ({setFile, setActiveTabKey}: Props) => {
+export const SelectImage: React.FC<Props> = ({
+  setBlob,
+  setActiveTabKey,
+  showZoomAndPanMessage,
+}: Props) => {
   const {message} = App.useApp();
 
   const [recentFiles, setRecentFiles] = useState<ImageFile[]>([]);
@@ -36,8 +43,9 @@ export const SelectImage: React.FC<Props> = ({setFile, setActiveTabKey}: Props) 
       message.error(`${file.name} is not an image file`);
       return;
     }
-    setFile(file);
+    setBlob(file);
     setActiveTabKey(TabKey.Colors);
+    showZoomAndPanMessage();
     await saveImageFile(file);
     setRecentFiles(await getImageFiles());
   };
@@ -57,16 +65,33 @@ export const SelectImage: React.FC<Props> = ({setFile, setActiveTabKey}: Props) 
       </Form.Item>
       {!!recentFiles.length && (
         <>
-          <Divider orientation="left">or select a recent photo</Divider>
+          <Divider orientation="left">or select from recent photos</Divider>
           <Row gutter={[16, 16]} justify="start" style={{marginBottom: 16}}>
-            {recentFiles.map((imageFile: ImageFile) => (
-              <Col key={imageFile.id} xs={24} md={12} lg={8}>
-                <RecentImage {...{imageFile, setFile, setActiveTabKey}} />
+            {recentFiles.map(({id, file, date}: ImageFile) => (
+              <Col key={id} xs={24} md={12} lg={8}>
+                <RecentImage {...{file, date, setBlob, setActiveTabKey, showZoomAndPanMessage}} />
               </Col>
             ))}
           </Row>
         </>
       )}
+      <Divider orientation="left">or select from sample photos</Divider>
+      <Row gutter={[16, 16]} justify="start" style={{marginBottom: 16}}>
+        {SAMPLE_IMAGES.map(([image, thumbnail, name]: SampleImageUrl) => (
+          <Col key={name} xs={24} md={12} lg={8}>
+            <SampleImage
+              {...{
+                image,
+                thumbnail,
+                name,
+                setBlob,
+                setActiveTabKey,
+                showZoomAndPanMessage,
+              }}
+            />
+          </Col>
+        ))}
+      </Row>
     </div>
   );
 };

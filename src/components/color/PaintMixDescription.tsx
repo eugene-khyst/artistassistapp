@@ -13,6 +13,8 @@ const CONSISTENCY_TOOLTIPS = {
   [PaintType.Watercolor]: 'Watercolor can be diluted with water to make it more transparent.',
   [PaintType.OilPaint]:
     'Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original oil paint layer. You should be able to get the consistency of runny sour cream. Linseed oil is a popular glazing medium.',
+  [PaintType.AcrylicPaint]:
+    'Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original acrylic paint layer.',
 };
 
 type Props = {
