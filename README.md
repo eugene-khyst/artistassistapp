@@ -43,7 +43,7 @@ Atomic mixing is the physical mixing of colors together, while optical mixing is
 The color of a paint mixture is calculated as the weighted geometric mean of the paints' reflectance curves.
 The reflectance curves of paints and mixes can be visualized.
 
-![Screenshot_20231027_195549_Chrome](https://github.com/eugene-khyst/artistassistapp/assets/1311126/154406dc-6449-4126-ab48-c48e0afc8365)
+![ArtistAssistApp paint mix spectral reflectance curve](https://github.com/eugene-khyst/artistassistapp/assets/1311126/154406dc-6449-4126-ab48-c48e0afc8365)
 
 ### 🎨 Palette
 Save instructions on how to mix your favorite colors from the paints you have for quick reference.
