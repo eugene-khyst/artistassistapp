@@ -11,15 +11,13 @@
   <img src="https://github.com/eugene-khyst/artistassistapp/assets/1311126/de2c1ee3-fba2-4d94-b25a-dea7180fdb2a" width="150" alt="ArtistAssistApp logo" />
 </p>
 
-**ArtistAssistApp** - the web app to paint better with ease. 
+**ArtistAssistApp** - the web app to paint better with ease.
 
-Tools for realistic color mixing based on real paints, tonal value drawing, simplified sketching, and more.
+* 🖌️ 🎨 🖼️ Tools for realistic color mixing based on real paints, tonal value drawing, simplified sketching, and more.
+* 🧑‍🎨 Perfect for artists of all levels and styles, whether you prefer watercolor or oil, realism or loose techniques, landscapes or portraits.
+* 📱 💻 🖥️ Works on desktops, laptops, tablets and smartphones.
 
-Perfect for artists of all levels and styles, whether you prefer watercolor or oil, realism or loose techniques, landscapes or portraits. 
-
-Works on desktops, laptops, tablets and smartphones.
-
-Try it now at [artistassistapp.com](https://artistassistapp.com/)
+Try it now at [artistassistapp.com](https://artistassistapp.com)
 
 https://github.com/eugene-khyst/artistassistapp/assets/1311126/21bd5ea5-c815-4ac5-a4e5-849fdc139cd5
 
@@ -59,4 +57,3 @@ Smooth your photo to reduce detail and focus on the big shapes and proportions o
 Use tonal value sketches that capture the light and shadow of your subject to learn how to create contrast and depth in your paintings.
 
 ![ArtistAssistApp tonal values](https://github.com/eugene-khyst/artistassistapp/assets/1311126/67223028-3edf-407d-a68a-d54d2d128e05)
-
