@@ -19,7 +19,7 @@ Perfect for artists of all levels and styles, whether you prefer watercolor or o
 
 Works on desktops, laptops, tablets and smartphones.
 
-Try it now! [artistassistapp.com](https://artistassistapp.com/)
+Try it now at [artistassistapp.com](https://artistassistapp.com/)
 
 https://github.com/eugene-khyst/artistassistapp/assets/1311126/21bd5ea5-c815-4ac5-a4e5-849fdc139cd5
 
