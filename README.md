@@ -57,3 +57,19 @@ Smooth your photo to reduce detail and focus on the big shapes and proportions o
 Use tonal value sketches that capture the light and shadow of your subject to learn how to create contrast and depth in your paintings.
 
 ![ArtistAssistApp tonal values](https://github.com/eugene-khyst/artistassistapp/assets/1311126/67223028-3edf-407d-a68a-d54d2d128e05)
+
+## Implementation details
+
+This project does not use artificial intelligence (AI), but rather mathematics.
+
+The core logic of the project doesn't depend on any math or color library and includes the implementation of the following:
+
+- converting between color models (e.g. sRGB to CIELAB),
+- sRGB to spectral reflectance curve,
+- matrix operations,
+- matrix inversion using LU decomposition,
+- weighted geometric mean,
+- vector operations,
+- fast median blur using sliding window and histogram,
+- luminance based RGB to greyscale conversion,
+- and more.
