@@ -68,8 +68,11 @@ The core logic of the project doesn't depend on any math or color library and in
 - sRGB to spectral reflectance curve,
 - matrix operations,
 - matrix inversion using LU decomposition,
+- solving a system of linear algebraic equations using forward and backward substitution,
 - weighted geometric mean,
+- the average color of the circular area of the image
+- color difference using CIEDE2000,
 - vector operations,
 - fast median blur using sliding window and histogram,
-- luminance based RGB to greyscale conversion,
+- RGB to grayscale conversion based on luminance,
 - and more.
