@@ -50,15 +50,14 @@ export const PaintMixDescription: React.FC<Props> = ({
       </Space>
       {showConsistency && fluidFraction !== 0 && (
         <Space size="small">
-          {type === PaintType.Watercolor && (
+          {type === PaintType.Watercolor ? (
             <>
               Consistency:
               <span>
                 <b>{paintFraction}</b> paint : <b>{fluidFraction}</b> water
               </span>
             </>
-          )}
-          {type === PaintType.OilPaint && (
+          ) : (
             <>
               Layer thikness:
               <span>
