@@ -16,7 +16,8 @@ export const PAINT_TYPES = [PaintType.Watercolor, PaintType.OilPaint, PaintType.
 export enum PaintBrand {
   Rembrandt = 1,
   VanGogh = 2,
-  DanielSmith = 3,
+  DanielSmithExtraFine = 3,
+  DanielSmithPrimaTek = 14,
   SchminckeHoradam = 4,
   SchminckeMussini = 5,
   SchminckeNormaProfessional = 6,
@@ -26,8 +27,32 @@ export enum PaintBrand {
   OldHolland = 9,
   RosaGallery = 10,
   GansaiTambi = 11,
-  HolbeinArtists = 12,
 }
+
+export const PAINT_BRANDS: Record<PaintType, PaintBrand[]> = {
+  [PaintType.Watercolor]: [
+    PaintBrand.Rembrandt,
+    PaintBrand.VanGogh,
+    PaintBrand.DanielSmithExtraFine,
+    PaintBrand.DanielSmithPrimaTek,
+    PaintBrand.WinsorNewtonProfessional,
+    PaintBrand.SchminckeHoradam,
+    PaintBrand.Sennelier,
+    PaintBrand.OldHolland,
+    PaintBrand.GansaiTambi,
+    PaintBrand.RosaGallery,
+  ],
+  [PaintType.OilPaint]: [
+    PaintBrand.SchminckeMussini,
+    PaintBrand.SchminckeNormaProfessional,
+    PaintBrand.OldHolland,
+  ],
+  [PaintType.AcrylicPaint]: [
+    PaintBrand.WinsorNewtonProfessional,
+    PaintBrand.SchminckePrimacryl,
+    PaintBrand.OldHolland,
+  ],
+};
 
 export enum PaintOpacity {
   Transparent = 1,
@@ -88,9 +113,13 @@ export const PAINT_BRAND_LABELS: Record<PaintType, Partial<Record<PaintBrand, La
       fullText: 'Van Gogh Royal Talens Watercolour',
       shortText: 'Van Gogh',
     },
-    [PaintBrand.DanielSmith]: {
+    [PaintBrand.DanielSmithExtraFine]: {
       fullText: 'Daniel Smith Extra Fine Watercolors',
       shortText: 'Daniel Smith',
+    },
+    [PaintBrand.DanielSmithPrimaTek]: {
+      fullText: 'Daniel Smith PrimaTek Watercolors',
+      shortText: 'Daniel Smith PrimaTek',
     },
     [PaintBrand.SchminckeHoradam]: {
       fullText: 'Schmincke Horadam Aquarell',
@@ -106,10 +135,6 @@ export const PAINT_BRAND_LABELS: Record<PaintType, Partial<Record<PaintBrand, La
       shortText: 'Old Holland',
     },
     [PaintBrand.GansaiTambi]: {fullText: 'Kuretake Gansai Tambi', shortText: 'Gansai Tambi'},
-    [PaintBrand.HolbeinArtists]: {
-      fullText: "Holbein Artists' Watercolor (HWC)",
-      shortText: 'Holbein',
-    },
   },
   [PaintType.OilPaint]: {
     [PaintBrand.SchminckeMussini]: {
@@ -155,9 +180,13 @@ const PAINTS: Record<PaintType, Partial<Record<PaintBrand, [paints: URL, paintSe
       new URL('../../data/watercolor/van-gogh/colors.json', import.meta.url),
       new URL('../../data/watercolor/van-gogh/sets.json', import.meta.url),
     ],
-    [PaintBrand.DanielSmith]: [
-      new URL('../../data/watercolor/daniel-smith/colors.json', import.meta.url),
-      new URL('../../data/watercolor/daniel-smith/sets.json', import.meta.url),
+    [PaintBrand.DanielSmithExtraFine]: [
+      new URL('../../data/watercolor/daniel-smith-extra-fine/colors.json', import.meta.url),
+      new URL('../../data/watercolor/daniel-smith-extra-fine/sets.json', import.meta.url),
+    ],
+    [PaintBrand.DanielSmithPrimaTek]: [
+      new URL('../../data/watercolor/daniel-smith-primatek/colors.json', import.meta.url),
+      new URL('../../data/watercolor/daniel-smith-primatek/sets.json', import.meta.url),
     ],
     [PaintBrand.SchminckeHoradam]: [
       new URL('../../data/watercolor/horadam/colors.json', import.meta.url),
@@ -178,10 +207,6 @@ const PAINTS: Record<PaintType, Partial<Record<PaintBrand, [paints: URL, paintSe
     [PaintBrand.GansaiTambi]: [
       new URL('../../data/watercolor/gansai-tambi/colors.json', import.meta.url),
       new URL('../../data/watercolor/gansai-tambi/sets.json', import.meta.url),
-    ],
-    [PaintBrand.HolbeinArtists]: [
-      new URL('../../data/watercolor/holbein/colors.json', import.meta.url),
-      new URL('../../data/watercolor/holbein/sets.json', import.meta.url),
     ],
   },
   [PaintType.OilPaint]: {

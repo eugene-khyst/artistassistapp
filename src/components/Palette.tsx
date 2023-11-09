@@ -92,7 +92,7 @@ export const Palette: React.FC<Props> = ({
         ];
   });
 
-  const defaultActiveKey = items.flatMap(({key}) => (key ? [key] : []));
+  const activeKey = items.flatMap(({key}) => (key ? [key] : []));
 
   return (
     <div style={{padding: '0 16px 8px'}}>
@@ -104,7 +104,7 @@ export const Palette: React.FC<Props> = ({
           <Empty />
         </div>
       ) : (
-        <Collapse size="large" bordered={false} {...{defaultActiveKey, items}} />
+        <Collapse size="large" bordered={false} {...{activeKey, items}} />
       )}
     </div>
   );

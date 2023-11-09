@@ -20,7 +20,7 @@ import {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {Dispatch, ReactElement, SetStateAction, useEffect} from 'react';
 import {usePaints, useStoreBoughtPaintSets} from '../hooks/';
 import {
-  Label,
+  PAINT_BRANDS,
   PAINT_BRAND_LABELS,
   PAINT_TYPE_LABELS,
   Paint,
@@ -53,9 +53,9 @@ function getPaintBrandOptions(type?: PaintType): SelectProps['options'] {
   if (!type) {
     return [];
   }
-  return Object.entries(PAINT_BRAND_LABELS[type]).map(([key, label]: [string, Label]) => ({
-    value: Number(key),
-    label: label.fullText,
+  return PAINT_BRANDS[type].map((paintBrand: PaintBrand) => ({
+    value: paintBrand,
+    label: PAINT_BRAND_LABELS[type][paintBrand]?.fullText,
   }));
 }
 
