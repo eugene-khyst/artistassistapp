@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import {ShareAltOutlined} from '@ant-design/icons';
 import {
   App,
   Button,
@@ -17,7 +18,7 @@ import {
   Typography,
 } from 'antd';
 import {DefaultOptionType as SelectOptionType} from 'antd/es/select';
-import {Dispatch, ReactElement, SetStateAction, useEffect} from 'react';
+import {Dispatch, ReactElement, SetStateAction, useEffect, useState} from 'react';
 import {usePaints, useStoreBoughtPaintSets} from '../hooks/';
 import {
   PAINT_BRANDS,
@@ -29,9 +30,12 @@ import {
   PaintSetDefinition,
   PaintType,
   StoreBoughtPaintSet,
+  paintSetFromUrl,
+  paintSetToUrl,
   toPaintSet,
 } from '../services/color';
 import {getLastPaintSet, getPaintSetByType, savePaintSet} from '../services/db';
+import {SharePaintSetModal} from './SharePaintSetModal';
 import {ColorSquare} from './color/ColorSquare';
 import {CascaderOption, TabKey} from './types';
 
@@ -123,11 +127,19 @@ const filterCascaderOptions = (inputValue: string, path: CascaderOption[]) =>
   path.some(option => (option.label as string).toLowerCase().includes(inputValue.toLowerCase()));
 
 const formInitialValues: PaintSetDefinition = {
-  type: undefined,
   brands: [],
-  storeBoughtPaintSet: undefined,
   colors: {},
 };
+
+function getSharedPaintSet(): PaintSetDefinition | undefined {
+  const paintSet: PaintSetDefinition | undefined = paintSetFromUrl(window.location.toString());
+  if (paintSet) {
+    history.pushState({}, '', '/');
+  }
+  return paintSet;
+}
+
+const sharedPaintSet: PaintSetDefinition | undefined = getSharedPaintSet();
 
 type Props = {
   setPaintSet: Dispatch<SetStateAction<PaintSet | undefined>>;
@@ -141,11 +153,18 @@ export const PaintSetChooser: React.FC<Props> = ({setPaintSet, setActiveTabKey, 
   const paintType = Form.useWatch<PaintType | undefined>('type', form);
   const paintBrands = Form.useWatch<PaintBrand[] | undefined>('brands', form);
 
+  const [url, setUrl] = useState<string>();
+  const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
+
   useEffect(() => {
     (async () => {
-      const values: PaintSetDefinition | undefined = await getLastPaintSet();
-      if (values) {
-        form.setFieldsValue(values);
+      if (sharedPaintSet) {
+        form.setFieldsValue(sharedPaintSet);
+      } else {
+        const lastPaintSet: PaintSetDefinition | undefined = await getLastPaintSet();
+        if (lastPaintSet) {
+          form.setFieldsValue(lastPaintSet);
+        }
       }
     })();
   }, [form]);
@@ -223,93 +242,110 @@ export const PaintSetChooser: React.FC<Props> = ({setPaintSet, setActiveTabKey, 
     message.error('Form validation error');
   };
 
+  const showShareModal = () => {
+    setUrl(paintSetToUrl(form.getFieldsValue()));
+    setIsShareModalOpen(true);
+  };
+
   return (
-    <div style={{padding: '0 16px'}}>
-      <Typography.Title level={3} style={{marginTop: '0.5em'}}>
-        Select paints
-      </Typography.Title>
-      <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
-        <Form
-          name="paintSet"
-          form={form}
-          initialValues={formInitialValues}
-          onValuesChange={handleFormValuesChange}
-          onFinish={handleSubmit}
-          onFinishFailed={handleSubmitFailed}
-          layout="vertical"
-          size="large"
-          requiredMark="optional"
-          autoComplete="off"
-        >
-          <Form.Item
-            name="type"
-            label="Paint type"
-            rules={[{required: true, message: '${label} is required'}]}
+    <>
+      <div style={{padding: '0 16px'}}>
+        <Typography.Title level={3} style={{marginTop: '0.5em'}}>
+          Select paints
+        </Typography.Title>
+        <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
+          <Form
+            name="paintSet"
+            form={form}
+            initialValues={formInitialValues}
+            onValuesChange={handleFormValuesChange}
+            onFinish={handleSubmit}
+            onFinishFailed={handleSubmitFailed}
+            layout="vertical"
+            size="large"
+            requiredMark="optional"
+            autoComplete="off"
           >
-            <Radio.Group options={PAINT_TYPE_OPTIONS} optionType="button" buttonStyle="solid" />
-          </Form.Item>
-          {!!paintType && (
             <Form.Item
-              name="brands"
-              label="Paint brands"
-              rules={[{required: true, message: '${label} are required'}]}
-              dependencies={['paintType']}
-            >
-              <Select
-                mode="multiple"
-                options={paintBrandOptions}
-                placeholder="Select paint brands"
-                showSearch
-                filterOption={filterSelectOptions}
-                allowClear
-              />
-            </Form.Item>
-          )}
-          {!!paintBrands?.length && (
-            <Form.Item
-              name="storeBoughtPaintSet"
-              label="Paint set"
+              name="type"
+              label="Paint type"
               rules={[{required: true, message: '${label} is required'}]}
-              dependencies={['paintType', 'paintBrands']}
-              tooltip="Do you have a store-bought or custom paint set?"
             >
-              <Cascader
-                options={storeBoughtPaintSetOptions}
-                placeholder="Select paint set"
-                showSearch={{filter: filterCascaderOptions}}
-                expandTrigger="hover"
-                allowClear
-              />
+              <Radio.Group options={PAINT_TYPE_OPTIONS} optionType="button" buttonStyle="solid" />
             </Form.Item>
-          )}
-          {!!paintType &&
-            paintBrands?.map((paintBrand: PaintBrand) => (
+            {!!paintType && (
               <Form.Item
-                key={paintBrand}
-                name={['colors', paintBrand.toString()]}
-                label={`${PAINT_BRAND_LABELS[paintType][paintBrand]?.fullText} colors`}
+                name="brands"
+                label="Paint brands"
                 rules={[{required: true, message: '${label} are required'}]}
-                dependencies={['paintType', 'paintBrands', 'storeBoughtPaintSet']}
-                tooltip="Add or remove colors to match your actual paint set"
+                dependencies={['paintType']}
               >
                 <Select
                   mode="multiple"
-                  options={paintOptions[paintBrand] ?? []}
-                  placeholder="Select colors"
-                  maxTagCount={36}
+                  options={paintBrandOptions}
+                  placeholder="Select paint brands"
                   showSearch
                   filterOption={filterSelectOptions}
                   allowClear
                 />
               </Form.Item>
-            ))}
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Proceed
-            </Button>
-          </Form.Item>
-        </Form>
-      </Spin>
-    </div>
+            )}
+            {!!paintBrands?.length && (
+              <Form.Item
+                name="storeBoughtPaintSet"
+                label="Paint set"
+                rules={[{required: true, message: '${label} is required'}]}
+                dependencies={['paintType', 'paintBrands']}
+                tooltip="Do you have a store-bought or custom paint set?"
+              >
+                <Cascader
+                  options={storeBoughtPaintSetOptions}
+                  placeholder="Select paint set"
+                  showSearch={{filter: filterCascaderOptions}}
+                  expandTrigger="hover"
+                  allowClear
+                />
+              </Form.Item>
+            )}
+            {!!paintType &&
+              paintBrands?.map((paintBrand: PaintBrand) => (
+                <Form.Item
+                  key={paintBrand}
+                  name={['colors', paintBrand.toString()]}
+                  label={`${PAINT_BRAND_LABELS[paintType][paintBrand]?.fullText} colors`}
+                  rules={[{required: true, message: '${label} are required'}]}
+                  dependencies={['paintType', 'paintBrands', 'storeBoughtPaintSet']}
+                  tooltip="Add or remove colors to match your actual paint set"
+                >
+                  <Select
+                    mode="multiple"
+                    options={paintOptions[paintBrand] ?? []}
+                    placeholder="Select colors"
+                    maxTagCount={36}
+                    showSearch
+                    filterOption={filterSelectOptions}
+                    allowClear
+                  />
+                </Form.Item>
+              ))}
+            <Form.Item>
+              <Space>
+                <Button type="primary" htmlType="submit">
+                  Proceed
+                </Button>
+                <Button
+                  icon={<ShareAltOutlined />}
+                  title="Share this paint set"
+                  onClick={showShareModal}
+                >
+                  Share
+                </Button>
+              </Space>
+            </Form.Item>
+          </Form>
+        </Spin>
+      </div>
+      <SharePaintSetModal open={isShareModalOpen} setOpen={setIsShareModalOpen} url={url} />
+    </>
   );
 };

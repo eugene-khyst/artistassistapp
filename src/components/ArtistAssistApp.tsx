@@ -49,7 +49,7 @@ export const ArtistAssistApp: React.FC = () => {
   const [reflectanceChartPaintMix, setReflectanceChartPaintMix] = useState<PaintMix | undefined>();
   const [isOpenReflectanceChart, setIsOpenReflectanceChart] = useState<boolean>(false);
   const [paintMixes, setPaintMixes] = useState<PaintMix[] | undefined>();
-  const [isAboutModelOpen, setIsAboutModalOpen] = useState<boolean>(false);
+  const [isAboutModalOpen, setIsAboutModalOpen] = useState<boolean>(false);
 
   useEventListener('beforeunload', event => {
     event.returnValue = 'Are you sure you want to leave?';
@@ -75,6 +75,10 @@ export const ArtistAssistApp: React.FC = () => {
 
   const showAboutModal = () => {
     setIsAboutModalOpen(true);
+  };
+
+  const handleTabChange = (activeKey: string) => {
+    setActiveTabKey(activeKey as TabKey);
   };
 
   const items = [
@@ -141,10 +145,6 @@ export const ArtistAssistApp: React.FC = () => {
     </StickyBox>
   );
 
-  const handleTabChange = (activeKey: string) => {
-    setActiveTabKey(activeKey as TabKey);
-  };
-
   if (!isBrowserSupported) {
     return (
       <Alert
@@ -190,7 +190,7 @@ export const ArtistAssistApp: React.FC = () => {
         onClick={toggleFullScreen}
         style={{right: 24, bottom: 24}}
       />
-      <AboutModal open={isAboutModelOpen} setOpen={setIsAboutModalOpen} />
+      <AboutModal open={isAboutModalOpen} setOpen={setIsAboutModalOpen} />
     </>
   );
 };
