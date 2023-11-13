@@ -120,7 +120,11 @@ export const ArtistAssistApp: React.FC = () => {
     {
       key: TabKey.Palette,
       label: 'Palette',
-      children: <Palette {...{paintMixes, setPaintMixes, setAsBackground, showReflectanceChart}} />,
+      children: (
+        <Palette
+          {...{paintSet, paintMixes, setPaintMixes, setAsBackground, showReflectanceChart}}
+        />
+      ),
       forceRender: true,
     },
     {

@@ -4,8 +4,8 @@
  */
 
 import {Collapse, CollapseProps, Empty, Typography} from 'antd';
-import {Dispatch, SetStateAction, useCallback, useEffect} from 'react';
-import {PAINT_TYPES, PAINT_TYPE_LABELS, PaintMix, PaintType} from '../services/color';
+import {Dispatch, SetStateAction, useCallback, useEffect, useState} from 'react';
+import {PAINT_TYPES, PAINT_TYPE_LABELS, PaintMix, PaintSet, PaintType} from '../services/color';
 import {RgbTuple} from '../services/color/model';
 import {
   deletePaintMix as deletePaintMixFromDb,
@@ -15,6 +15,7 @@ import {
 import {PaletteGrid} from './PaletteGrid';
 
 type Props = {
+  paintSet?: PaintSet;
   paintMixes?: PaintMix[];
   setPaintMixes: Dispatch<SetStateAction<PaintMix[] | undefined>>;
   setAsBackground: (background: string | RgbTuple) => void;
@@ -22,11 +23,23 @@ type Props = {
 };
 
 export const Palette: React.FC<Props> = ({
+  paintSet,
   paintMixes,
   setPaintMixes,
   setAsBackground,
   showReflectanceChart,
 }: Props) => {
+  const [activeKey, setActiveKey] = useState<string | string[]>(
+    PAINT_TYPES.map((paintType: PaintType) => paintType.toString())
+  );
+
+  useEffect(() => {
+    const paintType: PaintType | undefined = paintSet?.type;
+    if (paintType) {
+      setActiveKey(paintType.toString());
+    }
+  }, [paintSet]);
+
   useEffect(() => {
     (async () => {
       setPaintMixes(await getPaintMixes());
@@ -92,7 +105,9 @@ export const Palette: React.FC<Props> = ({
         ];
   });
 
-  const activeKey = items.flatMap(({key}) => (key ? [key] : []));
+  const handleActiveKeyChange = (keys: string | string[]) => {
+    setActiveKey(keys);
+  };
 
   return (
     <div style={{padding: '0 16px 8px'}}>
@@ -104,7 +119,12 @@ export const Palette: React.FC<Props> = ({
           <Empty />
         </div>
       ) : (
-        <Collapse size="large" bordered={false} {...{activeKey, items}} />
+        <Collapse
+          size="large"
+          bordered={false}
+          onChange={handleActiveKeyChange}
+          {...{items, activeKey}}
+        />
       )}
     </div>
   );
