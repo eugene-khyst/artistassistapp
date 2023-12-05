@@ -8,9 +8,9 @@ import {unique} from '../../utils';
 import {gcd} from '../math';
 import {Lab, Reflectance, Rgb, RgbTuple} from './model';
 
-const DELTA_E_LIMIT = 10;
+const DELTA_E_LIMIT = 20;
 
-type PaintConsistency = [paint: number, fluid: number];
+export type PaintConsistency = [paint: number, fluid: number];
 
 const CONSISTENCIES: PaintConsistency[] = [
   [1, 9],
@@ -20,11 +20,25 @@ const CONSISTENCIES: PaintConsistency[] = [
   [1, 0],
 ];
 
-const OFF_WHITE: Rgb = new Rgb(250, 249, 246);
+export const OFF_WHITE: Rgb = new Rgb(250, 249, 246);
 export const OFF_WHITE_HEX: string = OFF_WHITE.toHex();
 
 export interface ColorPickerSettings {
   sampleDiameter: number;
+}
+
+export interface PaintFractionDefinition {
+  brand: PaintBrand;
+  id: number;
+  fraction: number;
+}
+
+export interface PaintMixDefinition {
+  type: PaintType;
+  name: string | null;
+  fractions: PaintFractionDefinition[];
+  consistency: PaintConsistency;
+  background: RgbTuple | null;
 }
 
 export interface PaintFraction {
@@ -34,13 +48,13 @@ export interface PaintFraction {
 
 export interface PaintMix {
   id: string;
-  name?: string;
+  name?: string | null;
   type: PaintType;
   paintMixRgb: RgbTuple;
   paintMixRho: number[];
   fractions: PaintFraction[];
-  backgroundRgb: RgbTuple | null;
   consistency: PaintConsistency;
+  backgroundRgb: RgbTuple | null;
   paintMixLayerRgb: RgbTuple;
   dataIndex?: number;
 }
@@ -110,22 +124,23 @@ class PaintLayer {
   constructor(
     public rgb: Rgb,
     public paint: MixedPaint,
-    public background: Rgb | null,
-    public consistency: PaintConsistency
+    public consistency: PaintConsistency,
+    public background: Rgb | null
   ) {
     this.lab = this.rgb.toXyz().toLab();
   }
 
   toPaintMix(): PaintMix {
     const {type, fractions, rgb, reflectance} = this.paint;
+    const backgroundRgb: RgbTuple | null = this.background?.toRgbTuple() ?? null;
     return {
-      id: getPaintMixId(type, fractions, this.consistency, this.background),
+      id: getPaintMixId(type, fractions, this.consistency, backgroundRgb),
       type,
       paintMixRgb: rgb.toRgbTuple(),
       paintMixRho: reflectance.toArray(),
       fractions,
-      backgroundRgb: this.background?.toRgbTuple() ?? null,
       consistency: this.consistency,
+      backgroundRgb,
       paintMixLayerRgb: this.rgb.toRgbTuple(),
     };
   }
@@ -168,7 +183,7 @@ function getPaintMixId(
   type: PaintType,
   fractions: PaintFraction[],
   consistency: PaintConsistency,
-  background: Rgb | null
+  background: RgbTuple | null
 ): string {
   return (
     type +
@@ -178,7 +193,7 @@ function getPaintMixId(
       .join(',') +
     ';' +
     consistency.join(':') +
-    (background ? ';' + background.toHex() : '')
+    (background ? ';' + new Rgb(...background).toHex() : '')
   );
 }
 
@@ -190,6 +205,46 @@ function getPaintMixHash({fractions}: PaintMix): string {
     .join('-');
 }
 
+export function createPaintMix(
+  {type, name, fractions: fractionsDefinitions, consistency, background}: PaintMixDefinition,
+  paints: Map<PaintBrand, Map<number, Paint>>
+): PaintMix | null {
+  const paintFractions: PaintFraction[] = fractionsDefinitions.flatMap(
+    ({brand, id, fraction}: PaintFractionDefinition): PaintFraction[] => {
+      const paint: Paint | undefined = paints.get(brand)?.get(id);
+      return paint ? [{paint, fraction}] : [];
+    }
+  );
+  if (!paintFractions.length) {
+    return null;
+  }
+  const id: string = getPaintMixId(type, paintFractions, consistency, background);
+  const reflectances: Reflectance[] = paintFractions.map(({paint: {rho}}: PaintFraction) =>
+    Reflectance.fromArray(rho)
+  );
+  const fractions: number[] = paintFractions.map(({fraction}: PaintFraction) => fraction);
+  const paintMixRho: Reflectance = Reflectance.mixSubtractively(reflectances, fractions);
+  const paintMixRgb: Rgb = paintMixRho.toRgb();
+  const paintMixLayerRho: Reflectance = background
+    ? Reflectance.mixSubtractively(
+        [paintMixRho, Reflectance.fromRgb(new Rgb(...background))],
+        consistency
+      )
+    : paintMixRho;
+  const paintMixLayerRgb: Rgb = background ? paintMixLayerRho.toRgb() : paintMixRgb;
+  return {
+    id,
+    name,
+    type,
+    paintMixRgb: paintMixRgb.toRgbTuple(),
+    paintMixRho: paintMixRho.toArray(),
+    fractions: paintFractions,
+    backgroundRgb: background,
+    consistency: consistency,
+    paintMixLayerRgb: paintMixLayerRgb.toRgbTuple(),
+  };
+}
+
 function makePaintsConsistencies(
   paints: MixedPaint[],
   background: Rgb,
@@ -199,13 +254,13 @@ function makePaintsConsistencies(
     CONSISTENCIES.map((consistency: PaintConsistency): PaintLayer => {
       const [_, fluidFraction] = consistency;
       if (fluidFraction === 0) {
-        return new PaintLayer(paint.rgb, paint, null, consistency);
+        return new PaintLayer(paint.rgb, paint, consistency, null);
       }
       const reflectance = Reflectance.mixSubtractively(
         [paint.reflectance, backgroundReflectance],
         consistency
       );
-      return new PaintLayer(reflectance.toRgb(), paint, background, consistency);
+      return new PaintLayer(reflectance.toRgb(), paint, consistency, background);
     })
   );
 }

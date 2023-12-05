@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {DeleteTwoTone} from '@ant-design/icons';
+import {DeleteOutlined} from '@ant-design/icons';
 import {Button, Col, Form, Popconfirm, Row, Select} from 'antd';
 import {useState} from 'react';
 import {
@@ -31,6 +31,7 @@ type Props = {
   savePaintMix: (paintMix: PaintMix) => void;
   deletePaintMix: (paintMixId: string) => void;
   deleteAllPaintMixes: (paintType: PaintType) => void;
+  showShareModal: (paintMix: PaintMix) => void;
   setAsBackground: (background: string | RgbTuple) => void;
   showReflectanceChart: (paintMix: PaintMix) => void;
 };
@@ -41,6 +42,7 @@ export const PaletteGrid: React.FC<Props> = ({
   savePaintMix,
   deletePaintMix,
   deleteAllPaintMixes,
+  showShareModal,
   setAsBackground,
   showReflectanceChart,
 }: Props) => {
@@ -80,7 +82,7 @@ export const PaletteGrid: React.FC<Props> = ({
               okText="Yes"
               cancelText="No"
             >
-              <Button icon={<DeleteTwoTone />}>Delete all</Button>
+              <Button icon={<DeleteOutlined />}>Delete all</Button>
             </Popconfirm>
           </Form.Item>
         </Form.Item>
@@ -92,7 +94,14 @@ export const PaletteGrid: React.FC<Props> = ({
           .map((paintMix: PaintMix) => (
             <Col key={paintMix.id} xs={24} md={12} lg={8}>
               <PalettePaintMixCard
-                {...{paintMix, setAsBackground, showReflectanceChart, savePaintMix, deletePaintMix}}
+                {...{
+                  paintMix,
+                  showShareModal,
+                  setAsBackground,
+                  showReflectanceChart,
+                  savePaintMix,
+                  deletePaintMix,
+                }}
               />
             </Col>
           ))}

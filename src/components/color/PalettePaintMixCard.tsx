@@ -5,9 +5,10 @@
 
 import {
   BgColorsOutlined,
-  DeleteTwoTone,
+  DeleteOutlined,
   EllipsisOutlined,
   LineChartOutlined,
+  ShareAltOutlined,
 } from '@ant-design/icons';
 import {Button, Card, Dropdown, MenuProps, Popconfirm, Space, Typography} from 'antd';
 import {PaintMix} from '../../services/color';
@@ -18,6 +19,7 @@ type Props = {
   paintMix: PaintMix;
   savePaintMix: (paintMix: PaintMix) => void;
   deletePaintMix: (paintMixId: string) => void;
+  showShareModal: (paintMix: PaintMix) => void;
   setAsBackground: (background: string | RgbTuple) => void;
   showReflectanceChart: (paintMix: PaintMix) => void;
 };
@@ -26,18 +28,25 @@ export const PalettePaintMixCard: React.FC<Props> = ({
   paintMix,
   savePaintMix,
   deletePaintMix,
+  showShareModal,
   setAsBackground,
   showReflectanceChart,
 }: Props) => {
   const items: MenuProps['items'] = [
     {
       key: '1',
+      label: 'Share',
+      icon: <ShareAltOutlined />,
+      onClick: () => showShareModal(paintMix),
+    },
+    {
+      key: '2',
       label: 'Set as background',
       icon: <BgColorsOutlined />,
       onClick: () => setAsBackground(paintMix.paintMixLayerRgb),
     },
     {
-      key: '2',
+      key: '3',
       label: 'Reflectance chart',
       icon: <LineChartOutlined />,
       onClick: () => showReflectanceChart(paintMix),
@@ -77,7 +86,7 @@ export const PalettePaintMixCard: React.FC<Props> = ({
             okText="Yes"
             cancelText="No"
           >
-            <Button icon={<DeleteTwoTone />}>Delete</Button>
+            <Button icon={<DeleteOutlined />}>Delete</Button>
           </Popconfirm>
           <Dropdown menu={{items}}>
             <Button icon={<EllipsisOutlined />} />

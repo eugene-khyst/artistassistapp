@@ -3,55 +3,89 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Collapse, CollapseProps, Empty, Typography} from 'antd';
+import {App, Collapse, CollapseProps, Empty, Spin, Typography} from 'antd';
 import {Dispatch, SetStateAction, useCallback, useEffect, useState} from 'react';
-import {PAINT_TYPES, PAINT_TYPE_LABELS, PaintMix, PaintSet, PaintType} from '../services/color';
+import {usePaints} from '../hooks';
+import {
+  PAINT_TYPES,
+  PAINT_TYPE_LABELS,
+  PaintBrand,
+  PaintFractionDefinition,
+  PaintMix,
+  PaintMixDefinition,
+  PaintType,
+  createPaintMix,
+  paintMixToUrl,
+} from '../services/color';
 import {RgbTuple} from '../services/color/model';
 import {
   deletePaintMix as deletePaintMixFromDb,
-  getPaintMixes,
+  getPaintMixes as getPaintMixesFromDb,
+  isPaintMixExist as isPaintMixExistInDb,
   savePaintMix as savePaintMixInDb,
 } from '../services/db';
 import {PaletteGrid} from './PaletteGrid';
+import {ShareModal} from './ShareModal';
 
 type Props = {
-  paintSet?: PaintSet;
+  paintType?: PaintType;
   paintMixes?: PaintMix[];
+  importedPaintMix?: PaintMixDefinition;
   setPaintMixes: Dispatch<SetStateAction<PaintMix[] | undefined>>;
   setAsBackground: (background: string | RgbTuple) => void;
   showReflectanceChart: (paintMix: PaintMix) => void;
 };
 
 export const Palette: React.FC<Props> = ({
-  paintSet,
+  paintType,
   paintMixes,
+  importedPaintMix,
   setPaintMixes,
   setAsBackground,
   showReflectanceChart,
 }: Props) => {
+  const {message} = App.useApp();
   const [activeKey, setActiveKey] = useState<string | string[]>(
     PAINT_TYPES.map((paintType: PaintType) => paintType.toString())
   );
+  const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
+  const [sharePaintMixUrl, setSharePaintMixUrl] = useState<string>();
+
+  const importedPaintMixType: PaintType | undefined = importedPaintMix?.type;
+  const importedPaintMixBrands: PaintBrand[] | undefined = importedPaintMix?.fractions?.map(
+    ({brand}: PaintFractionDefinition) => brand
+  );
+
+  const {paints, isLoading, isError} = usePaints(importedPaintMixType, importedPaintMixBrands);
+
+  if (isError) {
+    message.error('Error while fetching data');
+  }
 
   useEffect(() => {
-    const paintType: PaintType | undefined = paintSet?.type;
     if (paintType) {
       setActiveKey(paintType.toString());
     }
-  }, [paintSet]);
+  }, [paintType]);
 
   useEffect(() => {
     (async () => {
-      setPaintMixes(await getPaintMixes());
+      if (importedPaintMix && paints.size) {
+        const paintMix: PaintMix | null = createPaintMix(importedPaintMix, paints);
+        if (paintMix && !(await isPaintMixExistInDb(paintMix.id))) {
+          await savePaintMixInDb({...paintMix, dataIndex: Date.now()});
+        }
+      }
+      setPaintMixes(await getPaintMixesFromDb());
     })();
-  }, [setPaintMixes]);
+  }, [importedPaintMix, paints.size, setPaintMixes]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const savePaintMix = useCallback(
-    (paintMix: PaintMix) => {
+    async (paintMix: PaintMix) => {
       setPaintMixes((prev: PaintMix[] | undefined) =>
         prev ? prev.map((pm: PaintMix) => (pm.id === paintMix.id ? paintMix : pm)) : []
       );
-      savePaintMixInDb(paintMix);
+      await savePaintMixInDb(paintMix);
     },
     [setPaintMixes]
   );
@@ -78,6 +112,11 @@ export const Palette: React.FC<Props> = ({
     [setPaintMixes, paintMixes]
   );
 
+  const showShareModal = useCallback((paintMix: PaintMix) => {
+    setSharePaintMixUrl(paintMixToUrl(paintMix));
+    setIsShareModalOpen(true);
+  }, []);
+
   const items: CollapseProps['items'] = PAINT_TYPES.flatMap((paintType: PaintType) => {
     const filteredPaintMixes: PaintMix[] | undefined = paintMixes?.filter(
       ({type}: PaintMix) => type === paintType
@@ -96,6 +135,7 @@ export const Palette: React.FC<Props> = ({
                   savePaintMix,
                   deletePaintMix,
                   deleteAllPaintMixes,
+                  showShareModal,
                   setAsBackground,
                   showReflectanceChart,
                 }}
@@ -110,22 +150,32 @@ export const Palette: React.FC<Props> = ({
   };
 
   return (
-    <div style={{padding: '0 16px 8px'}}>
-      <Typography.Title level={3} style={{marginTop: '0.5em'}}>
-        Palette
-      </Typography.Title>
-      {!paintMixes?.length ? (
-        <div style={{textAlign: 'center'}}>
-          <Empty />
-        </div>
-      ) : (
-        <Collapse
-          size="large"
-          bordered={false}
-          onChange={handleActiveKeyChange}
-          {...{items, activeKey}}
-        />
-      )}
-    </div>
+    <>
+      <div style={{padding: '0 16px 8px'}}>
+        <Typography.Title level={3} style={{marginTop: '0.5em'}}>
+          Palette
+        </Typography.Title>
+        <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
+          {!paintMixes?.length ? (
+            <div style={{textAlign: 'center'}}>
+              <Empty />
+            </div>
+          ) : (
+            <Collapse
+              size="large"
+              bordered={false}
+              onChange={handleActiveKeyChange}
+              {...{items, activeKey}}
+            />
+          )}
+        </Spin>
+      </div>
+      <ShareModal
+        title="Share your paint mix"
+        open={isShareModalOpen}
+        setOpen={setIsShareModalOpen}
+        url={sharePaintMixUrl}
+      />
+    </>
   );
 };

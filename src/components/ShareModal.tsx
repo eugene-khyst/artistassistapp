@@ -8,12 +8,13 @@ import {Dispatch, SetStateAction} from 'react';
 import {useCopyToClipboard} from 'usehooks-ts';
 
 type Props = {
+  title: string;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   url?: string;
 };
 
-export const SharePaintSetModal: React.FC<Props> = ({open, setOpen, url}: Props) => {
+export const ShareModal: React.FC<Props> = ({title, open, setOpen, url}: Props) => {
   const {message} = App.useApp();
 
   const [_, copy] = useCopyToClipboard();
@@ -26,13 +27,7 @@ export const SharePaintSetModal: React.FC<Props> = ({open, setOpen, url}: Props)
   };
 
   return (
-    <Modal
-      title="Share a paint set"
-      centered
-      open={open}
-      footer={null}
-      onCancel={() => setOpen(false)}
-    >
+    <Modal title={title} centered open={open} footer={null} onCancel={() => setOpen(false)}>
       {url ? (
         <>
           <p>Copy and share this link with your friends</p>
@@ -44,7 +39,7 @@ export const SharePaintSetModal: React.FC<Props> = ({open, setOpen, url}: Props)
           </Space.Compact>
         </>
       ) : (
-        <p>No paint set to share</p>
+        <p>Nothing to share</p>
       )}
     </Modal>
   );

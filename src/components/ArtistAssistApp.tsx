@@ -14,7 +14,7 @@ import {useCallback, useState} from 'react';
 import StickyBox from 'react-sticky-box';
 import {useEventListener} from 'usehooks-ts';
 import {useFullScreen} from '../hooks/useFullscreen';
-import {OFF_WHITE_HEX, PaintMix, PaintSet} from '../services/color';
+import {OFF_WHITE_HEX, PaintMix, PaintSet, UrlParsingResult, parseUrl} from '../services/color';
 import {Rgb, RgbTuple} from '../services/color/model';
 import {AboutModal} from './AboutModal';
 import {ImageColorPicker} from './ImageColorPicker';
@@ -32,6 +32,13 @@ const isBrowserSupported =
   typeof createImageBitmap !== 'undefined' &&
   typeof indexedDB !== 'undefined';
 
+const {paintSet: importedPaintSet, paintMix: importedPaintMix}: UrlParsingResult = parseUrl(
+  window.location.toString()
+);
+if (importedPaintSet || importedPaintMix) {
+  history.pushState({}, '', '/');
+}
+
 export const ArtistAssistApp: React.FC = () => {
   const {
     token: {colorBgContainer},
@@ -41,7 +48,9 @@ export const ArtistAssistApp: React.FC = () => {
 
   const {isFullscreen, toggleFullScreen} = useFullScreen();
 
-  const [activeTabKey, setActiveTabKey] = useState<TabKey>(TabKey.Paints);
+  const [activeTabKey, setActiveTabKey] = useState<TabKey>(
+    importedPaintMix ? TabKey.Palette : TabKey.Paints
+  );
   const [paintSet, setPaintSet] = useState<PaintSet | undefined>();
   const [blob, setBlob] = useState<Blob | undefined>();
   const [backgroundColor, setBackgroundColor] = useState<string>(OFF_WHITE_HEX);
@@ -85,7 +94,7 @@ export const ArtistAssistApp: React.FC = () => {
     {
       key: TabKey.Paints,
       label: 'Paints',
-      children: <PaintSetChooser {...{setPaintSet, setActiveTabKey, blob}} />,
+      children: <PaintSetChooser {...{setPaintSet, setActiveTabKey, blob, importedPaintSet}} />,
       forceRender: true,
     },
     {
@@ -122,7 +131,14 @@ export const ArtistAssistApp: React.FC = () => {
       label: 'Palette',
       children: (
         <Palette
-          {...{paintSet, paintMixes, setPaintMixes, setAsBackground, showReflectanceChart}}
+          {...{
+            paintSet,
+            paintMixes,
+            setPaintMixes,
+            setAsBackground,
+            showReflectanceChart,
+            importedPaintMix,
+          }}
         />
       ),
       forceRender: true,

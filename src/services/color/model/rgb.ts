@@ -72,8 +72,13 @@ export class Rgb {
     return [this.r, this.g, this.b];
   }
 
-  toHex(): string {
-    return '#' + componentToHex(this.r) + componentToHex(this.g) + componentToHex(this.b);
+  toHex(hashSymbol = true): string {
+    return (
+      (hashSymbol ? '#' : '') +
+      componentToHex(this.r) +
+      componentToHex(this.g) +
+      componentToHex(this.b)
+    );
   }
 
   toXyz(): Xyz {

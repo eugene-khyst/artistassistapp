@@ -16,7 +16,7 @@ interface Result {
 export function usePaints(type?: PaintType, brands?: PaintBrand[]): Result {
   const results: UseQueryResult<[PaintBrand, Map<number, Paint>]>[] = useQueries({
     queries:
-      !!type && !!brands
+      type && brands
         ? brands.map((brand: PaintBrand) => ({
             queryKey: ['paints', type, brand],
             queryFn: async (): Promise<[PaintBrand, Map<number, Paint>]> => [

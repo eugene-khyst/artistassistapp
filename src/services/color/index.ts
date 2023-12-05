@@ -4,5 +4,5 @@
  */
 
 export * from './paints';
-export * from './paint-set-converter';
 export * from './color-mixer';
+export * from './url-parser';

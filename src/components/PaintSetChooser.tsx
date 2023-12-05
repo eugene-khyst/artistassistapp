@@ -30,12 +30,11 @@ import {
   PaintSetDefinition,
   PaintType,
   StoreBoughtPaintSet,
-  paintSetFromUrl,
   paintSetToUrl,
   toPaintSet,
 } from '../services/color';
 import {getLastPaintSet, getPaintSetByType, savePaintSet} from '../services/db';
-import {SharePaintSetModal} from './SharePaintSetModal';
+import {ShareModal} from './ShareModal';
 import {ColorSquare} from './color/ColorSquare';
 import {CascaderOption, TabKey} from './types';
 
@@ -131,35 +130,31 @@ const formInitialValues: PaintSetDefinition = {
   colors: {},
 };
 
-function getSharedPaintSet(): PaintSetDefinition | undefined {
-  const paintSet: PaintSetDefinition | undefined = paintSetFromUrl(window.location.toString());
-  if (paintSet) {
-    history.pushState({}, '', '/');
-  }
-  return paintSet;
-}
-
-const sharedPaintSet: PaintSetDefinition | undefined = getSharedPaintSet();
-
 type Props = {
   setPaintSet: Dispatch<SetStateAction<PaintSet | undefined>>;
   setActiveTabKey: Dispatch<SetStateAction<TabKey>>;
   blob?: Blob;
+  importedPaintSet?: PaintSetDefinition;
 };
 
-export const PaintSetChooser: React.FC<Props> = ({setPaintSet, setActiveTabKey, blob}: Props) => {
+export const PaintSetChooser: React.FC<Props> = ({
+  setPaintSet,
+  setActiveTabKey,
+  blob,
+  importedPaintSet,
+}: Props) => {
   const {message} = App.useApp();
   const [form] = Form.useForm<PaintSetDefinition>();
   const paintType = Form.useWatch<PaintType | undefined>('type', form);
   const paintBrands = Form.useWatch<PaintBrand[] | undefined>('brands', form);
 
-  const [url, setUrl] = useState<string>();
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
+  const [sharePaintSetUrl, setSharePaintSetUrl] = useState<string>();
 
   useEffect(() => {
     (async () => {
-      if (sharedPaintSet) {
-        form.setFieldsValue(sharedPaintSet);
+      if (importedPaintSet) {
+        form.setFieldsValue(importedPaintSet);
       } else {
         const lastPaintSet: PaintSetDefinition | undefined = await getLastPaintSet();
         if (lastPaintSet) {
@@ -167,7 +162,7 @@ export const PaintSetChooser: React.FC<Props> = ({setPaintSet, setActiveTabKey, 
         }
       }
     })();
-  }, [form]);
+  }, [form, importedPaintSet]);
 
   const {
     storeBoughtPaintSets,
@@ -243,7 +238,7 @@ export const PaintSetChooser: React.FC<Props> = ({setPaintSet, setActiveTabKey, 
   };
 
   const showShareModal = () => {
-    setUrl(paintSetToUrl(form.getFieldsValue()));
+    setSharePaintSetUrl(paintSetToUrl(form.getFieldsValue()));
     setIsShareModalOpen(true);
   };
 
@@ -345,7 +340,12 @@ export const PaintSetChooser: React.FC<Props> = ({setPaintSet, setActiveTabKey, 
           </Form>
         </Spin>
       </div>
-      <SharePaintSetModal open={isShareModalOpen} setOpen={setIsShareModalOpen} url={url} />
+      <ShareModal
+        title="Share your paint set"
+        open={isShareModalOpen}
+        setOpen={setIsShareModalOpen}
+        url={sharePaintSetUrl}
+      />
     </>
   );
 };

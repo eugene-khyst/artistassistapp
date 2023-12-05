@@ -196,9 +196,12 @@ export const ImageColorPicker: React.FC<Props> = ({
   }, [colorPickerCanvasRef, sampleDiameter]);
 
   const savePaintMix = useCallback(
-    (paintMix: PaintMix) => {
-      setPaintMixes((prev: PaintMix[] | undefined) => (prev ? [paintMix, ...prev] : [paintMix]));
-      savePaintMixInDb(paintMix);
+    async (paintMix: PaintMix) => {
+      const newPaintMix: PaintMix = {...paintMix, dataIndex: Date.now()};
+      setPaintMixes((prev: PaintMix[] | undefined) =>
+        prev ? [newPaintMix, ...prev] : [newPaintMix]
+      );
+      await savePaintMixInDb(newPaintMix);
     },
     [setPaintMixes]
   );

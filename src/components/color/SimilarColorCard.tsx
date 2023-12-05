@@ -6,7 +6,7 @@
 import {
   BgColorsOutlined,
   EllipsisOutlined,
-  HeartTwoTone,
+  HeartOutlined,
   LineChartOutlined,
   QuestionCircleOutlined,
 } from '@ant-design/icons';
@@ -51,7 +51,7 @@ export const SimilarColorCard: React.FC<Props> = ({
   const saveDisabled = paintMixes?.some((pm: PaintMix) => pm.id === paintMix.id);
 
   const handleSaveButtonClick = () => {
-    savePaintMix({...paintMix, dataIndex: Date.now()});
+    savePaintMix(paintMix);
   };
 
   const items: MenuProps['items'] = [
@@ -84,7 +84,7 @@ export const SimilarColorCard: React.FC<Props> = ({
       }
       extra={
         <Space.Compact block style={{display: 'flex', justifyContent: 'flex-end'}}>
-          <Button icon={<HeartTwoTone />} onClick={handleSaveButtonClick} disabled={saveDisabled}>
+          <Button icon={<HeartOutlined />} onClick={handleSaveButtonClick} disabled={saveDisabled}>
             Save
           </Button>
           <Dropdown menu={{items}}>
