@@ -17,20 +17,25 @@ export enum PaintBrand {
   Rembrandt = 1,
   VanGogh = 2,
   DanielSmithExtraFine = 3,
-  DanielSmithPrimaTek = 14,
   SchminckeHoradam = 4,
   SchminckeMussini = 5,
   SchminckeNormaProfessional = 6,
-  SchminckePrimacryl = 13,
   WinsorNewtonProfessional = 7,
   Sennelier = 8,
   OldHolland = 9,
   RosaGallery = 10,
   GansaiTambi = 11,
+  Holbein = 12,
+  SchminckePrimacryl = 13,
+  DanielSmithPrimaTek = 14,
+  MGraham = 15,
+  DaVinci = 16,
+  ShinhanPwc = 17,
 }
 
 export const PAINT_BRANDS: Record<PaintType, PaintBrand[]> = {
   [PaintType.Watercolor]: [
+    PaintBrand.RosaGallery,
     PaintBrand.Rembrandt,
     PaintBrand.VanGogh,
     PaintBrand.DanielSmithExtraFine,
@@ -39,8 +44,11 @@ export const PAINT_BRANDS: Record<PaintType, PaintBrand[]> = {
     PaintBrand.SchminckeHoradam,
     PaintBrand.Sennelier,
     PaintBrand.OldHolland,
+    PaintBrand.MGraham,
+    PaintBrand.DaVinci,
     PaintBrand.GansaiTambi,
-    PaintBrand.RosaGallery,
+    PaintBrand.Holbein,
+    PaintBrand.ShinhanPwc,
   ],
   [PaintType.OilPaint]: [
     PaintBrand.SchminckeMussini,
@@ -135,6 +143,22 @@ export const PAINT_BRAND_LABELS: Record<PaintType, Partial<Record<PaintBrand, La
       shortText: 'Old Holland',
     },
     [PaintBrand.GansaiTambi]: {fullText: 'Kuretake Gansai Tambi', shortText: 'Gansai Tambi'},
+    [PaintBrand.Holbein]: {
+      fullText: "Holbein Artists' Watercolor (HWC)",
+      shortText: 'Holbein',
+    },
+    [PaintBrand.MGraham]: {
+      fullText: "M. Graham & Co. Artists' Watercolor",
+      shortText: 'M. Graham',
+    },
+    [PaintBrand.DaVinci]: {
+      fullText: 'Da Vinci Artist Watercolor Paints',
+      shortText: 'Da Vinci',
+    },
+    [PaintBrand.ShinhanPwc]: {
+      fullText: 'ShinHan PWC, Extra Fine Watercolor',
+      shortText: 'ShinHan PWC',
+    },
   },
   [PaintType.OilPaint]: {
     [PaintBrand.SchminckeMussini]: {
@@ -207,6 +231,22 @@ const PAINTS: Record<PaintType, Partial<Record<PaintBrand, [paints: URL, paintSe
     [PaintBrand.GansaiTambi]: [
       new URL('../../data/watercolor/gansai-tambi/colors.json', import.meta.url),
       new URL('../../data/watercolor/gansai-tambi/sets.json', import.meta.url),
+    ],
+    [PaintBrand.Holbein]: [
+      new URL('../../data/watercolor/holbein/colors.json', import.meta.url),
+      new URL('../../data/watercolor/holbein/sets.json', import.meta.url),
+    ],
+    [PaintBrand.MGraham]: [
+      new URL('../../data/watercolor/m-graham/colors.json', import.meta.url),
+      new URL('../../data/watercolor/m-graham/sets.json', import.meta.url),
+    ],
+    [PaintBrand.DaVinci]: [
+      new URL('../../data/watercolor/da-vinci/colors.json', import.meta.url),
+      new URL('../../data/watercolor/da-vinci/sets.json', import.meta.url),
+    ],
+    [PaintBrand.ShinhanPwc]: [
+      new URL('../../data/watercolor/shinhan-pwc/colors.json', import.meta.url),
+      new URL('../../data/watercolor/shinhan-pwc/sets.json', import.meta.url),
     ],
   },
   [PaintType.OilPaint]: {
