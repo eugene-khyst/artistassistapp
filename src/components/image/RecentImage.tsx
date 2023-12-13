@@ -48,7 +48,7 @@ export const RecentImage: React.FC<Props> = ({
         actions={[
           <Popconfirm
             key="delete"
-            title="Delete the paint mix"
+            title="Delete the recent photo"
             description="Are you sure to delete this recent photo?"
             onPopupClick={e => e.stopPropagation()}
             onConfirm={e => {
