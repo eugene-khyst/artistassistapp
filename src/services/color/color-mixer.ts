@@ -23,10 +23,6 @@ const CONSISTENCIES: PaintConsistency[] = [
 export const OFF_WHITE: Rgb = new Rgb(250, 249, 246);
 export const OFF_WHITE_HEX: string = OFF_WHITE.toHex();
 
-export interface ColorPickerSettings {
-  sampleDiameter: number;
-}
-
 export interface PaintFractionDefinition {
   brand: PaintBrand;
   id: number;

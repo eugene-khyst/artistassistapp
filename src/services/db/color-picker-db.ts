@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {ColorPickerSettings} from '../color';
 import {dbPromise} from './db';
+import {ColorPickerSettings} from './types';
 
 export async function getColorPickerSettings(): Promise<ColorPickerSettings | undefined> {
   const db = await dbPromise;

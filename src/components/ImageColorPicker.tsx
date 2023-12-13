@@ -31,7 +31,6 @@ import {
 } from '../services/canvas/image';
 import {
   ColorMixer,
-  ColorPickerSettings,
   OFF_WHITE_HEX,
   PaintMix,
   PaintSet,
@@ -40,7 +39,7 @@ import {
   compareSimilarColorsByPaintMixFractionsLength,
 } from '../services/color';
 import {RgbTuple} from '../services/color/model';
-import {savePaintMix as savePaintMixInDb} from '../services/db';
+import {ColorPickerSettings, savePaintMix as savePaintMixInDb} from '../services/db';
 import {getColorPickerSettings, saveColorPickerSettings} from '../services/db/';
 import {SimilarColorCard} from './color/SimilarColorCard';
 

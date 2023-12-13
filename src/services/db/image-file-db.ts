@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {ImageFile, dbPromise} from './db';
+import {ImageFile} from '.';
+import {dbPromise} from './db';
 
 const MAX_IMAGE_FILES = 3;
 
@@ -32,4 +33,9 @@ export async function saveImageFile(file: File): Promise<number> {
     file,
     date: new Date(),
   });
+}
+
+export async function deleteImageFile(imageFileId: number): Promise<void> {
+  const db = await dbPromise;
+  await db.delete('image-files', imageFileId);
 }

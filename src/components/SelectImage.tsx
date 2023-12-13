@@ -4,9 +4,9 @@
  */
 
 import {App, Col, Divider, Form, Input, Row, Typography} from 'antd';
-import {ChangeEvent, Dispatch, SetStateAction, useEffect, useState} from 'react';
-import {ImageFile} from '../services/db/db';
-import {getImageFiles, saveImageFile} from '../services/db/image-file-db';
+import {ChangeEvent, Dispatch, SetStateAction, useCallback, useEffect, useState} from 'react';
+import {ImageFile} from '../services/db';
+import {deleteImageFile, getImageFiles, saveImageFile} from '../services/db/image-file-db';
 import {SAMPLE_IMAGES, SampleImageUrl} from '../services/image/sample-images';
 import {RecentImage} from './image/RecentImage';
 import {SampleImage} from './image/SampleImage';
@@ -32,6 +32,16 @@ export const SelectImage: React.FC<Props> = ({
       setRecentFiles(await getImageFiles());
     })();
   }, []);
+
+  const deleteRecentImage = useCallback(
+    (imageFileId?: number) => {
+      if (imageFileId) {
+        setRecentFiles((prev: ImageFile[]) => prev.filter(({id}: ImageFile) => id !== imageFileId));
+        deleteImageFile(imageFileId);
+      }
+    },
+    [setRecentFiles]
+  );
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | undefined = e.target.files?.[0];
@@ -67,9 +77,17 @@ export const SelectImage: React.FC<Props> = ({
         <>
           <Divider orientation="left">or select from recent photos</Divider>
           <Row gutter={[16, 16]} justify="start" style={{marginBottom: 16}}>
-            {recentFiles.map(({id, file, date}: ImageFile) => (
-              <Col key={id} xs={24} md={12} lg={8}>
-                <RecentImage {...{file, date, setBlob, setActiveTabKey, showZoomAndPanMessage}} />
+            {recentFiles.map((imageFile: ImageFile) => (
+              <Col key={imageFile.id} xs={24} md={12} lg={8}>
+                <RecentImage
+                  {...{
+                    imageFile,
+                    deleteRecentImage,
+                    setBlob,
+                    setActiveTabKey,
+                    showZoomAndPanMessage,
+                  }}
+                />
               </Col>
             ))}
           </Row>

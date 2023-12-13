@@ -4,13 +4,8 @@
  */
 
 import {DBSchema, IDBPDatabase, openDB} from 'idb';
-import {ColorPickerSettings, PaintMix, PaintSetDefinition, PaintType} from '../color';
-
-export interface ImageFile {
-  id?: number;
-  file: File;
-  date: Date;
-}
+import {PaintMix, PaintSetDefinition, PaintType} from '../color';
+import {ColorPickerSettings, ImageFile} from './types';
 
 interface ArtistAssistAppDB extends DBSchema {
   'paint-sets': {
