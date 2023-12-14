@@ -33,6 +33,11 @@ export const PaintMixDescription: React.FC<Props> = ({
 
   return (
     <Space direction="vertical" size="small">
+      {fractions.length > 1 && (
+        <Space size="small">
+          Ratios: {fractions.map(({fraction}: PaintFraction) => fraction).join(' : ')}
+        </Space>
+      )}
       <Space size="small">
         {fractions.length > 1 ? (
           <>
