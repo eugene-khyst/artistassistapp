@@ -3,22 +3,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import {imageBitmapToOffscreenCanvas} from '../../../utils';
 import {Rectangle, Vector, clamp} from '../../math';
 import {Canvas} from '../canvas';
 
-export type ImageSource = ImageBitmap | OffscreenCanvas;
-
 export interface ZoomableImageCanvasProps {
-  getImages?: (blob: Blob) => Promise<ImageSource[]>;
   zoomFactor?: number;
   maxZoom?: number;
 }
 
 export class ZoomableImageCanvas extends Canvas {
-  protected getImages: (blob: Blob) => Promise<ImageSource[]>;
-  protected images: ImageSource[] = [];
+  protected images: ImageBitmap[] = [];
   protected imageDimensions: Rectangle[] = [];
   protected imageIndex = 0;
+  protected offscreenCanvases: OffscreenCanvas[] = [];
   private offset = Vector.ZERO;
   protected zoom = 1;
   private maxZoom: number;
@@ -33,13 +31,7 @@ export class ZoomableImageCanvas extends Canvas {
   constructor(canvas: HTMLCanvasElement, props: ZoomableImageCanvasProps = {}) {
     super(canvas);
 
-    ({
-      getImages: this.getImages = async (blob: Blob): Promise<ImageSource[]> => {
-        return [await createImageBitmap(blob)];
-      },
-      zoomFactor: this.zoomFactor = 1.1,
-      maxZoom: this.maxZoom = 20,
-    } = props);
+    ({zoomFactor: this.zoomFactor = 1.1, maxZoom: this.maxZoom = 20} = props);
 
     this.eventListeners = {
       mousedown: (e: MouseEvent) => this.handlePointerDown(this.getMouseEventCoordinates(e)),
@@ -63,15 +55,10 @@ export class ZoomableImageCanvas extends Canvas {
     return 'grab';
   }
 
-  async setBlob(blob: Blob): Promise<void> {
-    this.images.forEach((image: ImageSource) => {
-      if (image instanceof ImageBitmap) {
-        image.close();
-      }
-    });
-    this.images = await this.getImages(blob);
+  setImages(images: ImageBitmap[]): void {
+    this.images = images;
     this.imageDimensions = this.images.map(
-      (image: ImageSource) => new Rectangle(new Vector(image.width, image.height))
+      (image: ImageBitmap) => new Rectangle(new Vector(image.width, image.height))
     );
     this.offset = Vector.ZERO;
     this.zoom = 1;
@@ -94,8 +81,19 @@ export class ZoomableImageCanvas extends Canvas {
     this.draw();
   }
 
-  protected getImage(): ImageSource | null {
+  protected getImage(): ImageBitmap | null {
     return this.images.length > this.imageIndex ? this.images[this.imageIndex] : null;
+  }
+
+  protected initOffscreenCanvases(): void {
+    this.offscreenCanvases = this.images.map((bitmap: ImageBitmap) => {
+      const [canvas] = imageBitmapToOffscreenCanvas(bitmap);
+      return canvas;
+    });
+  }
+
+  protected getOffscreenCanvas(): OffscreenCanvas | null {
+    return this.images.length > this.imageIndex ? this.offscreenCanvases[this.imageIndex] : null;
   }
 
   protected getImageDimension(): Rectangle {
@@ -107,7 +105,7 @@ export class ZoomableImageCanvas extends Canvas {
   protected draw(): void {
     const ctx: CanvasRenderingContext2D = this.context;
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    const image: ImageSource | null = this.getImage();
+    const image: ImageBitmap | null = this.getImage();
     if (image) {
       ctx.imageSmoothingEnabled = false;
       ctx.save();
@@ -150,7 +148,7 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   private getMinZoom(): number {
-    const image: ImageSource | null = this.getImage();
+    const image: ImageBitmap | null = this.getImage();
     return !image
       ? 1
       : Math.min(this.canvas.width / image.width, this.canvas.height / image.height);

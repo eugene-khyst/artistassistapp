@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {ImageSource, ZoomableImageCanvas, ZoomableImageCanvasProps} from '.';
-import {imageBitmapToOffscreenCanvas} from '../../../utils';
+import {ZoomableImageCanvas, ZoomableImageCanvasProps} from '.';
 import {Rgb} from '../../color/model';
 import {EventManager} from '../../event';
 import {getAverageColor} from '../../image';
@@ -36,15 +35,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
   public events: EventManager<ColorPickerEventType> = new EventManager();
 
   constructor(canvas: HTMLCanvasElement, props: ImageColorPickerCanvasProps = {}) {
-    super(canvas, {
-      getImages: async (blob: Blob): Promise<OffscreenCanvas[]> => {
-        const bitmap = await createImageBitmap(blob);
-        const [canvas] = imageBitmapToOffscreenCanvas(bitmap);
-        bitmap.close();
-        return [canvas];
-      },
-      ...props,
-    });
+    super(canvas, props);
 
     ({cursorDiameter: this.cursorDiameter = 20} = props);
 
@@ -57,6 +48,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
   }
 
   protected override onImagesLoaded(): void {
+    this.initOffscreenCanvases();
     this.pipetPoint = null;
   }
 
@@ -113,20 +105,16 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
   }
 
   private async getAverageRgb({x, y}: Vector): Promise<Rgb | null> {
-    const image: ImageSource | null = this.getImage();
-    if (!(image instanceof OffscreenCanvas)) {
-      console.error('Expected "image" to be an instance of OffscreenCanvas');
-      return null;
-    }
     const diameter = Math.round(this.pipetDiameter);
     const radius = diameter / 2;
-    const ctx: OffscreenCanvasRenderingContext2D = image.getContext('2d')!;
-    const imageData: ImageData = ctx.getImageData(
-      Math.round(x - radius),
-      Math.round(y - radius),
-      diameter,
-      diameter
-    );
+    const canvas: OffscreenCanvas | null = this.getOffscreenCanvas();
+    if (!canvas) {
+      console.error('OffscreenCanvas is null');
+      return null;
+    }
+    const imageData: ImageData = canvas
+      .getContext('2d')!
+      .getImageData(Math.round(x - radius), Math.round(y - radius), diameter, diameter);
     return getAverageColor(imageData);
   }
 

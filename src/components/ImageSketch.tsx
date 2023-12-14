@@ -9,6 +9,7 @@ import {Remote, wrap} from 'comlink';
 import {useContext, useEffect, useState} from 'react';
 import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
 import {useZoomableImageCanvas} from '../hooks/';
+import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
 import {ZoomableImageCanvas} from '../services/canvas/image';
 import {Sketch} from '../services/image';
 import {range} from '../utils';
@@ -23,11 +24,12 @@ const MIN_MEDIAN_FILTER_RADIUS = 2;
 const MAX_MEDIAN_FILTER_RADIUS = 4;
 const MEDIAN_FILTER_RADIUSES = range(MIN_MEDIAN_FILTER_RADIUS, MAX_MEDIAN_FILTER_RADIUS);
 
+const blobToImageBitmapsConverter = async (blob: Blob): Promise<ImageBitmap[]> => {
+  return (await sketch.getSketches(blob, MEDIAN_FILTER_RADIUSES)).sketches;
+};
+
 const zoomableImageCanvasSupplier = (canvas: HTMLCanvasElement): ZoomableImageCanvas => {
-  return new ZoomableImageCanvas(canvas, {
-    getImages: async (blob: Blob): Promise<ImageBitmap[]> =>
-      (await sketch.getSketches(blob, MEDIAN_FILTER_RADIUSES)).sketches,
-  });
+  return new ZoomableImageCanvas(canvas);
 };
 
 type Props = {
@@ -40,11 +42,12 @@ export const ImageSketch: React.FC<Props> = ({blob}: Props) => {
     MEDIAN_FILTER_RADIUSES.map((i: number) => [i, i])
   );
 
-  const {
-    ref: canvasRef,
-    isLoading,
-    zoomableImageCanvasRef,
-  } = useZoomableImageCanvas<ZoomableImageCanvas>(zoomableImageCanvasSupplier, blob);
+  const {images, isLoading} = useCreateImageBitmap(blobToImageBitmapsConverter, blob);
+
+  const {ref: canvasRef, zoomableImageCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
+    zoomableImageCanvasSupplier,
+    images
+  );
 
   const [medianFilterSize, setMedianFilterSize] = useState<number>(defaultMedianFilterSize);
   const imageIndex = medianFilterSize - MIN_MEDIAN_FILTER_RADIUS;

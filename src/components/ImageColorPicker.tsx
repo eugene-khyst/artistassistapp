@@ -23,6 +23,7 @@ import {Remote, wrap} from 'comlink';
 import {Dispatch, SetStateAction, useCallback, useContext, useEffect, useState} from 'react';
 import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
 import {useZoomableImageCanvas} from '../hooks/';
+import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
 import {
   ColorPickerEventType,
   ImageColorPickerCanvas,
@@ -60,6 +61,10 @@ const colorMixer: Remote<ColorMixer> = wrap(
     type: 'module',
   })
 );
+
+const blobToImageBitmapsConverter = async (blob: Blob): Promise<ImageBitmap[]> => {
+  return [await createImageBitmap(blob)];
+};
 
 const imageColorPickerCanvasSupplier = (canvas: HTMLCanvasElement): ImageColorPickerCanvas => {
   return new ImageColorPickerCanvas(canvas);
@@ -102,11 +107,13 @@ export const ImageColorPicker: React.FC<Props> = ({
     sampleDiameterSliderMarkValues.map((i: number) => [i, i])
   );
 
-  const {
-    ref: canvasRef,
-    isLoading: isColorPickerLoading,
-    zoomableImageCanvasRef: colorPickerCanvasRef,
-  } = useZoomableImageCanvas<ImageColorPickerCanvas>(imageColorPickerCanvasSupplier, blob);
+  const {images, isLoading: isImageBitmapsLoading} = useCreateImageBitmap(
+    blobToImageBitmapsConverter,
+    blob
+  );
+
+  const {ref: canvasRef, zoomableImageCanvasRef: colorPickerCanvasRef} =
+    useZoomableImageCanvas<ImageColorPickerCanvas>(imageColorPickerCanvasSupplier, images);
 
   const [sampleDiameter, setSampleDiameter] = useState<number>(defaultSampleDiameter);
   const [targetColor, setTargetColor] = useState<string>(OFF_WHITE_HEX);
@@ -117,7 +124,10 @@ export const ImageColorPicker: React.FC<Props> = ({
   const [isBackgroundColorLoading, setIsBackgroundColorLoading] = useState<boolean>(false);
   const [isSimilarColorsLoading, setIsSimilarColorsLoading] = useState<boolean>(false);
   const isLoading: boolean =
-    isColorPickerLoading || isPaintSetLoading || isBackgroundColorLoading || isSimilarColorsLoading;
+    isImageBitmapsLoading ||
+    isPaintSetLoading ||
+    isBackgroundColorLoading ||
+    isSimilarColorsLoading;
 
   useEffect(() => {
     (async () => {
