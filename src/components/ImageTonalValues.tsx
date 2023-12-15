@@ -134,7 +134,7 @@ export const ImageTonalValues: React.FC<Props> = ({blob}: Props) => {
   ];
 
   const canvasHeight = isOriginalVisible
-    ? `calc((100vh - 115px) / ${screens['md'] ? '1' : '2'})`
+    ? `calc((100vh - 115px) / ${screens['sm'] ? '1' : '2'})`
     : 'calc(100vh - 115px)';
 
   return (
@@ -156,10 +156,10 @@ export const ImageTonalValues: React.FC<Props> = ({blob}: Props) => {
         </Dropdown>
       </Space>
       <Row>
-        <Col xs={24} md={isOriginalVisible ? 12 : 24}>
+        <Col xs={24} sm={isOriginalVisible ? 12 : 24}>
           <canvas ref={tonalValuesCanvasRef} style={{width: '100%', height: canvasHeight}} />
         </Col>
-        <Col xs={24} md={12} style={{display: isOriginalVisible ? 'block' : 'none'}}>
+        <Col xs={24} sm={12} style={{display: isOriginalVisible ? 'block' : 'none'}}>
           <canvas ref={originalCanvasRef} style={{width: '100%', height: canvasHeight}} />
         </Col>
       </Row>

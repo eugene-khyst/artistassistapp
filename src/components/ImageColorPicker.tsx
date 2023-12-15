@@ -229,26 +229,28 @@ export const ImageColorPicker: React.FC<Props> = ({
     });
   };
 
+  const height = `calc((100vh - 75px) / ${screens['sm'] ? '1' : '2 - 8px'})`;
+
   return (
     <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
       <Row>
-        <Col xs={24} md={12} lg={16}>
+        <Col xs={24} sm={12} lg={16}>
           <canvas
             ref={canvasRef}
             style={{
               width: '100%',
-              height: `calc((100vh - 75px) / ${screens['md'] ? '1' : '2 - 8px'})`,
-              marginBottom: screens['md'] ? 0 : 8,
+              height,
+              marginBottom: screens['sm'] ? 0 : 8,
             }}
           />
         </Col>
         <Col
           xs={24}
-          md={12}
+          sm={12}
           lg={8}
           style={{
-            maxHeight: `calc((100vh - 75px) / ${screens['md'] ? '1' : '2 - 8px'})`,
-            marginTop: screens['md'] ? 0 : 8,
+            maxHeight: height,
+            marginTop: screens['sm'] ? 0 : 8,
             overflowY: 'auto',
           }}
         >
