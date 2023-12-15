@@ -3,8 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {PrinterOutlined} from '@ant-design/icons';
-import {Button, CheckboxOptionType, Radio, RadioChangeEvent, Space, Spin} from 'antd';
+import {EllipsisOutlined, PrinterOutlined} from '@ant-design/icons';
+import {
+  Button,
+  CheckboxOptionType,
+  Dropdown,
+  MenuProps,
+  Radio,
+  RadioChangeEvent,
+  Space,
+  Spin,
+} from 'antd';
 import {Remote, wrap} from 'comlink';
 import {useEffect, useRef, useState} from 'react';
 import {useReactToPrint} from 'react-to-print';
@@ -21,7 +30,6 @@ const tonalValues: Remote<TonalValues> = wrap(
 );
 
 const TONES_OPTIONS: CheckboxOptionType[] = [
-  {value: -1, label: 'Highlight', disabled: true},
   {value: 0, label: 'Light tone'},
   {value: 1, label: 'Mid tone'},
   {value: 2, label: 'Shadow'},
@@ -86,6 +94,15 @@ export const ImageTonalValues: React.FC<Props> = ({blob}: Props) => {
     zoomableImageCanvasRef.current?.setImageIndex(imageIndex);
   }, [zoomableImageCanvasRef, imageIndex]);
 
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: 'Print',
+      icon: <PrinterOutlined />,
+      onClick: handlePrint,
+    },
+  ];
+
   return (
     <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
       <Space
@@ -100,9 +117,9 @@ export const ImageTonalValues: React.FC<Props> = ({blob}: Props) => {
           optionType="button"
           buttonStyle="solid"
         />
-        <Button icon={<PrinterOutlined />} onClick={handlePrint}>
-          Print
-        </Button>
+        <Dropdown menu={{items}}>
+          <Button icon={<EllipsisOutlined />} />
+        </Dropdown>
       </Space>
       <div>
         <canvas ref={canvasRef} style={{width: '100%', height: `calc(100vh - 115px)`}} />
