@@ -23,7 +23,7 @@ import {Remote, wrap} from 'comlink';
 import {Dispatch, SetStateAction, useCallback, useContext, useEffect, useState} from 'react';
 import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
 import {useZoomableImageCanvas} from '../hooks/';
-import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
+import {blobToImageBitmapsConverter, useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
 import {
   ColorPickerEventType,
   ImageColorPickerCanvas,
@@ -61,10 +61,6 @@ const colorMixer: Remote<ColorMixer> = wrap(
     type: 'module',
   })
 );
-
-const blobToImageBitmapsConverter = async (blob: Blob): Promise<ImageBitmap[]> => {
-  return [await createImageBitmap(blob)];
-};
 
 const imageColorPickerCanvasSupplier = (canvas: HTMLCanvasElement): ImageColorPickerCanvas => {
   return new ImageColorPickerCanvas(canvas);

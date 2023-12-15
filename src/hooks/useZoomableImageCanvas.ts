@@ -9,6 +9,10 @@ import {useDebounce, useWindowSize} from 'usehooks-ts';
 import {useVisibilityChange} from '.';
 import {ZoomableImageCanvas} from '../services/canvas/image';
 
+export function zoomableImageCanvasSupplier(canvas: HTMLCanvasElement): ZoomableImageCanvas {
+  return new ZoomableImageCanvas(canvas);
+}
+
 interface Result<T> {
   ref: RefCallback<HTMLCanvasElement>;
   zoomableImageCanvasRef: MutableRefObject<T | undefined>;
@@ -40,8 +44,7 @@ export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
     if (!zoomableImageCanvas || !isVisible || !windowSize.height) {
       return;
     }
-    const {canvas} = zoomableImageCanvas;
-    zoomableImageCanvas.setSize(canvas.offsetWidth, canvas.offsetHeight);
+    zoomableImageCanvas.resize();
   }, [windowSize, isVisible, screens]);
 
   useEffect(() => {

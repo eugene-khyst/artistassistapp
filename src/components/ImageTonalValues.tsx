@@ -3,22 +3,30 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {EllipsisOutlined, PrinterOutlined} from '@ant-design/icons';
+import {
+  EllipsisOutlined,
+  MergeCellsOutlined,
+  PrinterOutlined,
+  SplitCellsOutlined,
+} from '@ant-design/icons';
 import {
   Button,
   CheckboxOptionType,
+  Col,
   Dropdown,
+  Grid,
   MenuProps,
   Radio,
   RadioChangeEvent,
+  Row,
   Space,
   Spin,
 } from 'antd';
 import {Remote, wrap} from 'comlink';
 import {useEffect, useRef, useState} from 'react';
 import {useReactToPrint} from 'react-to-print';
-import {useZoomableImageCanvas} from '../hooks/';
-import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
+import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '../hooks/';
+import {blobToImageBitmapsConverter, useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
 import {ZoomableImageCanvas} from '../services/canvas/image';
 import {TonalValues} from '../services/image';
 import {imageBitmapToOffscreenCanvas} from '../utils';
@@ -37,12 +45,8 @@ const TONES_OPTIONS: CheckboxOptionType[] = [
 const THRESHOLDS = [75, 50, 25];
 const MEDIAN_FILTER_RADIUS = 3;
 
-const blobToImageBitmapsConverter = async (blob: Blob): Promise<ImageBitmap[]> => {
+const tonalValuesBlobToImageBitmapsConverter = async (blob: Blob): Promise<ImageBitmap[]> => {
   return (await tonalValues.getTones(blob, THRESHOLDS, MEDIAN_FILTER_RADIUS)).tones;
-};
-
-const zoomableImageCanvasSupplier = (canvas: HTMLCanvasElement): ZoomableImageCanvas => {
-  return new ZoomableImageCanvas(canvas);
 };
 
 type Props = {
@@ -50,17 +54,41 @@ type Props = {
 };
 
 export const ImageTonalValues: React.FC<Props> = ({blob}: Props) => {
-  const {images, isLoading} = useCreateImageBitmap(blobToImageBitmapsConverter, blob);
+  const screens = Grid.useBreakpoint();
 
-  const {ref: canvasRef, zoomableImageCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
-    zoomableImageCanvasSupplier,
-    images
+  const {images: tonalValues, isLoading: isTonalValuesLoading} = useCreateImageBitmap(
+    tonalValuesBlobToImageBitmapsConverter,
+    blob
   );
-  const [imageIndex, setImageIndex] = useState<number>(0);
+  const {images: original, isLoading: isOriginalLoading} = useCreateImageBitmap(
+    blobToImageBitmapsConverter,
+    blob
+  );
+
+  const {ref: tonalValuesCanvasRef, zoomableImageCanvasRef: tonalValuesZoomableImageCanvasRef} =
+    useZoomableImageCanvas<ZoomableImageCanvas>(zoomableImageCanvasSupplier, tonalValues);
+  const {ref: originalCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
+    zoomableImageCanvasSupplier,
+    original
+  );
+
+  const [tonalValuesImageIndex, setTonalValuesImageIndex] = useState<number>(0);
+
+  const [isOriginalVisible, setIsOriginalVisible] = useState<boolean>(true);
 
   const printRef = useRef<HTMLDivElement>(null);
   const promiseResolveRef = useRef<any>(null);
   const [printImagesUrls, setPrintImagesUrls] = useState<string[]>([]);
+
+  const isLoading: boolean = isTonalValuesLoading || isOriginalLoading;
+
+  useEffect(() => {
+    tonalValuesZoomableImageCanvasRef.current?.setImageIndex(tonalValuesImageIndex);
+  }, [tonalValuesZoomableImageCanvasRef, tonalValuesImageIndex]);
+
+  useEffect(() => {
+    tonalValuesZoomableImageCanvasRef.current?.resize();
+  }, [tonalValuesZoomableImageCanvasRef, isOriginalVisible]);
 
   useEffect(() => {
     if (printImagesUrls.length && promiseResolveRef.current) {
@@ -72,7 +100,7 @@ export const ImageTonalValues: React.FC<Props> = ({blob}: Props) => {
     content: () => printRef.current,
     onBeforeGetContent: async () => {
       const blobs = await Promise.all(
-        images.map((image: ImageBitmap): Promise<Blob> => {
+        tonalValues.map((image: ImageBitmap): Promise<Blob> => {
           const [canvas] = imageBitmapToOffscreenCanvas(image);
           return canvas.convertToBlob();
         })
@@ -90,10 +118,6 @@ export const ImageTonalValues: React.FC<Props> = ({blob}: Props) => {
     },
   });
 
-  useEffect(() => {
-    zoomableImageCanvasRef.current?.setImageIndex(imageIndex);
-  }, [zoomableImageCanvasRef, imageIndex]);
-
   const items: MenuProps['items'] = [
     {
       key: '1',
@@ -101,7 +125,17 @@ export const ImageTonalValues: React.FC<Props> = ({blob}: Props) => {
       icon: <PrinterOutlined />,
       onClick: handlePrint,
     },
+    {
+      key: '2',
+      label: isOriginalVisible ? 'Hide original image' : 'Show original image',
+      icon: isOriginalVisible ? <MergeCellsOutlined /> : <SplitCellsOutlined />,
+      onClick: () => setIsOriginalVisible(prev => !prev),
+    },
   ];
+
+  const canvasHeight = isOriginalVisible
+    ? `calc((100vh - 115px) / ${screens['md'] ? '1' : '2'})`
+    : 'calc(100vh - 115px)';
 
   return (
     <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
@@ -112,8 +146,8 @@ export const ImageTonalValues: React.FC<Props> = ({blob}: Props) => {
       >
         <Radio.Group
           options={TONES_OPTIONS}
-          value={imageIndex}
-          onChange={(e: RadioChangeEvent) => setImageIndex(e.target.value)}
+          value={tonalValuesImageIndex}
+          onChange={(e: RadioChangeEvent) => setTonalValuesImageIndex(e.target.value)}
           optionType="button"
           buttonStyle="solid"
         />
@@ -121,9 +155,14 @@ export const ImageTonalValues: React.FC<Props> = ({blob}: Props) => {
           <Button icon={<EllipsisOutlined />} />
         </Dropdown>
       </Space>
-      <div>
-        <canvas ref={canvasRef} style={{width: '100%', height: `calc(100vh - 115px)`}} />
-      </div>
+      <Row>
+        <Col xs={24} md={isOriginalVisible ? 12 : 24}>
+          <canvas ref={tonalValuesCanvasRef} style={{width: '100%', height: canvasHeight}} />
+        </Col>
+        <Col xs={24} md={12} style={{display: isOriginalVisible ? 'block' : 'none'}}>
+          <canvas ref={originalCanvasRef} style={{width: '100%', height: canvasHeight}} />
+        </Col>
+      </Row>
       <div style={{display: 'none'}}>
         <div ref={printRef}>
           {printImagesUrls.map((url: string, i: number) => (

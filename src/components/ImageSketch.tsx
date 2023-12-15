@@ -8,7 +8,7 @@ import {SliderMarks} from 'antd/es/slider';
 import {Remote, wrap} from 'comlink';
 import {useContext, useEffect, useState} from 'react';
 import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
-import {useZoomableImageCanvas} from '../hooks/';
+import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '../hooks/';
 import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
 import {ZoomableImageCanvas} from '../services/canvas/image';
 import {Sketch} from '../services/image';
@@ -26,10 +26,6 @@ const MEDIAN_FILTER_RADIUSES = range(MIN_MEDIAN_FILTER_RADIUS, MAX_MEDIAN_FILTER
 
 const blobToImageBitmapsConverter = async (blob: Blob): Promise<ImageBitmap[]> => {
   return (await sketch.getSketches(blob, MEDIAN_FILTER_RADIUSES)).sketches;
-};
-
-const zoomableImageCanvasSupplier = (canvas: HTMLCanvasElement): ZoomableImageCanvas => {
-  return new ZoomableImageCanvas(canvas);
 };
 
 type Props = {

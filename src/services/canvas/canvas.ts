@@ -23,6 +23,10 @@ export abstract class Canvas {
     this.draw();
   }
 
+  resize(): void {
+    this.setSize(this.canvas.offsetWidth, this.canvas.offsetHeight);
+  }
+
   public destroy(): void {
     // noop
   }

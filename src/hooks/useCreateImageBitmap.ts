@@ -5,6 +5,10 @@
 
 import {useEffect, useState} from 'react';
 
+export async function blobToImageBitmapsConverter(blob: Blob): Promise<ImageBitmap[]> {
+  return [await createImageBitmap(blob)];
+}
+
 interface Result {
   images: ImageBitmap[];
   isLoading: boolean;
