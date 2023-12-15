@@ -230,6 +230,7 @@ export const ImageColorPicker: React.FC<Props> = ({
   };
 
   const height = `calc((100vh - 75px) / ${screens['sm'] ? '1' : '2 - 8px'})`;
+  const margin = screens['sm'] ? 0 : 8;
 
   return (
     <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
@@ -240,7 +241,7 @@ export const ImageColorPicker: React.FC<Props> = ({
             style={{
               width: '100%',
               height,
-              marginBottom: screens['sm'] ? 0 : 8,
+              marginBottom: margin,
             }}
           />
         </Col>
@@ -250,7 +251,7 @@ export const ImageColorPicker: React.FC<Props> = ({
           lg={8}
           style={{
             maxHeight: height,
-            marginTop: screens['sm'] ? 0 : 8,
+            marginTop: margin,
             overflowY: 'auto',
           }}
         >
