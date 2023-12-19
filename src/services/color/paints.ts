@@ -6,12 +6,14 @@
 import {Rgb, RgbTuple} from './model';
 
 export enum PaintType {
-  Watercolor = 1,
+  WatercolorPaint = 1,
   OilPaint = 2,
   AcrylicPaint = 3,
+  ColoredPencils = 4,
+  WatercolorPencils = 5,
 }
 
-export const PAINT_TYPES = [PaintType.Watercolor, PaintType.OilPaint, PaintType.AcrylicPaint];
+export const PAINT_TYPES = [PaintType.WatercolorPaint, PaintType.OilPaint, PaintType.AcrylicPaint];
 
 export enum PaintBrand {
   Rembrandt = 1,
@@ -31,10 +33,22 @@ export enum PaintBrand {
   MGraham = 15,
   DaVinci = 16,
   ShinhanPwc = 17,
+  DerwentChromaflow = 18,
+  DerwentColoursoft = 19,
+  DerwentDrawing = 20,
+  DerwentLightfast = 21,
+  DerwentProcolour = 22,
+  DerwentInktense = 23,
+  DerwentWatercolour = 24,
+  FaberCastellGoldfaber = 25,
+  FaberCastellPolychromos = 26,
+  CaranDAcheLuminance = 27,
+  CaranDAcheMuseumAquarelle = 28,
+  KohINoorPolycolor = 29,
 }
 
 export const PAINT_BRANDS: Record<PaintType, PaintBrand[]> = {
-  [PaintType.Watercolor]: [
+  [PaintType.WatercolorPaint]: [
     PaintBrand.RosaGallery,
     PaintBrand.Rembrandt,
     PaintBrand.VanGogh,
@@ -59,6 +73,24 @@ export const PAINT_BRANDS: Record<PaintType, PaintBrand[]> = {
     PaintBrand.WinsorNewtonProfessional,
     PaintBrand.SchminckePrimacryl,
     PaintBrand.OldHolland,
+  ],
+  [PaintType.ColoredPencils]: [
+    PaintBrand.KohINoorPolycolor,
+    PaintBrand.DerwentChromaflow,
+    PaintBrand.DerwentColoursoft,
+    PaintBrand.DerwentDrawing,
+    PaintBrand.DerwentLightfast,
+    PaintBrand.DerwentProcolour,
+    PaintBrand.FaberCastellGoldfaber,
+    PaintBrand.FaberCastellPolychromos,
+    PaintBrand.CaranDAcheLuminance,
+    PaintBrand.VanGogh,
+    PaintBrand.Holbein,
+  ],
+  [PaintType.WatercolorPencils]: [
+    PaintBrand.DerwentInktense,
+    PaintBrand.DerwentWatercolour,
+    PaintBrand.CaranDAcheMuseumAquarelle,
   ],
 };
 
@@ -105,20 +137,22 @@ export interface Label {
 }
 
 export const PAINT_TYPE_LABELS: Record<PaintType, string> = {
-  [PaintType.Watercolor]: 'Watercolor',
+  [PaintType.WatercolorPaint]: 'Watercolor paint',
   [PaintType.OilPaint]: 'Oil paint',
   [PaintType.AcrylicPaint]: 'Acrylic paint',
+  [PaintType.ColoredPencils]: 'Colored pencils',
+  [PaintType.WatercolorPencils]: 'Watercolor pencils',
 };
 
 export const PAINT_BRAND_LABELS: Record<PaintType, Partial<Record<PaintBrand, Label>>> = {
-  [PaintType.Watercolor]: {
+  [PaintType.WatercolorPaint]: {
     [PaintBrand.RosaGallery]: {fullText: 'Rosa Gallery Watercolours', shortText: 'Rosa Gallery'},
     [PaintBrand.Rembrandt]: {
-      fullText: 'Rembrandt Royal Talens Watercolour',
+      fullText: 'Rembrandt Watercolour',
       shortText: 'Rembrandt',
     },
     [PaintBrand.VanGogh]: {
-      fullText: 'Van Gogh Royal Talens Watercolour',
+      fullText: 'Van Gogh Watercolour',
       shortText: 'Van Gogh',
     },
     [PaintBrand.DanielSmithExtraFine]: {
@@ -188,65 +222,125 @@ export const PAINT_BRAND_LABELS: Record<PaintType, Partial<Record<PaintBrand, La
       shortText: 'Old Holland',
     },
   },
+  [PaintType.ColoredPencils]: {
+    [PaintBrand.KohINoorPolycolor]: {
+      fullText: 'Koh-I-Noor Polycolor',
+      shortText: 'Koh-I-Noor Polycolor',
+    },
+    [PaintBrand.DerwentChromaflow]: {
+      fullText: 'Derwent Chromaflow Pencils',
+      shortText: 'Derwent Chromaflow',
+    },
+    [PaintBrand.DerwentColoursoft]: {
+      fullText: 'Derwent Coloursoft Pencils',
+      shortText: 'Derwent Coloursoft',
+    },
+    [PaintBrand.DerwentDrawing]: {
+      fullText: 'Derwent Colour Drawing Pencils',
+      shortText: 'Derwent Drawing',
+    },
+    [PaintBrand.DerwentLightfast]: {
+      fullText: 'Derwent Lightfast Colour Pencils',
+      shortText: 'Derwent Lightfast',
+    },
+    [PaintBrand.DerwentProcolour]: {
+      fullText: 'Derwent Procolour Pencils',
+      shortText: 'Derwent Procolour',
+    },
+    [PaintBrand.FaberCastellGoldfaber]: {
+      fullText: 'Faber-Castell Goldfaber Colour Pencils',
+      shortText: 'Faber-Castell Goldfaber',
+    },
+    [PaintBrand.FaberCastellPolychromos]: {
+      fullText: 'Faber-Castell Polychromos Colour Pencils',
+      shortText: 'Faber-Castell Polychromos',
+    },
+    [PaintBrand.CaranDAcheLuminance]: {
+      fullText: "Caran d'Ache Luminance 6901",
+      shortText: "Caran d'Ache Luminance",
+    },
+    [PaintBrand.VanGogh]: {
+      fullText: 'Van Gogh Colour Pencils',
+      shortText: 'Van Gogh',
+    },
+    [PaintBrand.Holbein]: {
+      fullText: "Holbein Artists' Colored Pencils",
+      shortText: 'Holbein',
+    },
+  },
+  [PaintType.WatercolorPencils]: {
+    [PaintBrand.DerwentInktense]: {
+      fullText: 'Derwent Inktense Pencils',
+      shortText: 'Derwent Inktense',
+    },
+    [PaintBrand.DerwentWatercolour]: {
+      fullText: 'Derwent Watercolour Pencils',
+      shortText: 'Derwent Watercolour',
+    },
+    [PaintBrand.CaranDAcheMuseumAquarelle]: {
+      fullText: "Caran d'Ache Museum Aquarelle",
+      shortText: "Caran d'Ache Museum Aquarelle",
+    },
+  },
 };
 
 const PAINTS: Record<PaintType, Partial<Record<PaintBrand, [paints: URL, paintSets: URL]>>> = {
-  [PaintType.Watercolor]: {
+  [PaintType.WatercolorPaint]: {
     [PaintBrand.RosaGallery]: [
-      new URL('../../data/watercolor/rosa-gallery/colors.json', import.meta.url),
-      new URL('../../data/watercolor/rosa-gallery/sets.json', import.meta.url),
+      new URL('../../data/watercolor-paint/rosa-gallery/colors.json', import.meta.url),
+      new URL('../../data/watercolor-paint/rosa-gallery/sets.json', import.meta.url),
     ],
     [PaintBrand.Rembrandt]: [
-      new URL('../../data/watercolor/rembrandt/colors.json', import.meta.url),
-      new URL('../../data/watercolor/rembrandt/sets.json', import.meta.url),
+      new URL('../../data/watercolor-paint/rembrandt/colors.json', import.meta.url),
+      new URL('../../data/watercolor-paint/rembrandt/sets.json', import.meta.url),
     ],
     [PaintBrand.VanGogh]: [
-      new URL('../../data/watercolor/van-gogh/colors.json', import.meta.url),
-      new URL('../../data/watercolor/van-gogh/sets.json', import.meta.url),
+      new URL('../../data/watercolor-paint/van-gogh/colors.json', import.meta.url),
+      new URL('../../data/watercolor-paint/van-gogh/sets.json', import.meta.url),
     ],
     [PaintBrand.DanielSmithExtraFine]: [
-      new URL('../../data/watercolor/daniel-smith-extra-fine/colors.json', import.meta.url),
-      new URL('../../data/watercolor/daniel-smith-extra-fine/sets.json', import.meta.url),
+      new URL('../../data/watercolor-paint/daniel-smith-extra-fine/colors.json', import.meta.url),
+      new URL('../../data/watercolor-paint/daniel-smith-extra-fine/sets.json', import.meta.url),
     ],
     [PaintBrand.DanielSmithPrimaTek]: [
-      new URL('../../data/watercolor/daniel-smith-primatek/colors.json', import.meta.url),
-      new URL('../../data/watercolor/daniel-smith-primatek/sets.json', import.meta.url),
+      new URL('../../data/watercolor-paint/daniel-smith-primatek/colors.json', import.meta.url),
+      new URL('../../data/watercolor-paint/daniel-smith-primatek/sets.json', import.meta.url),
     ],
     [PaintBrand.SchminckeHoradam]: [
-      new URL('../../data/watercolor/horadam/colors.json', import.meta.url),
-      new URL('../../data/watercolor/horadam/sets.json', import.meta.url),
+      new URL('../../data/watercolor-paint/horadam/colors.json', import.meta.url),
+      new URL('../../data/watercolor-paint/horadam/sets.json', import.meta.url),
     ],
     [PaintBrand.WinsorNewtonProfessional]: [
-      new URL('../../data/watercolor/winsor-newton/colors.json', import.meta.url),
-      new URL('../../data/watercolor/winsor-newton/sets.json', import.meta.url),
+      new URL('../../data/watercolor-paint/winsor-newton/colors.json', import.meta.url),
+      new URL('../../data/watercolor-paint/winsor-newton/sets.json', import.meta.url),
     ],
     [PaintBrand.Sennelier]: [
-      new URL('../../data/watercolor/sennelier/colors.json', import.meta.url),
-      new URL('../../data/watercolor/sennelier/sets.json', import.meta.url),
+      new URL('../../data/watercolor-paint/sennelier/colors.json', import.meta.url),
+      new URL('../../data/watercolor-paint/sennelier/sets.json', import.meta.url),
     ],
     [PaintBrand.OldHolland]: [
-      new URL('../../data/watercolor/old-holland/colors.json', import.meta.url),
-      new URL('../../data/watercolor/old-holland/sets.json', import.meta.url),
+      new URL('../../data/watercolor-paint/old-holland/colors.json', import.meta.url),
+      new URL('../../data/watercolor-paint/old-holland/sets.json', import.meta.url),
     ],
     [PaintBrand.GansaiTambi]: [
-      new URL('../../data/watercolor/gansai-tambi/colors.json', import.meta.url),
-      new URL('../../data/watercolor/gansai-tambi/sets.json', import.meta.url),
+      new URL('../../data/watercolor-paint/gansai-tambi/colors.json', import.meta.url),
+      new URL('../../data/watercolor-paint/gansai-tambi/sets.json', import.meta.url),
     ],
     [PaintBrand.Holbein]: [
-      new URL('../../data/watercolor/holbein/colors.json', import.meta.url),
-      new URL('../../data/watercolor/holbein/sets.json', import.meta.url),
+      new URL('../../data/watercolor-paint/holbein/colors.json', import.meta.url),
+      new URL('../../data/watercolor-paint/holbein/sets.json', import.meta.url),
     ],
     [PaintBrand.MGraham]: [
-      new URL('../../data/watercolor/m-graham/colors.json', import.meta.url),
-      new URL('../../data/watercolor/m-graham/sets.json', import.meta.url),
+      new URL('../../data/watercolor-paint/m-graham/colors.json', import.meta.url),
+      new URL('../../data/watercolor-paint/m-graham/sets.json', import.meta.url),
     ],
     [PaintBrand.DaVinci]: [
-      new URL('../../data/watercolor/da-vinci/colors.json', import.meta.url),
-      new URL('../../data/watercolor/da-vinci/sets.json', import.meta.url),
+      new URL('../../data/watercolor-paint/da-vinci/colors.json', import.meta.url),
+      new URL('../../data/watercolor-paint/da-vinci/sets.json', import.meta.url),
     ],
     [PaintBrand.ShinhanPwc]: [
-      new URL('../../data/watercolor/shinhan-pwc/colors.json', import.meta.url),
-      new URL('../../data/watercolor/shinhan-pwc/sets.json', import.meta.url),
+      new URL('../../data/watercolor-paint/shinhan-pwc/colors.json', import.meta.url),
+      new URL('../../data/watercolor-paint/shinhan-pwc/sets.json', import.meta.url),
     ],
   },
   [PaintType.OilPaint]: {
@@ -275,6 +369,75 @@ const PAINTS: Record<PaintType, Partial<Record<PaintBrand, [paints: URL, paintSe
     [PaintBrand.OldHolland]: [
       new URL('../../data/acrylic-paint/old-holland/colors.json', import.meta.url),
       new URL('../../data/acrylic-paint/old-holland/sets.json', import.meta.url),
+    ],
+  },
+  [PaintType.ColoredPencils]: {
+    [PaintBrand.KohINoorPolycolor]: [
+      new URL('../../data/colored-pencils/koh-i-noor-polycolor/colors.json', import.meta.url),
+      new URL('../../data/colored-pencils/koh-i-noor-polycolor/sets.json', import.meta.url),
+    ],
+    [PaintBrand.DerwentChromaflow]: [
+      new URL('../../data/colored-pencils/derwent-chromaflow/colors.json', import.meta.url),
+      new URL('../../data/colored-pencils/derwent-chromaflow/sets.json', import.meta.url),
+    ],
+    [PaintBrand.DerwentColoursoft]: [
+      new URL('../../data/colored-pencils/derwent-coloursoft/colors.json', import.meta.url),
+      new URL('../../data/colored-pencils/derwent-coloursoft/sets.json', import.meta.url),
+    ],
+    [PaintBrand.DerwentDrawing]: [
+      new URL('../../data/colored-pencils/derwent-drawing/colors.json', import.meta.url),
+      new URL('../../data/colored-pencils/derwent-drawing/sets.json', import.meta.url),
+    ],
+    [PaintBrand.DerwentLightfast]: [
+      new URL('../../data/colored-pencils/derwent-lightfast/colors.json', import.meta.url),
+      new URL('../../data/colored-pencils/derwent-lightfast/sets.json', import.meta.url),
+    ],
+    [PaintBrand.DerwentProcolour]: [
+      new URL('../../data/colored-pencils/derwent-procolour/colors.json', import.meta.url),
+      new URL('../../data/colored-pencils/derwent-procolour/sets.json', import.meta.url),
+    ],
+    [PaintBrand.FaberCastellGoldfaber]: [
+      new URL('../../data/colored-pencils/faber-castell-goldfaber/colors.json', import.meta.url),
+      new URL('../../data/colored-pencils/faber-castell-goldfaber/sets.json', import.meta.url),
+    ],
+    [PaintBrand.FaberCastellPolychromos]: [
+      new URL('../../data/colored-pencils/faber-castell-polychromos/colors.json', import.meta.url),
+      new URL('../../data/colored-pencils/faber-castell-polychromos/sets.json', import.meta.url),
+    ],
+    [PaintBrand.CaranDAcheLuminance]: [
+      new URL(
+        '../../data/colored-pencils/caran-d-ache-luminance-6901/colors.json',
+        import.meta.url
+      ),
+      new URL('../../data/colored-pencils/caran-d-ache-luminance-6901/sets.json', import.meta.url),
+    ],
+    [PaintBrand.VanGogh]: [
+      new URL('../../data/colored-pencils/van-gogh/colors.json', import.meta.url),
+      new URL('../../data/colored-pencils/van-gogh/sets.json', import.meta.url),
+    ],
+    [PaintBrand.Holbein]: [
+      new URL('../../data/colored-pencils/holbein-artists/colors.json', import.meta.url),
+      new URL('../../data/colored-pencils/holbein-artists/sets.json', import.meta.url),
+    ],
+  },
+  [PaintType.WatercolorPencils]: {
+    [PaintBrand.DerwentInktense]: [
+      new URL('../../data/watercolor-pencils/derwent-inktense/colors.json', import.meta.url),
+      new URL('../../data/watercolor-pencils/derwent-inktense/sets.json', import.meta.url),
+    ],
+    [PaintBrand.DerwentWatercolour]: [
+      new URL('../../data/watercolor-pencils/derwent-watercolour/colors.json', import.meta.url),
+      new URL('../../data/watercolor-pencils/derwent-watercolour/sets.json', import.meta.url),
+    ],
+    [PaintBrand.CaranDAcheMuseumAquarelle]: [
+      new URL(
+        '../../data/watercolor-pencils/caran-d-ache-museum-aquarelle/colors.json',
+        import.meta.url
+      ),
+      new URL(
+        '../../data/watercolor-pencils/caran-d-ache-museum-aquarelle/sets.json',
+        import.meta.url
+      ),
     ],
   },
 };

@@ -10,6 +10,22 @@ import {Lab, Reflectance, Rgb, RgbTuple} from './model';
 
 const DELTA_E_LIMIT = 20;
 
+const NUMBER_OF_PAINTS_IN_MIX: Record<PaintType, number> = {
+  [PaintType.WatercolorPaint]: 3,
+  [PaintType.OilPaint]: 3,
+  [PaintType.AcrylicPaint]: 3,
+  [PaintType.ColoredPencils]: 1,
+  [PaintType.WatercolorPencils]: 1,
+};
+
+const ONLY_THICK_CONSISTENCY_BY_DEFAULT: Record<PaintType, boolean> = {
+  [PaintType.WatercolorPaint]: false,
+  [PaintType.OilPaint]: true,
+  [PaintType.AcrylicPaint]: true,
+  [PaintType.ColoredPencils]: false,
+  [PaintType.WatercolorPencils]: false,
+};
+
 export type PaintConsistency = [paint: number, fluid: number];
 
 const CONSISTENCIES: PaintConsistency[] = [
@@ -341,15 +357,8 @@ function uniqueSimilarColors(similarColors: SimilarColor[]): SimilarColor[] {
 
 export class ColorMixer {
   private paintType: PaintType | null = null;
-
-  private onePaintMixes: MixedPaint[] = [];
-  private twoPaintsMixes: MixedPaint[] = [];
-  private threePaintsMixes: MixedPaint[] = [];
-
-  private onePaintMixLayers: PaintLayer[] = [];
-  private twoPaintsMixLayers: PaintLayer[] = [];
-  private threePaintsMixLayers: PaintLayer[] = [];
-
+  private paintMixes: Map<number, MixedPaint[]> = new Map();
+  private paintMixLayers: Map<number, PaintLayer[]> = new Map();
   private background: Rgb | null = null;
 
   private async getUnmixedColors({colors: paints}: PaintSet): Promise<UnmixedPaint[]> {
@@ -375,9 +384,15 @@ export class ColorMixer {
     }
     const {type} = paintSet;
     const unmixedColors: UnmixedPaint[] = await this.getUnmixedColors(paintSet);
-    this.onePaintMixes = makeOnePaintMixes(type, unmixedColors);
-    this.twoPaintsMixes = makeTwoPaintsMixes(type, unmixedColors);
-    this.threePaintsMixes = makeThreePaintsMixes(type, unmixedColors);
+    this.paintMixes.clear();
+    const numOfPaints: number = NUMBER_OF_PAINTS_IN_MIX[type];
+    this.paintMixes.set(1, makeOnePaintMixes(type, unmixedColors));
+    if (numOfPaints >= 2) {
+      this.paintMixes.set(2, makeTwoPaintsMixes(type, unmixedColors));
+    }
+    if (numOfPaints >= 3) {
+      this.paintMixes.set(3, makeThreePaintsMixes(type, unmixedColors));
+    }
     if (process.env.NODE_ENV !== 'production') {
       console.timeEnd('mix-paints');
     }
@@ -388,21 +403,13 @@ export class ColorMixer {
       console.time('make-paints-consistencies');
     }
     const backgroundReflectance: Reflectance = background.toReflectance();
-    this.onePaintMixLayers = makePaintsConsistencies(
-      this.onePaintMixes,
-      background,
-      backgroundReflectance
-    );
-    this.twoPaintsMixLayers = makePaintsConsistencies(
-      this.twoPaintsMixes,
-      background,
-      backgroundReflectance
-    );
-    this.threePaintsMixLayers = makePaintsConsistencies(
-      this.threePaintsMixes,
-      background,
-      backgroundReflectance
-    );
+    this.paintMixLayers.clear();
+    for (const [numOfPaints, paintMixes] of this.paintMixes) {
+      this.paintMixLayers.set(
+        numOfPaints,
+        makePaintsConsistencies(paintMixes, background, backgroundReflectance)
+      );
+    }
     if (process.env.NODE_ENV !== 'production') {
       console.timeEnd('make-paints-consistencies');
     }
@@ -419,14 +426,11 @@ export class ColorMixer {
       return [];
     }
     const lab: Lab = rgb.toXyz().toLab();
-    const onlyThickConsistency = this.paintType !== PaintType.Watercolor && !isGlaze;
+    const onlyThickConsistency =
+      this.paintType && ONLY_THICK_CONSISTENCY_BY_DEFAULT[this.paintType] && !isGlaze;
     const allSimilarColors: SimilarColor[] = [];
     let topNSimilarColors: SimilarColor[] = [];
-    for (const layers of [
-      this.onePaintMixLayers,
-      this.twoPaintsMixLayers,
-      this.threePaintsMixLayers,
-    ]) {
+    for (const layers of this.paintMixLayers.values()) {
       const similarColors: SimilarColor[] = [];
       for (const layer of layers) {
         const [_, fluidFraction] = layer.consistency;

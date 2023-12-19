@@ -4,22 +4,10 @@
  */
 
 import {ShareAltOutlined} from '@ant-design/icons';
-import {
-  App,
-  Button,
-  Cascader,
-  CheckboxOptionType,
-  Form,
-  Radio,
-  Select,
-  SelectProps,
-  Space,
-  Spin,
-  Typography,
-} from 'antd';
+import {App, Button, Cascader, Form, Select, SelectProps, Space, Spin, Typography} from 'antd';
 import {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {Dispatch, ReactElement, SetStateAction, useEffect, useState} from 'react';
-import {usePaints, useStoreBoughtPaintSets} from '../hooks/';
+import {usePaints, useStoreBoughtPaintSets} from '../hooks';
 import {
   PAINT_BRANDS,
   PAINT_BRAND_LABELS,
@@ -38,7 +26,7 @@ import {ShareModal} from './ShareModal';
 import {ColorSquare} from './color/ColorSquare';
 import {CascaderOption, TabKey} from './types';
 
-const PAINT_TYPE_OPTIONS: CheckboxOptionType[] = Object.entries(PAINT_TYPE_LABELS).map(
+const PAINT_TYPE_OPTIONS: SelectProps['options'] = Object.entries(PAINT_TYPE_LABELS).map(
   ([key, label]: [string, string]) => ({
     value: Number(key),
     label,
@@ -49,7 +37,7 @@ const customPaintSet = [0];
 
 const customPaintSetOption = {
   value: 0,
-  label: 'Custom paint set',
+  label: 'Custom painting set',
 };
 
 function getPaintBrandOptions(type?: PaintType): SelectProps['options'] {
@@ -137,7 +125,7 @@ type Props = {
   importedPaintSet?: PaintSetDefinition;
 };
 
-export const PaintSetChooser: React.FC<Props> = ({
+export const SelectPaintingSet: React.FC<Props> = ({
   setPaintSet,
   setActiveTabKey,
   blob,
@@ -246,7 +234,7 @@ export const PaintSetChooser: React.FC<Props> = ({
     <>
       <div style={{padding: '0 16px'}}>
         <Typography.Title level={3} style={{marginTop: '0.5em'}}>
-          Select paints
+          Select painting set
         </Typography.Title>
         <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
           <Form
@@ -263,22 +251,22 @@ export const PaintSetChooser: React.FC<Props> = ({
           >
             <Form.Item
               name="type"
-              label="Paint type"
+              label="Medium"
               rules={[{required: true, message: '${label} is required'}]}
             >
-              <Radio.Group options={PAINT_TYPE_OPTIONS} optionType="button" buttonStyle="solid" />
+              <Select options={PAINT_TYPE_OPTIONS} placeholder="Select medium" />
             </Form.Item>
             {!!paintType && (
               <Form.Item
                 name="brands"
-                label="Paint brands"
+                label="Brands"
                 rules={[{required: true, message: '${label} are required'}]}
                 dependencies={['paintType']}
               >
                 <Select
                   mode="multiple"
                   options={paintBrandOptions}
-                  placeholder="Select paint brands"
+                  placeholder="Select brands"
                   showSearch
                   filterOption={filterSelectOptions}
                   allowClear
@@ -288,14 +276,14 @@ export const PaintSetChooser: React.FC<Props> = ({
             {!!paintBrands?.length && (
               <Form.Item
                 name="storeBoughtPaintSet"
-                label="Paint set"
+                label="Set"
                 rules={[{required: true, message: '${label} is required'}]}
                 dependencies={['paintType', 'paintBrands']}
-                tooltip="Do you have a store-bought or custom paint set?"
+                tooltip="Do you have a store-bought or custom set?"
               >
                 <Cascader
                   options={storeBoughtPaintSetOptions}
-                  placeholder="Select paint set"
+                  placeholder="Select set"
                   showSearch={{filter: filterCascaderOptions}}
                   expandTrigger="hover"
                   allowClear
@@ -310,7 +298,7 @@ export const PaintSetChooser: React.FC<Props> = ({
                   label={`${PAINT_BRAND_LABELS[paintType][paintBrand]?.fullText} colors`}
                   rules={[{required: true, message: '${label} are required'}]}
                   dependencies={['paintType', 'paintBrands', 'storeBoughtPaintSet']}
-                  tooltip="Add or remove colors to match your actual paint set"
+                  tooltip="Add or remove colors to match your actual painting set"
                 >
                   <Select
                     mode="multiple"
@@ -330,7 +318,7 @@ export const PaintSetChooser: React.FC<Props> = ({
                 </Button>
                 <Button
                   icon={<ShareAltOutlined />}
-                  title="Share this paint set"
+                  title="Share this painting set"
                   onClick={showShareModal}
                 >
                   Share
@@ -341,7 +329,7 @@ export const PaintSetChooser: React.FC<Props> = ({
         </Spin>
       </div>
       <ShareModal
-        title="Share your paint set"
+        title="Share your painting set"
         open={isShareModalOpen}
         setOpen={setIsShareModalOpen}
         url={sharePaintSetUrl}

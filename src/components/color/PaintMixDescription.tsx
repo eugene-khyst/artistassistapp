@@ -10,11 +10,15 @@ import {ColorSquare} from './ColorSquare';
 import {PaintDescription} from './PaintDescription';
 
 const CONSISTENCY_TOOLTIPS = {
-  [PaintType.Watercolor]: 'Watercolor can be diluted with water to make it more transparent.',
+  [PaintType.WatercolorPaint]: 'Watercolor can be diluted with water to make it more transparent.',
   [PaintType.OilPaint]:
     'Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original oil paint layer. You should be able to get the consistency of runny sour cream. Linseed oil is a popular glazing medium.',
   [PaintType.AcrylicPaint]:
     'Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original acrylic paint layer.',
+  [PaintType.ColoredPencils]:
+    'Apply less pressure to make the colored pencil layer more transparent',
+  [PaintType.WatercolorPencils]:
+    'Apply less pressure to make the watercolor pencil layer more transparent',
 };
 
 type Props = {
@@ -35,7 +39,7 @@ export const PaintMixDescription: React.FC<Props> = ({
     <Space direction="vertical" size="small">
       {fractions.length > 1 && (
         <Space size="small">
-          Ratios: {fractions.map(({fraction}: PaintFraction) => fraction).join(' : ')}
+          Ratio: {fractions.map(({fraction}: PaintFraction) => fraction).join(' : ')}
         </Space>
       )}
       <Space size="small">
@@ -55,16 +59,26 @@ export const PaintMixDescription: React.FC<Props> = ({
       </Space>
       {showConsistency && fluidFraction !== 0 && (
         <Space size="small">
-          {type === PaintType.Watercolor ? (
+          {type === PaintType.WatercolorPaint && (
             <>
               Consistency:
               <span>
                 <b>{paintFraction}</b> paint : <b>{fluidFraction}</b> water
               </span>
             </>
-          ) : (
+          )}
+          {type === PaintType.OilPaint ||
+            (type === PaintType.AcrylicPaint && (
+              <>
+                Layer thikness:
+                <span>
+                  {paintFraction}/{paintFraction + fluidFraction}
+                </span>
+              </>
+            ))}
+          {type === PaintType.ColoredPencils && (
             <>
-              Layer thikness:
+              Pressure:
               <span>
                 {paintFraction}/{paintFraction + fluidFraction}
               </span>

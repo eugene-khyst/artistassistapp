@@ -121,15 +121,15 @@ export const ImageTonalValues: React.FC<Props> = ({blob}: Props) => {
   const items: MenuProps['items'] = [
     {
       key: '1',
-      label: 'Print',
-      icon: <PrinterOutlined />,
-      onClick: handlePrint,
-    },
-    {
-      key: '2',
       label: isOriginalVisible ? 'Hide original image' : 'Show original image',
       icon: isOriginalVisible ? <MergeCellsOutlined /> : <SplitCellsOutlined />,
       onClick: () => setIsOriginalVisible(prev => !prev),
+    },
+    {
+      key: '2',
+      label: 'Print',
+      icon: <PrinterOutlined />,
+      onClick: handlePrint,
     },
   ];
 
