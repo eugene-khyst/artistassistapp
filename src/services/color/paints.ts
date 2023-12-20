@@ -75,7 +75,6 @@ export const PAINT_BRANDS: Record<PaintType, PaintBrand[]> = {
     PaintBrand.OldHolland,
   ],
   [PaintType.ColoredPencils]: [
-    PaintBrand.KohINoorPolycolor,
     PaintBrand.DerwentChromaflow,
     PaintBrand.DerwentColoursoft,
     PaintBrand.DerwentDrawing,
@@ -84,6 +83,7 @@ export const PAINT_BRANDS: Record<PaintType, PaintBrand[]> = {
     PaintBrand.FaberCastellGoldfaber,
     PaintBrand.FaberCastellPolychromos,
     PaintBrand.CaranDAcheLuminance,
+    PaintBrand.KohINoorPolycolor,
     PaintBrand.VanGogh,
     PaintBrand.Holbein,
   ],

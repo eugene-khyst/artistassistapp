@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export function computeIfAbsent<K, V>(map: Map<K, V>, key: K, valueFn: (key: K) => V): V {
+export function computeIfAbsentInMap<K, V>(map: Map<K, V>, key: K, valueFn: (key: K) => V): V {
   const value: V | undefined = map.get(key);
   if (value) {
     return value;
@@ -11,4 +11,12 @@ export function computeIfAbsent<K, V>(map: Map<K, V>, key: K, valueFn: (key: K) 
   const newValue: V = valueFn(key);
   map.set(key, newValue);
   return newValue;
+}
+
+export function maxInMap<V>(map: Map<any, V>, valueFn: (value: V) => number): number {
+  let max = Number.NEGATIVE_INFINITY;
+  for (const value of map.values()) {
+    max = Math.max(max, valueFn(value));
+  }
+  return max;
 }

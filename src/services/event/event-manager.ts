@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {computeIfAbsent} from '../../utils';
+import {computeIfAbsentInMap} from '../../utils';
 
 export type EventListener<S> = (data: S) => void | Promise<void>;
 
@@ -11,7 +11,7 @@ export class EventManager<T extends string> {
   private listeners: Map<T, EventListener<any>[]> = new Map();
 
   subscribe<S>(eventType: T, listener: EventListener<S>) {
-    computeIfAbsent(this.listeners, eventType, () => []).push(listener);
+    computeIfAbsentInMap(this.listeners, eventType, () => []).push(listener);
   }
 
   unsubscribe<S>(eventType: T, listener: EventListener<S>) {

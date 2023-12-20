@@ -22,6 +22,7 @@ import {
   toPaintSet,
 } from '../services/color';
 import {getLastPaintSet, getPaintSetByType, savePaintSet} from '../services/db';
+import {maxInMap} from '../utils';
 import {ShareModal} from './ShareModal';
 import {ColorSquare} from './color/ColorSquare';
 import {CascaderOption, TabKey} from './types';
@@ -79,21 +80,26 @@ function getPaintOptions(
     return {};
   }
   return Object.fromEntries(
-    [...paints.entries()].map(([brand, paints]: [PaintBrand, Map<number, Paint>]) => [
-      brand,
-      [...paints.values()].map(({id, name, rgb}: Paint) => {
-        const label: string = id < 1000 ? `${String(id).padStart(3, '0')} ${name}` : name;
-        return {
-          value: id,
-          label: (
-            <Space size="small" align="center" key={label}>
-              <ColorSquare color={rgb} />
-              <span>{label}</span>
-            </Space>
-          ),
-        };
-      }),
-    ])
+    [...paints.entries()].map(([brand, paints]: [PaintBrand, Map<number, Paint>]) => {
+      const maxId: number = maxInMap(paints, ({id}: Paint) => id);
+      const padLength = maxId.toString().length;
+      return [
+        brand,
+        [...paints.values()].map(({id, name, rgb}: Paint) => {
+          const label: string =
+            padLength > 4 ? name : `${String(id).padStart(padLength, '0')} ${name}`;
+          return {
+            value: id,
+            label: (
+              <Space size="small" align="center" key={label}>
+                <ColorSquare color={rgb} />
+                <span>{label}</span>
+              </Space>
+            ),
+          };
+        }),
+      ];
+    })
   );
 }
 
