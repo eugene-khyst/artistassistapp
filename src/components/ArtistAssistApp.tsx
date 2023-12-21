@@ -13,21 +13,23 @@ import {Alert, App, Button, Col, FloatButton, Row, Tabs, Tooltip, theme} from 'a
 import {useCallback, useState} from 'react';
 import StickyBox from 'react-sticky-box';
 import {useEventListener} from 'usehooks-ts';
+import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
 import {useFullScreen} from '../hooks/useFullscreen';
 import {OFF_WHITE_HEX, PaintMix, PaintSet, UrlParsingResult, parseUrl} from '../services/color';
 import {Rgb, RgbTuple} from '../services/color/model';
+import {createScaledImageBitmap} from '../utils';
 import {AboutModal} from './AboutModal';
 import {ImageColorPicker} from './ImageColorPicker';
 import {ImageSketch} from './ImageSketch';
 import {ImageTonalValues} from './ImageTonalValues';
-import {SelectPaintingSet} from './SelectPaintingSet';
 import {Palette} from './Palette';
 import {ReflectanceChartDrawer} from './ReflectanceChartDrawer';
 import {SelectImage} from './SelectImage';
+import {SelectPaintingSet} from './SelectPaintingSet';
 import {TabKey} from './types';
 
 const isBrowserSupported =
-  typeof Worker &&
+  typeof Worker !== 'undefined' &&
   typeof OffscreenCanvas !== 'undefined' &&
   typeof createImageBitmap !== 'undefined' &&
   typeof indexedDB !== 'undefined';
@@ -38,6 +40,12 @@ const {paintSet: importedPaintSet, paintMix: importedPaintMix}: UrlParsingResult
 if (importedPaintSet || importedPaintMix) {
   history.pushState({}, '', '/');
 }
+
+const MAX_IMAGE_SIZE_2K = 2560 * 1440;
+
+const blobToImageBitmapsConverter = async (blob: Blob): Promise<ImageBitmap[]> => {
+  return [await createScaledImageBitmap(blob, MAX_IMAGE_SIZE_2K)];
+};
 
 export const ArtistAssistApp: React.FC = () => {
   const {
@@ -59,6 +67,11 @@ export const ArtistAssistApp: React.FC = () => {
   const [isOpenReflectanceChart, setIsOpenReflectanceChart] = useState<boolean>(false);
   const [paintMixes, setPaintMixes] = useState<PaintMix[] | undefined>();
   const [isAboutModalOpen, setIsAboutModalOpen] = useState<boolean>(false);
+
+  const {images, isLoading: isImagesLoading} = useCreateImageBitmap(
+    blobToImageBitmapsConverter,
+    blob
+  );
 
   useEventListener('beforeunload', event => {
     event.returnValue = 'Are you sure you want to leave?';
@@ -111,7 +124,8 @@ export const ArtistAssistApp: React.FC = () => {
         <ImageColorPicker
           {...{
             paintSet,
-            blob,
+            images,
+            isImagesLoading,
             backgroundColor,
             setBackgroundColor,
             isGlaze,
@@ -153,9 +167,9 @@ export const ArtistAssistApp: React.FC = () => {
     {
       key: TabKey.TonalValues,
       label: 'Tonal Values',
-      children: <ImageTonalValues blob={blob} />,
+      children: <ImageTonalValues {...{blob, images, isImagesLoading}} />,
       forceRender: true,
-      disabled: !paintSet || !blob,
+      disabled: !paintSet || !blob || !images.length,
     },
   ];
 
@@ -169,7 +183,7 @@ export const ArtistAssistApp: React.FC = () => {
     return (
       <Alert
         message="Error"
-        description="Your browser is not supported. Use the latest version of the browser to access the web app."
+        description={`Your browser is not supported: ${navigator.userAgent}. Use the latest version of Chrome, Safari, Firefox or Opera browser to access the web app.`}
         type="error"
         showIcon
         style={{margin: '16px'}}

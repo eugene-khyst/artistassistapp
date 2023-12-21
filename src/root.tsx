@@ -4,7 +4,7 @@
  */
 
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import {App} from 'antd';
+import {Alert, App} from 'antd';
 import {StrictMode} from 'react';
 import {Root, createRoot} from 'react-dom/client';
 import {ArtistAssistApp} from './components/ArtistAssistApp';
@@ -21,12 +21,16 @@ const queryClient = new QueryClient({
   },
 });
 
+const {ErrorBoundary} = Alert;
+
 const root: Root = createRoot(document.getElementById('root')!);
 root.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <App message={{maxCount: 1, duration: 5, top: 60}}>
-        <ArtistAssistApp />
+        <ErrorBoundary>
+          <ArtistAssistApp />
+        </ErrorBoundary>
       </App>
     </QueryClientProvider>
   </StrictMode>

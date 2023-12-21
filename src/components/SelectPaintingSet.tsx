@@ -9,6 +9,7 @@ import {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {Dispatch, ReactElement, SetStateAction, useEffect, useState} from 'react';
 import {usePaints, useStoreBoughtPaintSets} from '../hooks';
 import {
+  NUMBER_OF_PAINTS_IN_MIX,
   PAINT_BRANDS,
   PAINT_BRAND_LABELS,
   PAINT_TYPE_LABELS,
@@ -26,6 +27,8 @@ import {maxInMap} from '../utils';
 import {ShareModal} from './ShareModal';
 import {ColorSquare} from './color/ColorSquare';
 import {CascaderOption, TabKey} from './types';
+
+const MAX_COLORS = 36;
 
 const PAINT_TYPE_OPTIONS: SelectProps['options'] = Object.entries(PAINT_TYPE_LABELS).map(
   ([key, label]: [string, string]) => ({
@@ -302,7 +305,28 @@ export const SelectPaintingSet: React.FC<Props> = ({
                   key={paintBrand}
                   name={['colors', paintBrand.toString()]}
                   label={`${PAINT_BRAND_LABELS[paintType][paintBrand]?.fullText} colors`}
-                  rules={[{required: true, message: '${label} are required'}]}
+                  rules={[
+                    {required: true, message: '${label} are required'},
+                    ({getFieldValue}) => ({
+                      validator() {
+                        const paintType = getFieldValue('type') as PaintType;
+                        if (NUMBER_OF_PAINTS_IN_MIX[paintType] === 1) {
+                          return Promise.resolve();
+                        }
+                        const colors = getFieldValue('colors') as Record<PaintBrand, number[]>;
+                        const totalColors = Object.values(colors)
+                          .map((ids: number[]) => ids.length)
+                          .reduce((a: number, b: number) => a + b, 0);
+                        if (totalColors > MAX_COLORS) {
+                          return Promise.reject(
+                            `A total of ${MAX_COLORS} colors of all brands are allowed`
+                          );
+                        } else {
+                          return Promise.resolve();
+                        }
+                      },
+                    }),
+                  ]}
                   dependencies={['paintType', 'paintBrands', 'storeBoughtPaintSet']}
                   tooltip="Add or remove colors to match your actual painting set"
                 >
@@ -310,7 +334,6 @@ export const SelectPaintingSet: React.FC<Props> = ({
                     mode="multiple"
                     options={paintOptions[paintBrand] ?? []}
                     placeholder="Select colors"
-                    maxTagCount={36}
                     showSearch
                     filterOption={filterSelectOptions}
                     allowClear

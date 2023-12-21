@@ -3,32 +3,25 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export function imageBitmapToOffscreenCanvas(
-  image: ImageBitmap
-): [OffscreenCanvas, OffscreenCanvasRenderingContext2D] {
-  const canvas = new OffscreenCanvas(image.width, image.height);
-  const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d', {
-    willReadFrequently: true,
-  })!;
-  ctx.drawImage(image, 0, 0);
-  return [canvas, ctx];
+export async function createScaledImageBitmap(blob: Blob, maxImageArea: number) {
+  const image: ImageBitmap = await createImageBitmap(blob);
+  const scale: number = Math.min(1, Math.sqrt(maxImageArea / (image.width * image.height)));
+  const scaledImage: ImageBitmap = await createImageBitmap(image, {
+    resizeWidth: Math.trunc(image.width * scale),
+  });
+  image.close();
+  return scaledImage;
 }
 
-export function imageBitmapToOffscreenCanvasWithScaling(
+export function imageBitmapToOffscreenCanvas(
   image: ImageBitmap,
-  expandBy = 0,
-  maxCanvasArea = 1280 * 720
+  expandBy = 0
 ): [OffscreenCanvas, OffscreenCanvasRenderingContext2D] {
-  const scale: number = Math.min(1, Math.sqrt(maxCanvasArea / (image.width * image.height)));
-  const width = Math.trunc(image.width * scale);
-  const height = Math.trunc(image.height * scale);
+  const {width, height} = image;
   const canvas = new OffscreenCanvas(width + 2 * expandBy, height + 2 * expandBy);
   const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d', {
     willReadFrequently: true,
   })!;
-  if (expandBy > 0) {
-    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-  }
   ctx.drawImage(image, expandBy, expandBy, width, height);
   return [canvas, ctx];
 }

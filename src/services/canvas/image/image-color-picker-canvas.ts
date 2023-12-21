@@ -4,6 +4,7 @@
  */
 
 import {ZoomableImageCanvas, ZoomableImageCanvasProps} from '.';
+import {imageBitmapToOffscreenCanvas} from '../../../utils';
 import {Rgb} from '../../color/model';
 import {EventManager} from '../../event';
 import {getAverageColor} from '../../image';
@@ -27,6 +28,7 @@ export interface ImageColorPickerCanvasProps extends ZoomableImageCanvasProps {
 }
 
 export class ImageColorPickerCanvas extends ZoomableImageCanvas {
+  private offscreenCanvases: OffscreenCanvas[] = [];
   private pipetDiameter: number;
   private pipetPoint: Vector | null = null;
   private pipetRgb: Rgb = Rgb.WHITE;
@@ -50,6 +52,17 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
   protected override onImagesLoaded(): void {
     this.initOffscreenCanvases();
     this.pipetPoint = null;
+  }
+
+  protected initOffscreenCanvases(): void {
+    this.offscreenCanvases = this.images.map((bitmap: ImageBitmap) => {
+      const [canvas] = imageBitmapToOffscreenCanvas(bitmap);
+      return canvas;
+    });
+  }
+
+  protected getOffscreenCanvas(): OffscreenCanvas | null {
+    return this.images.length > this.imageIndex ? this.offscreenCanvases[this.imageIndex] : null;
   }
 
   private drawPipet(): void {

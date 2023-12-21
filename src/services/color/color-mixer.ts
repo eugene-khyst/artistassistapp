@@ -10,7 +10,7 @@ import {Lab, Reflectance, Rgb, RgbTuple} from './model';
 
 const DELTA_E_LIMIT = 20;
 
-const NUMBER_OF_PAINTS_IN_MIX: Record<PaintType, number> = {
+export const NUMBER_OF_PAINTS_IN_MIX: Record<PaintType, number> = {
   [PaintType.WatercolorPaint]: 3,
   [PaintType.OilPaint]: 3,
   [PaintType.AcrylicPaint]: 3,

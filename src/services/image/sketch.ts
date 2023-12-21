@@ -5,7 +5,9 @@
 
 import {transfer} from 'comlink';
 import {medianFilter} from '.';
-import {imageBitmapToOffscreenCanvasWithScaling} from '../../utils';
+import {createScaledImageBitmap, imageBitmapToOffscreenCanvas} from '../../utils';
+
+const MAX_IMAGE_SIZE_HD = 1280 * 720;
 
 interface Result {
   sketches: ImageBitmap[];
@@ -16,9 +18,9 @@ export class Sketch {
     if (process.env.NODE_ENV !== 'production') {
       console.time('sketches');
     }
-    const image: ImageBitmap = await createImageBitmap(blob);
+    const image: ImageBitmap = await createScaledImageBitmap(blob, MAX_IMAGE_SIZE_HD);
     const maxMedianFilterRadius: number = Math.max(...medianFilterRadiuses);
-    const [canvas, ctx] = imageBitmapToOffscreenCanvasWithScaling(image, maxMedianFilterRadius);
+    const [canvas, ctx] = imageBitmapToOffscreenCanvas(image, maxMedianFilterRadius);
     const imageData: ImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     image.close();
     const {data: origData, width, height} = imageData;

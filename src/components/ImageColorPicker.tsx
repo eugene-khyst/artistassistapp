@@ -23,7 +23,6 @@ import {Remote, wrap} from 'comlink';
 import {Dispatch, SetStateAction, useCallback, useContext, useEffect, useState} from 'react';
 import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
 import {useZoomableImageCanvas} from '../hooks/';
-import {blobToImageBitmapsConverter, useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
 import {
   ColorPickerEventType,
   ImageColorPickerCanvas,
@@ -68,7 +67,8 @@ const imageColorPickerCanvasSupplier = (canvas: HTMLCanvasElement): ImageColorPi
 
 type Props = {
   paintSet?: PaintSet;
-  blob?: Blob;
+  images: ImageBitmap[];
+  isImagesLoading: boolean;
   backgroundColor: string;
   setBackgroundColor: Dispatch<SetStateAction<string>>;
   isGlaze: boolean;
@@ -81,7 +81,8 @@ type Props = {
 
 export const ImageColorPicker: React.FC<Props> = ({
   paintSet,
-  blob,
+  images,
+  isImagesLoading,
   backgroundColor,
   setBackgroundColor,
   isGlaze,
@@ -103,11 +104,6 @@ export const ImageColorPicker: React.FC<Props> = ({
     sampleDiameterSliderMarkValues.map((i: number) => [i, i])
   );
 
-  const {images, isLoading: isImageBitmapsLoading} = useCreateImageBitmap(
-    blobToImageBitmapsConverter,
-    blob
-  );
-
   const {ref: canvasRef, zoomableImageCanvasRef: colorPickerCanvasRef} =
     useZoomableImageCanvas<ImageColorPickerCanvas>(imageColorPickerCanvasSupplier, images);
 
@@ -120,10 +116,7 @@ export const ImageColorPicker: React.FC<Props> = ({
   const [isBackgroundColorLoading, setIsBackgroundColorLoading] = useState<boolean>(false);
   const [isSimilarColorsLoading, setIsSimilarColorsLoading] = useState<boolean>(false);
   const isLoading: boolean =
-    isImageBitmapsLoading ||
-    isPaintSetLoading ||
-    isBackgroundColorLoading ||
-    isSimilarColorsLoading;
+    isImagesLoading || isPaintSetLoading || isBackgroundColorLoading || isSimilarColorsLoading;
 
   useEffect(() => {
     (async () => {
@@ -164,7 +157,7 @@ export const ImageColorPicker: React.FC<Props> = ({
     setIsGlaze(false);
     setTargetColor(OFF_WHITE_HEX);
     setSimilarColors([]);
-  }, [blob, setBackgroundColor, setIsGlaze]);
+  }, [images, setBackgroundColor, setIsGlaze]);
 
   useEffect(() => {
     (async () => {
