@@ -53,7 +53,6 @@ export enum PaintBrand {
 
 export const PAINT_BRANDS: Record<PaintType, PaintBrand[]> = {
   [PaintType.WatercolorPaint]: [
-    PaintBrand.RosaGallery,
     PaintBrand.Rembrandt,
     PaintBrand.VanGogh,
     PaintBrand.DanielSmithExtraFine,
@@ -67,6 +66,7 @@ export const PAINT_BRANDS: Record<PaintType, PaintBrand[]> = {
     PaintBrand.GansaiTambi,
     PaintBrand.Holbein,
     PaintBrand.ShinhanPwc,
+    PaintBrand.RosaGallery,
   ],
   [PaintType.OilPaint]: [
     PaintBrand.SchminckeMussini,

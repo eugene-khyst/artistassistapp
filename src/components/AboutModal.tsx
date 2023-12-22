@@ -12,7 +12,7 @@ import {
   MailOutlined,
   ReadOutlined,
 } from '@ant-design/icons';
-import {Button, Col, Modal, Row, Space} from 'antd';
+import {Button, Col, Modal, Row, Space, theme} from 'antd';
 import {Dispatch, SetStateAction, useContext} from 'react';
 import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
 import {Logo} from './Logo';
@@ -23,7 +23,12 @@ type Props = {
 };
 
 export const AboutModal: React.FC<Props> = ({open, setOpen}: Props) => {
+  const {
+    token: {fontSizeSM},
+  } = theme.useToken();
+
   const {websiteUrl} = useContext<AppConfig>(AppConfigContext);
+
   return (
     <Modal title="ArtistAssistApp" open={open} footer={null} onCancel={() => setOpen(false)}>
       <Space direction="vertical" align="center" size="small" style={{width: '100%'}}>
@@ -99,6 +104,11 @@ export const AboutModal: React.FC<Props> = ({open, setOpen}: Props) => {
                 Terms of use
               </Button>
             </Space>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={24} style={{fontSize: fontSizeSM, textAlign: 'justify'}}>
+            Running in {navigator.userAgent}
           </Col>
         </Row>
       </Space>

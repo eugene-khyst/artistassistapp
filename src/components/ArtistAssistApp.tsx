@@ -183,7 +183,7 @@ export const ArtistAssistApp: React.FC = () => {
     return (
       <Alert
         message="Error"
-        description={`Your browser is not supported: ${navigator.userAgent}. Use the latest version of Chrome, Safari, Firefox or Opera browser to access the web app.`}
+        description={`Your web browser is not supported: ${navigator.userAgent}. Use the latest version of Chrome, Safari, Firefox or Opera browser to access the web app.`}
         type="error"
         showIcon
         style={{margin: '16px'}}
