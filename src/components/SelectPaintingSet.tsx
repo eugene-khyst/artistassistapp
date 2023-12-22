@@ -19,6 +19,7 @@ import {
   PaintSetDefinition,
   PaintType,
   StoreBoughtPaintSet,
+  formatPaintId,
   paintSetToUrl,
   toPaintSet,
 } from '../services/color';
@@ -85,12 +86,11 @@ function getPaintOptions(
   return Object.fromEntries(
     [...paints.entries()].map(([brand, paints]: [PaintBrand, Map<number, Paint>]) => {
       const maxId: number = maxInMap(paints, ({id}: Paint) => id);
-      const padLength = maxId.toString().length;
       return [
         brand,
-        [...paints.values()].map(({id, name, rgb}: Paint) => {
-          const label: string =
-            padLength > 4 ? name : `${String(id).padStart(padLength, '0')} ${name}`;
+        [...paints.values()].map((paint: Paint) => {
+          const {id, rgb} = paint;
+          const label: string = formatPaintId(paint, maxId);
           return {
             value: id,
             label: (

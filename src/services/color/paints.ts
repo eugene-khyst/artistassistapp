@@ -45,6 +45,10 @@ export enum PaintBrand {
   CaranDAcheLuminance = 27,
   CaranDAcheMuseumAquarelle = 28,
   KohINoorPolycolor = 29,
+  PrismacolorPremierSoftCore = 30,
+  MichaelHarding = 31,
+  VallejoAcrylicStudio = 32,
+  LascauxArtist = 33,
 }
 
 export const PAINT_BRANDS: Record<PaintType, PaintBrand[]> = {
@@ -68,11 +72,14 @@ export const PAINT_BRANDS: Record<PaintType, PaintBrand[]> = {
     PaintBrand.SchminckeMussini,
     PaintBrand.SchminckeNormaProfessional,
     PaintBrand.OldHolland,
+    PaintBrand.MichaelHarding,
   ],
   [PaintType.AcrylicPaint]: [
     PaintBrand.WinsorNewtonProfessional,
     PaintBrand.SchminckePrimacryl,
     PaintBrand.OldHolland,
+    PaintBrand.VallejoAcrylicStudio,
+    PaintBrand.LascauxArtist,
   ],
   [PaintType.ColoredPencils]: [
     PaintBrand.DerwentChromaflow,
@@ -83,6 +90,7 @@ export const PAINT_BRANDS: Record<PaintType, PaintBrand[]> = {
     PaintBrand.FaberCastellGoldfaber,
     PaintBrand.FaberCastellPolychromos,
     PaintBrand.CaranDAcheLuminance,
+    PaintBrand.PrismacolorPremierSoftCore,
     PaintBrand.KohINoorPolycolor,
     PaintBrand.VanGogh,
     PaintBrand.Holbein,
@@ -134,6 +142,12 @@ export interface PaintSet {
 export interface Label {
   fullText: string;
   shortText?: string;
+}
+
+interface PaintIdFormat {
+  padWithLeadingZeros?: boolean;
+  padLength?: number;
+  prefix?: string;
 }
 
 export const PAINT_TYPE_LABELS: Record<PaintType, string> = {
@@ -207,6 +221,10 @@ export const PAINT_BRAND_LABELS: Record<PaintType, Partial<Record<PaintBrand, La
       fullText: 'Old Holland Classic Oil Colours',
       shortText: 'Old Holland',
     },
+    [PaintBrand.MichaelHarding]: {
+      fullText: 'Michael Harding',
+      shortText: 'Michael Harding Oil Colours',
+    },
   },
   [PaintType.AcrylicPaint]: {
     [PaintBrand.SchminckePrimacryl]: {
@@ -220,6 +238,14 @@ export const PAINT_BRAND_LABELS: Record<PaintType, Partial<Record<PaintBrand, La
     [PaintBrand.OldHolland]: {
       fullText: 'Old Holland New Masters Classic Acrylics',
       shortText: 'Old Holland',
+    },
+    [PaintBrand.VallejoAcrylicStudio]: {
+      fullText: 'Vallejo Acrylic Studio',
+      shortText: 'Vallejo Acrylic Studio',
+    },
+    [PaintBrand.LascauxArtist]: {
+      fullText: 'Lascaux Artist',
+      shortText: 'Lascaux Artist',
     },
   },
   [PaintType.ColoredPencils]: {
@@ -266,6 +292,10 @@ export const PAINT_BRAND_LABELS: Record<PaintType, Partial<Record<PaintBrand, La
     [PaintBrand.Holbein]: {
       fullText: "Holbein Artists' Colored Pencils",
       shortText: 'Holbein',
+    },
+    [PaintBrand.PrismacolorPremierSoftCore]: {
+      fullText: 'Prismacolor Premier Soft Core Colored Pencils',
+      shortText: 'Prismacolor Premier Soft Core',
     },
   },
   [PaintType.WatercolorPencils]: {
@@ -356,6 +386,10 @@ const PAINTS: Record<PaintType, Partial<Record<PaintBrand, [paints: URL, paintSe
       new URL('../../data/oil-paint/old-holland/colors.json', import.meta.url),
       new URL('../../data/oil-paint/old-holland/sets.json', import.meta.url),
     ],
+    [PaintBrand.MichaelHarding]: [
+      new URL('../../data/oil-paint/michael-harding/colors.json', import.meta.url),
+      new URL('../../data/oil-paint/michael-harding/sets.json', import.meta.url),
+    ],
   },
   [PaintType.AcrylicPaint]: {
     [PaintBrand.SchminckePrimacryl]: [
@@ -369,6 +403,14 @@ const PAINTS: Record<PaintType, Partial<Record<PaintBrand, [paints: URL, paintSe
     [PaintBrand.OldHolland]: [
       new URL('../../data/acrylic-paint/old-holland/colors.json', import.meta.url),
       new URL('../../data/acrylic-paint/old-holland/sets.json', import.meta.url),
+    ],
+    [PaintBrand.VallejoAcrylicStudio]: [
+      new URL('../../data/acrylic-paint/vallejo-acrylic-studio/colors.json', import.meta.url),
+      new URL('../../data/acrylic-paint/vallejo-acrylic-studio/sets.json', import.meta.url),
+    ],
+    [PaintBrand.LascauxArtist]: [
+      new URL('../../data/acrylic-paint/lascaux-artist/colors.json', import.meta.url),
+      new URL('../../data/acrylic-paint/lascaux-artist/sets.json', import.meta.url),
     ],
   },
   [PaintType.ColoredPencils]: {
@@ -419,6 +461,16 @@ const PAINTS: Record<PaintType, Partial<Record<PaintBrand, [paints: URL, paintSe
       new URL('../../data/colored-pencils/holbein-artists/colors.json', import.meta.url),
       new URL('../../data/colored-pencils/holbein-artists/sets.json', import.meta.url),
     ],
+    [PaintBrand.PrismacolorPremierSoftCore]: [
+      new URL(
+        '../../data/colored-pencils/prismacolor-premier-soft-core/colors.json',
+        import.meta.url
+      ),
+      new URL(
+        '../../data/colored-pencils/prismacolor-premier-soft-core/sets.json',
+        import.meta.url
+      ),
+    ],
   },
   [PaintType.WatercolorPencils]: {
     [PaintBrand.DerwentInktense]: [
@@ -439,6 +491,48 @@ const PAINTS: Record<PaintType, Partial<Record<PaintBrand, [paints: URL, paintSe
         import.meta.url
       ),
     ],
+  },
+};
+
+const PAINT_ID_FORMAT: Partial<Record<PaintType, Partial<Record<PaintBrand, PaintIdFormat>>>> = {
+  [PaintType.WatercolorPaint]: {
+    [PaintBrand.GansaiTambi]: {
+      padWithLeadingZeros: false,
+      prefix: 'No.',
+    },
+    [PaintBrand.Holbein]: {
+      prefix: 'W',
+    },
+  },
+  [PaintType.OilPaint]: {
+    [PaintBrand.MichaelHarding]: {
+      prefix: 'No.',
+    },
+  },
+  [PaintType.AcrylicPaint]: {
+    [PaintBrand.VallejoAcrylicStudio]: {
+      padLength: 3,
+    },
+  },
+  [PaintType.ColoredPencils]: {
+    [PaintBrand.DerwentColoursoft]: {
+      prefix: 'C',
+    },
+    [PaintBrand.FaberCastellGoldfaber]: {
+      prefix: 'A',
+    },
+    [PaintBrand.Holbein]: {
+      prefix: 'OP',
+    },
+    [PaintBrand.PrismacolorPremierSoftCore]: {
+      padWithLeadingZeros: false,
+      prefix: 'PC',
+    },
+  },
+  [PaintType.WatercolorPencils]: {
+    [PaintBrand.DerwentWatercolour]: {
+      padWithLeadingZeros: false,
+    },
   },
 };
 
@@ -482,6 +576,21 @@ export async function fetchStoreBoughtPaintSets(
       storeBoughtPaintSet,
     ])
   );
+}
+
+export function formatPaintId({type, brand, id, name}: Paint, maxId: number) {
+  const {padWithLeadingZeros, prefix, padLength}: PaintIdFormat = {
+    padWithLeadingZeros: true,
+    padLength: maxId.toString().length,
+    ...(PAINT_ID_FORMAT[type]?.[brand] || {}),
+  };
+  if (padLength > 4) {
+    return name;
+  } else {
+    return `${prefix ? prefix : ''}${
+      padWithLeadingZeros ? String(id).padStart(padLength, '0') : id
+    } ${name}`;
+  }
 }
 
 export function toPaintSet(
