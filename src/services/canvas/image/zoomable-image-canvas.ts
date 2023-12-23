@@ -100,7 +100,11 @@ export class ZoomableImageCanvas extends Canvas {
       ctx.scale(this.zoom, this.zoom);
       ctx.translate(this.offset.x, this.offset.y);
       const imageDimension: Rectangle = this.getImageDimension();
-      ctx.drawImage(image, -imageDimension.center.x, -imageDimension.center.y);
+      try {
+        ctx.drawImage(image, -imageDimension.center.x, -imageDimension.center.y);
+      } catch (e) {
+        console.error(e);
+      }
       this.onImageDrawn();
       ctx.restore();
     }
