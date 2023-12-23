@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {App, Col, Divider, Form, Input, Row, Typography} from 'antd';
+import {App, Col, Divider, Form, Input, Row, Typography, theme} from 'antd';
 import {ChangeEvent, Dispatch, SetStateAction, useCallback, useEffect, useState} from 'react';
 import {ImageFile} from '../services/db';
 import {deleteImageFile, getImageFiles, saveImageFile} from '../services/db/image-file-db';
@@ -23,6 +23,10 @@ export const SelectImage: React.FC<Props> = ({
   setActiveTabKey,
   showZoomAndPanMessage,
 }: Props) => {
+  const {
+    token: {fontSizeLG},
+  } = theme.useToken();
+
   const {message} = App.useApp();
 
   const [recentFiles, setRecentFiles] = useState<ImageFile[]>([]);
@@ -66,7 +70,8 @@ export const SelectImage: React.FC<Props> = ({
         Select photo
       </Typography.Title>
       <Form.Item
-        label="Select a new photo"
+        label={<span style={{fontSize: fontSizeLG}}>Select a photo from your device</span>}
+        colon={false}
         labelCol={{xs: 24}}
         labelAlign="left"
         style={{marginBottom: 0}}
