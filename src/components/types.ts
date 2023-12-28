@@ -12,6 +12,7 @@ export enum TabKey {
   Sketch = 'sketch',
   TonalValues = 'tonalValues',
   Palette = 'palette',
+  Grid = 'grid',
 }
 
 export interface CascaderOption {

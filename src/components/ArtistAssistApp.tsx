@@ -19,6 +19,7 @@ import {OFF_WHITE_HEX, PaintMix, PaintSet, UrlParsingResult, parseUrl} from '../
 import {Rgb, RgbTuple} from '../services/color/model';
 import {createScaledImageBitmap} from '../utils';
 import {ImageColorPicker} from './ImageColorPicker';
+import {ImageGrid} from './ImageGrid';
 import {ImageSketch} from './ImageSketch';
 import {ImageTonalValues} from './ImageTonalValues';
 import {Palette} from './Palette';
@@ -107,7 +108,6 @@ export const ArtistAssistApp: React.FC = () => {
       label: 'Photo',
       children: <SelectImage {...{setBlob, setActiveTabKey, showZoomAndPanMessage}} />,
       forceRender: true,
-      disabled: !paintSet,
     },
     {
       key: TabKey.Colors,
@@ -152,14 +152,21 @@ export const ArtistAssistApp: React.FC = () => {
       label: 'Sketch',
       children: <ImageSketch blob={blob} />,
       forceRender: true,
-      disabled: !paintSet || !blob,
+      disabled: !blob,
     },
     {
       key: TabKey.TonalValues,
       label: 'Tonal Values',
       children: <ImageTonalValues {...{blob, images, isImagesLoading}} />,
       forceRender: true,
-      disabled: !paintSet || !blob || !images.length,
+      disabled: !blob || !images.length,
+    },
+    {
+      key: TabKey.Grid,
+      label: 'Grid',
+      children: <ImageGrid {...{images, isImagesLoading}} />,
+      forceRender: true,
+      disabled: !images.length,
     },
   ];
 
