@@ -25,8 +25,8 @@ import {
 } from '../services/color';
 import {getLastPaintSet, getPaintSetByType, savePaintSet} from '../services/db';
 import {maxInMap} from '../utils';
-import {ShareModal} from './ShareModal';
 import {ColorSquare} from './color/ColorSquare';
+import {ShareModal} from './modal/ShareModal';
 import {CascaderOption, TabKey} from './types';
 
 const MAX_COLORS = 36;

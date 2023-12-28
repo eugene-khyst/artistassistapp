@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {DeleteOutlined} from '@ant-design/icons';
-import {Button, Col, Form, Popconfirm, Row, Select} from 'antd';
+import {DatabaseOutlined, DeleteOutlined, EllipsisOutlined} from '@ant-design/icons';
+import {Button, Col, Dropdown, Form, MenuProps, Popconfirm, Row, Select, Space} from 'antd';
 import {useState} from 'react';
 import {
   PaintMix,
@@ -33,6 +33,7 @@ type Props = {
   deleteAllPaintMixes: (paintType: PaintType) => void;
   showShareModal: (paintMix: PaintMix) => void;
   setAsBackground: (background: string | RgbTuple) => void;
+  showColorSwatch: (paintMixes: PaintMix[]) => void;
   showReflectanceChart: (paintMix: PaintMix) => void;
 };
 
@@ -44,9 +45,21 @@ export const PaletteGrid: React.FC<Props> = ({
   deleteAllPaintMixes,
   showShareModal,
   setAsBackground,
+  showColorSwatch,
   showReflectanceChart,
 }: Props) => {
   const [sort, setSort] = useState<Sort>(Sort.ByDataIndex);
+
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: 'Color swatch',
+      icon: <DatabaseOutlined />,
+      onClick: () =>
+        paintMixes && showColorSwatch(paintMixes.slice().sort(PAINT_MIXES_COMPARATORS[sort])),
+      disabled: !paintMixes,
+    },
+  ];
 
   const handleDelteAllButtonClick = () => {
     deleteAllPaintMixes(paintType);
@@ -75,15 +88,20 @@ export const PaletteGrid: React.FC<Props> = ({
             />
           </Form.Item>
           <Form.Item style={{display: 'inline-block', margin: 0}}>
-            <Popconfirm
-              title="Delete the paint mix"
-              description="Are you sure to delete all paint mixes?"
-              onConfirm={handleDelteAllButtonClick}
-              okText="Yes"
-              cancelText="No"
-            >
-              <Button icon={<DeleteOutlined />}>Delete all</Button>
-            </Popconfirm>
+            <Space.Compact block style={{display: 'flex', justifyContent: 'flex-end'}}>
+              <Popconfirm
+                title="Delete the paint mix"
+                description="Are you sure to delete all paint mixes?"
+                onConfirm={handleDelteAllButtonClick}
+                okText="Yes"
+                cancelText="No"
+              >
+                <Button icon={<DeleteOutlined />}>Delete all</Button>
+              </Popconfirm>
+              <Dropdown menu={{items}}>
+                <Button icon={<EllipsisOutlined />} />
+              </Dropdown>
+            </Space.Compact>
           </Form.Item>
         </Form.Item>
       </Row>

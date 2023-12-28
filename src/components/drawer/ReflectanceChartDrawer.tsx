@@ -5,9 +5,9 @@
 
 import {Drawer, Typography} from 'antd';
 import {useEffect} from 'react';
-import {useReflectanceChart} from '../hooks';
-import {PAINT_TYPE_LABELS, PaintFraction, PaintMix} from '../services/color';
-import {PaintMixDescription} from './color/PaintMixDescription';
+import {useReflectanceChart} from '../../hooks';
+import {PAINT_TYPE_LABELS, PaintFraction, PaintMix} from '../../services/color';
+import {PaintMixDescription} from '../color/PaintMixDescription';
 
 type Props = {
   paintMix?: PaintMix;
@@ -32,7 +32,7 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
     fractions.forEach(({paint}: PaintFraction) =>
       reflectanceChart.addReflectance(paint.rho, paint.rgb)
     );
-    reflectanceChart.addReflectance(paintMixRho, paintMixRgb);
+    reflectanceChart.addReflectance(paintMixRho, paintMixRgb, 3);
   }, [reflectanceChartRef, paintMix]);
 
   return (

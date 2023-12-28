@@ -27,11 +27,12 @@ export class ReflectanceChart extends LineChart {
     }
   }
 
-  addReflectance(rho: number[], color: string | RgbTuple = '#fff'): void {
+  addReflectance(rho: number[], color: string | RgbTuple = '#fff', lineWidth = 2): void {
     this.addSeries({
       xValues: WAVELENGTH_RANGE,
       yValues: rho,
       color,
+      lineWidth,
     });
   }
 }

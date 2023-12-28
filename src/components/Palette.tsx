@@ -25,7 +25,9 @@ import {
   savePaintMix as savePaintMixInDb,
 } from '../services/db';
 import {PaletteGrid} from './PaletteGrid';
-import {ShareModal} from './ShareModal';
+import {ColorSwatchDrawer} from './drawer/ColorSwatchDrawer';
+import {ReflectanceChartDrawer} from './drawer/ReflectanceChartDrawer';
+import {ShareModal} from './modal/ShareModal';
 
 type Props = {
   paintType?: PaintType;
@@ -33,7 +35,6 @@ type Props = {
   importedPaintMix?: PaintMixDefinition;
   setPaintMixes: Dispatch<SetStateAction<PaintMix[] | undefined>>;
   setAsBackground: (background: string | RgbTuple) => void;
-  showReflectanceChart: (paintMix: PaintMix) => void;
 };
 
 export const Palette: React.FC<Props> = ({
@@ -42,7 +43,6 @@ export const Palette: React.FC<Props> = ({
   importedPaintMix,
   setPaintMixes,
   setAsBackground,
-  showReflectanceChart,
 }: Props) => {
   const {message} = App.useApp();
   const [activeKey, setActiveKey] = useState<string | string[]>(
@@ -50,6 +50,12 @@ export const Palette: React.FC<Props> = ({
   );
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [sharePaintMixUrl, setSharePaintMixUrl] = useState<string>();
+
+  const [colorSwatchPaintMixes, setColorSwatchPaintMixes] = useState<PaintMix[] | undefined>();
+  const [isOpenColorSwatch, setIsOpenColorSwatch] = useState<boolean>(false);
+
+  const [reflectanceChartPaintMix, setReflectanceChartPaintMix] = useState<PaintMix | undefined>();
+  const [isOpenReflectanceChart, setIsOpenReflectanceChart] = useState<boolean>(false);
 
   const importedPaintMixType: PaintType | undefined = importedPaintMix?.type;
   const importedPaintMixBrands: PaintBrand[] | undefined = importedPaintMix?.fractions?.map(
@@ -117,6 +123,16 @@ export const Palette: React.FC<Props> = ({
     setIsShareModalOpen(true);
   }, []);
 
+  const showColorSwatch = (paintMixes: PaintMix[]) => {
+    setColorSwatchPaintMixes(paintMixes);
+    setIsOpenColorSwatch(true);
+  };
+
+  const showReflectanceChart = (paintMix: PaintMix) => {
+    setReflectanceChartPaintMix(paintMix);
+    setIsOpenReflectanceChart(true);
+  };
+
   const items: CollapseProps['items'] = PAINT_TYPES.flatMap((paintType: PaintType) => {
     const filteredPaintMixes: PaintMix[] | undefined = paintMixes?.filter(
       ({type}: PaintMix) => type === paintType
@@ -137,6 +153,7 @@ export const Palette: React.FC<Props> = ({
                   deleteAllPaintMixes,
                   showShareModal,
                   setAsBackground,
+                  showColorSwatch,
                   showReflectanceChart,
                 }}
               />
@@ -175,6 +192,16 @@ export const Palette: React.FC<Props> = ({
         open={isShareModalOpen}
         setOpen={setIsShareModalOpen}
         url={sharePaintMixUrl}
+      />
+      <ColorSwatchDrawer
+        paintMixes={colorSwatchPaintMixes}
+        open={isOpenColorSwatch}
+        onClose={() => setIsOpenColorSwatch(false)}
+      />
+      <ReflectanceChartDrawer
+        paintMix={reflectanceChartPaintMix}
+        open={isOpenReflectanceChart}
+        onClose={() => setIsOpenReflectanceChart(false)}
       />
     </>
   );

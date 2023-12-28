@@ -14,6 +14,7 @@ export interface Series {
   xValues: number[];
   yValues: number[];
   color: string | RgbTuple;
+  lineWidth?: number;
 }
 
 export class LineChartProps {
@@ -112,8 +113,8 @@ export class LineChart extends Canvas {
     this.drawBackground();
     this.drawXAxis();
     this.drawYAxis();
-    this.seriesArray.forEach(({xValues, yValues, color}: Series) =>
-      this.drawSeries(xValues, yValues, color)
+    this.seriesArray.forEach(({xValues, yValues, color, lineWidth = 1}: Series) =>
+      this.drawSeries(xValues, yValues, color, lineWidth)
     );
   }
 
@@ -216,11 +217,16 @@ export class LineChart extends Canvas {
     ctx.restore();
   }
 
-  private drawSeries(xValues: number[], yValues: number[], color: string | RgbTuple): void {
+  private drawSeries(
+    xValues: number[],
+    yValues: number[],
+    color: string | RgbTuple,
+    lineWidth: number
+  ): void {
     const ctx: CanvasRenderingContext2D = this.context;
     ctx.save();
 
-    ctx.lineWidth = 2;
+    ctx.lineWidth = lineWidth;
     const colorHex = Rgb.fromHexOrTuple(color).toHex();
     ctx.strokeStyle = colorHex;
     ctx.fillStyle = colorHex;
@@ -241,7 +247,7 @@ export class LineChart extends Canvas {
       ctx.closePath();
 
       ctx.beginPath();
-      ctx.arc(x, y, 3, 0, 2 * Math.PI, false);
+      ctx.arc(x, y, lineWidth + 1, 0, 2 * Math.PI, false);
       ctx.fill();
       ctx.closePath();
 

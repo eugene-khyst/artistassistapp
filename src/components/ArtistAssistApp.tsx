@@ -18,14 +18,13 @@ import {useFullScreen} from '../hooks/useFullscreen';
 import {OFF_WHITE_HEX, PaintMix, PaintSet, UrlParsingResult, parseUrl} from '../services/color';
 import {Rgb, RgbTuple} from '../services/color/model';
 import {createScaledImageBitmap} from '../utils';
-import {AboutModal} from './AboutModal';
 import {ImageColorPicker} from './ImageColorPicker';
 import {ImageSketch} from './ImageSketch';
 import {ImageTonalValues} from './ImageTonalValues';
 import {Palette} from './Palette';
-import {ReflectanceChartDrawer} from './ReflectanceChartDrawer';
 import {SelectImage} from './SelectImage';
 import {SelectPaintingSet} from './SelectPaintingSet';
+import {AboutModal} from './modal/AboutModal';
 import {TabKey} from './types';
 
 const isBrowserSupported =
@@ -63,8 +62,6 @@ export const ArtistAssistApp: React.FC = () => {
   const [blob, setBlob] = useState<Blob | undefined>();
   const [backgroundColor, setBackgroundColor] = useState<string>(OFF_WHITE_HEX);
   const [isGlaze, setIsGlaze] = useState<boolean>(false);
-  const [reflectanceChartPaintMix, setReflectanceChartPaintMix] = useState<PaintMix | undefined>();
-  const [isOpenReflectanceChart, setIsOpenReflectanceChart] = useState<boolean>(false);
   const [paintMixes, setPaintMixes] = useState<PaintMix[] | undefined>();
   const [isAboutModalOpen, setIsAboutModalOpen] = useState<boolean>(false);
 
@@ -85,11 +82,6 @@ export const ArtistAssistApp: React.FC = () => {
     },
     [setBackgroundColor, setIsGlaze]
   );
-
-  const showReflectanceChart = useCallback((paintMix: PaintMix) => {
-    setReflectanceChartPaintMix(paintMix);
-    setIsOpenReflectanceChart(true);
-  }, []);
 
   const showZoomAndPanMessage = useCallback(() => {
     message.info('🔎 Pinch to zoom (or use the mouse wheel) and drag to pan');
@@ -133,7 +125,6 @@ export const ArtistAssistApp: React.FC = () => {
             paintMixes,
             setPaintMixes,
             setAsBackground,
-            showReflectanceChart,
           }}
         />
       ),
@@ -150,7 +141,6 @@ export const ArtistAssistApp: React.FC = () => {
             paintMixes,
             setPaintMixes,
             setAsBackground,
-            showReflectanceChart,
             importedPaintMix,
           }}
         />
@@ -212,11 +202,6 @@ export const ArtistAssistApp: React.FC = () => {
           />
         </Col>
       </Row>
-      <ReflectanceChartDrawer
-        paintMix={reflectanceChartPaintMix}
-        open={isOpenReflectanceChart}
-        onClose={() => setIsOpenReflectanceChart(false)}
-      />
       <FloatButton
         icon={isFullscreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
         shape="square"

@@ -14,8 +14,8 @@ import {
 } from '@ant-design/icons';
 import {Button, Col, Modal, Row, Space, theme} from 'antd';
 import {Dispatch, SetStateAction, useContext} from 'react';
-import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
-import {Logo} from './Logo';
+import {AppConfig, AppConfigContext} from '../../context/AppConfigContext';
+import {Logo} from '../Logo';
 
 type Props = {
   open: boolean;
