@@ -9,30 +9,23 @@ import * as dayjs from 'dayjs';
 import {Dispatch, SetStateAction} from 'react';
 import {useCreateObjectUrl} from '../../hooks/useCreateObjectUrl';
 import {ImageFile} from '../../services/db';
-import {TabKey} from '../types';
 
 type Props = {
   imageFile: ImageFile;
   deleteRecentImage: (id?: number) => void;
   setBlob: Dispatch<SetStateAction<Blob | undefined>>;
-  setActiveTabKey: Dispatch<SetStateAction<TabKey>>;
-  showZoomAndPanMessage: () => void;
 };
 
 export const RecentImage: React.FC<Props> = ({
   imageFile: {id, file, date},
   deleteRecentImage,
   setBlob,
-  setActiveTabKey,
-  showZoomAndPanMessage,
 }: Props) => {
   const imageSrc: string | undefined = useCreateObjectUrl(file);
   const dateStr: string | undefined = date && dayjs(date).format('DD/MM/YYYY');
 
   const handleCardClick = () => {
     setBlob(file);
-    setActiveTabKey(TabKey.Colors);
-    showZoomAndPanMessage();
   };
 
   const handleDeleteButtonClick = () => {

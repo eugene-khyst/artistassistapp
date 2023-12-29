@@ -27,7 +27,7 @@ import {getLastPaintSet, getPaintSetByType, savePaintSet} from '../services/db';
 import {maxInMap} from '../utils';
 import {ColorSquare} from './color/ColorSquare';
 import {ShareModal} from './modal/ShareModal';
-import {CascaderOption, TabKey} from './types';
+import {CascaderOption} from './types';
 
 const MAX_COLORS = 36;
 
@@ -129,17 +129,10 @@ const formInitialValues: PaintSetDefinition = {
 
 type Props = {
   setPaintSet: Dispatch<SetStateAction<PaintSet | undefined>>;
-  setActiveTabKey: Dispatch<SetStateAction<TabKey>>;
-  blob?: Blob;
   importedPaintSet?: PaintSetDefinition;
 };
 
-export const SelectPaintingSet: React.FC<Props> = ({
-  setPaintSet,
-  setActiveTabKey,
-  blob,
-  importedPaintSet,
-}: Props) => {
+export const SelectPaintingSet: React.FC<Props> = ({setPaintSet, importedPaintSet}: Props) => {
   const {message} = App.useApp();
   const [form] = Form.useForm<PaintSetDefinition>();
   const paintType = Form.useWatch<PaintType | undefined>('type', form);
@@ -227,7 +220,6 @@ export const SelectPaintingSet: React.FC<Props> = ({
     savePaintSet(values);
     const paintSet: PaintSet = toPaintSet(values, paints);
     setPaintSet(paintSet);
-    setActiveTabKey(!blob ? TabKey.Photo : TabKey.Colors);
   };
 
   const handleSubmitFailed = () => {

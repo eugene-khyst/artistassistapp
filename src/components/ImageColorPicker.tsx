@@ -335,9 +335,9 @@ export const ImageColorPicker: React.FC<Props> = ({
             </div>
             {!similarColors.length ? (
               <div style={{padding: '16px', textAlign: 'center'}}>
-                ❔ No data
+                ⁉️ No data
                 <br />
-                👆 Click or tap anywhere on the image to choose a color
+                Click 🖱️ or tap 👆 anywhere on the image to choose a color
               </div>
             ) : (
               <div style={{padding: '8px 16px'}}>

@@ -10,19 +10,12 @@ import {deleteImageFile, getImageFiles, saveImageFile} from '../services/db/imag
 import {SAMPLE_IMAGES, SampleImageUrl} from '../services/image/sample-images';
 import {RecentImage} from './image/RecentImage';
 import {SampleImage} from './image/SampleImage';
-import {TabKey} from './types';
 
 type Props = {
   setBlob: Dispatch<SetStateAction<Blob | undefined>>;
-  setActiveTabKey: Dispatch<SetStateAction<TabKey>>;
-  showZoomAndPanMessage: () => void;
 };
 
-export const SelectImage: React.FC<Props> = ({
-  setBlob,
-  setActiveTabKey,
-  showZoomAndPanMessage,
-}: Props) => {
+export const SelectImage: React.FC<Props> = ({setBlob}: Props) => {
   const {
     token: {fontSizeLG},
   } = theme.useToken();
@@ -58,8 +51,6 @@ export const SelectImage: React.FC<Props> = ({
       return;
     }
     setBlob(file);
-    setActiveTabKey(TabKey.Colors);
-    showZoomAndPanMessage();
     await saveImageFile(file);
     setRecentFiles(await getImageFiles());
   };
@@ -89,8 +80,6 @@ export const SelectImage: React.FC<Props> = ({
                     imageFile,
                     deleteRecentImage,
                     setBlob,
-                    setActiveTabKey,
-                    showZoomAndPanMessage,
                   }}
                 />
               </Col>
@@ -108,8 +97,6 @@ export const SelectImage: React.FC<Props> = ({
                 thumbnail,
                 name,
                 setBlob,
-                setActiveTabKey,
-                showZoomAndPanMessage,
               }}
             />
           </Col>

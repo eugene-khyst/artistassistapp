@@ -10,7 +10,7 @@ import {
 } from '@ant-design/icons';
 import type {TabsProps} from 'antd';
 import {Alert, App, Button, Col, FloatButton, Row, Tabs, Tooltip, theme} from 'antd';
-import {useCallback, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import StickyBox from 'react-sticky-box';
 import {useEventListener} from 'usehooks-ts';
 import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
@@ -71,6 +71,17 @@ export const ArtistAssistApp: React.FC = () => {
     blob
   );
 
+  useEffect(() => {
+    if (!paintSet) {
+      setActiveTabKey(TabKey.Paints);
+    } else if (!blob) {
+      setActiveTabKey(TabKey.Photo);
+    } else {
+      setActiveTabKey(TabKey.Colors);
+      message.info('🔎 Pinch to zoom (or use the mouse wheel) and drag to pan');
+    }
+  }, [paintSet, blob, message]);
+
   useEventListener('beforeunload', event => {
     event.returnValue = 'Are you sure you want to leave?';
   });
@@ -84,10 +95,6 @@ export const ArtistAssistApp: React.FC = () => {
     [setBackgroundColor, setIsGlaze]
   );
 
-  const showZoomAndPanMessage = useCallback(() => {
-    message.info('🔎 Pinch to zoom (or use the mouse wheel) and drag to pan');
-  }, [message]);
-
   const showAboutModal = () => {
     setIsAboutModalOpen(true);
   };
@@ -100,13 +107,13 @@ export const ArtistAssistApp: React.FC = () => {
     {
       key: TabKey.Paints,
       label: 'Paints',
-      children: <SelectPaintingSet {...{setPaintSet, setActiveTabKey, blob, importedPaintSet}} />,
+      children: <SelectPaintingSet {...{setPaintSet, blob, importedPaintSet}} />,
       forceRender: true,
     },
     {
       key: TabKey.Photo,
       label: 'Photo',
-      children: <SelectImage {...{setBlob, setActiveTabKey, showZoomAndPanMessage}} />,
+      children: <SelectImage {...{setBlob}} />,
       forceRender: true,
     },
     {

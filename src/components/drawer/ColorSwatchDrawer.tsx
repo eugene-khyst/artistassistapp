@@ -30,18 +30,16 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
       {paintMixes?.map((paintMix: PaintMix) => {
         const rgb: Rgb = new Rgb(...paintMix.paintMixLayerRgb);
         return (
-          <>
-            <div
-              key={paintMix.id}
-              className="color-swatch"
-              style={{
-                backgroundColor: rgb.toHex(),
-                color: rgb.isDark() ? '#fff' : '#000',
-              }}
-            >
-              {paintMix.name || 'Paint mix'}
-            </div>
-          </>
+          <div
+            key={paintMix.id}
+            className="color-swatch"
+            style={{
+              backgroundColor: rgb.toHex(),
+              color: rgb.isDark() ? '#fff' : '#000',
+            }}
+          >
+            {paintMix.name || 'Paint mix'}
+          </div>
         );
       })}
     </Drawer>
