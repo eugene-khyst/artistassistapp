@@ -42,7 +42,7 @@ const customPaintSet = [0];
 
 const customPaintSetOption = {
   value: 0,
-  label: 'Custom painting set',
+  label: 'Custom paint set',
 };
 
 function getPaintBrandOptions(type?: PaintType): SelectProps['options'] {
@@ -132,7 +132,7 @@ type Props = {
   importedPaintSet?: PaintSetDefinition;
 };
 
-export const SelectPaintingSet: React.FC<Props> = ({setPaintSet, importedPaintSet}: Props) => {
+export const SelectPaintSet: React.FC<Props> = ({setPaintSet, importedPaintSet}: Props) => {
   const {message} = App.useApp();
   const [form] = Form.useForm<PaintSetDefinition>();
   const paintType = Form.useWatch<PaintType | undefined>('type', form);
@@ -235,7 +235,7 @@ export const SelectPaintingSet: React.FC<Props> = ({setPaintSet, importedPaintSe
     <>
       <div style={{padding: '0 16px'}}>
         <Typography.Title level={3} style={{marginTop: '0.5em'}}>
-          Select painting set
+          Select paint set
         </Typography.Title>
         <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
           <Form
@@ -320,7 +320,7 @@ export const SelectPaintingSet: React.FC<Props> = ({setPaintSet, importedPaintSe
                     }),
                   ]}
                   dependencies={['paintType', 'paintBrands', 'storeBoughtPaintSet']}
-                  tooltip="Add or remove colors to match your actual painting set"
+                  tooltip="Add or remove colors to match your actual paint set"
                 >
                   <Select
                     mode="multiple"
@@ -339,7 +339,7 @@ export const SelectPaintingSet: React.FC<Props> = ({setPaintSet, importedPaintSe
                 </Button>
                 <Button
                   icon={<ShareAltOutlined />}
-                  title="Share this painting set"
+                  title="Share this paint set"
                   onClick={showShareModal}
                 >
                   Share
@@ -350,7 +350,7 @@ export const SelectPaintingSet: React.FC<Props> = ({setPaintSet, importedPaintSe
         </Spin>
       </div>
       <ShareModal
-        title="Share your painting set"
+        title="Share your paint set"
         open={isShareModalOpen}
         setOpen={setIsShareModalOpen}
         url={sharePaintSetUrl}

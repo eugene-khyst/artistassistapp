@@ -24,7 +24,7 @@ import {ImageSketch} from './ImageSketch';
 import {ImageTonalValues} from './ImageTonalValues';
 import {Palette} from './Palette';
 import {SelectImage} from './SelectImage';
-import {SelectPaintingSet} from './SelectPaintingSet';
+import {SelectPaintSet} from './SelectPaintSet';
 import {AboutModal} from './modal/AboutModal';
 import {TabKey} from './types';
 
@@ -108,7 +108,7 @@ export const ArtistAssistApp: React.FC = () => {
     {
       key: TabKey.Paints,
       label: 'Paints',
-      children: <SelectPaintingSet {...{setPaintSet, blob, importedPaintSet}} />,
+      children: <SelectPaintSet {...{setPaintSet, blob, importedPaintSet}} />,
       forceRender: true,
     },
     {
