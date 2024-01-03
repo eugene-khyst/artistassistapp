@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import {IDBPTransaction} from 'idb';
 import {ImageFile} from '.';
-import {dbPromise} from './db';
-
-const MAX_IMAGE_FILES = 3;
+import {PaintMix} from '../color';
+import {ArtistAssistAppDB, dbPromise} from './db';
 
 function compareImageFilesByDate(a: ImageFile, b: ImageFile) {
   return b.date.getTime() - a.date.getTime();
@@ -18,24 +18,43 @@ export async function getImageFiles(): Promise<ImageFile[]> {
   return imageFiles.sort(compareImageFilesByDate);
 }
 
-export async function saveImageFile(file: File): Promise<number> {
+export async function saveImageFile(file: File, maxImageFiles: number): Promise<number> {
   const db = await dbPromise;
-  const imageFiles: ImageFile[] = await db.getAll('image-files');
+  const tx = db.transaction(['image-files', 'paint-mixes'], 'readwrite');
+  const imageFiles: ImageFile[] = await tx.objectStore('image-files').getAll();
   imageFiles.sort(compareImageFilesByDate);
-  if (imageFiles.length >= MAX_IMAGE_FILES) {
+  if (imageFiles.length >= maxImageFiles) {
     await Promise.all(
       imageFiles
-        .slice(MAX_IMAGE_FILES - 1)
-        .map((imageFile: ImageFile): Promise<void> => db.delete('image-files', imageFile.id!))
+        .slice(maxImageFiles - 1)
+        .map(
+          (imageFile: ImageFile): Promise<void> => deleteImageFileAndPaintMixes(tx, imageFile.id!)
+        )
     );
   }
-  return await db.put('image-files', {
+  const imageFileId: number = await tx.objectStore('image-files').put({
     file,
     date: new Date(),
   });
+  await tx.done;
+  return imageFileId;
 }
 
 export async function deleteImageFile(imageFileId: number): Promise<void> {
   const db = await dbPromise;
-  await db.delete('image-files', imageFileId);
+  const tx = db.transaction(['image-files', 'paint-mixes'], 'readwrite');
+  await deleteImageFileAndPaintMixes(tx, imageFileId);
+  await tx.done;
+}
+
+async function deleteImageFileAndPaintMixes(
+  tx: IDBPTransaction<ArtistAssistAppDB, ('image-files' | 'paint-mixes')[], 'readwrite'>,
+  imageFileId: number
+): Promise<void> {
+  await tx.objectStore('image-files').delete(imageFileId);
+  await Promise.all(
+    (await tx.objectStore('paint-mixes').getAll())
+      .filter((paintMix: PaintMix) => paintMix.imageFileId === imageFileId)
+      .map((paintMix: PaintMix): Promise<void> => tx.objectStore('paint-mixes').delete(paintMix.id))
+  );
 }

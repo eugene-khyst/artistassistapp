@@ -56,6 +56,7 @@ const imageColorPickerCanvasSupplier = (canvas: HTMLCanvasElement): ImageColorPi
 
 type Props = {
   paintSet?: PaintSet;
+  imageFileId?: number;
   images: ImageBitmap[];
   isImagesLoading: boolean;
   backgroundColor: string;
@@ -69,6 +70,7 @@ type Props = {
 
 export const ImageColorPicker: React.FC<Props> = ({
   paintSet,
+  imageFileId,
   images,
   isImagesLoading,
   backgroundColor,
@@ -185,13 +187,13 @@ export const ImageColorPicker: React.FC<Props> = ({
 
   const savePaintMix = useCallback(
     async (paintMix: PaintMix) => {
-      const newPaintMix: PaintMix = {...paintMix, dataIndex: Date.now()};
+      const newPaintMix: PaintMix = {...paintMix, dataIndex: Date.now(), imageFileId};
       setPaintMixes((prev: PaintMix[] | undefined) =>
         prev ? [newPaintMix, ...prev] : [newPaintMix]
       );
       await savePaintMixInDb(newPaintMix);
     },
-    [setPaintMixes]
+    [setPaintMixes, imageFileId]
   );
 
   const handleBackgroundColorChange = (backgroundColorHex: string) => {

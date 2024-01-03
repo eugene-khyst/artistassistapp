@@ -5,10 +5,14 @@
 
 import {useEffect, useState} from 'react';
 
-export function useCreateObjectUrl(blob: Blob): string | undefined {
+export function useCreateObjectUrl(blob?: Blob): string | undefined {
   const [url, setUrl] = useState<string | undefined>();
 
   useEffect(() => {
+    if (!blob) {
+      setUrl(undefined);
+      return;
+    }
     const objectUrl: string = URL.createObjectURL(blob);
     setUrl(objectUrl);
     return () => {

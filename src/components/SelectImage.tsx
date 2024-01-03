@@ -11,11 +11,19 @@ import {SAMPLE_IMAGES, SampleImageUrl} from '../services/image/sample-images';
 import {RecentImage} from './image/RecentImage';
 import {SampleImage} from './image/SampleImage';
 
+const MAX_RECENT_IMAGES = 9;
+
 type Props = {
   setBlob: Dispatch<SetStateAction<Blob | undefined>>;
+  imageFileId?: number;
+  setImageFileId: Dispatch<SetStateAction<number | undefined>>;
 };
 
-export const SelectImage: React.FC<Props> = ({setBlob}: Props) => {
+export const SelectImage: React.FC<Props> = ({
+  setBlob,
+  imageFileId: currentImageFileId,
+  setImageFileId,
+}: Props) => {
   const {
     token: {fontSizeLG},
   } = theme.useToken();
@@ -35,9 +43,13 @@ export const SelectImage: React.FC<Props> = ({setBlob}: Props) => {
       if (imageFileId) {
         setRecentFiles((prev: ImageFile[]) => prev.filter(({id}: ImageFile) => id !== imageFileId));
         deleteImageFile(imageFileId);
+        if (currentImageFileId === imageFileId) {
+          setImageFileId(undefined);
+          setBlob(undefined);
+        }
       }
     },
-    [setRecentFiles]
+    [setRecentFiles, currentImageFileId, setImageFileId, setBlob]
   );
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +63,8 @@ export const SelectImage: React.FC<Props> = ({setBlob}: Props) => {
       return;
     }
     setBlob(file);
-    await saveImageFile(file);
+    const imageFileId: number = await saveImageFile(file, MAX_RECENT_IMAGES);
+    setImageFileId(imageFileId);
     setRecentFiles(await getImageFiles());
   };
 
@@ -80,6 +93,7 @@ export const SelectImage: React.FC<Props> = ({setBlob}: Props) => {
                     imageFile,
                     deleteRecentImage,
                     setBlob,
+                    setImageFileId,
                   }}
                 />
               </Col>
@@ -97,6 +111,7 @@ export const SelectImage: React.FC<Props> = ({setBlob}: Props) => {
                 thumbnail,
                 name,
                 setBlob,
+                setImageFileId,
               }}
             />
           </Col>

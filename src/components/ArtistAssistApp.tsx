@@ -56,11 +56,10 @@ export const ArtistAssistApp: React.FC = () => {
 
   const {isFullscreen, toggleFullScreen} = useFullScreen();
 
-  const [activeTabKey, setActiveTabKey] = useState<TabKey>(
-    importedPaintMix ? TabKey.Palette : TabKey.Paints
-  );
+  const [activeTabKey, setActiveTabKey] = useState<TabKey>(TabKey.Paints);
   const [paintSet, setPaintSet] = useState<PaintSet | undefined>();
   const [blob, setBlob] = useState<Blob | undefined>();
+  const [imageFileId, setImageFileId] = useState<number | undefined>();
   const [backgroundColor, setBackgroundColor] = useState<string>(OFF_WHITE_HEX);
   const [isGlaze, setIsGlaze] = useState<boolean>(false);
   const [paintMixes, setPaintMixes] = useState<PaintMix[] | undefined>();
@@ -72,7 +71,9 @@ export const ArtistAssistApp: React.FC = () => {
   );
 
   useEffect(() => {
-    if (!paintSet) {
+    if (importedPaintMix) {
+      setActiveTabKey(TabKey.Palette);
+    } else if (!paintSet || importedPaintSet) {
       setActiveTabKey(TabKey.Paints);
     } else if (!blob) {
       setActiveTabKey(TabKey.Photo);
@@ -113,7 +114,7 @@ export const ArtistAssistApp: React.FC = () => {
     {
       key: TabKey.Photo,
       label: 'Photo',
-      children: <SelectImage {...{setBlob}} />,
+      children: <SelectImage {...{setBlob, imageFileId, setImageFileId}} />,
       forceRender: true,
     },
     {
@@ -123,6 +124,7 @@ export const ArtistAssistApp: React.FC = () => {
         <ImageColorPicker
           {...{
             paintSet,
+            imageFileId,
             images,
             isImagesLoading,
             backgroundColor,
@@ -145,10 +147,12 @@ export const ArtistAssistApp: React.FC = () => {
         <Palette
           {...{
             paintSet,
+            imageFileId,
             paintMixes,
             setPaintMixes,
             setAsBackground,
             importedPaintMix,
+            blob,
           }}
         />
       ),

@@ -29,6 +29,8 @@ export function useCreateImageBitmap(
           return newImages;
         });
         setBlobLoadingCount((prev: number) => prev - 1);
+      } else {
+        setImages([]);
       }
     })();
   }, [blobToImageBitmapsConverter, blob]);

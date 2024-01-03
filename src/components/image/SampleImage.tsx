@@ -11,13 +11,21 @@ type Props = {
   thumbnail?: string | URL;
   name: string;
   setBlob: Dispatch<SetStateAction<Blob | undefined>>;
+  setImageFileId: Dispatch<SetStateAction<number | undefined>>;
 };
 
-export const SampleImage: React.FC<Props> = ({image, thumbnail, name, setBlob}: Props) => {
+export const SampleImage: React.FC<Props> = ({
+  image,
+  thumbnail,
+  name,
+  setBlob,
+  setImageFileId,
+}: Props) => {
   const handleCardClick = async () => {
     const response: Response = await fetch(image);
     const blob: Blob = await response.blob();
     setBlob(blob);
+    setImageFileId(undefined);
   };
 
   return (

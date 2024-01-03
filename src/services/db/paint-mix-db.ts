@@ -6,9 +6,12 @@
 import {PaintMix} from '../color';
 import {dbPromise} from './db';
 
-export async function getPaintMixes(): Promise<PaintMix[]> {
+export async function getPaintMixes(imageFileId?: number): Promise<PaintMix[]> {
   const db = await dbPromise;
-  return await db.getAll('paint-mixes');
+  return (await db.getAll('paint-mixes')).filter(
+    (paintMix: PaintMix) =>
+      !paintMix.imageFileId || (imageFileId && paintMix.imageFileId === imageFileId)
+  );
 }
 
 export async function isPaintMixExist(paintMixId: string): Promise<boolean> {

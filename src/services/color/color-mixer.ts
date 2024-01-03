@@ -69,6 +69,7 @@ export interface PaintMix {
   backgroundRgb: RgbTuple | null;
   paintMixLayerRgb: RgbTuple;
   dataIndex?: number;
+  imageFileId?: number;
 }
 
 export interface SimilarColor {

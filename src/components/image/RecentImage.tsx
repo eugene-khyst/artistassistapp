@@ -14,18 +14,21 @@ type Props = {
   imageFile: ImageFile;
   deleteRecentImage: (id?: number) => void;
   setBlob: Dispatch<SetStateAction<Blob | undefined>>;
+  setImageFileId: Dispatch<SetStateAction<number | undefined>>;
 };
 
 export const RecentImage: React.FC<Props> = ({
   imageFile: {id, file, date},
   deleteRecentImage,
   setBlob,
+  setImageFileId,
 }: Props) => {
   const imageSrc: string | undefined = useCreateObjectUrl(file);
   const dateStr: string | undefined = date && dayjs(date).format('DD/MM/YYYY');
 
-  const handleCardClick = () => {
+  const handleCardClick = async () => {
     setBlob(file);
+    setImageFileId(id);
   };
 
   const handleDeleteButtonClick = () => {

@@ -4,7 +4,7 @@
  */
 
 import {App, Collapse, CollapseProps, Empty, Spin, Typography} from 'antd';
-import {Dispatch, SetStateAction, useCallback, useEffect, useState} from 'react';
+import {Dispatch, SetStateAction, useCallback, useEffect, useRef, useState} from 'react';
 import {usePaints} from '../hooks';
 import {
   PAINT_TYPES,
@@ -31,18 +31,22 @@ import {ShareModal} from './modal/ShareModal';
 
 type Props = {
   paintType?: PaintType;
+  imageFileId?: number;
   paintMixes?: PaintMix[];
   importedPaintMix?: PaintMixDefinition;
   setPaintMixes: Dispatch<SetStateAction<PaintMix[] | undefined>>;
   setAsBackground: (background: string | RgbTuple) => void;
+  blob?: Blob;
 };
 
 export const Palette: React.FC<Props> = ({
   paintType,
+  imageFileId,
   paintMixes,
   importedPaintMix,
   setPaintMixes,
   setAsBackground,
+  blob,
 }: Props) => {
   const {message} = App.useApp();
   const [activeKey, setActiveKey] = useState<string | string[]>(
@@ -57,6 +61,7 @@ export const Palette: React.FC<Props> = ({
   const [reflectanceChartPaintMix, setReflectanceChartPaintMix] = useState<PaintMix | undefined>();
   const [isOpenReflectanceChart, setIsOpenReflectanceChart] = useState<boolean>(false);
 
+  const importDone = useRef<boolean>(false);
   const importedPaintMixType: PaintType | undefined = importedPaintMix?.type;
   const importedPaintMixBrands: PaintBrand[] | undefined = importedPaintMix?.fractions?.map(
     ({brand}: PaintFractionDefinition) => brand
@@ -76,15 +81,16 @@ export const Palette: React.FC<Props> = ({
 
   useEffect(() => {
     (async () => {
-      if (importedPaintMix && paints.size) {
+      if (importedPaintMix && paints.size && !importDone.current) {
         const paintMix: PaintMix | null = createPaintMix(importedPaintMix, paints);
         if (paintMix && !(await isPaintMixExistInDb(paintMix.id))) {
           await savePaintMixInDb({...paintMix, dataIndex: Date.now()});
         }
+        importDone.current = true;
       }
-      setPaintMixes(await getPaintMixesFromDb());
+      setPaintMixes(await getPaintMixesFromDb(imageFileId));
     })();
-  }, [importedPaintMix, paints.size, setPaintMixes]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [importedPaintMix, paints.size, setPaintMixes, imageFileId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const savePaintMix = useCallback(
     async (paintMix: PaintMix) => {
@@ -197,6 +203,7 @@ export const Palette: React.FC<Props> = ({
         paintMixes={colorSwatchPaintMixes}
         open={isOpenColorSwatch}
         onClose={() => setIsOpenColorSwatch(false)}
+        blob={blob}
       />
       <ReflectanceChartDrawer
         paintMix={reflectanceChartPaintMix}
