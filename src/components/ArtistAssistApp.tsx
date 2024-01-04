@@ -10,9 +10,9 @@ import {
 } from '@ant-design/icons';
 import type {TabsProps} from 'antd';
 import {Alert, App, Button, Col, FloatButton, Row, Tabs, Tooltip, theme} from 'antd';
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 import StickyBox from 'react-sticky-box';
-import {useEventListener} from 'usehooks-ts';
+import {useEventListener, useTimeout} from 'usehooks-ts';
 import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
 import {useFullScreen} from '../hooks/useFullscreen';
 import {OFF_WHITE_HEX, PaintMix, PaintSet, UrlParsingResult, parseUrl} from '../services/color';
@@ -70,16 +70,22 @@ export const ArtistAssistApp: React.FC = () => {
     blob
   );
 
+  const importPaintMixWaitingRef = useRef<boolean>(true);
+
+  useTimeout(() => (importPaintMixWaitingRef.current = false), 1000);
+
   useEffect(() => {
-    if (importedPaintMix) {
+    if (importedPaintMix && importPaintMixWaitingRef.current) {
       setActiveTabKey(TabKey.Palette);
-    } else if (!paintSet || importedPaintSet) {
-      setActiveTabKey(TabKey.Paints);
-    } else if (!blob) {
-      setActiveTabKey(TabKey.Photo);
     } else {
-      setActiveTabKey(TabKey.Colors);
-      message.info('🔎 Pinch to zoom (or use the mouse wheel) and drag to pan');
+      if (!paintSet) {
+        setActiveTabKey(TabKey.Paints);
+      } else if (!blob) {
+        setActiveTabKey(TabKey.Photo);
+      } else {
+        setActiveTabKey(TabKey.Colors);
+        message.info('🔎 Pinch to zoom (or use the mouse wheel) and drag to pan');
+      }
     }
   }, [paintSet, blob, message]);
 
