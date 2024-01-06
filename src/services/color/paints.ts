@@ -49,39 +49,46 @@ export enum PaintBrand {
   MichaelHarding = 31,
   VallejoAcrylicStudio = 32,
   LascauxArtist = 33,
+  MaimeriBlu = 34,
+  MijelloMissionGold = 35,
+  WhiteNights = 36,
 }
 
 export const PAINT_BRANDS: Record<PaintType, PaintBrand[]> = {
   [PaintType.WatercolorPaint]: [
-    PaintBrand.Rembrandt,
-    PaintBrand.VanGogh,
     PaintBrand.DanielSmithExtraFine,
     PaintBrand.DanielSmithPrimaTek,
-    PaintBrand.WinsorNewtonProfessional,
-    PaintBrand.SchminckeHoradam,
-    PaintBrand.Sennelier,
-    PaintBrand.OldHolland,
-    PaintBrand.MGraham,
     PaintBrand.DaVinci,
     PaintBrand.GansaiTambi,
     PaintBrand.Holbein,
-    PaintBrand.ShinhanPwc,
+    PaintBrand.MaimeriBlu,
+    PaintBrand.MGraham,
+    PaintBrand.MijelloMissionGold,
+    PaintBrand.OldHolland,
+    PaintBrand.Rembrandt,
     PaintBrand.RosaGallery,
+    PaintBrand.SchminckeHoradam,
+    PaintBrand.Sennelier,
+    PaintBrand.ShinhanPwc,
+    PaintBrand.VanGogh,
+    PaintBrand.WhiteNights,
+    PaintBrand.WinsorNewtonProfessional,
   ],
   [PaintType.OilPaint]: [
+    PaintBrand.MichaelHarding,
+    PaintBrand.OldHolland,
     PaintBrand.SchminckeMussini,
     PaintBrand.SchminckeNormaProfessional,
-    PaintBrand.OldHolland,
-    PaintBrand.MichaelHarding,
   ],
   [PaintType.AcrylicPaint]: [
-    PaintBrand.WinsorNewtonProfessional,
-    PaintBrand.SchminckePrimacryl,
-    PaintBrand.OldHolland,
-    PaintBrand.VallejoAcrylicStudio,
     PaintBrand.LascauxArtist,
+    PaintBrand.OldHolland,
+    PaintBrand.SchminckePrimacryl,
+    PaintBrand.VallejoAcrylicStudio,
+    PaintBrand.WinsorNewtonProfessional,
   ],
   [PaintType.ColoredPencils]: [
+    PaintBrand.CaranDAcheLuminance,
     PaintBrand.DerwentChromaflow,
     PaintBrand.DerwentColoursoft,
     PaintBrand.DerwentDrawing,
@@ -89,16 +96,15 @@ export const PAINT_BRANDS: Record<PaintType, PaintBrand[]> = {
     PaintBrand.DerwentProcolour,
     PaintBrand.FaberCastellGoldfaber,
     PaintBrand.FaberCastellPolychromos,
-    PaintBrand.CaranDAcheLuminance,
-    PaintBrand.PrismacolorPremierSoftCore,
-    PaintBrand.KohINoorPolycolor,
-    PaintBrand.VanGogh,
     PaintBrand.Holbein,
+    PaintBrand.KohINoorPolycolor,
+    PaintBrand.PrismacolorPremierSoftCore,
+    PaintBrand.VanGogh,
   ],
   [PaintType.WatercolorPencils]: [
+    PaintBrand.CaranDAcheMuseumAquarelle,
     PaintBrand.DerwentInktense,
     PaintBrand.DerwentWatercolour,
-    PaintBrand.CaranDAcheMuseumAquarelle,
   ],
 };
 
@@ -207,6 +213,17 @@ export const PAINT_BRAND_LABELS: Record<PaintType, Partial<Record<PaintBrand, La
       fullText: 'ShinHan PWC, Extra Fine Watercolor',
       shortText: 'ShinHan PWC',
     },
+    [PaintBrand.MaimeriBlu]: {
+      fullText: 'Maimeri Blu',
+    },
+    [PaintBrand.MijelloMissionGold]: {
+      fullText: 'Mijello Mission Gold Class Watercolor',
+      shortText: 'Mijello Mission Gold',
+    },
+    [PaintBrand.WhiteNights]: {
+      fullText: "White Nights Extra Fine Artists' Watercolours",
+      shortText: 'White Nights',
+    },
   },
   [PaintType.OilPaint]: {
     [PaintBrand.SchminckeMussini]: {
@@ -241,17 +258,14 @@ export const PAINT_BRAND_LABELS: Record<PaintType, Partial<Record<PaintBrand, La
     },
     [PaintBrand.VallejoAcrylicStudio]: {
       fullText: 'Vallejo Acrylic Studio',
-      shortText: 'Vallejo Acrylic Studio',
     },
     [PaintBrand.LascauxArtist]: {
       fullText: 'Lascaux Artist',
-      shortText: 'Lascaux Artist',
     },
   },
   [PaintType.ColoredPencils]: {
     [PaintBrand.KohINoorPolycolor]: {
       fullText: 'Koh-I-Noor Polycolor',
-      shortText: 'Koh-I-Noor Polycolor',
     },
     [PaintBrand.DerwentChromaflow]: {
       fullText: 'Derwent Chromaflow Pencils',
@@ -371,6 +385,18 @@ const PAINTS: Record<PaintType, Partial<Record<PaintBrand, [paints: URL, paintSe
     [PaintBrand.ShinhanPwc]: [
       new URL('../../data/watercolor-paint/shinhan-pwc/colors.json', import.meta.url),
       new URL('../../data/watercolor-paint/shinhan-pwc/sets.json', import.meta.url),
+    ],
+    [PaintBrand.MaimeriBlu]: [
+      new URL('../../data/watercolor-paint/maimeri-blu/colors.json', import.meta.url),
+      new URL('../../data/watercolor-paint/maimeri-blu/sets.json', import.meta.url),
+    ],
+    [PaintBrand.MijelloMissionGold]: [
+      new URL('../../data/watercolor-paint/mijello-mission-gold/colors.json', import.meta.url),
+      new URL('../../data/watercolor-paint/mijello-mission-gold/sets.json', import.meta.url),
+    ],
+    [PaintBrand.WhiteNights]: [
+      new URL('../../data/watercolor-paint/white-nights/colors.json', import.meta.url),
+      new URL('../../data/watercolor-paint/white-nights/sets.json', import.meta.url),
     ],
   },
   [PaintType.OilPaint]: {
@@ -501,6 +527,9 @@ const PAINT_ID_FORMAT: Partial<Record<PaintType, Partial<Record<PaintBrand, Pain
       prefix: 'No.',
     },
     [PaintBrand.Holbein]: {
+      prefix: 'W',
+    },
+    [PaintBrand.MijelloMissionGold]: {
       prefix: 'W',
     },
   },

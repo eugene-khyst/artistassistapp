@@ -12,7 +12,7 @@ import {
   MailOutlined,
   ReadOutlined,
 } from '@ant-design/icons';
-import {Button, Col, Modal, Row, Space, theme} from 'antd';
+import {Button, Col, Modal, Row, Space, Typography, theme} from 'antd';
 import {Dispatch, SetStateAction, useContext} from 'react';
 import {AppConfig, AppConfigContext} from '../../context/AppConfigContext';
 import {Logo} from '../Logo';
@@ -23,8 +23,10 @@ type Props = {
 };
 
 export const AboutModal: React.FC<Props> = ({open, setOpen}: Props) => {
+  const {Link} = Typography;
+
   const {
-    token: {fontSizeSM},
+    token: {fontSizeSM, colorTextSecondary},
   } = theme.useToken();
 
   const {websiteUrl} = useContext<AppConfig>(AppConfigContext);
@@ -107,7 +109,18 @@ export const AboutModal: React.FC<Props> = ({open, setOpen}: Props) => {
           </Col>
         </Row>
         <Row>
-          <Col xs={24} style={{fontSize: fontSizeSM, textAlign: 'justify'}}>
+          <Col xs={24}>
+            Created by{' '}
+            <Link href="https://github.com/eugene-khyst" target="_blank">
+              Eugene Khyst
+            </Link>
+          </Col>
+        </Row>
+        <Row>
+          <Col
+            xs={24}
+            style={{textAlign: 'justify', fontSize: fontSizeSM, color: colorTextSecondary}}
+          >
             Running in {navigator.userAgent}
           </Col>
         </Row>
