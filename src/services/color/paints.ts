@@ -154,6 +154,7 @@ interface PaintIdFormat {
   padWithLeadingZeros?: boolean;
   padLength?: number;
   prefix?: string;
+  formatter?: (id: string) => string;
 }
 
 export const PAINT_TYPE_LABELS: Record<PaintType, string> = {
@@ -529,6 +530,12 @@ const PAINT_ID_FORMAT: Partial<Record<PaintType, Partial<Record<PaintBrand, Pain
     [PaintBrand.Holbein]: {
       prefix: 'W',
     },
+    [PaintBrand.DaVinci]: {
+      padWithLeadingZeros: false,
+      formatter: (id: string): string => {
+        return id.length > 3 ? `${id.substring(0, 3)}-${id.substring(3)}` : id;
+      },
+    },
     [PaintBrand.MijelloMissionGold]: {
       prefix: 'W',
     },
@@ -607,18 +614,20 @@ export async function fetchStoreBoughtPaintSets(
   );
 }
 
-export function formatPaintId({type, brand, id, name}: Paint, maxId: number) {
-  const {padWithLeadingZeros, prefix, padLength}: PaintIdFormat = {
+export function formatPaintId({type, brand, id, name}: Paint, maxId: number): string {
+  const {padWithLeadingZeros, prefix, padLength, formatter}: PaintIdFormat = {
     padWithLeadingZeros: true,
     padLength: maxId.toString().length,
+    formatter: (id: string) => id,
     ...(PAINT_ID_FORMAT[type]?.[brand] || {}),
   };
   if (padLength > 4) {
     return name;
   } else {
-    return `${prefix ? prefix : ''}${
-      padWithLeadingZeros ? String(id).padStart(padLength, '0') : id
-    } ${name}`;
+    const idStr: string = formatter(
+      `${prefix ? prefix : ''}${padWithLeadingZeros ? String(id).padStart(padLength, '0') : id}`
+    );
+    return `${idStr} ${name}`;
   }
 }
 

@@ -180,15 +180,17 @@ export const SelectPaintSet: React.FC<Props> = ({setPaintSet, importedPaintSet}:
     changedValues: Partial<PaintSetDefinition>,
     values: PaintSetDefinition
   ) => {
-    const colors: Partial<Record<PaintBrand, number[]>> = values.colors
+    const emptyColors: Partial<Record<PaintBrand, number[]>> = values.colors
       ? Object.fromEntries(Object.keys(values.colors).map((brand: string) => [brand, []]))
       : {};
+
     if (changedValues.type) {
       form.setFieldsValue({
         brands: [],
         storeBoughtPaintSet: undefined,
-        colors,
+        colors: emptyColors,
       });
+
       const valuesFromDb: PaintSetDefinition | undefined = await getPaintSetByType(
         changedValues.type
       );
@@ -196,21 +198,41 @@ export const SelectPaintSet: React.FC<Props> = ({setPaintSet, importedPaintSet}:
         form.setFieldsValue(valuesFromDb);
       }
     }
+
     if (changedValues.brands) {
-      form.setFieldsValue({
-        storeBoughtPaintSet: undefined,
-        colors,
-      });
-    }
-    if (changedValues.storeBoughtPaintSet) {
-      if (changedValues.storeBoughtPaintSet[0] && storeBoughtPaintSets.size) {
-        const [brand, storeBoughtPaintSetName] = changedValues.storeBoughtPaintSet;
-        colors[brand] = storeBoughtPaintSets.get(brand)?.get(storeBoughtPaintSetName)?.colors;
+      const [storeBoughtPaintSetBrand] = values.storeBoughtPaintSet || [undefined];
+      const storeBoughtPaintSet: PaintSetDefinition['storeBoughtPaintSet'] =
+        storeBoughtPaintSetBrand && !values.brands.includes(storeBoughtPaintSetBrand)
+          ? undefined
+          : values.storeBoughtPaintSet;
+
+      const colors: Partial<Record<PaintBrand, number[]>> = {...emptyColors};
+      if (values.brands && values.colors) {
+        values.brands.forEach((brand: PaintBrand) => {
+          colors[brand] = values.colors[brand] || [];
+        });
       }
+
+      form.setFieldsValue({
+        storeBoughtPaintSet,
+        colors,
+      });
+    }
+
+    const [changedStoreBoughtPaintSetBrand, changedStoreBoughtPaintSetName] =
+      changedValues.storeBoughtPaintSet || [undefined, undefined];
+    if (changedStoreBoughtPaintSetBrand && changedStoreBoughtPaintSetName) {
+      const colors: Partial<Record<PaintBrand, number[]>> = {...emptyColors};
+      colors[changedStoreBoughtPaintSetBrand] =
+        storeBoughtPaintSets
+          .get(changedStoreBoughtPaintSetBrand)
+          ?.get(changedStoreBoughtPaintSetName)?.colors || [];
+
       form.setFieldsValue({
         colors,
       });
     }
+
     if (changedValues.colors) {
       form.setFieldsValue({storeBoughtPaintSet: customPaintSet});
     }
