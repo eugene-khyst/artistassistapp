@@ -14,12 +14,13 @@ type Props = {
 
 export const PaintDescription: React.FC<Props> = ({paint, text}: Props) => {
   const {type, brand, id, name, rgb} = paint;
+  const label = PAINT_BRAND_LABELS[type][brand];
   return (
     <Space size="small">
       <ColorSquare color={rgb} size="large" text={text} />
       <span>
-        <Tooltip title={PAINT_BRAND_LABELS[type][brand]?.fullText}>
-          <i>{PAINT_BRAND_LABELS[type][brand]?.shortText}</i>
+        <Tooltip title={label?.fullText}>
+          <i>{label?.shortText ?? label?.fullText}</i>
         </Tooltip>
         <br />
         <b>{id < 1000 ? `${String(id).padStart(3, '0')} ${name}` : name}</b>
