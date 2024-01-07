@@ -335,7 +335,7 @@ export const SelectPaintSet: React.FC<Props> = ({setPaintSet, importedPaintSet}:
             <Form.Item>
               <Space>
                 <Button type="primary" htmlType="submit">
-                  Proceed
+                  Save & Proceed
                 </Button>
                 <Button
                   icon={<ShareAltOutlined />}
