@@ -8,65 +8,103 @@ import {Rectangle} from '../../math';
 
 const GRID_LINE_WIDTH = 1;
 
+export enum GridType {
+  Rectangular = 1,
+  Diagonal = 2,
+}
+
+type RectangularGrid = {
+  type: GridType.Rectangular;
+  rows: number;
+  cols: number;
+};
+
+type DiagonalGrid = {
+  type: GridType.Diagonal;
+};
+
+export type Grid = RectangularGrid | DiagonalGrid;
+
 export interface GridCanvasProps extends ZoomableImageCanvasProps {
-  gridRows?: number;
-  gridCols?: number;
+  grid?: Grid;
 }
 
 export class GridCanvas extends ZoomableImageCanvas {
-  private gridRows: number;
-  private gridCols: number;
+  private grid?: Grid;
 
   constructor(canvas: HTMLCanvasElement, props: GridCanvasProps = {}) {
     super(canvas, props);
 
-    ({gridRows: this.gridRows = 4, gridCols: this.gridCols = 4} = props);
+    ({grid: this.grid} = props);
+  }
+
+  private drawLine(x1: number, y1: number, x2: number, y2: number, xi: number, yi: number): void {
+    const {center}: Rectangle = this.getImageDimension();
+    const lineWidth = GRID_LINE_WIDTH / this.zoom;
+    const ctx: CanvasRenderingContext2D = this.context;
+    ctx.lineWidth = lineWidth;
+    let isDarkToggle = false;
+    for (let i = -1; i <= 1; i++) {
+      ctx.strokeStyle = isDarkToggle ? '#000' : '#fff';
+      ctx.beginPath();
+      ctx.moveTo(-center.x + x1 + xi * i * lineWidth, -center.y + y1 + yi * i * lineWidth);
+      ctx.lineTo(-center.x + x2 + xi * i * lineWidth, -center.y + y2 + yi * i * lineWidth);
+      ctx.stroke();
+      isDarkToggle = !isDarkToggle;
+    }
   }
 
   private drawHorizontalLine(yPercent: number): void {
-    const {width, height, center}: Rectangle = this.getImageDimension();
+    const {width, height}: Rectangle = this.getImageDimension();
     const y: number = yPercent * height;
-    const lineWidth = GRID_LINE_WIDTH / this.zoom;
-    const ctx: CanvasRenderingContext2D = this.context;
-    ctx.lineWidth = lineWidth;
-    let isDarkToggle = false;
-    for (let i = -1; i <= 1; i++) {
-      ctx.strokeStyle = isDarkToggle ? '#000' : '#fff';
-      ctx.beginPath();
-      ctx.moveTo(-center.x, -center.y + y + i * lineWidth);
-      ctx.lineTo(-center.x + width, -center.y + y + i * lineWidth);
-      ctx.stroke();
-      isDarkToggle = !isDarkToggle;
-    }
+    this.drawLine(0, y, width, y, 0, 1);
   }
 
   private drawVerticalLine(xPercent: number): void {
-    const {width, height, center}: Rectangle = this.getImageDimension();
+    const {width, height}: Rectangle = this.getImageDimension();
     const x: number = xPercent * width;
-    const lineWidth = GRID_LINE_WIDTH / this.zoom;
-    const ctx: CanvasRenderingContext2D = this.context;
-    ctx.lineWidth = lineWidth;
-    let isDarkToggle = false;
-    for (let i = -1; i <= 1; i++) {
-      ctx.strokeStyle = isDarkToggle ? '#000' : '#fff';
-      ctx.beginPath();
-      ctx.moveTo(-center.x + x + i * lineWidth, -center.y);
-      ctx.lineTo(-center.x + x + i * lineWidth, -center.y + height);
-      ctx.stroke();
-      isDarkToggle = !isDarkToggle;
+    this.drawLine(x, 0, x, height, 1, 0);
+  }
+
+  private drawRectangularGrid(grid: RectangularGrid): void {
+    for (let row = 1; row < grid.rows; row++) {
+      this.drawHorizontalLine(row / grid.rows);
+    }
+    for (let col = 1; col < grid.cols; col++) {
+      this.drawVerticalLine(col / grid.cols);
     }
   }
 
+  private drawDiagonalGrid(): void {
+    const {width, height}: Rectangle = this.getImageDimension();
+
+    this.drawLine(0, 0, width, height, 1, 0);
+    this.drawLine(width, 0, 0, height, 1, 0);
+
+    this.drawHorizontalLine(0.5);
+    this.drawVerticalLine(0.5);
+
+    this.drawLine(width / 2, 0, 0, height / 2, 1, 0);
+    this.drawLine(width / 2, 0, width, height / 2, 1, 0);
+
+    this.drawLine(0, height / 2, width / 2, height, 1, 0);
+    this.drawLine(width, height / 2, width / 2, height, 1, 0);
+  }
+
   private drawGrid(): void {
-    for (let row = 1; row < this.gridRows; row++) {
-      this.drawHorizontalLine(row / this.gridRows);
-    }
-    for (let col = 1; col < this.gridCols; col++) {
-      this.drawVerticalLine(col / this.gridCols);
+    if (this.grid?.type === GridType.Rectangular) {
+      this.drawRectangularGrid(this.grid);
+    } else if (this.grid?.type === GridType.Diagonal) {
+      this.drawDiagonalGrid();
     }
   }
 
   protected override onImageDrawn(): void {
     this.drawGrid();
+  }
+
+  setGrid(grid: Grid): void {
+    this.grid = grid;
+    this.draw();
   }
 }

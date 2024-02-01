@@ -157,10 +157,10 @@ export const ImageTonalValues: React.FC<Props> = ({
       </Space>
       <Row>
         <Col xs={24} sm={isOriginalVisible ? 12 : 24}>
-          <canvas ref={tonalValuesCanvasRef} style={{width: '100%', height: height}} />
+          <canvas ref={tonalValuesCanvasRef} style={{width: '100%', height}} />
         </Col>
         <Col xs={24} sm={12} style={{display: isOriginalVisible ? 'block' : 'none'}}>
-          <canvas ref={originalCanvasRef} style={{width: '100%', height: height}} />
+          <canvas ref={originalCanvasRef} style={{width: '100%', height}} />
         </Col>
       </Row>
       <div style={{display: 'none'}}>
