@@ -4,26 +4,19 @@
  */
 
 import {ZoomableImageCanvas, ZoomableImageCanvasProps} from '.';
-import {Rectangle} from '../../math';
+import {Rectangle, Vector} from '../../math';
 
 const GRID_LINE_WIDTH = 1;
 
 export enum GridType {
-  Rectangular = 1,
+  Square = 1,
   Diagonal = 2,
 }
 
-type RectangularGrid = {
-  type: GridType.Rectangular;
-  rows: number;
-  cols: number;
+type Grid = {
+  type: GridType;
+  size: number;
 };
-
-type DiagonalGrid = {
-  type: GridType.Diagonal;
-};
-
-export type Grid = RectangularGrid | DiagonalGrid;
 
 export interface GridCanvasProps extends ZoomableImageCanvasProps {
   grid?: Grid;
@@ -38,64 +31,90 @@ export class GridCanvas extends ZoomableImageCanvas {
     ({grid: this.grid} = props);
   }
 
-  private drawLine(x1: number, y1: number, x2: number, y2: number, xi: number, yi: number): void {
-    const {center}: Rectangle = this.getImageDimension();
+  private drawLine(p1: Vector, p2: Vector): void {
+    const {width, height, center}: Rectangle = this.getImageDimension();
     const lineWidth = GRID_LINE_WIDTH / this.zoom;
     const ctx: CanvasRenderingContext2D = this.context;
     ctx.lineWidth = lineWidth;
-    let isDarkToggle = false;
-    for (let i = -1; i <= 1; i++) {
-      ctx.strokeStyle = isDarkToggle ? '#000' : '#fff';
-      ctx.beginPath();
-      ctx.moveTo(-center.x + x1 + xi * i * lineWidth, -center.y + y1 + yi * i * lineWidth);
-      ctx.lineTo(-center.x + x2 + xi * i * lineWidth, -center.y + y2 + yi * i * lineWidth);
-      ctx.stroke();
-      isDarkToggle = !isDarkToggle;
+    ctx.setLineDash([]);
+    ctx.strokeStyle = '#000';
+    ctx.beginPath();
+    const {x: x1, y: y1} = p1.subtract(center);
+    ctx.moveTo(x1, y1);
+    const {x: x2, y: y2} = p2.subtract(center);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+    const dashLength: number = Math.max(Math.min(width, height) / 100, 10);
+    ctx.setLineDash([dashLength, dashLength]);
+    ctx.strokeStyle = '#fff';
+    ctx.stroke();
+  }
+
+  private drawHorizontalLine(y: number): void {
+    const {width}: Rectangle = this.getImageDimension();
+    this.drawLine(new Vector(0, y), new Vector(width, y));
+  }
+
+  private drawVerticalLine(x: number): void {
+    const {height}: Rectangle = this.getImageDimension();
+    this.drawLine(new Vector(x, 0), new Vector(x, height));
+  }
+
+  private drawSquareGrid({size}: Grid): void {
+    const {width, height}: Rectangle = this.getImageDimension();
+    const side: number = Math.min(width, height) / size;
+    for (let y = side; y < height; y += side) {
+      this.drawHorizontalLine(y);
+    }
+    for (let x = side; x < width; x += side) {
+      this.drawVerticalLine(x);
     }
   }
 
-  private drawHorizontalLine(yPercent: number): void {
+  private drawDiagonalGrid({size}: Grid): void {
     const {width, height}: Rectangle = this.getImageDimension();
-    const y: number = yPercent * height;
-    this.drawLine(0, y, width, y, 0, 1);
-  }
 
-  private drawVerticalLine(xPercent: number): void {
-    const {width, height}: Rectangle = this.getImageDimension();
-    const x: number = xPercent * width;
-    this.drawLine(x, 0, x, height, 1, 0);
-  }
+    const a = new Vector(0, 0);
+    const b = new Vector(width / 2, 0);
+    const c = new Vector(width, 0);
+    const d = new Vector(width, height / 2);
+    const e = new Vector(width, height);
+    const f = new Vector(width / 2, height);
+    const g = new Vector(0, height);
+    const h = new Vector(0, height / 2);
 
-  private drawRectangularGrid(grid: RectangularGrid): void {
-    for (let row = 1; row < grid.rows; row++) {
-      this.drawHorizontalLine(row / grid.rows);
+    if (size >= 1) {
+      this.drawLine(a, e);
+      this.drawLine(c, g);
+
+      this.drawHorizontalLine(height / 2);
+      this.drawVerticalLine(width / 2);
     }
-    for (let col = 1; col < grid.cols; col++) {
-      this.drawVerticalLine(col / grid.cols);
+
+    if (size >= 2) {
+      this.drawLine(b, h);
+      this.drawLine(b, d);
+      this.drawLine(h, f);
+      this.drawLine(d, f);
     }
-  }
 
-  private drawDiagonalGrid(): void {
-    const {width, height}: Rectangle = this.getImageDimension();
-
-    this.drawLine(0, 0, width, height, 1, 0);
-    this.drawLine(width, 0, 0, height, 1, 0);
-
-    this.drawHorizontalLine(0.5);
-    this.drawVerticalLine(0.5);
-
-    this.drawLine(width / 2, 0, 0, height / 2, 1, 0);
-    this.drawLine(width / 2, 0, width, height / 2, 1, 0);
-
-    this.drawLine(0, height / 2, width / 2, height, 1, 0);
-    this.drawLine(width, height / 2, width / 2, height, 1, 0);
+    if (size >= 3) {
+      this.drawLine(a, f);
+      this.drawLine(a, d);
+      this.drawLine(b, g);
+      this.drawLine(b, e);
+      this.drawLine(c, h);
+      this.drawLine(c, f);
+      this.drawLine(d, g);
+      this.drawLine(e, h);
+    }
   }
 
   private drawGrid(): void {
-    if (this.grid?.type === GridType.Rectangular) {
-      this.drawRectangularGrid(this.grid);
+    if (this.grid?.type === GridType.Square) {
+      this.drawSquareGrid(this.grid);
     } else if (this.grid?.type === GridType.Diagonal) {
-      this.drawDiagonalGrid();
+      this.drawDiagonalGrid(this.grid);
     }
   }
 
