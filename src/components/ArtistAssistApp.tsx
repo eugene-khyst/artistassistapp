@@ -165,18 +165,18 @@ export const ArtistAssistApp: React.FC = () => {
       forceRender: true,
     },
     {
-      key: TabKey.Sketch,
-      label: 'Sketch',
-      children: <ImageSketch blob={blob} />,
-      forceRender: true,
-      disabled: !blob,
-    },
-    {
       key: TabKey.TonalValues,
       label: 'Tonal Values',
       children: <ImageTonalValues {...{blob, images, isImagesLoading}} />,
       forceRender: true,
       disabled: !blob || !images.length,
+    },
+    {
+      key: TabKey.Sketch,
+      label: 'Sketch',
+      children: <ImageSketch blob={blob} />,
+      forceRender: true,
+      disabled: !blob,
     },
     {
       key: TabKey.Grid,

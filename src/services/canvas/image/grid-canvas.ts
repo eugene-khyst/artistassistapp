@@ -83,7 +83,7 @@ export class GridCanvas extends ZoomableImageCanvas {
     const g = new Vector(0, height);
     const h = new Vector(0, height / 2);
 
-    if (size >= 1) {
+    if (size >= 4) {
       this.drawLine(a, e);
       this.drawLine(c, g);
 
@@ -91,14 +91,14 @@ export class GridCanvas extends ZoomableImageCanvas {
       this.drawVerticalLine(width / 2);
     }
 
-    if (size >= 2) {
+    if (size >= 8) {
       this.drawLine(b, h);
       this.drawLine(b, d);
       this.drawLine(h, f);
       this.drawLine(d, f);
     }
 
-    if (size >= 3) {
+    if (size >= 16) {
       this.drawLine(a, f);
       this.drawLine(a, d);
       this.drawLine(b, g);

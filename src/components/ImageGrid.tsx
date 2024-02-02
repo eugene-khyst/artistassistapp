@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {CheckboxOptionType, Radio, RadioChangeEvent, Select, Space, Spin} from 'antd';
+import {CheckboxOptionType, Form, Radio, RadioChangeEvent, Select, Space, Spin} from 'antd';
 import {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useEffect, useState} from 'react';
 import {useZoomableImageCanvas} from '../hooks/';
@@ -19,7 +19,7 @@ const SQUARE_GRID_SIZE_OPTIONS: SelectOptionType[] = [4, 6, 8, 10].map((size: nu
   label: size,
 }));
 
-const DIAGONAL_GRID_SIZE_OPTIONS: SelectOptionType[] = [1, 2, 3].map((size: number) => ({
+const DIAGONAL_GRID_SIZE_OPTIONS: SelectOptionType[] = [4, 8, 16].map((size: number) => ({
   value: size,
   label: size,
 }));
@@ -39,7 +39,7 @@ export const ImageGrid: React.FC<Props> = ({images, isImagesLoading}: Props) => 
 
   const [gridType, setGridType] = useState<GridType>(GridType.Square);
   const [squareGridSize, setSquareGridSize] = useState<number>(4);
-  const [diagonalGridSize, setDiagonalGridSize] = useState<number>(2);
+  const [diagonalGridSize, setDiagonalGridSize] = useState<number>(8);
 
   useEffect(() => {
     const gridCanvas = gridCanvasRef.current;
@@ -69,18 +69,30 @@ export const ImageGrid: React.FC<Props> = ({images, isImagesLoading}: Props) => 
         />
         <Space.Compact>
           {gridType === GridType.Square && (
-            <Select
-              value={squareGridSize}
-              onChange={(value: number) => setSquareGridSize(value)}
-              options={SQUARE_GRID_SIZE_OPTIONS}
-            />
+            <Form.Item
+              label="Cells"
+              tooltip="Number of cells on the smaller side (vertical or horizontal)"
+              style={{margin: '0 16px'}}
+            >
+              <Select
+                value={squareGridSize}
+                onChange={(value: number) => setSquareGridSize(value)}
+                options={SQUARE_GRID_SIZE_OPTIONS}
+              />
+            </Form.Item>
           )}
           {gridType === GridType.Diagonal && (
-            <Select
-              value={diagonalGridSize}
-              onChange={(value: number) => setDiagonalGridSize(value)}
-              options={DIAGONAL_GRID_SIZE_OPTIONS}
-            />
+            <Form.Item
+              label="Lines"
+              tooltip="Total number of diagonal and other lines"
+              style={{margin: '0 16px'}}
+            >
+              <Select
+                value={diagonalGridSize}
+                onChange={(value: number) => setDiagonalGridSize(value)}
+                options={DIAGONAL_GRID_SIZE_OPTIONS}
+              />
+            </Form.Item>
           )}
         </Space.Compact>
       </Space>
