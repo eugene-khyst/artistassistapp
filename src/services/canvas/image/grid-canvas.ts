@@ -100,11 +100,13 @@ export class GridCanvas extends ZoomableImageCanvas {
 
         if (m === 3 && n === 3) {
           if (isPortrait) {
+            this.drawLine(d, h);
             this.drawLine(a, d);
             this.drawLine(c, h);
             this.drawLine(d, g);
             this.drawLine(e, h);
           } else {
+            this.drawLine(b, f);
             this.drawLine(a, f);
             this.drawLine(b, g);
             this.drawLine(b, e);
