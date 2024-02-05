@@ -67,6 +67,7 @@ export const ImageSketch: React.FC<Props> = ({blob}: Props) => {
               min={MIN_MEDIAN_FILTER_RADIUS}
               max={MAX_MEDIAN_FILTER_RADIUS}
               marks={medianFilterSizeSliderMarks}
+              style={{width: 120}}
             />
           </Form.Item>
         </Col>

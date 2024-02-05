@@ -3,23 +3,26 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {CheckboxOptionType, Form, Radio, RadioChangeEvent, Select, Space, Spin} from 'antd';
+import {Checkbox, Col, Form, Row, Select, Spin} from 'antd';
+import {CheckboxChangeEvent} from 'antd/es/checkbox';
 import {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useEffect, useState} from 'react';
 import {useZoomableImageCanvas} from '../hooks/';
 import {GridCanvas, GridType} from '../services/canvas/image/grid-canvas';
 
-const GRID_TYPE_OPTIONS: CheckboxOptionType[] = [
-  {value: GridType.Square, label: 'Square'},
-  {value: GridType.Diagonal, label: 'Diagonal'},
+enum GridOption {
+  Square = 1,
+  Rectangular_3x3 = 2,
+  Rectangular_4x4 = 3,
+}
+
+const GRID_OPTIONS: SelectOptionType[] = [
+  {value: GridOption.Square, label: 'Square cells'},
+  {value: GridOption.Rectangular_3x3, label: '3×3'},
+  {value: GridOption.Rectangular_4x4, label: '4×4'},
 ];
 
-const SQUARE_GRID_SIZE_OPTIONS: SelectOptionType[] = [4, 6, 8, 10].map((size: number) => ({
-  value: size,
-  label: size,
-}));
-
-const DIAGONAL_GRID_SIZE_OPTIONS: SelectOptionType[] = [4, 8, 16].map((size: number) => ({
+const SQUARE_GRID_SIZE_OPTIONS: SelectOptionType[] = [4, 6, 8, 10, 12].map((size: number) => ({
   value: size,
   label: size,
 }));
@@ -37,65 +40,69 @@ export const ImageGrid: React.FC<Props> = ({images, isImagesLoading}: Props) => 
   const {ref: canvasRef, zoomableImageCanvasRef: gridCanvasRef} =
     useZoomableImageCanvas<GridCanvas>(gridCanvasSupplier, images);
 
-  const [gridType, setGridType] = useState<GridType>(GridType.Square);
+  const [gridOption, setGridOption] = useState<GridOption>(GridOption.Square);
   const [squareGridSize, setSquareGridSize] = useState<number>(4);
-  const [diagonalGridSize, setDiagonalGridSize] = useState<number>(8);
+  const [isDiagonals, setIsDiagonals] = useState<boolean>(false);
 
   useEffect(() => {
     const gridCanvas = gridCanvasRef.current;
     if (!gridCanvas) {
       return;
     }
-    if (gridType === GridType.Square) {
-      gridCanvas.setGrid({type: gridType, size: squareGridSize});
-    } else if (gridType === GridType.Diagonal) {
-      gridCanvas.setGrid({type: gridType, size: diagonalGridSize});
+    if (gridOption === GridOption.Square) {
+      gridCanvas.setGrid({type: GridType.Square, size: [squareGridSize]});
+    } else if (gridOption === GridOption.Rectangular_3x3) {
+      gridCanvas.setGrid({type: GridType.Rectangular, size: [3, 3], diagonals: isDiagonals});
+    } else if (gridOption === GridOption.Rectangular_4x4) {
+      gridCanvas.setGrid({type: GridType.Rectangular, size: [4, 4], diagonals: isDiagonals});
     }
-  }, [gridCanvasRef, gridType, squareGridSize, diagonalGridSize]);
+  }, [gridCanvasRef, gridOption, squareGridSize, isDiagonals]);
 
   return (
     <Spin spinning={isImagesLoading} tip="Loading" size="large" delay={300}>
-      <Space
-        size="small"
-        align="center"
-        style={{width: '100%', justifyContent: 'center', marginBottom: 8}}
-      >
-        <Radio.Group
-          options={GRID_TYPE_OPTIONS}
-          value={gridType}
-          onChange={(e: RadioChangeEvent) => setGridType(e.target.value)}
-          optionType="button"
-          buttonStyle="solid"
-        />
-        <Space.Compact>
-          {gridType === GridType.Square && (
-            <Form.Item
-              label="Cells"
-              tooltip="Number of cells on the smaller side (vertical or horizontal)"
-              style={{margin: '0 16px'}}
-            >
+      <Row justify="center">
+        <Col xs={24} md={12} lg={8}>
+          <Form.Item style={{margin: '0 16px 8px'}}>
+            <Form.Item label="Grid" style={{display: 'inline-block', margin: 0, marginRight: 16}}>
               <Select
-                value={squareGridSize}
-                onChange={(value: number) => setSquareGridSize(value)}
-                options={SQUARE_GRID_SIZE_OPTIONS}
+                value={gridOption}
+                onChange={(value: number) => setGridOption(value)}
+                options={GRID_OPTIONS}
+                style={{width: 120}}
               />
             </Form.Item>
-          )}
-          {gridType === GridType.Diagonal && (
-            <Form.Item
-              label="Lines"
-              tooltip="Total number of diagonal and other lines"
-              style={{margin: '0 16px'}}
-            >
-              <Select
-                value={diagonalGridSize}
-                onChange={(value: number) => setDiagonalGridSize(value)}
-                options={DIAGONAL_GRID_SIZE_OPTIONS}
-              />
-            </Form.Item>
-          )}
-        </Space.Compact>
-      </Space>
+            {gridOption === GridOption.Square ? (
+              <Form.Item
+                label="Cells"
+                tooltip="Number of cells on the smaller side (vertical or horizontal)"
+                style={{display: 'inline-block', margin: 0}}
+              >
+                <Select
+                  value={squareGridSize}
+                  onChange={(value: number) => setSquareGridSize(value)}
+                  options={SQUARE_GRID_SIZE_OPTIONS}
+                />
+              </Form.Item>
+            ) : (
+              <Form.Item
+                label="Diagonals"
+                tooltip="Show or hide diagonal lines"
+                style={{
+                  display: 'inline-block',
+                  margin: 0,
+                }}
+              >
+                <Checkbox
+                  checked={isDiagonals}
+                  onChange={(e: CheckboxChangeEvent) => {
+                    setIsDiagonals(e.target.checked);
+                  }}
+                />
+              </Form.Item>
+            )}
+          </Form.Item>
+        </Col>
+      </Row>
       <div>
         <canvas ref={canvasRef} style={{width: '100%', height: `calc(100vh - 115px)`}} />
       </div>
