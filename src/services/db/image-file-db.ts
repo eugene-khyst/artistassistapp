@@ -8,9 +8,7 @@ import {ImageFile} from '.';
 import {PaintMix} from '../color';
 import {ArtistAssistAppDB, dbPromise} from './db';
 
-function compareImageFilesByDate(a: ImageFile, b: ImageFile) {
-  return b.date.getTime() - a.date.getTime();
-}
+const compareImageFilesByDate = (a: ImageFile, b: ImageFile) => b.date.getTime() - a.date.getTime();
 
 export async function getImageFiles(): Promise<ImageFile[]> {
   const db = await dbPromise;

@@ -8,7 +8,6 @@ import {Dispatch, SetStateAction, useCallback, useEffect, useRef, useState} from
 import {usePaints} from '../hooks';
 import {
   PAINT_TYPES,
-  PAINT_TYPE_LABELS,
   PaintBrand,
   PaintFractionDefinition,
   PaintMix,
@@ -50,7 +49,7 @@ export const Palette: React.FC<Props> = ({
 }: Props) => {
   const {message} = App.useApp();
   const [activeKey, setActiveKey] = useState<string | string[]>(
-    PAINT_TYPES.map((paintType: PaintType) => paintType.toString())
+    [...PAINT_TYPES.keys()].map((paintType: PaintType) => paintType.toString())
   );
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [sharePaintMixUrl, setSharePaintMixUrl] = useState<string>();
@@ -139,7 +138,7 @@ export const Palette: React.FC<Props> = ({
     setIsOpenReflectanceChart(true);
   };
 
-  const items: CollapseProps['items'] = PAINT_TYPES.flatMap((paintType: PaintType) => {
+  const items: CollapseProps['items'] = [...PAINT_TYPES.entries()].flatMap(([paintType, label]) => {
     const filteredPaintMixes: PaintMix[] | undefined = paintMixes?.filter(
       ({type}: PaintMix) => type === paintType
     );
@@ -148,7 +147,7 @@ export const Palette: React.FC<Props> = ({
       : [
           {
             key: paintType,
-            label: <b>{PAINT_TYPE_LABELS[paintType]}</b>,
+            label: <b>{label}</b>,
             children: (
               <PaletteGrid
                 {...{

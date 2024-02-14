@@ -6,7 +6,7 @@
 import {Drawer, Typography} from 'antd';
 import {useEffect} from 'react';
 import {useReflectanceChart} from '../../hooks';
-import {PAINT_TYPE_LABELS, PaintFraction, PaintMix} from '../../services/color';
+import {PAINT_TYPES, PaintFraction, PaintMix} from '../../services/color';
 import {PaintMixDescription} from '../color/PaintMixDescription';
 
 type Props = {
@@ -47,7 +47,7 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
       <canvas ref={canvasRef} width="688" height="388" style={{marginBottom: 16}} />
       {paintMix && (
         <>
-          <Typography.Title level={4}>{PAINT_TYPE_LABELS[paintMix.type]}</Typography.Title>
+          <Typography.Title level={4}>{PAINT_TYPES.get(paintMix.type)}</Typography.Title>
           <PaintMixDescription paintMix={paintMix} showConsistency={false} />
         </>
       )}

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Col, Form, Row, Slider, Spin} from 'antd';
+import {Form, Slider, Spin} from 'antd';
 import {SliderMarks} from 'antd/es/slider';
 import {Remote, wrap} from 'comlink';
 import {useContext, useEffect, useState} from 'react';
@@ -54,24 +54,22 @@ export const ImageSketch: React.FC<Props> = ({blob}: Props) => {
 
   return (
     <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
-      <Row justify="center">
-        <Col xs={24} md={12} lg={8}>
-          <Form.Item
-            label="Median blur radius"
-            tooltip="Median blur filter finds the median value in the circle-shaped area around each pixel. Increasing radius increases blur."
-            style={{margin: '0 16px'}}
-          >
-            <Slider
-              value={medianFilterSize}
-              onChange={(value: number) => setMedianFilterSize(value)}
-              min={MIN_MEDIAN_FILTER_RADIUS}
-              max={MAX_MEDIAN_FILTER_RADIUS}
-              marks={medianFilterSizeSliderMarks}
-              style={{width: 120}}
-            />
-          </Form.Item>
-        </Col>
-      </Row>
+      <div style={{display: 'flex', width: '100%', justifyContent: 'center'}}>
+        <Form.Item
+          label="Median blur radius"
+          tooltip="Median blur filter finds the median value in the circle-shaped area around each pixel. Increasing radius increases blur."
+          style={{marginBottom: 0}}
+        >
+          <Slider
+            value={medianFilterSize}
+            onChange={(value: number) => setMedianFilterSize(value)}
+            min={MIN_MEDIAN_FILTER_RADIUS}
+            max={MAX_MEDIAN_FILTER_RADIUS}
+            marks={medianFilterSizeSliderMarks}
+            style={{width: 150}}
+          />
+        </Form.Item>
+      </div>
       <div>
         <canvas ref={canvasRef} style={{width: '100%', height: `calc(100vh - 125px)`}} />
       </div>

@@ -167,8 +167,7 @@ export class ZoomableImageCanvas extends Canvas {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected onClickOrTap(point: Vector): void {
+  protected onClickOrTap(_: Vector): void {
     // noop
   }
 

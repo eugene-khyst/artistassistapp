@@ -10,9 +10,10 @@ export enum TabKey {
   Photo = 'photo',
   Colors = 'colors',
   Sketch = 'sketch',
-  TonalValues = 'tonalValues',
+  TonalValues = 'tonal-values',
   Palette = 'palette',
   Grid = 'grid',
+  ColorMixing = 'color-mixing',
 }
 
 export interface CascaderOption {

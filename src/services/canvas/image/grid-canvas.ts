@@ -6,7 +6,7 @@
 import {ZoomableImageCanvas, ZoomableImageCanvasProps} from '.';
 import {Rectangle, Vector} from '../../math';
 
-const GRID_LINE_WIDTH = 2;
+const GRID_LINE_WIDTH = 1;
 const GRID_COLOR = '#f00';
 const DIAGONAL_LINE_WIDTH = 1;
 const DIAGONAL_COLOR = '#ff0';
@@ -100,6 +100,7 @@ export class GridCanvas extends ZoomableImageCanvas {
 
         if (m === 3 && n === 3) {
           if (isPortrait) {
+            this.drawLine(b, f);
             this.drawLine(d, h);
             this.drawLine(a, d);
             this.drawLine(c, h);
@@ -107,6 +108,7 @@ export class GridCanvas extends ZoomableImageCanvas {
             this.drawLine(e, h);
           } else {
             this.drawLine(b, f);
+            this.drawLine(d, h);
             this.drawLine(a, f);
             this.drawLine(b, g);
             this.drawLine(b, e);

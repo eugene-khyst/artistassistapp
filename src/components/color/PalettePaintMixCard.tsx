@@ -5,9 +5,9 @@
 
 import {
   BgColorsOutlined,
-  DeleteOutlined,
   EllipsisOutlined,
   LineChartOutlined,
+  MinusOutlined,
   ShareAltOutlined,
 } from '@ant-design/icons';
 import {Button, Card, Dropdown, MenuProps, Popconfirm, Space, Typography} from 'antd';
@@ -74,19 +74,19 @@ export const PalettePaintMixCard: React.FC<Props> = ({
           }}
           style={{width: 'calc(100% - 16px)'}}
         >
-          {paintMix.name || 'Paint mix'}
+          {paintMix.name || 'Paint mix name'}
         </Typography.Text>
       }
       extra={
         <Space.Compact block style={{display: 'flex', justifyContent: 'flex-end'}}>
           <Popconfirm
-            title="Delete the paint mix"
-            description="Are you sure to delete this paint mix?"
+            title="Remove the paint mix"
+            description="Are you sure to remove this paint mix?"
             onConfirm={handleDeleteButtonClick}
             okText="Yes"
             cancelText="No"
           >
-            <Button icon={<DeleteOutlined />}>Delete</Button>
+            <Button icon={<MinusOutlined />}>Remove</Button>
           </Popconfirm>
           <Dropdown menu={{items}}>
             <Button icon={<EllipsisOutlined />} />

@@ -6,6 +6,7 @@
 import {Checkbox, Col, ColorPicker, Form, Grid, Row, Select, Slider, Space, Spin} from 'antd';
 import {CheckboxChangeEvent} from 'antd/es/checkbox';
 import {Color} from 'antd/es/color-picker';
+import {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {SliderMarks} from 'antd/es/slider';
 import {Remote, wrap} from 'comlink';
 import {Dispatch, SetStateAction, useCallback, useContext, useEffect, useState} from 'react';
@@ -41,6 +42,11 @@ const SIMILAR_COLORS_COMPARATORS = {
   [Sort.BySimilarity]: compareSimilarColorsByDeltaE,
   [Sort.ByNumberOfPaints]: compareSimilarColorsByPaintMixFractionsLength,
 };
+
+const SORT_OPTIONS: SelectOptionType[] = [
+  {value: Sort.BySimilarity, label: 'Similarity'},
+  {value: Sort.ByNumberOfPaints, label: 'Color count'},
+];
 
 const MAX_DELTA_E = 2;
 
@@ -196,10 +202,6 @@ export const ImageColorPicker: React.FC<Props> = ({
     [setPaintMixes, imageFileId]
   );
 
-  const handleBackgroundColorChange = (backgroundColorHex: string) => {
-    setBackgroundColor(backgroundColorHex);
-  };
-
   const handleIsGlazeChange = (isGlaze: boolean) => {
     setIsGlaze(isGlaze);
     if (!isGlaze) {
@@ -246,16 +248,12 @@ export const ImageColorPicker: React.FC<Props> = ({
               overflowY: 'auto',
             }}
           >
-            <div style={{padding: '0 16px 8px'}}>
-              <Form.Item style={{marginBottom: 0}}>
+            <Space direction="vertical" style={{padding: '0 16px'}}>
+              <Space align="baseline" wrap style={{display: 'flex'}}>
                 <Form.Item
                   label="Background"
                   tooltip="The color of paper or canvas, or the color of the base layer when glazed."
-                  style={{
-                    display: 'inline-block',
-                    marginBottom: 0,
-                    marginRight: 16,
-                  }}
+                  style={{marginBottom: 0}}
                 >
                   <ColorPicker
                     value={backgroundColor}
@@ -266,7 +264,7 @@ export const ImageColorPicker: React.FC<Props> = ({
                       },
                     ]}
                     onChangeComplete={(color: Color) => {
-                      handleBackgroundColorChange(color.toHexString(true));
+                      setBackgroundColor(color.toHexString(true));
                     }}
                     showText
                     disabledAlpha
@@ -275,10 +273,7 @@ export const ImageColorPicker: React.FC<Props> = ({
                 <Form.Item
                   label="Glaze"
                   tooltip="Glazing is a painting technique in which a thin layer of transparent paint is applied over a dried base color layer, mixing optically to rich, iridescent color."
-                  style={{
-                    display: 'inline-block',
-                    margin: 0,
-                  }}
+                  style={{marginBottom: 0}}
                 >
                   <Checkbox
                     checked={isGlaze}
@@ -287,7 +282,7 @@ export const ImageColorPicker: React.FC<Props> = ({
                     }}
                   />
                 </Form.Item>
-              </Form.Item>
+              </Space>
               <Form.Item
                 label="Diameter"
                 tooltip="The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
@@ -301,11 +296,11 @@ export const ImageColorPicker: React.FC<Props> = ({
                   marks={sampleDiameterSliderMarks}
                 />
               </Form.Item>
-              <Form.Item style={{marginBottom: 0}}>
+              <Space align="baseline" wrap style={{display: 'flex'}}>
                 <Form.Item
                   label="Color"
                   tooltip="The color to be mixed from your paint set. Select a color by clicking a point on the image, or use the color picker popup."
-                  style={{display: 'inline-block', marginBottom: 0, marginRight: 16}}
+                  style={{marginBottom: 0}}
                 >
                   <ColorPicker
                     value={targetColor}
@@ -318,50 +313,41 @@ export const ImageColorPicker: React.FC<Props> = ({
                 </Form.Item>
                 <Form.Item
                   label="Sort"
-                  style={{
-                    display: 'inline-block',
-                    margin: 0,
-                  }}
+                  tooltip="Sort by similarity of the mix to the target color or by the number of colors in the mix."
+                  style={{marginBottom: 0}}
                 >
                   <Select
                     value={sort}
                     onChange={(value: Sort) => setSort(value)}
-                    options={[
-                      {value: Sort.BySimilarity, label: 'More similar'},
-                      {value: Sort.ByNumberOfPaints, label: 'Less paints'},
-                    ]}
-                    style={{width: 120}}
+                    options={SORT_OPTIONS}
+                    style={{width: 115}}
                   />
                 </Form.Item>
-              </Form.Item>
-            </div>
-            {!similarColors.length ? (
-              <div style={{padding: '16px', textAlign: 'center'}}>
-                ⁉️ No data
-                <br />
-                Click 🖱️ or tap 👆 anywhere on the image to choose a color
-              </div>
-            ) : (
-              <div style={{padding: '8px 16px'}}>
-                <Space direction="vertical" size="small" style={{width: '100%'}}>
-                  {similarColors
-                    .slice()
-                    .sort(SIMILAR_COLORS_COMPARATORS[sort])
-                    .map((similarColor: SimilarColor) => (
-                      <SimilarColorCard
-                        key={similarColor.paintMix.id}
-                        {...{
-                          similarColor,
-                          setAsBackground,
-                          showReflectanceChart,
-                          paintMixes,
-                          savePaintMix,
-                        }}
-                      />
-                    ))}
-                </Space>
-              </div>
-            )}
+              </Space>
+              {!similarColors.length ? (
+                <div style={{margin: '8px 0'}}>
+                  <b>⁉️ No data</b>
+                  <br />
+                  Click 🖱️ or tap 👆 anywhere on the image to choose a color
+                </div>
+              ) : (
+                similarColors
+                  .slice()
+                  .sort(SIMILAR_COLORS_COMPARATORS[sort])
+                  .map((similarColor: SimilarColor) => (
+                    <SimilarColorCard
+                      key={similarColor.paintMix.id}
+                      {...{
+                        similarColor,
+                        setAsBackground,
+                        showReflectanceChart,
+                        paintMixes,
+                        savePaintMix,
+                      }}
+                    />
+                  ))
+              )}
+            </Space>
           </Col>
         </Row>
       </Spin>

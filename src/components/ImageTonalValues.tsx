@@ -11,9 +11,11 @@ import {
 } from '@ant-design/icons';
 import {
   Button,
+  Checkbox,
   CheckboxOptionType,
   Col,
   Dropdown,
+  Form,
   Grid,
   MenuProps,
   Radio,
@@ -22,6 +24,7 @@ import {
   Space,
   Spin,
 } from 'antd';
+import {CheckboxChangeEvent} from 'antd/es/checkbox';
 import {Remote, wrap} from 'comlink';
 import {useEffect, useRef, useState} from 'react';
 import {useReactToPrint} from 'react-to-print';
@@ -140,8 +143,8 @@ export const ImageTonalValues: React.FC<Props> = ({
   return (
     <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
       <Space
-        size="small"
-        align="center"
+        size="middle"
+        align="baseline"
         style={{width: '100%', justifyContent: 'center', marginBottom: 8}}
       >
         <Radio.Group
@@ -151,9 +154,29 @@ export const ImageTonalValues: React.FC<Props> = ({
           optionType="button"
           buttonStyle="solid"
         />
-        <Dropdown menu={{items}}>
-          <Button icon={<EllipsisOutlined />} />
-        </Dropdown>
+        {screens['sm'] ? (
+          <>
+            <Form.Item
+              label="Original image"
+              tooltip="Show or hide the original image next to the tonal values."
+              style={{marginBottom: 0}}
+            >
+              <Checkbox
+                checked={isOriginalVisible}
+                onChange={(e: CheckboxChangeEvent) => {
+                  setIsOriginalVisible(e.target.checked);
+                }}
+              />
+            </Form.Item>
+            <Button icon={<PrinterOutlined />} onClick={handlePrint}>
+              Print
+            </Button>
+          </>
+        ) : (
+          <Dropdown menu={{items}}>
+            <Button icon={<EllipsisOutlined />} />
+          </Dropdown>
+        )}
       </Space>
       <Row>
         <Col xs={24} sm={isOriginalVisible ? 12 : 24}>

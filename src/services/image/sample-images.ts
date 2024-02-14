@@ -12,11 +12,6 @@ export const SAMPLE_IMAGES: SampleImageUrl[] = [
     'Chrysanthemum',
   ],
   [
-    new URL('../../assets/images/samples/Apples.jpg', import.meta.url),
-    new URL('../../assets/images/samples/Apples-thumbnail.jpg', import.meta.url),
-    'Apples',
-  ],
-  [
     new URL('../../assets/images/samples/Sunset.jpg', import.meta.url),
     new URL('../../assets/images/samples/Sunset-thumbnail.jpg', import.meta.url),
     'Sunset',

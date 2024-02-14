@@ -4,123 +4,28 @@
  */
 
 import {ShareAltOutlined} from '@ant-design/icons';
-import {App, Button, Cascader, Form, Select, SelectProps, Space, Spin, Typography} from 'antd';
-import {DefaultOptionType as SelectOptionType} from 'antd/es/select';
-import {Dispatch, ReactElement, SetStateAction, useEffect, useState} from 'react';
+import {App, Button, Form, Space, Spin, Typography} from 'antd';
+import {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import {usePaints, useStoreBoughtPaintSets} from '../hooks';
 import {
   NUMBER_OF_PAINTS_IN_MIX,
   PAINT_BRANDS,
-  PAINT_BRAND_LABELS,
-  PAINT_TYPE_LABELS,
-  Paint,
   PaintBrand,
   PaintSet,
   PaintSetDefinition,
   PaintType,
-  StoreBoughtPaintSet,
-  formatPaintId,
   paintSetToUrl,
   toPaintSet,
 } from '../services/color';
 import {getLastPaintSet, getPaintSetByType, savePaintSet} from '../services/db';
-import {maxInMap} from '../utils';
-import {ColorSquare} from './color/ColorSquare';
+import {PaintBrandSelect} from './color/PaintBrandSelect';
+import {PaintSelect} from './color/PaintSelect';
+import {PaintTypeSelect} from './color/PaintTypeSelect';
+import {StoreBoughtPaintSetCascader} from './color/StoreBoughtPaintSetCascader';
 import {ShareModal} from './modal/ShareModal';
-import {CascaderOption} from './types';
 
 const MAX_COLORS = 36;
-
-const PAINT_TYPE_OPTIONS: SelectProps['options'] = Object.entries(PAINT_TYPE_LABELS).map(
-  ([key, label]: [string, string]) => ({
-    value: Number(key),
-    label,
-  })
-);
-
-const customPaintSet = [0];
-
-const customPaintSetOption = {
-  value: 0,
-  label: 'Custom paint set',
-};
-
-function getPaintBrandOptions(type?: PaintType): SelectProps['options'] {
-  if (!type) {
-    return [];
-  }
-  return PAINT_BRANDS[type].map((paintBrand: PaintBrand) => ({
-    value: paintBrand,
-    label: PAINT_BRAND_LABELS[type][paintBrand]?.fullText,
-  }));
-}
-
-function getStoreBoughtPaintSetOptions(
-  type: PaintType | undefined,
-  storeBoughtPaintSets: Map<PaintBrand, Map<string, StoreBoughtPaintSet>>
-): CascaderOption[] {
-  if (!type || !storeBoughtPaintSets.size) {
-    return [];
-  }
-  return [
-    customPaintSetOption,
-    ...[...storeBoughtPaintSets.entries()].map(
-      ([brand, storeBoughtPaintSets]: [PaintBrand, Map<string, StoreBoughtPaintSet>]) => ({
-        value: brand,
-        label: PAINT_BRAND_LABELS[type][brand]?.fullText,
-        children: [...storeBoughtPaintSets.values()].map(({name}: StoreBoughtPaintSet) => ({
-          value: name,
-          label: name,
-        })),
-      })
-    ),
-  ];
-}
-
-function getPaintOptions(
-  paints: Map<PaintBrand, Map<number, Paint>>
-): Partial<Record<PaintBrand, SelectProps['options']>> {
-  if (!paints.size) {
-    return {};
-  }
-  return Object.fromEntries(
-    [...paints.entries()].map(([brand, paints]: [PaintBrand, Map<number, Paint>]) => {
-      const maxId: number = maxInMap(paints, ({id}: Paint) => id);
-      return [
-        brand,
-        [...paints.values()].map((paint: Paint) => {
-          const {id, rgb} = paint;
-          const label: string = formatPaintId(paint, maxId);
-          return {
-            value: id,
-            label: (
-              <Space size="small" align="center" key={label}>
-                <ColorSquare color={rgb} />
-                <span>{label}</span>
-              </Space>
-            ),
-          };
-        }),
-      ];
-    })
-  );
-}
-
-const filterSelectOptions = (inputValue: string, option?: SelectOptionType): boolean => {
-  if (!option?.label) {
-    return false;
-  }
-  const searchTerm: string = inputValue.toLowerCase();
-  if (typeof option.label === 'string') {
-    return option.label.toLowerCase().includes(searchTerm);
-  }
-  const label = option.label as ReactElement;
-  const key: string | undefined = label.key?.toString()?.toLowerCase();
-  return key?.includes(searchTerm) ?? false;
-};
-
-const filterCascaderOptions = (inputValue: string, path: CascaderOption[]) =>
-  path.some(option => (option.label as string).toLowerCase().includes(inputValue.toLowerCase()));
+const CUSTOM_PAINT_SET = [0];
 
 const formInitialValues: PaintSetDefinition = {
   brands: [],
@@ -171,10 +76,6 @@ export const SelectPaintSet: React.FC<Props> = ({setPaintSet, importedPaintSet}:
   if (isStoreBoughtPaintSetError || isPaintsError) {
     message.error('Error while fetching data');
   }
-
-  const paintBrandOptions = getPaintBrandOptions(paintType);
-  const storeBoughtPaintSetOptions = getStoreBoughtPaintSetOptions(paintType, storeBoughtPaintSets);
-  const paintOptions = getPaintOptions(paints);
 
   const handleFormValuesChange = async (
     changedValues: Partial<PaintSetDefinition>,
@@ -234,7 +135,7 @@ export const SelectPaintSet: React.FC<Props> = ({setPaintSet, importedPaintSet}:
     }
 
     if (changedValues.colors) {
-      form.setFieldsValue({storeBoughtPaintSet: customPaintSet});
+      form.setFieldsValue({storeBoughtPaintSet: CUSTOM_PAINT_SET});
     }
   };
 
@@ -268,7 +169,6 @@ export const SelectPaintSet: React.FC<Props> = ({setPaintSet, importedPaintSet}:
             onFinish={handleSubmit}
             onFinishFailed={handleSubmitFailed}
             layout="vertical"
-            size="large"
             requiredMark="optional"
             autoComplete="off"
           >
@@ -277,7 +177,7 @@ export const SelectPaintSet: React.FC<Props> = ({setPaintSet, importedPaintSet}:
               label="Medium"
               rules={[{required: true, message: '${label} is required'}]}
             >
-              <Select options={PAINT_TYPE_OPTIONS} placeholder="Select medium" />
+              <PaintTypeSelect />
             </Form.Item>
             {!!paintType && (
               <Form.Item
@@ -286,14 +186,7 @@ export const SelectPaintSet: React.FC<Props> = ({setPaintSet, importedPaintSet}:
                 rules={[{required: true, message: '${label} are required'}]}
                 dependencies={['paintType']}
               >
-                <Select
-                  mode="multiple"
-                  options={paintBrandOptions}
-                  placeholder="Select brands"
-                  showSearch
-                  filterOption={filterSelectOptions}
-                  allowClear
-                />
+                <PaintBrandSelect mode="multiple" type={paintType} />
               </Form.Item>
             )}
             {!!paintBrands?.length && (
@@ -304,12 +197,9 @@ export const SelectPaintSet: React.FC<Props> = ({setPaintSet, importedPaintSet}:
                 dependencies={['paintType', 'paintBrands']}
                 tooltip="Do you have a store-bought or custom set?"
               >
-                <Cascader
-                  options={storeBoughtPaintSetOptions}
-                  placeholder="Select set"
-                  showSearch={{filter: filterCascaderOptions}}
-                  expandTrigger="hover"
-                  allowClear
+                <StoreBoughtPaintSetCascader
+                  type={paintType}
+                  storeBoughtPaintSets={storeBoughtPaintSets}
                 />
               </Form.Item>
             )}
@@ -318,7 +208,7 @@ export const SelectPaintSet: React.FC<Props> = ({setPaintSet, importedPaintSet}:
                 <Form.Item
                   key={paintBrand}
                   name={['colors', paintBrand.toString()]}
-                  label={`${PAINT_BRAND_LABELS[paintType][paintBrand]?.fullText} colors`}
+                  label={`${PAINT_BRANDS.get(paintType)?.get(paintBrand)?.fullName} colors`}
                   rules={[
                     {required: true, message: '${label} are required'},
                     ({getFieldValue}) => ({
@@ -344,14 +234,7 @@ export const SelectPaintSet: React.FC<Props> = ({setPaintSet, importedPaintSet}:
                   dependencies={['paintType', 'paintBrands', 'storeBoughtPaintSet']}
                   tooltip="Add or remove colors to match your actual paint set"
                 >
-                  <Select
-                    mode="multiple"
-                    options={paintOptions[paintBrand] ?? []}
-                    placeholder="Select colors"
-                    showSearch
-                    filterOption={filterSelectOptions}
-                    allowClear
-                  />
+                  <PaintSelect mode="multiple" paints={paints.get(paintBrand)} />
                 </Form.Item>
               ))}
             <Form.Item>

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Checkbox, Col, Form, Row, Select, Spin} from 'antd';
+import {Checkbox, Form, Select, Space, Spin} from 'antd';
 import {CheckboxChangeEvent} from 'antd/es/checkbox';
 import {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useEffect, useState} from 'react';
@@ -60,49 +60,38 @@ export const ImageGrid: React.FC<Props> = ({images, isImagesLoading}: Props) => 
 
   return (
     <Spin spinning={isImagesLoading} tip="Loading" size="large" delay={300}>
-      <Row justify="center">
-        <Col xs={24} md={12} lg={8}>
-          <Form.Item style={{margin: '0 16px 8px'}}>
-            <Form.Item label="Grid" style={{display: 'inline-block', margin: 0, marginRight: 16}}>
-              <Select
-                value={gridOption}
-                onChange={(value: number) => setGridOption(value)}
-                options={GRID_OPTIONS}
-                style={{width: 120}}
-              />
-            </Form.Item>
-            {gridOption === GridOption.Square ? (
-              <Form.Item
-                label="Cells"
-                tooltip="Number of cells on the smaller side (vertical or horizontal)"
-                style={{display: 'inline-block', margin: 0}}
-              >
-                <Select
-                  value={squareGridSize}
-                  onChange={(value: number) => setSquareGridSize(value)}
-                  options={SQUARE_GRID_SIZE_OPTIONS}
-                />
-              </Form.Item>
-            ) : (
-              <Form.Item
-                label="Diagonals"
-                tooltip="Show or hide diagonal lines"
-                style={{
-                  display: 'inline-block',
-                  margin: 0,
-                }}
-              >
-                <Checkbox
-                  checked={isDiagonals}
-                  onChange={(e: CheckboxChangeEvent) => {
-                    setIsDiagonals(e.target.checked);
-                  }}
-                />
-              </Form.Item>
-            )}
+      <Space align="baseline" style={{width: '100%', justifyContent: 'center', marginBottom: 8}}>
+        <Form.Item label="Grid" style={{margin: 0}}>
+          <Select
+            value={gridOption}
+            onChange={(value: number) => setGridOption(value)}
+            options={GRID_OPTIONS}
+            style={{width: 120}}
+          />
+        </Form.Item>
+        {gridOption === GridOption.Square ? (
+          <Form.Item
+            label="Cells"
+            tooltip="Number of cells on the smaller side (vertical or horizontal)"
+            style={{margin: 0}}
+          >
+            <Select
+              value={squareGridSize}
+              onChange={(value: number) => setSquareGridSize(value)}
+              options={SQUARE_GRID_SIZE_OPTIONS}
+            />
           </Form.Item>
-        </Col>
-      </Row>
+        ) : (
+          <Form.Item label="Diagonals" tooltip="Show or hide diagonal lines" style={{margin: 0}}>
+            <Checkbox
+              checked={isDiagonals}
+              onChange={(e: CheckboxChangeEvent) => {
+                setIsDiagonals(e.target.checked);
+              }}
+            />
+          </Form.Item>
+        )}
+      </Space>
       <div>
         <canvas ref={canvasRef} style={{width: '100%', height: `calc(100vh - 115px)`}} />
       </div>

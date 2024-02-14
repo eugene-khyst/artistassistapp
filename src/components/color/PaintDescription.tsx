@@ -4,7 +4,7 @@
  */
 
 import {Space, Tooltip} from 'antd';
-import {PAINT_BRAND_LABELS, Paint} from '../../services/color';
+import {PAINT_BRANDS, Paint} from '../../services/color';
 import {ColorSquare} from './ColorSquare';
 
 type Props = {
@@ -14,13 +14,13 @@ type Props = {
 
 export const PaintDescription: React.FC<Props> = ({paint, text}: Props) => {
   const {type, brand, id, name, rgb} = paint;
-  const label = PAINT_BRAND_LABELS[type][brand];
+  const {shortName, fullName} = PAINT_BRANDS.get(type)?.get(brand) ?? {};
   return (
     <Space size="small">
       <ColorSquare color={rgb} size="large" text={text} />
       <span>
-        <Tooltip title={label?.fullText}>
-          <i>{label?.shortText ?? label?.fullText}</i>
+        <Tooltip title={fullName}>
+          <i>{shortName || fullName}</i>
         </Tooltip>
         <br />
         <b>{id < 1000 ? `${String(id).padStart(3, '0')} ${name}` : name}</b>

@@ -12,11 +12,3 @@ export function computeIfAbsentInMap<K, V>(map: Map<K, V>, key: K, valueFn: (key
   map.set(key, newValue);
   return newValue;
 }
-
-export function maxInMap<V>(map: Map<any, V>, valueFn: (value: V) => number): number {
-  let max = Number.NEGATIVE_INFINITY;
-  for (const value of map.values()) {
-    max = Math.max(max, valueFn(value));
-  }
-  return max;
-}

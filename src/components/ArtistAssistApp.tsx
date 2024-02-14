@@ -15,13 +15,21 @@ import StickyBox from 'react-sticky-box';
 import {useEventListener, useTimeout} from 'usehooks-ts';
 import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
 import {useFullScreen} from '../hooks/useFullscreen';
-import {OFF_WHITE_HEX, PaintMix, PaintSet, UrlParsingResult, parseUrl} from '../services/color';
+import {
+  OFF_WHITE_HEX,
+  PENCIL_TYPES,
+  PaintMix,
+  PaintSet,
+  UrlParsingResult,
+  parseUrl,
+} from '../services/color';
 import {Rgb, RgbTuple} from '../services/color/model';
 import {createScaledImageBitmap} from '../utils';
 import {ImageColorPicker} from './ImageColorPicker';
 import {ImageGrid} from './ImageGrid';
 import {ImageSketch} from './ImageSketch';
 import {ImageTonalValues} from './ImageTonalValues';
+import {PaintMixer} from './PaintMixer';
 import {Palette} from './Palette';
 import {SelectImage} from './SelectImage';
 import {SelectPaintSet} from './SelectPaintSet';
@@ -166,7 +174,7 @@ export const ArtistAssistApp: React.FC = () => {
     },
     {
       key: TabKey.TonalValues,
-      label: 'Tonal Values',
+      label: 'Tonal values',
       children: <ImageTonalValues {...{blob, images, isImagesLoading}} />,
       forceRender: true,
       disabled: !blob || !images.length,
@@ -184,6 +192,13 @@ export const ArtistAssistApp: React.FC = () => {
       children: <ImageGrid {...{images, isImagesLoading}} />,
       forceRender: true,
       disabled: !images.length,
+    },
+    {
+      key: TabKey.ColorMixing,
+      label: 'Color mixing',
+      children: <PaintMixer paintSet={paintSet} />,
+      forceRender: true,
+      disabled: !paintSet || PENCIL_TYPES.includes(paintSet.type),
     },
   ];
 
