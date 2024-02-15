@@ -11,7 +11,6 @@ export interface AppConfig {
   defaultSampleDiameter: number;
   maxSampleDiameter: number;
   sampleDiameterSliderMarkValues: number[];
-  defaultMedianFilterSize: number;
 }
 
 export const AppConfigContext: Context<AppConfig> = createContext<AppConfig>({
@@ -20,5 +19,4 @@ export const AppConfigContext: Context<AppConfig> = createContext<AppConfig>({
   defaultSampleDiameter: 10,
   maxSampleDiameter: 50,
   sampleDiameterSliderMarkValues: [1, 10, 20, 30, 40, 50],
-  defaultMedianFilterSize: 2,
 });

@@ -44,6 +44,7 @@ type Props = {
   onChange?: (value: (number | string)[]) => void;
   type?: PaintType;
   storeBoughtPaintSets: Map<PaintBrand, Map<string, StoreBoughtPaintSet>>;
+  loading?: boolean;
   style?: CSSProperties;
 };
 
@@ -52,6 +53,7 @@ export const StoreBoughtPaintSetCascader: React.FC<Props> = ({
   onChange,
   type,
   storeBoughtPaintSets,
+  loading,
   style,
 }: Props) => {
   const options = getStoreBoughtPaintSetOptions(type, storeBoughtPaintSets);
@@ -64,6 +66,7 @@ export const StoreBoughtPaintSetCascader: React.FC<Props> = ({
       showSearch={{filter: filterCascaderOptions}}
       expandTrigger="hover"
       allowClear
+      loading={loading}
       style={style}
     />
   );

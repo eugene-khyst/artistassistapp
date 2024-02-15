@@ -32,10 +32,18 @@ type Props = {
   onChange?: (value: number[]) => void;
   paints?: Map<number, Paint>;
   mode?: 'multiple';
+  loading?: boolean;
   style?: CSSProperties;
 };
 
-export const PaintSelect: React.FC<Props> = ({value, onChange, paints, mode, style}: Props) => {
+export const PaintSelect: React.FC<Props> = ({
+  value,
+  onChange,
+  paints,
+  mode,
+  loading,
+  style,
+}: Props) => {
   const options = getPaintOptions(paints);
   return (
     <Select
@@ -47,6 +55,7 @@ export const PaintSelect: React.FC<Props> = ({value, onChange, paints, mode, sty
       showSearch
       filterOption={filterSelectOptions}
       allowClear
+      loading={loading}
       style={style}
     />
   );

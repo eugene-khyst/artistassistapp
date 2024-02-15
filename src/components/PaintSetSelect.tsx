@@ -4,7 +4,7 @@
  */
 
 import {ShareAltOutlined} from '@ant-design/icons';
-import {App, Button, Form, Space, Spin, Typography} from 'antd';
+import {Alert, App, Button, Form, Space, Spin, Typography} from 'antd';
 import {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import {usePaints, useStoreBoughtPaintSets} from '../hooks';
 import {
@@ -37,8 +37,9 @@ type Props = {
   importedPaintSet?: PaintSetDefinition;
 };
 
-export const SelectPaintSet: React.FC<Props> = ({setPaintSet, importedPaintSet}: Props) => {
+export const PaintSetSelect: React.FC<Props> = ({setPaintSet, importedPaintSet}: Props) => {
   const {message} = App.useApp();
+
   const [form] = Form.useForm<PaintSetDefinition>();
   const paintType = Form.useWatch<PaintType | undefined>('type', form);
   const paintBrands = Form.useWatch<PaintBrand[] | undefined>('brands', form);
@@ -157,7 +158,7 @@ export const SelectPaintSet: React.FC<Props> = ({setPaintSet, importedPaintSet}:
   return (
     <>
       <div style={{padding: '0 16px'}}>
-        <Typography.Title level={3} style={{marginTop: '0.5em'}}>
+        <Typography.Title level={3} style={{marginTop: 0}}>
           Select paint set
         </Typography.Title>
         <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
@@ -203,6 +204,12 @@ export const SelectPaintSet: React.FC<Props> = ({setPaintSet, importedPaintSet}:
                 />
               </Form.Item>
             )}
+            <Alert
+              showIcon
+              type="info"
+              message={`Select up to ${MAX_COLORS} colors in total`}
+              style={{marginBottom: 8}}
+            />
             {!!paintType &&
               paintBrands?.map((paintBrand: PaintBrand) => (
                 <Form.Item

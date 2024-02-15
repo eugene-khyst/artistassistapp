@@ -9,7 +9,20 @@ import {
   PlusOutlined,
   QuestionCircleOutlined,
 } from '@ant-design/icons';
-import {Button, ColorPicker, Form, InputNumber, Space, Tooltip, Typography, theme} from 'antd';
+import {
+  Button,
+  Col,
+  ColorPicker,
+  Flex,
+  Form,
+  Row,
+  Select,
+  SelectProps,
+  Space,
+  Tooltip,
+  Typography,
+  theme,
+} from 'antd';
 import {Color} from 'antd/es/color-picker';
 import {useEffect, useState} from 'react';
 import {
@@ -23,9 +36,15 @@ import {
   mixPaints,
 } from '../services/color';
 import {gcd} from '../services/math';
+import {range} from '../utils';
 import {PaintCascader} from './color/PaintCascader';
 import {PaintMixDescription} from './color/PaintMixDescription';
 import {ReflectanceChartDrawer} from './drawer/ReflectanceChartDrawer';
+
+const FRACTION_OPTIONS: SelectProps['options'] = range(1, 9).map((fraction: number) => ({
+  value: fraction,
+  label: fraction,
+}));
 
 type PaintMixerForm = {
   colors: {
@@ -117,112 +136,119 @@ export const PaintMixer: React.FC<Props> = ({paintSet}: Props) => {
   return (
     <>
       <div style={{padding: '0 16px'}}>
-        <Typography.Title level={3} style={{marginTop: '0.5em'}}>
+        <Typography.Title level={3} style={{marginTop: 0}}>
           Mix colors
         </Typography.Title>
-        <Space size="large" align="start" wrap>
-          <Form
-            name="paintMix"
-            form={form}
-            initialValues={formInitialValues}
-            onValuesChange={handleFormValuesChange}
-            requiredMark={false}
-            autoComplete="off"
-          >
-            <Form.Item
-              label="Background"
-              tooltip="The color of paper or canvas, or the color of the base layer when glazed."
-              style={{marginBottom: 0}}
+        <Row gutter={[32, 16]} justify="start" style={{marginBottom: 16}}>
+          <Col xs={24} md={12} lg={8}>
+            <Form
+              name="paintMix"
+              form={form}
+              initialValues={formInitialValues}
+              onValuesChange={handleFormValuesChange}
+              requiredMark={false}
+              autoComplete="off"
             >
-              <ColorPicker
-                value={backgroundColor}
-                presets={[
-                  {
-                    label: 'Recommended',
-                    colors: [OFF_WHITE_HEX],
-                  },
-                ]}
-                onChangeComplete={(color: Color) => {
-                  setBackgroundColor(color.toHexString(true));
-                }}
-                showText
-                disabledAlpha
-              />
-            </Form.Item>
-            <Form.Item style={{marginBottom: 0}}>
-              <Space>
-                <span style={{display: 'inline-block', width: 50}}>Ratio</span>
-                <span>×</span>
-                <span>Color</span>
-                <Tooltip title="Select any number of colors to mix and specify the fraction of each color in the resulting mix.">
-                  <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
-                </Tooltip>
-              </Space>
-            </Form.Item>
-            <Form.List name="colors">
-              {(fields, {add, remove}) => (
-                <>
-                  {fields.map(({key, name, ...restField}) => (
-                    <Space key={key} align="center" wrap style={{display: 'flex', marginBottom: 8}}>
-                      <Form.Item
-                        {...restField}
-                        name={[name, 'fraction']}
-                        style={{display: 'inline-block', marginBottom: 0}}
-                      >
-                        <InputNumber min={1} max={9} style={{width: 50}} />
-                      </Form.Item>
-                      {'×'}
-                      <Form.Item
-                        {...restField}
-                        name={[name, 'color']}
-                        style={{display: 'inline-block', marginBottom: 0}}
-                      >
-                        <PaintCascader paints={colors} />
-                      </Form.Item>
-                      {fields.length > 1 && (
+              <Form.Item
+                label="Background"
+                tooltip="The color of paper or canvas, or the color of the base layer when glazed."
+                style={{marginBottom: 0}}
+              >
+                <ColorPicker
+                  value={backgroundColor}
+                  presets={[
+                    {
+                      label: 'Recommended',
+                      colors: [OFF_WHITE_HEX],
+                    },
+                  ]}
+                  onChangeComplete={(color: Color) => {
+                    setBackgroundColor(color.toHexString(true));
+                  }}
+                  showText
+                  disabledAlpha
+                />
+              </Form.Item>
+              <Form.Item style={{marginBottom: 0}}>
+                <Flex gap="small" align="center">
+                  <span style={{display: 'inline-block', width: 50}}>Ratio</span>
+                  <span>×</span>
+                  <span>Color</span>
+                  <Tooltip title="Select any number of colors to mix and specify the fraction of each color in the resulting mix.">
+                    <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
+                  </Tooltip>
+                </Flex>
+              </Form.Item>
+              <Form.List name="colors">
+                {(fields, {add, remove}) => (
+                  <>
+                    {fields.map(({key, name, ...restField}) => (
+                      <Flex key={key} gap="small" align="center" style={{marginBottom: 8}}>
+                        <Form.Item
+                          {...restField}
+                          name={[name, 'fraction']}
+                          style={{marginBottom: 0}}
+                        >
+                          <Select
+                            options={FRACTION_OPTIONS}
+                            placeholder="Select fraction"
+                            style={{width: 50}}
+                          />
+                        </Form.Item>
+                        {'×'}
+                        <Form.Item
+                          {...restField}
+                          name={[name, 'color']}
+                          style={{flexGrow: 1, marginBottom: 0}}
+                        >
+                          <PaintCascader paints={colors} />
+                        </Form.Item>
+                        {fields.length > 1 && (
+                          <Button
+                            shape="circle"
+                            icon={<MinusOutlined />}
+                            onClick={() => remove(name)}
+                          />
+                        )}
+                      </Flex>
+                    ))}
+                    <Form.Item style={{margin: '16px 0 0'}}>
+                      <Space>
                         <Button
-                          shape="circle"
-                          icon={<MinusOutlined />}
-                          onClick={() => remove(name)}
-                        />
-                      )}
-                    </Space>
-                  ))}
-                  <Form.Item style={{margin: '16px 0 0'}}>
-                    <Space>
-                      <Button
-                        type="primary"
-                        icon={<PlusOutlined />}
-                        disabled={fields.length >= 4}
-                        onClick={() => add(defaultValue)}
-                      >
-                        Add color
-                      </Button>
-                      <Button
-                        icon={<LineChartOutlined />}
-                        disabled={!paintMixes.some(isThickConsistency)}
-                        onClick={() => setIsOpenReflectanceChart(true)}
-                      >
-                        Reflectance chart
-                      </Button>
-                    </Space>
-                  </Form.Item>
-                </>
-              )}
-            </Form.List>
-          </Form>
-
-          <Space direction="vertical" size="small">
-            {paintMixes.map((paintMix: PaintMix) => (
-              <PaintMixDescription
-                key={paintMix.id}
-                paintMix={paintMix}
-                showPaints={isThickConsistency(paintMix)}
-                showConsistency={!isThickConsistency(paintMix)}
-              />
-            ))}
-          </Space>
-        </Space>
+                          type="primary"
+                          icon={<PlusOutlined />}
+                          disabled={fields.length >= 4}
+                          onClick={() => add(defaultValue)}
+                        >
+                          Add color
+                        </Button>
+                        <Button
+                          icon={<LineChartOutlined />}
+                          disabled={!paintMixes.some(isThickConsistency)}
+                          onClick={() => setIsOpenReflectanceChart(true)}
+                        >
+                          Reflectance chart
+                        </Button>
+                      </Space>
+                    </Form.Item>
+                  </>
+                )}
+              </Form.List>
+            </Form>
+          </Col>
+          <Col xs={24} md={12} lg={8}>
+            <Space direction="vertical" size="small" style={{width: '100%'}}>
+              {paintMixes.map((paintMix: PaintMix) => (
+                <PaintMixDescription
+                  key={paintMix.id}
+                  paintMix={paintMix}
+                  showPaints={isThickConsistency(paintMix)}
+                  showConsistency={!isThickConsistency(paintMix)}
+                />
+              ))}
+            </Space>
+          </Col>
+        </Row>
       </div>
       <ReflectanceChartDrawer
         paintMix={paintMixes.find(isThickConsistency)}

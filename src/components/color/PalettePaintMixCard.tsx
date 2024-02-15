@@ -63,8 +63,8 @@ export const PalettePaintMixCard: React.FC<Props> = ({
   };
 
   return (
-    <Card
-      title={
+    <Card size="small" bordered={false}>
+      <Space direction="vertical" size="small" style={{width: '100%'}}>
         <Typography.Text
           ellipsis={{tooltip: true}}
           editable={{
@@ -72,16 +72,17 @@ export const PalettePaintMixCard: React.FC<Props> = ({
             onChange: handleTitleEdited,
             autoSize: false,
           }}
-          style={{width: 'calc(100% - 16px)'}}
+          style={{width: '100%', fontWeight: 'bold'}}
         >
-          {paintMix.name || 'Paint mix name'}
+          {paintMix.name || 'Color mixture name'}
         </Typography.Text>
-      }
-      extra={
+
+        <PaintMixDescription paintMix={paintMix} />
+
         <Space.Compact block style={{display: 'flex', justifyContent: 'flex-end'}}>
           <Popconfirm
-            title="Remove the paint mix"
-            description="Are you sure to remove this paint mix?"
+            title="Remove the color mixture"
+            description="Are you sure you want to remove this color mixture?"
             onConfirm={handleDeleteButtonClick}
             okText="Yes"
             cancelText="No"
@@ -92,9 +93,7 @@ export const PalettePaintMixCard: React.FC<Props> = ({
             <Button icon={<EllipsisOutlined />} />
           </Dropdown>
         </Space.Compact>
-      }
-    >
-      <PaintMixDescription paintMix={paintMix} />
+      </Space>
     </Card>
   );
 };

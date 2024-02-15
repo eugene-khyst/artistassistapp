@@ -24,15 +24,15 @@ import {
   parseUrl,
 } from '../services/color';
 import {Rgb, RgbTuple} from '../services/color/model';
-import {createScaledImageBitmap} from '../utils';
+import {IMAGE_SIZE, createScaledImageBitmap} from '../utils';
 import {ImageColorPicker} from './ImageColorPicker';
 import {ImageGrid} from './ImageGrid';
+import {ImageSelect} from './ImageSelect';
 import {ImageSketch} from './ImageSketch';
 import {ImageTonalValues} from './ImageTonalValues';
 import {PaintMixer} from './PaintMixer';
+import {PaintSetSelect} from './PaintSetSelect';
 import {Palette} from './Palette';
-import {SelectImage} from './SelectImage';
-import {SelectPaintSet} from './SelectPaintSet';
 import {AboutModal} from './modal/AboutModal';
 import {TabKey} from './types';
 
@@ -49,10 +49,8 @@ if (importedPaintSet || importedPaintMix) {
   history.pushState({}, '', '/');
 }
 
-const MAX_IMAGE_SIZE_2K = 2560 * 1440;
-
 const blobToImageBitmapsConverter = async (blob: Blob): Promise<ImageBitmap[]> => {
-  return [await createScaledImageBitmap(blob, MAX_IMAGE_SIZE_2K)];
+  return [await createScaledImageBitmap(blob, IMAGE_SIZE['2K'])];
 };
 
 export const ArtistAssistApp: React.FC = () => {
@@ -122,13 +120,15 @@ export const ArtistAssistApp: React.FC = () => {
     {
       key: TabKey.Paints,
       label: 'Paints',
-      children: <SelectPaintSet {...{setPaintSet, blob, importedPaintSet}} />,
+      children: <PaintSetSelect setPaintSet={setPaintSet} importedPaintSet={importedPaintSet} />,
       forceRender: true,
     },
     {
       key: TabKey.Photo,
       label: 'Photo',
-      children: <SelectImage {...{setBlob, imageFileId, setImageFileId}} />,
+      children: (
+        <ImageSelect setBlob={setBlob} imageFileId={imageFileId} setImageFileId={setImageFileId} />
+      ),
       forceRender: true,
     },
     {
@@ -136,19 +136,17 @@ export const ArtistAssistApp: React.FC = () => {
       label: 'Colors',
       children: (
         <ImageColorPicker
-          {...{
-            paintSet,
-            imageFileId,
-            images,
-            isImagesLoading,
-            backgroundColor,
-            setBackgroundColor,
-            isGlaze,
-            setIsGlaze,
-            paintMixes,
-            setPaintMixes,
-            setAsBackground,
-          }}
+          paintSet={paintSet}
+          imageFileId={imageFileId}
+          images={images}
+          isImagesLoading={isImagesLoading}
+          backgroundColor={backgroundColor}
+          setBackgroundColor={setBackgroundColor}
+          isGlaze={isGlaze}
+          setIsGlaze={setIsGlaze}
+          paintMixes={paintMixes}
+          setPaintMixes={setPaintMixes}
+          setAsBackground={setAsBackground}
         />
       ),
       forceRender: true,
@@ -159,15 +157,13 @@ export const ArtistAssistApp: React.FC = () => {
       label: 'Palette',
       children: (
         <Palette
-          {...{
-            paintSet,
-            imageFileId,
-            paintMixes,
-            setPaintMixes,
-            setAsBackground,
-            importedPaintMix,
-            blob,
-          }}
+          paintSet={paintSet}
+          imageFileId={imageFileId}
+          paintMixes={paintMixes}
+          setPaintMixes={setPaintMixes}
+          setAsBackground={setAsBackground}
+          importedPaintMix={importedPaintMix}
+          blob={blob}
         />
       ),
       forceRender: true,
@@ -175,9 +171,9 @@ export const ArtistAssistApp: React.FC = () => {
     {
       key: TabKey.TonalValues,
       label: 'Tonal values',
-      children: <ImageTonalValues {...{blob, images, isImagesLoading}} />,
+      children: <ImageTonalValues blob={blob} images={images} isImagesLoading={isImagesLoading} />,
       forceRender: true,
-      disabled: !blob || !images.length,
+      disabled: !blob,
     },
     {
       key: TabKey.Sketch,
@@ -189,9 +185,9 @@ export const ArtistAssistApp: React.FC = () => {
     {
       key: TabKey.Grid,
       label: 'Grid',
-      children: <ImageGrid {...{images, isImagesLoading}} />,
+      children: <ImageGrid images={images} isImagesLoading={isImagesLoading} />,
       forceRender: true,
-      disabled: !images.length,
+      disabled: !blob,
     },
     {
       key: TabKey.ColorMixing,

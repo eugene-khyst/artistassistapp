@@ -5,10 +5,8 @@
 
 import {transfer} from 'comlink';
 import {medianFilter} from '.';
-import {createScaledImageBitmap, imageBitmapToOffscreenCanvas} from '../../utils';
+import {IMAGE_SIZE, createScaledImageBitmap, imageBitmapToOffscreenCanvas} from '../../utils';
 import {getLightness, getLuminance} from '../color/model';
-
-const MAX_IMAGE_SIZE_HD = 1280 * 720;
 
 interface Result {
   tones: ImageBitmap[];
@@ -23,7 +21,7 @@ export class TonalValues {
     if (process.env.NODE_ENV !== 'production') {
       console.time('tones');
     }
-    const image: ImageBitmap = await createScaledImageBitmap(blob, MAX_IMAGE_SIZE_HD);
+    const image: ImageBitmap = await createScaledImageBitmap(blob, IMAGE_SIZE.HD);
     const [canvas, ctx] = imageBitmapToOffscreenCanvas(image, medianFilterRadius);
     const imageData: ImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     image.close();

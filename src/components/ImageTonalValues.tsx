@@ -49,7 +49,8 @@ const THRESHOLDS = [75, 50, 25];
 const MEDIAN_FILTER_RADIUS = 3;
 
 const tonalValuesBlobToImageBitmapsConverter = async (blob: Blob): Promise<ImageBitmap[]> => {
-  return (await tonalValues.getTones(blob, THRESHOLDS, MEDIAN_FILTER_RADIUS)).tones;
+  const {tones} = await tonalValues.getTones(blob, THRESHOLDS, MEDIAN_FILTER_RADIUS);
+  return tones;
 };
 
 type Props = {
@@ -72,6 +73,7 @@ export const ImageTonalValues: React.FC<Props> = ({
 
   const {ref: tonalValuesCanvasRef, zoomableImageCanvasRef: tonalValuesZoomableImageCanvasRef} =
     useZoomableImageCanvas<ZoomableImageCanvas>(zoomableImageCanvasSupplier, tonalValues);
+
   const {ref: originalCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
     original
@@ -144,7 +146,7 @@ export const ImageTonalValues: React.FC<Props> = ({
     <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
       <Space
         size="middle"
-        align="baseline"
+        align="center"
         style={{width: '100%', justifyContent: 'center', marginBottom: 8}}
       >
         <Radio.Group

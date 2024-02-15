@@ -3,6 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+export const IMAGE_SIZE = {
+  HD: 1280 * 720,
+  '2K': 2560 * 1440,
+};
+
 export async function createScaledImageBitmap(blob: Blob, maxImageArea: number) {
   const image: ImageBitmap = await createImageBitmap(blob);
   const scale: number = Math.min(1, Math.sqrt(maxImageArea / (image.width * image.height)));

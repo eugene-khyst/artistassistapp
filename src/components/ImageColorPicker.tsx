@@ -3,7 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Checkbox, Col, ColorPicker, Form, Grid, Row, Select, Slider, Space, Spin} from 'antd';
+import {
+  Checkbox,
+  Col,
+  ColorPicker,
+  Form,
+  Grid,
+  Row,
+  Select,
+  Slider,
+  Space,
+  Spin,
+  Typography,
+} from 'antd';
 import {CheckboxChangeEvent} from 'antd/es/checkbox';
 import {Color} from 'antd/es/color-picker';
 import {DefaultOptionType as SelectOptionType} from 'antd/es/select';
@@ -249,7 +261,7 @@ export const ImageColorPicker: React.FC<Props> = ({
             }}
           >
             <Space direction="vertical" style={{padding: '0 16px'}}>
-              <Space align="baseline" wrap style={{display: 'flex'}}>
+              <Space align="center" wrap style={{display: 'flex'}}>
                 <Form.Item
                   label="Background"
                   tooltip="The color of paper or canvas, or the color of the base layer when glazed."
@@ -296,7 +308,7 @@ export const ImageColorPicker: React.FC<Props> = ({
                   marks={sampleDiameterSliderMarks}
                 />
               </Form.Item>
-              <Space align="baseline" wrap style={{display: 'flex'}}>
+              <Space align="center" wrap style={{display: 'flex'}}>
                 <Form.Item
                   label="Color"
                   tooltip="The color to be mixed from your paint set. Select a color by clicking a point on the image, or use the color picker popup."
@@ -326,7 +338,7 @@ export const ImageColorPicker: React.FC<Props> = ({
               </Space>
               {!similarColors.length ? (
                 <div style={{margin: '8px 0'}}>
-                  <b>⁉️ No data</b>
+                  <Typography.Text strong>⁉️ No data</Typography.Text>
                   <br />
                   Click 🖱️ or tap 👆 anywhere on the image to choose a color
                 </div>
@@ -337,13 +349,11 @@ export const ImageColorPicker: React.FC<Props> = ({
                   .map((similarColor: SimilarColor) => (
                     <SimilarColorCard
                       key={similarColor.paintMix.id}
-                      {...{
-                        similarColor,
-                        setAsBackground,
-                        showReflectanceChart,
-                        paintMixes,
-                        savePaintMix,
-                      }}
+                      similarColor={similarColor}
+                      setAsBackground={setAsBackground}
+                      showReflectanceChart={showReflectanceChart}
+                      paintMixes={paintMixes}
+                      savePaintMix={savePaintMix}
                     />
                   ))
               )}

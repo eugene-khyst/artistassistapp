@@ -3,16 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Form, Slider, Spin} from 'antd';
-import {SliderMarks} from 'antd/es/slider';
+import {CheckboxOptionType, Radio, RadioChangeEvent, Spin} from 'antd';
 import {Remote, wrap} from 'comlink';
-import {useContext, useEffect, useState} from 'react';
-import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
+import {useEffect, useState} from 'react';
 import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '../hooks/';
 import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
 import {ZoomableImageCanvas} from '../services/canvas/image';
 import {Sketch} from '../services/image';
-import {range} from '../utils';
+import {IMAGE_SIZE, createScaledImageBitmap} from '../utils';
 
 const sketch: Remote<Sketch> = wrap(
   new Worker(new URL('../services/image/worker/sketch-worker.ts', import.meta.url), {
@@ -20,12 +18,18 @@ const sketch: Remote<Sketch> = wrap(
   })
 );
 
-const MIN_MEDIAN_FILTER_RADIUS = 2;
-const MAX_MEDIAN_FILTER_RADIUS = 4;
-const MEDIAN_FILTER_RADIUSES = range(MIN_MEDIAN_FILTER_RADIUS, MAX_MEDIAN_FILTER_RADIUS);
+const MEDIAN_FILTER_RADIUS_OPTIONS: CheckboxOptionType[] = [
+  {value: 0, label: 'Off'},
+  {value: 1, label: 'Small'},
+  {value: 2, label: 'Medium'},
+  {value: 3, label: 'Large'},
+];
+const MEDIAN_FILTER_RADIUSES = [2, 3, 4];
 
 const blobToImageBitmapsConverter = async (blob: Blob): Promise<ImageBitmap[]> => {
-  return (await sketch.getSketches(blob, MEDIAN_FILTER_RADIUSES)).sketches;
+  const original = await createScaledImageBitmap(blob, IMAGE_SIZE.HD);
+  const {sketches} = await sketch.getSketches(blob, MEDIAN_FILTER_RADIUSES);
+  return [original, ...sketches];
 };
 
 type Props = {
@@ -33,11 +37,6 @@ type Props = {
 };
 
 export const ImageSketch: React.FC<Props> = ({blob}: Props) => {
-  const {defaultMedianFilterSize} = useContext<AppConfig>(AppConfigContext);
-  const medianFilterSizeSliderMarks: SliderMarks = Object.fromEntries(
-    MEDIAN_FILTER_RADIUSES.map((i: number) => [i, i])
-  );
-
   const {images, isLoading} = useCreateImageBitmap(blobToImageBitmapsConverter, blob);
 
   const {ref: canvasRef, zoomableImageCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
@@ -45,33 +44,25 @@ export const ImageSketch: React.FC<Props> = ({blob}: Props) => {
     images
   );
 
-  const [medianFilterSize, setMedianFilterSize] = useState<number>(defaultMedianFilterSize);
-  const imageIndex = medianFilterSize - MIN_MEDIAN_FILTER_RADIUS;
+  const [sketchImageIndex, setSketchImageIndex] = useState<number>(1);
 
   useEffect(() => {
-    zoomableImageCanvasRef.current?.setImageIndex(imageIndex);
-  }, [zoomableImageCanvasRef, imageIndex]);
+    zoomableImageCanvasRef.current?.setImageIndex(sketchImageIndex);
+  }, [zoomableImageCanvasRef, sketchImageIndex]);
 
   return (
     <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
-      <div style={{display: 'flex', width: '100%', justifyContent: 'center'}}>
-        <Form.Item
-          label="Median blur radius"
-          tooltip="Median blur filter finds the median value in the circle-shaped area around each pixel. Increasing radius increases blur."
-          style={{marginBottom: 0}}
-        >
-          <Slider
-            value={medianFilterSize}
-            onChange={(value: number) => setMedianFilterSize(value)}
-            min={MIN_MEDIAN_FILTER_RADIUS}
-            max={MAX_MEDIAN_FILTER_RADIUS}
-            marks={medianFilterSizeSliderMarks}
-            style={{width: 150}}
-          />
-        </Form.Item>
+      <div style={{display: 'flex', width: '100%', justifyContent: 'center', marginBottom: 8}}>
+        <Radio.Group
+          options={MEDIAN_FILTER_RADIUS_OPTIONS}
+          value={sketchImageIndex}
+          onChange={(e: RadioChangeEvent) => setSketchImageIndex(e.target.value)}
+          optionType="button"
+          buttonStyle="solid"
+        />
       </div>
       <div>
-        <canvas ref={canvasRef} style={{width: '100%', height: `calc(100vh - 125px)`}} />
+        <canvas ref={canvasRef} style={{width: '100%', height: `calc(100vh - 115px)`}} />
       </div>
     </Spin>
   );

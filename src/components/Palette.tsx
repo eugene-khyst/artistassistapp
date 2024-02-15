@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {App, Collapse, CollapseProps, Empty, Spin, Typography} from 'antd';
+import {App, Collapse, CollapseProps, Spin, Typography} from 'antd';
 import {Dispatch, SetStateAction, useCallback, useEffect, useRef, useState} from 'react';
 import {usePaints} from '../hooks';
 import {
@@ -12,6 +12,7 @@ import {
   PaintFractionDefinition,
   PaintMix,
   PaintMixDefinition,
+  PaintSet,
   PaintType,
   createPaintMix,
   paintMixToUrl,
@@ -29,7 +30,7 @@ import {ReflectanceChartDrawer} from './drawer/ReflectanceChartDrawer';
 import {ShareModal} from './modal/ShareModal';
 
 type Props = {
-  paintType?: PaintType;
+  paintSet?: PaintSet;
   imageFileId?: number;
   paintMixes?: PaintMix[];
   importedPaintMix?: PaintMixDefinition;
@@ -39,7 +40,7 @@ type Props = {
 };
 
 export const Palette: React.FC<Props> = ({
-  paintType,
+  paintSet,
   imageFileId,
   paintMixes,
   importedPaintMix,
@@ -73,10 +74,10 @@ export const Palette: React.FC<Props> = ({
   }
 
   useEffect(() => {
-    if (paintType) {
-      setActiveKey(paintType.toString());
+    if (paintSet) {
+      setActiveKey(paintSet.type.toString());
     }
-  }, [paintType]);
+  }, [paintSet]);
 
   useEffect(() => {
     (async () => {
@@ -146,21 +147,19 @@ export const Palette: React.FC<Props> = ({
       ? []
       : [
           {
-            key: paintType,
+            key: paintType.toString(),
             label: <b>{label}</b>,
             children: (
               <PaletteGrid
-                {...{
-                  paintType,
-                  paintMixes: filteredPaintMixes,
-                  savePaintMix,
-                  deletePaintMix,
-                  deleteAllPaintMixes,
-                  showShareModal,
-                  setAsBackground,
-                  showColorSwatch,
-                  showReflectanceChart,
-                }}
+                paintType={paintType}
+                paintMixes={filteredPaintMixes}
+                savePaintMix={savePaintMix}
+                deletePaintMix={deletePaintMix}
+                deleteAllPaintMixes={deleteAllPaintMixes}
+                showShareModal={showShareModal}
+                setAsBackground={setAsBackground}
+                showColorSwatch={showColorSwatch}
+                showReflectanceChart={showReflectanceChart}
               />
             ),
           },
@@ -174,26 +173,44 @@ export const Palette: React.FC<Props> = ({
   return (
     <>
       <div style={{padding: '0 16px 8px'}}>
-        <Typography.Title level={3} style={{marginTop: '0.5em'}}>
+        <Typography.Title level={3} style={{marginTop: 0}}>
           Palette
         </Typography.Title>
         <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
           {!paintMixes?.length ? (
-            <div style={{textAlign: 'center'}}>
-              <Empty />
-            </div>
+            <>
+              <Typography.Paragraph>
+                <Typography.Text strong>⁉️ No data</Typography.Text>
+                <br />
+                To use the palette features, add color mixtures:
+                <ol>
+                  <li>
+                    Go to the <Typography.Text keyboard>Colors</Typography.Text> tab.
+                  </li>
+                  <li>Click 🖱️ or tap 👆 anywhere in the image to choose a color.</li>
+                  <li>
+                    Click the <Typography.Text keyboard>Add to palette</Typography.Text> button next
+                    to the color mixture you like.
+                  </li>
+                  <li>
+                    Return to the <Typography.Text keyboard>Palette</Typography.Text> tab.
+                  </li>
+                </ol>
+              </Typography.Paragraph>
+            </>
           ) : (
             <Collapse
               size="large"
               bordered={false}
               onChange={handleActiveKeyChange}
-              {...{items, activeKey}}
+              items={items}
+              activeKey={activeKey}
             />
           )}
         </Spin>
       </div>
       <ShareModal
-        title="Share your paint mix"
+        title="Share your color mixture"
         open={isShareModalOpen}
         setOpen={setIsShareModalOpen}
         url={sharePaintMixUrl}

@@ -62,37 +62,35 @@ export const PaletteGrid: React.FC<Props> = ({
 
   return !paintMixes ? null : (
     <>
-      <Row>
-        <Space align="baseline" wrap style={{marginBottom: 8}}>
-          <Button
-            type="primary"
-            icon={<DatabaseOutlined />}
-            onClick={() =>
-              paintMixes && showColorSwatch(paintMixes.slice().sort(PAINT_MIXES_COMPARATORS[sort]))
-            }
-            disabled={!paintMixes}
-          >
-            Color swatch
-          </Button>
-          <Popconfirm
-            title="Remove all paint mixes"
-            description="Are you sure to remove all paint mixes?"
-            onConfirm={handleDelteAllButtonClick}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button icon={<MinusOutlined />}>Remove all</Button>
-          </Popconfirm>
-          <Form.Item label="Sort" style={{marginBottom: 0}}>
-            <Select
-              value={sort}
-              onChange={(value: Sort) => setSort(value)}
-              options={SORT_OPTIONS}
-              style={{width: 140}}
-            />
-          </Form.Item>
-        </Space>
-      </Row>
+      <Space align="center" wrap style={{marginBottom: 16}}>
+        <Button
+          type="primary"
+          icon={<DatabaseOutlined />}
+          onClick={() =>
+            paintMixes && showColorSwatch(paintMixes.slice().sort(PAINT_MIXES_COMPARATORS[sort]))
+          }
+          disabled={!paintMixes}
+        >
+          Color swatch
+        </Button>
+        <Popconfirm
+          title="Remove all color mixtures"
+          description="Are you sure you want to remove all color mixtures?"
+          onConfirm={handleDelteAllButtonClick}
+          okText="Yes"
+          cancelText="No"
+        >
+          <Button icon={<MinusOutlined />}>Remove all</Button>
+        </Popconfirm>
+        <Form.Item label="Sort" style={{marginBottom: 0}}>
+          <Select
+            value={sort}
+            onChange={(value: Sort) => setSort(value)}
+            options={SORT_OPTIONS}
+            style={{width: 150}}
+          />
+        </Form.Item>
+      </Space>
       <Row gutter={[16, 16]} justify="start">
         {paintMixes
           .slice()
@@ -100,14 +98,12 @@ export const PaletteGrid: React.FC<Props> = ({
           .map((paintMix: PaintMix) => (
             <Col key={paintMix.id} xs={24} md={12} lg={8}>
               <PalettePaintMixCard
-                {...{
-                  paintMix,
-                  showShareModal,
-                  setAsBackground,
-                  showReflectanceChart,
-                  savePaintMix,
-                  deletePaintMix,
-                }}
+                paintMix={paintMix}
+                showShareModal={showShareModal}
+                setAsBackground={setAsBackground}
+                showReflectanceChart={showReflectanceChart}
+                savePaintMix={savePaintMix}
+                deletePaintMix={deletePaintMix}
               />
             </Col>
           ))}

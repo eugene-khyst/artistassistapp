@@ -43,14 +43,24 @@ function getPaintOptions(paints?: Paint[]): CascaderOption[] {
   });
 }
 
+type SingleValueType = (string | number)[];
+type ValueType = SingleValueType | SingleValueType[];
+
 type Props = {
-  value?: (number | string)[];
-  onChange?: (value: (number | string)[]) => void;
+  value?: ValueType;
+  onChange?: (value: ValueType) => void;
   paints?: Paint[];
+  multiple?: boolean;
   style?: CSSProperties;
 };
 
-export const PaintCascader: React.FC<Props> = ({value, onChange, paints, style}: Props) => {
+export const PaintCascader: React.FC<Props> = ({
+  value,
+  onChange,
+  paints,
+  multiple,
+  style,
+}: Props) => {
   const options = getPaintOptions(paints);
   return (
     <Cascader
@@ -61,7 +71,8 @@ export const PaintCascader: React.FC<Props> = ({value, onChange, paints, style}:
       showSearch={{filter: filterCascaderOptions}}
       expandTrigger="hover"
       displayRender={displayRender}
-      allowClear
+      allowClear={!!multiple}
+      multiple={multiple}
       style={style}
     />
   );

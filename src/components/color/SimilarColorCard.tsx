@@ -10,7 +10,7 @@ import {
   PlusOutlined,
   QuestionCircleOutlined,
 } from '@ant-design/icons';
-import {Button, Card, Dropdown, MenuProps, Popover, Space, theme} from 'antd';
+import {Button, Card, Dropdown, MenuProps, Popover, Space, Typography, theme} from 'antd';
 import {PaintMix, SimilarColor} from '../../services/color';
 import {RgbTuple} from '../../services/color/model';
 import {PaintMixDescription} from './PaintMixDescription';
@@ -41,8 +41,9 @@ export const SimilarColorCard: React.FC<Props> = ({
   savePaintMix,
 }: Props) => {
   const {
-    token: {fontSize, colorTextSecondary, colorTextTertiary},
+    token: {colorTextTertiary},
   } = theme.useToken();
+
   const saveDisabled = paintMixes?.some((pm: PaintMix) => pm.id === paintMix.id);
 
   const handleSaveButtonClick = () => {
@@ -65,18 +66,19 @@ export const SimilarColorCard: React.FC<Props> = ({
   ];
 
   return (
-    <Card
-      size="small"
-      headStyle={{width: '100%', fontSize: fontSize, fontWeight: 'normal'}}
-      title={
-        <Space size="small">
-          <span style={{color: colorTextSecondary}}>{`ΔE*: ${deltaE.toFixed(1)}`}</span>
-          <Popover title="Color difference CIEDE2000" content={popoverContent}>
-            <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
-          </Popover>
-        </Space>
-      }
-      extra={
+    <Card size="small">
+      <Space direction="vertical" size="small" style={{width: '100%'}}>
+        <PaintMixDescription
+          paintMix={paintMix}
+          extra={
+            <Space size="small" align="center">
+              <Typography.Text strong>{`ΔE*: ${deltaE.toFixed(1)}`}</Typography.Text>
+              <Popover title="Color difference CIEDE2000" content={popoverContent}>
+                <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
+              </Popover>
+            </Space>
+          }
+        />
         <Space.Compact block style={{display: 'flex', justifyContent: 'flex-end'}}>
           <Button icon={<PlusOutlined />} onClick={handleSaveButtonClick} disabled={saveDisabled}>
             Add to palette
@@ -85,9 +87,7 @@ export const SimilarColorCard: React.FC<Props> = ({
             <Button icon={<EllipsisOutlined />} />
           </Dropdown>
         </Space.Compact>
-      }
-    >
-      <PaintMixDescription paintMix={paintMix} />
+      </Space>
     </Card>
   );
 };

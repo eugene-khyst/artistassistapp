@@ -70,7 +70,7 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
                   color: rgb.isDark() ? '#fff' : '#000',
                 }}
               >
-                {paintMix.name || 'Paint mix'}
+                {paintMix.name || 'Color mixture'}
               </div>
             );
           })}
