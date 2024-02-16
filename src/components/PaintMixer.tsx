@@ -171,9 +171,11 @@ export const PaintMixer: React.FC<Props> = ({paintSet}: Props) => {
               </Form.Item>
               <Form.Item style={{marginBottom: 0}}>
                 <Flex gap="small" align="center">
-                  <span style={{display: 'inline-block', width: 50}}>Ratio</span>
-                  <span>×</span>
-                  <span>Color</span>
+                  <Typography.Text style={{display: 'inline-block', width: 50}}>
+                    Ratio
+                  </Typography.Text>
+                  <Typography.Text>×</Typography.Text>
+                  <Typography.Text>Color</Typography.Text>
                   <Tooltip title="Select any number of colors to mix and specify the fraction of each color in the resulting mix.">
                     <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
                   </Tooltip>

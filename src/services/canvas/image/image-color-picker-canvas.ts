@@ -96,8 +96,16 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     this.setPipetPoint(point);
   }
 
+  getLastPipetDiameter(): number {
+    return this.lastPipetDiameter;
+  }
+
   setPipetDiameter(pipetDiameter: number): void {
     this.pipetDiameter = clamp(pipetDiameter, MIN_COLOR_PICKER_DIAMETER, MAX_COLOR_PICKER_DIAMETER);
+  }
+
+  getPipetPoint(): Vector | null {
+    return this.pipetPoint;
   }
 
   async setPipetPoint(pipetPoint: Vector): Promise<void> {

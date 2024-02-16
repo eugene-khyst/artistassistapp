@@ -10,6 +10,7 @@ import {useState} from 'react';
 import {
   PaintMix,
   PaintType,
+  Pipet,
   comparePaintMixesByDataIndex,
   comparePaintMixesByName,
 } from '../services/color';
@@ -38,6 +39,7 @@ type Props = {
   deletePaintMix: (paintMixId: string) => void;
   deleteAllPaintMixes: (paintType: PaintType) => void;
   showShareModal: (paintMix: PaintMix) => void;
+  setColorPicker: (pipet?: Pipet) => void;
   setAsBackground: (background: string | RgbTuple) => void;
   showColorSwatch: (paintMixes: PaintMix[]) => void;
   showReflectanceChart: (paintMix: PaintMix) => void;
@@ -50,6 +52,7 @@ export const PaletteGrid: React.FC<Props> = ({
   deletePaintMix,
   deleteAllPaintMixes,
   showShareModal,
+  setColorPicker,
   setAsBackground,
   showColorSwatch,
   showReflectanceChart,
@@ -100,6 +103,7 @@ export const PaletteGrid: React.FC<Props> = ({
               <PalettePaintMixCard
                 paintMix={paintMix}
                 showShareModal={showShareModal}
+                setColorPicker={setColorPicker}
                 setAsBackground={setAsBackground}
                 showReflectanceChart={showReflectanceChart}
                 savePaintMix={savePaintMix}

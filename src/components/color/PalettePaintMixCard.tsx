@@ -8,10 +8,11 @@ import {
   EllipsisOutlined,
   LineChartOutlined,
   MinusOutlined,
+  PictureOutlined,
   ShareAltOutlined,
 } from '@ant-design/icons';
 import {Button, Card, Dropdown, MenuProps, Popconfirm, Space, Typography} from 'antd';
-import {PaintMix} from '../../services/color';
+import {PaintMix, Pipet} from '../../services/color';
 import {RgbTuple} from '../../services/color/model';
 import {PaintMixDescription} from '../color/PaintMixDescription';
 
@@ -20,6 +21,7 @@ type Props = {
   savePaintMix: (paintMix: PaintMix) => void;
   deletePaintMix: (paintMixId: string) => void;
   showShareModal: (paintMix: PaintMix) => void;
+  setColorPicker: (pipet?: Pipet) => void;
   setAsBackground: (background: string | RgbTuple) => void;
   showReflectanceChart: (paintMix: PaintMix) => void;
 };
@@ -29,6 +31,7 @@ export const PalettePaintMixCard: React.FC<Props> = ({
   savePaintMix,
   deletePaintMix,
   showShareModal,
+  setColorPicker,
   setAsBackground,
   showReflectanceChart,
 }: Props) => {
@@ -58,6 +61,13 @@ export const PalettePaintMixCard: React.FC<Props> = ({
     savePaintMix(editedPaintMix);
   };
 
+  const handleShowOnPhotoClick = () => {
+    const {pipet} = paintMix;
+    if (pipet) {
+      setColorPicker(pipet);
+    }
+  };
+
   const handleDeleteButtonClick = () => {
     deletePaintMix(paintMix.id);
   };
@@ -80,6 +90,13 @@ export const PalettePaintMixCard: React.FC<Props> = ({
         <PaintMixDescription paintMix={paintMix} />
 
         <Space.Compact block style={{display: 'flex', justifyContent: 'flex-end'}}>
+          <Button
+            icon={<PictureOutlined />}
+            onClick={handleShowOnPhotoClick}
+            disabled={!paintMix.pipet}
+          >
+            Show on photo
+          </Button>
           <Popconfirm
             title="Remove the color mixture"
             description="Are you sure you want to remove this color mixture?"

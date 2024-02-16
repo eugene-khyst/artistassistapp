@@ -9,7 +9,7 @@ import {
   QuestionCircleOutlined,
 } from '@ant-design/icons';
 import type {TabsProps} from 'antd';
-import {Alert, App, Button, Col, FloatButton, Row, Tabs, Tooltip, theme} from 'antd';
+import {Alert, App, Col, FloatButton, Row, Space, Tabs, Typography, theme} from 'antd';
 import {useCallback, useEffect, useRef, useState} from 'react';
 import StickyBox from 'react-sticky-box';
 import {useEventListener, useTimeout} from 'usehooks-ts';
@@ -20,11 +20,13 @@ import {
   PENCIL_TYPES,
   PaintMix,
   PaintSet,
+  Pipet,
   UrlParsingResult,
   parseUrl,
 } from '../services/color';
 import {Rgb, RgbTuple} from '../services/color/model';
 import {IMAGE_SIZE, createScaledImageBitmap} from '../utils';
+import {Help} from './Help';
 import {ImageColorPicker} from './ImageColorPicker';
 import {ImageGrid} from './ImageGrid';
 import {ImageSelect} from './ImageSelect';
@@ -33,7 +35,6 @@ import {ImageTonalValues} from './ImageTonalValues';
 import {PaintMixer} from './PaintMixer';
 import {PaintSetSelect} from './PaintSetSelect';
 import {Palette} from './Palette';
-import {AboutModal} from './modal/AboutModal';
 import {TabKey} from './types';
 
 const isBrowserSupported =
@@ -68,8 +69,8 @@ export const ArtistAssistApp: React.FC = () => {
   const [imageFileId, setImageFileId] = useState<number | undefined>();
   const [backgroundColor, setBackgroundColor] = useState<string>(OFF_WHITE_HEX);
   const [isGlaze, setIsGlaze] = useState<boolean>(false);
+  const [pipet, setPipet] = useState<Pipet | undefined>();
   const [paintMixes, setPaintMixes] = useState<PaintMix[] | undefined>();
-  const [isAboutModalOpen, setIsAboutModalOpen] = useState<boolean>(false);
 
   const {images, isLoading: isImagesLoading} = useCreateImageBitmap(
     blobToImageBitmapsConverter,
@@ -99,6 +100,13 @@ export const ArtistAssistApp: React.FC = () => {
     event.returnValue = 'Are you sure you want to leave?';
   });
 
+  const setColorPicker = useCallback((pipet?: Pipet) => {
+    if (pipet) {
+      setPipet({...pipet});
+      setActiveTabKey(TabKey.Colors);
+    }
+  }, []);
+
   const setAsBackground = useCallback(
     (background: string | RgbTuple) => {
       setBackgroundColor(Rgb.fromHexOrTuple(background).toHex());
@@ -108,10 +116,6 @@ export const ArtistAssistApp: React.FC = () => {
     [setBackgroundColor, setIsGlaze]
   );
 
-  const showAboutModal = () => {
-    setIsAboutModalOpen(true);
-  };
-
   const handleTabChange = (activeKey: string) => {
     setActiveTabKey(activeKey as TabKey);
   };
@@ -120,7 +124,13 @@ export const ArtistAssistApp: React.FC = () => {
     {
       key: TabKey.Paints,
       label: 'Paints',
-      children: <PaintSetSelect setPaintSet={setPaintSet} importedPaintSet={importedPaintSet} />,
+      children: (
+        <PaintSetSelect
+          setPaintSet={setPaintSet}
+          importedPaintSet={importedPaintSet}
+          setActiveTabKey={setActiveTabKey}
+        />
+      ),
       forceRender: true,
     },
     {
@@ -144,6 +154,7 @@ export const ArtistAssistApp: React.FC = () => {
           setBackgroundColor={setBackgroundColor}
           isGlaze={isGlaze}
           setIsGlaze={setIsGlaze}
+          pipet={pipet}
           paintMixes={paintMixes}
           setPaintMixes={setPaintMixes}
           setAsBackground={setAsBackground}
@@ -161,6 +172,7 @@ export const ArtistAssistApp: React.FC = () => {
           imageFileId={imageFileId}
           paintMixes={paintMixes}
           setPaintMixes={setPaintMixes}
+          setColorPicker={setColorPicker}
           setAsBackground={setAsBackground}
           importedPaintMix={importedPaintMix}
           blob={blob}
@@ -196,6 +208,16 @@ export const ArtistAssistApp: React.FC = () => {
       forceRender: true,
       disabled: !paintSet || PENCIL_TYPES.includes(paintSet.type),
     },
+    {
+      key: TabKey.Help,
+      label: (
+        <Space size="small">
+          <QuestionCircleOutlined />
+          <Typography.Text>Help</Typography.Text>
+        </Space>
+      ),
+      children: <Help />,
+    },
   ];
 
   const renderTabBar: TabsProps['renderTabBar'] = (props, DefaultTabBar) => (
@@ -227,13 +249,6 @@ export const ArtistAssistApp: React.FC = () => {
             onChange={handleTabChange}
             size="large"
             tabBarGutter={0}
-            tabBarExtraContent={{
-              right: (
-                <Tooltip title="Help" placement="left">
-                  <Button type="link" icon={<QuestionCircleOutlined />} onClick={showAboutModal} />
-                </Tooltip>
-              ),
-            }}
           />
         </Col>
       </Row>
@@ -244,7 +259,6 @@ export const ArtistAssistApp: React.FC = () => {
         onClick={toggleFullScreen}
         style={{right: 24, bottom: 24}}
       />
-      <AboutModal open={isAboutModalOpen} setOpen={setIsAboutModalOpen} />
     </>
   );
 };

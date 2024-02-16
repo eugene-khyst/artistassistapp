@@ -78,13 +78,14 @@ export const ImageSelect: React.FC<Props> = ({
   };
 
   return (
-    <div style={{padding: '0 16px 8px'}}>
-      <Typography.Title level={3} style={{marginTop: 0}}>
-        Select photo
-      </Typography.Title>
-      <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
+    <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
+      <div style={{padding: '0 16px 8px'}}>
         <Form.Item
-          label={<span style={{fontSize: fontSizeLG}}>Select a photo from your device</span>}
+          label={
+            <Typography.Text style={{fontSize: fontSizeLG}}>
+              Select a reference photo from your device to paint from
+            </Typography.Text>
+          }
           colon={false}
           labelCol={{xs: 24}}
           labelAlign="left"
@@ -124,7 +125,7 @@ export const ImageSelect: React.FC<Props> = ({
             </Col>
           ))}
         </Row>
-      </Spin>
-    </div>
+      </div>
+    </Spin>
   );
 };

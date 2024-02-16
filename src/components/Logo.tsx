@@ -19,13 +19,13 @@ export const Logo: React.FC<Props> = ({name = false, tagline = false, size}: Pro
   } = theme.useToken();
 
   return (
-    <Space size="small" align="center" wrap>
+    <Space direction="vertical" size="small" align="center">
       <img src={LOGO.toString()} alt="ArtistAssistApp logo" style={{width: size ?? 150}} />
       <div>
         {name && (
           <div
             style={{
-              textAlign: 'left',
+              textAlign: 'center',
               fontFamily: 'Kalam',
               fontSize: fontSizeXL,
               fontWeight: 'bold',
@@ -38,14 +38,13 @@ export const Logo: React.FC<Props> = ({name = false, tagline = false, size}: Pro
         {tagline && (
           <div
             style={{
-              marginBottom: 8,
-              textAlign: 'left',
+              textAlign: 'center',
               fontFamily: 'Kalam',
               fontSize: fontSizeLG,
               color: '#3D3A3D',
             }}
           >
-            The web app to paint better with ease
+            Paint better with ease
           </div>
         )}
       </div>

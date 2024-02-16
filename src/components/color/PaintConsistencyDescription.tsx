@@ -4,7 +4,7 @@
  */
 
 import {QuestionCircleOutlined} from '@ant-design/icons';
-import {Space, Tooltip, theme} from 'antd';
+import {Space, Tooltip, Typography, theme} from 'antd';
 import {ReactNode} from 'react';
 import {PaintConsistency, PaintType} from '../../services/color';
 
@@ -15,26 +15,26 @@ type ConsistencyDescription = {
 
 const DILUTED_IN_WATER = ([paint, fluid]: PaintConsistency) => (
   <>
-    Consistency:
-    <span>
-      <b>{paint}</b> paint : <b>{fluid}</b> water
-    </span>
+    <Typography.Text>Consistency:</Typography.Text>
+    <Typography.Text>
+      {paint} paint : {fluid} water
+    </Typography.Text>
   </>
 );
 const LAYER_THIKNESS = ([paint, fluid]: PaintConsistency) => (
   <>
-    Layer thikness:
-    <span>
+    <Typography.Text>Layer thikness:</Typography.Text>
+    <Typography.Text>
       {paint}/{paint + fluid}
-    </span>
+    </Typography.Text>
   </>
 );
 const PRESSURE = ([paint, fluid]: PaintConsistency) => (
   <>
-    Pressure:
-    <span>
+    <Typography.Text>Pressure:</Typography.Text>
+    <Typography.Text>
       {paint}/{paint + fluid}
-    </span>
+    </Typography.Text>
   </>
 );
 

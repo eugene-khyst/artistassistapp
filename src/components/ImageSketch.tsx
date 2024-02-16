@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {CheckboxOptionType, Radio, RadioChangeEvent, Spin} from 'antd';
+import {CheckboxOptionType, Form, Radio, RadioChangeEvent, Spin} from 'antd';
 import {Remote, wrap} from 'comlink';
 import {useEffect, useState} from 'react';
 import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '../hooks/';
@@ -53,13 +53,15 @@ export const ImageSketch: React.FC<Props> = ({blob}: Props) => {
   return (
     <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
       <div style={{display: 'flex', width: '100%', justifyContent: 'center', marginBottom: 8}}>
-        <Radio.Group
-          options={MEDIAN_FILTER_RADIUS_OPTIONS}
-          value={sketchImageIndex}
-          onChange={(e: RadioChangeEvent) => setSketchImageIndex(e.target.value)}
-          optionType="button"
-          buttonStyle="solid"
-        />
+        <Form.Item label="Blur" tooltip="Controls the radius of the median filter.">
+          <Radio.Group
+            options={MEDIAN_FILTER_RADIUS_OPTIONS}
+            value={sketchImageIndex}
+            onChange={(e: RadioChangeEvent) => setSketchImageIndex(e.target.value)}
+            optionType="button"
+            buttonStyle="solid"
+          />
+        </Form.Item>
       </div>
       <div>
         <canvas ref={canvasRef} style={{width: '100%', height: `calc(100vh - 115px)`}} />

@@ -3,13 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {ShareAltOutlined} from '@ant-design/icons';
-import {Alert, App, Button, Form, Space, Spin, Typography} from 'antd';
+import {QuestionCircleOutlined, SaveOutlined, ShareAltOutlined} from '@ant-design/icons';
+import {App, Button, Form, Space, Spin, Typography, theme} from 'antd';
 import {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import {usePaints, useStoreBoughtPaintSets} from '../hooks';
 import {
   NUMBER_OF_PAINTS_IN_MIX,
   PAINT_BRANDS,
+  PAINT_TYPES,
   PaintBrand,
   PaintSet,
   PaintSetDefinition,
@@ -23,6 +24,7 @@ import {PaintSelect} from './color/PaintSelect';
 import {PaintTypeSelect} from './color/PaintTypeSelect';
 import {StoreBoughtPaintSetCascader} from './color/StoreBoughtPaintSetCascader';
 import {ShareModal} from './modal/ShareModal';
+import {TabKey} from './types';
 
 const MAX_COLORS = 36;
 const CUSTOM_PAINT_SET = [0];
@@ -35,9 +37,18 @@ const formInitialValues: PaintSetDefinition = {
 type Props = {
   setPaintSet: Dispatch<SetStateAction<PaintSet | undefined>>;
   importedPaintSet?: PaintSetDefinition;
+  setActiveTabKey: Dispatch<SetStateAction<TabKey>>;
 };
 
-export const PaintSetSelect: React.FC<Props> = ({setPaintSet, importedPaintSet}: Props) => {
+export const PaintSetSelect: React.FC<Props> = ({
+  setPaintSet,
+  importedPaintSet,
+  setActiveTabKey,
+}: Props) => {
+  const {
+    token: {fontSizeLG},
+  } = theme.useToken();
+
   const {message} = App.useApp();
 
   const [form] = Form.useForm<PaintSetDefinition>();
@@ -77,6 +88,10 @@ export const PaintSetSelect: React.FC<Props> = ({setPaintSet, importedPaintSet}:
   if (isStoreBoughtPaintSetError || isPaintsError) {
     message.error('Error while fetching data');
   }
+
+  const handleHelpButtonClick = () => {
+    setActiveTabKey(TabKey.Help);
+  };
 
   const handleFormValuesChange = async (
     changedValues: Partial<PaintSetDefinition>,
@@ -158,9 +173,18 @@ export const PaintSetSelect: React.FC<Props> = ({setPaintSet, importedPaintSet}:
   return (
     <>
       <div style={{padding: '0 16px'}}>
-        <Typography.Title level={3} style={{marginTop: 0}}>
-          Select paint set
-        </Typography.Title>
+        <Space direction="vertical" size="small" style={{marginBottom: 8}}>
+          <Typography.Text style={{fontSize: fontSizeLG}}>
+            <strong>ArtistAssistApp</strong> is a painting assistant that allows you to see the
+            reference more clearly and mix colors more accurately.
+          </Typography.Text>
+          <Button icon={<QuestionCircleOutlined />} onClick={handleHelpButtonClick}>
+            Help
+          </Button>
+          <Typography.Text style={{fontSize: fontSizeLG}}>
+            Select your medium and up to {MAX_COLORS} colors you will paint with.
+          </Typography.Text>
+        </Space>
         <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
           <Form
             name="paintSet"
@@ -184,6 +208,7 @@ export const PaintSetSelect: React.FC<Props> = ({setPaintSet, importedPaintSet}:
               <Form.Item
                 name="brands"
                 label="Brands"
+                tooltip={`Select ${PAINT_TYPES.get(paintType)?.toLowerCase()} brands that you use.`}
                 rules={[{required: true, message: '${label} are required'}]}
                 dependencies={['paintType']}
               >
@@ -204,12 +229,6 @@ export const PaintSetSelect: React.FC<Props> = ({setPaintSet, importedPaintSet}:
                 />
               </Form.Item>
             )}
-            <Alert
-              showIcon
-              type="info"
-              message={`Select up to ${MAX_COLORS} colors in total`}
-              style={{marginBottom: 8}}
-            />
             {!!paintType &&
               paintBrands?.map((paintBrand: PaintBrand) => (
                 <Form.Item
@@ -239,14 +258,14 @@ export const PaintSetSelect: React.FC<Props> = ({setPaintSet, importedPaintSet}:
                     }),
                   ]}
                   dependencies={['paintType', 'paintBrands', 'storeBoughtPaintSet']}
-                  tooltip="Add or remove colors to match your actual paint set"
+                  tooltip="Add or remove colors to match your actual paint set."
                 >
                   <PaintSelect mode="multiple" paints={paints.get(paintBrand)} />
                 </Form.Item>
               ))}
             <Form.Item>
               <Space>
-                <Button type="primary" htmlType="submit">
+                <Button icon={<SaveOutlined />} type="primary" htmlType="submit">
                   Save & Proceed
                 </Button>
                 <Button

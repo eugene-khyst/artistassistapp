@@ -14,6 +14,7 @@ import {
   PaintMixDefinition,
   PaintSet,
   PaintType,
+  Pipet,
   createPaintMix,
   paintMixToUrl,
 } from '../services/color';
@@ -35,6 +36,7 @@ type Props = {
   paintMixes?: PaintMix[];
   importedPaintMix?: PaintMixDefinition;
   setPaintMixes: Dispatch<SetStateAction<PaintMix[] | undefined>>;
+  setColorPicker: (pipet?: Pipet) => void;
   setAsBackground: (background: string | RgbTuple) => void;
   blob?: Blob;
 };
@@ -45,11 +47,12 @@ export const Palette: React.FC<Props> = ({
   paintMixes,
   importedPaintMix,
   setPaintMixes,
+  setColorPicker,
   setAsBackground,
   blob,
 }: Props) => {
   const {message} = App.useApp();
-  const [activeKey, setActiveKey] = useState<string | string[]>(
+  const [activePaletteKey, setActivePaletteKey] = useState<string | string[]>(
     [...PAINT_TYPES.keys()].map((paintType: PaintType) => paintType.toString())
   );
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
@@ -75,7 +78,7 @@ export const Palette: React.FC<Props> = ({
 
   useEffect(() => {
     if (paintSet) {
-      setActiveKey(paintSet.type.toString());
+      setActivePaletteKey(paintSet.type.toString());
     }
   }, [paintSet]);
 
@@ -148,7 +151,7 @@ export const Palette: React.FC<Props> = ({
       : [
           {
             key: paintType.toString(),
-            label: <b>{label}</b>,
+            label: <Typography.Text strong>{label} palette</Typography.Text>,
             children: (
               <PaletteGrid
                 paintType={paintType}
@@ -157,6 +160,7 @@ export const Palette: React.FC<Props> = ({
                 deletePaintMix={deletePaintMix}
                 deleteAllPaintMixes={deleteAllPaintMixes}
                 showShareModal={showShareModal}
+                setColorPicker={setColorPicker}
                 setAsBackground={setAsBackground}
                 showColorSwatch={showColorSwatch}
                 showReflectanceChart={showReflectanceChart}
@@ -167,16 +171,13 @@ export const Palette: React.FC<Props> = ({
   });
 
   const handleActiveKeyChange = (keys: string | string[]) => {
-    setActiveKey(keys);
+    setActivePaletteKey(keys);
   };
 
   return (
     <>
-      <div style={{padding: '0 16px 8px'}}>
-        <Typography.Title level={3} style={{marginTop: 0}}>
-          Palette
-        </Typography.Title>
-        <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
+      <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
+        <div style={{padding: '0 16px 8px'}}>
           {!paintMixes?.length ? (
             <>
               <Typography.Paragraph>
@@ -204,11 +205,11 @@ export const Palette: React.FC<Props> = ({
               bordered={false}
               onChange={handleActiveKeyChange}
               items={items}
-              activeKey={activeKey}
+              activeKey={activePaletteKey}
             />
           )}
-        </Spin>
-      </div>
+        </div>
+      </Spin>
       <ShareModal
         title="Share your color mixture"
         open={isShareModalOpen}

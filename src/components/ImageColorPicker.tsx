@@ -35,13 +35,19 @@ import {
   OFF_WHITE_HEX,
   PaintMix,
   PaintSet,
+  Pipet,
   SimilarColor,
   compareSimilarColorsByDeltaE,
   compareSimilarColorsByPaintMixFractionsLength,
 } from '../services/color';
 import {RgbTuple} from '../services/color/model';
-import {ColorPickerSettings, savePaintMix as savePaintMixInDb} from '../services/db';
+import {
+  ColorPickerSettings,
+  deletePaintMix as deletePaintMixFromDb,
+  savePaintMix as savePaintMixInDb,
+} from '../services/db';
 import {getColorPickerSettings, saveColorPickerSettings} from '../services/db/';
+import {Vector} from '../services/math';
 import {SimilarColorCard} from './color/SimilarColorCard';
 import {ReflectanceChartDrawer} from './drawer/ReflectanceChartDrawer';
 
@@ -62,6 +68,17 @@ const SORT_OPTIONS: SelectOptionType[] = [
 
 const MAX_DELTA_E = 2;
 
+function getPipet(colorPickerCanvas?: ImageColorPickerCanvas): Pipet | undefined {
+  if (colorPickerCanvas) {
+    const pipetPoint = colorPickerCanvas.getPipetPoint();
+    if (pipetPoint) {
+      const {x, y} = pipetPoint;
+      const diameter = colorPickerCanvas.getLastPipetDiameter();
+      return {x, y, diameter};
+    }
+  }
+}
+
 const colorMixer: Remote<ColorMixer> = wrap(
   new Worker(new URL('../services/color/worker/color-mixer-worker.ts', import.meta.url), {
     type: 'module',
@@ -81,6 +98,7 @@ type Props = {
   setBackgroundColor: Dispatch<SetStateAction<string>>;
   isGlaze: boolean;
   setIsGlaze: Dispatch<SetStateAction<boolean>>;
+  pipet?: Pipet;
   paintMixes?: PaintMix[];
   setPaintMixes: Dispatch<SetStateAction<PaintMix[] | undefined>>;
   setAsBackground: (background: string | RgbTuple) => void;
@@ -95,6 +113,7 @@ export const ImageColorPicker: React.FC<Props> = ({
   setBackgroundColor,
   isGlaze,
   setIsGlaze,
+  pipet,
   paintMixes,
   setPaintMixes,
   setAsBackground,
@@ -197,21 +216,43 @@ export const ImageColorPicker: React.FC<Props> = ({
 
   useEffect(() => {
     const colorPickerCanvas = colorPickerCanvasRef.current;
-    if (!colorPickerCanvas) {
-      return;
-    }
-    colorPickerCanvas.setPipetDiameter(sampleDiameter);
+    colorPickerCanvas?.setPipetDiameter(sampleDiameter);
   }, [colorPickerCanvasRef, sampleDiameter]);
+
+  useEffect(() => {
+    const colorPickerCanvas = colorPickerCanvasRef.current;
+    if (colorPickerCanvas && pipet) {
+      const {x, y, diameter} = pipet;
+      colorPickerCanvas.setPipetDiameter(diameter);
+      colorPickerCanvas.setPipetPoint(new Vector(x, y));
+      setSampleDiameter(diameter);
+    }
+  }, [colorPickerCanvasRef, pipet]);
 
   const savePaintMix = useCallback(
     async (paintMix: PaintMix) => {
-      const newPaintMix: PaintMix = {...paintMix, dataIndex: Date.now(), imageFileId};
+      const newPaintMix: PaintMix = {
+        ...paintMix,
+        imageFileId,
+        pipet: getPipet(colorPickerCanvasRef.current),
+        dataIndex: Date.now(),
+      };
       setPaintMixes((prev: PaintMix[] | undefined) =>
         prev ? [newPaintMix, ...prev] : [newPaintMix]
       );
       await savePaintMixInDb(newPaintMix);
     },
-    [setPaintMixes, imageFileId]
+    [setPaintMixes, imageFileId, colorPickerCanvasRef]
+  );
+
+  const deletePaintMix = useCallback(
+    (paintMixId: string) => {
+      setPaintMixes((prev: PaintMix[] | undefined) =>
+        prev ? prev.filter(({id}: PaintMix) => id !== paintMixId) : []
+      );
+      deletePaintMixFromDb(paintMixId);
+    },
+    [setPaintMixes]
   );
 
   const handleIsGlazeChange = (isGlaze: boolean) => {
@@ -354,6 +395,7 @@ export const ImageColorPicker: React.FC<Props> = ({
                       showReflectanceChart={showReflectanceChart}
                       paintMixes={paintMixes}
                       savePaintMix={savePaintMix}
+                      deletePaintMix={deletePaintMix}
                     />
                   ))
               )}

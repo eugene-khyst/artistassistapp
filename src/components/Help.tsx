@@ -12,19 +12,12 @@ import {
   MailOutlined,
   ReadOutlined,
 } from '@ant-design/icons';
-import {Button, Col, Modal, Row, Space, Typography, theme} from 'antd';
-import {Dispatch, SetStateAction, useContext} from 'react';
-import {AppConfig, AppConfigContext} from '../../context/AppConfigContext';
-import {Logo} from '../Logo';
+import {Button, Col, Row, Space, Typography, theme} from 'antd';
+import {useContext} from 'react';
+import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
+import {Logo} from './Logo';
 
-type Props = {
-  open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
-};
-
-export const AboutModal: React.FC<Props> = ({open, setOpen}: Props) => {
-  const {Link} = Typography;
-
+export const Help: React.FC = () => {
   const {
     token: {fontSizeSM, colorTextSecondary},
   } = theme.useToken();
@@ -32,7 +25,7 @@ export const AboutModal: React.FC<Props> = ({open, setOpen}: Props) => {
   const {websiteUrl} = useContext<AppConfig>(AppConfigContext);
 
   return (
-    <Modal title="ArtistAssistApp" open={open} footer={null} onCancel={() => setOpen(false)}>
+    <div style={{padding: '0 16px 8px'}}>
       <Space direction="vertical" align="center" size="small" style={{width: '100%'}}>
         <Logo name tagline />
         <Row gutter={24}>
@@ -111,9 +104,9 @@ export const AboutModal: React.FC<Props> = ({open, setOpen}: Props) => {
         <Row>
           <Col xs={24}>
             Created by{' '}
-            <Link href="https://github.com/eugene-khyst" target="_blank">
+            <Typography.Link href="https://github.com/eugene-khyst" target="_blank">
               Eugene Khyst
-            </Link>
+            </Typography.Link>
           </Col>
         </Row>
         <Row>
@@ -125,6 +118,6 @@ export const AboutModal: React.FC<Props> = ({open, setOpen}: Props) => {
           </Col>
         </Row>
       </Space>
-    </Modal>
+    </div>
   );
 };

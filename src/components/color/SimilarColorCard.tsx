@@ -7,10 +7,21 @@ import {
   BgColorsOutlined,
   EllipsisOutlined,
   LineChartOutlined,
+  MinusOutlined,
   PlusOutlined,
   QuestionCircleOutlined,
 } from '@ant-design/icons';
-import {Button, Card, Dropdown, MenuProps, Popover, Space, Typography, theme} from 'antd';
+import {
+  Button,
+  Card,
+  Dropdown,
+  MenuProps,
+  Popconfirm,
+  Popover,
+  Space,
+  Typography,
+  theme,
+} from 'antd';
 import {PaintMix, SimilarColor} from '../../services/color';
 import {RgbTuple} from '../../services/color/model';
 import {PaintMixDescription} from './PaintMixDescription';
@@ -31,6 +42,7 @@ type Props = {
   showReflectanceChart: (paintMix: PaintMix) => void;
   paintMixes?: PaintMix[];
   savePaintMix: (paintMix: PaintMix) => void;
+  deletePaintMix: (paintMixId: string) => void;
 };
 
 export const SimilarColorCard: React.FC<Props> = ({
@@ -39,15 +51,20 @@ export const SimilarColorCard: React.FC<Props> = ({
   showReflectanceChart,
   paintMixes,
   savePaintMix,
+  deletePaintMix,
 }: Props) => {
   const {
     token: {colorTextTertiary},
   } = theme.useToken();
 
-  const saveDisabled = paintMixes?.some((pm: PaintMix) => pm.id === paintMix.id);
+  const paintMixExists = paintMixes?.some((pm: PaintMix) => pm.id === paintMix.id);
 
   const handleSaveButtonClick = () => {
     savePaintMix(paintMix);
+  };
+
+  const handleDeleteButtonClick = () => {
+    deletePaintMix(paintMix.id);
   };
 
   const items: MenuProps['items'] = [
@@ -80,9 +97,21 @@ export const SimilarColorCard: React.FC<Props> = ({
           }
         />
         <Space.Compact block style={{display: 'flex', justifyContent: 'flex-end'}}>
-          <Button icon={<PlusOutlined />} onClick={handleSaveButtonClick} disabled={saveDisabled}>
-            Add to palette
-          </Button>
+          {paintMixExists ? (
+            <Popconfirm
+              title="Remove the color mixture"
+              description="Are you sure you want to remove this color mixture?"
+              onConfirm={handleDeleteButtonClick}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button icon={<MinusOutlined />}>Remove from palette</Button>
+            </Popconfirm>
+          ) : (
+            <Button icon={<PlusOutlined />} onClick={handleSaveButtonClick}>
+              Add to palette
+            </Button>
+          )}
           <Dropdown menu={{items}}>
             <Button icon={<EllipsisOutlined />} />
           </Dropdown>

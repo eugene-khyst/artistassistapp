@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Select, SelectProps, Space} from 'antd';
+import {Select, SelectProps, Space, Typography} from 'antd';
 import {CSSProperties} from 'react';
 import {Paint, formatPaintLabel} from '../../services/color';
 import {filterSelectOptions} from '../utils';
@@ -20,7 +20,7 @@ function getPaintOptions(paints?: Map<number, Paint>): SelectProps['options'] {
       label: (
         <Space size="small" align="center" key={label}>
           <ColorSquare color={paint.rgb} />
-          <span>{label}</span>
+          <Typography.Text>{label}</Typography.Text>
         </Space>
       ),
     };

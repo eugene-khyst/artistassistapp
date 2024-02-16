@@ -14,6 +14,7 @@ export enum TabKey {
   Palette = 'palette',
   Grid = 'grid',
   ColorMixing = 'color-mixing',
+  Help = 'help',
 }
 
 export interface CascaderOption {

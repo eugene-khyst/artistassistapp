@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Space, Tooltip} from 'antd';
+import {Space, Tooltip, Typography} from 'antd';
 import {PAINT_BRANDS, Paint} from '../../services/color';
 import {ColorSquare} from './ColorSquare';
 
@@ -23,7 +23,9 @@ export const PaintDescription: React.FC<Props> = ({paint, text}: Props) => {
           <i>{shortName || fullName}</i>
         </Tooltip>
         <br />
-        <b>{id < 1000 ? `${String(id).padStart(3, '0')} ${name}` : name}</b>
+        <Typography.Text strong>
+          {id < 1000 ? `${String(id).padStart(3, '0')} ${name}` : name}
+        </Typography.Text>
       </span>
     </Space>
   );

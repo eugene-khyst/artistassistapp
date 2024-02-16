@@ -58,6 +58,12 @@ export interface PaintFraction {
   fraction: number;
 }
 
+export interface Pipet {
+  x: number;
+  y: number;
+  diameter: number;
+}
+
 export interface PaintMix {
   id: string;
   name?: string | null;
@@ -68,8 +74,9 @@ export interface PaintMix {
   consistency: PaintConsistency;
   backgroundRgb: RgbTuple | null;
   paintMixLayerRgb: RgbTuple;
-  dataIndex?: number;
   imageFileId?: number;
+  pipet?: Pipet;
+  dataIndex?: number;
 }
 
 export interface SimilarColor {

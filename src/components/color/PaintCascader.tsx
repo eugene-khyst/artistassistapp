@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Cascader, Space} from 'antd';
+import {Cascader, Space, Typography} from 'antd';
 import {CSSProperties} from 'react';
 import {PAINT_BRANDS, Paint, PaintBrand, formatPaintLabel} from '../../services/color';
 import {computeIfAbsentInMap} from '../../utils';
@@ -34,7 +34,7 @@ function getPaintOptions(paints?: Paint[]): CascaderOption[] {
           label: (
             <Space size="small" align="center" key={label}>
               <ColorSquare color={paint.rgb} />
-              <span>{label}</span>
+              <Typography.Text>{label}</Typography.Text>
             </Space>
           ),
         };
