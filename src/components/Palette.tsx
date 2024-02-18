@@ -81,13 +81,20 @@ export const Palette: React.FC<Props> = ({
   useEffect(() => {
     (async () => {
       if (importedPaintMix && paints.size && !importDone.current) {
+        // if (process.env.NODE_ENV !== 'production') {
+        console.log('Importing paint mix', importedPaintMix);
+        // }
         const paintMix: PaintMix | null = createPaintMix(importedPaintMix, paints);
         if (paintMix && !(await isPaintMixExistInDb(paintMix.id))) {
-          await savePaintMixInDb({...paintMix, dataIndex: Date.now()});
+          const paintMixToSave = {...paintMix, dataIndex: Date.now()};
+          console.log('Saving paint mix in DB', paintMixToSave);
+          await savePaintMixInDb(paintMixToSave);
         }
         importDone.current = true;
       }
-      setPaintMixes(await getPaintMixesFromDb(imageFileId));
+      const mixepaintMixesFromDb = await getPaintMixesFromDb(imageFileId);
+      console.log('Loaded paint mixes from DB', mixepaintMixesFromDb);
+      setPaintMixes(mixepaintMixesFromDb);
     })();
   }, [importedPaintMix, paints.size, setPaintMixes, imageFileId]); // eslint-disable-line react-hooks/exhaustive-deps
 

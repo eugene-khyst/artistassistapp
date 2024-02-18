@@ -69,6 +69,9 @@ export const PaintSetSelect: React.FC<Props> = ({
   useEffect(() => {
     (async () => {
       if (importedPaintSet) {
+        if (process.env.NODE_ENV !== 'production') {
+          console.log('Importing paint set', importedPaintSet);
+        }
         form.setFieldsValue(importedPaintSet);
       } else {
         const lastPaintSet: PaintSetDefinition | undefined = await getLastPaintSet();
