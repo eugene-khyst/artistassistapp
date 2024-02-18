@@ -85,6 +85,7 @@ export const Palette: React.FC<Props> = ({
         console.log('Importing paint mix', importedPaintMix);
         // }
         const paintMix: PaintMix | null = createPaintMix(importedPaintMix, paints);
+        console.log('Created paint mix', paintMix);
         if (paintMix && !(await isPaintMixExistInDb(paintMix.id))) {
           const paintMixToSave = {...paintMix, dataIndex: Date.now()};
           console.log('Saving paint mix in DB', paintMixToSave);
