@@ -10,7 +10,6 @@ import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '../hooks/';
 import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
 import {ZoomableImageCanvas} from '../services/canvas/image';
 import {Sketch} from '../services/image';
-import {IMAGE_SIZE, createScaledImageBitmap} from '../utils';
 
 const sketch: Remote<Sketch> = wrap(
   new Worker(new URL('../services/image/worker/sketch-worker.ts', import.meta.url), {
@@ -18,18 +17,17 @@ const sketch: Remote<Sketch> = wrap(
   })
 );
 
-const MEDIAN_FILTER_RADIUS_OPTIONS: CheckboxOptionType[] = [
-  {value: 0, label: 'Off'},
+const MEDIAN_FILTER_RADIUS_OPTIONS: CheckboxOptionType<number>[] = [
+  {value: 0, label: 'None'},
   {value: 1, label: 'Small'},
   {value: 2, label: 'Medium'},
   {value: 3, label: 'Large'},
 ];
-const MEDIAN_FILTER_RADIUSES = [2, 3, 4];
+const MEDIAN_FILTER_RADIUSES = [0, 2, 3, 4];
 
 const blobToImageBitmapsConverter = async (blob: Blob): Promise<ImageBitmap[]> => {
-  const original = await createScaledImageBitmap(blob, IMAGE_SIZE.HD);
   const {sketches} = await sketch.getSketches(blob, MEDIAN_FILTER_RADIUSES);
-  return [original, ...sketches];
+  return sketches;
 };
 
 type Props = {
@@ -50,14 +48,22 @@ export const ImageSketch: React.FC<Props> = ({blob}: Props) => {
     zoomableImageCanvasRef.current?.setImageIndex(sketchImageIndex);
   }, [zoomableImageCanvasRef, sketchImageIndex]);
 
+  const handleBlurChange = (e: RadioChangeEvent) => {
+    setSketchImageIndex(e.target.value);
+  };
+
   return (
     <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
       <div style={{display: 'flex', width: '100%', justifyContent: 'center', marginBottom: 8}}>
-        <Form.Item label="Blur" tooltip="Controls the radius of the median filter.">
+        <Form.Item
+          label="Blur"
+          tooltip="Controls the radius of the median filter."
+          style={{marginBottom: 0}}
+        >
           <Radio.Group
             options={MEDIAN_FILTER_RADIUS_OPTIONS}
             value={sketchImageIndex}
-            onChange={(e: RadioChangeEvent) => setSketchImageIndex(e.target.value)}
+            onChange={handleBlurChange}
             optionType="button"
             buttonStyle="solid"
           />

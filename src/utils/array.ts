@@ -18,6 +18,9 @@ export function range(min: number, max: number): number[] {
 }
 
 export function unique<T, S extends string | number>(array: T[], identityFn: (element: T) => S) {
+  if (!array.length) {
+    return [];
+  }
   const identities = new Set<S>();
   return array.filter((element: T) => {
     const identity: S = identityFn(element);

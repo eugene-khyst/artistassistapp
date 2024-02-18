@@ -60,7 +60,11 @@ export const ImageGrid: React.FC<Props> = ({images, isImagesLoading}: Props) => 
 
   return (
     <Spin spinning={isImagesLoading} tip="Loading" size="large" delay={300}>
-      <Space align="center" style={{width: '100%', justifyContent: 'center', marginBottom: 8}}>
+      <Space
+        size="middle"
+        align="center"
+        style={{width: '100%', justifyContent: 'center', marginBottom: 8}}
+      >
         <Form.Item label="Grid" style={{margin: 0}}>
           <Select
             value={gridOption}

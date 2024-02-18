@@ -8,17 +8,17 @@ import {Reflectance, Xyz} from '.';
 
 const HEX_MATCHER = /^#?([0-9a-f]{3,6})$/i;
 
-function componentToHex(value: number): string {
+function channelToHex(value: number): string {
   const hex = value.toString(16);
   return hex.length < 2 ? '0' + hex : hex;
 }
 
-export function linearizeRgbComponent(value: number): number {
+export function linearizeRgbChannel(value: number): number {
   const v = clamp(value, 0, 255) / 255;
   return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
 }
 
-export function unlinearizeRgbComponent(value: number): number {
+export function unlinearizeRgbChannel(value: number): number {
   const v = clamp(value, 0, 1);
   return Math.round(255 * (v <= 0.0031308 ? 12.92 * v : 1.055 * Math.pow(v, 1 / 2.4) - 0.055));
 }
@@ -74,10 +74,7 @@ export class Rgb {
 
   toHex(hashSymbol = true): string {
     return (
-      (hashSymbol ? '#' : '') +
-      componentToHex(this.r) +
-      componentToHex(this.g) +
-      componentToHex(this.b)
+      (hashSymbol ? '#' : '') + channelToHex(this.r) + channelToHex(this.g) + channelToHex(this.b)
     );
   }
 

@@ -29,6 +29,7 @@ import {IMAGE_SIZE, createScaledImageBitmap} from '../utils';
 import {Help} from './Help';
 import {ImageColorPicker} from './ImageColorPicker';
 import {ImageGrid} from './ImageGrid';
+import {ImagePrimaryColors} from './ImagePrimaryColors';
 import {ImageSelect} from './ImageSelect';
 import {ImageSketch} from './ImageSketch';
 import {ImageTonalValues} from './ImageTonalValues';
@@ -207,6 +208,19 @@ export const ArtistAssistApp: React.FC = () => {
       children: <PaintMixer paintSet={paintSet} />,
       forceRender: true,
       disabled: !paintSet || PENCIL_TYPES.includes(paintSet.type),
+    },
+    {
+      key: TabKey.PrimaryColors,
+      label: 'Primary colors',
+      children: (
+        <ImagePrimaryColors
+          paintSet={paintSet}
+          blob={blob}
+          images={images}
+          isImagesLoading={isImagesLoading}
+        />
+      ),
+      disabled: !paintSet || !blob,
     },
     {
       key: TabKey.Help,

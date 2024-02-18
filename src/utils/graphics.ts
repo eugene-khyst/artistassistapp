@@ -4,11 +4,15 @@
  */
 
 export const IMAGE_SIZE = {
+  SD: 720 * 480,
   HD: 1280 * 720,
   '2K': 2560 * 1440,
 };
 
-export async function createScaledImageBitmap(blob: Blob, maxImageArea: number) {
+export async function createScaledImageBitmap(
+  blob: Blob,
+  maxImageArea: number
+): Promise<ImageBitmap> {
   const image: ImageBitmap = await createImageBitmap(blob);
   const scale: number = Math.min(1, Math.sqrt(maxImageArea / (image.width * image.height)));
   const scaledImage: ImageBitmap = await createImageBitmap(image, {

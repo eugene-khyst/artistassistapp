@@ -42,7 +42,6 @@ type Props = {
   setColorPicker: (pipet?: Pipet) => void;
   setAsBackground: (background: string | RgbTuple) => void;
   showColorSwatch: (paintMixes: PaintMix[]) => void;
-  showReflectanceChart: (paintMix: PaintMix) => void;
 };
 
 export const PaletteGrid: React.FC<Props> = ({
@@ -55,7 +54,6 @@ export const PaletteGrid: React.FC<Props> = ({
   setColorPicker,
   setAsBackground,
   showColorSwatch,
-  showReflectanceChart,
 }: Props) => {
   const [sort, setSort] = useState<Sort>(Sort.ByDataIndex);
 
@@ -105,7 +103,6 @@ export const PaletteGrid: React.FC<Props> = ({
                 showShareModal={showShareModal}
                 setColorPicker={setColorPicker}
                 setAsBackground={setAsBackground}
-                showReflectanceChart={showReflectanceChart}
                 savePaintMix={savePaintMix}
                 deletePaintMix={deletePaintMix}
               />

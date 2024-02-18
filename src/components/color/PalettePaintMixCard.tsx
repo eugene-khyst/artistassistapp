@@ -6,7 +6,6 @@
 import {
   BgColorsOutlined,
   EllipsisOutlined,
-  LineChartOutlined,
   MinusOutlined,
   PictureOutlined,
   ShareAltOutlined,
@@ -23,7 +22,6 @@ type Props = {
   showShareModal: (paintMix: PaintMix) => void;
   setColorPicker: (pipet?: Pipet) => void;
   setAsBackground: (background: string | RgbTuple) => void;
-  showReflectanceChart: (paintMix: PaintMix) => void;
 };
 
 export const PalettePaintMixCard: React.FC<Props> = ({
@@ -33,7 +31,6 @@ export const PalettePaintMixCard: React.FC<Props> = ({
   showShareModal,
   setColorPicker,
   setAsBackground,
-  showReflectanceChart,
 }: Props) => {
   const items: MenuProps['items'] = [
     {
@@ -47,12 +44,6 @@ export const PalettePaintMixCard: React.FC<Props> = ({
       label: 'Set as background',
       icon: <BgColorsOutlined />,
       onClick: () => setAsBackground(paintMix.paintMixLayerRgb),
-    },
-    {
-      key: '3',
-      label: 'Reflectance chart',
-      icon: <LineChartOutlined />,
-      onClick: () => showReflectanceChart(paintMix),
     },
   ];
 

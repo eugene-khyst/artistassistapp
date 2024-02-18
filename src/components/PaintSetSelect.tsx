@@ -3,13 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {QuestionCircleOutlined, SaveOutlined, ShareAltOutlined} from '@ant-design/icons';
+import {
+  PlayCircleOutlined,
+  QuestionCircleOutlined,
+  SaveOutlined,
+  ShareAltOutlined,
+} from '@ant-design/icons';
 import {App, Button, Form, Space, Spin, Typography, theme} from 'antd';
-import {Dispatch, SetStateAction, useEffect, useState} from 'react';
+import {Dispatch, SetStateAction, useContext, useEffect, useState} from 'react';
+import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
 import {usePaints, useStoreBoughtPaintSets} from '../hooks';
 import {
-  NUMBER_OF_PAINTS_IN_MIX,
   PAINT_BRANDS,
+  PAINT_MIXING,
   PAINT_TYPES,
   PaintBrand,
   PaintSet,
@@ -48,6 +54,8 @@ export const PaintSetSelect: React.FC<Props> = ({
   const {
     token: {fontSizeLG},
   } = theme.useToken();
+
+  const {quickStartUrl} = useContext<AppConfig>(AppConfigContext);
 
   const {message} = App.useApp();
 
@@ -175,12 +183,22 @@ export const PaintSetSelect: React.FC<Props> = ({
       <div style={{padding: '0 16px'}}>
         <Space direction="vertical" size="small" style={{marginBottom: 8}}>
           <Typography.Text style={{fontSize: fontSizeLG}}>
-            <strong>ArtistAssistApp</strong> is a painting assistant that allows you to see the
+            <strong>ArtistAssistApp</strong> is a painting assistant tool that allows you to see the
             reference more clearly and mix colors more accurately.
           </Typography.Text>
-          <Button icon={<QuestionCircleOutlined />} onClick={handleHelpButtonClick}>
-            Help
-          </Button>
+          <Space size="small">
+            <Button
+              icon={<PlayCircleOutlined />}
+              type="primary"
+              href={quickStartUrl}
+              target="_blank"
+            >
+              Quick start video
+            </Button>
+            <Button icon={<QuestionCircleOutlined />} onClick={handleHelpButtonClick}>
+              Help
+            </Button>
+          </Space>
           <Typography.Text style={{fontSize: fontSizeLG}}>
             Select your medium and up to {MAX_COLORS} colors you will paint with.
           </Typography.Text>
@@ -240,7 +258,7 @@ export const PaintSetSelect: React.FC<Props> = ({
                     ({getFieldValue}) => ({
                       validator() {
                         const paintType = getFieldValue('type') as PaintType;
-                        if (NUMBER_OF_PAINTS_IN_MIX[paintType] === 1) {
+                        if (PAINT_MIXING[paintType].maxPaintsCount === 1) {
                           return Promise.resolve();
                         }
                         const colors = getFieldValue('colors') as Record<PaintBrand, number[]>;

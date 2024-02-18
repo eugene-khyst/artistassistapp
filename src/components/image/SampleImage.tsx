@@ -12,7 +12,7 @@ type Props = {
   name: string;
   setBlob: Dispatch<SetStateAction<Blob | undefined>>;
   setImageFileId: Dispatch<SetStateAction<number | undefined>>;
-  setIsImageLoading: (name: string, isLoading: boolean) => void;
+  setImageLoadingCount: Dispatch<SetStateAction<number>>;
 };
 
 export const SampleImage: React.FC<Props> = ({
@@ -21,15 +21,15 @@ export const SampleImage: React.FC<Props> = ({
   name,
   setBlob,
   setImageFileId,
-  setIsImageLoading,
+  setImageLoadingCount,
 }: Props) => {
   const handleCardClick = async () => {
-    setIsImageLoading(name, true);
+    setImageLoadingCount((prev: number) => prev + 1);
     const response: Response = await fetch(image);
     const blob: Blob = await response.blob();
     setBlob(blob);
     setImageFileId(undefined);
-    setIsImageLoading(name, false);
+    setImageLoadingCount((prev: number) => prev - 1);
   };
 
   return (

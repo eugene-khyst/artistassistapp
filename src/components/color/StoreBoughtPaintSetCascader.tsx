@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Cascader} from 'antd';
-import {CSSProperties} from 'react';
+import {Cascader, CascaderProps} from 'antd';
 import {PAINT_BRANDS, PaintBrand, PaintType, StoreBoughtPaintSet} from '../../services/color';
 import {CascaderOption} from '../types';
 import {filterCascaderOptions} from '../utils';
@@ -39,35 +38,28 @@ function getStoreBoughtPaintSetOptions(
   ];
 }
 
-type Props = {
-  value?: (number | string)[];
-  onChange?: (value: (number | string)[]) => void;
+type Props = Omit<CascaderProps<CascaderOption>, 'onChange'> & {
+  onChange?: (value: (string | number)[] | (string | number)[][]) => void;
   type?: PaintType;
   storeBoughtPaintSets: Map<PaintBrand, Map<string, StoreBoughtPaintSet>>;
-  loading?: boolean;
-  style?: CSSProperties;
 };
 
 export const StoreBoughtPaintSetCascader: React.FC<Props> = ({
-  value,
   onChange,
   type,
   storeBoughtPaintSets,
-  loading,
-  style,
+  ...rest
 }: Props) => {
   const options = getStoreBoughtPaintSetOptions(type, storeBoughtPaintSets);
   return (
     <Cascader
-      value={value}
       onChange={onChange}
       options={options}
       placeholder="Select set"
       showSearch={{filter: filterCascaderOptions}}
       expandTrigger="hover"
       allowClear
-      loading={loading}
-      style={style}
+      {...rest}
     />
   );
 };

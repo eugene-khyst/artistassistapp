@@ -4,7 +4,7 @@
  */
 
 import {Matrix} from '../../math';
-import {Rgb, linearizeRgbComponent as linearize, unlinearizeRgbComponent as unlinearize} from '.';
+import {Rgb, linearizeRgbChannel as linearize, unlinearizeRgbChannel as unlinearize} from '.';
 
 const MAX_ITERATIONS = 100;
 const FUNCTION_SOLUTION_TOLERANCE = 1.0e-8;

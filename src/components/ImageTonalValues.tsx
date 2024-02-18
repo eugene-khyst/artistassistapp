@@ -3,19 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  EllipsisOutlined,
-  MergeCellsOutlined,
-  PrinterOutlined,
-  SplitCellsOutlined,
-} from '@ant-design/icons';
+import {EllipsisOutlined, PrinterOutlined} from '@ant-design/icons';
 import {
   Button,
-  Checkbox,
   CheckboxOptionType,
   Col,
   Dropdown,
-  Form,
   Grid,
   MenuProps,
   Radio,
@@ -24,7 +17,6 @@ import {
   Space,
   Spin,
 } from 'antd';
-import {CheckboxChangeEvent} from 'antd/es/checkbox';
 import {Remote, wrap} from 'comlink';
 import {useEffect, useRef, useState} from 'react';
 import {useReactToPrint} from 'react-to-print';
@@ -81,8 +73,6 @@ export const ImageTonalValues: React.FC<Props> = ({
 
   const [tonalValuesImageIndex, setTonalValuesImageIndex] = useState<number>(0);
 
-  const [isOriginalVisible, setIsOriginalVisible] = useState<boolean>(true);
-
   const printRef = useRef<HTMLDivElement>(null);
   const promiseResolveRef = useRef<any>(null);
   const [printImagesUrls, setPrintImagesUrls] = useState<string[]>([]);
@@ -94,14 +84,14 @@ export const ImageTonalValues: React.FC<Props> = ({
   }, [tonalValuesZoomableImageCanvasRef, tonalValuesImageIndex]);
 
   useEffect(() => {
-    tonalValuesZoomableImageCanvasRef.current?.resize();
-  }, [tonalValuesZoomableImageCanvasRef, isOriginalVisible]);
-
-  useEffect(() => {
     if (printImagesUrls.length && promiseResolveRef.current) {
       promiseResolveRef.current();
     }
   }, [printImagesUrls]);
+
+  const handleTonalValueChange = (e: RadioChangeEvent) => {
+    setTonalValuesImageIndex(e.target.value);
+  };
 
   const handlePrint = useReactToPrint({
     content: () => printRef.current,
@@ -128,52 +118,32 @@ export const ImageTonalValues: React.FC<Props> = ({
   const items: MenuProps['items'] = [
     {
       key: '1',
-      label: isOriginalVisible ? 'Hide original image' : 'Show original image',
-      icon: isOriginalVisible ? <MergeCellsOutlined /> : <SplitCellsOutlined />,
-      onClick: () => setIsOriginalVisible(prev => !prev),
-    },
-    {
-      key: '2',
       label: 'Print',
       icon: <PrinterOutlined />,
       onClick: handlePrint,
     },
   ];
 
-  const height = `calc((100vh - 115px) / ${!isOriginalVisible || screens['sm'] ? '1' : '2'})`;
+  const height = `calc((100vh - 115px) / ${screens['sm'] ? 1 : 2})`;
 
   return (
     <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
       <Space
-        size="middle"
+        size="small"
         align="center"
         style={{width: '100%', justifyContent: 'center', marginBottom: 8}}
       >
         <Radio.Group
           options={TONES_OPTIONS}
           value={tonalValuesImageIndex}
-          onChange={(e: RadioChangeEvent) => setTonalValuesImageIndex(e.target.value)}
+          onChange={handleTonalValueChange}
           optionType="button"
           buttonStyle="solid"
         />
         {screens['sm'] ? (
-          <>
-            <Form.Item
-              label="Original image"
-              tooltip="Show or hide the original image next to the tonal values."
-              style={{marginBottom: 0}}
-            >
-              <Checkbox
-                checked={isOriginalVisible}
-                onChange={(e: CheckboxChangeEvent) => {
-                  setIsOriginalVisible(e.target.checked);
-                }}
-              />
-            </Form.Item>
-            <Button icon={<PrinterOutlined />} onClick={handlePrint}>
-              Print
-            </Button>
-          </>
+          <Button icon={<PrinterOutlined />} onClick={handlePrint}>
+            Print
+          </Button>
         ) : (
           <Dropdown menu={{items}}>
             <Button icon={<EllipsisOutlined />} />
@@ -181,10 +151,10 @@ export const ImageTonalValues: React.FC<Props> = ({
         )}
       </Space>
       <Row>
-        <Col xs={24} sm={isOriginalVisible ? 12 : 24}>
+        <Col xs={24} sm={12}>
           <canvas ref={tonalValuesCanvasRef} style={{width: '100%', height}} />
         </Col>
-        <Col xs={24} sm={12} style={{display: isOriginalVisible ? 'block' : 'none'}}>
+        <Col xs={24} sm={12}>
           <canvas ref={originalCanvasRef} style={{width: '100%', height}} />
         </Col>
       </Row>

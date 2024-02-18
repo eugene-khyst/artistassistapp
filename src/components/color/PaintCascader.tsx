@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Cascader, Space, Typography} from 'antd';
-import {CSSProperties} from 'react';
+import {Cascader, CascaderProps, Space, Typography} from 'antd';
 import {PAINT_BRANDS, Paint, PaintBrand, formatPaintLabel} from '../../services/color';
 import {computeIfAbsentInMap} from '../../utils';
 import {CascaderOption} from '../types';
@@ -43,37 +42,25 @@ function getPaintOptions(paints?: Paint[]): CascaderOption[] {
   });
 }
 
-type SingleValueType = (string | number)[];
-type ValueType = SingleValueType | SingleValueType[];
-
-type Props = {
-  value?: ValueType;
-  onChange?: (value: ValueType) => void;
+type Props = Omit<CascaderProps<CascaderOption>, 'onChange'> & {
+  onChange?: (value: (string | number)[] | (string | number)[][]) => void;
   paints?: Paint[];
-  multiple?: boolean;
-  style?: CSSProperties;
 };
 
-export const PaintCascader: React.FC<Props> = ({
-  value,
-  onChange,
-  paints,
-  multiple,
-  style,
-}: Props) => {
+export const PaintCascader: React.FC<Props> = ({onChange, paints, multiple, ...rest}: Props) => {
   const options = getPaintOptions(paints);
   return (
     <Cascader
-      value={value}
       onChange={onChange}
       options={options}
       placeholder="Select color"
       showSearch={{filter: filterCascaderOptions}}
       expandTrigger="hover"
+      showCheckedStrategy={Cascader.SHOW_CHILD}
       displayRender={displayRender}
       allowClear={!!multiple}
       multiple={multiple}
-      style={style}
+      {...rest}
     />
   );
 };

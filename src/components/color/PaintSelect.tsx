@@ -4,7 +4,6 @@
  */
 
 import {Select, SelectProps, Space, Typography} from 'antd';
-import {CSSProperties} from 'react';
 import {Paint, formatPaintLabel} from '../../services/color';
 import {filterSelectOptions} from '../utils';
 import {ColorSquare} from './ColorSquare';
@@ -27,36 +26,20 @@ function getPaintOptions(paints?: Map<number, Paint>): SelectProps['options'] {
   });
 }
 
-type Props = {
-  value?: number[];
-  onChange?: (value: number[]) => void;
+type Props = SelectProps & {
   paints?: Map<number, Paint>;
-  mode?: 'multiple';
-  loading?: boolean;
-  style?: CSSProperties;
 };
 
-export const PaintSelect: React.FC<Props> = ({
-  value,
-  onChange,
-  paints,
-  mode,
-  loading,
-  style,
-}: Props) => {
+export const PaintSelect: React.FC<Props> = ({paints, ...rest}: Props) => {
   const options = getPaintOptions(paints);
   return (
     <Select
-      value={value}
-      onChange={onChange}
-      mode={mode}
       options={options}
       placeholder="Select colors"
       showSearch
       filterOption={filterSelectOptions}
       allowClear
-      loading={loading}
-      style={style}
+      {...rest}
     />
   );
 };

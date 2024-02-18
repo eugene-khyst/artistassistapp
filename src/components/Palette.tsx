@@ -27,7 +27,6 @@ import {
 } from '../services/db';
 import {PaletteGrid} from './PaletteGrid';
 import {ColorSwatchDrawer} from './drawer/ColorSwatchDrawer';
-import {ReflectanceChartDrawer} from './drawer/ReflectanceChartDrawer';
 import {ShareModal} from './modal/ShareModal';
 
 type Props = {
@@ -60,9 +59,6 @@ export const Palette: React.FC<Props> = ({
 
   const [colorSwatchPaintMixes, setColorSwatchPaintMixes] = useState<PaintMix[] | undefined>();
   const [isOpenColorSwatch, setIsOpenColorSwatch] = useState<boolean>(false);
-
-  const [reflectanceChartPaintMix, setReflectanceChartPaintMix] = useState<PaintMix | undefined>();
-  const [isOpenReflectanceChart, setIsOpenReflectanceChart] = useState<boolean>(false);
 
   const importDone = useRef<boolean>(false);
   const importedPaintMixType: PaintType | undefined = importedPaintMix?.type;
@@ -137,11 +133,6 @@ export const Palette: React.FC<Props> = ({
     setIsOpenColorSwatch(true);
   };
 
-  const showReflectanceChart = (paintMix: PaintMix) => {
-    setReflectanceChartPaintMix(paintMix);
-    setIsOpenReflectanceChart(true);
-  };
-
   const items: CollapseProps['items'] = [...PAINT_TYPES.entries()].flatMap(([paintType, label]) => {
     const filteredPaintMixes: PaintMix[] | undefined = paintMixes?.filter(
       ({type}: PaintMix) => type === paintType
@@ -163,7 +154,6 @@ export const Palette: React.FC<Props> = ({
                 setColorPicker={setColorPicker}
                 setAsBackground={setAsBackground}
                 showColorSwatch={showColorSwatch}
-                showReflectanceChart={showReflectanceChart}
               />
             ),
           },
@@ -182,6 +172,8 @@ export const Palette: React.FC<Props> = ({
             <>
               <Typography.Paragraph>
                 <Typography.Text strong>⁉️ No data</Typography.Text>
+                <br />
+                There is one common palette and a separate palette for each photo.
                 <br />
                 To use the palette features, add color mixtures:
                 <ol>
@@ -221,11 +213,6 @@ export const Palette: React.FC<Props> = ({
         open={isOpenColorSwatch}
         onClose={() => setIsOpenColorSwatch(false)}
         blob={blob}
-      />
-      <ReflectanceChartDrawer
-        paintMix={reflectanceChartPaintMix}
-        open={isOpenReflectanceChart}
-        onClose={() => setIsOpenReflectanceChart(false)}
       />
     </>
   );

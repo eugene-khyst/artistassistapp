@@ -8,22 +8,32 @@ import {unique} from '../../utils';
 import {gcd} from '../math';
 import {Lab, Reflectance, Rgb, RgbTuple} from './model';
 
-const DELTA_E_LIMIT = 20;
+export interface PaintMixingConfig {
+  maxPaintsCount: 1 | 2 | 3;
+  onlyThickConsistency: boolean;
+}
 
-export const NUMBER_OF_PAINTS_IN_MIX: Record<PaintType, number> = {
-  [PaintType.WatercolorPaint]: 3,
-  [PaintType.OilPaint]: 3,
-  [PaintType.AcrylicPaint]: 3,
-  [PaintType.ColoredPencils]: 1,
-  [PaintType.WatercolorPencils]: 1,
-};
-
-const ONLY_THICK_CONSISTENCY_BY_DEFAULT: Record<PaintType, boolean> = {
-  [PaintType.WatercolorPaint]: false,
-  [PaintType.OilPaint]: true,
-  [PaintType.AcrylicPaint]: true,
-  [PaintType.ColoredPencils]: false,
-  [PaintType.WatercolorPencils]: false,
+export const PAINT_MIXING: Record<PaintType, PaintMixingConfig> = {
+  [PaintType.WatercolorPaint]: {
+    maxPaintsCount: 3,
+    onlyThickConsistency: false,
+  },
+  [PaintType.OilPaint]: {
+    maxPaintsCount: 3,
+    onlyThickConsistency: true,
+  },
+  [PaintType.AcrylicPaint]: {
+    maxPaintsCount: 3,
+    onlyThickConsistency: true,
+  },
+  [PaintType.ColoredPencils]: {
+    maxPaintsCount: 1,
+    onlyThickConsistency: false,
+  },
+  [PaintType.WatercolorPencils]: {
+    maxPaintsCount: 1,
+    onlyThickConsistency: false,
+  },
 };
 
 export type PaintConsistency = [paint: number, fluid: number];
@@ -36,7 +46,7 @@ const CONSISTENCIES: PaintConsistency[] = [
   [1, 0],
 ];
 
-export const OFF_WHITE: Rgb = new Rgb(250, 249, 246);
+const OFF_WHITE: Rgb = new Rgb(250, 249, 246);
 export const OFF_WHITE_HEX: string = OFF_WHITE.toHex();
 
 export interface PaintFractionDefinition {
@@ -387,7 +397,7 @@ export class ColorMixer {
   private paintMixLayers: Map<number, PaintLayer[]> = new Map();
   private background: Background | null = null;
 
-  private async getUnmixedColors({colors: paints}: PaintSet): Promise<UnmixedPaint[]> {
+  private async getUnmixedColors(paints: Paint[]): Promise<UnmixedPaint[]> {
     return paints.flatMap((paint: Paint) => new UnmixedPaint(paint));
   }
 
@@ -402,19 +412,18 @@ export class ColorMixer {
     await this.makePaintsConsistencies();
   }
 
-  private async mixPaints(paintSet: PaintSet): Promise<void> {
+  private async mixPaints({type, colors: paints}: PaintSet): Promise<void> {
     if (process.env.NODE_ENV !== 'production') {
       console.time('mix-paints');
     }
-    const {type} = paintSet;
-    const unmixedColors: UnmixedPaint[] = await this.getUnmixedColors(paintSet);
+    const unmixedColors: UnmixedPaint[] = await this.getUnmixedColors(paints);
     this.paintMixes.clear();
-    const numOfPaints: number = NUMBER_OF_PAINTS_IN_MIX[type];
+    const {maxPaintsCount} = PAINT_MIXING[type];
     this.paintMixes.set(1, makeOnePaintMixes(unmixedColors));
-    if (numOfPaints >= 2) {
+    if (maxPaintsCount >= 2) {
       this.paintMixes.set(2, makeTwoPaintsMixes(unmixedColors));
     }
-    if (numOfPaints >= 3) {
+    if (maxPaintsCount >= 3) {
       this.paintMixes.set(3, makeThreePaintsMixes(unmixedColors));
     }
     if (process.env.NODE_ENV !== 'production') {
@@ -441,37 +450,38 @@ export class ColorMixer {
   findSimilarColors(
     targetColor: string | RgbTuple,
     isGlaze = false,
-    maxDeltaE = 2,
-    limitResultsForMixes = 5
+    limitResultsForMixes = 5,
+    deltaELimit = 2,
+    bestMatchFallback = true,
+    maxDeltaE = 10
   ): SimilarColor[] {
     const rgb = Rgb.fromHexOrTuple(targetColor);
-    if (this.background?.rgb.equals(rgb)) {
+    if (!this.paintType || this.background?.rgb.equals(rgb)) {
       return [];
     }
     const lab: Lab = rgb.toXyz().toLab();
-    const onlyThickConsistency =
-      this.paintType && ONLY_THICK_CONSISTENCY_BY_DEFAULT[this.paintType] && !isGlaze;
+    const {onlyThickConsistency} = PAINT_MIXING[this.paintType];
     const allSimilarColors: SimilarColor[] = [];
     let topNSimilarColors: SimilarColor[] = [];
     for (const layers of this.paintMixLayers.values()) {
       const similarColors: SimilarColor[] = [];
       for (const layer of layers) {
         const [_, fluidFraction] = layer.consistency;
-        if (onlyThickConsistency && fluidFraction !== 0) {
+        if (onlyThickConsistency && !isGlaze && fluidFraction !== 0) {
           continue;
         }
         if (isGlaze && (fluidFraction === 0 || layer.paint.isOpaque())) {
           continue;
         }
         const deltaE: number = layer.lab.getDeltaE2000(lab);
-        if (deltaE > DELTA_E_LIMIT) {
+        if (maxDeltaE && deltaE > maxDeltaE) {
           continue;
         }
         const similarColor: SimilarColor = {
           paintMix: layer.toPaintMix(),
           deltaE,
         };
-        if (similarColors.length === 0) {
+        if (bestMatchFallback && similarColors.length === 0) {
           topNSimilarColors.push(similarColor);
           topNSimilarColors.sort(compareSimilarColorsByDeltaE);
           topNSimilarColors = uniqueSimilarColors(topNSimilarColors);
@@ -479,7 +489,7 @@ export class ColorMixer {
             topNSimilarColors.pop();
           }
         }
-        if (deltaE <= maxDeltaE) {
+        if (deltaE <= deltaELimit) {
           similarColors.push(similarColor);
         }
       }

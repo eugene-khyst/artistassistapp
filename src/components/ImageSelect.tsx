@@ -31,15 +31,9 @@ export const ImageSelect: React.FC<Props> = ({
   const {message} = App.useApp();
 
   const [recentFiles, setRecentFiles] = useState<ImageFile[]>([]);
-  const [isLoadingDictionary, setIsLoadingDictionary] = useState<Record<string, boolean>>({});
+  const [imageLoadingCount, setImageLoadingCount] = useState<number>(0);
 
-  const isLoading: boolean = Object.values(isLoadingDictionary).some(
-    (isLoading: boolean) => isLoading
-  );
-
-  const setIsImageLoading = useCallback((name: string, isLoading: boolean) => {
-    setIsLoadingDictionary(prev => ({...prev, [name]: isLoading}));
-  }, []);
+  const isLoading: boolean = imageLoadingCount > 0;
 
   useEffect(() => {
     (async () => {
@@ -120,7 +114,7 @@ export const ImageSelect: React.FC<Props> = ({
                 name={name}
                 setBlob={setBlob}
                 setImageFileId={setImageFileId}
-                setIsImageLoading={setIsImageLoading}
+                setImageLoadingCount={setImageLoadingCount}
               />
             </Col>
           ))}

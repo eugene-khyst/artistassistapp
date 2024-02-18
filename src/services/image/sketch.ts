@@ -12,7 +12,7 @@ interface Result {
 }
 
 export class Sketch {
-  async getSketches(blob: Blob, medianFilterRadiuses: number[] = [2, 3, 4]): Promise<Result> {
+  async getSketches(blob: Blob, medianFilterRadiuses: number[] = [0, 2, 3, 4]): Promise<Result> {
     if (process.env.NODE_ENV !== 'production') {
       console.time('sketches');
     }

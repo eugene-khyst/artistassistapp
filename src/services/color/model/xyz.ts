@@ -3,12 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  Lab,
-  Rgb,
-  linearizeRgbComponent as linearize,
-  unlinearizeRgbComponent as unlinearize,
-} from '.';
+import {Lab, Rgb, linearizeRgbChannel as linearize, unlinearizeRgbChannel as unlinearize} from '.';
 
 export function getLuminance(r: number, g: number, b: number): number {
   const lr = linearize(r);

@@ -21,8 +21,7 @@ import {Color} from 'antd/es/color-picker';
 import {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {SliderMarks} from 'antd/es/slider';
 import {Remote, wrap} from 'comlink';
-import {Dispatch, SetStateAction, useCallback, useContext, useEffect, useState} from 'react';
-import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
+import {Dispatch, SetStateAction, useCallback, useEffect, useState} from 'react';
 import {useZoomableImageCanvas} from '../hooks/';
 import {
   ColorPickerEventType,
@@ -49,7 +48,15 @@ import {
 import {getColorPickerSettings, saveColorPickerSettings} from '../services/db/';
 import {Vector} from '../services/math';
 import {SimilarColorCard} from './color/SimilarColorCard';
-import {ReflectanceChartDrawer} from './drawer/ReflectanceChartDrawer';
+
+const LIMIT_RESULTS_FOR_MIXES = 5;
+const DELTA_E_LIMIT = 2;
+const MAX_DELTA_E = 10;
+const DEFAULT_SAMPLE_DIAMETER = 10;
+const MAX_SAMPLE_DIAMETER = 50;
+const SAMPLE_DIAMETER_SLIDER_MARKS: SliderMarks = Object.fromEntries(
+  [1, 10, 20, 30, 40, 50].map((i: number) => [i, i])
+);
 
 enum Sort {
   BySimilarity = 1,
@@ -65,8 +72,6 @@ const SORT_OPTIONS: SelectOptionType[] = [
   {value: Sort.BySimilarity, label: 'Similarity'},
   {value: Sort.ByNumberOfPaints, label: 'Color count'},
 ];
-
-const MAX_DELTA_E = 2;
 
 function getPipet(colorPickerCanvas?: ImageColorPickerCanvas): Pipet | undefined {
   if (colorPickerCanvas) {
@@ -120,26 +125,13 @@ export const ImageColorPicker: React.FC<Props> = ({
 }: Props) => {
   const screens = Grid.useBreakpoint();
 
-  const {
-    limitResultsForMixes,
-    defaultSampleDiameter,
-    maxSampleDiameter,
-    sampleDiameterSliderMarkValues,
-  } = useContext<AppConfig>(AppConfigContext);
-  const sampleDiameterSliderMarks: SliderMarks = Object.fromEntries(
-    sampleDiameterSliderMarkValues.map((i: number) => [i, i])
-  );
-
   const {ref: canvasRef, zoomableImageCanvasRef: colorPickerCanvasRef} =
     useZoomableImageCanvas<ImageColorPickerCanvas>(imageColorPickerCanvasSupplier, images);
 
-  const [sampleDiameter, setSampleDiameter] = useState<number>(defaultSampleDiameter);
+  const [sampleDiameter, setSampleDiameter] = useState<number>(DEFAULT_SAMPLE_DIAMETER);
   const [targetColor, setTargetColor] = useState<string>(OFF_WHITE_HEX);
   const [similarColors, setSimilarColors] = useState<SimilarColor[]>([]);
   const [sort, setSort] = useState<Sort>(Sort.BySimilarity);
-
-  const [reflectanceChartPaintMix, setReflectanceChartPaintMix] = useState<PaintMix | undefined>();
-  const [isOpenReflectanceChart, setIsOpenReflectanceChart] = useState<boolean>(false);
 
   const [isPaintSetLoading, setIsPaintSetLoading] = useState<boolean>(false);
   const [isBackgroundColorLoading, setIsBackgroundColorLoading] = useState<boolean>(false);
@@ -206,13 +198,15 @@ export const ImageColorPicker: React.FC<Props> = ({
       const foundSimilarColors: SimilarColor[] = await colorMixer.findSimilarColors(
         targetColor,
         isGlaze,
-        MAX_DELTA_E,
-        limitResultsForMixes
+        LIMIT_RESULTS_FOR_MIXES,
+        DELTA_E_LIMIT,
+        true,
+        MAX_DELTA_E
       );
       setSimilarColors(foundSimilarColors);
       setIsSimilarColorsLoading(false);
     })();
-  }, [targetColor, isGlaze, limitResultsForMixes, paintSet, backgroundColor]);
+  }, [targetColor, isGlaze, paintSet, backgroundColor]);
 
   useEffect(() => {
     const colorPickerCanvas = colorPickerCanvasRef.current;
@@ -269,145 +263,132 @@ export const ImageColorPicker: React.FC<Props> = ({
     });
   };
 
-  const showReflectanceChart = (paintMix: PaintMix) => {
-    setReflectanceChartPaintMix(paintMix);
-    setIsOpenReflectanceChart(true);
-  };
-
   const height = `calc((100vh - 75px) / ${screens['sm'] ? '1' : '2 - 8px'})`;
   const margin = screens['sm'] ? 0 : 8;
 
   return (
-    <>
-      <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
-        <Row>
-          <Col xs={24} sm={12} lg={16}>
-            <canvas
-              ref={canvasRef}
-              style={{
-                width: '100%',
-                height,
-                marginBottom: margin,
-              }}
-            />
-          </Col>
-          <Col
-            xs={24}
-            sm={12}
-            lg={8}
+    <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
+      <Row>
+        <Col xs={24} sm={12} lg={16}>
+          <canvas
+            ref={canvasRef}
             style={{
-              maxHeight: height,
-              marginTop: margin,
-              overflowY: 'auto',
+              width: '100%',
+              height,
+              marginBottom: margin,
             }}
-          >
-            <Space direction="vertical" style={{padding: '0 16px'}}>
-              <Space align="center" wrap style={{display: 'flex'}}>
-                <Form.Item
-                  label="Background"
-                  tooltip="The color of paper or canvas, or the color of the base layer when glazed."
-                  style={{marginBottom: 0}}
-                >
-                  <ColorPicker
-                    value={backgroundColor}
-                    presets={[
-                      {
-                        label: 'Recommended',
-                        colors: [OFF_WHITE_HEX],
-                      },
-                    ]}
-                    onChangeComplete={(color: Color) => {
-                      setBackgroundColor(color.toHexString(true));
-                    }}
-                    showText
-                    disabledAlpha
-                  />
-                </Form.Item>
-                <Form.Item
-                  label="Glaze"
-                  tooltip="Glazing is a painting technique in which a thin layer of transparent paint is applied over a dried base color layer, mixing optically to rich, iridescent color."
-                  style={{marginBottom: 0}}
-                >
-                  <Checkbox
-                    checked={isGlaze}
-                    onChange={(e: CheckboxChangeEvent) => {
-                      handleIsGlazeChange(e.target.checked);
-                    }}
-                  />
-                </Form.Item>
-              </Space>
+          />
+        </Col>
+        <Col
+          xs={24}
+          sm={12}
+          lg={8}
+          style={{
+            maxHeight: height,
+            marginTop: margin,
+            overflowY: 'auto',
+          }}
+        >
+          <Space direction="vertical" style={{padding: '0 16px'}}>
+            <Space align="center" wrap style={{display: 'flex'}}>
               <Form.Item
-                label="Diameter"
-                tooltip="The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
+                label="Background"
+                tooltip="The color of paper or canvas, or the color of the base layer when glazed."
                 style={{marginBottom: 0}}
               >
-                <Slider
-                  value={sampleDiameter}
-                  onChange={(value: number) => handleSampleDiameterChange(value)}
-                  min={MIN_COLOR_PICKER_DIAMETER}
-                  max={maxSampleDiameter}
-                  marks={sampleDiameterSliderMarks}
+                <ColorPicker
+                  value={backgroundColor}
+                  presets={[
+                    {
+                      label: 'Recommended',
+                      colors: [OFF_WHITE_HEX],
+                    },
+                  ]}
+                  onChangeComplete={(color: Color) => {
+                    setBackgroundColor(color.toHexString(true));
+                  }}
+                  showText
+                  disabledAlpha
                 />
               </Form.Item>
-              <Space align="center" wrap style={{display: 'flex'}}>
-                <Form.Item
-                  label="Color"
-                  tooltip="The color to be mixed from your paint set. Select a color by clicking a point on the image, or use the color picker popup."
-                  style={{marginBottom: 0}}
-                >
-                  <ColorPicker
-                    value={targetColor}
-                    onChangeComplete={(color: Color) => {
-                      setTargetColor(color.toHexString(true));
-                    }}
-                    showText
-                    disabledAlpha
-                  />
-                </Form.Item>
-                <Form.Item
-                  label="Sort"
-                  tooltip="Sort by similarity of the mix to the target color or by the number of colors in the mix."
-                  style={{marginBottom: 0}}
-                >
-                  <Select
-                    value={sort}
-                    onChange={(value: Sort) => setSort(value)}
-                    options={SORT_OPTIONS}
-                    style={{width: 115}}
-                  />
-                </Form.Item>
-              </Space>
-              {!similarColors.length ? (
-                <div style={{margin: '8px 0'}}>
-                  <Typography.Text strong>⁉️ No data</Typography.Text>
-                  <br />
-                  Click 🖱️ or tap 👆 anywhere on the image to choose a color
-                </div>
-              ) : (
-                similarColors
-                  .slice()
-                  .sort(SIMILAR_COLORS_COMPARATORS[sort])
-                  .map((similarColor: SimilarColor) => (
-                    <SimilarColorCard
-                      key={similarColor.paintMix.id}
-                      similarColor={similarColor}
-                      setAsBackground={setAsBackground}
-                      showReflectanceChart={showReflectanceChart}
-                      paintMixes={paintMixes}
-                      savePaintMix={savePaintMix}
-                      deletePaintMix={deletePaintMix}
-                    />
-                  ))
-              )}
+              <Form.Item
+                label="Glaze"
+                tooltip="Glazing is a painting technique in which a thin layer of transparent paint is applied over a dried base color layer, mixing optically to rich, iridescent color."
+                style={{marginBottom: 0}}
+              >
+                <Checkbox
+                  checked={isGlaze}
+                  onChange={(e: CheckboxChangeEvent) => {
+                    handleIsGlazeChange(e.target.checked);
+                  }}
+                />
+              </Form.Item>
             </Space>
-          </Col>
-        </Row>
-      </Spin>
-      <ReflectanceChartDrawer
-        paintMix={reflectanceChartPaintMix}
-        open={isOpenReflectanceChart}
-        onClose={() => setIsOpenReflectanceChart(false)}
-      />
-    </>
+            <Form.Item
+              label="Diameter"
+              tooltip="The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
+              style={{marginBottom: 0}}
+            >
+              <Slider
+                value={sampleDiameter}
+                onChange={(value: number) => handleSampleDiameterChange(value)}
+                min={MIN_COLOR_PICKER_DIAMETER}
+                max={MAX_SAMPLE_DIAMETER}
+                marks={SAMPLE_DIAMETER_SLIDER_MARKS}
+              />
+            </Form.Item>
+            <Space align="center" wrap style={{display: 'flex'}}>
+              <Form.Item
+                label="Color"
+                tooltip="The color to be mixed from your paint set. Select a color by clicking a point on the image, or use the color picker popup."
+                style={{marginBottom: 0}}
+              >
+                <ColorPicker
+                  value={targetColor}
+                  onChangeComplete={(color: Color) => {
+                    setTargetColor(color.toHexString(true));
+                  }}
+                  showText
+                  disabledAlpha
+                />
+              </Form.Item>
+              <Form.Item
+                label="Sort"
+                tooltip="Sort by similarity of the mix to the target color or by the number of colors in the mix."
+                style={{marginBottom: 0}}
+              >
+                <Select
+                  value={sort}
+                  onChange={(value: Sort) => setSort(value)}
+                  options={SORT_OPTIONS}
+                  style={{width: 115}}
+                />
+              </Form.Item>
+            </Space>
+            {!similarColors.length ? (
+              <div style={{margin: '8px 0'}}>
+                <Typography.Text strong>⁉️ No data</Typography.Text>
+                <br />
+                Click 🖱️ or tap 👆 anywhere on the image to choose a color
+              </div>
+            ) : (
+              similarColors
+                .slice()
+                .sort(SIMILAR_COLORS_COMPARATORS[sort])
+                .map((similarColor: SimilarColor) => (
+                  <SimilarColorCard
+                    key={similarColor.paintMix.id}
+                    similarColor={similarColor}
+                    setAsBackground={setAsBackground}
+                    paintMixes={paintMixes}
+                    savePaintMix={savePaintMix}
+                    deletePaintMix={deletePaintMix}
+                  />
+                ))
+            )}
+          </Space>
+        </Col>
+      </Row>
+    </Spin>
   );
 };

@@ -4,7 +4,6 @@
  */
 
 import {Select, SelectProps} from 'antd';
-import {CSSProperties} from 'react';
 import {PAINT_BRANDS, PaintType, comparePaintBrandEntries} from '../../services/color';
 import {filterSelectOptions} from '../utils';
 
@@ -17,27 +16,20 @@ function getPaintBrandOptions(type?: PaintType): SelectProps['options'] {
     .map(([value, {fullName: label}]) => ({value, label}));
 }
 
-type Props = {
-  value?: number[];
-  onChange?: (value: number[]) => void;
+type Props = SelectProps & {
   type?: PaintType;
-  mode?: 'multiple';
-  style?: CSSProperties;
 };
 
-export const PaintBrandSelect: React.FC<Props> = ({value, onChange, type, mode, style}: Props) => {
+export const PaintBrandSelect: React.FC<Props> = ({type, ...rest}: Props) => {
   const options = getPaintBrandOptions(type);
   return (
     <Select
-      value={value}
-      onChange={onChange}
-      mode={mode}
       options={options}
       placeholder="Select brands"
       showSearch
       filterOption={filterSelectOptions}
       allowClear
-      style={style}
+      {...rest}
     />
   );
 };

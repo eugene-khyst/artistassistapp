@@ -4,10 +4,9 @@
  */
 
 import {ZoomableImageCanvas, ZoomableImageCanvasProps} from '.';
-import {imageBitmapToOffscreenCanvas} from '../../../utils';
-import {Rgb} from '../../color/model';
+import {getRgbaForCoord, imageBitmapToOffscreenCanvas} from '../../../utils';
+import {Rgb, RgbTuple, linearizeRgbChannel, unlinearizeRgbChannel} from '../../color/model';
 import {EventManager} from '../../event';
-import {getAverageColor} from '../../image';
 import {Rectangle, Vector, clamp} from '../../math';
 
 export const MIN_COLOR_PICKER_DIAMETER = 1;
@@ -113,7 +112,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     const point = pipetPoint.add(imageDimension.center);
     if (imageDimension.contains(point, this.pipetDiameter / 2)) {
       this.pipetPoint = pipetPoint;
-      this.pipetRgb = (await this.getAverageRgb(point)) ?? Rgb.WHITE;
+      this.pipetRgb = (await this.getAverageColor(point)) ?? Rgb.WHITE;
       this.lastPipetDiameter = this.pipetDiameter;
       const event: PipetPointSetEvent = {
         point,
@@ -125,7 +124,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     }
   }
 
-  private async getAverageRgb({x, y}: Vector): Promise<Rgb | null> {
+  private async getAverageColor({x, y}: Vector): Promise<Rgb | null> {
     const diameter = Math.round(this.pipetDiameter);
     const radius = diameter / 2;
     const canvas: OffscreenCanvas | null = this.getOffscreenCanvas();
@@ -136,7 +135,35 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     const imageData: ImageData = canvas
       .getContext('2d')!
       .getImageData(Math.round(x - radius), Math.round(y - radius), diameter, diameter);
-    return getAverageColor(imageData);
+    return this.getAverageColorFromImageData(imageData);
+  }
+
+  private getAverageColorFromImageData({data, width, height}: ImageData): Rgb {
+    if (data.length <= 4) {
+      return new Rgb(data[0], data[1], data[2]);
+    } else {
+      const diameter = Math.trunc(Math.min(width, height));
+      const radius = Math.trunc(diameter / 2);
+      const radiusPow2 = radius * radius;
+      const total: RgbTuple = [0, 0, 0];
+      let count = 0;
+      for (let y = 0; y < diameter; y++) {
+        for (let x = 0; x < diameter; x++) {
+          if (Math.pow(x - radius, 2) + Math.pow(y - radius, 2) <= radiusPow2) {
+            const color: number[] = getRgbaForCoord(data, x, y, width);
+            for (let channel = 0; channel <= 2; channel++) {
+              total[channel] += linearizeRgbChannel(color[channel]);
+            }
+            count++;
+          }
+        }
+      }
+      const mean: RgbTuple = [0, 0, 0];
+      for (let channel = 0; channel <= 2; channel++) {
+        mean[channel] = unlinearizeRgbChannel(total[channel] / count);
+      }
+      return new Rgb(...mean);
+    }
   }
 
   public override destroy(): void {

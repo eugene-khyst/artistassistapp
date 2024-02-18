@@ -10,18 +10,8 @@ const PAINT_TYPE_OPTIONS: SelectProps['options'] = [...PAINT_TYPES.entries()].ma
   ([value, label]) => ({value, label})
 );
 
-type Props = {
-  value?: number;
-  onChange?: (value: number) => void;
-};
+type Props = SelectProps;
 
-export const PaintTypeSelect: React.FC<Props> = ({value, onChange}: Props) => {
-  return (
-    <Select
-      value={value}
-      onChange={onChange}
-      options={PAINT_TYPE_OPTIONS}
-      placeholder="Select medium"
-    />
-  );
+export const PaintTypeSelect: React.FC<Props> = (props: Props) => {
+  return <Select options={PAINT_TYPE_OPTIONS} placeholder="Select medium" {...props} />;
 };

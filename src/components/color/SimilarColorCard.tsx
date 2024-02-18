@@ -6,7 +6,6 @@
 import {
   BgColorsOutlined,
   EllipsisOutlined,
-  LineChartOutlined,
   MinusOutlined,
   PlusOutlined,
   QuestionCircleOutlined,
@@ -39,7 +38,6 @@ const popoverContent = (
 type Props = {
   similarColor: SimilarColor;
   setAsBackground: (background: string | RgbTuple) => void;
-  showReflectanceChart: (paintMix: PaintMix) => void;
   paintMixes?: PaintMix[];
   savePaintMix: (paintMix: PaintMix) => void;
   deletePaintMix: (paintMixId: string) => void;
@@ -48,7 +46,6 @@ type Props = {
 export const SimilarColorCard: React.FC<Props> = ({
   similarColor: {paintMix, deltaE},
   setAsBackground,
-  showReflectanceChart,
   paintMixes,
   savePaintMix,
   deletePaintMix,
@@ -73,12 +70,6 @@ export const SimilarColorCard: React.FC<Props> = ({
       key: '1',
       icon: <BgColorsOutlined />,
       onClick: () => setAsBackground(paintMix.paintMixLayerRgb),
-    },
-    {
-      label: 'Reflectance chart',
-      key: '2',
-      icon: <LineChartOutlined />,
-      onClick: () => showReflectanceChart(paintMix),
     },
   ];
 

@@ -14,6 +14,7 @@ export enum TabKey {
   Palette = 'palette',
   Grid = 'grid',
   ColorMixing = 'color-mixing',
+  PrimaryColors = 'primary-colors',
   Help = 'help',
 }
 
@@ -21,4 +22,5 @@ export interface CascaderOption {
   value?: string | number;
   label: ReactNode;
   children?: CascaderOption[];
+  disabled?: boolean;
 }
