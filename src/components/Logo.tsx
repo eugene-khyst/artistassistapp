@@ -15,39 +15,44 @@ type Props = {
 
 export const Logo: React.FC<Props> = ({name = false, tagline = false, size}: Props) => {
   const {
-    token: {fontSizeLG, fontSizeXL},
+    token: {fontSizeHeading2, fontSizeHeading3},
   } = theme.useToken();
 
   return (
     <Space direction="vertical" size="small" align="center">
       <img src={LOGO.toString()} alt="ArtistAssistApp logo" style={{width: size ?? 150}} />
-      <div>
-        {name && (
-          <div
-            style={{
-              textAlign: 'center',
-              fontFamily: 'Kalam',
-              fontSize: fontSizeXL,
-              fontWeight: 'bold',
-              color: '#3D3A3D',
-            }}
-          >
-            ArtistAssistApp
-          </div>
-        )}
-        {tagline && (
-          <div
-            style={{
-              textAlign: 'center',
-              fontFamily: 'Kalam',
-              fontSize: fontSizeLG,
-              color: '#3D3A3D',
-            }}
-          >
-            Paint better with ease
-          </div>
-        )}
-      </div>
+
+      {name && (
+        <div
+          style={{
+            textAlign: 'center',
+            fontFamily: 'Kalam',
+            fontSize: fontSizeHeading2,
+            fontWeight: 'bold',
+            lineHeight: '1em',
+          }}
+        >
+          <span style={{color: '#656b89'}}>Artist</span>
+          <span style={{color: '#7b6085'}}>Assist</span>
+          <span style={{color: '#895983'}}>App</span>
+          <span style={{color: '#945382'}}>.com</span>
+        </div>
+      )}
+      {tagline && (
+        <div
+          style={{
+            textAlign: 'center',
+            fontFamily: 'Kalam',
+            fontSize: fontSizeHeading3,
+            lineHeight: '1em',
+          }}
+        >
+          <span style={{color: '#656b89'}}>Paint </span>
+          <span style={{color: '#767c7d'}}>better </span>
+          <span style={{color: '#848974'}}>with </span>
+          <span style={{color: '#8f936e'}}>ease</span>
+        </div>
+      )}
     </Space>
   );
 };
