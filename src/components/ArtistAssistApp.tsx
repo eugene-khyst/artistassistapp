@@ -10,9 +10,10 @@ import {
 } from '@ant-design/icons';
 import type {TabsProps} from 'antd';
 import {Alert, App, Col, FloatButton, Row, Space, Tabs, Typography, theme} from 'antd';
-import {useCallback, useEffect, useRef, useState} from 'react';
+import {useCallback, useContext, useEffect, useRef, useState} from 'react';
 import StickyBox from 'react-sticky-box';
 import {useEventListener, useTimeout} from 'usehooks-ts';
+import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
 import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
 import {useFullScreen} from '../hooks/useFullscreen';
 import {
@@ -59,6 +60,7 @@ export const ArtistAssistApp: React.FC = () => {
   const {
     token: {colorBgContainer},
   } = theme.useToken();
+  const {watermarkText} = useContext<AppConfig>(AppConfigContext);
 
   const {message} = App.useApp();
 
@@ -254,6 +256,7 @@ export const ArtistAssistApp: React.FC = () => {
 
   return (
     <>
+      <div className="watermark">{watermarkText}</div>
       <Row justify="center">
         <Col xs={24} xxl={18}>
           <Tabs

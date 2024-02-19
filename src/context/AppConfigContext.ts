@@ -8,9 +8,11 @@ import {Context, createContext} from 'react';
 export interface AppConfig {
   websiteUrl: string;
   quickStartUrl: string;
+  watermarkText: string;
 }
 
 export const AppConfigContext: Context<AppConfig> = createContext<AppConfig>({
   websiteUrl: 'https://artistassistapp.com',
   quickStartUrl: 'https://artistassistapp.com/en/tutorials/#quick-start',
+  watermarkText: 'ArtistAssistApp.com',
 });

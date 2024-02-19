@@ -23,3 +23,17 @@ svg.color-icon {
 .ant-tabs-nav .ant-tabs-tab {
   padding: 16px !important;
 }
+
+.watermark {
+  position: fixed;
+  top: 54px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9;
+  padding: 0 4px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 14px;
+  line-height: 1em;
+  letter-spacing: 1px;
+}
