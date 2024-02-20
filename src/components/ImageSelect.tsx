@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {App, Col, Divider, Form, Input, Row, Spin, Typography, theme} from 'antd';
+import {App, Col, Form, Input, Row, Space, Spin, Typography} from 'antd';
 import {ChangeEvent, Dispatch, SetStateAction, useCallback, useEffect, useState} from 'react';
 import {ImageFile} from '../services/db';
 import {deleteImageFile, getImageFiles, saveImageFile} from '../services/db/image-file-db';
@@ -24,10 +24,6 @@ export const ImageSelect: React.FC<Props> = ({
   imageFileId: currentImageFileId,
   setImageFileId,
 }: Props) => {
-  const {
-    token: {fontSizeLG},
-  } = theme.useToken();
-
   const {message} = App.useApp();
 
   const [recentFiles, setRecentFiles] = useState<ImageFile[]>([]);
@@ -73,52 +69,47 @@ export const ImageSelect: React.FC<Props> = ({
 
   return (
     <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
-      <div style={{padding: '0 16px 8px'}}>
-        <Form.Item
-          label={
-            <Typography.Text style={{fontSize: fontSizeLG}}>
-              Select a reference photo from your device to paint from
-            </Typography.Text>
-          }
-          colon={false}
-          labelCol={{xs: 24}}
-          labelAlign="left"
-          style={{marginBottom: 0}}
-        >
-          <Input type="file" size="large" onChange={handleFileChange} accept="image/*" />
-        </Form.Item>
-        {!!recentFiles.length && (
-          <>
-            <Divider orientation="left">or select from recent photos</Divider>
-            <Row gutter={[16, 16]} justify="start" style={{marginBottom: 16}}>
-              {recentFiles.map((imageFile: ImageFile) => (
-                <Col key={imageFile.id} xs={24} md={12} lg={8}>
-                  <RecentImage
-                    imageFile={imageFile}
-                    deleteRecentImage={deleteRecentImage}
-                    setBlob={setBlob}
-                    setImageFileId={setImageFileId}
-                  />
-                </Col>
-              ))}
-            </Row>
-          </>
-        )}
-        <Divider orientation="left">or select from sample photos</Divider>
-        <Row gutter={[16, 16]} justify="start" style={{marginBottom: 16}}>
-          {SAMPLE_IMAGES.map(([image, thumbnail, name]: SampleImageUrl) => (
-            <Col key={name} xs={24} md={12} lg={8}>
-              <SampleImage
-                image={image}
-                thumbnail={thumbnail}
-                name={name}
-                setBlob={setBlob}
-                setImageFileId={setImageFileId}
-                setImageLoadingCount={setImageLoadingCount}
-              />
-            </Col>
-          ))}
-        </Row>
+      <div style={{padding: '0 16px 16px'}}>
+        <Space direction="vertical" size="small">
+          <Typography.Text>
+            Select a reference photo from your device to paint from.
+          </Typography.Text>
+          <Form.Item style={{marginBottom: 16}}>
+            <Input type="file" size="large" onChange={handleFileChange} accept="image/*" />
+          </Form.Item>
+          {!!recentFiles.length && (
+            <>
+              <Typography.Text>Or select from recent photos.</Typography.Text>
+              <Row gutter={[16, 16]} justify="start" style={{marginBottom: 16}}>
+                {recentFiles.map((imageFile: ImageFile) => (
+                  <Col key={imageFile.id} xs={24} md={12} lg={8}>
+                    <RecentImage
+                      imageFile={imageFile}
+                      deleteRecentImage={deleteRecentImage}
+                      setBlob={setBlob}
+                      setImageFileId={setImageFileId}
+                    />
+                  </Col>
+                ))}
+              </Row>
+            </>
+          )}
+          <Typography.Text>Or select from sample photos.</Typography.Text>
+          <Row gutter={[16, 16]} justify="start">
+            {SAMPLE_IMAGES.map(([image, thumbnail, name]: SampleImageUrl) => (
+              <Col key={name} xs={24} md={12} lg={8}>
+                <SampleImage
+                  image={image}
+                  thumbnail={thumbnail}
+                  name={name}
+                  setBlob={setBlob}
+                  setImageFileId={setImageFileId}
+                  setImageLoadingCount={setImageLoadingCount}
+                />
+              </Col>
+            ))}
+          </Row>
+        </Space>
       </div>
     </Spin>
   );

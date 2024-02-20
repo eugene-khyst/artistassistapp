@@ -9,7 +9,7 @@ import {
   SaveOutlined,
   ShareAltOutlined,
 } from '@ant-design/icons';
-import {App, Button, Form, Space, Spin, Typography, theme} from 'antd';
+import {App, Button, Form, Space, Spin, Typography} from 'antd';
 import {Dispatch, SetStateAction, useContext, useEffect, useState} from 'react';
 import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
 import {usePaints, useStoreBoughtPaintSets} from '../hooks';
@@ -51,10 +51,6 @@ export const PaintSetSelect: React.FC<Props> = ({
   importedPaintSet,
   setActiveTabKey,
 }: Props) => {
-  const {
-    token: {fontSizeLG},
-  } = theme.useToken();
-
   const {quickStartUrl} = useContext<AppConfig>(AppConfigContext);
 
   const {message} = App.useApp();
@@ -185,11 +181,11 @@ export const PaintSetSelect: React.FC<Props> = ({
     <>
       <div style={{padding: '0 16px'}}>
         <Space direction="vertical" size="small" style={{marginBottom: 8}}>
-          <Typography.Text style={{fontSize: fontSizeLG}}>
+          <Typography.Text>
             <strong>ArtistAssistApp</strong> is a painting assistant tool that allows you to see the
             reference more clearly and mix colors more accurately.
           </Typography.Text>
-          <Space size="small">
+          <Space size="small" style={{marginBottom: 16}}>
             <Button
               icon={<PlayCircleOutlined />}
               type="primary"
@@ -202,7 +198,7 @@ export const PaintSetSelect: React.FC<Props> = ({
               Help
             </Button>
           </Space>
-          <Typography.Text style={{fontSize: fontSizeLG}}>
+          <Typography.Text>
             Select your medium and up to {MAX_COLORS} colors you will paint with.
           </Typography.Text>
         </Space>
