@@ -31,9 +31,9 @@ export const PaintMixDescription: React.FC<Props> = ({
     <Space direction="vertical" size="small">
       {showPaints && (
         <>
-          <Space size="middle">
-            {extra}
-            {fractions.length > 1 && (
+          {fractions.length > 1 ? (
+            <Space size="middle">
+              {extra}
               <Space size="small" align="center">
                 <Typography.Text>
                   Ratio: {fractions.map(({fraction}: PaintFraction) => fraction).join(' : ')}
@@ -42,8 +42,10 @@ export const PaintMixDescription: React.FC<Props> = ({
                   <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
                 </Tooltip>
               </Space>
-            )}
-          </Space>
+            </Space>
+          ) : (
+            extra
+          )}
           <Space size="small">
             {fractions.length > 1 ? (
               <>
