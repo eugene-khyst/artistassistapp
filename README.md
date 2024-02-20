@@ -66,7 +66,6 @@ The core logic of the project doesn't depend on any math or color library and in
 - matrix operations,
 - matrix inversion using LU decomposition,
 - solving a system of linear algebraic equations using forward and backward substitution,
-- weighted geometric mean,
 - the average color of the circular area of the image
 - color difference using CIEDE2000,
 - vector operations,
