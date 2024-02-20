@@ -340,7 +340,7 @@ export const ImageColorPicker: React.FC<Props> = ({
             <Space align="center" wrap style={{display: 'flex'}}>
               <Form.Item
                 label="Color"
-                tooltip="The color to be mixed from your paint set. Select a color by clicking a point on the image, or use the color picker popup."
+                tooltip="The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
                 style={{marginBottom: 0}}
               >
                 <ColorPicker

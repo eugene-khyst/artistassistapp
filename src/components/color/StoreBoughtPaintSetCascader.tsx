@@ -10,7 +10,7 @@ import {filterCascaderOptions} from '../utils';
 
 const CUSTOM_PAINT_SET_OPTION = {
   value: 0,
-  label: 'Custom paint set',
+  label: 'Custom color set',
 };
 
 function getStoreBoughtPaintSetOptions(

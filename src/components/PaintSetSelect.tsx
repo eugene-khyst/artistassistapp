@@ -238,7 +238,7 @@ export const PaintSetSelect: React.FC<Props> = ({
                 label="Set"
                 rules={[{required: true, message: '${label} is required'}]}
                 dependencies={['paintType', 'paintBrands']}
-                tooltip="Do you have a store-bought or custom set?"
+                tooltip="Do you have a store-bought or custom color set?"
               >
                 <StoreBoughtPaintSetCascader
                   type={paintType}
@@ -275,7 +275,7 @@ export const PaintSetSelect: React.FC<Props> = ({
                     }),
                   ]}
                   dependencies={['paintType', 'paintBrands', 'storeBoughtPaintSet']}
-                  tooltip="Add or remove colors to match your actual paint set."
+                  tooltip="Add or remove colors to match your actual color set."
                 >
                   <PaintSelect mode="multiple" paints={paints.get(paintBrand)} />
                 </Form.Item>
@@ -287,7 +287,7 @@ export const PaintSetSelect: React.FC<Props> = ({
                 </Button>
                 <Button
                   icon={<ShareAltOutlined />}
-                  title="Share this paint set"
+                  title="Share this color set"
                   onClick={showShareModal}
                 >
                   Share
@@ -298,7 +298,7 @@ export const PaintSetSelect: React.FC<Props> = ({
         </Spin>
       </div>
       <ShareModal
-        title="Share your paint set"
+        title="Share your color set"
         open={isShareModalOpen}
         setOpen={setIsShareModalOpen}
         url={sharePaintSetUrl}
