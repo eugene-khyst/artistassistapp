@@ -11,52 +11,48 @@
   <img src="https://github.com/eugene-khyst/artistassistapp/assets/1311126/de2c1ee3-fba2-4d94-b25a-dea7180fdb2a" width="150" alt="ArtistAssistApp logo" />
 </p>
 
-**ArtistAssistApp** - the web app to paint better with ease.
+**ArtistAssistApp** is the best ever FREE painting assistant tool that allows artists to see the reference photo more clearly and mix colors more accurately.
 
-* 🖌️ 🎨 🖼️ Tools for realistic color mixing based on real paints, tonal value drawing, simplified sketching, and more.
-* 🧑‍🎨 Perfect for artists of all levels and styles, whether you prefer watercolor or oil, realism or loose techniques, landscapes or portraits.
-* 📱 💻 🖥️ Works on desktops, laptops, tablets and smartphones.
+ArtistAssistApp provides various tools for artists for accurate color mixing from a photo based on real paints, tonal value study, grid method for drawing, simplified sketching, etc.
 
-Try it now at [artistassistapp.com](https://artistassistapp.com)
+Try it now at [ArtistAssistApp.com](https://artistassistapp.com)
 
 https://github.com/eugene-khyst/artistassistapp/assets/1311126/21bd5ea5-c815-4ac5-a4e5-849fdc139cd5
 
 ## Getting Started
-* Go to [artistassistapp.com](https://artistassistapp.com/).
+* Go to [ArtistAssistApp.com](https://artistassistapp.com/).
 * [Watch the video tutorials](https://artistassistapp.com/tutorials/).
 * Do you have a question? [Ask the community](https://github.com/eugene-khyst/artistassistapp/discussions).
 * Do you see a bug or want to suggest a new feature? [Open an issue](https://github.com/eugene-khyst/artistassistapp/issues).
 * Want to contact us? [Find our contacts](https://artistassistapp.com/contact/).
 
-## Features
-### 🎨 Realistic color mixing
-Import your own photos, select any desired color directly from the image, and learn how to mix it with your paints.
+## Screenshots
 
-Our web app provides a step-by-step guide on how to precisely mix that color using your own paints using atomic or optical mixing.
+### Accurately mixing a color from a reference photo with real paints
+![ArtistAssistApp: accurately mixing a color from a reference photo with real paints](https://github.com/eugene-khyst/artistassistapp/assets/1311126/ba416c21-8963-44b9-b1df-453574705d4d)
 
-Atomic mixing is the physical mixing of colors together, while optical mixing is the result of placing a transparent layer of color over another color (glaze technique).
+### Tonal value study
+![ArtistAssistApp: tonal value study](https://github.com/eugene-khyst/artistassistapp/assets/1311126/24f9046c-bd35-4cb1-a9ec-e105baea2c61)
 
-![ArtistAssistApp realistic color mixing based on real paints](https://github.com/eugene-khyst/artistassistapp/assets/1311126/5e07ea97-3750-411f-87f2-919ae7a6e59d)
+### Drawing a grid over a reference photo
+![ArtistAssistApp: drawing with a grid method (square grid)](https://github.com/eugene-khyst/artistassistapp/assets/1311126/7136703b-f0bf-4045-b965-c2de71a751be)
+![ArtistAssistApp: drawing with a grid method (3x3 grid)](https://github.com/eugene-khyst/artistassistapp/assets/1311126/06bd07c4-d275-4963-8a9e-6b25b643dec2)
 
-The color of a paint mixture is calculated as the weighted geometric mean of the paints' reflectance curves.
-The reflectance curves of paints and mixes can be visualized.
+### Smoothing out a reference photo
+![ArtistAssistApp: smoothing out a reference photo](https://github.com/eugene-khyst/artistassistapp/assets/1311126/d996a522-00b1-4893-a4c0-984c9f633692)
+![ArtistAssistApp: smoothing out a reference photo](https://github.com/eugene-khyst/artistassistapp/assets/1311126/28a7d6d3-139e-400a-98a7-4f7847a6f02b)
 
-![ArtistAssistApp paint mix spectral reflectance curve](https://github.com/eugene-khyst/artistassistapp/assets/1311126/154406dc-6449-4126-ab48-c48e0afc8365)
+### Previewing a photo painted using a limited palette
+![ArtistAssistApp: previewing a reference photo in different primary colors](https://github.com/eugene-khyst/artistassistapp/assets/1311126/c9ee4264-ed51-4236-a6e1-34493f240800)
+![ArtistAssistApp: previewing a reference photo in different primary colors](https://github.com/eugene-khyst/artistassistapp/assets/1311126/5cc91900-c7c5-477a-a208-d54a82e01cb3)
 
-### 🎨 Palette
-Save instructions on how to mix your favorite colors from the paints you have for quick reference.
+### Mixing specific colors of specific brands in any proportions
 
-![ArtistAssistApp palette tool](https://github.com/eugene-khyst/artistassistapp/assets/1311126/793cc400-1a8f-4967-9b5b-a614f80cb803)
-
-### 🖌️ Simplified sketch
-Smooth your photo to reduce detail and focus on the big shapes and proportions of your subject, and learn how to simplify and abstract your paintings.
-
-![ArtistAssistApp simplified sketch](https://github.com/eugene-khyst/artistassistapp/assets/1311126/d9be595c-454e-4e5b-bfae-5c8f38150e85)
-
-### ✏️ Tonal values
-Use tonal value sketches that capture the light and shadow of your subject to learn how to create contrast and depth in your paintings.
-
-![ArtistAssistApp tonal values](https://github.com/eugene-khyst/artistassistapp/assets/1311126/67223028-3edf-407d-a68a-d54d2d128e05)
+![ArtistAssistApp: mixing specific colors of specific brands in any proportions](https://github.com/eugene-khyst/artistassistapp/assets/1311126/f6fda910-9b04-481f-be70-d5e7afd69cc4)
+![ArtistAssistApp: mixing specific colors of specific brands in any proportions](https://github.com/eugene-khyst/artistassistapp/assets/1311126/96a55f9e-83f7-4ed8-95e8-faf3596ac166)
+![ArtistAssistApp: mixing specific colors of specific brands in any proportions](https://github.com/eugene-khyst/artistassistapp/assets/1311126/a7387549-3df3-491e-bd59-73884d81be4a)
+![ArtistAssistApp: spectral reflectance curve](https://github.com/eugene-khyst/artistassistapp/assets/1311126/08f694f0-7751-41c9-8922-868d28f394df)
+![ArtistAssistApp: spectral reflectance curve](https://github.com/eugene-khyst/artistassistapp/assets/1311126/2f78e671-56c0-48af-a2c9-f99d47803fb9)
 
 ## Implementation details
 
@@ -66,6 +62,7 @@ The core logic of the project doesn't depend on any math or color library and in
 
 - converting between color models (e.g. sRGB to CIELAB),
 - sRGB to spectral reflectance curve,
+- subtractive color mixing using weighted geometric mean of reflectance curves,
 - matrix operations,
 - matrix inversion using LU decomposition,
 - solving a system of linear algebraic equations using forward and backward substitution,
@@ -74,5 +71,6 @@ The core logic of the project doesn't depend on any math or color library and in
 - color difference using CIEDE2000,
 - vector operations,
 - fast median blur using sliding window and histogram,
+- median cut for color quantization,
 - RGB to grayscale conversion based on luminance,
 - and more.
