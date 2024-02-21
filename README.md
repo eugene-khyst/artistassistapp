@@ -11,6 +11,13 @@
   <img src="https://github.com/eugene-khyst/artistassistapp/assets/1311126/de2c1ee3-fba2-4d94-b25a-dea7180fdb2a" width="150" alt="ArtistAssistApp logo" />
 </p>
 
+- [Overview](#1)
+- [Getting Started](#2)
+- [Screenshots](#3)
+- [Implementation details](#4)
+
+## <a id="1"></a>Overview
+
 **ArtistAssistApp** is the best ever FREE painting assistant tool that allows artists to see the reference photo more clearly and mix colors more accurately.
 
 ArtistAssistApp provides various tools for artists for accurate color mixing from a photo based on real paints, tonal value study, grid method for drawing, simplified sketching, etc.
@@ -19,42 +26,45 @@ Try it now at [ArtistAssistApp.com](https://artistassistapp.com)
 
 https://github.com/eugene-khyst/artistassistapp/assets/1311126/21bd5ea5-c815-4ac5-a4e5-849fdc139cd5
 
-## Getting Started
+## <a id="2"></a>Getting Started
 * Go to [ArtistAssistApp.com](https://artistassistapp.com/).
 * [Watch the video tutorials](https://artistassistapp.com/tutorials/).
 * Do you have a question? [Ask the community](https://github.com/eugene-khyst/artistassistapp/discussions).
 * Do you see a bug or want to suggest a new feature? [Open an issue](https://github.com/eugene-khyst/artistassistapp/issues).
 * Want to contact us? [Find our contacts](https://artistassistapp.com/contact/).
 
-## Screenshots
+## <a id="3"></a>Screenshots
 
 ### Accurately mixing a color from a reference photo with real paints
-![ArtistAssistApp: accurately mixing a color from a reference photo with real paints](https://github.com/eugene-khyst/artistassistapp/assets/1311126/ba416c21-8963-44b9-b1df-453574705d4d)
+![ArtistAssistApp: accurately mixing a color from a reference photo with real paints](https://github.com/eugene-khyst/artistassistapp/assets/1311126/5feaf4c1-f583-4217-9262-566e46f8916b)
+
+### Adding your favorite color mixtures to the palette
+![ArtistAssistApp: the palette](https://github.com/eugene-khyst/artistassistapp/assets/1311126/7220638b-335b-4929-ae79-191a41b1ad3f)
+![ArtistAssistApp: color swatch mode](https://github.com/eugene-khyst/artistassistapp/assets/1311126/ce753078-f9f3-4428-b4f8-32e30d601e45)
 
 ### Tonal value study
-![ArtistAssistApp: tonal value study](https://github.com/eugene-khyst/artistassistapp/assets/1311126/24f9046c-bd35-4cb1-a9ec-e105baea2c61)
+![ArtistAssistApp: tonal value study](https://github.com/eugene-khyst/artistassistapp/assets/1311126/840356af-9d82-4644-bf91-dbd496ea3dde)
 
 ### Drawing a grid over a reference photo
-![ArtistAssistApp: drawing with a grid method (square grid)](https://github.com/eugene-khyst/artistassistapp/assets/1311126/7136703b-f0bf-4045-b965-c2de71a751be)
-![ArtistAssistApp: drawing with a grid method (3x3 grid)](https://github.com/eugene-khyst/artistassistapp/assets/1311126/06bd07c4-d275-4963-8a9e-6b25b643dec2)
+![ArtistAssistApp: drawing with a grid method (square grid)](https://github.com/eugene-khyst/artistassistapp/assets/1311126/df7e1bcd-99e4-4b71-8cfb-4a3ba4d89654)
+![ArtistAssistApp: drawing with a grid method (3x3 grid)](https://github.com/eugene-khyst/artistassistapp/assets/1311126/86db88d1-b4d6-4b87-a3f6-a51da4b351ff)
+![ArtistAssistApp: drawing with a grid method (4x4 grid)](https://github.com/eugene-khyst/artistassistapp/assets/1311126/adcdb979-da8d-49fc-a9ac-198e45b26990)
 
 ### Smoothing out a reference photo
-![ArtistAssistApp: smoothing out a reference photo](https://github.com/eugene-khyst/artistassistapp/assets/1311126/d996a522-00b1-4893-a4c0-984c9f633692)
-![ArtistAssistApp: smoothing out a reference photo](https://github.com/eugene-khyst/artistassistapp/assets/1311126/28a7d6d3-139e-400a-98a7-4f7847a6f02b)
+![ArtistAssistApp: smoothing out a reference photo](https://github.com/eugene-khyst/artistassistapp/assets/1311126/f48a52cc-5cca-4d8f-a3b5-26bc6c2eaaec)
+![ArtistAssistApp: smoothing out a reference photo](https://github.com/eugene-khyst/artistassistapp/assets/1311126/38a42cfb-f01e-4a3e-93e2-ff0daae8c6fe)
 
 ### Previewing a photo painted using a limited palette
-![ArtistAssistApp: previewing a reference photo in different primary colors](https://github.com/eugene-khyst/artistassistapp/assets/1311126/c9ee4264-ed51-4236-a6e1-34493f240800)
-![ArtistAssistApp: previewing a reference photo in different primary colors](https://github.com/eugene-khyst/artistassistapp/assets/1311126/5cc91900-c7c5-477a-a208-d54a82e01cb3)
+![ArtistAssistApp: previewing a reference photo in different primary colors](https://github.com/eugene-khyst/artistassistapp/assets/1311126/5e42e6e5-a1e9-4492-9dc4-27a358ee93d1)
+![ArtistAssistApp: previewing a reference photo in different primary colors](https://github.com/eugene-khyst/artistassistapp/assets/1311126/02b9a99b-4a50-4f9f-9d51-a8100758b3ea)
 
 ### Mixing specific colors of specific brands in any proportions
+![ArtistAssistApp: mixing specific colors of specific brands in any proportions](https://github.com/eugene-khyst/artistassistapp/assets/1311126/9f986b5d-c791-4e25-804e-3c4e831c4deb)
+![ArtistAssistApp: mixing specific colors of specific brands in any proportions](https://github.com/eugene-khyst/artistassistapp/assets/1311126/06403c20-d0b5-4261-9c1f-95eab381124b)
+![ArtistAssistApp: mixing specific colors of specific brands in any proportions](https://github.com/eugene-khyst/artistassistapp/assets/1311126/44d9a9d1-51a2-494a-befd-c34ea51997da)
+![ArtistAssistApp: spectral reflectance curve](https://github.com/eugene-khyst/artistassistapp/assets/1311126/95b70f71-59aa-4604-8b27-a9d34e24d7f6)
 
-![ArtistAssistApp: mixing specific colors of specific brands in any proportions](https://github.com/eugene-khyst/artistassistapp/assets/1311126/f6fda910-9b04-481f-be70-d5e7afd69cc4)
-![ArtistAssistApp: mixing specific colors of specific brands in any proportions](https://github.com/eugene-khyst/artistassistapp/assets/1311126/96a55f9e-83f7-4ed8-95e8-faf3596ac166)
-![ArtistAssistApp: mixing specific colors of specific brands in any proportions](https://github.com/eugene-khyst/artistassistapp/assets/1311126/a7387549-3df3-491e-bd59-73884d81be4a)
-![ArtistAssistApp: spectral reflectance curve](https://github.com/eugene-khyst/artistassistapp/assets/1311126/08f694f0-7751-41c9-8922-868d28f394df)
-![ArtistAssistApp: spectral reflectance curve](https://github.com/eugene-khyst/artistassistapp/assets/1311126/2f78e671-56c0-48af-a2c9-f99d47803fb9)
-
-## Implementation details
+## <a id="4"></a>Implementation details
 
 This project does not use artificial intelligence (AI), but rather mathematics.
 
