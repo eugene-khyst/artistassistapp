@@ -107,7 +107,12 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     return this.pipetPoint;
   }
 
-  async setPipetPoint(pipetPoint: Vector): Promise<void> {
+  async setPipetPoint(pipetPoint: Vector | null): Promise<void> {
+    if (!pipetPoint) {
+      this.pipetPoint = pipetPoint;
+      this.draw();
+      return;
+    }
     const imageDimension: Rectangle = this.getImageDimension();
     const point = pipetPoint.add(imageDimension.center);
     if (imageDimension.contains(point, this.pipetDiameter / 2)) {

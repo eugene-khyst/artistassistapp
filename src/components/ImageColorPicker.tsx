@@ -263,6 +263,12 @@ export const ImageColorPicker: React.FC<Props> = ({
     });
   };
 
+  const handleTargetColorChange = (color: string) => {
+    const colorPickerCanvas = colorPickerCanvasRef.current;
+    colorPickerCanvas?.setPipetPoint(null);
+    setTargetColor(color);
+  };
+
   const height = `calc((100vh - 75px) / ${screens['sm'] ? '1' : '2 - 8px'})`;
   const margin = screens['sm'] ? 0 : 8;
 
@@ -346,7 +352,7 @@ export const ImageColorPicker: React.FC<Props> = ({
                 <ColorPicker
                   value={targetColor}
                   onChangeComplete={(color: Color) => {
-                    setTargetColor(color.toHexString(true));
+                    handleTargetColorChange(color.toHexString(true));
                   }}
                   showText
                   disabledAlpha
