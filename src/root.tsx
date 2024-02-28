@@ -21,16 +21,14 @@ const queryClient = new QueryClient({
   },
 });
 
-const {ErrorBoundary} = Alert;
-
 const root: Root = createRoot(document.getElementById('root')!);
 root.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <App message={{maxCount: 1, duration: 5, top: 100}}>
-        <ErrorBoundary>
+        <Alert.ErrorBoundary>
           <ArtistAssistApp />
-        </ErrorBoundary>
+        </Alert.ErrorBoundary>
       </App>
     </QueryClientProvider>
   </StrictMode>
