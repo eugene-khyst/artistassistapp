@@ -7,11 +7,17 @@ import {App, Col, Form, Input, Row, Space, Spin, Typography} from 'antd';
 import {ChangeEvent, Dispatch, SetStateAction, useCallback, useEffect, useState} from 'react';
 import {ImageFile} from '../services/db';
 import {deleteImageFile, getImageFiles, saveImageFile} from '../services/db/image-file-db';
-import {SAMPLE_IMAGES, SampleImageUrl} from '../services/image/sample-images';
 import {RecentImage} from './image/RecentImage';
 import {SampleImage} from './image/SampleImage';
 
 const MAX_RECENT_IMAGES = 9;
+
+type SampleImageUrl = [file: string, name: string];
+
+const SAMPLE_IMAGES: SampleImageUrl[] = [
+  [`chrysanthemum`, 'Chrysanthemum'],
+  [`sunset`, 'Sunset'],
+];
 
 type Props = {
   setBlob: Dispatch<SetStateAction<Blob | undefined>>;
@@ -96,11 +102,11 @@ export const ImageSelect: React.FC<Props> = ({
           )}
           <Typography.Text>Or select from sample photos.</Typography.Text>
           <Row gutter={[16, 16]} justify="start">
-            {SAMPLE_IMAGES.map(([image, thumbnail, name]: SampleImageUrl) => (
+            {SAMPLE_IMAGES.map(([file, name]: SampleImageUrl) => (
               <Col key={name} xs={24} md={12} lg={8}>
                 <SampleImage
-                  image={image}
-                  thumbnail={thumbnail}
+                  image={`/sample-images/${file}.jpg`}
+                  thumbnail={`/sample-images/${file}-thumbnail.jpg`}
                   name={name}
                   setBlob={setBlob}
                   setImageFileId={setImageFileId}

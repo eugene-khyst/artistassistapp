@@ -17,8 +17,7 @@ import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
 import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
 import {useFullScreen} from '../hooks/useFullscreen';
 import {
-  OFF_WHITE_HEX,
-  PENCIL_TYPES,
+  PAPER_WHITE_HEX,
   PaintMix,
   PaintSet,
   Pipet,
@@ -70,7 +69,7 @@ export const ArtistAssistApp: React.FC = () => {
   const [paintSet, setPaintSet] = useState<PaintSet | undefined>();
   const [blob, setBlob] = useState<Blob | undefined>();
   const [imageFileId, setImageFileId] = useState<number | undefined>();
-  const [backgroundColor, setBackgroundColor] = useState<string>(OFF_WHITE_HEX);
+  const [backgroundColor, setBackgroundColor] = useState<string>(PAPER_WHITE_HEX);
   const [isGlaze, setIsGlaze] = useState<boolean>(false);
   const [pipet, setPipet] = useState<Pipet | undefined>();
   const [paintMixes, setPaintMixes] = useState<PaintMix[] | undefined>();
@@ -126,7 +125,7 @@ export const ArtistAssistApp: React.FC = () => {
   const items = [
     {
       key: TabKey.Paints,
-      label: 'Paints',
+      label: 'Color set',
       children: (
         <PaintSetSelect
           setPaintSet={setPaintSet}
@@ -146,7 +145,7 @@ export const ArtistAssistApp: React.FC = () => {
     },
     {
       key: TabKey.Colors,
-      label: 'Colors',
+      label: 'Color picker',
       children: (
         <ImageColorPicker
           paintSet={paintSet}
@@ -164,7 +163,6 @@ export const ArtistAssistApp: React.FC = () => {
         />
       ),
       forceRender: true,
-      disabled: !paintSet,
     },
     {
       key: TabKey.Palette,
@@ -188,32 +186,28 @@ export const ArtistAssistApp: React.FC = () => {
       label: 'Tonal values',
       children: <ImageTonalValues blob={blob} images={images} isImagesLoading={isImagesLoading} />,
       forceRender: true,
-      disabled: !blob,
     },
     {
       key: TabKey.Sketch,
-      label: 'Sketch',
+      label: 'Simplified',
       children: <ImageSketch blob={blob} />,
       forceRender: true,
-      disabled: !blob,
     },
     {
       key: TabKey.Grid,
       label: 'Grid',
       children: <ImageGrid images={images} isImagesLoading={isImagesLoading} />,
       forceRender: true,
-      disabled: !blob,
     },
     {
       key: TabKey.ColorMixing,
       label: 'Color mixing',
       children: <PaintMixer paintSet={paintSet} />,
       forceRender: true,
-      disabled: !paintSet || PENCIL_TYPES.includes(paintSet.type),
     },
     {
       key: TabKey.PrimaryColors,
-      label: 'Primary colors',
+      label: 'Limited palette',
       children: (
         <ImagePrimaryColors
           paintSet={paintSet}
@@ -222,7 +216,7 @@ export const ArtistAssistApp: React.FC = () => {
           isImagesLoading={isImagesLoading}
         />
       ),
-      disabled: !paintSet || !blob,
+      // disabled: !paintSet || !blob,
     },
     {
       key: TabKey.Help,

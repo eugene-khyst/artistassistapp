@@ -26,7 +26,8 @@ import {
 import {Color} from 'antd/es/color-picker';
 import {useEffect, useState} from 'react';
 import {
-  OFF_WHITE_HEX,
+  PAPER_WHITE_HEX,
+  PENCIL_TYPES,
   Paint,
   PaintBrand,
   PaintMix,
@@ -40,6 +41,7 @@ import {range} from '../utils';
 import {PaintCascader} from './color/PaintCascader';
 import {PaintMixDescription} from './color/PaintMixDescription';
 import {ReflectanceChartDrawer} from './drawer/ReflectanceChartDrawer';
+import {EmptyPaintSet} from './empty/EmptyPaintSet';
 
 const FRACTION_OPTIONS: SelectProps['options'] = range(1, 9).map((fraction: number) => ({
   value: fraction,
@@ -76,7 +78,7 @@ export const PaintMixer: React.FC<Props> = ({paintSet}: Props) => {
 
   const [form] = Form.useForm<any>();
 
-  const [backgroundColor, setBackgroundColor] = useState<string>(OFF_WHITE_HEX);
+  const [backgroundColor, setBackgroundColor] = useState<string>(PAPER_WHITE_HEX);
   const [paints, setPaints] = useState<Paint[]>([]);
   const [fractions, setFractions] = useState<number[]>([]);
   const [paintMixes, setPaintMixes] = useState<PaintMix[]>([]);
@@ -127,8 +129,12 @@ export const PaintMixer: React.FC<Props> = ({paintSet}: Props) => {
     setFractions(fractions);
   };
 
-  if (!paintSet) {
-    return <></>;
+  if (!paintSet || PENCIL_TYPES.includes(paintSet.type)) {
+    return (
+      <div style={{padding: '0 16px 16px'}}>
+        <EmptyPaintSet feature="color mixing" tab="Color mixing" pencilsSupported={false} />
+      </div>
+    );
   }
 
   const {colors} = paintSet;
@@ -159,7 +165,7 @@ export const PaintMixer: React.FC<Props> = ({paintSet}: Props) => {
                   presets={[
                     {
                       label: 'Recommended',
-                      colors: [OFF_WHITE_HEX],
+                      colors: [PAPER_WHITE_HEX],
                     },
                   ]}
                   onChangeComplete={(color: Color) => {

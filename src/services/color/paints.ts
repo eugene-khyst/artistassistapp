@@ -52,6 +52,9 @@ export enum PaintBrand {
   MaimeriBlu = 34,
   MijelloMissionGold = 35,
   WhiteNights = 36,
+  RomanSzmal = 37,
+  LiquitexHeavyBody = 38,
+  LiquitexSoftBody = 39,
 }
 
 export enum PaintOpacity {
@@ -98,20 +101,24 @@ export interface PaintIdFormat {
   formatter?: (id: string) => string;
 }
 
+export interface PaintTypeDefinition {
+  name: string;
+  dir: string;
+}
+
 export interface PaintBrandDefinition {
   fullName: string;
   shortName?: string;
   idFormat?: PaintIdFormat;
-  paints: URL;
-  paintSets: URL;
+  dir: string;
 }
 
-export const PAINT_TYPES = new Map<PaintType, string>([
-  [PaintType.WatercolorPaint, 'Watercolor paint'],
-  [PaintType.OilPaint, 'Oil paint'],
-  [PaintType.AcrylicPaint, 'Acrylic paint'],
-  [PaintType.ColoredPencils, 'Colored pencils'],
-  [PaintType.WatercolorPencils, 'Watercolor pencils'],
+export const PAINT_TYPES = new Map<PaintType, PaintTypeDefinition>([
+  [PaintType.WatercolorPaint, {name: 'Watercolor paint', dir: 'watercolor-paint'}],
+  [PaintType.OilPaint, {name: 'Oil paint', dir: 'oil-paint'}],
+  [PaintType.AcrylicPaint, {name: 'Acrylic paint', dir: 'acrylic-paint'}],
+  [PaintType.ColoredPencils, {name: 'Colored pencils', dir: 'colored-pencils'}],
+  [PaintType.WatercolorPencils, {name: 'Watercolor pencils', dir: 'watercolor-pencils'}],
 ]);
 
 export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinition>>([
@@ -126,8 +133,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL('../../data/watercolor-paint/rosa-gallery/colors.json', import.meta.url),
-          paintSets: new URL('../../data/watercolor-paint/rosa-gallery/sets.json', import.meta.url),
+          dir: 'rosa-gallery',
         },
       ],
       [
@@ -138,8 +144,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL('../../data/watercolor-paint/rembrandt/colors.json', import.meta.url),
-          paintSets: new URL('../../data/watercolor-paint/rembrandt/sets.json', import.meta.url),
+          dir: 'rembrandt',
         },
       ],
       [
@@ -150,8 +155,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL('../../data/watercolor-paint/van-gogh/colors.json', import.meta.url),
-          paintSets: new URL('../../data/watercolor-paint/van-gogh/sets.json', import.meta.url),
+          dir: 'van-gogh',
         },
       ],
       [
@@ -162,14 +166,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             show: false,
           },
-          paints: new URL(
-            '../../data/watercolor-paint/daniel-smith-extra-fine/colors.json',
-            import.meta.url
-          ),
-          paintSets: new URL(
-            '../../data/watercolor-paint/daniel-smith-extra-fine/sets.json',
-            import.meta.url
-          ),
+          dir: 'daniel-smith-extra-fine',
         },
       ],
       [
@@ -180,14 +177,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             show: false,
           },
-          paints: new URL(
-            '../../data/watercolor-paint/daniel-smith-primatek/colors.json',
-            import.meta.url
-          ),
-          paintSets: new URL(
-            '../../data/watercolor-paint/daniel-smith-primatek/sets.json',
-            import.meta.url
-          ),
+          dir: 'daniel-smith-primatek',
         },
       ],
       [
@@ -198,8 +188,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL('../../data/watercolor-paint/horadam/colors.json', import.meta.url),
-          paintSets: new URL('../../data/watercolor-paint/horadam/sets.json', import.meta.url),
+          dir: 'horadam',
         },
       ],
       [
@@ -210,11 +199,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL('../../data/watercolor-paint/winsor-newton/colors.json', import.meta.url),
-          paintSets: new URL(
-            '../../data/watercolor-paint/winsor-newton/sets.json',
-            import.meta.url
-          ),
+          dir: 'winsor-newton',
         },
       ],
       [
@@ -225,8 +210,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL('../../data/watercolor-paint/sennelier/colors.json', import.meta.url),
-          paintSets: new URL('../../data/watercolor-paint/sennelier/sets.json', import.meta.url),
+          dir: 'sennelier',
         },
       ],
       [
@@ -237,8 +221,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL('../../data/watercolor-paint/old-holland/colors.json', import.meta.url),
-          paintSets: new URL('../../data/watercolor-paint/old-holland/sets.json', import.meta.url),
+          dir: 'old-holland',
         },
       ],
       [
@@ -249,8 +232,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             prefix: 'No.',
           },
-          paints: new URL('../../data/watercolor-paint/gansai-tambi/colors.json', import.meta.url),
-          paintSets: new URL('../../data/watercolor-paint/gansai-tambi/sets.json', import.meta.url),
+          dir: 'gansai-tambi',
         },
       ],
       [
@@ -262,8 +244,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
             padLength: 3,
             prefix: 'W',
           },
-          paints: new URL('../../data/watercolor-paint/holbein/colors.json', import.meta.url),
-          paintSets: new URL('../../data/watercolor-paint/holbein/sets.json', import.meta.url),
+          dir: 'holbein',
         },
       ],
       [
@@ -274,8 +255,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL('../../data/watercolor-paint/m-graham/colors.json', import.meta.url),
-          paintSets: new URL('../../data/watercolor-paint/m-graham/sets.json', import.meta.url),
+          dir: 'm-graham',
         },
       ],
       [
@@ -288,8 +268,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
               return id.length > 3 ? `${id.substring(0, 3)}-${id.substring(3)}` : id;
             },
           },
-          paints: new URL('../../data/watercolor-paint/da-vinci/colors.json', import.meta.url),
-          paintSets: new URL('../../data/watercolor-paint/da-vinci/sets.json', import.meta.url),
+          dir: 'da-vinci',
         },
       ],
       [
@@ -300,8 +279,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL('../../data/watercolor-paint/shinhan-pwc/colors.json', import.meta.url),
-          paintSets: new URL('../../data/watercolor-paint/shinhan-pwc/sets.json', import.meta.url),
+          dir: 'shinhan-pwc',
         },
       ],
       [
@@ -311,8 +289,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL('../../data/watercolor-paint/maimeri-blu/colors.json', import.meta.url),
-          paintSets: new URL('../../data/watercolor-paint/maimeri-blu/sets.json', import.meta.url),
+          dir: 'maimeri-blu',
         },
       ],
       [
@@ -324,14 +301,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
             padLength: 3,
             prefix: 'W',
           },
-          paints: new URL(
-            '../../data/watercolor-paint/mijello-mission-gold/colors.json',
-            import.meta.url
-          ),
-          paintSets: new URL(
-            '../../data/watercolor-paint/mijello-mission-gold/sets.json',
-            import.meta.url
-          ),
+          dir: 'mijello-mission-gold',
         },
       ],
       [
@@ -342,8 +312,18 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL('../../data/watercolor-paint/white-nights/colors.json', import.meta.url),
-          paintSets: new URL('../../data/watercolor-paint/white-nights/sets.json', import.meta.url),
+          dir: 'white-nights',
+        },
+      ],
+      [
+        PaintBrand.RomanSzmal,
+        {
+          fullName: 'Roman Szmal Aquarius',
+          shortName: 'Roman Szmal',
+          idFormat: {
+            padLength: 3,
+          },
+          dir: 'roman-szmal',
         },
       ],
     ]),
@@ -359,8 +339,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL('../../data/oil-paint/mussini/colors.json', import.meta.url),
-          paintSets: new URL('../../data/oil-paint/mussini/sets.json', import.meta.url),
+          dir: 'mussini',
         },
       ],
       [
@@ -371,8 +350,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL('../../data/oil-paint/norma-professional/colors.json', import.meta.url),
-          paintSets: new URL('../../data/oil-paint/norma-professional/sets.json', import.meta.url),
+          dir: 'norma-professional',
         },
       ],
       [
@@ -383,8 +361,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL('../../data/oil-paint/old-holland/colors.json', import.meta.url),
-          paintSets: new URL('../../data/oil-paint/old-holland/sets.json', import.meta.url),
+          dir: 'old-holland',
         },
       ],
       [
@@ -396,8 +373,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
             padLength: 3,
             prefix: 'No.',
           },
-          paints: new URL('../../data/oil-paint/michael-harding/colors.json', import.meta.url),
-          paintSets: new URL('../../data/oil-paint/michael-harding/sets.json', import.meta.url),
+          dir: 'michael-harding',
         },
       ],
     ]),
@@ -413,8 +389,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL('../../data/acrylic-paint/primacryl/colors.json', import.meta.url),
-          paintSets: new URL('../../data/acrylic-paint/primacryl/sets.json', import.meta.url),
+          dir: 'primacryl',
         },
       ],
       [
@@ -425,8 +400,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL('../../data/acrylic-paint/winsor-newton/colors.json', import.meta.url),
-          paintSets: new URL('../../data/acrylic-paint/winsor-newton/sets.json', import.meta.url),
+          dir: 'winsor-newton',
         },
       ],
       [
@@ -437,8 +411,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL('../../data/acrylic-paint/old-holland/colors.json', import.meta.url),
-          paintSets: new URL('../../data/acrylic-paint/old-holland/sets.json', import.meta.url),
+          dir: 'old-holland',
         },
       ],
       [
@@ -448,14 +421,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL(
-            '../../data/acrylic-paint/vallejo-acrylic-studio/colors.json',
-            import.meta.url
-          ),
-          paintSets: new URL(
-            '../../data/acrylic-paint/vallejo-acrylic-studio/sets.json',
-            import.meta.url
-          ),
+          dir: 'vallejo-acrylic-studio',
         },
       ],
       [
@@ -465,8 +431,29 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL('../../data/acrylic-paint/lascaux-artist/colors.json', import.meta.url),
-          paintSets: new URL('../../data/acrylic-paint/lascaux-artist/sets.json', import.meta.url),
+          dir: 'lascaux-artist',
+        },
+      ],
+      [
+        PaintBrand.LiquitexHeavyBody,
+        {
+          fullName: 'Liquitex Heavy Body Acrylic',
+          shortName: 'Liquitex Heavy Body',
+          idFormat: {
+            padLength: 3,
+          },
+          dir: 'liquitex-heavy-body',
+        },
+      ],
+      [
+        PaintBrand.LiquitexSoftBody,
+        {
+          fullName: 'Liquitex Soft Body Acrylic',
+          shortName: 'Liquitex Soft Body',
+          idFormat: {
+            padLength: 3,
+          },
+          dir: 'liquitex-soft-body',
         },
       ],
     ]),
@@ -481,14 +468,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL(
-            '../../data/colored-pencils/koh-i-noor-polycolor/colors.json',
-            import.meta.url
-          ),
-          paintSets: new URL(
-            '../../data/colored-pencils/koh-i-noor-polycolor/sets.json',
-            import.meta.url
-          ),
+          dir: 'koh-i-noor-polycolor',
         },
       ],
       [
@@ -499,14 +479,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 4,
           },
-          paints: new URL(
-            '../../data/colored-pencils/derwent-chromaflow/colors.json',
-            import.meta.url
-          ),
-          paintSets: new URL(
-            '../../data/colored-pencils/derwent-chromaflow/sets.json',
-            import.meta.url
-          ),
+          dir: 'derwent-chromaflow',
         },
       ],
       [
@@ -518,14 +491,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
             padLength: 3,
             prefix: 'C',
           },
-          paints: new URL(
-            '../../data/colored-pencils/derwent-coloursoft/colors.json',
-            import.meta.url
-          ),
-          paintSets: new URL(
-            '../../data/colored-pencils/derwent-coloursoft/sets.json',
-            import.meta.url
-          ),
+          dir: 'derwent-coloursoft',
         },
       ],
       [
@@ -536,14 +502,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 4,
           },
-          paints: new URL(
-            '../../data/colored-pencils/derwent-drawing/colors.json',
-            import.meta.url
-          ),
-          paintSets: new URL(
-            '../../data/colored-pencils/derwent-drawing/sets.json',
-            import.meta.url
-          ),
+          dir: 'derwent-drawing',
         },
       ],
       [
@@ -554,14 +513,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             show: false,
           },
-          paints: new URL(
-            '../../data/colored-pencils/derwent-lightfast/colors.json',
-            import.meta.url
-          ),
-          paintSets: new URL(
-            '../../data/colored-pencils/derwent-lightfast/sets.json',
-            import.meta.url
-          ),
+          dir: 'derwent-lightfast',
         },
       ],
       [
@@ -572,14 +524,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 2,
           },
-          paints: new URL(
-            '../../data/colored-pencils/derwent-procolour/colors.json',
-            import.meta.url
-          ),
-          paintSets: new URL(
-            '../../data/colored-pencils/derwent-procolour/sets.json',
-            import.meta.url
-          ),
+          dir: 'derwent-procolour',
         },
       ],
       [
@@ -591,14 +536,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
             padLength: 3,
             prefix: 'A',
           },
-          paints: new URL(
-            '../../data/colored-pencils/faber-castell-goldfaber/colors.json',
-            import.meta.url
-          ),
-          paintSets: new URL(
-            '../../data/colored-pencils/faber-castell-goldfaber/sets.json',
-            import.meta.url
-          ),
+          dir: 'faber-castell-goldfaber',
         },
       ],
       [
@@ -609,14 +547,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL(
-            '../../data/colored-pencils/faber-castell-polychromos/colors.json',
-            import.meta.url
-          ),
-          paintSets: new URL(
-            '../../data/colored-pencils/faber-castell-polychromos/sets.json',
-            import.meta.url
-          ),
+          dir: 'faber-castell-polychromos',
         },
       ],
       [
@@ -627,14 +558,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL(
-            '../../data/colored-pencils/caran-d-ache-luminance-6901/colors.json',
-            import.meta.url
-          ),
-          paintSets: new URL(
-            '../../data/colored-pencils/caran-d-ache-luminance-6901/sets.json',
-            import.meta.url
-          ),
+          dir: 'caran-d-ache-luminance',
         },
       ],
       [
@@ -645,8 +569,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL('../../data/colored-pencils/van-gogh/colors.json', import.meta.url),
-          paintSets: new URL('../../data/colored-pencils/van-gogh/sets.json', import.meta.url),
+          dir: 'van-gogh',
         },
       ],
       [
@@ -658,8 +581,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
             padLength: 3,
             prefix: 'OP',
           },
-          paints: new URL('../../data/colored-pencils/holbein/colors.json', import.meta.url),
-          paintSets: new URL('../../data/colored-pencils/holbein/sets.json', import.meta.url),
+          dir: 'holbein',
         },
       ],
       [
@@ -670,14 +592,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             prefix: 'PC',
           },
-          paints: new URL(
-            '../../data/colored-pencils/prismacolor-premier-soft-core/colors.json',
-            import.meta.url
-          ),
-          paintSets: new URL(
-            '../../data/colored-pencils/prismacolor-premier-soft-core/sets.json',
-            import.meta.url
-          ),
+          dir: 'prismacolor-premier-soft-core',
         },
       ],
     ]),
@@ -693,14 +608,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 4,
           },
-          paints: new URL(
-            '../../data/watercolor-pencils/derwent-inktense/colors.json',
-            import.meta.url
-          ),
-          paintSets: new URL(
-            '../../data/watercolor-pencils/derwent-inktense/sets.json',
-            import.meta.url
-          ),
+          dir: 'derwent-inktense',
         },
       ],
       [
@@ -708,14 +616,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
         {
           fullName: 'Derwent Watercolour Pencils',
           shortName: 'Derwent Watercolour',
-          paints: new URL(
-            '../../data/watercolor-pencils/derwent-watercolour/colors.json',
-            import.meta.url
-          ),
-          paintSets: new URL(
-            '../../data/watercolor-pencils/derwent-watercolour/sets.json',
-            import.meta.url
-          ),
+          dir: 'derwent-watercolour',
         },
       ],
       [
@@ -726,14 +627,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
           idFormat: {
             padLength: 3,
           },
-          paints: new URL(
-            '../../data/watercolor-pencils/caran-d-ache-museum-aquarelle/colors.json',
-            import.meta.url
-          ),
-          paintSets: new URL(
-            '../../data/watercolor-pencils/caran-d-ache-museum-aquarelle/sets.json',
-            import.meta.url
-          ),
+          dir: 'caran-d-ache-museum-aquarelle',
         },
       ],
     ]),
@@ -750,11 +644,17 @@ export const comparePaintBrandEntries = (
   [_1, b]: [PaintBrand, PaintBrandDefinition]
 ) => comparePaintBrandsByName(a, b);
 
-export async function fetchPaints(type: PaintType, brand: PaintBrand): Promise<Map<number, Paint>> {
-  const url = PAINT_BRANDS.get(type)?.get(brand)?.paints;
-  if (!url) {
+function getJsonUrl(type: PaintType, brand: PaintBrand, resourceType: 'colors' | 'sets'): string {
+  const typeDir = PAINT_TYPES.get(type)?.dir;
+  const brandDir = PAINT_BRANDS.get(type)?.get(brand)?.dir;
+  if (!typeDir || !brandDir) {
     throw new Error(`Unknown paint brand ${brand} for type ${type}`);
   }
+  return `/data/${typeDir}/${brandDir}/${resourceType}.json`;
+}
+
+export async function fetchPaints(type: PaintType, brand: PaintBrand): Promise<Map<number, Paint>> {
+  const url = getJsonUrl(type, brand, 'colors');
   const response = await fetch(url);
   const paints: PaintRecord[] = await response.json();
   return new Map(
@@ -778,14 +678,11 @@ export async function fetchStoreBoughtPaintSets(
   type: PaintType,
   brand: PaintBrand
 ): Promise<Map<string, StoreBoughtPaintSet>> {
-  const url = PAINT_BRANDS.get(type)?.get(brand)?.paintSets;
-  if (!url) {
-    throw new Error(`Unknown paint brand ${brand} for type ${type}`);
-  }
+  const url = getJsonUrl(type, brand, 'sets');
   const response = await fetch(url);
-  const storeBoughtPaintSets: StoreBoughtPaintSet[] = await response.json();
+  const sets: StoreBoughtPaintSet[] = await response.json();
   return new Map(
-    storeBoughtPaintSets.map((storeBoughtPaintSet: StoreBoughtPaintSet) => [
+    sets.map((storeBoughtPaintSet: StoreBoughtPaintSet) => [
       storeBoughtPaintSet.name,
       storeBoughtPaintSet,
     ])

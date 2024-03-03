@@ -47,7 +47,7 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
       <canvas ref={canvasRef} width="688" height="388" style={{marginBottom: 16}} />
       {paintMix && (
         <>
-          <Typography.Title level={4}>{PAINT_TYPES.get(paintMix.type)}</Typography.Title>
+          <Typography.Title level={4}>{PAINT_TYPES.get(paintMix.type)?.name}</Typography.Title>
           <PaintMixDescription paintMix={paintMix} showConsistency={false} />
         </>
       )}

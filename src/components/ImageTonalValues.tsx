@@ -25,6 +25,7 @@ import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
 import {ZoomableImageCanvas} from '../services/canvas/image';
 import {TonalValues} from '../services/image';
 import {imageBitmapToOffscreenCanvas} from '../utils';
+import {EmptyImage} from './empty/EmptyImage';
 
 const tonalValues: Remote<TonalValues> = wrap(
   new Worker(new URL('../services/image/worker/tonal-values-worker.ts', import.meta.url), {
@@ -123,6 +124,14 @@ export const ImageTonalValues: React.FC<Props> = ({
       onClick: handlePrint,
     },
   ];
+
+  if (!blob) {
+    return (
+      <div style={{padding: '0 16px 16px'}}>
+        <EmptyImage feature="view tonal values" tab="Tonal values" />
+      </div>
+    );
+  }
 
   const height = `calc((100vh - 115px) / ${screens['sm'] ? 1 : 2})`;
 

@@ -31,7 +31,7 @@ import {
 } from '../services/canvas/image';
 import {
   ColorMixer,
-  OFF_WHITE_HEX,
+  PAPER_WHITE_HEX,
   PaintMix,
   PaintSet,
   Pipet,
@@ -48,6 +48,7 @@ import {
 import {getColorPickerSettings, saveColorPickerSettings} from '../services/db/';
 import {Vector} from '../services/math';
 import {SimilarColorCard} from './color/SimilarColorCard';
+import {EmptyPaintSet} from './empty/EmptyPaintSet';
 
 const LIMIT_RESULTS_FOR_MIXES = 5;
 const DELTA_E_LIMIT = 2;
@@ -129,7 +130,7 @@ export const ImageColorPicker: React.FC<Props> = ({
     useZoomableImageCanvas<ImageColorPickerCanvas>(imageColorPickerCanvasSupplier, images);
 
   const [sampleDiameter, setSampleDiameter] = useState<number>(DEFAULT_SAMPLE_DIAMETER);
-  const [targetColor, setTargetColor] = useState<string>(OFF_WHITE_HEX);
+  const [targetColor, setTargetColor] = useState<string>(PAPER_WHITE_HEX);
   const [similarColors, setSimilarColors] = useState<SimilarColor[]>([]);
   const [sort, setSort] = useState<Sort>(Sort.BySimilarity);
 
@@ -174,9 +175,9 @@ export const ImageColorPicker: React.FC<Props> = ({
   }, [paintSet]);
 
   useEffect(() => {
-    setBackgroundColor(OFF_WHITE_HEX);
+    setBackgroundColor(PAPER_WHITE_HEX);
     setIsGlaze(false);
-    setTargetColor(OFF_WHITE_HEX);
+    setTargetColor(PAPER_WHITE_HEX);
     setSimilarColors([]);
   }, [images, setBackgroundColor, setIsGlaze]);
 
@@ -252,7 +253,7 @@ export const ImageColorPicker: React.FC<Props> = ({
   const handleIsGlazeChange = (isGlaze: boolean) => {
     setIsGlaze(isGlaze);
     if (!isGlaze) {
-      setBackgroundColor(OFF_WHITE_HEX);
+      setBackgroundColor(PAPER_WHITE_HEX);
     }
   };
 
@@ -268,6 +269,14 @@ export const ImageColorPicker: React.FC<Props> = ({
     colorPickerCanvas?.setPipetPoint(null);
     setTargetColor(color);
   };
+
+  if (!paintSet) {
+    return (
+      <div style={{padding: '0 16px 16px'}}>
+        <EmptyPaintSet feature="color picker" tab="Color picker" photoSupported={true} />
+      </div>
+    );
+  }
 
   const height = `calc((100vh - 75px) / ${screens['sm'] ? '1' : '2 - 8px'})`;
   const margin = screens['sm'] ? 0 : 8;
@@ -306,8 +315,8 @@ export const ImageColorPicker: React.FC<Props> = ({
                   value={backgroundColor}
                   presets={[
                     {
-                      label: 'Recommended',
-                      colors: [OFF_WHITE_HEX],
+                      label: 'Paper white',
+                      colors: [PAPER_WHITE_HEX],
                     },
                   ]}
                   onChangeComplete={(color: Color) => {
@@ -376,7 +385,7 @@ export const ImageColorPicker: React.FC<Props> = ({
                 <Typography.Text strong>⁉️ No data</Typography.Text>
                 <br />
                 Click 🖱️ or tap 👆 anywhere in the photo to choose a color, or use the color picker
-                pop-up.
+                pop-up to choose a target color to mix from your colors.
               </div>
             ) : (
               similarColors

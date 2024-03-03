@@ -13,6 +13,7 @@ import {ZoomableImageCanvas} from '../services/canvas/image';
 import {Paint, PaintSet} from '../services/color';
 import {PrimaryColors} from '../services/image';
 import {PaintCascader} from './color/PaintCascader';
+import {EmptyPaintSet} from './empty/EmptyPaintSet';
 
 const MAX_COLORS = 5;
 
@@ -93,6 +94,14 @@ export const ImagePrimaryColors: React.FC<Props> = ({
       setLimitedPaintSet(limitedPaintSet);
     }
   };
+
+  if (!blob) {
+    return (
+      <div style={{padding: '0 16px 16px'}}>
+        <EmptyPaintSet feature="limited palette" tab="Limited palette" photoMandatory={true} />
+      </div>
+    );
+  }
 
   const height = `calc((100vh - 130px) / ${screens['sm'] ? 1 : 2})`;
 

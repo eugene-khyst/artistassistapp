@@ -46,8 +46,7 @@ const CONSISTENCIES: PaintConsistency[] = [
   [1, 0],
 ];
 
-const OFF_WHITE: Rgb = new Rgb(250, 249, 246);
-export const OFF_WHITE_HEX: string = OFF_WHITE.toHex();
+export const PAPER_WHITE_HEX: string = 'F7F5EF';
 
 export interface PaintFractionDefinition {
   brand: PaintBrand;

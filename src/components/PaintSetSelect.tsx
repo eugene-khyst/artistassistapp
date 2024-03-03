@@ -199,7 +199,8 @@ export const PaintSetSelect: React.FC<Props> = ({
             </Button>
           </Space>
           <Typography.Text>
-            Select your medium and up to {MAX_COLORS} colors you will paint with.
+            Select your medium, color brands and up to {MAX_COLORS} colors you will paint with and
+            press the <Typography.Text keyboard>Save & proceed</Typography.Text> button.
           </Typography.Text>
         </Space>
         <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
@@ -225,7 +226,7 @@ export const PaintSetSelect: React.FC<Props> = ({
               <Form.Item
                 name="brands"
                 label="Brands"
-                tooltip={`Select ${PAINT_TYPES.get(paintType)?.toLowerCase()} brands that you use.`}
+                tooltip={`Select ${PAINT_TYPES.get(paintType)?.name.toLowerCase()} brands that you use.`}
                 rules={[{required: true, message: '${label} are required'}]}
                 dependencies={['paintType']}
               >

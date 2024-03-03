@@ -4,7 +4,7 @@
  */
 
 import {readFileSync, readdirSync, statSync, writeFileSync} from 'fs';
-import {PaintRecord} from '../services/color';
+import {PaintOpacity, PaintRecord} from '../services/color';
 import {Rgb} from '../services/color/model';
 
 interface PaintSource {
@@ -28,7 +28,7 @@ function processFile(srcFilePath: string) {
         name,
         hex,
         Rgb.fromHex(hex).toReflectance().toArray(),
-        opacity,
+        opacity ?? PaintOpacity.SemiTransparent,
       ]
     ),
     null,
@@ -54,4 +54,4 @@ function processDir(dirPath: string) {
 
 processDir(process.argv[2]);
 
-// npx ts-node src/bin/reflectance-calculator.ts src/data
+// npx ts-node src/bin/reflectance-calculator.ts static/data

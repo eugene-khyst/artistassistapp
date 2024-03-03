@@ -10,6 +10,7 @@ import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '../hooks/';
 import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
 import {ZoomableImageCanvas} from '../services/canvas/image';
 import {Sketch} from '../services/image';
+import {EmptyImage} from './empty/EmptyImage';
 
 const sketch: Remote<Sketch> = wrap(
   new Worker(new URL('../services/image/worker/sketch-worker.ts', import.meta.url), {
@@ -51,6 +52,14 @@ export const ImageSketch: React.FC<Props> = ({blob}: Props) => {
   const handleBlurChange = (e: RadioChangeEvent) => {
     setSketchImageIndex(e.target.value);
   };
+
+  if (!blob) {
+    return (
+      <div style={{padding: '0 16px 16px'}}>
+        <EmptyImage feature="view a smoothed reference photo" tab="Simplified" />
+      </div>
+    );
+  }
 
   return (
     <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>

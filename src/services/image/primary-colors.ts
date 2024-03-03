@@ -10,7 +10,7 @@ import {
   createScaledImageBitmap,
   imageBitmapToOffscreenCanvas,
 } from '../../utils';
-import {ColorMixer, OFF_WHITE_HEX, PaintSet} from '../color';
+import {ColorMixer, PAPER_WHITE_HEX, PaintSet} from '../color';
 import {RgbTuple} from '../color/model';
 import {medianCutQuantization} from './median-cut';
 
@@ -24,7 +24,7 @@ export class PrimaryColors {
       console.time('primary-colors');
     }
     const colorMixer = new ColorMixer();
-    await colorMixer.setBackground(OFF_WHITE_HEX);
+    await colorMixer.setBackground(PAPER_WHITE_HEX);
     await colorMixer.setPaintSet(paintSet);
     const image: ImageBitmap = await createScaledImageBitmap(blob, IMAGE_SIZE.SD);
     const [canvas, ctx] = imageBitmapToOffscreenCanvas(image);

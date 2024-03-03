@@ -27,6 +27,7 @@ import {
 } from '../services/db';
 import {PaletteGrid} from './PaletteGrid';
 import {ColorSwatchDrawer} from './drawer/ColorSwatchDrawer';
+import {EmptyPalette} from './empty/EmptyPalette';
 import {ShareModal} from './modal/ShareModal';
 
 type Props = {
@@ -138,32 +139,34 @@ export const Palette: React.FC<Props> = ({
     setIsOpenColorSwatch(true);
   };
 
-  const items: CollapseProps['items'] = [...PAINT_TYPES.entries()].flatMap(([paintType, label]) => {
-    const filteredPaintMixes: PaintMix[] | undefined = paintMixes?.filter(
-      ({type}: PaintMix) => type === paintType
-    );
-    return !filteredPaintMixes?.length
-      ? []
-      : [
-          {
-            key: paintType.toString(),
-            label: <Typography.Text strong>{label} palette</Typography.Text>,
-            children: (
-              <PaletteGrid
-                paintType={paintType}
-                paintMixes={filteredPaintMixes}
-                savePaintMix={savePaintMix}
-                deletePaintMix={deletePaintMix}
-                deleteAllPaintMixes={deleteAllPaintMixes}
-                showShareModal={showShareModal}
-                setColorPicker={setColorPicker}
-                setAsBackground={setAsBackground}
-                showColorSwatch={showColorSwatch}
-              />
-            ),
-          },
-        ];
-  });
+  const items: CollapseProps['items'] = [...PAINT_TYPES.entries()].flatMap(
+    ([paintType, {name}]) => {
+      const filteredPaintMixes: PaintMix[] | undefined = paintMixes?.filter(
+        ({type}: PaintMix) => type === paintType
+      );
+      return !filteredPaintMixes?.length
+        ? []
+        : [
+            {
+              key: paintType.toString(),
+              label: <Typography.Text strong>{name} palette</Typography.Text>,
+              children: (
+                <PaletteGrid
+                  paintType={paintType}
+                  paintMixes={filteredPaintMixes}
+                  savePaintMix={savePaintMix}
+                  deletePaintMix={deletePaintMix}
+                  deleteAllPaintMixes={deleteAllPaintMixes}
+                  showShareModal={showShareModal}
+                  setColorPicker={setColorPicker}
+                  setAsBackground={setAsBackground}
+                  showColorSwatch={showColorSwatch}
+                />
+              ),
+            },
+          ];
+    }
+  );
 
   const handleActiveKeyChange = (keys: string | string[]) => {
     setActivePaletteKey(keys);
@@ -174,28 +177,7 @@ export const Palette: React.FC<Props> = ({
       <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
         <div style={{padding: '0 16px 16px'}}>
           {!paintMixes?.length ? (
-            <>
-              <Typography.Paragraph>
-                <Typography.Text strong>⁉️ No data</Typography.Text>
-                <br />
-                There is one common palette and a separate palette for each photo.
-                <br />
-                To use the palette features, add color mixtures:
-                <ol>
-                  <li>
-                    Go to the <Typography.Text keyboard>Colors</Typography.Text> tab.
-                  </li>
-                  <li>Click 🖱️ or tap 👆 anywhere in the image to choose a color.</li>
-                  <li>
-                    Click the <Typography.Text keyboard>Add to palette</Typography.Text> button next
-                    to the color mixture you like.
-                  </li>
-                  <li>
-                    Return to the <Typography.Text keyboard>Palette</Typography.Text> tab.
-                  </li>
-                </ol>
-              </Typography.Paragraph>
-            </>
+            <EmptyPalette />
           ) : (
             <Collapse
               size="large"

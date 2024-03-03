@@ -9,6 +9,7 @@ import {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useEffect, useState} from 'react';
 import {useZoomableImageCanvas} from '../hooks/';
 import {GridCanvas, GridType} from '../services/canvas/image/grid-canvas';
+import {EmptyImage} from './empty/EmptyImage';
 
 enum GridOption {
   Square = 1,
@@ -57,6 +58,14 @@ export const ImageGrid: React.FC<Props> = ({images, isImagesLoading}: Props) => 
       gridCanvas.setGrid({type: GridType.Rectangular, size: [4, 4], diagonals: isDiagonals});
     }
   }, [gridCanvasRef, gridOption, squareGridSize, isDiagonals]);
+
+  if (!images.length) {
+    return (
+      <div style={{padding: '0 16px 16px'}}>
+        <EmptyImage feature="draw a grid over a reference photo" tab="Grid" />
+      </div>
+    );
+  }
 
   return (
     <Spin spinning={isImagesLoading} tip="Loading" size="large" delay={300}>
