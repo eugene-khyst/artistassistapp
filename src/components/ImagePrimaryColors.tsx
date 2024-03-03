@@ -95,7 +95,7 @@ export const ImagePrimaryColors: React.FC<Props> = ({
     }
   };
 
-  if (!blob) {
+  if (!paintSet || !blob) {
     return (
       <div style={{padding: '0 16px 16px'}}>
         <EmptyPaintSet feature="limited palette" tab="Limited palette" photoMandatory={true} />
