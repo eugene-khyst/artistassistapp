@@ -6,7 +6,7 @@
 import {Checkbox, Form, Select, Space, Spin} from 'antd';
 import {CheckboxChangeEvent} from 'antd/es/checkbox';
 import {DefaultOptionType as SelectOptionType} from 'antd/es/select';
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {useZoomableImageCanvas} from '../hooks/';
 import {GridCanvas, GridType} from '../services/canvas/image/grid-canvas';
 import {EmptyImage} from './empty/EmptyImage';
@@ -28,9 +28,7 @@ const SQUARE_GRID_SIZE_OPTIONS: SelectOptionType[] = [4, 6, 8, 10, 12].map((size
   label: size,
 }));
 
-const gridCanvasSupplier = (canvas: HTMLCanvasElement): GridCanvas => {
-  return new GridCanvas(canvas);
-};
+const DEFAULT_SQUARE_GRID_SIZE = 4;
 
 type Props = {
   images: ImageBitmap[];
@@ -38,12 +36,18 @@ type Props = {
 };
 
 export const ImageGrid: React.FC<Props> = ({images, isImagesLoading}: Props) => {
+  const [gridOption, setGridOption] = useState<GridOption>(GridOption.Square);
+  const [squareGridSize, setSquareGridSize] = useState<number>(DEFAULT_SQUARE_GRID_SIZE);
+  const [isDiagonals, setIsDiagonals] = useState<boolean>(false);
+
+  const gridCanvasSupplier = useCallback((canvas: HTMLCanvasElement): GridCanvas => {
+    const gridCanvas = new GridCanvas(canvas);
+    gridCanvas.setGrid({type: GridType.Square, size: [DEFAULT_SQUARE_GRID_SIZE]});
+    return gridCanvas;
+  }, []);
+
   const {ref: canvasRef, zoomableImageCanvasRef: gridCanvasRef} =
     useZoomableImageCanvas<GridCanvas>(gridCanvasSupplier, images);
-
-  const [gridOption, setGridOption] = useState<GridOption>(GridOption.Square);
-  const [squareGridSize, setSquareGridSize] = useState<number>(4);
-  const [isDiagonals, setIsDiagonals] = useState<boolean>(false);
 
   useEffect(() => {
     const gridCanvas = gridCanvasRef.current;

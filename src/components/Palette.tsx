@@ -95,7 +95,7 @@ export const Palette: React.FC<Props> = ({
       const mixepaintMixesFromDb = await getPaintMixesFromDb(imageFileId);
       setPaintMixes(mixepaintMixesFromDb);
     })();
-  }, [importedPaintMix, paints.size, setPaintMixes, imageFileId]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [importedPaintMix, paints.size, setPaintMixes, imageFileId]);
 
   const savePaintMix = useCallback(
     async (paintMix: PaintMix) => {

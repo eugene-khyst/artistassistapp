@@ -5,7 +5,7 @@
 
 import {Grid} from 'antd';
 import {MutableRefObject, RefCallback, useCallback, useEffect, useRef} from 'react';
-import {useDebounce, useWindowSize} from 'usehooks-ts';
+import {useWindowSize} from 'usehooks-ts';
 import {useVisibilityChange} from '.';
 import {ZoomableImageCanvas} from '../services/canvas/image';
 
@@ -19,24 +19,26 @@ interface Result<T> {
 }
 
 export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
-  zoomableImageCanvasSupplier: (canvas: HTMLCanvasElement) => T,
+  zoomableImageCanvasSupplier: (canvas: HTMLCanvasElement) => Promise<T> | T,
   images: ImageBitmap[]
 ): Result<T> {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const zoomableImageCanvasRef = useRef<T>();
   const ref = useCallback(
-    (node: HTMLCanvasElement | null) => {
+    async (node: HTMLCanvasElement | null) => {
       zoomableImageCanvasRef.current?.destroy();
       zoomableImageCanvasRef.current = undefined;
       if (node) {
         canvasRef.current = node;
-        zoomableImageCanvasRef.current = zoomableImageCanvasSupplier(node);
+        const zoomableImageCanvas = await Promise.resolve(zoomableImageCanvasSupplier(node));
+        zoomableImageCanvas.setImages(images);
+        zoomableImageCanvasRef.current = zoomableImageCanvas;
       }
     },
     [zoomableImageCanvasSupplier]
   );
   const isVisible = useVisibilityChange(canvasRef);
-  const windowSize = useDebounce(useWindowSize(), 300);
+  const windowSize = useWindowSize({debounceDelay: 300});
   const screens = Grid.useBreakpoint();
 
   useEffect(() => {
