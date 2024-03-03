@@ -24,24 +24,26 @@ export const EmptyPaintSet: React.FC<Props> = ({
     <Typography.Paragraph>
       <Typography.Text strong>⁉️ No data</Typography.Text>
       <br />
-      To use the {feature} features, select colors to paint with:
+      <Typography.Text strong>
+        To use the {feature} features, select colors to paint with:
+      </Typography.Text>
       <ol>
         <li>
-          Go to the <Typography.Text keyboard>Color set</Typography.Text> tab.
+          Go to the <Typography.Text code>Color set</Typography.Text> tab.
         </li>
         <li>
           Select your medium{!pencilsSupported && ' other than pencils'}, color brands and colors
-          you will paint with and press the{' '}
-          <Typography.Text keyboard>Save & proceed</Typography.Text> button.
+          you will paint with and press the <Typography.Text code>Save & proceed</Typography.Text>{' '}
+          button.
         </li>
         {(photoSupported || photoMandatory) && (
           <li>
             {photoMandatory ? 'Go to' : 'Optionally, go to'} the{' '}
-            <Typography.Text keyboard>Photo</Typography.Text> tab and choose your reference photo.
+            <Typography.Text code>Photo</Typography.Text> tab and choose your reference photo.
           </li>
         )}
         <li>
-          Return to the <Typography.Text keyboard>{tab}</Typography.Text> tab.
+          Return to the <Typography.Text code>{tab}</Typography.Text> tab.
         </li>
       </ol>
     </Typography.Paragraph>

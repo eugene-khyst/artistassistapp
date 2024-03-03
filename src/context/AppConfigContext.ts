@@ -13,6 +13,6 @@ export interface AppConfig {
 
 export const AppConfigContext: Context<AppConfig> = createContext<AppConfig>({
   websiteUrl: 'https://artistassistapp.com',
-  quickStartUrl: 'https://artistassistapp.com/en/tutorials/#quick-start',
+  quickStartUrl: 'https://artistassistapp.com/en/tutorials/',
   watermarkText: 'ArtistAssistApp.com',
 });

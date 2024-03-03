@@ -10,23 +10,25 @@ export const EmptyPalette: React.FC = () => {
     <Typography.Paragraph>
       <Typography.Text strong>⁉️ No data</Typography.Text>
       <br />
-      There is one common palette and a separate palette for each photo.
+      <Typography.Text strong>
+        There is one common palette and a separate palette for each photo.
+      </Typography.Text>
       <br />
-      To use the palette features, add color mixtures:
+      <Typography.Text strong>To use the palette features, add color mixtures:</Typography.Text>
       <ol>
         <li>
-          Go to the <Typography.Text keyboard>Color picker</Typography.Text> tab.
+          Go to the <Typography.Text code>Color picker</Typography.Text> tab.
         </li>
         <li>
           Click 🖱️ or tap 👆 anywhere in the image, or use the color picker pop-up to choose a
           target color to mix from your colors.
         </li>
         <li>
-          Press the <Typography.Text keyboard>Add to palette</Typography.Text> button next to the
-          color mixture you like.
+          Press the <Typography.Text code>Add to palette</Typography.Text> button next to the color
+          mixture you like.
         </li>
         <li>
-          Return to the <Typography.Text keyboard>Palette</Typography.Text> tab.
+          Return to the <Typography.Text code>Palette</Typography.Text> tab.
         </li>
       </ol>
     </Typography.Paragraph>

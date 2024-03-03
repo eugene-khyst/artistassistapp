@@ -9,7 +9,7 @@ import {
   SaveOutlined,
   ShareAltOutlined,
 } from '@ant-design/icons';
-import {App, Button, Form, Space, Spin, Typography} from 'antd';
+import {App, Button, ConfigProvider, Form, Space, Spin, Typography} from 'antd';
 import {Dispatch, SetStateAction, useContext, useEffect, useState} from 'react';
 import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
 import {usePaints, useStoreBoughtPaintSets} from '../hooks';
@@ -186,21 +186,29 @@ export const PaintSetSelect: React.FC<Props> = ({
             reference more clearly and mix colors more accurately.
           </Typography.Text>
           <Space size="small" style={{marginBottom: 16}}>
-            <Button
-              icon={<PlayCircleOutlined />}
-              type="primary"
-              href={quickStartUrl}
-              target="_blank"
+            <ConfigProvider
+              theme={{
+                token: {
+                  colorPrimary: '#00b96b',
+                },
+              }}
             >
-              Quick start video
-            </Button>
+              <Button
+                icon={<PlayCircleOutlined />}
+                type="primary"
+                href={quickStartUrl}
+                target="_blank"
+              >
+                Quick start video
+              </Button>
+            </ConfigProvider>
             <Button icon={<QuestionCircleOutlined />} onClick={handleHelpButtonClick}>
               Help
             </Button>
           </Space>
-          <Typography.Text>
+          <Typography.Text strong>
             Select your medium, color brands and up to {MAX_COLORS} colors you will paint with and
-            press the <Typography.Text keyboard>Save & proceed</Typography.Text> button.
+            press the <Typography.Text code>Save & proceed</Typography.Text> button.
           </Typography.Text>
         </Space>
         <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>

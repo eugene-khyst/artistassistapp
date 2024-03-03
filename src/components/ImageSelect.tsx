@@ -77,7 +77,7 @@ export const ImageSelect: React.FC<Props> = ({
     <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
       <div style={{padding: '0 16px 16px'}}>
         <Space direction="vertical" size="small">
-          <Typography.Text>
+          <Typography.Text strong>
             Select a reference photo from your device to paint from.
           </Typography.Text>
           <Form.Item style={{marginBottom: 16}}>
@@ -85,7 +85,7 @@ export const ImageSelect: React.FC<Props> = ({
           </Form.Item>
           {!!recentFiles.length && (
             <>
-              <Typography.Text>Or select from recent photos.</Typography.Text>
+              <Typography.Text strong>Or select from recent photos.</Typography.Text>
               <Row gutter={[16, 16]} justify="start" style={{marginBottom: 16}}>
                 {recentFiles.map((imageFile: ImageFile) => (
                   <Col key={imageFile.id} xs={24} md={12} lg={8}>
@@ -100,7 +100,7 @@ export const ImageSelect: React.FC<Props> = ({
               </Row>
             </>
           )}
-          <Typography.Text>Or select from sample photos.</Typography.Text>
+          <Typography.Text strong>Or select from sample photos.</Typography.Text>
           <Row gutter={[16, 16]} justify="start">
             {SAMPLE_IMAGES.map(([file, name]: SampleImageUrl) => (
               <Col key={name} xs={24} md={12} lg={8}>

@@ -384,8 +384,10 @@ export const ImageColorPicker: React.FC<Props> = ({
               <div style={{margin: '8px 0'}}>
                 <Typography.Text strong>⁉️ No data</Typography.Text>
                 <br />
-                Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a
-                target color to mix from your colors.
+                <Typography.Text strong>
+                  Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose
+                  a target color to mix from your colors.
+                </Typography.Text>
               </div>
             ) : (
               similarColors

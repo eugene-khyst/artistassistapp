@@ -64,7 +64,7 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
                   height: colorStripeHeight,
                   lineHeight: colorStripeHeight,
                   textAlign: 'center',
-                  fontSize: '14px',
+                  fontSize: 14,
                   fontWeight: 'bold',
                   backgroundColor: rgb.toHex(),
                   color: rgb.isDark() ? '#fff' : '#000',
