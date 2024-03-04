@@ -6,7 +6,7 @@
 import {Checkbox, Form, Select, Space, Spin} from 'antd';
 import {CheckboxChangeEvent} from 'antd/es/checkbox';
 import {DefaultOptionType as SelectOptionType} from 'antd/es/select';
-import {useCallback, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useZoomableImageCanvas} from '../hooks/';
 import {GridCanvas, GridType} from '../services/canvas/image/grid-canvas';
 import {EmptyImage} from './empty/EmptyImage';
@@ -30,6 +30,10 @@ const SQUARE_GRID_SIZE_OPTIONS: SelectOptionType[] = [4, 6, 8, 10, 12].map((size
 
 const DEFAULT_SQUARE_GRID_SIZE = 4;
 
+const gridCanvasSupplier = (canvas: HTMLCanvasElement): GridCanvas => {
+  return new GridCanvas(canvas);
+};
+
 type Props = {
   images: ImageBitmap[];
   isImagesLoading: boolean;
@@ -40,17 +44,12 @@ export const ImageGrid: React.FC<Props> = ({images, isImagesLoading}: Props) => 
   const [squareGridSize, setSquareGridSize] = useState<number>(DEFAULT_SQUARE_GRID_SIZE);
   const [isDiagonals, setIsDiagonals] = useState<boolean>(false);
 
-  const gridCanvasSupplier = useCallback((canvas: HTMLCanvasElement): GridCanvas => {
-    const gridCanvas = new GridCanvas(canvas);
-    gridCanvas.setGrid({type: GridType.Square, size: [DEFAULT_SQUARE_GRID_SIZE]});
-    return gridCanvas;
-  }, []);
-
-  const {ref: canvasRef, zoomableImageCanvasRef: gridCanvasRef} =
-    useZoomableImageCanvas<GridCanvas>(gridCanvasSupplier, images);
+  const {ref: canvasRef, zoomableImageCanvas: gridCanvas} = useZoomableImageCanvas<GridCanvas>(
+    gridCanvasSupplier,
+    images
+  );
 
   useEffect(() => {
-    const gridCanvas = gridCanvasRef.current;
     if (!gridCanvas) {
       return;
     }
@@ -61,7 +60,7 @@ export const ImageGrid: React.FC<Props> = ({images, isImagesLoading}: Props) => 
     } else if (gridOption === GridOption.Rectangular_4x4) {
       gridCanvas.setGrid({type: GridType.Rectangular, size: [4, 4], diagonals: isDiagonals});
     }
-  }, [gridCanvasRef, gridOption, squareGridSize, isDiagonals]);
+  }, [gridCanvas, gridOption, squareGridSize, isDiagonals]);
 
   if (!images.length) {
     return (

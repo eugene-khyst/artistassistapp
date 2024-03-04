@@ -133,6 +133,7 @@ export const ArtistAssistApp: React.FC = () => {
           setActiveTabKey={setActiveTabKey}
         />
       ),
+      forceRender: true,
     },
     {
       key: TabKey.Photo,
@@ -140,6 +141,7 @@ export const ArtistAssistApp: React.FC = () => {
       children: (
         <ImageSelect setBlob={setBlob} imageFileId={imageFileId} setImageFileId={setImageFileId} />
       ),
+      forceRender: true,
     },
     {
       key: TabKey.Colors,
@@ -160,6 +162,7 @@ export const ArtistAssistApp: React.FC = () => {
           setAsBackground={setAsBackground}
         />
       ),
+      forceRender: true,
     },
     {
       key: TabKey.Palette,
@@ -176,16 +179,19 @@ export const ArtistAssistApp: React.FC = () => {
           blob={blob}
         />
       ),
+      forceRender: true,
     },
     {
       key: TabKey.TonalValues,
       label: 'Tonal values',
       children: <ImageTonalValues blob={blob} images={images} isImagesLoading={isImagesLoading} />,
+      forceRender: true,
     },
     {
       key: TabKey.Sketch,
       label: 'Simplified',
       children: <ImageSketch blob={blob} />,
+      forceRender: true,
     },
     {
       key: TabKey.Grid,

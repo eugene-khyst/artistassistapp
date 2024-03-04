@@ -4,7 +4,7 @@
  */
 
 import {Grid} from 'antd';
-import {MutableRefObject, RefCallback, useCallback, useEffect, useRef} from 'react';
+import {RefCallback, useCallback, useEffect, useRef, useState} from 'react';
 import {useWindowSize} from 'usehooks-ts';
 import {useVisibilityChange} from '.';
 import {ZoomableImageCanvas} from '../services/canvas/image';
@@ -15,24 +15,23 @@ export function zoomableImageCanvasSupplier(canvas: HTMLCanvasElement): Zoomable
 
 interface Result<T> {
   ref: RefCallback<HTMLCanvasElement>;
-  zoomableImageCanvasRef: MutableRefObject<T | undefined>;
+  zoomableImageCanvas: T | undefined;
 }
 
 export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
-  zoomableImageCanvasSupplier: (canvas: HTMLCanvasElement) => Promise<T> | T,
+  zoomableImageCanvasSupplier: (canvas: HTMLCanvasElement) => T,
   images: ImageBitmap[]
 ): Result<T> {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const zoomableImageCanvasRef = useRef<T>();
+  const [zoomableImageCanvas, setZoomableImageCanvas] = useState<T | undefined>();
   const ref = useCallback(
-    async (node: HTMLCanvasElement | null) => {
-      zoomableImageCanvasRef.current?.destroy();
-      zoomableImageCanvasRef.current = undefined;
+    (node: HTMLCanvasElement | null) => {
       if (node) {
         canvasRef.current = node;
-        const zoomableImageCanvas = await Promise.resolve(zoomableImageCanvasSupplier(node));
-        zoomableImageCanvas.setImages(images);
-        zoomableImageCanvasRef.current = zoomableImageCanvas;
+        setZoomableImageCanvas(prev => {
+          prev?.destroy();
+          return zoomableImageCanvasSupplier(node);
+        });
       }
     },
     [zoomableImageCanvasSupplier]
@@ -42,23 +41,21 @@ export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
   const screens = Grid.useBreakpoint();
 
   useEffect(() => {
-    const zoomableImageCanvas = zoomableImageCanvasRef.current;
     if (!zoomableImageCanvas || !isVisible || !windowSize.height) {
       return;
     }
     zoomableImageCanvas.resize();
-  }, [windowSize, isVisible, screens]);
+  }, [zoomableImageCanvas, windowSize, isVisible, screens]);
 
   useEffect(() => {
-    const zoomableImageCanvas = zoomableImageCanvasRef.current;
     if (!zoomableImageCanvas || !images) {
       return;
     }
     zoomableImageCanvas.setImages(images);
-  }, [images]);
+  }, [zoomableImageCanvas, images]);
 
   return {
     ref,
-    zoomableImageCanvasRef,
+    zoomableImageCanvas,
   };
 }

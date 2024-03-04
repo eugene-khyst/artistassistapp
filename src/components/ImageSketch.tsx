@@ -5,8 +5,8 @@
 
 import {CheckboxOptionType, Form, Radio, RadioChangeEvent, Spin} from 'antd';
 import {Remote, wrap} from 'comlink';
-import {useCallback, useEffect, useState} from 'react';
-import {useZoomableImageCanvas} from '../hooks/';
+import {useEffect, useState} from 'react';
+import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '../hooks/';
 import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
 import {ZoomableImageCanvas} from '../services/canvas/image';
 import {Sketch} from '../services/image';
@@ -40,16 +40,7 @@ type Props = {
 export const ImageSketch: React.FC<Props> = ({blob}: Props) => {
   const {images, isLoading} = useCreateImageBitmap(blobToImageBitmapsConverter, blob);
 
-  const zoomableImageCanvasSupplier = useCallback(
-    (canvas: HTMLCanvasElement): ZoomableImageCanvas => {
-      const zoomableImageCanvas = new ZoomableImageCanvas(canvas);
-      zoomableImageCanvas.setImageIndex(DEFAULT_SKETCH_IMAGE_INDEX);
-      return zoomableImageCanvas;
-    },
-    []
-  );
-
-  const {ref: canvasRef, zoomableImageCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
+  const {ref: canvasRef, zoomableImageCanvas} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
     images
   );
@@ -57,8 +48,8 @@ export const ImageSketch: React.FC<Props> = ({blob}: Props) => {
   const [sketchImageIndex, setSketchImageIndex] = useState<number>(DEFAULT_SKETCH_IMAGE_INDEX);
 
   useEffect(() => {
-    zoomableImageCanvasRef.current?.setImageIndex(sketchImageIndex);
-  }, [zoomableImageCanvasRef, sketchImageIndex]);
+    zoomableImageCanvas?.setImageIndex(sketchImageIndex);
+  }, [zoomableImageCanvas, sketchImageIndex]);
 
   const handleBlurChange = (e: RadioChangeEvent) => {
     setSketchImageIndex(e.target.value);

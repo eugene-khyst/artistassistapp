@@ -59,7 +59,6 @@ export class ZoomableImageCanvas extends Canvas {
       (image: ImageBitmap) => new Rectangle(new Vector(image.width, image.height))
     );
     this.offset = Vector.ZERO;
-    this.zoom = 1;
     this.dragStart = null;
     this.isDragging = false;
     this.lastZoom = this.zoom;
@@ -225,6 +224,10 @@ export class ZoomableImageCanvas extends Canvas {
     this.zoom = clamp(zoom, this.getMinZoom(), this.maxZoom);
     this.offset = this.clampOffset(this.offset);
     this.draw();
+  }
+
+  setMinZoom(): void {
+    this.setZoom(0);
   }
 
   zoomIn(): void {

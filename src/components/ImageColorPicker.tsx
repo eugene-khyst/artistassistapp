@@ -91,6 +91,10 @@ const colorMixer: Remote<ColorMixer> = wrap(
   })
 );
 
+const imageColorPickerCanvasSupplier = (canvas: HTMLCanvasElement): ImageColorPickerCanvas => {
+  return new ImageColorPickerCanvas(canvas);
+};
+
 type Props = {
   paintSet?: PaintSet;
   imageFileId?: number;
@@ -122,37 +126,41 @@ export const ImageColorPicker: React.FC<Props> = ({
 }: Props) => {
   const screens = Grid.useBreakpoint();
 
+  const {ref: canvasRef, zoomableImageCanvas: colorPickerCanvas} =
+    useZoomableImageCanvas<ImageColorPickerCanvas>(imageColorPickerCanvasSupplier, images);
+
   const [sampleDiameter, setSampleDiameter] = useState<number>(DEFAULT_SAMPLE_DIAMETER);
   const [targetColor, setTargetColor] = useState<string>(PAPER_WHITE_HEX);
   const [similarColors, setSimilarColors] = useState<SimilarColor[]>([]);
   const [sort, setSort] = useState<Sort>(Sort.BySimilarity);
-
-  const imageColorPickerCanvasSupplier = useCallback(
-    async (canvas: HTMLCanvasElement): Promise<ImageColorPickerCanvas> => {
-      const colorPickerCanvas = new ImageColorPickerCanvas(canvas);
-      colorPickerCanvas.events.subscribe(
-        ColorPickerEventType.PipetPointSet,
-        ({rgb}: PipetPointSetEvent) => {
-          setTargetColor(rgb.toHex());
-        }
-      );
-      const settings: ColorPickerSettings | undefined = await getColorPickerSettings();
-      const sampleDiameter = settings?.sampleDiameter || DEFAULT_SAMPLE_DIAMETER;
-      colorPickerCanvas.setPipetDiameter(sampleDiameter);
-      setSampleDiameter(sampleDiameter);
-      return colorPickerCanvas;
-    },
-    []
-  );
-
-  const {ref: canvasRef, zoomableImageCanvasRef: colorPickerCanvasRef} =
-    useZoomableImageCanvas<ImageColorPickerCanvas>(imageColorPickerCanvasSupplier, images);
 
   const [isPaintSetLoading, setIsPaintSetLoading] = useState<boolean>(false);
   const [isBackgroundColorLoading, setIsBackgroundColorLoading] = useState<boolean>(false);
   const [isSimilarColorsLoading, setIsSimilarColorsLoading] = useState<boolean>(false);
   const isLoading: boolean =
     isImagesLoading || isPaintSetLoading || isBackgroundColorLoading || isSimilarColorsLoading;
+
+  useEffect(() => {
+    (async () => {
+      const settings: ColorPickerSettings | undefined = await getColorPickerSettings();
+      if (settings?.sampleDiameter) {
+        setSampleDiameter(settings.sampleDiameter);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (!colorPickerCanvas) {
+      return;
+    }
+    const listener = async ({rgb}: PipetPointSetEvent) => {
+      setTargetColor(rgb.toHex());
+    };
+    colorPickerCanvas.events.subscribe(ColorPickerEventType.PipetPointSet, listener);
+    return () => {
+      colorPickerCanvas.events.unsubscribe(ColorPickerEventType.PipetPointSet, listener);
+    };
+  }, [colorPickerCanvas]);
 
   useEffect(() => {
     (async () => {
@@ -201,25 +209,26 @@ export const ImageColorPicker: React.FC<Props> = ({
   }, [targetColor, isGlaze, paintSet, backgroundColor]);
 
   useEffect(() => {
-    colorPickerCanvasRef.current?.setPipetDiameter(sampleDiameter);
-  }, [colorPickerCanvasRef, sampleDiameter]);
+    colorPickerCanvas?.setPipetDiameter(sampleDiameter);
+  }, [colorPickerCanvas, sampleDiameter]);
 
   useEffect(() => {
-    const colorPickerCanvas = colorPickerCanvasRef.current;
-    if (colorPickerCanvas && pipet) {
-      const {x, y, diameter} = pipet;
-      colorPickerCanvas.setPipetDiameter(diameter);
-      colorPickerCanvas.setPipetPoint(new Vector(x, y));
-      setSampleDiameter(diameter);
+    if (!colorPickerCanvas || !pipet) {
+      return;
     }
-  }, [colorPickerCanvasRef, pipet]);
+    const {x, y, diameter} = pipet;
+    colorPickerCanvas.setPipetDiameter(diameter);
+    colorPickerCanvas.setPipetPoint(new Vector(x, y));
+    colorPickerCanvas.setMinZoom();
+    setSampleDiameter(diameter);
+  }, [colorPickerCanvas, pipet]);
 
   const savePaintMix = useCallback(
     async (paintMix: PaintMix) => {
       const newPaintMix: PaintMix = {
         ...paintMix,
         imageFileId,
-        pipet: getPipet(colorPickerCanvasRef.current),
+        pipet: getPipet(colorPickerCanvas),
         dataIndex: Date.now(),
       };
       setPaintMixes((prev: PaintMix[] | undefined) =>
@@ -227,7 +236,7 @@ export const ImageColorPicker: React.FC<Props> = ({
       );
       await savePaintMixInDb(newPaintMix);
     },
-    [setPaintMixes, imageFileId, colorPickerCanvasRef]
+    [colorPickerCanvas, imageFileId, setPaintMixes]
   );
 
   const deletePaintMix = useCallback(
@@ -255,7 +264,6 @@ export const ImageColorPicker: React.FC<Props> = ({
   };
 
   const handleTargetColorChange = (color: string) => {
-    const colorPickerCanvas = colorPickerCanvasRef.current;
     colorPickerCanvas?.setPipetPoint(null);
     setTargetColor(color);
   };
@@ -340,6 +348,7 @@ export const ImageColorPicker: React.FC<Props> = ({
                 min={MIN_COLOR_PICKER_DIAMETER}
                 max={MAX_SAMPLE_DIAMETER}
                 marks={SAMPLE_DIAMETER_SLIDER_MARKS}
+                style={{width: 250}}
               />
             </Form.Item>
             <Space align="center" wrap style={{display: 'flex'}}>
@@ -370,7 +379,7 @@ export const ImageColorPicker: React.FC<Props> = ({
                 />
               </Form.Item>
             </Space>
-            {!similarColors.length ? (
+            {!isSimilarColorsLoading && !similarColors.length ? (
               <div style={{margin: '8px 0'}}>
                 <Typography.Text strong>⁉️ No data</Typography.Text>
                 <br />

@@ -64,7 +64,7 @@ export const ImageTonalValues: React.FC<Props> = ({
     blob
   );
 
-  const {ref: tonalValuesCanvasRef, zoomableImageCanvasRef: tonalValuesZoomableImageCanvasRef} =
+  const {ref: tonalValuesCanvasRef, zoomableImageCanvas: tonalValuesZoomableImageCanvas} =
     useZoomableImageCanvas<ZoomableImageCanvas>(zoomableImageCanvasSupplier, tonalValues);
 
   const {ref: originalCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
@@ -81,8 +81,8 @@ export const ImageTonalValues: React.FC<Props> = ({
   const isLoading: boolean = isTonalValuesLoading || isOriginalLoading;
 
   useEffect(() => {
-    tonalValuesZoomableImageCanvasRef.current?.setImageIndex(tonalValuesImageIndex);
-  }, [tonalValuesZoomableImageCanvasRef, tonalValuesImageIndex]);
+    tonalValuesZoomableImageCanvas?.setImageIndex(tonalValuesImageIndex);
+  }, [tonalValuesZoomableImageCanvas, tonalValuesImageIndex]);
 
   useEffect(() => {
     if (printImagesUrls.length && promiseResolveRef.current) {
