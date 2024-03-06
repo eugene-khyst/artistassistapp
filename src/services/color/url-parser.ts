@@ -24,7 +24,10 @@ const URL_PARAM_PAINT_MIX_CONSISTENCY = 'cs';
 const URL_PARAM_PAINT_MIX_NAME = 'n';
 const URL_PARAM_RADIX = 36;
 const URL_PARAM_SEPARATOR = '_';
-const DANIEL_SMITH_SKU_BASE = 284600000;
+const SKU_BASE = new Map<PaintBrand, number>([
+  [PaintBrand.DanielSmithExtraFine, 284600000],
+  [PaintBrand.DanielSmithPrimaTek, 284600000],
+]);
 
 export interface UrlParsingResult {
   paintSet?: PaintSetDefinition;
@@ -44,10 +47,7 @@ export function paintSetToUrl({type, brands, colors}: PaintSetDefinition): strin
   );
   Object.entries(colors).forEach(([key, value]: [string, number[]]) => {
     const brand = Number(key) as PaintBrand;
-    let ids: number[] = value;
-    if (brand === PaintBrand.DanielSmithExtraFine || brand === PaintBrand.DanielSmithPrimaTek) {
-      ids = value.map((id: number) => id - DANIEL_SMITH_SKU_BASE);
-    }
+    const ids: number[] = value.map((id: number) => id - (SKU_BASE.get(brand) || 0));
     searchParams.set(
       URL_PARAM_COLORS_PREFIX + key,
       ids.map((id: number) => id.toString(URL_PARAM_RADIX)).join(URL_PARAM_SEPARATOR)
@@ -109,13 +109,7 @@ export function parseUrl(urlStr: string): UrlParsingResult {
           .split(URL_PARAM_SEPARATOR)
           .map((idStr: string) => {
             const id = parseInt(idStr, URL_PARAM_RADIX);
-            if (
-              brand === PaintBrand.DanielSmithExtraFine ||
-              brand === PaintBrand.DanielSmithPrimaTek
-            ) {
-              return id + DANIEL_SMITH_SKU_BASE;
-            }
-            return id;
+            return id + (SKU_BASE.get(brand) || 0);
           });
       }
     }
