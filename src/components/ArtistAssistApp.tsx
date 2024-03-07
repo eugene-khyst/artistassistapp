@@ -9,7 +9,7 @@ import {
   QuestionCircleOutlined,
 } from '@ant-design/icons';
 import type {TabsProps} from 'antd';
-import {Alert, App, Col, Flex, FloatButton, List, Row, Space, Tabs, Typography, theme} from 'antd';
+import {App, Col, FloatButton, Row, Space, Tabs, Typography, theme} from 'antd';
 import {useCallback, useContext, useEffect, useRef, useState} from 'react';
 import StickyBox from 'react-sticky-box';
 import {useEventListener, useTimeout} from 'usehooks-ts';
@@ -26,6 +26,7 @@ import {
 } from '../services/color';
 import {Rgb, RgbTuple} from '../services/color/model';
 import {IMAGE_SIZE, createScaledImageBitmap} from '../utils';
+import {BrowserNotSupported} from './BrowserNotSupported';
 import {Help} from './Help';
 import {ImageColorPicker} from './ImageColorPicker';
 import {ImageGrid} from './ImageGrid';
@@ -38,16 +39,13 @@ import {PaintSetSelect} from './PaintSetSelect';
 import {Palette} from './Palette';
 import {TabKey} from './types';
 
-const browserFeatures = {
+const browserFeatures: Record<string, boolean> = {
   Worker: typeof Worker !== 'undefined',
   OffscreenCanvas: typeof OffscreenCanvas !== 'undefined',
   createImageBitmap: typeof createImageBitmap !== 'undefined',
   indexedDB: typeof indexedDB !== 'undefined',
 };
 const isBrowserSupported = Object.values(browserFeatures).every(value => value);
-const browserFeaturesListItems = Object.entries(browserFeatures).map(
-  ([feature, isSupported]) => `${isSupported ? '✔️' : '❗'} ${feature}`
-);
 
 const {paintSet: importedPaintSet, paintMix: importedPaintMix}: UrlParsingResult = parseUrl(
   window.location.toString()
@@ -239,23 +237,7 @@ export const ArtistAssistApp: React.FC = () => {
   );
 
   if (!isBrowserSupported) {
-    return (
-      <Flex vertical gap="middle" style={{margin: 16}}>
-        <Alert
-          message="Error"
-          description={`Your web browser is not supported. Use the latest version of Google Chrome, Firefox, Opera, Samsung Internet or Microsoft Edge to access the web app.`}
-          type="error"
-          showIcon
-        />
-        <List
-          size="small"
-          bordered
-          header={navigator.userAgent}
-          dataSource={browserFeaturesListItems}
-          renderItem={item => <List.Item>{item}</List.Item>}
-        />
-      </Flex>
-    );
+    return <BrowserNotSupported browserFeatures={browserFeatures} />;
   }
 
   return (
