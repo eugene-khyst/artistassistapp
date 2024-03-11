@@ -24,7 +24,7 @@ ArtistAssistApp provides various tools for artists for accurate color mixing fro
 
 Try it now at [ArtistAssistApp.com](https://artistassistapp.com)
 
-https://github.com/eugene-khyst/artistassistapp/assets/1311126/21bd5ea5-c815-4ac5-a4e5-849fdc139cd5
+https://github.com/eugene-khyst/artistassistapp/assets/1311126/603f0a81-ffdc-4a7b-b132-741df036e692
 
 ## <a id="2"></a>Getting Started
 * Go to [ArtistAssistApp.com](https://artistassistapp.com/).
