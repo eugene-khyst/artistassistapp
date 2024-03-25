@@ -31,7 +31,7 @@ export const Ad: React.FC<Props> = ({
   return (
     ad && (
       <Card hoverable styles={{body: {padding: 0, overflow: 'hidden'}}}>
-        <Flex vertical={!screens['md']} justify="space-between">
+        <Flex vertical={!screens['md']} align="center">
           <img
             src={getImageUrl(ad, adsUrl)}
             style={{
@@ -41,7 +41,7 @@ export const Ad: React.FC<Props> = ({
               objectFit: 'contain',
             }}
           />
-          <Flex vertical align="flex-start" justify="space-between" style={{padding: 16}}>
+          <Flex vertical align="flex-start" style={{padding: 16}}>
             <div style={{marginBottom: 16, textAlign: 'justify'}}>{ad.text}</div>
             <Button type="primary" href={ad.linkUrl} target="_blank">
               {ad.linkText}
