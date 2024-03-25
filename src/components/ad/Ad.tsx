@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Button, Card, Flex, Grid} from 'antd';
+import {Button, Card, Flex, Grid, theme} from 'antd';
 import {useContext} from 'react';
 import {AppConfig, AppConfigContext} from '../../context/AppConfigContext';
 import {AdDefinition, AdsDefinition} from '../../services/ads';
@@ -24,13 +24,20 @@ export const Ad: React.FC<Props> = ({
   tab,
   index = 0,
 }: Props) => {
+  const {
+    token: {colorFillSecondary},
+  } = theme.useToken();
   const screens = Grid.useBreakpoint();
   const {adsUrl} = useContext<AppConfig>(AppConfigContext);
   const adId: string | undefined = placements?.[tab]?.[index];
   const ad: AdDefinition | undefined = ads?.[adId];
   return (
     ad && (
-      <Card hoverable styles={{body: {padding: 0, overflow: 'hidden'}}}>
+      <Card
+        hoverable
+        style={{backgroundColor: colorFillSecondary}}
+        styles={{body: {padding: 0, overflow: 'hidden'}}}
+      >
         <Flex vertical={!screens['md']} align="center">
           <img
             src={getImageUrl(ad, adsUrl)}
