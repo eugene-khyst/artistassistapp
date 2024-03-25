@@ -303,7 +303,7 @@ export const PaintSetSelect: React.FC<Props> = ({
             <Form.Item>
               <Space>
                 <Button icon={<SaveOutlined />} type="primary" htmlType="submit">
-                  Save & Proceed
+                  Save & proceed
                 </Button>
                 <Button
                   icon={<ShareAltOutlined />}
