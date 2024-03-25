@@ -9,10 +9,11 @@ import {
   SaveOutlined,
   ShareAltOutlined,
 } from '@ant-design/icons';
-import {App, Button, ConfigProvider, Form, Space, Spin, Typography} from 'antd';
+import {App, Button, Col, ConfigProvider, Form, Row, Space, Spin, Typography} from 'antd';
 import {Dispatch, SetStateAction, useContext, useEffect, useState} from 'react';
 import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
 import {usePaints, useStoreBoughtPaintSets} from '../hooks';
+import {AdsDefinition} from '../services/ads';
 import {
   PAINT_BRANDS,
   PAINT_MIXING,
@@ -25,6 +26,7 @@ import {
   toPaintSet,
 } from '../services/color';
 import {getLastPaintSet, getPaintSetByType, savePaintSet} from '../services/db';
+import {Ad} from './ad/Ad';
 import {PaintBrandSelect} from './color/PaintBrandSelect';
 import {PaintSelect} from './color/PaintSelect';
 import {PaintTypeSelect} from './color/PaintTypeSelect';
@@ -44,12 +46,14 @@ type Props = {
   setPaintSet: Dispatch<SetStateAction<PaintSet | undefined>>;
   importedPaintSet?: PaintSetDefinition;
   setActiveTabKey: Dispatch<SetStateAction<TabKey>>;
+  ads?: AdsDefinition;
 };
 
 export const PaintSetSelect: React.FC<Props> = ({
   setPaintSet,
   importedPaintSet,
   setActiveTabKey,
+  ads,
 }: Props) => {
   const {quickStartUrl} = useContext<AppConfig>(AppConfigContext);
 
@@ -180,37 +184,44 @@ export const PaintSetSelect: React.FC<Props> = ({
   return (
     <>
       <div style={{padding: '0 16px'}}>
-        <Space direction="vertical" size="small" style={{marginBottom: 8}}>
-          <Typography.Text>
-            <strong>ArtistAssistApp</strong> is a painting assistant tool that allows you to see the
-            reference more clearly and mix colors more accurately.
-          </Typography.Text>
-          <Space size="small" style={{marginBottom: 16}}>
-            <ConfigProvider
-              theme={{
-                token: {
-                  colorPrimary: '#00b96b',
-                },
-              }}
-            >
-              <Button
-                icon={<PlayCircleOutlined />}
-                type="primary"
-                href={quickStartUrl}
-                target="_blank"
-              >
-                Quick start video
-              </Button>
-            </ConfigProvider>
-            <Button icon={<QuestionCircleOutlined />} onClick={handleHelpButtonClick}>
-              Help
-            </Button>
-          </Space>
-          <Typography.Text strong>
-            Select your medium, color brands and up to {MAX_COLORS} colors you will paint with and
-            press the <Typography.Text code>Save & proceed</Typography.Text> button.
-          </Typography.Text>
-        </Space>
+        <Row gutter={[16, 16]} style={{marginBottom: 16}}>
+          <Col xs={24} md={12} lg={14}>
+            <Space direction="vertical" size="small">
+              <Typography.Text>
+                <strong>ArtistAssistApp</strong> is a painting assistant tool that allows you to see
+                the reference more clearly and mix colors more accurately.
+              </Typography.Text>
+              <Space size="small">
+                <ConfigProvider
+                  theme={{
+                    token: {
+                      colorPrimary: '#00b96b',
+                    },
+                  }}
+                >
+                  <Button
+                    icon={<PlayCircleOutlined />}
+                    type="primary"
+                    href={quickStartUrl}
+                    target="_blank"
+                  >
+                    Quick start video
+                  </Button>
+                </ConfigProvider>
+                <Button icon={<QuestionCircleOutlined />} onClick={handleHelpButtonClick}>
+                  Help
+                </Button>
+              </Space>
+            </Space>
+          </Col>
+          <Col xs={24} md={12} lg={10}>
+            <Ad ads={ads} tab={TabKey.ColorSet} />
+          </Col>
+        </Row>
+        <Typography.Text strong>
+          Select your medium, color brands and up to {MAX_COLORS} colors you will paint with and
+          press the <Typography.Text code>Save & proceed</Typography.Text> button.
+        </Typography.Text>
         <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
           <Form
             name="paintSet"

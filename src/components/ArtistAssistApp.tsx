@@ -3,17 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  FullscreenExitOutlined,
-  FullscreenOutlined,
-  QuestionCircleOutlined,
-} from '@ant-design/icons';
+import {FullscreenExitOutlined, FullscreenOutlined} from '@ant-design/icons';
 import type {TabsProps} from 'antd';
-import {App, Col, FloatButton, Row, Space, Tabs, Typography, theme} from 'antd';
+import {App, Col, FloatButton, Row, Tabs, theme} from 'antd';
 import {useCallback, useContext, useEffect, useRef, useState} from 'react';
 import StickyBox from 'react-sticky-box';
 import {useEventListener, useTimeout} from 'usehooks-ts';
 import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
+import {useAds} from '../hooks/useAds';
 import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
 import {useFullScreen} from '../hooks/useFullscreen';
 import {
@@ -68,7 +65,7 @@ export const ArtistAssistApp: React.FC = () => {
 
   const {isFullscreen, toggleFullScreen} = useFullScreen();
 
-  const [activeTabKey, setActiveTabKey] = useState<TabKey>(TabKey.Paints);
+  const [activeTabKey, setActiveTabKey] = useState<TabKey>(TabKey.ColorSet);
   const [paintSet, setPaintSet] = useState<PaintSet | undefined>();
   const [blob, setBlob] = useState<Blob | undefined>();
   const [imageFileId, setImageFileId] = useState<number | undefined>();
@@ -91,11 +88,11 @@ export const ArtistAssistApp: React.FC = () => {
       setActiveTabKey(TabKey.Palette);
     } else {
       if (!paintSet) {
-        setActiveTabKey(TabKey.Paints);
+        setActiveTabKey(TabKey.ColorSet);
       } else if (!blob) {
         setActiveTabKey(TabKey.Photo);
       } else {
-        setActiveTabKey(TabKey.Colors);
+        setActiveTabKey(TabKey.ColorPicker);
         message.info('🔎 Pinch to zoom (or use the mouse wheel) and drag to pan');
       }
     }
@@ -105,10 +102,12 @@ export const ArtistAssistApp: React.FC = () => {
     event.returnValue = 'Are you sure you want to leave?';
   });
 
+  const {ads} = useAds();
+
   const setColorPicker = useCallback((pipet?: Pipet) => {
     if (pipet) {
       setPipet({...pipet});
-      setActiveTabKey(TabKey.Colors);
+      setActiveTabKey(TabKey.ColorPicker);
     }
   }, []);
 
@@ -116,7 +115,7 @@ export const ArtistAssistApp: React.FC = () => {
     (background: string | RgbTuple) => {
       setBackgroundColor(Rgb.fromHexOrTuple(background).toHex());
       setIsGlaze(true);
-      setActiveTabKey(TabKey.Colors);
+      setActiveTabKey(TabKey.ColorPicker);
     },
     [setBackgroundColor, setIsGlaze]
   );
@@ -127,13 +126,14 @@ export const ArtistAssistApp: React.FC = () => {
 
   const items = [
     {
-      key: TabKey.Paints,
+      key: TabKey.ColorSet,
       label: 'Color set',
       children: (
         <PaintSetSelect
           setPaintSet={setPaintSet}
           importedPaintSet={importedPaintSet}
           setActiveTabKey={setActiveTabKey}
+          ads={ads}
         />
       ),
       forceRender: true,
@@ -147,7 +147,7 @@ export const ArtistAssistApp: React.FC = () => {
       forceRender: true,
     },
     {
-      key: TabKey.Colors,
+      key: TabKey.ColorPicker,
       label: 'Color picker',
       children: (
         <ImageColorPicker
@@ -191,7 +191,7 @@ export const ArtistAssistApp: React.FC = () => {
       forceRender: true,
     },
     {
-      key: TabKey.Sketch,
+      key: TabKey.SimplifiedPhoto,
       label: 'Simplified',
       children: <ImageSketch blob={blob} />,
       forceRender: true,
@@ -207,7 +207,7 @@ export const ArtistAssistApp: React.FC = () => {
       children: <PaintMixer paintSet={paintSet} />,
     },
     {
-      key: TabKey.PrimaryColors,
+      key: TabKey.LimitedPalette,
       label: 'Limited palette',
       children: (
         <ImagePrimaryColors
@@ -220,12 +220,7 @@ export const ArtistAssistApp: React.FC = () => {
     },
     {
       key: TabKey.Help,
-      label: (
-        <Space size="small">
-          <QuestionCircleOutlined />
-          <Typography.Text>Help</Typography.Text>
-        </Space>
-      ),
+      label: 'Help',
       children: <Help />,
     },
   ];
@@ -258,7 +253,6 @@ export const ArtistAssistApp: React.FC = () => {
       <FloatButton
         icon={isFullscreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
         shape="square"
-        tooltip={isFullscreen ? 'Exit full screen' : 'Full screen'}
         onClick={toggleFullScreen}
         style={{right: 24, bottom: 24}}
       />

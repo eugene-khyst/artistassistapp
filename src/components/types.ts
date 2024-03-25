@@ -6,15 +6,15 @@
 import {ReactNode} from 'react';
 
 export enum TabKey {
-  Paints = 'paints',
+  ColorSet = 'color-set',
   Photo = 'photo',
-  Colors = 'colors',
-  Sketch = 'sketch',
-  TonalValues = 'tonal-values',
+  ColorPicker = 'color-picker',
   Palette = 'palette',
+  TonalValues = 'tonal-values',
+  SimplifiedPhoto = 'simplified',
   Grid = 'grid',
   ColorMixing = 'color-mixing',
-  PrimaryColors = 'primary-colors',
+  LimitedPalette = 'limited-palette',
   Help = 'help',
 }
 

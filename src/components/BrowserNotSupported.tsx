@@ -14,12 +14,7 @@ import {
   WindowsOutlined,
 } from '@ant-design/icons';
 import {Alert, Typography} from 'antd';
-import {UAParser} from 'ua-parser-js';
-
-const {browser, os, ua: userAgent}: UAParser.IResult = UAParser(navigator.userAgent);
-const prettyUserAgent = [browser.name, browser.version, os.name && 'on', os.name, os.version]
-  .filter(value => !!value)
-  .join(' ');
+import {prettyUserAgent, userAgent} from '../utils/user-agent';
 
 type Props = {
   browserFeatures: Record<string, boolean>;

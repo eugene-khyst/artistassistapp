@@ -33,8 +33,8 @@ import {ShareModal} from './modal/ShareModal';
 type Props = {
   paintSet?: PaintSet;
   imageFileId?: number;
-  paintMixes?: PaintMix[];
   importedPaintMix?: PaintMixDefinition;
+  paintMixes?: PaintMix[];
   setPaintMixes: Dispatch<SetStateAction<PaintMix[] | undefined>>;
   setColorPicker: (pipet?: Pipet) => void;
   setAsBackground: (background: string | RgbTuple) => void;
@@ -44,8 +44,8 @@ type Props = {
 export const Palette: React.FC<Props> = ({
   paintSet,
   imageFileId,
-  paintMixes,
   importedPaintMix,
+  paintMixes,
   setPaintMixes,
   setColorPicker,
   setAsBackground,

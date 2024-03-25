@@ -16,6 +16,7 @@ import {Button, Col, Row, Space, Typography, theme} from 'antd';
 import {useContext} from 'react';
 import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
 import {Logo} from './Logo';
+import {prettyUserAgent} from '../utils/user-agent';
 
 export const Help: React.FC = () => {
   const {
@@ -103,7 +104,7 @@ export const Help: React.FC = () => {
         </Row>
         <Row>
           <Col xs={24}>
-            Created by{' '}
+            ArtistAssistApp is developed by{' '}
             <Typography.Link href="https://github.com/eugene-khyst" target="_blank">
               Eugene Khyst
             </Typography.Link>
@@ -114,7 +115,7 @@ export const Help: React.FC = () => {
             xs={24}
             style={{textAlign: 'justify', fontSize: fontSizeSM, color: colorTextSecondary}}
           >
-            Running in {navigator.userAgent}
+            Running in {prettyUserAgent}
           </Col>
         </Row>
       </Space>
