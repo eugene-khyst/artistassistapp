@@ -55,6 +55,10 @@ export enum PaintBrand {
   RomanSzmal = 37,
   LiquitexHeavyBody = 38,
   LiquitexSoftBody = 39,
+  GoldenFluid = 40,
+  GoldenHeavyBody = 41,
+  GoldenOpen = 42,
+  GoldenSoflat = 43,
 }
 
 export enum PaintOpacity {
@@ -454,6 +458,50 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
             padLength: 3,
           },
           dir: 'liquitex-soft-body',
+        },
+      ],
+      [
+        PaintBrand.GoldenFluid,
+        {
+          fullName: 'Golden Fluid Acrylics',
+          shortName: 'Golden Fluid',
+          idFormat: {
+            padLength: 4,
+          },
+          dir: 'golden-fluid',
+        },
+      ],
+      [
+        PaintBrand.GoldenHeavyBody,
+        {
+          fullName: 'Golden Heavy Body Acrylics',
+          shortName: 'Golden Heavy Body',
+          idFormat: {
+            padLength: 4,
+          },
+          dir: 'golden-heavy-body',
+        },
+      ],
+      [
+        PaintBrand.GoldenOpen,
+        {
+          fullName: 'Golden OPEN Slow-Drying Acrylics',
+          shortName: 'Golden OPEN',
+          idFormat: {
+            padLength: 4,
+          },
+          dir: 'golden-open',
+        },
+      ],
+      [
+        PaintBrand.GoldenSoflat,
+        {
+          fullName: 'Golden SoFlat Matte Acrylics',
+          shortName: 'Golden SoFlat',
+          idFormat: {
+            padLength: 4,
+          },
+          dir: 'golden-soflat',
         },
       ],
     ]),
