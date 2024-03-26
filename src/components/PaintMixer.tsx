@@ -24,7 +24,7 @@ import {
   theme,
 } from 'antd';
 import {Color} from 'antd/es/color-picker';
-import {Fragment, useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {
   PAPER_WHITE_HEX,
   PENCIL_TYPES,
@@ -265,9 +265,9 @@ export const PaintMixer: React.FC<Props> = ({
             </Form>
           </Col>
           <Col xs={24} md={12} lg={8}>
-            <Space direction="vertical" size="small" style={{width: '100%'}}>
+            <Space direction="vertical" size="small">
               {resultPaintMixes.map((paintMix: PaintMix) => (
-                <Fragment key={paintMix.id}>
+                <Space key={paintMix.id} direction="vertical" size="small" align="end">
                   <PaintMixDescription
                     paintMix={paintMix}
                     showPaints={isThickConsistency(paintMix)}
@@ -281,7 +281,7 @@ export const PaintMixer: React.FC<Props> = ({
                     size="small"
                     style={{marginBottom: 8}}
                   />
-                </Fragment>
+                </Space>
               ))}
             </Space>
           </Col>
