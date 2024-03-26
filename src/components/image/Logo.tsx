@@ -5,7 +5,7 @@
 
 import {Space, theme} from 'antd';
 
-const LOGO = new URL('../assets/images/logo.svg', import.meta.url);
+const LOGO = new URL('../../assets/images/logo.svg', import.meta.url);
 
 type Props = {
   name?: boolean;

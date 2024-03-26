@@ -20,14 +20,13 @@ import {
 } from '../services/color';
 import {RgbTuple} from '../services/color/model';
 import {
-  deletePaintMix as deletePaintMixFromDb,
   getPaintMixes as getPaintMixesFromDb,
   isPaintMixExist as isPaintMixExistInDb,
   savePaintMix as savePaintMixInDb,
 } from '../services/db';
-import {PaletteGrid} from './PaletteGrid';
 import {ColorSwatchDrawer} from './drawer/ColorSwatchDrawer';
 import {EmptyPalette} from './empty/EmptyPalette';
+import {PaletteGrid} from './grid/PaletteGrid';
 import {ShareModal} from './modal/ShareModal';
 
 type Props = {
@@ -36,6 +35,9 @@ type Props = {
   importedPaintMix?: PaintMixDefinition;
   paintMixes?: PaintMix[];
   setPaintMixes: Dispatch<SetStateAction<PaintMix[] | undefined>>;
+  savePaintMix: (paintMix: PaintMix, isNew?: boolean) => void;
+  deletePaintMix: (paintMixId: string) => void;
+  deletePaintMixesByType: (paintType: PaintType) => void;
   setColorPicker: (pipet?: Pipet) => void;
   setAsBackground: (background: string | RgbTuple) => void;
   blob?: Blob;
@@ -47,6 +49,9 @@ export const Palette: React.FC<Props> = ({
   importedPaintMix,
   paintMixes,
   setPaintMixes,
+  savePaintMix,
+  deletePaintMix,
+  deletePaintMixesByType,
   setColorPicker,
   setAsBackground,
   blob,
@@ -97,38 +102,6 @@ export const Palette: React.FC<Props> = ({
     })();
   }, [importedPaintMix, paints.size, setPaintMixes, imageFileId]);
 
-  const savePaintMix = useCallback(
-    async (paintMix: PaintMix) => {
-      setPaintMixes((prev: PaintMix[] | undefined) =>
-        prev ? prev.map((pm: PaintMix) => (pm.id === paintMix.id ? paintMix : pm)) : []
-      );
-      await savePaintMixInDb(paintMix);
-    },
-    [setPaintMixes]
-  );
-
-  const deletePaintMix = useCallback(
-    (paintMixId: string) => {
-      setPaintMixes((prev: PaintMix[] | undefined) =>
-        prev ? prev.filter(({id}: PaintMix) => id !== paintMixId) : []
-      );
-      deletePaintMixFromDb(paintMixId);
-    },
-    [setPaintMixes]
-  );
-
-  const deleteAllPaintMixes = useCallback(
-    (paintType: PaintType) => {
-      setPaintMixes((prev: PaintMix[] | undefined) =>
-        prev ? prev.filter(({type}: PaintMix) => type !== paintType) : []
-      );
-      paintMixes
-        ?.filter(({type}: PaintMix) => type === paintType)
-        ?.forEach(({id}: PaintMix) => deletePaintMixFromDb(id));
-    },
-    [setPaintMixes, paintMixes]
-  );
-
   const showShareModal = useCallback((paintMix: PaintMix) => {
     setSharePaintMixUrl(paintMixToUrl(paintMix));
     setIsShareModalOpen(true);
@@ -156,7 +129,7 @@ export const Palette: React.FC<Props> = ({
                   paintMixes={filteredPaintMixes}
                   savePaintMix={savePaintMix}
                   deletePaintMix={deletePaintMix}
-                  deleteAllPaintMixes={deleteAllPaintMixes}
+                  deletePaintMixesByType={deletePaintMixesByType}
                   showShareModal={showShareModal}
                   setColorPicker={setColorPicker}
                   setAsBackground={setAsBackground}

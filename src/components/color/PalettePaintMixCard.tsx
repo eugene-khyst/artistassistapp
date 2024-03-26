@@ -17,7 +17,7 @@ import {PaintMixDescription} from '../color/PaintMixDescription';
 
 type Props = {
   paintMix: PaintMix;
-  savePaintMix: (paintMix: PaintMix) => void;
+  savePaintMix: (paintMix: PaintMix, isNew?: boolean) => void;
   deletePaintMix: (paintMixId: string) => void;
   showShareModal: (paintMix: PaintMix) => void;
   setColorPicker: (pipet?: Pipet) => void;

@@ -40,11 +40,7 @@ import {
   compareSimilarColorsByPaintMixFractionsLength,
 } from '../services/color';
 import {RgbTuple} from '../services/color/model';
-import {
-  ColorPickerSettings,
-  deletePaintMix as deletePaintMixFromDb,
-  savePaintMix as savePaintMixInDb,
-} from '../services/db';
+import {ColorPickerSettings} from '../services/db';
 import {getColorPickerSettings, saveColorPickerSettings} from '../services/db/';
 import {Vector} from '../services/math';
 import {SimilarColorCard} from './color/SimilarColorCard';
@@ -106,7 +102,8 @@ type Props = {
   setIsGlaze: Dispatch<SetStateAction<boolean>>;
   pipet?: Pipet;
   paintMixes?: PaintMix[];
-  setPaintMixes: Dispatch<SetStateAction<PaintMix[] | undefined>>;
+  savePaintMix: (paintMix: PaintMix, isNew?: boolean) => void;
+  deletePaintMix: (paintMixId: string) => void;
   setAsBackground: (background: string | RgbTuple) => void;
 };
 
@@ -121,7 +118,8 @@ export const ImageColorPicker: React.FC<Props> = ({
   setIsGlaze,
   pipet,
   paintMixes,
-  setPaintMixes,
+  savePaintMix,
+  deletePaintMix,
   setAsBackground,
 }: Props) => {
   const screens = Grid.useBreakpoint();
@@ -223,7 +221,7 @@ export const ImageColorPicker: React.FC<Props> = ({
     setSampleDiameter(diameter);
   }, [colorPickerCanvas, pipet]);
 
-  const savePaintMix = useCallback(
+  const saveNewPaintMix = useCallback(
     async (paintMix: PaintMix) => {
       const newPaintMix: PaintMix = {
         ...paintMix,
@@ -231,22 +229,9 @@ export const ImageColorPicker: React.FC<Props> = ({
         pipet: getPipet(colorPickerCanvas),
         dataIndex: Date.now(),
       };
-      setPaintMixes((prev: PaintMix[] | undefined) =>
-        prev ? [newPaintMix, ...prev] : [newPaintMix]
-      );
-      await savePaintMixInDb(newPaintMix);
+      savePaintMix(newPaintMix, true);
     },
-    [colorPickerCanvas, imageFileId, setPaintMixes]
-  );
-
-  const deletePaintMix = useCallback(
-    (paintMixId: string) => {
-      setPaintMixes((prev: PaintMix[] | undefined) =>
-        prev ? prev.filter(({id}: PaintMix) => id !== paintMixId) : []
-      );
-      deletePaintMixFromDb(paintMixId);
-    },
-    [setPaintMixes]
+    [colorPickerCanvas, imageFileId, savePaintMix]
   );
 
   const handleIsGlazeChange = (isGlaze: boolean) => {
@@ -398,7 +383,7 @@ export const ImageColorPicker: React.FC<Props> = ({
                     similarColor={similarColor}
                     setAsBackground={setAsBackground}
                     paintMixes={paintMixes}
-                    savePaintMix={savePaintMix}
+                    savePaintMix={saveNewPaintMix}
                     deletePaintMix={deletePaintMix}
                   />
                 ))

@@ -17,13 +17,17 @@ import {
   PAPER_WHITE_HEX,
   PaintMix,
   PaintSet,
+  PaintType,
   Pipet,
   UrlParsingResult,
   parseUrl,
 } from '../services/color';
 import {Rgb, RgbTuple} from '../services/color/model';
+import {
+  deletePaintMix as deletePaintMixFromDb,
+  savePaintMix as savePaintMixInDb,
+} from '../services/db';
 import {IMAGE_SIZE, createScaledImageBitmap} from '../utils';
-import {BrowserNotSupported} from './BrowserNotSupported';
 import {Help} from './Help';
 import {ImageColorPicker} from './ImageColorPicker';
 import {ImageGrid} from './ImageGrid';
@@ -34,6 +38,7 @@ import {ImageTonalValues} from './ImageTonalValues';
 import {PaintMixer} from './PaintMixer';
 import {PaintSetSelect} from './PaintSetSelect';
 import {Palette} from './Palette';
+import {BrowserNotSupported} from './alert/BrowserNotSupported';
 import {TabKey} from './types';
 
 const browserFeatures: Record<string, boolean> = {
@@ -102,6 +107,37 @@ export const ArtistAssistApp: React.FC = () => {
     event.returnValue = 'Are you sure you want to leave?';
   });
 
+  const savePaintMix = useCallback((paintMix: PaintMix, isNew = false) => {
+    setPaintMixes((prev: PaintMix[] | undefined) =>
+      prev
+        ? isNew
+          ? [paintMix, ...prev]
+          : prev.map((pm: PaintMix) => (pm.id === paintMix.id ? paintMix : pm))
+        : [paintMix]
+    );
+    savePaintMixInDb(paintMix);
+  }, []);
+
+  const deletePaintMix = useCallback((paintMixId: string) => {
+    setPaintMixes((prev: PaintMix[] | undefined) =>
+      prev ? prev.filter(({id}: PaintMix) => id !== paintMixId) : []
+    );
+    deletePaintMixFromDb(paintMixId);
+  }, []);
+
+  const deletePaintMixesByType = useCallback((paintType: PaintType) => {
+    setPaintMixes((prev: PaintMix[] | undefined) => {
+      if (prev) {
+        prev
+          .filter(({type}: PaintMix) => type === paintType)
+          .forEach(({id}: PaintMix) => deletePaintMixFromDb(id));
+        return prev.filter(({type}: PaintMix) => type !== paintType);
+      } else {
+        return [];
+      }
+    });
+  }, []);
+
   const {ads} = useAds();
 
   const setColorPicker = useCallback((pipet?: Pipet) => {
@@ -161,7 +197,8 @@ export const ArtistAssistApp: React.FC = () => {
           setIsGlaze={setIsGlaze}
           pipet={pipet}
           paintMixes={paintMixes}
-          setPaintMixes={setPaintMixes}
+          savePaintMix={savePaintMix}
+          deletePaintMix={deletePaintMix}
           setAsBackground={setAsBackground}
         />
       ),
@@ -176,6 +213,9 @@ export const ArtistAssistApp: React.FC = () => {
           imageFileId={imageFileId}
           paintMixes={paintMixes}
           setPaintMixes={setPaintMixes}
+          savePaintMix={savePaintMix}
+          deletePaintMix={deletePaintMix}
+          deletePaintMixesByType={deletePaintMixesByType}
           setColorPicker={setColorPicker}
           setAsBackground={setAsBackground}
           importedPaintMix={importedPaintMix}
@@ -204,7 +244,14 @@ export const ArtistAssistApp: React.FC = () => {
     {
       key: TabKey.ColorMixing,
       label: 'Color mixing',
-      children: <PaintMixer paintSet={paintSet} />,
+      children: (
+        <PaintMixer
+          paintSet={paintSet}
+          paintMixes={paintMixes}
+          savePaintMix={savePaintMix}
+          deletePaintMix={deletePaintMix}
+        />
+      ),
     },
     {
       key: TabKey.LimitedPalette,

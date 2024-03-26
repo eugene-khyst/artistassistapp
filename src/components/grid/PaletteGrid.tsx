@@ -13,9 +13,9 @@ import {
   Pipet,
   comparePaintMixesByDataIndex,
   comparePaintMixesByName,
-} from '../services/color';
-import {RgbTuple} from '../services/color/model';
-import {PalettePaintMixCard} from './color/PalettePaintMixCard';
+} from '../../services/color';
+import {RgbTuple} from '../../services/color/model';
+import {PalettePaintMixCard} from '../color/PalettePaintMixCard';
 
 enum Sort {
   ByDataIndex = 1,
@@ -35,9 +35,9 @@ const SORT_OPTIONS: SelectOptionType[] = [
 type Props = {
   paintType: PaintType;
   paintMixes?: PaintMix[];
-  savePaintMix: (paintMix: PaintMix) => void;
+  savePaintMix: (paintMix: PaintMix, isNew?: boolean) => void;
   deletePaintMix: (paintMixId: string) => void;
-  deleteAllPaintMixes: (paintType: PaintType) => void;
+  deletePaintMixesByType: (paintType: PaintType) => void;
   showShareModal: (paintMix: PaintMix) => void;
   setColorPicker: (pipet?: Pipet) => void;
   setAsBackground: (background: string | RgbTuple) => void;
@@ -49,7 +49,7 @@ export const PaletteGrid: React.FC<Props> = ({
   paintMixes,
   savePaintMix,
   deletePaintMix,
-  deleteAllPaintMixes,
+  deletePaintMixesByType,
   showShareModal,
   setColorPicker,
   setAsBackground,
@@ -58,7 +58,7 @@ export const PaletteGrid: React.FC<Props> = ({
   const [sort, setSort] = useState<Sort>(Sort.ByDataIndex);
 
   const handleDelteAllButtonClick = () => {
-    deleteAllPaintMixes(paintType);
+    deletePaintMixesByType(paintType);
   };
 
   return !paintMixes ? null : (

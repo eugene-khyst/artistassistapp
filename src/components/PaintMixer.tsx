@@ -24,7 +24,7 @@ import {
   theme,
 } from 'antd';
 import {Color} from 'antd/es/color-picker';
-import {useEffect, useState} from 'react';
+import {Fragment, useCallback, useEffect, useState} from 'react';
 import {
   PAPER_WHITE_HEX,
   PENCIL_TYPES,
@@ -38,6 +38,7 @@ import {
 } from '../services/color';
 import {gcd} from '../services/math';
 import {range} from '../utils';
+import {SaveToPaletteButton} from './button/SaveToPaletteButton';
 import {PaintCascader} from './color/PaintCascader';
 import {PaintMixDescription} from './color/PaintMixDescription';
 import {ReflectanceChartDrawer} from './drawer/ReflectanceChartDrawer';
@@ -69,9 +70,17 @@ const formInitialValues = {
 
 type Props = {
   paintSet?: PaintSet;
+  paintMixes?: PaintMix[];
+  savePaintMix: (paintMix: PaintMix, isNew?: boolean) => void;
+  deletePaintMix: (paintMixId: string) => void;
 };
 
-export const PaintMixer: React.FC<Props> = ({paintSet}: Props) => {
+export const PaintMixer: React.FC<Props> = ({
+  paintSet,
+  paintMixes,
+  savePaintMix,
+  deletePaintMix,
+}: Props) => {
   const {
     token: {colorTextTertiary},
   } = theme.useToken();
@@ -81,7 +90,7 @@ export const PaintMixer: React.FC<Props> = ({paintSet}: Props) => {
   const [backgroundColor, setBackgroundColor] = useState<string>(PAPER_WHITE_HEX);
   const [paints, setPaints] = useState<Paint[]>([]);
   const [fractions, setFractions] = useState<number[]>([]);
-  const [paintMixes, setPaintMixes] = useState<PaintMix[]>([]);
+  const [resultPaintMixes, setResultPaintMixes] = useState<PaintMix[]>([]);
   const [isOpenReflectanceChart, setIsOpenReflectanceChart] = useState<boolean>(false);
 
   useEffect(() => {
@@ -93,12 +102,23 @@ export const PaintMixer: React.FC<Props> = ({paintSet}: Props) => {
   }, [paintSet, form]);
 
   useEffect(() => {
-    setPaintMixes(
+    setResultPaintMixes(
       paints.length > 0 && paints.length === fractions.length
         ? mixPaints(paints, fractions, backgroundColor).sort(comparePaintMixesByConsistency)
         : []
     );
   }, [paints, fractions, backgroundColor]);
+
+  const saveNewPaintMix = useCallback(
+    async (paintMix: PaintMix) => {
+      const newPaintMix: PaintMix = {
+        ...paintMix,
+        dataIndex: Date.now(),
+      };
+      savePaintMix(newPaintMix, true);
+    },
+    [savePaintMix]
+  );
 
   const handleFormValuesChange = async (_: Partial<PaintMixerForm>, {colors}: PaintMixerForm) => {
     if (!paintSet || !colors.length) {
@@ -232,7 +252,7 @@ export const PaintMixer: React.FC<Props> = ({paintSet}: Props) => {
                         </Button>
                         <Button
                           icon={<LineChartOutlined />}
-                          disabled={!paintMixes.some(isThickConsistency)}
+                          disabled={!resultPaintMixes.some(isThickConsistency)}
                           onClick={() => setIsOpenReflectanceChart(true)}
                         >
                           Reflectance chart
@@ -246,20 +266,29 @@ export const PaintMixer: React.FC<Props> = ({paintSet}: Props) => {
           </Col>
           <Col xs={24} md={12} lg={8}>
             <Space direction="vertical" size="small" style={{width: '100%'}}>
-              {paintMixes.map((paintMix: PaintMix) => (
-                <PaintMixDescription
-                  key={paintMix.id}
-                  paintMix={paintMix}
-                  showPaints={isThickConsistency(paintMix)}
-                  showConsistency={!isThickConsistency(paintMix)}
-                />
+              {resultPaintMixes.map((paintMix: PaintMix) => (
+                <Fragment key={paintMix.id}>
+                  <PaintMixDescription
+                    paintMix={paintMix}
+                    showPaints={isThickConsistency(paintMix)}
+                    showConsistency={!isThickConsistency(paintMix)}
+                  />
+                  <SaveToPaletteButton
+                    paintMix={paintMix}
+                    paintMixes={paintMixes}
+                    saveNewPaintMix={saveNewPaintMix}
+                    deletePaintMix={deletePaintMix}
+                    size="small"
+                    style={{marginBottom: 8}}
+                  />
+                </Fragment>
               ))}
             </Space>
           </Col>
         </Row>
       </div>
       <ReflectanceChartDrawer
-        paintMix={paintMixes.find(isThickConsistency)}
+        paintMix={resultPaintMixes.find(isThickConsistency)}
         open={isOpenReflectanceChart}
         onClose={() => setIsOpenReflectanceChart(false)}
       />

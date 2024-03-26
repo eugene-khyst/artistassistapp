@@ -3,26 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  BgColorsOutlined,
-  EllipsisOutlined,
-  MinusOutlined,
-  PlusOutlined,
-  QuestionCircleOutlined,
-} from '@ant-design/icons';
-import {
-  Button,
-  Card,
-  Dropdown,
-  MenuProps,
-  Popconfirm,
-  Popover,
-  Space,
-  Typography,
-  theme,
-} from 'antd';
+import {BgColorsOutlined, EllipsisOutlined, QuestionCircleOutlined} from '@ant-design/icons';
+import {Button, Card, Dropdown, MenuProps, Popover, Space, Typography, theme} from 'antd';
 import {PaintMix, SimilarColor} from '../../services/color';
 import {RgbTuple} from '../../services/color/model';
+import {SaveToPaletteButton} from '../button/SaveToPaletteButton';
 import {PaintMixDescription} from './PaintMixDescription';
 
 const popoverContent = (
@@ -54,16 +39,6 @@ export const SimilarColorCard: React.FC<Props> = ({
     token: {colorTextTertiary},
   } = theme.useToken();
 
-  const paintMixExists = paintMixes?.some((pm: PaintMix) => pm.id === paintMix.id);
-
-  const handleSaveButtonClick = () => {
-    savePaintMix(paintMix);
-  };
-
-  const handleDeleteButtonClick = () => {
-    deletePaintMix(paintMix.id);
-  };
-
   const items: MenuProps['items'] = [
     {
       label: 'Set as background',
@@ -88,21 +63,12 @@ export const SimilarColorCard: React.FC<Props> = ({
           }
         />
         <Space.Compact block style={{display: 'flex', justifyContent: 'flex-end'}}>
-          {paintMixExists ? (
-            <Popconfirm
-              title="Remove the color mixture"
-              description="Are you sure you want to remove this color mixture?"
-              onConfirm={handleDeleteButtonClick}
-              okText="Yes"
-              cancelText="No"
-            >
-              <Button icon={<MinusOutlined />}>Remove from palette</Button>
-            </Popconfirm>
-          ) : (
-            <Button icon={<PlusOutlined />} onClick={handleSaveButtonClick}>
-              Add to palette
-            </Button>
-          )}
+          <SaveToPaletteButton
+            paintMix={paintMix}
+            paintMixes={paintMixes}
+            saveNewPaintMix={savePaintMix}
+            deletePaintMix={deletePaintMix}
+          />
           <Dropdown menu={{items}}>
             <Button icon={<EllipsisOutlined />} />
           </Dropdown>
