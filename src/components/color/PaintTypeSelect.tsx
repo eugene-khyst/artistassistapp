@@ -4,7 +4,7 @@
  */
 
 import {Select, SelectProps} from 'antd';
-import {PAINT_TYPES} from '../../services/color';
+import {PAINT_TYPES} from '~/src/services/color';
 
 const PAINT_TYPE_OPTIONS: SelectProps['options'] = [...PAINT_TYPES.entries()].map(
   ([value, {name}]) => ({value, label: name})

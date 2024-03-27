@@ -4,9 +4,9 @@
  */
 
 import {Cascader, CascaderProps} from 'antd';
-import {PAINT_BRANDS, PaintBrand, PaintType, StoreBoughtPaintSet} from '../../services/color';
-import {CascaderOption} from '../types';
-import {filterCascaderOptions} from '../utils';
+import {PAINT_BRANDS, PaintBrand, PaintType, StoreBoughtPaintSet} from '~/src/services/color';
+import {CascaderOption} from '~/src/components/types';
+import {filterCascaderOptions} from '~/src/components/utils';
 
 const CUSTOM_PAINT_SET_OPTION = {
   value: 0,

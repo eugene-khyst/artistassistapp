@@ -6,10 +6,10 @@
 import {CheckboxOptionType, Form, Radio, RadioChangeEvent, Spin} from 'antd';
 import {Remote, wrap} from 'comlink';
 import {useEffect, useState} from 'react';
-import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '../hooks/';
-import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
-import {ZoomableImageCanvas} from '../services/canvas/image';
-import {Sketch} from '../services/image';
+import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
+import {useCreateImageBitmap} from '~/src/hooks/useCreateImageBitmap';
+import {ZoomableImageCanvas} from '~/src/services/canvas/image';
+import {Sketch} from '~/src/services/image';
 import {EmptyImage} from './empty/EmptyImage';
 
 const sketch: Remote<Sketch> = wrap(

@@ -20,11 +20,11 @@ import {
 import {Remote, wrap} from 'comlink';
 import {useEffect, useRef, useState} from 'react';
 import {useReactToPrint} from 'react-to-print';
-import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '../hooks/';
-import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
-import {ZoomableImageCanvas} from '../services/canvas/image';
-import {TonalValues} from '../services/image';
-import {imageBitmapToOffscreenCanvas} from '../utils';
+import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
+import {useCreateImageBitmap} from '~/src/hooks/useCreateImageBitmap';
+import {ZoomableImageCanvas} from '~/src/services/canvas/image';
+import {TonalValues} from '~/src/services/image';
+import {imageBitmapToOffscreenCanvas} from '~/src/utils';
 import {EmptyImage} from './empty/EmptyImage';
 
 const tonalValues: Remote<TonalValues> = wrap(

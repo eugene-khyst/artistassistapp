@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "calc-reflectance": "ts-node src/bin/reflectance-calculator.ts static/data && prettier --write static/data/**/*.json",
+    "calc-reflectance": "ts-node --project ./src/bin/tsconfig.json ./src/bin/reflectance-calculator.ts ./static/data && prettier --write ./static/data/**/*.json",
     "start": "parcel serve src/index.html",
     "build": "parcel build src/index.html",
     "clean": "rm -rf .parcel-cache dist",
     "format": "prettier --write src",
-    "lint": "eslint --ext .js,.ts src",
+    "lint": "eslint src",
     "lint:fix": "npm run lint -- --fix",
     "check": "tsc --noEmit -p ./src/tsconfig.json",
     "test": "npm run lint && npm run check",
@@ -41,6 +41,7 @@
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-license-header": "^0.6.0",
+    "eslint-plugin-no-relative-import-paths": "^1.5.3",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^9.0.11",
@@ -49,7 +50,8 @@
     "parcel-reporter-static-files-copy": "^1.5.3",
     "prettier": "^3.2.5",
     "process": "^0.11.10",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0"
   },
   "lint-staged": {
     "**/*.{js,ts,jsx,tsx}": [

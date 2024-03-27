@@ -35,9 +35,9 @@ import {
   comparePaintMixesByConsistency,
   isThickConsistency,
   mixPaints,
-} from '../services/color';
-import {gcd} from '../services/math';
-import {range} from '../utils';
+} from '~/src/services/color';
+import {gcd} from '~/src/services/math';
+import {range} from '~/src/utils';
 import {SaveToPaletteButton} from './button/SaveToPaletteButton';
 import {PaintCascader} from './color/PaintCascader';
 import {PaintMixDescription} from './color/PaintMixDescription';

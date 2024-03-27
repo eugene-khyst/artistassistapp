@@ -5,7 +5,7 @@
 
 import {transfer} from 'comlink';
 import {medianFilter} from '.';
-import {IMAGE_SIZE, createScaledImageBitmap, imageBitmapToOffscreenCanvas} from '../../utils';
+import {IMAGE_SIZE, createScaledImageBitmap, imageBitmapToOffscreenCanvas} from '~/src/utils';
 
 interface Result {
   sketches: ImageBitmap[];

@@ -4,7 +4,7 @@
  */
 
 import {Space, Tooltip, Typography} from 'antd';
-import {PAINT_BRANDS, Paint} from '../../services/color';
+import {PAINT_BRANDS, Paint} from '~/src/services/color';
 import {ColorSquare} from './ColorSquare';
 
 type Props = {

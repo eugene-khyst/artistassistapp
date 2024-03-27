@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {computeIfAbsentInMap} from '../../utils';
+import {computeIfAbsentInMap} from '~/src/utils';
 
 export type EventListener<S> = (data: S) => void | Promise<void>;
 

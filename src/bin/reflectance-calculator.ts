@@ -4,8 +4,8 @@
  */
 
 import {readFileSync, readdirSync, statSync, writeFileSync} from 'fs';
-import {PaintOpacity, PaintRecord} from '../services/color';
-import {Rgb} from '../services/color/model';
+import {PaintOpacity, PaintRecord} from '~/src/services/color';
+import {Rgb} from '~/src/services/color/model';
 
 interface PaintSource {
   id: number;
@@ -40,6 +40,7 @@ function processFile(srcFilePath: string) {
 }
 
 function processDir(dirPath: string) {
+  console.log('Processing dir', dirPath);
   const files: string[] = readdirSync(dirPath);
 
   files.forEach((file: string) => {

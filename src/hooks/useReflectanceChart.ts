@@ -4,7 +4,7 @@
  */
 
 import {MutableRefObject, RefCallback, useCallback, useRef} from 'react';
-import {ReflectanceChart} from '../services/canvas/chart';
+import {ReflectanceChart} from '~/src/services/canvas/chart';
 
 interface Result {
   ref: RefCallback<HTMLCanvasElement>;

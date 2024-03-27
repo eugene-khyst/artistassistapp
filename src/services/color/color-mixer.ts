@@ -4,8 +4,8 @@
  */
 
 import {Paint, PaintBrand, PaintOpacity, PaintSet, PaintType} from '.';
-import {unique} from '../../utils';
-import {gcd} from '../math';
+import {unique} from '~/src/utils';
+import {gcd} from '~/src/services/math';
 import {Lab, Reflectance, Rgb, RgbTuple} from './model';
 
 export interface PaintMixingConfig {

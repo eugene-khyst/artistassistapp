@@ -5,7 +5,7 @@
 
 import {App, Collapse, CollapseProps, Spin, Typography} from 'antd';
 import {Dispatch, SetStateAction, useCallback, useEffect, useRef, useState} from 'react';
-import {usePaints} from '../hooks';
+import {usePaints} from '~/src/hooks';
 import {
   PAINT_TYPES,
   PaintBrand,
@@ -17,13 +17,13 @@ import {
   Pipet,
   createPaintMix,
   paintMixToUrl,
-} from '../services/color';
-import {RgbTuple} from '../services/color/model';
+} from '~/src/services/color';
+import {RgbTuple} from '~/src/services/color/model';
 import {
   getPaintMixes as getPaintMixesFromDb,
   isPaintMixExist as isPaintMixExistInDb,
   savePaintMix as savePaintMixInDb,
-} from '../services/db';
+} from '~/src/services/db';
 import {ColorSwatchDrawer} from './drawer/ColorSwatchDrawer';
 import {EmptyPalette} from './empty/EmptyPalette';
 import {PaletteGrid} from './grid/PaletteGrid';

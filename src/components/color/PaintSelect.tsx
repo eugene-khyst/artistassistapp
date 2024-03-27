@@ -4,8 +4,8 @@
  */
 
 import {Select, SelectProps, Space, Typography} from 'antd';
-import {Paint, formatPaintLabel} from '../../services/color';
-import {filterSelectOptions} from '../utils';
+import {Paint, formatPaintLabel} from '~/src/services/color';
+import {filterSelectOptions} from '~/src/components/utils';
 import {ColorSquare} from './ColorSquare';
 
 function getPaintOptions(paints?: Map<number, Paint>): SelectProps['options'] {

@@ -7,8 +7,8 @@ import {DeleteOutlined} from '@ant-design/icons';
 import {Button, Card, Popconfirm} from 'antd';
 import * as dayjs from 'dayjs';
 import {Dispatch, SetStateAction} from 'react';
-import {useCreateObjectUrl} from '../../hooks/useCreateObjectUrl';
-import {ImageFile} from '../../services/db';
+import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
+import {ImageFile} from '~/src/services/db';
 
 type Props = {
   imageFile: ImageFile;

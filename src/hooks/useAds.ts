@@ -5,8 +5,8 @@
 
 import {UseQueryResult, useQuery} from '@tanstack/react-query';
 import {useContext} from 'react';
-import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
-import {AdsDefinition, fetchAds} from '../services/ads';
+import {AppConfig, AppConfigContext} from '~/src/context/AppConfigContext';
+import {AdsDefinition, fetchAds} from '~/src/services/ads';
 
 interface Result {
   isLoading: boolean;

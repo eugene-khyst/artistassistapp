@@ -22,13 +22,13 @@ import {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {SliderMarks} from 'antd/es/slider';
 import {Remote, wrap} from 'comlink';
 import {Dispatch, SetStateAction, useCallback, useEffect, useState} from 'react';
-import {useZoomableImageCanvas} from '../hooks/';
+import {useZoomableImageCanvas} from '~/src/hooks';
 import {
   ColorPickerEventType,
   ImageColorPickerCanvas,
   MIN_COLOR_PICKER_DIAMETER,
   PipetPointSetEvent,
-} from '../services/canvas/image';
+} from '~/src/services/canvas/image';
 import {
   ColorMixer,
   PAPER_WHITE_HEX,
@@ -38,11 +38,11 @@ import {
   SimilarColor,
   compareSimilarColorsByDeltaE,
   compareSimilarColorsByPaintMixFractionsLength,
-} from '../services/color';
-import {RgbTuple} from '../services/color/model';
-import {ColorPickerSettings} from '../services/db';
-import {getColorPickerSettings, saveColorPickerSettings} from '../services/db/';
-import {Vector} from '../services/math';
+} from '~/src/services/color';
+import {RgbTuple} from '~/src/services/color/model';
+import {ColorPickerSettings} from '~/src/services/db';
+import {getColorPickerSettings, saveColorPickerSettings} from '~/src/services/db';
+import {Vector} from '~/src/services/math';
 import {SimilarColorCard} from './color/SimilarColorCard';
 import {EmptyPaintSet} from './empty/EmptyPaintSet';
 

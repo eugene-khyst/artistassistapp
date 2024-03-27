@@ -4,7 +4,7 @@
  */
 
 import {ZoomableImageCanvas, ZoomableImageCanvasProps} from '.';
-import {Rectangle, Vector} from '../../math';
+import {Rectangle, Vector} from '~/src/services/math';
 
 const GRID_LINE_WIDTH = 1;
 const GRID_COLOR = '#f00';

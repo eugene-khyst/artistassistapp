@@ -3,6 +3,11 @@
     "browser": true,
     "es2022": true
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -19,9 +24,19 @@
       "jsx": true
     }
   },
-  "plugins": ["@typescript-eslint", "react", "react-hooks", "license-header"],
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "react-hooks",
+    "license-header",
+    "no-relative-import-paths"
+  ],
   "rules": {
     "license-header/header": ["error", "./license-header.js"],
+    "no-relative-import-paths/no-relative-import-paths": [
+      "error",
+      {"allowSameFolder": true, "prefix": "~"}
+    ],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "@typescript-eslint/no-explicit-any": "off",

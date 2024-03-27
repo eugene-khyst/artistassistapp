@@ -4,8 +4,8 @@
  */
 
 import {LineChart} from '.';
-import {RgbTuple, WAVELENGTH_RANGE} from '../../color/model';
-import {wavelengthToColor} from '../../color/model/light-spectrum';
+import {RgbTuple, WAVELENGTH_RANGE} from '~/src/services/color/model';
+import {wavelengthToColor} from '~/src/services/color/model/light-spectrum';
 
 export class ReflectanceChart extends LineChart {
   constructor(canvas: HTMLCanvasElement) {

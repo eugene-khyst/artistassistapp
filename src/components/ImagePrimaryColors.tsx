@@ -7,11 +7,11 @@ import {PictureOutlined} from '@ant-design/icons';
 import {Button, Col, Flex, Form, Grid, Row, Spin, Typography} from 'antd';
 import {Remote, wrap} from 'comlink';
 import {useEffect, useMemo, useState} from 'react';
-import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '../hooks/';
-import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
-import {ZoomableImageCanvas} from '../services/canvas/image';
-import {Paint, PaintSet} from '../services/color';
-import {PrimaryColors} from '../services/image';
+import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
+import {useCreateImageBitmap} from '~/src/hooks/useCreateImageBitmap';
+import {ZoomableImageCanvas} from '~/src/services/canvas/image';
+import {Paint, PaintSet} from '~/src/services/color';
+import {PrimaryColors} from '~/src/services/image';
 import {PaintCascader} from './color/PaintCascader';
 import {EmptyPaintSet} from './empty/EmptyPaintSet';
 

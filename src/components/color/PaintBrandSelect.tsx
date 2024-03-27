@@ -4,8 +4,8 @@
  */
 
 import {Select, SelectProps} from 'antd';
-import {PAINT_BRANDS, PaintType, comparePaintBrandEntries} from '../../services/color';
-import {filterSelectOptions} from '../utils';
+import {PAINT_BRANDS, PaintType, comparePaintBrandEntries} from '~/src/services/color';
+import {filterSelectOptions} from '~/src/components/utils';
 
 function getPaintBrandOptions(type?: PaintType): SelectProps['options'] {
   if (!type) {

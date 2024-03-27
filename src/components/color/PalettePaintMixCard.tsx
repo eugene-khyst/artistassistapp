@@ -11,9 +11,9 @@ import {
   ShareAltOutlined,
 } from '@ant-design/icons';
 import {Button, Card, Dropdown, MenuProps, Popconfirm, Space, Typography} from 'antd';
-import {PaintMix, Pipet} from '../../services/color';
-import {RgbTuple} from '../../services/color/model';
-import {PaintMixDescription} from '../color/PaintMixDescription';
+import {PaintMix, Pipet} from '~/src/services/color';
+import {RgbTuple} from '~/src/services/color/model';
+import {PaintMixDescription} from '~/src/components/color/PaintMixDescription';
 
 type Props = {
   paintMix: PaintMix;

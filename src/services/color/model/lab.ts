@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {degrees, nonNegativeAngle, radians} from '../../math';
+import {degrees, nonNegativeAngle, radians} from '~/src/services/math';
 import {CIE_E, CIE_K, ILLUMINANT_D65, Xyz} from '.';
 
 export function getLightness(luminance: number): number {
@@ -74,8 +74,8 @@ export class Lab {
       Math.abs(hPrime2 - hPrime1) <= 180
         ? hPrime2 - hPrime1
         : hPrime2 <= hPrime1
-        ? hPrime2 - hPrime1 + 360
-        : hPrime2 - hPrime1 - 360;
+          ? hPrime2 - hPrime1 + 360
+          : hPrime2 - hPrime1 - 360;
     const deltaLPrime = L2 - L1;
     const deltaCPrime = CPrime2 - CPrime1;
     const deltaHPrime = 2 * Math.sqrt(CPrime1 * CPrime2) * Math.sin(radians(deltahPrime / 2));

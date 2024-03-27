@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Reflectance, Rgb} from '../services/color/model';
+import {Reflectance, Rgb} from '~/src/services/color/model';
 
 const colorFractions: string[] = process.argv.slice(2);
 const reflectances: Reflectance[] = [];

@@ -11,9 +11,9 @@ import {
 } from '@ant-design/icons';
 import {App, Button, Col, ConfigProvider, Form, Row, Space, Spin, Typography} from 'antd';
 import {Dispatch, SetStateAction, useContext, useEffect, useState} from 'react';
-import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
-import {usePaints, useStoreBoughtPaintSets} from '../hooks';
-import {AdsDefinition} from '../services/ads';
+import {AppConfig, AppConfigContext} from '~/src/context/AppConfigContext';
+import {usePaints, useStoreBoughtPaintSets} from '~/src/hooks';
+import {AdsDefinition} from '~/src/services/ads';
 import {
   PAINT_BRANDS,
   PAINT_MIXING,
@@ -24,8 +24,8 @@ import {
   PaintType,
   paintSetToUrl,
   toPaintSet,
-} from '../services/color';
-import {getLastPaintSet, getPaintSetByType, savePaintSet} from '../services/db';
+} from '~/src/services/color';
+import {getLastPaintSet, getPaintSetByType, savePaintSet} from '~/src/services/db';
 import {Ad} from './ad/Ad';
 import {PaintBrandSelect} from './color/PaintBrandSelect';
 import {PaintSelect} from './color/PaintSelect';

@@ -5,7 +5,7 @@
 
 import {MinusOutlined, PlusOutlined} from '@ant-design/icons';
 import {Button, ButtonProps, Popconfirm} from 'antd';
-import {PaintMix} from '../../services/color';
+import {PaintMix} from '~/src/services/color';
 
 type Props = {
   paintMix: PaintMix;

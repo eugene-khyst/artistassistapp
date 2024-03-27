@@ -4,7 +4,7 @@
  */
 
 import {UseQueryResult, useQueries} from '@tanstack/react-query';
-import {Paint, PaintBrand, PaintType, fetchPaints} from '../services/color';
+import {Paint, PaintBrand, PaintType, fetchPaints} from '~/src/services/color';
 
 interface Result {
   isLoading: boolean;

@@ -5,8 +5,8 @@
 
 import {App, Col, Form, Input, Row, Space, Spin, Typography} from 'antd';
 import {ChangeEvent, Dispatch, SetStateAction, useCallback, useEffect, useState} from 'react';
-import {ImageFile} from '../services/db';
-import {deleteImageFile, getImageFiles, saveImageFile} from '../services/db/image-file-db';
+import {ImageFile} from '~/src/services/db';
+import {deleteImageFile, getImageFiles, saveImageFile} from '~/src/services/db/image-file-db';
 import {RecentImage} from './image/RecentImage';
 import {SampleImage} from './image/SampleImage';
 

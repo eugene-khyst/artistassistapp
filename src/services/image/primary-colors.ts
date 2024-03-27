@@ -9,9 +9,9 @@ import {
   computeIfAbsentInMap,
   createScaledImageBitmap,
   imageBitmapToOffscreenCanvas,
-} from '../../utils';
-import {ColorMixer, PAPER_WHITE_HEX, PaintSet} from '../color';
-import {RgbTuple} from '../color/model';
+} from '~/src/utils';
+import {ColorMixer, PAPER_WHITE_HEX, PaintSet} from '~/src/services/color';
+import {RgbTuple} from '~/src/services/color/model';
 import {medianCutQuantization} from './median-cut';
 
 interface Result {

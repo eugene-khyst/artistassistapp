@@ -5,7 +5,7 @@
 
 import {IDBPTransaction} from 'idb';
 import {ImageFile} from '.';
-import {PaintMix} from '../color';
+import {PaintMix} from '~/src/services/color';
 import {ArtistAssistAppDB, dbPromise} from './db';
 
 const compareImageFilesByDate = (a: ImageFile, b: ImageFile) => b.date.getTime() - a.date.getTime();

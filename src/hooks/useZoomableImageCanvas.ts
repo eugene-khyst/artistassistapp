@@ -7,7 +7,7 @@ import {Grid} from 'antd';
 import {RefCallback, useCallback, useEffect, useRef, useState} from 'react';
 import {useWindowSize} from 'usehooks-ts';
 import {useVisibilityChange} from '.';
-import {ZoomableImageCanvas} from '../services/canvas/image';
+import {ZoomableImageCanvas} from '~/src/services/canvas/image';
 
 export function zoomableImageCanvasSupplier(canvas: HTMLCanvasElement): ZoomableImageCanvas {
   return new ZoomableImageCanvas(canvas);

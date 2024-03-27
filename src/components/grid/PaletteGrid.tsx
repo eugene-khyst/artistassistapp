@@ -13,9 +13,9 @@ import {
   Pipet,
   comparePaintMixesByDataIndex,
   comparePaintMixesByName,
-} from '../../services/color';
-import {RgbTuple} from '../../services/color/model';
-import {PalettePaintMixCard} from '../color/PalettePaintMixCard';
+} from '~/src/services/color';
+import {RgbTuple} from '~/src/services/color/model';
+import {PalettePaintMixCard} from '~/src/components/color/PalettePaintMixCard';
 
 enum Sort {
   ByDataIndex = 1,

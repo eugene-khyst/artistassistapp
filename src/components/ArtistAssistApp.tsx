@@ -9,10 +9,10 @@ import {App, Col, FloatButton, Row, Tabs, theme} from 'antd';
 import {useCallback, useContext, useEffect, useRef, useState} from 'react';
 import StickyBox from 'react-sticky-box';
 import {useEventListener, useTimeout} from 'usehooks-ts';
-import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
-import {useAds} from '../hooks/useAds';
-import {useCreateImageBitmap} from '../hooks/useCreateImageBitmap';
-import {useFullScreen} from '../hooks/useFullscreen';
+import {AppConfig, AppConfigContext} from '~/src/context/AppConfigContext';
+import {useAds} from '~/src/hooks/useAds';
+import {useCreateImageBitmap} from '~/src/hooks/useCreateImageBitmap';
+import {useFullScreen} from '~/src/hooks/useFullscreen';
 import {
   PAPER_WHITE_HEX,
   PaintMix,
@@ -21,13 +21,13 @@ import {
   Pipet,
   UrlParsingResult,
   parseUrl,
-} from '../services/color';
-import {Rgb, RgbTuple} from '../services/color/model';
+} from '~/src/services/color';
+import {Rgb, RgbTuple} from '~/src/services/color/model';
 import {
   deletePaintMix as deletePaintMixFromDb,
   savePaintMix as savePaintMixInDb,
-} from '../services/db';
-import {IMAGE_SIZE, createScaledImageBitmap} from '../utils';
+} from '~/src/services/db';
+import {IMAGE_SIZE, createScaledImageBitmap} from '~/src/utils';
 import {Help} from './Help';
 import {ImageColorPicker} from './ImageColorPicker';
 import {ImageGrid} from './ImageGrid';

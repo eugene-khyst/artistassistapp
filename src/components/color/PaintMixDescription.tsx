@@ -6,7 +6,7 @@
 import {QuestionCircleOutlined} from '@ant-design/icons';
 import {Space, Tooltip, Typography, theme} from 'antd';
 import {ReactNode} from 'react';
-import {PaintFraction, PaintMix} from '../../services/color';
+import {PaintFraction, PaintMix} from '~/src/services/color';
 import {ColorSquare} from './ColorSquare';
 import {PaintConsistencyDescription} from './PaintConsistencyDescription';
 import {PaintDescription} from './PaintDescription';

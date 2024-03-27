@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {RgbTuple, linearizeRgbChannel, unlinearizeRgbChannel} from '../color/model';
+import {RgbTuple, linearizeRgbChannel, unlinearizeRgbChannel} from '~/src/services/color/model';
 
 interface BucketItem {
   color: RgbTuple;

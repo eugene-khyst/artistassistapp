@@ -5,9 +5,9 @@
 
 import {Drawer, Typography} from 'antd';
 import {useEffect} from 'react';
-import {useReflectanceChart} from '../../hooks';
-import {PAINT_TYPES, PaintFraction, PaintMix} from '../../services/color';
-import {PaintMixDescription} from '../color/PaintMixDescription';
+import {useReflectanceChart} from '~/src/hooks';
+import {PAINT_TYPES, PaintFraction, PaintMix} from '~/src/services/color';
+import {PaintMixDescription} from '~/src/components/color/PaintMixDescription';
 
 type Props = {
   paintMix?: PaintMix;

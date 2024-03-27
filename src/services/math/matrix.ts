@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {create2DArray, createArray} from '../../utils';
+import {create2DArray, createArray} from '~/src/utils';
 
 const SINGULARITY_THRESHOLD = 1e-11;
 

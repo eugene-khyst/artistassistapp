@@ -7,8 +7,8 @@ import {Checkbox, Form, Select, Space, Spin} from 'antd';
 import {CheckboxChangeEvent} from 'antd/es/checkbox';
 import {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useEffect, useState} from 'react';
-import {useZoomableImageCanvas} from '../hooks';
-import {GridCanvas, GridType} from '../services/canvas/image/grid-canvas';
+import {useZoomableImageCanvas} from '~/src/hooks';
+import {GridCanvas, GridType} from '~/src/services/canvas/image/grid-canvas';
 import {EmptyImage} from './empty/EmptyImage';
 
 enum GridOption {

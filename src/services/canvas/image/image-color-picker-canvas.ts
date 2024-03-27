@@ -4,10 +4,15 @@
  */
 
 import {ZoomableImageCanvas, ZoomableImageCanvasProps} from '.';
-import {getRgbaForCoord, imageBitmapToOffscreenCanvas} from '../../../utils';
-import {Rgb, RgbTuple, linearizeRgbChannel, unlinearizeRgbChannel} from '../../color/model';
-import {EventManager} from '../../event';
-import {Rectangle, Vector, clamp} from '../../math';
+import {getRgbaForCoord, imageBitmapToOffscreenCanvas} from '~/src/utils';
+import {
+  Rgb,
+  RgbTuple,
+  linearizeRgbChannel,
+  unlinearizeRgbChannel,
+} from '~/src/services/color/model';
+import {EventManager} from '~/src/services/event';
+import {Rectangle, Vector, clamp} from '~/src/services/math';
 
 export const MIN_COLOR_PICKER_DIAMETER = 1;
 export const MAX_COLOR_PICKER_DIAMETER = 100;

@@ -4,7 +4,7 @@
  */
 
 import {Tooltip, theme} from 'antd';
-import {Rgb, RgbTuple} from '../../services/color/model';
+import {Rgb, RgbTuple} from '~/src/services/color/model';
 
 type Size = 'small' | 'large';
 

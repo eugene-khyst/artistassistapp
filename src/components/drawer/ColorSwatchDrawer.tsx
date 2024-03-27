@@ -4,9 +4,9 @@
  */
 
 import {Col, Drawer, Grid, Row} from 'antd';
-import {useCreateObjectUrl} from '../../hooks/useCreateObjectUrl';
-import {PaintMix} from '../../services/color';
-import {Rgb} from '../../services/color/model';
+import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
+import {PaintMix} from '~/src/services/color';
+import {Rgb} from '~/src/services/color/model';
 
 type Props = {
   paintMixes?: PaintMix[];

@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Rectangle, Vector, clamp} from '../../math';
-import {Canvas} from '../canvas';
+import {Rectangle, Vector, clamp} from '~/src/services/math';
+import {Canvas} from '~/src/services/canvas/canvas';
 
 export interface ZoomableImageCanvasProps {
   zoomFactor?: number;

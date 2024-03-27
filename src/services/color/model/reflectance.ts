@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Matrix} from '../../math';
+import {Matrix} from '~/src/services/math';
 import {Rgb, linearizeRgbChannel as linearize, unlinearizeRgbChannel as unlinearize} from '.';
 
 const MAX_ITERATIONS = 100;

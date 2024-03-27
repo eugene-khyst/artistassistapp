@@ -5,9 +5,9 @@
 
 import {BgColorsOutlined, EllipsisOutlined, QuestionCircleOutlined} from '@ant-design/icons';
 import {Button, Card, Dropdown, MenuProps, Popover, Space, Typography, theme} from 'antd';
-import {PaintMix, SimilarColor} from '../../services/color';
-import {RgbTuple} from '../../services/color/model';
-import {SaveToPaletteButton} from '../button/SaveToPaletteButton';
+import {PaintMix, SimilarColor} from '~/src/services/color';
+import {RgbTuple} from '~/src/services/color/model';
+import {SaveToPaletteButton} from '~/src/components/button/SaveToPaletteButton';
 import {PaintMixDescription} from './PaintMixDescription';
 
 const popoverContent = (

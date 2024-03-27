@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {PaintSetDefinition, PaintType} from '../color';
+import {PaintSetDefinition, PaintType} from '~/src/services/color';
 import {dbPromise} from './db';
 
 export async function getLastPaintSet(): Promise<PaintSetDefinition | undefined> {

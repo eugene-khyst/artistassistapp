@@ -9,7 +9,7 @@ import {
   PaintType,
   StoreBoughtPaintSet,
   fetchStoreBoughtPaintSets,
-} from '../services/color';
+} from '~/src/services/color';
 
 interface Result {
   isLoading: boolean;

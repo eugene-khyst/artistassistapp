@@ -6,7 +6,7 @@
 import {QuestionCircleOutlined} from '@ant-design/icons';
 import {Space, Tooltip, Typography, theme} from 'antd';
 import {ReactNode} from 'react';
-import {PaintConsistency, PaintType} from '../../services/color';
+import {PaintConsistency, PaintType} from '~/src/services/color';
 
 type ConsistencyDescription = {
   labelRender: (consistency: PaintConsistency) => ReactNode;

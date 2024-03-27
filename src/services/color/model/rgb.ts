@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {clamp} from '../../math';
+import {clamp} from '~/src/services/math';
 import {Reflectance, Xyz} from '.';
 
 const HEX_MATCHER = /^#?([0-9a-f]{3,6})$/i;

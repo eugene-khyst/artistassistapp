@@ -14,8 +14,8 @@ import {
 } from '@ant-design/icons';
 import {Button, Col, Row, Space, Typography, theme} from 'antd';
 import {useContext} from 'react';
-import {AppConfig, AppConfigContext} from '../context/AppConfigContext';
-import {prettyUserAgent} from '../utils/user-agent';
+import {AppConfig, AppConfigContext} from '~/src/context/AppConfigContext';
+import {prettyUserAgent} from '~/src/utils/user-agent';
 import {Logo} from './image/Logo';
 
 export const Help: React.FC = () => {

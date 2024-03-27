@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {PaintMix} from '../color';
+import {PaintMix} from '~/src/services/color';
 import {dbPromise} from './db';
 
 export async function getPaintMixes(imageFileId?: number): Promise<PaintMix[]> {

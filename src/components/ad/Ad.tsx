@@ -5,9 +5,9 @@
 
 import {Button, Card, Flex, Grid, theme} from 'antd';
 import {useContext} from 'react';
-import {AppConfig, AppConfigContext} from '../../context/AppConfigContext';
-import {AdDefinition, AdsDefinition} from '../../services/ads';
-import {TabKey} from '../types';
+import {AppConfig, AppConfigContext} from '~/src/context/AppConfigContext';
+import {AdDefinition, AdsDefinition} from '~/src/services/ads';
+import {TabKey} from '~/src/components/types';
 
 function getImageUrl({image}: AdDefinition, adsUrl: string): string {
   return new URL(image, adsUrl).toString();

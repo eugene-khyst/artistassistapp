@@ -4,10 +4,10 @@
  */
 
 import {Cascader, CascaderProps, Space, Typography} from 'antd';
-import {PAINT_BRANDS, Paint, PaintBrand, formatPaintLabel} from '../../services/color';
-import {computeIfAbsentInMap} from '../../utils';
-import {CascaderOption} from '../types';
-import {filterCascaderOptions} from '../utils';
+import {PAINT_BRANDS, Paint, PaintBrand, formatPaintLabel} from '~/src/services/color';
+import {computeIfAbsentInMap} from '~/src/utils';
+import {CascaderOption} from '~/src/components/types';
+import {filterCascaderOptions} from '~/src/components/utils';
 import {ColorSquare} from './ColorSquare';
 
 const displayRender = (labels: string[]) => labels[labels.length - 1];

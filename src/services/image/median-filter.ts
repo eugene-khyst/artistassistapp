@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {create2DArray, createArray, getIndexForCoord} from '../../utils';
+import {create2DArray, createArray, getIndexForCoord} from '~/src/utils';
 
 export function medianFilter(imageData: ImageData, radius: number, colors = 3): void {
   if (colors !== 1 && colors !== 3) {
