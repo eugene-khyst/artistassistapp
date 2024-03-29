@@ -219,8 +219,9 @@ export const PaintSetSelect: React.FC<Props> = ({
           </Col>
         </Row>
         <Typography.Text strong>
-          Select your medium, color brands and up to {MAX_COLORS} colors you will paint with and
-          press the <Typography.Text code>Save & proceed</Typography.Text> button.
+          Select your medium, color brands and colors you will paint with and press the{' '}
+          <Typography.Text code>Save & proceed</Typography.Text> button. The maximum number of
+          colors for paints is {MAX_COLORS}, for pencils – unlimited.
         </Typography.Text>
         <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
           <Form
