@@ -71,7 +71,7 @@ export const ImageGrid: React.FC<Props> = ({images, isImagesLoading}: Props) => 
   }
 
   return (
-    <Spin spinning={isImagesLoading} tip="Loading" size="large" delay={300}>
+    <Spin spinning={isImagesLoading} tip="Loading" size="large">
       <Space
         size="middle"
         align="center"

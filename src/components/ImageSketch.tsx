@@ -64,7 +64,7 @@ export const ImageSketch: React.FC<Props> = ({blob}: Props) => {
   }
 
   return (
-    <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
+    <Spin spinning={isLoading} tip="Loading" size="large">
       <div style={{display: 'flex', width: '100%', justifyContent: 'center', marginBottom: 8}}>
         <Form.Item
           label="Blur"

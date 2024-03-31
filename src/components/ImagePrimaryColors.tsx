@@ -106,7 +106,7 @@ export const ImagePrimaryColors: React.FC<Props> = ({
   const height = `calc((100vh - 130px) / ${screens['sm'] ? 1 : 2})`;
 
   return (
-    <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
+    <Spin spinning={isLoading} tip="Loading" size="large">
       <div style={{padding: '0 16px'}}>
         <Flex gap="small" align="baseline" style={{width: '100%', justifyContent: 'center'}}>
           <Form.Item

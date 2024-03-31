@@ -136,7 +136,7 @@ export const ImageTonalValues: React.FC<Props> = ({
   const height = `calc((100vh - 115px) / ${screens['sm'] ? 1 : 2})`;
 
   return (
-    <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
+    <Spin spinning={isLoading} tip="Loading" size="large">
       <Space
         size="small"
         align="center"

@@ -147,7 +147,7 @@ export const Palette: React.FC<Props> = ({
 
   return (
     <>
-      <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
+      <Spin spinning={isLoading} tip="Loading" size="large">
         <div style={{padding: '0 16px 16px'}}>
           {!paintMixes?.length ? (
             <EmptyPalette />

@@ -63,6 +63,8 @@ export const PaintSetSelect: React.FC<Props> = ({
   const paintType = Form.useWatch<PaintType | undefined>('type', form);
   const paintBrands = Form.useWatch<PaintBrand[] | undefined>('brands', form);
 
+  const [isLastPaintSetLoading, setIsLastPaintSetLoading] = useState<boolean>(true);
+
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [sharePaintSetUrl, setSharePaintSetUrl] = useState<string>();
 
@@ -79,6 +81,7 @@ export const PaintSetSelect: React.FC<Props> = ({
           form.setFieldsValue(lastPaintSet);
         }
       }
+      setIsLastPaintSetLoading(false);
     })();
   }, [form, importedPaintSet]);
 
@@ -94,7 +97,8 @@ export const PaintSetSelect: React.FC<Props> = ({
     isError: isPaintsError,
   } = usePaints(paintType, paintBrands);
 
-  const isLoading: boolean = isStoreBoughtPaintSetsLoading || isPaintsLoading;
+  const isLoading: boolean =
+    isLastPaintSetLoading || isStoreBoughtPaintSetsLoading || isPaintsLoading;
 
   if (isStoreBoughtPaintSetError || isPaintsError) {
     message.error('Error while fetching data');
@@ -223,7 +227,7 @@ export const PaintSetSelect: React.FC<Props> = ({
           <Typography.Text code>Save & proceed</Typography.Text> button. The maximum number of
           colors for paints is {MAX_COLORS}, for pencils – unlimited.
         </Typography.Text>
-        <Spin spinning={isLoading} tip="Loading" size="large" delay={300}>
+        <Spin spinning={isLoading} tip="Loading" size="large">
           <Form
             name="paintSet"
             form={form}

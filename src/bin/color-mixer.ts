@@ -16,4 +16,4 @@ for (let i = 0; i < colorFractions.length; i += 2) {
 }
 console.log(Reflectance.mixSubtractively(reflectances, fractions).toRgb().toHex());
 
-// npx ts-node src/bin/color-mixer.ts 1 0062A9 1 EB2D79 1 FEEE21
+// npx ts-node --project ./src/bin/tsconfig.json src/bin/color-mixer.ts 1 0062A9 1 EB2D79 1 FEEE21

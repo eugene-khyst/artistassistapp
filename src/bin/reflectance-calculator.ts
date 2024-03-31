@@ -55,4 +55,4 @@ function processDir(dirPath: string) {
 
 processDir(process.argv[2]);
 
-// npx ts-node src/bin/reflectance-calculator.ts static/data
+// npx ts-node --project ./src/bin/tsconfig.json src/bin/reflectance-calculator.ts static/data
