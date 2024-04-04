@@ -13,7 +13,7 @@
     "lint:fix": "npm run lint -- --fix",
     "check": "tsc --noEmit -p ./src/tsconfig.json",
     "test": "npm run lint && npm run check",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.1",

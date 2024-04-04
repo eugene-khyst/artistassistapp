@@ -36,7 +36,7 @@ export const SampleImage: React.FC<Props> = ({
     <Card
       hoverable
       onClick={handleCardClick}
-      cover={<img src={thumbnail?.toString() ?? image.toString()} alt={name} />}
+      cover={<img src={thumbnail?.toString() ?? image.toString()} alt={name} loading="lazy" />}
     >
       <Card.Meta title={name} />
     </Card>

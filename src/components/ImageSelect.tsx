@@ -105,8 +105,8 @@ export const ImageSelect: React.FC<Props> = ({
             {SAMPLE_IMAGES.map(([file, name]: SampleImageUrl) => (
               <Col key={name} xs={24} md={12} lg={8}>
                 <SampleImage
-                  image={`/sample-images/${file}.jpg`}
-                  thumbnail={`/sample-images/${file}-thumbnail.jpg`}
+                  image={`/sample-images/${file}.webp`}
+                  thumbnail={`/sample-images/${file}-thumbnail.webp`}
                   name={name}
                   setBlob={setBlob}
                   setImageFileId={setImageFileId}
