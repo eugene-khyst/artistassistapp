@@ -66,9 +66,14 @@ const CONSISTENCIES: Record<PaintType, ConsistencyDescription> = {
 type Props = {
   paintType: PaintType;
   consistency: PaintConsistency;
+  showTooltip?: boolean;
 };
 
-export const PaintConsistencyDescription: React.FC<Props> = ({paintType, consistency}: Props) => {
+export const PaintConsistencyDescription: React.FC<Props> = ({
+  paintType,
+  consistency,
+  showTooltip = true,
+}: Props) => {
   const {
     token: {colorTextTertiary},
   } = theme.useToken();
@@ -80,9 +85,11 @@ export const PaintConsistencyDescription: React.FC<Props> = ({paintType, consist
     CONSISTENCIES[paintType] && (
       <Space size="small">
         {CONSISTENCIES[paintType].labelRender(consistency)}
-        <Tooltip title={CONSISTENCIES[paintType].tooltip}>
-          <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
-        </Tooltip>
+        {showTooltip && (
+          <Tooltip title={CONSISTENCIES[paintType].tooltip}>
+            <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
+          </Tooltip>
+        )}
       </Space>
     )
   );

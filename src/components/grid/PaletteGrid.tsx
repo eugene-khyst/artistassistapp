@@ -3,10 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {DatabaseOutlined, MinusOutlined} from '@ant-design/icons';
-import {Button, Col, Form, Popconfirm, Row, Select, Space} from 'antd';
+import {DatabaseOutlined, MinusOutlined, PrinterOutlined} from '@ant-design/icons';
+import {Button, Col, Flex, Form, Popconfirm, Row, Select, Space, Typography} from 'antd';
 import {DefaultOptionType as SelectOptionType} from 'antd/es/select';
-import {useState} from 'react';
+import {useRef, useState} from 'react';
+import {useReactToPrint} from 'react-to-print';
+import {PaintMixDescription} from '~/src/components/color/PaintMixDescription';
+import {PalettePaintMixCard} from '~/src/components/color/PalettePaintMixCard';
 import {
   PaintMix,
   PaintType,
@@ -15,7 +18,6 @@ import {
   comparePaintMixesByName,
 } from '~/src/services/color';
 import {RgbTuple} from '~/src/services/color/model';
-import {PalettePaintMixCard} from '~/src/components/color/PalettePaintMixCard';
 
 enum Sort {
   ByDataIndex = 1,
@@ -56,23 +58,30 @@ export const PaletteGrid: React.FC<Props> = ({
   showColorSwatch,
 }: Props) => {
   const [sort, setSort] = useState<Sort>(Sort.ByDataIndex);
+  const printRef = useRef<HTMLDivElement>(null);
 
   const handleDelteAllButtonClick = () => {
     deletePaintMixesByType(paintType);
   };
 
-  return !paintMixes ? null : (
+  const handlePrint = useReactToPrint({
+    content: () => printRef.current,
+  });
+
+  const sortedPaintMixes = paintMixes?.slice().sort(PAINT_MIXES_COMPARATORS[sort]);
+
+  return !sortedPaintMixes ? null : (
     <>
       <Space align="center" wrap style={{marginBottom: 16}}>
         <Button
           type="primary"
           icon={<DatabaseOutlined />}
-          onClick={() =>
-            paintMixes && showColorSwatch(paintMixes.slice().sort(PAINT_MIXES_COMPARATORS[sort]))
-          }
-          disabled={!paintMixes}
+          onClick={() => showColorSwatch(sortedPaintMixes)}
         >
           Color swatch
+        </Button>
+        <Button icon={<PrinterOutlined />} onClick={handlePrint}>
+          Print
         </Button>
         <Popconfirm
           title="Remove all color mixtures"
@@ -93,22 +102,33 @@ export const PaletteGrid: React.FC<Props> = ({
         </Form.Item>
       </Space>
       <Row gutter={[16, 16]} justify="start">
-        {paintMixes
-          .slice()
-          .sort(PAINT_MIXES_COMPARATORS[sort])
-          .map((paintMix: PaintMix) => (
-            <Col key={paintMix.id} xs={24} md={12} lg={8}>
-              <PalettePaintMixCard
-                paintMix={paintMix}
-                showShareModal={showShareModal}
-                setColorPicker={setColorPicker}
-                setAsBackground={setAsBackground}
-                savePaintMix={savePaintMix}
-                deletePaintMix={deletePaintMix}
-              />
-            </Col>
-          ))}
+        {sortedPaintMixes.map((paintMix: PaintMix) => (
+          <Col key={paintMix.id} xs={24} md={12} lg={8}>
+            <PalettePaintMixCard
+              paintMix={paintMix}
+              showShareModal={showShareModal}
+              setColorPicker={setColorPicker}
+              setAsBackground={setAsBackground}
+              savePaintMix={savePaintMix}
+              deletePaintMix={deletePaintMix}
+            />
+          </Col>
+        ))}
       </Row>
+      <div style={{display: 'none'}}>
+        <Flex ref={printRef} wrap="wrap" gap={32} justify="space-between">
+          {sortedPaintMixes.map((paintMix: PaintMix) => (
+            <span key={paintMix.id} style={{breakBefore: 'auto'}}>
+              <Space direction="vertical" size="small">
+                <Typography.Text style={{fontWeight: 'bold'}}>
+                  {paintMix.name || 'Color mixture'}
+                </Typography.Text>
+                <PaintMixDescription paintMix={paintMix} showTooltips={false} />
+              </Space>
+            </span>
+          ))}
+        </Flex>
+      </div>
     </>
   );
 };

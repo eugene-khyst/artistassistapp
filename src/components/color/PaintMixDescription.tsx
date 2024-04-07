@@ -15,6 +15,7 @@ type Props = {
   paintMix: PaintMix;
   showPaints?: boolean;
   showConsistency?: boolean;
+  showTooltips?: boolean;
   extra?: ReactNode;
 };
 
@@ -22,6 +23,7 @@ export const PaintMixDescription: React.FC<Props> = ({
   paintMix: {type: paintType, fractions, paintMixRgb, backgroundRgb, consistency, paintMixLayerRgb},
   showPaints = true,
   showConsistency = true,
+  showTooltips = true,
   extra,
 }: Props) => {
   const {
@@ -38,9 +40,11 @@ export const PaintMixDescription: React.FC<Props> = ({
                 <Typography.Text>
                   Ratio: {fractions.map(({fraction}: PaintFraction) => fraction).join(' : ')}
                 </Typography.Text>
-                <Tooltip title="The proportions in which to mix the colors.">
-                  <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
-                </Tooltip>
+                {showTooltips && (
+                  <Tooltip title="The proportions in which to mix the colors.">
+                    <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
+                  </Tooltip>
+                )}
               </Space>
             </Space>
           ) : (
@@ -65,7 +69,11 @@ export const PaintMixDescription: React.FC<Props> = ({
       )}
       {showConsistency && (
         <>
-          <PaintConsistencyDescription paintType={paintType} consistency={consistency} />
+          <PaintConsistencyDescription
+            paintType={paintType}
+            consistency={consistency}
+            showTooltip={showTooltips}
+          />
           {backgroundRgb && (
             <Space size="small">
               <ColorSquare color={paintMixRgb} size="large" />

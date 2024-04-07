@@ -170,7 +170,7 @@ export const ImageTonalValues: React.FC<Props> = ({
       <div style={{display: 'none'}}>
         <div ref={printRef}>
           {printImagesUrls.map((url: string, i: number) => (
-            <img key={i} src={url} style={{pageBreakAfter: 'always'}} />
+            <img key={i} src={url} style={{breakAfter: 'always'}} />
           ))}
         </div>
       </div>

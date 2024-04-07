@@ -45,3 +45,15 @@ svg.color-icon {
   line-height: 1em;
   letter-spacing: 1px;
 }
+
+@media print {
+  html,
+  body {
+    print-color-adjust: exact;
+  }
+}
+
+@page {
+  size: auto;
+  margin: 10mm;
+}
