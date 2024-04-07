@@ -72,7 +72,7 @@ export const PaletteGrid: React.FC<Props> = ({
 
   return !sortedPaintMixes ? null : (
     <>
-      <Space align="center" wrap style={{marginBottom: 16}}>
+      <Space align="start" wrap style={{marginBottom: 16}}>
         <Button
           type="primary"
           icon={<DatabaseOutlined />}
@@ -80,18 +80,20 @@ export const PaletteGrid: React.FC<Props> = ({
         >
           Color swatch
         </Button>
-        <Button icon={<PrinterOutlined />} onClick={handlePrint}>
-          Print
-        </Button>
-        <Popconfirm
-          title="Remove all color mixtures"
-          description="Are you sure you want to remove all color mixtures?"
-          onConfirm={handleDelteAllButtonClick}
-          okText="Yes"
-          cancelText="No"
-        >
-          <Button icon={<MinusOutlined />}>Remove all</Button>
-        </Popconfirm>
+        <Space.Compact block style={{display: 'flex', justifyContent: 'flex-end'}}>
+          <Button icon={<PrinterOutlined />} onClick={handlePrint}>
+            Print
+          </Button>
+          <Popconfirm
+            title="Remove all color mixtures"
+            description="Are you sure you want to remove all color mixtures?"
+            onConfirm={handleDelteAllButtonClick}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button icon={<MinusOutlined />}>Remove all</Button>
+          </Popconfirm>
+        </Space.Compact>
         <Form.Item label="Sort" style={{marginBottom: 0}}>
           <Select
             value={sort}
