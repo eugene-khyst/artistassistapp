@@ -11,14 +11,14 @@ import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
 import {useCreateImageBitmap} from '~/src/hooks/useCreateImageBitmap';
 import {ZoomableImageCanvas} from '~/src/services/canvas/image';
 import {Paint, PaintSet} from '~/src/services/color';
-import {PrimaryColors} from '~/src/services/image';
+import {LimitedPalette} from '~/src/services/image';
 import {PaintCascader} from './color/PaintCascader';
 import {EmptyPaintSet} from './empty/EmptyPaintSet';
 
 const MAX_COLORS = 5;
 
-const primaryColors: Remote<PrimaryColors> = wrap(
-  new Worker(new URL('../services/image/worker/primary-colors-worker.ts', import.meta.url), {
+const limitedPalette: Remote<LimitedPalette> = wrap(
+  new Worker(new URL('../services/image/worker/limited-palette-worker.ts', import.meta.url), {
     type: 'module',
   })
 );
@@ -30,7 +30,7 @@ type Props = {
   isImagesLoading: boolean;
 };
 
-export const ImagePrimaryColors: React.FC<Props> = ({
+export const ImageLimitedPalette: React.FC<Props> = ({
   paintSet,
   blob,
   images: original,
@@ -41,24 +41,19 @@ export const ImagePrimaryColors: React.FC<Props> = ({
   const [colors, setColors] = useState<(string | number)[][]>([]);
   const [limitedPaintSet, setLimitedPaintSet] = useState<PaintSet | undefined>();
 
-  const primaryColorsBlobToImageBitmapsConverter = useMemo(
+  const limitedPaletteBlobToImageBitmapsConverter = useMemo(
     () =>
-      async (blob: Blob): Promise<ImageBitmap[]> => {
-        if (!limitedPaintSet) {
-          return [];
-        }
-        const {preview} = await primaryColors.getPreview(blob, limitedPaintSet);
-        return preview ? [preview] : [];
-      },
+      async (blob: Blob): Promise<ImageBitmap[]> =>
+        limitedPaintSet ? [(await limitedPalette.getPreview(blob, limitedPaintSet)).preview] : [],
     [limitedPaintSet]
   );
 
   const {images: preview, isLoading: isPreviewLoading} = useCreateImageBitmap(
-    primaryColorsBlobToImageBitmapsConverter,
+    limitedPaletteBlobToImageBitmapsConverter,
     blob
   );
 
-  const {ref: primaryColorsCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
+  const {ref: limitedPaletteCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
     preview
   );
@@ -144,7 +139,7 @@ export const ImagePrimaryColors: React.FC<Props> = ({
       </div>
       <Row>
         <Col xs={24} sm={12}>
-          <canvas ref={primaryColorsCanvasRef} style={{width: '100%', height}} />
+          <canvas ref={limitedPaletteCanvasRef} style={{width: '100%', height}} />
         </Col>
         <Col xs={24} sm={12}>
           <canvas ref={originalCanvasRef} style={{width: '100%', height}} />

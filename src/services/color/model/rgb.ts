@@ -23,6 +23,14 @@ export function unlinearizeRgbChannel(value: number): number {
   return Math.round(255 * (v <= 0.0031308 ? 12.92 * v : 1.055 * Math.pow(v, 1 / 2.4) - 0.055));
 }
 
+export function getLuminance(r: number, g: number, b: number): number {
+  const lr = linearizeRgbChannel(r);
+  const lg = linearizeRgbChannel(g);
+  const lb = linearizeRgbChannel(b);
+  const y = 0.2126729 * lr + 0.7151522 * lg + 0.072175 * lb;
+  return y;
+}
+
 export type RgbTuple = [r: number, g: number, b: number];
 
 export class Rgb {

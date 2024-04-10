@@ -12,6 +12,7 @@ export enum TabKey {
   Palette = 'palette',
   TonalValues = 'tonal-values',
   SimplifiedPhoto = 'simplified',
+  Outline = 'outline',
   Grid = 'grid',
   ColorMixing = 'color-mixing',
   LimitedPalette = 'limited-palette',

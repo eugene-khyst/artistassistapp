@@ -4,6 +4,6 @@
  */
 
 import * as Comlink from 'comlink';
-import {Sketch} from '..';
+import {LimitedPalette} from '..';
 
-Comlink.expose(new Sketch());
+Comlink.expose(new LimitedPalette());

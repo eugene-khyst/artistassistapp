@@ -5,14 +5,6 @@
 
 import {Lab, Rgb, linearizeRgbChannel as linearize, unlinearizeRgbChannel as unlinearize} from '.';
 
-export function getLuminance(r: number, g: number, b: number): number {
-  const lr = linearize(r);
-  const lg = linearize(g);
-  const lb = linearize(b);
-  const y = 0.2126729 * lr + 0.7151522 * lg + 0.072175 * lb;
-  return y;
-}
-
 export class Xyz {
   constructor(
     public x: number,

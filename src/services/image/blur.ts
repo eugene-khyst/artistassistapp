@@ -4,17 +4,17 @@
  */
 
 import {transfer} from 'comlink';
-import {medianFilter} from '.';
 import {IMAGE_SIZE, createScaledImageBitmap, imageBitmapToOffscreenCanvas} from '~/src/utils';
+import {medianFilter} from './median-filter';
 
 interface Result {
-  sketches: ImageBitmap[];
+  blurred: ImageBitmap[];
 }
 
-export class Sketch {
-  async getSketches(blob: Blob, medianFilterRadiuses: number[] = [0, 2, 3, 4]): Promise<Result> {
+export class Blur {
+  async getBlurred(blob: Blob, medianFilterRadiuses: number[] = [0, 2, 3, 4]): Promise<Result> {
     if (process.env.NODE_ENV !== 'production') {
-      console.time('sketches');
+      console.time('blur');
     }
     const image: ImageBitmap = await createScaledImageBitmap(blob, IMAGE_SIZE.HD);
     const maxMedianFilterRadius: number = Math.max(...medianFilterRadiuses);
@@ -22,12 +22,12 @@ export class Sketch {
     const imageData: ImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     image.close();
     const {data: origData, width, height} = imageData;
-    const sketches: ImageBitmap[] = await Promise.all(
+    const blurred: ImageBitmap[] = await Promise.all(
       medianFilterRadiuses.map((medianFilterRadius: number): Promise<ImageBitmap> => {
-        const sketchImageData = new ImageData(new Uint8ClampedArray(origData), width, height);
-        medianFilter(sketchImageData, medianFilterRadius, 3);
+        const blurredImageData = new ImageData(new Uint8ClampedArray(origData), width, height);
+        medianFilter(blurredImageData, medianFilterRadius, 3);
         ctx.clearRect(0, 0, width, height);
-        ctx.putImageData(sketchImageData, 0, 0);
+        ctx.putImageData(blurredImageData, 0, 0);
         const cropedImageData = ctx.getImageData(
           maxMedianFilterRadius,
           maxMedianFilterRadius,
@@ -38,8 +38,8 @@ export class Sketch {
       })
     );
     if (process.env.NODE_ENV !== 'production') {
-      console.timeEnd('sketches');
+      console.timeEnd('blur');
     }
-    return transfer({sketches}, sketches);
+    return transfer({blurred}, blurred);
   }
 }

@@ -5,15 +5,14 @@
 
 import {create2DArray, createArray, getIndexForCoord} from '~/src/utils';
 
-export function medianFilter(imageData: ImageData, radius: number, colors = 3): void {
-  if (colors !== 1 && colors !== 3) {
-    throw new Error('Colors must equal 1 or 3');
+export function medianFilter({data, width, height}: ImageData, radius: number, channels = 3): void {
+  if (channels !== 1 && channels !== 3) {
+    throw new Error('Channels must equal 1 or 3');
   }
   if (radius < 1) {
     return;
   }
-  const {data, width, height} = imageData;
-  const origData: Uint8ClampedArray = new Uint8ClampedArray(data);
+  const origData = new Uint8ClampedArray(data);
 
   const mask: boolean[][] = getMask(radius);
   const removedMask: boolean[][] = maskDifference(mask, 0, 1);
@@ -23,7 +22,7 @@ export function medianFilter(imageData: ImageData, radius: number, colors = 3): 
   const addedMaskIndexes: number[][] = maskToIndexes(addedMask);
   const median: number = getMedianFromMask(mask);
 
-  for (let c = 0; c < colors; c++) {
+  for (let c = 0; c < channels; c++) {
     for (let y = radius; y < height - radius; y++) {
       const hist: number[] = createArray(256, 0);
       maskIndexes.forEach(([j, i]) => {
@@ -39,7 +38,7 @@ export function medianFilter(imageData: ImageData, radius: number, colors = 3): 
         const v = getIndexInHistogram(hist, median);
         const index = getIndexForCoord(x, y, width, c);
         data[index] = v;
-        if (colors === 1) {
+        if (channels === 1) {
           data[index + 1] = v;
           data[index + 2] = v;
         }

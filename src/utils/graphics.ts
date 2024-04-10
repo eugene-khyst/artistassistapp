@@ -56,6 +56,6 @@ export function getRgbaForCoord(
   if (x > width) {
     throw new Error('x coordinate must be less than image width');
   }
-  const red = getIndexForCoord(x, y, width, 0);
-  return [data[red], data[red + 1], data[red + 2], data[red + 3]];
+  const index = getIndexForCoord(x, y, width, 0);
+  return [data[index], data[index + 1], data[index + 2], data[index + 3]];
 }

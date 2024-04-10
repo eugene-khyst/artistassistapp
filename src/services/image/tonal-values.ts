@@ -4,9 +4,9 @@
  */
 
 import {transfer} from 'comlink';
-import {medianFilter} from '.';
-import {IMAGE_SIZE, createScaledImageBitmap, imageBitmapToOffscreenCanvas} from '~/src/utils';
 import {getLightness, getLuminance} from '~/src/services/color/model';
+import {IMAGE_SIZE, createScaledImageBitmap, imageBitmapToOffscreenCanvas} from '~/src/utils';
+import {medianFilter} from './median-filter';
 
 interface Result {
   tones: ImageBitmap[];

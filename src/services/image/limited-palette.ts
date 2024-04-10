@@ -4,24 +4,24 @@
  */
 
 import {transfer} from 'comlink';
+import {ColorMixer, PAPER_WHITE_HEX, PaintSet} from '~/src/services/color';
+import {RgbTuple} from '~/src/services/color/model';
 import {
   IMAGE_SIZE,
   computeIfAbsentInMap,
   createScaledImageBitmap,
   imageBitmapToOffscreenCanvas,
 } from '~/src/utils';
-import {ColorMixer, PAPER_WHITE_HEX, PaintSet} from '~/src/services/color';
-import {RgbTuple} from '~/src/services/color/model';
 import {medianCutQuantization} from './median-cut';
 
 interface Result {
-  preview?: ImageBitmap;
+  preview: ImageBitmap;
 }
 
-export class PrimaryColors {
+export class LimitedPalette {
   async getPreview(blob: Blob, paintSet: PaintSet): Promise<Result> {
     if (process.env.NODE_ENV !== 'production') {
-      console.time('primary-colors');
+      console.time('limited-palette');
     }
     const colorMixer = new ColorMixer();
     await colorMixer.setBackground(PAPER_WHITE_HEX);
@@ -39,7 +39,7 @@ export class PrimaryColors {
     });
     const preview: ImageBitmap = await createImageBitmap(imageData);
     if (process.env.NODE_ENV !== 'production') {
-      console.timeEnd('primary-colors');
+      console.timeEnd('limited-palette');
     }
     return transfer({preview}, [preview]);
   }

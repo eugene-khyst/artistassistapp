@@ -4,6 +4,6 @@
  */
 
 import * as Comlink from 'comlink';
-import {PrimaryColors} from '..';
+import {Outline} from '..';
 
-Comlink.expose(new PrimaryColors());
+Comlink.expose(new Outline());

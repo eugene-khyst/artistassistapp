@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export * from './median-filter';
-export * from './sketch';
+export * from './outline';
+export * from './blur';
 export * from './tonal-values';
-export * from './primary-colors';
+export * from './limited-palette';

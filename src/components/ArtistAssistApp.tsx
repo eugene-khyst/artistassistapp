@@ -9,6 +9,7 @@ import {App, Col, FloatButton, Row, Tabs, theme} from 'antd';
 import {useCallback, useContext, useEffect, useRef, useState} from 'react';
 import StickyBox from 'react-sticky-box';
 import {useEventListener, useTimeout} from 'usehooks-ts';
+import {ImageOutline} from '~/src/components/ImageOutline';
 import {AppConfig, AppConfigContext} from '~/src/context/AppConfigContext';
 import {useAds} from '~/src/hooks/useAds';
 import {useCreateImageBitmap} from '~/src/hooks/useCreateImageBitmap';
@@ -29,11 +30,11 @@ import {
 } from '~/src/services/db';
 import {IMAGE_SIZE, createScaledImageBitmap} from '~/src/utils';
 import {Help} from './Help';
+import {ImageBlurred} from './ImageBlurred';
 import {ImageColorPicker} from './ImageColorPicker';
 import {ImageGrid} from './ImageGrid';
-import {ImagePrimaryColors} from './ImagePrimaryColors';
+import {ImageLimitedPalette} from './ImageLimitedPalette';
 import {ImageSelect} from './ImageSelect';
-import {ImageSketch} from './ImageSketch';
 import {ImageTonalValues} from './ImageTonalValues';
 import {PaintMixer} from './PaintMixer';
 import {PaintSetSelect} from './PaintSetSelect';
@@ -233,8 +234,13 @@ export const ArtistAssistApp: React.FC = () => {
     {
       key: TabKey.SimplifiedPhoto,
       label: 'Simplified',
-      children: <ImageSketch blob={blob} />,
+      children: <ImageBlurred blob={blob} />,
       forceRender: true,
+    },
+    {
+      key: TabKey.Outline,
+      label: 'Outline',
+      children: <ImageOutline blob={blob} />,
     },
     {
       key: TabKey.Grid,
@@ -257,7 +263,7 @@ export const ArtistAssistApp: React.FC = () => {
       key: TabKey.LimitedPalette,
       label: 'Limited palette',
       children: (
-        <ImagePrimaryColors
+        <ImageLimitedPalette
           paintSet={paintSet}
           blob={blob}
           images={images}

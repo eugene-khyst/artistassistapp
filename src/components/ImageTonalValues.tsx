@@ -18,13 +18,12 @@ import {
   Spin,
 } from 'antd';
 import {Remote, wrap} from 'comlink';
-import {useEffect, useRef, useState} from 'react';
-import {useReactToPrint} from 'react-to-print';
+import {useEffect, useState} from 'react';
 import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
 import {useCreateImageBitmap} from '~/src/hooks/useCreateImageBitmap';
+import {usePrintImages} from '~/src/hooks/usePrintImages';
 import {ZoomableImageCanvas} from '~/src/services/canvas/image';
 import {TonalValues} from '~/src/services/image';
-import {imageBitmapToOffscreenCanvas} from '~/src/utils';
 import {EmptyImage} from './empty/EmptyImage';
 
 const tonalValues: Remote<TonalValues> = wrap(
@@ -41,10 +40,8 @@ const TONES_OPTIONS: CheckboxOptionType[] = [
 const THRESHOLDS = [75, 50, 25];
 const MEDIAN_FILTER_RADIUS = 3;
 
-const tonalValuesBlobToImageBitmapsConverter = async (blob: Blob): Promise<ImageBitmap[]> => {
-  const {tones} = await tonalValues.getTones(blob, THRESHOLDS, MEDIAN_FILTER_RADIUS);
-  return tones;
-};
+const tonalValuesBlobToImageBitmapsConverter = async (blob: Blob): Promise<ImageBitmap[]> =>
+  (await tonalValues.getTones(blob, THRESHOLDS, MEDIAN_FILTER_RADIUS)).tones;
 
 type Props = {
   blob?: Blob;
@@ -59,13 +56,13 @@ export const ImageTonalValues: React.FC<Props> = ({
 }: Props) => {
   const screens = Grid.useBreakpoint();
 
-  const {images: tonalValues, isLoading: isTonalValuesLoading} = useCreateImageBitmap(
+  const {images: tonalValueImages, isLoading: isTonalValuesLoading} = useCreateImageBitmap(
     tonalValuesBlobToImageBitmapsConverter,
     blob
   );
 
   const {ref: tonalValuesCanvasRef, zoomableImageCanvas: tonalValuesZoomableImageCanvas} =
-    useZoomableImageCanvas<ZoomableImageCanvas>(zoomableImageCanvasSupplier, tonalValues);
+    useZoomableImageCanvas<ZoomableImageCanvas>(zoomableImageCanvasSupplier, tonalValueImages);
 
   const {ref: originalCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
@@ -74,47 +71,17 @@ export const ImageTonalValues: React.FC<Props> = ({
 
   const [tonalValuesImageIndex, setTonalValuesImageIndex] = useState<number>(0);
 
-  const printRef = useRef<HTMLDivElement>(null);
-  const promiseResolveRef = useRef<any>(null);
-  const [printImagesUrls, setPrintImagesUrls] = useState<string[]>([]);
-
   const isLoading: boolean = isTonalValuesLoading || isOriginalLoading;
 
   useEffect(() => {
     tonalValuesZoomableImageCanvas?.setImageIndex(tonalValuesImageIndex);
   }, [tonalValuesZoomableImageCanvas, tonalValuesImageIndex]);
 
-  useEffect(() => {
-    if (printImagesUrls.length && promiseResolveRef.current) {
-      promiseResolveRef.current();
-    }
-  }, [printImagesUrls]);
+  const {ref: printRef, printImagesUrls, handlePrint} = usePrintImages(tonalValueImages);
 
   const handleTonalValueChange = (e: RadioChangeEvent) => {
     setTonalValuesImageIndex(e.target.value);
   };
-
-  const handlePrint = useReactToPrint({
-    content: () => printRef.current,
-    onBeforeGetContent: async () => {
-      const blobs = await Promise.all(
-        tonalValues.map((image: ImageBitmap): Promise<Blob> => {
-          const [canvas] = imageBitmapToOffscreenCanvas(image);
-          return canvas.convertToBlob();
-        })
-      );
-      return await new Promise<void>(resolve => {
-        promiseResolveRef.current = resolve;
-        const urls: string[] = blobs.map((blob: Blob): string => URL.createObjectURL(blob));
-        setPrintImagesUrls(urls);
-      });
-    },
-    onAfterPrint: () => {
-      promiseResolveRef.current = null;
-      printImagesUrls.forEach((url: string) => URL.revokeObjectURL(url));
-      setPrintImagesUrls([]);
-    },
-  });
 
   const items: MenuProps['items'] = [
     {

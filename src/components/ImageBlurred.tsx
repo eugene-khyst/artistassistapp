@@ -9,11 +9,11 @@ import {useEffect, useState} from 'react';
 import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
 import {useCreateImageBitmap} from '~/src/hooks/useCreateImageBitmap';
 import {ZoomableImageCanvas} from '~/src/services/canvas/image';
-import {Sketch} from '~/src/services/image';
+import {Blur} from '~/src/services/image';
 import {EmptyImage} from './empty/EmptyImage';
 
-const sketch: Remote<Sketch> = wrap(
-  new Worker(new URL('../services/image/worker/sketch-worker.ts', import.meta.url), {
+const blur: Remote<Blur> = wrap(
+  new Worker(new URL('../services/image/worker/blur-worker.ts', import.meta.url), {
     type: 'module',
   })
 );
@@ -26,18 +26,16 @@ const MEDIAN_FILTER_RADIUS_OPTIONS: CheckboxOptionType<number>[] = [
 ];
 const MEDIAN_FILTER_RADIUSES = [0, 2, 3, 4];
 
-const DEFAULT_SKETCH_IMAGE_INDEX = 1;
+const DEFAULT_BLURRED_IMAGE_INDEX = 1;
 
-const blobToImageBitmapsConverter = async (blob: Blob): Promise<ImageBitmap[]> => {
-  const {sketches} = await sketch.getSketches(blob, MEDIAN_FILTER_RADIUSES);
-  return sketches;
-};
+const blobToImageBitmapsConverter = async (blob: Blob): Promise<ImageBitmap[]> =>
+  (await blur.getBlurred(blob, MEDIAN_FILTER_RADIUSES)).blurred;
 
 type Props = {
   blob?: Blob;
 };
 
-export const ImageSketch: React.FC<Props> = ({blob}: Props) => {
+export const ImageBlurred: React.FC<Props> = ({blob}: Props) => {
   const {images, isLoading} = useCreateImageBitmap(blobToImageBitmapsConverter, blob);
 
   const {ref: canvasRef, zoomableImageCanvas} = useZoomableImageCanvas<ZoomableImageCanvas>(
@@ -45,14 +43,14 @@ export const ImageSketch: React.FC<Props> = ({blob}: Props) => {
     images
   );
 
-  const [sketchImageIndex, setSketchImageIndex] = useState<number>(DEFAULT_SKETCH_IMAGE_INDEX);
+  const [blurredImageIndex, setBlurredImageIndex] = useState<number>(DEFAULT_BLURRED_IMAGE_INDEX);
 
   useEffect(() => {
-    zoomableImageCanvas?.setImageIndex(sketchImageIndex);
-  }, [zoomableImageCanvas, sketchImageIndex]);
+    zoomableImageCanvas?.setImageIndex(blurredImageIndex);
+  }, [zoomableImageCanvas, blurredImageIndex]);
 
   const handleBlurChange = (e: RadioChangeEvent) => {
-    setSketchImageIndex(e.target.value);
+    setBlurredImageIndex(e.target.value);
   };
 
   if (!blob) {
@@ -73,7 +71,7 @@ export const ImageSketch: React.FC<Props> = ({blob}: Props) => {
         >
           <Radio.Group
             options={MEDIAN_FILTER_RADIUS_OPTIONS}
-            value={sketchImageIndex}
+            value={blurredImageIndex}
             onChange={handleBlurChange}
             optionType="button"
             buttonStyle="solid"
