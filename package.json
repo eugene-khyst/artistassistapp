@@ -11,7 +11,7 @@
     "format": "prettier --write src",
     "lint": "eslint src",
     "lint:fix": "npm run lint -- --fix",
-    "check": "tsc --noEmit -p ./src/tsconfig.json",
+    "check": "tsc --noEmit -p ./src/tsconfig.json && npm run validate-sets",
     "test": "npm run lint && npm run check",
     "prepare": "husky"
   },
