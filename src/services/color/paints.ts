@@ -120,8 +120,8 @@ export interface PaintBrandDefinition {
 
 export const PAINT_TYPES = new Map<PaintType, PaintTypeDefinition>([
   [PaintType.WatercolorPaint, {name: 'Watercolor paint', dir: 'watercolor-paint'}],
-  [PaintType.OilPaint, {name: 'Oil paint', dir: 'oil-paint'}],
   [PaintType.AcrylicPaint, {name: 'Acrylic paint', dir: 'acrylic-paint'}],
+  [PaintType.OilPaint, {name: 'Oil paint', dir: 'oil-paint'}],
   [PaintType.ColoredPencils, {name: 'Colored pencils', dir: 'colored-pencils'}],
   [PaintType.WatercolorPencils, {name: 'Watercolor pencils', dir: 'watercolor-pencils'}],
 ]);
