@@ -192,8 +192,8 @@ export const PaintSetSelect: React.FC<Props> = ({
           <Col xs={24} md={12} lg={14}>
             <Space direction="vertical" size="small">
               <Typography.Text>
-                <strong>ArtistAssistApp</strong> is a painting assistant tool that allows you to see
-                the reference more clearly and mix colors more accurately.
+                <strong>ArtistAssistApp</strong> is a painting and drawing assistant web app that
+                allows you to see the reference more clearly and mix colors more accurately.
               </Typography.Text>
               <Space size="small">
                 <ConfigProvider
