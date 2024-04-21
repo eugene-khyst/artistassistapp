@@ -334,7 +334,7 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
       [
         PaintBrand.GoldenQoR,
         {
-          fullName: 'Golden QoR',
+          fullName: 'QoR Artist Watercolors',
           shortName: 'QoR',
           idFormat: {
             show: false,
