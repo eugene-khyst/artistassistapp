@@ -27,6 +27,7 @@ const URL_PARAM_SEPARATOR = '_';
 const SKU_BASE = new Map<PaintBrand, number>([
   [PaintBrand.DanielSmithExtraFine, 284600000],
   [PaintBrand.DanielSmithPrimaTek, 284600000],
+  [PaintBrand.DanielSmithPrimaTek, 7000000],
 ]);
 
 export interface UrlParsingResult {

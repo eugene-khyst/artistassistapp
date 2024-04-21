@@ -59,6 +59,7 @@ export enum PaintBrand {
   GoldenHeavyBody = 41,
   GoldenOpen = 42,
   GoldenSoflat = 43,
+  GoldenQoR = 44,
 }
 
 export enum PaintOpacity {
@@ -328,6 +329,17 @@ export const PAINT_BRANDS = new Map<PaintType, Map<PaintBrand, PaintBrandDefinit
             padLength: 3,
           },
           dir: 'roman-szmal',
+        },
+      ],
+      [
+        PaintBrand.GoldenQoR,
+        {
+          fullName: 'Golden QoR',
+          shortName: 'QoR',
+          idFormat: {
+            show: false,
+          },
+          dir: 'golden-qor',
         },
       ],
     ]),

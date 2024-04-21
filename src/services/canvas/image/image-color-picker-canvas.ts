@@ -16,6 +16,7 @@ import {Rectangle, Vector, clamp} from '~/src/services/math';
 
 export const MIN_COLOR_PICKER_DIAMETER = 1;
 export const MAX_COLOR_PICKER_DIAMETER = 100;
+const LINE_WIDTH = 2;
 
 export enum ColorPickerEventType {
   PipetPointSet = 'pipetpointset',
@@ -72,7 +73,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
   private drawPipet(): void {
     if (this.pipetPoint) {
       const pipetDiameter = this.lastPipetDiameter;
-      const lineWidth = 2 / this.zoom;
+      const lineWidth = LINE_WIDTH / this.zoom;
       const cursorDiameter =
         this.cursorDiameter > pipetDiameter ? this.cursorDiameter : pipetDiameter + 2;
       const ctx: CanvasRenderingContext2D = this.context;
@@ -86,10 +87,19 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
         isDarkToggle = !isDarkToggle;
       }
       ctx.strokeStyle = isDark ? '#fff' : '#000';
-      ctx.beginPath();
-      ctx.arc(this.pipetPoint.x, this.pipetPoint.y, pipetDiameter / 2, 0, 2 * Math.PI);
+      this.drawCircle(this.pipetPoint, pipetDiameter / 2);
       ctx.stroke();
+      if (pipetDiameter > 1) {
+        this.drawCircle(this.pipetPoint, LINE_WIDTH / this.zoom);
+        ctx.fill();
+      }
     }
+  }
+
+  private drawCircle(center: Vector, radius: number): void {
+    const ctx: CanvasRenderingContext2D = this.context;
+    ctx.beginPath();
+    ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
   }
 
   protected override onImageDrawn(): void {
