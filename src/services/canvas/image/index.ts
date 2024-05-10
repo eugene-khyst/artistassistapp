@@ -3,5 +3,5 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export * from './zoomable-image-canvas';
 export * from './image-color-picker-canvas';
+export * from './zoomable-image-canvas';

@@ -5,28 +5,24 @@
 
 import {DatabaseOutlined, MinusOutlined, PrinterOutlined} from '@ant-design/icons';
 import {Button, Col, Flex, Form, Popconfirm, Row, Select, Space, Typography} from 'antd';
-import {DefaultOptionType as SelectOptionType} from 'antd/es/select';
+import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useRef, useState} from 'react';
 import {useReactToPrint} from 'react-to-print';
-import {PaintMixDescription} from '~/src/components/color/PaintMixDescription';
-import {PalettePaintMixCard} from '~/src/components/color/PalettePaintMixCard';
-import {
-  PaintMix,
-  PaintType,
-  Pipet,
-  comparePaintMixesByDataIndex,
-  comparePaintMixesByName,
-} from '~/src/services/color';
-import {RgbTuple} from '~/src/services/color/model';
+
+import {ColorMixtureDescription} from '~/src/components/color/ColorMixtureDescription';
+import {PaletteColorMixtureCard} from '~/src/components/color/PaletteColorMixtureCard';
+import type {ColorMixture, ColorType} from '~/src/services/color';
+import {compareColorMixturesByName, compareColorMixturesByTimestamp} from '~/src/services/color';
+import {useAppStore} from '~/src/stores/app-store';
 
 enum Sort {
   ByDataIndex = 1,
   ByName = 2,
 }
 
-const PAINT_MIXES_COMPARATORS = {
-  [Sort.ByDataIndex]: comparePaintMixesByDataIndex,
-  [Sort.ByName]: comparePaintMixesByName,
+const COLOR_MIXTURES_COMPARATORS = {
+  [Sort.ByDataIndex]: compareColorMixturesByTimestamp,
+  [Sort.ByName]: compareColorMixturesByName,
 };
 
 const SORT_OPTIONS: SelectOptionType[] = [
@@ -35,48 +31,36 @@ const SORT_OPTIONS: SelectOptionType[] = [
 ];
 
 type Props = {
-  paintType: PaintType;
-  paintMixes?: PaintMix[];
-  savePaintMix: (paintMix: PaintMix, isNew?: boolean) => void;
-  deletePaintMix: (paintMixId: string) => void;
-  deletePaintMixesByType: (paintType: PaintType) => void;
-  showShareModal: (paintMix: PaintMix) => void;
-  setColorPicker: (pipet?: Pipet) => void;
-  setAsBackground: (background: string | RgbTuple) => void;
-  showColorSwatch: (paintMixes: PaintMix[]) => void;
+  colorType: ColorType;
+  colorMixtures?: ColorMixture[];
+  showShareModal: (colorMixture: ColorMixture) => void;
+  showColorSwatch: (colorMixture: ColorMixture[]) => void;
 };
 
 export const PaletteGrid: React.FC<Props> = ({
-  paintType,
-  paintMixes,
-  savePaintMix,
-  deletePaintMix,
-  deletePaintMixesByType,
+  colorType,
+  colorMixtures,
   showShareModal,
-  setColorPicker,
-  setAsBackground,
   showColorSwatch,
 }: Props) => {
+  const deleteAllFromPalette = useAppStore(state => state.deleteAllFromPalette);
+
   const [sort, setSort] = useState<Sort>(Sort.ByDataIndex);
   const printRef = useRef<HTMLDivElement>(null);
-
-  const handleDelteAllButtonClick = () => {
-    deletePaintMixesByType(paintType);
-  };
 
   const handlePrint = useReactToPrint({
     content: () => printRef.current,
   });
 
-  const sortedPaintMixes = paintMixes?.slice().sort(PAINT_MIXES_COMPARATORS[sort]);
+  const sortedColorMixtures = colorMixtures?.slice().sort(COLOR_MIXTURES_COMPARATORS[sort]);
 
-  return !sortedPaintMixes ? null : (
+  return !sortedColorMixtures ? null : (
     <>
       <Space align="start" wrap style={{marginBottom: 16}}>
         <Button
           type="primary"
           icon={<DatabaseOutlined />}
-          onClick={() => showColorSwatch(sortedPaintMixes)}
+          onClick={() => showColorSwatch(sortedColorMixtures)}
         >
           Color swatch
         </Button>
@@ -87,7 +71,7 @@ export const PaletteGrid: React.FC<Props> = ({
           <Popconfirm
             title="Remove all color mixtures"
             description="Are you sure you want to remove all color mixtures?"
-            onConfirm={handleDelteAllButtonClick}
+            onConfirm={() => void deleteAllFromPalette(colorType)}
             okText="Yes"
             cancelText="No"
           >
@@ -104,28 +88,21 @@ export const PaletteGrid: React.FC<Props> = ({
         </Form.Item>
       </Space>
       <Row gutter={[16, 16]} justify="start">
-        {sortedPaintMixes.map((paintMix: PaintMix) => (
-          <Col key={paintMix.id} xs={24} md={12} lg={8}>
-            <PalettePaintMixCard
-              paintMix={paintMix}
-              showShareModal={showShareModal}
-              setColorPicker={setColorPicker}
-              setAsBackground={setAsBackground}
-              savePaintMix={savePaintMix}
-              deletePaintMix={deletePaintMix}
-            />
+        {sortedColorMixtures.map((colorMixture: ColorMixture) => (
+          <Col key={colorMixture.key} xs={24} md={12} lg={8}>
+            <PaletteColorMixtureCard colorMixture={colorMixture} showShareModal={showShareModal} />
           </Col>
         ))}
       </Row>
       <div style={{display: 'none'}}>
         <Flex ref={printRef} wrap="wrap" gap={32} justify="space-between">
-          {sortedPaintMixes.map((paintMix: PaintMix) => (
-            <span key={paintMix.id} style={{breakBefore: 'auto'}}>
+          {sortedColorMixtures.map((colorMixture: ColorMixture) => (
+            <span key={colorMixture.key} style={{breakBefore: 'auto'}}>
               <Space direction="vertical" size="small">
                 <Typography.Text style={{fontWeight: 'bold'}}>
-                  {paintMix.name || 'Color mixture'}
+                  {colorMixture.name || 'Color mixture'}
                 </Typography.Text>
-                <PaintMixDescription paintMix={paintMix} showTooltips={false} />
+                <ColorMixtureDescription colorMixture={colorMixture} showTooltips={false} />
               </Space>
             </span>
           ))}

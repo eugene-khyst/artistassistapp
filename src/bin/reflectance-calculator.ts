@@ -3,11 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {readFileSync, readdirSync, statSync, writeFileSync} from 'fs';
-import {PaintOpacity, PaintRecord} from '~/src/services/color';
-import {Rgb} from '~/src/services/color/model';
+import {readdirSync, readFileSync, statSync, writeFileSync} from 'fs';
 
-interface PaintSource {
+import type {ColorRecord} from '~/src/services/color';
+import {ColorOpacity} from '~/src/services/color';
+import {Rgb} from '~/src/services/color/space';
+
+interface ColorDefinition {
   id: number;
   name: string;
   hex: string;
@@ -20,15 +22,16 @@ const TARGET_SUFFIX = '.json';
 function processFile(srcFilePath: string) {
   console.log('Processing source file', srcFilePath);
   let data: string = readFileSync(srcFilePath, 'utf8');
-  const paints = JSON.parse(data);
+  const colors = JSON.parse(data) as ColorDefinition[];
   data = JSON.stringify(
-    paints.map(
-      ({id, name, hex, opacity}: PaintSource): PaintRecord => [
+    colors.map(
+      ({id, name, hex, opacity}: ColorDefinition): ColorRecord => [
         id,
         name,
         hex,
         Rgb.fromHex(hex).toReflectance().toArray(),
-        opacity ?? PaintOpacity.SemiTransparent,
+        opacity ??
+          (srcFilePath.includes('pencils') ? ColorOpacity.SemiTransparent : ColorOpacity.Opaque),
       ]
     ),
     null,

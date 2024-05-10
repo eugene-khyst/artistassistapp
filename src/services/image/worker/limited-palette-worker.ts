@@ -4,6 +4,7 @@
  */
 
 import * as Comlink from 'comlink';
+
 import {LimitedPalette} from '..';
 
 Comlink.expose(new LimitedPalette());

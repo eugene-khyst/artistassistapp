@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {RefObject, useEffect, useRef, useState} from 'react';
+import type {RefObject} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useReactToPrint} from 'react-to-print';
+
 import {imageBitmapToOffscreenCanvas} from '~/src/utils';
 
 interface Result {
@@ -13,9 +15,9 @@ interface Result {
   handlePrint: () => void;
 }
 
-export function usePrintImages(images: ImageBitmap[]): Result {
+export function usePrintImages(image: (ImageBitmap | null) | ImageBitmap[]): Result {
   const ref = useRef<HTMLDivElement>(null);
-  const promiseResolveRef = useRef<any>(null);
+  const promiseResolveRef = useRef<((value: void | PromiseLike<void>) => void) | null>(null);
   const [printImagesUrls, setPrintImagesUrls] = useState<string[]>([]);
 
   useEffect(() => {
@@ -27,11 +29,14 @@ export function usePrintImages(images: ImageBitmap[]): Result {
   const handlePrint = useReactToPrint({
     content: () => ref.current,
     onBeforeGetContent: async () => {
-      const blobs = await Promise.all(
-        images.map((image: ImageBitmap): Promise<Blob> => {
-          const [canvas] = imageBitmapToOffscreenCanvas(image);
-          return canvas.convertToBlob();
-        })
+      const blobs: Blob[] = await Promise.all(
+        [image]
+          .flat()
+          .filter((image: ImageBitmap | null): image is ImageBitmap => !!image)
+          .map((image: ImageBitmap): Promise<Blob> => {
+            const [canvas] = imageBitmapToOffscreenCanvas(image);
+            return canvas.convertToBlob();
+          })
       );
       return await new Promise<void>(resolve => {
         promiseResolveRef.current = resolve;

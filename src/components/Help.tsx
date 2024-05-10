@@ -12,10 +12,11 @@ import {
   MailOutlined,
   ReadOutlined,
 } from '@ant-design/icons';
-import {Button, Col, Row, Space, Typography, theme} from 'antd';
-import {useContext} from 'react';
-import {AppConfig, AppConfigContext} from '~/src/context/AppConfigContext';
+import {Button, Col, Row, Space, theme, Typography} from 'antd';
+
+import {appConfig} from '~/src/config';
 import {prettyUserAgent} from '~/src/utils/user-agent';
+
 import {Logo} from './image/Logo';
 
 export const Help: React.FC = () => {
@@ -23,7 +24,7 @@ export const Help: React.FC = () => {
     token: {fontSizeSM, colorTextSecondary},
   } = theme.useToken();
 
-  const {websiteUrl} = useContext<AppConfig>(AppConfigContext);
+  const {websiteUrl} = appConfig;
 
   return (
     <div style={{padding: '0 16px 8px'}}>

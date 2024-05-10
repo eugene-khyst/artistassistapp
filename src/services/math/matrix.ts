@@ -35,7 +35,7 @@ export function backwardSubstitution(matrix: Matrix, b: number[]): number[] {
 
 export function lowerUpperDecomposition(matrix: Matrix): {l: Matrix; u: Matrix; p: number[]} {
   if (matrix.rows != matrix.cols) {
-    throw new Error(`The matrix must be square: ${matrix.getDimension()}`);
+    throw new Error(`The matrix must be square: ${matrix.getDimension().join(',')}`);
   }
   const size: number = matrix.cols;
   const lu: number[][] = matrix.copy().getElements();
@@ -229,7 +229,7 @@ export class Matrix {
   concatRows(matrix: Matrix): Matrix {
     if (this.cols != matrix.cols) {
       throw new Error(
-        `The number of columns in the matrices must be equal: ${this.getDimension()}, ${matrix.getDimension()}`
+        `The number of columns in the matrices must be equal: ${this.getDimension().join(',')}, ${matrix.getDimension().join(',')}`
       );
     }
     return new Matrix(this.getElements().concat(matrix.getElements()));
@@ -238,7 +238,7 @@ export class Matrix {
   concatColumns(matrix: Matrix): Matrix {
     if (this.rows != matrix.rows) {
       throw new Error(
-        `The number of rows in the matrices must be equal: ${this.getDimension()}, ${matrix.getDimension()}`
+        `The number of rows in the matrices must be equal: ${this.getDimension().join(',')}, ${matrix.getDimension().join(',')}`
       );
     }
     const elements: number[][] = [];
@@ -259,7 +259,7 @@ export class Matrix {
   mergeWith(matrix: Matrix, fn: (a: number, b: number) => number): Matrix {
     if (this.rows != matrix.rows || this.cols != matrix.cols) {
       throw new Error(
-        `The dimensions of the matrices must be equal: ${this.getDimension()}, ${matrix.getDimension()}`
+        `The dimensions of the matrices must be equal: ${this.getDimension().join(',')}, ${matrix.getDimension().join(',')}`
       );
     }
     const result = create2DArray(this.rows, this.cols, 0);
@@ -286,7 +286,7 @@ export class Matrix {
   multiply(matrix: Matrix): Matrix {
     if (this.cols != matrix.rows) {
       throw new Error(
-        `The number of columns in the first matrix must be equal to the number of rows in the second matrix: ${this.getDimension()}, ${matrix.getDimension()}`
+        `The number of columns in the first matrix must be equal to the number of rows in the second matrix: ${this.getDimension().join(',')}, ${matrix.getDimension().join(',')}`
       );
     }
     const result = create2DArray(this.rows, matrix.cols, 0);
@@ -314,7 +314,7 @@ export class Matrix {
 
   inverse(): Matrix {
     if (this.rows != this.cols) {
-      throw new Error(`The matrix must be square: ${this.getDimension()}`);
+      throw new Error(`The matrix must be square: ${this.getDimension().join(',')}`);
     }
     const {l, u, p}: {l: Matrix; u: Matrix; p: number[]} = lowerUpperDecomposition(this);
     const i: Matrix = Matrix.identity(this.rows);

@@ -14,6 +14,7 @@ import {
   WindowsOutlined,
 } from '@ant-design/icons';
 import {Alert, Typography} from 'antd';
+
 import {prettyUserAgent, userAgent} from '~/src/utils/user-agent';
 
 type Props = {

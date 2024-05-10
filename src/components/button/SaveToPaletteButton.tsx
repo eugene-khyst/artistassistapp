@@ -4,36 +4,36 @@
  */
 
 import {MinusOutlined, PlusOutlined} from '@ant-design/icons';
-import {Button, ButtonProps, Popconfirm} from 'antd';
-import {PaintMix} from '~/src/services/color';
+import type {ButtonProps} from 'antd';
+import {Button, Popconfirm} from 'antd';
+
+import type {ColorMixture} from '~/src/services/color';
+import {useAppStore} from '~/src/stores/app-store';
 
 type Props = {
-  paintMix: PaintMix;
-  paintMixes?: PaintMix[];
-  saveNewPaintMix: (paintMix: PaintMix) => void;
-  deletePaintMix: (paintMixId: string) => void;
+  colorMixture: ColorMixture;
+  linkToImage?: boolean;
 } & ButtonProps;
 
 export const SaveToPaletteButton: React.FC<Props> = ({
-  paintMix,
-  paintMixes,
-  saveNewPaintMix,
-  deletePaintMix,
+  colorMixture,
+  linkToImage = true,
   size,
   style,
 }: Props) => {
-  const paintMixExists = paintMixes?.some((pm: PaintMix) => pm.id === paintMix.id);
-  const handleSaveButtonClick = () => {
-    saveNewPaintMix(paintMix);
-  };
-  const handleDeleteButtonClick = () => {
-    deletePaintMix(paintMix.id);
-  };
-  return paintMixExists ? (
+  const paletteColorMixtures = useAppStore(state => state.paletteColorMixtures);
+  const saveToPalette = useAppStore(state => state.saveToPalette);
+  const deleteFromPalette = useAppStore(state => state.deleteFromPalette);
+
+  const colorMixtureExists = paletteColorMixtures.some(
+    ({key}: ColorMixture) => key === colorMixture.key
+  );
+
+  return colorMixtureExists ? (
     <Popconfirm
       title="Remove the color mixture"
       description="Are you sure you want to remove this color mixture?"
-      onConfirm={handleDeleteButtonClick}
+      onConfirm={() => void deleteFromPalette(colorMixture)}
       okText="Yes"
       cancelText="No"
     >
@@ -42,7 +42,12 @@ export const SaveToPaletteButton: React.FC<Props> = ({
       </Button>
     </Popconfirm>
   ) : (
-    <Button size={size} icon={<PlusOutlined />} onClick={handleSaveButtonClick} style={style}>
+    <Button
+      size={size}
+      icon={<PlusOutlined />}
+      onClick={() => void saveToPalette(colorMixture, linkToImage)}
+      style={style}
+    >
       Add to palette
     </Button>
   );

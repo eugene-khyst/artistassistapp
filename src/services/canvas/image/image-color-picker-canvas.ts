@@ -3,16 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {ZoomableImageCanvas, ZoomableImageCanvasProps} from '.';
-import {getRgbaForCoord, imageBitmapToOffscreenCanvas} from '~/src/utils';
-import {
-  Rgb,
-  RgbTuple,
-  linearizeRgbChannel,
-  unlinearizeRgbChannel,
-} from '~/src/services/color/model';
+import type {RgbTuple} from '~/src/services/color/space';
+import {linearizeRgbChannel, Rgb, unlinearizeRgbChannel} from '~/src/services/color/space';
 import {EventManager} from '~/src/services/event';
-import {Rectangle, Vector, clamp} from '~/src/services/math';
+import type {Rectangle, Vector} from '~/src/services/math';
+import {clamp} from '~/src/services/math';
+import {getRgbaForCoord, imageBitmapToOffscreenCanvas} from '~/src/utils';
+
+import type {ZoomableImageCanvasProps} from './zoomable-image-canvas';
+import {ZoomableImageCanvas} from './zoomable-image-canvas';
 
 export const MIN_COLOR_PICKER_DIAMETER = 1;
 export const MAX_COLOR_PICKER_DIAMETER = 100;
@@ -86,7 +85,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
         ctx.strokeRect(this.pipetPoint.x - size / 2, this.pipetPoint.y - size / 2, size, size);
         isDarkToggle = !isDarkToggle;
       }
-      ctx.strokeStyle = isDark ? '#fff' : '#000';
+      ctx.strokeStyle = ctx.fillStyle = isDark ? '#fff' : '#000';
       this.drawCircle(this.pipetPoint, pipetDiameter / 2);
       ctx.stroke();
       if (pipetDiameter > 1) {
@@ -122,7 +121,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     return this.pipetPoint;
   }
 
-  async setPipetPoint(pipetPoint: Vector | null): Promise<void> {
+  setPipetPoint(pipetPoint: Vector | null): void {
     if (!pipetPoint) {
       this.pipetPoint = pipetPoint;
       this.draw();
@@ -132,7 +131,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     const point = pipetPoint.add(imageDimension.center);
     if (imageDimension.contains(point, this.pipetDiameter / 2)) {
       this.pipetPoint = pipetPoint;
-      this.pipetRgb = (await this.getAverageColor(point)) ?? Rgb.WHITE;
+      this.pipetRgb = this.getAverageColor(point) ?? Rgb.WHITE;
       this.lastPipetDiameter = this.pipetDiameter;
       const event: PipetPointSetEvent = {
         point,
@@ -144,7 +143,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     }
   }
 
-  private async getAverageColor({x, y}: Vector): Promise<Rgb | null> {
+  private getAverageColor({x, y}: Vector): Rgb | null {
     const diameter = Math.round(this.pipetDiameter);
     const radius = diameter / 2;
     const canvas: OffscreenCanvas | null = this.getOffscreenCanvas();

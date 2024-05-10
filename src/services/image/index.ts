@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export * from './outline';
 export * from './blur';
-export * from './tonal-values';
 export * from './limited-palette';
+export * from './outline';
+export * from './tonal-values';

@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Tooltip, theme} from 'antd';
-import {Rgb, RgbTuple} from '~/src/services/color/model';
+import {theme, Tooltip} from 'antd';
+
+import type {RgbTuple} from '~/src/services/color/space';
+import {Rgb} from '~/src/services/color/space';
 
 type Size = 'small' | 'large';
 

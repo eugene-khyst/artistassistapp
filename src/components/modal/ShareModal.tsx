@@ -4,7 +4,7 @@
  */
 
 import {App, Button, Input, Modal, Space} from 'antd';
-import {Dispatch, SetStateAction} from 'react';
+import type {Dispatch, SetStateAction} from 'react';
 import {useCopyToClipboard} from 'usehooks-ts';
 
 type Props = {
@@ -17,12 +17,12 @@ type Props = {
 export const ShareModal: React.FC<Props> = ({title, open, setOpen, url}: Props) => {
   const {message} = App.useApp();
 
-  const [_, copy] = useCopyToClipboard();
+  const [, copy] = useCopyToClipboard();
 
   const copyToClipboard = () => {
     if (url) {
-      copy(url);
-      message.info('Link copied to clipboard');
+      void copy(url);
+      void message.info('Link copied to clipboard');
     }
   };
 

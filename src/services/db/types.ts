@@ -10,5 +10,5 @@ export interface ColorPickerSettings {
 export interface ImageFile {
   id?: number;
   file: File;
-  date: Date;
+  date?: Date;
 }

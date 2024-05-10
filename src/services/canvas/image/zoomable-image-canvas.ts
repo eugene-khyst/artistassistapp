@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Rectangle, Vector, clamp} from '~/src/services/math';
 import {Canvas} from '~/src/services/canvas/canvas';
+import {clamp, Rectangle, Vector} from '~/src/services/math';
 
 export interface ZoomableImageCanvasProps {
   zoomFactor?: number;
@@ -45,7 +45,7 @@ export class ZoomableImageCanvas extends Canvas {
     };
 
     Object.entries(this.eventListeners).forEach(([type, listener]) =>
-      this.canvas.addEventListener(type, listener)
+      this.canvas.addEventListener(type, listener as EventListener)
     );
   }
 
@@ -166,7 +166,8 @@ export class ZoomableImageCanvas extends Canvas {
     }
   }
 
-  protected onClickOrTap(_: Vector): void {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected onClickOrTap(_vector: Vector): void {
     // noop
   }
 
@@ -244,7 +245,7 @@ export class ZoomableImageCanvas extends Canvas {
 
   public override destroy(): void {
     Object.entries(this.eventListeners).forEach(([type, listener]) =>
-      this.canvas.removeEventListener(type, listener)
+      this.canvas.removeEventListener(type, listener as EventListener)
     );
   }
 }

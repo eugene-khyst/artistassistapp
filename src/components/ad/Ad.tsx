@@ -4,10 +4,10 @@
  */
 
 import {Button, Card, Flex, Grid, Skeleton, theme} from 'antd';
-import {useContext} from 'react';
-import {TabKey} from '~/src/components/types';
-import {AppConfig, AppConfigContext} from '~/src/context/AppConfigContext';
-import {AdDefinition, AdsDefinition} from '~/src/services/ads';
+
+import {appConfig} from '~/src/config';
+import type {AdDefinition, AdsDefinition} from '~/src/services/ads';
+import type {TabKey} from '~/src/types';
 
 function getImageUrl({image}: AdDefinition, adsUrl: string): string {
   return new URL(image, adsUrl).toString();
@@ -28,7 +28,7 @@ export const Ad: React.FC<Props> = ({
     token: {colorFillSecondary},
   } = theme.useToken();
   const screens = Grid.useBreakpoint();
-  const {adsUrl} = useContext<AppConfig>(AppConfigContext);
+  const {adsUrl} = appConfig;
   const adId: string | undefined = placements?.[tab]?.[index];
   const ad: AdDefinition | undefined = ads?.[adId];
   return (

@@ -5,18 +5,20 @@
 
 import {Drawer, Typography} from 'antd';
 import {useEffect} from 'react';
+
+import {ColorMixtureDescription} from '~/src/components/color/ColorMixtureDescription';
 import {useReflectanceChart} from '~/src/hooks';
-import {PAINT_TYPES, PaintFraction, PaintMix} from '~/src/services/color';
-import {PaintMixDescription} from '~/src/components/color/PaintMixDescription';
+import type {ColorMixture, ColorMixturePart} from '~/src/services/color';
+import {COLOR_TYPES} from '~/src/services/color';
 
 type Props = {
-  paintMix?: PaintMix;
+  colorMixture?: ColorMixture;
   open?: boolean;
   onClose?: () => void;
 };
 
 export const ReflectanceChartDrawer: React.FC<Props> = ({
-  paintMix,
+  colorMixture,
   open = false,
   onClose = () => {},
 }: Props) => {
@@ -24,16 +26,16 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
 
   useEffect(() => {
     const reflectanceChart = reflectanceChartRef.current;
-    if (!reflectanceChart || !paintMix) {
+    if (!reflectanceChart || !colorMixture) {
       return;
     }
-    const {paintMixRgb, paintMixRho, fractions} = paintMix;
+    const {colorMixtureRgb, colorMixtureRho, parts} = colorMixture;
     reflectanceChart.removeAllSeries();
-    fractions.forEach(({paint}: PaintFraction) =>
-      reflectanceChart.addReflectance(paint.rho, paint.rgb)
+    parts.forEach(({color: {rho, rgb}}: ColorMixturePart) =>
+      reflectanceChart.addReflectance(rho, rgb)
     );
-    reflectanceChart.addReflectance(paintMixRho, paintMixRgb, 3);
-  }, [reflectanceChartRef, paintMix]);
+    reflectanceChart.addReflectance(colorMixtureRho, colorMixtureRgb, 3);
+  }, [reflectanceChartRef, colorMixture]);
 
   return (
     <Drawer
@@ -45,10 +47,10 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
       forceRender={true}
     >
       <canvas ref={canvasRef} width="688" height="388" style={{marginBottom: 16}} />
-      {paintMix && (
+      {colorMixture && (
         <>
-          <Typography.Title level={4}>{PAINT_TYPES.get(paintMix.type)?.name}</Typography.Title>
-          <PaintMixDescription paintMix={paintMix} showConsistency={false} />
+          <Typography.Title level={4}>{COLOR_TYPES.get(colorMixture.type)?.name}</Typography.Title>
+          <ColorMixtureDescription colorMixture={colorMixture} showConsistency={false} />
         </>
       )}
     </Drawer>

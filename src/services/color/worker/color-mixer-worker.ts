@@ -4,6 +4,7 @@
  */
 
 import * as Comlink from 'comlink';
+
 import {ColorMixer} from '..';
 
 Comlink.expose(new ColorMixer());

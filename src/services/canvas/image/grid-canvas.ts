@@ -3,8 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {ZoomableImageCanvas, ZoomableImageCanvasProps} from '.';
-import {Rectangle, Vector} from '~/src/services/math';
+import type {Rectangle} from '~/src/services/math';
+import {Vector} from '~/src/services/math';
+
+import type {ZoomableImageCanvasProps} from './zoomable-image-canvas';
+import {ZoomableImageCanvas} from './zoomable-image-canvas';
 
 const GRID_LINE_WIDTH = 1;
 const GRID_COLOR = '#f00';

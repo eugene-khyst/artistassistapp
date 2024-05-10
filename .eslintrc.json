@@ -10,7 +10,7 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
@@ -22,14 +22,18 @@
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
-    }
+    },
+    "project": true,
+    "tsconfigRootDir": "./"
   },
   "plugins": [
     "@typescript-eslint",
     "react",
     "react-hooks",
     "license-header",
-    "no-relative-import-paths"
+    "no-relative-import-paths",
+    "simple-import-sort",
+    "unused-imports"
   ],
   "rules": {
     "license-header/header": ["error", "./license-header.js"],
@@ -37,16 +41,25 @@
       "error",
       {"allowSameFolder": true, "prefix": "~"}
     ],
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "@typescript-eslint/consistent-type-exports": "error",
+    "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "error",
+    "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
       {
-        "argsIgnorePattern": "^_\\d{0,1}$",
-        "varsIgnorePattern": "^_\\d{0,1}$"
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
       }
     ]
-  }
+  },
+  "root": true
 }

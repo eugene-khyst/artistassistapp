@@ -3,17 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Reflectance, Rgb} from '~/src/services/color/model';
+import {Reflectance, Rgb} from '~/src/services/color/space';
 
-const colorFractions: string[] = process.argv.slice(2);
+const parts: string[] = process.argv.slice(2);
 const reflectances: Reflectance[] = [];
-const fractions: number[] = [];
-for (let i = 0; i < colorFractions.length; i += 2) {
-  const fraction: number = Number(colorFractions[i]);
-  const colorHex: string = colorFractions[i + 1];
-  fractions.push(fraction);
+const ratio: number[] = [];
+for (let i = 0; i < parts.length; i += 2) {
+  const part: number = Number(parts[i]);
+  const colorHex: string = parts[i + 1];
+  ratio.push(part);
   reflectances.push(Rgb.fromHex(colorHex).toReflectance());
 }
-console.log(Reflectance.mixSubtractively(reflectances, fractions).toRgb().toHex());
+console.log(Reflectance.mixSubtractively(reflectances, ratio).toRgb().toHex());
 
 // npx ts-node --project ./src/bin/tsconfig.json src/bin/color-mixer.ts 1 0062A9 1 EB2D79 1 FEEE21

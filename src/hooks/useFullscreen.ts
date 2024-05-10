@@ -15,10 +15,10 @@ export function useFullScreen(): Result {
 
   const toggleFullScreen = useCallback(() => {
     if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
+      void document.documentElement.requestFullscreen();
       setIsFullscreen(true);
     } else {
-      document.exitFullscreen();
+      void document.exitFullscreen();
       setIsFullscreen(false);
     }
   }, []);

@@ -4,7 +4,7 @@
  */
 
 import {dbPromise} from './db';
-import {ColorPickerSettings} from './types';
+import type {ColorPickerSettings} from './types';
 
 export async function getColorPickerSettings(): Promise<ColorPickerSettings | undefined> {
   const db = await dbPromise;

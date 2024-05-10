@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {MutableRefObject, RefCallback, useCallback, useRef} from 'react';
+import type {MutableRefObject, RefCallback} from 'react';
+import {useCallback, useRef} from 'react';
+
 import {ReflectanceChart} from '~/src/services/canvas/chart';
 
 interface Result {

@@ -4,10 +4,13 @@
  */
 
 import {Grid} from 'antd';
-import {RefCallback, useCallback, useEffect, useRef, useState} from 'react';
+import type {RefCallback} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 import {useWindowSize} from 'usehooks-ts';
-import {useVisibilityChange} from '.';
+
 import {ZoomableImageCanvas} from '~/src/services/canvas/image';
+
+import {useVisibilityChange} from './useVisibilityChange';
 
 export function zoomableImageCanvasSupplier(canvas: HTMLCanvasElement): ZoomableImageCanvas {
   return new ZoomableImageCanvas(canvas);
@@ -20,7 +23,7 @@ interface Result<T> {
 
 export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
   zoomableImageCanvasSupplier: (canvas: HTMLCanvasElement) => T,
-  images: ImageBitmap[]
+  image: (ImageBitmap | null) | ImageBitmap[]
 ): Result<T> {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [zoomableImageCanvas, setZoomableImageCanvas] = useState<T | undefined>();
@@ -48,11 +51,11 @@ export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
   }, [zoomableImageCanvas, windowSize, isVisible, screens]);
 
   useEffect(() => {
-    if (!zoomableImageCanvas || !images) {
+    if (!zoomableImageCanvas) {
       return;
     }
-    zoomableImageCanvas.setImages(images);
-  }, [zoomableImageCanvas, images]);
+    zoomableImageCanvas.setImages(image ? [image].flat() : []);
+  }, [zoomableImageCanvas, image]);
 
   return {
     ref,

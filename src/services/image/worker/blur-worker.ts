@@ -4,6 +4,7 @@
  */
 
 import * as Comlink from 'comlink';
+
 import {Blur} from '..';
 
 Comlink.expose(new Blur());

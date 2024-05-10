@@ -18,7 +18,7 @@ export interface AdsDefinition {
 export async function fetchAds(adsUrl: string): Promise<AdsDefinition | undefined> {
   try {
     const response = await fetch(adsUrl);
-    return await response.json();
+    return (await response.json()) as AdsDefinition;
   } catch (e) {
     console.error('Failed to fetch ads', e);
   }

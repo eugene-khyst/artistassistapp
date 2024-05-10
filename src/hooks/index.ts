@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export * from './useVisibilityChange';
-export * from './usePaints';
-export * from './useStoreBoughtPaintSets';
-export * from './useZoomableImageCanvas';
+export * from './useColors';
 export * from './useReflectanceChart';
+export * from './useStandardColorSets';
+export * from './useVisibilityChange';
+export * from './useZoomableImageCanvas';
