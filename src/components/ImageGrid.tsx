@@ -4,11 +4,14 @@
  */
 
 import {Checkbox, Form, Select, Space, Spin} from 'antd';
-import {CheckboxChangeEvent} from 'antd/es/checkbox';
-import {DefaultOptionType as SelectOptionType} from 'antd/es/select';
+import type {CheckboxChangeEvent} from 'antd/es/checkbox';
+import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useEffect, useState} from 'react';
+
 import {useZoomableImageCanvas} from '~/src/hooks';
 import {GridCanvas, GridType} from '~/src/services/canvas/image/grid-canvas';
+import {useAppStore} from '~/src/stores/app-store';
+
 import {EmptyImage} from './empty/EmptyImage';
 
 enum GridOption {
@@ -34,19 +37,17 @@ const gridCanvasSupplier = (canvas: HTMLCanvasElement): GridCanvas => {
   return new GridCanvas(canvas);
 };
 
-type Props = {
-  images: ImageBitmap[];
-  isImagesLoading: boolean;
-};
+export const ImageGrid: React.FC = () => {
+  const originalImage = useAppStore(state => state.originalImage);
+  const isOriginalImageLoading = useAppStore(state => state.isOriginalImageLoading);
 
-export const ImageGrid: React.FC<Props> = ({images, isImagesLoading}: Props) => {
   const [gridOption, setGridOption] = useState<GridOption>(GridOption.Square);
   const [squareGridSize, setSquareGridSize] = useState<number>(DEFAULT_SQUARE_GRID_SIZE);
   const [isDiagonals, setIsDiagonals] = useState<boolean>(false);
 
   const {ref: canvasRef, zoomableImageCanvas: gridCanvas} = useZoomableImageCanvas<GridCanvas>(
     gridCanvasSupplier,
-    images
+    originalImage
   );
 
   useEffect(() => {
@@ -62,7 +63,7 @@ export const ImageGrid: React.FC<Props> = ({images, isImagesLoading}: Props) => 
     }
   }, [gridCanvas, gridOption, squareGridSize, isDiagonals]);
 
-  if (!images.length) {
+  if (!originalImage) {
     return (
       <div style={{padding: '0 16px 16px'}}>
         <EmptyImage feature="draw a grid over a reference photo" tab="Grid" />
@@ -71,7 +72,7 @@ export const ImageGrid: React.FC<Props> = ({images, isImagesLoading}: Props) => 
   }
 
   return (
-    <Spin spinning={isImagesLoading} tip="Loading" size="large">
+    <Spin spinning={isOriginalImageLoading} tip="Loading" size="large">
       <Space
         size="middle"
         align="center"

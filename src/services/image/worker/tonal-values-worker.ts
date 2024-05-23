@@ -4,6 +4,7 @@
  */
 
 import * as Comlink from 'comlink';
+
 import {TonalValues} from '..';
 
 Comlink.expose(new TonalValues());

@@ -4,6 +4,7 @@
  */
 
 import * as Comlink from 'comlink';
+
 import {Outline} from '..';
 
 Comlink.expose(new Outline());

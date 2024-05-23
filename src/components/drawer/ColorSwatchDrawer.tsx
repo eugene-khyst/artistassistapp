@@ -4,32 +4,34 @@
  */
 
 import {Col, Drawer, Grid, Row} from 'antd';
+
 import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
-import {PaintMix} from '~/src/services/color';
-import {Rgb} from '~/src/services/color/model';
+import type {ColorMixture} from '~/src/services/color';
+import {Rgb} from '~/src/services/color/space';
+import {useAppStore} from '~/src/stores/app-store';
 
 type Props = {
-  paintMixes?: PaintMix[];
+  colorMixtures?: ColorMixture[];
   open?: boolean;
   onClose?: () => void;
-  blob?: Blob;
 };
 
 export const ColorSwatchDrawer: React.FC<Props> = ({
-  paintMixes,
+  colorMixtures,
   open = false,
   onClose = () => {},
-  blob,
 }: Props) => {
+  const imageFile = useAppStore(state => state.imageFile);
+
   const screens = Grid.useBreakpoint();
 
-  const imageSrc: string | undefined = useCreateObjectUrl(blob);
+  const imageSrc: string | undefined = useCreateObjectUrl(imageFile?.file);
 
   const isFullHeight = screens['sm'] || !imageSrc;
   const imageHeight = imageSrc ? `calc((100vh - 60px) / ${isFullHeight ? 1 : 2})` : 0;
   const colorSwatchHeight = `calc((100vh - 60px) / ${isFullHeight ? 1 : 2})`;
   const colorStripeHeight = `max(calc((100vh - 60px) / (${
-    Math.min(paintMixes?.length || 10, 10) * (isFullHeight ? 1 : 2)
+    Math.min(colorMixtures?.length || 10, 10) * (isFullHeight ? 1 : 2)
   })), 24px)`;
 
   return (
@@ -55,11 +57,11 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
           )}
         </Col>
         <Col xs={24} sm={12} style={{maxHeight: colorSwatchHeight, overflowY: 'auto'}}>
-          {paintMixes?.map((paintMix: PaintMix) => {
-            const rgb: Rgb = new Rgb(...paintMix.paintMixLayerRgb);
+          {colorMixtures?.map((colorMixture: ColorMixture) => {
+            const rgb: Rgb = new Rgb(...colorMixture.layerRgb);
             return (
               <div
-                key={paintMix.id}
+                key={colorMixture.key}
                 style={{
                   height: colorStripeHeight,
                   lineHeight: colorStripeHeight,
@@ -70,7 +72,7 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
                   color: rgb.isDark() ? '#fff' : '#000',
                 }}
               >
-                {paintMix.name || 'Color mixture'}
+                {colorMixture.name || 'Color mixture'}
               </div>
             );
           })}

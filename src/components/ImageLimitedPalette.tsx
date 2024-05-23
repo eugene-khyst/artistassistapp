@@ -5,95 +5,72 @@
 
 import {PictureOutlined} from '@ant-design/icons';
 import {Button, Col, Flex, Form, Grid, Row, Spin, Typography} from 'antd';
-import {Remote, wrap} from 'comlink';
-import {useEffect, useMemo, useState} from 'react';
+import {useEffect, useState} from 'react';
+
 import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
-import {useCreateImageBitmap} from '~/src/hooks/useCreateImageBitmap';
-import {ZoomableImageCanvas} from '~/src/services/canvas/image';
-import {Paint, PaintSet} from '~/src/services/color';
-import {LimitedPalette} from '~/src/services/image';
-import {PaintCascader} from './color/PaintCascader';
-import {EmptyPaintSet} from './empty/EmptyPaintSet';
+import type {ZoomableImageCanvas} from '~/src/services/canvas/image';
+import type {Color, ColorSet} from '~/src/services/color';
+import {useAppStore} from '~/src/stores/app-store';
+
+import {ColorCascader} from './color/ColorCascader';
+import {EmptyColorSet} from './empty/EmptyColorSet';
 
 const MAX_COLORS = 5;
 
-const limitedPalette: Remote<LimitedPalette> = wrap(
-  new Worker(new URL('../services/image/worker/limited-palette-worker.ts', import.meta.url), {
-    type: 'module',
-  })
-);
+export const ImageLimitedPalette: React.FC = () => {
+  const colorSet = useAppStore(state => state.colorSet);
+  const originalImage = useAppStore(state => state.originalImage);
+  const limitedPaletteImage = useAppStore(state => state.limitedPaletteImage);
 
-type Props = {
-  paintSet?: PaintSet;
-  blob?: Blob;
-  images: ImageBitmap[];
-  isImagesLoading: boolean;
-};
+  const isOriginalImageLoading = useAppStore(state => state.isOriginalImageLoading);
+  const isLimitedPaletteImageLoading = useAppStore(state => state.isLimitedPaletteImageLoading);
 
-export const ImageLimitedPalette: React.FC<Props> = ({
-  paintSet,
-  blob,
-  images: original,
-  isImagesLoading: isOriginalLoading,
-}: Props) => {
+  const setLimitedColorSet = useAppStore(state => state.setLimitedColorSet);
+
   const screens = Grid.useBreakpoint();
 
   const [colors, setColors] = useState<(string | number)[][]>([]);
-  const [limitedPaintSet, setLimitedPaintSet] = useState<PaintSet | undefined>();
-
-  const limitedPaletteBlobToImageBitmapsConverter = useMemo(
-    () =>
-      async (blob: Blob): Promise<ImageBitmap[]> =>
-        limitedPaintSet ? [(await limitedPalette.getPreview(blob, limitedPaintSet)).preview] : [],
-    [limitedPaintSet]
-  );
-
-  const {images: preview, isLoading: isPreviewLoading} = useCreateImageBitmap(
-    limitedPaletteBlobToImageBitmapsConverter,
-    blob
-  );
 
   const {ref: limitedPaletteCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
-    preview
+    limitedPaletteImage
   );
 
   const {ref: originalCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
-    original
+    originalImage
   );
 
   useEffect(() => {
     setColors([]);
-    setLimitedPaintSet(undefined);
-  }, [paintSet]);
+  }, [colorSet]);
 
-  const isLoading: boolean = isPreviewLoading || isOriginalLoading;
+  const isLoading: boolean = isOriginalImageLoading || isLimitedPaletteImageLoading;
 
-  const handlePaintChange = (value: (string | number)[] | (string | number)[][]) => {
+  const handleColorsChange = (value: (string | number)[] | (string | number)[][]) => {
     const colors = value as (string | number)[][];
     setColors(colors);
   };
 
   const handlePreviewClick = () => {
-    if (paintSet) {
-      const limitedPaintSet: PaintSet = {
-        type: paintSet?.type,
-        colors: colors.flatMap(([paintBrand, paintId]) => {
-          const paint = paintSet?.colors.find(
-            ({brand, id}: Paint) => paintBrand === brand && paintId === id
+    if (colorSet) {
+      const limitedColorSet: ColorSet = {
+        type: colorSet?.type,
+        colors: colors.flatMap(([colorBrand, colorId]) => {
+          const color = colorSet?.colors.find(
+            ({brand, id}: Color) => colorBrand === brand && colorId === id
           );
-          return paint ? [paint] : [];
+          return color ? [color] : [];
         }),
       };
-      setLimitedPaintSet(limitedPaintSet);
+      void setLimitedColorSet(limitedColorSet);
     }
   };
 
-  if (!paintSet || !blob) {
+  if (!colorSet || !originalImage) {
     return (
       <div style={{padding: '0 16px 16px'}}>
-        <EmptyPaintSet feature="limited palette" tab="Limited palette" photoMandatory={true} />
+        <EmptyColorSet feature="limited palette" tab="Limited palette" imageMandatory={true} />
       </div>
     );
   }
@@ -119,10 +96,10 @@ export const ImageLimitedPalette: React.FC<Props> = ({
               : null)}
             {...(colors.length > MAX_COLORS ? {validateStatus: 'error'} : null)}
           >
-            <PaintCascader
+            <ColorCascader
               value={colors}
-              onChange={handlePaintChange}
-              paints={paintSet?.colors}
+              onChange={handleColorsChange}
+              colors={colorSet?.colors}
               multiple
               maxTagCount="responsive"
             />

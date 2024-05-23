@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {countFractionDigits} from '~/src/utils';
-import {Rgb, RgbTuple} from '~/src/services/color/model';
-import {Vector} from '~/src/services/math';
 import {Canvas} from '~/src/services/canvas/canvas';
+import type {RgbTuple} from '~/src/services/color/space';
+import {Rgb} from '~/src/services/color/space';
+import {Vector} from '~/src/services/math';
+import {countFractionDigits} from '~/src/utils';
 
 const SPACING = 3;
 

@@ -4,13 +4,13 @@
  */
 
 export function createArray<T>(size: number, element: T): T[] {
-  return Array(size).fill(element);
+  return Array(size).fill(element) as T[];
 }
 
 export function create2DArray<T>(rows: number, cols: number, element: T): T[][] {
   return Array(rows)
     .fill(0)
-    .map(() => Array(cols).fill(element));
+    .map(() => Array(cols).fill(element) as T[]);
 }
 
 export function range(min: number, max: number): number[] {

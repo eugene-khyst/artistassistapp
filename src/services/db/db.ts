@@ -3,14 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {DBSchema, IDBPDatabase, openDB} from 'idb';
-import {PaintMix, PaintSetDefinition, PaintType} from '~/src/services/color';
-import {ColorPickerSettings, ImageFile} from './types';
+import type {DBSchema, IDBPDatabase, IDBPTransaction} from 'idb';
+import {openDB} from 'idb';
+
+import type {ColorMixture, ColorSetDefinition, ColorType} from '~/src/services/color';
+import type {LegacyPaintMix, LegacyPaintSetDefinition} from '~/src/services/db/db-migrations';
+import {toColorMixture, toColorSet} from '~/src/services/db/db-migrations';
+
+import type {ColorPickerSettings, ImageFile} from './types';
 
 export interface ArtistAssistAppDB extends DBSchema {
-  'paint-sets': {
-    value: PaintSetDefinition;
-    key: PaintType;
+  'color-sets': {
+    value: ColorSetDefinition;
+    key: ColorType;
     indexes: {'by-timestamp': number};
   };
   'image-files': {
@@ -21,36 +26,82 @@ export interface ArtistAssistAppDB extends DBSchema {
     value: ColorPickerSettings;
     key: number;
   };
+  'color-mixtures': {
+    value: ColorMixture;
+    key: number;
+  };
+  'paint-sets': {
+    value: LegacyPaintSetDefinition;
+    key: ColorType;
+  };
   'paint-mixes': {
-    value: PaintMix;
+    value: LegacyPaintMix;
     key: string;
   };
 }
 
 export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<ArtistAssistAppDB>(
   'artist-assist-app-db',
-  3,
+  4,
   {
-    upgrade(db: IDBPDatabase<ArtistAssistAppDB>) {
-      if (!db.objectStoreNames.contains('paint-sets')) {
-        const paintSetStore = db.createObjectStore('paint-sets', {
+    async upgrade(
+      db: IDBPDatabase<ArtistAssistAppDB>,
+      oldVersion: number,
+      newVersion: number,
+      tx: IDBPTransaction<
+        ArtistAssistAppDB,
+        (
+          | 'color-sets'
+          | 'image-files'
+          | 'color-picker'
+          | 'color-mixtures'
+          | 'paint-sets'
+          | 'paint-mixes'
+        )[],
+        'versionchange'
+      >
+    ) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.log(`Migrating DB from version ${oldVersion} to ${newVersion}`);
+      }
+
+      if (!db.objectStoreNames.contains('color-sets')) {
+        const colorSetStore = db.createObjectStore('color-sets', {
           keyPath: 'type',
         });
-        paintSetStore.createIndex('by-timestamp', 'timestamp');
+        colorSetStore.createIndex('by-timestamp', 'timestamp');
       }
+
+      if (db.objectStoreNames.contains('paint-sets')) {
+        for (const paintSet of await tx.objectStore('paint-sets').getAll()) {
+          await tx.objectStore('color-sets').put(toColorSet(paintSet));
+        }
+        db.deleteObjectStore('paint-sets');
+      }
+
       if (!db.objectStoreNames.contains('image-files')) {
         db.createObjectStore('image-files', {
           keyPath: 'id',
           autoIncrement: true,
         });
       }
+
       if (!db.objectStoreNames.contains('color-picker')) {
         db.createObjectStore('color-picker');
       }
-      if (!db.objectStoreNames.contains('paint-mixes')) {
-        db.createObjectStore('paint-mixes', {
+
+      if (!db.objectStoreNames.contains('color-mixtures')) {
+        db.createObjectStore('color-mixtures', {
           keyPath: 'id',
+          autoIncrement: true,
         });
+      }
+
+      if (db.objectStoreNames.contains('paint-mixes')) {
+        for (const paintMix of await tx.objectStore('paint-mixes').getAll()) {
+          await tx.objectStore('color-mixtures').put(toColorMixture(paintMix));
+        }
+        db.deleteObjectStore('paint-mixes');
       }
     },
   }

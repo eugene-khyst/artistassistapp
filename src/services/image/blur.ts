@@ -4,7 +4,9 @@
  */
 
 import {transfer} from 'comlink';
-import {IMAGE_SIZE, createScaledImageBitmap, imageBitmapToOffscreenCanvas} from '~/src/utils';
+
+import {createScaledImageBitmap, IMAGE_SIZE, imageBitmapToOffscreenCanvas} from '~/src/utils';
+
 import {medianFilter} from './median-filter';
 
 interface Result {

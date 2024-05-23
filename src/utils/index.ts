@@ -4,6 +4,7 @@
  */
 
 export * from './array';
-export * from './map';
 export * from './format';
+export * from './fraction';
 export * from './graphics';
+export * from './map';

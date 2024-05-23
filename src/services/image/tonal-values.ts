@@ -4,8 +4,10 @@
  */
 
 import {transfer} from 'comlink';
-import {getLightness, getLuminance} from '~/src/services/color/model';
-import {IMAGE_SIZE, createScaledImageBitmap, imageBitmapToOffscreenCanvas} from '~/src/utils';
+
+import {Rgb} from '~/src/services/color/space';
+import {createScaledImageBitmap, IMAGE_SIZE, imageBitmapToOffscreenCanvas} from '~/src/utils';
+
 import {medianFilter} from './median-filter';
 
 interface Result {
@@ -15,7 +17,7 @@ interface Result {
 export class TonalValues {
   async getTones(
     blob: Blob,
-    thresholds: number[] = [75, 50, 25],
+    thresholds: number[] = [0.825, 0.6, 0.35],
     medianFilterRadius = 3
   ): Promise<Result> {
     if (process.env.NODE_ENV !== 'production') {
@@ -33,7 +35,7 @@ export class TonalValues {
       const r = origData[i];
       const g = origData[i + 1];
       const b = origData[i + 2];
-      const l = getLightness(getLuminance(r, g, b));
+      const {l} = new Rgb(r, g, b).toOklab();
       tonesData.forEach((data: Uint8ClampedArray, j: number) => {
         let v = 255;
         for (let k = 0; k <= j; k++) {

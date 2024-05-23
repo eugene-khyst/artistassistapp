@@ -4,11 +4,14 @@
  */
 
 import {BgColorsOutlined, EllipsisOutlined, QuestionCircleOutlined} from '@ant-design/icons';
-import {Button, Card, Dropdown, MenuProps, Popover, Space, Typography, theme} from 'antd';
-import {PaintMix, SimilarColor} from '~/src/services/color';
-import {RgbTuple} from '~/src/services/color/model';
+import type {MenuProps} from 'antd';
+import {Button, Card, Dropdown, Popover, Space, theme, Typography} from 'antd';
+
 import {SaveToPaletteButton} from '~/src/components/button/SaveToPaletteButton';
-import {PaintMixDescription} from './PaintMixDescription';
+import type {SimilarColor} from '~/src/services/color';
+import {useAppStore} from '~/src/stores/app-store';
+
+import {ColorMixtureDescription} from './ColorMixtureDescription';
 
 const popoverContent = (
   <ul>
@@ -22,19 +25,13 @@ const popoverContent = (
 
 type Props = {
   similarColor: SimilarColor;
-  setAsBackground: (background: string | RgbTuple) => void;
-  paintMixes?: PaintMix[];
-  savePaintMix: (paintMix: PaintMix) => void;
-  deletePaintMix: (paintMixId: string) => void;
 };
 
 export const SimilarColorCard: React.FC<Props> = ({
-  similarColor: {paintMix, deltaE},
-  setAsBackground,
-  paintMixes,
-  savePaintMix,
-  deletePaintMix,
+  similarColor: {colorMixture, deltaE},
 }: Props) => {
+  const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
+
   const {
     token: {colorTextTertiary},
   } = theme.useToken();
@@ -44,35 +41,28 @@ export const SimilarColorCard: React.FC<Props> = ({
       label: 'Set as background',
       key: '1',
       icon: <BgColorsOutlined />,
-      onClick: () => setAsBackground(paintMix.paintMixLayerRgb),
+      onClick: () => void setBackgroundColor(colorMixture.layerRgb),
     },
   ];
 
   return (
     <Card size="small">
       <Space direction="vertical" size="small" style={{width: '100%'}}>
-        <PaintMixDescription
-          paintMix={paintMix}
-          extra={
-            <Space size="small" align="center">
-              <Typography.Text strong>{`ΔE*: ${deltaE.toFixed(1)}`}</Typography.Text>
-              <Popover title="Color difference CIEDE2000" content={popoverContent}>
-                <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
-              </Popover>
-            </Space>
-          }
-        />
-        <Space.Compact block style={{display: 'flex', justifyContent: 'flex-end'}}>
-          <SaveToPaletteButton
-            paintMix={paintMix}
-            paintMixes={paintMixes}
-            saveNewPaintMix={savePaintMix}
-            deletePaintMix={deletePaintMix}
-          />
-          <Dropdown menu={{items}}>
-            <Button icon={<EllipsisOutlined />} />
-          </Dropdown>
-        </Space.Compact>
+        <ColorMixtureDescription colorMixture={colorMixture} />
+        <Space size="small" style={{width: '100%', justifyContent: 'space-between'}}>
+          <Space size="small" align="center">
+            <Typography.Text strong>{`ΔE: ${deltaE.toFixed(1)}`}</Typography.Text>
+            <Popover title="Color difference" content={popoverContent}>
+              <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
+            </Popover>
+          </Space>
+          <Space.Compact block>
+            <SaveToPaletteButton colorMixture={colorMixture} />
+            <Dropdown menu={{items}}>
+              <Button icon={<EllipsisOutlined />} />
+            </Dropdown>
+          </Space.Compact>
+        </Space>
       </Space>
     </Card>
   );

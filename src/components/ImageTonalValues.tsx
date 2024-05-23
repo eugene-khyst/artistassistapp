@@ -4,83 +4,52 @@
  */
 
 import {EllipsisOutlined, PrinterOutlined} from '@ant-design/icons';
-import {
-  Button,
-  CheckboxOptionType,
-  Col,
-  Dropdown,
-  Grid,
-  MenuProps,
-  Radio,
-  RadioChangeEvent,
-  Row,
-  Space,
-  Spin,
-} from 'antd';
-import {Remote, wrap} from 'comlink';
+import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
+import {Button, Col, Dropdown, Grid, Radio, Row, Space, Spin} from 'antd';
 import {useEffect, useState} from 'react';
-import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
-import {useCreateImageBitmap} from '~/src/hooks/useCreateImageBitmap';
-import {usePrintImages} from '~/src/hooks/usePrintImages';
-import {ZoomableImageCanvas} from '~/src/services/canvas/image';
-import {TonalValues} from '~/src/services/image';
-import {EmptyImage} from './empty/EmptyImage';
 
-const tonalValues: Remote<TonalValues> = wrap(
-  new Worker(new URL('../services/image/worker/tonal-values-worker.ts', import.meta.url), {
-    type: 'module',
-  })
-);
+import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
+import {usePrintImages} from '~/src/hooks/usePrintImages';
+import type {ZoomableImageCanvas} from '~/src/services/canvas/image';
+import {useAppStore} from '~/src/stores/app-store';
+
+import {EmptyImage} from './empty/EmptyImage';
 
 const TONES_OPTIONS: CheckboxOptionType[] = [
   {value: 0, label: 'Light tone'},
   {value: 1, label: 'Mid tone'},
   {value: 2, label: 'Shadow'},
 ];
-const THRESHOLDS = [75, 50, 25];
-const MEDIAN_FILTER_RADIUS = 3;
 
-const tonalValuesBlobToImageBitmapsConverter = async (blob: Blob): Promise<ImageBitmap[]> =>
-  (await tonalValues.getTones(blob, THRESHOLDS, MEDIAN_FILTER_RADIUS)).tones;
+export const ImageTonalValues: React.FC = () => {
+  const originalImage = useAppStore(state => state.originalImage);
+  const tonalImages = useAppStore(state => state.tonalImages);
 
-type Props = {
-  blob?: Blob;
-  images: ImageBitmap[];
-  isImagesLoading: boolean;
-};
+  const isOriginalImageLoading = useAppStore(state => state.isOriginalImageLoading);
+  const isTonalImagesLoading = useAppStore(state => state.isTonalImagesLoading);
 
-export const ImageTonalValues: React.FC<Props> = ({
-  blob,
-  images: original,
-  isImagesLoading: isOriginalLoading,
-}: Props) => {
   const screens = Grid.useBreakpoint();
 
-  const {images: tonalValueImages, isLoading: isTonalValuesLoading} = useCreateImageBitmap(
-    tonalValuesBlobToImageBitmapsConverter,
-    blob
-  );
-
   const {ref: tonalValuesCanvasRef, zoomableImageCanvas: tonalValuesZoomableImageCanvas} =
-    useZoomableImageCanvas<ZoomableImageCanvas>(zoomableImageCanvasSupplier, tonalValueImages);
+    useZoomableImageCanvas<ZoomableImageCanvas>(zoomableImageCanvasSupplier, tonalImages);
 
   const {ref: originalCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
-    original
+    originalImage
   );
 
   const [tonalValuesImageIndex, setTonalValuesImageIndex] = useState<number>(0);
 
-  const isLoading: boolean = isTonalValuesLoading || isOriginalLoading;
+  const isLoading: boolean = isOriginalImageLoading || isTonalImagesLoading;
 
   useEffect(() => {
     tonalValuesZoomableImageCanvas?.setImageIndex(tonalValuesImageIndex);
   }, [tonalValuesZoomableImageCanvas, tonalValuesImageIndex]);
 
-  const {ref: printRef, printImagesUrls, handlePrint} = usePrintImages(tonalValueImages);
+  const {ref: printRef, printImagesUrls, handlePrint} = usePrintImages(tonalImages);
 
   const handleTonalValueChange = (e: RadioChangeEvent) => {
-    setTonalValuesImageIndex(e.target.value);
+    setTonalValuesImageIndex(e.target.value as number);
   };
 
   const items: MenuProps['items'] = [
@@ -92,7 +61,7 @@ export const ImageTonalValues: React.FC<Props> = ({
     },
   ];
 
-  if (!blob) {
+  if (!originalImage) {
     return (
       <div style={{padding: '0 16px 16px'}}>
         <EmptyImage feature="view tonal values" tab="Tonal values" />

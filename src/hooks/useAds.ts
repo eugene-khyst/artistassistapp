@@ -3,10 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {UseQueryResult, useQuery} from '@tanstack/react-query';
-import {useContext} from 'react';
-import {AppConfig, AppConfigContext} from '~/src/context/AppConfigContext';
-import {AdsDefinition, fetchAds} from '~/src/services/ads';
+import type {UseQueryResult} from '@tanstack/react-query';
+import {useQuery} from '@tanstack/react-query';
+
+import {appConfig} from '~/src/config';
+import type {AdsDefinition} from '~/src/services/ads';
+import {fetchAds} from '~/src/services/ads';
 
 interface Result {
   isLoading: boolean;
@@ -16,7 +18,7 @@ interface Result {
 }
 
 export function useAds(): Result {
-  const {adsUrl} = useContext<AppConfig>(AppConfigContext);
+  const {adsUrl} = appConfig;
   const {isLoading, isError, error, data}: UseQueryResult<AdsDefinition> = useQuery({
     queryKey: ['ads'],
     queryFn: async () => await fetchAds(adsUrl),

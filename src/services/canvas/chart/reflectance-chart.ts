@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {LineChart} from '.';
-import {RgbTuple, WAVELENGTH_RANGE} from '~/src/services/color/model';
-import {wavelengthToColor} from '~/src/services/color/model/light-spectrum';
+import {WAVELENGTH_RANGE, wavelengthToColor} from '~/src/services/color';
+import type {RgbTuple} from '~/src/services/color/space';
+
+import {LineChart} from './line-chart';
 
 export class ReflectanceChart extends LineChart {
   constructor(canvas: HTMLCanvasElement) {

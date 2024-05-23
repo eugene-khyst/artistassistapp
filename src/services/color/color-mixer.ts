@@ -3,127 +3,167 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Paint, PaintBrand, PaintOpacity, PaintSet, PaintType} from '.';
-import {unique} from '~/src/utils';
 import {gcd} from '~/src/services/math';
-import {Lab, Reflectance, Rgb, RgbTuple} from './model';
+import type {Fraction} from '~/src/utils';
+import {unique} from '~/src/utils';
+import {not} from '~/src/utils/predicate';
 
-export interface PaintMixingConfig {
-  maxPaintsCount: 1 | 2 | 3;
-  onlyThickConsistency: boolean;
+import type {Color, ColorBrand, ColorSet} from './colors';
+import {ColorType} from './colors';
+import type {Oklab, Oklch, RgbTuple} from './space';
+import {Reflectance, Rgb} from './space';
+
+export interface ColorMixingConfig {
+  maxColors: 1 | 3;
+  tint: boolean;
+  glazing: boolean;
 }
 
-export const PAINT_MIXING: Record<PaintType, PaintMixingConfig> = {
-  [PaintType.WatercolorPaint]: {
-    maxPaintsCount: 3,
-    onlyThickConsistency: false,
+export const COLOR_MIXING: Record<ColorType, ColorMixingConfig> = {
+  [ColorType.WatercolorPaint]: {
+    maxColors: 3,
+    tint: false,
+    glazing: true,
   },
-  [PaintType.OilPaint]: {
-    maxPaintsCount: 3,
-    onlyThickConsistency: true,
+  [ColorType.Gouache]: {
+    maxColors: 3,
+    tint: true,
+    glazing: false,
   },
-  [PaintType.AcrylicPaint]: {
-    maxPaintsCount: 3,
-    onlyThickConsistency: true,
+  [ColorType.AcrylicGouache]: {
+    maxColors: 3,
+    tint: true,
+    glazing: false,
   },
-  [PaintType.ColoredPencils]: {
-    maxPaintsCount: 1,
-    onlyThickConsistency: false,
+  [ColorType.OilPaint]: {
+    maxColors: 3,
+    tint: true,
+    glazing: true,
   },
-  [PaintType.WatercolorPencils]: {
-    maxPaintsCount: 1,
-    onlyThickConsistency: false,
+  [ColorType.AcrylicPaint]: {
+    maxColors: 3,
+    tint: true,
+    glazing: true,
+  },
+  [ColorType.ColoredPencils]: {
+    maxColors: 1,
+    tint: false,
+    glazing: true,
+  },
+  [ColorType.WatercolorPencils]: {
+    maxColors: 1,
+    tint: false,
+    glazing: true,
   },
 };
 
-export type PaintConsistency = [paint: number, fluid: number];
-
-const CONSISTENCIES: PaintConsistency[] = [
-  [1, 9],
-  [1, 3],
-  [1, 1],
-  [3, 1],
-  [1, 0],
+const NONE: Fraction = [0, 1];
+const WHOLE: Fraction = [1, 1];
+const FRACTIONS: Fraction[] = [
+  [1, 10],
+  [1, 4],
+  [1, 2],
+  [3, 4],
 ];
+
+const CHROMA_LIMIT_1 = 0.135;
+const CHROMA_LIMIT_2 = 0.02;
 
 export const PAPER_WHITE_HEX: string = 'F7F5EF';
 
-export interface PaintFractionDefinition {
-  brand: PaintBrand;
+export interface ColorMixturePartDefinition {
+  brand: ColorBrand;
   id: number;
-  fraction: number;
+  part: number;
 }
 
-export interface PaintMixDefinition {
-  type: PaintType;
+export interface ColorMixtureDefinition {
+  type: ColorType;
   name: string | null;
-  fractions: PaintFractionDefinition[];
-  consistency: PaintConsistency;
+  parts: ColorMixturePartDefinition[];
+  consistency: Fraction;
   background: RgbTuple | null;
 }
 
-export interface PaintFraction {
-  paint: Paint;
-  fraction: number;
+export interface ColorMixturePart {
+  color: Color;
+  part: number;
 }
 
-export interface Pipet {
+export interface SamplingArea {
   x: number;
   y: number;
   diameter: number;
 }
 
-export interface PaintMix {
-  id: string;
+export interface ColorMixture {
+  id?: number;
+  key: string;
   name?: string | null;
-  type: PaintType;
-  paintMixRgb: RgbTuple;
-  paintMixRho: number[];
-  fractions: PaintFraction[];
-  consistency: PaintConsistency;
-  backgroundRgb: RgbTuple | null;
-  paintMixLayerRgb: RgbTuple;
-  imageFileId?: number;
-  pipet?: Pipet;
-  dataIndex?: number;
+  type: ColorType;
+  colorMixtureRgb: RgbTuple;
+  colorMixtureRho: number[];
+  parts: ColorMixturePart[];
+  whiteFraction: Fraction;
+  white?: Color | null;
+  tintRgb: RgbTuple;
+  consistency: Fraction;
+  backgroundRgb?: RgbTuple | null;
+  layerRgb: RgbTuple;
+  imageFileId?: number | null;
+  samplingArea?: SamplingArea | null;
+  timestamp?: number | null;
 }
 
 export interface SimilarColor {
-  paintMix: PaintMix;
+  colorMixture: ColorMixture;
   deltaE: number;
 }
 
-class UnmixedPaint {
-  paint: Paint;
+class UnmixedColor {
+  color: Color;
   rgb: Rgb;
-  lab: Lab;
+  oklch: Oklch;
   reflectance: Reflectance;
 
-  constructor(paint: Paint) {
-    this.paint = paint;
-    this.rgb = new Rgb(...paint.rgb);
-    this.lab = this.rgb.toXyz().toLab();
-    this.reflectance = Reflectance.fromArray(paint.rho);
+  constructor(color: Color) {
+    this.color = color;
+    this.rgb = new Rgb(...color.rgb);
+    this.oklch = this.rgb.toOklab().toOklch();
+    this.reflectance = Reflectance.fromArray(color.rho);
   }
 }
 
-class MixedPaint {
+class MixedColor {
   rgb: Rgb;
 
   constructor(
-    public type: PaintType,
     public reflectance: Reflectance,
-    public fractions: PaintFraction[]
+    public parts: ColorMixturePart[]
   ) {
     this.rgb = reflectance.toRgb();
   }
 
-  isOpaque(): boolean {
-    return this.fractions.some(
-      ({paint}: PaintFraction) =>
-        paint.opacity === PaintOpacity.Opaque || paint.opacity === PaintOpacity.SemiOpaque
-    );
+  static fromUnmixedColor = ({color, reflectance}: UnmixedColor): MixedColor => {
+    return new MixedColor(reflectance, [{color, part: 1}]);
+  };
+}
+
+class MixedColorTint {
+  rgb: Rgb;
+
+  constructor(
+    public reflectance: Reflectance,
+    public color: MixedColor,
+    public whiteFraction: Fraction,
+    public white?: UnmixedColor | null
+  ) {
+    this.rgb = reflectance.toRgb();
   }
+
+  static fromMixedColor = (color: MixedColor): MixedColorTint => {
+    return new MixedColorTint(color.reflectance, color, NONE);
+  };
 }
 
 class Background {
@@ -136,52 +176,64 @@ class Background {
   }
 }
 
-class PaintLayer {
-  lab: Lab;
+class MixedColorLayer {
+  oklab: Oklab;
 
   constructor(
     public rgb: Rgb,
-    public paint: MixedPaint,
-    public consistency: PaintConsistency,
-    public background: Rgb | null
+    public color: MixedColorTint,
+    public consistency: Fraction,
+    public background?: Rgb | null
   ) {
-    this.lab = this.rgb.toXyz().toLab();
+    this.oklab = this.rgb.toOklab();
   }
 
-  toPaintMix(): PaintMix {
-    const {type, fractions, rgb, reflectance} = this.paint;
-    const backgroundRgb: RgbTuple | null = this.background?.toRgbTuple() ?? null;
+  static fromMixedColorTint = (color: MixedColorTint) => {
+    return new MixedColorLayer(color.rgb, color, WHOLE);
+  };
+
+  toColorMixture(type: ColorType): ColorMixture {
+    const {
+      rgb: tintRgb,
+      color: {reflectance: colorMixtureReflectance, rgb: colorMixtureRgb, parts},
+      white,
+      whiteFraction,
+    } = this.color;
+    const backgroundRgb: RgbTuple | undefined = this.background?.toRgbTuple();
     return {
-      id: getPaintMixId(type, fractions, this.consistency, backgroundRgb),
+      key: getColorMixtureKey(type, parts, this.consistency, backgroundRgb),
       type,
-      paintMixRgb: rgb.toRgbTuple(),
-      paintMixRho: reflectance.toArray(),
-      fractions,
+      colorMixtureRgb: colorMixtureRgb.toRgbTuple(),
+      colorMixtureRho: colorMixtureReflectance.toArray(),
+      parts,
+      whiteFraction,
+      white: white?.color,
+      tintRgb: tintRgb.toRgbTuple(),
       consistency: this.consistency,
       backgroundRgb,
-      paintMixLayerRgb: this.rgb.toRgbTuple(),
+      layerRgb: this.rgb.toRgbTuple(),
     };
   }
 }
 
-const comparePaintFractionsByFraction = (
-  {fraction: a}: PaintFraction,
-  {fraction: b}: PaintFraction
+const compareColorMixturePartsByParts = (
+  {part: a}: ColorMixturePart,
+  {part: b}: ColorMixturePart
 ): number => b - a;
 
-const comparePaintFractionsByPaints = (
-  {paint: a}: PaintFraction,
-  {paint: b}: PaintFraction
+const compareColorMixturePartsByColors = (
+  {color: a}: ColorMixturePart,
+  {color: b}: ColorMixturePart
 ): number => a.brand - b.brand || a.id - b.id;
 
-export const comparePaintMixesByDataIndex = (
-  {dataIndex: a}: PaintMix,
-  {dataIndex: b}: PaintMix
+export const compareColorMixturesByTimestamp = (
+  {timestamp: a}: ColorMixture,
+  {timestamp: b}: ColorMixture
 ): number => (b ?? 0) - (a ?? 0);
 
-export const comparePaintMixesByName = (a: PaintMix, b: PaintMix): number => {
+export const compareColorMixturesByName = (a: ColorMixture, b: ColorMixture): number => {
   if (!a.name && !b.name) {
-    return comparePaintMixesByDataIndex(a, b);
+    return compareColorMixturesByTimestamp(a, b);
   }
   if (!a.name) {
     return 1;
@@ -192,30 +244,37 @@ export const comparePaintMixesByName = (a: PaintMix, b: PaintMix): number => {
   return a.name.localeCompare(b.name);
 };
 
-export const comparePaintMixesByConsistency = (
-  {consistency: [aPaint, aFluid]}: PaintMix,
-  {consistency: [bPaint, bFluid]}: PaintMix
-) => aFluid - bFluid || bPaint - aPaint;
+export const compareColorMixturesByConsistency = (
+  {consistency: [aColorPart, aWhole]}: ColorMixture,
+  {consistency: [bColorPart, bWhole]}: ColorMixture
+) => Math.abs(aWhole - aColorPart) - Math.abs(bWhole - bColorPart);
 
 export const compareSimilarColorsByDeltaE = (
   {deltaE: a}: SimilarColor,
   {deltaE: b}: SimilarColor
 ) => a - b;
 
-export const compareSimilarColorsByPaintMixFractionsLength = (a: SimilarColor, b: SimilarColor) =>
-  a.paintMix.fractions.length - b.paintMix.fractions.length || a.deltaE - b.deltaE;
+export const compareSimilarColorsByColorMixturePartLength = (
+  {colorMixture: {parts: aParts}, deltaE: aDeltaE}: SimilarColor,
+  {colorMixture: {parts: bParts}, deltaE: bDeltaE}: SimilarColor
+) => aParts.length - bParts.length || aDeltaE - bDeltaE;
 
-function getPaintMixId(
-  type: PaintType,
-  fractions: PaintFraction[],
-  consistency: PaintConsistency,
-  background: RgbTuple | null
+export const compareSimilarColorsByConsistency = (
+  {colorMixture: aColorMixture, deltaE: aDeltaE}: SimilarColor,
+  {colorMixture: bColorMixture, deltaE: bDeltaE}: SimilarColor
+) => compareColorMixturesByConsistency(aColorMixture, bColorMixture) || aDeltaE - bDeltaE;
+
+function getColorMixtureKey(
+  type: ColorType,
+  parts: ColorMixturePart[],
+  consistency: Fraction,
+  background?: RgbTuple | null
 ): string {
   return (
     type +
     ';' +
-    fractions
-      .map(({paint: {brand, id}, fraction}: PaintFraction) => `${brand}-${id}x${fraction}`)
+    parts
+      .map(({color: {brand, id}, part}: ColorMixturePart) => `${brand}-${id}x${part}`)
       .join(',') +
     ';' +
     consistency.join(':') +
@@ -223,279 +282,333 @@ function getPaintMixId(
   );
 }
 
-function getPaintMixHash({fractions}: PaintMix): string {
-  return fractions
+function getColorMixtureHash({parts}: ColorMixture): string {
+  return parts
     .slice()
-    .sort(comparePaintFractionsByPaints)
-    .map(({paint: {brand, id}}: PaintFraction) => brand + '_' + id)
+    .sort(compareColorMixturePartsByColors)
+    .map(({color: {brand, id}}: ColorMixturePart) => brand + '_' + id)
     .join('-');
 }
 
-export function isThickConsistency({consistency: [_, fluid]}: PaintMix): boolean {
-  return fluid === 0;
+export function isThickConsistency({
+  consistency: [colorPart, whole],
+}: {
+  consistency: Fraction;
+}): boolean {
+  return colorPart === whole;
 }
 
-export function createPaintMix(
-  {type, name, fractions: fractionsDefinitions, consistency, background}: PaintMixDefinition,
-  paints: Map<PaintBrand, Map<number, Paint>>
-): PaintMix | null {
-  const paintFractions: PaintFraction[] = fractionsDefinitions.flatMap(
-    ({brand, id, fraction}: PaintFractionDefinition): PaintFraction[] => {
-      const paint: Paint | undefined = paints.get(brand)?.get(id);
-      return paint ? [{paint, fraction}] : [];
+export function createColorMixture(
+  {type, name, parts: partDefs, consistency, background: backgroundRgb}: ColorMixtureDefinition,
+  colors: Map<ColorBrand, Map<number, Color>>
+): ColorMixture | null {
+  const parts: ColorMixturePart[] = partDefs.flatMap(
+    ({brand, id, part}: ColorMixturePartDefinition): ColorMixturePart[] => {
+      const color: Color | undefined = colors.get(brand)?.get(id);
+      return color ? [{color, part}] : [];
     }
   );
-  if (!paintFractions.length) {
+  if (!parts.length) {
     return null;
   }
-  const id: string = getPaintMixId(type, paintFractions, consistency, background);
-  const reflectances: Reflectance[] = paintFractions.map(({paint: {rho}}: PaintFraction) =>
+  const key: string = getColorMixtureKey(type, parts, consistency, backgroundRgb);
+  const reflectances: Reflectance[] = parts.map(({color: {rho}}: ColorMixturePart) =>
     Reflectance.fromArray(rho)
   );
-  const fractions: number[] = paintFractions.map(({fraction}: PaintFraction) => fraction);
-  const paintMixRho: Reflectance = Reflectance.mixSubtractively(reflectances, fractions);
-  const paintMixRgb: Rgb = paintMixRho.toRgb();
-  const paintMixLayerRho: Reflectance = background
+  const ratio: number[] = parts.map(({part}: ColorMixturePart) => part);
+  const colorMixtureReflectance: Reflectance = Reflectance.mixSubtractively(reflectances, ratio);
+  const colorMixtureRgb: Rgb = colorMixtureReflectance.toRgb();
+  const layerRho: Reflectance = backgroundRgb
     ? Reflectance.mixSubtractively(
-        [paintMixRho, Reflectance.fromRgb(new Rgb(...background))],
+        [colorMixtureReflectance, Reflectance.fromRgb(new Rgb(...backgroundRgb))],
         consistency
       )
-    : paintMixRho;
-  const paintMixLayerRgb: Rgb = background ? paintMixLayerRho.toRgb() : paintMixRgb;
+    : colorMixtureReflectance;
+  const layerRgb: Rgb = backgroundRgb ? layerRho.toRgb() : colorMixtureRgb;
   return {
-    id,
+    key,
     name,
     type,
-    paintMixRgb: paintMixRgb.toRgbTuple(),
-    paintMixRho: paintMixRho.toArray(),
-    fractions: paintFractions,
-    backgroundRgb: background,
-    consistency: consistency,
-    paintMixLayerRgb: paintMixLayerRgb.toRgbTuple(),
+    colorMixtureRgb: colorMixtureRgb.toRgbTuple(),
+    colorMixtureRho: colorMixtureReflectance.toArray(),
+    parts,
+    whiteFraction: NONE,
+    tintRgb: colorMixtureRgb.toRgbTuple(),
+    consistency,
+    backgroundRgb,
+    layerRgb: layerRgb.toRgbTuple(),
   };
 }
 
-function makePaintsConsistencies(
-  paints: MixedPaint[],
-  {rgb: background, reflectance: backgroundReflectance}: Background
-): PaintLayer[] {
-  return paints.flatMap((paint: MixedPaint): PaintLayer[] =>
-    CONSISTENCIES.map((consistency: PaintConsistency): PaintLayer => {
-      const [_, fluidFraction] = consistency;
-      if (fluidFraction === 0) {
-        return new PaintLayer(paint.rgb, paint, consistency, null);
-      }
+function makeThickLayers(colors: MixedColorTint[]): MixedColorLayer[] {
+  return colors.map(MixedColorLayer.fromMixedColorTint);
+}
+
+function makeThinnedLayers(
+  type: ColorType,
+  colors: MixedColorTint[],
+  {rgb: backgroundRgb, reflectance: backgroundReflectance}: Background
+): MixedColorLayer[] {
+  if (!colors.length) {
+    return [];
+  }
+  const {glazing = true} = COLOR_MIXING[type];
+  if (!glazing) {
+    return [];
+  }
+  return colors.flatMap((color: MixedColorTint): MixedColorLayer[] =>
+    FRACTIONS.map((consistency: Fraction): MixedColorLayer => {
       const reflectance = Reflectance.mixSubtractively(
-        [paint.reflectance, backgroundReflectance],
+        [color.reflectance, backgroundReflectance],
         consistency
       );
-      return new PaintLayer(reflectance.toRgb(), paint, consistency, background);
+      return new MixedColorLayer(reflectance.toRgb(), color, consistency, backgroundRgb);
     })
   );
 }
 
-function makePaintMix(paints: UnmixedPaint[], fractions: number[]): MixedPaint {
-  if (!paints.length) {
-    throw new Error('Paints array is empty');
+function makeLayers(type: ColorType, colors: MixedColorTint[], background: Background) {
+  return [...makeThickLayers(colors), ...makeThinnedLayers(type, colors, background)];
+}
+
+function mixColors(colors: UnmixedColor[], ratio: number[]): MixedColor {
+  if (!colors.length) {
+    throw new Error('Colors array is empty');
   }
-  if (paints.length !== fractions.length) {
+  if (colors.length !== ratio.length) {
     throw new Error(
-      `The number of paints (${paints.length}}) != the number of fractions (${fractions.length})`
+      `The number of colors (${colors.length}}) != the number of parts (${ratio.length})`
     );
   }
-  const paintFractions: PaintFraction[] = [];
+  const parts: ColorMixturePart[] = [];
   const reflectances: Reflectance[] = [];
-  for (let i = 0; i < paints.length; i++) {
-    const {paint, reflectance} = paints[i];
-    paintFractions.push({paint, fraction: fractions[i]});
+  for (let i = 0; i < colors.length; i++) {
+    const {color, reflectance} = colors[i];
+    parts.push({color, part: ratio[i]});
     reflectances.push(reflectance);
   }
-  const reflectance = Reflectance.mixSubtractively(reflectances, fractions);
-  paintFractions.sort(comparePaintFractionsByFraction);
-  return new MixedPaint(paints[0].paint.type, reflectance, paintFractions);
+  const reflectance = Reflectance.mixSubtractively(reflectances, ratio);
+  parts.sort(compareColorMixturePartsByParts);
+  return new MixedColor(reflectance, parts);
 }
 
-function makeOnePaintMixes(paints: UnmixedPaint[]): MixedPaint[] {
-  return paints.flatMap(
-    ({paint, reflectance}: UnmixedPaint) =>
-      new MixedPaint(paint.type, reflectance, [{paint, fraction: 1}])
-  );
+function toUnmixedColorsAndWhites(colors: Color[]): [UnmixedColor[], UnmixedColor[]] {
+  const unmixedColors: UnmixedColor[] = colors.flatMap((color: Color) => new UnmixedColor(color));
+  return [unmixedColors.filter(not(isWhiteColor)), unmixedColors.filter(isWhiteColor)];
 }
 
-function makeTwoPaintsMixes(paints: UnmixedPaint[]): MixedPaint[] {
-  const fractionsArray: number[][] = [];
+function countByChromaLessThan(chroma: number, ...colors: UnmixedColor[]): number {
+  return colors.filter(({oklch: {c}}: UnmixedColor) => c < chroma).length;
+}
+
+function mixTwoColors(colors: UnmixedColor[]): MixedColor[] {
+  const ratios: number[][] = [];
   for (let a = 1; a < 10; a++) {
-    const fraction1 = a;
-    const fraction2 = 10 - a;
-    const divisor = gcd(fraction1, fraction2);
-    fractionsArray.push([fraction1 / divisor, fraction2 / divisor]);
+    const part1 = a;
+    const part2 = 10 - a;
+    const divisor = gcd(part1, part2);
+    ratios.push([part1 / divisor, part2 / divisor]);
   }
-  const mixedPaints: MixedPaint[] = [];
-  for (let i = 0; i < paints.length - 1; i++) {
-    const paint1 = paints[i];
-    for (let j = i + 1; j < paints.length; j++) {
-      const paint2 = paints[j];
-      fractionsArray.forEach(fractions => {
-        mixedPaints.push(makePaintMix([paint1, paint2], fractions));
+  const mixedColors: MixedColor[] = [];
+  for (let i = 0; i < colors.length - 1; i++) {
+    const color1 = colors[i];
+    for (let j = i + 1; j < colors.length; j++) {
+      const color2 = colors[j];
+      if (
+        countByChromaLessThan(CHROMA_LIMIT_1, color1, color2) > 1 ||
+        countByChromaLessThan(CHROMA_LIMIT_2, color1, color2) > 0
+      ) {
+        continue;
+      }
+      ratios.forEach(ratio => {
+        mixedColors.push(mixColors([color1, color2], ratio));
       });
     }
   }
-  return mixedPaints;
+  return mixedColors;
 }
 
-function makeThreePaintsMixes(paints: UnmixedPaint[]): MixedPaint[] {
-  const fractionsArray: number[][] = [];
+function mixThreeColors(colors: UnmixedColor[]): MixedColor[] {
+  const ratios: number[][] = [];
   for (let a = 1; a < 9; a++) {
     for (let b = 1; a + b < 9; b++) {
-      const fraction1 = a;
-      const fraction2 = b;
-      const fraction3 = 9 - a - b;
-      const divisor = gcd(fraction1, fraction2, fraction3);
-      fractionsArray.push([fraction1 / divisor, fraction2 / divisor, fraction3 / divisor]);
+      const part1 = a;
+      const part2 = b;
+      const part3 = 9 - a - b;
+      const divisor = gcd(part1, part2, part3);
+      ratios.push([part1 / divisor, part2 / divisor, part3 / divisor]);
     }
   }
-  const mixedPaints: MixedPaint[] = [];
-  for (let i = 0; i < paints.length - 2; i++) {
-    const paint1 = paints[i];
-    for (let j = i + 1; j < paints.length - 1; j++) {
-      const paint2 = paints[j];
-      for (let k = j + 1; k < paints.length; k++) {
-        const paint3 = paints[k];
-        fractionsArray.forEach(fractions => {
-          mixedPaints.push(makePaintMix([paint1, paint2, paint3], fractions));
+  const mixedColors: MixedColor[] = [];
+  for (let i = 0; i < colors.length - 2; i++) {
+    const color1 = colors[i];
+    for (let j = i + 1; j < colors.length - 1; j++) {
+      const color2 = colors[j];
+      for (let k = j + 1; k < colors.length; k++) {
+        const color3 = colors[k];
+        if (countByChromaLessThan(CHROMA_LIMIT_1, color1, color2, color3) > 0) {
+          continue;
+        }
+        ratios.forEach(ratio => {
+          mixedColors.push(mixColors([color1, color2, color3], ratio));
         });
       }
     }
   }
-  return mixedPaints;
+  return mixedColors;
+}
+
+function isWhiteColor({color: {name}}: UnmixedColor) {
+  return name.toLowerCase().split(' ').includes('white');
+}
+
+function mixTints(mixedColors: MixedColor[], whites: UnmixedColor[]): MixedColorTint[] {
+  if (!whites.length) {
+    return mixedColors.map(MixedColorTint.fromMixedColor);
+  }
+  return mixedColors.flatMap((mixedColor: MixedColor): MixedColorTint[] =>
+    whites.flatMap((white: UnmixedColor): MixedColorTint[] =>
+      FRACTIONS.map(([colorPart, whole]: Fraction): MixedColorTint => {
+        const whitePart = whole - colorPart;
+        return new MixedColorTint(
+          Reflectance.mixSubtractively(
+            [mixedColor.reflectance, white.reflectance],
+            [colorPart, whitePart]
+          ),
+          mixedColor,
+          [whitePart, whole],
+          white
+        );
+      })
+    )
+  );
 }
 
 function uniqueSimilarColors(similarColors: SimilarColor[]): SimilarColor[] {
-  return unique(similarColors, ({paintMix}: SimilarColor): string => getPaintMixHash(paintMix));
+  return unique(similarColors, ({colorMixture}: SimilarColor): string =>
+    getColorMixtureHash(colorMixture)
+  );
 }
 
-export function mixPaints(
-  paints: Paint[],
-  fractions: number[],
+export function makeColorMixture(
+  type: ColorType,
+  colors: Color[],
+  ratio: number[],
   backgroundColorHex: string
-): PaintMix[] {
-  const mixedPaint: MixedPaint = makePaintMix(
-    paints.map((paint: Paint) => new UnmixedPaint(paint)),
-    fractions
-  );
-  const paintLayers: PaintLayer[] = makePaintsConsistencies(
-    [mixedPaint],
+): ColorMixture[] {
+  const [unmixedColors] = toUnmixedColorsAndWhites(colors);
+  const color: MixedColorTint = MixedColorTint.fromMixedColor(mixColors(unmixedColors, ratio));
+  const layers: MixedColorLayer[] = makeLayers(
+    type,
+    [color],
     new Background(Rgb.fromHex(backgroundColorHex))
   );
-  return paintLayers.map((paintLayer: PaintLayer): PaintMix => paintLayer.toPaintMix());
+  return layers.map((layer: MixedColorLayer): ColorMixture => layer.toColorMixture(type));
 }
 
 export class ColorMixer {
-  private paintType: PaintType | null = null;
-  private paintMixes: Map<number, MixedPaint[]> = new Map();
-  private paintMixLayers: Map<number, PaintLayer[]> = new Map();
-  private background: Background | null = null;
+  private colorType?: ColorType;
+  private colorMixtures: MixedColorTint[] = [];
+  private thickLayers: MixedColorLayer[] = [];
+  private thinnedLayers: MixedColorLayer[] = [];
+  private background?: Background;
 
-  private async getUnmixedColors(paints: Paint[]): Promise<UnmixedPaint[]> {
-    return paints.flatMap((paint: Paint) => new UnmixedPaint(paint));
+  setColorSet(colorSet: ColorSet, backgroundColor: string | RgbTuple) {
+    this.colorType = colorSet.type;
+    this.mixColors(colorSet);
+    this.makeThickLayers();
+    this.setBackgroundColor(backgroundColor);
   }
 
-  async setPaintSet(paintSet: PaintSet) {
-    this.paintType = paintSet.type;
-    await this.mixPaints(paintSet);
-    await this.makePaintsConsistencies();
+  setBackgroundColor(backgroundColor: string | RgbTuple) {
+    this.background = new Background(Rgb.fromHexOrTuple(backgroundColor));
+    this.makeThinnedLayers();
   }
 
-  async setBackground(backgroundColorHex: string) {
-    this.background = new Background(Rgb.fromHex(backgroundColorHex));
-    await this.makePaintsConsistencies();
-  }
-
-  private async mixPaints({type, colors: paints}: PaintSet): Promise<void> {
+  private mixColors({type, colors}: ColorSet): void {
     if (process.env.NODE_ENV !== 'production') {
-      console.time('mix-paints');
+      console.time('mix-colors');
     }
-    const unmixedColors: UnmixedPaint[] = await this.getUnmixedColors(paints);
-    this.paintMixes.clear();
-    const {maxPaintsCount} = PAINT_MIXING[type];
-    this.paintMixes.set(1, makeOnePaintMixes(unmixedColors));
-    if (maxPaintsCount >= 2) {
-      this.paintMixes.set(2, makeTwoPaintsMixes(unmixedColors));
-    }
-    if (maxPaintsCount >= 3) {
-      this.paintMixes.set(3, makeThreePaintsMixes(unmixedColors));
-    }
+    const [unmixedColors, whites]: [UnmixedColor[], UnmixedColor[]] =
+      toUnmixedColorsAndWhites(colors);
+    const {maxColors, tint = false} = COLOR_MIXING[type];
+    const mixedColors: MixedColor[] = unmixedColors
+      .map(MixedColor.fromUnmixedColor)
+      .concat(
+        maxColors >= 2 ? mixTwoColors(unmixedColors) : [],
+        maxColors >= 3 ? mixThreeColors(unmixedColors) : []
+      );
+    this.colorMixtures = tint
+      ? mixTints(mixedColors, whites)
+      : mixedColors.map(MixedColorTint.fromMixedColor);
     if (process.env.NODE_ENV !== 'production') {
-      console.timeEnd('mix-paints');
+      console.timeEnd('mix-colors');
     }
   }
 
-  private async makePaintsConsistencies(): Promise<void> {
-    if (!this.background) {
-      return;
-    }
+  private makeThickLayers(): void {
     if (process.env.NODE_ENV !== 'production') {
-      console.time('make-paints-consistencies');
+      console.time('make-thick-layers');
     }
-    this.paintMixLayers.clear();
-    for (const [numOfPaints, paintMixes] of this.paintMixes) {
-      this.paintMixLayers.set(numOfPaints, makePaintsConsistencies(paintMixes, this.background));
-    }
+    this.thickLayers = makeThickLayers(this.colorMixtures);
     if (process.env.NODE_ENV !== 'production') {
-      console.timeEnd('make-paints-consistencies');
+      console.timeEnd('make-thick-layers');
+    }
+  }
+
+  private makeThinnedLayers(): void {
+    if (process.env.NODE_ENV !== 'production') {
+      console.time('make-thinned-layers');
+    }
+    this.thinnedLayers =
+      this.colorType && this.background
+        ? makeThinnedLayers(this.colorType, this.colorMixtures, this.background)
+        : [];
+    if (process.env.NODE_ENV !== 'production') {
+      console.timeEnd('make-thinned-layers');
     }
   }
 
   findSimilarColors(
     targetColor: string | RgbTuple,
-    isGlaze = false,
-    limitResultsForMixes = 5,
-    deltaELimit = 2,
-    bestMatchFallback = true,
-    maxDeltaE = 10
+    maxMixesPerGroup = 3,
+    deltaEThreshold = 2,
+    deltaELimit = 10
   ): SimilarColor[] {
     const rgb = Rgb.fromHexOrTuple(targetColor);
-    if (!this.paintType || this.background?.rgb.equals(rgb)) {
+    if (!this.colorType || this.background?.rgb.equals(rgb)) {
       return [];
     }
-    const lab: Lab = rgb.toXyz().toLab();
-    const {onlyThickConsistency} = PAINT_MIXING[this.paintType];
-    const allSimilarColors: SimilarColor[] = [];
+    const oklab: Oklab = rgb.toOklab();
+    const matchingColors: SimilarColor[] = [];
     let topNSimilarColors: SimilarColor[] = [];
-    for (const layers of this.paintMixLayers.values()) {
-      const similarColors: SimilarColor[] = [];
+    for (const layers of [this.thickLayers, this.thinnedLayers]) {
+      const matchingColorsGroup: SimilarColor[] = [];
       for (const layer of layers) {
-        const [_, fluidFraction] = layer.consistency;
-        if (onlyThickConsistency && !isGlaze && fluidFraction !== 0) {
-          continue;
-        }
-        if (isGlaze && (fluidFraction === 0 || layer.paint.isOpaque())) {
-          continue;
-        }
-        const deltaE: number = layer.lab.getDeltaE2000(lab);
-        if (maxDeltaE && deltaE > maxDeltaE) {
+        const deltaE: number = layer.oklab.getDeltaEOk(oklab, 100);
+        if (deltaELimit > 0 && deltaE > deltaELimit) {
           continue;
         }
         const similarColor: SimilarColor = {
-          paintMix: layer.toPaintMix(),
+          colorMixture: layer.toColorMixture(this.colorType),
           deltaE,
         };
-        if (bestMatchFallback && similarColors.length === 0) {
+        if (matchingColors.length === 0 && matchingColorsGroup.length === 0) {
           topNSimilarColors.push(similarColor);
           topNSimilarColors.sort(compareSimilarColorsByDeltaE);
           topNSimilarColors = uniqueSimilarColors(topNSimilarColors);
-          if (topNSimilarColors.length > limitResultsForMixes) {
+          if (topNSimilarColors.length > maxMixesPerGroup) {
             topNSimilarColors.pop();
           }
         }
-        if (deltaE <= deltaELimit) {
-          similarColors.push(similarColor);
+        if (deltaE <= deltaEThreshold) {
+          matchingColorsGroup.push(similarColor);
         }
       }
-      similarColors.sort(compareSimilarColorsByDeltaE);
-      allSimilarColors.push(...uniqueSimilarColors(similarColors).slice(0, limitResultsForMixes));
+      matchingColorsGroup.sort(compareSimilarColorsByDeltaE);
+      matchingColors.push(...uniqueSimilarColors(matchingColorsGroup).slice(0, maxMixesPerGroup));
     }
-    allSimilarColors.sort(compareSimilarColorsByDeltaE);
-    return allSimilarColors.length > 0 ? allSimilarColors : topNSimilarColors;
+    matchingColors.sort(compareSimilarColorsByDeltaE);
+    return matchingColors.length > 0 ? matchingColors : topNSimilarColors;
   }
 }

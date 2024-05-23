@@ -4,8 +4,9 @@
  */
 
 import {transfer} from 'comlink';
+
 import {erodeFilter} from '~/src/services/image/erode-filter';
-import {IMAGE_SIZE, createScaledImageBitmap} from '~/src/utils';
+import {createScaledImageBitmap, IMAGE_SIZE} from '~/src/utils';
 
 interface Result {
   outline: ImageBitmap;

@@ -5,41 +5,28 @@
 
 import {PrinterOutlined} from '@ant-design/icons';
 import {Button, Spin} from 'antd';
-import {Remote, wrap} from 'comlink';
+
 import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
-import {useCreateImageBitmap} from '~/src/hooks/useCreateImageBitmap';
 import {usePrintImages} from '~/src/hooks/usePrintImages';
-import {ZoomableImageCanvas} from '~/src/services/canvas/image';
-import {Outline} from '~/src/services/image';
+import type {ZoomableImageCanvas} from '~/src/services/canvas/image';
+import {useAppStore} from '~/src/stores/app-store';
+
 import {EmptyImage} from './empty/EmptyImage';
 
-const outline: Remote<Outline> = wrap(
-  new Worker(new URL('../services/image/worker/outline-worker.ts', import.meta.url), {
-    type: 'module',
-  })
-);
+export const ImageOutline: React.FC = () => {
+  const originalImage = useAppStore(state => state.originalImage);
+  const outlineImage = useAppStore(state => state.outlineImage);
 
-const ERODE_FILTER_RADIUS = 2;
-
-const blobToImageBitmapsConverter = async (blob: Blob): Promise<ImageBitmap[]> => [
-  (await outline.getOutline(blob, ERODE_FILTER_RADIUS)).outline,
-];
-
-type Props = {
-  blob?: Blob;
-};
-
-export const ImageOutline: React.FC<Props> = ({blob}: Props) => {
-  const {images, isLoading} = useCreateImageBitmap(blobToImageBitmapsConverter, blob);
+  const isOutlineImageLoading = useAppStore(state => state.isOutlineImageLoading);
 
   const {ref: canvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
-    images
+    outlineImage
   );
 
-  const {ref: printRef, printImagesUrls, handlePrint} = usePrintImages(images);
+  const {ref: printRef, printImagesUrls, handlePrint} = usePrintImages(outlineImage);
 
-  if (!blob) {
+  if (!originalImage) {
     return (
       <div style={{padding: '0 16px 16px'}}>
         <EmptyImage feature="view an outline from a reference photo" tab="Outline" />
@@ -48,7 +35,7 @@ export const ImageOutline: React.FC<Props> = ({blob}: Props) => {
   }
 
   return (
-    <Spin spinning={isLoading} tip="Loading" size="large">
+    <Spin spinning={isOutlineImageLoading} tip="Loading" size="large">
       <div style={{display: 'flex', width: '100%', justifyContent: 'center', marginBottom: 8}}>
         <Button icon={<PrinterOutlined />} onClick={handlePrint}>
           Print

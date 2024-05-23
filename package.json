@@ -28,7 +28,8 @@
     "react-sticky-box": "^2.0.5",
     "react-to-print": "^2.15.1",
     "ua-parser-js": "^1.0.37",
-    "usehooks-ts": "^2.15.1"
+    "usehooks-ts": "^2.15.1",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@parcel/config-default": "^2.12.0",
@@ -37,14 +38,16 @@
     "@parcel/transformer-raw": "^2.12.0",
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
-    "@typescript-eslint/eslint-plugin": "^7.1.0",
-    "@typescript-eslint/parser": "^7.1.0",
+    "@typescript-eslint/eslint-plugin": "^7.8.0",
+    "@typescript-eslint/parser": "^7.8.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-license-header": "^0.6.0",
-    "eslint-plugin-no-relative-import-paths": "^1.5.3",
-    "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-license-header": "^0.6.1",
+    "eslint-plugin-no-relative-import-paths": "^1.5.4",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-simple-import-sort": "^12.1.0",
+    "eslint-plugin-unused-imports": "^3.2.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "parcel": "^2.12.0",
@@ -52,7 +55,8 @@
     "prettier": "^3.2.5",
     "process": "^0.11.10",
     "ts-node": "^10.9.2",
-    "tsconfig-paths": "^4.2.0"
+    "tsconfig-paths": "^4.2.0",
+    "typescript-eslint": "^7.8.0"
   },
   "lint-staged": {
     "**/*.{js,ts,jsx,tsx}": [

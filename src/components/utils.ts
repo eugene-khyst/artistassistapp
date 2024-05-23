@@ -3,9 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {DefaultOptionType as SelectOptionType} from 'antd/es/select';
-import {ReactElement} from 'react';
-import {CascaderOption} from './types';
+import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
+import type {ReactElement, ReactNode} from 'react';
+
+export interface CascaderOption {
+  value?: string | number;
+  label: ReactNode;
+  children?: CascaderOption[];
+  disabled?: boolean;
+}
 
 export function filterSelectOptions(
   inputValue: string,
@@ -14,7 +20,7 @@ export function filterSelectOptions(
   if (!option?.label) {
     return false;
   }
-  const searchTerm: string = inputValue.toLowerCase();
+  const searchTerm: string = inputValue.trim().toLowerCase();
   if (typeof option.label === 'string') {
     return option.label.toLowerCase().includes(searchTerm);
   }

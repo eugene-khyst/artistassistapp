@@ -4,14 +4,14 @@
  */
 
 import {Card} from 'antd';
-import {Dispatch, SetStateAction} from 'react';
+import type {Dispatch, SetStateAction} from 'react';
+
+import {useAppStore} from '~/src/stores/app-store';
 
 type Props = {
   image: string | URL;
   thumbnail?: string | URL;
   name: string;
-  setBlob: Dispatch<SetStateAction<Blob | undefined>>;
-  setImageFileId: Dispatch<SetStateAction<number | undefined>>;
   setImageLoadingCount: Dispatch<SetStateAction<number>>;
 };
 
@@ -19,17 +19,18 @@ export const SampleImage: React.FC<Props> = ({
   image,
   thumbnail,
   name,
-  setBlob,
-  setImageFileId,
   setImageLoadingCount,
 }: Props) => {
-  const handleCardClick = async () => {
-    setImageLoadingCount((prev: number) => prev + 1);
-    const response: Response = await fetch(image);
-    const blob: Blob = await response.blob();
-    setBlob(blob);
-    setImageFileId(undefined);
-    setImageLoadingCount((prev: number) => prev - 1);
+  const setImageFile = useAppStore(state => state.setImageFile);
+
+  const handleCardClick = () => {
+    void (async () => {
+      setImageLoadingCount((prev: number) => prev + 1);
+      const response: Response = await fetch(image);
+      const blob: Blob = await response.blob();
+      void setImageFile({file: new File([blob], '')});
+      setImageLoadingCount((prev: number) => prev - 1);
+    })();
   };
 
   return (

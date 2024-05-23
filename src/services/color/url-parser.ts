@@ -3,51 +3,53 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  PaintBrand,
-  PaintConsistency,
-  PaintFraction,
-  PaintFractionDefinition,
-  PaintMix,
-  PaintMixDefinition,
-  PaintSetDefinition,
-  PaintType,
-} from '.';
-import {Rgb, RgbTuple} from './model';
+import type {Fraction} from '~/src/utils';
 
-const URL_PARAM_PAINT_TYPE = 't';
-const URL_PARAM_PAINT_BRANDS = 'b';
+import type {
+  ColorMixture,
+  ColorMixtureDefinition,
+  ColorMixturePart,
+  ColorMixturePartDefinition,
+} from './color-mixer';
+import type {ColorSetDefinition, ColorType} from './colors';
+import {ColorBrand} from './colors';
+import type {RgbTuple} from './space';
+import {Rgb} from './space';
+
+const URL_PARAM_COLOR_TYPE = 't';
+const URL_PARAM_COLOR_BRANDS = 'b';
 const URL_PARAM_COLORS_PREFIX = 'c';
-const URL_PARAM_PAINT_MIX_FRACTIONS = 'm';
-const URL_PARAM_PAINT_MIX_BACKGROUND = 'bg';
-const URL_PARAM_PAINT_MIX_CONSISTENCY = 'cs';
-const URL_PARAM_PAINT_MIX_NAME = 'n';
+const URL_PARAM_MIXTURE_PARTS = 'm';
+const URL_PARAM_MIXTURE_BACKGROUND = 'bg';
+const URL_PARAM_MIXTURE_CONSISTENCY = 'cs';
+const URL_PARAM_MIXTURE_NAME = 'n';
 const URL_PARAM_RADIX = 36;
 const URL_PARAM_SEPARATOR = '_';
-const SKU_BASE = new Map<PaintBrand, number>([
-  [PaintBrand.DanielSmithExtraFine, 284600000],
-  [PaintBrand.DanielSmithPrimaTek, 284600000],
-  [PaintBrand.DanielSmithPrimaTek, 7000000],
+const SKU_BASE = new Map<ColorBrand, number>([
+  [ColorBrand.DanielSmithExtraFine, 284600000],
+  [ColorBrand.DanielSmithPrimaTek, 284600000],
+  [ColorBrand.GoldenQoR, 7000000],
+  [ColorBrand.GoldenWilliamsburg, 6000000],
 ]);
 
 export interface UrlParsingResult {
-  paintSet?: PaintSetDefinition;
-  paintMix?: PaintMixDefinition;
+  colorSet?: ColorSetDefinition;
+  colorMixture?: ColorMixtureDefinition;
 }
 
-export function paintSetToUrl({type, brands, colors}: PaintSetDefinition): string | undefined {
-  if (!type || !brands || !brands.length || !colors || !Object.keys(colors).length) {
+export function colorSetToUrl({type, brands, colors}: ColorSetDefinition): string | undefined {
+  if (!type || !brands || !brands.length || !Object.keys(colors).length) {
     return undefined;
   }
   const url = new URL(window.location.toString());
   const {searchParams} = url;
-  searchParams.set(URL_PARAM_PAINT_TYPE, type.toString(URL_PARAM_RADIX));
+  searchParams.set(URL_PARAM_COLOR_TYPE, type.toString(URL_PARAM_RADIX));
   searchParams.set(
-    URL_PARAM_PAINT_BRANDS,
-    brands.map((brand: PaintBrand) => brand.toString(URL_PARAM_RADIX)).join(URL_PARAM_SEPARATOR)
+    URL_PARAM_COLOR_BRANDS,
+    brands.map((brand: ColorBrand) => brand.toString(URL_PARAM_RADIX)).join(URL_PARAM_SEPARATOR)
   );
   Object.entries(colors).forEach(([key, value]: [string, number[]]) => {
-    const brand = Number(key) as PaintBrand;
+    const brand = Number(key) as ColorBrand;
     const ids: number[] = value.map((id: number) => id - (SKU_BASE.get(brand) || 0));
     searchParams.set(
       URL_PARAM_COLORS_PREFIX + key,
@@ -57,51 +59,54 @@ export function paintSetToUrl({type, brands, colors}: PaintSetDefinition): strin
   return url.toString();
 }
 
-export function paintMixToUrl({
+export function colorMixtureToUrl({
   type,
   name,
-  fractions,
+  parts,
   consistency,
   backgroundRgb,
-}: PaintMix): string | undefined {
-  if (!type || !fractions?.length || !consistency?.length) {
+}: ColorMixture): string | undefined {
+  if (!parts.length) {
     return undefined;
   }
   const url = new URL(window.location.toString());
   const {searchParams} = url;
-  searchParams.set(URL_PARAM_PAINT_TYPE, type.toString(URL_PARAM_RADIX));
+  searchParams.set(URL_PARAM_COLOR_TYPE, type.toString(URL_PARAM_RADIX));
   searchParams.set(
-    URL_PARAM_PAINT_MIX_FRACTIONS,
-    fractions
-      .flatMap(({paint: {brand, id}, fraction}: PaintFraction) => [brand, id, fraction])
+    URL_PARAM_MIXTURE_PARTS,
+    parts
+      .flatMap(({color: {brand, id}, part}: ColorMixturePart) => [brand, id, part])
       .map((value: number) => value.toString(URL_PARAM_RADIX))
       .join(URL_PARAM_SEPARATOR)
   );
+  const [colorPart, whole] = consistency;
   searchParams.set(
-    URL_PARAM_PAINT_MIX_CONSISTENCY,
-    consistency.map((value: number) => value.toString(URL_PARAM_RADIX)).join(URL_PARAM_SEPARATOR)
+    URL_PARAM_MIXTURE_CONSISTENCY,
+    [colorPart, whole - colorPart]
+      .map((value: number) => value.toString(URL_PARAM_RADIX))
+      .join(URL_PARAM_SEPARATOR)
   );
   if (backgroundRgb) {
-    searchParams.set(URL_PARAM_PAINT_MIX_BACKGROUND, new Rgb(...backgroundRgb).toHex(false));
+    searchParams.set(URL_PARAM_MIXTURE_BACKGROUND, new Rgb(...backgroundRgb).toHex(false));
   }
   if (name) {
-    searchParams.set(URL_PARAM_PAINT_MIX_NAME, name);
+    searchParams.set(URL_PARAM_MIXTURE_NAME, name);
   }
   return url.toString();
 }
 
 export function parseUrl(urlStr: string): UrlParsingResult {
   const {searchParams} = new URL(urlStr);
-  if (!searchParams.has(URL_PARAM_PAINT_TYPE)) {
+  if (!searchParams.has(URL_PARAM_COLOR_TYPE)) {
     return {};
   }
-  const type: PaintType = parseInt(searchParams.get(URL_PARAM_PAINT_TYPE)!, URL_PARAM_RADIX);
-  if (searchParams.has(URL_PARAM_PAINT_BRANDS)) {
-    const brands: PaintBrand[] = searchParams
-      .get(URL_PARAM_PAINT_BRANDS)!
+  const type: ColorType = parseInt(searchParams.get(URL_PARAM_COLOR_TYPE)!, URL_PARAM_RADIX);
+  if (searchParams.has(URL_PARAM_COLOR_BRANDS)) {
+    const brands: ColorBrand[] = searchParams
+      .get(URL_PARAM_COLOR_BRANDS)!
       .split(URL_PARAM_SEPARATOR)
       .map((brand: string) => parseInt(brand, URL_PARAM_RADIX));
-    const colors: Partial<Record<PaintBrand, number[]>> = {};
+    const colors: Partial<Record<ColorBrand, number[]>> = {};
     for (const brand of brands) {
       const paramColors = URL_PARAM_COLORS_PREFIX + brand;
       if (searchParams.has(paramColors)) {
@@ -118,42 +123,42 @@ export function parseUrl(urlStr: string): UrlParsingResult {
       return {};
     }
     return {
-      paintSet: {
+      colorSet: {
         type,
         brands,
-        storeBoughtPaintSet: [0],
+        standardColorSet: [0],
         colors,
       },
     };
   }
   if (
-    searchParams.has(URL_PARAM_PAINT_MIX_FRACTIONS) &&
-    searchParams.has(URL_PARAM_PAINT_MIX_CONSISTENCY)
+    searchParams.has(URL_PARAM_MIXTURE_PARTS) &&
+    searchParams.has(URL_PARAM_MIXTURE_CONSISTENCY)
   ) {
-    const fractionsParts: string[] = searchParams
-      .get(URL_PARAM_PAINT_MIX_FRACTIONS)!
+    const rawParts: string[] = searchParams
+      .get(URL_PARAM_MIXTURE_PARTS)!
       .split(URL_PARAM_SEPARATOR);
-    const fractions: PaintFractionDefinition[] = [];
-    for (let i = 0; i < fractionsParts.length; i += 3) {
-      const brand: PaintBrand = parseInt(fractionsParts[i], URL_PARAM_RADIX);
-      const id: number = parseInt(fractionsParts[i + 1], URL_PARAM_RADIX);
-      const fraction: number = parseInt(fractionsParts[i + 2], URL_PARAM_RADIX);
-      fractions.push({brand, id, fraction});
+    const parts: ColorMixturePartDefinition[] = [];
+    for (let i = 0; i < rawParts.length; i += 3) {
+      const brand: ColorBrand = parseInt(rawParts[i], URL_PARAM_RADIX);
+      const id: number = parseInt(rawParts[i + 1], URL_PARAM_RADIX);
+      const part: number = parseInt(rawParts[i + 2], URL_PARAM_RADIX);
+      parts.push({brand, id, part});
     }
-    const [paintFraction, fluidFraction] = searchParams
-      .get(URL_PARAM_PAINT_MIX_CONSISTENCY)!
+    const [colorPart, otherPart] = searchParams
+      .get(URL_PARAM_MIXTURE_CONSISTENCY)!
       .split(URL_PARAM_SEPARATOR)
-      .map((fraction: string) => parseInt(fraction, URL_PARAM_RADIX));
-    const consistency: PaintConsistency = [paintFraction, fluidFraction];
-    const background: RgbTuple | null = searchParams.has(URL_PARAM_PAINT_MIX_BACKGROUND)
-      ? Rgb.fromHex(searchParams.get(URL_PARAM_PAINT_MIX_BACKGROUND)!).toRgbTuple()
+      .map((part: string) => parseInt(part, URL_PARAM_RADIX));
+    const consistency: Fraction = [colorPart, colorPart + otherPart];
+    const background: RgbTuple | null = searchParams.has(URL_PARAM_MIXTURE_BACKGROUND)
+      ? Rgb.fromHex(searchParams.get(URL_PARAM_MIXTURE_BACKGROUND)!).toRgbTuple()
       : null;
-    const name: string | null = searchParams.get(URL_PARAM_PAINT_MIX_NAME);
+    const name: string | null = searchParams.get(URL_PARAM_MIXTURE_NAME);
     return {
-      paintMix: {
+      colorMixture: {
         type,
         name,
-        fractions,
+        parts,
         consistency,
         background,
       },

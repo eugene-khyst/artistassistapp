@@ -3,20 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {CheckboxOptionType, Form, Radio, RadioChangeEvent, Spin} from 'antd';
-import {Remote, wrap} from 'comlink';
+import type {CheckboxOptionType, RadioChangeEvent} from 'antd';
+import {Form, Radio, Spin} from 'antd';
 import {useEffect, useState} from 'react';
-import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
-import {useCreateImageBitmap} from '~/src/hooks/useCreateImageBitmap';
-import {ZoomableImageCanvas} from '~/src/services/canvas/image';
-import {Blur} from '~/src/services/image';
-import {EmptyImage} from './empty/EmptyImage';
 
-const blur: Remote<Blur> = wrap(
-  new Worker(new URL('../services/image/worker/blur-worker.ts', import.meta.url), {
-    type: 'module',
-  })
-);
+import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
+import type {ZoomableImageCanvas} from '~/src/services/canvas/image';
+import {useAppStore} from '~/src/stores/app-store';
+
+import {EmptyImage} from './empty/EmptyImage';
 
 const MEDIAN_FILTER_RADIUS_OPTIONS: CheckboxOptionType<number>[] = [
   {value: 0, label: 'None'},
@@ -24,23 +19,18 @@ const MEDIAN_FILTER_RADIUS_OPTIONS: CheckboxOptionType<number>[] = [
   {value: 2, label: 'Medium'},
   {value: 3, label: 'Large'},
 ];
-const MEDIAN_FILTER_RADIUSES = [0, 2, 3, 4];
 
 const DEFAULT_BLURRED_IMAGE_INDEX = 1;
 
-const blobToImageBitmapsConverter = async (blob: Blob): Promise<ImageBitmap[]> =>
-  (await blur.getBlurred(blob, MEDIAN_FILTER_RADIUSES)).blurred;
+export const ImageBlurred: React.FC = () => {
+  const originalImage = useAppStore(state => state.originalImage);
+  const blurredImages = useAppStore(state => state.blurredImages);
 
-type Props = {
-  blob?: Blob;
-};
-
-export const ImageBlurred: React.FC<Props> = ({blob}: Props) => {
-  const {images, isLoading} = useCreateImageBitmap(blobToImageBitmapsConverter, blob);
+  const isBlurredImagesLoading = useAppStore(state => state.isBlurredImagesLoading);
 
   const {ref: canvasRef, zoomableImageCanvas} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
-    images
+    blurredImages
   );
 
   const [blurredImageIndex, setBlurredImageIndex] = useState<number>(DEFAULT_BLURRED_IMAGE_INDEX);
@@ -50,10 +40,10 @@ export const ImageBlurred: React.FC<Props> = ({blob}: Props) => {
   }, [zoomableImageCanvas, blurredImageIndex]);
 
   const handleBlurChange = (e: RadioChangeEvent) => {
-    setBlurredImageIndex(e.target.value);
+    setBlurredImageIndex(e.target.value as number);
   };
 
-  if (!blob) {
+  if (!originalImage) {
     return (
       <div style={{padding: '0 16px 16px'}}>
         <EmptyImage feature="view a smoothed reference photo" tab="Simplified" />
@@ -62,7 +52,7 @@ export const ImageBlurred: React.FC<Props> = ({blob}: Props) => {
   }
 
   return (
-    <Spin spinning={isLoading} tip="Loading" size="large">
+    <Spin spinning={isBlurredImagesLoading} tip="Loading" size="large">
       <div style={{display: 'flex', width: '100%', justifyContent: 'center', marginBottom: 8}}>
         <Form.Item
           label="Blur"

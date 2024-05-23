@@ -6,33 +6,29 @@
 import {DeleteOutlined} from '@ant-design/icons';
 import {Button, Card, Popconfirm} from 'antd';
 import * as dayjs from 'dayjs';
-import {Dispatch, SetStateAction} from 'react';
+
 import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
-import {ImageFile} from '~/src/services/db';
+import type {ImageFile} from '~/src/services/db';
+import {useAppStore} from '~/src/stores/app-store';
 
 type Props = {
   imageFile: ImageFile;
-  deleteRecentImage: (id?: number) => void;
-  setBlob: Dispatch<SetStateAction<Blob | undefined>>;
-  setImageFileId: Dispatch<SetStateAction<number | undefined>>;
 };
 
-export const RecentImage: React.FC<Props> = ({
-  imageFile: {id, file, date},
-  deleteRecentImage,
-  setBlob,
-  setImageFileId,
-}: Props) => {
+export const RecentImage: React.FC<Props> = ({imageFile}: Props) => {
+  const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
+  const deleteRecentImageFile = useAppStore(state => state.deleteRecentImageFile);
+
+  const {file, date} = imageFile;
   const imageSrc: string | undefined = useCreateObjectUrl(file);
   const dateStr: string | undefined = date && dayjs(date).format('DD/MM/YYYY');
 
-  const handleCardClick = async () => {
-    setBlob(file);
-    setImageFileId(id);
+  const handleCardClick = () => {
+    void saveRecentImageFile(imageFile);
   };
 
   const handleDeleteButtonClick = () => {
-    deleteRecentImage(id);
+    void deleteRecentImageFile(imageFile);
   };
 
   return (
