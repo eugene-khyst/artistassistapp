@@ -9,13 +9,15 @@ import type {ArtistAssistAppDB} from './db';
 import {dbPromise} from './db';
 import type {ImageFile} from './types';
 
-const compareImageFilesByDate = (a: ImageFile, b: ImageFile) =>
-  (b.date?.getTime() ?? 0) - (a.date?.getTime() ?? 0);
+export async function getLastImageFile(): Promise<ImageFile | undefined> {
+  const imageFiles: ImageFile[] = await getImageFiles();
+  return imageFiles.length ? imageFiles[imageFiles.length - 1] : undefined;
+}
 
 export async function getImageFiles(): Promise<ImageFile[]> {
   const db = await dbPromise;
-  const imageFiles: ImageFile[] = await db.getAll('image-files');
-  return imageFiles.sort(compareImageFilesByDate);
+  const imageFiles: ImageFile[] = await db.getAllFromIndex('image-files', 'by-date');
+  return imageFiles.reverse();
 }
 
 export async function saveImageFile(imageFile: ImageFile, maxImageFiles = 12): Promise<ImageFile> {
@@ -23,7 +25,7 @@ export async function saveImageFile(imageFile: ImageFile, maxImageFiles = 12): P
   if (!imageFile.id) {
     const tx = db.transaction(['image-files', 'color-mixtures'], 'readwrite');
     const imageFiles: ImageFile[] = await tx.objectStore('image-files').getAll();
-    imageFiles.sort(compareImageFilesByDate);
+    imageFiles.reverse();
     if (imageFiles.length >= maxImageFiles) {
       for (const {id} of imageFiles.slice(maxImageFiles - 1)) {
         void deleteImageFileAndColorMixtures(tx, id!);

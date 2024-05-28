@@ -3,12 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export interface ColorPickerSettings {
-  sampleDiameter: number;
+import type {TabKey} from '~/src/types';
+
+export interface AppSettings {
+  activeTabKey?: TabKey;
 }
 
 export interface ImageFile {
   id?: number;
   file: File;
   date?: Date;
+}
+
+export interface ColorPickerSettings {
+  sampleDiameter: number;
 }

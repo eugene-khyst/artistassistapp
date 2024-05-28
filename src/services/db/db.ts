@@ -10,9 +10,13 @@ import type {ColorMixture, ColorSetDefinition, ColorType} from '~/src/services/c
 import type {LegacyPaintMix, LegacyPaintSetDefinition} from '~/src/services/db/db-migrations';
 import {toColorMixture, toColorSet} from '~/src/services/db/db-migrations';
 
-import type {ColorPickerSettings, ImageFile} from './types';
+import type {AppSettings, ColorPickerSettings, ImageFile} from './types';
 
 export interface ArtistAssistAppDB extends DBSchema {
+  app: {
+    value: AppSettings;
+    key: number;
+  };
   'color-sets': {
     value: ColorSetDefinition;
     key: ColorType;
@@ -21,6 +25,7 @@ export interface ArtistAssistAppDB extends DBSchema {
   'image-files': {
     value: ImageFile;
     key: number;
+    indexes: {'by-date': Date};
   };
   'color-picker': {
     value: ColorPickerSettings;
@@ -42,7 +47,7 @@ export interface ArtistAssistAppDB extends DBSchema {
 
 export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<ArtistAssistAppDB>(
   'artist-assist-app-db',
-  4,
+  5,
   {
     async upgrade(
       db: IDBPDatabase<ArtistAssistAppDB>,
@@ -51,6 +56,7 @@ export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artist
       tx: IDBPTransaction<
         ArtistAssistAppDB,
         (
+          | 'app'
           | 'color-sets'
           | 'image-files'
           | 'color-picker'
@@ -63,6 +69,10 @@ export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artist
     ) {
       if (process.env.NODE_ENV !== 'production') {
         console.log(`Migrating DB from version ${oldVersion} to ${newVersion}`);
+      }
+
+      if (!db.objectStoreNames.contains('app')) {
+        db.createObjectStore('app');
       }
 
       if (!db.objectStoreNames.contains('color-sets')) {
@@ -84,6 +94,12 @@ export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artist
           keyPath: 'id',
           autoIncrement: true,
         });
+      }
+      if (db.objectStoreNames.contains('image-files')) {
+        const imageFilesStore = tx.objectStore('image-files');
+        if (!imageFilesStore.indexNames.contains('by-date')) {
+          imageFilesStore.createIndex('by-date', 'date');
+        }
       }
 
       if (!db.objectStoreNames.contains('color-picker')) {

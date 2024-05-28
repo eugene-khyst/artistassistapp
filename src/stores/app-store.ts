@@ -25,6 +25,7 @@ import {
   fetchColorsBulk,
   PAPER_WHITE_HEX,
   parseUrl,
+  toColorSet,
 } from '~/src/services/color';
 import {Rgb, type RgbTuple} from '~/src/services/color/space';
 import {
@@ -34,8 +35,14 @@ import {
   type ImageFile,
   saveColorMixture,
 } from '~/src/services/db';
+import {getAppSettings, saveAppSettings} from '~/src/services/db/app-db';
 import {version as dbVersion} from '~/src/services/db/db';
-import {deleteImageFile, getImageFiles, saveImageFile} from '~/src/services/db/image-file-db';
+import {
+  deleteImageFile,
+  getImageFiles,
+  getLastImageFile,
+  saveImageFile,
+} from '~/src/services/db/image-file-db';
 import type {Blur, LimitedPalette, Outline, TonalValues} from '~/src/services/image';
 import {TabKey} from '~/src/types';
 import {createScaledImageBitmap, IMAGE_SIZE} from '~/src/utils';
@@ -145,10 +152,14 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
   isOutlineImageLoading: false,
   limitedPaletteImage: null,
   isLimitedPaletteImageLoading: false,
-  setActiveTabKey: (activeTabKey: TabKey): void => set({activeTabKey}),
+  setActiveTabKey: (activeTabKey: TabKey): void => {
+    void saveAppSettings({activeTabKey});
+    set({activeTabKey});
+  },
   setColorSet: async (colorSet: ColorSet): Promise<void> => {
+    const activeTabKey = !get().imageFile ? TabKey.Photo : TabKey.ColorPicker;
+    get().setActiveTabKey(activeTabKey);
     set({
-      activeTabKey: !get().imageFile ? TabKey.Photo : TabKey.ColorPicker,
       colorSet,
       isColorMixerSetLoading: true,
       backgroundColor: PAPER_WHITE_HEX,
@@ -168,8 +179,11 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
       get().outlineImage,
       get().limitedPaletteImage,
     ].flat();
+    if (imageFile) {
+      const activeTabKey = !get().colorSet ? TabKey.ColorSet : TabKey.ColorPicker;
+      get().setActiveTabKey(activeTabKey);
+    }
     set({
-      ...(imageFile && {activeTabKey: !get().colorSet ? TabKey.ColorSet : TabKey.ColorPicker}),
       imageFile,
       originalImage: null,
       isOriginalImageLoading: true,
@@ -341,6 +355,9 @@ function importFromUrl(): UrlParsingResult {
 }
 
 async function getAppState(): Promise<void> {
+  const appSettings = await getAppSettings();
+  let activeTabKey: TabKey | undefined = appSettings?.activeTabKey;
+
   useAppStore.setState({
     isColorSetDefinitionLoading: true,
     isRecentImageFilesLoading: true,
@@ -361,12 +378,22 @@ async function getAppState(): Promise<void> {
     isColorSetDefinitionLoading: false,
   });
 
+  if (colorSetDefinition) {
+    const {type, brands} = colorSetDefinition;
+    const colors: Map<ColorBrand, Map<number, Color>> = await fetchColorsBulk(type!, brands);
+    void useAppStore.getState().setColorSet(toColorSet(colorSetDefinition, colors));
+  }
+
   useAppStore.setState({
     recentImageFiles: await getImageFiles(),
     isRecentImageFilesLoading: false,
   });
 
-  let activeTabKey: TabKey | null = null;
+  const imageFile: ImageFile | undefined = await getLastImageFile();
+  if (imageFile) {
+    void useAppStore.getState().setImageFile(imageFile);
+  }
+
   if (importedColorMixture) {
     if (process.env.NODE_ENV !== 'production') {
       console.log('Importing color mixture', importedColorMixture);
@@ -380,9 +407,9 @@ async function getAppState(): Promise<void> {
       activeTabKey = TabKey.Palette;
     }
   }
-  const paletteColorMixtures: ColorMixture[] = await getColorMixtures();
+  const paletteColorMixtures: ColorMixture[] = await getColorMixtures(imageFile?.id);
   useAppStore.setState({
-    ...(activeTabKey && {activeTabKey}),
+    activeTabKey,
     paletteColorMixtures,
     isPaletteColorMixturesLoading: false,
   });
