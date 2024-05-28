@@ -15,11 +15,14 @@ import {
 import {Button, Col, Row, Space, theme, Typography} from 'antd';
 
 import {appConfig} from '~/src/config';
+import {useAppStore} from '~/src/stores/app-store';
 import {prettyUserAgent} from '~/src/utils/user-agent';
 
 import {Logo} from './image/Logo';
 
 export const Help: React.FC = () => {
+  const dbVersion = useAppStore(state => state.dbVersion);
+
   const {
     token: {fontSizeSM, colorTextSecondary},
   } = theme.useToken();
@@ -116,7 +119,7 @@ export const Help: React.FC = () => {
             xs={24}
             style={{textAlign: 'justify', fontSize: fontSizeSM, color: colorTextSecondary}}
           >
-            Running in {prettyUserAgent}
+            Running in {prettyUserAgent}, DB version: {dbVersion}
           </Col>
         </Row>
       </Space>

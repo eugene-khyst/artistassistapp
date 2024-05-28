@@ -5,17 +5,18 @@
 
 import {FullscreenExitOutlined, FullscreenOutlined} from '@ant-design/icons';
 import type {TabsProps} from 'antd';
-import {Col, FloatButton, Row, Tabs, theme} from 'antd';
+import {Alert, Col, FloatButton, Row, Tabs, theme} from 'antd';
 import StickyBox from 'react-sticky-box';
 import {useEventListener} from 'usehooks-ts';
 
+import {PromiseErrorBoundary} from '~/src/components/alert/PromiseErrorBoundary';
 import {ImageOutline} from '~/src/components/ImageOutline';
 import {appConfig} from '~/src/config';
 import {useAds} from '~/src/hooks/useAds';
 import {useFullScreen} from '~/src/hooks/useFullscreen';
 import {useAppStore} from '~/src/stores/app-store';
 
-import {BrowserNotSupported} from './components/alert/BrowserNotSupported';
+import {BrowserSupport} from './components/alert/BrowserSupport';
 import {ColorMixer} from './components/ColorMixer';
 import {ColorSetSelect} from './components/ColorSetSelect';
 import {Help} from './components/Help';
@@ -27,14 +28,6 @@ import {ImageSelect} from './components/ImageSelect';
 import {ImageTonalValues} from './components/ImageTonalValues';
 import {Palette} from './components/Palette';
 import {TabKey} from './types';
-
-const browserFeatures: Record<string, boolean> = {
-  Worker: typeof Worker !== 'undefined',
-  OffscreenCanvas: typeof OffscreenCanvas !== 'undefined',
-  createImageBitmap: typeof createImageBitmap !== 'undefined',
-  indexedDB: typeof indexedDB !== 'undefined',
-};
-const isBrowserSupported = Object.values(browserFeatures).every(value => value);
 
 export const ArtistAssistApp: React.FC = () => {
   const activeTabKey = useAppStore(state => state.activeTabKey);
@@ -48,7 +41,9 @@ export const ArtistAssistApp: React.FC = () => {
   const {isFullscreen, toggleFullScreen} = useFullScreen();
 
   useEventListener('beforeunload', event => {
-    event.returnValue = 'Are you sure you want to leave?';
+    event.preventDefault();
+    // Included for legacy support, e.g. Chrome/Edge < 119
+    event.returnValue = true;
   });
 
   const {ads} = useAds();
@@ -121,31 +116,31 @@ export const ArtistAssistApp: React.FC = () => {
     </StickyBox>
   );
 
-  if (!isBrowserSupported) {
-    return <BrowserNotSupported browserFeatures={browserFeatures} />;
-  }
-
   return (
-    <>
-      <div className="watermark">{watermarkText}</div>
-      <Row justify="center">
-        <Col xs={24} xxl={18}>
-          <Tabs
-            renderTabBar={renderTabBar}
-            items={items}
-            activeKey={activeTabKey}
-            onChange={handleTabChange}
-            size="large"
-            tabBarGutter={0}
+    <Alert.ErrorBoundary>
+      <PromiseErrorBoundary>
+        <BrowserSupport>
+          <div className="watermark">{watermarkText}</div>
+          <Row justify="center">
+            <Col xs={24} xxl={18}>
+              <Tabs
+                renderTabBar={renderTabBar}
+                items={items}
+                activeKey={activeTabKey}
+                onChange={handleTabChange}
+                size="large"
+                tabBarGutter={0}
+              />
+            </Col>
+          </Row>
+          <FloatButton
+            icon={isFullscreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
+            shape="square"
+            onClick={toggleFullScreen}
+            style={{right: 24, bottom: 24}}
           />
-        </Col>
-      </Row>
-      <FloatButton
-        icon={isFullscreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
-        shape="square"
-        onClick={toggleFullScreen}
-        style={{right: 24, bottom: 24}}
-      />
-    </>
+        </BrowserSupport>
+      </PromiseErrorBoundary>
+    </Alert.ErrorBoundary>
   );
 };

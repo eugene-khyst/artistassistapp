@@ -12,7 +12,6 @@ import {fetchColors} from '~/src/services/color';
 interface Result {
   isLoading: boolean;
   isError: boolean;
-  errors: unknown[];
   colors: Map<ColorBrand, Map<number, Color>>;
 }
 
@@ -32,7 +31,6 @@ export function useColors(type?: ColorType, brands?: ColorBrand[]): Result {
   return {
     isLoading: results.some(result => result.isLoading),
     isError: results.some(result => result.isError),
-    errors: results.map(({error}) => error),
     colors: new Map(results.flatMap(({data}) => (!data ? [] : [data]))),
   };
 }

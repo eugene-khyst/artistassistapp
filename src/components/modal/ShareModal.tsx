@@ -22,7 +22,7 @@ export const ShareModal: React.FC<Props> = ({title, open, setOpen, url}: Props) 
   const copyToClipboard = () => {
     if (url) {
       void copy(url);
-      void message.info('Link copied to clipboard');
+      void message.info('Link copied to clipboard', 3);
     }
   };
 

@@ -9,7 +9,18 @@ import {
   SaveOutlined,
   ShareAltOutlined,
 } from '@ant-design/icons';
-import {App, Button, Col, ConfigProvider, Form, Row, Space, Spin, Typography} from 'antd';
+import {
+  App,
+  Button,
+  Col,
+  ConfigProvider,
+  Form,
+  notification,
+  Row,
+  Space,
+  Spin,
+  Typography,
+} from 'antd';
 import {useEffect, useState} from 'react';
 
 import {appConfig} from '~/src/config';
@@ -53,6 +64,7 @@ export const ColorSetSelect: React.FC<Props> = ({ads}: Props) => {
   const {quickStartUrl} = appConfig;
 
   const {message} = App.useApp();
+  const [api, contextHolder] = notification.useNotification();
 
   const [form] = Form.useForm<ColorSetDefinition>();
   const colorType = Form.useWatch<ColorType | undefined>('type', form);
@@ -85,7 +97,7 @@ export const ColorSetSelect: React.FC<Props> = ({ads}: Props) => {
   const {
     standardColorSets,
     isLoading: isStandardColorSetsLoading,
-    isError: isStandardColorSetError,
+    isError: isStandardColorSetsError,
   } = useStandardColorSets(colorType, colorBrands);
 
   const {
@@ -96,9 +108,25 @@ export const ColorSetSelect: React.FC<Props> = ({ads}: Props) => {
 
   const isLoading: boolean = isColorSetLoading || isStandardColorSetsLoading || isColorsLoading;
 
-  if (isStandardColorSetError || isColorsError) {
-    void message.error('Error while fetching data');
-  }
+  useEffect(() => {
+    if (isStandardColorSetsError) {
+      api.error({
+        message: 'Error while fetching set data',
+        placement: 'top',
+        duration: 0,
+      });
+    }
+  }, [isStandardColorSetsError, api]);
+
+  useEffect(() => {
+    if (isColorsError) {
+      api.error({
+        message: 'Error while fetching color data',
+        placement: 'top',
+        duration: 0,
+      });
+    }
+  }, [isColorsError, api]);
 
   const handleHelpButtonClick = () => {
     setActiveTabKey(TabKey.Help);
@@ -183,6 +211,7 @@ export const ColorSetSelect: React.FC<Props> = ({ads}: Props) => {
 
   return (
     <>
+      {contextHolder}
       <div style={{padding: '0 16px'}}>
         <Row gutter={[16, 16]} style={{marginBottom: 16}}>
           <Col xs={24} md={12} lg={14}>

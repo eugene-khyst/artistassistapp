@@ -12,7 +12,6 @@ import {fetchStandardColorSets} from '~/src/services/color';
 interface Result {
   isLoading: boolean;
   isError: boolean;
-  errors: unknown[];
   standardColorSets: Map<ColorBrand, Map<string, StandardColorSet>>;
 }
 
@@ -32,7 +31,6 @@ export function useStandardColorSets(type?: ColorType, brands?: ColorBrand[]): R
   return {
     isLoading: results.some(result => result.isLoading),
     isError: results.some(result => result.isError),
-    errors: results.map(({error}) => error),
     standardColorSets: new Map(results.flatMap(({data}) => (!data ? [] : [data]))),
   };
 }

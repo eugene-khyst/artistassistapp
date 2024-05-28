@@ -32,6 +32,7 @@ import {
   type ImageFile,
   saveColorMixture,
 } from '~/src/services/db';
+import {version as dbVersion} from '~/src/services/db/db';
 import {deleteImageFile, getImageFiles, saveImageFile} from '~/src/services/db/image-file-db';
 import type {Blur, LimitedPalette, Outline, TonalValues} from '~/src/services/image';
 import {TabKey} from '~/src/types';
@@ -68,6 +69,7 @@ const limitedPalette: Remote<LimitedPalette> = wrap(
 );
 
 export type AppState = {
+  dbVersion: number | null;
   activeTabKey: TabKey;
   colorSet: ColorSet | null;
   imageFile: ImageFile | null;
@@ -111,6 +113,7 @@ export type AppActions = {
 };
 
 export const useAppStore = create<AppState & AppActions>((set, get) => ({
+  dbVersion: null,
   activeTabKey: TabKey.ColorSet,
   colorSet: null,
   imageFile: null,
@@ -337,6 +340,10 @@ async function getAppState(): Promise<void> {
   useAppStore.setState({
     isRecentImageFilesLoading: true,
     isPaletteColorMixturesLoading: true,
+  });
+
+  useAppStore.setState({
+    dbVersion: await dbVersion(),
   });
 
   useAppStore.setState({
