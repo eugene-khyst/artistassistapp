@@ -110,8 +110,8 @@ export type AppState = {
 
 export type AppActions = {
   setActiveTabKey: (activeTabKey: TabKey) => void;
-  setColorSet: (colorSet: ColorSet) => Promise<void>;
-  setImageFile: (imageFile: ImageFile | null) => Promise<void>;
+  setColorSet: (colorSet: ColorSet, setActiveTabKey?: boolean) => Promise<void>;
+  setImageFile: (imageFile: ImageFile | null, setActiveTabKey?: boolean) => Promise<void>;
   saveRecentImageFile: (imageFile: ImageFile) => Promise<void>;
   deleteRecentImageFile: (imageFile: ImageFile) => Promise<void>;
   setBackgroundColor: (backgroundColor: string | RgbTuple) => Promise<void>;
@@ -156,9 +156,11 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     void saveAppSettings({activeTabKey});
     set({activeTabKey});
   },
-  setColorSet: async (colorSet: ColorSet): Promise<void> => {
-    const activeTabKey = !get().imageFile ? TabKey.Photo : TabKey.ColorPicker;
-    get().setActiveTabKey(activeTabKey);
+  setColorSet: async (colorSet: ColorSet, setActiveTabKey = true): Promise<void> => {
+    if (setActiveTabKey) {
+      const activeTabKey = !get().imageFile ? TabKey.Photo : TabKey.ColorPicker;
+      get().setActiveTabKey(activeTabKey);
+    }
     set({
       colorSet,
       isColorMixerSetLoading: true,
@@ -171,7 +173,7 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     });
     await get().setTargetColor(get().targetColor, get().samplingArea);
   },
-  setImageFile: async (imageFile: ImageFile | null): Promise<void> => {
+  setImageFile: async (imageFile: ImageFile | null, setActiveTabKey = true): Promise<void> => {
     const prev: (ImageBitmap | null)[] = [
       get().originalImage,
       get().tonalImages,
@@ -179,7 +181,7 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
       get().outlineImage,
       get().limitedPaletteImage,
     ].flat();
-    if (imageFile) {
+    if (setActiveTabKey && imageFile) {
       const activeTabKey = !get().colorSet ? TabKey.ColorSet : TabKey.ColorPicker;
       get().setActiveTabKey(activeTabKey);
     }
@@ -372,6 +374,9 @@ async function getAppState(): Promise<void> {
 
   const colorSetDefinition: ColorSetDefinition | undefined =
     importedColorSet || (await getLastColorSet());
+  if (importedColorSet) {
+    activeTabKey = TabKey.ColorSet;
+  }
 
   useAppStore.setState({
     ...(colorSetDefinition && {colorSetDefinition}),
@@ -381,7 +386,7 @@ async function getAppState(): Promise<void> {
   if (colorSetDefinition) {
     const {type, brands} = colorSetDefinition;
     const colors: Map<ColorBrand, Map<number, Color>> = await fetchColorsBulk(type!, brands);
-    void useAppStore.getState().setColorSet(toColorSet(colorSetDefinition, colors));
+    void useAppStore.getState().setColorSet(toColorSet(colorSetDefinition, colors), false);
   }
 
   useAppStore.setState({
@@ -391,7 +396,7 @@ async function getAppState(): Promise<void> {
 
   const imageFile: ImageFile | undefined = await getLastImageFile();
   if (imageFile) {
-    void useAppStore.getState().setImageFile(imageFile);
+    void useAppStore.getState().setImageFile(imageFile, false);
   }
 
   if (importedColorMixture) {
