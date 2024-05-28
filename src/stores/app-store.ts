@@ -11,6 +11,7 @@ import type {
   ColorBrand,
   ColorMixer,
   ColorMixturePartDefinition,
+  ColorSetDefinition,
   ColorType,
   SamplingArea,
   SimilarColor,
@@ -29,6 +30,7 @@ import {Rgb, type RgbTuple} from '~/src/services/color/space';
 import {
   deleteColorMixture,
   getColorMixtures,
+  getLastColorSet,
   type ImageFile,
   saveColorMixture,
 } from '~/src/services/db';
@@ -71,15 +73,17 @@ const limitedPalette: Remote<LimitedPalette> = wrap(
 export type AppState = {
   dbVersion: number | null;
   activeTabKey: TabKey;
+  colorSetDefinition: ColorSetDefinition | null;
+  isColorSetDefinitionLoading: boolean;
   colorSet: ColorSet | null;
+  isColorMixerSetLoading: boolean;
   imageFile: ImageFile | null;
   recentImageFiles: ImageFile[];
   isRecentImageFilesLoading: boolean;
   originalImage: ImageBitmap | null;
   isOriginalImageLoading: boolean;
-  isColorMixerSetLoading: boolean;
-  isColorMixerBackgroundLoading: boolean;
   backgroundColor: string;
+  isColorMixerBackgroundLoading: boolean;
   targetColor: string;
   samplingArea: SamplingArea | null;
   colorPickerPipet: SamplingArea | null;
@@ -115,13 +119,15 @@ export type AppActions = {
 export const useAppStore = create<AppState & AppActions>((set, get) => ({
   dbVersion: null,
   activeTabKey: TabKey.ColorSet,
+  colorSetDefinition: null,
+  isColorSetDefinitionLoading: false,
   colorSet: null,
+  isColorMixerSetLoading: false,
   imageFile: null,
   recentImageFiles: [],
   isRecentImageFilesLoading: false,
   originalImage: null,
   isOriginalImageLoading: false,
-  isColorMixerSetLoading: false,
   isColorMixerBackgroundLoading: false,
   backgroundColor: PAPER_WHITE_HEX,
   targetColor: PAPER_WHITE_HEX,
@@ -334,10 +340,9 @@ function importFromUrl(): UrlParsingResult {
   return importedFromUrl;
 }
 
-export const importedFromUrl: UrlParsingResult = importFromUrl();
-
 async function getAppState(): Promise<void> {
   useAppStore.setState({
+    isColorSetDefinitionLoading: true,
     isRecentImageFilesLoading: true,
     isPaletteColorMixturesLoading: true,
   });
@@ -346,13 +351,22 @@ async function getAppState(): Promise<void> {
     dbVersion: await dbVersion(),
   });
 
+  const {colorSet: importedColorSet, colorMixture: importedColorMixture} = importFromUrl();
+
+  const colorSetDefinition: ColorSetDefinition | undefined =
+    importedColorSet || (await getLastColorSet());
+
+  useAppStore.setState({
+    ...(colorSetDefinition && {colorSetDefinition}),
+    isColorSetDefinitionLoading: false,
+  });
+
   useAppStore.setState({
     recentImageFiles: await getImageFiles(),
     isRecentImageFilesLoading: false,
   });
 
   let activeTabKey: TabKey | null = null;
-  const {colorMixture: importedColorMixture} = importedFromUrl;
   if (importedColorMixture) {
     if (process.env.NODE_ENV !== 'production') {
       console.log('Importing color mixture', importedColorMixture);

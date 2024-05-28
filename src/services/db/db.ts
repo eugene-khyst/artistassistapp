@@ -103,7 +103,6 @@ export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artist
         }
         db.deleteObjectStore('paint-mixes');
       }
-      throw new Error('Test DB error');
     },
   }
 );

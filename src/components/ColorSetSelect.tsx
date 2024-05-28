@@ -34,8 +34,8 @@ import {
   colorSetToUrl,
   toColorSet,
 } from '~/src/services/color';
-import {getColorSetByType, getLastColorSet, saveColorSet} from '~/src/services/db';
-import {importedFromUrl, useAppStore} from '~/src/stores/app-store';
+import {getColorSetByType, saveColorSet} from '~/src/services/db';
+import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/types';
 
 import {Ad} from './ad/Ad';
@@ -58,6 +58,9 @@ type Props = {
 };
 
 export const ColorSetSelect: React.FC<Props> = ({ads}: Props) => {
+  const colorSetDefinition = useAppStore(state => state.colorSetDefinition);
+  const isColorSetDefinitionLoading = useAppStore(state => state.isColorSetDefinitionLoading);
+
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
   const setColorSet = useAppStore(state => state.setColorSet);
 
@@ -70,29 +73,14 @@ export const ColorSetSelect: React.FC<Props> = ({ads}: Props) => {
   const colorType = Form.useWatch<ColorType | undefined>('type', form);
   const colorBrands = Form.useWatch<ColorBrand[] | undefined>('brands', form);
 
-  const [isColorSetLoading, setIsColorSetLoading] = useState<boolean>(false);
-
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [shareColorSetUrl, setShareColorSetUrl] = useState<string>();
 
   useEffect(() => {
-    void (async () => {
-      setIsColorSetLoading(true);
-      const {colorSet: importedColorSet} = importedFromUrl;
-      if (importedColorSet) {
-        if (process.env.NODE_ENV !== 'production') {
-          console.log('Importing color set', importedColorSet);
-        }
-        form.setFieldsValue(importedColorSet);
-      } else {
-        const lastColorSet: ColorSetDefinition | undefined = await getLastColorSet();
-        if (lastColorSet) {
-          form.setFieldsValue(lastColorSet);
-        }
-      }
-      setIsColorSetLoading(false);
-    })();
-  }, [form]);
+    if (colorSetDefinition) {
+      form.setFieldsValue(colorSetDefinition);
+    }
+  }, [form, colorSetDefinition]);
 
   const {
     standardColorSets,
@@ -106,7 +94,8 @@ export const ColorSetSelect: React.FC<Props> = ({ads}: Props) => {
     isError: isColorsError,
   } = useColors(colorType, colorBrands);
 
-  const isLoading: boolean = isColorSetLoading || isStandardColorSetsLoading || isColorsLoading;
+  const isLoading: boolean =
+    isColorSetDefinitionLoading || isStandardColorSetsLoading || isColorsLoading;
 
   useEffect(() => {
     if (isStandardColorSetsError) {
