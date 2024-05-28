@@ -11,7 +11,7 @@ import type {ImageFile} from './types';
 
 export async function getLastImageFile(): Promise<ImageFile | undefined> {
   const imageFiles: ImageFile[] = await getImageFiles();
-  return imageFiles.length ? imageFiles[imageFiles.length - 1] : undefined;
+  return imageFiles.length ? imageFiles[0] : undefined;
 }
 
 export async function getImageFiles(): Promise<ImageFile[]> {
