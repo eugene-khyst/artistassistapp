@@ -14,6 +14,7 @@ import {
   WindowsOutlined,
 } from '@ant-design/icons';
 import {Alert, Typography} from 'antd';
+import type {PropsWithChildren} from 'react';
 
 import {prettyUserAgent, userAgent} from '~/src/utils/user-agent';
 
@@ -25,11 +26,7 @@ const BROWSER_FEATURES: Record<string, boolean> = {
 };
 const IS_BROWSER_SUPPORTED = Object.values(BROWSER_FEATURES).every(value => value);
 
-type Props = {
-  children: React.ReactNode;
-};
-
-export const BrowserSupport: React.FC<Props> = ({children}: Props) => {
+export const BrowserSupport: React.FC<PropsWithChildren> = ({children}: PropsWithChildren) => {
   if (!IS_BROWSER_SUPPORTED) {
     const browserFeaturesListItems = Object.entries(BROWSER_FEATURES).map(
       ([feature, isSupported]) => `${feature} ${isSupported ? '✔️' : '❗'}`

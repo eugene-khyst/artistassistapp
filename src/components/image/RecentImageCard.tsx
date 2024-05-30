@@ -15,7 +15,7 @@ type Props = {
   imageFile: ImageFile;
 };
 
-export const RecentImage: React.FC<Props> = ({imageFile}: Props) => {
+export const RecentImageCard: React.FC<Props> = ({imageFile}: Props) => {
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
   const deleteRecentImageFile = useAppStore(state => state.deleteRecentImageFile);
 

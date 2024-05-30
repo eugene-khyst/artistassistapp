@@ -12,24 +12,24 @@ type Props = {
   image: string | URL;
   thumbnail?: string | URL;
   name: string;
-  setImageLoadingCount: Dispatch<SetStateAction<number>>;
+  setLoadingCount: Dispatch<SetStateAction<number>>;
 };
 
-export const SampleImage: React.FC<Props> = ({
+export const SampleImageCard: React.FC<Props> = ({
   image,
   thumbnail,
   name,
-  setImageLoadingCount,
+  setLoadingCount,
 }: Props) => {
   const setImageFile = useAppStore(state => state.setImageFile);
 
   const handleCardClick = () => {
     void (async () => {
-      setImageLoadingCount((prev: number) => prev + 1);
+      setLoadingCount((prev: number) => prev + 1);
       const response: Response = await fetch(image);
       const blob: Blob = await response.blob();
       void setImageFile({file: new File([blob], '')});
-      setImageLoadingCount((prev: number) => prev - 1);
+      setLoadingCount((prev: number) => prev - 1);
     })();
   };
 

@@ -44,6 +44,8 @@ import {
   saveImageFile,
 } from '~/src/services/db/image-file-db';
 import type {Blur, LimitedPalette, Outline, TonalValues} from '~/src/services/image';
+import type {Game, Player, Score} from '~/src/services/rating';
+import {Tournament} from '~/src/services/rating';
 import {TabKey} from '~/src/types';
 import {createScaledImageBitmap, IMAGE_SIZE} from '~/src/utils';
 
@@ -106,6 +108,10 @@ export type AppState = {
   isOutlineImageLoading: boolean;
   limitedPaletteImage: ImageBitmap | null;
   isLimitedPaletteImageLoading: boolean;
+  tournament: Tournament<File>;
+  unfinishedGamesSize: number;
+  nextGame: Game<File> | null;
+  playersByRating: Player<File>[];
 };
 
 export type AppActions = {
@@ -121,6 +127,10 @@ export type AppActions = {
   deleteFromPalette: (colorMixture: ColorMixture) => void;
   deleteAllFromPalette: (type: ColorType) => void;
   setLimitedColorSet: (limitedColorSet: ColorSet) => Promise<void>;
+  updateTournament: () => void;
+  addPlayer: (player: Player<File>) => void;
+  setScore: (score: Score) => void;
+  newTournament: () => void;
 };
 
 export const useAppStore = create<AppState & AppActions>((set, get) => ({
@@ -152,6 +162,10 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
   isOutlineImageLoading: false,
   limitedPaletteImage: null,
   isLimitedPaletteImageLoading: false,
+  tournament: new Tournament(),
+  unfinishedGamesSize: 0,
+  nextGame: null,
+  playersByRating: [],
   setActiveTabKey: (activeTabKey: TabKey): void => {
     void saveAppSettings({activeTabKey});
     set({activeTabKey});
@@ -344,6 +358,27 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
         .preview,
       isLimitedPaletteImageLoading: false,
     });
+  },
+  updateTournament: (): void => {
+    const {tournament} = get();
+    const unfinishedGames = tournament.getUnfinishedGames();
+    set({
+      unfinishedGamesSize: unfinishedGames.length,
+      nextGame: unfinishedGames[0],
+      playersByRating: tournament.getPlayersByRating(),
+    });
+  },
+  addPlayer: (player: Player<File>): void => {
+    get().tournament.addPlayer(player);
+    get().updateTournament();
+  },
+  setScore: (score: Score): void => {
+    get().nextGame?.setScore(score);
+    get().updateTournament();
+  },
+  newTournament: () => {
+    set({tournament: new Tournament()});
+    get().updateTournament();
   },
 }));
 

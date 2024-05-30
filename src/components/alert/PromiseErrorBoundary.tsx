@@ -4,13 +4,12 @@
  */
 
 import {notification} from 'antd';
+import type {PropsWithChildren} from 'react';
 import {useEffect} from 'react';
 
-type Props = {
-  children: React.ReactNode;
-};
-
-export const PromiseErrorBoundary: React.FC<Props> = ({children}: Props) => {
+export const PromiseErrorBoundary: React.FC<PropsWithChildren> = ({
+  children,
+}: PropsWithChildren) => {
   const [api, contextHolder] = notification.useNotification();
 
   useEffect(() => {

@@ -11,6 +11,7 @@ import {useEventListener} from 'usehooks-ts';
 
 import {PromiseErrorBoundary} from '~/src/components/alert/PromiseErrorBoundary';
 import {ImageOutline} from '~/src/components/ImageOutline';
+import {ImagesCompare} from '~/src/components/ImagesCompare';
 import {appConfig} from '~/src/config';
 import {useAds} from '~/src/hooks/useAds';
 import {useFullScreen} from '~/src/hooks/useFullscreen';
@@ -102,6 +103,11 @@ export const ArtistAssistApp: React.FC = () => {
       key: TabKey.LimitedPalette,
       label: 'Limited palette',
       children: <ImageLimitedPalette />,
+    },
+    {
+      key: TabKey.Compare,
+      label: 'Compare',
+      children: <ImagesCompare />,
     },
     {
       key: TabKey.Help,

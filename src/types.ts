@@ -14,5 +14,6 @@ export enum TabKey {
   Grid = 'grid',
   ColorMixing = 'color-mixing',
   LimitedPalette = 'limited-palette',
+  Compare = 'compare',
   Help = 'help',
 }

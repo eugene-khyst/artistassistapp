@@ -46,6 +46,10 @@ svg.color-icon {
   letter-spacing: 1px;
 }
 
+.blur-animation img {
+  animation: blur 1.5s ease 0s 1 alternate;
+}
+
 @media print {
   html,
   body {
@@ -56,4 +60,14 @@ svg.color-icon {
 @page {
   size: auto;
   margin: 10mm;
+}
+
+@keyframes blur {
+  0%,
+  90% {
+    filter: blur(0);
+  }
+  50% {
+    filter: blur(5px);
+  }
 }
