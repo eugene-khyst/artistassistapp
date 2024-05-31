@@ -94,5 +94,5 @@ type Props = {
 
 export const OpacityIcon: React.FC<Props> = ({opacity}: Props) => {
   const {tooltip, icon} = OPACITIES[opacity];
-  return <Tooltip title={`Opacity ${tooltip}`}>{icon}</Tooltip>;
+  return <Tooltip title={tooltip}>{icon}</Tooltip>;
 };
