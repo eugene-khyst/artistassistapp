@@ -27,14 +27,9 @@ import {appConfig} from '~/src/config';
 import {useColors, useStandardColorSets} from '~/src/hooks';
 import type {AdsDefinition} from '~/src/services/ads';
 import type {ColorBrand, ColorSetDefinition, ColorType} from '~/src/services/color';
-import {
-  COLOR_BRANDS,
-  COLOR_MIXING,
-  COLOR_TYPES,
-  colorSetToUrl,
-  toColorSet,
-} from '~/src/services/color';
+import {COLOR_BRANDS, COLOR_MIXING, COLOR_TYPES, toColorSet} from '~/src/services/color';
 import {getColorSetByType, saveColorSet} from '~/src/services/db';
+import {colorSetToUrl} from '~/src/services/url';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/types';
 

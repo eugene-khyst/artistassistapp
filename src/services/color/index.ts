@@ -6,4 +6,3 @@
 export * from './color-mixer';
 export * from './colors';
 export * from './light-spectrum';
-export * from './url-parser';

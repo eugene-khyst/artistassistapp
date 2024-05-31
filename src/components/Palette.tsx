@@ -8,7 +8,8 @@ import {Collapse, Spin, Typography} from 'antd';
 import {useCallback, useEffect, useState} from 'react';
 
 import type {ColorMixture, ColorType} from '~/src/services/color';
-import {COLOR_TYPES, colorMixtureToUrl} from '~/src/services/color';
+import {COLOR_TYPES} from '~/src/services/color';
+import {colorMixtureToUrl} from '~/src/services/url';
 import {useAppStore} from '~/src/stores/app-store';
 
 import {ColorSwatchDrawer} from './drawer/ColorSwatchDrawer';

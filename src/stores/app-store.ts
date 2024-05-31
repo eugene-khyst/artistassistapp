@@ -15,7 +15,6 @@ import type {
   ColorType,
   SamplingArea,
   SimilarColor,
-  UrlParsingResult,
 } from '~/src/services/color';
 import {
   type Color,
@@ -24,7 +23,6 @@ import {
   createColorMixture,
   fetchColorsBulk,
   PAPER_WHITE_HEX,
-  parseUrl,
   toColorSet,
 } from '~/src/services/color';
 import {Rgb, type RgbTuple} from '~/src/services/color/space';
@@ -46,6 +44,8 @@ import {
 import type {Blur, LimitedPalette, Outline, TonalValues} from '~/src/services/image';
 import type {Game, Player, Score} from '~/src/services/rating';
 import {Tournament} from '~/src/services/rating';
+import type {UrlParsingResult} from '~/src/services/url';
+import {parseUrl} from '~/src/services/url';
 import {TabKey} from '~/src/types';
 import {createScaledImageBitmap, IMAGE_SIZE} from '~/src/utils';
 
@@ -384,16 +384,22 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
 
 function importFromUrl(): UrlParsingResult {
   const importedFromUrl: UrlParsingResult = parseUrl(window.location.toString());
-  const {colorSet, colorMixture} = importedFromUrl;
-  if (colorSet || colorMixture) {
+  const {colorSet, colorMixture, tabKey} = importedFromUrl;
+  if (colorSet || colorMixture || tabKey) {
     history.pushState({}, '', '/');
   }
   return importedFromUrl;
 }
 
 async function getAppState(): Promise<void> {
+  const {
+    colorSet: importedColorSet,
+    colorMixture: importedColorMixture,
+    tabKey: importedTabKey,
+  } = importFromUrl();
+
   const appSettings = await getAppSettings();
-  let activeTabKey: TabKey | undefined = appSettings?.activeTabKey;
+  let activeTabKey: TabKey | undefined = importedTabKey ?? appSettings?.activeTabKey;
 
   useAppStore.setState({
     isColorSetDefinitionLoading: true,
@@ -404,8 +410,6 @@ async function getAppState(): Promise<void> {
   useAppStore.setState({
     dbVersion: await dbVersion(),
   });
-
-  const {colorSet: importedColorSet, colorMixture: importedColorMixture} = importFromUrl();
 
   const colorSetDefinition: ColorSetDefinition | undefined =
     importedColorSet || (await getLastColorSet());
@@ -449,10 +453,12 @@ async function getAppState(): Promise<void> {
   }
   const paletteColorMixtures: ColorMixture[] = await getColorMixtures(imageFile?.id);
   useAppStore.setState({
-    activeTabKey,
     paletteColorMixtures,
     isPaletteColorMixturesLoading: false,
   });
+  if (activeTabKey) {
+    useAppStore.getState().setActiveTabKey(activeTabKey);
+  }
 }
 
 void getAppState();

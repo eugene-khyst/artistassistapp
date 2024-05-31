@@ -3,18 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type {Fraction} from '~/src/utils';
-
 import type {
   ColorMixture,
   ColorMixtureDefinition,
   ColorMixturePart,
   ColorMixturePartDefinition,
-} from './color-mixer';
-import type {ColorSetDefinition, ColorType} from './colors';
-import {ColorBrand} from './colors';
-import type {RgbTuple} from './space';
-import {Rgb} from './space';
+} from '~/src/services/color';
+import type {ColorSetDefinition, ColorType} from '~/src/services/color';
+import {ColorBrand} from '~/src/services/color';
+import type {RgbTuple} from '~/src/services/color/space';
+import {Rgb} from '~/src/services/color/space';
+import {TabKey} from '~/src/types';
+import type {Fraction} from '~/src/utils';
 
 const URL_PARAM_COLOR_TYPE = 't';
 const URL_PARAM_COLOR_BRANDS = 'b';
@@ -31,10 +31,12 @@ const SKU_BASE = new Map<ColorBrand, number>([
   [ColorBrand.GoldenQoR, 7000000],
   [ColorBrand.GoldenWilliamsburg, 6000000],
 ]);
+const URL_PARAM_TAB = 'tab';
 
 export interface UrlParsingResult {
   colorSet?: ColorSetDefinition;
   colorMixture?: ColorMixtureDefinition;
+  tabKey?: TabKey;
 }
 
 export function colorSetToUrl({type, brands, colors}: ColorSetDefinition): string | undefined {
@@ -97,7 +99,7 @@ export function colorMixtureToUrl({
 
 export function parseUrl(urlStr: string): UrlParsingResult {
   const {searchParams} = new URL(urlStr);
-  if (!searchParams.has(URL_PARAM_COLOR_TYPE)) {
+  if (!searchParams.has(URL_PARAM_COLOR_TYPE) && !searchParams.has(URL_PARAM_TAB)) {
     return {};
   }
   const type: ColorType = parseInt(searchParams.get(URL_PARAM_COLOR_TYPE)!, URL_PARAM_RADIX);
@@ -163,6 +165,12 @@ export function parseUrl(urlStr: string): UrlParsingResult {
         background,
       },
     };
+  }
+  if (searchParams.has(URL_PARAM_TAB)) {
+    const tab: string = searchParams.get(URL_PARAM_TAB)!;
+    if (Object.values(TabKey).some((tabKey: string) => tabKey === tab)) {
+      return {tabKey: tab as TabKey};
+    }
   }
   return {};
 }
