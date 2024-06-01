@@ -98,7 +98,7 @@ export const ImagesCompare: React.FC = () => {
         )}
         {playersByRating.length > 0 && (
           <>
-            <Typography.Text strong>Rating of photos</Typography.Text>
+            <Typography.Text strong>Photo ranking</Typography.Text>
             <Row gutter={[16, 16]} align="middle" justify="start">
               {playersByRating.map(({id, data, rating}: Player<File>, index: number) => (
                 <Col key={`${id}`} xs={12} md={8} lg={6}>
