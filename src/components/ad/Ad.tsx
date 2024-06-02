@@ -4,10 +4,17 @@
  */
 
 import {Button, Card, Flex, Grid, Skeleton, theme} from 'antd';
+import {useState} from 'react';
+import {useInterval} from 'usehooks-ts';
 
 import {appConfig} from '~/src/config';
+import {useAds} from '~/src/hooks/useAds';
 import type {AdDefinition, AdsDefinition} from '~/src/services/ads';
-import type {TabKey} from '~/src/types';
+import {useAppStore} from '~/src/stores/app-store';
+import {TabKey} from '~/src/types';
+import {randomInt} from '~/src/utils';
+
+const AD_CHANGE_INTERVAL = 30 * 1000;
 
 function getImageUrl({image}: AdDefinition, adsUrl: string): string {
   return new URL(image, adsUrl).toString();
@@ -16,21 +23,31 @@ function getImageUrl({image}: AdDefinition, adsUrl: string): string {
 type Props = {
   ads?: AdsDefinition;
   tab: TabKey;
-  index?: number;
 };
 
-export const Ad: React.FC<Props> = ({
-  ads: {ads, placements} = {ads: {}, placements: {}},
-  tab,
-  index = 0,
-}: Props) => {
+export const Ad: React.FC<Props> = ({tab}: Props) => {
+  const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
+
   const {
     token: {colorFillSecondary},
   } = theme.useToken();
   const screens = Grid.useBreakpoint();
   const {adsUrl} = appConfig;
-  const adId: string | undefined = placements?.[tab]?.[index];
-  const ad: AdDefinition | undefined = ads?.[adId];
+
+  const {ads: {ads, placements} = {ads: {}, placements: {}}, isLoading} = useAds();
+
+  const [adIndex, setAdIndex] = useState(randomInt(0, 9));
+
+  useInterval(() => {
+    setAdIndex((prev: number) => prev + 1);
+  }, AD_CHANGE_INTERVAL);
+
+  const adKeys: string[] = placements[tab] ?? [];
+  const adKey: string | undefined = adKeys[adIndex % adKeys.length];
+  const ad: AdDefinition | undefined = ads[adKey];
+  if (!isLoading && !ad) {
+    return <></>;
+  }
   return (
     <Card
       hoverable
@@ -38,7 +55,16 @@ export const Ad: React.FC<Props> = ({
       styles={{body: {padding: 0, overflow: 'hidden'}}}
     >
       <Flex vertical={!screens['md']} align="center">
-        {ad ? (
+        {isLoading ? (
+          <Skeleton.Image
+            active
+            style={{
+              width: 200,
+              height: 150,
+              objectFit: 'contain',
+            }}
+          />
+        ) : (
           <>
             <img
               src={getImageUrl(ad, adsUrl)}
@@ -50,28 +76,26 @@ export const Ad: React.FC<Props> = ({
               }}
             />
           </>
-        ) : (
-          <Skeleton.Image
-            active
-            style={{
-              width: 200,
-              height: 150,
-              objectFit: 'contain',
-            }}
-          />
         )}
         <Flex vertical align="flex-start" style={{padding: 16}}>
-          {ad ? (
-            <>
-              <div style={{marginBottom: 16, textAlign: 'justify'}}>{ad.text}</div>
-              <Button type="primary" href={ad.linkUrl} target="_blank">
-                {ad.linkText}
-              </Button>
-            </>
-          ) : (
+          {isLoading ? (
             <>
               <Skeleton active title={false} paragraph={{rows: 3}} />
               <Skeleton.Button active />
+            </>
+          ) : (
+            <>
+              <div style={{marginBottom: 16, textAlign: 'justify'}}>{ad.text}</div>
+              {ad.linkUrl && (
+                <Button type="primary" href={ad.linkUrl} target="_blank">
+                  {ad.linkText}
+                </Button>
+              )}
+              {ad.linkTab && Object.values(TabKey).includes(ad.linkTab as TabKey) && (
+                <Button type="primary" onClick={() => setActiveTabKey(ad.linkTab as TabKey)}>
+                  {ad.linkText}
+                </Button>
+              )}
             </>
           )}
         </Flex>

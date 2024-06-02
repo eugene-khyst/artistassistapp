@@ -7,19 +7,16 @@ export interface AdDefinition {
   image: string;
   text: string;
   linkText: string;
-  linkUrl: string;
+  linkUrl?: string;
+  linkTab?: string;
 }
 
 export interface AdsDefinition {
   ads: Record<string, AdDefinition>;
-  placements: Record<string, string>;
+  placements: Record<string, string[]>;
 }
 
-export async function fetchAds(adsUrl: string): Promise<AdsDefinition | undefined> {
-  try {
-    const response = await fetch(adsUrl);
-    return (await response.json()) as AdsDefinition;
-  } catch (e) {
-    console.error('Failed to fetch ads', e);
-  }
+export async function fetchAds(adsUrl: string): Promise<AdsDefinition> {
+  const response = await fetch(adsUrl);
+  return (await response.json()) as AdsDefinition;
 }

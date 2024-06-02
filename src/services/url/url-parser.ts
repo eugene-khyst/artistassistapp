@@ -168,7 +168,7 @@ export function parseUrl(urlStr: string): UrlParsingResult {
   }
   if (searchParams.has(URL_PARAM_TAB)) {
     const tab: string = searchParams.get(URL_PARAM_TAB)!;
-    if (Object.values(TabKey).some((tabKey: string) => tabKey === tab)) {
+    if (Object.values(TabKey).includes(tab as TabKey)) {
       return {tabKey: tab as TabKey};
     }
   }

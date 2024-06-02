@@ -8,3 +8,4 @@ export * from './format';
 export * from './fraction';
 export * from './graphics';
 export * from './map';
+export * from './random';

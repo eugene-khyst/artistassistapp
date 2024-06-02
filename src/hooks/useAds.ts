@@ -14,7 +14,7 @@ interface Result {
   isLoading: boolean;
   isError: boolean;
   error: Error | null;
-  ads: AdsDefinition | undefined;
+  ads?: AdsDefinition;
 }
 
 export function useAds(): Result {

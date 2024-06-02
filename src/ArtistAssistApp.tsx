@@ -13,7 +13,6 @@ import {PromiseErrorBoundary} from '~/src/components/alert/PromiseErrorBoundary'
 import {ImageOutline} from '~/src/components/ImageOutline';
 import {ImagesCompare} from '~/src/components/ImagesCompare';
 import {appConfig} from '~/src/config';
-import {useAds} from '~/src/hooks/useAds';
 import {useFullScreen} from '~/src/hooks/useFullscreen';
 import {useAppStore} from '~/src/stores/app-store';
 
@@ -47,8 +46,6 @@ export const ArtistAssistApp: React.FC = () => {
     event.returnValue = true;
   });
 
-  const {ads} = useAds();
-
   const handleTabChange = (activeKey: string) => {
     setActiveTabKey(activeKey as TabKey);
   };
@@ -57,7 +54,7 @@ export const ArtistAssistApp: React.FC = () => {
     {
       key: TabKey.ColorSet,
       label: 'Color set',
-      children: <ColorSetSelect ads={ads} />,
+      children: <ColorSetSelect />,
     },
     {
       key: TabKey.Photo,

@@ -25,7 +25,6 @@ import {useEffect, useState} from 'react';
 
 import {appConfig} from '~/src/config';
 import {useColors, useStandardColorSets} from '~/src/hooks';
-import type {AdsDefinition} from '~/src/services/ads';
 import type {ColorBrand, ColorSetDefinition, ColorType} from '~/src/services/color';
 import {COLOR_BRANDS, COLOR_MIXING, COLOR_TYPES, toColorSet} from '~/src/services/color';
 import {getColorSetByType, saveColorSet} from '~/src/services/db';
@@ -48,11 +47,7 @@ const formInitialValues: ColorSetDefinition = {
   colors: {},
 };
 
-type Props = {
-  ads?: AdsDefinition;
-};
-
-export const ColorSetSelect: React.FC<Props> = ({ads}: Props) => {
+export const ColorSetSelect: React.FC = () => {
   const colorSetDefinition = useAppStore(state => state.colorSetDefinition);
   const isColorSetDefinitionLoading = useAppStore(state => state.isColorSetDefinitionLoading);
 
@@ -228,7 +223,7 @@ export const ColorSetSelect: React.FC<Props> = ({ads}: Props) => {
             </Space>
           </Col>
           <Col xs={24} md={12} lg={10}>
-            <Ad ads={ads} tab={TabKey.ColorSet} />
+            <Ad tab={TabKey.ColorSet} />
           </Col>
         </Row>
         <Typography.Text strong>

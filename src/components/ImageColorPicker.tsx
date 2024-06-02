@@ -22,6 +22,7 @@ import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import type {SliderMarks} from 'antd/es/slider';
 import {useCallback, useEffect, useState} from 'react';
 
+import {Ad} from '~/src/components/ad/Ad';
 import {useZoomableImageCanvas} from '~/src/hooks';
 import type {PipetPointSetEvent} from '~/src/services/canvas/image';
 import {
@@ -41,6 +42,7 @@ import type {ColorPickerSettings} from '~/src/services/db';
 import {getColorPickerSettings, saveColorPickerSettings} from '~/src/services/db';
 import {Vector} from '~/src/services/math';
 import {useAppStore} from '~/src/stores/app-store';
+import {TabKey} from '~/src/types';
 
 import {SimilarColorCard} from './color/SimilarColorCard';
 import {EmptyColorSet} from './empty/EmptyColorSet';
@@ -195,7 +197,7 @@ export const ImageColorPicker: React.FC = () => {
             overflowY: 'auto',
           }}
         >
-          <Space direction="vertical" style={{padding: '0 16px'}}>
+          <Space direction="vertical" style={{padding: '0 16px 16px'}}>
             <Space align="center" wrap style={{display: 'flex'}}>
               <Form.Item
                 label="Background"
@@ -297,6 +299,7 @@ export const ImageColorPicker: React.FC = () => {
                   />
                 ))
             )}
+            <Ad tab={TabKey.ColorPicker} />
           </Space>
         </Col>
       </Row>
