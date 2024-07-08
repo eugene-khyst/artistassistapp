@@ -3,9 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const appConfig = {
-  websiteUrl: 'https://artistassistapp.com',
-  quickStartUrl: 'https://artistassistapp.com/en/tutorials/',
-  watermarkText: 'ArtistAssistApp.com',
-  adsUrl: 'https://ads.artistassistapp.com/ads.json',
-};
+export const commitHash: string = process.env.CF_PAGES_COMMIT_SHA || '0';
+export const websiteUrl = 'https://artistassistapp.com';
+export const watermarkText = 'ArtistAssistApp.com';
+export const apiUrl = 'https://api.artistassistapp.com';

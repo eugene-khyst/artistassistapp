@@ -3,14 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Grid} from 'antd';
 import type {RefCallback} from 'react';
 import {useCallback, useEffect, useRef, useState} from 'react';
-import {useWindowSize} from 'usehooks-ts';
 
 import {ZoomableImageCanvas} from '~/src/services/canvas/image';
-
-import {useVisibilityChange} from './useVisibilityChange';
+import {debounce} from '~/src/utils';
 
 export function zoomableImageCanvasSupplier(canvas: HTMLCanvasElement): ZoomableImageCanvas {
   return new ZoomableImageCanvas(canvas);
@@ -39,16 +36,27 @@ export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
     },
     [zoomableImageCanvasSupplier]
   );
-  const isVisible = useVisibilityChange(canvasRef);
-  const windowSize = useWindowSize({debounceDelay: 300});
-  const screens = Grid.useBreakpoint();
 
   useEffect(() => {
-    if (!zoomableImageCanvas || !isVisible || !windowSize.height) {
+    const listener = debounce(() => zoomableImageCanvas?.resize());
+    window.addEventListener('resize', listener);
+    return () => window.removeEventListener('load', listener);
+  }, [zoomableImageCanvas]);
+
+  useEffect(() => {
+    if (!('IntersectionObserver' in window) || !zoomableImageCanvas?.canvas) {
       return;
     }
-    zoomableImageCanvas.resize();
-  }, [zoomableImageCanvas, windowSize, isVisible, screens]);
+    const observer = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry: IntersectionObserverEntry) => {
+        if (entry.isIntersecting) {
+          zoomableImageCanvas.resize();
+        }
+      });
+    });
+    observer.observe(zoomableImageCanvas.canvas);
+    return () => observer.disconnect();
+  }, [zoomableImageCanvas]);
 
   useEffect(() => {
     if (!zoomableImageCanvas) {

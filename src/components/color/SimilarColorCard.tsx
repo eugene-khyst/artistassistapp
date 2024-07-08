@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {BgColorsOutlined, EllipsisOutlined, QuestionCircleOutlined} from '@ant-design/icons';
+import {BgColorsOutlined, MoreOutlined, QuestionCircleOutlined} from '@ant-design/icons';
 import type {MenuProps} from 'antd';
 import {Button, Card, Dropdown, Popover, Space, theme, Typography} from 'antd';
 
@@ -59,7 +59,7 @@ export const SimilarColorCard: React.FC<Props> = ({
           <Space.Compact block>
             <SaveToPaletteButton colorMixture={colorMixture} />
             <Dropdown menu={{items}}>
-              <Button icon={<EllipsisOutlined />} />
+              <Button icon={<MoreOutlined />} />
             </Dropdown>
           </Space.Compact>
         </Space>

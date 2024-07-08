@@ -4,11 +4,10 @@
  */
 
 import {Button, Card, Flex, Grid, Skeleton, theme} from 'antd';
-import {useState} from 'react';
-import {useInterval} from 'usehooks-ts';
+import {useEffect, useState} from 'react';
 
-import {appConfig} from '~/src/config';
-import {useAds} from '~/src/hooks/useAds';
+import {apiUrl} from '~/src/config';
+import {useAds} from '~/src/hooks';
 import type {AdDefinition, AdsDefinition} from '~/src/services/ads';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/types';
@@ -32,15 +31,17 @@ export const Ad: React.FC<Props> = ({tab}: Props) => {
     token: {colorFillSecondary},
   } = theme.useToken();
   const screens = Grid.useBreakpoint();
-  const {adsUrl} = appConfig;
 
   const {ads: {ads, placements} = {ads: {}, placements: {}}, isLoading} = useAds();
 
   const [adIndex, setAdIndex] = useState(randomInt(0, 9));
 
-  useInterval(() => {
-    setAdIndex((prev: number) => prev + 1);
-  }, AD_CHANGE_INTERVAL);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setAdIndex((prev: number) => prev + 1);
+    }, AD_CHANGE_INTERVAL);
+    return () => clearInterval(intervalId);
+  }, []);
 
   const adKeys: string[] = placements[tab] ?? [];
   const adKey: string | undefined = adKeys[adIndex % adKeys.length];
@@ -67,7 +68,7 @@ export const Ad: React.FC<Props> = ({tab}: Props) => {
         ) : (
           <>
             <img
-              src={getImageUrl(ad, adsUrl)}
+              src={getImageUrl(ad, apiUrl)}
               style={{
                 display: 'block',
                 width: 200,
@@ -92,7 +93,7 @@ export const Ad: React.FC<Props> = ({tab}: Props) => {
                 </Button>
               )}
               {ad.linkTab && Object.values(TabKey).includes(ad.linkTab as TabKey) && (
-                <Button type="primary" onClick={() => setActiveTabKey(ad.linkTab as TabKey)}>
+                <Button type="primary" onClick={() => void setActiveTabKey(ad.linkTab as TabKey)}>
                   {ad.linkText}
                 </Button>
               )}

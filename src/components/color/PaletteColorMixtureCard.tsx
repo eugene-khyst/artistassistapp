@@ -3,13 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  BgColorsOutlined,
-  EllipsisOutlined,
-  MinusOutlined,
-  PictureOutlined,
-  ShareAltOutlined,
-} from '@ant-design/icons';
+import {BgColorsOutlined, DeleteOutlined, MoreOutlined, PictureOutlined} from '@ant-design/icons';
 import type {MenuProps} from 'antd';
 import {Button, Card, Dropdown, Popconfirm, Space, Typography} from 'antd';
 
@@ -20,10 +14,9 @@ import {TabKey} from '~/src/types';
 
 type Props = {
   colorMixture: ColorMixture;
-  showShareModal: (colorMixture: ColorMixture) => void;
 };
 
-export const PaletteColorMixtureCard: React.FC<Props> = ({colorMixture, showShareModal}: Props) => {
+export const PaletteColorMixtureCard: React.FC<Props> = ({colorMixture}: Props) => {
   const saveToPalette = useAppStore(state => state.saveToPalette);
   const deleteFromPalette = useAppStore(state => state.deleteFromPalette);
   const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
@@ -33,17 +26,11 @@ export const PaletteColorMixtureCard: React.FC<Props> = ({colorMixture, showShar
   const items: MenuProps['items'] = [
     {
       key: '1',
-      label: 'Share',
-      icon: <ShareAltOutlined />,
-      onClick: () => showShareModal(colorMixture),
-    },
-    {
-      key: '2',
       label: 'Set as background',
       icon: <BgColorsOutlined />,
       onClick: () => {
         void setBackgroundColor(colorMixture.layerRgb);
-        setActiveTabKey(TabKey.ColorPicker);
+        void setActiveTabKey(TabKey.ColorPicker);
       },
     },
   ];
@@ -56,7 +43,7 @@ export const PaletteColorMixtureCard: React.FC<Props> = ({colorMixture, showShar
     const {samplingArea} = colorMixture;
     if (samplingArea) {
       setColorPickerPipet(samplingArea);
-      setActiveTabKey(TabKey.ColorPicker);
+      void setActiveTabKey(TabKey.ColorPicker);
     }
   };
 
@@ -92,10 +79,10 @@ export const PaletteColorMixtureCard: React.FC<Props> = ({colorMixture, showShar
             okText="Yes"
             cancelText="No"
           >
-            <Button icon={<MinusOutlined />}>Remove</Button>
+            <Button icon={<DeleteOutlined />}>Remove</Button>
           </Popconfirm>
           <Dropdown menu={{items}}>
-            <Button icon={<EllipsisOutlined />} />
+            <Button icon={<MoreOutlined />} />
           </Dropdown>
         </Space.Compact>
       </Space>

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Oklab} from '~/src/services/color/space';
+import {Oklab} from './oklab';
 
 export class Oklch {
   constructor(

@@ -5,7 +5,7 @@
 
 import {Col, Drawer, Grid, Row} from 'antd';
 
-import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
+import {useCreateObjectUrl} from '~/src/hooks';
 import type {ColorMixture} from '~/src/services/color';
 import {Rgb} from '~/src/services/color/space';
 import {useAppStore} from '~/src/stores/app-store';

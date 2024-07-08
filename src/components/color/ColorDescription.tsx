@@ -6,8 +6,9 @@
 import {Space, Tooltip, Typography} from 'antd';
 
 import {OpacityIcon} from '~/src/components/color/OpacityIcon';
-import type {Color} from '~/src/services/color';
-import {COLOR_BRANDS, formatColorLabel} from '~/src/services/color';
+import type {Color, ColorBrandDefinition} from '~/src/services/color';
+import {formatColorLabel} from '~/src/services/color';
+import {useAppStore} from '~/src/stores/app-store';
 
 import {ColorSquare} from './ColorSquare';
 
@@ -17,8 +18,16 @@ type Props = {
 };
 
 export const ColorDescription: React.FC<Props> = ({color, text}: Props) => {
-  const {type, brand, rgb} = color;
-  const {shortName, fullName} = COLOR_BRANDS.get(type)?.get(brand) ?? {};
+  const colorSet = useAppStore(state => state.colorSet);
+
+  const {brand: brandId, rgb} = color;
+  const brand: ColorBrandDefinition | undefined = colorSet?.brands.get(brandId);
+
+  if (!brand) {
+    return <></>;
+  }
+
+  const {shortName, fullName} = brand;
   return (
     <Space size="small">
       <ColorSquare color={rgb} size="large" text={text} />
@@ -28,7 +37,7 @@ export const ColorDescription: React.FC<Props> = ({color, text}: Props) => {
         </Tooltip>
         <br />
         <Space size="small" align="center">
-          <Typography.Text strong>{formatColorLabel(color)}</Typography.Text>
+          <Typography.Text strong>{formatColorLabel(color, brand)}</Typography.Text>
           <OpacityIcon opacity={color.opacity} />
         </Space>
       </span>

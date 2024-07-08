@@ -24,15 +24,15 @@ export const ColorSquare: React.FC<Props> = ({color, size = 'small', text}: Prop
   const sideLength: number = isLarge ? 2 * fontSize * lineHeight : fontSizeLG;
   const borderRadius = isLarge ? 8 : 4;
   const rgb = Rgb.fromHexOrTuple(color);
-  const colorHex: string = rgb.toHex();
+  const hex: string = rgb.toHex();
   return (
-    <Tooltip title={colorHex}>
+    <Tooltip title={hex}>
       <svg width={sideLength} height={sideLength} className="color-icon">
         <rect
           width={sideLength}
           height={sideLength}
           rx={borderRadius}
-          fill={colorHex}
+          fill={hex}
           strokeWidth={1}
           stroke="#d9d9d9"
         />

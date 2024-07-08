@@ -38,7 +38,7 @@ export class LimitedPalette {
     const similarColors = new Map<number, RgbTuple>();
     medianCutQuantization(imageData, QUANTIZATION_DEPTH, (mean: RgbTuple): RgbTuple => {
       return computeIfAbsentInMap(similarColors, colorToNumber(mean), () => {
-        const [similarColor] = colorMixer.findSimilarColors(mean, 1);
+        const [similarColor] = colorMixer.findSimilarColors(mean, 1, 0, 0);
         return similarColor?.colorMixture.layerRgb || Rgb.WHITE.toRgbTuple();
       });
     });

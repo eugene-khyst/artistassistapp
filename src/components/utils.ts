@@ -3,19 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type {DefaultOptionType as CascaderOptionType} from 'antd/es/cascader';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
-import type {ReactElement, ReactNode} from 'react';
-
-export interface CascaderOption {
-  value?: string | number;
-  label: ReactNode;
-  children?: CascaderOption[];
-  disabled?: boolean;
-}
+import type {ReactElement} from 'react';
 
 export function filterSelectOptions(
   inputValue: string,
-  option?: SelectOptionType | CascaderOption
+  option?: SelectOptionType | CascaderOptionType
 ): boolean {
   if (!option?.label) {
     return false;
@@ -29,6 +23,6 @@ export function filterSelectOptions(
   return key?.includes(searchTerm) ?? false;
 }
 
-export function filterCascaderOptions(inputValue: string, path: CascaderOption[]): boolean {
+export function filterCascaderOptions(inputValue: string, path: CascaderOptionType[]): boolean {
   return path.some(option => filterSelectOptions(inputValue, option));
 }

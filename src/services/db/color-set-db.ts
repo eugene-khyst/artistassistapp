@@ -9,16 +9,33 @@ import {dbPromise} from './db';
 
 export async function getLastColorSet(): Promise<ColorSetDefinition | undefined> {
   const db = await dbPromise;
-  const colorSets: ColorSetDefinition[] = await db.getAllFromIndex('color-sets', 'by-timestamp');
-  return colorSets.length ? colorSets[colorSets.length - 1] : undefined;
+  const index = db.transaction('color-sets').store.index('by-date');
+  const cursor = await index.openCursor(null, 'prev');
+  return cursor ? cursor.value : undefined;
 }
 
-export async function getColorSetByType(type: ColorType): Promise<ColorSetDefinition | undefined> {
+export async function getColorSetsByType(type: ColorType): Promise<ColorSetDefinition[]> {
   const db = await dbPromise;
-  return await db.get('color-sets', type);
+  return await db.transaction('color-sets').store.index('by-type').getAll(type);
 }
 
-export async function saveColorSet(colorSet: ColorSetDefinition): Promise<void> {
+export async function saveColorSet({
+  id,
+  ...colorSet
+}: ColorSetDefinition): Promise<ColorSetDefinition> {
   const db = await dbPromise;
-  await db.put('color-sets', {...colorSet, timestamp: Date.now()});
+  id = await db.put('color-sets', {
+    ...colorSet,
+    ...(id ? {id} : {}),
+    date: new Date(),
+  });
+  return {
+    ...colorSet,
+    id,
+  };
+}
+
+export async function deleteColorSet(id: number): Promise<void> {
+  const db = await dbPromise;
+  await db.delete('color-sets', id);
 }

@@ -7,26 +7,28 @@ import {FullscreenExitOutlined, FullscreenOutlined} from '@ant-design/icons';
 import type {TabsProps} from 'antd';
 import {Alert, Col, FloatButton, Row, Tabs, theme} from 'antd';
 import StickyBox from 'react-sticky-box';
-import {useEventListener} from 'usehooks-ts';
 
 import {PromiseErrorBoundary} from '~/src/components/alert/PromiseErrorBoundary';
 import {ImageOutline} from '~/src/components/ImageOutline';
 import {ImagesCompare} from '~/src/components/ImagesCompare';
-import {appConfig} from '~/src/config';
-import {useFullScreen} from '~/src/hooks/useFullscreen';
+import {Install} from '~/src/components/Install';
+import {useFullScreen} from '~/src/hooks';
+import {useInstallPrompt} from '~/src/hooks/useInstallPrompt';
+import {DisplayMode, usePwaDisplayMode} from '~/src/hooks/usePwaDisplayMode';
 import {useAppStore} from '~/src/stores/app-store';
 
 import {BrowserSupport} from './components/alert/BrowserSupport';
 import {ColorMixer} from './components/ColorMixer';
-import {ColorSetSelect} from './components/ColorSetSelect';
+import {ColorSetChooser} from './components/ColorSetChooser';
 import {Help} from './components/Help';
 import {ImageBlurred} from './components/ImageBlurred';
+import {ImageChooser} from './components/ImageChooser';
 import {ImageColorPicker} from './components/ImageColorPicker';
 import {ImageGrid} from './components/ImageGrid';
 import {ImageLimitedPalette} from './components/ImageLimitedPalette';
-import {ImageSelect} from './components/ImageSelect';
 import {ImageTonalValues} from './components/ImageTonalValues';
 import {Palette} from './components/Palette';
+import {watermarkText} from './config';
 import {TabKey} from './types';
 
 export const ArtistAssistApp: React.FC = () => {
@@ -36,30 +38,26 @@ export const ArtistAssistApp: React.FC = () => {
   const {
     token: {colorBgContainer},
   } = theme.useToken();
-  const {watermarkText} = appConfig;
 
   const {isFullscreen, toggleFullScreen} = useFullScreen();
 
-  useEventListener('beforeunload', event => {
-    event.preventDefault();
-    // Included for legacy support, e.g. Chrome/Edge < 119
-    event.returnValue = true;
-  });
+  const {showInstallPromotion, promptToInstall} = useInstallPrompt();
+  const pwaDisplayMode: DisplayMode = usePwaDisplayMode();
 
   const handleTabChange = (activeKey: string) => {
-    setActiveTabKey(activeKey as TabKey);
+    void setActiveTabKey(activeKey as TabKey);
   };
 
   const items = [
     {
       key: TabKey.ColorSet,
       label: 'Color set',
-      children: <ColorSetSelect />,
+      children: <ColorSetChooser />,
     },
     {
       key: TabKey.Photo,
       label: 'Photo',
-      children: <ImageSelect />,
+      children: <ImageChooser />,
     },
     {
       key: TabKey.ColorPicker,
@@ -106,6 +104,20 @@ export const ArtistAssistApp: React.FC = () => {
       label: 'Compare',
       children: <ImagesCompare />,
     },
+    ...(pwaDisplayMode === DisplayMode.BROWSER
+      ? [
+          {
+            key: TabKey.Install,
+            label: 'Install',
+            children: (
+              <Install
+                showInstallPromotion={showInstallPromotion}
+                promptToInstall={promptToInstall}
+              />
+            ),
+          },
+        ]
+      : []),
     {
       key: TabKey.Help,
       label: 'Help',

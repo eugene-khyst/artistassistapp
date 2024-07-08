@@ -7,7 +7,7 @@ import {DeleteOutlined} from '@ant-design/icons';
 import {Button, Card, Popconfirm} from 'antd';
 import * as dayjs from 'dayjs';
 
-import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
+import {useCreateObjectUrl} from '~/src/hooks';
 import type {ImageFile} from '~/src/services/db';
 import {useAppStore} from '~/src/stores/app-store';
 
@@ -57,7 +57,7 @@ export const RecentImageCard: React.FC<Props> = ({imageFile}: Props) => {
           </Popconfirm>,
         ]}
       >
-        <Card.Meta title={file.name} description={`Loaded on ${dateStr}`} />
+        <Card.Meta title={file.name} description={`Last used ${dateStr}`} />
       </Card>
     )
   );

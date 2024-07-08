@@ -10,8 +10,10 @@ import {dbPromise} from './db';
 import type {ImageFile} from './types';
 
 export async function getLastImageFile(): Promise<ImageFile | undefined> {
-  const imageFiles: ImageFile[] = await getImageFiles();
-  return imageFiles.length ? imageFiles[0] : undefined;
+  const db = await dbPromise;
+  const index = db.transaction('image-files').store.index('by-date');
+  const cursor = await index.openCursor(null, 'prev');
+  return cursor ? cursor.value : undefined;
 }
 
 export async function getImageFiles(): Promise<ImageFile[]> {
@@ -24,11 +26,14 @@ export async function saveImageFile(imageFile: ImageFile, maxImageFiles = 12): P
   const db = await dbPromise;
   if (!imageFile.id) {
     const tx = db.transaction(['image-files', 'color-mixtures'], 'readwrite');
-    const imageFiles: ImageFile[] = await tx.objectStore('image-files').getAll();
-    imageFiles.reverse();
-    if (imageFiles.length >= maxImageFiles) {
-      for (const {id} of imageFiles.slice(maxImageFiles - 1)) {
-        void deleteImageFileAndColorMixtures(tx, id!);
+    const imageFileIds: number[] = await tx
+      .objectStore('image-files')
+      .index('by-date')
+      .getAllKeys();
+    imageFileIds.reverse();
+    if (imageFileIds.length >= maxImageFiles) {
+      for (const id of imageFileIds.slice(maxImageFiles - 1)) {
+        void deleteImageFileAndColorMixtures(tx, id);
       }
     }
     const id: number = await tx.objectStore('image-files').put(imageFile);
@@ -55,10 +60,11 @@ async function deleteImageFileAndColorMixtures(
   idToDelete: number
 ): Promise<void> {
   await tx.objectStore('image-files').delete(idToDelete);
-  const colorMixtures = await tx.objectStore('color-mixtures').getAll();
-  for (const {id, imageFileId} of colorMixtures) {
-    if (imageFileId === idToDelete) {
-      void tx.objectStore('color-mixtures').delete(id!);
-    }
+  const colorMixtureIds = await tx
+    .objectStore('color-mixtures')
+    .index('by-imageFileId')
+    .getAllKeys(idToDelete);
+  for (const id of colorMixtureIds) {
+    void tx.objectStore('color-mixtures').delete(id);
   }
 }

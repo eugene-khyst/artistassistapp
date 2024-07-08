@@ -6,24 +6,24 @@
 import type {UseQueryResult} from '@tanstack/react-query';
 import {useQueries} from '@tanstack/react-query';
 
-import type {ColorBrand, ColorType, StandardColorSet} from '~/src/services/color';
+import type {ColorType, StandardColorSetDefinition} from '~/src/services/color';
 import {fetchStandardColorSets} from '~/src/services/color';
 
 interface Result {
   isLoading: boolean;
   isError: boolean;
-  standardColorSets: Map<ColorBrand, Map<string, StandardColorSet>>;
+  standardColorSets: Map<string, Map<string, StandardColorSetDefinition>>;
 }
 
-export function useStandardColorSets(type?: ColorType, brands?: ColorBrand[]): Result {
-  const results: UseQueryResult<[ColorBrand, Map<string, StandardColorSet>]>[] = useQueries({
+export function useStandardColorSets(type?: ColorType, brandAliases?: string[]): Result {
+  const results: UseQueryResult<[string, Map<string, StandardColorSetDefinition>]>[] = useQueries({
     queries:
-      !!type && !!brands
-        ? brands.map((brand: ColorBrand) => ({
-            queryKey: ['colorSet', type, brand],
-            queryFn: async (): Promise<[ColorBrand, Map<string, StandardColorSet>]> => [
-              brand,
-              await fetchStandardColorSets(type, brand),
+      type && brandAliases
+        ? brandAliases.map((brandAlias: string) => ({
+            queryKey: ['standardColorSet', type, brandAlias],
+            queryFn: async (): Promise<[string, Map<string, StandardColorSetDefinition>]> => [
+              brandAlias,
+              await fetchStandardColorSets(type, brandAlias),
             ],
           }))
         : [],
@@ -31,6 +31,10 @@ export function useStandardColorSets(type?: ColorType, brands?: ColorBrand[]): R
   return {
     isLoading: results.some(result => result.isLoading),
     isError: results.some(result => result.isError),
-    standardColorSets: new Map(results.flatMap(({data}) => (!data ? [] : [data]))),
+    standardColorSets: new Map(
+      results
+        .map(({data}) => data)
+        .filter((data): data is [string, Map<string, StandardColorSetDefinition>] => !!data)
+    ),
   };
 }

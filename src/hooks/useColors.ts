@@ -6,24 +6,24 @@
 import type {UseQueryResult} from '@tanstack/react-query';
 import {useQueries} from '@tanstack/react-query';
 
-import type {Color, ColorBrand, ColorType} from '~/src/services/color';
+import type {ColorDefinition, ColorType} from '~/src/services/color';
 import {fetchColors} from '~/src/services/color';
 
 interface Result {
   isLoading: boolean;
   isError: boolean;
-  colors: Map<ColorBrand, Map<number, Color>>;
+  colors: Map<string, Map<number, ColorDefinition>>;
 }
 
-export function useColors(type?: ColorType, brands?: ColorBrand[]): Result {
-  const results: UseQueryResult<[ColorBrand, Map<number, Color>]>[] = useQueries({
+export function useColors(type?: ColorType, brandAliases?: string[]): Result {
+  const results: UseQueryResult<[string, Map<number, ColorDefinition>]>[] = useQueries({
     queries:
-      type && brands
-        ? brands.map((brand: ColorBrand) => ({
-            queryKey: ['colors', type, brand],
-            queryFn: async (): Promise<[ColorBrand, Map<number, Color>]> => [
-              brand,
-              await fetchColors(type, brand),
+      type && brandAliases
+        ? brandAliases.map((brandAlias: string) => ({
+            queryKey: ['colors', type, brandAlias],
+            queryFn: async (): Promise<[string, Map<number, ColorDefinition>]> => [
+              brandAlias,
+              await fetchColors(type, brandAlias),
             ],
           }))
         : [],
@@ -31,6 +31,10 @@ export function useColors(type?: ColorType, brands?: ColorBrand[]): Result {
   return {
     isLoading: results.some(result => result.isLoading),
     isError: results.some(result => result.isError),
-    colors: new Map(results.flatMap(({data}) => (!data ? [] : [data]))),
+    colors: new Map(
+      results
+        .map(({data}) => data)
+        .filter((data): data is [string, Map<number, ColorDefinition>] => !!data)
+    ),
   };
 }

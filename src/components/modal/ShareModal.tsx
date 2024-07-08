@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import {CopyOutlined, ShareAltOutlined} from '@ant-design/icons';
 import {App, Button, Input, Modal, Space} from 'antd';
 import type {Dispatch, SetStateAction} from 'react';
-import {useCopyToClipboard} from 'usehooks-ts';
+
+const SHARE_AVAILABLE: boolean = 'share' in navigator;
 
 type Props = {
   title: string;
@@ -17,12 +19,19 @@ type Props = {
 export const ShareModal: React.FC<Props> = ({title, open, setOpen, url}: Props) => {
   const {message} = App.useApp();
 
-  const [, copy] = useCopyToClipboard();
-
-  const copyToClipboard = () => {
-    if (url) {
-      void copy(url);
+  const handleCopyToClipboardClick = () => {
+    if ('clipboard' in navigator && url) {
+      void navigator.clipboard.writeText(url);
       void message.info('Link copied to clipboard', 3);
+    }
+  };
+
+  const handleShareViaClick = () => {
+    if ('share' in navigator && url) {
+      void navigator.share({
+        title: 'ArtistAssistApp Color Set',
+        url,
+      });
     }
   };
 
@@ -33,9 +42,14 @@ export const ShareModal: React.FC<Props> = ({title, open, setOpen, url}: Props) 
           <p>Copy and share this link with your friends</p>
           <Space.Compact style={{width: '100%'}}>
             <Input value={url} />
-            <Button type="primary" onClick={copyToClipboard}>
+            <Button icon={<CopyOutlined />} onClick={handleCopyToClipboardClick}>
               Copy
             </Button>
+            {SHARE_AVAILABLE && (
+              <Button type="primary" icon={<ShareAltOutlined />} onClick={handleShareViaClick}>
+                Share via
+              </Button>
+            )}
           </Space.Compact>
         </>
       ) : (

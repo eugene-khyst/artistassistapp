@@ -3,6 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+export type ArrayElement<ArrayType extends readonly unknown[] | undefined> =
+  ArrayType extends readonly (infer ElementType)[] ? ElementType : never;
+
 export function createArray<T>(size: number, element: T): T[] {
   return Array(size).fill(element) as T[];
 }
@@ -42,4 +45,8 @@ export function arrayEquals<T>(a: T[] | null, b: T[] | null): boolean {
     a.length === b.length &&
     a.every((element, index) => element === b[index])
   );
+}
+
+export function reverseOrder<T>(comparator: (a: T, b: T) => number): (a: T, b: T) => number {
+  return (a: T, b: T): number => -1 * comparator(a, b);
 }

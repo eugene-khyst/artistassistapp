@@ -7,12 +7,9 @@ import type {ColorMixture} from '~/src/services/color';
 
 import {dbPromise} from './db';
 
-export async function getColorMixtures(searchImageFileId?: number | null): Promise<ColorMixture[]> {
+export async function getColorMixtures(imageFileId?: number | null): Promise<ColorMixture[]> {
   const db = await dbPromise;
-  return (await db.getAll('color-mixtures')).filter(
-    ({imageFileId}: ColorMixture) =>
-      !imageFileId || (searchImageFileId && imageFileId === searchImageFileId)
-  );
+  return await db.transaction('color-mixtures').store.index('by-imageFileId').getAll(imageFileId);
 }
 
 export async function saveColorMixture(colorMixture: ColorMixture): Promise<ColorMixture> {

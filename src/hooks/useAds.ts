@@ -6,7 +6,6 @@
 import type {UseQueryResult} from '@tanstack/react-query';
 import {useQuery} from '@tanstack/react-query';
 
-import {appConfig} from '~/src/config';
 import type {AdsDefinition} from '~/src/services/ads';
 import {fetchAds} from '~/src/services/ads';
 
@@ -18,10 +17,9 @@ interface Result {
 }
 
 export function useAds(): Result {
-  const {adsUrl} = appConfig;
   const {isLoading, isError, error, data}: UseQueryResult<AdsDefinition> = useQuery({
     queryKey: ['ads'],
-    queryFn: async () => await fetchAds(adsUrl),
+    queryFn: fetchAds,
   });
   return {
     isLoading,

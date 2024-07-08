@@ -14,9 +14,8 @@ import {
 } from '@ant-design/icons';
 import {Button, Col, Row, Space, theme, Typography} from 'antd';
 
-import {appConfig} from '~/src/config';
+import {commitHash, websiteUrl} from '~/src/config';
 import {useAppStore} from '~/src/stores/app-store';
-import {prettyUserAgent} from '~/src/utils/user-agent';
 
 import {Logo} from './image/Logo';
 
@@ -27,10 +26,8 @@ export const Help: React.FC = () => {
     token: {fontSizeSM, colorTextSecondary},
   } = theme.useToken();
 
-  const {websiteUrl} = appConfig;
-
   return (
-    <div style={{padding: '0 16px 8px'}}>
+    <div style={{padding: '0 16px 16px'}}>
       <Space direction="vertical" align="center" size="small" style={{width: '100%'}}>
         <Logo name tagline />
         <Row gutter={24}>
@@ -119,7 +116,7 @@ export const Help: React.FC = () => {
             xs={24}
             style={{textAlign: 'justify', fontSize: fontSizeSM, color: colorTextSecondary}}
           >
-            Running in {prettyUserAgent}, DB version: {dbVersion}
+            App version: {commitHash}, DB version: {dbVersion}
           </Col>
         </Row>
       </Space>

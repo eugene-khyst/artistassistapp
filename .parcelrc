@@ -1,8 +1,8 @@
 {
   "extends": "@parcel/config-default",
   "transformers": {
-    "*.json": [
-      "@parcel/transformer-raw"
+    "*.{ts,tsx}": [
+      "@parcel/transformer-typescript-tsc"
     ]
   },
   "reporters": [

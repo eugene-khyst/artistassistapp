@@ -9,29 +9,30 @@ import {useCallback, useEffect, useState} from 'react';
 
 import type {ColorMixture, ColorType} from '~/src/services/color';
 import {COLOR_TYPES} from '~/src/services/color';
-import {colorMixtureToUrl} from '~/src/services/url';
 import {useAppStore} from '~/src/stores/app-store';
+import type {ArrayElement} from '~/src/utils';
 
 import {ColorSwatchDrawer} from './drawer/ColorSwatchDrawer';
 import {EmptyPalette} from './empty/EmptyPalette';
 import {PaletteGrid} from './grid/PaletteGrid';
-import {ShareModal} from './modal/ShareModal';
+
+type ItemType = ArrayElement<CollapseProps['items']>;
 
 export const Palette: React.FC = () => {
   const colorSet = useAppStore(state => state.colorSet);
   const paletteColorMixtures = useAppStore(state => state.paletteColorMixtures);
-  const isPaletteColorMixturesLoading = useAppStore(state => state.isPaletteColorMixturesLoading);
+  const isInitialStateLoading = useAppStore(state => state.isInitialStateLoading);
 
   const [activePaletteKey, setActivePaletteKey] = useState<string | string[]>(
     [...COLOR_TYPES.keys()].map((colorType: ColorType) => colorType.toString())
   );
-  const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
-  const [shareColorMixtureUrl, setShareColorMixtureUrl] = useState<string>();
 
   const [colorSwatchColorMixtures, setColorSwatchColorMixtures] = useState<
     ColorMixture[] | undefined
   >();
   const [isOpenColorSwatch, setIsOpenColorSwatch] = useState<boolean>(false);
+
+  const isLoading: boolean = isInitialStateLoading;
 
   useEffect(() => {
     if (colorSet) {
@@ -39,39 +40,32 @@ export const Palette: React.FC = () => {
     }
   }, [colorSet]);
 
-  const showShareModal = useCallback((colorMixture: ColorMixture) => {
-    setShareColorMixtureUrl(colorMixtureToUrl(colorMixture));
-    setIsShareModalOpen(true);
-  }, []);
-
   const showColorSwatch = useCallback((colorMixtures: ColorMixture[]) => {
     setColorSwatchColorMixtures(colorMixtures);
     setIsOpenColorSwatch(true);
   }, []);
 
-  const items: CollapseProps['items'] = [...COLOR_TYPES.entries()].flatMap(
-    ([colorType, {name}]) => {
+  const items: ItemType[] = [...COLOR_TYPES.entries()]
+    .map(([colorType, {name}]): ItemType | undefined => {
       const colorMixturesByType: ColorMixture[] | undefined = paletteColorMixtures?.filter(
         ({type}: ColorMixture) => type === colorType
       );
-      return !colorMixturesByType?.length
-        ? []
-        : [
-            {
-              key: colorType.toString(),
-              label: <Typography.Text strong>{name} palette</Typography.Text>,
-              children: (
-                <PaletteGrid
-                  colorType={colorType}
-                  colorMixtures={colorMixturesByType}
-                  showShareModal={showShareModal}
-                  showColorSwatch={showColorSwatch}
-                />
-              ),
-            },
-          ];
-    }
-  );
+      if (!colorMixturesByType?.length) {
+        return;
+      }
+      return {
+        key: colorType.toString(),
+        label: <Typography.Text strong>{name} palette</Typography.Text>,
+        children: (
+          <PaletteGrid
+            colorType={colorType}
+            colorMixtures={colorMixturesByType}
+            showColorSwatch={showColorSwatch}
+          />
+        ),
+      };
+    })
+    .filter((item): item is ItemType => !!item);
 
   const handleActiveKeyChange = (keys: string | string[]) => {
     setActivePaletteKey(keys);
@@ -79,12 +73,13 @@ export const Palette: React.FC = () => {
 
   return (
     <>
-      <Spin spinning={isPaletteColorMixturesLoading} tip="Loading" size="large">
+      <Spin spinning={isLoading} tip="Loading" size="large">
         <div style={{padding: '0 16px 16px'}}>
           {!paletteColorMixtures?.length ? (
             <EmptyPalette />
           ) : (
             <Collapse
+              collapsible="icon"
               size="large"
               bordered={false}
               onChange={handleActiveKeyChange}
@@ -94,12 +89,6 @@ export const Palette: React.FC = () => {
           )}
         </div>
       </Spin>
-      <ShareModal
-        title="Share your color mixture"
-        open={isShareModalOpen}
-        setOpen={setIsShareModalOpen}
-        url={shareColorMixtureUrl}
-      />
       <ColorSwatchDrawer
         colorMixtures={colorSwatchColorMixtures}
         open={isOpenColorSwatch}

@@ -12,7 +12,7 @@ import type {ZoomableImageCanvas} from '~/src/services/canvas/image';
 import type {Color, ColorSet} from '~/src/services/color';
 import {useAppStore} from '~/src/stores/app-store';
 
-import {ColorCascader} from './color/ColorCascader';
+import {ColorCascader} from './color-set/ColorCascader';
 import {EmptyColorSet} from './empty/EmptyColorSet';
 
 const MAX_COLORS = 5;
@@ -29,7 +29,7 @@ export const ImageLimitedPalette: React.FC = () => {
 
   const screens = Grid.useBreakpoint();
 
-  const [colors, setColors] = useState<(string | number)[][]>([]);
+  const [colors, setColors] = useState<(string | number | null)[][]>([]);
 
   const {ref: limitedPaletteCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
@@ -47,7 +47,7 @@ export const ImageLimitedPalette: React.FC = () => {
 
   const isLoading: boolean = isOriginalImageLoading || isLimitedPaletteImageLoading;
 
-  const handleColorsChange = (value: (string | number)[] | (string | number)[][]) => {
+  const handleColorsChange = (value: (string | number | null)[] | (string | number | null)[][]) => {
     const colors = value as (string | number)[][];
     setColors(colors);
   };
@@ -55,13 +55,14 @@ export const ImageLimitedPalette: React.FC = () => {
   const handlePreviewClick = () => {
     if (colorSet) {
       const limitedColorSet: ColorSet = {
+        id: 0,
         type: colorSet?.type,
-        colors: colors.flatMap(([colorBrand, colorId]) => {
-          const color = colorSet?.colors.find(
-            ({brand, id}: Color) => colorBrand === brand && colorId === id
-          );
-          return color ? [color] : [];
-        }),
+        brands: colorSet?.brands,
+        colors: colors
+          .map(([brandId, colorId]): Color | undefined =>
+            colorSet?.colors.find(({brand, id}: Color) => brandId === brand && colorId === id)
+          )
+          .filter((color): color is Color => !!color),
       };
       void setLimitedColorSet(limitedColorSet);
     }
@@ -99,7 +100,6 @@ export const ImageLimitedPalette: React.FC = () => {
             <ColorCascader
               value={colors}
               onChange={handleColorsChange}
-              colors={colorSet?.colors}
               multiple
               maxTagCount="responsive"
             />

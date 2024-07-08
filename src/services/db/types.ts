@@ -7,14 +7,11 @@ import type {TabKey} from '~/src/types';
 
 export interface AppSettings {
   activeTabKey?: TabKey;
+  colorPickerDiameter?: number;
 }
 
 export interface ImageFile {
   id?: number;
   file: File;
   date?: Date;
-}
-
-export interface ColorPickerSettings {
-  sampleDiameter: number;
 }

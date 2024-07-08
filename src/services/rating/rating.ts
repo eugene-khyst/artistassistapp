@@ -15,9 +15,7 @@ export class Player<T = any> {
   ) {}
 }
 
-function comparePlayersByRating({rating: aRating}: Player, {rating: bRating}: Player) {
-  return bRating - aRating;
-}
+const comparePlayersByRating = ({rating: a}: Player, {rating: b}: Player) => a - b;
 
 function probability({rating: rating1}: Player, {rating: rating2}: Player) {
   return 1.0 / (1.0 + Math.pow(10, (rating1 - rating2) / 400));
@@ -69,7 +67,7 @@ export class Tournament<T> {
   }
 
   getPlayersByRating(): Player<T>[] {
-    return [...this.players].sort(comparePlayersByRating);
+    return [...this.players].sort(comparePlayersByRating).reverse();
   }
 
   getUnfinishedGames(): Game<T>[] {

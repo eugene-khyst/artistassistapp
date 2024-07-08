@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {EllipsisOutlined, PrinterOutlined} from '@ant-design/icons';
+import {MoreOutlined, PrinterOutlined} from '@ant-design/icons';
 import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
 import {Button, Col, Dropdown, Grid, Radio, Row, Space, Spin} from 'antd';
 import {useEffect, useState} from 'react';
 
 import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
-import {usePrintImages} from '~/src/hooks/usePrintImages';
+import {usePrintImages} from '~/src/hooks';
 import type {ZoomableImageCanvas} from '~/src/services/canvas/image';
 import {useAppStore} from '~/src/stores/app-store';
 
@@ -91,7 +91,7 @@ export const ImageTonalValues: React.FC = () => {
           </Button>
         ) : (
           <Dropdown menu={{items}}>
-            <Button icon={<EllipsisOutlined />} />
+            <Button icon={<MoreOutlined />} />
           </Dropdown>
         )}
       </Space>

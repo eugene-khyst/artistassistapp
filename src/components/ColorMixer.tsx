@@ -9,7 +9,6 @@ import {
   PlusOutlined,
   QuestionCircleOutlined,
 } from '@ant-design/icons';
-import type {SelectProps} from 'antd';
 import {
   Button,
   Col,
@@ -24,9 +23,10 @@ import {
   Typography,
 } from 'antd';
 import type {Color as PickedColor} from 'antd/es/color-picker';
+import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useEffect, useState} from 'react';
 
-import type {Color, ColorBrand, ColorMixture, ColorSet} from '~/src/services/color';
+import type {Color, ColorMixture, ColorSet} from '~/src/services/color';
 import {
   ColorType,
   compareColorMixturesByConsistency,
@@ -39,8 +39,8 @@ import {useAppStore} from '~/src/stores/app-store';
 import {range} from '~/src/utils';
 
 import {SaveToPaletteButton} from './button/SaveToPaletteButton';
-import {ColorCascader} from './color/ColorCascader';
 import {ColorMixtureDescription} from './color/ColorMixtureDescription';
+import {ColorCascader} from './color-set/ColorCascader';
 import {ReflectanceChartDrawer} from './drawer/ReflectanceChartDrawer';
 import {EmptyColorSet} from './empty/EmptyColorSet';
 
@@ -48,14 +48,14 @@ function isSupported(colorSet: ColorSet): boolean {
   return ![ColorType.ColoredPencils, ColorType.WatercolorPencils].includes(colorSet.type);
 }
 
-const RATIO_OPTIONS: SelectProps['options'] = range(1, 9).map((part: number) => ({
+const RATIO_OPTIONS: SelectOptionType[] = range(1, 9).map((part: number) => ({
   value: part,
   label: part,
 }));
 
 type ColorMixerForm = {
   colors: {
-    color: [ColorBrand, number];
+    color: [number, number];
     part: number;
   }[];
 };
@@ -118,9 +118,9 @@ export const ColorMixer: React.FC = () => {
       if (!selectedColor || !part) {
         return;
       }
-      const [selectedBrand, selectedColorId] = selectedColor;
+      const [selectedBrandId, selectedColorId] = selectedColor;
       const color: Color | undefined = colorSet.colors.find(
-        ({brand, id}: Color) => brand === selectedBrand && id === selectedColorId
+        ({brand, id}: Color) => brand === selectedBrandId && id === selectedColorId
       );
       if (!color) {
         return;
@@ -211,7 +211,7 @@ export const ColorMixer: React.FC = () => {
                           name={[name, 'color']}
                           style={{flexGrow: 1, marginBottom: 0}}
                         >
-                          <ColorCascader colors={colorSet.colors} />
+                          <ColorCascader />
                         </Form.Item>
                         {fields.length > 1 && (
                           <Button

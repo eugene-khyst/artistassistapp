@@ -32,7 +32,7 @@ export function usePrintImages(image: (ImageBitmap | null) | ImageBitmap[]): Res
       const blobs: Blob[] = await Promise.all(
         [image]
           .flat()
-          .filter((image: ImageBitmap | null): image is ImageBitmap => !!image)
+          .filter((image): image is ImageBitmap => !!image)
           .map((image: ImageBitmap): Promise<Blob> => {
             const [canvas] = imageBitmapToOffscreenCanvas(image);
             return canvas.convertToBlob();

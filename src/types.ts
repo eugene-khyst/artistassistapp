@@ -15,5 +15,6 @@ export enum TabKey {
   ColorMixing = 'color-mixing',
   LimitedPalette = 'limited-palette',
   Compare = 'compare',
+  Install = 'install',
   Help = 'help',
 }

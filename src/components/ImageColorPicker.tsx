@@ -38,8 +38,7 @@ import {
   compareSimilarColorsByDeltaE,
   PAPER_WHITE_HEX,
 } from '~/src/services/color';
-import type {ColorPickerSettings} from '~/src/services/db';
-import {getColorPickerSettings, saveColorPickerSettings} from '~/src/services/db';
+import {getAppSettings, saveAppSettings} from '~/src/services/db';
 import {Vector} from '~/src/services/math';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/types';
@@ -127,9 +126,9 @@ export const ImageColorPicker: React.FC = () => {
 
   useEffect(() => {
     void (async () => {
-      const settings: ColorPickerSettings | undefined = await getColorPickerSettings();
-      if (settings?.sampleDiameter) {
-        setSampleDiameter(settings.sampleDiameter);
+      const {colorPickerDiameter} = await getAppSettings();
+      if (colorPickerDiameter) {
+        setSampleDiameter(colorPickerDiameter);
       }
     })();
   }, []);
@@ -149,11 +148,9 @@ export const ImageColorPicker: React.FC = () => {
     setSampleDiameter(diameter);
   }, [colorPickerCanvas, colorPickerPipet]);
 
-  const handleSampleDiameterChange = (sampleDiameter: number) => {
-    setSampleDiameter(sampleDiameter);
-    void saveColorPickerSettings({
-      sampleDiameter: sampleDiameter,
-    });
+  const handleSampleDiameterChange = (colorPickerDiameter: number) => {
+    setSampleDiameter(colorPickerDiameter);
+    void saveAppSettings({colorPickerDiameter});
   };
 
   const handleTargetColorChange = (color: string) => {

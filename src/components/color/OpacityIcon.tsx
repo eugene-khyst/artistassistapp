@@ -89,10 +89,13 @@ const OPACITIES: Record<ColorOpacity, OpacityDescription> = {
 };
 
 type Props = {
-  opacity: ColorOpacity;
+  opacity?: ColorOpacity;
 };
 
 export const OpacityIcon: React.FC<Props> = ({opacity}: Props) => {
+  if (!opacity) {
+    return <></>;
+  }
   const {tooltip, icon} = OPACITIES[opacity];
   return <Tooltip title={tooltip}>{icon}</Tooltip>;
 };

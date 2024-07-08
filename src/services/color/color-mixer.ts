@@ -5,10 +5,9 @@
 
 import {gcd} from '~/src/services/math';
 import type {Fraction} from '~/src/utils';
-import {unique} from '~/src/utils';
-import {not} from '~/src/utils/predicate';
+import {not, unique} from '~/src/utils';
 
-import type {Color, ColorBrand, ColorSet} from './colors';
+import type {Color, ColorSet} from './colors';
 import {ColorType} from './colors';
 import type {Oklab, Oklch, RgbTuple} from './space';
 import {Reflectance, Rgb} from './space';
@@ -72,7 +71,7 @@ const CHROMA_LIMIT_2 = 0.02;
 export const PAPER_WHITE_HEX: string = 'F7F5EF';
 
 export interface ColorMixturePartDefinition {
-  brand: ColorBrand;
+  brand: number;
   id: number;
   part: number;
 }
@@ -112,7 +111,7 @@ export interface ColorMixture {
   layerRgb: RgbTuple;
   imageFileId?: number | null;
   samplingArea?: SamplingArea | null;
-  timestamp?: number | null;
+  date?: Date | null;
 }
 
 export interface SimilarColor {
@@ -219,21 +218,21 @@ class MixedColorLayer {
 const compareColorMixturePartsByParts = (
   {part: a}: ColorMixturePart,
   {part: b}: ColorMixturePart
-): number => b - a;
+): number => a - b;
 
 const compareColorMixturePartsByColors = (
   {color: a}: ColorMixturePart,
   {color: b}: ColorMixturePart
 ): number => a.brand - b.brand || a.id - b.id;
 
-export const compareColorMixturesByTimestamp = (
-  {timestamp: a}: ColorMixture,
-  {timestamp: b}: ColorMixture
-): number => (b ?? 0) - (a ?? 0);
+export const compareColorMixturesByDate = (
+  {date: a}: ColorMixture,
+  {date: b}: ColorMixture
+): number => (a?.getTime() ?? 0) - (b?.getTime() ?? 0);
 
 export const compareColorMixturesByName = (a: ColorMixture, b: ColorMixture): number => {
   if (!a.name && !b.name) {
-    return compareColorMixturesByTimestamp(a, b);
+    return -1 * compareColorMixturesByDate(a, b);
   }
   if (!a.name) {
     return 1;
@@ -300,14 +299,17 @@ export function isThickConsistency({
 
 export function createColorMixture(
   {type, name, parts: partDefs, consistency, background: backgroundRgb}: ColorMixtureDefinition,
-  colors: Map<ColorBrand, Map<number, Color>>
+  colors: Map<number, Map<number, Color>>
 ): ColorMixture | null {
-  const parts: ColorMixturePart[] = partDefs.flatMap(
-    ({brand, id, part}: ColorMixturePartDefinition): ColorMixturePart[] => {
+  const parts: ColorMixturePart[] = partDefs
+    .map(({brand, id, part}: ColorMixturePartDefinition): ColorMixturePart | undefined => {
       const color: Color | undefined = colors.get(brand)?.get(id);
-      return color ? [{color, part}] : [];
-    }
-  );
+      if (!color) {
+        return;
+      }
+      return {color, part};
+    })
+    .filter((part): part is ColorMixturePart => !!part);
   if (!parts.length) {
     return null;
   }
@@ -388,7 +390,7 @@ function mixColors(colors: UnmixedColor[], ratio: number[]): MixedColor {
     reflectances.push(reflectance);
   }
   const reflectance = Reflectance.mixSubtractively(reflectances, ratio);
-  parts.sort(compareColorMixturePartsByParts);
+  parts.sort(compareColorMixturePartsByParts).reverse();
   return new MixedColor(reflectance, parts);
 }
 
@@ -507,14 +509,14 @@ export function makeColorMixture(
 }
 
 export class ColorMixer {
-  private colorType?: ColorType;
+  private type?: ColorType;
   private colorMixtures: MixedColorTint[] = [];
   private thickLayers: MixedColorLayer[] = [];
   private thinnedLayers: MixedColorLayer[] = [];
   private background?: Background;
 
   setColorSet(colorSet: ColorSet, backgroundColor: string | RgbTuple) {
-    this.colorType = colorSet.type;
+    this.type = colorSet.type;
     this.mixColors(colorSet);
     this.makeThickLayers();
     this.setBackgroundColor(backgroundColor);
@@ -561,8 +563,8 @@ export class ColorMixer {
       console.time('make-thinned-layers');
     }
     this.thinnedLayers =
-      this.colorType && this.background
-        ? makeThinnedLayers(this.colorType, this.colorMixtures, this.background)
+      this.type && this.background
+        ? makeThinnedLayers(this.type, this.colorMixtures, this.background)
         : [];
     if (process.env.NODE_ENV !== 'production') {
       console.timeEnd('make-thinned-layers');
@@ -576,7 +578,7 @@ export class ColorMixer {
     deltaELimit = 10
   ): SimilarColor[] {
     const rgb = Rgb.fromHexOrTuple(targetColor);
-    if (!this.colorType || this.background?.rgb.equals(rgb)) {
+    if (!this.type || this.background?.rgb.equals(rgb)) {
       return [];
     }
     const oklab: Oklab = rgb.toOklab();
@@ -590,7 +592,7 @@ export class ColorMixer {
           continue;
         }
         const similarColor: SimilarColor = {
-          colorMixture: layer.toColorMixture(this.colorType),
+          colorMixture: layer.toColorMixture(this.type),
           deltaE,
         };
         if (matchingColors.length === 0 && matchingColorsGroup.length === 0) {

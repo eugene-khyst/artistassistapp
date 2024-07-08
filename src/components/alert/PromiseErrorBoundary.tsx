@@ -15,16 +15,13 @@ export const PromiseErrorBoundary: React.FC<PropsWithChildren> = ({
   useEffect(() => {
     const promiseRejectionHandler = ({reason}: PromiseRejectionEvent) => {
       let message = 'Unexpected error';
-      let description: string | undefined;
       if (reason instanceof Error) {
         message = reason.toString();
-        description = reason.stack?.toString();
       } else if (typeof reason === 'string') {
         message = reason;
       }
       api.error({
         message,
-        description,
         placement: 'top',
         duration: 0,
       });

@@ -3,6 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import {apiUrl} from '~/src/config';
+import {fetchAndCache} from '~/src/utils';
+
 export interface AdDefinition {
   image: string;
   text: string;
@@ -16,7 +19,7 @@ export interface AdsDefinition {
   placements: Record<string, string[]>;
 }
 
-export async function fetchAds(adsUrl: string): Promise<AdsDefinition> {
-  const response = await fetch(adsUrl);
+export async function fetchAds(): Promise<AdsDefinition> {
+  const response = await fetchAndCache(`${apiUrl}/ads.json`);
   return (await response.json()) as AdsDefinition;
 }

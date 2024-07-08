@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {DatabaseOutlined, MinusOutlined, PrinterOutlined} from '@ant-design/icons';
+import {DatabaseOutlined, DeleteOutlined, PrinterOutlined} from '@ant-design/icons';
 import {Button, Col, Flex, Form, Popconfirm, Row, Select, Space, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useRef, useState} from 'react';
@@ -12,8 +12,9 @@ import {useReactToPrint} from 'react-to-print';
 import {ColorMixtureDescription} from '~/src/components/color/ColorMixtureDescription';
 import {PaletteColorMixtureCard} from '~/src/components/color/PaletteColorMixtureCard';
 import type {ColorMixture, ColorType} from '~/src/services/color';
-import {compareColorMixturesByName, compareColorMixturesByTimestamp} from '~/src/services/color';
+import {compareColorMixturesByDate, compareColorMixturesByName} from '~/src/services/color';
 import {useAppStore} from '~/src/stores/app-store';
+import {reverseOrder} from '~/src/utils';
 
 enum Sort {
   ByDataIndex = 1,
@@ -21,7 +22,7 @@ enum Sort {
 }
 
 const COLOR_MIXTURES_COMPARATORS = {
-  [Sort.ByDataIndex]: compareColorMixturesByTimestamp,
+  [Sort.ByDataIndex]: reverseOrder(compareColorMixturesByDate),
   [Sort.ByName]: compareColorMixturesByName,
 };
 
@@ -33,14 +34,12 @@ const SORT_OPTIONS: SelectOptionType[] = [
 type Props = {
   colorType: ColorType;
   colorMixtures?: ColorMixture[];
-  showShareModal: (colorMixture: ColorMixture) => void;
   showColorSwatch: (colorMixture: ColorMixture[]) => void;
 };
 
 export const PaletteGrid: React.FC<Props> = ({
   colorType,
   colorMixtures,
-  showShareModal,
   showColorSwatch,
 }: Props) => {
   const deleteAllFromPalette = useAppStore(state => state.deleteAllFromPalette);
@@ -75,7 +74,7 @@ export const PaletteGrid: React.FC<Props> = ({
             okText="Yes"
             cancelText="No"
           >
-            <Button icon={<MinusOutlined />}>Remove all</Button>
+            <Button icon={<DeleteOutlined />}>Remove all</Button>
           </Popconfirm>
         </Space.Compact>
         <Form.Item label="Sort" style={{marginBottom: 0}}>
@@ -90,7 +89,7 @@ export const PaletteGrid: React.FC<Props> = ({
       <Row gutter={[16, 16]} justify="start">
         {sortedColorMixtures.map((colorMixture: ColorMixture) => (
           <Col key={colorMixture.key} xs={24} md={12} lg={8}>
-            <PaletteColorMixtureCard colorMixture={colorMixture} showShareModal={showShareModal} />
+            <PaletteColorMixtureCard colorMixture={colorMixture} />
           </Col>
         ))}
       </Row>

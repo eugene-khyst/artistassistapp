@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {MinusOutlined, PlusOutlined} from '@ant-design/icons';
+import {DeleteOutlined, PlusOutlined} from '@ant-design/icons';
 import type {ButtonProps} from 'antd';
 import {Button, Popconfirm} from 'antd';
 
@@ -37,7 +37,7 @@ export const SaveToPaletteButton: React.FC<Props> = ({
       okText="Yes"
       cancelText="No"
     >
-      <Button size={size} icon={<MinusOutlined />} style={style}>
+      <Button size={size} icon={<DeleteOutlined />} style={style}>
         Remove from palette
       </Button>
     </Popconfirm>
