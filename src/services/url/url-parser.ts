@@ -9,6 +9,7 @@ import {TabKey} from '~/src/types';
 const URL_PARAM_COLOR_TYPE = 't';
 const URL_PARAM_COLOR_BRANDS = 'b';
 const URL_PARAM_COLORS_PREFIX = 'c';
+const URL_PARAM_NAME = 'n';
 const URL_PARAM_RADIX = 36;
 const URL_PARAM_SEPARATOR = '_';
 const SKU_BASE = new Map<number, number>([
@@ -24,8 +25,13 @@ export interface UrlParsingResult {
   tabKey?: TabKey;
 }
 
-export function colorSetToUrl({type, brands, colors}: ColorSetDefinition): string | undefined {
-  if (!type || !brands || !brands.length || !Object.keys(colors).length) {
+export function colorSetToUrl({
+  type,
+  name,
+  brands,
+  colors,
+}: ColorSetDefinition): string | undefined {
+  if (!type || !brands.length || !Object.keys(colors).length) {
     return;
   }
   const url = new URL(window.location.toString());
@@ -43,6 +49,9 @@ export function colorSetToUrl({type, brands, colors}: ColorSetDefinition): strin
       ids.map((id: number) => id.toString(URL_PARAM_RADIX)).join(URL_PARAM_SEPARATOR)
     );
   });
+  if (name) {
+    searchParams.set(URL_PARAM_NAME, name);
+  }
   return url.toString();
 }
 
@@ -73,12 +82,15 @@ export function parseUrl(urlStr: string): UrlParsingResult {
     if (!Object.keys(colors).length) {
       return {};
     }
+    const name = searchParams.get(URL_PARAM_NAME);
     return {
       colorSet: {
+        id: 0,
         type,
         brands,
         standardColorSet: [0],
         colors,
+        ...(name ? {name} : {}),
       },
     };
   }

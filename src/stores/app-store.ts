@@ -87,7 +87,8 @@ export type AppState = {
   dbVersion: number | null;
   activeTabKey: TabKey;
   isInitialStateLoading: boolean;
-  initialColorSet: ColorSetDefinition | null;
+  importedColorSet: ColorSetDefinition | null;
+  latestColorSet: ColorSetDefinition | null;
   colorSetsByType: ColorSetDefinition[];
   colorSet: ColorSet | null;
   isColorMixerSetLoading: boolean;
@@ -147,7 +148,8 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
   dbVersion: null,
   activeTabKey: TabKey.ColorSet,
   isInitialStateLoading: false,
-  initialColorSet: null,
+  importedColorSet: null,
+  latestColorSet: null,
   colorSetsByType: [],
   colorSet: null,
   isColorMixerSetLoading: false,
@@ -448,21 +450,21 @@ async function getAppState(): Promise<void> {
   const appSettings = await getAppSettings();
   let activeTabKey: TabKey | undefined = importedTabKey ?? appSettings.activeTabKey;
 
+  const latestColorSet: ColorSetDefinition | undefined = await getLastColorSet();
+
   useAppStore.setState({
     isInitialStateLoading: true,
     dbVersion: await dbVersion(),
+    importedColorSet,
+    latestColorSet,
   });
 
-  const initialColorSet: ColorSetDefinition | undefined =
-    importedColorSet || (await getLastColorSet());
   if (importedColorSet) {
     activeTabKey = TabKey.ColorSet;
   }
 
-  if (initialColorSet) {
-    useAppStore.setState({initialColorSet});
-
-    const {type, brands: brandIds} = initialColorSet;
+  if (latestColorSet) {
+    const {type, brands: brandIds} = latestColorSet;
     if (type) {
       void useAppStore.getState().loadColorSetsByType(type);
 
@@ -474,7 +476,7 @@ async function getAppState(): Promise<void> {
         type,
         brandAliases
       );
-      const colorSet = toColorSet(initialColorSet, brands, colors);
+      const colorSet = toColorSet(latestColorSet, brands, colors);
       if (colorSet) {
         void useAppStore.getState().setColorSet(colorSet, false);
       }

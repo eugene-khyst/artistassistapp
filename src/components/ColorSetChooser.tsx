@@ -50,7 +50,8 @@ const formInitialValues: ColorSetDefinition = {
 };
 
 export const ColorSetChooser: React.FC = () => {
-  const initialColorSet = useAppStore(state => state.initialColorSet);
+  const importedColorSet = useAppStore(state => state.importedColorSet);
+  const latestColorSet = useAppStore(state => state.latestColorSet);
   const isInitialStateLoading = useAppStore(state => state.isInitialStateLoading);
   const colorSetsByType = useAppStore(state => state.colorSetsByType);
 
@@ -79,10 +80,11 @@ export const ColorSetChooser: React.FC = () => {
   const [shareColorSetUrl, setShareColorSetUrl] = useState<string>();
 
   useEffect(() => {
-    if (initialColorSet) {
-      form.setFieldsValue(initialColorSet);
+    const colorSet: ColorSetDefinition | null = importedColorSet || latestColorSet;
+    if (colorSet) {
+      form.setFieldsValue(colorSet);
     }
-  }, [form, initialColorSet]);
+  }, [form, importedColorSet, latestColorSet]);
 
   const {brands, isLoading: isBrandsLoading, isError: isBrandsError} = useColorBrands(selectedType);
 

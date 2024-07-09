@@ -22,7 +22,7 @@ export const ShareModal: React.FC<Props> = ({title, open, setOpen, url}: Props) 
   const handleCopyToClipboardClick = () => {
     if ('clipboard' in navigator && url) {
       void navigator.clipboard.writeText(url);
-      void message.info('Link copied to clipboard', 3);
+      void message.info('Link copied to clipboard');
     }
   };
 
@@ -54,7 +54,7 @@ export const ShareModal: React.FC<Props> = ({title, open, setOpen, url}: Props) 
                 icon={<ShareAltOutlined />}
                 onClick={() => void handleShareClick()}
               >
-                Share via
+                Share
               </Button>
             ) : (
               <Button icon={<CopyOutlined />} onClick={handleCopyToClipboardClick}>
