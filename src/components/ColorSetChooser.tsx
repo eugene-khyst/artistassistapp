@@ -38,7 +38,7 @@ import {ColorBrandSelect} from './color-set/ColorBrandSelect';
 import {ColorSelect} from './color-set/ColorSelect';
 import {ColorTypeSelect} from './color-set/ColorTypeSelect';
 import {StandardColorSetCascader} from './color-set/StandardColorSetCascader';
-import {ShareModal} from './modal/ShareModal';
+import {ShareModal} from './share/ShareModal';
 
 const MAX_COLORS = 36;
 const CUSTOM_COLOR_SET = [0];
@@ -66,6 +66,14 @@ export const ColorSetChooser: React.FC = () => {
   const selectedType = Form.useWatch<ColorType | undefined>('type', form);
   const selectedColorSetId = Form.useWatch<number | undefined>('id', form);
   const selectedBrandIds = Form.useWatch<number[] | undefined>('brands', form);
+  const selectedColors = Form.useWatch<Record<number, number[] | undefined> | undefined>(
+    'colors',
+    form
+  );
+
+  const selectedColorsCount: number = Object.values(selectedColors || {})
+    .map((ids: number[] | undefined) => ids?.length ?? 0)
+    .reduce((a: number, b: number) => a + b, 0);
 
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [shareColorSetUrl, setShareColorSetUrl] = useState<string>();
@@ -147,9 +155,11 @@ export const ColorSetChooser: React.FC = () => {
           colors: emptyColors,
         });
 
-        const [colorSet]: ColorSetDefinition[] = await loadColorSetsByType(changedValues.type);
-        if (colorSet) {
-          form.setFieldsValue(colorSet);
+        const [latestColorSetsByType]: ColorSetDefinition[] = await loadColorSetsByType(
+          changedValues.type
+        );
+        if (latestColorSetsByType) {
+          form.setFieldsValue(latestColorSetsByType);
         }
       }
 
@@ -361,7 +371,7 @@ export const ColorSetChooser: React.FC = () => {
                       validator() {
                         const type = getFieldValue('type') as ColorType | undefined;
                         const colors = getFieldValue('colors') as
-                          | Record<number, number[]>
+                          | Record<number, number[] | undefined>
                           | undefined;
                         if (!type || !colors) {
                           return Promise.resolve();
@@ -371,7 +381,7 @@ export const ColorSetChooser: React.FC = () => {
                           return Promise.resolve();
                         }
                         const totalColors = Object.values(colors)
-                          .map((ids: number[]) => ids.length)
+                          .map((ids: number[] | undefined) => ids?.length ?? 0)
                           .reduce((a: number, b: number) => a + b, 0);
                         if (totalColors > MAX_COLORS) {
                           return Promise.reject(
@@ -390,33 +400,37 @@ export const ColorSetChooser: React.FC = () => {
                 </Form.Item>
               ))}
             <Form.Item>
-              <Space>
+              <Space wrap>
                 <Button icon={<SaveOutlined />} type="primary" htmlType="submit">
                   Save & proceed
                 </Button>
-                <Popconfirm
-                  title="Delete the color set"
-                  description="Are you sure you want to delete this color set?"
-                  onPopupClick={e => e.stopPropagation()}
-                  onConfirm={e => {
-                    e?.stopPropagation();
-                    void handleDeleteButtonClick();
-                  }}
-                  onCancel={e => e?.stopPropagation()}
-                  okText="Yes"
-                  cancelText="No"
-                >
-                  <Button icon={<DeleteOutlined />} onClick={e => e.stopPropagation()}>
-                    Delete
+                {!!selectedColorSetId && (
+                  <Popconfirm
+                    title="Delete the color set"
+                    description="Are you sure you want to delete this color set?"
+                    onPopupClick={e => e.stopPropagation()}
+                    onConfirm={e => {
+                      e?.stopPropagation();
+                      void handleDeleteButtonClick();
+                    }}
+                    onCancel={e => e?.stopPropagation()}
+                    okText="Yes"
+                    cancelText="No"
+                  >
+                    <Button icon={<DeleteOutlined />} onClick={e => e.stopPropagation()}>
+                      Delete
+                    </Button>
+                  </Popconfirm>
+                )}
+                {selectedColorsCount > 0 && (
+                  <Button
+                    icon={<ShareAltOutlined />}
+                    title="Share this color set"
+                    onClick={showShareModal}
+                  >
+                    Share
                   </Button>
-                </Popconfirm>
-                <Button
-                  icon={<ShareAltOutlined />}
-                  title="Share this color set"
-                  onClick={showShareModal}
-                >
-                  Share
-                </Button>
+                )}
               </Space>
             </Form.Item>
           </Form>

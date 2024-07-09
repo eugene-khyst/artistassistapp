@@ -7,7 +7,7 @@ import {BgColorsOutlined, MoreOutlined, QuestionCircleOutlined} from '@ant-desig
 import type {MenuProps} from 'antd';
 import {Button, Card, Dropdown, Popover, Space, theme, Typography} from 'antd';
 
-import {SaveToPaletteButton} from '~/src/components/button/SaveToPaletteButton';
+import {AddToPaletteButton} from '~/src/components/color/AddToPaletteButton';
 import type {SimilarColor} from '~/src/services/color';
 import {useAppStore} from '~/src/stores/app-store';
 
@@ -57,7 +57,7 @@ export const SimilarColorCard: React.FC<Props> = ({
             </Popover>
           </Space>
           <Space.Compact block>
-            <SaveToPaletteButton colorMixture={colorMixture} />
+            <AddToPaletteButton colorMixture={colorMixture} />
             <Dropdown menu={{items}}>
               <Button icon={<MoreOutlined />} />
             </Dropdown>

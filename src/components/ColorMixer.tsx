@@ -38,10 +38,10 @@ import {gcd} from '~/src/services/math';
 import {useAppStore} from '~/src/stores/app-store';
 import {range} from '~/src/utils';
 
-import {SaveToPaletteButton} from './button/SaveToPaletteButton';
+import {AddToPaletteButton} from './color/AddToPaletteButton';
 import {ColorMixtureDescription} from './color/ColorMixtureDescription';
+import {ReflectanceChartDrawer} from './color/ReflectanceChartDrawer';
 import {ColorCascader} from './color-set/ColorCascader';
-import {ReflectanceChartDrawer} from './drawer/ReflectanceChartDrawer';
 import {EmptyColorSet} from './empty/EmptyColorSet';
 
 function isSupported(colorSet: ColorSet): boolean {
@@ -255,7 +255,7 @@ export const ColorMixer: React.FC = () => {
                     showColors={isThickConsistency(colorMixture)}
                     showConsistency={!isThickConsistency(colorMixture)}
                   />
-                  <SaveToPaletteButton
+                  <AddToPaletteButton
                     colorMixture={colorMixture}
                     linkToImage={false}
                     size="small"

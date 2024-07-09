@@ -15,7 +15,7 @@ type Props = {
   linkToImage?: boolean;
 } & ButtonProps;
 
-export const SaveToPaletteButton: React.FC<Props> = ({
+export const AddToPaletteButton: React.FC<Props> = ({
   colorMixture,
   linkToImage = true,
   size,

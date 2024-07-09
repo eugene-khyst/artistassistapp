@@ -12,7 +12,7 @@ import {COLOR_TYPES} from '~/src/services/color';
 import {useAppStore} from '~/src/stores/app-store';
 import type {ArrayElement} from '~/src/utils';
 
-import {ColorSwatchDrawer} from './drawer/ColorSwatchDrawer';
+import {ColorSwatchDrawer} from './color/ColorSwatchDrawer';
 import {EmptyPalette} from './empty/EmptyPalette';
 import {PaletteGrid} from './grid/PaletteGrid';
 

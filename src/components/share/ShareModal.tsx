@@ -26,12 +26,18 @@ export const ShareModal: React.FC<Props> = ({title, open, setOpen, url}: Props) 
     }
   };
 
-  const handleShareViaClick = () => {
+  const handleShareClick = async () => {
     if ('share' in navigator && url) {
-      void navigator.share({
-        title: 'ArtistAssistApp Color Set',
-        url,
-      });
+      try {
+        await navigator.share({
+          title: 'ArtistAssistApp Color Set',
+          url,
+        });
+      } catch (error) {
+        if (error instanceof DOMException && error.name === 'AbortError') {
+          // Share canceled
+        }
+      }
     }
   };
 
@@ -39,15 +45,20 @@ export const ShareModal: React.FC<Props> = ({title, open, setOpen, url}: Props) 
     <Modal title={title} centered open={open} footer={null} onCancel={() => setOpen(false)}>
       {url ? (
         <>
-          <p>Copy and share this link with your friends</p>
+          <p>Copy and share this link</p>
           <Space.Compact style={{width: '100%'}}>
             <Input value={url} />
-            <Button icon={<CopyOutlined />} onClick={handleCopyToClipboardClick}>
-              Copy
-            </Button>
-            {SHARE_AVAILABLE && (
-              <Button type="primary" icon={<ShareAltOutlined />} onClick={handleShareViaClick}>
+            {SHARE_AVAILABLE ? (
+              <Button
+                type="primary"
+                icon={<ShareAltOutlined />}
+                onClick={() => void handleShareClick()}
+              >
                 Share via
+              </Button>
+            ) : (
+              <Button icon={<CopyOutlined />} onClick={handleCopyToClipboardClick}>
+                Copy
               </Button>
             )}
           </Space.Compact>
