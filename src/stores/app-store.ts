@@ -505,8 +505,10 @@ export async function initAppStore(): Promise<void> {
   }
 
   const {hasImportedImageFile} = useAppStore.getState();
+  console.log('hasImportedImageFile', hasImportedImageFile);
   if (hasImportedImageFile) {
     activeTabKey = latestColorSet ? TabKey.ColorPicker : TabKey.ColorSet;
+    console.log('activeTabKey', activeTabKey);
   }
 
   if (activeTabKey) {
