@@ -49,7 +49,11 @@ const formInitialValues: ColorSetDefinition = {
   colors: {},
 };
 
-export const ColorSetChooser: React.FC = () => {
+type Props = {
+  showInstallPromotion: boolean;
+};
+
+export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) => {
   const importedColorSet = useAppStore(state => state.importedColorSet);
   const latestColorSet = useAppStore(state => state.latestColorSet);
   const isInitialStateLoading = useAppStore(state => state.isInitialStateLoading);
@@ -271,13 +275,15 @@ export const ColorSetChooser: React.FC = () => {
                 the grid method, paint with a limited palette, simplify a photo, and more.
               </Typography.Text>
               <Space size="small">
-                <Button
-                  icon={<AppstoreAddOutlined />}
-                  type="primary"
-                  onClick={() => void setActiveTabKey(TabKey.Install)}
-                >
-                  Install
-                </Button>
+                {showInstallPromotion && (
+                  <Button
+                    icon={<AppstoreAddOutlined />}
+                    type="primary"
+                    onClick={() => void setActiveTabKey(TabKey.Install)}
+                  >
+                    Install
+                  </Button>
+                )}
                 <Button
                   icon={<QuestionCircleOutlined />}
                   onClick={() => void setActiveTabKey(TabKey.Help)}

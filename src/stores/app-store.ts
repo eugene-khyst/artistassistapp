@@ -180,7 +180,6 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
   setActiveTabKey: async (activeTabKey: TabKey): Promise<void> => {
     await saveAppSettings({activeTabKey});
     set({activeTabKey});
-    console.log(activeTabKey);
   },
   loadColorSetsByType: async (type: ColorType): Promise<ColorSetDefinition[]> => {
     const colorSetsByType: ColorSetDefinition[] = (await getColorSetsByType(type))
@@ -247,6 +246,7 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     if (setActiveTabKey && imageFile) {
       const activeTabKey = !get().colorSet ? TabKey.ColorSet : TabKey.ColorPicker;
       await get().setActiveTabKey(activeTabKey);
+      console.log('setImageFile', activeTabKey);
     }
     set({
       imageFile,
@@ -495,6 +495,7 @@ async function getAppState(): Promise<void> {
 
   if (activeTabKey) {
     void useAppStore.getState().setActiveTabKey(activeTabKey);
+    console.log('getAppState', activeTabKey);
   }
 }
 

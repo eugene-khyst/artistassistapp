@@ -41,7 +41,7 @@ export const RecentImageCard: React.FC<Props> = ({imageFile}: Props) => {
           <Popconfirm
             key="delete"
             title="Delete the recent photo"
-            description="Are you sure you want to delete this recent photo?"
+            description="Are you sure you want to delete this photo?"
             onPopupClick={e => e.stopPropagation()}
             onConfirm={e => {
               e?.stopPropagation();

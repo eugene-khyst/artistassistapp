@@ -52,7 +52,7 @@ export const ArtistAssistApp: React.FC = () => {
     {
       key: TabKey.ColorSet,
       label: 'Color set',
-      children: <ColorSetChooser />,
+      children: <ColorSetChooser showInstallPromotion={showInstallPromotion} />,
     },
     {
       key: TabKey.Photo,
