@@ -180,6 +180,7 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
   setActiveTabKey: async (activeTabKey: TabKey): Promise<void> => {
     await saveAppSettings({activeTabKey});
     set({activeTabKey});
+    console.log(activeTabKey);
   },
   loadColorSetsByType: async (type: ColorType): Promise<ColorSetDefinition[]> => {
     const colorSetsByType: ColorSetDefinition[] = (await getColorSetsByType(type))
