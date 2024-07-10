@@ -27,6 +27,7 @@ declare global {
   interface Window {
     readonly launchQueue: LaunchQueue;
   }
+
   interface WindowEventMap {
     beforeinstallprompt: BeforeInstallPromptEvent;
     appinstalled: Event;

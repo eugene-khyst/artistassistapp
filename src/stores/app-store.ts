@@ -92,6 +92,7 @@ export type AppState = {
   colorSetsByType: ColorSetDefinition[];
   colorSet: ColorSet | null;
   isColorMixerSetLoading: boolean;
+  hasImportedImageFile: boolean;
   imageFile: ImageFile | null;
   recentImageFiles: ImageFile[];
   originalImage: ImageBitmap | null;
@@ -129,6 +130,7 @@ export type AppActions = {
   ) => Promise<ColorSetDefinition | undefined>;
   deleteColorSet: (idToDelete: number) => Promise<void>;
   setImageFile: (imageFile: ImageFile | null, setActiveTabKey?: boolean) => Promise<void>;
+  setImportedImageFile: (file: File) => Promise<void>;
   saveRecentImageFile: (imageFile: ImageFile) => Promise<void>;
   deleteRecentImageFile: (imageFile: ImageFile) => Promise<void>;
   setBackgroundColor: (backgroundColor: string | RgbTuple) => Promise<void>;
@@ -153,6 +155,7 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
   colorSetsByType: [],
   colorSet: null,
   isColorMixerSetLoading: false,
+  hasImportedImageFile: false,
   imageFile: null,
   recentImageFiles: [],
   originalImage: null,
@@ -244,9 +247,8 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
       get().limitedPaletteImage,
     ].flat();
     if (setActiveTabKey && imageFile) {
-      const activeTabKey = !get().colorSet ? TabKey.ColorSet : TabKey.ColorPicker;
+      const activeTabKey = get().colorSet ? TabKey.ColorPicker : TabKey.ColorSet;
       await get().setActiveTabKey(activeTabKey);
-      console.log('setImageFile', activeTabKey);
     }
     set({
       imageFile,
@@ -305,6 +307,15 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
       ],
     }));
     await get().setImageFile(savedImageFile);
+  },
+  setImportedImageFile: async (file: File): Promise<void> => {
+    set({
+      hasImportedImageFile: true,
+    });
+    await get().saveRecentImageFile({
+      file,
+      date: new Date(),
+    });
   },
   deleteRecentImageFile: async ({id: idToDelete}: ImageFile): Promise<void> => {
     if (idToDelete) {
@@ -440,7 +451,7 @@ function importFromUrl(): UrlParsingResult {
   return importedFromUrl;
 }
 
-async function getAppState(): Promise<void> {
+export async function initAppStore(): Promise<void> {
   const {colorSet: importedColorSet, tabKey: importedTabKey} = importFromUrl();
 
   const appSettings = await getAppSettings();
@@ -462,7 +473,7 @@ async function getAppState(): Promise<void> {
   if (latestColorSet) {
     const {type, brands: brandIds} = latestColorSet;
     if (type) {
-      void useAppStore.getState().loadColorSetsByType(type);
+      await useAppStore.getState().loadColorSetsByType(type);
 
       const brands = await fetchColorBrands(type);
       const brandAliases = brandIds
@@ -474,7 +485,7 @@ async function getAppState(): Promise<void> {
       );
       const colorSet = toColorSet(latestColorSet, brands, colors);
       if (colorSet) {
-        void useAppStore.getState().setColorSet(colorSet, false);
+        await useAppStore.getState().setColorSet(colorSet, false);
       }
     }
   }
@@ -490,13 +501,15 @@ async function getAppState(): Promise<void> {
   });
 
   if (imageFile) {
-    void useAppStore.getState().setImageFile(imageFile, false);
+    await useAppStore.getState().setImageFile(imageFile, false);
+  }
+
+  const {hasImportedImageFile} = useAppStore.getState();
+  if (hasImportedImageFile) {
+    activeTabKey = latestColorSet ? TabKey.ColorPicker : TabKey.ColorSet;
   }
 
   if (activeTabKey) {
-    void useAppStore.getState().setActiveTabKey(activeTabKey);
-    console.log('getAppState', activeTabKey);
+    await useAppStore.getState().setActiveTabKey(activeTabKey);
   }
 }
-
-void getAppState();

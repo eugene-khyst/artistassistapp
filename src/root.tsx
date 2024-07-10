@@ -10,12 +10,14 @@ import type {Root} from 'react-dom/client';
 import {createRoot} from 'react-dom/client';
 
 import {registerFileHandler} from '~/src/file-handler';
+import {initAppStore} from '~/src/stores/app-store';
 
 import {ArtistAssistApp} from './ArtistAssistApp';
 import {registerServiceWorker} from './register-service-worker';
 
 registerServiceWorker();
 registerFileHandler();
+void initAppStore();
 
 const queryClient = new QueryClient({
   defaultOptions: {
