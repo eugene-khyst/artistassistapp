@@ -78,7 +78,6 @@ export interface Color {
 }
 
 export interface ColorSet {
-  id: number;
   type: ColorType;
   brands: Map<number, ColorBrandDefinition>;
   colors: Color[];
@@ -194,7 +193,6 @@ export function toColorSet(
     return;
   }
   return {
-    id,
     type,
     brands,
     colors: Object.entries(selectedColors).flatMap(

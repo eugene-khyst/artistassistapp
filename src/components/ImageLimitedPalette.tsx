@@ -55,7 +55,6 @@ export const ImageLimitedPalette: React.FC = () => {
   const handlePreviewClick = () => {
     if (colorSet) {
       const limitedColorSet: ColorSet = {
-        id: 0,
         type: colorSet?.type,
         brands: colorSet?.brands,
         colors: colors

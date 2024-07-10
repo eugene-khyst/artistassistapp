@@ -233,11 +233,6 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
           ({id}: ColorSetDefinition) => id !== idToDelete
         ),
       });
-      if (get().colorSet?.id === idToDelete) {
-        set({
-          colorSet: null,
-        });
-      }
     }
   },
   setImageFile: async (imageFile: ImageFile | null, setActiveTabKey = true): Promise<void> => {

@@ -9,10 +9,13 @@ import {StrictMode} from 'react';
 import type {Root} from 'react-dom/client';
 import {createRoot} from 'react-dom/client';
 
+import {registerFileHandler} from '~/src/file-handler';
+
 import {ArtistAssistApp} from './ArtistAssistApp';
 import {registerServiceWorker} from './register-service-worker';
 
 registerServiceWorker();
+registerFileHandler();
 
 const queryClient = new QueryClient({
   defaultOptions: {
