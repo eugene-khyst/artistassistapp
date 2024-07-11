@@ -4,7 +4,7 @@
  */
 
 export * from './array';
-export * from './cache';
+export * from './fetch';
 export * from './format';
 export * from './fraction';
 export * from './function';

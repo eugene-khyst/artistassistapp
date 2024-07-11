@@ -12,6 +12,7 @@ import {manifest} from '@parcel/service-worker';
 import {commitHash} from '~/src/config';
 import {saveAppSettings, saveImageFile} from '~/src/services/db';
 import {TabKey} from '~/src/types';
+import {fetchWithTimeout} from '~/src/utils';
 
 const errorResponse = (error: any) => new Response(`Error: ${error}`, {status: 500});
 
@@ -61,7 +62,7 @@ self.addEventListener('fetch', (event: FetchEvent) => {
 async function cacheThenNetwork(request: Request): Promise<Response> {
   try {
     const cacheResponse = await caches.match(request);
-    return cacheResponse || (await fetch(request));
+    return cacheResponse || (await fetchWithTimeout(request));
   } catch (e) {
     return errorResponse(e);
   }
@@ -69,7 +70,7 @@ async function cacheThenNetwork(request: Request): Promise<Response> {
 
 async function networkThenCache(request: Request): Promise<Response> {
   try {
-    return await fetch(request);
+    return await fetchWithTimeout(request);
   } catch (e) {
     const cacheResponse = await caches.match(request);
     return cacheResponse || errorResponse(e);
