@@ -4,14 +4,21 @@
  */
 
 import type {LaunchParams} from '~/src/pwa';
-import {useAppStore} from '~/src/stores/app-store';
+import {saveAppSettings, saveImageFile} from '~/src/services/db';
+import {TabKey} from '~/src/types';
 
 export function registerFileHandler() {
   if ('launchQueue' in window) {
     window.launchQueue.setConsumer(async (launchParams: LaunchParams) => {
       for (const fileHandle of launchParams.files) {
         const file: File = await fileHandle.getFile();
-        await useAppStore.getState().setImportedImageFile(file);
+        await saveImageFile({
+          file,
+          date: new Date(),
+        });
+        void saveAppSettings({
+          activeTabKey: TabKey.Photo,
+        });
       }
     });
   }
