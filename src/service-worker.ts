@@ -10,6 +10,8 @@ declare const self: ServiceWorkerGlobalScope;
 import {manifest} from '@parcel/service-worker';
 
 import {commitHash} from '~/src/config';
+import {saveAppSettings, saveImageFile} from '~/src/services/db';
+import {TabKey} from '~/src/types';
 
 const errorResponse = (error: any) => new Response(`Error: ${error}`, {status: 500});
 
@@ -37,15 +39,22 @@ self.addEventListener('fetch', (event: FetchEvent) => {
       event.respondWith(networkThenCache(request));
     }
   } else if (request.method === 'POST' && url.pathname === '/share-target') {
-    // event.respondWith(
-    //   (async (): Promise<void> => {
-    //     const formData = await event.request.formData();
-    //     const link = formData.get('link') || '';
-    //     // const responseUrl = await saveBookmark(link);
-    //     // return Response.redirect(responseUrl, 303);
-    //     return null;
-    //   })()
-    // );
+    event.respondWith(
+      (async (): Promise<Response> => {
+        const formData: FormData = await event.request.formData();
+        const files = formData.getAll('images') as File[];
+        for (const file of files) {
+          await saveImageFile({
+            file,
+            date: new Date(),
+          });
+          await saveAppSettings({
+            activeTabKey: TabKey.Photo,
+          });
+        }
+        return Response.redirect('/', 303);
+      })()
+    );
   }
 });
 
