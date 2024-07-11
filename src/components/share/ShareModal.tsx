@@ -34,8 +34,8 @@ export const ShareModal: React.FC<Props> = ({title, open, setOpen, url}: Props) 
           url,
         });
       } catch (error) {
-        if (error instanceof DOMException && error.name === 'AbortError') {
-          // Share canceled
+        if (!(error instanceof DOMException && error.name === 'AbortError')) {
+          throw error;
         }
       }
     }
