@@ -379,7 +379,7 @@ function mixColors(colors: UnmixedColor[], ratio: number[]): MixedColor {
   }
   if (colors.length !== ratio.length) {
     throw new Error(
-      `The number of colors (${colors.length}}) != the number of parts (${ratio.length})`
+      `The number of colors (${colors.length}) != the number of parts (${ratio.length})`
     );
   }
   const parts: ColorMixturePart[] = [];
@@ -394,8 +394,12 @@ function mixColors(colors: UnmixedColor[], ratio: number[]): MixedColor {
   return new MixedColor(reflectance, parts);
 }
 
+function toUnmixedColors(colors: Color[]): UnmixedColor[] {
+  return colors.flatMap((color: Color) => new UnmixedColor(color));
+}
+
 function toUnmixedColorsAndWhites(colors: Color[]): [UnmixedColor[], UnmixedColor[]] {
-  const unmixedColors: UnmixedColor[] = colors.flatMap((color: Color) => new UnmixedColor(color));
+  const unmixedColors: UnmixedColor[] = toUnmixedColors(colors);
   return [unmixedColors.filter(not(isWhiteColor)), unmixedColors.filter(isWhiteColor)];
 }
 
@@ -498,8 +502,9 @@ export function makeColorMixture(
   ratio: number[],
   backgroundColorHex: string
 ): ColorMixture[] {
-  const [unmixedColors] = toUnmixedColorsAndWhites(colors);
-  const color: MixedColorTint = MixedColorTint.fromMixedColor(mixColors(unmixedColors, ratio));
+  const color: MixedColorTint = MixedColorTint.fromMixedColor(
+    mixColors(toUnmixedColors(colors), ratio)
+  );
   const layers: MixedColorLayer[] = makeLayers(
     type,
     [color],
@@ -531,8 +536,7 @@ export class ColorMixer {
     if (process.env.NODE_ENV !== 'production') {
       console.time('mix-colors');
     }
-    const [unmixedColors, whites]: [UnmixedColor[], UnmixedColor[]] =
-      toUnmixedColorsAndWhites(colors);
+    const [unmixedColors, whites] = toUnmixedColorsAndWhites(colors);
     const {maxColors, tint = false} = COLOR_MIXING[type];
     const mixedColors: MixedColor[] = unmixedColors
       .map(MixedColor.fromUnmixedColor)

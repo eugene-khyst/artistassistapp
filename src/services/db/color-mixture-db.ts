@@ -9,14 +9,22 @@ import {dbPromise} from './db';
 
 export async function getColorMixtures(imageFileId?: number | null): Promise<ColorMixture[]> {
   const db = await dbPromise;
-  return await db.transaction('color-mixtures').store.index('by-imageFileId').getAll(imageFileId);
+  const index = db.transaction('color-mixtures').store.index('by-imageFileId');
+  return (await index.getAll(0)).concat(imageFileId ? await index.getAll(imageFileId) : []);
 }
 
-export async function saveColorMixture(colorMixture: ColorMixture): Promise<ColorMixture> {
+export async function saveColorMixture({
+  imageFileId,
+  ...colorMixture
+}: ColorMixture): Promise<ColorMixture> {
   const db = await dbPromise;
-  const id: number = await db.put('color-mixtures', colorMixture);
-  return {
+  const savedColorMixture: ColorMixture = {
     ...colorMixture,
+    imageFileId: imageFileId ?? 0,
+  };
+  const id: number = await db.put('color-mixtures', savedColorMixture);
+  return {
+    ...savedColorMixture,
     id,
   };
 }
