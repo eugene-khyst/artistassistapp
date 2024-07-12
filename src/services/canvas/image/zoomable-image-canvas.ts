@@ -166,7 +166,6 @@ export class ZoomableImageCanvas extends Canvas {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected onClickOrTap(_vector: Vector): void {
     // noop
   }
@@ -201,7 +200,7 @@ export class ZoomableImageCanvas extends Canvas {
       this.initialPinchDistance = currentDistance;
     } else {
       const zoomFactor = currentDistance / this.initialPinchDistance;
-      this.setZoom(zoomFactor * this.lastZoom);
+      this.setZoom(zoomFactor * this.lastZoom, false);
     }
   }
 
@@ -216,14 +215,18 @@ export class ZoomableImageCanvas extends Canvas {
     }
   }
 
-  setOffset(point: Vector): void {
+  private setOffset(point: Vector): void {
     this.offset = this.clampOffset(point);
     this.draw();
   }
 
-  setZoom(zoom: number): void {
+  private setZoom(zoom: number, resetPinch = true): void {
     this.zoom = clamp(zoom, this.getMinZoom(), this.maxZoom);
     this.offset = this.clampOffset(this.offset);
+    if (resetPinch) {
+      this.initialPinchDistance = null;
+      this.lastZoom = this.zoom;
+    }
     this.draw();
   }
 

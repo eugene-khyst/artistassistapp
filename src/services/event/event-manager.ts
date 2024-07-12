@@ -23,8 +23,9 @@ export class EventManager<T extends string> {
   }
 
   notify<S>(eventType: T, data: S) {
-    //eslint-disable-next-line @typescript-eslint/no-misused-promises
-    this.listeners.get(eventType)?.forEach((listener: EventListener<S>) => listener(data));
+    this.listeners.get(eventType)?.forEach((listener: EventListener<S>) => {
+      void listener(data);
+    });
   }
 
   destroy() {
