@@ -34,9 +34,9 @@ self.addEventListener('fetch', (event: FetchEvent) => {
   const url = new URL(request.url);
   if (request.method === 'GET') {
     if (url.origin === location.origin) {
-      event.respondWith(cacheThenNetwork(request));
+      event.respondWith(cacheFirst(request));
     } else {
-      event.respondWith(networkThenCache(request));
+      event.respondWith(networkFirst(request));
     }
   } else if (request.method === 'POST' && url.pathname === '/share-target') {
     event.respondWith(
@@ -58,21 +58,21 @@ self.addEventListener('fetch', (event: FetchEvent) => {
   }
 });
 
-async function cacheThenNetwork(request: Request): Promise<Response> {
+async function cacheFirst(request: Request): Promise<Response> {
   try {
     const cacheResponse = await caches.match(request);
     return cacheResponse || (await fetch(request));
-  } catch (e) {
-    return errorResponse(e);
+  } catch (error) {
+    return errorResponse(error);
   }
 }
 
-async function networkThenCache(request: Request): Promise<Response> {
+async function networkFirst(request: Request): Promise<Response> {
   try {
     return await fetch(request);
-  } catch (e) {
+  } catch (error) {
     const cacheResponse = await caches.match(request);
-    return cacheResponse || errorResponse(e);
+    return cacheResponse || errorResponse(error);
   }
 }
 

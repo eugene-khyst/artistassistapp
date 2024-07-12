@@ -47,8 +47,8 @@ async function registerAndRefresh() {
         });
       }
     });
-  } catch (e) {
-    console.log('Service worker registration failed', e);
+  } catch (error) {
+    console.log('Service worker registration failed', error);
   }
 }
 

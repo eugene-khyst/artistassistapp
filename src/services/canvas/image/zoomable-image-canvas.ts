@@ -101,8 +101,8 @@ export class ZoomableImageCanvas extends Canvas {
       const imageDimension: Rectangle = this.getImageDimension();
       try {
         ctx.drawImage(image, -imageDimension.center.x, -imageDimension.center.y);
-      } catch (e) {
-        console.error(e);
+      } catch (error) {
+        console.error(error);
       }
       this.onImageDrawn();
       ctx.restore();
