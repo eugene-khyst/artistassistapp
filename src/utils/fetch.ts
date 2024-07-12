@@ -12,7 +12,9 @@ export async function fetchSWR(request: string | URL | Request): Promise<Respons
   const cacheResponse: Response | undefined = await cache.match(request);
   const fetchPromise: Promise<Response> = (async () => {
     try {
-      const networkResponse = await fetch(request);
+      const networkResponse = await fetch(request, {
+        signal: AbortSignal.timeout(15000),
+      });
       void cache.put(request, networkResponse.clone());
       return networkResponse;
     } catch (error) {
