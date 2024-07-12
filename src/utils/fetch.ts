@@ -9,14 +9,15 @@ export const errorResponse = (error: any) => new Response(`Error: ${error}`, {st
 
 export async function fetchSWR(request: string | URL | Request): Promise<Response> {
   const cache: Cache = await caches.open(commitHash);
-  const cacheResponse = await cache.match(request);
-  const fetchPromise = fetch(request).then(function (networkResponse) {
-    void cache.put(request, networkResponse.clone());
-    return networkResponse;
-  });
-  try {
-    return cacheResponse || (await fetchPromise);
-  } catch (error) {
-    return errorResponse(error);
-  }
+  const cacheResponse: Response | undefined = await cache.match(request);
+  const fetchPromise: Promise<Response> = (async () => {
+    try {
+      const networkResponse = await fetch(request);
+      void cache.put(request, networkResponse.clone());
+      return networkResponse;
+    } catch (error) {
+      return errorResponse(error);
+    }
+  })();
+  return cacheResponse || (await fetchPromise);
 }

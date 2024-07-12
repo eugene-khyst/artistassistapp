@@ -34,7 +34,7 @@ export const Ad: React.FC<Props> = ({tab}: Props) => {
 
   const {ads: {ads, placements} = {ads: {}, placements: {}}, isLoading} = useAds();
 
-  const [adIndex, setAdIndex] = useState(randomInt(0, 9));
+  const [adIndex, setAdIndex] = useState<number>(randomInt(0, 9));
 
   useEffect(() => {
     const intervalId = setInterval(() => {
