@@ -6,8 +6,11 @@
 import {commitHash} from '~/src/config';
 
 export async function fetchAndCache(request: string | URL | Request): Promise<Response> {
-  const response: Response = await fetch(request);
   const cache: Cache = await caches.open(commitHash);
-  void cache.put(request, response.clone());
-  return response;
+  const cacheResponse = await cache.match(request);
+  const fetchPromise = fetch(request).then(function (networkResponse) {
+    void cache.put(request, networkResponse.clone());
+    return networkResponse;
+  });
+  return cacheResponse || (await fetchPromise);
 }
