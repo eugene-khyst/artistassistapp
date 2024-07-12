@@ -19,13 +19,6 @@ registerServiceWorker();
 registerFileHandler();
 void initAppStore();
 
-addEventListener('online', event => {
-  alert(navigator.onLine);
-});
-addEventListener('offline', event => {
-  alert(navigator.onLine);
-});
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
