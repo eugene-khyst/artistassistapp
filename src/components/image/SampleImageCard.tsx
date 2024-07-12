@@ -7,7 +7,6 @@ import {Card} from 'antd';
 import type {Dispatch, SetStateAction} from 'react';
 
 import {useAppStore} from '~/src/stores/app-store';
-import {fetchAndCache} from '~/src/utils';
 
 type Props = {
   image: string | URL;
@@ -27,7 +26,7 @@ export const SampleImageCard: React.FC<Props> = ({
   const handleCardClick = () => {
     void (async () => {
       setLoadingCount((prev: number) => prev + 1);
-      const response: Response = await fetchAndCache(image);
+      const response: Response = await fetch(image);
       const blob: Blob = await response.blob();
       void setImageFile({file: new File([blob], '')});
       setLoadingCount((prev: number) => prev - 1);

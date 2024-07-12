@@ -4,7 +4,7 @@
  */
 
 import {apiUrl} from '~/src/config';
-import {fetchAndCache} from '~/src/utils';
+import {fetchSWR} from '~/src/utils';
 
 export interface AdDefinition {
   image: string;
@@ -20,6 +20,6 @@ export interface AdsDefinition {
 }
 
 export async function fetchAds(): Promise<AdsDefinition> {
-  const response = await fetchAndCache(`${apiUrl}/ads.json`);
+  const response = await fetchSWR(`${apiUrl}/ads.json`);
   return (await response.json()) as AdsDefinition;
 }

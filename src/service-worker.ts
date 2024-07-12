@@ -12,8 +12,7 @@ import {manifest} from '@parcel/service-worker';
 import {commitHash} from '~/src/config';
 import {saveAppSettings, saveImageFile} from '~/src/services/db';
 import {TabKey} from '~/src/types';
-
-const errorResponse = (error: any) => new Response(`Error: ${error}`, {status: 500});
+import {errorResponse} from '~/src/utils';
 
 async function install(): Promise<void> {
   const cache = await caches.open(commitHash);
@@ -35,8 +34,6 @@ self.addEventListener('fetch', (event: FetchEvent) => {
   if (request.method === 'GET') {
     if (url.origin === location.origin) {
       event.respondWith(cacheFirst(request));
-    } else if (url.origin === 'api.artistassistapp.com') {
-      event.respondWith(networkFirst(request));
     }
   } else if (request.method === 'POST' && url.pathname === '/share-target') {
     event.respondWith(
@@ -64,15 +61,6 @@ async function cacheFirst(request: Request): Promise<Response> {
     return cacheResponse || (await fetch(request));
   } catch (error) {
     return errorResponse(error);
-  }
-}
-
-async function networkFirst(request: Request): Promise<Response> {
-  try {
-    return await fetch(request);
-  } catch (error) {
-    const cacheResponse: Response | undefined = await caches.match(request);
-    return cacheResponse || errorResponse(error);
   }
 }
 

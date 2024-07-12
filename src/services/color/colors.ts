@@ -4,7 +4,7 @@
  */
 
 import {apiUrl} from '~/src/config';
-import {fetchAndCache} from '~/src/utils';
+import {fetchSWR} from '~/src/utils';
 
 import {Rgb, type RgbTuple} from './space';
 
@@ -120,7 +120,7 @@ export async function fetchColorBrands(
   type: ColorType
 ): Promise<Map<number, ColorBrandDefinition>> {
   const url = getResourceUrl('brands', type);
-  const response = await fetchAndCache(url);
+  const response = await fetchSWR(url);
   const brands = (await response.json()) as ColorBrandDefinition[];
   return new Map(brands.map((brand: ColorBrandDefinition) => [brand.id, brand]));
 }
@@ -130,7 +130,7 @@ export async function fetchStandardColorSets(
   brandAlias: string
 ): Promise<Map<string, StandardColorSetDefinition>> {
   const url = getResourceUrl('sets', type, brandAlias);
-  const response = await fetchAndCache(url);
+  const response = await fetchSWR(url);
   const sets = (await response.json()) as StandardColorSetDefinition[];
   return new Map(
     sets.map((standardColorSet: StandardColorSetDefinition) => [
@@ -145,7 +145,7 @@ export async function fetchColors(
   brandAlias: string
 ): Promise<Map<number, ColorDefinition>> {
   const url = getResourceUrl('colors', type, brandAlias);
-  const response = await fetchAndCache(url);
+  const response = await fetchSWR(url);
   const colors = (await response.json()) as ColorDefinition[];
   return new Map(colors.map((color: ColorDefinition) => [color.id, color]));
 }
