@@ -9,7 +9,5 @@ export async function fetchAndCache(request: string | URL | Request): Promise<Re
   const response: Response = await fetch(request);
   const cache: Cache = await caches.open(commitHash);
   void cache.put(request, response.clone());
-  console.log('Caching', request);
-  console.log('Headers', response.headers);
   return response;
 }

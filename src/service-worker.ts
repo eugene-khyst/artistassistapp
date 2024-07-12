@@ -35,7 +35,7 @@ self.addEventListener('fetch', (event: FetchEvent) => {
   if (request.method === 'GET') {
     if (url.origin === location.origin) {
       event.respondWith(cacheFirst(request));
-    } else {
+    } else if (url.origin === 'api.artistassistapp.com') {
       event.respondWith(networkFirst(request));
     }
   } else if (request.method === 'POST' && url.pathname === '/share-target') {
@@ -69,12 +69,9 @@ async function cacheFirst(request: Request): Promise<Response> {
 
 async function networkFirst(request: Request): Promise<Response> {
   try {
-    console.log('SW: fetching', request);
     return await fetch(request);
   } catch (error) {
-    console.log('SW: searching in cache', request);
     const cacheResponse: Response | undefined = await caches.match(request);
-    console.log('SW: cached', cacheResponse);
     return cacheResponse || errorResponse(error);
   }
 }

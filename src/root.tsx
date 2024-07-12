@@ -22,7 +22,7 @@ void initAppStore();
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      networkMode: 'offlineFirst',
+      networkMode: 'always',
       staleTime: 3 * 60 * 1000,
       refetchOnMount: false,
       refetchOnWindowFocus: false,
