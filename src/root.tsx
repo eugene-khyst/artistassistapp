@@ -28,6 +28,7 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
       refetchOnReconnect: true,
       refetchInterval: false,
+      retry: false,
     },
   },
 });
