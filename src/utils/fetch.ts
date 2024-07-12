@@ -9,5 +9,6 @@ export async function fetchAndCache(url: string | URL | globalThis.Request): Pro
   const response = await fetch(url);
   const cache = await caches.open(commitHash);
   void cache.put(url, response.clone());
+  console.log('Caching', url);
   return response;
 }

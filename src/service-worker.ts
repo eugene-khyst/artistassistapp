@@ -69,9 +69,12 @@ async function cacheFirst(request: Request): Promise<Response> {
 
 async function networkFirst(request: Request): Promise<Response> {
   try {
+    console.log('SW: fetching', request);
     return await fetch(request);
   } catch (error) {
+    console.log('SW: searching in cache', request);
     const cacheResponse: Response | undefined = await caches.match(request);
+    console.log('SW: cached', cacheResponse);
     return cacheResponse || errorResponse(error);
   }
 }
