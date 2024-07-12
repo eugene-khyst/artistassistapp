@@ -6,4 +6,5 @@
 export * from './blur';
 export * from './limited-palette';
 export * from './outline';
+export * from './sample-images';
 export * from './tonal-values';

@@ -11,12 +11,21 @@ import {manifest} from '@parcel/service-worker';
 
 import {commitHash} from '~/src/config';
 import {saveAppSettings, saveImageFile} from '~/src/services/db';
+import type {SampleImageDefinition} from '~/src/services/image';
+import {SAMPLE_IMAGES} from '~/src/services/image';
 import {TabKey} from '~/src/types';
 import {errorResponse} from '~/src/utils';
 
 async function install(): Promise<void> {
   const cache = await caches.open(commitHash);
-  await cache.addAll(['/', ...new Set(manifest)]);
+  await cache.addAll([
+    '/',
+    ...new Set(manifest),
+    ...SAMPLE_IMAGES.flatMap(({image, thumbnail}: SampleImageDefinition): string[] => [
+      image,
+      thumbnail,
+    ]),
+  ]);
 }
 self.addEventListener('install', event => {
   event.waitUntil(install());

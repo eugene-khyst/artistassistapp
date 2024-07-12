@@ -14,11 +14,8 @@ export async function fetchSWR(request: string | URL | Request): Promise<Respons
     void cache.put(request, networkResponse.clone());
     return networkResponse;
   });
-  if (cacheResponse) {
-    return cacheResponse;
-  }
   try {
-    return await fetchPromise;
+    return cacheResponse || (await fetchPromise);
   } catch (error) {
     return errorResponse(error);
   }

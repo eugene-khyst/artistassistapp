@@ -8,17 +8,12 @@ import type {ChangeEvent} from 'react';
 import {useState} from 'react';
 
 import type {ImageFile} from '~/src/services/db';
+import type {SampleImageDefinition} from '~/src/services/image';
+import {SAMPLE_IMAGES} from '~/src/services/image';
 import {useAppStore} from '~/src/stores/app-store';
 
 import {RecentImageCard} from './image/RecentImageCard';
 import {SampleImageCard} from './image/SampleImageCard';
-
-type SampleImageUrl = [file: string, name: string];
-
-const SAMPLE_IMAGES: SampleImageUrl[] = [
-  [`chrysanthemum`, 'Chrysanthemum'],
-  [`sunset`, 'Sunset'],
-];
 
 export const ImageChooser: React.FC = () => {
   const recentImageFiles = useAppStore(state => state.recentImageFiles);
@@ -60,11 +55,11 @@ export const ImageChooser: React.FC = () => {
           )}
           <Typography.Text strong>Or select from sample photos</Typography.Text>
           <Row gutter={[16, 16]} align="middle" justify="start">
-            {SAMPLE_IMAGES.map(([file, name]: SampleImageUrl) => (
+            {SAMPLE_IMAGES.map(({image, thumbnail, name}: SampleImageDefinition) => (
               <Col key={name} xs={24} md={12} lg={8} xl={6}>
                 <SampleImageCard
-                  image={`/sample-images/${file}.webp`}
-                  thumbnail={`/sample-images/${file}-thumbnail.webp`}
+                  image={image}
+                  thumbnail={thumbnail}
                   name={name}
                   setLoadingCount={setSampleImagesLoadingCount}
                 />
