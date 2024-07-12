@@ -18,15 +18,11 @@
 
 ## <a id="1"></a>Overview
 
-**ArtistAssistApp** is the best ever FREE painting assistant tool that allows artists to see the
-reference photo more clearly and mix colors more accurately.
-
-ArtistAssistApp provides various tools for artists for accurate color mixing from a photo based on
-real paints, tonal value study, grid method for drawing, simplified sketching, etc.
+**ArtistAssistApp** is a Progressive Web App (PWA) for artists to accurately mix any color from a
+photo, analyze tonal values, turn a photo into an outline, draw with the grid method, paint with a
+limited palette, simplify a photo, and more.
 
 Try it now at [ArtistAssistApp.com](https://artistassistapp.com)
-
-https://github.com/eugene-khyst/artistassistapp/assets/1311126/603f0a81-ffdc-4a7b-b132-741df036e692
 
 ## <a id="2"></a>Getting Started
 
@@ -78,22 +74,25 @@ https://github.com/eugene-khyst/artistassistapp/assets/1311126/603f0a81-ffdc-4a7
 
 ## <a id="4"></a>Implementation details
 
-This project does not use artificial intelligence (AI), but rather mathematics.
+ArtistAssistApp does not use artificial intelligence (AI), but rather mathematics.
 
-The core logic of the project doesn't depend on any math or color library and includes the
-implementation of the following:
+The web app doesn't depend on any math or color library and includes the implementation of the
+following:
 
-- converting between color models (e.g. sRGB to CIELAB),
+- conversion between color models (e.g. sRGB to OKLCH),
 - sRGB to spectral reflectance curve,
 - subtractive color mixing using weighted geometric mean of reflectance curves,
 - matrix operations,
 - matrix inversion using LU decomposition,
 - solving a system of linear algebraic equations using forward and backward substitution,
 - the average color of the circular area of the image
-- color difference using CIEDE2000,
+- color distance (deltaEOK),
 - vector operations,
 - median blur filter using sliding window and histogram,
 - erosion morphological filter,
 - median cut for color quantization,
-- RGB to grayscale conversion based on luminance,
+- RGB to grayscale conversion based on perceived lightness,
+- ranking images using pairwise comparison and Elo rating system,
 - and more.
+
+The web app uses Web Workers for parallel processing and Service Workers for offline access.

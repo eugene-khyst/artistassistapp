@@ -412,6 +412,15 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
                 <Button icon={<SaveOutlined />} type="primary" htmlType="submit">
                   Save & proceed
                 </Button>
+                {selectedColorsCount > 0 && (
+                  <Button
+                    icon={<ShareAltOutlined />}
+                    title="Share this color set"
+                    onClick={showShareModal}
+                  >
+                    Share
+                  </Button>
+                )}
                 {!!selectedColorSetId && (
                   <Popconfirm
                     title="Delete the color set"
@@ -429,15 +438,6 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
                       Delete
                     </Button>
                   </Popconfirm>
-                )}
-                {selectedColorsCount > 0 && (
-                  <Button
-                    icon={<ShareAltOutlined />}
-                    title="Share this color set"
-                    onClick={showShareModal}
-                  >
-                    Share
-                  </Button>
                 )}
               </Space>
             </Form.Item>

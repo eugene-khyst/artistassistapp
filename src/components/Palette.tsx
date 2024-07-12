@@ -14,7 +14,7 @@ import type {ArrayElement} from '~/src/utils';
 
 import {ColorSwatchDrawer} from './color/ColorSwatchDrawer';
 import {EmptyPalette} from './empty/EmptyPalette';
-import {PaletteGrid} from './grid/PaletteGrid';
+import {PaletteGrid} from './palette/PaletteGrid';
 
 type ItemType = ArrayElement<CollapseProps['items']>;
 
