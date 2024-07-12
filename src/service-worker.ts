@@ -36,7 +36,7 @@ self.addEventListener('fetch', (event: FetchEvent) => {
     if (url.origin === location.origin) {
       event.respondWith(cacheFirst(request));
     } else {
-      event.respondWith(networkFirst(request));
+      event.respondWith(cacheReadThrough(request));
     }
   } else if (request.method === 'POST' && url.pathname === '/share-target') {
     event.respondWith(
@@ -60,7 +60,7 @@ self.addEventListener('fetch', (event: FetchEvent) => {
 
 async function cacheFirst(request: Request): Promise<Response> {
   try {
-    const cacheResponse = await caches.match(request);
+    const cacheResponse: Response | undefined = await caches.match(request);
     return cacheResponse || (await fetch(request));
   } catch (error) {
     return errorResponse(error);
@@ -71,9 +71,20 @@ async function networkFirst(request: Request): Promise<Response> {
   try {
     return await fetch(request);
   } catch (error) {
-    const cacheResponse = await caches.match(request);
+    const cacheResponse: Response | undefined = await caches.match(request);
     return cacheResponse || errorResponse(error);
   }
+}
+
+async function cacheReadThrough(request: Request) {
+  const cache: Cache = await caches.open(commitHash);
+  const cacheResponse: Response | undefined = await cache.match(request);
+  if (cacheResponse) {
+    return cacheResponse;
+  }
+  const response: Response = await fetch(request);
+  void cache.put(request, response.clone());
+  return response;
 }
 
 self.addEventListener('message', event => {
