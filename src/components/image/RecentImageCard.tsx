@@ -19,9 +19,9 @@ export const RecentImageCard: React.FC<Props> = ({imageFile}: Props) => {
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
   const deleteRecentImageFile = useAppStore(state => state.deleteRecentImageFile);
 
-  const {file, date} = imageFile;
+  const {id, file, date} = imageFile;
   const imageSrc: string | undefined = useCreateObjectUrl(file);
-  const dateStr: string | undefined = date && dayjs(date).format('DD/MM/YYYY');
+  const dateStr: string | undefined = date && dayjs(date).format('DD/MM/YYYY HH:mm');
 
   const handleCardClick = () => {
     void saveRecentImageFile(imageFile);
@@ -57,7 +57,7 @@ export const RecentImageCard: React.FC<Props> = ({imageFile}: Props) => {
           </Popconfirm>,
         ]}
       >
-        <Card.Meta title={file.name} description={`Last used ${dateStr}`} />
+        <Card.Meta title={file.name} description={`Last used ${dateStr} (${id})`} />
       </Card>
     )
   );
