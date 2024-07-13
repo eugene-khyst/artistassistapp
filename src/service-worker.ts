@@ -45,22 +45,7 @@ self.addEventListener('fetch', (event: FetchEvent) => {
       event.respondWith(cacheFirst(request));
     }
   } else if (request.method === 'POST' && url.pathname === '/share-target') {
-    event.respondWith(
-      (async (): Promise<Response> => {
-        const formData: FormData = await event.request.formData();
-        const files = formData.getAll('images') as File[];
-        for (const file of files) {
-          await saveImageFile({
-            file,
-            date: new Date(),
-          });
-          await saveAppSettings({
-            activeTabKey: TabKey.Photo,
-          });
-        }
-        return Response.redirect('/', 303);
-      })()
-    );
+    event.waitUntil(receiveSharedData(request));
   }
 });
 
@@ -71,6 +56,21 @@ async function cacheFirst(request: Request): Promise<Response> {
   } catch (error) {
     return errorResponse(error);
   }
+}
+
+async function receiveSharedData(request: Request): Promise<void> {
+  const formData: FormData = await request.formData();
+  const files = formData.getAll('images') as File[];
+  for (const file of files) {
+    await saveImageFile({
+      file,
+      date: new Date(),
+    });
+    await saveAppSettings({
+      activeTabKey: TabKey.Photo,
+    });
+  }
+  // return Response.redirect('/', 303);
 }
 
 self.addEventListener('message', event => {
