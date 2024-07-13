@@ -43,8 +43,8 @@ self.addEventListener('fetch', (event: FetchEvent) => {
   if (url.origin === location.origin) {
     if (request.method === 'GET') {
       event.respondWith(cacheFirst(request));
-    } else if (request.method === 'POST') {
-      event.waitUntil(receiveSharedData(request));
+    } else if (request.method === 'POST' && url.pathname === '/share-target') {
+      event.respondWith(receiveSharedData(request));
     }
   }
 });
@@ -58,7 +58,7 @@ async function cacheFirst(request: Request): Promise<Response> {
   }
 }
 
-async function receiveSharedData(request: Request): Promise<void> {
+async function receiveSharedData(request: Request): Promise<Response> {
   const formData: FormData = await request.formData();
   const files = formData.getAll('images') as File[];
   for (const file of files) {
@@ -70,6 +70,7 @@ async function receiveSharedData(request: Request): Promise<void> {
       activeTabKey: TabKey.Photo,
     });
   }
+  return Response.redirect('/', 303);
 }
 
 self.addEventListener('message', event => {

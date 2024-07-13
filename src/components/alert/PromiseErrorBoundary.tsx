@@ -27,9 +27,7 @@ export const PromiseErrorBoundary: React.FC<PropsWithChildren> = ({
       });
     };
     window.addEventListener('unhandledrejection', promiseRejectionHandler);
-    return () => {
-      window.removeEventListener('unhandledrejection', promiseRejectionHandler);
-    };
+    return () => window.removeEventListener('unhandledrejection', promiseRejectionHandler);
   }, [api]);
 
   return (

@@ -52,7 +52,7 @@
   "lang": "en",
   "orientation": "any",
   "share_target": {
-    "action": "/",
+    "action": "/share-target",
     "method": "POST",
     "enctype": "multipart/form-data",
     "params": {
@@ -65,7 +65,7 @@
     }
   },
   "launch_handler": {
-    "client_mode": "navigate-existing"
+    "client_mode": "focus-existing"
   },
   "file_handlers": [
     {

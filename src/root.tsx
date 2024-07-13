@@ -18,6 +18,11 @@ import {registerServiceWorker} from './register-service-worker';
 registerServiceWorker();
 registerFileHandler();
 void initAppStore();
+window.addEventListener('beforeunload', (event: BeforeUnloadEvent) => {
+  event.preventDefault();
+  // Included for legacy support, e.g. Chrome/Edge < 119
+  event.returnValue = true;
+});
 
 const queryClient = new QueryClient({
   defaultOptions: {
