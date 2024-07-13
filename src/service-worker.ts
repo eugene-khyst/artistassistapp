@@ -44,7 +44,7 @@ self.addEventListener('fetch', (event: FetchEvent) => {
     if (url.origin === location.origin) {
       event.respondWith(cacheFirst(request));
     }
-  } else if (request.method === 'POST' && url.pathname === '/share-target') {
+  } else if (request.method === 'POST' && url.pathname === '/?share-target') {
     event.waitUntil(receiveSharedData(request));
   }
 });
