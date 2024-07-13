@@ -9,11 +9,20 @@ export const IMAGE_SIZE = {
   '2K': 2560 * 1440,
 };
 
+async function createImageBitmapWithFallback(blob: Blob): Promise<ImageBitmap> {
+  try {
+    return await createImageBitmap(blob);
+  } catch (error) {
+    console.error(error);
+    return await createErrorImageBitmap(error instanceof Error ? error.message : undefined);
+  }
+}
+
 export async function createScaledImageBitmap(
   blob: Blob,
   maxImageArea: number
 ): Promise<ImageBitmap> {
-  const image: ImageBitmap = await createImageBitmap(blob);
+  const image: ImageBitmap = await createImageBitmapWithFallback(blob);
   const scale: number = Math.min(1, Math.sqrt(maxImageArea / (image.width * image.height)));
   const scaledImage: ImageBitmap = await createImageBitmap(image, {
     resizeWidth: Math.trunc(image.width * scale),
@@ -58,4 +67,49 @@ export function getRgbaForCoord(
   }
   const index = getIndexForCoord(x, y, width, 0);
   return [data[index], data[index + 1], data[index + 2], data[index + 3]];
+}
+
+async function createErrorImageBitmap(error?: string): Promise<ImageBitmap> {
+  const emojiFontSize = 84;
+  const titleFontSize = 48;
+  const titleLineHeight: number = 1.5 * titleFontSize;
+  const padding = 16;
+  const textFontSize = 24;
+  const textLineHeight: number = 1.5 * textFontSize;
+
+  const canvas = new OffscreenCanvas(720, 480);
+  const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d')!;
+
+  ctx.font = `${emojiFontSize}px serif`;
+  const emoji = '⚠️';
+  const {width: emojiWidth}: TextMetrics = ctx.measureText(emoji);
+  ctx.fillText(emoji, canvas.width / 2 - emojiWidth / 2, canvas.height / 2 - titleLineHeight);
+  ctx.font = `${titleFontSize}px serif`;
+  const title = 'Error loading image';
+  const {width: titleWidth}: TextMetrics = ctx.measureText(title);
+  ctx.fillText(title, canvas.width / 2 - titleWidth / 2, canvas.height / 2);
+  if (error) {
+    ctx.font = `${textFontSize}px serif`;
+    const words: string[] = error.split(' ');
+    const lines: string[] = [];
+    let currentLine: string = words[0];
+    for (let i = 1; i < words.length; i++) {
+      const word = words[i];
+      const line: string = currentLine + ' ' + word;
+      const {width} = ctx.measureText(line);
+      if (width < canvas.width - 2 * padding) {
+        currentLine = line;
+      } else {
+        lines.push(currentLine);
+        currentLine = word;
+      }
+    }
+    lines.push(currentLine);
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      ctx.fillText(line, padding, canvas.height / 2 + (i + 2) * textLineHeight);
+    }
+  }
+  return await createImageBitmap(canvas);
 }
