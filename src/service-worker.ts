@@ -40,12 +40,12 @@ self.addEventListener('activate', event => event.waitUntil(activate()));
 self.addEventListener('fetch', (event: FetchEvent) => {
   const {request} = event;
   const url = new URL(request.url);
-  if (request.method === 'GET') {
-    if (url.origin === location.origin) {
+  if (url.origin === location.origin) {
+    if (request.method === 'GET') {
       event.respondWith(cacheFirst(request));
+    } else if (request.method === 'POST') {
+      event.waitUntil(receiveSharedData(request));
     }
-  } else if (request.method === 'POST' && url.pathname === '/?share-target') {
-    event.waitUntil(receiveSharedData(request));
   }
 });
 
@@ -70,7 +70,6 @@ async function receiveSharedData(request: Request): Promise<void> {
       activeTabKey: TabKey.Photo,
     });
   }
-  // return Response.redirect('/', 303);
 }
 
 self.addEventListener('message', event => {

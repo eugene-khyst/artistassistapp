@@ -116,7 +116,7 @@ export const Help: React.FC = () => {
             xs={24}
             style={{textAlign: 'justify', fontSize: fontSizeSM, color: colorTextSecondary}}
           >
-            App version: {commitHash}, DB version: {dbVersion}
+            App build hash: {commitHash}, DB version: {dbVersion}
           </Col>
         </Row>
       </Space>
