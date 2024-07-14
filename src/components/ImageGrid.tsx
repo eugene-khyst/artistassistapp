@@ -3,12 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Checkbox, Form, Select, Space, Spin} from 'antd';
+import {PrinterOutlined} from '@ant-design/icons';
+import {Button, Checkbox, Form, Select, Space, Spin} from 'antd';
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
-import {useZoomableImageCanvas} from '~/src/hooks';
+import {usePrintImages, useZoomableImageCanvas} from '~/src/hooks';
 import {GridCanvas, GridType} from '~/src/services/canvas/image/grid-canvas';
 import {useAppStore} from '~/src/stores/app-store';
 
@@ -63,6 +64,12 @@ export const ImageGrid: React.FC = () => {
     }
   }, [gridCanvas, gridOption, squareGridSize, isDiagonals]);
 
+  const blobSupplier = useCallback(
+    async (): Promise<Blob | undefined> => gridCanvas?.convertToBlob(),
+    [gridCanvas]
+  );
+  const {ref: printRef, printImagesUrls, handlePrint} = usePrintImages(blobSupplier);
+
   if (!originalImage) {
     return (
       <div style={{padding: '0 16px 16px'}}>
@@ -108,9 +115,15 @@ export const ImageGrid: React.FC = () => {
             />
           </Form.Item>
         )}
+        <Button icon={<PrinterOutlined />} onClick={handlePrint}>
+          Print
+        </Button>
       </Space>
       <div>
         <canvas ref={canvasRef} style={{width: '100%', height: `calc(100vh - 115px)`}} />
+      </div>
+      <div style={{display: 'none'}}>
+        <div ref={printRef}>{printImagesUrls.length > 0 && <img src={printImagesUrls[0]} />}</div>
       </div>
     </Spin>
   );

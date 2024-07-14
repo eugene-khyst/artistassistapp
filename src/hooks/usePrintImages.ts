@@ -15,7 +15,9 @@ interface Result {
   handlePrint: () => void;
 }
 
-export function usePrintImages(image: (ImageBitmap | null) | ImageBitmap[]): Result {
+type BlobSupplier = () => Promise<Blob | undefined>;
+
+export function usePrintImages(image: (ImageBitmap | BlobSupplier | null) | ImageBitmap[]): Result {
   const ref = useRef<HTMLDivElement>(null);
   const promiseResolveRef = useRef<((value: void | PromiseLike<void>) => void) | null>(null);
   const [printImagesUrls, setPrintImagesUrls] = useState<string[]>([]);
@@ -29,15 +31,20 @@ export function usePrintImages(image: (ImageBitmap | null) | ImageBitmap[]): Res
   const handlePrint = useReactToPrint({
     content: () => ref.current,
     onBeforeGetContent: async () => {
-      const blobs: Blob[] = await Promise.all(
-        [image]
-          .flat()
-          .filter((image): image is ImageBitmap => !!image)
-          .map((image: ImageBitmap): Promise<Blob> => {
-            const [canvas] = imageBitmapToOffscreenCanvas(image);
-            return canvas.convertToBlob();
-          })
-      );
+      const blobs: Blob[] = (
+        await Promise.all(
+          [image]
+            .flat()
+            .map(async (image: ImageBitmap | BlobSupplier | null): Promise<Blob | undefined> => {
+              if (image instanceof ImageBitmap) {
+                const [canvas] = imageBitmapToOffscreenCanvas(image);
+                return canvas.convertToBlob();
+              } else if (typeof image === 'function') {
+                return image();
+              }
+            })
+        )
+      ).filter((blob): blob is Blob => !!blob);
       return await new Promise<void>(resolve => {
         promiseResolveRef.current = resolve;
         const urls: string[] = blobs.map((blob: Blob): string => URL.createObjectURL(blob));

@@ -10,6 +10,9 @@ import type {ColorMixture, ColorSetDefinition, ColorType} from '~/src/services/c
 
 import type {AppSettings, ImageFile} from './types';
 
+const DB_NAME = 'artistassistapp';
+const DB_VERSION = 1;
+
 export interface ArtistAssistAppDB extends DBSchema {
   'app-settings': {
     value: AppSettings;
@@ -39,8 +42,8 @@ export interface ArtistAssistAppDB extends DBSchema {
 void deleteDB('artist-assist-app-db');
 
 export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<ArtistAssistAppDB>(
-  'artistassistapp',
-  1,
+  DB_NAME,
+  DB_VERSION,
   {
     upgrade(db: IDBPDatabase<ArtistAssistAppDB>) {
       if (!db.objectStoreNames.contains('app-settings')) {
@@ -75,7 +78,6 @@ export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artist
   }
 );
 
-export async function version(): Promise<number> {
-  const db = await dbPromise;
-  return db.version;
+export async function deleteDb(): Promise<void> {
+  await deleteDB(DB_NAME);
 }

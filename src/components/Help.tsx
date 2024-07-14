@@ -6,25 +6,29 @@
 import {
   BugOutlined,
   CommentOutlined,
+  DeleteOutlined,
   FileProtectOutlined,
   FileTextOutlined,
   InfoCircleOutlined,
   MailOutlined,
   ReadOutlined,
 } from '@ant-design/icons';
-import {Button, Col, Row, Space, theme, Typography} from 'antd';
+import {Button, Col, Popconfirm, Row, Space, theme, Typography} from 'antd';
 
 import {commitHash, websiteUrl} from '~/src/config';
-import {useAppStore} from '~/src/stores/app-store';
+import {deleteDb} from '~/src/services/db';
 
 import {Logo} from './image/Logo';
 
 export const Help: React.FC = () => {
-  const dbVersion = useAppStore(state => state.dbVersion);
-
   const {
     token: {fontSizeSM, colorTextSecondary},
   } = theme.useToken();
+
+  const handleDeleteAppData = () => {
+    void deleteDb();
+    window.location.reload();
+  };
 
   return (
     <div style={{padding: '0 16px 16px'}}>
@@ -105,6 +109,23 @@ export const Help: React.FC = () => {
         </Row>
         <Row>
           <Col xs={24}>
+            <Popconfirm
+              title="Delete all app data"
+              description="Are you sure you want to delete all app data?"
+              onConfirm={() => {
+                void handleDeleteAppData();
+              }}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button icon={<DeleteOutlined />} danger>
+                Delete all app data
+              </Button>
+            </Popconfirm>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={24}>
             ArtistAssistApp is developed by{' '}
             <Typography.Link href="https://github.com/eugene-khyst" target="_blank">
               Eugene Khyst
@@ -116,7 +137,7 @@ export const Help: React.FC = () => {
             xs={24}
             style={{textAlign: 'justify', fontSize: fontSizeSM, color: colorTextSecondary}}
           >
-            App build hash: {commitHash}, DB version: {dbVersion}
+            App build hash: {commitHash}
           </Col>
         </Row>
       </Space>

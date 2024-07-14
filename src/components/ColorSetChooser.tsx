@@ -425,12 +425,9 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
                   <Popconfirm
                     title="Delete the color set"
                     description="Are you sure you want to delete this color set?"
-                    onPopupClick={e => e.stopPropagation()}
-                    onConfirm={e => {
-                      e?.stopPropagation();
+                    onConfirm={() => {
                       void handleDeleteButtonClick();
                     }}
-                    onCancel={e => e?.stopPropagation()}
                     okText="Yes"
                     cancelText="No"
                   >

@@ -43,7 +43,6 @@ import {
   getLastImageFile,
   saveAppSettings,
   saveImageFile,
-  version as dbVersion,
 } from '~/src/services/db';
 import type {Blur, LimitedPalette, Outline, TonalValues} from '~/src/services/image';
 import type {Game, Player, Score} from '~/src/services/rating';
@@ -84,7 +83,6 @@ const limitedPalette: Remote<LimitedPalette> = wrap(
 );
 
 export type AppState = {
-  dbVersion: number | null;
   activeTabKey: TabKey;
   isInitialStateLoading: boolean;
   importedColorSet: ColorSetDefinition | null;
@@ -145,7 +143,6 @@ export type AppActions = {
 };
 
 export const useAppStore = create<AppState & AppActions>((set, get) => ({
-  dbVersion: null,
   activeTabKey: TabKey.ColorSet,
   isInitialStateLoading: false,
   importedColorSet: null,
@@ -451,7 +448,6 @@ export async function initAppStore(): Promise<void> {
   const paletteColorMixtures: ColorMixture[] = await getColorMixtures(imageFile?.id);
 
   useAppStore.setState({
-    dbVersion: await dbVersion(),
     importedColorSet,
     latestColorSet,
     recentImageFiles,

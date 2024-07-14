@@ -5,14 +5,10 @@
 
 import type {Rectangle} from '~/src/services/math';
 import {Vector} from '~/src/services/math';
+import {IMAGE_SIZE} from '~/src/utils';
 
 import type {ZoomableImageCanvasProps} from './zoomable-image-canvas';
 import {ZoomableImageCanvas} from './zoomable-image-canvas';
-
-const GRID_LINE_WIDTH = 1;
-const GRID_COLOR = '#f00';
-const DIAGONAL_LINE_WIDTH = 1;
-const DIAGONAL_COLOR = '#ff0';
 
 export enum GridType {
   Square = 1,
@@ -27,27 +23,34 @@ type Grid = {
 
 export interface GridCanvasProps extends ZoomableImageCanvasProps {
   grid?: Grid;
+  gridLineWidth?: number;
+  diagonalLineWidth?: number;
 }
 
 export class GridCanvas extends ZoomableImageCanvas {
   private grid?: Grid;
+  private gridLineWidth: number;
+  private diagonalLineWidth: number;
 
   constructor(canvas: HTMLCanvasElement, props: GridCanvasProps = {}) {
     super(canvas, props);
 
-    ({grid: this.grid} = props);
+    ({
+      grid: this.grid,
+      gridLineWidth: this.gridLineWidth = 1,
+      diagonalLineWidth: this.diagonalLineWidth = 1,
+    } = props);
   }
 
   private drawLine(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
     p1: Vector,
     p2: Vector,
-    lineWidth: number = DIAGONAL_LINE_WIDTH,
-    color = DIAGONAL_COLOR
+    lineWidth?: number
   ): void {
     const {center}: Rectangle = this.getImageDimension();
-    const ctx: CanvasRenderingContext2D = this.context;
-    ctx.lineWidth = lineWidth / this.zoom;
-    ctx.strokeStyle = color;
+    ctx.lineWidth = (lineWidth ?? this.diagonalLineWidth) / this.zoom;
+    ctx.strokeStyle = '#000';
     ctx.beginPath();
     const {x: x1, y: y1} = p1.subtract(center);
     ctx.moveTo(x1, y1);
@@ -56,37 +59,49 @@ export class GridCanvas extends ZoomableImageCanvas {
     ctx.stroke();
   }
 
-  private drawHorizontalLine(y: number): void {
+  private drawHorizontalLine(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
+    y: number
+  ): void {
     const {width}: Rectangle = this.getImageDimension();
-    this.drawLine(new Vector(0, y), new Vector(width, y), GRID_LINE_WIDTH, GRID_COLOR);
+    this.drawLine(ctx, new Vector(0, y), new Vector(width, y), this.gridLineWidth);
   }
 
-  private drawVerticalLine(x: number): void {
+  private drawVerticalLine(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
+    x: number
+  ): void {
     const {height}: Rectangle = this.getImageDimension();
-    this.drawLine(new Vector(x, 0), new Vector(x, height), GRID_LINE_WIDTH, GRID_COLOR);
+    this.drawLine(ctx, new Vector(x, 0), new Vector(x, height), this.gridLineWidth);
   }
 
-  private drawSquareGrid({size: [size]}: Grid): void {
+  private drawSquareGrid(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
+    {size: [size]}: Grid
+  ): void {
     const {width, height}: Rectangle = this.getImageDimension();
     const side: number = Math.min(width, height) / size;
     for (let y = side; y < height; y += side) {
-      this.drawHorizontalLine(y);
+      this.drawHorizontalLine(ctx, y);
     }
     for (let x = side; x < width; x += side) {
-      this.drawVerticalLine(x);
+      this.drawVerticalLine(ctx, x);
     }
   }
 
-  private drawRectangularGrid({size: [m, n], diagonals}: Grid): void {
+  private drawRectangularGrid(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
+    {size: [m, n], diagonals}: Grid
+  ): void {
     if (n) {
       const {width, height}: Rectangle = this.getImageDimension();
       const isPortrait = width <= height;
       const [rows, cols] = isPortrait ? [m, n] : [n, m];
       for (let row = 1; row < rows; row++) {
-        this.drawHorizontalLine((height * row) / rows);
+        this.drawHorizontalLine(ctx, (height * row) / rows);
       }
       for (let col = 1; col < cols; col++) {
-        this.drawVerticalLine((width * col) / cols);
+        this.drawVerticalLine(ctx, (width * col) / cols);
       }
       if (diagonals) {
         const a = new Vector(0, 0);
@@ -98,51 +113,82 @@ export class GridCanvas extends ZoomableImageCanvas {
         const g = new Vector(0, height);
         const h = new Vector(0, height / 2);
 
-        this.drawLine(a, e);
-        this.drawLine(c, g);
+        this.drawLine(ctx, a, e);
+        this.drawLine(ctx, c, g);
 
         if (m === 3 && n === 3) {
           if (isPortrait) {
-            this.drawLine(b, f);
-            this.drawLine(d, h);
-            this.drawLine(a, d);
-            this.drawLine(c, h);
-            this.drawLine(d, g);
-            this.drawLine(e, h);
+            this.drawLine(ctx, b, f);
+            this.drawLine(ctx, d, h);
+            this.drawLine(ctx, a, d);
+            this.drawLine(ctx, c, h);
+            this.drawLine(ctx, d, g);
+            this.drawLine(ctx, e, h);
           } else {
-            this.drawLine(b, f);
-            this.drawLine(d, h);
-            this.drawLine(a, f);
-            this.drawLine(b, g);
-            this.drawLine(b, e);
-            this.drawLine(c, f);
+            this.drawLine(ctx, b, f);
+            this.drawLine(ctx, d, h);
+            this.drawLine(ctx, a, f);
+            this.drawLine(ctx, b, g);
+            this.drawLine(ctx, b, e);
+            this.drawLine(ctx, c, f);
           }
         }
 
         if (m === 4 && n === 4) {
-          this.drawLine(b, h);
-          this.drawLine(b, d);
-          this.drawLine(h, f);
-          this.drawLine(d, f);
+          this.drawLine(ctx, b, h);
+          this.drawLine(ctx, b, d);
+          this.drawLine(ctx, h, f);
+          this.drawLine(ctx, d, f);
         }
       }
     }
   }
 
-  private drawGrid(): void {
+  private drawGrid(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
     if (this.grid?.type === GridType.Square) {
-      this.drawSquareGrid(this.grid);
+      this.drawSquareGrid(ctx, this.grid);
     } else if (this.grid?.type === GridType.Rectangular) {
-      this.drawRectangularGrid(this.grid);
+      this.drawRectangularGrid(ctx, this.grid);
     }
   }
 
-  protected override onImageDrawn(): void {
-    this.drawGrid();
+  protected override onBeforeImageDrawn(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+  ): void {
+    this.drawGrid(ctx);
+    ctx.globalCompositeOperation = 'source-in';
+    ctx.filter = 'invert(1)';
+    this.drawImage(ctx);
+    ctx.filter = 'none';
+    ctx.globalCompositeOperation = 'destination-over';
+  }
+
+  protected override onImageDrawn(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+  ): void {
+    this.drawGrid(ctx);
+    ctx.globalCompositeOperation = 'source-over';
   }
 
   setGrid(grid: Grid): void {
     this.grid = grid;
     this.draw();
+  }
+
+  override async convertToBlob(): Promise<Blob | undefined> {
+    const image: ImageBitmap | null = this.getImage();
+    if (image) {
+      const {width, height} = image;
+      const scale: number = Math.max(1, (width * height) / IMAGE_SIZE.HD);
+      const {gridLineWidth, diagonalLineWidth} = this;
+      try {
+        this.gridLineWidth = scale * gridLineWidth;
+        this.diagonalLineWidth = scale * diagonalLineWidth;
+        return super.convertToBlob();
+      } finally {
+        this.gridLineWidth = gridLineWidth;
+        this.diagonalLineWidth = diagonalLineWidth;
+      }
+    }
   }
 }

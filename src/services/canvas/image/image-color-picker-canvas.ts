@@ -69,13 +69,12 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     return this.images.length > this.imageIndex ? this.offscreenCanvases[this.imageIndex] : null;
   }
 
-  private drawPipet(): void {
+  private drawPipet(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
     if (this.pipetPoint) {
       const pipetDiameter = this.lastPipetDiameter;
       const lineWidth = LINE_WIDTH / this.zoom;
       const cursorDiameter =
         this.cursorDiameter > pipetDiameter ? this.cursorDiameter : pipetDiameter + 2;
-      const ctx: CanvasRenderingContext2D = this.context;
       ctx.lineWidth = lineWidth;
       const isDark = this.pipetRgb.isDark();
       let isDarkToggle = isDark;
@@ -86,23 +85,28 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
         isDarkToggle = !isDarkToggle;
       }
       ctx.strokeStyle = ctx.fillStyle = isDark ? '#fff' : '#000';
-      this.drawCircle(this.pipetPoint, pipetDiameter / 2);
+      this.drawCircle(ctx, this.pipetPoint, pipetDiameter / 2);
       ctx.stroke();
       if (pipetDiameter > 1) {
-        this.drawCircle(this.pipetPoint, LINE_WIDTH / this.zoom);
+        this.drawCircle(ctx, this.pipetPoint, LINE_WIDTH / this.zoom);
         ctx.fill();
       }
     }
   }
 
-  private drawCircle(center: Vector, radius: number): void {
-    const ctx: CanvasRenderingContext2D = this.context;
+  private drawCircle(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
+    center: Vector,
+    radius: number
+  ): void {
     ctx.beginPath();
     ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
   }
 
-  protected override onImageDrawn(): void {
-    this.drawPipet();
+  protected override onImageDrawn(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+  ): void {
+    this.drawPipet(ctx);
   }
 
   protected override onClickOrTap(point: Vector): void {

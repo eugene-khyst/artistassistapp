@@ -88,28 +88,42 @@ export class ZoomableImageCanvas extends Canvas {
       : Rectangle.ZERO;
   }
 
-  protected draw(): void {
-    const ctx: CanvasRenderingContext2D = this.context;
-    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  protected draw(ctx?: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
+    if (!ctx) {
+      ctx = this.context;
+    }
+    const canvas: HTMLCanvasElement | OffscreenCanvas = ctx.canvas;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.imageSmoothingEnabled = false;
+    ctx.save();
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.scale(this.zoom, this.zoom);
+    ctx.translate(this.offset.x, this.offset.y);
+    try {
+      this.onBeforeImageDrawn(ctx);
+      this.drawImage(ctx);
+      this.onImageDrawn(ctx);
+    } catch (error) {
+      console.error(error);
+    }
+    ctx.restore();
+  }
+
+  protected onBeforeImageDrawn(
+    _ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+  ): void {
+    // noop
+  }
+
+  protected drawImage(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
     const image: ImageBitmap | null = this.getImage();
     if (image) {
-      ctx.imageSmoothingEnabled = false;
-      ctx.save();
-      ctx.translate(this.canvas.width / 2, this.canvas.height / 2);
-      ctx.scale(this.zoom, this.zoom);
-      ctx.translate(this.offset.x, this.offset.y);
-      const imageDimension: Rectangle = this.getImageDimension();
-      try {
-        ctx.drawImage(image, -imageDimension.center.x, -imageDimension.center.y);
-      } catch (error) {
-        console.error(error);
-      }
-      this.onImageDrawn();
-      ctx.restore();
+      const {center}: Rectangle = this.getImageDimension();
+      ctx.drawImage(image, -center.x, -center.y);
     }
   }
 
-  protected onImageDrawn(): void {
+  protected onImageDrawn(_ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
     // noop
   }
 
@@ -123,17 +137,15 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   private canvasToWorld({x, y}: Vector): Vector {
-    return new Vector(
-      (x - this.canvas.width / 2) / this.zoom,
-      (y - this.canvas.height / 2) / this.zoom
-    );
+    const {width, height} = this.canvas;
+    return new Vector((x - width / 2) / this.zoom, (y - height / 2) / this.zoom);
   }
 
   private getMaxOffset(): Vector {
-    const imageDimension: Rectangle = this.getImageDimension();
+    const {width, height}: Rectangle = this.getImageDimension();
     return new Vector(
-      Math.abs(imageDimension.width - this.canvas.width / this.zoom) / 2,
-      Math.abs(imageDimension.height - this.canvas.height / this.zoom) / 2
+      Math.abs(width - this.canvas.width / this.zoom) / 2,
+      Math.abs(height - this.canvas.height / this.zoom) / 2
     );
   }
 
@@ -244,6 +256,24 @@ export class ZoomableImageCanvas extends Canvas {
 
   protected override onCanvasResized(): void {
     this.setZoom(this.zoom);
+  }
+
+  async convertToBlob(): Promise<Blob | undefined> {
+    const image: ImageBitmap | null = this.getImage();
+    if (image) {
+      const {offset, zoom} = this;
+      try {
+        this.offset = Vector.ZERO;
+        this.zoom = 1;
+        const offscreenCanvas = new OffscreenCanvas(image.width, image.height);
+        const ctx: OffscreenCanvasRenderingContext2D = offscreenCanvas.getContext('2d')!;
+        this.draw(ctx);
+        return await offscreenCanvas.convertToBlob();
+      } finally {
+        this.offset = offset;
+        this.zoom = zoom;
+      }
+    }
   }
 
   public override destroy(): void {
