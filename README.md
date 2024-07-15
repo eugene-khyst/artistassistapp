@@ -36,41 +36,25 @@ Try it now at [ArtistAssistApp.com](https://artistassistapp.com)
 
 ## <a id="3"></a>Screenshots
 
-### Accurately mixing a color from a reference photo with real paints
+### Accurately mix any color from your reference photo using the paints you have
 
-![ArtistAssistApp: accurately mixing a color from a reference photo with real paints](https://github.com/eugene-khyst/artistassistapp/assets/1311126/5feaf4c1-f583-4217-9262-566e46f8916b)
+### Add your favorite color mixtures to the palette
 
-### Adding your favorite color mixtures to the palette
+### Do a tonal value study
 
-![ArtistAssistApp: the palette](https://github.com/eugene-khyst/artistassistapp/assets/1311126/7220638b-335b-4929-ae79-191a41b1ad3f)
-![ArtistAssistApp: color swatch mode](https://github.com/eugene-khyst/artistassistapp/assets/1311126/ce753078-f9f3-4428-b4f8-32e30d601e45)
+### Reduce the detail on your reference photo
 
-### Tonal value study
+### Turn any photo into an outline and print it
 
-![ArtistAssistApp: tonal value study](https://github.com/eugene-khyst/artistassistapp/assets/1311126/840356af-9d82-4644-bf91-dbd496ea3dde)
+### Draw a grid over your reference photo
 
-### Drawing a grid over a reference photo
+### Play around with limited color palettes
 
-![ArtistAssistApp: drawing with a grid method (square grid)](https://github.com/eugene-khyst/artistassistapp/assets/1311126/df7e1bcd-99e4-4b71-8cfb-4a3ba4d89654)
-![ArtistAssistApp: drawing with a grid method (3x3 grid)](https://github.com/eugene-khyst/artistassistapp/assets/1311126/86db88d1-b4d6-4b87-a3f6-a51da4b351ff)
-![ArtistAssistApp: drawing with a grid method (4x4 grid)](https://github.com/eugene-khyst/artistassistapp/assets/1311126/adcdb979-da8d-49fc-a9ac-198e45b26990)
+### Mix specific colors from specific brands in any proportion
 
-### Smoothing out a reference photo
+### Use pairwise comparison to rank your photos
 
-![ArtistAssistApp: smoothing out a reference photo](https://github.com/eugene-khyst/artistassistapp/assets/1311126/f48a52cc-5cca-4d8f-a3b5-26bc6c2eaaec)
-![ArtistAssistApp: smoothing out a reference photo](https://github.com/eugene-khyst/artistassistapp/assets/1311126/38a42cfb-f01e-4a3e-93e2-ff0daae8c6fe)
-
-### Previewing a photo painted using a limited palette
-
-![ArtistAssistApp: previewing a reference photo in different primary colors](https://github.com/eugene-khyst/artistassistapp/assets/1311126/5e42e6e5-a1e9-4492-9dc4-27a358ee93d1)
-![ArtistAssistApp: previewing a reference photo in different primary colors](https://github.com/eugene-khyst/artistassistapp/assets/1311126/02b9a99b-4a50-4f9f-9d51-a8100758b3ea)
-
-### Mixing specific colors of specific brands in any proportions
-
-![ArtistAssistApp: mixing specific colors of specific brands in any proportions](https://github.com/eugene-khyst/artistassistapp/assets/1311126/9f986b5d-c791-4e25-804e-3c4e831c4deb)
-![ArtistAssistApp: mixing specific colors of specific brands in any proportions](https://github.com/eugene-khyst/artistassistapp/assets/1311126/06403c20-d0b5-4261-9c1f-95eab381124b)
-![ArtistAssistApp: mixing specific colors of specific brands in any proportions](https://github.com/eugene-khyst/artistassistapp/assets/1311126/44d9a9d1-51a2-494a-befd-c34ea51997da)
-![ArtistAssistApp: spectral reflectance curve](https://github.com/eugene-khyst/artistassistapp/assets/1311126/95b70f71-59aa-4604-8b27-a9d34e24d7f6)
+### Install ArtistAssistApp on your device
 
 ## <a id="4"></a>Implementation details
 
