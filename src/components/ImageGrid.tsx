@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {PrinterOutlined} from '@ant-design/icons';
-import {Button, Checkbox, Form, Select, Space, Spin} from 'antd';
+import {MoreOutlined, PrinterOutlined} from '@ant-design/icons';
+import type {MenuProps} from 'antd';
+import {Button, Checkbox, Dropdown, Form, Grid, Select, Space, Spin} from 'antd';
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useCallback, useEffect, useState} from 'react';
@@ -42,6 +43,8 @@ export const ImageGrid: React.FC = () => {
   const originalImage = useAppStore(state => state.originalImage);
   const isOriginalImageLoading = useAppStore(state => state.isOriginalImageLoading);
 
+  const screens = Grid.useBreakpoint();
+
   const [gridOption, setGridOption] = useState<GridOption>(GridOption.Square);
   const [squareGridSize, setSquareGridSize] = useState<number>(DEFAULT_SQUARE_GRID_SIZE);
   const [isDiagonals, setIsDiagonals] = useState<boolean>(false);
@@ -70,6 +73,15 @@ export const ImageGrid: React.FC = () => {
   );
   const {ref: printRef, printImagesUrls, handlePrint} = usePrintImages(blobSupplier);
 
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: 'Print',
+      icon: <PrinterOutlined />,
+      onClick: handlePrint,
+    },
+  ];
+
   if (!originalImage) {
     return (
       <div style={{padding: '0 16px 16px'}}>
@@ -82,7 +94,7 @@ export const ImageGrid: React.FC = () => {
     <Spin spinning={isOriginalImageLoading} tip="Loading" size="large">
       <Space
         size="middle"
-        align="center"
+        align="start"
         style={{width: '100%', justifyContent: 'center', marginBottom: 8}}
       >
         <Form.Item label="Grid" style={{margin: 0}}>
@@ -115,9 +127,15 @@ export const ImageGrid: React.FC = () => {
             />
           </Form.Item>
         )}
-        <Button icon={<PrinterOutlined />} onClick={handlePrint}>
-          Print
-        </Button>
+        {screens['sm'] ? (
+          <Button icon={<PrinterOutlined />} onClick={handlePrint}>
+            Print
+          </Button>
+        ) : (
+          <Dropdown menu={{items}}>
+            <Button icon={<MoreOutlined />} />
+          </Dropdown>
+        )}
       </Space>
       <div>
         <canvas ref={canvasRef} style={{width: '100%', height: `calc(100vh - 115px)`}} />

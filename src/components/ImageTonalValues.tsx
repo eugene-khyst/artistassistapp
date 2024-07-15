@@ -38,7 +38,7 @@ export const ImageTonalValues: React.FC = () => {
     originalImage
   );
 
-  const [tonalValuesImageIndex, setTonalValuesImageIndex] = useState<number>(0);
+  const [tonalValuesImageIndex, setTonalValuesImageIndex] = useState<number>(2);
 
   const isLoading: boolean = isOriginalImageLoading || isTonalImagesLoading;
 
