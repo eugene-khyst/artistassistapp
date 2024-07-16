@@ -20,7 +20,7 @@
 
 **ArtistAssistApp** is a Progressive Web App (PWA) for artists to accurately mix any color from a
 photo, analyze tonal values, turn a photo into an outline, draw with the grid method, paint with a
-limited palette, simplify a photo, pairwise comparison of photos, and more.
+limited palette, simplify a photo, compare photos pairwise, and more.
 
 Try it now at [ArtistAssistApp.com](https://artistassistapp.com)
 
