@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import {invert} from '~/src/services/image/invert-filter';
 import type {Rectangle} from '~/src/services/math';
 import {Vector} from '~/src/services/math';
-import {IMAGE_SIZE} from '~/src/utils';
+import {IMAGE_SIZE, imageBitmapToOffscreenCanvas} from '~/src/utils';
 
 import type {ZoomableImageCanvasProps} from './zoomable-image-canvas';
 import {ZoomableImageCanvas} from './zoomable-image-canvas';
@@ -28,6 +29,7 @@ export interface GridCanvasProps extends ZoomableImageCanvasProps {
 }
 
 export class GridCanvas extends ZoomableImageCanvas {
+  private invertedImages: OffscreenCanvas[] = [];
   private grid?: Grid;
   private gridLineWidth: number;
   private diagonalLineWidth: number;
@@ -40,6 +42,16 @@ export class GridCanvas extends ZoomableImageCanvas {
       gridLineWidth: this.gridLineWidth = 1,
       diagonalLineWidth: this.diagonalLineWidth = 1,
     } = props);
+  }
+
+  protected override onImagesLoaded(): void {
+    this.invertedImages = this.images.map((image: ImageBitmap): OffscreenCanvas => {
+      const [canvas, ctx] = imageBitmapToOffscreenCanvas(image);
+      const imageData: ImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      invert(imageData);
+      ctx.putImageData(imageData, 0, 0);
+      return canvas;
+    });
   }
 
   private drawLine(
@@ -157,9 +169,7 @@ export class GridCanvas extends ZoomableImageCanvas {
   ): void {
     this.drawGrid(ctx);
     ctx.globalCompositeOperation = 'source-in';
-    ctx.filter = 'invert(1)';
-    this.drawImage(ctx);
-    ctx.filter = 'none';
+    this.drawImage(ctx, this.invertedImages);
     ctx.globalCompositeOperation = 'destination-over';
   }
 
@@ -176,7 +186,7 @@ export class GridCanvas extends ZoomableImageCanvas {
   }
 
   override async convertToBlob(): Promise<Blob | undefined> {
-    const image: ImageBitmap | null = this.getImage();
+    const image: ImageBitmap | OffscreenCanvas | null = this.getImage();
     if (image) {
       const {width, height} = image;
       const scale: number = Math.max(1, (width * height) / IMAGE_SIZE.HD);

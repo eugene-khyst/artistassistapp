@@ -6,6 +6,8 @@
 import {transfer} from 'comlink';
 
 import {erodeFilter} from '~/src/services/image/erode-filter';
+import {grayscale} from '~/src/services/image/grayscale-filter';
+import {invert} from '~/src/services/image/invert-filter';
 import {createScaledImageBitmap, IMAGE_SIZE} from '~/src/utils';
 
 interface Result {
@@ -24,18 +26,20 @@ export class Outline {
       willReadFrequently: true,
     })!;
 
-    ctx.filter = 'grayscale(1) invert(1)';
-    ctx.drawImage(image, 0, 0, width, height);
-    const imageData: ImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    erodeFilter(imageData, erodeFilterRadius);
-    const erodedImage: ImageBitmap = await createImageBitmap(imageData);
-
-    ctx.filter = 'grayscale(1)';
     ctx.drawImage(image, 0, 0, width, height);
     image.close();
 
+    const imageData: ImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    grayscale(imageData);
+    const grayscaleImage: ImageBitmap = await createImageBitmap(imageData);
+    invert(imageData);
+    erodeFilter(imageData, erodeFilterRadius);
+    const erodedImage: ImageBitmap = await createImageBitmap(imageData);
+
+    ctx.drawImage(grayscaleImage, 0, 0, width, height);
+    grayscaleImage.close();
+
     ctx.globalCompositeOperation = 'color-dodge';
-    ctx.filter = 'none';
     ctx.drawImage(erodedImage, 0, 0, width, height);
     erodedImage.close();
 

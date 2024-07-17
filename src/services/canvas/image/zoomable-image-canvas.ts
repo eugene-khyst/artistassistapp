@@ -78,8 +78,13 @@ export class ZoomableImageCanvas extends Canvas {
     this.draw();
   }
 
-  protected getImage(): ImageBitmap | null {
-    return this.images.length > this.imageIndex ? this.images[this.imageIndex] : null;
+  protected getImage(
+    images?: ImageBitmap[] | OffscreenCanvas[]
+  ): ImageBitmap | OffscreenCanvas | null {
+    if (!images) {
+      images = this.images;
+    }
+    return images.length > this.imageIndex ? images[this.imageIndex] : null;
   }
 
   protected getImageDimension(): Rectangle {
@@ -115,8 +120,11 @@ export class ZoomableImageCanvas extends Canvas {
     // noop
   }
 
-  protected drawImage(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
-    const image: ImageBitmap | null = this.getImage();
+  protected drawImage(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
+    images?: ImageBitmap[] | OffscreenCanvas[]
+  ): void {
+    const image: ImageBitmap | OffscreenCanvas | null = this.getImage(images);
     if (image) {
       const {center}: Rectangle = this.getImageDimension();
       ctx.drawImage(image, -center.x, -center.y);
@@ -150,7 +158,7 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   private getMinZoom(): number {
-    const image: ImageBitmap | null = this.getImage();
+    const image: ImageBitmap | OffscreenCanvas | null = this.getImage();
     return !image
       ? 1
       : Math.min(this.canvas.width / image.width, this.canvas.height / image.height);
@@ -259,7 +267,7 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   async convertToBlob(): Promise<Blob | undefined> {
-    const image: ImageBitmap | null = this.getImage();
+    const image: ImageBitmap | OffscreenCanvas | null = this.getImage();
     if (image) {
       const {offset, zoom} = this;
       try {
