@@ -7,13 +7,6 @@ export function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       void registerAndRefresh();
-
-      window.history.pushState({}, '');
-      window.addEventListener('popstate', () => {
-        setTimeout(() => {
-          window.history.pushState({}, '');
-        }, 2000);
-      });
     });
 
     if (process.env.NODE_ENV === 'production') {
@@ -54,6 +47,8 @@ async function registerAndRefresh() {
         });
       }
     });
+
+    await registration.update();
   } catch (error) {
     console.log('Service worker registration failed', error);
   }
