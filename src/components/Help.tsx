@@ -5,6 +5,7 @@
 
 import {
   BugOutlined,
+  CloudSyncOutlined,
   CommentOutlined,
   DeleteOutlined,
   FileProtectOutlined,
@@ -14,6 +15,7 @@ import {
   ReadOutlined,
 } from '@ant-design/icons';
 import {Button, Col, Popconfirm, Row, Space, theme, Typography} from 'antd';
+import {useState} from 'react';
 
 import {commitHash, websiteUrl} from '~/src/config';
 import {deleteDatabase} from '~/src/services/db';
@@ -24,6 +26,17 @@ export const Help: React.FC = () => {
   const {
     token: {fontSizeSM, colorTextSecondary},
   } = theme.useToken();
+
+  const [isUpdating, setIsUpdating] = useState<boolean>(false);
+
+  const handleUpdateClick = async () => {
+    if ('serviceWorker' in navigator) {
+      setIsUpdating(true);
+      const registration = await navigator.serviceWorker.getRegistration();
+      await registration?.update();
+      setIsUpdating(false);
+    }
+  };
 
   const handleDeleteAppData = () => {
     void deleteDatabase();
@@ -109,19 +122,28 @@ export const Help: React.FC = () => {
         </Row>
         <Row>
           <Col xs={24}>
-            <Popconfirm
-              title="Delete all app data"
-              description="Are you sure you want to delete all app data?"
-              onConfirm={() => {
-                void handleDeleteAppData();
-              }}
-              okText="Yes"
-              cancelText="No"
-            >
-              <Button icon={<DeleteOutlined />} danger>
-                Delete all app data
+            <Space>
+              <Button
+                icon={<CloudSyncOutlined />}
+                loading={isUpdating}
+                onClick={() => void handleUpdateClick()}
+              >
+                Check for updates
               </Button>
-            </Popconfirm>
+              <Popconfirm
+                title="Delete all app data"
+                description="Are you sure you want to delete all app data?"
+                onConfirm={() => {
+                  void handleDeleteAppData();
+                }}
+                okText="Yes"
+                cancelText="No"
+              >
+                <Button icon={<DeleteOutlined />} danger>
+                  Delete all app data
+                </Button>
+              </Popconfirm>
+            </Space>
           </Col>
         </Row>
         <Row>
