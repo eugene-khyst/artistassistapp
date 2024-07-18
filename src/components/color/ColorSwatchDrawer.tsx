@@ -6,6 +6,7 @@
 import {Col, Drawer, Grid, Row} from 'antd';
 
 import {useCreateObjectUrl} from '~/src/hooks';
+import {useImageFileToBlob} from '~/src/hooks/useImageFileToBlob';
 import type {ColorMixture} from '~/src/services/color';
 import {Rgb} from '~/src/services/color/space';
 import {useAppStore} from '~/src/stores/app-store';
@@ -25,7 +26,8 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
 
   const screens = Grid.useBreakpoint();
 
-  const imageSrc: string | undefined = useCreateObjectUrl(imageFile?.file);
+  const blob = useImageFileToBlob(imageFile);
+  const imageSrc: string | undefined = useCreateObjectUrl(blob);
 
   const isFullHeight = screens['sm'] || !imageSrc;
   const imageHeight = imageSrc ? `calc((100vh - 60px) / ${isFullHeight ? 1 : 2})` : 0;

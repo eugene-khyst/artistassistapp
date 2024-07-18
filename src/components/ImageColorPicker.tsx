@@ -126,7 +126,7 @@ export const ImageColorPicker: React.FC = () => {
 
   useEffect(() => {
     void (async () => {
-      const {colorPickerDiameter} = await getAppSettings();
+      const {colorPickerDiameter} = (await getAppSettings()) || {};
       if (colorPickerDiameter) {
         setSampleDiameter(colorPickerDiameter);
       }

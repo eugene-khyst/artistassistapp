@@ -6,6 +6,7 @@
 import {Card} from 'antd';
 import type {Dispatch, SetStateAction} from 'react';
 
+import {blobToImageFile} from '~/src/services/image';
 import {useAppStore} from '~/src/stores/app-store';
 
 type Props = {
@@ -28,7 +29,7 @@ export const SampleImageCard: React.FC<Props> = ({
       setLoadingCount((prev: number) => prev + 1);
       const response: Response = await fetch(image);
       const blob: Blob = await response.blob();
-      void setImageFile({file: new File([blob], '')});
+      void setImageFile(await blobToImageFile(blob));
       setLoadingCount((prev: number) => prev - 1);
     })();
   };

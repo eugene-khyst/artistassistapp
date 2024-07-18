@@ -19,20 +19,10 @@ export async function getColorSetsByType(type: ColorType): Promise<ColorSetDefin
   return await db.transaction('color-sets').store.index('by-type').getAll(type);
 }
 
-export async function saveColorSet({
-  id,
-  ...colorSet
-}: ColorSetDefinition): Promise<ColorSetDefinition> {
+export async function saveColorSet(colorSet: ColorSetDefinition): Promise<void> {
   const db = await dbPromise;
-  id = await db.put('color-sets', {
-    ...colorSet,
-    ...(id ? {id} : {}),
-    date: new Date(),
-  });
-  return {
-    ...colorSet,
-    id,
-  };
+  colorSet.date = new Date();
+  colorSet.id = await db.put('color-sets', colorSet);
 }
 
 export async function deleteColorSet(id: number): Promise<void> {

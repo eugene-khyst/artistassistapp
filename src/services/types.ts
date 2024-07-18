@@ -9,9 +9,3 @@ export interface AppSettings {
   activeTabKey?: TabKey;
   colorPickerDiameter?: number;
 }
-
-export interface ImageFile {
-  id?: number;
-  file: File;
-  date?: Date;
-}

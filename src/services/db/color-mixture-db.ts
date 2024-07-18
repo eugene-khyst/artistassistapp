@@ -13,20 +13,13 @@ export async function getColorMixtures(imageFileId?: number | null): Promise<Col
   return (await index.getAll(0)).concat(imageFileId ? await index.getAll(imageFileId) : []);
 }
 
-export async function saveColorMixture({
-  imageFileId,
-  ...colorMixture
-}: ColorMixture): Promise<ColorMixture> {
+export async function saveColorMixture(colorMixture: ColorMixture): Promise<void> {
   const db = await dbPromise;
-  const savedColorMixture: ColorMixture = {
-    ...colorMixture,
-    imageFileId: imageFileId ?? 0,
-  };
-  const id: number = await db.put('color-mixtures', savedColorMixture);
-  return {
-    ...savedColorMixture,
-    id,
-  };
+  colorMixture.imageFileId = colorMixture.imageFileId ?? 0;
+  if (!colorMixture.id) {
+    colorMixture.date = new Date();
+  }
+  colorMixture.id = await db.put('color-mixtures', colorMixture);
 }
 
 export async function deleteColorMixture(id: number): Promise<void> {

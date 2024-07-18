@@ -3,20 +3,27 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type {AppSettings} from '~/src/services/types';
+
 import {dbPromise} from './db';
-import type {AppSettings} from './types';
 
 const KEY = 0;
 
-export async function getAppSettings(): Promise<AppSettings> {
+export async function getAppSettings(): Promise<AppSettings | undefined> {
   const db = await dbPromise;
-  return (await db.get('app-settings', KEY)) || {};
+  return await db.get('app-settings', KEY);
 }
 
-export async function saveAppSettings(partialAppSettings: Partial<AppSettings>): Promise<void> {
+export async function saveAppSettings(appSettings: Partial<AppSettings>): Promise<void> {
   const db = await dbPromise;
   const tx = db.transaction('app-settings', 'readwrite');
-  const appSettings = await tx.store.get(KEY);
-  await tx.store.put({...appSettings, ...partialAppSettings}, KEY);
+  const currentAppSettings = await tx.store.get(KEY);
+  await tx.store.put(
+    {
+      ...currentAppSettings,
+      ...appSettings,
+    },
+    KEY
+  );
   await tx.done;
 }

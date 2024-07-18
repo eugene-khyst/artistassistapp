@@ -10,6 +10,7 @@ import type {Root} from 'react-dom/client';
 import {createRoot} from 'react-dom/client';
 
 import {registerFileHandler} from '~/src/file-handler';
+import {clearDatabase} from '~/src/services/db';
 import {initAppStore} from '~/src/stores/app-store';
 
 import {ArtistAssistApp} from './ArtistAssistApp';
@@ -17,6 +18,7 @@ import {registerServiceWorker} from './register-service-worker';
 
 registerServiceWorker();
 registerFileHandler();
+void clearDatabase();
 void initAppStore();
 window.addEventListener('beforeunload', (event: BeforeUnloadEvent) => {
   event.preventDefault();

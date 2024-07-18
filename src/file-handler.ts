@@ -5,6 +5,7 @@
 
 import type {LaunchParams} from '~/src/pwa';
 import {saveAppSettings, saveImageFile} from '~/src/services/db';
+import {fileToImageFile} from '~/src/services/image';
 import {TabKey} from '~/src/types';
 
 export function registerFileHandler() {
@@ -12,10 +13,7 @@ export function registerFileHandler() {
     window.launchQueue.setConsumer(async (launchParams: LaunchParams) => {
       for (const fileHandle of launchParams.files) {
         const file: File = await fileHandle.getFile();
-        await saveImageFile({
-          file,
-          date: new Date(),
-        });
+        await saveImageFile(await fileToImageFile(file));
         void saveAppSettings({
           activeTabKey: TabKey.Photo,
         });

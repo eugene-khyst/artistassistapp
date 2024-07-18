@@ -16,7 +16,7 @@ import {
 import {Button, Col, Popconfirm, Row, Space, theme, Typography} from 'antd';
 
 import {commitHash, websiteUrl} from '~/src/config';
-import {deleteDb} from '~/src/services/db';
+import {deleteDatabase} from '~/src/services/db';
 
 import {Logo} from './image/Logo';
 
@@ -26,7 +26,7 @@ export const Help: React.FC = () => {
   } = theme.useToken();
 
   const handleDeleteAppData = () => {
-    void deleteDb();
+    void deleteDatabase();
     window.location.reload();
   };
 

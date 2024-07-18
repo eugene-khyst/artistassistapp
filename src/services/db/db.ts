@@ -7,11 +7,11 @@ import type {DBSchema, IDBPDatabase} from 'idb';
 import {deleteDB, openDB} from 'idb';
 
 import type {ColorMixture, ColorSetDefinition, ColorType} from '~/src/services/color';
-
-import type {AppSettings, ImageFile} from './types';
+import type {ImageFile} from '~/src/services/image';
+import type {AppSettings} from '~/src/services/types';
 
 const DB_NAME = 'artistassistapp';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 
 export interface ArtistAssistAppDB extends DBSchema {
   'app-settings': {
@@ -26,7 +26,7 @@ export interface ArtistAssistAppDB extends DBSchema {
       'by-type': ColorType;
     };
   };
-  'image-files': {
+  images: {
     value: ImageFile;
     key: number;
     indexes: {'by-date': Date};
@@ -38,8 +38,14 @@ export interface ArtistAssistAppDB extends DBSchema {
   };
 }
 
-// Delete legacy DB
-void deleteDB('artist-assist-app-db');
+type KeysEnum<T> = {[P in keyof Required<T>]: 1};
+const artistAssistAppDBKeys: KeysEnum<ArtistAssistAppDB> = {
+  'app-settings': 1,
+  'color-sets': 1,
+  images: 1,
+  'color-mixtures': 1,
+};
+const objectStoreNames: string[] = Object.keys(artistAssistAppDBKeys);
 
 export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<ArtistAssistAppDB>(
   DB_NAME,
@@ -59,8 +65,8 @@ export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artist
         colorSetStore.createIndex('by-date', 'date');
       }
 
-      if (!db.objectStoreNames.contains('image-files')) {
-        const imageFilesStore = db.createObjectStore('image-files', {
+      if (!db.objectStoreNames.contains('images')) {
+        const imageFilesStore = db.createObjectStore('images', {
           keyPath: 'id',
           autoIncrement: true,
         });
@@ -74,10 +80,25 @@ export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artist
         });
         colorMixturesStore.createIndex('by-imageFileId', 'imageFileId');
       }
+
+      for (const objectStoreName of db.objectStoreNames) {
+        if (!objectStoreNames.includes(objectStoreName)) {
+          db.deleteObjectStore(objectStoreName);
+        }
+      }
     },
   }
 );
 
-export async function deleteDb(): Promise<void> {
+export async function deleteDatabase(): Promise<void> {
   await deleteDB(DB_NAME);
+}
+
+export async function clearDatabase(): Promise<void> {
+  const databases: IDBDatabaseInfo[] = await indexedDB.databases();
+  for (const {name} of databases) {
+    if (name && name !== DB_NAME) {
+      await deleteDB(name);
+    }
+  }
 }

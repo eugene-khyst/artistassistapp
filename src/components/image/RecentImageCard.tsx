@@ -8,7 +8,8 @@ import {Button, Card, Popconfirm} from 'antd';
 import * as dayjs from 'dayjs';
 
 import {useCreateObjectUrl} from '~/src/hooks';
-import type {ImageFile} from '~/src/services/db';
+import {useImageFileToBlob} from '~/src/hooks/useImageFileToBlob';
+import type {ImageFile} from '~/src/services/image';
 import {useAppStore} from '~/src/stores/app-store';
 
 type Props = {
@@ -19,12 +20,14 @@ export const RecentImageCard: React.FC<Props> = ({imageFile}: Props) => {
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
   const deleteRecentImageFile = useAppStore(state => state.deleteRecentImageFile);
 
-  const {file, date} = imageFile;
-  const imageSrc: string | undefined = useCreateObjectUrl(file);
+  const {name, date} = imageFile;
+
+  const blob = useImageFileToBlob(imageFile);
+  const imageSrc: string | undefined = useCreateObjectUrl(blob);
   const dateStr: string | undefined = date && dayjs(date).format('DD/MM/YYYY HH:mm');
 
   const handleCardClick = () => {
-    void saveRecentImageFile(imageFile);
+    void saveRecentImageFile({...imageFile});
   };
 
   const handleDeleteButtonClick = () => {
@@ -36,7 +39,7 @@ export const RecentImageCard: React.FC<Props> = ({imageFile}: Props) => {
       <Card
         hoverable
         onClick={handleCardClick}
-        cover={<img src={imageSrc} alt={file.name} />}
+        cover={<img src={imageSrc} alt={name} />}
         actions={[
           <Popconfirm
             key="delete"
@@ -57,7 +60,7 @@ export const RecentImageCard: React.FC<Props> = ({imageFile}: Props) => {
           </Popconfirm>,
         ]}
       >
-        <Card.Meta title={file.name} description={`Last used ${dateStr}`} />
+        <Card.Meta title={name} description={`Last used ${dateStr}`} />
       </Card>
     )
   );

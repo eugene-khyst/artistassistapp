@@ -4,6 +4,7 @@
  */
 
 export * from './blur';
+export * from './image-file';
 export * from './limited-palette';
 export * from './outline';
 export * from './sample-images';

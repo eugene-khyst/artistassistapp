@@ -232,10 +232,17 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
   };
 
   const handleSubmit = async (values: ColorSetDefinition) => {
-    const colorSet: ColorSetDefinition | undefined = await saveColorSet(values, brands, colors);
-    if (colorSet) {
-      form.setFieldsValue(colorSet);
-    }
+    const {id, ...colorSet} = values;
+    form.setFieldsValue(
+      await saveColorSet(
+        {
+          ...colorSet,
+          ...(id ? {id} : {}),
+        },
+        brands,
+        colors
+      )
+    );
   };
 
   const handleSubmitFailed = () => {

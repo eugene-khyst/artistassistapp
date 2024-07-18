@@ -12,7 +12,7 @@ import {manifest} from '@parcel/service-worker';
 import {commitHash} from '~/src/config';
 import {saveAppSettings, saveImageFile} from '~/src/services/db';
 import type {SampleImageDefinition} from '~/src/services/image';
-import {SAMPLE_IMAGES} from '~/src/services/image';
+import {fileToImageFile, SAMPLE_IMAGES} from '~/src/services/image';
 import {TabKey} from '~/src/types';
 import {errorResponse} from '~/src/utils';
 
@@ -62,10 +62,7 @@ async function receiveSharedData(request: Request): Promise<Response> {
   const formData: FormData = await request.formData();
   const files = formData.getAll('images') as File[];
   for (const file of files) {
-    await saveImageFile({
-      file,
-      date: new Date(),
-    });
+    await saveImageFile(await fileToImageFile(file));
     await saveAppSettings({
       activeTabKey: TabKey.Photo,
     });

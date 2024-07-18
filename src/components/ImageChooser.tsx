@@ -7,9 +7,9 @@ import {Col, Form, Input, Row, Space, Spin, Typography} from 'antd';
 import type {ChangeEvent} from 'react';
 import {useState} from 'react';
 
-import type {ImageFile} from '~/src/services/db';
+import type {ImageFile} from '~/src/services/image';
 import type {SampleImageDefinition} from '~/src/services/image';
-import {SAMPLE_IMAGES} from '~/src/services/image';
+import {fileToImageFile, SAMPLE_IMAGES} from '~/src/services/image';
 import {useAppStore} from '~/src/stores/app-store';
 
 import {RecentImageCard} from './image/RecentImageCard';
@@ -24,10 +24,10 @@ export const ImageChooser: React.FC = () => {
 
   const isLoading: boolean = isInitialStateLoading || sampleImagesLoadingCount > 0;
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | undefined = e.target.files?.[0];
     if (file) {
-      void saveRecentImageFile({file});
+      void saveRecentImageFile(await fileToImageFile(file));
     }
   };
 
@@ -39,7 +39,12 @@ export const ImageChooser: React.FC = () => {
             Select a reference photo from your device to paint from
           </Typography.Text>
           <Form.Item style={{marginBottom: 0}}>
-            <Input type="file" size="large" onChange={handleFileChange} accept="image/*" />
+            <Input
+              type="file"
+              size="large"
+              onChange={e => void handleFileChange(e)}
+              accept="image/*"
+            />
           </Form.Item>
           {recentImageFiles.length > 0 && (
             <>
