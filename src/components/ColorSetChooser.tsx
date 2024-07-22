@@ -279,7 +279,8 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
               <Typography.Text>
                 <strong>ArtistAssistApp</strong> is a free web app for artists to accurately mix any
                 color from a photo, analyze tonal values, turn a photo into an outline, draw with
-                the grid method, paint with a limited palette, simplify a photo, and more.
+                the grid method, paint with a limited palette, simplify a photo, compare photos
+                pairwise, and more.
               </Typography.Text>
               <Space size="small">
                 {showInstallPromotion && (
