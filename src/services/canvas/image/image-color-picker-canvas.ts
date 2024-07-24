@@ -43,7 +43,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
   constructor(canvas: HTMLCanvasElement, props: ImageColorPickerCanvasProps = {}) {
     super(canvas, props);
 
-    ({cursorDiameter: this.cursorDiameter = 20} = props);
+    ({cursorDiameter: this.cursorDiameter = 100} = props);
 
     this.pipetDiameter = 1;
     this.lastPipetDiameter = this.pipetDiameter;

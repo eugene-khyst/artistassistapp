@@ -195,7 +195,7 @@ export const ImageColorPicker: React.FC = () => {
           }}
         >
           <Space direction="vertical" style={{padding: '0 16px 16px'}}>
-            <Space align="center" wrap style={{display: 'flex'}}>
+            <Space align="start" wrap style={{display: 'flex'}}>
               <Form.Item
                 label="Background"
                 tooltip="The color of paper or canvas, or the color of the base layer when glazed."
@@ -268,7 +268,7 @@ export const ImageColorPicker: React.FC = () => {
                   value={sort}
                   onChange={(value: Sort) => setSort(value)}
                   options={SORT_OPTIONS}
-                  style={{width: 120}}
+                  style={{width: 110}}
                 />
               </Form.Item>
             </Space>
