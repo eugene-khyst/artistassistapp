@@ -155,10 +155,7 @@ export const Help: React.FC = () => {
           </Col>
         </Row>
         <Row>
-          <Col
-            xs={24}
-            style={{textAlign: 'justify', fontSize: fontSizeSM, color: colorTextSecondary}}
-          >
+          <Col xs={24} style={{fontSize: fontSizeSM, color: colorTextSecondary}}>
             App build hash: {commitHash}
           </Col>
         </Row>
