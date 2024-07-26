@@ -428,6 +428,7 @@ function importFromUrl(): UrlParsingResult {
   const {colorSet, tabKey} = importedFromUrl;
   if (colorSet || tabKey) {
     window.history.replaceState({}, '', '/');
+    window.history.pushState({}, '');
   }
   return importedFromUrl;
 }
