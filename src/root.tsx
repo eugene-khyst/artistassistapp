@@ -21,13 +21,19 @@ registerFileHandler();
 void clearDatabase();
 void initAppStore();
 
-window.history.pushState({}, '');
-window.addEventListener('popstate', () => {
-  if (confirm('Are you sure you want to exit?')) {
-    window.history.back();
-  } else {
+window.addEventListener('load', () => {
+  if (!window.history.state) {
     window.history.pushState({}, '');
   }
+  const confirmBack = () => {
+    if (confirm('Are you sure you want to exit?')) {
+      window.removeEventListener('popstate', confirmBack);
+      window.history.back();
+    } else {
+      window.history.pushState({}, '');
+    }
+  };
+  window.addEventListener('popstate', confirmBack);
 });
 
 const queryClient = new QueryClient({
