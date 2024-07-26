@@ -11,5 +11,6 @@ export * from './fraction';
 export * from './function';
 export * from './graphics';
 export * from './map';
+export * from './media';
 export * from './predicate';
 export * from './random';

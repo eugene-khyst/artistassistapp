@@ -14,8 +14,9 @@ import {ImagesCompare} from '~/src/components/ImagesCompare';
 import {Install} from '~/src/components/Install';
 import {useFullScreen} from '~/src/hooks';
 import {useInstallPrompt} from '~/src/hooks/useInstallPrompt';
-import {DisplayMode, usePwaDisplayMode} from '~/src/hooks/usePwaDisplayMode';
+import {useDisplayMode} from '~/src/hooks/usePwaDisplayMode';
 import {useAppStore} from '~/src/stores/app-store';
+import {DisplayMode} from '~/src/utils';
 
 import {BrowserSupport} from './components/alert/BrowserSupport';
 import {ColorMixer} from './components/ColorMixer';
@@ -42,7 +43,7 @@ export const ArtistAssistApp: React.FC = () => {
   const {isFullscreen, toggleFullScreen} = useFullScreen();
 
   const {showInstallPromotion, promptToInstall} = useInstallPrompt();
-  const pwaDisplayMode: DisplayMode = usePwaDisplayMode();
+  const pwaDisplayMode: DisplayMode = useDisplayMode();
 
   const handleTabChange = (activeKey: string) => {
     void setActiveTabKey(activeKey as TabKey);

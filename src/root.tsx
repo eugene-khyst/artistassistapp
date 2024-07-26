@@ -10,31 +10,20 @@ import type {Root} from 'react-dom/client';
 import {createRoot} from 'react-dom/client';
 
 import {registerFileHandler} from '~/src/file-handler';
+import {confirmHistoryChange} from '~/src/history';
 import {clearDatabase} from '~/src/services/db';
 import {initAppStore} from '~/src/stores/app-store';
+import {disableScreenLock} from '~/src/wake-lock';
 
 import {ArtistAssistApp} from './ArtistAssistApp';
 import {registerServiceWorker} from './register-service-worker';
 
 registerServiceWorker();
 registerFileHandler();
+disableScreenLock();
+confirmHistoryChange();
 void clearDatabase();
 void initAppStore();
-
-window.addEventListener('load', () => {
-  if (!window.history.state) {
-    window.history.pushState({}, '');
-  }
-  const confirmBack = () => {
-    if (confirm('Are you sure you want to exit?')) {
-      window.removeEventListener('popstate', confirmBack);
-      window.history.back();
-    } else {
-      window.history.pushState({}, '');
-    }
-  };
-  window.addEventListener('popstate', confirmBack);
-});
 
 const queryClient = new QueryClient({
   defaultOptions: {

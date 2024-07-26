@@ -5,24 +5,10 @@
 
 import {useEffect, useState} from 'react';
 
-export enum DisplayMode {
-  BROWSER = 'browser',
-  STANDALONE = 'standalone',
-  TWA = 'twa',
-}
+import {DisplayMode, getDisplayMode} from '~/src/utils';
 
-function getPwaDisplayMode(): DisplayMode {
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-  if (document.referrer.startsWith('android-app://')) {
-    return DisplayMode.TWA;
-  } else if ('standalone' in navigator || isStandalone) {
-    return DisplayMode.STANDALONE;
-  }
-  return DisplayMode.BROWSER;
-}
-
-export function usePwaDisplayMode() {
-  const [displayMode, setDisplayMode] = useState<DisplayMode>(() => getPwaDisplayMode());
+export function useDisplayMode() {
+  const [displayMode, setDisplayMode] = useState<DisplayMode>(() => getDisplayMode());
 
   useEffect(() => {
     const changeListener = (e: MediaQueryListEvent) => {
