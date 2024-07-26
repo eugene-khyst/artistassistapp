@@ -20,10 +20,14 @@ registerServiceWorker();
 registerFileHandler();
 void clearDatabase();
 void initAppStore();
-window.addEventListener('beforeunload', (event: BeforeUnloadEvent) => {
-  event.preventDefault();
-  // Included for legacy support, e.g. Chrome/Edge < 119
-  event.returnValue = true;
+
+window.history.pushState({}, '');
+window.addEventListener('popstate', () => {
+  if (confirm('Are you sure you want to exit?')) {
+    window.history.back();
+  } else {
+    window.history.pushState({}, '');
+  }
 });
 
 const queryClient = new QueryClient({

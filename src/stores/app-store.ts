@@ -427,7 +427,7 @@ function importFromUrl(): UrlParsingResult {
   const importedFromUrl: UrlParsingResult = parseUrl(window.location.toString());
   const {colorSet, tabKey} = importedFromUrl;
   if (colorSet || tabKey) {
-    history.pushState({}, '', '/');
+    window.history.replaceState({}, '', '/');
   }
   return importedFromUrl;
 }
