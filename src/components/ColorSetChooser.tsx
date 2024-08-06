@@ -14,6 +14,7 @@ import {
   App,
   Button,
   Col,
+  Flex,
   Form,
   Input,
   notification,
@@ -28,7 +29,7 @@ import {useEffect, useState} from 'react';
 import {ColorSetSelect} from '~/src/components/color-set/ColorSetSelect';
 import {useColorBrands, useColors, useStandardColorSets} from '~/src/hooks';
 import type {ColorBrandDefinition, ColorSetDefinition, ColorType} from '~/src/services/color';
-import {COLOR_MIXING, COLOR_TYPES} from '~/src/services/color';
+import {COLOR_MIXING, COLOR_TYPES, THREE_COLORS_MIXTURES_LIMIT} from '~/src/services/color';
 import {colorSetToUrl} from '~/src/services/url';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/types';
@@ -40,7 +41,6 @@ import {ColorTypeSelect} from './color-set/ColorTypeSelect';
 import {StandardColorSetCascader} from './color-set/StandardColorSetCascader';
 import {ShareModal} from './share/ShareModal';
 
-const MAX_COLORS = 36;
 const CUSTOM_COLOR_SET = [0];
 
 const formInitialValues: ColorSetDefinition = {
@@ -272,182 +272,164 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
   return (
     <>
       {contextHolder}
-      <div style={{padding: '0 16px'}}>
-        <Row gutter={[16, 16]} style={{marginBottom: 16}}>
-          <Col xs={24} md={12} lg={14}>
-            <Space direction="vertical" size="small">
-              <Typography.Text>
-                <strong>ArtistAssistApp</strong> is a free web app for artists to accurately mix any
-                color from a photo, analyze tonal values, turn a photo into an outline, draw with
-                the grid method, paint with a limited palette, simplify a photo, compare photos
-                pairwise, and more.
-              </Typography.Text>
-              <Space size="small">
-                {showInstallPromotion && (
-                  <Button
-                    icon={<AppstoreAddOutlined />}
-                    type="primary"
-                    onClick={() => void setActiveTabKey(TabKey.Install)}
-                  >
-                    Install
-                  </Button>
-                )}
-                <Button
-                  icon={<QuestionCircleOutlined />}
-                  onClick={() => void setActiveTabKey(TabKey.Help)}
-                >
-                  Help
-                </Button>
-              </Space>
-            </Space>
-          </Col>
-          <Col xs={24} md={12} lg={10}>
-            <Ad tab={TabKey.ColorSet} />
-          </Col>
-        </Row>
-        <Typography.Text strong>
-          Select your medium, color brands and colors you will paint with and press the{' '}
-          <Typography.Text code>Save & proceed</Typography.Text> button. The maximum number of
-          colors for paints is {MAX_COLORS}, for pencils – unlimited.
-        </Typography.Text>
-        <Spin spinning={isLoading} tip="Loading" size="large">
-          <Form
-            name="colorSet"
-            form={form}
-            initialValues={formInitialValues}
-            onValuesChange={handleFormValuesChange}
-            onFinish={values => void handleSubmit(values)}
-            onFinishFailed={handleSubmitFailed}
-            layout="vertical"
-            requiredMark="optional"
-            autoComplete="off"
-          >
-            <Form.Item
-              name="type"
-              label="Medium"
-              rules={[{required: true, message: '${label} is required'}]}
-            >
-              <ColorTypeSelect />
-            </Form.Item>
-            {!!selectedType && (
-              <Form.Item
-                name="id"
-                label="Color set"
-                tooltip={`Select from your recent ${COLOR_TYPES.get(selectedType)?.name.toLowerCase()} color sets.`}
-                rules={[{required: true, message: '${label} is required'}]}
-                dependencies={['type']}
-              >
-                <ColorSetSelect colorSets={colorSetsByType} brands={brands} />
-              </Form.Item>
-            )}
-            {!!selectedType && (selectedColorSetId ?? -1) >= 0 && (
-              <>
-                <Form.Item
-                  name="name"
-                  label="Name"
-                  tooltip="Give your color set a name for easy access."
-                  dependencies={['type']}
-                >
-                  <Input placeholder="Name a color set" />
-                </Form.Item>
-                <Form.Item
-                  name="brands"
-                  label="Brands"
-                  tooltip={`Select ${COLOR_TYPES.get(selectedType)?.name.toLowerCase()} brands that you use.`}
-                  rules={[{required: true, message: '${label} are required'}]}
-                  dependencies={['type']}
-                >
-                  <ColorBrandSelect mode="multiple" brands={brands} />
-                </Form.Item>
-              </>
-            )}
-            {!!selectedBrandIds?.length && (
-              <Form.Item
-                name="standardColorSet"
-                label="Set"
-                rules={[{required: true, message: '${label} is required'}]}
-                dependencies={['type', 'brands']}
-                tooltip="Do you have a store-bought or custom color set?"
-              >
-                <StandardColorSetCascader
-                  brands={selectedBrands}
-                  standardColorSets={standardColorSets}
-                />
-              </Form.Item>
-            )}
-            {!!selectedType &&
-              selectedBrands?.map((brand: ColorBrandDefinition) => (
-                <Form.Item
-                  key={brand.id}
-                  name={['colors', brand.id.toString()]}
-                  label={`${brand.fullName} colors`}
-                  rules={[
-                    {required: true, message: '${label} are required'},
-                    ({getFieldValue}) => ({
-                      validator() {
-                        const type = getFieldValue('type') as ColorType | undefined;
-                        const colors = getFieldValue('colors') as
-                          | Record<number, number[] | undefined>
-                          | undefined;
-                        if (!type || !colors) {
-                          return Promise.resolve();
-                        }
-                        const {maxColors} = COLOR_MIXING[type];
-                        if (maxColors === 1) {
-                          return Promise.resolve();
-                        }
-                        const totalColors = Object.values(colors)
-                          .map((ids: number[] | undefined) => ids?.length ?? 0)
-                          .reduce((a: number, b: number) => a + b, 0);
-                        if (totalColors > MAX_COLORS) {
-                          return Promise.reject(
-                            `A total of ${MAX_COLORS} colors of all brands are allowed`
-                          );
-                        } else {
-                          return Promise.resolve();
-                        }
-                      },
-                    }),
-                  ]}
-                  dependencies={['type', 'brands', 'standardColorSet']}
-                  tooltip="Add or remove colors to match your actual color set."
-                >
-                  <ColorSelect mode="multiple" colors={colors.get(brand.alias)} brand={brand} />
-                </Form.Item>
-              ))}
-            <Form.Item>
-              <Space wrap>
-                <Button icon={<SaveOutlined />} type="primary" htmlType="submit">
-                  Save & proceed
-                </Button>
-                {selectedColorsCount > 0 && (
-                  <Button
-                    icon={<ShareAltOutlined />}
-                    title="Share this color set"
-                    onClick={showShareModal}
-                  >
-                    Share
-                  </Button>
-                )}
-                {!!selectedColorSetId && (
-                  <Popconfirm
-                    title="Delete the color set"
-                    description="Are you sure you want to delete this color set?"
-                    onConfirm={() => {
-                      void handleDeleteButtonClick();
-                    }}
-                    okText="Yes"
-                    cancelText="No"
-                  >
-                    <Button icon={<DeleteOutlined />} onClick={e => e.stopPropagation()}>
-                      Delete
+      <div style={{padding: '0 16px 16px'}}>
+        <Flex vertical gap="small">
+          <Row gutter={[16, 16]}>
+            <Col xs={24} md={12} lg={14}>
+              <Space direction="vertical" size="small">
+                <Typography.Text>
+                  <strong>ArtistAssistApp</strong> is a free web app for artists to accurately mix
+                  any color from a photo, analyze tonal values, turn a photo into an outline, draw
+                  with the grid method, paint with a limited palette, simplify a photo, compare
+                  photos pairwise, and more.
+                </Typography.Text>
+                <Space size="small">
+                  {showInstallPromotion && (
+                    <Button
+                      icon={<AppstoreAddOutlined />}
+                      type="primary"
+                      onClick={() => void setActiveTabKey(TabKey.Install)}
+                    >
+                      Install
                     </Button>
-                  </Popconfirm>
-                )}
+                  )}
+                  <Button
+                    icon={<QuestionCircleOutlined />}
+                    onClick={() => void setActiveTabKey(TabKey.Help)}
+                  >
+                    Help
+                  </Button>
+                </Space>
               </Space>
-            </Form.Item>
-          </Form>
-        </Spin>
+            </Col>
+            <Col xs={24} md={12} lg={10}>
+              <Ad tab={TabKey.ColorSet} />
+            </Col>
+          </Row>
+          <Typography.Text strong>
+            Select your medium, color brands and colors you will paint with and press the{' '}
+            <Typography.Text code>Save & proceed</Typography.Text> button.
+          </Typography.Text>
+          <Spin spinning={isLoading} tip="Loading" size="large">
+            <Form
+              name="colorSet"
+              form={form}
+              initialValues={formInitialValues}
+              onValuesChange={handleFormValuesChange}
+              onFinish={values => void handleSubmit(values)}
+              onFinishFailed={handleSubmitFailed}
+              layout="vertical"
+              requiredMark="optional"
+              autoComplete="off"
+            >
+              <Form.Item
+                name="type"
+                label="Medium"
+                rules={[{required: true, message: '${label} is required'}]}
+              >
+                <ColorTypeSelect />
+              </Form.Item>
+              {!!selectedType && (
+                <Form.Item
+                  name="id"
+                  label="Color set"
+                  tooltip={`Select from your recent ${COLOR_TYPES.get(selectedType)?.name.toLowerCase()} color sets.`}
+                  rules={[{required: true, message: '${label} is required'}]}
+                  dependencies={['type']}
+                >
+                  <ColorSetSelect colorSets={colorSetsByType} brands={brands} />
+                </Form.Item>
+              )}
+              {!!selectedType && (selectedColorSetId ?? -1) >= 0 && (
+                <>
+                  <Form.Item
+                    name="name"
+                    label="Name"
+                    tooltip="Give your color set a name for easy access."
+                    dependencies={['type']}
+                  >
+                    <Input placeholder="Name a color set" />
+                  </Form.Item>
+                  <Form.Item
+                    name="brands"
+                    label="Brands"
+                    tooltip={`Select ${COLOR_TYPES.get(selectedType)?.name.toLowerCase()} brands that you use.`}
+                    rules={[{required: true, message: '${label} are required'}]}
+                    dependencies={['type']}
+                  >
+                    <ColorBrandSelect mode="multiple" brands={brands} />
+                  </Form.Item>
+                </>
+              )}
+              {!!selectedBrandIds?.length && (
+                <Form.Item
+                  name="standardColorSet"
+                  label="Set"
+                  rules={[{required: true, message: '${label} is required'}]}
+                  dependencies={['type', 'brands']}
+                  tooltip="Do you have a store-bought or custom color set?"
+                >
+                  <StandardColorSetCascader
+                    brands={selectedBrands}
+                    standardColorSets={standardColorSets}
+                  />
+                </Form.Item>
+              )}
+              {!!selectedType &&
+                selectedBrands?.map((brand: ColorBrandDefinition) => (
+                  <Form.Item
+                    key={brand.id}
+                    name={['colors', brand.id.toString()]}
+                    label={`${brand.fullName} colors`}
+                    rules={[{required: true, message: '${label} are required'}]}
+                    dependencies={['type', 'brands', 'standardColorSet']}
+                    tooltip="Add or remove colors to match your actual color set."
+                  >
+                    <ColorSelect mode="multiple" colors={colors.get(brand.alias)} brand={brand} />
+                  </Form.Item>
+                ))}
+              <Form.Item
+                help={
+                  selectedType &&
+                  COLOR_MIXING[selectedType].maxColors > 1 &&
+                  selectedColorsCount > THREE_COLORS_MIXTURES_LIMIT
+                    ? `When selecting more than ${THREE_COLORS_MIXTURES_LIMIT} colors in total, mixtures of three colors are not used.`
+                    : null
+                }
+              >
+                <Space wrap>
+                  <Button icon={<SaveOutlined />} type="primary" htmlType="submit">
+                    Save & proceed
+                  </Button>
+                  {selectedColorsCount > 0 && (
+                    <Button
+                      icon={<ShareAltOutlined />}
+                      title="Share this color set"
+                      onClick={showShareModal}
+                    >
+                      Share
+                    </Button>
+                  )}
+                  {!!selectedColorSetId && (
+                    <Popconfirm
+                      title="Delete the color set"
+                      description="Are you sure you want to delete this color set?"
+                      onConfirm={() => {
+                        void handleDeleteButtonClick();
+                      }}
+                      okText="Yes"
+                      cancelText="No"
+                    >
+                      <Button icon={<DeleteOutlined />} onClick={e => e.stopPropagation()}>
+                        Delete
+                      </Button>
+                    </Popconfirm>
+                  )}
+                </Space>
+              </Form.Item>
+            </Form>
+          </Spin>
+        </Flex>
       </div>
       <ShareModal
         title="Share your color set"

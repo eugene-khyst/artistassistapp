@@ -53,6 +53,8 @@ const RATIO_OPTIONS: SelectOptionType[] = range(1, 9).map((part: number) => ({
   label: part,
 }));
 
+const MAX_COLORS = 4;
+
 type ColorMixerForm = {
   colors: {
     color: [number, number];
@@ -227,7 +229,7 @@ export const ColorMixer: React.FC = () => {
                         <Button
                           type="primary"
                           icon={<PlusOutlined />}
-                          disabled={fields.length >= 4}
+                          disabled={fields.length >= MAX_COLORS}
                           onClick={() => add(defaultValue)}
                         >
                           Add color

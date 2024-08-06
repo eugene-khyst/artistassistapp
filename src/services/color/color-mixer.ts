@@ -68,6 +68,8 @@ const FRACTIONS: Fraction[] = [
 const CHROMA_LIMIT_1 = 0.135;
 const CHROMA_LIMIT_2 = 0.02;
 
+export const THREE_COLORS_MIXTURES_LIMIT = 36;
+
 export const PAPER_WHITE_HEX: string = 'F7F5EF';
 
 export interface ColorMixturePartDefinition {
@@ -542,7 +544,9 @@ export class ColorMixer {
       .map(MixedColor.fromUnmixedColor)
       .concat(
         maxColors >= 2 ? mixTwoColors(unmixedColors) : [],
-        maxColors >= 3 ? mixThreeColors(unmixedColors) : []
+        maxColors >= 3 && colors.length <= THREE_COLORS_MIXTURES_LIMIT
+          ? mixThreeColors(unmixedColors)
+          : []
       );
     this.colorMixtures = tint
       ? mixTints(mixedColors, whites)
