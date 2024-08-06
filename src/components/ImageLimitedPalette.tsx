@@ -15,7 +15,7 @@ import {useAppStore} from '~/src/stores/app-store';
 import {ColorCascader} from './color-set/ColorCascader';
 import {EmptyColorSet} from './empty/EmptyColorSet';
 
-const MAX_COLORS = 5;
+const MAX_COLORS = 7;
 
 export const ImageLimitedPalette: React.FC = () => {
   const colorSet = useAppStore(state => state.colorSet);
