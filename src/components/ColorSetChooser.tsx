@@ -317,7 +317,7 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
           )}
         </Space>
 
-        <Space size="small">
+        <Space size="small" wrap>
           {!isAuthLoading &&
             (isAuthenticated ? (
               <LogoutButton />
