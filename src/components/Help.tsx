@@ -49,14 +49,9 @@ export const Help: React.FC = () => {
 
   return (
     <Flex vertical gap="small" align="center" style={{padding: '0 16px 16px'}}>
-      <Row justify="center" align="middle" gutter={[16, 16]}>
-        <Col xs={24} md={12}>
-          <Logo name tagline />
-        </Col>
-        <Col xs={24} md={12}>
-          <AdCard />
-        </Col>
-      </Row>
+      <div style={{textAlign: 'center'}}>
+        <Logo name tagline />
+      </div>
 
       <Row gutter={24}>
         <Col xs={24} md={12}>
@@ -81,7 +76,7 @@ export const Help: React.FC = () => {
             </Button>
             <Button
               type="link"
-              href={PATREON_URL}
+              href={`${PATREON_URL}/chats`}
               target="_blank"
               icon={<CommentOutlined />}
               size="large"
@@ -120,6 +115,12 @@ export const Help: React.FC = () => {
               Terms of use
             </Button>
           </Space>
+        </Col>
+      </Row>
+
+      <Row justify="center">
+        <Col xs={24} md={12}>
+          <AdCard />
         </Col>
       </Row>
 
