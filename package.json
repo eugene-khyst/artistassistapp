@@ -1,0 +1,80 @@
+{
+  "name": "artistassistapp",
+  "version": "1.0.0",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "scripts": {
+    "start": "CF_PAGES_COMMIT_SHA=$(git rev-parse --short HEAD) parcel serve src/index.html",
+    "build": "parcel build src/index.html",
+    "clean": "rm -rf .parcel-cache dist",
+    "format": "prettier src --write",
+    "lint": "eslint src",
+    "lint:fix": "npm run lint -- --fix",
+    "check": "tsc --noEmit",
+    "test": "npm run lint && npm run check",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.4.0",
+    "@auth0/auth0-react": "^2.2.4",
+    "@fontsource/kalam": "^5.1.0",
+    "@parcel/service-worker": "^2.12.0",
+    "@tanstack/react-query": "^5.56.2",
+    "antd": "^5.20.6",
+    "comlink": "^4.4.1",
+    "file-saver": "^2.0.5",
+    "idb": "^8.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-sticky-box": "^2.0.5",
+    "react-string-replace": "^1.1.1",
+    "react-to-print": "^2.15.1",
+    "zustand": "^4.5.5"
+  },
+  "devDependencies": {
+    "@parcel/config-default": "^2.12.0",
+    "@parcel/packager-raw-url": "^2.12.0",
+    "@parcel/transformer-jsonld": "^2.12.0",
+    "@parcel/transformer-typescript-tsc": "^2.12.0",
+    "@parcel/transformer-webmanifest": "^2.12.0",
+    "@types/file-saver": "^2.0.7",
+    "@types/node": "^20.14.2",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^7.13.0",
+    "@typescript-eslint/parser": "^7.13.0",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.3.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-license-header": "^0.6.1",
+    "eslint-plugin-no-relative-import-paths": "^1.5.5",
+    "eslint-plugin-react": "^7.36.1",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-unused-imports": "^3.2.0",
+    "events": "^3.3.0",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "parcel": "^2.12.0",
+    "parcel-reporter-static-files-copy": "^1.5.3",
+    "prettier": "^3.3.3",
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0",
+    "string_decoder": "^1.3.0",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^7.13.0",
+    "vm-browserify": "^1.1.2"
+  },
+  "lint-staged": {
+    "**/*.{js,ts,jsx,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "**/*.{css,html}": "prettier --write"
+  },
+  "@parcel/runtime-js": {
+    "splitManifestThreshold": 100000000
+  },
+  "license": "Apache-2.0"
+}

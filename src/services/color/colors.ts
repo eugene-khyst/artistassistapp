@@ -1,0 +1,182 @@
+/**
+ * Copyright 2023 Eugene Khyst
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import {API_URL} from '~/src/config';
+import type {AppUser} from '~/src/services/auth';
+import {MEMBERSHIP_CLAIM} from '~/src/services/auth';
+import type {
+  Color,
+  ColorBrandDefinition,
+  ColorDefinition,
+  ColorIdFormat,
+  ColorSet,
+  ColorSetDefinition,
+  ColorTypeDefinition,
+  StandardColorSetDefinition,
+} from '~/src/services/color/types';
+import {ColorType} from '~/src/services/color/types';
+import {fetchSWR} from '~/src/utils';
+
+import {Rgb} from './space';
+
+export const COLOR_TYPES = new Map<ColorType, ColorTypeDefinition>([
+  [ColorType.WatercolorPaint, {name: 'Watercolor paint', alias: 'watercolor-paint'}],
+  [ColorType.Gouache, {name: 'Gouache', alias: 'gouache'}],
+  [ColorType.AcrylicPaint, {name: 'Acrylic paint', alias: 'acrylic-paint'}],
+  [ColorType.AcrylicGouache, {name: 'Acrylic gouache', alias: 'acrylic-gouache'}],
+  [ColorType.OilPaint, {name: 'Oil paint', alias: 'oil-paint'}],
+  [ColorType.ColoredPencils, {name: 'Colored pencils', alias: 'colored-pencils'}],
+  [ColorType.WatercolorPencils, {name: 'Watercolor pencils', alias: 'watercolor-pencils'}],
+]);
+
+export const compareColorBrandsByName = (
+  {fullName: a}: ColorBrandDefinition,
+  {fullName: b}: ColorBrandDefinition
+) => a.localeCompare(b);
+
+export const compareColorBrandsByFreeTierAndName = (
+  a: ColorBrandDefinition,
+  b: ColorBrandDefinition
+) =>
+  (a.freeTier ?? false) === (b.freeTier ?? false)
+    ? compareColorBrandsByName(a, b)
+    : a.freeTier
+      ? -1
+      : 1;
+
+export const compareColorSetsByDate = (
+  {date: a}: ColorSetDefinition,
+  {date: b}: ColorSetDefinition
+) => (a?.getTime() ?? 0) - (b?.getTime() ?? 0);
+
+function getResourceUrl(
+  resource: 'brands' | 'colors' | 'sets',
+  type: ColorType,
+  brandAlias?: string
+): string {
+  const medium: string = COLOR_TYPES.get(type)!.alias;
+  if (resource === 'brands') {
+    return `${API_URL}/${medium}/${resource}.json`;
+  } else {
+    return `${API_URL}/${medium}/${brandAlias}/${resource}.json`;
+  }
+}
+
+export async function fetchColorBrands(
+  type: ColorType
+): Promise<Map<number, ColorBrandDefinition>> {
+  const url = getResourceUrl('brands', type);
+  const response = await fetchSWR(url);
+  const brands = (await response.json()) as ColorBrandDefinition[];
+  return new Map(brands.map((brand: ColorBrandDefinition) => [brand.id, brand]));
+}
+
+export async function fetchStandardColorSets(
+  type: ColorType,
+  brandAlias: string
+): Promise<Map<string, StandardColorSetDefinition>> {
+  const url = getResourceUrl('sets', type, brandAlias);
+  const response = await fetchSWR(url);
+  const sets = (await response.json()) as StandardColorSetDefinition[];
+  return new Map(
+    sets.map((standardColorSet: StandardColorSetDefinition) => [
+      standardColorSet.name,
+      standardColorSet,
+    ])
+  );
+}
+
+export async function fetchColors(
+  type: ColorType,
+  brandAlias: string
+): Promise<Map<number, ColorDefinition>> {
+  const url = getResourceUrl('colors', type, brandAlias);
+  const response = await fetchSWR(url);
+  const colors = (await response.json()) as ColorDefinition[];
+  return new Map(colors.map((color: ColorDefinition) => [color.id, color]));
+}
+
+export async function fetchColorsBulk(
+  type: ColorType,
+  brandAliases: string[]
+): Promise<Map<string, Map<number, ColorDefinition>>> {
+  return new Map(
+    await Promise.all(
+      brandAliases.map(
+        async (brandAlias: string): Promise<[string, Map<number, ColorDefinition>]> => [
+          brandAlias,
+          await fetchColors(type, brandAlias),
+        ]
+      )
+    )
+  );
+}
+
+export function formatColorLabel(
+  {id, name}: ColorDefinition | Color,
+  {idFormat = {}}: ColorBrandDefinition
+): string {
+  const {show, prefix, padLength, splitAt}: ColorIdFormat = {
+    show: true,
+    ...idFormat,
+  };
+  if (show) {
+    let idStr = `${prefix ? prefix : ''}${padLength ? String(id).padStart(padLength, '0') : id}`;
+    if (splitAt && idStr.length > splitAt) {
+      idStr = `${idStr.substring(0, splitAt)}-${idStr.substring(splitAt)}`;
+    }
+    return `${idStr} ${name}`;
+  } else {
+    return name;
+  }
+}
+
+export function toColorSet(
+  {id, type, brands: selectedBrands, colors: selectedColors}: ColorSetDefinition,
+  brands?: Map<number, ColorBrandDefinition>,
+  colors?: Map<string, Map<number, ColorDefinition>>,
+  user?: AppUser
+): ColorSet | undefined {
+  const selectedColorsArr: [string, number[]][] = Object.entries(selectedColors);
+  if (!id || !type || !selectedColorsArr.length || !brands || !colors) {
+    return;
+  }
+  const selectedBrandsMap: Map<number, ColorBrandDefinition> = new Map(
+    [...brands].filter(([brandId]) => selectedBrands.includes(brandId))
+  );
+  if (!hasAccessToBrands([...selectedBrandsMap.values()], user)) {
+    return;
+  }
+  return {
+    type,
+    brands: selectedBrandsMap,
+    colors: selectedColorsArr.flatMap(([brandIdStr, colorIds]: [string, number[]]): Color[] => {
+      const brandId = Number(brandIdStr);
+      const brandAlias: string | undefined = brands.get(brandId)?.alias;
+      if (!brandAlias) {
+        return [];
+      }
+      return colorIds
+        .map((colorId: number): ColorDefinition | undefined =>
+          colors?.get(brandAlias)?.get(colorId)
+        )
+        .filter((color): color is ColorDefinition => !!color)
+        .map(
+          ({id, name, hex, rho, opacity}: ColorDefinition): Color => ({
+            brand: brandId,
+            id,
+            name,
+            rgb: Rgb.fromHex(hex).toRgbTuple(),
+            rho,
+            opacity,
+          })
+        );
+    }),
+  };
+}
+
+export function hasAccessToBrands(brands: ColorBrandDefinition[], user?: AppUser): boolean {
+  return !brands.some(({freeTier}) => !freeTier) || !!user?.[MEMBERSHIP_CLAIM]?.active;
+}

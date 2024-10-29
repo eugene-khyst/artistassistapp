@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Page not found 🎨🖌️ ArtistAssistApp</title>
+  </head>
+  <body>
+    <p>This page can&apos;t be found.</p>
+    <p>Redirecting to main page in <span id="seconds-remaining"></span>.</p>
+    <script>
+      let secondsRemaining = 5;
+      const secondsRemainingEl = document.getElementById('seconds-remaining');
+      secondsRemainingEl.innerHTML = `${secondsRemaining} seconds`;
+      const timer = setInterval(() => {
+        secondsRemaining--;
+        secondsRemainingEl.innerHTML = `${secondsRemaining} ${secondsRemaining === 1 ? 'second' : 'seconds'}`;
+        if (secondsRemaining === 0) {
+          clearInterval(timer);
+          window.location.href = '/';
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>
