@@ -145,13 +145,6 @@ export const Help: React.FC = () => {
             Delete all app data
           </Button>
         </Popconfirm>
-        <Button
-          onClick={() => {
-            throw new Error('This is your first error!');
-          }}
-        >
-          Test Sentry
-        </Button>
       </Space>
 
       <Typography.Text type="secondary">
