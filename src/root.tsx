@@ -6,11 +6,12 @@
 import {Auth0Provider} from '@auth0/auth0-react';
 import * as Sentry from '@sentry/react';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import {App} from 'antd';
+import {Alert, App} from 'antd';
 import {StrictMode} from 'react';
 import type {Root} from 'react-dom/client';
 import {createRoot} from 'react-dom/client';
 
+import {PromiseErrorBoundary} from '~/src/components/alert/PromiseErrorBoundary';
 import {registerFileHandler} from '~/src/file-handler';
 import {confirmHistoryChange} from '~/src/history';
 import {clearDatabase} from '~/src/services/db';
@@ -53,20 +54,25 @@ const queryClient = new QueryClient({
 const root: Root = createRoot(document.getElementById('root')!);
 root.render(
   <StrictMode>
-    <Auth0Provider
-      domain="artistassistapp.us.auth0.com"
-      clientId="oUflXrDaH0qMXfItkjdeoz4rLZXfkUwW"
-      authorizationParams={{
-        redirect_uri: window.location.origin,
-        connection: 'Patreon',
-      }}
-      cacheLocation="localstorage"
-    >
-      <QueryClientProvider client={queryClient}>
-        <App>
-          <ArtistAssistApp />
-        </App>
-      </QueryClientProvider>
-    </Auth0Provider>
+    <App>
+      <Alert.ErrorBoundary>
+        <PromiseErrorBoundary>
+          <QueryClientProvider client={queryClient}>
+            <Auth0Provider
+              domain="artistassistapp.us.auth0.com"
+              clientId="oUflXrDaH0qMXfItkjdeoz4rLZXfkUwW"
+              authorizationParams={{
+                redirect_uri: window.location.origin,
+                connection: 'Patreon',
+              }}
+              useRefreshTokens={true}
+              cacheLocation="localstorage"
+            >
+              <ArtistAssistApp />
+            </Auth0Provider>
+          </QueryClientProvider>
+        </PromiseErrorBoundary>
+      </Alert.ErrorBoundary>
+    </App>
   </StrictMode>
 );

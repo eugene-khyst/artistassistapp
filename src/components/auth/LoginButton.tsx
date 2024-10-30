@@ -8,10 +8,10 @@ import {Button} from 'antd';
 import type React from 'react';
 
 export const LoginButton: React.FC = () => {
-  const {loginWithRedirect} = useAuth0();
+  const {loginWithPopup} = useAuth0();
 
   return (
-    <Button type="primary" onClick={() => void loginWithRedirect()}>
+    <Button type="primary" onClick={() => void loginWithPopup()}>
       Log in with Patreon
     </Button>
   );

@@ -6,12 +6,11 @@
 import {FullscreenExitOutlined, FullscreenOutlined} from '@ant-design/icons';
 import {useAuth0} from '@auth0/auth0-react';
 import type {TabsProps} from 'antd';
-import {Alert, App, Col, FloatButton, Row, Tabs, theme} from 'antd';
+import {App, Col, FloatButton, Row, Tabs, theme} from 'antd';
 import {useEffect, useRef, useState} from 'react';
 import StickyBox from 'react-sticky-box';
 
 import {AdModal} from '~/src/components/ad/AdModal';
-import {PromiseErrorBoundary} from '~/src/components/alert/PromiseErrorBoundary';
 import {ImageOutline} from '~/src/components/ImageOutline';
 import {ImagesCompare} from '~/src/components/ImagesCompare';
 import {Install} from '~/src/components/Install';
@@ -207,31 +206,27 @@ export const ArtistAssistApp: React.FC = () => {
   );
 
   return (
-    <Alert.ErrorBoundary>
-      <PromiseErrorBoundary>
-        <BrowserSupport>
-          <div className="watermark">{WATERMARK_TEXT}</div>
-          <Row justify="center">
-            <Col xs={24} xxl={18}>
-              <Tabs
-                renderTabBar={renderTabBar}
-                items={items}
-                activeKey={activeTabKey}
-                onChange={handleTabChange}
-                size="large"
-                tabBarGutter={0}
-              />
-            </Col>
-          </Row>
-          <FloatButton
-            icon={isFullscreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
-            shape="square"
-            onClick={toggleFullScreen}
-            style={{right: 24, bottom: 24}}
+    <BrowserSupport>
+      <div className="watermark">{WATERMARK_TEXT}</div>
+      <Row justify="center">
+        <Col xs={24} xxl={18}>
+          <Tabs
+            renderTabBar={renderTabBar}
+            items={items}
+            activeKey={activeTabKey}
+            onChange={handleTabChange}
+            size="large"
+            tabBarGutter={0}
           />
-          <AdModal open={isAdModalReady && isAdModalOpen} setOpen={setIsAdModalOpen} />
-        </BrowserSupport>
-      </PromiseErrorBoundary>
-    </Alert.ErrorBoundary>
+        </Col>
+      </Row>
+      <FloatButton
+        icon={isFullscreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
+        shape="square"
+        onClick={toggleFullScreen}
+        style={{right: 24, bottom: 24}}
+      />
+      <AdModal open={isAdModalReady && isAdModalOpen} setOpen={setIsAdModalOpen} />
+    </BrowserSupport>
   );
 };
