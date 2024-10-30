@@ -4,20 +4,22 @@
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "start": "CF_PAGES_COMMIT_SHA=$(git rev-parse --short HEAD) parcel serve src/index.html",
-    "build": "parcel build src/index.html",
+    "build": "parcel build src/index.html && npm run sentry:sourcemaps",
     "clean": "rm -rf .parcel-cache dist",
     "format": "prettier src --write",
     "lint": "eslint src",
     "lint:fix": "npm run lint -- --fix",
     "check": "tsc --noEmit",
     "test": "npm run lint && npm run check",
-    "prepare": "husky"
+    "prepare": "husky",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org eugene-khyst --project artistassistapp ./dist && sentry-cli sourcemaps upload --org eugene-khyst --project artistassistapp ./dist"
   },
   "dependencies": {
     "@ant-design/icons": "^5.4.0",
     "@auth0/auth0-react": "^2.2.4",
     "@fontsource/kalam": "^5.1.0",
     "@parcel/service-worker": "^2.12.0",
+    "@sentry/react": "^8.35.0",
     "@tanstack/react-query": "^5.56.2",
     "antd": "^5.20.6",
     "comlink": "^4.4.1",
@@ -36,6 +38,7 @@
     "@parcel/transformer-jsonld": "^2.12.0",
     "@parcel/transformer-typescript-tsc": "^2.12.0",
     "@parcel/transformer-webmanifest": "^2.12.0",
+    "@sentry/cli": "^2.38.0",
     "@types/file-saver": "^2.0.7",
     "@types/node": "^20.14.2",
     "@types/react": "^18.3.5",
