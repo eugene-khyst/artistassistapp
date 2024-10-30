@@ -365,14 +365,14 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
                 label: 'Having trouble logging in on your iPad or iPhone?',
                 children: (
                   <Typography.Paragraph>
-                    <ul>
+                    <ol>
                       <li>Go to Settings &gt; Apps &gt; Safari &gt; Privacy & Security.</li>
                       <li>Turn off Prevent Cross-Site Tracking.</li>
                       <li>Turn off Hide IP Address.</li>
                       <li>Go Settings &gt; Apps &gt; Safari &gt; Advanced.</li>
                       <li>Turn off Advanced Tracking and Fingerprinting Protection.</li>
                       <li>Turn off Block All Cookies.</li>
-                    </ul>
+                    </ol>
                   </Typography.Paragraph>
                 ),
               },
