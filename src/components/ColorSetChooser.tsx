@@ -11,7 +11,20 @@ import {
   ShareAltOutlined,
 } from '@ant-design/icons';
 import {useAuth0} from '@auth0/auth0-react';
-import {App, Button, Col, Flex, Form, Input, Popconfirm, Row, Space, Spin, Typography} from 'antd';
+import {
+  App,
+  Button,
+  Col,
+  Collapse,
+  Flex,
+  Form,
+  Input,
+  Popconfirm,
+  Row,
+  Space,
+  Spin,
+  Typography,
+} from 'antd';
 import {useEffect, useRef, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
@@ -342,6 +355,30 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
             Help
           </Button>
         </Space>
+
+        {!isAuthLoading && !isAuthenticated && (
+          <Collapse
+            ghost
+            items={[
+              {
+                key: '1',
+                label: 'Having trouble logging in on your iPad or iPhone?',
+                children: (
+                  <Typography.Paragraph>
+                    <ul>
+                      <li>Go to Settings &gt; Apps &gt; Safari &gt; Privacy & Security.</li>
+                      <li>Turn off Prevent Cross-Site Tracking.</li>
+                      <li>Turn off Hide IP Address.</li>
+                      <li>Go Settings &gt; Apps &gt; Safari &gt; Advanced.</li>
+                      <li>Turn off Advanced Tracking and Fingerprinting Protection.</li>
+                      <li>Turn off Block All Cookies.</li>
+                    </ul>
+                  </Typography.Paragraph>
+                ),
+              },
+            ]}
+          />
+        )}
 
         <Typography.Text strong>
           Select your medium, color brands and colors you will paint with and press the{' '}
