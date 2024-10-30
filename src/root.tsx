@@ -27,7 +27,7 @@ Sentry.init({
       maskAllText: false,
     }),
   ],
-  replaysSessionSampleRate: 1.0,
+  replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
 });
 
@@ -59,7 +59,7 @@ root.render(
         <PromiseErrorBoundary>
           <QueryClientProvider client={queryClient}>
             <Auth0Provider
-              domain="artistassistapp.us.auth0.com"
+              domain="auth.artistassistapp.com"
               clientId="oUflXrDaH0qMXfItkjdeoz4rLZXfkUwW"
               authorizationParams={{
                 redirect_uri: window.location.origin,
