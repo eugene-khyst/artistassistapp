@@ -59,10 +59,11 @@ root.render(
         <PromiseErrorBoundary>
           <QueryClientProvider client={queryClient}>
             <Auth0Provider
-              domain="auth.artistassistapp.com"
+              domain="auth.app.artistassistapp.com"
               clientId="oUflXrDaH0qMXfItkjdeoz4rLZXfkUwW"
               authorizationParams={{
                 redirect_uri: window.location.origin,
+                audience: 'https://api.artistassistapp.com/',
                 connection: 'Patreon',
               }}
               useRefreshTokens={true}

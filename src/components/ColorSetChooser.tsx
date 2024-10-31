@@ -368,10 +368,10 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
                     <ol>
                       <li>Go to Settings &gt; Apps &gt; Safari &gt; Privacy & Security.</li>
                       <li>Turn off Prevent Cross-Site Tracking.</li>
-                      <li>Turn off Hide IP Address.</li>
                       <li>Go Settings &gt; Apps &gt; Safari &gt; Advanced.</li>
                       <li>Turn off Advanced Tracking and Fingerprinting Protection.</li>
                       <li>Turn off Block All Cookies.</li>
+                      <li>During login, carefully click the Allow button only once.</li>
                     </ol>
                   </Typography.Paragraph>
                 ),

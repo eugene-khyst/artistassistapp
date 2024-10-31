@@ -68,12 +68,25 @@ export const ArtistAssistApp: React.FC = () => {
   const {showInstallPromotion, promptToInstall} = useInstallPrompt();
   const pwaDisplayMode: DisplayMode = useDisplayMode();
 
-  const {user, isAuthenticated, logout, isLoading: isAuthLoading} = useAuth0<AppUser>();
+  const {
+    user,
+    isAuthenticated,
+    loginWithRedirect,
+    logout,
+    isLoading: isAuthLoading,
+  } = useAuth0<AppUser>();
 
   const isInitializedRef = useRef<boolean>(false);
 
   const [isAdModalReady, setIsAdModalReady] = useState<boolean>(true);
   const [isAdModalOpen, setIsAdModalOpen] = useState<boolean>(true);
+
+  useEffect(() => {
+    const {searchParams} = new URL(window.location.href);
+    if (searchParams.has('login')) {
+      void loginWithRedirect();
+    }
+  }, [loginWithRedirect]);
 
   useEffect(() => {
     if (isAuthLoading || !isAuthenticated) {
