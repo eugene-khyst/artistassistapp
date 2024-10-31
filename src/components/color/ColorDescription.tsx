@@ -6,6 +6,7 @@
 import {Space, Tooltip, Typography} from 'antd';
 
 import {OpacityIcon} from '~/src/components/color/OpacityIcon';
+import {useColorBrands} from '~/src/hooks';
 import type {Color, ColorBrandDefinition} from '~/src/services/color';
 import {formatColorLabel} from '~/src/services/color';
 import {useAppStore} from '~/src/stores/app-store';
@@ -20,11 +21,13 @@ type Props = {
 export const ColorDescription: React.FC<Props> = ({color, text}: Props) => {
   const colorSet = useAppStore(state => state.colorSet);
 
+  const {brands} = useColorBrands(colorSet?.type);
+
   const {brand: brandId, rgb} = color;
-  const brand: ColorBrandDefinition | undefined = colorSet?.brands.get(brandId);
+  const brand: ColorBrandDefinition | undefined = brands?.get(brandId);
 
   if (!brand) {
-    return <></>;
+    return <ColorSquare color="fff" size="large" />;
   }
 
   const {shortName, fullName} = brand;
