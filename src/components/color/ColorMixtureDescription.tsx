@@ -50,14 +50,14 @@ export const ColorMixtureDescription: React.FC<Props> = ({
               <>
                 <Space direction="vertical" size="small">
                   {parts.map(({color, part}: ColorMixturePart, i: number) => {
-                    return <ColorDescription key={i} color={color} text={part} />;
+                    return <ColorDescription colorType={type} key={i} color={color} text={part} />;
                   })}
                 </Space>
                 <Typography.Text>=</Typography.Text>
                 <ColorSquare color={colorMixtureRgb} size="large" />
               </>
             ) : (
-              <ColorDescription color={parts[0].color} />
+              <ColorDescription colorType={type} color={parts[0].color} />
             )}
           </Space>
         </>
@@ -71,7 +71,7 @@ export const ColorMixtureDescription: React.FC<Props> = ({
                 <ColorSquare color={colorMixtureRgb} text={colorMixturePart} size="large" />
                 <Typography.Text>Color mixture</Typography.Text>
               </Space>
-              <ColorDescription color={white} text={whitePart} />
+              <ColorDescription colorType={type} color={white} text={whitePart} />
             </Space>
             <Typography.Text>=</Typography.Text>
             <ColorSquare color={tintRgb} size="large" />
