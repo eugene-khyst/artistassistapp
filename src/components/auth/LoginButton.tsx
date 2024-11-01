@@ -3,15 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {useAuth0} from '@auth0/auth0-react';
 import {Button} from 'antd';
 import type React from 'react';
 
+import {useAuth} from '~/src/hooks/useAuth';
+
 export const LoginButton: React.FC = () => {
-  const {loginWithRedirect} = useAuth0();
+  const {loginWithRedirect} = useAuth();
 
   return (
-    <Button type="primary" onClick={() => void loginWithRedirect()}>
+    <Button type="primary" onClick={() => loginWithRedirect()}>
       Log in with Patreon
     </Button>
   );

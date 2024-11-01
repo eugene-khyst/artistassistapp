@@ -4,8 +4,7 @@
  */
 
 import {API_URL} from '~/src/config';
-import type {AppUser} from '~/src/services/auth';
-import {MEMBERSHIP_CLAIM} from '~/src/services/auth';
+import type {User} from '~/src/services/auth';
 import type {
   Color,
   ColorBrandDefinition,
@@ -134,10 +133,10 @@ export function formatColorLabel(
 }
 
 export function toColorSet(
+  user: User | null,
   {id, type, brands: selectedBrands, colors: selectedColors}: ColorSetDefinition,
   brands?: Map<number, ColorBrandDefinition>,
-  colors?: Map<string, Map<number, ColorDefinition>>,
-  user?: AppUser
+  colors?: Map<string, Map<number, ColorDefinition>>
 ): ColorSet | undefined {
   const selectedColorsArr: [string, number[]][] = Object.entries(selectedColors);
   if (!id || !type || !selectedColorsArr.length || !brands || !colors) {
@@ -146,7 +145,7 @@ export function toColorSet(
   const selectedBrandsMap: Map<number, ColorBrandDefinition> = new Map(
     [...brands].filter(([brandId]) => selectedBrands.includes(brandId))
   );
-  if (!hasAccessToBrands([...selectedBrandsMap.values()], user)) {
+  if (!hasAccessToBrands(user, [...selectedBrandsMap.values()])) {
     return;
   }
   return {
@@ -177,6 +176,6 @@ export function toColorSet(
   };
 }
 
-export function hasAccessToBrands(brands: ColorBrandDefinition[], user?: AppUser): boolean {
-  return !brands.some(({freeTier}) => !freeTier) || !!user?.[MEMBERSHIP_CLAIM]?.active;
+export function hasAccessToBrands(user: User | null, brands: ColorBrandDefinition[]): boolean {
+  return !brands.some(({freeTier}) => !freeTier) || !!user;
 }

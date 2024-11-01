@@ -3,16 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {useAuth0} from '@auth0/auth0-react';
 import {Button} from 'antd';
 import type React from 'react';
 
-export const LogoutButton: React.FC = () => {
-  const {logout} = useAuth0();
+import {useAuth} from '~/src/hooks/useAuth';
 
-  return (
-    <Button onClick={() => void logout({logoutParams: {returnTo: window.location.origin}})}>
-      Log out
-    </Button>
-  );
+export const LogoutButton: React.FC = () => {
+  const {logout} = useAuth();
+
+  return <Button onClick={() => logout()}>Log out</Button>;
 };

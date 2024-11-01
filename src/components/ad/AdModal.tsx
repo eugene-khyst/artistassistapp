@@ -4,15 +4,13 @@
  */
 
 import {CloseOutlined} from '@ant-design/icons';
-import {useAuth0} from '@auth0/auth0-react';
 import {Button, Modal} from 'antd';
 import {type Dispatch, type SetStateAction, useEffect, useState} from 'react';
 
 import {Ad} from '~/src/components/ad/Ad';
 import {useAds} from '~/src/hooks';
+import {useAuth} from '~/src/hooks/useAuth';
 import type {AdDefinition} from '~/src/services/ads';
-import type {AppUser} from '~/src/services/auth';
-import {MEMBERSHIP_CLAIM} from '~/src/services/auth';
 
 const PLACEMENT = 'popup';
 const DEFAULT_PLACEMENT = 'all';
@@ -24,7 +22,7 @@ type Props = {
 };
 
 export const AdModal: React.FC<Props> = ({open, setOpen}: Props) => {
-  const {isLoading: isAuthLoading, isAuthenticated, user} = useAuth0<AppUser>();
+  const {isLoading: isAuthLoading, user} = useAuth();
 
   const {ads: {ads: allAds, placements} = {ads: {}, placements: {}}} = useAds();
 
@@ -51,7 +49,7 @@ export const AdModal: React.FC<Props> = ({open, setOpen}: Props) => {
     .map((adKey: string): AdDefinition | undefined => allAds[adKey])
     .filter((ad): ad is AdDefinition => !!ad);
 
-  if (isAuthLoading || (isAuthenticated && user?.[MEMBERSHIP_CLAIM]?.active) || !ads.length) {
+  if (isAuthLoading || user || !ads.length) {
     return <></>;
   }
   return (

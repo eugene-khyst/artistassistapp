@@ -3,15 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {useAuth0} from '@auth0/auth0-react';
 import {Card, theme} from 'antd';
 import {useContext} from 'react';
 
 import {Ad} from '~/src/components/ad/Ad';
 import {TabContext} from '~/src/contexts/TabContext';
 import {useAds} from '~/src/hooks';
+import {useAuth} from '~/src/hooks/useAuth';
 import type {AdDefinition} from '~/src/services/ads';
-import {type AppUser, MEMBERSHIP_CLAIM} from '~/src/services/auth';
 import type {TabKey} from '~/src/tabs';
 
 const DEFAULT_PLACEMENT = 'all';
@@ -23,7 +22,7 @@ type Props = {
 export const AdCard: React.FC<Props> = ({vertical = false}: Props) => {
   const tab: TabKey = useContext(TabContext);
 
-  const {isLoading: isAuthLoading, isAuthenticated, user} = useAuth0<AppUser>();
+  const {isLoading: isAuthLoading, user} = useAuth();
 
   const {ads: {ads: allAds, placements} = {ads: {}, placements: {}}} = useAds();
 
@@ -36,7 +35,7 @@ export const AdCard: React.FC<Props> = ({vertical = false}: Props) => {
     .map((adKey: string): AdDefinition | undefined => allAds[adKey])
     .filter((ad): ad is AdDefinition => !!ad);
 
-  if (isAuthLoading || (isAuthenticated && user?.[MEMBERSHIP_CLAIM]?.active) || !ads.length) {
+  if (isAuthLoading || user || !ads.length) {
     return <></>;
   }
   return (

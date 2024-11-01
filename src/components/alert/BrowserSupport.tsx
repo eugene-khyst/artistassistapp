@@ -21,6 +21,7 @@ const BROWSER_FEATURES: Record<string, boolean> = {
   OffscreenCanvas: typeof OffscreenCanvas !== 'undefined',
   createImageBitmap: typeof createImageBitmap !== 'undefined',
   indexedDB: typeof indexedDB !== 'undefined',
+  localStorage: typeof localStorage !== 'undefined',
 };
 const IS_BROWSER_SUPPORTED = Object.values(BROWSER_FEATURES).every(value => value);
 

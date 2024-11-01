@@ -3,15 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type {User} from '@auth0/auth0-react';
-
-export const MEMBERSHIP_CLAIM = 'https://artistassistapp.com/membership';
-
-export interface Membership {
-  active?: boolean;
-  expiresAt?: string;
+export interface User {
+  id: string;
+  name?: string;
 }
 
-export interface AppUser extends User {
-  [MEMBERSHIP_CLAIM]?: Membership;
+export class AuthError extends Error {
+  constructor(
+    public type: string,
+    message?: string
+  ) {
+    super(message);
+    this.type = type;
+  }
 }

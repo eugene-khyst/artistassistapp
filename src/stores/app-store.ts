@@ -7,7 +7,7 @@ import type {Remote} from 'comlink';
 import {wrap} from 'comlink';
 import {create} from 'zustand';
 
-import type {AppUser} from '~/src/services/auth';
+import type {User} from '~/src/services/auth';
 import type {
   ColorBrandDefinition,
   ColorDefinition,
@@ -121,10 +121,10 @@ export type AppActions = {
   loadColorSetsByType: (type: ColorType) => Promise<ColorSetDefinition[]>;
   setColorSet: (colorSet: ColorSet, setActiveTabKey?: boolean) => Promise<void>;
   saveColorSet: (
+    user: User | null,
     colorSetDefinition: ColorSetDefinition,
     brands?: Map<number, ColorBrandDefinition>,
-    colors?: Map<string, Map<number, ColorDefinition>>,
-    user?: AppUser
+    colors?: Map<string, Map<number, ColorDefinition>>
   ) => Promise<ColorSetDefinition>;
   deleteColorSet: (idToDelete: number) => Promise<void>;
   setImageFile: (imageFile: ImageFile | null, setActiveTabKey?: boolean) => Promise<void>;
@@ -141,7 +141,7 @@ export type AppActions = {
   addPlayer: (player: Player<File>) => void;
   setScore: (score: Score) => void;
   newTournament: () => void;
-  initAppStore: (user?: AppUser) => Promise<void>;
+  initAppStore: (user: User | null) => Promise<void>;
 };
 
 export const useAppStore = create<AppState & AppActions>((set, get) => ({
@@ -207,10 +207,10 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     await get().setTargetColor(get().targetColor, get().samplingArea);
   },
   saveColorSet: async (
+    user: User | null,
     colorSetDef: ColorSetDefinition,
     brands?: Map<number, ColorBrandDefinition>,
-    colors?: Map<string, Map<number, ColorDefinition>>,
-    user?: AppUser
+    colors?: Map<string, Map<number, ColorDefinition>>
   ): Promise<ColorSetDefinition> => {
     await saveColorSet(colorSetDef);
     set({
@@ -219,7 +219,7 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
         ...get().colorSetsByType.filter(({id}: ColorSetDefinition) => id !== colorSetDef.id),
       ],
     });
-    const colorSet: ColorSet | undefined = toColorSet(colorSetDef, brands, colors, user);
+    const colorSet: ColorSet | undefined = toColorSet(user, colorSetDef, brands, colors);
     if (colorSet) {
       await get().setColorSet(colorSet);
     }
@@ -424,7 +424,7 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     set({tournament: new Tournament()});
     get().updateTournament();
   },
-  initAppStore: async (user?: AppUser): Promise<void> => {
+  initAppStore: async (user: User | null): Promise<void> => {
     set({
       isInitialStateLoading: true,
     });
@@ -456,7 +456,7 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
           type,
           brandAliases
         );
-        const colorSet = toColorSet(latestColorSet, brands, colors, user);
+        const colorSet = toColorSet(user, latestColorSet, brands, colors);
         if (colorSet) {
           void get().setColorSet(colorSet, false);
         }

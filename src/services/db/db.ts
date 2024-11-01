@@ -95,6 +95,9 @@ export async function deleteDatabase(): Promise<void> {
 }
 
 export async function clearDatabase(): Promise<void> {
+  if (typeof indexedDB === 'undefined') {
+    return;
+  }
   const databases: IDBDatabaseInfo[] = await indexedDB.databases();
   for (const {name} of databases) {
     if (name && name !== DB_NAME) {

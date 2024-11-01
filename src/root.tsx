@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Auth0Provider} from '@auth0/auth0-react';
 import * as Sentry from '@sentry/react';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {Alert, App} from 'antd';
@@ -11,7 +10,9 @@ import {StrictMode} from 'react';
 import type {Root} from 'react-dom/client';
 import {createRoot} from 'react-dom/client';
 
+import {BrowserSupport} from '~/src/components/alert/BrowserSupport';
 import {PromiseErrorBoundary} from '~/src/components/alert/PromiseErrorBoundary';
+import {AuthProvider} from '~/src/contexts/AuthProvider';
 import {registerFileHandler} from '~/src/file-handler';
 import {confirmHistoryChange} from '~/src/history';
 import {clearDatabase} from '~/src/services/db';
@@ -57,21 +58,18 @@ root.render(
     <App>
       <Alert.ErrorBoundary>
         <PromiseErrorBoundary>
-          <QueryClientProvider client={queryClient}>
-            <Auth0Provider
-              domain="auth.app.artistassistapp.com"
-              clientId="oUflXrDaH0qMXfItkjdeoz4rLZXfkUwW"
-              authorizationParams={{
-                redirect_uri: window.location.origin,
-                audience: 'https://api.artistassistapp.com/',
-                connection: 'Patreon',
-              }}
-              useRefreshTokens={true}
-              cacheLocation="localstorage"
-            >
-              <ArtistAssistApp />
-            </Auth0Provider>
-          </QueryClientProvider>
+          <BrowserSupport>
+            <QueryClientProvider client={queryClient}>
+              <AuthProvider
+                domain="https://auth.artistassistapp.com"
+                redirectUri={window.location.origin}
+                issuer="https://auth.artistassistapp.com"
+                audience="https://app.artistassistapp.com"
+              >
+                <ArtistAssistApp />
+              </AuthProvider>
+            </QueryClientProvider>
+          </BrowserSupport>
         </PromiseErrorBoundary>
       </Alert.ErrorBoundary>
     </App>

@@ -10,21 +10,7 @@ import {
   SaveOutlined,
   ShareAltOutlined,
 } from '@ant-design/icons';
-import {useAuth0} from '@auth0/auth0-react';
-import {
-  App,
-  Button,
-  Col,
-  Collapse,
-  Flex,
-  Form,
-  Input,
-  Popconfirm,
-  Row,
-  Space,
-  Spin,
-  Typography,
-} from 'antd';
+import {App, Button, Col, Flex, Form, Input, Popconfirm, Row, Space, Spin, Typography} from 'antd';
 import {useEffect, useRef, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
@@ -33,8 +19,7 @@ import {LoginButton} from '~/src/components/auth/LoginButton';
 import {LogoutButton} from '~/src/components/auth/LogoutButton';
 import {ColorSetSelect} from '~/src/components/color-set/ColorSetSelect';
 import {useColorBrands, useColors, useStandardColorSets} from '~/src/hooks';
-import type {AppUser} from '~/src/services/auth';
-import {MEMBERSHIP_CLAIM} from '~/src/services/auth';
+import {useAuth} from '~/src/hooks/useAuth';
 import type {ColorBrandDefinition, ColorSetDefinition, ColorType} from '~/src/services/color';
 import {
   COLOR_MIXING,
@@ -84,7 +69,7 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
 
   const {message, notification} = App.useApp();
 
-  const {user, isAuthenticated, isLoading: isAuthLoading} = useAuth0<AppUser>();
+  const {user, isLoading: isAuthLoading} = useAuth();
 
   const [form] = Form.useForm<ColorSetDefinition>();
   const selectedType = Form.useWatch<ColorType | undefined>('type', form);
@@ -118,7 +103,7 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
     .filter((brand): brand is ColorBrandDefinition => !!brand);
 
   const isAccessAllowed: boolean =
-    !selectedBrands || (!isAuthLoading && hasAccessToBrands(selectedBrands, user));
+    !selectedBrands || (!isAuthLoading && hasAccessToBrands(user, selectedBrands));
 
   const selectedBrandAliases: string[] | undefined = selectedBrands?.map(brand => brand.alias);
 
@@ -272,13 +257,13 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
     const {id, ...colorSet} = values;
     form.setFieldsValue(
       await saveColorSet(
+        user,
         {
           ...colorSet,
           ...(id ? {id} : {}),
         },
         brands,
-        colors,
-        user
+        colors
       )
     );
   };
@@ -317,11 +302,20 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
             outline, draw with the grid method, paint with a limited palette, simplify a photo,
             compare photos pairwise, and more.
           </Typography.Text>
-          {!isAuthLoading && !isAuthenticated ? (
+          {!isAuthLoading && !user ? (
             <Typography.Text strong>
               Join ArtistAssistApp on Patreon as a paid member and get full access to all available
               color brands and app features without ads. Or log in with Patreon if you&apos;ve
               already joined.
+              <br />
+              Having trouble logging into ArtistAssistApp? Please read this{' '}
+              <Typography.Link
+                href="https://www.patreon.com/posts/having-trouble-115178129"
+                target="_blank"
+              >
+                guide
+              </Typography.Link>
+              .
             </Typography.Text>
           ) : (
             <Typography.Text strong>
@@ -332,7 +326,7 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
 
         <Space size="small" wrap>
           {!isAuthLoading &&
-            (isAuthenticated ? (
+            (user ? (
               <LogoutButton />
             ) : (
               <>
@@ -355,30 +349,6 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
             Help
           </Button>
         </Space>
-
-        {!isAuthLoading && !isAuthenticated && (
-          <Collapse
-            ghost
-            items={[
-              {
-                key: '1',
-                label: 'Having trouble logging in on your iPad or iPhone?',
-                children: (
-                  <Typography.Paragraph>
-                    <ol>
-                      <li>Go to Settings &gt; Apps &gt; Safari &gt; Privacy & Security.</li>
-                      <li>Turn off Prevent Cross-Site Tracking.</li>
-                      <li>Go Settings &gt; Apps &gt; Safari &gt; Advanced.</li>
-                      <li>Turn off Advanced Tracking and Fingerprinting Protection.</li>
-                      <li>Turn off Block All Cookies.</li>
-                      <li>During login, carefully click the Allow button only once.</li>
-                    </ol>
-                  </Typography.Paragraph>
-                ),
-              },
-            ]}
-          />
-        )}
 
         <Typography.Text strong>
           Select your medium, color brands and colors you will paint with and press the{' '}
@@ -440,7 +410,7 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
                   dependencies={['type']}
                   help={
                     !isAuthLoading &&
-                    !isAuthenticated &&
+                    !user &&
                     (!isAccessAllowed ? (
                       <Typography.Text type="warning">
                         You&apos;ve selected color brands that are available to paid Patreon members
@@ -483,7 +453,7 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
                   help={
                     !brand.freeTier &&
                     !isAuthLoading &&
-                    !isAuthenticated && (
+                    !user && (
                       <Typography.Text type="warning">
                         This color brand is available to paid Patreon members only.
                       </Typography.Text>
@@ -494,7 +464,7 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
                     mode="multiple"
                     colors={colors.get(brand.alias)}
                     brand={brand}
-                    disabled={!user?.[MEMBERSHIP_CLAIM]?.active && !brand.freeTier}
+                    disabled={!user && !brand.freeTier}
                   />
                 </Form.Item>
               ))}

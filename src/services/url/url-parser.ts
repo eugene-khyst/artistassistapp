@@ -103,8 +103,11 @@ export function importFromUrl(): UrlParsingResult {
   const importedFromUrl: UrlParsingResult = parseUrl(window.location.toString());
   const {colorSet, tabKey} = importedFromUrl;
   if (colorSet || tabKey) {
-    window.history.replaceState({}, '', '/');
-    window.history.pushState({}, '');
+    replaceHistory();
   }
   return importedFromUrl;
+}
+
+export function replaceHistory(): void {
+  window.history.replaceState({}, '', '/');
 }

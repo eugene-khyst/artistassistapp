@@ -4,7 +4,6 @@
  */
 
 import {FullscreenExitOutlined, FullscreenOutlined} from '@ant-design/icons';
-import {useAuth0} from '@auth0/auth0-react';
 import type {TabsProps} from 'antd';
 import {App, Col, FloatButton, Row, Tabs, theme} from 'antd';
 import {useEffect, useRef, useState} from 'react';
@@ -16,14 +15,12 @@ import {ImagesCompare} from '~/src/components/ImagesCompare';
 import {Install} from '~/src/components/Install';
 import {TabContext} from '~/src/contexts/TabContext';
 import {useFullScreen} from '~/src/hooks';
+import {useAuth} from '~/src/hooks/useAuth';
 import {useInstallPrompt} from '~/src/hooks/useInstallPrompt';
 import {useDisplayMode} from '~/src/hooks/usePwaDisplayMode';
-import type {AppUser} from '~/src/services/auth';
-import {MEMBERSHIP_CLAIM} from '~/src/services/auth';
 import {useAppStore} from '~/src/stores/app-store';
 import {DisplayMode} from '~/src/utils';
 
-import {BrowserSupport} from './components/alert/BrowserSupport';
 import {ColorMixer} from './components/ColorMixer';
 import {ColorSetChooser} from './components/ColorSetChooser';
 import {Help} from './components/Help';
@@ -37,18 +34,7 @@ import {Palette} from './components/Palette';
 import {WATERMARK_TEXT} from './config';
 import {TAB_LABELS, TabKey} from './tabs';
 
-enum AuthError {
-  Inactive = 'INACTIVE',
-  Expired = 'EXPIRED',
-}
-
-const AUTH_ERROR_MESSAGES: Partial<Record<AuthError, string>> = {
-  [AuthError.Inactive]:
-    'You have not yet joined ArtistAssistApp on Patreon as a paid member. Join and log in again.',
-  [AuthError.Expired]: 'Your session has expired. Please log in again.',
-};
-const AUTH_ERROR_KEY = 'AuthError';
-const DEFAULT_EXPIRY_ADJUSTMENT = 1 * 24 * 60 * 60 * 1000;
+const AD_POPUP_INITIAL_DELAY = 1 * 60000;
 const AD_POPUP_INTERVAL = 15 * 60000;
 
 export const ArtistAssistApp: React.FC = () => {
@@ -68,75 +54,43 @@ export const ArtistAssistApp: React.FC = () => {
   const {showInstallPromotion, promptToInstall} = useInstallPrompt();
   const pwaDisplayMode: DisplayMode = useDisplayMode();
 
-  const {
-    user,
-    isAuthenticated,
-    loginWithRedirect,
-    logout,
-    isLoading: isAuthLoading,
-  } = useAuth0<AppUser>();
+  const {user, isLoading: isAuthLoading, error: authError} = useAuth();
 
-  const isInitializedRef = useRef<boolean>(false);
+  const isInitialized = useRef<boolean>(false);
 
-  const [isAdModalReady, setIsAdModalReady] = useState<boolean>(true);
+  const [isAdModalReady, setIsAdModalReady] = useState<boolean>(false);
   const [isAdModalOpen, setIsAdModalOpen] = useState<boolean>(true);
 
   useEffect(() => {
-    const {searchParams} = new URL(window.location.href);
-    if (searchParams.has('login')) {
-      void loginWithRedirect();
-    }
-  }, [loginWithRedirect]);
-
-  useEffect(() => {
-    if (isAuthLoading || !isAuthenticated) {
-      return;
-    }
-    const {active, expiresAt} = user?.[MEMBERSHIP_CLAIM] || {};
-    let authError: AuthError | undefined;
-    if (!active) {
-      authError = AuthError.Inactive;
-    } else if (
-      expiresAt &&
-      new Date(expiresAt) < new Date(Date.now() - DEFAULT_EXPIRY_ADJUSTMENT)
-    ) {
-      authError = AuthError.Expired;
-    }
-    if (authError) {
-      localStorage.setItem(AUTH_ERROR_KEY, authError);
-      void logout({logoutParams: {returnTo: window.location.origin}});
-    }
-  }, [isAuthLoading, isAuthenticated, user, logout]);
-
-  useEffect(() => {
     void (async () => {
-      const authError: string | null = localStorage.getItem(AUTH_ERROR_KEY);
-      localStorage.removeItem(AUTH_ERROR_KEY);
-      const errorMessage: string | null | undefined =
-        authError && AUTH_ERROR_MESSAGES[authError as AuthError];
-      if (errorMessage) {
-        setIsAdModalReady(false);
+      if (authError) {
         await modal.warning({
           title: 'Login failed',
-          content: errorMessage,
+          content: authError,
         });
-        setIsAdModalReady(true);
       }
     })();
-  }, [modal]);
+  }, [authError, modal]);
 
   useEffect(() => {
-    if (isAdModalReady && !isAdModalOpen) {
-      const timeoutId = setTimeout(() => setIsAdModalOpen(true), AD_POPUP_INTERVAL);
-      return () => clearInterval(timeoutId);
-    }
-  }, [isAdModalReady, isAdModalOpen]);
+    const timeoutId = setTimeout(() => setIsAdModalReady(true), AD_POPUP_INITIAL_DELAY);
+    return () => clearTimeout(timeoutId);
+  }, []);
 
   useEffect(() => {
-    if (isAuthLoading || isInitializedRef.current) {
+    if (!isAdModalReady) {
       return;
     }
-    isInitializedRef.current = true;
+    const intervalId = setInterval(() => setIsAdModalOpen(true), AD_POPUP_INTERVAL);
+    return () => clearInterval(intervalId);
+  }, [isAdModalReady]);
+
+  useEffect(() => {
+    if (isAuthLoading || isInitialized.current) {
+      return;
+    }
+    isInitialized.current = true;
+
     void initAppStore(user);
   }, [isAuthLoading, user, initAppStore]);
 
@@ -219,7 +173,7 @@ export const ArtistAssistApp: React.FC = () => {
   );
 
   return (
-    <BrowserSupport>
+    <>
       <div className="watermark">{WATERMARK_TEXT}</div>
       <Row justify="center">
         <Col xs={24} xxl={18}>
@@ -240,6 +194,6 @@ export const ArtistAssistApp: React.FC = () => {
         style={{right: 24, bottom: 24}}
       />
       <AdModal open={isAdModalReady && isAdModalOpen} setOpen={setIsAdModalOpen} />
-    </BrowserSupport>
+    </>
   );
 };
