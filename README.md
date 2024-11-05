@@ -119,7 +119,7 @@ Try it now at [ArtistAssistApp.com](https://artistassistapp.com)
 
 ### <a id="3-11"></a>Share your color set with others or between your devices
 
-![ArtistAssistApp: Share color set](https://github.com/user-attachments/assets/aa3e9195-6476-4b84-983b-64ec1f5d6bec)
+![ArtistAssistApp: Share color set](https://github.com/user-attachments/assets/dbdf3e07-88ec-45b6-ba25-6203039818c0)
 
 ### <a id="3-12"></a>Install ArtistAssistApp on your device
 
