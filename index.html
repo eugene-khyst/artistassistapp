@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ArtistAssistApp</title>
+    <meta
+      name="description"
+      content="ArtistAssistApp: web app for artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
+    />
+    <meta property="og:title" content="Painting and Drawing Assistant App 🎨🖌️ ArtistAssistApp" />
+    <meta
+      property="og:description"
+      content="ArtistAssistApp: web app for artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://app.artistassistapp.com" />
+    <meta property="og:image" content="/assets/images/logo-1200x630.webp" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png" />
+    <link rel="icon" href="/assets/favicon/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/favicon/favicon.svg" sizes="any" type="image/svg+xml" />
+    <link rel="manifest" href="/app.webmanifest" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "@id": "https://app.artistassistapp.com/#webapplication",
+        "name": "ArtistAssistApp",
+        "url": "https://app.artistassistapp.com/",
+        "browserRequirements": "Requires an up-to-date version of Google Chrome, Firefox, Opera, Samsung Internet or Microsoft Edge.",
+        "sameAs": "https://artistassistapp.com/",
+        "applicationCategory": "DesignApplication",
+        "applicationSubCategory": "Painting and drawing assistant app",
+        "operatingSystem": "Windows, macOS, Linux, iOS, Android, ChromeOS",
+        "memoryRequirements": "2-GB",
+        "copyrightHolder": {
+          "@type": "Person",
+          "@id": "https://github.com/eugene-khyst#person",
+          "name": "Eugene Khyst",
+          "image": "https://github.com/eugene-khyst.png",
+          "jobTitle": "Principal Software Engineer and Software Architect",
+          "sameAs": ["https://github.com/eugene-khyst", "https://www.linkedin.com/in/eugene-khyst/"]
+        },
+        "creator": {"@id": "https://github.com/eugene-khyst#person"},
+        "offers": {
+          "@type": "Offer",
+          "price": "0"
+        }
+      }
+    </script>
+  </body>
+</html>
