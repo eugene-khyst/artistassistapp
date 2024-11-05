@@ -71,7 +71,7 @@
       "prettier --write"
     ],
     "**/*.{ts,tsx}": [
-      "tsc-files --noEmit",
+      "sh -c 'tsc-files --noEmit $(ls -d ./**/* | grep .d.ts) $0 $@'",
       "eslint --fix",
       "prettier --write"
     ],

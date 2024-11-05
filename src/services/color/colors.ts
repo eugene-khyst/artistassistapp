@@ -130,12 +130,12 @@ export function formatColorLabel(
   {id, name}: ColorDefinition | Color,
   {idFormat = {}}: ColorBrandDefinition
 ): string {
-  const {show, prefix, padLength, splitAt}: ColorIdFormat = {
+  const {show, prefix, suffix, padLength, splitAt}: ColorIdFormat = {
     show: true,
     ...idFormat,
   };
   if (show) {
-    let idStr = `${prefix ? prefix : ''}${padLength ? String(id).padStart(padLength, '0') : id}`;
+    let idStr = `${prefix ?? ''}${padLength ? String(id).padStart(padLength, '0') : id}${suffix ?? ''}`;
     if (splitAt && idStr.length > splitAt) {
       idStr = `${idStr.substring(0, splitAt)}-${idStr.substring(splitAt)}`;
     }

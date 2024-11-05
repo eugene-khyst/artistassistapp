@@ -44,6 +44,7 @@ export interface ColorTypeDefinition {
 export interface ColorIdFormat {
   show?: boolean;
   prefix?: string;
+  suffix?: string;
   padLength?: number;
   splitAt?: number;
 }
