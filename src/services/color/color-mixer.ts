@@ -79,7 +79,7 @@ const FRACTIONS: Fraction[] = [
   [3, 4],
 ];
 
-export const THREE_COLORS_MIXTURES_LIMIT = 36;
+export const THREE_COLORS_MIXTURES_LIMIT = 28;
 
 export const PAPER_WHITE_HEX = 'F7F5EF';
 
