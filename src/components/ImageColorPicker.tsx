@@ -36,6 +36,7 @@ import type {SliderMarks} from 'antd/es/slider';
 import {useCallback, useEffect, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
+import {ReflectanceChartDrawer} from '~/src/components/color/ReflectanceChartDrawer';
 import {useZoomableImageCanvas} from '~/src/hooks';
 import type {PipetPointSetEvent} from '~/src/services/canvas/image';
 import {
@@ -43,16 +44,17 @@ import {
   ImageColorPickerCanvas,
   MIN_COLOR_PICKER_DIAMETER,
 } from '~/src/services/canvas/image';
-import type {SamplingArea, SimilarColor} from '~/src/services/color';
+import type {ColorMixture, SamplingArea, SimilarColor} from '~/src/services/color';
 import {
   COLOR_MIXING,
   compareSimilarColorsByColorMixturePartLength,
   compareSimilarColorsByConsistency,
-  compareSimilarColorsByDeltaE,
+  compareSimilarColorsBySimilarity,
   PAPER_WHITE_HEX,
 } from '~/src/services/color';
 import {getAppSettings, saveAppSettings} from '~/src/services/db';
 import {Vector} from '~/src/services/math';
+import {ColorPickerSort} from '~/src/services/settings';
 import {useAppStore} from '~/src/stores/app-store';
 
 import {SimilarColorCard} from './color/SimilarColorCard';
@@ -64,22 +66,19 @@ const SAMPLE_DIAMETER_SLIDER_MARKS: SliderMarks = Object.fromEntries(
   [1, 10, 20, 30, 40, 50].map((i: number) => [i, i])
 );
 
-enum Sort {
-  BySimilarity = 1,
-  ByNumberOfColors = 2,
-  ByConsistency = 3,
-}
-
-const SIMILAR_COLORS_COMPARATORS: Record<Sort, (a: SimilarColor, b: SimilarColor) => number> = {
-  [Sort.BySimilarity]: compareSimilarColorsByDeltaE,
-  [Sort.ByNumberOfColors]: compareSimilarColorsByColorMixturePartLength,
-  [Sort.ByConsistency]: compareSimilarColorsByConsistency,
+const SIMILAR_COLORS_COMPARATORS: Record<
+  ColorPickerSort,
+  (a: SimilarColor, b: SimilarColor) => number
+> = {
+  [ColorPickerSort.BySimilarity]: compareSimilarColorsBySimilarity,
+  [ColorPickerSort.ByNumberOfColors]: compareSimilarColorsByColorMixturePartLength,
+  [ColorPickerSort.ByConsistency]: compareSimilarColorsByConsistency,
 };
 
 const SORT_OPTIONS: SelectOptionType[] = [
-  {value: Sort.BySimilarity, label: 'Similarity'},
-  {value: Sort.ByNumberOfColors, label: 'Color count'},
-  {value: Sort.ByConsistency, label: 'Thickness'},
+  {value: ColorPickerSort.BySimilarity, label: 'Similarity'},
+  {value: ColorPickerSort.ByNumberOfColors, label: 'Color count'},
+  {value: ColorPickerSort.ByConsistency, label: 'Thickness'},
 ];
 
 function getSamplingArea(colorPickerCanvas?: ImageColorPickerCanvas): SamplingArea | null {
@@ -128,19 +127,24 @@ export const ImageColorPicker: React.FC = () => {
     useZoomableImageCanvas<ImageColorPickerCanvas>(imageColorPickerCanvasSupplier, originalImage);
 
   const [sampleDiameter, setSampleDiameter] = useState<number>(DEFAULT_SAMPLE_DIAMETER);
-  const [sort, setSort] = useState<Sort>(Sort.BySimilarity);
+  const [sort, setSort] = useState<ColorPickerSort>(ColorPickerSort.BySimilarity);
+  const [reflectanceChartColorMixture, setReflectanceChartColorMixture] = useState<ColorMixture>();
+  const [isOpenReflectanceChart, setIsOpenReflectanceChart] = useState<boolean>(false);
 
   const isLoading: boolean =
-    isOriginalImageLoading ||
     isColorMixerSetLoading ||
     isColorMixerBackgroundLoading ||
+    isOriginalImageLoading ||
     isSimilarColorsLoading;
 
   useEffect(() => {
     void (async () => {
-      const {colorPickerDiameter} = (await getAppSettings()) ?? {};
+      const {colorPickerDiameter, colorPickerSort} = (await getAppSettings()) ?? {};
       if (colorPickerDiameter) {
         setSampleDiameter(colorPickerDiameter);
+      }
+      if (colorPickerSort) {
+        setSort(colorPickerSort);
       }
     })();
   }, []);
@@ -160,9 +164,19 @@ export const ImageColorPicker: React.FC = () => {
     setSampleDiameter(diameter);
   }, [colorPickerCanvas, colorPickerPipet]);
 
+  const handleReflectanceChartClick = useCallback((colorMixture?: ColorMixture) => {
+    setReflectanceChartColorMixture(colorMixture);
+    setIsOpenReflectanceChart(true);
+  }, []);
+
   const handleSampleDiameterChange = (colorPickerDiameter: number) => {
     setSampleDiameter(colorPickerDiameter);
     void saveAppSettings({colorPickerDiameter});
+  };
+
+  const handleSortChange = (colorPickerSort: ColorPickerSort) => {
+    setSort(colorPickerSort);
+    void saveAppSettings({colorPickerSort});
   };
 
   const handleTargetColorChange = (color: string) => {
@@ -180,142 +194,143 @@ export const ImageColorPicker: React.FC = () => {
   const margin = screens.sm ? 0 : 8;
 
   return (
-    <Spin
-      spinning={isLoading}
-      tip="Loading"
-      indicator={<LoadingOutlined spin />}
-      size="large"
-      delay={300}
-    >
-      <Row>
-        <Col xs={24} sm={12} lg={16}>
-          <canvas
-            ref={canvasRef}
+    <>
+      <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">
+        <Row>
+          <Col xs={24} sm={12} lg={16}>
+            <canvas
+              ref={canvasRef}
+              style={{
+                width: '100%',
+                height,
+                marginBottom: margin,
+              }}
+            />
+          </Col>
+          <Col
+            xs={24}
+            sm={12}
+            lg={8}
             style={{
-              width: '100%',
-              height,
-              marginBottom: margin,
+              maxHeight: height,
+              marginTop: margin,
+              overflowY: 'auto',
             }}
-          />
-        </Col>
-        <Col
-          xs={24}
-          sm={12}
-          lg={8}
-          style={{
-            maxHeight: height,
-            marginTop: margin,
-            overflowY: 'auto',
-          }}
-        >
-          <Space direction="vertical" style={{padding: '0 16px 16px'}}>
-            <Space align="start" wrap style={{display: 'flex'}}>
-              <Form.Item
-                label="Background"
-                tooltip="The color of paper or canvas, or the color of the base layer when glazed."
-                style={{marginBottom: 0}}
-              >
-                <ColorPicker
-                  value={glazing ? backgroundColor : PAPER_WHITE_HEX}
-                  presets={[
-                    {
-                      label: 'Paper white',
-                      colors: [PAPER_WHITE_HEX],
-                    },
-                  ]}
-                  onChangeComplete={(color: Color) => {
-                    void setBackgroundColor(color.toHexString());
-                  }}
-                  showText
-                  disabledAlpha
-                  disabled={!glazing}
-                />
-              </Form.Item>
-              <Form.Item style={{marginBottom: 0}}>
-                <Button
-                  icon={<BgColorsOutlined />}
-                  title="Set paper white background"
-                  onClick={() => {
-                    void setBackgroundColor(PAPER_WHITE_HEX);
-                  }}
-                  disabled={!glazing}
+          >
+            <Space direction="vertical" style={{padding: '0 16px 16px'}}>
+              <Space align="start" wrap style={{display: 'flex'}}>
+                <Form.Item
+                  label="Background"
+                  tooltip="The color of paper or canvas, or the color of the base layer when glazed."
+                  style={{marginBottom: 0}}
                 >
-                  White
-                </Button>
-              </Form.Item>
-            </Space>
-            <Form.Item
-              label="Diameter"
-              tooltip="The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
-              style={{marginBottom: 0}}
-            >
-              <Slider
-                value={sampleDiameter}
-                onChange={(value: number) => {
-                  handleSampleDiameterChange(value);
-                }}
-                min={MIN_COLOR_PICKER_DIAMETER}
-                max={MAX_SAMPLE_DIAMETER}
-                marks={SAMPLE_DIAMETER_SLIDER_MARKS}
-                style={{width: 250}}
-              />
-            </Form.Item>
-            <Space align="center" wrap style={{display: 'flex'}}>
-              <Form.Item
-                label="Color"
-                tooltip="The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
-                style={{marginBottom: 0}}
-              >
-                <ColorPicker
-                  value={targetColor}
-                  onChangeComplete={(color: Color) => {
-                    handleTargetColorChange(color.toHexString());
-                  }}
-                  showText
-                  disabledAlpha
-                />
-              </Form.Item>
-              <Form.Item
-                label="Sort"
-                tooltip="Sort by similarity of the mix to the target color or by the number of colors in the mix."
-                style={{marginBottom: 0}}
-              >
-                <Select
-                  value={sort}
-                  onChange={(value: Sort) => {
-                    setSort(value);
-                  }}
-                  options={SORT_OPTIONS}
-                  style={{width: 110}}
-                />
-              </Form.Item>
-            </Space>
-            {!isSimilarColorsLoading && !similarColors.length ? (
-              <Space direction="vertical" style={{margin: '8px 0'}}>
-                <Typography.Text strong>⁉️ No data</Typography.Text>
-                <Typography.Text>
-                  Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose
-                  a target color to mix from your colors.
-                </Typography.Text>
-                <Typography.Text>
-                  🔎 Pinch to zoom (or use the mouse wheel) and drag to pan
-                </Typography.Text>
-              </Space>
-            ) : (
-              similarColors
-                .slice()
-                .sort(SIMILAR_COLORS_COMPARATORS[sort])
-                .map((similarColor: SimilarColor) => (
-                  <SimilarColorCard
-                    key={similarColor.colorMixture.key}
-                    similarColor={similarColor}
+                  <ColorPicker
+                    value={glazing ? backgroundColor : PAPER_WHITE_HEX}
+                    presets={[
+                      {
+                        label: 'Paper white',
+                        colors: [PAPER_WHITE_HEX],
+                      },
+                    ]}
+                    onChangeComplete={(color: Color) => {
+                      void setBackgroundColor(color.toHexString());
+                    }}
+                    showText
+                    disabledAlpha
+                    disabled={!glazing}
                   />
-                ))
-            )}
-            <AdCard vertical />
-          </Space>
-        </Col>
-      </Row>
-    </Spin>
+                </Form.Item>
+                <Form.Item style={{marginBottom: 0}}>
+                  <Button
+                    icon={<BgColorsOutlined />}
+                    title="Set paper white background"
+                    onClick={() => {
+                      void setBackgroundColor(PAPER_WHITE_HEX);
+                    }}
+                    disabled={!glazing}
+                  >
+                    White
+                  </Button>
+                </Form.Item>
+              </Space>
+              <Form.Item
+                label="Diameter"
+                tooltip="The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
+                style={{marginBottom: 0}}
+              >
+                <Slider
+                  value={sampleDiameter}
+                  onChange={handleSampleDiameterChange}
+                  min={MIN_COLOR_PICKER_DIAMETER}
+                  max={MAX_SAMPLE_DIAMETER}
+                  marks={SAMPLE_DIAMETER_SLIDER_MARKS}
+                  style={{width: 250}}
+                />
+              </Form.Item>
+              <Space align="center" wrap style={{display: 'flex'}}>
+                <Form.Item
+                  label="Color"
+                  tooltip="The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
+                  style={{marginBottom: 0}}
+                >
+                  <ColorPicker
+                    value={targetColor}
+                    onChangeComplete={(color: Color) => {
+                      handleTargetColorChange(color.toHexString());
+                    }}
+                    showText
+                    disabledAlpha
+                  />
+                </Form.Item>
+                <Form.Item
+                  label="Sort"
+                  tooltip="Sort by similarity of the mix to the target color or by the number of colors in the mix."
+                  style={{marginBottom: 0}}
+                >
+                  <Select
+                    value={sort}
+                    onChange={handleSortChange}
+                    options={SORT_OPTIONS}
+                    style={{width: 110}}
+                  />
+                </Form.Item>
+              </Space>
+              {!isSimilarColorsLoading && !similarColors.length ? (
+                <Space direction="vertical" style={{margin: '8px 0'}}>
+                  <Typography.Text strong>⁉️ No data</Typography.Text>
+                  <Typography.Text>
+                    Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to
+                    choose a target color to mix from your colors.
+                  </Typography.Text>
+                  <Typography.Text>
+                    🔎 Pinch to zoom (or use the mouse wheel) and drag to pan
+                  </Typography.Text>
+                </Space>
+              ) : (
+                similarColors
+                  .slice()
+                  .sort(SIMILAR_COLORS_COMPARATORS[sort])
+                  .map((similarColor: SimilarColor) => (
+                    <SimilarColorCard
+                      key={similarColor.colorMixture.key}
+                      similarColor={similarColor}
+                      onReflectanceChartClick={handleReflectanceChartClick}
+                    />
+                  ))
+              )}
+              <AdCard vertical />
+            </Space>
+          </Col>
+        </Row>
+      </Spin>
+      <ReflectanceChartDrawer
+        colorMixture={reflectanceChartColorMixture}
+        targetColor={targetColor}
+        open={isOpenReflectanceChart}
+        onClose={() => {
+          setIsOpenReflectanceChart(false);
+        }}
+      />
+    </>
   );
 };

@@ -23,7 +23,7 @@ import {linearizeRgbChannel as linearize, Rgb, unlinearizeRgbChannel as unlinear
 const MAX_ITERATIONS = 100;
 const FUNCTION_SOLUTION_TOLERANCE = 1.0e-8;
 
-const RHO_TO_LINEAR_RGB: Matrix = new Matrix([
+const RHO_TO_LINEAR_RGB = new Matrix([
   [
     5.47813e-5, 0.000184722, 0.000935514, 0.003096265, 0.009507714, 0.017351596, 0.022073595,
     0.016353161, 0.002002407, -0.016177731, -0.033929391, -0.046158952, -0.06381706, -0.083911194,
@@ -51,6 +51,62 @@ const RHO_TO_LINEAR_RGB: Matrix = new Matrix([
 ]);
 
 const RHO_TO_LINEAR_RGB_TRANSPOSE: Matrix = RHO_TO_LINEAR_RGB.transpose();
+
+const CIE_CMF_Y = new Matrix([
+  [
+    0.00000184, 0.00000621, 0.00003101, 0.00010475, 0.00035364, 0.00095147, 0.00228226, 0.00420733,
+    0.0066888, 0.0098884, 0.01524945, 0.02141831, 0.03342293, 0.05131001, 0.07040208, 0.08783871,
+    0.09424905, 0.09795667, 0.09415219, 0.08678102, 0.07885653, 0.0635267, 0.05374142, 0.04264606,
+    0.03161735, 0.02088521, 0.01386011, 0.00810264, 0.0046301, 0.00249138, 0.0012593, 0.00054165,
+    0.00027795, 0.00014711, 0.00006103, 0.00003439,
+  ],
+]);
+
+const MAX_EUCLIDEAN_DISTANCE = 6;
+
+function linearToConcentration(t: number, luminance1: number, luminance2: number) {
+  const t1 = luminance1 * (1 - t) ** 2;
+  const t2 = luminance2 * t ** 2;
+  return t2 / (t1 + t2);
+}
+
+function euclideanDistance(rho1: Matrix, rho2: Matrix): number {
+  let distanceSq = 0;
+  for (let i = 0; i < 36; i++) {
+    const r1 = rho1.get(i, 0)!;
+    const r2 = rho2.get(i, 0)!;
+    distanceSq += (r1 - r2) ** 2;
+  }
+  return Math.sqrt(distanceSq);
+}
+
+function cosineSimilarity(rho1: Matrix, rho2: Matrix): number {
+  let dotProduct = 0;
+  let magnitudeY1 = 0;
+  let magnitudeY2 = 0;
+  for (let i = 0; i < 36; i++) {
+    const r1 = rho1.get(i, 0)!;
+    const r2 = rho2.get(i, 0)!;
+    dotProduct += r1 * r2;
+    magnitudeY1 += r1 ** 2;
+    magnitudeY2 += r2 ** 2;
+  }
+  return magnitudeY1 !== 0 && magnitudeY2 !== 0
+    ? dotProduct / (Math.sqrt(magnitudeY1) * Math.sqrt(magnitudeY2))
+    : 0;
+}
+
+function validateRatios(reflectances: Reflectance[], ratios: number[]) {
+  if (!reflectances.length) {
+    throw new Error('Reflectances must not be empty');
+  }
+  if (reflectances.length !== ratios.length) {
+    throw new Error('Reflectances size must match ratios size');
+  }
+  if (ratios.includes(0)) {
+    throw new Error('Ratio must not be 0');
+  }
+}
 
 export class Reflectance {
   static WHITE = new Reflectance(Matrix.ones(36, 1));
@@ -87,11 +143,9 @@ export class Reflectance {
 
     while (iteration < MAX_ITERATIONS) {
       const d0: Matrix = z.map((v: number) => (Math.tanh(v) + 1) / 2);
-      const d1: Matrix = Matrix.diag(
-        z.map((v: number) => Math.pow(1 / Math.cosh(v), 2) / 2).flatten()
-      );
+      const d1: Matrix = Matrix.diag(z.map((v: number) => (1 / Math.cosh(v)) ** 2 / 2).flatten());
       const d2: Matrix = Matrix.diag(
-        z.map((v: number) => -Math.pow(1 / Math.cosh(v), 2) * Math.tanh(v)).flatten()
+        z.map((v: number) => -((1 / Math.cosh(v)) ** 2) * Math.tanh(v)).flatten()
       );
 
       const f: Matrix = d
@@ -135,14 +189,55 @@ export class Reflectance {
     return this.rho.flatten();
   }
 
-  static mixSubtractively(reflectances: Reflectance[], ratio: number[]): Reflectance {
-    if (ratio.includes(0)) {
-      throw new Error(`Can't mix reflectance with 0 part: ${ratio.join(',')}`);
+  calculateSimilarity({rho}: Reflectance, scalar = 100): number {
+    const distance = euclideanDistance(this.rho, rho);
+    const cosSim = cosineSimilarity(this.rho, rho);
+    const normDistance = 1 - distance / MAX_EUCLIDEAN_DISTANCE;
+    const normCosSim = (cosSim + 1) / 2;
+    return scalar * Math.sqrt(normDistance * normCosSim);
+  }
+
+  getLuminance() {
+    return CIE_CMF_Y.multiply(this.rho).get(0, 0)!;
+  }
+
+  mixWith(reflectance: Reflectance, t: number): Reflectance {
+    const luminance1 = this.getLuminance();
+    const luminance2 = reflectance.getLuminance();
+    const concentration: number = linearToConcentration(t, luminance1, luminance2);
+    const rhoMix = Matrix.zeros(36, 1);
+    for (let i = 0; i < 36; i++) {
+      const r1 = this.rho.get(i, 0)!;
+      const r2 = reflectance.rho.get(i, 0)!;
+      const ks =
+        (1 - concentration) * ((1 - r1) ** 2 / (2 * r1)) +
+        concentration * ((1 - r2) ** 2 / (2 * r2));
+      const rMix = 1 + ks - Math.sqrt(ks ** 2 + 2 * ks);
+      rhoMix.set(i, 0, rMix);
     }
+    return new Reflectance(rhoMix);
+  }
 
-    const total: number = ratio.reduce((a: number, b: number) => a + b, 0);
-    const weights: number[] = ratio.map((weight: number) => weight / total);
+  static mixKM(reflectances: Reflectance[], ratios: number[]): Reflectance {
+    validateRatios(reflectances, ratios);
+    if (reflectances.length === 1) {
+      return reflectances[0]!;
+    }
+    let reflectance1 = reflectances[0]!;
+    let ratio1 = ratios[0]!;
+    for (let i = 1; i < reflectances.length; i++) {
+      const reflectance2 = reflectances[i]!;
+      const ratio2 = ratios[i]!;
+      reflectance1 = reflectance1.mixWith(reflectance2, ratio2 / (ratio1 + ratio2));
+      ratio1 += ratio2;
+    }
+    return reflectance1;
+  }
 
+  static mixWGM(reflectances: Reflectance[], ratios: number[]): Reflectance {
+    validateRatios(reflectances, ratios);
+    const total: number = ratios.reduce((a: number, b: number) => a + b, 0);
+    const weights: number[] = ratios.map((weight: number) => weight / total);
     let rhoMix: Matrix = reflectances[0]!.rho.map((v: number) => Math.pow(v, weights[0]!));
     for (let i = 1; i < reflectances.length; i++) {
       rhoMix = rhoMix.dotMultiply(

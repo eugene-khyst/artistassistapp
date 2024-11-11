@@ -82,7 +82,7 @@ export const ImageBackgroundRemove: React.FC = () => {
   };
 
   return (
-    <Spin spinning={isLoading} percent={loadingPercent} tip={loadingTip} size="large" delay={300}>
+    <Spin spinning={isLoading} percent={loadingPercent} tip={loadingTip} size="large">
       <div style={{display: 'flex', width: '100%', justifyContent: 'center', marginBottom: 8}}>
         <Space.Compact>
           <ImageSelect onChange={e => void handleFileChange(e)}>Select photo</ImageSelect>

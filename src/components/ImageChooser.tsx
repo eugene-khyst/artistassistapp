@@ -48,13 +48,7 @@ export const ImageChooser: React.FC = () => {
   };
 
   return (
-    <Spin
-      spinning={isLoading}
-      tip="Loading"
-      indicator={<LoadingOutlined spin />}
-      size="large"
-      delay={300}
-    >
+    <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">
       <Flex vertical gap="small" style={{padding: '0 16px 16px'}}>
         <Typography.Text strong>
           Select a reference photo from your device to paint from

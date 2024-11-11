@@ -91,13 +91,7 @@ export const Palette: React.FC = () => {
 
   return (
     <>
-      <Spin
-        spinning={isLoading}
-        tip="Loading"
-        indicator={<LoadingOutlined spin />}
-        size="large"
-        delay={300}
-      >
+      <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">
         <div style={{padding: '0 16px 16px'}}>
           <Collapse
             collapsible="icon"

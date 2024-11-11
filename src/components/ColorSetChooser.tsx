@@ -387,13 +387,7 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
           button.
         </Typography.Text>
 
-        <Spin
-          spinning={isLoading}
-          tip="Loading"
-          indicator={<LoadingOutlined spin />}
-          size="large"
-          delay={300}
-        >
+        <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">
           <Form
             name="colorSet"
             form={form}

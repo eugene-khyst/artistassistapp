@@ -23,15 +23,20 @@ import {ColorMixtureDescription} from '~/src/components/color/ColorMixtureDescri
 import {useReflectanceChart} from '~/src/hooks';
 import type {ColorMixture, ColorMixturePart} from '~/src/services/color';
 import {COLOR_TYPES} from '~/src/services/color';
+import {Rgb} from '~/src/services/color/space';
 
 interface Props {
+  targetColor?: string;
   colorMixture?: ColorMixture;
+  showParts?: boolean;
   open?: boolean;
   onClose?: () => void;
 }
 
 export const ReflectanceChartDrawer: React.FC<Props> = ({
+  targetColor,
   colorMixture,
+  showParts = false,
   open = false,
   onClose,
 }: Props) => {
@@ -39,16 +44,27 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
 
   useEffect(() => {
     const reflectanceChart = reflectanceChartRef.current;
-    if (!reflectanceChart || !colorMixture) {
+    if (!reflectanceChart) {
       return;
     }
-    const {colorMixtureRgb, colorMixtureRho, parts} = colorMixture;
     reflectanceChart.removeAllSeries();
-    parts.forEach(({color: {rho, rgb}}: ColorMixturePart) => {
-      reflectanceChart.addReflectance(rho, rgb);
-    });
-    reflectanceChart.addReflectance(colorMixtureRho, colorMixtureRgb, 3);
-  }, [reflectanceChartRef, colorMixture]);
+    if (colorMixture) {
+      const {layerRgb, layerRho, parts} = colorMixture;
+      reflectanceChart.addReflectance(layerRho, layerRgb, 3);
+      if (showParts) {
+        parts.forEach(({color: {rho, rgb}}: ColorMixturePart) => {
+          reflectanceChart.addReflectance(rho, rgb);
+        });
+      }
+    }
+    if (targetColor) {
+      const targetColorRgb = Rgb.fromHex(targetColor);
+      reflectanceChart.addReflectance(
+        targetColorRgb.toReflectance().toArray(),
+        targetColorRgb.toRgbTuple()
+      );
+    }
+  }, [reflectanceChartRef, targetColor, colorMixture, showParts]);
 
   return (
     <Drawer
@@ -63,7 +79,7 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
       {colorMixture && (
         <>
           <Typography.Title level={4}>{COLOR_TYPES.get(colorMixture.type)?.name}</Typography.Title>
-          <ColorMixtureDescription colorMixture={colorMixture} showConsistency={false} />
+          <ColorMixtureDescription colorMixture={colorMixture} />
         </>
       )}
     </Drawer>

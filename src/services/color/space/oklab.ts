@@ -16,7 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Oklch} from './oklch';
 import {linearizeRgbChannel as linearize, Rgb, unlinearizeRgbChannel as unlinearize} from './rgb';
 
 export class Oklab {
@@ -60,17 +59,5 @@ export class Oklab {
     const b = -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s;
 
     return new Rgb(unlinearize(r), unlinearize(g), unlinearize(b));
-  }
-
-  toOklch(): Oklch {
-    return Oklch.fromOklab(this);
-  }
-
-  getDeltaEOk({l: L2, a: a2, b: b2}: Oklab, scalar = 1): number {
-    const {l: L1, a: a1, b: b1} = this;
-    const dL = L1 - L2;
-    const da = a1 - a2;
-    const db = b1 - b2;
-    return scalar * Math.sqrt(dL ** 2 + da ** 2 + db ** 2);
   }
 }

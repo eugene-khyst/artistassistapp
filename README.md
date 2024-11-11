@@ -132,14 +132,15 @@ ArtistAssistApp does not use artificial intelligence (AI), but rather mathematic
 The web app doesn't depend on any math or color library and includes the implementation of the
 following:
 
-- conversion between color models (e.g. sRGB to OKLCH),
-- sRGB to spectral reflectance curve,
-- subtractive color mixing using weighted geometric mean of reflectance curves,
+- conversion between color models (e.g. sRGB to Oklab),
+- sRGB to spectral reflectance,
+- subtractive color mixing using Kubelka-Munk theory,
 - matrix operations,
 - matrix inversion using LU decomposition,
 - solving a system of linear algebraic equations using forward and backward substitution,
 - the average color of the circular area of the image
-- color distance (deltaEOK),
+- calculation of color similarity by comparing spectral reflections (Euclidean distance and cosine
+  similarity)
 - vector operations,
 - median blur filter using sliding window and histogram,
 - erosion morphological filter,

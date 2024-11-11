@@ -133,7 +133,6 @@ export interface ColorMixture {
   name?: string | null;
   type: ColorType;
   colorMixtureRgb: RgbTuple;
-  colorMixtureRho: number[];
   parts: ColorMixturePart[];
   whiteFraction: Fraction;
   white?: Color | null;
@@ -141,6 +140,7 @@ export interface ColorMixture {
   consistency: Fraction;
   backgroundRgb?: RgbTuple | null;
   layerRgb: RgbTuple;
+  layerRho: number[];
   imageFileId?: number | null;
   samplingArea?: SamplingArea | null;
   date?: Date | null;
@@ -148,5 +148,5 @@ export interface ColorMixture {
 
 export interface SimilarColor {
   colorMixture: ColorMixture;
-  deltaE: number;
+  similarity: number;
 }

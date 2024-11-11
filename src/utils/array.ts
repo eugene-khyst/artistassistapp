@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+export type Comparator<T> = (a: T, b: T) => number;
+
 export type ArrayElement<ArrayType extends readonly unknown[] | undefined> =
   ArrayType extends readonly (infer ElementType)[] ? ElementType : never;
 
@@ -60,6 +62,6 @@ export function arrayEquals<T>(a: T[] | null, b: T[] | null): boolean {
   );
 }
 
-export function reverseOrder<T>(comparator: (a: T, b: T) => number): (a: T, b: T) => number {
+export function reverseOrder<T>(comparator: Comparator<T>): Comparator<T> {
   return (a: T, b: T): number => -1 * comparator(a, b);
 }

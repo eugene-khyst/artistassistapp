@@ -50,7 +50,6 @@ export const ImageOutline: React.FC = () => {
       tip="Loading"
       indicator={<LoadingOutlined spin />}
       size="large"
-      delay={300}
     >
       <div style={{display: 'flex', width: '100%', justifyContent: 'center', marginBottom: 8}}>
         <Space.Compact>

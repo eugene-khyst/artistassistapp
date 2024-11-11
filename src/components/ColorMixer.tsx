@@ -18,6 +18,7 @@
 
 import {
   LineChartOutlined,
+  LoadingOutlined,
   MinusOutlined,
   PlusOutlined,
   QuestionCircleOutlined,
@@ -32,6 +33,7 @@ import {
   Row,
   Select,
   Space,
+  Spin,
   theme,
   Tooltip,
   Typography,
@@ -91,6 +93,7 @@ const formInitialValues = {
 
 export const ColorMixer: React.FC = () => {
   const colorSet = useAppStore(state => state.colorSet);
+  const isInitialStateLoading = useAppStore(state => state.isInitialStateLoading);
 
   const screens = Grid.useBreakpoint();
 
@@ -161,7 +164,12 @@ export const ColorMixer: React.FC = () => {
   }
 
   return (
-    <>
+    <Spin
+      spinning={isInitialStateLoading}
+      tip="Loading"
+      indicator={<LoadingOutlined spin />}
+      size="large"
+    >
       <Flex vertical gap="middle" style={{padding: '0 16px 16px'}}>
         <Typography.Text strong>
           Mix your colors in any proportions so you don&apos;t waste real paints.
@@ -295,11 +303,12 @@ export const ColorMixer: React.FC = () => {
       </Flex>
       <ReflectanceChartDrawer
         colorMixture={resultColorMixtures.find(isThickConsistency)}
+        showParts
         open={isOpenReflectanceChart}
         onClose={() => {
           setIsOpenReflectanceChart(false);
         }}
       />
-    </>
+    </Spin>
   );
 };

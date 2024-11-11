@@ -16,32 +16,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {BgColorsOutlined, MoreOutlined, QuestionCircleOutlined} from '@ant-design/icons';
+import {
+  BgColorsOutlined,
+  LineChartOutlined,
+  MoreOutlined,
+  QuestionCircleOutlined,
+} from '@ant-design/icons';
 import type {MenuProps} from 'antd';
-import {Button, Card, Dropdown, Popover, Space, theme, Typography} from 'antd';
+import {Button, Card, Dropdown, Space, theme, Tooltip, Typography} from 'antd';
 
 import {AddToPaletteButton} from '~/src/components/color/AddToPaletteButton';
-import type {SimilarColor} from '~/src/services/color';
+import type {ColorMixture, SimilarColor} from '~/src/services/color';
 import {useAppStore} from '~/src/stores/app-store';
 
 import {ColorMixtureDescription} from './ColorMixtureDescription';
 
-const popoverContent = (
-  <ul>
-    <li>&lt;=1 - Not perceptible by human eyes</li>
-    <li>1-2 - Perceptible through close observation</li>
-    <li>2-10 - Perceptible at a glance</li>
-    <li>10-49 - Colors are more similar than opposite</li>
-    <li>&gt;=100 - Colors are exact opposite</li>
-  </ul>
-);
-
 interface Props {
   similarColor: SimilarColor;
+  onReflectanceChartClick: (colorMixture?: ColorMixture) => void;
 }
 
 export const SimilarColorCard: React.FC<Props> = ({
-  similarColor: {colorMixture, deltaE},
+  similarColor: {colorMixture, similarity},
+  onReflectanceChartClick,
 }: Props) => {
   const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
 
@@ -54,7 +51,17 @@ export const SimilarColorCard: React.FC<Props> = ({
       label: 'Set as background',
       key: '1',
       icon: <BgColorsOutlined />,
-      onClick: () => void setBackgroundColor(colorMixture.layerRgb),
+      onClick: () => {
+        void setBackgroundColor(colorMixture.layerRgb);
+      },
+    },
+    {
+      label: 'Reflectance chart',
+      key: '2',
+      icon: <LineChartOutlined />,
+      onClick: () => {
+        onReflectanceChartClick(colorMixture);
+      },
     },
   ];
 
@@ -64,10 +71,10 @@ export const SimilarColorCard: React.FC<Props> = ({
         <ColorMixtureDescription colorMixture={colorMixture} />
         <Space size="small" style={{width: '100%', justifyContent: 'space-between'}}>
           <Space size="small" align="center">
-            <Typography.Text strong>{`ΔE: ${deltaE.toFixed(1)}`}</Typography.Text>
-            <Popover title="Color difference" content={popoverContent}>
+            <Typography.Text strong>{`≈ ${similarity.toFixed(1)}%`}</Typography.Text>
+            <Tooltip title="Color similarity">
               <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
-            </Popover>
+            </Tooltip>
           </Space>
           <Space.Compact block>
             <AddToPaletteButton colorMixture={colorMixture} />

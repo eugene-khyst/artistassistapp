@@ -18,7 +18,14 @@
 
 import type {TabKey} from '~/src/tabs';
 
+export enum ColorPickerSort {
+  BySimilarity = 1,
+  ByNumberOfColors = 2,
+  ByConsistency = 3,
+}
+
 export interface AppSettings {
   activeTabKey?: TabKey;
   colorPickerDiameter?: number;
+  colorPickerSort?: ColorPickerSort;
 }

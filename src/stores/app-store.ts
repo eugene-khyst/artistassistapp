@@ -443,6 +443,16 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     });
 
     const {colorSet: importedColorSet, tabKey: importedTabKey} = importFromUrl();
+
+    const appSettings: AppSettings | undefined = await getAppSettings();
+    let activeTabKey: TabKey | undefined = importedTabKey ?? appSettings?.activeTabKey;
+    if (importedColorSet) {
+      activeTabKey = TabKey.ColorSet;
+    }
+    if (activeTabKey) {
+      void get().setActiveTabKey(activeTabKey);
+    }
+
     const latestColorSet: ColorSetDefinition | undefined = await getLastColorSet();
     const recentImageFiles: ImageFile[] = await getImageFiles();
     const imageFile: ImageFile | undefined = await getLastImageFile();
@@ -479,17 +489,6 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
 
     if (imageFile) {
       void get().setImageFile(imageFile, false);
-    }
-
-    const appSettings: AppSettings | undefined = await getAppSettings();
-    let activeTabKey: TabKey | undefined = importedTabKey ?? appSettings?.activeTabKey;
-
-    if (importedColorSet) {
-      activeTabKey = TabKey.ColorSet;
-    }
-
-    if (activeTabKey) {
-      void get().setActiveTabKey(activeTabKey);
     }
   },
 }));

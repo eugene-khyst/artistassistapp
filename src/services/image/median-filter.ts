@@ -62,12 +62,12 @@ export function medianFilter({data, width, height}: ImageData, radius: number, c
 
 function getMask(radius: number): boolean[][] {
   const diameter = 2 * radius;
-  const radiusPow2 = radius * radius;
+  const radiusSq = radius ** 2;
   const mask: boolean[][] = create2DArray(diameter + 1, diameter + 1, false);
   for (let j = 0; j <= diameter; j++) {
-    const jMinusRadiusPow2 = Math.pow(j - radius, 2);
+    const jMinusRadiusSq = (j - radius) ** 2;
     for (let i = 0; i <= diameter; i++) {
-      if (Math.pow(i - radius, 2) + jMinusRadiusPow2 - radiusPow2 <= 1) {
+      if ((i - radius) ** 2 + jMinusRadiusSq - radiusSq <= 1) {
         mask[j]![i] = true;
       }
     }

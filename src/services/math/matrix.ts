@@ -60,7 +60,6 @@ export function lowerUpperDecomposition(matrix: Matrix): {l: Matrix; u: Matrix; 
   }
 
   for (let col = 0; col < size; col++) {
-    // upper
     for (let row = 0; row < col; row++) {
       const luRow: number[] = lu[row]!;
       let sum: number = luRow[col]!;

@@ -17,6 +17,5 @@
  */
 
 export * from './oklab';
-export * from './oklch';
 export * from './reflectance';
 export * from './rgb';

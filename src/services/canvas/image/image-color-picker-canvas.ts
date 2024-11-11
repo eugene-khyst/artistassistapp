@@ -180,12 +180,12 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     } else {
       const diameter = Math.trunc(Math.min(width, height));
       const radius = Math.trunc(diameter / 2);
-      const radiusPow2 = radius * radius;
+      const radiusSq = radius ** 2;
       const total: RgbTuple = [0, 0, 0];
       let count = 0;
       for (let y = 0; y < diameter; y++) {
         for (let x = 0; x < diameter; x++) {
-          if (Math.pow(x - radius, 2) + Math.pow(y - radius, 2) <= radiusPow2) {
+          if ((x - radius) ** 2 + (y - radius) ** 2 <= radiusSq) {
             const color: number[] = getRgbaForCoord(data, x, y, width);
             for (let channel = 0; channel <= 2; channel++) {
               total[channel]! += linearizeRgbChannel(color[channel]!);

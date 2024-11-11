@@ -85,7 +85,6 @@ export const ImageBlurred: React.FC = () => {
       tip="Loading"
       indicator={<LoadingOutlined spin />}
       size="large"
-      delay={300}
     >
       <Space
         size="small"
