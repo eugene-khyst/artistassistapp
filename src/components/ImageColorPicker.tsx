@@ -291,7 +291,7 @@ export const ImageColorPicker: React.FC = () => {
                     value={sort}
                     onChange={handleSortChange}
                     options={SORT_OPTIONS}
-                    style={{width: 110}}
+                    style={{width: 115}}
                   />
                 </Form.Item>
               </Space>

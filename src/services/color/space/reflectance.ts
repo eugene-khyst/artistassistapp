@@ -101,7 +101,9 @@ function validateRatios(reflectances: Reflectance[], ratios: number[]) {
     throw new Error('Reflectances must not be empty');
   }
   if (reflectances.length !== ratios.length) {
-    throw new Error('Reflectances size must match ratios size');
+    throw new Error(
+      `Reflectances size must match ratios size: ${reflectances.length} != ${ratios.length}`
+    );
   }
   if (ratios.includes(0)) {
     throw new Error('Ratio must not be 0');
