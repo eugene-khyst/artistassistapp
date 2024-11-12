@@ -101,6 +101,10 @@ class UnmixedColor {
     this.rgb = new Rgb(...color.rgb);
     this.reflectance = Reflectance.fromArray(color.rho);
   }
+
+  toMixedColor(): MixedColor {
+    return MixedColor.fromUnmixedColor(this);
+  }
 }
 
 class MixedColor {
@@ -113,9 +117,13 @@ class MixedColor {
     this.rgb = reflectance.toRgb();
   }
 
-  static fromUnmixedColor = ({color, reflectance}: UnmixedColor): MixedColor => {
+  toMixedColorTint(): MixedColorTint {
+    return MixedColorTint.fromMixedColor(this);
+  }
+
+  static fromUnmixedColor({color, reflectance}: UnmixedColor): MixedColor {
     return new MixedColor(reflectance, [{color, part: 1}]);
-  };
+  }
 }
 
 class MixedColorTint {
@@ -130,9 +138,13 @@ class MixedColorTint {
     this.rgb = reflectance.toRgb();
   }
 
-  static fromMixedColor = (color: MixedColor): MixedColorTint => {
+  toMixedColorLayer(): MixedColorLayer {
+    return MixedColorLayer.fromMixedColorTint(this);
+  }
+
+  static fromMixedColor(color: MixedColor): MixedColorTint {
     return new MixedColorTint(color.reflectance, color, NONE);
-  };
+  }
 }
 
 class Background {
@@ -157,10 +169,6 @@ class MixedColorLayer {
     this.rgb = reflectance.toRgb();
   }
 
-  static fromMixedColorTint = (color: MixedColorTint) => {
-    return new MixedColorLayer(color.reflectance, color, WHOLE);
-  };
-
   toColorMixture(type: ColorType): ColorMixture {
     const {
       rgb: tintRgb,
@@ -182,6 +190,10 @@ class MixedColorLayer {
       layerRgb: this.rgb.toRgbTuple(),
       layerRho: this.reflectance.toArray(),
     };
+  }
+
+  static fromMixedColorTint(color: MixedColorTint) {
+    return new MixedColorLayer(color.reflectance, color, WHOLE);
   }
 }
 
@@ -343,25 +355,24 @@ function mixThreeColors(colors: UnmixedColor[]): MixedColor[] {
   return mixedColors;
 }
 
-function mixTints(mixedColors: MixedColor[], whites: UnmixedColor[]): MixedColorTint[] {
-  return mixedColors.flatMap((mixedColor: MixedColor): MixedColorTint[] => [
-    MixedColorTint.fromMixedColor(mixedColor),
-    ...whites.flatMap((white: UnmixedColor): MixedColorTint[] =>
+function mixTints(colors: MixedColor[], whites: UnmixedColor[]): MixedColorTint[] {
+  return colors.flatMap((color: MixedColor): MixedColorTint[] =>
+    whites.flatMap((white: UnmixedColor): MixedColorTint[] =>
       FRACTIONS.map(([colorPart, whole]: Fraction): MixedColorTint => {
         const whitePart = whole - colorPart;
         return new MixedColorTint(
-          Reflectance.mixKM([mixedColor.reflectance, white.reflectance], [colorPart, whitePart]),
-          mixedColor,
+          Reflectance.mixKM([color.reflectance, white.reflectance], [colorPart, whitePart]),
+          color,
           [whitePart, whole],
           white
         );
       })
-    ),
-  ]);
+    )
+  );
 }
 
-function makeThickLayers(colors: MixedColor[], whites: UnmixedColor[]): MixedColorLayer[] {
-  return mixTints(colors, whites).map(MixedColorLayer.fromMixedColorTint);
+function makeTintLayers(colors: MixedColor[], whites: UnmixedColor[]): MixedColorLayer[] {
+  return mixTints(colors, whites).map(color => color.toMixedColorLayer());
 }
 
 function makeThinnedLayers(
@@ -370,23 +381,24 @@ function makeThinnedLayers(
   glazing = true
 ): MixedColorLayer[] {
   if (!colors.length || !background || !glazing) {
-    return [];
+    return colors.map(color => color.toMixedColorTint().toMixedColorLayer());
   }
   const {rgb: backgroundRgb, reflectance: backgroundReflectance} = background;
-  return colors.flatMap((color: MixedColor): MixedColorLayer[] =>
-    FRACTIONS.map(
+  return colors.flatMap((color: MixedColor): MixedColorLayer[] => [
+    color.toMixedColorTint().toMixedColorLayer(),
+    ...FRACTIONS.map(
       ([colorPart, whole]: Fraction): MixedColorLayer =>
         new MixedColorLayer(
           Reflectance.mixKM(
             [color.reflectance, backgroundReflectance],
             [colorPart, whole - colorPart]
           ),
-          MixedColorTint.fromMixedColor(color),
+          color.toMixedColorTint(),
           [colorPart, whole],
           backgroundRgb
         )
-    )
-  );
+    ),
+  ]);
 }
 
 function findSimilarColors(
@@ -426,7 +438,7 @@ export function makeColorMixture(
   const background = new Background(Rgb.fromHex(backgroundColorHex));
   const {glazing = true} = COLOR_MIXING[type];
   const layers: MixedColorLayer[] = [
-    ...makeThickLayers(mixedColors, []),
+    ...makeTintLayers(mixedColors, []),
     ...makeThinnedLayers(mixedColors, background, glazing),
   ];
   return layers.map((layer: MixedColorLayer): ColorMixture => layer.toColorMixture(type));
@@ -435,7 +447,7 @@ export function makeColorMixture(
 export class ColorMixer {
   private type?: ColorType;
   private mixedColors: [number, MixedColor[]][] = [];
-  private thickLayers = new Map<number, MixedColorLayer[]>();
+  private tintLayers = new Map<number, MixedColorLayer[]>();
   private thinnedLayers = new Map<number, MixedColorLayer[]>();
   private background?: Background;
 
@@ -455,7 +467,7 @@ export class ColorMixer {
     const {maxColors, tint = false} = COLOR_MIXING[type];
     const [unmixedColors, whites] = toUnmixedColorsAndWhites(colors, tint);
     this.mixedColors = [
-      [1, unmixedColors.map(MixedColor.fromUnmixedColor)],
+      [1, unmixedColors.map(color => color.toMixedColor())],
       [2, maxColors >= 2 ? mixTwoColors(unmixedColors) : []],
       [
         3,
@@ -468,15 +480,15 @@ export class ColorMixer {
       console.log(`mixed colors (${numOfColors}): ${colors.length}`);
     });
     console.timeEnd('mix-colors');
-    console.time('make-thick-layers');
-    this.thickLayers = new Map(
+    console.time('make-tints');
+    this.tintLayers = new Map(
       this.mixedColors.map(([numOfColors, colors]) => {
-        const layers = makeThickLayers(colors, whites);
-        console.log(`thick color layers (${numOfColors}): ${layers.length}`);
+        const layers = makeTintLayers(colors, whites);
+        console.log(`color tints (${numOfColors}): ${layers.length}`);
         return [numOfColors, layers];
       })
     );
-    console.timeEnd('make-thick-layers');
+    console.timeEnd('make-tints');
   }
 
   private makeThinnedLayers(): void {
@@ -500,7 +512,7 @@ export class ColorMixer {
     const reflectance = rgb.toReflectance();
     return findSimilarColors(
       reflectance,
-      [...this.thickLayers.values(), ...this.thinnedLayers.values()],
+      [...this.tintLayers.values(), ...this.thinnedLayers.values()],
       this.type,
       1
     )[0];
@@ -512,7 +524,7 @@ export class ColorMixer {
       return [];
     }
     const reflectance = rgb.toReflectance();
-    const similarColors = [this.thickLayers, this.thinnedLayers].flatMap(layers => {
+    const similarColors = [this.tintLayers, this.thinnedLayers].flatMap(layers => {
       let minSimilarity = 0;
       return SIMILAR_COLORS_LIMITS.flatMap(([numOfColors, limit]) => {
         const similarColors = findSimilarColors(
