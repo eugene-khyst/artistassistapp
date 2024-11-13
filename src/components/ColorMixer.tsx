@@ -62,7 +62,9 @@ import {ColorCascader} from './color-set/ColorCascader';
 import {EmptyColorSet} from './empty/EmptyColorSet';
 
 function isSupported(colorSet: ColorSet): boolean {
-  return ![ColorType.ColoredPencils, ColorType.WatercolorPencils].includes(colorSet.type);
+  return ![ColorType.ColoredPencils, ColorType.WatercolorPencils, ColorType.Pastel].includes(
+    colorSet.type
+  );
 }
 
 const RATIO_OPTIONS: SelectOptionType[] = range(1, 9).map((part: number) => ({

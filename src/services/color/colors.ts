@@ -41,6 +41,7 @@ export const COLOR_TYPES = new Map<ColorType, ColorTypeDefinition>([
   [ColorType.OilPaint, {name: 'Oil paint', alias: 'oil-paint'}],
   [ColorType.ColoredPencils, {name: 'Colored pencils', alias: 'colored-pencils'}],
   [ColorType.WatercolorPencils, {name: 'Watercolor pencils', alias: 'watercolor-pencils'}],
+  [ColorType.Pastel, {name: 'Pastel', alias: 'pastel'}],
 ]);
 
 export const compareColorBrandsByName = (
