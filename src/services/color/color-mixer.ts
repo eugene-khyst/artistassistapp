@@ -37,46 +37,75 @@ export const COLOR_MIXING: Record<ColorType, ColorMixingConfig> = {
     maxColors: 3,
     tint: false,
     glazing: true,
+    limits: [
+      [1, 1],
+      [2, 2],
+      [3, 3],
+    ],
   },
   [ColorType.Gouache]: {
     maxColors: 3,
     tint: true,
     glazing: false,
+    limits: [
+      [1, 1],
+      [2, 2],
+      [3, 3],
+    ],
   },
   [ColorType.AcrylicGouache]: {
     maxColors: 3,
     tint: true,
     glazing: false,
+    limits: [
+      [1, 1],
+      [2, 2],
+      [3, 3],
+    ],
   },
   [ColorType.OilPaint]: {
     maxColors: 3,
     tint: true,
     glazing: true,
+    limits: [
+      [1, 1],
+      [2, 2],
+      [3, 3],
+    ],
   },
   [ColorType.AcrylicPaint]: {
     maxColors: 3,
     tint: true,
     glazing: true,
+    limits: [
+      [1, 1],
+      [2, 2],
+      [3, 3],
+    ],
   },
   [ColorType.ColoredPencils]: {
     maxColors: 1,
     tint: false,
     glazing: true,
+    limits: [[1, 3]],
   },
   [ColorType.WatercolorPencils]: {
     maxColors: 1,
     tint: false,
     glazing: true,
+    limits: [[1, 3]],
   },
   [ColorType.Pastel]: {
     maxColors: 1,
     tint: false,
     glazing: false,
+    limits: [[1, 3]],
   },
   [ColorType.OilPastel]: {
     maxColors: 1,
     tint: false,
     glazing: false,
+    limits: [[1, 3]],
   },
 };
 
@@ -92,12 +121,6 @@ const FRACTIONS: Fraction[] = [
 export const THREE_COLORS_MIXTURES_LIMIT = 28;
 
 export const PAPER_WHITE_HEX = 'F7F5EF';
-
-const SIMILAR_COLORS_LIMITS: [number, number][] = [
-  [1, 1],
-  [2, 2],
-  [3, 3],
-];
 
 type WithHash<T> = T & {hash: string};
 
@@ -533,10 +556,11 @@ export class ColorMixer {
     if (!this.type || this.background?.rgb.equals(rgb)) {
       return [];
     }
+    const {limits} = COLOR_MIXING[this.type];
     const reflectance = rgb.toReflectance();
     const similarColors = [this.tintLayers, this.thinnedLayers].flatMap(layers => {
       let minSimilarity = 0;
-      return SIMILAR_COLORS_LIMITS.flatMap(([numOfColors, limit]) => {
+      return limits.flatMap(([numOfColors, limit]) => {
         const similarColors = findSimilarColors(
           reflectance,
           [layers.get(numOfColors)!],
