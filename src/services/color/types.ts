@@ -28,6 +28,7 @@ export enum ColorType {
   Gouache = 6,
   AcrylicGouache = 7,
   Pastel = 8,
+  OilPastel = 9,
 }
 
 export enum ColorOpacity {
@@ -48,6 +49,7 @@ export interface ColorIdFormat {
   suffix?: string;
   padLength?: number;
   splitAt?: number;
+  delimiter?: string;
 }
 
 export interface ColorBrandDefinition {

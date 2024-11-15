@@ -73,6 +73,11 @@ export const COLOR_MIXING: Record<ColorType, ColorMixingConfig> = {
     tint: false,
     glazing: false,
   },
+  [ColorType.OilPastel]: {
+    maxColors: 1,
+    tint: false,
+    glazing: false,
+  },
 };
 
 const NONE: Fraction = [0, 1];

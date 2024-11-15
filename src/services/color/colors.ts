@@ -42,6 +42,7 @@ export const COLOR_TYPES = new Map<ColorType, ColorTypeDefinition>([
   [ColorType.ColoredPencils, {name: 'Colored pencils', alias: 'colored-pencils'}],
   [ColorType.WatercolorPencils, {name: 'Watercolor pencils', alias: 'watercolor-pencils'}],
   [ColorType.Pastel, {name: 'Pastel', alias: 'pastel'}],
+  [ColorType.OilPastel, {name: 'Oil pastel', alias: 'oil-pastel'}],
 ]);
 
 export const compareColorBrandsByName = (
@@ -131,14 +132,21 @@ export function formatColorLabel(
   {id, name}: ColorDefinition | Color,
   {idFormat = {}}: ColorBrandDefinition
 ): string {
-  const {show, prefix, suffix, padLength, splitAt}: ColorIdFormat = {
+  const {
+    show,
+    prefix,
+    suffix,
+    padLength,
+    splitAt,
+    delimiter = '-',
+  }: ColorIdFormat = {
     show: true,
     ...idFormat,
   };
   if (show) {
     let idStr = `${prefix ?? ''}${padLength ? String(id).padStart(padLength, '0') : id}${suffix ?? ''}`;
     if (splitAt && idStr.length > splitAt) {
-      idStr = `${idStr.substring(0, splitAt)}-${idStr.substring(splitAt)}`;
+      idStr = `${idStr.substring(0, splitAt)}${delimiter}${idStr.substring(splitAt)}`;
     }
     return `${idStr} ${name}`;
   } else {

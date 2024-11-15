@@ -39,16 +39,6 @@ import {registerServiceWorker} from './register-service-worker';
 Sentry.init({
   dsn: 'https://53a1df31d8df96056a1d07726d97ebfc@o4508211015254016.ingest.us.sentry.io/4508211020824576',
   integrations: [],
-  replaysSessionSampleRate: 0.1,
-  replaysOnErrorSampleRate: 1.0,
-});
-
-void import('@sentry/react').then(lazyLoadedSentry => {
-  Sentry.addIntegration(
-    lazyLoadedSentry.replayIntegration({
-      maskAllText: false,
-    })
-  );
 });
 
 registerServiceWorker();
