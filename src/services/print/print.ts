@@ -16,8 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import printJS from 'print-js';
+
 import type {PaperSizeDefinition} from '~/src/services/print/types';
 import {PaperSize} from '~/src/services/print/types';
+import {imageBitmapToOffscreenCanvas} from '~/src/utils';
 
 export const PAPER_SIZES = new Map<PaperSize, PaperSizeDefinition>([
   [
@@ -42,3 +45,43 @@ export const PAPER_SIZES = new Map<PaperSize, PaperSizeDefinition>([
     },
   ],
 ]);
+
+type BlobSupplier = () => Promise<Blob | undefined>;
+
+type ImageSource = (ImageBitmap | BlobSupplier | null) | ImageBitmap[] | Blob[];
+
+export async function printImages(image?: ImageSource) {
+  if (!image) {
+    return;
+  }
+  const urls: string[] = (
+    await Promise.all(
+      [image]
+        .flat()
+        .map(async (image: ImageBitmap | Blob | BlobSupplier | null): Promise<Blob | undefined> => {
+          if (image instanceof Blob) {
+            return image;
+          } else if (image instanceof ImageBitmap) {
+            const [canvas] = imageBitmapToOffscreenCanvas(image);
+            return canvas.convertToBlob();
+          } else if (typeof image === 'function') {
+            return image();
+          }
+          return;
+        })
+    )
+  )
+    .filter((blob): blob is Blob => !!blob)
+    .map((blob: Blob): string => URL.createObjectURL(blob));
+
+  printJS({
+    printable: urls,
+    type: 'image',
+    documentTitle: 'ArtistAssistApp',
+    onPrintDialogClose: () => {
+      urls.forEach((url: string) => {
+        URL.revokeObjectURL(url);
+      });
+    },
+  });
+}

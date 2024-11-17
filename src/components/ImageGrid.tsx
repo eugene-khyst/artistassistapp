@@ -23,9 +23,9 @@ import type {CheckboxChangeEvent} from 'antd/es/checkbox';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useCallback, useEffect, useState} from 'react';
 
-import {PrintableImages} from '~/src/components/print/PrintableImages';
 import {useZoomableImageCanvas} from '~/src/hooks';
 import {GridCanvas, GridType} from '~/src/services/canvas/image/grid-canvas';
+import {printImages} from '~/src/services/print';
 import {useAppStore} from '~/src/stores/app-store';
 
 import {EmptyImage} from './empty/EmptyImage';
@@ -60,7 +60,6 @@ export const ImageGrid: React.FC = () => {
   const [gridOption, setGridOption] = useState<GridOption>(GridOption.Square);
   const [squareGridSize, setSquareGridSize] = useState<number>(DEFAULT_SQUARE_GRID_SIZE);
   const [isDiagonals, setIsDiagonals] = useState<boolean>(false);
-  const [isPrinting, setIsPrinting] = useState<boolean>(false);
 
   const {ref: canvasRef, zoomableImageCanvas: gridCanvas} = useZoomableImageCanvas<GridCanvas>(
     gridCanvasSupplier,
@@ -91,7 +90,7 @@ export const ImageGrid: React.FC = () => {
       label: 'Print',
       icon: <PrinterOutlined />,
       onClick: () => {
-        setIsPrinting(true);
+        void printImages(blobSupplier);
       },
     },
     {
@@ -155,7 +154,6 @@ export const ImageGrid: React.FC = () => {
       <div>
         <canvas ref={canvasRef} style={{width: '100%', height: `calc(100vh - 115px)`}} />
       </div>
-      <PrintableImages image={blobSupplier} printing={isPrinting} setPrinting={setIsPrinting} />
     </Spin>
   );
 };

@@ -21,9 +21,9 @@ import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
 import {Button, Col, Dropdown, Grid, Radio, Row, Space, Spin} from 'antd';
 import {useEffect, useState} from 'react';
 
-import {PrintableImages} from '~/src/components/print/PrintableImages';
 import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
 import type {ZoomableImageCanvas} from '~/src/services/canvas/image';
+import {printImages} from '~/src/services/print';
 import {useAppStore} from '~/src/stores/app-store';
 
 import {EmptyImage} from './empty/EmptyImage';
@@ -52,7 +52,6 @@ export const ImageTonalValues: React.FC = () => {
   );
 
   const [tonalValuesImageIndex, setTonalValuesImageIndex] = useState<number>(2);
-  const [isPrinting, setIsPrinting] = useState<boolean>(false);
 
   useEffect(() => {
     tonalValuesCanvas?.setImageIndex(tonalValuesImageIndex);
@@ -70,7 +69,7 @@ export const ImageTonalValues: React.FC = () => {
       label: 'Print',
       icon: <PrinterOutlined />,
       onClick: () => {
-        setIsPrinting(true);
+        void printImages(tonalImages);
       },
     },
     {
@@ -109,7 +108,6 @@ export const ImageTonalValues: React.FC = () => {
           <canvas ref={originalCanvasRef} style={{width: '100%', height}} />
         </Col>
       </Row>
-      <PrintableImages image={tonalImages} printing={isPrinting} setPrinting={setIsPrinting} />
     </Spin>
   );
 };

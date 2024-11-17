@@ -20,14 +20,11 @@ import {Button, Drawer, Form, Input, InputNumber, Radio, Select, Space} from 'an
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useEffect, useState} from 'react';
 
-import {PrintableImages} from '~/src/components/print/PrintableImages';
 import {useCreateObjectUrl} from '~/src/hooks';
 import {useDebounce} from '~/src/hooks/useDebounce';
 import {splitImage} from '~/src/services/image';
-import {LengthUnit} from '~/src/services/math';
-import {LENGTH_UNITS} from '~/src/services/math';
-import {PaperSize} from '~/src/services/print';
-import {PAPER_SIZES} from '~/src/services/print';
+import {LENGTH_UNITS, LengthUnit} from '~/src/services/math';
+import {PAPER_SIZES, PaperSize, printImages} from '~/src/services/print';
 
 enum PrintMode {
   Standard,
@@ -57,7 +54,6 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
   const [printPreviewBlob, setPrintPreviewBlob] = useState<Blob>();
   const [imagePartBlobs, setImagePartBlobs] = useState<Blob[]>([]);
   const [isError, setIsError] = useState<boolean>(false);
-  const [isPrinting, setIsPrinting] = useState<boolean>(false);
 
   const debouncedTargetWidth = useDebounce(targetWidth);
   const debouncedTargetHeight = useDebounce(targetHeight);
@@ -96,16 +92,14 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
     })();
   }, [image, targetUnit, debouncedTargetWidth, debouncedTargetHeight, paperSize]);
 
+  const handlePrint = () => {
+    void printImages(printMode === PrintMode.Resize ? imagePartBlobs : image);
+  };
+
   return (
     <Drawer
       title={
-        <Button
-          type="primary"
-          onClick={() => {
-            setIsPrinting(true);
-          }}
-          disabled={isPrintDisabled}
-        >
+        <Button type="primary" onClick={handlePrint} disabled={isPrintDisabled}>
           Print
         </Button>
       }
@@ -152,6 +146,8 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
                   onChange={value => {
                     setTargetWidth(value);
                   }}
+                  min={1}
+                  max={1000}
                   step={0.1}
                   placeholder="Width"
                   style={{width: 70}}
@@ -171,6 +167,8 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
                   onChange={value => {
                     setTargetHeight(value);
                   }}
+                  min={1}
+                  max={1000}
                   step={0.1}
                   placeholder="Height"
                   style={{width: 70}}
@@ -190,17 +188,6 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
               <img src={previewImageUrl} style={{maxWidth: '100%', maxHeight: 480}} />
             )}
           </>
-        )}
-
-        {printMode === PrintMode.Standard && image && (
-          <PrintableImages image={image} printing={isPrinting} setPrinting={setIsPrinting} />
-        )}
-        {printMode === PrintMode.Resize && (
-          <PrintableImages
-            image={imagePartBlobs}
-            printing={isPrinting}
-            setPrinting={setIsPrinting}
-          />
         )}
       </Space>
     </Drawer>

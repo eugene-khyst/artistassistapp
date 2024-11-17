@@ -18,6 +18,8 @@
 
 import type {Size} from '~/src/utils';
 
+const MAX_CANVAS_SIZE = 8192;
+
 interface Result {
   preview: OffscreenCanvas;
   imageParts: OffscreenCanvas[];
@@ -58,7 +60,12 @@ export function splitImage(
   const pageWidthPx = px2mm * pageWidth;
   const pageHeightPx = px2mm * pageHeight;
   const canvasParts: OffscreenCanvas[] = [];
-  const canvas = new OffscreenCanvas(cols * pageWidthPx, rows * pageHeightPx);
+  const canvasWidth = cols * pageWidthPx;
+  const canvasHeight = rows * pageHeightPx;
+  if (canvasWidth > MAX_CANVAS_SIZE || canvasHeight > MAX_CANVAS_SIZE) {
+    throw new Error(`Canvas size is too big: ${canvasWidth}x${canvasHeight}`);
+  }
+  const canvas = new OffscreenCanvas(canvasWidth, canvasHeight);
   const ctx = canvas.getContext('2d')!;
   ctx.drawImage(image, 0, 0);
   ctx.lineWidth = lineWidth;
