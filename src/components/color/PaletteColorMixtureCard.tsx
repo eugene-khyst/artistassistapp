@@ -62,7 +62,7 @@ export const PaletteColorMixtureCard: React.FC<Props> = ({colorMixture}: Props) 
 
   return (
     <Card size="small" bordered={false}>
-      <Space direction="vertical" size="small" style={{width: '100%'}}>
+      <Space direction="vertical" style={{width: '100%'}}>
         <Typography.Text
           ellipsis={{tooltip: true}}
           editable={{

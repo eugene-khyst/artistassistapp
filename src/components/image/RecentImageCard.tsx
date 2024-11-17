@@ -36,7 +36,7 @@ export const RecentImageCard: React.FC<Props> = ({imageFile}: Props) => {
   const {name, date} = imageFile;
 
   const blob = useImageFileToBlob(imageFile);
-  const imageSrc: string | undefined = useCreateObjectUrl(blob);
+  const imageUrl: string | undefined = useCreateObjectUrl(blob);
   const dateStr: string | undefined = date && dayjs(date).format('DD/MM/YYYY HH:mm');
 
   const handleCardClick = () => {
@@ -48,11 +48,11 @@ export const RecentImageCard: React.FC<Props> = ({imageFile}: Props) => {
   };
 
   return (
-    imageSrc && (
+    imageUrl && (
       <Card
         hoverable
         onClick={handleCardClick}
-        cover={<img src={imageSrc} alt={name} />}
+        cover={<img src={imageUrl} alt={name} />}
         actions={[
           <Popconfirm
             key="delete"

@@ -43,14 +43,14 @@ export const ColorDescription: React.FC<Props> = ({colorType, color, text}: Prop
 
   const {shortName, fullName} = brand;
   return (
-    <Space size="small">
+    <Space>
       <ColorSquare color={rgb} size="large" text={text} />
       <span>
         <Tooltip title={fullName}>
           <Typography.Text>{shortName || fullName}</Typography.Text>
         </Tooltip>
         <br />
-        <Space size="small" align="center">
+        <Space align="center">
           <Typography.Text strong>{formatColorLabel(color, brand)}</Typography.Text>
           <OpacityIcon opacity={opacity} />
         </Space>

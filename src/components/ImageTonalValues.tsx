@@ -89,11 +89,7 @@ export const ImageTonalValues: React.FC = () => {
 
   return (
     <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">
-      <Space
-        size="small"
-        align="center"
-        style={{width: '100%', justifyContent: 'center', marginBottom: 8}}
-      >
+      <Space align="center" style={{width: '100%', justifyContent: 'center', marginBottom: 8}}>
         <Radio.Group
           options={TONES_OPTIONS}
           value={tonalValuesImageIndex}

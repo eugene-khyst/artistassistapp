@@ -86,11 +86,7 @@ export const ImageBlurred: React.FC = () => {
       indicator={<LoadingOutlined spin />}
       size="large"
     >
-      <Space
-        size="small"
-        align="start"
-        style={{width: '100%', justifyContent: 'center', marginBottom: 8}}
-      >
+      <Space align="start" style={{width: '100%', justifyContent: 'center', marginBottom: 8}}>
         <Form.Item
           label="Blur"
           tooltip="Controls the radius of the median filter."

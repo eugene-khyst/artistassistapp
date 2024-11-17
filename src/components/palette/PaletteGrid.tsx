@@ -146,7 +146,7 @@ export const PaletteGrid: React.FC<Props> = ({
         <Flex ref={printRef} wrap="wrap" gap={32} justify="space-between">
           {sortedColorMixtures.map((colorMixture: ColorMixture) => (
             <span key={colorMixture.key} style={{breakBefore: 'auto'}}>
-              <Space direction="vertical" size="small">
+              <Space direction="vertical">
                 <Typography.Text style={{fontWeight: 'bold'}}>
                   {colorMixture.name || 'Color mixture'}
                 </Typography.Text>

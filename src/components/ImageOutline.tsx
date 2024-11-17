@@ -20,7 +20,7 @@ import {DownloadOutlined, LoadingOutlined, PrinterOutlined} from '@ant-design/ic
 import {Button, Space, Spin} from 'antd';
 import {useState} from 'react';
 
-import {PrintableImages} from '~/src/components/print/PrintableImages';
+import {PrintImageDrawer} from '~/src/components/print/PrintImageDrawer';
 import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
 import type {ZoomableImageCanvas} from '~/src/services/canvas/image';
 import {useAppStore} from '~/src/stores/app-store';
@@ -38,7 +38,7 @@ export const ImageOutline: React.FC = () => {
     outlineImage
   );
 
-  const [isPrinting, setIsPrinting] = useState<boolean>(false);
+  const [isOpenPrintImage, setIsOpenPrintImage] = useState<boolean>(false);
 
   if (!originalImage) {
     return <EmptyImage feature="view an outline from a reference photo" />;
@@ -56,7 +56,7 @@ export const ImageOutline: React.FC = () => {
           <Button
             icon={<PrinterOutlined />}
             onClick={() => {
-              setIsPrinting(true);
+              setIsOpenPrintImage(true);
             }}
           >
             Print
@@ -72,7 +72,13 @@ export const ImageOutline: React.FC = () => {
       <div>
         <canvas ref={canvasRef} style={{width: '100%', height: `calc(100vh - 115px)`}} />
       </div>
-      <PrintableImages image={outlineImage} printing={isPrinting} setPrinting={setIsPrinting} />
+      <PrintImageDrawer
+        image={outlineImage}
+        open={isOpenPrintImage}
+        onClose={() => {
+          setIsOpenPrintImage(false);
+        }}
+      />
     </Spin>
   );
 };

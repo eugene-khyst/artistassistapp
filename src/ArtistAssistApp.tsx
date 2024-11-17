@@ -63,7 +63,7 @@ export const ArtistAssistApp: React.FC = () => {
     token: {colorBgContainer},
   } = theme.useToken();
 
-  const {isFullscreen, toggleFullScreen} = useFullScreen();
+  const {isFullscreen, toggleFullScreen, isSupported: isFullScreenSupported} = useFullScreen();
 
   const {showInstallPromotion, promptToInstall} = useInstallPrompt();
   const pwaDisplayMode: DisplayMode = useDisplayMode();
@@ -213,12 +213,14 @@ export const ArtistAssistApp: React.FC = () => {
           />
         </Col>
       </Row>
-      <FloatButton
-        icon={isFullscreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
-        shape="square"
-        onClick={toggleFullScreen}
-        style={{right: 24, bottom: 24}}
-      />
+      {isFullScreenSupported && (
+        <FloatButton
+          icon={isFullscreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
+          shape="square"
+          onClick={toggleFullScreen}
+          style={{right: 24, bottom: 24}}
+        />
+      )}
       <AdModal open={isAdModalReady && isAdModalOpen} setOpen={setIsAdModalOpen} />
     </>
   );

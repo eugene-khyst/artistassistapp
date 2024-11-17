@@ -82,7 +82,7 @@ export const ConsistencyDescription: React.FC<Props> = ({
   return (
     labelRender &&
     !isThickConsistency({consistency}) && (
-      <Space size="small">
+      <Space>
         {labelRender(consistency)}
         {tooltip && showTooltip && (
           <Tooltip title={tooltip}>

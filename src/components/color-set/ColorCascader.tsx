@@ -51,7 +51,7 @@ function getColorOptions(colorSet?: ColorSet | null): CascaderOptionType[] {
           return {
             value: color.id,
             label: (
-              <Space size="small" align="center" key={label}>
+              <Space align="center" key={label}>
                 <ColorSquare color={color.rgb} />
                 <Typography.Text>{label}</Typography.Text>
               </Space>

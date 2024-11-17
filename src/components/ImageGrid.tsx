@@ -113,11 +113,7 @@ export const ImageGrid: React.FC = () => {
       indicator={<LoadingOutlined spin />}
       size="large"
     >
-      <Space
-        size="small"
-        align="start"
-        style={{width: '100%', justifyContent: 'center', marginBottom: 8}}
-      >
+      <Space align="start" style={{width: '100%', justifyContent: 'center', marginBottom: 8}}>
         <Form.Item label="Grid" style={{margin: 0}}>
           <Select
             value={gridOption}

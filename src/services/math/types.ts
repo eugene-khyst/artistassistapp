@@ -16,8 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export * from './clamp';
-export * from './gcd';
-export * from './geometry';
-export * from './matrix';
-export * from './types';
+export enum LengthUnit {
+  Millimeter = 1,
+  Centimeter = 2,
+  Inch = 3,
+}
+
+export interface LengthUnitDefinition {
+  abbreviation: string;
+  toMillimeters: (value: number) => number;
+}

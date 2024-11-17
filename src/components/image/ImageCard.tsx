@@ -33,14 +33,14 @@ export const ImageCard = forwardRef<HTMLDivElement, Props>(function ImageCard(
   {file, description, hoverable, onClick}: Props,
   ref: ForwardedRef<HTMLDivElement>
 ) {
-  const imageSrc: string | undefined = useCreateObjectUrl(file);
+  const imageUrl: string | undefined = useCreateObjectUrl(file);
   return (
-    imageSrc && (
+    imageUrl && (
       <Card
         ref={ref}
         hoverable={hoverable}
         onClick={onClick}
-        cover={<img src={imageSrc} alt={file.name} />}
+        cover={<img src={imageUrl} alt={file.name} />}
       >
         <Card.Meta title={file.name} description={description} />
       </Card>

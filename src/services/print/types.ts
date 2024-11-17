@@ -16,8 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export * from './clamp';
-export * from './gcd';
-export * from './geometry';
-export * from './matrix';
-export * from './types';
+import type {Size} from '~/src/utils';
+
+export enum PaperSize {
+  A4 = 1,
+  Letter = 2,
+  Legal = 3,
+}
+
+export interface PaperSizeDefinition {
+  name: string;
+  size: Size;
+}

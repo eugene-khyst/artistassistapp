@@ -16,8 +16,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export * from './clamp';
-export * from './gcd';
-export * from './geometry';
-export * from './matrix';
-export * from './types';
+import type {PaperSizeDefinition} from '~/src/services/print/types';
+import {PaperSize} from '~/src/services/print/types';
+
+export const PAPER_SIZES = new Map<PaperSize, PaperSizeDefinition>([
+  [
+    PaperSize.A4,
+    {
+      name: 'A4 (210 × 297 mm)',
+      size: [210, 297],
+    },
+  ],
+  [
+    PaperSize.Letter,
+    {
+      name: 'Letter (8.5 × 11 in)',
+      size: [215.9, 279.4],
+    },
+  ],
+  [
+    PaperSize.Legal,
+    {
+      name: 'Legal (8.5 × 14 in)',
+      size: [215.9, 355.6],
+    },
+  ],
+]);

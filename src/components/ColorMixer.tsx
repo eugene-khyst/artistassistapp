@@ -285,9 +285,9 @@ export const ColorMixer: React.FC = () => {
             </Space>
           </Col>
           <Col xs={24} md={12} lg={8}>
-            <Space direction="vertical" size="small">
+            <Space direction="vertical">
               {resultColorMixtures.map((colorMixture: ColorMixture) => (
-                <Space key={colorMixture.key} direction="vertical" size="small" align="end">
+                <>
                   <ColorMixtureDescription
                     colorMixture={colorMixture}
                     showColors={isThickConsistency(colorMixture)}
@@ -299,7 +299,7 @@ export const ColorMixer: React.FC = () => {
                     size="small"
                     style={{marginBottom: 8}}
                   />
-                </Space>
+                </>
               ))}
               {!screens.md && <AdCard vertical />}
             </Space>

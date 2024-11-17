@@ -23,7 +23,7 @@ import {imageBitmapToOffscreenCanvas} from '~/src/utils';
 
 type BlobSupplier = () => Promise<Blob | undefined>;
 
-type ImageSource = (ImageBitmap | BlobSupplier | null) | ImageBitmap[];
+type ImageSource = (ImageBitmap | BlobSupplier | null) | ImageBitmap[] | Blob[];
 
 interface Props {
   image: ImageSource;
@@ -65,15 +65,21 @@ export const PrintableImages: React.FC<Props> = ({image, printing, setPrinting}:
         await Promise.all(
           [image]
             .flat()
-            .map(async (image: ImageBitmap | BlobSupplier | null): Promise<Blob | undefined> => {
-              if (image instanceof ImageBitmap) {
-                const [canvas] = imageBitmapToOffscreenCanvas(image);
-                return canvas.convertToBlob();
-              } else if (typeof image === 'function') {
-                return image();
+            .map(
+              async (
+                image: ImageBitmap | Blob | BlobSupplier | null
+              ): Promise<Blob | undefined> => {
+                if (image instanceof Blob) {
+                  return image;
+                } else if (image instanceof ImageBitmap) {
+                  const [canvas] = imageBitmapToOffscreenCanvas(image);
+                  return canvas.convertToBlob();
+                } else if (typeof image === 'function') {
+                  return image();
+                }
+                return;
               }
-              return;
-            })
+            )
         )
       )
         .filter((blob): blob is Blob => !!blob)
@@ -87,7 +93,7 @@ export const PrintableImages: React.FC<Props> = ({image, printing, setPrinting}:
       {!!printImagesUrls.length && (
         <div ref={printRef}>
           {printImagesUrls.map((url: string, i: number) => (
-            <img key={i} src={url} style={{breakAfter: 'always'}} />
+            <img key={i} src={url} style={{breakAfter: 'always', width: '100%'}} />
           ))}
         </div>
       )}

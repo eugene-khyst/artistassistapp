@@ -67,10 +67,10 @@ export const SimilarColorCard: React.FC<Props> = ({
 
   return (
     <Card size="small">
-      <Space direction="vertical" size="small" style={{width: '100%'}}>
+      <Space direction="vertical" style={{width: '100%'}}>
         <ColorMixtureDescription colorMixture={colorMixture} />
-        <Space size="small" style={{width: '100%', justifyContent: 'space-between'}}>
-          <Space size="small" align="center">
+        <Space style={{width: '100%', justifyContent: 'space-between'}}>
+          <Space align="center">
             <Typography.Text strong>{`≈ ${similarity.toFixed(1)}%`}</Typography.Text>
             <Tooltip title="Color similarity">
               <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />

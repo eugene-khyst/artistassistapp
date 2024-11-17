@@ -40,10 +40,9 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
   open = false,
   onClose,
 }: Props) => {
-  const {ref: canvasRef, reflectanceChartRef} = useReflectanceChart();
+  const {ref: canvasRef, reflectanceChart} = useReflectanceChart();
 
   useEffect(() => {
-    const reflectanceChart = reflectanceChartRef.current;
     if (!reflectanceChart) {
       return;
     }
@@ -64,17 +63,10 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
         targetColorRgb.toRgbTuple()
       );
     }
-  }, [reflectanceChartRef, targetColor, colorMixture, showParts]);
+  }, [reflectanceChart, targetColor, colorMixture, showParts]);
 
   return (
-    <Drawer
-      title="Reflectance chart"
-      placement="right"
-      size="large"
-      open={open}
-      onClose={onClose}
-      forceRender={true}
-    >
+    <Drawer title="Reflectance chart" placement="right" size="large" open={open} onClose={onClose}>
       <canvas ref={canvasRef} width="688" height="388" style={{marginBottom: 16}} />
       {colorMixture && (
         <>

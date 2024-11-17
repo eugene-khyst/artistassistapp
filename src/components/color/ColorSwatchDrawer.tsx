@@ -40,10 +40,10 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
   const screens = Grid.useBreakpoint();
 
   const blob = useImageFileToBlob(imageFile);
-  const imageSrc: string | undefined = useCreateObjectUrl(blob);
+  const imageUrl: string | undefined = useCreateObjectUrl(blob);
 
-  const isFullHeight = screens.sm || !imageSrc;
-  const imageHeight = imageSrc ? `calc((100vh - 60px) / ${isFullHeight ? 1 : 2})` : 0;
+  const isFullHeight = screens.sm || !imageUrl;
+  const imageHeight = imageUrl ? `calc((100vh - 60px) / ${isFullHeight ? 1 : 2})` : 0;
   const colorSwatchHeight = `calc((100vh - 60px) / ${isFullHeight ? 1 : 2})`;
   const colorStripeHeight = `max(calc((100vh - 60px) / (${
     Math.min(colorMixtures?.length || 10, 10) * (isFullHeight ? 1 : 2)
@@ -64,9 +64,9 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
           sm={12}
           style={{height: imageHeight, lineHeight: imageHeight, textAlign: 'center'}}
         >
-          {imageSrc && (
+          {imageUrl && (
             <img
-              src={imageSrc}
+              src={imageUrl}
               style={{maxWidth: '100%', maxHeight: '100%', verticalAlign: 'middle'}}
             />
           )}

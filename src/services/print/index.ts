@@ -16,8 +16,5 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export * from './clamp';
-export * from './gcd';
-export * from './geometry';
-export * from './matrix';
+export * from './print';
 export * from './types';

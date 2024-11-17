@@ -30,7 +30,7 @@ export const Logo: React.FC<Props> = ({name = false, tagline = false, size}: Pro
   } = theme.useToken();
 
   return (
-    <Space direction="vertical" size="small" align="center" style={{width: '100%'}}>
+    <Space direction="vertical" align="center" style={{width: '100%'}}>
       <img
         src="/assets/favicon/favicon.svg"
         alt="ArtistAssistApp logo"

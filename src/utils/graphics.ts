@@ -27,7 +27,7 @@ async function createImageBitmapWithFallback(blob: Blob): Promise<ImageBitmap> {
     return await createImageBitmap(blob);
   } catch (error) {
     console.error(error);
-    return await createErrorImageBitmap(error instanceof Error ? error.message : undefined);
+    return createErrorImageBitmap(error instanceof Error ? error.message : undefined);
   }
 }
 
@@ -82,7 +82,7 @@ export function getRgbaForCoord(
   return [data[index]!, data[index + 1]!, data[index + 2]!, data[index + 3]!];
 }
 
-async function createErrorImageBitmap(error?: string): Promise<ImageBitmap> {
+function createErrorImageBitmap(error?: string): ImageBitmap {
   const emojiFontSize = 84;
   const titleFontSize = 48;
   const titleLineHeight: number = 1.5 * titleFontSize;
@@ -124,5 +124,5 @@ async function createErrorImageBitmap(error?: string): Promise<ImageBitmap> {
       ctx.fillText(line, padding, canvas.height / 2 + (i + 2) * textLineHeight);
     }
   }
-  return await createImageBitmap(canvas);
+  return canvas.transferToImageBitmap();
 }

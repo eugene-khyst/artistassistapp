@@ -51,6 +51,7 @@ import type {ColorBrandDefinition, ColorSetDefinition, ColorType} from '~/src/se
 import {
   COLOR_MIXING,
   COLOR_TYPES,
+  hasAccessToBrand,
   hasAccessToBrands,
   THREE_COLORS_MIXTURES_LIMIT,
 } from '~/src/services/color';
@@ -322,7 +323,7 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
   return (
     <>
       <Flex vertical gap="small" style={{padding: '0 16px 16px'}}>
-        <Space direction="vertical" size="small">
+        <Space direction="vertical">
           <Typography.Text>
             <Typography.Text strong>ArtistAssistApp</Typography.Text> is a free web app for artists
             to accurately mix any color from a photo, analyze tonal values, turn a photo into an
@@ -351,7 +352,7 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
           )}
         </Space>
 
-        <Space size="small" wrap>
+        <Space wrap>
           {!isAuthLoading &&
             (user ? (
               <LogoutButton />
@@ -438,9 +439,7 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
                   rules={[{required: true, message: '${label} are required'}]}
                   dependencies={['type']}
                   help={
-                    !isAuthLoading &&
-                    !user &&
-                    (!isAccessAllowed ? (
+                    !isAccessAllowed ? (
                       <Typography.Text type="warning">
                         You&apos;ve selected color brands that are available to paid Patreon members
                         only.
@@ -449,8 +448,9 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
                       <Typography.Text type="secondary">
                         Only a limited number of color brands are available in the free version.
                       </Typography.Text>
-                    ))
+                    )
                   }
+                  validateStatus={!isAccessAllowed ? 'warning' : undefined}
                 >
                   <ColorBrandSelect mode="multiple" brands={brands} />
                 </Form.Item>
@@ -480,20 +480,22 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
                   dependencies={['type', 'brands', 'standardColorSet']}
                   tooltip="Add or remove colors to match your actual color set."
                   help={
-                    !brand.freeTier &&
                     !isAuthLoading &&
-                    !user && (
+                    !hasAccessToBrand(user, brand) && (
                       <Typography.Text type="warning">
                         This color brand is available to paid Patreon members only.
                       </Typography.Text>
                     )
+                  }
+                  validateStatus={
+                    !isAuthLoading && !hasAccessToBrand(user, brand) ? 'warning' : undefined
                   }
                 >
                   <ColorSelect
                     mode="multiple"
                     colors={colors.get(brand.alias)}
                     brand={brand}
-                    disabled={!user && !brand.freeTier}
+                    disabled={!hasAccessToBrand(user, brand)}
                   />
                 </Form.Item>
               ))}

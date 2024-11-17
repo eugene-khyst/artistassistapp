@@ -50,7 +50,7 @@ export const ColorMixtureDescription: React.FC<Props> = ({
 }: Props) => {
   const [whitePart, colorMixturePart] = toRatio(whiteFraction);
   return (
-    <Space direction="vertical" size="small">
+    <Space direction="vertical">
       {showColors && (
         <>
           {parts.length > 1 && (
@@ -58,10 +58,10 @@ export const ColorMixtureDescription: React.FC<Props> = ({
               Mix colors in a {parts.map(({part}: ColorMixturePart) => part).join(':')} ratio
             </Typography.Text>
           )}
-          <Space size="small">
+          <Space>
             {parts.length > 1 ? (
               <>
-                <Space direction="vertical" size="small">
+                <Space direction="vertical">
                   {parts.map(({color, part}: ColorMixturePart, i: number) => {
                     return <ColorDescription colorType={type} key={i} color={color} text={part} />;
                   })}
@@ -78,9 +78,9 @@ export const ColorMixtureDescription: React.FC<Props> = ({
       {white && (
         <>
           <Typography.Text>Add white in a {formatRatio(whiteFraction, true)} ratio</Typography.Text>
-          <Space size="small">
-            <Space direction="vertical" size="small">
-              <Space size="small">
+          <Space>
+            <Space direction="vertical">
+              <Space>
                 <ColorSquare color={colorMixtureRgb} text={colorMixturePart} size="large" />
                 <Typography.Text>Color mixture</Typography.Text>
               </Space>
@@ -99,7 +99,7 @@ export const ColorMixtureDescription: React.FC<Props> = ({
             showTooltip={showTooltips}
           />
           {backgroundRgb && (
-            <Space size="small">
+            <Space>
               <ColorSquare color={tintRgb} text={formatFraction(consistency)} size="large" />
               <Typography.Text>over</Typography.Text>
               <ColorSquare color={backgroundRgb} size="large" />

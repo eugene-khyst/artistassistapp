@@ -17,7 +17,7 @@
  */
 
 import type {RefCallback} from 'react';
-import {useCallback, useEffect, useRef, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
 import {ZoomableImageCanvas} from '~/src/services/canvas/image';
 import {debounce} from '~/src/utils';
@@ -28,19 +28,17 @@ export function zoomableImageCanvasSupplier(canvas: HTMLCanvasElement): Zoomable
 
 interface Result<T> {
   ref: RefCallback<HTMLCanvasElement>;
-  zoomableImageCanvas: T | undefined;
+  zoomableImageCanvas?: T;
 }
 
 export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
   zoomableImageCanvasSupplier: (canvas: HTMLCanvasElement) => T,
   image: (ImageBitmap | null) | ImageBitmap[]
 ): Result<T> {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [zoomableImageCanvas, setZoomableImageCanvas] = useState<T | undefined>();
+  const [zoomableImageCanvas, setZoomableImageCanvas] = useState<T>();
   const ref = useCallback(
     (node: HTMLCanvasElement | null) => {
       if (node) {
-        canvasRef.current = node;
         setZoomableImageCanvas(prev => {
           prev?.destroy();
           return zoomableImageCanvasSupplier(node);

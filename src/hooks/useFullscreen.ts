@@ -19,6 +19,7 @@
 import {useCallback, useState} from 'react';
 
 interface Result {
+  isSupported: boolean;
   isFullscreen: boolean;
   toggleFullScreen: () => void;
 }
@@ -37,6 +38,7 @@ export function useFullScreen(): Result {
   }, []);
 
   return {
+    isSupported: typeof document.documentElement.requestFullscreen !== 'undefined',
     isFullscreen,
     toggleFullScreen,
   };

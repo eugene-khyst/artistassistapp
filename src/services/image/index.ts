@@ -22,4 +22,5 @@ export * from './image-file';
 export * from './limited-palette';
 export * from './outline';
 export * from './sample-images';
+export * from './splitter';
 export * from './tonal-values';

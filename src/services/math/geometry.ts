@@ -16,6 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {LengthUnitDefinition} from '~/src/services/math/types';
+import {LengthUnit} from '~/src/services/math/types';
+
+export const LENGTH_UNITS = new Map<LengthUnit, LengthUnitDefinition>([
+  [LengthUnit.Millimeter, {abbreviation: 'mm', toMillimeters: number => number}],
+  [LengthUnit.Centimeter, {abbreviation: 'cm', toMillimeters: number => 10 * number}],
+  [LengthUnit.Inch, {abbreviation: 'in', toMillimeters: number => 25.4 * number}],
+]);
+
 export class Vector {
   static ZERO = new Vector(0, 0);
 

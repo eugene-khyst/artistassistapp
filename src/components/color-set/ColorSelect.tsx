@@ -37,7 +37,7 @@ function getColorOptions(
     return {
       value: color.id,
       label: (
-        <Space size="small" align="center" key={label}>
+        <Space align="center" key={label}>
           <ColorSquare color={color.hex} />
           <Typography.Text>{label}</Typography.Text>
         </Space>

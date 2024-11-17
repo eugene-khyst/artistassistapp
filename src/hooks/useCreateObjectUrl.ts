@@ -27,7 +27,12 @@ export function useCreateObjectUrl(blob?: Blob): string | undefined {
       return;
     }
     const objectUrl: string = URL.createObjectURL(blob);
-    setUrl(objectUrl);
+    setUrl(prev => {
+      if (prev) {
+        URL.revokeObjectURL(prev);
+      }
+      return objectUrl;
+    });
     return () => {
       URL.revokeObjectURL(objectUrl);
     };

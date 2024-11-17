@@ -27,3 +27,4 @@ export * from './map';
 export * from './media';
 export * from './predicate';
 export * from './random';
+export type * from './types';

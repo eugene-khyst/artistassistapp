@@ -196,6 +196,10 @@ export function toColorSet(
   };
 }
 
+export function hasAccessToBrand(user: User | null, {freeTier}: ColorBrandDefinition): boolean {
+  return freeTier || !!user;
+}
+
 export function hasAccessToBrands(user: User | null, brands: ColorBrandDefinition[]): boolean {
   return !brands.some(({freeTier}) => !freeTier) || !!user;
 }

@@ -16,12 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export function debounce(func: (...args: any[]) => void, wait = 300) {
+export function debounce(func: (...args: any[]) => void, delay = 300) {
   let timeoutId: ReturnType<typeof setTimeout>;
   return function (this: any, ...args: any[]) {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => {
       func.apply(this, args);
-    }, wait);
+    }, delay);
   };
 }
