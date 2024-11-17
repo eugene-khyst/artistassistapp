@@ -181,7 +181,7 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
                     setTargetUnit(value);
                   }}
                   options={LENGTH_UNIT_OPTIONS}
-                  style={{width: 60}}
+                  style={{width: 70}}
                 />
               </Space.Compact>
             </Form.Item>
