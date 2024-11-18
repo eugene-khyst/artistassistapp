@@ -71,7 +71,6 @@ export function splitImage(
   ctx.lineWidth = lineWidth;
   ctx.strokeStyle = 'black';
   ctx.strokeRect(0, 0, px2mm * targetWidth, px2mm * targetHeight);
-  ctx.strokeStyle = 'red';
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
       const x = c * pageWidthPx;
