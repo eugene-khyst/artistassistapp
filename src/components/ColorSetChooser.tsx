@@ -321,6 +321,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
   };
 
   const handleSubmit = async (values: ColorSetDefinition) => {
+    setHasUnsavedChanges(false);
     const {id, ...colorSet} = values;
     form.setFieldsValue(
       await saveColorSet(
@@ -333,7 +334,6 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
         colors
       )
     );
-    setHasUnsavedChanges(false);
   };
 
   const handleSubmitFailed = () => {
@@ -342,6 +342,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
 
   const handleDeleteButtonClick = async () => {
     if (selectedColorSetId) {
+      setHasUnsavedChanges(false);
       await deleteColorSet(selectedColorSetId);
       let values: Partial<ColorSetDefinition> = {
         type: selectedType,
@@ -352,7 +353,6 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
       }
       form.resetFields();
       form.setFieldsValue(values);
-      setHasUnsavedChanges(false);
     }
   };
 
