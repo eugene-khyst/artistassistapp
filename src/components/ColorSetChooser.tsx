@@ -36,15 +36,18 @@ import {
   Row,
   Space,
   Spin,
+  Tooltip,
   Typography,
 } from 'antd';
-import {useEffect, useRef, useState} from 'react';
+import type {ForwardedRef} from 'react';
+import {forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {JoinButton} from '~/src/components/auth/JoinButton';
 import {LoginButton} from '~/src/components/auth/LoginButton';
 import {LogoutButton} from '~/src/components/auth/LogoutButton';
 import {ColorSetSelect} from '~/src/components/color-set/ColorSetSelect';
+import type {ChangableComponent} from '~/src/components/types';
 import {useColorBrands, useColors, useStandardColorSets} from '~/src/hooks';
 import {useAuth} from '~/src/hooks/useAuth';
 import type {ColorBrandDefinition, ColorSetDefinition, ColorType} from '~/src/services/color';
@@ -74,17 +77,20 @@ const formInitialValues: ColorSetDefinition = {
   colors: {},
 };
 
-interface Props {
-  showInstallPromotion: boolean;
-}
-
 function getEmptyColors(values: ColorSetDefinition): Partial<Record<number, number[]>> {
   return values.colors
     ? Object.fromEntries(Object.keys(values.colors).map((brand: string) => [brand, []]))
     : {};
 }
 
-export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) => {
+interface Props {
+  showInstallPromotion: boolean;
+}
+
+export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function ColorSetChooser(
+  {showInstallPromotion}: Props,
+  ref: ForwardedRef<ChangableComponent>
+) {
   const importedColorSet = useAppStore(state => state.importedColorSet);
   const latestColorSet = useAppStore(state => state.latestColorSet);
   const isInitialStateLoading = useAppStore(state => state.isInitialStateLoading);
@@ -95,7 +101,7 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
   const saveColorSet = useAppStore(state => state.saveColorSet);
   const deleteColorSet = useAppStore(state => state.deleteColorSet);
 
-  const {message, notification} = App.useApp();
+  const {message, notification, modal} = App.useApp();
 
   const {user, isLoading: isAuthLoading} = useAuth();
 
@@ -108,12 +114,13 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
     form
   );
 
-  const buttonsRef = useRef<HTMLDivElement>(null);
+  const saveButtonRef = useRef<HTMLButtonElement>(null);
 
   const selectedColorsCount: number = Object.values(selectedColors ?? {})
     .map((ids: number[] | undefined) => ids?.length ?? 0)
     .reduce((a: number, b: number) => a + b, 0);
 
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [shareColorSetUrl, setShareColorSetUrl] = useState<string>();
 
@@ -184,11 +191,40 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
     }
   }, [isColorsError, notification]);
 
+  const checkForUnsavedChanges = useCallback(async (): Promise<boolean> => {
+    if (hasUnsavedChanges) {
+      const confirmed: boolean = await modal.confirm({
+        title: 'Save changes to the color set?',
+        content: "If you don't save, changes to the color set may be lost.",
+        okText: 'Save',
+        cancelText: "Don't save",
+        focusTriggerAfterClose: false,
+      });
+      if (confirmed) {
+        saveButtonRef.current?.focus();
+      } else {
+        setHasUnsavedChanges(false);
+      }
+      return confirmed;
+    }
+    return false;
+  }, [modal, hasUnsavedChanges]);
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      hasUnsavedChanges: checkForUnsavedChanges,
+    }),
+    [checkForUnsavedChanges]
+  );
+
   const handleFormValuesChange = (
     changedValues: Partial<ColorSetDefinition>,
     values: ColorSetDefinition
   ) => {
     void (async () => {
+      setHasUnsavedChanges(true);
+
       const emptyColors: Partial<Record<number, number[]>> = getEmptyColors(values);
 
       if (changedValues.type) {
@@ -270,7 +306,10 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
     })();
   };
 
-  const handleCreateNewClick = () => {
+  const handleCreateNewClick = async () => {
+    if (await checkForUnsavedChanges()) {
+      return;
+    }
     const emptyColors: Partial<Record<number, number[]>> = getEmptyColors(form.getFieldsValue());
     form.setFieldsValue({
       id: NEW_COLOR_SET,
@@ -294,6 +333,7 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
         colors
       )
     );
+    setHasUnsavedChanges(false);
   };
 
   const handleSubmitFailed = () => {
@@ -312,6 +352,7 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
       }
       form.resetFields();
       form.setFieldsValue(values);
+      setHasUnsavedChanges(false);
     }
   };
 
@@ -382,7 +423,7 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
 
         <Typography.Text strong>
           Select your medium, color brands and colors you will paint with and press the{' '}
-          <Typography.Link onClick={() => buttonsRef.current?.scrollIntoView()}>
+          <Typography.Link onClick={() => saveButtonRef.current?.focus()}>
             Save & proceed
           </Typography.Link>{' '}
           button.
@@ -418,7 +459,7 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
                 <ColorSetSelect
                   colorSets={colorSetsByType}
                   brands={brands}
-                  onCreateNewClick={handleCreateNewClick}
+                  onCreateNewClick={() => void handleCreateNewClick()}
                 />
               </Form.Item>
             )}
@@ -438,7 +479,7 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
                   tooltip={`Select ${COLOR_TYPES.get(selectedType)?.name.toLowerCase()} brands that you use.`}
                   rules={[{required: true, message: '${label} are required'}]}
                   dependencies={['type']}
-                  help={
+                  extra={
                     !isAccessAllowed ? (
                       <Typography.Text type="warning">
                         You&apos;ve selected color brands that are available to paid Patreon members
@@ -479,7 +520,7 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
                   rules={[{required: true, message: '${label} are required'}]}
                   dependencies={['type', 'brands', 'standardColorSet']}
                   tooltip="Add or remove colors to match your actual color set."
-                  help={
+                  extra={
                     !isAuthLoading &&
                     !hasAccessToBrand(user, brand) && (
                       <Typography.Text type="warning">
@@ -502,7 +543,7 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
             <Row>
               <Col xs={24} md={12}>
                 <Form.Item
-                  help={
+                  extra={
                     <Space direction="vertical">
                       {!isAccessAllowed && (
                         <Typography.Text type="warning">
@@ -528,12 +569,19 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
                     </Space>
                   }
                 >
-                  <Space ref={buttonsRef} wrap>
+                  <Space wrap>
                     {!isAuthLoading &&
                       (isAccessAllowed ? (
-                        <Button icon={<SaveOutlined />} type="primary" htmlType="submit">
-                          Save & proceed
-                        </Button>
+                        <Tooltip title="Save the changes to the color set" trigger="focus">
+                          <Button
+                            ref={saveButtonRef}
+                            icon={<SaveOutlined />}
+                            type="primary"
+                            htmlType="submit"
+                          >
+                            Save & proceed
+                          </Button>
+                        </Tooltip>
                       ) : (
                         <>
                           <LoginButton />
@@ -587,4 +635,4 @@ export const ColorSetChooser: React.FC<Props> = ({showInstallPromotion}: Props) 
       />
     </>
   );
-};
+});

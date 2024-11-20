@@ -19,10 +19,8 @@
 import {type PropsWithChildren, useCallback, useEffect, useRef, useState} from 'react';
 
 import {AuthContext} from '~/src/contexts/AuthContext';
-import type {User} from '~/src/services/auth';
-import {AuthError} from '~/src/services/auth';
-import type {AuthClientProps} from '~/src/services/auth/auth-client';
-import {AuthClient} from '~/src/services/auth/auth-client';
+import type {AuthClientProps, User} from '~/src/services/auth';
+import {AuthClient, AuthError} from '~/src/services/auth';
 
 const AUTH_ERROR_MESSAGES: Record<string, string> = {
   inactive:

@@ -40,7 +40,7 @@ import {
 } from 'antd';
 import type {Color as PickedColor} from 'antd/es/color-picker';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
-import {useEffect, useState} from 'react';
+import {Fragment, useEffect, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import type {Color, ColorMixture, ColorSet} from '~/src/services/color';
@@ -286,8 +286,8 @@ export const ColorMixer: React.FC = () => {
           </Col>
           <Col xs={24} md={12} lg={8}>
             <Space direction="vertical">
-              {resultColorMixtures.map((colorMixture: ColorMixture) => (
-                <>
+              {resultColorMixtures.map((colorMixture: ColorMixture, i: number) => (
+                <Fragment key={i}>
                   <ColorMixtureDescription
                     colorMixture={colorMixture}
                     showColors={isThickConsistency(colorMixture)}
@@ -299,7 +299,7 @@ export const ColorMixer: React.FC = () => {
                     size="small"
                     style={{marginBottom: 8}}
                   />
-                </>
+                </Fragment>
               ))}
               {!screens.md && <AdCard vertical />}
             </Space>

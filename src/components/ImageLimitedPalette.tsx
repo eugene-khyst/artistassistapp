@@ -18,7 +18,7 @@
 
 import {DownloadOutlined, LoadingOutlined, MoreOutlined} from '@ant-design/icons';
 import type {MenuProps} from 'antd';
-import {Button, Col, Dropdown, Flex, Form, Grid, Row, Space, Spin, Typography} from 'antd';
+import {Button, Col, Dropdown, Form, Grid, Row, Space, Spin, Typography} from 'antd';
 import {useEffect, useState} from 'react';
 
 import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
@@ -104,21 +104,17 @@ export const ImageLimitedPalette: React.FC = () => {
   return (
     <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">
       <div style={{padding: '0 16px'}}>
-        <Flex gap="small" align="baseline" style={{width: '100%', justifyContent: 'center'}}>
+        <Space.Compact style={{display: 'flex'}}>
           <Form.Item
             label="Colors"
             tooltip={`Using a limited palette helps achieve color harmony. Select up to ${MAX_COLORS} colors to be your primaries.`}
-            style={{marginBottom: 0, flexGrow: 1}}
-            {...(screens.sm
-              ? {
-                  extra: (
-                    <Typography.Text type={colors.length > MAX_COLORS ? 'danger' : 'secondary'}>
-                      Select from 1 to {MAX_COLORS} colors
-                    </Typography.Text>
-                  ),
-                }
-              : null)}
-            {...(colors.length > MAX_COLORS ? {validateStatus: 'error'} : null)}
+            style={{flexGrow: 1, marginBottom: 0}}
+            extra={
+              <Typography.Text type={colors.length > MAX_COLORS ? 'danger' : 'secondary'}>
+                Select from 1 to {MAX_COLORS} colors
+              </Typography.Text>
+            }
+            validateStatus={colors.length > MAX_COLORS ? 'error' : undefined}
           >
             <ColorCascader
               value={colors}
@@ -127,19 +123,17 @@ export const ImageLimitedPalette: React.FC = () => {
               maxTagCount="responsive"
             />
           </Form.Item>
-          <Space.Compact>
-            <Button
-              type="primary"
-              onClick={handleApplyClick}
-              disabled={colors.length == 0 || colors.length > MAX_COLORS}
-            >
-              Apply
-            </Button>
-            <Dropdown menu={{items}}>
-              <Button icon={<MoreOutlined />} />
-            </Dropdown>
-          </Space.Compact>
-        </Flex>
+          <Button
+            type="primary"
+            onClick={handleApplyClick}
+            disabled={colors.length == 0 || colors.length > MAX_COLORS}
+          >
+            Apply
+          </Button>
+          <Dropdown menu={{items}}>
+            <Button icon={<MoreOutlined />} />
+          </Dropdown>
+        </Space.Compact>
       </div>
       <Row>
         <Col xs={24} sm={12}>

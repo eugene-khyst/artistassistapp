@@ -27,6 +27,7 @@ import {ImageBackgroundRemove} from '~/src/components/ImageBackgroundRemove';
 import {ImageOutline} from '~/src/components/ImageOutline';
 import {ImagesCompare} from '~/src/components/ImagesCompare';
 import {Install} from '~/src/components/Install';
+import type {ChangableComponent} from '~/src/components/types';
 import {TabContext} from '~/src/contexts/TabContext';
 import {useFullScreen} from '~/src/hooks';
 import {useAuth} from '~/src/hooks/useAuth';
@@ -70,6 +71,7 @@ export const ArtistAssistApp: React.FC = () => {
 
   const {user, isLoading: isAuthLoading, error: authError} = useAuth();
 
+  const colorSetChooserRef = useRef<ChangableComponent>(null);
   const isInitialized = useRef<boolean>(false);
 
   const [isAdModalReady, setIsAdModalReady] = useState<boolean>(false);
@@ -117,13 +119,20 @@ export const ArtistAssistApp: React.FC = () => {
   }, [isAuthLoading, user, initAppStore]);
 
   const handleTabChange = (activeKey: string) => {
-    void setActiveTabKey(activeKey as TabKey);
+    void (async () => {
+      if (await colorSetChooserRef.current?.hasUnsavedChanges()) {
+        return;
+      }
+      void setActiveTabKey(activeKey as TabKey);
+    })();
   };
 
   const items = [
     {
       key: TabKey.ColorSet,
-      children: <ColorSetChooser showInstallPromotion={showInstallPromotion} />,
+      children: (
+        <ColorSetChooser ref={colorSetChooserRef} showInstallPromotion={showInstallPromotion} />
+      ),
     },
     {
       key: TabKey.Photo,
