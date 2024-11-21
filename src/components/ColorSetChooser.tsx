@@ -609,6 +609,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
                       >
                         <Button
                           icon={<DeleteOutlined />}
+                          title="Delete this color set"
                           onClick={e => {
                             e.stopPropagation();
                           }}

@@ -28,7 +28,6 @@
     <script type="module" src="/src/main.tsx"></script>
     <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
         "@type": "WebApplication",
         "@id": "https://app.artistassistapp.com/#webapplication",
         "name": "ArtistAssistApp",
@@ -36,7 +35,7 @@
         "browserRequirements": "Requires an up-to-date version of Google Chrome, Firefox, Opera, Samsung Internet or Microsoft Edge.",
         "sameAs": "https://artistassistapp.com/",
         "applicationCategory": "DesignApplication",
-        "applicationSubCategory": "Painting and drawing assistant app",
+        "applicationSubCategory": "Painting and Drawing Assistant App",
         "operatingSystem": "Windows, macOS, Linux, iOS, Android, ChromeOS",
         "memoryRequirements": "2-GB",
         "copyrightHolder": {
@@ -49,8 +48,36 @@
         },
         "creator": {"@id": "https://github.com/eugene-khyst#person"},
         "offers": {
-          "@type": "Offer",
-          "price": "0"
+          "@type": "AggregateOffer",
+          "highPrice": "5",
+          "lowPrice": "0",
+          "offerCount": "2",
+          "priceCurrency": "USD",
+          "offers": [
+            {
+              "@type": "Offer",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "0",
+                "priceCurrency": "USD",
+                "name": "Free tier"
+              }
+            },
+            {
+              "@type": "Offer",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "5",
+                "priceCurrency": "USD",
+                "name": "Standard tier",
+                "referenceQuantity": {
+                  "@type": "QuantitativeValue",
+                  "value": "1",
+                  "unitCode": "MON"
+                }
+              }
+            }
+          ]
         }
       }
     </script>
