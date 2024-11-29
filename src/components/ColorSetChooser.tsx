@@ -341,8 +341,8 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
   };
 
   const handleDeleteButtonClick = async () => {
+    setHasUnsavedChanges(true);
     if (selectedColorSetId) {
-      setHasUnsavedChanges(false);
       await deleteColorSet(selectedColorSetId);
       let values: Partial<ColorSetDefinition> = {
         type: selectedType,
