@@ -18,7 +18,6 @@
 
 import './index.css';
 
-import * as Sentry from '@sentry/react';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {Alert, App} from 'antd';
 import {StrictMode} from 'react';
@@ -35,11 +34,6 @@ import {disableScreenLock} from '~/src/wake-lock';
 
 import {ArtistAssistApp} from './ArtistAssistApp';
 import {registerServiceWorker} from './register-service-worker';
-
-Sentry.init({
-  dsn: 'https://53a1df31d8df96056a1d07726d97ebfc@o4508211015254016.ingest.us.sentry.io/4508211020824576',
-  integrations: [],
-});
 
 registerServiceWorker();
 registerFileHandler();

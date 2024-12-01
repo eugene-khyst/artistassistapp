@@ -1,4 +1,3 @@
-import {sentryVitePlugin} from '@sentry/vite-plugin';
 import react from '@vitejs/plugin-react';
 import {defineConfig} from 'vite';
 import {VitePWA} from 'vite-plugin-pwa';
@@ -12,10 +11,6 @@ export default defineConfig({
       filename: 'service-worker.ts',
       manifest: false,
       injectRegister: false,
-    }),
-    sentryVitePlugin({
-      org: 'eugene-khyst',
-      project: 'artistassistapp',
     }),
   ],
 
