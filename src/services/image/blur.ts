@@ -32,9 +32,8 @@ export class Blur {
     const image: ImageBitmap = await createScaledImageBitmap(blob, IMAGE_SIZE.HD);
     const maxMedianFilterRadius: number = Math.max(...medianFilterRadiuses);
     const [canvas, ctx] = imageBitmapToOffscreenCanvas(image, maxMedianFilterRadius);
-    const imageData: ImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const {data: origData, width, height} = ctx.getImageData(0, 0, canvas.width, canvas.height);
     image.close();
-    const {data: origData, width, height} = imageData;
     const blurred: ImageBitmap[] = await Promise.all(
       medianFilterRadiuses.map((medianFilterRadius: number): Promise<ImageBitmap> => {
         const blurredImageData = new ImageData(new Uint8ClampedArray(origData), width, height);

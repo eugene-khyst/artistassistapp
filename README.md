@@ -143,7 +143,7 @@ following:
   similarity)
 - vector operations,
 - median blur filter using sliding window and histogram,
-- erosion morphological filter,
+- Sobel operator for edge detection,
 - median cut for color quantization,
 - RGB to grayscale conversion based on perceived lightness,
 - ranking images using pairwise comparison and Elo rating system,

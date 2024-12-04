@@ -66,7 +66,7 @@ export function getIndexForCoord(x: number, y: number, width: number, channel: n
   if (channel < 0 || channel > 3) {
     throw new Error('Rgba channel must be between 0 and 3');
   }
-  return y * (width * 4) + x * 4 + channel;
+  return y * width * 4 + x * 4 + channel;
 }
 
 export function getRgbaForCoord(

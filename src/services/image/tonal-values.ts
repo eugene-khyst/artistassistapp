@@ -36,9 +36,12 @@ export class TonalValues {
     console.time('tones');
     const image: ImageBitmap = await createScaledImageBitmap(blob, IMAGE_SIZE.HD);
     const [canvas, ctx] = imageBitmapToOffscreenCanvas(image, medianFilterRadius);
-    const imageData: ImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const {
+      data: origData,
+      width,
+      height,
+    }: ImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     image.close();
-    const {data: origData, width, height} = imageData;
     thresholds.sort((a: number, b: number) => b - a);
     const {length} = thresholds;
     const tonesData = Array.from({length}, () => new Uint8ClampedArray(origData.length));
