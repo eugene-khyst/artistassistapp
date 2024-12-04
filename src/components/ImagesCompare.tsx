@@ -79,7 +79,7 @@ export const ImagesCompare: React.FC = () => {
 
   return (
     <Flex vertical gap="small" style={{padding: '0 16px 16px'}}>
-      <Space align="center">
+      <Space align="center" size={4}>
         <Typography.Text strong>Select photos to rank using pairwise comparison</Typography.Text>
         <Tooltip title="It can be difficult to choose between multiple photos. Comparing each photo with others in pairs simplifies the choice and helps to identify the most preferred one.">
           <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />

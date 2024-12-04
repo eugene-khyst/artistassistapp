@@ -29,13 +29,20 @@ interface ConsistencyDescriptionConfig {
 }
 
 const DILUTED_IN_WATER = (fraction: Fraction) => (
-  <Typography.Text>Dilute the paint with water in a {formatRatio(fraction)} ratio</Typography.Text>
+  <Typography.Text>
+    Dilute the paint with water in a{' '}
+    <Typography.Text strong>{formatRatio(fraction)} ratio</Typography.Text>
+  </Typography.Text>
 );
 const LAYER_THIKNESS = (fraction: Fraction) => (
-  <Typography.Text>Thin the paint to {formatFraction(fraction)} thickness</Typography.Text>
+  <Typography.Text>
+    Thin the paint to <Typography.Text strong>{formatFraction(fraction)} thickness</Typography.Text>
+  </Typography.Text>
 );
 const PRESSURE = (fraction: Fraction) => (
-  <Typography.Text>Lighten the pressure to {formatFraction(fraction)}</Typography.Text>
+  <Typography.Text>
+    Lighten the pressure to <Typography.Text strong>{formatFraction(fraction)}</Typography.Text>
+  </Typography.Text>
 );
 
 const CONSISTENCIES: Partial<Record<ColorType, ConsistencyDescriptionConfig>> = {
@@ -81,8 +88,15 @@ export const ConsistencyDescription: React.FC<Props> = ({
   const {labelRender, tooltip} = CONSISTENCIES[colorType] ?? {};
   return (
     labelRender &&
-    !isThickConsistency({consistency}) && (
-      <Space>
+    (isThickConsistency({consistency}) ? (
+      <Space size={4}>
+        <Typography.Text>Thick pigment</Typography.Text>
+        <Tooltip title="Don't thin the layer">
+          <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
+        </Tooltip>
+      </Space>
+    ) : (
+      <Space size={4}>
         {labelRender(consistency)}
         {tooltip && showTooltip && (
           <Tooltip title={tooltip}>
@@ -90,6 +104,6 @@ export const ConsistencyDescription: React.FC<Props> = ({
           </Tooltip>
         )}
       </Space>
-    )
+    ))
   );
 };

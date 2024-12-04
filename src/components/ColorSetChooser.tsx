@@ -129,6 +129,9 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
     if (colorSet) {
       form.setFieldsValue(colorSet);
     }
+    if (importedColorSet) {
+      setHasUnsavedChanges(true);
+    }
   }, [form, importedColorSet, latestColorSet]);
 
   const {brands, isLoading: isBrandsLoading, isError: isBrandsError} = useColorBrands(selectedType);

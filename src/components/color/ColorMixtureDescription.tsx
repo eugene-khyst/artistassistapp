@@ -55,7 +55,10 @@ export const ColorMixtureDescription: React.FC<Props> = ({
         <>
           {parts.length > 1 && (
             <Typography.Text>
-              Mix colors in a {parts.map(({part}: ColorMixturePart) => part).join(':')} ratio
+              Mix colors in a{' '}
+              <Typography.Text strong>
+                {parts.map(({part}: ColorMixturePart) => part).join(':')} ratio
+              </Typography.Text>
             </Typography.Text>
           )}
           <Space>
@@ -77,7 +80,10 @@ export const ColorMixtureDescription: React.FC<Props> = ({
       )}
       {white && (
         <>
-          <Typography.Text>Add white in a {formatRatio(whiteFraction, true)} ratio</Typography.Text>
+          <Typography.Text>
+            Add white in a{' '}
+            <Typography.Text strong>{formatRatio(whiteFraction, true)} ratio</Typography.Text>
+          </Typography.Text>
           <Space>
             <Space direction="vertical">
               <Space>
