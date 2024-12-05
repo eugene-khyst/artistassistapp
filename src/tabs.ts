@@ -19,6 +19,7 @@
 export enum TabKey {
   ColorSet = 'color-set',
   Photo = 'photo',
+  ColorCorrection = 'color-correction',
   ColorPicker = 'color-picker',
   Palette = 'palette',
   TonalValues = 'tonal-values',
@@ -44,6 +45,7 @@ export const TAB_LABELS: Record<TabKey, string> = {
   [TabKey.Grid]: 'Grid',
   [TabKey.ColorMixing]: 'Color mixing',
   [TabKey.LimitedPalette]: 'Limited palette',
+  [TabKey.ColorCorrection]: 'White balance',
   [TabKey.BackgroundRemove]: 'Remove background',
   [TabKey.Compare]: 'Compare',
   [TabKey.Install]: 'Install',

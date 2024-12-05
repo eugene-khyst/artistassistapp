@@ -24,6 +24,7 @@ import StickyBox from 'react-sticky-box';
 
 import {AdModal} from '~/src/components/ad/AdModal';
 import {ImageBackgroundRemove} from '~/src/components/ImageBackgroundRemove';
+import {ImageColorCorrection} from '~/src/components/ImageColorCorrection';
 import {ImageOutline} from '~/src/components/ImageOutline';
 import {ImagesCompare} from '~/src/components/ImagesCompare';
 import {Install} from '~/src/components/Install';
@@ -169,6 +170,10 @@ export const ArtistAssistApp: React.FC = () => {
     {
       key: TabKey.LimitedPalette,
       children: <ImageLimitedPalette />,
+    },
+    {
+      key: TabKey.ColorCorrection,
+      children: <ImageColorCorrection />,
     },
     {
       key: TabKey.BackgroundRemove,

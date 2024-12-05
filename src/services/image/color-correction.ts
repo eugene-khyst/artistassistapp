@@ -18,22 +18,28 @@
 
 import {transfer} from 'comlink';
 
-import {sobelEdgeDetection} from '~/src/services/image/sobel-operator';
+import {saturate} from '~/src/services/image/saturation';
+import {whitePatch} from '~/src/services/image/white-patch';
 import {createScaledImageBitmap, IMAGE_SIZE, imageBitmapToOffscreenCanvas} from '~/src/utils';
 
 interface Result {
-  outline: ImageBitmap;
+  adjustedImages: ImageBitmap[];
 }
 
-export class Outline {
-  async getOutline(blob: Blob): Promise<Result> {
-    console.time('outline');
+export class ColorCorrection {
+  async getAdjustedImage(
+    blob: Blob,
+    whitePatchPercentile: number,
+    saturation: number
+  ): Promise<Result> {
+    console.time('color-correction');
     const image: ImageBitmap = await createScaledImageBitmap(blob, IMAGE_SIZE['2K']);
     const [canvas, ctx] = imageBitmapToOffscreenCanvas(image);
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    sobelEdgeDetection(imageData);
-    const outline: ImageBitmap = await createImageBitmap(imageData);
-    console.timeEnd('outline');
-    return transfer({outline}, [outline]);
+    whitePatch(imageData, whitePatchPercentile);
+    saturate(imageData, saturation);
+    const adjustedImages: ImageBitmap[] = [await createImageBitmap(imageData), image];
+    console.timeEnd('color-correction');
+    return transfer({adjustedImages}, adjustedImages);
   }
 }

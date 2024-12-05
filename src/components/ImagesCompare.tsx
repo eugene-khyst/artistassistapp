@@ -86,8 +86,8 @@ export const ImagesCompare: React.FC = () => {
         </Tooltip>
       </Space>
 
-      <Space align="center">
-        <ImageSelect multiple onChange={handleFileChange}>
+      <Space.Compact>
+        <ImageSelect type={isNew ? 'primary' : 'default'} multiple onChange={handleFileChange}>
           {isNew ? 'Select photos' : 'Add photos'}
         </ImageSelect>
         {!isNew && (
@@ -99,7 +99,8 @@ export const ImagesCompare: React.FC = () => {
             New comparison
           </Button>
         )}
-      </Space>
+      </Space.Compact>
+
       {nextGame && (
         <>
           <Typography.Text strong>Determine the best photo by pairwise comparison</Typography.Text>

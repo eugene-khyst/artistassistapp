@@ -16,12 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export * from './background-removal';
-export * from './blur';
-export * from './color-correction';
-export * from './image-file';
-export * from './limited-palette';
-export * from './outline';
-export * from './sample-images';
-export * from './splitter';
-export * from './tonal-values';
+/// <reference lib="WebWorker" />
+
+import * as Comlink from 'comlink';
+
+import {ColorCorrection} from '..';
+
+Comlink.expose(new ColorCorrection());

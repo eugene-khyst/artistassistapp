@@ -20,14 +20,15 @@ import {DownloadOutlined} from '@ant-design/icons';
 import {Button, Space, Spin} from 'antd';
 import {saveAs} from 'file-saver';
 import type {CSSProperties} from 'react';
-import {type ChangeEvent, useState} from 'react';
+import {type ChangeEvent, useEffect, useState} from 'react';
 import {ReactCompareSlider, ReactCompareSliderImage} from 'react-compare-slider';
 
 import {ImageSelect} from '~/src/components/image/ImageSelect';
 import {useCreateObjectUrl} from '~/src/hooks';
 import {removeBackground} from '~/src/services/image';
+import {useAppStore} from '~/src/stores/app-store';
 
-function getNoBgFilename(file?: File): string | undefined {
+function getNoBgFilename(file: File | null): string | undefined {
   if (!file) {
     return;
   }
@@ -36,7 +37,10 @@ function getNoBgFilename(file?: File): string | undefined {
 }
 
 export const ImageBackgroundRemove: React.FC = () => {
-  const [file, setFile] = useState<File>();
+  const imageToRemoveBg = useAppStore(state => state.imageToRemoveBg);
+
+  const setImageToRemoveBg = useAppStore(state => state.setImageToRemoveBg);
+
   const [noBgBlob, setNoBgBlob] = useState<Blob>();
   const [position, setPosition] = useState<number>(100);
 
@@ -44,34 +48,39 @@ export const ImageBackgroundRemove: React.FC = () => {
   const [loadingPercent, setLoadingPercent] = useState<number>(100);
   const [loadingTip, setLoadingTip] = useState<string>();
 
-  const imageUrl: string | undefined = useCreateObjectUrl(file);
+  const imageUrl: string | undefined = useCreateObjectUrl(imageToRemoveBg);
   const noBgImageUrl: string | undefined = useCreateObjectUrl(noBgBlob);
 
-  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    const file: File | undefined = e.target.files?.[0];
-    if (file) {
-      setIsLoading(true);
-      setLoadingPercent(0);
-      setLoadingTip('Loading');
+  useEffect(() => {
+    void (async () => {
+      if (imageToRemoveBg) {
+        setIsLoading(true);
+        setLoadingPercent(0);
+        setLoadingTip('Loading');
 
-      setFile(file);
-      setPosition(100);
+        setPosition(100);
 
-      setNoBgBlob(
-        await removeBackground(file, (key, current, total) => {
-          setLoadingPercent((100.0 * current) / total);
-          setLoadingTip(key);
-        })
-      );
-      setPosition(25);
+        setNoBgBlob(
+          await removeBackground(imageToRemoveBg, (key, current, total) => {
+            setLoadingPercent((100.0 * current) / total);
+            setLoadingTip(key);
+          })
+        );
+        setPosition(25);
 
-      setIsLoading(false);
-    }
+        setIsLoading(false);
+      }
+    })();
+  }, [imageToRemoveBg]);
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file: File | null = e.target.files?.[0] ?? null;
+    setImageToRemoveBg(file);
   };
 
   const handleDownload = () => {
     if (noBgImageUrl) {
-      saveAs(noBgImageUrl, getNoBgFilename(file));
+      saveAs(noBgImageUrl, getNoBgFilename(imageToRemoveBg));
     }
   };
 
@@ -85,7 +94,7 @@ export const ImageBackgroundRemove: React.FC = () => {
     <Spin spinning={isLoading} percent={loadingPercent} tip={loadingTip} size="large">
       <div style={{display: 'flex', width: '100%', justifyContent: 'center', marginBottom: 8}}>
         <Space.Compact>
-          <ImageSelect onChange={e => void handleFileChange(e)}>Select photo</ImageSelect>
+          <ImageSelect onChange={handleFileChange}>Select photo</ImageSelect>
           {noBgImageUrl && (
             <Button icon={<DownloadOutlined />} onClick={handleDownload}>
               Save
@@ -93,27 +102,24 @@ export const ImageBackgroundRemove: React.FC = () => {
           )}
         </Space.Compact>
       </div>
-      <div style={{}}>
-        {
-          <ReactCompareSlider
-            position={position}
-            itemOne={
-              imageUrl && (
-                <ReactCompareSliderImage src={imageUrl} alt="Original photo" style={imageStyle} />
-              )
-            }
-            itemTwo={
-              noBgImageUrl && (
-                <ReactCompareSliderImage
-                  src={noBgImageUrl}
-                  alt="Image without background"
-                  style={{backgroundColor: '#fff', ...imageStyle}}
-                />
-              )
-            }
-          />
+
+      <ReactCompareSlider
+        position={position}
+        itemOne={
+          imageUrl && (
+            <ReactCompareSliderImage src={imageUrl} alt="Original photo" style={imageStyle} />
+          )
         }
-      </div>
+        itemTwo={
+          noBgImageUrl && (
+            <ReactCompareSliderImage
+              src={noBgImageUrl}
+              alt="Image without background"
+              style={{backgroundColor: '#fff', ...imageStyle}}
+            />
+          )
+        }
+      />
     </Spin>
   );
 };

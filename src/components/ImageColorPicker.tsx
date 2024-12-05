@@ -256,7 +256,7 @@ export const ImageColorPicker: React.FC = () => {
               <Form.Item
                 label="Diameter"
                 tooltip="The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
-                style={{marginBottom: 0}}
+                style={{flexGrow: 1, marginBottom: 0}}
               >
                 <Slider
                   value={sampleDiameter}
@@ -264,7 +264,6 @@ export const ImageColorPicker: React.FC = () => {
                   min={MIN_COLOR_PICKER_DIAMETER}
                   max={MAX_SAMPLE_DIAMETER}
                   marks={SAMPLE_DIAMETER_SLIDER_MARKS}
-                  style={{width: 250}}
                 />
               </Form.Item>
               <Space align="center" wrap style={{display: 'flex'}}>

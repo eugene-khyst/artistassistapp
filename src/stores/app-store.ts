@@ -57,7 +57,14 @@ import {
   saveAppSettings,
   saveImageFile,
 } from '~/src/services/db';
-import type {Blur, ImageFile, LimitedPalette, Outline, TonalValues} from '~/src/services/image';
+import type {
+  Blur,
+  ColorCorrection,
+  ImageFile,
+  LimitedPalette,
+  Outline,
+  TonalValues,
+} from '~/src/services/image';
 import type {Game, Player, Score} from '~/src/services/rating';
 import {Tournament} from '~/src/services/rating';
 import type {AppSettings} from '~/src/services/settings';
@@ -95,18 +102,29 @@ const limitedPalette: Remote<LimitedPalette> = wrap(
   })
 );
 
+const colorCorrection: Remote<ColorCorrection> = wrap(
+  new Worker(new URL('../services/image/worker/color-correction-worker.ts', import.meta.url), {
+    type: 'module',
+  })
+);
+
 export interface AppState {
   activeTabKey: TabKey;
+
   isInitialStateLoading: boolean;
+
   importedColorSet: ColorSetDefinition | null;
   latestColorSet: ColorSetDefinition | null;
   colorSetsByType: ColorSetDefinition[];
   colorSet: ColorSet | null;
   isColorMixerSetLoading: boolean;
+
   imageFile: ImageFile | null;
   recentImageFiles: ImageFile[];
+
   originalImage: ImageBitmap | null;
   isOriginalImageLoading: boolean;
+
   backgroundColor: string;
   isColorMixerBackgroundLoading: boolean;
   targetColor: string;
@@ -114,15 +132,27 @@ export interface AppState {
   colorPickerPipet: SamplingArea | null;
   similarColors: SimilarColor[];
   isSimilarColorsLoading: boolean;
+
   paletteColorMixtures: ColorMixture[];
+
   tonalImages: ImageBitmap[];
   isTonalImagesLoading: boolean;
+
   blurredImages: ImageBitmap[];
   isBlurredImagesLoading: boolean;
+
   outlineImage: ImageBitmap | null;
   isOutlineImageLoading: boolean;
+
   limitedPaletteImage: ImageBitmap | null;
   isLimitedPaletteImageLoading: boolean;
+
+  imageToAdjust: File | null;
+  adjustedImages: ImageBitmap[];
+  isAdjustedImagesLoading: boolean;
+
+  imageToRemoveBg: File | null;
+
   tournament: Tournament<File>;
   unfinishedGamesSize: number;
   nextGame: Game<File> | null;
@@ -131,6 +161,7 @@ export interface AppState {
 
 export interface AppActions {
   setActiveTabKey: (activeTabKey: TabKey) => Promise<void>;
+
   loadColorSetsByType: (type: ColorType) => Promise<ColorSetDefinition[]>;
   setColorSet: (colorSet: ColorSet, setActiveTabKey?: boolean) => Promise<void>;
   saveColorSet: (
@@ -140,35 +171,53 @@ export interface AppActions {
     colors?: Map<string, Map<number, ColorDefinition>>
   ) => Promise<ColorSetDefinition>;
   deleteColorSet: (idToDelete: number) => Promise<void>;
+
   setImageFile: (imageFile: ImageFile | null, setActiveTabKey?: boolean) => Promise<void>;
+  getImageBlob: () => Blob | undefined;
   saveRecentImageFile: (imageFile: ImageFile) => Promise<void>;
   deleteRecentImageFile: (imageFile: ImageFile) => Promise<void>;
+
   setBackgroundColor: (backgroundColor: string | RgbTuple) => Promise<void>;
   setTargetColor: (color: string, samplingArea: SamplingArea | null) => Promise<void>;
   setColorPickerPipet: (colorPickerPipet: SamplingArea | null) => void;
+
   saveToPalette: (colorMixture: ColorMixture, linkToImage?: boolean) => Promise<void>;
   deleteFromPalette: (colorMixture: ColorMixture) => Promise<void>;
   deleteAllFromPalette: (type: ColorType) => Promise<void>;
+
   setLimitedColorSet: (limitedColorSet: ColorSet) => Promise<void>;
+
+  setImageToAdjust: (imageToAdjust: File | null) => void;
+  adjustImageColor: (whitePatchPercentile: number, saturation: number) => Promise<void>;
+
+  setImageToRemoveBg: (imageToRemoveBg: File | null) => void;
+
   updateTournament: () => void;
+
   addPlayer: (player: Player<File>) => void;
   setScore: (score: Score) => void;
   newTournament: () => void;
+
   initAppStore: (user: User | null) => Promise<void>;
 }
 
 export const useAppStore = create<AppState & AppActions>((set, get) => ({
   activeTabKey: TabKey.ColorSet,
+
   isInitialStateLoading: false,
+
   importedColorSet: null,
   latestColorSet: null,
   colorSetsByType: [],
   colorSet: null,
   isColorMixerSetLoading: false,
+
   imageFile: null,
   recentImageFiles: [],
+
   originalImage: null,
   isOriginalImageLoading: false,
+
   isColorMixerBackgroundLoading: false,
   backgroundColor: PAPER_WHITE_HEX,
   targetColor: PAPER_WHITE_HEX,
@@ -176,23 +225,37 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
   colorPickerPipet: null,
   similarColors: [],
   isSimilarColorsLoading: false,
+
   paletteColorMixtures: [],
+
   tonalImages: [],
   isTonalImagesLoading: false,
+
   blurredImages: [],
   isBlurredImagesLoading: false,
+
   outlineImage: null,
   isOutlineImageLoading: false,
+
   limitedPaletteImage: null,
   isLimitedPaletteImageLoading: false,
+
+  imageToAdjust: null,
+  adjustedImages: [],
+  isAdjustedImagesLoading: false,
+
+  imageToRemoveBg: null,
+
   tournament: new Tournament(),
   unfinishedGamesSize: 0,
   nextGame: null,
   playersByRating: [],
+
   setActiveTabKey: async (activeTabKey: TabKey): Promise<void> => {
     await saveAppSettings({activeTabKey});
     set({activeTabKey});
   },
+
   loadColorSetsByType: async (type: ColorType): Promise<ColorSetDefinition[]> => {
     const colorSetsByType: ColorSetDefinition[] = (await getColorSetsByType(type))
       .sort(compareColorSetsByDate)
@@ -248,6 +311,7 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
       });
     }
   },
+
   setImageFile: async (imageFile: ImageFile | null, setActiveTabKey = true): Promise<void> => {
     const prev: (ImageBitmap | null)[] = [
       get().originalImage,
@@ -276,7 +340,6 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
       similarColors: [],
       paletteColorMixtures: await getColorMixtures(imageFile?.id),
     });
-
     if (imageFile) {
       const {buffer, type} = imageFile;
       const blob = arrayBufferToBlob(buffer, type);
@@ -304,10 +367,17 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
         isOutlineImageLoading: false,
       });
     }
-
-    for (const image of prev) {
+    prev.forEach(image => {
       image?.close();
+    });
+  },
+  getImageBlob: (): Blob | undefined => {
+    const {imageFile} = get();
+    if (!imageFile) {
+      return;
     }
+    const {buffer, type} = imageFile;
+    return arrayBufferToBlob(buffer, type);
   },
   saveRecentImageFile: async (imageFile: ImageFile): Promise<void> => {
     await saveImageFile(imageFile);
@@ -330,6 +400,7 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
       }
     }
   },
+
   setBackgroundColor: async (backgroundColor: string | RgbTuple): Promise<void> => {
     set({
       isColorMixerBackgroundLoading: true,
@@ -360,6 +431,7 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
   setColorPickerPipet: (colorPickerPipet: SamplingArea | null): void => {
     set({colorPickerPipet});
   },
+
   saveToPalette: async (colorMixture: ColorMixture, linkToImage = true): Promise<void> => {
     const isNew = !colorMixture.id;
     if (isNew && linkToImage) {
@@ -402,20 +474,48 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
       };
     });
   },
+
   setLimitedColorSet: async (limitedColorSet: ColorSet): Promise<void> => {
-    const {imageFile} = get();
-    if (!imageFile) {
+    const blob = get().getImageBlob();
+    if (!blob) {
       return;
     }
-    const {buffer, type} = imageFile;
     set({isLimitedPaletteImageLoading: true});
     set({
-      limitedPaletteImage: (
-        await limitedPalette.getPreview(arrayBufferToBlob(buffer, type), limitedColorSet)
-      ).preview,
+      limitedPaletteImage: (await limitedPalette.getPreview(blob, limitedColorSet)).preview,
       isLimitedPaletteImageLoading: false,
     });
   },
+
+  setImageToAdjust: (imageToAdjust: File | null): void => {
+    set({imageToAdjust});
+  },
+  adjustImageColor: async (whitePatchPercentile: number, saturation: number): Promise<void> => {
+    const {imageToAdjust, adjustedImages: prev} = get();
+    if (!imageToAdjust) {
+      return;
+    }
+    set({
+      isAdjustedImagesLoading: true,
+    });
+    const {adjustedImages} = await colorCorrection.getAdjustedImage(
+      imageToAdjust,
+      whitePatchPercentile / 100,
+      saturation / 100
+    );
+    set({
+      adjustedImages,
+      isAdjustedImagesLoading: false,
+    });
+    prev.forEach(image => {
+      image.close();
+    });
+  },
+
+  setImageToRemoveBg: (imageToRemoveBg: File | null): void => {
+    set({imageToRemoveBg});
+  },
+
   updateTournament: (): void => {
     const {tournament} = get();
     const unfinishedGames = tournament.getUnfinishedGames();

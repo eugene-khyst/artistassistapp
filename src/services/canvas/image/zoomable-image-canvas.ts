@@ -301,7 +301,7 @@ export class ZoomableImageCanvas extends Canvas {
     this.setZoom(this.zoom);
   }
 
-  async convertToBlob(): Promise<Blob | undefined> {
+  async convertToBlob(type = 'image/jpeg'): Promise<Blob | undefined> {
     const image: ImageBitmap | OffscreenCanvas | null = this.getImage();
     if (!image) {
       return;
@@ -313,15 +313,15 @@ export class ZoomableImageCanvas extends Canvas {
       const offscreenCanvas = new OffscreenCanvas(image.width, image.height);
       const ctx: OffscreenCanvasRenderingContext2D = offscreenCanvas.getContext('2d')!;
       this.draw(ctx);
-      return await offscreenCanvas.convertToBlob();
+      return await offscreenCanvas.convertToBlob({type, quality: 0.95});
     } finally {
       this.offset = offset;
       this.zoom = zoom;
     }
   }
 
-  async saveAsImage(filename?: string): Promise<void> {
-    const blob: Blob | undefined = await this.convertToBlob();
+  async saveAsImage(filename?: string, type?: string): Promise<void> {
+    const blob: Blob | undefined = await this.convertToBlob(type);
     if (blob) {
       saveAs(blob, filename);
     }

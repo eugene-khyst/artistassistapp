@@ -18,7 +18,7 @@
 
 import {useEffect, useState} from 'react';
 
-export function useCreateObjectUrl(blob?: Blob): string | undefined {
+export function useCreateObjectUrl(blob?: Blob | null): string | undefined {
   const [url, setUrl] = useState<string>();
 
   useEffect(() => {

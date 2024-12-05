@@ -18,13 +18,16 @@
 
 import {UploadOutlined} from '@ant-design/icons';
 import {Button} from 'antd';
+import type {BaseButtonProps} from 'antd/es/button/button';
 import type {PropsWithChildren} from 'react';
 import {useRef} from 'react';
 
-type Props = Pick<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'multiple'>;
+type Props = Pick<BaseButtonProps, 'type'> &
+  Pick<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'multiple'>;
 
 export const ImageSelect: React.FC<PropsWithChildren<Props>> = ({
   children,
+  type = 'primary',
   ...props
 }: PropsWithChildren<Props>) => {
   const hiddenFileInput = useRef<HTMLInputElement>(null);
@@ -35,7 +38,7 @@ export const ImageSelect: React.FC<PropsWithChildren<Props>> = ({
 
   return (
     <>
-      <Button type="primary" icon={<UploadOutlined />} onClick={handleClick}>
+      <Button type={type} icon={<UploadOutlined />} onClick={handleClick}>
         {children}
       </Button>
       <input

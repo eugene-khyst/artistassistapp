@@ -68,9 +68,7 @@ export const ImageTonalValues: React.FC = () => {
       key: '1',
       label: 'Print',
       icon: <PrinterOutlined />,
-      onClick: () => {
-        void printImages(tonalImages);
-      },
+      onClick: () => void printImages(tonalImages),
     },
     {
       key: '2',
