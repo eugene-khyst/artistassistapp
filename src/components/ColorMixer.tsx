@@ -268,12 +268,13 @@ export const ColorMixer: React.FC = () => {
                           </Button>
                           <Button
                             icon={<LineChartOutlined />}
+                            title="Spectral reflectance curve"
                             disabled={!resultColorMixtures.some(isThickConsistency)}
                             onClick={() => {
                               setIsOpenReflectanceChart(true);
                             }}
                           >
-                            Reflectance chart
+                            Reflectance
                           </Button>
                         </Space>
                       </Form.Item>

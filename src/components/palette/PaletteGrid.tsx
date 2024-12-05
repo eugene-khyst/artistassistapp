@@ -16,25 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-  DatabaseOutlined,
-  DeleteOutlined,
-  PrinterOutlined,
-  QuestionCircleOutlined,
-} from '@ant-design/icons';
-import {
-  Button,
-  Col,
-  Flex,
-  Form,
-  Popconfirm,
-  Row,
-  Select,
-  Space,
-  theme,
-  Tooltip,
-  Typography,
-} from 'antd';
+import {DatabaseOutlined, DeleteOutlined, PrinterOutlined} from '@ant-design/icons';
+import {Button, Col, Flex, Form, Popconfirm, Row, Select, Space, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useRef, useState} from 'react';
 import {useReactToPrint} from 'react-to-print';
@@ -75,10 +58,6 @@ export const PaletteGrid: React.FC<Props> = ({
 }: Props) => {
   const deleteAllFromPalette = useAppStore(state => state.deleteAllFromPalette);
 
-  const {
-    token: {colorTextTertiary},
-  } = theme.useToken();
-
   const [sort, setSort] = useState<Sort>(Sort.ByDataIndex);
   const printRef = useRef<HTMLDivElement>(null);
 
@@ -101,9 +80,6 @@ export const PaletteGrid: React.FC<Props> = ({
         >
           Color swatch
         </Button>
-        <Tooltip title="In Color swatch mode, all the colors in the palette are stacked on top of each other and displayed next to the photo.">
-          <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
-        </Tooltip>
         <Button
           icon={<PrinterOutlined />}
           onClick={() => {

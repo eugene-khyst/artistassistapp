@@ -16,72 +16,62 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-  BgColorsOutlined,
-  LineChartOutlined,
-  MoreOutlined,
-  QuestionCircleOutlined,
-} from '@ant-design/icons';
-import type {MenuProps} from 'antd';
-import {Button, Card, Dropdown, Space, theme, Tooltip, Typography} from 'antd';
+import {BgColorsOutlined, LineChartOutlined} from '@ant-design/icons';
+import {Button, Card, Space, Typography} from 'antd';
 
 import {AddToPaletteButton} from '~/src/components/color/AddToPaletteButton';
+import {ColorSquare} from '~/src/components/color/ColorSquare';
 import type {ColorMixture, SimilarColor} from '~/src/services/color';
 import {useAppStore} from '~/src/stores/app-store';
 
 import {ColorMixtureDescription} from './ColorMixtureDescription';
 
 interface Props {
+  targetColor: string;
   similarColor: SimilarColor;
   onReflectanceChartClick: (colorMixture?: ColorMixture) => void;
 }
 
 export const SimilarColorCard: React.FC<Props> = ({
+  targetColor,
   similarColor: {colorMixture, similarity},
   onReflectanceChartClick,
 }: Props) => {
   const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
 
-  const {
-    token: {colorTextTertiary},
-  } = theme.useToken();
-
-  const items: MenuProps['items'] = [
-    {
-      label: 'Set as background',
-      key: '1',
-      icon: <BgColorsOutlined />,
-      onClick: () => {
-        void setBackgroundColor(colorMixture.layerRgb);
-      },
-    },
-    {
-      label: 'Reflectance chart',
-      key: '2',
-      icon: <LineChartOutlined />,
-      onClick: () => {
-        onReflectanceChartClick(colorMixture);
-      },
-    },
-  ];
-
   return (
     <Card size="small">
       <Space direction="vertical" style={{width: '100%'}}>
+        <Space>
+          <Typography.Text>
+            <Typography.Text strong>{similarity.toFixed(1)}%</Typography.Text> similarity
+          </Typography.Text>
+          <ColorSquare size="small" color={targetColor} />
+          <ColorSquare size="small" color={colorMixture.layerRgb} />
+        </Space>
         <ColorMixtureDescription colorMixture={colorMixture} />
-        <Space style={{width: '100%', justifyContent: 'space-between'}}>
-          <Space size={4} align="center">
-            <Typography.Text strong>{`≈ ${similarity.toFixed(1)}%`}</Typography.Text>
-            <Tooltip title="Color similarity">
-              <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
-            </Tooltip>
-          </Space>
-          <Space.Compact block>
-            <AddToPaletteButton colorMixture={colorMixture} />
-            <Dropdown menu={{items}}>
-              <Button icon={<MoreOutlined />} />
-            </Dropdown>
-          </Space.Compact>
+        <Space wrap>
+          <AddToPaletteButton size="small" colorMixture={colorMixture} />
+          <Button
+            size="small"
+            icon={<BgColorsOutlined />}
+            title="Set the color of the base layer for the glazing"
+            onClick={() => {
+              void setBackgroundColor(colorMixture.layerRgb);
+            }}
+          >
+            Set as background
+          </Button>
+          <Button
+            size="small"
+            icon={<LineChartOutlined />}
+            title="Spectral reflectance curve"
+            onClick={() => {
+              onReflectanceChartClick(colorMixture);
+            }}
+          >
+            Reflectance
+          </Button>
         </Space>
       </Space>
     </Card>

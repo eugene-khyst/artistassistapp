@@ -312,6 +312,7 @@ export const ImageColorPicker: React.FC = () => {
                   .map((similarColor: SimilarColor) => (
                     <SimilarColorCard
                       key={similarColor.colorMixture.key}
+                      targetColor={targetColor}
                       similarColor={similarColor}
                       onReflectanceChartClick={handleReflectanceChartClick}
                     />

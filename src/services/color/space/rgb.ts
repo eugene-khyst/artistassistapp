@@ -110,11 +110,11 @@ export class Rgb {
   }
 
   getLuma(): number {
-    return (this.r * 21.26 + this.g * 71.52 + this.b * 7.22) / 255;
+    return (this.r * 0.2126 + this.g * 0.7152 + this.b * 0.722) / 255;
   }
 
   isDark() {
-    return this.getLuma() < 50;
+    return this.getLuma() < 0.5;
   }
 
   isLight() {

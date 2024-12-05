@@ -66,12 +66,16 @@ export const ImageBlurred: React.FC = () => {
     setBlurredImageIndex(e.target.value as number);
   };
 
+  const handleSaveClick = () => {
+    void zoomableImageCanvas?.saveAsImage('ArtistAssistApp-Simplified');
+  };
+
   const items: MenuProps['items'] = [
     {
       key: '1',
       label: 'Save',
       icon: <DownloadOutlined />,
-      onClick: () => void zoomableImageCanvas?.saveAsImage('ArtistAssistApp-Simplified'),
+      onClick: handleSaveClick,
     },
   ];
 
@@ -100,9 +104,15 @@ export const ImageBlurred: React.FC = () => {
             buttonStyle="solid"
           />
         </Form.Item>
-        <Dropdown menu={{items}}>
-          <Button icon={<MoreOutlined />} />
-        </Dropdown>
+        {screens.sm ? (
+          <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
+            Save
+          </Button>
+        ) : (
+          <Dropdown menu={{items}}>
+            <Button icon={<MoreOutlined />} />
+          </Dropdown>
+        )}
       </Space>
       <div>
         <canvas ref={canvasRef} style={{width: '100%', height: `calc(100vh - 115px)`}} />

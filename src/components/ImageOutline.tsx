@@ -52,7 +52,7 @@ export const ImageOutline: React.FC = () => {
       size="large"
     >
       <div style={{display: 'flex', width: '100%', justifyContent: 'center', marginBottom: 8}}>
-        <Space.Compact>
+        <Space>
           <Button
             icon={<PrinterOutlined />}
             onClick={() => {
@@ -67,7 +67,7 @@ export const ImageOutline: React.FC = () => {
           >
             Save
           </Button>
-        </Space.Compact>
+        </Space>
       </div>
       <div>
         <canvas ref={canvasRef} style={{width: '100%', height: `calc(100vh - 115px)`}} />

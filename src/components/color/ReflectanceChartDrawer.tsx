@@ -66,7 +66,13 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
   }, [reflectanceChart, targetColor, colorMixture, showParts]);
 
   return (
-    <Drawer title="Reflectance chart" placement="right" size="large" open={open} onClose={onClose}>
+    <Drawer
+      title="Spectral reflectance curve"
+      placement="right"
+      size="large"
+      open={open}
+      onClose={onClose}
+    >
       <canvas ref={canvasRef} width="688" height="388" style={{marginBottom: 16}} />
       {colorMixture && (
         <>

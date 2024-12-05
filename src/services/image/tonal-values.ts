@@ -30,7 +30,7 @@ interface Result {
 export class TonalValues {
   async getTones(
     blob: Blob,
-    thresholds: number[] = [0.825, 0.6, 0.35],
+    thresholds: Float32Array = new Float32Array([0.825, 0.6, 0.35]),
     medianFilterRadius = 3
   ): Promise<Result> {
     console.time('tones');

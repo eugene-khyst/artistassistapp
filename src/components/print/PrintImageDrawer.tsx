@@ -16,7 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Button, Drawer, Form, Input, InputNumber, Radio, Select, Space} from 'antd';
+import {LoadingOutlined} from '@ant-design/icons';
+import {Button, Drawer, Form, Input, InputNumber, Radio, Select, Space, Spin} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useEffect, useState} from 'react';
 
@@ -54,9 +55,10 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
   const [printPreviewBlob, setPrintPreviewBlob] = useState<Blob>();
   const [imagePartBlobs, setImagePartBlobs] = useState<Blob[]>([]);
   const [isError, setIsError] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const debouncedTargetWidth = useDebounce(targetWidth);
-  const debouncedTargetHeight = useDebounce(targetHeight);
+  const debouncedTargetWidth = useDebounce(targetWidth, 1000);
+  const debouncedTargetHeight = useDebounce(targetHeight, 1000);
 
   const previewImageUrl = useCreateObjectUrl(printPreviewBlob);
 
@@ -64,12 +66,12 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
 
   useEffect(() => {
     void (async () => {
-      setPrintPreviewBlob(undefined);
       setImagePartBlobs([]);
       setIsError(false);
       if (!image || !debouncedTargetWidth || !debouncedTargetHeight) {
         return;
       }
+      setIsLoading(true);
       const [paperWidth, paperHeight] = PAPER_SIZES.get(paperSize)!.size;
       const {toMillimeters} = LENGTH_UNITS.get(targetUnit)!;
       try {
@@ -88,7 +90,9 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
       } catch (e) {
         console.error(e);
         setIsError(true);
+        setPrintPreviewBlob(undefined);
       }
+      setIsLoading(false);
     })();
   }, [image, targetUnit, debouncedTargetWidth, debouncedTargetHeight, paperSize]);
 
@@ -108,88 +112,90 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
       open={open}
       onClose={onClose}
     >
-      <Space direction="vertical">
-        <Radio.Group
-          value={printMode}
-          onChange={e => {
-            setPrintMode(e.target.value as PrintMode);
-          }}
-        >
-          <Space direction="vertical">
-            <Radio value={PrintMode.Resize}>Print a large image onto multiple pages</Radio>
-            <Radio value={PrintMode.Standard}>Standard print</Radio>
-          </Space>
-        </Radio.Group>
+      <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">
+        <Space direction="vertical">
+          <Radio.Group
+            value={printMode}
+            onChange={e => {
+              setPrintMode(e.target.value as PrintMode);
+            }}
+          >
+            <Space direction="vertical">
+              <Radio value={PrintMode.Resize}>Print a large image onto multiple pages</Radio>
+              <Radio value={PrintMode.Standard}>Standard print</Radio>
+            </Space>
+          </Radio.Group>
 
-        {printMode === PrintMode.Resize && (
-          <>
-            <Form.Item label="Paper size" style={{marginBottom: 0}}>
-              <Select
-                value={paperSize}
-                onChange={value => {
-                  setPaperSize(value);
-                }}
-                options={PAPER_SIZE_OPTIONS}
-                style={{width: 170}}
-              />
-            </Form.Item>
-
-            <Form.Item
-              label="Target print size"
-              style={{marginBottom: 0}}
-              help={isError ? 'This print size is not supported' : null}
-              validateStatus={isError ? 'error' : undefined}
-            >
-              <Space.Compact block>
-                <InputNumber
-                  value={targetWidth}
-                  onChange={value => {
-                    setTargetWidth(value);
-                  }}
-                  min={1}
-                  max={1000}
-                  step={0.1}
-                  placeholder="Width"
-                  style={{width: 70}}
-                />
-                <Input
-                  placeholder="×"
-                  style={{
-                    width: 30,
-                    borderLeft: 0,
-                    borderRight: 0,
-                    pointerEvents: 'none',
-                  }}
-                  disabled
-                />
-                <InputNumber
-                  value={targetHeight}
-                  onChange={value => {
-                    setTargetHeight(value);
-                  }}
-                  min={1}
-                  max={1000}
-                  step={0.1}
-                  placeholder="Height"
-                  style={{width: 70}}
-                />
+          {printMode === PrintMode.Resize && (
+            <>
+              <Form.Item label="Paper size" style={{marginBottom: 0}}>
                 <Select
-                  value={targetUnit}
+                  value={paperSize}
                   onChange={value => {
-                    setTargetUnit(value);
+                    setPaperSize(value);
                   }}
-                  options={LENGTH_UNIT_OPTIONS}
-                  style={{width: 70}}
+                  options={PAPER_SIZE_OPTIONS}
+                  style={{width: 170}}
                 />
-              </Space.Compact>
-            </Form.Item>
+              </Form.Item>
 
-            {previewImageUrl && (
-              <img src={previewImageUrl} style={{maxWidth: '100%', maxHeight: 480}} />
-            )}
-          </>
-        )}
-      </Space>
+              <Form.Item
+                label="Target print size"
+                style={{marginBottom: 0}}
+                help={isError ? 'This print size is not supported' : null}
+                validateStatus={isError ? 'error' : undefined}
+              >
+                <Space.Compact block>
+                  <InputNumber
+                    value={targetWidth}
+                    onChange={value => {
+                      setTargetWidth(value);
+                    }}
+                    min={1}
+                    max={1000}
+                    step={0.1}
+                    placeholder="Width"
+                    style={{width: 70}}
+                  />
+                  <Input
+                    placeholder="×"
+                    style={{
+                      width: 30,
+                      borderLeft: 0,
+                      borderRight: 0,
+                      pointerEvents: 'none',
+                    }}
+                    disabled
+                  />
+                  <InputNumber
+                    value={targetHeight}
+                    onChange={value => {
+                      setTargetHeight(value);
+                    }}
+                    min={1}
+                    max={1000}
+                    step={0.1}
+                    placeholder="Height"
+                    style={{width: 70}}
+                  />
+                  <Select
+                    value={targetUnit}
+                    onChange={value => {
+                      setTargetUnit(value);
+                    }}
+                    options={LENGTH_UNIT_OPTIONS}
+                    style={{width: 70}}
+                  />
+                </Space.Compact>
+              </Form.Item>
+
+              {previewImageUrl && (
+                <img src={previewImageUrl} style={{maxWidth: '100%', maxHeight: 480}} />
+              )}
+            </>
+          )}
+        </Space>
+      </Spin>
     </Drawer>
   );
 };

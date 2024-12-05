@@ -57,6 +57,7 @@ export const ImageBackgroundRemove: React.FC = () => {
         setIsLoading(true);
         setLoadingPercent(0);
         setLoadingTip('Loading');
+        setNoBgBlob(undefined);
 
         setPosition(100);
 
@@ -78,7 +79,7 @@ export const ImageBackgroundRemove: React.FC = () => {
     setImageToRemoveBg(file);
   };
 
-  const handleDownload = () => {
+  const handleSaveClick = () => {
     if (noBgImageUrl) {
       saveAs(noBgImageUrl, getNoBgFilename(imageToRemoveBg));
     }
@@ -93,14 +94,14 @@ export const ImageBackgroundRemove: React.FC = () => {
   return (
     <Spin spinning={isLoading} percent={loadingPercent} tip={loadingTip} size="large">
       <div style={{display: 'flex', width: '100%', justifyContent: 'center', marginBottom: 8}}>
-        <Space.Compact>
+        <Space>
           <ImageSelect onChange={handleFileChange}>Select photo</ImageSelect>
           {noBgImageUrl && (
-            <Button icon={<DownloadOutlined />} onClick={handleDownload}>
+            <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
               Save
             </Button>
           )}
-        </Space.Compact>
+        </Space>
       </div>
 
       <ReactCompareSlider

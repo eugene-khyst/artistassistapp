@@ -16,9 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {BgColorsOutlined, DeleteOutlined, MoreOutlined, PictureOutlined} from '@ant-design/icons';
-import type {MenuProps} from 'antd';
-import {Button, Card, Dropdown, Popconfirm, Space, Typography} from 'antd';
+import {BgColorsOutlined, DeleteOutlined, PictureOutlined} from '@ant-design/icons';
+import {Button, Card, Popconfirm, Space, Typography} from 'antd';
 
 import {ColorMixtureDescription} from '~/src/components/color/ColorMixtureDescription';
 import type {ColorMixture} from '~/src/services/color';
@@ -36,18 +35,6 @@ export const PaletteColorMixtureCard: React.FC<Props> = ({colorMixture}: Props) 
   const setColorPickerPipet = useAppStore(state => state.setColorPickerPipet);
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
 
-  const items: MenuProps['items'] = [
-    {
-      key: '1',
-      label: 'Set as background',
-      icon: <BgColorsOutlined />,
-      onClick: () => {
-        void setBackgroundColor(colorMixture.layerRgb);
-        void setActiveTabKey(TabKey.ColorPicker);
-      },
-    },
-  ];
-
   const handleTitleEdited = (value: string) => {
     void saveToPalette({...colorMixture, name: value});
   };
@@ -58,6 +45,11 @@ export const PaletteColorMixtureCard: React.FC<Props> = ({colorMixture}: Props) 
       setColorPickerPipet(samplingArea);
       void setActiveTabKey(TabKey.ColorPicker);
     }
+  };
+
+  const handleSetAsBgClick = () => {
+    void setBackgroundColor(colorMixture.layerRgb);
+    void setActiveTabKey(TabKey.ColorPicker);
   };
 
   return (
@@ -77,13 +69,22 @@ export const PaletteColorMixtureCard: React.FC<Props> = ({colorMixture}: Props) 
 
         <ColorMixtureDescription colorMixture={colorMixture} />
 
-        <Space.Compact block style={{display: 'flex', justifyContent: 'flex-end'}}>
+        <Space wrap>
           <Button
+            size="small"
             icon={<PictureOutlined />}
             onClick={handleShowOnPhotoClick}
             disabled={!colorMixture.samplingArea}
           >
             Show on photo
+          </Button>
+          <Button
+            size="small"
+            icon={<BgColorsOutlined />}
+            title="Set the color of the base layer for the glazing"
+            onClick={handleSetAsBgClick}
+          >
+            Set as background
           </Button>
           <Popconfirm
             title="Remove the color mixture"
@@ -92,12 +93,11 @@ export const PaletteColorMixtureCard: React.FC<Props> = ({colorMixture}: Props) 
             okText="Yes"
             cancelText="No"
           >
-            <Button icon={<DeleteOutlined />}>Remove</Button>
+            <Button size="small" icon={<DeleteOutlined />}>
+              Remove
+            </Button>
           </Popconfirm>
-          <Dropdown menu={{items}}>
-            <Button icon={<MoreOutlined />} />
-          </Dropdown>
-        </Space.Compact>
+        </Space>
       </Space>
     </Card>
   );

@@ -19,12 +19,11 @@
 import {Rgb} from '~/src/services/color/space';
 import {clamp} from '~/src/services/math';
 
-const G_X_KERNEL = [-1, 0, 1, -2, 0, 2, -1, 0, 1];
-const G_Y_KERNEL = [-1, -2, -1, 0, 0, 0, 1, 2, 1];
+const G_X_KERNEL = new Int8Array([-1, 0, 1, -2, 0, 2, -1, 0, 1]);
+const G_Y_KERNEL = new Int8Array([-1, -2, -1, 0, 0, 0, 1, 2, 1]);
 
 export function sobelEdgeDetection({data, width, height}: ImageData): void {
   const origData = new Uint8ClampedArray(data);
-
   for (let y = 1; y < height - 1; y++) {
     for (let x = 1; x < width - 1; x++) {
       let gx = 0;
@@ -44,7 +43,7 @@ export function sobelEdgeDetection({data, width, height}: ImageData): void {
           gy += weightY * value;
         }
       }
-      const magnitude = Math.sqrt(gx * gx + gy * gy);
+      const magnitude = Math.sqrt(gx ** 2 + gy ** 2);
       const value = 255 - clamp(magnitude, 0, 255);
       data[y * width * 4 + x * 4] = value;
       data[y * width * 4 + x * 4 + 1] = value;

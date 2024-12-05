@@ -52,7 +52,7 @@ export function splitImage(
   const targetRatio = targetWidth / targetHeight;
   const imageRatio = image.width / image.height;
   let px2mm = 1;
-  if (targetRatio < imageRatio) {
+  if (targetRatio <= imageRatio) {
     px2mm = image.width / targetWidth;
   } else if (targetRatio > imageRatio) {
     px2mm = image.height / targetHeight;

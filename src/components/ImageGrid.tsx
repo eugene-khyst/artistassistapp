@@ -18,7 +18,7 @@
 
 import {DownloadOutlined, LoadingOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons';
 import type {MenuProps} from 'antd';
-import {Button, Checkbox, Dropdown, Form, Select, Space, Spin} from 'antd';
+import {Button, Checkbox, Dropdown, Form, Grid, Select, Space, Spin} from 'antd';
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useCallback, useEffect, useState} from 'react';
@@ -57,6 +57,8 @@ export const ImageGrid: React.FC = () => {
   const originalImage = useAppStore(state => state.originalImage);
   const isOriginalImageLoading = useAppStore(state => state.isOriginalImageLoading);
 
+  const screens = Grid.useBreakpoint();
+
   const [gridOption, setGridOption] = useState<GridOption>(GridOption.Square);
   const [squareGridSize, setSquareGridSize] = useState<number>(DEFAULT_SQUARE_GRID_SIZE);
   const [isDiagonals, setIsDiagonals] = useState<boolean>(false);
@@ -84,20 +86,26 @@ export const ImageGrid: React.FC = () => {
     [gridCanvas]
   );
 
+  const handlePrintClick = () => {
+    void printImages(blobSupplier);
+  };
+
+  const handleSaveClick = () => {
+    void gridCanvas?.saveAsImage('ArtistAssistApp-Grid');
+  };
+
   const items: MenuProps['items'] = [
     {
       key: '1',
       label: 'Print',
       icon: <PrinterOutlined />,
-      onClick: () => {
-        void printImages(blobSupplier);
-      },
+      onClick: handlePrintClick,
     },
     {
       key: '2',
       label: 'Save',
       icon: <DownloadOutlined />,
-      onClick: () => void gridCanvas?.saveAsImage('ArtistAssistApp-Grid'),
+      onClick: handleSaveClick,
     },
   ];
 
@@ -147,9 +155,20 @@ export const ImageGrid: React.FC = () => {
             />
           </Form.Item>
         )}
-        <Dropdown menu={{items}}>
-          <Button icon={<MoreOutlined />} />
-        </Dropdown>
+        {screens.sm ? (
+          <>
+            <Button icon={<PrinterOutlined />} onClick={handlePrintClick}>
+              Print
+            </Button>
+            <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
+              Save
+            </Button>
+          </>
+        ) : (
+          <Dropdown menu={{items}}>
+            <Button icon={<MoreOutlined />} />
+          </Dropdown>
+        )}
       </Space>
       <div>
         <canvas ref={canvasRef} style={{width: '100%', height: `calc(100vh - 115px)`}} />

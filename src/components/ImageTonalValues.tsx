@@ -63,18 +63,26 @@ export const ImageTonalValues: React.FC = () => {
     setTonalValuesImageIndex(e.target.value as number);
   };
 
+  const handlePrintClick = () => {
+    void printImages(tonalImages);
+  };
+
+  const handleSaveClick = () => {
+    void tonalValuesCanvas?.saveAsImage('ArtistAssistApp-Tonal-Values');
+  };
+
   const items: MenuProps['items'] = [
     {
       key: '1',
       label: 'Print',
       icon: <PrinterOutlined />,
-      onClick: () => void printImages(tonalImages),
+      onClick: handlePrintClick,
     },
     {
       key: '2',
       label: 'Save',
       icon: <DownloadOutlined />,
-      onClick: () => void tonalValuesCanvas?.saveAsImage('ArtistAssistApp-Tonal-Values'),
+      onClick: handleSaveClick,
     },
   ];
 
@@ -94,9 +102,20 @@ export const ImageTonalValues: React.FC = () => {
           optionType="button"
           buttonStyle="solid"
         />
-        <Dropdown menu={{items}}>
-          <Button icon={<MoreOutlined />} />
-        </Dropdown>
+        {screens.sm ? (
+          <>
+            <Button icon={<PrinterOutlined />} onClick={handlePrintClick}>
+              Print
+            </Button>
+            <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
+              Save
+            </Button>
+          </>
+        ) : (
+          <Dropdown menu={{items}}>
+            <Button icon={<MoreOutlined />} />
+          </Dropdown>
+        )}
       </Space>
       <Row>
         <Col xs={24} sm={12}>
