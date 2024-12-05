@@ -36,8 +36,6 @@ export const ImageLimitedPalette: React.FC = () => {
   const originalImage = useAppStore(state => state.originalImage);
   const limitedPaletteImage = useAppStore(state => state.limitedPaletteImage);
 
-  const isColorMixerSetLoading = useAppStore(state => state.isColorMixerSetLoading);
-  const isColorMixerBackgroundLoading = useAppStore(state => state.isColorMixerBackgroundLoading);
   const isOriginalImageLoading = useAppStore(state => state.isOriginalImageLoading);
   const isLimitedPaletteImageLoading = useAppStore(state => state.isLimitedPaletteImageLoading);
 
@@ -55,11 +53,7 @@ export const ImageLimitedPalette: React.FC = () => {
     originalImage
   );
 
-  const isLoading: boolean =
-    isColorMixerSetLoading ||
-    isColorMixerBackgroundLoading ||
-    isOriginalImageLoading ||
-    isLimitedPaletteImageLoading;
+  const isLoading: boolean = isOriginalImageLoading || isLimitedPaletteImageLoading;
 
   useEffect(() => {
     setColors([]);

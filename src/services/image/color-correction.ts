@@ -43,26 +43,17 @@ export class ColorCorrection {
 }
 
 export function adjustColors({data}: ImageData, percentile = 0.95, saturation = 1): void {
-  const length = Math.ceil(data.length / 4);
-  const channels: [Float32Array, Float32Array, Float32Array] = [
-    new Float32Array(length),
-    new Float32Array(length),
-    new Float32Array(length),
-  ];
-  let j = 0;
+  const channels: [number[], number[], number[]] = [[], [], []];
   for (let i = 0; i < data.length; i += 4) {
-    channels[0][j] = linearizeRgbChannel(data[i]!);
-    channels[1][j] = linearizeRgbChannel(data[i + 1]!);
-    channels[2][j] = linearizeRgbChannel(data[i + 2]!);
-    j++;
+    channels[0].push(linearizeRgbChannel(data[i]!));
+    channels[1].push(linearizeRgbChannel(data[i + 1]!));
+    channels[2].push(linearizeRgbChannel(data[i + 2]!));
   }
-  const maxValues = new Float32Array(3);
-  for (let i = 0; i < 3; i++) {
-    const channel = channels[i]!;
+  const maxValues = channels.map(channel => {
     channel.sort((a: number, b: number) => a - b);
     const index = Math.floor(percentile * channel.length) - 1;
-    maxValues[i] = channel[Math.max(0, index)]!;
-  }
+    return channel[Math.max(0, index)];
+  });
   for (let i = 0; i < data.length; i += 4) {
     let r = linearizeRgbChannel(data[i]!);
     let g = linearizeRgbChannel(data[i + 1]!);

@@ -343,22 +343,32 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     if (imageFile) {
       const {buffer, type} = imageFile;
       const blob = arrayBufferToBlob(buffer, type);
-      set({
-        originalImage: await createScaledImageBitmap(blob, IMAGE_SIZE['2K']),
-        isOriginalImageLoading: false,
-      });
-      set({
-        tonalImages: (await tonalValues.getTones(blob)).tones,
-        isTonalImagesLoading: false,
-      });
-      set({
-        blurredImages: (await blur.getBlurred(blob)).blurred,
-        isBlurredImagesLoading: false,
-      });
-      set({
-        outlineImage: (await outline.getOutline(blob)).outline,
-        isOutlineImageLoading: false,
-      });
+      await Promise.all([
+        (async () => {
+          set({
+            originalImage: await createScaledImageBitmap(blob, IMAGE_SIZE['2K']),
+            isOriginalImageLoading: false,
+          });
+        })(),
+        (async () => {
+          set({
+            tonalImages: (await tonalValues.getTones(blob)).tones,
+            isTonalImagesLoading: false,
+          });
+        })(),
+        (async () => {
+          set({
+            blurredImages: (await blur.getBlurred(blob)).blurred,
+            isBlurredImagesLoading: false,
+          });
+        })(),
+        (async () => {
+          set({
+            outlineImage: (await outline.getOutline(blob)).outline,
+            isOutlineImageLoading: false,
+          });
+        })(),
+      ]);
     } else {
       set({
         isOriginalImageLoading: false,

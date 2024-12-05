@@ -87,7 +87,6 @@ export const ColorSetSelect: React.FC<Props> = ({
         placeholder="Select from your recent color sets"
         showSearch
         filterOption={filterSelectOptions}
-        allowClear
         {...rest}
       />
       <Button icon={<PlusOutlined />} onClick={onCreateNewClick}>

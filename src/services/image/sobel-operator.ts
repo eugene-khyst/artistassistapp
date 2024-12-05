@@ -19,8 +19,8 @@
 import {Rgb} from '~/src/services/color/space';
 import {clamp} from '~/src/services/math';
 
-const G_X_KERNEL = new Int8Array([-1, 0, 1, -2, 0, 2, -1, 0, 1]);
-const G_Y_KERNEL = new Int8Array([-1, -2, -1, 0, 0, 0, 1, 2, 1]);
+const G_X_KERNEL: number[] = [-1, 0, 1, -2, 0, 2, -1, 0, 1];
+const G_Y_KERNEL: number[] = [-1, -2, -1, 0, 0, 0, 1, 2, 1];
 
 export function sobelEdgeDetection({data, width, height}: ImageData): void {
   const origData = new Uint8ClampedArray(data);
