@@ -142,10 +142,14 @@ following:
 - calculation of color similarity by comparing spectral reflections (Euclidean distance and cosine
   similarity)
 - vector operations,
-- median blur filter using sliding window and histogram,
-- Sobel operator for edge detection,
-- median cut for color quantization,
-- RGB to grayscale conversion based on perceived lightness,
+- threshold filter based on perceived lightness (2D Canvas and WebGL),
+- median blur filter using sliding window and histogram (2D Canvas),
+- Kuwahara blur filter (WebGL),
+- Sobel operator for edge detection (2D Canvas and WebGL),
+- median cut for color quantization (2D Canvas and WebGL),
+- adjusting white balance with white patch algorithm (2D Canvas and WebGL),
+- adjusting saturation (2D Canvas and WebGL),
+- invert colors filter (2D Canvas and WebGL),
 - ranking images using pairwise comparison and Elo rating system,
 - and more.
 

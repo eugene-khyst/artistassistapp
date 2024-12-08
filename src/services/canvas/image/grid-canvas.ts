@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {invert} from '~/src/services/image/invert-filter';
+import {invertColors} from '~/src/services/image/filter/invert-filter';
 import type {Rectangle} from '~/src/services/math';
 import {Vector} from '~/src/services/math';
-import {IMAGE_SIZE, imageBitmapToOffscreenCanvas} from '~/src/utils';
+import {IMAGE_SIZE} from '~/src/utils';
 
 import type {ZoomableImageCanvasProps} from './zoomable-image-canvas';
 import {ZoomableImageCanvas} from './zoomable-image-canvas';
@@ -42,7 +42,7 @@ export interface GridCanvasProps extends ZoomableImageCanvasProps {
 }
 
 export class GridCanvas extends ZoomableImageCanvas {
-  private invertedImages: OffscreenCanvas[] = [];
+  private invertedImages: ImageBitmap[] | OffscreenCanvas[] = [];
   private grid?: Grid;
   private gridLineWidth: number;
   private diagonalLineWidth: number;
@@ -58,13 +58,11 @@ export class GridCanvas extends ZoomableImageCanvas {
   }
 
   protected override onImagesLoaded(): void {
+    console.time('invert-colors');
     this.invertedImages = this.images.map((image: ImageBitmap): OffscreenCanvas => {
-      const [canvas, ctx] = imageBitmapToOffscreenCanvas(image);
-      const imageData: ImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      invert(imageData);
-      ctx.putImageData(imageData, 0, 0);
-      return canvas;
+      return invertColors(image);
     });
+    console.timeEnd('invert-colors');
   }
 
   private drawLine(

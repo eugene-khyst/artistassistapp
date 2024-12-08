@@ -18,12 +18,14 @@
 
 import {Rgb} from '~/src/services/color/space';
 import {clamp} from '~/src/services/math';
+import {imageBitmapToImageData} from '~/src/utils';
 
 const G_X_KERNEL: number[] = [-1, 0, 1, -2, 0, 2, -1, 0, 1];
 const G_Y_KERNEL: number[] = [-1, -2, -1, 0, 0, 0, 1, 2, 1];
 
-export function sobelEdgeDetection({data, width, height}: ImageData): void {
-  const origData = new Uint8ClampedArray(data);
+export function sobelEdgeDetection(image: ImageBitmap): ImageBitmap {
+  const [{data: origData, width, height}, canvas, ctx] = imageBitmapToImageData(image);
+  const data = new Uint8ClampedArray(origData);
   for (let y = 1; y < height - 1; y++) {
     for (let x = 1; x < width - 1; x++) {
       let gx = 0;
@@ -36,8 +38,7 @@ export function sobelEdgeDetection({data, width, height}: ImageData): void {
           const r = origData[(y + ky) * width * 4 + (x + kx) * 4]!;
           const g = origData[(y + ky) * width * 4 + (x + kx) * 4 + 1]!;
           const b = origData[(y + ky) * width * 4 + (x + kx) * 4 + 2]!;
-          const {l} = new Rgb(r, g, b).toOklab();
-          const value = 255 * l;
+          const value = new Rgb(r, b, g).toOklab().l * 255;
 
           gx += weightX * value;
           gy += weightY * value;
@@ -51,4 +52,6 @@ export function sobelEdgeDetection({data, width, height}: ImageData): void {
       data[y * width * 4 + x * 4 + 3] = 255;
     }
   }
+  ctx.putImageData(new ImageData(data, width, height), 0, 0);
+  return canvas.transferToImageBitmap();
 }

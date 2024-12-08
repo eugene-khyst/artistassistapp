@@ -22,11 +22,11 @@ import {
   PictureOutlined,
   ScissorOutlined,
 } from '@ant-design/icons';
-import {Button, Checkbox, Col, Form, Grid, Row, Slider, Space, Spin} from 'antd';
+import {Button, Checkbox, Col, Form, Grid, Row, Slider, Space, Spin, Typography} from 'antd';
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
 import type {SliderMarks} from 'antd/es/slider';
 import type {ChangeEvent} from 'react';
-import {useEffect, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {ImageSelect} from '~/src/components/image/ImageSelect';
@@ -52,10 +52,10 @@ const SATURATION_SLIDER_MARKS: SliderMarks = Object.fromEntries(
 const IMAGE_FILENAME = 'ArtistAssistApp-Adjusted';
 
 export const ImageColorCorrection: React.FC = () => {
-  const imageToAdjust = useAppStore(state => state.imageToAdjust);
-  const adjustedImages = useAppStore(state => state.adjustedImages);
+  const unadjustedImage = useAppStore(state => state.unadjustedImage);
+  const adjustedImage = useAppStore(state => state.adjustedImage);
 
-  const isAdjustedImagesLoading = useAppStore(state => state.isAdjustedImagesLoading);
+  const isAdjustedImageLoading = useAppStore(state => state.isAdjustedImageLoading);
 
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
   const setImageToAdjust = useAppStore(state => state.setImageToAdjust);
@@ -65,29 +65,34 @@ export const ImageColorCorrection: React.FC = () => {
 
   const screens = Grid.useBreakpoint();
 
+  const images = useMemo<(ImageBitmap | null)[]>(
+    () => [adjustedImage, unadjustedImage],
+    [unadjustedImage, adjustedImage]
+  );
+
   const {ref: canvasRef, zoomableImageCanvas} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
-    adjustedImages
+    images
   );
 
   const [percentile, setPercentile] = useState<number>(98);
   const [saturation, setSaturation] = useState<number>(100);
   const [isPreview, setIsPreview] = useState<boolean>(true);
 
-  const debouncedPercentile = useDebounce(percentile, 1000);
-  const debouncedSaturation = useDebounce(saturation, 1000);
+  const debouncedPercentile = useDebounce(percentile, 500);
+  const debouncedSaturation = useDebounce(saturation, 500);
 
-  const isLoading: boolean = isAdjustedImagesLoading;
+  const isLoading: boolean = isAdjustedImageLoading;
 
   useEffect(() => {
-    if (imageToAdjust) {
+    if (unadjustedImage) {
       void adjustImageColor(debouncedPercentile, debouncedSaturation);
     }
-  }, [adjustImageColor, debouncedPercentile, debouncedSaturation, imageToAdjust]);
+  }, [adjustImageColor, debouncedPercentile, debouncedSaturation, unadjustedImage]);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files?.[0] ?? null;
-    setImageToAdjust(file);
+    void setImageToAdjust(file);
   };
 
   const handleSaturationChange = (value: number) => {
@@ -132,16 +137,18 @@ export const ImageColorCorrection: React.FC = () => {
     <>
       <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">
         <Row>
-          <Col xs={24} sm={12} lg={16}>
-            <canvas
-              ref={canvasRef}
-              style={{
-                width: '100%',
-                height,
-                marginBottom: margin,
-              }}
-            />
-          </Col>
+          {unadjustedImage && (
+            <Col xs={24} sm={12} lg={16}>
+              <canvas
+                ref={canvasRef}
+                style={{
+                  width: '100%',
+                  height,
+                  marginBottom: margin,
+                }}
+              />
+            </Col>
+          )}
           <Col
             xs={24}
             sm={12}
@@ -153,9 +160,15 @@ export const ImageColorCorrection: React.FC = () => {
             }}
           >
             <Space direction="vertical" style={{display: 'flex', padding: '0 16px 16px'}}>
+              {!unadjustedImage && (
+                <Typography.Text strong>
+                  Select a photo to adjust white balance and saturation
+                </Typography.Text>
+              )}
+
               <Space>
                 <ImageSelect onChange={handleFileChange}>Select photo</ImageSelect>
-                {adjustedImages.length > 0 && (
+                {unadjustedImage && (
                   <Button
                     icon={<DownloadOutlined />}
                     onClick={() => void zoomableImageCanvas?.saveAsImage(IMAGE_FILENAME)}
@@ -165,27 +178,25 @@ export const ImageColorCorrection: React.FC = () => {
                 )}
               </Space>
 
-              {adjustedImages.length > 0 && (
-                <Space>
-                  <Button
-                    size="small"
-                    icon={<PictureOutlined />}
-                    onClick={() => void handleSetAsReferenceClick()}
-                  >
-                    Set as reference
-                  </Button>
-                  <Button
-                    size="small"
-                    icon={<ScissorOutlined />}
-                    onClick={() => void handleRemoveBgClick()}
-                  >
-                    Remove background
-                  </Button>
-                </Space>
-              )}
-
-              {imageToAdjust && (
+              {unadjustedImage && (
                 <>
+                  <Space>
+                    <Button
+                      size="small"
+                      icon={<PictureOutlined />}
+                      onClick={() => void handleSetAsReferenceClick()}
+                    >
+                      Set as reference
+                    </Button>
+                    <Button
+                      size="small"
+                      icon={<ScissorOutlined />}
+                      onClick={() => void handleRemoveBgClick()}
+                    >
+                      Remove background
+                    </Button>
+                  </Space>
+
                   <Form.Item
                     layout="vertical"
                     label="White patch %ile"

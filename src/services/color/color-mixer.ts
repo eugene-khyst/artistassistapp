@@ -389,23 +389,45 @@ function mixThreeColors(colors: UnmixedColor[]): MixedColor[] {
 }
 
 function mixTints(colors: MixedColor[], whites: UnmixedColor[]): MixedColorTint[] {
-  return colors.flatMap((color: MixedColor): MixedColorTint[] =>
-    whites.flatMap((white: UnmixedColor): MixedColorTint[] =>
-      FRACTIONS.map(([colorPart, whole]: Fraction): MixedColorTint => {
+  const result: MixedColorTint[] = [];
+  for (const color of colors) {
+    for (const white of whites) {
+      const colorReflectance = color.reflectance;
+      const whiteReflectance = white.reflectance;
+      for (const [colorPart, whole] of FRACTIONS) {
         const whitePart = whole - colorPart;
-        return new MixedColorTint(
-          Reflectance.mixKM([color.reflectance, white.reflectance], [colorPart, whitePart]),
+        const mixedReflectance = Reflectance.mixKM(
+          [colorReflectance, whiteReflectance],
+          [colorPart, whitePart]
+        );
+        const mixedColorTint = new MixedColorTint(
+          mixedReflectance,
           color,
           [whitePart, whole],
           white
         );
-      })
-    )
-  );
+        result.push(mixedColorTint);
+      }
+    }
+  }
+  return result;
 }
 
 function makeTintLayers(colors: MixedColor[], whites: UnmixedColor[]): MixedColorLayer[] {
-  return mixTints(colors, whites).map(color => color.toMixedColorLayer());
+  const tints = mixTints(colors, whites);
+  const result: MixedColorLayer[] = new Array<MixedColorLayer>(tints.length);
+  for (let i = 0; i < tints.length; i++) {
+    result[i] = tints[i]!.toMixedColorLayer();
+  }
+  return result;
+}
+
+function toMixedColorLayers(colors: MixedColor[]): MixedColorLayer[] {
+  const result: MixedColorLayer[] = new Array<MixedColorLayer>(colors.length);
+  for (let i = 0; i < colors.length; i++) {
+    result[i] = colors[i]!.toMixedColorTint().toMixedColorLayer();
+  }
+  return result;
 }
 
 function makeThinnedLayers(
@@ -414,24 +436,22 @@ function makeThinnedLayers(
   glazing = true
 ): MixedColorLayer[] {
   if (!colors.length || !background || !glazing) {
-    return colors.map(color => color.toMixedColorTint().toMixedColorLayer());
+    return toMixedColorLayers(colors);
   }
-  const {rgb: backgroundRgb, reflectance: backgroundReflectance} = background;
-  return colors.flatMap((color: MixedColor): MixedColorLayer[] => [
-    color.toMixedColorTint().toMixedColorLayer(),
-    ...FRACTIONS.map(
-      ([colorPart, whole]: Fraction): MixedColorLayer =>
-        new MixedColorLayer(
-          Reflectance.mixKM(
-            [color.reflectance, backgroundReflectance],
-            [colorPart, whole - colorPart]
-          ),
-          color.toMixedColorTint(),
-          [colorPart, whole],
-          backgroundRgb
-        )
-    ),
-  ]);
+  const result: MixedColorLayer[] = new Array<MixedColorLayer>();
+  for (const color of colors) {
+    const tint = color.toMixedColorTint();
+    result.push(tint.toMixedColorLayer());
+    for (const [colorPart, whole] of FRACTIONS) {
+      const mixedReflectance = Reflectance.mixKM(
+        [color.reflectance, background.reflectance],
+        [colorPart, whole - colorPart]
+      );
+      const layer = new MixedColorLayer(mixedReflectance, tint, [colorPart, whole], background.rgb);
+      result.push(layer);
+    }
+  }
+  return result;
 }
 
 function findSimilarColors(
@@ -448,14 +468,21 @@ function findSimilarColors(
       if (minSimilarity > 0 && similarity <= minSimilarity) {
         continue;
       }
-      const colorMixture = layer.toColorMixture(type);
-      similarColors.push({
-        colorMixture,
-        similarity,
-        hash: getColorMixtureHash(colorMixture),
-      });
-      similarColors.sort(compareSimilarColorsBySimilarity);
-      similarColors = unique(similarColors, ({hash}) => hash).slice(0, limit);
+      if (
+        similarColors.length < limit ||
+        (similarColors.length > 0 &&
+          similarity >= similarColors[similarColors.length - 1]!.similarity)
+      ) {
+        const colorMixture = layer.toColorMixture(type);
+        const similarColor = {
+          colorMixture,
+          similarity,
+          hash: getColorMixtureHash(colorMixture),
+        };
+        similarColors.push(similarColor);
+        similarColors.sort(compareSimilarColorsBySimilarity);
+        similarColors = unique(similarColors, ({hash}) => hash).slice(0, limit);
+      }
     }
   }
   return similarColors;
@@ -543,12 +570,13 @@ export class ColorMixer {
       return;
     }
     const reflectance = rgb.toReflectance();
-    return findSimilarColors(
+    const [similarColor] = findSimilarColors(
       reflectance,
       [...this.tintLayers.values(), ...this.thinnedLayers.values()],
       this.type,
       1
-    )[0];
+    );
+    return similarColor;
   }
 
   findSimilarColors(targetColor: string | RgbTuple): SimilarColor[] {

@@ -17,7 +17,7 @@
  */
 
 import {DownloadOutlined} from '@ant-design/icons';
-import {Button, Space, Spin} from 'antd';
+import {Button, Flex, Space, Spin, Typography} from 'antd';
 import {saveAs} from 'file-saver';
 import type {CSSProperties} from 'react';
 import {type ChangeEvent, useEffect, useState} from 'react';
@@ -87,13 +87,14 @@ export const ImageBackgroundRemove: React.FC = () => {
 
   const imageStyle: CSSProperties = {
     maxWidth: '100%',
-    maxHeight: `calc(100vh - 115px)`,
+    maxHeight: `calc(100vh - 145px)`,
     objectFit: 'contain',
   };
 
   return (
     <Spin spinning={isLoading} percent={loadingPercent} tip={loadingTip} size="large">
-      <div style={{display: 'flex', width: '100%', justifyContent: 'center', marginBottom: 8}}>
+      <Flex vertical gap="small" style={{marginBottom: 8, padding: '0 16px'}}>
+        <Typography.Text strong>Select a photo to remove the background from</Typography.Text>
         <Space>
           <ImageSelect onChange={handleFileChange}>Select photo</ImageSelect>
           {noBgImageUrl && (
@@ -102,7 +103,7 @@ export const ImageBackgroundRemove: React.FC = () => {
             </Button>
           )}
         </Space>
-      </div>
+      </Flex>
 
       <ReactCompareSlider
         position={position}

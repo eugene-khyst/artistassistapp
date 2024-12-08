@@ -16,16 +16,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {create2DArray, createArray, getIndexForCoord} from '~/src/utils';
+import {create2DArray, createArray, getIndexForCoord, imageBitmapToImageData} from '~/src/utils';
 
-export function medianFilter({data, width, height}: ImageData, radius: number, channels = 3): void {
-  if (channels !== 1 && channels !== 3) {
-    throw new Error('Channels must equal 1 or 3');
-  }
+export function medianFilterBulk(image: ImageBitmap, radiuses: number[]): ImageBitmap[] {
+  const [imageData, canvas, ctx] = imageBitmapToImageData(image);
+  return radiuses.map(radius => {
+    ctx.putImageData(medianFilter(imageData, radius), 0, 0);
+    return canvas.transferToImageBitmap();
+  });
+}
+
+export function medianFilter(imageData: ImageData, radius: number, channels: 3 | 1 = 3): ImageData {
   if (radius < 1) {
-    return;
+    return imageData;
   }
-  const origData = new Uint8ClampedArray(data);
+  const {data: origData, width, height} = imageData;
+  const data = new Uint8ClampedArray(origData);
 
   const mask: boolean[][] = getMask(radius);
   const removedMask: boolean[][] = maskDifference(mask, 0, 1);
@@ -58,6 +64,7 @@ export function medianFilter({data, width, height}: ImageData, radius: number, c
       }
     }
   }
+  return new ImageData(data, width, height);
 }
 
 function getMask(radius: number): boolean[][] {

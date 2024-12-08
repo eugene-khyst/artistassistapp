@@ -148,8 +148,9 @@ export interface AppState {
   isLimitedPaletteImageLoading: boolean;
 
   imageToAdjust: File | null;
-  adjustedImages: ImageBitmap[];
-  isAdjustedImagesLoading: boolean;
+  unadjustedImage: ImageBitmap | null;
+  adjustedImage: ImageBitmap | null;
+  isAdjustedImageLoading: boolean;
 
   imageToRemoveBg: File | null;
 
@@ -187,7 +188,7 @@ export interface AppActions {
 
   setLimitedColorSet: (limitedColorSet: ColorSet) => Promise<void>;
 
-  setImageToAdjust: (imageToAdjust: File | null) => void;
+  setImageToAdjust: (imageToAdjust: File | null) => Promise<void>;
   adjustImageColor: (whitePatchPercentile: number, saturation: number) => Promise<void>;
 
   setImageToRemoveBg: (imageToRemoveBg: File | null) => void;
@@ -241,8 +242,9 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
   isLimitedPaletteImageLoading: false,
 
   imageToAdjust: null,
-  adjustedImages: [],
-  isAdjustedImagesLoading: false,
+  unadjustedImage: null,
+  adjustedImage: null,
+  isAdjustedImageLoading: false,
 
   imageToRemoveBg: null,
 
@@ -497,29 +499,35 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     });
   },
 
-  setImageToAdjust: (imageToAdjust: File | null): void => {
-    set({imageToAdjust});
+  setImageToAdjust: async (imageToAdjust: File | null): Promise<void> => {
+    const {unadjustedImage: prev} = get();
+    let unadjustedImage: ImageBitmap | null = null;
+    if (imageToAdjust) {
+      unadjustedImage = await colorCorrection.setImage(imageToAdjust);
+    }
+    set({
+      imageToAdjust: imageToAdjust,
+      unadjustedImage,
+    });
+    prev?.close();
   },
   adjustImageColor: async (whitePatchPercentile: number, saturation: number): Promise<void> => {
-    const {imageToAdjust, adjustedImages: prev} = get();
+    const {imageToAdjust, adjustedImage: prev} = get();
     if (!imageToAdjust) {
       return;
     }
     set({
-      isAdjustedImagesLoading: true,
+      isAdjustedImageLoading: true,
     });
-    const {adjustedImages} = await colorCorrection.getAdjustedImage(
-      imageToAdjust,
+    const {adjustedImage} = await colorCorrection.getAdjustedImage(
       whitePatchPercentile / 100,
       saturation / 100
     );
     set({
-      adjustedImages,
-      isAdjustedImagesLoading: false,
+      adjustedImage,
+      isAdjustedImageLoading: false,
     });
-    prev.forEach(image => {
-      image.close();
-    });
+    prev?.close();
   },
 
   setImageToRemoveBg: (imageToRemoveBg: File | null): void => {

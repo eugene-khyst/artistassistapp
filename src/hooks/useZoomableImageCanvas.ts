@@ -33,7 +33,7 @@ interface Result<T> {
 
 export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
   zoomableImageCanvasSupplier: (canvas: HTMLCanvasElement) => T,
-  image: (ImageBitmap | null) | ImageBitmap[]
+  image: (ImageBitmap | null) | (ImageBitmap | null)[]
 ): Result<T> {
   const [zoomableImageCanvas, setZoomableImageCanvas] = useState<T>();
   const ref = useCallback(
@@ -77,7 +77,9 @@ export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
     if (!zoomableImageCanvas) {
       return;
     }
-    zoomableImageCanvas.setImages(image ? [image].flat() : []);
+    zoomableImageCanvas.setImages(
+      [image].flat().filter((image: ImageBitmap | null): image is ImageBitmap => !!image)
+    );
   }, [zoomableImageCanvas, image]);
 
   return {

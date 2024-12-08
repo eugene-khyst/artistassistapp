@@ -16,10 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export function invert({data}: ImageData): void {
-  for (let i = 0; i < data.length; i += 4) {
-    data[i] = Math.abs(data[i]! - 255);
-    data[i + 1] = Math.abs(data[i + 1]! - 255);
-    data[i + 2] = Math.abs(data[i + 2]! - 255);
-  }
+import {WebGLShaderRunner} from '~/src/services/image/filter/webgl-runner';
+
+import fragmentShaderSource from './glsl/sobel-operator.glsl';
+
+export function sobelEdgeDetectionWebGL(image: ImageBitmap): ImageBitmap {
+  const {width, height} = image;
+  const runner = new WebGLShaderRunner(fragmentShaderSource, width, height);
+  const {gl, program} = runner;
+  runner.createTexture(image);
+
+  const texelSizeLocation = gl.getUniformLocation(program, 'u_texelSize');
+  gl.uniform2f(texelSizeLocation, 1.0 / image.width, 1.0 / image.height);
+
+  runner.draw();
+  const resultImage = runner.transferToImageBitmap();
+  runner.cleanUp();
+  return resultImage;
 }

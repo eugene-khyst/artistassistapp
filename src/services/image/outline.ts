@@ -18,8 +18,9 @@
 
 import {transfer} from 'comlink';
 
-import {sobelEdgeDetection} from '~/src/services/image/sobel-operator';
-import {createScaledImageBitmap, IMAGE_SIZE, imageBitmapToOffscreenCanvas} from '~/src/utils';
+import {sobelEdgeDetection} from '~/src/services/image/filter/sobel-operator';
+import {sobelEdgeDetectionWebGL} from '~/src/services/image/filter/sobel-operator-webgl';
+import {createScaledImageBitmap, IMAGE_SIZE} from '~/src/utils';
 
 interface Result {
   outline: ImageBitmap;
@@ -29,10 +30,14 @@ export class Outline {
   async getOutline(blob: Blob): Promise<Result> {
     console.time('outline');
     const image: ImageBitmap = await createScaledImageBitmap(blob, IMAGE_SIZE['2K']);
-    const [canvas, ctx] = imageBitmapToOffscreenCanvas(image);
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    sobelEdgeDetection(imageData);
-    const outline: ImageBitmap = await createImageBitmap(imageData);
+    let outline: ImageBitmap;
+    try {
+      outline = sobelEdgeDetectionWebGL(image);
+    } catch (e) {
+      console.error(e);
+      outline = sobelEdgeDetection(image);
+    }
+    image.close();
     console.timeEnd('outline');
     return transfer({outline}, [outline]);
   }

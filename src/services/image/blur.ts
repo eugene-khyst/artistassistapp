@@ -18,37 +18,26 @@
 
 import {transfer} from 'comlink';
 
-import {createScaledImageBitmap, IMAGE_SIZE, imageBitmapToOffscreenCanvas} from '~/src/utils';
-
-import {medianFilter} from './median-filter';
+import {kuwaharaFilterWebGL} from '~/src/services/image/filter/kuwahara-filter-webgl';
+import {medianFilterBulk} from '~/src/services/image/filter/median-filter';
+import {createScaledImageBitmap, IMAGE_SIZE} from '~/src/utils';
 
 interface Result {
   blurred: ImageBitmap[];
 }
 
 export class Blur {
-  async getBlurred(blob: Blob, medianFilterRadiuses: number[] = [0, 2, 3, 4]): Promise<Result> {
+  async getBlurred(blob: Blob): Promise<Result> {
     console.time('blur');
     const image: ImageBitmap = await createScaledImageBitmap(blob, IMAGE_SIZE.HD);
-    const maxMedianFilterRadius: number = Math.max(...medianFilterRadiuses);
-    const [canvas, ctx] = imageBitmapToOffscreenCanvas(image, maxMedianFilterRadius);
-    const {data: origData, width, height} = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    image.close();
-    const blurred: ImageBitmap[] = await Promise.all(
-      medianFilterRadiuses.map((medianFilterRadius: number): Promise<ImageBitmap> => {
-        const blurredImageData = new ImageData(new Uint8ClampedArray(origData), width, height);
-        medianFilter(blurredImageData, medianFilterRadius, 3);
-        ctx.clearRect(0, 0, width, height);
-        ctx.putImageData(blurredImageData, 0, 0);
-        const cropedImageData = ctx.getImageData(
-          maxMedianFilterRadius,
-          maxMedianFilterRadius,
-          width - 2 * maxMedianFilterRadius,
-          height - 2 * maxMedianFilterRadius
-        );
-        return createImageBitmap(cropedImageData);
-      })
-    );
+    let blurred: ImageBitmap[];
+    try {
+      blurred = kuwaharaFilterWebGL(image, [2, 3, 4]);
+    } catch (e) {
+      console.error(e);
+      blurred = medianFilterBulk(image, [1, 2, 3]);
+    }
+    blurred = [image, ...blurred];
     console.timeEnd('blur');
     return transfer({blurred}, blurred);
   }

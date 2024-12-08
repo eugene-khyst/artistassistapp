@@ -18,59 +18,45 @@
 
 import {transfer} from 'comlink';
 
-import {linearizeRgbChannel, unlinearizeRgbChannel} from '~/src/services/color/space';
-import {createScaledImageBitmap, IMAGE_SIZE, imageBitmapToOffscreenCanvas} from '~/src/utils';
+import {
+  adjustColors,
+  calculatePercentiles,
+  sortRgbChannels,
+} from '~/src/services/image/filter/adjust-colors';
+import {adjustColorsWebGL} from '~/src/services/image/filter/adjust-colors-webgl';
+import {createScaledImageBitmap, IMAGE_SIZE, imageBitmapToImageData} from '~/src/utils';
 
 interface Result {
-  adjustedImages: ImageBitmap[];
+  adjustedImage: ImageBitmap | null;
 }
 
 export class ColorCorrection {
-  async getAdjustedImage(
-    blob: Blob,
-    whitePatchPercentile: number,
-    saturation: number
-  ): Promise<Result> {
+  image: ImageBitmap | null = null;
+  sortedRgbChannels: Uint8ClampedArray[] = [];
+
+  async setImage(blob: Blob): Promise<ImageBitmap> {
+    this.image = await createScaledImageBitmap(blob, IMAGE_SIZE['2K']);
+    const [imageData] = imageBitmapToImageData(this.image);
+    console.time('sort-rgb-channels');
+    this.sortedRgbChannels = sortRgbChannels(imageData);
+    console.timeEnd('sort-rgb-channels');
+    return this.image;
+  }
+
+  getAdjustedImage(whitePatchPercentile: number, saturation: number): Result {
+    if (!this.image || !this.sortedRgbChannels.length) {
+      return {adjustedImage: null};
+    }
     console.time('color-correction');
-    const image: ImageBitmap = await createScaledImageBitmap(blob, IMAGE_SIZE['2K']);
-    const [canvas, ctx] = imageBitmapToOffscreenCanvas(image);
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    adjustColors(imageData, whitePatchPercentile, saturation);
-    const adjustedImages: ImageBitmap[] = [await createImageBitmap(imageData), image];
+    const maxValues = calculatePercentiles(this.sortedRgbChannels, whitePatchPercentile);
+    let adjustedImage: ImageBitmap;
+    try {
+      adjustedImage = adjustColorsWebGL(this.image, maxValues, saturation);
+    } catch (e) {
+      console.error(e);
+      adjustedImage = adjustColors(this.image, maxValues, saturation);
+    }
     console.timeEnd('color-correction');
-    return transfer({adjustedImages}, adjustedImages);
-  }
-}
-
-export function adjustColors({data}: ImageData, percentile = 0.95, saturation = 1): void {
-  const channels: [number[], number[], number[]] = [[], [], []];
-  for (let i = 0; i < data.length; i += 4) {
-    channels[0].push(linearizeRgbChannel(data[i]!));
-    channels[1].push(linearizeRgbChannel(data[i + 1]!));
-    channels[2].push(linearizeRgbChannel(data[i + 2]!));
-  }
-  const maxValues = channels.map(channel => {
-    channel.sort((a: number, b: number) => a - b);
-    const index = Math.floor(percentile * channel.length) - 1;
-    return channel[Math.max(0, index)];
-  });
-  for (let i = 0; i < data.length; i += 4) {
-    let r = linearizeRgbChannel(data[i]!);
-    let g = linearizeRgbChannel(data[i + 1]!);
-    let b = linearizeRgbChannel(data[i + 2]!);
-
-    r = Math.min(r / maxValues[0]!, 1);
-    g = Math.min(g / maxValues[1]!, 1);
-    b = Math.min(b / maxValues[2]!, 1);
-
-    const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-
-    r = r + (luminance - r) * (1 - saturation);
-    g = g + (luminance - g) * (1 - saturation);
-    b = b + (luminance - b) * (1 - saturation);
-
-    data[i] = unlinearizeRgbChannel(r);
-    data[i + 1] = unlinearizeRgbChannel(g);
-    data[i + 2] = unlinearizeRgbChannel(b);
+    return transfer({adjustedImage}, [adjustedImage]);
   }
 }

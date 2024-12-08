@@ -128,7 +128,7 @@ export const ImageGrid: React.FC = () => {
               setGridOption(value);
             }}
             options={GRID_OPTIONS}
-            style={{width: 120}}
+            style={{width: 125}}
           />
         </Form.Item>
         {gridOption === GridOption.Square ? (

@@ -16,13 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/// <reference types="vite/client" />
+import {imageBitmapToImageData} from '~/src/utils';
 
-interface ImportMetaEnv {
-  readonly MODE: 'development' | 'production';
-  readonly VITE_COMMIT_HASH?: string;
-}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv;
+export function invertColors(image: ImageBitmap): OffscreenCanvas {
+  const [imageData, canvas, ctx] = imageBitmapToImageData(image);
+  const {data} = imageData;
+  for (let i = 0; i < data.length; i += 4) {
+    for (let channel = 0; channel < 3; channel++) {
+      data[i + channel] = 255 - data[i + channel]!;
+    }
+  }
+  ctx.putImageData(imageData, 0, 0);
+  return canvas;
 }

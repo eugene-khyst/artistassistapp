@@ -16,23 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {BACKGROUND_REMOVAL_DATA_URL} from '~/src/config';
+/// <reference types="vite/client" />
+/// <reference types="vite-plugin-glsl/ext" />
 
-export async function removeBackground(
-  file: File,
-  progress?: (key: string, current: number, total: number) => void
-): Promise<Blob> {
-  console.time('background-removal');
-  const {removeBackground} = await import('@imgly/background-removal');
-  const noBgBlob = await removeBackground(file, {
-    publicPath: BACKGROUND_REMOVAL_DATA_URL,
-    device: 'gpu',
-    proxyToWorker: true,
-    progress: (key, current, total) => {
-      console.log(`Downloading ${key}: ${current} of ${total}`);
-      progress?.(key, current, total);
-    },
-  });
-  console.timeEnd('background-removal');
-  return noBgBlob;
+interface ImportMetaEnv {
+  readonly MODE: 'development' | 'production';
+  readonly VITE_COMMIT_HASH?: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
 }
