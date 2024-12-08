@@ -22,7 +22,7 @@ import {
   PictureOutlined,
   ScissorOutlined,
 } from '@ant-design/icons';
-import {Button, Checkbox, Col, Form, Grid, Row, Slider, Space, Spin} from 'antd';
+import {Button, Checkbox, Col, Form, Grid, Row, Slider, Space, Spin, Typography} from 'antd';
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
 import type {SliderMarks} from 'antd/es/slider';
 import type {ChangeEvent} from 'react';
@@ -74,8 +74,8 @@ export const ImageColorCorrection: React.FC = () => {
   const [saturation, setSaturation] = useState<number>(100);
   const [isPreview, setIsPreview] = useState<boolean>(true);
 
-  const debouncedPercentile = useDebounce(percentile, 1000);
-  const debouncedSaturation = useDebounce(saturation, 1000);
+  const debouncedPercentile = useDebounce(percentile, 500);
+  const debouncedSaturation = useDebounce(saturation, 500);
 
   const isLoading: boolean = isAdjustedImagesLoading;
 
@@ -87,7 +87,7 @@ export const ImageColorCorrection: React.FC = () => {
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files?.[0] ?? null;
-    setImageToAdjust(file);
+    void setImageToAdjust(file);
   };
 
   const handleSaturationChange = (value: number) => {
@@ -132,16 +132,18 @@ export const ImageColorCorrection: React.FC = () => {
     <>
       <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">
         <Row>
-          <Col xs={24} sm={12} lg={16}>
-            <canvas
-              ref={canvasRef}
-              style={{
-                width: '100%',
-                height,
-                marginBottom: margin,
-              }}
-            />
-          </Col>
+          {imageToAdjust && (
+            <Col xs={24} sm={12} lg={16}>
+              <canvas
+                ref={canvasRef}
+                style={{
+                  width: '100%',
+                  height,
+                  marginBottom: margin,
+                }}
+              />
+            </Col>
+          )}
           <Col
             xs={24}
             sm={12}
@@ -153,9 +155,15 @@ export const ImageColorCorrection: React.FC = () => {
             }}
           >
             <Space direction="vertical" style={{display: 'flex', padding: '0 16px 16px'}}>
+              {!imageToAdjust && (
+                <Typography.Text strong>
+                  Select a photo to adjust white balance and saturation
+                </Typography.Text>
+              )}
+
               <Space>
                 <ImageSelect onChange={handleFileChange}>Select photo</ImageSelect>
-                {adjustedImages.length > 0 && (
+                {imageToAdjust && (
                   <Button
                     icon={<DownloadOutlined />}
                     onClick={() => void zoomableImageCanvas?.saveAsImage(IMAGE_FILENAME)}
@@ -165,27 +173,25 @@ export const ImageColorCorrection: React.FC = () => {
                 )}
               </Space>
 
-              {adjustedImages.length > 0 && (
-                <Space>
-                  <Button
-                    size="small"
-                    icon={<PictureOutlined />}
-                    onClick={() => void handleSetAsReferenceClick()}
-                  >
-                    Set as reference
-                  </Button>
-                  <Button
-                    size="small"
-                    icon={<ScissorOutlined />}
-                    onClick={() => void handleRemoveBgClick()}
-                  >
-                    Remove background
-                  </Button>
-                </Space>
-              )}
-
               {imageToAdjust && (
                 <>
+                  <Space>
+                    <Button
+                      size="small"
+                      icon={<PictureOutlined />}
+                      onClick={() => void handleSetAsReferenceClick()}
+                    >
+                      Set as reference
+                    </Button>
+                    <Button
+                      size="small"
+                      icon={<ScissorOutlined />}
+                      onClick={() => void handleRemoveBgClick()}
+                    >
+                      Remove background
+                    </Button>
+                  </Space>
+
                   <Form.Item
                     layout="vertical"
                     label="White patch %ile"

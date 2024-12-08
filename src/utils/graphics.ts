@@ -45,21 +45,22 @@ export async function createScaledImageBitmap(
 }
 
 export function imageBitmapToOffscreenCanvas(
-  image: ImageBitmap,
-  expandBy = 0
+  image: ImageBitmap
 ): [OffscreenCanvas, OffscreenCanvasRenderingContext2D] {
   const {width, height} = image;
-  const canvas = new OffscreenCanvas(width + 2 * expandBy, height + 2 * expandBy);
+  const canvas = new OffscreenCanvas(width, height);
   const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d', {
     willReadFrequently: true,
   })!;
-  ctx.drawImage(image, expandBy, expandBy, width, height);
+  ctx.drawImage(image, 0, 0);
   return [canvas, ctx];
 }
 
-export function imageBitmapToImageData(image: ImageBitmap): ImageData {
+export function imageBitmapToImageData(
+  image: ImageBitmap
+): [ImageData, OffscreenCanvas, OffscreenCanvasRenderingContext2D] {
   const [canvas, ctx] = imageBitmapToOffscreenCanvas(image);
-  return ctx.getImageData(0, 0, canvas.width, canvas.height);
+  return [ctx.getImageData(0, 0, canvas.width, canvas.height), canvas, ctx];
 }
 
 export function getIndexForCoord(x: number, y: number, width: number, channel: number): number {

@@ -16,13 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/// <reference types="vite/client" />
+import {WebGLShaderRunner} from '~/src/services/image/filter/webgl-runner';
 
-interface ImportMetaEnv {
-  readonly MODE: 'development' | 'production';
-  readonly VITE_COMMIT_HASH?: string;
-}
+import fragmentShaderSource from './glsl/invert-colors.glsl';
 
-interface ImportMeta {
-  readonly env: ImportMetaEnv;
+export function invertColorsWebGL(image: ImageBitmap): ImageBitmap {
+  const {width, height} = image;
+  const runner = new WebGLShaderRunner(fragmentShaderSource, width, height);
+
+  runner.createTexture(image);
+
+  runner.draw();
+
+  const resultImage = runner.transferToImageBitmap();
+
+  runner.cleanUp();
+
+  return resultImage;
 }

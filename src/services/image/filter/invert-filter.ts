@@ -16,23 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {BACKGROUND_REMOVAL_DATA_URL} from '~/src/config';
+import {imageBitmapToImageData} from '~/src/utils';
 
-export async function removeBackground(
-  file: File,
-  progress?: (key: string, current: number, total: number) => void
-): Promise<Blob> {
-  console.time('background-removal');
-  const {removeBackground} = await import('@imgly/background-removal');
-  const noBgBlob = await removeBackground(file, {
-    publicPath: BACKGROUND_REMOVAL_DATA_URL,
-    device: 'gpu',
-    proxyToWorker: true,
-    progress: (key, current, total) => {
-      console.log(`Downloading ${key}: ${current} of ${total}`);
-      progress?.(key, current, total);
-    },
-  });
-  console.timeEnd('background-removal');
-  return noBgBlob;
+export function invertColors(image: ImageBitmap): ImageBitmap {
+  const [imageData, canvas, ctx] = imageBitmapToImageData(image);
+  const {data} = imageData;
+  for (let i = 0; i < data.length; i += 4) {
+    for (let channel = 0; channel < 3; channel++) {
+      data[i + channel] = 255 - data[i + channel]!;
+    }
+  }
+  ctx.putImageData(imageData, 0, 0);
+  return canvas.transferToImageBitmap();
 }

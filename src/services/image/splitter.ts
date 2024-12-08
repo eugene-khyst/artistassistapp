@@ -20,17 +20,20 @@ import type {Size} from '~/src/utils';
 
 const MAX_CANVAS_SIZE = 8192;
 
-interface Result {
-  preview: OffscreenCanvas;
-  imageParts: OffscreenCanvas[];
+export interface SplitImagePreview {
+  canvas: OffscreenCanvas;
+  rows: number;
+  cols: number;
+  pageWidthPx: number;
+  pageHeightPx: number;
 }
 
-export function splitImage(
+export function splitImagePreview(
   image: ImageBitmap,
   targetSize: Size,
   paperSizes: Size[],
   lineWidth = 5
-): Result {
+): SplitImagePreview {
   const [targetWidth, targetHeight] = targetSize;
   let pages = Number.MAX_VALUE;
   let cols = 0;
@@ -59,7 +62,6 @@ export function splitImage(
   }
   const pageWidthPx = px2mm * pageWidth;
   const pageHeightPx = px2mm * pageHeight;
-  const canvasParts: OffscreenCanvas[] = [];
   const canvasWidth = cols * pageWidthPx;
   const canvasHeight = rows * pageHeightPx;
   if (canvasWidth > MAX_CANVAS_SIZE || canvasHeight > MAX_CANVAS_SIZE) {
@@ -76,15 +78,35 @@ export function splitImage(
       const x = c * pageWidthPx;
       const y = r * pageHeightPx;
       ctx.strokeRect(x, y, pageWidthPx, pageHeightPx);
+    }
+  }
+  return {
+    canvas,
+    rows,
+    cols,
+    pageWidthPx,
+    pageHeightPx,
+  };
+}
+
+export function splitImageIntoParts({
+  canvas,
+  rows,
+  cols,
+  pageWidthPx,
+  pageHeightPx,
+}: SplitImagePreview): OffscreenCanvas[] {
+  const imageParts: OffscreenCanvas[] = [];
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const x = c * pageWidthPx;
+      const y = r * pageHeightPx;
       const canvasPart = new OffscreenCanvas(pageWidthPx, pageHeightPx);
       canvasPart
         .getContext('2d')!
         .drawImage(canvas, x, y, pageWidthPx, pageHeightPx, 0, 0, pageWidthPx, pageHeightPx);
-      canvasParts.push(canvasPart);
+      imageParts.push(canvasPart);
     }
   }
-  return {
-    preview: canvas,
-    imageParts: canvasParts,
-  };
+  return imageParts;
 }

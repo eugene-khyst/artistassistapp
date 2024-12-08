@@ -23,7 +23,7 @@ import {useEffect, useState} from 'react';
 
 import {useCreateObjectUrl} from '~/src/hooks';
 import {useDebounce} from '~/src/hooks/useDebounce';
-import {splitImage} from '~/src/services/image';
+import {splitImageIntoParts, type SplitImagePreview, splitImagePreview} from '~/src/services/image';
 import {LENGTH_UNITS, LengthUnit} from '~/src/services/math';
 import {PAPER_SIZES, PaperSize, printImages} from '~/src/services/print';
 
@@ -52,58 +52,65 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
   const [targetHeight, setTargetHeight] = useState<number | null>();
   const [targetUnit, setTargetUnit] = useState<LengthUnit>(LengthUnit.Centimeter);
   const [paperSize, setPaperSize] = useState<PaperSize>(PaperSize.A4);
+  const [printPreview, setPrintPreview] = useState<SplitImagePreview>();
   const [printPreviewBlob, setPrintPreviewBlob] = useState<Blob>();
-  const [imagePartBlobs, setImagePartBlobs] = useState<Blob[]>([]);
   const [isError, setIsError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const debouncedTargetWidth = useDebounce(targetWidth, 1000);
-  const debouncedTargetHeight = useDebounce(targetHeight, 1000);
+  const debouncedTargetWidth = useDebounce(targetWidth, 500);
+  const debouncedTargetHeight = useDebounce(targetHeight, 500);
 
   const previewImageUrl = useCreateObjectUrl(printPreviewBlob);
 
-  const isPrintDisabled: boolean = printMode === PrintMode.Resize && !imagePartBlobs.length;
+  const isPrintDisabled: boolean = printMode === PrintMode.Resize && !printPreview;
+
+  useEffect(() => {
+    setIsError(false);
+    if (!image || !debouncedTargetWidth || !debouncedTargetHeight) {
+      return;
+    }
+    setIsLoading(true);
+    const [paperWidth, paperHeight] = PAPER_SIZES.get(paperSize)!.size;
+    const {toMillimeters} = LENGTH_UNITS.get(targetUnit)!;
+    try {
+      const preview: SplitImagePreview = splitImagePreview(
+        image,
+        [toMillimeters(debouncedTargetWidth), toMillimeters(debouncedTargetHeight)],
+        [
+          [paperWidth, paperHeight],
+          [paperHeight, paperWidth],
+        ]
+      );
+      setPrintPreview(preview);
+    } catch (e) {
+      console.error(e);
+      setIsError(true);
+      setPrintPreview(undefined);
+    }
+    setIsLoading(false);
+  }, [image, targetUnit, debouncedTargetWidth, debouncedTargetHeight, paperSize]);
 
   useEffect(() => {
     void (async () => {
-      setImagePartBlobs([]);
-      setIsError(false);
-      if (!image || !debouncedTargetWidth || !debouncedTargetHeight) {
-        return;
-      }
-      setIsLoading(true);
-      const [paperWidth, paperHeight] = PAPER_SIZES.get(paperSize)!.size;
-      const {toMillimeters} = LENGTH_UNITS.get(targetUnit)!;
-      try {
-        const {preview, imageParts} = splitImage(
-          image,
-          [toMillimeters(debouncedTargetWidth), toMillimeters(debouncedTargetHeight)],
-          [
-            [paperWidth, paperHeight],
-            [paperHeight, paperWidth],
-          ]
-        );
-        const previewBlob = await preview.convertToBlob();
-        const imagePartBlobs = await Promise.all(imageParts.map(canvas => canvas.convertToBlob()));
-        setPrintPreviewBlob(previewBlob);
-        setImagePartBlobs(imagePartBlobs);
-      } catch (e) {
-        console.error(e);
-        setIsError(true);
-        setPrintPreviewBlob(undefined);
-      }
-      setIsLoading(false);
+      setPrintPreviewBlob(printPreview ? await printPreview.canvas.convertToBlob() : undefined);
     })();
-  }, [image, targetUnit, debouncedTargetWidth, debouncedTargetHeight, paperSize]);
+  }, [printPreview]);
 
-  const handlePrint = () => {
-    void printImages(printMode === PrintMode.Resize ? imagePartBlobs : image);
+  const handlePrint = async () => {
+    if (printMode === PrintMode.Resize && printPreview) {
+      const imagePartBlobs: Blob[] = await Promise.all(
+        splitImageIntoParts(printPreview).map(canvas => canvas.convertToBlob())
+      );
+      void printImages(imagePartBlobs);
+    } else {
+      void printImages(image);
+    }
   };
 
   return (
     <Drawer
       title={
-        <Button type="primary" onClick={handlePrint} disabled={isPrintDisabled}>
+        <Button type="primary" onClick={() => void handlePrint()} disabled={isPrintDisabled}>
           Print
         </Button>
       }

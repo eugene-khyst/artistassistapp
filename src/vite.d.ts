@@ -16,10 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export function invert({data}: ImageData): void {
-  for (let i = 0; i < data.length; i += 4) {
-    data[i] = Math.abs(data[i]! - 255);
-    data[i + 1] = Math.abs(data[i + 1]! - 255);
-    data[i + 2] = Math.abs(data[i + 2]! - 255);
-  }
+/// <reference types="vite/client" />
+/// <reference types="vite-plugin-glsl/ext" />
+
+interface ImportMetaEnv {
+  readonly MODE: 'development' | 'production';
+  readonly VITE_COMMIT_HASH?: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
 }

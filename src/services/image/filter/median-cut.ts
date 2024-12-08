@@ -19,46 +19,39 @@
 import type {RgbTuple} from '~/src/services/color/space';
 import {linearizeRgbChannel, unlinearizeRgbChannel} from '~/src/services/color/space';
 
-interface BucketItem {
-  color: RgbTuple;
-  index: number;
-}
-
 export function medianCutQuantization(
   imageData: ImageData,
   depth = 8,
   transformMean: (mean: RgbTuple) => RgbTuple = mean => mean
 ): void {
   const {data} = imageData;
-  const bucket: BucketItem[] = [];
+  const bucketSize = Math.ceil(data.length / 4);
+  const indexes: Uint32Array = new Uint32Array(bucketSize);
+  let j = 0;
   for (let i = 0; i < data.length; i += 4) {
-    const r = data[i]!;
-    const g = data[i + 1]!;
-    const b = data[i + 2]!;
-    bucket.push({
-      color: [r, g, b],
-      index: i,
-    });
+    indexes[j] = i;
+    j++;
   }
-  medianCut(bucket, depth, data, transformMean);
+  medianCut(indexes, depth, data, transformMean);
 }
 
 function medianCut(
-  bucket: BucketItem[],
+  indexes: Uint32Array,
   depth: number,
   data: Uint8ClampedArray,
   transformMean: (mean: RgbTuple) => RgbTuple
 ): void {
   if (depth == 0) {
-    quantize(bucket, data, transformMean);
+    quantize(indexes, data, transformMean);
     return;
   }
 
   const minimumValue: RgbTuple = [256, 256, 256];
   const maximumValue: RgbTuple = [0, 0, 0];
-  for (const item of bucket) {
+  for (const i of indexes) {
+    const rgb = [data[i]!, data[i + 1]!, data[i + 2]!];
     for (let channel = 0; channel <= 2; channel++) {
-      const value = item.color[channel]!;
+      const value = rgb[channel]!;
       if (value < minimumValue[channel]!) {
         minimumValue[channel] = value;
       }
@@ -77,33 +70,33 @@ function medianCut(
   const maxRange = Math.max(...ranges);
   const maxChannel = ranges.indexOf(maxRange);
 
-  bucket.sort(({color: a}: BucketItem, {color: b}: BucketItem) => a[maxChannel]! - b[maxChannel]!);
+  indexes.sort((a, b) => data[a + maxChannel]! - data[b + maxChannel]!);
 
-  const medianIndex: number = bucket.length / 2;
-  medianCut(bucket.slice(0, medianIndex), depth - 1, data, transformMean);
-  medianCut(bucket.slice(medianIndex, bucket.length), depth - 1, data, transformMean);
+  const medianIndex: number = Math.trunc(indexes.length) / 2;
+  medianCut(indexes.subarray(0, medianIndex), depth - 1, data, transformMean);
+  medianCut(indexes.subarray(medianIndex, indexes.length), depth - 1, data, transformMean);
 }
 
 function quantize(
-  bucket: BucketItem[],
+  indexes: Uint32Array,
   data: Uint8ClampedArray,
   transformMean: (mean: RgbTuple) => RgbTuple
 ): void {
   const total: RgbTuple = [0, 0, 0];
-  for (const {color} of bucket) {
+  for (const i of indexes) {
     for (let channel = 0; channel <= 2; channel++) {
-      total[channel]! += linearizeRgbChannel(color[channel]!);
+      total[channel]! += linearizeRgbChannel(data[i + channel]!);
     }
   }
   const mean: RgbTuple = [0, 0, 0];
   for (let channel = 0; channel <= 2; channel++) {
-    mean[channel] = unlinearizeRgbChannel(total[channel]! / bucket.length);
+    mean[channel] = unlinearizeRgbChannel(total[channel]! / indexes.length);
   }
   const [r, g, b] = transformMean(mean);
-  for (const {index} of bucket) {
-    data[index] = r;
-    data[index + 1] = g;
-    data[index + 2] = b;
-    data[index + 3] = 255;
+  for (const i of indexes) {
+    data[i] = r;
+    data[i + 1] = g;
+    data[i + 2] = b;
+    data[i + 3] = 255;
   }
 }

@@ -187,7 +187,7 @@ export interface AppActions {
 
   setLimitedColorSet: (limitedColorSet: ColorSet) => Promise<void>;
 
-  setImageToAdjust: (imageToAdjust: File | null) => void;
+  setImageToAdjust: (imageToAdjust: File | null) => Promise<void>;
   adjustImageColor: (whitePatchPercentile: number, saturation: number) => Promise<void>;
 
   setImageToRemoveBg: (imageToRemoveBg: File | null) => void;
@@ -497,7 +497,10 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     });
   },
 
-  setImageToAdjust: (imageToAdjust: File | null): void => {
+  setImageToAdjust: async (imageToAdjust: File | null): Promise<void> => {
+    if (imageToAdjust) {
+      await colorCorrection.setImage(imageToAdjust);
+    }
     set({imageToAdjust});
   },
   adjustImageColor: async (whitePatchPercentile: number, saturation: number): Promise<void> => {
@@ -508,11 +511,10 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     set({
       isAdjustedImagesLoading: true,
     });
-    const {adjustedImages} = await colorCorrection.getAdjustedImage(
-      imageToAdjust,
+    const {adjustedImages} = (await colorCorrection.getAdjustedImage(
       whitePatchPercentile / 100,
       saturation / 100
-    );
+    )) ?? {adjustedImages: []};
     set({
       adjustedImages,
       isAdjustedImagesLoading: false,

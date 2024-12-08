@@ -38,6 +38,10 @@ export function unlinearizeRgbChannel(value: number): number {
   return Math.round(255 * (v <= 0.0031308 ? 12.92 * v : 1.055 * Math.pow(v, 1 / 2.4) - 0.055));
 }
 
+export function rgbToNumber(r: number, g: number, b: number): number {
+  return (r << 16) + (g << 8) + b;
+}
+
 export type RgbTuple = [r: number, g: number, b: number];
 
 export class Rgb {
@@ -109,12 +113,16 @@ export class Rgb {
     return this.r === 255 && this.g === 255 && this.b === 255;
   }
 
-  getLuma(): number {
-    return (this.r * 0.2126 + this.g * 0.7152 + this.b * 0.722) / 255;
+  getLuminance(): number {
+    return (
+      0.2126 * linearizeRgbChannel(this.r) +
+      0.7152 * linearizeRgbChannel(this.g) +
+      0.0722 * linearizeRgbChannel(this.b)
+    );
   }
 
   isDark() {
-    return this.getLuma() < 0.5;
+    return this.getLuminance() < 0.5;
   }
 
   isLight() {

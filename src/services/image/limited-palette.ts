@@ -21,7 +21,7 @@ import {transfer} from 'comlink';
 import type {ColorSet} from '~/src/services/color';
 import {ColorMixer, PAPER_WHITE_HEX} from '~/src/services/color';
 import type {RgbTuple} from '~/src/services/color/space';
-import {Rgb} from '~/src/services/color/space';
+import {Rgb, rgbToNumber} from '~/src/services/color/space';
 import {
   computeIfAbsentInMap,
   createScaledImageBitmap,
@@ -29,7 +29,7 @@ import {
   imageBitmapToOffscreenCanvas,
 } from '~/src/utils';
 
-import {medianCutQuantization} from './median-cut';
+import {medianCutQuantization} from './filter/median-cut';
 
 const QUANTIZATION_DEPTH = 11;
 
@@ -48,7 +48,7 @@ export class LimitedPalette {
     image.close();
     const similarColors = new Map<number, RgbTuple>();
     medianCutQuantization(imageData, QUANTIZATION_DEPTH, (mean: RgbTuple): RgbTuple => {
-      return computeIfAbsentInMap(similarColors, colorToNumber(mean), () => {
+      return computeIfAbsentInMap(similarColors, rgbToNumber(...mean), () => {
         const similarColor = colorMixer.findSimilarColor(mean);
         return similarColor?.colorMixture.layerRgb ?? Rgb.WHITE.toRgbTuple();
       });
@@ -57,8 +57,4 @@ export class LimitedPalette {
     console.timeEnd('limited-palette');
     return transfer({preview}, [preview]);
   }
-}
-
-function colorToNumber([r, g, b]: RgbTuple) {
-  return (r << 16) + (g << 8) + b;
 }

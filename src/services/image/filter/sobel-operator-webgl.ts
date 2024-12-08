@@ -16,23 +16,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {BACKGROUND_REMOVAL_DATA_URL} from '~/src/config';
+import {WebGLShaderRunner} from '~/src/services/image/filter/webgl-runner';
 
-export async function removeBackground(
-  file: File,
-  progress?: (key: string, current: number, total: number) => void
-): Promise<Blob> {
-  console.time('background-removal');
-  const {removeBackground} = await import('@imgly/background-removal');
-  const noBgBlob = await removeBackground(file, {
-    publicPath: BACKGROUND_REMOVAL_DATA_URL,
-    device: 'gpu',
-    proxyToWorker: true,
-    progress: (key, current, total) => {
-      console.log(`Downloading ${key}: ${current} of ${total}`);
-      progress?.(key, current, total);
-    },
-  });
-  console.timeEnd('background-removal');
-  return noBgBlob;
+import fragmentShaderSource from './glsl/sobel-operator.glsl';
+
+export function sobelEdgeDetectionWebGL(image: ImageBitmap): ImageBitmap {
+  const {width, height} = image;
+  const runner = new WebGLShaderRunner(fragmentShaderSource, width, height);
+  const {gl, program} = runner;
+
+  runner.createTexture(image);
+
+  const texelSizeLocation = gl.getUniformLocation(program, 'u_texelSize');
+  gl.uniform2f(texelSizeLocation, 1.0 / image.width, 1.0 / image.height);
+
+  runner.draw();
+
+  const resultImage = runner.transferToImageBitmap();
+
+  runner.cleanUp();
+
+  return resultImage;
 }
