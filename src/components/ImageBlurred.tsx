@@ -24,6 +24,7 @@ import {useEffect, useState} from 'react';
 import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
 import type {ZoomableImageCanvas} from '~/src/services/canvas/image';
 import {useAppStore} from '~/src/stores/app-store';
+import {getFilename} from '~/src/utils/filename';
 
 import {EmptyImage} from './empty/EmptyImage';
 
@@ -44,6 +45,7 @@ const MEDIAN_FILTER_RADIUS_OPTIONS_SHORT: CheckboxOptionType<number>[] = [
 const DEFAULT_BLURRED_IMAGE_INDEX = 1;
 
 export const ImageBlurred: React.FC = () => {
+  const originalImageFile = useAppStore(state => state.originalImageFile);
   const originalImage = useAppStore(state => state.originalImage);
   const blurredImages = useAppStore(state => state.blurredImages);
 
@@ -67,7 +69,7 @@ export const ImageBlurred: React.FC = () => {
   };
 
   const handleSaveClick = () => {
-    void zoomableImageCanvas?.saveAsImage('ArtistAssistApp-Simplified');
+    void zoomableImageCanvas?.saveAsImage(getFilename(originalImageFile, 'simplified'));
   };
 
   const items: MenuProps['items'] = [

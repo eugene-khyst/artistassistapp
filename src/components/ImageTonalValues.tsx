@@ -25,6 +25,7 @@ import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
 import type {ZoomableImageCanvas} from '~/src/services/canvas/image';
 import {printImages} from '~/src/services/print';
 import {useAppStore} from '~/src/stores/app-store';
+import {getFilename} from '~/src/utils/filename';
 
 import {EmptyImage} from './empty/EmptyImage';
 
@@ -35,6 +36,7 @@ const TONES_OPTIONS: CheckboxOptionType[] = [
 ];
 
 export const ImageTonalValues: React.FC = () => {
+  const originalImageFile = useAppStore(state => state.originalImageFile);
   const originalImage = useAppStore(state => state.originalImage);
   const tonalImages = useAppStore(state => state.tonalImages);
 
@@ -68,7 +70,7 @@ export const ImageTonalValues: React.FC = () => {
   };
 
   const handleSaveClick = () => {
-    void tonalValuesCanvas?.saveAsImage('ArtistAssistApp-Tonal-Values');
+    void tonalValuesCanvas?.saveAsImage(getFilename(originalImageFile, 'tonal-values'));
   };
 
   const items: MenuProps['items'] = [

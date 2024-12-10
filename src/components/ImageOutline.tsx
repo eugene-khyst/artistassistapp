@@ -24,10 +24,12 @@ import {PrintImageDrawer} from '~/src/components/print/PrintImageDrawer';
 import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
 import type {ZoomableImageCanvas} from '~/src/services/canvas/image';
 import {useAppStore} from '~/src/stores/app-store';
+import {getFilename} from '~/src/utils/filename';
 
 import {EmptyImage} from './empty/EmptyImage';
 
 export const ImageOutline: React.FC = () => {
+  const originalImageFile = useAppStore(state => state.originalImageFile);
   const originalImage = useAppStore(state => state.originalImage);
   const outlineImage = useAppStore(state => state.outlineImage);
 
@@ -39,6 +41,10 @@ export const ImageOutline: React.FC = () => {
   );
 
   const [isOpenPrintImage, setIsOpenPrintImage] = useState<boolean>(false);
+
+  const handleSaveClick = () => {
+    void zoomableImageCanvas?.saveAsImage(getFilename(originalImageFile, 'outline'));
+  };
 
   if (!originalImage) {
     return <EmptyImage feature="view an outline from a reference photo" />;
@@ -61,10 +67,7 @@ export const ImageOutline: React.FC = () => {
           >
             Print
           </Button>
-          <Button
-            icon={<DownloadOutlined />}
-            onClick={() => void zoomableImageCanvas?.saveAsImage('ArtistAssistApp-Outline')}
-          >
+          <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
             Save
           </Button>
         </Space>

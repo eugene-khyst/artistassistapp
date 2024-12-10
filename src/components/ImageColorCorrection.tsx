@@ -36,6 +36,7 @@ import type {ZoomableImageCanvas} from '~/src/services/canvas/image';
 import {blobToImageFile} from '~/src/services/image';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
+import {getFilename} from '~/src/utils/filename';
 
 const MIN_PERCENTILE = 80;
 const MAX_PERCENTILE = 100;
@@ -49,16 +50,19 @@ const SATURATION_SLIDER_MARKS: SliderMarks = Object.fromEntries(
   [80, 90, 100, 110, 120, 130].map((i: number) => [i, i])
 );
 
-const IMAGE_FILENAME = 'ArtistAssistApp-Adjusted';
+function getAdjustedFilename(file: File | null): string | undefined {
+  return getFilename(file, 'adjusted');
+}
 
 export const ImageColorCorrection: React.FC = () => {
+  const imageFileToAdjust = useAppStore(state => state.imageFileToAdjust);
   const unadjustedImage = useAppStore(state => state.unadjustedImage);
   const adjustedImage = useAppStore(state => state.adjustedImage);
 
   const isAdjustedImageLoading = useAppStore(state => state.isAdjustedImageLoading);
 
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
-  const setImageToAdjust = useAppStore(state => state.setImageToAdjust);
+  const setImageFileToAdjust = useAppStore(state => state.setImageFileToAdjust);
   const setImageToRemoveBg = useAppStore(state => state.setImageToRemoveBg);
   const adjustImageColor = useAppStore(state => state.adjustImageColor);
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
@@ -92,7 +96,7 @@ export const ImageColorCorrection: React.FC = () => {
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files?.[0] ?? null;
-    void setImageToAdjust(file);
+    void setImageFileToAdjust(file);
   };
 
   const handleSaturationChange = (value: number) => {
@@ -108,11 +112,15 @@ export const ImageColorCorrection: React.FC = () => {
     zoomableImageCanvas?.setImageIndex(checked ? 0 : 1);
   };
 
+  const handleSaveClick = () => {
+    void zoomableImageCanvas?.saveAsImage(getAdjustedFilename(imageFileToAdjust));
+  };
+
   const handleSetAsReferenceClick = async () => {
     const blob: Blob | undefined =
       zoomableImageCanvas && (await zoomableImageCanvas.convertToBlob());
     if (blob) {
-      void saveRecentImageFile(await blobToImageFile(blob, IMAGE_FILENAME));
+      void saveRecentImageFile(await blobToImageFile(blob, getAdjustedFilename(imageFileToAdjust)));
     }
   };
 
@@ -121,7 +129,7 @@ export const ImageColorCorrection: React.FC = () => {
       zoomableImageCanvas && (await zoomableImageCanvas.convertToBlob());
     if (blob) {
       setImageToRemoveBg(
-        new File([blob], IMAGE_FILENAME, {
+        new File([blob], getAdjustedFilename(imageFileToAdjust) ?? '', {
           type: blob.type,
           lastModified: Date.now(),
         })
@@ -169,10 +177,7 @@ export const ImageColorCorrection: React.FC = () => {
               <Space>
                 <ImageSelect onChange={handleFileChange}>Select photo</ImageSelect>
                 {unadjustedImage && (
-                  <Button
-                    icon={<DownloadOutlined />}
-                    onClick={() => void zoomableImageCanvas?.saveAsImage(IMAGE_FILENAME)}
-                  >
+                  <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
                     Save
                   </Button>
                 )}

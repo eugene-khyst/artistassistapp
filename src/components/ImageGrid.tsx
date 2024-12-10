@@ -27,6 +27,7 @@ import {useZoomableImageCanvas} from '~/src/hooks';
 import {GridCanvas, GridType} from '~/src/services/canvas/image/grid-canvas';
 import {printImages} from '~/src/services/print';
 import {useAppStore} from '~/src/stores/app-store';
+import {getFilename} from '~/src/utils/filename';
 
 import {EmptyImage} from './empty/EmptyImage';
 
@@ -54,6 +55,7 @@ const gridCanvasSupplier = (canvas: HTMLCanvasElement): GridCanvas => {
 };
 
 export const ImageGrid: React.FC = () => {
+  const originalImageFile = useAppStore(state => state.originalImageFile);
   const originalImage = useAppStore(state => state.originalImage);
   const isOriginalImageLoading = useAppStore(state => state.isOriginalImageLoading);
 
@@ -91,7 +93,7 @@ export const ImageGrid: React.FC = () => {
   };
 
   const handleSaveClick = () => {
-    void gridCanvas?.saveAsImage('ArtistAssistApp-Grid');
+    void gridCanvas?.saveAsImage(getFilename(originalImageFile, 'grid'));
   };
 
   const items: MenuProps['items'] = [

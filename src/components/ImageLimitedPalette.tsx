@@ -25,6 +25,7 @@ import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
 import type {ZoomableImageCanvas} from '~/src/services/canvas/image';
 import type {Color, ColorSet} from '~/src/services/color';
 import {useAppStore} from '~/src/stores/app-store';
+import {getFilename} from '~/src/utils/filename';
 
 import {ColorCascader} from './color-set/ColorCascader';
 import {EmptyColorSet} from './empty/EmptyColorSet';
@@ -33,6 +34,7 @@ const MAX_COLORS = 7;
 
 export const ImageLimitedPalette: React.FC = () => {
   const colorSet = useAppStore(state => state.colorSet);
+  const originalImageFile = useAppStore(state => state.originalImageFile);
   const originalImage = useAppStore(state => state.originalImage);
   const limitedPaletteImage = useAppStore(state => state.limitedPaletteImage);
 
@@ -84,7 +86,9 @@ export const ImageLimitedPalette: React.FC = () => {
       key: '1',
       label: 'Save',
       icon: <DownloadOutlined />,
-      onClick: () => void limitedPaletteCanvas?.saveAsImage('ArtistAssistApp-Limited-Palette'),
+      onClick: () => {
+        void limitedPaletteCanvas?.saveAsImage(getFilename(originalImageFile, 'limited-palette'));
+      },
       disabled: !limitedPaletteImage,
     },
   ];

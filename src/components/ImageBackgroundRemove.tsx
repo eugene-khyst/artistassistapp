@@ -27,14 +27,7 @@ import {ImageSelect} from '~/src/components/image/ImageSelect';
 import {useCreateObjectUrl} from '~/src/hooks';
 import {removeBackground} from '~/src/services/image';
 import {useAppStore} from '~/src/stores/app-store';
-
-function getNoBgFilename(file: File | null): string | undefined {
-  if (!file) {
-    return;
-  }
-  const {name} = file;
-  return `${name.substring(0, name.lastIndexOf('.'))}-no-bg.png`;
-}
+import {getFilename} from '~/src/utils/filename';
 
 export const ImageBackgroundRemove: React.FC = () => {
   const imageToRemoveBg = useAppStore(state => state.imageToRemoveBg);
@@ -81,7 +74,7 @@ export const ImageBackgroundRemove: React.FC = () => {
 
   const handleSaveClick = () => {
     if (noBgImageUrl) {
-      saveAs(noBgImageUrl, getNoBgFilename(imageToRemoveBg));
+      saveAs(noBgImageUrl, getFilename(imageToRemoveBg, 'no-bg', 'png'));
     }
   };
 
