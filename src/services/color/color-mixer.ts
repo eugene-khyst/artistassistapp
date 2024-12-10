@@ -107,6 +107,12 @@ export const COLOR_MIXING: Record<ColorType, ColorMixingConfig> = {
     glazing: false,
     limits: [[1, 3]],
   },
+  [ColorType.AcrylicMarkers]: {
+    maxColors: 1,
+    tint: false,
+    glazing: false,
+    limits: [[1, 3]],
+  },
 };
 
 const NONE: Fraction = [0, 1];

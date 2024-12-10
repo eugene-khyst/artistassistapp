@@ -29,6 +29,7 @@ export enum ColorType {
   AcrylicGouache = 7,
   Pastel = 8,
   OilPastel = 9,
+  AcrylicMarkers = 10,
 }
 
 export enum ColorOpacity {

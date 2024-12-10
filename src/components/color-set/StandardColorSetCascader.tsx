@@ -39,7 +39,7 @@ function getStandardColorSetOptions(
     ...brands
       .map(({id, alias, fullName}: ColorBrandDefinition): CascaderOptionType | undefined => {
         const standardColorSets = standardColorSetMap.get(alias);
-        if (!standardColorSets) {
+        if (!standardColorSets?.size) {
           return;
         }
         return {
