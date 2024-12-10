@@ -26,7 +26,6 @@ export async function removeBackground(
   const {removeBackground} = await import('@imgly/background-removal');
   const noBgBlob = await removeBackground(file, {
     publicPath: BACKGROUND_REMOVAL_DATA_URL,
-    device: 'gpu',
     proxyToWorker: true,
     progress: (key, current, total) => {
       console.log(`Downloading ${key}: ${current} of ${total}`);

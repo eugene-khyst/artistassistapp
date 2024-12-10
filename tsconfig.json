@@ -32,7 +32,9 @@
     "baseUrl": "./",
     "paths": {
       "~/src/*": ["./src/*"]
-    }
+    },
+
+    "types": ["vite/client", "vite-plugin-glsl/ext"]
   },
   "include": ["src"]
 }
