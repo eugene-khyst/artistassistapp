@@ -25,6 +25,7 @@ import {
   InfoCircleOutlined,
   MailOutlined,
   ReadOutlined,
+  ReloadOutlined,
 } from '@ant-design/icons';
 import {Button, Col, Flex, Popconfirm, Row, Space, theme, Typography} from 'antd';
 import {useState} from 'react';
@@ -137,7 +138,15 @@ export const Help: React.FC = () => {
         </Col>
       </Row>
 
-      <Space>
+      <Space wrap>
+        <Button
+          icon={<ReloadOutlined />}
+          onClick={() => {
+            window.location.reload();
+          }}
+        >
+          Reload
+        </Button>
         <Button
           icon={<CloudSyncOutlined />}
           loading={isUpdating}

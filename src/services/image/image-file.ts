@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {arrayBufferToBlob} from '~/src/utils';
+
 export interface ImageFile {
   id?: number;
   buffer: ArrayBuffer;
@@ -40,4 +42,12 @@ export async function blobToImageFile(blob: Blob, name?: string): Promise<ImageF
     type: blob.type,
     name,
   };
+}
+
+export function imageFileToFile(imageFile: ImageFile): File {
+  const {buffer, type, name, date} = imageFile;
+  return new File([arrayBufferToBlob(buffer, type)], name ?? '', {
+    type,
+    lastModified: date?.getTime(),
+  });
 }

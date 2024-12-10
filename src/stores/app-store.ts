@@ -57,20 +57,21 @@ import {
   saveAppSettings,
   saveImageFile,
 } from '~/src/services/db';
-import type {
-  Blur,
-  ColorCorrection,
-  ImageFile,
-  LimitedPalette,
-  Outline,
-  TonalValues,
+import {
+  type Blur,
+  type ColorCorrection,
+  type ImageFile,
+  imageFileToFile,
+  type LimitedPalette,
+  type Outline,
+  type TonalValues,
 } from '~/src/services/image';
 import type {Game, Player, Score} from '~/src/services/rating';
 import {Tournament} from '~/src/services/rating';
 import type {AppSettings} from '~/src/services/settings';
 import {importFromUrl} from '~/src/services/url';
 import {TabKey} from '~/src/tabs';
-import {arrayBufferToBlob, createScaledImageBitmap, IMAGE_SIZE} from '~/src/utils';
+import {createScaledImageBitmap, IMAGE_SIZE} from '~/src/utils';
 
 const colorMixer: Remote<ColorMixer> = wrap(
   new Worker(new URL('../services/color/worker/color-mixer-worker.ts', import.meta.url), {
@@ -122,6 +123,7 @@ export interface AppState {
   imageFile: ImageFile | null;
   recentImageFiles: ImageFile[];
 
+  originalImageFile: File | null;
   originalImage: ImageBitmap | null;
   isOriginalImageLoading: boolean;
 
@@ -147,7 +149,7 @@ export interface AppState {
   limitedPaletteImage: ImageBitmap | null;
   isLimitedPaletteImageLoading: boolean;
 
-  imageToAdjust: File | null;
+  imageFileToAdjust: File | null;
   unadjustedImage: ImageBitmap | null;
   adjustedImage: ImageBitmap | null;
   isAdjustedImageLoading: boolean;
@@ -174,7 +176,6 @@ export interface AppActions {
   deleteColorSet: (idToDelete: number) => Promise<void>;
 
   setImageFile: (imageFile: ImageFile | null, setActiveTabKey?: boolean) => Promise<void>;
-  getImageBlob: () => Blob | undefined;
   saveRecentImageFile: (imageFile: ImageFile) => Promise<void>;
   deleteRecentImageFile: (imageFile: ImageFile) => Promise<void>;
 
@@ -185,6 +186,12 @@ export interface AppActions {
   saveToPalette: (colorMixture: ColorMixture, linkToImage?: boolean) => Promise<void>;
   deleteFromPalette: (colorMixture: ColorMixture) => Promise<void>;
   deleteAllFromPalette: (type: ColorType) => Promise<void>;
+
+  loadTonalImages: () => Promise<void>;
+
+  loadBlurredImages: () => Promise<void>;
+
+  loadOutlineImage: () => Promise<void>;
 
   setLimitedColorSet: (limitedColorSet: ColorSet) => Promise<void>;
 
@@ -216,6 +223,7 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
   imageFile: null,
   recentImageFiles: [],
 
+  originalImageFile: null,
   originalImage: null,
   isOriginalImageLoading: false,
 
@@ -241,7 +249,7 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
   limitedPaletteImage: null,
   isLimitedPaletteImageLoading: false,
 
-  imageToAdjust: null,
+  imageFileToAdjust: null,
   unadjustedImage: null,
   adjustedImage: null,
   isAdjustedImageLoading: false,
@@ -256,6 +264,13 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
   setActiveTabKey: async (activeTabKey: TabKey): Promise<void> => {
     await saveAppSettings({activeTabKey});
     set({activeTabKey});
+    if (activeTabKey === TabKey.TonalValues && !get().tonalImages.length) {
+      void get().loadTonalImages();
+    } else if (activeTabKey === TabKey.SimplifiedPhoto && !get().blurredImages.length) {
+      void get().loadBlurredImages();
+    } else if (activeTabKey === TabKey.Outline && !get().outlineImage) {
+      void get().loadOutlineImage();
+    }
   },
 
   loadColorSetsByType: async (type: ColorType): Promise<ColorSetDefinition[]> => {
@@ -326,70 +341,30 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
       const activeTabKey = get().colorSet ? TabKey.ColorPicker : TabKey.ColorSet;
       await get().setActiveTabKey(activeTabKey);
     }
+    const originalImageFile: File | null = imageFile ? imageFileToFile(imageFile) : null;
     set({
       imageFile,
-      originalImage: null,
+      originalImageFile,
       isOriginalImageLoading: true,
       tonalImages: [],
-      isTonalImagesLoading: true,
       blurredImages: [],
-      isBlurredImagesLoading: true,
       outlineImage: null,
-      isOutlineImageLoading: true,
       limitedPaletteImage: null,
       backgroundColor: PAPER_WHITE_HEX,
       targetColor: PAPER_WHITE_HEX,
       similarColors: [],
       paletteColorMixtures: await getColorMixtures(imageFile?.id),
     });
-    if (imageFile) {
-      const {buffer, type} = imageFile;
-      const blob = arrayBufferToBlob(buffer, type);
-      await Promise.all([
-        (async () => {
-          set({
-            originalImage: await createScaledImageBitmap(blob, IMAGE_SIZE['2K']),
-            isOriginalImageLoading: false,
-          });
-        })(),
-        (async () => {
-          set({
-            tonalImages: (await tonalValues.getTones(blob)).tones,
-            isTonalImagesLoading: false,
-          });
-        })(),
-        (async () => {
-          set({
-            blurredImages: (await blur.getBlurred(blob)).blurred,
-            isBlurredImagesLoading: false,
-          });
-        })(),
-        (async () => {
-          set({
-            outlineImage: (await outline.getOutline(blob)).outline,
-            isOutlineImageLoading: false,
-          });
-        })(),
-      ]);
-    } else {
-      set({
-        isOriginalImageLoading: false,
-        isTonalImagesLoading: false,
-        isBlurredImagesLoading: false,
-        isOutlineImageLoading: false,
-      });
-    }
+    const originalImage: ImageBitmap | null = originalImageFile
+      ? await createScaledImageBitmap(originalImageFile, IMAGE_SIZE['2K'])
+      : null;
+    set({
+      originalImage,
+      isOriginalImageLoading: false,
+    });
     prev.forEach(image => {
       image?.close();
     });
-  },
-  getImageBlob: (): Blob | undefined => {
-    const {imageFile} = get();
-    if (!imageFile) {
-      return;
-    }
-    const {buffer, type} = imageFile;
-    return arrayBufferToBlob(buffer, type);
   },
   saveRecentImageFile: async (imageFile: ImageFile): Promise<void> => {
     await saveImageFile(imageFile);
@@ -487,33 +462,82 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     });
   },
 
+  loadTonalImages: async (): Promise<void> => {
+    const {originalImageFile, tonalImages} = get();
+    if (!originalImageFile || tonalImages.length) {
+      return;
+    }
+    set({
+      isTonalImagesLoading: true,
+    });
+    const {tones: newTonalImages} = await tonalValues.getTones(originalImageFile);
+    set({
+      tonalImages: newTonalImages,
+      isTonalImagesLoading: false,
+    });
+  },
+
+  loadBlurredImages: async (): Promise<void> => {
+    const {originalImageFile, blurredImages} = get();
+    if (!originalImageFile || blurredImages.length) {
+      return;
+    }
+    set({
+      isBlurredImagesLoading: true,
+    });
+    const {blurred: newBlurredImages} = await blur.getBlurred(originalImageFile);
+    set({
+      blurredImages: newBlurredImages,
+      isBlurredImagesLoading: false,
+    });
+  },
+
+  loadOutlineImage: async (): Promise<void> => {
+    const {originalImageFile, outlineImage} = get();
+    if (!originalImageFile || outlineImage) {
+      return;
+    }
+    set({
+      isOutlineImageLoading: true,
+    });
+    const {outline: newOutlineImage} = await outline.getOutline(originalImageFile);
+    set({
+      outlineImage: newOutlineImage,
+      isOutlineImageLoading: false,
+    });
+  },
+
   setLimitedColorSet: async (limitedColorSet: ColorSet): Promise<void> => {
-    const blob = get().getImageBlob();
-    if (!blob) {
+    const {originalImageFile} = get();
+    if (!originalImageFile) {
       return;
     }
     set({isLimitedPaletteImageLoading: true});
+    const {preview: limitedPaletteImage} = await limitedPalette.getPreview(
+      originalImageFile,
+      limitedColorSet
+    );
     set({
-      limitedPaletteImage: (await limitedPalette.getPreview(blob, limitedColorSet)).preview,
+      limitedPaletteImage,
       isLimitedPaletteImageLoading: false,
     });
   },
 
-  setImageToAdjust: async (imageToAdjust: File | null): Promise<void> => {
+  setImageToAdjust: async (imageFileToAdjust: File | null): Promise<void> => {
     const {unadjustedImage: prev} = get();
     let unadjustedImage: ImageBitmap | null = null;
-    if (imageToAdjust) {
-      unadjustedImage = await colorCorrection.setImage(imageToAdjust);
+    if (imageFileToAdjust) {
+      unadjustedImage = await colorCorrection.setImage(imageFileToAdjust);
     }
     set({
-      imageToAdjust: imageToAdjust,
+      imageFileToAdjust,
       unadjustedImage,
     });
     prev?.close();
   },
   adjustImageColor: async (whitePatchPercentile: number, saturation: number): Promise<void> => {
-    const {imageToAdjust, adjustedImage: prev} = get();
-    if (!imageToAdjust) {
+    const {imageFileToAdjust, adjustedImage: prev} = get();
+    if (!imageFileToAdjust) {
       return;
     }
     set({

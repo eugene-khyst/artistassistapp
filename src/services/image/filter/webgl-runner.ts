@@ -120,20 +120,15 @@ export class WebGLShaderRunner {
 
   draw() {
     const {gl} = this;
-    gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
-    const error = gl.getError();
-    if (error !== gl.NO_ERROR) {
-      throw new Error(`WebGL Error: ${error}`);
-    }
+    this.checkErrors();
   }
 
   transferToImageBitmap(): ImageBitmap {
     this.gl.finish();
     const imageBitmap = this.canvas.transferToImageBitmap();
-    if (this.gl.isContextLost()) {
-      throw new Error('WebGL context was lost');
-    }
+    this.checkErrors();
+    this.checkContextLoss();
     return imageBitmap;
   }
 
@@ -148,5 +143,18 @@ export class WebGLShaderRunner {
     gl.deleteProgram(this.program);
     gl.deleteShader(this.vertexShader);
     gl.deleteShader(this.fragmentShader);
+  }
+
+  checkErrors(): void {
+    const error = this.gl.getError();
+    if (error !== this.gl.NO_ERROR) {
+      throw new Error(`WebGL Error: ${error}`);
+    }
+  }
+
+  checkContextLoss(): void {
+    if (this.gl.isContextLost()) {
+      throw new Error('WebGL context was lost');
+    }
   }
 }
