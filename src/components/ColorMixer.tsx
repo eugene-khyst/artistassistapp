@@ -309,7 +309,6 @@ export const ColorMixer: React.FC = () => {
       </Flex>
       <ReflectanceChartDrawer
         colorMixture={resultColorMixtures.find(isThickConsistency)}
-        showParts
         open={isOpenReflectanceChart}
         onClose={() => {
           setIsOpenReflectanceChart(false);

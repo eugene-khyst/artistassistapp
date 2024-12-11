@@ -217,7 +217,14 @@ class MixedColorLayer {
     } = this.colorTint;
     const backgroundRgb: RgbTuple | undefined = this.background?.toRgbTuple();
     return {
-      key: getColorMixtureKey(type, parts, this.consistency, backgroundRgb),
+      key: getColorMixtureKey(
+        type,
+        parts,
+        white?.color,
+        whiteFraction,
+        this.consistency,
+        backgroundRgb
+      ),
       type,
       colorMixtureRgb: colorMixtureRgb.toRgbTuple(),
       parts,
@@ -287,13 +294,16 @@ export const compareSimilarColorsByConsistency = (
 function getColorMixtureKey(
   type: ColorType,
   parts: ColorMixturePart[],
+  white: Color | null | undefined,
+  whiteFraction: Fraction,
   consistency: Fraction,
-  background?: RgbTuple | null
+  background: RgbTuple | null | undefined
 ): string {
   return [
     type,
     parts.map(({color: {brand, id}, part}: ColorMixturePart) => `${brand}-${id}x${part}`).join(','),
-    consistency.join(':'),
+    ...(white ? [`${white.brand}-${white.id}x${whiteFraction.join('/')}`] : ['0']),
+    consistency.join('/'),
     ...(background ? [new Rgb(...background).toHex()] : []),
   ].join(';');
 }
