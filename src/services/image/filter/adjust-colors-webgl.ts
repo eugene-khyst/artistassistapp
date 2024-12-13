@@ -16,7 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {WebGLShaderRunner} from '~/src/services/image/filter/webgl-runner';
+import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
+import {copyOffscreenCanvas} from '~/src/utils';
 
 import fragmentShaderSource from './glsl/color-correction.glsl';
 
@@ -26,17 +27,17 @@ export function adjustColorsWebGL(
   saturation = 1
 ): ImageBitmap {
   const {width, height} = image;
-  const runner = new WebGLShaderRunner(fragmentShaderSource, width, height);
-  const {gl, program} = runner;
-  runner.createTexture(image);
+  const renderer = new WebGLRenderer(fragmentShaderSource, width, height);
+  const {canvas, gl, program} = renderer;
+  renderer.createTexture(image);
 
   const maxValuesLocation = gl.getUniformLocation(program, 'u_invMaxValues');
   const saturationLocation = gl.getUniformLocation(program, 'u_saturation');
   gl.uniform3fv(maxValuesLocation, new Float32Array(maxValues.map(v => 1 / v)));
   gl.uniform1f(saturationLocation, saturation);
 
-  runner.draw();
-  const resultImage = runner.transferToImageBitmap();
-  runner.cleanUp();
+  renderer.draw();
+  const resultImage = copyOffscreenCanvas(canvas).transferToImageBitmap();
+  renderer.cleanUp();
   return resultImage;
 }

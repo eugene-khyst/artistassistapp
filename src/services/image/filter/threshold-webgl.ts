@@ -17,15 +17,16 @@
  */
 
 import {THRESHOLD_VALUES} from '~/src/services/image/filter/threshold';
-import {WebGLShaderRunner} from '~/src/services/image/filter/webgl-runner';
+import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
+import {copyOffscreenCanvas} from '~/src/utils';
 
 import fragmentShaderSource from './glsl/threshold.glsl';
 
 export function thresholdFilterWebGL(image: ImageBitmap, thresholds: number[]): ImageBitmap[] {
   const {width, height} = image;
-  const runner = new WebGLShaderRunner(fragmentShaderSource, width, height);
-  const {gl, program} = runner;
-  runner.createTexture(image);
+  const renderer = new WebGLRenderer(fragmentShaderSource, width, height);
+  const {canvas, gl, program} = renderer;
+  renderer.createTexture(image);
 
   const thresholdsLocation = gl.getUniformLocation(program, 'u_thresholds');
   const colorsLocation = gl.getUniformLocation(program, 'u_values');
@@ -35,10 +36,10 @@ export function thresholdFilterWebGL(image: ImageBitmap, thresholds: number[]): 
 
   const resultImages = thresholds.map((_, i) => {
     gl.uniform1i(toneLocation, i);
-    runner.clear();
-    runner.draw();
-    return runner.transferToImageBitmap();
+    renderer.clear();
+    renderer.draw();
+    return copyOffscreenCanvas(canvas).transferToImageBitmap();
   });
-  runner.cleanUp();
+  renderer.cleanUp();
   return resultImages;
 }

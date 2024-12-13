@@ -63,6 +63,13 @@ export function imageBitmapToImageData(
   return [ctx.getImageData(0, 0, canvas.width, canvas.height), canvas, ctx];
 }
 
+export function copyOffscreenCanvas(canvas: OffscreenCanvas): OffscreenCanvas {
+  const {width, height} = canvas;
+  const canvasCopy = new OffscreenCanvas(width, height);
+  canvasCopy.getContext('2d')!.drawImage(canvas, 0, 0, width, height);
+  return canvasCopy;
+}
+
 export function getIndexForCoord(x: number, y: number, width: number, channel: number): number {
   if (channel < 0 || channel > 3) {
     throw new Error('Rgba channel must be between 0 and 3');

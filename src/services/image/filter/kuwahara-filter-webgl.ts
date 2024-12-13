@@ -16,15 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {WebGLShaderRunner} from '~/src/services/image/filter/webgl-runner';
+import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
+import {copyOffscreenCanvas} from '~/src/utils';
 
 import fragmentShaderSource from './glsl/kuwahara-filter.glsl';
 
 export function kuwaharaFilterWebGL(image: ImageBitmap, radiuses: number[]): ImageBitmap[] {
   const {width, height} = image;
-  const runner = new WebGLShaderRunner(fragmentShaderSource, width, height);
-  const {gl, program} = runner;
-  runner.createTexture(image);
+  const renderer = new WebGLRenderer(fragmentShaderSource, width, height);
+  const {canvas, gl, program} = renderer;
+  renderer.createTexture(image);
 
   const texelSizeLocation = gl.getUniformLocation(program, 'u_texelSize');
   const radiusLocation = gl.getUniformLocation(program, 'u_radius');
@@ -32,10 +33,10 @@ export function kuwaharaFilterWebGL(image: ImageBitmap, radiuses: number[]): Ima
 
   const resultImages = radiuses.map(radius => {
     gl.uniform1i(radiusLocation, radius);
-    runner.clear();
-    runner.draw();
-    return runner.transferToImageBitmap();
+    renderer.clear();
+    renderer.draw();
+    return copyOffscreenCanvas(canvas).transferToImageBitmap();
   });
-  runner.cleanUp();
+  renderer.cleanUp();
   return resultImages;
 }

@@ -16,21 +16,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {WebGLShaderRunner} from '~/src/services/image/filter/webgl-runner';
+import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
+import {copyOffscreenCanvas} from '~/src/utils';
 
 import fragmentShaderSource from './glsl/sobel-operator.glsl';
 
 export function sobelEdgeDetectionWebGL(image: ImageBitmap): ImageBitmap {
   const {width, height} = image;
-  const runner = new WebGLShaderRunner(fragmentShaderSource, width, height);
-  const {gl, program} = runner;
-  runner.createTexture(image);
+  const renderer = new WebGLRenderer(fragmentShaderSource, width, height);
+  const {canvas, gl, program} = renderer;
+  renderer.createTexture(image);
 
   const texelSizeLocation = gl.getUniformLocation(program, 'u_texelSize');
   gl.uniform2f(texelSizeLocation, 1.0 / image.width, 1.0 / image.height);
 
-  runner.draw();
-  const resultImage = runner.transferToImageBitmap();
-  runner.cleanUp();
+  renderer.draw();
+  const resultImage = copyOffscreenCanvas(canvas).transferToImageBitmap();
+  renderer.cleanUp();
   return resultImage;
 }

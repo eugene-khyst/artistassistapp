@@ -18,7 +18,7 @@
 
 import vertexShaderSource from './glsl/vertex.glsl';
 
-export class WebGLShaderRunner {
+export class WebGLRenderer {
   canvas: OffscreenCanvas;
   gl: WebGL2RenderingContext;
   vertexShader: WebGLShader;
@@ -124,16 +124,8 @@ export class WebGLShaderRunner {
     this.checkErrors();
   }
 
-  transferToImageBitmap(): ImageBitmap {
-    this.gl.finish();
-    const imageBitmap = this.canvas.transferToImageBitmap();
-    this.checkErrors();
-    this.checkContextLoss();
-    return imageBitmap;
-  }
-
   cleanUp() {
-    const {gl} = this;
+    const {gl, canvas} = this;
     this.textures.forEach(texture => {
       gl.deleteTexture(texture);
     });
@@ -143,6 +135,9 @@ export class WebGLShaderRunner {
     gl.deleteProgram(this.program);
     gl.deleteShader(this.vertexShader);
     gl.deleteShader(this.fragmentShader);
+    gl.getExtension('WEBGL_lose_context')?.loseContext();
+    canvas.width = 0;
+    canvas.height = 0;
   }
 
   checkErrors(): void {
