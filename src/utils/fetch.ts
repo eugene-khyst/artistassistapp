@@ -20,13 +20,28 @@ import {COMMIT_HASH} from '~/src/config';
 
 export const errorResponse = (error: any) => new Response(`Error: ${error}`, {status: 500});
 
+export async function fetchCacheFirst(request: Request): Promise<Response> {
+  try {
+    const cache: Cache = await caches.open(COMMIT_HASH);
+    const cachedResponse: Response | undefined = await cache.match(request);
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+    const fetchedResponse: Response = await fetch(request);
+    await cache.put(request, fetchedResponse.clone());
+    return fetchedResponse;
+  } catch (error) {
+    return errorResponse(error);
+  }
+}
+
 export async function fetchSWR(request: string | URL | Request): Promise<Response> {
   const cache: Cache = await caches.open(COMMIT_HASH);
-  const cacheResponse: Response | undefined = await cache.match(request);
+  const cachedResponse: Response | undefined = await cache.match(request);
   const fetchPromise: Promise<Response> = (async () => {
     try {
       const networkResponse = await fetch(request, {
-        signal: AbortSignal.timeout(15000),
+        signal: AbortSignal.timeout(10000),
       });
       void cache.put(request, networkResponse.clone());
       return networkResponse;
@@ -34,5 +49,5 @@ export async function fetchSWR(request: string | URL | Request): Promise<Respons
       return errorResponse(error);
     }
   })();
-  return cacheResponse ?? (await fetchPromise);
+  return cachedResponse ?? (await fetchPromise);
 }

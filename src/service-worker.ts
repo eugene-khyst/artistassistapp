@@ -22,12 +22,12 @@ declare const self: ServiceWorkerGlobalScope & {
   __WB_MANIFEST: {url: string}[];
 };
 
-import {COMMIT_HASH} from '~/src/config';
+import {BACKGROUND_REMOVAL_DATA_URL, COMMIT_HASH} from '~/src/config';
 import {saveAppSettings, saveImageFile} from '~/src/services/db';
 import type {SampleImageDefinition} from '~/src/services/image';
 import {fileToImageFile, SAMPLE_IMAGES} from '~/src/services/image';
 import {TabKey} from '~/src/tabs';
-import {errorResponse} from '~/src/utils';
+import {fetchCacheFirst, fetchSWR} from '~/src/utils';
 
 async function install(): Promise<void> {
   const cache = await caches.open(COMMIT_HASH);
@@ -55,23 +55,22 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', (event: FetchEvent) => {
   const {request} = event;
   const url = new URL(request.url);
-  if (url.origin === location.origin) {
-    if (request.method === 'GET') {
-      event.respondWith(cacheFirst(request));
-    } else if (request.method === 'POST' && url.pathname === '/share-target') {
-      event.respondWith(receiveSharedData(request));
+  if (request.method === 'GET') {
+    let response: Promise<Response>;
+    if (url.origin === self.location.origin || url.href.startsWith(BACKGROUND_REMOVAL_DATA_URL)) {
+      response = fetchCacheFirst(request);
+    } else {
+      response = fetchSWR(request);
     }
+    event.respondWith(response);
+  } else if (
+    request.method === 'POST' &&
+    url.origin === location.origin &&
+    url.pathname === '/share-target'
+  ) {
+    event.respondWith(receiveSharedData(request));
   }
 });
-
-async function cacheFirst(request: Request): Promise<Response> {
-  try {
-    const cacheResponse: Response | undefined = await caches.match(request);
-    return cacheResponse ?? (await fetch(request));
-  } catch (error) {
-    return errorResponse(error);
-  }
-}
 
 async function receiveSharedData(request: Request): Promise<Response> {
   const formData: FormData = await request.formData();
