@@ -347,8 +347,10 @@ function toUnmixedColors(colors: Color[]): UnmixedColor[] {
   return colors.flatMap((color: Color) => new UnmixedColor(color));
 }
 
-function toUnmixedColorsAndWhites(colors: Color[], tint = true): [UnmixedColor[], UnmixedColor[]] {
-  const unmixedColors: UnmixedColor[] = toUnmixedColors(colors);
+function toUnmixedColorsAndWhites(
+  unmixedColors: UnmixedColor[],
+  tint = true
+): [UnmixedColor[], UnmixedColor[]] {
   return [unmixedColors.filter(not(isWhiteColor)), tint ? unmixedColors.filter(isWhiteColor) : []];
 }
 
@@ -541,14 +543,15 @@ export class ColorMixer {
   private mixColors({type, colors}: ColorSet): void {
     console.time('mix-colors');
     const {maxColors, tint = false} = COLOR_MIXING[type];
-    const [unmixedColors, whites] = toUnmixedColorsAndWhites(colors, tint);
+    const unmixedColors = toUnmixedColors(colors);
+    const [unmixedColorsWithoutWhites, whites] = toUnmixedColorsAndWhites(unmixedColors, tint);
     this.mixedColors = [
       [1, unmixedColors.map(color => color.toMixedColor())],
-      [2, maxColors >= 2 ? mixTwoColors(unmixedColors) : []],
+      [2, maxColors >= 2 ? mixTwoColors(unmixedColorsWithoutWhites) : []],
       [
         3,
         maxColors >= 3 && colors.length <= THREE_COLORS_MIXTURES_LIMIT
-          ? mixThreeColors(unmixedColors)
+          ? mixThreeColors(unmixedColorsWithoutWhites)
           : [],
       ],
     ];
