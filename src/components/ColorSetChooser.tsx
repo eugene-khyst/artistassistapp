@@ -52,11 +52,10 @@ import {useColorBrands, useColors, useStandardColorSets} from '~/src/hooks';
 import {useAuth} from '~/src/hooks/useAuth';
 import type {ColorBrandDefinition, ColorSetDefinition, ColorType} from '~/src/services/color';
 import {
-  COLOR_MIXING,
   COLOR_TYPES,
   hasAccessToBrand,
   hasAccessToBrands,
-  THREE_COLORS_MIXTURES_LIMIT,
+  MAX_COLORS_IN_MIXTURE,
 } from '~/src/services/color';
 import {colorSetToUrl} from '~/src/services/url';
 import {useAppStore} from '~/src/stores/app-store';
@@ -483,7 +482,8 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
                   rules={[{required: true, message: '${label} are required'}]}
                   dependencies={['type']}
                   extra={
-                    !isAccessAllowed ? (
+                    !user &&
+                    (!isAccessAllowed ? (
                       <Typography.Text type="warning">
                         You&apos;ve selected color brands that are available to paid Patreon members
                         only.
@@ -492,7 +492,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
                       <Typography.Text type="secondary">
                         Only a limited number of color brands are available in the free version.
                       </Typography.Text>
-                    )
+                    ))
                   }
                   validateStatus={!isAccessAllowed ? 'warning' : undefined}
                 >
@@ -555,14 +555,18 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
                           with Patreon if you&apos;ve already joined.
                         </Typography.Text>
                       )}
-                      {selectedType &&
-                        COLOR_MIXING[selectedType].maxColors > 1 &&
-                        selectedColorsCount > THREE_COLORS_MIXTURES_LIMIT && (
-                          <Typography.Text type="secondary">
-                            When selecting more than {THREE_COLORS_MIXTURES_LIMIT} colors in total,
-                            mixtures of three colors are not used.
-                          </Typography.Text>
-                        )}
+                      {selectedColorsCount > MAX_COLORS_IN_MIXTURE[2] && (
+                        <Typography.Text type="secondary">
+                          When selecting more than {MAX_COLORS_IN_MIXTURE[2]} colors in total,
+                          mixtures of two colors are not used.
+                        </Typography.Text>
+                      )}
+                      {selectedColorsCount > MAX_COLORS_IN_MIXTURE[3] && (
+                        <Typography.Text type="secondary">
+                          When selecting more than {MAX_COLORS_IN_MIXTURE[3]} colors in total,
+                          mixtures of three colors are not used.
+                        </Typography.Text>
+                      )}
                       {selectedColorsCount > 0 && (
                         <Typography.Text type="secondary">
                           Press the Share button, copy and save the link so you don&apos;t have to

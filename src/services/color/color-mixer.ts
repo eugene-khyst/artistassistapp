@@ -30,89 +30,77 @@ import type {
   ColorSet,
   SimilarColor,
 } from './types';
-import {ColorType} from './types';
+import {ColorOpacity, ColorType} from './types';
 
 export const COLOR_MIXING: Record<ColorType, ColorMixingConfig> = {
   [ColorType.WatercolorPaint]: {
-    maxColors: 3,
+    mixing: true,
     tint: false,
     glazing: true,
-    limits: [
-      [1, 1],
-      [2, 2],
-      [3, 3],
-    ],
   },
   [ColorType.Gouache]: {
-    maxColors: 3,
+    mixing: true,
     tint: true,
     glazing: false,
-    limits: [
-      [1, 1],
-      [2, 2],
-      [3, 3],
-    ],
   },
   [ColorType.AcrylicGouache]: {
-    maxColors: 3,
+    mixing: true,
     tint: true,
     glazing: false,
-    limits: [
-      [1, 1],
-      [2, 2],
-      [3, 3],
-    ],
   },
   [ColorType.OilPaint]: {
-    maxColors: 3,
+    mixing: true,
     tint: true,
     glazing: true,
-    limits: [
-      [1, 1],
-      [2, 2],
-      [3, 3],
-    ],
   },
   [ColorType.AcrylicPaint]: {
-    maxColors: 3,
+    mixing: true,
     tint: true,
     glazing: true,
-    limits: [
-      [1, 1],
-      [2, 2],
-      [3, 3],
-    ],
   },
   [ColorType.ColoredPencils]: {
-    maxColors: 1,
+    mixing: false,
     tint: false,
     glazing: true,
-    limits: [[1, 3]],
   },
   [ColorType.WatercolorPencils]: {
-    maxColors: 1,
+    mixing: false,
     tint: false,
     glazing: true,
-    limits: [[1, 3]],
   },
   [ColorType.Pastel]: {
-    maxColors: 1,
+    mixing: false,
     tint: false,
     glazing: false,
-    limits: [[1, 3]],
   },
   [ColorType.OilPastel]: {
-    maxColors: 1,
+    mixing: false,
     tint: false,
     glazing: false,
-    limits: [[1, 3]],
   },
   [ColorType.AcrylicMarkers]: {
-    maxColors: 1,
+    mixing: false,
     tint: false,
     glazing: false,
-    limits: [[1, 3]],
   },
+};
+
+export const MAX_COLORS_IN_MIXTURE: Record<2 | 3, number> = {
+  2: Number.MAX_VALUE,
+  3: 24,
+};
+
+const MATCHING_LIMITS: Record<1 | 2 | 3, [number, number][]> = {
+  1: [[1, 3]],
+  2: [
+    [1, 1],
+    [2, 3],
+  ],
+  3: [
+    [1, 1],
+    [2, 2],
+    [3, 3],
+  ],
 };
 
 const NONE: Fraction = [0, 1];
@@ -123,8 +111,6 @@ const FRACTIONS: Fraction[] = [
   [1, 2],
   [3, 4],
 ];
-
-export const THREE_COLORS_MIXTURES_LIMIT = 28;
 
 export const PAPER_WHITE_HEX = 'F7F5EF';
 
@@ -351,7 +337,17 @@ function toUnmixedColorsAndWhites(
   unmixedColors: UnmixedColor[],
   tint = true
 ): [UnmixedColor[], UnmixedColor[]] {
-  return [unmixedColors.filter(not(isWhiteColor)), tint ? unmixedColors.filter(isWhiteColor) : []];
+  const whites = unmixedColors.filter(isWhiteColor);
+  whites.sort(
+    (
+      {color: {opacity: aOpacity = ColorOpacity.Opaque, rho: aRho}}: UnmixedColor,
+      {color: {opacity: bOpacity = ColorOpacity.Opaque, rho: bRho}}: UnmixedColor
+    ) =>
+      aOpacity - bOpacity ||
+      Reflectance.fromArray(bRho).calculateSimilarity(Reflectance.WHITE) -
+        Reflectance.fromArray(aRho).calculateSimilarity(Reflectance.WHITE)
+  );
+  return [unmixedColors.filter(not(isWhiteColor)), tint ? whites.slice(0, 1) : []];
 }
 
 function isWhiteColor({color: {name}}: UnmixedColor) {
@@ -523,15 +519,15 @@ export function makeColorMixture(
 }
 
 export class ColorMixer {
-  private type?: ColorType;
+  private colorSet?: ColorSet;
   private mixedColors: [number, MixedColor[]][] = [];
   private tintLayers = new Map<number, MixedColorLayer[]>();
   private thinnedLayers = new Map<number, MixedColorLayer[]>();
   private background?: Background;
 
   setColorSet(colorSet: ColorSet, backgroundColor: string | RgbTuple) {
-    this.type = colorSet.type;
-    this.mixColors(colorSet);
+    this.colorSet = colorSet;
+    this.mixColors();
     this.setBackgroundColor(backgroundColor);
   }
 
@@ -540,17 +536,23 @@ export class ColorMixer {
     this.makeThinnedLayers();
   }
 
-  private mixColors({type, colors}: ColorSet): void {
+  private mixColors(): void {
     console.time('mix-colors');
-    const {maxColors, tint = false} = COLOR_MIXING[type];
+    const {type, colors} = this.colorSet!;
+    const {mixing, tint} = COLOR_MIXING[type];
     const unmixedColors = toUnmixedColors(colors);
     const [unmixedColorsWithoutWhites, whites] = toUnmixedColorsAndWhites(unmixedColors, tint);
     this.mixedColors = [
       [1, unmixedColors.map(color => color.toMixedColor())],
-      [2, maxColors >= 2 ? mixTwoColors(unmixedColorsWithoutWhites) : []],
+      [
+        2,
+        mixing && colors.length <= MAX_COLORS_IN_MIXTURE[2]
+          ? mixTwoColors(unmixedColorsWithoutWhites)
+          : [],
+      ],
       [
         3,
-        maxColors >= 3 && colors.length <= THREE_COLORS_MIXTURES_LIMIT
+        mixing && colors.length <= MAX_COLORS_IN_MIXTURE[3]
           ? mixThreeColors(unmixedColorsWithoutWhites)
           : [],
       ],
@@ -572,7 +574,8 @@ export class ColorMixer {
 
   private makeThinnedLayers(): void {
     console.time('make-thinned-layers');
-    const {glazing = true} = this.type ? COLOR_MIXING[this.type] : {};
+    const {type} = this.colorSet!;
+    const {glazing = true} = COLOR_MIXING[type];
     this.thinnedLayers = new Map(
       this.mixedColors.map(([numOfColors, colors]) => {
         const layers = makeThinnedLayers(colors, this.background, glazing);
@@ -585,14 +588,15 @@ export class ColorMixer {
 
   findSimilarColor(targetColor: string | RgbTuple): SimilarColor | undefined {
     const rgb = Rgb.fromHexOrTuple(targetColor);
-    if (!this.type || this.background?.rgb.equals(rgb)) {
+    if (!this.colorSet || this.background?.rgb.equals(rgb)) {
       return;
     }
+    const {type} = this.colorSet;
     const reflectance = rgb.toReflectance();
     const [similarColor] = findSimilarColors(
       reflectance,
       [...this.tintLayers.values(), ...this.thinnedLayers.values()],
-      this.type,
+      type,
       1
     );
     return similarColor;
@@ -600,18 +604,24 @@ export class ColorMixer {
 
   findSimilarColors(targetColor: string | RgbTuple): SimilarColor[] {
     const rgb = Rgb.fromHexOrTuple(targetColor);
-    if (!this.type || this.background?.rgb.equals(rgb)) {
+    if (!this.colorSet || this.background?.rgb.equals(rgb)) {
       return [];
     }
-    const {limits} = COLOR_MIXING[this.type];
+    const {type, colors} = this.colorSet;
+    const {mixing} = COLOR_MIXING[type];
+    const maxNumOfColors =
+      ([3, 2] as (2 | 3)[]).find(
+        numOfColors => mixing && colors.length <= MAX_COLORS_IN_MIXTURE[numOfColors]
+      ) ?? 1;
+    const matchingLimits = MATCHING_LIMITS[maxNumOfColors];
     const reflectance = rgb.toReflectance();
     const similarColors = [this.tintLayers, this.thinnedLayers].flatMap(layers => {
       let minSimilarity = 0;
-      return limits.flatMap(([numOfColors, limit]) => {
+      return matchingLimits.flatMap(([numOfColors, limit]) => {
         const similarColors = findSimilarColors(
           reflectance,
           [layers.get(numOfColors)!],
-          this.type!,
+          type,
           limit,
           minSimilarity
         );

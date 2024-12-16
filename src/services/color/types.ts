@@ -101,10 +101,9 @@ export interface ColorSet {
 }
 
 export interface ColorMixingConfig {
-  maxColors: 1 | 3;
+  mixing: boolean;
   tint: boolean;
   glazing: boolean;
-  limits: [number, number][];
 }
 
 export interface ColorMixturePartDefinition {
