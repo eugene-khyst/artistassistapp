@@ -26,9 +26,11 @@ import type {
   ColorSet,
   ColorSetDefinition,
   ColorTypeDefinition,
+  CustomColorBrandDefinition,
   StandardColorSetDefinition,
 } from '~/src/services/color/types';
 import {ColorType} from '~/src/services/color/types';
+import {getCustomColorBrand, getCustomColorBrandsByType} from '~/src/services/db/custom-brand-db';
 import {fetchSWR} from '~/src/utils';
 
 import {Rgb} from './space';
@@ -46,6 +48,29 @@ export const COLOR_TYPES = new Map<ColorType, ColorTypeDefinition>([
   [ColorType.AcrylicMarkers, {name: 'Acrylic Markers', alias: 'acrylic-markers'}],
 ]);
 
+const CUSTOM_COLOR_BRAND_ID_BASE = 100000;
+const CUSTOM_COLOR_BRAND_ALIAS_PREFIX = 'custom:';
+
+function toColorBrandDefinition({
+  id = 0,
+  name = '',
+}: CustomColorBrandDefinition): ColorBrandDefinition {
+  return {
+    id: CUSTOM_COLOR_BRAND_ID_BASE + id,
+    alias: `${CUSTOM_COLOR_BRAND_ALIAS_PREFIX}${id}`,
+    fullName: name,
+    freeTier: false,
+  };
+}
+
+function isCustomColorBrandAlias(alias: string): boolean {
+  return alias.startsWith(CUSTOM_COLOR_BRAND_ALIAS_PREFIX);
+}
+
+function getCustomColorBrandIdFromAlias(alias: string): number {
+  return parseInt(alias.replace(CUSTOM_COLOR_BRAND_ALIAS_PREFIX, ''));
+}
+
 export const compareColorBrandsByName = (
   {fullName: a}: ColorBrandDefinition,
   {fullName: b}: ColorBrandDefinition
@@ -61,9 +86,9 @@ export const compareColorBrandsByFreeTierAndName = (
       ? -1
       : 1;
 
-export const compareColorSetsByDate = (
-  {date: a}: ColorSetDefinition,
-  {date: b}: ColorSetDefinition
+export const compareByDate = (
+  {date: a}: ColorSetDefinition | CustomColorBrandDefinition,
+  {date: b}: ColorSetDefinition | CustomColorBrandDefinition
 ) => (a?.getTime() ?? 0) - (b?.getTime() ?? 0);
 
 function getResourceUrl(
@@ -85,16 +110,22 @@ export async function fetchColorBrands(
   const url = getResourceUrl('brands', type);
   const response = await fetchSWR(url);
   const brands = (await response.json()) as ColorBrandDefinition[];
-  return new Map(brands.map((brand: ColorBrandDefinition) => [brand.id, brand]));
+  const customBrands = (await getCustomColorBrandsByType(type)).map(toColorBrandDefinition);
+  return new Map(
+    [...brands, ...customBrands].map((brand: ColorBrandDefinition) => [brand.id, brand])
+  );
 }
 
 export async function fetchStandardColorSets(
   type: ColorType,
   brandAlias: string
 ): Promise<Map<string, StandardColorSetDefinition>> {
-  const url = getResourceUrl('sets', type, brandAlias);
-  const response = await fetchSWR(url);
-  const sets = (await response.json()) as StandardColorSetDefinition[];
+  let sets: StandardColorSetDefinition[] = [];
+  if (!isCustomColorBrandAlias(brandAlias)) {
+    const url = getResourceUrl('sets', type, brandAlias);
+    const response = await fetchSWR(url);
+    sets = (await response.json()) as StandardColorSetDefinition[];
+  }
   return new Map(
     sets.map((standardColorSet: StandardColorSetDefinition) => [
       standardColorSet.name,
@@ -107,9 +138,15 @@ export async function fetchColors(
   type: ColorType,
   brandAlias: string
 ): Promise<Map<number, ColorDefinition>> {
-  const url = getResourceUrl('colors', type, brandAlias);
-  const response = await fetchSWR(url);
-  const colors = (await response.json()) as ColorDefinition[];
+  let colors: ColorDefinition[] = [];
+  if (isCustomColorBrandAlias(brandAlias)) {
+    colors = ((await getCustomColorBrand(getCustomColorBrandIdFromAlias(brandAlias)))?.colors ??
+      []) as ColorDefinition[];
+  } else {
+    const url = getResourceUrl('colors', type, brandAlias);
+    const response = await fetchSWR(url);
+    colors = (await response.json()) as ColorDefinition[];
+  }
   return new Map(colors.map((color: ColorDefinition) => [color.id, color]));
 }
 
@@ -175,7 +212,7 @@ export function toColorSet(
     type,
     brands: selectedBrandsMap,
     colors: selectedColorsArr.flatMap(([brandIdStr, colorIds]: [string, number[]]): Color[] => {
-      const brandId = Number(brandIdStr);
+      const brandId = parseInt(brandIdStr);
       const brandAlias: string | undefined = brands.get(brandId)?.alias;
       if (!brandAlias) {
         return [];

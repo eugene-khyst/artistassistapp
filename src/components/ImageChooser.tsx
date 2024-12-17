@@ -22,7 +22,7 @@ import type {ChangeEvent} from 'react';
 import {useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
-import {ImageSelect} from '~/src/components/image/ImageSelect';
+import {FileSelect} from '~/src/components/image/FileSelect';
 import type {ImageFile} from '~/src/services/image';
 import type {SampleImageDefinition} from '~/src/services/image';
 import {fileToImageFile, SAMPLE_IMAGES} from '~/src/services/image';
@@ -55,7 +55,7 @@ export const ImageChooser: React.FC = () => {
         </Typography.Text>
 
         <div>
-          <ImageSelect onChange={e => void handleFileChange(e)}>Select photo</ImageSelect>
+          <FileSelect onChange={e => void handleFileChange(e)}>Select photo</FileSelect>
         </div>
 
         <Typography.Text strong>Or select from your recent photos</Typography.Text>

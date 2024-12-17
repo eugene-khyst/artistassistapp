@@ -114,8 +114,8 @@ export const ImageColorPicker: React.FC = () => {
       const colorPickerCanvas = new ImageColorPickerCanvas(canvas);
       const listener = ({rgb}: PipetPointSetEvent) => {
         const hex = rgb.toHex();
-        void setTargetColor(hex, getSamplingArea(colorPickerCanvas));
         console.log(hex.toUpperCase());
+        void setTargetColor(hex, getSamplingArea(colorPickerCanvas));
       };
       colorPickerCanvas.events.subscribe(ColorPickerEventType.PipetPointSet, listener);
       return colorPickerCanvas;
@@ -255,8 +255,8 @@ export const ImageColorPicker: React.FC = () => {
               </Space>
               <Form.Item
                 label="Diameter"
-                tooltip="The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
-                style={{flexGrow: 1, marginBottom: 0}}
+                tooltip="The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
+                style={{marginBottom: 0}}
               >
                 <Slider
                   value={sampleDiameter}
@@ -283,7 +283,7 @@ export const ImageColorPicker: React.FC = () => {
                 </Form.Item>
                 <Form.Item
                   label="Sort"
-                  tooltip="Sort by similarity of the mix to the target color or by the number of colors in the mix."
+                  tooltip="Sort by the similarity of the mixture to the target color, or by the number of colors in the mixture, or by the thickness of the mixture."
                   style={{marginBottom: 0}}
                 >
                   <Select

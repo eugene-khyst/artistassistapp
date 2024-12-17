@@ -71,7 +71,7 @@ const NEW_COLOR_SET = 0;
 const CUSTOM_COLOR_SET = [0];
 
 const formInitialValues: ColorSetDefinition = {
-  id: 0,
+  id: NEW_COLOR_SET,
   brands: [],
   colors: {},
 };
@@ -124,14 +124,19 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
   const [shareColorSetUrl, setShareColorSetUrl] = useState<string>();
 
   useEffect(() => {
-    const colorSet: ColorSetDefinition | null = importedColorSet ?? latestColorSet;
-    if (colorSet) {
-      form.setFieldsValue(colorSet);
-    }
+    form.resetFields();
     if (importedColorSet) {
+      form.setFieldsValue(importedColorSet);
       setHasUnsavedChanges(true);
     }
-  }, [form, importedColorSet, latestColorSet]);
+  }, [form, importedColorSet]);
+
+  useEffect(() => {
+    form.resetFields();
+    if (latestColorSet) {
+      form.setFieldsValue(latestColorSet);
+    }
+  }, [form, latestColorSet]);
 
   const {brands, isLoading: isBrandsLoading, isError: isBrandsError} = useColorBrands(selectedType);
 
@@ -616,7 +621,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
                       >
                         <Button
                           icon={<DeleteOutlined />}
-                          title="Delete this color set"
+                          title="Delete the color set"
                           onClick={e => {
                             e.stopPropagation();
                           }}

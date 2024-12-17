@@ -22,78 +22,53 @@ import {Button, Grid, Select, Space, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 
 import {filterSelectOptions} from '~/src/components/utils';
-import {
-  type ColorBrandDefinition,
-  type ColorSetDefinition,
-  compareByDate,
-} from '~/src/services/color';
+import {compareByDate, type CustomColorBrandDefinition} from '~/src/services/color';
 
-const newColorSetOption: SelectOptionType = {
+const newCustomColorBrandOption: SelectOptionType = {
   value: 0,
   label: (
     <>
-      <PlusOutlined /> <Typography.Text>New color set</Typography.Text>
+      <PlusOutlined /> <Typography.Text>New brand</Typography.Text>
     </>
   ),
 };
 
-function getColorSetName(
-  brandIds?: number[],
-  colors?: Record<number, number[]>,
-  brands?: Map<number, ColorBrandDefinition>
-): string | undefined {
-  if (!brands || !colors) {
-    return;
-  }
-  return brandIds
-    ?.map((brandId: number): string => {
-      const {shortName, fullName} = brands.get(brandId) ?? {};
-      const colorSetSize = colors[brandId]!.length;
-      return `${shortName ?? fullName} ${colorSetSize} ${colorSetSize > 1 ? 'colors' : 'color'}`;
-    })
-    .filter(name => !!name)
-    .join(', ');
-}
-
-function getColorSetOptions(
-  colorSets?: ColorSetDefinition[],
-  brands?: Map<number, ColorBrandDefinition>
+function getCustomColorBrandOptions(
+  customColorBrands?: CustomColorBrandDefinition[]
 ): SelectOptionType[] {
-  if (!colorSets?.length) {
-    return [newColorSetOption];
+  if (!customColorBrands?.length) {
+    return [newCustomColorBrandOption];
   }
   return [
-    newColorSetOption,
-    ...colorSets
+    newCustomColorBrandOption,
+    ...customColorBrands
       .sort(compareByDate)
       .reverse()
-      .map(({id, name, brands: brandIds, colors}: ColorSetDefinition) => ({
+      .map(({id, name}: CustomColorBrandDefinition) => ({
         value: id,
-        label: name || getColorSetName(brandIds, colors, brands),
+        label: name,
       })),
   ];
 }
 
 type Props = SelectProps & {
-  colorSets?: ColorSetDefinition[];
-  brands?: Map<number, ColorBrandDefinition>;
+  customColorBrands?: CustomColorBrandDefinition[];
   onCreateNewClick?: () => void;
 };
 
-export const ColorSetSelect: React.FC<Props> = ({
-  colorSets,
-  brands,
+export const CustomColorBrandSelect: React.FC<Props> = ({
+  customColorBrands,
   onCreateNewClick,
   ...rest
 }: Props) => {
   const screens = Grid.useBreakpoint();
 
-  const options = getColorSetOptions(colorSets, brands);
+  const options = getCustomColorBrandOptions(customColorBrands);
   return (
     <Space.Compact block>
       <Select
         options={options}
-        placeholder="Select from your recent color sets"
+        placeholder="Select from your recent brands"
         showSearch
         filterOption={filterSelectOptions}
         {...rest}

@@ -29,7 +29,7 @@ import type {ChangeEvent} from 'react';
 import {useEffect, useMemo, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
-import {ImageSelect} from '~/src/components/image/ImageSelect';
+import {FileSelect} from '~/src/components/image/FileSelect';
 import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
 import {useDebounce} from '~/src/hooks/useDebounce';
 import type {ZoomableImageCanvas} from '~/src/services/canvas/image';
@@ -175,7 +175,7 @@ export const ImageColorCorrection: React.FC = () => {
               )}
 
               <Space>
-                <ImageSelect onChange={handleFileChange}>Select photo</ImageSelect>
+                <FileSelect onChange={handleFileChange}>Select photo</FileSelect>
                 {unadjustedImage && (
                   <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
                     Save

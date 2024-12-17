@@ -32,6 +32,7 @@ export enum TabKey {
   Compare = 'compare',
   Install = 'install',
   Help = 'help',
+  CustomColorBrand = 'custom-brand',
 }
 
 export const TAB_LABELS: Record<TabKey, string> = {
@@ -49,5 +50,6 @@ export const TAB_LABELS: Record<TabKey, string> = {
   [TabKey.BackgroundRemove]: 'Remove background',
   [TabKey.Compare]: 'Compare',
   [TabKey.Install]: 'Install',
+  [TabKey.CustomColorBrand]: 'Custom brand',
   [TabKey.Help]: 'Help',
 };

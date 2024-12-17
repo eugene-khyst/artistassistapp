@@ -24,12 +24,12 @@ export async function getLastColorSet(): Promise<ColorSetDefinition | undefined>
   const db = await dbPromise;
   const index = db.transaction('color-sets').store.index('by-date');
   const cursor = await index.openCursor(null, 'prev');
-  return cursor ? cursor.value : undefined;
+  return cursor?.value;
 }
 
 export async function getColorSetsByType(type: ColorType): Promise<ColorSetDefinition[]> {
   const db = await dbPromise;
-  return await db.transaction('color-sets').store.index('by-type').getAll(type);
+  return await db.getAllFromIndex('color-sets', 'by-type', type);
 }
 
 export async function saveColorSet(colorSet: ColorSetDefinition): Promise<void> {

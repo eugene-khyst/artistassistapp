@@ -16,29 +16,39 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {UseQueryResult} from '@tanstack/react-query';
-import {useQuery} from '@tanstack/react-query';
-
-import {type ColorBrandDefinition, type ColorType, fetchColorBrands} from '~/src/services/color';
+import {useEffect, useState} from 'react';
 
 interface Result {
   isLoading: boolean;
-  isError: boolean;
-  error: Error | null;
-  brands?: Map<number, ColorBrandDefinition>;
+  imageBitmap?: ImageBitmap;
 }
 
-export function useColorBrands(type?: ColorType): Result {
-  const {isLoading, isError, error, data}: UseQueryResult<Map<number, ColorBrandDefinition>> =
-    useQuery({
-      queryKey: ['brands', type],
-      queryFn: () => fetchColorBrands(type!),
-      enabled: !!type,
-    });
+export function useCreateImageBitmap(blob?: Blob | null): Result {
+  const [imageBitmap, setImageBitmap] = useState<ImageBitmap>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!blob) {
+      setImageBitmap(undefined);
+      return;
+    }
+    setIsLoading(true);
+    let imageBitmap: ImageBitmap | undefined;
+    void (async () => {
+      imageBitmap = await createImageBitmap(blob);
+      setImageBitmap(prev => {
+        prev?.close();
+        return imageBitmap;
+      });
+      setIsLoading(false);
+    })();
+    return () => {
+      imageBitmap?.close();
+    };
+  }, [blob]);
+
   return {
     isLoading,
-    isError,
-    error,
-    brands: data,
+    imageBitmap,
   };
 }

@@ -23,11 +23,12 @@ import type {PropsWithChildren} from 'react';
 import {useRef} from 'react';
 
 type Props = Pick<BaseButtonProps, 'type'> &
-  Pick<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'multiple'>;
+  Pick<React.InputHTMLAttributes<HTMLInputElement>, 'accept' | 'onChange' | 'multiple'>;
 
-export const ImageSelect: React.FC<PropsWithChildren<Props>> = ({
+export const FileSelect: React.FC<PropsWithChildren<Props>> = ({
   children,
   type = 'primary',
+  accept = 'image/*',
   ...props
 }: PropsWithChildren<Props>) => {
   const hiddenFileInput = useRef<HTMLInputElement>(null);
@@ -44,7 +45,7 @@ export const ImageSelect: React.FC<PropsWithChildren<Props>> = ({
       <input
         ref={hiddenFileInput}
         type="file"
-        accept="image/*"
+        accept={accept}
         style={{display: 'none'}}
         {...props}
       />

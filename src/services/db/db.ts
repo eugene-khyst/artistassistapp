@@ -19,12 +19,17 @@
 import type {DBSchema, IDBPDatabase} from 'idb';
 import {deleteDB, openDB} from 'idb';
 
-import type {ColorMixture, ColorSetDefinition, ColorType} from '~/src/services/color';
+import type {
+  ColorMixture,
+  ColorSetDefinition,
+  ColorType,
+  CustomColorBrandDefinition,
+} from '~/src/services/color';
 import type {ImageFile} from '~/src/services/image';
 import type {AppSettings} from '~/src/services/settings';
 
 const DB_NAME = 'artistassistapp';
-const DB_VERSION = 2;
+const DB_VERSION = 3;
 
 export interface ArtistAssistAppDB extends DBSchema {
   'app-settings': {
@@ -49,6 +54,14 @@ export interface ArtistAssistAppDB extends DBSchema {
     key: number;
     indexes: {'by-imageFileId': number};
   };
+  'custom-brands': {
+    value: CustomColorBrandDefinition;
+    key: number;
+    indexes: {
+      'by-date': Date;
+      'by-type': ColorType;
+    };
+  };
 }
 
 type KeysEnum<T> = {[P in keyof Required<T>]: 1};
@@ -57,6 +70,7 @@ const artistAssistAppDBKeys: KeysEnum<ArtistAssistAppDB> = {
   'color-sets': 1,
   images: 1,
   'color-mixtures': 1,
+  'custom-brands': 1,
 };
 const objectStoreNames: string[] = Object.keys(artistAssistAppDBKeys);
 
@@ -92,6 +106,15 @@ export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artist
           autoIncrement: true,
         });
         colorMixturesStore.createIndex('by-imageFileId', 'imageFileId');
+      }
+
+      if (!db.objectStoreNames.contains('custom-brands')) {
+        const customBrandsStore = db.createObjectStore('custom-brands', {
+          keyPath: 'id',
+          autoIncrement: true,
+        });
+        customBrandsStore.createIndex('by-type', 'type');
+        customBrandsStore.createIndex('by-date', 'date');
       }
 
       for (const objectStoreName of db.objectStoreNames) {

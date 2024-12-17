@@ -26,14 +26,14 @@ import type {
   ColorDefinition,
   ColorMixer,
   ColorSetDefinition,
-  ColorType,
+  CustomColorBrandDefinition,
   SamplingArea,
   SimilarColor,
 } from '~/src/services/color';
+import type {ColorType} from '~/src/services/color';
 import {
   type ColorMixture,
   type ColorSet,
-  compareColorSetsByDate,
   fetchColorBrands,
   fetchColorsBulk,
   PAPER_WHITE_HEX,
@@ -57,6 +57,11 @@ import {
   saveAppSettings,
   saveImageFile,
 } from '~/src/services/db';
+import {
+  deleteCustomColorBrand,
+  getCustomColorBrands,
+  saveCustomColorBrand,
+} from '~/src/services/db/custom-brand-db';
 import {
   type Blur,
   type ColorCorrection,
@@ -160,6 +165,8 @@ export interface AppState {
   unfinishedGamesSize: number;
   nextGame: Game<File> | null;
   playersByRating: Player<File>[];
+
+  customColorBrands: CustomColorBrandDefinition[];
 }
 
 export interface AppActions {
@@ -205,6 +212,10 @@ export interface AppActions {
   addPlayer: (player: Player<File>) => void;
   setScore: (score: Score) => void;
   newTournament: () => void;
+
+  loadCustomColorBrands: () => Promise<void>;
+  saveCustomColorBrand: (brand: CustomColorBrandDefinition) => Promise<CustomColorBrandDefinition>;
+  deleteCustomColorBrand: (idToDelete?: number) => Promise<void>;
 
   initAppStore: (user: User | null) => Promise<void>;
 }
@@ -261,6 +272,8 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
   nextGame: null,
   playersByRating: [],
 
+  customColorBrands: [],
+
   setActiveTabKey: async (activeTabKey: TabKey): Promise<void> => {
     await saveAppSettings({activeTabKey});
     set({activeTabKey});
@@ -274,9 +287,7 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
   },
 
   loadColorSetsByType: async (type: ColorType): Promise<ColorSetDefinition[]> => {
-    const colorSetsByType: ColorSetDefinition[] = (await getColorSetsByType(type))
-      .sort(compareColorSetsByDate)
-      .reverse();
+    const colorSetsByType: ColorSetDefinition[] = await getColorSetsByType(type);
     set({
       colorSetsByType,
     });
@@ -579,6 +590,35 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     set({tournament: new Tournament()});
     get().updateTournament();
   },
+
+  loadCustomColorBrands: async (): Promise<void> => {
+    set({
+      customColorBrands: await getCustomColorBrands(),
+    });
+  },
+  saveCustomColorBrand: async (
+    brand: CustomColorBrandDefinition
+  ): Promise<CustomColorBrandDefinition> => {
+    await saveCustomColorBrand(brand);
+    set({
+      customColorBrands: [
+        brand,
+        ...get().customColorBrands.filter(({id}: CustomColorBrandDefinition) => id !== brand.id),
+      ],
+    });
+    return brand;
+  },
+  deleteCustomColorBrand: async (idToDelete?: number): Promise<void> => {
+    if (idToDelete) {
+      await deleteCustomColorBrand(idToDelete);
+      set({
+        customColorBrands: get().customColorBrands.filter(
+          ({id}: CustomColorBrandDefinition) => id !== idToDelete
+        ),
+      });
+    }
+  },
+
   initAppStore: async (user: User | null): Promise<void> => {
     set({
       isInitialStateLoading: true,
@@ -595,7 +635,8 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
       void get().setActiveTabKey(activeTabKey);
     }
 
-    const latestColorSet: ColorSetDefinition | undefined = await getLastColorSet();
+    const latestColorSet: ColorSetDefinition | null =
+      (!importedColorSet && (await getLastColorSet())) || null;
     const recentImageFiles: ImageFile[] = await getImageFiles();
     const imageFile: ImageFile | undefined = await getLastImageFile();
     const paletteColorMixtures: ColorMixture[] = await getColorMixtures(imageFile?.id);
@@ -608,6 +649,9 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
       isInitialStateLoading: false,
     });
 
+    if (importedColorSet?.type) {
+      void get().loadColorSetsByType(importedColorSet.type);
+    }
     if (latestColorSet) {
       const {type, brands: brandIds} = latestColorSet;
       if (!type || !brandIds) {

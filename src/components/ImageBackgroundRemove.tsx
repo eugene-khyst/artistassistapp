@@ -23,7 +23,7 @@ import type {CSSProperties} from 'react';
 import {type ChangeEvent, useEffect, useState} from 'react';
 import {ReactCompareSlider, ReactCompareSliderImage} from 'react-compare-slider';
 
-import {ImageSelect} from '~/src/components/image/ImageSelect';
+import {FileSelect} from '~/src/components/image/FileSelect';
 import {useCreateObjectUrl} from '~/src/hooks';
 import {removeBackground} from '~/src/services/image';
 import {useAppStore} from '~/src/stores/app-store';
@@ -89,7 +89,7 @@ export const ImageBackgroundRemove: React.FC = () => {
       <Flex vertical gap="small" style={{marginBottom: 8, padding: '0 16px'}}>
         <Typography.Text strong>Select a photo to remove the background from</Typography.Text>
         <Space>
-          <ImageSelect onChange={handleFileChange}>Select photo</ImageSelect>
+          <FileSelect onChange={handleFileChange}>Select photo</FileSelect>
           {noBgImageUrl && (
             <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
               Save

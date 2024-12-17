@@ -71,6 +71,7 @@ export const RecentImageCard: React.FC<Props> = ({imageFile}: Props) => {
           >
             <Button
               icon={<DeleteOutlined />}
+              title="Delete the recent photo"
               onClick={e => {
                 e.stopPropagation();
               }}

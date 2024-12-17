@@ -75,6 +75,14 @@ export interface ColorDefinition {
   opacity?: number;
 }
 
+export interface CustomColorBrandDefinition {
+  id?: number;
+  type?: ColorType;
+  name?: string;
+  colors?: Partial<ColorDefinition>[];
+  date?: Date;
+}
+
 export interface ColorSetDefinition {
   id?: number;
   type?: ColorType;

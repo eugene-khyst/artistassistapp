@@ -51,7 +51,7 @@ export function colorSetToUrl({
     brands.map((brand: number) => brand.toString(URL_PARAM_RADIX)).join(URL_PARAM_SEPARATOR)
   );
   Object.entries(colors).forEach(([brandIdStr, colorIds]: [string, number[]]) => {
-    const brand = Number(brandIdStr);
+    const brand = parseInt(brandIdStr);
     const ids: number[] = colorIds.map((id: number) => id - (SKU_BASE.get(brand) ?? 0));
     searchParams.set(
       URL_PARAM_COLORS_PREFIX + brandIdStr,

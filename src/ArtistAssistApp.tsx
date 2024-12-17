@@ -23,6 +23,7 @@ import {useEffect, useRef, useState} from 'react';
 import StickyBox from 'react-sticky-box';
 
 import {AdModal} from '~/src/components/ad/AdModal';
+import {CustomColorBrandCreator} from '~/src/components/CustomColorBrandCreator';
 import {ImageBackgroundRemove} from '~/src/components/ImageBackgroundRemove';
 import {ImageColorCorrection} from '~/src/components/ImageColorCorrection';
 import {ImageOutline} from '~/src/components/ImageOutline';
@@ -128,7 +129,7 @@ export const ArtistAssistApp: React.FC = () => {
     })();
   };
 
-  const items = [
+  const items: TabsProps['items'] = [
     {
       key: TabKey.ColorSet,
       children: (
@@ -193,6 +194,14 @@ export const ArtistAssistApp: React.FC = () => {
                 promptToInstall={promptToInstall}
               />
             ),
+          },
+        ]
+      : []),
+    ...(user
+      ? [
+          {
+            key: TabKey.CustomColorBrand,
+            children: <CustomColorBrandCreator />,
           },
         ]
       : []),

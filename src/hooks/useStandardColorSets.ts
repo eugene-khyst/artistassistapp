@@ -33,7 +33,7 @@ export function useStandardColorSets(type?: ColorType, brandAliases?: string[]):
     queries:
       type && brandAliases
         ? brandAliases.map((brandAlias: string) => ({
-            queryKey: ['standardColorSet', type, brandAlias],
+            queryKey: ['standardColorSets', type, brandAlias],
             queryFn: async (): Promise<[string, Map<string, StandardColorSetDefinition>]> => [
               brandAlias,
               await fetchStandardColorSets(type, brandAlias),

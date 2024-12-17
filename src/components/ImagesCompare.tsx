@@ -22,8 +22,8 @@ import type {RefObject} from 'react';
 import {type ChangeEvent, useEffect, useRef} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
+import {FileSelect} from '~/src/components/image/FileSelect';
 import {ImageCard} from '~/src/components/image/ImageCard';
-import {ImageSelect} from '~/src/components/image/ImageSelect';
 import type {Score} from '~/src/services/rating';
 import {Player} from '~/src/services/rating';
 import {useAppStore} from '~/src/stores/app-store';
@@ -87,9 +87,9 @@ export const ImagesCompare: React.FC = () => {
       </Space>
 
       <Space>
-        <ImageSelect type={isNew ? 'primary' : 'default'} multiple onChange={handleFileChange}>
+        <FileSelect type={isNew ? 'primary' : 'default'} multiple onChange={handleFileChange}>
           {isNew ? 'Select photos' : 'Add photos'}
-        </ImageSelect>
+        </FileSelect>
         {!isNew && (
           <Button
             onClick={() => {

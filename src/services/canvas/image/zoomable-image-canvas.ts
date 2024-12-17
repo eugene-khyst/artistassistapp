@@ -21,6 +21,11 @@ import {saveAs} from 'file-saver';
 import {Canvas} from '~/src/services/canvas/canvas';
 import {clamp, Rectangle, Vector} from '~/src/services/math';
 
+interface ConvertToBlobOptions {
+  type?: string;
+  quality?: number;
+}
+
 export interface ZoomableImageCanvasProps {
   zoomFactor?: number;
   maxZoom?: number;
@@ -301,11 +306,12 @@ export class ZoomableImageCanvas extends Canvas {
     this.setZoom(this.zoom);
   }
 
-  async convertToBlob(type = 'image/jpeg'): Promise<Blob | undefined> {
+  async convertToBlob(options?: ConvertToBlobOptions): Promise<Blob | undefined> {
     const image: ImageBitmap | OffscreenCanvas | null = this.getImage();
     if (!image) {
       return;
     }
+    const {type = 'image/jpeg', quality = 0.95} = options ?? {};
     const {offset, zoom} = this;
     try {
       this.offset = Vector.ZERO;
@@ -313,7 +319,7 @@ export class ZoomableImageCanvas extends Canvas {
       const offscreenCanvas = new OffscreenCanvas(image.width, image.height);
       const ctx: OffscreenCanvasRenderingContext2D = offscreenCanvas.getContext('2d')!;
       this.draw(ctx);
-      return await offscreenCanvas.convertToBlob({type, quality: 0.95});
+      return await offscreenCanvas.convertToBlob({type, quality});
     } finally {
       this.offset = offset;
       this.zoom = zoom;
@@ -321,7 +327,7 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   async saveAsImage(filename?: string, type?: string): Promise<void> {
-    const blob: Blob | undefined = await this.convertToBlob(type);
+    const blob: Blob | undefined = await this.convertToBlob({type});
     if (blob) {
       saveAs(blob, filename);
     }
