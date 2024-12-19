@@ -85,10 +85,13 @@ export const ArtistAssistApp: React.FC = () => {
         await modal.warning({
           title: 'Login failed',
           content: authError,
+          afterClose() {
+            void setActiveTabKey(TabKey.ColorSet);
+          },
         });
       }
     })();
-  }, [authError, modal]);
+  }, [authError, modal, setActiveTabKey]);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
