@@ -27,6 +27,7 @@ const initialContext: AuthContextInterface = {
   user: null,
   loginWithRedirect: stub,
   logout: stub,
+  getMagicLink: (): string | null => null,
   isLoading: false,
   error: null,
 };

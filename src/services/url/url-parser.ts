@@ -43,7 +43,7 @@ export function colorSetToUrl({
   if (!type || !brands?.length || !colors || !Object.keys(colors).length) {
     return;
   }
-  const url = new URL(window.location.toString());
+  const url = new URL(window.location.origin);
   const {searchParams} = url;
   searchParams.set(URL_PARAM_COLOR_TYPE, type.toString(URL_PARAM_RADIX));
   searchParams.set(

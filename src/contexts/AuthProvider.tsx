@@ -67,12 +67,15 @@ export const AuthProvider: React.FC<PropsWithChildren<Props>> = ({
   const loginWithRedirect = useCallback(() => {
     authClient.loginWithRedirect();
   }, [authClient]);
+
   const logout = useCallback(() => {
     authClient.logout();
   }, [authClient]);
 
+  const getMagicLink = useCallback(() => authClient.getMagicLink(), [authClient]);
+
   return (
-    <AuthContext.Provider value={{user, loginWithRedirect, logout, isLoading, error}}>
+    <AuthContext.Provider value={{user, getMagicLink, loginWithRedirect, logout, isLoading, error}}>
       {children}
     </AuthContext.Provider>
   );

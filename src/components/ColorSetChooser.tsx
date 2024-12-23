@@ -28,6 +28,7 @@ import {
   App,
   Button,
   Col,
+  Collapse,
   Divider,
   Flex,
   Form,
@@ -39,6 +40,7 @@ import {
   Tooltip,
   Typography,
 } from 'antd';
+import {QRCodeSVG} from 'qrcode.react';
 import type {ForwardedRef} from 'react';
 import {forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState} from 'react';
 
@@ -102,7 +104,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
 
   const {message, notification, modal} = App.useApp();
 
-  const {user, isLoading: isAuthLoading} = useAuth();
+  const {user, isLoading: isAuthLoading, getMagicLink} = useAuth();
 
   const [form] = Form.useForm<ColorSetDefinition>();
   const selectedType = Form.useWatch<ColorType | undefined>('type', form);
@@ -122,6 +124,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [shareColorSetUrl, setShareColorSetUrl] = useState<string>();
+  const [magicLink, setMagicLink] = useState<string | null>(null);
 
   useEffect(() => {
     form.resetFields();
@@ -137,6 +140,13 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
       form.setFieldsValue(latestColorSet);
     }
   }, [form, latestColorSet]);
+
+  useEffect(() => {
+    if (isAuthLoading) {
+      return;
+    }
+    setMagicLink(getMagicLink());
+  }, [isAuthLoading, getMagicLink]);
 
   const {brands, isLoading: isBrandsLoading, isError: isBrandsError} = useColorBrands(selectedType);
 
@@ -394,7 +404,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
               .
             </Typography.Text>
           ) : (
-            <Typography.Text strong>
+            <Typography.Text>
               Welcome{user?.name && `, ${user.name}`}! Thank you for your support on Patreon.
             </Typography.Text>
           )}
@@ -425,6 +435,23 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
             Help
           </Button>
         </Space>
+
+        {magicLink && (
+          <Collapse
+            ghost
+            items={[
+              {
+                key: '1',
+                label: 'Log in on another device by scanning the QR code',
+                children: (
+                  <div>
+                    <QRCodeSVG size={256} value={magicLink} />
+                  </div>
+                ),
+              },
+            ]}
+          />
+        )}
 
         <Divider style={{margin: '8px 0'}} />
 

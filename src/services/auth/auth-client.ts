@@ -57,8 +57,8 @@ export class AuthClient {
       const message = searchParams.get('error_description') ?? '';
       replaceHistory();
       throw new AuthError(type!, message);
-    } else if (searchParams.has('id_token')) {
-      const jwt = searchParams.get('id_token')!;
+    } else if (searchParams.has(ID_TOKEN_KEY)) {
+      const jwt = searchParams.get(ID_TOKEN_KEY)!;
       replaceHistory();
       try {
         this.user = await this.verifyJwt(jwt);
@@ -96,6 +96,16 @@ export class AuthClient {
   logout(): void {
     localStorage.removeItem(ID_TOKEN_KEY);
     window.location.reload();
+  }
+
+  getMagicLink(): string | null {
+    const jwt: string | null = localStorage.getItem(ID_TOKEN_KEY);
+    if (!jwt) {
+      return null;
+    }
+    const url = new URL(window.location.origin);
+    url.searchParams.set(ID_TOKEN_KEY, jwt);
+    return url.toString();
   }
 }
 

@@ -22,6 +22,7 @@ export interface AuthContextInterface {
   user: User | null;
   loginWithRedirect: () => void;
   logout: () => void;
+  getMagicLink: () => string | null;
   isLoading: boolean;
   error: string | null;
 }
