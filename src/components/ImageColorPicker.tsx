@@ -23,6 +23,7 @@ import {
   ColorPicker,
   Form,
   Grid,
+  Input,
   Row,
   Select,
   Slider,
@@ -212,12 +213,16 @@ export const ImageColorPicker: React.FC = () => {
             sm={12}
             lg={8}
             style={{
-              maxHeight: height,
               marginTop: margin,
+              maxWidth: '100%',
+              maxHeight: height,
               overflowY: 'auto',
             }}
           >
-            <Space direction="vertical" style={{padding: '0 16px 16px'}}>
+            <Space
+              direction="vertical"
+              style={{padding: '0 16px 16px', maxWidth: '100%', boxSizing: 'border-box'}}
+            >
               <Space align="start" wrap style={{display: 'flex'}}>
                 <Form.Item
                   label="Background"
@@ -294,6 +299,11 @@ export const ImageColorPicker: React.FC = () => {
                   />
                 </Form.Item>
               </Space>
+              {screens.sm && colorSet.name && (
+                <Form.Item label="Color set" style={{marginBottom: 0}}>
+                  <Input value={colorSet.name} variant="borderless" readOnly />
+                </Form.Item>
+              )}
               {!isSimilarColorsLoading && !similarColors.length ? (
                 <Space direction="vertical" style={{margin: '8px 0'}}>
                   <Typography.Text strong>⁉️ No data</Typography.Text>

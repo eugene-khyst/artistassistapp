@@ -192,9 +192,27 @@ export function formatColorLabel(
   }
 }
 
+export function getColorSetName(
+  brandIds?: number[],
+  colors?: Record<number, number[]>,
+  brands?: Map<number, ColorBrandDefinition>
+): string | undefined {
+  if (!brands || !colors) {
+    return;
+  }
+  return brandIds
+    ?.map((brandId: number): string => {
+      const {shortName, fullName} = brands.get(brandId) ?? {};
+      const colorSetSize = colors[brandId]!.length;
+      return `${shortName ?? fullName} ${colorSetSize} ${colorSetSize > 1 ? 'colors' : 'color'}`;
+    })
+    .filter(name => !!name)
+    .join(', ');
+}
+
 export function toColorSet(
   user: User | null,
-  {id, type, brands: selectedBrands, colors: selectedColors}: ColorSetDefinition,
+  {id, name, type, brands: selectedBrands, colors: selectedColors}: ColorSetDefinition,
   brands?: Map<number, ColorBrandDefinition>,
   colors?: Map<string, Map<number, ColorDefinition>>
 ): ColorSet | undefined {
@@ -209,6 +227,7 @@ export function toColorSet(
     return;
   }
   return {
+    name: name || getColorSetName(selectedBrands, selectedColors, brands),
     type,
     brands: selectedBrandsMap,
     colors: selectedColorsArr.flatMap(([brandIdStr, colorIds]: [string, number[]]): Color[] => {

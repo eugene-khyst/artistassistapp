@@ -26,6 +26,7 @@ import {
   type ColorBrandDefinition,
   type ColorSetDefinition,
   compareByDate,
+  getColorSetName,
 } from '~/src/services/color';
 
 const newColorSetOption: SelectOptionType = {
@@ -36,24 +37,6 @@ const newColorSetOption: SelectOptionType = {
     </>
   ),
 };
-
-function getColorSetName(
-  brandIds?: number[],
-  colors?: Record<number, number[]>,
-  brands?: Map<number, ColorBrandDefinition>
-): string | undefined {
-  if (!brands || !colors) {
-    return;
-  }
-  return brandIds
-    ?.map((brandId: number): string => {
-      const {shortName, fullName} = brands.get(brandId) ?? {};
-      const colorSetSize = colors[brandId]!.length;
-      return `${shortName ?? fullName} ${colorSetSize} ${colorSetSize > 1 ? 'colors' : 'color'}`;
-    })
-    .filter(name => !!name)
-    .join(', ');
-}
 
 function getColorSetOptions(
   colorSets?: ColorSetDefinition[],

@@ -103,6 +103,7 @@ export interface Color {
 }
 
 export interface ColorSet {
+  name?: string;
   type: ColorType;
   brands: Map<number, ColorBrandDefinition>;
   colors: Color[];
