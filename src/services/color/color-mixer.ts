@@ -510,7 +510,7 @@ export function makeColorMixture(
 ): ColorMixture[] {
   const mixedColors: MixedColor[] = [mixColors(toUnmixedColors(colors), ratio)];
   const background = new Background(Rgb.fromHex(backgroundColorHex));
-  const {glazing = true} = COLOR_MIXING[type];
+  const {glazing} = COLOR_MIXING[type];
   const layers: MixedColorLayer[] = [
     ...makeTintLayers(mixedColors, []),
     ...makeThinnedLayers(mixedColors, background, glazing),
@@ -575,7 +575,7 @@ export class ColorMixer {
   private makeThinnedLayers(): void {
     console.time('make-thinned-layers');
     const {type} = this.colorSet!;
-    const {glazing = true} = COLOR_MIXING[type];
+    const {glazing} = COLOR_MIXING[type];
     this.thinnedLayers = new Map(
       this.mixedColors.map(([numOfColors, colors]) => {
         const layers = makeThinnedLayers(colors, this.background, glazing);

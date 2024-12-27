@@ -21,7 +21,7 @@ import {Button, Card, Space, Typography} from 'antd';
 
 import {AddToPaletteButton} from '~/src/components/color/AddToPaletteButton';
 import {ColorSquare} from '~/src/components/color/ColorSquare';
-import type {ColorMixture, SimilarColor} from '~/src/services/color';
+import {COLOR_MIXING, type ColorMixture, type SimilarColor} from '~/src/services/color';
 import {useAppStore} from '~/src/stores/app-store';
 
 import {ColorMixtureDescription} from './ColorMixtureDescription';
@@ -39,6 +39,9 @@ export const SimilarColorCard: React.FC<Props> = ({
 }: Props) => {
   const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
 
+  const {type} = colorMixture;
+  const {glazing} = COLOR_MIXING[type];
+
   return (
     <Card size="small">
       <Space direction="vertical" style={{width: '100%'}}>
@@ -52,16 +55,18 @@ export const SimilarColorCard: React.FC<Props> = ({
         <ColorMixtureDescription colorMixture={colorMixture} />
         <Space wrap>
           <AddToPaletteButton size="small" colorMixture={colorMixture} />
-          <Button
-            size="small"
-            icon={<BgColorsOutlined />}
-            title="Set the color of the base layer for the glazing"
-            onClick={() => {
-              void setBackgroundColor(colorMixture.layerRgb);
-            }}
-          >
-            Set as background
-          </Button>
+          {glazing && (
+            <Button
+              size="small"
+              icon={<BgColorsOutlined />}
+              title="Set the color of the base layer for the glazing"
+              onClick={() => {
+                void setBackgroundColor(colorMixture.layerRgb);
+              }}
+            >
+              Set as background
+            </Button>
+          )}
           <Button
             size="small"
             icon={<LineChartOutlined />}

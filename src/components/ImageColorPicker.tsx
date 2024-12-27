@@ -189,7 +189,7 @@ export const ImageColorPicker: React.FC = () => {
     return <EmptyColorSet feature="color picker" imageSupported={true} />;
   }
 
-  const {glazing = true} = COLOR_MIXING[colorSet.type];
+  const {mixing, glazing} = COLOR_MIXING[colorSet.type];
 
   const height = `calc((100vh - 75px) / ${screens.sm ? '1' : '2 - 8px'})`;
   const margin = screens.sm ? 0 : 8;
@@ -214,50 +214,50 @@ export const ImageColorPicker: React.FC = () => {
             lg={8}
             style={{
               marginTop: margin,
-              maxWidth: '100%',
+              width: '100%',
               maxHeight: height,
               overflowY: 'auto',
             }}
           >
             <Space
               direction="vertical"
-              style={{padding: '0 16px 16px', maxWidth: '100%', boxSizing: 'border-box'}}
+              style={{padding: '0 16px 16px', width: '100%', boxSizing: 'border-box'}}
             >
-              <Space align="start" wrap style={{display: 'flex'}}>
-                <Form.Item
-                  label="Background"
-                  tooltip="The color of paper or canvas, or the color of the base layer when glazed."
-                  style={{marginBottom: 0}}
-                >
-                  <ColorPicker
-                    value={glazing ? backgroundColor : PAPER_WHITE_HEX}
-                    presets={[
-                      {
-                        label: 'Paper white',
-                        colors: [PAPER_WHITE_HEX],
-                      },
-                    ]}
-                    onChangeComplete={(color: Color) => {
-                      void setBackgroundColor(color.toHexString());
-                    }}
-                    showText
-                    disabledAlpha
-                    disabled={!glazing}
-                  />
-                </Form.Item>
-                <Form.Item style={{marginBottom: 0}}>
-                  <Button
-                    icon={<BgColorsOutlined />}
-                    title="Set paper white background"
-                    onClick={() => {
-                      void setBackgroundColor(PAPER_WHITE_HEX);
-                    }}
-                    disabled={!glazing}
+              {glazing && (
+                <Space align="start" wrap style={{display: 'flex'}}>
+                  <Form.Item
+                    label="Background"
+                    tooltip="The color of paper or canvas, or the color of the base layer when glazed."
+                    style={{marginBottom: 0}}
                   >
-                    White
-                  </Button>
-                </Form.Item>
-              </Space>
+                    <ColorPicker
+                      value={backgroundColor}
+                      presets={[
+                        {
+                          label: 'Paper white',
+                          colors: [PAPER_WHITE_HEX],
+                        },
+                      ]}
+                      onChangeComplete={(color: Color) => {
+                        void setBackgroundColor(color.toHexString());
+                      }}
+                      showText
+                      disabledAlpha
+                    />
+                  </Form.Item>
+                  <Form.Item style={{marginBottom: 0}}>
+                    <Button
+                      icon={<BgColorsOutlined />}
+                      title="Set paper white background"
+                      onClick={() => {
+                        void setBackgroundColor(PAPER_WHITE_HEX);
+                      }}
+                    >
+                      White
+                    </Button>
+                  </Form.Item>
+                </Space>
+              )}
               <Form.Item
                 label="Diameter"
                 tooltip="The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
@@ -286,18 +286,20 @@ export const ImageColorPicker: React.FC = () => {
                     disabledAlpha
                   />
                 </Form.Item>
-                <Form.Item
-                  label="Sort"
-                  tooltip="Sort by the similarity of the mixture to the target color, or by the number of colors in the mixture, or by the thickness of the mixture."
-                  style={{marginBottom: 0}}
-                >
-                  <Select
-                    value={sort}
-                    onChange={handleSortChange}
-                    options={SORT_OPTIONS}
-                    style={{width: 115}}
-                  />
-                </Form.Item>
+                {mixing && (
+                  <Form.Item
+                    label="Sort"
+                    tooltip="Sort by the similarity of the mixture to the target color, or by the number of colors in the mixture, or by the thickness of the mixture."
+                    style={{marginBottom: 0}}
+                  >
+                    <Select
+                      value={sort}
+                      onChange={handleSortChange}
+                      options={SORT_OPTIONS}
+                      style={{width: 115}}
+                    />
+                  </Form.Item>
+                )}
               </Space>
               {screens.sm && colorSet.name && (
                 <Form.Item label="Color set" style={{marginBottom: 0}}>
