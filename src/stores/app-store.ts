@@ -71,6 +71,7 @@ import {
   type Outline,
   type TonalValues,
 } from '~/src/services/image';
+import type {AdjustmentParameters} from '~/src/services/image/filter/adjust-colors';
 import type {Game, Player, Score} from '~/src/services/rating';
 import {Tournament} from '~/src/services/rating';
 import type {AppSettings} from '~/src/services/settings';
@@ -203,7 +204,10 @@ export interface AppActions {
   setLimitedColorSet: (limitedColorSet: ColorSet) => Promise<void>;
 
   setImageFileToAdjust: (imageFileToAdjust: File | null) => Promise<void>;
-  adjustImageColor: (whitePatchPercentile: number, saturation: number) => Promise<void>;
+  adjustImageColor: (
+    whitePatchPercentile: number,
+    adjustmentParams: AdjustmentParameters
+  ) => Promise<void>;
 
   setImageToRemoveBg: (imageToRemoveBg: File | null) => void;
 
@@ -546,7 +550,10 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     });
     prev?.close();
   },
-  adjustImageColor: async (whitePatchPercentile: number, saturation: number): Promise<void> => {
+  adjustImageColor: async (
+    whitePatchPercentile: number,
+    adjustmentParams: AdjustmentParameters
+  ): Promise<void> => {
     const {imageFileToAdjust, adjustedImage: prev} = get();
     if (!imageFileToAdjust) {
       return;
@@ -555,8 +562,8 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
       isAdjustedImageLoading: true,
     });
     const {adjustedImage} = await colorCorrection.getAdjustedImage(
-      whitePatchPercentile / 100,
-      saturation / 100
+      whitePatchPercentile,
+      adjustmentParams
     );
     set({
       adjustedImage,

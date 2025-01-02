@@ -16,8 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {kelvinToRgb} from '~/src/services/color';
 import {linearizeRgbChannel, unlinearizeRgbChannel} from '~/src/services/color/space';
+import {clamp} from '~/src/services/math';
 import {imageBitmapToImageData} from '~/src/utils';
+
+export interface AdjustmentParameters {
+  saturation: number;
+  inputLow: number;
+  inputHigh: number;
+  gamma: number;
+  outputLow: number;
+  outputHigh: number;
+  origTemperature: number;
+  targetTemperature: number;
+}
 
 export function sortRgbChannels(imageData: ImageData): Uint8ClampedArray[] {
   const {data} = imageData;
@@ -45,10 +58,26 @@ export function calculatePercentiles(
 export function adjustColors(
   image: ImageBitmap,
   maxValues: number[] = [1, 1, 1],
-  saturation = 1
+  {
+    saturation = 1,
+    inputLow = 0,
+    inputHigh = 1,
+    gamma = 1,
+    outputLow = 0,
+    outputHigh = 1,
+    origTemperature = 6500,
+    targetTemperature = 6500,
+  }: AdjustmentParameters
 ): ImageBitmap {
   const [imageData, canvas, ctx] = imageBitmapToImageData(image);
   const {data} = imageData;
+
+  const origTempRgb = kelvinToRgb(origTemperature);
+  const targetTempRgb = kelvinToRgb(targetTemperature);
+  const scaleR = (origTempRgb.r || 1) / (targetTempRgb.r || 1);
+  const scaleG = (origTempRgb.g || 1) / (targetTempRgb.g || 1);
+  const scaleB = (origTempRgb.b || 1) / (targetTempRgb.b || 1);
+
   for (let i = 0; i < data.length; i += 4) {
     let r = linearizeRgbChannel(data[i]!);
     let g = linearizeRgbChannel(data[i + 1]!);
@@ -58,11 +87,28 @@ export function adjustColors(
     g = Math.min(g / maxValues[1]!, 1);
     b = Math.min(b / maxValues[2]!, 1);
 
-    const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    if (saturation != 1) {
+      const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      r = clamp(r + (luminance - r) * (1 - saturation), 0, 1);
+      g = clamp(g + (luminance - g) * (1 - saturation), 0, 1);
+      b = clamp(b + (luminance - b) * (1 - saturation), 0, 1);
+    }
 
-    r = r + (luminance - r) * (1 - saturation);
-    g = g + (luminance - g) * (1 - saturation);
-    b = b + (luminance - b) * (1 - saturation);
+    if (inputLow != 0 || inputHigh != 1 || gamma != 1 || outputLow != 0 || outputHigh != 1) {
+      [r, g, b] = [r, g, b].map(channel => {
+        let value = (channel - inputLow) / (inputHigh - inputLow);
+        value = clamp(value, 0, 1);
+        value = Math.pow(value, 1 / gamma);
+        value = outputLow + value * (outputHigh - outputLow);
+        return clamp(value, 0, 1);
+      }) as [number, number, number];
+    }
+
+    if (scaleR != 1 || scaleG != 1 || scaleB != 1) {
+      r *= clamp(scaleR, 0, 1);
+      g *= clamp(scaleG, 0, 1);
+      b *= clamp(scaleB, 0, 1);
+    }
 
     data[i] = unlinearizeRgbChannel(r);
     data[i + 1] = unlinearizeRgbChannel(g);

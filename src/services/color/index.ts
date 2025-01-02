@@ -17,6 +17,7 @@
  */
 
 export * from './color-mixer';
+export * from './color-temperature';
 export * from './colors';
 export * from './light-spectrum';
 export * from './types';

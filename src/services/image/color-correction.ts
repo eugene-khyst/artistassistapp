@@ -18,6 +18,7 @@
 
 import {transfer} from 'comlink';
 
+import type {AdjustmentParameters} from '~/src/services/image/filter/adjust-colors';
 import {
   adjustColors,
   calculatePercentiles,
@@ -43,7 +44,7 @@ export class ColorCorrection {
     return this.image;
   }
 
-  getAdjustedImage(whitePatchPercentile: number, saturation: number): Result {
+  getAdjustedImage(whitePatchPercentile: number, adjustmentParams: AdjustmentParameters): Result {
     if (!this.image || !this.sortedRgbChannels.length) {
       return {adjustedImage: null};
     }
@@ -51,10 +52,10 @@ export class ColorCorrection {
     const maxValues = calculatePercentiles(this.sortedRgbChannels, whitePatchPercentile);
     let adjustedImage: ImageBitmap;
     try {
-      adjustedImage = adjustColorsWebGL(this.image, maxValues, saturation);
+      adjustedImage = adjustColorsWebGL(this.image, maxValues, adjustmentParams);
     } catch (e) {
       console.error(e);
-      adjustedImage = adjustColors(this.image, maxValues, saturation);
+      adjustedImage = adjustColors(this.image, maxValues, adjustmentParams);
     }
     console.timeEnd('color-correction');
     return transfer({adjustedImage}, [adjustedImage]);
