@@ -65,7 +65,7 @@ self.addEventListener('fetch', (event: FetchEvent) => {
     event.respondWith(response);
   } else if (
     request.method === 'POST' &&
-    url.origin === location.origin &&
+    url.origin === self.location.origin &&
     url.pathname === '/share-target'
   ) {
     event.respondWith(receiveSharedData(request));

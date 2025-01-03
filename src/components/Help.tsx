@@ -71,6 +71,15 @@ export const Help: React.FC = () => {
         <Col xs={24} md={12}>
           <Space direction="vertical" align="start" size={0} style={{width: '100%'}}>
             <Button
+              type="primary"
+              href={`${WEBSITE_URL}/tutorials/`}
+              target="_blank"
+              icon={<ReadOutlined />}
+              size="large"
+            >
+              Tutorials
+            </Button>
+            <Button
               type="link"
               href={WEBSITE_URL}
               target="_blank"
@@ -78,15 +87,6 @@ export const Help: React.FC = () => {
               size="large"
             >
               About ArtistAssistApp
-            </Button>
-            <Button
-              type="link"
-              href={`${WEBSITE_URL}/tutorials/`}
-              target="_blank"
-              icon={<ReadOutlined />}
-              size="large"
-            >
-              Tutorials
             </Button>
             <Button
               type="link"

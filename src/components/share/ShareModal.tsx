@@ -19,18 +19,16 @@
 import {CopyOutlined, ShareAltOutlined} from '@ant-design/icons';
 import {App, Button, Input, Modal, Space, Typography} from 'antd';
 import {QRCodeSVG} from 'qrcode.react';
-import type {Dispatch, SetStateAction} from 'react';
 
 const SHARE_AVAILABLE: boolean = 'share' in navigator;
 
 interface Props {
-  title: string;
   open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
+  setOpen: (open: boolean) => void;
   url?: string;
 }
 
-export const ShareModal: React.FC<Props> = ({title, open, setOpen, url}: Props) => {
+export const ShareModal: React.FC<Props> = ({open, setOpen, url}: Props) => {
   const {message} = App.useApp();
 
   const handleCopyToClipboardClick = () => {
@@ -57,7 +55,7 @@ export const ShareModal: React.FC<Props> = ({title, open, setOpen, url}: Props) 
 
   return (
     <Modal
-      title={title}
+      title="Share your color set"
       centered
       open={open}
       footer={null}

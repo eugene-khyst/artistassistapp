@@ -20,10 +20,12 @@ import {
   AppstoreAddOutlined,
   DeleteOutlined,
   LoadingOutlined,
+  QrcodeOutlined,
   QuestionCircleOutlined,
   SaveOutlined,
   ShareAltOutlined,
 } from '@ant-design/icons';
+import {useDevices} from '@yudiel/react-qr-scanner';
 import {
   App,
   Button,
@@ -49,6 +51,7 @@ import {JoinButton} from '~/src/components/auth/JoinButton';
 import {LoginButton} from '~/src/components/auth/LoginButton';
 import {LogoutButton} from '~/src/components/auth/LogoutButton';
 import {ColorSetSelect} from '~/src/components/color-set/ColorSetSelect';
+import {QRScannerModal} from '~/src/components/qr/QRScannerModal';
 import type {ChangableComponent} from '~/src/components/types';
 import {useColorBrands, useColors, useStandardColorSets} from '~/src/hooks';
 import {useAuth} from '~/src/hooks/useAuth';
@@ -106,6 +109,8 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
 
   const {user, isLoading: isAuthLoading, getMagicLink} = useAuth();
 
+  const mediaDevices: MediaDeviceInfo[] = useDevices();
+
   const [form] = Form.useForm<ColorSetDefinition>();
   const selectedType = Form.useWatch<ColorType | undefined>('type', form);
   const selectedColorSetId = Form.useWatch<number | undefined>('id', form);
@@ -122,6 +127,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
     .reduce((a: number, b: number) => a + b, 0);
 
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
+  const [isQRScannerModalOpen, setIsQRScannerModalOpen] = useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [shareColorSetUrl, setShareColorSetUrl] = useState<string>();
   const [magicLink, setMagicLink] = useState<string | null>(null);
@@ -420,6 +426,16 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
                 <JoinButton />
               </>
             ))}
+          {!!mediaDevices.length && (
+            <Button
+              icon={<QrcodeOutlined />}
+              onClick={() => {
+                setIsQRScannerModalOpen(true);
+              }}
+            >
+              Scan QR code
+            </Button>
+          )}
           {showInstallPromotion && (
             <Button
               icon={<AppstoreAddOutlined />}
@@ -429,6 +445,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
             </Button>
           )}
           <Button
+            type="primary"
             icon={<QuestionCircleOutlined />}
             onClick={() => void setActiveTabKey(TabKey.Help)}
           >
@@ -667,12 +684,8 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
           </Form>
         </Spin>
       </Flex>
-      <ShareModal
-        title="Share your color set"
-        open={isShareModalOpen}
-        setOpen={setIsShareModalOpen}
-        url={shareColorSetUrl}
-      />
+      <QRScannerModal open={isQRScannerModalOpen} setOpen={setIsQRScannerModalOpen} />
+      <ShareModal open={isShareModalOpen} setOpen={setIsShareModalOpen} url={shareColorSetUrl} />
     </>
   );
 });

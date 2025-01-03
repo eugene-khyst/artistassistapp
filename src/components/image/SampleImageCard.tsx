@@ -17,7 +17,6 @@
  */
 
 import {Card} from 'antd';
-import type {Dispatch, SetStateAction} from 'react';
 
 import {blobToImageFile} from '~/src/services/image';
 import {useAppStore} from '~/src/stores/app-store';
@@ -26,7 +25,7 @@ interface Props {
   image: string | URL;
   thumbnail?: string | URL;
   name: string;
-  setLoadingCount: Dispatch<SetStateAction<number>>;
+  setLoadingCount: (value: (prevCount: number) => number) => void;
 }
 
 export const SampleImageCard: React.FC<Props> = ({

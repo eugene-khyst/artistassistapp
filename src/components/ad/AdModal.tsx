@@ -18,7 +18,7 @@
 
 import {CloseOutlined} from '@ant-design/icons';
 import {Button, Modal} from 'antd';
-import {type Dispatch, type SetStateAction, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import {Ad} from '~/src/components/ad/Ad';
 import {useAds} from '~/src/hooks';
@@ -31,7 +31,7 @@ const CLOSE_SECONDS = 5;
 
 interface Props {
   open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
+  setOpen: (open: boolean) => void;
 }
 
 export const AdModal: React.FC<Props> = ({open, setOpen}: Props) => {
