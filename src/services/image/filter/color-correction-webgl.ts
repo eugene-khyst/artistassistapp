@@ -17,7 +17,7 @@
  */
 
 import {kelvinToRgb} from '~/src/services/color';
-import type {AdjustmentParameters} from '~/src/services/image/filter/adjust-colors';
+import type {AdjustmentParameters} from '~/src/services/image/color-correction';
 import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
 import {copyOffscreenCanvas} from '~/src/utils';
 
@@ -37,10 +37,8 @@ export function adjustColorsWebGL(
     targetTemperature = 6500,
   }: AdjustmentParameters
 ): ImageBitmap {
-  const {width, height} = image;
-  const renderer = new WebGLRenderer(fragmentShaderSource, width, height);
+  const renderer = new WebGLRenderer(fragmentShaderSource, image);
   const {canvas, gl, program} = renderer;
-  renderer.createTexture(image);
 
   const maxValuesLocation = gl.getUniformLocation(program, 'u_invMaxValues');
   const saturationLocation = gl.getUniformLocation(program, 'u_saturation');

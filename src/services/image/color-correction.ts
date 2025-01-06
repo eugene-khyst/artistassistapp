@@ -16,48 +16,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {transfer} from 'comlink';
+import {adjustColorsWebGL} from '~/src/services/image/filter/color-correction-webgl';
 
-import type {AdjustmentParameters} from '~/src/services/image/filter/adjust-colors';
-import {
-  adjustColors,
-  calculatePercentiles,
-  sortRgbChannels,
-} from '~/src/services/image/filter/adjust-colors';
-import {adjustColorsWebGL} from '~/src/services/image/filter/adjust-colors-webgl';
-import {createScaledImageBitmap, IMAGE_SIZE, imageBitmapToImageData} from '~/src/utils';
-
-interface Result {
-  adjustedImage: ImageBitmap | null;
+export interface AdjustmentParameters {
+  saturation: number;
+  inputLow: number;
+  inputHigh: number;
+  gamma: number;
+  outputLow: number;
+  outputHigh: number;
+  origTemperature: number;
+  targetTemperature: number;
 }
 
 export class ColorCorrection {
-  image: ImageBitmap | null = null;
-  sortedRgbChannels: Uint8ClampedArray[] = [];
-
-  async setImage(blob: Blob): Promise<ImageBitmap> {
-    this.image = await createScaledImageBitmap(blob, IMAGE_SIZE['2K']);
-    const [imageData] = imageBitmapToImageData(this.image);
-    console.time('sort-rgb-channels');
-    this.sortedRgbChannels = sortRgbChannels(imageData);
-    console.timeEnd('sort-rgb-channels');
-    return this.image;
-  }
-
-  getAdjustedImage(whitePatchPercentile: number, adjustmentParams: AdjustmentParameters): Result {
-    if (!this.image || !this.sortedRgbChannels.length) {
-      return {adjustedImage: null};
-    }
+  getAdjustedImage(
+    image: ImageBitmap,
+    maxValues: number[],
+    adjustmentParams: AdjustmentParameters
+  ): ImageBitmap {
     console.time('color-correction');
-    const maxValues = calculatePercentiles(this.sortedRgbChannels, whitePatchPercentile);
-    let adjustedImage: ImageBitmap;
-    try {
-      adjustedImage = adjustColorsWebGL(this.image, maxValues, adjustmentParams);
-    } catch (e) {
-      console.error(e);
-      adjustedImage = adjustColors(this.image, maxValues, adjustmentParams);
-    }
+    const adjustedImage: ImageBitmap = adjustColorsWebGL(image, maxValues, adjustmentParams);
     console.timeEnd('color-correction');
-    return transfer({adjustedImage}, [adjustedImage]);
+    return adjustedImage;
   }
 }

@@ -16,33 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {transfer} from 'comlink';
-
-import {thresholdFilter} from '~/src/services/image/filter/threshold';
 import {thresholdFilterWebGL} from '~/src/services/image/filter/threshold-webgl';
 import {createScaledImageBitmap, IMAGE_SIZE} from '~/src/utils';
-
-interface Result {
-  tones: ImageBitmap[];
-}
 
 export class TonalValues {
   async getTones(
     blob: Blob,
     thresholds: [number, number, number] = [0.825, 0.6, 0.35]
-  ): Promise<Result> {
+  ): Promise<ImageBitmap[]> {
     console.time('tones');
     const image: ImageBitmap = await createScaledImageBitmap(blob, IMAGE_SIZE.HD);
     thresholds.sort((a: number, b: number) => b - a);
-    let tones: ImageBitmap[];
-    try {
-      tones = thresholdFilterWebGL(image, thresholds);
-    } catch (e) {
-      console.error(e);
-      tones = thresholdFilter(image, thresholds);
-    }
+    const tones: ImageBitmap[] = thresholdFilterWebGL(image, thresholds);
     image.close();
     console.timeEnd('tones');
-    return transfer({tones}, tones);
+    return tones;
   }
 }

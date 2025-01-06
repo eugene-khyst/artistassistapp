@@ -31,7 +31,7 @@ import {
 
 import {medianCutQuantization} from './filter/median-cut';
 
-const QUANTIZATION_DEPTH = 11;
+const QUANTIZATION_DEPTH = 8;
 
 interface Result {
   preview: ImageBitmap;

@@ -22,10 +22,8 @@ import {copyOffscreenCanvas} from '~/src/utils';
 import fragmentShaderSource from './glsl/kuwahara-filter.glsl';
 
 export function kuwaharaFilterWebGL(image: ImageBitmap, radiuses: number[]): ImageBitmap[] {
-  const {width, height} = image;
-  const renderer = new WebGLRenderer(fragmentShaderSource, width, height);
+  const renderer = new WebGLRenderer(fragmentShaderSource, image);
   const {canvas, gl, program} = renderer;
-  renderer.createTexture(image);
 
   const texelSizeLocation = gl.getUniformLocation(program, 'u_texelSize');
   const radiusLocation = gl.getUniformLocation(program, 'u_radius');

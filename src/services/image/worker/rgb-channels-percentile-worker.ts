@@ -20,6 +20,6 @@
 
 import * as Comlink from 'comlink';
 
-import {ColorCorrection} from '..';
+import {RgbChannelsPercentileCalculator} from '~/src/services/image/rgb-channels-percentile';
 
-Comlink.expose(new ColorCorrection());
+Comlink.expose(new RgbChannelsPercentileCalculator());

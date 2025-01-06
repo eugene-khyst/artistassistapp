@@ -59,7 +59,7 @@ export class GridCanvas extends ZoomableImageCanvas {
 
   protected override onImagesLoaded(): void {
     console.time('invert-colors');
-    this.invertedImages = this.images.map((image: ImageBitmap): OffscreenCanvas => {
+    this.invertedImages = this.images.map((image: ImageBitmap): ImageBitmap => {
       return invertColors(image);
     });
     console.timeEnd('invert-colors');

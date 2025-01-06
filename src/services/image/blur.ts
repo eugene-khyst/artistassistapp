@@ -16,29 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {transfer} from 'comlink';
-
 import {kuwaharaFilterWebGL} from '~/src/services/image/filter/kuwahara-filter-webgl';
-import {medianFilterBulk} from '~/src/services/image/filter/median-filter';
 import {createScaledImageBitmap, IMAGE_SIZE} from '~/src/utils';
 
-interface Result {
-  blurred: ImageBitmap[];
-}
-
 export class Blur {
-  async getBlurred(blob: Blob): Promise<Result> {
+  async getBlurred(blob: Blob): Promise<ImageBitmap[]> {
     console.time('blur');
     const image: ImageBitmap = await createScaledImageBitmap(blob, IMAGE_SIZE.HD);
-    let blurred: ImageBitmap[];
-    try {
-      blurred = kuwaharaFilterWebGL(image, [2, 3, 4]);
-    } catch (e) {
-      console.error(e);
-      blurred = medianFilterBulk(image, [1, 2, 3]);
-    }
+    let blurred: ImageBitmap[] = kuwaharaFilterWebGL(image, [2, 3, 4]);
     blurred = [image, ...blurred];
     console.timeEnd('blur');
-    return transfer({blurred}, blurred);
+    return blurred;
   }
 }

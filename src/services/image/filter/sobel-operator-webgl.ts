@@ -22,13 +22,12 @@ import {copyOffscreenCanvas} from '~/src/utils';
 import fragmentShaderSource from './glsl/sobel-operator.glsl';
 
 export function sobelEdgeDetectionWebGL(image: ImageBitmap): ImageBitmap {
-  const {width, height} = image;
-  const renderer = new WebGLRenderer(fragmentShaderSource, width, height);
+  const renderer = new WebGLRenderer(fragmentShaderSource, image);
   const {canvas, gl, program} = renderer;
-  renderer.createTexture(image);
 
   const texelSizeLocation = gl.getUniformLocation(program, 'u_texelSize');
-  gl.uniform2f(texelSizeLocation, 1.0 / image.width, 1.0 / image.height);
+  const {width, height} = image;
+  gl.uniform2f(texelSizeLocation, 1.0 / width, 1.0 / height);
 
   renderer.draw();
   const resultImage = copyOffscreenCanvas(canvas).transferToImageBitmap();

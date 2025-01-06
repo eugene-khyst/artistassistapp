@@ -62,16 +62,10 @@ import {
   getCustomColorBrands,
   saveCustomColorBrand,
 } from '~/src/services/db/custom-brand-db';
-import {
-  type Blur,
-  type ColorCorrection,
-  type ImageFile,
-  imageFileToFile,
-  type LimitedPalette,
-  type Outline,
-  type TonalValues,
-} from '~/src/services/image';
-import type {AdjustmentParameters} from '~/src/services/image/filter/adjust-colors';
+import type {AdjustmentParameters, ImageFile, LimitedPalette} from '~/src/services/image';
+import {Blur, ColorCorrection, Outline, TonalValues} from '~/src/services/image';
+import {imageFileToFile} from '~/src/services/image';
+import type {RgbChannelsPercentileCalculator} from '~/src/services/image/rgb-channels-percentile';
 import type {Game, Player, Score} from '~/src/services/rating';
 import {Tournament} from '~/src/services/rating';
 import type {AppSettings} from '~/src/services/settings';
@@ -85,23 +79,11 @@ const colorMixer: Remote<ColorMixer> = wrap(
   })
 );
 
-const tonalValues: Remote<TonalValues> = wrap(
-  new Worker(new URL('../services/image/worker/tonal-values-worker.ts', import.meta.url), {
-    type: 'module',
-  })
-);
+const tonalValues: TonalValues = new TonalValues();
 
-const blur: Remote<Blur> = wrap(
-  new Worker(new URL('../services/image/worker/blur-worker.ts', import.meta.url), {
-    type: 'module',
-  })
-);
+const blur: Blur = new Blur();
 
-const outline: Remote<Outline> = wrap(
-  new Worker(new URL('../services/image/worker/outline-worker.ts', import.meta.url), {
-    type: 'module',
-  })
-);
+const outline: Outline = new Outline();
 
 const limitedPalette: Remote<LimitedPalette> = wrap(
   new Worker(new URL('../services/image/worker/limited-palette-worker.ts', import.meta.url), {
@@ -109,11 +91,16 @@ const limitedPalette: Remote<LimitedPalette> = wrap(
   })
 );
 
-const colorCorrection: Remote<ColorCorrection> = wrap(
-  new Worker(new URL('../services/image/worker/color-correction-worker.ts', import.meta.url), {
-    type: 'module',
-  })
+const rgbChannelsPercentileCalculator: Remote<RgbChannelsPercentileCalculator> = wrap(
+  new Worker(
+    new URL('../services/image/worker/rgb-channels-percentile-worker.ts', import.meta.url),
+    {
+      type: 'module',
+    }
+  )
 );
+
+const colorCorrection: ColorCorrection = new ColorCorrection();
 
 export interface AppState {
   activeTabKey: TabKey;
@@ -485,7 +472,7 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     set({
       isTonalImagesLoading: true,
     });
-    const {tones: newTonalImages} = await tonalValues.getTones(originalImageFile);
+    const newTonalImages = await tonalValues.getTones(originalImageFile);
     set({
       tonalImages: newTonalImages,
       isTonalImagesLoading: false,
@@ -500,7 +487,7 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     set({
       isBlurredImagesLoading: true,
     });
-    const {blurred: newBlurredImages} = await blur.getBlurred(originalImageFile);
+    const newBlurredImages = await blur.getBlurred(originalImageFile);
     set({
       blurredImages: newBlurredImages,
       isBlurredImagesLoading: false,
@@ -515,7 +502,7 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     set({
       isOutlineImageLoading: true,
     });
-    const {outline: newOutlineImage} = await outline.getOutline(originalImageFile);
+    const newOutlineImage = await outline.getOutline(originalImageFile);
     set({
       outlineImage: newOutlineImage,
       isOutlineImageLoading: false,
@@ -542,7 +529,7 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     const {unadjustedImage: prev} = get();
     let unadjustedImage: ImageBitmap | null = null;
     if (imageFileToAdjust) {
-      unadjustedImage = await colorCorrection.setImage(imageFileToAdjust);
+      unadjustedImage = await rgbChannelsPercentileCalculator.setImage(imageFileToAdjust);
     }
     set({
       imageFileToAdjust,
@@ -554,15 +541,18 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     whitePatchPercentile: number,
     adjustmentParams: AdjustmentParameters
   ): Promise<void> => {
-    const {imageFileToAdjust, adjustedImage: prev} = get();
-    if (!imageFileToAdjust) {
+    const {unadjustedImage, adjustedImage: prev} = get();
+    if (!unadjustedImage) {
       return;
     }
     set({
       isAdjustedImageLoading: true,
     });
-    const {adjustedImage} = await colorCorrection.getAdjustedImage(
-      whitePatchPercentile,
+    const maxValues =
+      await rgbChannelsPercentileCalculator.calculatePercentiles(whitePatchPercentile);
+    const adjustedImage = colorCorrection.getAdjustedImage(
+      unadjustedImage,
+      maxValues,
       adjustmentParams
     );
     set({
@@ -638,6 +628,12 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     if (importedColorSet) {
       activeTabKey = TabKey.ColorSet;
     }
+
+    const imageFile: ImageFile | undefined = await getLastImageFile();
+    if (imageFile) {
+      await get().setImageFile(imageFile, false);
+    }
+
     if (activeTabKey) {
       void get().setActiveTabKey(activeTabKey);
     }
@@ -645,7 +641,6 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     const latestColorSet: ColorSetDefinition | null =
       (!importedColorSet && (await getLastColorSet())) || null;
     const recentImageFiles: ImageFile[] = await getImageFiles();
-    const imageFile: ImageFile | undefined = await getLastImageFile();
     const paletteColorMixtures: ColorMixture[] = await getColorMixtures(imageFile?.id);
 
     set({
@@ -678,10 +673,6 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
       if (colorSet) {
         void get().setColorSet(colorSet, false);
       }
-    }
-
-    if (imageFile) {
-      void get().setImageFile(imageFile, false);
     }
   },
 }));

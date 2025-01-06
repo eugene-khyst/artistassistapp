@@ -16,17 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {THRESHOLD_VALUES} from '~/src/services/image/filter/threshold';
 import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
 import {copyOffscreenCanvas} from '~/src/utils';
 
 import fragmentShaderSource from './glsl/threshold.glsl';
 
+export const THRESHOLD_VALUES: number[] = [2 / 3, 1 / 3, 0];
+
 export function thresholdFilterWebGL(image: ImageBitmap, thresholds: number[]): ImageBitmap[] {
-  const {width, height} = image;
-  const renderer = new WebGLRenderer(fragmentShaderSource, width, height);
+  const renderer = new WebGLRenderer(fragmentShaderSource, image);
   const {canvas, gl, program} = renderer;
-  renderer.createTexture(image);
 
   const thresholdsLocation = gl.getUniformLocation(program, 'u_thresholds');
   const colorsLocation = gl.getUniformLocation(program, 'u_values');

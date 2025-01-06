@@ -27,11 +27,8 @@ export class WebGLRenderer {
   buffers: (WebGLBuffer | null)[] = [];
   textures: (WebGLTexture | null)[] = [];
 
-  constructor(
-    fragmentShaderSource: string,
-    public width: number,
-    public height: number
-  ) {
+  constructor(fragmentShaderSource: string, image: ImageBitmap) {
+    const {width, height} = image;
     this.canvas = new OffscreenCanvas(width, height);
     const gl = this.canvas.getContext('webgl2', {antialias: false});
     if (!gl) {
@@ -59,6 +56,8 @@ export class WebGLRenderer {
 
     const textureLocation = gl.getUniformLocation(this.program, 'u_texture');
     gl.uniform1i(textureLocation, 0);
+
+    this.createTexture(image);
   }
 
   private compileShader(type: GLenum, source: string) {
@@ -101,7 +100,10 @@ export class WebGLRenderer {
   }
 
   createTexture(source: TexImageSource) {
-    const {gl, width, height} = this;
+    const {
+      gl,
+      canvas: {width, height},
+    } = this;
     const texture = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, texture);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);

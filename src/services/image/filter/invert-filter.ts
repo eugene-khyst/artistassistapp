@@ -18,7 +18,7 @@
 
 import {imageBitmapToImageData} from '~/src/utils';
 
-export function invertColors(image: ImageBitmap): OffscreenCanvas {
+export function invertColors(image: ImageBitmap): ImageBitmap {
   const [imageData, canvas, ctx] = imageBitmapToImageData(image);
   const {data} = imageData;
   for (let i = 0; i < data.length; i += 4) {
@@ -27,5 +27,5 @@ export function invertColors(image: ImageBitmap): OffscreenCanvas {
     }
   }
   ctx.putImageData(imageData, 0, 0);
-  return canvas;
+  return canvas.transferToImageBitmap();
 }

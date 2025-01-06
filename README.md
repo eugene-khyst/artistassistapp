@@ -132,7 +132,7 @@ ArtistAssistApp does not use artificial intelligence (AI), but rather mathematic
 The web app doesn't depend on any math or color library and includes the implementation of the
 following:
 
-- conversion between color models (e.g. sRGB to Oklab),
+- sRGB to Oklab (WebGL),
 - sRGB to spectral reflectance,
 - subtractive color mixing using Kubelka-Munk theory,
 - matrix operations,
@@ -142,14 +142,15 @@ following:
 - calculation of color similarity by comparing spectral reflections (Euclidean distance and cosine
   similarity)
 - vector operations,
-- threshold filter based on perceived lightness (2D Canvas and WebGL),
-- median blur filter using sliding window and histogram (2D Canvas),
+- threshold filter based on perceived lightness (WebGL),
 - Kuwahara blur filter (WebGL),
-- Sobel operator for edge detection (2D Canvas and WebGL),
-- median cut for color quantization (2D Canvas and WebGL),
-- adjusting white balance with white patch algorithm (2D Canvas and WebGL),
-- adjusting saturation (2D Canvas and WebGL),
-- invert colors filter (2D Canvas and WebGL),
+- Sobel operator for edge detection (WebGL),
+- median cut for color quantization,
+- adjusting white balance with white patch algorithm (WebGL),
+- adjusting saturation (WebGL),
+- adjusting color levels (WebGL),
+- adjusting color temperature (WebGL),
+- invert colors filter,
 - ranking images using pairwise comparison and Elo rating system,
 - and more.
 

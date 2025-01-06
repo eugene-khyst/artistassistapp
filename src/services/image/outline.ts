@@ -16,29 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {transfer} from 'comlink';
-
-import {sobelEdgeDetection} from '~/src/services/image/filter/sobel-operator';
 import {sobelEdgeDetectionWebGL} from '~/src/services/image/filter/sobel-operator-webgl';
 import {createScaledImageBitmap, IMAGE_SIZE} from '~/src/utils';
 
-interface Result {
-  outline: ImageBitmap;
-}
-
 export class Outline {
-  async getOutline(blob: Blob): Promise<Result> {
+  async getOutline(blob: Blob): Promise<ImageBitmap> {
     console.time('outline');
     const image: ImageBitmap = await createScaledImageBitmap(blob, IMAGE_SIZE['2K']);
-    let outline: ImageBitmap;
-    try {
-      outline = sobelEdgeDetectionWebGL(image);
-    } catch (e) {
-      console.error(e);
-      outline = sobelEdgeDetection(image);
-    }
+    const outline: ImageBitmap = sobelEdgeDetectionWebGL(image);
     image.close();
     console.timeEnd('outline');
-    return transfer({outline}, [outline]);
+    return outline;
   }
 }

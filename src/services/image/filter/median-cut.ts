@@ -50,7 +50,7 @@ function medianCut(
   const maximumValue: RgbTuple = [0, 0, 0];
   for (const i of indexes) {
     const rgb = [data[i]!, data[i + 1]!, data[i + 2]!];
-    for (let channel = 0; channel <= 2; channel++) {
+    for (let channel = 0; channel < 3; channel++) {
       const value = rgb[channel]!;
       if (value < minimumValue[channel]!) {
         minimumValue[channel] = value;
@@ -84,12 +84,12 @@ function quantize(
 ): void {
   const total: RgbTuple = [0, 0, 0];
   for (const i of indexes) {
-    for (let channel = 0; channel <= 2; channel++) {
+    for (let channel = 0; channel < 3; channel++) {
       total[channel]! += linearizeRgbChannel(data[i + channel]!);
     }
   }
   const mean: RgbTuple = [0, 0, 0];
-  for (let channel = 0; channel <= 2; channel++) {
+  for (let channel = 0; channel < 3; channel++) {
     mean[channel] = unlinearizeRgbChannel(total[channel]! / indexes.length);
   }
   const [r, g, b] = transformMean(mean);

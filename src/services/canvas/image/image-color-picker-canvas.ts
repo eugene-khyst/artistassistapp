@@ -187,7 +187,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
         for (let x = 0; x < diameter; x++) {
           if ((x - radius) ** 2 + (y - radius) ** 2 <= radiusSq) {
             const color: number[] = getRgbaForCoord(data, x, y, width);
-            for (let channel = 0; channel <= 2; channel++) {
+            for (let channel = 0; channel < 3; channel++) {
               total[channel]! += linearizeRgbChannel(color[channel]!);
             }
             count++;
@@ -195,7 +195,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
         }
       }
       const mean: RgbTuple = [0, 0, 0];
-      for (let channel = 0; channel <= 2; channel++) {
+      for (let channel = 0; channel < 3; channel++) {
         mean[channel] = unlinearizeRgbChannel(total[channel]! / count);
       }
       return new Rgb(...mean);

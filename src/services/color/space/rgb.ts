@@ -18,7 +18,6 @@
 
 import {clamp} from '~/src/services/math';
 
-import {Oklab} from './oklab';
 import {Reflectance} from './reflectance';
 
 const HEX_MATCHER = /^#?([0-9a-f]{3,6})$/i;
@@ -95,10 +94,6 @@ export class Rgb {
     return (
       (hashSymbol ? '#' : '') + channelToHex(this.r) + channelToHex(this.g) + channelToHex(this.b)
     );
-  }
-
-  toOklab(): Oklab {
-    return Oklab.fromRgb(this);
   }
 
   toReflectance(): Reflectance {
