@@ -22,8 +22,7 @@ import {useContext} from 'react';
 import {AdCard} from '~/src/components/ad/AdCard';
 import {TabContext} from '~/src/contexts/TabContext';
 import {useAppStore} from '~/src/stores/app-store';
-import {TabKey} from '~/src/tabs';
-import {TAB_LABELS} from '~/src/tabs';
+import {TAB_LABELS, TabKey} from '~/src/tabs';
 
 interface Props {
   feature: string;

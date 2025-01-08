@@ -43,7 +43,7 @@ export async function fetchSWR(request: string | URL | Request): Promise<Respons
       const networkResponse = await fetch(request, {
         signal: AbortSignal.timeout(10000),
       });
-      void cache.put(request, networkResponse.clone());
+      await cache.put(request, networkResponse.clone());
       return networkResponse;
     } catch (error) {
       return errorResponse(error);

@@ -31,7 +31,7 @@ import {
 
 import {medianCutQuantization} from './filter/median-cut';
 
-const QUANTIZATION_DEPTH = 8;
+const QUANTIZATION_DEPTH = 9;
 
 interface Result {
   preview: ImageBitmap;
@@ -48,7 +48,7 @@ export class LimitedPalette {
     image.close();
     const similarColors = new Map<number, RgbTuple>();
     medianCutQuantization(imageData, QUANTIZATION_DEPTH, (mean: RgbTuple): RgbTuple => {
-      return computeIfAbsentInMap(similarColors, rgbToNumber(...mean), () => {
+      return computeIfAbsentInMap(similarColors, rgbToNumber(mean), () => {
         const similarColor = colorMixer.findSimilarColor(mean);
         return similarColor?.colorMixture.layerRgb ?? Rgb.WHITE.toRgbTuple();
       });

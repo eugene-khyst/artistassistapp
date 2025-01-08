@@ -222,241 +222,239 @@ export const ImageColorCorrection: React.FC = () => {
   const margin = screens.sm ? 0 : 8;
 
   return (
-    <>
-      <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">
-        <Row>
-          {unadjustedImage && (
-            <Col xs={24} sm={12} lg={16}>
-              <canvas
-                ref={canvasRef}
-                style={{
-                  width: '100%',
-                  height,
-                  marginBottom: margin,
-                }}
-              />
-            </Col>
-          )}
-          <Col
-            xs={24}
-            sm={12}
-            lg={8}
-            style={{
-              maxHeight: height,
-              marginTop: margin,
-              overflowY: 'auto',
-            }}
-          >
-            <Space direction="vertical" style={{display: 'flex', padding: '0 16px 16px'}}>
-              {!unadjustedImage && (
-                <Typography.Text strong>
-                  Select a photo to adjust white balance and saturation
-                </Typography.Text>
-              )}
-
-              <Space>
-                <FileSelect onChange={handleFileChange}>Select photo</FileSelect>
-                {unadjustedImage && (
-                  <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
-                    Save
-                  </Button>
-                )}
-              </Space>
-
-              {unadjustedImage && (
-                <>
-                  <Space>
-                    <Button
-                      size="small"
-                      icon={<PictureOutlined />}
-                      onClick={() => void handleSetAsReferenceClick()}
-                    >
-                      Set as reference
-                    </Button>
-                    <Button
-                      size="small"
-                      icon={<ScissorOutlined />}
-                      onClick={() => void handleRemoveBgClick()}
-                    >
-                      Remove background
-                    </Button>
-                  </Space>
-
-                  <Form.Item label="Preview" tooltip="" style={{marginBottom: 0}}>
-                    <Checkbox checked={isPreview} onChange={handlePreviewChange} />
-                  </Form.Item>
-
-                  <Form.Item
-                    layout="vertical"
-                    label="White patch (%ile)"
-                    tooltip="Smaller percentile values correspond to stronger whitening"
-                    style={{marginBottom: 0}}
-                  >
-                    <Slider
-                      value={percentile}
-                      onChange={(value: number) => {
-                        setPercentile(value);
-                      }}
-                      min={PERCENTILE_MIN}
-                      max={PERCENTILE_MAX}
-                      marks={PERCENTILE_SLIDER_MARKS}
-                    />
-                  </Form.Item>
-
-                  <Form.Item
-                    layout="vertical"
-                    label="Saturation (%)"
-                    tooltip="A value less than 100% desaturates the image, and a value greater than 100% over-saturates it"
-                    style={{marginBottom: 0}}
-                  >
-                    <Slider
-                      value={saturation}
-                      onChange={(value: number) => {
-                        setSaturation(value);
-                      }}
-                      min={SATURATION_MIN}
-                      max={SATURATION_MAX}
-                      marks={SATURATION_SLIDER_MARKS}
-                    />
-                  </Form.Item>
-
-                  <Form.Item
-                    layout="vertical"
-                    label="Shadows and highlights"
-                    tooltip="Low input and high input"
-                    style={{marginBottom: 0}}
-                  >
-                    <Slider
-                      range
-                      value={inputLevels}
-                      onChange={(value: number[]) => {
-                        setInputLevels(value);
-                      }}
-                      min={RGB_MIN}
-                      max={RGB_MAX}
-                      marks={RGB_SLIDER_MARKS}
-                      styles={{
-                        track: {
-                          background: 'transparent',
-                        },
-                        tracks: {
-                          background: gammaGradient(inputLevels[0]!, inputLevels[1]!, gamma),
-                        },
-                      }}
-                    />
-                  </Form.Item>
-
-                  <Form.Item
-                    layout="vertical"
-                    label="Midtones"
-                    tooltip="Gamma"
-                    style={{marginBottom: 0}}
-                  >
-                    <Slider
-                      value={gammaPercent}
-                      onChange={(value: number) => {
-                        setGammaPercent(value);
-                      }}
-                      min={GAMMA_MIN}
-                      max={GAMMA_MAX}
-                      marks={GAMMA_SLIDER_MARKS}
-                      step={2}
-                      tooltip={{
-                        formatter: value => percentToGamma(value!).toFixed(2),
-                      }}
-                    />
-                  </Form.Item>
-
-                  <Form.Item
-                    layout="vertical"
-                    label="Output levels"
-                    tooltip="Low output and high output"
-                    style={{marginBottom: 0}}
-                  >
-                    <Slider
-                      range
-                      value={outputLevels}
-                      onChange={(value: number[]) => {
-                        setOutputLevels(value);
-                      }}
-                      min={RGB_MIN}
-                      max={RGB_MAX}
-                      marks={RGB_SLIDER_MARKS}
-                      styles={{
-                        track: {
-                          background: 'transparent',
-                        },
-                        tracks: {
-                          background: levelsGradient(outputLevels[0]!, outputLevels[1]!),
-                        },
-                      }}
-                    />
-                  </Form.Item>
-
-                  <Form.Item
-                    layout="vertical"
-                    label="Original color temperature (K)"
-                    tooltip="Estimated temperature of the light source in Kelvin the image was taken with"
-                    style={{marginBottom: 0}}
-                  >
-                    <Slider
-                      value={origTemp}
-                      onChange={(value: number) => {
-                        setOrigTemp(value);
-                      }}
-                      min={COLOR_TEMP_MIN}
-                      max={COLOR_TEMP_MAX}
-                      marks={COLOR_TEMP_SLIDER_MARKS}
-                      step={COLOR_TEMP_STEP}
-                      styles={{
-                        track: {
-                          background: 'transparent',
-                        },
-                        tracks: {
-                          background: 'transparent',
-                        },
-                        rail: {
-                          background: kelvinGradient(COLOR_TEMP_MIN, COLOR_TEMP_MAX),
-                        },
-                      }}
-                    />
-                  </Form.Item>
-
-                  <Form.Item
-                    layout="vertical"
-                    label="Intended color temperature (K)"
-                    tooltip="Corrected estimation of the temperature of the light source in Kelvin"
-                    style={{marginBottom: 0}}
-                  >
-                    <Slider
-                      value={targetTemp}
-                      onChange={(value: number) => {
-                        setTargetTemp(value);
-                      }}
-                      min={COLOR_TEMP_MIN}
-                      max={COLOR_TEMP_MAX}
-                      marks={COLOR_TEMP_SLIDER_MARKS}
-                      step={COLOR_TEMP_STEP}
-                      styles={{
-                        track: {
-                          background: 'transparent',
-                        },
-                        tracks: {
-                          background: 'transparent',
-                        },
-                        rail: {
-                          background: kelvinGradient(COLOR_TEMP_MIN, COLOR_TEMP_MAX),
-                        },
-                      }}
-                    />
-                  </Form.Item>
-                </>
-              )}
-              <AdCard vertical />
-            </Space>
+    <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">
+      <Row>
+        {unadjustedImage && (
+          <Col xs={24} sm={12} lg={16}>
+            <canvas
+              ref={canvasRef}
+              style={{
+                width: '100%',
+                height,
+                marginBottom: margin,
+              }}
+            />
           </Col>
-        </Row>
-      </Spin>
-    </>
+        )}
+        <Col
+          xs={24}
+          sm={12}
+          lg={8}
+          style={{
+            maxHeight: height,
+            marginTop: margin,
+            overflowY: 'auto',
+          }}
+        >
+          <Space direction="vertical" style={{display: 'flex', padding: '0 16px 16px'}}>
+            {!unadjustedImage && (
+              <Typography.Text strong>
+                Select a photo to adjust white balance and saturation
+              </Typography.Text>
+            )}
+
+            <Space>
+              <FileSelect onChange={handleFileChange}>Select photo</FileSelect>
+              {unadjustedImage && (
+                <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
+                  Save
+                </Button>
+              )}
+            </Space>
+
+            {unadjustedImage && (
+              <>
+                <Space>
+                  <Button
+                    size="small"
+                    icon={<PictureOutlined />}
+                    onClick={() => void handleSetAsReferenceClick()}
+                  >
+                    Set as reference
+                  </Button>
+                  <Button
+                    size="small"
+                    icon={<ScissorOutlined />}
+                    onClick={() => void handleRemoveBgClick()}
+                  >
+                    Remove background
+                  </Button>
+                </Space>
+
+                <Form.Item label="Preview" tooltip="" style={{marginBottom: 0}}>
+                  <Checkbox checked={isPreview} onChange={handlePreviewChange} />
+                </Form.Item>
+
+                <Form.Item
+                  layout="vertical"
+                  label="White patch (%ile)"
+                  tooltip="Smaller percentile values correspond to stronger whitening"
+                  style={{marginBottom: 0}}
+                >
+                  <Slider
+                    value={percentile}
+                    onChange={(value: number) => {
+                      setPercentile(value);
+                    }}
+                    min={PERCENTILE_MIN}
+                    max={PERCENTILE_MAX}
+                    marks={PERCENTILE_SLIDER_MARKS}
+                  />
+                </Form.Item>
+
+                <Form.Item
+                  layout="vertical"
+                  label="Saturation (%)"
+                  tooltip="A value less than 100% desaturates the image, and a value greater than 100% over-saturates it"
+                  style={{marginBottom: 0}}
+                >
+                  <Slider
+                    value={saturation}
+                    onChange={(value: number) => {
+                      setSaturation(value);
+                    }}
+                    min={SATURATION_MIN}
+                    max={SATURATION_MAX}
+                    marks={SATURATION_SLIDER_MARKS}
+                  />
+                </Form.Item>
+
+                <Form.Item
+                  layout="vertical"
+                  label="Shadows and highlights"
+                  tooltip="Low input and high input"
+                  style={{marginBottom: 0}}
+                >
+                  <Slider
+                    range
+                    value={inputLevels}
+                    onChange={(value: number[]) => {
+                      setInputLevels(value);
+                    }}
+                    min={RGB_MIN}
+                    max={RGB_MAX}
+                    marks={RGB_SLIDER_MARKS}
+                    styles={{
+                      track: {
+                        background: 'transparent',
+                      },
+                      tracks: {
+                        background: gammaGradient(inputLevels[0]!, inputLevels[1]!, gamma),
+                      },
+                    }}
+                  />
+                </Form.Item>
+
+                <Form.Item
+                  layout="vertical"
+                  label="Midtones"
+                  tooltip="Gamma"
+                  style={{marginBottom: 0}}
+                >
+                  <Slider
+                    value={gammaPercent}
+                    onChange={(value: number) => {
+                      setGammaPercent(value);
+                    }}
+                    min={GAMMA_MIN}
+                    max={GAMMA_MAX}
+                    marks={GAMMA_SLIDER_MARKS}
+                    step={2}
+                    tooltip={{
+                      formatter: value => percentToGamma(value!).toFixed(2),
+                    }}
+                  />
+                </Form.Item>
+
+                <Form.Item
+                  layout="vertical"
+                  label="Output levels"
+                  tooltip="Low output and high output"
+                  style={{marginBottom: 0}}
+                >
+                  <Slider
+                    range
+                    value={outputLevels}
+                    onChange={(value: number[]) => {
+                      setOutputLevels(value);
+                    }}
+                    min={RGB_MIN}
+                    max={RGB_MAX}
+                    marks={RGB_SLIDER_MARKS}
+                    styles={{
+                      track: {
+                        background: 'transparent',
+                      },
+                      tracks: {
+                        background: levelsGradient(outputLevels[0]!, outputLevels[1]!),
+                      },
+                    }}
+                  />
+                </Form.Item>
+
+                <Form.Item
+                  layout="vertical"
+                  label="Original color temperature (K)"
+                  tooltip="Estimated temperature of the light source in Kelvin the image was taken with"
+                  style={{marginBottom: 0}}
+                >
+                  <Slider
+                    value={origTemp}
+                    onChange={(value: number) => {
+                      setOrigTemp(value);
+                    }}
+                    min={COLOR_TEMP_MIN}
+                    max={COLOR_TEMP_MAX}
+                    marks={COLOR_TEMP_SLIDER_MARKS}
+                    step={COLOR_TEMP_STEP}
+                    styles={{
+                      track: {
+                        background: 'transparent',
+                      },
+                      tracks: {
+                        background: 'transparent',
+                      },
+                      rail: {
+                        background: kelvinGradient(COLOR_TEMP_MIN, COLOR_TEMP_MAX),
+                      },
+                    }}
+                  />
+                </Form.Item>
+
+                <Form.Item
+                  layout="vertical"
+                  label="Intended color temperature (K)"
+                  tooltip="Corrected estimation of the temperature of the light source in Kelvin"
+                  style={{marginBottom: 0}}
+                >
+                  <Slider
+                    value={targetTemp}
+                    onChange={(value: number) => {
+                      setTargetTemp(value);
+                    }}
+                    min={COLOR_TEMP_MIN}
+                    max={COLOR_TEMP_MAX}
+                    marks={COLOR_TEMP_SLIDER_MARKS}
+                    step={COLOR_TEMP_STEP}
+                    styles={{
+                      track: {
+                        background: 'transparent',
+                      },
+                      tracks: {
+                        background: 'transparent',
+                      },
+                      rail: {
+                        background: kelvinGradient(COLOR_TEMP_MIN, COLOR_TEMP_MAX),
+                      },
+                    }}
+                  />
+                </Form.Item>
+              </>
+            )}
+            <AdCard vertical />
+          </Space>
+        </Col>
+      </Row>
+    </Spin>
   );
 };

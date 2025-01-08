@@ -44,9 +44,6 @@ export const BrowserSupport: React.FC<PropsWithChildren> = ({children}: PropsWit
   } = theme.useToken();
 
   if (!IS_BROWSER_SUPPORTED) {
-    const browserFeaturesListItems = Object.entries(BROWSER_FEATURES).map(
-      ([feature, isSupported]) => `${feature} ${isSupported ? '✔️' : '❗'}`
-    );
     return (
       <div style={{padding: 16}}>
         <Alert message={`Your web browser is not supported.`} type="error" showIcon />
@@ -112,8 +109,10 @@ export const BrowserSupport: React.FC<PropsWithChildren> = ({children}: PropsWit
         <Typography.Paragraph>{navigator.userAgent}</Typography.Paragraph>
         <Typography.Paragraph>
           <ul>
-            {browserFeaturesListItems.map((item, index) => (
-              <li key={index}>{item}</li>
+            {Object.entries(BROWSER_FEATURES).map(([feature, isSupported]) => (
+              <li key={feature}>
+                {feature} {isSupported ? '✔️' : '❗'}
+              </li>
             ))}
           </ul>
         </Typography.Paragraph>

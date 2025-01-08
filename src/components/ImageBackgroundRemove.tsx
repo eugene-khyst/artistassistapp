@@ -19,8 +19,8 @@
 import {DownloadOutlined} from '@ant-design/icons';
 import {Button, Flex, Space, Spin, Typography} from 'antd';
 import {saveAs} from 'file-saver';
-import type {CSSProperties} from 'react';
-import {type ChangeEvent, useEffect, useState} from 'react';
+import type {ChangeEvent, CSSProperties} from 'react';
+import {useEffect, useState} from 'react';
 import {ReactCompareSlider, ReactCompareSliderImage} from 'react-compare-slider';
 
 import {FileSelect} from '~/src/components/image/FileSelect';

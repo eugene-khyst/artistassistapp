@@ -206,7 +206,7 @@ export function getColorSetName(
       const colorSetSize = colors[brandId]!.length;
       return `${shortName ?? fullName} ${colorSetSize} ${colorSetSize > 1 ? 'colors' : 'color'}`;
     })
-    .filter(name => !!name)
+    .filter(Boolean)
     .join(', ');
 }
 

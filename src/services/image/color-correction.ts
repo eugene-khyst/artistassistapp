@@ -19,14 +19,14 @@
 import {adjustColorsWebGL} from '~/src/services/image/filter/color-correction-webgl';
 
 export interface AdjustmentParameters {
-  saturation: number;
-  inputLow: number;
-  inputHigh: number;
-  gamma: number;
-  outputLow: number;
-  outputHigh: number;
-  origTemperature: number;
-  targetTemperature: number;
+  saturation?: number;
+  inputLow?: number;
+  inputHigh?: number;
+  gamma?: number;
+  outputLow?: number;
+  outputHigh?: number;
+  origTemperature?: number;
+  targetTemperature?: number;
 }
 
 export class ColorCorrection {

@@ -20,8 +20,6 @@ import {clamp} from '~/src/services/math';
 
 import {Reflectance} from './reflectance';
 
-const HEX_MATCHER = /^#?([0-9a-f]{3,6})$/i;
-
 function channelToHex(value: number): string {
   const hex = value.toString(16);
   return hex.length < 2 ? '0' + hex : hex;
@@ -37,42 +35,51 @@ export function unlinearizeRgbChannel(value: number): number {
   return Math.round(255 * (v <= 0.0031308 ? 12.92 * v : 1.055 * Math.pow(v, 1 / 2.4) - 0.055));
 }
 
-export function rgbToNumber(r: number, g: number, b: number): number {
-  return (r << 16) + (g << 8) + b;
+export function rgbToNumber([r, g, b]: RgbTuple): number {
+  return (r! << 16) + (g! << 8) + b!;
 }
 
-export type RgbTuple = [r: number, g: number, b: number];
+export type RgbTuple = [r: number, g: number, b: number] | Uint8ClampedArray;
 
 export class Rgb {
-  static WHITE = new Rgb(255, 255, 255);
-  static BLACK = new Rgb(0, 0, 0);
+  private static readonly HEX_VALUES = new Uint8Array(128);
+  static {
+    '0123456789abcdef'.split('').forEach((char, i) => {
+      Rgb.HEX_VALUES[char.charCodeAt(0)] = i;
+      Rgb.HEX_VALUES[char.toUpperCase().charCodeAt(0)] = i;
+    });
+  }
+
+  static readonly WHITE = new Rgb(255, 255, 255);
+  static readonly BLACK = new Rgb(0, 0, 0);
 
   constructor(
-    public r: number,
-    public g: number,
-    public b: number
+    public readonly r: number,
+    public readonly g: number,
+    public readonly b: number
   ) {}
 
+  static fromTuple([r, g, b]: RgbTuple): Rgb {
+    return new Rgb(r!, g!, b!);
+  }
+
   static fromHex(hex: string): Rgb {
-    const hexMatchArray = HEX_MATCHER.exec(hex);
-    if (hexMatchArray !== null) {
-      const hexMatch: string = hexMatchArray[1]!;
-
-      if (hexMatch.length === 3) {
-        return new Rgb(
-          parseInt(hexMatch.charAt(0) + hexMatch.charAt(0), 16),
-          parseInt(hexMatch.charAt(1) + hexMatch.charAt(1), 16),
-          parseInt(hexMatch.charAt(2) + hexMatch.charAt(2), 16)
-        );
-      }
-
-      if (hexMatch.length === 6) {
-        return new Rgb(
-          parseInt(hexMatch.substring(0, 2), 16),
-          parseInt(hexMatch.substring(2, 4), 16),
-          parseInt(hexMatch.substring(4, 6), 16)
-        );
-      }
+    const offset = hex.charCodeAt(0) === 35 ? 1 : 0; // Remove # if present
+    const len = hex.length - offset;
+    if (len === 6) {
+      const h0 = Rgb.HEX_VALUES[hex.charCodeAt(offset)]!;
+      const h1 = Rgb.HEX_VALUES[hex.charCodeAt(offset + 1)]!;
+      const h2 = Rgb.HEX_VALUES[hex.charCodeAt(offset + 2)]!;
+      const h3 = Rgb.HEX_VALUES[hex.charCodeAt(offset + 3)]!;
+      const h4 = Rgb.HEX_VALUES[hex.charCodeAt(offset + 4)]!;
+      const h5 = Rgb.HEX_VALUES[hex.charCodeAt(offset + 5)]!;
+      return new Rgb((h0 << 4) | h1, (h2 << 4) | h3, (h4 << 4) | h5);
+    }
+    if (len === 3) {
+      const h0 = Rgb.HEX_VALUES[hex.charCodeAt(offset)]!;
+      const h1 = Rgb.HEX_VALUES[hex.charCodeAt(offset + 1)]!;
+      const h2 = Rgb.HEX_VALUES[hex.charCodeAt(offset + 2)]!;
+      return new Rgb((h0 << 4) | h0, (h1 << 4) | h1, (h2 << 4) | h2);
     }
     throw new Error(`Can't convert hex ${hex} to RGB`);
   }
@@ -80,8 +87,8 @@ export class Rgb {
   static fromHexOrTuple(color: string | RgbTuple): Rgb {
     if (typeof color === 'string') {
       return Rgb.fromHex(color);
-    } else if (Array.isArray(color)) {
-      return new Rgb(...color);
+    } else if (Array.isArray(color) || ArrayBuffer.isView(color)) {
+      return Rgb.fromTuple(color);
     }
     throw new Error(`Unable to create RGB`);
   }

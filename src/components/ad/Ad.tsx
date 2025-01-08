@@ -83,6 +83,7 @@ export const Ad: React.FC<Props> = ({ads, vertical = false, footer, style}: Prop
       {ad.image && (
         <img
           src={getImageUrl(ad.image, API_URL)}
+          alt="Ad"
           crossOrigin="anonymous"
           style={{
             ...IMAGE_SIZE,

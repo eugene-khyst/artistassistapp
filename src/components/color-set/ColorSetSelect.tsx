@@ -48,6 +48,7 @@ function getColorSetOptions(
   return [
     newColorSetOption,
     ...colorSets
+      .slice()
       .sort(compareByDate)
       .reverse()
       .map(({id, name, brands: brandIds, colors}: ColorSetDefinition) => ({

@@ -57,18 +57,16 @@ export function kelvinToRgb(tmp: number): Rgb {
 
   if (tmp >= 66) {
     b = 255;
+  } else if (tmp <= 19) {
+    b = 0;
   } else {
-    if (tmp <= 19) {
+    b = tmp - 10;
+    b = 138.5177312231 * Math.log(b) - 305.0447927307;
+    if (b < 0) {
       b = 0;
-    } else {
-      b = tmp - 10;
-      b = 138.5177312231 * Math.log(b) - 305.0447927307;
-      if (b < 0) {
-        b = 0;
-      }
-      if (b > 255) {
-        b = 255;
-      }
+    }
+    if (b > 255) {
+      b = 255;
     }
   }
 

@@ -123,7 +123,7 @@ class UnmixedColor {
 
   constructor(color: Color) {
     this.color = color;
-    this.rgb = new Rgb(...color.rgb);
+    this.rgb = Rgb.fromTuple(color.rgb);
     this.reflectance = Reflectance.fromArray(color.rho);
   }
 
@@ -174,10 +174,12 @@ class MixedColorTint {
 
 class Background {
   rgb: Rgb;
+  hex: string;
   reflectance: Reflectance;
 
   constructor(rgb: Rgb) {
     this.rgb = rgb;
+    this.hex = rgb.toHex();
     this.reflectance = rgb.toReflectance();
   }
 }
@@ -189,7 +191,7 @@ class MixedColorLayer {
     public reflectance: Reflectance,
     public colorTint: MixedColorTint,
     public consistency: Fraction,
-    public background?: Rgb | null
+    public background?: Background | null
   ) {
     this.rgb = reflectance.toRgb();
   }
@@ -201,7 +203,8 @@ class MixedColorLayer {
       white,
       whiteFraction,
     } = this.colorTint;
-    const backgroundRgb: RgbTuple | undefined = this.background?.toRgbTuple();
+    const backgroundRgb: RgbTuple | undefined = this.background?.rgb.toRgbTuple();
+    const backgroundHex: string | undefined = this.background?.hex;
     return {
       key: getColorMixtureKey(
         type,
@@ -209,7 +212,7 @@ class MixedColorLayer {
         white?.color,
         whiteFraction,
         this.consistency,
-        backgroundRgb
+        backgroundHex
       ),
       type,
       colorMixtureRgb: colorMixtureRgb.toRgbTuple(),
@@ -283,15 +286,17 @@ function getColorMixtureKey(
   white: Color | null | undefined,
   whiteFraction: Fraction,
   consistency: Fraction,
-  background: RgbTuple | null | undefined
+  backgroundHex: string | null | undefined
 ): string {
   return [
     type,
     parts.map(({color: {brand, id}, part}: ColorMixturePart) => `${brand}-${id}x${part}`).join(','),
-    ...(white ? [`${white.brand}-${white.id}x${whiteFraction.join('/')}`] : ['0']),
+    white ? `${white.brand}-${white.id}x${whiteFraction.join('/')}` : '0',
     consistency.join('/'),
-    ...(background ? [new Rgb(...background).toHex()] : []),
-  ].join(';');
+    backgroundHex,
+  ]
+    .filter(Boolean)
+    .join(';');
 }
 
 function getColorMixtureHash({parts}: ColorMixture): string {
@@ -325,7 +330,8 @@ function mixColors(colors: UnmixedColor[], ratios: number[]): MixedColor {
     reflectances.push(reflectance);
   }
   const reflectance = Reflectance.mixKM(reflectances, ratios);
-  parts.sort(compareColorMixturePartsByParts).reverse();
+  parts.sort(compareColorMixturePartsByParts);
+  parts.reverse();
   return new MixedColor(reflectance, parts);
 }
 
@@ -461,7 +467,7 @@ function makeThinnedLayers(
         [color.reflectance, background.reflectance],
         [colorPart, whole - colorPart]
       );
-      const layer = new MixedColorLayer(mixedReflectance, tint, [colorPart, whole], background.rgb);
+      const layer = new MixedColorLayer(mixedReflectance, tint, [colorPart, whole], background);
       result.push(layer);
     }
   }

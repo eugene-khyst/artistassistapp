@@ -46,10 +46,10 @@ function medianCut(
     return;
   }
 
-  const minimumValue: RgbTuple = [256, 256, 256];
+  const minimumValue: RgbTuple = [255, 255, 255];
   const maximumValue: RgbTuple = [0, 0, 0];
   for (const i of indexes) {
-    const rgb = [data[i]!, data[i + 1]!, data[i + 2]!];
+    const rgb = data.subarray(i, i + 3);
     for (let channel = 0; channel < 3; channel++) {
       const value = rgb[channel]!;
       if (value < minimumValue[channel]!) {
@@ -61,11 +61,7 @@ function medianCut(
     }
   }
 
-  const ranges: number[] = [
-    maximumValue[0] - minimumValue[0],
-    maximumValue[1] - minimumValue[1],
-    maximumValue[2] - minimumValue[2],
-  ];
+  const ranges = [0, 0, 0].map((_, i) => maximumValue[i]! - minimumValue[i]!);
 
   const maxRange = Math.max(...ranges);
   const maxChannel = ranges.indexOf(maxRange);
@@ -92,11 +88,8 @@ function quantize(
   for (let channel = 0; channel < 3; channel++) {
     mean[channel] = unlinearizeRgbChannel(total[channel]! / indexes.length);
   }
-  const [r, g, b] = transformMean(mean);
+  const rgb = transformMean(mean);
   for (const i of indexes) {
-    data[i] = r;
-    data[i + 1] = g;
-    data[i + 2] = b;
-    data[i + 3] = 255;
+    data.set(rgb, i);
   }
 }

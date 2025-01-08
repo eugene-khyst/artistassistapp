@@ -1,29 +1,25 @@
 import react from '@vitejs/plugin-react';
-import fs from 'fs';
-import {defineConfig} from 'vite';
+import {PluginOption, defineConfig} from 'vite';
 import glsl from 'vite-plugin-glsl';
 import {VitePWA} from 'vite-plugin-pwa';
 
+const glslPlugin: PluginOption = glsl({
+  compress: true,
+});
+
 export default defineConfig({
   plugins: [
-    glsl({
-      compress: true,
-    }),
+    glslPlugin,
     react(),
     VitePWA({
       strategies: 'injectManifest',
       srcDir: 'src',
       filename: 'service-worker.ts',
-      includeAssets: ['public/sample-images/chrysanthemum-thumbnail.webp'],
       manifest: false,
       injectRegister: false,
       injectManifest: {
         buildPlugins: {
-          vite: [
-            glsl({
-              compress: true,
-            }),
-          ],
+          vite: [glslPlugin],
         },
       },
     }),

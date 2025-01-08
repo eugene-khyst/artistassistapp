@@ -23,8 +23,7 @@ import {useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {FileSelect} from '~/src/components/image/FileSelect';
-import type {ImageFile} from '~/src/services/image';
-import type {SampleImageDefinition} from '~/src/services/image';
+import type {ImageFile, SampleImageDefinition} from '~/src/services/image';
 import {fileToImageFile, SAMPLE_IMAGES} from '~/src/services/image';
 import {useAppStore} from '~/src/stores/app-store';
 

@@ -42,7 +42,7 @@ export interface GridCanvasProps extends ZoomableImageCanvasProps {
 }
 
 export class GridCanvas extends ZoomableImageCanvas {
-  private invertedImages: ImageBitmap[] | OffscreenCanvas[] = [];
+  private invertedImages: ImageBitmap[] = [];
   private grid?: Grid;
   private gridLineWidth: number;
   private diagonalLineWidth: number;

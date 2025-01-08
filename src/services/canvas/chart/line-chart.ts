@@ -20,13 +20,14 @@ import {Canvas} from '~/src/services/canvas/canvas';
 import type {RgbTuple} from '~/src/services/color/space';
 import {Rgb} from '~/src/services/color/space';
 import {Vector} from '~/src/services/math';
+import type {TypedArray} from '~/src/utils';
 import {countFractionDigits} from '~/src/utils';
 
 const SPACING = 3;
 
 export interface Series {
-  xValues: number[];
-  yValues: number[];
+  xValues: number[] | TypedArray;
+  yValues: number[] | TypedArray;
   color: string | RgbTuple;
   lineWidth?: number;
 }
@@ -43,9 +44,9 @@ export class LineChart extends Canvas {
   protected seriesArray: Series[] = [];
   protected rangeX: number;
   protected rangeY: number;
-  private paddingLeft: number;
-  private paddingTop: number;
-  private paddingBottom: number;
+  private readonly paddingLeft: number;
+  private readonly paddingTop: number;
+  private readonly paddingBottom: number;
   protected backgroundColor: string;
   protected fontColor: string;
   protected gridlineColor: string;
@@ -232,8 +233,8 @@ export class LineChart extends Canvas {
   }
 
   private drawSeries(
-    xValues: number[],
-    yValues: number[],
+    xValues: number[] | TypedArray,
+    yValues: number[] | TypedArray,
     color: string | RgbTuple,
     lineWidth: number
   ): void {

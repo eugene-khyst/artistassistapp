@@ -82,12 +82,12 @@ export function getRgbaForCoord(
   x: number,
   y: number,
   width: number
-): number[] {
+): Uint8ClampedArray {
   if (x > width) {
     throw new Error('x coordinate must be less than image width');
   }
-  const index = getIndexForCoord(x, y, width, 0);
-  return [data[index]!, data[index + 1]!, data[index + 2]!, data[index + 3]!];
+  const i = getIndexForCoord(x, y, width, 0);
+  return data.subarray(i, i + 4);
 }
 
 function createErrorImageBitmap(error?: string): ImageBitmap {

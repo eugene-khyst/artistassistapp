@@ -18,7 +18,7 @@
 
 import {Rgb} from './space';
 
-export const WAVELENGTH_RANGE: number[] = [...Array(36).keys()].map((v: number) => 380 + 10 * v);
+export const WAVELENGTH_RANGE = new Uint16Array(36).map((_, i) => 380 + 10 * i);
 
 const GAMMA = 0.8;
 const MAX_INTENSITY = 255;

@@ -18,8 +18,8 @@
 
 import {QuestionCircleOutlined} from '@ant-design/icons';
 import {Button, Col, Flex, Row, Space, theme, Tooltip, Typography} from 'antd';
-import type {RefObject} from 'react';
-import {type ChangeEvent, useEffect, useRef} from 'react';
+import type {ChangeEvent, RefObject} from 'react';
+import {useEffect, useRef} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {FileSelect} from '~/src/components/image/FileSelect';

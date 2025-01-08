@@ -81,7 +81,7 @@ function calculateRho(brand: CustomColorBrandDefinition): CustomColorBrandDefini
       const {hex} = color;
       return {
         ...color,
-        rho: Rgb.fromHex(hex!).toReflectance().toArray(),
+        rho: [...Rgb.fromHex(hex!).toReflectance().toArray()],
       };
     }),
   };

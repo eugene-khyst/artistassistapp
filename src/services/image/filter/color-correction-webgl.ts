@@ -35,7 +35,7 @@ export function adjustColorsWebGL(
     outputHigh = 1,
     origTemperature = 6500,
     targetTemperature = 6500,
-  }: AdjustmentParameters
+  }: AdjustmentParameters = {}
 ): ImageBitmap {
   const renderer = new WebGLRenderer(fragmentShaderSource, image);
   const {canvas, gl, program} = renderer;

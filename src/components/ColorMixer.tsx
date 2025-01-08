@@ -287,8 +287,8 @@ export const ColorMixer: React.FC = () => {
           </Col>
           <Col xs={24} md={12} lg={8}>
             <Space direction="vertical">
-              {resultColorMixtures.map((colorMixture: ColorMixture, i: number) => (
-                <Fragment key={i}>
+              {resultColorMixtures.map((colorMixture: ColorMixture) => (
+                <Fragment key={colorMixture.key}>
                   <ColorMixtureDescription
                     colorMixture={colorMixture}
                     showColors={isThickConsistency(colorMixture)}

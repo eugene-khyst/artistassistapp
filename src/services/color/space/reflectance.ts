@@ -18,12 +18,12 @@
 
 import {Matrix} from '~/src/services/math';
 
-import {linearizeRgbChannel as linearize, Rgb, unlinearizeRgbChannel as unlinearize} from './rgb';
+import {linearizeRgbChannel, Rgb, unlinearizeRgbChannel} from './rgb';
 
 const MAX_ITERATIONS = 100;
 const FUNCTION_SOLUTION_TOLERANCE = 1.0e-8;
 
-const RHO_TO_LINEAR_RGB = new Matrix([
+const RHO_TO_LINEAR_RGB = Matrix.fromRows([
   [
     5.47813e-5, 0.000184722, 0.000935514, 0.003096265, 0.009507714, 0.017351596, 0.022073595,
     0.016353161, 0.002002407, -0.016177731, -0.033929391, -0.046158952, -0.06381706, -0.083911194,
@@ -52,7 +52,7 @@ const RHO_TO_LINEAR_RGB = new Matrix([
 
 const RHO_TO_LINEAR_RGB_TRANSPOSE: Matrix = RHO_TO_LINEAR_RGB.transpose();
 
-const CIE_CMF_Y = new Matrix([
+const CIE_CMF_Y = Matrix.fromRows([
   [
     0.00000184, 0.00000621, 0.00003101, 0.00010475, 0.00035364, 0.00095147, 0.00228226, 0.00420733,
     0.0066888, 0.0098884, 0.01524945, 0.02141831, 0.03342293, 0.05131001, 0.07040208, 0.08783871,
@@ -73,8 +73,8 @@ function linearToConcentration(t: number, luminance1: number, luminance2: number
 function euclideanDistance(rho1: Matrix, rho2: Matrix): number {
   let distanceSq = 0;
   for (let i = 0; i < 36; i++) {
-    const r1 = rho1.get(i, 0)!;
-    const r2 = rho2.get(i, 0)!;
+    const r1 = rho1.get(i, 0);
+    const r2 = rho2.get(i, 0);
     distanceSq += (r1 - r2) ** 2;
   }
   return Math.sqrt(distanceSq);
@@ -85,8 +85,8 @@ function cosineSimilarity(rho1: Matrix, rho2: Matrix): number {
   let magnitudeY1 = 0;
   let magnitudeY2 = 0;
   for (let i = 0; i < 36; i++) {
-    const r1 = rho1.get(i, 0)!;
-    const r2 = rho2.get(i, 0)!;
+    const r1 = rho1.get(i, 0);
+    const r2 = rho2.get(i, 0);
     dotProduct += r1 * r2;
     magnitudeY1 += r1 ** 2;
     magnitudeY2 += r2 ** 2;
@@ -111,13 +111,13 @@ function validateRatios(reflectances: Reflectance[], ratios: number[]) {
 }
 
 export class Reflectance {
-  static WHITE = new Reflectance(Matrix.ones(36, 1));
-  static BLACK = new Reflectance(Matrix.ones(36, 1).multiplyByScalar(0.0001));
+  static readonly WHITE = new Reflectance(Matrix.ones(36, 1));
+  static readonly BLACK = new Reflectance(Matrix.fromValue(0.0001, 36, 1));
 
-  constructor(private rho: Matrix) {}
+  constructor(private readonly rho: Matrix) {}
 
   static fromArray(rho: number[]) {
-    return new Reflectance(Matrix.fromColumns([rho]));
+    return new Reflectance(Matrix.fromColumn(rho));
   }
 
   static fromRgb(rgb: Rgb): Reflectance {
@@ -129,15 +129,11 @@ export class Reflectance {
       return Reflectance.WHITE;
     }
 
-    const d: Matrix = Matrix.tridiag(36, -2, 4, -2);
+    const d = Matrix.tridiag(36, -2, 4, -2);
     d.set(0, 0, 2);
     d.set(35, 35, 2);
 
-    const rgbMatrix: Matrix = new Matrix([
-      [linearize(rgb.r)],
-      [linearize(rgb.g)],
-      [linearize(rgb.b)],
-    ]);
+    const rgbMatrix = Matrix.fromColumn(rgb.toRgbTuple()).map(linearizeRgbChannel);
 
     let z = Matrix.zeros(36, 1);
     let lambda = Matrix.zeros(3, 1);
@@ -161,14 +157,10 @@ export class Reflectance {
         .concatRows(RHO_TO_LINEAR_RGB.multiply(d1).concatColumns(Matrix.zeros(3, 3)));
 
       const delta: Matrix = j.inverse().multiply(f.multiplyByScalar(-1));
-      z = z.add(new Matrix(delta.getRows(0, 36)));
-      lambda = lambda.add(new Matrix(delta.getRows(36, 39)));
+      z = z.add(delta.getRows(0, 36));
+      lambda = lambda.add(delta.getRows(36, 39));
 
-      let solutionFound = true;
-      f.forEach((v: number) => {
-        solutionFound &&= Math.abs(v) < FUNCTION_SOLUTION_TOLERANCE;
-      });
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      const solutionFound = f.all((v: number) => Math.abs(v) < FUNCTION_SOLUTION_TOLERANCE);
       if (solutionFound) {
         const rho: Matrix = z.map(v => (Math.tanh(v) + 1) / 2);
         return new Reflectance(rho);
@@ -180,14 +172,11 @@ export class Reflectance {
   }
 
   toRgb(): Rgb {
-    const linearRgb: Matrix = RHO_TO_LINEAR_RGB.multiply(this.rho);
-    const r: number = linearRgb.get(0, 0)!;
-    const g: number = linearRgb.get(1, 0)!;
-    const b: number = linearRgb.get(2, 0)!;
-    return new Rgb(unlinearize(r), unlinearize(g), unlinearize(b));
+    const rgb: Matrix = RHO_TO_LINEAR_RGB.multiply(this.rho).map(unlinearizeRgbChannel);
+    return new Rgb(rgb.get(0, 0), rgb.get(1, 0), rgb.get(2, 0));
   }
 
-  toArray(): number[] {
+  toArray(): Float64Array {
     return this.rho.flatten();
   }
 
@@ -200,7 +189,7 @@ export class Reflectance {
   }
 
   getLuminance() {
-    return CIE_CMF_Y.multiply(this.rho).get(0, 0)!;
+    return CIE_CMF_Y.multiply(this.rho).get(0, 0);
   }
 
   mixWith(reflectance: Reflectance, t: number): Reflectance {
@@ -209,8 +198,8 @@ export class Reflectance {
     const concentration: number = linearToConcentration(t, luminance1, luminance2);
     const rhoMix = Matrix.zeros(36, 1);
     for (let i = 0; i < 36; i++) {
-      const r1 = this.rho.get(i, 0)!;
-      const r2 = reflectance.rho.get(i, 0)!;
+      const r1 = this.rho.get(i, 0);
+      const r2 = reflectance.rho.get(i, 0);
       const ks =
         (1 - concentration) * ((1 - r1) ** 2 / (2 * r1)) +
         concentration * ((1 - r2) ** 2 / (2 * r2));
@@ -234,18 +223,5 @@ export class Reflectance {
       ratio1 += ratio2;
     }
     return reflectance1;
-  }
-
-  static mixWGM(reflectances: Reflectance[], ratios: number[]): Reflectance {
-    validateRatios(reflectances, ratios);
-    const total: number = ratios.reduce((a: number, b: number) => a + b, 0);
-    const weights: number[] = ratios.map((weight: number) => weight / total);
-    let rhoMix: Matrix = reflectances[0]!.rho.map((v: number) => Math.pow(v, weights[0]!));
-    for (let i = 1; i < reflectances.length; i++) {
-      rhoMix = rhoMix.dotMultiply(
-        reflectances[i]!.rho.map((v: number) => Math.pow(v, weights[i]!))
-      );
-    }
-    return new Reflectance(rhoMix);
   }
 }

@@ -153,7 +153,7 @@ export interface ColorMixture {
   consistency: Fraction;
   backgroundRgb?: RgbTuple | null;
   layerRgb: RgbTuple;
-  layerRho: number[];
+  layerRho: number[] | Float64Array;
   imageFileId?: number | null;
   samplingArea?: SamplingArea | null;
   date?: Date | null;

@@ -16,44 +16,50 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {create2DArray, createArray} from '~/src/utils';
+import type {TypedArray} from '~/src/utils';
 
 const SINGULARITY_THRESHOLD = 1e-11;
 
-export function forwardSubstitution(matrix: Matrix, b: number[]): number[] {
-  const solution: number[] = createArray(matrix.rows, 0);
+export function forwardSubstitution(matrix: Matrix, b: Float64Array): Float64Array {
+  const solution = new Float64Array(matrix.rows).fill(0);
   for (let row = 0; row < matrix.rows; row++) {
     let value = 0;
     for (let col = 0; col < row; col++) {
-      value += solution[col]! * matrix.get(row, col)!;
+      value += solution[col]! * matrix.get(row, col);
     }
     value = b[row]! - value;
-    solution[row] = value / matrix.get(row, row)!;
+    solution[row] = value / matrix.get(row, row);
   }
   return solution;
 }
 
-export function backwardSubstitution(matrix: Matrix, b: number[]): number[] {
-  const solution: number[] = createArray(matrix.rows, 0);
+export function backwardSubstitution(matrix: Matrix, b: Float64Array): Float64Array {
+  const solution = new Float64Array(matrix.rows).fill(0);
   for (let row = matrix.rows - 1; row >= 0; row--) {
     let value = 0;
     for (let col = matrix.cols - 1; col > row; col--) {
-      value = value + solution[col]! * matrix.get(row, col)!;
+      value = value + solution[col]! * matrix.get(row, col);
     }
     value = b[row]! - value;
-    solution[row] = value / matrix.get(row, row)!;
+    solution[row] = value / matrix.get(row, row);
   }
   return solution;
 }
 
-export function lowerUpperDecomposition(matrix: Matrix): {l: Matrix; u: Matrix; p: number[]} {
+interface LUDecomposition {
+  l: Matrix;
+  u: Matrix;
+  p: Float64Array;
+}
+
+export function lowerUpperDecomposition(matrix: Matrix): LUDecomposition {
   if (matrix.rows != matrix.cols) {
     throw new Error(`The matrix must be square: ${matrix.getDimension().join(',')}`);
   }
   const size: number = matrix.cols;
-  const lu: number[][] = matrix.copy().getElements();
+  const lu: Matrix = matrix.copy();
 
-  const p: number[] = createArray(size, 0);
+  const p = new Float64Array(size).fill(0);
 
   for (let row = 0; row < size; row++) {
     p[row] = row;
@@ -61,10 +67,10 @@ export function lowerUpperDecomposition(matrix: Matrix): {l: Matrix; u: Matrix; 
 
   for (let col = 0; col < size; col++) {
     for (let row = 0; row < col; row++) {
-      const luRow: number[] = lu[row]!;
+      const luRow: Float64Array = lu.getRow(row);
       let sum: number = luRow[col]!;
       for (let i = 0; i < row; i++) {
-        sum -= luRow[i]! * lu[i]![col]!;
+        sum -= luRow[i]! * lu.get(i, col);
       }
       luRow[col] = sum;
     }
@@ -72,10 +78,10 @@ export function lowerUpperDecomposition(matrix: Matrix): {l: Matrix; u: Matrix; 
     let max: number = col;
     let largest = Number.NEGATIVE_INFINITY;
     for (let row = col; row < size; row++) {
-      const luRow: number[] = lu[row]!;
+      const luRow: Float64Array = lu.getRow(row);
       let sum = luRow[col]!;
       for (let i = 0; i < col; i++) {
-        sum -= luRow[i]! * lu[i]![col]!;
+        sum -= luRow[i]! * lu.get(i, col);
       }
       luRow[col] = sum!;
 
@@ -85,13 +91,13 @@ export function lowerUpperDecomposition(matrix: Matrix): {l: Matrix; u: Matrix; 
       }
     }
 
-    if (Math.abs(lu[max]![col]!) < SINGULARITY_THRESHOLD) {
+    if (Math.abs(lu.get(max, col)) < SINGULARITY_THRESHOLD) {
       throw new Error('The matrix is singular');
     }
 
     if (max != col) {
-      const luMax: number[] = lu[max]!;
-      const luCol: number[] = lu[col]!;
+      const luMax: Float64Array = lu.getRow(max);
+      const luCol: Float64Array = lu.getRow(col);
       for (let i = 0; i < size; i++) {
         const tmp = luMax[i];
         luMax[i] = luCol[i]!;
@@ -102,142 +108,164 @@ export function lowerUpperDecomposition(matrix: Matrix): {l: Matrix; u: Matrix; 
       p[col] = tmp!;
     }
 
-    const luDiag: number = lu[col]![col]!;
+    const luDiag: number = lu.get(col, col);
     for (let row = col + 1; row < size; row++) {
-      lu[row]![col]! /= luDiag;
+      lu.set(row, col, lu.get(row, col) / luDiag);
     }
   }
 
-  const l: number[][] = create2DArray(size, size, 0);
+  const l = Matrix.zeros(size, size);
   for (let i = 0; i < size; ++i) {
-    const luI: number[] = lu[i]!;
+    const luI: Float64Array = lu.getRow(i);
     for (let j = 0; j < i; ++j) {
-      l[i]![j] = luI[j]!;
+      l.set(i, j, luI[j]!);
     }
-    l[i]![i] = 1;
+    l.set(i, i, 1);
   }
 
-  const u: number[][] = create2DArray(size, size, 0);
+  const u = Matrix.zeros(size, size);
   for (let i = 0; i < size; ++i) {
-    const luI: number[] = lu[i]!;
+    const luI: Float64Array = lu.getRow(i);
     for (let j = i; j < size; ++j) {
-      u[i]![j] = luI[j]!;
+      u.set(i, j, luI[j]!);
     }
   }
 
-  return {l: new Matrix(l), u: new Matrix(u), p};
+  return {l, u, p};
 }
 
 export class Matrix {
-  rows: number;
-  cols: number;
+  private constructor(
+    private readonly elements: Float64Array,
+    public readonly rows: number,
+    public readonly cols: number
+  ) {}
 
-  constructor(private elements: number[][]) {
-    this.rows = elements.length;
-    this.cols = elements[0]!.length;
-  }
-
-  static fromColumns(columns: number[][]) {
-    const rows: number = columns[0]!.length;
-    const cols: number = columns.length;
-    const elements: number[][] = create2DArray(rows, cols, 0);
+  static fromRows(elements: (number[] | TypedArray)[]): Matrix {
+    const rows = elements.length;
+    const cols = elements[0]!.length;
+    const matrix = Matrix.zeros(rows, cols);
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
-        elements[row]![col] = columns[col]![row]!;
+        matrix.set(row, col, elements[row]![col]!);
       }
     }
-    return new Matrix(elements);
+    return matrix;
+  }
+
+  static fromColumn(elements: number[] | TypedArray) {
+    const rows = elements.length;
+    const cols = 1;
+    const matrix = Matrix.zeros(rows, cols);
+    for (let i = 0; i < rows; i++) {
+      matrix.set(i, 0, elements[i]!);
+    }
+    return matrix;
+  }
+
+  static fromValue(value: number, rows: number, cols: number) {
+    return new Matrix(new Float64Array(rows * cols).fill(value), rows, cols);
   }
 
   static zeros(rows: number, cols: number) {
-    return new Matrix(create2DArray(rows, cols, 0));
+    return Matrix.fromValue(0, rows, cols);
   }
 
   static ones(rows: number, cols: number) {
-    return new Matrix(create2DArray(rows, cols, 1));
+    return Matrix.fromValue(1, rows, cols);
   }
 
   static identity(size: number) {
-    const elements: number[][] = create2DArray(size, size, 0);
+    const identity = Matrix.zeros(size, size);
     for (let i = 0; i < size; i++) {
-      elements[i]![i] = 1;
+      identity.set(i, i, 1);
     }
-    return new Matrix(elements);
+    return identity;
   }
 
-  static diag(diagonal: number[]): Matrix {
+  static diag(diagonal: Float64Array): Matrix {
     const n = diagonal.length;
-    const elements: number[][] = create2DArray(n, n, 0);
+    const diag = Matrix.zeros(n, n);
     for (let i = 0; i < n; i++) {
-      elements[i]![i] = diagonal[i]!;
+      diag.set(i, i, diagonal[i]!);
     }
-    return new Matrix(elements);
+    return diag;
   }
 
   static tridiag(size: number, a: number, b: number, c: number): Matrix {
-    const tridiag: number[][] = create2DArray(size, size, 0);
+    const tridiag = Matrix.zeros(size, size);
     for (let i = 0; i < size; i++) {
       if (i < size - 1) {
-        tridiag[i + 1]![i] = a;
+        tridiag.set(i + 1, i, a);
       }
-      tridiag[i]![i] = b;
+      tridiag.set(i, i, b);
       if (i > 0) {
-        tridiag[i - 1]![i] = c;
+        tridiag.set(i - 1, i, c);
       }
     }
-    return new Matrix(tridiag);
+    return tridiag;
   }
 
-  get(row: number, col: number) {
-    return this.elements[row]![col];
+  get(row: number, col: number): number {
+    return this.elements[row * this.cols + col]!;
   }
 
   set(row: number, col: number, element: number) {
-    this.elements[row]![col] = element;
+    this.elements[row * this.cols + col] = element;
   }
 
-  getElements(): number[][] {
-    return this.elements;
+  getRow(row: number): Float64Array {
+    const start = row * this.cols;
+    return this.elements.subarray(start, start + this.cols);
   }
 
-  getRow(row: number): number[] {
-    return this.elements[row]!;
-  }
-
-  getRows(start: number, end: number): number[][] {
-    return this.elements.slice(start, end);
+  getRows(start: number, end: number): Matrix {
+    return new Matrix(
+      this.elements.slice(start * this.cols, end * this.cols),
+      end - start,
+      this.cols
+    );
   }
 
   getDimension(): [number, number] {
     return [this.rows, this.cols];
   }
 
-  flatten(): number[] {
-    return this.getElements().flat();
+  flatten(): Float64Array {
+    return this.elements;
   }
 
   copy(): Matrix {
-    return new Matrix(
-      this.elements.map((rowElements: number[]) => {
-        return rowElements.slice();
-      })
-    );
+    return new Matrix(this.elements.slice(), this.rows, this.cols);
   }
 
   forEach(fn: (element: number, row: number, col: number) => void): void {
-    this.elements.forEach((rowElements: number[], row: number): void => {
-      rowElements.forEach((element: number, col: number): void => {
-        fn(element, row, col);
-      });
-    });
+    for (let row = 0; row < this.rows; row++) {
+      for (let col = 0; col < this.cols; col++) {
+        fn(this.get(row, col), row, col);
+      }
+    }
   }
 
   map(fn: (element: number, row: number, col: number) => number): Matrix {
-    return new Matrix(
-      this.elements.map((rowElements: number[], row: number): number[] =>
-        rowElements.map((element: number, col: number): number => fn(element, row, col))
-      )
-    );
+    const result = Matrix.zeros(this.rows, this.cols);
+    for (let row = 0; row < this.rows; row++) {
+      for (let col = 0; col < this.cols; col++) {
+        result.set(row, col, fn(this.get(row, col), row, col));
+      }
+    }
+    return result;
+  }
+
+  all(predicate: (element: number, row: number, col: number) => boolean): boolean {
+    for (let row = 0; row < this.rows; row++) {
+      for (let col = 0; col < this.cols; col++) {
+        if (!predicate(this.get(row, col), row, col)) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   concatRows(matrix: Matrix): Matrix {
@@ -246,7 +274,10 @@ export class Matrix {
         `The number of columns in the matrices must be equal: ${this.getDimension().join(',')}, ${matrix.getDimension().join(',')}`
       );
     }
-    return new Matrix(this.getElements().concat(matrix.getElements()));
+    const concatenated = new Float64Array(this.elements.length + matrix.elements.length);
+    concatenated.set(this.elements);
+    concatenated.set(matrix.elements, this.elements.length);
+    return new Matrix(concatenated, this.rows + matrix.rows, this.cols);
   }
 
   concatColumns(matrix: Matrix): Matrix {
@@ -255,11 +286,20 @@ export class Matrix {
         `The number of rows in the matrices must be equal: ${this.getDimension().join(',')}, ${matrix.getDimension().join(',')}`
       );
     }
-    const elements: number[][] = [];
+
+    const concatenatedCols = this.cols + matrix.cols;
+    const concatenated = new Float64Array(this.rows * concatenatedCols);
     for (let row = 0; row < this.rows; row++) {
-      elements.push(this.getRow(row).concat(matrix.getRow(row)));
+      concatenated.set(
+        this.elements.subarray(row * this.cols, (row + 1) * this.cols),
+        row * concatenatedCols
+      );
+      concatenated.set(
+        matrix.elements.subarray(row * matrix.cols, (row + 1) * matrix.cols),
+        row * concatenatedCols + this.cols
+      );
     }
-    return new Matrix(elements);
+    return new Matrix(concatenated, this.rows, concatenatedCols);
   }
 
   addScalar(addend: number): Matrix {
@@ -276,13 +316,13 @@ export class Matrix {
         `The dimensions of the matrices must be equal: ${this.getDimension().join(',')}, ${matrix.getDimension().join(',')}`
       );
     }
-    const result = create2DArray(this.rows, this.cols, 0);
+    const result = Matrix.zeros(this.rows, this.cols);
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < this.cols; col++) {
-        result[row]![col] = fn(this.get(row, col)!, matrix.get(row, col)!);
+        result.set(row, col, fn(this.get(row, col), matrix.get(row, col)));
       }
     }
-    return new Matrix(result);
+    return result;
   }
 
   add(matrix: Matrix): Matrix {
@@ -303,43 +343,43 @@ export class Matrix {
         `The number of columns in the first matrix must be equal to the number of rows in the second matrix: ${this.getDimension().join(',')}, ${matrix.getDimension().join(',')}`
       );
     }
-    const result = create2DArray(this.rows, matrix.cols, 0);
+    const result = Matrix.zeros(this.rows, matrix.cols);
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < matrix.cols; col++) {
         let sum = 0;
         for (let k = 0; k < matrix.rows; k++) {
-          sum += this.get(row, k)! * matrix.get(k, col)!;
+          sum += this.get(row, k) * matrix.get(k, col);
         }
-        result[row]![col] = sum!;
+        result.set(row, col, sum);
       }
     }
-    return new Matrix(result);
+    return result;
   }
 
   transpose(): Matrix {
-    const t: number[][] = create2DArray(this.cols, this.rows, 0);
+    const t = Matrix.zeros(this.cols, this.rows);
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
-        t[j]![i] = this.get(i, j)!;
+        t.set(j, i, this.get(i, j));
       }
     }
-    return new Matrix(t);
+    return t;
   }
 
   inverse(): Matrix {
     if (this.rows != this.cols) {
       throw new Error(`The matrix must be square: ${this.getDimension().join(',')}`);
     }
-    const {l, u, p}: {l: Matrix; u: Matrix; p: number[]} = lowerUpperDecomposition(this);
+    const {l, u, p} = lowerUpperDecomposition(this);
     const i: Matrix = Matrix.identity(this.rows);
-    const inv: number[][] = create2DArray(this.rows, this.cols, 0);
+    const inv = Matrix.zeros(this.rows, this.cols);
     for (let row = 0; row < this.rows; row++) {
-      const y: number[] = forwardSubstitution(l, i.getRow(row));
-      const x: number[] = backwardSubstitution(u, y);
+      const y: Float64Array = forwardSubstitution(l, i.getRow(row));
+      const x: Float64Array = backwardSubstitution(u, y);
       for (let col = 0; col < x.length; col++) {
-        inv[col]![p[row]!] = x[col]!;
+        inv.set(col, p[row]!, x[col]!);
       }
     }
-    return new Matrix(inv);
+    return inv;
   }
 }

@@ -16,20 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+export type TypedArray =
+  | Int8Array
+  | Uint8Array
+  | Uint8ClampedArray
+  | Int16Array
+  | Uint16Array
+  | Int32Array
+  | Uint32Array
+  | Float32Array
+  | Float64Array;
+
 export type Comparator<T> = (a: T, b: T) => number;
 
 export type ArrayElement<ArrayType extends readonly unknown[] | undefined> =
   ArrayType extends readonly (infer ElementType)[] ? ElementType : never;
-
-export function createArray<T>(size: number, element: T): T[] {
-  return Array(size).fill(element) as T[];
-}
-
-export function create2DArray<T>(rows: number, cols: number, element: T): T[][] {
-  return Array(rows)
-    .fill(0)
-    .map(() => Array(cols).fill(element) as T[]);
-}
 
 export function range(min: number, max: number): number[] {
   return Array.from({length: max - min + 1}, (_, i) => i + min);

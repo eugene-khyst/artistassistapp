@@ -197,7 +197,11 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
               </Form.Item>
 
               {previewImageUrl && (
-                <img src={previewImageUrl} style={{maxWidth: '100%', maxHeight: 480}} />
+                <img
+                  src={previewImageUrl}
+                  alt="Print preview"
+                  style={{maxWidth: '100%', maxHeight: 480}}
+                />
               )}
             </>
           )}

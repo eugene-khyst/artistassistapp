@@ -42,6 +42,7 @@ function getCustomColorBrandOptions(
   return [
     newCustomColorBrandOption,
     ...customColorBrands
+      .slice()
       .sort(compareByDate)
       .reverse()
       .map(({id, name}: CustomColorBrandDefinition) => ({

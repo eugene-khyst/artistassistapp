@@ -56,7 +56,6 @@ export const PaletteColorMixtureCard: React.FC<Props> = ({colorMixture}: Props) 
     <Card size="small" bordered={false}>
       <Space direction="vertical" style={{width: '100%'}}>
         <Typography.Text
-          ellipsis={{tooltip: true}}
           editable={{
             text: colorMixture.name ?? '',
             onChange: handleTitleEdited,

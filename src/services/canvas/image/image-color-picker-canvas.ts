@@ -50,8 +50,8 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
   private pipetPoint: Vector | null = null;
   private pipetRgb: Rgb = Rgb.WHITE;
   private lastPipetDiameter: number;
-  private cursorDiameter: number;
-  public events = new EventManager<ColorPickerEventType>();
+  private readonly cursorDiameter: number;
+  public readonly events = new EventManager<ColorPickerEventType>();
 
   constructor(canvas: HTMLCanvasElement, props: ImageColorPickerCanvasProps = {}) {
     super(canvas, props);
@@ -176,7 +176,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
 
   private getAverageColorFromImageData({data, width, height}: ImageData): Rgb {
     if (data.length <= 4) {
-      return new Rgb(data[0]!, data[1]!, data[2]!);
+      return Rgb.fromTuple(data.subarray(0, 3));
     } else {
       const diameter = Math.trunc(Math.min(width, height));
       const radius = Math.trunc(diameter / 2);
@@ -186,7 +186,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
       for (let y = 0; y < diameter; y++) {
         for (let x = 0; x < diameter; x++) {
           if ((x - radius) ** 2 + (y - radius) ** 2 <= radiusSq) {
-            const color: number[] = getRgbaForCoord(data, x, y, width);
+            const color: Uint8ClampedArray = getRgbaForCoord(data, x, y, width);
             for (let channel = 0; channel < 3; channel++) {
               total[channel]! += linearizeRgbChannel(color[channel]!);
             }
@@ -198,7 +198,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
       for (let channel = 0; channel < 3; channel++) {
         mean[channel] = unlinearizeRgbChannel(total[channel]! / count);
       }
-      return new Rgb(...mean);
+      return Rgb.fromTuple(mean);
     }
   }
 

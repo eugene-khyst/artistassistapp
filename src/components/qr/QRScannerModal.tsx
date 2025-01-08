@@ -32,8 +32,16 @@ export const QRScannerModal: React.FC<Props> = ({open, setOpen}: Props) => {
   const [isPaused, setIsPaused] = useState<boolean>(true);
 
   useEffect(() => {
-    setIsPaused(!open);
+    if (open) {
+      setIsPaused(false);
+    }
   }, [open]);
+
+  useEffect(() => {
+    if (isPaused) {
+      setOpen(false);
+    }
+  }, [isPaused, setOpen]);
 
   return (
     <Modal
@@ -43,9 +51,6 @@ export const QRScannerModal: React.FC<Props> = ({open, setOpen}: Props) => {
       footer={null}
       onCancel={() => {
         setIsPaused(true);
-        setTimeout(() => {
-          setOpen(false);
-        }, 1);
       }}
     >
       <div style={{minHeight: 472}}>

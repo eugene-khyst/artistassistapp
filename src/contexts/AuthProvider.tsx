@@ -16,9 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {type PropsWithChildren, useCallback, useEffect, useRef, useState} from 'react';
+import {type PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 
 import {AuthContext} from '~/src/contexts/AuthContext';
+import type {AuthContextInterface} from '~/src/contexts/types';
 import type {AuthClientProps, User} from '~/src/services/auth';
 import {AuthClient, AuthError} from '~/src/services/auth';
 
@@ -74,9 +75,10 @@ export const AuthProvider: React.FC<PropsWithChildren<Props>> = ({
 
   const getMagicLink = useCallback(() => authClient.getMagicLink(), [authClient]);
 
-  return (
-    <AuthContext.Provider value={{user, getMagicLink, loginWithRedirect, logout, isLoading, error}}>
-      {children}
-    </AuthContext.Provider>
+  const authContext: AuthContextInterface = useMemo(
+    () => ({user, getMagicLink, loginWithRedirect, logout, isLoading, error}),
+    [user, getMagicLink, loginWithRedirect, logout, isLoading, error]
   );
+
+  return <AuthContext.Provider value={authContext}>{children}</AuthContext.Provider>;
 };

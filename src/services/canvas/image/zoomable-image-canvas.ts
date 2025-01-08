@@ -37,14 +37,14 @@ export class ZoomableImageCanvas extends Canvas {
   protected imageIndex = 0;
   private offset = Vector.ZERO;
   protected zoom = 1;
-  private maxZoom: number;
-  private zoomFactor: number;
+  private readonly maxZoom: number;
+  private readonly zoomFactor: number;
   private dragStart: Vector | null = null;
   private isDragging = false;
   private lastZoom = this.zoom;
   private initialPinchDistance: number | null = null;
   private lastPointerDown: Vector | null = null;
-  private eventListeners: Partial<Record<keyof HTMLElementEventMap, any>>;
+  private readonly eventListeners: Partial<Record<keyof HTMLElementEventMap, any>>;
 
   constructor(canvas: HTMLCanvasElement, props: ZoomableImageCanvasProps = {}) {
     super(canvas);
@@ -118,9 +118,7 @@ export class ZoomableImageCanvas extends Canvas {
     this.draw();
   }
 
-  protected getImage(
-    images?: ImageBitmap[] | OffscreenCanvas[]
-  ): ImageBitmap | OffscreenCanvas | null {
+  protected getImage(images?: ImageBitmap[]): ImageBitmap | null {
     if (!images) {
       images = this.images;
     }
@@ -162,9 +160,9 @@ export class ZoomableImageCanvas extends Canvas {
 
   protected drawImage(
     ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
-    images?: ImageBitmap[] | OffscreenCanvas[]
+    images?: ImageBitmap[]
   ): void {
-    const image: ImageBitmap | OffscreenCanvas | null = this.getImage(images);
+    const image: ImageBitmap | null = this.getImage(images);
     if (image) {
       const {center}: Rectangle = this.getImageDimension();
       ctx.drawImage(image, -center.x, -center.y);

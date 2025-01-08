@@ -64,6 +64,7 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
         >
           {imageUrl && (
             <img
+              alt="Reference"
               src={imageUrl}
               style={{maxWidth: '100%', maxHeight: '100%', verticalAlign: 'middle'}}
             />
@@ -71,7 +72,7 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
         </Col>
         <Col xs={24} sm={12} style={{maxHeight: colorSwatchHeight, overflowY: 'auto'}}>
           {colorMixtures?.map((colorMixture: ColorMixture) => {
-            const rgb: Rgb = new Rgb(...colorMixture.layerRgb);
+            const rgb = Rgb.fromTuple(colorMixture.layerRgb);
             return (
               <div
                 key={colorMixture.key}

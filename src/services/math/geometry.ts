@@ -26,7 +26,7 @@ export const LENGTH_UNITS = new Map<LengthUnit, LengthUnitDefinition>([
 ]);
 
 export class Vector {
-  static ZERO = new Vector(0, 0);
+  static readonly ZERO = new Vector(0, 0);
 
   constructor(
     public x: number,
@@ -51,7 +51,7 @@ export class Vector {
 }
 
 export class Rectangle {
-  static ZERO = new Rectangle(Vector.ZERO);
+  static readonly ZERO = new Rectangle(Vector.ZERO);
 
   width: number;
   height: number;

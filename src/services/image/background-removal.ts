@@ -27,6 +27,7 @@ export async function removeBackground(
   const noBgBlob = await removeBackground(file, {
     publicPath: BACKGROUND_REMOVAL_DATA_URL,
     proxyToWorker: true,
+    device: 'gpu',
     progress: (key, current, total) => {
       console.log(`Downloading ${key}: ${current} of ${total}`);
       progress?.(key, current, total);

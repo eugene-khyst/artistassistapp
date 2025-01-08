@@ -18,6 +18,7 @@
 
 import {WAVELENGTH_RANGE, wavelengthToColor} from '~/src/services/color';
 import type {RgbTuple} from '~/src/services/color/space';
+import type {TypedArray} from '~/src/utils';
 
 import {LineChart} from './line-chart';
 
@@ -41,7 +42,11 @@ export class ReflectanceChart extends LineChart {
     }
   }
 
-  addReflectance(rho: number[], color: string | RgbTuple = '#fff', lineWidth = 2): void {
+  addReflectance(
+    rho: number[] | TypedArray,
+    color: string | RgbTuple = '#fff',
+    lineWidth = 2
+  ): void {
     this.addSeries({
       xValues: WAVELENGTH_RANGE,
       yValues: rho,
