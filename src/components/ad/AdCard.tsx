@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,9 +21,9 @@ import {useContext} from 'react';
 
 import {Ad} from '~/src/components/ad/Ad';
 import {TabContext} from '~/src/contexts/TabContext';
-import {useAds} from '~/src/hooks';
+import {useAds} from '~/src/hooks/useAds';
 import {useAuth} from '~/src/hooks/useAuth';
-import type {AdDefinition} from '~/src/services/ads';
+import type {AdDefinition} from '~/src/services/ads/types';
 import type {TabKey} from '~/src/tabs';
 
 const DEFAULT_PLACEMENT = 'all';

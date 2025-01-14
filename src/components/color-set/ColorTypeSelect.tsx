@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -20,7 +20,7 @@ import type {SelectProps} from 'antd';
 import {Select} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 
-import {COLOR_TYPES} from '~/src/services/color';
+import {COLOR_TYPES} from '~/src/services/color/colors';
 
 const COLOR_TYPE_OPTIONS: SelectOptionType[] = [...COLOR_TYPES.entries()].map(
   ([value, {name}]) => ({value, label: name})

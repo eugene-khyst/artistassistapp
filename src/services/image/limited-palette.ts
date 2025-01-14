@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -18,16 +18,17 @@
 
 import {transfer} from 'comlink';
 
-import type {ColorSet} from '~/src/services/color';
-import {ColorMixer, PAPER_WHITE_HEX} from '~/src/services/color';
-import type {RgbTuple} from '~/src/services/color/space';
-import {Rgb, rgbToNumber} from '~/src/services/color/space';
+import {ColorMixer, PAPER_WHITE_HEX} from '~/src/services/color/color-mixer';
+import type {RgbTuple} from '~/src/services/color/space/rgb';
+import {Rgb, rgbToNumber} from '~/src/services/color/space/rgb';
+import type {ColorSet} from '~/src/services/color/types';
 import {
-  computeIfAbsentInMap,
-  createScaledImageBitmap,
+  createImageBitmapScaledTotalPixels,
+  createImageBitmapWithFallback,
   IMAGE_SIZE,
   imageBitmapToOffscreenCanvas,
-} from '~/src/utils';
+} from '~/src/utils/graphics';
+import {computeIfAbsentInMap} from '~/src/utils/map';
 
 import {medianCutQuantization} from './filter/median-cut';
 
@@ -42,7 +43,7 @@ export class LimitedPalette {
     console.time('limited-palette');
     const colorMixer = new ColorMixer();
     colorMixer.setColorSet(colorSet, PAPER_WHITE_HEX);
-    const image: ImageBitmap = await createScaledImageBitmap(blob, IMAGE_SIZE.SD);
+    const image: ImageBitmap = await createImageBitmapScaledTotalPixels(blob, IMAGE_SIZE.SD);
     const [canvas, ctx] = imageBitmapToOffscreenCanvas(image);
     const imageData: ImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     image.close();
@@ -53,7 +54,7 @@ export class LimitedPalette {
         return similarColor?.colorMixture.layerRgb ?? Rgb.WHITE.toRgbTuple();
       });
     });
-    const preview: ImageBitmap = await createImageBitmap(imageData);
+    const preview: ImageBitmap = await createImageBitmapWithFallback(imageData);
     console.timeEnd('limited-palette');
     return transfer({preview}, [preview]);
   }

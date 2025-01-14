@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -20,6 +20,6 @@
 
 import * as Comlink from 'comlink';
 
-import {ColorMixer} from '..';
+import {ColorMixer} from '~/src/services/color/color-mixer';
 
 Comlink.expose(new ColorMixer());

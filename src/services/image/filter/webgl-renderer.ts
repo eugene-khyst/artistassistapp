@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {Size} from '~/src/utils/types';
+
 import vertexShaderSource from './glsl/vertex.glsl';
 
 export class WebGLRenderer {
@@ -27,8 +29,8 @@ export class WebGLRenderer {
   buffers: (WebGLBuffer | null)[] = [];
   textures: (WebGLTexture | null)[] = [];
 
-  constructor(fragmentShaderSource: string, image: ImageBitmap) {
-    const {width, height} = image;
+  constructor(fragmentShaderSource: string, image: ImageBitmap | OffscreenCanvas, size?: Size) {
+    const [width, height] = size ?? [image.width, image.height];
     this.canvas = new OffscreenCanvas(width, height);
     const gl = this.canvas.getContext('webgl2', {antialias: false});
     if (!gl) {
@@ -100,17 +102,14 @@ export class WebGLRenderer {
   }
 
   createTexture(source: TexImageSource) {
-    const {
-      gl,
-      canvas: {width, height},
-    } = this;
+    const {gl} = this;
     const texture = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, texture);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, width, height, 0, gl.RGBA, gl.UNSIGNED_BYTE, source);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
     this.textures.push(texture);
     return texture;
   }

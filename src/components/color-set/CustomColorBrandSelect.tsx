@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,7 +22,8 @@ import {Button, Grid, Select, Space, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 
 import {filterSelectOptions} from '~/src/components/utils';
-import {compareByDate, type CustomColorBrandDefinition} from '~/src/services/color';
+import {compareByDate} from '~/src/services/color/colors';
+import type {CustomColorBrandDefinition} from '~/src/services/color/types';
 
 const newCustomColorBrandOption: SelectOptionType = {
   value: 0,

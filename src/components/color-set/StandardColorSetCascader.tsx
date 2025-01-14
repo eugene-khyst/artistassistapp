@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -20,7 +20,7 @@ import {Cascader} from 'antd';
 import type {CascaderAutoProps, DefaultOptionType as CascaderOptionType} from 'antd/es/cascader';
 
 import {filterCascaderOptions} from '~/src/components/utils';
-import type {ColorBrandDefinition, StandardColorSetDefinition} from '~/src/services/color';
+import type {ColorBrandDefinition, StandardColorSetDefinition} from '~/src/services/color/types';
 
 const CUSTOM_COLOR_SET_OPTION: CascaderOptionType = {
   value: 0,

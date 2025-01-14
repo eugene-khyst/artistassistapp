@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,12 +22,12 @@ import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 
 import {filterSelectOptions} from '~/src/components/utils';
 import {useAuth} from '~/src/hooks/useAuth';
-import type {User} from '~/src/services/auth';
+import type {User} from '~/src/services/auth/types';
 import {
-  type ColorBrandDefinition,
   compareColorBrandsByFreeTierAndName,
   compareColorBrandsByName,
-} from '~/src/services/color';
+} from '~/src/services/color/colors';
+import type {ColorBrandDefinition} from '~/src/services/color/types';
 
 function getColorBrandOptions(
   user: User | null,

@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,6 +17,7 @@
  */
 
 import {
+  ClearOutlined,
   CloudSyncOutlined,
   CommentOutlined,
   DeleteOutlined,
@@ -27,16 +28,39 @@ import {
   ReadOutlined,
   ReloadOutlined,
 } from '@ant-design/icons';
-import {Button, Col, Flex, Popconfirm, Row, Space, theme, Typography} from 'antd';
+import type {ProgressProps} from 'antd';
+import {Button, Col, Flex, Popconfirm, Progress, Row, Space, theme, Typography} from 'antd';
 import {useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {COMMIT_HASH, PATREON_URL, WEBSITE_URL} from '~/src/config';
-import {deleteDatabase} from '~/src/services/db';
+import {deleteDatabase} from '~/src/services/db/db';
+import {useAppStore} from '~/src/stores/app-store';
+import {formatBytes} from '~/src/utils/format';
 
 import {Logo} from './image/Logo';
 
+const THREE_COLORS: ProgressProps['strokeColor'] = {
+  '0%': '#00FF00',
+  '50%': '#FFFF00',
+  '100%': '#FF0000',
+};
+
+const clearCache = async () => {
+  const keys = await caches.keys();
+  await Promise.all(keys.map(key => caches.delete(key)));
+};
+
+const deleteAppData = async () => {
+  void deleteDatabase();
+  void clearCache();
+  const registration = await navigator.serviceWorker.getRegistration();
+  await registration?.unregister();
+};
+
 export const Help: React.FC = () => {
+  const storageUsage = useAppStore(state => state.storageUsage);
+
   const {
     token: {fontSizeSM},
   } = theme.useToken();
@@ -50,15 +74,6 @@ export const Help: React.FC = () => {
       await registration?.update();
       setIsUpdating(false);
     }
-  };
-
-  const handleDeleteAppData = async () => {
-    void deleteDatabase();
-    const keys = await caches.keys();
-    await Promise.all(keys.map(key => caches.delete(key)));
-    const registration = await navigator.serviceWorker.getRegistration();
-    await registration?.unregister();
-    window.location.reload();
   };
 
   return (
@@ -138,7 +153,7 @@ export const Help: React.FC = () => {
         </Col>
       </Row>
 
-      <Space wrap>
+      <Space>
         <Button
           icon={<ReloadOutlined />}
           onClick={() => {
@@ -154,11 +169,44 @@ export const Help: React.FC = () => {
         >
           Check for updates
         </Button>
+      </Space>
+
+      {storageUsage?.usage && storageUsage.quota && (
+        <Space size="middle">
+          <Space direction="vertical">
+            <Typography.Text strong>Storage usage</Typography.Text>
+            <Typography.Text>Used: {formatBytes(storageUsage.usage)}</Typography.Text>
+            <Typography.Text>Quota: {formatBytes(storageUsage.quota)}</Typography.Text>
+          </Space>
+          <Progress
+            type="circle"
+            percent={Math.round(100 * (storageUsage.usage / storageUsage.quota))}
+            size={80}
+            status="normal"
+            strokeColor={THREE_COLORS}
+          />
+        </Space>
+      )}
+
+      <Space>
+        <Popconfirm
+          title="Clear cache"
+          description="Are you sure you want to clear the cache?"
+          onConfirm={() => {
+            void clearCache();
+            window.location.reload();
+          }}
+          okText="Yes"
+          cancelText="No"
+        >
+          <Button icon={<ClearOutlined />}>Clear cache</Button>
+        </Popconfirm>
         <Popconfirm
           title="Delete all app data"
           description="Are you sure you want to delete all app data?"
           onConfirm={() => {
-            void handleDeleteAppData();
+            void deleteAppData();
+            window.location.reload();
           }}
           okText="Yes"
           cancelText="No"

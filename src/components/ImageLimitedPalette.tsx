@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,9 +21,12 @@ import type {MenuProps} from 'antd';
 import {Button, Col, Dropdown, Form, Grid, Row, Space, Spin, Typography} from 'antd';
 import {useEffect, useState} from 'react';
 
-import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
-import type {ZoomableImageCanvas} from '~/src/services/canvas/image';
-import type {Color, ColorSet} from '~/src/services/color';
+import {
+  useZoomableImageCanvas,
+  zoomableImageCanvasSupplier,
+} from '~/src/hooks/useZoomableImageCanvas';
+import type {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
+import type {Color, ColorSet} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
 

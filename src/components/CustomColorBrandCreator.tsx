@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -45,16 +45,16 @@ import {useCallback, useEffect, useState} from 'react';
 import {ColorTypeSelect} from '~/src/components/color-set/ColorTypeSelect';
 import {CustomColorBrandSelect} from '~/src/components/color-set/CustomColorBrandSelect';
 import {FileSelect} from '~/src/components/image/FileSelect';
-import {useZoomableImageCanvas} from '~/src/hooks';
 import {useCreateImageBitmap} from '~/src/hooks/useCreateImageBitmap';
-import type {PipetPointSetEvent} from '~/src/services/canvas/image';
+import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
+import type {PipetPointSetEvent} from '~/src/services/canvas/image/image-color-picker-canvas';
 import {
   ColorPickerEventType,
   ImageColorPickerCanvas,
   MIN_COLOR_PICKER_DIAMETER,
-} from '~/src/services/canvas/image';
-import type {ColorDefinition, CustomColorBrandDefinition} from '~/src/services/color';
-import {Rgb} from '~/src/services/color/space';
+} from '~/src/services/canvas/image/image-color-picker-canvas';
+import {Rgb} from '~/src/services/color/space/rgb';
+import type {ColorDefinition, CustomColorBrandDefinition} from '~/src/services/color/types';
 import {getLastCustomColorBrand} from '~/src/services/db/custom-brand-db';
 import {useAppStore} from '~/src/stores/app-store';
 

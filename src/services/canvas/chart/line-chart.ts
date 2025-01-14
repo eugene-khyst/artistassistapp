@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,11 +17,11 @@
  */
 
 import {Canvas} from '~/src/services/canvas/canvas';
-import type {RgbTuple} from '~/src/services/color/space';
-import {Rgb} from '~/src/services/color/space';
-import {Vector} from '~/src/services/math';
-import type {TypedArray} from '~/src/utils';
-import {countFractionDigits} from '~/src/utils';
+import type {RgbTuple} from '~/src/services/color/space/rgb';
+import {Rgb} from '~/src/services/color/space/rgb';
+import {Vector} from '~/src/services/math/geometry';
+import type {TypedArray} from '~/src/utils/array';
+import {countFractionDigits} from '~/src/utils/format';
 
 const SPACING = 3;
 

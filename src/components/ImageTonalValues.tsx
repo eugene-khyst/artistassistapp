@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,9 +21,12 @@ import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
 import {Button, Col, Dropdown, Grid, Radio, Row, Space, Spin} from 'antd';
 import {useEffect, useState} from 'react';
 
-import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
-import type {ZoomableImageCanvas} from '~/src/services/canvas/image';
-import {printImages} from '~/src/services/print';
+import {
+  useZoomableImageCanvas,
+  zoomableImageCanvasSupplier,
+} from '~/src/hooks/useZoomableImageCanvas';
+import type {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
+import {printImages} from '~/src/services/print/print';
 import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
 

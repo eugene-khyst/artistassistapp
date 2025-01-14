@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export * from './app-settings-db';
-export * from './color-mixture-db';
-export * from './color-set-db';
-export * from './db';
-export * from './image-file-db';
+import type {User} from '~/src/services/auth/types';
+
+export function hasAccessTo<
+  T extends {
+    freeTier?: boolean;
+  },
+>(user: User | null, value?: T | T[] | null): boolean {
+  return !value || ![value].flat().some(({freeTier}) => !freeTier) || !!user;
+}

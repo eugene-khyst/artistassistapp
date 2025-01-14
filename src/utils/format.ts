@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Fraction} from '~/src/utils';
+import type {Fraction} from '~/src/utils/fraction';
 
 export function countFractionDigits(number: number): number {
   const numberStr = String(number);
@@ -32,4 +32,14 @@ export function formatFraction([part, whole]: Fraction): string {
 
 export function formatRatio([part, whole]: Fraction, inverse = false): string {
   return inverse ? `${whole - part}:${part}` : `${part}:${whole - part}`;
+}
+
+export function formatBytes(bytes: number): string {
+  if (bytes === 0) {
+    return '0 Bytes';
+  }
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return (bytes / Math.pow(k, i)).toFixed(2) + ' ' + sizes[i]!;
 }

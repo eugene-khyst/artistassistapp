@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  */
 
 import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
-import {copyOffscreenCanvas} from '~/src/utils';
+import {copyOffscreenCanvas} from '~/src/utils/graphics';
 
 import fragmentShaderSource from './glsl/sobel-operator.glsl';
 

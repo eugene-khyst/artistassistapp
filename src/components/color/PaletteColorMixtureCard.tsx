@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -20,7 +20,7 @@ import {BgColorsOutlined, DeleteOutlined, PictureOutlined} from '@ant-design/ico
 import {Button, Card, Popconfirm, Space, Typography} from 'antd';
 
 import {ColorMixtureDescription} from '~/src/components/color/ColorMixtureDescription';
-import type {ColorMixture} from '~/src/services/color';
+import type {ColorMixture} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 

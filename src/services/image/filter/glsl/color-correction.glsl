@@ -14,14 +14,14 @@ uniform float u_scaleR;
 uniform float u_scaleG;
 uniform float u_scaleB;
 
-in vec2 v_texcoord;
+in vec2 v_texCoord;
 out vec4 fragColor;
 
 #include linear-rgb.glsl;
 #include luminance.glsl;
 
 void main() {
-  vec4 color = texture(u_texture, v_texcoord);
+  vec4 color = texture(u_texture, v_texCoord);
   vec3 linearRgb = srgbToLinear(color.rgb);
   linearRgb = clamp(linearRgb * u_invMaxValues, 0.0, 1.0);
   if (u_saturation != 1.0) {

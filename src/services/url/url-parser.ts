@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,9 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {ColorSetDefinition, ColorType} from '~/src/services/color';
+import type {ColorSetDefinition, ColorType} from '~/src/services/color/types';
 import type {UrlParsingResult} from '~/src/services/url/types';
 import {TabKey} from '~/src/tabs';
+import {replaceHistory} from '~/src/utils/url';
 
 const URL_PARAM_COLOR_TYPE = 't';
 const URL_PARAM_COLOR_BRANDS = 'b';
@@ -119,8 +120,4 @@ export function importFromUrl(): UrlParsingResult {
     replaceHistory();
   }
   return importedFromUrl;
-}
-
-export function replaceHistory(): void {
-  window.history.replaceState({}, '', '/');
 }

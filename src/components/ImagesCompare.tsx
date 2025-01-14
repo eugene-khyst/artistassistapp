@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -24,8 +24,8 @@ import {useEffect, useRef} from 'react';
 import {AdCard} from '~/src/components/ad/AdCard';
 import {FileSelect} from '~/src/components/image/FileSelect';
 import {ImageCard} from '~/src/components/image/ImageCard';
-import type {Score} from '~/src/services/rating';
-import {Player} from '~/src/services/rating';
+import type {Score} from '~/src/services/rating/rating';
+import {Player} from '~/src/services/rating/rating';
 import {useAppStore} from '~/src/stores/app-store';
 
 function restartTransitionAnimation(...refs: RefObject<HTMLDivElement>[]) {

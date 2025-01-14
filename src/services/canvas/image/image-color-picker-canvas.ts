@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,12 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {RgbTuple} from '~/src/services/color/space';
-import {linearizeRgbChannel, Rgb, unlinearizeRgbChannel} from '~/src/services/color/space';
-import {EventManager} from '~/src/services/event';
-import type {Rectangle, Vector} from '~/src/services/math';
-import {clamp} from '~/src/services/math';
-import {getRgbaForCoord, imageBitmapToOffscreenCanvas} from '~/src/utils';
+import type {RgbTuple} from '~/src/services/color/space/rgb';
+import {linearizeRgbChannel, Rgb, unlinearizeRgbChannel} from '~/src/services/color/space/rgb';
+import {EventManager} from '~/src/services/event/event-manager';
+import {clamp} from '~/src/services/math/clamp';
+import type {Rectangle, Vector} from '~/src/services/math/geometry';
+import {getRgbaForCoord, imageBitmapToOffscreenCanvas} from '~/src/utils/graphics';
 
 import type {ZoomableImageCanvasProps} from './zoomable-image-canvas';
 import {ZoomableImageCanvas} from './zoomable-image-canvas';

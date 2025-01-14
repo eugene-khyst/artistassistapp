@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,8 +21,11 @@ import {Button, Space, Spin} from 'antd';
 import {useState} from 'react';
 
 import {PrintImageDrawer} from '~/src/components/print/PrintImageDrawer';
-import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
-import type {ZoomableImageCanvas} from '~/src/services/canvas/image';
+import {
+  useZoomableImageCanvas,
+  zoomableImageCanvasSupplier,
+} from '~/src/hooks/useZoomableImageCanvas';
+import type {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
 import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
 

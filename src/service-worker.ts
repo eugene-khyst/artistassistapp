@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,15 +22,25 @@ declare const self: ServiceWorkerGlobalScope & {
   __WB_MANIFEST: {url: string}[];
 };
 
-import {BACKGROUND_REMOVAL_DATA_URL, COMMIT_HASH} from '~/src/config';
-import {saveAppSettings, saveImageFile} from '~/src/services/db';
-import type {SampleImageDefinition} from '~/src/services/image';
-import {fileToImageFile, SAMPLE_IMAGES} from '~/src/services/image';
+import {saveAppSettings} from '~/src/services/db/app-settings-db';
+import {saveImageFile} from '~/src/services/db/image-file-db';
+import {fileToImageFile} from '~/src/services/image/image-file';
+import type {SampleImageDefinition} from '~/src/services/image/sample-images';
+import {SAMPLE_IMAGES} from '~/src/services/image/sample-images';
 import {TabKey} from '~/src/tabs';
-import {fetchCacheFirst, fetchSWR} from '~/src/utils';
+import {fetchCacheFirst, fetchSWR, getCacheName} from '~/src/utils/fetch';
+
+const MB_1 = 1024 * 1024;
+const MB_20 = 20 * MB_1;
+
+const CACHE_NAME = getCacheName();
+const CACHE_NAME_DATA = getCacheName('data');
+const CACHE_NAMES = [CACHE_NAME, CACHE_NAME_DATA];
+
+const CACHE_EXTENSIONS = ['.onnx', '.wasm'];
 
 async function install(): Promise<void> {
-  const cache = await caches.open(COMMIT_HASH);
+  const cache = await caches.open(CACHE_NAME);
   await cache.addAll([
     '/',
     ...new Set(self.__WB_MANIFEST.map(({url}) => url)),
@@ -46,7 +56,11 @@ self.addEventListener('install', event => {
 
 async function activate(): Promise<void> {
   const keys = await caches.keys();
-  await Promise.all(keys.filter(key => key !== COMMIT_HASH).map(key => caches.delete(key)));
+  await Promise.all(
+    keys
+      .filter(key => !CACHE_NAMES.some(cacheName => key === cacheName))
+      .map(key => caches.delete(key))
+  );
 }
 self.addEventListener('activate', event => {
   event.waitUntil(activate());
@@ -57,8 +71,10 @@ self.addEventListener('fetch', (event: FetchEvent) => {
   const url = new URL(request.url);
   if (request.method === 'GET') {
     let response: Promise<Response>;
-    if (url.origin === self.location.origin || url.href.startsWith(BACKGROUND_REMOVAL_DATA_URL)) {
+    if (url.origin === self.location.origin) {
       response = fetchCacheFirst(request);
+    } else if (CACHE_EXTENSIONS.some(extension => url.href.endsWith(extension))) {
+      response = fetchCacheFirst(request, CACHE_NAME_DATA, MB_20);
     } else {
       response = fetchSWR(request);
     }

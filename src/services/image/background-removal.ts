@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,23 +16,62 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {BACKGROUND_REMOVAL_DATA_URL} from '~/src/config';
+import type {Tensor} from 'onnxruntime-web';
+
+import type {RgbTuple} from '~/src/services/color/space/rgb';
+import {bilinearInterpolationWebGL} from '~/src/services/image/filter/bilinear-interpolation-webgl';
+import {imageDataToTensor} from '~/src/services/ml/image-tensor';
+import {runInference} from '~/src/services/ml/inference';
+import type {OnnxModel} from '~/src/services/ml/types';
+import type {ProgressCallback} from '~/src/utils/fetch';
+import {
+  applyMask,
+  createImageBitmapWithFallback,
+  imageBitmapToImageData,
+} from '~/src/utils/graphics';
+
+const MEAN: RgbTuple = [128, 128, 128];
+const STD: RgbTuple = [256, 256, 256];
 
 export async function removeBackground(
   file: File,
-  progress?: (key: string, current: number, total: number) => void
+  model: OnnxModel,
+  progressCallback?: ProgressCallback
 ): Promise<Blob> {
   console.time('background-removal');
-  const {removeBackground} = await import('@imgly/background-removal');
-  const noBgBlob = await removeBackground(file, {
-    publicPath: BACKGROUND_REMOVAL_DATA_URL,
-    proxyToWorker: true,
-    device: 'gpu',
-    progress: (key, current, total) => {
-      console.log(`Downloading ${key}: ${current} of ${total}`);
-      progress?.(key, current, total);
-    },
+  const {resolution, url: modelUrl} = model;
+  const originalImage = await createImageBitmapWithFallback(file);
+  const {width: originalWidth, height: originalHeight} = originalImage;
+  const scaledImageBitmap = await createImageBitmap(originalImage, {
+    resizeWidth: resolution,
+    resizeHeight: resolution,
   });
+  const [imageData] = imageBitmapToImageData(scaledImageBitmap);
+  scaledImageBitmap.close();
+  const inputTensor = imageDataToTensor(imageData, resolution, resolution, MEAN, STD);
+  const outputTensor = await runInference(modelUrl, inputTensor, progressCallback);
+  const mask = tensorToMask(outputTensor, resolution, originalWidth, originalHeight);
+  const noBgBlob = applyMask(originalImage, mask).convertToBlob();
+  originalImage.close();
   console.timeEnd('background-removal');
   return noBgBlob;
+}
+
+function tensorToMask(
+  {data: maskData}: Tensor,
+  resolution: number,
+  width: number,
+  height: number
+): OffscreenCanvas {
+  const totalPixels = resolution * resolution;
+  const data = new Uint8ClampedArray(4 * totalPixels).fill(255);
+  for (let i = 0; i < totalPixels; i++) {
+    const j = 4 * i;
+    const alpha = (maskData[i] as number) * 255;
+    data[j + 3] = alpha;
+  }
+  const canvas = new OffscreenCanvas(resolution, resolution);
+  const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d')!;
+  ctx.putImageData(new ImageData(data, resolution, resolution), 0, 0);
+  return bilinearInterpolationWebGL(canvas, width, height);
 }

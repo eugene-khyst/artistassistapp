@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,8 @@
  */
 
 import {API_URL} from '~/src/config';
-import type {User} from '~/src/services/auth';
+import type {User} from '~/src/services/auth/types';
+import {hasAccessTo} from '~/src/services/auth/utils';
 import type {
   Color,
   ColorBrandDefinition,
@@ -31,9 +32,9 @@ import type {
 } from '~/src/services/color/types';
 import {ColorType} from '~/src/services/color/types';
 import {getCustomColorBrand, getCustomColorBrandsByType} from '~/src/services/db/custom-brand-db';
-import {fetchSWR} from '~/src/utils';
+import {fetchSWR} from '~/src/utils/fetch';
 
-import {Rgb} from './space';
+import {Rgb} from './space/rgb';
 
 export const COLOR_TYPES = new Map<ColorType, ColorTypeDefinition>([
   [ColorType.WatercolorPaint, {name: 'Watercolor paint', alias: 'watercolor-paint'}],
@@ -204,7 +205,7 @@ export function getColorSetName(
     ?.map((brandId: number): string => {
       const {shortName, fullName} = brands.get(brandId) ?? {};
       const colorSetSize = colors[brandId]!.length;
-      return `${shortName ?? fullName} ${colorSetSize} ${colorSetSize > 1 ? 'colors' : 'color'}`;
+      return `${shortName || fullName} ${colorSetSize} ${colorSetSize > 1 ? 'colors' : 'color'}`;
     })
     .filter(Boolean)
     .join(', ');
@@ -223,7 +224,7 @@ export function toColorSet(
   const selectedBrandsMap = new Map<number, ColorBrandDefinition>(
     [...brands].filter(([brandId]) => selectedBrands?.includes(brandId))
   );
-  if (!hasAccessToBrands(user, [...selectedBrandsMap.values()])) {
+  if (!hasAccessTo(user, [...selectedBrandsMap.values()])) {
     return;
   }
   return {
@@ -251,12 +252,4 @@ export function toColorSet(
         );
     }),
   };
-}
-
-export function hasAccessToBrand(user: User | null, {freeTier}: ColorBrandDefinition): boolean {
-  return freeTier || !!user;
-}
-
-export function hasAccessToBrands(user: User | null, brands: ColorBrandDefinition[]): boolean {
-  return !brands.some(({freeTier}) => !freeTier) || !!user;
 }

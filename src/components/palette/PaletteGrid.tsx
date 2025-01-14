@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -25,10 +25,13 @@ import {useReactToPrint} from 'react-to-print';
 import {AdCard} from '~/src/components/ad/AdCard';
 import {ColorMixtureDescription} from '~/src/components/color/ColorMixtureDescription';
 import {PaletteColorMixtureCard} from '~/src/components/color/PaletteColorMixtureCard';
-import type {ColorMixture, ColorType} from '~/src/services/color';
-import {compareColorMixturesByDate, compareColorMixturesByName} from '~/src/services/color';
+import {
+  compareColorMixturesByDate,
+  compareColorMixturesByName,
+} from '~/src/services/color/color-mixer';
+import type {ColorMixture, ColorType} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
-import {reverseOrder} from '~/src/utils';
+import {reverseOrder} from '~/src/utils/array';
 
 enum Sort {
   ByDataIndex = 1,

@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -24,9 +24,9 @@ import type {
   ColorSetDefinition,
   ColorType,
   CustomColorBrandDefinition,
-} from '~/src/services/color';
-import type {ImageFile} from '~/src/services/image';
-import type {AppSettings} from '~/src/services/settings';
+} from '~/src/services/color/types';
+import type {ImageFile} from '~/src/services/image/image-file';
+import type {AppSettings} from '~/src/services/settings/types';
 
 const DB_NAME = 'artistassistapp';
 const DB_VERSION = 3;

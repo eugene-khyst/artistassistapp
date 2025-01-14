@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {kelvinToRgb} from '~/src/services/color';
+import {kelvinToRgb} from '~/src/services/color/color-temperature';
 import type {AdjustmentParameters} from '~/src/services/image/color-correction';
 import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
-import {copyOffscreenCanvas} from '~/src/utils';
+import {copyOffscreenCanvas} from '~/src/utils/graphics';
 
 import fragmentShaderSource from './glsl/color-correction.glsl';
 

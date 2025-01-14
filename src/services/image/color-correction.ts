@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -29,15 +29,13 @@ export interface AdjustmentParameters {
   targetTemperature?: number;
 }
 
-export class ColorCorrection {
-  getAdjustedImage(
-    image: ImageBitmap,
-    maxValues: number[],
-    adjustmentParams: AdjustmentParameters
-  ): ImageBitmap {
-    console.time('color-correction');
-    const adjustedImage: ImageBitmap = adjustColorsWebGL(image, maxValues, adjustmentParams);
-    console.timeEnd('color-correction');
-    return adjustedImage;
-  }
+export function getAdjustedImage(
+  image: ImageBitmap,
+  maxValues: number[],
+  adjustmentParams: AdjustmentParameters
+): ImageBitmap {
+  console.time('color-correction');
+  const adjustedImage: ImageBitmap = adjustColorsWebGL(image, maxValues, adjustmentParams);
+  console.timeEnd('color-correction');
+  return adjustedImage;
 }

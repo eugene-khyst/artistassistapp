@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -18,8 +18,9 @@
 
 import {Space, Typography} from 'antd';
 
-import type {ColorMixture, ColorMixturePart} from '~/src/services/color';
-import {formatFraction, formatRatio, toRatio} from '~/src/utils';
+import type {ColorMixture, ColorMixturePart} from '~/src/services/color/types';
+import {formatFraction, formatRatio} from '~/src/utils/format';
+import {toRatio} from '~/src/utils/fraction';
 
 import {ColorDescription} from './ColorDescription';
 import {ColorSquare} from './ColorSquare';

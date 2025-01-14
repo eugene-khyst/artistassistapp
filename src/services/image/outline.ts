@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,15 +17,13 @@
  */
 
 import {sobelEdgeDetectionWebGL} from '~/src/services/image/filter/sobel-operator-webgl';
-import {createScaledImageBitmap, IMAGE_SIZE} from '~/src/utils';
+import {createImageBitmapScaledTotalPixels, IMAGE_SIZE} from '~/src/utils/graphics';
 
-export class Outline {
-  async getOutline(blob: Blob): Promise<ImageBitmap> {
-    console.time('outline');
-    const image: ImageBitmap = await createScaledImageBitmap(blob, IMAGE_SIZE['2K']);
-    const outline: ImageBitmap = sobelEdgeDetectionWebGL(image);
-    image.close();
-    console.timeEnd('outline');
-    return outline;
-  }
+export async function getOutline(blob: Blob): Promise<ImageBitmap> {
+  console.time('outline');
+  const image: ImageBitmap = await createImageBitmapScaledTotalPixels(blob, IMAGE_SIZE['2K']);
+  const outline: ImageBitmap = sobelEdgeDetectionWebGL(image);
+  image.close();
+  console.timeEnd('outline');
+  return outline;
 }

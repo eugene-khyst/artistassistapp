@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,6 +17,8 @@
  */
 
 import {useEffect, useState} from 'react';
+
+import {createImageBitmapWithFallback} from '~/src/utils/graphics';
 
 interface Result {
   isLoading: boolean;
@@ -35,7 +37,7 @@ export function useCreateImageBitmap(blob?: Blob | null): Result {
     setIsLoading(true);
     let imageBitmap: ImageBitmap | undefined;
     void (async () => {
-      imageBitmap = await createImageBitmap(blob);
+      imageBitmap = await createImageBitmapWithFallback(blob);
       setImageBitmap(prev => {
         prev?.close();
         return imageBitmap;

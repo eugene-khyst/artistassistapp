@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,11 +21,17 @@ import {Button, Drawer, Form, Input, InputNumber, Radio, Select, Space, Spin} fr
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useEffect, useState} from 'react';
 
-import {useCreateObjectUrl} from '~/src/hooks';
+import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
 import {useDebounce} from '~/src/hooks/useDebounce';
-import {splitImageIntoParts, type SplitImagePreview, splitImagePreview} from '~/src/services/image';
-import {LENGTH_UNITS, LengthUnit} from '~/src/services/math';
-import {PAPER_SIZES, PaperSize, printImages} from '~/src/services/print';
+import {
+  splitImageIntoParts,
+  type SplitImagePreview,
+  splitImagePreview,
+} from '~/src/services/image/splitter';
+import {LENGTH_UNITS} from '~/src/services/math/geometry';
+import {LengthUnit} from '~/src/services/math/types';
+import {PAPER_SIZES, printImages} from '~/src/services/print/print';
+import {PaperSize} from '~/src/services/print/types';
 
 enum PrintMode {
   Standard,

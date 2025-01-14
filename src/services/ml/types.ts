@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,5 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export * from './reflectance';
-export * from './rgb';
+export enum OnnxModelType {
+  BackgroundRemoval = 'background-removal',
+  StyleTransfer = 'style-transfer',
+  SuperResolution = 'super-resolution',
+}
+
+export interface OnnxModel {
+  id: string;
+  name: string;
+  url: string;
+  resolution: number;
+  outputResolution?: number;
+  priority?: number;
+  freeTier?: boolean;
+}

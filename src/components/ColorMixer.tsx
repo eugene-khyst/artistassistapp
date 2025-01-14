@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -43,17 +43,17 @@ import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {Fragment, useEffect, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
-import type {Color, ColorMixture, ColorSet} from '~/src/services/color';
 import {
-  ColorType,
   compareColorMixturesByConsistency,
   isThickConsistency,
   makeColorMixture,
   PAPER_WHITE_HEX,
-} from '~/src/services/color';
-import {gcd} from '~/src/services/math';
+} from '~/src/services/color/color-mixer';
+import type {Color, ColorMixture, ColorSet} from '~/src/services/color/types';
+import {ColorType} from '~/src/services/color/types';
+import {gcd} from '~/src/services/math/gcd';
 import {useAppStore} from '~/src/stores/app-store';
-import {range} from '~/src/utils';
+import {range} from '~/src/utils/array';
 
 import {AddToPaletteButton} from './color/AddToPaletteButton';
 import {ColorMixtureDescription} from './color/ColorMixtureDescription';

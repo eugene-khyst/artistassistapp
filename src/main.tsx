@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -29,7 +29,7 @@ import {PromiseErrorBoundary} from '~/src/components/alert/PromiseErrorBoundary'
 import {AuthProvider} from '~/src/contexts/AuthProvider';
 import {registerFileHandler} from '~/src/file-handler';
 import {confirmHistoryChange} from '~/src/history';
-import {clearDatabase} from '~/src/services/db';
+import {clearDatabase} from '~/src/services/db/db';
 import {disableScreenLock} from '~/src/wake-lock';
 
 import {ArtistAssistApp} from './ArtistAssistApp';

@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -23,24 +23,20 @@ import type {CheckboxChangeEvent} from 'antd/es/checkbox';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useCallback, useEffect, useState} from 'react';
 
-import {useZoomableImageCanvas} from '~/src/hooks';
+import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
 import {GridCanvas, GridType} from '~/src/services/canvas/image/grid-canvas';
-import {printImages} from '~/src/services/print';
+import {saveAppSettings} from '~/src/services/db/app-settings-db';
+import {printImages} from '~/src/services/print/print';
+import {GridMode} from '~/src/services/settings/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
 
 import {EmptyImage} from './empty/EmptyImage';
 
-enum GridOption {
-  Square = 1,
-  Rectangular_3x3 = 2,
-  Rectangular_4x4 = 3,
-}
-
 const GRID_OPTIONS: SelectOptionType[] = [
-  {value: GridOption.Square, label: 'Square cells'},
-  {value: GridOption.Rectangular_3x3, label: '3×3'},
-  {value: GridOption.Rectangular_4x4, label: '4×4'},
+  {value: GridMode.Square, label: 'Square cells'},
+  {value: GridMode.Rectangular_3x3, label: '3×3'},
+  {value: GridMode.Rectangular_4x4, label: '4×4'},
 ];
 
 const SQUARE_GRID_SIZE_OPTIONS: SelectOptionType[] = [4, 6, 8, 10, 12].map((size: number) => ({
@@ -55,38 +51,72 @@ const gridCanvasSupplier = (canvas: HTMLCanvasElement): GridCanvas => {
 };
 
 export const ImageGrid: React.FC = () => {
+  const appSettings = useAppStore(state => state.appSettings);
   const originalImageFile = useAppStore(state => state.originalImageFile);
   const originalImage = useAppStore(state => state.originalImage);
+
+  const isInitialStateLoading = useAppStore(state => state.isInitialStateLoading);
   const isOriginalImageLoading = useAppStore(state => state.isOriginalImageLoading);
 
   const screens = Grid.useBreakpoint();
 
-  const [gridOption, setGridOption] = useState<GridOption>(GridOption.Square);
-  const [squareGridSize, setSquareGridSize] = useState<number>(DEFAULT_SQUARE_GRID_SIZE);
-  const [isDiagonals, setIsDiagonals] = useState<boolean>(false);
+  const [gridMode, setGridMode] = useState<GridMode>(GridMode.Square);
+  const [gridSize, setGridSize] = useState<number>(DEFAULT_SQUARE_GRID_SIZE);
+  const [gridDiagonals, setGridDiagonals] = useState<boolean>(false);
 
   const {ref: canvasRef, zoomableImageCanvas: gridCanvas} = useZoomableImageCanvas<GridCanvas>(
     gridCanvasSupplier,
     originalImage
   );
 
+  const isLoading: boolean = isInitialStateLoading || isOriginalImageLoading;
+
+  useEffect(() => {
+    const {gridMode, gridSize, gridDiagonals} = appSettings;
+    if (gridMode) {
+      setGridMode(gridMode);
+    }
+    if (gridSize) {
+      setGridSize(gridSize);
+    }
+    if (gridDiagonals) {
+      setGridDiagonals(gridDiagonals);
+    }
+  }, [appSettings]);
+
   useEffect(() => {
     if (!gridCanvas) {
       return;
     }
-    if (gridOption === GridOption.Square) {
-      gridCanvas.setGrid({type: GridType.Square, size: [squareGridSize]});
-    } else if (gridOption === GridOption.Rectangular_3x3) {
-      gridCanvas.setGrid({type: GridType.Rectangular, size: [3, 3], diagonals: isDiagonals});
+    if (gridMode === GridMode.Square) {
+      gridCanvas.setGrid({type: GridType.Square, size: [gridSize]});
+    } else if (gridMode === GridMode.Rectangular_3x3) {
+      gridCanvas.setGrid({type: GridType.Rectangular, size: [3, 3], diagonals: gridDiagonals});
     } else {
-      gridCanvas.setGrid({type: GridType.Rectangular, size: [4, 4], diagonals: isDiagonals});
+      gridCanvas.setGrid({type: GridType.Rectangular, size: [4, 4], diagonals: gridDiagonals});
     }
-  }, [gridCanvas, gridOption, squareGridSize, isDiagonals]);
+  }, [gridCanvas, gridMode, gridSize, gridDiagonals]);
 
   const blobSupplier = useCallback(
     async (): Promise<Blob | undefined> => gridCanvas?.convertToBlob(),
     [gridCanvas]
   );
+
+  const handleGridModeChange = (value: number) => {
+    setGridMode(value);
+    void saveAppSettings({gridMode: value});
+  };
+
+  const handleGridSizeChange = (value: number) => {
+    setGridSize(value);
+    void saveAppSettings({gridSize: value});
+  };
+
+  const handleGridDiagonalsChange = (e: CheckboxChangeEvent) => {
+    const value = e.target.checked;
+    setGridDiagonals(value);
+    void saveAppSettings({gridDiagonals: value});
+  };
 
   const handlePrintClick = () => {
     void printImages(blobSupplier);
@@ -116,45 +146,31 @@ export const ImageGrid: React.FC = () => {
   }
 
   return (
-    <Spin
-      spinning={isOriginalImageLoading}
-      tip="Loading"
-      indicator={<LoadingOutlined spin />}
-      size="large"
-    >
+    <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">
       <Space align="start" style={{width: '100%', justifyContent: 'center', marginBottom: 8}}>
         <Form.Item label="Grid" style={{margin: 0}}>
           <Select
-            value={gridOption}
-            onChange={(value: number) => {
-              setGridOption(value);
-            }}
+            value={gridMode}
+            onChange={handleGridModeChange}
             options={GRID_OPTIONS}
             style={{width: 125}}
           />
         </Form.Item>
-        {gridOption === GridOption.Square ? (
+        {gridMode === GridMode.Square ? (
           <Form.Item
             label="Cells"
             tooltip="Number of cells on the smaller side (vertical or horizontal)"
             style={{margin: 0}}
           >
             <Select
-              value={squareGridSize}
-              onChange={(value: number) => {
-                setSquareGridSize(value);
-              }}
+              value={gridSize}
+              onChange={handleGridSizeChange}
               options={SQUARE_GRID_SIZE_OPTIONS}
             />
           </Form.Item>
         ) : (
           <Form.Item label="Diagonals" tooltip="Show or hide diagonal lines" style={{margin: 0}}>
-            <Checkbox
-              checked={isDiagonals}
-              onChange={(e: CheckboxChangeEvent) => {
-                setIsDiagonals(e.target.checked);
-              }}
-            />
+            <Checkbox checked={gridDiagonals} onChange={handleGridDiagonalsChange} />
           </Form.Item>
         )}
         {screens.sm ? (

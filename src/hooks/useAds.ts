@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -19,8 +19,8 @@
 import type {UseQueryResult} from '@tanstack/react-query';
 import {useQuery} from '@tanstack/react-query';
 
-import type {AdsDefinition} from '~/src/services/ads';
-import {fetchAds} from '~/src/services/ads';
+import {fetchAds} from '~/src/services/ads/ads';
+import type {AdsDefinition} from '~/src/services/ads/types';
 
 interface Result {
   isLoading: boolean;

@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,10 +22,10 @@ import {useEffect, useState} from 'react';
 import reactStringReplace from 'react-string-replace';
 
 import {API_URL} from '~/src/config';
-import type {AdDefinition} from '~/src/services/ads';
+import type {AdDefinition} from '~/src/services/ads/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
-import {randomInt} from '~/src/utils';
+import {randomInt} from '~/src/utils/random';
 
 const AD_CHANGE_INTERVAL = 15 * 1000;
 const IMAGE_SIZE = {width: 200, heigth: 200};

@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -20,7 +20,7 @@ import {DeleteOutlined, PlusOutlined} from '@ant-design/icons';
 import type {ButtonProps} from 'antd';
 import {Button, Popconfirm} from 'antd';
 
-import type {ColorMixture} from '~/src/services/color';
+import type {ColorMixture} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
 
 type Props = {

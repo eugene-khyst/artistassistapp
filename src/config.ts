@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,5 +21,3 @@ export const WEBSITE_URL = 'https://artistassistapp.com';
 export const WATERMARK_TEXT = 'ArtistAssistApp.com';
 export const API_URL = 'https://api.artistassistapp.com';
 export const PATREON_URL = 'https://www.patreon.com/artistassistapp';
-export const BACKGROUND_REMOVAL_DATA_URL =
-  'https://background-removal.artistassistapp.com/background-removal-data/';

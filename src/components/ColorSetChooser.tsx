@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -53,16 +53,15 @@ import {LogoutButton} from '~/src/components/auth/LogoutButton';
 import {ColorSetSelect} from '~/src/components/color-set/ColorSetSelect';
 import {QRScannerModal} from '~/src/components/qr/QRScannerModal';
 import type {ChangableComponent} from '~/src/components/types';
-import {useColorBrands, useColors, useStandardColorSets} from '~/src/hooks';
 import {useAuth} from '~/src/hooks/useAuth';
-import type {ColorBrandDefinition, ColorSetDefinition, ColorType} from '~/src/services/color';
-import {
-  COLOR_TYPES,
-  hasAccessToBrand,
-  hasAccessToBrands,
-  MAX_COLORS_IN_MIXTURE,
-} from '~/src/services/color';
-import {colorSetToUrl} from '~/src/services/url';
+import {useColorBrands} from '~/src/hooks/useColorBrands';
+import {useColors} from '~/src/hooks/useColors';
+import {useStandardColorSets} from '~/src/hooks/useStandardColorSets';
+import {hasAccessTo} from '~/src/services/auth/utils';
+import {MAX_COLORS_IN_MIXTURE} from '~/src/services/color/color-mixer';
+import {COLOR_TYPES} from '~/src/services/color/colors';
+import type {ColorBrandDefinition, ColorSetDefinition, ColorType} from '~/src/services/color/types';
+import {colorSetToUrl} from '~/src/services/url/url-parser';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 
@@ -161,7 +160,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
     .filter((brand): brand is ColorBrandDefinition => !!brand);
 
   const isAccessAllowed: boolean =
-    !selectedBrands || (!isAuthLoading && hasAccessToBrands(user, selectedBrands));
+    !selectedBrands || (!isAuthLoading && hasAccessTo(user, selectedBrands));
 
   const selectedBrandAliases: string[] | undefined = selectedBrands?.map(brand => brand.alias);
 
@@ -568,27 +567,27 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
                 <Form.Item
                   key={brand.id}
                   name={['colors', brand.id.toString()]}
-                  label={`${brand.fullName} colors`}
+                  label={`${brand.shortName || brand.fullName} colors`}
                   rules={[{required: true, message: '${label} are required'}]}
                   dependencies={['type', 'brands', 'standardColorSet']}
                   tooltip="Add or remove colors to match your actual color set."
                   extra={
                     !isAuthLoading &&
-                    !hasAccessToBrand(user, brand) && (
+                    !hasAccessTo(user, brand) && (
                       <Typography.Text type="warning">
                         This color brand is available to paid Patreon members only.
                       </Typography.Text>
                     )
                   }
                   validateStatus={
-                    !isAuthLoading && !hasAccessToBrand(user, brand) ? 'warning' : undefined
+                    !isAuthLoading && !hasAccessTo(user, brand) ? 'warning' : undefined
                   }
                 >
                   <ColorSelect
                     mode="multiple"
                     colors={colors.get(brand.alias)}
                     brand={brand}
-                    disabled={!hasAccessToBrand(user, brand)}
+                    disabled={!hasAccessTo(user, brand)}
                   />
                 </Form.Item>
               ))}

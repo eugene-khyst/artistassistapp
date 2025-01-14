@@ -74,6 +74,7 @@ export default tseslint.config(
           ignorePrimitives: true,
         },
       ],
+      '@typescript-eslint/no-unnecessary-type-assertion': 'off',
       'unused-imports/no-unused-imports': 'error',
       'unused-imports/no-unused-vars': [
         'warn',

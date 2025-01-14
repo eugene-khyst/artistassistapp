@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,16 +17,16 @@
  */
 
 import {invertColors} from '~/src/services/image/filter/invert-filter';
-import type {Rectangle} from '~/src/services/math';
-import {Vector} from '~/src/services/math';
-import {IMAGE_SIZE} from '~/src/utils';
+import type {Rectangle} from '~/src/services/math/geometry';
+import {Vector} from '~/src/services/math/geometry';
+import {IMAGE_SIZE} from '~/src/utils/graphics';
 
 import type {ZoomableImageCanvasProps} from './zoomable-image-canvas';
 import {ZoomableImageCanvas} from './zoomable-image-canvas';
 
 export enum GridType {
   Square = 1,
-  Rectangular = 3,
+  Rectangular = 2,
 }
 
 interface Grid {

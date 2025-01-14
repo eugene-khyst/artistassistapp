@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,12 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {gcd} from '~/src/services/math';
-import type {Fraction} from '~/src/utils';
-import {not, unique} from '~/src/utils';
+import {gcd} from '~/src/services/math/gcd';
+import {unique} from '~/src/utils/array';
+import type {Fraction} from '~/src/utils/fraction';
+import {not} from '~/src/utils/predicate';
 
-import type {RgbTuple} from './space';
-import {Reflectance, Rgb} from './space';
+import {Reflectance} from './space/reflectance';
+import type {RgbTuple} from './space/rgb';
+import {Rgb} from './space/rgb';
 import type {
   Color,
   ColorMixingConfig,

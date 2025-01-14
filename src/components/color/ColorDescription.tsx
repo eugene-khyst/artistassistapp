@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -19,9 +19,9 @@
 import {Space, Tooltip, Typography} from 'antd';
 
 import {OpacityIcon} from '~/src/components/color/OpacityIcon';
-import {useColorBrands} from '~/src/hooks';
-import type {Color, ColorBrandDefinition, ColorType} from '~/src/services/color';
-import {formatColorLabel} from '~/src/services/color';
+import {useColorBrands} from '~/src/hooks/useColorBrands';
+import {formatColorLabel} from '~/src/services/color/colors';
+import type {Color, ColorBrandDefinition, ColorType} from '~/src/services/color/types';
 
 import {ColorSquare} from './ColorSquare';
 

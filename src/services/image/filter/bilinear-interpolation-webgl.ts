@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,5 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export * from './image-color-picker-canvas';
-export * from './zoomable-image-canvas';
+import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
+import {copyOffscreenCanvas} from '~/src/utils/graphics';
+
+import fragmentShaderSource from './glsl/bilinear-interpolation.glsl';
+
+export function bilinearInterpolationWebGL(
+  canvas: OffscreenCanvas,
+  width: number,
+  height: number
+): OffscreenCanvas {
+  const renderer = new WebGLRenderer(fragmentShaderSource, canvas, [width, height]);
+  renderer.draw();
+  const resultCanvas = copyOffscreenCanvas(renderer.canvas);
+  renderer.cleanUp();
+  return resultCanvas;
+}

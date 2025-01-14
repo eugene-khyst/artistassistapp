@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -19,7 +19,7 @@
 import type {RefCallback} from 'react';
 import {useCallback, useState} from 'react';
 
-import {ReflectanceChart} from '~/src/services/canvas/chart';
+import {ReflectanceChart} from '~/src/services/canvas/chart/reflectance-chart';
 
 interface Result {
   ref: RefCallback<HTMLCanvasElement>;

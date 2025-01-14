@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -20,8 +20,10 @@ import {QuestionCircleOutlined} from '@ant-design/icons';
 import {Space, theme, Tooltip, Typography} from 'antd';
 import type {ReactNode} from 'react';
 
-import {ColorType, isThickConsistency} from '~/src/services/color';
-import {formatFraction, formatRatio, type Fraction} from '~/src/utils';
+import {isThickConsistency} from '~/src/services/color/color-mixer';
+import {ColorType} from '~/src/services/color/types';
+import {formatFraction, formatRatio} from '~/src/utils/format';
+import type {Fraction} from '~/src/utils/fraction';
 
 interface ConsistencyDescriptionConfig {
   labelRender: (fraction: Fraction) => ReactNode;

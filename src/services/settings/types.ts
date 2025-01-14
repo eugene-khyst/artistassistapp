@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -24,8 +24,18 @@ export enum ColorPickerSort {
   ByConsistency = 3,
 }
 
+export enum GridMode {
+  Square = 1,
+  Rectangular_3x3 = 2,
+  Rectangular_4x4 = 3,
+}
+
 export interface AppSettings {
   activeTabKey?: TabKey;
   colorPickerDiameter?: number;
   colorPickerSort?: ColorPickerSort;
+  gridMode?: GridMode;
+  gridSize?: number;
+  gridDiagonals?: boolean;
+  backgroundRemovalModel?: string;
 }

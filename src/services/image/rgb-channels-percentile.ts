@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {linearizeRgbChannel} from '~/src/services/color/space';
-import {createScaledImageBitmap, IMAGE_SIZE, imageBitmapToImageData} from '~/src/utils';
+import {linearizeRgbChannel} from '~/src/services/color/space/rgb';
+import {
+  createImageBitmapScaledTotalPixels,
+  IMAGE_SIZE,
+  imageBitmapToImageData,
+} from '~/src/utils/graphics';
 
 function sortRgbChannels(imageData: ImageData): Uint8ClampedArray[] {
   const {data} = imageData;
@@ -36,7 +40,7 @@ export class RgbChannelsPercentileCalculator {
   sortedRgbChannels: Uint8ClampedArray[] = [];
 
   async setImage(blob: Blob): Promise<ImageBitmap> {
-    const image: ImageBitmap = await createScaledImageBitmap(blob, IMAGE_SIZE['2K']);
+    const image: ImageBitmap = await createImageBitmapScaledTotalPixels(blob, IMAGE_SIZE['2K']);
     const [imageData] = imageBitmapToImageData(image);
     console.time('sort-rgb-channels');
     this.sortedRgbChannels = sortRgbChannels(imageData);

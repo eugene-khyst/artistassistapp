@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -23,8 +23,10 @@ import {useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {FileSelect} from '~/src/components/image/FileSelect';
-import type {ImageFile, SampleImageDefinition} from '~/src/services/image';
-import {fileToImageFile, SAMPLE_IMAGES} from '~/src/services/image';
+import type {ImageFile} from '~/src/services/image/image-file';
+import {fileToImageFile} from '~/src/services/image/image-file';
+import type {SampleImageDefinition} from '~/src/services/image/sample-images';
+import {SAMPLE_IMAGES} from '~/src/services/image/sample-images';
 import {useAppStore} from '~/src/stores/app-store';
 
 import {RecentImageCard} from './image/RecentImageCard';

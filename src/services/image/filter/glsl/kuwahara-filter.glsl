@@ -9,7 +9,7 @@ uniform sampler2D u_texture;
 uniform vec2 u_texelSize;
 uniform int u_radius;
 
-in vec2 v_texcoord;
+in vec2 v_texCoord;
 out vec4 fragColor;
 
 float values[MAX_KERNEL_SIZE];
@@ -28,7 +28,7 @@ void findMean(int i0, int i1, int j0, int j1) {
   for (int i = i0; i <= i1; ++i) {
     for (int j = j0; j <= j1; ++j) {
       vec2 offset = vec2(float(i), float(j)) * u_texelSize;
-      vec4 color = texture(u_texture, v_texcoord + offset);
+      vec4 color = texture(u_texture, v_texCoord + offset);
       meanTemp += color;
       values[count++] = getLuminance(srgbToLinear(color.rgb));
     }
@@ -50,7 +50,7 @@ void findMean(int i0, int i1, int j0, int j1) {
 }
 
 void main() {
-  fragColor = texture(u_texture, v_texcoord);
+  fragColor = texture(u_texture, v_texCoord);
 
   int radius = min(u_radius, MAX_RADIUS);
   if (radius <= 0) {

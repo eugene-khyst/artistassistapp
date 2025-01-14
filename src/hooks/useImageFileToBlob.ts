@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -18,8 +18,8 @@
 
 import {useEffect, useState} from 'react';
 
-import type {ImageFile} from '~/src/services/image';
-import {arrayBufferToBlob} from '~/src/utils';
+import type {ImageFile} from '~/src/services/image/image-file';
+import {arrayBufferToBlob} from '~/src/utils/blob';
 
 export function useImageFileToBlob(imageFile?: ImageFile | null): Blob | undefined {
   const [blob, setBlob] = useState<Blob>();

@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -20,9 +20,9 @@ import {DeleteOutlined} from '@ant-design/icons';
 import {Button, Card, Popconfirm} from 'antd';
 import dayjs from 'dayjs';
 
-import {useCreateObjectUrl} from '~/src/hooks';
+import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
 import {useImageFileToBlob} from '~/src/hooks/useImageFileToBlob';
-import type {ImageFile} from '~/src/services/image';
+import type {ImageFile} from '~/src/services/image/image-file';
 import {useAppStore} from '~/src/stores/app-store';
 
 interface Props {

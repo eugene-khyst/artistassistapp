@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,10 +21,10 @@ import type {CascaderAutoProps, DefaultOptionType as CascaderOptionType} from 'a
 
 import {ColorSquare} from '~/src/components/color/ColorSquare';
 import {filterCascaderOptions} from '~/src/components/utils';
-import type {Color, ColorSet} from '~/src/services/color';
-import {formatColorLabel} from '~/src/services/color';
+import {formatColorLabel} from '~/src/services/color/colors';
+import type {Color, ColorSet} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
-import {computeIfAbsentInMap} from '~/src/utils';
+import {computeIfAbsentInMap} from '~/src/utils/map';
 
 const displayRender = (labels: string[]) => labels[labels.length - 1];
 

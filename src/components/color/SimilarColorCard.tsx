@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,7 +21,8 @@ import {Button, Card, Space, Typography} from 'antd';
 
 import {AddToPaletteButton} from '~/src/components/color/AddToPaletteButton';
 import {ColorSquare} from '~/src/components/color/ColorSquare';
-import {COLOR_MIXING, type ColorMixture, type SimilarColor} from '~/src/services/color';
+import {COLOR_MIXING} from '~/src/services/color/color-mixer';
+import type {ColorMixture, SimilarColor} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
 
 import {ColorMixtureDescription} from './ColorMixtureDescription';

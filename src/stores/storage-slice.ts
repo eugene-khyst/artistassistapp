@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export * from './clamp';
-export * from './gcd';
-export * from './geometry';
-export * from './matrix';
-export * from './types';
+import type {StateCreator} from 'zustand';
+
+export interface StorageSlice {
+  storageUsage: StorageEstimate | null;
+
+  loadStorageUsage: () => Promise<void>;
+}
+
+export const createStorageSlice: StateCreator<StorageSlice, [], [], StorageSlice> = set => ({
+  storageUsage: null,
+
+  loadStorageUsage: async (): Promise<void> => {
+    if ('storage' in navigator) {
+      set({storageUsage: await navigator.storage.estimate()});
+    }
+  },
+});

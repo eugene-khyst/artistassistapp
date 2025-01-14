@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,10 +21,10 @@ import type {CollapseProps} from 'antd';
 import {Collapse, Spin, Typography} from 'antd';
 import {useCallback, useEffect, useState} from 'react';
 
-import type {ColorMixture, ColorType} from '~/src/services/color';
-import {COLOR_TYPES} from '~/src/services/color';
+import {COLOR_TYPES} from '~/src/services/color/colors';
+import type {ColorMixture, ColorType} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
-import type {ArrayElement} from '~/src/utils';
+import type {ArrayElement} from '~/src/utils/array';
 
 import {ColorSwatchDrawer} from './color/ColorSwatchDrawer';
 import {EmptyPalette} from './empty/EmptyPalette';

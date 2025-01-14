@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -31,12 +31,12 @@ import {ImagesCompare} from '~/src/components/ImagesCompare';
 import {Install} from '~/src/components/Install';
 import type {ChangableComponent} from '~/src/components/types';
 import {TabContext} from '~/src/contexts/TabContext';
-import {useFullScreen} from '~/src/hooks';
 import {useAuth} from '~/src/hooks/useAuth';
+import {useFullScreen} from '~/src/hooks/useFullscreen';
 import {useInstallPrompt} from '~/src/hooks/useInstallPrompt';
 import {useDisplayMode} from '~/src/hooks/usePwaDisplayMode';
 import {useAppStore} from '~/src/stores/app-store';
-import {DisplayMode} from '~/src/utils';
+import {DisplayMode} from '~/src/utils/media';
 
 import {ColorMixer} from './components/ColorMixer';
 import {ColorSetChooser} from './components/ColorSetChooser';

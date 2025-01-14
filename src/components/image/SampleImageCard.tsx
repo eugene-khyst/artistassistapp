@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -18,7 +18,7 @@
 
 import {Card} from 'antd';
 
-import {blobToImageFile} from '~/src/services/image';
+import {blobToImageFile} from '~/src/services/image/image-file';
 import {useAppStore} from '~/src/stores/app-store';
 
 interface Props {

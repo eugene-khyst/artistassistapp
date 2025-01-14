@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,25 +22,28 @@ export const IMAGE_SIZE = {
   '2K': 2560 * 1440,
 };
 
-async function createImageBitmapWithFallback(blob: Blob): Promise<ImageBitmap> {
+export async function createImageBitmapWithFallback(
+  image: ImageBitmapSource
+): Promise<ImageBitmap> {
   try {
-    return await createImageBitmap(blob);
+    return await createImageBitmap(image);
   } catch (error) {
     console.error(error);
     return createErrorImageBitmap(error instanceof Error ? error.message : undefined);
   }
 }
 
-export async function createScaledImageBitmap(
+export async function createImageBitmapScaledTotalPixels(
   blob: Blob,
-  maxImageArea: number
+  totalPixels: number
 ): Promise<ImageBitmap> {
-  const image: ImageBitmap = await createImageBitmapWithFallback(blob);
-  const scale: number = Math.min(1, Math.sqrt(maxImageArea / (image.width * image.height)));
-  const scaledImage: ImageBitmap = await createImageBitmap(image, {
-    resizeWidth: Math.trunc(image.width * scale),
+  const imageBitmap: ImageBitmap = await createImageBitmapWithFallback(blob);
+  const {width, height} = imageBitmap;
+  const scale: number = Math.min(1, Math.sqrt(totalPixels / (width * height)));
+  const scaledImage: ImageBitmap = await createImageBitmap(imageBitmap, {
+    resizeWidth: Math.trunc(width * scale),
   });
-  image.close();
+  imageBitmap.close();
   return scaledImage;
 }
 
@@ -60,14 +63,23 @@ export function imageBitmapToImageData(
   image: ImageBitmap
 ): [ImageData, OffscreenCanvas, OffscreenCanvasRenderingContext2D] {
   const [canvas, ctx] = imageBitmapToOffscreenCanvas(image);
-  return [ctx.getImageData(0, 0, canvas.width, canvas.height), canvas, ctx];
+  const {width, height} = canvas;
+  return [ctx.getImageData(0, 0, width, height), canvas, ctx];
 }
 
 export function copyOffscreenCanvas(canvas: OffscreenCanvas): OffscreenCanvas {
   const {width, height} = canvas;
   const canvasCopy = new OffscreenCanvas(width, height);
-  canvasCopy.getContext('2d')!.drawImage(canvas, 0, 0, width, height);
+  canvasCopy.getContext('2d')!.drawImage(canvas, 0, 0);
   return canvasCopy;
+}
+
+export function applyMask(image: ImageBitmap, mask: OffscreenCanvas): OffscreenCanvas {
+  const [canvas, ctx] = imageBitmapToOffscreenCanvas(image);
+  ctx.drawImage(image, 0, 0);
+  ctx.globalCompositeOperation = 'destination-in';
+  ctx.drawImage(mask, 0, 0);
+  return canvas;
 }
 
 export function getIndexForCoord(x: number, y: number, width: number, channel: number): number {

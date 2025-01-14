@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,8 +17,9 @@
  */
 
 import type {LaunchParams} from '~/src/pwa';
-import {saveAppSettings, saveImageFile} from '~/src/services/db';
-import {fileToImageFile} from '~/src/services/image';
+import {saveAppSettings} from '~/src/services/db/app-settings-db';
+import {saveImageFile} from '~/src/services/db/image-file-db';
+import {fileToImageFile} from '~/src/services/image/image-file';
 import {TabKey} from '~/src/tabs';
 
 export function registerFileHandler() {

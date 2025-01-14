@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -38,24 +38,24 @@ import {useCallback, useEffect, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {ReflectanceChartDrawer} from '~/src/components/color/ReflectanceChartDrawer';
-import {useZoomableImageCanvas} from '~/src/hooks';
-import type {PipetPointSetEvent} from '~/src/services/canvas/image';
+import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
+import type {PipetPointSetEvent} from '~/src/services/canvas/image/image-color-picker-canvas';
 import {
   ColorPickerEventType,
   ImageColorPickerCanvas,
   MIN_COLOR_PICKER_DIAMETER,
-} from '~/src/services/canvas/image';
-import type {ColorMixture, SamplingArea, SimilarColor} from '~/src/services/color';
+} from '~/src/services/canvas/image/image-color-picker-canvas';
 import {
   COLOR_MIXING,
   compareSimilarColorsByColorMixturePartLength,
   compareSimilarColorsByConsistency,
   compareSimilarColorsBySimilarity,
   PAPER_WHITE_HEX,
-} from '~/src/services/color';
-import {getAppSettings, saveAppSettings} from '~/src/services/db';
-import {Vector} from '~/src/services/math';
-import {ColorPickerSort} from '~/src/services/settings';
+} from '~/src/services/color/color-mixer';
+import type {ColorMixture, SamplingArea, SimilarColor} from '~/src/services/color/types';
+import {saveAppSettings} from '~/src/services/db/app-settings-db';
+import {Vector} from '~/src/services/math/geometry';
+import {ColorPickerSort} from '~/src/services/settings/types';
 import {useAppStore} from '~/src/stores/app-store';
 
 import {SimilarColorCard} from './color/SimilarColorCard';
@@ -93,6 +93,7 @@ function getSamplingArea(colorPickerCanvas?: ImageColorPickerCanvas): SamplingAr
 }
 
 export const ImageColorPicker: React.FC = () => {
+  const appSettings = useAppStore(state => state.appSettings);
   const colorSet = useAppStore(state => state.colorSet);
   const originalImage = useAppStore(state => state.originalImage);
   const backgroundColor = useAppStore(state => state.backgroundColor);
@@ -100,6 +101,7 @@ export const ImageColorPicker: React.FC = () => {
   const colorPickerPipet = useAppStore(state => state.colorPickerPipet);
   const similarColors = useAppStore(state => state.similarColors);
 
+  const isInitialStateLoading = useAppStore(state => state.isInitialStateLoading);
   const isColorMixerSetLoading = useAppStore(state => state.isColorMixerSetLoading);
   const isColorMixerBackgroundLoading = useAppStore(state => state.isColorMixerBackgroundLoading);
   const isOriginalImageLoading = useAppStore(state => state.isOriginalImageLoading);
@@ -133,22 +135,21 @@ export const ImageColorPicker: React.FC = () => {
   const [isOpenReflectanceChart, setIsOpenReflectanceChart] = useState<boolean>(false);
 
   const isLoading: boolean =
+    isInitialStateLoading ||
     isColorMixerSetLoading ||
     isColorMixerBackgroundLoading ||
     isOriginalImageLoading ||
     isSimilarColorsLoading;
 
   useEffect(() => {
-    void (async () => {
-      const {colorPickerDiameter, colorPickerSort} = (await getAppSettings()) ?? {};
-      if (colorPickerDiameter) {
-        setSampleDiameter(colorPickerDiameter);
-      }
-      if (colorPickerSort) {
-        setSort(colorPickerSort);
-      }
-    })();
-  }, []);
+    const {colorPickerDiameter, colorPickerSort} = appSettings;
+    if (colorPickerDiameter) {
+      setSampleDiameter(colorPickerDiameter);
+    }
+    if (colorPickerSort) {
+      setSort(colorPickerSort);
+    }
+  }, [appSettings]);
 
   useEffect(() => {
     colorPickerCanvas?.setPipetDiameter(sampleDiameter);

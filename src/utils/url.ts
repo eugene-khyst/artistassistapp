@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,5 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export * from './auth-client';
-export * from './types';
+export function splitUrl(url: URL): [string, string] {
+  const pathSegments = url.pathname.split('/');
+  const filename = pathSegments.pop()!;
+  const base = `${url.origin}${pathSegments.join('/')}/`;
+  return [base, filename];
+}
+
+export function replaceHistory(): void {
+  window.history.replaceState({}, '', '/');
+}

@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -18,7 +18,7 @@
 
 import {API_URL} from '~/src/config';
 import type {AdsDefinition} from '~/src/services/ads/types';
-import {fetchSWR} from '~/src/utils';
+import {fetchSWR} from '~/src/utils/fetch';
 
 export async function fetchAds(): Promise<AdsDefinition> {
   const response = await fetchSWR(`${API_URL}/ads.json`);

@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -20,7 +20,7 @@ import * as jose from 'jose';
 
 import type {User} from '~/src/services/auth/types';
 import {AuthError} from '~/src/services/auth/types';
-import {replaceHistory} from '~/src/services/url';
+import {replaceHistory} from '~/src/utils/url';
 
 import jwks from './jwks.json';
 

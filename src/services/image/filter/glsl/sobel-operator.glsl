@@ -5,7 +5,7 @@ precision mediump float;
 uniform sampler2D u_texture;
 uniform vec2 u_texelSize;
 
-in vec2 v_texcoord;
+in vec2 v_texCoord;
 out vec4 fragColor;
 
 #include linear-rgb.glsl;
@@ -20,7 +20,7 @@ void main() {
   for (int y = -1; y <= 1; y++) {
     for (int x = -1; x <= 1; x++) {
       vec2 offset = vec2(float(x), float(y)) * u_texelSize;
-      samples[i++] = texture(u_texture, v_texcoord + offset).rgb;
+      samples[i++] = texture(u_texture, v_texCoord + offset).rgb;
     }
   }
 

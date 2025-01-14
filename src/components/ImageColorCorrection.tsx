@@ -1,6 +1,6 @@
 /**
  * ArtistAssistApp
- * Copyright (C) 2023-2024  Eugene Khyst
+ * Copyright (C) 2023-2025  Eugene Khyst
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -30,11 +30,14 @@ import {useEffect, useMemo, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {FileSelect} from '~/src/components/image/FileSelect';
-import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '~/src/hooks';
 import {useDebounce} from '~/src/hooks/useDebounce';
-import type {ZoomableImageCanvas} from '~/src/services/canvas/image';
-import {kelvinToRgb} from '~/src/services/color';
-import {blobToImageFile} from '~/src/services/image';
+import {
+  useZoomableImageCanvas,
+  zoomableImageCanvasSupplier,
+} from '~/src/hooks/useZoomableImageCanvas';
+import type {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
+import {kelvinToRgb} from '~/src/services/color/color-temperature';
+import {blobToImageFile} from '~/src/services/image/image-file';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 import {getFilename} from '~/src/utils/filename';
@@ -139,8 +142,8 @@ export const ImageColorCorrection: React.FC = () => {
   const [inputLevels, setInputLevels] = useState<number[]>([0, 255]);
   const [gammaPercent, setGammaPercent] = useState<number>(50);
   const [outputLevels, setOutputLevels] = useState<number[]>([0, 255]);
-  const [origTemp, setOrigTemp] = useState<number>(6500);
-  const [targetTemp, setTargetTemp] = useState<number>(6500);
+  const [originalTemperature, setOriginalTemperature] = useState<number>(6500);
+  const [targetTemperature, setTargetTemperature] = useState<number>(6500);
   const [isPreview, setIsPreview] = useState<boolean>(true);
 
   const gamma = percentToGamma(gammaPercent);
@@ -150,8 +153,8 @@ export const ImageColorCorrection: React.FC = () => {
   const inputLowHighDebounced = useDebounce(inputLevels, 500);
   const gammaDebounced = useDebounce(gamma, 500);
   const outputLowHighDebounced = useDebounce(outputLevels, 500);
-  const origTempDebounced = useDebounce(origTemp, 500);
-  const targetTempDebounced = useDebounce(targetTemp, 500);
+  const origTempDebounced = useDebounce(originalTemperature, 500);
+  const targetTempDebounced = useDebounce(targetTemperature, 500);
 
   const isLoading: boolean = isAdjustedImageLoading;
 
@@ -399,9 +402,9 @@ export const ImageColorCorrection: React.FC = () => {
                   style={{marginBottom: 0}}
                 >
                   <Slider
-                    value={origTemp}
+                    value={originalTemperature}
                     onChange={(value: number) => {
-                      setOrigTemp(value);
+                      setOriginalTemperature(value);
                     }}
                     min={COLOR_TEMP_MIN}
                     max={COLOR_TEMP_MAX}
@@ -428,9 +431,9 @@ export const ImageColorCorrection: React.FC = () => {
                   style={{marginBottom: 0}}
                 >
                   <Slider
-                    value={targetTemp}
+                    value={targetTemperature}
                     onChange={(value: number) => {
-                      setTargetTemp(value);
+                      setTargetTemperature(value);
                     }}
                     min={COLOR_TEMP_MIN}
                     max={COLOR_TEMP_MAX}
