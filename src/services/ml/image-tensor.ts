@@ -21,19 +21,35 @@ import {Tensor} from 'onnxruntime-web';
 import type {RgbTuple} from '~/src/services/color/space/rgb';
 
 export function imageDataToTensor(
-  imageData: ImageData,
-  width: number,
-  height: number,
-  mean: RgbTuple = [0, 0, 0],
-  std: RgbTuple = [255, 255, 255]
+  {data, width, height}: ImageData,
+  std: RgbTuple = [1, 1, 1],
+  mean: RgbTuple = [0, 0, 0]
 ): Tensor {
-  const {data} = imageData;
   const totalPixels = width * height;
   const float32Data = new Float32Array(3 * totalPixels);
-  for (let i = 0, j = 0; i < data.length; i += 4, j += 1) {
+  for (let i = 0, j = 0; i < data.length; i += 4, j++) {
     float32Data[j] = (data[i]! - mean[0]) / std[0];
     float32Data[j + totalPixels] = (data[i + 1]! - mean[1]) / std[1];
     float32Data[j + 2 * totalPixels] = (data[i + 2]! - mean[2]) / std[2];
   }
   return new Tensor('float32', float32Data, [1, 3, height, width]);
+}
+
+export function tensorToImageData(
+  {data, dims: [_batch, _channels, height, width]}: Tensor,
+  std: RgbTuple = [1, 1, 1]
+): ImageData {
+  const totalPixels = width! * height!;
+  const imageData = new Uint8ClampedArray(4 * totalPixels);
+  for (let y = 0; y < height!; y++) {
+    for (let x = 0; x < width!; x++) {
+      const i = y * width! + x;
+      const j = 4 * i;
+      imageData[j] = (data[i] as number) * std[0];
+      imageData[j + 1] = (data[i + totalPixels] as number) * std[1];
+      imageData[j + 2] = (data[i + 2 * totalPixels] as number) * std[2];
+      imageData[j + 3] = 255;
+    }
+  }
+  return new ImageData(imageData, width!, height!);
 }

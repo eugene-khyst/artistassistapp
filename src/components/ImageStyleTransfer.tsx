@@ -16,35 +16,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined, MoreOutlined} from '@ant-design/icons';
-import type {MenuProps} from 'antd';
-import {App, Button, Dropdown, Flex, Form, Grid, Space, Spin, Typography} from 'antd';
+import {DownloadOutlined} from '@ant-design/icons';
+import {App, Button, Flex, Form, Space, Spin, Typography} from 'antd';
 import {saveAs} from 'file-saver';
-import type {ChangeEvent, CSSProperties} from 'react';
+import type {CSSProperties} from 'react';
 import {useEffect, useState} from 'react';
-import {ReactCompareSlider, ReactCompareSliderImage} from 'react-compare-slider';
 
-import {FileSelect} from '~/src/components/image/FileSelect';
 import {OnnxModelSelect} from '~/src/components/ml-model/OnnxModelSelect';
 import {useAuth} from '~/src/hooks/useAuth';
 import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {saveAppSettings} from '~/src/services/db/app-settings-db';
-import {removeBackground} from '~/src/services/image/background-removal';
+import {transferStyle} from '~/src/services/image/style-transfer';
 import {compareOnnxModelsByPriority} from '~/src/services/ml/models';
 import type {OnnxModel} from '~/src/services/ml/types';
 import {OnnxModelType} from '~/src/services/ml/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
 
-export const ImageBackgroundRemove: React.FC = () => {
+export const ImageStyleTransfer: React.FC = () => {
   const appSettings = useAppStore(state => state.appSettings);
-  const imageFileToRemoveBg = useAppStore(state => state.imageFileToRemoveBg);
-
-  const setImageFileToRemoveBg = useAppStore(state => state.setImageFileToRemoveBg);
-
-  const screens = Grid.useBreakpoint();
+  const imageFileToStyle = useAppStore(state => state.imageFileToStyle);
 
   const {notification} = App.useApp();
 
@@ -54,13 +47,12 @@ export const ImageBackgroundRemove: React.FC = () => {
     models,
     isLoading: isModelsLoading,
     isError: isModelsError,
-  } = useOnnxModels(OnnxModelType.BackgroundRemoval);
+  } = useOnnxModels(OnnxModelType.StyleTransfer);
 
   const [modelId, setModelId] = useState<string>();
-  const [noBgBlob, setNoBgBlob] = useState<Blob>();
-  const [position, setPosition] = useState<number>(100);
+  const [styledBlob, setStyledBlob] = useState<Blob>();
 
-  const [isBackgroundRemovalLoading, setIsBackgroundRemovalLoading] = useState<boolean>(false);
+  const [isStyleTransferLoading, setIsStyleTransferLoading] = useState<boolean>(false);
   const [loadingPercent, setLoadingPercent] = useState<number | 'auto'>('auto');
   const [loadingTip, setLoadingTip] = useState<string>();
 
@@ -68,10 +60,9 @@ export const ImageBackgroundRemove: React.FC = () => {
 
   const isAccessAllowed: boolean = !model || (!isAuthLoading && hasAccessTo(user, model));
 
-  const isLoading = isModelsLoading || isBackgroundRemovalLoading || isAuthLoading;
+  const isLoading = isModelsLoading || isStyleTransferLoading || isAuthLoading;
 
-  const imageUrl: string | undefined = useCreateObjectUrl(imageFileToRemoveBg);
-  const noBgImageUrl: string | undefined = useCreateObjectUrl(noBgBlob);
+  const styledImageUrl: string | undefined = useCreateObjectUrl(styledBlob);
 
   useEffect(() => {
     if (isModelsError) {
@@ -84,28 +75,25 @@ export const ImageBackgroundRemove: React.FC = () => {
   }, [isModelsError, notification]);
 
   useEffect(() => {
-    const {backgroundRemovalModel} = appSettings;
+    const {styleTransferModel} = appSettings;
     setModelId(
-      backgroundRemovalModel ??
-        [...(models?.values() ?? [])].sort(compareOnnxModelsByPriority)[0]?.id
+      styleTransferModel ?? [...(models?.values() ?? [])].sort(compareOnnxModelsByPriority)[0]?.id
     );
   }, [appSettings, models]);
 
   useEffect(() => {
     void (async () => {
-      if (!imageFileToRemoveBg || !model || !hasAccessTo(user, model)) {
+      if (!imageFileToStyle || !model || !hasAccessTo(user, model)) {
         return;
       }
       try {
-        setIsBackgroundRemovalLoading(true);
+        setIsStyleTransferLoading(true);
         setLoadingPercent(0);
         setLoadingTip('Loading');
-        setNoBgBlob(undefined);
+        setStyledBlob(undefined);
 
-        setPosition(100);
-
-        const noBgBlob = await removeBackground(
-          imageFileToRemoveBg,
+        const styledBlob: Blob = await transferStyle(
+          imageFileToStyle,
           model,
           (filename, progress) => {
             setLoadingPercent(progress);
@@ -113,38 +101,23 @@ export const ImageBackgroundRemove: React.FC = () => {
           }
         );
 
-        setNoBgBlob(noBgBlob);
-        setPosition(25);
+        setStyledBlob(styledBlob);
       } finally {
-        setIsBackgroundRemovalLoading(false);
+        setIsStyleTransferLoading(false);
       }
     })();
-  }, [imageFileToRemoveBg, model, user]);
+  }, [imageFileToStyle, model, user]);
 
   const handleModelChange = (value: string) => {
     setModelId(value);
-    void saveAppSettings({backgroundRemovalModel: value});
-  };
-
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file: File | null = e.target.files?.[0] ?? null;
-    setImageFileToRemoveBg(file);
+    void saveAppSettings({styleTransferModel: value});
   };
 
   const handleSaveClick = () => {
-    if (noBgImageUrl) {
-      saveAs(noBgImageUrl, getFilename(imageFileToRemoveBg, 'no-bg'));
+    if (styledImageUrl) {
+      saveAs(styledImageUrl, getFilename(imageFileToStyle, 'styled'));
     }
   };
-
-  const items: MenuProps['items'] = [
-    {
-      key: '1',
-      label: 'Save',
-      icon: <DownloadOutlined />,
-      onClick: handleSaveClick,
-    },
-  ];
 
   const imageStyle: CSSProperties = {
     maxWidth: '100%',
@@ -155,25 +128,25 @@ export const ImageBackgroundRemove: React.FC = () => {
   return (
     <Spin spinning={isLoading} percent={loadingPercent} tip={loadingTip} size="large">
       <Flex vertical gap="small" style={{marginBottom: 8, padding: '0 16px'}}>
-        <Typography.Text strong>Select a photo to remove the background from</Typography.Text>
+        <Typography.Text strong>Select a style to transfer to your reference</Typography.Text>
         <Form.Item
           style={{margin: 0}}
           extra={
             !user &&
             (!isAccessAllowed ? (
               <Typography.Text type="warning">
-                You&apos;ve selected mode that is available to paid Patreon members only.
+                You&apos;ve selected style that is available to paid Patreon members only.
               </Typography.Text>
             ) : (
               <Typography.Text type="secondary">
-                Only a limited number of modes are available in the free version.
+                Only a limited number of styles are available in the free version.
               </Typography.Text>
             ))
           }
         >
           <Space align="start" style={{display: 'flex'}}>
             <Form.Item
-              label="Mode"
+              label="Style"
               style={{margin: 0}}
               validateStatus={!isAccessAllowed ? 'warning' : undefined}
             >
@@ -181,43 +154,27 @@ export const ImageBackgroundRemove: React.FC = () => {
                 models={models}
                 value={modelId}
                 onChange={handleModelChange}
-                style={{width: 100}}
+                style={{width: 130}}
               />
             </Form.Item>
-            {!isAuthLoading && isAccessAllowed && (
-              <FileSelect onChange={handleFileChange}>Select photo</FileSelect>
+            {styledImageUrl && (
+              <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
+                Save
+              </Button>
             )}
-            {noBgImageUrl &&
-              (screens.sm ? (
-                <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
-                  Save
-                </Button>
-              ) : (
-                <Dropdown menu={{items}}>
-                  <Button icon={<MoreOutlined />} />
-                </Dropdown>
-              ))}
           </Space>
         </Form.Item>
       </Flex>
 
-      <ReactCompareSlider
-        position={position}
-        itemOne={
-          imageUrl && (
-            <ReactCompareSliderImage src={imageUrl} alt="Original photo" style={imageStyle} />
-          )
-        }
-        itemTwo={
-          noBgImageUrl && (
-            <ReactCompareSliderImage
-              src={noBgImageUrl}
-              alt="Image without background"
-              style={{backgroundColor: '#fff', ...imageStyle}}
-            />
-          )
-        }
-      />
+      <div style={{display: 'flex', justifyContent: 'center'}}>
+        {styledImageUrl && (
+          <img
+            src={styledImageUrl}
+            alt="Styled reference"
+            style={{backgroundColor: '#fff', ...imageStyle}}
+          />
+        )}
+      </div>
     </Spin>
   );
 };

@@ -23,13 +23,14 @@ import {getColorMixtures} from '~/src/services/db/color-mixture-db';
 import {deleteImageFile, saveImageFile} from '~/src/services/db/image-file-db';
 import {type ImageFile, imageFileToFile} from '~/src/services/image/image-file';
 import {TabKey} from '~/src/tabs';
-import {createImageBitmapScaledTotalPixels, IMAGE_SIZE} from '~/src/utils/graphics';
+import {createImageBitmapResizedTotalPixels, IMAGE_SIZE} from '~/src/utils/graphics';
 
 import type {BlurredImagesSlice} from './blurred-images-slice';
 import type {ColorMixerSlice} from './color-mixer-slice';
 import type {LimitedPaletteImageSlice} from './limited-palette-image-slice';
 import type {OutlineImageSlice} from './outline-image-slice';
 import type {PaletteSlice} from './palette-slice';
+import type {StyleTransferSlice} from './style-transfer-slice';
 import type {TabSlice} from './tab-slice';
 import type {TonalImagesSlice} from './tonal-images-slice';
 
@@ -54,6 +55,7 @@ export const createOriginalImageSlice: StateCreator<
     TonalImagesSlice &
     BlurredImagesSlice &
     OutlineImageSlice &
+    StyleTransferSlice &
     LimitedPaletteImageSlice,
   [],
   [],
@@ -87,13 +89,14 @@ export const createOriginalImageSlice: StateCreator<
       blurredImages: [],
       outlineImage: null,
       limitedPaletteImage: null,
+      imageFileToStyle: null,
       backgroundColor: PAPER_WHITE_HEX,
       targetColor: PAPER_WHITE_HEX,
       similarColors: [],
       paletteColorMixtures: await getColorMixtures(imageFile?.id),
     });
     const originalImage: ImageBitmap | null = originalImageFile
-      ? await createImageBitmapScaledTotalPixels(originalImageFile, IMAGE_SIZE['2K'])
+      ? await createImageBitmapResizedTotalPixels(originalImageFile, IMAGE_SIZE['2K'])
       : null;
     set({
       originalImage,

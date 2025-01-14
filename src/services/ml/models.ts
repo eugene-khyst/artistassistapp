@@ -26,8 +26,8 @@ export async function fetchOnnxModels(type: OnnxModelType): Promise<Map<string, 
   return new Map(models.map((model: OnnxModel) => [model.id, model]));
 }
 
-export const compareOnnxModelsByPriority = ({priority: a}: OnnxModel, {priority: b}: OnnxModel) =>
-  (b ?? 0) - (a ?? 0);
+export const compareOnnxModelsByPriority = (a: OnnxModel, b: OnnxModel) =>
+  (b.priority ?? 0) - (a.priority ?? 0) || a.name.localeCompare(b.name);
 
 export const compareOnnxModelsByFreeTierAndPriority = (a: OnnxModel, b: OnnxModel) =>
   (a.freeTier ?? false) === (b.freeTier ?? false)

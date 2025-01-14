@@ -54,7 +54,7 @@ export class WebGLRenderer {
     this.buffers.push(texcoordBuffer);
 
     this.setUpVertexAttributes('a_position', positionBuffer);
-    this.setUpVertexAttributes('a_texcoord', texcoordBuffer);
+    this.setUpVertexAttributes('a_texCoord', texcoordBuffer);
 
     const textureLocation = gl.getUniformLocation(this.program, 'u_texture');
     gl.uniform1i(textureLocation, 0);

@@ -35,7 +35,7 @@ export class ReflectanceChart extends LineChart {
     const {y: y1} = this.transformCoordinates(0, this.maxY);
     const height = y1 - y0;
     const sx = this.scaleX;
-    for (let wavelength = this.minX; wavelength < this.maxX; wavelength += 1) {
+    for (let wavelength = this.minX; wavelength < this.maxX; wavelength++) {
       const {x: x0} = this.transformCoordinates(wavelength, 0);
       this.context.fillStyle = wavelengthToColor(wavelength).toHex();
       this.context.fillRect(x0, y0, 2 * sx, height);

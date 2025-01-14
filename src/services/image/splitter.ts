@@ -20,7 +20,7 @@ import type {Size} from '~/src/utils/types';
 
 const MAX_CANVAS_SIZE = 8192;
 
-export interface SplitImagePreview {
+export interface ImagePagesPreview {
   canvas: OffscreenCanvas;
   rows: number;
   cols: number;
@@ -28,12 +28,18 @@ export interface SplitImagePreview {
   pageHeightPx: number;
 }
 
-export function splitImagePreview(
+export interface ImageTile {
+  x: number;
+  y: number;
+  imageData: ImageData;
+}
+
+export function splitImageIntoPagesPreview(
   image: ImageBitmap,
   targetSize: Size,
   paperSizes: Size[],
   lineWidth = 5
-): SplitImagePreview {
+): ImagePagesPreview {
   const [targetWidth, targetHeight] = targetSize;
   let pages = Number.MAX_VALUE;
   let cols = 0;
@@ -89,13 +95,13 @@ export function splitImagePreview(
   };
 }
 
-export function splitImageIntoParts({
+export function splitImageIntoPages({
   canvas,
   rows,
   cols,
   pageWidthPx,
   pageHeightPx,
-}: SplitImagePreview): OffscreenCanvas[] {
+}: ImagePagesPreview): OffscreenCanvas[] {
   const imageParts: OffscreenCanvas[] = [];
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {

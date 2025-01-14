@@ -33,15 +33,15 @@ export async function createImageBitmapWithFallback(
   }
 }
 
-export async function createImageBitmapScaledTotalPixels(
+export async function createImageBitmapResizedTotalPixels(
   blob: Blob,
   totalPixels: number
 ): Promise<ImageBitmap> {
   const imageBitmap: ImageBitmap = await createImageBitmapWithFallback(blob);
   const {width, height} = imageBitmap;
-  const scale: number = Math.min(1, Math.sqrt(totalPixels / (width * height)));
+  const scaleFactor: number = Math.min(1, Math.sqrt(totalPixels / (width * height)));
   const scaledImage: ImageBitmap = await createImageBitmap(imageBitmap, {
-    resizeWidth: Math.trunc(width * scale),
+    resizeWidth: Math.trunc(scaleFactor * width),
   });
   imageBitmap.close();
   return scaledImage;
@@ -59,12 +59,74 @@ export function imageBitmapToOffscreenCanvas(
   return [canvas, ctx];
 }
 
+export function imageBitmapToOffscreenCanvasResizedAndCropped(
+  image: ImageBitmap,
+  targetWidth: number,
+  targetHeight: number
+): [OffscreenCanvas, OffscreenCanvasRenderingContext2D] {
+  const canvas = new OffscreenCanvas(targetWidth, targetHeight);
+  const ctx = canvas.getContext('2d', {
+    willReadFrequently: true,
+  })!;
+
+  const targetAspectRatio = targetWidth / targetHeight;
+  const originalAspectRatio = image.width / image.height;
+
+  let sourceWidth = image.width;
+  let sourceHeight = image.height;
+  let sourceX = 0;
+  let sourceY = 0;
+
+  if (originalAspectRatio > targetAspectRatio) {
+    sourceWidth = image.height * targetAspectRatio;
+    sourceX = (image.width - sourceWidth) / 2;
+  } else {
+    sourceHeight = image.width / targetAspectRatio;
+    sourceY = (image.height - sourceHeight) / 2;
+  }
+
+  ctx.drawImage(
+    image,
+    sourceX,
+    sourceY,
+    sourceWidth,
+    sourceHeight,
+    0,
+    0,
+    targetWidth,
+    targetHeight
+  );
+
+  return [canvas, ctx];
+}
+
 export function imageBitmapToImageData(
   image: ImageBitmap
 ): [ImageData, OffscreenCanvas, OffscreenCanvasRenderingContext2D] {
   const [canvas, ctx] = imageBitmapToOffscreenCanvas(image);
   const {width, height} = canvas;
   return [ctx.getImageData(0, 0, width, height), canvas, ctx];
+}
+
+export function imageBitmapToImageDataResizedAndCropped(
+  image: ImageBitmap,
+  targetWidth: number,
+  targetHeight: number
+): [ImageData, OffscreenCanvas, OffscreenCanvasRenderingContext2D] {
+  const [canvas, ctx] = imageBitmapToOffscreenCanvasResizedAndCropped(
+    image,
+    targetWidth,
+    targetHeight
+  );
+  return [ctx.getImageData(0, 0, targetWidth, targetHeight), canvas, ctx];
+}
+
+export function imageDataToOffscreenCanvas(imageData: ImageData): OffscreenCanvas {
+  const {width, height} = imageData;
+  const canvas = new OffscreenCanvas(width, height);
+  const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d')!;
+  ctx.putImageData(imageData, 0, 0);
+  return canvas;
 }
 
 export function copyOffscreenCanvas(canvas: OffscreenCanvas): OffscreenCanvas {
@@ -86,7 +148,7 @@ export function getIndexForCoord(x: number, y: number, width: number, channel: n
   if (channel < 0 || channel > 3) {
     throw new Error('Rgba channel must be between 0 and 3');
   }
-  return y * width * 4 + x * 4 + channel;
+  return 4 * width * y + 4 * x + channel;
 }
 
 export function getRgbaForCoord(

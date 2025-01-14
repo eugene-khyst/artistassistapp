@@ -16,11 +16,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export function getFilename(file: File | null, suffix: string): string | undefined {
-  if (!file) {
-    return;
-  }
-  const {name} = file;
-  const [origName] = name.split('.');
-  return `${origName}-${suffix}`;
+import type {StateCreator} from 'zustand';
+
+import type {OriginalImageSlice} from '~/src/stores/original-image-slice';
+
+export interface StyleTransferSlice {
+  imageFileToStyle: File | null;
+
+  loadImageFileToStyle: () => void;
 }
+
+export const createStyleTransferSlice: StateCreator<
+  StyleTransferSlice & OriginalImageSlice,
+  [],
+  [],
+  StyleTransferSlice
+> = (set, get) => ({
+  imageFileToStyle: null,
+
+  loadImageFileToStyle: (): void => {
+    const {originalImageFile, imageFileToStyle} = get();
+    if (!originalImageFile || imageFileToStyle) {
+      return;
+    }
+    set({
+      imageFileToStyle: originalImageFile,
+    });
+  },
+});

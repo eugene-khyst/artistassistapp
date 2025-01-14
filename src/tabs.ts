@@ -28,11 +28,12 @@ export enum TabKey {
   Grid = 'grid',
   ColorMixing = 'color-mixing',
   LimitedPalette = 'limited-palette',
+  StyleTransfer = 'style-transfer',
   BackgroundRemove = 'background-remove',
   Compare = 'compare',
   Install = 'install',
-  Help = 'help',
   CustomColorBrand = 'custom-brand',
+  Help = 'help',
 }
 
 export const TAB_LABELS: Record<TabKey, string> = {
@@ -46,6 +47,7 @@ export const TAB_LABELS: Record<TabKey, string> = {
   [TabKey.Grid]: 'Grid',
   [TabKey.ColorMixing]: 'Color mixing',
   [TabKey.LimitedPalette]: 'Limited palette',
+  [TabKey.StyleTransfer]: 'Inspire',
   [TabKey.ColorCorrection]: 'White balance',
   [TabKey.BackgroundRemove]: 'Remove background',
   [TabKey.Compare]: 'Compare',

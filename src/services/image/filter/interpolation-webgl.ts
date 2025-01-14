@@ -19,14 +19,27 @@
 import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
 import {copyOffscreenCanvas} from '~/src/utils/graphics';
 
-import fragmentShaderSource from './glsl/bilinear-interpolation.glsl';
+import bilinearFragmentShaderSource from './glsl/bilinear-interpolation.glsl';
+import lanczosFragmentShaderSource from './glsl/lanczos-interpolation.glsl';
 
-export function bilinearInterpolationWebGL(
-  canvas: OffscreenCanvas,
-  width: number,
-  height: number
+export enum Interpolation {
+  Bilinear = 'bilinear',
+  Lanczos = 'lanczos',
+}
+
+const FRAGMENT_SHADER_SOURCES: Record<Interpolation, string> = {
+  [Interpolation.Bilinear]: bilinearFragmentShaderSource,
+  [Interpolation.Lanczos]: lanczosFragmentShaderSource,
+};
+
+export function interpolationWebGL(
+  image: ImageBitmap | OffscreenCanvas,
+  targetWidth: number,
+  targetHeight: number,
+  interpolation = Interpolation.Bilinear
 ): OffscreenCanvas {
-  const renderer = new WebGLRenderer(fragmentShaderSource, canvas, [width, height]);
+  const fragmentShaderSource = FRAGMENT_SHADER_SOURCES[interpolation]!;
+  const renderer = new WebGLRenderer(fragmentShaderSource, image, [targetWidth, targetHeight]);
   renderer.draw();
   const resultCanvas = copyOffscreenCanvas(renderer.canvas);
   renderer.cleanUp();

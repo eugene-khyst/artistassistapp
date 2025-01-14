@@ -17,11 +17,11 @@
  */
 
 import {sobelEdgeDetectionWebGL} from '~/src/services/image/filter/sobel-operator-webgl';
-import {createImageBitmapScaledTotalPixels, IMAGE_SIZE} from '~/src/utils/graphics';
+import {createImageBitmapResizedTotalPixels, IMAGE_SIZE} from '~/src/utils/graphics';
 
 export async function getOutline(blob: Blob): Promise<ImageBitmap> {
   console.time('outline');
-  const image: ImageBitmap = await createImageBitmapScaledTotalPixels(blob, IMAGE_SIZE['2K']);
+  const image: ImageBitmap = await createImageBitmapResizedTotalPixels(blob, IMAGE_SIZE['2K']);
   const outline: ImageBitmap = sobelEdgeDetectionWebGL(image);
   image.close();
   console.timeEnd('outline');

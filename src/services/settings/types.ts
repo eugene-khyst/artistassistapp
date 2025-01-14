@@ -38,4 +38,5 @@ export interface AppSettings {
   gridSize?: number;
   gridDiagonals?: boolean;
   backgroundRemovalModel?: string;
+  styleTransferModel?: string;
 }

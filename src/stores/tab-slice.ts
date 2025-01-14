@@ -24,6 +24,7 @@ import {TabKey} from '~/src/tabs';
 import type {BlurredImagesSlice} from './blurred-images-slice';
 import type {OutlineImageSlice} from './outline-image-slice';
 import type {StorageSlice} from './storage-slice';
+import type {StyleTransferSlice} from './style-transfer-slice';
 import type {TonalImagesSlice} from './tonal-images-slice';
 
 export interface TabSlice {
@@ -33,7 +34,12 @@ export interface TabSlice {
 }
 
 export const createTabSlice: StateCreator<
-  TabSlice & TonalImagesSlice & BlurredImagesSlice & OutlineImageSlice & StorageSlice,
+  TabSlice &
+    TonalImagesSlice &
+    BlurredImagesSlice &
+    OutlineImageSlice &
+    StyleTransferSlice &
+    StorageSlice,
   [],
   [],
   TabSlice
@@ -43,12 +49,14 @@ export const createTabSlice: StateCreator<
   setActiveTabKey: async (activeTabKey: TabKey): Promise<void> => {
     await saveAppSettings({activeTabKey});
     set({activeTabKey});
-    if (activeTabKey === TabKey.TonalValues && !get().tonalImages.length) {
+    if (activeTabKey === TabKey.TonalValues) {
       void get().loadTonalImages();
-    } else if (activeTabKey === TabKey.SimplifiedPhoto && !get().blurredImages.length) {
+    } else if (activeTabKey === TabKey.SimplifiedPhoto) {
       void get().loadBlurredImages();
-    } else if (activeTabKey === TabKey.Outline && !get().outlineImage) {
+    } else if (activeTabKey === TabKey.Outline) {
       void get().loadOutlineImage();
+    } else if (activeTabKey === TabKey.StyleTransfer) {
+      get().loadImageFileToStyle();
     } else if (activeTabKey === TabKey.Help) {
       void get().loadStorageUsage();
     }

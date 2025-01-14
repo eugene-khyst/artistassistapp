@@ -18,7 +18,7 @@
 
 import {linearizeRgbChannel} from '~/src/services/color/space/rgb';
 import {
-  createImageBitmapScaledTotalPixels,
+  createImageBitmapResizedTotalPixels,
   IMAGE_SIZE,
   imageBitmapToImageData,
 } from '~/src/utils/graphics';
@@ -40,7 +40,7 @@ export class RgbChannelsPercentileCalculator {
   sortedRgbChannels: Uint8ClampedArray[] = [];
 
   async setImage(blob: Blob): Promise<ImageBitmap> {
-    const image: ImageBitmap = await createImageBitmapScaledTotalPixels(blob, IMAGE_SIZE['2K']);
+    const image: ImageBitmap = await createImageBitmapResizedTotalPixels(blob, IMAGE_SIZE['2K']);
     const [imageData] = imageBitmapToImageData(image);
     console.time('sort-rgb-channels');
     this.sortedRgbChannels = sortRgbChannels(imageData);

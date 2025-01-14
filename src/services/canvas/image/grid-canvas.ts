@@ -198,19 +198,19 @@ export class GridCanvas extends ZoomableImageCanvas {
 
   override async convertToBlob(): Promise<Blob | undefined> {
     const image: ImageBitmap | OffscreenCanvas | null = this.getImage();
-    if (image) {
-      const {width, height} = image;
-      const scale: number = Math.max(1, (width * height) / IMAGE_SIZE.HD);
-      const {gridLineWidth, diagonalLineWidth} = this;
-      try {
-        this.gridLineWidth = scale * gridLineWidth;
-        this.diagonalLineWidth = scale * diagonalLineWidth;
-        return await super.convertToBlob();
-      } finally {
-        this.gridLineWidth = gridLineWidth;
-        this.diagonalLineWidth = diagonalLineWidth;
-      }
+    if (!image) {
+      return;
     }
-    return;
+    const {width, height} = image;
+    const scaleFactor: number = Math.max(1, (width * height) / IMAGE_SIZE.HD);
+    const {gridLineWidth, diagonalLineWidth} = this;
+    try {
+      this.gridLineWidth = scaleFactor * gridLineWidth;
+      this.diagonalLineWidth = scaleFactor * diagonalLineWidth;
+      return await super.convertToBlob();
+    } finally {
+      this.gridLineWidth = gridLineWidth;
+      this.diagonalLineWidth = diagonalLineWidth;
+    }
   }
 }

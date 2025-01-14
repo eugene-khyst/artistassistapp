@@ -157,7 +157,7 @@ async function downloadChunks(
       downloadedChunks[i] = blob;
       if (progressCallback) {
         const progress = (downloadedChunks.filter(Boolean).length / chunks.length) * 100;
-        progressCallback(filename, progress);
+        progressCallback(`Fetching ${filename}`, progress);
       }
     })
   );

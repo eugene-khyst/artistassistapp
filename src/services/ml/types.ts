@@ -19,7 +19,6 @@
 export enum OnnxModelType {
   BackgroundRemoval = 'background-removal',
   StyleTransfer = 'style-transfer',
-  SuperResolution = 'super-resolution',
 }
 
 export interface OnnxModel {

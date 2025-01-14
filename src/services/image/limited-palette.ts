@@ -23,8 +23,7 @@ import type {RgbTuple} from '~/src/services/color/space/rgb';
 import {Rgb, rgbToNumber} from '~/src/services/color/space/rgb';
 import type {ColorSet} from '~/src/services/color/types';
 import {
-  createImageBitmapScaledTotalPixels,
-  createImageBitmapWithFallback,
+  createImageBitmapResizedTotalPixels,
   IMAGE_SIZE,
   imageBitmapToOffscreenCanvas,
 } from '~/src/utils/graphics';
@@ -43,7 +42,7 @@ export class LimitedPalette {
     console.time('limited-palette');
     const colorMixer = new ColorMixer();
     colorMixer.setColorSet(colorSet, PAPER_WHITE_HEX);
-    const image: ImageBitmap = await createImageBitmapScaledTotalPixels(blob, IMAGE_SIZE.SD);
+    const image: ImageBitmap = await createImageBitmapResizedTotalPixels(blob, IMAGE_SIZE.SD);
     const [canvas, ctx] = imageBitmapToOffscreenCanvas(image);
     const imageData: ImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     image.close();
@@ -54,7 +53,7 @@ export class LimitedPalette {
         return similarColor?.colorMixture.layerRgb ?? Rgb.WHITE.toRgbTuple();
       });
     });
-    const preview: ImageBitmap = await createImageBitmapWithFallback(imageData);
+    const preview: ImageBitmap = await createImageBitmap(imageData);
     console.timeEnd('limited-palette');
     return transfer({preview}, [preview]);
   }

@@ -36,6 +36,7 @@ import {createOriginalImageSlice, type OriginalImageSlice} from './original-imag
 import {createOutlineImageSlice, type OutlineImageSlice} from './outline-image-slice';
 import {createPaletteSlice, type PaletteSlice} from './palette-slice';
 import {createStorageSlice, type StorageSlice} from './storage-slice';
+import {createStyleTransferSlice, type StyleTransferSlice} from './style-transfer-slice';
 import {createTabSlice, type TabSlice} from './tab-slice';
 import {createTonalImagesSlice, type TonalImagesSlice} from './tonal-images-slice';
 import {createTournamentSlice, type TournamentSlice} from './tournament-slice';
@@ -50,6 +51,7 @@ export const useAppStore = create<
     BlurredImagesSlice &
     OutlineImageSlice &
     LimitedPaletteImageSlice &
+    StyleTransferSlice &
     AdjustedImageSlice &
     BackgroundRemovalSlice &
     TournamentSlice &
@@ -66,6 +68,7 @@ export const useAppStore = create<
   ...createBlurredImagesSlice(...a),
   ...createOutlineImageSlice(...a),
   ...createLimitedPaletteImageSlice(...a),
+  ...createStyleTransferSlice(...a),
   ...createAdjustedImageSlice(...a),
   ...createBackgroundRemovalSlice(...a),
   ...createTournamentSlice(...a),

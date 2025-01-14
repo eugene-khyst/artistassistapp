@@ -19,9 +19,9 @@
 import type {StateCreator} from 'zustand';
 
 export interface BackgroundRemovalSlice {
-  imageToRemoveBg: File | null;
+  imageFileToRemoveBg: File | null;
 
-  setImageToRemoveBg: (imageToRemoveBg: File | null) => void;
+  setImageFileToRemoveBg: (imageFileToRemoveBg: File | null) => void;
 }
 
 export const createBackgroundRemovalSlice: StateCreator<
@@ -30,9 +30,9 @@ export const createBackgroundRemovalSlice: StateCreator<
   [],
   BackgroundRemovalSlice
 > = set => ({
-  imageToRemoveBg: null,
+  imageFileToRemoveBg: null,
 
-  setImageToRemoveBg: (imageToRemoveBg: File | null): void => {
-    set({imageToRemoveBg});
+  setImageFileToRemoveBg: (imageFileToRemoveBg: File | null): void => {
+    set({imageFileToRemoveBg});
   },
 });

@@ -121,7 +121,7 @@ export const ImageColorCorrection: React.FC = () => {
 
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
   const setImageFileToAdjust = useAppStore(state => state.setImageFileToAdjust);
-  const setImageToRemoveBg = useAppStore(state => state.setImageToRemoveBg);
+  const setImageFileToRemoveBg = useAppStore(state => state.setImageFileToRemoveBg);
   const adjustImageColor = useAppStore(state => state.adjustImageColor);
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
 
@@ -211,7 +211,7 @@ export const ImageColorCorrection: React.FC = () => {
     const blob: Blob | undefined =
       zoomableImageCanvas && (await zoomableImageCanvas.convertToBlob());
     if (blob) {
-      setImageToRemoveBg(
+      setImageFileToRemoveBg(
         new File([blob], getAdjustedFilename(imageFileToAdjust) ?? '', {
           type: blob.type,
           lastModified: Date.now(),

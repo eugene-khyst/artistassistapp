@@ -24,9 +24,9 @@ import {useEffect, useState} from 'react';
 import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
 import {useDebounce} from '~/src/hooks/useDebounce';
 import {
-  splitImageIntoParts,
-  type SplitImagePreview,
-  splitImagePreview,
+  type ImagePagesPreview,
+  splitImageIntoPages,
+  splitImageIntoPagesPreview,
 } from '~/src/services/image/splitter';
 import {LENGTH_UNITS} from '~/src/services/math/geometry';
 import {LengthUnit} from '~/src/services/math/types';
@@ -58,7 +58,7 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
   const [targetHeight, setTargetHeight] = useState<number | null>();
   const [targetUnit, setTargetUnit] = useState<LengthUnit>(LengthUnit.Centimeter);
   const [paperSize, setPaperSize] = useState<PaperSize>(PaperSize.A4);
-  const [printPreview, setPrintPreview] = useState<SplitImagePreview>();
+  const [printPreview, setPrintPreview] = useState<ImagePagesPreview>();
   const [printPreviewBlob, setPrintPreviewBlob] = useState<Blob>();
   const [isError, setIsError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -79,7 +79,7 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
     const [paperWidth, paperHeight] = PAPER_SIZES.get(paperSize)!.size;
     const {toMillimeters} = LENGTH_UNITS.get(targetUnit)!;
     try {
-      const preview: SplitImagePreview = splitImagePreview(
+      const preview: ImagePagesPreview = splitImageIntoPagesPreview(
         image,
         [toMillimeters(debouncedTargetWidth), toMillimeters(debouncedTargetHeight)],
         [
@@ -105,7 +105,7 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
   const handlePrint = async () => {
     if (printMode === PrintMode.Resize && printPreview) {
       const imagePartBlobs: Blob[] = await Promise.all(
-        splitImageIntoParts(printPreview).map(canvas => canvas.convertToBlob())
+        splitImageIntoPages(printPreview).map(canvas => canvas.convertToBlob())
       );
       void printImages(imagePartBlobs);
     } else {

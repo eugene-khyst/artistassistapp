@@ -166,7 +166,7 @@ export class Reflectance {
         return new Reflectance(rho);
       }
 
-      iteration += 1;
+      iteration++;
     }
     throw new Error(`No solution found in ${MAX_ITERATIONS} iterations.`);
   }
