@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {invertColors} from '~/src/services/image/filter/invert-filter';
+import {invertColorsWebGL} from '~/src/services/image/filter/invert-colors-webgl';
 import type {Rectangle} from '~/src/services/math/geometry';
 import {Vector} from '~/src/services/math/geometry';
 import {IMAGE_SIZE} from '~/src/utils/graphics';
@@ -60,7 +60,7 @@ export class GridCanvas extends ZoomableImageCanvas {
   protected override onImagesLoaded(): void {
     console.time('invert-colors');
     this.invertedImages = this.images.map((image: ImageBitmap): ImageBitmap => {
-      return invertColors(image);
+      return invertColorsWebGL(image);
     });
     console.timeEnd('invert-colors');
   }

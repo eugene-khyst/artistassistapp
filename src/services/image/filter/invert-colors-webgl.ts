@@ -16,16 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {imageBitmapToImageData} from '~/src/utils/graphics';
+import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
+import {copyOffscreenCanvas} from '~/src/utils/graphics';
 
-export function invertColors(image: ImageBitmap): ImageBitmap {
-  const [imageData, canvas, ctx] = imageBitmapToImageData(image);
-  const {data} = imageData;
-  for (let i = 0; i < data.length; i += 4) {
-    for (let channel = 0; channel < 3; channel++) {
-      data[i + channel] = 255 - data[i + channel]!;
-    }
-  }
-  ctx.putImageData(imageData, 0, 0);
-  return canvas.transferToImageBitmap();
+import fragmentShaderSource from './glsl/invert-colors.glsl';
+
+export function invertColorsWebGL(image: ImageBitmap): ImageBitmap {
+  const renderer = new WebGLRenderer(fragmentShaderSource, image);
+  renderer.draw();
+  const resultImage = copyOffscreenCanvas(renderer.canvas).transferToImageBitmap();
+  renderer.cleanUp();
+  return resultImage;
 }
