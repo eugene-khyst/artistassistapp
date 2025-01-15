@@ -17,5 +17,5 @@
  */
 
 export interface ChangableComponent {
-  hasUnsavedChanges: () => Promise<boolean>;
+  checkForUnsavedChanges: () => Promise<void>;
 }

@@ -213,29 +213,37 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
     }
   }, [isColorsError, notification]);
 
-  const checkForUnsavedChanges = useCallback(async (): Promise<boolean> => {
-    if (hasUnsavedChanges) {
-      const confirmed: boolean = await modal.confirm({
-        title: 'Save changes to the color set?',
-        content: "If you don't save, changes to the color set may be lost.",
-        okText: 'Save',
-        cancelText: "Don't save",
-        focusTriggerAfterClose: false,
-      });
-      if (confirmed) {
-        saveButtonRef.current?.focus();
-      } else {
-        setHasUnsavedChanges(false);
-      }
-      return confirmed;
+  const checkForUnsavedChanges = useCallback(async (): Promise<void> => {
+    if (!hasUnsavedChanges) {
+      return;
     }
-    return false;
-  }, [modal, hasUnsavedChanges]);
+    const confirmed: boolean = await modal.confirm({
+      title: 'Save changes to the color set?',
+      content: "If you don't save, changes to the color set may be lost.",
+      okText: 'Save',
+      cancelText: "Don't save",
+      focusTriggerAfterClose: false,
+    });
+    if (confirmed) {
+      const {id, ...colorSet} = form.getFieldsValue();
+      await saveColorSet(
+        user,
+        {
+          ...colorSet,
+          ...(id ? {id} : {}),
+        },
+        brands,
+        colors,
+        false
+      );
+    }
+    setHasUnsavedChanges(false);
+  }, [modal, form, brands, colors, user, saveColorSet, hasUnsavedChanges]);
 
   useImperativeHandle(
     ref,
     () => ({
-      hasUnsavedChanges: checkForUnsavedChanges,
+      checkForUnsavedChanges,
     }),
     [checkForUnsavedChanges]
   );
@@ -329,9 +337,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
   };
 
   const handleCreateNewClick = async () => {
-    if (await checkForUnsavedChanges()) {
-      return;
-    }
+    await checkForUnsavedChanges();
     const emptyColors: Partial<Record<number, number[]>> = getEmptyColors(form.getFieldsValue());
     form.setFieldsValue({
       id: NEW_COLOR_SET,
@@ -343,7 +349,6 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
   };
 
   const handleSubmit = async (values: ColorSetDefinition) => {
-    setHasUnsavedChanges(false);
     const {id, ...colorSet} = values;
     form.setFieldsValue(
       await saveColorSet(
@@ -356,6 +361,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
         colors
       )
     );
+    setHasUnsavedChanges(false);
   };
 
   const handleSubmitFailed = () => {

@@ -126,9 +126,7 @@ export const ArtistAssistApp: React.FC = () => {
 
   const handleTabChange = (activeKey: string) => {
     void (async () => {
-      if (await colorSetChooserRef.current?.hasUnsavedChanges()) {
-        return;
-      }
+      await colorSetChooserRef.current?.checkForUnsavedChanges();
       void setActiveTabKey(activeKey as TabKey);
     })();
   };
