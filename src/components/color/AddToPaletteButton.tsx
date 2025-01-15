@@ -38,9 +38,7 @@ export const AddToPaletteButton: React.FC<Props> = ({
   const saveToPalette = useAppStore(state => state.saveToPalette);
   const deleteFromPalette = useAppStore(state => state.deleteFromPalette);
 
-  const colorMixtureExists = paletteColorMixtures.some(
-    ({key}: ColorMixture) => key === colorMixture.key
-  );
+  const colorMixtureExists = paletteColorMixtures.has(colorMixture.key);
 
   return colorMixtureExists ? (
     <Popconfirm

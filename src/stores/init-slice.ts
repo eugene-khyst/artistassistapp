@@ -85,7 +85,9 @@ export const createInitSlice: StateCreator<
     const latestColorSet: ColorSetDefinition | null =
       (!importedColorSet && (await getLastColorSet())) || null;
     const recentImageFiles: ImageFile[] = await getImageFiles();
-    const paletteColorMixtures: ColorMixture[] = await getColorMixtures(imageFile?.id);
+    const paletteColorMixtures = new Map<string, ColorMixture>(
+      (await getColorMixtures(imageFile?.id)).map(colorMixture => [colorMixture.key, colorMixture])
+    );
 
     set({
       appSettings,

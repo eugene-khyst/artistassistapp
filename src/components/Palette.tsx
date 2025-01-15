@@ -61,9 +61,9 @@ export const Palette: React.FC = () => {
 
   const items: ItemType[] = [...COLOR_TYPES.entries()]
     .map(([colorType, {name}]): ItemType | undefined => {
-      const colorMixturesByType: ColorMixture[] | undefined = paletteColorMixtures.filter(
-        ({type}: ColorMixture) => type === colorType
-      );
+      const colorMixturesByType: ColorMixture[] | undefined = [
+        ...paletteColorMixtures.values(),
+      ].filter(({type}: ColorMixture) => type === colorType);
       if (!colorMixturesByType.length) {
         return;
       }
@@ -85,7 +85,7 @@ export const Palette: React.FC = () => {
     setActivePaletteKey(keys);
   };
 
-  if (!paletteColorMixtures.length) {
+  if (!paletteColorMixtures.size) {
     return <EmptyPalette />;
   }
 

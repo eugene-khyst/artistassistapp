@@ -19,6 +19,7 @@
 import type {StateCreator} from 'zustand';
 
 import {PAPER_WHITE_HEX} from '~/src/services/color/color-mixer';
+import type {ColorMixture} from '~/src/services/color/types';
 import {getColorMixtures} from '~/src/services/db/color-mixture-db';
 import {deleteImageFile, saveImageFile} from '~/src/services/db/image-file-db';
 import {type ImageFile, imageFileToFile} from '~/src/services/image/image-file';
@@ -81,6 +82,9 @@ export const createOriginalImageSlice: StateCreator<
       await get().setActiveTabKey(activeTabKey);
     }
     const originalImageFile: File | null = imageFile ? imageFileToFile(imageFile) : null;
+    const paletteColorMixtures = new Map<string, ColorMixture>(
+      (await getColorMixtures(imageFile?.id)).map(colorMixture => [colorMixture.key, colorMixture])
+    );
     set({
       imageFile,
       originalImageFile,
@@ -93,7 +97,7 @@ export const createOriginalImageSlice: StateCreator<
       backgroundColor: PAPER_WHITE_HEX,
       targetColor: PAPER_WHITE_HEX,
       similarColors: [],
-      paletteColorMixtures: await getColorMixtures(imageFile?.id),
+      paletteColorMixtures,
     });
     const originalImage: ImageBitmap | null = originalImageFile
       ? await createImageBitmapResizedTotalPixels(originalImageFile, IMAGE_SIZE['2K'])
@@ -108,10 +112,10 @@ export const createOriginalImageSlice: StateCreator<
   },
   saveRecentImageFile: async (imageFile: ImageFile): Promise<void> => {
     await saveImageFile(imageFile);
-    set(state => ({
+    set(({recentImageFiles}) => ({
       recentImageFiles: [
         imageFile,
-        ...state.recentImageFiles.filter(({id}: ImageFile) => id !== imageFile.id),
+        ...recentImageFiles.filter(({id}: ImageFile) => id !== imageFile.id),
       ],
     }));
     await get().setImageFile(imageFile);
@@ -119,8 +123,8 @@ export const createOriginalImageSlice: StateCreator<
   deleteRecentImageFile: async ({id: idToDelete}: ImageFile): Promise<void> => {
     if (idToDelete) {
       await deleteImageFile(idToDelete);
-      set(state => ({
-        recentImageFiles: state.recentImageFiles.filter(({id}: ImageFile) => id !== idToDelete),
+      set(({recentImageFiles}) => ({
+        recentImageFiles: recentImageFiles.filter(({id}: ImageFile) => id !== idToDelete),
       }));
       if (get().imageFile?.id === idToDelete) {
         await get().setImageFile(null);

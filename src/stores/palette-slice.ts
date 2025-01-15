@@ -25,7 +25,7 @@ import type {ColorMixerSlice} from './color-mixer-slice';
 import type {OriginalImageSlice} from './original-image-slice';
 
 export interface PaletteSlice {
-  paletteColorMixtures: ColorMixture[];
+  paletteColorMixtures: Map<string, ColorMixture>;
 
   saveToPalette: (colorMixture: ColorMixture, linkToImage?: boolean) => Promise<void>;
   deleteFromPalette: (colorMixture: ColorMixture) => Promise<void>;
@@ -38,7 +38,7 @@ export const createPaletteSlice: StateCreator<
   [],
   PaletteSlice
 > = (set, get) => ({
-  paletteColorMixtures: [],
+  paletteColorMixtures: new Map(),
 
   saveToPalette: async (colorMixture: ColorMixture, linkToImage = true): Promise<void> => {
     const isNew = !colorMixture.id;
@@ -47,39 +47,33 @@ export const createPaletteSlice: StateCreator<
       colorMixture.samplingArea = get().samplingArea;
     }
     await saveColorMixture(colorMixture);
-    set(state => ({
-      paletteColorMixtures: isNew
-        ? [colorMixture, ...state.paletteColorMixtures]
-        : state.paletteColorMixtures.map(
-            (cm: ColorMixture): ColorMixture => (cm.id === colorMixture.id ? colorMixture : cm)
-          ),
-    }));
+    set(({paletteColorMixtures}) => {
+      return {
+        paletteColorMixtures: new Map(paletteColorMixtures.set(colorMixture.key, colorMixture)),
+      };
+    });
   },
   deleteFromPalette: async ({key: keyToDelete}: ColorMixture): Promise<void> => {
-    const colorMixture = get().paletteColorMixtures.find(
-      ({key}: ColorMixture) => key === keyToDelete
-    );
+    const {paletteColorMixtures} = get();
+    const colorMixture = paletteColorMixtures.get(keyToDelete);
     if (colorMixture?.id) {
       await deleteColorMixture(colorMixture.id);
-      set(state => ({
-        paletteColorMixtures: state.paletteColorMixtures.filter(
-          ({id}: ColorMixture) => id !== colorMixture.id
-        ),
-      }));
+      paletteColorMixtures.delete(colorMixture.key);
+      set({
+        paletteColorMixtures: new Map(paletteColorMixtures),
+      });
     }
   },
   deleteAllFromPalette: async (typeToDelete: ColorType): Promise<void> => {
-    for (const colorMixture of get().paletteColorMixtures) {
+    const {paletteColorMixtures} = get();
+    for (const colorMixture of paletteColorMixtures.values()) {
       if (colorMixture.type === typeToDelete && colorMixture.id) {
         await deleteColorMixture(colorMixture.id);
+        paletteColorMixtures.delete(colorMixture.key);
       }
     }
-    set(state => {
-      return {
-        paletteColorMixtures: state.paletteColorMixtures.filter(
-          ({type}: ColorMixture) => type !== typeToDelete
-        ),
-      };
+    set({
+      paletteColorMixtures: new Map(paletteColorMixtures),
     });
   },
 });

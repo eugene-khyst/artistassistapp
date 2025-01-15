@@ -22,6 +22,7 @@ import {saveAs} from 'file-saver';
 import type {CSSProperties} from 'react';
 import {useEffect, useState} from 'react';
 
+import {EmptyImage} from '~/src/components/empty/EmptyImage';
 import {OnnxModelSelect} from '~/src/components/ml-model/OnnxModelSelect';
 import {useAuth} from '~/src/hooks/useAuth';
 import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
@@ -118,6 +119,10 @@ export const ImageStyleTransfer: React.FC = () => {
       saveAs(styledImageUrl, getFilename(imageFileToStyle, 'styled'));
     }
   };
+
+  if (!imageFileToStyle) {
+    return <EmptyImage feature="transfer styles to a reference photo" />;
+  }
 
   const imageStyle: CSSProperties = {
     maxWidth: '100%',

@@ -54,9 +54,7 @@ export const createColorSetSlice: StateCreator<
 
   loadColorSetsByType: async (type: ColorType): Promise<ColorSetDefinition[]> => {
     const colorSetsByType: ColorSetDefinition[] = await getColorSetsByType(type);
-    set({
-      colorSetsByType,
-    });
+    set({colorSetsByType});
     return colorSetsByType;
   },
   saveColorSet: async (

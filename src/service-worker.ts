@@ -37,7 +37,7 @@ const CACHE_NAME = getCacheName();
 const CACHE_NAME_DATA = getCacheName('data');
 const CACHE_NAMES = [CACHE_NAME, CACHE_NAME_DATA];
 
-const CACHE_EXTENSIONS = ['.onnx', '.wasm'];
+const CACHE_EXTENSIONS: RegExp[] = [/\.onnx\.part[0-9]+$/, /\.wasm$/];
 
 async function install(): Promise<void> {
   const cache = await caches.open(CACHE_NAME);
@@ -73,7 +73,7 @@ self.addEventListener('fetch', (event: FetchEvent) => {
     let response: Promise<Response>;
     if (url.origin === self.location.origin) {
       response = fetchCacheFirst(request);
-    } else if (CACHE_EXTENSIONS.some(extension => url.href.endsWith(extension))) {
+    } else if (CACHE_EXTENSIONS.some(extension => extension.test(url.href))) {
       response = fetchCacheFirst(request, CACHE_NAME_DATA, MB_20);
     } else {
       response = fetchSWR(request);

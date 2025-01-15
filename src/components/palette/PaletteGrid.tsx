@@ -127,7 +127,7 @@ export const PaletteGrid: React.FC<Props> = ({
             <span key={colorMixture.key} style={{breakBefore: 'auto'}}>
               <Space direction="vertical">
                 <Typography.Text style={{fontWeight: 'bold'}}>
-                  {colorMixture.name || 'Color mixture'}
+                  {colorMixture.name || 'Untitled mixture'}
                 </Typography.Text>
                 <ColorMixtureDescription colorMixture={colorMixture} showTooltips={false} />
               </Space>

@@ -38,10 +38,21 @@ export const SimilarColorCard: React.FC<Props> = ({
   similarColor: {colorMixture, similarity},
   onReflectanceChartClick,
 }: Props) => {
+  const paletteColorMixtures = useAppStore(state => state.paletteColorMixtures);
+
+  const saveToPalette = useAppStore(state => state.saveToPalette);
   const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
 
   const {type} = colorMixture;
   const {glazing} = COLOR_MIXING[type];
+
+  const paletteColorMixture: ColorMixture | undefined = paletteColorMixtures.get(colorMixture.key);
+
+  const handleTitleEdited = (value: string) => {
+    if (paletteColorMixture) {
+      void saveToPalette({...paletteColorMixture, name: value});
+    }
+  };
 
   return (
     <Card size="small">
@@ -54,6 +65,18 @@ export const SimilarColorCard: React.FC<Props> = ({
           <ColorSquare size="small" color={colorMixture.layerRgb} />
         </Space>
         <ColorMixtureDescription colorMixture={colorMixture} />
+        {paletteColorMixture && (
+          <Typography.Text
+            editable={{
+              text: paletteColorMixture.name ?? '',
+              onChange: handleTitleEdited,
+              autoSize: false,
+            }}
+            style={{width: '100%', fontWeight: 'bold'}}
+          >
+            {paletteColorMixture.name || 'Untitled mixture'}
+          </Typography.Text>
+        )}
         <Space wrap>
           <AddToPaletteButton size="small" colorMixture={colorMixture} />
           {glazing && (

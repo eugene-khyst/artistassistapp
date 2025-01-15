@@ -63,7 +63,7 @@ export const PaletteColorMixtureCard: React.FC<Props> = ({colorMixture}: Props) 
           }}
           style={{width: '100%', fontWeight: 'bold'}}
         >
-          {colorMixture.name || 'Color mixture'}
+          {colorMixture.name || 'Untitled mixture'}
         </Typography.Text>
 
         <ColorMixtureDescription colorMixture={colorMixture} />
