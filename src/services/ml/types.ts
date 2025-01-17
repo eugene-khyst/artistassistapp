@@ -17,6 +17,7 @@
  */
 
 export enum OnnxModelType {
+  LineDrawing = 'line-drawing',
   BackgroundRemoval = 'background-removal',
   StyleTransfer = 'style-transfer',
 }
@@ -25,8 +26,9 @@ export interface OnnxModel {
   id: string;
   name: string;
   url: string;
-  resolution: number;
-  outputResolution?: number;
+  resolution?: number;
+  standardDeviation?: [number, number, number];
+  mean?: [number, number, number];
   priority?: number;
   freeTier?: boolean;
 }

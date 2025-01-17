@@ -42,9 +42,7 @@ export async function runInference(
       executionMode: 'parallel',
       enableCpuMemArena: true,
     });
-    let i = 1;
     for (const inputTensor of inputTensors) {
-      progressCallback?.(`Inference ${i}`, 'auto');
       const feeds: InferenceSession.FeedsType = {[session.inputNames[0]!]: inputTensor};
       const results = await session.run(feeds);
       const outputTensor = results[session.outputNames[0]!];
@@ -52,7 +50,6 @@ export async function runInference(
         throw new Error('Output tensor is undefined');
       }
       outputTensors.push(outputTensor);
-      i++;
     }
     await session.release();
   } finally {

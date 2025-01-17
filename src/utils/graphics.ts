@@ -34,10 +34,10 @@ export async function createImageBitmapWithFallback(
 }
 
 export async function createImageBitmapResizedTotalPixels(
-  blob: Blob,
+  image: ImageBitmapSource,
   totalPixels: number
 ): Promise<ImageBitmap> {
-  const imageBitmap: ImageBitmap = await createImageBitmapWithFallback(blob);
+  const imageBitmap: ImageBitmap = await createImageBitmapWithFallback(image);
   const {width, height} = imageBitmap;
   const scaleFactor: number = Math.min(1, Math.sqrt(totalPixels / (width * height)));
   const scaledImage: ImageBitmap = await createImageBitmap(imageBitmap, {

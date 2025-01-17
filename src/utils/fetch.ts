@@ -30,7 +30,7 @@ interface ChunkedFile {
   chunks: Chunk[];
 }
 
-export type ProgressCallback = (filename: string, progress: number | 'auto') => void;
+export type ProgressCallback = (key: string, progress: number | 'auto') => void;
 
 export function getCacheName(cacheSuffix?: string): string {
   return [COMMIT_HASH, cacheSuffix].filter(Boolean).join('-');

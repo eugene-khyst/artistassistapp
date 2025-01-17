@@ -18,15 +18,22 @@
 
 import type {StateCreator} from 'zustand';
 
+import type {User} from '~/src/services/auth/types';
+import {hasAccessTo} from '~/src/services/auth/utils';
 import {getOutline} from '~/src/services/image/outline';
+import type {OnnxModel} from '~/src/services/ml/types';
 
 import type {OriginalImageSlice} from './original-image-slice';
 
 export interface OutlineImageSlice {
-  outlineImage: ImageBitmap | null;
+  outlineTrigger: boolean;
   isOutlineImageLoading: boolean;
+  outlineLoadingPercent: number | 'auto';
+  outlineLoadingTip: string | null;
+  outlineImage: ImageBitmap | null;
 
-  loadOutlineImage: () => Promise<void>;
+  triggerOutline: () => void;
+  loadOutlineImage: (model?: OnnxModel | null, user?: User | null) => Promise<void>;
 }
 
 export const createOutlineImageSlice: StateCreator<
@@ -35,21 +42,42 @@ export const createOutlineImageSlice: StateCreator<
   [],
   OutlineImageSlice
 > = (set, get) => ({
-  outlineImage: null,
+  outlineTrigger: false,
   isOutlineImageLoading: false,
+  outlineLoadingPercent: 'auto',
+  outlineLoadingTip: null,
+  outlineImage: null,
 
-  loadOutlineImage: async (): Promise<void> => {
-    const {originalImageFile, outlineImage} = get();
-    if (!originalImageFile || outlineImage) {
+  triggerOutline: (): void => {
+    if (!get().outlineTrigger) {
+      set({
+        outlineTrigger: true,
+      });
+    }
+  },
+  loadOutlineImage: async (model?: OnnxModel | null, user?: User | null): Promise<void> => {
+    const {originalImage, outlineTrigger} = get();
+    if (!outlineTrigger || !originalImage || (model && !hasAccessTo(user, model))) {
       return;
     }
-    set({
-      isOutlineImageLoading: true,
-    });
-    const newOutlineImage = await getOutline(originalImageFile);
-    set({
-      outlineImage: newOutlineImage,
-      isOutlineImageLoading: false,
-    });
+    try {
+      set({
+        isOutlineImageLoading: true,
+        outlineLoadingPercent: 0,
+        outlineLoadingTip: null,
+        outlineImage: null,
+      });
+      const outlineImage = await getOutline(originalImage, model, (key, progress) => {
+        set({
+          outlineLoadingPercent: progress,
+          outlineLoadingTip: key,
+        });
+      });
+      set({outlineImage});
+    } finally {
+      set({
+        isOutlineImageLoading: false,
+      });
+    }
   },
 });

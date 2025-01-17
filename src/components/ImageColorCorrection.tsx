@@ -121,7 +121,7 @@ export const ImageColorCorrection: React.FC = () => {
 
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
   const setImageFileToAdjust = useAppStore(state => state.setImageFileToAdjust);
-  const setImageFileToRemoveBg = useAppStore(state => state.setImageFileToRemoveBg);
+  const setImageFileToRemoveBg = useAppStore(state => state.setImageFileToRemoveBackground);
   const adjustImageColor = useAppStore(state => state.adjustImageColor);
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
 

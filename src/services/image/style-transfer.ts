@@ -16,35 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Interpolation, interpolationWebGL} from '~/src/services/image/filter/interpolation-webgl';
-import {imageDataToTensor, tensorToImageData} from '~/src/services/ml/image-tensor';
-import {runInference} from '~/src/services/ml/inference';
+import {transformImage} from '~/src/services/ml/image-transformer';
 import type {OnnxModel} from '~/src/services/ml/types';
 import type {ProgressCallback} from '~/src/utils/fetch';
-import {imageBitmapToImageDataResizedAndCropped} from '~/src/utils/graphics';
 
 export async function transferStyle(
-  file: File,
+  image: ImageBitmap,
   model: OnnxModel,
   progressCallback?: ProgressCallback
 ): Promise<Blob> {
   console.time('style-transfer');
-  const {resolution, url: modelUrl} = model;
-  const image: ImageBitmap = await createImageBitmap(file);
-  const [imageData] = imageBitmapToImageDataResizedAndCropped(image, resolution, resolution);
-  image.close();
-  const inputTensor = imageDataToTensor(imageData);
-  const [outputTensor] = await runInference(modelUrl, [inputTensor], progressCallback);
-  const outputImage = await createImageBitmap(tensorToImageData(outputTensor!));
-  const scaleFactor = 3;
-  const scaledOutputImage: OffscreenCanvas = interpolationWebGL(
-    outputImage,
-    scaleFactor * resolution,
-    scaleFactor * resolution,
-    Interpolation.Lanczos
-  );
-  outputImage.close();
-  const outputBlob: Blob = await scaledOutputImage.convertToBlob({
+  const transformedImage: OffscreenCanvas = await transformImage(image, model, progressCallback);
+  const outputBlob: Blob = await transformedImage.convertToBlob({
     type: 'image/jpeg',
     quality: 0.95,
   });

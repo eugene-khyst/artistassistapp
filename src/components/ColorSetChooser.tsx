@@ -540,11 +540,11 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
                     (!isAccessAllowed ? (
                       <Typography.Text type="warning">
                         You&apos;ve selected color brands that are available to paid Patreon members
-                        only.
+                        only
                       </Typography.Text>
                     ) : (
                       <Typography.Text type="secondary">
-                        Only a limited number of color brands are available in the free version.
+                        Only a limited number of color brands are available in the free version
                       </Typography.Text>
                     ))
                   }
@@ -581,7 +581,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
                     !isAuthLoading &&
                     !hasAccessTo(user, brand) && (
                       <Typography.Text type="warning">
-                        This color brand is available to paid Patreon members only.
+                        This color brand is available to paid Patreon members only
                       </Typography.Text>
                     )
                   }

@@ -18,37 +18,33 @@
 
 import type {Tensor} from 'onnxruntime-web';
 
-import type {RgbTuple} from '~/src/services/color/space/rgb';
 import {Interpolation, interpolationWebGL} from '~/src/services/image/filter/interpolation-webgl';
-import {imageDataToTensor} from '~/src/services/ml/image-tensor';
 import {runInference} from '~/src/services/ml/inference';
+import {imageDataToTensor} from '~/src/services/ml/tensor';
 import type {OnnxModel} from '~/src/services/ml/types';
 import type {ProgressCallback} from '~/src/utils/fetch';
 import {applyMask, imageBitmapToImageData} from '~/src/utils/graphics';
 
-const MEAN: RgbTuple = [128, 128, 128];
-const STD: RgbTuple = [256, 256, 256];
-
 export async function removeBackground(
-  file: File,
+  blob: Blob,
   model: OnnxModel,
   progressCallback?: ProgressCallback
 ): Promise<Blob> {
   console.time('background-removal');
-  const {resolution, url: modelUrl} = model;
-  const originalImage = await createImageBitmap(file);
+  const {url: modelUrl, resolution, standardDeviation, mean} = model;
+  const originalImage = await createImageBitmap(blob);
   const {width: originalWidth, height: originalHeight} = originalImage;
-  const scaledImageBitmap = await createImageBitmap(originalImage, {
+  const resizedImage = await createImageBitmap(originalImage, {
     resizeWidth: resolution,
     resizeHeight: resolution,
   });
-  const [imageData] = imageBitmapToImageData(scaledImageBitmap);
-  scaledImageBitmap.close();
-  const inputTensor = imageDataToTensor(imageData, STD, MEAN);
+  const [imageData] = imageBitmapToImageData(resizedImage);
+  resizedImage.close();
+  const inputTensor = imageDataToTensor(imageData, standardDeviation, mean);
   const [outputTensor] = await runInference(modelUrl, [inputTensor], progressCallback);
   const mask: OffscreenCanvas = tensorToMask(
     outputTensor!,
-    resolution,
+    resolution!,
     originalWidth,
     originalHeight
   );

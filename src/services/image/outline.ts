@@ -17,13 +17,29 @@
  */
 
 import {sobelEdgeDetectionWebGL} from '~/src/services/image/filter/sobel-operator-webgl';
+import {transformImage} from '~/src/services/ml/image-transformer';
+import type {OnnxModel} from '~/src/services/ml/types';
+import type {ProgressCallback} from '~/src/utils/fetch';
 import {createImageBitmapResizedTotalPixels, IMAGE_SIZE} from '~/src/utils/graphics';
 
-export async function getOutline(blob: Blob): Promise<ImageBitmap> {
+export async function getOutline(
+  image: ImageBitmap,
+  model?: OnnxModel | null,
+  progressCallback?: ProgressCallback
+): Promise<ImageBitmap> {
   console.time('outline');
-  const image: ImageBitmap = await createImageBitmapResizedTotalPixels(blob, IMAGE_SIZE['2K']);
-  const outline: ImageBitmap = sobelEdgeDetectionWebGL(image);
-  image.close();
+  let outline: ImageBitmap;
+  if (model) {
+    const transformedImage: OffscreenCanvas = await transformImage(image, model, progressCallback);
+    outline = transformedImage.transferToImageBitmap();
+  } else {
+    const resizedImage: ImageBitmap = await createImageBitmapResizedTotalPixels(
+      image,
+      IMAGE_SIZE['2K']
+    );
+    outline = sobelEdgeDetectionWebGL(resizedImage);
+    resizedImage.close();
+  }
   console.timeEnd('outline');
   return outline;
 }

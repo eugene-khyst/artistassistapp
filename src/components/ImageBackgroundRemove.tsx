@@ -31,7 +31,6 @@ import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {saveAppSettings} from '~/src/services/db/app-settings-db';
-import {removeBackground} from '~/src/services/image/background-removal';
 import {compareOnnxModelsByPriority} from '~/src/services/ml/models';
 import type {OnnxModel} from '~/src/services/ml/types';
 import {OnnxModelType} from '~/src/services/ml/types';
@@ -40,9 +39,16 @@ import {getFilename} from '~/src/utils/filename';
 
 export const ImageBackgroundRemove: React.FC = () => {
   const appSettings = useAppStore(state => state.appSettings);
-  const imageFileToRemoveBg = useAppStore(state => state.imageFileToRemoveBg);
+  const imageFileToRemoveBackground = useAppStore(state => state.imageFileToRemoveBackground);
+  const isBackgroundRemovalLoading = useAppStore(state => state.isBackgroundRemovalLoading);
+  const backgroundRemovalLoadingPercent = useAppStore(
+    state => state.backgroundRemovalLoadingPercent
+  );
+  const backgroundRemovalLoadingTip = useAppStore(state => state.backgroundRemovalLoadingTip);
+  const imageWithoutBackgroundBlob = useAppStore(state => state.imageWithoutBackgroundBlob);
 
-  const setImageFileToRemoveBg = useAppStore(state => state.setImageFileToRemoveBg);
+  const setImageFileToRemoveBg = useAppStore(state => state.setImageFileToRemoveBackground);
+  const loadImageWithoutBackground = useAppStore(state => state.loadImageWithoutBackground);
 
   const screens = Grid.useBreakpoint();
 
@@ -57,12 +63,7 @@ export const ImageBackgroundRemove: React.FC = () => {
   } = useOnnxModels(OnnxModelType.BackgroundRemoval);
 
   const [modelId, setModelId] = useState<string>();
-  const [noBgBlob, setNoBgBlob] = useState<Blob>();
   const [position, setPosition] = useState<number>(100);
-
-  const [isBackgroundRemovalLoading, setIsBackgroundRemovalLoading] = useState<boolean>(false);
-  const [loadingPercent, setLoadingPercent] = useState<number | 'auto'>('auto');
-  const [loadingTip, setLoadingTip] = useState<string>();
 
   const model: OnnxModel | null | undefined = modelId ? models?.get(modelId) : null;
 
@@ -70,8 +71,8 @@ export const ImageBackgroundRemove: React.FC = () => {
 
   const isLoading = isModelsLoading || isBackgroundRemovalLoading || isAuthLoading;
 
-  const imageUrl: string | undefined = useCreateObjectUrl(imageFileToRemoveBg);
-  const noBgImageUrl: string | undefined = useCreateObjectUrl(noBgBlob);
+  const imageUrl: string | undefined = useCreateObjectUrl(imageFileToRemoveBackground);
+  const noBgImageUrl: string | undefined = useCreateObjectUrl(imageWithoutBackgroundBlob);
 
   useEffect(() => {
     if (isModelsError) {
@@ -93,33 +94,11 @@ export const ImageBackgroundRemove: React.FC = () => {
 
   useEffect(() => {
     void (async () => {
-      if (!imageFileToRemoveBg || !model || !hasAccessTo(user, model)) {
-        return;
-      }
-      try {
-        setIsBackgroundRemovalLoading(true);
-        setLoadingPercent(0);
-        setLoadingTip('Loading');
-        setNoBgBlob(undefined);
-
-        setPosition(100);
-
-        const noBgBlob = await removeBackground(
-          imageFileToRemoveBg,
-          model,
-          (filename, progress) => {
-            setLoadingPercent(progress);
-            setLoadingTip(filename);
-          }
-        );
-
-        setNoBgBlob(noBgBlob);
-        setPosition(25);
-      } finally {
-        setIsBackgroundRemovalLoading(false);
-      }
+      setPosition(100);
+      await loadImageWithoutBackground(model, user);
+      setPosition(25);
     })();
-  }, [imageFileToRemoveBg, model, user]);
+  }, [loadImageWithoutBackground, model, user, imageFileToRemoveBackground]);
 
   const handleModelChange = (value: string) => {
     setModelId(value);
@@ -133,7 +112,7 @@ export const ImageBackgroundRemove: React.FC = () => {
 
   const handleSaveClick = () => {
     if (noBgImageUrl) {
-      saveAs(noBgImageUrl, getFilename(imageFileToRemoveBg, 'no-bg'));
+      saveAs(noBgImageUrl, getFilename(imageFileToRemoveBackground, 'no-bg'));
     }
   };
 
@@ -153,7 +132,12 @@ export const ImageBackgroundRemove: React.FC = () => {
   };
 
   return (
-    <Spin spinning={isLoading} percent={loadingPercent} tip={loadingTip} size="large">
+    <Spin
+      spinning={isLoading}
+      percent={backgroundRemovalLoadingPercent}
+      tip={backgroundRemovalLoadingTip}
+      size="large"
+    >
       <Flex vertical gap="small" style={{marginBottom: 8, padding: '0 16px'}}>
         <Typography.Text strong>Select a photo to remove the background from</Typography.Text>
         <Form.Item
@@ -162,11 +146,11 @@ export const ImageBackgroundRemove: React.FC = () => {
             !user &&
             (!isAccessAllowed ? (
               <Typography.Text type="warning">
-                You&apos;ve selected mode that is available to paid Patreon members only.
+                You&apos;ve selected mode that is available to paid Patreon members only
               </Typography.Text>
             ) : (
               <Typography.Text type="secondary">
-                Only a limited number of modes are available in the free version.
+                Only a limited number of modes are available in the free version
               </Typography.Text>
             ))
           }

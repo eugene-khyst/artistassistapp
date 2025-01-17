@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {IMAGE_SIZE} from '~/src/utils/graphics';
 import type {Size} from '~/src/utils/types';
 
 const MAX_CANVAS_SIZE = 8192;
@@ -34,12 +35,14 @@ export interface ImageTile {
   imageData: ImageData;
 }
 
+const LINE_WIDTH = 5;
+
 export function splitImageIntoPagesPreview(
   image: ImageBitmap,
   targetSize: Size,
-  paperSizes: Size[],
-  lineWidth = 5
+  paperSizes: Size[]
 ): ImagePagesPreview {
+  const {width: imageWidth, height: imageHeight} = image;
   const [targetWidth, targetHeight] = targetSize;
   let pages = Number.MAX_VALUE;
   let cols = 0;
@@ -59,12 +62,12 @@ export function splitImageIntoPagesPreview(
     }
   }
   const targetRatio = targetWidth / targetHeight;
-  const imageRatio = image.width / image.height;
+  const imageRatio = imageWidth / imageHeight;
   let px2mm = 1;
   if (targetRatio <= imageRatio) {
-    px2mm = image.width / targetWidth;
+    px2mm = imageWidth / targetWidth;
   } else if (targetRatio > imageRatio) {
-    px2mm = image.height / targetHeight;
+    px2mm = imageHeight / targetHeight;
   }
   const pageWidthPx = px2mm * pageWidth;
   const pageHeightPx = px2mm * pageHeight;
@@ -76,7 +79,7 @@ export function splitImageIntoPagesPreview(
   const canvas = new OffscreenCanvas(canvasWidth, canvasHeight);
   const ctx = canvas.getContext('2d')!;
   ctx.drawImage(image, 0, 0);
-  ctx.lineWidth = lineWidth;
+  ctx.lineWidth = LINE_WIDTH * Math.sqrt((imageWidth * imageHeight) / IMAGE_SIZE['2K']);
   ctx.strokeStyle = 'black';
   ctx.strokeRect(0, 0, px2mm * targetWidth, px2mm * targetHeight);
   for (let r = 0; r < rows; r++) {

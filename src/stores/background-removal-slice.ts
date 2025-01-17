@@ -18,10 +18,20 @@
 
 import type {StateCreator} from 'zustand';
 
-export interface BackgroundRemovalSlice {
-  imageFileToRemoveBg: File | null;
+import type {User} from '~/src/services/auth/types';
+import {hasAccessTo} from '~/src/services/auth/utils';
+import {removeBackground} from '~/src/services/image/background-removal';
+import type {OnnxModel} from '~/src/services/ml/types';
 
-  setImageFileToRemoveBg: (imageFileToRemoveBg: File | null) => void;
+export interface BackgroundRemovalSlice {
+  imageFileToRemoveBackground: File | null;
+  isBackgroundRemovalLoading: boolean;
+  backgroundRemovalLoadingPercent: number | 'auto';
+  backgroundRemovalLoadingTip: string | null;
+  imageWithoutBackgroundBlob: Blob | null;
+
+  setImageFileToRemoveBackground: (imageFileToRemoveBackground: File | null) => void;
+  loadImageWithoutBackground: (model?: OnnxModel | null, user?: User | null) => Promise<void>;
 }
 
 export const createBackgroundRemovalSlice: StateCreator<
@@ -29,10 +39,46 @@ export const createBackgroundRemovalSlice: StateCreator<
   [],
   [],
   BackgroundRemovalSlice
-> = set => ({
-  imageFileToRemoveBg: null,
+> = (set, get) => ({
+  imageFileToRemoveBackground: null,
+  isBackgroundRemovalLoading: false,
+  backgroundRemovalLoadingPercent: 'auto',
+  backgroundRemovalLoadingTip: null,
+  imageWithoutBackgroundBlob: null,
 
-  setImageFileToRemoveBg: (imageFileToRemoveBg: File | null): void => {
-    set({imageFileToRemoveBg});
+  setImageFileToRemoveBackground: (imageFileToRemoveBackground: File | null): void => {
+    set({imageFileToRemoveBackground});
+  },
+  loadImageWithoutBackground: async (
+    model?: OnnxModel | null,
+    user?: User | null
+  ): Promise<void> => {
+    const {imageFileToRemoveBackground} = get();
+    if (!imageFileToRemoveBackground || !model || !hasAccessTo(user, model)) {
+      return;
+    }
+    try {
+      set({
+        isBackgroundRemovalLoading: true,
+        backgroundRemovalLoadingPercent: 0,
+        backgroundRemovalLoadingTip: null,
+        imageWithoutBackgroundBlob: null,
+      });
+      const imageWithoutBackgroundBlob = await removeBackground(
+        imageFileToRemoveBackground,
+        model,
+        (key, progress) => {
+          set({
+            backgroundRemovalLoadingPercent: progress,
+            backgroundRemovalLoadingTip: key,
+          });
+        }
+      );
+      set({imageWithoutBackgroundBlob});
+    } finally {
+      set({
+        isBackgroundRemovalLoading: false,
+      });
+    }
   },
 });

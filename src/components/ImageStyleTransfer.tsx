@@ -29,7 +29,6 @@ import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {saveAppSettings} from '~/src/services/db/app-settings-db';
-import {transferStyle} from '~/src/services/image/style-transfer';
 import {compareOnnxModelsByPriority} from '~/src/services/ml/models';
 import type {OnnxModel} from '~/src/services/ml/types';
 import {OnnxModelType} from '~/src/services/ml/types';
@@ -38,7 +37,14 @@ import {getFilename} from '~/src/utils/filename';
 
 export const ImageStyleTransfer: React.FC = () => {
   const appSettings = useAppStore(state => state.appSettings);
-  const imageFileToStyle = useAppStore(state => state.imageFileToStyle);
+  const originalImageFile = useAppStore(state => state.originalImageFile);
+  const styleTransferTrigger = useAppStore(state => state.styleTransferTrigger);
+  const isStyleTransferLoading = useAppStore(state => state.isStyleTransferLoading);
+  const styleTransferLoadingPercent = useAppStore(state => state.styleTransferLoadingPercent);
+  const styleTransferLoadingTip = useAppStore(state => state.styleTransferLoadingTip);
+  const styledImageBlob = useAppStore(state => state.styledImageBlob);
+
+  const loadStyledImage = useAppStore(state => state.loadStyledImage);
 
   const {notification} = App.useApp();
 
@@ -51,11 +57,6 @@ export const ImageStyleTransfer: React.FC = () => {
   } = useOnnxModels(OnnxModelType.StyleTransfer);
 
   const [modelId, setModelId] = useState<string>();
-  const [styledBlob, setStyledBlob] = useState<Blob>();
-
-  const [isStyleTransferLoading, setIsStyleTransferLoading] = useState<boolean>(false);
-  const [loadingPercent, setLoadingPercent] = useState<number | 'auto'>('auto');
-  const [loadingTip, setLoadingTip] = useState<string>();
 
   const model: OnnxModel | null | undefined = modelId ? models?.get(modelId) : null;
 
@@ -63,7 +64,7 @@ export const ImageStyleTransfer: React.FC = () => {
 
   const isLoading = isModelsLoading || isStyleTransferLoading || isAuthLoading;
 
-  const styledImageUrl: string | undefined = useCreateObjectUrl(styledBlob);
+  const styledImageUrl: string | undefined = useCreateObjectUrl(styledImageBlob);
 
   useEffect(() => {
     if (isModelsError) {
@@ -83,31 +84,8 @@ export const ImageStyleTransfer: React.FC = () => {
   }, [appSettings, models]);
 
   useEffect(() => {
-    void (async () => {
-      if (!imageFileToStyle || !model || !hasAccessTo(user, model)) {
-        return;
-      }
-      try {
-        setIsStyleTransferLoading(true);
-        setLoadingPercent(0);
-        setLoadingTip('Loading');
-        setStyledBlob(undefined);
-
-        const styledBlob: Blob = await transferStyle(
-          imageFileToStyle,
-          model,
-          (filename, progress) => {
-            setLoadingPercent(progress);
-            setLoadingTip(filename);
-          }
-        );
-
-        setStyledBlob(styledBlob);
-      } finally {
-        setIsStyleTransferLoading(false);
-      }
-    })();
-  }, [imageFileToStyle, model, user]);
+    void loadStyledImage(model, user);
+  }, [loadStyledImage, model, user, styleTransferTrigger]);
 
   const handleModelChange = (value: string) => {
     setModelId(value);
@@ -116,11 +94,11 @@ export const ImageStyleTransfer: React.FC = () => {
 
   const handleSaveClick = () => {
     if (styledImageUrl) {
-      saveAs(styledImageUrl, getFilename(imageFileToStyle, 'styled'));
+      saveAs(styledImageUrl, getFilename(originalImageFile, 'styled'));
     }
   };
 
-  if (!imageFileToStyle) {
+  if (!originalImageFile) {
     return <EmptyImage feature="transfer styles to a reference photo" />;
   }
 
@@ -131,7 +109,12 @@ export const ImageStyleTransfer: React.FC = () => {
   };
 
   return (
-    <Spin spinning={isLoading} percent={loadingPercent} tip={loadingTip} size="large">
+    <Spin
+      spinning={isLoading}
+      percent={styleTransferLoadingPercent}
+      tip={styleTransferLoadingTip}
+      size="large"
+    >
       <Flex vertical gap="small" style={{marginBottom: 8, padding: '0 16px'}}>
         <Typography.Text strong>Select a style to transfer to your reference</Typography.Text>
         <Form.Item
@@ -140,11 +123,11 @@ export const ImageStyleTransfer: React.FC = () => {
             !user &&
             (!isAccessAllowed ? (
               <Typography.Text type="warning">
-                You&apos;ve selected style that is available to paid Patreon members only.
+                You&apos;ve selected style that is available to paid Patreon members only
               </Typography.Text>
             ) : (
               <Typography.Text type="secondary">
-                Only a limited number of styles are available in the free version.
+                Only a limited number of styles are available in the free version
               </Typography.Text>
             ))
           }

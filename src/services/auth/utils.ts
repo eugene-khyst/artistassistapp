@@ -22,6 +22,6 @@ export function hasAccessTo<
   T extends {
     freeTier?: boolean;
   },
->(user: User | null, value?: T | T[] | null): boolean {
+>(user?: User | null, value?: T | T[] | null): boolean {
   return !value || ![value].flat().some(({freeTier}) => !freeTier) || !!user;
 }

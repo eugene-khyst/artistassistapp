@@ -18,12 +18,21 @@
 
 import type {StateCreator} from 'zustand';
 
+import type {User} from '~/src/services/auth/types';
+import {hasAccessTo} from '~/src/services/auth/utils';
+import {transferStyle} from '~/src/services/image/style-transfer';
+import type {OnnxModel} from '~/src/services/ml/types';
 import type {OriginalImageSlice} from '~/src/stores/original-image-slice';
 
 export interface StyleTransferSlice {
-  imageFileToStyle: File | null;
+  styleTransferTrigger: boolean;
+  isStyleTransferLoading: boolean;
+  styleTransferLoadingPercent: number | 'auto';
+  styleTransferLoadingTip: string | null;
+  styledImageBlob: Blob | null;
 
-  loadImageFileToStyle: () => void;
+  triggerStyleTransfer: () => void;
+  loadStyledImage: (model?: OnnxModel | null, user?: User | null) => Promise<void>;
 }
 
 export const createStyleTransferSlice: StateCreator<
@@ -32,15 +41,42 @@ export const createStyleTransferSlice: StateCreator<
   [],
   StyleTransferSlice
 > = (set, get) => ({
-  imageFileToStyle: null,
+  styleTransferTrigger: false,
+  isStyleTransferLoading: false,
+  styleTransferLoadingPercent: 'auto',
+  styleTransferLoadingTip: null,
+  styledImageBlob: null,
 
-  loadImageFileToStyle: (): void => {
-    const {originalImageFile, imageFileToStyle} = get();
-    if (!originalImageFile || imageFileToStyle) {
+  triggerStyleTransfer: (): void => {
+    if (!get().styleTransferTrigger) {
+      set({
+        styleTransferTrigger: true,
+      });
+    }
+  },
+  loadStyledImage: async (model?: OnnxModel | null, user?: User | null): Promise<void> => {
+    const {originalImage, styleTransferTrigger} = get();
+    if (!styleTransferTrigger || !originalImage || !model || !hasAccessTo(user, model)) {
       return;
     }
-    set({
-      imageFileToStyle: originalImageFile,
-    });
+    try {
+      set({
+        isStyleTransferLoading: true,
+        styleTransferLoadingPercent: 0,
+        styleTransferLoadingTip: null,
+        styledImageBlob: null,
+      });
+      const styledImageBlob: Blob = await transferStyle(originalImage, model, (key, progress) => {
+        set({
+          styleTransferLoadingPercent: progress,
+          styleTransferLoadingTip: key,
+        });
+      });
+      set({styledImageBlob});
+    } finally {
+      set({
+        isStyleTransferLoading: false,
+      });
+    }
   },
 });

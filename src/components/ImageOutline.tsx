@@ -16,64 +16,164 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined, LoadingOutlined, PrinterOutlined} from '@ant-design/icons';
-import {Button, Space, Spin} from 'antd';
-import {useState} from 'react';
+import {DownloadOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons';
+import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
+import {App, Button, Dropdown, Form, Grid, Radio, Space, Spin, Typography} from 'antd';
+import {useEffect, useState} from 'react';
 
 import {PrintImageDrawer} from '~/src/components/print/PrintImageDrawer';
+import {useAuth} from '~/src/hooks/useAuth';
+import {useOnnxModels} from '~/src/hooks/useOnnxModels';
 import {
   useZoomableImageCanvas,
   zoomableImageCanvasSupplier,
 } from '~/src/hooks/useZoomableImageCanvas';
 import type {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
+import {compareOnnxModelsByPriority} from '~/src/services/ml/models';
+import {OnnxModelType} from '~/src/services/ml/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
 
 import {EmptyImage} from './empty/EmptyImage';
 
+enum OutlineMode {
+  Fast = 0,
+  Quality = 1,
+}
+
 export const ImageOutline: React.FC = () => {
   const originalImageFile = useAppStore(state => state.originalImageFile);
-  const originalImage = useAppStore(state => state.originalImage);
+  const outlineTrigger = useAppStore(state => state.outlineTrigger);
+  const isOutlineImageLoading = useAppStore(state => state.isOutlineImageLoading);
+  const outlineLoadingPercent = useAppStore(state => state.outlineLoadingPercent);
+  const outlineLoadingTip = useAppStore(state => state.outlineLoadingTip);
   const outlineImage = useAppStore(state => state.outlineImage);
 
-  const isOutlineImageLoading = useAppStore(state => state.isOutlineImageLoading);
+  const loadOutlineImage = useAppStore(state => state.loadOutlineImage);
+
+  const screens = Grid.useBreakpoint();
+
+  const {notification} = App.useApp();
+
+  const {user, isLoading: isAuthLoading} = useAuth();
+
+  const {
+    models,
+    isLoading: isModelsLoading,
+    isError: isModelsError,
+  } = useOnnxModels(OnnxModelType.LineDrawing);
 
   const {ref: canvasRef, zoomableImageCanvas} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
     outlineImage
   );
 
+  const [outlineMode, setOutlineMode] = useState<OutlineMode>(OutlineMode.Fast);
   const [isOpenPrintImage, setIsOpenPrintImage] = useState<boolean>(false);
+
+  const [model] =
+    outlineMode === OutlineMode.Quality && models
+      ? [...models.values()].sort(compareOnnxModelsByPriority)
+      : [];
+
+  const isLoading = isModelsLoading || isOutlineImageLoading || isAuthLoading;
+
+  useEffect(() => {
+    if (isModelsError) {
+      notification.error({
+        message: 'Error while fetching ML model data',
+        placement: 'top',
+        duration: 0,
+      });
+    }
+  }, [isModelsError, notification]);
+
+  useEffect(() => {
+    void loadOutlineImage(model, user);
+  }, [loadOutlineImage, model, user, outlineTrigger]);
+
+  const handleModeChange = (e: RadioChangeEvent) => {
+    setOutlineMode(e.target.value as OutlineMode);
+  };
+
+  const handlePrintClick = () => {
+    setIsOpenPrintImage(true);
+  };
 
   const handleSaveClick = () => {
     void zoomableImageCanvas?.saveAsImage(getFilename(originalImageFile, 'outline'));
   };
 
-  if (!originalImage) {
+  if (!originalImageFile) {
     return <EmptyImage feature="view an outline from a reference photo" />;
   }
 
+  const modeOptions: CheckboxOptionType<number>[] = [
+    {
+      value: OutlineMode.Fast,
+      label: 'Fast',
+    },
+    {
+      value: OutlineMode.Quality,
+      label: 'Quality',
+      disabled: !user,
+    },
+  ];
+
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: 'Print',
+      icon: <PrinterOutlined />,
+      onClick: handlePrintClick,
+    },
+    {
+      key: '2',
+      label: 'Save',
+      icon: <DownloadOutlined />,
+      onClick: handleSaveClick,
+    },
+  ];
+
   return (
-    <Spin
-      spinning={isOutlineImageLoading}
-      tip="Loading"
-      indicator={<LoadingOutlined spin />}
-      size="large"
-    >
+    <Spin spinning={isLoading} percent={outlineLoadingPercent} tip={outlineLoadingTip} size="large">
       <div style={{display: 'flex', width: '100%', justifyContent: 'center', marginBottom: 8}}>
-        <Space>
-          <Button
-            icon={<PrinterOutlined />}
-            onClick={() => {
-              setIsOpenPrintImage(true);
-            }}
-          >
-            Print
-          </Button>
-          <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
-            Save
-          </Button>
-        </Space>
+        <Form.Item
+          style={{margin: 0}}
+          extra={
+            !user && (
+              <Typography.Text type="secondary">
+                Quality mode is available to paid Patreon members only
+              </Typography.Text>
+            )
+          }
+        >
+          <Space align="start" style={{display: 'flex'}}>
+            <Form.Item label="Mode" style={{margin: 0}}>
+              <Radio.Group
+                options={modeOptions}
+                value={outlineMode}
+                onChange={handleModeChange}
+                optionType="button"
+                buttonStyle="solid"
+              />
+            </Form.Item>
+            {screens.sm ? (
+              <>
+                <Button icon={<PrinterOutlined />} onClick={handlePrintClick}>
+                  Print
+                </Button>
+                <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
+                  Save
+                </Button>
+              </>
+            ) : (
+              <Dropdown menu={{items}}>
+                <Button icon={<MoreOutlined />} />
+              </Dropdown>
+            )}
+          </Space>
+        </Form.Item>
       </div>
       <div>
         <canvas ref={canvasRef} style={{width: '100%', height: `calc(100vh - 115px)`}} />
