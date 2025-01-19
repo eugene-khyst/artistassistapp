@@ -142,7 +142,7 @@ export const ImageStyleTransfer: React.FC = () => {
                 models={models}
                 value={modelId}
                 onChange={handleModelChange}
-                style={{width: 130}}
+                style={{width: 140}}
               />
             </Form.Item>
             {styledImageUrl && (

@@ -37,24 +37,18 @@ interface Grid {
 
 export interface GridCanvasProps extends ZoomableImageCanvasProps {
   grid?: Grid;
-  gridLineWidth?: number;
-  diagonalLineWidth?: number;
+  lineWidth?: number;
 }
 
 export class GridCanvas extends ZoomableImageCanvas {
   private invertedImages: ImageBitmap[] = [];
   private grid?: Grid;
-  private gridLineWidth: number;
-  private diagonalLineWidth: number;
+  private lineWidth: number;
 
   constructor(canvas: HTMLCanvasElement, props: GridCanvasProps = {}) {
     super(canvas, props);
 
-    ({
-      grid: this.grid,
-      gridLineWidth: this.gridLineWidth = 1,
-      diagonalLineWidth: this.diagonalLineWidth = 1,
-    } = props);
+    ({grid: this.grid, lineWidth: this.lineWidth = 1.5} = props);
   }
 
   protected override onImagesLoaded(): void {
@@ -68,11 +62,10 @@ export class GridCanvas extends ZoomableImageCanvas {
   private drawLine(
     ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
     p1: Vector,
-    p2: Vector,
-    lineWidth?: number
+    p2: Vector
   ): void {
     const {center}: Rectangle = this.getImageDimension();
-    ctx.lineWidth = (lineWidth ?? this.diagonalLineWidth) / this.zoom;
+    ctx.lineWidth = this.lineWidth / this.zoom;
     ctx.strokeStyle = '#000';
     ctx.beginPath();
     const {x: x1, y: y1} = p1.subtract(center);
@@ -87,7 +80,7 @@ export class GridCanvas extends ZoomableImageCanvas {
     y: number
   ): void {
     const {width}: Rectangle = this.getImageDimension();
-    this.drawLine(ctx, new Vector(0, y), new Vector(width, y), this.gridLineWidth);
+    this.drawLine(ctx, new Vector(0, y), new Vector(width, y));
   }
 
   private drawVerticalLine(
@@ -95,7 +88,7 @@ export class GridCanvas extends ZoomableImageCanvas {
     x: number
   ): void {
     const {height}: Rectangle = this.getImageDimension();
-    this.drawLine(ctx, new Vector(x, 0), new Vector(x, height), this.gridLineWidth);
+    this.drawLine(ctx, new Vector(x, 0), new Vector(x, height));
   }
 
   private drawSquareGrid(
@@ -203,14 +196,12 @@ export class GridCanvas extends ZoomableImageCanvas {
     }
     const {width, height} = image;
     const scaleFactor: number = Math.max(1, (width * height) / IMAGE_SIZE.HD);
-    const {gridLineWidth, diagonalLineWidth} = this;
+    const {lineWidth} = this;
     try {
-      this.gridLineWidth = scaleFactor * gridLineWidth;
-      this.diagonalLineWidth = scaleFactor * diagonalLineWidth;
+      this.lineWidth = scaleFactor * lineWidth;
       return await super.convertToBlob();
     } finally {
-      this.gridLineWidth = gridLineWidth;
-      this.diagonalLineWidth = diagonalLineWidth;
+      this.lineWidth = lineWidth;
     }
   }
 }
