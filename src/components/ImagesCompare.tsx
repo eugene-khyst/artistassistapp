@@ -16,10 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {QuestionCircleOutlined} from '@ant-design/icons';
+import {PrinterOutlined, QuestionCircleOutlined} from '@ant-design/icons';
 import {Button, Col, Flex, Row, Space, theme, Tooltip, Typography} from 'antd';
 import type {ChangeEvent, RefObject} from 'react';
 import {useEffect, useRef} from 'react';
+import {useReactToPrint} from 'react-to-print';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {FileSelect} from '~/src/components/image/FileSelect';
@@ -57,6 +58,7 @@ export const ImagesCompare: React.FC = () => {
   const player1Ref = useRef<HTMLDivElement>(null);
   const player2Ref = useRef<HTMLDivElement>(null);
   const photoRankingRef = useRef<HTMLButtonElement>(null);
+  const printRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (unfinishedGamesSize === 0) {
@@ -74,6 +76,11 @@ export const ImagesCompare: React.FC = () => {
     setScore(score);
     restartTransitionAnimation(player1Ref, player2Ref);
   };
+
+  const handlePrint = useReactToPrint({
+    contentRef: printRef,
+    documentTitle: 'ArtistAssistApp',
+  });
 
   const isNew = playersByRating.length === 0;
 
@@ -134,10 +141,20 @@ export const ImagesCompare: React.FC = () => {
 
       {playersByRating.length > 0 && (
         <>
-          <Typography.Text ref={photoRankingRef} strong>
-            Photo ranking
-          </Typography.Text>
-          <Row gutter={[16, 16]} align="middle" justify="start">
+          <Space>
+            <Typography.Text ref={photoRankingRef} strong>
+              Photo ranking
+            </Typography.Text>
+            <Button
+              icon={<PrinterOutlined />}
+              onClick={() => {
+                handlePrint();
+              }}
+            >
+              Print
+            </Button>
+          </Space>
+          <Row ref={printRef} gutter={[16, 16]} align="middle" justify="start">
             {playersByRating.map(({id, data, rating}: Player<File>, index: number) => (
               <Col key={`${id}`} xs={12} md={8} lg={6}>
                 <ImageCard

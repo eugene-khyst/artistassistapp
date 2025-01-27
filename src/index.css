@@ -55,6 +55,10 @@ svg.color-icon {
   body {
     print-color-adjust: exact;
   }
+
+  .ant-card {
+    page-break-inside: avoid;
+  }
 }
 
 @page {

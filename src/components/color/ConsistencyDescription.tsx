@@ -93,9 +93,11 @@ export const ConsistencyDescription: React.FC<Props> = ({
     (isThickConsistency({consistency}) ? (
       <Space size={4}>
         <Typography.Text>Thick pigment</Typography.Text>
-        <Tooltip title="Don't thin the layer">
-          <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
-        </Tooltip>
+        {showTooltip && (
+          <Tooltip title="Don't thin the layer">
+            <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
+          </Tooltip>
+        )}
       </Space>
     ) : (
       <Space size={4}>

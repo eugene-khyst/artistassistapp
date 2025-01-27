@@ -17,7 +17,7 @@
  */
 
 import {DatabaseOutlined, DeleteOutlined, PrinterOutlined} from '@ant-design/icons';
-import {Button, Col, Flex, Form, Popconfirm, Row, Select, Space, Typography} from 'antd';
+import {Button, Card, Col, Form, Popconfirm, Row, Select, Space, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useRef, useState} from 'react';
 import {useReactToPrint} from 'react-to-print';
@@ -122,18 +122,20 @@ export const PaletteGrid: React.FC<Props> = ({
         </Col>
       </Row>
       <div style={{display: 'none'}}>
-        <Flex ref={printRef} wrap="wrap" gap={32} justify="space-between">
+        <Row ref={printRef} gutter={[16, 16]} justify="start">
           {sortedColorMixtures.map((colorMixture: ColorMixture) => (
-            <span key={colorMixture.key} style={{breakBefore: 'auto'}}>
-              <Space direction="vertical">
-                <Typography.Text style={{fontWeight: 'bold'}}>
-                  {colorMixture.name || 'Untitled mixture'}
-                </Typography.Text>
-                <ColorMixtureDescription colorMixture={colorMixture} showTooltips={false} />
-              </Space>
-            </span>
+            <Col key={colorMixture.key} xs={24} md={12} lg={8}>
+              <Card size="small">
+                <Space direction="vertical">
+                  <Typography.Text style={{fontWeight: 'bold'}}>
+                    {colorMixture.name || 'Untitled mixture'}
+                  </Typography.Text>
+                  <ColorMixtureDescription colorMixture={colorMixture} showTooltips={false} />
+                </Space>
+              </Card>
+            </Col>
           ))}
-        </Flex>
+        </Row>
       </div>
     </>
   );
