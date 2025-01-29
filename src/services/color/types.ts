@@ -60,6 +60,7 @@ export interface ColorBrandDefinition {
   shortName?: string;
   idFormat?: ColorIdFormat;
   freeTier?: boolean;
+  colorCount?: number;
 }
 
 export interface StandardColorSetDefinition {

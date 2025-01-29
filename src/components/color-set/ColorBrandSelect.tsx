@@ -19,6 +19,7 @@
 import type {SelectProps} from 'antd';
 import {Select} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
+import type {FlattenOptionData} from 'rc-select/lib/interface';
 
 import {filterSelectOptions} from '~/src/components/utils';
 import {useAuth} from '~/src/hooks/useAuth';
@@ -32,18 +33,29 @@ import type {ColorBrandDefinition} from '~/src/services/color/types';
 function getColorBrandOptions(
   user: User | null,
   brands?: Map<number, ColorBrandDefinition>
-): SelectOptionType[] {
+): (SelectOptionType & {colorCount?: number})[] {
   if (!brands?.size) {
     return [];
   }
   return [...brands.values()]
     .sort(!user ? compareColorBrandsByFreeTierAndName : compareColorBrandsByName)
-    .map(({id, fullName, freeTier = false}) => ({
+    .map(({id, fullName, colorCount, freeTier = false}) => ({
       value: id,
       label: fullName,
+      fullName,
+      colorCount,
       disabled: !freeTier && !user,
     }));
 }
+
+const colorBrandOptionRender = ({
+  data: {fullName, colorCount},
+}: FlattenOptionData<SelectOptionType & {colorCount?: number}>) => (
+  <>
+    {fullName}
+    {!!colorCount && ` (${colorCount} colors)`}
+  </>
+);
 
 type Props = SelectProps & {
   brands?: Map<number, ColorBrandDefinition>;
@@ -58,6 +70,7 @@ export const ColorBrandSelect: React.FC<Props> = ({brands, ...rest}: Props) => {
       placeholder="Select brands"
       showSearch
       filterOption={filterSelectOptions}
+      optionRender={colorBrandOptionRender}
       allowClear
       {...rest}
     />
