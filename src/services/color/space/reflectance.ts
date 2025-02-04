@@ -20,6 +20,7 @@ import {Matrix} from '~/src/services/math/matrix';
 
 import {linearizeRgbChannel, Rgb, unlinearizeRgbChannel} from './rgb';
 
+const SIZE = 36;
 const MAX_ITERATIONS = 100;
 const FUNCTION_SOLUTION_TOLERANCE = 1.0e-8;
 
@@ -62,38 +63,12 @@ const CIE_CMF_Y = Matrix.fromRows([
   ],
 ]);
 
-const MAX_EUCLIDEAN_DISTANCE = 6;
+const CORRELATION_WEIGHT = 0.8;
 
 function linearToConcentration(t: number, luminance1: number, luminance2: number) {
   const t1 = luminance1 * (1 - t) ** 2;
   const t2 = luminance2 * t ** 2;
   return t2 / (t1 + t2);
-}
-
-function euclideanDistance(rho1: Matrix, rho2: Matrix): number {
-  let distanceSq = 0;
-  for (let i = 0; i < 36; i++) {
-    const r1 = rho1.get(i, 0);
-    const r2 = rho2.get(i, 0);
-    distanceSq += (r1 - r2) ** 2;
-  }
-  return Math.sqrt(distanceSq);
-}
-
-function cosineSimilarity(rho1: Matrix, rho2: Matrix): number {
-  let dotProduct = 0;
-  let magnitudeY1 = 0;
-  let magnitudeY2 = 0;
-  for (let i = 0; i < 36; i++) {
-    const r1 = rho1.get(i, 0);
-    const r2 = rho2.get(i, 0);
-    dotProduct += r1 * r2;
-    magnitudeY1 += r1 ** 2;
-    magnitudeY2 += r2 ** 2;
-  }
-  return magnitudeY1 !== 0 && magnitudeY2 !== 0
-    ? dotProduct / (Math.sqrt(magnitudeY1) * Math.sqrt(magnitudeY2))
-    : 0;
 }
 
 function validateRatios(reflectances: Reflectance[], ratios: number[]) {
@@ -111,8 +86,8 @@ function validateRatios(reflectances: Reflectance[], ratios: number[]) {
 }
 
 export class Reflectance {
-  static readonly WHITE = new Reflectance(Matrix.ones(36, 1));
-  static readonly BLACK = new Reflectance(Matrix.fromValue(0.0001, 36, 1));
+  static readonly WHITE = new Reflectance(Matrix.ones(SIZE, 1));
+  static readonly BLACK = new Reflectance(Matrix.fromValue(0.0001, SIZE, 1));
 
   constructor(private readonly rho: Matrix) {}
 
@@ -129,13 +104,13 @@ export class Reflectance {
       return Reflectance.WHITE;
     }
 
-    const d = Matrix.tridiag(36, -2, 4, -2);
+    const d = Matrix.tridiag(SIZE, -2, 4, -2);
     d.set(0, 0, 2);
-    d.set(35, 35, 2);
+    d.set(SIZE - 1, SIZE - 1, 2);
 
     const rgbMatrix = Matrix.fromColumn(rgb.toRgbTuple()).map(linearizeRgbChannel);
 
-    let z = Matrix.zeros(36, 1);
+    let z = Matrix.zeros(SIZE, 1);
     let lambda = Matrix.zeros(3, 1);
     let iteration = 0;
 
@@ -157,8 +132,8 @@ export class Reflectance {
         .concatRows(RHO_TO_LINEAR_RGB.multiply(d1).concatColumns(Matrix.zeros(3, 3)));
 
       const delta: Matrix = j.inverse().multiply(f.multiplyByScalar(-1));
-      z = z.add(delta.getRows(0, 36));
-      lambda = lambda.add(delta.getRows(36, 39));
+      z = z.add(delta.getRows(0, SIZE));
+      lambda = lambda.add(delta.getRows(SIZE, SIZE + 3));
 
       const solutionFound = f.all((v: number) => Math.abs(v) < FUNCTION_SOLUTION_TOLERANCE);
       if (solutionFound) {
@@ -181,11 +156,32 @@ export class Reflectance {
   }
 
   calculateSimilarity({rho}: Reflectance, scalar = 100): number {
-    const distance = euclideanDistance(this.rho, rho);
-    const cosSim = cosineSimilarity(this.rho, rho);
-    const normDistance = 1 - distance / MAX_EUCLIDEAN_DISTANCE;
-    const normCosSim = (cosSim + 1) / 2;
-    return scalar * Math.sqrt(normDistance * normCosSim);
+    const y1 = this.rho.flatten();
+    const y2 = rho.flatten();
+    const mean1 = y1.reduce((sum, val) => sum + val) / SIZE;
+    const mean2 = y2.reduce((sum, val) => sum + val) / SIZE;
+    let cov = 0;
+    let stdDev1 = 0;
+    let stdDev2 = 0;
+    let distSqaured = 0;
+    for (let i = 0; i < SIZE; i++) {
+      const val1 = y1[i]!;
+      const val2 = y2[i]!;
+      const norm1 = val1 - mean1;
+      const norm2 = val2 - mean2;
+      cov += norm1 * norm2;
+      stdDev1 += norm1 ** 2;
+      stdDev2 += norm2 ** 2;
+      distSqaured += (val1 - val2) ** 2;
+    }
+    const correlation = stdDev1 === 0 || stdDev2 === 0 ? 0 : cov / Math.sqrt(stdDev1 * stdDev2);
+    const normCorelation = (1 + correlation) / 2;
+    const normDist = 1 - Math.sqrt(distSqaured / SIZE);
+    return (
+      scalar *
+      Math.pow(normCorelation, CORRELATION_WEIGHT) *
+      Math.pow(normDist, 1 - CORRELATION_WEIGHT)
+    );
   }
 
   getLuminance() {
@@ -196,8 +192,8 @@ export class Reflectance {
     const luminance1 = this.getLuminance();
     const luminance2 = reflectance.getLuminance();
     const concentration: number = linearToConcentration(t, luminance1, luminance2);
-    const rhoMix = Matrix.zeros(36, 1);
-    for (let i = 0; i < 36; i++) {
+    const rhoMix = Matrix.zeros(SIZE, 1);
+    for (let i = 0; i < SIZE; i++) {
       const r1 = this.rho.get(i, 0);
       const r2 = reflectance.rho.get(i, 0);
       const ks =
