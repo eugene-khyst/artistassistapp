@@ -17,10 +17,11 @@
  */
 
 import type {SelectProps} from 'antd';
-import {Select, Space, Typography} from 'antd';
+import {Flex, Select, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 
 import {ColorSquare} from '~/src/components/color/ColorSquare';
+import {OpacityIcon} from '~/src/components/color/OpacityIcon';
 import {filterSelectOptions} from '~/src/components/utils';
 import {formatColorLabel} from '~/src/services/color/colors';
 import type {ColorBrandDefinition, ColorDefinition} from '~/src/services/color/types';
@@ -33,14 +34,16 @@ function getColorOptions(
     return [];
   }
   return [...colors.values()].map((color: ColorDefinition) => {
+    const {hex, opacity} = color;
     const label: string = formatColorLabel(color, brand);
     return {
       value: color.id,
       label: (
-        <Space align="center" key={label}>
-          <ColorSquare color={color.hex} />
+        <Flex key={label} gap="small" align="center">
+          <ColorSquare color={hex} />
           <Typography.Text>{label}</Typography.Text>
-        </Space>
+          <OpacityIcon opacity={opacity} />
+        </Flex>
       ),
     };
   });

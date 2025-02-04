@@ -24,6 +24,7 @@ import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {filterSelectOptions} from '~/src/components/utils';
 import {compareByDate, getColorSetName} from '~/src/services/color/colors';
 import type {ColorBrandDefinition, ColorSetDefinition} from '~/src/services/color/types';
+import {reverseOrder} from '~/src/utils/array';
 
 const newColorSetOption: SelectOptionType = {
   value: 0,
@@ -45,8 +46,7 @@ function getColorSetOptions(
     newColorSetOption,
     ...colorSets
       .slice()
-      .sort(compareByDate)
-      .reverse()
+      .sort(reverseOrder(compareByDate))
       .map(({id, name, brands: brandIds, colors}: ColorSetDefinition) => ({
         value: id,
         label: name || getColorSetName(brandIds, colors, brands),

@@ -18,6 +18,7 @@
 
 import {
   AppstoreAddOutlined,
+  CopyOutlined,
   DeleteOutlined,
   LoadingOutlined,
   QrcodeOutlined,
@@ -39,7 +40,6 @@ import {
   Row,
   Space,
   Spin,
-  Tooltip,
   Typography,
 } from 'antd';
 import {QRCodeSVG} from 'qrcode.react';
@@ -59,11 +59,12 @@ import {useColors} from '~/src/hooks/useColors';
 import {useStandardColorSets} from '~/src/hooks/useStandardColorSets';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {MAX_COLORS_IN_MIXTURE} from '~/src/services/color/color-mixer';
-import {COLOR_TYPES} from '~/src/services/color/colors';
+import {COLOR_TYPES, compareByDate} from '~/src/services/color/colors';
 import type {ColorBrandDefinition, ColorSetDefinition, ColorType} from '~/src/services/color/types';
 import {colorSetToUrl} from '~/src/services/url/url-parser';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
+import {reverseOrder} from '~/src/utils/array';
 
 import {ColorBrandSelect} from './color-set/ColorBrandSelect';
 import {ColorSelect} from './color-set/ColorSelect';
@@ -226,15 +227,17 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
     });
     if (confirmed) {
       const {id, ...colorSet} = form.getFieldsValue();
-      await saveColorSet(
-        user,
-        {
-          ...colorSet,
-          ...(id ? {id} : {}),
-        },
-        brands,
-        colors,
-        false
+      form.setFieldsValue(
+        await saveColorSet(
+          user,
+          {
+            ...colorSet,
+            ...(id ? {id} : {}),
+          },
+          brands,
+          colors,
+          false
+        )
       );
     }
     setHasUnsavedChanges(false);
@@ -349,6 +352,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
   };
 
   const handleSubmit = async (values: ColorSetDefinition) => {
+    setHasUnsavedChanges(false);
     const {id, ...colorSet} = values;
     form.setFieldsValue(
       await saveColorSet(
@@ -361,11 +365,20 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
         colors
       )
     );
-    setHasUnsavedChanges(false);
   };
 
   const handleSubmitFailed = () => {
     void message.error('Fill in the required fields');
+  };
+
+  const handleDuplicateButtonClick = () => {
+    const {id: _id, name: _name, ...colorSet} = form.getFieldsValue();
+    form.setFieldsValue({
+      id: NEW_COLOR_SET,
+      name: undefined,
+      ...colorSet,
+    });
+    setHasUnsavedChanges(true);
   };
 
   const handleDeleteButtonClick = async () => {
@@ -376,7 +389,9 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
         type: selectedType,
       };
       if (selectedType) {
-        const [latestColorSetsByType] = await loadColorSetsByType(selectedType);
+        const [latestColorSetsByType] = (await loadColorSetsByType(selectedType)).sort(
+          reverseOrder(compareByDate)
+        );
         values = latestColorSetsByType ?? values;
       }
       form.resetFields();
@@ -633,16 +648,15 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
                   <Space wrap>
                     {!isAuthLoading &&
                       (isAccessAllowed ? (
-                        <Tooltip title="Save the changes to the color set" trigger="focus">
-                          <Button
-                            ref={saveButtonRef}
-                            icon={<SaveOutlined />}
-                            type="primary"
-                            htmlType="submit"
-                          >
-                            Save & proceed
-                          </Button>
-                        </Tooltip>
+                        <Button
+                          ref={saveButtonRef}
+                          icon={<SaveOutlined />}
+                          title="Save the changes to this color set"
+                          type="primary"
+                          htmlType="submit"
+                        >
+                          Save & proceed
+                        </Button>
                       ) : (
                         <>
                           <LoginButton />
@@ -659,25 +673,34 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
                       </Button>
                     )}
                     {!!selectedColorSetId && (
-                      <Popconfirm
-                        title="Delete the color set"
-                        description="Are you sure you want to delete this color set?"
-                        onConfirm={() => {
-                          void handleDeleteButtonClick();
-                        }}
-                        okText="Yes"
-                        cancelText="No"
-                      >
+                      <>
                         <Button
-                          icon={<DeleteOutlined />}
-                          title="Delete the color set"
-                          onClick={e => {
-                            e.stopPropagation();
-                          }}
+                          icon={<CopyOutlined />}
+                          title="Create a duplicate of this color set for further modification"
+                          onClick={handleDuplicateButtonClick}
                         >
-                          Delete
+                          Duplicate
                         </Button>
-                      </Popconfirm>
+                        <Popconfirm
+                          title="Delete the color set"
+                          description="Are you sure you want to delete this color set?"
+                          onConfirm={() => {
+                            void handleDeleteButtonClick();
+                          }}
+                          okText="Yes"
+                          cancelText="No"
+                        >
+                          <Button
+                            icon={<DeleteOutlined />}
+                            title="Delete this color set"
+                            onClick={e => {
+                              e.stopPropagation();
+                            }}
+                          >
+                            Delete
+                          </Button>
+                        </Popconfirm>
+                      </>
                     )}
                   </Space>
                 </Form.Item>

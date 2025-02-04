@@ -16,10 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Cascader, Space, Typography} from 'antd';
+import {Cascader, Flex, Typography} from 'antd';
 import type {CascaderAutoProps, DefaultOptionType as CascaderOptionType} from 'antd/es/cascader';
 
 import {ColorSquare} from '~/src/components/color/ColorSquare';
+import {OpacityIcon} from '~/src/components/color/OpacityIcon';
 import {filterCascaderOptions} from '~/src/components/utils';
 import {formatColorLabel} from '~/src/services/color/colors';
 import type {Color, ColorSet} from '~/src/services/color/types';
@@ -47,14 +48,16 @@ function getColorOptions(colorSet?: ColorSet | null): CascaderOptionType[] {
         value: brandId,
         label: brand.fullName,
         children: [...colors.values()].map((color: Color) => {
+          const {rgb, opacity} = color;
           const label: string = formatColorLabel(color, brand);
           return {
             value: color.id,
             label: (
-              <Space align="center" key={label}>
-                <ColorSquare color={color.rgb} />
+              <Flex key={label} gap="small" align="center">
+                <ColorSquare color={rgb} />
                 <Typography.Text>{label}</Typography.Text>
-              </Space>
+                <OpacityIcon opacity={opacity} />
+              </Flex>
             ),
           };
         }),
