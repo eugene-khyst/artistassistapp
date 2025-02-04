@@ -2,9 +2,6 @@
 
 precision mediump float;
 
-#define MAX_RADIUS      5
-#define MAX_KERNEL_SIZE ((MAX_RADIUS * 2 + 1) * (MAX_RADIUS * 2 + 1))
-
 uniform sampler2D u_texture;
 uniform vec2 u_texelSize;
 uniform int u_radius;
@@ -12,41 +9,41 @@ uniform int u_radius;
 in vec2 v_texCoord;
 out vec4 fragColor;
 
-float values[MAX_KERNEL_SIZE];
-vec4 mean = vec4(0.0);
-float valueMean = 0.0;
-float minVariance = -1.0;
+const int MAX_RADIUS = 5;
 
 #include linear-rgb.glsl;
 #include luminance.glsl;
 
-void findMean(int i0, int i1, int j0, int j1) {
-  vec4 meanTemp = vec4(0.0);
-  float variance = 0.0;
-  int count = 0;
+struct QuadrantStats {
+  vec3 mean;
+  float variance;
+};
 
-  for (int i = i0; i <= i1; ++i) {
-    for (int j = j0; j <= j1; ++j) {
-      vec2 offset = vec2(float(i), float(j)) * u_texelSize;
+QuadrantStats calculateQuadrantStats(int startX, int endX, int startY, int endY) {
+  vec3 colorSum = vec3(0.0);
+  float valueSum = 0.0;
+  float valueSquaredSum = 0.0;
+  float count = 0.0;
+
+  for (int x = startX; x <= endX; ++x) {
+    for (int y = startY; y <= endY; ++y) {
+      vec2 offset = vec2(float(x), float(y)) * u_texelSize;
       vec4 color = texture(u_texture, v_texCoord + offset);
-      meanTemp += color;
-      values[count++] = getLuminance(srgbToLinear(color.rgb));
+      colorSum += color.rgb;
+      float value = getLuminance(srgbToLinear(color.rgb));
+      valueSum += value;
+      valueSquaredSum += value * value;
+      count += 1.0;
     }
   }
 
-  meanTemp.rgb /= float(count);
-  valueMean = getLuminance(srgbToLinear(meanTemp.rgb));
+  float valueMean = valueSum / count;
+  float variance = (valueSquaredSum / count) - (valueMean * valueMean);
 
-  for (int i = 0; i < count; ++i) {
-    variance += pow(values[i] - valueMean, 2.0);
-  }
-
-  variance /= float(count);
-
-  if (variance < minVariance || minVariance <= -1.0) {
-    mean = meanTemp;
-    minVariance = variance;
-  }
+  QuadrantStats stats;
+  stats.mean = colorSum / count;
+  stats.variance = variance;
+  return stats;
 }
 
 void main() {
@@ -57,10 +54,21 @@ void main() {
     return;
   }
 
-  findMean(-radius, 0, -radius, 0);
-  findMean(0, radius, 0, radius);
-  findMean(-radius, 0, 0, radius);
-  findMean(0, radius, -radius, 0);
+  QuadrantStats means[4];
+  means[0] = calculateQuadrantStats(-radius, 0, -radius, 0);
+  means[1] = calculateQuadrantStats(0, radius, 0, radius);
+  means[2] = calculateQuadrantStats(-radius, 0, 0, radius);
+  means[3] = calculateQuadrantStats(0, radius, -radius, 0);
 
-  fragColor.rgb = mean.rgb;
+  float minVariance = 1e10;
+  vec3 result = vec3(0);
+
+  for (int i = 0; i < 4; ++i) {
+    if (means[i].variance < minVariance) {
+      minVariance = means[i].variance;
+      result = means[i].mean;
+    }
+  }
+
+  fragColor = vec4(result, 1.0);
 }
