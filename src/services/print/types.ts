@@ -18,13 +18,18 @@
 
 import type {Size} from '~/src/utils/types';
 
+export enum PageOrientation {
+  Portrait = 'portrait',
+  Landscape = 'landscape',
+}
+
 export enum PaperSize {
-  A4 = 1,
-  Letter = 2,
-  Legal = 3,
+  A4 = 'A4',
+  Letter = 'letter',
+  Legal = 'legal',
 }
 
 export interface PaperSizeDefinition {
-  name: string;
+  label: string;
   size: Size;
 }

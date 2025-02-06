@@ -18,7 +18,7 @@
 
 import printJS from 'print-js';
 
-import type {PaperSizeDefinition} from '~/src/services/print/types';
+import type {PageOrientation, PaperSizeDefinition} from '~/src/services/print/types';
 import {PaperSize} from '~/src/services/print/types';
 import {imageBitmapToOffscreenCanvas} from '~/src/utils/graphics';
 
@@ -26,21 +26,21 @@ export const PAPER_SIZES = new Map<PaperSize, PaperSizeDefinition>([
   [
     PaperSize.A4,
     {
-      name: 'A4 (210 × 297 mm)',
+      label: 'A4 (210 × 297 mm)',
       size: [210, 297],
     },
   ],
   [
     PaperSize.Letter,
     {
-      name: 'Letter (8.5 × 11 in)',
+      label: 'Letter (8.5 × 11 in)',
       size: [215.9, 279.4],
     },
   ],
   [
     PaperSize.Legal,
     {
-      name: 'Legal (8.5 × 14 in)',
+      label: 'Legal (8.5 × 14 in)',
       size: [215.9, 355.6],
     },
   ],
@@ -50,7 +50,11 @@ type BlobSupplier = () => Promise<Blob | undefined>;
 
 type ImageSource = (ImageBitmap | BlobSupplier | null) | ImageBitmap[] | Blob[];
 
-export async function printImages(image?: ImageSource) {
+export async function printImages(
+  image?: ImageSource,
+  paperSize?: PaperSize,
+  orientation?: PageOrientation
+) {
   if (!image) {
     return;
   }
@@ -74,9 +78,15 @@ export async function printImages(image?: ImageSource) {
     .filter((blob): blob is Blob => !!blob)
     .map((blob: Blob): string => URL.createObjectURL(blob));
 
+  const pageSize: string =
+    paperSize || orientation ? [paperSize, orientation].filter(Boolean).join(' ') : 'auto';
+
   printJS({
     printable: urls,
     type: 'image',
+    imageStyle:
+      'display: block; width: 100%; height: 100vh; object-fit: contain; break-after: page;',
+    style: `body { margin: 0; } @page { size: ${pageSize}; }`,
     documentTitle: 'ArtistAssistApp',
     onPrintDialogClose: () => {
       urls.forEach((url: string) => {

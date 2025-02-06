@@ -39,7 +39,7 @@ enum PrintMode {
 }
 
 const PAPER_SIZE_OPTIONS: SelectOptionType[] = [...PAPER_SIZES.entries()].map(
-  ([value, {name}]) => ({value, label: name})
+  ([value, {label}]) => ({value, label})
 );
 
 const LENGTH_UNIT_OPTIONS: SelectOptionType[] = [LengthUnit.Centimeter, LengthUnit.Inch].map(
@@ -76,16 +76,12 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
       return;
     }
     setIsLoading(true);
-    const [paperWidth, paperHeight] = PAPER_SIZES.get(paperSize)!.size;
     const {toMillimeters} = LENGTH_UNITS.get(targetUnit)!;
     try {
       const preview: ImagePagesPreview = splitImageIntoPagesPreview(
         image,
         [toMillimeters(debouncedTargetWidth), toMillimeters(debouncedTargetHeight)],
-        [
-          [paperWidth, paperHeight],
-          [paperHeight, paperWidth],
-        ]
+        paperSize
       );
       setPrintPreview(preview);
     } catch (e) {
@@ -104,10 +100,11 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
 
   const handlePrint = async () => {
     if (printMode === PrintMode.Resize && printPreview) {
+      const {paperSize, orientation} = printPreview;
       const imagePartBlobs: Blob[] = await Promise.all(
         splitImageIntoPages(printPreview).map(canvas => canvas.convertToBlob())
       );
-      void printImages(imagePartBlobs);
+      void printImages(imagePartBlobs, paperSize, orientation);
     } else {
       void printImages(image);
     }

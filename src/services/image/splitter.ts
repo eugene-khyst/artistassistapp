@@ -16,6 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {PAPER_SIZES} from '~/src/services/print/print';
+import type {PaperSize} from '~/src/services/print/types';
+import {PageOrientation} from '~/src/services/print/types';
 import {IMAGE_SIZE} from '~/src/utils/graphics';
 import type {Size} from '~/src/utils/types';
 
@@ -27,6 +30,8 @@ export interface ImagePagesPreview {
   cols: number;
   pageWidthPx: number;
   pageHeightPx: number;
+  paperSize: PaperSize;
+  orientation: PageOrientation;
 }
 
 export interface ImageTile {
@@ -40,10 +45,15 @@ const LINE_WIDTH = 5;
 export function splitImageIntoPagesPreview(
   image: ImageBitmap,
   targetSize: Size,
-  paperSizes: Size[]
+  paperSize: PaperSize
 ): ImagePagesPreview {
   const {width: imageWidth, height: imageHeight} = image;
   const [targetWidth, targetHeight] = targetSize;
+  const [paperWidth, paperHeight] = PAPER_SIZES.get(paperSize)!.size;
+  const paperSizes: Size[] = [
+    [paperWidth, paperHeight],
+    [paperHeight, paperWidth],
+  ];
   let pages = Number.MAX_VALUE;
   let cols = 0;
   let rows = 0;
@@ -61,6 +71,7 @@ export function splitImageIntoPagesPreview(
       pageHeight = h;
     }
   }
+  const orientation = pageHeight > pageWidth ? PageOrientation.Portrait : PageOrientation.Landscape;
   const targetRatio = targetWidth / targetHeight;
   const imageRatio = imageWidth / imageHeight;
   let px2mm = 1;
@@ -95,6 +106,8 @@ export function splitImageIntoPagesPreview(
     cols,
     pageWidthPx,
     pageHeightPx,
+    paperSize,
+    orientation,
   };
 }
 

@@ -124,7 +124,7 @@ export const PaletteGrid: React.FC<Props> = ({
       <div style={{display: 'none'}}>
         <Row ref={printRef} gutter={[16, 16]} justify="start">
           {sortedColorMixtures.map((colorMixture: ColorMixture) => (
-            <Col key={colorMixture.key} xs={24} md={12} lg={8}>
+            <Col key={colorMixture.key} xs={24} sm={12} md={8}>
               <Card size="small">
                 <Space direction="vertical">
                   <Typography.Text style={{fontWeight: 'bold'}}>
