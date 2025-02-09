@@ -29,7 +29,6 @@ import {
   ColorPicker,
   Flex,
   Form,
-  Grid,
   Row,
   Select,
   Space,
@@ -99,8 +98,6 @@ const formInitialValues = {
 export const ColorMixer: React.FC = () => {
   const colorSet = useAppStore(state => state.colorSet);
   const isInitialStateLoading = useAppStore(state => state.isInitialStateLoading);
-
-  const screens = Grid.useBreakpoint();
 
   const {
     token: {colorTextTertiary},
@@ -180,130 +177,131 @@ export const ColorMixer: React.FC = () => {
           Mix your colors in any proportions so you don&apos;t waste real paints.
         </Typography.Text>
 
-        <Row gutter={[32, 16]} justify="start">
-          <Col xs={24} md={12} lg={8}>
-            <Space direction="vertical" size="middle">
-              <Form
-                name="colorMixture"
-                form={form}
-                initialValues={formInitialValues}
-                onValuesChange={handleFormValuesChange}
-                requiredMark={false}
-                autoComplete="off"
+        <Space size="middle" align="start" wrap>
+          <Space direction="vertical" size="middle">
+            <Form
+              name="colorMixture"
+              form={form}
+              initialValues={formInitialValues}
+              onValuesChange={handleFormValuesChange}
+              requiredMark={false}
+              autoComplete="off"
+            >
+              <Form.Item
+                label="Background"
+                tooltip="The color of paper or canvas, or the color of the base layer when glazed."
+                style={{marginBottom: 0}}
               >
-                <Form.Item
-                  label="Background"
-                  tooltip="The color of paper or canvas, or the color of the base layer when glazed."
-                  style={{marginBottom: 0}}
-                >
-                  <ColorPicker
-                    value={backgroundColor}
-                    presets={[
-                      {
-                        label: 'Recommended',
-                        colors: [PAPER_WHITE_HEX],
-                      },
-                    ]}
-                    onChangeComplete={(color: PickedColor) => {
-                      setBackgroundColor(color.toHexString());
-                    }}
-                    showText
-                    disabledAlpha
-                  />
-                </Form.Item>
-                <Form.Item style={{marginBottom: 0}}>
-                  <Flex gap="small" align="center">
-                    <Typography.Text style={{display: 'inline-block', width: 50}}>
-                      Ratio
-                    </Typography.Text>
-                    <Typography.Text>×</Typography.Text>
-                    <Typography.Text>Color</Typography.Text>
-                    <Tooltip title="Select any number of colors to mix and specify the part of each color in the resulting mix.">
-                      <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
-                    </Tooltip>
-                  </Flex>
-                </Form.Item>
-                <Form.List name="colors">
-                  {(fields, {add, remove}) => (
-                    <>
-                      {fields.map(({key, name, ...restField}) => (
-                        <Flex key={key} gap="small" align="center" style={{marginBottom: 8}}>
-                          <Form.Item {...restField} name={[name, 'part']} style={{marginBottom: 0}}>
-                            <Select
-                              options={RATIO_OPTIONS}
-                              placeholder="Select part"
-                              style={{width: 50}}
-                            />
-                          </Form.Item>
-                          {'×'}
-                          <Form.Item
-                            {...restField}
-                            name={[name, 'color']}
-                            style={{flexGrow: 1, marginBottom: 0}}
-                          >
-                            <ColorCascader />
-                          </Form.Item>
-                          {fields.length > 1 && (
-                            <Button
-                              shape="circle"
-                              icon={<MinusOutlined />}
-                              onClick={() => {
-                                remove(name);
-                              }}
-                            />
-                          )}
-                        </Flex>
-                      ))}
-                      <Form.Item style={{margin: '16px 0 0'}}>
-                        <Space>
+                <ColorPicker
+                  value={backgroundColor}
+                  presets={[
+                    {
+                      label: 'Recommended',
+                      colors: [PAPER_WHITE_HEX],
+                    },
+                  ]}
+                  onChangeComplete={(color: PickedColor) => {
+                    setBackgroundColor(color.toHexString());
+                  }}
+                  showText
+                  disabledAlpha
+                />
+              </Form.Item>
+              <Form.Item style={{marginBottom: 0}}>
+                <Flex gap="small" align="center">
+                  <Typography.Text style={{display: 'inline-block', width: 50}}>
+                    Ratio
+                  </Typography.Text>
+                  <Typography.Text>×</Typography.Text>
+                  <Typography.Text>Color</Typography.Text>
+                  <Tooltip title="Select any number of colors to mix and specify the part of each color in the resulting mix.">
+                    <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
+                  </Tooltip>
+                </Flex>
+              </Form.Item>
+              <Form.List name="colors">
+                {(fields, {add, remove}) => (
+                  <>
+                    {fields.map(({key, name, ...restField}) => (
+                      <Flex key={key} gap="small" align="center" style={{marginBottom: 8}}>
+                        <Form.Item {...restField} name={[name, 'part']} style={{marginBottom: 0}}>
+                          <Select
+                            options={RATIO_OPTIONS}
+                            placeholder="Select part"
+                            style={{width: 50}}
+                          />
+                        </Form.Item>
+                        {'×'}
+                        <Form.Item
+                          {...restField}
+                          name={[name, 'color']}
+                          style={{flexGrow: 1, marginBottom: 0}}
+                        >
+                          <ColorCascader />
+                        </Form.Item>
+                        {fields.length > 1 && (
                           <Button
-                            type="primary"
-                            icon={<PlusOutlined />}
-                            disabled={fields.length >= MAX_COLORS}
+                            shape="circle"
+                            icon={<MinusOutlined />}
                             onClick={() => {
-                              add(defaultValue);
+                              remove(name);
                             }}
-                          >
-                            Add color
-                          </Button>
-                          <Button
-                            icon={<LineChartOutlined />}
-                            title="Spectral reflectance curve"
-                            disabled={!resultColorMixtures.some(isThickConsistency)}
-                            onClick={() => {
-                              setIsOpenReflectanceChart(true);
-                            }}
-                          >
-                            Reflectance
-                          </Button>
-                        </Space>
-                      </Form.Item>
-                    </>
-                  )}
-                </Form.List>
-              </Form>
-              {screens.md && <AdCard vertical />}
-            </Space>
-          </Col>
-          <Col xs={24} md={12} lg={8}>
-            <Space direction="vertical">
-              {resultColorMixtures.map((colorMixture: ColorMixture) => (
-                <Fragment key={colorMixture.key}>
-                  <ColorMixtureDescription
-                    colorMixture={colorMixture}
-                    showColors={isThickConsistency(colorMixture)}
-                    showConsistency={!isThickConsistency(colorMixture)}
-                  />
-                  <AddToPaletteButton
-                    colorMixture={colorMixture}
-                    linkToImage={false}
-                    size="small"
-                    style={{marginBottom: 8}}
-                  />
-                </Fragment>
-              ))}
-              {!screens.md && <AdCard vertical />}
-            </Space>
+                          />
+                        )}
+                      </Flex>
+                    ))}
+                    <Form.Item style={{margin: '16px 0 0'}}>
+                      <Space>
+                        <Button
+                          type="primary"
+                          icon={<PlusOutlined />}
+                          disabled={fields.length >= MAX_COLORS}
+                          onClick={() => {
+                            add(defaultValue);
+                          }}
+                        >
+                          Add color
+                        </Button>
+                        <Button
+                          icon={<LineChartOutlined />}
+                          title="Spectral reflectance curve"
+                          disabled={!resultColorMixtures.some(isThickConsistency)}
+                          onClick={() => {
+                            setIsOpenReflectanceChart(true);
+                          }}
+                        >
+                          Reflectance
+                        </Button>
+                      </Space>
+                    </Form.Item>
+                  </>
+                )}
+              </Form.List>
+            </Form>
+          </Space>
+
+          <Space direction="vertical">
+            {resultColorMixtures.map((colorMixture: ColorMixture) => (
+              <Fragment key={colorMixture.key}>
+                <ColorMixtureDescription
+                  colorMixture={colorMixture}
+                  showColors={isThickConsistency(colorMixture)}
+                  showConsistency={!isThickConsistency(colorMixture)}
+                />
+                <AddToPaletteButton
+                  colorMixture={colorMixture}
+                  linkToImage={false}
+                  size="small"
+                  style={{marginBottom: 8}}
+                />
+              </Fragment>
+            ))}
+          </Space>
+        </Space>
+
+        <Row>
+          <Col xs={24} md={12}>
+            <AdCard />
           </Col>
         </Row>
       </Flex>
