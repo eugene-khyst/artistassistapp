@@ -15,18 +15,20 @@
 - [Overview](#1)
 - [Getting Started](#2)
 - [Screenshots](#3)
-  - [Accurately mix any color from your reference photo using the paints you have](#3-1)
-  - [Add your favorite color mixtures to the palette](#3-2)
-  - [Do a tonal value study](#3-3)
-  - [Reduce the detail on your reference photo](#3-4)
-  - [Turn any photo into an outline and print it](#3-5)
-  - [Draw a grid over your reference photo](#3-6)
-  - [Play around with limited color palettes](#3-7)
-  - [Mix specific colors from specific brands in any proportion](#3-8)
-  - [Remove the background from your illustrations](#3-9)
-  - [Use pairwise comparison to rank your photos](#3-10)
-  - [Share your color set with others or between your devices](#3-11)
-  - [Install ArtistAssistApp on your device](#3-12)
+  - [Match any color from your photo or learn how to accurately mix it](#3-1)
+  - [Mix any colors of any brands in any proportions](#3-2)
+  - [Quickly access your favorite color mixtures](#3-3)
+  - [Do a tonal value study](#3-4)
+  - [Smooth out the photo so you don't get lost in the details](#3-5)
+  - [Turn any photo into an outline](#3-6)
+  - [Draw a grid over your reference photo](#3-7)
+  - [Experiment with limited color palettes](#3-8)
+  - [Apply different artistic styles to your photo for inspiration](#3-9)
+  - [Adjust the white balance and saturation of photos of your paintings](#3-10)
+  - [Remove backgrounds from photos of your illustrations](#3-11)
+  - [Rank your photos using pairwise comparison](#3-12)
+  - [Share color sets between your devices](#3-13)
+  - [Install the app on your device for offline access](#3-14)
 - [Implementation details](#4)
 
 <!-- Table of contents is made with https://github.com/eugene-khyst/md-toc-cli -->
@@ -49,85 +51,115 @@ Try it now at [ArtistAssistApp.com](https://artistassistapp.com)
 
 ## <a id="3"></a>Screenshots
 
-### <a id="3-1"></a>Accurately mix any color from your reference photo using the paints you have
+### <a id="3-1"></a>Match any color from your photo or learn how to accurately mix it
 
-![ArtistAssistApp: Color picker](https://github.com/user-attachments/assets/fb786022-5bed-4b82-9d36-2fd1b5ca0255)
+![color-picker-1](https://github.com/user-attachments/assets/d8107dab-5eff-49b2-8668-31051a6062a9)
 
-![ArtistAssistApp: Color picker](https://github.com/user-attachments/assets/266f8196-0bf9-4c79-af68-8ab48f979c50)
+![color-picker-2](https://github.com/user-attachments/assets/17590e7b-efc9-41c0-9ad0-a89f56c3dc61)
 
-![ArtistAssistApp: Color picker](https://github.com/user-attachments/assets/826df61a-3ebb-459d-93c2-214d5c343dfe)
+![color-picker-3](https://github.com/user-attachments/assets/4b62b9db-9cee-4d53-8339-d043f1f2f238)
 
-![ArtistAssistApp: Color set](https://github.com/user-attachments/assets/4ed33616-138c-4f32-b3f5-0b4080574d8c)
+![color-picker-4](https://github.com/user-attachments/assets/e80f7b62-5a2f-4758-a7b0-a468332c000b)
 
-### <a id="3-2"></a>Add your favorite color mixtures to the palette
+### <a id="3-2"></a>Mix any colors of any brands in any proportions
 
-![ArtistAssistApp: Palette](https://github.com/user-attachments/assets/29ddc696-b077-4446-969f-d08ed88f037a)
+![color-mixing-1](https://github.com/user-attachments/assets/46a9124c-9461-424a-af41-d400e04f0b5b)
 
-![ArtistAssistApp: Color swatch](https://github.com/user-attachments/assets/384e4929-5001-4b47-baac-46ae827fefdc)
+![color-mixing-2](https://github.com/user-attachments/assets/b903cf38-c8c9-47e8-819c-c81f197b1ce2)
 
-### <a id="3-3"></a>Do a tonal value study
+![color-mixing-3](https://github.com/user-attachments/assets/9f225a77-0007-4555-900c-fea7547754fa)
 
-![ArtistAssistApp: Tonal values](https://github.com/user-attachments/assets/78eedac1-a7f0-4104-a642-170a1c0e83c6)
+![color-mixing-4](https://github.com/user-attachments/assets/40fa8fbd-54d0-4e46-aca4-9cdd820e00bb)
 
-### <a id="3-4"></a>Reduce the detail on your reference photo
+### <a id="3-3"></a>Quickly access your favorite color mixtures
 
-![ArtistAssistApp: Simplified (None)](https://github.com/user-attachments/assets/4440bfa6-3b2f-451e-931e-f9f4306f9a18)
+![palette](https://github.com/user-attachments/assets/7cdc08d9-210e-4f40-b2fe-b65128855e84)
 
-![ArtistAssistApp: Simplified (Large)](https://github.com/user-attachments/assets/47e91712-f305-43a2-b120-cc2132e3884a)
+![color-swatch](https://github.com/user-attachments/assets/45687bc0-0632-43a8-8171-26f42403f3fd)
 
-### <a id="3-5"></a>Turn any photo into an outline and print it
+### <a id="3-4"></a>Do a tonal value study
 
-![ArtistAssistApp: Outline](https://github.com/user-attachments/assets/8c66b6a1-b801-45f3-9f4c-0d32ddabe018)
+![tonal-values-1](https://github.com/user-attachments/assets/9074da01-5ffe-40de-8013-97e8b6ae35ba)
 
-### <a id="3-6"></a>Draw a grid over your reference photo
+![tonal-values-2](https://github.com/user-attachments/assets/24ab820e-4e90-44b9-b08f-dbec23fd47dc)
 
-![ArtistAssistApp: Grid (Square grid)](https://github.com/user-attachments/assets/68e7a139-e5ab-4ba2-9a35-6ba06ff1d1b3)
+![tonal-values-3](https://github.com/user-attachments/assets/29bccd02-e2b5-468f-96f0-3ba5af68f403)
 
-![ArtistAssistApp: 4x4 grid](https://github.com/user-attachments/assets/7e565f7c-74e4-4f14-82b3-84a40caa2583)
+### <a id="3-5"></a>Smooth out the photo so you don't get lost in the details
 
-![ArtistAssistApp: 3x3 grid](https://github.com/user-attachments/assets/ccc285d5-348d-49d7-92a6-52c3ebe44419)
+![simplified-1](https://github.com/user-attachments/assets/e1bd4d25-a8ce-48f7-9025-ac12a586abcc)
 
-### <a id="3-7"></a>Play around with limited color palettes
+![simplified-2](https://github.com/user-attachments/assets/1a72201f-3759-4912-97df-cd5360f62a96)
 
-![ArtistAssistApp: Limited palette](https://github.com/user-attachments/assets/abf3273f-6f79-495f-8eb6-8935d884373e)
+![simplified-3](https://github.com/user-attachments/assets/3bbcbcb7-826e-418b-b0f7-6598a67a0f64)
 
-![ArtistAssistApp: Limited palette](https://github.com/user-attachments/assets/2e911e06-b8cd-4e60-8a14-90fa1ace089d)
+### <a id="3-6"></a>Turn any photo into an outline
 
-### <a id="3-8"></a>Mix specific colors from specific brands in any proportion
+![outline-1](https://github.com/user-attachments/assets/28cccfd8-8f39-4e97-a104-029374691fa5)
 
-![ArtistAssistApp: Color mixing](https://github.com/user-attachments/assets/690d8f3c-5a57-4998-a1ca-243e2089ba0f)
+![outline-2](https://github.com/user-attachments/assets/0251a07e-1f20-4976-9b54-d1f14c428114)
 
-![ArtistAssistApp: Color mixing](https://github.com/user-attachments/assets/698f0e64-744d-468f-8de5-6230cdd56403)
+![outline-3](https://github.com/user-attachments/assets/b479b145-0f82-400a-a626-25309d758d7b)
 
-![ArtistAssistApp: Color mixing](https://github.com/user-attachments/assets/3ffc3d79-2c86-4a84-95a2-9ba09c6d7f89)
+### <a id="3-7"></a>Draw a grid over your reference photo
 
-![ArtistAssistApp: Spectral reflectance curve](https://github.com/user-attachments/assets/af80e04f-41f1-4a4f-aa61-ef074c6ce5f5)
+![grid-square](https://github.com/user-attachments/assets/ee5d906a-afea-4a8b-9ab6-37bb771cc983)
 
-### <a id="3-9"></a>Remove the background from your illustrations
+![grid-4x4](https://github.com/user-attachments/assets/ed49c197-438b-4243-90b5-2325ac09f7b7)
 
-![ArtistAssistApp: Background removal](https://github.com/user-attachments/assets/aa25b576-4d6e-4ccb-aeaf-be17cf4ebe6a)
+![grid-3x3](https://github.com/user-attachments/assets/76cf2663-39d5-49a8-a6e7-0b2b93d92698)
 
-![ArtistAssistApp: Background removal](https://github.com/user-attachments/assets/0791514c-9958-4e2f-946b-350040b685fe)
+### <a id="3-8"></a>Experiment with limited color palettes
 
-### <a id="3-10"></a>Use pairwise comparison to rank your photos
+![limited-palette-1](https://github.com/user-attachments/assets/cc9b0018-b19c-492b-8127-18058c5220db)
 
-![ArtistAssistApp: Compare photos pairwise](https://github.com/user-attachments/assets/ed4474b5-aaaa-44fa-b4cc-5249eea94596)
+![limited-palette-2](https://github.com/user-attachments/assets/b474eed8-9120-4518-bc61-566dcac9e5b1)
 
-![ArtistAssistApp: Compare photos pairwise](https://github.com/user-attachments/assets/3aba15b0-e89c-4860-95c6-487bf3952dcc)
+### <a id="3-9"></a>Apply different artistic styles to your photo for inspiration
 
-![ArtistAssistApp: Compare photos pairwise (Rating)](https://github.com/user-attachments/assets/6c908726-919e-465f-850c-5982fce8eaa3)
+![inspire-1](https://github.com/user-attachments/assets/0ef7b87a-6b97-4e1e-afc8-8db4affda6b0)
 
-### <a id="3-11"></a>Share your color set with others or between your devices
+![inspire-2](https://github.com/user-attachments/assets/8810537e-9313-44e9-a68b-2907583d78ff)
 
-![ArtistAssistApp: Share color set](https://github.com/user-attachments/assets/dbdf3e07-88ec-45b6-ba25-6203039818c0)
+![inspire-3](https://github.com/user-attachments/assets/36ddca35-9019-4da2-9872-4128c34cb73b)
 
-### <a id="3-12"></a>Install ArtistAssistApp on your device
+### <a id="3-10"></a>Adjust the white balance and saturation of photos of your paintings
 
-![ArtistAssistApp: Install](https://github.com/user-attachments/assets/e66cc797-6904-45e1-bd04-7be508229246)
+![white-balance-1](https://github.com/user-attachments/assets/08d194e7-17d4-4ce8-87d1-21d980f29149)
+
+![white-balance-2](https://github.com/user-attachments/assets/e8046e60-5dbf-4bd8-8335-b8bee74aa219)
+
+![white-balance-3](https://github.com/user-attachments/assets/9064bd21-3da9-447c-ab21-cb54ceb642e4)
+
+![white-balance-4](https://github.com/user-attachments/assets/68938e0d-fbad-4b04-aa94-3d0c6470f01b)
+
+![white-balance-5](https://github.com/user-attachments/assets/fed234d1-7ef2-4765-993c-49e3b6ee056b)
+
+### <a id="3-11"></a>Remove backgrounds from photos of your illustrations
+
+![background-remove-1](https://github.com/user-attachments/assets/8d109bf7-1ca0-4f37-bac7-d77646b76257)
+
+![background-remove-2](https://github.com/user-attachments/assets/8d1bf125-df28-4f02-9993-a103ed65ae34)
+
+### <a id="3-12"></a>Rank your photos using pairwise comparison
+
+![pairwise-comparison-1](https://github.com/user-attachments/assets/efa40c30-1227-4229-bef1-8cb5c3b6a4f5)
+
+![pairwise-comparison-2](https://github.com/user-attachments/assets/8e08846c-e8ba-4577-89ca-9e9662ec2bc4)
+
+![pairwise-comparison-3](https://github.com/user-attachments/assets/f1f5ab6f-71dc-4bbc-8816-9ebd9dcd9137)
+
+### <a id="3-13"></a>Share color sets between your devices
+
+![color-set](https://github.com/user-attachments/assets/7b00e04b-7d0e-47d1-89fa-6c5f44a38b97)
+
+![share-color-set](https://github.com/user-attachments/assets/46aa643e-2377-40fe-9e33-9ea7eebe5d26)
+
+### <a id="3-14"></a>Install the app on your device for offline access
+
+![install](https://github.com/user-attachments/assets/8b4e33ea-f163-4fca-8e97-5c4f76af85c6)
 
 ## <a id="4"></a>Implementation details
-
-ArtistAssistApp does not use artificial intelligence (AI), but rather mathematics.
 
 The web app doesn't depend on any math or color library and includes the implementation of the
 following:
@@ -139,8 +171,7 @@ following:
 - matrix inversion using LU decomposition,
 - solving a system of linear algebraic equations using forward and backward substitution,
 - the average color of the circular area of the image
-- calculation of color similarity by comparing spectral reflections (Euclidean distance and cosine
-  similarity)
+- calculation of color similarity by comparing spectral reflections (weighted geometrec mean of Pearson correlation coefficient and Euclidean distance)
 - vector operations,
 - threshold filter based on perceived lightness (WebGL),
 - Kuwahara blur filter (WebGL),
@@ -150,8 +181,18 @@ following:
 - adjusting saturation (WebGL),
 - adjusting color levels (WebGL),
 - adjusting color temperature (WebGL),
-- invert colors filter,
+- invert colors filter with gamma correction (WebGL),
 - ranking images using pairwise comparison and Elo rating system,
 - and more.
 
 The web app uses Web Workers for parallel processing and Service Workers for offline access.
+
+Subtractive color mixing and color similarity calculation are based on the spectral reflectances of colors.
+
+![spectral-reflectance-1](https://github.com/user-attachments/assets/e6cc0ec4-3f94-4a27-8ce1-ed084bee8ab1)
+
+![spectral-reflectance-2](https://github.com/user-attachments/assets/605b6d2b-4a7f-41a2-8c44-7ea36fafea90)
+
+![spectral-reflectance-3](https://github.com/user-attachments/assets/ad9efdce-48e3-4993-a067-3548549c82b8)
+
+![spectral-reflectance-4](https://github.com/user-attachments/assets/3bd81b58-7617-46d0-b216-824c9f9ad02a)
