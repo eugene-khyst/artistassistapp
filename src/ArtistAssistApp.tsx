@@ -221,9 +221,9 @@ export const ArtistAssistApp: React.FC = () => {
     children: <TabContext.Provider value={key}>{children}</TabContext.Provider>,
   }));
 
-  const renderTabBar: TabsProps['renderTabBar'] = (props, DefaultTabBar) => (
+  const renderTabBar: TabsProps['renderTabBar'] = ({mobile: _, ...props}, DefaultTabBar) => (
     <StickyBox offsetTop={0} offsetBottom={20} style={{zIndex: 10}}>
-      <DefaultTabBar {...props} style={{background: colorBgContainer}} />
+      <DefaultTabBar mobile={false} {...props} style={{background: colorBgContainer}} />
     </StickyBox>
   );
 
