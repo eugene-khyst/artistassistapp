@@ -28,7 +28,8 @@ export const createStorageSlice: StateCreator<StorageSlice, [], [], StorageSlice
   storageUsage: null,
 
   loadStorageUsage: async (): Promise<void> => {
-    if ('storage' in navigator) {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (navigator.storage) {
       set({storageUsage: await navigator.storage.estimate()});
     }
   },

@@ -40,13 +40,13 @@ export const COLOR_TYPES = new Map<ColorType, ColorTypeDefinition>([
   [ColorType.WatercolorPaint, {name: 'Watercolor Paint', alias: 'watercolor-paint'}],
   [ColorType.Gouache, {name: 'Gouache', alias: 'gouache'}],
   [ColorType.AcrylicPaint, {name: 'Acrylic Paint', alias: 'acrylic-paint'}],
-  [ColorType.AcrylicGouache, {name: 'Acrylic Gouache', alias: 'acrylic-gouache'}],
   [ColorType.OilPaint, {name: 'Oil Paint', alias: 'oil-paint'}],
   [ColorType.ColoredPencils, {name: 'Colored Pencils', alias: 'colored-pencils'}],
   [ColorType.WatercolorPencils, {name: 'Watercolor Pencils', alias: 'watercolor-pencils'}],
   [ColorType.Pastel, {name: 'Pastel', alias: 'pastel'}],
   [ColorType.OilPastel, {name: 'Oil Pastel', alias: 'oil-pastel'}],
   [ColorType.AcrylicMarkers, {name: 'Acrylic Markers', alias: 'acrylic-markers'}],
+  [ColorType.AcrylicGouache, {name: 'Acrylic Gouache', alias: 'acrylic-gouache'}],
 ]);
 
 const CUSTOM_COLOR_BRAND_ID_BASE = 100000;

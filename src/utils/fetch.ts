@@ -45,11 +45,12 @@ export function errorResponse(error: any) {
 }
 
 async function hasEnoughStorage(expectedBytes: number) {
-  if ('storage' in navigator) {
-    const {quota, usage} = await navigator.storage.estimate();
-    return (quota ?? 0) - (usage ?? 0) > expectedBytes;
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (!navigator.storage) {
+    return false;
   }
-  return false;
+  const {quota, usage} = await navigator.storage.estimate();
+  return (quota ?? 0) - (usage ?? 0) > expectedBytes;
 }
 
 async function clearCache(cache: Cache) {

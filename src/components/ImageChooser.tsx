@@ -17,7 +17,7 @@
  */
 
 import {LoadingOutlined} from '@ant-design/icons';
-import {Col, Flex, Row, Spin, Typography} from 'antd';
+import {App, Col, Flex, Row, Spin, Typography} from 'antd';
 import type {ChangeEvent} from 'react';
 import {useState} from 'react';
 
@@ -28,6 +28,7 @@ import {fileToImageFile} from '~/src/services/image/image-file';
 import type {SampleImageDefinition} from '~/src/services/image/sample-images';
 import {SAMPLE_IMAGES} from '~/src/services/image/sample-images';
 import {useAppStore} from '~/src/stores/app-store';
+import {PERSISTENT_STORAGE_WARN, requestPersistentStorage} from '~/src/utils/storage';
 
 import {RecentImageCard} from './image/RecentImageCard';
 import {SampleImageCard} from './image/SampleImageCard';
@@ -39,9 +40,14 @@ export const ImageChooser: React.FC = () => {
 
   const [sampleImagesLoadingCount, setSampleImagesLoadingCount] = useState<number>(0);
 
+  const {modal} = App.useApp();
+
   const isLoading: boolean = isInitialStateLoading || sampleImagesLoadingCount > 0;
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!(await requestPersistentStorage())) {
+      await modal.warning(PERSISTENT_STORAGE_WARN);
+    }
     const file: File | undefined = e.target.files?.[0];
     if (file) {
       void saveRecentImageFile(await fileToImageFile(file));

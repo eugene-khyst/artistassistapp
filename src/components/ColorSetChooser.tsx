@@ -65,6 +65,7 @@ import {colorSetToUrl} from '~/src/services/url/url-parser';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 import {reverseOrder} from '~/src/utils/array';
+import {PERSISTENT_STORAGE_WARN, requestPersistentStorage} from '~/src/utils/storage';
 
 import {ColorBrandSelect} from './color-set/ColorBrandSelect';
 import {ColorSelect} from './color-set/ColorSelect';
@@ -352,6 +353,9 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
   };
 
   const handleSubmit = async (values: ColorSetDefinition) => {
+    if (!(await requestPersistentStorage())) {
+      await modal.warning(PERSISTENT_STORAGE_WARN);
+    }
     setHasUnsavedChanges(false);
     const {id, ...colorSet} = values;
     form.setFieldsValue(
