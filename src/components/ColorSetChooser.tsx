@@ -270,9 +270,9 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
           colors: emptyColors,
         });
 
-        const [latestColorSetsByType]: ColorSetDefinition[] = await loadColorSetsByType(
-          changedValues.type
-        );
+        const [latestColorSetsByType]: ColorSetDefinition[] = (
+          await loadColorSetsByType(changedValues.type)
+        ).sort(reverseOrder(compareByDate));
         if (latestColorSetsByType) {
           form.setFieldsValue(latestColorSetsByType);
         }
