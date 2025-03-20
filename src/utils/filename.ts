@@ -20,8 +20,7 @@ export function getFilename(file: File | null, suffix: string): string | undefin
   if (!file) {
     return;
   }
-  const {name: nameWithExt} = file;
-  const lastDotIndex = nameWithExt.lastIndexOf('.');
-  const nameWithoutExt = lastDotIndex > 0 ? nameWithExt.slice(0, lastDotIndex) : nameWithExt;
-  return `${nameWithoutExt}-${suffix}`;
+  const {name} = file;
+  const [origName] = name.split('.');
+  return `${origName}-${suffix}`;
 }
