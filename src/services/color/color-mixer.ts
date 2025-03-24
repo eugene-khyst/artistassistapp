@@ -73,12 +73,12 @@ export const COLOR_MIXING: Record<ColorType, ColorMixingConfig> = {
   [ColorType.Pastel]: {
     mixing: false,
     tint: false,
-    glazing: false,
+    glazing: true,
   },
   [ColorType.OilPastel]: {
     mixing: false,
     tint: false,
-    glazing: false,
+    glazing: true,
   },
   [ColorType.AcrylicMarkers]: {
     mixing: false,

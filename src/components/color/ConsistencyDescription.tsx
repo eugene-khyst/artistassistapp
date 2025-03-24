@@ -46,6 +46,12 @@ const PRESSURE = (fraction: Fraction) => (
     Lighten the pressure to <Typography.Text strong>{formatFraction(fraction)}</Typography.Text>
   </Typography.Text>
 );
+const STROKES = (fraction: Fraction) => (
+  <Typography.Text>
+    Apply strokes of each color in a{' '}
+    <Typography.Text strong>{formatRatio(fraction)} ratio</Typography.Text>
+  </Typography.Text>
+);
 
 const CONSISTENCIES: Partial<Record<ColorType, ConsistencyDescriptionConfig>> = {
   [ColorType.WatercolorPaint]: {
@@ -69,6 +75,16 @@ const CONSISTENCIES: Partial<Record<ColorType, ConsistencyDescriptionConfig>> = 
   [ColorType.WatercolorPencils]: {
     labelRender: PRESSURE,
     tooltip: 'Apply less pressure to make the watercolor pencil layer more transparent',
+  },
+  [ColorType.Pastel]: {
+    labelRender: STROKES,
+    tooltip:
+      'Slightly overlap pastel areas of different colors and blend gently to create a smooth transition.',
+  },
+  [ColorType.OilPastel]: {
+    labelRender: STROKES,
+    tooltip:
+      'Slightly overlap oil pastel areas of different colors and blend gently to create a smooth transition.',
   },
 };
 
