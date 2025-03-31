@@ -151,12 +151,8 @@ export const ArtistAssistApp: React.FC = () => {
       children: <Palette />,
     },
     {
-      key: TabKey.TonalValues,
-      children: <ImageTonalValues />,
-    },
-    {
-      key: TabKey.SimplifiedPhoto,
-      children: <ImageBlurred />,
+      key: TabKey.ColorMixing,
+      children: <ColorMixer />,
     },
     {
       key: TabKey.Outline,
@@ -167,8 +163,12 @@ export const ArtistAssistApp: React.FC = () => {
       children: <ImageGrid />,
     },
     {
-      key: TabKey.ColorMixing,
-      children: <ColorMixer />,
+      key: TabKey.TonalValues,
+      children: <ImageTonalValues />,
+    },
+    {
+      key: TabKey.SimplifiedPhoto,
+      children: <ImageBlurred />,
     },
     {
       key: TabKey.LimitedPalette,

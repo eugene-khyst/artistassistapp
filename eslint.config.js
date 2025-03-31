@@ -10,7 +10,9 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import unusedImports from 'eslint-plugin-unused-imports';
 
 export default tseslint.config(
-  {ignores: ['node_modules', 'dist', 'public', 'license-header.ts', 'vite.config.ts']},
+  {
+    ignores: ['node_modules', 'dist', 'public', 'license-header.ts', 'vite.config.ts'],
+  },
   {
     extends: [
       js.configs.recommended,
