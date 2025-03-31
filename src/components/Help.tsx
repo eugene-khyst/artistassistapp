@@ -19,7 +19,6 @@
 import {
   ClearOutlined,
   CloudSyncOutlined,
-  CommentOutlined,
   DeleteOutlined,
   FileProtectOutlined,
   FileTextOutlined,
@@ -33,7 +32,7 @@ import {Button, Col, Flex, Popconfirm, Progress, Row, Space, theme, Typography} 
 import {useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
-import {COMMIT_HASH, PATREON_URL, WEBSITE_URL} from '~/src/config';
+import {COMMIT_HASH, WEBSITE_URL} from '~/src/config';
 import {deleteDatabase} from '~/src/services/db/db';
 import {useAppStore} from '~/src/stores/app-store';
 import {formatBytes} from '~/src/utils/format';
@@ -86,7 +85,7 @@ export const Help: React.FC = () => {
         <Col xs={24} md={12}>
           <Space direction="vertical" align="start" size={0} style={{width: '100%'}}>
             <Button
-              type="primary"
+              type="link"
               href={`${WEBSITE_URL}/tutorials/`}
               target="_blank"
               icon={<ReadOutlined />}
@@ -105,19 +104,6 @@ export const Help: React.FC = () => {
             </Button>
             <Button
               type="link"
-              href={`${PATREON_URL}/chats`}
-              target="_blank"
-              icon={<CommentOutlined />}
-              size="large"
-            >
-              Private community chat
-            </Button>
-          </Space>
-        </Col>
-        <Col xs={24} md={12}>
-          <Space direction="vertical" align="start" size={0} style={{width: '100%'}}>
-            <Button
-              type="link"
               href={`${WEBSITE_URL}/contact/`}
               target="_blank"
               icon={<MailOutlined />}
@@ -125,6 +111,10 @@ export const Help: React.FC = () => {
             >
               Contact
             </Button>
+          </Space>
+        </Col>
+        <Col xs={24} md={12}>
+          <Space direction="vertical" align="start" size={0} style={{width: '100%'}}>
             <Button
               type="link"
               href={`${WEBSITE_URL}/privacy-policy/`}
