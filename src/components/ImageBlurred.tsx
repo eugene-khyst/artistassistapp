@@ -85,7 +85,7 @@ export const ImageBlurred: React.FC = () => {
   ];
 
   if (!originalImage) {
-    return <EmptyImage feature="view a smoothed reference photo" />;
+    return <EmptyImage feature="smooth and simplify a photo" />;
   }
 
   return (

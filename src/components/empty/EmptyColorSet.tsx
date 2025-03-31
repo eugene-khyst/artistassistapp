@@ -47,7 +47,7 @@ export const EmptyColorSet: React.FC<Props> = ({
         <br />
 
         <Typography.Text strong>
-          To use the {feature} features, select colors to paint with:
+          To use the {feature} feature, select colors to paint with:
         </Typography.Text>
         <br />
 

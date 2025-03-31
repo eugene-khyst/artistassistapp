@@ -92,7 +92,7 @@ export const ImageTonalValues: React.FC = () => {
   ];
 
   if (!originalImage) {
-    return <EmptyImage feature="view tonal values" />;
+    return <EmptyImage feature="get tonal values of a photo" />;
   }
 
   const height = `calc((100vh - 115px) / ${screens.sm ? 1 : 2})`;

@@ -105,7 +105,7 @@ export const ImageOutline: React.FC = () => {
   };
 
   if (!originalImageFile) {
-    return <EmptyImage feature="view an outline from a reference photo" />;
+    return <EmptyImage feature="turn a photo into an outline" />;
   }
 
   const modeOptions: CheckboxOptionType<number>[] = [

@@ -36,7 +36,7 @@ export const EmptyPalette: React.FC = () => {
         </Typography.Text>
         <br />
 
-        <Typography.Text strong>To use the palette features, add color mixtures:</Typography.Text>
+        <Typography.Text strong>Add color mixtures to the palette:</Typography.Text>
         <br />
 
         <ol>

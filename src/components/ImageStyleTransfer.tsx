@@ -99,7 +99,7 @@ export const ImageStyleTransfer: React.FC = () => {
   };
 
   if (!originalImageFile) {
-    return <EmptyImage feature="transfer styles to a reference photo" />;
+    return <EmptyImage feature="transfer artistic styles to a photo" />;
   }
 
   const imageStyle: CSSProperties = {

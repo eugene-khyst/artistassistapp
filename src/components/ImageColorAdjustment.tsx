@@ -112,7 +112,7 @@ function getAdjustedFilename(file: File | null): string | undefined {
   return getFilename(file, 'adjusted');
 }
 
-export const ImageColorCorrection: React.FC = () => {
+export const ImageColorAdjustment: React.FC = () => {
   const imageFileToAdjust = useAppStore(state => state.imageFileToAdjust);
   const unadjustedImage = useAppStore(state => state.unadjustedImage);
   const adjustedImage = useAppStore(state => state.adjustedImage);
@@ -252,7 +252,7 @@ export const ImageColorCorrection: React.FC = () => {
           <Space direction="vertical" style={{display: 'flex', padding: '0 16px 16px'}}>
             {!unadjustedImage && (
               <Typography.Text strong>
-                Select a photo to adjust white balance and saturation
+                Select a photo to adjust white balance and colors
               </Typography.Text>
             )}
 

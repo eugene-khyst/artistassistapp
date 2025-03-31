@@ -142,7 +142,7 @@ export const ImageGrid: React.FC = () => {
   ];
 
   if (!originalImage) {
-    return <EmptyImage feature="draw a grid over a reference photo" />;
+    return <EmptyImage feature="draw a grid over a photo" />;
   }
 
   return (
