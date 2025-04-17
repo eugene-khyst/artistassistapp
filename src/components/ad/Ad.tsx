@@ -21,7 +21,7 @@ import type {ReactNode} from 'react';
 import {useEffect, useState} from 'react';
 import reactStringReplace from 'react-string-replace';
 
-import {API_URL} from '~/src/config';
+import {DATA_URL} from '~/src/config';
 import type {AdDefinition} from '~/src/services/ads/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
@@ -82,7 +82,7 @@ export const Ad: React.FC<Props> = ({ads, vertical = false, footer, style}: Prop
     <Flex vertical={vertical || !screens.md} align="center">
       {ad.image && (
         <img
-          src={getImageUrl(ad.image, API_URL)}
+          src={getImageUrl(ad.image, DATA_URL)}
           alt="Ad"
           crossOrigin="anonymous"
           style={{

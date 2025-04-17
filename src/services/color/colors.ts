@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {API_URL} from '~/src/config';
+import {DATA_URL} from '~/src/config';
 import type {User} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import type {
@@ -99,9 +99,9 @@ function getResourceUrl(
 ): string {
   const medium: string = COLOR_TYPES.get(type)!.alias;
   if (resource === 'brands') {
-    return `${API_URL}/${medium}/${resource}.json`;
+    return `${DATA_URL}/${medium}/${resource}.json`;
   } else {
-    return `${API_URL}/${medium}/${brandAlias}/${resource}.json`;
+    return `${DATA_URL}/${medium}/${brandAlias}/${resource}.json`;
   }
 }
 
