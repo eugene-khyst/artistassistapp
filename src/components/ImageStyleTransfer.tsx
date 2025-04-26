@@ -226,16 +226,18 @@ export const ImageStyleTransfer: React.FC = () => {
                       <Meta
                         title={name}
                         description={
-                          <Space direction="vertical">
-                            {description && (
-                              <Typography.Text type="secondary">{description}</Typography.Text>
-                            )}
-                            {!isAccessAllowed && (
-                              <Typography.Text type="warning">
-                                This style is available to paid Patreon members only
-                              </Typography.Text>
-                            )}
-                          </Space>
+                          (description || !isAccessAllowed) && (
+                            <Space direction="vertical">
+                              {description && (
+                                <Typography.Text type="secondary">{description}</Typography.Text>
+                              )}
+                              {!isAccessAllowed && (
+                                <Typography.Text type="warning">
+                                  This style is available to paid Patreon members only
+                                </Typography.Text>
+                              )}
+                            </Space>
+                          )
                         }
                       />
                     </Card>
