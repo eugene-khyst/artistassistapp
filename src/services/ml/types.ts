@@ -25,10 +25,13 @@ export enum OnnxModelType {
 export interface OnnxModel {
   id: string;
   name: string;
+  description?: string;
+  image?: string;
   url: string;
   resolution?: number;
   standardDeviation?: [number, number, number];
   mean?: [number, number, number];
+  numInputs?: 1 | 2;
   priority?: number;
   freeTier?: boolean;
 }

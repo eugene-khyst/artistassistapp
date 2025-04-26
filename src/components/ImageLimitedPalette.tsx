@@ -100,7 +100,7 @@ export const ImageLimitedPalette: React.FC = () => {
     return <EmptyColorSet feature="limited palette" imageMandatory={true} />;
   }
 
-  const height = `calc((100vh - 130px) / ${screens.sm ? 1 : 2})`;
+  const height = `calc((100dvh - 130px) / ${screens.sm ? 1 : 2})`;
 
   return (
     <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">

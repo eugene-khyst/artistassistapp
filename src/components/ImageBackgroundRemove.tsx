@@ -31,7 +31,10 @@ import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {saveAppSettings} from '~/src/services/db/app-settings-db';
-import {compareOnnxModelsByPriority} from '~/src/services/ml/models';
+import {
+  compareOnnxModelsByFreeTierAndPriority,
+  compareOnnxModelsByPriority,
+} from '~/src/services/ml/models';
 import type {OnnxModel} from '~/src/services/ml/types';
 import {OnnxModelType} from '~/src/services/ml/types';
 import {useAppStore} from '~/src/stores/app-store';
@@ -88,9 +91,11 @@ export const ImageBackgroundRemove: React.FC = () => {
     const {backgroundRemovalModel} = appSettings;
     setModelId(
       backgroundRemovalModel ??
-        [...(models?.values() ?? [])].sort(compareOnnxModelsByPriority)[0]?.id
+        [...(models?.values() ?? [])].sort(
+          !user ? compareOnnxModelsByFreeTierAndPriority : compareOnnxModelsByPriority
+        )[0]?.id
     );
-  }, [appSettings, models]);
+  }, [appSettings, models, user]);
 
   useEffect(() => {
     void (async () => {
@@ -127,7 +132,7 @@ export const ImageBackgroundRemove: React.FC = () => {
 
   const imageStyle: CSSProperties = {
     maxWidth: '100%',
-    maxHeight: `calc(100vh - 145px)`,
+    maxHeight: `calc(100dvh - 145px)`,
     objectFit: 'contain',
   };
 
@@ -168,9 +173,7 @@ export const ImageBackgroundRemove: React.FC = () => {
                 style={{width: 100}}
               />
             </Form.Item>
-            {!isAuthLoading && isAccessAllowed && (
-              <FileSelect onChange={handleFileChange}>Select photo</FileSelect>
-            )}
+            {isAccessAllowed && <FileSelect onChange={handleFileChange}>Select photo</FileSelect>}
             {noBgImageUrl &&
               (screens.sm ? (
                 <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>

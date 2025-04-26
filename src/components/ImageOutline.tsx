@@ -37,7 +37,7 @@ import {getFilename} from '~/src/utils/filename';
 import {EmptyImage} from './empty/EmptyImage';
 
 enum OutlineMode {
-  Fast = 0,
+  Quick = 0,
   Quality = 1,
 }
 
@@ -68,7 +68,7 @@ export const ImageOutline: React.FC = () => {
     outlineImage
   );
 
-  const [outlineMode, setOutlineMode] = useState<OutlineMode>(OutlineMode.Fast);
+  const [outlineMode, setOutlineMode] = useState<OutlineMode>(OutlineMode.Quick);
   const [isOpenPrintImage, setIsOpenPrintImage] = useState<boolean>(false);
 
   const [model] =
@@ -110,8 +110,8 @@ export const ImageOutline: React.FC = () => {
 
   const modeOptions: CheckboxOptionType<number>[] = [
     {
-      value: OutlineMode.Fast,
-      label: 'Fast',
+      value: OutlineMode.Quick,
+      label: 'Quick',
     },
     {
       value: OutlineMode.Quality,
@@ -176,7 +176,7 @@ export const ImageOutline: React.FC = () => {
         </Form.Item>
       </div>
       <div>
-        <canvas ref={canvasRef} style={{width: '100%', height: `calc(100vh - 115px)`}} />
+        <canvas ref={canvasRef} style={{width: '100%', height: `calc(100dvh - 115px)`}} />
       </div>
       <PrintImageDrawer
         image={outlineImage}

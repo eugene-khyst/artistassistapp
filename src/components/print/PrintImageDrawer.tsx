@@ -203,7 +203,11 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
                 <img
                   src={previewImageUrl}
                   alt="Print preview"
-                  style={{maxWidth: '100%', maxHeight: 480}}
+                  style={{
+                    display: 'block',
+                    maxWidth: '100%',
+                    maxHeight: 480,
+                  }}
                 />
               )}
             </>

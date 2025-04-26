@@ -30,7 +30,11 @@ export async function getOutline(
   console.time('outline');
   let outline: ImageBitmap;
   if (model) {
-    const transformedImage: OffscreenCanvas = await transformImage(image, model, progressCallback);
+    const transformedImage: OffscreenCanvas = await transformImage(
+      [image],
+      model,
+      progressCallback
+    );
     outline = transformedImage.transferToImageBitmap();
   } else {
     const resizedImage: ImageBitmap = await createImageBitmapResizedTotalPixels(

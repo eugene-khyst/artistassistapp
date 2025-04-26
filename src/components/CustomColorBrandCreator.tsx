@@ -230,7 +230,7 @@ export const CustomColorBrandCreator: React.FC = () => {
     }
   };
 
-  const height = `calc((100vh - 75px) / ${screens.sm ? '1' : '2 - 8px'})`;
+  const height = `calc((100dvh - 75px) / ${screens.sm ? '1' : '2 - 8px'})`;
   const margin = screens.sm ? 0 : 8;
 
   return (

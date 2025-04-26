@@ -21,12 +21,12 @@ import type {OnnxModel} from '~/src/services/ml/types';
 import type {ProgressCallback} from '~/src/utils/fetch';
 
 export async function transferStyle(
-  image: ImageBitmap,
+  images: ImageBitmap[],
   model: OnnxModel,
   progressCallback?: ProgressCallback
 ): Promise<Blob> {
   console.time('style-transfer');
-  const transformedImage: OffscreenCanvas = await transformImage(image, model, progressCallback);
+  const transformedImage: OffscreenCanvas = await transformImage(images, model, progressCallback);
   const outputBlob: Blob = await transformedImage.convertToBlob({
     type: 'image/jpeg',
     quality: 0.95,

@@ -22,7 +22,3 @@ export function splitUrl(url: URL): [string, string] {
   const base = `${url.origin}${pathSegments.join('/')}/`;
   return [base, filename];
 }
-
-export function replaceHistory(): void {
-  window.history.replaceState({}, '', '/');
-}

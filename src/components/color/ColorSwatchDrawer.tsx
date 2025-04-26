@@ -41,9 +41,9 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
   const imageUrl: string | undefined = useCreateObjectUrl(originalImageFile);
 
   const isFullHeight = screens.sm || !imageUrl;
-  const imageHeight = imageUrl ? `calc((100vh - 60px) / ${isFullHeight ? 1 : 2})` : 0;
-  const colorSwatchHeight = `calc((100vh - 60px) / ${isFullHeight ? 1 : 2})`;
-  const colorStripeHeight = `max(calc((100vh - 60px) / (${
+  const imageHeight = imageUrl ? `calc((100dvh - 60px) / ${isFullHeight ? 1 : 2})` : 0;
+  const colorSwatchHeight = `calc((100dvh - 60px) / ${isFullHeight ? 1 : 2})`;
+  const colorStripeHeight = `max(calc((100dvh - 60px) / (${
     Math.min(colorMixtures?.length || 10, 10) * (isFullHeight ? 1 : 2)
   })), 24px)`;
 
@@ -60,13 +60,24 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
         <Col
           xs={24}
           sm={12}
-          style={{height: imageHeight, lineHeight: imageHeight, textAlign: 'center'}}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            height: imageHeight,
+            lineHeight: imageHeight,
+            textAlign: 'center',
+          }}
         >
           {imageUrl && (
             <img
               alt="Reference"
               src={imageUrl}
-              style={{maxWidth: '100%', maxHeight: '100%', verticalAlign: 'middle'}}
+              style={{
+                display: 'block',
+                maxWidth: '100%',
+                maxHeight: '100%',
+                verticalAlign: 'middle',
+              }}
             />
           )}
         </Col>

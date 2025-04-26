@@ -25,9 +25,10 @@ import {getAppSettings} from '~/src/services/db/app-settings-db';
 import {getColorMixtures} from '~/src/services/db/color-mixture-db';
 import {getLastColorSet} from '~/src/services/db/color-set-db';
 import {getImageFiles, getLastImageFile} from '~/src/services/db/image-file-db';
-import type {ImageFile} from '~/src/services/image/image-file';
+import {type ImageFile, imageFileToFile} from '~/src/services/image/image-file';
 import type {AppSettings} from '~/src/services/settings/types';
 import {importFromUrl} from '~/src/services/url/url-parser';
+import type {StyleTransferSlice} from '~/src/stores/style-transfer-slice';
 import {TabKey} from '~/src/tabs';
 
 import type {ColorMixerSlice} from './color-mixer-slice';
@@ -48,7 +49,13 @@ export interface InitSlice {
 }
 
 export const createInitSlice: StateCreator<
-  InitSlice & TabSlice & ColorSetSlice & ColorMixerSlice & OriginalImageSlice & PaletteSlice,
+  InitSlice &
+    TabSlice &
+    ColorSetSlice &
+    ColorMixerSlice &
+    OriginalImageSlice &
+    PaletteSlice &
+    StyleTransferSlice,
   [],
   [],
   InitSlice
@@ -88,6 +95,11 @@ export const createInitSlice: StateCreator<
     const paletteColorMixtures = new Map<string, ColorMixture>(
       (await getColorMixtures(imageFile?.id)).map(colorMixture => [colorMixture.key, colorMixture])
     );
+
+    const {styleTransferImage} = appSettings;
+    if (styleTransferImage) {
+      await get().setStyleImageFile(imageFileToFile(styleTransferImage));
+    }
 
     set({
       appSettings,

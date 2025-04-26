@@ -221,7 +221,7 @@ export const ImageColorAdjustment: React.FC = () => {
     }
   };
 
-  const height = `calc((100vh - 75px) / ${screens.sm ? '1' : '2 - 8px'})`;
+  const height = `calc((100dvh - 75px) / ${screens.sm ? '1' : '2 - 8px'})`;
   const margin = screens.sm ? 0 : 8;
 
   return (
@@ -250,11 +250,9 @@ export const ImageColorAdjustment: React.FC = () => {
           }}
         >
           <Space direction="vertical" style={{display: 'flex', padding: '0 16px 16px'}}>
-            {!unadjustedImage && (
-              <Typography.Text strong>
-                Select a photo to adjust white balance and colors
-              </Typography.Text>
-            )}
+            <Typography.Text strong>
+              Select a photo to adjust white balance and colors
+            </Typography.Text>
 
             <Space>
               <FileSelect onChange={handleFileChange}>Select photo</FileSelect>

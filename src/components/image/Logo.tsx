@@ -34,7 +34,10 @@ export const Logo: React.FC<Props> = ({name = false, tagline = false, size}: Pro
       <img
         src="/assets/favicon/favicon.svg"
         alt="ArtistAssistApp logo"
-        style={{width: size ?? 150}}
+        style={{
+          display: 'block',
+          width: size ?? 150,
+        }}
       />
 
       {name && (

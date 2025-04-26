@@ -189,7 +189,7 @@ export const ImageGrid: React.FC = () => {
         )}
       </Space>
       <div>
-        <canvas ref={canvasRef} style={{width: '100%', height: `calc(100vh - 115px)`}} />
+        <canvas ref={canvasRef} style={{width: '100%', height: `calc(100dvh - 115px)`}} />
       </div>
     </Spin>
   );

@@ -26,6 +26,7 @@ import {createRoot} from 'react-dom/client';
 
 import {BrowserSupport} from '~/src/components/alert/BrowserSupport';
 import {PromiseErrorBoundary} from '~/src/components/alert/PromiseErrorBoundary';
+import {APP_URL, AUTH_URL} from '~/src/config';
 import {AuthProvider} from '~/src/contexts/AuthProvider';
 import {registerFileHandler} from '~/src/file-handler';
 import {confirmHistoryChange} from '~/src/history';
@@ -64,10 +65,10 @@ root.render(
           <BrowserSupport>
             <QueryClientProvider client={queryClient}>
               <AuthProvider
-                domain="https://auth.artistassistapp.com"
+                domain={AUTH_URL}
                 redirectUri={window.location.origin}
-                issuer="https://auth.artistassistapp.com"
-                audience="https://app.artistassistapp.com"
+                issuer={AUTH_URL}
+                audience={APP_URL}
               >
                 <ArtistAssistApp />
               </AuthProvider>

@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {ImageFile} from '~/src/services/image/image-file';
 import type {TabKey} from '~/src/tabs';
 
 export enum ColorPickerSort {
@@ -39,4 +40,5 @@ export interface AppSettings {
   gridDiagonals?: boolean;
   backgroundRemovalModel?: string;
   styleTransferModel?: string;
+  styleTransferImage?: ImageFile;
 }

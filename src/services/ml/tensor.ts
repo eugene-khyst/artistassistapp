@@ -36,7 +36,8 @@ export function imageDataToTensor(
 
 export function tensorToImageData(
   {data, dims: [_batch, channels, height, width]}: Tensor,
-  standardDeviation?: [number, number, number]
+  standardDeviation?: [number, number, number],
+  mean?: [number, number, number]
 ): ImageData {
   const totalPixels = width! * height!;
   const imageData = new Uint8ClampedArray(4 * totalPixels);
@@ -47,7 +48,8 @@ export function tensorToImageData(
       for (let c = 0; c < 3; c++) {
         const offset = channels! > 1 ? c : 0;
         imageData[j + c] =
-          (data[i + offset * totalPixels] as number) * (standardDeviation?.[c] ?? 1);
+          (data[i + offset * totalPixels] as number) * (standardDeviation?.[c] ?? 1) +
+          (mean?.[c] ?? 0);
       }
       imageData[j + 3] = 255;
     }

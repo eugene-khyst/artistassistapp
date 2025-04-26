@@ -24,6 +24,7 @@ import type {FlattenOptionData} from 'rc-select/lib/interface';
 import {filterSelectOptions} from '~/src/components/utils';
 import {useAuth} from '~/src/hooks/useAuth';
 import type {User} from '~/src/services/auth/types';
+import {hasAccessTo} from '~/src/services/auth/utils';
 import {
   compareColorBrandsByFreeTierAndName,
   compareColorBrandsByName,
@@ -39,13 +40,16 @@ function getColorBrandOptions(
   }
   return [...brands.values()]
     .sort(!user ? compareColorBrandsByFreeTierAndName : compareColorBrandsByName)
-    .map(({id, fullName, colorCount, freeTier = false}) => ({
-      value: id,
-      label: fullName,
-      fullName,
-      colorCount,
-      disabled: !freeTier && !user,
-    }));
+    .map(brand => {
+      const {id, fullName, colorCount} = brand;
+      return {
+        value: id,
+        label: fullName,
+        fullName,
+        colorCount,
+        disabled: !hasAccessTo(user, brand),
+      };
+    });
 }
 
 const colorBrandOptionRender = ({

@@ -28,7 +28,6 @@ import {TabKey} from '~/src/tabs';
 import {randomInt} from '~/src/utils/random';
 
 const AD_CHANGE_INTERVAL = 15 * 1000;
-const IMAGE_SIZE = {width: 200, heigth: 200};
 
 function getImageUrl(image: string, adsUrl: string): string {
   return new URL(image, adsUrl).toString();
@@ -86,8 +85,9 @@ export const Ad: React.FC<Props> = ({ads, vertical = false, footer, style}: Prop
           alt="Ad"
           crossOrigin="anonymous"
           style={{
-            ...IMAGE_SIZE,
             display: 'block',
+            width: 200,
+            height: 200,
             objectFit: 'contain',
           }}
         />

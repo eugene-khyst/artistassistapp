@@ -55,11 +55,15 @@ const RHO_TO_LINEAR_RGB_TRANSPOSE: Matrix = RHO_TO_LINEAR_RGB.transpose();
 
 const CIE_CMF_Y = Matrix.fromRows([
   [
-    0.00000184, 0.00000621, 0.00003101, 0.00010475, 0.00035364, 0.00095147, 0.00228226, 0.00420733,
-    0.0066888, 0.0098884, 0.01524945, 0.02141831, 0.03342293, 0.05131001, 0.07040208, 0.08783871,
-    0.09424905, 0.09795667, 0.09415219, 0.08678102, 0.07885653, 0.0635267, 0.05374142, 0.04264606,
-    0.03161735, 0.02088521, 0.01386011, 0.00810264, 0.0046301, 0.00249138, 0.0012593, 0.00054165,
-    0.00027795, 0.00014711, 0.00006103, 0.00003439,
+    0.000001844289444, 0.0000062053235865, 0.0000310096046799, 0.0001047483849269,
+    0.0003536405299538, 0.0009514714056444, 0.0022822631748318, 0.004207329043473,
+    0.0066887983719014, 0.0098883960193565, 0.0152494514496311, 0.0214183109449723,
+    0.0334229301575068, 0.0513100134918512, 0.070402083939949, 0.0878387072603517,
+    0.0942490536184085, 0.0979566702718931, 0.0941521856862608, 0.0867810237486753,
+    0.0788565338632013, 0.0635267026203555, 0.05374141675682, 0.042646064357412, 0.0316173492792708,
+    0.020885205921391, 0.0138601101360152, 0.0081026402038399, 0.004630102258803,
+    0.0024913800051319, 0.0012593033677378, 0.000541646522168, 0.0002779528920067,
+    0.0001471080673854, 0.0000610327472927, 0.0000343873229523,
   ],
 ]);
 
@@ -91,7 +95,7 @@ export class Reflectance {
 
   constructor(private readonly rho: Matrix) {}
 
-  static fromArray(rho: number[]) {
+  static fromArray(rho: number[] | Float64Array) {
     return new Reflectance(Matrix.fromColumn(rho));
   }
 
@@ -210,14 +214,14 @@ export class Reflectance {
     if (reflectances.length === 1) {
       return reflectances[0]!;
     }
-    let reflectance1 = reflectances[0]!;
-    let ratio1 = ratios[0]!;
+    let mixtureReflectance = reflectances[0]!;
+    let totalRatio = ratios[0]!;
     for (let i = 1; i < reflectances.length; i++) {
-      const reflectance2 = reflectances[i]!;
-      const ratio2 = ratios[i]!;
-      reflectance1 = reflectance1.mixWith(reflectance2, ratio2 / (ratio1 + ratio2));
-      ratio1 += ratio2;
+      const reflectance = reflectances[i]!;
+      const ratio = ratios[i]!;
+      totalRatio += ratio;
+      mixtureReflectance = mixtureReflectance.mixWith(reflectance, ratio / totalRatio);
     }
-    return reflectance1;
+    return mixtureReflectance;
   }
 }

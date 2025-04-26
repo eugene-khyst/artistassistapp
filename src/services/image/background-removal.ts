@@ -41,7 +41,7 @@ export async function removeBackground(
   const [imageData] = imageBitmapToImageData(resizedImage);
   resizedImage.close();
   const inputTensor = imageDataToTensor(imageData, standardDeviation, mean);
-  const [outputTensor] = await runInference(modelUrl, [inputTensor], progressCallback);
+  const [outputTensor] = await runInference(modelUrl, [[inputTensor]], progressCallback);
   const mask: OffscreenCanvas = tensorToMask(
     outputTensor!,
     resolution!,

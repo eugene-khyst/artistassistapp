@@ -17,6 +17,7 @@
  */
 
 import {Interpolation, interpolationWebGL} from '~/src/services/image/filter/interpolation-webgl';
+import {clamp} from '~/src/services/math/clamp';
 import {runInference} from '~/src/services/ml/inference';
 import {imageDataToTensor, tensorToImageData} from '~/src/services/ml/tensor';
 import type {OnnxModel} from '~/src/services/ml/types';
@@ -28,36 +29,52 @@ import {
   imageBitmapToImageDataResizedAndCropped,
 } from '~/src/utils/graphics';
 
-const SCALE_FACTOR = 3;
+const MAX_SCALE_FACTOR = 3;
 
 export async function transformImage(
-  image: ImageBitmap,
+  images: ImageBitmap[],
   model: OnnxModel,
   progressCallback?: ProgressCallback
 ): Promise<OffscreenCanvas> {
   const {url: modelUrl, resolution, standardDeviation, mean} = model;
-  let imageData: ImageData;
-  let outputWidth: number;
-  let outputHeight: number;
+  let imageDataArray: ImageData[];
+  let width = 0;
+  let height = 0;
   if (resolution) {
-    [imageData] = imageBitmapToImageDataResizedAndCropped(image, resolution, resolution);
-    outputWidth = SCALE_FACTOR * resolution;
-    outputHeight = SCALE_FACTOR * resolution;
+    imageDataArray = images.map((image: ImageBitmap): ImageData => {
+      const [imageData] = imageBitmapToImageDataResizedAndCropped(image, resolution, resolution);
+      return imageData;
+    });
+    width = height = resolution;
   } else {
-    const resizedImage: ImageBitmap = await createImageBitmapResizedTotalPixels(
-      image,
-      IMAGE_SIZE.SD
+    imageDataArray = await Promise.all(
+      images.map(async (image): Promise<ImageData> => {
+        const resizedImage: ImageBitmap = await createImageBitmapResizedTotalPixels(
+          image,
+          IMAGE_SIZE.SD
+        );
+        const [imageData] = imageBitmapToImageData(resizedImage);
+        resizedImage.close();
+        return imageData;
+      })
     );
-    [imageData] = imageBitmapToImageData(resizedImage);
-    resizedImage.close();
-    const {width, height} = image;
-    const scaleFactor: number = Math.min(1, Math.sqrt(IMAGE_SIZE.HD / (width * height)));
-    outputWidth = Math.trunc(scaleFactor * width);
-    outputHeight = Math.trunc(scaleFactor * height);
+    const [image] = images;
+    ({width, height} = image!);
   }
-  const inputTensor = imageDataToTensor(imageData, standardDeviation, mean);
-  const [outputTensor] = await runInference(modelUrl, [inputTensor], progressCallback);
-  const outputImage = await createImageBitmap(tensorToImageData(outputTensor!, standardDeviation));
+  const scaleFactor: number = clamp(
+    Math.sqrt(IMAGE_SIZE.HD / (width * height)),
+    1,
+    MAX_SCALE_FACTOR
+  );
+  const outputWidth = Math.trunc(scaleFactor * width);
+  const outputHeight = Math.trunc(scaleFactor * height);
+  const inputTensors = imageDataArray.map(imageData =>
+    imageDataToTensor(imageData, standardDeviation, mean)
+  );
+  const [outputTensor] = await runInference(modelUrl, [inputTensors], progressCallback);
+  const outputImage = await createImageBitmap(
+    tensorToImageData(outputTensor!, standardDeviation, mean)
+  );
   const resizedOutputImage: OffscreenCanvas = interpolationWebGL(
     outputImage,
     outputWidth,

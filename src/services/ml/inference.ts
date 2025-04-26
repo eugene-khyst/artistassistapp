@@ -27,7 +27,7 @@ env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/'
 
 export async function runInference(
   modelUrl: string,
-  inputTensors: Tensor[],
+  inputTensors: Tensor[][],
   progressCallback?: ProgressCallback
 ): Promise<Tensor[]> {
   const modelResponse: Response = await fetchChunked(new URL(modelUrl), progressCallback);
@@ -37,13 +37,15 @@ export async function runInference(
   try {
     progressCallback?.('Inference', 'auto');
     const session = await InferenceSession.create(modelUrl, {
-      executionProviders: ['wasm'],
+      executionProviders: ['webgpu', 'wasm'],
       graphOptimizationLevel: 'all',
       executionMode: 'parallel',
       enableCpuMemArena: true,
     });
     for (const inputTensor of inputTensors) {
-      const feeds: InferenceSession.FeedsType = {[session.inputNames[0]!]: inputTensor};
+      const feeds: InferenceSession.FeedsType = Object.fromEntries(
+        inputTensor.map((tensor, index) => [session.inputNames[index]!, tensor])
+      );
       const results = await session.run(feeds);
       const outputTensor = results[session.outputNames[0]!];
       if (!outputTensor) {

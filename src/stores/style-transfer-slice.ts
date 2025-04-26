@@ -20,17 +20,21 @@ import type {StateCreator} from 'zustand';
 
 import type {User} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
+import {saveAppSettings} from '~/src/services/db/app-settings-db';
+import {fileToImageFile} from '~/src/services/image/image-file';
 import {transferStyle} from '~/src/services/image/style-transfer';
 import type {OnnxModel} from '~/src/services/ml/types';
 import type {OriginalImageSlice} from '~/src/stores/original-image-slice';
 
 export interface StyleTransferSlice {
+  styleImageFile: File | null;
   styleTransferTrigger: boolean;
   isStyleTransferLoading: boolean;
   styleTransferLoadingPercent: number | 'auto';
   styleTransferLoadingTip: string | null;
   styledImageBlob: Blob | null;
 
+  setStyleImageFile: (styleImageFile: File | null) => Promise<void>;
   triggerStyleTransfer: () => void;
   loadStyledImage: (model?: OnnxModel | null, user?: User | null) => Promise<void>;
 }
@@ -41,12 +45,21 @@ export const createStyleTransferSlice: StateCreator<
   [],
   StyleTransferSlice
 > = (set, get) => ({
+  styleImageFile: null,
   styleTransferTrigger: false,
   isStyleTransferLoading: false,
   styleTransferLoadingPercent: 'auto',
   styleTransferLoadingTip: null,
   styledImageBlob: null,
 
+  setStyleImageFile: async (styleImageFile: File | null): Promise<void> => {
+    if (styleImageFile) {
+      set({styleImageFile});
+      void saveAppSettings({
+        styleTransferImage: await fileToImageFile(styleImageFile),
+      });
+    }
+  },
   triggerStyleTransfer: (): void => {
     if (!get().styleTransferTrigger) {
       set({
@@ -55,10 +68,16 @@ export const createStyleTransferSlice: StateCreator<
     }
   },
   loadStyledImage: async (model?: OnnxModel | null, user?: User | null): Promise<void> => {
-    const {originalImage, styleTransferTrigger} = get();
+    const {originalImage, styleImageFile, styleTransferTrigger} = get();
     if (!styleTransferTrigger || !originalImage || !model || !hasAccessTo(user, model)) {
       return;
     }
+    const {numInputs = 1} = model;
+    if (numInputs > 1 && !styleImageFile) {
+      return;
+    }
+    const styleImage: ImageBitmap | null =
+      numInputs > 1 && styleImageFile ? await createImageBitmap(styleImageFile) : null;
     try {
       set({
         isStyleTransferLoading: true,
@@ -66,7 +85,8 @@ export const createStyleTransferSlice: StateCreator<
         styleTransferLoadingTip: null,
         styledImageBlob: null,
       });
-      const styledImageBlob: Blob = await transferStyle(originalImage, model, (key, progress) => {
+      const images = styleImage ? [originalImage, styleImage] : [originalImage];
+      const styledImageBlob: Blob = await transferStyle(images, model, (key, progress) => {
         set({
           styleTransferLoadingPercent: progress,
           styleTransferLoadingTip: key,
@@ -74,6 +94,7 @@ export const createStyleTransferSlice: StateCreator<
       });
       set({styledImageBlob});
     } finally {
+      styleImage?.close();
       set({
         isStyleTransferLoading: false,
       });

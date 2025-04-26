@@ -192,7 +192,7 @@ export const ImageColorPicker: React.FC = () => {
 
   const {mixing, glazing} = COLOR_MIXING[colorSet.type];
 
-  const height = `calc((100vh - 75px) / ${screens.sm ? '1' : '2 - 8px'})`;
+  const height = `calc((100dvh - 75px) / ${screens.sm ? '1' : '2 - 8px'})`;
   const margin = screens.sm ? 0 : 8;
 
   return (

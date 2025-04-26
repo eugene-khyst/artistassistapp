@@ -17,16 +17,21 @@
  */
 
 import type {SelectProps} from 'antd';
-import {Select} from 'antd';
-import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
+import {Flex, Select, Typography} from 'antd';
+import type {DefaultOptionType} from 'antd/es/select';
 
 import {useAuth} from '~/src/hooks/useAuth';
 import type {User} from '~/src/services/auth/types';
+import {hasAccessTo} from '~/src/services/auth/utils';
 import {
   compareOnnxModelsByFreeTierAndPriority,
   compareOnnxModelsByPriority,
 } from '~/src/services/ml/models';
 import type {OnnxModel} from '~/src/services/ml/types';
+
+interface SelectOptionType extends DefaultOptionType {
+  description?: string;
+}
 
 function getOnnxModelOptions(
   user: User | null,
@@ -37,11 +42,15 @@ function getOnnxModelOptions(
   }
   return [...models.values()]
     .sort(!user ? compareOnnxModelsByFreeTierAndPriority : compareOnnxModelsByPriority)
-    .map(({id, name, freeTier = false}) => ({
-      value: id,
-      label: name,
-      disabled: !freeTier && !user,
-    }));
+    .map(model => {
+      const {id, name, description} = model;
+      return {
+        value: id,
+        label: name,
+        description,
+        disabled: !hasAccessTo(user, model),
+      };
+    });
 }
 
 type Props = SelectProps & {
@@ -51,5 +60,17 @@ type Props = SelectProps & {
 export const OnnxModelSelect: React.FC<Props> = ({models, ...rest}: Props) => {
   const {user} = useAuth();
   const options = getOnnxModelOptions(user, models);
-  return <Select options={options} {...rest} />;
+  return (
+    <Select
+      options={options}
+      {...rest}
+      optionRender={option => (
+        <Flex vertical>
+          {option.data.label}
+          <Typography.Text type="secondary">{option.data['description']}</Typography.Text>
+        </Flex>
+      )}
+      popupMatchSelectWidth={false}
+    />
+  );
 };
