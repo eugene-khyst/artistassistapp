@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {clamp} from '~/src/services/math/clamp';
 import {Matrix} from '~/src/services/math/matrix';
 
 import {linearizeRgbChannel, Rgb, unlinearizeRgbChannel} from './rgb';
@@ -67,12 +68,14 @@ const CIE_CMF_Y = Matrix.fromRows([
   ],
 ]);
 
-const CORRELATION_WEIGHT = 0.8;
+const SHAPE_WEIGHT = 0.5;
 
-function linearToConcentration(t: number, luminance1: number, luminance2: number) {
-  const t1 = luminance1 * (1 - t) ** 2;
-  const t2 = luminance2 * t ** 2;
-  return t2 / (t1 + t2);
+function kubelkaMunkKS(r: number): number {
+  return (1 - r) ** 2 / (2 * r);
+}
+
+function kubelkaMunkKM(ks: number): number {
+  return 1 + ks - (ks ** 2 + 2 * ks) ** 0.5;
 }
 
 function validateRatios(reflectances: Reflectance[], ratios: number[]) {
@@ -162,51 +165,27 @@ export class Reflectance {
   calculateSimilarity({rho}: Reflectance, scalar = 100): number {
     const y1 = this.rho.flatten();
     const y2 = rho.flatten();
-    const mean1 = y1.reduce((sum, val) => sum + val) / SIZE;
-    const mean2 = y2.reduce((sum, val) => sum + val) / SIZE;
-    let cov = 0;
-    let stdDev1 = 0;
-    let stdDev2 = 0;
-    let distSqaured = 0;
+    let dot = 0;
+    let sumSq1 = 0;
+    let sumSq2 = 0;
+    let sumSqDiff = 0;
     for (let i = 0; i < SIZE; i++) {
-      const val1 = y1[i]!;
-      const val2 = y2[i]!;
-      const norm1 = val1 - mean1;
-      const norm2 = val2 - mean2;
-      cov += norm1 * norm2;
-      stdDev1 += norm1 ** 2;
-      stdDev2 += norm2 ** 2;
-      distSqaured += (val1 - val2) ** 2;
+      const v1 = y1[i]!;
+      const v2 = y2[i]!;
+      dot += v1 * v2;
+      sumSq1 += v1 ** 2;
+      sumSq2 += v2 ** 2;
+      sumSqDiff += (v1 - v2) ** 2;
     }
-    const correlation = stdDev1 === 0 || stdDev2 === 0 ? 0 : cov / Math.sqrt(stdDev1 * stdDev2);
-    const normCorelation = (1 + correlation) / 2;
-    const normDist = 1 - Math.sqrt(distSqaured / SIZE);
-    return (
-      scalar *
-      Math.pow(normCorelation, CORRELATION_WEIGHT) *
-      Math.pow(normDist, 1 - CORRELATION_WEIGHT)
-    );
+    const cosTheta = dot / Math.sqrt(sumSq1 * sumSq2);
+    const angle = Math.acos(clamp(cosTheta, -1, 1));
+    const normAngle = 1 - angle / (Math.PI / 2);
+    const normDist = 1 - Math.sqrt(sumSqDiff / SIZE);
+    return scalar * Math.pow(normAngle, SHAPE_WEIGHT) * Math.pow(normDist, 1 - SHAPE_WEIGHT);
   }
 
   getLuminance() {
     return CIE_CMF_Y.multiply(this.rho).get(0, 0);
-  }
-
-  mixWith(reflectance: Reflectance, t: number): Reflectance {
-    const luminance1 = this.getLuminance();
-    const luminance2 = reflectance.getLuminance();
-    const concentration: number = linearToConcentration(t, luminance1, luminance2);
-    const rhoMix = Matrix.zeros(SIZE, 1);
-    for (let i = 0; i < SIZE; i++) {
-      const r1 = this.rho.get(i, 0);
-      const r2 = reflectance.rho.get(i, 0);
-      const ks =
-        (1 - concentration) * ((1 - r1) ** 2 / (2 * r1)) +
-        concentration * ((1 - r2) ** 2 / (2 * r2));
-      const rMix = 1 + ks - Math.sqrt(ks ** 2 + 2 * ks);
-      rhoMix.set(i, 0, rMix);
-    }
-    return new Reflectance(rhoMix);
   }
 
   static mixKM(reflectances: Reflectance[], ratios: number[]): Reflectance {
@@ -214,14 +193,22 @@ export class Reflectance {
     if (reflectances.length === 1) {
       return reflectances[0]!;
     }
-    let mixtureReflectance = reflectances[0]!;
-    let totalRatio = ratios[0]!;
-    for (let i = 1; i < reflectances.length; i++) {
-      const reflectance = reflectances[i]!;
-      const ratio = ratios[i]!;
-      totalRatio += ratio;
-      mixtureReflectance = mixtureReflectance.mixWith(reflectance, ratio / totalRatio);
+    const rhoMix = Matrix.zeros(SIZE, 1);
+    const concentrations = reflectances.map((reflectance, i) => {
+      const luminance = Math.max(Number.EPSILON, reflectance.getLuminance());
+      return ratios[i]! ** 2 * luminance;
+    });
+    const totalConcentration = concentrations.reduce((sum, weight) => sum + weight, 0);
+    for (let i = 0; i < SIZE; i++) {
+      let ksMix = 0;
+      for (let j = 0; j < reflectances.length; j++) {
+        const reflectance = reflectances[j]!;
+        const concentration = concentrations[j]!;
+        const r = reflectance.rho.get(i, 0);
+        ksMix += kubelkaMunkKS(r) * concentration;
+      }
+      rhoMix.set(i, 0, kubelkaMunkKM(ksMix / totalConcentration));
     }
-    return mixtureReflectance;
+    return new Reflectance(rhoMix);
   }
 }
