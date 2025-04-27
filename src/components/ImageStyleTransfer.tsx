@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined} from '@ant-design/icons';
+import {DownloadOutlined, LoadingOutlined} from '@ant-design/icons';
 import type {RadioChangeEvent} from 'antd';
 import {App, Button, Card, Col, Grid, Radio, Row, Space, Spin, Typography} from 'antd';
 import Meta from 'antd/es/card/Meta';
@@ -47,7 +47,6 @@ export const ImageStyleTransfer: React.FC = () => {
   const styleImageFile = useAppStore(state => state.styleImageFile);
   const styleTransferTrigger = useAppStore(state => state.styleTransferTrigger);
   const isStyleTransferLoading = useAppStore(state => state.isStyleTransferLoading);
-  const styleTransferLoadingPercent = useAppStore(state => state.styleTransferLoadingPercent);
   const styleTransferLoadingTip = useAppStore(state => state.styleTransferLoadingTip);
   const styledImageBlob = useAppStore(state => state.styledImageBlob);
 
@@ -135,8 +134,8 @@ export const ImageStyleTransfer: React.FC = () => {
   return (
     <Spin
       spinning={isLoading}
-      percent={styleTransferLoadingPercent}
       tip={styleTransferLoadingTip}
+      indicator={<LoadingOutlined spin />}
       size="large"
     >
       <Row>

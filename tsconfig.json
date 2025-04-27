@@ -31,7 +31,8 @@
 
     "baseUrl": "./",
     "paths": {
-      "~/src/*": ["./src/*"]
+      "~/src/*": ["./src/*"],
+      "onnxruntime-web": ["./node_modules/onnxruntime-web/types.d.ts"]
     },
 
     "types": ["vite/client", "vite-plugin-glsl/ext"]

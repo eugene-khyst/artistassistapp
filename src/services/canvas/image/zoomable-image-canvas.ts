@@ -120,9 +120,7 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   protected getImage(images?: ImageBitmap[]): ImageBitmap | null {
-    if (!images) {
-      images = this.images;
-    }
+    images ??= this.images;
     return images.length > this.imageIndex ? images[this.imageIndex]! : null;
   }
 
@@ -133,9 +131,7 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   protected draw(ctx?: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
-    if (!ctx) {
-      ctx = this.context;
-    }
+    ctx ??= this.context;
     const canvas: HTMLCanvasElement | OffscreenCanvas = ctx.canvas;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.imageSmoothingEnabled = false;

@@ -28,7 +28,6 @@ import type {OriginalImageSlice} from './original-image-slice';
 export interface OutlineImageSlice {
   outlineTrigger: boolean;
   isOutlineImageLoading: boolean;
-  outlineLoadingPercent: number | 'auto';
   outlineLoadingTip: string | null;
   outlineImage: ImageBitmap | null;
 
@@ -44,7 +43,6 @@ export const createOutlineImageSlice: StateCreator<
 > = (set, get) => ({
   outlineTrigger: false,
   isOutlineImageLoading: false,
-  outlineLoadingPercent: 'auto',
   outlineLoadingTip: null,
   outlineImage: null,
 
@@ -63,15 +61,11 @@ export const createOutlineImageSlice: StateCreator<
     try {
       set({
         isOutlineImageLoading: true,
-        outlineLoadingPercent: 0,
         outlineLoadingTip: null,
         outlineImage: null,
       });
-      const outlineImage = await getOutline(originalImage, model, (key, progress) => {
-        set({
-          outlineLoadingPercent: progress,
-          outlineLoadingTip: key,
-        });
+      const outlineImage = await getOutline(originalImage, model, key => {
+        set({outlineLoadingTip: key});
       });
       set({outlineImage});
     } finally {

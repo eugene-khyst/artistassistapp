@@ -26,7 +26,6 @@ import type {OnnxModel} from '~/src/services/ml/types';
 export interface BackgroundRemovalSlice {
   imageFileToRemoveBackground: File | null;
   isBackgroundRemovalLoading: boolean;
-  backgroundRemovalLoadingPercent: number | 'auto';
   backgroundRemovalLoadingTip: string | null;
   imageWithoutBackgroundBlob: Blob | null;
 
@@ -42,7 +41,6 @@ export const createBackgroundRemovalSlice: StateCreator<
 > = (set, get) => ({
   imageFileToRemoveBackground: null,
   isBackgroundRemovalLoading: false,
-  backgroundRemovalLoadingPercent: 'auto',
   backgroundRemovalLoadingTip: null,
   imageWithoutBackgroundBlob: null,
 
@@ -60,18 +58,14 @@ export const createBackgroundRemovalSlice: StateCreator<
     try {
       set({
         isBackgroundRemovalLoading: true,
-        backgroundRemovalLoadingPercent: 0,
         backgroundRemovalLoadingTip: null,
         imageWithoutBackgroundBlob: null,
       });
       const imageWithoutBackgroundBlob = await removeBackground(
         imageFileToRemoveBackground,
         model,
-        (key, progress) => {
-          set({
-            backgroundRemovalLoadingPercent: progress,
-            backgroundRemovalLoadingTip: key,
-          });
+        key => {
+          set({backgroundRemovalLoadingTip: key});
         }
       );
       set({imageWithoutBackgroundBlob});

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons';
+import {DownloadOutlined, LoadingOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons';
 import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
 import {App, Button, Dropdown, Form, Grid, Radio, Space, Spin, Typography} from 'antd';
 import {useEffect, useState} from 'react';
@@ -45,7 +45,6 @@ export const ImageOutline: React.FC = () => {
   const originalImageFile = useAppStore(state => state.originalImageFile);
   const outlineTrigger = useAppStore(state => state.outlineTrigger);
   const isOutlineImageLoading = useAppStore(state => state.isOutlineImageLoading);
-  const outlineLoadingPercent = useAppStore(state => state.outlineLoadingPercent);
   const outlineLoadingTip = useAppStore(state => state.outlineLoadingTip);
   const outlineImage = useAppStore(state => state.outlineImage);
 
@@ -136,7 +135,12 @@ export const ImageOutline: React.FC = () => {
   ];
 
   return (
-    <Spin spinning={isLoading} percent={outlineLoadingPercent} tip={outlineLoadingTip} size="large">
+    <Spin
+      spinning={isLoading}
+      tip={outlineLoadingTip}
+      indicator={<LoadingOutlined spin />}
+      size="large"
+    >
       <div style={{display: 'flex', width: '100%', justifyContent: 'center', marginBottom: 8}}>
         <Form.Item
           style={{margin: 0}}

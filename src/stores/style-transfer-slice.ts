@@ -30,7 +30,6 @@ export interface StyleTransferSlice {
   styleImageFile: File | null;
   styleTransferTrigger: boolean;
   isStyleTransferLoading: boolean;
-  styleTransferLoadingPercent: number | 'auto';
   styleTransferLoadingTip: string | null;
   styledImageBlob: Blob | null;
 
@@ -48,7 +47,6 @@ export const createStyleTransferSlice: StateCreator<
   styleImageFile: null,
   styleTransferTrigger: false,
   isStyleTransferLoading: false,
-  styleTransferLoadingPercent: 'auto',
   styleTransferLoadingTip: null,
   styledImageBlob: null,
 
@@ -81,16 +79,12 @@ export const createStyleTransferSlice: StateCreator<
     try {
       set({
         isStyleTransferLoading: true,
-        styleTransferLoadingPercent: 0,
         styleTransferLoadingTip: null,
         styledImageBlob: null,
       });
       const images = styleImage ? [originalImage, styleImage] : [originalImage];
-      const styledImageBlob: Blob = await transferStyle(images, model, (key, progress) => {
-        set({
-          styleTransferLoadingPercent: progress,
-          styleTransferLoadingTip: key,
-        });
+      const styledImageBlob: Blob = await transferStyle(images, model, key => {
+        set({styleTransferLoadingTip: key});
       });
       set({styledImageBlob});
     } finally {

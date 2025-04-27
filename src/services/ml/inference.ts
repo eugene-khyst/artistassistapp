@@ -23,7 +23,7 @@ import type {ProgressCallback} from '~/src/utils/fetch';
 import {fetchChunked} from '~/src/utils/fetch';
 
 env.wasm.proxy = true;
-env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/';
+env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.1/dist/';
 
 export async function runInference(
   modelUrl: string,
@@ -37,7 +37,7 @@ export async function runInference(
   try {
     progressCallback?.('Inference', 'auto');
     const session = await InferenceSession.create(modelUrl, {
-      executionProviders: ['webgpu', 'wasm'],
+      executionProviders: ['wasm'],
       graphOptimizationLevel: 'all',
       executionMode: 'parallel',
       enableCpuMemArena: true,

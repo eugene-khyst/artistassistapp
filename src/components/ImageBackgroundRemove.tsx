@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined, MoreOutlined} from '@ant-design/icons';
+import {DownloadOutlined, LoadingOutlined, MoreOutlined} from '@ant-design/icons';
 import type {MenuProps} from 'antd';
 import {App, Button, Dropdown, Flex, Form, Grid, Space, Spin, Typography} from 'antd';
 import {saveAs} from 'file-saver';
@@ -44,9 +44,6 @@ export const ImageBackgroundRemove: React.FC = () => {
   const appSettings = useAppStore(state => state.appSettings);
   const imageFileToRemoveBackground = useAppStore(state => state.imageFileToRemoveBackground);
   const isBackgroundRemovalLoading = useAppStore(state => state.isBackgroundRemovalLoading);
-  const backgroundRemovalLoadingPercent = useAppStore(
-    state => state.backgroundRemovalLoadingPercent
-  );
   const backgroundRemovalLoadingTip = useAppStore(state => state.backgroundRemovalLoadingTip);
   const imageWithoutBackgroundBlob = useAppStore(state => state.imageWithoutBackgroundBlob);
 
@@ -139,8 +136,8 @@ export const ImageBackgroundRemove: React.FC = () => {
   return (
     <Spin
       spinning={isLoading}
-      percent={backgroundRemovalLoadingPercent}
       tip={backgroundRemovalLoadingTip}
+      indicator={<LoadingOutlined spin />}
       size="large"
     >
       <Flex vertical gap="small" style={{marginBottom: 8, padding: '0 16px'}}>
@@ -170,7 +167,7 @@ export const ImageBackgroundRemove: React.FC = () => {
                 models={models}
                 value={modelId}
                 onChange={handleModelChange}
-                style={{width: 100}}
+                style={{width: 105}}
               />
             </Form.Item>
             {isAccessAllowed && <FileSelect onChange={handleFileChange}>Select photo</FileSelect>}
