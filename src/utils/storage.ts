@@ -17,9 +17,9 @@
  */
 
 export const PERSISTENT_STORAGE_WARN = {
-  title: 'Permanent storage permission was denied',
+  title: 'Persistent storage is not enabled',
   content:
-    'Your data may not be saved reliably if the browser is closed. To fix it, install the app or add it to your browser bookmarks.',
+    'Your data may not be saved reliably if the browser is closed. To fix this, install the app as described in the Install tab, or use a different browser such as Chrome or Firefox.',
 };
 
 export async function requestPersistentStorage(): Promise<boolean> {
