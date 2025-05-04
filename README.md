@@ -166,12 +166,12 @@ following:
 
 - sRGB to Oklab (WebGL),
 - sRGB to spectral reflectance,
-- subtractive color mixing using Kubelka-Munk theory,
+- subtractive color mixing using empirical model based on the Kubelka-Munk theory,
 - matrix operations,
 - matrix inversion using LU decomposition,
 - solving a system of linear algebraic equations using forward and backward substitution,
 - the average color of the circular area of the image
-- calculation of color similarity by comparing spectral reflections (weighted geometrec mean of Pearson correlation coefficient and Euclidean distance)
+- calculation of color similarity by comparing spectral reflections (weighted geometric mean of angular similarity (cosine) and Euclidean distance)
 - vector operations,
 - threshold filter based on perceived lightness (WebGL),
 - Kuwahara blur filter (WebGL),
