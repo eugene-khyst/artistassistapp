@@ -418,7 +418,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
             outline, draw with the grid method, paint with a limited palette, simplify a photo,
             compare photos pairwise, and more.
           </Typography.Text>
-          {!isAuthLoading && !user ? (
+          {!isAuthLoading && !user && (
             <Typography.Text strong>
               Join ArtistAssistApp on Patreon as a paid member and get full access to all available
               color brands and app features without ads. Or log in with Patreon if you&apos;ve
@@ -432,10 +432,6 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
                 guide
               </Typography.Link>
               .
-            </Typography.Text>
-          ) : (
-            <Typography.Text>
-              Welcome{user?.name && `, ${user.name}`}! Thank you for your support on Patreon.
             </Typography.Text>
           )}
         </Space>

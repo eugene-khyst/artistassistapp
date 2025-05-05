@@ -18,7 +18,6 @@
 
 export interface User {
   id: string;
-  name?: string;
 }
 
 export class AuthError extends Error {

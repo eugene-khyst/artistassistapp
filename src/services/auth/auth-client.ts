@@ -42,11 +42,10 @@ export class AuthClient {
     const JWKS = jose.createLocalJWKSet(jwks as jose.JSONWebKeySet);
     const {issuer, audience} = this.props;
     const {
-      payload: {sub, name},
+      payload: {sub},
     } = await jose.jwtVerify(jwt, JWKS, {issuer, audience});
     return {
       id: sub!,
-      name: name as string,
     };
   }
 
