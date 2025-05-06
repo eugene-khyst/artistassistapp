@@ -29,7 +29,6 @@ import {PromiseErrorBoundary} from '~/src/components/alert/PromiseErrorBoundary'
 import {APP_URL, AUTH_URL} from '~/src/config';
 import {AuthProvider} from '~/src/contexts/AuthProvider';
 import {registerFileHandler} from '~/src/file-handler';
-import {confirmHistoryChange} from '~/src/history';
 import {clearDatabase} from '~/src/services/db/db';
 import {disableScreenLock} from '~/src/wake-lock';
 
@@ -39,7 +38,6 @@ import {registerServiceWorker} from './register-service-worker';
 registerServiceWorker();
 registerFileHandler();
 disableScreenLock();
-confirmHistoryChange();
 void clearDatabase();
 
 const queryClient = new QueryClient({

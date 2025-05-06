@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {replaceHistory} from '~/src/history';
 import type {ColorSetDefinition, ColorType} from '~/src/services/color/types';
 import type {UrlParsingResult} from '~/src/services/url/types';
 import {TabKey} from '~/src/tabs';
+import {replaceHistory} from '~/src/utils/history';
 
 const URL_PARAM_COLOR_TYPE = 't';
 const URL_PARAM_COLOR_BRANDS = 'b';

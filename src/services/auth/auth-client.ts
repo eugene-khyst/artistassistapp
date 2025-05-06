@@ -18,9 +18,9 @@
 
 import * as jose from 'jose';
 
-import {replaceHistory} from '~/src/history';
 import type {User} from '~/src/services/auth/types';
 import {AuthError} from '~/src/services/auth/types';
+import {replaceHistory} from '~/src/utils/history';
 
 import jwks from './jwks.json';
 

@@ -33,6 +33,7 @@ import {Install} from '~/src/components/Install';
 import type {ChangableComponent} from '~/src/components/types';
 import {TabContext} from '~/src/contexts/TabContext';
 import {useAuth} from '~/src/hooks/useAuth';
+import {useDoubleBackPressToExit} from '~/src/hooks/useDoubleBackPressToExit';
 import {useFullScreen} from '~/src/hooks/useFullscreen';
 import {useInstallPrompt} from '~/src/hooks/useInstallPrompt';
 import {useDisplayMode} from '~/src/hooks/usePwaDisplayMode';
@@ -79,6 +80,8 @@ export const ArtistAssistApp: React.FC = () => {
 
   const [isAdModalReady, setIsAdModalReady] = useState<boolean>(false);
   const [isAdModalOpen, setIsAdModalOpen] = useState<boolean>(true);
+
+  useDoubleBackPressToExit();
 
   useEffect(() => {
     void (async () => {
