@@ -228,7 +228,7 @@ export const ColorMixer: React.FC = () => {
                           <Select
                             options={RATIO_OPTIONS}
                             placeholder="Select part"
-                            style={{width: 50}}
+                            style={{width: 55}}
                           />
                         </Form.Item>
                         {'×'}
