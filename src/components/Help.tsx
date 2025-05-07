@@ -26,6 +26,7 @@ import {
   MailOutlined,
   ReadOutlined,
   ReloadOutlined,
+  StopOutlined,
 } from '@ant-design/icons';
 import type {ProgressProps} from 'antd';
 import {Button, Col, Flex, Popconfirm, Progress, Row, Space, theme, Typography} from 'antd';
@@ -88,6 +89,7 @@ export const Help: React.FC = () => {
               type="link"
               href={`${WEBSITE_URL}/tutorials/`}
               target="_blank"
+              rel="noopener"
               icon={<ReadOutlined />}
               size="large"
             >
@@ -97,6 +99,7 @@ export const Help: React.FC = () => {
               type="link"
               href={WEBSITE_URL}
               target="_blank"
+              rel="noopener"
               icon={<InfoCircleOutlined />}
               size="large"
             >
@@ -104,12 +107,13 @@ export const Help: React.FC = () => {
             </Button>
             <Button
               type="link"
-              href={`${WEBSITE_URL}/contact/`}
+              href="https://support.patreon.com/hc/en-us/articles/360005502572-Canceling-a-paid-membership"
               target="_blank"
-              icon={<MailOutlined />}
+              rel="noopener noreferrer"
+              icon={<StopOutlined />}
               size="large"
             >
-              Contact
+              Cancel a paid membership
             </Button>
           </Space>
         </Col>
@@ -117,8 +121,19 @@ export const Help: React.FC = () => {
           <Space direction="vertical" align="start" size={0} style={{width: '100%'}}>
             <Button
               type="link"
+              href={`${WEBSITE_URL}/contact/`}
+              target="_blank"
+              rel="noopener"
+              icon={<MailOutlined />}
+              size="large"
+            >
+              Contact
+            </Button>
+            <Button
+              type="link"
               href={`${WEBSITE_URL}/privacy-policy/`}
               target="_blank"
+              rel="noopener"
               icon={<FileProtectOutlined />}
               size="large"
             >
@@ -128,6 +143,7 @@ export const Help: React.FC = () => {
               type="link"
               href={`${WEBSITE_URL}/terms-of-use/`}
               target="_blank"
+              rel="noopener"
               icon={<FileTextOutlined />}
               size="large"
             >
@@ -214,7 +230,7 @@ export const Help: React.FC = () => {
 
       <Typography.Text>
         ArtistAssistApp is developed by{' '}
-        <Typography.Link href="https://github.com/eugene-khyst" target="_blank">
+        <Typography.Link href="https://github.com/eugene-khyst" target="_blank" rel="noopener">
           Eugene Khyst
         </Typography.Link>
       </Typography.Text>

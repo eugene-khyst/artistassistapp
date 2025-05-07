@@ -23,7 +23,7 @@ import {PATREON_URL} from '~/src/config';
 
 export const JoinButton: React.FC = () => {
   return (
-    <Button type="primary" href={PATREON_URL} target="_blank">
+    <Button type="primary" href={PATREON_URL} target="_blank" rel="noopener">
       Join on Patreon
     </Button>
   );

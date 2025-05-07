@@ -411,28 +411,41 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
   return (
     <>
       <Flex vertical gap="small" style={{padding: '0 16px 16px'}}>
-        <Space direction="vertical">
+        <Space direction="vertical" size={0}>
           <Typography.Text>
-            <Typography.Text strong>ArtistAssistApp</Typography.Text> is a free web app for artists
-            to accurately mix any color from a photo, analyze tonal values, turn a photo into an
-            outline, draw with the grid method, paint with a limited palette, simplify a photo,
-            compare photos pairwise, and more.
+            <Typography.Text strong>ArtistAssistApp</Typography.Text> is a web app that helps
+            artists to mix colors from photos, analyze tonal values, outline photos, draw with
+            grids, paint with limited palettes, and more.
           </Typography.Text>
           {!isAuthLoading && !user && (
-            <Typography.Text strong>
-              Join ArtistAssistApp on Patreon as a paid member and get full access to all available
-              color brands and app features without ads. Or log in with Patreon if you&apos;ve
-              already joined.
-              <br />
-              If you are having trouble logging in, please read this{' '}
-              <Typography.Link
-                href="https://www.patreon.com/posts/having-trouble-115178129"
-                target="_blank"
-              >
-                guide
-              </Typography.Link>
-              .
-            </Typography.Text>
+            <>
+              <Typography.Text>
+                You are currently using the <Typography.Text strong>free version</Typography.Text>{' '}
+                with a limited number of color brands and image processing modes.
+              </Typography.Text>
+              <Typography.Text>
+                <Typography.Text strong>
+                  Join ArtistAssistApp on Patreon as a paid member
+                </Typography.Text>
+                , or <Typography.Text strong>log in with Patreon</Typography.Text> if you&apos;ve
+                already joined, to get access to more than 200 color brands and all image processing
+                modes without ads.
+              </Typography.Text>
+              <Typography.Text>
+                Explore the free version before deciding to purchase a paid membership.
+              </Typography.Text>
+              <Typography.Text strong>
+                If you are having trouble logging in, please read this{' '}
+                <Typography.Link
+                  href="https://www.patreon.com/posts/having-trouble-115178129"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  guide
+                </Typography.Link>
+                .
+              </Typography.Text>
+            </>
           )}
         </Space>
 

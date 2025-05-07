@@ -96,7 +96,7 @@ export const Ad: React.FC<Props> = ({ads, vertical = false, footer, style}: Prop
         <div style={{marginBottom: 16, textAlign: 'justify'}}>{formatRichText(ad.text)}</div>
         <Space>
           {ad.linkUrl && (
-            <Button type="primary" size="large" href={ad.linkUrl} target="_blank">
+            <Button type="primary" size="large" href={ad.linkUrl} target="_blank" rel="noopener">
               {ad.linkText}
             </Button>
           )}
