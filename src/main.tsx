@@ -19,11 +19,13 @@
 import './index.css';
 
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import {Alert, App} from 'antd';
+import {App} from 'antd';
 import {StrictMode} from 'react';
 import type {Root} from 'react-dom/client';
 import {createRoot} from 'react-dom/client';
+import {ErrorBoundary} from 'react-error-boundary';
 
+import {AlertTimedReloadFallback} from '~/src/components/alert/AlertTimedReloadFallback';
 import {BrowserSupport} from '~/src/components/alert/BrowserSupport';
 import {PromiseErrorBoundary} from '~/src/components/alert/PromiseErrorBoundary';
 import {APP_URL, AUTH_URL} from '~/src/config';
@@ -58,7 +60,7 @@ const root: Root = createRoot(document.getElementById('root')!);
 root.render(
   <StrictMode>
     <App>
-      <Alert.ErrorBoundary>
+      <ErrorBoundary FallbackComponent={AlertTimedReloadFallback}>
         <PromiseErrorBoundary>
           <BrowserSupport>
             <QueryClientProvider client={queryClient}>
@@ -73,7 +75,7 @@ root.render(
             </QueryClientProvider>
           </BrowserSupport>
         </PromiseErrorBoundary>
-      </Alert.ErrorBoundary>
+      </ErrorBoundary>
     </App>
   </StrictMode>
 );

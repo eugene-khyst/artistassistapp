@@ -9,13 +9,13 @@
     <p>This page can&apos;t be found.</p>
     <p>Redirecting to main page in <span id="seconds-remaining"></span>.</p>
     <script>
-      let secondsRemaining = 5;
+      let countdown = 5;
       const secondsRemainingEl = document.getElementById('seconds-remaining');
-      secondsRemainingEl.innerHTML = `${secondsRemaining} seconds`;
+      secondsRemainingEl.innerHTML = `${countdown} seconds`;
       const timer = setInterval(() => {
-        secondsRemaining--;
-        secondsRemainingEl.innerHTML = `${secondsRemaining} ${secondsRemaining === 1 ? 'second' : 'seconds'}`;
-        if (secondsRemaining === 0) {
+        countdown--;
+        secondsRemainingEl.innerHTML = `${countdown} second${countdown === 1 ? '' : 's'}`;
+        if (countdown === 0) {
           clearInterval(timer);
           window.location.href = '/';
         }

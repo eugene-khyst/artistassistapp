@@ -17,9 +17,7 @@
  */
 
 import {
-  ClearOutlined,
   CloudSyncOutlined,
-  DeleteOutlined,
   FileProtectOutlined,
   FileTextOutlined,
   InfoCircleOutlined,
@@ -29,12 +27,12 @@ import {
   StopOutlined,
 } from '@ant-design/icons';
 import type {ProgressProps} from 'antd';
-import {Button, Col, Flex, Popconfirm, Progress, Row, Space, theme, Typography} from 'antd';
+import {Button, Col, Flex, Progress, Row, Space, theme, Typography} from 'antd';
 import {useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
+import {ClearStorage} from '~/src/components/storage/ClearStorage';
 import {COMMIT_HASH, WEBSITE_URL} from '~/src/config';
-import {deleteDatabase} from '~/src/services/db/db';
 import {useAppStore} from '~/src/stores/app-store';
 import {formatBytes} from '~/src/utils/format';
 
@@ -44,18 +42,6 @@ const THREE_COLORS: ProgressProps['strokeColor'] = {
   '0%': '#00FF00',
   '50%': '#FFFF00',
   '100%': '#FF0000',
-};
-
-const clearCache = async () => {
-  const keys = await caches.keys();
-  await Promise.all(keys.map(key => caches.delete(key)));
-};
-
-const deleteAppData = async () => {
-  void deleteDatabase();
-  void clearCache();
-  const registration = await navigator.serviceWorker.getRegistration();
-  await registration?.unregister();
 };
 
 export const Help: React.FC = () => {
@@ -194,34 +180,7 @@ export const Help: React.FC = () => {
         </Space>
       )}
 
-      <Space>
-        <Popconfirm
-          title="Clear cache"
-          description="Are you sure you want to clear the cache?"
-          onConfirm={() => {
-            void clearCache();
-            window.location.reload();
-          }}
-          okText="Yes"
-          cancelText="No"
-        >
-          <Button icon={<ClearOutlined />}>Clear cache</Button>
-        </Popconfirm>
-        <Popconfirm
-          title="Delete all app data"
-          description="Are you sure you want to delete all app data?"
-          onConfirm={() => {
-            void deleteAppData();
-            window.location.reload();
-          }}
-          okText="Yes"
-          cancelText="No"
-        >
-          <Button icon={<DeleteOutlined />} danger>
-            Delete all app data
-          </Button>
-        </Popconfirm>
-      </Space>
+      <ClearStorage />
 
       <Typography.Text type="secondary">
         The app stores all data in the web browser storage even after installation. Clearing the web

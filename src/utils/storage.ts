@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {deleteDatabase} from '~/src/services/db/db';
+
 export const PERSISTENT_STORAGE_WARN = {
   title: 'Persistent storage is not enabled',
   content:
@@ -42,4 +44,29 @@ export async function requestPersistentStorage(): Promise<boolean> {
     console.error('Failed to request persistent storage:', error);
     return false;
   }
+}
+
+function reloadConditionally(reload: boolean) {
+  if (reload) {
+    window.location.reload();
+  }
+}
+
+export async function clearCache(reload = false) {
+  const keys = await caches.keys();
+  await Promise.all(keys.map(key => caches.delete(key)));
+  reloadConditionally(reload);
+}
+
+export async function deleteAppData(reload = false) {
+  await clearCache();
+  await deleteDatabase();
+  reloadConditionally(reload);
+}
+
+export async function unregisterServiceWorker(reload = false) {
+  await clearCache();
+  const registration = await navigator.serviceWorker.getRegistration();
+  await registration?.unregister();
+  reloadConditionally(reload);
 }
