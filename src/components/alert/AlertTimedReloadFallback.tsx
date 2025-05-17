@@ -59,7 +59,7 @@ export const AlertTimedReloadFallback: React.FC<FallbackProps> = ({error}: Fallb
           <Typography.Text>{errorMessage}</Typography.Text>
           {countdown > 0 && (
             <Typography.Text>
-              The application will attempt to reload in {countdown} second
+              The app will attempt to reload in {countdown} second
               {countdown === 1 ? '' : 's'}...
             </Typography.Text>
           )}
