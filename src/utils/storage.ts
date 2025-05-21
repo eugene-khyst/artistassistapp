@@ -60,7 +60,11 @@ export async function clearCache(reload = false) {
 
 export async function deleteAppData(reload = false) {
   await clearCache();
-  await deleteDatabase();
+  await deleteDatabase({
+    blocked: () => {
+      reloadConditionally(reload);
+    },
+  });
   reloadConditionally(reload);
 }
 

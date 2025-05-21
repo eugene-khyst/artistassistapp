@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {DBSchema, IDBPDatabase} from 'idb';
+import type {DBSchema, DeleteDBCallbacks, IDBPDatabase} from 'idb';
 import {deleteDB, openDB} from 'idb';
 
 import type {
@@ -126,8 +126,8 @@ export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artist
   }
 );
 
-export async function deleteDatabase(): Promise<void> {
-  await deleteDB(DB_NAME);
+export async function deleteDatabase(callbacks: DeleteDBCallbacks): Promise<void> {
+  await deleteDB(DB_NAME, callbacks);
 }
 
 export async function clearDatabase(): Promise<void> {
@@ -137,7 +137,7 @@ export async function clearDatabase(): Promise<void> {
   const databases: IDBDatabaseInfo[] = await indexedDB.databases();
   for (const {name} of databases) {
     if (name && name !== DB_NAME) {
-      await deleteDB(name);
+      void deleteDB(name);
     }
   }
 }
