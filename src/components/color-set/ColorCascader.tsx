@@ -66,7 +66,16 @@ function getColorOptions(colorSet?: ColorSet | null): CascaderOptionType[] {
     .filter((option): option is CascaderOptionType => !!option);
 }
 
-type Props = CascaderAutoProps;
+type Props = Omit<
+  CascaderAutoProps,
+  | 'options'
+  | 'placeholder'
+  | 'showSearch'
+  | 'expandTrigger'
+  | 'showCheckedStrategy'
+  | 'displayRender'
+  | 'allowClear'
+>;
 
 export const ColorCascader: React.FC<Props> = ({multiple, ...rest}: Props) => {
   const colorSet = useAppStore(state => state.colorSet);

@@ -55,13 +55,12 @@ function getStandardColorSetOptions(
   ];
 }
 
-type Props = CascaderAutoProps & {
+type Props = Omit<CascaderAutoProps, 'options' | 'placeholder' | 'showSearch' | 'expandTrigger'> & {
   brands?: ColorBrandDefinition[];
   standardColorSets?: Map<string, Map<string, StandardColorSetDefinition>>;
 };
 
 export const StandardColorSetCascader: React.FC<Props> = ({
-  onChange,
   brands,
   standardColorSets,
   ...rest
@@ -70,7 +69,6 @@ export const StandardColorSetCascader: React.FC<Props> = ({
   return (
     // @ts-expect-error Cascader prop drilling
     <Cascader
-      onChange={onChange}
       options={options}
       placeholder="Select set"
       showSearch={{filter: filterCascaderOptions}}

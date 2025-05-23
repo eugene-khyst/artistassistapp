@@ -61,7 +61,10 @@ const colorBrandOptionRender = ({
   </>
 );
 
-type Props = SelectProps & {
+type Props = Omit<
+  SelectProps,
+  'options' | 'placeholder' | 'showSearch' | 'filterOption' | 'optionRender' | 'allowClear'
+> & {
   brands?: Map<number, ColorBrandDefinition>;
 };
 

@@ -56,7 +56,7 @@ export const AddToPaletteButton: React.FC<Props> = ({
     <Button
       size={size}
       icon={<PlusOutlined />}
-      onClick={() => void saveToPalette({...colorMixture}, linkToImage)}
+      onClick={() => void saveToPalette(colorMixture, linkToImage)}
       style={style}
     >
       Add to palette

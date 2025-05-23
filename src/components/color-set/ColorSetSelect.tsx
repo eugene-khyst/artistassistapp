@@ -54,7 +54,7 @@ function getColorSetOptions(
   ];
 }
 
-type Props = SelectProps & {
+type Props = Omit<SelectProps, 'options' | 'placeholder' | 'showSearch' | 'filterOption'> & {
   colorSets?: ColorSetDefinition[];
   brands?: Map<number, ColorBrandDefinition>;
   onCreateNewClick?: () => void;

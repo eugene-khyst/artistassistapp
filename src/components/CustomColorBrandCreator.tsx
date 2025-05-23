@@ -42,6 +42,7 @@ import {saveAs} from 'file-saver';
 import type {ChangeEvent} from 'react';
 import {useCallback, useEffect, useState} from 'react';
 
+import {OpacitySelect} from '~/src/components/color/OpacitySelect';
 import {ColorTypeSelect} from '~/src/components/color-set/ColorTypeSelect';
 import {CustomColorBrandSelect} from '~/src/components/color-set/CustomColorBrandSelect';
 import {FileSelect} from '~/src/components/image/FileSelect';
@@ -54,7 +55,7 @@ import {
   MIN_COLOR_PICKER_DIAMETER,
 } from '~/src/services/canvas/image/image-color-picker-canvas';
 import {Rgb} from '~/src/services/color/space/rgb';
-import type {ColorDefinition, CustomColorBrandDefinition} from '~/src/services/color/types';
+import {type ColorDefinition, type CustomColorBrandDefinition} from '~/src/services/color/types';
 import {getLastCustomColorBrand} from '~/src/services/db/custom-brand-db';
 import {useAppStore} from '~/src/stores/app-store';
 
@@ -77,13 +78,25 @@ function calculateRho(brand: CustomColorBrandDefinition): CustomColorBrandDefini
   const {colors} = brand;
   return {
     ...brand,
-    colors: colors?.map((color: Partial<ColorDefinition>): Partial<ColorDefinition> => {
-      const {hex} = color;
+    colors: colors?.map(({hex, ...color}: Partial<ColorDefinition>): Partial<ColorDefinition> => {
       return {
         ...color,
+        hex,
         rho: [...Rgb.fromHex(hex!).toReflectance().toArray()],
       };
     }),
+  };
+}
+
+function removeRho(brand: CustomColorBrandDefinition): CustomColorBrandDefinition {
+  const {colors} = brand;
+  return {
+    ...brand,
+    colors: colors?.map(
+      ({rho: _, ...color}: Partial<ColorDefinition>): Partial<ColorDefinition> => {
+        return color;
+      }
+    ),
   };
 }
 
@@ -112,14 +125,13 @@ export const CustomColorBrandCreator: React.FC = () => {
       colorPickerCanvas.setPipetDiameter(DEFAULT_SAMPLE_DIAMETER);
       const listener = ({rgb}: PipetPointSetEvent) => {
         const hex = rgb.toHex();
-        console.log(hex.toUpperCase());
         setCurrentColor(hex);
         const colors = form.getFieldValue('colors') as Partial<ColorDefinition>[];
         form.setFieldValue('colors', [
           ...colors,
           {
             id: colors.map(({id}) => id ?? 0).reduce((prev, curr) => Math.max(prev, curr), 0) + 1,
-            hex,
+            hex: hex.toUpperCase(),
           },
         ]);
         void form.validateFields(['colors']);
@@ -144,7 +156,7 @@ export const CustomColorBrandCreator: React.FC = () => {
       const latestCustomColorBrand: CustomColorBrandDefinition | undefined =
         await getLastCustomColorBrand();
       if (latestCustomColorBrand) {
-        form.setFieldsValue(latestCustomColorBrand);
+        form.setFieldsValue(removeRho(latestCustomColorBrand));
       }
     })();
   }, [form]);
@@ -158,7 +170,8 @@ export const CustomColorBrandCreator: React.FC = () => {
     const file: File | null = e.target.files?.[0] ?? null;
     if (file) {
       form.resetFields();
-      form.setFieldsValue(JSON.parse(await file.text()) as CustomColorBrandDefinition);
+      const brand = JSON.parse(await file.text()) as CustomColorBrandDefinition;
+      form.setFieldsValue(brand);
     }
   };
 
@@ -175,7 +188,7 @@ export const CustomColorBrandCreator: React.FC = () => {
       ...colors,
       {
         id: colors.map(({id}) => id ?? 0).reduce((prev, curr) => Math.max(prev, curr), 0) + 1,
-        hex,
+        hex: hex.toUpperCase(),
       },
     ]);
     void form.validateFields(['colors']);
@@ -189,7 +202,7 @@ export const CustomColorBrandCreator: React.FC = () => {
           ({id}: CustomColorBrandDefinition) => id === changedValues.id
         );
         if (brand) {
-          form.setFieldsValue(brand);
+          form.setFieldsValue(removeRho(brand));
         }
       }
     }
@@ -205,15 +218,16 @@ export const CustomColorBrandCreator: React.FC = () => {
     );
   };
 
-  const handleSubmit = async (values: CustomColorBrandDefinition) => {
-    const {id, ...brand} = values;
-    form.setFieldsValue(
-      await saveCustomColorBrand({
-        ...calculateRho(brand),
-        ...(id ? {id} : {}),
-      })
+  const handleSubmit = async ({id, ...brand}: CustomColorBrandDefinition) => {
+    ({id} = await saveCustomColorBrand({
+      ...calculateRho(brand),
+      ...(id ? {id} : {}),
+    }));
+    form.setFieldsValue({...brand, id});
+    saveAs(
+      new Blob([JSON.stringify(brand, null, 2)], {type: 'application/json'}),
+      `${brand.name}.json`
     );
-    saveAs(new Blob([JSON.stringify(brand)], {type: 'application/json'}), `${brand.name}.json`);
     invalidateQueries();
   };
 
@@ -391,23 +405,26 @@ export const CustomColorBrandCreator: React.FC = () => {
                             <Form.Item
                               {...restField}
                               name={[name, 'hex']}
-                              rules={[{required: true, message: 'Color is required'}]}
+                              rules={[{required: true, message: 'Required'}]}
                             >
                               <ColorPicker disabled />
                             </Form.Item>
                             <Form.Item
                               {...restField}
                               name={[name, 'id']}
-                              rules={[{required: true, message: 'ID is required'}]}
+                              rules={[{required: true, message: 'Required'}]}
                             >
                               <InputNumber placeholder="ID" style={{width: 70}} />
                             </Form.Item>
                             <Form.Item
                               {...restField}
                               name={[name, 'name']}
-                              rules={[{required: true, message: 'Name is required'}]}
+                              rules={[{required: true, message: 'Required'}]}
                             >
                               <Input placeholder="Name" />
+                            </Form.Item>
+                            <Form.Item {...restField} name={[name, 'opacity']}>
+                              <OpacitySelect style={{width: 65}} />
                             </Form.Item>
                             <Button
                               shape="circle"

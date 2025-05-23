@@ -16,18 +16,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {SelectProps} from 'antd';
 import {Select} from 'antd';
-import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
+import type {DefaultOptionType as SelectOptionType, SelectProps} from 'antd/es/select';
+import React from 'react';
 
-import {COLOR_TYPES} from '~/src/services/color/colors';
+import {OpacityIcon} from '~/src/components/color/OpacityIcon';
+import {ColorOpacity} from '~/src/services/color/types';
 
-const COLOR_TYPE_OPTIONS: SelectOptionType[] = [...COLOR_TYPES.entries()].map(
-  ([value, {name}]) => ({value, label: name})
+const OPACITY_OPTIONS: SelectOptionType[] = [
+  ColorOpacity.Transparent,
+  ColorOpacity.SemiTransparent,
+  ColorOpacity.SemiOpaque,
+  ColorOpacity.Opaque,
+].map(
+  (opacity): SelectOptionType => ({
+    label: <OpacityIcon key={opacity} opacity={opacity} />,
+    value: opacity,
+  })
 );
 
-type Props = Omit<SelectProps, 'options' | 'placeholder'>;
+type Props = Omit<SelectProps, 'options' | 'placeholder' | 'allowClear'>;
 
-export const ColorTypeSelect: React.FC<Props> = (props: Props) => {
-  return <Select options={COLOR_TYPE_OPTIONS} placeholder="Select medium" {...props} />;
+export const OpacitySelect: React.FC<Props> = props => {
+  return <Select options={OPACITY_OPTIONS} placeholder="Opa." allowClear {...props} />;
 };

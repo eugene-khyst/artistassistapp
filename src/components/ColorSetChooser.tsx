@@ -352,12 +352,11 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
     });
   };
 
-  const handleSubmit = async (values: ColorSetDefinition) => {
+  const handleSubmit = async ({id, ...colorSet}: ColorSetDefinition) => {
     if (!(await requestPersistentStorage())) {
       await modal.warning(PERSISTENT_STORAGE_WARN);
     }
     setHasUnsavedChanges(false);
-    const {id, ...colorSet} = values;
     form.setFieldsValue(
       await saveColorSet(
         user,

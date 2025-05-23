@@ -49,7 +49,10 @@ function getColorOptions(
   });
 }
 
-type Props = SelectProps & {
+type Props = Omit<
+  SelectProps,
+  'options' | 'placeholder' | 'showSearch' | 'filterOption' | 'allowClear'
+> & {
   brand: ColorBrandDefinition;
   colors?: Map<number, ColorDefinition>;
 };

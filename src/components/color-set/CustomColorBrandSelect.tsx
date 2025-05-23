@@ -53,7 +53,7 @@ function getCustomColorBrandOptions(
   ];
 }
 
-type Props = SelectProps & {
+type Props = Omit<SelectProps, 'options' | 'placeholder' | 'showSearch' | 'filterOption'> & {
   customColorBrands?: CustomColorBrandDefinition[];
   onCreateNewClick?: () => void;
 };
