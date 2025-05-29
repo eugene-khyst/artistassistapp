@@ -16,21 +16,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  gaussianBlurRenderPasses,
+  type KernelSize,
+} from '~/src/services/image/filter/gaussian-blur-webgl';
 import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
 import {copyOffscreenCanvas} from '~/src/utils/graphics';
+import type {Size} from '~/src/utils/types';
 
-import fragmentShaderSource from './glsl/sobel-operator.glsl';
+import gaussianBlurFragmentShaderSource from './glsl/gaussian-blur.glsl';
+import sobelOperatorFragmentShaderSource from './glsl/sobel-operator.glsl';
 
-export function sobelEdgeDetectionWebGL(image: ImageBitmap): ImageBitmap {
-  const renderer = new WebGLRenderer(fragmentShaderSource, image);
-  const {canvas, gl, program} = renderer;
-
-  const texelSizeLocation = gl.getUniformLocation(program, 'u_texelSize');
+export function sobelEdgeDetectionWebGL(
+  image: ImageBitmap,
+  gaussianBlurKernelSize: KernelSize
+): ImageBitmap {
+  const renderer = new WebGLRenderer(
+    [gaussianBlurFragmentShaderSource, sobelOperatorFragmentShaderSource],
+    [['u_texelSize', 'u_kernel', 'u_kernelSize', 'u_direction'], ['u_texelSize']],
+    image
+  );
   const {width, height} = image;
-  gl.uniform2f(texelSizeLocation, 1.0 / width, 1.0 / height);
-
-  renderer.draw();
-  const resultImage = copyOffscreenCanvas(canvas).transferToImageBitmap();
+  const texelSize: Size = [1.0 / width, 1.0 / height];
+  renderer.render([
+    ...gaussianBlurRenderPasses(texelSize, gaussianBlurKernelSize, 0),
+    {
+      programIndex: 1,
+      setUniforms(gl, locations) {
+        gl.uniform2f(locations.get('u_texelSize')!, ...texelSize);
+      },
+    },
+  ]);
+  const resultImage = copyOffscreenCanvas(renderer.canvas).transferToImageBitmap();
   renderer.cleanUp();
   return resultImage;
 }

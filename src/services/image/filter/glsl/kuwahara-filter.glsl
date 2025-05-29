@@ -22,7 +22,7 @@ struct QuadrantStats {
 QuadrantStats calculateQuadrantStats(int startX, int endX, int startY, int endY) {
   vec3 colorSum = vec3(0.0);
   float valueSum = 0.0;
-  float valueSquaredSum = 0.0;
+  float valueSquareSum = 0.0;
   float count = 0.0;
 
   for (int x = startX; x <= endX; ++x) {
@@ -32,13 +32,13 @@ QuadrantStats calculateQuadrantStats(int startX, int endX, int startY, int endY)
       colorSum += color.rgb;
       float value = getLuminance(srgbToLinear(color.rgb));
       valueSum += value;
-      valueSquaredSum += value * value;
+      valueSquareSum += value * value;
       count += 1.0;
     }
   }
 
   float valueMean = valueSum / count;
-  float variance = (valueSquaredSum / count) - (valueMean * valueMean);
+  float variance = (valueSquareSum / count) - (valueMean * valueMean);
 
   QuadrantStats stats;
   stats.mean = colorSum / count;

@@ -37,34 +37,46 @@ export function adjustColorsWebGL(
     targetTemperature = 6500,
   }: AdjustmentParameters = {}
 ): ImageBitmap {
-  const renderer = new WebGLRenderer(fragmentShaderSource, image);
-  const {canvas, gl, program} = renderer;
-
-  const maxValuesLocation = gl.getUniformLocation(program, 'u_invMaxValues');
-  const saturationLocation = gl.getUniformLocation(program, 'u_saturation');
-  const inputLowLocation = gl.getUniformLocation(program, 'u_inputLow');
-  const inputHighLocation = gl.getUniformLocation(program, 'u_inputHigh');
-  const gammaLocation = gl.getUniformLocation(program, 'u_gamma');
-  const outputLowLocation = gl.getUniformLocation(program, 'u_outputLow');
-  const outputHighLocation = gl.getUniformLocation(program, 'u_outputHigh');
-  const scaleRLocation = gl.getUniformLocation(program, 'u_scaleR');
-  const scaleGLocation = gl.getUniformLocation(program, 'u_scaleG');
-  const scaleBLocation = gl.getUniformLocation(program, 'u_scaleB');
-  gl.uniform3fv(maxValuesLocation, new Float32Array(maxValues.map(v => 1 / v)));
-  gl.uniform1f(saturationLocation, saturation);
-  gl.uniform1f(inputLowLocation, inputLow);
-  gl.uniform1f(inputHighLocation, inputHigh);
-  gl.uniform1f(gammaLocation, gamma);
-  gl.uniform1f(outputLowLocation, outputLow);
-  gl.uniform1f(outputHighLocation, outputHigh);
-  const origTempRgb = kelvinToRgb(origTemperature);
-  const targetTempRgb = kelvinToRgb(targetTemperature);
-  gl.uniform1f(scaleRLocation, (origTempRgb.r || 1) / (targetTempRgb.r || 1));
-  gl.uniform1f(scaleGLocation, (origTempRgb.g || 1) / (targetTempRgb.g || 1));
-  gl.uniform1f(scaleBLocation, (origTempRgb.b || 1) / (targetTempRgb.b || 1));
-
-  renderer.draw();
-  const resultImage = copyOffscreenCanvas(canvas).transferToImageBitmap();
+  const renderer = new WebGLRenderer(
+    [fragmentShaderSource],
+    [
+      [
+        'u_invMaxValues',
+        'u_saturation',
+        'u_inputLow',
+        'u_inputHigh',
+        'u_gamma',
+        'u_outputLow',
+        'u_outputHigh',
+        'u_scaleR',
+        'u_scaleG',
+        'u_scaleB',
+      ],
+    ],
+    image
+  );
+  renderer.render([
+    {
+      setUniforms(gl, locations) {
+        gl.uniform3fv(
+          locations.get('u_invMaxValues')!,
+          new Float32Array(maxValues.map(v => 1 / v))
+        );
+        gl.uniform1f(locations.get('u_saturation')!, saturation);
+        gl.uniform1f(locations.get('u_inputLow')!, inputLow);
+        gl.uniform1f(locations.get('u_inputHigh')!, inputHigh);
+        gl.uniform1f(locations.get('u_gamma')!, gamma);
+        gl.uniform1f(locations.get('u_outputLow')!, outputLow);
+        gl.uniform1f(locations.get('u_outputHigh')!, outputHigh);
+        const origTempRgb = kelvinToRgb(origTemperature);
+        const targetTempRgb = kelvinToRgb(targetTemperature);
+        gl.uniform1f(locations.get('u_scaleR')!, (origTempRgb.r || 1) / (targetTempRgb.r || 1));
+        gl.uniform1f(locations.get('u_scaleG')!, (origTempRgb.g || 1) / (targetTempRgb.g || 1));
+        gl.uniform1f(locations.get('u_scaleB')!, (origTempRgb.b || 1) / (targetTempRgb.b || 1));
+      },
+    },
+  ]);
+  const resultImage = copyOffscreenCanvas(renderer.canvas).transferToImageBitmap();
   renderer.cleanUp();
   return resultImage;
 }

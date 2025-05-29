@@ -24,20 +24,23 @@ import fragmentShaderSource from './glsl/threshold.glsl';
 export const THRESHOLD_VALUES: number[] = [2 / 3, 1 / 3, 0];
 
 export function thresholdFilterWebGL(image: ImageBitmap, thresholds: number[]): ImageBitmap[] {
-  const renderer = new WebGLRenderer(fragmentShaderSource, image);
-  const {canvas, gl, program} = renderer;
-
-  const thresholdsLocation = gl.getUniformLocation(program, 'u_thresholds');
-  const colorsLocation = gl.getUniformLocation(program, 'u_values');
-  const toneLocation = gl.getUniformLocation(program, 'u_tone');
-  gl.uniform1fv(thresholdsLocation, new Float32Array(thresholds));
-  gl.uniform1fv(colorsLocation, new Float32Array(THRESHOLD_VALUES));
-
+  const renderer = new WebGLRenderer(
+    [fragmentShaderSource],
+    [['u_thresholds', 'u_values', 'u_tone']],
+    image
+  );
   const resultImages = thresholds.map((_, i) => {
-    gl.uniform1i(toneLocation, i);
     renderer.clear();
-    renderer.draw();
-    return copyOffscreenCanvas(canvas).transferToImageBitmap();
+    renderer.render([
+      {
+        setUniforms(gl, locations) {
+          gl.uniform1fv(locations.get('u_thresholds')!, new Float32Array(thresholds));
+          gl.uniform1fv(locations.get('u_values')!, new Float32Array(THRESHOLD_VALUES));
+          gl.uniform1i(locations.get('u_tone')!, i);
+        },
+      },
+    ]);
+    return copyOffscreenCanvas(renderer.canvas).transferToImageBitmap();
   });
   renderer.cleanUp();
   return resultImages;

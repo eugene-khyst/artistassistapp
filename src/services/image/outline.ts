@@ -41,7 +41,7 @@ export async function getOutline(
       image,
       IMAGE_SIZE['2K']
     );
-    outline = sobelEdgeDetectionWebGL(resizedImage);
+    outline = sobelEdgeDetectionWebGL(resizedImage, 5);
     resizedImage.close();
   }
   console.timeEnd('outline');

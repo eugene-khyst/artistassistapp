@@ -63,9 +63,11 @@ following:
 - the average color of the circular area of the image
 - calculation of color similarity by comparing spectral reflections (weighted geometric mean of angular similarity (cosine) and Euclidean distance)
 - vector operations,
+- WebGL multi-pass rendering,
+- two-pass one-dimensional Gaussian blur (WebGL),
+- Sobel operator for edge detection (WebGL),
 - threshold filter based on perceived lightness (WebGL),
 - Kuwahara blur filter (WebGL),
-- Sobel operator for edge detection (WebGL),
 - median cut for color quantization,
 - adjusting white balance with white patch algorithm (WebGL),
 - adjusting saturation (WebGL),
