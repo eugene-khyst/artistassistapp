@@ -18,13 +18,19 @@
 
 import * as jose from 'jose';
 
-import type {User} from '~/src/services/auth/types';
+import type {Authentication} from '~/src/services/auth/types';
 import {AuthError} from '~/src/services/auth/types';
 import {replaceHistory} from '~/src/utils/history';
 
 import jwks from './jwks.json';
 
 const ID_TOKEN_KEY = 'id_token';
+
+export function getMagicLink(jwt: string): string {
+  const url = new URL(window.location.origin);
+  url.searchParams.set(ID_TOKEN_KEY, jwt);
+  return url.toString();
+}
 
 export interface AuthClientProps {
   domain: string;
@@ -34,18 +40,22 @@ export interface AuthClientProps {
 }
 
 export class AuthClient {
-  private user: User | null = null;
+  private authentication: Authentication | undefined;
 
   constructor(public props: AuthClientProps) {}
 
-  private async verifyJwt(jwt: string): Promise<User> {
+  private async authenticate(jwt: string): Promise<Authentication> {
     const JWKS = jose.createLocalJWKSet(jwks as jose.JSONWebKeySet);
     const {issuer, audience} = this.props;
     const {
-      payload: {sub},
+      payload: {sub, exp},
     } = await jose.jwtVerify(jwt, JWKS, {issuer, audience});
     return {
-      id: sub!,
+      user: {
+        id: sub!,
+      },
+      expiration: new Date(exp! * 1000),
+      magicLink: getMagicLink(jwt),
     };
   }
 
@@ -58,31 +68,33 @@ export class AuthClient {
       throw new AuthError(type!, message);
     } else if (searchParams.has(ID_TOKEN_KEY)) {
       const jwt = searchParams.get(ID_TOKEN_KEY)!;
-      replaceHistory();
       try {
-        this.user = await this.verifyJwt(jwt);
+        console.log('handleRedirectCallback', jwt);
+        this.authentication = await this.authenticate(jwt);
         localStorage.setItem(ID_TOKEN_KEY, jwt);
+        replaceHistory();
       } catch (e) {
-        rethrowAuthError(e);
+        throw authError(e);
       }
     }
   }
 
-  async getUser(): Promise<User | null> {
-    if (this.user) {
-      return this.user;
+  async getAuthentication(): Promise<Authentication | undefined> {
+    if (this.authentication) {
+      return this.authentication;
     }
     const jwt: string | null = localStorage.getItem(ID_TOKEN_KEY);
     if (!jwt) {
-      return null;
+      return;
     }
+    console.log('getAuthentication', jwt);
     try {
-      this.user = await this.verifyJwt(jwt);
+      this.authentication = await this.authenticate(jwt);
+      return this.authentication;
     } catch (e) {
       localStorage.removeItem(ID_TOKEN_KEY);
-      rethrowAuthError(e);
+      throw authError(e);
     }
-    return this.user;
   }
 
   loginWithRedirect(): void {
@@ -97,21 +109,13 @@ export class AuthClient {
     window.location.reload();
   }
 
-  getMagicLink(): string | null {
-    const jwt: string | null = localStorage.getItem(ID_TOKEN_KEY);
-    if (!jwt) {
-      return null;
-    }
-    const url = new URL(window.location.origin);
-    url.searchParams.set(ID_TOKEN_KEY, jwt);
-    return url.toString();
+  isAuthValid(): boolean {
+    const exp = this.authentication?.expiration;
+    return !exp || new Date() < exp;
   }
 }
 
-function rethrowAuthError(e: any): void {
-  if (e instanceof jose.errors.JWTExpired) {
-    throw new AuthError('expired');
-  } else {
-    throw new AuthError('invalid_token');
-  }
+function authError(e: any): AuthError {
+  const type: string = e instanceof jose.errors.JWTExpired ? 'expired' : 'invalid_token';
+  return new AuthError(type);
 }

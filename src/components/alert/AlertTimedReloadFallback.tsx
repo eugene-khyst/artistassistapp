@@ -27,23 +27,23 @@ export const AlertTimedReloadFallback: React.FC<FallbackProps> = ({error}: Fallb
   const [countdown, setCountdown] = useState<number>(5);
 
   useEffect(() => {
-    const countdownInterval = setInterval(() => {
-      setCountdown(prevCountdown => {
-        if (prevCountdown <= 1) {
-          clearInterval(countdownInterval);
-          return 0;
+    const countdownIntervalId = setInterval(() => {
+      setCountdown(prev => {
+        const next = prev - 1;
+        if (next === 0) {
+          clearInterval(countdownIntervalId);
         }
-        return prevCountdown - 1;
+        return next;
       });
     }, 1000);
 
-    const reloadTimeout = setTimeout(() => {
+    const reloadTimeoutId = setTimeout(() => {
       void unregisterServiceWorker(true);
     }, 5000);
 
     return () => {
-      clearInterval(countdownInterval);
-      clearTimeout(reloadTimeout);
+      clearInterval(countdownIntervalId);
+      clearTimeout(reloadTimeoutId);
     };
   }, []);
 

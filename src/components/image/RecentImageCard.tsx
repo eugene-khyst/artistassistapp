@@ -20,6 +20,7 @@ import {DeleteOutlined} from '@ant-design/icons';
 import {Button, Card, Popconfirm} from 'antd';
 import dayjs from 'dayjs';
 
+import {DATE_TIME_FORMAT} from '~/src/config';
 import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
 import {useImageFileToBlob} from '~/src/hooks/useImageFileToBlob';
 import type {ImageFile} from '~/src/services/image/image-file';
@@ -37,7 +38,6 @@ export const RecentImageCard: React.FC<Props> = ({imageFile}: Props) => {
 
   const blob = useImageFileToBlob(imageFile);
   const imageUrl: string | undefined = useCreateObjectUrl(blob);
-  const dateStr: string | undefined = date && dayjs(date).format('DD/MM/YYYY HH:mm');
 
   const handleCardClick = () => {
     void saveRecentImageFile({...imageFile});
@@ -81,7 +81,10 @@ export const RecentImageCard: React.FC<Props> = ({imageFile}: Props) => {
           </Popconfirm>,
         ]}
       >
-        <Card.Meta title={name} description={`Last used ${dateStr}`} />
+        <Card.Meta
+          title={name}
+          description={date && `Last used ${dayjs(date).format(DATE_TIME_FORMAT)}`}
+        />
       </Card>
     )
   );

@@ -212,10 +212,10 @@ export function getColorSetName(
 }
 
 export function toColorSet(
-  user: User | null,
   {id, name, type, brands: selectedBrands, colors: selectedColors}: ColorSetDefinition,
   brands?: Map<number, ColorBrandDefinition>,
-  colors?: Map<string, Map<number, ColorDefinition>>
+  colors?: Map<string, Map<number, ColorDefinition>>,
+  user?: User | null
 ): ColorSet | undefined {
   const selectedColorsArr: [string, number[]][] = Object.entries(selectedColors ?? {});
   if (!id || !type || !selectedColorsArr.length || !brands || !colors) {

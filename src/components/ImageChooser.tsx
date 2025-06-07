@@ -65,7 +65,9 @@ export const ImageChooser: React.FC = () => {
           <FileSelect onChange={e => void handleFileChange(e)}>Select photo</FileSelect>
         </div>
 
-        <Typography.Text strong>Or select from your recent photos</Typography.Text>
+        {recentImageFiles.length > 0 && (
+          <Typography.Text strong>Or select from your recent photos</Typography.Text>
+        )}
 
         <Row gutter={[16, 16]} align="top" justify="start" style={{marginBottom: '1em'}}>
           {recentImageFiles.map((imageFile: ImageFile) => (

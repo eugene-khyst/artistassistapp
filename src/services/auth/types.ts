@@ -20,6 +20,12 @@ export interface User {
   id: string;
 }
 
+export interface Authentication {
+  user: User;
+  expiration: Date;
+  magicLink: string;
+}
+
 export class AuthError extends Error {
   constructor(
     public type: string,

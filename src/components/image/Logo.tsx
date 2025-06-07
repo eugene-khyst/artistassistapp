@@ -26,7 +26,7 @@ interface Props {
 
 export const Logo: React.FC<Props> = ({name = false, tagline = false, size}: Props) => {
   const {
-    token: {fontSizeHeading2, fontSizeHeading3},
+    token: {fontSizeHeading1, fontSizeHeading2},
   } = theme.useToken();
 
   return (
@@ -34,6 +34,7 @@ export const Logo: React.FC<Props> = ({name = false, tagline = false, size}: Pro
       <img
         src="/assets/favicon/favicon.svg"
         alt="ArtistAssistApp logo"
+        className="drop-shadow-lg"
         style={{
           display: 'block',
           width: size ?? 150,
@@ -42,33 +43,41 @@ export const Logo: React.FC<Props> = ({name = false, tagline = false, size}: Pro
 
       {name && (
         <div
+          className="drop-shadow"
           style={{
             textAlign: 'center',
             fontFamily: 'Kalam',
-            fontSize: fontSizeHeading2,
+            fontSize: fontSizeHeading1,
             fontWeight: 'bold',
             lineHeight: '1em',
           }}
         >
-          <span style={{color: '#656b89'}}>Artist</span>
-          <span style={{color: '#7b6085'}}>Assist</span>
-          <span style={{color: '#895983'}}>App</span>
-          <span style={{color: '#945382'}}>.com</span>
+          <span className="text-outline" style={{color: '#656b89'}}>
+            Artist
+          </span>
+          <span className="text-outline" style={{color: '#7b6085'}}>
+            Assist
+          </span>
+          <span className="text-outline" style={{color: '#895983'}}>
+            App
+          </span>
+          <span className="text-outline" style={{color: '#945382'}}>
+            .com
+          </span>
         </div>
       )}
       {tagline && (
         <div
+          className="text-outline text-outline-black drop-shadow"
           style={{
             textAlign: 'center',
             fontFamily: 'Kalam',
-            fontSize: fontSizeHeading3,
+            fontSize: fontSizeHeading2,
             lineHeight: '1em',
+            color: 'white',
           }}
         >
-          <span style={{color: '#656b89'}}>Paint </span>
-          <span style={{color: '#767c7d'}}>better </span>
-          <span style={{color: '#848974'}}>with </span>
-          <span style={{color: '#8f936e'}}>ease</span>
+          Paint better with ease
         </div>
       )}
     </Space>

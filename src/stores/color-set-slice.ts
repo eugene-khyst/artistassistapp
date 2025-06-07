@@ -36,10 +36,10 @@ export interface ColorSetSlice {
 
   loadColorSetsByType: (type: ColorType) => Promise<ColorSetDefinition[]>;
   saveColorSet: (
-    user: User | null,
     colorSetDefinition: ColorSetDefinition,
     brands?: Map<number, ColorBrandDefinition>,
     colors?: Map<string, Map<number, ColorDefinition>>,
+    user?: User | null,
     setActiveTabKey?: boolean
   ) => Promise<ColorSetDefinition>;
   deleteColorSet: (idToDelete: number) => Promise<void>;
@@ -59,10 +59,10 @@ export const createColorSetSlice: StateCreator<
     return colorSetsByType;
   },
   saveColorSet: async (
-    user: User | null,
     colorSetDef: ColorSetDefinition,
     brands?: Map<number, ColorBrandDefinition>,
     colors?: Map<string, Map<number, ColorDefinition>>,
+    user?: User | null,
     setActiveTabKey?: boolean
   ): Promise<ColorSetDefinition> => {
     await saveColorSet(colorSetDef);
@@ -72,7 +72,7 @@ export const createColorSetSlice: StateCreator<
         ...get().colorSetsByType.filter(({id}: ColorSetDefinition) => id !== colorSetDef.id),
       ],
     });
-    const colorSet: ColorSet | undefined = toColorSet(user, colorSetDef, brands, colors);
+    const colorSet: ColorSet | undefined = toColorSet(colorSetDef, brands, colors, user);
     if (colorSet) {
       await get().setColorSet(colorSet, setActiveTabKey);
     }

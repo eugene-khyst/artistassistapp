@@ -16,14 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {type PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {type PropsWithChildren, useCallback, useEffect, useMemo, useState} from 'react';
 
 import {AuthContext} from '~/src/contexts/AuthContext';
 import type {AuthContextInterface} from '~/src/contexts/types';
 import type {AuthClientProps} from '~/src/services/auth/auth-client';
 import {AuthClient} from '~/src/services/auth/auth-client';
-import type {User} from '~/src/services/auth/types';
+import type {Authentication} from '~/src/services/auth/types';
 import {AuthError} from '~/src/services/auth/types';
+
+const AUTH_VERIFICATION_INTERVAL = 5 * 60000;
 
 const AUTH_ERROR_MESSAGES: Record<string, string> = {
   inactive:
@@ -39,32 +41,38 @@ export const AuthProvider: React.FC<PropsWithChildren<Props>> = ({
   ...props
 }: PropsWithChildren<Props>) => {
   const [authClient] = useState<AuthClient>(() => new AuthClient(props));
-  const [user, setUser] = useState<User | null>(null);
+  const [auth, setAuth] = useState<Authentication>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const isInitialized = useRef<boolean>(false);
+  const [error, setError] = useState<string>();
 
   useEffect(() => {
-    if (isInitialized.current) {
-      return;
-    }
-    isInitialized.current = true;
+    setIsLoading(true);
+    setError(undefined);
+
+    const intervalId = setInterval(() => {
+      if (!authClient.isAuthValid()) {
+        window.location.reload();
+      }
+    }, AUTH_VERIFICATION_INTERVAL);
 
     void (async () => {
-      setIsLoading(true);
       try {
         await authClient.handleRedirectCallback();
-        const user = await authClient.getUser();
-        setUser(user);
+        const auth = await authClient.getAuthentication();
+        setAuth(auth);
       } catch (error) {
         console.log(error);
         if (error instanceof AuthError) {
           setError(AUTH_ERROR_MESSAGES[error.type] ?? error.message);
         }
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     })();
+
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [authClient]);
 
   const loginWithRedirect = useCallback(() => {
@@ -75,11 +83,15 @@ export const AuthProvider: React.FC<PropsWithChildren<Props>> = ({
     authClient.logout();
   }, [authClient]);
 
-  const getMagicLink = useCallback(() => authClient.getMagicLink(), [authClient]);
-
-  const authContext: AuthContextInterface = useMemo(
-    () => ({user, getMagicLink, loginWithRedirect, logout, isLoading, error}),
-    [user, getMagicLink, loginWithRedirect, logout, isLoading, error]
+  const authContext = useMemo<AuthContextInterface>(
+    () => ({
+      ...(auth ?? {}),
+      loginWithRedirect,
+      logout,
+      isLoading,
+      error,
+    }),
+    [auth, loginWithRedirect, logout, isLoading, error]
   );
 
   return <AuthContext.Provider value={authContext}>{children}</AuthContext.Provider>;

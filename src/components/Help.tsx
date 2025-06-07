@@ -28,11 +28,13 @@ import {
 } from '@ant-design/icons';
 import type {ProgressProps} from 'antd';
 import {Button, Col, Flex, Progress, Row, Space, theme, Typography} from 'antd';
+import dayjs from 'dayjs';
 import {useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {ClearStorage} from '~/src/components/storage/ClearStorage';
-import {COMMIT_HASH, WEBSITE_URL} from '~/src/config';
+import {COMMIT_HASH, DATE_TIME_FORMAT, WEBSITE_URL} from '~/src/config';
+import {useAuth} from '~/src/hooks/useAuth';
 import {useAppStore} from '~/src/stores/app-store';
 import {formatBytes} from '~/src/utils/format';
 
@@ -51,14 +53,19 @@ export const Help: React.FC = () => {
     token: {fontSizeSM},
   } = theme.useToken();
 
+  const {expiration} = useAuth();
+
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
 
   const handleUpdateClick = async () => {
     if ('serviceWorker' in navigator) {
       setIsUpdating(true);
-      const registration = await navigator.serviceWorker.getRegistration();
-      await registration?.update();
-      setIsUpdating(false);
+      try {
+        const registration = await navigator.serviceWorker.getRegistration();
+        await registration?.update();
+      } finally {
+        setIsUpdating(false);
+      }
     }
   };
 
@@ -197,6 +204,12 @@ export const Help: React.FC = () => {
       <Typography.Text type="secondary" style={{fontSize: fontSizeSM}}>
         App build hash: {COMMIT_HASH}
       </Typography.Text>
+
+      {expiration && (
+        <Typography.Text type="secondary" style={{fontSize: fontSizeSM}}>
+          Login session is valid until {dayjs(expiration).format(DATE_TIME_FORMAT)}
+        </Typography.Text>
+      )}
     </Flex>
   );
 };

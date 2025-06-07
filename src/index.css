@@ -50,6 +50,28 @@ svg.color-icon {
   animation: scale 1s ease 0s 1 alternate;
 }
 
+:root {
+  --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+.drop-shadow {
+  filter: drop-shadow(1px 1px 5px var(--shadow-color));
+}
+
+.drop-shadow-lg {
+  filter: drop-shadow(2px 2px 10px var(--shadow-color));
+}
+
+.text-outline {
+  --stroke-color: white;
+  -webkit-text-stroke: 4px var(--stroke-color);
+  paint-order: stroke fill;
+}
+
+.text-outline-black {
+  --stroke-color: black;
+}
+
 @media print {
   html,
   body {

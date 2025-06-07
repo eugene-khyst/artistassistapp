@@ -34,7 +34,7 @@ interface SelectOptionType extends DefaultOptionType {
 }
 
 function getOnnxModelOptions(
-  user: User | null,
+  user?: User | null,
   models?: Map<string, OnnxModel>
 ): SelectOptionType[] {
   if (!models?.size) {

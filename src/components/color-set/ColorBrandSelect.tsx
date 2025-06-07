@@ -32,7 +32,7 @@ import {
 import type {ColorBrandDefinition} from '~/src/services/color/types';
 
 function getColorBrandOptions(
-  user: User | null,
+  user?: User | null,
   brands?: Map<number, ColorBrandDefinition>
 ): (SelectOptionType & {colorCount?: number})[] {
   if (!brands?.size) {

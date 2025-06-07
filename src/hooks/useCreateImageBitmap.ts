@@ -37,12 +37,15 @@ export function useCreateImageBitmap(blob?: Blob | null): Result {
     setIsLoading(true);
     let imageBitmap: ImageBitmap | undefined;
     void (async () => {
-      imageBitmap = await createImageBitmapWithFallback(blob);
-      setImageBitmap(prev => {
-        prev?.close();
-        return imageBitmap;
-      });
-      setIsLoading(false);
+      try {
+        imageBitmap = await createImageBitmapWithFallback(blob);
+        setImageBitmap(prev => {
+          prev?.close();
+          return imageBitmap;
+        });
+      } finally {
+        setIsLoading(false);
+      }
     })();
     return () => {
       imageBitmap?.close();

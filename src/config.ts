@@ -17,9 +17,12 @@
  */
 
 export const COMMIT_HASH: string = import.meta.env.VITE_COMMIT_HASH ?? '0'; //CF_PAGES_COMMIT_SHA
+
 export const WEBSITE_URL = 'https://artistassistapp.com';
 export const APP_URL = 'https://app.artistassistapp.com';
 export const AUTH_URL = 'https://auth.artistassistapp.com';
 export const DATA_URL = 'https://data.artistassistapp.com';
 export const PATREON_URL = 'https://www.patreon.com/artistassistapp';
 export const WATERMARK_TEXT = 'ArtistAssistApp.com';
+
+export const DATE_TIME_FORMAT = 'DD/MM/YYYY HH:mm';

@@ -88,8 +88,9 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
       console.error(e);
       setIsError(true);
       setPrintPreview(undefined);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }, [image, targetUnit, debouncedTargetWidth, debouncedTargetHeight, paperSize]);
 
   useEffect(() => {

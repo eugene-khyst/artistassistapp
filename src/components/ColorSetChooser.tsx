@@ -108,7 +108,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
 
   const {message, notification, modal} = App.useApp();
 
-  const {user, isLoading: isAuthLoading, getMagicLink} = useAuth();
+  const {user, isLoading: isAuthLoading, magicLink} = useAuth();
 
   const mediaDevices: MediaDeviceInfo[] = useDevices();
 
@@ -131,7 +131,6 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
   const [isQRScannerModalOpen, setIsQRScannerModalOpen] = useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [shareColorSetUrl, setShareColorSetUrl] = useState<string>();
-  const [magicLink, setMagicLink] = useState<string | null>(null);
 
   useEffect(() => {
     form.resetFields();
@@ -147,13 +146,6 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
       form.setFieldsValue(latestColorSet);
     }
   }, [form, latestColorSet]);
-
-  useEffect(() => {
-    if (isAuthLoading) {
-      return;
-    }
-    setMagicLink(getMagicLink());
-  }, [isAuthLoading, getMagicLink]);
 
   const {brands, isLoading: isBrandsLoading, isError: isBrandsError} = useColorBrands(selectedType);
 
@@ -230,13 +222,13 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
       const {id, ...colorSet} = form.getFieldsValue();
       form.setFieldsValue(
         await saveColorSet(
-          user,
           {
             ...colorSet,
             ...(id ? {id} : {}),
           },
           brands,
           colors,
+          user,
           false
         )
       );
@@ -359,13 +351,13 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
     setHasUnsavedChanges(false);
     form.setFieldsValue(
       await saveColorSet(
-        user,
         {
           ...colorSet,
           ...(id ? {id} : {}),
         },
         brands,
-        colors
+        colors,
+        user
       )
     );
   };

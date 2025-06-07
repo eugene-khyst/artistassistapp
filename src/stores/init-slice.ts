@@ -45,7 +45,7 @@ export interface InitSlice {
   importedColorSet: ColorSetDefinition | null;
   latestColorSet: ColorSetDefinition | null;
 
-  initAppStore: (user: User | null) => Promise<void>;
+  initAppStore: (user?: User | null) => Promise<void>;
 }
 
 export const createInitSlice: StateCreator<
@@ -67,7 +67,7 @@ export const createInitSlice: StateCreator<
   importedColorSet: null,
   latestColorSet: null,
 
-  initAppStore: async (user: User | null): Promise<void> => {
+  initAppStore: async (user?: User | null): Promise<void> => {
     set({
       isInitialStateLoading: true,
     });
@@ -128,7 +128,7 @@ export const createInitSlice: StateCreator<
         type,
         brandAliases
       );
-      const colorSet = toColorSet(user, latestColorSet, brands, colors);
+      const colorSet = toColorSet(latestColorSet, brands, colors, user);
       if (colorSet) {
         void get().setColorSet(colorSet, false);
       }

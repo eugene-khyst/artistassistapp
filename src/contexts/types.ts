@@ -16,13 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {User} from '~/src/services/auth/types';
+import type {Authentication} from '~/src/services/auth/types';
 
-export interface AuthContextInterface {
-  user: User | null;
+export interface AuthContextInterface extends Partial<Authentication> {
   loginWithRedirect: () => void;
   logout: () => void;
-  getMagicLink: () => string | null;
   isLoading: boolean;
-  error: string | null;
+  error?: string;
 }
