@@ -17,6 +17,7 @@
  */
 
 import {DownloadOutlined, LoadingOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import type {RadioChangeEvent} from 'antd';
 import {App, Button, Card, Col, Grid, Radio, Row, Space, Spin, Typography} from 'antd';
 import Meta from 'antd/es/card/Meta';
@@ -26,7 +27,6 @@ import {useEffect, useMemo, useState} from 'react';
 
 import {EmptyImage} from '~/src/components/empty/EmptyImage';
 import {FileSelect} from '~/src/components/image/FileSelect';
-import {useAuth} from '~/src/hooks/useAuth';
 import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
 import {hasAccessTo} from '~/src/services/auth/utils';
@@ -41,8 +41,9 @@ import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
 
 export const ImageStyleTransfer: React.FC = () => {
+  const user = useAppStore(state => state.auth?.user);
+  const isAuthLoading = useAppStore(state => state.isAuthLoading);
   const appSettings = useAppStore(state => state.appSettings);
-  const isInitialStateLoading = useAppStore(state => state.isInitialStateLoading);
   const originalImageFile = useAppStore(state => state.originalImageFile);
   const styleImageFile = useAppStore(state => state.styleImageFile);
   const styleTransferTrigger = useAppStore(state => state.styleTransferTrigger);
@@ -57,7 +58,7 @@ export const ImageStyleTransfer: React.FC = () => {
 
   const {notification} = App.useApp();
 
-  const {user, isLoading: isAuthLoading} = useAuth();
+  const {t} = useLingui();
 
   const {
     models,
@@ -77,8 +78,7 @@ export const ImageStyleTransfer: React.FC = () => {
 
   const model: OnnxModel | null | undefined = modelId ? models?.get(modelId) : null;
 
-  const isLoading =
-    isInitialStateLoading || isModelsLoading || isStyleTransferLoading || isAuthLoading;
+  const isLoading: boolean = isModelsLoading || isStyleTransferLoading || isAuthLoading;
 
   const originalImageUrl: string | undefined = useCreateObjectUrl(originalImageFile);
   const styleImageUrl: string | undefined = useCreateObjectUrl(styleImageFile);
@@ -87,12 +87,12 @@ export const ImageStyleTransfer: React.FC = () => {
   useEffect(() => {
     if (isModelsError) {
       notification.error({
-        message: 'Error while fetching ML model data',
+        message: t`Error while fetching ML model data`,
         placement: 'top',
         duration: 0,
       });
     }
-  }, [isModelsError, notification]);
+  }, [isModelsError, notification, t]);
 
   useEffect(() => {
     const {styleTransferModel, styleTransferImage} = appSettings;
@@ -125,7 +125,7 @@ export const ImageStyleTransfer: React.FC = () => {
   };
 
   if (!originalImageFile) {
-    return <EmptyImage feature="transfer artistic styles to a photo" />;
+    return <EmptyImage />;
   }
 
   const height = `calc((100dvh - 75px) / ${screens.sm ? '1' : '2 - 8px'})`;
@@ -142,7 +142,7 @@ export const ImageStyleTransfer: React.FC = () => {
         <Col xs={24} sm={12} lg={16} style={{display: 'flex', justifyContent: 'center'}}>
           <img
             src={styledImageUrl ?? originalImageUrl}
-            alt="Styled reference photo"
+            alt={t`Styled reference photo`}
             style={{
               display: 'block',
               maxWidth: '100%',
@@ -164,18 +164,18 @@ export const ImageStyleTransfer: React.FC = () => {
         >
           <Space direction="vertical" style={{display: 'flex', padding: '0 16px 16px'}}>
             <Typography.Text strong>
-              Select a style to transfer to your reference photo
+              <Trans>Select a style to transfer to your reference photo</Trans>
             </Typography.Text>
 
             {styledImageUrl && (
               <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
-                Save
+                <Trans>Save</Trans>
               </Button>
             )}
 
             {!user && (
               <Typography.Text type="secondary">
-                Only a limited number of styles are available in the free version
+                <Trans>Only a limited number of styles are available in the free version</Trans>
               </Typography.Text>
             )}
 
@@ -216,7 +216,7 @@ export const ImageStyleTransfer: React.FC = () => {
                                 }}
                                 disabled={!isAccessAllowed}
                               >
-                                Select style image
+                                <Trans>Select style image</Trans>
                               </FileSelect>,
                             ]
                           : []
@@ -232,7 +232,9 @@ export const ImageStyleTransfer: React.FC = () => {
                               )}
                               {!isAccessAllowed && (
                                 <Typography.Text type="warning">
-                                  This style is available to paid Patreon members only
+                                  <Trans>
+                                    This style is available to paid Patreon members only
+                                  </Trans>
                                 </Typography.Text>
                               )}
                             </Space>

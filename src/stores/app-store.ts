@@ -18,6 +18,10 @@
 
 import {create} from 'zustand';
 
+import type {AuthSlice} from '~/src/stores/auth-slice';
+import {createAuthSlice} from '~/src/stores/auth-slice';
+import {createLocaleSlice, type LocaleSlice} from '~/src/stores/locale-slice';
+
 import {type AdjustedImageSlice, createAdjustedImageSlice} from './adjusted-image-slice';
 import {
   type BackgroundRemovalSlice,
@@ -42,7 +46,9 @@ import {createTonalImagesSlice, type TonalImagesSlice} from './tonal-images-slic
 import {createTournamentSlice, type TournamentSlice} from './tournament-slice';
 
 export const useAppStore = create<
-  TabSlice &
+  LocaleSlice &
+    AuthSlice &
+    TabSlice &
     ColorSetSlice &
     ColorMixerSlice &
     OriginalImageSlice &
@@ -59,6 +65,8 @@ export const useAppStore = create<
     StorageSlice &
     InitSlice
 >()((...a) => ({
+  ...createLocaleSlice(...a),
+  ...createAuthSlice(...a),
   ...createTabSlice(...a),
   ...createColorSetSlice(...a),
   ...createColorMixerSlice(...a),

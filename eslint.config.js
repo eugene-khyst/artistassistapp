@@ -8,16 +8,26 @@ import licenseHeader from 'eslint-plugin-license-header';
 import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import unusedImports from 'eslint-plugin-unused-imports';
+import pluginLingui from 'eslint-plugin-lingui';
 
 export default tseslint.config(
   {
-    ignores: ['node_modules', 'dist', 'public', 'license-header.ts', 'vite.config.ts'],
+    ignores: [
+      'node_modules',
+      'dist',
+      'public',
+      'license-header.ts',
+      'vite.config.ts',
+      'lingui.config.ts',
+      'translate-po.ts',
+    ],
   },
   {
     extends: [
       js.configs.recommended,
       ...tseslint.configs.strictTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
+      pluginLingui.configs['flat/recommended'],
     ],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {

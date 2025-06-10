@@ -17,6 +17,7 @@
  */
 
 import {BgColorsOutlined, LoadingOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import {
   Button,
   Col,
@@ -76,12 +77,6 @@ const SIMILAR_COLORS_COMPARATORS: Record<
   [ColorPickerSort.ByConsistency]: compareSimilarColorsByConsistency,
 };
 
-const SORT_OPTIONS: SelectOptionType[] = [
-  {value: ColorPickerSort.BySimilarity, label: 'Similarity'},
-  {value: ColorPickerSort.ByNumberOfColors, label: 'Color count'},
-  {value: ColorPickerSort.ByConsistency, label: 'Thickness'},
-];
-
 function getSamplingArea(colorPickerCanvas?: ImageColorPickerCanvas): SamplingArea | null {
   const pipetPoint = colorPickerCanvas?.getPipetPoint();
   const diameter = colorPickerCanvas?.getLastPipetDiameter();
@@ -101,7 +96,6 @@ export const ImageColorPicker: React.FC = () => {
   const colorPickerPipet = useAppStore(state => state.colorPickerPipet);
   const similarColors = useAppStore(state => state.similarColors);
 
-  const isInitialStateLoading = useAppStore(state => state.isInitialStateLoading);
   const isColorMixerSetLoading = useAppStore(state => state.isColorMixerSetLoading);
   const isColorMixerBackgroundLoading = useAppStore(state => state.isColorMixerBackgroundLoading);
   const isOriginalImageLoading = useAppStore(state => state.isOriginalImageLoading);
@@ -111,6 +105,8 @@ export const ImageColorPicker: React.FC = () => {
   const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
 
   const screens = Grid.useBreakpoint();
+
+  const {t} = useLingui();
 
   const imageColorPickerCanvasSupplier = useCallback(
     (canvas: HTMLCanvasElement): ImageColorPickerCanvas => {
@@ -135,7 +131,6 @@ export const ImageColorPicker: React.FC = () => {
   const [isOpenReflectanceChart, setIsOpenReflectanceChart] = useState<boolean>(false);
 
   const isLoading: boolean =
-    isInitialStateLoading ||
     isColorMixerSetLoading ||
     isColorMixerBackgroundLoading ||
     isOriginalImageLoading ||
@@ -187,8 +182,14 @@ export const ImageColorPicker: React.FC = () => {
   };
 
   if (!colorSet) {
-    return <EmptyColorSet feature="color picker" imageSupported={true} />;
+    return <EmptyColorSet imageSupported={true} />;
   }
+
+  const sortOptions: SelectOptionType[] = [
+    {value: ColorPickerSort.BySimilarity, label: t`Similarity`},
+    {value: ColorPickerSort.ByNumberOfColors, label: t`Color count`},
+    {value: ColorPickerSort.ByConsistency, label: t`Thickness`},
+  ];
 
   const {mixing, glazing} = COLOR_MIXING[colorSet.type];
 
@@ -197,7 +198,7 @@ export const ImageColorPicker: React.FC = () => {
 
   return (
     <>
-      <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">
+      <Spin spinning={isLoading} indicator={<LoadingOutlined spin />} size="large">
         <Row>
           <Col xs={24} sm={12} lg={16}>
             <canvas
@@ -227,15 +228,15 @@ export const ImageColorPicker: React.FC = () => {
               {glazing && (
                 <Space align="start" wrap style={{display: 'flex'}}>
                   <Form.Item
-                    label="Background"
-                    tooltip="The color of paper or canvas, or the color of the base layer when glazed."
+                    label={t`Background`}
+                    tooltip={t`The color of paper or canvas, or the color of the base layer when glazed.`}
                     style={{marginBottom: 0}}
                   >
                     <ColorPicker
                       value={backgroundColor}
                       presets={[
                         {
-                          label: 'Paper white',
+                          label: t`Paper white`,
                           colors: [PAPER_WHITE_HEX],
                         },
                       ]}
@@ -249,19 +250,19 @@ export const ImageColorPicker: React.FC = () => {
                   <Form.Item style={{marginBottom: 0}}>
                     <Button
                       icon={<BgColorsOutlined />}
-                      title="Set paper white background"
+                      title={t`Set paper white background`}
                       onClick={() => {
                         void setBackgroundColor(PAPER_WHITE_HEX);
                       }}
                     >
-                      White
+                      <Trans>White</Trans>
                     </Button>
                   </Form.Item>
                 </Space>
               )}
               <Form.Item
-                label="Diameter"
-                tooltip="The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
+                label={t`Diameter`}
+                tooltip={t`The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area.`}
                 style={{marginBottom: 0}}
               >
                 <Slider
@@ -274,8 +275,8 @@ export const ImageColorPicker: React.FC = () => {
               </Form.Item>
               <Space align="center" wrap style={{display: 'flex'}}>
                 <Form.Item
-                  label="Color"
-                  tooltip="The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
+                  label={t`Color`}
+                  tooltip={t`The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup.`}
                   style={{marginBottom: 0}}
                 >
                   <ColorPicker
@@ -289,33 +290,37 @@ export const ImageColorPicker: React.FC = () => {
                 </Form.Item>
                 {mixing && (
                   <Form.Item
-                    label="Sort"
-                    tooltip="Sort by the similarity of the mixture to the target color, or by the number of colors in the mixture, or by the thickness of the mixture."
+                    label={t`Sort`}
+                    tooltip={t`Sort by the similarity of the mixture to the target color, or by the number of colors in the mixture, or by the thickness of the mixture.`}
                     style={{marginBottom: 0}}
                   >
                     <Select
                       value={sort}
                       onChange={handleSortChange}
-                      options={SORT_OPTIONS}
+                      options={sortOptions}
                       style={{width: 120}}
                     />
                   </Form.Item>
                 )}
               </Space>
               {screens.sm && colorSet.name && (
-                <Form.Item label="Color set" style={{marginBottom: 0}}>
+                <Form.Item label={t`Color set`} style={{marginBottom: 0}}>
                   <Input value={colorSet.name} variant="borderless" readOnly />
                 </Form.Item>
               )}
               {!isSimilarColorsLoading && !similarColors.length ? (
                 <Space direction="vertical" style={{margin: '8px 0'}}>
-                  <Typography.Text strong>⁉️ No data</Typography.Text>
-                  <Typography.Text>
-                    Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to
-                    choose a target color to mix from your colors.
+                  <Typography.Text strong>
+                    ⁉️ <Trans>No data</Trans>
                   </Typography.Text>
                   <Typography.Text>
-                    🔎 Pinch to zoom (or use the mouse wheel) and drag to pan
+                    <Trans>
+                      Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to
+                      choose a target color to mix from your colors.
+                    </Trans>
+                  </Typography.Text>
+                  <Typography.Text>
+                    🔎 <Trans>Pinch to zoom (or use the mouse wheel) and drag to pan</Trans>
                   </Typography.Text>
                 </Space>
               ) : (

@@ -35,23 +35,3 @@ export enum TabKey {
   CustomColorBrand = 'custom-brand',
   Help = 'help',
 }
-
-export const TAB_LABELS: Record<TabKey, string> = {
-  [TabKey.ColorSet]: 'Color set',
-  [TabKey.Photo]: 'Photo',
-  [TabKey.ColorPicker]: 'Color picker',
-  [TabKey.Palette]: 'Palette',
-  [TabKey.TonalValues]: 'Tonal values',
-  [TabKey.SimplifiedPhoto]: 'Simplified',
-  [TabKey.Outline]: 'Outline',
-  [TabKey.Grid]: 'Grid',
-  [TabKey.ColorMixing]: 'Color mixing',
-  [TabKey.LimitedPalette]: 'Limited palette',
-  [TabKey.StyleTransfer]: 'Inspire',
-  [TabKey.ColorCorrection]: 'White balance',
-  [TabKey.BackgroundRemove]: 'Remove background',
-  [TabKey.Compare]: 'Compare',
-  [TabKey.Install]: 'Install',
-  [TabKey.CustomColorBrand]: 'Custom brand',
-  [TabKey.Help]: 'Help',
-};

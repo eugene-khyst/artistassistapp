@@ -22,11 +22,14 @@ import type {CustomColorBrandDefinition} from '~/src/services/color/types';
 import {
   deleteCustomColorBrand,
   getCustomColorBrands,
+  getLastCustomColorBrand,
   saveCustomColorBrand,
 } from '~/src/services/db/custom-brand-db';
 
 export interface CustomColorBrandSlice {
   customColorBrands: CustomColorBrandDefinition[];
+  latestCustomColorBrand: CustomColorBrandDefinition | null;
+  isCustomColorBrandsLoading: boolean;
 
   loadCustomColorBrands: () => Promise<void>;
   saveCustomColorBrand: (brand: CustomColorBrandDefinition) => Promise<CustomColorBrandDefinition>;
@@ -40,10 +43,17 @@ export const createCustomColorBrandSlice: StateCreator<
   CustomColorBrandSlice
 > = (set, get) => ({
   customColorBrands: [],
+  latestCustomColorBrand: null,
+  isCustomColorBrandsLoading: false,
 
   loadCustomColorBrands: async (): Promise<void> => {
     set({
+      isCustomColorBrandsLoading: true,
+    });
+    set({
       customColorBrands: await getCustomColorBrands(),
+      latestCustomColorBrand: await getLastCustomColorBrand(),
+      isCustomColorBrandsLoading: false,
     });
   },
   saveCustomColorBrand: async (

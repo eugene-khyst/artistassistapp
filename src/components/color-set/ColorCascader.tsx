@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {useLingui} from '@lingui/react/macro';
 import {Cascader, Flex, Typography} from 'antd';
 import type {CascaderAutoProps, DefaultOptionType as CascaderOptionType} from 'antd/es/cascader';
 
@@ -80,12 +81,14 @@ type Props = Omit<
 export const ColorCascader: React.FC<Props> = ({multiple, ...rest}: Props) => {
   const colorSet = useAppStore(state => state.colorSet);
 
+  const {t} = useLingui();
+
   const options = getColorOptions(colorSet);
   return (
     // @ts-expect-error Cascader prop drilling
     <Cascader
       options={options}
-      placeholder={multiple ? 'Select colors' : 'Select color'}
+      placeholder={multiple ? t`Select colors` : t`Select color`}
       showSearch={{filter: filterCascaderOptions}}
       expandTrigger="hover"
       showCheckedStrategy={Cascader.SHOW_CHILD}

@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Trans} from '@lingui/react/macro';
 import {Button} from 'antd';
 import type React from 'react';
 
@@ -24,7 +25,7 @@ import {PATREON_URL} from '~/src/config';
 export const JoinButton: React.FC = () => {
   return (
     <Button type="primary" href={PATREON_URL} target="_blank" rel="noopener">
-      Join on Patreon
+      <Trans>Join on Patreon</Trans>
     </Button>
   );
 };

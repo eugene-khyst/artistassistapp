@@ -20,7 +20,6 @@ import type {SelectProps} from 'antd';
 import {Flex, Select, Typography} from 'antd';
 import type {DefaultOptionType} from 'antd/es/select';
 
-import {useAuth} from '~/src/hooks/useAuth';
 import type {User} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {
@@ -28,6 +27,7 @@ import {
   compareOnnxModelsByPriority,
 } from '~/src/services/ml/models';
 import type {OnnxModel} from '~/src/services/ml/types';
+import {useAppStore} from '~/src/stores/app-store';
 
 interface SelectOptionType extends DefaultOptionType {
   description?: string;
@@ -58,7 +58,8 @@ type Props = SelectProps & {
 };
 
 export const OnnxModelSelect: React.FC<Props> = ({models, ...rest}: Props) => {
-  const {user} = useAuth();
+  const user = useAppStore(state => state.auth?.user);
+
   const options = getOnnxModelOptions(user, models);
   return (
     <Select

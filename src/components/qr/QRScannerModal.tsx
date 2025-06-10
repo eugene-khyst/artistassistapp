@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {useLingui} from '@lingui/react/macro';
 import type {IDetectedBarcode} from '@yudiel/react-qr-scanner';
 import {Scanner} from '@yudiel/react-qr-scanner';
 import {App, Modal} from 'antd';
@@ -28,6 +29,8 @@ interface Props {
 
 export const QRScannerModal: React.FC<Props> = ({open, setOpen}: Props) => {
   const {message} = App.useApp();
+
+  const {t} = useLingui();
 
   const [isPaused, setIsPaused] = useState<boolean>(true);
 
@@ -45,7 +48,7 @@ export const QRScannerModal: React.FC<Props> = ({open, setOpen}: Props) => {
 
   return (
     <Modal
-      title="Scan a QR code"
+      title={t`Scan a QR code`}
       centered
       open={open}
       footer={null}
@@ -71,7 +74,7 @@ export const QRScannerModal: React.FC<Props> = ({open, setOpen}: Props) => {
             } catch {
               // ignore
             }
-            void message.info('Invalid QR code');
+            void message.info(t`Invalid QR code`);
           }}
         />
       </div>

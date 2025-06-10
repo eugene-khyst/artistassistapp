@@ -28,54 +28,60 @@ import {ErrorBoundary} from 'react-error-boundary';
 import {AlertTimedReloadFallback} from '~/src/components/alert/AlertTimedReloadFallback';
 import {BrowserSupport} from '~/src/components/alert/BrowserSupport';
 import {PromiseErrorBoundary} from '~/src/components/alert/PromiseErrorBoundary';
-import {APP_URL, AUTH_URL} from '~/src/config';
-import {AuthProvider} from '~/src/contexts/AuthProvider';
+import {InternationalizationProvider} from '~/src/contexts/InternationalizationProvider';
 import {registerFileHandler} from '~/src/file-handler';
 import {clearDatabase} from '~/src/services/db/db';
+import {useAppStore} from '~/src/stores/app-store';
 import {disableScreenLock} from '~/src/wake-lock';
 
 import {ArtistAssistApp} from './ArtistAssistApp';
 import {registerServiceWorker} from './register-service-worker';
 
-registerServiceWorker();
-registerFileHandler();
-disableScreenLock();
-void clearDatabase();
+const AUTH_VERIFICATION_INTERVAL = 10 * 1000; //5 * 60000;
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      networkMode: 'offlineFirst',
-      staleTime: 3 * 60 * 1000,
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-      refetchOnReconnect: true,
-      refetchInterval: false,
-      retry: false,
+void (async () => {
+  registerServiceWorker();
+  registerFileHandler();
+  disableScreenLock();
+  void clearDatabase();
+  await useAppStore.getState().initAppStore();
+
+  setInterval(() => {
+    if (!useAppStore.getState().isAuthValid()) {
+      window.location.reload();
+    }
+  }, AUTH_VERIFICATION_INTERVAL);
+
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        networkMode: 'offlineFirst',
+        staleTime: 3 * 60 * 1000,
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+        refetchOnReconnect: true,
+        refetchInterval: false,
+        retry: false,
+      },
     },
-  },
-});
+  });
 
-const root: Root = createRoot(document.getElementById('root')!);
-root.render(
-  <StrictMode>
-    <App>
-      <ErrorBoundary FallbackComponent={AlertTimedReloadFallback}>
-        <PromiseErrorBoundary>
-          <BrowserSupport>
-            <QueryClientProvider client={queryClient}>
-              <AuthProvider
-                domain={AUTH_URL}
-                redirectUri={window.location.origin}
-                issuer={AUTH_URL}
-                audience={APP_URL}
-              >
-                <ArtistAssistApp />
-              </AuthProvider>
-            </QueryClientProvider>
-          </BrowserSupport>
-        </PromiseErrorBoundary>
-      </ErrorBoundary>
-    </App>
-  </StrictMode>
-);
+  const root: Root = createRoot(document.getElementById('root')!);
+  root.render(
+    <StrictMode>
+      <InternationalizationProvider>
+        <App>
+          <ErrorBoundary FallbackComponent={AlertTimedReloadFallback}>
+            <PromiseErrorBoundary>
+              <BrowserSupport>
+                <QueryClientProvider client={queryClient}>
+                  <ArtistAssistApp />
+                </QueryClientProvider>
+              </BrowserSupport>
+            </PromiseErrorBoundary>
+          </ErrorBoundary>
+        </App>
+      </InternationalizationProvider>
+    </StrictMode>
+  );
+})();

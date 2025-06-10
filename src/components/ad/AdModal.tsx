@@ -17,13 +17,14 @@
  */
 
 import {CloseOutlined} from '@ant-design/icons';
+import {Trans} from '@lingui/react/macro';
 import {Button, Modal} from 'antd';
 import {useEffect, useState} from 'react';
 
 import {Ad} from '~/src/components/ad/Ad';
 import {useAds} from '~/src/hooks/useAds';
-import {useAuth} from '~/src/hooks/useAuth';
 import type {AdDefinition} from '~/src/services/ads/types';
+import {useAppStore} from '~/src/stores/app-store';
 
 const PLACEMENT = 'popup';
 const DEFAULT_PLACEMENT = 'all';
@@ -35,7 +36,8 @@ interface Props {
 }
 
 export const AdModal: React.FC<Props> = ({open, setOpen}: Props) => {
-  const {isLoading: isAuthLoading, user} = useAuth();
+  const user = useAppStore(state => state.auth?.user);
+  const isAuthLoading = useAppStore(state => state.isAuthLoading);
 
   const {ads: {ads: allAds, placements} = {ads: {}, placements: {}}} = useAds();
 
@@ -75,7 +77,9 @@ export const AdModal: React.FC<Props> = ({open, setOpen}: Props) => {
         ads={ads}
         footer={
           closeCounter > 0 ? (
-            <Button loading>Close ad in {closeCounter} s</Button>
+            <Button loading>
+              <Trans>Close in {closeCounter} sec</Trans>
+            </Button>
           ) : (
             <Button
               icon={<CloseOutlined />}
@@ -83,7 +87,7 @@ export const AdModal: React.FC<Props> = ({open, setOpen}: Props) => {
                 setOpen(false);
               }}
             >
-              Close ad
+              <Trans>Close</Trans>
             </Button>
           )
         }

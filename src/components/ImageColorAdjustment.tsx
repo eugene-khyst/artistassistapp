@@ -22,6 +22,7 @@ import {
   PictureOutlined,
   ScissorOutlined,
 } from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Checkbox, Col, Form, Grid, Row, Slider, Space, Spin, Typography} from 'antd';
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
 import type {SliderMarks} from 'antd/es/slider';
@@ -127,6 +128,8 @@ export const ImageColorAdjustment: React.FC = () => {
 
   const screens = Grid.useBreakpoint();
 
+  const {t} = useLingui();
+
   const images = useMemo<(ImageBitmap | null)[]>(
     () => [adjustedImage, unadjustedImage],
     [unadjustedImage, adjustedImage]
@@ -225,7 +228,7 @@ export const ImageColorAdjustment: React.FC = () => {
   const margin = screens.sm ? 0 : 8;
 
   return (
-    <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">
+    <Spin spinning={isLoading} indicator={<LoadingOutlined spin />} size="large">
       <Row>
         {unadjustedImage && (
           <Col xs={24} sm={12} lg={16}>
@@ -251,14 +254,16 @@ export const ImageColorAdjustment: React.FC = () => {
         >
           <Space direction="vertical" style={{display: 'flex', padding: '0 16px 16px'}}>
             <Typography.Text strong>
-              Select a photo to adjust white balance and colors
+              <Trans>Select a photo to adjust white balance and colors</Trans>
             </Typography.Text>
 
             <Space>
-              <FileSelect onChange={handleFileChange}>Select photo</FileSelect>
+              <FileSelect onChange={handleFileChange}>
+                <Trans>Select photo</Trans>
+              </FileSelect>
               {unadjustedImage && (
                 <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
-                  Save
+                  <Trans>Save</Trans>
                 </Button>
               )}
             </Space>
@@ -271,25 +276,25 @@ export const ImageColorAdjustment: React.FC = () => {
                     icon={<PictureOutlined />}
                     onClick={() => void handleSetAsReferenceClick()}
                   >
-                    Set as reference
+                    <Trans>Set as reference</Trans>
                   </Button>
                   <Button
                     size="small"
                     icon={<ScissorOutlined />}
                     onClick={() => void handleRemoveBgClick()}
                   >
-                    Remove background
+                    <Trans>Remove background</Trans>
                   </Button>
                 </Space>
 
-                <Form.Item label="Preview" tooltip="" style={{marginBottom: 0}}>
+                <Form.Item label={t`Preview`} style={{marginBottom: 0}}>
                   <Checkbox checked={isPreview} onChange={handlePreviewChange} />
                 </Form.Item>
 
                 <Form.Item
                   layout="vertical"
-                  label="White patch (%ile)"
-                  tooltip="Smaller percentile values correspond to stronger whitening"
+                  label={t`White patch (%ile)`}
+                  tooltip={`Smaller percentile values correspond to stronger whitening`}
                   style={{marginBottom: 0}}
                 >
                   <Slider
@@ -305,8 +310,8 @@ export const ImageColorAdjustment: React.FC = () => {
 
                 <Form.Item
                   layout="vertical"
-                  label="Saturation (%)"
-                  tooltip="A value less than 100% desaturates the image, and a value greater than 100% over-saturates it"
+                  label={t`Saturation (%)`}
+                  tooltip={t`A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful`}
                   style={{marginBottom: 0}}
                 >
                   <Slider
@@ -322,8 +327,8 @@ export const ImageColorAdjustment: React.FC = () => {
 
                 <Form.Item
                   layout="vertical"
-                  label="Shadows and highlights"
-                  tooltip="Low input and high input"
+                  label={t`Shadows and highlights`}
+                  tooltip={t`Low input and high input`}
                   style={{marginBottom: 0}}
                 >
                   <Slider
@@ -348,8 +353,8 @@ export const ImageColorAdjustment: React.FC = () => {
 
                 <Form.Item
                   layout="vertical"
-                  label="Midtones"
-                  tooltip="Gamma"
+                  label={t`Midtones`}
+                  tooltip={t`Gamma`}
                   style={{marginBottom: 0}}
                 >
                   <Slider
@@ -369,8 +374,8 @@ export const ImageColorAdjustment: React.FC = () => {
 
                 <Form.Item
                   layout="vertical"
-                  label="Output levels"
-                  tooltip="Low output and high output"
+                  label={t`Output levels`}
+                  tooltip={t`Low output and high output`}
                   style={{marginBottom: 0}}
                 >
                   <Slider
@@ -395,8 +400,8 @@ export const ImageColorAdjustment: React.FC = () => {
 
                 <Form.Item
                   layout="vertical"
-                  label="Original color temperature (K)"
-                  tooltip="Estimated temperature of the light source in Kelvin the image was taken with"
+                  label={t`Original color temperature (K)`}
+                  tooltip={t`Estimated temperature of the light source in Kelvin the image was taken with`}
                   style={{marginBottom: 0}}
                 >
                   <Slider
@@ -424,8 +429,8 @@ export const ImageColorAdjustment: React.FC = () => {
 
                 <Form.Item
                   layout="vertical"
-                  label="Intended color temperature (K)"
-                  tooltip="Corrected estimation of the temperature of the light source in Kelvin"
+                  label={t`Intended color temperature (K)`}
+                  tooltip={t`Corrected estimation of the temperature of the light source in Kelvin`}
                   style={{marginBottom: 0}}
                 >
                   <Slider

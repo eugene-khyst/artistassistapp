@@ -17,6 +17,7 @@
  */
 
 import {LoadingOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Drawer, Form, Input, InputNumber, Radio, Select, Space, Spin} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useEffect, useState} from 'react';
@@ -53,6 +54,8 @@ interface Props {
 }
 
 export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}: Props) => {
+  const {t} = useLingui();
+
   const [printMode, setPrintMode] = useState<PrintMode>(PrintMode.Resize);
   const [targetWidth, setTargetWidth] = useState<number | null>();
   const [targetHeight, setTargetHeight] = useState<number | null>();
@@ -115,7 +118,7 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
     <Drawer
       title={
         <Button type="primary" onClick={() => void handlePrint()} disabled={isPrintDisabled}>
-          Print
+          <Trans>Print</Trans>
         </Button>
       }
       placement="right"
@@ -123,7 +126,7 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
       open={open}
       onClose={onClose}
     >
-      <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">
+      <Spin spinning={isLoading} indicator={<LoadingOutlined spin />} size="large">
         <Space direction="vertical">
           <Radio.Group
             value={printMode}
@@ -132,14 +135,18 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
             }}
           >
             <Space direction="vertical">
-              <Radio value={PrintMode.Resize}>Print a large image onto multiple pages</Radio>
-              <Radio value={PrintMode.Standard}>Standard print</Radio>
+              <Radio value={PrintMode.Resize}>
+                <Trans>Print a large image onto multiple pages</Trans>
+              </Radio>
+              <Radio value={PrintMode.Standard}>
+                <Trans>Standard print</Trans>
+              </Radio>
             </Space>
           </Radio.Group>
 
           {printMode === PrintMode.Resize && (
             <>
-              <Form.Item label="Paper size" style={{marginBottom: 0}}>
+              <Form.Item label={t`Paper size`} style={{marginBottom: 0}}>
                 <Select
                   value={paperSize}
                   onChange={value => {
@@ -151,9 +158,9 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
               </Form.Item>
 
               <Form.Item
-                label="Target print size"
+                label={t`Target print size`}
                 style={{marginBottom: 0}}
-                help={isError ? 'This print size is not supported' : null}
+                help={isError ? t`This print size is not supported` : null}
                 validateStatus={isError ? 'error' : undefined}
               >
                 <Space.Compact block>
@@ -165,7 +172,7 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
                     min={1}
                     max={1000}
                     step={0.1}
-                    placeholder="Width"
+                    placeholder={t`Width`}
                     style={{width: 70}}
                   />
                   <Input
@@ -186,7 +193,7 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
                     min={1}
                     max={1000}
                     step={0.1}
-                    placeholder="Height"
+                    placeholder={t`Height`}
                     style={{width: 70}}
                   />
                   <Select
@@ -203,7 +210,7 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
               {previewImageUrl && (
                 <img
                   src={previewImageUrl}
-                  alt="Print preview"
+                  alt={t`Print preview`}
                   style={{
                     display: 'block',
                     maxWidth: '100%',

@@ -17,6 +17,7 @@
  */
 
 import {DatabaseOutlined, DeleteOutlined, PrinterOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Card, Col, Form, Popconfirm, Row, Select, Space, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useRef, useState} from 'react';
@@ -43,11 +44,6 @@ const COLOR_MIXTURES_COMPARATORS = {
   [Sort.ByName]: compareColorMixturesByName,
 };
 
-const SORT_OPTIONS: SelectOptionType[] = [
-  {value: Sort.ByDataIndex, label: 'Chronologically'},
-  {value: Sort.ByName, label: 'Alphabetically'},
-];
-
 interface Props {
   colorType: ColorType;
   colorMixtures?: ColorMixture[];
@@ -61,6 +57,8 @@ export const PaletteGrid: React.FC<Props> = ({
 }: Props) => {
   const deleteAllFromPalette = useAppStore(state => state.deleteAllFromPalette);
 
+  const {t} = useLingui();
+
   const [sort, setSort] = useState<Sort>(Sort.ByDataIndex);
   const printRef = useRef<HTMLDivElement>(null);
 
@@ -68,6 +66,11 @@ export const PaletteGrid: React.FC<Props> = ({
     contentRef: printRef,
     documentTitle: 'ArtistAssistApp',
   });
+
+  const sortOptions: SelectOptionType[] = [
+    {value: Sort.ByDataIndex, label: t`Chronologically`},
+    {value: Sort.ByName, label: t`Alphabetically`},
+  ];
 
   const sortedColorMixtures = colorMixtures?.slice().sort(COLOR_MIXTURES_COMPARATORS[sort]);
 
@@ -81,7 +84,7 @@ export const PaletteGrid: React.FC<Props> = ({
             showColorSwatch(sortedColorMixtures);
           }}
         >
-          Color swatch
+          <Trans>Color swatch</Trans>
         </Button>
         <Button
           icon={<PrinterOutlined />}
@@ -89,24 +92,26 @@ export const PaletteGrid: React.FC<Props> = ({
             handlePrint();
           }}
         >
-          Print
+          <Trans>Print</Trans>
         </Button>
         <Popconfirm
-          title="Remove all color mixtures"
-          description="Are you sure you want to remove all color mixtures?"
+          title={t`Remove all color mixtures`}
+          description={t`Are you sure you want to remove all color mixtures?`}
           onConfirm={() => void deleteAllFromPalette(colorType)}
-          okText="Yes"
-          cancelText="No"
+          okText={t`Yes`}
+          cancelText={t`No`}
         >
-          <Button icon={<DeleteOutlined />}>Remove all</Button>
+          <Button icon={<DeleteOutlined />}>
+            <Trans>Remove all</Trans>
+          </Button>
         </Popconfirm>
-        <Form.Item label="Sort" style={{marginBottom: 0}}>
+        <Form.Item label={t`Sort`} style={{marginBottom: 0}}>
           <Select
             value={sort}
             onChange={(value: Sort) => {
               setSort(value);
             }}
-            options={SORT_OPTIONS}
+            options={sortOptions}
             style={{width: 150}}
           />
         </Form.Item>
@@ -128,7 +133,7 @@ export const PaletteGrid: React.FC<Props> = ({
               <Card size="small">
                 <Space direction="vertical">
                   <Typography.Text style={{fontWeight: 'bold'}}>
-                    {colorMixture.name || 'Untitled mixture'}
+                    {colorMixture.name || t`Untitled mixture`}
                   </Typography.Text>
                   <ColorMixtureDescription colorMixture={colorMixture} showTooltips={false} />
                 </Space>

@@ -17,18 +17,20 @@
  */
 
 import {LoadingOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import {App, Col, Flex, Row, Spin, Typography} from 'antd';
 import type {ChangeEvent} from 'react';
 import {useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {FileSelect} from '~/src/components/image/FileSelect';
+import {PERSISTENT_STORAGE_WARN} from '~/src/components/messages';
 import type {ImageFile} from '~/src/services/image/image-file';
 import {fileToImageFile} from '~/src/services/image/image-file';
 import type {SampleImageDefinition} from '~/src/services/image/sample-images';
 import {SAMPLE_IMAGES} from '~/src/services/image/sample-images';
 import {useAppStore} from '~/src/stores/app-store';
-import {PERSISTENT_STORAGE_WARN, requestPersistentStorage} from '~/src/utils/storage';
+import {requestPersistentStorage} from '~/src/utils/storage';
 
 import {RecentImageCard} from './image/RecentImageCard';
 import {SampleImageCard} from './image/SampleImageCard';
@@ -36,17 +38,22 @@ import {SampleImageCard} from './image/SampleImageCard';
 export const ImageChooser: React.FC = () => {
   const recentImageFiles = useAppStore(state => state.recentImageFiles);
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
-  const isInitialStateLoading = useAppStore(state => state.isInitialStateLoading);
 
   const [sampleImagesLoadingCount, setSampleImagesLoadingCount] = useState<number>(0);
 
   const {modal} = App.useApp();
 
-  const isLoading: boolean = isInitialStateLoading || sampleImagesLoadingCount > 0;
+  const {t} = useLingui();
+
+  const isLoading: boolean = sampleImagesLoadingCount > 0;
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!(await requestPersistentStorage())) {
-      await modal.warning(PERSISTENT_STORAGE_WARN);
+      const {title, content} = PERSISTENT_STORAGE_WARN;
+      await modal.warning({
+        title: t(title),
+        content: t(content),
+      });
     }
     const file: File | undefined = e.target.files?.[0];
     if (file) {
@@ -55,18 +62,22 @@ export const ImageChooser: React.FC = () => {
   };
 
   return (
-    <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">
+    <Spin spinning={isLoading} indicator={<LoadingOutlined spin />} size="large">
       <Flex vertical gap="small" style={{padding: '0 16px 16px'}}>
         <Typography.Text strong>
-          Select a reference photo from your device to paint from
+          <Trans>Select a reference photo from your device to paint from</Trans>
         </Typography.Text>
 
         <div>
-          <FileSelect onChange={e => void handleFileChange(e)}>Select photo</FileSelect>
+          <FileSelect onChange={e => void handleFileChange(e)}>
+            <Trans>Select photo</Trans>
+          </FileSelect>
         </div>
 
         {recentImageFiles.length > 0 && (
-          <Typography.Text strong>Or select from your recent photos</Typography.Text>
+          <Typography.Text strong>
+            <Trans>Or select from your recent photos</Trans>
+          </Typography.Text>
         )}
 
         <Row gutter={[16, 16]} align="top" justify="start" style={{marginBottom: '1em'}}>
@@ -80,7 +91,9 @@ export const ImageChooser: React.FC = () => {
           </Col>
         </Row>
 
-        <Typography.Text strong>Or select from sample photos</Typography.Text>
+        <Typography.Text strong>
+          <Trans>Or select from sample photos</Trans>
+        </Typography.Text>
 
         <Row gutter={[16, 16]} align="top" justify="start">
           {SAMPLE_IMAGES.map(({image, thumbnail, name}: SampleImageDefinition) => (

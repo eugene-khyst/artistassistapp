@@ -26,6 +26,7 @@ import {
   ReloadOutlined,
   StopOutlined,
 } from '@ant-design/icons';
+import {Trans} from '@lingui/react/macro';
 import type {ProgressProps} from 'antd';
 import {Button, Col, Flex, Progress, Row, Space, theme, Typography} from 'antd';
 import dayjs from 'dayjs';
@@ -34,7 +35,6 @@ import {useState} from 'react';
 import {AdCard} from '~/src/components/ad/AdCard';
 import {ClearStorage} from '~/src/components/storage/ClearStorage';
 import {COMMIT_HASH, DATE_TIME_FORMAT, WEBSITE_URL} from '~/src/config';
-import {useAuth} from '~/src/hooks/useAuth';
 import {useAppStore} from '~/src/stores/app-store';
 import {formatBytes} from '~/src/utils/format';
 
@@ -47,15 +47,17 @@ const THREE_COLORS: ProgressProps['strokeColor'] = {
 };
 
 export const Help: React.FC = () => {
+  const expiration = useAppStore(state => state.auth?.expiration);
   const storageUsage = useAppStore(state => state.storageUsage);
 
   const {
     token: {fontSizeSM},
   } = theme.useToken();
 
-  const {expiration} = useAuth();
-
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
+
+  const expirationText: string | undefined =
+    expiration && dayjs(expiration).format(DATE_TIME_FORMAT);
 
   const handleUpdateClick = async () => {
     if ('serviceWorker' in navigator) {
@@ -86,7 +88,7 @@ export const Help: React.FC = () => {
               icon={<ReadOutlined />}
               size="large"
             >
-              Tutorials
+              <Trans>Tutorials and videos</Trans>
             </Button>
             <Button
               type="link"
@@ -96,7 +98,7 @@ export const Help: React.FC = () => {
               icon={<InfoCircleOutlined />}
               size="large"
             >
-              About ArtistAssistApp
+              <Trans>About ArtistAssistApp</Trans>
             </Button>
             <Button
               type="link"
@@ -106,7 +108,7 @@ export const Help: React.FC = () => {
               icon={<StopOutlined />}
               size="large"
             >
-              Cancel a paid membership
+              <Trans>Cancel a paid membership</Trans>
             </Button>
           </Space>
         </Col>
@@ -120,7 +122,7 @@ export const Help: React.FC = () => {
               icon={<MailOutlined />}
               size="large"
             >
-              Contact
+              <Trans>Contact</Trans>
             </Button>
             <Button
               type="link"
@@ -130,7 +132,7 @@ export const Help: React.FC = () => {
               icon={<FileProtectOutlined />}
               size="large"
             >
-              Privacy policy
+              <Trans>Privacy policy</Trans>
             </Button>
             <Button
               type="link"
@@ -140,7 +142,7 @@ export const Help: React.FC = () => {
               icon={<FileTextOutlined />}
               size="large"
             >
-              Terms of use
+              <Trans>Terms of use</Trans>
             </Button>
           </Space>
         </Col>
@@ -159,23 +161,29 @@ export const Help: React.FC = () => {
             window.location.reload();
           }}
         >
-          Reload
+          <Trans>Reload</Trans>
         </Button>
         <Button
           icon={<CloudSyncOutlined />}
           loading={isUpdating}
           onClick={() => void handleUpdateClick()}
         >
-          Check for updates
+          <Trans>Check for updates</Trans>
         </Button>
       </Space>
 
       {storageUsage?.usage && storageUsage.quota && (
         <Space size="middle">
           <Space direction="vertical">
-            <Typography.Text strong>Storage usage</Typography.Text>
-            <Typography.Text>Used: {formatBytes(storageUsage.usage)}</Typography.Text>
-            <Typography.Text>Quota: {formatBytes(storageUsage.quota)}</Typography.Text>
+            <Typography.Text strong>
+              <Trans>Storage usage</Trans>
+            </Typography.Text>
+            <Typography.Text>
+              <Trans>Used</Trans>: {formatBytes(storageUsage.usage)}
+            </Typography.Text>
+            <Typography.Text>
+              <Trans>Quota</Trans>: {formatBytes(storageUsage.quota)}
+            </Typography.Text>
           </Space>
           <Progress
             type="circle"
@@ -190,24 +198,28 @@ export const Help: React.FC = () => {
       <ClearStorage />
 
       <Typography.Text type="secondary">
-        The app stores all data in the web browser storage even after installation. Clearing the web
-        browser data results in the loss of all app data.
+        <Trans>
+          The app stores all data in the web browser storage even after installation. Clearing the
+          web browser data results in the loss of all app data.
+        </Trans>
       </Typography.Text>
 
       <Typography.Text>
-        ArtistAssistApp is developed by{' '}
-        <Typography.Link href="https://github.com/eugene-khyst" target="_blank" rel="noopener">
-          Eugene Khyst
-        </Typography.Link>
+        <Trans>
+          ArtistAssistApp is developed by{' '}
+          <Typography.Link href="https://github.com/eugene-khyst" target="_blank" rel="noopener">
+            Eugene Khyst
+          </Typography.Link>
+        </Trans>
       </Typography.Text>
 
       <Typography.Text type="secondary" style={{fontSize: fontSizeSM}}>
-        App build hash: {COMMIT_HASH}
+        <Trans>Application build hash</Trans>: {COMMIT_HASH}
       </Typography.Text>
 
-      {expiration && (
+      {expirationText && (
         <Typography.Text type="secondary" style={{fontSize: fontSizeSM}}>
-          Login session is valid until {dayjs(expiration).format(DATE_TIME_FORMAT)}
+          <Trans>Login session is valid until {expirationText}</Trans>
         </Typography.Text>
       )}
     </Flex>

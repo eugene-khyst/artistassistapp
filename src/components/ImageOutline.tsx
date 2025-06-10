@@ -17,12 +17,12 @@
  */
 
 import {DownloadOutlined, LoadingOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
 import {App, Button, Dropdown, Form, Grid, Radio, Space, Spin, Typography} from 'antd';
 import {useEffect, useState} from 'react';
 
 import {PrintImageDrawer} from '~/src/components/print/PrintImageDrawer';
-import {useAuth} from '~/src/hooks/useAuth';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
 import {
   useZoomableImageCanvas,
@@ -42,6 +42,8 @@ enum OutlineMode {
 }
 
 export const ImageOutline: React.FC = () => {
+  const user = useAppStore(state => state.auth?.user);
+  const isAuthLoading = useAppStore(state => state.isAuthLoading);
   const originalImageFile = useAppStore(state => state.originalImageFile);
   const outlineTrigger = useAppStore(state => state.outlineTrigger);
   const isOutlineImageLoading = useAppStore(state => state.isOutlineImageLoading);
@@ -54,7 +56,7 @@ export const ImageOutline: React.FC = () => {
 
   const {notification} = App.useApp();
 
-  const {user, isLoading: isAuthLoading} = useAuth();
+  const {t} = useLingui();
 
   const {
     models,
@@ -75,17 +77,17 @@ export const ImageOutline: React.FC = () => {
       ? [...models.values()].sort(compareOnnxModelsByPriority)
       : [];
 
-  const isLoading = isModelsLoading || isOutlineImageLoading || isAuthLoading;
+  const isLoading: boolean = isModelsLoading || isOutlineImageLoading || isAuthLoading;
 
   useEffect(() => {
     if (isModelsError) {
       notification.error({
-        message: 'Error while fetching ML model data',
+        message: t`Error while fetching ML model data`,
         placement: 'top',
         duration: 0,
       });
     }
-  }, [isModelsError, notification]);
+  }, [isModelsError, notification, t]);
 
   useEffect(() => {
     void loadOutlineImage(model, user);
@@ -104,17 +106,17 @@ export const ImageOutline: React.FC = () => {
   };
 
   if (!originalImageFile) {
-    return <EmptyImage feature="turn a photo into an outline" />;
+    return <EmptyImage />;
   }
 
   const modeOptions: CheckboxOptionType<number>[] = [
     {
       value: OutlineMode.Quick,
-      label: 'Quick',
+      label: t`Quick`,
     },
     {
       value: OutlineMode.Quality,
-      label: 'Quality',
+      label: t`Quality`,
       disabled: !user,
     },
   ];
@@ -122,13 +124,13 @@ export const ImageOutline: React.FC = () => {
   const items: MenuProps['items'] = [
     {
       key: '1',
-      label: 'Print',
+      label: t`Print`,
       icon: <PrinterOutlined />,
       onClick: handlePrintClick,
     },
     {
       key: '2',
-      label: 'Save',
+      label: t`Save`,
       icon: <DownloadOutlined />,
       onClick: handleSaveClick,
     },
@@ -147,13 +149,13 @@ export const ImageOutline: React.FC = () => {
           extra={
             !user && (
               <Typography.Text type="secondary">
-                Quality mode is available to paid Patreon members only
+                <Trans>Quality mode is available to paid Patreon members only</Trans>
               </Typography.Text>
             )
           }
         >
           <Space align="start" style={{display: 'flex'}}>
-            <Form.Item label="Mode" style={{margin: 0}}>
+            <Form.Item label={t`Mode`} style={{margin: 0}}>
               <Radio.Group
                 options={modeOptions}
                 value={outlineMode}
@@ -165,10 +167,10 @@ export const ImageOutline: React.FC = () => {
             {screens.sm ? (
               <>
                 <Button icon={<PrinterOutlined />} onClick={handlePrintClick}>
-                  Print
+                  <Trans>Print</Trans>
                 </Button>
                 <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
-                  Save
+                  <Trans>Save</Trans>
                 </Button>
               </>
             ) : (

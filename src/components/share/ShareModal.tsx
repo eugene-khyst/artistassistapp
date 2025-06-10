@@ -17,6 +17,7 @@
  */
 
 import {CopyOutlined, ShareAltOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import {App, Button, Input, Modal, Space, Typography} from 'antd';
 import {QRCodeSVG} from 'qrcode.react';
 
@@ -31,10 +32,12 @@ interface Props {
 export const ShareModal: React.FC<Props> = ({open, setOpen, url}: Props) => {
   const {message} = App.useApp();
 
+  const {t} = useLingui();
+
   const handleCopyToClipboardClick = () => {
     if ('clipboard' in navigator && url) {
       void navigator.clipboard.writeText(url);
-      void message.info('Link copied to clipboard');
+      void message.info(t`Link copied to clipboard`);
     }
   };
 
@@ -55,7 +58,7 @@ export const ShareModal: React.FC<Props> = ({open, setOpen, url}: Props) => {
 
   return (
     <Modal
-      title="Share your color set"
+      title={t`Share your color set`}
       centered
       open={open}
       footer={null}
@@ -65,7 +68,9 @@ export const ShareModal: React.FC<Props> = ({open, setOpen, url}: Props) => {
     >
       {url ? (
         <Space direction="vertical" style={{display: 'flex'}}>
-          <Typography.Text>Copy and share this link</Typography.Text>
+          <Typography.Text>
+            <Trans>Copy and share this link</Trans>
+          </Typography.Text>
           <Space.Compact style={{width: '100%'}}>
             <Input value={url} />
             {SHARE_AVAILABLE ? (
@@ -74,21 +79,25 @@ export const ShareModal: React.FC<Props> = ({open, setOpen, url}: Props) => {
                 icon={<ShareAltOutlined />}
                 onClick={() => void handleShareClick()}
               >
-                Share
+                <Trans>Share</Trans>
               </Button>
             ) : (
               <Button icon={<CopyOutlined />} onClick={handleCopyToClipboardClick}>
-                Copy
+                <Trans>Copy</Trans>
               </Button>
             )}
           </Space.Compact>
-          <Typography.Text>Or scan the QR code</Typography.Text>
+          <Typography.Text>
+            <Trans>Or scan the QR code</Trans>
+          </Typography.Text>
           <div>
             <QRCodeSVG value={url} />
           </div>
         </Space>
       ) : (
-        <p>Nothing to share</p>
+        <p>
+          <Trans>Nothing to share</Trans>
+        </p>
       )}
     </Modal>
   );

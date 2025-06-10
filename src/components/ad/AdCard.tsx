@@ -22,8 +22,8 @@ import {useContext} from 'react';
 import {Ad} from '~/src/components/ad/Ad';
 import {TabContext} from '~/src/contexts/TabContext';
 import {useAds} from '~/src/hooks/useAds';
-import {useAuth} from '~/src/hooks/useAuth';
 import type {AdDefinition} from '~/src/services/ads/types';
+import {useAppStore} from '~/src/stores/app-store';
 import type {TabKey} from '~/src/tabs';
 
 const DEFAULT_PLACEMENT = 'all';
@@ -33,9 +33,10 @@ interface Props {
 }
 
 export const AdCard: React.FC<Props> = ({vertical = false}: Props) => {
-  const tab: TabKey = useContext(TabContext);
+  const user = useAppStore(state => state.auth?.user);
+  const isAuthLoading = useAppStore(state => state.isAuthLoading);
 
-  const {isLoading: isAuthLoading, user} = useAuth();
+  const tab: TabKey = useContext(TabContext);
 
   const {ads: {ads: allAds, placements} = {ads: {}, placements: {}}} = useAds();
 

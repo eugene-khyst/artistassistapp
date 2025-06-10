@@ -17,6 +17,7 @@
  */
 
 import {DownloadOutlined, LoadingOutlined, MoreOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import type {MenuProps} from 'antd';
 import {Button, Col, Dropdown, Form, Grid, Row, Space, Spin, Typography} from 'antd';
 import {useEffect, useState} from 'react';
@@ -47,6 +48,8 @@ export const ImageLimitedPalette: React.FC = () => {
   const setLimitedColorSet = useAppStore(state => state.setLimitedColorSet);
 
   const screens = Grid.useBreakpoint();
+
+  const {t} = useLingui();
 
   const [colors, setColors] = useState<(string | number | null)[][]>([]);
 
@@ -87,7 +90,7 @@ export const ImageLimitedPalette: React.FC = () => {
   const items: MenuProps['items'] = [
     {
       key: '1',
-      label: 'Save',
+      label: t`Save`,
       icon: <DownloadOutlined />,
       onClick: () => {
         void limitedPaletteCanvas?.saveAsImage(getFilename(originalImageFile, 'limited-palette'));
@@ -97,22 +100,22 @@ export const ImageLimitedPalette: React.FC = () => {
   ];
 
   if (!colorSet || !originalImage) {
-    return <EmptyColorSet feature="limited palette" imageMandatory={true} />;
+    return <EmptyColorSet imageMandatory={true} />;
   }
 
   const height = `calc((100dvh - 130px) / ${screens.sm ? 1 : 2})`;
 
   return (
-    <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">
+    <Spin spinning={isLoading} indicator={<LoadingOutlined spin />} size="large">
       <div style={{padding: '0 16px'}}>
         <Space.Compact style={{display: 'flex'}}>
           <Form.Item
-            label="Colors"
-            tooltip={`Using a limited palette helps achieve color harmony. Select up to ${MAX_COLORS} colors to be your primaries.`}
+            label={t`Colors`}
+            tooltip={t`Using a limited palette helps achieve color harmony. Select up to ${MAX_COLORS} colors to be your primaries.`}
             style={{flexGrow: 1, marginBottom: 0}}
             extra={
               <Typography.Text type={colors.length > MAX_COLORS ? 'danger' : 'secondary'}>
-                Select from 1 to {MAX_COLORS} colors
+                <Trans>Select from 1 to {MAX_COLORS} colors</Trans>
               </Typography.Text>
             }
             validateStatus={colors.length > MAX_COLORS ? 'error' : undefined}
@@ -129,7 +132,7 @@ export const ImageLimitedPalette: React.FC = () => {
             onClick={handleApplyClick}
             disabled={colors.length == 0 || colors.length > MAX_COLORS}
           >
-            Apply
+            <Trans>Apply</Trans>
           </Button>
           <Dropdown menu={{items}}>
             <Button icon={<MoreOutlined />} />

@@ -26,7 +26,6 @@ import type {
   ColorIdFormat,
   ColorSet,
   ColorSetDefinition,
-  ColorTypeDefinition,
   CustomColorBrandDefinition,
   StandardColorSetDefinition,
 } from '~/src/services/color/types';
@@ -36,18 +35,31 @@ import {fetchSWR} from '~/src/utils/fetch';
 
 import {Rgb} from './space/rgb';
 
-export const COLOR_TYPES = new Map<ColorType, ColorTypeDefinition>([
-  [ColorType.WatercolorPaint, {name: 'Watercolor Paint', alias: 'watercolor-paint'}],
-  [ColorType.Gouache, {name: 'Gouache', alias: 'gouache'}],
-  [ColorType.AcrylicPaint, {name: 'Acrylic Paint', alias: 'acrylic-paint'}],
-  [ColorType.OilPaint, {name: 'Oil Paint', alias: 'oil-paint'}],
-  [ColorType.ColoredPencils, {name: 'Colored Pencils', alias: 'colored-pencils'}],
-  [ColorType.WatercolorPencils, {name: 'Watercolor Pencils', alias: 'watercolor-pencils'}],
-  [ColorType.Pastel, {name: 'Pastel', alias: 'pastel'}],
-  [ColorType.OilPastel, {name: 'Oil Pastel', alias: 'oil-pastel'}],
-  [ColorType.AcrylicMarkers, {name: 'Acrylic Markers', alias: 'acrylic-markers'}],
-  [ColorType.AcrylicGouache, {name: 'Acrylic Gouache', alias: 'acrylic-gouache'}],
-]);
+export const COLOR_TYPES: ColorType[] = [
+  ColorType.WatercolorPaint,
+  ColorType.Gouache,
+  ColorType.AcrylicPaint,
+  ColorType.OilPaint,
+  ColorType.ColoredPencils,
+  ColorType.WatercolorPencils,
+  ColorType.Pastel,
+  ColorType.OilPastel,
+  ColorType.AcrylicMarkers,
+  ColorType.AcrylicGouache,
+];
+
+const COLOR_TYPE_ALIASES: Record<ColorType, string> = {
+  [ColorType.WatercolorPaint]: 'watercolor-paint',
+  [ColorType.Gouache]: 'gouache',
+  [ColorType.AcrylicPaint]: 'acrylic-paint',
+  [ColorType.OilPaint]: 'oil-paint',
+  [ColorType.ColoredPencils]: 'colored-pencils',
+  [ColorType.WatercolorPencils]: 'watercolor-pencils',
+  [ColorType.Pastel]: 'pastel',
+  [ColorType.OilPastel]: 'oil-pastel',
+  [ColorType.AcrylicMarkers]: 'acrylic-markers',
+  [ColorType.AcrylicGouache]: 'acrylic-gouache',
+};
 
 const CUSTOM_COLOR_BRAND_ID_BASE = 100000;
 const CUSTOM_COLOR_BRAND_ALIAS_PREFIX = 'custom:';
@@ -97,7 +109,7 @@ function getResourceUrl(
   type: ColorType,
   brandAlias?: string
 ): string {
-  const medium: string = COLOR_TYPES.get(type)!.alias;
+  const medium: string = COLOR_TYPE_ALIASES[type];
   if (resource === 'brands') {
     return `${DATA_URL}/${medium}/${resource}.json`;
   } else {

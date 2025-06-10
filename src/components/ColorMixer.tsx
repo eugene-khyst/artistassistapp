@@ -18,11 +18,11 @@
 
 import {
   LineChartOutlined,
-  LoadingOutlined,
   MinusOutlined,
   PlusOutlined,
   QuestionCircleOutlined,
 } from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import {
   Button,
   Col,
@@ -32,7 +32,6 @@ import {
   Row,
   Select,
   Space,
-  Spin,
   theme,
   Tooltip,
   Typography,
@@ -97,11 +96,12 @@ const formInitialValues = {
 
 export const ColorMixer: React.FC = () => {
   const colorSet = useAppStore(state => state.colorSet);
-  const isInitialStateLoading = useAppStore(state => state.isInitialStateLoading);
 
   const {
     token: {colorTextTertiary},
   } = theme.useToken();
+
+  const {t} = useLingui();
 
   const [form] = Form.useForm();
 
@@ -162,19 +162,14 @@ export const ColorMixer: React.FC = () => {
   };
 
   if (!colorSet || !isSupported(colorSet)) {
-    return <EmptyColorSet feature="color mixing" pencilsSupported={false} />;
+    return <EmptyColorSet pencilsSupported={false} />;
   }
 
   return (
-    <Spin
-      spinning={isInitialStateLoading}
-      tip="Loading"
-      indicator={<LoadingOutlined spin />}
-      size="large"
-    >
+    <>
       <Flex vertical gap="middle" style={{padding: '0 16px 16px'}}>
         <Typography.Text strong>
-          Mix your colors in any proportions so you don&apos;t waste real paints.
+          <Trans>Mix your colors in any proportions so you don&apos;t waste real paints.</Trans>
         </Typography.Text>
 
         <Space size="middle" align="start" wrap>
@@ -188,15 +183,15 @@ export const ColorMixer: React.FC = () => {
               autoComplete="off"
             >
               <Form.Item
-                label="Background"
-                tooltip="The color of paper or canvas, or the color of the base layer when glazed."
+                label={t`Background`}
+                tooltip={t`The color of paper or canvas, or the color of the base layer when glazed.`}
                 style={{marginBottom: 0}}
               >
                 <ColorPicker
                   value={backgroundColor}
                   presets={[
                     {
-                      label: 'Recommended',
+                      label: t`Recommended`,
                       colors: [PAPER_WHITE_HEX],
                     },
                   ]}
@@ -210,11 +205,15 @@ export const ColorMixer: React.FC = () => {
               <Form.Item style={{marginBottom: 0}}>
                 <Flex gap="small" align="center">
                   <Typography.Text style={{display: 'inline-block', width: 50}}>
-                    Ratio
+                    <Trans>Ratio</Trans>
                   </Typography.Text>
                   <Typography.Text>×</Typography.Text>
-                  <Typography.Text>Color</Typography.Text>
-                  <Tooltip title="Select any number of colors to mix and specify the part of each color in the resulting mix.">
+                  <Typography.Text>
+                    <Trans>Color</Trans>
+                  </Typography.Text>
+                  <Tooltip
+                    title={t`Select any number of colors to mix and specify the part of each color in the resulting mix.`}
+                  >
                     <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
                   </Tooltip>
                 </Flex>
@@ -227,7 +226,7 @@ export const ColorMixer: React.FC = () => {
                         <Form.Item {...restField} name={[name, 'part']} style={{marginBottom: 0}}>
                           <Select
                             options={RATIO_OPTIONS}
-                            placeholder="Select part"
+                            placeholder={t`Select part`}
                             style={{width: 55}}
                           />
                         </Form.Item>
@@ -260,17 +259,17 @@ export const ColorMixer: React.FC = () => {
                             add(defaultValue);
                           }}
                         >
-                          Add color
+                          <Trans>Add color</Trans>
                         </Button>
                         <Button
                           icon={<LineChartOutlined />}
-                          title="Spectral reflectance curve"
+                          title={t`Spectral reflectance curve`}
                           disabled={!resultColorMixtures.some(isThickConsistency)}
                           onClick={() => {
                             setIsOpenReflectanceChart(true);
                           }}
                         >
-                          Reflectance
+                          <Trans>Reflectance</Trans>
                         </Button>
                       </Space>
                     </Form.Item>
@@ -299,7 +298,7 @@ export const ColorMixer: React.FC = () => {
           </Space>
         </Space>
 
-        <Row>
+        <Row justify="start">
           <Col xs={24} md={12}>
             <AdCard />
           </Col>
@@ -312,6 +311,6 @@ export const ColorMixer: React.FC = () => {
           setIsOpenReflectanceChart(false);
         }}
       />
-    </Spin>
+    </>
   );
 };

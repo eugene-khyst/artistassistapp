@@ -17,6 +17,7 @@
  */
 
 import {DownloadOutlined, LoadingOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import type {MenuProps} from 'antd';
 import {Button, Checkbox, Dropdown, Form, Grid, Select, Space, Spin} from 'antd';
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
@@ -32,12 +33,6 @@ import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
 
 import {EmptyImage} from './empty/EmptyImage';
-
-const GRID_OPTIONS: SelectOptionType[] = [
-  {value: GridMode.Square, label: 'Square cells'},
-  {value: GridMode.Rectangular_3x3, label: '3×3'},
-  {value: GridMode.Rectangular_4x4, label: '4×4'},
-];
 
 const SQUARE_GRID_SIZE_OPTIONS: SelectOptionType[] = [4, 6, 8, 10, 12].map((size: number) => ({
   value: size,
@@ -55,10 +50,11 @@ export const ImageGrid: React.FC = () => {
   const originalImageFile = useAppStore(state => state.originalImageFile);
   const originalImage = useAppStore(state => state.originalImage);
 
-  const isInitialStateLoading = useAppStore(state => state.isInitialStateLoading);
   const isOriginalImageLoading = useAppStore(state => state.isOriginalImageLoading);
 
   const screens = Grid.useBreakpoint();
+
+  const {t} = useLingui();
 
   const [gridMode, setGridMode] = useState<GridMode>(GridMode.Square);
   const [gridSize, setGridSize] = useState<number>(DEFAULT_SQUARE_GRID_SIZE);
@@ -68,8 +64,6 @@ export const ImageGrid: React.FC = () => {
     gridCanvasSupplier,
     originalImage
   );
-
-  const isLoading: boolean = isInitialStateLoading || isOriginalImageLoading;
 
   useEffect(() => {
     const {gridMode, gridSize, gridDiagonals} = appSettings;
@@ -129,37 +123,43 @@ export const ImageGrid: React.FC = () => {
   const items: MenuProps['items'] = [
     {
       key: '1',
-      label: 'Print',
+      label: t`Print`,
       icon: <PrinterOutlined />,
       onClick: handlePrintClick,
     },
     {
       key: '2',
-      label: 'Save',
+      label: t`Save`,
       icon: <DownloadOutlined />,
       onClick: handleSaveClick,
     },
   ];
 
   if (!originalImage) {
-    return <EmptyImage feature="draw a grid over a photo" />;
+    return <EmptyImage />;
   }
 
+  const gridOptions: SelectOptionType[] = [
+    {value: GridMode.Square, label: t`Square cells`},
+    {value: GridMode.Rectangular_3x3, label: '3×3'},
+    {value: GridMode.Rectangular_4x4, label: '4×4'},
+  ];
+
   return (
-    <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">
+    <Spin spinning={isOriginalImageLoading} indicator={<LoadingOutlined spin />} size="large">
       <Space align="start" style={{width: '100%', justifyContent: 'center', marginBottom: 8}}>
-        <Form.Item label="Grid" style={{margin: 0}}>
+        <Form.Item label={t`Grid`} style={{margin: 0}}>
           <Select
             value={gridMode}
             onChange={handleGridModeChange}
-            options={GRID_OPTIONS}
+            options={gridOptions}
             style={{width: 125}}
           />
         </Form.Item>
         {gridMode === GridMode.Square ? (
           <Form.Item
-            label="Cells"
-            tooltip="Number of cells on the smaller side (vertical or horizontal)"
+            label={t`Cells`}
+            tooltip={t`Number of cells on the smaller side (vertical or horizontal)`}
             style={{margin: 0}}
           >
             <Select
@@ -169,17 +169,21 @@ export const ImageGrid: React.FC = () => {
             />
           </Form.Item>
         ) : (
-          <Form.Item label="Diagonals" tooltip="Show or hide diagonal lines" style={{margin: 0}}>
+          <Form.Item
+            label={t`Diagonals`}
+            tooltip={t`Show or hide diagonal lines`}
+            style={{margin: 0}}
+          >
             <Checkbox checked={gridDiagonals} onChange={handleGridDiagonalsChange} />
           </Form.Item>
         )}
         {screens.sm ? (
           <>
             <Button icon={<PrinterOutlined />} onClick={handlePrintClick}>
-              Print
+              <Trans>Print</Trans>
             </Button>
             <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
-              Save
+              <Trans>Save</Trans>
             </Button>
           </>
         ) : (

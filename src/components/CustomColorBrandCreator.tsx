@@ -17,6 +17,7 @@
  */
 
 import {DeleteOutlined, LoadingOutlined, MinusOutlined, SaveOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import {useQueryClient} from '@tanstack/react-query';
 import {
   App,
@@ -56,8 +57,9 @@ import {
 } from '~/src/services/canvas/image/image-color-picker-canvas';
 import {Rgb} from '~/src/services/color/space/rgb';
 import {type ColorDefinition, type CustomColorBrandDefinition} from '~/src/services/color/types';
-import {getLastCustomColorBrand} from '~/src/services/db/custom-brand-db';
 import {useAppStore} from '~/src/stores/app-store';
+
+const FIELD = '${label}';
 
 const DEFAULT_SAMPLE_DIAMETER = 10;
 const MAX_SAMPLE_DIAMETER = 50;
@@ -102,6 +104,9 @@ function removeRho(brand: CustomColorBrandDefinition): CustomColorBrandDefinitio
 
 export const CustomColorBrandCreator: React.FC = () => {
   const customColorBrands = useAppStore(state => state.customColorBrands);
+  const latestCustomColorBrand = useAppStore(state => state.latestCustomColorBrand);
+  const isCustomColorBrandsLoading = useAppStore(state => state.isCustomColorBrandsLoading);
+
   const loadCustomColorBrands = useAppStore(state => state.loadCustomColorBrands);
   const saveCustomColorBrand = useAppStore(state => state.saveCustomColorBrand);
   const deleteCustomColorBrand = useAppStore(state => state.deleteCustomColorBrand);
@@ -110,6 +115,8 @@ export const CustomColorBrandCreator: React.FC = () => {
 
   const screens = Grid.useBreakpoint();
   const {message} = App.useApp();
+
+  const {t} = useLingui();
 
   const [form] = Form.useForm<CustomColorBrandDefinition>();
 
@@ -142,24 +149,24 @@ export const CustomColorBrandCreator: React.FC = () => {
     [form]
   );
 
-  const {imageBitmap, isLoading} = useCreateImageBitmap(imageFile);
+  const {imageBitmap, isLoading: isImageLoading} = useCreateImageBitmap(imageFile);
 
   const {ref: canvasRef, zoomableImageCanvas: colorPickerCanvas} =
     useZoomableImageCanvas<ImageColorPickerCanvas>(imageColorPickerCanvasSupplier, imageBitmap);
 
   useEffect(() => {
-    void loadCustomColorBrands();
+    void (async () => {
+      await loadCustomColorBrands();
+    })();
   }, [loadCustomColorBrands]);
 
   useEffect(() => {
-    void (async () => {
-      const latestCustomColorBrand: CustomColorBrandDefinition | undefined =
-        await getLastCustomColorBrand();
-      if (latestCustomColorBrand) {
-        form.setFieldsValue(removeRho(latestCustomColorBrand));
-      }
-    })();
-  }, [form]);
+    if (latestCustomColorBrand) {
+      form.setFieldsValue(removeRho(latestCustomColorBrand));
+    }
+  }, [latestCustomColorBrand, form]);
+
+  const isLoading: boolean = isImageLoading || isCustomColorBrandsLoading;
 
   const handleImageFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files?.[0] ?? null;
@@ -232,7 +239,7 @@ export const CustomColorBrandCreator: React.FC = () => {
   };
 
   const handleSubmitFailed = () => {
-    void message.error('Fill in the required fields');
+    void message.error(t`Fill in the required fields`);
   };
 
   const handleDeleteButtonClick = async () => {
@@ -248,7 +255,7 @@ export const CustomColorBrandCreator: React.FC = () => {
   const margin = screens.sm ? 0 : 8;
 
   return (
-    <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">
+    <Spin spinning={isLoading} indicator={<LoadingOutlined spin />} size="large">
       <Row>
         <Col xs={24} sm={12} lg={8}>
           <canvas
@@ -285,23 +292,25 @@ export const CustomColorBrandCreator: React.FC = () => {
               <Col xs={24} lg={12}>
                 <Space direction="vertical" style={{display: 'flex'}}>
                   <Typography.Text strong>
-                    Select an image that contains a color chart
+                    <Trans>Select an image that contains a color chart</Trans>
                   </Typography.Text>
 
                   <Space>
-                    <FileSelect onChange={handleImageFileChange}>Select image</FileSelect>
+                    <FileSelect onChange={handleImageFileChange}>
+                      <Trans>Select image</Trans>
+                    </FileSelect>
                     <FileSelect
                       type="default"
                       accept="application/json"
                       onChange={e => void handleJsonFileChange(e)}
                     >
-                      Import JSON
+                      <Trans>Import JSON</Trans>
                     </FileSelect>
                   </Space>
 
                   <Form.Item
-                    label="Diameter"
-                    tooltip="The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
+                    label={t`Diameter`}
+                    tooltip={t`The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area.`}
                     style={{marginBottom: 0}}
                   >
                     <Slider
@@ -313,7 +322,7 @@ export const CustomColorBrandCreator: React.FC = () => {
                     />
                   </Form.Item>
 
-                  <Form.Item label="Color" style={{marginBottom: 0}}>
+                  <Form.Item label={t`Color`} style={{marginBottom: 0}}>
                     <ColorPicker
                       value={currentColor}
                       onChangeComplete={(color: Color) => {
@@ -328,8 +337,8 @@ export const CustomColorBrandCreator: React.FC = () => {
 
                   <Form.Item
                     name="id"
-                    label="Brand"
-                    rules={[{required: true, message: '${label} is required'}]}
+                    label={t`Color brand`}
+                    rules={[{required: true, message: t`${FIELD} is required`}]}
                   >
                     <CustomColorBrandSelect
                       customColorBrands={customColorBrands}
@@ -339,43 +348,43 @@ export const CustomColorBrandCreator: React.FC = () => {
 
                   <Form.Item
                     name="type"
-                    label="Medium"
-                    rules={[{required: true, message: '${label} is required'}]}
+                    label={t`Art medium`}
+                    rules={[{required: true, message: t`${FIELD} is required`}]}
                   >
                     <ColorTypeSelect />
                   </Form.Item>
 
                   <Form.Item
                     name="name"
-                    label="Name"
-                    rules={[{required: true, message: '${label} is required'}]}
+                    label={t`Name`}
+                    rules={[{required: true, message: t`${FIELD} is required`}]}
                   >
-                    <Input placeholder="Name a brand" />
+                    <Input placeholder={t`Name a brand`} />
                   </Form.Item>
 
                   <Space wrap>
                     <Button icon={<SaveOutlined />} type="primary" htmlType="submit">
-                      Save
+                      <Trans>Save</Trans>
                     </Button>
 
                     {!!selectedCustomColorBrandId && (
                       <Popconfirm
-                        title="Delete the custom brand"
-                        description="Are you sure you want to delete this custom brand?"
+                        title={t`Delete the custom brand`}
+                        description={t`Are you sure you want to delete this custom brand?`}
                         onConfirm={() => {
                           void handleDeleteButtonClick();
                         }}
-                        okText="Yes"
-                        cancelText="No"
+                        okText={t`Yes`}
+                        cancelText={t`No`}
                       >
                         <Button
                           icon={<DeleteOutlined />}
-                          title="Delete the custom brand"
+                          title={t`Delete the custom brand`}
                           onClick={e => {
                             e.stopPropagation();
                           }}
                         >
-                          Delete
+                          <Trans>Delete</Trans>
                         </Button>
                       </Popconfirm>
                     )}
@@ -389,7 +398,7 @@ export const CustomColorBrandCreator: React.FC = () => {
                     {
                       validator: async (_, colors?: ColorDefinition[]) => {
                         if (!colors || colors.length < 1) {
-                          return Promise.reject(new Error('At least one color is required'));
+                          return Promise.reject(new Error(t`At least one color is required`));
                         }
                       },
                     },
@@ -405,23 +414,23 @@ export const CustomColorBrandCreator: React.FC = () => {
                             <Form.Item
                               {...restField}
                               name={[name, 'hex']}
-                              rules={[{required: true, message: 'Required'}]}
+                              rules={[{required: true, message: t`Required`}]}
                             >
                               <ColorPicker disabled />
                             </Form.Item>
                             <Form.Item
                               {...restField}
                               name={[name, 'id']}
-                              rules={[{required: true, message: 'Required'}]}
+                              rules={[{required: true, message: t`Required`}]}
                             >
                               <InputNumber placeholder="ID" style={{width: 70}} />
                             </Form.Item>
                             <Form.Item
                               {...restField}
                               name={[name, 'name']}
-                              rules={[{required: true, message: 'Required'}]}
+                              rules={[{required: true, message: t`Required`}]}
                             >
-                              <Input placeholder="Name" />
+                              <Input placeholder={t`Name`} />
                             </Form.Item>
                             <Form.Item {...restField} name={[name, 'opacity']}>
                               <OpacitySelect style={{width: 65}} />

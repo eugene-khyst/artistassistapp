@@ -17,52 +17,59 @@
  */
 
 import {ClearOutlined, CloseOutlined, DeleteOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import type {SpaceProps} from 'antd';
 import {Button, Popconfirm, Space} from 'antd';
 import React from 'react';
 
 import {clearCache, deleteAppData, unregisterServiceWorker} from '~/src/utils/storage';
 
+const SERVICE_WORKER = 'Service Worker';
+
 type Props = Pick<SpaceProps, 'direction'>;
 
 export const ClearStorage: React.FC<Props> = ({direction}: Props) => {
+  const {t} = useLingui();
+
   return (
     <Space direction={direction} wrap>
       <Popconfirm
-        title="Clear cache"
-        description="Are you sure you want to clear the cache?"
+        title={t`Clear cache`}
+        description={t`Are you sure you want to clear the cache?`}
         onConfirm={() => {
           void clearCache(true);
         }}
-        okText="Yes"
-        cancelText="No"
+        okText={t`Yes`}
+        cancelText={t`No`}
       >
-        <Button icon={<ClearOutlined />}>Clear cache</Button>
-      </Popconfirm>
-      <Popconfirm
-        title="Delete all app data"
-        description="Are you sure you want to delete all app data?"
-        onConfirm={() => {
-          void deleteAppData(true);
-        }}
-        okText="Yes"
-        cancelText="No"
-      >
-        <Button icon={<DeleteOutlined />} danger>
-          Delete all app data
+        <Button icon={<ClearOutlined />}>
+          <Trans>Clear cache</Trans>
         </Button>
       </Popconfirm>
       <Popconfirm
-        title="Unregister service worker"
-        description="Are you sure you want to unregister service worker?"
+        title={t`Delete all app data`}
+        description={t`Are you sure you want to delete all app data?`}
         onConfirm={() => {
-          void unregisterServiceWorker(true);
+          void deleteAppData();
         }}
-        okText="Yes"
-        cancelText="No"
+        okText={t`Yes`}
+        cancelText={t`No`}
+      >
+        <Button icon={<DeleteOutlined />} danger>
+          <Trans>Delete all app data</Trans>
+        </Button>
+      </Popconfirm>
+      <Popconfirm
+        title={t`Unregister service worker`}
+        description={t`Are you sure you want to unregister ${SERVICE_WORKER}?`}
+        onConfirm={() => {
+          void unregisterServiceWorker();
+        }}
+        okText={t`Yes`}
+        cancelText={t`No`}
       >
         <Button icon={<CloseOutlined />} danger>
-          Unregister service worker
+          <Trans>Unregister {SERVICE_WORKER}</Trans>
         </Button>
       </Popconfirm>
     </Space>

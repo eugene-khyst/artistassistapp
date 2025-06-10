@@ -17,6 +17,7 @@
  */
 
 import {BgColorsOutlined, DeleteOutlined, PictureOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Card, Popconfirm, Space, Typography} from 'antd';
 
 import {ColorMixtureDescription} from '~/src/components/color/ColorMixtureDescription';
@@ -34,6 +35,8 @@ export const PaletteColorMixtureCard: React.FC<Props> = ({colorMixture}: Props) 
   const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
   const setColorPickerPipet = useAppStore(state => state.setColorPickerPipet);
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
+
+  const {t} = useLingui();
 
   const handleTitleEdited = (value: string) => {
     void saveToPalette({...colorMixture, name: value});
@@ -63,7 +66,7 @@ export const PaletteColorMixtureCard: React.FC<Props> = ({colorMixture}: Props) 
           }}
           style={{width: '100%', fontWeight: 'bold'}}
         >
-          {colorMixture.name || 'Untitled mixture'}
+          {colorMixture.name || t`Untitled mixture`}
         </Typography.Text>
 
         <ColorMixtureDescription colorMixture={colorMixture} />
@@ -75,25 +78,25 @@ export const PaletteColorMixtureCard: React.FC<Props> = ({colorMixture}: Props) 
             onClick={handleShowOnPhotoClick}
             disabled={!colorMixture.samplingArea}
           >
-            Show on photo
+            <Trans>Show on photo</Trans>
           </Button>
           <Button
             size="small"
             icon={<BgColorsOutlined />}
-            title="Set the color of the base layer for the glazing"
+            title={t`Set the color of the base layer for the glazing`}
             onClick={handleSetAsBgClick}
           >
-            Set as background
+            <Trans>Set as background</Trans>
           </Button>
           <Popconfirm
-            title="Remove the color mixture"
-            description="Are you sure you want to remove this color mixture?"
+            title={t`Remove the color mixture`}
+            description={t`Are you sure you want to remove this color mixture?`}
             onConfirm={() => void deleteFromPalette(colorMixture)}
-            okText="Yes"
-            cancelText="No"
+            okText={t`Yes`}
+            cancelText={t`No`}
           >
             <Button size="small" icon={<DeleteOutlined />}>
-              Remove
+              <Trans>Remove</Trans>
             </Button>
           </Popconfirm>
         </Space>

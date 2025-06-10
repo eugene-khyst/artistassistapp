@@ -16,9 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {FullscreenExitOutlined, FullscreenOutlined} from '@ant-design/icons';
+import {FullscreenExitOutlined, FullscreenOutlined, LoadingOutlined} from '@ant-design/icons';
+import {useLingui} from '@lingui/react/macro';
 import type {TabsProps} from 'antd';
-import {App, Col, FloatButton, Row, Tabs, theme} from 'antd';
+import {App, Col, FloatButton, Row, Spin, Tabs, theme} from 'antd';
 import {useEffect, useRef, useState} from 'react';
 import StickyBox from 'react-sticky-box';
 
@@ -30,9 +31,9 @@ import {ImageOutline} from '~/src/components/ImageOutline';
 import {ImagesCompare} from '~/src/components/ImagesCompare';
 import {ImageStyleTransfer} from '~/src/components/ImageStyleTransfer';
 import {Install} from '~/src/components/Install';
+import {AUTH_ERROR_MESSAGES, TAB_LABELS} from '~/src/components/messages';
 import type {ChangableComponent} from '~/src/components/types';
 import {TabContext} from '~/src/contexts/TabContext';
-import {useAuth} from '~/src/hooks/useAuth';
 import {useDoubleBackPressToExit} from '~/src/hooks/useDoubleBackPressToExit';
 import {useFullScreen} from '~/src/hooks/useFullscreen';
 import {useInstallPrompt} from '~/src/hooks/useInstallPrompt';
@@ -51,15 +52,20 @@ import {ImageLimitedPalette} from './components/ImageLimitedPalette';
 import {ImageTonalValues} from './components/ImageTonalValues';
 import {Palette} from './components/Palette';
 import {WATERMARK_TEXT} from './config';
-import {TAB_LABELS, TabKey} from './tabs';
+import {TabKey} from './tabs';
 
 const AD_POPUP_INITIAL_DELAY = 1 * 60000;
 const AD_POPUP_INTERVAL = 15 * 60000;
 
 export const ArtistAssistApp: React.FC = () => {
   const activeTabKey = useAppStore(state => state.activeTabKey);
+  const isInitialStateLoading = useAppStore(state => state.isInitialStateLoading);
+  const isLocaleLoading = useAppStore(state => state.isLocaleLoading);
+  const user = useAppStore(state => state.auth?.user);
+  const authError = useAppStore(state => state.authError);
+  const isAuthLoading = useAppStore(state => state.isAuthLoading);
 
-  const initAppStore = useAppStore(state => state.initAppStore);
+  const clearAuthError = useAppStore(state => state.clearAuthError);
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
 
   const {modal} = App.useApp();
@@ -68,34 +74,37 @@ export const ArtistAssistApp: React.FC = () => {
     token: {colorBgContainer},
   } = theme.useToken();
 
+  const {t} = useLingui();
+
   const {isFullscreen, toggleFullScreen, isSupported: isFullScreenSupported} = useFullScreen();
 
   const {showInstallPromotion, promptToInstall} = useInstallPrompt();
   const pwaDisplayMode: DisplayMode = useDisplayMode();
 
-  const {user, isLoading: isAuthLoading, error: authError} = useAuth();
-
   const colorSetChooserRef = useRef<ChangableComponent>(null);
-  const isInitialized = useRef<boolean>(false);
 
   const [isAdModalReady, setIsAdModalReady] = useState<boolean>(false);
   const [isAdModalOpen, setIsAdModalOpen] = useState<boolean>(true);
+
+  const isLoading: boolean = isInitialStateLoading || isLocaleLoading || isAuthLoading;
 
   useDoubleBackPressToExit();
 
   useEffect(() => {
     void (async () => {
       if (authError) {
+        const message = AUTH_ERROR_MESSAGES[authError.type];
         await modal.warning({
-          title: 'Login failed',
-          content: authError,
+          title: t`Login failed`,
+          content: message ? t(message) : authError.message,
           afterClose() {
+            clearAuthError();
             void setActiveTabKey(TabKey.ColorSet);
           },
         });
       }
     })();
-  }, [authError, modal, setActiveTabKey]);
+  }, [modal, authError, clearAuthError, setActiveTabKey, t]);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -117,15 +126,6 @@ export const ArtistAssistApp: React.FC = () => {
       clearInterval(intervalId);
     };
   }, [isAdModalReady]);
-
-  useEffect(() => {
-    if (isAuthLoading || isInitialized.current) {
-      return;
-    }
-    isInitialized.current = true;
-
-    void initAppStore(user);
-  }, [isAuthLoading, user, initAppStore]);
 
   const handleTabChange = (activeKey: string) => {
     void (async () => {
@@ -220,7 +220,7 @@ export const ArtistAssistApp: React.FC = () => {
     },
   ].map(({key, children}) => ({
     key,
-    label: TAB_LABELS[key],
+    label: t(TAB_LABELS[key]),
     children: <TabContext.Provider value={key}>{children}</TabContext.Provider>,
   }));
 
@@ -231,7 +231,7 @@ export const ArtistAssistApp: React.FC = () => {
   );
 
   return (
-    <>
+    <Spin spinning={isLoading} indicator={<LoadingOutlined spin />} size="large">
       <div className="watermark">{WATERMARK_TEXT}</div>
       <Row justify="center">
         <Col xs={24} xxl={18}>
@@ -254,6 +254,6 @@ export const ArtistAssistApp: React.FC = () => {
         />
       )}
       <AdModal open={isAdModalReady && isAdModalOpen} setOpen={setIsAdModalOpen} />
-    </>
+    </Spin>
   );
 };

@@ -26,6 +26,7 @@ import {
   TabletOutlined,
   WindowsOutlined,
 } from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import {Alert, Col, Row, theme, Typography} from 'antd';
 import type {PropsWithChildren} from 'react';
 
@@ -43,22 +44,30 @@ export const BrowserSupport: React.FC<PropsWithChildren> = ({children}: PropsWit
     token: {colorTextTertiary},
   } = theme.useToken();
 
+  const {t} = useLingui();
+
   if (!IS_BROWSER_SUPPORTED) {
     return (
       <div style={{padding: 16}}>
-        <Alert message={`Your web browser is not supported.`} type="error" showIcon />
-        <Typography.Title level={2}>Supported web browsers and operating systems</Typography.Title>
+        <Alert message={t`Your web browser is not supported.`} type="error" showIcon />
+        <Typography.Title level={2}>
+          <Trans>Supported web browsers and operating systems</Trans>
+        </Typography.Title>
         <Row gutter={32}>
           <Col xs={24} md={12}>
             <Typography.Paragraph>
               <Typography.Title level={3}>
-                <TabletOutlined style={{color: colorTextTertiary}} /> Tablet and{' '}
-                <MobileOutlined style={{color: colorTextTertiary}} /> Mobile
+                <Trans>
+                  <TabletOutlined style={{color: colorTextTertiary}} /> Tablet and{' '}
+                  <MobileOutlined style={{color: colorTextTertiary}} /> Mobile
+                </Trans>
               </Typography.Title>
               <ul>
                 <li>
-                  <AppleOutlined style={{color: colorTextTertiary}} /> iPadOS 16.4+ or iOS 16.4+
-                  (not supported in any browser on older versions of iPadOS and iOS)
+                  <Trans>
+                    <AppleOutlined style={{color: colorTextTertiary}} /> iPadOS 16.4+ or iOS 16.4+
+                    (not supported in any browser on older versions of iPadOS and iOS)
+                  </Trans>
                 </li>
                 <li>
                   <AndroidOutlined style={{color: colorTextTertiary}} /> Android
@@ -75,7 +84,9 @@ export const BrowserSupport: React.FC<PropsWithChildren> = ({children}: PropsWit
           <Col xs={24} md={12}>
             <Typography.Paragraph>
               <Typography.Title level={3}>
-                <DesktopOutlined style={{color: colorTextTertiary}} /> Desktop
+                <Trans>
+                  <DesktopOutlined style={{color: colorTextTertiary}} /> Desktop or laptop
+                </Trans>
               </Typography.Title>
               <ul>
                 <li>
@@ -83,14 +94,18 @@ export const BrowserSupport: React.FC<PropsWithChildren> = ({children}: PropsWit
                   <ul>
                     <li>Safari 16.4 (macOS Big Sur, Monterey, Ventura, Sonoma or later)</li>
                     <li>
-                      or install the latest version of the Chrome, Edge, Firefox or Opera web
-                      browser
+                      <Trans>
+                        or install the latest version of the Chrome, Edge, Firefox or Opera web
+                        browser
+                      </Trans>
                     </li>
                   </ul>
                 </li>
                 <li>
-                  <WindowsOutlined style={{color: colorTextTertiary}} /> Windows and{' '}
-                  <LinuxOutlined style={{color: colorTextTertiary}} /> Linux
+                  <Trans>
+                    <WindowsOutlined style={{color: colorTextTertiary}} /> Windows and{' '}
+                    <LinuxOutlined style={{color: colorTextTertiary}} /> Linux
+                  </Trans>
                   <ul>
                     <li>Chrome 69+</li>
                     <li>Edge 79+</li>
@@ -105,7 +120,9 @@ export const BrowserSupport: React.FC<PropsWithChildren> = ({children}: PropsWit
             </Typography.Paragraph>
           </Col>
         </Row>
-        <Typography.Title level={2}>Diagnostics</Typography.Title>
+        <Typography.Title level={2}>
+          <Trans>Diagnostics</Trans>
+        </Typography.Title>
         <Typography.Paragraph>{navigator.userAgent}</Typography.Paragraph>
         <Typography.Paragraph>
           <ul>

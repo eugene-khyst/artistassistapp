@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Trans} from '@lingui/react/macro';
 import {Space, Typography} from 'antd';
 
 import type {ColorMixture, ColorMixturePart} from '~/src/services/color/types';
@@ -50,16 +51,17 @@ export const ColorMixtureDescription: React.FC<Props> = ({
   showTooltips = true,
 }: Props) => {
   const [whitePart, colorMixturePart] = toRatio(whiteFraction);
+  const partsRatioText: string = parts.map(({part}: ColorMixturePart) => part).join(':');
+  const whiteRatioText: string = formatRatio(whiteFraction, true);
   return (
     <Space direction="vertical">
       {showColors && (
         <>
           {parts.length > 1 && (
             <Typography.Text>
-              Mix colors in a{' '}
-              <Typography.Text strong>
-                {parts.map(({part}: ColorMixturePart) => part).join(':')} ratio
-              </Typography.Text>
+              <Trans>
+                Mix colors in a <Typography.Text strong>{partsRatioText} ratio</Typography.Text>
+              </Trans>
             </Typography.Text>
           )}
           <Space>
@@ -82,14 +84,17 @@ export const ColorMixtureDescription: React.FC<Props> = ({
       {white && (
         <>
           <Typography.Text>
-            Add white in a{' '}
-            <Typography.Text strong>{formatRatio(whiteFraction, true)} ratio</Typography.Text>
+            <Trans>
+              Add white in a <Typography.Text strong>{whiteRatioText} ratio</Typography.Text>
+            </Trans>
           </Typography.Text>
           <Space>
             <Space direction="vertical">
               <Space>
                 <ColorSquare color={colorMixtureRgb} text={colorMixturePart} size="large" />
-                <Typography.Text>Color mixture</Typography.Text>
+                <Typography.Text>
+                  <Trans>Color mixture</Trans>
+                </Typography.Text>
               </Space>
               <ColorDescription colorType={type} color={white} text={whitePart} />
             </Space>
@@ -108,7 +113,9 @@ export const ColorMixtureDescription: React.FC<Props> = ({
           {backgroundRgb && (
             <Space>
               <ColorSquare color={tintRgb} text={formatFraction(consistency)} size="large" />
-              <Typography.Text>over</Typography.Text>
+              <Typography.Text>
+                <Trans>over</Trans>
+              </Typography.Text>
               <ColorSquare color={backgroundRgb} size="large" />
               <Typography.Text>=</Typography.Text>
               <ColorSquare color={layerRgb} size="large" />

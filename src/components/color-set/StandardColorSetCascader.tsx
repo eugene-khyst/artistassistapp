@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Trans, useLingui} from '@lingui/react/macro';
 import {Cascader} from 'antd';
 import type {CascaderAutoProps, DefaultOptionType as CascaderOptionType} from 'antd/es/cascader';
 
@@ -24,7 +25,7 @@ import type {ColorBrandDefinition, StandardColorSetDefinition} from '~/src/servi
 
 const CUSTOM_COLOR_SET_OPTION: CascaderOptionType = {
   value: 0,
-  label: 'Custom color set',
+  label: <Trans>Custom color set</Trans>,
 };
 
 function getStandardColorSetOptions(
@@ -65,12 +66,14 @@ export const StandardColorSetCascader: React.FC<Props> = ({
   standardColorSets,
   ...rest
 }: Props) => {
+  const {t} = useLingui();
+
   const options = getStandardColorSetOptions(brands, standardColorSets);
   return (
     // @ts-expect-error Cascader prop drilling
     <Cascader
       options={options}
-      placeholder="Select set"
+      placeholder={t`Select set`}
       showSearch={{filter: filterCascaderOptions}}
       expandTrigger="hover"
       {...rest}

@@ -39,11 +39,6 @@ export enum ColorOpacity {
   Opaque = 4,
 }
 
-export interface ColorTypeDefinition {
-  alias: string;
-  name: string;
-}
-
 export interface ColorIdFormat {
   show?: boolean;
   prefix?: string;

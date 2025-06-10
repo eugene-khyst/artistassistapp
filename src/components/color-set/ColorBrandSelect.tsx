@@ -16,13 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {useLingui} from '@lingui/react/macro';
 import type {SelectProps} from 'antd';
 import {Select} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import type {FlattenOptionData} from 'rc-select/lib/interface';
 
 import {filterSelectOptions} from '~/src/components/utils';
-import {useAuth} from '~/src/hooks/useAuth';
 import type {User} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {
@@ -30,6 +30,7 @@ import {
   compareColorBrandsByName,
 } from '~/src/services/color/colors';
 import type {ColorBrandDefinition} from '~/src/services/color/types';
+import {useAppStore} from '~/src/stores/app-store';
 
 function getColorBrandOptions(
   user?: User | null,
@@ -52,15 +53,6 @@ function getColorBrandOptions(
     });
 }
 
-const colorBrandOptionRender = ({
-  data: {fullName, colorCount},
-}: FlattenOptionData<SelectOptionType & {colorCount?: number}>) => (
-  <>
-    {fullName}
-    {!!colorCount && ` (${colorCount} colors)`}
-  </>
-);
-
 type Props = Omit<
   SelectProps,
   'options' | 'placeholder' | 'showSearch' | 'filterOption' | 'optionRender' | 'allowClear'
@@ -69,15 +61,24 @@ type Props = Omit<
 };
 
 export const ColorBrandSelect: React.FC<Props> = ({brands, ...rest}: Props) => {
-  const {user} = useAuth();
+  const user = useAppStore(state => state.auth?.user);
+
+  const {t} = useLingui();
+
   const options = getColorBrandOptions(user, brands);
   return (
     <Select
       options={options}
-      placeholder="Select brands"
+      placeholder={t`Select brands`}
       showSearch
       filterOption={filterSelectOptions}
-      optionRender={colorBrandOptionRender}
+      optionRender={({
+        data: {fullName, colorCount},
+      }: FlattenOptionData<SelectOptionType & {colorCount?: number}>) => (
+        <>
+          {fullName} {!!colorCount && t`(${colorCount} colors)`}
+        </>
+      )}
       allowClear
       {...rest}
     />

@@ -17,6 +17,7 @@
  */
 
 import {PrinterOutlined, QuestionCircleOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Col, Flex, Row, Space, theme, Tooltip, Typography} from 'antd';
 import type {ChangeEvent, RefObject} from 'react';
 import {useEffect, useRef} from 'react';
@@ -55,6 +56,8 @@ export const ImagesCompare: React.FC = () => {
     token: {colorTextTertiary},
   } = theme.useToken();
 
+  const {t} = useLingui();
+
   const player1Ref = useRef<HTMLDivElement>(null);
   const player2Ref = useRef<HTMLDivElement>(null);
   const photoRankingRef = useRef<HTMLButtonElement>(null);
@@ -82,20 +85,26 @@ export const ImagesCompare: React.FC = () => {
     documentTitle: 'ArtistAssistApp',
   });
 
-  const isNew = playersByRating.length === 0;
+  const isNew: boolean = playersByRating.length === 0;
+  const player1RatingText: string | undefined = nextGame?.player1.rating.toFixed(1);
+  const player2RatingText: string | undefined = nextGame?.player2.rating.toFixed(1);
 
   return (
     <Flex vertical gap="small" style={{padding: '0 16px 16px'}}>
       <Space align="center" size={4}>
-        <Typography.Text strong>Select photos to rank using pairwise comparison</Typography.Text>
-        <Tooltip title="It can be difficult to choose between multiple photos. Comparing each photo with others in pairs simplifies the choice and helps to identify the most preferred one.">
+        <Typography.Text strong>
+          <Trans>Select photos to rank using pairwise comparison</Trans>
+        </Typography.Text>
+        <Tooltip
+          title={t`It can be difficult to choose between multiple photos. Comparing each photo with others in pairs simplifies the choice and helps to identify the most preferred one.`}
+        >
           <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
         </Tooltip>
       </Space>
 
       <Space>
         <FileSelect type={isNew ? 'primary' : 'default'} multiple onChange={handleFileChange}>
-          {isNew ? 'Select photos' : 'Add photos'}
+          {isNew ? t`Select photos` : t`Add photos`}
         </FileSelect>
         {!isNew && (
           <Button
@@ -103,20 +112,22 @@ export const ImagesCompare: React.FC = () => {
               newTournament();
             }}
           >
-            New comparison
+            <Trans>New comparison</Trans>
           </Button>
         )}
       </Space>
 
       {nextGame && (
         <>
-          <Typography.Text strong>Determine the best photo by pairwise comparison</Typography.Text>
+          <Typography.Text strong>
+            <Trans>Determine the best photo by pairwise comparison</Trans>
+          </Typography.Text>
           <Row gutter={16} align="middle" justify="space-evenly">
             <Col xs={12} lg={8} xl={6}>
               <ImageCard
                 ref={player1Ref}
                 file={nextGame.player1.data}
-                description={`Rating: ${nextGame.player1.rating.toFixed(1)}`}
+                description={t`Rating: ${player1RatingText}`}
                 onClick={() => {
                   handlePlayerClick([1, 0]);
                 }}
@@ -127,7 +138,7 @@ export const ImagesCompare: React.FC = () => {
               <ImageCard
                 ref={player2Ref}
                 file={nextGame.player2.data}
-                description={`Rating: ${nextGame.player2.rating.toFixed(1)}`}
+                description={t`Rating: ${player2RatingText}`}
                 onClick={() => {
                   handlePlayerClick([0, 1]);
                 }}
@@ -135,7 +146,9 @@ export const ImagesCompare: React.FC = () => {
               />
             </Col>
           </Row>
-          <Typography.Text>Left to compare: {unfinishedGamesSize}</Typography.Text>
+          <Typography.Text>
+            <Trans>Left to compare: {unfinishedGamesSize}</Trans>
+          </Typography.Text>
         </>
       )}
 
@@ -143,7 +156,7 @@ export const ImagesCompare: React.FC = () => {
         <>
           <Space>
             <Typography.Text ref={photoRankingRef} strong>
-              Photo ranking
+              <Trans>Photo ranking</Trans>
             </Typography.Text>
             <Button
               icon={<PrinterOutlined />}
@@ -151,24 +164,28 @@ export const ImagesCompare: React.FC = () => {
                 handlePrint();
               }}
             >
-              Print
+              <Trans>Print</Trans>
             </Button>
           </Space>
           <Row ref={printRef} gutter={[16, 16]} align="middle" justify="start">
-            {playersByRating.map(({id, data, rating}: Player<File>, index: number) => (
-              <Col key={`${id}`} xs={12} md={8} lg={6}>
-                <ImageCard
-                  file={data}
-                  description={
-                    <>
-                      Position: {index + 1}
-                      <br />
-                      Rating: {rating.toFixed(1)}
-                    </>
-                  }
-                />
-              </Col>
-            ))}
+            {playersByRating.map(({id, data, rating}: Player<File>, index: number) => {
+              const position: number = index + 1;
+              const ratingText: string = rating.toFixed(1);
+              return (
+                <Col key={`${id}`} xs={12} md={8} lg={6}>
+                  <ImageCard
+                    file={data}
+                    description={
+                      <Trans>
+                        Position: {position}
+                        <br />
+                        Rating: {ratingText}
+                      </Trans>
+                    }
+                  />
+                </Col>
+              );
+            })}
           </Row>
         </>
       )}

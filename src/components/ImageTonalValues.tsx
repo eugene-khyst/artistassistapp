@@ -17,6 +17,7 @@
  */
 
 import {DownloadOutlined, LoadingOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
 import {Button, Col, Dropdown, Grid, Radio, Row, Space, Spin} from 'antd';
 import {useEffect, useState} from 'react';
@@ -32,12 +33,6 @@ import {getFilename} from '~/src/utils/filename';
 
 import {EmptyImage} from './empty/EmptyImage';
 
-const TONES_OPTIONS: CheckboxOptionType[] = [
-  {value: 0, label: 'Light tone'},
-  {value: 1, label: 'Mid tone'},
-  {value: 2, label: 'Shadow'},
-];
-
 export const ImageTonalValues: React.FC = () => {
   const originalImageFile = useAppStore(state => state.originalImageFile);
   const originalImage = useAppStore(state => state.originalImage);
@@ -47,6 +42,8 @@ export const ImageTonalValues: React.FC = () => {
   const isTonalImagesLoading = useAppStore(state => state.isTonalImagesLoading);
 
   const screens = Grid.useBreakpoint();
+
+  const {t} = useLingui();
 
   const {ref: tonalValuesCanvasRef, zoomableImageCanvas: tonalValuesCanvas} =
     useZoomableImageCanvas<ZoomableImageCanvas>(zoomableImageCanvasSupplier, tonalImages);
@@ -79,29 +76,35 @@ export const ImageTonalValues: React.FC = () => {
   const items: MenuProps['items'] = [
     {
       key: '1',
-      label: 'Print',
+      label: t`Print`,
       icon: <PrinterOutlined />,
       onClick: handlePrintClick,
     },
     {
       key: '2',
-      label: 'Save',
+      label: t`Save`,
       icon: <DownloadOutlined />,
       onClick: handleSaveClick,
     },
   ];
 
   if (!originalImage) {
-    return <EmptyImage feature="get tonal values of a photo" />;
+    return <EmptyImage />;
   }
+
+  const toneOptions: CheckboxOptionType[] = [
+    {value: 0, label: t`Light tone`},
+    {value: 1, label: t`Mid tone`},
+    {value: 2, label: t`Shadow`},
+  ];
 
   const height = `calc((100dvh - 115px) / ${screens.sm ? 1 : 2})`;
 
   return (
-    <Spin spinning={isLoading} tip="Loading" indicator={<LoadingOutlined spin />} size="large">
+    <Spin spinning={isLoading} indicator={<LoadingOutlined spin />} size="large">
       <Space align="center" style={{width: '100%', justifyContent: 'center', marginBottom: 8}}>
         <Radio.Group
-          options={TONES_OPTIONS}
+          options={toneOptions}
           value={tonalValuesImageIndex}
           onChange={handleTonalValueChange}
           optionType="button"
@@ -110,10 +113,10 @@ export const ImageTonalValues: React.FC = () => {
         {screens.sm ? (
           <>
             <Button icon={<PrinterOutlined />} onClick={handlePrintClick}>
-              Print
+              <Trans>Print</Trans>
             </Button>
             <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
-              Save
+              <Trans>Save</Trans>
             </Button>
           </>
         ) : (

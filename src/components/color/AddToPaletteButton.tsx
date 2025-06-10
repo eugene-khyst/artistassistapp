@@ -17,6 +17,7 @@
  */
 
 import {DeleteOutlined, PlusOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import type {ButtonProps} from 'antd';
 import {Button, Popconfirm} from 'antd';
 
@@ -38,18 +39,20 @@ export const AddToPaletteButton: React.FC<Props> = ({
   const saveToPalette = useAppStore(state => state.saveToPalette);
   const deleteFromPalette = useAppStore(state => state.deleteFromPalette);
 
+  const {t} = useLingui();
+
   const colorMixtureExists = paletteColorMixtures.has(colorMixture.key);
 
   return colorMixtureExists ? (
     <Popconfirm
-      title="Remove the color mixture"
-      description="Are you sure you want to remove this color mixture?"
+      title={t`Remove the color mixture`}
+      description={t`Are you sure you want to remove this color mixture?`}
       onConfirm={() => void deleteFromPalette(colorMixture)}
-      okText="Yes"
-      cancelText="No"
+      okText={t`Yes`}
+      cancelText={t`No`}
     >
       <Button size={size} icon={<DeleteOutlined />} style={style}>
-        Remove from palette
+        <Trans>Remove from palette</Trans>
       </Button>
     </Popconfirm>
   ) : (
@@ -59,7 +62,7 @@ export const AddToPaletteButton: React.FC<Props> = ({
       onClick={() => void saveToPalette(colorMixture, linkToImage)}
       style={style}
     >
-      Add to palette
+      <Trans>Add to palette</Trans>
     </Button>
   );
 };

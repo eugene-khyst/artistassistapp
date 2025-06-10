@@ -16,6 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {MessageDescriptor} from '@lingui/core';
+import {defineMessage} from '@lingui/core/macro';
+import {useLingui} from '@lingui/react/macro';
 import {Tooltip} from 'antd';
 import type {ReactNode} from 'react';
 
@@ -23,7 +26,7 @@ import {ColorOpacity} from '~/src/services/color/types';
 
 interface OpacityDescription {
   icon: ReactNode;
-  tooltip: string;
+  tooltip: MessageDescriptor;
 }
 
 const OPACITIES: Record<ColorOpacity, OpacityDescription> = {
@@ -43,7 +46,7 @@ const OPACITIES: Record<ColorOpacity, OpacityDescription> = {
         <path d="m64 64v896h896v-896h-896zm76 76h744v744h-744v-744z" />
       </svg>
     ),
-    tooltip: 'Transparent',
+    tooltip: defineMessage`Transparent`,
   },
   [ColorOpacity.SemiTransparent]: {
     icon: (
@@ -61,7 +64,7 @@ const OPACITIES: Record<ColorOpacity, OpacityDescription> = {
         <path d="m64 64v896h896v-896h-896zm76 76h690.26l-690.26 690.26v-690.26zm744 53.738v690.26h-690.26l690.26-690.26z" />
       </svg>
     ),
-    tooltip: 'Semi-transparent',
+    tooltip: defineMessage`Semi-transparent`,
   },
   [ColorOpacity.SemiOpaque]: {
     icon: (
@@ -79,7 +82,7 @@ const OPACITIES: Record<ColorOpacity, OpacityDescription> = {
         <path d="m64 64v896h896v-896zm820 129.74v690.26h-690.26z" />
       </svg>
     ),
-    tooltip: 'Semi-opaque',
+    tooltip: defineMessage`Semi-opaque`,
   },
   [ColorOpacity.Opaque]: {
     icon: (
@@ -97,7 +100,7 @@ const OPACITIES: Record<ColorOpacity, OpacityDescription> = {
         <path d="m64 64v896h896v-896z" />
       </svg>
     ),
-    tooltip: 'Opaque',
+    tooltip: defineMessage`Opaque`,
   },
 };
 
@@ -106,9 +109,10 @@ interface Props {
 }
 
 export const OpacityIcon: React.FC<Props> = ({opacity}: Props) => {
+  const {t} = useLingui();
   if (!opacity) {
     return <></>;
   }
   const {tooltip, icon} = OPACITIES[opacity];
-  return <Tooltip title={tooltip}>{icon}</Tooltip>;
+  return <Tooltip title={t(tooltip)}>{icon}</Tooltip>;
 };

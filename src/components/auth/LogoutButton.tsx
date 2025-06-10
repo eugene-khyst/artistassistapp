@@ -17,13 +17,14 @@
  */
 
 import {LogoutOutlined} from '@ant-design/icons';
+import {Trans} from '@lingui/react/macro';
 import {Button} from 'antd';
 import type React from 'react';
 
-import {useAuth} from '~/src/hooks/useAuth';
+import {useAppStore} from '~/src/stores/app-store';
 
 export const LogoutButton: React.FC = () => {
-  const {logout} = useAuth();
+  const logout = useAppStore(state => state.logout);
 
   return (
     <Button
@@ -32,7 +33,7 @@ export const LogoutButton: React.FC = () => {
         logout();
       }}
     >
-      Log out
+      <Trans>Log out</Trans>
     </Button>
   );
 };

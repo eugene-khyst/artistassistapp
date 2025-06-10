@@ -17,6 +17,7 @@
  */
 
 import {DownloadOutlined, LoadingOutlined, MoreOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import type {MenuProps} from 'antd';
 import {App, Button, Dropdown, Flex, Form, Grid, Space, Spin, Typography} from 'antd';
 import {saveAs} from 'file-saver';
@@ -26,7 +27,6 @@ import {ReactCompareSlider, ReactCompareSliderImage} from 'react-compare-slider'
 
 import {FileSelect} from '~/src/components/image/FileSelect';
 import {OnnxModelSelect} from '~/src/components/ml-model/OnnxModelSelect';
-import {useAuth} from '~/src/hooks/useAuth';
 import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
 import {hasAccessTo} from '~/src/services/auth/utils';
@@ -41,6 +41,8 @@ import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
 
 export const ImageBackgroundRemove: React.FC = () => {
+  const user = useAppStore(state => state.auth?.user);
+  const isAuthLoading = useAppStore(state => state.isAuthLoading);
   const appSettings = useAppStore(state => state.appSettings);
   const imageFileToRemoveBackground = useAppStore(state => state.imageFileToRemoveBackground);
   const isBackgroundRemovalLoading = useAppStore(state => state.isBackgroundRemovalLoading);
@@ -54,7 +56,7 @@ export const ImageBackgroundRemove: React.FC = () => {
 
   const {notification} = App.useApp();
 
-  const {user, isLoading: isAuthLoading} = useAuth();
+  const {t} = useLingui();
 
   const {
     models,
@@ -69,7 +71,7 @@ export const ImageBackgroundRemove: React.FC = () => {
 
   const isAccessAllowed: boolean = !model || (!isAuthLoading && hasAccessTo(user, model));
 
-  const isLoading = isModelsLoading || isBackgroundRemovalLoading || isAuthLoading;
+  const isLoading: boolean = isModelsLoading || isBackgroundRemovalLoading || isAuthLoading;
 
   const imageUrl: string | undefined = useCreateObjectUrl(imageFileToRemoveBackground);
   const noBgImageUrl: string | undefined = useCreateObjectUrl(imageWithoutBackgroundBlob);
@@ -77,12 +79,12 @@ export const ImageBackgroundRemove: React.FC = () => {
   useEffect(() => {
     if (isModelsError) {
       notification.error({
-        message: 'Error while fetching ML model data',
+        message: t`Error while fetching ML model data`,
         placement: 'top',
         duration: 0,
       });
     }
-  }, [isModelsError, notification]);
+  }, [isModelsError, notification, t]);
 
   useEffect(() => {
     const {backgroundRemovalModel} = appSettings;
@@ -121,7 +123,7 @@ export const ImageBackgroundRemove: React.FC = () => {
   const items: MenuProps['items'] = [
     {
       key: '1',
-      label: 'Save',
+      label: t`Save`,
       icon: <DownloadOutlined />,
       onClick: handleSaveClick,
     },
@@ -141,25 +143,29 @@ export const ImageBackgroundRemove: React.FC = () => {
       size="large"
     >
       <Flex vertical gap="small" style={{marginBottom: 8, padding: '0 16px'}}>
-        <Typography.Text strong>Select a photo to remove the background from</Typography.Text>
+        <Typography.Text strong>
+          <Trans>Select a photo to remove the background from</Trans>
+        </Typography.Text>
         <Form.Item
           style={{margin: 0}}
           extra={
             !user &&
             (!isAccessAllowed ? (
               <Typography.Text type="warning">
-                You&apos;ve selected mode that is available to paid Patreon members only
+                <Trans>
+                  You&apos;ve selected mode that is available to paid Patreon members only
+                </Trans>
               </Typography.Text>
             ) : (
               <Typography.Text type="secondary">
-                Only a limited number of modes are available in the free version
+                <Trans>Only a limited number of modes are available in the free version</Trans>
               </Typography.Text>
             ))
           }
         >
           <Space align="start" style={{display: 'flex'}}>
             <Form.Item
-              label="Mode"
+              label={t`Mode`}
               style={{margin: 0}}
               validateStatus={!isAccessAllowed ? 'warning' : undefined}
             >
@@ -170,11 +176,15 @@ export const ImageBackgroundRemove: React.FC = () => {
                 style={{width: 105}}
               />
             </Form.Item>
-            {isAccessAllowed && <FileSelect onChange={handleFileChange}>Select photo</FileSelect>}
+            {isAccessAllowed && (
+              <FileSelect onChange={handleFileChange}>
+                <Trans>Select photo</Trans>
+              </FileSelect>
+            )}
             {noBgImageUrl &&
               (screens.sm ? (
                 <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
-                  Save
+                  <Trans>Save</Trans>
                 </Button>
               ) : (
                 <Dropdown menu={{items}}>
@@ -189,14 +199,14 @@ export const ImageBackgroundRemove: React.FC = () => {
         position={position}
         itemOne={
           imageUrl && (
-            <ReactCompareSliderImage src={imageUrl} alt="Original photo" style={imageStyle} />
+            <ReactCompareSliderImage src={imageUrl} alt={t`Original photo`} style={imageStyle} />
           )
         }
         itemTwo={
           noBgImageUrl && (
             <ReactCompareSliderImage
               src={noBgImageUrl}
-              alt="Image without background"
+              alt={t`Image without background`}
               style={{backgroundColor: '#fff', ...imageStyle}}
             />
           )

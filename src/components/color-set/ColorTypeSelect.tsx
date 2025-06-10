@@ -16,18 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {useLingui} from '@lingui/react/macro';
 import type {SelectProps} from 'antd';
 import {Select} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 
+import {COLOR_TYPE_LABELS} from '~/src/components/messages';
 import {COLOR_TYPES} from '~/src/services/color/colors';
-
-const COLOR_TYPE_OPTIONS: SelectOptionType[] = [...COLOR_TYPES.entries()].map(
-  ([value, {name}]) => ({value, label: name})
-);
+import type {ColorType} from '~/src/services/color/types';
 
 type Props = Omit<SelectProps, 'options' | 'placeholder'>;
 
 export const ColorTypeSelect: React.FC<Props> = (props: Props) => {
-  return <Select options={COLOR_TYPE_OPTIONS} placeholder="Select medium" {...props} />;
+  const {t} = useLingui();
+
+  const options: SelectOptionType[] = COLOR_TYPES.map((colorType: ColorType) => ({
+    value: colorType,
+    label: t(COLOR_TYPE_LABELS[colorType]),
+  }));
+
+  return <Select options={options} placeholder={t`Select art medium`} {...props} />;
 };

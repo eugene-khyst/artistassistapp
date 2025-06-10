@@ -16,13 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {useLingui} from '@lingui/react/macro';
 import type {CheckboxOptionType, RadioChangeEvent} from 'antd';
 import {Drawer, Form, Radio, Typography} from 'antd';
 import {useEffect, useState} from 'react';
 
 import {ColorMixtureDescription} from '~/src/components/color/ColorMixtureDescription';
+import {COLOR_TYPE_LABELS} from '~/src/components/messages';
 import {useReflectanceChart} from '~/src/hooks/useReflectanceChart';
-import {COLOR_TYPES} from '~/src/services/color/colors';
 import {Rgb} from '~/src/services/color/space/rgb';
 import type {ColorMixture, ColorMixturePart} from '~/src/services/color/types';
 
@@ -30,11 +31,6 @@ enum ChartMode {
   Similarity = 1,
   Mixture = 2,
 }
-
-const CHART_OPTIONS: CheckboxOptionType<number>[] = [
-  {value: ChartMode.Similarity, label: 'Similarity'},
-  {value: ChartMode.Mixture, label: 'Mixture'},
-];
 
 interface Props {
   targetColor?: string;
@@ -49,6 +45,8 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
   open = false,
   onClose,
 }: Props) => {
+  const {t} = useLingui();
+
   const {ref: canvasRef, reflectanceChart} = useReflectanceChart();
 
   const [chartMode, setChartMode] = useState<ChartMode>(
@@ -85,9 +83,14 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
     setChartMode(e.target.value as number);
   };
 
+  const chartOptions: CheckboxOptionType<number>[] = [
+    {value: ChartMode.Similarity, label: t`Similarity`},
+    {value: ChartMode.Mixture, label: t`Mixture`},
+  ];
+
   return (
     <Drawer
-      title="Spectral reflectance curve"
+      title={t`Spectral reflectance curve`}
       placement="right"
       size="large"
       open={open}
@@ -96,12 +99,12 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
       <canvas ref={canvasRef} width="688" height="388" style={{marginBottom: 16}} />
       {targetColor && (
         <Form.Item
-          label="Mode"
-          tooltip="Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
+          label={t`Mode`}
+          tooltip={t`Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed.`}
           style={{marginBottom: 0}}
         >
           <Radio.Group
-            options={CHART_OPTIONS}
+            options={chartOptions}
             value={chartMode}
             onChange={handleChartModeChange}
             optionType="button"
@@ -111,7 +114,7 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
       )}
       {colorMixture && (
         <>
-          <Typography.Title level={4}>{COLOR_TYPES.get(colorMixture.type)?.name}</Typography.Title>
+          <Typography.Title level={4}>{t(COLOR_TYPE_LABELS[colorMixture.type])}</Typography.Title>
           <ColorMixtureDescription colorMixture={colorMixture} />
         </>
       )}

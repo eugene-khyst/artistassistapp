@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Trans, useLingui} from '@lingui/react/macro';
 import {Alert, Space, Typography} from 'antd';
 import React, {useEffect, useState} from 'react';
 import type {FallbackProps} from 'react-error-boundary';
@@ -24,11 +25,13 @@ import {ClearStorage} from '~/src/components/storage/ClearStorage';
 import {unregisterServiceWorker} from '~/src/utils/storage';
 
 export const AlertTimedReloadFallback: React.FC<FallbackProps> = ({error}: FallbackProps) => {
-  const [countdown, setCountdown] = useState<number>(5);
+  const {t} = useLingui();
+
+  const [reloadCounter, setReloadCounter] = useState<number>(5);
 
   useEffect(() => {
     const countdownIntervalId = setInterval(() => {
-      setCountdown(prev => {
+      setReloadCounter(prev => {
         const next = prev - 1;
         if (next === 0) {
           clearInterval(countdownIntervalId);
@@ -38,7 +41,7 @@ export const AlertTimedReloadFallback: React.FC<FallbackProps> = ({error}: Fallb
     }, 1000);
 
     const reloadTimeoutId = setTimeout(() => {
-      void unregisterServiceWorker(true);
+      void unregisterServiceWorker();
     }, 5000);
 
     return () => {
@@ -48,19 +51,18 @@ export const AlertTimedReloadFallback: React.FC<FallbackProps> = ({error}: Fallb
   }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-  const errorMessage = (error || 'Unknown error').toString();
+  const errorMessage = (error || t`Unknown error`).toString();
 
   return (
     <Alert
       type="error"
-      message="Application Error"
+      message={t`An application error`}
       description={
         <Space direction="vertical">
           <Typography.Text>{errorMessage}</Typography.Text>
-          {countdown > 0 && (
+          {reloadCounter > 0 && (
             <Typography.Text>
-              The app will attempt to reload in {countdown} second
-              {countdown === 1 ? '' : 's'}...
+              <Trans>The app will attempt to reload in {reloadCounter} sec</Trans>
             </Typography.Text>
           )}
         </Space>

@@ -1,4 +1,5 @@
-import react from '@vitejs/plugin-react';
+import {lingui} from '@lingui/vite-plugin';
+import react from '@vitejs/plugin-react-swc';
 // import * as fs from 'fs';
 import {visualizer} from 'rollup-plugin-visualizer';
 import {PluginOption, defineConfig} from 'vite';
@@ -8,7 +9,7 @@ import {VitePWA} from 'vite-plugin-pwa';
 const maxFileSize = 2 * 1024 * 1024;
 
 const glslPlugin: PluginOption = glsl({
-  compress: true,
+  minify: true,
 });
 
 const excludeWasmPlugin: PluginOption = {
@@ -25,7 +26,10 @@ const excludeWasmPlugin: PluginOption = {
 export default defineConfig({
   plugins: [
     glslPlugin,
-    react(),
+    react({
+      plugins: [['@lingui/swc-plugin', {}]],
+    }),
+    lingui(),
     VitePWA({
       strategies: 'injectManifest',
       srcDir: 'src',

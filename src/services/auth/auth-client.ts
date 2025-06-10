@@ -40,7 +40,7 @@ export interface AuthClientProps {
 }
 
 export class AuthClient {
-  private authentication: Authentication | undefined;
+  private authentication: Authentication | null = null;
 
   constructor(public props: AuthClientProps) {}
 
@@ -69,7 +69,6 @@ export class AuthClient {
     } else if (searchParams.has(ID_TOKEN_KEY)) {
       const jwt = searchParams.get(ID_TOKEN_KEY)!;
       try {
-        console.log('handleRedirectCallback', jwt);
         this.authentication = await this.authenticate(jwt);
         localStorage.setItem(ID_TOKEN_KEY, jwt);
         replaceHistory();
@@ -79,15 +78,14 @@ export class AuthClient {
     }
   }
 
-  async getAuthentication(): Promise<Authentication | undefined> {
+  async getAuthentication(): Promise<Authentication | null> {
     if (this.authentication) {
       return this.authentication;
     }
     const jwt: string | null = localStorage.getItem(ID_TOKEN_KEY);
     if (!jwt) {
-      return;
+      return null;
     }
-    console.log('getAuthentication', jwt);
     try {
       this.authentication = await this.authenticate(jwt);
       return this.authentication;

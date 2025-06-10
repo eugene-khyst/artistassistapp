@@ -18,7 +18,7 @@
 
 import type {StateCreator} from 'zustand';
 
-import type {User} from '~/src/services/auth/types';
+import {getCurrentLocale} from '~/src/i18n';
 import {fetchColorBrands, fetchColorsBulk, toColorSet} from '~/src/services/color/colors';
 import type {ColorDefinition, ColorMixture, ColorSetDefinition} from '~/src/services/color/types';
 import {getAppSettings} from '~/src/services/db/app-settings-db';
@@ -28,6 +28,8 @@ import {getImageFiles, getLastImageFile} from '~/src/services/db/image-file-db';
 import {type ImageFile, imageFileToFile} from '~/src/services/image/image-file';
 import type {AppSettings} from '~/src/services/settings/types';
 import {importFromUrl} from '~/src/services/url/url-parser';
+import type {AuthSlice} from '~/src/stores/auth-slice';
+import type {LocaleSlice} from '~/src/stores/locale-slice';
 import type {StyleTransferSlice} from '~/src/stores/style-transfer-slice';
 import {TabKey} from '~/src/tabs';
 
@@ -45,11 +47,13 @@ export interface InitSlice {
   importedColorSet: ColorSetDefinition | null;
   latestColorSet: ColorSetDefinition | null;
 
-  initAppStore: (user?: User | null) => Promise<void>;
+  initAppStore: () => Promise<void>;
 }
 
 export const createInitSlice: StateCreator<
   InitSlice &
+    LocaleSlice &
+    AuthSlice &
     TabSlice &
     ColorSetSlice &
     ColorMixerSlice &
@@ -67,10 +71,14 @@ export const createInitSlice: StateCreator<
   importedColorSet: null,
   latestColorSet: null,
 
-  initAppStore: async (user?: User | null): Promise<void> => {
+  initAppStore: async (): Promise<void> => {
     set({
       isInitialStateLoading: true,
     });
+
+    await get().setLocale(getCurrentLocale(), false);
+
+    const auth = await get().handleAuthRedirectCallback();
 
     const {colorSet: importedColorSet, tabKey: importedTabKey} = importFromUrl();
 
@@ -128,7 +136,7 @@ export const createInitSlice: StateCreator<
         type,
         brandAliases
       );
-      const colorSet = toColorSet(latestColorSet, brands, colors, user);
+      const colorSet = toColorSet(latestColorSet, brands, colors, auth?.user);
       if (colorSet) {
         void get().setColorSet(colorSet, false);
       }

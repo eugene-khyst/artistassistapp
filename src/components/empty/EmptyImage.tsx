@@ -16,46 +16,57 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Trans, useLingui} from '@lingui/react/macro';
 import {Col, Row, Typography} from 'antd';
 import {useContext} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
+import {TAB_LABELS} from '~/src/components/messages';
 import {TabContext} from '~/src/contexts/TabContext';
 import {useAppStore} from '~/src/stores/app-store';
-import {TAB_LABELS, TabKey} from '~/src/tabs';
+import {TabKey} from '~/src/tabs';
 
-interface Props {
-  feature: string;
-}
-
-export const EmptyImage: React.FC<Props> = ({feature}: Props) => {
+export const EmptyImage: React.FC = () => {
   const tab: TabKey = useContext(TabContext);
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
+
+  const {t} = useLingui();
+
+  const tabLabel: string = t(TAB_LABELS[tab]);
+  const photoLabel: string = t(TAB_LABELS[TabKey.Photo]);
 
   return (
     <div style={{padding: '0 16px 16px'}}>
       <Typography.Paragraph>
-        <Typography.Text strong>⁉️ No data</Typography.Text>
+        <Typography.Text strong>
+          ⁉️ <Trans>No data</Trans>
+        </Typography.Text>
         <br />
 
-        <Typography.Text strong>To {feature}, select a reference photo:</Typography.Text>
+        <Typography.Text strong>
+          <Trans>To use the {tabLabel} feature, select a reference photo.</Trans>
+        </Typography.Text>
         <br />
 
         <ol>
           <li>
-            Go to the{' '}
-            <Typography.Link strong onClick={() => void setActiveTabKey(TabKey.Photo)}>
-              {TAB_LABELS[TabKey.Photo]}
-            </Typography.Link>{' '}
-            tab and choose your reference photo.
+            <Trans>
+              Go to the{' '}
+              <Typography.Link strong onClick={() => void setActiveTabKey(TabKey.Photo)}>
+                {photoLabel}
+              </Typography.Link>{' '}
+              tab and choose your reference photo.
+            </Trans>
           </li>
           <li>
-            Return to the <Typography.Text strong>{TAB_LABELS[tab]}</Typography.Text> tab.
+            <Trans>
+              Return to the <Typography.Text strong>{tabLabel}</Typography.Text> tab.
+            </Trans>
           </li>
         </ol>
       </Typography.Paragraph>
 
-      <Row>
+      <Row justify="start">
         <Col xs={24} md={12}>
           <AdCard />
         </Col>

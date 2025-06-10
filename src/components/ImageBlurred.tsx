@@ -16,7 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined, LoadingOutlined, MoreOutlined} from '@ant-design/icons';
+import {DownloadOutlined, LoadingOutlined, MoreOutlined, StopOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
 import {Button, Dropdown, Form, Grid, Radio, Space, Spin} from 'antd';
 import {useEffect, useState} from 'react';
@@ -31,15 +32,8 @@ import {getFilename} from '~/src/utils/filename';
 
 import {EmptyImage} from './empty/EmptyImage';
 
-const MEDIAN_FILTER_RADIUS_OPTIONS: CheckboxOptionType<number>[] = [
-  {value: 0, label: 'None'},
-  {value: 1, label: 'Small'},
-  {value: 2, label: 'Medium'},
-  {value: 3, label: 'Large'},
-];
-
 const MEDIAN_FILTER_RADIUS_OPTIONS_SHORT: CheckboxOptionType<number>[] = [
-  {value: 0, label: 'No'},
+  {value: 0, label: <StopOutlined />},
   {value: 1, label: 'S'},
   {value: 2, label: 'M'},
   {value: 3, label: 'L'},
@@ -55,6 +49,8 @@ export const ImageBlurred: React.FC = () => {
   const isBlurredImagesLoading = useAppStore(state => state.isBlurredImagesLoading);
 
   const screens = Grid.useBreakpoint();
+
+  const {t} = useLingui();
 
   const {ref: canvasRef, zoomableImageCanvas} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
@@ -78,31 +74,35 @@ export const ImageBlurred: React.FC = () => {
   const items: MenuProps['items'] = [
     {
       key: '1',
-      label: 'Save',
+      label: t`Save`,
       icon: <DownloadOutlined />,
       onClick: handleSaveClick,
     },
   ];
 
   if (!originalImage) {
-    return <EmptyImage feature="smooth and simplify a photo" />;
+    return <EmptyImage />;
   }
 
   return (
-    <Spin
-      spinning={isBlurredImagesLoading}
-      tip="Loading"
-      indicator={<LoadingOutlined spin />}
-      size="large"
-    >
+    <Spin spinning={isBlurredImagesLoading} indicator={<LoadingOutlined spin />} size="large">
       <Space align="start" style={{width: '100%', justifyContent: 'center', marginBottom: 8}}>
         <Form.Item
-          label="Blur"
-          tooltip="Controls the radius of the median filter."
+          label={t`Blur`}
+          tooltip={t`Controls the radius of the median filter.`}
           style={{marginBottom: 0}}
         >
           <Radio.Group
-            options={screens.sm ? MEDIAN_FILTER_RADIUS_OPTIONS : MEDIAN_FILTER_RADIUS_OPTIONS_SHORT}
+            options={
+              screens.sm
+                ? [
+                    {value: 0, label: t`None`},
+                    {value: 1, label: t`Small`},
+                    {value: 2, label: t`Medium`},
+                    {value: 3, label: t`Large`},
+                  ]
+                : MEDIAN_FILTER_RADIUS_OPTIONS_SHORT
+            }
             value={blurredImageIndex}
             onChange={handleBlurChange}
             optionType="button"
@@ -111,7 +111,7 @@ export const ImageBlurred: React.FC = () => {
         </Form.Item>
         {screens.sm ? (
           <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
-            Save
+            <Trans>Save</Trans>
           </Button>
         ) : (
           <Dropdown menu={{items}}>

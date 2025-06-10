@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {useLingui} from '@lingui/react/macro';
 import {Col, Drawer, Grid, Row} from 'antd';
 
 import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
@@ -38,6 +39,8 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
 
   const screens = Grid.useBreakpoint();
 
+  const {t} = useLingui();
+
   const imageUrl: string | undefined = useCreateObjectUrl(originalImageFile);
 
   const isFullHeight = screens.sm || !imageUrl;
@@ -49,7 +52,7 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
 
   return (
     <Drawer
-      title="Color swatch"
+      title={t`Color swatch`}
       placement="right"
       width="100%"
       open={open}
@@ -70,7 +73,7 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
         >
           {imageUrl && (
             <img
-              alt="Reference"
+              alt={t`Reference`}
               src={imageUrl}
               style={{
                 display: 'block',
@@ -97,7 +100,7 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
                   color: rgb.isDark() ? '#fff' : '#000',
                 }}
               >
-                {colorMixture.name || 'Untitled mixture'}
+                {colorMixture.name || t`Untitled mixture`}
               </div>
             );
           })}

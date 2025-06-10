@@ -66,3 +66,17 @@ export function arrayEquals<T>(a: T[] | null, b: T[] | null): boolean {
 export function reverseOrder<T>(comparator: Comparator<T>): Comparator<T> {
   return (a: T, b: T): number => -1 * comparator(a, b);
 }
+
+export function mergeAlternating<T>(arr1: T[], arr2: T[]): T[] {
+  const result: T[] = [];
+  const maxLength = Math.max(arr1.length, arr2.length);
+  for (let i = 0; i < maxLength; i++) {
+    if (i < arr1.length) {
+      result.push(arr1[i]!);
+    }
+    if (i < arr2.length) {
+      result.push(arr2[i]!);
+    }
+  }
+  return result;
+}

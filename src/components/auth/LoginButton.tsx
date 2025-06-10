@@ -17,13 +17,14 @@
  */
 
 import {LoginOutlined} from '@ant-design/icons';
+import {Trans} from '@lingui/react/macro';
 import {Button} from 'antd';
 import type React from 'react';
 
-import {useAuth} from '~/src/hooks/useAuth';
+import {useAppStore} from '~/src/stores/app-store';
 
 export const LoginButton: React.FC = () => {
-  const {loginWithRedirect} = useAuth();
+  const loginWithRedirect = useAppStore(state => state.loginWithRedirect);
 
   return (
     <Button
@@ -33,7 +34,7 @@ export const LoginButton: React.FC = () => {
         loginWithRedirect();
       }}
     >
-      Log in with Patreon
+      <Trans>Log in with Patreon</Trans>
     </Button>
   );
 };

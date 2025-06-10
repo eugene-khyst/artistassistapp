@@ -17,6 +17,7 @@
  */
 
 import {PlusOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import type {SelectProps} from 'antd';
 import {Button, Grid, Select, Space, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
@@ -26,11 +27,14 @@ import {compareByDate, getColorSetName} from '~/src/services/color/colors';
 import type {ColorBrandDefinition, ColorSetDefinition} from '~/src/services/color/types';
 import {reverseOrder} from '~/src/utils/array';
 
-const newColorSetOption: SelectOptionType = {
+const NEW_COLOR_SET_OPTION: SelectOptionType = {
   value: 0,
   label: (
     <>
-      <PlusOutlined /> <Typography.Text>New color set</Typography.Text>
+      <PlusOutlined />{' '}
+      <Typography.Text>
+        <Trans>New color set</Trans>
+      </Typography.Text>
     </>
   ),
 };
@@ -40,10 +44,10 @@ function getColorSetOptions(
   brands?: Map<number, ColorBrandDefinition>
 ): SelectOptionType[] {
   if (!colorSets?.length) {
-    return [newColorSetOption];
+    return [NEW_COLOR_SET_OPTION];
   }
   return [
-    newColorSetOption,
+    NEW_COLOR_SET_OPTION,
     ...colorSets
       .slice()
       .sort(reverseOrder(compareByDate))
@@ -68,18 +72,20 @@ export const ColorSetSelect: React.FC<Props> = ({
 }: Props) => {
   const screens = Grid.useBreakpoint();
 
+  const {t} = useLingui();
+
   const options = getColorSetOptions(colorSets, brands);
   return (
     <Space.Compact block>
       <Select
         options={options}
-        placeholder="Select from your recent color sets"
+        placeholder={t`Select from your recent color sets`}
         showSearch
         filterOption={filterSelectOptions}
         {...rest}
       />
       <Button icon={<PlusOutlined />} onClick={onCreateNewClick}>
-        {screens.sm && 'Create new'}
+        {screens.sm && t`Create new`}
       </Button>
     </Space.Compact>
   );

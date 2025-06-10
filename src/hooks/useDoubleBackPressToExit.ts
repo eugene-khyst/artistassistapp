@@ -16,13 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {useLingui} from '@lingui/react/macro';
 import {App} from 'antd';
 import {useEffect, useRef} from 'react';
 
 export function useDoubleBackPressToExit() {
   const {message} = App.useApp();
+
+  const {t} = useLingui();
+
   const backPressedOnce = useRef<boolean>(false);
-  const timeoutRef = useRef<number>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
     if (!window.history.state) {
@@ -36,7 +40,7 @@ export function useDoubleBackPressToExit() {
 
       window.history.pushState({}, '');
 
-      message.info('Press Back again to exit', 3);
+      message.info(t`Press Back again to exit`, 3);
       backPressedOnce.current = true;
 
       timeoutRef.current = setTimeout(() => {
@@ -52,5 +56,5 @@ export function useDoubleBackPressToExit() {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [message]);
+  }, [message, t]);
 }

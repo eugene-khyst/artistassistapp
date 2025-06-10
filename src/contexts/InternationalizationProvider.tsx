@@ -16,10 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {useContext} from 'react';
+import {i18n} from '@lingui/core';
+import {I18nProvider} from '@lingui/react';
+import {ConfigProvider} from 'antd';
+import {type PropsWithChildren} from 'react';
 
-import {AuthContext} from '~/src/contexts/AuthContext';
+import {useAppStore} from '~/src/stores/app-store';
 
-export const useAuth = () => {
-  return useContext(AuthContext);
+export const InternationalizationProvider: React.FC<PropsWithChildren> = ({
+  children,
+}: PropsWithChildren) => {
+  const antdLocale = useAppStore(state => state.antdLocale);
+
+  return (
+    <I18nProvider i18n={i18n}>
+      <ConfigProvider locale={antdLocale}>{children}</ConfigProvider>
+    </I18nProvider>
+  );
 };

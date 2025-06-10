@@ -17,6 +17,7 @@
  */
 
 import {DeleteOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Card, Popconfirm} from 'antd';
 import dayjs from 'dayjs';
 
@@ -34,10 +35,13 @@ export const RecentImageCard: React.FC<Props> = ({imageFile}: Props) => {
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
   const deleteRecentImageFile = useAppStore(state => state.deleteRecentImageFile);
 
-  const {name, date} = imageFile;
+  const {t} = useLingui();
 
   const blob = useImageFileToBlob(imageFile);
   const imageUrl: string | undefined = useCreateObjectUrl(blob);
+
+  const {name, date} = imageFile;
+  const dateText: string = dayjs(date).format(DATE_TIME_FORMAT);
 
   const handleCardClick = () => {
     void saveRecentImageFile({...imageFile});
@@ -56,8 +60,8 @@ export const RecentImageCard: React.FC<Props> = ({imageFile}: Props) => {
         actions={[
           <Popconfirm
             key="delete"
-            title="Delete the recent photo"
-            description="Are you sure you want to delete this photo?"
+            title={t`Delete the recent photo`}
+            description={t`Are you sure you want to delete this photo?`}
             onPopupClick={e => {
               e.stopPropagation();
             }}
@@ -66,25 +70,22 @@ export const RecentImageCard: React.FC<Props> = ({imageFile}: Props) => {
               handleDeleteButtonClick();
             }}
             onCancel={e => e?.stopPropagation()}
-            okText="Yes"
-            cancelText="No"
+            okText={t`Yes`}
+            cancelText={t`No`}
           >
             <Button
               icon={<DeleteOutlined />}
-              title="Delete the recent photo"
+              title={t`Delete the recent photo`}
               onClick={e => {
                 e.stopPropagation();
               }}
             >
-              Delete
+              <Trans>Delete</Trans>
             </Button>
           </Popconfirm>,
         ]}
       >
-        <Card.Meta
-          title={name}
-          description={date && `Last used ${dayjs(date).format(DATE_TIME_FORMAT)}`}
-        />
+        <Card.Meta title={name} description={date && t`Last used ${dateText}`} />
       </Card>
     )
   );

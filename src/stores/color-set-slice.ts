@@ -33,6 +33,7 @@ import type {ColorMixerSlice} from './color-mixer-slice';
 
 export interface ColorSetSlice {
   colorSetsByType: ColorSetDefinition[];
+  isColorSetsByTypeLoading: boolean;
 
   loadColorSetsByType: (type: ColorType) => Promise<ColorSetDefinition[]>;
   saveColorSet: (
@@ -52,10 +53,17 @@ export const createColorSetSlice: StateCreator<
   ColorSetSlice
 > = (set, get) => ({
   colorSetsByType: [],
+  isColorSetsByTypeLoading: false,
 
   loadColorSetsByType: async (type: ColorType): Promise<ColorSetDefinition[]> => {
+    set({
+      isColorSetsByTypeLoading: true,
+    });
     const colorSetsByType: ColorSetDefinition[] = await getColorSetsByType(type);
-    set({colorSetsByType});
+    set({
+      colorSetsByType,
+      isColorSetsByTypeLoading: false,
+    });
     return colorSetsByType;
   },
   saveColorSet: async (

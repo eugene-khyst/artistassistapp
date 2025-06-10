@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {useLingui} from '@lingui/react/macro';
 import {App} from 'antd';
 import type {PropsWithChildren} from 'react';
 import {useEffect} from 'react';
@@ -25,9 +26,11 @@ export const PromiseErrorBoundary: React.FC<PropsWithChildren> = ({
 }: PropsWithChildren) => {
   const {notification} = App.useApp();
 
+  const {t} = useLingui();
+
   useEffect(() => {
     const promiseRejectionHandler = ({reason}: PromiseRejectionEvent) => {
-      let message = 'Unexpected error';
+      let message = t`Unexpected error`;
       if (reason instanceof Error) {
         message = reason.toString();
       } else if (typeof reason === 'string') {
@@ -43,7 +46,7 @@ export const PromiseErrorBoundary: React.FC<PropsWithChildren> = ({
     return () => {
       window.removeEventListener('unhandledrejection', promiseRejectionHandler);
     };
-  }, [notification]);
+  }, [notification, t]);
 
   return <>{children}</>;
 };

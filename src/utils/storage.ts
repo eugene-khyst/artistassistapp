@@ -18,12 +18,6 @@
 
 import {deleteDatabase} from '~/src/services/db/db';
 
-export const PERSISTENT_STORAGE_WARN = {
-  title: 'Persistent storage is not enabled',
-  content:
-    'Your data may not be saved reliably if the browser is closed. To fix this, install the app as described in the Install tab, or use a different browser such as Chrome or Firefox.',
-};
-
 export async function requestPersistentStorage(): Promise<boolean> {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!navigator.storage?.persist) {
@@ -58,19 +52,20 @@ export async function clearCache(reload = false) {
   reloadConditionally(reload);
 }
 
-export async function deleteAppData(reload = false) {
+export async function deleteAppData() {
   await clearCache();
+  localStorage.clear();
   await deleteDatabase({
     blocked: () => {
-      reloadConditionally(reload);
+      reloadConditionally(true);
     },
   });
-  reloadConditionally(reload);
+  reloadConditionally(true);
 }
 
-export async function unregisterServiceWorker(reload = false) {
+export async function unregisterServiceWorker() {
   await clearCache();
   const registration = await navigator.serviceWorker.getRegistration();
   await registration?.unregister();
-  reloadConditionally(reload);
+  reloadConditionally(true);
 }

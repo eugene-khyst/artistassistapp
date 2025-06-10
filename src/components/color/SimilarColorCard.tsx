@@ -17,6 +17,7 @@
  */
 
 import {BgColorsOutlined, LineChartOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Card, Space, Typography} from 'antd';
 
 import {AddToPaletteButton} from '~/src/components/color/AddToPaletteButton';
@@ -43,10 +44,13 @@ export const SimilarColorCard: React.FC<Props> = ({
   const saveToPalette = useAppStore(state => state.saveToPalette);
   const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
 
+  const {t} = useLingui();
+
   const {type} = colorMixture;
   const {glazing} = COLOR_MIXING[type];
 
   const paletteColorMixture: ColorMixture | undefined = paletteColorMixtures.get(colorMixture.key);
+  const similarityText: string = similarity.toFixed(1);
 
   const handleTitleEdited = (value: string) => {
     if (paletteColorMixture) {
@@ -59,7 +63,9 @@ export const SimilarColorCard: React.FC<Props> = ({
       <Space direction="vertical" style={{width: '100%'}}>
         <Space>
           <Typography.Text>
-            <Typography.Text strong>{similarity.toFixed(1)}%</Typography.Text> similarity
+            <Trans>
+              <Typography.Text strong>{similarityText}%</Typography.Text> similarity
+            </Trans>
           </Typography.Text>
           <ColorSquare size="small" color={targetColor} />
           <ColorSquare size="small" color={colorMixture.layerRgb} />
@@ -74,7 +80,7 @@ export const SimilarColorCard: React.FC<Props> = ({
             }}
             style={{width: '100%', fontWeight: 'bold'}}
           >
-            {paletteColorMixture.name || 'Untitled mixture'}
+            {paletteColorMixture.name || t`Untitled mixture`}
           </Typography.Text>
         )}
         <Space wrap>
@@ -83,23 +89,23 @@ export const SimilarColorCard: React.FC<Props> = ({
             <Button
               size="small"
               icon={<BgColorsOutlined />}
-              title="Set the color of the base layer for the glazing"
+              title={t`Set the color of the base layer for the glazing`}
               onClick={() => {
                 void setBackgroundColor(colorMixture.layerRgb);
               }}
             >
-              Set as background
+              <Trans>Set as background</Trans>
             </Button>
           )}
           <Button
             size="small"
             icon={<LineChartOutlined />}
-            title="Spectral reflectance curve"
+            title={t`Spectral reflectance curve`}
             onClick={() => {
               onReflectanceChartClick(colorMixture);
             }}
           >
-            Reflectance
+            <Trans>Reflectance</Trans>
           </Button>
         </Space>
       </Space>

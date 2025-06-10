@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {useLingui} from '@lingui/react/macro';
 import type {SelectProps} from 'antd';
 import {Flex, Select, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
@@ -58,11 +59,13 @@ type Props = Omit<
 };
 
 export const ColorSelect: React.FC<Props> = ({brand, colors, ...rest}: Props) => {
+  const {t} = useLingui();
+
   const options = getColorOptions(brand, colors);
   return (
     <Select
       options={options}
-      placeholder="Select colors"
+      placeholder={t`Select colors`}
       showSearch
       filterOption={filterSelectOptions}
       allowClear
