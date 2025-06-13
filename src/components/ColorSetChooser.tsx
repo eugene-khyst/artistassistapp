@@ -140,19 +140,13 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
   const [shareColorSetUrl, setShareColorSetUrl] = useState<string>();
 
   useEffect(() => {
-    form.resetFields();
     if (importedColorSet) {
       form.setFieldsValue(importedColorSet);
       setHasUnsavedChanges(true);
-    }
-  }, [form, importedColorSet]);
-
-  useEffect(() => {
-    form.resetFields();
-    if (latestColorSet) {
+    } else if (latestColorSet) {
       form.setFieldsValue(latestColorSet);
     }
-  }, [form, latestColorSet]);
+  }, [form, importedColorSet, latestColorSet]);
 
   const {brands, isLoading: isBrandsLoading, isError: isBrandsError} = useColorBrands(selectedType);
 
