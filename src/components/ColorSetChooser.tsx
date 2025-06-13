@@ -43,7 +43,6 @@ import {
   Spin,
   Typography,
 } from 'antd';
-import {QRCodeSVG} from 'qrcode.react';
 import type {ForwardedRef} from 'react';
 import {forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState} from 'react';
 
@@ -54,6 +53,7 @@ import {LogoutButton} from '~/src/components/auth/LogoutButton';
 import {ColorSetSelect} from '~/src/components/color-set/ColorSetSelect';
 import {LocaleSelect} from '~/src/components/i18n/LocaleSelect';
 import {PERSISTENT_STORAGE_WARN} from '~/src/components/messages';
+import {QRCode} from '~/src/components/qr/QRCode';
 import {QRScannerModal} from '~/src/components/qr/QRScannerModal';
 import type {ChangableComponent} from '~/src/components/types';
 import {useColorBrands} from '~/src/hooks/useColorBrands';
@@ -516,11 +516,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
               {
                 key: '1',
                 label: t`Log in on another device by scanning the QR code`,
-                children: (
-                  <div>
-                    <QRCodeSVG size={256} value={magicLink} />
-                  </div>
-                ),
+                children: <QRCode value={magicLink} />,
               },
             ]}
           />

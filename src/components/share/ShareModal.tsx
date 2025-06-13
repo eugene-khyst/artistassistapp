@@ -19,7 +19,8 @@
 import {CopyOutlined, ShareAltOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {App, Button, Input, Modal, Space, Typography} from 'antd';
-import {QRCodeSVG} from 'qrcode.react';
+
+import {QRCode} from '~/src/components/qr/QRCode';
 
 const SHARE_AVAILABLE: boolean = 'share' in navigator;
 
@@ -90,9 +91,7 @@ export const ShareModal: React.FC<Props> = ({open, setOpen, url}: Props) => {
           <Typography.Text>
             <Trans>Or scan the QR code</Trans>
           </Typography.Text>
-          <div>
-            <QRCodeSVG value={url} />
-          </div>
+          <QRCode value={url} />
         </Space>
       ) : (
         <p>
