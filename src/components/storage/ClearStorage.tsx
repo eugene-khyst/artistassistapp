@@ -16,20 +16,39 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {ClearOutlined, CloseOutlined, DeleteOutlined} from '@ant-design/icons';
+import {ClearOutlined, DeleteOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {SpaceProps} from 'antd';
 import {Button, Popconfirm, Space} from 'antd';
-import React from 'react';
+import React, {useState} from 'react';
 
-import {clearCache, deleteAppData, unregisterServiceWorker} from '~/src/utils/storage';
-
-const SERVICE_WORKER = 'Service Worker';
+import {clearCache, deleteAppData} from '~/src/utils/storage';
 
 type Props = Pick<SpaceProps, 'direction'>;
 
 export const ClearStorage: React.FC<Props> = ({direction}: Props) => {
   const {t} = useLingui();
+
+  const [isClearingCache, setIsClearingCache] = useState<boolean>(false);
+  const [isDeleteingData, setIsDeleteingData] = useState<boolean>(false);
+
+  const handleClearCache = async () => {
+    setIsClearingCache(true);
+    try {
+      await clearCache();
+    } finally {
+      setIsClearingCache(false);
+    }
+  };
+
+  const handleDeleteData = async () => {
+    setIsDeleteingData(true);
+    try {
+      await deleteAppData();
+    } finally {
+      setIsDeleteingData(false);
+    }
+  };
 
   return (
     <Space direction={direction} wrap>
@@ -37,12 +56,12 @@ export const ClearStorage: React.FC<Props> = ({direction}: Props) => {
         title={t`Clear cache`}
         description={t`Are you sure you want to clear the cache?`}
         onConfirm={() => {
-          void clearCache(true);
+          void handleClearCache();
         }}
         okText={t`Yes`}
         cancelText={t`No`}
       >
-        <Button icon={<ClearOutlined />}>
+        <Button icon={<ClearOutlined />} loading={isClearingCache}>
           <Trans>Clear cache</Trans>
         </Button>
       </Popconfirm>
@@ -50,26 +69,13 @@ export const ClearStorage: React.FC<Props> = ({direction}: Props) => {
         title={t`Delete all app data`}
         description={t`Are you sure you want to delete all app data?`}
         onConfirm={() => {
-          void deleteAppData();
+          void handleDeleteData();
         }}
         okText={t`Yes`}
         cancelText={t`No`}
       >
-        <Button icon={<DeleteOutlined />} danger>
+        <Button icon={<DeleteOutlined />} danger loading={isDeleteingData}>
           <Trans>Delete all app data</Trans>
-        </Button>
-      </Popconfirm>
-      <Popconfirm
-        title={t`Unregister service worker`}
-        description={t`Are you sure you want to unregister ${SERVICE_WORKER}?`}
-        onConfirm={() => {
-          void unregisterServiceWorker();
-        }}
-        okText={t`Yes`}
-        cancelText={t`No`}
-      >
-        <Button icon={<CloseOutlined />} danger>
-          <Trans>Unregister {SERVICE_WORKER}</Trans>
         </Button>
       </Popconfirm>
     </Space>

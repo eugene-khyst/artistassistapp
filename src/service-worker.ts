@@ -33,14 +33,15 @@ import {fetchCacheFirst, fetchSWR, getCacheName} from '~/src/utils/fetch';
 const MB_1 = 1024 * 1024;
 const MB_20 = 20 * MB_1;
 
-const CACHE_NAME = getCacheName();
-const CACHE_NAME_DATA = getCacheName('data');
-const CACHE_NAMES = [CACHE_NAME, CACHE_NAME_DATA];
+const CACHE_NAME_DEFAULT = getCacheName();
+const CACHE_NAME_LARGE_FILES = getCacheName('large-files');
+const CACHE_NAMES = [CACHE_NAME_DEFAULT, CACHE_NAME_LARGE_FILES];
 
-const CACHE_EXTENSIONS: RegExp[] = [/\.onnx\.part[0-9]+$/, /\.wasm$/];
+const CACHE_LARGE_FILE_EXTENSIONS: RegExp[] = [/\.onnx\.part[0-9]+$/, /\.wasm$/];
+const NO_CACHE_PATHNAMES: string[] = ['/404.html', '/cleanup.html'];
 
 async function install(): Promise<void> {
-  const cache = await caches.open(CACHE_NAME);
+  const cache = await caches.open(CACHE_NAME_DEFAULT);
   await cache.addAll([
     '/',
     ...new Set(self.__WB_MANIFEST.map(({url}) => url)),
@@ -56,11 +57,10 @@ self.addEventListener('install', event => {
 
 async function activate(): Promise<void> {
   const keys = await caches.keys();
-  await Promise.all(
-    keys
-      .filter(key => !CACHE_NAMES.some(cacheName => key === cacheName))
-      .map(key => caches.delete(key))
-  );
+  const oldCaches = keys.filter(key => !CACHE_NAMES.some(cacheName => key === cacheName));
+  if (oldCaches.length > 0) {
+    await Promise.all(oldCaches.map(key => caches.delete(key)));
+  }
 }
 self.addEventListener('activate', event => {
   event.waitUntil(activate());
@@ -68,23 +68,32 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', (event: FetchEvent) => {
   const {request} = event;
-  const url = new URL(request.url);
-  if (request.method === 'GET') {
-    let response: Promise<Response>;
-    if (url.origin === self.location.origin) {
-      response = fetchCacheFirst(request);
-    } else if (CACHE_EXTENSIONS.some(extension => extension.test(url.href))) {
-      response = fetchCacheFirst(request, CACHE_NAME_DATA, MB_20);
-    } else {
-      response = fetchSWR(request);
+  try {
+    const url = new URL(request.url);
+    if (request.method === 'GET') {
+      let response: Promise<Response>;
+      if (url.origin === self.location.origin) {
+        if (NO_CACHE_PATHNAMES.includes(url.pathname)) {
+          response = fetch(request);
+        } else {
+          response = fetchCacheFirst(request);
+        }
+      } else if (CACHE_LARGE_FILE_EXTENSIONS.some(extension => extension.test(url.href))) {
+        response = fetchCacheFirst(request, CACHE_NAME_LARGE_FILES, MB_20);
+      } else {
+        response = fetchSWR(request);
+      }
+      event.respondWith(response);
+    } else if (
+      request.method === 'POST' &&
+      url.origin === self.location.origin &&
+      url.pathname === '/share-target'
+    ) {
+      event.respondWith(receiveSharedData(request));
     }
-    event.respondWith(response);
-  } else if (
-    request.method === 'POST' &&
-    url.origin === self.location.origin &&
-    url.pathname === '/share-target'
-  ) {
-    event.respondWith(receiveSharedData(request));
+  } catch (error) {
+    console.error('Service worker fetch error:', error);
+    event.respondWith(fetch(request));
   }
 });
 

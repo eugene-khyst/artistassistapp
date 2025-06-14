@@ -126,7 +126,7 @@ export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artist
   }
 );
 
-export async function deleteDatabase(callbacks: DeleteDBCallbacks): Promise<void> {
+export async function deleteDatabase(callbacks?: DeleteDBCallbacks): Promise<void> {
   await deleteDB(DB_NAME, callbacks);
 }
 

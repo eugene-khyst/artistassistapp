@@ -46,8 +46,8 @@ export function errorResponse(error: any) {
 
 async function hasEnoughStorage(expectedBytes: number) {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (!navigator.storage) {
-    return false;
+  if (!navigator.storage?.estimate) {
+    return true;
   }
   const {quota, usage} = await navigator.storage.estimate();
   return (quota ?? 0) - (usage ?? 0) > expectedBytes;
@@ -63,21 +63,53 @@ async function cachePutWithRetry(
   request: RequestInfo | URL,
   response: Response,
   expectedBytes: number,
-  retry = true
-): Promise<boolean> {
+  retry: boolean,
+  allowOpaqueResponses: boolean
+): Promise<void> {
+  if (!response.ok) {
+    console.warn(`Skipping cache: non-successful response (${response.status})`, request);
+    return;
+  }
+  if (response.type === 'opaque' || response.type === 'opaqueredirect') {
+    if (!allowOpaqueResponses) {
+      console.warn('Skipping cache: opaque response', request);
+      return;
+    } else {
+      console.log('Caching opaque response: success status unknown', request);
+    }
+  }
   try {
-    await cache.put(request, response);
-    return true;
+    await cache.put(request, response.clone());
   } catch (error) {
-    // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
-    console.error(`Failed to cache: ${request}`, error);
+    console.error('Failed to cache', request, error);
     if (retry && !(await hasEnoughStorage(expectedBytes))) {
       console.log('Clearing cache and retrying');
       await clearCache(cache);
-      await cachePutWithRetry(cache, request, response, expectedBytes, false);
+      await cachePutWithRetry(cache, request, response, expectedBytes, false, allowOpaqueResponses);
     }
   }
-  return false;
+}
+
+async function fetchNetwork(
+  request: RequestInfo | URL,
+  cache: Cache,
+  expectedBytes: number,
+  allowOpaqueResponses: boolean
+): Promise<Response> {
+  try {
+    const networkResponse = await fetch(request);
+    await cachePutWithRetry(
+      cache,
+      request,
+      networkResponse.clone(),
+      expectedBytes,
+      true,
+      allowOpaqueResponses
+    );
+    return networkResponse;
+  } catch (error) {
+    return errorResponse(error);
+  }
 }
 
 export async function fetchCacheFirst(
@@ -91,9 +123,7 @@ export async function fetchCacheFirst(
     if (cachedResponse) {
       return cachedResponse;
     }
-    const networkResponse: Response = await fetch(request);
-    await cachePutWithRetry(cache, request, networkResponse.clone(), expectedBytes);
-    return networkResponse;
+    return await fetchNetwork(request, cache, expectedBytes, false);
   } catch (error) {
     return errorResponse(error);
   }
@@ -104,18 +134,14 @@ export async function fetchSWR(
   cacheName = CACHE_NAME,
   expectedBytes = MB_2
 ): Promise<Response> {
-  const cache: Cache = await caches.open(cacheName);
-  const cachedResponse: Response | undefined = await cache.match(request);
-  const fetchPromise: Promise<Response> = (async () => {
-    try {
-      const networkResponse = await fetch(request);
-      await cachePutWithRetry(cache, request, networkResponse.clone(), expectedBytes);
-      return networkResponse;
-    } catch (error) {
-      return errorResponse(error);
-    }
-  })();
-  return cachedResponse ?? (await fetchPromise);
+  try {
+    const cache: Cache = await caches.open(cacheName);
+    const cachedResponse: Response | undefined = await cache.match(request);
+    const fetchPromise: Promise<Response> = fetchNetwork(request, cache, expectedBytes, true);
+    return cachedResponse ?? (await fetchPromise);
+  } catch (error) {
+    return errorResponse(error);
+  }
 }
 
 export async function fetchChunked(

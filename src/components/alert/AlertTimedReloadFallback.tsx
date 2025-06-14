@@ -22,31 +22,29 @@ import React, {useEffect, useState} from 'react';
 import type {FallbackProps} from 'react-error-boundary';
 
 import {ClearStorage} from '~/src/components/storage/ClearStorage';
-import {unregisterServiceWorker} from '~/src/utils/storage';
+import {clearCache} from '~/src/utils/storage';
+
+const DELAY_SECONDS = 5;
 
 export const AlertTimedReloadFallback: React.FC<FallbackProps> = ({error}: FallbackProps) => {
   const {t} = useLingui();
 
-  const [reloadCounter, setReloadCounter] = useState<number>(5);
+  const [reloadCounter, setReloadCounter] = useState<number>(DELAY_SECONDS);
 
   useEffect(() => {
     const countdownIntervalId = setInterval(() => {
       setReloadCounter(prev => {
-        const next = prev - 1;
-        if (next === 0) {
+        if (prev <= 1) {
           clearInterval(countdownIntervalId);
+          void clearCache();
+          return 0;
         }
-        return next;
+        return prev - 1;
       });
     }, 1000);
 
-    const reloadTimeoutId = setTimeout(() => {
-      void unregisterServiceWorker();
-    }, 5000);
-
     return () => {
       clearInterval(countdownIntervalId);
-      clearTimeout(reloadTimeoutId);
     };
   }, []);
 

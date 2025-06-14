@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Clearing Cache 🎨🖌️ ArtistAssistApp</title>
+  </head>
+  <body>
+    <h1>Cache & Service Worker Cleanup</h1>
+    <p>
+      This page will clear your browser cache and unregister service workers to fix any issues with
+      cached content.
+    </p>
+    <div id="status">Clearing browser cache and service workers...</div>
+    <hr />
+    <p>Redirecting to the <a href="/">main page</a> in <span id="seconds-remaining"></span>.</p>
+    <script>
+      (async function () {
+        const statusEl = document.getElementById('status');
+        const secondsRemainingEl = document.getElementById('seconds-remaining');
+
+        let countdown = 10;
+
+        function updateCountdown() {
+          secondsRemainingEl.textContent = `${countdown} ${countdown === 1 ? 'second' : 'seconds'}`;
+        }
+
+        function addStatus(message) {
+          statusEl.innerHTML += '<br>' + message;
+        }
+
+        updateCountdown();
+        const timer = setInterval(() => {
+          countdown--;
+          updateCountdown();
+
+          if (countdown === 0) {
+            clearInterval(timer);
+            window.location.href = '/';
+          }
+        }, 1000);
+
+        try {
+          if ('serviceWorker' in navigator) {
+            try {
+              const registrations = await navigator.serviceWorker.getRegistrations();
+              if (registrations.length > 0) {
+                await Promise.all(registrations.map(reg => reg.unregister()));
+                addStatus(
+                  `✅ Unregistered ${registrations.length} service ${registrations.length === 1 ? 'worker' : 'workers'}`
+                );
+              } else {
+                addStatus('⚠️ No service workers found');
+              }
+            } catch (error) {
+              console.error('Failed to unregister service workers:', error);
+              addStatus('❌ Failed to unregister service workers');
+            }
+          }
+
+          if ('caches' in window) {
+            try {
+              const cacheNames = await caches.keys();
+              if (cacheNames.length > 0) {
+                await Promise.all(cacheNames.map(name => caches.delete(name)));
+                addStatus(
+                  `✅ Cleared ${cacheNames.length} ${cacheNames.length === 1 ? 'cache' : 'caches'}`
+                );
+              } else {
+                addStatus('⚠️ No caches found');
+              }
+            } catch (error) {
+              console.error('Failed to clear caches:', error);
+              addStatus('❌ Failed to clear caches');
+            }
+          }
+
+          addStatus('✅ Cleanup completed!');
+        } catch (error) {
+          console.error('Cleanup process failed:', error);
+          addStatus('❌ Cleanup process failed');
+        }
+      })();
+    </script>
+  </body>
+</html>

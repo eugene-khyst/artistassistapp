@@ -38,6 +38,7 @@ export default defineConfig({
       injectRegister: false,
       injectManifest: {
         maximumFileSizeToCacheInBytes: maxFileSize,
+        globIgnores: ['**\/node_modules\/**\/*', '**\/404.html', '**\/cleanup.html'],
         buildPlugins: {
           vite: [glslPlugin],
           rollup: [excludeWasmPlugin],

@@ -31,7 +31,7 @@ export async function requestPersistentStorage(): Promise<boolean> {
     }
     const granted: boolean = await navigator.storage.persist();
     if (!granted) {
-      console.log('Persistent storage permission denied');
+      console.warn('Persistent storage permission denied');
     }
     return granted;
   } catch (error) {
@@ -40,32 +40,57 @@ export async function requestPersistentStorage(): Promise<boolean> {
   }
 }
 
-function reloadConditionally(reload: boolean) {
+function reloadDelayed(reload = true, delay = 500) {
   if (reload) {
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, delay);
   }
 }
 
-export async function clearCache(reload = false) {
-  const keys = await caches.keys();
-  await Promise.all(keys.map(key => caches.delete(key)));
-  reloadConditionally(reload);
+async function unregisterServiceWorkers() {
+  if ('serviceWorker' in navigator) {
+    try {
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(registrations.map(reg => reg.unregister()));
+    } catch (error) {
+      console.error('Failed to unregister service workers:', error);
+    }
+  }
+}
+
+export async function clearCache(reload = true) {
+  await unregisterServiceWorkers();
+  if ('caches' in window) {
+    try {
+      const keys = await caches.keys();
+      await Promise.all(keys.map(key => caches.delete(key)));
+    } catch (error) {
+      console.error('Failed to clear cache:', error);
+    }
+  }
+  reloadDelayed(reload);
 }
 
 export async function deleteAppData() {
-  await clearCache();
+  await clearCache(false);
   localStorage.clear();
-  await deleteDatabase({
-    blocked: () => {
-      reloadConditionally(true);
-    },
-  });
-  reloadConditionally(true);
-}
-
-export async function unregisterServiceWorker() {
-  await clearCache();
-  const registration = await navigator.serviceWorker.getRegistration();
-  await registration?.unregister();
-  reloadConditionally(true);
+  try {
+    await Promise.race([
+      deleteDatabase({
+        blocked: () => {
+          console.warn('Database deletion blocked by other connections');
+        },
+      }),
+      new Promise((_, reject) =>
+        setTimeout(() => {
+          reject(new Error('Database deletion timeout'));
+        }, 3000)
+      ),
+    ]);
+  } catch (error) {
+    console.error('Error while deleting app data:', error);
+  } finally {
+    reloadDelayed();
+  }
 }

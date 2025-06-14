@@ -1,6 +1,11 @@
 @import '@fontsource/kalam/latin-400.css';
 @import '@fontsource/kalam/latin-700.css';
 
+:root {
+  color-scheme: only light !important;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
 html,
 body {
   padding: 0;
@@ -48,10 +53,6 @@ svg.color-icon {
 
 .transition-animation img {
   animation: scale 1s ease 0s 1 alternate;
-}
-
-:root {
-  --shadow-color: rgba(0, 0, 0, 0.3);
 }
 
 .drop-shadow {

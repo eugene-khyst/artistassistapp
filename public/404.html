@@ -3,18 +3,27 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Page not found 🎨🖌️ ArtistAssistApp</title>
+    <title>Page Not Found 🎨🖌️ ArtistAssistApp</title>
   </head>
   <body>
-    <p>This page can&apos;t be found.</p>
-    <p>Redirecting to main page in <span id="seconds-remaining"></span>.</p>
+    <h1>🚫 404 - Page Not Found</h1>
+    <p>The requested page could not be found.</p>
+    <hr />
+    <p>Redirecting to the <a href="/">main page</a> in <span id="seconds-remaining"></span>.</p>
     <script>
-      let countdown = 5;
       const secondsRemainingEl = document.getElementById('seconds-remaining');
-      secondsRemainingEl.innerHTML = `${countdown} seconds`;
+
+      let countdown = 5;
+
+      function updateCountdown() {
+        secondsRemainingEl.textContent = `${countdown} ${countdown === 1 ? 'second' : 'seconds'}`;
+      }
+
+      updateCountdown();
       const timer = setInterval(() => {
         countdown--;
-        secondsRemainingEl.innerHTML = `${countdown} second${countdown === 1 ? '' : 's'}`;
+        updateCountdown();
+
         if (countdown === 0) {
           clearInterval(timer);
           window.location.href = '/';

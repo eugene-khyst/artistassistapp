@@ -50,11 +50,11 @@ export const AdModal: React.FC<Props> = ({open, setOpen}: Props) => {
     setCloseCounter(CLOSE_SECONDS);
     const intervalId = setInterval(() => {
       setCloseCounter(prev => {
-        const next = prev - 1;
-        if (next === 0) {
+        if (prev <= 1) {
           clearInterval(intervalId);
+          return 0;
         }
-        return next;
+        return prev - 1;
       });
     }, 1000);
     return () => {
