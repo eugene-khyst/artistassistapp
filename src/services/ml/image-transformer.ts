@@ -26,7 +26,7 @@ import {
   createImageBitmapResizedTotalPixels,
   IMAGE_SIZE,
   imageBitmapToImageData,
-  imageBitmapToImageDataResizedAndCropped,
+  resizeAndCrop,
 } from '~/src/utils/graphics';
 
 const MAX_SCALE_FACTOR = 3;
@@ -42,7 +42,7 @@ export async function transformImage(
   let height = 0;
   if (resolution) {
     imageDataArray = images.map((image: ImageBitmap): ImageData => {
-      const [imageData] = imageBitmapToImageDataResizedAndCropped(image, resolution, resolution);
+      const [imageData] = imageBitmapToImageData(image, resizeAndCrop(resolution, resolution));
       return imageData;
     });
     width = height = resolution;

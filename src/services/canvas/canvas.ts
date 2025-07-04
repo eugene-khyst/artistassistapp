@@ -16,14 +16,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Vector} from '~/src/services/math/geometry';
+
 export abstract class Canvas {
   protected context: CanvasRenderingContext2D;
+  private redrawRequested = false;
+  private animationFrameId: ReturnType<typeof requestAnimationFrame> | null = null;
 
   constructor(public canvas: HTMLCanvasElement) {
     this.context = canvas.getContext('2d')!;
+    this.startRenderLoop();
   }
 
-  protected abstract draw(): void;
+  protected abstract draw(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void;
+
+  private startRenderLoop(): void {
+    const render = () => {
+      if (this.redrawRequested) {
+        this.draw(this.context);
+        this.redrawRequested = false;
+      }
+      this.animationFrameId = requestAnimationFrame(render);
+    };
+    render();
+  }
+
+  requestRedraw(): void {
+    this.redrawRequested = true;
+  }
 
   protected onCanvasResized(): void {
     // noop
@@ -33,14 +53,20 @@ export abstract class Canvas {
     this.canvas.width = width;
     this.canvas.height = height;
     this.onCanvasResized();
-    this.draw();
+    this.requestRedraw();
   }
 
   resize(): void {
     this.setSize(this.canvas.offsetWidth, this.canvas.offsetHeight);
   }
 
-  public destroy(): void {
-    // noop
+  destroy(): void {
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
+  }
+
+  protected getCanvasCenter(): Vector {
+    return new Vector(this.canvas.width / 2, this.canvas.height / 2);
   }
 }

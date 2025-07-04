@@ -17,6 +17,7 @@
  */
 
 import {gcd} from '~/src/services/math/gcd';
+import type {Comparator} from '~/src/utils/array';
 import {unique} from '~/src/utils/array';
 import type {Fraction} from '~/src/utils/fraction';
 import {not} from '~/src/utils/predicate';
@@ -262,22 +263,22 @@ export const compareColorMixturesByName = (a: ColorMixture, b: ColorMixture): nu
   return a.name.localeCompare(b.name);
 };
 
-export const compareColorMixturesByConsistency = (
+export const compareColorMixturesByConsistency: Comparator<ColorMixture> = (
   {consistency: [aColorPart, aWhole]}: ColorMixture,
   {consistency: [bColorPart, bWhole]}: ColorMixture
 ) => bColorPart / bWhole - aColorPart / aWhole;
 
-export const compareSimilarColorsBySimilarity = (
+export const compareSimilarColorsBySimilarity: Comparator<SimilarColor> = (
   {similarity: a}: SimilarColor,
   {similarity: b}: SimilarColor
 ) => b - a;
 
-export const compareSimilarColorsByColorMixturePartLength = (
+export const compareSimilarColorsByColorMixturePartLength: Comparator<SimilarColor> = (
   {colorMixture: {parts: aParts}, similarity: aSim}: SimilarColor,
   {colorMixture: {parts: bParts}, similarity: bSim}: SimilarColor
 ) => aParts.length - bParts.length || bSim - aSim;
 
-export const compareSimilarColorsByConsistency = (
+export const compareSimilarColorsByConsistency: Comparator<SimilarColor> = (
   {colorMixture: aColorMixture, similarity: aSim}: SimilarColor,
   {colorMixture: bColorMixture, similarity: bSim}: SimilarColor
 ) => compareColorMixturesByConsistency(aColorMixture, bColorMixture) || bSim - aSim;

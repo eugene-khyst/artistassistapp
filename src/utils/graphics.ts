@@ -22,22 +22,42 @@ export const IMAGE_SIZE = {
   '2K': 2560 * 1440,
 };
 
-export async function createImageBitmapWithFallback(
-  image: ImageBitmapSource
-): Promise<ImageBitmap> {
-  try {
-    return await createImageBitmap(image);
-  } catch (error) {
-    console.error(error);
-    return createErrorImageBitmap(error instanceof Error ? error.message : undefined);
-  }
+export interface Margins {
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
 }
+
+export interface ConvertToBlobOptions {
+  type?: string;
+  quality?: number;
+}
+
+export interface DrawImageParams {
+  width: number;
+  height: number;
+  sx: number;
+  sy: number;
+  sw: number;
+  sh: number;
+  dx: number;
+  dy: number;
+  dw: number;
+  dh: number;
+}
+
+export type DrawImageParamsSupplier = (drawImageParams: DrawImageParams) => DrawImageParams;
+
+const NOOP_DRAW_IMAGE_PARAMS_SUPPLIER: DrawImageParamsSupplier = (
+  drawImageParams: DrawImageParams
+): DrawImageParams => drawImageParams;
 
 export async function createImageBitmapResizedTotalPixels(
   image: ImageBitmapSource,
   totalPixels: number
 ): Promise<ImageBitmap> {
-  const imageBitmap: ImageBitmap = await createImageBitmapWithFallback(image);
+  const imageBitmap: ImageBitmap = await createImageBitmap(image);
   const {width, height} = imageBitmap;
   const scaleFactor: number = Math.min(1, Math.sqrt(totalPixels / (width * height)));
   const scaledImage: ImageBitmap = await createImageBitmap(imageBitmap, {
@@ -47,78 +67,156 @@ export async function createImageBitmapResizedTotalPixels(
   return scaledImage;
 }
 
-export function imageBitmapToOffscreenCanvas(
-  image: ImageBitmap
-): [OffscreenCanvas, OffscreenCanvasRenderingContext2D] {
+export function rotateImageBitmapClockwise(image: ImageBitmap): ImageBitmap {
   const {width, height} = image;
-  const canvas = new OffscreenCanvas(width, height);
-  const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d', {
-    willReadFrequently: true,
-  })!;
-  ctx.drawImage(image, 0, 0);
-  return [canvas, ctx];
+  const canvas = new OffscreenCanvas(height, width);
+  const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d')!;
+  ctx.translate(height / 2, width / 2);
+  ctx.rotate(Math.PI / 2);
+  ctx.drawImage(image, -width / 2, -height / 2);
+  return canvas.transferToImageBitmap();
 }
 
-export function imageBitmapToOffscreenCanvasResizedAndCropped(
-  image: ImageBitmap,
-  targetWidth: number,
-  targetHeight: number
-): [OffscreenCanvas, OffscreenCanvasRenderingContext2D] {
-  const canvas = new OffscreenCanvas(targetWidth, targetHeight);
-  const ctx = canvas.getContext('2d', {
-    willReadFrequently: true,
-  })!;
+function drawImage({width, height}: ImageBitmap): DrawImageParams {
+  return {
+    width,
+    height,
+    sx: 0,
+    sy: 0,
+    sw: width,
+    sh: height,
+    dx: 0,
+    dy: 0,
+    dw: width,
+    dh: height,
+  };
+}
 
+export function chain(
+  ...suppliers: (DrawImageParamsSupplier | null | undefined)[]
+): DrawImageParamsSupplier {
+  return (initialParams: DrawImageParams): DrawImageParams =>
+    suppliers
+      .filter((supplier): supplier is DrawImageParamsSupplier => !!supplier)
+      .reduce((params, supplier) => supplier(params), initialParams);
+}
+
+export function cropMargins(margins?: Margins): DrawImageParamsSupplier {
+  const {top = 0, bottom = 0, left = 0, right = 0} = margins ?? {};
+  return ({width: origWidth, height: origHeight}: DrawImageParams): DrawImageParams => {
+    const targetWidth = origWidth - left - right;
+    const targetHeight = origHeight - top - bottom;
+    if (targetWidth <= 0 || targetHeight <= 0) {
+      throw new Error('Incorrect image crop area');
+    }
+    return {
+      width: targetWidth,
+      height: targetHeight,
+      sx: left,
+      sy: top,
+      sw: targetWidth,
+      sh: targetHeight,
+      dx: 0,
+      dy: 0,
+      dw: targetWidth,
+      dh: targetHeight,
+    };
+  };
+}
+
+export function expandToAspectRatio(targetAspectRatio?: number): DrawImageParamsSupplier {
+  return ({
+    width: origWidth,
+    height: origHeight,
+    sx,
+    sy,
+    sw,
+    sh,
+    dw,
+    dh,
+  }: DrawImageParams): DrawImageParams => {
+    let targetWidth = origWidth;
+    let targetHeight = origHeight;
+    let dx = 0;
+    let dy = 0;
+    if (targetAspectRatio) {
+      const origAspectRatio = origWidth / origHeight;
+      if (targetAspectRatio > origAspectRatio) {
+        targetWidth = origHeight * targetAspectRatio;
+        dx = (targetWidth - origWidth) / 2;
+      } else {
+        targetHeight = origWidth / targetAspectRatio;
+        dy = (targetHeight - origHeight) / 2;
+      }
+    }
+    return {
+      width: targetWidth,
+      height: targetHeight,
+      sx,
+      sy,
+      sw,
+      sh,
+      dx,
+      dy,
+      dw,
+      dh,
+    };
+  };
+}
+
+export function resizeAndCrop(targetWidth: number, targetHeight: number): DrawImageParamsSupplier {
   const targetAspectRatio = targetWidth / targetHeight;
-  const originalAspectRatio = image.width / image.height;
+  return ({width: origWidth, height: origHeight}: DrawImageParams): DrawImageParams => {
+    const origAspectRatio = origWidth / origHeight;
+    let sw = origWidth;
+    let sh = origHeight;
+    let sx = 0;
+    let sy = 0;
+    if (origAspectRatio > targetAspectRatio) {
+      sw = origHeight * targetAspectRatio;
+      sx = (origWidth - sw) / 2;
+    } else {
+      sh = origWidth / targetAspectRatio;
+      sy = (origHeight - sh) / 2;
+    }
+    return {
+      width: targetWidth,
+      height: targetHeight,
+      sx,
+      sy,
+      sw,
+      sh,
+      dx: 0,
+      dy: 0,
+      dw: targetWidth,
+      dh: targetHeight,
+    };
+  };
+}
 
-  let sourceWidth = image.width;
-  let sourceHeight = image.height;
-  let sourceX = 0;
-  let sourceY = 0;
-
-  if (originalAspectRatio > targetAspectRatio) {
-    sourceWidth = image.height * targetAspectRatio;
-    sourceX = (image.width - sourceWidth) / 2;
-  } else {
-    sourceHeight = image.width / targetAspectRatio;
-    sourceY = (image.height - sourceHeight) / 2;
-  }
-
-  ctx.drawImage(
-    image,
-    sourceX,
-    sourceY,
-    sourceWidth,
-    sourceHeight,
-    0,
-    0,
-    targetWidth,
-    targetHeight
-  );
-
+export function imageBitmapToOffscreenCanvas(
+  image: ImageBitmap,
+  willReadFrequently = false,
+  drawImageParamsSupplier: DrawImageParamsSupplier = NOOP_DRAW_IMAGE_PARAMS_SUPPLIER
+): [OffscreenCanvas, OffscreenCanvasRenderingContext2D] {
+  const {width, height, sx, sy, sw, sh, dx, dy, dw, dh} = drawImageParamsSupplier(drawImage(image));
+  const canvas = new OffscreenCanvas(width, height);
+  const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d', {
+    willReadFrequently,
+  })!;
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, width, height);
+  ctx.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
   return [canvas, ctx];
 }
 
 export function imageBitmapToImageData(
-  image: ImageBitmap
+  image: ImageBitmap,
+  drawImageParamsSupplier?: DrawImageParamsSupplier
 ): [ImageData, OffscreenCanvas, OffscreenCanvasRenderingContext2D] {
-  const [canvas, ctx] = imageBitmapToOffscreenCanvas(image);
+  const [canvas, ctx] = imageBitmapToOffscreenCanvas(image, true, drawImageParamsSupplier);
   const {width, height} = canvas;
   return [ctx.getImageData(0, 0, width, height), canvas, ctx];
-}
-
-export function imageBitmapToImageDataResizedAndCropped(
-  image: ImageBitmap,
-  targetWidth: number,
-  targetHeight: number
-): [ImageData, OffscreenCanvas, OffscreenCanvasRenderingContext2D] {
-  const [canvas, ctx] = imageBitmapToOffscreenCanvasResizedAndCropped(
-    image,
-    targetWidth,
-    targetHeight
-  );
-  return [ctx.getImageData(0, 0, targetWidth, targetHeight), canvas, ctx];
 }
 
 export function imageDataToOffscreenCanvas(imageData: ImageData): OffscreenCanvas {
@@ -127,6 +225,23 @@ export function imageDataToOffscreenCanvas(imageData: ImageData): OffscreenCanva
   const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d')!;
   ctx.putImageData(imageData, 0, 0);
   return canvas;
+}
+
+export async function offscreenCanvasToBlob(
+  offscreenCanvas: OffscreenCanvas,
+  options?: ConvertToBlobOptions
+): Promise<Blob> {
+  const {type = 'image/jpeg', quality = 0.95} = options ?? {};
+  return await offscreenCanvas.convertToBlob({type, quality});
+}
+
+export async function imageBitmapToBlob(
+  image: ImageBitmap,
+  drawImageParamsSupplier?: DrawImageParamsSupplier,
+  options?: ConvertToBlobOptions
+): Promise<Blob> {
+  const [canvas] = imageBitmapToOffscreenCanvas(image, false, drawImageParamsSupplier);
+  return await offscreenCanvasToBlob(canvas, options);
 }
 
 export function copyOffscreenCanvas(canvas: OffscreenCanvas): OffscreenCanvas {
@@ -162,49 +277,4 @@ export function getRgbaForCoord(
   }
   const i = getIndexForCoord(x, y, width, 0);
   return data.subarray(i, i + 4);
-}
-
-function createErrorImageBitmap(error?: string): ImageBitmap {
-  const emojiFontSize = 84;
-  const titleFontSize = 48;
-  const titleLineHeight: number = 1.5 * titleFontSize;
-  const padding = 16;
-  const textFontSize = 24;
-  const textLineHeight: number = 1.5 * textFontSize;
-
-  const canvas = new OffscreenCanvas(720, 480);
-  const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d')!;
-
-  ctx.font = `${emojiFontSize}px serif`;
-  const emoji = '⚠️';
-  const {width: emojiWidth}: TextMetrics = ctx.measureText(emoji);
-  ctx.fillText(emoji, canvas.width / 2 - emojiWidth / 2, canvas.height / 2 - titleLineHeight);
-  ctx.font = `${titleFontSize}px serif`;
-  const title = 'Error loading image';
-  const {width: titleWidth}: TextMetrics = ctx.measureText(title);
-  ctx.fillText(title, canvas.width / 2 - titleWidth / 2, canvas.height / 2);
-  if (error) {
-    ctx.font = `${textFontSize}px serif`;
-    const words = error.split(' ');
-    const lines: string[] = [];
-    let currentLine = words[0]!;
-    for (let i = 1; i < words.length; i++) {
-      const word = words[i]!;
-      const line: string = currentLine + ' ' + word;
-      const {width} = ctx.measureText(line);
-      if (width < canvas.width - 2 * padding) {
-        currentLine = line;
-      } else {
-        lines.push(currentLine);
-        currentLine = word;
-      }
-    }
-    lines.push(currentLine);
-
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i]!;
-      ctx.fillText(line, padding, canvas.height / 2 + (i + 2) * textLineHeight);
-    }
-  }
-  return canvas.transferToImageBitmap();
 }

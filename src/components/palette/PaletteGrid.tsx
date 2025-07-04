@@ -32,6 +32,7 @@ import {
 } from '~/src/services/color/color-mixer';
 import type {ColorMixture, ColorType} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
+import type {Comparator} from '~/src/utils/array';
 import {reverseOrder} from '~/src/utils/array';
 
 enum Sort {
@@ -39,7 +40,7 @@ enum Sort {
   ByName = 2,
 }
 
-const COLOR_MIXTURES_COMPARATORS = {
+const COLOR_MIXTURES_COMPARATORS: Record<Sort, Comparator<ColorMixture>> = {
   [Sort.ByDataIndex]: reverseOrder(compareColorMixturesByDate),
   [Sort.ByName]: compareColorMixturesByName,
 };

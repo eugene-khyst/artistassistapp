@@ -25,7 +25,7 @@ import type {ColorSet} from '~/src/services/color/types';
 import {
   createImageBitmapResizedTotalPixels,
   IMAGE_SIZE,
-  imageBitmapToOffscreenCanvas,
+  imageBitmapToImageData,
 } from '~/src/utils/graphics';
 import {computeIfAbsentInMap} from '~/src/utils/map';
 
@@ -43,8 +43,7 @@ export class LimitedPalette {
     const colorMixer = new ColorMixer();
     colorMixer.setColorSet(colorSet, PAPER_WHITE_HEX);
     const image: ImageBitmap = await createImageBitmapResizedTotalPixels(blob, IMAGE_SIZE.SD);
-    const [canvas, ctx] = imageBitmapToOffscreenCanvas(image);
-    const imageData: ImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const [imageData] = imageBitmapToImageData(image);
     image.close();
     const similarColors = new Map<number, RgbTuple>();
     medianCutQuantization(imageData, QUANTIZATION_DEPTH, (mean: RgbTuple): RgbTuple => {

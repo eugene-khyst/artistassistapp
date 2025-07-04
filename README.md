@@ -74,6 +74,7 @@ following:
 - adjusting color levels (WebGL),
 - adjusting color temperature (WebGL),
 - invert colors filter with gamma correction (WebGL),
+- homography, perspective transform from quadrilateral to rectangle (WebGL),
 - ranking images using pairwise comparison and Elo rating system,
 - and more.
 

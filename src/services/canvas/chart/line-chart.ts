@@ -92,7 +92,7 @@ export class LineChart extends Canvas {
     this.paddingLeft =
       SPACING + this.fontSize + 3 * SPACING + longestValueWidth + SPACING + this.tickSize;
 
-    this.draw();
+    this.requestRedraw();
   }
 
   protected get scaleX(): number {
@@ -116,30 +116,31 @@ export class LineChart extends Canvas {
 
   addSeries(series: Series): void {
     this.seriesArray.push(series);
-    this.draw();
+    this.requestRedraw();
   }
 
   removeAllSeries(): void {
     this.seriesArray = [];
-    this.draw();
+    this.requestRedraw();
   }
 
-  protected draw(): void {
-    this.drawBackground();
-    this.drawXAxis();
-    this.drawYAxis();
+  protected override draw(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
+    this.drawBackground(ctx);
+    this.drawXAxis(ctx);
+    this.drawYAxis(ctx);
     this.seriesArray.forEach(({xValues, yValues, color, lineWidth = 1}: Series) => {
-      this.drawSeries(xValues, yValues, color, lineWidth);
+      this.drawSeries(ctx, xValues, yValues, color, lineWidth);
     });
   }
 
-  protected drawBackground(): void {
-    this.context.fillStyle = this.backgroundColor;
-    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+  protected drawBackground(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+  ): void {
+    ctx.fillStyle = this.backgroundColor;
+    ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  private drawXAxis(): void {
-    const ctx: CanvasRenderingContext2D = this.context;
+  private drawXAxis(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
     ctx.save();
 
     ctx.strokeStyle = this.gridlineColor;
@@ -186,8 +187,7 @@ export class LineChart extends Canvas {
     ctx.restore();
   }
 
-  private drawYAxis(): void {
-    const ctx: CanvasRenderingContext2D = this.context;
+  private drawYAxis(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
     ctx.save();
 
     ctx.strokeStyle = this.gridlineColor;
@@ -233,12 +233,12 @@ export class LineChart extends Canvas {
   }
 
   private drawSeries(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
     xValues: number[] | TypedArray,
     yValues: number[] | TypedArray,
     color: string | RgbTuple,
     lineWidth: number
   ): void {
-    const ctx: CanvasRenderingContext2D = this.context;
     ctx.save();
 
     ctx.lineWidth = lineWidth;
@@ -259,12 +259,10 @@ export class LineChart extends Canvas {
 
       ctx.lineTo(x, y);
       ctx.stroke();
-      ctx.closePath();
 
       ctx.beginPath();
       ctx.arc(x, y, lineWidth + 1, 0, 2 * Math.PI, false);
       ctx.fill();
-      ctx.closePath();
 
       ctx.beginPath();
       ctx.moveTo(x, y);

@@ -20,6 +20,7 @@ import {DownloadOutlined, LoadingOutlined, MoreOutlined, PrinterOutlined} from '
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
 import {Button, Col, Dropdown, Grid, Radio, Row, Space, Spin} from 'antd';
+import {saveAs} from 'file-saver';
 import {useEffect, useState} from 'react';
 
 import {
@@ -30,6 +31,7 @@ import type {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-ima
 import {printImages} from '~/src/services/print/print';
 import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
+import {imageBitmapToBlob} from '~/src/utils/graphics';
 
 import {EmptyImage} from './empty/EmptyImage';
 
@@ -53,24 +55,28 @@ export const ImageTonalValues: React.FC = () => {
     originalImage
   );
 
-  const [tonalValuesImageIndex, setTonalValuesImageIndex] = useState<number>(2);
+  const [tonalImageIndex, setTonalImageIndex] = useState<number>(2);
 
   useEffect(() => {
-    tonalValuesCanvas?.setImageIndex(tonalValuesImageIndex);
-  }, [tonalValuesCanvas, tonalValuesImageIndex]);
+    tonalValuesCanvas?.setImageIndex(tonalImageIndex);
+  }, [tonalValuesCanvas, tonalImageIndex]);
 
   const isLoading: boolean = isOriginalImageLoading || isTonalImagesLoading;
 
   const handleTonalValueChange = (e: RadioChangeEvent) => {
-    setTonalValuesImageIndex(e.target.value as number);
+    setTonalImageIndex(e.target.value as number);
   };
 
   const handlePrintClick = () => {
     void printImages(tonalImages);
   };
 
-  const handleSaveClick = () => {
-    void tonalValuesCanvas?.saveAsImage(getFilename(originalImageFile, 'tonal-values'));
+  const handleSaveClick = async () => {
+    const image: ImageBitmap | undefined = tonalImages[tonalImageIndex];
+    if (!image) {
+      return;
+    }
+    saveAs(await imageBitmapToBlob(image), getFilename(originalImageFile, 'tonal-values'));
   };
 
   const items: MenuProps['items'] = [
@@ -84,7 +90,9 @@ export const ImageTonalValues: React.FC = () => {
       key: '2',
       label: t`Save`,
       icon: <DownloadOutlined />,
-      onClick: handleSaveClick,
+      onClick: () => {
+        void handleSaveClick();
+      },
     },
   ];
 
@@ -105,7 +113,7 @@ export const ImageTonalValues: React.FC = () => {
       <Space align="center" style={{width: '100%', justifyContent: 'center', marginBottom: 8}}>
         <Radio.Group
           options={toneOptions}
-          value={tonalValuesImageIndex}
+          value={tonalImageIndex}
           onChange={handleTonalValueChange}
           optionType="button"
           buttonStyle="solid"
@@ -115,7 +123,12 @@ export const ImageTonalValues: React.FC = () => {
             <Button icon={<PrinterOutlined />} onClick={handlePrintClick}>
               <Trans>Print</Trans>
             </Button>
-            <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
+            <Button
+              icon={<DownloadOutlined />}
+              onClick={() => {
+                void handleSaveClick();
+              }}
+            >
               <Trans>Save</Trans>
             </Button>
           </>
