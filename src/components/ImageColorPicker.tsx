@@ -53,11 +53,12 @@ import {
   compareSimilarColorsBySimilarity,
   PAPER_WHITE_HEX,
 } from '~/src/services/color/color-mixer';
-import type {ColorMixture, SamplingArea, SimilarColor} from '~/src/services/color/types';
+import type {ColorMixture, SimilarColor} from '~/src/services/color/types';
 import {saveAppSettings} from '~/src/services/db/app-settings-db';
 import {Vector} from '~/src/services/math/geometry';
 import {ColorPickerSort} from '~/src/services/settings/types';
 import {useAppStore} from '~/src/stores/app-store';
+import type {Comparator} from '~/src/utils/array';
 
 import {SimilarColorCard} from './color/SimilarColorCard';
 import {EmptyColorSet} from './empty/EmptyColorSet';
@@ -68,24 +69,11 @@ const SAMPLE_DIAMETER_SLIDER_MARKS: SliderMarks = Object.fromEntries(
   [1, 10, 20, 30, 40, 50].map((i: number) => [i, i])
 );
 
-const SIMILAR_COLORS_COMPARATORS: Record<
-  ColorPickerSort,
-  (a: SimilarColor, b: SimilarColor) => number
-> = {
+const SIMILAR_COLORS_COMPARATORS: Record<ColorPickerSort, Comparator<SimilarColor>> = {
   [ColorPickerSort.BySimilarity]: compareSimilarColorsBySimilarity,
   [ColorPickerSort.ByNumberOfColors]: compareSimilarColorsByColorMixturePartLength,
   [ColorPickerSort.ByConsistency]: compareSimilarColorsByConsistency,
 };
-
-function getSamplingArea(colorPickerCanvas?: ImageColorPickerCanvas): SamplingArea | null {
-  const pipetPoint = colorPickerCanvas?.getPipetPoint();
-  const diameter = colorPickerCanvas?.getLastPipetDiameter();
-  if (pipetPoint && diameter) {
-    const {x, y} = pipetPoint;
-    return {x, y, diameter};
-  }
-  return null;
-}
 
 export const ImageColorPicker: React.FC = () => {
   const appSettings = useAppStore(state => state.appSettings);
@@ -111,10 +99,10 @@ export const ImageColorPicker: React.FC = () => {
   const imageColorPickerCanvasSupplier = useCallback(
     (canvas: HTMLCanvasElement): ImageColorPickerCanvas => {
       const colorPickerCanvas = new ImageColorPickerCanvas(canvas);
-      const listener = ({rgb}: PipetPointSetEvent) => {
+      const listener = ({rgb, point: {x, y}, diameter}: PipetPointSetEvent) => {
         const hex = rgb.toHex();
         console.log(hex.toUpperCase());
-        void setTargetColor(hex, getSamplingArea(colorPickerCanvas));
+        void setTargetColor(hex, {x, y, diameter});
       };
       colorPickerCanvas.events.subscribe(ColorPickerEventType.PipetPointSet, listener);
       return colorPickerCanvas;

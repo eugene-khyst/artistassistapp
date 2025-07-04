@@ -20,6 +20,7 @@ import {DownloadOutlined, LoadingOutlined, MoreOutlined, StopOutlined} from '@an
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
 import {Button, Dropdown, Form, Grid, Radio, Space, Spin} from 'antd';
+import {saveAs} from 'file-saver';
 import {useEffect, useState} from 'react';
 
 import {
@@ -29,6 +30,7 @@ import {
 import type {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
 import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
+import {imageBitmapToBlob} from '~/src/utils/graphics';
 
 import {EmptyImage} from './empty/EmptyImage';
 
@@ -67,8 +69,12 @@ export const ImageBlurred: React.FC = () => {
     setBlurredImageIndex(e.target.value as number);
   };
 
-  const handleSaveClick = () => {
-    void zoomableImageCanvas?.saveAsImage(getFilename(originalImageFile, 'simplified'));
+  const handleSaveClick = async () => {
+    const image: ImageBitmap | undefined = blurredImages[blurredImageIndex];
+    if (!image) {
+      return;
+    }
+    saveAs(await imageBitmapToBlob(image), getFilename(originalImageFile, 'simplified'));
   };
 
   const items: MenuProps['items'] = [
@@ -76,7 +82,9 @@ export const ImageBlurred: React.FC = () => {
       key: '1',
       label: t`Save`,
       icon: <DownloadOutlined />,
-      onClick: handleSaveClick,
+      onClick: () => {
+        void handleSaveClick();
+      },
     },
   ];
 
@@ -110,7 +118,12 @@ export const ImageBlurred: React.FC = () => {
           />
         </Form.Item>
         {screens.sm ? (
-          <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
+          <Button
+            icon={<DownloadOutlined />}
+            onClick={() => {
+              void handleSaveClick();
+            }}
+          >
             <Trans>Save</Trans>
           </Button>
         ) : (

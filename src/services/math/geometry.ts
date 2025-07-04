@@ -18,6 +18,7 @@
 
 import type {LengthUnitDefinition} from '~/src/services/math/types';
 import {LengthUnit} from '~/src/services/math/types';
+import type {Comparator} from '~/src/utils/array';
 
 export const LENGTH_UNITS = new Map<LengthUnit, LengthUnitDefinition>([
   [LengthUnit.Millimeter, {abbreviation: 'mm', toMillimeters: number => number}],
@@ -45,6 +46,10 @@ export class Vector {
     return new Vector(this.x * n, this.y * n);
   }
 
+  divide(n: number): Vector {
+    return new Vector(this.x / n, this.y / n);
+  }
+
   length(): number {
     return Math.sqrt(this.x ** 2 + this.y ** 2);
   }
@@ -53,9 +58,9 @@ export class Vector {
 export class Rectangle {
   static readonly ZERO = new Rectangle(Vector.ZERO);
 
-  width: number;
-  height: number;
-  center: Vector;
+  readonly width: number;
+  readonly height: number;
+  readonly center: Vector;
 
   constructor(
     public bottomRight: Vector,
@@ -87,3 +92,6 @@ export function degrees(radians: number): number {
 export function nonNegativeAngle(angle: number) {
   return angle >= 0 ? angle : angle + 360;
 }
+
+export const compareByX: Comparator<Vector> = (a: Vector, b: Vector) => a.x - b.x;
+export const compareByY: Comparator<Vector> = (a: Vector, b: Vector) => a.y - b.y;

@@ -49,7 +49,7 @@ export const ImageBackgroundRemove: React.FC = () => {
   const backgroundRemovalLoadingTip = useAppStore(state => state.backgroundRemovalLoadingTip);
   const imageWithoutBackgroundBlob = useAppStore(state => state.imageWithoutBackgroundBlob);
 
-  const setImageFileToRemoveBg = useAppStore(state => state.setImageFileToRemoveBackground);
+  const setImageFileToRemoveBackground = useAppStore(state => state.setImageFileToRemoveBackground);
   const loadImageWithoutBackground = useAppStore(state => state.loadImageWithoutBackground);
 
   const screens = Grid.useBreakpoint();
@@ -111,12 +111,12 @@ export const ImageBackgroundRemove: React.FC = () => {
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files?.[0] ?? null;
-    setImageFileToRemoveBg(file);
+    setImageFileToRemoveBackground(file);
   };
 
   const handleSaveClick = () => {
     if (noBgImageUrl) {
-      saveAs(noBgImageUrl, getFilename(imageFileToRemoveBackground, 'no-bg'));
+      saveAs(noBgImageUrl, getFilename(imageFileToRemoveBackground, 'no-background'));
     }
   };
 

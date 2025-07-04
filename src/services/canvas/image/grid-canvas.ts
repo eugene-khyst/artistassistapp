@@ -16,13 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {invertColorsWebGL} from '~/src/services/image/filter/invert-colors-webgl';
+import type {OverlayDrawingCanvasProps} from '~/src/services/canvas/image/overlay-drawing-canvas';
+import {OverlayDrawingCanvas} from '~/src/services/canvas/image/overlay-drawing-canvas';
 import type {Rectangle} from '~/src/services/math/geometry';
 import {Vector} from '~/src/services/math/geometry';
-import {IMAGE_SIZE} from '~/src/utils/graphics';
-
-import type {ZoomableImageCanvasProps} from './zoomable-image-canvas';
-import {ZoomableImageCanvas} from './zoomable-image-canvas';
 
 export enum GridType {
   Square = 1,
@@ -35,44 +32,17 @@ interface Grid {
   diagonals?: boolean;
 }
 
-export interface GridCanvasProps extends ZoomableImageCanvasProps {
+export interface GridCanvasProps extends OverlayDrawingCanvasProps {
   grid?: Grid;
-  lineWidth?: number;
 }
 
-export class GridCanvas extends ZoomableImageCanvas {
-  private invertedImages: ImageBitmap[] = [];
+export class GridCanvas extends OverlayDrawingCanvas {
   private grid?: Grid;
-  private lineWidth: number;
 
   constructor(canvas: HTMLCanvasElement, props: GridCanvasProps = {}) {
     super(canvas, props);
 
-    ({grid: this.grid, lineWidth: this.lineWidth = 1.5} = props);
-  }
-
-  protected override onImagesLoaded(): void {
-    console.time('invert-colors');
-    this.invertedImages = this.images.map((image: ImageBitmap): ImageBitmap => {
-      return invertColorsWebGL(image);
-    });
-    console.timeEnd('invert-colors');
-  }
-
-  private drawLine(
-    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
-    p1: Vector,
-    p2: Vector
-  ): void {
-    const {center}: Rectangle = this.getImageDimension();
-    ctx.lineWidth = this.lineWidth / this.zoom;
-    ctx.strokeStyle = '#000';
-    ctx.beginPath();
-    const {x: x1, y: y1} = p1.subtract(center);
-    ctx.moveTo(x1, y1);
-    const {x: x2, y: y2} = p2.subtract(center);
-    ctx.lineTo(x2, y2);
-    ctx.stroke();
+    ({grid: this.grid} = props);
   }
 
   private drawHorizontalLine(
@@ -168,40 +138,18 @@ export class GridCanvas extends ZoomableImageCanvas {
     }
   }
 
-  protected override onBeforeImageDrawn(
+  protected override drawOverlay(
     ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
   ): void {
+    const {center} = this.getImageDimension();
+    ctx.save();
+    ctx.translate(-center.x, -center.y);
     this.drawGrid(ctx);
-    ctx.globalCompositeOperation = 'source-in';
-    this.drawImage(ctx, this.invertedImages);
-    ctx.globalCompositeOperation = 'destination-over';
-  }
-
-  protected override onImageDrawn(
-    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
-  ): void {
-    this.drawGrid(ctx);
-    ctx.globalCompositeOperation = 'source-over';
+    ctx.restore();
   }
 
   setGrid(grid: Grid): void {
     this.grid = grid;
-    this.draw();
-  }
-
-  override async convertToBlob(): Promise<Blob | undefined> {
-    const image: ImageBitmap | OffscreenCanvas | null = this.getImage();
-    if (!image) {
-      return;
-    }
-    const {width, height} = image;
-    const scaleFactor: number = Math.max(1, (width * height) / IMAGE_SIZE.HD);
-    const {lineWidth} = this;
-    try {
-      this.lineWidth = scaleFactor * lineWidth;
-      return await super.convertToBlob();
-    } finally {
-      this.lineWidth = lineWidth;
-    }
+    this.requestRedraw();
   }
 }

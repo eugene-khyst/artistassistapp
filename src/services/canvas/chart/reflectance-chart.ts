@@ -29,8 +29,10 @@ export class ReflectanceChart extends LineChart {
     });
   }
 
-  protected override drawBackground(): void {
-    super.drawBackground();
+  protected override drawBackground(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+  ): void {
+    super.drawBackground(ctx);
     const {y: y0} = this.transformCoordinates(0, this.minY);
     const {y: y1} = this.transformCoordinates(0, this.maxY);
     const height = y1 - y0;

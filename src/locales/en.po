@@ -72,7 +72,7 @@ msgstr "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors fro
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 
-#: src/components/ImageColorAdjustment.tsx:314
+#: src/components/ImageColorAdjustment.tsx:366
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 
@@ -80,15 +80,15 @@ msgstr "A value less than 100% makes the image look less colorful, and a value g
 msgid "About ArtistAssistApp"
 msgstr "About ArtistAssistApp"
 
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Acrylic Gouache"
 msgstr "Acrylic Gouache"
 
-#: src/components/messages.ts:54
+#: src/components/messages.ts:55
 msgid "Acrylic Markers"
 msgstr "Acrylic Markers"
 
-#: src/components/messages.ts:48
+#: src/components/messages.ts:49
 msgid "Acrylic Paint"
 msgstr "Acrylic Paint"
 
@@ -116,11 +116,15 @@ msgstr "Add to palette"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Add white in a <0>{whiteRatioText} ratio</0>"
 
-#: src/components/palette/PaletteGrid.tsx:72
+#: src/components/palette/PaletteGrid.tsx:73
 msgid "Alphabetically"
 msgstr "Alphabetically"
 
-#: src/components/alert/AlertTimedReloadFallback.tsx:59
+#: src/components/Install.tsx:178
+msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
+msgstr "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
+
+#: src/components/alert/AlertTimedReloadFallback.tsx:57
 msgid "An application error"
 msgstr "An application error"
 
@@ -128,7 +132,8 @@ msgstr "An application error"
 msgid "Application build hash"
 msgstr "Application build hash"
 
-#: src/components/ImageLimitedPalette.tsx:135
+#: src/components/ImagePerspectiveCorrection.tsx:247
+#: src/components/ImageLimitedPalette.tsx:149
 msgid "Apply"
 msgstr "Apply"
 
@@ -144,11 +149,11 @@ msgstr "Apply less pressure to make the watercolor pencil layer more transparent
 msgid "Apply strokes of each color in a <0>{ratioText} ratio</0>"
 msgstr "Apply strokes of each color in a <0>{ratioText} ratio</0>"
 
-#: src/components/storage/ClearStorage.tsx:36
+#: src/components/storage/ClearStorage.tsx:57
 msgid "Are you sure you want to clear the cache?"
 msgstr "Are you sure you want to clear the cache?"
 
-#: src/components/storage/ClearStorage.tsx:49
+#: src/components/storage/ClearStorage.tsx:70
 msgid "Are you sure you want to delete all app data?"
 msgstr "Are you sure you want to delete all app data?"
 
@@ -164,7 +169,7 @@ msgstr "Are you sure you want to delete this custom brand?"
 msgid "Are you sure you want to delete this photo?"
 msgstr "Are you sure you want to delete this photo?"
 
-#: src/components/palette/PaletteGrid.tsx:99
+#: src/components/palette/PaletteGrid.tsx:100
 msgid "Are you sure you want to remove all color mixtures?"
 msgstr "Are you sure you want to remove all color mixtures?"
 
@@ -186,12 +191,12 @@ msgstr "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgid "At least one color is required"
 msgstr "At least one color is required"
 
-#: src/components/ImageColorPicker.tsx:231
+#: src/components/ImageColorPicker.tsx:219
 #: src/components/ColorMixer.tsx:186
 msgid "Background"
 msgstr "Background"
 
-#: src/components/ImageBlurred.tsx:91
+#: src/components/ImageBlurred.tsx:99
 msgid "Blur"
 msgstr "Blur"
 
@@ -207,16 +212,16 @@ msgstr "Cells"
 msgid "Check for updates"
 msgstr "Check for updates"
 
-#: src/components/palette/PaletteGrid.tsx:71
+#: src/components/palette/PaletteGrid.tsx:72
 msgid "Chronologically"
 msgstr "Chronologically"
 
-#: src/components/storage/ClearStorage.tsx:35
-#: src/components/storage/ClearStorage.tsx:44
+#: src/components/storage/ClearStorage.tsx:56
+#: src/components/storage/ClearStorage.tsx:65
 msgid "Clear cache"
 msgstr "Clear cache"
 
-#: src/components/ImageColorPicker.tsx:317
+#: src/components/ImageColorPicker.tsx:305
 #: src/components/empty/EmptyPalette.tsx:64
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
@@ -229,7 +234,7 @@ msgstr "Close"
 msgid "Close in {closeCounter} sec"
 msgstr "Close in {closeCounter} sec"
 
-#: src/components/ImageColorPicker.tsx:278
+#: src/components/ImageColorPicker.tsx:266
 #: src/components/CustomColorBrandCreator.tsx:325
 #: src/components/ColorMixer.tsx:212
 msgid "Color"
@@ -243,7 +248,7 @@ msgstr "Color brand"
 msgid "Color brands"
 msgstr "Color brands"
 
-#: src/components/ImageColorPicker.tsx:190
+#: src/components/ImageColorPicker.tsx:178
 msgid "Color count"
 msgstr "Color count"
 
@@ -260,25 +265,25 @@ msgid "Color picker"
 msgstr "Color picker"
 
 #: src/components/messages.ts:26
-#: src/components/ImageColorPicker.tsx:307
+#: src/components/ImageColorPicker.tsx:295
 #: src/components/ColorSetChooser.tsx:553
 msgid "Color set"
 msgstr "Color set"
 
-#: src/components/palette/PaletteGrid.tsx:87
+#: src/components/palette/PaletteGrid.tsx:88
 #: src/components/color/ColorSwatchDrawer.tsx:55
 msgid "Color swatch"
 msgstr "Color swatch"
 
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Colored Pencils"
 msgstr "Colored Pencils"
 
-#: src/components/ImageLimitedPalette.tsx:113
+#: src/components/ImageLimitedPalette.tsx:127
 msgid "Colors"
 msgstr "Colors"
 
-#: src/components/messages.ts:39
+#: src/components/messages.ts:40
 msgid "Compare"
 msgstr "Compare"
 
@@ -286,7 +291,7 @@ msgstr "Compare"
 msgid "Contact"
 msgstr "Contact"
 
-#: src/components/ImageBlurred.tsx:92
+#: src/components/ImageBlurred.tsx:100
 msgid "Controls the radius of the median filter."
 msgstr "Controls the radius of the median filter."
 
@@ -298,7 +303,7 @@ msgstr "Copy"
 msgid "Copy and share this link"
 msgstr "Copy and share this link"
 
-#: src/components/ImageColorAdjustment.tsx:433
+#: src/components/ImageColorAdjustment.tsx:485
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Corrected estimation of the temperature of the light source in Kelvin"
 
@@ -311,7 +316,7 @@ msgstr "Create a duplicate of this color set for further modification"
 msgid "Create new"
 msgstr "Create new"
 
-#: src/components/messages.ts:41
+#: src/components/messages.ts:42
 msgid "Custom brand"
 msgstr "Custom brand"
 
@@ -325,8 +330,8 @@ msgstr "Custom color set"
 msgid "Delete"
 msgstr "Delete"
 
-#: src/components/storage/ClearStorage.tsx:48
-#: src/components/storage/ClearStorage.tsx:57
+#: src/components/storage/ClearStorage.tsx:69
+#: src/components/storage/ClearStorage.tsx:78
 msgid "Delete all app data"
 msgstr "Delete all app data"
 
@@ -360,7 +365,7 @@ msgstr "Diagnostics"
 msgid "Diagonals"
 msgstr "Diagonals"
 
-#: src/components/ImageColorPicker.tsx:264
+#: src/components/ImageColorPicker.tsx:252
 #: src/components/CustomColorBrandCreator.tsx:312
 msgid "Diameter"
 msgstr "Diameter"
@@ -390,7 +395,7 @@ msgid "Error while fetching color data"
 msgstr "Error while fetching color data"
 
 #: src/components/ImageStyleTransfer.tsx:90
-#: src/components/ImageOutline.tsx:85
+#: src/components/ImageOutline.tsx:87
 #: src/components/ImageBackgroundRemove.tsx:82
 msgid "Error while fetching ML model data"
 msgstr "Error while fetching ML model data"
@@ -399,7 +404,7 @@ msgstr "Error while fetching ML model data"
 msgid "Error while fetching standard color set data"
 msgstr "Error while fetching standard color set data"
 
-#: src/components/ImageColorAdjustment.tsx:404
+#: src/components/ImageColorAdjustment.tsx:456
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Estimated temperature of the light source in Kelvin the image was taken with"
 
@@ -407,7 +412,7 @@ msgstr "Estimated temperature of the light source in Kelvin the image was taken 
 msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Explore the free version before deciding to purchase a paid membership."
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Failed to verify the ID token."
 msgstr "Failed to verify the ID token."
 
@@ -416,7 +421,7 @@ msgstr "Failed to verify the ID token."
 msgid "Fill in the required fields"
 msgstr "Fill in the required fields"
 
-#: src/components/ImageColorAdjustment.tsx:357
+#: src/components/ImageColorAdjustment.tsx:409
 msgid "Gamma"
 msgstr "Gamma"
 
@@ -437,7 +442,7 @@ msgstr "Go to the <0>{colorSetLabel}</0> tab."
 msgid "Go to the <0>{photoLabel}</0> tab and choose your reference photo."
 msgstr "Go to the <0>{photoLabel}</0> tab and choose your reference photo."
 
-#: src/components/messages.ts:47
+#: src/components/messages.ts:48
 msgid "Gouache"
 msgstr "Gouache"
 
@@ -450,7 +455,7 @@ msgstr "Grid"
 msgid "Height"
 msgstr "Height"
 
-#: src/components/messages.ts:42
+#: src/components/messages.ts:43
 #: src/components/ColorSetChooser.tsx:502
 msgid "Help"
 msgstr "Help"
@@ -475,7 +480,7 @@ msgstr "Import JSON"
 msgid "Inspire"
 msgstr "Inspire"
 
-#: src/components/messages.ts:40
+#: src/components/messages.ts:41
 #: src/components/Install.tsx:65
 #: src/components/ColorSetChooser.tsx:494
 msgid "Install"
@@ -485,7 +490,7 @@ msgstr "Install"
 msgid "Install ArtistAssistApp on your device for easy access even without an Internet connection."
 msgstr "Install ArtistAssistApp on your device for easy access even without an Internet connection."
 
-#: src/components/ImageColorAdjustment.tsx:432
+#: src/components/ImageColorAdjustment.tsx:484
 msgid "Intended color temperature (K)"
 msgstr "Intended color temperature (K)"
 
@@ -505,7 +510,7 @@ msgstr "Join on Patreon"
 msgid "Language"
 msgstr "Language"
 
-#: src/components/ImageBlurred.tsx:102
+#: src/components/ImageBlurred.tsx:110
 msgid "Large"
 msgstr "Large"
 
@@ -517,7 +522,7 @@ msgstr "Last used {dateText}"
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "Left to compare: {unfinishedGamesSize}"
 
-#: src/components/ImageTonalValues.tsx:96
+#: src/components/ImageTonalValues.tsx:104
 msgid "Light tone"
 msgstr "Light tone"
 
@@ -545,7 +550,7 @@ msgstr "Log in with Patreon"
 msgid "Log out"
 msgstr "Log out"
 
-#: src/ArtistAssistApp.tsx:98
+#: src/ArtistAssistApp.tsx:99
 msgid "Login failed"
 msgstr "Login failed"
 
@@ -553,23 +558,23 @@ msgstr "Login failed"
 msgid "Login session is valid until {expirationText}"
 msgstr "Login session is valid until {expirationText}"
 
-#: src/components/ImageColorAdjustment.tsx:331
+#: src/components/ImageColorAdjustment.tsx:383
 msgid "Low input and high input"
 msgstr "Low input and high input"
 
-#: src/components/ImageColorAdjustment.tsx:378
+#: src/components/ImageColorAdjustment.tsx:430
 msgid "Low output and high output"
 msgstr "Low output and high output"
 
-#: src/components/ImageBlurred.tsx:101
+#: src/components/ImageBlurred.tsx:109
 msgid "Medium"
 msgstr "Medium"
 
-#: src/components/ImageTonalValues.tsx:97
+#: src/components/ImageTonalValues.tsx:105
 msgid "Mid tone"
 msgstr "Mid tone"
 
-#: src/components/ImageColorAdjustment.tsx:356
+#: src/components/ImageColorAdjustment.tsx:408
 msgid "Midtones"
 msgstr "Midtones"
 
@@ -585,7 +590,7 @@ msgstr "Mix your colors in any proportions so you don't waste real paints."
 msgid "Mixture"
 msgstr "Mixture"
 
-#: src/components/ImageOutline.tsx:158
+#: src/components/ImageOutline.tsx:165
 #: src/components/ImageBackgroundRemove.tsx:168
 #: src/components/color/ReflectanceChartDrawer.tsx:102
 msgid "Mode"
@@ -620,23 +625,23 @@ msgstr "New comparison"
 #: src/components/CustomColorBrandCreator.tsx:378
 #: src/components/ColorSetChooser.tsx:219
 #: src/components/ColorSetChooser.tsx:734
-#: src/components/storage/ClearStorage.tsx:41
-#: src/components/storage/ClearStorage.tsx:54
-#: src/components/palette/PaletteGrid.tsx:102
+#: src/components/storage/ClearStorage.tsx:62
+#: src/components/storage/ClearStorage.tsx:75
+#: src/components/palette/PaletteGrid.tsx:103
 #: src/components/image/RecentImageCard.tsx:74
 #: src/components/color/PaletteColorMixtureCard.tsx:96
 #: src/components/color/AddToPaletteButton.tsx:52
 msgid "No"
 msgstr "No"
 
-#: src/components/ImageColorPicker.tsx:314
+#: src/components/ImageColorPicker.tsx:302
 #: src/components/empty/EmptyPalette.tsx:39
 #: src/components/empty/EmptyImage.tsx:42
 #: src/components/empty/EmptyColorSet.tsx:53
 msgid "No data"
 msgstr "No data"
 
-#: src/components/ImageBlurred.tsx:99
+#: src/components/ImageBlurred.tsx:107
 msgid "None"
 msgstr "None"
 
@@ -648,17 +653,13 @@ msgstr "Nothing to share"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Number of cells on the smaller side (vertical or horizontal)"
 
-#: src/components/messages.ts:49
+#: src/components/messages.ts:50
 msgid "Oil Paint"
 msgstr "Oil Paint"
 
-#: src/components/messages.ts:53
+#: src/components/messages.ts:54
 msgid "Oil Pastel"
 msgstr "Oil Pastel"
-
-#: src/components/Install.tsx:178
-msgid "On older versions of macOS, install the latest version of the Chrome, Edge, or Opera web browser and click the <0>Install</0> button."
-msgstr "On older versions of macOS, install the latest version of the Chrome, Edge, or Opera web browser and click the <0>Install</0> button."
 
 #: src/components/ColorSetChooser.tsx:592
 msgid "Only a limited number of color brands are available in the free version"
@@ -697,7 +698,7 @@ msgstr "Or select from sample photos"
 msgid "Or select from your recent photos"
 msgstr "Or select from your recent photos"
 
-#: src/components/ImageColorAdjustment.tsx:403
+#: src/components/ImageColorAdjustment.tsx:455
 msgid "Original color temperature (K)"
 msgstr "Original color temperature (K)"
 
@@ -709,7 +710,7 @@ msgstr "Original photo"
 msgid "Outline"
 msgstr "Outline"
 
-#: src/components/ImageColorAdjustment.tsx:377
+#: src/components/ImageColorAdjustment.tsx:429
 msgid "Output levels"
 msgstr "Output levels"
 
@@ -725,11 +726,11 @@ msgstr "Palette"
 msgid "Paper size"
 msgstr "Paper size"
 
-#: src/components/ImageColorPicker.tsx:239
+#: src/components/ImageColorPicker.tsx:227
 msgid "Paper white"
 msgstr "Paper white"
 
-#: src/components/messages.ts:52
+#: src/components/messages.ts:53
 msgid "Pastel"
 msgstr "Pastel"
 
@@ -737,9 +738,13 @@ msgstr "Pastel"
 msgid "Pencils are not supported by this feature."
 msgstr "Pencils are not supported by this feature."
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Persistent storage is not enabled"
 msgstr "Persistent storage is not enabled"
+
+#: src/components/messages.ts:37
+msgid "Perspective"
+msgstr "Perspective"
 
 #: src/components/messages.ts:27
 msgid "Photo"
@@ -749,7 +754,7 @@ msgstr "Photo"
 msgid "Photo ranking"
 msgstr "Photo ranking"
 
-#: src/components/ImageColorPicker.tsx:323
+#: src/components/ImageColorPicker.tsx:311
 msgid "Pinch to zoom (or use the mouse wheel) and drag to pan"
 msgstr "Pinch to zoom (or use the mouse wheel) and drag to pan"
 
@@ -785,19 +790,19 @@ msgstr "Press the <0>Add to palette</0> button next to the color mixture you lik
 msgid "Press the Share button, copy and save the link so you don't have to re-enter all the colors."
 msgstr "Press the Share button, copy and save the link so you don't have to re-enter all the colors."
 
-#: src/components/ImageColorAdjustment.tsx:290
+#: src/components/ImageColorAdjustment.tsx:342
 msgid "Preview"
 msgstr "Preview"
 
 #: src/components/ImagesCompare.tsx:167
-#: src/components/ImageTonalValues.tsx:79
-#: src/components/ImageTonalValues.tsx:116
-#: src/components/ImageOutline.tsx:127
-#: src/components/ImageOutline.tsx:170
+#: src/components/ImageTonalValues.tsx:85
+#: src/components/ImageTonalValues.tsx:124
+#: src/components/ImageOutline.tsx:132
+#: src/components/ImageOutline.tsx:177
 #: src/components/ImageGrid.tsx:126
 #: src/components/ImageGrid.tsx:183
 #: src/components/print/PrintImageDrawer.tsx:121
-#: src/components/palette/PaletteGrid.tsx:95
+#: src/components/palette/PaletteGrid.tsx:96
 msgid "Print"
 msgstr "Print"
 
@@ -813,15 +818,15 @@ msgstr "Print preview"
 msgid "Privacy policy"
 msgstr "Privacy policy"
 
-#: src/components/ImageOutline.tsx:119
+#: src/components/ImageOutline.tsx:124
 msgid "Quality"
 msgstr "Quality"
 
-#: src/components/ImageOutline.tsx:152
+#: src/components/ImageOutline.tsx:159
 msgid "Quality mode is available to paid Patreon members only"
 msgstr "Quality mode is available to paid Patreon members only"
 
-#: src/components/ImageOutline.tsx:115
+#: src/components/ImageOutline.tsx:120
 msgid "Quick"
 msgstr "Quick"
 
@@ -862,16 +867,16 @@ msgstr "Reload"
 msgid "Remove"
 msgstr "Remove"
 
-#: src/components/palette/PaletteGrid.tsx:105
+#: src/components/palette/PaletteGrid.tsx:106
 msgid "Remove all"
 msgstr "Remove all"
 
-#: src/components/palette/PaletteGrid.tsx:98
+#: src/components/palette/PaletteGrid.tsx:99
 msgid "Remove all color mixtures"
 msgstr "Remove all color mixtures"
 
-#: src/components/messages.ts:38
-#: src/components/ImageColorAdjustment.tsx:286
+#: src/components/messages.ts:39
+#: src/components/ImageColorAdjustment.tsx:338
 msgid "Remove background"
 msgstr "Remove background"
 
@@ -898,6 +903,11 @@ msgstr "Requires iOS 16.4+ or iPadOS 16.4+."
 msgid "Requires macOS Sonoma or later."
 msgstr "Requires macOS Sonoma or later."
 
+#: src/components/ImagePerspectiveCorrection.tsx:182
+#: src/components/ImagePerspectiveCorrection.tsx:254
+msgid "Reset"
+msgstr "Reset"
+
 #: src/components/empty/EmptyPalette.tsx:76
 msgid "Return to the <0>{paletteLabel}</0> tab."
 msgstr "Return to the <0>{paletteLabel}</0> tab."
@@ -907,21 +917,28 @@ msgstr "Return to the <0>{paletteLabel}</0> tab."
 msgid "Return to the <0>{tabLabel}</0> tab."
 msgstr "Return to the <0>{tabLabel}</0> tab."
 
-#: src/components/ImageColorAdjustment.tsx:313
+#: src/components/ImagePerspectiveCorrection.tsx:190
+#: src/components/ImagePerspectiveCorrection.tsx:258
+msgid "Rotate"
+msgstr "Rotate"
+
+#: src/components/ImageColorAdjustment.tsx:365
 msgid "Saturation (%)"
 msgstr "Saturation (%)"
 
-#: src/components/ImageTonalValues.tsx:85
-#: src/components/ImageTonalValues.tsx:119
+#: src/components/ImageTonalValues.tsx:91
+#: src/components/ImageTonalValues.tsx:132
 #: src/components/ImageStyleTransfer.tsx:172
-#: src/components/ImageOutline.tsx:133
-#: src/components/ImageOutline.tsx:173
-#: src/components/ImageLimitedPalette.tsx:93
+#: src/components/ImagePerspectiveCorrection.tsx:200
+#: src/components/ImagePerspectiveCorrection.tsx:270
+#: src/components/ImageOutline.tsx:138
+#: src/components/ImageOutline.tsx:185
+#: src/components/ImageLimitedPalette.tsx:107
 #: src/components/ImageGrid.tsx:132
 #: src/components/ImageGrid.tsx:186
-#: src/components/ImageColorAdjustment.tsx:266
-#: src/components/ImageBlurred.tsx:77
-#: src/components/ImageBlurred.tsx:114
+#: src/components/ImageColorAdjustment.tsx:314
+#: src/components/ImageBlurred.tsx:83
+#: src/components/ImageBlurred.tsx:127
 #: src/components/ImageBackgroundRemove.tsx:126
 #: src/components/ImageBackgroundRemove.tsx:187
 #: src/components/CustomColorBrandCreator.tsx:367
@@ -936,6 +953,16 @@ msgstr "Save & proceed"
 msgid "Save changes to the color set?"
 msgstr "Save changes to the color set?"
 
+#: src/components/ImagePerspectiveCorrection.tsx:171
+#: src/components/ImageColorAdjustment.tsx:261
+msgid "Save expanded to 1.91:1"
+msgstr "Save expanded to 1.91:1"
+
+#: src/components/ImagePerspectiveCorrection.tsx:163
+#: src/components/ImageColorAdjustment.tsx:253
+msgid "Save expanded to 4:5"
+msgstr "Save expanded to 4:5"
+
 #: src/components/ColorSetChooser.tsx:697
 msgid "Save the changes to this color set"
 msgstr "Save the changes to this color set"
@@ -948,9 +975,17 @@ msgstr "Scan a QR code"
 msgid "Scan QR code"
 msgstr "Scan QR code"
 
-#: src/components/ImageColorAdjustment.tsx:257
+#: src/components/ImagePerspectiveCorrection.tsx:111
+msgid "Select 4 points to correct perspective distortion"
+msgstr "Select 4 points to correct perspective distortion"
+
+#: src/components/ImageColorAdjustment.tsx:299
 msgid "Select a photo to adjust white balance and colors"
 msgstr "Select a photo to adjust white balance and colors"
+
+#: src/components/ImagePerspectiveCorrection.tsx:230
+msgid "Select a photo to correct the perspective"
+msgstr "Select a photo to correct the perspective"
 
 #: src/components/ImageBackgroundRemove.tsx:147
 msgid "Select a photo to remove the background from"
@@ -993,7 +1028,7 @@ msgstr "Select color"
 msgid "Select colors"
 msgstr "Select colors"
 
-#: src/components/ImageLimitedPalette.tsx:118
+#: src/components/ImageLimitedPalette.tsx:132
 msgid "Select from 1 to {MAX_COLORS} colors"
 msgstr "Select from 1 to {MAX_COLORS} colors"
 
@@ -1021,7 +1056,8 @@ msgstr "Select language"
 msgid "Select part"
 msgstr "Select part"
 
-#: src/components/ImageColorAdjustment.tsx:262
+#: src/components/ImagePerspectiveCorrection.tsx:240
+#: src/components/ImageColorAdjustment.tsx:304
 #: src/components/ImageChooser.tsx:73
 #: src/components/ImageBackgroundRemove.tsx:181
 msgid "Select photo"
@@ -1061,11 +1097,11 @@ msgstr "Semi-transparent"
 msgid "Set as background"
 msgstr "Set as background"
 
-#: src/components/ImageColorAdjustment.tsx:279
+#: src/components/ImageColorAdjustment.tsx:331
 msgid "Set as reference"
 msgstr "Set as reference"
 
-#: src/components/ImageColorPicker.tsx:253
+#: src/components/ImageColorPicker.tsx:241
 msgid "Set paper white background"
 msgstr "Set paper white background"
 
@@ -1074,11 +1110,11 @@ msgstr "Set paper white background"
 msgid "Set the color of the base layer for the glazing"
 msgstr "Set the color of the base layer for the glazing"
 
-#: src/components/ImageTonalValues.tsx:98
+#: src/components/ImageTonalValues.tsx:106
 msgid "Shadow"
 msgstr "Shadow"
 
-#: src/components/ImageColorAdjustment.tsx:330
+#: src/components/ImageColorAdjustment.tsx:382
 msgid "Shadows and highlights"
 msgstr "Shadows and highlights"
 
@@ -1103,7 +1139,7 @@ msgstr "Show on photo"
 msgid "Show or hide diagonal lines"
 msgstr "Show or hide diagonal lines"
 
-#: src/components/ImageColorPicker.tsx:189
+#: src/components/ImageColorPicker.tsx:177
 #: src/components/color/ReflectanceChartDrawer.tsx:87
 msgid "Similarity"
 msgstr "Similarity"
@@ -1124,16 +1160,16 @@ msgstr "Slightly overlap oil pastel areas of different colors and blend gently t
 msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition."
 msgstr "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition."
 
-#: src/components/ImageBlurred.tsx:100
+#: src/components/ImageBlurred.tsx:108
 msgid "Small"
 msgstr "Small"
 
-#: src/components/ImageColorPicker.tsx:293
-#: src/components/palette/PaletteGrid.tsx:108
+#: src/components/ImageColorPicker.tsx:281
+#: src/components/palette/PaletteGrid.tsx:109
 msgid "Sort"
 msgstr "Sort"
 
-#: src/components/ImageColorPicker.tsx:294
+#: src/components/ImageColorPicker.tsx:282
 msgid "Sort by the similarity of the mixture to the target color, or by the number of colors in the mixture, or by the thickness of the mixture."
 msgstr "Sort by the similarity of the mixture to the target color, or by the number of colors in the mixture, or by the thickness of the mixture."
 
@@ -1159,6 +1195,10 @@ msgstr "Standard print"
 msgid "Storage usage"
 msgstr "Storage usage"
 
+#: src/components/ImagePerspectiveCorrection.tsx:233
+msgid "Straightens skewed photos and removes unwanted edges. Select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
+msgstr "Straightens skewed photos and removes unwanted edges. Select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
+
 #: src/components/ImageStyleTransfer.tsx:145
 msgid "Styled reference photo"
 msgstr "Styled reference photo"
@@ -1183,20 +1223,20 @@ msgstr "Terms of use"
 msgid "The app stores all data in the web browser storage even after installation. Clearing the web browser data results in the loss of all app data."
 msgstr "The app stores all data in the web browser storage even after installation. Clearing the web browser data results in the loss of all app data."
 
-#: src/components/alert/AlertTimedReloadFallback.tsx:65
+#: src/components/alert/AlertTimedReloadFallback.tsx:63
 msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "The app will attempt to reload in {reloadCounter} sec"
 
-#: src/components/ImageColorPicker.tsx:232
+#: src/components/ImageColorPicker.tsx:220
 #: src/components/ColorMixer.tsx:187
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "The color of paper or canvas, or the color of the base layer when glazed."
 
-#: src/components/ImageColorPicker.tsx:279
+#: src/components/ImageColorPicker.tsx:267
 msgid "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
 msgstr "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
 
-#: src/components/ImageColorPicker.tsx:265
+#: src/components/ImageColorPicker.tsx:253
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
 msgstr "The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
 
@@ -1212,7 +1252,7 @@ msgstr "There is one common palette and a separate palette for each photo."
 msgid "Thick pigment"
 msgstr "Thick pigment"
 
-#: src/components/ImageColorPicker.tsx:191
+#: src/components/ImageColorPicker.tsx:179
 msgid "Thickness"
 msgstr "Thickness"
 
@@ -1260,11 +1300,11 @@ msgstr "Tutorials and videos"
 msgid "Unexpected error"
 msgstr "Unexpected error"
 
-#: src/components/alert/AlertTimedReloadFallback.tsx:54
+#: src/components/alert/AlertTimedReloadFallback.tsx:52
 msgid "Unknown error"
 msgstr "Unknown error"
 
-#: src/components/palette/PaletteGrid.tsx:136
+#: src/components/palette/PaletteGrid.tsx:137
 #: src/components/color/SimilarColorCard.tsx:83
 #: src/components/color/PaletteColorMixtureCard.tsx:69
 #: src/components/color/ColorSwatchDrawer.tsx:103
@@ -1283,7 +1323,7 @@ msgstr "Use glazing mediums that allow you to get a thin layer, for example, 1/1
 msgid "Used"
 msgstr "Used"
 
-#: src/components/ImageLimitedPalette.tsx:114
+#: src/components/ImageLimitedPalette.tsx:128
 msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 msgstr "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 
@@ -1291,11 +1331,11 @@ msgstr "Using a limited palette helps achieve color harmony. Select up to {MAX_C
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "Watercolor can be diluted with water to make it more transparent."
 
-#: src/components/messages.ts:46
+#: src/components/messages.ts:47
 msgid "Watercolor Paint"
 msgstr "Watercolor Paint"
 
-#: src/components/messages.ts:51
+#: src/components/messages.ts:52
 msgid "Watercolor Pencils"
 msgstr "Watercolor Pencils"
 
@@ -1307,15 +1347,17 @@ msgstr "When selecting more than {maxColorsFor2} colors in total, mixtures of tw
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 
-#: src/components/ImageColorPicker.tsx:258
+#: src/components/ImageColorPicker.tsx:246
 msgid "White"
 msgstr "White"
 
-#: src/components/messages.ts:37
+#: src/components/messages.ts:38
+#: src/components/ImagePerspectiveCorrection.tsx:209
+#: src/components/ImagePerspectiveCorrection.tsx:282
 msgid "White balance"
 msgstr "White balance"
 
-#: src/components/ImageColorAdjustment.tsx:296
+#: src/components/ImageColorAdjustment.tsx:348
 msgid "White patch (%ile)"
 msgstr "White patch (%ile)"
 
@@ -1326,9 +1368,9 @@ msgstr "Width"
 #: src/components/CustomColorBrandCreator.tsx:377
 #: src/components/ColorSetChooser.tsx:218
 #: src/components/ColorSetChooser.tsx:733
-#: src/components/storage/ClearStorage.tsx:40
-#: src/components/storage/ClearStorage.tsx:53
-#: src/components/palette/PaletteGrid.tsx:101
+#: src/components/storage/ClearStorage.tsx:61
+#: src/components/storage/ClearStorage.tsx:74
+#: src/components/palette/PaletteGrid.tsx:102
 #: src/components/image/RecentImageCard.tsx:73
 #: src/components/color/PaletteColorMixtureCard.tsx:95
 #: src/components/color/AddToPaletteButton.tsx:51
@@ -1343,7 +1385,7 @@ msgstr "You are logged in and have access to all app features."
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 
-#: src/components/messages.ts:59
+#: src/components/messages.ts:60
 msgid "You have not yet joined ArtistAssistApp on Patreon as a paid member. Join and log in again."
 msgstr "You have not yet joined ArtistAssistApp on Patreon as a paid member. Join and log in again."
 
@@ -1359,11 +1401,11 @@ msgstr "You've selected color brands that are available to paid Patreon members 
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "You've selected mode that is available to paid Patreon members only"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app as described in the Install tab, or use a different browser such as Chrome or Firefox."
 msgstr "Your data may not be saved reliably if the browser is closed. To fix this, install the app as described in the Install tab, or use a different browser such as Chrome or Firefox."
 
-#: src/components/messages.ts:60
+#: src/components/messages.ts:61
 msgid "Your session has expired. Please log in again."
 msgstr "Your session has expired. Please log in again."
 

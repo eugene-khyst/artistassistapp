@@ -20,6 +20,7 @@ import {DownloadOutlined, LoadingOutlined, MoreOutlined, PrinterOutlined} from '
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
 import {App, Button, Dropdown, Form, Grid, Radio, Space, Spin, Typography} from 'antd';
+import {saveAs} from 'file-saver';
 import {useEffect, useState} from 'react';
 
 import {PrintImageDrawer} from '~/src/components/print/PrintImageDrawer';
@@ -33,6 +34,7 @@ import {compareOnnxModelsByPriority} from '~/src/services/ml/models';
 import {OnnxModelType} from '~/src/services/ml/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
+import {imageBitmapToBlob} from '~/src/utils/graphics';
 
 import {EmptyImage} from './empty/EmptyImage';
 
@@ -64,7 +66,7 @@ export const ImageOutline: React.FC = () => {
     isError: isModelsError,
   } = useOnnxModels(OnnxModelType.LineDrawing);
 
-  const {ref: canvasRef, zoomableImageCanvas} = useZoomableImageCanvas<ZoomableImageCanvas>(
+  const {ref: canvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
     outlineImage
   );
@@ -101,8 +103,11 @@ export const ImageOutline: React.FC = () => {
     setIsOpenPrintImage(true);
   };
 
-  const handleSaveClick = () => {
-    void zoomableImageCanvas?.saveAsImage(getFilename(originalImageFile, 'outline'));
+  const handleSaveClick = async () => {
+    if (!outlineImage) {
+      return;
+    }
+    saveAs(await imageBitmapToBlob(outlineImage), getFilename(originalImageFile, 'outline'));
   };
 
   if (!originalImageFile) {
@@ -132,7 +137,9 @@ export const ImageOutline: React.FC = () => {
       key: '2',
       label: t`Save`,
       icon: <DownloadOutlined />,
-      onClick: handleSaveClick,
+      onClick: () => {
+        void handleSaveClick();
+      },
     },
   ];
 
@@ -169,7 +176,12 @@ export const ImageOutline: React.FC = () => {
                 <Button icon={<PrinterOutlined />} onClick={handlePrintClick}>
                   <Trans>Print</Trans>
                 </Button>
-                <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
+                <Button
+                  icon={<DownloadOutlined />}
+                  onClick={() => {
+                    void handleSaveClick();
+                  }}
+                >
                   <Trans>Save</Trans>
                 </Button>
               </>

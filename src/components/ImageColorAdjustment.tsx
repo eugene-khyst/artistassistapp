@@ -19,13 +19,28 @@
 import {
   DownloadOutlined,
   LoadingOutlined,
+  MoreOutlined,
   PictureOutlined,
   ScissorOutlined,
 } from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Button, Checkbox, Col, Form, Grid, Row, Slider, Space, Spin, Typography} from 'antd';
+import {
+  Button,
+  Checkbox,
+  Col,
+  Dropdown,
+  Form,
+  Grid,
+  Row,
+  Slider,
+  Space,
+  Spin,
+  Typography,
+} from 'antd';
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
 import type {SliderMarks} from 'antd/es/slider';
+import type {MenuProps} from 'antd/lib';
+import {saveAs} from 'file-saver';
 import type {ChangeEvent} from 'react';
 import {useEffect, useMemo, useState} from 'react';
 
@@ -42,6 +57,7 @@ import {blobToImageFile} from '~/src/services/image/image-file';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 import {getFilename} from '~/src/utils/filename';
+import {expandToAspectRatio, imageBitmapToBlob} from '~/src/utils/graphics';
 
 const PERCENTILE_MIN = 80;
 const PERCENTILE_MAX = 100;
@@ -109,21 +125,21 @@ function kelvinGradient(minKelvin: number, maxKelvin: number, steps = 10): strin
   return `linear-gradient(to right, ${stops.join(', ')})`;
 }
 
-function getAdjustedFilename(file: File | null): string | undefined {
-  return getFilename(file, 'adjusted');
+function getColorAdjustedImageFilename(file: File | null): string | undefined {
+  return getFilename(file, 'color-adjusted');
 }
 
 export const ImageColorAdjustment: React.FC = () => {
-  const imageFileToAdjust = useAppStore(state => state.imageFileToAdjust);
-  const unadjustedImage = useAppStore(state => state.unadjustedImage);
-  const adjustedImage = useAppStore(state => state.adjustedImage);
+  const imageFileToAdjustColors = useAppStore(state => state.imageFileToAdjustColors);
+  const colorUnadjustedImage = useAppStore(state => state.colorUnadjustedImage);
+  const colorAdjustedImage = useAppStore(state => state.colorAdjustedImage);
 
-  const isAdjustedImageLoading = useAppStore(state => state.isAdjustedImageLoading);
+  const isColorAdjustedImageLoading = useAppStore(state => state.isColorAdjustedImageLoading);
 
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
-  const setImageFileToAdjust = useAppStore(state => state.setImageFileToAdjust);
-  const setImageFileToRemoveBg = useAppStore(state => state.setImageFileToRemoveBackground);
-  const adjustImageColor = useAppStore(state => state.adjustImageColor);
+  const setImageFileToAdjustColors = useAppStore(state => state.setImageFileToAdjustColors);
+  const setImageFileToRemoveBackground = useAppStore(state => state.setImageFileToRemoveBackground);
+  const adjustImageColors = useAppStore(state => state.adjustImageColors);
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
 
   const screens = Grid.useBreakpoint();
@@ -131,8 +147,8 @@ export const ImageColorAdjustment: React.FC = () => {
   const {t} = useLingui();
 
   const images = useMemo<(ImageBitmap | null)[]>(
-    () => [adjustedImage, unadjustedImage],
-    [unadjustedImage, adjustedImage]
+    () => [colorAdjustedImage, colorUnadjustedImage],
+    [colorUnadjustedImage, colorAdjustedImage]
   );
 
   const {ref: canvasRef, zoomableImageCanvas} = useZoomableImageCanvas<ZoomableImageCanvas>(
@@ -159,13 +175,11 @@ export const ImageColorAdjustment: React.FC = () => {
   const origTempDebounced = useDebounce(originalTemperature, 500);
   const targetTempDebounced = useDebounce(targetTemperature, 500);
 
-  const isLoading: boolean = isAdjustedImageLoading;
-
   useEffect(() => {
-    if (unadjustedImage) {
+    if (colorUnadjustedImage) {
       const [inputLow, inputHigh] = inputLowHighDebounced;
       const [outputLow, outputHigh] = outputLowHighDebounced;
-      void adjustImageColor(percentileDebounced / 100, {
+      void adjustImageColors(percentileDebounced / 100, {
         saturation: saturationDebounced / 100,
         inputLow: inputLow! / 255,
         inputHigh: inputHigh! / 255,
@@ -177,8 +191,8 @@ export const ImageColorAdjustment: React.FC = () => {
       });
     }
   }, [
-    unadjustedImage,
-    adjustImageColor,
+    colorUnadjustedImage,
+    adjustImageColors,
     percentileDebounced,
     saturationDebounced,
     inputLowHighDebounced,
@@ -190,7 +204,7 @@ export const ImageColorAdjustment: React.FC = () => {
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files?.[0] ?? null;
-    void setImageFileToAdjust(file);
+    void setImageFileToAdjustColors(file);
   };
 
   const handlePreviewChange = ({target: {checked}}: CheckboxChangeEvent) => {
@@ -198,39 +212,67 @@ export const ImageColorAdjustment: React.FC = () => {
     zoomableImageCanvas?.setImageIndex(checked ? 0 : 1);
   };
 
-  const handleSaveClick = () => {
-    void zoomableImageCanvas?.saveAsImage(getAdjustedFilename(imageFileToAdjust));
+  const handleSaveClick = async (aspectRatio?: number) => {
+    if (!colorAdjustedImage) {
+      return;
+    }
+    const blob: Blob = await imageBitmapToBlob(
+      colorAdjustedImage,
+      expandToAspectRatio(aspectRatio)
+    );
+    saveAs(blob, getColorAdjustedImageFilename(imageFileToAdjustColors));
   };
 
   const handleSetAsReferenceClick = async () => {
-    const blob: Blob | undefined =
-      zoomableImageCanvas && (await zoomableImageCanvas.convertToBlob());
-    if (blob) {
-      void saveRecentImageFile(await blobToImageFile(blob, getAdjustedFilename(imageFileToAdjust)));
+    if (!colorAdjustedImage) {
+      return;
     }
+    const blob: Blob = await imageBitmapToBlob(colorAdjustedImage);
+    void saveRecentImageFile(
+      await blobToImageFile(blob, getColorAdjustedImageFilename(imageFileToAdjustColors))
+    );
   };
 
-  const handleRemoveBgClick = async () => {
-    const blob: Blob | undefined =
-      zoomableImageCanvas && (await zoomableImageCanvas.convertToBlob());
-    if (blob) {
-      setImageFileToRemoveBg(
-        new File([blob], getAdjustedFilename(imageFileToAdjust) ?? '', {
-          type: blob.type,
-          lastModified: Date.now(),
-        })
-      );
-      void setActiveTabKey(TabKey.BackgroundRemove);
+  const handleRemoveBackgroundClick = async () => {
+    if (!colorAdjustedImage) {
+      return;
     }
+    const blob: Blob = await imageBitmapToBlob(colorAdjustedImage);
+    setImageFileToRemoveBackground(
+      new File([blob], getColorAdjustedImageFilename(imageFileToAdjustColors) ?? '', {
+        type: blob.type,
+        lastModified: Date.now(),
+      })
+    );
+    void setActiveTabKey(TabKey.BackgroundRemove);
   };
+
+  const saveItems: MenuProps['items'] = [
+    {
+      key: '1',
+      label: t`Save expanded to 4:5`,
+      icon: <DownloadOutlined />,
+      onClick: () => {
+        void handleSaveClick(4 / 5);
+      },
+    },
+    {
+      key: '2',
+      label: t`Save expanded to 1.91:1`,
+      icon: <DownloadOutlined />,
+      onClick: () => {
+        void handleSaveClick(1.91 / 1);
+      },
+    },
+  ];
 
   const height = `calc((100dvh - 75px) / ${screens.sm ? '1' : '2 - 8px'})`;
   const margin = screens.sm ? 0 : 8;
 
   return (
-    <Spin spinning={isLoading} indicator={<LoadingOutlined spin />} size="large">
+    <Spin spinning={isColorAdjustedImageLoading} indicator={<LoadingOutlined spin />} size="large">
       <Row>
-        {unadjustedImage && (
+        {colorUnadjustedImage && (
           <Col xs={24} sm={12} lg={16}>
             <canvas
               ref={canvasRef}
@@ -261,14 +303,24 @@ export const ImageColorAdjustment: React.FC = () => {
               <FileSelect onChange={handleFileChange}>
                 <Trans>Select photo</Trans>
               </FileSelect>
-              {unadjustedImage && (
-                <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
-                  <Trans>Save</Trans>
-                </Button>
+              {colorAdjustedImage && (
+                <Space.Compact>
+                  <Button
+                    icon={<DownloadOutlined />}
+                    onClick={() => {
+                      void handleSaveClick();
+                    }}
+                  >
+                    <Trans>Save</Trans>
+                  </Button>
+                  <Dropdown menu={{items: saveItems}}>
+                    <Button icon={<MoreOutlined />} />
+                  </Dropdown>
+                </Space.Compact>
               )}
             </Space>
 
-            {unadjustedImage && (
+            {colorAdjustedImage && (
               <>
                 <Space>
                   <Button
@@ -281,7 +333,7 @@ export const ImageColorAdjustment: React.FC = () => {
                   <Button
                     size="small"
                     icon={<ScissorOutlined />}
-                    onClick={() => void handleRemoveBgClick()}
+                    onClick={() => void handleRemoveBackgroundClick()}
                   >
                     <Trans>Remove background</Trans>
                   </Button>

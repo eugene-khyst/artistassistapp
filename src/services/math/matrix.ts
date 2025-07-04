@@ -136,7 +136,7 @@ export function lowerUpperDecomposition(matrix: Matrix): LUDecomposition {
 
 export class Matrix {
   private constructor(
-    private readonly elements: Float64Array,
+    public readonly elements: Float64Array,
     public readonly rows: number,
     public readonly cols: number
   ) {}

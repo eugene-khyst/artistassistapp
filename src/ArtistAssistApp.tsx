@@ -28,6 +28,7 @@ import {CustomColorBrandCreator} from '~/src/components/CustomColorBrandCreator'
 import {ImageBackgroundRemove} from '~/src/components/ImageBackgroundRemove';
 import {ImageColorAdjustment} from '~/src/components/ImageColorAdjustment';
 import {ImageOutline} from '~/src/components/ImageOutline';
+import {ImagePerspectiveCorrection} from '~/src/components/ImagePerspectiveCorrection';
 import {ImagesCompare} from '~/src/components/ImagesCompare';
 import {ImageStyleTransfer} from '~/src/components/ImageStyleTransfer';
 import {Install} from '~/src/components/Install';
@@ -182,8 +183,12 @@ export const ArtistAssistApp: React.FC = () => {
       children: <ImageStyleTransfer />,
     },
     {
-      key: TabKey.ColorCorrection,
+      key: TabKey.ColorAdjustment,
       children: <ImageColorAdjustment />,
+    },
+    {
+      key: TabKey.PerspectiveCorrection,
+      children: <ImagePerspectiveCorrection />,
     },
     {
       key: TabKey.BackgroundRemove,

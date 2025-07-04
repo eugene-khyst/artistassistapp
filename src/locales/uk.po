@@ -72,7 +72,7 @@ msgstr "<0>ArtistAssistApp</0> — це веб-програма, яка допо
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Приєднуйтесь до ArtistAssistApp на Patreon як платний учасник</0> або <1>увійдіть за допомогою Patreon</1> , якщо ви вже приєдналися, щоб отримати доступ до понад 200 колірних брендів і всіх режимів обробки зображень без реклами."
 
-#: src/components/ImageColorAdjustment.tsx:314
+#: src/components/ImageColorAdjustment.tsx:366
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Значення менше 100% робить зображення менш кольоровим, а значення більше 100% робить його занадто кольоровим"
 
@@ -80,15 +80,15 @@ msgstr "Значення менше 100% робить зображення ме�
 msgid "About ArtistAssistApp"
 msgstr "Про додаток ArtistAssistApp"
 
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Acrylic Gouache"
 msgstr "Акрилова гуаш"
 
-#: src/components/messages.ts:54
+#: src/components/messages.ts:55
 msgid "Acrylic Markers"
 msgstr "Акрилові маркери"
 
-#: src/components/messages.ts:48
+#: src/components/messages.ts:49
 msgid "Acrylic Paint"
 msgstr "Акрилова фарба"
 
@@ -116,11 +116,15 @@ msgstr "Додати в палітру"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Додайте білий колір у <0>співвідношенні {whiteRatioText}</0>"
 
-#: src/components/palette/PaletteGrid.tsx:72
+#: src/components/palette/PaletteGrid.tsx:73
 msgid "Alphabetically"
 msgstr "За алфавітом"
 
-#: src/components/alert/AlertTimedReloadFallback.tsx:59
+#: src/components/Install.tsx:178
+msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
+msgstr "Або встановіть останню версію веб-браузера Chrome, Edge або Opera та натисніть кнопку <0>Встановити</0> . У старих версіях macOS це єдиний варіант."
+
+#: src/components/alert/AlertTimedReloadFallback.tsx:57
 msgid "An application error"
 msgstr "Помилка в додатку"
 
@@ -128,7 +132,8 @@ msgstr "Помилка в додатку"
 msgid "Application build hash"
 msgstr "Хеш збірки програми"
 
-#: src/components/ImageLimitedPalette.tsx:135
+#: src/components/ImagePerspectiveCorrection.tsx:247
+#: src/components/ImageLimitedPalette.tsx:149
 msgid "Apply"
 msgstr "Застосовувати"
 
@@ -144,11 +149,11 @@ msgstr "Застосовуйте менший тиск, щоб зробити ш
 msgid "Apply strokes of each color in a <0>{ratioText} ratio</0>"
 msgstr "Застосовуйте штрихи кожного кольору у <0>співвідношенні {ratioText}</0>"
 
-#: src/components/storage/ClearStorage.tsx:36
+#: src/components/storage/ClearStorage.tsx:57
 msgid "Are you sure you want to clear the cache?"
 msgstr "Ви впевнені, що хочете очистити кеш?"
 
-#: src/components/storage/ClearStorage.tsx:49
+#: src/components/storage/ClearStorage.tsx:70
 msgid "Are you sure you want to delete all app data?"
 msgstr "Ви впевнені, що хочете видалити всі дані програми?"
 
@@ -164,7 +169,7 @@ msgstr "Ви впевнені, що хочете видалити цей кас�
 msgid "Are you sure you want to delete this photo?"
 msgstr "Ви впевнені, що хочете видалити це фото?"
 
-#: src/components/palette/PaletteGrid.tsx:99
+#: src/components/palette/PaletteGrid.tsx:100
 msgid "Are you sure you want to remove all color mixtures?"
 msgstr "Ви впевнені, що хочете видалити всі кольорові суміші?"
 
@@ -186,12 +191,12 @@ msgstr "Розробник ArtistAssistApp – <0>Євген Хист</0>"
 msgid "At least one color is required"
 msgstr "Потрібно хоча б один колір"
 
-#: src/components/ImageColorPicker.tsx:231
+#: src/components/ImageColorPicker.tsx:219
 #: src/components/ColorMixer.tsx:186
 msgid "Background"
 msgstr "Фон"
 
-#: src/components/ImageBlurred.tsx:91
+#: src/components/ImageBlurred.tsx:99
 msgid "Blur"
 msgstr "Розмиття"
 
@@ -207,16 +212,16 @@ msgstr "Клітини"
 msgid "Check for updates"
 msgstr "Перевірте наявність оновлень"
 
-#: src/components/palette/PaletteGrid.tsx:71
+#: src/components/palette/PaletteGrid.tsx:72
 msgid "Chronologically"
 msgstr "Хронологічно"
 
-#: src/components/storage/ClearStorage.tsx:35
-#: src/components/storage/ClearStorage.tsx:44
+#: src/components/storage/ClearStorage.tsx:56
+#: src/components/storage/ClearStorage.tsx:65
 msgid "Clear cache"
 msgstr "Очистіть кеш"
 
-#: src/components/ImageColorPicker.tsx:317
+#: src/components/ImageColorPicker.tsx:305
 #: src/components/empty/EmptyPalette.tsx:64
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "Клацніть 🖱️ або торкніться 👆 будь-де на фотографії або скористайтеся спливаючим вікном палітри кольорів, щоб вибрати цільовий колір для змішування з ваших кольорів."
@@ -229,7 +234,7 @@ msgstr "Закрити"
 msgid "Close in {closeCounter} sec"
 msgstr "Закрити за {closeCounter} сек"
 
-#: src/components/ImageColorPicker.tsx:278
+#: src/components/ImageColorPicker.tsx:266
 #: src/components/CustomColorBrandCreator.tsx:325
 #: src/components/ColorMixer.tsx:212
 msgid "Color"
@@ -243,7 +248,7 @@ msgstr "Колірний бренд"
 msgid "Color brands"
 msgstr "Колірні бренди"
 
-#: src/components/ImageColorPicker.tsx:190
+#: src/components/ImageColorPicker.tsx:178
 msgid "Color count"
 msgstr "Кількість кольорів"
 
@@ -260,25 +265,25 @@ msgid "Color picker"
 msgstr "Підбір кольорів"
 
 #: src/components/messages.ts:26
-#: src/components/ImageColorPicker.tsx:307
+#: src/components/ImageColorPicker.tsx:295
 #: src/components/ColorSetChooser.tsx:553
 msgid "Color set"
 msgstr "Набір кольорів"
 
-#: src/components/palette/PaletteGrid.tsx:87
+#: src/components/palette/PaletteGrid.tsx:88
 #: src/components/color/ColorSwatchDrawer.tsx:55
 msgid "Color swatch"
 msgstr "Зразок кольорів"
 
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Colored Pencils"
 msgstr "Кольорові олівці"
 
-#: src/components/ImageLimitedPalette.tsx:113
+#: src/components/ImageLimitedPalette.tsx:127
 msgid "Colors"
 msgstr "Кольори"
 
-#: src/components/messages.ts:39
+#: src/components/messages.ts:40
 msgid "Compare"
 msgstr "Порівняти"
 
@@ -286,7 +291,7 @@ msgstr "Порівняти"
 msgid "Contact"
 msgstr "Контакти"
 
-#: src/components/ImageBlurred.tsx:92
+#: src/components/ImageBlurred.tsx:100
 msgid "Controls the radius of the median filter."
 msgstr "Керує радіусом медіанного фільтра."
 
@@ -298,7 +303,7 @@ msgstr "Копіювати"
 msgid "Copy and share this link"
 msgstr "Скопіюйте та поділіться цим посиланням"
 
-#: src/components/ImageColorAdjustment.tsx:433
+#: src/components/ImageColorAdjustment.tsx:485
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Скоригована оцінка температури джерела світла в кельвінах"
 
@@ -311,7 +316,7 @@ msgstr "Створіть дублікат цього набору кольорі
 msgid "Create new"
 msgstr "Створити новий"
 
-#: src/components/messages.ts:41
+#: src/components/messages.ts:42
 msgid "Custom brand"
 msgstr "Індивідуальний бренд"
 
@@ -325,8 +330,8 @@ msgstr "Індивідуальний набір кольорів"
 msgid "Delete"
 msgstr "Видалити"
 
-#: src/components/storage/ClearStorage.tsx:48
-#: src/components/storage/ClearStorage.tsx:57
+#: src/components/storage/ClearStorage.tsx:69
+#: src/components/storage/ClearStorage.tsx:78
 msgid "Delete all app data"
 msgstr "Видалити всі дані додатка"
 
@@ -360,7 +365,7 @@ msgstr "Діагностика"
 msgid "Diagonals"
 msgstr "Діагоналі"
 
-#: src/components/ImageColorPicker.tsx:264
+#: src/components/ImageColorPicker.tsx:252
 #: src/components/CustomColorBrandCreator.tsx:312
 msgid "Diameter"
 msgstr "Діаметр"
@@ -390,7 +395,7 @@ msgid "Error while fetching color data"
 msgstr "Помилка під час отримання даних про колір"
 
 #: src/components/ImageStyleTransfer.tsx:90
-#: src/components/ImageOutline.tsx:85
+#: src/components/ImageOutline.tsx:87
 #: src/components/ImageBackgroundRemove.tsx:82
 msgid "Error while fetching ML model data"
 msgstr "Помилка під час отримання даних моделі машинного навчання"
@@ -399,7 +404,7 @@ msgstr "Помилка під час отримання даних моделі 
 msgid "Error while fetching standard color set data"
 msgstr "Помилка під час отримання даних стандартного набору кольорів"
 
-#: src/components/ImageColorAdjustment.tsx:404
+#: src/components/ImageColorAdjustment.tsx:456
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Орієнтовна температура джерела світла в кельвінах, при якій було зроблено зображення"
 
@@ -407,7 +412,7 @@ msgstr "Орієнтовна температура джерела світла 
 msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Ознайомтеся з безкоштовною версією, перш ніж прийняти рішення про покупку платного членства."
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Failed to verify the ID token."
 msgstr "Не вдалося перевірити ідентифікаційний токен."
 
@@ -416,7 +421,7 @@ msgstr "Не вдалося перевірити ідентифікаційни�
 msgid "Fill in the required fields"
 msgstr "Заповніть обов'язкові поля"
 
-#: src/components/ImageColorAdjustment.tsx:357
+#: src/components/ImageColorAdjustment.tsx:409
 msgid "Gamma"
 msgstr "Гамма"
 
@@ -437,7 +442,7 @@ msgstr "Перейдіть на вкладку <0>{colorSetLabel}</0> ."
 msgid "Go to the <0>{photoLabel}</0> tab and choose your reference photo."
 msgstr "Перейдіть на вкладку <0>{photoLabel}</0> і виберіть своє еталонне фото."
 
-#: src/components/messages.ts:47
+#: src/components/messages.ts:48
 msgid "Gouache"
 msgstr "Гуаш"
 
@@ -450,7 +455,7 @@ msgstr "Сітка"
 msgid "Height"
 msgstr "Висота"
 
-#: src/components/messages.ts:42
+#: src/components/messages.ts:43
 #: src/components/ColorSetChooser.tsx:502
 msgid "Help"
 msgstr "Допомога"
@@ -475,7 +480,7 @@ msgstr "Імпорт JSON"
 msgid "Inspire"
 msgstr "Натхнення"
 
-#: src/components/messages.ts:40
+#: src/components/messages.ts:41
 #: src/components/Install.tsx:65
 #: src/components/ColorSetChooser.tsx:494
 msgid "Install"
@@ -485,7 +490,7 @@ msgstr "Інсталювати"
 msgid "Install ArtistAssistApp on your device for easy access even without an Internet connection."
 msgstr "Встановіть ArtistAssistApp на свій пристрій для легкого доступу навіть без підключення до Інтернету."
 
-#: src/components/ImageColorAdjustment.tsx:432
+#: src/components/ImageColorAdjustment.tsx:484
 msgid "Intended color temperature (K)"
 msgstr "Передбачувана колірна температура (K)"
 
@@ -505,7 +510,7 @@ msgstr "Приєднуйтесь на Patreon"
 msgid "Language"
 msgstr "Мова"
 
-#: src/components/ImageBlurred.tsx:102
+#: src/components/ImageBlurred.tsx:110
 msgid "Large"
 msgstr "Велике"
 
@@ -517,7 +522,7 @@ msgstr "Останнє використання {dateText}"
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "Залишилося для порівняння: {unfinishedGamesSize}"
 
-#: src/components/ImageTonalValues.tsx:96
+#: src/components/ImageTonalValues.tsx:104
 msgid "Light tone"
 msgstr "Світлий тон"
 
@@ -545,7 +550,7 @@ msgstr "Увійдіть за допомогою Patreon"
 msgid "Log out"
 msgstr "Вийти"
 
-#: src/ArtistAssistApp.tsx:98
+#: src/ArtistAssistApp.tsx:99
 msgid "Login failed"
 msgstr "Не вдалося увійти в систему"
 
@@ -553,23 +558,23 @@ msgstr "Не вдалося увійти в систему"
 msgid "Login session is valid until {expirationText}"
 msgstr "Сеанс входу в систему дійсний до {expirationText}"
 
-#: src/components/ImageColorAdjustment.tsx:331
+#: src/components/ImageColorAdjustment.tsx:383
 msgid "Low input and high input"
 msgstr "Низький вхідний і високий вхідний сигнал"
 
-#: src/components/ImageColorAdjustment.tsx:378
+#: src/components/ImageColorAdjustment.tsx:430
 msgid "Low output and high output"
 msgstr "Низька продуктивність і висока продуктивність"
 
-#: src/components/ImageBlurred.tsx:101
+#: src/components/ImageBlurred.tsx:109
 msgid "Medium"
 msgstr "Середнє"
 
-#: src/components/ImageTonalValues.tsx:97
+#: src/components/ImageTonalValues.tsx:105
 msgid "Mid tone"
 msgstr "Середній тон"
 
-#: src/components/ImageColorAdjustment.tsx:356
+#: src/components/ImageColorAdjustment.tsx:408
 msgid "Midtones"
 msgstr "Напівтони"
 
@@ -585,7 +590,7 @@ msgstr "Змішуйте кольори в будь-яких пропорція�
 msgid "Mixture"
 msgstr "Суміш"
 
-#: src/components/ImageOutline.tsx:158
+#: src/components/ImageOutline.tsx:165
 #: src/components/ImageBackgroundRemove.tsx:168
 #: src/components/color/ReflectanceChartDrawer.tsx:102
 msgid "Mode"
@@ -620,23 +625,23 @@ msgstr "Нове порівняння"
 #: src/components/CustomColorBrandCreator.tsx:378
 #: src/components/ColorSetChooser.tsx:219
 #: src/components/ColorSetChooser.tsx:734
-#: src/components/storage/ClearStorage.tsx:41
-#: src/components/storage/ClearStorage.tsx:54
-#: src/components/palette/PaletteGrid.tsx:102
+#: src/components/storage/ClearStorage.tsx:62
+#: src/components/storage/ClearStorage.tsx:75
+#: src/components/palette/PaletteGrid.tsx:103
 #: src/components/image/RecentImageCard.tsx:74
 #: src/components/color/PaletteColorMixtureCard.tsx:96
 #: src/components/color/AddToPaletteButton.tsx:52
 msgid "No"
 msgstr "Ні"
 
-#: src/components/ImageColorPicker.tsx:314
+#: src/components/ImageColorPicker.tsx:302
 #: src/components/empty/EmptyPalette.tsx:39
 #: src/components/empty/EmptyImage.tsx:42
 #: src/components/empty/EmptyColorSet.tsx:53
 msgid "No data"
 msgstr "Немає даних"
 
-#: src/components/ImageBlurred.tsx:99
+#: src/components/ImageBlurred.tsx:107
 msgid "None"
 msgstr "Нема"
 
@@ -648,17 +653,13 @@ msgstr "Нема чим ділитися"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Кількість клітин на меншій стороні (вертикальна або горизонтальна)"
 
-#: src/components/messages.ts:49
+#: src/components/messages.ts:50
 msgid "Oil Paint"
 msgstr "Олійна фарба"
 
-#: src/components/messages.ts:53
+#: src/components/messages.ts:54
 msgid "Oil Pastel"
 msgstr "Олійна пастель"
-
-#: src/components/Install.tsx:178
-msgid "On older versions of macOS, install the latest version of the Chrome, Edge, or Opera web browser and click the <0>Install</0> button."
-msgstr "У старіших версіях macOS встановіть останню версію веб-браузера Chrome, Edge або Opera та натисніть кнопку <0>Встановити</0> ."
 
 #: src/components/ColorSetChooser.tsx:592
 msgid "Only a limited number of color brands are available in the free version"
@@ -697,7 +698,7 @@ msgstr "Або виберіть із зразків фотографій"
 msgid "Or select from your recent photos"
 msgstr "Або виберіть одну зі своїх останніх фотографій"
 
-#: src/components/ImageColorAdjustment.tsx:403
+#: src/components/ImageColorAdjustment.tsx:455
 msgid "Original color temperature (K)"
 msgstr "Оригінальна колірна температура (K)"
 
@@ -709,7 +710,7 @@ msgstr "Оригінальне фото"
 msgid "Outline"
 msgstr "Контур"
 
-#: src/components/ImageColorAdjustment.tsx:377
+#: src/components/ImageColorAdjustment.tsx:429
 msgid "Output levels"
 msgstr "Вихідні рівні"
 
@@ -725,11 +726,11 @@ msgstr "Палітри"
 msgid "Paper size"
 msgstr "Формат паперу"
 
-#: src/components/ImageColorPicker.tsx:239
+#: src/components/ImageColorPicker.tsx:227
 msgid "Paper white"
 msgstr "Папір білого кольору"
 
-#: src/components/messages.ts:52
+#: src/components/messages.ts:53
 msgid "Pastel"
 msgstr "Пастель"
 
@@ -737,9 +738,13 @@ msgstr "Пастель"
 msgid "Pencils are not supported by this feature."
 msgstr "Олівці не підтримуються цією функцією."
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Persistent storage is not enabled"
 msgstr "Постійне сховище не ввімкнено"
+
+#: src/components/messages.ts:37
+msgid "Perspective"
+msgstr "Перспектива"
 
 #: src/components/messages.ts:27
 msgid "Photo"
@@ -749,7 +754,7 @@ msgstr "Фото"
 msgid "Photo ranking"
 msgstr "Рейтинг фотографій"
 
-#: src/components/ImageColorPicker.tsx:323
+#: src/components/ImageColorPicker.tsx:311
 msgid "Pinch to zoom (or use the mouse wheel) and drag to pan"
 msgstr "Зведіть пальці, щоб збільшити масштаб (або скористайтеся коліщатком миші), і перетягніть для переміщення"
 
@@ -785,19 +790,19 @@ msgstr "Натисніть кнопку <0>Додати до палітри</0> 
 msgid "Press the Share button, copy and save the link so you don't have to re-enter all the colors."
 msgstr "Натисніть кнопку «Поділитися», скопіюйте та збережіть посилання, щоб вам не довелося повторно вводити всі кольори."
 
-#: src/components/ImageColorAdjustment.tsx:290
+#: src/components/ImageColorAdjustment.tsx:342
 msgid "Preview"
 msgstr "Попередній перегляд"
 
 #: src/components/ImagesCompare.tsx:167
-#: src/components/ImageTonalValues.tsx:79
-#: src/components/ImageTonalValues.tsx:116
-#: src/components/ImageOutline.tsx:127
-#: src/components/ImageOutline.tsx:170
+#: src/components/ImageTonalValues.tsx:85
+#: src/components/ImageTonalValues.tsx:124
+#: src/components/ImageOutline.tsx:132
+#: src/components/ImageOutline.tsx:177
 #: src/components/ImageGrid.tsx:126
 #: src/components/ImageGrid.tsx:183
 #: src/components/print/PrintImageDrawer.tsx:121
-#: src/components/palette/PaletteGrid.tsx:95
+#: src/components/palette/PaletteGrid.tsx:96
 msgid "Print"
 msgstr "Друкувати"
 
@@ -813,15 +818,15 @@ msgstr "Попередній перегляд"
 msgid "Privacy policy"
 msgstr "Політика конфіденційності"
 
-#: src/components/ImageOutline.tsx:119
+#: src/components/ImageOutline.tsx:124
 msgid "Quality"
 msgstr "Якість"
 
-#: src/components/ImageOutline.tsx:152
+#: src/components/ImageOutline.tsx:159
 msgid "Quality mode is available to paid Patreon members only"
 msgstr "Якісний режим доступний лише для платних учасників Patreon"
 
-#: src/components/ImageOutline.tsx:115
+#: src/components/ImageOutline.tsx:120
 msgid "Quick"
 msgstr "Швидкий"
 
@@ -862,16 +867,16 @@ msgstr "Перезавантажити"
 msgid "Remove"
 msgstr "Видалити"
 
-#: src/components/palette/PaletteGrid.tsx:105
+#: src/components/palette/PaletteGrid.tsx:106
 msgid "Remove all"
 msgstr "Видалити всі"
 
-#: src/components/palette/PaletteGrid.tsx:98
+#: src/components/palette/PaletteGrid.tsx:99
 msgid "Remove all color mixtures"
 msgstr "Видаліть всі кольорові суміші"
 
-#: src/components/messages.ts:38
-#: src/components/ImageColorAdjustment.tsx:286
+#: src/components/messages.ts:39
+#: src/components/ImageColorAdjustment.tsx:338
 msgid "Remove background"
 msgstr "Видалити фон"
 
@@ -898,6 +903,11 @@ msgstr "Потрібна iOS 16.4+ або iPadOS 16.4+."
 msgid "Requires macOS Sonoma or later."
 msgstr "Потрібна macOS Sonoma або новішої версії."
 
+#: src/components/ImagePerspectiveCorrection.tsx:182
+#: src/components/ImagePerspectiveCorrection.tsx:254
+msgid "Reset"
+msgstr "Скинути"
+
 #: src/components/empty/EmptyPalette.tsx:76
 msgid "Return to the <0>{paletteLabel}</0> tab."
 msgstr "Поверніться до вкладки <0>{paletteLabel}</0> ."
@@ -907,21 +917,28 @@ msgstr "Поверніться до вкладки <0>{paletteLabel}</0> ."
 msgid "Return to the <0>{tabLabel}</0> tab."
 msgstr "Поверніться до вкладки <0>{tabLabel}</0> ."
 
-#: src/components/ImageColorAdjustment.tsx:313
+#: src/components/ImagePerspectiveCorrection.tsx:190
+#: src/components/ImagePerspectiveCorrection.tsx:258
+msgid "Rotate"
+msgstr "Повернути"
+
+#: src/components/ImageColorAdjustment.tsx:365
 msgid "Saturation (%)"
 msgstr "Насиченість (%)"
 
-#: src/components/ImageTonalValues.tsx:85
-#: src/components/ImageTonalValues.tsx:119
+#: src/components/ImageTonalValues.tsx:91
+#: src/components/ImageTonalValues.tsx:132
 #: src/components/ImageStyleTransfer.tsx:172
-#: src/components/ImageOutline.tsx:133
-#: src/components/ImageOutline.tsx:173
-#: src/components/ImageLimitedPalette.tsx:93
+#: src/components/ImagePerspectiveCorrection.tsx:200
+#: src/components/ImagePerspectiveCorrection.tsx:270
+#: src/components/ImageOutline.tsx:138
+#: src/components/ImageOutline.tsx:185
+#: src/components/ImageLimitedPalette.tsx:107
 #: src/components/ImageGrid.tsx:132
 #: src/components/ImageGrid.tsx:186
-#: src/components/ImageColorAdjustment.tsx:266
-#: src/components/ImageBlurred.tsx:77
-#: src/components/ImageBlurred.tsx:114
+#: src/components/ImageColorAdjustment.tsx:314
+#: src/components/ImageBlurred.tsx:83
+#: src/components/ImageBlurred.tsx:127
 #: src/components/ImageBackgroundRemove.tsx:126
 #: src/components/ImageBackgroundRemove.tsx:187
 #: src/components/CustomColorBrandCreator.tsx:367
@@ -936,6 +953,16 @@ msgstr "Зберегти та продовжити"
 msgid "Save changes to the color set?"
 msgstr "Зберегти зміни в наборі кольорів?"
 
+#: src/components/ImagePerspectiveCorrection.tsx:171
+#: src/components/ImageColorAdjustment.tsx:261
+msgid "Save expanded to 1.91:1"
+msgstr "Зберегти розширено до 1,91:1"
+
+#: src/components/ImagePerspectiveCorrection.tsx:163
+#: src/components/ImageColorAdjustment.tsx:253
+msgid "Save expanded to 4:5"
+msgstr "Зберегти розширено до 4:5"
+
 #: src/components/ColorSetChooser.tsx:697
 msgid "Save the changes to this color set"
 msgstr "Збережіть зміни в цьому наборі кольорів"
@@ -948,9 +975,17 @@ msgstr "Відскануйте QR-код"
 msgid "Scan QR code"
 msgstr "Відскануйте QR-код"
 
-#: src/components/ImageColorAdjustment.tsx:257
+#: src/components/ImagePerspectiveCorrection.tsx:111
+msgid "Select 4 points to correct perspective distortion"
+msgstr "Виберіть 4 точки, щоб виправити спотворення перспективи"
+
+#: src/components/ImageColorAdjustment.tsx:299
 msgid "Select a photo to adjust white balance and colors"
 msgstr "Виберіть фотографію, щоб налаштувати баланс білого та кольори"
+
+#: src/components/ImagePerspectiveCorrection.tsx:230
+msgid "Select a photo to correct the perspective"
+msgstr "Виберіть фотографію, щоб виправити перспективу"
 
 #: src/components/ImageBackgroundRemove.tsx:147
 msgid "Select a photo to remove the background from"
@@ -993,7 +1028,7 @@ msgstr "Виберіть колір"
 msgid "Select colors"
 msgstr "Виберіть кольори"
 
-#: src/components/ImageLimitedPalette.tsx:118
+#: src/components/ImageLimitedPalette.tsx:132
 msgid "Select from 1 to {MAX_COLORS} colors"
 msgstr "Виберіть від 1 до {MAX_COLORS} кольорів"
 
@@ -1021,7 +1056,8 @@ msgstr "Виберіть мову"
 msgid "Select part"
 msgstr "Оберіть частину"
 
-#: src/components/ImageColorAdjustment.tsx:262
+#: src/components/ImagePerspectiveCorrection.tsx:240
+#: src/components/ImageColorAdjustment.tsx:304
 #: src/components/ImageChooser.tsx:73
 #: src/components/ImageBackgroundRemove.tsx:181
 msgid "Select photo"
@@ -1061,11 +1097,11 @@ msgstr "Напівпрозорі"
 msgid "Set as background"
 msgstr "Встановити в якості фону"
 
-#: src/components/ImageColorAdjustment.tsx:279
+#: src/components/ImageColorAdjustment.tsx:331
 msgid "Set as reference"
 msgstr "Встановити як еталон"
 
-#: src/components/ImageColorPicker.tsx:253
+#: src/components/ImageColorPicker.tsx:241
 msgid "Set paper white background"
 msgstr "Встановіть білий фон на папері"
 
@@ -1074,11 +1110,11 @@ msgstr "Встановіть білий фон на папері"
 msgid "Set the color of the base layer for the glazing"
 msgstr "Задаємо колір базового шару для скління"
 
-#: src/components/ImageTonalValues.tsx:98
+#: src/components/ImageTonalValues.tsx:106
 msgid "Shadow"
 msgstr "Тінь"
 
-#: src/components/ImageColorAdjustment.tsx:330
+#: src/components/ImageColorAdjustment.tsx:382
 msgid "Shadows and highlights"
 msgstr "Тіні та світлі тони"
 
@@ -1103,7 +1139,7 @@ msgstr "Показати на фото"
 msgid "Show or hide diagonal lines"
 msgstr "Відображення або приховування діагональних ліній"
 
-#: src/components/ImageColorPicker.tsx:189
+#: src/components/ImageColorPicker.tsx:177
 #: src/components/color/ReflectanceChartDrawer.tsx:87
 msgid "Similarity"
 msgstr "Схожість"
@@ -1124,16 +1160,16 @@ msgstr "Злегка перекрийте олійні пастельні діл
 msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition."
 msgstr "Злегка накладіть пастельні ділянки різних кольорів і акуратно розтушуйте, щоб створити плавний перехід."
 
-#: src/components/ImageBlurred.tsx:100
+#: src/components/ImageBlurred.tsx:108
 msgid "Small"
 msgstr "Мале"
 
-#: src/components/ImageColorPicker.tsx:293
-#: src/components/palette/PaletteGrid.tsx:108
+#: src/components/ImageColorPicker.tsx:281
+#: src/components/palette/PaletteGrid.tsx:109
 msgid "Sort"
 msgstr "Сортувати"
 
-#: src/components/ImageColorPicker.tsx:294
+#: src/components/ImageColorPicker.tsx:282
 msgid "Sort by the similarity of the mixture to the target color, or by the number of colors in the mixture, or by the thickness of the mixture."
 msgstr "Сортуйте за схожістю суміші з цільовим кольором, або за кількістю кольорів у суміші, або за густотою суміші."
 
@@ -1159,6 +1195,10 @@ msgstr "Стандартний друк"
 msgid "Storage usage"
 msgstr "Використання сховища"
 
+#: src/components/ImagePerspectiveCorrection.tsx:233
+msgid "Straightens skewed photos and removes unwanted edges. Select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
+msgstr "Вирівнює перекошені фотографії та видаляє небажані краї. Виберіть 4 точки, щоб виправити спотворення перспективи, а потім за бажанням перетягніть поля, щоб обрізати зображення."
+
 #: src/components/ImageStyleTransfer.tsx:145
 msgid "Styled reference photo"
 msgstr "Стилізоване еталонне фото"
@@ -1183,20 +1223,20 @@ msgstr "Умови використання"
 msgid "The app stores all data in the web browser storage even after installation. Clearing the web browser data results in the loss of all app data."
 msgstr "Додаток зберігає всі дані в сховищі веб-браузера навіть після встановлення. Очищення даних веб-браузера призводить до втрати всіх даних програми."
 
-#: src/components/alert/AlertTimedReloadFallback.tsx:65
+#: src/components/alert/AlertTimedReloadFallback.tsx:63
 msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "Додаток спробує перезавантажитися за {reloadCounter} сек"
 
-#: src/components/ImageColorPicker.tsx:232
+#: src/components/ImageColorPicker.tsx:220
 #: src/components/ColorMixer.tsx:187
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "Колір паперу або полотна, або колір базового шару при глазуруванні."
 
-#: src/components/ImageColorPicker.tsx:279
+#: src/components/ImageColorPicker.tsx:267
 msgid "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
 msgstr "Колір, який потрібно змішати з вашого набору кольорів. Виберіть колір, клацнувши точку на зображенні, або скористайтеся спливаючим вікном палітри кольорів."
 
-#: src/components/ImageColorPicker.tsx:265
+#: src/components/ImageColorPicker.tsx:253
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
 msgstr "Діаметр кругової області навколо курсора використовується для обчислення середнього кольору пікселів у цій області."
 
@@ -1212,7 +1252,7 @@ msgstr "Існує одна загальна палітра і окрема па
 msgid "Thick pigment"
 msgstr "Густий пігмент"
 
-#: src/components/ImageColorPicker.tsx:191
+#: src/components/ImageColorPicker.tsx:179
 msgid "Thickness"
 msgstr "Товщина"
 
@@ -1260,11 +1300,11 @@ msgstr "Навчальні посібники та відео"
 msgid "Unexpected error"
 msgstr "Несподівана помилка"
 
-#: src/components/alert/AlertTimedReloadFallback.tsx:54
+#: src/components/alert/AlertTimedReloadFallback.tsx:52
 msgid "Unknown error"
 msgstr "Невідома помилка"
 
-#: src/components/palette/PaletteGrid.tsx:136
+#: src/components/palette/PaletteGrid.tsx:137
 #: src/components/color/SimilarColorCard.tsx:83
 #: src/components/color/PaletteColorMixtureCard.tsx:69
 #: src/components/color/ColorSwatchDrawer.tsx:103
@@ -1283,7 +1323,7 @@ msgstr "Використовуйте лесурні середовища, що �
 msgid "Used"
 msgstr "Використовується"
 
-#: src/components/ImageLimitedPalette.tsx:114
+#: src/components/ImageLimitedPalette.tsx:128
 msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 msgstr "Використання обмеженої палітри допомагає досягти колірної гармонії. Виберіть до {MAX_COLORS} кольорів, які будуть вашими основними."
 
@@ -1291,11 +1331,11 @@ msgstr "Використання обмеженої палітри допома�
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "Акварель можна розбавити водою, щоб зробити її більш прозорою."
 
-#: src/components/messages.ts:46
+#: src/components/messages.ts:47
 msgid "Watercolor Paint"
 msgstr "Акварельні фарби"
 
-#: src/components/messages.ts:51
+#: src/components/messages.ts:52
 msgid "Watercolor Pencils"
 msgstr "Акварельні олівці"
 
@@ -1307,15 +1347,17 @@ msgstr "При виборі більше ніж {maxColorsFor2} в цілому,
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "При виборі більше ніж {maxColorsFor3} всього не використовуються суміші трьох кольорів."
 
-#: src/components/ImageColorPicker.tsx:258
+#: src/components/ImageColorPicker.tsx:246
 msgid "White"
 msgstr "Білий"
 
-#: src/components/messages.ts:37
+#: src/components/messages.ts:38
+#: src/components/ImagePerspectiveCorrection.tsx:209
+#: src/components/ImagePerspectiveCorrection.tsx:282
 msgid "White balance"
 msgstr "Баланс білого"
 
-#: src/components/ImageColorAdjustment.tsx:296
+#: src/components/ImageColorAdjustment.tsx:348
 msgid "White patch (%ile)"
 msgstr "Біла ділянка (%ile)"
 
@@ -1326,9 +1368,9 @@ msgstr "Ширина"
 #: src/components/CustomColorBrandCreator.tsx:377
 #: src/components/ColorSetChooser.tsx:218
 #: src/components/ColorSetChooser.tsx:733
-#: src/components/storage/ClearStorage.tsx:40
-#: src/components/storage/ClearStorage.tsx:53
-#: src/components/palette/PaletteGrid.tsx:101
+#: src/components/storage/ClearStorage.tsx:61
+#: src/components/storage/ClearStorage.tsx:74
+#: src/components/palette/PaletteGrid.tsx:102
 #: src/components/image/RecentImageCard.tsx:73
 #: src/components/color/PaletteColorMixtureCard.tsx:95
 #: src/components/color/AddToPaletteButton.tsx:51
@@ -1343,7 +1385,7 @@ msgstr "Ви увійшли в систему та маєте доступ до 
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "Ви використовуєте <0>безкоштовну версію</0> з обмеженою кількістю колірних брендів і режимів обробки зображень."
 
-#: src/components/messages.ts:59
+#: src/components/messages.ts:60
 msgid "You have not yet joined ArtistAssistApp on Patreon as a paid member. Join and log in again."
 msgstr "Ви ще не приєдналися до ArtistAssistApp на Patreon як платний учасник. Приєднуйтесь та авторизуйтесь знову."
 
@@ -1359,11 +1401,11 @@ msgstr "Ви вибрали колірні бренди, доступні лиш
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Ви вибрали режим, доступний лише для платних підписників Patreon"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app as described in the Install tab, or use a different browser such as Chrome or Firefox."
 msgstr "Ваші дані можуть зберігатися ненадійно, якщо браузер закритий. Щоб виправити це, встановіть програму, як описано на вкладці Установка, або скористайтеся іншим веб-переглядачем, як-от Chrome або Firefox."
 
-#: src/components/messages.ts:60
+#: src/components/messages.ts:61
 msgid "Your session has expired. Please log in again."
 msgstr "Термін дії сеансу минув. Будь ласка, увійдіть знову."
 

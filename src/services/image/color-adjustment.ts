@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {adjustColorsWebGL} from '~/src/services/image/filter/color-correction-webgl';
+import {adjustColorsWebGL} from '~/src/services/image/filter/color-adjustment-webgl';
 
 export interface AdjustmentParameters {
   saturation?: number;
@@ -29,13 +29,13 @@ export interface AdjustmentParameters {
   targetTemperature?: number;
 }
 
-export function getAdjustedImage(
+export function getColorAdjustedImage(
   image: ImageBitmap,
   maxValues: number[],
   adjustmentParams: AdjustmentParameters
 ): ImageBitmap {
-  console.time('color-correction');
-  const adjustedImage: ImageBitmap = adjustColorsWebGL(image, maxValues, adjustmentParams);
-  console.timeEnd('color-correction');
-  return adjustedImage;
+  console.time('color-adjustment');
+  const colorAdjustedImage: ImageBitmap = adjustColorsWebGL(image, maxValues, adjustmentParams);
+  console.timeEnd('color-adjustment');
+  return colorAdjustedImage;
 }

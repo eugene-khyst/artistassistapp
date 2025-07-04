@@ -42,7 +42,7 @@ const SQUARE_GRID_SIZE_OPTIONS: SelectOptionType[] = [4, 6, 8, 10, 12].map((size
 const DEFAULT_SQUARE_GRID_SIZE = 4;
 
 const gridCanvasSupplier = (canvas: HTMLCanvasElement): GridCanvas => {
-  return new GridCanvas(canvas);
+  return new GridCanvas(canvas, {lineWidth: 1.5});
 };
 
 export const ImageGrid: React.FC = () => {

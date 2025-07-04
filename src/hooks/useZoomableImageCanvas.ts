@@ -52,6 +52,7 @@ export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
     const listener = debounce(() => zoomableImageCanvas?.resize());
     window.addEventListener('resize', listener);
     return () => {
+      zoomableImageCanvas?.destroy();
       window.removeEventListener('load', listener);
     };
   }, [zoomableImageCanvas]);

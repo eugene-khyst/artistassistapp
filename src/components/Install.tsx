@@ -176,8 +176,9 @@ export const Install: React.FC<Props> = ({showInstallPromotion, promptToInstall}
             </Typography.Text>
             <Typography.Text>
               <Trans>
-                On older versions of macOS, install the latest version of the Chrome, Edge, or Opera
-                web browser and click the <Typography.Text strong>Install</Typography.Text> button.
+                Alternatively, install the latest version of Chrome, Edge or Opera web browser and
+                click the <Typography.Text strong>Install</Typography.Text> button. In older
+                versions of macOS, this is the only option.
               </Trans>
             </Typography.Text>
           </Space>

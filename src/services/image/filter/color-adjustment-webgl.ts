@@ -17,11 +17,11 @@
  */
 
 import {kelvinToRgb} from '~/src/services/color/color-temperature';
-import type {AdjustmentParameters} from '~/src/services/image/color-correction';
+import type {AdjustmentParameters} from '~/src/services/image/color-adjustment';
 import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
 import {copyOffscreenCanvas} from '~/src/utils/graphics';
 
-import fragmentShaderSource from './glsl/color-correction.glsl';
+import fragmentShaderSource from './glsl/color-adjustment.glsl';
 
 export function adjustColorsWebGL(
   image: ImageBitmap,

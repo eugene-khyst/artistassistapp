@@ -18,8 +18,6 @@
 
 import {useEffect, useState} from 'react';
 
-import {createImageBitmapWithFallback} from '~/src/utils/graphics';
-
 interface Result {
   isLoading: boolean;
   imageBitmap?: ImageBitmap;
@@ -38,7 +36,7 @@ export function useCreateImageBitmap(blob?: Blob | null): Result {
     let imageBitmap: ImageBitmap | undefined;
     void (async () => {
       try {
-        imageBitmap = await createImageBitmapWithFallback(blob);
+        imageBitmap = await createImageBitmap(blob);
         setImageBitmap(prev => {
           prev?.close();
           return imageBitmap;

@@ -21,13 +21,17 @@ import {create} from 'zustand';
 import type {AuthSlice} from '~/src/stores/auth-slice';
 import {createAuthSlice} from '~/src/stores/auth-slice';
 import {createLocaleSlice, type LocaleSlice} from '~/src/stores/locale-slice';
+import {
+  createPerspectiveCorrectionSlice,
+  type PerspectiveCorrectionSlice,
+} from '~/src/stores/perspective-correction-slice';
 
-import {type AdjustedImageSlice, createAdjustedImageSlice} from './adjusted-image-slice';
 import {
   type BackgroundRemovalSlice,
   createBackgroundRemovalSlice,
 } from './background-removal-slice';
 import {type BlurredImagesSlice, createBlurredImagesSlice} from './blurred-images-slice';
+import {type ColorAdjustmentSlice, createColorAdjustmentSlice} from './color-adjustment-slice';
 import {type ColorMixerSlice, createColorMixerSlice} from './color-mixer-slice';
 import {type ColorSetSlice, createColorSetSlice} from './color-set-slice';
 import {createCustomColorBrandSlice, type CustomColorBrandSlice} from './custom-color-brand-slice';
@@ -58,7 +62,8 @@ export const useAppStore = create<
     OutlineImageSlice &
     LimitedPaletteImageSlice &
     StyleTransferSlice &
-    AdjustedImageSlice &
+    PerspectiveCorrectionSlice &
+    ColorAdjustmentSlice &
     BackgroundRemovalSlice &
     TournamentSlice &
     CustomColorBrandSlice &
@@ -77,7 +82,8 @@ export const useAppStore = create<
   ...createOutlineImageSlice(...a),
   ...createLimitedPaletteImageSlice(...a),
   ...createStyleTransferSlice(...a),
-  ...createAdjustedImageSlice(...a),
+  ...createPerspectiveCorrectionSlice(...a),
+  ...createColorAdjustmentSlice(...a),
   ...createBackgroundRemovalSlice(...a),
   ...createTournamentSlice(...a),
   ...createCustomColorBrandSlice(...a),

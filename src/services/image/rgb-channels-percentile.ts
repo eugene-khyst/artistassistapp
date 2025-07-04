@@ -39,13 +39,13 @@ function sortRgbChannels(imageData: ImageData): Uint8ClampedArray[] {
 export class RgbChannelsPercentileCalculator {
   sortedRgbChannels: Uint8ClampedArray[] = [];
 
-  async setImage(blob: Blob): Promise<ImageBitmap> {
+  async setImage(blob: Blob): Promise<void> {
     const image: ImageBitmap = await createImageBitmapResizedTotalPixels(blob, IMAGE_SIZE['2K']);
     const [imageData] = imageBitmapToImageData(image);
+    image.close();
     console.time('sort-rgb-channels');
     this.sortedRgbChannels = sortRgbChannels(imageData);
     console.timeEnd('sort-rgb-channels');
-    return image;
   }
 
   calculatePercentiles(percentile: number): number[] {

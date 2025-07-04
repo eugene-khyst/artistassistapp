@@ -20,6 +20,7 @@ import {DownloadOutlined, LoadingOutlined, MoreOutlined} from '@ant-design/icons
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {MenuProps} from 'antd';
 import {Button, Col, Dropdown, Form, Grid, Row, Space, Spin, Typography} from 'antd';
+import {saveAs} from 'file-saver';
 import {useEffect, useState} from 'react';
 
 import {
@@ -30,6 +31,7 @@ import type {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-ima
 import type {Color, ColorSet} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
+import {imageBitmapToBlob} from '~/src/utils/graphics';
 
 import {ColorCascader} from './color-set/ColorCascader';
 import {EmptyColorSet} from './empty/EmptyColorSet';
@@ -53,8 +55,10 @@ export const ImageLimitedPalette: React.FC = () => {
 
   const [colors, setColors] = useState<(string | number | null)[][]>([]);
 
-  const {ref: limitedPaletteCanvasRef, zoomableImageCanvas: limitedPaletteCanvas} =
-    useZoomableImageCanvas<ZoomableImageCanvas>(zoomableImageCanvasSupplier, limitedPaletteImage);
+  const {ref: limitedPaletteCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
+    zoomableImageCanvasSupplier,
+    limitedPaletteImage
+  );
 
   const {ref: originalCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
@@ -87,13 +91,23 @@ export const ImageLimitedPalette: React.FC = () => {
     }
   };
 
+  const handleSaveClick = async () => {
+    if (!limitedPaletteImage) {
+      return;
+    }
+    saveAs(
+      await imageBitmapToBlob(limitedPaletteImage),
+      getFilename(originalImageFile, 'limited-palette')
+    );
+  };
+
   const items: MenuProps['items'] = [
     {
       key: '1',
       label: t`Save`,
       icon: <DownloadOutlined />,
       onClick: () => {
-        void limitedPaletteCanvas?.saveAsImage(getFilename(originalImageFile, 'limited-palette'));
+        void handleSaveClick();
       },
       disabled: !limitedPaletteImage,
     },
