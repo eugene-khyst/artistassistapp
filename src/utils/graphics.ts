@@ -29,11 +29,6 @@ export interface Margins {
   right: number;
 }
 
-export interface ConvertToBlobOptions {
-  type?: string;
-  quality?: number;
-}
-
 export interface DrawImageParams {
   width: number;
   height: number;
@@ -197,14 +192,17 @@ export function resizeAndCrop(targetWidth: number, targetHeight: number): DrawIm
 export function imageBitmapToOffscreenCanvas(
   image: ImageBitmap,
   willReadFrequently = false,
-  drawImageParamsSupplier: DrawImageParamsSupplier = NOOP_DRAW_IMAGE_PARAMS_SUPPLIER
+  drawImageParamsSupplier?: DrawImageParamsSupplier | null,
+  fillStyle = '#fff'
 ): [OffscreenCanvas, OffscreenCanvasRenderingContext2D] {
-  const {width, height, sx, sy, sw, sh, dx, dy, dw, dh} = drawImageParamsSupplier(drawImage(image));
+  const {width, height, sx, sy, sw, sh, dx, dy, dw, dh} = (
+    drawImageParamsSupplier ?? NOOP_DRAW_IMAGE_PARAMS_SUPPLIER
+  )(drawImage(image));
   const canvas = new OffscreenCanvas(width, height);
   const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d', {
     willReadFrequently,
   })!;
-  ctx.fillStyle = '#fff';
+  ctx.fillStyle = fillStyle;
   ctx.fillRect(0, 0, width, height);
   ctx.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
   return [canvas, ctx];
@@ -229,7 +227,7 @@ export function imageDataToOffscreenCanvas(imageData: ImageData): OffscreenCanva
 
 export async function offscreenCanvasToBlob(
   offscreenCanvas: OffscreenCanvas,
-  options?: ConvertToBlobOptions
+  options?: ImageEncodeOptions
 ): Promise<Blob> {
   const {type = 'image/jpeg', quality = 0.95} = options ?? {};
   return await offscreenCanvas.convertToBlob({type, quality});
@@ -237,8 +235,8 @@ export async function offscreenCanvasToBlob(
 
 export async function imageBitmapToBlob(
   image: ImageBitmap,
-  drawImageParamsSupplier?: DrawImageParamsSupplier,
-  options?: ConvertToBlobOptions
+  drawImageParamsSupplier?: DrawImageParamsSupplier | null,
+  options?: ImageEncodeOptions
 ): Promise<Blob> {
   const [canvas] = imageBitmapToOffscreenCanvas(image, false, drawImageParamsSupplier);
   return await offscreenCanvasToBlob(canvas, options);

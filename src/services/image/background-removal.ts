@@ -29,7 +29,7 @@ export async function removeBackground(
   blob: Blob,
   model: OnnxModel,
   progressCallback?: ProgressCallback
-): Promise<Blob> {
+): Promise<OffscreenCanvas> {
   console.time('background-removal');
   const {url: modelUrl, resolution, standardDeviation, mean} = model;
   const originalImage = await createImageBitmap(blob);
@@ -48,10 +48,10 @@ export async function removeBackground(
     originalWidth,
     originalHeight
   );
-  const noBgBlob: Blob = await applyMask(originalImage, mask).convertToBlob({type: 'image/png'});
+  const resultCanvas: OffscreenCanvas = applyMask(originalImage, mask);
   originalImage.close();
   console.timeEnd('background-removal');
-  return noBgBlob;
+  return resultCanvas;
 }
 
 function tensorToMask(
@@ -71,4 +71,12 @@ function tensorToMask(
   const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d')!;
   ctx.putImageData(new ImageData(data, resolution, resolution), 0, 0);
   return interpolationWebGL(canvas, width, height, Interpolation.Bilinear);
+}
+
+export function fillBackgroundWithColor(canvas: OffscreenCanvas, color: string): void {
+  const {width, height} = canvas;
+  const ctx: OffscreenRenderingContext = canvas.getContext('2d')!;
+  ctx.globalCompositeOperation = 'destination-over';
+  ctx.fillStyle = color;
+  ctx.fillRect(0, 0, width, height);
 }

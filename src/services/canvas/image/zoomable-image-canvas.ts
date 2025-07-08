@@ -21,7 +21,7 @@ import {saveAs} from 'file-saver';
 import {Canvas} from '~/src/services/canvas/canvas';
 import {clamp} from '~/src/services/math/clamp';
 import {Rectangle, Vector} from '~/src/services/math/geometry';
-import {type ConvertToBlobOptions, offscreenCanvasToBlob} from '~/src/utils/graphics';
+import {offscreenCanvasToBlob} from '~/src/utils/graphics';
 
 export interface ZoomableImageCanvasProps {
   zoomFactor?: number;
@@ -405,7 +405,7 @@ export class ZoomableImageCanvas extends Canvas {
     }
   }
 
-  async convertToBlob(options?: ConvertToBlobOptions): Promise<Blob | undefined> {
+  async convertToBlob(options?: ImageEncodeOptions): Promise<Blob | undefined> {
     const blobSource: OffscreenCanvas | null = this.getBlobSource();
     if (!blobSource) {
       return;

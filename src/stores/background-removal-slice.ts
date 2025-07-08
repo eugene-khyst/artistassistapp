@@ -20,17 +20,21 @@ import type {StateCreator} from 'zustand';
 
 import type {User} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
-import {removeBackground} from '~/src/services/image/background-removal';
+import {fillBackgroundWithColor, removeBackground} from '~/src/services/image/background-removal';
 import type {OnnxModel} from '~/src/services/ml/types';
+import {copyOffscreenCanvas, offscreenCanvasToBlob} from '~/src/utils/graphics';
 
 export interface BackgroundRemovalSlice {
   imageFileToRemoveBackground: File | null;
+  backgroundRemovalColor?: string | null;
+  imageWithoutBackgroundCanvas: OffscreenCanvas | null;
+  imageWithoutBackgroundBlob: Blob | null;
   isBackgroundRemovalLoading: boolean;
   backgroundRemovalLoadingTip: string | null;
-  imageWithoutBackgroundBlob: Blob | null;
 
   setImageFileToRemoveBackground: (imageFileToRemoveBackground: File | null) => void;
-  loadImageWithoutBackground: (model?: OnnxModel | null, user?: User | null) => Promise<void>;
+  setBackgroundRemovalColor: (backgroundRemovalColor: string | null) => void;
+  removeBackground: (model?: OnnxModel | null, user?: User | null) => Promise<void>;
 }
 
 export const createBackgroundRemovalSlice: StateCreator<
@@ -40,18 +44,28 @@ export const createBackgroundRemovalSlice: StateCreator<
   BackgroundRemovalSlice
 > = (set, get) => ({
   imageFileToRemoveBackground: null,
+  backgroundRemovalColor: null,
+  imageWithoutBackgroundCanvas: null,
+  imageWithoutBackgroundBlob: null,
   isBackgroundRemovalLoading: false,
   backgroundRemovalLoadingTip: null,
-  imageWithoutBackgroundBlob: null,
 
   setImageFileToRemoveBackground: (imageFileToRemoveBackground: File | null): void => {
-    set({imageFileToRemoveBackground});
+    set({
+      imageFileToRemoveBackground,
+      imageWithoutBackgroundCanvas: null,
+      imageWithoutBackgroundBlob: null,
+    });
   },
-  loadImageWithoutBackground: async (
-    model?: OnnxModel | null,
-    user?: User | null
-  ): Promise<void> => {
-    const {imageFileToRemoveBackground} = get();
+  setBackgroundRemovalColor: (backgroundRemovalColor: string | null): void => {
+    set({
+      backgroundRemovalColor,
+      imageWithoutBackgroundBlob: null,
+    });
+  },
+  removeBackground: async (model?: OnnxModel | null, user?: User | null): Promise<void> => {
+    const {imageFileToRemoveBackground, backgroundRemovalColor} = get();
+    let {imageWithoutBackgroundCanvas} = get();
     if (!imageFileToRemoveBackground || !model || !hasAccessTo(user, model)) {
       return;
     }
@@ -61,14 +75,27 @@ export const createBackgroundRemovalSlice: StateCreator<
         backgroundRemovalLoadingTip: null,
         imageWithoutBackgroundBlob: null,
       });
-      const imageWithoutBackgroundBlob = await removeBackground(
-        imageFileToRemoveBackground,
-        model,
-        key => {
-          set({backgroundRemovalLoadingTip: key});
-        }
+      if (!imageWithoutBackgroundCanvas) {
+        imageWithoutBackgroundCanvas = await removeBackground(
+          imageFileToRemoveBackground,
+          model,
+          key => {
+            set({backgroundRemovalLoadingTip: key});
+          }
+        );
+        set({imageWithoutBackgroundCanvas});
+      }
+      if (backgroundRemovalColor) {
+        imageWithoutBackgroundCanvas = copyOffscreenCanvas(imageWithoutBackgroundCanvas);
+        fillBackgroundWithColor(imageWithoutBackgroundCanvas, backgroundRemovalColor);
+      }
+      const imageWithoutBackgroundBlob: Blob = await offscreenCanvasToBlob(
+        imageWithoutBackgroundCanvas,
+        {type: 'image/png'}
       );
-      set({imageWithoutBackgroundBlob});
+      set({
+        imageWithoutBackgroundBlob,
+      });
     } finally {
       set({
         isBackgroundRemovalLoading: false,

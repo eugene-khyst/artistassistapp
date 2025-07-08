@@ -16,10 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined, LoadingOutlined, MoreOutlined} from '@ant-design/icons';
+import {BgColorsOutlined, DownloadOutlined, LoadingOutlined, MoreOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {MenuProps} from 'antd';
-import {App, Button, Dropdown, Flex, Form, Grid, Space, Spin, Typography} from 'antd';
+import {App, Button, ColorPicker, Dropdown, Flex, Form, Grid, Space, Spin, Typography} from 'antd';
+import type {Color} from 'antd/es/color-picker';
 import {saveAs} from 'file-saver';
 import type {ChangeEvent, CSSProperties} from 'react';
 import {useEffect, useState} from 'react';
@@ -40,17 +41,19 @@ import {OnnxModelType} from '~/src/services/ml/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
 
-export const ImageBackgroundRemove: React.FC = () => {
+export const ImageBackgroundRemoval: React.FC = () => {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
   const appSettings = useAppStore(state => state.appSettings);
   const imageFileToRemoveBackground = useAppStore(state => state.imageFileToRemoveBackground);
+  const backgroundRemovalColor = useAppStore(state => state.backgroundRemovalColor);
   const isBackgroundRemovalLoading = useAppStore(state => state.isBackgroundRemovalLoading);
   const backgroundRemovalLoadingTip = useAppStore(state => state.backgroundRemovalLoadingTip);
   const imageWithoutBackgroundBlob = useAppStore(state => state.imageWithoutBackgroundBlob);
 
   const setImageFileToRemoveBackground = useAppStore(state => state.setImageFileToRemoveBackground);
-  const loadImageWithoutBackground = useAppStore(state => state.loadImageWithoutBackground);
+  const setBackgroundRemovalColor = useAppStore(state => state.setBackgroundRemovalColor);
+  const removeBackground = useAppStore(state => state.removeBackground);
 
   const screens = Grid.useBreakpoint();
 
@@ -66,6 +69,7 @@ export const ImageBackgroundRemove: React.FC = () => {
 
   const [modelId, setModelId] = useState<string>();
   const [position, setPosition] = useState<number>(100);
+  const [isColorPickerOpened, setIsColorPickerOpened] = useState<boolean>(false);
 
   const model: OnnxModel | null | undefined = modelId ? models?.get(modelId) : null;
 
@@ -74,7 +78,9 @@ export const ImageBackgroundRemove: React.FC = () => {
   const isLoading: boolean = isModelsLoading || isBackgroundRemovalLoading || isAuthLoading;
 
   const imageUrl: string | undefined = useCreateObjectUrl(imageFileToRemoveBackground);
-  const noBgImageUrl: string | undefined = useCreateObjectUrl(imageWithoutBackgroundBlob);
+  const imageWithoutBackgroundUrl: string | undefined = useCreateObjectUrl(
+    imageWithoutBackgroundBlob
+  );
 
   useEffect(() => {
     if (isModelsError) {
@@ -99,10 +105,10 @@ export const ImageBackgroundRemove: React.FC = () => {
   useEffect(() => {
     void (async () => {
       setPosition(100);
-      await loadImageWithoutBackground(model, user);
+      await removeBackground(model, user);
       setPosition(25);
     })();
-  }, [loadImageWithoutBackground, model, user, imageFileToRemoveBackground]);
+  }, [removeBackground, model, user, imageFileToRemoveBackground, backgroundRemovalColor]);
 
   const handleModelChange = (value: string) => {
     setModelId(value);
@@ -115,18 +121,30 @@ export const ImageBackgroundRemove: React.FC = () => {
   };
 
   const handleSaveClick = () => {
-    if (noBgImageUrl) {
-      saveAs(noBgImageUrl, getFilename(imageFileToRemoveBackground, 'no-background'));
+    if (imageWithoutBackgroundUrl) {
+      saveAs(imageWithoutBackgroundUrl, getFilename(imageFileToRemoveBackground, 'no-background'));
     }
   };
 
   const items: MenuProps['items'] = [
     {
       key: '1',
-      label: t`Save`,
-      icon: <DownloadOutlined />,
-      onClick: handleSaveClick,
+      label: t`Background`,
+      icon: <BgColorsOutlined />,
+      onClick: () => {
+        setIsColorPickerOpened(true);
+      },
     },
+    ...(imageWithoutBackgroundUrl
+      ? [
+          {
+            key: '2',
+            label: t`Save`,
+            icon: <DownloadOutlined />,
+            onClick: handleSaveClick,
+          },
+        ]
+      : []),
   ];
 
   const imageStyle: CSSProperties = {
@@ -164,6 +182,11 @@ export const ImageBackgroundRemove: React.FC = () => {
           }
         >
           <Space align="start" style={{display: 'flex'}}>
+            {isAccessAllowed && (
+              <FileSelect onChange={handleFileChange}>
+                <Trans>Select photo</Trans>
+              </FileSelect>
+            )}
             <Form.Item
               label={t`Mode`}
               style={{margin: 0}}
@@ -176,21 +199,52 @@ export const ImageBackgroundRemove: React.FC = () => {
                 style={{width: 105}}
               />
             </Form.Item>
-            {isAccessAllowed && (
-              <FileSelect onChange={handleFileChange}>
-                <Trans>Select photo</Trans>
-              </FileSelect>
-            )}
-            {noBgImageUrl &&
-              (screens.sm ? (
-                <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
-                  <Trans>Save</Trans>
-                </Button>
-              ) : (
+            {screens.sm ? (
+              <>
+                <Form.Item label={t`Background`} style={{marginBottom: 0}}>
+                  <ColorPicker
+                    disabledAlpha
+                    allowClear
+                    onClear={() => {
+                      setBackgroundRemovalColor(null);
+                    }}
+                    value={backgroundRemovalColor}
+                    onChangeComplete={(color: Color) => {
+                      setBackgroundRemovalColor(color.toHexString());
+                    }}
+                  />
+                </Form.Item>
+                {imageWithoutBackgroundUrl && (
+                  <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
+                    <Trans>Save</Trans>
+                  </Button>
+                )}
+              </>
+            ) : (
+              <ColorPicker
+                open={isColorPickerOpened}
+                onOpenChange={(open: boolean) => {
+                  if (!open) {
+                    setIsColorPickerOpened(open);
+                  }
+                }}
+                disabledAlpha
+                allowClear
+                onClear={() => {
+                  setBackgroundRemovalColor(null);
+                  setIsColorPickerOpened(false);
+                }}
+                value={backgroundRemovalColor}
+                onChangeComplete={(color: Color) => {
+                  setBackgroundRemovalColor(color.toHexString());
+                  setIsColorPickerOpened(false);
+                }}
+              >
                 <Dropdown menu={{items}}>
                   <Button icon={<MoreOutlined />} />
                 </Dropdown>
-              ))}
+              </ColorPicker>
+            )}
           </Space>
         </Form.Item>
       </Flex>
@@ -203,9 +257,9 @@ export const ImageBackgroundRemove: React.FC = () => {
           )
         }
         itemTwo={
-          noBgImageUrl && (
+          imageWithoutBackgroundUrl && (
             <ReactCompareSliderImage
-              src={noBgImageUrl}
+              src={imageWithoutBackgroundUrl}
               alt={t`Image without background`}
               style={{backgroundColor: '#fff', ...imageStyle}}
             />
