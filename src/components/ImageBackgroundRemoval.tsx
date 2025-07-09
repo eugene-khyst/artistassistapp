@@ -231,12 +231,10 @@ export const ImageBackgroundRemoval: React.FC = () => {
                 allowClear
                 onClear={() => {
                   setBackgroundRemovalColor(null);
-                  setIsColorPickerOpened(false);
                 }}
                 value={backgroundRemovalColor}
                 onChangeComplete={(color: Color) => {
                   setBackgroundRemovalColor(color.toHexString());
-                  setIsColorPickerOpened(false);
                 }}
               >
                 <Dropdown menu={{items}}>
