@@ -19,12 +19,12 @@
 import {PrinterOutlined, QuestionCircleOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Col, Flex, Row, Space, theme, Tooltip, Typography} from 'antd';
-import type {ChangeEvent, RefObject} from 'react';
+import type {RefObject} from 'react';
 import {useEffect, useRef} from 'react';
 import {useReactToPrint} from 'react-to-print';
 
 import {AdCard} from '~/src/components/ad/AdCard';
-import {FileSelect} from '~/src/components/image/FileSelect';
+import {FileSelect} from '~/src/components/file/FileSelect';
 import {ImageCard} from '~/src/components/image/ImageCard';
 import type {Score} from '~/src/services/rating/rating';
 import {Player} from '~/src/services/rating/rating';
@@ -69,8 +69,8 @@ export const ImagesCompare: React.FC = () => {
     }
   }, [unfinishedGamesSize]);
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    for (const file of e.target.files ?? []) {
+  const handleFileChange = (files: File[]) => {
+    for (const file of files) {
       addPlayer(new Player<File>(file));
     }
   };

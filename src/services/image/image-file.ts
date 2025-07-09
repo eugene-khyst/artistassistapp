@@ -27,13 +27,7 @@ export interface ImageFile {
 }
 
 export async function fileToImageFile(file: File): Promise<ImageFile> {
-  const {type, name} = file;
-  return {
-    buffer: await file.arrayBuffer(),
-    type,
-    name,
-    date: new Date(),
-  };
+  return blobToImageFile(file, file.name);
 }
 
 export async function blobToImageFile(blob: Blob, name?: string): Promise<ImageFile> {
@@ -41,6 +35,7 @@ export async function blobToImageFile(blob: Blob, name?: string): Promise<ImageF
     buffer: await blob.arrayBuffer(),
     type: blob.type,
     name,
+    date: new Date(),
   };
 }
 

@@ -41,11 +41,10 @@ import type {CheckboxChangeEvent} from 'antd/es/checkbox';
 import type {SliderMarks} from 'antd/es/slider';
 import type {MenuProps} from 'antd/lib';
 import {saveAs} from 'file-saver';
-import type {ChangeEvent} from 'react';
 import {useEffect, useMemo, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
-import {FileSelect} from '~/src/components/image/FileSelect';
+import {FileSelect} from '~/src/components/file/FileSelect';
 import {useDebounce} from '~/src/hooks/useDebounce';
 import {
   useZoomableImageCanvas,
@@ -202,9 +201,8 @@ export const ImageColorAdjustment: React.FC = () => {
     targetTempDebounced,
   ]);
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file: File | null = e.target.files?.[0] ?? null;
-    void setImageFileToAdjustColors(file);
+  const handleFileChange = ([file]: File[]) => {
+    void setImageFileToAdjustColors(file ?? null);
   };
 
   const handlePreviewChange = ({target: {checked}}: CheckboxChangeEvent) => {
@@ -300,7 +298,7 @@ export const ImageColorAdjustment: React.FC = () => {
             </Typography.Text>
 
             <Space>
-              <FileSelect onChange={handleFileChange}>
+              <FileSelect onChange={handleFileChange} useReferencePhoto>
                 <Trans>Select photo</Trans>
               </FileSelect>
               {colorAdjustedImage && (

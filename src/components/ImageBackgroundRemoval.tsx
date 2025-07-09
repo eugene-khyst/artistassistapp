@@ -22,11 +22,11 @@ import type {MenuProps} from 'antd';
 import {App, Button, ColorPicker, Dropdown, Flex, Form, Grid, Space, Spin, Typography} from 'antd';
 import type {Color} from 'antd/es/color-picker';
 import {saveAs} from 'file-saver';
-import type {ChangeEvent, CSSProperties} from 'react';
+import type {CSSProperties} from 'react';
 import {useEffect, useState} from 'react';
 import {ReactCompareSlider, ReactCompareSliderImage} from 'react-compare-slider';
 
-import {FileSelect} from '~/src/components/image/FileSelect';
+import {FileSelect} from '~/src/components/file/FileSelect';
 import {OnnxModelSelect} from '~/src/components/ml-model/OnnxModelSelect';
 import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
@@ -115,9 +115,8 @@ export const ImageBackgroundRemoval: React.FC = () => {
     void saveAppSettings({backgroundRemovalModel: value});
   };
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file: File | null = e.target.files?.[0] ?? null;
-    setImageFileToRemoveBackground(file);
+  const handleFileChange = ([file]: File[]) => {
+    setImageFileToRemoveBackground(file ?? null);
   };
 
   const handleSaveClick = () => {
@@ -183,12 +182,12 @@ export const ImageBackgroundRemoval: React.FC = () => {
         >
           <Space align="start" style={{display: 'flex'}}>
             {isAccessAllowed && (
-              <FileSelect onChange={handleFileChange}>
+              <FileSelect onChange={handleFileChange} useReferencePhoto>
                 <Trans>Select photo</Trans>
               </FileSelect>
             )}
             <Form.Item
-              label={t`Mode`}
+              label={screens.sm ? t`Mode` : null}
               style={{margin: 0}}
               validateStatus={!isAccessAllowed ? 'warning' : undefined}
             >

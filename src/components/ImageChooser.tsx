@@ -19,11 +19,10 @@
 import {LoadingOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {App, Col, Flex, Row, Spin, Typography} from 'antd';
-import type {ChangeEvent} from 'react';
 import {useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
-import {FileSelect} from '~/src/components/image/FileSelect';
+import {FileSelect} from '~/src/components/file/FileSelect';
 import {PERSISTENT_STORAGE_WARN} from '~/src/components/messages';
 import type {ImageFile} from '~/src/services/image/image-file';
 import {fileToImageFile} from '~/src/services/image/image-file';
@@ -47,7 +46,7 @@ export const ImageChooser: React.FC = () => {
 
   const isLoading: boolean = sampleImagesLoadingCount > 0;
 
-  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async ([file]: File[]) => {
     if (!(await requestPersistentStorage())) {
       const {title, content} = PERSISTENT_STORAGE_WARN;
       await modal.warning({
@@ -55,7 +54,6 @@ export const ImageChooser: React.FC = () => {
         content: t(content),
       });
     }
-    const file: File | undefined = e.target.files?.[0];
     if (file) {
       void saveRecentImageFile(await fileToImageFile(file));
     }
@@ -69,7 +67,11 @@ export const ImageChooser: React.FC = () => {
         </Typography.Text>
 
         <div>
-          <FileSelect onChange={e => void handleFileChange(e)}>
+          <FileSelect
+            onChange={(files: File[]) => {
+              void handleFileChange(files);
+            }}
+          >
             <Trans>Select photo</Trans>
           </FileSelect>
         </div>

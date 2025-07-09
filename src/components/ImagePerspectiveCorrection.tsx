@@ -30,9 +30,8 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {App, Button, Dropdown, Flex, Grid, Space, Spin, theme, Tooltip, Typography} from 'antd';
 import type {MenuProps} from 'antd/lib';
 import {saveAs} from 'file-saver';
-import {type ChangeEvent} from 'react';
 
-import {FileSelect} from '~/src/components/image/FileSelect';
+import {FileSelect} from '~/src/components/file/FileSelect';
 import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
 import {ImageCroppingCanvas} from '~/src/services/canvas/image/image-cropping-canvas';
 import {ImagePerspectiveCorrectionCanvas} from '~/src/services/canvas/image/image-perspective-correction-canvas';
@@ -97,9 +96,8 @@ export const ImagePerspectiveCorrection: React.FC = () => {
       perspectiveCorrectedImage
     );
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file: File | null = e.target.files?.[0] ?? null;
-    void setImageFileToCorrectPerspective(file);
+  const handleFileChange = ([file]: File[]) => {
+    void setImageFileToCorrectPerspective(file ?? null);
   };
 
   const handleApplyClick = () => {
@@ -236,7 +234,7 @@ export const ImagePerspectiveCorrection: React.FC = () => {
           </Tooltip>
         </Space>
         <Space align="start">
-          <FileSelect onChange={handleFileChange}>
+          <FileSelect onChange={handleFileChange} useReferencePhoto>
             <Trans>Select photo</Trans>
           </FileSelect>
           {perspectiveUncorrectedImage && (

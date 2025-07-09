@@ -23,6 +23,8 @@ import type {ImageFile} from '~/src/services/image/image-file';
 import type {ArtistAssistAppDB} from './db';
 import {dbPromise} from './db';
 
+const MAX_IMAGE_FILES = 15;
+
 export async function getLastImageFile(): Promise<ImageFile | undefined> {
   const db = await dbPromise;
   const index = db.transaction('images').store.index('by-date');
@@ -36,15 +38,15 @@ export async function getImageFiles(): Promise<ImageFile[]> {
   return imageFiles.reverse();
 }
 
-export async function saveImageFile(imageFile: ImageFile, maxImageFiles = 12): Promise<void> {
+export async function saveImageFile(imageFile: ImageFile): Promise<void> {
   const db = await dbPromise;
   imageFile.date = new Date();
   if (!imageFile.id) {
     const tx = db.transaction(['images', 'color-mixtures'], 'readwrite');
     const imageFileIds: number[] = await tx.objectStore('images').index('by-date').getAllKeys();
     imageFileIds.reverse();
-    if (imageFileIds.length >= maxImageFiles) {
-      for (const id of imageFileIds.slice(maxImageFiles - 1)) {
+    if (imageFileIds.length >= MAX_IMAGE_FILES) {
+      for (const id of imageFileIds.slice(MAX_IMAGE_FILES - 1)) {
         void deleteImageFileAndColorMixtures(tx, id);
       }
     }

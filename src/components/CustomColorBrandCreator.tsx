@@ -40,13 +40,12 @@ import {
 import type {Color} from 'antd/es/color-picker';
 import type {SliderMarks} from 'antd/es/slider';
 import {saveAs} from 'file-saver';
-import type {ChangeEvent} from 'react';
 import {useCallback, useEffect, useState} from 'react';
 
 import {OpacitySelect} from '~/src/components/color/OpacitySelect';
 import {ColorTypeSelect} from '~/src/components/color-set/ColorTypeSelect';
 import {CustomColorBrandSelect} from '~/src/components/color-set/CustomColorBrandSelect';
-import {FileSelect} from '~/src/components/image/FileSelect';
+import {FileSelect} from '~/src/components/file/FileSelect';
 import {useCreateImageBitmap} from '~/src/hooks/useCreateImageBitmap';
 import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
 import type {PipetPointSetEvent} from '~/src/services/canvas/image/image-color-picker-canvas';
@@ -168,13 +167,11 @@ export const CustomColorBrandCreator: React.FC = () => {
 
   const isLoading: boolean = isImageLoading || isCustomColorBrandsLoading;
 
-  const handleImageFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file: File | null = e.target.files?.[0] ?? null;
-    setImageFile(file);
+  const handleImageFileChange = ([file]: File[]) => {
+    setImageFile(file ?? null);
   };
 
-  const handleJsonFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    const file: File | null = e.target.files?.[0] ?? null;
+  const handleJsonFileChange = async ([file]: File[]) => {
     if (file) {
       form.resetFields();
       const brand = JSON.parse(await file.text()) as CustomColorBrandDefinition;
@@ -302,7 +299,7 @@ export const CustomColorBrandCreator: React.FC = () => {
                     <FileSelect
                       type="default"
                       accept="application/json"
-                      onChange={e => void handleJsonFileChange(e)}
+                      onChange={(files: File[]) => void handleJsonFileChange(files)}
                     >
                       <Trans>Import JSON</Trans>
                     </FileSelect>

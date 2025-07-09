@@ -22,11 +22,10 @@ import type {RadioChangeEvent} from 'antd';
 import {App, Button, Card, Col, Grid, Radio, Row, Space, Spin, Typography} from 'antd';
 import Meta from 'antd/es/card/Meta';
 import {saveAs} from 'file-saver';
-import type {ChangeEvent} from 'react';
 import {useEffect, useMemo, useState} from 'react';
 
 import {EmptyImage} from '~/src/components/empty/EmptyImage';
-import {FileSelect} from '~/src/components/image/FileSelect';
+import {FileSelect} from '~/src/components/file/FileSelect';
 import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
 import {hasAccessTo} from '~/src/services/auth/utils';
@@ -112,9 +111,8 @@ export const ImageStyleTransfer: React.FC = () => {
     void saveAppSettings({styleTransferModel: value});
   };
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>, modelId: string) => {
-    const file: File | null = e.target.files?.[0] ?? null;
-    void setStyleImageFile(file);
+  const handleFileChange = ([file]: File[], modelId: string) => {
+    void setStyleImageFile(file ?? null);
     setModelId(modelId);
   };
 
@@ -211,8 +209,8 @@ export const ImageStyleTransfer: React.FC = () => {
                           ? [
                               <FileSelect
                                 key={id}
-                                onChange={e => {
-                                  handleFileChange(e, id);
+                                onChange={(files: File[]) => {
+                                  handleFileChange(files, id);
                                 }}
                                 disabled={!isAccessAllowed}
                               >
