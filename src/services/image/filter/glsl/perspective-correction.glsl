@@ -1,6 +1,6 @@
 #version 300 es
 
-precision mediump float;
+precision highp float;
 
 uniform sampler2D u_texture;
 uniform mat3 u_inverse_homography;

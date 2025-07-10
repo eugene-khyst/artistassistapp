@@ -1,5 +1,5 @@
 #version 300 es
-precision mediump float;
+precision highp float;
 
 const int MAX_KERNEL_SIZE = 25;
 

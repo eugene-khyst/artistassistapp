@@ -1,6 +1,6 @@
 #version 300 es
 
-precision mediump float;
+precision highp float;
 
 uniform sampler2D u_texture;
 uniform vec3 u_invMaxValues;
