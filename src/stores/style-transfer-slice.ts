@@ -18,59 +18,69 @@
 
 import type {StateCreator} from 'zustand';
 
-import type {User} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {saveAppSettings} from '~/src/services/db/app-settings-db';
 import {fileToImageFile} from '~/src/services/image/image-file';
 import {transferStyle} from '~/src/services/image/style-transfer';
 import type {OnnxModel} from '~/src/services/ml/types';
+import type {AuthSlice} from '~/src/stores/auth-slice';
 import type {OriginalImageSlice} from '~/src/stores/original-image-slice';
+import {offscreenCanvasToBlob} from '~/src/utils/graphics';
 
 export interface StyleTransferSlice {
-  styleImageFile: File | null;
-  styleTransferTrigger: boolean;
+  styleTransferModel?: OnnxModel | null;
+  styleImageFile?: File | null;
   isStyleTransferLoading: boolean;
   styleTransferLoadingTip: string | null;
   styledImageBlob: Blob | null;
 
-  setStyleImageFile: (styleImageFile: File | null) => Promise<void>;
-  triggerStyleTransfer: () => void;
-  loadStyledImage: (model?: OnnxModel | null, user?: User | null) => Promise<void>;
+  setStyleTransferModel: (styleTransferModel?: OnnxModel | null) => void;
+  setStyleImageFile: (styleImageFile?: File | null) => Promise<void>;
+  loadStyledImage: () => Promise<void>;
 }
 
 export const createStyleTransferSlice: StateCreator<
-  StyleTransferSlice & OriginalImageSlice,
+  StyleTransferSlice & OriginalImageSlice & AuthSlice,
   [],
   [],
   StyleTransferSlice
 > = (set, get) => ({
+  styleTransferModel: null,
   styleImageFile: null,
-  styleTransferTrigger: false,
   isStyleTransferLoading: false,
   styleTransferLoadingTip: null,
   styledImageBlob: null,
 
-  setStyleImageFile: async (styleImageFile: File | null): Promise<void> => {
+  setStyleTransferModel: (styleTransferModel?: OnnxModel | null): void => {
+    set({
+      styleTransferModel,
+      styledImageBlob: null,
+    });
+    void get().loadStyledImage();
+  },
+  setStyleImageFile: async (styleImageFile?: File | null): Promise<void> => {
     if (styleImageFile) {
-      set({styleImageFile});
+      set({
+        styleImageFile,
+        styledImageBlob: null,
+      });
       void saveAppSettings({
         styleTransferImage: await fileToImageFile(styleImageFile),
       });
+      void get().loadStyledImage();
     }
   },
-  triggerStyleTransfer: (): void => {
-    if (!get().styleTransferTrigger) {
-      set({
-        styleTransferTrigger: true,
-      });
-    }
-  },
-  loadStyledImage: async (model?: OnnxModel | null, user?: User | null): Promise<void> => {
-    const {originalImage, styleImageFile, styleTransferTrigger} = get();
-    if (!styleTransferTrigger || !originalImage || !model || !hasAccessTo(user, model)) {
+  loadStyledImage: async (): Promise<void> => {
+    const {originalImage, styleImageFile, styleTransferModel, styledImageBlob, auth} = get();
+    if (
+      styledImageBlob ||
+      !originalImage ||
+      !styleTransferModel ||
+      !hasAccessTo(auth?.user, styleTransferModel)
+    ) {
       return;
     }
-    const {numInputs = 1} = model;
+    const {numInputs = 1} = styleTransferModel;
     if (numInputs > 1 && !styleImageFile) {
       return;
     }
@@ -83,9 +93,14 @@ export const createStyleTransferSlice: StateCreator<
         styledImageBlob: null,
       });
       const images = styleImage ? [originalImage, styleImage] : [originalImage];
-      const styledImageBlob: Blob = await transferStyle(images, model, key => {
-        set({styleTransferLoadingTip: key});
-      });
+      const styledImageCanvas: OffscreenCanvas = await transferStyle(
+        images,
+        styleTransferModel,
+        key => {
+          set({styleTransferLoadingTip: key});
+        }
+      );
+      const styledImageBlob: Blob = await offscreenCanvasToBlob(styledImageCanvas);
       set({styledImageBlob});
     } finally {
       styleImage?.close();

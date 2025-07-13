@@ -229,13 +229,12 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
           },
           brands,
           colors,
-          user,
           false
         )
       );
     }
     setHasUnsavedChanges(false);
-  }, [modal, form, brands, colors, user, saveColorSet, hasUnsavedChanges, t]);
+  }, [modal, form, brands, colors, saveColorSet, hasUnsavedChanges, t]);
 
   useImperativeHandle(
     ref,
@@ -361,8 +360,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
           ...(id ? {id} : {}),
         },
         brands,
-        colors,
-        user
+        colors
       )
     );
   };

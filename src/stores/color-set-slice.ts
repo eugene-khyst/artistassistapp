@@ -18,7 +18,6 @@
 
 import type {StateCreator} from 'zustand';
 
-import type {User} from '~/src/services/auth/types';
 import {toColorSet} from '~/src/services/color/colors';
 import type {
   ColorBrandDefinition,
@@ -28,6 +27,7 @@ import type {
   ColorType,
 } from '~/src/services/color/types';
 import {deleteColorSet, getColorSetsByType, saveColorSet} from '~/src/services/db/color-set-db';
+import type {AuthSlice} from '~/src/stores/auth-slice';
 
 import type {ColorMixerSlice} from './color-mixer-slice';
 
@@ -40,14 +40,13 @@ export interface ColorSetSlice {
     colorSetDefinition: ColorSetDefinition,
     brands?: Map<number, ColorBrandDefinition>,
     colors?: Map<string, Map<number, ColorDefinition>>,
-    user?: User | null,
     setActiveTabKey?: boolean
   ) => Promise<ColorSetDefinition>;
   deleteColorSet: (idToDelete: number) => Promise<void>;
 }
 
 export const createColorSetSlice: StateCreator<
-  ColorSetSlice & ColorMixerSlice,
+  ColorSetSlice & ColorMixerSlice & AuthSlice,
   [],
   [],
   ColorSetSlice
@@ -70,17 +69,17 @@ export const createColorSetSlice: StateCreator<
     colorSetDef: ColorSetDefinition,
     brands?: Map<number, ColorBrandDefinition>,
     colors?: Map<string, Map<number, ColorDefinition>>,
-    user?: User | null,
     setActiveTabKey?: boolean
   ): Promise<ColorSetDefinition> => {
+    const {colorSetsByType, auth} = get();
     await saveColorSet(colorSetDef);
     set({
       colorSetsByType: [
         colorSetDef,
-        ...get().colorSetsByType.filter(({id}: ColorSetDefinition) => id !== colorSetDef.id),
+        ...colorSetsByType.filter(({id}: ColorSetDefinition) => id !== colorSetDef.id),
       ],
     });
-    const colorSet: ColorSet | undefined = toColorSet(colorSetDef, brands, colors, user);
+    const colorSet: ColorSet | undefined = toColorSet(colorSetDef, brands, colors, auth?.user);
     if (colorSet) {
       await get().setColorSet(colorSet, setActiveTabKey);
     }

@@ -59,6 +59,7 @@ export const createColorAdjustmentSlice: StateCreator<
   colorUnadjustedImage: null,
   colorAdjustedImage: null,
   isColorAdjustedImageLoading: false,
+
   setImageFileToAdjustColors: async (imageFileToAdjustColors: File | null): Promise<void> => {
     const {
       colorUnadjustedImage: prevColorUnadjustedImage,

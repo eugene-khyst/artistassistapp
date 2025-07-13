@@ -29,6 +29,7 @@ import {ReactCompareSlider, ReactCompareSliderImage} from 'react-compare-slider'
 import {FileSelect} from '~/src/components/file/FileSelect';
 import {OnnxModelSelect} from '~/src/components/ml-model/OnnxModelSelect';
 import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
+import {useDebounce} from '~/src/hooks/useDebounce';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {saveAppSettings} from '~/src/services/db/app-settings-db';
@@ -52,8 +53,8 @@ export const ImageBackgroundRemoval: React.FC = () => {
   const imageWithoutBackgroundBlob = useAppStore(state => state.imageWithoutBackgroundBlob);
 
   const setImageFileToRemoveBackground = useAppStore(state => state.setImageFileToRemoveBackground);
+  const setBackgroundRemovalModel = useAppStore(state => state.setBackgroundRemovalModel);
   const setBackgroundRemovalColor = useAppStore(state => state.setBackgroundRemovalColor);
-  const removeBackground = useAppStore(state => state.removeBackground);
 
   const screens = Grid.useBreakpoint();
 
@@ -82,6 +83,8 @@ export const ImageBackgroundRemoval: React.FC = () => {
     imageWithoutBackgroundBlob
   );
 
+  const isBackgroundRemovalLoadingDebounced = useDebounce(isBackgroundRemovalLoading, 100);
+
   useEffect(() => {
     if (isModelsError) {
       notification.error({
@@ -94,24 +97,26 @@ export const ImageBackgroundRemoval: React.FC = () => {
 
   useEffect(() => {
     const {backgroundRemovalModel} = appSettings;
-    setModelId(
-      backgroundRemovalModel ??
-        [...(models?.values() ?? [])].sort(
-          !user ? compareOnnxModelsByFreeTierAndPriority : compareOnnxModelsByPriority
-        )[0]?.id
-    );
-  }, [appSettings, models, user]);
+    let model: OnnxModel | undefined;
+    if (backgroundRemovalModel) {
+      model = models?.get(backgroundRemovalModel);
+    }
+    if (!model && models?.size) {
+      [model] = [...models.values()].sort(
+        !user ? compareOnnxModelsByFreeTierAndPriority : compareOnnxModelsByPriority
+      );
+    }
+    setModelId(model?.id);
+    setBackgroundRemovalModel(model);
+  }, [setBackgroundRemovalModel, appSettings, models, user]);
 
   useEffect(() => {
-    void (async () => {
-      setPosition(100);
-      await removeBackground(model, user);
-      setPosition(25);
-    })();
-  }, [removeBackground, model, user, imageFileToRemoveBackground, backgroundRemovalColor]);
+    setPosition(isBackgroundRemovalLoadingDebounced ? 100 : 25);
+  }, [isBackgroundRemovalLoadingDebounced]);
 
   const handleModelChange = (value: string) => {
     setModelId(value);
+    setBackgroundRemovalModel(models?.get(value));
     void saveAppSettings({backgroundRemovalModel: value});
   };
 

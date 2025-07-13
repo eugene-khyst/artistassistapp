@@ -65,6 +65,7 @@ export const FileSelect: React.FC<PropsWithChildren<Props>> = ({
       onClick: () => {
         onChange(originalImageFile ? [originalImageFile] : []);
       },
+      disabled: !originalImageFile,
     },
   ];
 

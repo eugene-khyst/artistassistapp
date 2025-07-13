@@ -54,9 +54,9 @@ export const createTabSlice: StateCreator<
     } else if (activeTabKey === TabKey.SimplifiedPhoto) {
       void get().loadBlurredImages();
     } else if (activeTabKey === TabKey.Outline) {
-      get().triggerOutline();
+      void get().loadOutlineImage();
     } else if (activeTabKey === TabKey.StyleTransfer) {
-      get().triggerStyleTransfer();
+      void get().loadStyledImage();
     } else if (activeTabKey === TabKey.Help) {
       void get().loadStorageUsage();
     }

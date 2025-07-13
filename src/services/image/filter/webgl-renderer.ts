@@ -158,7 +158,6 @@ export class WebGLRenderer {
   }
 
   private createFramebuffer(texture: WebGLTexture) {
-    console.debug('Creating WebGL Framebuffer');
     const {gl} = this;
     const framebuffer = gl.createFramebuffer();
     this.framebuffers.push(framebuffer);

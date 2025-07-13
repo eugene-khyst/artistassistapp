@@ -30,29 +30,26 @@ import {
   zoomableImageCanvasSupplier,
 } from '~/src/hooks/useZoomableImageCanvas';
 import type {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
-import {compareOnnxModelsByPriority} from '~/src/services/ml/models';
+import {saveAppSettings} from '~/src/services/db/app-settings-db';
+import type {OnnxModel} from '~/src/services/ml/types';
 import {OnnxModelType} from '~/src/services/ml/types';
+import {OutlineMode} from '~/src/services/settings/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
 import {imageBitmapToBlob} from '~/src/utils/graphics';
 
 import {EmptyImage} from './empty/EmptyImage';
 
-enum OutlineMode {
-  Quick = 0,
-  Quality = 1,
-}
-
 export const ImageOutline: React.FC = () => {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
+  const appSettings = useAppStore(state => state.appSettings);
   const originalImageFile = useAppStore(state => state.originalImageFile);
-  const outlineTrigger = useAppStore(state => state.outlineTrigger);
   const isOutlineImageLoading = useAppStore(state => state.isOutlineImageLoading);
   const outlineLoadingTip = useAppStore(state => state.outlineLoadingTip);
   const outlineImage = useAppStore(state => state.outlineImage);
 
-  const loadOutlineImage = useAppStore(state => state.loadOutlineImage);
+  const setOutlineModel = useAppStore(state => state.setOutlineModel);
 
   const screens = Grid.useBreakpoint();
 
@@ -71,13 +68,8 @@ export const ImageOutline: React.FC = () => {
     outlineImage
   );
 
-  const [outlineMode, setOutlineMode] = useState<OutlineMode>(OutlineMode.Quick);
+  const [mode, setMode] = useState<OutlineMode>(OutlineMode.Quick);
   const [isOpenPrintImage, setIsOpenPrintImage] = useState<boolean>(false);
-
-  const [model] =
-    outlineMode === OutlineMode.Quality && models
-      ? [...models.values()].sort(compareOnnxModelsByPriority)
-      : [];
 
   const isLoading: boolean = isModelsLoading || isOutlineImageLoading || isAuthLoading;
 
@@ -92,11 +84,21 @@ export const ImageOutline: React.FC = () => {
   }, [isModelsError, notification, t]);
 
   useEffect(() => {
-    void loadOutlineImage(model, user);
-  }, [loadOutlineImage, model, user, outlineTrigger]);
+    const {outlineMode} = appSettings;
+    const mode: OutlineMode = (user && outlineMode) || OutlineMode.Quick;
+    const model: OnnxModel | null | undefined =
+      mode === OutlineMode.Quality ? models?.values().next().value : null;
+    setMode(mode);
+    setOutlineModel(model);
+  }, [setOutlineModel, appSettings, models, user]);
 
   const handleModeChange = (e: RadioChangeEvent) => {
-    setOutlineMode(e.target.value as OutlineMode);
+    const value = e.target.value as OutlineMode;
+    const model: OnnxModel | null | undefined =
+      value === OutlineMode.Quality ? models?.values().next().value : null;
+    setMode(value);
+    setOutlineModel(model);
+    void saveAppSettings({outlineMode: value});
   };
 
   const handlePrintClick = () => {
@@ -165,7 +167,7 @@ export const ImageOutline: React.FC = () => {
             <Form.Item label={t`Mode`} style={{margin: 0}}>
               <Radio.Group
                 options={modeOptions}
-                value={outlineMode}
+                value={mode}
                 onChange={handleModeChange}
                 optionType="button"
                 buttonStyle="solid"

@@ -40,7 +40,7 @@ export const createTonalImagesSlice: StateCreator<
 
   loadTonalImages: async (): Promise<void> => {
     const {originalImageFile, tonalImages} = get();
-    if (!originalImageFile || tonalImages.length) {
+    if (tonalImages.length || !originalImageFile) {
       return;
     }
     set({

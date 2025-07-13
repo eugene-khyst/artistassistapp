@@ -22,7 +22,7 @@ import type {RadioChangeEvent} from 'antd';
 import {App, Button, Card, Col, Grid, Radio, Row, Space, Spin, Typography} from 'antd';
 import Meta from 'antd/es/card/Meta';
 import {saveAs} from 'file-saver';
-import {useEffect, useMemo, useState} from 'react';
+import {useEffect, useMemo, useRef, useState} from 'react';
 
 import {EmptyImage} from '~/src/components/empty/EmptyImage';
 import {FileSelect} from '~/src/components/file/FileSelect';
@@ -45,13 +45,12 @@ export const ImageStyleTransfer: React.FC = () => {
   const appSettings = useAppStore(state => state.appSettings);
   const originalImageFile = useAppStore(state => state.originalImageFile);
   const styleImageFile = useAppStore(state => state.styleImageFile);
-  const styleTransferTrigger = useAppStore(state => state.styleTransferTrigger);
   const isStyleTransferLoading = useAppStore(state => state.isStyleTransferLoading);
   const styleTransferLoadingTip = useAppStore(state => state.styleTransferLoadingTip);
   const styledImageBlob = useAppStore(state => state.styledImageBlob);
 
+  const setStyleTransferModel = useAppStore(state => state.setStyleTransferModel);
   const setStyleImageFile = useAppStore(state => state.setStyleImageFile);
-  const loadStyledImage = useAppStore(state => state.loadStyledImage);
 
   const screens = Grid.useBreakpoint();
 
@@ -75,7 +74,7 @@ export const ImageStyleTransfer: React.FC = () => {
 
   const [modelId, setModelId] = useState<string>();
 
-  const model: OnnxModel | null | undefined = modelId ? models?.get(modelId) : null;
+  const radioGroupRef = useRef<HTMLDivElement>(null);
 
   const isLoading: boolean = isModelsLoading || isStyleTransferLoading || isAuthLoading;
 
@@ -95,24 +94,34 @@ export const ImageStyleTransfer: React.FC = () => {
 
   useEffect(() => {
     const {styleTransferModel, styleTransferImage} = appSettings;
-    setModelId(
-      styleTransferModel ??
-        modelArray.find(({numInputs = 1}) => numInputs === 1 || styleTransferImage)?.id
-    );
-  }, [setStyleImageFile, appSettings, modelArray]);
-
-  useEffect(() => {
-    void loadStyledImage(model, user);
-  }, [loadStyledImage, model, user, styleImageFile, styleTransferTrigger]);
+    let model: OnnxModel | undefined;
+    if (styleTransferModel) {
+      model = models?.get(styleTransferModel);
+    }
+    if (!model && models?.size) {
+      model = [...models.values()]
+        .sort(!user ? compareOnnxModelsByFreeTierAndPriority : compareOnnxModelsByPriority)
+        .find(({numInputs = 1}) => numInputs === 1 || styleTransferImage);
+    }
+    setModelId(model?.id);
+    setStyleTransferModel(model);
+    if (model?.id) {
+      radioGroupRef.current
+        ?.querySelector(`input[value="${model.id}"]`)
+        ?.closest('.ant-radio-wrapper')
+        ?.scrollIntoView();
+    }
+  }, [setStyleTransferModel, appSettings, models, user]);
 
   const handleModelChange = (e: RadioChangeEvent) => {
     const value = e.target.value as string;
     setModelId(value);
+    setStyleTransferModel(models?.get(value));
     void saveAppSettings({styleTransferModel: value});
   };
 
   const handleFileChange = ([file]: File[], modelId: string) => {
-    void setStyleImageFile(file ?? null);
+    void setStyleImageFile(file);
     setModelId(modelId);
   };
 
@@ -178,6 +187,7 @@ export const ImageStyleTransfer: React.FC = () => {
             )}
 
             <Radio.Group
+              ref={radioGroupRef}
               value={modelId}
               onChange={handleModelChange}
               options={modelArray.map((model: OnnxModel) => {

@@ -24,13 +24,9 @@ export async function transferStyle(
   images: ImageBitmap[],
   model: OnnxModel,
   progressCallback?: ProgressCallback
-): Promise<Blob> {
+): Promise<OffscreenCanvas> {
   console.time('style-transfer');
   const transformedImage: OffscreenCanvas = await transformImage(images, model, progressCallback);
-  const outputBlob: Blob = await transformedImage.convertToBlob({
-    type: 'image/jpeg',
-    quality: 0.95,
-  });
   console.timeEnd('style-transfer');
-  return outputBlob;
+  return transformedImage;
 }

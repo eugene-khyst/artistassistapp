@@ -47,6 +47,7 @@ export const createPerspectiveCorrectionSlice: StateCreator<
   perspectiveUncorrectedImage: null,
   perspectiveCorrectedImage: null,
   isPerspectiveCorrectedImageLoading: false,
+
   setImageFileToCorrectPerspective: async (
     imageFileToCorrectPerspective: File | null
   ): Promise<void> => {

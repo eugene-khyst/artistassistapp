@@ -40,7 +40,7 @@ export const createBlurredImagesSlice: StateCreator<
 
   loadBlurredImages: async (): Promise<void> => {
     const {originalImageFile, blurredImages} = get();
-    if (!originalImageFile || blurredImages.length) {
+    if (blurredImages.length || !originalImageFile) {
       return;
     }
     set({

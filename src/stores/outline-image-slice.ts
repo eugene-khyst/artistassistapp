@@ -18,44 +18,48 @@
 
 import type {StateCreator} from 'zustand';
 
-import type {User} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {getOutline} from '~/src/services/image/outline';
 import type {OnnxModel} from '~/src/services/ml/types';
+import type {AuthSlice} from '~/src/stores/auth-slice';
 
 import type {OriginalImageSlice} from './original-image-slice';
 
 export interface OutlineImageSlice {
-  outlineTrigger: boolean;
+  outlineModel?: OnnxModel | null;
   isOutlineImageLoading: boolean;
   outlineLoadingTip: string | null;
   outlineImage: ImageBitmap | null;
 
-  triggerOutline: () => void;
-  loadOutlineImage: (model?: OnnxModel | null, user?: User | null) => Promise<void>;
+  setOutlineModel: (outlineModel?: OnnxModel | null) => void;
+  loadOutlineImage: () => Promise<void>;
 }
 
 export const createOutlineImageSlice: StateCreator<
-  OutlineImageSlice & OriginalImageSlice,
+  OutlineImageSlice & OriginalImageSlice & AuthSlice,
   [],
   [],
   OutlineImageSlice
 > = (set, get) => ({
-  outlineTrigger: false,
+  outlineModel: null,
   isOutlineImageLoading: false,
   outlineLoadingTip: null,
   outlineImage: null,
 
-  triggerOutline: (): void => {
-    if (!get().outlineTrigger) {
-      set({
-        outlineTrigger: true,
-      });
-    }
+  setOutlineModel: (outlineModel?: OnnxModel | null): void => {
+    set({
+      outlineModel,
+      outlineImage: null,
+    });
+    void get().loadOutlineImage();
   },
-  loadOutlineImage: async (model?: OnnxModel | null, user?: User | null): Promise<void> => {
-    const {originalImage, outlineTrigger} = get();
-    if (!outlineTrigger || !originalImage || (model && !hasAccessTo(user, model))) {
+  loadOutlineImage: async (): Promise<void> => {
+    const {originalImage, outlineModel, outlineImage, auth} = get();
+    if (
+      outlineImage ||
+      !originalImage ||
+      (outlineModel && !hasAccessTo(auth?.user, outlineModel))
+    ) {
       return;
     }
     try {
@@ -64,7 +68,7 @@ export const createOutlineImageSlice: StateCreator<
         outlineLoadingTip: null,
         outlineImage: null,
       });
-      const outlineImage = await getOutline(originalImage, model, key => {
+      const outlineImage = await getOutline(originalImage, outlineModel, key => {
         set({outlineLoadingTip: key});
       });
       set({outlineImage});
