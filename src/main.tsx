@@ -30,6 +30,7 @@ import {BrowserSupport} from '~/src/components/alert/BrowserSupport';
 import {PromiseErrorBoundary} from '~/src/components/alert/PromiseErrorBoundary';
 import {InternationalizationProvider} from '~/src/contexts/InternationalizationProvider';
 import {registerFileHandler} from '~/src/file-handler';
+import type {BeforeInstallPromptEvent} from '~/src/pwa';
 import {clearDatabase} from '~/src/services/db/db';
 import {useAppStore} from '~/src/stores/app-store';
 import {disableScreenLock} from '~/src/wake-lock';
@@ -37,11 +38,18 @@ import {disableScreenLock} from '~/src/wake-lock';
 import {ArtistAssistApp} from './ArtistAssistApp';
 import {registerServiceWorker} from './register-service-worker';
 
-const AUTH_VERIFICATION_INTERVAL = 10 * 1000; //5 * 60000;
+const AUTH_VERIFICATION_INTERVAL = 5 * 60000;
 
 void (async () => {
   registerServiceWorker();
   registerFileHandler();
+  window.addEventListener('beforeinstallprompt', (event: BeforeInstallPromptEvent) => {
+    event.preventDefault();
+    useAppStore.getState().setBeforeInstallPromptEvent(event);
+  });
+  window.addEventListener('appinstalled', () => {
+    useAppStore.getState().setBeforeInstallPromptEvent(null);
+  });
   disableScreenLock();
   void clearDatabase();
   await useAppStore.getState().initAppStore();

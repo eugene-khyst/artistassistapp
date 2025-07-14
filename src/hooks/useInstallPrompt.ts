@@ -16,9 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback} from 'react';
 
-import type {BeforeInstallPromptEvent} from '~/src/pwa';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 
@@ -28,41 +27,24 @@ interface Result {
 }
 
 export function useInstallPrompt(): Result {
+  const beforeInstallPromptEvent = useAppStore(state => state.beforeInstallPromptEvent);
+
+  const setBeforeInstallPromptEvent = useAppStore(state => state.setBeforeInstallPromptEvent);
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
 
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent>();
-  const [showInstallPromotion, setShowInstallPromotion] = useState<boolean>(false);
-
-  useEffect(() => {
-    const beforeInstallPromptListener = (prompt: BeforeInstallPromptEvent) => {
-      prompt.preventDefault();
-      setDeferredPrompt(prompt);
-      setShowInstallPromotion(true);
-    };
-    const appInstalledListener = () => {
-      setShowInstallPromotion(false);
-      setDeferredPrompt(undefined);
-    };
-    window.addEventListener('beforeinstallprompt', beforeInstallPromptListener);
-    window.addEventListener('appinstalled', appInstalledListener);
-    return () => {
-      window.removeEventListener('beforeinstallprompt', beforeInstallPromptListener);
-      window.removeEventListener('appinstalled', appInstalledListener);
-    };
-  }, []);
+  const showInstallPromotion = !!beforeInstallPromptEvent;
 
   const promptToInstall = useCallback(async () => {
-    if (!deferredPrompt) {
+    if (!beforeInstallPromptEvent) {
       return;
     }
-    setShowInstallPromotion(false);
-    void deferredPrompt.prompt();
-    const {outcome} = await deferredPrompt.userChoice;
+    void beforeInstallPromptEvent.prompt();
+    const {outcome} = await beforeInstallPromptEvent.userChoice;
     if (outcome === 'accepted') {
       void setActiveTabKey(TabKey.ColorSet);
     }
-    setDeferredPrompt(undefined);
-  }, [deferredPrompt, setActiveTabKey]);
+    setBeforeInstallPromptEvent(null);
+  }, [setBeforeInstallPromptEvent, setActiveTabKey, beforeInstallPromptEvent]);
 
   return {
     showInstallPromotion,

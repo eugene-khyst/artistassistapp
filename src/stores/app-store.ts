@@ -25,6 +25,8 @@ import {
   createPerspectiveCorrectionSlice,
   type PerspectiveCorrectionSlice,
 } from '~/src/stores/perspective-correction-slice';
+import type {PwaSlice} from '~/src/stores/pwa-slice';
+import {createPwaSlice} from '~/src/stores/pwa-slice';
 
 import {
   type BackgroundRemovalSlice,
@@ -50,7 +52,8 @@ import {createTonalImagesSlice, type TonalImagesSlice} from './tonal-images-slic
 import {createTournamentSlice, type TournamentSlice} from './tournament-slice';
 
 export const useAppStore = create<
-  LocaleSlice &
+  PwaSlice &
+    LocaleSlice &
     AuthSlice &
     TabSlice &
     ColorSetSlice &
@@ -70,6 +73,7 @@ export const useAppStore = create<
     StorageSlice &
     InitSlice
 >()((...a) => ({
+  ...createPwaSlice(...a),
   ...createLocaleSlice(...a),
   ...createAuthSlice(...a),
   ...createTabSlice(...a),
