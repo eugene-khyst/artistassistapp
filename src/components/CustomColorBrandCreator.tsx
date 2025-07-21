@@ -430,7 +430,7 @@ export const CustomColorBrandCreator: React.FC = () => {
                               <Input placeholder={t`Name`} />
                             </Form.Item>
                             <Form.Item {...restField} name={[name, 'opacity']}>
-                              <OpacitySelect style={{width: 65}} />
+                              <OpacitySelect popupMatchSelectWidth={false} />
                             </Form.Item>
                             <Button
                               shape="circle"

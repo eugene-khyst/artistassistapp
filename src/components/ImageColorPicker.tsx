@@ -286,7 +286,7 @@ export const ImageColorPicker: React.FC = () => {
                       value={sort}
                       onChange={handleSortChange}
                       options={sortOptions}
-                      style={{width: 120}}
+                      popupMatchSelectWidth={false}
                     />
                   </Form.Item>
                 )}
