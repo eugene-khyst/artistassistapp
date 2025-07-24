@@ -32,10 +32,11 @@ ArtistAssistApp offers the following features:
 - Draw a grid over your reference photo for accurate drawing
 - Analyze tonal values to improve contrast
 - Simplify photos by smoothing details
-- Experiment with limited color palettes
+- Mix harmonious colors with limited palettes
 - Get inspired by applying artistic styles to your photos
-- Correct white balance & colors in your artwork photos
-- Easily remove backgrounds from artwork photos
+- Adjust white balance and colors of photos of your paintings
+- Adjust perspective and geometry of photos of your paintings
+- Easily remove backgrounds from photos of your paintings
 - Rank your photos using a pairwise comparison
 - Sync your color sets across devices
 - Install the app on your device for offline access
