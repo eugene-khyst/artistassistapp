@@ -39,7 +39,6 @@ export const PromiseErrorBoundary: React.FC<PropsWithChildren> = ({
       notification.error({
         message,
         placement: 'top',
-        duration: 0,
       });
     };
     window.addEventListener('unhandledrejection', promiseRejectionHandler);

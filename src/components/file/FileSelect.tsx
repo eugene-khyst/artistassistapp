@@ -16,13 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {FileImageOutlined, MoreOutlined, UploadOutlined} from '@ant-design/icons';
+import {FileImageOutlined, InboxOutlined, MoreOutlined, UploadOutlined} from '@ant-design/icons';
 import {useLingui} from '@lingui/react/macro';
-import {Button, Dropdown, Space} from 'antd';
+import {App, Button, Dropdown, Space} from 'antd';
 import type {BaseButtonProps} from 'antd/es/button/button';
 import type {MenuProps} from 'antd/lib';
-import type {ChangeEvent, PropsWithChildren} from 'react';
-import {useRef} from 'react';
+import type {PropsWithChildren} from 'react';
+import {useCallback} from 'react';
+import type {FileRejection} from 'react-dropzone';
+import {useDropzone} from 'react-dropzone';
 
 import {useAppStore} from '~/src/stores/app-store';
 
@@ -39,22 +41,48 @@ export const FileSelect: React.FC<PropsWithChildren<Props>> = ({
   type = 'primary',
   accept = 'image/*',
   disabled,
-  ...props
+  multiple,
 }: PropsWithChildren<Props>) => {
   const originalImageFile = useAppStore(state => state.originalImageFile);
 
+  const {notification} = App.useApp();
+
   const {t} = useLingui();
 
-  const hiddenFileInput = useRef<HTMLInputElement>(null);
+  const onDrop = useCallback(
+    (acceptedFiles: File[], fileRejections: FileRejection[]) => {
+      onChange(acceptedFiles);
+      for (const {file, errors} of fileRejections) {
+        notification.error({
+          message: (
+            <>
+              {file.name}:<br />
+              {errors.map(({message}) => (
+                <>
+                  {message}
+                  <br />
+                </>
+              ))}
+            </>
+          ),
+          placement: 'top',
+        });
+      }
+    },
+    [onChange, notification]
+  );
+
+  const {getRootProps, getInputProps, inputRef, isDragActive} = useDropzone({
+    noClick: true,
+    accept: {
+      [accept]: [],
+    },
+    multiple,
+    onDrop,
+  });
 
   const handleClick = () => {
-    hiddenFileInput.current?.click();
-  };
-
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const fileList: FileList | null = e.target.files;
-    const files: File[] = fileList ? [...fileList] : [];
-    onChange(files);
+    inputRef.current?.click();
   };
 
   const items: MenuProps['items'] = [
@@ -71,24 +99,26 @@ export const FileSelect: React.FC<PropsWithChildren<Props>> = ({
 
   return (
     <>
-      <Space.Compact>
-        <Button type={type} icon={<UploadOutlined />} onClick={handleClick} disabled={disabled}>
-          {children}
-        </Button>
-        {useReferencePhoto && (
-          <Dropdown menu={{items}}>
-            <Button icon={<MoreOutlined />} />
-          </Dropdown>
+      <div {...getRootProps()}>
+        <input {...getInputProps()} />
+
+        {!isDragActive ? (
+          <Space.Compact>
+            <Button type={type} icon={<UploadOutlined />} onClick={handleClick} disabled={disabled}>
+              {children}
+            </Button>
+            {useReferencePhoto && (
+              <Dropdown menu={{items}}>
+                <Button icon={<MoreOutlined />} />
+              </Dropdown>
+            )}
+          </Space.Compact>
+        ) : (
+          <Button color="primary" variant="dashed" icon={<InboxOutlined />}>
+            Drop the {multiple ? 'files' : 'file'} here...
+          </Button>
         )}
-      </Space.Compact>
-      <input
-        ref={hiddenFileInput}
-        type="file"
-        accept={accept}
-        style={{display: 'none'}}
-        onChange={handleFileChange}
-        {...props}
-      />
+      </div>
     </>
   );
 };
