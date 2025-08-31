@@ -26,7 +26,29 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/src/main.tsx" onerror="handleScriptError(event)"></script>
+    <div id="script-error" style="display: none"></div>
+    <script>
+      function handleScriptError(event) {
+        console.error('Main script failed to load:', event);
+        showErrorMessage();
+      }
+
+      function showErrorMessage(event) {
+        const errorDiv = document.getElementById('script-error');
+        if (errorDiv) {
+          errorDiv.innerHTML = `
+                    <h1>⚠️ Application Load Error</h1>
+                    <p>Sorry, the application failed to load properly.</p>
+                    <p>Visit our <a href="/cleanup.html">cleanup page</a> to attempt an automatic repair, or if the issue persists, try refreshing the page bypassing the cache.</p>
+                    <p><strong>Desktop:</strong> To do a hard page refresh, press <strong>Ctrl + F5</strong> on Windows/Linux, <strong>Command (⌘) + Shift + R</strong> in Chrome/Firefox on macOS, or <strong>Command (⌘) + Option (⌥) + R</strong> in Safari on macOS.</p>
+                    <p><strong>Mobile/Tablet:</strong> Close your browser completely, clear your browser cache in your device settings, and then reopen it.</p>
+                    <pre>${event ? JSON.stringify(event) : 'Unknown error'}</pre>
+                `;
+          errorDiv.style.display = 'block';
+        }
+      }
+    </script>
     <script type="application/ld+json">
       {
         "@type": "WebApplication",

@@ -12,7 +12,6 @@
       cached content.
     </p>
     <div id="status">Clearing browser cache and service workers...</div>
-    <hr />
     <p>Redirecting to the <a href="/">main page</a> in <span id="seconds-remaining"></span>.</p>
     <script>
       (async function () {
@@ -36,7 +35,7 @@
 
           if (countdown === 0) {
             clearInterval(timer);
-            window.location.href = '/';
+            window.location.href = '/?' + Date.now();
           }
         }, 1000);
 
