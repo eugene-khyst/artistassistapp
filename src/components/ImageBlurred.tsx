@@ -16,7 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined, LoadingOutlined, MoreOutlined, StopOutlined} from '@ant-design/icons';
+import {
+  DownloadOutlined,
+  LoadingOutlined,
+  MoreOutlined,
+  PictureOutlined,
+  StopOutlined,
+} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
 import {Button, Dropdown, Form, Grid, Radio, Space, Spin} from 'antd';
@@ -28,6 +34,7 @@ import {
   zoomableImageCanvasSupplier,
 } from '~/src/hooks/useZoomableImageCanvas';
 import type {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
+import {blobToImageFile} from '~/src/services/image/image-file';
 import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
 import {imageBitmapToBlob} from '~/src/utils/graphics';
@@ -43,12 +50,16 @@ const MEDIAN_FILTER_RADIUS_OPTIONS_SHORT: CheckboxOptionType<number>[] = [
 
 const DEFAULT_BLURRED_IMAGE_INDEX = 1;
 
+const FILENAME_SUFFIX = 'simplified';
+
 export const ImageBlurred: React.FC = () => {
   const originalImageFile = useAppStore(state => state.originalImageFile);
   const originalImage = useAppStore(state => state.originalImage);
   const blurredImages = useAppStore(state => state.blurredImages);
 
   const isBlurredImagesLoading = useAppStore(state => state.isBlurredImagesLoading);
+
+  const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
 
   const screens = Grid.useBreakpoint();
 
@@ -74,8 +85,30 @@ export const ImageBlurred: React.FC = () => {
     if (!image) {
       return;
     }
-    saveAs(await imageBitmapToBlob(image), getFilename(originalImageFile, 'simplified'));
+    saveAs(await imageBitmapToBlob(image), getFilename(originalImageFile, FILENAME_SUFFIX));
   };
+
+  const handleSetAsReferenceClick = async () => {
+    const image: ImageBitmap | undefined = blurredImages[blurredImageIndex];
+    if (!image) {
+      return;
+    }
+    const blob: Blob = await imageBitmapToBlob(image);
+    void saveRecentImageFile(
+      await blobToImageFile(blob, getFilename(originalImageFile, FILENAME_SUFFIX))
+    );
+  };
+
+  const imageItems: MenuProps['items'] = [
+    {
+      key: '2',
+      label: t`Set as reference`,
+      icon: <PictureOutlined />,
+      onClick: () => {
+        void handleSetAsReferenceClick();
+      },
+    },
+  ];
 
   const items: MenuProps['items'] = [
     {
@@ -86,6 +119,7 @@ export const ImageBlurred: React.FC = () => {
         void handleSaveClick();
       },
     },
+    ...imageItems,
   ];
 
   if (!originalImage) {
@@ -118,14 +152,19 @@ export const ImageBlurred: React.FC = () => {
           />
         </Form.Item>
         {screens.sm ? (
-          <Button
-            icon={<DownloadOutlined />}
-            onClick={() => {
-              void handleSaveClick();
-            }}
-          >
-            <Trans>Save</Trans>
-          </Button>
+          <Space.Compact>
+            <Button
+              icon={<DownloadOutlined />}
+              onClick={() => {
+                void handleSaveClick();
+              }}
+            >
+              <Trans>Save</Trans>
+            </Button>
+            <Dropdown menu={{items: imageItems}}>
+              <Button icon={<MoreOutlined />} />
+            </Dropdown>
+          </Space.Compact>
         ) : (
           <Dropdown menu={{items}}>
             <Button icon={<MoreOutlined />} />

@@ -26,18 +26,24 @@ export enum GridType {
   Rectangular = 2,
 }
 
-interface Grid {
-  type: GridType;
-  size: [number] | [number, number];
-  diagonals?: boolean;
+interface SquareGrid {
+  type: GridType.Square;
+  size: number;
 }
+interface RectangularGrid {
+  type: GridType.Rectangular;
+  size: [number, number];
+  diagonals: boolean;
+}
+
+export type Grid = SquareGrid | RectangularGrid;
 
 export interface GridCanvasProps extends OverlayDrawingCanvasProps {
   grid?: Grid;
 }
 
 export class GridCanvas extends OverlayDrawingCanvas {
-  private grid?: Grid;
+  private grid?: Grid | null;
 
   constructor(canvas: HTMLCanvasElement, props: GridCanvasProps = {}) {
     super(canvas, props);
@@ -63,7 +69,7 @@ export class GridCanvas extends OverlayDrawingCanvas {
 
   private drawSquareGrid(
     ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
-    {size: [size]}: Grid
+    {size}: SquareGrid
   ): void {
     const {width, height}: Rectangle = this.getImageDimension();
     const side: number = Math.min(width, height) / size;
@@ -77,7 +83,7 @@ export class GridCanvas extends OverlayDrawingCanvas {
 
   private drawRectangularGrid(
     ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
-    {size: [m, n], diagonals}: Grid
+    {size: [m, n], diagonals}: RectangularGrid
   ): void {
     if (n) {
       const {width, height}: Rectangle = this.getImageDimension();
@@ -148,7 +154,7 @@ export class GridCanvas extends OverlayDrawingCanvas {
     ctx.restore();
   }
 
-  setGrid(grid: Grid): void {
+  setGrid(grid: Grid | null): void {
     this.grid = grid;
     this.requestRedraw();
   }

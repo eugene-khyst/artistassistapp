@@ -89,17 +89,17 @@ export abstract class OverlayDrawingCanvas extends ZoomableImageCanvas {
     ctx.globalCompositeOperation = 'source-over';
   }
 
-  override async convertToBlob(): Promise<Blob | undefined> {
+  override convertToOffscreenCanvas(): OffscreenCanvas | null {
     const image: ImageBitmap | OffscreenCanvas | null = this.getImage();
     if (!image) {
-      return;
+      return null;
     }
     const {width, height} = image;
     const scaleFactor: number = Math.max(1, (width * height) / IMAGE_SIZE.HD);
     const {lineWidth} = this;
     try {
       this.lineWidth = scaleFactor * lineWidth;
-      return await super.convertToBlob();
+      return super.convertToOffscreenCanvas();
     } finally {
       this.lineWidth = lineWidth;
     }

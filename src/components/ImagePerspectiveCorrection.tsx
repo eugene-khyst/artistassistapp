@@ -40,9 +40,7 @@ import {TabKey} from '~/src/tabs';
 import {getFilename} from '~/src/utils/filename';
 import {chain, cropMargins, expandToAspectRatio, imageBitmapToBlob} from '~/src/utils/graphics';
 
-function getPerspectiveCorrectedImageFilename(file: File | null): string | undefined {
-  return getFilename(file, 'perspective-corrected');
-}
+const FILENAME_SUFFIX = 'perspective-corrected';
 
 const imagePerspectiveCorrectionCanvasSupplier = (
   canvas: HTMLCanvasElement
@@ -135,7 +133,7 @@ export const ImagePerspectiveCorrection: React.FC = () => {
       perspectiveCorrectedImage,
       chain(cropMargins(imageCroppingCanvas?.getMargins()), expandToAspectRatio(aspectRatio))
     );
-    saveAs(blob, getPerspectiveCorrectedImageFilename(imageFileToCorrectPerspective));
+    saveAs(blob, getFilename(imageFileToCorrectPerspective, FILENAME_SUFFIX));
   };
 
   const handleWhiteBalanceClick = async () => {
@@ -147,7 +145,7 @@ export const ImagePerspectiveCorrection: React.FC = () => {
       cropMargins(imageCroppingCanvas?.getMargins())
     );
     void setImageFileToAdjustColors(
-      new File([blob], getPerspectiveCorrectedImageFilename(imageFileToCorrectPerspective) ?? '', {
+      new File([blob], getFilename(imageFileToCorrectPerspective, FILENAME_SUFFIX) ?? '', {
         type: blob.type,
         lastModified: Date.now(),
       })

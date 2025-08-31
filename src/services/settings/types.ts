@@ -27,8 +27,9 @@ export enum ColorPickerSort {
 
 export enum GridMode {
   Square = 1,
-  Rectangular_3x3 = 2,
   Rectangular_4x4 = 3,
+  Rectangular_3x3 = 2,
+  Rectangular_2x2 = 4,
 }
 
 export enum OutlineMode {
@@ -36,13 +37,18 @@ export enum OutlineMode {
   Quality = 1,
 }
 
+export interface GridSettings {
+  enabled: boolean;
+  mode: GridMode;
+  size: number;
+  diagonals: boolean;
+}
+
 export interface AppSettings {
   activeTabKey?: TabKey;
   colorPickerDiameter?: number;
   colorPickerSort?: ColorPickerSort;
-  gridMode?: GridMode;
-  gridSize?: number;
-  gridDiagonals?: boolean;
+  grids?: Partial<Record<TabKey, Partial<GridSettings>>>;
   outlineMode?: OutlineMode;
   backgroundRemovalModel?: string;
   styleTransferModel?: string;

@@ -20,7 +20,7 @@ import printJS from 'print-js';
 
 import type {PageOrientation, PaperSizeDefinition} from '~/src/services/print/types';
 import {PaperSize} from '~/src/services/print/types';
-import {imageBitmapToBlob} from '~/src/utils/graphics';
+import {imageBitmapToBlob, offscreenCanvasToBlob} from '~/src/utils/graphics';
 
 export const PAPER_SIZES = new Map<PaperSize, PaperSizeDefinition>([
   [
@@ -46,12 +46,10 @@ export const PAPER_SIZES = new Map<PaperSize, PaperSizeDefinition>([
   ],
 ]);
 
-type BlobSupplier = () => Promise<Blob | undefined>;
-
-type ImageSource = (ImageBitmap | BlobSupplier | null) | ImageBitmap[] | Blob[];
+type ImageSource = Blob | OffscreenCanvas | ImageBitmap;
 
 export async function printImages(
-  image?: ImageSource,
+  image?: ImageSource | ImageSource[] | null,
   paperSize?: PaperSize,
   orientation?: PageOrientation
 ) {
@@ -60,18 +58,16 @@ export async function printImages(
   }
   const urls: string[] = (
     await Promise.all(
-      [image]
-        .flat()
-        .map(async (image: ImageBitmap | Blob | BlobSupplier | null): Promise<Blob | undefined> => {
-          if (image instanceof Blob) {
-            return image;
-          } else if (image instanceof ImageBitmap) {
-            return imageBitmapToBlob(image);
-          } else if (typeof image === 'function') {
-            return image();
-          }
-          return;
-        })
+      [image].flat().map(async (image: ImageSource | null): Promise<Blob | undefined> => {
+        if (image instanceof Blob) {
+          return image;
+        } else if (image instanceof OffscreenCanvas) {
+          return offscreenCanvasToBlob(image);
+        } else if (image instanceof ImageBitmap) {
+          return imageBitmapToBlob(image);
+        }
+        return;
+      })
     )
   )
     .filter((blob): blob is Blob => !!blob)

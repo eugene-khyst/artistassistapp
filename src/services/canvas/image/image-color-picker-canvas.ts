@@ -83,7 +83,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     });
   }
 
-  protected getOffscreenCanvas(): OffscreenCanvas | null | undefined {
+  protected getOffscreenCanvas(): OffscreenCanvas | null {
     return this.images.length > this.imageIndex ? this.offscreenCanvases[this.imageIndex]! : null;
   }
 

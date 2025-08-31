@@ -17,21 +17,21 @@ msgstr ""
 msgid "({colorCount} colors)"
 msgstr "({colorCount} रंग)"
 
-#: src/components/ColorSetChooser.tsx:625
+#: src/components/ColorSetChooser.tsx:623
 msgid "{brandName} colors"
 msgstr "{brandName} रंग"
 
-#: src/components/ColorSetChooser.tsx:579
-#: src/components/ColorSetChooser.tsx:626
+#: src/components/ColorSetChooser.tsx:577
+#: src/components/ColorSetChooser.tsx:624
 msgid "{FIELD} are required"
 msgstr "{FIELD} आवश्यक हैं"
 
+#: src/components/ColorSetChooser.tsx:544
+#: src/components/ColorSetChooser.tsx:553
+#: src/components/ColorSetChooser.tsx:606
 #: src/components/CustomColorBrandCreator.tsx:338
 #: src/components/CustomColorBrandCreator.tsx:349
 #: src/components/CustomColorBrandCreator.tsx:357
-#: src/components/ColorSetChooser.tsx:546
-#: src/components/ColorSetChooser.tsx:555
-#: src/components/ColorSetChooser.tsx:608
 msgid "{FIELD} is required"
 msgstr "{FIELD} आवश्यक है"
 
@@ -55,8 +55,8 @@ msgstr "<0/> iPadOS 16.4+ या iOS 16.4+ (iPadOS और iOS के पुर�
 msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> टैबलेट और <1/> मोबाइल"
 
-#: src/components/Install.tsx:85
 #: src/components/alert/BrowserSupport.tsx:105
+#: src/components/Install.tsx:85
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> विंडोज और <1/> लिनक्स"
 
@@ -64,15 +64,15 @@ msgstr "<0/> विंडोज और <1/> लिनक्स"
 msgid "<0>{similarityText}%</0> similarity"
 msgstr "<0>{similarityText}%</0> समानता"
 
-#: src/components/ColorSetChooser.tsx:416
+#: src/components/ColorSetChooser.tsx:414
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>आर्टिस्टअसिस्टऐप</0> एक वेब ऐप है जो कलाकारों को तस्वीरों से रंगों को मिलाने, तानवाला मूल्यों का विश्लेषण करने, तस्वीरों की रूपरेखा तैयार करने, ग्रिड के साथ आकर्षित करने, सीमित पैलेट के साथ पेंट करने और बहुत कुछ करने में मदद करता है।"
 
-#: src/components/ColorSetChooser.tsx:438
+#: src/components/ColorSetChooser.tsx:436
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>सशुल्क सदस्य के रूप में Patreon पर ArtistAssistApp से जुड़ें</0>, या यदि आप पहले ही शामिल हो चुके हैं, तो <1>Patreon के साथ लॉग इन</1> करें, 200 से अधिक रंग ब्रांडों और विज्ञापनों के बिना सभी छवि प्रसंस्करण मोड तक पहुंच प्राप्त करने के लिए।"
 
-#: src/components/ImageColorAdjustment.tsx:364
+#: src/components/ImageColorAdjustment.tsx:362
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "100% से कम मान छवि को कम रंगीन बनाता है, और 100% से अधिक मान इसे बहुत रंगीन बनाता है"
 
@@ -100,7 +100,7 @@ msgstr "रंग जोड़ें"
 msgid "Add color mixtures to the palette."
 msgstr "पैलेट में रंग मिश्रण जोड़ें।"
 
-#: src/components/ColorSetChooser.tsx:628
+#: src/components/ColorSetChooser.tsx:626
 msgid "Add or remove colors to match your actual color set."
 msgstr "अपने वास्तविक रंग सेट से मेल खाने के लिए रंग जोड़ें या निकालें।"
 
@@ -132,8 +132,8 @@ msgstr "कोई अनुप्रयोग त्रुटि"
 msgid "Application build hash"
 msgstr "एप्लिकेशन बिल्ड हैश"
 
-#: src/components/ImagePerspectiveCorrection.tsx:245
 #: src/components/ImageLimitedPalette.tsx:149
+#: src/components/ImagePerspectiveCorrection.tsx:243
 msgid "Apply"
 msgstr "लागू करना"
 
@@ -157,7 +157,7 @@ msgstr "क्या आप वाकई कैश साफ़ करना च
 msgid "Are you sure you want to delete all app data?"
 msgstr "क्या आप वाकई सभी ऐप डेटा हटाना चाहते हैं?"
 
-#: src/components/ColorSetChooser.tsx:729
+#: src/components/ColorSetChooser.tsx:727
 msgid "Are you sure you want to delete this color set?"
 msgstr "क्या आप वाकई यह रंग सेट हटाना चाहते हैं?"
 
@@ -173,13 +173,13 @@ msgstr "क्या आप वाकई यह फ़ोटो हटाना 
 msgid "Are you sure you want to remove all color mixtures?"
 msgstr "क्या आप वाकई सभी रंग मिश्रणों को निकालना चाहते हैं?"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:93
 #: src/components/color/AddToPaletteButton.tsx:49
+#: src/components/color/PaletteColorMixtureCard.tsx:93
 msgid "Are you sure you want to remove this color mixture?"
 msgstr "क्या आप वाकई इस रंग मिश्रण को निकालना चाहते हैं?"
 
+#: src/components/ColorSetChooser.tsx:543
 #: src/components/CustomColorBrandCreator.tsx:348
-#: src/components/ColorSetChooser.tsx:545
 msgid "Art medium"
 msgstr "कला माध्यम"
 
@@ -191,14 +191,14 @@ msgstr "ArtistAssistApp <0>यूजीन Khyst</0> द्वारा वि�
 msgid "At least one color is required"
 msgstr "कम से कम एक रंग आवश्यक है"
 
-#: src/components/ImageColorPicker.tsx:219
-#: src/components/ImageBackgroundRemoval.tsx:131
-#: src/components/ImageBackgroundRemoval.tsx:203
 #: src/components/ColorMixer.tsx:186
+#: src/components/ImageBackgroundRemoval.tsx:136
+#: src/components/ImageBackgroundRemoval.tsx:208
+#: src/components/ImageColorPicker.tsx:219
 msgid "Background"
 msgstr "पृष्ठभूमि"
 
-#: src/components/ImageBlurred.tsx:99
+#: src/components/ImageBlurred.tsx:133
 msgid "Blur"
 msgstr "कलंक"
 
@@ -206,7 +206,7 @@ msgstr "कलंक"
 msgid "Cancel a paid membership"
 msgstr "सशुल्क सदस्यता रद्द करना"
 
-#: src/components/ImageGrid.tsx:161
+#: src/components/grid/GridControls.tsx:187
 msgid "Cells"
 msgstr "कोशिकाएँ"
 
@@ -223,8 +223,8 @@ msgstr "कालानुक्रमिक रूप से"
 msgid "Clear cache"
 msgstr "कैश साफ़ करें"
 
-#: src/components/ImageColorPicker.tsx:305
 #: src/components/empty/EmptyPalette.tsx:64
+#: src/components/ImageColorPicker.tsx:305
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "फ़ोटो में कहीं भी क्लिक 🖱️ या टैप 👆 करें या अपने रंगों से मिलाने के लिए लक्ष्य रंग चुनने के लिए रंग बीनने वाले पॉप-अप का उपयोग करें।"
 
@@ -236,9 +236,9 @@ msgstr "बंद करना"
 msgid "Close in {closeCounter} sec"
 msgstr "{closeCounter} सेकंड में बंद करें"
 
-#: src/components/ImageColorPicker.tsx:266
-#: src/components/CustomColorBrandCreator.tsx:322
 #: src/components/ColorMixer.tsx:212
+#: src/components/CustomColorBrandCreator.tsx:322
+#: src/components/ImageColorPicker.tsx:266
 msgid "Color"
 msgstr "रंग"
 
@@ -246,7 +246,7 @@ msgstr "रंग"
 msgid "Color brand"
 msgstr "रंग ब्रांड"
 
-#: src/components/ColorSetChooser.tsx:577
+#: src/components/ColorSetChooser.tsx:575
 msgid "Color brands"
 msgstr "रंग ब्रांड"
 
@@ -266,14 +266,14 @@ msgstr "रंग मिश्रण"
 msgid "Color picker"
 msgstr "रंग बीनने वाला"
 
-#: src/components/messages.ts:26
+#: src/components/ColorSetChooser.tsx:551
 #: src/components/ImageColorPicker.tsx:295
-#: src/components/ColorSetChooser.tsx:553
+#: src/components/messages.ts:26
 msgid "Color set"
 msgstr "रंग सेट"
 
-#: src/components/palette/PaletteGrid.tsx:88
 #: src/components/color/ColorSwatchDrawer.tsx:55
+#: src/components/palette/PaletteGrid.tsx:88
 msgid "Color swatch"
 msgstr "रंग नमूना"
 
@@ -293,7 +293,7 @@ msgstr "तुलना करना"
 msgid "Contact"
 msgstr "संपर्क"
 
-#: src/components/ImageBlurred.tsx:100
+#: src/components/ImageBlurred.tsx:134
 msgid "Controls the radius of the median filter."
 msgstr "मीडियन फ़िल्टर की त्रिज्या को नियंत्रित करता है।"
 
@@ -305,16 +305,16 @@ msgstr "प्रतिलिपि"
 msgid "Copy and share this link"
 msgstr "इस लिंक को कॉपी और शेयर करें"
 
-#: src/components/ImageColorAdjustment.tsx:483
+#: src/components/ImageColorAdjustment.tsx:481
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "केल्विन में प्रकाश स्रोत के तापमान का सही अनुमान"
 
-#: src/components/ColorSetChooser.tsx:722
+#: src/components/ColorSetChooser.tsx:720
 msgid "Create a duplicate of this color set for further modification"
 msgstr "आगे संशोधन के लिए इस रंग सेट का डुप्लिकेट बनाएं"
 
-#: src/components/color-set/CustomColorBrandSelect.tsx:85
 #: src/components/color-set/ColorSetSelect.tsx:88
+#: src/components/color-set/CustomColorBrandSelect.tsx:85
 msgid "Create new"
 msgstr "नया बनाएं"
 
@@ -326,8 +326,8 @@ msgstr "कस्टम ब्रांड"
 msgid "Custom color set"
 msgstr "कस्टम रंग सेट"
 
+#: src/components/ColorSetChooser.tsx:741
 #: src/components/CustomColorBrandCreator.tsx:384
-#: src/components/ColorSetChooser.tsx:743
 #: src/components/image/RecentImageCard.tsx:83
 msgid "Delete"
 msgstr "मिटाना"
@@ -337,7 +337,7 @@ msgstr "मिटाना"
 msgid "Delete all app data"
 msgstr "ऐप्लिकेशन का सभी डेटा मिटाना"
 
-#: src/components/ColorSetChooser.tsx:728
+#: src/components/ColorSetChooser.tsx:726
 msgid "Delete the color set"
 msgstr "रंग सेट हटाएं"
 
@@ -351,7 +351,7 @@ msgstr "कस्टम ब्रांड हटाएं"
 msgid "Delete the recent photo"
 msgstr "हाल ही की फ़ोटो हटाएं"
 
-#: src/components/ColorSetChooser.tsx:738
+#: src/components/ColorSetChooser.tsx:736
 msgid "Delete this color set"
 msgstr "यह रंग सेट हटाएँ"
 
@@ -363,12 +363,12 @@ msgstr "जोड़ीवार तुलना द्वारा सर्व
 msgid "Diagnostics"
 msgstr "निदान-शास्त्र"
 
-#: src/components/ImageGrid.tsx:173
+#: src/components/grid/GridControls.tsx:195
 msgid "Diagonals"
 msgstr "विकर्णों"
 
-#: src/components/ImageColorPicker.tsx:252
 #: src/components/CustomColorBrandCreator.tsx:309
+#: src/components/ImageColorPicker.tsx:252
 msgid "Diameter"
 msgstr "व्‍यास"
 
@@ -376,7 +376,7 @@ msgstr "व्‍यास"
 msgid "Dilute the paint with water in a <0>{ratioText} ratio</0>"
 msgstr "पेंट को पानी से {ratioText} अनुपात</0> में पतला करें"
 
-#: src/components/ColorSetChooser.tsx:610
+#: src/components/ColorSetChooser.tsx:608
 msgid "Do you have a store-bought or custom color set?"
 msgstr "क्या आपके पास स्टोर से खरीदा गया या कस्टम रंग सेट है?"
 
@@ -384,7 +384,7 @@ msgstr "क्या आपके पास स्टोर से खरीद�
 msgid "Don't thin the layer"
 msgstr "परत को पतला न करें"
 
-#: src/components/ColorSetChooser.tsx:725
+#: src/components/ColorSetChooser.tsx:723
 msgid "Duplicate"
 msgstr "हूबहू नक़ल"
 
@@ -396,9 +396,9 @@ msgstr "रंग ब्रांड डेटा फ़ेच करते स�
 msgid "Error while fetching color data"
 msgstr "रंग डेटा लाते समय त्रुटि"
 
-#: src/components/ImageStyleTransfer.tsx:89
-#: src/components/ImageOutline.tsx:87
-#: src/components/ImageBackgroundRemoval.tsx:88
+#: src/components/ImageBackgroundRemoval.tsx:91
+#: src/components/ImageOutline.tsx:106
+#: src/components/ImageStyleTransfer.tsx:88
 msgid "Error while fetching ML model data"
 msgstr "एमएल मॉडल डेटा लाते समय त्रुटि"
 
@@ -406,11 +406,11 @@ msgstr "एमएल मॉडल डेटा लाते समय त्र�
 msgid "Error while fetching standard color set data"
 msgstr "मानक रंग सेट डेटा लाते समय त्रुटि"
 
-#: src/components/ImageColorAdjustment.tsx:454
+#: src/components/ImageColorAdjustment.tsx:452
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "केल्विन में प्रकाश स्रोत का अनुमानित तापमान छवि के साथ लिया गया था"
 
-#: src/components/ColorSetChooser.tsx:448
+#: src/components/ColorSetChooser.tsx:446
 msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "सशुल्क सदस्यता खरीदने का निर्णय लेने से पहले निःशुल्क संस्करण का अन्वेषण करें।"
 
@@ -418,16 +418,16 @@ msgstr "सशुल्क सदस्यता खरीदने का न�
 msgid "Failed to verify the ID token."
 msgstr "ID टोकन सत्यापित करने में विफल."
 
+#: src/components/ColorSetChooser.tsx:369
 #: src/components/CustomColorBrandCreator.tsx:239
-#: src/components/ColorSetChooser.tsx:371
 msgid "Fill in the required fields"
 msgstr "आवश्यक फ़ील्ड भरें"
 
-#: src/components/ImageColorAdjustment.tsx:407
+#: src/components/ImageColorAdjustment.tsx:405
 msgid "Gamma"
 msgstr "गामा"
 
-#: src/components/ColorSetChooser.tsx:570
+#: src/components/ColorSetChooser.tsx:568
 msgid "Give your color set a name for easy access."
 msgstr "आसान पहुंच के लिए अपना रंग सेट एक नाम दें।"
 
@@ -439,8 +439,8 @@ msgstr "<0>{colorPickerLabel}</0> टैब पर जाएं।"
 msgid "Go to the <0>{colorSetLabel}</0> tab."
 msgstr "<0>{colorSetLabel}</0> टैब पर जाएं।"
 
-#: src/components/empty/EmptyImage.tsx:53
 #: src/components/empty/EmptyColorSet.tsx:81
+#: src/components/empty/EmptyImage.tsx:53
 msgid "Go to the <0>{photoLabel}</0> tab and choose your reference photo."
 msgstr "<0>{photoLabel}</0> टैब पर जाएं और अपनी संदर्भ फ़ोटो चुनें।"
 
@@ -448,8 +448,9 @@ msgstr "<0>{photoLabel}</0> टैब पर जाएं और अपनी �
 msgid "Gouache"
 msgstr "गौचे"
 
+#: src/components/grid/GridControls.tsx:177
+#: src/components/ImageOutline.tsx:235
 #: src/components/messages.ts:33
-#: src/components/ImageGrid.tsx:151
 msgid "Grid"
 msgstr "ग्रिड"
 
@@ -457,12 +458,12 @@ msgstr "ग्रिड"
 msgid "Height"
 msgstr "पराकाष्‍ठा"
 
+#: src/components/ColorSetChooser.tsx:500
 #: src/components/messages.ts:43
-#: src/components/ColorSetChooser.tsx:502
 msgid "Help"
 msgstr "मदद"
 
-#: src/components/ColorSetChooser.tsx:453
+#: src/components/ColorSetChooser.tsx:451
 msgid "If you are having trouble logging in, please read this <0>guide</0>."
 msgstr "यदि आपको लॉग इन करने में समस्या हो रही है, तो कृपया इस <0>गाइड</0> को पढ़ें।"
 
@@ -470,7 +471,7 @@ msgstr "यदि आपको लॉग इन करने में समस
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "यदि आप नहीं सहेजते हैं, तो रंग सेट में परिवर्तन खो सकते हैं।"
 
-#: src/components/ImageBackgroundRemoval.tsx:262
+#: src/components/ImageBackgroundRemoval.tsx:265
 msgid "Image without background"
 msgstr "पृष्ठभूमि के बिना छवि"
 
@@ -482,9 +483,9 @@ msgstr "JSON आयात करें"
 msgid "Inspire"
 msgstr "जगाना"
 
-#: src/components/messages.ts:41
+#: src/components/ColorSetChooser.tsx:492
 #: src/components/Install.tsx:65
-#: src/components/ColorSetChooser.tsx:494
+#: src/components/messages.ts:41
 msgid "Install"
 msgstr "पदासीन करना"
 
@@ -492,7 +493,7 @@ msgstr "पदासीन करना"
 msgid "Install ArtistAssistApp on your device for easy access even without an Internet connection."
 msgstr "इंटरनेट कनेक्शन के बिना भी आसान पहुँच के लिए अपने डिवाइस पर ArtistAssistApp स्थापित करें."
 
-#: src/components/ImageColorAdjustment.tsx:482
+#: src/components/ImageColorAdjustment.tsx:480
 msgid "Intended color temperature (K)"
 msgstr "इच्छित रंग तापमान (K)"
 
@@ -512,7 +513,7 @@ msgstr "Patreon में शामिल हों"
 msgid "Language"
 msgstr "भाषा"
 
-#: src/components/ImageBlurred.tsx:110
+#: src/components/ImageBlurred.tsx:144
 msgid "Large"
 msgstr "बड़ा"
 
@@ -540,7 +541,7 @@ msgstr "सीमित पैलेट"
 msgid "Link copied to clipboard"
 msgstr "लिंक क्लिपबोर्ड पर कॉपी किया गया"
 
-#: src/components/ColorSetChooser.tsx:512
+#: src/components/ColorSetChooser.tsx:510
 msgid "Log in on another device by scanning the QR code"
 msgstr "क्यूआर कोड स्कैन करके दूसरे डिवाइस पर लॉग इन करें"
 
@@ -560,15 +561,15 @@ msgstr "लॉगिन विफल रहा"
 msgid "Login session is valid until {expirationText}"
 msgstr "लॉगिन सत्र {expirationText} तक मान्य है"
 
-#: src/components/ImageColorAdjustment.tsx:381
+#: src/components/ImageColorAdjustment.tsx:379
 msgid "Low input and high input"
 msgstr "कम इनपुट और उच्च इनपुट"
 
-#: src/components/ImageColorAdjustment.tsx:428
+#: src/components/ImageColorAdjustment.tsx:426
 msgid "Low output and high output"
 msgstr "कम आउटपुट और उच्च आउटपुट"
 
-#: src/components/ImageBlurred.tsx:109
+#: src/components/ImageBlurred.tsx:143
 msgid "Medium"
 msgstr "मध्यम"
 
@@ -576,7 +577,7 @@ msgstr "मध्यम"
 msgid "Mid tone"
 msgstr "मध्य स्वर"
 
-#: src/components/ImageColorAdjustment.tsx:406
+#: src/components/ImageColorAdjustment.tsx:404
 msgid "Midtones"
 msgstr "मिडटोन"
 
@@ -592,15 +593,15 @@ msgstr "अपने रंगों को किसी भी अनुपा�
 msgid "Mixture"
 msgstr "मिश्रण"
 
-#: src/components/ImageOutline.tsx:165
-#: src/components/ImageBackgroundRemoval.tsx:190
 #: src/components/color/ReflectanceChartDrawer.tsx:102
+#: src/components/ImageBackgroundRemoval.tsx:195
+#: src/components/ImageOutline.tsx:211
 msgid "Mode"
 msgstr "मोड समूह"
 
+#: src/components/ColorSetChooser.tsx:567
 #: src/components/CustomColorBrandCreator.tsx:356
 #: src/components/CustomColorBrandCreator.tsx:430
-#: src/components/ColorSetChooser.tsx:569
 msgid "Name"
 msgstr "नाम"
 
@@ -608,7 +609,7 @@ msgstr "नाम"
 msgid "Name a brand"
 msgstr "ब्रांड का नाम बताइए"
 
-#: src/components/ColorSetChooser.tsx:573
+#: src/components/ColorSetChooser.tsx:571
 msgid "Name a color set"
 msgstr "रंग सेट को नाम दें"
 
@@ -624,26 +625,26 @@ msgstr "नया रंग सेट"
 msgid "New comparison"
 msgstr "नई तुलना"
 
-#: src/components/CustomColorBrandCreator.tsx:375
+#: src/components/color/AddToPaletteButton.tsx:52
+#: src/components/color/PaletteColorMixtureCard.tsx:96
 #: src/components/ColorSetChooser.tsx:219
-#: src/components/ColorSetChooser.tsx:734
+#: src/components/ColorSetChooser.tsx:732
+#: src/components/CustomColorBrandCreator.tsx:375
+#: src/components/image/RecentImageCard.tsx:74
+#: src/components/palette/PaletteGrid.tsx:103
 #: src/components/storage/ClearStorage.tsx:62
 #: src/components/storage/ClearStorage.tsx:75
-#: src/components/palette/PaletteGrid.tsx:103
-#: src/components/image/RecentImageCard.tsx:74
-#: src/components/color/PaletteColorMixtureCard.tsx:96
-#: src/components/color/AddToPaletteButton.tsx:52
 msgid "No"
 msgstr "नहीं"
 
-#: src/components/ImageColorPicker.tsx:302
-#: src/components/empty/EmptyPalette.tsx:39
-#: src/components/empty/EmptyImage.tsx:42
 #: src/components/empty/EmptyColorSet.tsx:53
+#: src/components/empty/EmptyImage.tsx:42
+#: src/components/empty/EmptyPalette.tsx:39
+#: src/components/ImageColorPicker.tsx:302
 msgid "No data"
 msgstr "कोई डेटा नहीं"
 
-#: src/components/ImageBlurred.tsx:107
+#: src/components/ImageBlurred.tsx:141
 msgid "None"
 msgstr "कोई नहीं"
 
@@ -651,7 +652,7 @@ msgstr "कोई नहीं"
 msgid "Nothing to share"
 msgstr "साझा करने के लिए कुछ भी नहीं"
 
-#: src/components/ImageGrid.tsx:162
+#: src/components/grid/GridControls.tsx:188
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "छोटी भुजा पर कक्षों की संख्या (ऊर्ध्वाधर या क्षैतिज)"
 
@@ -663,15 +664,15 @@ msgstr "तेल पेंट"
 msgid "Oil Pastel"
 msgstr "तेल पेस्टल"
 
-#: src/components/ColorSetChooser.tsx:592
+#: src/components/ColorSetChooser.tsx:590
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "मुफ्त संस्करण में केवल सीमित संख्या में रंग ब्रांड उपलब्ध हैं"
 
-#: src/components/ImageBackgroundRemoval.tsx:178
+#: src/components/ImageBackgroundRemoval.tsx:183
 msgid "Only a limited number of modes are available in the free version"
 msgstr "मुफ्त संस्करण में केवल सीमित संख्या में मोड उपलब्ध हैं"
 
-#: src/components/ImageStyleTransfer.tsx:176
+#: src/components/ImageStyleTransfer.tsx:185
 msgid "Only a limited number of styles are available in the free version"
 msgstr "मुफ्त संस्करण में केवल सीमित संख्या में शैलियाँ उपलब्ध हैं"
 
@@ -700,11 +701,11 @@ msgstr "या नमूना फ़ोटो से चुनें"
 msgid "Or select from your recent photos"
 msgstr "या अपनी हाल की फ़ोटो में से चुनें"
 
-#: src/components/ImageColorAdjustment.tsx:453
+#: src/components/ImageColorAdjustment.tsx:451
 msgid "Original color temperature (K)"
 msgstr "मूल रंग तापमान (के)"
 
-#: src/components/ImageBackgroundRemoval.tsx:255
+#: src/components/ImageBackgroundRemoval.tsx:258
 msgid "Original photo"
 msgstr "मूल फोटो"
 
@@ -712,7 +713,7 @@ msgstr "मूल फोटो"
 msgid "Outline"
 msgstr "रूपरेखा बनाना"
 
-#: src/components/ImageColorAdjustment.tsx:427
+#: src/components/ImageColorAdjustment.tsx:425
 msgid "Output levels"
 msgstr "आउटपुट स्तर"
 
@@ -788,23 +789,23 @@ msgstr "नेविगाटन बार में प्रेस शेय�
 msgid "Press the <0>Add to palette</0> button next to the color mixture you like."
 msgstr "दबाएं <0>पैलेट में जोड़ें</0> अपनी पसंद के रंग मिश्रण के बगल में बटन।"
 
-#: src/components/ColorSetChooser.tsx:681
+#: src/components/ColorSetChooser.tsx:679
 msgid "Press the Share button, copy and save the link so you don't have to re-enter all the colors."
 msgstr "शेयर बटन दबाएं, लिंक को कॉपी करें और सहेजें ताकि आपको सभी रंगों को फिर से दर्ज न करना पड़े।"
 
-#: src/components/ImageColorAdjustment.tsx:340
+#: src/components/ImageColorAdjustment.tsx:338
 msgid "Preview"
 msgstr "पूर्वसमीक्षा"
 
+#: src/components/ImageGrid.tsx:69
+#: src/components/ImageGrid.tsx:94
+#: src/components/ImageOutline.tsx:168
+#: src/components/ImageOutline.tsx:240
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:85
 #: src/components/ImageTonalValues.tsx:124
-#: src/components/ImageOutline.tsx:132
-#: src/components/ImageOutline.tsx:177
-#: src/components/ImageGrid.tsx:126
-#: src/components/ImageGrid.tsx:183
-#: src/components/print/PrintImageDrawer.tsx:121
 #: src/components/palette/PaletteGrid.tsx:96
+#: src/components/print/PrintImageDrawer.tsx:121
 msgid "Print"
 msgstr "फ़ोटो"
 
@@ -820,15 +821,15 @@ msgstr "प्रिंट पूर्वावलोकन"
 msgid "Privacy policy"
 msgstr "गोपनीयता नीति"
 
-#: src/components/ImageOutline.tsx:124
+#: src/components/ImageOutline.tsx:160
 msgid "Quality"
 msgstr "गुण"
 
-#: src/components/ImageOutline.tsx:159
+#: src/components/ImageOutline.tsx:205
 msgid "Quality mode is available to paid Patreon members only"
 msgstr "गुणवत्ता मोड केवल भुगतान किए गए Patreon सदस्यों के लिए उपलब्ध है"
 
-#: src/components/ImageOutline.tsx:120
+#: src/components/ImageOutline.tsx:156
 msgid "Quick"
 msgstr "तेज़ी से"
 
@@ -856,8 +857,8 @@ msgstr "अनुशंसित"
 msgid "Reference"
 msgstr "हवाला"
 
-#: src/components/ColorMixer.tsx:272
 #: src/components/color/SimilarColorCard.tsx:108
+#: src/components/ColorMixer.tsx:272
 msgid "Reflectance"
 msgstr "परावर्तन"
 
@@ -877,8 +878,8 @@ msgstr "सभी को हटा दें"
 msgid "Remove all color mixtures"
 msgstr "सभी रंग मिश्रण निकालें"
 
+#: src/components/ImageColorAdjustment.tsx:334
 #: src/components/messages.ts:39
-#: src/components/ImageColorAdjustment.tsx:336
 msgid "Remove background"
 msgstr "पृष्ठभूमि हटाएं"
 
@@ -886,8 +887,8 @@ msgstr "पृष्ठभूमि हटाएं"
 msgid "Remove from palette"
 msgstr "पैलेट से निकालें"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:92
 #: src/components/color/AddToPaletteButton.tsx:48
+#: src/components/color/PaletteColorMixtureCard.tsx:92
 msgid "Remove the color mixture"
 msgstr "रंग मिश्रण निकालें"
 
@@ -905,8 +906,8 @@ msgstr "iOS 16.4+ या iPadOS 16.4+ आवश्यक है।"
 msgid "Requires macOS Sonoma or later."
 msgstr "macOS सोनोमा या बाद के संस्करण की आवश्यकता है।"
 
-#: src/components/ImagePerspectiveCorrection.tsx:180
-#: src/components/ImagePerspectiveCorrection.tsx:252
+#: src/components/ImagePerspectiveCorrection.tsx:178
+#: src/components/ImagePerspectiveCorrection.tsx:250
 msgid "Reset"
 msgstr "रीसेट"
 
@@ -914,40 +915,40 @@ msgstr "रीसेट"
 msgid "Return to the <0>{paletteLabel}</0> tab."
 msgstr "<0>{paletteLabel}</0> टैब पर लौटें।"
 
-#: src/components/empty/EmptyImage.tsx:62
 #: src/components/empty/EmptyColorSet.tsx:92
+#: src/components/empty/EmptyImage.tsx:62
 msgid "Return to the <0>{tabLabel}</0> tab."
 msgstr "<0>{tabLabel}</0> टैब पर लौटें।"
 
-#: src/components/ImagePerspectiveCorrection.tsx:188
-#: src/components/ImagePerspectiveCorrection.tsx:256
+#: src/components/ImagePerspectiveCorrection.tsx:186
+#: src/components/ImagePerspectiveCorrection.tsx:254
 msgid "Rotate"
 msgstr "घूमना"
 
-#: src/components/ImageColorAdjustment.tsx:363
+#: src/components/ImageColorAdjustment.tsx:361
 msgid "Saturation (%)"
 msgstr "संतृप्ति (%)"
 
+#: src/components/CustomColorBrandCreator.tsx:364
+#: src/components/ImageBackgroundRemoval.tsx:146
+#: src/components/ImageBackgroundRemoval.tsx:223
+#: src/components/ImageBlurred.tsx:116
+#: src/components/ImageBlurred.tsx:162
+#: src/components/ImageColorAdjustment.tsx:310
+#: src/components/ImageGrid.tsx:77
+#: src/components/ImageGrid.tsx:97
+#: src/components/ImageLimitedPalette.tsx:107
+#: src/components/ImageOutline.tsx:174
+#: src/components/ImageOutline.tsx:248
+#: src/components/ImagePerspectiveCorrection.tsx:196
+#: src/components/ImagePerspectiveCorrection.tsx:266
+#: src/components/ImageStyleTransfer.tsx:179
 #: src/components/ImageTonalValues.tsx:91
 #: src/components/ImageTonalValues.tsx:132
-#: src/components/ImageStyleTransfer.tsx:170
-#: src/components/ImagePerspectiveCorrection.tsx:198
-#: src/components/ImagePerspectiveCorrection.tsx:268
-#: src/components/ImageOutline.tsx:138
-#: src/components/ImageOutline.tsx:185
-#: src/components/ImageLimitedPalette.tsx:107
-#: src/components/ImageGrid.tsx:132
-#: src/components/ImageGrid.tsx:186
-#: src/components/ImageColorAdjustment.tsx:312
-#: src/components/ImageBlurred.tsx:83
-#: src/components/ImageBlurred.tsx:127
-#: src/components/ImageBackgroundRemoval.tsx:141
-#: src/components/ImageBackgroundRemoval.tsx:218
-#: src/components/CustomColorBrandCreator.tsx:364
 msgid "Save"
 msgstr "रक्षा कर"
 
-#: src/components/ColorSetChooser.tsx:701
+#: src/components/ColorSetChooser.tsx:699
 msgid "Save & proceed"
 msgstr "सहेजें और आगे बढ़ें"
 
@@ -955,17 +956,17 @@ msgstr "सहेजें और आगे बढ़ें"
 msgid "Save changes to the color set?"
 msgstr "रंग सेट में परिवर्तन सहेजें?"
 
-#: src/components/ImagePerspectiveCorrection.tsx:169
-#: src/components/ImageColorAdjustment.tsx:259
+#: src/components/ImageColorAdjustment.tsx:257
+#: src/components/ImagePerspectiveCorrection.tsx:167
 msgid "Save expanded to 1.91:1"
 msgstr "सहेजें 1.91:1 तक विस्तारित"
 
-#: src/components/ImagePerspectiveCorrection.tsx:161
-#: src/components/ImageColorAdjustment.tsx:251
+#: src/components/ImageColorAdjustment.tsx:249
+#: src/components/ImagePerspectiveCorrection.tsx:159
 msgid "Save expanded to 4:5"
 msgstr "सहेजें 4:5 तक विस्तारित"
 
-#: src/components/ColorSetChooser.tsx:697
+#: src/components/ColorSetChooser.tsx:695
 msgid "Save the changes to this color set"
 msgstr "इस रंग सेट में परिवर्तन सहेजें"
 
@@ -973,23 +974,23 @@ msgstr "इस रंग सेट में परिवर्तन सहे�
 msgid "Scan a QR code"
 msgstr "QR कोड स्कैन करें"
 
-#: src/components/ColorSetChooser.tsx:486
+#: src/components/ColorSetChooser.tsx:484
 msgid "Scan QR code"
 msgstr "QR कोड स्कैन करें"
 
-#: src/components/ImagePerspectiveCorrection.tsx:109
+#: src/components/ImagePerspectiveCorrection.tsx:107
 msgid "Select 4 points to correct perspective distortion"
 msgstr "परिप्रेक्ष्य विरूपण को सही करने के लिए 4 बिंदुओं का चयन करें"
 
-#: src/components/ImageColorAdjustment.tsx:297
+#: src/components/ImageColorAdjustment.tsx:295
 msgid "Select a photo to adjust white balance and colors"
 msgstr "श्वेत संतुलन और रंगों को समायोजित करने के लिए एक तस्वीर का चयन करें"
 
-#: src/components/ImagePerspectiveCorrection.tsx:228
+#: src/components/ImagePerspectiveCorrection.tsx:226
 msgid "Select a photo to correct the perspective"
 msgstr "परिप्रेक्ष्य को सही करने के लिए एक तस्वीर का चयन करें"
 
-#: src/components/ImageBackgroundRemoval.tsx:164
+#: src/components/ImageBackgroundRemoval.tsx:169
 msgid "Select a photo to remove the background from"
 msgstr "पृष्ठभूमि से हटाने के लिए एक तस्वीर का चयन करें"
 
@@ -997,7 +998,7 @@ msgstr "पृष्ठभूमि से हटाने के लिए ए�
 msgid "Select a reference photo from your device to paint from"
 msgstr "पेंट करने के लिए अपने डिवाइस से एक संदर्भ फ़ोटो चुनें"
 
-#: src/components/ImageStyleTransfer.tsx:165
+#: src/components/ImageStyleTransfer.tsx:174
 msgid "Select a style to transfer to your reference photo"
 msgstr "अपनी संदर्भ फ़ोटो में स्थानांतरित करने के लिए एक शैली का चयन करें"
 
@@ -1017,7 +1018,7 @@ msgstr "कला माध्यम का चयन करें"
 msgid "Select brands"
 msgstr "ब्रांडों का चयन करें"
 
-#: src/components/ColorSetChooser.tsx:578
+#: src/components/ColorSetChooser.tsx:576
 msgid "Select brands that you use."
 msgstr "उन ब्रांडों का चयन करें जिनका आप उपयोग करते हैं।"
 
@@ -1025,8 +1026,8 @@ msgstr "उन ब्रांडों का चयन करें जिन�
 msgid "Select color"
 msgstr "रंग का चयन करें"
 
-#: src/components/color-set/ColorSelect.tsx:68
 #: src/components/color-set/ColorCascader.tsx:91
+#: src/components/color-set/ColorSelect.tsx:68
 msgid "Select colors"
 msgstr "रंगों का चयन करें"
 
@@ -1042,7 +1043,7 @@ msgstr "अपने हाल के ब्रांडों में से 
 msgid "Select from your recent color sets"
 msgstr "अपने हाल के रंग सेट में से चुनें"
 
-#: src/components/ColorSetChooser.tsx:554
+#: src/components/ColorSetChooser.tsx:552
 msgid "Select from your recent color sets or create a new one."
 msgstr "अपने हाल के रंग सेट में से चुनें या एक नया बनाएं।"
 
@@ -1058,10 +1059,10 @@ msgstr "भाषा का चयन करें"
 msgid "Select part"
 msgstr "भाग का चयन करें"
 
-#: src/components/ImagePerspectiveCorrection.tsx:238
-#: src/components/ImageColorAdjustment.tsx:302
+#: src/components/ImageBackgroundRemoval.tsx:191
 #: src/components/ImageChooser.tsx:75
-#: src/components/ImageBackgroundRemoval.tsx:186
+#: src/components/ImageColorAdjustment.tsx:300
+#: src/components/ImagePerspectiveCorrection.tsx:236
 msgid "Select photo"
 msgstr "फ़ोटो का चयन करें"
 
@@ -1077,11 +1078,11 @@ msgstr "जोड़ीवार तुलना का उपयोग कर�
 msgid "Select set"
 msgstr "सेट का चयन करें"
 
-#: src/components/ImageStyleTransfer.tsx:217
+#: src/components/ImageStyleTransfer.tsx:227
 msgid "Select style image"
 msgstr "शैली छवि का चयन करें"
 
-#: src/components/ColorSetChooser.tsx:522
+#: src/components/ColorSetChooser.tsx:520
 #: src/components/empty/EmptyColorSet.tsx:73
 msgid "Select your art medium, color brands and colors you will paint with and press the <0>Save & proceed</0> button."
 msgstr "अपने कला माध्यम, रंग ब्रांड और रंगों का चयन करें जिनसे आप पेंट करेंगे और <0>सहेजें और आगे बढ़ें</0> बटन दबाएं।"
@@ -1094,12 +1095,13 @@ msgstr "अर्ध-अपारदर्शी"
 msgid "Semi-transparent"
 msgstr "अर्ध-पारदर्शी"
 
-#: src/components/color/SimilarColorCard.tsx:97
 #: src/components/color/PaletteColorMixtureCard.tsx:89
+#: src/components/color/SimilarColorCard.tsx:97
 msgid "Set as background"
 msgstr "पृष्ठभूमि के रूप में सेट करें"
 
-#: src/components/ImageColorAdjustment.tsx:329
+#: src/components/ImageBlurred.tsx:105
+#: src/components/ImageColorAdjustment.tsx:327
 msgid "Set as reference"
 msgstr "संदर्भ के रूप में सेट करें"
 
@@ -1107,8 +1109,8 @@ msgstr "संदर्भ के रूप में सेट करें"
 msgid "Set paper white background"
 msgstr "कागज सफेद पृष्ठभूमि सेट करें"
 
-#: src/components/color/SimilarColorCard.tsx:92
 #: src/components/color/PaletteColorMixtureCard.tsx:86
+#: src/components/color/SimilarColorCard.tsx:92
 msgid "Set the color of the base layer for the glazing"
 msgstr "ग्लेज़िंग के लिए आधार परत का रंग सेट करें"
 
@@ -1116,16 +1118,16 @@ msgstr "ग्लेज़िंग के लिए आधार परत क�
 msgid "Shadow"
 msgstr "छाया"
 
-#: src/components/ImageColorAdjustment.tsx:380
+#: src/components/ImageColorAdjustment.tsx:378
 msgid "Shadows and highlights"
 msgstr "छाया और हाइलाइट्स"
 
-#: src/components/ColorSetChooser.tsx:715
+#: src/components/ColorSetChooser.tsx:713
 #: src/components/share/ShareModal.tsx:83
 msgid "Share"
 msgstr "पत्ती"
 
-#: src/components/ColorSetChooser.tsx:712
+#: src/components/ColorSetChooser.tsx:710
 msgid "Share this color set"
 msgstr "इस रंग सेट को साझा करें"
 
@@ -1133,16 +1135,24 @@ msgstr "इस रंग सेट को साझा करें"
 msgid "Share your color set"
 msgstr "अपना रंग सेट साझा करें"
 
+#: src/components/grid/GridControls.tsx:173
+msgid "Show grid"
+msgstr "ग्रिड दिखाएं"
+
 #: src/components/color/PaletteColorMixtureCard.tsx:81
 msgid "Show on photo"
 msgstr "फोटो पर दिखाएं"
 
-#: src/components/ImageGrid.tsx:174
+#: src/components/grid/GridControls.tsx:196
 msgid "Show or hide diagonal lines"
 msgstr "विकर्ण रेखाएँ दिखाना या छुपाना"
 
-#: src/components/ImageColorPicker.tsx:177
+#: src/components/grid/GridControls.tsx:173
+msgid "Show or hide grid"
+msgstr "ग्रिड दिखाना या छुपाना"
+
 #: src/components/color/ReflectanceChartDrawer.tsx:87
+#: src/components/ImageColorPicker.tsx:177
 msgid "Similarity"
 msgstr "समानता"
 
@@ -1162,7 +1172,7 @@ msgstr "विभिन्न रंगों के तेल पेस्ट�
 msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition."
 msgstr "विभिन्न रंगों के पेस्टल क्षेत्रों को थोड़ा ओवरलैप करें और एक चिकनी संक्रमण बनाने के लिए धीरे से मिश्रण करें।"
 
-#: src/components/ImageBlurred.tsx:108
+#: src/components/ImageBlurred.tsx:142
 msgid "Small"
 msgstr "मामूली"
 
@@ -1175,17 +1185,17 @@ msgstr "जाति"
 msgid "Sort by the similarity of the mixture to the target color, or by the number of colors in the mixture, or by the thickness of the mixture."
 msgstr "लक्ष्य रंग के लिए मिश्रण की समानता के आधार पर, या मिश्रण में रंगों की संख्या से, या मिश्रण की मोटाई के अनुसार क्रमबद्ध करें।"
 
-#: src/components/ColorMixer.tsx:266
-#: src/components/color/SimilarColorCard.tsx:103
 #: src/components/color/ReflectanceChartDrawer.tsx:93
+#: src/components/color/SimilarColorCard.tsx:103
+#: src/components/ColorMixer.tsx:266
 msgid "Spectral reflectance curve"
 msgstr "वर्णक्रमीय परावर्तन वक्र"
 
-#: src/components/ImageGrid.tsx:143
+#: src/components/grid/GridControls.tsx:164
 msgid "Square cells"
 msgstr "वर्ग कक्ष"
 
-#: src/components/ColorSetChooser.tsx:607
+#: src/components/ColorSetChooser.tsx:605
 msgid "Standard color set"
 msgstr "मानक रंग सेट"
 
@@ -1197,11 +1207,11 @@ msgstr "मानक प्रिंट"
 msgid "Storage usage"
 msgstr "भंडारण उपयोग"
 
-#: src/components/ImagePerspectiveCorrection.tsx:231
+#: src/components/ImagePerspectiveCorrection.tsx:229
 msgid "Straightens skewed photos and removes unwanted edges. Select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "तिरछी तस्वीरों को सीधा करता है और अवांछित किनारों को हटाता है। परिप्रेक्ष्य विरूपण को सही करने के लिए 4 बिंदुओं का चयन करें, फिर छवि को क्रॉप करने के लिए वैकल्पिक रूप से मार्जिन खींचें।"
 
-#: src/components/ImageStyleTransfer.tsx:143
+#: src/components/ImageStyleTransfer.tsx:152
 msgid "Styled reference photo"
 msgstr "स्टाइल संदर्भ फोटो"
 
@@ -1229,8 +1239,8 @@ msgstr "ऐप इंस्टॉलेशन के बाद भी वेब 
 msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "ऐप {reloadCounter} सेकंड में पुनः लोड करने का प्रयास करेगा"
 
-#: src/components/ImageColorPicker.tsx:220
 #: src/components/ColorMixer.tsx:187
+#: src/components/ImageColorPicker.tsx:220
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "कागज या कैनवास का रंग, या चमकता हुआ होने पर आधार परत का रंग।"
 
@@ -1262,7 +1272,7 @@ msgstr "सघनता"
 msgid "Thin the paint to <0>{fractionText} thickness</0>"
 msgstr "पेंट को <0>{fractionText} मोटाई</0> तक पतला करें"
 
-#: src/components/ColorSetChooser.tsx:633
+#: src/components/ColorSetChooser.tsx:631
 msgid "This color brand is available to paid Patreon members only"
 msgstr "यह रंग ब्रांड केवल भुगतान किए गए Patreon सदस्यों के लिए उपलब्ध है"
 
@@ -1274,7 +1284,7 @@ msgstr "यह मुद्रण आकार समर्थित नही�
 msgid "This step is optional."
 msgstr "यह चरण वैकल्पिक है."
 
-#: src/components/ImageStyleTransfer.tsx:233
+#: src/components/ImageStyleTransfer.tsx:243
 msgid "This style is available to paid Patreon members only"
 msgstr "यह शैली केवल भुगतान किए गए Patreon सदस्यों के लिए उपलब्ध है"
 
@@ -1306,10 +1316,10 @@ msgstr "अनपेक्षित त्रुटि"
 msgid "Unknown error"
 msgstr "अज्ञात त्रुटि"
 
-#: src/components/palette/PaletteGrid.tsx:137
-#: src/components/color/SimilarColorCard.tsx:83
-#: src/components/color/PaletteColorMixtureCard.tsx:69
 #: src/components/color/ColorSwatchDrawer.tsx:103
+#: src/components/color/PaletteColorMixtureCard.tsx:69
+#: src/components/color/SimilarColorCard.tsx:83
+#: src/components/palette/PaletteGrid.tsx:137
 msgid "Untitled mixture"
 msgstr "शीर्षकहीन मिश्रण"
 
@@ -1321,7 +1331,7 @@ msgstr "ग्लेज़िंग माध्यमों का उपयो
 msgid "Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original oil paint layer. You should be able to get the consistency of runny sour cream. Linseed oil is a popular glazing medium."
 msgstr "ग्लेज़िंग माध्यमों का उपयोग करें जो आपको एक पतली परत प्राप्त करने की अनुमति देते हैं, उदाहरण के लिए, मूल तेल पेंट परत का 1/10। आपको बहती खट्टा क्रीम की स्थिरता प्राप्त करने में सक्षम होना चाहिए। अलसी का तेल एक लोकप्रिय ग्लेज़िंग माध्यम है।"
 
-#: src/components/file/FileSelect.tsx:63
+#: src/components/file/FileSelect.tsx:91
 msgid "Use reference photo"
 msgstr "संदर्भ फ़ोटो का उपयोग करें"
 
@@ -1345,11 +1355,11 @@ msgstr "वॉटरकलर पेंट"
 msgid "Watercolor Pencils"
 msgstr "वॉटरकलर पेंसिल"
 
-#: src/components/ColorSetChooser.tsx:665
+#: src/components/ColorSetChooser.tsx:663
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "कुल मिलाकर {maxColorsFor2} से अधिक रंगों का चयन करते समय, दो रंगों के मिश्रण का उपयोग नहीं किया जाता है।"
 
-#: src/components/ColorSetChooser.tsx:673
+#: src/components/ColorSetChooser.tsx:671
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "कुल मिलाकर {maxColorsFor3} से अधिक रंगों का चयन करते समय, तीन रंगों के मिश्रण का उपयोग नहीं किया जाता है।"
 
@@ -1357,13 +1367,13 @@ msgstr "कुल मिलाकर {maxColorsFor3} से अधिक रं�
 msgid "White"
 msgstr "सफेद"
 
+#: src/components/ImagePerspectiveCorrection.tsx:205
+#: src/components/ImagePerspectiveCorrection.tsx:278
 #: src/components/messages.ts:38
-#: src/components/ImagePerspectiveCorrection.tsx:207
-#: src/components/ImagePerspectiveCorrection.tsx:280
 msgid "White balance"
 msgstr "श्वेत संतुलन"
 
-#: src/components/ImageColorAdjustment.tsx:346
+#: src/components/ImageColorAdjustment.tsx:344
 msgid "White patch (%ile)"
 msgstr "सफेद पैच (% ile)"
 
@@ -1371,23 +1381,23 @@ msgstr "सफेद पैच (% ile)"
 msgid "Width"
 msgstr "चौड़ाई"
 
-#: src/components/CustomColorBrandCreator.tsx:374
+#: src/components/color/AddToPaletteButton.tsx:51
+#: src/components/color/PaletteColorMixtureCard.tsx:95
 #: src/components/ColorSetChooser.tsx:218
-#: src/components/ColorSetChooser.tsx:733
+#: src/components/ColorSetChooser.tsx:731
+#: src/components/CustomColorBrandCreator.tsx:374
+#: src/components/image/RecentImageCard.tsx:73
+#: src/components/palette/PaletteGrid.tsx:102
 #: src/components/storage/ClearStorage.tsx:61
 #: src/components/storage/ClearStorage.tsx:74
-#: src/components/palette/PaletteGrid.tsx:102
-#: src/components/image/RecentImageCard.tsx:73
-#: src/components/color/PaletteColorMixtureCard.tsx:95
-#: src/components/color/AddToPaletteButton.tsx:51
 msgid "Yes"
 msgstr "हाँ"
 
-#: src/components/ColorSetChooser.tsx:427
+#: src/components/ColorSetChooser.tsx:425
 msgid "You are logged in and have access to all app features."
 msgstr "आप लॉग इन हैं और आपके पास सभी ऐप सुविधाओं तक पहुंच है।"
 
-#: src/components/ColorSetChooser.tsx:432
+#: src/components/ColorSetChooser.tsx:430
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "आप सीमित संख्या में रंग ब्रांडों और छवि प्रसंस्करण मोड के साथ <0>मुफ्त संस्करण</0> का उपयोग कर रहे हैं।"
 
@@ -1395,15 +1405,15 @@ msgstr "आप सीमित संख्या में रंग ब्र�
 msgid "You have not yet joined ArtistAssistApp on Patreon as a paid member. Join and log in again."
 msgstr "आपने अभी तक Patreon पर ArtistAssistApp को सशुल्क सदस्य के रूप में शामिल नहीं किया है. शामिल हों और फिर से लॉग इन करें।"
 
-#: src/components/ColorSetChooser.tsx:585
+#: src/components/ColorSetChooser.tsx:583
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "आपने ऐसे रंग ब्रांड चुने हैं जो केवल भुगतान किए गए Patreon सदस्यों के लिए उपलब्ध हैं"
 
-#: src/components/ColorSetChooser.tsx:656
+#: src/components/ColorSetChooser.tsx:654
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "आपने ऐसे रंग ब्रांड चुने हैं जो केवल भुगतान किए गए Patreon सदस्यों के लिए उपलब्ध हैं। Patreon पर ArtistAssistApp से सशुल्क सदस्य के रूप में जुड़ें या यदि आप पहले ही शामिल हो चुके हैं तो Patreon के साथ लॉग इन करें."
 
-#: src/components/ImageBackgroundRemoval.tsx:172
+#: src/components/ImageBackgroundRemoval.tsx:177
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "आपने वह मोड चुना है जो केवल भुगतान किए गए Patreon सदस्यों के लिए उपलब्ध है"
 

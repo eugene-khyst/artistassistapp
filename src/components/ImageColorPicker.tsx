@@ -24,7 +24,6 @@ import {
   ColorPicker,
   Form,
   Grid,
-  Input,
   Row,
   Select,
   Slider,
@@ -213,89 +212,91 @@ export const ImageColorPicker: React.FC = () => {
               direction="vertical"
               style={{padding: '0 16px 16px', width: '100%', boxSizing: 'border-box'}}
             >
-              {glazing && (
-                <Space align="start" wrap style={{display: 'flex'}}>
+              <Space direction="vertical" size={0}>
+                {glazing && (
+                  <Space align="start" wrap style={{display: 'flex'}}>
+                    <Form.Item
+                      label={t`Background`}
+                      tooltip={t`The color of paper or canvas, or the color of the base layer when glazed.`}
+                      style={{marginBottom: 0}}
+                    >
+                      <ColorPicker
+                        value={backgroundColor}
+                        presets={[
+                          {
+                            label: t`Paper white`,
+                            colors: [PAPER_WHITE_HEX],
+                          },
+                        ]}
+                        onChangeComplete={(color: Color) => {
+                          void setBackgroundColor(color.toHexString());
+                        }}
+                        showText
+                        disabledAlpha
+                      />
+                    </Form.Item>
+                    <Form.Item style={{marginBottom: 0}}>
+                      <Button
+                        icon={<BgColorsOutlined />}
+                        title={t`Set paper white background`}
+                        onClick={() => {
+                          void setBackgroundColor(PAPER_WHITE_HEX);
+                        }}
+                      >
+                        <Trans>White</Trans>
+                      </Button>
+                    </Form.Item>
+                  </Space>
+                )}
+                <Form.Item
+                  label={t`Diameter`}
+                  tooltip={t`The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area.`}
+                  style={{marginBottom: 0}}
+                >
+                  <Slider
+                    value={sampleDiameter}
+                    onChange={handleSampleDiameterChange}
+                    min={MIN_COLOR_PICKER_DIAMETER}
+                    max={MAX_SAMPLE_DIAMETER}
+                    marks={SAMPLE_DIAMETER_SLIDER_MARKS}
+                  />
+                </Form.Item>
+                <Space align="center" wrap style={{display: 'flex'}}>
                   <Form.Item
-                    label={t`Background`}
-                    tooltip={t`The color of paper or canvas, or the color of the base layer when glazed.`}
+                    label={t`Color`}
+                    tooltip={t`The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup.`}
                     style={{marginBottom: 0}}
                   >
                     <ColorPicker
-                      value={backgroundColor}
-                      presets={[
-                        {
-                          label: t`Paper white`,
-                          colors: [PAPER_WHITE_HEX],
-                        },
-                      ]}
+                      value={targetColor}
                       onChangeComplete={(color: Color) => {
-                        void setBackgroundColor(color.toHexString());
+                        handleTargetColorChange(color.toHexString());
                       }}
                       showText
                       disabledAlpha
                     />
                   </Form.Item>
-                  <Form.Item style={{marginBottom: 0}}>
-                    <Button
-                      icon={<BgColorsOutlined />}
-                      title={t`Set paper white background`}
-                      onClick={() => {
-                        void setBackgroundColor(PAPER_WHITE_HEX);
-                      }}
+                  {mixing && (
+                    <Form.Item
+                      label={t`Sort`}
+                      tooltip={t`Sort by the similarity of the mixture to the target color, or by the number of colors in the mixture, or by the thickness of the mixture.`}
+                      style={{marginBottom: 0}}
                     >
-                      <Trans>White</Trans>
-                    </Button>
-                  </Form.Item>
+                      <Select
+                        value={sort}
+                        onChange={handleSortChange}
+                        options={sortOptions}
+                        popupMatchSelectWidth={false}
+                      />
+                    </Form.Item>
+                  )}
                 </Space>
-              )}
-              <Form.Item
-                label={t`Diameter`}
-                tooltip={t`The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area.`}
-                style={{marginBottom: 0}}
-              >
-                <Slider
-                  value={sampleDiameter}
-                  onChange={handleSampleDiameterChange}
-                  min={MIN_COLOR_PICKER_DIAMETER}
-                  max={MAX_SAMPLE_DIAMETER}
-                  marks={SAMPLE_DIAMETER_SLIDER_MARKS}
-                />
-              </Form.Item>
-              <Space align="center" wrap style={{display: 'flex'}}>
-                <Form.Item
-                  label={t`Color`}
-                  tooltip={t`The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup.`}
-                  style={{marginBottom: 0}}
-                >
-                  <ColorPicker
-                    value={targetColor}
-                    onChangeComplete={(color: Color) => {
-                      handleTargetColorChange(color.toHexString());
-                    }}
-                    showText
-                    disabledAlpha
-                  />
-                </Form.Item>
-                {mixing && (
-                  <Form.Item
-                    label={t`Sort`}
-                    tooltip={t`Sort by the similarity of the mixture to the target color, or by the number of colors in the mixture, or by the thickness of the mixture.`}
-                    style={{marginBottom: 0}}
-                  >
-                    <Select
-                      value={sort}
-                      onChange={handleSortChange}
-                      options={sortOptions}
-                      popupMatchSelectWidth={false}
-                    />
+                {screens.sm && colorSet.name && (
+                  <Form.Item label={t`Color set`} style={{marginBottom: 0}}>
+                    {colorSet.name}
                   </Form.Item>
                 )}
               </Space>
-              {screens.sm && colorSet.name && (
-                <Form.Item label={t`Color set`} style={{marginBottom: 0}}>
-                  <Input value={colorSet.name} variant="borderless" readOnly />
-                </Form.Item>
-              )}
               {!isSimilarColorsLoading && !similarColors.length ? (
                 <Space direction="vertical" style={{margin: '8px 0'}}>
                   <Typography.Text strong>

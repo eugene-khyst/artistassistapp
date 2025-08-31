@@ -16,29 +16,55 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined, LoadingOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons';
+import {
+  DownloadOutlined,
+  LoadingOutlined,
+  MoreOutlined,
+  PrinterOutlined,
+  TableOutlined,
+} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
-import {App, Button, Dropdown, Form, Grid, Radio, Space, Spin, Typography} from 'antd';
+import {
+  App,
+  Button,
+  Divider,
+  Dropdown,
+  Form,
+  Grid,
+  Popover,
+  Radio,
+  Space,
+  Spin,
+  theme,
+  Typography,
+} from 'antd';
 import {saveAs} from 'file-saver';
-import {useEffect, useState} from 'react';
+import type {CSSProperties} from 'react';
+import React, {useEffect, useState} from 'react';
 
+import {DEFAULT_GRID_SETTINGS, setGrid} from '~/src/components/grid/grid';
+import {GridControls} from '~/src/components/grid/GridControls';
 import {PrintImageDrawer} from '~/src/components/print/PrintImageDrawer';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
-import {
-  useZoomableImageCanvas,
-  zoomableImageCanvasSupplier,
-} from '~/src/hooks/useZoomableImageCanvas';
-import type {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
+import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
+import {GridCanvas} from '~/src/services/canvas/image/grid-canvas';
 import {saveAppSettings} from '~/src/services/db/app-settings-db';
 import type {OnnxModel} from '~/src/services/ml/types';
 import {OnnxModelType} from '~/src/services/ml/types';
 import {OutlineMode} from '~/src/services/settings/types';
 import {useAppStore} from '~/src/stores/app-store';
+import {TabKey} from '~/src/tabs';
 import {getFilename} from '~/src/utils/filename';
 import {imageBitmapToBlob} from '~/src/utils/graphics';
 
 import {EmptyImage} from './empty/EmptyImage';
+
+const defaultGridSettings = {enabled: false};
+
+const gridCanvasSupplier = (canvas: HTMLCanvasElement): GridCanvas => {
+  return new GridCanvas(canvas);
+};
 
 export const ImageOutline: React.FC = () => {
   const user = useAppStore(state => state.auth?.user);
@@ -51,6 +77,7 @@ export const ImageOutline: React.FC = () => {
 
   const setOutlineModel = useAppStore(state => state.setOutlineModel);
 
+  const {token} = theme.useToken();
   const screens = Grid.useBreakpoint();
 
   const {notification} = App.useApp();
@@ -63,8 +90,8 @@ export const ImageOutline: React.FC = () => {
     isError: isModelsError,
   } = useOnnxModels(OnnxModelType.LineDrawing);
 
-  const {ref: canvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
-    zoomableImageCanvasSupplier,
+  const {ref: canvasRef, zoomableImageCanvas: gridCanvas} = useZoomableImageCanvas<GridCanvas>(
+    gridCanvasSupplier,
     outlineImage
   );
 
@@ -84,13 +111,20 @@ export const ImageOutline: React.FC = () => {
   }, [isModelsError, notification, t]);
 
   useEffect(() => {
-    const {outlineMode} = appSettings;
+    const {outlineMode, grids} = appSettings;
     const mode: OutlineMode = (user && outlineMode) || OutlineMode.Quick;
     const model: OnnxModel | null | undefined =
       mode === OutlineMode.Quality ? models?.values().next().value : null;
     setMode(mode);
     setOutlineModel(model);
-  }, [setOutlineModel, appSettings, models, user]);
+    if (gridCanvas) {
+      setGrid(gridCanvas, {
+        ...DEFAULT_GRID_SETTINGS,
+        ...defaultGridSettings,
+        ...(grids?.[TabKey.Outline] ?? {}),
+      });
+    }
+  }, [setOutlineModel, appSettings, models, user, gridCanvas]);
 
   const handleModeChange = (e: RadioChangeEvent) => {
     const value = e.target.value as OutlineMode;
@@ -145,6 +179,16 @@ export const ImageOutline: React.FC = () => {
     },
   ];
 
+  const contentStyle: CSSProperties = {
+    backgroundColor: token.colorBgElevated,
+    borderRadius: token.borderRadiusLG,
+    boxShadow: token.boxShadowSecondary,
+  };
+
+  const menuStyle: CSSProperties = {
+    boxShadow: 'none',
+  };
+
   return (
     <Spin
       spinning={isLoading}
@@ -175,6 +219,24 @@ export const ImageOutline: React.FC = () => {
             </Form.Item>
             {screens.sm ? (
               <>
+                <Popover
+                  trigger="click"
+                  forceRender
+                  content={
+                    <GridControls
+                      direction="vertical"
+                      size="small"
+                      gridCanvas={gridCanvas}
+                      defaultGridSettings={defaultGridSettings}
+                      disableable
+                    />
+                  }
+                >
+                  <Button icon={<TableOutlined />}>
+                    <Trans>Grid</Trans>
+                  </Button>
+                </Popover>
+
                 <Button icon={<PrinterOutlined />} onClick={handlePrintClick}>
                   <Trans>Print</Trans>
                 </Button>
@@ -188,7 +250,28 @@ export const ImageOutline: React.FC = () => {
                 </Button>
               </>
             ) : (
-              <Dropdown menu={{items}}>
+              <Dropdown
+                menu={{items}}
+                popupRender={menu => (
+                  <div style={contentStyle}>
+                    {React.cloneElement(
+                      menu as React.ReactElement<{
+                        style: React.CSSProperties;
+                      }>,
+                      {style: menuStyle}
+                    )}
+                    <Divider style={{margin: 0}} />
+                    <GridControls
+                      direction="vertical"
+                      size={0}
+                      style={{padding: '0 16px'}}
+                      gridCanvas={gridCanvas}
+                      defaultGridSettings={defaultGridSettings}
+                      disableable
+                    />
+                  </div>
+                )}
+              >
                 <Button icon={<MoreOutlined />} />
               </Dropdown>
             )}

@@ -386,16 +386,17 @@ export class ZoomableImageCanvas extends Canvas {
     this.setTransform(this.zoom, this.offset);
   }
 
-  protected getBlobSource(): OffscreenCanvas | null {
+  protected convertToOffscreenCanvas(): OffscreenCanvas | null {
     const image: ImageBitmap | OffscreenCanvas | null = this.getImage();
     if (!image) {
       return null;
     }
+    const {width, height} = image;
     const {offset, zoom} = this;
     try {
       this.offset = Vector.ZERO;
       this.zoom = 1;
-      const offscreenCanvas = new OffscreenCanvas(image.width, image.height);
+      const offscreenCanvas = new OffscreenCanvas(width, height);
       const ctx: OffscreenCanvasRenderingContext2D = offscreenCanvas.getContext('2d')!;
       this.draw(ctx);
       return offscreenCanvas;
@@ -406,11 +407,11 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   async convertToBlob(options?: ImageEncodeOptions): Promise<Blob | undefined> {
-    const blobSource: OffscreenCanvas | null = this.getBlobSource();
-    if (!blobSource) {
+    const canvas: OffscreenCanvas | null = this.convertToOffscreenCanvas();
+    if (!canvas) {
       return;
     }
-    return await offscreenCanvasToBlob(blobSource, options);
+    return await offscreenCanvasToBlob(canvas, options);
   }
 
   async saveAsImage(filename?: string, type?: string): Promise<void> {

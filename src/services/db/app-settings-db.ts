@@ -20,6 +20,8 @@ import type {AppSettings} from '~/src/services/settings/types';
 
 import {dbPromise} from './db';
 
+type AppSettingsUpdater = (prev?: AppSettings) => Partial<AppSettings>;
+
 const KEY = 0;
 
 export async function getAppSettings(): Promise<AppSettings | undefined> {
@@ -27,14 +29,22 @@ export async function getAppSettings(): Promise<AppSettings | undefined> {
   return await db.get('app-settings', KEY);
 }
 
-export async function saveAppSettings(appSettings: Partial<AppSettings>): Promise<void> {
+export async function saveAppSettings(
+  appSettings: Partial<AppSettings> | AppSettingsUpdater
+): Promise<void> {
   const db = await dbPromise;
   const tx = db.transaction('app-settings', 'readwrite');
   const currentAppSettings = await tx.store.get(KEY);
+  let newAppSettings: Partial<AppSettings>;
+  if (typeof appSettings === 'function') {
+    newAppSettings = (appSettings as AppSettingsUpdater)(currentAppSettings);
+  } else {
+    newAppSettings = appSettings;
+  }
   await tx.store.put(
     {
       ...currentAppSettings,
-      ...appSettings,
+      ...newAppSettings,
     },
     KEY
   );

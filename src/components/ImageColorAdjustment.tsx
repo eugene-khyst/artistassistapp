@@ -96,6 +96,8 @@ const COLOR_TEMP_SLIDER_MARKS: SliderMarks = Object.fromEntries(
   [1500, 3000, 6000, 9000, 12000].map((i: number) => [i, i])
 );
 
+const FILENAME_SUFFIX = 'color-adjusted';
+
 function levelsGradient(min: number, max: number): string {
   return `linear-gradient(to right, rgb(${min}, ${min}, ${min}) 0%, rgb(${max}, ${max}, ${max}) 100%)`;
 }
@@ -122,10 +124,6 @@ function kelvinGradient(minKelvin: number, maxKelvin: number, steps = 10): strin
     stops.push(`rgb(${r}, ${g}, ${b}) ${percent.toFixed(2)}%`);
   }
   return `linear-gradient(to right, ${stops.join(', ')})`;
-}
-
-function getColorAdjustedImageFilename(file: File | null): string | undefined {
-  return getFilename(file, 'color-adjusted');
 }
 
 export const ImageColorAdjustment: React.FC = () => {
@@ -218,7 +216,7 @@ export const ImageColorAdjustment: React.FC = () => {
       colorAdjustedImage,
       expandToAspectRatio(aspectRatio)
     );
-    saveAs(blob, getColorAdjustedImageFilename(imageFileToAdjustColors));
+    saveAs(blob, getFilename(imageFileToAdjustColors, FILENAME_SUFFIX));
   };
 
   const handleSetAsReferenceClick = async () => {
@@ -227,7 +225,7 @@ export const ImageColorAdjustment: React.FC = () => {
     }
     const blob: Blob = await imageBitmapToBlob(colorAdjustedImage);
     void saveRecentImageFile(
-      await blobToImageFile(blob, getColorAdjustedImageFilename(imageFileToAdjustColors))
+      await blobToImageFile(blob, getFilename(imageFileToAdjustColors, FILENAME_SUFFIX))
     );
   };
 
@@ -237,7 +235,7 @@ export const ImageColorAdjustment: React.FC = () => {
     }
     const blob: Blob = await imageBitmapToBlob(colorAdjustedImage);
     setImageFileToRemoveBackground(
-      new File([blob], getColorAdjustedImageFilename(imageFileToAdjustColors) ?? '', {
+      new File([blob], getFilename(imageFileToAdjustColors, FILENAME_SUFFIX) ?? '', {
         type: blob.type,
         lastModified: Date.now(),
       })
