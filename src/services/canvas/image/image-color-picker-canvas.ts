@@ -20,7 +20,7 @@ import type {RgbTuple} from '~/src/services/color/space/rgb';
 import {linearizeRgbChannel, Rgb, unlinearizeRgbChannel} from '~/src/services/color/space/rgb';
 import {EventManager} from '~/src/services/event/event-manager';
 import {clamp} from '~/src/services/math/clamp';
-import type {Vector} from '~/src/services/math/geometry';
+import {Vector} from '~/src/services/math/geometry';
 import {getRgbaForCoord, imageBitmapToOffscreenCanvas} from '~/src/utils/graphics';
 
 import type {ZoomableImageCanvasProps} from './zoomable-image-canvas';
@@ -42,6 +42,13 @@ export interface PipetPointSetEvent {
   rgb: Rgb;
 }
 
+export interface ColorPickerSample {
+  id?: number;
+  x: number;
+  y: number;
+  rgb: RgbTuple;
+}
+
 export interface ImageColorPickerCanvasProps extends ZoomableImageCanvasProps {
   cursorDiameter?: number;
 }
@@ -52,6 +59,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
   private pipetPoint: Vector | null = null;
   private pipetRgb: Rgb = Rgb.WHITE;
   private lastPipetDiameter: number;
+  private samples: ColorPickerSample[] = [];
   private readonly cursorDiameter: number;
   public readonly events = new EventManager<ColorPickerEventType>();
 
@@ -121,9 +129,23 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     }
   }
 
+  private drawSamples(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
+    for (const {x, y, rgb} of this.samples) {
+      ctx.lineWidth = LINE_WIDTH / this.zoom;
+      const sampleRgb = Rgb.fromTuple(rgb);
+      const isDark = sampleRgb.isDark();
+      ctx.strokeStyle = ctx.fillStyle = isDark ? '#fff' : '#000';
+      ctx.fillStyle = sampleRgb.toHex(true);
+      this.drawCircle(ctx, new Vector(x, y), 20 / (2 * this.zoom));
+      ctx.fill();
+      ctx.stroke();
+    }
+  }
+
   protected override onImageDrawn(
     ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
   ): void {
+    this.drawSamples(ctx);
     this.drawPipet(ctx);
   }
 
@@ -196,6 +218,11 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
       mean[channel] = unlinearizeRgbChannel(total[channel]! / count);
     }
     return Rgb.fromTuple(mean);
+  }
+
+  setSamples(samples: ColorPickerSample[]): void {
+    this.samples = samples;
+    this.requestRedraw();
   }
 
   override destroy(): void {

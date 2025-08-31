@@ -26,16 +26,16 @@ import {copyOffscreenCanvas, offscreenCanvasToBlob} from '~/src/utils/graphics';
 
 export interface BackgroundRemovalSlice {
   imageFileToRemoveBackground: File | null;
-  backgroundRemovalColor?: string | null;
-  backgroundRemovalModel?: OnnxModel | null;
+  backgroundRemovalColor: string | null;
+  backgroundRemovalModel?: OnnxModel;
   imageWithoutBackgroundCanvas: OffscreenCanvas | null;
   imageWithoutBackgroundBlob: Blob | null;
   isBackgroundRemovalLoading: boolean;
   backgroundRemovalLoadingTip: string | null;
 
   setImageFileToRemoveBackground: (imageFileToRemoveBackground: File | null) => void;
-  setBackgroundRemovalColor: (backgroundRemovalColor?: string | null) => void;
-  setBackgroundRemovalModel: (backgroundRemovalModel?: OnnxModel | null) => void;
+  setBackgroundRemovalColor: (backgroundRemovalColor: string | null) => void;
+  setBackgroundRemovalModel: (backgroundRemovalModel?: OnnxModel) => void;
   removeBackground: () => Promise<void>;
 }
 
@@ -47,7 +47,6 @@ export const createBackgroundRemovalSlice: StateCreator<
 > = (set, get) => ({
   imageFileToRemoveBackground: null,
   backgroundRemovalColor: null,
-  backgroundRemovalModel: null,
   imageWithoutBackgroundCanvas: null,
   imageWithoutBackgroundBlob: null,
   isBackgroundRemovalLoading: false,
@@ -61,14 +60,14 @@ export const createBackgroundRemovalSlice: StateCreator<
     });
     void get().removeBackground();
   },
-  setBackgroundRemovalColor: (backgroundRemovalColor?: string | null): void => {
+  setBackgroundRemovalColor: (backgroundRemovalColor: string | null): void => {
     set({
       backgroundRemovalColor,
       imageWithoutBackgroundBlob: null,
     });
     void get().removeBackground();
   },
-  setBackgroundRemovalModel: (backgroundRemovalModel?: OnnxModel | null): void => {
+  setBackgroundRemovalModel: (backgroundRemovalModel?: OnnxModel): void => {
     set({
       backgroundRemovalModel,
       imageWithoutBackgroundCanvas: null,

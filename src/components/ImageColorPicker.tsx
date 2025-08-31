@@ -82,6 +82,7 @@ export const ImageColorPicker: React.FC = () => {
   const targetColor = useAppStore(state => state.targetColor);
   const colorPickerPipet = useAppStore(state => state.colorPickerPipet);
   const similarColors = useAppStore(state => state.similarColors);
+  // const paletteColorMixtures = useAppStore(state => state.paletteColorMixtures);
 
   const isColorMixerSetLoading = useAppStore(state => state.isColorMixerSetLoading);
   const isColorMixerBackgroundLoading = useAppStore(state => state.isColorMixerBackgroundLoading);
@@ -147,6 +148,20 @@ export const ImageColorPicker: React.FC = () => {
     colorPickerCanvas.setMinZoom();
     setSampleDiameter(diameter);
   }, [colorPickerCanvas, colorPickerPipet]);
+
+  // useEffect(() => {
+  //   colorPickerCanvas?.setSamples(
+  //     [...paletteColorMixtures.values()].flatMap(({samplingArea, layerRgb}) =>
+  //       samplingArea
+  //         ? {
+  //             x: samplingArea.x,
+  //             y: samplingArea.y,
+  //             rgb: layerRgb,
+  //           }
+  //         : []
+  //     )
+  //   );
+  // }, [colorPickerCanvas, paletteColorMixtures]);
 
   const handleReflectanceChartClick = useCallback((colorMixture?: ColorMixture) => {
     setReflectanceChartColorMixture(colorMixture);

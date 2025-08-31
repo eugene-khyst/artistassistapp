@@ -28,14 +28,14 @@ import type {OriginalImageSlice} from '~/src/stores/original-image-slice';
 import {offscreenCanvasToBlob} from '~/src/utils/graphics';
 
 export interface StyleTransferSlice {
-  styleTransferModel?: OnnxModel | null;
-  styleImageFile?: File | null;
+  styleTransferModel?: OnnxModel;
+  styleImageFile?: File;
   isStyleTransferLoading: boolean;
   styleTransferLoadingTip: string | null;
   styledImageBlob: Blob | null;
 
-  setStyleTransferModel: (styleTransferModel?: OnnxModel | null) => void;
-  setStyleImageFile: (styleImageFile?: File | null) => Promise<void>;
+  setStyleTransferModel: (styleTransferModel?: OnnxModel) => void;
+  setStyleImageFile: (styleImageFile?: File) => Promise<void>;
   loadStyledImage: () => Promise<void>;
 }
 
@@ -45,20 +45,18 @@ export const createStyleTransferSlice: StateCreator<
   [],
   StyleTransferSlice
 > = (set, get) => ({
-  styleTransferModel: null,
-  styleImageFile: null,
   isStyleTransferLoading: false,
   styleTransferLoadingTip: null,
   styledImageBlob: null,
 
-  setStyleTransferModel: (styleTransferModel?: OnnxModel | null): void => {
+  setStyleTransferModel: (styleTransferModel?: OnnxModel): void => {
     set({
       styleTransferModel,
       styledImageBlob: null,
     });
     void get().loadStyledImage();
   },
-  setStyleImageFile: async (styleImageFile?: File | null): Promise<void> => {
+  setStyleImageFile: async (styleImageFile?: File): Promise<void> => {
     if (styleImageFile) {
       set({
         styleImageFile,

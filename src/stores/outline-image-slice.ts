@@ -41,7 +41,6 @@ export const createOutlineImageSlice: StateCreator<
   [],
   OutlineImageSlice
 > = (set, get) => ({
-  outlineModel: null,
   isOutlineImageLoading: false,
   outlineLoadingTip: null,
   outlineImage: null,
@@ -58,6 +57,7 @@ export const createOutlineImageSlice: StateCreator<
     if (
       outlineImage ||
       !originalImage ||
+      outlineModel === undefined ||
       (outlineModel && !hasAccessTo(auth?.user, outlineModel))
     ) {
       return;

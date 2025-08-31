@@ -111,20 +111,32 @@ export const ImageOutline: React.FC = () => {
   }, [isModelsError, notification, t]);
 
   useEffect(() => {
-    const {outlineMode, grids} = appSettings;
+    if (isAuthLoading || !models) {
+      return;
+    }
+    const {outlineMode} = appSettings;
     const mode: OutlineMode = (user && outlineMode) || OutlineMode.Quick;
-    const model: OnnxModel | null | undefined =
-      mode === OutlineMode.Quality ? models?.values().next().value : null;
+    let model: OnnxModel | null | undefined;
+    if (mode === OutlineMode.Quality) {
+      [model] = models.values();
+    } else {
+      model = null;
+    }
     setMode(mode);
     setOutlineModel(model);
-    if (gridCanvas) {
-      setGrid(gridCanvas, {
-        ...DEFAULT_GRID_SETTINGS,
-        ...defaultGridSettings,
-        ...(grids?.[TabKey.Outline] ?? {}),
-      });
+  }, [setOutlineModel, appSettings, models, user, isAuthLoading]);
+
+  useEffect(() => {
+    if (!gridCanvas) {
+      return;
     }
-  }, [setOutlineModel, appSettings, models, user, gridCanvas]);
+    const {grids} = appSettings;
+    setGrid(gridCanvas, {
+      ...DEFAULT_GRID_SETTINGS,
+      ...defaultGridSettings,
+      ...(grids?.[TabKey.Outline] ?? {}),
+    });
+  }, [appSettings, gridCanvas]);
 
   const handleModeChange = (e: RadioChangeEvent) => {
     const value = e.target.value as OutlineMode;
@@ -264,7 +276,7 @@ export const ImageOutline: React.FC = () => {
                     <GridControls
                       direction="vertical"
                       size={0}
-                      style={{padding: '0 16px'}}
+                      style={{padding: '8px 16px'}}
                       gridCanvas={gridCanvas}
                       defaultGridSettings={defaultGridSettings}
                       disableable

@@ -93,16 +93,17 @@ export const ImageStyleTransfer: React.FC = () => {
   }, [isModelsError, notification, t]);
 
   useEffect(() => {
+    if (isAuthLoading || !models) {
+      return;
+    }
     const {styleTransferModel, styleTransferImage} = appSettings;
     let model: OnnxModel | undefined;
     if (styleTransferModel) {
-      model = models?.get(styleTransferModel);
+      model = models.get(styleTransferModel);
     }
-    if (!model && models?.size) {
-      model = [...models.values()]
-        .sort(!user ? compareOnnxModelsByFreeTierAndPriority : compareOnnxModelsByPriority)
-        .find(({numInputs = 1}) => numInputs === 1 || styleTransferImage);
-    }
+    model ??= [...models.values()]
+      .sort(!user ? compareOnnxModelsByFreeTierAndPriority : compareOnnxModelsByPriority)
+      .find(({numInputs = 1}) => numInputs === 1 || styleTransferImage);
     setModelId(model?.id);
     setStyleTransferModel(model);
     if (model?.id) {
@@ -111,7 +112,7 @@ export const ImageStyleTransfer: React.FC = () => {
         ?.closest('.ant-radio-wrapper')
         ?.scrollIntoView();
     }
-  }, [setStyleTransferModel, appSettings, models, user]);
+  }, [setStyleTransferModel, appSettings, models, user, isAuthLoading]);
 
   const handleModelChange = (e: RadioChangeEvent) => {
     const value = e.target.value as string;

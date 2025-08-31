@@ -96,19 +96,22 @@ export const ImageBackgroundRemoval: React.FC = () => {
   }, [isModelsError, notification, t]);
 
   useEffect(() => {
+    if (isAuthLoading || !models) {
+      return;
+    }
     const {backgroundRemovalModel} = appSettings;
     let model: OnnxModel | undefined;
     if (backgroundRemovalModel) {
-      model = models?.get(backgroundRemovalModel);
+      model = models.get(backgroundRemovalModel);
     }
-    if (!model && models?.size) {
+    if (!model) {
       [model] = [...models.values()].sort(
         !user ? compareOnnxModelsByFreeTierAndPriority : compareOnnxModelsByPriority
       );
     }
     setModelId(model?.id);
     setBackgroundRemovalModel(model);
-  }, [setBackgroundRemovalModel, appSettings, models, user]);
+  }, [setBackgroundRemovalModel, appSettings, models, user, isAuthLoading]);
 
   useEffect(() => {
     setPosition(isBackgroundRemovalLoadingDebounced ? 100 : 25);
