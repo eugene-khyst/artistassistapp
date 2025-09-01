@@ -22,11 +22,13 @@ import {sortVertices} from '~/src/services/image/perspective-correction';
 import type {Rectangle, Vector} from '~/src/services/math/geometry';
 
 export interface ImagePerspectiveCorrectionCanvasProps extends OverlayDrawingCanvasProps {
-  vertexDiameter?: number;
+  vertexRadius?: number;
+  vertexDragRadius?: number;
 }
 
 export class ImagePerspectiveCorrectionCanvas extends OverlayDrawingCanvas {
-  private readonly vertexDiameter: number;
+  private readonly vertexRadius: number;
+  private readonly vertexDragRadius: number;
   private vertices: Vector[] = [];
   private activeVertex?: Vector | null = null;
   private inactiveVertices: Vector[] = [];
@@ -34,7 +36,7 @@ export class ImagePerspectiveCorrectionCanvas extends OverlayDrawingCanvas {
   constructor(canvas: HTMLCanvasElement, props: ImagePerspectiveCorrectionCanvasProps = {}) {
     super(canvas, props);
 
-    ({vertexDiameter: this.vertexDiameter = 20} = props);
+    ({vertexRadius: this.vertexRadius = 10, vertexDragRadius: this.vertexDragRadius = 20} = props);
   }
 
   protected override getCursor(): string {
@@ -52,7 +54,7 @@ export class ImagePerspectiveCorrectionCanvas extends OverlayDrawingCanvas {
     for (let i = 0; i < this.vertices.length; i++) {
       const v1 = this.vertices[i]!;
       ctx.lineWidth = this.lineWidth / this.zoom;
-      this.drawCircle(ctx, v1, this.vertexDiameter / (2 * this.zoom));
+      this.drawCircle(ctx, v1, this.vertexRadius / this.zoom);
       ctx.stroke();
       this.drawCircle(ctx, v1, 1 / this.zoom);
       ctx.stroke();
@@ -91,7 +93,7 @@ export class ImagePerspectiveCorrectionCanvas extends OverlayDrawingCanvas {
 
   protected override onDragStart(point: Vector): void {
     const index: number = this.vertices.findIndex((vertex: Vector) => {
-      return vertex.subtract(point).length() < this.vertexDiameter / this.zoom;
+      return vertex.subtract(point).length() < this.vertexDragRadius / this.zoom;
     });
     if (index >= 0) {
       this.inactiveVertices = this.vertices.slice();

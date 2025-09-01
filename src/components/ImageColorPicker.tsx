@@ -37,9 +37,13 @@ import type {SliderMarks} from 'antd/es/slider';
 import {useCallback, useEffect, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
+import {PaletteColorMixtureCard} from '~/src/components/color/PaletteColorMixtureCard';
 import {ReflectanceChartDrawer} from '~/src/components/color/ReflectanceChartDrawer';
 import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
-import type {PipetPointSetEvent} from '~/src/services/canvas/image/image-color-picker-canvas';
+import type {
+  ColorPickerSample,
+  PipetPointSetEvent,
+} from '~/src/services/canvas/image/image-color-picker-canvas';
 import {
   ColorPickerEventType,
   ImageColorPickerCanvas,
@@ -82,7 +86,8 @@ export const ImageColorPicker: React.FC = () => {
   const targetColor = useAppStore(state => state.targetColor);
   const colorPickerPipet = useAppStore(state => state.colorPickerPipet);
   const similarColors = useAppStore(state => state.similarColors);
-  // const paletteColorMixtures = useAppStore(state => state.paletteColorMixtures);
+  const paletteColorMixtures = useAppStore(state => state.paletteColorMixtures);
+  const selectedPaletteColorMixtures = useAppStore(state => state.selectedPaletteColorMixtures);
 
   const isColorMixerSetLoading = useAppStore(state => state.isColorMixerSetLoading);
   const isColorMixerBackgroundLoading = useAppStore(state => state.isColorMixerBackgroundLoading);
@@ -91,6 +96,7 @@ export const ImageColorPicker: React.FC = () => {
 
   const setTargetColor = useAppStore(state => state.setTargetColor);
   const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
+  const selectPaletteColorMixtures = useAppStore(state => state.selectPaletteColorMixtures);
 
   const screens = Grid.useBreakpoint();
 
@@ -103,11 +109,12 @@ export const ImageColorPicker: React.FC = () => {
         const hex = rgb.toHex();
         console.log(hex.toUpperCase());
         void setTargetColor(hex, {x, y, diameter});
+        selectPaletteColorMixtures(colorPickerCanvas.getSamplesNearby(x, y).map(({key}) => key));
       };
       colorPickerCanvas.events.subscribe(ColorPickerEventType.PipetPointSet, listener);
       return colorPickerCanvas;
     },
-    [setTargetColor]
+    [setTargetColor, selectPaletteColorMixtures]
   );
 
   const {ref: canvasRef, zoomableImageCanvas: colorPickerCanvas} =
@@ -149,19 +156,21 @@ export const ImageColorPicker: React.FC = () => {
     setSampleDiameter(diameter);
   }, [colorPickerCanvas, colorPickerPipet]);
 
-  // useEffect(() => {
-  //   colorPickerCanvas?.setSamples(
-  //     [...paletteColorMixtures.values()].flatMap(({samplingArea, layerRgb}) =>
-  //       samplingArea
-  //         ? {
-  //             x: samplingArea.x,
-  //             y: samplingArea.y,
-  //             rgb: layerRgb,
-  //           }
-  //         : []
-  //     )
-  //   );
-  // }, [colorPickerCanvas, paletteColorMixtures]);
+  useEffect(() => {
+    colorPickerCanvas?.setSamples(
+      [...paletteColorMixtures.values()].flatMap(
+        ({key, samplingArea, layerRgb}): ColorPickerSample | ColorPickerSample[] =>
+          samplingArea
+            ? {
+                key,
+                x: samplingArea.x,
+                y: samplingArea.y,
+                rgb: layerRgb,
+              }
+            : []
+      )
+    );
+  }, [colorPickerCanvas, paletteColorMixtures]);
 
   const handleReflectanceChartClick = useCallback((colorMixture?: ColorMixture) => {
     setReflectanceChartColorMixture(colorMixture);
@@ -328,17 +337,27 @@ export const ImageColorPicker: React.FC = () => {
                   </Typography.Text>
                 </Space>
               ) : (
-                similarColors
-                  .slice()
-                  .sort(SIMILAR_COLORS_COMPARATORS[sort])
-                  .map((similarColor: SimilarColor) => (
-                    <SimilarColorCard
-                      key={similarColor.colorMixture.key}
-                      targetColor={targetColor}
-                      similarColor={similarColor}
-                      onReflectanceChartClick={handleReflectanceChartClick}
+                <>
+                  {[...selectedPaletteColorMixtures.values()].map(colorMixture => (
+                    <PaletteColorMixtureCard
+                      key={`selected-${colorMixture.key}`}
+                      colorMixture={colorMixture}
+                      showOnPhoto={false}
+                      style={{borderColor: 'black'}}
                     />
-                  ))
+                  ))}
+                  {similarColors
+                    .slice()
+                    .sort(SIMILAR_COLORS_COMPARATORS[sort])
+                    .map((similarColor: SimilarColor) => (
+                      <SimilarColorCard
+                        key={similarColor.colorMixture.key}
+                        targetColor={targetColor}
+                        similarColor={similarColor}
+                        onReflectanceChartClick={handleReflectanceChartClick}
+                      />
+                    ))}
+                </>
               )}
               <AdCard vertical />
             </Space>

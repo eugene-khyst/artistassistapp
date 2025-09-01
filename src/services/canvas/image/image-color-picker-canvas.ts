@@ -28,7 +28,6 @@ import {ZoomableImageCanvas} from './zoomable-image-canvas';
 
 export const MIN_COLOR_PICKER_DIAMETER = 1;
 export const MAX_COLOR_PICKER_DIAMETER = 100;
-const LINE_WIDTH = 2;
 const PIPET_OUTLINE_COUNT = 3;
 const PIPET_CENTER_DOT_THRESHOLD = 1;
 
@@ -43,23 +42,27 @@ export interface PipetPointSetEvent {
 }
 
 export interface ColorPickerSample {
-  id?: number;
+  key: string;
   x: number;
   y: number;
   rgb: RgbTuple;
 }
 
 export interface ImageColorPickerCanvasProps extends ZoomableImageCanvasProps {
+  lineWidth?: number;
   cursorDiameter?: number;
+  sampleRadius?: number;
 }
 
 export class ImageColorPickerCanvas extends ZoomableImageCanvas {
   private offscreenCanvases: OffscreenCanvas[] = [];
+  private lineWidth: number;
   private pipetDiameter: number;
   private pipetPoint: Vector | null = null;
   private pipetRgb: Rgb = Rgb.WHITE;
   private lastPipetDiameter: number;
   private samples: ColorPickerSample[] = [];
+  private sampleRadius: number;
   private readonly cursorDiameter: number;
   public readonly events = new EventManager<ColorPickerEventType>();
 
@@ -69,7 +72,11 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
   ) {
     super(canvas, {imageSmoothingEnabled, ...props});
 
-    ({cursorDiameter: this.cursorDiameter = 100} = props);
+    ({
+      lineWidth: this.lineWidth = 2,
+      cursorDiameter: this.cursorDiameter = 100,
+      sampleRadius: this.sampleRadius = 10,
+    } = props);
 
     this.pipetDiameter = 1;
     this.lastPipetDiameter = this.pipetDiameter;
@@ -109,7 +116,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
       const pipetDiameter = this.lastPipetDiameter;
       const cursorDiameter =
         this.cursorDiameter > pipetDiameter ? this.cursorDiameter : pipetDiameter + 2;
-      const lineWidth = LINE_WIDTH / this.zoom;
+      const lineWidth = this.lineWidth / this.zoom;
       ctx.lineWidth = lineWidth;
       const isDark = this.pipetRgb.isDark();
       let isDarkToggle = isDark;
@@ -131,12 +138,12 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
 
   private drawSamples(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
     for (const {x, y, rgb} of this.samples) {
-      ctx.lineWidth = LINE_WIDTH / this.zoom;
+      ctx.lineWidth = this.lineWidth / this.zoom;
       const sampleRgb = Rgb.fromTuple(rgb);
       const isDark = sampleRgb.isDark();
       ctx.strokeStyle = ctx.fillStyle = isDark ? '#fff' : '#000';
       ctx.fillStyle = sampleRgb.toHex(true);
-      this.drawCircle(ctx, new Vector(x, y), 20 / (2 * this.zoom));
+      this.drawCircle(ctx, new Vector(x, y), this.sampleRadius / this.zoom);
       ctx.fill();
       ctx.stroke();
     }
@@ -220,9 +227,21 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     return Rgb.fromTuple(mean);
   }
 
+  getSamples(): ColorPickerSample[] {
+    return this.samples;
+  }
+
   setSamples(samples: ColorPickerSample[]): void {
     this.samples = samples;
     this.requestRedraw();
+  }
+
+  getSamplesNearby(x: number, y: number): ColorPickerSample[] {
+    const radius = this.sampleRadius / this.zoom;
+    const point = new Vector(x, y);
+    return this.samples.filter(
+      ({x, y}): boolean => new Vector(x, y).subtract(point).length() <= radius
+    );
   }
 
   override destroy(): void {

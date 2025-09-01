@@ -26,10 +26,12 @@ import type {OriginalImageSlice} from './original-image-slice';
 
 export interface PaletteSlice {
   paletteColorMixtures: Map<string, ColorMixture>;
+  selectedPaletteColorMixtures: Map<string, ColorMixture>;
 
   saveToPalette: (colorMixture: ColorMixture, linkToImage?: boolean) => Promise<void>;
   deleteFromPalette: (colorMixture: ColorMixture) => Promise<void>;
   deleteAllFromPalette: (type: ColorType) => Promise<void>;
+  selectPaletteColorMixtures: (keys: string[]) => void;
 }
 
 export const createPaletteSlice: StateCreator<
@@ -39,41 +41,111 @@ export const createPaletteSlice: StateCreator<
   PaletteSlice
 > = (set, get) => ({
   paletteColorMixtures: new Map(),
+  selectedPaletteColorMixtures: new Map(),
 
   saveToPalette: async (colorMixture: ColorMixture, linkToImage = true): Promise<void> => {
-    const isNew = !colorMixture.id;
+    const {id, key} = colorMixture;
+
+    const isNew = !id;
     if (isNew && linkToImage) {
       colorMixture.imageFileId = get().imageFile?.id;
       colorMixture.samplingArea = get().samplingArea;
     }
+
     await saveColorMixture(colorMixture);
-    set(({paletteColorMixtures}) => {
-      return {
-        paletteColorMixtures: new Map(paletteColorMixtures.set(colorMixture.key, colorMixture)),
-      };
+
+    const {
+      paletteColorMixtures: prevPaletteColorMixtures,
+      selectedPaletteColorMixtures: prevSelected,
+    } = get();
+
+    const paletteColorMixtures = new Map<string, ColorMixture>(prevPaletteColorMixtures);
+    let selectedPaletteColorMixtures = prevSelected;
+
+    paletteColorMixtures.set(key, colorMixture);
+
+    if (selectedPaletteColorMixtures.has(key)) {
+      selectedPaletteColorMixtures = new Map(prevSelected);
+      selectedPaletteColorMixtures.set(key, colorMixture);
+    }
+
+    set({
+      paletteColorMixtures,
+      selectedPaletteColorMixtures,
     });
   },
   deleteFromPalette: async ({key: keyToDelete}: ColorMixture): Promise<void> => {
-    const {paletteColorMixtures} = get();
-    const colorMixture = paletteColorMixtures.get(keyToDelete);
-    if (colorMixture?.id) {
-      await deleteColorMixture(colorMixture.id);
-      paletteColorMixtures.delete(colorMixture.key);
-      set({
-        paletteColorMixtures: new Map(paletteColorMixtures),
-      });
+    const {
+      paletteColorMixtures: prevPaletteColorMixtures,
+      selectedPaletteColorMixtures: prevSelected,
+    } = get();
+
+    const colorMixture = prevPaletteColorMixtures.get(keyToDelete);
+    if (!colorMixture) {
+      return;
     }
+
+    if (colorMixture.id) {
+      await deleteColorMixture(colorMixture.id);
+    }
+
+    const paletteColorMixtures = new Map(prevPaletteColorMixtures);
+    let selectedPaletteColorMixtures = prevSelected;
+
+    paletteColorMixtures.delete(keyToDelete);
+
+    if (selectedPaletteColorMixtures.has(keyToDelete)) {
+      selectedPaletteColorMixtures = new Map(prevSelected);
+      selectedPaletteColorMixtures.delete(keyToDelete);
+    }
+
+    set({
+      paletteColorMixtures,
+      selectedPaletteColorMixtures,
+    });
   },
   deleteAllFromPalette: async (typeToDelete: ColorType): Promise<void> => {
-    const {paletteColorMixtures} = get();
-    for (const colorMixture of paletteColorMixtures.values()) {
-      if (colorMixture.type === typeToDelete && colorMixture.id) {
-        await deleteColorMixture(colorMixture.id);
-        paletteColorMixtures.delete(colorMixture.key);
+    const {
+      paletteColorMixtures: prevPaletteColorMixtures,
+      selectedPaletteColorMixtures: prevSelected,
+    } = get();
+
+    const keysToDelete: string[] = [];
+    for (const {id, key, type} of prevPaletteColorMixtures.values()) {
+      if (type === typeToDelete && id) {
+        keysToDelete.push(key);
       }
     }
+
+    for (const key of keysToDelete) {
+      const colorMixture = prevPaletteColorMixtures.get(key);
+      if (colorMixture?.id) {
+        await deleteColorMixture(colorMixture.id);
+      }
+    }
+
+    const paletteColorMixtures = new Map(prevPaletteColorMixtures);
+    const selectedPaletteColorMixtures = new Map(prevSelected);
+    for (const key of keysToDelete) {
+      paletteColorMixtures.delete(key);
+      selectedPaletteColorMixtures.delete(key);
+    }
+
     set({
-      paletteColorMixtures: new Map(paletteColorMixtures),
+      paletteColorMixtures,
+      selectedPaletteColorMixtures,
+    });
+  },
+  selectPaletteColorMixtures: (keys: string[]): void => {
+    const {paletteColorMixtures} = get();
+    const selectedPaletteColorMixtures = new Map<string, ColorMixture>(
+      keys.flatMap((key: string): [string, ColorMixture][] => {
+        const mixture: ColorMixture | undefined = paletteColorMixtures.get(key);
+        return mixture ? [[mixture.key, mixture]] : [];
+      })
+    );
+    set({
+      selectedPaletteColorMixtures,
     });
   },
 });

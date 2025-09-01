@@ -19,17 +19,23 @@
 import {BgColorsOutlined, DeleteOutlined, PictureOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Card, Popconfirm, Space, Typography} from 'antd';
+import type {CardProps} from 'antd/lib';
 
 import {ColorMixtureDescription} from '~/src/components/color/ColorMixtureDescription';
 import type {ColorMixture} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 
-interface Props {
+type Props = {
   colorMixture: ColorMixture;
-}
+  showOnPhoto?: boolean;
+} & Pick<CardProps, 'style'>;
 
-export const PaletteColorMixtureCard: React.FC<Props> = ({colorMixture}: Props) => {
+export const PaletteColorMixtureCard: React.FC<Props> = ({
+  colorMixture,
+  showOnPhoto = true,
+  ...props
+}: Props) => {
   const saveToPalette = useAppStore(state => state.saveToPalette);
   const deleteFromPalette = useAppStore(state => state.deleteFromPalette);
   const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
@@ -56,7 +62,7 @@ export const PaletteColorMixtureCard: React.FC<Props> = ({colorMixture}: Props) 
   };
 
   return (
-    <Card size="small" variant="borderless">
+    <Card size="small" {...props}>
       <Space direction="vertical" style={{width: '100%'}}>
         <Typography.Text
           editable={{
@@ -72,14 +78,16 @@ export const PaletteColorMixtureCard: React.FC<Props> = ({colorMixture}: Props) 
         <ColorMixtureDescription colorMixture={colorMixture} />
 
         <Space wrap>
-          <Button
-            size="small"
-            icon={<PictureOutlined />}
-            onClick={handleShowOnPhotoClick}
-            disabled={!colorMixture.samplingArea}
-          >
-            <Trans>Show on photo</Trans>
-          </Button>
+          {showOnPhoto && (
+            <Button
+              size="small"
+              icon={<PictureOutlined />}
+              onClick={handleShowOnPhotoClick}
+              disabled={!colorMixture.samplingArea}
+            >
+              <Trans>Show on photo</Trans>
+            </Button>
+          )}
           <Button
             size="small"
             icon={<BgColorsOutlined />}
