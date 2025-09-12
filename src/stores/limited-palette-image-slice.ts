@@ -20,8 +20,18 @@ import type {Remote} from 'comlink';
 import {wrap} from 'comlink';
 import type {StateCreator} from 'zustand';
 
-import type {ColorSet} from '~/src/services/color/types';
+import {
+  type Color,
+  type ColorSet,
+  type ColorSetDefinition,
+  CUSTOM_COLOR_SET,
+  NEW_COLOR_SET,
+} from '~/src/services/color/types';
 import type {LimitedPalette} from '~/src/services/image/limited-palette';
+import type {ColorMixerSlice} from '~/src/stores/color-mixer-slice';
+import type {ColorSetSlice} from '~/src/stores/color-set-slice';
+import type {TabSlice} from '~/src/stores/tab-slice';
+import {TabKey} from '~/src/tabs';
 
 import type {OriginalImageSlice} from './original-image-slice';
 
@@ -31,15 +41,32 @@ const limitedPalette: Remote<LimitedPalette> = wrap(
   })
 );
 
+export type ColorId = (string | number | null)[];
+
+function filterColorSet(colorSet: ColorSet | null, colors: ColorId[]): ColorSet | null {
+  return colorSet
+    ? {
+        type: colorSet.type,
+        brands: colorSet.brands,
+        colors: colors
+          .map(([brandId, colorId]): Color | undefined =>
+            colorSet.colors.find(({brand, id}: Color) => brandId === brand && colorId === id)
+          )
+          .filter((color): color is Color => !!color),
+      }
+    : null;
+}
+
 export interface LimitedPaletteImageSlice {
   limitedPaletteImage: ImageBitmap | null;
   isLimitedPaletteImageLoading: boolean;
 
-  setLimitedColorSet: (limitedColorSet: ColorSet) => Promise<void>;
+  setLimitedColorSet: (colorIds: ColorId[]) => Promise<void>;
+  setLimitedColorSetAsMain: (colorIds: ColorId[]) => void;
 }
 
 export const createLimitedPaletteImageSlice: StateCreator<
-  LimitedPaletteImageSlice & OriginalImageSlice,
+  LimitedPaletteImageSlice & OriginalImageSlice & ColorSetSlice & ColorMixerSlice & TabSlice,
   [],
   [],
   LimitedPaletteImageSlice
@@ -47,12 +74,16 @@ export const createLimitedPaletteImageSlice: StateCreator<
   limitedPaletteImage: null,
   isLimitedPaletteImageLoading: false,
 
-  setLimitedColorSet: async (limitedColorSet: ColorSet): Promise<void> => {
-    const {originalImageFile} = get();
+  setLimitedColorSet: async (colorIds: ColorId[]): Promise<void> => {
+    const {originalImageFile, colorSet} = get();
     if (!originalImageFile) {
       return;
     }
     set({isLimitedPaletteImageLoading: true});
+    const limitedColorSet: ColorSet | null = filterColorSet(colorSet, colorIds);
+    if (!limitedColorSet) {
+      return;
+    }
     const {preview: limitedPaletteImage} = await limitedPalette.getPreview(
       originalImageFile,
       limitedColorSet
@@ -61,5 +92,30 @@ export const createLimitedPaletteImageSlice: StateCreator<
       limitedPaletteImage,
       isLimitedPaletteImageLoading: false,
     });
+  },
+  setLimitedColorSetAsMain: (colorIds: ColorId[]): void => {
+    if (!colorIds.length) {
+      return;
+    }
+    const {colorSet} = get();
+    const limitedColorSet: ColorSet | null = filterColorSet(colorSet, colorIds);
+    if (!limitedColorSet) {
+      return;
+    }
+    const {type, brands, colors} = limitedColorSet;
+    const importedColorSet: ColorSetDefinition = {
+      id: NEW_COLOR_SET,
+      type,
+      brands: [...brands.keys()],
+      standardColorSet: CUSTOM_COLOR_SET,
+      colors: colors.reduce<Record<number, number[]>>((acc, {id, brand}) => {
+        (acc[brand] ??= []).push(id);
+        return acc;
+      }, {}),
+    };
+    set({
+      importedColorSet,
+    });
+    void get().setActiveTabKey(TabKey.ColorSet);
   },
 });

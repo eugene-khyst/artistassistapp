@@ -62,7 +62,13 @@ import {useStandardColorSets} from '~/src/hooks/useStandardColorSets';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {MAX_COLORS_IN_MIXTURE} from '~/src/services/color/color-mixer';
 import {compareByDate} from '~/src/services/color/colors';
-import type {ColorBrandDefinition, ColorSetDefinition, ColorType} from '~/src/services/color/types';
+import {
+  type ColorBrandDefinition,
+  type ColorSetDefinition,
+  type ColorType,
+  CUSTOM_COLOR_SET,
+  NEW_COLOR_SET,
+} from '~/src/services/color/types';
 import {colorSetToUrl} from '~/src/services/url/url-parser';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
@@ -76,9 +82,6 @@ import {StandardColorSetCascader} from './color-set/StandardColorSetCascader';
 import {ShareModal} from './share/ShareModal';
 
 const FIELD = '${label}';
-
-const NEW_COLOR_SET = 0;
-const CUSTOM_COLOR_SET = [0];
 
 const formInitialValues: ColorSetDefinition = {
   id: NEW_COLOR_SET,

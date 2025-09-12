@@ -79,12 +79,15 @@ export interface CustomColorBrandDefinition {
   date?: Date;
 }
 
+export const NEW_COLOR_SET = 0;
+export const CUSTOM_COLOR_SET = [0] as const;
+
 export interface ColorSetDefinition {
   id?: number;
   type?: ColorType;
   name?: string;
   brands?: number[];
-  standardColorSet?: [0] | [number, string];
+  standardColorSet?: [number, string] | typeof CUSTOM_COLOR_SET;
   colors?: Record<number, number[]>;
   date?: Date;
 }

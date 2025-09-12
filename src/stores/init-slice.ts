@@ -44,9 +44,6 @@ export interface InitSlice {
 
   isInitialStateLoading: boolean;
 
-  importedColorSet: ColorSetDefinition | null;
-  latestColorSet: ColorSetDefinition | null;
-
   initAppStore: () => Promise<void>;
 }
 
@@ -67,9 +64,6 @@ export const createInitSlice: StateCreator<
   appSettings: {},
 
   isInitialStateLoading: false,
-
-  importedColorSet: null,
-  latestColorSet: null,
 
   initAppStore: async (): Promise<void> => {
     set({

@@ -32,7 +32,10 @@ import type {AuthSlice} from '~/src/stores/auth-slice';
 import type {ColorMixerSlice} from './color-mixer-slice';
 
 export interface ColorSetSlice {
+  importedColorSet: ColorSetDefinition | null;
+  latestColorSet: ColorSetDefinition | null;
   colorSetsByType: ColorSetDefinition[];
+
   isColorSetsByTypeLoading: boolean;
 
   loadColorSetsByType: (type: ColorType) => Promise<ColorSetDefinition[]>;
@@ -52,6 +55,9 @@ export const createColorSetSlice: StateCreator<
   ColorSetSlice
 > = (set, get) => ({
   colorSetsByType: [],
+  importedColorSet: null,
+  latestColorSet: null,
+
   isColorSetsByTypeLoading: false,
 
   loadColorSetsByType: async (type: ColorType): Promise<ColorSetDefinition[]> => {

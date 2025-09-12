@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined, LoadingOutlined, MoreOutlined} from '@ant-design/icons';
+import {DownloadOutlined, LoadingOutlined, MoreOutlined, SwapOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {MenuProps} from 'antd';
 import {Button, Col, Dropdown, Form, Grid, Row, Space, Spin, Typography} from 'antd';
@@ -28,8 +28,8 @@ import {
   zoomableImageCanvasSupplier,
 } from '~/src/hooks/useZoomableImageCanvas';
 import type {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
-import type {Color, ColorSet} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
+import type {ColorId} from '~/src/stores/limited-palette-image-slice';
 import {getFilename} from '~/src/utils/filename';
 import {imageBitmapToBlob} from '~/src/utils/graphics';
 
@@ -48,12 +48,13 @@ export const ImageLimitedPalette: React.FC = () => {
   const isLimitedPaletteImageLoading = useAppStore(state => state.isLimitedPaletteImageLoading);
 
   const setLimitedColorSet = useAppStore(state => state.setLimitedColorSet);
+  const setLimitedColorSetAsMain = useAppStore(state => state.setLimitedColorSetAsMain);
 
   const screens = Grid.useBreakpoint();
 
   const {t} = useLingui();
 
-  const [colors, setColors] = useState<(string | number | null)[][]>([]);
+  const [colors, setColors] = useState<ColorId[]>([]);
 
   const {ref: limitedPaletteCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
@@ -77,18 +78,11 @@ export const ImageLimitedPalette: React.FC = () => {
   };
 
   const handleApplyClick = () => {
-    if (colorSet) {
-      const limitedColorSet: ColorSet = {
-        type: colorSet.type,
-        brands: colorSet.brands,
-        colors: colors
-          .map(([brandId, colorId]): Color | undefined =>
-            colorSet.colors.find(({brand, id}: Color) => brandId === brand && colorId === id)
-          )
-          .filter((color): color is Color => !!color),
-      };
-      void setLimitedColorSet(limitedColorSet);
-    }
+    void setLimitedColorSet(colors);
+  };
+
+  const handleSetAsMainClick = () => {
+    setLimitedColorSetAsMain(colors);
   };
 
   const handleSaveClick = async () => {
@@ -110,6 +104,13 @@ export const ImageLimitedPalette: React.FC = () => {
         void handleSaveClick();
       },
       disabled: !limitedPaletteImage,
+    },
+    {
+      key: '2',
+      label: t`Set as main color set`,
+      icon: <SwapOutlined />,
+      onClick: handleSetAsMainClick,
+      disabled: !colors.length,
     },
   ];
 

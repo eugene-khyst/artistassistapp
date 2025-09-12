@@ -16,7 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {ColorSetDefinition, ColorType} from '~/src/services/color/types';
+import {
+  type ColorSetDefinition,
+  type ColorType,
+  CUSTOM_COLOR_SET,
+  NEW_COLOR_SET,
+} from '~/src/services/color/types';
 import type {UrlParsingResult} from '~/src/services/url/types';
 import {TabKey} from '~/src/tabs';
 import {replaceHistory} from '~/src/utils/history';
@@ -95,10 +100,10 @@ export function parseUrl(urlStr: string): UrlParsingResult {
     const name = searchParams.get(URL_PARAM_NAME);
     return {
       colorSet: {
-        id: 0,
+        id: NEW_COLOR_SET,
         type,
         brands,
-        standardColorSet: [0],
+        standardColorSet: CUSTOM_COLOR_SET,
         colors,
         ...(name ? {name} : {}),
       },
