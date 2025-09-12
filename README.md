@@ -87,15 +87,15 @@ For mediums that support physical mixing, such as watercolor, oil paint, acrylic
 
 ## <a id="4"></a>Screenshots
 
-![ArtistAssistApp Color picker](https://github.com/user-attachments/assets/06690b52-1dd8-4ac2-8b88-e4815ece7b1b)
+![ArtistAssistApp Color picker](https://github.com/user-attachments/assets/56b697a0-b41c-4781-b4e7-82508cc02c4b)
 
-![ArtistAssistApp Color picker](https://github.com/user-attachments/assets/3d9370b7-87a9-469c-ac31-8a80e5e10d22)
+![ArtistAssistApp Color picker](https://github.com/user-attachments/assets/d9c3abe5-cdbb-458e-82bc-ccdadb21dd65)
 
 ![ArtistAssistApp Color mixing](https://github.com/user-attachments/assets/321df950-bf1a-4893-9bb8-cea252cfdce3)
 
 ![ArtistAssistApp Color mixing](https://github.com/user-attachments/assets/790d013a-e8d1-454c-929b-f6ba9c4ea59b)
 
-![ArtistAssistApp Outline](https://github.com/user-attachments/assets/2608d505-379b-41dc-848b-2708c04dc764)
+![ArtistAssistApp Outline](https://github.com/user-attachments/assets/b2a8d6ef-e0bb-4b63-bd10-06814b661edc)
 
 ![ArtistAssistApp Grid](https://github.com/user-attachments/assets/a4fcd136-bcfd-4522-ac66-a4729f6a890c)
 
