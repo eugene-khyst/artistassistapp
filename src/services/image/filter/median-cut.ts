@@ -25,71 +25,118 @@ export function medianCutQuantization(
   transformMean: (mean: RgbTuple) => RgbTuple = mean => mean
 ): void {
   const {data} = imageData;
-  const bucketSize = Math.ceil(data.length / 4);
-  const indexes: Uint32Array = new Uint32Array(bucketSize);
-  let j = 0;
-  for (let i = 0; i < data.length; i += 4) {
-    indexes[j] = i;
-    j++;
+  const pixelCount = Math.floor(data.length / 4);
+
+  const dataLinear = new Float32Array(pixelCount * 3);
+  for (let i = 0; i < pixelCount; i++) {
+    const offset = i * 4;
+    const linearOffset = i * 3;
+    for (let channel = 0; channel < 3; channel++) {
+      dataLinear[linearOffset + channel] = linearizeRgbChannel(data[offset + channel]!);
+    }
   }
-  medianCut(indexes, depth, data, transformMean);
+
+  const indexes = new Uint32Array(pixelCount);
+  for (let i = 0; i < pixelCount; i++) {
+    indexes[i] = i * 3;
+  }
+
+  medianCut(indexes, depth, dataLinear, transformMean);
+
+  for (let i = 0; i < pixelCount; i++) {
+    const offset = i * 4;
+    const linearOffset = i * 3;
+    for (let channel = 0; channel < 3; channel++) {
+      data[offset + channel] = unlinearizeRgbChannel(dataLinear[linearOffset + channel]!);
+    }
+  }
 }
 
 function medianCut(
   indexes: Uint32Array,
   depth: number,
-  data: Uint8ClampedArray,
+  dataLinear: Float32Array,
   transformMean: (mean: RgbTuple) => RgbTuple
 ): void {
-  if (depth == 0) {
-    quantize(indexes, data, transformMean);
+  if (indexes.length === 0) {
     return;
   }
 
-  const minimumValue: RgbTuple = [255, 255, 255];
-  const maximumValue: RgbTuple = [0, 0, 0];
+  if (depth <= 0 || indexes.length <= 1) {
+    quantize(indexes, dataLinear, transformMean);
+    return;
+  }
+
+  const minValue: RgbTuple = [
+    Number.POSITIVE_INFINITY,
+    Number.POSITIVE_INFINITY,
+    Number.POSITIVE_INFINITY,
+  ];
+  const maxValue: RgbTuple = [
+    Number.NEGATIVE_INFINITY,
+    Number.NEGATIVE_INFINITY,
+    Number.NEGATIVE_INFINITY,
+  ];
+
   for (const i of indexes) {
-    const rgb = data.subarray(i, i + 3);
     for (let channel = 0; channel < 3; channel++) {
-      const value = rgb[channel]!;
-      if (value < minimumValue[channel]!) {
-        minimumValue[channel] = value;
+      const value = dataLinear[i + channel]!;
+      if (value < minValue[channel]!) {
+        minValue[channel] = value;
       }
-      if (value > maximumValue[channel]!) {
-        maximumValue[channel] = value;
+      if (value > maxValue[channel]!) {
+        maxValue[channel] = value;
       }
     }
   }
 
-  const ranges = [0, 0, 0].map((_, i) => maximumValue[i]! - minimumValue[i]!);
+  const ranges = [0, 0, 0];
+  let maxRange = Number.NEGATIVE_INFINITY;
+  let maxChannel = 0;
+  for (let channel = 0; channel < 3; channel++) {
+    ranges[channel] = maxValue[channel]! - minValue[channel]!;
+    if (ranges[channel]! > maxRange) {
+      maxRange = ranges[channel]!;
+      maxChannel = channel;
+    }
+  }
 
-  const maxRange = Math.max(...ranges);
-  const maxChannel = ranges.indexOf(maxRange);
+  indexes.sort((a, b) => dataLinear[a + maxChannel]! - dataLinear[b + maxChannel]!);
 
-  indexes.sort((a, b) => data[a + maxChannel]! - data[b + maxChannel]!);
+  const mid = Math.floor(indexes.length / 2);
+  const left = indexes.subarray(0, mid);
+  const right = indexes.subarray(mid, indexes.length);
 
-  const medianIndex: number = Math.trunc(indexes.length) / 2;
-  medianCut(indexes.subarray(0, medianIndex), depth - 1, data, transformMean);
-  medianCut(indexes.subarray(medianIndex, indexes.length), depth - 1, data, transformMean);
+  medianCut(left, depth - 1, dataLinear, transformMean);
+  medianCut(right, depth - 1, dataLinear, transformMean);
 }
 
 function quantize(
   indexes: Uint32Array,
-  data: Uint8ClampedArray,
+  dataLinear: Float32Array,
   transformMean: (mean: RgbTuple) => RgbTuple
 ): void {
+  if (indexes.length === 0) {
+    return;
+  }
+
   const total: RgbTuple = [0, 0, 0];
   for (const i of indexes) {
     for (let channel = 0; channel < 3; channel++) {
-      total[channel]! += linearizeRgbChannel(data[i + channel]!);
+      total[channel]! += dataLinear[i + channel]!;
     }
   }
-  const mean: RgbTuple = [0, 0, 0];
+  const numPixels = indexes.length;
+  const meanSrgb: RgbTuple = [0, 0, 0];
   for (let channel = 0; channel < 3; channel++) {
-    mean[channel] = unlinearizeRgbChannel(total[channel]! / indexes.length);
+    meanSrgb[channel] = unlinearizeRgbChannel(total[channel]! / numPixels);
   }
-  const rgb = transformMean(mean);
+  const transformedMeanSrgb = transformMean(meanSrgb);
+  const meanLinear: RgbTuple = [0, 0, 0];
+  for (let channel = 0; channel < 3; channel++) {
+    meanLinear[channel] = linearizeRgbChannel(transformedMeanSrgb[channel]!);
+  }
   for (const i of indexes) {
-    data.set(rgb, i);
+    dataLinear.set(meanLinear, i);
   }
 }
