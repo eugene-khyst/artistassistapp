@@ -42,7 +42,7 @@ export interface ColorMixerSlice {
   isColorMixerBackgroundLoading: boolean;
   targetColor: string;
   samplingArea: SamplingArea | null;
-  colorPickerPipet: SamplingArea | null;
+  colorPickerPipette: SamplingArea | null;
   similarColors: SimilarColor[];
   isSimilarColorsLoading: boolean;
 
@@ -64,7 +64,7 @@ export const createColorMixerSlice: StateCreator<
   isColorMixerBackgroundLoading: false,
   targetColor: PAPER_WHITE_HEX,
   samplingArea: null,
-  colorPickerPipet: null,
+  colorPickerPipette: null,
   similarColors: [],
   isSimilarColorsLoading: false,
 
@@ -103,7 +103,7 @@ export const createColorMixerSlice: StateCreator<
     set({
       targetColor,
       samplingArea,
-      colorPickerPipet: null,
+      colorPickerPipette: null,
       similarColors: [],
       isSimilarColorsLoading: true,
     });
@@ -113,6 +113,6 @@ export const createColorMixerSlice: StateCreator<
     });
   },
   setColorPickerPipet: (colorPickerPipet: SamplingArea | null): void => {
-    set({colorPickerPipet});
+    set({colorPickerPipette: colorPickerPipet});
   },
 });

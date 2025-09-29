@@ -28,14 +28,14 @@ import {ZoomableImageCanvas} from './zoomable-image-canvas';
 
 export const MIN_COLOR_PICKER_DIAMETER = 1;
 export const MAX_COLOR_PICKER_DIAMETER = 100;
-const PIPET_OUTLINE_COUNT = 3;
-const PIPET_CENTER_DOT_THRESHOLD = 1;
+const PIPETTE_OUTLINE_COUNT = 3;
+const PIPETTE_CENTER_DOT_THRESHOLD = 1;
 
 export enum ColorPickerEventType {
-  PipetPointSet = 'pipetpointset',
+  PipettePointSet = 'pipettepointset',
 }
 
-export interface PipetPointSetEvent {
+export interface PipettePointSetEvent {
   point: Vector;
   diameter: number;
   rgb: Rgb;
@@ -49,21 +49,26 @@ export interface ColorPickerSample {
 }
 
 export interface ImageColorPickerCanvasProps extends ZoomableImageCanvasProps {
+  indicatorVisible?: boolean;
   lineWidth?: number;
-  cursorDiameter?: number;
+  indicatorDiameter?: number;
   sampleRadius?: number;
+  colorPickerImageIndex?: number;
 }
 
 export class ImageColorPickerCanvas extends ZoomableImageCanvas {
+  private pipetteEnabled = true;
+  private pipetteDiameter: number;
+  private pipettePoint: Vector | null = null;
+  private pipetteRgb: Rgb = Rgb.WHITE;
+  private lastPipetteDiameter: number;
   private offscreenCanvases: OffscreenCanvas[] = [];
-  private lineWidth: number;
-  private pipetDiameter: number;
-  private pipetPoint: Vector | null = null;
-  private pipetRgb: Rgb = Rgb.WHITE;
-  private lastPipetDiameter: number;
   private samples: ColorPickerSample[] = [];
+  private indicatorVisible: boolean;
+  private lineWidth: number;
+  private indicatorDiameter: number;
   private sampleRadius: number;
-  private readonly cursorDiameter: number;
+  private colorPickerImageIndex: number;
   public readonly events = new EventManager<ColorPickerEventType>();
 
   constructor(
@@ -73,33 +78,38 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     super(canvas, {imageSmoothingEnabled, ...props});
 
     ({
+      indicatorVisible: this.indicatorVisible = true,
       lineWidth: this.lineWidth = 2,
-      cursorDiameter: this.cursorDiameter = 100,
+      indicatorDiameter: this.indicatorDiameter = 100,
       sampleRadius: this.sampleRadius = 10,
+      colorPickerImageIndex: this.colorPickerImageIndex = -1,
     } = props);
 
-    this.pipetDiameter = 1;
-    this.lastPipetDiameter = this.pipetDiameter;
+    this.pipetteDiameter = 1;
+    this.lastPipetteDiameter = this.pipetteDiameter;
   }
 
   protected override getCursor(): string {
-    return 'crosshair';
+    return this.pipetteEnabled ? 'crosshair' : super.getCursor();
   }
 
   protected override onImagesLoaded(): void {
     this.initOffscreenCanvases();
-    this.pipetPoint = null;
+    this.pipettePoint = null;
   }
 
-  protected initOffscreenCanvases(): void {
-    this.offscreenCanvases = this.images.map((bitmap: ImageBitmap) => {
-      const [canvas] = imageBitmapToOffscreenCanvas(bitmap, true);
-      return canvas;
-    });
+  private initOffscreenCanvases(): void {
+    this.offscreenCanvases = this.images
+      .filter((_, index) => this.colorPickerImageIndex < 0 || this.colorPickerImageIndex === index)
+      .map((bitmap: ImageBitmap) => {
+        const [canvas] = imageBitmapToOffscreenCanvas(bitmap, true);
+        return canvas;
+      });
   }
 
-  protected getOffscreenCanvas(): OffscreenCanvas | null {
-    return this.images.length > this.imageIndex ? this.offscreenCanvases[this.imageIndex]! : null;
+  private getOffscreenCanvas(): OffscreenCanvas | undefined {
+    const imageIndex = this.colorPickerImageIndex < 0 ? this.imageIndex : 0;
+    return this.offscreenCanvases[imageIndex];
   }
 
   private drawCircle(
@@ -111,26 +121,26 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
   }
 
-  private drawPipet(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
-    if (this.pipetPoint) {
-      const pipetDiameter = this.lastPipetDiameter;
+  private drawPipette(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
+    if (this.pipettePoint && this.indicatorVisible) {
+      const pipetteDiameter = this.lastPipetteDiameter;
       const cursorDiameter =
-        this.cursorDiameter > pipetDiameter ? this.cursorDiameter : pipetDiameter + 2;
+        this.indicatorDiameter > pipetteDiameter ? this.indicatorDiameter : pipetteDiameter + 2;
       const lineWidth = this.lineWidth / this.zoom;
       ctx.lineWidth = lineWidth;
-      const isDark = this.pipetRgb.isDark();
+      const isDark = this.pipetteRgb.isDark();
       let isDarkToggle = isDark;
-      for (let i = PIPET_OUTLINE_COUNT; i >= 1; i--) {
+      for (let i = PIPETTE_OUTLINE_COUNT; i >= 1; i--) {
         ctx.strokeStyle = isDarkToggle ? '#000' : '#fff';
         const size = cursorDiameter + 2 * i * lineWidth;
-        ctx.strokeRect(this.pipetPoint.x - size / 2, this.pipetPoint.y - size / 2, size, size);
+        ctx.strokeRect(this.pipettePoint.x - size / 2, this.pipettePoint.y - size / 2, size, size);
         isDarkToggle = !isDarkToggle;
       }
       ctx.strokeStyle = ctx.fillStyle = isDark ? '#fff' : '#000';
-      this.drawCircle(ctx, this.pipetPoint, pipetDiameter / 2);
+      this.drawCircle(ctx, this.pipettePoint, pipetteDiameter / 2);
       ctx.stroke();
-      if (pipetDiameter > PIPET_CENTER_DOT_THRESHOLD) {
-        this.drawCircle(ctx, this.pipetPoint, lineWidth);
+      if (pipetteDiameter > PIPETTE_CENTER_DOT_THRESHOLD) {
+        this.drawCircle(ctx, this.pipettePoint, lineWidth);
         ctx.fill();
       }
     }
@@ -153,38 +163,44 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
   ): void {
     this.drawSamples(ctx);
-    this.drawPipet(ctx);
+    this.drawPipette(ctx);
   }
 
   protected override onClickOrTap(point: Vector): void {
-    this.setPipetPoint(point);
+    if (this.pipetteEnabled) {
+      this.setPipettePoint(point);
+    }
   }
 
-  setPipetDiameter(pipetDiameter: number): void {
-    this.pipetDiameter = clamp(pipetDiameter, MIN_COLOR_PICKER_DIAMETER, MAX_COLOR_PICKER_DIAMETER);
+  setPipetteDiameter(pipetteDiameter: number): void {
+    this.pipetteDiameter = clamp(
+      pipetteDiameter,
+      MIN_COLOR_PICKER_DIAMETER,
+      MAX_COLOR_PICKER_DIAMETER
+    );
   }
 
-  setPipetPoint(pipetPoint: Vector | null): void {
-    if (!pipetPoint || !this.imageContains(pipetPoint, this.pipetDiameter / 2)) {
-      this.pipetPoint = null;
+  setPipettePoint(pipettePoint: Vector | null): void {
+    if (!pipettePoint || !this.imageContains(pipettePoint, this.pipetteDiameter / 2)) {
+      this.pipettePoint = null;
       this.requestRedraw();
       return;
     }
-    this.pipetPoint = pipetPoint;
-    this.lastPipetDiameter = this.pipetDiameter;
-    const imagePoint: Vector | undefined = this.toImagePoint(pipetPoint);
-    this.pipetRgb = this.getAverageColor(imagePoint) ?? Rgb.WHITE;
-    const event: PipetPointSetEvent = {
-      point: pipetPoint!,
-      diameter: this.lastPipetDiameter,
-      rgb: this.pipetRgb,
+    this.pipettePoint = pipettePoint;
+    this.lastPipetteDiameter = this.pipetteDiameter;
+    const imagePoint: Vector | undefined = this.toImagePoint(pipettePoint);
+    this.pipetteRgb = this.getAverageColor(imagePoint) ?? Rgb.WHITE;
+    const event: PipettePointSetEvent = {
+      point: pipettePoint!,
+      diameter: this.lastPipetteDiameter,
+      rgb: this.pipetteRgb,
     };
-    this.events.notify(ColorPickerEventType.PipetPointSet, event);
+    this.events.notify(ColorPickerEventType.PipettePointSet, event);
     this.requestRedraw();
   }
 
   private getAverageColor({x, y}: Vector): Rgb | null {
-    const diameter = Math.round(this.pipetDiameter);
+    const diameter = Math.round(this.pipetteDiameter);
     const radius = diameter / 2;
     const canvas = this.getOffscreenCanvas();
     if (!canvas) {
@@ -199,7 +215,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
 
   private getAverageColorFromImageData({data, width, height}: ImageData): Rgb {
     if (data.length <= 4) {
-      return Rgb.fromTuple(data.subarray(0, 3));
+      return Rgb.fromTuple([...data.subarray(0, 3)] as RgbTuple);
     }
     const diameter = Math.trunc(Math.min(width, height));
     const radius = Math.trunc(diameter / 2);
@@ -242,6 +258,11 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     return this.samples.filter(
       ({x, y}): boolean => new Vector(x, y).subtract(point).length() <= radius
     );
+  }
+
+  setPipetteEnabled(pipetteEnabled: boolean): void {
+    this.pipetteEnabled = pipetteEnabled;
+    this.canvas.style.cursor = this.getCursor();
   }
 
   override destroy(): void {

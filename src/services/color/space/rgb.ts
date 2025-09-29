@@ -39,7 +39,7 @@ export function rgbToNumber([r, g, b]: RgbTuple): number {
   return (r! << 16) + (g! << 8) + b!;
 }
 
-export type RgbTuple = [r: number, g: number, b: number] | Uint8ClampedArray;
+export type RgbTuple = [r: number, g: number, b: number];
 
 export class Rgb {
   private static readonly HEX_VALUES = new Uint8Array(128);

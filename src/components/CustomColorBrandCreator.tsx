@@ -48,7 +48,7 @@ import {CustomColorBrandSelect} from '~/src/components/color-set/CustomColorBran
 import {FileSelect} from '~/src/components/file/FileSelect';
 import {useCreateImageBitmap} from '~/src/hooks/useCreateImageBitmap';
 import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
-import type {PipetPointSetEvent} from '~/src/services/canvas/image/image-color-picker-canvas';
+import type {PipettePointSetEvent} from '~/src/services/canvas/image/image-color-picker-canvas';
 import {
   ColorPickerEventType,
   ImageColorPickerCanvas,
@@ -128,8 +128,8 @@ export const CustomColorBrandCreator: React.FC = () => {
   const imageColorPickerCanvasSupplier = useCallback(
     (canvas: HTMLCanvasElement): ImageColorPickerCanvas => {
       const colorPickerCanvas = new ImageColorPickerCanvas(canvas);
-      colorPickerCanvas.setPipetDiameter(DEFAULT_SAMPLE_DIAMETER);
-      const listener = ({rgb}: PipetPointSetEvent) => {
+      colorPickerCanvas.setPipetteDiameter(DEFAULT_SAMPLE_DIAMETER);
+      const listener = ({rgb}: PipettePointSetEvent) => {
         const hex = rgb.toHex();
         setCurrentColor(hex);
         const colors = form.getFieldValue('colors') as Partial<ColorDefinition>[];
@@ -142,7 +142,7 @@ export const CustomColorBrandCreator: React.FC = () => {
         ]);
         void form.validateFields(['colors']);
       };
-      colorPickerCanvas.events.subscribe(ColorPickerEventType.PipetPointSet, listener);
+      colorPickerCanvas.events.subscribe(ColorPickerEventType.PipettePointSet, listener);
       return colorPickerCanvas;
     },
     [form]
@@ -180,12 +180,12 @@ export const CustomColorBrandCreator: React.FC = () => {
   };
 
   const handleSampleDiameterChange = (pipetDiameter: number) => {
-    colorPickerCanvas?.setPipetDiameter(pipetDiameter);
+    colorPickerCanvas?.setPipetteDiameter(pipetDiameter);
     setSampleDiameter(pipetDiameter);
   };
 
   const handleCurrentColorChange = (hex: string) => {
-    colorPickerCanvas?.setPipetPoint(null);
+    colorPickerCanvas?.setPipettePoint(null);
     setCurrentColor(hex);
     const colors = form.getFieldValue('colors') as Partial<ColorDefinition>[];
     form.setFieldValue('colors', [

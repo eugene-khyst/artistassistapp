@@ -42,7 +42,7 @@ import {ReflectanceChartDrawer} from '~/src/components/color/ReflectanceChartDra
 import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
 import type {
   ColorPickerSample,
-  PipetPointSetEvent,
+  PipettePointSetEvent,
 } from '~/src/services/canvas/image/image-color-picker-canvas';
 import {
   ColorPickerEventType,
@@ -66,8 +66,6 @@ import type {Comparator} from '~/src/utils/array';
 import {SimilarColorCard} from './color/SimilarColorCard';
 import {EmptyColorSet} from './empty/EmptyColorSet';
 
-const DEFAULT_SAMPLE_DIAMETER = 10;
-const MAX_SAMPLE_DIAMETER = 50;
 const SAMPLE_DIAMETER_SLIDER_MARKS: SliderMarks = Object.fromEntries(
   [1, 10, 20, 30, 40, 50].map((i: number) => [i, i])
 );
@@ -84,7 +82,7 @@ export const ImageColorPicker: React.FC = () => {
   const originalImage = useAppStore(state => state.originalImage);
   const backgroundColor = useAppStore(state => state.backgroundColor);
   const targetColor = useAppStore(state => state.targetColor);
-  const colorPickerPipet = useAppStore(state => state.colorPickerPipet);
+  const colorPickerPipette = useAppStore(state => state.colorPickerPipette);
   const similarColors = useAppStore(state => state.similarColors);
   const paletteColorMixtures = useAppStore(state => state.paletteColorMixtures);
   const selectedPaletteColorMixtures = useAppStore(state => state.selectedPaletteColorMixtures);
@@ -105,13 +103,13 @@ export const ImageColorPicker: React.FC = () => {
   const imageColorPickerCanvasSupplier = useCallback(
     (canvas: HTMLCanvasElement): ImageColorPickerCanvas => {
       const colorPickerCanvas = new ImageColorPickerCanvas(canvas);
-      const listener = ({rgb, point: {x, y}, diameter}: PipetPointSetEvent) => {
+      const listener = ({rgb, point: {x, y}, diameter}: PipettePointSetEvent) => {
         const hex = rgb.toHex();
         console.log(hex.toUpperCase());
         void setTargetColor(hex, {x, y, diameter});
         selectPaletteColorMixtures(colorPickerCanvas.getSamplesNearby(x, y).map(({key}) => key));
       };
-      colorPickerCanvas.events.subscribe(ColorPickerEventType.PipetPointSet, listener);
+      colorPickerCanvas.events.subscribe(ColorPickerEventType.PipettePointSet, listener);
       return colorPickerCanvas;
     },
     [setTargetColor, selectPaletteColorMixtures]
@@ -120,7 +118,7 @@ export const ImageColorPicker: React.FC = () => {
   const {ref: canvasRef, zoomableImageCanvas: colorPickerCanvas} =
     useZoomableImageCanvas<ImageColorPickerCanvas>(imageColorPickerCanvasSupplier, originalImage);
 
-  const [sampleDiameter, setSampleDiameter] = useState<number>(DEFAULT_SAMPLE_DIAMETER);
+  const [sampleDiameter, setSampleDiameter] = useState<number>(10);
   const [sort, setSort] = useState<ColorPickerSort>(ColorPickerSort.BySimilarity);
   const [reflectanceChartColorMixture, setReflectanceChartColorMixture] = useState<ColorMixture>();
   const [isOpenReflectanceChart, setIsOpenReflectanceChart] = useState<boolean>(false);
@@ -142,19 +140,19 @@ export const ImageColorPicker: React.FC = () => {
   }, [appSettings]);
 
   useEffect(() => {
-    colorPickerCanvas?.setPipetDiameter(sampleDiameter);
+    colorPickerCanvas?.setPipetteDiameter(sampleDiameter);
   }, [colorPickerCanvas, sampleDiameter]);
 
   useEffect(() => {
-    if (!colorPickerCanvas || !colorPickerPipet) {
+    if (!colorPickerCanvas || !colorPickerPipette) {
       return;
     }
-    const {x, y, diameter} = colorPickerPipet;
-    colorPickerCanvas.setPipetDiameter(diameter);
-    colorPickerCanvas.setPipetPoint(new Vector(x, y));
+    const {x, y, diameter} = colorPickerPipette;
+    colorPickerCanvas.setPipetteDiameter(diameter);
+    colorPickerCanvas.setPipettePoint(new Vector(x, y));
     colorPickerCanvas.setMinZoom();
     setSampleDiameter(diameter);
-  }, [colorPickerCanvas, colorPickerPipet]);
+  }, [colorPickerCanvas, colorPickerPipette]);
 
   useEffect(() => {
     colorPickerCanvas?.setSamples(
@@ -188,7 +186,7 @@ export const ImageColorPicker: React.FC = () => {
   };
 
   const handleTargetColorChange = (color: string) => {
-    colorPickerCanvas?.setPipetPoint(null);
+    colorPickerCanvas?.setPipettePoint(null);
     void setTargetColor(color, null);
   };
 
@@ -281,7 +279,7 @@ export const ImageColorPicker: React.FC = () => {
                     value={sampleDiameter}
                     onChange={handleSampleDiameterChange}
                     min={MIN_COLOR_PICKER_DIAMETER}
-                    max={MAX_SAMPLE_DIAMETER}
+                    max={50}
                     marks={SAMPLE_DIAMETER_SLIDER_MARKS}
                   />
                 </Form.Item>

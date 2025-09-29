@@ -32,10 +32,10 @@ export interface AdjustmentParameters {
 export function getColorAdjustedImage(
   image: ImageBitmap,
   maxValues: number[],
-  adjustmentParams: AdjustmentParameters
+  params: AdjustmentParameters
 ): ImageBitmap {
   console.time('color-adjustment');
-  const colorAdjustedImage: ImageBitmap = adjustColorsWebGL(image, maxValues, adjustmentParams);
+  const colorAdjustedImage: ImageBitmap = adjustColorsWebGL(image, maxValues, params);
   console.timeEnd('color-adjustment');
   return colorAdjustedImage;
 }

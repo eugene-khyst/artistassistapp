@@ -72,7 +72,7 @@ msgstr "<0>ArtistAssistApp</0> er en nettapp som hjelper kunstnere med å blande
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Bli med i ArtistAssistApp på Patreon som betalt medlem</0>, eller <1>logg inn med Patreon</1> hvis du allerede har blitt med, for å få tilgang til mer enn 200 fargemerker og alle bildebehandlingsmoduser uten annonser."
 
-#: src/components/ImageColorAdjustment.tsx:362
+#: src/components/ImageColorAdjustment.tsx:464
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "En verdi som er mindre enn 100 % får bildet til å se mindre fargerikt ut, og en verdi som er større enn 100 % får det til å se for fargerikt ut"
 
@@ -191,10 +191,14 @@ msgstr "ArtistAssistApp er utviklet av <0>Eugene Khyst</0>"
 msgid "At least one color is required"
 msgstr "Minst én farge kreves"
 
+#: src/components/ImageColorAdjustment.tsx:440
+msgid "Average color of the white point area"
+msgstr "Gjennomsnittlig farge på hvitpunktområdet"
+
 #: src/components/ColorMixer.tsx:186
 #: src/components/ImageBackgroundRemoval.tsx:139
 #: src/components/ImageBackgroundRemoval.tsx:211
-#: src/components/ImageColorPicker.tsx:243
+#: src/components/ImageColorPicker.tsx:241
 msgid "Background"
 msgstr "Bakgrunn"
 
@@ -223,8 +227,12 @@ msgstr "Kronologisk"
 msgid "Clear cache"
 msgstr "Tøm hurtigbufferen"
 
+#: src/components/ImageColorAdjustment.tsx:433
+msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
+msgstr "Klikk 🖱️ eller trykk 👆 hvor som helst i bildet for å velge et hvitpunkt."
+
 #: src/components/empty/EmptyPalette.tsx:64
-#: src/components/ImageColorPicker.tsx:330
+#: src/components/ImageColorPicker.tsx:328
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "Klikk 🖱️ eller trykk 👆 hvor som helst i bildet, eller bruk hurtigvinduet for fargevelger til å velge en målfarge du vil blande fra fargene dine."
 
@@ -238,7 +246,7 @@ msgstr "Lukk på {closeCounter} sek"
 
 #: src/components/ColorMixer.tsx:212
 #: src/components/CustomColorBrandCreator.tsx:322
-#: src/components/ImageColorPicker.tsx:290
+#: src/components/ImageColorPicker.tsx:288
 msgid "Color"
 msgstr "Farge"
 
@@ -250,7 +258,7 @@ msgstr "Farge merke"
 msgid "Color brands"
 msgstr "Fargemerker"
 
-#: src/components/ImageColorPicker.tsx:201
+#: src/components/ImageColorPicker.tsx:199
 msgid "Color count"
 msgstr "Antall farger"
 
@@ -267,7 +275,7 @@ msgid "Color picker"
 msgstr "Fargevelger"
 
 #: src/components/ColorSetChooser.tsx:554
-#: src/components/ImageColorPicker.tsx:319
+#: src/components/ImageColorPicker.tsx:317
 #: src/components/messages.ts:26
 msgid "Color set"
 msgstr "Farge sett"
@@ -305,7 +313,7 @@ msgstr "Kopi"
 msgid "Copy and share this link"
 msgstr "Kopier og del denne lenken"
 
-#: src/components/ImageColorAdjustment.tsx:481
+#: src/components/ImageColorAdjustment.tsx:583
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Korrigert estimering av temperaturen på lyskilden i Kelvin"
 
@@ -368,7 +376,7 @@ msgid "Diagonals"
 msgstr "Diagonaler"
 
 #: src/components/CustomColorBrandCreator.tsx:309
-#: src/components/ImageColorPicker.tsx:276
+#: src/components/ImageColorPicker.tsx:274
 msgid "Diameter"
 msgstr "Diameter"
 
@@ -406,7 +414,7 @@ msgstr "Feil under henting av ML-modelldata"
 msgid "Error while fetching standard color set data"
 msgstr "Feil ved henting av standard fargesettdata"
 
-#: src/components/ImageColorAdjustment.tsx:452
+#: src/components/ImageColorAdjustment.tsx:554
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Estimert temperatur på lyskilden i Kelvin bildet ble tatt med"
 
@@ -423,7 +431,7 @@ msgstr "Kan ikke bekrefte ID-tokenet."
 msgid "Fill in the required fields"
 msgstr "Fyll ut de obligatoriske feltene"
 
-#: src/components/ImageColorAdjustment.tsx:405
+#: src/components/ImageColorAdjustment.tsx:507
 msgid "Gamma"
 msgstr "Gamma"
 
@@ -493,7 +501,7 @@ msgstr "Installere"
 msgid "Install ArtistAssistApp on your device for easy access even without an Internet connection."
 msgstr "Installer ArtistAssistApp på enheten din for enkel tilgang selv uten Internett-tilkobling."
 
-#: src/components/ImageColorAdjustment.tsx:480
+#: src/components/ImageColorAdjustment.tsx:582
 msgid "Intended color temperature (K)"
 msgstr "Tiltenkt fargetemperatur (K)"
 
@@ -561,11 +569,11 @@ msgstr "Pålogging mislyktes"
 msgid "Login session is valid until {expirationText}"
 msgstr "Påloggingsøkten er gyldig til {expirationText}"
 
-#: src/components/ImageColorAdjustment.tsx:379
+#: src/components/ImageColorAdjustment.tsx:481
 msgid "Low input and high input"
 msgstr "Lav inngang og høy inngang"
 
-#: src/components/ImageColorAdjustment.tsx:426
+#: src/components/ImageColorAdjustment.tsx:528
 msgid "Low output and high output"
 msgstr "Lav effekt og høy effekt"
 
@@ -577,7 +585,7 @@ msgstr "Middels"
 msgid "Mid tone"
 msgstr "Mellomtone"
 
-#: src/components/ImageColorAdjustment.tsx:404
+#: src/components/ImageColorAdjustment.tsx:506
 msgid "Midtones"
 msgstr "Mellomtoner"
 
@@ -640,7 +648,7 @@ msgstr "Nei"
 #: src/components/empty/EmptyColorSet.tsx:53
 #: src/components/empty/EmptyImage.tsx:42
 #: src/components/empty/EmptyPalette.tsx:39
-#: src/components/ImageColorPicker.tsx:327
+#: src/components/ImageColorPicker.tsx:325
 msgid "No data"
 msgstr "Ingen data"
 
@@ -701,7 +709,7 @@ msgstr "Eller velg fra eksempelbilder"
 msgid "Or select from your recent photos"
 msgstr "Eller velg blant de siste bildene dine"
 
-#: src/components/ImageColorAdjustment.tsx:451
+#: src/components/ImageColorAdjustment.tsx:553
 msgid "Original color temperature (K)"
 msgstr "Original fargetemperatur (K)"
 
@@ -713,7 +721,7 @@ msgstr "Originalt bilde"
 msgid "Outline"
 msgstr "Omriss"
 
-#: src/components/ImageColorAdjustment.tsx:425
+#: src/components/ImageColorAdjustment.tsx:527
 msgid "Output levels"
 msgstr "Utgangsnivåer"
 
@@ -729,7 +737,7 @@ msgstr "Palett"
 msgid "Paper size"
 msgstr "Papirstørrelse"
 
-#: src/components/ImageColorPicker.tsx:251
+#: src/components/ImageColorPicker.tsx:249
 msgid "Paper white"
 msgstr "Papir hvitt"
 
@@ -740,6 +748,15 @@ msgstr "Pastell"
 #: src/components/empty/EmptyColorSet.tsx:77
 msgid "Pencils are not supported by this feature."
 msgstr "Blyanter støttes ikke av denne funksjonen."
+
+#: src/components/ImageColorAdjustment.tsx:312
+#: src/components/ImageColorAdjustment.tsx:414
+msgid "Percentile"
+msgstr "Persentil"
+
+#: src/components/ImageColorAdjustment.tsx:399
+msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
+msgstr "Persentil: Automatisk hvitbalanse fra de lyseste områdene, bra for de fleste bilder. Referanse: Manuell hvitbalanse ved bruk av valgt hvitt område."
 
 #: src/components/messages.ts:66
 msgid "Persistent storage is not enabled"
@@ -757,7 +774,7 @@ msgstr "Foto"
 msgid "Photo ranking"
 msgstr "Rangering av bilder"
 
-#: src/components/ImageColorPicker.tsx:336
+#: src/components/ImageColorPicker.tsx:334
 msgid "Pinch to zoom (or use the mouse wheel) and drag to pan"
 msgstr "Knip for å zoome (eller bruk musehjulet) og dra for å panorere"
 
@@ -793,7 +810,7 @@ msgstr "Trykk på <0>Legg til i palett</0> knappen ved siden av fargeblandingen 
 msgid "Press the Share button, copy and save the link so you don't have to re-enter all the colors."
 msgstr "Trykk på Del-knappen, kopier og lagre lenken slik at du ikke trenger å skrive inn alle fargene på nytt."
 
-#: src/components/ImageColorAdjustment.tsx:338
+#: src/components/ImageColorAdjustment.tsx:393
 msgid "Preview"
 msgstr "Forhåndsvisning"
 
@@ -854,6 +871,7 @@ msgid "Recommended"
 msgstr "Anbefalt"
 
 #: src/components/color/ColorSwatchDrawer.tsx:76
+#: src/components/ImageColorAdjustment.tsx:316
 msgid "Reference"
 msgstr "Referanse"
 
@@ -878,7 +896,7 @@ msgstr "Fjern alle"
 msgid "Remove all color mixtures"
 msgstr "Fjern alle fargeblandinger"
 
-#: src/components/ImageColorAdjustment.tsx:334
+#: src/components/ImageColorAdjustment.tsx:389
 #: src/components/messages.ts:39
 msgid "Remove background"
 msgstr "Fjern bakgrunn"
@@ -925,7 +943,7 @@ msgstr "Gå tilbake til <0>{tabLabel}</0> -fanen."
 msgid "Rotate"
 msgstr "Rotere"
 
-#: src/components/ImageColorAdjustment.tsx:361
+#: src/components/ImageColorAdjustment.tsx:463
 msgid "Saturation (%)"
 msgstr "Metning (%)"
 
@@ -934,7 +952,7 @@ msgstr "Metning (%)"
 #: src/components/ImageBackgroundRemoval.tsx:226
 #: src/components/ImageBlurred.tsx:116
 #: src/components/ImageBlurred.tsx:162
-#: src/components/ImageColorAdjustment.tsx:310
+#: src/components/ImageColorAdjustment.tsx:365
 #: src/components/ImageGrid.tsx:69
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:101
@@ -956,12 +974,12 @@ msgstr "Lagre og fortsett"
 msgid "Save changes to the color set?"
 msgstr "Lagre endringer i fargesettet?"
 
-#: src/components/ImageColorAdjustment.tsx:257
+#: src/components/ImageColorAdjustment.tsx:301
 #: src/components/ImagePerspectiveCorrection.tsx:167
 msgid "Save expanded to 1.91:1"
 msgstr "Lagring utvidet til 1,91:1"
 
-#: src/components/ImageColorAdjustment.tsx:249
+#: src/components/ImageColorAdjustment.tsx:293
 #: src/components/ImagePerspectiveCorrection.tsx:159
 msgid "Save expanded to 4:5"
 msgstr "Lagring utvidet til 4:5"
@@ -982,7 +1000,7 @@ msgstr "Skann QR-kode"
 msgid "Select 4 points to correct perspective distortion"
 msgstr "Velg 4 punkter for å korrigere perspektivforvrengning"
 
-#: src/components/ImageColorAdjustment.tsx:295
+#: src/components/ImageColorAdjustment.tsx:350
 msgid "Select a photo to adjust white balance and colors"
 msgstr "Velg et bilde for å justere hvitbalanse og farger"
 
@@ -1061,7 +1079,7 @@ msgstr "Velg del"
 
 #: src/components/ImageBackgroundRemoval.tsx:194
 #: src/components/ImageChooser.tsx:75
-#: src/components/ImageColorAdjustment.tsx:300
+#: src/components/ImageColorAdjustment.tsx:355
 #: src/components/ImagePerspectiveCorrection.tsx:236
 msgid "Select photo"
 msgstr "Velg bilde"
@@ -1105,11 +1123,11 @@ msgid "Set as main color set"
 msgstr "Sett som hovedfargesett"
 
 #: src/components/ImageBlurred.tsx:105
-#: src/components/ImageColorAdjustment.tsx:327
+#: src/components/ImageColorAdjustment.tsx:382
 msgid "Set as reference"
 msgstr "Sett som referanse"
 
-#: src/components/ImageColorPicker.tsx:265
+#: src/components/ImageColorPicker.tsx:263
 msgid "Set paper white background"
 msgstr "Angi papirhvit bakgrunn"
 
@@ -1122,7 +1140,7 @@ msgstr "Still inn fargen på underlaget for glasset"
 msgid "Shadow"
 msgstr "Skygge"
 
-#: src/components/ImageColorAdjustment.tsx:378
+#: src/components/ImageColorAdjustment.tsx:480
 msgid "Shadows and highlights"
 msgstr "Skygger og høylys"
 
@@ -1156,7 +1174,7 @@ msgid "Show or hide grid"
 msgstr "Vise eller skjule rutenett"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:87
-#: src/components/ImageColorPicker.tsx:200
+#: src/components/ImageColorPicker.tsx:198
 msgid "Similarity"
 msgstr "Likheten"
 
@@ -1180,12 +1198,12 @@ msgstr "Overlapp pastellområder litt i forskjellige farger og bland forsiktig f
 msgid "Small"
 msgstr "Liten"
 
-#: src/components/ImageColorPicker.tsx:305
+#: src/components/ImageColorPicker.tsx:303
 #: src/components/palette/PaletteGrid.tsx:109
 msgid "Sort"
 msgstr "Sortere"
 
-#: src/components/ImageColorPicker.tsx:306
+#: src/components/ImageColorPicker.tsx:304
 msgid "Sort by the similarity of the mixture to the target color, or by the number of colors in the mixture, or by the thickness of the mixture."
 msgstr "Sorter etter likheten mellom blandingen og målfargen, eller etter antall farger i blandingen, eller etter tykkelsen på blandingen."
 
@@ -1244,15 +1262,15 @@ msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "Appen vil forsøke å laste inn på nytt om {reloadCounter} sek"
 
 #: src/components/ColorMixer.tsx:187
-#: src/components/ImageColorPicker.tsx:244
+#: src/components/ImageColorPicker.tsx:242
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "Fargen på papir eller lerret, eller fargen på underlaget når det er glasert."
 
-#: src/components/ImageColorPicker.tsx:291
+#: src/components/ImageColorPicker.tsx:289
 msgid "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
 msgstr "Fargen som skal blandes fra fargesettet. Velg en farge ved å klikke på et punkt på bildet, eller bruk popup-vinduet for fargevelger."
 
-#: src/components/ImageColorPicker.tsx:277
+#: src/components/ImageColorPicker.tsx:275
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
 msgstr "Diameteren på det sirkulære området rundt markøren, brukt til å beregne gjennomsnittsfargen på pikslene i det området."
 
@@ -1268,7 +1286,7 @@ msgstr "Det er en felles palett og en egen palett for hvert bilde."
 msgid "Thick pigment"
 msgstr "Tykt pigment"
 
-#: src/components/ImageColorPicker.tsx:202
+#: src/components/ImageColorPicker.tsx:200
 msgid "Thickness"
 msgstr "Tykkelse"
 
@@ -1367,10 +1385,12 @@ msgstr "Når du velger mer enn {maxColorsFor2} farger totalt, brukes ikke blandi
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Når du velger mer enn {maxColorsFor3} farger totalt, brukes ikke blandinger av tre farger."
 
-#: src/components/ImageColorPicker.tsx:270
+#: src/components/ImageColorAdjustment.tsx:447
+#: src/components/ImageColorPicker.tsx:268
 msgid "White"
 msgstr "Hvit"
 
+#: src/components/ImageColorAdjustment.tsx:398
 #: src/components/ImagePerspectiveCorrection.tsx:205
 #: src/components/ImagePerspectiveCorrection.tsx:278
 #: src/components/messages.ts:38
@@ -1378,8 +1398,12 @@ msgid "White balance"
 msgstr "Hvitbalanse"
 
 #: src/components/ImageColorAdjustment.tsx:344
-msgid "White patch (%ile)"
-msgstr "Hvit flekk (%ile)"
+#~ msgid "White patch (%ile)"
+#~ msgstr "Hvit flekk (%ile)"
+
+#: src/components/ImageColorAdjustment.tsx:439
+msgid "White point"
+msgstr "Hvitt punkt"
 
 #: src/components/print/PrintImageDrawer.tsx:175
 msgid "Width"

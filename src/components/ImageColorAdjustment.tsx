@@ -24,13 +24,16 @@ import {
   ScissorOutlined,
 } from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
+import type {CheckboxOptionType, RadioChangeEvent} from 'antd';
 import {
   Button,
   Checkbox,
   Col,
+  ColorPicker,
   Dropdown,
   Form,
   Grid,
+  Radio,
   Row,
   Slider,
   Space,
@@ -38,25 +41,33 @@ import {
   Typography,
 } from 'antd';
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
+import type {Color} from 'antd/es/color-picker';
 import type {SliderMarks} from 'antd/es/slider';
 import type {MenuProps} from 'antd/lib';
 import {saveAs} from 'file-saver';
-import {useEffect, useMemo, useState} from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {FileSelect} from '~/src/components/file/FileSelect';
 import {useDebounce} from '~/src/hooks/useDebounce';
+import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
+import type {PipettePointSetEvent} from '~/src/services/canvas/image/image-color-picker-canvas';
 import {
-  useZoomableImageCanvas,
-  zoomableImageCanvasSupplier,
-} from '~/src/hooks/useZoomableImageCanvas';
-import type {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
+  ColorPickerEventType,
+  ImageColorPickerCanvas,
+} from '~/src/services/canvas/image/image-color-picker-canvas';
 import {kelvinToRgb} from '~/src/services/color/color-temperature';
+import type {AdjustmentParameters} from '~/src/services/image/color-adjustment';
 import {blobToImageFile} from '~/src/services/image/image-file';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 import {getFilename} from '~/src/utils/filename';
 import {expandToAspectRatio, imageBitmapToBlob} from '~/src/utils/graphics';
+
+enum WhiteBalanceMethod {
+  Percentile = 0,
+  Reference = 1,
+}
 
 const PERCENTILE_MIN = 80;
 const PERCENTILE_MAX = 100;
@@ -136,24 +147,17 @@ export const ImageColorAdjustment: React.FC = () => {
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
   const setImageFileToAdjustColors = useAppStore(state => state.setImageFileToAdjustColors);
   const setImageFileToRemoveBackground = useAppStore(state => state.setImageFileToRemoveBackground);
-  const adjustImageColors = useAppStore(state => state.adjustImageColors);
+  const adjustImageColorsPercentile = useAppStore(state => state.adjustImageColorsPercentile);
+  const adjustImageColorsReference = useAppStore(state => state.adjustImageColorsReference);
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
 
   const screens = Grid.useBreakpoint();
 
   const {t} = useLingui();
 
-  const images = useMemo<(ImageBitmap | null)[]>(
-    () => [colorAdjustedImage, colorUnadjustedImage],
-    [colorUnadjustedImage, colorAdjustedImage]
-  );
-
-  const {ref: canvasRef, zoomableImageCanvas} = useZoomableImageCanvas<ZoomableImageCanvas>(
-    zoomableImageCanvasSupplier,
-    images
-  );
-
+  const [method, setMethod] = useState<WhiteBalanceMethod>(WhiteBalanceMethod.Percentile);
   const [percentile, setPercentile] = useState<number>(98);
+  const [whitePoint, setWhitePoint] = useState<string>('#fff');
   const [saturation, setSaturation] = useState<number>(100);
   const [inputLevels, setInputLevels] = useState<number[]>([0, 255]);
   const [gammaPercent, setGammaPercent] = useState<number>(50);
@@ -161,6 +165,30 @@ export const ImageColorAdjustment: React.FC = () => {
   const [originalTemperature, setOriginalTemperature] = useState<number>(6500);
   const [targetTemperature, setTargetTemperature] = useState<number>(6500);
   const [isPreview, setIsPreview] = useState<boolean>(true);
+
+  const images = useMemo<(ImageBitmap | null)[]>(
+    () => [colorAdjustedImage, colorUnadjustedImage],
+    [colorUnadjustedImage, colorAdjustedImage]
+  );
+
+  const imageColorPickerCanvasSupplier = useCallback(
+    (canvas: HTMLCanvasElement): ImageColorPickerCanvas => {
+      const colorPickerCanvas = new ImageColorPickerCanvas(canvas, {
+        indicatorVisible: false,
+        sampleRadius: 10,
+        colorPickerImageIndex: 1,
+      });
+      const listener = ({rgb}: PipettePointSetEvent) => {
+        setWhitePoint(rgb.toHex());
+      };
+      colorPickerCanvas.events.subscribe(ColorPickerEventType.PipettePointSet, listener);
+      return colorPickerCanvas;
+    },
+    []
+  );
+
+  const {ref: canvasRef, zoomableImageCanvas: colorPickerCanvas} =
+    useZoomableImageCanvas<ImageColorPickerCanvas>(imageColorPickerCanvasSupplier, images);
 
   const gamma = percentToGamma(gammaPercent);
 
@@ -176,7 +204,7 @@ export const ImageColorAdjustment: React.FC = () => {
     if (colorUnadjustedImage) {
       const [inputLow, inputHigh] = inputLowHighDebounced;
       const [outputLow, outputHigh] = outputLowHighDebounced;
-      void adjustImageColors(percentileDebounced / 100, {
+      const params: AdjustmentParameters = {
         saturation: saturationDebounced / 100,
         inputLow: inputLow! / 255,
         inputHigh: inputHigh! / 255,
@@ -185,11 +213,22 @@ export const ImageColorAdjustment: React.FC = () => {
         outputHigh: outputHigh! / 255,
         origTemperature: origTempDebounced,
         targetTemperature: targetTempDebounced,
-      });
+      };
+      const isReferenceMode = method === WhiteBalanceMethod.Reference;
+      colorPickerCanvas?.setPipetteEnabled(isReferenceMode);
+      if (isReferenceMode) {
+        adjustImageColorsReference(whitePoint, params);
+      } else {
+        void adjustImageColorsPercentile(percentileDebounced / 100, params);
+      }
     }
   }, [
+    colorPickerCanvas,
     colorUnadjustedImage,
-    adjustImageColors,
+    adjustImageColorsPercentile,
+    adjustImageColorsReference,
+    method,
+    whitePoint,
     percentileDebounced,
     saturationDebounced,
     inputLowHighDebounced,
@@ -205,7 +244,7 @@ export const ImageColorAdjustment: React.FC = () => {
 
   const handlePreviewChange = ({target: {checked}}: CheckboxChangeEvent) => {
     setIsPreview(checked);
-    zoomableImageCanvas?.setImageIndex(checked ? 0 : 1);
+    colorPickerCanvas?.setImageIndex(checked ? 0 : 1);
   };
 
   const handleSaveClick = async (aspectRatio?: number) => {
@@ -243,6 +282,11 @@ export const ImageColorAdjustment: React.FC = () => {
     void setActiveTabKey(TabKey.BackgroundRemove);
   };
 
+  const handleModeChange = (e: RadioChangeEvent) => {
+    const value = e.target.value as WhiteBalanceMethod;
+    setMethod(value);
+  };
+
   const saveItems: MenuProps['items'] = [
     {
       key: '1',
@@ -259,6 +303,17 @@ export const ImageColorAdjustment: React.FC = () => {
       onClick: () => {
         void handleSaveClick(1.91 / 1);
       },
+    },
+  ];
+
+  const modeOptions: CheckboxOptionType<number>[] = [
+    {
+      value: WhiteBalanceMethod.Percentile,
+      label: t`Percentile`,
+    },
+    {
+      value: WhiteBalanceMethod.Reference,
+      label: t`Reference`,
     },
   ];
 
@@ -340,21 +395,68 @@ export const ImageColorAdjustment: React.FC = () => {
                 </Form.Item>
 
                 <Form.Item
-                  layout="vertical"
-                  label={t`White patch (%ile)`}
-                  tooltip={`Smaller percentile values correspond to stronger whitening`}
-                  style={{marginBottom: 0}}
+                  label={t`White balance`}
+                  tooltip={t`Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area.`}
+                  style={{margin: 0}}
                 >
-                  <Slider
-                    value={percentile}
-                    onChange={(value: number) => {
-                      setPercentile(value);
-                    }}
-                    min={PERCENTILE_MIN}
-                    max={PERCENTILE_MAX}
-                    marks={PERCENTILE_SLIDER_MARKS}
+                  <Radio.Group
+                    options={modeOptions}
+                    value={method}
+                    onChange={handleModeChange}
+                    optionType="button"
+                    buttonStyle="solid"
                   />
                 </Form.Item>
+
+                {method === WhiteBalanceMethod.Percentile && (
+                  <Form.Item
+                    layout="vertical"
+                    label={t`Percentile`}
+                    tooltip={`Smaller percentile values correspond to stronger whitening`}
+                    style={{marginBottom: 0}}
+                  >
+                    <Slider
+                      value={percentile}
+                      onChange={(value: number) => {
+                        setPercentile(value);
+                      }}
+                      min={PERCENTILE_MIN}
+                      max={PERCENTILE_MAX}
+                      marks={PERCENTILE_SLIDER_MARKS}
+                    />
+                  </Form.Item>
+                )}
+
+                {method === WhiteBalanceMethod.Reference && (
+                  <>
+                    <Typography.Text>
+                      <Trans>
+                        Click 🖱️ or tap 👆 anywhere in the photo to choose a white point.
+                      </Trans>
+                    </Typography.Text>
+
+                    <Form.Item
+                      label={t`White point`}
+                      tooltip={t`Average color of the white point area`}
+                      style={{margin: 0}}
+                    >
+                      <ColorPicker
+                        value={whitePoint}
+                        presets={[
+                          {
+                            label: t`White`,
+                            colors: ['#fff'],
+                          },
+                        ]}
+                        onChangeComplete={(color: Color) => {
+                          setWhitePoint(color.toHexString());
+                        }}
+                        showText
+                        disabledAlpha
+                      />
+                    </Form.Item>
+                  </>
+                )}
 
                 <Form.Item
                   layout="vertical"

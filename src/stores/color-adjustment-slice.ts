@@ -20,6 +20,7 @@ import type {Remote} from 'comlink';
 import {wrap} from 'comlink';
 import type {StateCreator} from 'zustand';
 
+import {linearizeRgbChannel, Rgb} from '~/src/services/color/space/rgb';
 import {
   type AdjustmentParameters,
   getColorAdjustedImage,
@@ -43,10 +44,9 @@ export interface ColorAdjustmentSlice {
   isColorAdjustedImageLoading: boolean;
 
   setImageFileToAdjustColors: (imageFileToAdjustColors: File | null) => Promise<void>;
-  adjustImageColors: (
-    whitePatchPercentile: number,
-    adjustmentParams: AdjustmentParameters
-  ) => Promise<void>;
+  adjustImageColors: (maxValues: number[], params: AdjustmentParameters) => void;
+  adjustImageColorsPercentile: (percentile: number, params: AdjustmentParameters) => Promise<void>;
+  adjustImageColorsReference: (whitePoint: string, params: AdjustmentParameters) => void;
 }
 
 export const createColorAdjustmentSlice: StateCreator<
@@ -84,10 +84,7 @@ export const createColorAdjustmentSlice: StateCreator<
     });
     [prevColorUnadjustedImage, prevColorAdjustedImage].forEach(prev => prev?.close());
   },
-  adjustImageColors: async (
-    whitePatchPercentile: number,
-    adjustmentParams: AdjustmentParameters
-  ): Promise<void> => {
+  adjustImageColors: (maxValues: number[], params: AdjustmentParameters): void => {
     const {colorUnadjustedImage, colorAdjustedImage: prev} = get();
     if (!colorUnadjustedImage) {
       return;
@@ -95,17 +92,25 @@ export const createColorAdjustmentSlice: StateCreator<
     set({
       isColorAdjustedImageLoading: true,
     });
-    const maxValues: number[] =
-      await rgbChannelsPercentileCalculator.calculatePercentiles(whitePatchPercentile);
-    const colorAdjustedImage = getColorAdjustedImage(
-      colorUnadjustedImage,
-      maxValues,
-      adjustmentParams
-    );
+    const colorAdjustedImage = getColorAdjustedImage(colorUnadjustedImage, maxValues, params);
     set({
       colorAdjustedImage,
       isColorAdjustedImageLoading: false,
     });
     prev?.close();
+  },
+  adjustImageColorsPercentile: async (
+    percentile: number,
+    params: AdjustmentParameters
+  ): Promise<void> => {
+    const maxValues: number[] =
+      await rgbChannelsPercentileCalculator.calculatePercentiles(percentile);
+    get().adjustImageColors(maxValues, params);
+  },
+  adjustImageColorsReference: (whitePoint: string, params: AdjustmentParameters): void => {
+    const maxValues: number[] = [...Rgb.fromHex(whitePoint).toRgbTuple()].map(v =>
+      linearizeRgbChannel(v)
+    );
+    get().adjustImageColors(maxValues, params);
   },
 });

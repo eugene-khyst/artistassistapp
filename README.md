@@ -70,7 +70,7 @@ following:
 - threshold filter based on perceived lightness (WebGL),
 - Kuwahara blur filter (WebGL),
 - median cut for color quantization,
-- adjusting white balance with white patch algorithm (WebGL),
+- adjusting white balance using the percentile and reference methods (WebGL),
 - adjusting saturation (WebGL),
 - adjusting color levels (WebGL),
 - adjusting color temperature (WebGL),

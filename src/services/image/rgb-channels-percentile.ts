@@ -25,8 +25,8 @@ import {
 
 function sortRgbChannels(imageData: ImageData): Uint8ClampedArray[] {
   const {data} = imageData;
-  const length = Math.ceil(data.length / 4);
-  const channels = Array.from({length: 3}, () => new Uint8ClampedArray(length));
+  const pixelCount = Math.floor(data.length / 4);
+  const channels = Array.from({length: 3}, () => new Uint8ClampedArray(pixelCount));
   for (let i = 0, j = 0; i < data.length; i += 4, j++) {
     for (let channel = 0; channel < 3; channel++) {
       channels[channel]![j] = data[i + channel]!;
