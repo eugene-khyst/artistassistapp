@@ -39,7 +39,6 @@ import {
   theme,
   Typography,
 } from 'antd';
-import {saveAs} from 'file-saver';
 import type {CSSProperties} from 'react';
 import React, {useEffect, useState} from 'react';
 
@@ -56,7 +55,6 @@ import {OutlineMode} from '~/src/services/settings/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 import {getFilename} from '~/src/utils/filename';
-import {imageBitmapToBlob} from '~/src/utils/graphics';
 
 import {EmptyImage} from './empty/EmptyImage';
 
@@ -151,11 +149,11 @@ export const ImageOutline: React.FC = () => {
     setIsOpenPrintImage(true);
   };
 
-  const handleSaveClick = async () => {
+  const handleSaveClick = () => {
     if (!outlineImage) {
       return;
     }
-    saveAs(await imageBitmapToBlob(outlineImage), getFilename(originalImageFile, 'outline'));
+    void gridCanvas?.saveAsImage(getFilename(originalImageFile, 'outline'));
   };
 
   if (!originalImageFile) {
@@ -186,7 +184,7 @@ export const ImageOutline: React.FC = () => {
       label: t`Save`,
       icon: <DownloadOutlined />,
       onClick: () => {
-        void handleSaveClick();
+        handleSaveClick();
       },
     },
   ];
@@ -255,7 +253,7 @@ export const ImageOutline: React.FC = () => {
                 <Button
                   icon={<DownloadOutlined />}
                   onClick={() => {
-                    void handleSaveClick();
+                    handleSaveClick();
                   }}
                 >
                   <Trans>Save</Trans>
