@@ -405,7 +405,7 @@ msgid "Error while fetching color data"
 msgstr "Грешка при извличане на данни за цветовете"
 
 #: src/components/ImageBackgroundRemoval.tsx:91
-#: src/components/ImageOutline.tsx:106
+#: src/components/ImageOutline.tsx:104
 #: src/components/ImageStyleTransfer.tsx:88
 msgid "Error while fetching ML model data"
 msgstr "Грешка при извличане на данни за ML модел"
@@ -457,12 +457,12 @@ msgid "Gouache"
 msgstr "Гваш"
 
 #: src/components/grid/GridControls.tsx:177
-#: src/components/ImageOutline.tsx:248
+#: src/components/ImageOutline.tsx:246
 #: src/components/messages.ts:33
 msgid "Grid"
 msgstr "Мрежа"
 
-#: src/components/print/PrintImageDrawer.tsx:196
+#: src/components/print/PrintImageDrawer.tsx:207
 msgid "Height"
 msgstr "Височина"
 
@@ -577,6 +577,11 @@ msgstr "Нисък вход и висок вход"
 msgid "Low output and high output"
 msgstr "Ниска мощност и висока производителност"
 
+#: src/components/print/PrintImageDrawer.tsx:222
+#: src/components/print/PrintImageDrawer.tsx:237
+msgid "Margin"
+msgstr "Поле"
+
 #: src/components/ImageBlurred.tsx:143
 msgid "Medium"
 msgstr "Средно"
@@ -603,7 +608,7 @@ msgstr "Смес"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:102
 #: src/components/ImageBackgroundRemoval.tsx:198
-#: src/components/ImageOutline.tsx:223
+#: src/components/ImageOutline.tsx:221
 msgid "Mode"
 msgstr "Режим"
 
@@ -733,7 +738,7 @@ msgstr "над"
 msgid "Palette"
 msgstr "Палитра"
 
-#: src/components/print/PrintImageDrawer.tsx:149
+#: src/components/print/PrintImageDrawer.tsx:160
 msgid "Paper size"
 msgstr "Размер на хартията"
 
@@ -816,21 +821,21 @@ msgstr "Преглед"
 
 #: src/components/ImageGrid.tsx:63
 #: src/components/ImageGrid.tsx:86
-#: src/components/ImageOutline.tsx:180
-#: src/components/ImageOutline.tsx:253
+#: src/components/ImageOutline.tsx:178
+#: src/components/ImageOutline.tsx:251
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:85
 #: src/components/ImageTonalValues.tsx:124
 #: src/components/palette/PaletteGrid.tsx:96
-#: src/components/print/PrintImageDrawer.tsx:121
+#: src/components/print/PrintImageDrawer.tsx:132
 msgid "Print"
 msgstr "Печатам"
 
-#: src/components/print/PrintImageDrawer.tsx:139
+#: src/components/print/PrintImageDrawer.tsx:150
 msgid "Print a large image onto multiple pages"
 msgstr "Отпечатване на голямо изображение на няколко страници"
 
-#: src/components/print/PrintImageDrawer.tsx:213
+#: src/components/print/PrintImageDrawer.tsx:254
 msgid "Print preview"
 msgstr "Визуализация на печата"
 
@@ -838,15 +843,15 @@ msgstr "Визуализация на печата"
 msgid "Privacy policy"
 msgstr "Политика за поверителност"
 
-#: src/components/ImageOutline.tsx:172
+#: src/components/ImageOutline.tsx:170
 msgid "Quality"
 msgstr "Качество"
 
-#: src/components/ImageOutline.tsx:217
+#: src/components/ImageOutline.tsx:215
 msgid "Quality mode is available to paid Patreon members only"
 msgstr "Качественият режим е достъпен само за платени членове на Patreon"
 
-#: src/components/ImageOutline.tsx:168
+#: src/components/ImageOutline.tsx:166
 msgid "Quick"
 msgstr "Бърз"
 
@@ -956,8 +961,8 @@ msgstr "Насищане (%)"
 #: src/components/ImageGrid.tsx:69
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:101
-#: src/components/ImageOutline.tsx:186
-#: src/components/ImageOutline.tsx:261
+#: src/components/ImageOutline.tsx:184
+#: src/components/ImageOutline.tsx:259
 #: src/components/ImagePerspectiveCorrection.tsx:196
 #: src/components/ImagePerspectiveCorrection.tsx:266
 #: src/components/ImageStyleTransfer.tsx:180
@@ -1221,7 +1226,7 @@ msgstr "Квадратни клетки"
 msgid "Standard color set"
 msgstr "Стандартен цветови комплект"
 
-#: src/components/print/PrintImageDrawer.tsx:142
+#: src/components/print/PrintImageDrawer.tsx:153
 msgid "Standard print"
 msgstr "Стандартен печат"
 
@@ -1245,7 +1250,11 @@ msgstr "Поддържани уеб браузъри"
 msgid "Supported web browsers and operating systems"
 msgstr "Поддържани уеб браузъри и операционни системи"
 
-#: src/components/print/PrintImageDrawer.tsx:161
+#: src/components/print/PrintImageDrawer.tsx:223
+msgid "Taped margin width around the painting area"
+msgstr "Залепена ширина на полето около зоната за боядисване"
+
+#: src/components/print/PrintImageDrawer.tsx:172
 msgid "Target print size"
 msgstr "Целеви размер на печат"
 
@@ -1278,6 +1287,10 @@ msgstr "Диаметърът на кръглата област около ку�
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
 msgstr "Диаметърът на кръглата област около курсора, използван за изчисляване на средния цвят на пикселите в областта."
 
+#: src/components/print/PrintImageDrawer.tsx:225
+msgid "The margin is too large"
+msgstr "Маржът е твърде голям"
+
 #: src/components/empty/EmptyPalette.tsx:44
 msgid "There is one common palette and a separate palette for each photo."
 msgstr "Има една обща палитра и отделна палитра за всяка снимка."
@@ -1298,7 +1311,7 @@ msgstr "Разредете боята до <0>дебелина {fractionText}</0
 msgid "This color brand is available to paid Patreon members only"
 msgstr "Тази цветна марка е достъпна само за платени членове на Patreon"
 
-#: src/components/print/PrintImageDrawer.tsx:163
+#: src/components/print/PrintImageDrawer.tsx:174
 msgid "This print size is not supported"
 msgstr "Този размер за печат не се поддържа"
 
@@ -1405,7 +1418,7 @@ msgstr "Баланс на бялото"
 msgid "White point"
 msgstr "Бяла точка"
 
-#: src/components/print/PrintImageDrawer.tsx:175
+#: src/components/print/PrintImageDrawer.tsx:186
 msgid "Width"
 msgstr "Широчина"
 

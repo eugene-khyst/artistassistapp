@@ -405,7 +405,7 @@ msgid "Error while fetching color data"
 msgstr "Erro ao buscar dados de cores"
 
 #: src/components/ImageBackgroundRemoval.tsx:91
-#: src/components/ImageOutline.tsx:106
+#: src/components/ImageOutline.tsx:104
 #: src/components/ImageStyleTransfer.tsx:88
 msgid "Error while fetching ML model data"
 msgstr "Erro ao buscar dados do modelo de ML"
@@ -457,12 +457,12 @@ msgid "Gouache"
 msgstr "Guache"
 
 #: src/components/grid/GridControls.tsx:177
-#: src/components/ImageOutline.tsx:248
+#: src/components/ImageOutline.tsx:246
 #: src/components/messages.ts:33
 msgid "Grid"
 msgstr "Grade"
 
-#: src/components/print/PrintImageDrawer.tsx:196
+#: src/components/print/PrintImageDrawer.tsx:207
 msgid "Height"
 msgstr "Altura"
 
@@ -577,6 +577,11 @@ msgstr "Entrada baixa e entrada alta"
 msgid "Low output and high output"
 msgstr "Baixo rendimento e alto rendimento"
 
+#: src/components/print/PrintImageDrawer.tsx:222
+#: src/components/print/PrintImageDrawer.tsx:237
+msgid "Margin"
+msgstr "Margem"
+
 #: src/components/ImageBlurred.tsx:143
 msgid "Medium"
 msgstr "Média"
@@ -603,7 +608,7 @@ msgstr "Mistura"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:102
 #: src/components/ImageBackgroundRemoval.tsx:198
-#: src/components/ImageOutline.tsx:223
+#: src/components/ImageOutline.tsx:221
 msgid "Mode"
 msgstr "Modo"
 
@@ -733,7 +738,7 @@ msgstr "sobre"
 msgid "Palette"
 msgstr "Paleta"
 
-#: src/components/print/PrintImageDrawer.tsx:149
+#: src/components/print/PrintImageDrawer.tsx:160
 msgid "Paper size"
 msgstr "Tamanho do papel"
 
@@ -816,21 +821,21 @@ msgstr "Visualizar"
 
 #: src/components/ImageGrid.tsx:63
 #: src/components/ImageGrid.tsx:86
-#: src/components/ImageOutline.tsx:180
-#: src/components/ImageOutline.tsx:253
+#: src/components/ImageOutline.tsx:178
+#: src/components/ImageOutline.tsx:251
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:85
 #: src/components/ImageTonalValues.tsx:124
 #: src/components/palette/PaletteGrid.tsx:96
-#: src/components/print/PrintImageDrawer.tsx:121
+#: src/components/print/PrintImageDrawer.tsx:132
 msgid "Print"
 msgstr "Imprimir"
 
-#: src/components/print/PrintImageDrawer.tsx:139
+#: src/components/print/PrintImageDrawer.tsx:150
 msgid "Print a large image onto multiple pages"
 msgstr "Imprimir uma imagem grande em várias páginas"
 
-#: src/components/print/PrintImageDrawer.tsx:213
+#: src/components/print/PrintImageDrawer.tsx:254
 msgid "Print preview"
 msgstr "Visualização de impressão"
 
@@ -838,15 +843,15 @@ msgstr "Visualização de impressão"
 msgid "Privacy policy"
 msgstr "Política de privacidade"
 
-#: src/components/ImageOutline.tsx:172
+#: src/components/ImageOutline.tsx:170
 msgid "Quality"
 msgstr "Qualidade"
 
-#: src/components/ImageOutline.tsx:217
+#: src/components/ImageOutline.tsx:215
 msgid "Quality mode is available to paid Patreon members only"
 msgstr "O modo Qualidade está disponível apenas para membros pagos do Patreon"
 
-#: src/components/ImageOutline.tsx:168
+#: src/components/ImageOutline.tsx:166
 msgid "Quick"
 msgstr "Rápido"
 
@@ -956,8 +961,8 @@ msgstr "Saturação (%)"
 #: src/components/ImageGrid.tsx:69
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:101
-#: src/components/ImageOutline.tsx:186
-#: src/components/ImageOutline.tsx:261
+#: src/components/ImageOutline.tsx:184
+#: src/components/ImageOutline.tsx:259
 #: src/components/ImagePerspectiveCorrection.tsx:196
 #: src/components/ImagePerspectiveCorrection.tsx:266
 #: src/components/ImageStyleTransfer.tsx:180
@@ -1221,7 +1226,7 @@ msgstr "Células quadradas"
 msgid "Standard color set"
 msgstr "Conjunto de cores padrão"
 
-#: src/components/print/PrintImageDrawer.tsx:142
+#: src/components/print/PrintImageDrawer.tsx:153
 msgid "Standard print"
 msgstr "Impressão padrão"
 
@@ -1245,7 +1250,11 @@ msgstr "Navegadores da Web suportados"
 msgid "Supported web browsers and operating systems"
 msgstr "Navegadores da Web e sistemas operacionais compatíveis"
 
-#: src/components/print/PrintImageDrawer.tsx:161
+#: src/components/print/PrintImageDrawer.tsx:223
+msgid "Taped margin width around the painting area"
+msgstr "Largura da margem colada ao redor da área de pintura"
+
+#: src/components/print/PrintImageDrawer.tsx:172
 msgid "Target print size"
 msgstr "Tamanho de impressão alvo"
 
@@ -1278,6 +1287,10 @@ msgstr "O diâmetro da área circular ao redor do cursor, usado para calcular a 
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
 msgstr "O diâmetro da área circular ao redor do cursor, usado para calcular a cor média dos pixels dentro da área."
 
+#: src/components/print/PrintImageDrawer.tsx:225
+msgid "The margin is too large"
+msgstr "A margem é muito grande"
+
 #: src/components/empty/EmptyPalette.tsx:44
 msgid "There is one common palette and a separate palette for each photo."
 msgstr "Há uma paleta comum e uma paleta separada para cada foto."
@@ -1298,7 +1311,7 @@ msgstr "Dilua a tinta para <0>a espessura de {fractionText}</0>"
 msgid "This color brand is available to paid Patreon members only"
 msgstr "Esta marca de cores está disponível apenas para membros pagos do Patreon"
 
-#: src/components/print/PrintImageDrawer.tsx:163
+#: src/components/print/PrintImageDrawer.tsx:174
 msgid "This print size is not supported"
 msgstr "Este tamanho de impressão não é suportado"
 
@@ -1405,7 +1418,7 @@ msgstr "Balanço de branco"
 msgid "White point"
 msgstr "Ponto branco"
 
-#: src/components/print/PrintImageDrawer.tsx:175
+#: src/components/print/PrintImageDrawer.tsx:186
 msgid "Width"
 msgstr "Largura"
 

@@ -405,7 +405,7 @@ msgid "Error while fetching color data"
 msgstr "색상 데이터를 가져오는 중 오류 발생"
 
 #: src/components/ImageBackgroundRemoval.tsx:91
-#: src/components/ImageOutline.tsx:106
+#: src/components/ImageOutline.tsx:104
 #: src/components/ImageStyleTransfer.tsx:88
 msgid "Error while fetching ML model data"
 msgstr "ML 모델 데이터를 가져오는 중 오류 발생"
@@ -457,12 +457,12 @@ msgid "Gouache"
 msgstr "구아슈"
 
 #: src/components/grid/GridControls.tsx:177
-#: src/components/ImageOutline.tsx:248
+#: src/components/ImageOutline.tsx:246
 #: src/components/messages.ts:33
 msgid "Grid"
 msgstr "그리드"
 
-#: src/components/print/PrintImageDrawer.tsx:196
+#: src/components/print/PrintImageDrawer.tsx:207
 msgid "Height"
 msgstr "높이"
 
@@ -577,6 +577,11 @@ msgstr "낮은 입력과 높은 입력"
 msgid "Low output and high output"
 msgstr "낮은 출력 및 높은 출력"
 
+#: src/components/print/PrintImageDrawer.tsx:222
+#: src/components/print/PrintImageDrawer.tsx:237
+msgid "Margin"
+msgstr "여백"
+
 #: src/components/ImageBlurred.tsx:143
 msgid "Medium"
 msgstr "보통"
@@ -603,7 +608,7 @@ msgstr "혼합"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:102
 #: src/components/ImageBackgroundRemoval.tsx:198
-#: src/components/ImageOutline.tsx:223
+#: src/components/ImageOutline.tsx:221
 msgid "Mode"
 msgstr "모드"
 
@@ -733,7 +738,7 @@ msgstr "위에"
 msgid "Palette"
 msgstr "팔레트"
 
-#: src/components/print/PrintImageDrawer.tsx:149
+#: src/components/print/PrintImageDrawer.tsx:160
 msgid "Paper size"
 msgstr "용지 크기"
 
@@ -816,21 +821,21 @@ msgstr "미리 보기"
 
 #: src/components/ImageGrid.tsx:63
 #: src/components/ImageGrid.tsx:86
-#: src/components/ImageOutline.tsx:180
-#: src/components/ImageOutline.tsx:253
+#: src/components/ImageOutline.tsx:178
+#: src/components/ImageOutline.tsx:251
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:85
 #: src/components/ImageTonalValues.tsx:124
 #: src/components/palette/PaletteGrid.tsx:96
-#: src/components/print/PrintImageDrawer.tsx:121
+#: src/components/print/PrintImageDrawer.tsx:132
 msgid "Print"
 msgstr "인쇄하다"
 
-#: src/components/print/PrintImageDrawer.tsx:139
+#: src/components/print/PrintImageDrawer.tsx:150
 msgid "Print a large image onto multiple pages"
 msgstr "큰 이미지를 여러 페이지에 인쇄"
 
-#: src/components/print/PrintImageDrawer.tsx:213
+#: src/components/print/PrintImageDrawer.tsx:254
 msgid "Print preview"
 msgstr "인쇄 미리보기"
 
@@ -838,15 +843,15 @@ msgstr "인쇄 미리보기"
 msgid "Privacy policy"
 msgstr "개인정보처리방침"
 
-#: src/components/ImageOutline.tsx:172
+#: src/components/ImageOutline.tsx:170
 msgid "Quality"
 msgstr "질"
 
-#: src/components/ImageOutline.tsx:217
+#: src/components/ImageOutline.tsx:215
 msgid "Quality mode is available to paid Patreon members only"
 msgstr "품질 모드는 Patreon 유료 회원만 사용할 수 있습니다."
 
-#: src/components/ImageOutline.tsx:168
+#: src/components/ImageOutline.tsx:166
 msgid "Quick"
 msgstr "빠른"
 
@@ -956,8 +961,8 @@ msgstr "채도(%)"
 #: src/components/ImageGrid.tsx:69
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:101
-#: src/components/ImageOutline.tsx:186
-#: src/components/ImageOutline.tsx:261
+#: src/components/ImageOutline.tsx:184
+#: src/components/ImageOutline.tsx:259
 #: src/components/ImagePerspectiveCorrection.tsx:196
 #: src/components/ImagePerspectiveCorrection.tsx:266
 #: src/components/ImageStyleTransfer.tsx:180
@@ -1221,7 +1226,7 @@ msgstr "제곱 셀"
 msgid "Standard color set"
 msgstr "표준 색상 세트"
 
-#: src/components/print/PrintImageDrawer.tsx:142
+#: src/components/print/PrintImageDrawer.tsx:153
 msgid "Standard print"
 msgstr "표준 인쇄"
 
@@ -1245,7 +1250,11 @@ msgstr "지원되는 웹 브라우저"
 msgid "Supported web browsers and operating systems"
 msgstr "지원되는 웹 브라우저 및 운영 체제"
 
-#: src/components/print/PrintImageDrawer.tsx:161
+#: src/components/print/PrintImageDrawer.tsx:223
+msgid "Taped margin width around the painting area"
+msgstr "페인팅 영역 주위에 테이프로 붙인 여백 너비"
+
+#: src/components/print/PrintImageDrawer.tsx:172
 msgid "Target print size"
 msgstr "대상 인쇄 크기"
 
@@ -1278,6 +1287,10 @@ msgstr "커서 주위의 원형 영역의 지름으로, 해당 영역에 있는 
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
 msgstr "커서 주위의 원형 영역의 지름으로, 영역 내에 있는 픽셀의 평균 색상을 계산하는 데 사용됩니다."
 
+#: src/components/print/PrintImageDrawer.tsx:225
+msgid "The margin is too large"
+msgstr "여백이 너무 큽니다."
+
 #: src/components/empty/EmptyPalette.tsx:44
 msgid "There is one common palette and a separate palette for each photo."
 msgstr "각 사진에는 하나의 공통 팔레트와 별도의 팔레트가 있습니다."
@@ -1298,7 +1311,7 @@ msgstr "페인트를 <0>{fractionText} 두께</0>로 얇게 만듭니다."
 msgid "This color brand is available to paid Patreon members only"
 msgstr "이 색상 브랜드는 유료 Patreon 회원만 사용할 수 있습니다"
 
-#: src/components/print/PrintImageDrawer.tsx:163
+#: src/components/print/PrintImageDrawer.tsx:174
 msgid "This print size is not supported"
 msgstr "이 인쇄 크기는 지원되지 않습니다."
 
@@ -1405,7 +1418,7 @@ msgstr "화이트 밸런스"
 msgid "White point"
 msgstr "화이트 포인트"
 
-#: src/components/print/PrintImageDrawer.tsx:175
+#: src/components/print/PrintImageDrawer.tsx:186
 msgid "Width"
 msgstr "너비"
 

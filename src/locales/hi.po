@@ -405,7 +405,7 @@ msgid "Error while fetching color data"
 msgstr "रंग डेटा लाते समय त्रुटि"
 
 #: src/components/ImageBackgroundRemoval.tsx:91
-#: src/components/ImageOutline.tsx:106
+#: src/components/ImageOutline.tsx:104
 #: src/components/ImageStyleTransfer.tsx:88
 msgid "Error while fetching ML model data"
 msgstr "एमएल मॉडल डेटा लाते समय त्रुटि"
@@ -457,12 +457,12 @@ msgid "Gouache"
 msgstr "गौचे"
 
 #: src/components/grid/GridControls.tsx:177
-#: src/components/ImageOutline.tsx:248
+#: src/components/ImageOutline.tsx:246
 #: src/components/messages.ts:33
 msgid "Grid"
 msgstr "ग्रिड"
 
-#: src/components/print/PrintImageDrawer.tsx:196
+#: src/components/print/PrintImageDrawer.tsx:207
 msgid "Height"
 msgstr "पराकाष्‍ठा"
 
@@ -577,6 +577,11 @@ msgstr "कम इनपुट और उच्च इनपुट"
 msgid "Low output and high output"
 msgstr "कम आउटपुट और उच्च आउटपुट"
 
+#: src/components/print/PrintImageDrawer.tsx:222
+#: src/components/print/PrintImageDrawer.tsx:237
+msgid "Margin"
+msgstr "गुंजाइश"
+
 #: src/components/ImageBlurred.tsx:143
 msgid "Medium"
 msgstr "मध्यम"
@@ -603,7 +608,7 @@ msgstr "मिश्रण"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:102
 #: src/components/ImageBackgroundRemoval.tsx:198
-#: src/components/ImageOutline.tsx:223
+#: src/components/ImageOutline.tsx:221
 msgid "Mode"
 msgstr "मोड समूह"
 
@@ -733,7 +738,7 @@ msgstr "ऊपर"
 msgid "Palette"
 msgstr "रंगपट्टिका"
 
-#: src/components/print/PrintImageDrawer.tsx:149
+#: src/components/print/PrintImageDrawer.tsx:160
 msgid "Paper size"
 msgstr "कागज का आकार"
 
@@ -816,21 +821,21 @@ msgstr "पूर्वसमीक्षा"
 
 #: src/components/ImageGrid.tsx:63
 #: src/components/ImageGrid.tsx:86
-#: src/components/ImageOutline.tsx:180
-#: src/components/ImageOutline.tsx:253
+#: src/components/ImageOutline.tsx:178
+#: src/components/ImageOutline.tsx:251
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:85
 #: src/components/ImageTonalValues.tsx:124
 #: src/components/palette/PaletteGrid.tsx:96
-#: src/components/print/PrintImageDrawer.tsx:121
+#: src/components/print/PrintImageDrawer.tsx:132
 msgid "Print"
 msgstr "फ़ोटो"
 
-#: src/components/print/PrintImageDrawer.tsx:139
+#: src/components/print/PrintImageDrawer.tsx:150
 msgid "Print a large image onto multiple pages"
 msgstr "एक बड़ी छवि को कई पृष्ठों पर प्रिंट करें"
 
-#: src/components/print/PrintImageDrawer.tsx:213
+#: src/components/print/PrintImageDrawer.tsx:254
 msgid "Print preview"
 msgstr "प्रिंट पूर्वावलोकन"
 
@@ -838,15 +843,15 @@ msgstr "प्रिंट पूर्वावलोकन"
 msgid "Privacy policy"
 msgstr "गोपनीयता नीति"
 
-#: src/components/ImageOutline.tsx:172
+#: src/components/ImageOutline.tsx:170
 msgid "Quality"
 msgstr "गुण"
 
-#: src/components/ImageOutline.tsx:217
+#: src/components/ImageOutline.tsx:215
 msgid "Quality mode is available to paid Patreon members only"
 msgstr "गुणवत्ता मोड केवल भुगतान किए गए Patreon सदस्यों के लिए उपलब्ध है"
 
-#: src/components/ImageOutline.tsx:168
+#: src/components/ImageOutline.tsx:166
 msgid "Quick"
 msgstr "तेज़ी से"
 
@@ -956,8 +961,8 @@ msgstr "संतृप्ति (%)"
 #: src/components/ImageGrid.tsx:69
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:101
-#: src/components/ImageOutline.tsx:186
-#: src/components/ImageOutline.tsx:261
+#: src/components/ImageOutline.tsx:184
+#: src/components/ImageOutline.tsx:259
 #: src/components/ImagePerspectiveCorrection.tsx:196
 #: src/components/ImagePerspectiveCorrection.tsx:266
 #: src/components/ImageStyleTransfer.tsx:180
@@ -1221,7 +1226,7 @@ msgstr "वर्ग कक्ष"
 msgid "Standard color set"
 msgstr "मानक रंग सेट"
 
-#: src/components/print/PrintImageDrawer.tsx:142
+#: src/components/print/PrintImageDrawer.tsx:153
 msgid "Standard print"
 msgstr "मानक प्रिंट"
 
@@ -1245,7 +1250,11 @@ msgstr "समर्थित वेब ब्राउज़र"
 msgid "Supported web browsers and operating systems"
 msgstr "समर्थित वेब ब्राउज़र और ऑपरेटिंग सिस्टम"
 
-#: src/components/print/PrintImageDrawer.tsx:161
+#: src/components/print/PrintImageDrawer.tsx:223
+msgid "Taped margin width around the painting area"
+msgstr "पेंटिंग क्षेत्र के चारों ओर टेप की गई मार्जिन चौड़ाई"
+
+#: src/components/print/PrintImageDrawer.tsx:172
 msgid "Target print size"
 msgstr "लक्ष्य प्रिंट आकार"
 
@@ -1278,6 +1287,10 @@ msgstr "कर्सर के चारों ओर गोलाकार क�
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
 msgstr "कर्सर के चारों ओर गोलाकार क्षेत्र का व्यास, क्षेत्र के भीतर पिक्सेल के औसत रंग की गणना करने के लिए उपयोग किया जाता है।"
 
+#: src/components/print/PrintImageDrawer.tsx:225
+msgid "The margin is too large"
+msgstr "मार्जिन बहुत बड़ा है"
+
 #: src/components/empty/EmptyPalette.tsx:44
 msgid "There is one common palette and a separate palette for each photo."
 msgstr "प्रत्येक तस्वीर के लिए एक सामान्य पैलेट और एक अलग पैलेट है।"
@@ -1298,7 +1311,7 @@ msgstr "पेंट को <0>{fractionText} मोटाई</0> तक पत�
 msgid "This color brand is available to paid Patreon members only"
 msgstr "यह रंग ब्रांड केवल भुगतान किए गए Patreon सदस्यों के लिए उपलब्ध है"
 
-#: src/components/print/PrintImageDrawer.tsx:163
+#: src/components/print/PrintImageDrawer.tsx:174
 msgid "This print size is not supported"
 msgstr "यह मुद्रण आकार समर्थित नहीं है"
 
@@ -1405,7 +1418,7 @@ msgstr "श्वेत संतुलन"
 msgid "White point"
 msgstr "सफेद बिंदु"
 
-#: src/components/print/PrintImageDrawer.tsx:175
+#: src/components/print/PrintImageDrawer.tsx:186
 msgid "Width"
 msgstr "चौड़ाई"
 

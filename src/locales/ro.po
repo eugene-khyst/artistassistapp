@@ -405,7 +405,7 @@ msgid "Error while fetching color data"
 msgstr "Eroare la preluarea datelor de culoare"
 
 #: src/components/ImageBackgroundRemoval.tsx:91
-#: src/components/ImageOutline.tsx:106
+#: src/components/ImageOutline.tsx:104
 #: src/components/ImageStyleTransfer.tsx:88
 msgid "Error while fetching ML model data"
 msgstr "Eroare la preluarea datelor modelului ML"
@@ -457,12 +457,12 @@ msgid "Gouache"
 msgstr "Guasa"
 
 #: src/components/grid/GridControls.tsx:177
-#: src/components/ImageOutline.tsx:248
+#: src/components/ImageOutline.tsx:246
 #: src/components/messages.ts:33
 msgid "Grid"
 msgstr "Grilă"
 
-#: src/components/print/PrintImageDrawer.tsx:196
+#: src/components/print/PrintImageDrawer.tsx:207
 msgid "Height"
 msgstr "Înălțime"
 
@@ -577,6 +577,11 @@ msgstr "Intrare scăzută și intrare ridicată"
 msgid "Low output and high output"
 msgstr "Putere redusă și putere mare"
 
+#: src/components/print/PrintImageDrawer.tsx:222
+#: src/components/print/PrintImageDrawer.tsx:237
+msgid "Margin"
+msgstr "Margine"
+
 #: src/components/ImageBlurred.tsx:143
 msgid "Medium"
 msgstr "Medie"
@@ -603,7 +608,7 @@ msgstr "Amestec"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:102
 #: src/components/ImageBackgroundRemoval.tsx:198
-#: src/components/ImageOutline.tsx:223
+#: src/components/ImageOutline.tsx:221
 msgid "Mode"
 msgstr "Mod"
 
@@ -733,7 +738,7 @@ msgstr "peste"
 msgid "Palette"
 msgstr "Paleta"
 
-#: src/components/print/PrintImageDrawer.tsx:149
+#: src/components/print/PrintImageDrawer.tsx:160
 msgid "Paper size"
 msgstr "Dimensiunea hârtiei"
 
@@ -816,21 +821,21 @@ msgstr "Previzualizare"
 
 #: src/components/ImageGrid.tsx:63
 #: src/components/ImageGrid.tsx:86
-#: src/components/ImageOutline.tsx:180
-#: src/components/ImageOutline.tsx:253
+#: src/components/ImageOutline.tsx:178
+#: src/components/ImageOutline.tsx:251
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:85
 #: src/components/ImageTonalValues.tsx:124
 #: src/components/palette/PaletteGrid.tsx:96
-#: src/components/print/PrintImageDrawer.tsx:121
+#: src/components/print/PrintImageDrawer.tsx:132
 msgid "Print"
 msgstr "Tipări"
 
-#: src/components/print/PrintImageDrawer.tsx:139
+#: src/components/print/PrintImageDrawer.tsx:150
 msgid "Print a large image onto multiple pages"
 msgstr "Imprimarea unei imagini mari pe mai multe pagini"
 
-#: src/components/print/PrintImageDrawer.tsx:213
+#: src/components/print/PrintImageDrawer.tsx:254
 msgid "Print preview"
 msgstr "Imprimării"
 
@@ -838,15 +843,15 @@ msgstr "Imprimării"
 msgid "Privacy policy"
 msgstr "Politica de confidențialitate"
 
-#: src/components/ImageOutline.tsx:172
+#: src/components/ImageOutline.tsx:170
 msgid "Quality"
 msgstr "Calitate"
 
-#: src/components/ImageOutline.tsx:217
+#: src/components/ImageOutline.tsx:215
 msgid "Quality mode is available to paid Patreon members only"
 msgstr "Modul Calitate este disponibil numai pentru membrii Patreon plătiți"
 
-#: src/components/ImageOutline.tsx:168
+#: src/components/ImageOutline.tsx:166
 msgid "Quick"
 msgstr "Repede"
 
@@ -956,8 +961,8 @@ msgstr "Saturație (%)"
 #: src/components/ImageGrid.tsx:69
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:101
-#: src/components/ImageOutline.tsx:186
-#: src/components/ImageOutline.tsx:261
+#: src/components/ImageOutline.tsx:184
+#: src/components/ImageOutline.tsx:259
 #: src/components/ImagePerspectiveCorrection.tsx:196
 #: src/components/ImagePerspectiveCorrection.tsx:266
 #: src/components/ImageStyleTransfer.tsx:180
@@ -1221,7 +1226,7 @@ msgstr "Celule pătrate"
 msgid "Standard color set"
 msgstr "Set de culori standard"
 
-#: src/components/print/PrintImageDrawer.tsx:142
+#: src/components/print/PrintImageDrawer.tsx:153
 msgid "Standard print"
 msgstr "Imprimare standard"
 
@@ -1245,7 +1250,11 @@ msgstr "Browsere web acceptate"
 msgid "Supported web browsers and operating systems"
 msgstr "Browsere web și sisteme de operare acceptate"
 
-#: src/components/print/PrintImageDrawer.tsx:161
+#: src/components/print/PrintImageDrawer.tsx:223
+msgid "Taped margin width around the painting area"
+msgstr "Lățimea marginii lipite în jurul zonei de vopsire"
+
+#: src/components/print/PrintImageDrawer.tsx:172
 msgid "Target print size"
 msgstr "Dimensiune țintă de imprimare"
 
@@ -1278,6 +1287,10 @@ msgstr "Diametrul zonei circulare din jurul cursorului, folosit pentru a calcula
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
 msgstr "Diametrul zonei circulare din jurul cursorului, utilizat pentru a calcula culoarea medie a pixelilor din zonă."
 
+#: src/components/print/PrintImageDrawer.tsx:225
+msgid "The margin is too large"
+msgstr "Marja este prea mare"
+
 #: src/components/empty/EmptyPalette.tsx:44
 msgid "There is one common palette and a separate palette for each photo."
 msgstr "Există o paletă comună și o paletă separată pentru fiecare fotografie."
@@ -1298,7 +1311,7 @@ msgstr "Subțire vopseaua la <0>grosimea {fractionText}</0>"
 msgid "This color brand is available to paid Patreon members only"
 msgstr "Această marcă de culoare este disponibilă numai pentru membrii Patreon plătiți"
 
-#: src/components/print/PrintImageDrawer.tsx:163
+#: src/components/print/PrintImageDrawer.tsx:174
 msgid "This print size is not supported"
 msgstr "Această dimensiune de imprimare nu este acceptată"
 
@@ -1405,7 +1418,7 @@ msgstr "Balans de alb"
 msgid "White point"
 msgstr "Punct alb"
 
-#: src/components/print/PrintImageDrawer.tsx:175
+#: src/components/print/PrintImageDrawer.tsx:186
 msgid "Width"
 msgstr "Lățime"
 

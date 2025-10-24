@@ -405,7 +405,7 @@ msgid "Error while fetching color data"
 msgstr "Chyba při načítání barevných dat"
 
 #: src/components/ImageBackgroundRemoval.tsx:91
-#: src/components/ImageOutline.tsx:106
+#: src/components/ImageOutline.tsx:104
 #: src/components/ImageStyleTransfer.tsx:88
 msgid "Error while fetching ML model data"
 msgstr "Chyba při načítání dat modelu ML"
@@ -457,12 +457,12 @@ msgid "Gouache"
 msgstr "Kvaš"
 
 #: src/components/grid/GridControls.tsx:177
-#: src/components/ImageOutline.tsx:248
+#: src/components/ImageOutline.tsx:246
 #: src/components/messages.ts:33
 msgid "Grid"
 msgstr "Mřížka"
 
-#: src/components/print/PrintImageDrawer.tsx:196
+#: src/components/print/PrintImageDrawer.tsx:207
 msgid "Height"
 msgstr "Výška"
 
@@ -577,6 +577,11 @@ msgstr "Nízký vstup a vysoký vstup"
 msgid "Low output and high output"
 msgstr "Nízký výkon a vysoký výkon"
 
+#: src/components/print/PrintImageDrawer.tsx:222
+#: src/components/print/PrintImageDrawer.tsx:237
+msgid "Margin"
+msgstr "Marže"
+
 #: src/components/ImageBlurred.tsx:143
 msgid "Medium"
 msgstr "Středně"
@@ -603,7 +608,7 @@ msgstr "Směs"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:102
 #: src/components/ImageBackgroundRemoval.tsx:198
-#: src/components/ImageOutline.tsx:223
+#: src/components/ImageOutline.tsx:221
 msgid "Mode"
 msgstr "Režim"
 
@@ -733,7 +738,7 @@ msgstr "přes"
 msgid "Palette"
 msgstr "Paleta"
 
-#: src/components/print/PrintImageDrawer.tsx:149
+#: src/components/print/PrintImageDrawer.tsx:160
 msgid "Paper size"
 msgstr "Papíru"
 
@@ -816,21 +821,21 @@ msgstr "Náhled"
 
 #: src/components/ImageGrid.tsx:63
 #: src/components/ImageGrid.tsx:86
-#: src/components/ImageOutline.tsx:180
-#: src/components/ImageOutline.tsx:253
+#: src/components/ImageOutline.tsx:178
+#: src/components/ImageOutline.tsx:251
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:85
 #: src/components/ImageTonalValues.tsx:124
 #: src/components/palette/PaletteGrid.tsx:96
-#: src/components/print/PrintImageDrawer.tsx:121
+#: src/components/print/PrintImageDrawer.tsx:132
 msgid "Print"
 msgstr "Tisknout"
 
-#: src/components/print/PrintImageDrawer.tsx:139
+#: src/components/print/PrintImageDrawer.tsx:150
 msgid "Print a large image onto multiple pages"
 msgstr "Tisk velkého obrazu na více stránek"
 
-#: src/components/print/PrintImageDrawer.tsx:213
+#: src/components/print/PrintImageDrawer.tsx:254
 msgid "Print preview"
 msgstr "Náhledu"
 
@@ -838,15 +843,15 @@ msgstr "Náhledu"
 msgid "Privacy policy"
 msgstr "Zásady ochrany osobních údajů"
 
-#: src/components/ImageOutline.tsx:172
+#: src/components/ImageOutline.tsx:170
 msgid "Quality"
 msgstr "Kvalita"
 
-#: src/components/ImageOutline.tsx:217
+#: src/components/ImageOutline.tsx:215
 msgid "Quality mode is available to paid Patreon members only"
 msgstr "Režim kvality je k dispozici pouze pro placené členy Patreonu"
 
-#: src/components/ImageOutline.tsx:168
+#: src/components/ImageOutline.tsx:166
 msgid "Quick"
 msgstr "Rychlý"
 
@@ -956,8 +961,8 @@ msgstr "Sytost (%)"
 #: src/components/ImageGrid.tsx:69
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:101
-#: src/components/ImageOutline.tsx:186
-#: src/components/ImageOutline.tsx:261
+#: src/components/ImageOutline.tsx:184
+#: src/components/ImageOutline.tsx:259
 #: src/components/ImagePerspectiveCorrection.tsx:196
 #: src/components/ImagePerspectiveCorrection.tsx:266
 #: src/components/ImageStyleTransfer.tsx:180
@@ -1221,7 +1226,7 @@ msgstr "Čtvercové buňky"
 msgid "Standard color set"
 msgstr "Standardní sada barev"
 
-#: src/components/print/PrintImageDrawer.tsx:142
+#: src/components/print/PrintImageDrawer.tsx:153
 msgid "Standard print"
 msgstr "Standardní potisk"
 
@@ -1245,7 +1250,11 @@ msgstr "Podporované webové prohlížeče"
 msgid "Supported web browsers and operating systems"
 msgstr "Podporované webové prohlížeče a operační systémy"
 
-#: src/components/print/PrintImageDrawer.tsx:161
+#: src/components/print/PrintImageDrawer.tsx:223
+msgid "Taped margin width around the painting area"
+msgstr "Šířka přilepených okrajů kolem oblasti malby"
+
+#: src/components/print/PrintImageDrawer.tsx:172
 msgid "Target print size"
 msgstr "Cílová velikost tisku"
 
@@ -1278,6 +1287,10 @@ msgstr "Průměr kruhové oblasti kolem kurzoru, který se používá k výpočt
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
 msgstr "Průměr kruhové oblasti kolem kurzoru, který se používá k výpočtu průměrné barvy obrazových bodů v oblasti."
 
+#: src/components/print/PrintImageDrawer.tsx:225
+msgid "The margin is too large"
+msgstr "Okraj je příliš velký"
+
 #: src/components/empty/EmptyPalette.tsx:44
 msgid "There is one common palette and a separate palette for each photo."
 msgstr "Existuje jedna společná paleta a pro každou fotografii samostatná paleta."
@@ -1298,7 +1311,7 @@ msgstr "Zřeďte malbu na <0>tloušťku {fractionText}</0>"
 msgid "This color brand is available to paid Patreon members only"
 msgstr "Tato barevná značka je k dispozici pouze platícím členům Patreonu"
 
-#: src/components/print/PrintImageDrawer.tsx:163
+#: src/components/print/PrintImageDrawer.tsx:174
 msgid "This print size is not supported"
 msgstr "Tato velikost tisku není podporována"
 
@@ -1405,7 +1418,7 @@ msgstr "Vyvážení bílé"
 msgid "White point"
 msgstr "Bílý bod"
 
-#: src/components/print/PrintImageDrawer.tsx:175
+#: src/components/print/PrintImageDrawer.tsx:186
 msgid "Width"
 msgstr "Šířka"
 

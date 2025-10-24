@@ -40,12 +40,16 @@ export interface ImageTile {
   imageData: ImageData;
 }
 
+export class TargetSizeError extends Error {}
+export class MarginError extends Error {}
+
 const LINE_WIDTH = 5;
 
 export function splitImageIntoPagesPreview(
   image: ImageBitmap,
   targetSize: Size,
-  paperSize: PaperSize
+  paperSize: PaperSize,
+  margin: number
 ): ImagePagesPreview {
   const {width: imageWidth, height: imageHeight} = image;
   const [targetWidth, targetHeight] = targetSize;
@@ -72,27 +76,51 @@ export function splitImageIntoPagesPreview(
     }
   }
   const orientation = pageHeight > pageWidth ? PageOrientation.Portrait : PageOrientation.Landscape;
-  const targetRatio = targetWidth / targetHeight;
-  const imageRatio = imageWidth / imageHeight;
-  let px2mm = 1;
-  if (targetRatio <= imageRatio) {
-    px2mm = imageWidth / targetWidth;
-  } else if (targetRatio > imageRatio) {
-    px2mm = imageHeight / targetHeight;
+
+  const safeMargin = Math.max(0, margin);
+  const imageTargetWidth = targetWidth - 2 * safeMargin;
+  const imageTargetHeight = targetHeight - 2 * safeMargin;
+  if (imageTargetWidth <= 0 || imageTargetHeight <= 0) {
+    throw new MarginError('Margins are too large for the target size');
   }
+
+  const imageRatio = imageWidth / imageHeight;
+  const imageTargetRatio = imageTargetWidth / imageTargetHeight;
+  let px2mm = 1;
+  if (imageTargetRatio <= imageRatio) {
+    px2mm = imageWidth / imageTargetWidth;
+  } else {
+    px2mm = imageHeight / imageTargetHeight;
+  }
+
   const pageWidthPx = px2mm * pageWidth;
   const pageHeightPx = px2mm * pageHeight;
   const canvasWidth = cols * pageWidthPx;
   const canvasHeight = rows * pageHeightPx;
+
   if (canvasWidth > MAX_CANVAS_SIZE || canvasHeight > MAX_CANVAS_SIZE) {
-    throw new Error(`Canvas size is too big: ${canvasWidth}x${canvasHeight}`);
+    throw new TargetSizeError(`Canvas size is too large: ${canvasWidth}x${canvasHeight}`);
   }
+
   const canvas = new OffscreenCanvas(canvasWidth, canvasHeight);
   const ctx = canvas.getContext('2d')!;
-  ctx.drawImage(image, 0, 0);
+
+  const marginPx = px2mm * safeMargin;
+
+  const imageTargetWidthPx = px2mm * imageTargetWidth;
+  const imageTargetHeightPx = px2mm * imageTargetHeight;
+
+  const dx = marginPx + (imageTargetWidthPx - imageWidth) / 2;
+  const dy = marginPx + (imageTargetHeightPx - imageHeight) / 2;
+
+  ctx.drawImage(image, dx, dy);
+
   ctx.lineWidth = LINE_WIDTH * Math.sqrt((imageWidth * imageHeight) / IMAGE_SIZE['2K']);
   ctx.strokeStyle = 'black';
   ctx.strokeRect(0, 0, px2mm * targetWidth, px2mm * targetHeight);
+  if (safeMargin > 0) {
+    ctx.strokeRect(marginPx, marginPx, imageTargetWidthPx, imageTargetHeightPx);
+  }
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
       const x = c * pageWidthPx;

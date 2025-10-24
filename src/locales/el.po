@@ -405,7 +405,7 @@ msgid "Error while fetching color data"
 msgstr "Σφάλμα κατά τη λήψη δεδομένων χρώματος"
 
 #: src/components/ImageBackgroundRemoval.tsx:91
-#: src/components/ImageOutline.tsx:106
+#: src/components/ImageOutline.tsx:104
 #: src/components/ImageStyleTransfer.tsx:88
 msgid "Error while fetching ML model data"
 msgstr "Σφάλμα κατά τη λήψη δεδομένων μοντέλου ML"
@@ -457,12 +457,12 @@ msgid "Gouache"
 msgstr "Γκουάς"
 
 #: src/components/grid/GridControls.tsx:177
-#: src/components/ImageOutline.tsx:248
+#: src/components/ImageOutline.tsx:246
 #: src/components/messages.ts:33
 msgid "Grid"
 msgstr "Πλέγμα"
 
-#: src/components/print/PrintImageDrawer.tsx:196
+#: src/components/print/PrintImageDrawer.tsx:207
 msgid "Height"
 msgstr "Ύψος"
 
@@ -577,6 +577,11 @@ msgstr "Χαμηλή είσοδος και υψηλή είσοδος"
 msgid "Low output and high output"
 msgstr "Χαμηλή απόδοση και υψηλή απόδοση"
 
+#: src/components/print/PrintImageDrawer.tsx:222
+#: src/components/print/PrintImageDrawer.tsx:237
+msgid "Margin"
+msgstr "Περιθώριο"
+
 #: src/components/ImageBlurred.tsx:143
 msgid "Medium"
 msgstr "Μέτριος"
@@ -603,7 +608,7 @@ msgstr "Μείγμα"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:102
 #: src/components/ImageBackgroundRemoval.tsx:198
-#: src/components/ImageOutline.tsx:223
+#: src/components/ImageOutline.tsx:221
 msgid "Mode"
 msgstr "Μόδα"
 
@@ -733,7 +738,7 @@ msgstr "πέρα"
 msgid "Palette"
 msgstr "Παλέτα"
 
-#: src/components/print/PrintImageDrawer.tsx:149
+#: src/components/print/PrintImageDrawer.tsx:160
 msgid "Paper size"
 msgstr "Μέγεθος χαρτιού"
 
@@ -816,21 +821,21 @@ msgstr "Προεπισκόπηση"
 
 #: src/components/ImageGrid.tsx:63
 #: src/components/ImageGrid.tsx:86
-#: src/components/ImageOutline.tsx:180
-#: src/components/ImageOutline.tsx:253
+#: src/components/ImageOutline.tsx:178
+#: src/components/ImageOutline.tsx:251
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:85
 #: src/components/ImageTonalValues.tsx:124
 #: src/components/palette/PaletteGrid.tsx:96
-#: src/components/print/PrintImageDrawer.tsx:121
+#: src/components/print/PrintImageDrawer.tsx:132
 msgid "Print"
 msgstr "Τυπώνω"
 
-#: src/components/print/PrintImageDrawer.tsx:139
+#: src/components/print/PrintImageDrawer.tsx:150
 msgid "Print a large image onto multiple pages"
 msgstr "Εκτύπωση μεγάλης εικόνας σε πολλές σελίδες"
 
-#: src/components/print/PrintImageDrawer.tsx:213
+#: src/components/print/PrintImageDrawer.tsx:254
 msgid "Print preview"
 msgstr "Προεπισκόπηση εκτύπωσης"
 
@@ -838,15 +843,15 @@ msgstr "Προεπισκόπηση εκτύπωσης"
 msgid "Privacy policy"
 msgstr "Πολιτική απορρήτου"
 
-#: src/components/ImageOutline.tsx:172
+#: src/components/ImageOutline.tsx:170
 msgid "Quality"
 msgstr "Ποιότητα"
 
-#: src/components/ImageOutline.tsx:217
+#: src/components/ImageOutline.tsx:215
 msgid "Quality mode is available to paid Patreon members only"
 msgstr "Η λειτουργία ποιότητας είναι διαθέσιμη μόνο σε μέλη Patreon επί πληρωμή"
 
-#: src/components/ImageOutline.tsx:168
+#: src/components/ImageOutline.tsx:166
 msgid "Quick"
 msgstr "Γρήγορος"
 
@@ -956,8 +961,8 @@ msgstr "Κορεσμός (%)"
 #: src/components/ImageGrid.tsx:69
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:101
-#: src/components/ImageOutline.tsx:186
-#: src/components/ImageOutline.tsx:261
+#: src/components/ImageOutline.tsx:184
+#: src/components/ImageOutline.tsx:259
 #: src/components/ImagePerspectiveCorrection.tsx:196
 #: src/components/ImagePerspectiveCorrection.tsx:266
 #: src/components/ImageStyleTransfer.tsx:180
@@ -1221,7 +1226,7 @@ msgstr "Τετράγωνα κελιά"
 msgid "Standard color set"
 msgstr "Τυπικό σετ χρωμάτων"
 
-#: src/components/print/PrintImageDrawer.tsx:142
+#: src/components/print/PrintImageDrawer.tsx:153
 msgid "Standard print"
 msgstr "Τυπική εκτύπωση"
 
@@ -1245,7 +1250,11 @@ msgstr "Υποστηριζόμενα προγράμματα περιήγησης
 msgid "Supported web browsers and operating systems"
 msgstr "Υποστηριζόμενα προγράμματα περιήγησης ιστού και λειτουργικά συστήματα"
 
-#: src/components/print/PrintImageDrawer.tsx:161
+#: src/components/print/PrintImageDrawer.tsx:223
+msgid "Taped margin width around the painting area"
+msgstr "Πλάτος περιθωρίου με ταινία γύρω από την περιοχή ζωγραφικής"
+
+#: src/components/print/PrintImageDrawer.tsx:172
 msgid "Target print size"
 msgstr "Μέγεθος εκτύπωσης προορισμού"
 
@@ -1278,6 +1287,10 @@ msgstr "Η διάμετρος της κυκλικής περιοχής γύρω 
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
 msgstr "Η διάμετρος της κυκλικής περιοχής γύρω από το δρομέα, που χρησιμοποιείται για τον υπολογισμό του μέσου χρώματος των pixel εντός της περιοχής."
 
+#: src/components/print/PrintImageDrawer.tsx:225
+msgid "The margin is too large"
+msgstr "Το περιθώριο είναι πολύ μεγάλο"
+
 #: src/components/empty/EmptyPalette.tsx:44
 msgid "There is one common palette and a separate palette for each photo."
 msgstr "Υπάρχει μια κοινή παλέτα και μια ξεχωριστή παλέτα για κάθε φωτογραφία."
@@ -1298,7 +1311,7 @@ msgstr "Αραιώστε το χρώμα σε <0>πάχος {fractionText}</0>"
 msgid "This color brand is available to paid Patreon members only"
 msgstr "Αυτή η μάρκα χρωμάτων είναι διαθέσιμη μόνο σε μέλη Patreon επί πληρωμή"
 
-#: src/components/print/PrintImageDrawer.tsx:163
+#: src/components/print/PrintImageDrawer.tsx:174
 msgid "This print size is not supported"
 msgstr "Αυτό το μέγεθος εκτύπωσης δεν υποστηρίζεται"
 
@@ -1405,7 +1418,7 @@ msgstr "Ισορροπία λευκού"
 msgid "White point"
 msgstr "Λευκό σημείο"
 
-#: src/components/print/PrintImageDrawer.tsx:175
+#: src/components/print/PrintImageDrawer.tsx:186
 msgid "Width"
 msgstr "Πλάτος"
 

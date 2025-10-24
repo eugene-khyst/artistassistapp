@@ -26,8 +26,10 @@ import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
 import {useDebounce} from '~/src/hooks/useDebounce';
 import {
   type ImagePagesPreview,
+  MarginError,
   splitImageIntoPages,
   splitImageIntoPagesPreview,
+  TargetSizeError,
 } from '~/src/services/image/splitter';
 import {LENGTH_UNITS} from '~/src/services/math/geometry';
 import {LengthUnit} from '~/src/services/math/types';
@@ -61,40 +63,49 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
   const [targetHeight, setTargetHeight] = useState<number | null>();
   const [targetUnit, setTargetUnit] = useState<LengthUnit>(LengthUnit.Centimeter);
   const [paperSize, setPaperSize] = useState<PaperSize>(PaperSize.A4);
+  const [margin, setMargin] = useState<number>(0);
   const [printPreview, setPrintPreview] = useState<ImagePagesPreview>();
   const [printPreviewBlob, setPrintPreviewBlob] = useState<Blob>();
-  const [isError, setIsError] = useState<boolean>(false);
+  const [isTargetSizeError, setIsTargetSizeError] = useState<boolean>(false);
+  const [isMarginError, setIsMarginError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const debouncedTargetWidth = useDebounce(targetWidth, 500);
   const debouncedTargetHeight = useDebounce(targetHeight, 500);
+  const debouncedMargin = useDebounce(margin, 500);
 
   const previewImageUrl = useCreateObjectUrl(printPreviewBlob);
 
   const isPrintDisabled: boolean = printMode === PrintMode.Resize && !printPreview;
 
   useEffect(() => {
-    setIsError(false);
+    setIsTargetSizeError(false);
+    setIsMarginError(false);
     if (!image || !debouncedTargetWidth || !debouncedTargetHeight) {
       return;
     }
     setIsLoading(true);
-    const {toMillimeters} = LENGTH_UNITS.get(targetUnit)!;
     try {
+      const {toMillimeters} = LENGTH_UNITS.get(targetUnit)!;
       const preview: ImagePagesPreview = splitImageIntoPagesPreview(
         image,
         [toMillimeters(debouncedTargetWidth), toMillimeters(debouncedTargetHeight)],
-        paperSize
+        paperSize,
+        toMillimeters(debouncedMargin)
       );
       setPrintPreview(preview);
     } catch (e) {
       console.error(e);
-      setIsError(true);
       setPrintPreview(undefined);
+      if (e instanceof TargetSizeError) {
+        setIsTargetSizeError(true);
+      } else if (e instanceof MarginError) {
+        setIsMarginError(true);
+      }
     } finally {
       setIsLoading(false);
     }
-  }, [image, targetUnit, debouncedTargetWidth, debouncedTargetHeight, paperSize]);
+  }, [image, targetUnit, debouncedTargetWidth, debouncedTargetHeight, paperSize, debouncedMargin]);
 
   useEffect(() => {
     void (async () => {
@@ -160,8 +171,8 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
               <Form.Item
                 label={t`Target print size`}
                 style={{marginBottom: 0}}
-                help={isError ? t`This print size is not supported` : null}
-                validateStatus={isError ? 'error' : undefined}
+                help={isTargetSizeError ? t`This print size is not supported` : null}
+                validateStatus={isTargetSizeError ? 'error' : undefined}
               >
                 <Space.Compact block>
                   <InputNumber
@@ -179,8 +190,8 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
                     placeholder="×"
                     style={{
                       width: 30,
-                      borderLeft: 0,
-                      borderRight: 0,
+                      borderInlineStart: 0,
+                      borderInlineEnd: 0,
                       pointerEvents: 'none',
                     }}
                     disabled
@@ -203,6 +214,36 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
                     }}
                     options={LENGTH_UNIT_OPTIONS}
                     style={{width: 70}}
+                  />
+                </Space.Compact>
+              </Form.Item>
+
+              <Form.Item
+                label={t`Margin`}
+                tooltip={t`Taped margin width around the painting area`}
+                style={{marginBottom: 0}}
+                help={isMarginError ? t`The margin is too large` : null}
+                validateStatus={isMarginError ? 'error' : undefined}
+              >
+                <Space.Compact block>
+                  <InputNumber
+                    value={margin}
+                    onChange={value => {
+                      setMargin(value ?? 0);
+                    }}
+                    min={0}
+                    max={10}
+                    step={0.1}
+                    placeholder={t`Margin`}
+                    style={{width: 70}}
+                  />
+                  <Input
+                    placeholder={LENGTH_UNITS.get(targetUnit)?.abbreviation}
+                    style={{
+                      width: 50,
+                      pointerEvents: 'none',
+                    }}
+                    disabled
                   />
                 </Space.Compact>
               </Form.Item>
