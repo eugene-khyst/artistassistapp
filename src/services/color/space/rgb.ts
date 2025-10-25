@@ -20,6 +20,8 @@ import {clamp} from '~/src/services/math/clamp';
 
 import {Reflectance} from './reflectance';
 
+export const WHITE_HEX = '#FFFFFF';
+
 function channelToHex(value: number): string {
   const hex = value.toString(16);
   return hex.length < 2 ? '0' + hex : hex;

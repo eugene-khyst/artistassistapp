@@ -32,6 +32,7 @@ import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
 import {useDebounce} from '~/src/hooks/useDebounce';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
 import {hasAccessTo} from '~/src/services/auth/utils';
+import {WHITE_HEX} from '~/src/services/color/space/rgb';
 import {saveAppSettings} from '~/src/services/db/app-settings-db';
 import {
   compareOnnxModelsByFreeTierAndPriority,
@@ -210,6 +211,12 @@ export const ImageBackgroundRemoval: React.FC = () => {
               <>
                 <Form.Item label={t`Background`} style={{marginBottom: 0}}>
                   <ColorPicker
+                    presets={[
+                      {
+                        label: t`White`,
+                        colors: [WHITE_HEX],
+                      },
+                    ]}
                     disabledAlpha
                     allowClear
                     onClear={() => {
