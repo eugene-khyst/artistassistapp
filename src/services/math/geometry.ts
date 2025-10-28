@@ -86,11 +86,8 @@ export function radians(degrees: number): number {
 }
 
 export function degrees(radians: number): number {
-  return radians * (180 / Math.PI);
-}
-
-export function nonNegativeAngle(angle: number) {
-  return angle >= 0 ? angle : angle + 360;
+  const degrees = radians * (180 / Math.PI);
+  return ((degrees % 360) + 360) % 360;
 }
 
 export const compareByX: Comparator<Vector> = (a: Vector, b: Vector) => a.x - b.x;

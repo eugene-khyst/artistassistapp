@@ -196,8 +196,8 @@ msgid "Average color of the white point area"
 msgstr "Genomsnittlig färg på vitpunktsområdet"
 
 #: src/components/ColorMixer.tsx:186
-#: src/components/ImageBackgroundRemoval.tsx:139
-#: src/components/ImageBackgroundRemoval.tsx:211
+#: src/components/ImageBackgroundRemoval.tsx:140
+#: src/components/ImageBackgroundRemoval.tsx:212
 #: src/components/ImageColorPicker.tsx:241
 msgid "Background"
 msgstr "Bakgrund"
@@ -305,6 +305,14 @@ msgstr "Kontakt"
 msgid "Controls the radius of the median filter."
 msgstr "Styr radien för medianfiltret."
 
+#: src/components/color/WarmthIcon.tsx:42
+#~ msgid "Cool"
+#~ msgstr "Sval"
+
+#: src/components/color/WarmthIcon.tsx:42
+msgid "Cool — Algorithmic estimate; artistic perception may vary."
+msgstr "Cool — Algoritmisk uppskattning; Konstnärlig uppfattning kan variera."
+
 #: src/components/share/ShareModal.tsx:87
 msgid "Copy"
 msgstr "Kopia"
@@ -404,7 +412,7 @@ msgstr "Fel vid hämtning av färgmärkesdata"
 msgid "Error while fetching color data"
 msgstr "Fel vid hämtning av färgdata"
 
-#: src/components/ImageBackgroundRemoval.tsx:91
+#: src/components/ImageBackgroundRemoval.tsx:92
 #: src/components/ImageOutline.tsx:104
 #: src/components/ImageStyleTransfer.tsx:88
 msgid "Error while fetching ML model data"
@@ -479,7 +487,7 @@ msgstr "Om du har problem med att logga in, läs den här <0>guiden</0>."
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Om du inte sparar kan ändringar i färguppsättningen gå förlorade."
 
-#: src/components/ImageBackgroundRemoval.tsx:268
+#: src/components/ImageBackgroundRemoval.tsx:275
 msgid "Image without background"
 msgstr "Bild utan bakgrund"
 
@@ -607,7 +615,7 @@ msgid "Mixture"
 msgstr "Blandning"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:102
-#: src/components/ImageBackgroundRemoval.tsx:198
+#: src/components/ImageBackgroundRemoval.tsx:199
 #: src/components/ImageOutline.tsx:221
 msgid "Mode"
 msgstr "Läge"
@@ -625,6 +633,14 @@ msgstr "Namnge ett varumärke"
 #: src/components/ColorSetChooser.tsx:574
 msgid "Name a color set"
 msgstr "Namnge en färguppsättning"
+
+#: src/components/color/WarmthIcon.tsx:46
+#~ msgid "Neutral"
+#~ msgstr "Neutral"
+
+#: src/components/color/WarmthIcon.tsx:46
+msgid "Neutral — Algorithmic estimate; artistic perception may vary."
+msgstr "Neutral – Algoritmisk skattning. Konstnärlig uppfattning kan variera."
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:36
 msgid "New brand"
@@ -681,7 +697,7 @@ msgstr "Oljepastell"
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Endast ett begränsat antal färgmärken finns tillgängliga i gratisversionen"
 
-#: src/components/ImageBackgroundRemoval.tsx:186
+#: src/components/ImageBackgroundRemoval.tsx:187
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Endast ett begränsat antal lägen är tillgängliga i gratisversionen"
 
@@ -689,7 +705,7 @@ msgstr "Endast ett begränsat antal lägen är tillgängliga i gratisversionen"
 msgid "Only a limited number of styles are available in the free version"
 msgstr "Endast ett begränsat antal stilar är tillgängliga i gratisversionen"
 
-#: src/components/color/OpacityIcon.tsx:103
+#: src/components/color/OpacityIcon.tsx:51
 msgid "Opaque"
 msgstr "Ogenomskinlig"
 
@@ -718,7 +734,7 @@ msgstr "Du kan också välja bland dina senaste foton"
 msgid "Original color temperature (K)"
 msgstr "Ursprunglig färgtemperatur (K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:261
+#: src/components/ImageBackgroundRemoval.tsx:268
 msgid "Original photo"
 msgstr "Ursprungligt foto"
 
@@ -953,8 +969,8 @@ msgid "Saturation (%)"
 msgstr "Mättnad (%)"
 
 #: src/components/CustomColorBrandCreator.tsx:364
-#: src/components/ImageBackgroundRemoval.tsx:149
-#: src/components/ImageBackgroundRemoval.tsx:226
+#: src/components/ImageBackgroundRemoval.tsx:150
+#: src/components/ImageBackgroundRemoval.tsx:233
 #: src/components/ImageBlurred.tsx:116
 #: src/components/ImageBlurred.tsx:162
 #: src/components/ImageColorAdjustment.tsx:365
@@ -1013,7 +1029,7 @@ msgstr "Välj ett foto för att justera vitbalans och färger"
 msgid "Select a photo to correct the perspective"
 msgstr "Välj ett foto för att korrigera perspektivet"
 
-#: src/components/ImageBackgroundRemoval.tsx:172
+#: src/components/ImageBackgroundRemoval.tsx:173
 msgid "Select a photo to remove the background from"
 msgstr "Välj ett foto som du vill ta bort bakgrunden från"
 
@@ -1050,7 +1066,7 @@ msgid "Select color"
 msgstr "Välj färg"
 
 #: src/components/color-set/ColorCascader.tsx:91
-#: src/components/color-set/ColorSelect.tsx:68
+#: src/components/color-set/ColorSelect.tsx:70
 msgid "Select colors"
 msgstr "Välj färger"
 
@@ -1082,7 +1098,7 @@ msgstr "Välj språk"
 msgid "Select part"
 msgstr "Välj variabler"
 
-#: src/components/ImageBackgroundRemoval.tsx:194
+#: src/components/ImageBackgroundRemoval.tsx:195
 #: src/components/ImageChooser.tsx:75
 #: src/components/ImageColorAdjustment.tsx:355
 #: src/components/ImagePerspectiveCorrection.tsx:236
@@ -1110,11 +1126,11 @@ msgstr "Välj stilbild"
 msgid "Select your art medium, color brands and colors you will paint with and press the <0>Save & proceed</0> button."
 msgstr "Välj ditt konstmedium, färgmärken och färger som du vill måla med och tryck på <0>knappen Spara och fortsätt</0> ."
 
-#: src/components/color/OpacityIcon.tsx:85
+#: src/components/color/OpacityIcon.tsx:47
 msgid "Semi-opaque"
 msgstr "Halvogenomskinlig"
 
-#: src/components/color/OpacityIcon.tsx:67
+#: src/components/color/OpacityIcon.tsx:43
 msgid "Semi-transparent"
 msgstr "Halvgenomskinlig"
 
@@ -1335,7 +1351,7 @@ msgstr "Om du vill använda funktionen {tabLabel} väljer du färger att måla m
 msgid "Tonal values"
 msgstr "Tonala värden"
 
-#: src/components/color/OpacityIcon.tsx:49
+#: src/components/color/OpacityIcon.tsx:39
 msgid "Transparent"
 msgstr "Genomskinlig"
 
@@ -1378,6 +1394,14 @@ msgstr "Begagnad"
 msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 msgstr "Att använda en begränsad palett hjälper till att uppnå färgharmoni. Välj upp till {MAX_COLORS} färger som ska vara dina primärfärger."
 
+#: src/components/color/WarmthIcon.tsx:38
+#~ msgid "Warm"
+#~ msgstr "Varm"
+
+#: src/components/color/WarmthIcon.tsx:38
+msgid "Warm — Algorithmic estimate; artistic perception may vary."
+msgstr "Varm — Algoritmisk uppskattning; Konstnärlig uppfattning kan variera."
+
 #: src/components/color/ConsistencyDescription.tsx:83
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "Akvarell kan spädas ut med vatten för att göra den mer transparent."
@@ -1398,6 +1422,7 @@ msgstr "När du väljer fler än {maxColorsFor2} färger totalt används inte bl
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "När du väljer fler än {maxColorsFor3} färger totalt används inte blandningar av tre färger."
 
+#: src/components/ImageBackgroundRemoval.tsx:216
 #: src/components/ImageColorAdjustment.tsx:447
 #: src/components/ImageColorPicker.tsx:268
 msgid "White"
@@ -1454,7 +1479,7 @@ msgstr "Du har valt färgmärken som endast är tillgängliga för betalda Patre
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Du har valt färgmärken som endast är tillgängliga för betalande Patreon-medlemmar. Gå med i ArtistAssistApp på Patreon som betalande medlem eller logga in med Patreon om du redan har gått med."
 
-#: src/components/ImageBackgroundRemoval.tsx:180
+#: src/components/ImageBackgroundRemoval.tsx:181
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Du har valt ett läge som endast är tillgängligt för betalande Patreon-medlemmar"
 

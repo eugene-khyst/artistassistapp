@@ -196,8 +196,8 @@ msgid "Average color of the white point area"
 msgstr "Gemiddelde kleur van het witpuntgebied"
 
 #: src/components/ColorMixer.tsx:186
-#: src/components/ImageBackgroundRemoval.tsx:139
-#: src/components/ImageBackgroundRemoval.tsx:211
+#: src/components/ImageBackgroundRemoval.tsx:140
+#: src/components/ImageBackgroundRemoval.tsx:212
 #: src/components/ImageColorPicker.tsx:241
 msgid "Background"
 msgstr "Achtergrond"
@@ -305,6 +305,14 @@ msgstr "Contact"
 msgid "Controls the radius of the median filter."
 msgstr "Hiermee regelt u de straal van het middenfilter."
 
+#: src/components/color/WarmthIcon.tsx:42
+#~ msgid "Cool"
+#~ msgstr "Koel"
+
+#: src/components/color/WarmthIcon.tsx:42
+msgid "Cool — Algorithmic estimate; artistic perception may vary."
+msgstr "Cool — Algoritmische schatting; Artistieke perceptie kan variëren."
+
 #: src/components/share/ShareModal.tsx:87
 msgid "Copy"
 msgstr "Kopiëren"
@@ -404,7 +412,7 @@ msgstr "Fout bij het ophalen van kleurmerkgegevens"
 msgid "Error while fetching color data"
 msgstr "Fout bij het ophalen van kleurgegevens"
 
-#: src/components/ImageBackgroundRemoval.tsx:91
+#: src/components/ImageBackgroundRemoval.tsx:92
 #: src/components/ImageOutline.tsx:104
 #: src/components/ImageStyleTransfer.tsx:88
 msgid "Error while fetching ML model data"
@@ -479,7 +487,7 @@ msgstr "Als u problemen ondervindt bij het inloggen, lees dan deze <0>handleidin
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Als u niet opslaat, gaan wijzigingen in de kleurenset mogelijk verloren."
 
-#: src/components/ImageBackgroundRemoval.tsx:268
+#: src/components/ImageBackgroundRemoval.tsx:275
 msgid "Image without background"
 msgstr "Afbeelding zonder achtergrond"
 
@@ -607,7 +615,7 @@ msgid "Mixture"
 msgstr "Mengsel"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:102
-#: src/components/ImageBackgroundRemoval.tsx:198
+#: src/components/ImageBackgroundRemoval.tsx:199
 #: src/components/ImageOutline.tsx:221
 msgid "Mode"
 msgstr "Wijze"
@@ -625,6 +633,14 @@ msgstr "Noem een merk"
 #: src/components/ColorSetChooser.tsx:574
 msgid "Name a color set"
 msgstr "Geef een kleurenset een naam"
+
+#: src/components/color/WarmthIcon.tsx:46
+#~ msgid "Neutral"
+#~ msgstr "Neutraal"
+
+#: src/components/color/WarmthIcon.tsx:46
+msgid "Neutral — Algorithmic estimate; artistic perception may vary."
+msgstr "Neutraal — Algoritmische schatting; Artistieke perceptie kan variëren."
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:36
 msgid "New brand"
@@ -681,7 +697,7 @@ msgstr "Olie pastel"
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "In de gratis versie is slechts een beperkt aantal kleurmerken beschikbaar"
 
-#: src/components/ImageBackgroundRemoval.tsx:186
+#: src/components/ImageBackgroundRemoval.tsx:187
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Er is slechts een beperkt aantal modi beschikbaar in de gratis versie"
 
@@ -689,7 +705,7 @@ msgstr "Er is slechts een beperkt aantal modi beschikbaar in de gratis versie"
 msgid "Only a limited number of styles are available in the free version"
 msgstr "Er is slechts een beperkt aantal stijlen beschikbaar in de gratis versie"
 
-#: src/components/color/OpacityIcon.tsx:103
+#: src/components/color/OpacityIcon.tsx:51
 msgid "Opaque"
 msgstr "Ondoorzichtig"
 
@@ -718,7 +734,7 @@ msgstr "Of maak een keuze uit uw recente foto's"
 msgid "Original color temperature (K)"
 msgstr "Originele kleurtemperatuur (K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:261
+#: src/components/ImageBackgroundRemoval.tsx:268
 msgid "Original photo"
 msgstr "Originele foto"
 
@@ -953,8 +969,8 @@ msgid "Saturation (%)"
 msgstr "Verzadiging (%)"
 
 #: src/components/CustomColorBrandCreator.tsx:364
-#: src/components/ImageBackgroundRemoval.tsx:149
-#: src/components/ImageBackgroundRemoval.tsx:226
+#: src/components/ImageBackgroundRemoval.tsx:150
+#: src/components/ImageBackgroundRemoval.tsx:233
 #: src/components/ImageBlurred.tsx:116
 #: src/components/ImageBlurred.tsx:162
 #: src/components/ImageColorAdjustment.tsx:365
@@ -1013,7 +1029,7 @@ msgstr "Selecteer een foto om de witbalans en kleuren aan te passen"
 msgid "Select a photo to correct the perspective"
 msgstr "Selecteer een foto om het perspectief te corrigeren"
 
-#: src/components/ImageBackgroundRemoval.tsx:172
+#: src/components/ImageBackgroundRemoval.tsx:173
 msgid "Select a photo to remove the background from"
 msgstr "Selecteer een foto waarvan u de achtergrond wilt verwijderen"
 
@@ -1050,7 +1066,7 @@ msgid "Select color"
 msgstr "Selecteer kleur"
 
 #: src/components/color-set/ColorCascader.tsx:91
-#: src/components/color-set/ColorSelect.tsx:68
+#: src/components/color-set/ColorSelect.tsx:70
 msgid "Select colors"
 msgstr "Selecteer kleuren"
 
@@ -1082,7 +1098,7 @@ msgstr "Taal selecteren"
 msgid "Select part"
 msgstr "Selecteer onderdeel"
 
-#: src/components/ImageBackgroundRemoval.tsx:194
+#: src/components/ImageBackgroundRemoval.tsx:195
 #: src/components/ImageChooser.tsx:75
 #: src/components/ImageColorAdjustment.tsx:355
 #: src/components/ImagePerspectiveCorrection.tsx:236
@@ -1110,11 +1126,11 @@ msgstr "Selecteer stijlafbeelding"
 msgid "Select your art medium, color brands and colors you will paint with and press the <0>Save & proceed</0> button."
 msgstr "Selecteer je kunstmedium, kleurmerken en kleuren waarmee je gaat schilderen en druk op de knop <0>Opslaan en doorgaan</0> ."
 
-#: src/components/color/OpacityIcon.tsx:85
+#: src/components/color/OpacityIcon.tsx:47
 msgid "Semi-opaque"
 msgstr "Semi-dekkend"
 
-#: src/components/color/OpacityIcon.tsx:67
+#: src/components/color/OpacityIcon.tsx:43
 msgid "Semi-transparent"
 msgstr "Semi-transparant"
 
@@ -1335,7 +1351,7 @@ msgstr "Als u de functie {tabLabel} wilt gebruiken, selecteert u de kleuren om m
 msgid "Tonal values"
 msgstr "Tonale waarden"
 
-#: src/components/color/OpacityIcon.tsx:49
+#: src/components/color/OpacityIcon.tsx:39
 msgid "Transparent"
 msgstr "Doorzichtig"
 
@@ -1378,6 +1394,14 @@ msgstr "Gebruikt"
 msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 msgstr "Het gebruik van een beperkt palet helpt bij het bereiken van kleurharmonie. Selecteer maximaal {MAX_COLORS} kleuren als uw primaire kleuren."
 
+#: src/components/color/WarmthIcon.tsx:38
+#~ msgid "Warm"
+#~ msgstr "Warm"
+
+#: src/components/color/WarmthIcon.tsx:38
+msgid "Warm — Algorithmic estimate; artistic perception may vary."
+msgstr "Warm — Algoritmische schatting; Artistieke perceptie kan variëren."
+
 #: src/components/color/ConsistencyDescription.tsx:83
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "Aquarel kan worden verdund met water om het transparanter te maken."
@@ -1398,6 +1422,7 @@ msgstr "Bij het selecteren van meer dan {maxColorsFor2} kleuren in totaal, worde
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Bij het selecteren van meer dan {maxColorsFor3} kleuren in totaal, worden geen mengsels van drie kleuren gebruikt."
 
+#: src/components/ImageBackgroundRemoval.tsx:216
 #: src/components/ImageColorAdjustment.tsx:447
 #: src/components/ImageColorPicker.tsx:268
 msgid "White"
@@ -1454,7 +1479,7 @@ msgstr "Je hebt kleurmerken geselecteerd die alleen beschikbaar zijn voor betale
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Je hebt kleurmerken geselecteerd die alleen beschikbaar zijn voor betalende Patreon-leden. Word lid van ArtistAssistApp op Patreon als betaald lid of log in met Patreon als je al lid bent geworden."
 
-#: src/components/ImageBackgroundRemoval.tsx:180
+#: src/components/ImageBackgroundRemoval.tsx:181
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Je hebt een modus geselecteerd die alleen beschikbaar is voor betaalde Patreon-leden"
 

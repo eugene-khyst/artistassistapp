@@ -22,6 +22,7 @@ import type {CascaderAutoProps, DefaultOptionType as CascaderOptionType} from 'a
 
 import {ColorSquare} from '~/src/components/color/ColorSquare';
 import {OpacityIcon} from '~/src/components/color/OpacityIcon';
+import {WarmthIcon} from '~/src/components/color/WarmthIcon';
 import {filterCascaderOptions} from '~/src/components/utils';
 import {formatColorLabel} from '~/src/services/color/colors';
 import type {Color, ColorSet} from '~/src/services/color/types';
@@ -49,7 +50,7 @@ function getColorOptions(colorSet?: ColorSet | null): CascaderOptionType[] {
         value: brandId,
         label: brand.fullName,
         children: [...colors.values()].map((color: Color) => {
-          const {rgb, opacity} = color;
+          const {rgb, opacity, warmth} = color;
           const label: string = formatColorLabel(color, brand);
           return {
             value: color.id,
@@ -58,6 +59,7 @@ function getColorOptions(colorSet?: ColorSet | null): CascaderOptionType[] {
                 <ColorSquare color={rgb} />
                 <Typography.Text>{label}</Typography.Text>
                 <OpacityIcon opacity={opacity} />
+                <WarmthIcon warmth={warmth} />
               </Flex>
             ),
           };

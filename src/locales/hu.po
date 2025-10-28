@@ -196,8 +196,8 @@ msgid "Average color of the white point area"
 msgstr "A fehérpont-terület átlagos színe"
 
 #: src/components/ColorMixer.tsx:186
-#: src/components/ImageBackgroundRemoval.tsx:139
-#: src/components/ImageBackgroundRemoval.tsx:211
+#: src/components/ImageBackgroundRemoval.tsx:140
+#: src/components/ImageBackgroundRemoval.tsx:212
 #: src/components/ImageColorPicker.tsx:241
 msgid "Background"
 msgstr "Háttér"
@@ -305,6 +305,14 @@ msgstr "Érintkezés"
 msgid "Controls the radius of the median filter."
 msgstr "A középső szűrő sugarát szabályozza."
 
+#: src/components/color/WarmthIcon.tsx:42
+#~ msgid "Cool"
+#~ msgstr "Hűvös"
+
+#: src/components/color/WarmthIcon.tsx:42
+msgid "Cool — Algorithmic estimate; artistic perception may vary."
+msgstr "Cool – Algoritmikus becslés; A művészi felfogás változhat."
+
 #: src/components/share/ShareModal.tsx:87
 msgid "Copy"
 msgstr "Másolat"
@@ -404,7 +412,7 @@ msgstr "Hiba a színmárka adatainak beolvasása közben"
 msgid "Error while fetching color data"
 msgstr "Hiba a színadatok beolvasása közben"
 
-#: src/components/ImageBackgroundRemoval.tsx:91
+#: src/components/ImageBackgroundRemoval.tsx:92
 #: src/components/ImageOutline.tsx:104
 #: src/components/ImageStyleTransfer.tsx:88
 msgid "Error while fetching ML model data"
@@ -479,7 +487,7 @@ msgstr "Ha problémái vannak a bejelentkezéssel, kérjük, olvassa el ezt az <
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Ha nem menti a műveletet, előfordulhat, hogy a színkészlet módosításai elvesznek."
 
-#: src/components/ImageBackgroundRemoval.tsx:268
+#: src/components/ImageBackgroundRemoval.tsx:275
 msgid "Image without background"
 msgstr "Kép háttér nélkül"
 
@@ -607,7 +615,7 @@ msgid "Mixture"
 msgstr "Keverék"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:102
-#: src/components/ImageBackgroundRemoval.tsx:198
+#: src/components/ImageBackgroundRemoval.tsx:199
 #: src/components/ImageOutline.tsx:221
 msgid "Mode"
 msgstr "Üzemmód"
@@ -625,6 +633,14 @@ msgstr "Márka elnevezése"
 #: src/components/ColorSetChooser.tsx:574
 msgid "Name a color set"
 msgstr "Színkészlet elnevezése"
+
+#: src/components/color/WarmthIcon.tsx:46
+#~ msgid "Neutral"
+#~ msgstr "Semleges"
+
+#: src/components/color/WarmthIcon.tsx:46
+msgid "Neutral — Algorithmic estimate; artistic perception may vary."
+msgstr "Semleges – Algoritmikus becslés; A művészi felfogás változhat."
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:36
 msgid "New brand"
@@ -681,7 +697,7 @@ msgstr "Olaj pasztell"
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Csak korlátozott számú színmárka érhető el az ingyenes verzióban"
 
-#: src/components/ImageBackgroundRemoval.tsx:186
+#: src/components/ImageBackgroundRemoval.tsx:187
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Az ingyenes verzióban csak korlátozott számú mód érhető el"
 
@@ -689,7 +705,7 @@ msgstr "Az ingyenes verzióban csak korlátozott számú mód érhető el"
 msgid "Only a limited number of styles are available in the free version"
 msgstr "Az ingyenes verzióban csak korlátozott számú stílus érhető el"
 
-#: src/components/color/OpacityIcon.tsx:103
+#: src/components/color/OpacityIcon.tsx:51
 msgid "Opaque"
 msgstr "Átlátszatlan"
 
@@ -718,7 +734,7 @@ msgstr "Vagy válasszon a legutóbbi fotói közül"
 msgid "Original color temperature (K)"
 msgstr "Eredeti színhőmérséklet (K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:261
+#: src/components/ImageBackgroundRemoval.tsx:268
 msgid "Original photo"
 msgstr "Eredeti fotó"
 
@@ -953,8 +969,8 @@ msgid "Saturation (%)"
 msgstr "Telítettség (%)"
 
 #: src/components/CustomColorBrandCreator.tsx:364
-#: src/components/ImageBackgroundRemoval.tsx:149
-#: src/components/ImageBackgroundRemoval.tsx:226
+#: src/components/ImageBackgroundRemoval.tsx:150
+#: src/components/ImageBackgroundRemoval.tsx:233
 #: src/components/ImageBlurred.tsx:116
 #: src/components/ImageBlurred.tsx:162
 #: src/components/ImageColorAdjustment.tsx:365
@@ -1013,7 +1029,7 @@ msgstr "Válasszon ki egy fényképet a fehéregyensúly és a színek beállít
 msgid "Select a photo to correct the perspective"
 msgstr "Válasszon ki egy fényképet a perspektíva korrigálásához"
 
-#: src/components/ImageBackgroundRemoval.tsx:172
+#: src/components/ImageBackgroundRemoval.tsx:173
 msgid "Select a photo to remove the background from"
 msgstr "Válasszon ki egy fényképet, amelyről el szeretné távolítani a hátteret"
 
@@ -1050,7 +1066,7 @@ msgid "Select color"
 msgstr "Szín kiválasztása"
 
 #: src/components/color-set/ColorCascader.tsx:91
-#: src/components/color-set/ColorSelect.tsx:68
+#: src/components/color-set/ColorSelect.tsx:70
 msgid "Select colors"
 msgstr "Válasszon színeket"
 
@@ -1082,7 +1098,7 @@ msgstr "Nyelv kiválasztása"
 msgid "Select part"
 msgstr "Alkatrész kiválasztása"
 
-#: src/components/ImageBackgroundRemoval.tsx:194
+#: src/components/ImageBackgroundRemoval.tsx:195
 #: src/components/ImageChooser.tsx:75
 #: src/components/ImageColorAdjustment.tsx:355
 #: src/components/ImagePerspectiveCorrection.tsx:236
@@ -1110,11 +1126,11 @@ msgstr "Stíluskép kiválasztása"
 msgid "Select your art medium, color brands and colors you will paint with and press the <0>Save & proceed</0> button."
 msgstr "Válassza ki a művészeti médiumot, a színmárkákat és a színeket, amelyekkel festeni szeretne, majd nyomja meg a <0>Mentés és folytatás</0> gombot."
 
-#: src/components/color/OpacityIcon.tsx:85
+#: src/components/color/OpacityIcon.tsx:47
 msgid "Semi-opaque"
 msgstr "Félig átlátszatlan"
 
-#: src/components/color/OpacityIcon.tsx:67
+#: src/components/color/OpacityIcon.tsx:43
 msgid "Semi-transparent"
 msgstr "Félig átlátszó"
 
@@ -1335,7 +1351,7 @@ msgstr "A {tabLabel} funkció használatához válassza ki a festeni kívánt sz
 msgid "Tonal values"
 msgstr "Tónusértékek"
 
-#: src/components/color/OpacityIcon.tsx:49
+#: src/components/color/OpacityIcon.tsx:39
 msgid "Transparent"
 msgstr "Átlátszó"
 
@@ -1378,6 +1394,14 @@ msgstr "Használt"
 msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 msgstr "A korlátozott paletta használata segít a színharmónia elérésében. Válasszon ki legfeljebb {MAX_COLORS} színt elsődleges színként."
 
+#: src/components/color/WarmthIcon.tsx:38
+#~ msgid "Warm"
+#~ msgstr "Meleg"
+
+#: src/components/color/WarmthIcon.tsx:38
+msgid "Warm — Algorithmic estimate; artistic perception may vary."
+msgstr "Meleg – Algoritmikus becslés; A művészi felfogás változhat."
+
 #: src/components/color/ConsistencyDescription.tsx:83
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "Az akvarell vízzel hígítható, hogy átlátszóbb legyen."
@@ -1398,6 +1422,7 @@ msgstr "Ha összesen több mint {maxColorsFor2} színt jelöl ki, a program nem 
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Ha összesen több mint {maxColorsFor3} színt jelöl ki, a program nem használ három szín keverékét."
 
+#: src/components/ImageBackgroundRemoval.tsx:216
 #: src/components/ImageColorAdjustment.tsx:447
 #: src/components/ImageColorPicker.tsx:268
 msgid "White"
@@ -1454,7 +1479,7 @@ msgstr "Olyan színmárkákat választottál, amelyek csak fizetős Patreon-tago
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Olyan színmárkákat választottál, amelyek csak a fizetős Patreon-tagok számára érhetők el. Csatlakozz az ArtistAssistApp-hoz a Patreonon fizetős tagként, vagy jelentkezz be a Patreonnal, ha már csatlakoztál."
 
-#: src/components/ImageBackgroundRemoval.tsx:180
+#: src/components/ImageBackgroundRemoval.tsx:181
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Olyan módot választottál, amely csak a fizetős Patreon-tagok számára érhető el"
 

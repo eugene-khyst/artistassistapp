@@ -5,6 +5,7 @@ import {visualizer} from 'rollup-plugin-visualizer';
 import {PluginOption, defineConfig} from 'vite';
 import glsl from 'vite-plugin-glsl';
 import {VitePWA} from 'vite-plugin-pwa';
+import svgr from 'vite-plugin-svgr';
 
 const maxFileSize = 2 * 1024 * 1024;
 
@@ -30,6 +31,7 @@ export default defineConfig({
       plugins: [['@lingui/swc-plugin', {}]],
     }),
     lingui(),
+    svgr(),
     VitePWA({
       strategies: 'injectManifest',
       srcDir: 'src',

@@ -253,13 +253,14 @@ export function toColorSet(
         .map((colorId: number): ColorDefinition | undefined => colors.get(brandAlias)?.get(colorId))
         .filter((color): color is ColorDefinition => !!color)
         .map(
-          ({id, name, hex, rho, opacity}: ColorDefinition): Color => ({
+          ({id, name, hex, rho, opacity, warmth}: ColorDefinition): Color => ({
             brand: brandId,
             id,
             name,
             rgb: Rgb.fromHex(hex).toRgbTuple(),
             rho,
             opacity,
+            warmth,
           })
         );
     }),

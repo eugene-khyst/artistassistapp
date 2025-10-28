@@ -196,8 +196,8 @@ msgid "Average color of the white point area"
 msgstr "Valkoisen pistealueen keskimääräinen väri"
 
 #: src/components/ColorMixer.tsx:186
-#: src/components/ImageBackgroundRemoval.tsx:139
-#: src/components/ImageBackgroundRemoval.tsx:211
+#: src/components/ImageBackgroundRemoval.tsx:140
+#: src/components/ImageBackgroundRemoval.tsx:212
 #: src/components/ImageColorPicker.tsx:241
 msgid "Background"
 msgstr "Tausta"
@@ -305,6 +305,14 @@ msgstr "Kontakti"
 msgid "Controls the radius of the median filter."
 msgstr "Ohjaa mediaanisuodattimen sädettä."
 
+#: src/components/color/WarmthIcon.tsx:42
+#~ msgid "Cool"
+#~ msgstr "Viileä"
+
+#: src/components/color/WarmthIcon.tsx:42
+msgid "Cool — Algorithmic estimate; artistic perception may vary."
+msgstr "Cool – Algoritminen arvio; taiteellinen käsitys voi vaihdella."
+
 #: src/components/share/ShareModal.tsx:87
 msgid "Copy"
 msgstr "Kopioida"
@@ -404,7 +412,7 @@ msgstr "Virhe haettaessa väribränditietoja"
 msgid "Error while fetching color data"
 msgstr "Virhe haettaessa väritietoja"
 
-#: src/components/ImageBackgroundRemoval.tsx:91
+#: src/components/ImageBackgroundRemoval.tsx:92
 #: src/components/ImageOutline.tsx:104
 #: src/components/ImageStyleTransfer.tsx:88
 msgid "Error while fetching ML model data"
@@ -479,7 +487,7 @@ msgstr "Jos sinulla on ongelmia kirjautumisessa, lue tämä <0>opas</0>."
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Jos et tallenna, värijoukkoon tehdyt muutokset saattavat kadota."
 
-#: src/components/ImageBackgroundRemoval.tsx:268
+#: src/components/ImageBackgroundRemoval.tsx:275
 msgid "Image without background"
 msgstr "Kuva ilman taustaa"
 
@@ -607,7 +615,7 @@ msgid "Mixture"
 msgstr "Sekoitus"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:102
-#: src/components/ImageBackgroundRemoval.tsx:198
+#: src/components/ImageBackgroundRemoval.tsx:199
 #: src/components/ImageOutline.tsx:221
 msgid "Mode"
 msgstr "Moodi"
@@ -625,6 +633,14 @@ msgstr "Nimeä brändi"
 #: src/components/ColorSetChooser.tsx:574
 msgid "Name a color set"
 msgstr "Värijoukon nimeäminen"
+
+#: src/components/color/WarmthIcon.tsx:46
+#~ msgid "Neutral"
+#~ msgstr "Neutraali"
+
+#: src/components/color/WarmthIcon.tsx:46
+msgid "Neutral — Algorithmic estimate; artistic perception may vary."
+msgstr "Neutraali – algoritminen arvio; taiteellinen käsitys voi vaihdella."
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:36
 msgid "New brand"
@@ -681,7 +697,7 @@ msgstr "Öljy Pastelli"
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Ilmaisessa versiossa on saatavilla vain rajoitettu määrä värimerkkejä"
 
-#: src/components/ImageBackgroundRemoval.tsx:186
+#: src/components/ImageBackgroundRemoval.tsx:187
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Ilmaisessa versiossa on käytettävissä vain rajoitettu määrä tiloja"
 
@@ -689,7 +705,7 @@ msgstr "Ilmaisessa versiossa on käytettävissä vain rajoitettu määrä tiloja
 msgid "Only a limited number of styles are available in the free version"
 msgstr "Ilmaisessa versiossa on saatavilla vain rajoitettu määrä tyylejä"
 
-#: src/components/color/OpacityIcon.tsx:103
+#: src/components/color/OpacityIcon.tsx:51
 msgid "Opaque"
 msgstr "Läpinäkymätön"
 
@@ -718,7 +734,7 @@ msgstr "Voit myös valita viimeisimmistä kuvistasi"
 msgid "Original color temperature (K)"
 msgstr "Alkuperäinen värilämpötila (K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:261
+#: src/components/ImageBackgroundRemoval.tsx:268
 msgid "Original photo"
 msgstr "Alkuperäinen kuva"
 
@@ -953,8 +969,8 @@ msgid "Saturation (%)"
 msgstr "Kylläisyys (%)"
 
 #: src/components/CustomColorBrandCreator.tsx:364
-#: src/components/ImageBackgroundRemoval.tsx:149
-#: src/components/ImageBackgroundRemoval.tsx:226
+#: src/components/ImageBackgroundRemoval.tsx:150
+#: src/components/ImageBackgroundRemoval.tsx:233
 #: src/components/ImageBlurred.tsx:116
 #: src/components/ImageBlurred.tsx:162
 #: src/components/ImageColorAdjustment.tsx:365
@@ -1013,7 +1029,7 @@ msgstr "Valitse valokuva säätääksesi valkotasapainoa ja värejä"
 msgid "Select a photo to correct the perspective"
 msgstr "Valitse valokuva perspektiivin korjaamiseksi"
 
-#: src/components/ImageBackgroundRemoval.tsx:172
+#: src/components/ImageBackgroundRemoval.tsx:173
 msgid "Select a photo to remove the background from"
 msgstr "Valitse valokuva, josta haluat poistaa taustan"
 
@@ -1050,7 +1066,7 @@ msgid "Select color"
 msgstr "Valitse väri"
 
 #: src/components/color-set/ColorCascader.tsx:91
-#: src/components/color-set/ColorSelect.tsx:68
+#: src/components/color-set/ColorSelect.tsx:70
 msgid "Select colors"
 msgstr "Valitse värit"
 
@@ -1082,7 +1098,7 @@ msgstr "Valitse kieli"
 msgid "Select part"
 msgstr "Valitse osa"
 
-#: src/components/ImageBackgroundRemoval.tsx:194
+#: src/components/ImageBackgroundRemoval.tsx:195
 #: src/components/ImageChooser.tsx:75
 #: src/components/ImageColorAdjustment.tsx:355
 #: src/components/ImagePerspectiveCorrection.tsx:236
@@ -1110,11 +1126,11 @@ msgstr "Valitse tyylikuva"
 msgid "Select your art medium, color brands and colors you will paint with and press the <0>Save & proceed</0> button."
 msgstr "Valitse taideväline, värimerkit ja värit, joilla maalaat, ja paina <0>Tallenna ja jatka</0> -painiketta."
 
-#: src/components/color/OpacityIcon.tsx:85
+#: src/components/color/OpacityIcon.tsx:47
 msgid "Semi-opaque"
 msgstr "Puoliksi läpinäkymätön"
 
-#: src/components/color/OpacityIcon.tsx:67
+#: src/components/color/OpacityIcon.tsx:43
 msgid "Semi-transparent"
 msgstr "Puoliksi läpinäkyvä"
 
@@ -1335,7 +1351,7 @@ msgstr "Jos haluat käyttää {tabLabel}-ominaisuutta, valitse värit, joilla ma
 msgid "Tonal values"
 msgstr "Sävyarvot"
 
-#: src/components/color/OpacityIcon.tsx:49
+#: src/components/color/OpacityIcon.tsx:39
 msgid "Transparent"
 msgstr "Läpinäkyvä"
 
@@ -1378,6 +1394,14 @@ msgstr "Käytetty"
 msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 msgstr "Rajoitetun paletin käyttö auttaa saavuttamaan väriharmonian. Valitse enintään {MAX_COLORS} väriä ensisijaisiksi."
 
+#: src/components/color/WarmthIcon.tsx:38
+#~ msgid "Warm"
+#~ msgstr "Lämmin"
+
+#: src/components/color/WarmthIcon.tsx:38
+msgid "Warm — Algorithmic estimate; artistic perception may vary."
+msgstr "Lämmin – algoritminen arvio; taiteellinen käsitys voi vaihdella."
+
 #: src/components/color/ConsistencyDescription.tsx:83
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "Akvarelli voidaan laimentaa vedellä, jotta se olisi läpinäkyvämpi."
@@ -1398,6 +1422,7 @@ msgstr "Kun valitset yhteensä enemmän kuin {maxColorsFor2} väriä, kahden vä
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Kun valitset yhteensä enemmän kuin {maxColorsFor3} väriä, kolmen värin sekoituksia ei käytetä."
 
+#: src/components/ImageBackgroundRemoval.tsx:216
 #: src/components/ImageColorAdjustment.tsx:447
 #: src/components/ImageColorPicker.tsx:268
 msgid "White"
@@ -1454,7 +1479,7 @@ msgstr "Olet valinnut värimerkkejä, jotka ovat vain maksullisten Patreon-jäse
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Olet valinnut värimerkkejä, jotka ovat vain maksullisten Patreon-jäsenten käytettävissä. Liity ArtistAssistAppiin Patreonissa maksullisena jäsenenä tai kirjaudu sisään Patreonilla, jos olet jo liittynyt."
 
-#: src/components/ImageBackgroundRemoval.tsx:180
+#: src/components/ImageBackgroundRemoval.tsx:181
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Olet valinnut tilan, joka on vain maksullisten Patreon-jäsenten käytettävissä"
 

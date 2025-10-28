@@ -22,45 +22,40 @@ import {useLingui} from '@lingui/react/macro';
 import {Tooltip} from 'antd';
 import type {ReactNode} from 'react';
 
-import Opaque from '~/src/icons/opacity/opaque.svg?react';
-import SemiOpaque from '~/src/icons/opacity/semi-opaque.svg?react';
-import SemiTransparent from '~/src/icons/opacity/semi-transparent.svg?react';
-import Transparent from '~/src/icons/opacity/transparent.svg?react';
-import {ColorOpacity} from '~/src/services/color/types';
+import Cool from '~/src/icons/warmth/cool.svg?react';
+import Neutral from '~/src/icons/warmth/neutral.svg?react';
+import Warm from '~/src/icons/warmth/warm.svg?react';
+import {ColorWarmth} from '~/src/services/color/types';
 
-interface OpacityDescription {
+interface WarmthDescription {
   icon: ReactNode;
   tooltip: MessageDescriptor;
 }
 
-const OPACITIES: Record<ColorOpacity, OpacityDescription> = {
-  [ColorOpacity.Transparent]: {
-    icon: <Transparent className="opacity-icon" />,
-    tooltip: defineMessage`Transparent`,
+const WARMTH: Record<ColorWarmth, WarmthDescription> = {
+  [ColorWarmth.Warm]: {
+    icon: <Warm className="warmth-icon" />,
+    tooltip: defineMessage`Warm — Algorithmic estimate; artistic perception may vary.`,
   },
-  [ColorOpacity.SemiTransparent]: {
-    icon: <SemiTransparent className="opacity-icon" />,
-    tooltip: defineMessage`Semi-transparent`,
+  [ColorWarmth.Cool]: {
+    icon: <Cool className="warmth-icon" />,
+    tooltip: defineMessage`Cool — Algorithmic estimate; artistic perception may vary.`,
   },
-  [ColorOpacity.SemiOpaque]: {
-    icon: <SemiOpaque className="opacity-icon" />,
-    tooltip: defineMessage`Semi-opaque`,
-  },
-  [ColorOpacity.Opaque]: {
-    icon: <Opaque className="opacity-icon" />,
-    tooltip: defineMessage`Opaque`,
+  [ColorWarmth.Neutral]: {
+    icon: <Neutral className="warmth-icon" />,
+    tooltip: defineMessage`Neutral — Algorithmic estimate; artistic perception may vary.`,
   },
 };
 
 interface Props {
-  opacity?: ColorOpacity;
+  warmth?: ColorWarmth;
 }
 
-export const OpacityIcon: React.FC<Props> = ({opacity}: Props) => {
+export const WarmthIcon: React.FC<Props> = ({warmth}: Props) => {
   const {t} = useLingui();
-  if (!opacity) {
+  if (!warmth) {
     return <></>;
   }
-  const {tooltip, icon} = OPACITIES[opacity];
+  const {tooltip, icon} = WARMTH[warmth];
   return <Tooltip title={t(tooltip)}>{icon}</Tooltip>;
 };

@@ -196,8 +196,8 @@ msgid "Average color of the white point area"
 msgstr "Durchschnittliche Farbe des Weißpunktbereichs"
 
 #: src/components/ColorMixer.tsx:186
-#: src/components/ImageBackgroundRemoval.tsx:139
-#: src/components/ImageBackgroundRemoval.tsx:211
+#: src/components/ImageBackgroundRemoval.tsx:140
+#: src/components/ImageBackgroundRemoval.tsx:212
 #: src/components/ImageColorPicker.tsx:241
 msgid "Background"
 msgstr "Hintergrund"
@@ -305,6 +305,14 @@ msgstr "Kontakt"
 msgid "Controls the radius of the median filter."
 msgstr "Steuert den Radius des Medianfilters."
 
+#: src/components/color/WarmthIcon.tsx:42
+#~ msgid "Cool"
+#~ msgstr "Kühl"
+
+#: src/components/color/WarmthIcon.tsx:42
+msgid "Cool — Algorithmic estimate; artistic perception may vary."
+msgstr "Cool — Algorithmische Schätzung; Die künstlerische Wahrnehmung kann variieren."
+
 #: src/components/share/ShareModal.tsx:87
 msgid "Copy"
 msgstr "Kopieren"
@@ -404,7 +412,7 @@ msgstr "Fehler beim Abrufen von Farbmarkendaten"
 msgid "Error while fetching color data"
 msgstr "Fehler beim Abrufen von Farbdaten"
 
-#: src/components/ImageBackgroundRemoval.tsx:91
+#: src/components/ImageBackgroundRemoval.tsx:92
 #: src/components/ImageOutline.tsx:104
 #: src/components/ImageStyleTransfer.tsx:88
 msgid "Error while fetching ML model data"
@@ -479,7 +487,7 @@ msgstr "Wenn Sie Probleme beim Einloggen haben, lesen Sie bitte diese <0>Anleitu
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Wenn Sie nicht speichern, können Änderungen an der Farbpalette verloren gehen."
 
-#: src/components/ImageBackgroundRemoval.tsx:268
+#: src/components/ImageBackgroundRemoval.tsx:275
 msgid "Image without background"
 msgstr "Bild ohne Hintergrund"
 
@@ -607,7 +615,7 @@ msgid "Mixture"
 msgstr "Mischung"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:102
-#: src/components/ImageBackgroundRemoval.tsx:198
+#: src/components/ImageBackgroundRemoval.tsx:199
 #: src/components/ImageOutline.tsx:221
 msgid "Mode"
 msgstr "Modus"
@@ -625,6 +633,14 @@ msgstr "Benennen Sie eine Marke"
 #: src/components/ColorSetChooser.tsx:574
 msgid "Name a color set"
 msgstr "Benennen einer Farbpalette"
+
+#: src/components/color/WarmthIcon.tsx:46
+#~ msgid "Neutral"
+#~ msgstr "Neutral"
+
+#: src/components/color/WarmthIcon.tsx:46
+msgid "Neutral — Algorithmic estimate; artistic perception may vary."
+msgstr "Neutral — Algorithmische Schätzung; Die künstlerische Wahrnehmung kann variieren."
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:36
 msgid "New brand"
@@ -681,7 +697,7 @@ msgstr "Öl Pastell"
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "In der kostenlosen Version ist nur eine begrenzte Anzahl von Farbmarken verfügbar"
 
-#: src/components/ImageBackgroundRemoval.tsx:186
+#: src/components/ImageBackgroundRemoval.tsx:187
 msgid "Only a limited number of modes are available in the free version"
 msgstr "In der kostenlosen Version ist nur eine begrenzte Anzahl von Modi verfügbar"
 
@@ -689,7 +705,7 @@ msgstr "In der kostenlosen Version ist nur eine begrenzte Anzahl von Modi verfü
 msgid "Only a limited number of styles are available in the free version"
 msgstr "In der kostenlosen Version ist nur eine begrenzte Anzahl von Stilen verfügbar"
 
-#: src/components/color/OpacityIcon.tsx:103
+#: src/components/color/OpacityIcon.tsx:51
 msgid "Opaque"
 msgstr "Undurchsichtig"
 
@@ -718,7 +734,7 @@ msgstr "Oder wählen Sie aus Ihren letzten Fotos"
 msgid "Original color temperature (K)"
 msgstr "Ursprüngliche Farbtemperatur (K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:261
+#: src/components/ImageBackgroundRemoval.tsx:268
 msgid "Original photo"
 msgstr "Originalfoto"
 
@@ -953,8 +969,8 @@ msgid "Saturation (%)"
 msgstr "Sättigung (%)"
 
 #: src/components/CustomColorBrandCreator.tsx:364
-#: src/components/ImageBackgroundRemoval.tsx:149
-#: src/components/ImageBackgroundRemoval.tsx:226
+#: src/components/ImageBackgroundRemoval.tsx:150
+#: src/components/ImageBackgroundRemoval.tsx:233
 #: src/components/ImageBlurred.tsx:116
 #: src/components/ImageBlurred.tsx:162
 #: src/components/ImageColorAdjustment.tsx:365
@@ -1013,7 +1029,7 @@ msgstr "Wählen Sie ein Foto aus, um den Weißabgleich und die Farben anzupassen
 msgid "Select a photo to correct the perspective"
 msgstr "Wählen Sie ein Foto aus, um die Perspektive zu korrigieren"
 
-#: src/components/ImageBackgroundRemoval.tsx:172
+#: src/components/ImageBackgroundRemoval.tsx:173
 msgid "Select a photo to remove the background from"
 msgstr "Wählen Sie ein Foto aus, von dem der Hintergrund entfernt werden soll"
 
@@ -1050,7 +1066,7 @@ msgid "Select color"
 msgstr "Farbe auswählen"
 
 #: src/components/color-set/ColorCascader.tsx:91
-#: src/components/color-set/ColorSelect.tsx:68
+#: src/components/color-set/ColorSelect.tsx:70
 msgid "Select colors"
 msgstr "Farben auswählen"
 
@@ -1082,7 +1098,7 @@ msgstr "Sprache auswählen"
 msgid "Select part"
 msgstr "Teil auswählen"
 
-#: src/components/ImageBackgroundRemoval.tsx:194
+#: src/components/ImageBackgroundRemoval.tsx:195
 #: src/components/ImageChooser.tsx:75
 #: src/components/ImageColorAdjustment.tsx:355
 #: src/components/ImagePerspectiveCorrection.tsx:236
@@ -1110,11 +1126,11 @@ msgstr "Stilbild auswählen"
 msgid "Select your art medium, color brands and colors you will paint with and press the <0>Save & proceed</0> button."
 msgstr "Wählen Sie Ihr Kunstmedium, die Farbmarken und Farben, mit denen Sie malen möchten, aus und klicken Sie auf die Schaltfläche <0>Speichern und fortfahren</0> ."
 
-#: src/components/color/OpacityIcon.tsx:85
+#: src/components/color/OpacityIcon.tsx:47
 msgid "Semi-opaque"
 msgstr "Halb undurchsichtig"
 
-#: src/components/color/OpacityIcon.tsx:67
+#: src/components/color/OpacityIcon.tsx:43
 msgid "Semi-transparent"
 msgstr "Halbtransparent"
 
@@ -1335,7 +1351,7 @@ msgstr "Um die Funktion {tabLabel} zu verwenden, wählen Sie die Farben aus, mit
 msgid "Tonal values"
 msgstr "Tonwerte"
 
-#: src/components/color/OpacityIcon.tsx:49
+#: src/components/color/OpacityIcon.tsx:39
 msgid "Transparent"
 msgstr "Durchsichtig"
 
@@ -1378,6 +1394,14 @@ msgstr "Gebraucht"
 msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 msgstr "Die Verwendung einer begrenzten Palette hilft, Farbharmonie zu erreichen. Wählen Sie bis zu {MAX_COLORS} Farben als Primärfarben aus."
 
+#: src/components/color/WarmthIcon.tsx:38
+#~ msgid "Warm"
+#~ msgstr "Warm"
+
+#: src/components/color/WarmthIcon.tsx:38
+msgid "Warm — Algorithmic estimate; artistic perception may vary."
+msgstr "Warm — Algorithmische Schätzung; Die künstlerische Wahrnehmung kann variieren."
+
 #: src/components/color/ConsistencyDescription.tsx:83
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "Aquarellfarben können mit Wasser verdünnt werden, um sie transparenter zu machen."
@@ -1398,6 +1422,7 @@ msgstr "Wenn insgesamt mehr als {maxColorsFor2} Farben ausgewählt werden, werde
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Wenn insgesamt mehr als {maxColorsFor3} Farben ausgewählt werden, werden keine Mischungen aus drei Farben verwendet."
 
+#: src/components/ImageBackgroundRemoval.tsx:216
 #: src/components/ImageColorAdjustment.tsx:447
 #: src/components/ImageColorPicker.tsx:268
 msgid "White"
@@ -1454,7 +1479,7 @@ msgstr "Du hast Farbmarken ausgewählt, die nur für zahlende Patreon-Mitglieder
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Du hast Farbmarken ausgewählt, die nur für zahlende Patreon-Mitglieder verfügbar sind. Treten Sie ArtistAssistApp auf Patreon als zahlendes Mitglied bei oder melden Sie sich bei Patreon an, wenn Sie bereits beigetreten sind."
 
-#: src/components/ImageBackgroundRemoval.tsx:180
+#: src/components/ImageBackgroundRemoval.tsx:181
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Du hast den Modus ausgewählt, der nur für zahlende Patreon-Mitglieder verfügbar ist"
 

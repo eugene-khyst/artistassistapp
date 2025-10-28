@@ -39,6 +39,12 @@ export enum ColorOpacity {
   Opaque = 4,
 }
 
+export enum ColorWarmth {
+  Warm = 1,
+  Cool = 2,
+  Neutral = 3,
+}
+
 export interface ColorIdFormat {
   show?: boolean;
   prefix?: string;
@@ -69,6 +75,7 @@ export interface ColorDefinition {
   hex: string;
   rho: number[];
   opacity?: number;
+  warmth?: number;
 }
 
 export interface CustomColorBrandDefinition {
@@ -99,6 +106,7 @@ export interface Color {
   rgb: RgbTuple;
   rho: number[];
   opacity?: ColorOpacity;
+  warmth?: ColorWarmth;
 }
 
 export interface ColorSet {

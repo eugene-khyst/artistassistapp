@@ -196,8 +196,8 @@ msgid "Average color of the white point area"
 msgstr "सफेद बिंदु क्षेत्र का औसत रंग"
 
 #: src/components/ColorMixer.tsx:186
-#: src/components/ImageBackgroundRemoval.tsx:139
-#: src/components/ImageBackgroundRemoval.tsx:211
+#: src/components/ImageBackgroundRemoval.tsx:140
+#: src/components/ImageBackgroundRemoval.tsx:212
 #: src/components/ImageColorPicker.tsx:241
 msgid "Background"
 msgstr "पृष्ठभूमि"
@@ -305,6 +305,14 @@ msgstr "संपर्क"
 msgid "Controls the radius of the median filter."
 msgstr "मीडियन फ़िल्टर की त्रिज्या को नियंत्रित करता है।"
 
+#: src/components/color/WarmthIcon.tsx:42
+#~ msgid "Cool"
+#~ msgstr "ठंडक"
+
+#: src/components/color/WarmthIcon.tsx:42
+msgid "Cool — Algorithmic estimate; artistic perception may vary."
+msgstr "कूल - एल्गोरिथम अनुमान; कलात्मक धारणा भिन्न हो सकती है।"
+
 #: src/components/share/ShareModal.tsx:87
 msgid "Copy"
 msgstr "प्रतिलिपि"
@@ -404,7 +412,7 @@ msgstr "रंग ब्रांड डेटा फ़ेच करते स�
 msgid "Error while fetching color data"
 msgstr "रंग डेटा लाते समय त्रुटि"
 
-#: src/components/ImageBackgroundRemoval.tsx:91
+#: src/components/ImageBackgroundRemoval.tsx:92
 #: src/components/ImageOutline.tsx:104
 #: src/components/ImageStyleTransfer.tsx:88
 msgid "Error while fetching ML model data"
@@ -479,7 +487,7 @@ msgstr "यदि आपको लॉग इन करने में समस
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "यदि आप नहीं सहेजते हैं, तो रंग सेट में परिवर्तन खो सकते हैं।"
 
-#: src/components/ImageBackgroundRemoval.tsx:268
+#: src/components/ImageBackgroundRemoval.tsx:275
 msgid "Image without background"
 msgstr "पृष्ठभूमि के बिना छवि"
 
@@ -607,7 +615,7 @@ msgid "Mixture"
 msgstr "मिश्रण"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:102
-#: src/components/ImageBackgroundRemoval.tsx:198
+#: src/components/ImageBackgroundRemoval.tsx:199
 #: src/components/ImageOutline.tsx:221
 msgid "Mode"
 msgstr "मोड समूह"
@@ -625,6 +633,14 @@ msgstr "ब्रांड का नाम बताइए"
 #: src/components/ColorSetChooser.tsx:574
 msgid "Name a color set"
 msgstr "रंग सेट को नाम दें"
+
+#: src/components/color/WarmthIcon.tsx:46
+#~ msgid "Neutral"
+#~ msgstr "तटस्थ"
+
+#: src/components/color/WarmthIcon.tsx:46
+msgid "Neutral — Algorithmic estimate; artistic perception may vary."
+msgstr "तटस्थ - एल्गोरिथम अनुमान; कलात्मक धारणा भिन्न हो सकती है।"
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:36
 msgid "New brand"
@@ -681,7 +697,7 @@ msgstr "तेल पेस्टल"
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "मुफ्त संस्करण में केवल सीमित संख्या में रंग ब्रांड उपलब्ध हैं"
 
-#: src/components/ImageBackgroundRemoval.tsx:186
+#: src/components/ImageBackgroundRemoval.tsx:187
 msgid "Only a limited number of modes are available in the free version"
 msgstr "मुफ्त संस्करण में केवल सीमित संख्या में मोड उपलब्ध हैं"
 
@@ -689,7 +705,7 @@ msgstr "मुफ्त संस्करण में केवल सीम�
 msgid "Only a limited number of styles are available in the free version"
 msgstr "मुफ्त संस्करण में केवल सीमित संख्या में शैलियाँ उपलब्ध हैं"
 
-#: src/components/color/OpacityIcon.tsx:103
+#: src/components/color/OpacityIcon.tsx:51
 msgid "Opaque"
 msgstr "अस्‍पष्‍ट"
 
@@ -718,7 +734,7 @@ msgstr "या अपनी हाल की फ़ोटो में से �
 msgid "Original color temperature (K)"
 msgstr "मूल रंग तापमान (के)"
 
-#: src/components/ImageBackgroundRemoval.tsx:261
+#: src/components/ImageBackgroundRemoval.tsx:268
 msgid "Original photo"
 msgstr "मूल फोटो"
 
@@ -953,8 +969,8 @@ msgid "Saturation (%)"
 msgstr "संतृप्ति (%)"
 
 #: src/components/CustomColorBrandCreator.tsx:364
-#: src/components/ImageBackgroundRemoval.tsx:149
-#: src/components/ImageBackgroundRemoval.tsx:226
+#: src/components/ImageBackgroundRemoval.tsx:150
+#: src/components/ImageBackgroundRemoval.tsx:233
 #: src/components/ImageBlurred.tsx:116
 #: src/components/ImageBlurred.tsx:162
 #: src/components/ImageColorAdjustment.tsx:365
@@ -1013,7 +1029,7 @@ msgstr "श्वेत संतुलन और रंगों को सम�
 msgid "Select a photo to correct the perspective"
 msgstr "परिप्रेक्ष्य को सही करने के लिए एक तस्वीर का चयन करें"
 
-#: src/components/ImageBackgroundRemoval.tsx:172
+#: src/components/ImageBackgroundRemoval.tsx:173
 msgid "Select a photo to remove the background from"
 msgstr "पृष्ठभूमि से हटाने के लिए एक तस्वीर का चयन करें"
 
@@ -1050,7 +1066,7 @@ msgid "Select color"
 msgstr "रंग का चयन करें"
 
 #: src/components/color-set/ColorCascader.tsx:91
-#: src/components/color-set/ColorSelect.tsx:68
+#: src/components/color-set/ColorSelect.tsx:70
 msgid "Select colors"
 msgstr "रंगों का चयन करें"
 
@@ -1082,7 +1098,7 @@ msgstr "भाषा का चयन करें"
 msgid "Select part"
 msgstr "भाग का चयन करें"
 
-#: src/components/ImageBackgroundRemoval.tsx:194
+#: src/components/ImageBackgroundRemoval.tsx:195
 #: src/components/ImageChooser.tsx:75
 #: src/components/ImageColorAdjustment.tsx:355
 #: src/components/ImagePerspectiveCorrection.tsx:236
@@ -1110,11 +1126,11 @@ msgstr "शैली छवि का चयन करें"
 msgid "Select your art medium, color brands and colors you will paint with and press the <0>Save & proceed</0> button."
 msgstr "अपने कला माध्यम, रंग ब्रांड और रंगों का चयन करें जिनसे आप पेंट करेंगे और <0>सहेजें और आगे बढ़ें</0> बटन दबाएं।"
 
-#: src/components/color/OpacityIcon.tsx:85
+#: src/components/color/OpacityIcon.tsx:47
 msgid "Semi-opaque"
 msgstr "अर्ध-अपारदर्शी"
 
-#: src/components/color/OpacityIcon.tsx:67
+#: src/components/color/OpacityIcon.tsx:43
 msgid "Semi-transparent"
 msgstr "अर्ध-पारदर्शी"
 
@@ -1335,7 +1351,7 @@ msgstr "{tabLabel} सुविधा का उपयोग करने के
 msgid "Tonal values"
 msgstr "तानवाला मान"
 
-#: src/components/color/OpacityIcon.tsx:49
+#: src/components/color/OpacityIcon.tsx:39
 msgid "Transparent"
 msgstr "पारदर्शी"
 
@@ -1378,6 +1394,14 @@ msgstr "प्रयुक्त"
 msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 msgstr "एक सीमित पैलेट का उपयोग रंग सद्भाव प्राप्त करने में मदद करता है। अपने प्राइमरी होने के लिए {MAX_COLORS} रंगों तक का चयन करें।"
 
+#: src/components/color/WarmthIcon.tsx:38
+#~ msgid "Warm"
+#~ msgstr "गर्म"
+
+#: src/components/color/WarmthIcon.tsx:38
+msgid "Warm — Algorithmic estimate; artistic perception may vary."
+msgstr "गर्म - एल्गोरिथम अनुमान; कलात्मक धारणा भिन्न हो सकती है।"
+
 #: src/components/color/ConsistencyDescription.tsx:83
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "वॉटरकलर को अधिक पारदर्शी बनाने के लिए पानी से पतला किया जा सकता है।"
@@ -1398,6 +1422,7 @@ msgstr "कुल मिलाकर {maxColorsFor2} से अधिक रं�
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "कुल मिलाकर {maxColorsFor3} से अधिक रंगों का चयन करते समय, तीन रंगों के मिश्रण का उपयोग नहीं किया जाता है।"
 
+#: src/components/ImageBackgroundRemoval.tsx:216
 #: src/components/ImageColorAdjustment.tsx:447
 #: src/components/ImageColorPicker.tsx:268
 msgid "White"
@@ -1454,7 +1479,7 @@ msgstr "आपने ऐसे रंग ब्रांड चुने है�
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "आपने ऐसे रंग ब्रांड चुने हैं जो केवल भुगतान किए गए Patreon सदस्यों के लिए उपलब्ध हैं। Patreon पर ArtistAssistApp से सशुल्क सदस्य के रूप में जुड़ें या यदि आप पहले ही शामिल हो चुके हैं तो Patreon के साथ लॉग इन करें."
 
-#: src/components/ImageBackgroundRemoval.tsx:180
+#: src/components/ImageBackgroundRemoval.tsx:181
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "आपने वह मोड चुना है जो केवल भुगतान किए गए Patreon सदस्यों के लिए उपलब्ध है"
 

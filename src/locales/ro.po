@@ -196,8 +196,8 @@ msgid "Average color of the white point area"
 msgstr "Culoarea medie a zonei punctului alb"
 
 #: src/components/ColorMixer.tsx:186
-#: src/components/ImageBackgroundRemoval.tsx:139
-#: src/components/ImageBackgroundRemoval.tsx:211
+#: src/components/ImageBackgroundRemoval.tsx:140
+#: src/components/ImageBackgroundRemoval.tsx:212
 #: src/components/ImageColorPicker.tsx:241
 msgid "Background"
 msgstr "Fond"
@@ -305,6 +305,14 @@ msgstr "Contact"
 msgid "Controls the radius of the median filter."
 msgstr "Controlează raza filtrului median."
 
+#: src/components/color/WarmthIcon.tsx:42
+#~ msgid "Cool"
+#~ msgstr "Răci"
+
+#: src/components/color/WarmthIcon.tsx:42
+msgid "Cool — Algorithmic estimate; artistic perception may vary."
+msgstr "Cool — Estimare algoritmică; percepția artistică poate varia."
+
 #: src/components/share/ShareModal.tsx:87
 msgid "Copy"
 msgstr "Copie"
@@ -404,7 +412,7 @@ msgstr "Eroare la preluarea datelor de marcă de culoare"
 msgid "Error while fetching color data"
 msgstr "Eroare la preluarea datelor de culoare"
 
-#: src/components/ImageBackgroundRemoval.tsx:91
+#: src/components/ImageBackgroundRemoval.tsx:92
 #: src/components/ImageOutline.tsx:104
 #: src/components/ImageStyleTransfer.tsx:88
 msgid "Error while fetching ML model data"
@@ -479,7 +487,7 @@ msgstr "Dacă întâmpinați probleme la conectare, vă rugăm să citiți acest
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Dacă nu salvați, modificările aduse setului de culori se pot pierde."
 
-#: src/components/ImageBackgroundRemoval.tsx:268
+#: src/components/ImageBackgroundRemoval.tsx:275
 msgid "Image without background"
 msgstr "Imagine fără fundal"
 
@@ -607,7 +615,7 @@ msgid "Mixture"
 msgstr "Amestec"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:102
-#: src/components/ImageBackgroundRemoval.tsx:198
+#: src/components/ImageBackgroundRemoval.tsx:199
 #: src/components/ImageOutline.tsx:221
 msgid "Mode"
 msgstr "Mod"
@@ -625,6 +633,14 @@ msgstr "Denumiți o marcă"
 #: src/components/ColorSetChooser.tsx:574
 msgid "Name a color set"
 msgstr "Denumiți un set de culori"
+
+#: src/components/color/WarmthIcon.tsx:46
+#~ msgid "Neutral"
+#~ msgstr "Neutru"
+
+#: src/components/color/WarmthIcon.tsx:46
+msgid "Neutral — Algorithmic estimate; artistic perception may vary."
+msgstr "Neutru — Estimare algoritmică; percepția artistică poate varia."
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:36
 msgid "New brand"
@@ -681,7 +697,7 @@ msgstr "Pastel în ulei"
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Doar un număr limitat de mărci de culori sunt disponibile în versiunea gratuită"
 
-#: src/components/ImageBackgroundRemoval.tsx:186
+#: src/components/ImageBackgroundRemoval.tsx:187
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Doar un număr limitat de moduri sunt disponibile în versiunea gratuită"
 
@@ -689,7 +705,7 @@ msgstr "Doar un număr limitat de moduri sunt disponibile în versiunea gratuit�
 msgid "Only a limited number of styles are available in the free version"
 msgstr "Doar un număr limitat de stiluri sunt disponibile în versiunea gratuită"
 
-#: src/components/color/OpacityIcon.tsx:103
+#: src/components/color/OpacityIcon.tsx:51
 msgid "Opaque"
 msgstr "Opac"
 
@@ -718,7 +734,7 @@ msgstr "Sau selectați din fotografiile recente"
 msgid "Original color temperature (K)"
 msgstr "Temperatura de culoare originală (K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:261
+#: src/components/ImageBackgroundRemoval.tsx:268
 msgid "Original photo"
 msgstr "Fotografia originală"
 
@@ -953,8 +969,8 @@ msgid "Saturation (%)"
 msgstr "Saturație (%)"
 
 #: src/components/CustomColorBrandCreator.tsx:364
-#: src/components/ImageBackgroundRemoval.tsx:149
-#: src/components/ImageBackgroundRemoval.tsx:226
+#: src/components/ImageBackgroundRemoval.tsx:150
+#: src/components/ImageBackgroundRemoval.tsx:233
 #: src/components/ImageBlurred.tsx:116
 #: src/components/ImageBlurred.tsx:162
 #: src/components/ImageColorAdjustment.tsx:365
@@ -1013,7 +1029,7 @@ msgstr "Selectați o fotografie pentru a regla balansul de alb și culorile"
 msgid "Select a photo to correct the perspective"
 msgstr "Selectați o fotografie pentru a corecta perspectiva"
 
-#: src/components/ImageBackgroundRemoval.tsx:172
+#: src/components/ImageBackgroundRemoval.tsx:173
 msgid "Select a photo to remove the background from"
 msgstr "Selectați o fotografie din care să eliminați fundalul"
 
@@ -1050,7 +1066,7 @@ msgid "Select color"
 msgstr "Selectează culoarea"
 
 #: src/components/color-set/ColorCascader.tsx:91
-#: src/components/color-set/ColorSelect.tsx:68
+#: src/components/color-set/ColorSelect.tsx:70
 msgid "Select colors"
 msgstr "Selectați culorile"
 
@@ -1082,7 +1098,7 @@ msgstr "Selectează limba"
 msgid "Select part"
 msgstr "Selectează piesa"
 
-#: src/components/ImageBackgroundRemoval.tsx:194
+#: src/components/ImageBackgroundRemoval.tsx:195
 #: src/components/ImageChooser.tsx:75
 #: src/components/ImageColorAdjustment.tsx:355
 #: src/components/ImagePerspectiveCorrection.tsx:236
@@ -1110,11 +1126,11 @@ msgstr "Selectați imaginea de stil"
 msgid "Select your art medium, color brands and colors you will paint with and press the <0>Save & proceed</0> button."
 msgstr "Selectați mediul de artă, mărcile de culori și culorile cu care veți picta și apăsați butonul <0>Salvați și continuați</0> ."
 
-#: src/components/color/OpacityIcon.tsx:85
+#: src/components/color/OpacityIcon.tsx:47
 msgid "Semi-opaque"
 msgstr "Semi-opac"
 
-#: src/components/color/OpacityIcon.tsx:67
+#: src/components/color/OpacityIcon.tsx:43
 msgid "Semi-transparent"
 msgstr "Semi-transparent"
 
@@ -1335,7 +1351,7 @@ msgstr "Pentru a utiliza caracteristica {tabLabel}, selectați culorile cu care 
 msgid "Tonal values"
 msgstr "Valori tonale"
 
-#: src/components/color/OpacityIcon.tsx:49
+#: src/components/color/OpacityIcon.tsx:39
 msgid "Transparent"
 msgstr "Transparent"
 
@@ -1378,6 +1394,14 @@ msgstr "Folosit"
 msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 msgstr "Utilizarea unei palete limitate ajută la obținerea armoniei culorilor. Selectați până la {MAX_COLORS} culori pentru a fi principale."
 
+#: src/components/color/WarmthIcon.tsx:38
+#~ msgid "Warm"
+#~ msgstr "Cald"
+
+#: src/components/color/WarmthIcon.tsx:38
+msgid "Warm — Algorithmic estimate; artistic perception may vary."
+msgstr "Cald — Estimare algoritmică; percepția artistică poate varia."
+
 #: src/components/color/ConsistencyDescription.tsx:83
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "Acuarela poate fi diluată cu apă pentru a o face mai transparentă."
@@ -1398,6 +1422,7 @@ msgstr "Când selectați mai mult de {maxColorsFor2} culori în total, nu se uti
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Când selectați mai mult de {maxColorsFor3} culori în total, nu se utilizează amestecuri de trei culori."
 
+#: src/components/ImageBackgroundRemoval.tsx:216
 #: src/components/ImageColorAdjustment.tsx:447
 #: src/components/ImageColorPicker.tsx:268
 msgid "White"
@@ -1454,7 +1479,7 @@ msgstr "Ai selectat mărci de culori care sunt disponibile numai pentru membrii 
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Ai selectat mărci de culori care sunt disponibile numai pentru membrii Patreon plătiți. Alăturați-vă ArtistAssistApp pe Patreon ca membru plătit sau conectați-vă cu Patreon dacă v-ați înscris deja."
 
-#: src/components/ImageBackgroundRemoval.tsx:180
+#: src/components/ImageBackgroundRemoval.tsx:181
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Ați selectat modul care este disponibil numai pentru membrii Patreon plătiți"
 

@@ -196,8 +196,8 @@ msgid "Average color of the white point area"
 msgstr "Average color of the white point area"
 
 #: src/components/ColorMixer.tsx:186
-#: src/components/ImageBackgroundRemoval.tsx:139
-#: src/components/ImageBackgroundRemoval.tsx:211
+#: src/components/ImageBackgroundRemoval.tsx:140
+#: src/components/ImageBackgroundRemoval.tsx:212
 #: src/components/ImageColorPicker.tsx:241
 msgid "Background"
 msgstr "Background"
@@ -305,6 +305,14 @@ msgstr "Contact"
 msgid "Controls the radius of the median filter."
 msgstr "Controls the radius of the median filter."
 
+#: src/components/color/WarmthIcon.tsx:42
+#~ msgid "Cool"
+#~ msgstr "Cool"
+
+#: src/components/color/WarmthIcon.tsx:42
+msgid "Cool — Algorithmic estimate; artistic perception may vary."
+msgstr "Cool — Algorithmic estimate; artistic perception may vary."
+
 #: src/components/share/ShareModal.tsx:87
 msgid "Copy"
 msgstr "Copy"
@@ -404,7 +412,7 @@ msgstr "Error while fetching color brand data"
 msgid "Error while fetching color data"
 msgstr "Error while fetching color data"
 
-#: src/components/ImageBackgroundRemoval.tsx:91
+#: src/components/ImageBackgroundRemoval.tsx:92
 #: src/components/ImageOutline.tsx:104
 #: src/components/ImageStyleTransfer.tsx:88
 msgid "Error while fetching ML model data"
@@ -479,7 +487,7 @@ msgstr "If you are having trouble logging in, please read this <0>guide</0>."
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "If you don't save, changes to the color set may be lost."
 
-#: src/components/ImageBackgroundRemoval.tsx:268
+#: src/components/ImageBackgroundRemoval.tsx:275
 msgid "Image without background"
 msgstr "Image without background"
 
@@ -607,7 +615,7 @@ msgid "Mixture"
 msgstr "Mixture"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:102
-#: src/components/ImageBackgroundRemoval.tsx:198
+#: src/components/ImageBackgroundRemoval.tsx:199
 #: src/components/ImageOutline.tsx:221
 msgid "Mode"
 msgstr "Mode"
@@ -625,6 +633,14 @@ msgstr "Name a brand"
 #: src/components/ColorSetChooser.tsx:574
 msgid "Name a color set"
 msgstr "Name a color set"
+
+#: src/components/color/WarmthIcon.tsx:46
+#~ msgid "Neutral"
+#~ msgstr "Neutral"
+
+#: src/components/color/WarmthIcon.tsx:46
+msgid "Neutral — Algorithmic estimate; artistic perception may vary."
+msgstr "Neutral — Algorithmic estimate; artistic perception may vary."
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:36
 msgid "New brand"
@@ -681,7 +697,7 @@ msgstr "Oil Pastel"
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Only a limited number of color brands are available in the free version"
 
-#: src/components/ImageBackgroundRemoval.tsx:186
+#: src/components/ImageBackgroundRemoval.tsx:187
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Only a limited number of modes are available in the free version"
 
@@ -689,7 +705,7 @@ msgstr "Only a limited number of modes are available in the free version"
 msgid "Only a limited number of styles are available in the free version"
 msgstr "Only a limited number of styles are available in the free version"
 
-#: src/components/color/OpacityIcon.tsx:103
+#: src/components/color/OpacityIcon.tsx:51
 msgid "Opaque"
 msgstr "Opaque"
 
@@ -718,7 +734,7 @@ msgstr "Or select from your recent photos"
 msgid "Original color temperature (K)"
 msgstr "Original color temperature (K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:261
+#: src/components/ImageBackgroundRemoval.tsx:268
 msgid "Original photo"
 msgstr "Original photo"
 
@@ -953,8 +969,8 @@ msgid "Saturation (%)"
 msgstr "Saturation (%)"
 
 #: src/components/CustomColorBrandCreator.tsx:364
-#: src/components/ImageBackgroundRemoval.tsx:149
-#: src/components/ImageBackgroundRemoval.tsx:226
+#: src/components/ImageBackgroundRemoval.tsx:150
+#: src/components/ImageBackgroundRemoval.tsx:233
 #: src/components/ImageBlurred.tsx:116
 #: src/components/ImageBlurred.tsx:162
 #: src/components/ImageColorAdjustment.tsx:365
@@ -1013,7 +1029,7 @@ msgstr "Select a photo to adjust white balance and colors"
 msgid "Select a photo to correct the perspective"
 msgstr "Select a photo to correct the perspective"
 
-#: src/components/ImageBackgroundRemoval.tsx:172
+#: src/components/ImageBackgroundRemoval.tsx:173
 msgid "Select a photo to remove the background from"
 msgstr "Select a photo to remove the background from"
 
@@ -1050,7 +1066,7 @@ msgid "Select color"
 msgstr "Select color"
 
 #: src/components/color-set/ColorCascader.tsx:91
-#: src/components/color-set/ColorSelect.tsx:68
+#: src/components/color-set/ColorSelect.tsx:70
 msgid "Select colors"
 msgstr "Select colors"
 
@@ -1082,7 +1098,7 @@ msgstr "Select language"
 msgid "Select part"
 msgstr "Select part"
 
-#: src/components/ImageBackgroundRemoval.tsx:194
+#: src/components/ImageBackgroundRemoval.tsx:195
 #: src/components/ImageChooser.tsx:75
 #: src/components/ImageColorAdjustment.tsx:355
 #: src/components/ImagePerspectiveCorrection.tsx:236
@@ -1110,11 +1126,11 @@ msgstr "Select style image"
 msgid "Select your art medium, color brands and colors you will paint with and press the <0>Save & proceed</0> button."
 msgstr "Select your art medium, color brands and colors you will paint with and press the <0>Save & proceed</0> button."
 
-#: src/components/color/OpacityIcon.tsx:85
+#: src/components/color/OpacityIcon.tsx:47
 msgid "Semi-opaque"
 msgstr "Semi-opaque"
 
-#: src/components/color/OpacityIcon.tsx:67
+#: src/components/color/OpacityIcon.tsx:43
 msgid "Semi-transparent"
 msgstr "Semi-transparent"
 
@@ -1335,7 +1351,7 @@ msgstr "To use the {tabLabel} feature, select colors to paint with."
 msgid "Tonal values"
 msgstr "Tonal values"
 
-#: src/components/color/OpacityIcon.tsx:49
+#: src/components/color/OpacityIcon.tsx:39
 msgid "Transparent"
 msgstr "Transparent"
 
@@ -1378,6 +1394,14 @@ msgstr "Used"
 msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 msgstr "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 
+#: src/components/color/WarmthIcon.tsx:38
+#~ msgid "Warm"
+#~ msgstr "Warm"
+
+#: src/components/color/WarmthIcon.tsx:38
+msgid "Warm — Algorithmic estimate; artistic perception may vary."
+msgstr "Warm — Algorithmic estimate; artistic perception may vary."
+
 #: src/components/color/ConsistencyDescription.tsx:83
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "Watercolor can be diluted with water to make it more transparent."
@@ -1398,6 +1422,7 @@ msgstr "When selecting more than {maxColorsFor2} colors in total, mixtures of tw
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 
+#: src/components/ImageBackgroundRemoval.tsx:216
 #: src/components/ImageColorAdjustment.tsx:447
 #: src/components/ImageColorPicker.tsx:268
 msgid "White"
@@ -1454,7 +1479,7 @@ msgstr "You've selected color brands that are available to paid Patreon members 
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 
-#: src/components/ImageBackgroundRemoval.tsx:180
+#: src/components/ImageBackgroundRemoval.tsx:181
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "You've selected mode that is available to paid Patreon members only"
 

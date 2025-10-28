@@ -196,8 +196,8 @@ msgid "Average color of the white point area"
 msgstr "Beyaz nokta alanının ortalama rengi"
 
 #: src/components/ColorMixer.tsx:186
-#: src/components/ImageBackgroundRemoval.tsx:139
-#: src/components/ImageBackgroundRemoval.tsx:211
+#: src/components/ImageBackgroundRemoval.tsx:140
+#: src/components/ImageBackgroundRemoval.tsx:212
 #: src/components/ImageColorPicker.tsx:241
 msgid "Background"
 msgstr "Arka plan"
@@ -305,6 +305,14 @@ msgstr "Temas"
 msgid "Controls the radius of the median filter."
 msgstr "Medyan filtrenin yarıçapını kontrol eder."
 
+#: src/components/color/WarmthIcon.tsx:42
+#~ msgid "Cool"
+#~ msgstr "Serin"
+
+#: src/components/color/WarmthIcon.tsx:42
+msgid "Cool — Algorithmic estimate; artistic perception may vary."
+msgstr "Cool — Algoritmik tahmin; sanatsal algı değişebilir."
+
 #: src/components/share/ShareModal.tsx:87
 msgid "Copy"
 msgstr "Kopya etmek"
@@ -404,7 +412,7 @@ msgstr "Renk marka verileri getirilirken hata oluştu"
 msgid "Error while fetching color data"
 msgstr "Renk verileri getirilirken hata oluştu"
 
-#: src/components/ImageBackgroundRemoval.tsx:91
+#: src/components/ImageBackgroundRemoval.tsx:92
 #: src/components/ImageOutline.tsx:104
 #: src/components/ImageStyleTransfer.tsx:88
 msgid "Error while fetching ML model data"
@@ -479,7 +487,7 @@ msgstr "Giriş yapmakta sorun yaşıyorsanız, lütfen bu <0>kılavuzu</0> okuyu
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Kaydetmezseniz, renk kümesinde yapılan değişiklikler kaybolabilir."
 
-#: src/components/ImageBackgroundRemoval.tsx:268
+#: src/components/ImageBackgroundRemoval.tsx:275
 msgid "Image without background"
 msgstr "Arka planı olmayan görüntü"
 
@@ -607,7 +615,7 @@ msgid "Mixture"
 msgstr "Karışım"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:102
-#: src/components/ImageBackgroundRemoval.tsx:198
+#: src/components/ImageBackgroundRemoval.tsx:199
 #: src/components/ImageOutline.tsx:221
 msgid "Mode"
 msgstr "Mod"
@@ -625,6 +633,14 @@ msgstr "Bir markaya isim verin"
 #: src/components/ColorSetChooser.tsx:574
 msgid "Name a color set"
 msgstr "Renk kümesini adlandırma"
+
+#: src/components/color/WarmthIcon.tsx:46
+#~ msgid "Neutral"
+#~ msgstr "Nötr"
+
+#: src/components/color/WarmthIcon.tsx:46
+msgid "Neutral — Algorithmic estimate; artistic perception may vary."
+msgstr "Nötr — Algoritmik tahmin; sanatsal algı değişebilir."
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:36
 msgid "New brand"
@@ -681,7 +697,7 @@ msgstr "Yağlı Pastel"
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Ücretsiz sürümde yalnızca sınırlı sayıda renk markası mevcuttur"
 
-#: src/components/ImageBackgroundRemoval.tsx:186
+#: src/components/ImageBackgroundRemoval.tsx:187
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Ücretsiz sürümde yalnızca sınırlı sayıda mod mevcuttur"
 
@@ -689,7 +705,7 @@ msgstr "Ücretsiz sürümde yalnızca sınırlı sayıda mod mevcuttur"
 msgid "Only a limited number of styles are available in the free version"
 msgstr "Ücretsiz sürümde yalnızca sınırlı sayıda stil mevcuttur"
 
-#: src/components/color/OpacityIcon.tsx:103
+#: src/components/color/OpacityIcon.tsx:51
 msgid "Opaque"
 msgstr "Donuk"
 
@@ -718,7 +734,7 @@ msgstr "Veya en son fotoğraflarınız arasından seçim yapın"
 msgid "Original color temperature (K)"
 msgstr "Orijinal renk sıcaklığı (K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:261
+#: src/components/ImageBackgroundRemoval.tsx:268
 msgid "Original photo"
 msgstr "Orijinal fotoğraf"
 
@@ -953,8 +969,8 @@ msgid "Saturation (%)"
 msgstr "Doygunluk (%)"
 
 #: src/components/CustomColorBrandCreator.tsx:364
-#: src/components/ImageBackgroundRemoval.tsx:149
-#: src/components/ImageBackgroundRemoval.tsx:226
+#: src/components/ImageBackgroundRemoval.tsx:150
+#: src/components/ImageBackgroundRemoval.tsx:233
 #: src/components/ImageBlurred.tsx:116
 #: src/components/ImageBlurred.tsx:162
 #: src/components/ImageColorAdjustment.tsx:365
@@ -1013,7 +1029,7 @@ msgstr "Beyaz dengesini ve renkleri ayarlamak için bir fotoğraf seçin"
 msgid "Select a photo to correct the perspective"
 msgstr "Perspektifi düzeltmek için bir fotoğraf seçin"
 
-#: src/components/ImageBackgroundRemoval.tsx:172
+#: src/components/ImageBackgroundRemoval.tsx:173
 msgid "Select a photo to remove the background from"
 msgstr "Arka planı kaldırmak için bir fotoğraf seçin"
 
@@ -1050,7 +1066,7 @@ msgid "Select color"
 msgstr "Renk seç"
 
 #: src/components/color-set/ColorCascader.tsx:91
-#: src/components/color-set/ColorSelect.tsx:68
+#: src/components/color-set/ColorSelect.tsx:70
 msgid "Select colors"
 msgstr "Renkleri seçin"
 
@@ -1082,7 +1098,7 @@ msgstr "Dil seçin"
 msgid "Select part"
 msgstr "Parça seç"
 
-#: src/components/ImageBackgroundRemoval.tsx:194
+#: src/components/ImageBackgroundRemoval.tsx:195
 #: src/components/ImageChooser.tsx:75
 #: src/components/ImageColorAdjustment.tsx:355
 #: src/components/ImagePerspectiveCorrection.tsx:236
@@ -1110,11 +1126,11 @@ msgstr "Stil görüntüsü seç"
 msgid "Select your art medium, color brands and colors you will paint with and press the <0>Save & proceed</0> button."
 msgstr "Sanat ortamınızı, renk markalarınızı ve boyayacağınız renkleri seçin ve <0>Kaydet ve devam</0> et düğmesine basın."
 
-#: src/components/color/OpacityIcon.tsx:85
+#: src/components/color/OpacityIcon.tsx:47
 msgid "Semi-opaque"
 msgstr "Yarı opak"
 
-#: src/components/color/OpacityIcon.tsx:67
+#: src/components/color/OpacityIcon.tsx:43
 msgid "Semi-transparent"
 msgstr "Yarı saydam"
 
@@ -1335,7 +1351,7 @@ msgstr "{tabLabel} özelliğini kullanmak için, boyamak için kullanılacak ren
 msgid "Tonal values"
 msgstr "Ton değerleri"
 
-#: src/components/color/OpacityIcon.tsx:49
+#: src/components/color/OpacityIcon.tsx:39
 msgid "Transparent"
 msgstr "Saydam"
 
@@ -1378,6 +1394,14 @@ msgstr "Kullanılmış"
 msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 msgstr "Sınırlı bir palet kullanmak, renk uyumunun sağlanmasına yardımcı olur. Ana renkleriniz olmak için en fazla {MAX_COLORS} renk seçin."
 
+#: src/components/color/WarmthIcon.tsx:38
+#~ msgid "Warm"
+#~ msgstr "Sıcak"
+
+#: src/components/color/WarmthIcon.tsx:38
+msgid "Warm — Algorithmic estimate; artistic perception may vary."
+msgstr "Sıcak — Algoritmik tahmin; sanatsal algı değişebilir."
+
 #: src/components/color/ConsistencyDescription.tsx:83
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "Suluboya, daha şeffaf hale getirmek için su ile seyreltilebilir."
@@ -1398,6 +1422,7 @@ msgstr "Toplamda {maxColorsFor2}'den fazla renk seçerken, iki rengin karışım
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Toplamda {maxColorsFor3}'ten fazla renk seçerken, üç rengin karışımları kullanılmaz."
 
+#: src/components/ImageBackgroundRemoval.tsx:216
 #: src/components/ImageColorAdjustment.tsx:447
 #: src/components/ImageColorPicker.tsx:268
 msgid "White"
@@ -1454,7 +1479,7 @@ msgstr "Yalnızca ödeme yapan Patreon üyelerine açık olan renk markalarını
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Yalnızca ücretli Patreon üyelerine açık olan renk markalarını seçtiniz. Patreon'da ArtistAssistApp'e ücretli üye olarak katılın veya zaten katıldıysanız, Patreon ile oturum açın."
 
-#: src/components/ImageBackgroundRemoval.tsx:180
+#: src/components/ImageBackgroundRemoval.tsx:181
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Yalnızca ücretli Patreon üyelerine açık olan modu seçtiniz"
 

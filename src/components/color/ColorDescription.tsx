@@ -19,6 +19,7 @@
 import {Space, Tooltip, Typography} from 'antd';
 
 import {OpacityIcon} from '~/src/components/color/OpacityIcon';
+import {WarmthIcon} from '~/src/components/color/WarmthIcon';
 import {useColorBrands} from '~/src/hooks/useColorBrands';
 import {formatColorLabel} from '~/src/services/color/colors';
 import type {Color, ColorBrandDefinition, ColorType} from '~/src/services/color/types';
@@ -34,7 +35,7 @@ interface Props {
 export const ColorDescription: React.FC<Props> = ({colorType, color, text}: Props) => {
   const {brands} = useColorBrands(colorType);
 
-  const {brand: brandId, rgb, opacity} = color;
+  const {brand: brandId, rgb, opacity, warmth} = color;
   const brand: ColorBrandDefinition | undefined = brands?.get(brandId);
 
   if (!brand) {
@@ -53,6 +54,7 @@ export const ColorDescription: React.FC<Props> = ({colorType, color, text}: Prop
         <Space align="center">
           <Typography.Text strong>{formatColorLabel(color, brand)}</Typography.Text>
           <OpacityIcon opacity={opacity} />
+          <WarmthIcon warmth={warmth} />
         </Space>
       </span>
     </Space>

@@ -23,6 +23,7 @@ import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 
 import {ColorSquare} from '~/src/components/color/ColorSquare';
 import {OpacityIcon} from '~/src/components/color/OpacityIcon';
+import {WarmthIcon} from '~/src/components/color/WarmthIcon';
 import {filterSelectOptions} from '~/src/components/utils';
 import {formatColorLabel} from '~/src/services/color/colors';
 import type {ColorBrandDefinition, ColorDefinition} from '~/src/services/color/types';
@@ -35,7 +36,7 @@ function getColorOptions(
     return [];
   }
   return [...colors.values()].map((color: ColorDefinition) => {
-    const {hex, opacity} = color;
+    const {hex, opacity, warmth} = color;
     const label: string = formatColorLabel(color, brand);
     return {
       value: color.id,
@@ -44,6 +45,7 @@ function getColorOptions(
           <ColorSquare color={hex} />
           <Typography.Text>{label}</Typography.Text>
           <OpacityIcon opacity={opacity} />
+          <WarmthIcon warmth={warmth} />
         </Flex>
       ),
     };

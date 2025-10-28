@@ -196,8 +196,8 @@ msgid "Average color of the white point area"
 msgstr "白点領域の平均色"
 
 #: src/components/ColorMixer.tsx:186
-#: src/components/ImageBackgroundRemoval.tsx:139
-#: src/components/ImageBackgroundRemoval.tsx:211
+#: src/components/ImageBackgroundRemoval.tsx:140
+#: src/components/ImageBackgroundRemoval.tsx:212
 #: src/components/ImageColorPicker.tsx:241
 msgid "Background"
 msgstr "バックグラウンド"
@@ -305,6 +305,14 @@ msgstr "接触"
 msgid "Controls the radius of the median filter."
 msgstr "中央値フィルタの半径を制御します。"
 
+#: src/components/color/WarmthIcon.tsx:42
+#~ msgid "Cool"
+#~ msgstr "涼しい"
+
+#: src/components/color/WarmthIcon.tsx:42
+msgid "Cool — Algorithmic estimate; artistic perception may vary."
+msgstr "クール — アルゴリズムによる推定。芸術的な認識は異なる場合があります。"
+
 #: src/components/share/ShareModal.tsx:87
 msgid "Copy"
 msgstr "写し"
@@ -404,7 +412,7 @@ msgstr "カラーブランドデータの取得中にエラーが発生しまし
 msgid "Error while fetching color data"
 msgstr "カラーデータの取得中にエラーが発生しました"
 
-#: src/components/ImageBackgroundRemoval.tsx:91
+#: src/components/ImageBackgroundRemoval.tsx:92
 #: src/components/ImageOutline.tsx:104
 #: src/components/ImageStyleTransfer.tsx:88
 msgid "Error while fetching ML model data"
@@ -479,7 +487,7 @@ msgstr "ログインに問題がある場合は、この <0>ガイド</0>をお�
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "保存しないと、カラーセットの変更が失われる可能性があります。"
 
-#: src/components/ImageBackgroundRemoval.tsx:268
+#: src/components/ImageBackgroundRemoval.tsx:275
 msgid "Image without background"
 msgstr "背景のない画像"
 
@@ -607,7 +615,7 @@ msgid "Mixture"
 msgstr "混交"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:102
-#: src/components/ImageBackgroundRemoval.tsx:198
+#: src/components/ImageBackgroundRemoval.tsx:199
 #: src/components/ImageOutline.tsx:221
 msgid "Mode"
 msgstr "モード"
@@ -625,6 +633,14 @@ msgstr "ブランドに名前を付ける"
 #: src/components/ColorSetChooser.tsx:574
 msgid "Name a color set"
 msgstr "カラーセットに名前を付ける"
+
+#: src/components/color/WarmthIcon.tsx:46
+#~ msgid "Neutral"
+#~ msgstr "ニュートラル"
+
+#: src/components/color/WarmthIcon.tsx:46
+msgid "Neutral — Algorithmic estimate; artistic perception may vary."
+msgstr "中立 — アルゴリズムによる推定。芸術的な認識は異なる場合があります。"
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:36
 msgid "New brand"
@@ -681,7 +697,7 @@ msgstr "オイルパステル"
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "無料版では、限られた数のカラーブランドしか利用できません"
 
-#: src/components/ImageBackgroundRemoval.tsx:186
+#: src/components/ImageBackgroundRemoval.tsx:187
 msgid "Only a limited number of modes are available in the free version"
 msgstr "無料版で利用できるモードは限られています"
 
@@ -689,7 +705,7 @@ msgstr "無料版で利用できるモードは限られています"
 msgid "Only a limited number of styles are available in the free version"
 msgstr "無料版で利用できるスタイルは限られています"
 
-#: src/components/color/OpacityIcon.tsx:103
+#: src/components/color/OpacityIcon.tsx:51
 msgid "Opaque"
 msgstr "オペーク"
 
@@ -718,7 +734,7 @@ msgstr "または、最近の写真から選択します"
 msgid "Original color temperature (K)"
 msgstr "オリジナル色温度(K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:261
+#: src/components/ImageBackgroundRemoval.tsx:268
 msgid "Original photo"
 msgstr "元の写真"
 
@@ -953,8 +969,8 @@ msgid "Saturation (%)"
 msgstr "彩度(%)"
 
 #: src/components/CustomColorBrandCreator.tsx:364
-#: src/components/ImageBackgroundRemoval.tsx:149
-#: src/components/ImageBackgroundRemoval.tsx:226
+#: src/components/ImageBackgroundRemoval.tsx:150
+#: src/components/ImageBackgroundRemoval.tsx:233
 #: src/components/ImageBlurred.tsx:116
 #: src/components/ImageBlurred.tsx:162
 #: src/components/ImageColorAdjustment.tsx:365
@@ -1013,7 +1029,7 @@ msgstr "写真を選択してホワイトバランスと色を調整します"
 msgid "Select a photo to correct the perspective"
 msgstr "遠近法を補正する写真を選択します"
 
-#: src/components/ImageBackgroundRemoval.tsx:172
+#: src/components/ImageBackgroundRemoval.tsx:173
 msgid "Select a photo to remove the background from"
 msgstr "背景を削除する写真を選択します"
 
@@ -1050,7 +1066,7 @@ msgid "Select color"
 msgstr "色を選択"
 
 #: src/components/color-set/ColorCascader.tsx:91
-#: src/components/color-set/ColorSelect.tsx:68
+#: src/components/color-set/ColorSelect.tsx:70
 msgid "Select colors"
 msgstr "色を選択"
 
@@ -1082,7 +1098,7 @@ msgstr "言語の選択"
 msgid "Select part"
 msgstr "パーツを選択"
 
-#: src/components/ImageBackgroundRemoval.tsx:194
+#: src/components/ImageBackgroundRemoval.tsx:195
 #: src/components/ImageChooser.tsx:75
 #: src/components/ImageColorAdjustment.tsx:355
 #: src/components/ImagePerspectiveCorrection.tsx:236
@@ -1110,11 +1126,11 @@ msgstr "スタイル画像を選択"
 msgid "Select your art medium, color brands and colors you will paint with and press the <0>Save & proceed</0> button."
 msgstr "ペイントするアートメディア、カラーブランド、カラーを選択し、 <0>Save & proceed</0> ボタンを押してください。"
 
-#: src/components/color/OpacityIcon.tsx:85
+#: src/components/color/OpacityIcon.tsx:47
 msgid "Semi-opaque"
 msgstr "半透明"
 
-#: src/components/color/OpacityIcon.tsx:67
+#: src/components/color/OpacityIcon.tsx:43
 msgid "Semi-transparent"
 msgstr "半透明"
 
@@ -1335,7 +1351,7 @@ msgstr "{tabLabel} 機能を使用するには、ペイントする色を選択�
 msgid "Tonal values"
 msgstr "色調値"
 
-#: src/components/color/OpacityIcon.tsx:49
+#: src/components/color/OpacityIcon.tsx:39
 msgid "Transparent"
 msgstr "透明"
 
@@ -1378,6 +1394,14 @@ msgstr "中古"
 msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 msgstr "限られたパレットを使用することで、色の調和を実現できます。最大 {MAX_COLORS} 色を原色として選択します。"
 
+#: src/components/color/WarmthIcon.tsx:38
+#~ msgid "Warm"
+#~ msgstr "暖かい"
+
+#: src/components/color/WarmthIcon.tsx:38
+msgid "Warm — Algorithmic estimate; artistic perception may vary."
+msgstr "Warm — アルゴリズムによる推定。芸術的な認識は異なる場合があります。"
+
 #: src/components/color/ConsistencyDescription.tsx:83
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "水彩絵の具は水で薄めると透明感が増します。"
@@ -1398,6 +1422,7 @@ msgstr "合計で {maxColorsFor2} を超える色を選択した場合、2 つ�
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "合計で {maxColorsFor3} を超える色を選択した場合、3 つの色の混合は使用されません。"
 
+#: src/components/ImageBackgroundRemoval.tsx:216
 #: src/components/ImageColorAdjustment.tsx:447
 #: src/components/ImageColorPicker.tsx:268
 msgid "White"
@@ -1454,7 +1479,7 @@ msgstr "有料のPatreonメンバーのみが利用できるカラーブラン�
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "有料のPatreonメンバーのみが利用できるカラーブランドを選択しました。PatreonのArtistAssistAppに有料会員として参加するか、すでに参加している場合はPatreonでログインします。"
 
-#: src/components/ImageBackgroundRemoval.tsx:180
+#: src/components/ImageBackgroundRemoval.tsx:181
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "有料のPatreonメンバーのみが利用できるモードを選択しました"
 

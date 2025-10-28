@@ -196,8 +196,8 @@ msgid "Average color of the white point area"
 msgstr "화이트 포인트 영역의 평균 색상"
 
 #: src/components/ColorMixer.tsx:186
-#: src/components/ImageBackgroundRemoval.tsx:139
-#: src/components/ImageBackgroundRemoval.tsx:211
+#: src/components/ImageBackgroundRemoval.tsx:140
+#: src/components/ImageBackgroundRemoval.tsx:212
 #: src/components/ImageColorPicker.tsx:241
 msgid "Background"
 msgstr "배경"
@@ -305,6 +305,14 @@ msgstr "접촉"
 msgid "Controls the radius of the median filter."
 msgstr "중앙분리대 필터의 반지름을 제어합니다."
 
+#: src/components/color/WarmthIcon.tsx:42
+#~ msgid "Cool"
+#~ msgstr "시원하다"
+
+#: src/components/color/WarmthIcon.tsx:42
+msgid "Cool — Algorithmic estimate; artistic perception may vary."
+msgstr "Cool — 알고리즘 추정치; 예술적 인식은 다를 수 있습니다."
+
 #: src/components/share/ShareModal.tsx:87
 msgid "Copy"
 msgstr "복사"
@@ -404,7 +412,7 @@ msgstr "색상 브랜드 데이터를 가져오는 중 오류 발생"
 msgid "Error while fetching color data"
 msgstr "색상 데이터를 가져오는 중 오류 발생"
 
-#: src/components/ImageBackgroundRemoval.tsx:91
+#: src/components/ImageBackgroundRemoval.tsx:92
 #: src/components/ImageOutline.tsx:104
 #: src/components/ImageStyleTransfer.tsx:88
 msgid "Error while fetching ML model data"
@@ -479,7 +487,7 @@ msgstr "로그인하는 데 문제가 있는 경우 이 <0>가이드를</0> 읽�
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "저장하지 않으면 색상 세트에 대한 변경 사항이 손실될 수 있습니다."
 
-#: src/components/ImageBackgroundRemoval.tsx:268
+#: src/components/ImageBackgroundRemoval.tsx:275
 msgid "Image without background"
 msgstr "배경이 없는 이미지"
 
@@ -607,7 +615,7 @@ msgid "Mixture"
 msgstr "혼합"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:102
-#: src/components/ImageBackgroundRemoval.tsx:198
+#: src/components/ImageBackgroundRemoval.tsx:199
 #: src/components/ImageOutline.tsx:221
 msgid "Mode"
 msgstr "모드"
@@ -625,6 +633,14 @@ msgstr "브랜드 이름 지정"
 #: src/components/ColorSetChooser.tsx:574
 msgid "Name a color set"
 msgstr "색상 세트 이름 지정"
+
+#: src/components/color/WarmthIcon.tsx:46
+#~ msgid "Neutral"
+#~ msgstr "중립의"
+
+#: src/components/color/WarmthIcon.tsx:46
+msgid "Neutral — Algorithmic estimate; artistic perception may vary."
+msgstr "중립 — 알고리즘 추정치; 예술적 인식은 다를 수 있습니다."
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:36
 msgid "New brand"
@@ -681,7 +697,7 @@ msgstr "오일 파스텔"
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "무료 버전에서는 제한된 수의 색상 브랜드만 사용할 수 있습니다"
 
-#: src/components/ImageBackgroundRemoval.tsx:186
+#: src/components/ImageBackgroundRemoval.tsx:187
 msgid "Only a limited number of modes are available in the free version"
 msgstr "무료 버전에서는 제한된 수의 모드만 사용할 수 있습니다"
 
@@ -689,7 +705,7 @@ msgstr "무료 버전에서는 제한된 수의 모드만 사용할 수 있습�
 msgid "Only a limited number of styles are available in the free version"
 msgstr "무료 버전에서는 제한된 수의 스타일만 사용할 수 있습니다"
 
-#: src/components/color/OpacityIcon.tsx:103
+#: src/components/color/OpacityIcon.tsx:51
 msgid "Opaque"
 msgstr "불투명한"
 
@@ -718,7 +734,7 @@ msgstr "또는 최근 사진에서 선택합니다."
 msgid "Original color temperature (K)"
 msgstr "원래 색온도(K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:261
+#: src/components/ImageBackgroundRemoval.tsx:268
 msgid "Original photo"
 msgstr "원본 사진"
 
@@ -953,8 +969,8 @@ msgid "Saturation (%)"
 msgstr "채도(%)"
 
 #: src/components/CustomColorBrandCreator.tsx:364
-#: src/components/ImageBackgroundRemoval.tsx:149
-#: src/components/ImageBackgroundRemoval.tsx:226
+#: src/components/ImageBackgroundRemoval.tsx:150
+#: src/components/ImageBackgroundRemoval.tsx:233
 #: src/components/ImageBlurred.tsx:116
 #: src/components/ImageBlurred.tsx:162
 #: src/components/ImageColorAdjustment.tsx:365
@@ -1013,7 +1029,7 @@ msgstr "화이트 밸런스와 색상을 조정할 사진을 선택합니다."
 msgid "Select a photo to correct the perspective"
 msgstr "원근을 교정할 사진을 선택합니다."
 
-#: src/components/ImageBackgroundRemoval.tsx:172
+#: src/components/ImageBackgroundRemoval.tsx:173
 msgid "Select a photo to remove the background from"
 msgstr "배경을 제거할 사진을 선택합니다."
 
@@ -1050,7 +1066,7 @@ msgid "Select color"
 msgstr "색상 선택"
 
 #: src/components/color-set/ColorCascader.tsx:91
-#: src/components/color-set/ColorSelect.tsx:68
+#: src/components/color-set/ColorSelect.tsx:70
 msgid "Select colors"
 msgstr "색상 선택"
 
@@ -1082,7 +1098,7 @@ msgstr "언어 선택"
 msgid "Select part"
 msgstr "파트 선택"
 
-#: src/components/ImageBackgroundRemoval.tsx:194
+#: src/components/ImageBackgroundRemoval.tsx:195
 #: src/components/ImageChooser.tsx:75
 #: src/components/ImageColorAdjustment.tsx:355
 #: src/components/ImagePerspectiveCorrection.tsx:236
@@ -1110,11 +1126,11 @@ msgstr "스타일 이미지 선택"
 msgid "Select your art medium, color brands and colors you will paint with and press the <0>Save & proceed</0> button."
 msgstr "당신의 예술 매체, 색상 브랜드, 그리고 페인팅할 색상을 선택하고 <0>Save & proceed</0> 버튼을 누르세요."
 
-#: src/components/color/OpacityIcon.tsx:85
+#: src/components/color/OpacityIcon.tsx:47
 msgid "Semi-opaque"
 msgstr "반투명"
 
-#: src/components/color/OpacityIcon.tsx:67
+#: src/components/color/OpacityIcon.tsx:43
 msgid "Semi-transparent"
 msgstr "반투명"
 
@@ -1335,7 +1351,7 @@ msgstr "{tabLabel} 기능을 사용하려면 페인팅할 색상을 선택합니
 msgid "Tonal values"
 msgstr "색조 값"
 
-#: src/components/color/OpacityIcon.tsx:49
+#: src/components/color/OpacityIcon.tsx:39
 msgid "Transparent"
 msgstr "투명한"
 
@@ -1378,6 +1394,14 @@ msgstr "사용"
 msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 msgstr "제한된 팔레트를 사용하면 색상 조화를 이루는 데 도움이 됩니다. 최대 {MAX_COLORS}개의 색상을 주 색상으로 선택합니다."
 
+#: src/components/color/WarmthIcon.tsx:38
+#~ msgid "Warm"
+#~ msgstr "따뜻하다"
+
+#: src/components/color/WarmthIcon.tsx:38
+msgid "Warm — Algorithmic estimate; artistic perception may vary."
+msgstr "Warm — 알고리즘 추정치; 예술적 인식은 다를 수 있습니다."
+
 #: src/components/color/ConsistencyDescription.tsx:83
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "수채화는 물로 희석하여 더 투명하게 만들 수 있습니다."
@@ -1398,6 +1422,7 @@ msgstr "총 {maxColorsFor2}개 이상의 색상을 선택하는 경우 두 색�
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "총 {maxColorsFor3}개 이상의 색상을 선택하는 경우 세 가지 색상의 혼합은 사용되지 않습니다."
 
+#: src/components/ImageBackgroundRemoval.tsx:216
 #: src/components/ImageColorAdjustment.tsx:447
 #: src/components/ImageColorPicker.tsx:268
 msgid "White"
@@ -1454,7 +1479,7 @@ msgstr "Patreon 유료 회원만 사용할 수 있는 색상 브랜드를 선택
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Patreon 유료 회원만 사용할 수 있는 색상 브랜드를 선택했습니다. Patreon의 ArtistAssistApp에 유료 회원으로 가입하거나 이미 가입한 경우 Patreon으로 로그인하세요."
 
-#: src/components/ImageBackgroundRemoval.tsx:180
+#: src/components/ImageBackgroundRemoval.tsx:181
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Patreon 유료 회원만 사용할 수 있는 모드를 선택했습니다."
 
