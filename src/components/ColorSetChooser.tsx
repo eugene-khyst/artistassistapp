@@ -60,7 +60,7 @@ import {useColorBrands} from '~/src/hooks/useColorBrands';
 import {useColors} from '~/src/hooks/useColors';
 import {useStandardColorSets} from '~/src/hooks/useStandardColorSets';
 import {hasAccessTo} from '~/src/services/auth/utils';
-import {MAX_COLORS_IN_MIXTURE} from '~/src/services/color/color-mixer';
+import {COLOR_MIXING, MAX_COLORS_IN_MIXTURE} from '~/src/services/color/color-mixer';
 import {compareByDate} from '~/src/services/color/colors';
 import {
   type ColorBrandDefinition,
@@ -82,6 +82,9 @@ import {StandardColorSetCascader} from './color-set/StandardColorSetCascader';
 import {ShareModal} from './share/ShareModal';
 
 const FIELD = '${label}';
+
+const maxColorsFor2: number = MAX_COLORS_IN_MIXTURE[2];
+const maxColorsFor3: number = MAX_COLORS_IN_MIXTURE[3];
 
 const formInitialValues: ColorSetDefinition = {
   id: NEW_COLOR_SET,
@@ -405,8 +408,9 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
     setIsShareModalOpen(true);
   };
 
-  const maxColorsFor2: number = MAX_COLORS_IN_MIXTURE[2];
-  const maxColorsFor3: number = MAX_COLORS_IN_MIXTURE[2];
+  const shouldShowMixtureWarnings: boolean = selectedType
+    ? COLOR_MIXING[selectedType].mixing
+    : false;
 
   return (
     <>
@@ -661,7 +665,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
                       </Trans>
                     </Typography.Text>
                   )}
-                  {selectedColorsCount > maxColorsFor2 && (
+                  {shouldShowMixtureWarnings && selectedColorsCount > maxColorsFor2 && (
                     <Typography.Text type="secondary">
                       <Trans>
                         When selecting more than {maxColorsFor2} colors in total, mixtures of two
@@ -669,7 +673,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
                       </Trans>
                     </Typography.Text>
                   )}
-                  {selectedColorsCount > maxColorsFor3 && (
+                  {shouldShowMixtureWarnings && selectedColorsCount > maxColorsFor3 && (
                     <Typography.Text type="secondary">
                       <Trans>
                         When selecting more than {maxColorsFor3} colors in total, mixtures of three

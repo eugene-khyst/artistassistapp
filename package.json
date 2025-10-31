@@ -15,7 +15,8 @@
     "format:write": "prettier . --write",
     "check": "tsc --noEmit",
     "test": "npm run check && npm run lint && npm run format",
-    "prepare": "husky"
+    "prepare": "husky",
+    "qwen:review": "git diff --cached | qwen --prompt 'You are an expert software engineer and code reviewer. Your task is to meticulously review the provided code changes and offer constructive feedback to improve code quality, maintainability, performance, and security. Please write explanations behind the feedback or suggestions or alternative approaches.'"
   },
   "dependencies": {
     "@ant-design/icons": "^5.6.1",
