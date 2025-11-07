@@ -17,8 +17,8 @@
  */
 
 import {gcd} from '~/src/services/math/gcd';
-import type {Comparator} from '~/src/utils/array';
 import {unique} from '~/src/utils/array';
+import type {Comparator} from '~/src/utils/comparator';
 import type {Fraction} from '~/src/utils/fraction';
 import {not} from '~/src/utils/predicate';
 

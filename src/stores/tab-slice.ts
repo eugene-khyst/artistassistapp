@@ -18,7 +18,7 @@
 
 import type {StateCreator} from 'zustand';
 
-import {saveAppSettings} from '~/src/services/db/app-settings-db';
+import type {InitSlice} from '~/src/stores/init-slice';
 import {TabKey} from '~/src/tabs';
 
 import type {BlurredImagesSlice} from './blurred-images-slice';
@@ -35,6 +35,7 @@ export interface TabSlice {
 
 export const createTabSlice: StateCreator<
   TabSlice &
+    InitSlice &
     TonalImagesSlice &
     BlurredImagesSlice &
     OutlineImageSlice &
@@ -47,7 +48,7 @@ export const createTabSlice: StateCreator<
   activeTabKey: TabKey.ColorSet,
 
   setActiveTabKey: async (activeTabKey: TabKey): Promise<void> => {
-    await saveAppSettings({activeTabKey});
+    await get().saveAppSettings({activeTabKey});
     set({activeTabKey});
     if (activeTabKey === TabKey.TonalValues) {
       void get().loadTonalImages();

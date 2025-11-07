@@ -19,18 +19,30 @@
 import type {StateCreator} from 'zustand';
 
 export interface StorageSlice {
+  storagePersisted: boolean;
   storageUsage: StorageEstimate | null;
 
   loadStorageUsage: () => Promise<void>;
 }
 
 export const createStorageSlice: StateCreator<StorageSlice, [], [], StorageSlice> = set => ({
+  storagePersisted: false,
   storageUsage: null,
 
   loadStorageUsage: async (): Promise<void> => {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (navigator.storage) {
-      set({storageUsage: await navigator.storage.estimate()});
+    if ('storage' in navigator) {
+      set({
+        ...('persisted' in navigator.storage
+          ? {
+              storagePersisted: await navigator.storage.persisted(),
+            }
+          : {}),
+        ...('estimate' in navigator.storage
+          ? {
+              storageUsage: await navigator.storage.estimate(),
+            }
+          : {}),
+      });
     }
   },
 });

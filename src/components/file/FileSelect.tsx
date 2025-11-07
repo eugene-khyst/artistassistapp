@@ -23,23 +23,24 @@ import type {BaseButtonProps} from 'antd/es/button/button';
 import type {MenuProps} from 'antd/lib';
 import type {PropsWithChildren} from 'react';
 import {useCallback} from 'react';
-import type {FileRejection} from 'react-dropzone';
+import type {Accept, FileRejection} from 'react-dropzone';
 import {useDropzone} from 'react-dropzone';
 
 import {useAppStore} from '~/src/stores/app-store';
 
 type Props = {
+  accept?: Accept;
   useReferencePhoto?: boolean;
   onChange: (files: File[]) => void;
 } & Pick<BaseButtonProps, 'type'> &
-  Pick<React.InputHTMLAttributes<HTMLInputElement>, 'accept' | 'multiple' | 'disabled'>;
+  Pick<React.InputHTMLAttributes<HTMLInputElement>, 'multiple' | 'disabled'>;
 
 export const FileSelect: React.FC<PropsWithChildren<Props>> = ({
   children,
   useReferencePhoto = false,
   onChange,
   type = 'primary',
-  accept = 'image/*',
+  accept = {'image/*': []},
   disabled,
   multiple,
 }: PropsWithChildren<Props>) => {
@@ -74,9 +75,7 @@ export const FileSelect: React.FC<PropsWithChildren<Props>> = ({
 
   const {getRootProps, getInputProps, inputRef, isDragActive} = useDropzone({
     noClick: true,
-    accept: {
-      [accept]: [],
-    },
+    accept,
     multiple,
     onDrop,
   });

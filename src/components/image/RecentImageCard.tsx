@@ -44,7 +44,7 @@ export const RecentImageCard: React.FC<Props> = ({imageFile}: Props) => {
   const dateText: string = dayjs(date).format(DATE_TIME_FORMAT);
 
   const handleCardClick = () => {
-    void saveRecentImageFile({...imageFile});
+    void saveRecentImageFile(imageFile);
   };
 
   const handleDeleteButtonClick = () => {

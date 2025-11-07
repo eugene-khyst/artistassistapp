@@ -51,8 +51,9 @@ import {JoinButton} from '~/src/components/auth/JoinButton';
 import {LoginButton} from '~/src/components/auth/LoginButton';
 import {LogoutButton} from '~/src/components/auth/LogoutButton';
 import {ColorSetSelect} from '~/src/components/color-set/ColorSetSelect';
+import {FileSelect} from '~/src/components/file/FileSelect';
 import {LocaleSelect} from '~/src/components/i18n/LocaleSelect';
-import {PERSISTENT_STORAGE_WARN} from '~/src/components/messages';
+import {COLOR_SETS_BACKUP_NOTIFICATION, PERSISTENT_STORAGE_WARN} from '~/src/components/messages';
 import {QRCode} from '~/src/components/qr/QRCode';
 import {QRScannerModal} from '~/src/components/qr/QRScannerModal';
 import type {ChangableComponent} from '~/src/components/types';
@@ -61,18 +62,17 @@ import {useColors} from '~/src/hooks/useColors';
 import {useStandardColorSets} from '~/src/hooks/useStandardColorSets';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {COLOR_MIXING, MAX_COLORS_IN_MIXTURE} from '~/src/services/color/color-mixer';
-import {compareByDate} from '~/src/services/color/colors';
 import {
   type ColorBrandDefinition,
   type ColorSetDefinition,
   type ColorType,
   CUSTOM_COLOR_SET,
+  FileExtension,
   NEW_COLOR_SET,
 } from '~/src/services/color/types';
 import {colorSetToUrl} from '~/src/services/url/url-parser';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
-import {reverseOrder} from '~/src/utils/array';
 import {requestPersistentStorage} from '~/src/utils/storage';
 
 import {ColorBrandSelect} from './color-set/ColorBrandSelect';
@@ -92,7 +92,7 @@ const formInitialValues: ColorSetDefinition = {
   colors: {},
 };
 
-function getEmptyColors(values: ColorSetDefinition): Partial<Record<number, number[]>> {
+function getEmptyColors(values: ColorSetDefinition): Record<number, number[]> {
   return values.colors
     ? Object.fromEntries(Object.keys(values.colors).map((brand: string) => [brand, []]))
     : {};
@@ -111,17 +111,18 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
   const importedColorSet = useAppStore(state => state.importedColorSet);
   const latestColorSet = useAppStore(state => state.latestColorSet);
-  const colorSetsByType = useAppStore(state => state.colorSetsByType);
-  const isColorSetsByTypeLoading = useAppStore(state => state.isColorSetsByTypeLoading);
+  const colorSets = useAppStore(state => state.colorSets);
+  const isColorSetsLoading = useAppStore(state => state.isColorSetsLoading);
 
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
-  const loadColorSetsByType = useAppStore(state => state.loadColorSetsByType);
   const saveColorSet = useAppStore(state => state.saveColorSet);
+  const loadColorSetsFromJson = useAppStore(state => state.loadColorSetsFromJson);
+  const saveColorSetsAsJson = useAppStore(state => state.saveColorSetsAsJson);
   const deleteColorSet = useAppStore(state => state.deleteColorSet);
 
   const {message, notification, modal} = App.useApp();
 
-  const {t} = useLingui();
+  const {t, i18n} = useLingui();
 
   const mediaDevices: MediaDeviceInfo[] = useDevices();
 
@@ -136,6 +137,10 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
 
   const saveButtonRef = useRef<HTMLButtonElement>(null);
 
+  const colorSetsByType: ColorSetDefinition[] = selectedType
+    ? (colorSets.get(selectedType) ?? [])
+    : [];
+
   const selectedColorsCount: number = Object.values(selectedColors ?? {})
     .map((ids: number[] | undefined) => ids?.length ?? 0)
     .reduce((a: number, b: number) => a + b, 0);
@@ -145,11 +150,26 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [shareColorSetUrl, setShareColorSetUrl] = useState<string>();
 
+  const saveColorSetsAsJsonAndNotify = useCallback(async () => {
+    const filename = await saveColorSetsAsJson();
+    if (!filename) {
+      return;
+    }
+    const {message, description} = COLOR_SETS_BACKUP_NOTIFICATION;
+    notification.info({
+      message: i18n._(message.id, {filename}),
+      description: i18n._(description.id),
+      placement: 'topLeft',
+    });
+  }, [saveColorSetsAsJson, notification, i18n]);
+
   useEffect(() => {
     if (importedColorSet) {
-      form.setFieldsValue(importedColorSet);
       setHasUnsavedChanges(true);
+      form.resetFields();
+      form.setFieldsValue(importedColorSet);
     } else if (latestColorSet) {
+      form.resetFields();
       form.setFieldsValue(latestColorSet);
     }
   }, [form, importedColorSet, latestColorSet]);
@@ -178,7 +198,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
   } = useColors(selectedType, selectedBrandAliases);
 
   const isLoading: boolean =
-    isColorSetsByTypeLoading ||
+    isColorSetsLoading ||
     isBrandsLoading ||
     isStandardColorSetsLoading ||
     isColorsLoading ||
@@ -226,21 +246,22 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
       focusTriggerAfterClose: false,
     });
     if (confirmed) {
-      const {id, ...colorSet} = form.getFieldsValue();
-      form.setFieldsValue(
-        await saveColorSet(
-          {
-            ...colorSet,
-            ...(id ? {id} : {}),
-          },
-          brands,
-          colors,
-          false
-        )
-      );
+      let colorSet = form.getFieldsValue();
+      colorSet = await saveColorSet(colorSet, brands, colors, false);
+      form.setFieldsValue(colorSet);
+      await saveColorSetsAsJsonAndNotify();
     }
     setHasUnsavedChanges(false);
-  }, [modal, form, brands, colors, saveColorSet, hasUnsavedChanges, t]);
+  }, [
+    modal,
+    form,
+    brands,
+    colors,
+    saveColorSet,
+    saveColorSetsAsJsonAndNotify,
+    hasUnsavedChanges,
+    t,
+  ]);
 
   useImperativeHandle(
     ref,
@@ -254,103 +275,100 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
     changedValues: Partial<ColorSetDefinition>,
     values: ColorSetDefinition
   ) => {
-    void (async () => {
-      setHasUnsavedChanges(true);
+    setHasUnsavedChanges(true);
 
-      const emptyColors: Partial<Record<number, number[]>> = getEmptyColors(values);
+    const emptyColors: Partial<Record<number, number[]>> = getEmptyColors(values);
 
-      if (changedValues.type) {
-        form.setFieldsValue({
-          id: 0,
-          name: undefined,
-          brands: [],
-          standardColorSet: undefined,
-          colors: emptyColors,
-        });
+    if (changedValues.type) {
+      form.setFieldsValue({
+        id: 0,
+        name: undefined,
+        brands: [],
+        standardColorSet: undefined,
+        colors: emptyColors,
+      });
 
-        const [latestColorSetsByType]: ColorSetDefinition[] = (
-          await loadColorSetsByType(changedValues.type)
-        ).sort(reverseOrder(compareByDate));
-        if (latestColorSetsByType) {
-          form.setFieldsValue(latestColorSetsByType);
+      const [latestColorSetByType]: ColorSetDefinition[] = colorSets.get(changedValues.type) ?? [];
+      if (latestColorSetByType) {
+        form.setFieldsValue(latestColorSetByType);
+      }
+    }
+
+    if ((changedValues.id ?? -1) >= 0) {
+      form.setFieldsValue({
+        id: 0,
+        name: undefined,
+        brands: [],
+        standardColorSet: undefined,
+        colors: emptyColors,
+      });
+
+      if (changedValues.id! > 0 && values.type) {
+        const colorSet: ColorSetDefinition | undefined = colorSets
+          .get(values.type)
+          ?.find(({id}: ColorSetDefinition) => id === changedValues.id);
+        if (colorSet) {
+          form.setFieldsValue(colorSet);
         }
       }
+    }
 
-      if ((changedValues.id ?? -1) >= 0) {
-        form.setFieldsValue({
-          id: 0,
-          name: undefined,
-          brands: [],
-          standardColorSet: undefined,
-          colors: emptyColors,
+    if (changedValues.brands) {
+      const [standardColorSetBrand] = values.standardColorSet ?? [];
+      const standardColorSet: ColorSetDefinition['standardColorSet'] =
+        standardColorSetBrand && !values.brands?.includes(standardColorSetBrand)
+          ? undefined
+          : values.standardColorSet;
+
+      const colors: Partial<Record<number, number[]>> = {...emptyColors};
+      if (values.brands && values.colors) {
+        values.brands.forEach((brand: number) => {
+          colors[brand] = values.colors![brand] ?? [];
         });
-
-        if (changedValues.id! > 0) {
-          const colorSet: ColorSetDefinition | undefined = colorSetsByType.find(
-            ({id}: ColorSetDefinition) => id === changedValues.id
-          );
-          if (colorSet) {
-            form.setFieldsValue(colorSet);
-          }
-        }
       }
 
-      if (changedValues.brands) {
-        const [standardColorSetBrand] = values.standardColorSet ?? [];
-        const standardColorSet: ColorSetDefinition['standardColorSet'] =
-          standardColorSetBrand && !values.brands?.includes(standardColorSetBrand)
-            ? undefined
-            : values.standardColorSet;
+      form.setFieldsValue({
+        standardColorSet,
+        colors,
+      });
+    }
 
-        const colors: Partial<Record<number, number[]>> = {...emptyColors};
-        if (values.brands && values.colors) {
-          values.brands.forEach((brand: number) => {
-            colors[brand] = values.colors![brand] ?? [];
+    if (changedValues.standardColorSet) {
+      const [brandId, name] = changedValues.standardColorSet;
+      if (brandId && name) {
+        const brandAlias: string | undefined = brands?.get(brandId)?.alias;
+        if (brandAlias) {
+          const colors: Partial<Record<number, number[]>> = {...emptyColors};
+          colors[brandId] = standardColorSets.get(brandAlias)?.get(name)?.colors ?? [];
+
+          form.setFieldsValue({
+            colors,
           });
         }
-
-        form.setFieldsValue({
-          standardColorSet,
-          colors,
-        });
       }
+    }
 
-      if (changedValues.standardColorSet) {
-        const [brandId, name] = changedValues.standardColorSet;
-        if (brandId && name) {
-          const brandAlias: string | undefined = brands?.get(brandId)?.alias;
-          if (brandAlias) {
-            const colors: Partial<Record<number, number[]>> = {...emptyColors};
-            colors[brandId] = standardColorSets.get(brandAlias)?.get(name)?.colors ?? [];
-
-            form.setFieldsValue({
-              colors,
-            });
-          }
-        }
-      }
-
-      if (changedValues.colors) {
-        form.setFieldsValue({
-          standardColorSet: CUSTOM_COLOR_SET,
-        });
-      }
-    })();
+    if (changedValues.colors) {
+      form.setFieldsValue({
+        standardColorSet: CUSTOM_COLOR_SET,
+      });
+    }
   };
 
   const handleCreateNewClick = async () => {
     await checkForUnsavedChanges();
-    const emptyColors: Partial<Record<number, number[]>> = getEmptyColors(form.getFieldsValue());
-    form.setFieldsValue({
+    const emptyColors: Record<number, number[]> = getEmptyColors(form.getFieldsValue());
+    const newColorSet: ColorSetDefinition = {
       id: NEW_COLOR_SET,
       name: undefined,
       brands: [],
       standardColorSet: undefined,
       colors: emptyColors,
-    });
+    };
+    form.setFieldsValue(newColorSet);
   };
 
-  const handleSubmit = async ({id, ...colorSet}: ColorSetDefinition) => {
+  const handleSubmit = async (colorSet: ColorSetDefinition) => {
     if (!(await requestPersistentStorage())) {
       const {title, content} = PERSISTENT_STORAGE_WARN;
       await modal.warning({
@@ -358,17 +376,10 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
         content: t(content),
       });
     }
+    colorSet = await saveColorSet(colorSet, brands, colors);
+    form.setFieldsValue(colorSet);
+    await saveColorSetsAsJsonAndNotify();
     setHasUnsavedChanges(false);
-    form.setFieldsValue(
-      await saveColorSet(
-        {
-          ...colorSet,
-          ...(id ? {id} : {}),
-        },
-        brands,
-        colors
-      )
-    );
   };
 
   const handleSubmitFailed = () => {
@@ -376,30 +387,37 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
   };
 
   const handleDuplicateButtonClick = () => {
+    setHasUnsavedChanges(true);
     const {id: _id, name: _name, ...colorSet} = form.getFieldsValue();
-    form.setFieldsValue({
+    const newColorSet: ColorSetDefinition = {
       id: NEW_COLOR_SET,
       name: undefined,
       ...colorSet,
-    });
-    setHasUnsavedChanges(true);
+    };
+    form.setFieldsValue(newColorSet);
   };
 
   const handleDeleteButtonClick = async () => {
     setHasUnsavedChanges(true);
-    if (selectedColorSetId) {
-      await deleteColorSet(selectedColorSetId);
-      let values: Partial<ColorSetDefinition> = {
-        type: selectedType,
-      };
-      if (selectedType) {
-        const [latestColorSetsByType] = (await loadColorSetsByType(selectedType)).sort(
-          reverseOrder(compareByDate)
-        );
-        values = latestColorSetsByType ?? values;
-      }
+    if (!selectedColorSetId) {
+      return;
+    }
+    await deleteColorSet(selectedType, selectedColorSetId);
+    form.resetFields();
+    form.setFieldsValue({
+      type: selectedType,
+    });
+  };
+
+  const handleJsonFileChange = async ([file]: File[]) => {
+    if (!file) {
+      return;
+    }
+    const colorSet: ColorSetDefinition | undefined = await loadColorSetsFromJson(file);
+    if (colorSet) {
+      setHasUnsavedChanges(true);
       form.resetFields();
-      form.setFieldsValue(values);
+      form.setFieldsValue(colorSet);
     }
   };
 
@@ -681,14 +699,6 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
                       </Trans>
                     </Typography.Text>
                   )}
-                  {selectedColorsCount > 0 && (
-                    <Typography.Text type="secondary">
-                      <Trans>
-                        Press the Share button, copy and save the link so you don&apos;t have to
-                        re-enter all the colors.
-                      </Trans>
-                    </Typography.Text>
-                  )}
                 </Space>
               }
               style={{marginBottom: 0}}
@@ -750,6 +760,13 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
                     </Popconfirm>
                   </>
                 )}
+                <FileSelect
+                  type="default"
+                  accept={{'application/json': [FileExtension.ColorSet, '.json']}}
+                  onChange={(files: File[]) => void handleJsonFileChange(files)}
+                >
+                  <Trans>Load color sets file</Trans>
+                </FileSelect>
               </Space>
             </Form.Item>
           </Form>

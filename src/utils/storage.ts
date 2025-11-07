@@ -19,8 +19,7 @@
 import {deleteDatabase} from '~/src/services/db/db';
 
 export async function requestPersistentStorage(): Promise<boolean> {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (!navigator.storage?.persist) {
+  if (!('storage' in navigator && 'persisted' in navigator.storage)) {
     console.warn('Persistent storage is not supported in this browser');
     return false;
   }

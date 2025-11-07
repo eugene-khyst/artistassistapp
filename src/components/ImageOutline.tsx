@@ -48,7 +48,6 @@ import {PrintImageDrawer} from '~/src/components/print/PrintImageDrawer';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
 import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
 import {GridCanvas} from '~/src/services/canvas/image/grid-canvas';
-import {saveAppSettings} from '~/src/services/db/app-settings-db';
 import type {OnnxModel} from '~/src/services/ml/types';
 import {OnnxModelType} from '~/src/services/ml/types';
 import {OutlineMode} from '~/src/services/settings/types';
@@ -74,6 +73,7 @@ export const ImageOutline: React.FC = () => {
   const outlineImage = useAppStore(state => state.outlineImage);
 
   const setOutlineModel = useAppStore(state => state.setOutlineModel);
+  const saveAppSettings = useAppStore(state => state.saveAppSettings);
 
   const {token} = theme.useToken();
   const screens = Grid.useBreakpoint();

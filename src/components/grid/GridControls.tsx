@@ -26,7 +26,6 @@ import {useContext, useEffect, useState} from 'react';
 import {DEFAULT_GRID_SETTINGS, setGrid} from '~/src/components/grid/grid';
 import {TabContext} from '~/src/contexts/TabContext';
 import {type GridCanvas} from '~/src/services/canvas/image/grid-canvas';
-import {saveAppSettings} from '~/src/services/db/app-settings-db';
 import type {AppSettings, GridSettings} from '~/src/services/settings/types';
 import {GridMode} from '~/src/services/settings/types';
 import {useAppStore} from '~/src/stores/app-store';
@@ -50,6 +49,7 @@ export const GridControls: React.FC<Props> = ({
   ...props
 }: Props) => {
   const appSettings = useAppStore(state => state.appSettings);
+  const saveAppSettings = useAppStore(state => state.saveAppSettings);
 
   const {t} = useLingui();
 

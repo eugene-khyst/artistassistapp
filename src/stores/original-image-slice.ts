@@ -21,7 +21,12 @@ import type {StateCreator} from 'zustand';
 import {PAPER_WHITE_HEX} from '~/src/services/color/color-mixer';
 import type {ColorMixture} from '~/src/services/color/types';
 import {getColorMixtures} from '~/src/services/db/color-mixture-db';
-import {deleteImageFile, saveImageFile} from '~/src/services/db/image-file-db';
+import {
+  deleteImageFile,
+  getImageFiles,
+  getLastImageFile,
+  saveImageFile,
+} from '~/src/services/db/image-file-db';
 import {type ImageFile, imageFileToFile} from '~/src/services/image/image-file';
 import {TabKey} from '~/src/tabs';
 import {createImageBitmapResizedTotalPixels, IMAGE_SIZE} from '~/src/utils/graphics';
@@ -44,6 +49,7 @@ export interface OriginalImageSlice {
   isOriginalImageLoading: boolean;
 
   setImageFile: (imageFile: ImageFile | null, setActiveTabKey?: boolean) => Promise<void>;
+  loadRecentImageFiles: () => Promise<void>;
   saveRecentImageFile: (imageFile: ImageFile) => Promise<void>;
   deleteRecentImageFile: (imageFile: ImageFile) => Promise<void>;
 }
@@ -69,6 +75,16 @@ export const createOriginalImageSlice: StateCreator<
   originalImage: null,
   isOriginalImageLoading: false,
 
+  loadRecentImageFiles: async (): Promise<void> => {
+    const recentImageFiles: ImageFile[] = await getImageFiles();
+    set({
+      recentImageFiles,
+    });
+    const imageFile: ImageFile | undefined = await getLastImageFile();
+    if (imageFile) {
+      await get().setImageFile(imageFile, false);
+    }
+  },
   setImageFile: async (imageFile: ImageFile | null, setActiveTabKey = true): Promise<void> => {
     const prev: (ImageBitmap | null)[] = [
       get().originalImage,
@@ -111,6 +127,7 @@ export const createOriginalImageSlice: StateCreator<
     });
   },
   saveRecentImageFile: async (imageFile: ImageFile): Promise<void> => {
+    imageFile = {...imageFile};
     await saveImageFile(imageFile);
     set(({recentImageFiles}) => ({
       recentImageFiles: [

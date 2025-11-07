@@ -20,6 +20,7 @@ import './index.css';
 
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {App} from 'antd';
+import {StrictMode} from 'react';
 import type {Root} from 'react-dom/client';
 import {createRoot} from 'react-dom/client';
 import {ErrorBoundary} from 'react-error-boundary';
@@ -28,7 +29,6 @@ import {AlertTimedReloadFallback} from '~/src/components/alert/AlertTimedReloadF
 import {BrowserSupport} from '~/src/components/alert/BrowserSupport';
 import {PromiseErrorBoundary} from '~/src/components/alert/PromiseErrorBoundary';
 import {InternationalizationProvider} from '~/src/contexts/InternationalizationProvider';
-import {registerFileHandler} from '~/src/file-handler';
 import type {BeforeInstallPromptEvent} from '~/src/pwa';
 import {clearDatabase} from '~/src/services/db/db';
 import {useAppStore} from '~/src/stores/app-store';
@@ -41,7 +41,6 @@ const AUTH_VERIFICATION_INTERVAL = 5 * 60000;
 
 void (async () => {
   registerServiceWorker();
-  registerFileHandler();
   window.addEventListener('beforeinstallprompt', (event: BeforeInstallPromptEvent) => {
     event.preventDefault();
     useAppStore.getState().setBeforeInstallPromptEvent(event);
@@ -75,20 +74,20 @@ void (async () => {
 
   const root: Root = createRoot(document.getElementById('root')!);
   root.render(
-    // <StrictMode>
-    <InternationalizationProvider>
-      <App>
-        <ErrorBoundary FallbackComponent={AlertTimedReloadFallback}>
-          <PromiseErrorBoundary>
-            <BrowserSupport>
-              <QueryClientProvider client={queryClient}>
-                <ArtistAssistApp />
-              </QueryClientProvider>
-            </BrowserSupport>
-          </PromiseErrorBoundary>
-        </ErrorBoundary>
-      </App>
-    </InternationalizationProvider>
-    // </StrictMode>
+    <StrictMode>
+      <InternationalizationProvider>
+        <App>
+          <ErrorBoundary FallbackComponent={AlertTimedReloadFallback}>
+            <PromiseErrorBoundary>
+              <BrowserSupport>
+                <QueryClientProvider client={queryClient}>
+                  <ArtistAssistApp />
+                </QueryClientProvider>
+              </BrowserSupport>
+            </PromiseErrorBoundary>
+          </ErrorBoundary>
+        </App>
+      </InternationalizationProvider>
+    </StrictMode>
   );
 })();

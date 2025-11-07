@@ -18,7 +18,7 @@
 
 import type {LengthUnitDefinition} from '~/src/services/math/types';
 import {LengthUnit} from '~/src/services/math/types';
-import type {Comparator} from '~/src/utils/array';
+import type {Comparator} from '~/src/utils/comparator';
 
 export const LENGTH_UNITS = new Map<LengthUnit, LengthUnitDefinition>([
   [LengthUnit.Millimeter, {abbreviation: 'mm', toMillimeters: number => number}],

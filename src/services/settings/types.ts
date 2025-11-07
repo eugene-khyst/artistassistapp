@@ -53,4 +53,6 @@ export interface AppSettings {
   backgroundRemovalModel?: string;
   styleTransferModel?: string;
   styleTransferImage?: ImageFile;
+  autoSavingColorSetsJson?: boolean;
+  latestColorSetsJsonHash?: string;
 }

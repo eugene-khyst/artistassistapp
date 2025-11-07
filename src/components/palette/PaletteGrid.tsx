@@ -32,8 +32,8 @@ import {
 } from '~/src/services/color/color-mixer';
 import type {ColorMixture, ColorType} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
-import type {Comparator} from '~/src/utils/array';
-import {reverseOrder} from '~/src/utils/array';
+import type {Comparator} from '~/src/utils/comparator';
+import {reverseOrder} from '~/src/utils/comparator';
 
 enum Sort {
   ByDataIndex = 1,

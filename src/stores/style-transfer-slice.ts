@@ -19,11 +19,11 @@
 import type {StateCreator} from 'zustand';
 
 import {hasAccessTo} from '~/src/services/auth/utils';
-import {saveAppSettings} from '~/src/services/db/app-settings-db';
 import {fileToImageFile} from '~/src/services/image/image-file';
 import {transferStyle} from '~/src/services/image/style-transfer';
 import type {OnnxModel} from '~/src/services/ml/types';
 import type {AuthSlice} from '~/src/stores/auth-slice';
+import type {InitSlice} from '~/src/stores/init-slice';
 import type {OriginalImageSlice} from '~/src/stores/original-image-slice';
 import {offscreenCanvasToBlob} from '~/src/utils/graphics';
 
@@ -40,7 +40,7 @@ export interface StyleTransferSlice {
 }
 
 export const createStyleTransferSlice: StateCreator<
-  StyleTransferSlice & OriginalImageSlice & AuthSlice,
+  StyleTransferSlice & InitSlice & OriginalImageSlice & AuthSlice,
   [],
   [],
   StyleTransferSlice
@@ -62,7 +62,7 @@ export const createStyleTransferSlice: StateCreator<
         styleImageFile,
         styledImageBlob: null,
       });
-      void saveAppSettings({
+      await get().saveAppSettings({
         styleTransferImage: await fileToImageFile(styleImageFile),
       });
       void get().loadStyledImage();

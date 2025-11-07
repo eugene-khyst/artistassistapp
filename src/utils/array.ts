@@ -27,8 +27,6 @@ export type TypedArray =
   | Float32Array
   | Float64Array;
 
-export type Comparator<T> = (a: T, b: T) => number;
-
 export type ArrayElement<ArrayType extends readonly unknown[] | undefined> =
   ArrayType extends readonly (infer ElementType)[] ? ElementType : never;
 
@@ -63,20 +61,35 @@ export function arrayEquals<T>(a: T[] | null, b: T[] | null): boolean {
   );
 }
 
-export function reverseOrder<T>(comparator: Comparator<T>): Comparator<T> {
-  return (a: T, b: T): number => -1 * comparator(a, b);
-}
-
-export function mergeAlternating<T>(arr1: T[], arr2: T[]): T[] {
+export function mergeAlternating<T>(a: T[], b: T[]): T[] {
   const result: T[] = [];
-  const maxLength = Math.max(arr1.length, arr2.length);
+  const maxLength = Math.max(a.length, b.length);
   for (let i = 0; i < maxLength; i++) {
-    if (i < arr1.length) {
-      result.push(arr1[i]!);
+    if (i < a.length) {
+      result.push(a[i]!);
     }
-    if (i < arr2.length) {
-      result.push(arr2[i]!);
+    if (i < b.length) {
+      result.push(b[i]!);
     }
   }
   return result;
+}
+
+export function groupBy<T, Key>(
+  array: T[],
+  keySelector: (item: T, index: number) => Key | undefined
+): Map<Key, T[]> {
+  return array.reduce((groups, element, index) => {
+    const key = keySelector(element, index);
+    if (key === undefined) {
+      return groups;
+    }
+    const group = groups.get(key);
+    if (group) {
+      group.push(element);
+    } else {
+      groups.set(key, [element]);
+    }
+    return groups;
+  }, new Map<Key, T[]>());
 }

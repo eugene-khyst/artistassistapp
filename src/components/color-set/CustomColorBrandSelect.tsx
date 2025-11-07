@@ -23,9 +23,8 @@ import {Button, Grid, Select, Space, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 
 import {filterSelectOptions} from '~/src/components/utils';
-import {compareByDate} from '~/src/services/color/colors';
 import type {CustomColorBrandDefinition} from '~/src/services/color/types';
-import {reverseOrder} from '~/src/utils/array';
+import {compareByDate, reverseOrder} from '~/src/utils/comparator';
 
 const NEW_CUSTOM_COLOR_BRAND_OPTION: SelectOptionType = {
   value: 0,

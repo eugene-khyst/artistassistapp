@@ -17,6 +17,8 @@
  */
 
 import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
   CloudSyncOutlined,
   FileProtectOutlined,
   FileTextOutlined,
@@ -28,7 +30,19 @@ import {
 } from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
 import type {ProgressProps} from 'antd';
-import {Button, Col, Flex, Progress, Row, Space, theme, Typography} from 'antd';
+import {
+  Button,
+  Col,
+  Divider,
+  Flex,
+  Progress,
+  Row,
+  Space,
+  Switch,
+  Tag,
+  theme,
+  Typography,
+} from 'antd';
 import dayjs from 'dayjs';
 import {useState} from 'react';
 
@@ -48,7 +62,11 @@ const THREE_COLORS: ProgressProps['strokeColor'] = {
 
 export const Help: React.FC = () => {
   const expiration = useAppStore(state => state.auth?.expiration);
+  const storagePersisted = useAppStore(state => state.storagePersisted);
   const storageUsage = useAppStore(state => state.storageUsage);
+  const autoSavingColorSetsJson = useAppStore(state => state.appSettings.autoSavingColorSetsJson);
+
+  const saveAppSettings = useAppStore(state => state.saveAppSettings);
 
   const {
     token: {fontSizeSM},
@@ -69,6 +87,12 @@ export const Help: React.FC = () => {
         setIsUpdating(false);
       }
     }
+  };
+
+  const handleAutoBackupChange = (checked: boolean) => {
+    void saveAppSettings({
+      autoSavingColorSetsJson: !!checked,
+    });
   };
 
   return (
@@ -172,10 +196,36 @@ export const Help: React.FC = () => {
         </Button>
       </Space>
 
+      <Divider size="small" />
+
+      <Space>
+        <Typography.Text>
+          <Trans>Automatic backup of color sets</Trans>
+        </Typography.Text>
+        <Switch value={autoSavingColorSetsJson} onChange={handleAutoBackupChange} />
+      </Space>
+
+      <Divider size="small" />
+
+      <Space>
+        <Typography.Text>
+          <Trans>Persistent storage</Trans>
+        </Typography.Text>
+        {storagePersisted ? (
+          <Tag icon={<CheckCircleOutlined />} color="success">
+            Enabled
+          </Tag>
+        ) : (
+          <Tag icon={<CloseCircleOutlined />} color="warning">
+            Disabled
+          </Tag>
+        )}
+      </Space>
+
       {storageUsage?.usage && storageUsage.quota && (
         <Space size="middle">
           <Space direction="vertical">
-            <Typography.Text strong>
+            <Typography.Text>
               <Trans>Storage usage</Trans>
             </Typography.Text>
             <Typography.Text>
@@ -203,6 +253,8 @@ export const Help: React.FC = () => {
           web browser data results in the loss of all app data.
         </Trans>
       </Typography.Text>
+
+      <Divider size="small" />
 
       <Typography.Text>
         <Trans>

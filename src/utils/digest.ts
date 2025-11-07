@@ -16,22 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {LaunchParams} from '~/src/pwa';
-import {saveAppSettings} from '~/src/services/db/app-settings-db';
-import {saveImageFile} from '~/src/services/db/image-file-db';
-import {fileToImageFile} from '~/src/services/image/image-file';
-import {TabKey} from '~/src/tabs';
+type Algorithm = 'SHA-256' | 'SHA-384' | 'SHA-512';
 
-export function registerFileHandler() {
-  if ('launchQueue' in window) {
-    window.launchQueue.setConsumer(async (launchParams: LaunchParams) => {
-      for (const fileHandle of launchParams.files) {
-        const file: File = await fileHandle.getFile();
-        await saveImageFile(await fileToImageFile(file));
-        void saveAppSettings({
-          activeTabKey: TabKey.Photo,
-        });
-      }
-    });
-  }
+export async function digestMessage(
+  message: string,
+  algorithm: Algorithm = 'SHA-256'
+): Promise<string> {
+  const msgUint8 = new TextEncoder().encode(message);
+  const hashBuffer = await crypto.subtle.digest(algorithm, msgUint8);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex;
 }

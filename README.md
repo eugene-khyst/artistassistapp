@@ -58,6 +58,7 @@ following:
 - sRGB to Oklab (WebGL),
 - sRGB to spectral reflectance,
 - subtractive color mixing using empirical model based on the Kubelka-Munk theory,
+- color temperature estimation: warm and or cool colors
 - matrix operations,
 - matrix inversion using LU decomposition,
 - solving a system of linear algebraic equations using forward and backward substitution,

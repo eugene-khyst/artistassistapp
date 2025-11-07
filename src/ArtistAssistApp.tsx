@@ -19,7 +19,7 @@
 import {FullscreenExitOutlined, FullscreenOutlined, LoadingOutlined} from '@ant-design/icons';
 import {useLingui} from '@lingui/react/macro';
 import type {TabsProps} from 'antd';
-import {App, Col, FloatButton, Row, Spin, Tabs, theme} from 'antd';
+import {Col, FloatButton, Row, Spin, Tabs, theme} from 'antd';
 import {useEffect, useRef, useState} from 'react';
 import StickyBox from 'react-sticky-box';
 
@@ -32,11 +32,13 @@ import {ImagePerspectiveCorrection} from '~/src/components/ImagePerspectiveCorre
 import {ImagesCompare} from '~/src/components/ImagesCompare';
 import {ImageStyleTransfer} from '~/src/components/ImageStyleTransfer';
 import {Install} from '~/src/components/Install';
-import {AUTH_ERROR_MESSAGES, TAB_LABELS} from '~/src/components/messages';
+import {TAB_LABELS} from '~/src/components/messages';
 import type {ChangableComponent} from '~/src/components/types';
 import {TabContext} from '~/src/contexts/TabContext';
+import {useColorSetBackup} from '~/src/hooks/useColorSetBackup';
 import {useDoubleBackPressToExit} from '~/src/hooks/useDoubleBackPressToExit';
 import {useFullScreen} from '~/src/hooks/useFullscreen';
+import {useHandleAuthError} from '~/src/hooks/useHandleAuthError';
 import {useInstallPrompt} from '~/src/hooks/useInstallPrompt';
 import {useDisplayMode} from '~/src/hooks/usePwaDisplayMode';
 import {useAppStore} from '~/src/stores/app-store';
@@ -60,16 +62,13 @@ const AD_POPUP_INTERVAL = 15 * 60000;
 
 export const ArtistAssistApp: React.FC = () => {
   const activeTabKey = useAppStore(state => state.activeTabKey);
+  const user = useAppStore(state => state.auth?.user);
+
   const isInitialStateLoading = useAppStore(state => state.isInitialStateLoading);
   const isLocaleLoading = useAppStore(state => state.isLocaleLoading);
-  const user = useAppStore(state => state.auth?.user);
-  const authError = useAppStore(state => state.authError);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
 
-  const clearAuthError = useAppStore(state => state.clearAuthError);
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
-
-  const {modal} = App.useApp();
 
   const {
     token: {colorBgContainer},
@@ -91,21 +90,9 @@ export const ArtistAssistApp: React.FC = () => {
 
   useDoubleBackPressToExit();
 
-  useEffect(() => {
-    void (async () => {
-      if (authError) {
-        const message = AUTH_ERROR_MESSAGES[authError.type];
-        await modal.warning({
-          title: t`Login failed`,
-          content: message ? t(message) : authError.message,
-          afterClose() {
-            clearAuthError();
-            void setActiveTabKey(TabKey.ColorSet);
-          },
-        });
-      }
-    })();
-  }, [modal, authError, clearAuthError, setActiveTabKey, t]);
+  useColorSetBackup();
+
+  useHandleAuthError();
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {

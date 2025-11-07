@@ -39,7 +39,6 @@ import {
 } from 'antd';
 import type {Color} from 'antd/es/color-picker';
 import type {SliderMarks} from 'antd/es/slider';
-import {saveAs} from 'file-saver';
 import {useCallback, useEffect, useState} from 'react';
 
 import {OpacitySelect} from '~/src/components/color/OpacitySelect';
@@ -54,9 +53,13 @@ import {
   ImageColorPickerCanvas,
   MIN_COLOR_PICKER_DIAMETER,
 } from '~/src/services/canvas/image/image-color-picker-canvas';
-import {Rgb} from '~/src/services/color/space/rgb';
-import {type ColorDefinition, type CustomColorBrandDefinition} from '~/src/services/color/types';
+import {
+  type ColorDefinition,
+  type CustomColorBrandDefinition,
+  FileExtension,
+} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
+import {removeRho} from '~/src/stores/custom-color-brand-slice';
 
 const FIELD = '${label}';
 
@@ -75,32 +78,6 @@ const formInitialValues: CustomColorBrandDefinition = {
   colors: [],
 };
 
-function calculateRho(brand: CustomColorBrandDefinition): CustomColorBrandDefinition {
-  const {colors} = brand;
-  return {
-    ...brand,
-    colors: colors?.map(({hex, ...color}: Partial<ColorDefinition>): Partial<ColorDefinition> => {
-      return {
-        ...color,
-        hex,
-        rho: [...Rgb.fromHex(hex!).toReflectance().toArray()],
-      };
-    }),
-  };
-}
-
-function removeRho(brand: CustomColorBrandDefinition): CustomColorBrandDefinition {
-  const {colors} = brand;
-  return {
-    ...brand,
-    colors: colors?.map(
-      ({rho: _, ...color}: Partial<ColorDefinition>): Partial<ColorDefinition> => {
-        return color;
-      }
-    ),
-  };
-}
-
 export const CustomColorBrandCreator: React.FC = () => {
   const customColorBrands = useAppStore(state => state.customColorBrands);
   const latestCustomColorBrand = useAppStore(state => state.latestCustomColorBrand);
@@ -108,6 +85,8 @@ export const CustomColorBrandCreator: React.FC = () => {
 
   const loadCustomColorBrands = useAppStore(state => state.loadCustomColorBrands);
   const saveCustomColorBrand = useAppStore(state => state.saveCustomColorBrand);
+  const loadCustomColorBrandFromJson = useAppStore(state => state.loadCustomColorBrandFromJson);
+  const saveCustomColorBrandAsJson = useAppStore(state => state.saveCustomColorBrandAsJson);
   const deleteCustomColorBrand = useAppStore(state => state.deleteCustomColorBrand);
 
   const queryClient = useQueryClient();
@@ -154,28 +133,37 @@ export const CustomColorBrandCreator: React.FC = () => {
     useZoomableImageCanvas<ImageColorPickerCanvas>(imageColorPickerCanvasSupplier, imageBitmap);
 
   useEffect(() => {
-    void (async () => {
-      await loadCustomColorBrands();
-    })();
+    void loadCustomColorBrands();
   }, [loadCustomColorBrands]);
 
   useEffect(() => {
     if (latestCustomColorBrand) {
+      form.resetFields();
       form.setFieldsValue(removeRho(latestCustomColorBrand));
     }
   }, [latestCustomColorBrand, form]);
 
   const isLoading: boolean = isImageLoading || isCustomColorBrandsLoading;
 
+  const invalidateQueries = () => {
+    ['brands', 'colors', 'standardColorSets'].forEach(
+      key => void queryClient.invalidateQueries({queryKey: [key]})
+    );
+  };
+
   const handleImageFileChange = ([file]: File[]) => {
     setImageFile(file ?? null);
   };
 
   const handleJsonFileChange = async ([file]: File[]) => {
-    if (file) {
+    if (!file) {
+      return;
+    }
+    const brand: CustomColorBrandDefinition | undefined = await loadCustomColorBrandFromJson(file);
+    if (brand) {
+      invalidateQueries();
       form.resetFields();
-      const brand = JSON.parse(await file.text()) as CustomColorBrandDefinition;
-      form.setFieldsValue(brand);
+      form.setFieldsValue(removeRho(brand));
     }
   };
 
@@ -216,23 +204,11 @@ export const CustomColorBrandCreator: React.FC = () => {
     form.resetFields();
   };
 
-  const invalidateQueries = () => {
-    ['brands', 'colors', 'standardColorSets'].forEach(
-      key => void queryClient.invalidateQueries({queryKey: [key]})
-    );
-  };
-
-  const handleSubmit = async ({id, ...brand}: CustomColorBrandDefinition) => {
-    ({id} = await saveCustomColorBrand({
-      ...calculateRho(brand),
-      ...(id ? {id} : {}),
-    }));
-    form.setFieldsValue({...brand, id});
-    saveAs(
-      new Blob([JSON.stringify(brand, null, 2)], {type: 'application/json'}),
-      `${brand.name}.json`
-    );
+  const handleSubmit = async (brand: CustomColorBrandDefinition) => {
+    brand = await saveCustomColorBrand(brand);
+    saveCustomColorBrandAsJson(brand);
     invalidateQueries();
+    form.setFieldsValue(brand);
   };
 
   const handleSubmitFailed = () => {
@@ -243,8 +219,8 @@ export const CustomColorBrandCreator: React.FC = () => {
     const id = form.getFieldValue('id') as number | undefined;
     if (id) {
       await deleteCustomColorBrand(id);
-      form.resetFields();
       invalidateQueries();
+      form.resetFields();
     }
   };
 
@@ -298,10 +274,10 @@ export const CustomColorBrandCreator: React.FC = () => {
                     </FileSelect>
                     <FileSelect
                       type="default"
-                      accept="application/json"
+                      accept={{'application/json': [FileExtension.CustomColorBrand, '.json']}}
                       onChange={(files: File[]) => void handleJsonFileChange(files)}
                     >
-                      <Trans>Import JSON</Trans>
+                      <Trans>Load color brand file</Trans>
                     </FileSelect>
                   </Space>
 

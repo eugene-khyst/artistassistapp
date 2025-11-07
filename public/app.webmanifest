@@ -100,8 +100,8 @@
     "params": {
       "files": [
         {
-          "name": "images",
-          "accept": ["image/*"]
+          "name": "shared_files",
+          "accept": ["image/*", ".clrs", ".clrb", "application/json"]
         }
       ]
     }
@@ -109,13 +109,5 @@
   "launch_handler": {
     "client_mode": "focus-existing"
   },
-  "file_handlers": [
-    {
-      "action": "/",
-      "accept": {
-        "image/*": [".bmp", ".gif", ".jpeg", ".jpg", ".png", ".tif", ".tiff", ".webp"]
-      }
-    }
-  ],
   "handle_links": "preferred"
 }

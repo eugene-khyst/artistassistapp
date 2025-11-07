@@ -29,7 +29,6 @@ import {FileSelect} from '~/src/components/file/FileSelect';
 import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
 import {hasAccessTo} from '~/src/services/auth/utils';
-import {saveAppSettings} from '~/src/services/db/app-settings-db';
 import {
   compareOnnxModelsByFreeTierAndPriority,
   compareOnnxModelsByPriority,
@@ -51,6 +50,7 @@ export const ImageStyleTransfer: React.FC = () => {
 
   const setStyleTransferModel = useAppStore(state => state.setStyleTransferModel);
   const setStyleImageFile = useAppStore(state => state.setStyleImageFile);
+  const saveAppSettings = useAppStore(state => state.saveAppSettings);
 
   const screens = Grid.useBreakpoint();
 

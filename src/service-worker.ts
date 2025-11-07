@@ -22,12 +22,18 @@ declare const self: ServiceWorkerGlobalScope & {
   __WB_MANIFEST: {url: string}[];
 };
 
-import {saveAppSettings} from '~/src/services/db/app-settings-db';
+import type {ColorSetDefinition, CustomColorBrandDefinition} from '~/src/services/color/types';
+import {FileExtension} from '~/src/services/color/types';
+import {getAppSettings, saveAppSettings} from '~/src/services/db/app-settings-db';
+import {saveColorSets} from '~/src/services/db/color-set-db';
+import {saveCustomColorBrand} from '~/src/services/db/custom-brand-db';
 import {saveImageFile} from '~/src/services/db/image-file-db';
 import {fileToImageFile} from '~/src/services/image/image-file';
 import type {SampleImageDefinition} from '~/src/services/image/sample-images';
 import {SAMPLE_IMAGES} from '~/src/services/image/sample-images';
+import type {AppSettings} from '~/src/services/settings/types';
 import {TabKey} from '~/src/tabs';
+import {digestMessage} from '~/src/utils/digest';
 import {fetchCacheFirst, fetchSWR, getCacheName} from '~/src/utils/fetch';
 
 const MB_1 = 1024 * 1024;
@@ -99,11 +105,49 @@ self.addEventListener('fetch', (event: FetchEvent) => {
 
 async function receiveSharedData(request: Request): Promise<Response> {
   const formData: FormData = await request.formData();
-  const files = formData.getAll('images') as File[];
+  // 'shared_files' = current; 'images' = legacy from older PWA installs
+  const files = [...formData.getAll('shared_files'), ...formData.getAll('images')] as File[];
+  const prevAppSettings: AppSettings = (await getAppSettings()) ?? {};
+  let appSettings: AppSettings | undefined;
   for (const file of files) {
-    await saveImageFile(await fileToImageFile(file));
+    try {
+      const {name, type} = file;
+      if (type.startsWith('image/')) {
+        await saveImageFile(await fileToImageFile(file));
+        appSettings = {
+          activeTabKey: TabKey.Photo,
+        };
+      } else if (
+        name.endsWith(FileExtension.ColorSet) ||
+        name.endsWith(`${FileExtension.ColorSet}.json`)
+      ) {
+        const json: string = await file.text();
+        const colorSets = JSON.parse(json) as ColorSetDefinition[];
+        await saveColorSets(colorSets);
+        const hash: string = await digestMessage(json);
+        appSettings = {
+          latestColorSetsJsonHash: hash,
+          activeTabKey: TabKey.ColorSet,
+        };
+      } else if (
+        name.endsWith(FileExtension.CustomColorBrand) ||
+        name.endsWith(`${FileExtension.CustomColorBrand}.json`)
+      ) {
+        const json: string = await file.text();
+        const brand = JSON.parse(json) as CustomColorBrandDefinition;
+        await saveCustomColorBrand(brand);
+        appSettings = {
+          activeTabKey: TabKey.CustomColorBrand,
+        };
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  if (appSettings) {
     await saveAppSettings({
-      activeTabKey: TabKey.Photo,
+      ...prevAppSettings,
+      ...appSettings,
     });
   }
   return Response.redirect('/', 303);

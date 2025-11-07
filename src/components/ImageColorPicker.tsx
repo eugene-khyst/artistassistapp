@@ -57,11 +57,10 @@ import {
   PAPER_WHITE_HEX,
 } from '~/src/services/color/color-mixer';
 import type {ColorMixture, SimilarColor} from '~/src/services/color/types';
-import {saveAppSettings} from '~/src/services/db/app-settings-db';
 import {Vector} from '~/src/services/math/geometry';
 import {ColorPickerSort} from '~/src/services/settings/types';
 import {useAppStore} from '~/src/stores/app-store';
-import type {Comparator} from '~/src/utils/array';
+import type {Comparator} from '~/src/utils/comparator';
 
 import {SimilarColorCard} from './color/SimilarColorCard';
 import {EmptyColorSet} from './empty/EmptyColorSet';
@@ -95,6 +94,7 @@ export const ImageColorPicker: React.FC = () => {
   const setTargetColor = useAppStore(state => state.setTargetColor);
   const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
   const selectPaletteColorMixtures = useAppStore(state => state.selectPaletteColorMixtures);
+  const saveAppSettings = useAppStore(state => state.saveAppSettings);
 
   const screens = Grid.useBreakpoint();
 

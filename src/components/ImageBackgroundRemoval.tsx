@@ -33,7 +33,6 @@ import {useDebounce} from '~/src/hooks/useDebounce';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {WHITE_HEX} from '~/src/services/color/space/rgb';
-import {saveAppSettings} from '~/src/services/db/app-settings-db';
 import {
   compareOnnxModelsByFreeTierAndPriority,
   compareOnnxModelsByPriority,
@@ -56,6 +55,7 @@ export const ImageBackgroundRemoval: React.FC = () => {
   const setImageFileToRemoveBackground = useAppStore(state => state.setImageFileToRemoveBackground);
   const setBackgroundRemovalModel = useAppStore(state => state.setBackgroundRemovalModel);
   const setBackgroundRemovalColor = useAppStore(state => state.setBackgroundRemovalColor);
+  const saveAppSettings = useAppStore(state => state.saveAppSettings);
 
   const screens = Grid.useBreakpoint();
 

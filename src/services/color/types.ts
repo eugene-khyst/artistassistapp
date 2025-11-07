@@ -170,3 +170,8 @@ export interface SimilarColor {
   colorMixture: ColorMixture;
   similarity: number;
 }
+
+export enum FileExtension {
+  ColorSet = '.clrs',
+  CustomColorBrand = '.clrb',
+}

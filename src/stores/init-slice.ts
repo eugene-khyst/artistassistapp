@@ -19,13 +19,8 @@
 import type {StateCreator} from 'zustand';
 
 import {getCurrentLocale} from '~/src/i18n';
-import {fetchColorBrands, fetchColorsBulk, toColorSet} from '~/src/services/color/colors';
-import type {ColorDefinition, ColorMixture, ColorSetDefinition} from '~/src/services/color/types';
-import {getAppSettings} from '~/src/services/db/app-settings-db';
-import {getColorMixtures} from '~/src/services/db/color-mixture-db';
-import {getLastColorSet} from '~/src/services/db/color-set-db';
-import {getImageFiles, getLastImageFile} from '~/src/services/db/image-file-db';
-import {type ImageFile, imageFileToFile} from '~/src/services/image/image-file';
+import {getAppSettings, saveAppSettings} from '~/src/services/db/app-settings-db';
+import {imageFileToFile} from '~/src/services/image/image-file';
 import type {AppSettings} from '~/src/services/settings/types';
 import {importFromUrl} from '~/src/services/url/url-parser';
 import type {AuthSlice} from '~/src/stores/auth-slice';
@@ -39,12 +34,21 @@ import type {OriginalImageSlice} from './original-image-slice';
 import type {PaletteSlice} from './palette-slice';
 import type {TabSlice} from './tab-slice';
 
+const DEFAULT_APP_SETTINGS: AppSettings = {
+  autoSavingColorSetsJson: true,
+};
+
+export type AppSettingsUpdater = (prev?: AppSettings) => Partial<AppSettings>;
+
 export interface InitSlice {
+  appInitialized: boolean;
   appSettings: AppSettings;
 
   isInitialStateLoading: boolean;
 
   initAppStore: () => Promise<void>;
+  loadAppSettings: () => Promise<AppSettings>;
+  saveAppSettings: (appSettings: Partial<AppSettings> | AppSettingsUpdater) => Promise<void>;
 }
 
 export const createInitSlice: StateCreator<
@@ -61,6 +65,7 @@ export const createInitSlice: StateCreator<
   [],
   InitSlice
 > = (set, get) => ({
+  appInitialized: false,
   appSettings: {},
 
   isInitialStateLoading: false,
@@ -71,32 +76,22 @@ export const createInitSlice: StateCreator<
     });
 
     await get().setLocale(getCurrentLocale(), false);
-
-    const auth = await get().handleAuthRedirectCallback();
+    await get().handleAuthRedirectCallback();
 
     const {colorSet: importedColorSet, tabKey: importedTabKey} = importFromUrl();
 
-    const appSettings: AppSettings | undefined = (await getAppSettings()) ?? {};
+    const appSettings: AppSettings = await get().loadAppSettings();
     let activeTabKey: TabKey | undefined = importedTabKey ?? appSettings.activeTabKey;
     if (importedColorSet) {
       activeTabKey = TabKey.ColorSet;
     }
-
-    const imageFile: ImageFile | undefined = await getLastImageFile();
-    if (imageFile) {
-      await get().setImageFile(imageFile, false);
-    }
-
     if (activeTabKey) {
       void get().setActiveTabKey(activeTabKey);
     }
 
-    const latestColorSet: ColorSetDefinition | null =
-      (!importedColorSet && (await getLastColorSet())) || null;
-    const recentImageFiles: ImageFile[] = await getImageFiles();
-    const paletteColorMixtures = new Map<string, ColorMixture>(
-      (await getColorMixtures(imageFile?.id)).map(colorMixture => [colorMixture.key, colorMixture])
-    );
+    await get().loadColorSets(importedColorSet);
+    await get().loadRecentImageFiles();
+    await get().loadPaletteColorMixtures();
 
     const {styleTransferImage} = appSettings;
     if (styleTransferImage) {
@@ -104,36 +99,33 @@ export const createInitSlice: StateCreator<
     }
 
     set({
-      appSettings,
-      importedColorSet,
-      latestColorSet,
-      recentImageFiles,
-      paletteColorMixtures,
+      appInitialized: true,
       isInitialStateLoading: false,
     });
-
-    if (importedColorSet?.type) {
-      void get().loadColorSetsByType(importedColorSet.type);
+  },
+  loadAppSettings: async (): Promise<AppSettings> => {
+    let appSettings: AppSettings = (await getAppSettings()) ?? {};
+    appSettings = {
+      ...DEFAULT_APP_SETTINGS,
+      ...appSettings,
+    };
+    set({
+      appSettings,
+    });
+    return appSettings;
+  },
+  saveAppSettings: async (appSettings: AppSettings | AppSettingsUpdater): Promise<void> => {
+    const {appSettings: prevAppSettings} = get();
+    if (typeof appSettings === 'function') {
+      appSettings = (appSettings as AppSettingsUpdater)(prevAppSettings);
     }
-    if (latestColorSet) {
-      const {type, brands: brandIds} = latestColorSet;
-      if (!type || !brandIds) {
-        return;
-      }
-      void get().loadColorSetsByType(type);
-
-      const brands = await fetchColorBrands(type);
-      const brandAliases = brandIds
-        .map((id: number): string | undefined => brands.get(id)?.alias)
-        .filter((alias): alias is string => !!alias);
-      const colors: Map<string, Map<number, ColorDefinition>> = await fetchColorsBulk(
-        type,
-        brandAliases
-      );
-      const colorSet = toColorSet(latestColorSet, brands, colors, auth?.user);
-      if (colorSet) {
-        void get().setColorSet(colorSet, false);
-      }
-    }
+    appSettings = {
+      ...prevAppSettings,
+      ...appSettings,
+    };
+    await saveAppSettings(appSettings);
+    set({
+      appSettings,
+    });
   },
 });

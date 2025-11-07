@@ -56,7 +56,7 @@ export const COLOR_TYPE_LABELS: Record<ColorType, MessageDescriptor> = {
   [ColorType.AcrylicGouache]: defineMessage`Acrylic Gouache`,
 };
 
-export const AUTH_ERROR_MESSAGES: Record<string, MessageDescriptor> = {
+export const AUTH_ERRORS: Record<string, MessageDescriptor> = {
   inactive: defineMessage`You have not yet joined ArtistAssistApp on Patreon as a paid member. Join and log in again.`,
   expired: defineMessage`Your session has expired. Please log in again.`,
   invalid_token: defineMessage`Failed to verify the ID token.`,
@@ -64,5 +64,10 @@ export const AUTH_ERROR_MESSAGES: Record<string, MessageDescriptor> = {
 
 export const PERSISTENT_STORAGE_WARN = {
   title: defineMessage`Persistent storage is not enabled`,
-  content: defineMessage`Your data may not be saved reliably if the browser is closed. To fix this, install the app as described in the Install tab, or use a different browser such as Chrome or Firefox.`,
+  content: defineMessage`Your data may not be saved reliably if the browser is closed. To fix this, install the app as described in the Install tab.`,
+};
+
+export const COLOR_SETS_BACKUP_NOTIFICATION = {
+  message: defineMessage`Downloaded file {filename}`,
+  description: defineMessage`This backup file lets you restore your color sets later, so keep it. You can delete any older backup files.`,
 };

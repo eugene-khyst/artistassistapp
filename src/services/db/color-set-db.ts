@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {ColorSetDefinition, ColorType} from '~/src/services/color/types';
+import type {ColorSetDefinition} from '~/src/services/color/types';
 
 import {dbPromise} from './db';
 
@@ -27,15 +27,20 @@ export async function getLastColorSet(): Promise<ColorSetDefinition | undefined>
   return cursor?.value;
 }
 
-export async function getColorSetsByType(type: ColorType): Promise<ColorSetDefinition[]> {
+export async function getColorSets(): Promise<ColorSetDefinition[]> {
   const db = await dbPromise;
-  return await db.getAllFromIndex('color-sets', 'by-type', type);
+  return await db.getAll('color-sets');
 }
 
-export async function saveColorSet(colorSet: ColorSetDefinition): Promise<void> {
+export async function saveColorSets(colorSets: ColorSetDefinition[]): Promise<void> {
   const db = await dbPromise;
-  colorSet.date = new Date();
-  colorSet.id = await db.put('color-sets', colorSet);
+  const tx = db.transaction('color-sets', 'readwrite');
+  const store = tx.objectStore('color-sets');
+  for (const colorSet of colorSets) {
+    colorSet.date = new Date();
+    colorSet.id = await store.put(colorSet);
+  }
+  await tx.done;
 }
 
 export async function deleteColorSet(id: number): Promise<void> {

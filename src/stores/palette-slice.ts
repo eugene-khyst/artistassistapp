@@ -19,7 +19,11 @@
 import type {StateCreator} from 'zustand';
 
 import type {ColorMixture, ColorType} from '~/src/services/color/types';
-import {deleteColorMixture, saveColorMixture} from '~/src/services/db/color-mixture-db';
+import {
+  deleteColorMixture,
+  getColorMixtures,
+  saveColorMixture,
+} from '~/src/services/db/color-mixture-db';
 
 import type {ColorMixerSlice} from './color-mixer-slice';
 import type {OriginalImageSlice} from './original-image-slice';
@@ -28,6 +32,7 @@ export interface PaletteSlice {
   paletteColorMixtures: Map<string, ColorMixture>;
   selectedPaletteColorMixtures: Map<string, ColorMixture>;
 
+  loadPaletteColorMixtures: () => Promise<void>;
   saveToPalette: (colorMixture: ColorMixture, linkToImage?: boolean) => Promise<void>;
   deleteFromPalette: (colorMixture: ColorMixture) => Promise<void>;
   deleteAllFromPalette: (type: ColorType) => Promise<void>;
@@ -43,15 +48,27 @@ export const createPaletteSlice: StateCreator<
   paletteColorMixtures: new Map(),
   selectedPaletteColorMixtures: new Map(),
 
+  loadPaletteColorMixtures: async (): Promise<void> => {
+    const {imageFile} = get();
+    const paletteColorMixtures = new Map<string, ColorMixture>(
+      (await getColorMixtures(imageFile?.id)).map(colorMixture => [colorMixture.key, colorMixture])
+    );
+    set({
+      paletteColorMixtures,
+    });
+  },
   saveToPalette: async (colorMixture: ColorMixture, linkToImage = true): Promise<void> => {
     const {id, key} = colorMixture;
-
     const isNew = !id;
-    if (isNew && linkToImage) {
-      colorMixture.imageFileId = get().imageFile?.id;
-      colorMixture.samplingArea = get().samplingArea;
-    }
-
+    colorMixture = {
+      ...colorMixture,
+      ...(isNew && linkToImage
+        ? {
+            imageFileId: get().imageFile?.id,
+            samplingArea: get().samplingArea,
+          }
+        : {}),
+    };
     await saveColorMixture(colorMixture);
 
     const {
@@ -85,8 +102,9 @@ export const createPaletteSlice: StateCreator<
       return;
     }
 
-    if (colorMixture.id) {
-      await deleteColorMixture(colorMixture.id);
+    const {id: idToDelete} = colorMixture;
+    if (idToDelete) {
+      await deleteColorMixture(idToDelete);
     }
 
     const paletteColorMixtures = new Map(prevPaletteColorMixtures);

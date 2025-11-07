@@ -16,18 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export interface BeforeInstallPromptEvent extends Event {
-  readonly platforms: string[];
-  readonly userChoice: Promise<{
-    outcome: 'accepted' | 'dismissed';
-    platform: string;
-  }>;
-  prompt: () => Promise<void>;
+export type Comparator<T> = (a: T, b: T) => number;
+
+export function reverseOrder<T>(comparator: Comparator<T>): Comparator<T> {
+  return (a: T, b: T): number => -1 * comparator(a, b);
 }
 
-declare global {
-  interface WindowEventMap {
-    beforeinstallprompt: BeforeInstallPromptEvent;
-    appinstalled: Event;
-  }
-}
+export const compareById: Comparator<{id?: number}> = ({id: a}, {id: b}) => (a ?? 0) - (b ?? 0);
+
+export const compareByDate: Comparator<{date?: Date}> = ({date: a}, {date: b}) =>
+  (a?.getTime() ?? 0) - (b?.getTime() ?? 0);

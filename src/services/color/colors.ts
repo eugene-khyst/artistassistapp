@@ -31,6 +31,7 @@ import type {
 } from '~/src/services/color/types';
 import {ColorType} from '~/src/services/color/types';
 import {getCustomColorBrand, getCustomColorBrandsByType} from '~/src/services/db/custom-brand-db';
+import type {Comparator} from '~/src/utils/comparator';
 import {fetchSWR} from '~/src/utils/fetch';
 
 import {Rgb} from './space/rgb';
@@ -84,25 +85,17 @@ function getCustomColorBrandIdFromAlias(alias: string): number {
   return parseInt(alias.replace(CUSTOM_COLOR_BRAND_ALIAS_PREFIX, ''));
 }
 
-export const compareColorBrandsByName = (
-  {fullName: a}: ColorBrandDefinition,
-  {fullName: b}: ColorBrandDefinition
+export const compareColorBrandsByName: Comparator<ColorBrandDefinition> = (
+  {fullName: a},
+  {fullName: b}
 ) => a.localeCompare(b);
 
-export const compareColorBrandsByFreeTierAndName = (
-  a: ColorBrandDefinition,
-  b: ColorBrandDefinition
-) =>
+export const compareColorBrandsByFreeTierAndName: Comparator<ColorBrandDefinition> = (a, b) =>
   (a.freeTier ?? false) === (b.freeTier ?? false)
     ? compareColorBrandsByName(a, b)
     : a.freeTier
       ? -1
       : 1;
-
-export const compareByDate = (
-  {date: a}: ColorSetDefinition | CustomColorBrandDefinition,
-  {date: b}: ColorSetDefinition | CustomColorBrandDefinition
-) => (a?.getTime() ?? 0) - (b?.getTime() ?? 0);
 
 function getResourceUrl(
   resource: 'brands' | 'colors' | 'sets',
