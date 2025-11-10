@@ -19,7 +19,9 @@
 import {deleteDatabase} from '~/src/services/db/db';
 
 export async function requestPersistentStorage(): Promise<boolean> {
-  if (!('storage' in navigator && 'persisted' in navigator.storage)) {
+  if (
+    !('storage' in navigator && 'persisted' in navigator.storage && 'persist' in navigator.storage)
+  ) {
     console.warn('Persistent storage is not supported in this browser');
     return false;
   }

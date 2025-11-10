@@ -34,28 +34,50 @@ import {SAMPLE_IMAGES} from '~/src/services/image/sample-images';
 import type {AppSettings} from '~/src/services/settings/types';
 import {TabKey} from '~/src/tabs';
 import {digestMessage} from '~/src/utils/digest';
-import {fetchCacheFirst, fetchSWR, getCacheName} from '~/src/utils/fetch';
+import {
+  CACHE_NAME_DEFAULT,
+  cachePutWithRetry,
+  fetchCacheFirst,
+  fetchSWR,
+  getCacheName,
+} from '~/src/utils/fetch';
 
-const MB_1 = 1024 * 1024;
-const MB_20 = 20 * MB_1;
-
-const CACHE_NAME_DEFAULT = getCacheName();
 const CACHE_NAME_LARGE_FILES = getCacheName('large-files');
 const CACHE_NAMES = [CACHE_NAME_DEFAULT, CACHE_NAME_LARGE_FILES];
 
 const CACHE_LARGE_FILE_EXTENSIONS: RegExp[] = [/\.onnx\.part[0-9]+$/, /\.wasm$/];
-const NO_CACHE_PATHNAMES: string[] = ['/404.html', '/cleanup.html'];
+const NO_CACHE_PATHNAMES = new Set<string>(['/404.html', '/cleanup.html']);
+
+function isCloudflareBeacon(url: URL): boolean {
+  return (
+    url.origin === 'https://static.cloudflareinsights.com' && url.pathname === '/beacon.min.js'
+  );
+}
 
 async function install(): Promise<void> {
   const cache = await caches.open(CACHE_NAME_DEFAULT);
-  await cache.addAll([
-    '/',
-    ...new Set(self.__WB_MANIFEST.map(({url}) => url)),
-    ...SAMPLE_IMAGES.flatMap(({image, thumbnail}: SampleImageDefinition): string[] => [
-      image,
-      thumbnail,
-    ]),
-  ]);
+  const criticalUrls: string[] = ['/', ...new Set(self.__WB_MANIFEST.map(({url}) => url))];
+  const optionalUrls: string[] = SAMPLE_IMAGES.flatMap(
+    ({image, thumbnail}: SampleImageDefinition): string[] => [image, thumbnail]
+  );
+  await Promise.all(
+    criticalUrls.map(async url => {
+      const request = new Request(url, {cache: 'reload'});
+      const response = await fetch(request);
+      await cachePutWithRetry(cache, request, response, true, true, true);
+    })
+  );
+  await Promise.allSettled(
+    optionalUrls.map(async url => {
+      try {
+        const request = new Request(url, {cache: 'reload'});
+        const response = await fetch(request);
+        await cachePutWithRetry(cache, request, response, true, true, false);
+      } catch (error) {
+        console.error('Failed to cache optional asset', url, error);
+      }
+    })
+  );
 }
 self.addEventListener('install', event => {
   event.waitUntil(install());
@@ -79,15 +101,19 @@ self.addEventListener('fetch', (event: FetchEvent) => {
     if (request.method === 'GET') {
       let response: Promise<Response>;
       if (url.origin === self.location.origin) {
-        if (NO_CACHE_PATHNAMES.includes(url.pathname)) {
+        if (NO_CACHE_PATHNAMES.has(url.pathname)) {
           response = fetch(request);
         } else {
           response = fetchCacheFirst(request);
         }
       } else if (CACHE_LARGE_FILE_EXTENSIONS.some(extension => extension.test(url.href))) {
-        response = fetchCacheFirst(request, CACHE_NAME_LARGE_FILES, MB_20);
+        response = fetchCacheFirst(request, CACHE_NAME_LARGE_FILES);
       } else {
-        response = fetchSWR(request);
+        if (isCloudflareBeacon(url)) {
+          response = fetch(request);
+        } else {
+          response = fetchSWR(request);
+        }
       }
       event.respondWith(response);
     } else if (
