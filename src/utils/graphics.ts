@@ -276,3 +276,13 @@ export function getRgbaForCoord(
   const i = getIndexForCoord(x, y, width, 0);
   return data.subarray(i, i + 4);
 }
+
+export function isWebGl2Supported(): boolean {
+  try {
+    const canvas = new OffscreenCanvas(1, 1);
+    const ctx: WebGL2RenderingContext | null = canvas.getContext('webgl2');
+    return !!ctx;
+  } catch {
+    return false;
+  }
+}

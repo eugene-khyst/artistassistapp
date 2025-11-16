@@ -30,10 +30,13 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {Alert, Col, Row, theme, Typography} from 'antd';
 import type {PropsWithChildren} from 'react';
 
+import {isWebGl2Supported} from '~/src/utils/graphics';
+
 const BROWSER_FEATURES: Record<string, boolean> = {
   Worker: typeof Worker !== 'undefined',
   OffscreenCanvas: typeof OffscreenCanvas !== 'undefined',
   createImageBitmap: typeof createImageBitmap !== 'undefined',
+  webgl2: isWebGl2Supported(),
   indexedDB: typeof indexedDB !== 'undefined',
   localStorage: typeof localStorage !== 'undefined',
 };

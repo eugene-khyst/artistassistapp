@@ -49,7 +49,7 @@ export class WebGLRenderer {
   ) {
     const [width, height] = size ?? [image.width, image.height];
     this.canvas = new OffscreenCanvas(width, height);
-    const gl = this.canvas.getContext('webgl2', {antialias: false});
+    const gl: WebGL2RenderingContext | null = this.canvas.getContext('webgl2', {antialias: false});
     if (!gl) {
       throw new Error('WebGL2 not supported');
     }
