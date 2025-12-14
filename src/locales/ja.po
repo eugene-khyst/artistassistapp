@@ -39,7 +39,7 @@ msgstr "{FIELD}は必須です"
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android、 <1/> Windows、 <2/> Linux、 <3/> ChromeOS"
 
-#: src/components/alert/BrowserSupport.tsx:87
+#: src/components/alert/BrowserSupport.tsx:90
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> デスクトップまたはラップトップ"
 
@@ -47,15 +47,15 @@ msgstr "<0/> デスクトップまたはラップトップ"
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOSおよびiPadOS"
 
-#: src/components/alert/BrowserSupport.tsx:67
+#: src/components/alert/BrowserSupport.tsx:70
 msgid "<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older versions of iPadOS and iOS)"
 msgstr "<0/> iPadOS 16.4+またはiOS 16.4+(古いバージョンのiPadOSおよびiOSのブラウザではサポートされていません)"
 
-#: src/components/alert/BrowserSupport.tsx:60
+#: src/components/alert/BrowserSupport.tsx:63
 msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> タブレットと <1/> モバイル"
 
-#: src/components/alert/BrowserSupport.tsx:105
+#: src/components/alert/BrowserSupport.tsx:108
 #: src/components/Install.tsx:85
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windowsおよび <1/> Linux"
@@ -375,7 +375,7 @@ msgstr "このカラーセットを削除"
 msgid "Determine the best photo by pairwise comparison"
 msgstr "ペアワイズ比較で最高の写真を決定する"
 
-#: src/components/alert/BrowserSupport.tsx:124
+#: src/components/alert/BrowserSupport.tsx:127
 msgid "Diagnostics"
 msgstr "診断"
 
@@ -577,7 +577,7 @@ msgstr "Patreonでログイン"
 msgid "Log out"
 msgstr "ログアウトする"
 
-#: src/hooks/useHandleAuthError.ts:42
+#: src/hooks/useHandleAuthError.ts:44
 msgid "Login failed"
 msgstr "ログインに失敗しました"
 
@@ -718,7 +718,7 @@ msgstr "オペーク"
 msgid "Open in Safari browser"
 msgstr "Safariブラウザで開く"
 
-#: src/components/alert/BrowserSupport.tsx:97
+#: src/components/alert/BrowserSupport.tsx:100
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "または、Chrome、Edge、Firefox、またはOperaWebブラウザの最新バージョンをインストールします"
 
@@ -1266,7 +1266,7 @@ msgstr "スタイル付きの参考写真"
 msgid "Supported web browsers"
 msgstr "サポートされているWebブラウザ"
 
-#: src/components/alert/BrowserSupport.tsx:54
+#: src/components/alert/BrowserSupport.tsx:57
 msgid "Supported web browsers and operating systems"
 msgstr "サポートされている Web ブラウザーとオペレーティング システム"
 
@@ -1418,6 +1418,10 @@ msgstr "水彩塗料"
 msgid "Watercolor Pencils"
 msgstr "水彩鉛筆"
 
+#: src/components/messages.ts:60
+msgid "We couldn't verify an active Patreon membership for your account. Please join ArtistAssistApp on Patreon, or sign in to Patreon with the email you used to purchase your membership. Then, log in to ArtistAssistApp again."
+msgstr "アカウントの有効なPatreonメンバーシップは確認できませんでした。PatreonのArtistAssistAppに参加するか、会員登録時に使ったメールアドレスでPatreonにサインインしてください。そして、再度ArtistAssistAppにログインしてください。"
+
 #: src/components/ColorSetChooser.tsx:688
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "合計で {maxColorsFor2} を超える色を選択した場合、2 つの色の混合は使用されません。"
@@ -1467,10 +1471,6 @@ msgstr "ログインしており、アプリのすべての機能にアクセス
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "<0>無料版</0>を使用しており、カラーブランドと画像処理モードの数が限られています。"
 
-#: src/components/messages.ts:60
-msgid "You have not yet joined ArtistAssistApp on Patreon as a paid member. Join and log in again."
-msgstr "PatreonのArtistAssistAppにまだ有料会員として参加していません。参加して再度ログインします。"
-
 #: src/components/ColorSetChooser.tsx:608
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "有料のPatreonメンバーのみが利用できるカラーブランドを選択しました"
@@ -1491,6 +1491,6 @@ msgstr "ブラウザを閉じると、データが確実に保存されない場
 msgid "Your session has expired. Please log in again."
 msgstr "セッションの有効期限が切れました。再度ログインしてください。"
 
-#: src/components/alert/BrowserSupport.tsx:52
+#: src/components/alert/BrowserSupport.tsx:55
 msgid "Your web browser is not supported."
 msgstr "お使いの Web ブラウザーはサポートされていません。"

@@ -39,7 +39,7 @@ msgstr "{FIELD} är obligatoriskt"
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux och <3/> ChromeOS"
 
-#: src/components/alert/BrowserSupport.tsx:87
+#: src/components/alert/BrowserSupport.tsx:90
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> Stationär eller bärbar dator"
 
@@ -47,15 +47,15 @@ msgstr "<0/> Stationär eller bärbar dator"
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS och iPadOS"
 
-#: src/components/alert/BrowserSupport.tsx:67
+#: src/components/alert/BrowserSupport.tsx:70
 msgid "<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older versions of iPadOS and iOS)"
 msgstr "<0/> iPadOS 16.4+ eller iOS 16.4+ (stöds inte i någon webbläsare i äldre versioner av iPadOS och iOS)"
 
-#: src/components/alert/BrowserSupport.tsx:60
+#: src/components/alert/BrowserSupport.tsx:63
 msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> Surfplatta och <1/> mobil"
 
-#: src/components/alert/BrowserSupport.tsx:105
+#: src/components/alert/BrowserSupport.tsx:108
 #: src/components/Install.tsx:85
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows och <1/> Linux"
@@ -375,7 +375,7 @@ msgstr "Ta bort den här färguppsättningen"
 msgid "Determine the best photo by pairwise comparison"
 msgstr "Bestäm det bästa fotot genom parvis jämförelse"
 
-#: src/components/alert/BrowserSupport.tsx:124
+#: src/components/alert/BrowserSupport.tsx:127
 msgid "Diagnostics"
 msgstr "Diagnostik"
 
@@ -577,7 +577,7 @@ msgstr "Logga in med Patreon"
 msgid "Log out"
 msgstr "Logga ut"
 
-#: src/hooks/useHandleAuthError.ts:42
+#: src/hooks/useHandleAuthError.ts:44
 msgid "Login failed"
 msgstr "Inloggningen misslyckades"
 
@@ -718,7 +718,7 @@ msgstr "Ogenomskinlig"
 msgid "Open in Safari browser"
 msgstr "Öppna i webbläsaren Safari"
 
-#: src/components/alert/BrowserSupport.tsx:97
+#: src/components/alert/BrowserSupport.tsx:100
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "eller installera den senaste versionen av webbläsaren Chrome, Edge, Firefox eller Opera"
 
@@ -1266,7 +1266,7 @@ msgstr "Formaterat referensfoto"
 msgid "Supported web browsers"
 msgstr "Webbläsare som stöds"
 
-#: src/components/alert/BrowserSupport.tsx:54
+#: src/components/alert/BrowserSupport.tsx:57
 msgid "Supported web browsers and operating systems"
 msgstr "Webbläsare och operativsystem som stöds"
 
@@ -1418,6 +1418,10 @@ msgstr "Akvarellfärg"
 msgid "Watercolor Pencils"
 msgstr "Akvarellpennor"
 
+#: src/components/messages.ts:60
+msgid "We couldn't verify an active Patreon membership for your account. Please join ArtistAssistApp on Patreon, or sign in to Patreon with the email you used to purchase your membership. Then, log in to ArtistAssistApp again."
+msgstr "Vi kunde inte verifiera ett aktivt Patreon-medlemskap för ditt konto. Gå gärna med i ArtistAssistApp på Patreon, eller logga in på Patreon med den e-postadress du använde för att köpa ditt medlemskap. Logga sedan in på ArtistAssistApp igen."
+
 #: src/components/ColorSetChooser.tsx:688
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "När du väljer fler än {maxColorsFor2} färger totalt används inte blandningar av två färger."
@@ -1467,10 +1471,6 @@ msgstr "Du är inloggad och har tillgång till alla appfunktioner."
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "Du använder <0>gratisversionen</0> med ett begränsat antal färgmärken och bildbehandlingslägen."
 
-#: src/components/messages.ts:60
-msgid "You have not yet joined ArtistAssistApp on Patreon as a paid member. Join and log in again."
-msgstr "Du har ännu inte gått med i ArtistAssistApp på Patreon som betalande medlem. Gå med och logga in igen."
-
 #: src/components/ColorSetChooser.tsx:608
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Du har valt färgmärken som endast är tillgängliga för betalda Patreon-medlemmar"
@@ -1491,6 +1491,6 @@ msgstr "Det kan hända att dina uppgifter inte sparas på ett tillförlitligt s�
 msgid "Your session has expired. Please log in again."
 msgstr "Din session har löpt ut. Logga in igen."
 
-#: src/components/alert/BrowserSupport.tsx:52
+#: src/components/alert/BrowserSupport.tsx:55
 msgid "Your web browser is not supported."
 msgstr "Din webbläsare stöds inte."

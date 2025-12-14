@@ -39,7 +39,7 @@ msgstr "Το {FIELD} είναι υποχρεωτικό"
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux και <3/> ChromeOS"
 
-#: src/components/alert/BrowserSupport.tsx:87
+#: src/components/alert/BrowserSupport.tsx:90
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> Επιτραπέζιος ή φορητός υπολογιστής"
 
@@ -47,15 +47,15 @@ msgstr "<0/> Επιτραπέζιος ή φορητός υπολογιστής"
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS και iPadOS"
 
-#: src/components/alert/BrowserSupport.tsx:67
+#: src/components/alert/BrowserSupport.tsx:70
 msgid "<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older versions of iPadOS and iOS)"
 msgstr "<0/> iPadOS 16.4+ ή iOS 16.4+ (δεν υποστηρίζεται σε κανένα πρόγραμμα περιήγησης σε παλαιότερες εκδόσεις iPadOS και iOS)"
 
-#: src/components/alert/BrowserSupport.tsx:60
+#: src/components/alert/BrowserSupport.tsx:63
 msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> Tablet και <1/> κινητό"
 
-#: src/components/alert/BrowserSupport.tsx:105
+#: src/components/alert/BrowserSupport.tsx:108
 #: src/components/Install.tsx:85
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows και <1/> Linux"
@@ -375,7 +375,7 @@ msgstr "Διαγραφή αυτού του συνόλου χρωμάτων"
 msgid "Determine the best photo by pairwise comparison"
 msgstr "Προσδιορίστε την καλύτερη φωτογραφία με σύγκριση κατά ζεύγη"
 
-#: src/components/alert/BrowserSupport.tsx:124
+#: src/components/alert/BrowserSupport.tsx:127
 msgid "Diagnostics"
 msgstr "Διαγνωστικός έλεγχος"
 
@@ -577,7 +577,7 @@ msgstr "Σύνδεση με Patreon"
 msgid "Log out"
 msgstr "Αποσύνδεση"
 
-#: src/hooks/useHandleAuthError.ts:42
+#: src/hooks/useHandleAuthError.ts:44
 msgid "Login failed"
 msgstr "Η σύνδεση απέτυχε"
 
@@ -718,7 +718,7 @@ msgstr "Αδιαφανής"
 msgid "Open in Safari browser"
 msgstr "Άνοιγμα στο πρόγραμμα περιήγησης Safari"
 
-#: src/components/alert/BrowserSupport.tsx:97
+#: src/components/alert/BrowserSupport.tsx:100
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "ή εγκαταστήστε την πιο πρόσφατη έκδοση του προγράμματος περιήγησης ιστού Chrome, Edge, Firefox ή Opera"
 
@@ -1266,7 +1266,7 @@ msgstr "Στυλιζαρισμένη φωτογραφία αναφοράς"
 msgid "Supported web browsers"
 msgstr "Υποστηριζόμενα προγράμματα περιήγησης ιστού"
 
-#: src/components/alert/BrowserSupport.tsx:54
+#: src/components/alert/BrowserSupport.tsx:57
 msgid "Supported web browsers and operating systems"
 msgstr "Υποστηριζόμενα προγράμματα περιήγησης ιστού και λειτουργικά συστήματα"
 
@@ -1418,6 +1418,10 @@ msgstr "Βαφή ακουαρέλας"
 msgid "Watercolor Pencils"
 msgstr "Μολύβια ακουαρέλας"
 
+#: src/components/messages.ts:60
+msgid "We couldn't verify an active Patreon membership for your account. Please join ArtistAssistApp on Patreon, or sign in to Patreon with the email you used to purchase your membership. Then, log in to ArtistAssistApp again."
+msgstr "Δεν μπορέσαμε να επαληθεύσουμε μια ενεργή συνδρομή Patreon για τον λογαριασμό σας. Εγγραφείτε στο ArtistAssistApp στο Patreon ή συνδεθείτε στο Patreon με το email που χρησιμοποιήσατε για να αγοράσετε τη συνδρομή σας. Στη συνέχεια, συνδεθείτε ξανά στο ArtistAssistApp."
+
 #: src/components/ColorSetChooser.tsx:688
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "Όταν επιλέγετε περισσότερα από {maxColorsFor2} χρώματα συνολικά, δεν χρησιμοποιούνται μείγματα δύο χρωμάτων."
@@ -1467,10 +1471,6 @@ msgstr "Είστε συνδεδεμένοι και έχετε πρόσβαση �
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "Χρησιμοποιείτε τη <0>δωρεάν έκδοση</0> με περιορισμένο αριθμό επωνυμιών χρωμάτων και τρόπων επεξεργασίας εικόνας."
 
-#: src/components/messages.ts:60
-msgid "You have not yet joined ArtistAssistApp on Patreon as a paid member. Join and log in again."
-msgstr "Δεν έχετε εγγραφεί ακόμα στο ArtistAssistApp στο Patreon ως μέλος επί πληρωμή. Εγγραφείτε και συνδεθείτε ξανά."
-
 #: src/components/ColorSetChooser.tsx:608
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Έχετε επιλέξει επωνυμίες χρωμάτων που είναι διαθέσιμες μόνο σε μέλη Patreon επί πληρωμή"
@@ -1491,6 +1491,6 @@ msgstr "Τα δεδομένα σας ενδέχεται να μην αποθηκ
 msgid "Your session has expired. Please log in again."
 msgstr "Η συνεδρία σας έχει λήξει. Παρακαλούμε συνδεθείτε ξανά."
 
-#: src/components/alert/BrowserSupport.tsx:52
+#: src/components/alert/BrowserSupport.tsx:55
 msgid "Your web browser is not supported."
 msgstr "Το πρόγραμμα περιήγησής σας δεν υποστηρίζεται."

@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {MessageDescriptor} from '@lingui/core';
 import {useLingui} from '@lingui/react/macro';
 import {App} from 'antd';
 import {useEffect} from 'react';
@@ -37,10 +38,11 @@ export function useHandleAuthError(): void {
   useEffect(() => {
     void (async () => {
       if (authError) {
-        const message = AUTH_ERRORS[authError.type];
+        const errorMessage: MessageDescriptor | undefined = AUTH_ERRORS[authError.type];
+        const errorDescription: string = authError.message || '';
         await modal.warning({
           title: t`Login failed`,
-          content: message ? t(message) : authError.message,
+          content: errorMessage ? `${t(errorMessage)} ${errorDescription}` : errorDescription,
           afterClose() {
             clearAuthError();
             void setActiveTabKey(TabKey.ColorSet);

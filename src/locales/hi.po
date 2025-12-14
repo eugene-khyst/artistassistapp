@@ -39,7 +39,7 @@ msgstr "{FIELD} आवश्यक है"
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> एंड्रॉइड, <1/> विंडोज, <2/> लिनक्स और <3/> क्रोमओएस"
 
-#: src/components/alert/BrowserSupport.tsx:87
+#: src/components/alert/BrowserSupport.tsx:90
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> डेस्कटॉप या लैपटॉप"
 
@@ -47,15 +47,15 @@ msgstr "<0/> डेस्कटॉप या लैपटॉप"
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS और iPadOS"
 
-#: src/components/alert/BrowserSupport.tsx:67
+#: src/components/alert/BrowserSupport.tsx:70
 msgid "<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older versions of iPadOS and iOS)"
 msgstr "<0/> iPadOS 16.4+ या iOS 16.4+ (iPadOS और iOS के पुराने संस्करणों पर किसी भी ब्राउज़र में समर्थित नहीं)"
 
-#: src/components/alert/BrowserSupport.tsx:60
+#: src/components/alert/BrowserSupport.tsx:63
 msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> टैबलेट और <1/> मोबाइल"
 
-#: src/components/alert/BrowserSupport.tsx:105
+#: src/components/alert/BrowserSupport.tsx:108
 #: src/components/Install.tsx:85
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> विंडोज और <1/> लिनक्स"
@@ -375,7 +375,7 @@ msgstr "यह रंग सेट हटाएँ"
 msgid "Determine the best photo by pairwise comparison"
 msgstr "जोड़ीवार तुलना द्वारा सर्वश्रेष्ठ फोटो निर्धारित करें"
 
-#: src/components/alert/BrowserSupport.tsx:124
+#: src/components/alert/BrowserSupport.tsx:127
 msgid "Diagnostics"
 msgstr "निदान-शास्त्र"
 
@@ -577,7 +577,7 @@ msgstr "Patreon के साथ लॉग इन करें"
 msgid "Log out"
 msgstr "लॉग आउट करें"
 
-#: src/hooks/useHandleAuthError.ts:42
+#: src/hooks/useHandleAuthError.ts:44
 msgid "Login failed"
 msgstr "लॉगिन विफल रहा"
 
@@ -718,7 +718,7 @@ msgstr "अस्‍पष्‍ट"
 msgid "Open in Safari browser"
 msgstr "सफारी ब्राउज़र में खोलें"
 
-#: src/components/alert/BrowserSupport.tsx:97
+#: src/components/alert/BrowserSupport.tsx:100
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "या Chrome, Edge, Firefox या Opera वेब ब्राउज़र का नवीनतम संस्करण इंस्टॉल करें"
 
@@ -1266,7 +1266,7 @@ msgstr "स्टाइल संदर्भ फोटो"
 msgid "Supported web browsers"
 msgstr "समर्थित वेब ब्राउज़र"
 
-#: src/components/alert/BrowserSupport.tsx:54
+#: src/components/alert/BrowserSupport.tsx:57
 msgid "Supported web browsers and operating systems"
 msgstr "समर्थित वेब ब्राउज़र और ऑपरेटिंग सिस्टम"
 
@@ -1418,6 +1418,10 @@ msgstr "वॉटरकलर पेंट"
 msgid "Watercolor Pencils"
 msgstr "वॉटरकलर पेंसिल"
 
+#: src/components/messages.ts:60
+msgid "We couldn't verify an active Patreon membership for your account. Please join ArtistAssistApp on Patreon, or sign in to Patreon with the email you used to purchase your membership. Then, log in to ArtistAssistApp again."
+msgstr "हम आपके खाते के लिए सक्रिय Patreon सदस्यता की पुष्टि नहीं कर सके. कृपया Patreon पर ArtistAssistApp से जुड़ें, या उस ईमेल के साथ Patreon में साइन इन करें जिसका उपयोग आपने अपनी सदस्यता खरीदने के लिए किया था। फिर, ArtistAssistApp में फिर से लॉग इन करें।"
+
 #: src/components/ColorSetChooser.tsx:688
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "कुल मिलाकर {maxColorsFor2} से अधिक रंगों का चयन करते समय, दो रंगों के मिश्रण का उपयोग नहीं किया जाता है।"
@@ -1467,10 +1471,6 @@ msgstr "आप लॉग इन हैं और आपके पास सभ�
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "आप सीमित संख्या में रंग ब्रांडों और छवि प्रसंस्करण मोड के साथ <0>मुफ्त संस्करण</0> का उपयोग कर रहे हैं।"
 
-#: src/components/messages.ts:60
-msgid "You have not yet joined ArtistAssistApp on Patreon as a paid member. Join and log in again."
-msgstr "आपने अभी तक Patreon पर ArtistAssistApp को सशुल्क सदस्य के रूप में शामिल नहीं किया है. शामिल हों और फिर से लॉग इन करें।"
-
 #: src/components/ColorSetChooser.tsx:608
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "आपने ऐसे रंग ब्रांड चुने हैं जो केवल भुगतान किए गए Patreon सदस्यों के लिए उपलब्ध हैं"
@@ -1491,6 +1491,6 @@ msgstr "यदि ब्राउज़र बंद है तो आपका 
 msgid "Your session has expired. Please log in again."
 msgstr "आपका सत्र समाप्त हो गया है। कृपया फिर से लॉग इन करें।"
 
-#: src/components/alert/BrowserSupport.tsx:52
+#: src/components/alert/BrowserSupport.tsx:55
 msgid "Your web browser is not supported."
 msgstr "आपका वेब ब्राउज़र समर्थित नहीं है।"

@@ -39,7 +39,7 @@ msgstr "{FIELD} este obligatoriu"
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux și <3/> ChromeOS"
 
-#: src/components/alert/BrowserSupport.tsx:87
+#: src/components/alert/BrowserSupport.tsx:90
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> Desktop sau laptop"
 
@@ -47,15 +47,15 @@ msgstr "<0/> Desktop sau laptop"
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS și iPadOS"
 
-#: src/components/alert/BrowserSupport.tsx:67
+#: src/components/alert/BrowserSupport.tsx:70
 msgid "<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older versions of iPadOS and iOS)"
 msgstr "<0/> iPadOS 16.4+ sau iOS 16.4+ (nu este acceptat în niciun browser pe versiunile mai vechi de iPadOS și iOS)"
 
-#: src/components/alert/BrowserSupport.tsx:60
+#: src/components/alert/BrowserSupport.tsx:63
 msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> Tabletă și <1/> mobil"
 
-#: src/components/alert/BrowserSupport.tsx:105
+#: src/components/alert/BrowserSupport.tsx:108
 #: src/components/Install.tsx:85
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows și <1/> Linux"
@@ -375,7 +375,7 @@ msgstr "Ștergeți acest set de culori"
 msgid "Determine the best photo by pairwise comparison"
 msgstr "Determinați cea mai bună fotografie prin comparație în perechi"
 
-#: src/components/alert/BrowserSupport.tsx:124
+#: src/components/alert/BrowserSupport.tsx:127
 msgid "Diagnostics"
 msgstr "Diagnosticare"
 
@@ -577,7 +577,7 @@ msgstr "Conectează-te cu Patreon"
 msgid "Log out"
 msgstr "Deconectați-vă"
 
-#: src/hooks/useHandleAuthError.ts:42
+#: src/hooks/useHandleAuthError.ts:44
 msgid "Login failed"
 msgstr "Conectarea a eșuat"
 
@@ -718,7 +718,7 @@ msgstr "Opac"
 msgid "Open in Safari browser"
 msgstr "Deschide în browserul Safari"
 
-#: src/components/alert/BrowserSupport.tsx:97
+#: src/components/alert/BrowserSupport.tsx:100
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "sau instalați cea mai recentă versiune a browserului web Chrome, Edge, Firefox sau Opera"
 
@@ -1266,7 +1266,7 @@ msgstr "Fotografie de referință stilizată"
 msgid "Supported web browsers"
 msgstr "Browsere web acceptate"
 
-#: src/components/alert/BrowserSupport.tsx:54
+#: src/components/alert/BrowserSupport.tsx:57
 msgid "Supported web browsers and operating systems"
 msgstr "Browsere web și sisteme de operare acceptate"
 
@@ -1418,6 +1418,10 @@ msgstr "Vopsea acuarelă"
 msgid "Watercolor Pencils"
 msgstr "Creioane acuarelă"
 
+#: src/components/messages.ts:60
+msgid "We couldn't verify an active Patreon membership for your account. Please join ArtistAssistApp on Patreon, or sign in to Patreon with the email you used to purchase your membership. Then, log in to ArtistAssistApp again."
+msgstr "Nu am putut verifica dacă ai un abonament activ pe Patreon pentru contul tău. Vă rugăm să vă alăturați ArtistAssistApp pe Patreon sau să vă conectați pe Patreon cu adresa de email folosită pentru achiziționarea abonamentului. Apoi, conectează-te din nou la ArtistAssistApp."
+
 #: src/components/ColorSetChooser.tsx:688
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "Când selectați mai mult de {maxColorsFor2} culori în total, nu se utilizează amestecuri de două culori."
@@ -1467,10 +1471,6 @@ msgstr "Sunteți conectat și aveți acces la toate funcțiile aplicației."
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "Utilizați <0>versiunea gratuită</0> cu un număr limitat de mărci de culori și moduri de procesare a imaginii."
 
-#: src/components/messages.ts:60
-msgid "You have not yet joined ArtistAssistApp on Patreon as a paid member. Join and log in again."
-msgstr "Nu v-ați alăturat încă ArtistAssistApp pe Patreon ca membru plătit. Alăturați-vă și conectați-vă din nou."
-
 #: src/components/ColorSetChooser.tsx:608
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Ai selectat mărci de culori care sunt disponibile numai pentru membrii Patreon plătiți"
@@ -1491,6 +1491,6 @@ msgstr "Este posibil ca datele dumneavoastră să nu fie salvate în mod fiabil 
 msgid "Your session has expired. Please log in again."
 msgstr "Sesiunea a expirat. Vă rugăm să vă conectați din nou."
 
-#: src/components/alert/BrowserSupport.tsx:52
+#: src/components/alert/BrowserSupport.tsx:55
 msgid "Your web browser is not supported."
 msgstr "Browserul web nu este acceptat."

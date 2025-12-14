@@ -39,7 +39,7 @@ msgstr "{FIELD} es obligatorio"
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux y <3/> ChromeOS"
 
-#: src/components/alert/BrowserSupport.tsx:87
+#: src/components/alert/BrowserSupport.tsx:90
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> Computadora de escritorio o portátil"
 
@@ -47,15 +47,15 @@ msgstr "<0/> Computadora de escritorio o portátil"
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS y iPadOS"
 
-#: src/components/alert/BrowserSupport.tsx:67
+#: src/components/alert/BrowserSupport.tsx:70
 msgid "<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older versions of iPadOS and iOS)"
 msgstr "<0/> iPadOS 16.4+ o iOS 16.4+ (no compatible con ningún navegador en versiones anteriores de iPadOS e iOS)"
 
-#: src/components/alert/BrowserSupport.tsx:60
+#: src/components/alert/BrowserSupport.tsx:63
 msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> Tableta y <1/> móvil"
 
-#: src/components/alert/BrowserSupport.tsx:105
+#: src/components/alert/BrowserSupport.tsx:108
 #: src/components/Install.tsx:85
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows y <1/> Linux"
@@ -375,7 +375,7 @@ msgstr "Eliminar este conjunto de colores"
 msgid "Determine the best photo by pairwise comparison"
 msgstr "Determine la mejor foto mediante una comparación por pares"
 
-#: src/components/alert/BrowserSupport.tsx:124
+#: src/components/alert/BrowserSupport.tsx:127
 msgid "Diagnostics"
 msgstr "Diagnósticos"
 
@@ -577,7 +577,7 @@ msgstr "Iniciar sesión con Patreon"
 msgid "Log out"
 msgstr "Cerrar sesión"
 
-#: src/hooks/useHandleAuthError.ts:42
+#: src/hooks/useHandleAuthError.ts:44
 msgid "Login failed"
 msgstr "Error de inicio de sesión"
 
@@ -718,7 +718,7 @@ msgstr "Opaco"
 msgid "Open in Safari browser"
 msgstr "Abrir en el navegador Safari"
 
-#: src/components/alert/BrowserSupport.tsx:97
+#: src/components/alert/BrowserSupport.tsx:100
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "o instale la última versión del navegador web Chrome, Edge, Firefox u Opera"
 
@@ -1266,7 +1266,7 @@ msgstr "Foto de referencia con estilo"
 msgid "Supported web browsers"
 msgstr "Navegadores web compatibles"
 
-#: src/components/alert/BrowserSupport.tsx:54
+#: src/components/alert/BrowserSupport.tsx:57
 msgid "Supported web browsers and operating systems"
 msgstr "Navegadores web y sistemas operativos compatibles"
 
@@ -1418,6 +1418,10 @@ msgstr "Pintura de acuarela"
 msgid "Watercolor Pencils"
 msgstr "Lápices de acuarela"
 
+#: src/components/messages.ts:60
+msgid "We couldn't verify an active Patreon membership for your account. Please join ArtistAssistApp on Patreon, or sign in to Patreon with the email you used to purchase your membership. Then, log in to ArtistAssistApp again."
+msgstr "No pudimos verificar una membresía activa en Patreon para tu cuenta. Por favor, únete a ArtistAssistApp en Patreon o inicia sesión en Patreon con el correo electrónico que usaste para comprar tu membresía. Luego, vuelve a iniciar sesión en ArtistAssistApp."
+
 #: src/components/ColorSetChooser.tsx:688
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "Al seleccionar más de {maxColorsFor2} colores en total, no se utilizan mezclas de dos colores."
@@ -1467,10 +1471,6 @@ msgstr "Ha iniciado sesión y tiene acceso a todas las funciones de la aplicaci�
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "Está utilizando la <0>versión gratuita</0> con un número limitado de marcas de color y modos de procesamiento de imágenes."
 
-#: src/components/messages.ts:60
-msgid "You have not yet joined ArtistAssistApp on Patreon as a paid member. Join and log in again."
-msgstr "Aún no te has unido a ArtistAssistApp en Patreon como miembro de pago. Únete y vuelve a iniciar sesión."
-
 #: src/components/ColorSetChooser.tsx:608
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Has seleccionado marcas de color que están disponibles solo para miembros pagos de Patreon"
@@ -1491,6 +1491,6 @@ msgstr "Es posible que sus datos no se guarden de forma fiable si se cierra el n
 msgid "Your session has expired. Please log in again."
 msgstr "Su sesión ha caducado. Por favor, inicie sesión de nuevo."
 
-#: src/components/alert/BrowserSupport.tsx:52
+#: src/components/alert/BrowserSupport.tsx:55
 msgid "Your web browser is not supported."
 msgstr "Su navegador web no es compatible."

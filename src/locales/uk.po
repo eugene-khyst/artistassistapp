@@ -39,7 +39,7 @@ msgstr "{FIELD} є обов'язковим"
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux та <3/> ChromeOS"
 
-#: src/components/alert/BrowserSupport.tsx:87
+#: src/components/alert/BrowserSupport.tsx:90
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> Настільний комп'ютер або ноутбук"
 
@@ -47,15 +47,15 @@ msgstr "<0/> Настільний комп'ютер або ноутбук"
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS та iPadOS"
 
-#: src/components/alert/BrowserSupport.tsx:67
+#: src/components/alert/BrowserSupport.tsx:70
 msgid "<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older versions of iPadOS and iOS)"
 msgstr "<0/> iPadOS 16.4+ або iOS 16.4+ (не підтримується в жодному браузері на старіших версіях iPadOS та iOS)"
 
-#: src/components/alert/BrowserSupport.tsx:60
+#: src/components/alert/BrowserSupport.tsx:63
 msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> Планшет і <1/> мобільний телефон"
 
-#: src/components/alert/BrowserSupport.tsx:105
+#: src/components/alert/BrowserSupport.tsx:108
 #: src/components/Install.tsx:85
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows і <1/> Linux"
@@ -375,7 +375,7 @@ msgstr "Видалити цей набір кольорів"
 msgid "Determine the best photo by pairwise comparison"
 msgstr "Визначте найкращу фотографію шляхом попарного порівняння"
 
-#: src/components/alert/BrowserSupport.tsx:124
+#: src/components/alert/BrowserSupport.tsx:127
 msgid "Diagnostics"
 msgstr "Діагностика"
 
@@ -577,7 +577,7 @@ msgstr "Увійдіть за допомогою Patreon"
 msgid "Log out"
 msgstr "Вийти"
 
-#: src/hooks/useHandleAuthError.ts:42
+#: src/hooks/useHandleAuthError.ts:44
 msgid "Login failed"
 msgstr "Не вдалося увійти в систему"
 
@@ -718,7 +718,7 @@ msgstr "Непрозорі"
 msgid "Open in Safari browser"
 msgstr "Відкрити в браузері Safari"
 
-#: src/components/alert/BrowserSupport.tsx:97
+#: src/components/alert/BrowserSupport.tsx:100
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "або встановіть останню версію веб-браузера Chrome, Edge, Firefox або Opera"
 
@@ -1266,7 +1266,7 @@ msgstr "Стилізоване еталонне фото"
 msgid "Supported web browsers"
 msgstr "Підтримувані веб-браузери"
 
-#: src/components/alert/BrowserSupport.tsx:54
+#: src/components/alert/BrowserSupport.tsx:57
 msgid "Supported web browsers and operating systems"
 msgstr "Підтримувані веб-браузери та операційні системи"
 
@@ -1418,6 +1418,10 @@ msgstr "Акварельні фарби"
 msgid "Watercolor Pencils"
 msgstr "Акварельні олівці"
 
+#: src/components/messages.ts:60
+msgid "We couldn't verify an active Patreon membership for your account. Please join ArtistAssistApp on Patreon, or sign in to Patreon with the email you used to purchase your membership. Then, log in to ArtistAssistApp again."
+msgstr "Ми не змогли підтвердити активне членство на Patreon для вашого акаунта. Будь ласка, приєднуйтесь до ArtistAssistApp на Patreon або увійдіть на Patreon за електронною поштою, яку ви використали для придбання членства. Потім знову увійти в ArtistAssistApp."
+
 #: src/components/ColorSetChooser.tsx:688
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "При виборі більше ніж {maxColorsFor2} в цілому, суміші двох кольорів не використовуються."
@@ -1467,10 +1471,6 @@ msgstr "Ви увійшли в систему та маєте доступ до 
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "Ви використовуєте <0>безкоштовну версію</0> з обмеженою кількістю колірних брендів і режимів обробки зображень."
 
-#: src/components/messages.ts:60
-msgid "You have not yet joined ArtistAssistApp on Patreon as a paid member. Join and log in again."
-msgstr "Ви ще не приєдналися до ArtistAssistApp на Patreon як платний учасник. Приєднуйтесь та авторизуйтесь знову."
-
 #: src/components/ColorSetChooser.tsx:608
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Ви вибрали колірні бренди, які доступні лише для платних підписників Patreon"
@@ -1491,6 +1491,6 @@ msgstr "Ваші дані можуть зберігатися ненадійно
 msgid "Your session has expired. Please log in again."
 msgstr "Термін дії сеансу минув. Будь ласка, увійдіть знову."
 
-#: src/components/alert/BrowserSupport.tsx:52
+#: src/components/alert/BrowserSupport.tsx:55
 msgid "Your web browser is not supported."
 msgstr "Ваш веб-браузер не підтримується."

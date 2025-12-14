@@ -39,7 +39,7 @@ msgstr "{FIELD} gereklidir"
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux ve <3/> ChromeOS"
 
-#: src/components/alert/BrowserSupport.tsx:87
+#: src/components/alert/BrowserSupport.tsx:90
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> Masaüstü veya dizüstü bilgisayar"
 
@@ -47,15 +47,15 @@ msgstr "<0/> Masaüstü veya dizüstü bilgisayar"
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS ve iPadOS"
 
-#: src/components/alert/BrowserSupport.tsx:67
+#: src/components/alert/BrowserSupport.tsx:70
 msgid "<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older versions of iPadOS and iOS)"
 msgstr "<0/> iPadOS 16.4+ veya iOS 16.4+ (iPadOS ve iOS'in eski sürümlerinde hiçbir tarayıcıda desteklenmez)"
 
-#: src/components/alert/BrowserSupport.tsx:60
+#: src/components/alert/BrowserSupport.tsx:63
 msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> Tablet ve <1/> Mobil"
 
-#: src/components/alert/BrowserSupport.tsx:105
+#: src/components/alert/BrowserSupport.tsx:108
 #: src/components/Install.tsx:85
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows ve <1/> Linux"
@@ -375,7 +375,7 @@ msgstr "Bu renk kümesini sil"
 msgid "Determine the best photo by pairwise comparison"
 msgstr "İkili karşılaştırma ile en iyi fotoğrafı belirleyin"
 
-#: src/components/alert/BrowserSupport.tsx:124
+#: src/components/alert/BrowserSupport.tsx:127
 msgid "Diagnostics"
 msgstr "Tanılama"
 
@@ -577,7 +577,7 @@ msgstr "Patreon ile giriş yap"
 msgid "Log out"
 msgstr "Oturumu kapat"
 
-#: src/hooks/useHandleAuthError.ts:42
+#: src/hooks/useHandleAuthError.ts:44
 msgid "Login failed"
 msgstr "Oturum açma başarısız oldu"
 
@@ -718,7 +718,7 @@ msgstr "Donuk"
 msgid "Open in Safari browser"
 msgstr "Safari tarayıcısında aç"
 
-#: src/components/alert/BrowserSupport.tsx:97
+#: src/components/alert/BrowserSupport.tsx:100
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "veya Chrome, Edge, Firefox veya Opera web tarayıcısının en son sürümünü yükleyin"
 
@@ -1266,7 +1266,7 @@ msgstr "Tarz referans fotoğraf"
 msgid "Supported web browsers"
 msgstr "Desteklenen web tarayıcıları"
 
-#: src/components/alert/BrowserSupport.tsx:54
+#: src/components/alert/BrowserSupport.tsx:57
 msgid "Supported web browsers and operating systems"
 msgstr "Desteklenen web tarayıcıları ve işletim sistemleri"
 
@@ -1418,6 +1418,10 @@ msgstr "Suluboya Boya"
 msgid "Watercolor Pencils"
 msgstr "Suluboya Kalemleri"
 
+#: src/components/messages.ts:60
+msgid "We couldn't verify an active Patreon membership for your account. Please join ArtistAssistApp on Patreon, or sign in to Patreon with the email you used to purchase your membership. Then, log in to ArtistAssistApp again."
+msgstr "Hesabınız için aktif bir Patreon üyeliği doğrulayamadık. Lütfen Patreon'da ArtistAssistApp'e katılın veya üyeliğinizi satın almak için kullandığınız e-posta adresiyle Patreon'a giriş yapın. Sonra tekrar ArtistAssistApp'e giriş yapın."
+
 #: src/components/ColorSetChooser.tsx:688
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "Toplamda {maxColorsFor2}'den fazla renk seçerken, iki rengin karışımları kullanılmaz."
@@ -1467,10 +1471,6 @@ msgstr "Giriş yaptınız ve tüm uygulama özelliklerine erişiminiz var."
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "Sınırlı sayıda renk markası ve görüntü işleme modu ile <0>ücretsiz sürümü</0> kullanıyorsunuz."
 
-#: src/components/messages.ts:60
-msgid "You have not yet joined ArtistAssistApp on Patreon as a paid member. Join and log in again."
-msgstr "Henüz Patreon'da ArtistAssistApp'e ücretli üye olarak katılmadınız. Katılın ve tekrar giriş yapın."
-
 #: src/components/ColorSetChooser.tsx:608
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Yalnızca ödeme yapan Patreon üyelerine açık olan renk markalarını seçtiniz"
@@ -1491,6 +1491,6 @@ msgstr "Tarayıcı kapalıysa verileriniz güvenilir bir şekilde kaydedilemeyeb
 msgid "Your session has expired. Please log in again."
 msgstr "Oturumunuzun süresi doldu. Lütfen tekrar giriş yapın."
 
-#: src/components/alert/BrowserSupport.tsx:52
+#: src/components/alert/BrowserSupport.tsx:55
 msgid "Your web browser is not supported."
 msgstr "Web tarayıcınız desteklenmiyor."

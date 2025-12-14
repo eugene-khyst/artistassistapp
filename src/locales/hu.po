@@ -39,7 +39,7 @@ msgstr "{FIELD} kötelező"
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, Windows, <1/> <2/> Linux és <3/> ChromeOS"
 
-#: src/components/alert/BrowserSupport.tsx:87
+#: src/components/alert/BrowserSupport.tsx:90
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> Asztali számítógép vagy laptop"
 
@@ -47,15 +47,15 @@ msgstr "<0/> Asztali számítógép vagy laptop"
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS és iPadOS"
 
-#: src/components/alert/BrowserSupport.tsx:67
+#: src/components/alert/BrowserSupport.tsx:70
 msgid "<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older versions of iPadOS and iOS)"
 msgstr "<0/> iPadOS 16.4+ vagy iOS 16.4+ (az iPadOS és az iOS régebbi verzióin egyetlen böngésző sem támogatott)"
 
-#: src/components/alert/BrowserSupport.tsx:60
+#: src/components/alert/BrowserSupport.tsx:63
 msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> Táblagép és <1/> mobil"
 
-#: src/components/alert/BrowserSupport.tsx:105
+#: src/components/alert/BrowserSupport.tsx:108
 #: src/components/Install.tsx:85
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows és <1/> Linux"
@@ -375,7 +375,7 @@ msgstr "Törölje ezt a színkészletet"
 msgid "Determine the best photo by pairwise comparison"
 msgstr "Határozza meg a legjobb fényképet páronkénti összehasonlítással"
 
-#: src/components/alert/BrowserSupport.tsx:124
+#: src/components/alert/BrowserSupport.tsx:127
 msgid "Diagnostics"
 msgstr "Diagnosztika"
 
@@ -577,7 +577,7 @@ msgstr "Bejelentkezés a Patreonnal"
 msgid "Log out"
 msgstr "Kijelentkezik"
 
-#: src/hooks/useHandleAuthError.ts:42
+#: src/hooks/useHandleAuthError.ts:44
 msgid "Login failed"
 msgstr "A bejelentkezés sikertelen"
 
@@ -718,7 +718,7 @@ msgstr "Átlátszatlan"
 msgid "Open in Safari browser"
 msgstr "Megnyitás a Safari böngészőben"
 
-#: src/components/alert/BrowserSupport.tsx:97
+#: src/components/alert/BrowserSupport.tsx:100
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "vagy telepítse a Chrome, Edge, Firefox vagy Opera webböngésző legújabb verzióját"
 
@@ -1266,7 +1266,7 @@ msgstr "Stílusos referenciafotó"
 msgid "Supported web browsers"
 msgstr "Támogatott webböngészők"
 
-#: src/components/alert/BrowserSupport.tsx:54
+#: src/components/alert/BrowserSupport.tsx:57
 msgid "Supported web browsers and operating systems"
 msgstr "Támogatott webböngészők és operációs rendszerek"
 
@@ -1418,6 +1418,10 @@ msgstr "Akvarell festék"
 msgid "Watercolor Pencils"
 msgstr "Akvarell ceruzák"
 
+#: src/components/messages.ts:60
+msgid "We couldn't verify an active Patreon membership for your account. Please join ArtistAssistApp on Patreon, or sign in to Patreon with the email you used to purchase your membership. Then, log in to ArtistAssistApp again."
+msgstr "Nem tudtuk igazolni az aktív Patreon-tagságot a fiókodhoz. Kérjük, csatlakozz az ArtistAssistApp-hoz a Patreonon, vagy jelentkezzen be a tagság megvásárlásához használt e-mail címmel. Ezután jelentkezz be újra az ArtistAssistApp-ba."
+
 #: src/components/ColorSetChooser.tsx:688
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "Ha összesen több mint {maxColorsFor2} színt jelöl ki, a program nem használ két szín keverékét."
@@ -1467,10 +1471,6 @@ msgstr "Be van jelentkezve, és hozzáfér az alkalmazás összes funkciójához
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "Az <0>ingyenes verziót</0> korlátozott számú színmárkával és képfeldolgozási móddal használja."
 
-#: src/components/messages.ts:60
-msgid "You have not yet joined ArtistAssistApp on Patreon as a paid member. Join and log in again."
-msgstr "Még nem csatlakoztál az ArtistAssistApp-hoz a Patreonon fizetős tagként. Csatlakozzon és jelentkezzen be újra."
-
 #: src/components/ColorSetChooser.tsx:608
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Olyan színmárkákat választottál, amelyek csak fizetős Patreon-tagok számára érhetők el"
@@ -1491,6 +1491,6 @@ msgstr "Előfordulhat, hogy az Ön adatai nem kerülnek megbízható mentésre, 
 msgid "Your session has expired. Please log in again."
 msgstr "A munkamenet lejárt. Kérjük, jelentkezzen be újra."
 
-#: src/components/alert/BrowserSupport.tsx:52
+#: src/components/alert/BrowserSupport.tsx:55
 msgid "Your web browser is not supported."
 msgstr "A webböngésző nem támogatott."

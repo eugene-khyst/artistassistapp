@@ -39,7 +39,7 @@ msgstr "{FIELD} on pakollinen"
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux ja <3/> ChromeOS"
 
-#: src/components/alert/BrowserSupport.tsx:87
+#: src/components/alert/BrowserSupport.tsx:90
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> Pöytäkone tai kannettava tietokone"
 
@@ -47,15 +47,15 @@ msgstr "<0/> Pöytäkone tai kannettava tietokone"
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS ja iPadOS"
 
-#: src/components/alert/BrowserSupport.tsx:67
+#: src/components/alert/BrowserSupport.tsx:70
 msgid "<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older versions of iPadOS and iOS)"
 msgstr "<0/> iPadOS 16.4+ tai iOS 16.4+ (ei tueta missään selaimessa vanhemmissa iPadOS- ja iOS-versioissa)"
 
-#: src/components/alert/BrowserSupport.tsx:60
+#: src/components/alert/BrowserSupport.tsx:63
 msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> Tabletti ja <1/> mobiili"
 
-#: src/components/alert/BrowserSupport.tsx:105
+#: src/components/alert/BrowserSupport.tsx:108
 #: src/components/Install.tsx:85
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows ja <1/> Linux"
@@ -375,7 +375,7 @@ msgstr "Poista tämä värijoukko"
 msgid "Determine the best photo by pairwise comparison"
 msgstr "Määritä paras valokuva pareittain vertaamalla"
 
-#: src/components/alert/BrowserSupport.tsx:124
+#: src/components/alert/BrowserSupport.tsx:127
 msgid "Diagnostics"
 msgstr "Diagnostiikka"
 
@@ -577,7 +577,7 @@ msgstr "Kirjaudu sisään Patreonilla"
 msgid "Log out"
 msgstr "Kirjautua ulos"
 
-#: src/hooks/useHandleAuthError.ts:42
+#: src/hooks/useHandleAuthError.ts:44
 msgid "Login failed"
 msgstr "Kirjautuminen epäonnistui"
 
@@ -718,7 +718,7 @@ msgstr "Läpinäkymätön"
 msgid "Open in Safari browser"
 msgstr "Avaa Safari-selaimessa"
 
-#: src/components/alert/BrowserSupport.tsx:97
+#: src/components/alert/BrowserSupport.tsx:100
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "tai asenna Chrome-, Edge-, Firefox- tai Opera-selaimen uusin versio"
 
@@ -1266,7 +1266,7 @@ msgstr "Tyylitelty viitekuva"
 msgid "Supported web browsers"
 msgstr "Tuetut verkkoselaimet"
 
-#: src/components/alert/BrowserSupport.tsx:54
+#: src/components/alert/BrowserSupport.tsx:57
 msgid "Supported web browsers and operating systems"
 msgstr "Tuetut verkkoselaimet ja käyttöjärjestelmät"
 
@@ -1418,6 +1418,10 @@ msgstr "Akvarellimaali"
 msgid "Watercolor Pencils"
 msgstr "Akvarellikynät"
 
+#: src/components/messages.ts:60
+msgid "We couldn't verify an active Patreon membership for your account. Please join ArtistAssistApp on Patreon, or sign in to Patreon with the email you used to purchase your membership. Then, log in to ArtistAssistApp again."
+msgstr "Emme pystyneet vahvistamaan aktiivista Patreon-jäsenyyttä tilillesi. Liity ArtistAssistAppiin Patreonissa tai kirjaudu Patreoniin sillä sähköpostiosoitteella, jolla ostit jäsenyytesi. Kirjaudu sitten uudelleen ArtistAssistAppiin."
+
 #: src/components/ColorSetChooser.tsx:688
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "Kun valitset yhteensä enemmän kuin {maxColorsFor2} väriä, kahden värin sekoituksia ei käytetä."
@@ -1467,10 +1471,6 @@ msgstr "Olet kirjautunut sisään ja sinulla on pääsy kaikkiin sovelluksen omi
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "Käytät <0>ilmaista versiota</0> rajoitetulla määrällä värimerkkejä ja kuvankäsittelytiloja."
 
-#: src/components/messages.ts:60
-msgid "You have not yet joined ArtistAssistApp on Patreon as a paid member. Join and log in again."
-msgstr "Et ole vielä liittynyt ArtistAssistAppiin Patreonissa maksullisena jäsenenä. Liity ja kirjaudu sisään uudelleen."
-
 #: src/components/ColorSetChooser.tsx:608
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Olet valinnut värimerkkejä, jotka ovat vain maksullisten Patreon-jäsenten saatavilla"
@@ -1491,6 +1491,6 @@ msgstr "Tietojasi ei välttämättä tallenneta luotettavasti, jos selain suljet
 msgid "Your session has expired. Please log in again."
 msgstr "Istunto on vanhentunut. Kirjaudu sisään uudelleen."
 
-#: src/components/alert/BrowserSupport.tsx:52
+#: src/components/alert/BrowserSupport.tsx:55
 msgid "Your web browser is not supported."
 msgstr "Verkkoselaintasi ei tueta."
