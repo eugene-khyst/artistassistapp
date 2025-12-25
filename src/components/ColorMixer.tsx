@@ -41,14 +41,16 @@ import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {Fragment, useEffect, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
+import {COLOR_PICKER_PRESET_LABELS} from '~/src/components/messages';
 import {
   compareColorMixturesByConsistency,
+  isMixable,
   isThickConsistency,
   makeColorMixture,
+  MIXABLE_COLOR_TYPES,
   PAPER_WHITE_HEX,
 } from '~/src/services/color/color-mixer';
-import type {Color, ColorMixture, ColorSet} from '~/src/services/color/types';
-import {ColorType} from '~/src/services/color/types';
+import type {Color, ColorMixture} from '~/src/services/color/types';
 import {gcd} from '~/src/services/math/gcd';
 import {useAppStore} from '~/src/stores/app-store';
 import {range} from '~/src/utils/array';
@@ -58,15 +60,6 @@ import {ColorMixtureDescription} from './color/ColorMixtureDescription';
 import {ReflectanceChartDrawer} from './color/ReflectanceChartDrawer';
 import {ColorCascader} from './color-set/ColorCascader';
 import {EmptyColorSet} from './empty/EmptyColorSet';
-
-function isSupported(colorSet: ColorSet): boolean {
-  return ![
-    ColorType.ColoredPencils,
-    ColorType.WatercolorPencils,
-    ColorType.Pastel,
-    ColorType.OilPastel,
-  ].includes(colorSet.type);
-}
 
 const RATIO_OPTIONS: SelectOptionType[] = range(1, 9).map((part: number) => ({
   value: part,
@@ -112,7 +105,7 @@ export const ColorMixer: React.FC = () => {
   const [isOpenReflectanceChart, setIsOpenReflectanceChart] = useState<boolean>(false);
 
   useEffect(() => {
-    if (colorSet && isSupported(colorSet)) {
+    if (colorSet && isMixable(colorSet.type)) {
       form.setFieldsValue(formInitialValues);
       setColors([]);
       setRatio([]);
@@ -161,8 +154,8 @@ export const ColorMixer: React.FC = () => {
     setRatio(ratio);
   };
 
-  if (!colorSet || !isSupported(colorSet)) {
-    return <EmptyColorSet pencilsSupported={false} />;
+  if (!colorSet || !isMixable(colorSet.type)) {
+    return <EmptyColorSet supportedColorTypes={MIXABLE_COLOR_TYPES} />;
   }
 
   return (
@@ -191,7 +184,7 @@ export const ColorMixer: React.FC = () => {
                   value={backgroundColor}
                   presets={[
                     {
-                      label: t`Recommended`,
+                      label: t(COLOR_PICKER_PRESET_LABELS.paper_white),
                       colors: [PAPER_WHITE_HEX],
                     },
                   ]}

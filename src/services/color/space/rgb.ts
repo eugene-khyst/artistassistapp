@@ -20,12 +20,12 @@ import {clamp} from '~/src/services/math/clamp';
 
 import {Reflectance} from './reflectance';
 
-export const WHITE_HEX = '#FFFFFF';
+export type RgbTuple = [r: number, g: number, b: number];
 
-function channelToHex(value: number): string {
-  const hex = value.toString(16);
-  return hex.length < 2 ? '0' + hex : hex;
-}
+export const WHITE_HEX = '#FFF';
+export const WHITE: RgbTuple = [255, 255, 255];
+
+const HASH_CHAR_CODE: number = '#'.charCodeAt(0);
 
 export function linearizeRgbChannel(value: number): number {
   const v = clamp(value, 0, 255) / 255;
@@ -37,11 +37,29 @@ export function unlinearizeRgbChannel(value: number): number {
   return Math.round(255 * (v <= 0.0031308 ? 12.92 * v : 1.055 * Math.pow(v, 1 / 2.4) - 0.055));
 }
 
-export function rgbToNumber([r, g, b]: RgbTuple): number {
+function channelToHex(value: number): string {
+  const hex = value.toString(16);
+  return hex.length < 2 ? '0' + hex : hex;
+}
+
+export function rgbToHex(r: number, g: number, b: number, hashSymbol = true): string {
+  return (hashSymbol ? '#' : '') + channelToHex(r) + channelToHex(g) + channelToHex(b);
+}
+
+export function toHexString(hex: string): string {
+  return hex.charCodeAt(0) !== HASH_CHAR_CODE ? `#${hex}` : hex;
+}
+
+export function packRgb(r: number, g: number, b: number): number {
   return (r! << 16) + (g! << 8) + b!;
 }
 
-export type RgbTuple = [r: number, g: number, b: number];
+export function unpackRgb(packed: number): RgbTuple {
+  const r = (packed >> 16) & 0xff;
+  const g = (packed >> 8) & 0xff;
+  const b = packed & 0xff;
+  return [r, g, b];
+}
 
 export class Rgb {
   private static readonly HEX_VALUES = new Uint8Array(128);
@@ -61,12 +79,8 @@ export class Rgb {
     public readonly b: number
   ) {}
 
-  static fromTuple([r, g, b]: RgbTuple): Rgb {
-    return new Rgb(r!, g!, b!);
-  }
-
   static fromHex(hex: string): Rgb {
-    const offset = hex.charCodeAt(0) === 35 ? 1 : 0; // Remove # if present
+    const offset = hex.charCodeAt(0) === HASH_CHAR_CODE ? 1 : 0;
     const len = hex.length - offset;
     if (len === 6) {
       const h0 = Rgb.HEX_VALUES[hex.charCodeAt(offset)]!;
@@ -86,23 +100,12 @@ export class Rgb {
     throw new Error(`Can't convert hex ${hex} to RGB`);
   }
 
-  static fromHexOrTuple(color: string | RgbTuple): Rgb {
-    if (typeof color === 'string') {
-      return Rgb.fromHex(color);
-    } else if (Array.isArray(color) || ArrayBuffer.isView(color)) {
-      return Rgb.fromTuple(color);
-    }
-    throw new Error(`Unable to create RGB`);
-  }
-
-  toRgbTuple(): RgbTuple {
+  toTuple(): RgbTuple {
     return [this.r, this.g, this.b];
   }
 
-  toHex(hashSymbol = true): string {
-    return (
-      (hashSymbol ? '#' : '') + channelToHex(this.r) + channelToHex(this.g) + channelToHex(this.b)
-    );
+  toHex(hashSymbol?: boolean): string {
+    return rgbToHex(this.r, this.g, this.b, hashSymbol);
   }
 
   toReflectance(): Reflectance {

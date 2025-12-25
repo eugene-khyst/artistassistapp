@@ -21,21 +21,22 @@ import {Col, Row, Typography} from 'antd';
 import {useContext} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
-import {TAB_LABELS} from '~/src/components/messages';
+import {COLOR_TYPE_LABELS, TAB_LABELS} from '~/src/components/messages';
 import {TabContext} from '~/src/contexts/TabContext';
+import type {ColorType} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 
 interface Props {
   imageSupported?: boolean;
   imageMandatory?: boolean;
-  pencilsSupported?: boolean;
+  supportedColorTypes?: ColorType[];
 }
 
 export const EmptyColorSet: React.FC<Props> = ({
   imageSupported = false,
   imageMandatory = false,
-  pencilsSupported = true,
+  supportedColorTypes,
 }: Props) => {
   const tab: TabKey = useContext(TabContext);
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
@@ -50,12 +51,9 @@ export const EmptyColorSet: React.FC<Props> = ({
     <div style={{padding: '0 16px 16px'}}>
       <Typography.Paragraph>
         <Typography.Text strong>
-          ⁉️ <Trans>No data</Trans>
-        </Typography.Text>
-        <br />
-
-        <Typography.Text strong>
-          <Trans>To use the {tabLabel} feature, select colors to paint with.</Trans>
+          <Trans>
+            To use the {tabLabel} feature, select supported art medium and colors to paint with.
+          </Trans>
         </Typography.Text>
         <br />
 
@@ -73,8 +71,18 @@ export const EmptyColorSet: React.FC<Props> = ({
             <Trans>
               Select your art medium, color brands and colors you will paint with and press the{' '}
               <Typography.Text strong>Save & proceed</Typography.Text> button.
-            </Trans>{' '}
-            {!pencilsSupported && <Trans>Pencils are not supported by this feature.</Trans>}
+            </Trans>
+            {supportedColorTypes && (
+              <>
+                <br />
+                <Trans>Supported art mediums:</Trans>
+                <ul>
+                  {supportedColorTypes.map((colorType: ColorType) => (
+                    <li key={colorType}>{t(COLOR_TYPE_LABELS[colorType])}</li>
+                  ))}
+                </ul>
+              </>
+            )}
           </li>
           {(imageSupported || imageMandatory) && (
             <li>
@@ -83,7 +91,7 @@ export const EmptyColorSet: React.FC<Props> = ({
                 <Typography.Link strong onClick={() => void setActiveTabKey(TabKey.Photo)}>
                   {photoLabel}
                 </Typography.Link>{' '}
-                tab and choose your reference photo.
+                tab and choose a reference photo.
               </Trans>{' '}
               {!imageMandatory && <Trans>This step is optional.</Trans>}
             </li>

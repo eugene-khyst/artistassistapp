@@ -20,6 +20,7 @@ import {DATA_URL} from '~/src/config';
 import type {User} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import type {
+  BrandColorCount,
   Color,
   ColorBrandDefinition,
   ColorDefinition,
@@ -64,6 +65,10 @@ const COLOR_TYPE_ALIASES: Record<ColorType, string> = {
 
 const CUSTOM_COLOR_BRAND_ID_BASE = 100000;
 const CUSTOM_COLOR_BRAND_ALIAS_PREFIX = 'custom:';
+
+export function computeStandardColorSetDefinitionId({name, colors}: StandardColorSetDefinition) {
+  return `${colors.length}${name ? ` ${name}` : ''}`;
+}
 
 function toColorBrandDefinition({
   id = 0,
@@ -134,7 +139,7 @@ export async function fetchStandardColorSets(
   }
   return new Map(
     sets.map((standardColorSet: StandardColorSetDefinition) => [
-      standardColorSet.name,
+      computeStandardColorSetDefinitionId(standardColorSet),
       standardColorSet,
     ])
   );
@@ -198,22 +203,33 @@ export function formatColorLabel(
   }
 }
 
-export function getColorSetName(
-  brandIds?: number[],
-  colors?: Record<number, number[]>,
+export function colorSetDefinitionToBrandColorCounts(
+  {brands: brandIds, colors}: ColorSetDefinition,
   brands?: Map<number, ColorBrandDefinition>
-): string | undefined {
-  if (!brands || !colors) {
-    return;
+): BrandColorCount[] {
+  if (!brandIds || !colors || !brands) {
+    return [];
   }
-  return brandIds
-    ?.map((brandId: number): string => {
-      const {shortName, fullName} = brands.get(brandId) ?? {};
-      const colorSetSize = colors[brandId]!.length;
-      return `${shortName || fullName} ${colorSetSize} ${colorSetSize > 1 ? 'colors' : 'color'}`;
-    })
-    .filter(Boolean)
-    .join(', ');
+  return brandIds.map((brandId: number): BrandColorCount => {
+    const {shortName, fullName} = brands.get(brandId) ?? {};
+    const colorCount = colors[brandId]!.length;
+    return {
+      brandName: `${shortName || fullName}`,
+      colorCount,
+    };
+  });
+}
+
+export function colorSetToBrandColorCounts({brands, colors}: ColorSet): BrandColorCount[] {
+  return [...brands.values()].map(
+    ({id, shortName, fullName}: ColorBrandDefinition): BrandColorCount => {
+      const colorCount = colors.filter(({brand}: Color): boolean => brand === id).length;
+      return {
+        brandName: shortName || fullName,
+        colorCount,
+      };
+    }
+  );
 }
 
 export function toColorSet(
@@ -233,7 +249,7 @@ export function toColorSet(
     return;
   }
   return {
-    name: name || getColorSetName(selectedBrands, selectedColors, brands),
+    name,
     type,
     brands: selectedBrandsMap,
     colors: selectedColorsArr.flatMap(([brandIdStr, colorIds]: [string, number[]]): Color[] => {
@@ -250,7 +266,7 @@ export function toColorSet(
             brand: brandId,
             id,
             name,
-            rgb: Rgb.fromHex(hex).toRgbTuple(),
+            rgb: Rgb.fromHex(hex).toTuple(),
             rho,
             opacity,
             warmth,

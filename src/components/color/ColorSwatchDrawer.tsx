@@ -86,7 +86,7 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
         </Col>
         <Col xs={24} sm={12} style={{maxHeight: colorSwatchHeight, overflowY: 'auto'}}>
           {colorMixtures?.map((colorMixture: ColorMixture) => {
-            const rgb = Rgb.fromTuple(colorMixture.layerRgb);
+            const rgb = new Rgb(...colorMixture.layerRgb);
             return (
               <div
                 key={colorMixture.key}

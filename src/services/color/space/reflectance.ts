@@ -115,7 +115,7 @@ export class Reflectance {
     d.set(0, 0, 2);
     d.set(SIZE - 1, SIZE - 1, 2);
 
-    const rgbMatrix = Matrix.fromColumn(rgb.toRgbTuple()).map(linearizeRgbChannel);
+    const rgbMatrix = Matrix.fromColumn(rgb.toTuple()).map(linearizeRgbChannel);
 
     let z = Matrix.zeros(SIZE, 1);
     let lambda = Matrix.zeros(3, 1);

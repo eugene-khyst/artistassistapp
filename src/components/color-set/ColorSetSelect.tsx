@@ -22,8 +22,9 @@ import type {SelectProps} from 'antd';
 import {Button, Grid, Select, Space, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 
+import {ColorSetName} from '~/src/components/color-set/ColorSetName';
 import {filterSelectOptions} from '~/src/components/utils';
-import {getColorSetName} from '~/src/services/color/colors';
+import {colorSetDefinitionToBrandColorCounts} from '~/src/services/color/colors';
 import type {ColorBrandDefinition, ColorSetDefinition} from '~/src/services/color/types';
 import {compareByDate, reverseOrder} from '~/src/utils/comparator';
 
@@ -51,9 +52,11 @@ function getColorSetOptions(
     ...colorSets
       .slice()
       .sort(reverseOrder(compareByDate))
-      .map(({id, name, brands: brandIds, colors}: ColorSetDefinition) => ({
-        value: id,
-        label: name || getColorSetName(brandIds, colors, brands),
+      .map((colorSet: ColorSetDefinition) => ({
+        value: colorSet.id,
+        label: colorSet.name || (
+          <ColorSetName brandColorCounts={colorSetDefinitionToBrandColorCounts(colorSet, brands)} />
+        ),
       })),
   ];
 }

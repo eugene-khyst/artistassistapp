@@ -23,6 +23,7 @@ import {Button, Card, Space, Typography} from 'antd';
 import {AddToPaletteButton} from '~/src/components/color/AddToPaletteButton';
 import {ColorSquare} from '~/src/components/color/ColorSquare';
 import {COLOR_MIXING} from '~/src/services/color/color-mixer';
+import {rgbToHex} from '~/src/services/color/space/rgb';
 import type {ColorMixture, SimilarColor} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
 
@@ -68,7 +69,7 @@ export const SimilarColorCard: React.FC<Props> = ({
             </Trans>
           </Typography.Text>
           <ColorSquare size="small" color={targetColor} />
-          <ColorSquare size="small" color={colorMixture.layerRgb} />
+          <ColorSquare size="small" color={rgbToHex(...colorMixture.layerRgb)} />
         </Space>
         <ColorMixtureDescription colorMixture={colorMixture} />
         {paletteColorMixture && (
@@ -91,7 +92,7 @@ export const SimilarColorCard: React.FC<Props> = ({
               icon={<BgColorsOutlined />}
               title={t`Set the color of the base layer for the glazing`}
               onClick={() => {
-                void setBackgroundColor(colorMixture.layerRgb);
+                void setBackgroundColor(rgbToHex(...colorMixture.layerRgb));
               }}
             >
               <Trans>Set as background</Trans>

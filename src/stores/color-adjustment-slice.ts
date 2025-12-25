@@ -108,9 +108,9 @@ export const createColorAdjustmentSlice: StateCreator<
     get().adjustImageColors(maxValues, params);
   },
   adjustImageColorsReference: (whitePoint: string, params: AdjustmentParameters): void => {
-    const maxValues: number[] = [...Rgb.fromHex(whitePoint).toRgbTuple()].map(v =>
-      linearizeRgbChannel(v)
-    );
+    const maxValues: number[] = Rgb.fromHex(whitePoint)
+      .toTuple()
+      .map(v => linearizeRgbChannel(v));
     get().adjustImageColors(maxValues, params);
   },
 });

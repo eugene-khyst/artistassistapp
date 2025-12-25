@@ -149,10 +149,10 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
   private drawSamples(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
     for (const {x, y, rgb} of this.samples) {
       ctx.lineWidth = this.lineWidth / this.zoom;
-      const sampleRgb = Rgb.fromTuple(rgb);
+      const sampleRgb = new Rgb(...rgb);
       const isDark = sampleRgb.isDark();
       ctx.strokeStyle = ctx.fillStyle = isDark ? '#fff' : '#000';
-      ctx.fillStyle = sampleRgb.toHex(true);
+      ctx.fillStyle = sampleRgb.toHex();
       this.drawCircle(ctx, new Vector(x, y), this.sampleRadius / this.zoom);
       ctx.fill();
       ctx.stroke();
@@ -215,7 +215,8 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
 
   private getAverageColorFromImageData({data, width, height}: ImageData): Rgb {
     if (data.length <= 4) {
-      return Rgb.fromTuple([...data.subarray(0, 3)] as RgbTuple);
+      const [r, g, b] = data.subarray(0, 3);
+      return new Rgb(r!, g!, b!);
     }
     const diameter = Math.trunc(Math.min(width, height));
     const radius = Math.trunc(diameter / 2);
@@ -240,7 +241,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     for (let channel = 0; channel < 3; channel++) {
       mean[channel] = unlinearizeRgbChannel(total[channel]! / count);
     }
-    return Rgb.fromTuple(mean);
+    return new Rgb(...mean);
   }
 
   getSamples(): ColorPickerSample[] {

@@ -20,7 +20,7 @@ import {transfer} from 'comlink';
 
 import {ColorMixer, PAPER_WHITE_HEX} from '~/src/services/color/color-mixer';
 import type {RgbTuple} from '~/src/services/color/space/rgb';
-import {Rgb, rgbToNumber} from '~/src/services/color/space/rgb';
+import {packRgb, WHITE} from '~/src/services/color/space/rgb';
 import type {ColorSet} from '~/src/services/color/types';
 import {
   createImageBitmapResizedTotalPixels,
@@ -47,9 +47,9 @@ export class LimitedPalette {
     image.close();
     const similarColors = new Map<number, RgbTuple>();
     medianCutQuantization(imageData, QUANTIZATION_DEPTH, (mean: RgbTuple): RgbTuple => {
-      return computeIfAbsentInMap(similarColors, rgbToNumber(mean), () => {
+      return computeIfAbsentInMap(similarColors, packRgb(...mean), () => {
         const similarColor = colorMixer.findSimilarColor(mean);
-        return similarColor?.colorMixture.layerRgb ?? Rgb.WHITE.toRgbTuple();
+        return similarColor?.colorMixture.layerRgb ?? WHITE;
       });
     });
     const preview: ImageBitmap = await createImageBitmap(imageData);

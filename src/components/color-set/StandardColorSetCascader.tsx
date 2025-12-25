@@ -16,11 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Trans, useLingui} from '@lingui/react/macro';
+import {Plural, Trans, useLingui} from '@lingui/react/macro';
 import {Cascader} from 'antd';
 import type {CascaderAutoProps, DefaultOptionType as CascaderOptionType} from 'antd/es/cascader';
 
 import {filterCascaderOptions} from '~/src/components/utils';
+import {computeStandardColorSetDefinitionId} from '~/src/services/color/colors';
 import type {ColorBrandDefinition, StandardColorSetDefinition} from '~/src/services/color/types';
 
 const CUSTOM_COLOR_SET_OPTION: CascaderOptionType = {
@@ -46,10 +47,19 @@ function getStandardColorSetOptions(
         return {
           value: id,
           label: fullName,
-          children: [...standardColorSets.values()].map(({name}: StandardColorSetDefinition) => ({
-            value: name,
-            label: name,
-          })),
+          children: [...standardColorSets.values()].map((colorSet: StandardColorSetDefinition) => {
+            const {name, colors} = colorSet;
+            const colorCount: number = colors.length;
+            return {
+              value: computeStandardColorSetDefinitionId(colorSet),
+              label: (
+                <>
+                  <Plural value={colorCount} one="# Color" other="# Colors" />
+                  {name && ` (${name})`}
+                </>
+              ),
+            };
+          }),
         };
       })
       .filter((option): option is CascaderOptionType => !!option),

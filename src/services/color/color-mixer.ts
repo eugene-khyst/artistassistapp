@@ -40,53 +40,67 @@ export const COLOR_MIXING: Record<ColorType, ColorMixingConfig> = {
     mixing: true,
     tint: false,
     glazing: true,
+    wash: true,
   },
   [ColorType.Gouache]: {
     mixing: true,
     tint: true,
     glazing: false,
+    wash: false,
   },
   [ColorType.AcrylicGouache]: {
     mixing: true,
     tint: true,
     glazing: false,
+    wash: false,
   },
   [ColorType.OilPaint]: {
     mixing: true,
     tint: true,
     glazing: true,
+    wash: true,
   },
   [ColorType.AcrylicPaint]: {
     mixing: true,
     tint: true,
     glazing: true,
+    wash: true,
   },
   [ColorType.ColoredPencils]: {
     mixing: false,
     tint: false,
     glazing: true,
+    wash: true,
   },
   [ColorType.WatercolorPencils]: {
     mixing: false,
     tint: false,
     glazing: true,
+    wash: true,
   },
   [ColorType.Pastel]: {
     mixing: false,
     tint: false,
     glazing: true,
+    wash: false,
   },
   [ColorType.OilPastel]: {
     mixing: false,
     tint: false,
     glazing: true,
+    wash: false,
   },
   [ColorType.AcrylicMarkers]: {
     mixing: false,
     tint: false,
     glazing: false,
+    wash: false,
   },
 };
+
+export const MIXABLE_COLOR_TYPES: ColorType[] = Object.entries(COLOR_MIXING)
+  .filter(([_, {mixing}]) => mixing)
+  .map(([colorType, _]) => parseInt(colorType) as ColorType);
 
 export const MAX_COLORS_IN_MIXTURE: Record<2 | 3, number> = {
   2: Number.MAX_VALUE,
@@ -109,13 +123,14 @@ const MATCHING_LIMITS: Record<1 | 2 | 3, [number, number][]> = {
 const NONE: Fraction = [0, 1];
 const WHOLE: Fraction = [1, 1];
 const FRACTIONS: Fraction[] = [
-  [1, 10],
+  [1, 8],
   [1, 4],
   [1, 2],
   [3, 4],
 ];
 
-export const PAPER_WHITE_HEX = 'F7F5EF';
+export const PAPER_WHITE_HEX = '#F7F5EF';
+export const PAPER_WHITE = Rgb.fromHex(PAPER_WHITE_HEX);
 
 type WithHash<T> = T & {hash: string};
 
@@ -126,7 +141,7 @@ class UnmixedColor {
 
   constructor(color: Color) {
     this.color = color;
-    this.rgb = Rgb.fromTuple(color.rgb);
+    this.rgb = new Rgb(...color.rgb);
     this.reflectance = Reflectance.fromArray(color.rho);
   }
 
@@ -206,7 +221,7 @@ class MixedColorLayer {
       white,
       whiteFraction,
     } = this.colorTint;
-    const backgroundRgb: RgbTuple | undefined = this.background?.rgb.toRgbTuple();
+    const backgroundRgb: RgbTuple | undefined = this.background?.rgb.toTuple();
     const backgroundHex: string | undefined = this.background?.hex;
     return {
       key: getColorMixtureKey(
@@ -218,14 +233,14 @@ class MixedColorLayer {
         backgroundHex
       ),
       type,
-      colorMixtureRgb: colorMixtureRgb.toRgbTuple(),
+      colorMixtureRgb: colorMixtureRgb.toTuple(),
       parts,
       whiteFraction,
       white: white?.color,
-      tintRgb: tintRgb.toRgbTuple(),
+      tintRgb: tintRgb.toTuple(),
       consistency: this.consistency,
       backgroundRgb,
-      layerRgb: this.rgb.toRgbTuple(),
+      layerRgb: this.rgb.toTuple(),
       layerRho: this.reflectance.toArray(),
     };
   }
@@ -365,9 +380,10 @@ function isWhiteColor({color: {name}}: UnmixedColor) {
 
 function mixTwoColors(colors: UnmixedColor[]): MixedColor[] {
   const ratios: number[][] = [];
-  for (let a = 1; a < 10; a++) {
+  const total = 8;
+  for (let a = 1; a < total; a++) {
     const part1 = a;
-    const part2 = 10 - a;
+    const part2 = total - a;
     const divisor = gcd(part1, part2);
     ratios.push([part1 / divisor, part2 / divisor]);
   }
@@ -386,11 +402,12 @@ function mixTwoColors(colors: UnmixedColor[]): MixedColor[] {
 
 function mixThreeColors(colors: UnmixedColor[]): MixedColor[] {
   const ratios: number[][] = [];
-  for (let a = 1; a < 9; a++) {
-    for (let b = 1; a + b < 9; b++) {
+  const total = 9;
+  for (let a = 1; a < total; a++) {
+    for (let b = 1; a + b < total; b++) {
       const part1 = a;
       const part2 = b;
-      const part3 = 9 - a - b;
+      const part3 = total - a - b;
       const divisor = gcd(part1, part2, part3);
       ratios.push([part1 / divisor, part2 / divisor, part3 / divisor]);
     }
@@ -456,9 +473,9 @@ function toMixedColorLayers(colors: MixedColor[]): MixedColorLayer[] {
 function makeThinnedLayers(
   colors: MixedColor[],
   background?: Background,
-  glazing = true
+  layering = true
 ): MixedColorLayer[] {
-  if (!colors.length || !background || !glazing) {
+  if (!colors.length || !background || !layering) {
     return toMixedColorLayers(colors);
   }
   const result: MixedColorLayer[] = new Array<MixedColorLayer>();
@@ -475,6 +492,10 @@ function makeThinnedLayers(
     }
   }
   return result;
+}
+
+function isFirstLayer({rgb}: Background): boolean {
+  return PAPER_WHITE.equals(rgb);
 }
 
 function findSimilarColors(
@@ -515,16 +536,25 @@ export function makeColorMixture(
   type: ColorType,
   colors: Color[],
   ratio: number[],
-  backgroundColorHex: string
+  backgroundColor: string
 ): ColorMixture[] {
   const mixedColors: MixedColor[] = [mixColors(toUnmixedColors(colors), ratio)];
-  const background = new Background(Rgb.fromHex(backgroundColorHex));
-  const {glazing} = COLOR_MIXING[type];
+  const background = new Background(Rgb.fromHex(backgroundColor));
+  const {glazing, wash} = COLOR_MIXING[type];
+  const layering = isFirstLayer(background) ? wash : glazing;
   const layers: MixedColorLayer[] = [
     ...makeTintLayers(mixedColors, []),
-    ...makeThinnedLayers(mixedColors, background, glazing),
+    ...makeThinnedLayers(mixedColors, background, layering),
   ];
   return layers.map((layer: MixedColorLayer): ColorMixture => layer.toColorMixture(type));
+}
+
+export function isMixable(type: ColorType): boolean {
+  return MIXABLE_COLOR_TYPES.includes(type);
+}
+
+export function isPastel(type: ColorType): boolean {
+  return type === ColorType.Pastel || type === ColorType.OilPastel;
 }
 
 export class ColorMixer {
@@ -532,16 +562,16 @@ export class ColorMixer {
   private mixedColors: [number, MixedColor[]][] = [];
   private tintLayers = new Map<number, MixedColorLayer[]>();
   private thinnedLayers = new Map<number, MixedColorLayer[]>();
-  private background?: Background;
+  private background = new Background(PAPER_WHITE);
 
-  setColorSet(colorSet: ColorSet, backgroundColor: string | RgbTuple) {
+  setColorSet(colorSet: ColorSet, backgroundColor: string) {
     this.colorSet = colorSet;
     this.mixColors();
     this.setBackgroundColor(backgroundColor);
   }
 
-  setBackgroundColor(backgroundColor: string | RgbTuple) {
-    this.background = new Background(Rgb.fromHexOrTuple(backgroundColor));
+  setBackgroundColor(backgroundColor: string) {
+    this.background = new Background(Rgb.fromHex(backgroundColor));
     this.makeThinnedLayers();
   }
 
@@ -584,10 +614,11 @@ export class ColorMixer {
   private makeThinnedLayers(): void {
     console.time('make-thinned-layers');
     const {type} = this.colorSet!;
-    const {glazing} = COLOR_MIXING[type];
+    const {glazing, wash} = COLOR_MIXING[type];
+    const layering = isFirstLayer(this.background) ? wash : glazing;
     this.thinnedLayers = new Map(
       this.mixedColors.map(([numOfColors, colors]) => {
-        const layers = makeThinnedLayers(colors, this.background, glazing);
+        const layers = makeThinnedLayers(colors, this.background, layering);
         console.log(`thinned color layers (${numOfColors}): ${layers.length}`);
         return [numOfColors, layers];
       })
@@ -595,9 +626,9 @@ export class ColorMixer {
     console.timeEnd('make-thinned-layers');
   }
 
-  findSimilarColor(targetColor: string | RgbTuple): SimilarColor | undefined {
-    const rgb = Rgb.fromHexOrTuple(targetColor);
-    if (!this.colorSet || this.background?.rgb.equals(rgb)) {
+  findSimilarColor(targetColor: RgbTuple): SimilarColor | undefined {
+    const rgb = new Rgb(...targetColor);
+    if (!this.colorSet || this.background.rgb.equals(rgb)) {
       return;
     }
     const {type} = this.colorSet;
@@ -611,9 +642,9 @@ export class ColorMixer {
     return similarColor;
   }
 
-  findSimilarColors(targetColor: string | RgbTuple): SimilarColor[] {
-    const rgb = Rgb.fromHexOrTuple(targetColor);
-    if (!this.colorSet || this.background?.rgb.equals(rgb)) {
+  findSimilarColors(targetColor: string): SimilarColor[] {
+    const rgb = Rgb.fromHex(targetColor);
+    if (!this.colorSet || this.background.rgb.equals(rgb)) {
       return [];
     }
     const {type, colors} = this.colorSet;

@@ -17,8 +17,7 @@
  */
 
 import {Canvas} from '~/src/services/canvas/canvas';
-import type {RgbTuple} from '~/src/services/color/space/rgb';
-import {Rgb} from '~/src/services/color/space/rgb';
+import {Rgb, type RgbTuple} from '~/src/services/color/space/rgb';
 import {Vector} from '~/src/services/math/geometry';
 import type {TypedArray} from '~/src/utils/array';
 import {countFractionDigits} from '~/src/utils/format';
@@ -28,7 +27,7 @@ const SPACING = 3;
 export interface Series {
   xValues: number[] | TypedArray;
   yValues: number[] | TypedArray;
-  color: string | RgbTuple;
+  color: RgbTuple;
   lineWidth?: number;
 }
 
@@ -236,13 +235,13 @@ export class LineChart extends Canvas {
     ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
     xValues: number[] | TypedArray,
     yValues: number[] | TypedArray,
-    color: string | RgbTuple,
+    color: RgbTuple,
     lineWidth: number
   ): void {
     ctx.save();
 
     ctx.lineWidth = lineWidth;
-    const colorHex = Rgb.fromHexOrTuple(color).toHex();
+    const colorHex: string = new Rgb(...color).toHex();
     ctx.strokeStyle = colorHex;
     ctx.fillStyle = colorHex;
     ctx.shadowOffsetX = 2;

@@ -65,7 +65,7 @@ export interface ColorBrandDefinition {
 }
 
 export interface StandardColorSetDefinition {
-  name: string;
+  name?: string;
   colors: number[];
 }
 
@@ -116,10 +116,16 @@ export interface ColorSet {
   colors: Color[];
 }
 
+export interface BrandColorCount {
+  brandName: string;
+  colorCount: number;
+}
+
 export interface ColorMixingConfig {
   mixing: boolean;
   tint: boolean;
   glazing: boolean;
+  wash: boolean;
 }
 
 export interface ColorMixturePartDefinition {

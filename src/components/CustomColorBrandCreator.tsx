@@ -37,7 +37,7 @@ import {
   Spin,
   Typography,
 } from 'antd';
-import type {Color} from 'antd/es/color-picker';
+import type {AggregationColor} from 'antd/es/color-picker/color';
 import type {SliderMarks} from 'antd/es/slider';
 import {useCallback, useEffect, useState} from 'react';
 
@@ -53,6 +53,7 @@ import {
   ImageColorPickerCanvas,
   MIN_COLOR_PICKER_DIAMETER,
 } from '~/src/services/canvas/image/image-color-picker-canvas';
+import {WHITE_HEX} from '~/src/services/color/space/rgb';
 import {
   type ColorDefinition,
   type CustomColorBrandDefinition,
@@ -102,7 +103,7 @@ export const CustomColorBrandCreator: React.FC = () => {
 
   const [imageFile, setImageFile] = useState<File | null>();
   const [sampleDiameter, setSampleDiameter] = useState<number>(DEFAULT_SAMPLE_DIAMETER);
-  const [currentColor, setCurrentColor] = useState<string>('FFFFFF');
+  const [currentColor, setCurrentColor] = useState<string>(WHITE_HEX);
 
   const imageColorPickerCanvasSupplier = useCallback(
     (canvas: HTMLCanvasElement): ImageColorPickerCanvas => {
@@ -298,7 +299,7 @@ export const CustomColorBrandCreator: React.FC = () => {
                   <Form.Item label={t`Color`} style={{marginBottom: 0}}>
                     <ColorPicker
                       value={currentColor}
-                      onChangeComplete={(color: Color) => {
+                      onChangeComplete={(color: AggregationColor) => {
                         handleCurrentColorChange(color.toHexString());
                       }}
                       showText

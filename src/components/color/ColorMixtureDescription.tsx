@@ -19,6 +19,7 @@
 import {Trans} from '@lingui/react/macro';
 import {Space, Typography} from 'antd';
 
+import {rgbToHex} from '~/src/services/color/space/rgb';
 import type {ColorMixture, ColorMixturePart} from '~/src/services/color/types';
 import {formatFraction, formatRatio} from '~/src/utils/format';
 import {toRatio} from '~/src/utils/fraction';
@@ -73,7 +74,7 @@ export const ColorMixtureDescription: React.FC<Props> = ({
                   })}
                 </Space>
                 <Typography.Text>=</Typography.Text>
-                <ColorSquare color={colorMixtureRgb} size="large" />
+                <ColorSquare color={rgbToHex(...colorMixtureRgb)} size="large" />
               </>
             ) : (
               <ColorDescription colorType={type} color={parts[0]!.color} />
@@ -91,7 +92,11 @@ export const ColorMixtureDescription: React.FC<Props> = ({
           <Space>
             <Space direction="vertical">
               <Space>
-                <ColorSquare color={colorMixtureRgb} text={colorMixturePart} size="large" />
+                <ColorSquare
+                  color={rgbToHex(...colorMixtureRgb)}
+                  text={colorMixturePart}
+                  size="large"
+                />
                 <Typography.Text>
                   <Trans>Color mixture</Trans>
                 </Typography.Text>
@@ -99,7 +104,7 @@ export const ColorMixtureDescription: React.FC<Props> = ({
               <ColorDescription colorType={type} color={white} text={whitePart} />
             </Space>
             <Typography.Text>=</Typography.Text>
-            <ColorSquare color={tintRgb} size="large" />
+            <ColorSquare color={rgbToHex(...tintRgb)} size="large" />
           </Space>
         </>
       )}
@@ -112,13 +117,17 @@ export const ColorMixtureDescription: React.FC<Props> = ({
           />
           {backgroundRgb && (
             <Space>
-              <ColorSquare color={tintRgb} text={formatFraction(consistency)} size="large" />
+              <ColorSquare
+                color={rgbToHex(...tintRgb)}
+                text={formatFraction(consistency)}
+                size="large"
+              />
               <Typography.Text>
                 <Trans>over</Trans>
               </Typography.Text>
-              <ColorSquare color={backgroundRgb} size="large" />
+              <ColorSquare color={rgbToHex(...backgroundRgb)} size="large" />
               <Typography.Text>=</Typography.Text>
-              <ColorSquare color={layerRgb} size="large" />
+              <ColorSquare color={rgbToHex(...layerRgb)} size="large" />
             </Space>
           )}
         </>
