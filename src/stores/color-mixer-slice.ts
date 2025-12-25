@@ -22,8 +22,8 @@ import type {StateCreator} from 'zustand';
 
 import type {ColorMixer} from '~/src/services/color/color-mixer';
 import {PAPER_WHITE_HEX} from '~/src/services/color/color-mixer';
-import {Rgb, type RgbTuple} from '~/src/services/color/space/rgb';
 import type {ColorSet, SamplingArea, SimilarColor} from '~/src/services/color/types';
+import type {InitSlice} from '~/src/stores/init-slice';
 import {TabKey} from '~/src/tabs';
 
 import type {OriginalImageSlice} from './original-image-slice';
@@ -38,7 +38,7 @@ const colorMixer: Remote<ColorMixer> = wrap(
 export interface ColorMixerSlice {
   colorSet: ColorSet | null;
   isColorMixerSetLoading: boolean;
-  backgroundColor: string;
+  backgroundColor: string | null;
   isColorMixerBackgroundLoading: boolean;
   targetColor: string;
   samplingArea: SamplingArea | null;
@@ -47,13 +47,13 @@ export interface ColorMixerSlice {
   isSimilarColorsLoading: boolean;
 
   setColorSet: (colorSet: ColorSet, setActiveTabKey?: boolean) => Promise<void>;
-  setBackgroundColor: (backgroundColor: string | RgbTuple) => Promise<void>;
+  setBackgroundColor: (backgroundColor: string | null) => Promise<void>;
   setTargetColor: (color: string, samplingArea: SamplingArea | null) => Promise<void>;
   setColorPickerPipet: (colorPickerPipet: SamplingArea | null) => void;
 }
 
 export const createColorMixerSlice: StateCreator<
-  ColorMixerSlice & TabSlice & OriginalImageSlice,
+  ColorMixerSlice & TabSlice & OriginalImageSlice & InitSlice,
   [],
   [],
   ColorMixerSlice
@@ -69,8 +69,9 @@ export const createColorMixerSlice: StateCreator<
   isSimilarColorsLoading: false,
 
   setColorSet: async (colorSet: ColorSet, setActiveTabKey = true): Promise<void> => {
+    const {imageFile, targetColor, samplingArea} = get();
     if (setActiveTabKey) {
-      const activeTabKey = !get().imageFile ? TabKey.Photo : TabKey.ColorPicker;
+      const activeTabKey = !imageFile ? TabKey.Photo : TabKey.ColorPicker;
       await get().setActiveTabKey(activeTabKey);
     }
     set({
@@ -83,19 +84,20 @@ export const createColorMixerSlice: StateCreator<
     set({
       isColorMixerSetLoading: false,
     });
-    await get().setTargetColor(get().targetColor, get().samplingArea);
+    await get().setTargetColor(targetColor, samplingArea);
   },
-  setBackgroundColor: async (backgroundColor: string | RgbTuple): Promise<void> => {
+  setBackgroundColor: async (backgroundColor: string | null): Promise<void> => {
+    const {targetColor} = get();
     set({
       isColorMixerBackgroundLoading: true,
-      backgroundColor: Rgb.fromHexOrTuple(backgroundColor).toHex(),
+      backgroundColor,
       similarColors: [],
       isSimilarColorsLoading: true,
     });
-    await colorMixer.setBackgroundColor(backgroundColor);
+    await colorMixer.setBackgroundColor(backgroundColor ?? PAPER_WHITE_HEX);
     set({
       isColorMixerBackgroundLoading: false,
-      similarColors: await colorMixer.findSimilarColors(get().targetColor),
+      similarColors: await colorMixer.findSimilarColors(targetColor),
       isSimilarColorsLoading: false,
     });
   },

@@ -26,6 +26,7 @@ import {OpacityIcon} from '~/src/components/color/OpacityIcon';
 import {WarmthIcon} from '~/src/components/color/WarmthIcon';
 import {filterSelectOptions} from '~/src/components/utils';
 import {formatColorLabel} from '~/src/services/color/colors';
+import {toHexString} from '~/src/services/color/space/rgb';
 import type {ColorBrandDefinition, ColorDefinition} from '~/src/services/color/types';
 
 function getColorOptions(
@@ -42,7 +43,7 @@ function getColorOptions(
       value: color.id,
       label: (
         <Flex key={label} gap="small" align="center">
-          <ColorSquare color={hex} />
+          <ColorSquare color={toHexString(hex)} />
           <Typography.Text>{label}</Typography.Text>
           <OpacityIcon opacity={opacity} />
           <WarmthIcon warmth={warmth} />

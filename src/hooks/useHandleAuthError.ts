@@ -42,7 +42,7 @@ export function useHandleAuthError(): void {
         const errorDescription: string = authError.message || '';
         await modal.warning({
           title: t`Login failed`,
-          content: errorMessage ? `${t(errorMessage)} ${errorDescription}` : errorDescription,
+          content: [errorMessage && t(errorMessage), errorDescription].filter(Boolean).join(' '),
           afterClose() {
             clearAuthError();
             void setActiveTabKey(TabKey.ColorSet);

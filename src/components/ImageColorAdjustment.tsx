@@ -41,7 +41,7 @@ import {
   Typography,
 } from 'antd';
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
-import type {Color} from 'antd/es/color-picker';
+import type {AggregationColor} from 'antd/es/color-picker/color';
 import type {SliderMarks} from 'antd/es/slider';
 import type {MenuProps} from 'antd/lib';
 import {saveAs} from 'file-saver';
@@ -57,6 +57,7 @@ import {
   ImageColorPickerCanvas,
 } from '~/src/services/canvas/image/image-color-picker-canvas';
 import {kelvinToRgb} from '~/src/services/color/color-temperature';
+import {WHITE_HEX} from '~/src/services/color/space/rgb';
 import type {AdjustmentParameters} from '~/src/services/image/color-adjustment';
 import {blobToImageFile} from '~/src/services/image/image-file';
 import {useAppStore} from '~/src/stores/app-store';
@@ -130,7 +131,7 @@ function kelvinGradient(minKelvin: number, maxKelvin: number, steps = 10): strin
   const stops = [];
   for (let i = 0; i <= steps; i++) {
     const kelvin = minKelvin + i * stepSize;
-    const {r, g, b} = kelvinToRgb(kelvin);
+    const [r, g, b] = kelvinToRgb(kelvin);
     const percent = (i / steps) * 100;
     stops.push(`rgb(${r}, ${g}, ${b}) ${percent.toFixed(2)}%`);
   }
@@ -157,7 +158,7 @@ export const ImageColorAdjustment: React.FC = () => {
 
   const [method, setMethod] = useState<WhiteBalanceMethod>(WhiteBalanceMethod.Percentile);
   const [percentile, setPercentile] = useState<number>(98);
-  const [whitePoint, setWhitePoint] = useState<string>('#fff');
+  const [whitePoint, setWhitePoint] = useState<string>(WHITE_HEX);
   const [saturation, setSaturation] = useState<number>(100);
   const [inputLevels, setInputLevels] = useState<number[]>([0, 255]);
   const [gammaPercent, setGammaPercent] = useState<number>(50);
@@ -448,7 +449,7 @@ export const ImageColorAdjustment: React.FC = () => {
                             colors: ['#fff'],
                           },
                         ]}
-                        onChangeComplete={(color: Color) => {
+                        onChangeComplete={(color: AggregationColor) => {
                           setWhitePoint(color.toHexString());
                         }}
                         showText

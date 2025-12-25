@@ -56,6 +56,10 @@ export const COLOR_TYPE_LABELS: Record<ColorType, MessageDescriptor> = {
   [ColorType.AcrylicGouache]: defineMessage`Acrylic Gouache`,
 };
 
+export const COLOR_PICKER_PRESET_LABELS = {
+  paper_white: defineMessage`White paper or canvas`,
+};
+
 export const AUTH_ERRORS: Record<string, MessageDescriptor> = {
   inactive: defineMessage`We couldn't verify an active Patreon membership for your account. Please join ArtistAssistApp on Patreon, or sign in to Patreon with the email you used to purchase your membership. Then, log in to ArtistAssistApp again.`,
   expired: defineMessage`Your session has expired. Please log in again.`,

@@ -22,6 +22,7 @@ import {OpacityIcon} from '~/src/components/color/OpacityIcon';
 import {WarmthIcon} from '~/src/components/color/WarmthIcon';
 import {useColorBrands} from '~/src/hooks/useColorBrands';
 import {formatColorLabel} from '~/src/services/color/colors';
+import {rgbToHex, WHITE_HEX} from '~/src/services/color/space/rgb';
 import type {Color, ColorBrandDefinition, ColorType} from '~/src/services/color/types';
 
 import {ColorSquare} from './ColorSquare';
@@ -39,13 +40,13 @@ export const ColorDescription: React.FC<Props> = ({colorType, color, text}: Prop
   const brand: ColorBrandDefinition | undefined = brands?.get(brandId);
 
   if (!brand) {
-    return <ColorSquare color="fff" size="large" />;
+    return <ColorSquare color={WHITE_HEX} size="large" />;
   }
 
   const {shortName, fullName} = brand;
   return (
     <Space>
-      <ColorSquare color={rgb} size="large" text={text} />
+      <ColorSquare color={rgbToHex(...rgb)} size="large" text={text} />
       <span>
         <Tooltip title={fullName}>
           <Typography.Text>{shortName || fullName}</Typography.Text>

@@ -39,11 +39,6 @@ export const EmptyImage: React.FC = () => {
     <div style={{padding: '0 16px 16px'}}>
       <Typography.Paragraph>
         <Typography.Text strong>
-          ⁉️ <Trans>No data</Trans>
-        </Typography.Text>
-        <br />
-
-        <Typography.Text strong>
           <Trans>To use the {tabLabel} feature, select a reference photo.</Trans>
         </Typography.Text>
         <br />

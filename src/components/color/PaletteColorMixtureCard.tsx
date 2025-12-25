@@ -22,6 +22,7 @@ import {Button, Card, Popconfirm, Space, Typography} from 'antd';
 import type {CardProps} from 'antd/lib';
 
 import {ColorMixtureDescription} from '~/src/components/color/ColorMixtureDescription';
+import {rgbToHex} from '~/src/services/color/space/rgb';
 import type {ColorMixture} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
@@ -57,7 +58,7 @@ export const PaletteColorMixtureCard: React.FC<Props> = ({
   };
 
   const handleSetAsBgClick = () => {
-    void setBackgroundColor(colorMixture.layerRgb);
+    void setBackgroundColor(rgbToHex(...colorMixture.layerRgb));
     void setActiveTabKey(TabKey.ColorPicker);
   };
 

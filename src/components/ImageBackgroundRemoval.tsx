@@ -18,9 +18,9 @@
 
 import {BgColorsOutlined, DownloadOutlined, LoadingOutlined, MoreOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import type {MenuProps} from 'antd';
+import type {ColorPickerProps, MenuProps} from 'antd';
 import {App, Button, ColorPicker, Dropdown, Flex, Form, Grid, Space, Spin, Typography} from 'antd';
-import type {Color} from 'antd/es/color-picker';
+import type {AggregationColor} from 'antd/es/color-picker/color';
 import {saveAs} from 'file-saver';
 import type {CSSProperties} from 'react';
 import {useEffect, useState} from 'react';
@@ -134,6 +134,27 @@ export const ImageBackgroundRemoval: React.FC = () => {
     }
   };
 
+  const colorPickerProps: ColorPickerProps = {
+    presets: [
+      {
+        label: t`White`,
+        colors: [WHITE_HEX],
+      },
+    ],
+    disabledAlpha: true,
+    allowClear: true,
+    value: backgroundRemovalColor,
+    onChangeComplete: (color: AggregationColor) => {
+      const {a} = color.toRgb();
+      if (a !== 0) {
+        setBackgroundRemovalColor(color.toHexString());
+      }
+    },
+    onClear: () => {
+      setBackgroundRemovalColor(null);
+    },
+  };
+
   const items: MenuProps['items'] = [
     {
       key: '1',
@@ -210,23 +231,7 @@ export const ImageBackgroundRemoval: React.FC = () => {
             {screens.sm ? (
               <>
                 <Form.Item label={t`Background`} style={{marginBottom: 0}}>
-                  <ColorPicker
-                    presets={[
-                      {
-                        label: t`White`,
-                        colors: [WHITE_HEX],
-                      },
-                    ]}
-                    disabledAlpha
-                    allowClear
-                    onClear={() => {
-                      setBackgroundRemovalColor(null);
-                    }}
-                    value={backgroundRemovalColor}
-                    onChangeComplete={(color: Color) => {
-                      setBackgroundRemovalColor(color.toHexString());
-                    }}
-                  />
+                  <ColorPicker {...colorPickerProps} />
                 </Form.Item>
                 {imageWithoutBackgroundUrl && (
                   <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
@@ -242,15 +247,7 @@ export const ImageBackgroundRemoval: React.FC = () => {
                     setIsColorPickerOpened(open);
                   }
                 }}
-                disabledAlpha
-                allowClear
-                onClear={() => {
-                  setBackgroundRemovalColor(null);
-                }}
-                value={backgroundRemovalColor}
-                onChangeComplete={(color: Color) => {
-                  setBackgroundRemovalColor(color.toHexString());
-                }}
+                {...colorPickerProps}
               >
                 <Dropdown menu={{items}}>
                   <Button icon={<MoreOutlined />} />

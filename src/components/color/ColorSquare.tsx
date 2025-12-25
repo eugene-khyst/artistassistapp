@@ -17,35 +17,38 @@
  */
 
 import {theme, Tooltip} from 'antd';
+import React, {memo} from 'react';
 
-import type {RgbTuple} from '~/src/services/color/space/rgb';
 import {Rgb} from '~/src/services/color/space/rgb';
 
 type Size = 'small' | 'large';
 
 interface Props {
-  color: string | RgbTuple;
+  color: string;
   size?: Size;
   text?: string | number;
 }
 
-export const ColorSquare: React.FC<Props> = ({color, size = 'small', text}: Props) => {
+export const ColorSquare: React.FC<Props> = memo(function ColorSquare({
+  color,
+  size = 'small',
+  text,
+}: Props) {
   const {
     token: {fontSize, fontSizeLG, lineHeight},
   } = theme.useToken();
   const isLarge = size === 'large';
   const sideLength: number = isLarge ? 2 * fontSize * lineHeight : fontSizeLG;
   const borderRadius = isLarge ? 8 : 4;
-  const rgb = Rgb.fromHexOrTuple(color);
-  const hex: string = rgb.toHex();
+  const rgb = Rgb.fromHex(color);
   return (
-    <Tooltip title={hex}>
+    <Tooltip title={color}>
       <svg width={sideLength} height={sideLength} className="color-icon">
         <rect
           width={sideLength}
           height={sideLength}
           rx={borderRadius}
-          fill={hex}
+          fill={color}
           strokeWidth={1}
           stroke="#d9d9d9"
         />
@@ -65,4 +68,4 @@ export const ColorSquare: React.FC<Props> = ({color, size = 'small', text}: Prop
       </svg>
     </Tooltip>
   );
-};
+});

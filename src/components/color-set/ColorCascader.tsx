@@ -25,6 +25,7 @@ import {OpacityIcon} from '~/src/components/color/OpacityIcon';
 import {WarmthIcon} from '~/src/components/color/WarmthIcon';
 import {filterCascaderOptions} from '~/src/components/utils';
 import {formatColorLabel} from '~/src/services/color/colors';
+import {rgbToHex} from '~/src/services/color/space/rgb';
 import type {Color, ColorSet} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {computeIfAbsentInMap} from '~/src/utils/map';
@@ -56,7 +57,7 @@ function getColorOptions(colorSet?: ColorSet | null): CascaderOptionType[] {
             value: color.id,
             label: (
               <Flex key={label} gap="small" align="center">
-                <ColorSquare color={rgb} />
+                <ColorSquare color={rgbToHex(...rgb)} />
                 <Typography.Text>{label}</Typography.Text>
                 <OpacityIcon opacity={opacity} />
                 <WarmthIcon warmth={warmth} />

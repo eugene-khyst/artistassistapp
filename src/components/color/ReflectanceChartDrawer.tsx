@@ -71,11 +71,8 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
       }
     }
     if (targetColor && chartMode === ChartMode.Similarity) {
-      const targetColorRgb = Rgb.fromHex(targetColor);
-      reflectanceChart.addReflectance(
-        targetColorRgb.toReflectance().toArray(),
-        targetColorRgb.toRgbTuple()
-      );
+      const rgb = Rgb.fromHex(targetColor);
+      reflectanceChart.addReflectance(rgb.toReflectance().toArray(), rgb.toTuple());
     }
   }, [reflectanceChart, targetColor, colorMixture, chartMode]);
 

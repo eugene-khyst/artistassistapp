@@ -28,6 +28,7 @@ import {
   zoomableImageCanvasSupplier,
 } from '~/src/hooks/useZoomableImageCanvas';
 import type {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
+import {isMixable, MIXABLE_COLOR_TYPES} from '~/src/services/color/color-mixer';
 import {useAppStore} from '~/src/stores/app-store';
 import type {ColorId} from '~/src/stores/limited-palette-image-slice';
 import {getFilename} from '~/src/utils/filename';
@@ -114,8 +115,8 @@ export const ImageLimitedPalette: React.FC = () => {
     },
   ];
 
-  if (!colorSet || !originalImage) {
-    return <EmptyColorSet imageMandatory={true} />;
+  if (!colorSet || !originalImage || !isMixable(colorSet.type)) {
+    return <EmptyColorSet supportedColorTypes={MIXABLE_COLOR_TYPES} imageMandatory={true} />;
   }
 
   const height = `calc((100dvh - 130px) / ${screens.sm ? 1 : 2})`;

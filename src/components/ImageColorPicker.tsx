@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {BgColorsOutlined, LoadingOutlined} from '@ant-design/icons';
+import {LoadingOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {
   Button,
@@ -29,9 +29,10 @@ import {
   Slider,
   Space,
   Spin,
+  theme,
   Typography,
 } from 'antd';
-import type {Color} from 'antd/es/color-picker';
+import type {AggregationColor} from 'antd/es/color-picker/color';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import type {SliderMarks} from 'antd/es/slider';
 import {useCallback, useEffect, useState} from 'react';
@@ -39,6 +40,8 @@ import {useCallback, useEffect, useState} from 'react';
 import {AdCard} from '~/src/components/ad/AdCard';
 import {PaletteColorMixtureCard} from '~/src/components/color/PaletteColorMixtureCard';
 import {ReflectanceChartDrawer} from '~/src/components/color/ReflectanceChartDrawer';
+import {ColorSetName} from '~/src/components/color-set/ColorSetName';
+import {COLOR_PICKER_PRESET_LABELS} from '~/src/components/messages';
 import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
 import type {
   ColorPickerSample,
@@ -54,9 +57,11 @@ import {
   compareSimilarColorsByColorMixturePartLength,
   compareSimilarColorsByConsistency,
   compareSimilarColorsBySimilarity,
+  isPastel,
   PAPER_WHITE_HEX,
 } from '~/src/services/color/color-mixer';
-import type {ColorMixture, SimilarColor} from '~/src/services/color/types';
+import {colorSetToBrandColorCounts} from '~/src/services/color/colors';
+import {type ColorMixture, type SimilarColor} from '~/src/services/color/types';
 import {Vector} from '~/src/services/math/geometry';
 import {ColorPickerSort} from '~/src/services/settings/types';
 import {useAppStore} from '~/src/stores/app-store';
@@ -76,7 +81,8 @@ const SIMILAR_COLORS_COMPARATORS: Record<ColorPickerSort, Comparator<SimilarColo
 };
 
 export const ImageColorPicker: React.FC = () => {
-  const appSettings = useAppStore(state => state.appSettings);
+  const colorPickerDiameter = useAppStore(state => state.appSettings.colorPickerDiameter);
+  const colorPickerSort = useAppStore(state => state.appSettings.colorPickerSort);
   const colorSet = useAppStore(state => state.colorSet);
   const originalImage = useAppStore(state => state.originalImage);
   const backgroundColor = useAppStore(state => state.backgroundColor);
@@ -98,15 +104,17 @@ export const ImageColorPicker: React.FC = () => {
 
   const screens = Grid.useBreakpoint();
 
+  const {
+    token: {fontSize, colorText, lineHeight},
+  } = theme.useToken();
+
   const {t} = useLingui();
 
   const imageColorPickerCanvasSupplier = useCallback(
     (canvas: HTMLCanvasElement): ImageColorPickerCanvas => {
       const colorPickerCanvas = new ImageColorPickerCanvas(canvas);
       const listener = ({rgb, point: {x, y}, diameter}: PipettePointSetEvent) => {
-        const hex = rgb.toHex();
-        console.log(hex.toUpperCase());
-        void setTargetColor(hex, {x, y, diameter});
+        void setTargetColor(rgb.toHex(), {x, y, diameter});
         selectPaletteColorMixtures(colorPickerCanvas.getSamplesNearby(x, y).map(({key}) => key));
       };
       colorPickerCanvas.events.subscribe(ColorPickerEventType.PipettePointSet, listener);
@@ -130,14 +138,16 @@ export const ImageColorPicker: React.FC = () => {
     isSimilarColorsLoading;
 
   useEffect(() => {
-    const {colorPickerDiameter, colorPickerSort} = appSettings;
     if (colorPickerDiameter) {
       setSampleDiameter(colorPickerDiameter);
     }
+  }, [colorPickerDiameter]);
+
+  useEffect(() => {
     if (colorPickerSort) {
       setSort(colorPickerSort);
     }
-  }, [appSettings]);
+  }, [colorPickerSort]);
 
   useEffect(() => {
     colorPickerCanvas?.setPipetteDiameter(sampleDiameter);
@@ -185,9 +195,9 @@ export const ImageColorPicker: React.FC = () => {
     void saveAppSettings({colorPickerSort});
   };
 
-  const handleTargetColorChange = (color: string) => {
+  const handleTargetColorChange = (color: AggregationColor) => {
     colorPickerCanvas?.setPipettePoint(null);
-    void setTargetColor(color, null);
+    void setTargetColor(color.toHexString(), null);
   };
 
   if (!colorSet) {
@@ -243,24 +253,44 @@ export const ImageColorPicker: React.FC = () => {
                       style={{marginBottom: 0}}
                     >
                       <ColorPicker
-                        value={backgroundColor}
                         presets={[
                           {
-                            label: t`Paper white`,
+                            label: t(COLOR_PICKER_PRESET_LABELS.paper_white),
                             colors: [PAPER_WHITE_HEX],
                           },
                         ]}
-                        onChangeComplete={(color: Color) => {
-                          void setBackgroundColor(color.toHexString());
-                        }}
                         showText
                         disabledAlpha
+                        value={backgroundColor}
+                        onChangeComplete={(color: AggregationColor) => {
+                          void setBackgroundColor(color.toHexString());
+                        }}
+                        panelRender={panel => (
+                          <div>
+                            {isPastel(colorSet.type) && (
+                              <div
+                                style={{
+                                  width: 234,
+                                  fontSize,
+                                  color: colorText,
+                                  lineHeight,
+                                  marginBottom: 8,
+                                }}
+                              >
+                                <Trans>
+                                  Paper color doesn&apos;t matter for opaque pastels, as they
+                                  completely cover the surface.
+                                </Trans>
+                              </div>
+                            )}
+                            {panel}
+                          </div>
+                        )}
                       />
                     </Form.Item>
                     <Form.Item style={{marginBottom: 0}}>
                       <Button
-                        icon={<BgColorsOutlined />}
-                        title={t`Set paper white background`}
+                        title={t`Use white paper or canvas as a background`}
                         onClick={() => {
                           void setBackgroundColor(PAPER_WHITE_HEX);
                         }}
@@ -291,9 +321,7 @@ export const ImageColorPicker: React.FC = () => {
                   >
                     <ColorPicker
                       value={targetColor}
-                      onChangeComplete={(color: Color) => {
-                        handleTargetColorChange(color.toHexString());
-                      }}
+                      onChangeComplete={handleTargetColorChange}
                       showText
                       disabledAlpha
                     />
@@ -313,9 +341,11 @@ export const ImageColorPicker: React.FC = () => {
                     </Form.Item>
                   )}
                 </Space>
-                {screens.sm && colorSet.name && (
+                {screens.sm && (
                   <Form.Item label={t`Color set`} style={{marginBottom: 0}}>
-                    {colorSet.name}
+                    {colorSet.name || (
+                      <ColorSetName brandColorCounts={colorSetToBrandColorCounts(colorSet)} />
+                    )}
                   </Form.Item>
                 )}
               </Space>

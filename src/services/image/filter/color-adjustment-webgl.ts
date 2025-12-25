@@ -68,11 +68,11 @@ export function adjustColorsWebGL(
         gl.uniform1f(locations.get('u_gamma')!, gamma);
         gl.uniform1f(locations.get('u_outputLow')!, outputLow);
         gl.uniform1f(locations.get('u_outputHigh')!, outputHigh);
-        const origTempRgb = kelvinToRgb(origTemperature);
-        const targetTempRgb = kelvinToRgb(targetTemperature);
-        gl.uniform1f(locations.get('u_scaleR')!, (origTempRgb.r || 1) / (targetTempRgb.r || 1));
-        gl.uniform1f(locations.get('u_scaleG')!, (origTempRgb.g || 1) / (targetTempRgb.g || 1));
-        gl.uniform1f(locations.get('u_scaleB')!, (origTempRgb.b || 1) / (targetTempRgb.b || 1));
+        const [origTempR, origTempG, origTempB] = kelvinToRgb(origTemperature);
+        const [targetTempR, targetTempG, targetTempB] = kelvinToRgb(targetTemperature);
+        gl.uniform1f(locations.get('u_scaleR')!, (origTempR || 1) / (targetTempR || 1));
+        gl.uniform1f(locations.get('u_scaleG')!, (origTempG || 1) / (targetTempG || 1));
+        gl.uniform1f(locations.get('u_scaleB')!, (origTempB || 1) / (targetTempB || 1));
       },
     },
   ]);
