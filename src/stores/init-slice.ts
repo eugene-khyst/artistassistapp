@@ -104,25 +104,20 @@ export const createInitSlice: StateCreator<
     });
   },
   loadAppSettings: async (): Promise<AppSettings> => {
-    let appSettings: AppSettings = (await getAppSettings()) ?? {};
-    appSettings = {
+    const appSettings: AppSettings = {
       ...DEFAULT_APP_SETTINGS,
-      ...appSettings,
+      ...((await getAppSettings()) ?? {}),
     };
     set({
       appSettings,
     });
     return appSettings;
   },
-  saveAppSettings: async (appSettings: AppSettings | AppSettingsUpdater): Promise<void> => {
-    const {appSettings: prevAppSettings} = get();
-    if (typeof appSettings === 'function') {
-      appSettings = (appSettings as AppSettingsUpdater)(prevAppSettings);
-    }
-    appSettings = {
-      ...prevAppSettings,
-      ...appSettings,
-    };
+  saveAppSettings: async (update: Partial<AppSettings> | AppSettingsUpdater): Promise<void> => {
+    const {appSettings} = get();
+    const values: Partial<AppSettings> =
+      typeof update === 'function' ? update(appSettings) : update;
+    Object.assign(appSettings, values);
     await saveAppSettings(appSettings);
     set({
       appSettings,

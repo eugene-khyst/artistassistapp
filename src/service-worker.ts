@@ -43,9 +43,9 @@ import {
 } from '~/src/utils/fetch';
 
 const CACHE_NAME_LARGE_FILES = getCacheName('large-files');
-const CACHE_NAMES = [CACHE_NAME_DEFAULT, CACHE_NAME_LARGE_FILES];
+const CACHE_NAMES = new Set([CACHE_NAME_DEFAULT, CACHE_NAME_LARGE_FILES]);
 
-const CACHE_LARGE_FILE_EXTENSIONS: RegExp[] = [/\.onnx\.part[0-9]+$/, /\.wasm$/];
+const CACHE_LARGE_FILE_EXTENSIONS: RegExp[] = [/\.onnx\.part\d+$/, /\.wasm$/];
 const NO_CACHE_PATHNAMES = new Set<string>(['/404.html', '/cleanup.html']);
 
 function isCloudflareBeacon(url: URL): boolean {
@@ -85,7 +85,7 @@ self.addEventListener('install', event => {
 
 async function activate(): Promise<void> {
   const keys = await caches.keys();
-  const oldCaches = keys.filter(key => !CACHE_NAMES.some(cacheName => key === cacheName));
+  const oldCaches = keys.filter(key => !CACHE_NAMES.has(key));
   if (oldCaches.length > 0) {
     await Promise.all(oldCaches.map(key => caches.delete(key)));
   }
@@ -108,12 +108,10 @@ self.addEventListener('fetch', (event: FetchEvent) => {
         }
       } else if (CACHE_LARGE_FILE_EXTENSIONS.some(extension => extension.test(url.href))) {
         response = fetchCacheFirst(request, CACHE_NAME_LARGE_FILES);
+      } else if (isCloudflareBeacon(url)) {
+        response = fetch(request);
       } else {
-        if (isCloudflareBeacon(url)) {
-          response = fetch(request);
-        } else {
-          response = fetchSWR(request);
-        }
+        response = fetchSWR(request);
       }
       event.respondWith(response);
     } else if (
