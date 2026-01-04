@@ -75,7 +75,7 @@ export const PaletteGrid: React.FC<Props> = ({
 
   const sortedColorMixtures = colorMixtures?.slice().sort(COLOR_MIXTURES_COMPARATORS[sort]);
 
-  return !sortedColorMixtures ? null : (
+  return sortedColorMixtures ? (
     <>
       <Space align="center" wrap style={{marginBottom: 16}}>
         <Button
@@ -127,7 +127,7 @@ export const PaletteGrid: React.FC<Props> = ({
           <AdCard vertical />
         </Col>
       </Row>
-      <div style={{display: 'none'}}>
+      <div className="print-only">
         <Row ref={printRef} gutter={[16, 16]} justify="start">
           {sortedColorMixtures.map((colorMixture: ColorMixture) => (
             <Col key={colorMixture.key} xs={24} sm={12} md={8}>
@@ -144,5 +144,5 @@ export const PaletteGrid: React.FC<Props> = ({
         </Row>
       </div>
     </>
-  );
+  ) : null;
 };

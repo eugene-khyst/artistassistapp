@@ -79,6 +79,10 @@ svg.color-icon {
   --stroke-color: black;
 }
 
+.print-only {
+  display: none;
+}
+
 @media print {
   html,
   body {
@@ -87,6 +91,10 @@ svg.color-icon {
 
   .ant-card {
     page-break-inside: avoid;
+  }
+
+  .print-only {
+    display: block !important;
   }
 }
 
