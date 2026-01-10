@@ -188,6 +188,8 @@ export function formatColorLabel(
     padLength,
     splitAt,
     delimiter = '-',
+    replace,
+    replacements,
   }: ColorIdFormat = {
     show: true,
     ...idFormat,
@@ -196,6 +198,11 @@ export function formatColorLabel(
     let idStr = `${prefix ?? ''}${padLength ? String(id).padStart(padLength, '0') : id}${suffix ?? ''}`;
     if (splitAt && idStr.length > splitAt) {
       idStr = `${idStr.substring(0, splitAt)}${delimiter}${idStr.substring(splitAt)}`;
+    }
+    if (replace && replacements) {
+      idStr = idStr.replace(new RegExp(replace), (match: string) => {
+        return replacements[match] ?? match;
+      });
     }
     return `${idStr} ${name}`;
   } else {

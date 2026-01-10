@@ -52,6 +52,8 @@ export interface ColorIdFormat {
   padLength?: number;
   splitAt?: number;
   delimiter?: string;
+  replace?: string;
+  replacements?: Record<string, string>;
 }
 
 export interface ColorBrandDefinition {
