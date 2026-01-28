@@ -18,6 +18,7 @@
 
 import {Card} from 'antd';
 
+import type {ImageFile} from '~/src/services/image/image-file';
 import {blobToImageFile} from '~/src/services/image/image-file';
 import {useAppStore} from '~/src/stores/app-store';
 
@@ -25,6 +26,7 @@ interface Props {
   image: string | URL;
   thumbnail?: string | URL;
   name: string;
+  id: number;
   setLoadingCount: (value: (prevCount: number) => number) => void;
 }
 
@@ -32,6 +34,7 @@ export const SampleImageCard: React.FC<Props> = ({
   image,
   thumbnail,
   name,
+  id,
   setLoadingCount,
 }: Props) => {
   const setImageFile = useAppStore(state => state.setImageFile);
@@ -41,7 +44,9 @@ export const SampleImageCard: React.FC<Props> = ({
       setLoadingCount((prev: number) => prev + 1);
       const response: Response = await fetch(image);
       const blob: Blob = await response.blob();
-      void setImageFile(await blobToImageFile(blob));
+      const imageFile: ImageFile = await blobToImageFile(blob);
+      imageFile.id = id;
+      void setImageFile(imageFile);
       setLoadingCount((prev: number) => prev - 1);
     })();
   };

@@ -98,12 +98,13 @@ export const ImageChooser: React.FC = () => {
         </Typography.Text>
 
         <Row gutter={[16, 16]} align="top" justify="start">
-          {SAMPLE_IMAGES.map(({image, thumbnail, name}: SampleImageDefinition) => (
+          {SAMPLE_IMAGES.map(({image, thumbnail, name, id}: SampleImageDefinition) => (
             <Col key={name} xs={24} md={12} lg={6}>
               <SampleImageCard
                 image={image}
                 thumbnail={thumbnail}
                 name={name}
+                id={id}
                 setLoadingCount={setSampleImagesLoadingCount}
               />
             </Col>

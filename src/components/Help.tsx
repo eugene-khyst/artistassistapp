@@ -78,14 +78,15 @@ export const Help: React.FC = () => {
     expiration && dayjs(expiration).format(DATE_TIME_FORMAT);
 
   const handleUpdateClick = async () => {
-    if ('serviceWorker' in navigator) {
-      setIsUpdating(true);
-      try {
-        const registration = await navigator.serviceWorker.getRegistration();
-        await registration?.update();
-      } finally {
-        setIsUpdating(false);
-      }
+    if (!('serviceWorker' in navigator)) {
+      return;
+    }
+    setIsUpdating(true);
+    try {
+      const registration = await navigator.serviceWorker.getRegistration();
+      await registration?.update();
+    } finally {
+      setIsUpdating(false);
     }
   };
 

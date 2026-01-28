@@ -20,12 +20,17 @@ export interface SampleImageDefinition {
   image: string;
   thumbnail: string;
   name: string;
+  id: number;
 }
 
-export const SAMPLE_IMAGES: SampleImageDefinition[] = ['Chrysanthemum', 'Sunset'].map(
-  (name: string): SampleImageDefinition => ({
+export const SAMPLE_IMAGES: SampleImageDefinition[] = [
+  {name: 'Chrysanthemum', id: -1000},
+  {name: 'Sunset', id: -1001},
+].map(
+  ({name, id}): SampleImageDefinition => ({
     image: `/sample-images/${name.toLowerCase()}.webp`,
     thumbnail: `/sample-images/${name.toLowerCase()}-thumbnail.webp`,
     name,
+    id,
   })
 );
