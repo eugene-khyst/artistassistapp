@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {FullscreenExitOutlined, FullscreenOutlined, LoadingOutlined} from '@ant-design/icons';
+import {FullscreenExitOutlined, FullscreenOutlined} from '@ant-design/icons';
 import {useLingui} from '@lingui/react/macro';
 import type {TabsProps} from 'antd';
-import {Col, FloatButton, Row, Spin, Tabs, theme} from 'antd';
+import {Col, FloatButton, Row, Tabs, theme} from 'antd';
 import {useEffect, useRef, useState} from 'react';
 import StickyBox from 'react-sticky-box';
 
@@ -32,6 +32,7 @@ import {ImagePerspectiveCorrection} from '~/src/components/ImagePerspectiveCorre
 import {ImagesCompare} from '~/src/components/ImagesCompare';
 import {ImageStyleTransfer} from '~/src/components/ImageStyleTransfer';
 import {Install} from '~/src/components/Install';
+import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {TAB_LABELS} from '~/src/components/messages';
 import type {ChangableComponent} from '~/src/components/types';
 import {TabContext} from '~/src/contexts/TabContext';
@@ -223,7 +224,7 @@ export const ArtistAssistApp: React.FC = () => {
   );
 
   return (
-    <Spin spinning={isLoading} indicator={<LoadingOutlined spin />} size="large">
+    <LoadingIndicator loading={isLoading}>
       <div className="watermark">{WATERMARK_TEXT}</div>
       <Row justify="center">
         <Col xs={24} xxl={18}>
@@ -246,6 +247,6 @@ export const ArtistAssistApp: React.FC = () => {
         />
       )}
       <AdModal open={isAdModalReady && isAdModalOpen} setOpen={setIsAdModalOpen} />
-    </Spin>
+    </LoadingIndicator>
   );
 };

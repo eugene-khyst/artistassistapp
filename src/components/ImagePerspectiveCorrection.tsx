@@ -21,17 +21,17 @@ import {
   CheckOutlined,
   CloseOutlined,
   DownloadOutlined,
-  LoadingOutlined,
   MoreOutlined,
   QuestionCircleOutlined,
   RotateRightOutlined,
 } from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {App, Button, Dropdown, Flex, Grid, Space, Spin, theme, Tooltip, Typography} from 'antd';
+import {App, Button, Dropdown, Flex, Grid, Space, theme, Tooltip, Typography} from 'antd';
 import type {MenuProps} from 'antd/lib';
 import {saveAs} from 'file-saver';
 
 import {FileSelect} from '~/src/components/file/FileSelect';
+import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
 import {ImageCroppingCanvas} from '~/src/services/canvas/image/image-cropping-canvas';
 import {ImagePerspectiveCorrectionCanvas} from '~/src/services/canvas/image/image-perspective-correction-canvas';
@@ -215,11 +215,7 @@ export const ImagePerspectiveCorrection: React.FC = () => {
   const canvasStyle = {width: '100%', height: `calc(100dvh - 145px)`};
 
   return (
-    <Spin
-      spinning={isPerspectiveCorrectedImageLoading}
-      indicator={<LoadingOutlined spin />}
-      size="large"
-    >
+    <LoadingIndicator loading={isPerspectiveCorrectedImageLoading}>
       <Flex vertical gap="small" style={{marginBottom: 8, padding: '0 16px'}}>
         <Space align="center" size={4}>
           <Typography.Text strong>
@@ -295,6 +291,6 @@ export const ImagePerspectiveCorrection: React.FC = () => {
           {perspectiveCorrectedImage && <canvas ref={canvas2Ref} style={canvasStyle} />}
         </div>
       </Flex>
-    </Spin>
+    </LoadingIndicator>
   );
 };

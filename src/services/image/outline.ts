@@ -19,13 +19,14 @@
 import {sobelEdgeDetectionWebGL} from '~/src/services/image/filter/sobel-operator-webgl';
 import {transformImage} from '~/src/services/ml/image-transformer';
 import type {OnnxModel} from '~/src/services/ml/types';
-import type {ProgressCallback} from '~/src/utils/fetch';
+import type {FetchProgressCallback} from '~/src/utils/fetch';
 import {createImageBitmapResizedTotalPixels, IMAGE_SIZE} from '~/src/utils/graphics';
 
 export async function getOutline(
   image: ImageBitmap,
   model?: OnnxModel | null,
-  progressCallback?: ProgressCallback
+  progressCallback?: FetchProgressCallback,
+  signal?: AbortSignal
 ): Promise<ImageBitmap> {
   console.time('outline');
   let outline: ImageBitmap;
@@ -33,7 +34,8 @@ export async function getOutline(
     const transformedImage: OffscreenCanvas = await transformImage(
       [image],
       model,
-      progressCallback
+      progressCallback,
+      signal
     );
     outline = transformedImage.transferToImageBitmap();
   } else {

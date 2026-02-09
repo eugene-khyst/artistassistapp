@@ -16,15 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-  DownloadOutlined,
-  LoadingOutlined,
-  MoreOutlined,
-  PrinterOutlined,
-  TableOutlined,
-} from '@ant-design/icons';
+import {DownloadOutlined, MoreOutlined, PrinterOutlined, TableOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
+import type {CheckboxOptionType, MenuProps} from 'antd';
 import {
   App,
   Button,
@@ -35,7 +29,6 @@ import {
   Popover,
   Radio,
   Space,
-  Spin,
   theme,
   Typography,
 } from 'antd';
@@ -44,6 +37,7 @@ import React, {useEffect, useState} from 'react';
 
 import {DEFAULT_GRID_SETTINGS, setGrid} from '~/src/components/grid/grid';
 import {GridControls} from '~/src/components/grid/GridControls';
+import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {PrintImageDrawer} from '~/src/components/print/PrintImageDrawer';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
 import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
@@ -69,10 +63,11 @@ export const ImageOutline: React.FC = () => {
   const appSettings = useAppStore(state => state.appSettings);
   const originalImageFile = useAppStore(state => state.originalImageFile);
   const isOutlineImageLoading = useAppStore(state => state.isOutlineImageLoading);
-  const outlineLoadingTip = useAppStore(state => state.outlineLoadingTip);
+  const outlineDownloadTip = useAppStore(state => state.outlineDownloadTip);
   const outlineImage = useAppStore(state => state.outlineImage);
 
   const setOutlineModel = useAppStore(state => state.setOutlineModel);
+  const abortOutline = useAppStore(state => state.abortOutline);
   const saveAppSettings = useAppStore(state => state.saveAppSettings);
 
   const {token} = theme.useToken();
@@ -136,8 +131,7 @@ export const ImageOutline: React.FC = () => {
     });
   }, [appSettings, gridCanvas]);
 
-  const handleModeChange = (e: RadioChangeEvent) => {
-    const value = e.target.value as OutlineMode;
+  const handleModeChange = (value: OutlineMode) => {
     const model: OnnxModel | null | undefined =
       value === OutlineMode.Quality ? models?.values().next().value : null;
     setMode(value);
@@ -154,6 +148,11 @@ export const ImageOutline: React.FC = () => {
       return;
     }
     void gridCanvas?.saveAsImage(getFilename(originalImageFile, 'outline'));
+  };
+
+  const handleCancelClick = () => {
+    abortOutline();
+    handleModeChange(OutlineMode.Quick);
   };
 
   if (!originalImageFile) {
@@ -199,12 +198,13 @@ export const ImageOutline: React.FC = () => {
     boxShadow: 'none',
   };
 
+  const isQuickMode: boolean = mode === OutlineMode.Quick;
+
   return (
-    <Spin
-      spinning={isLoading}
-      tip={outlineLoadingTip}
-      indicator={<LoadingOutlined spin />}
-      size="large"
+    <LoadingIndicator
+      loading={isLoading}
+      downloadTip={!isQuickMode && outlineDownloadTip}
+      onCancel={!isQuickMode && handleCancelClick}
     >
       <div style={{display: 'flex', width: '100%', justifyContent: 'center', marginBottom: 8}}>
         <Form.Item
@@ -222,7 +222,9 @@ export const ImageOutline: React.FC = () => {
               <Radio.Group
                 options={modeOptions}
                 value={mode}
-                onChange={handleModeChange}
+                onChange={e => {
+                  handleModeChange(e.target.value as OutlineMode);
+                }}
                 optionType="button"
                 buttonStyle="solid"
               />
@@ -298,6 +300,6 @@ export const ImageOutline: React.FC = () => {
           setIsOpenPrintImage(false);
         }}
       />
-    </Spin>
+    </LoadingIndicator>
   );
 };

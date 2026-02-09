@@ -16,12 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined, LoadingOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons';
+import {DownloadOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {MenuProps} from 'antd';
-import {Button, Dropdown, Grid, Space, Spin} from 'antd';
+import {Button, Dropdown, Grid, Space} from 'antd';
 
 import {GridControls} from '~/src/components/grid/GridControls';
+import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
 import {GridCanvas} from '~/src/services/canvas/image/grid-canvas';
 import {printImages} from '~/src/services/print/print';
@@ -77,7 +78,7 @@ export const ImageGrid: React.FC = () => {
   }
 
   return (
-    <Spin spinning={isOriginalImageLoading} indicator={<LoadingOutlined spin />} size="large">
+    <LoadingIndicator loading={isOriginalImageLoading}>
       <Space align="start" style={{width: '100%', justifyContent: 'center', marginBottom: 8}}>
         <GridControls gridCanvas={gridCanvas} />
         {screens.sm ? (
@@ -98,6 +99,6 @@ export const ImageGrid: React.FC = () => {
       <div>
         <canvas ref={canvasRef} style={{width: '100%', height: `calc(100dvh - 115px)`}} />
       </div>
-    </Spin>
+    </LoadingIndicator>
   );
 };

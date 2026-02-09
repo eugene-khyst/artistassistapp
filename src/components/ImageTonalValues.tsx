@@ -16,13 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined, LoadingOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons';
+import {DownloadOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
-import {Button, Col, Dropdown, Grid, Radio, Row, Space, Spin} from 'antd';
+import {Button, Col, Dropdown, Grid, Radio, Row, Space} from 'antd';
 import {saveAs} from 'file-saver';
 import {useEffect, useState} from 'react';
 
+import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {
   useZoomableImageCanvas,
   zoomableImageCanvasSupplier,
@@ -109,7 +110,7 @@ export const ImageTonalValues: React.FC = () => {
   const height = `calc((100dvh - 115px) / ${screens.sm ? 1 : 2})`;
 
   return (
-    <Spin spinning={isLoading} indicator={<LoadingOutlined spin />} size="large">
+    <LoadingIndicator loading={isLoading}>
       <Space align="center" style={{width: '100%', justifyContent: 'center', marginBottom: 8}}>
         <Radio.Group
           options={toneOptions}
@@ -146,6 +147,6 @@ export const ImageTonalValues: React.FC = () => {
           <canvas ref={originalCanvasRef} style={{width: '100%', height}} />
         </Col>
       </Row>
-    </Spin>
+    </LoadingIndicator>
   );
 };

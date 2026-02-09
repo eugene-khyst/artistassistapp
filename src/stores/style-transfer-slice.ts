@@ -25,18 +25,22 @@ import type {OnnxModel} from '~/src/services/ml/types';
 import type {AuthSlice} from '~/src/stores/auth-slice';
 import type {InitSlice} from '~/src/stores/init-slice';
 import type {OriginalImageSlice} from '~/src/stores/original-image-slice';
+import {formatFetchProgress} from '~/src/utils/fetch';
 import {offscreenCanvasToBlob} from '~/src/utils/graphics';
+import {isAbortError} from '~/src/utils/promise';
 
 export interface StyleTransferSlice {
   styleTransferModel?: OnnxModel;
   styleImageFile?: File;
   isStyleTransferLoading: boolean;
-  styleTransferLoadingTip: string | null;
+  styleTransferDownloadTip: string | null;
+  styleTransferAbortController: AbortController | null;
   styledImageBlob: Blob | null;
 
   setStyleTransferModel: (styleTransferModel?: OnnxModel) => void;
   setStyleImageFile: (styleImageFile?: File) => Promise<void>;
   loadStyledImage: () => Promise<void>;
+  abortStyleTransfer: () => void;
 }
 
 export const createStyleTransferSlice: StateCreator<
@@ -46,7 +50,8 @@ export const createStyleTransferSlice: StateCreator<
   StyleTransferSlice
 > = (set, get) => ({
   isStyleTransferLoading: false,
-  styleTransferLoadingTip: null,
+  styleTransferDownloadTip: null,
+  styleTransferAbortController: null,
   styledImageBlob: null,
 
   setStyleTransferModel: (styleTransferModel?: OnnxModel): void => {
@@ -85,26 +90,40 @@ export const createStyleTransferSlice: StateCreator<
     const styleImage: ImageBitmap | null =
       numInputs > 1 && styleImageFile ? await createImageBitmap(styleImageFile) : null;
     try {
+      const styleTransferAbortController = new AbortController();
       set({
         isStyleTransferLoading: true,
-        styleTransferLoadingTip: null,
+        styleTransferDownloadTip: null,
+        styleTransferAbortController,
         styledImageBlob: null,
       });
       const images = styleImage ? [originalImage, styleImage] : [originalImage];
       const styledImageCanvas: OffscreenCanvas = await transferStyle(
         images,
         styleTransferModel,
-        key => {
-          set({styleTransferLoadingTip: key});
-        }
+        (key, progress) => {
+          set({styleTransferDownloadTip: formatFetchProgress(key, progress)});
+        },
+        styleTransferAbortController.signal
       );
       const styledImageBlob: Blob = await offscreenCanvasToBlob(styledImageCanvas);
-      set({styledImageBlob});
+      set({
+        styledImageBlob,
+      });
+    } catch (error) {
+      if (!isAbortError(error)) {
+        throw error;
+      }
     } finally {
       styleImage?.close();
       set({
         isStyleTransferLoading: false,
+        styleTransferDownloadTip: null,
+        styleTransferAbortController: null,
       });
     }
+  },
+  abortStyleTransfer: (): void => {
+    get().styleTransferAbortController?.abort();
   },
 });

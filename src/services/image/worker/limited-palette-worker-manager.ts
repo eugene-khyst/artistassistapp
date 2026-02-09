@@ -16,23 +16,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {transformImage} from '~/src/services/ml/image-transformer';
-import type {OnnxModel} from '~/src/services/ml/types';
-import type {FetchProgressCallback} from '~/src/utils/fetch';
+import type {ColorSet} from '~/src/services/color/types';
+import type {LimitedPalette} from '~/src/services/image/limited-palette';
+import {WorkerManager} from '~/src/utils/worker-manager';
 
-export async function transferStyle(
-  images: ImageBitmap[],
-  model: OnnxModel,
-  progressCallback?: FetchProgressCallback,
+const limitedPaletteWorker = new WorkerManager<LimitedPalette>(
+  () => new Worker(new URL('./limited-palette-worker.ts', import.meta.url), {type: 'module'})
+);
+
+export async function getLimitedPaletteImage(
+  originalImageFile: File,
+  limitedColorSet: ColorSet,
   signal?: AbortSignal
-): Promise<OffscreenCanvas> {
-  console.time('style-transfer');
-  const transformedImage: OffscreenCanvas = await transformImage(
-    images,
-    model,
-    progressCallback,
+): Promise<ImageBitmap> {
+  const {limitedPaletteImage} = await limitedPaletteWorker.run(
+    worker => worker.getLimitedPaletteImage(originalImageFile, limitedColorSet),
     signal
   );
-  console.timeEnd('style-transfer');
-  return transformedImage;
+  return limitedPaletteImage;
 }

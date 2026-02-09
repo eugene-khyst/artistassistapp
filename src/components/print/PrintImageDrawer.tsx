@@ -16,12 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {LoadingOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Button, Drawer, Form, Input, InputNumber, Radio, Select, Space, Spin} from 'antd';
+import {Button, Drawer, Form, Input, InputNumber, Radio, Select, Space} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useEffect, useState} from 'react';
 
+import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
 import {useDebounce} from '~/src/hooks/useDebounce';
 import {
@@ -137,7 +137,7 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
       open={open}
       onClose={onClose}
     >
-      <Spin spinning={isLoading} indicator={<LoadingOutlined spin />} size="large">
+      <LoadingIndicator loading={isLoading}>
         <Space direction="vertical">
           <Radio.Group
             value={printMode}
@@ -262,7 +262,7 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
             </>
           )}
         </Space>
-      </Spin>
+      </LoadingIndicator>
     </Drawer>
   );
 };

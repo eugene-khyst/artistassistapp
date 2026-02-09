@@ -22,17 +22,21 @@ import {hasAccessTo} from '~/src/services/auth/utils';
 import {getOutline} from '~/src/services/image/outline';
 import type {OnnxModel} from '~/src/services/ml/types';
 import type {AuthSlice} from '~/src/stores/auth-slice';
+import {formatFetchProgress} from '~/src/utils/fetch';
+import {isAbortError} from '~/src/utils/promise';
 
 import type {OriginalImageSlice} from './original-image-slice';
 
 export interface OutlineImageSlice {
   outlineModel?: OnnxModel | null;
   isOutlineImageLoading: boolean;
-  outlineLoadingTip: string | null;
+  outlineDownloadTip: string | null;
+  outlineAbortController: AbortController | null;
   outlineImage: ImageBitmap | null;
 
   setOutlineModel: (outlineModel?: OnnxModel | null) => void;
   loadOutlineImage: () => Promise<void>;
+  abortOutline: () => void;
 }
 
 export const createOutlineImageSlice: StateCreator<
@@ -42,7 +46,8 @@ export const createOutlineImageSlice: StateCreator<
   OutlineImageSlice
 > = (set, get) => ({
   isOutlineImageLoading: false,
-  outlineLoadingTip: null,
+  outlineDownloadTip: null,
+  outlineAbortController: null,
   outlineImage: null,
 
   setOutlineModel: (outlineModel?: OnnxModel | null): void => {
@@ -63,19 +68,37 @@ export const createOutlineImageSlice: StateCreator<
       return;
     }
     try {
+      const outlineAbortController = new AbortController();
       set({
         isOutlineImageLoading: true,
-        outlineLoadingTip: null,
+        outlineDownloadTip: null,
+        outlineAbortController,
         outlineImage: null,
       });
-      const outlineImage = await getOutline(originalImage, outlineModel, key => {
-        set({outlineLoadingTip: key});
+      const outlineImage = await getOutline(
+        originalImage,
+        outlineModel,
+        (key, progress) => {
+          set({outlineDownloadTip: formatFetchProgress(key, progress)});
+        },
+        outlineAbortController.signal
+      );
+      set({
+        outlineImage,
       });
-      set({outlineImage});
+    } catch (error) {
+      if (!isAbortError(error)) {
+        throw error;
+      }
     } finally {
       set({
         isOutlineImageLoading: false,
+        outlineDownloadTip: null,
+        outlineAbortController: null,
       });
     }
+  },
+  abortOutline: (): void => {
+    get().outlineAbortController?.abort();
   },
 });

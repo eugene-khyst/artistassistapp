@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {BgColorsOutlined, DownloadOutlined, LoadingOutlined, MoreOutlined} from '@ant-design/icons';
+import {BgColorsOutlined, DownloadOutlined, MoreOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {ColorPickerProps, MenuProps} from 'antd';
-import {App, Button, ColorPicker, Dropdown, Flex, Form, Grid, Space, Spin, Typography} from 'antd';
+import {App, Button, ColorPicker, Dropdown, Flex, Form, Grid, Space, Typography} from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import {saveAs} from 'file-saver';
 import type {CSSProperties} from 'react';
@@ -27,10 +27,12 @@ import {useEffect, useState} from 'react';
 import {ReactCompareSlider, ReactCompareSliderImage} from 'react-compare-slider';
 
 import {FileSelect} from '~/src/components/file/FileSelect';
+import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {OnnxModelSelect} from '~/src/components/ml-model/OnnxModelSelect';
 import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
 import {useDebounce} from '~/src/hooks/useDebounce';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
+import type {User} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {WHITE_HEX} from '~/src/services/color/space/rgb';
 import {
@@ -42,6 +44,16 @@ import {OnnxModelType} from '~/src/services/ml/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
 
+function getDefaultModel(models?: Map<string, OnnxModel>, user?: User): OnnxModel | undefined {
+  if (!models) {
+    return;
+  }
+  const [model] = [...models.values()].sort(
+    user ? compareOnnxModelsByPriority : compareOnnxModelsByFreeTierAndPriority
+  );
+  return model;
+}
+
 export const ImageBackgroundRemoval: React.FC = () => {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
@@ -49,12 +61,13 @@ export const ImageBackgroundRemoval: React.FC = () => {
   const imageFileToRemoveBackground = useAppStore(state => state.imageFileToRemoveBackground);
   const backgroundRemovalColor = useAppStore(state => state.backgroundRemovalColor);
   const isBackgroundRemovalLoading = useAppStore(state => state.isBackgroundRemovalLoading);
-  const backgroundRemovalLoadingTip = useAppStore(state => state.backgroundRemovalLoadingTip);
+  const backgroundRemovalDownloadTip = useAppStore(state => state.backgroundRemovalDownloadTip);
   const imageWithoutBackgroundBlob = useAppStore(state => state.imageWithoutBackgroundBlob);
 
   const setImageFileToRemoveBackground = useAppStore(state => state.setImageFileToRemoveBackground);
   const setBackgroundRemovalModel = useAppStore(state => state.setBackgroundRemovalModel);
   const setBackgroundRemovalColor = useAppStore(state => state.setBackgroundRemovalColor);
+  const abortBackgroundRemoval = useAppStore(state => state.abortBackgroundRemoval);
   const saveAppSettings = useAppStore(state => state.saveAppSettings);
 
   const screens = Grid.useBreakpoint();
@@ -97,19 +110,13 @@ export const ImageBackgroundRemoval: React.FC = () => {
   }, [isModelsError, notification, t]);
 
   useEffect(() => {
-    if (isAuthLoading || !models) {
+    if (isAuthLoading) {
       return;
     }
     const {backgroundRemovalModel} = appSettings;
-    let model: OnnxModel | undefined;
-    if (backgroundRemovalModel) {
-      model = models.get(backgroundRemovalModel);
-    }
-    if (!model) {
-      [model] = [...models.values()].sort(
-        !user ? compareOnnxModelsByFreeTierAndPriority : compareOnnxModelsByPriority
-      );
-    }
+    const model: OnnxModel | undefined =
+      (backgroundRemovalModel ? models?.get(backgroundRemovalModel) : undefined) ??
+      getDefaultModel(models, user);
     setModelId(model?.id);
     setBackgroundRemovalModel(model);
   }, [setBackgroundRemovalModel, appSettings, models, user, isAuthLoading]);
@@ -126,12 +133,26 @@ export const ImageBackgroundRemoval: React.FC = () => {
 
   const handleFileChange = ([file]: File[]) => {
     setImageFileToRemoveBackground(file ?? null);
+    if (!modelId) {
+      const {backgroundRemovalModel} = appSettings;
+      const model: OnnxModel | undefined =
+        (backgroundRemovalModel ? models?.get(backgroundRemovalModel) : undefined) ??
+        getDefaultModel(models, user);
+      setModelId(model?.id);
+      setBackgroundRemovalModel(model);
+    }
   };
 
   const handleSaveClick = () => {
     if (imageWithoutBackgroundUrl) {
       saveAs(imageWithoutBackgroundUrl, getFilename(imageFileToRemoveBackground, 'no-background'));
     }
+  };
+
+  const handleCancelClick = () => {
+    abortBackgroundRemoval();
+    setModelId(undefined);
+    setBackgroundRemovalModel(undefined);
   };
 
   const colorPickerProps: ColorPickerProps = {
@@ -183,11 +204,10 @@ export const ImageBackgroundRemoval: React.FC = () => {
   };
 
   return (
-    <Spin
-      spinning={isLoading}
-      tip={backgroundRemovalLoadingTip}
-      indicator={<LoadingOutlined spin />}
-      size="large"
+    <LoadingIndicator
+      loading={isLoading}
+      downloadTip={backgroundRemovalDownloadTip}
+      onCancel={handleCancelClick}
     >
       <Flex vertical gap="small" style={{marginBottom: 8, padding: '0 16px'}}>
         <Typography.Text strong>
@@ -275,6 +295,6 @@ export const ImageBackgroundRemoval: React.FC = () => {
           )
         }
       />
-    </Spin>
+    </LoadingIndicator>
   );
 };

@@ -16,46 +16,48 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Tensor} from 'onnxruntime-web';
-import {env, InferenceSession} from 'onnxruntime-web';
+import {transfer} from 'comlink';
+import {env, InferenceSession, Tensor} from 'onnxruntime-web';
 
-import type {ProgressCallback} from '~/src/utils/fetch';
-import {fetchChunked} from '~/src/utils/fetch';
+import {type Float32Tensor, getFloat32TensorTransferables} from '~/src/services/ml/tensor';
 
-env.wasm.proxy = true;
-env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.1/dist/';
+env.wasm.proxy = false;
+env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.23.2/dist/';
 
-export async function runInference(
-  modelUrl: string,
-  inputTensors: Tensor[][],
-  progressCallback?: ProgressCallback
-): Promise<Tensor[]> {
-  const modelResponse: Response = await fetchChunked(new URL(modelUrl), progressCallback);
-  const modelBlob: Blob = await modelResponse.blob();
-  modelUrl = URL.createObjectURL(modelBlob);
-  const outputTensors: Tensor[] = [];
-  try {
-    progressCallback?.('Inference', 'auto');
+interface Result {
+  outputTensors: Float32Tensor[];
+}
+
+export class InferenceRunner {
+  async runInference(modelUrl: string, inputTensors: Float32Tensor[][]): Promise<Result> {
+    const outputTensors: Float32Tensor[] = [];
     const session = await InferenceSession.create(modelUrl, {
       executionProviders: ['wasm'],
       graphOptimizationLevel: 'all',
       executionMode: 'parallel',
-      enableCpuMemArena: true,
     });
     for (const inputTensor of inputTensors) {
       const feeds: InferenceSession.FeedsType = Object.fromEntries(
-        inputTensor.map((tensor, index) => [session.inputNames[index]!, tensor])
+        inputTensor.map(({data, dims}, index) => [
+          session.inputNames[index]!,
+          new Tensor('float32', data, dims),
+        ])
       );
       const results = await session.run(feeds);
       const outputTensor = results[session.outputNames[0]!];
       if (!outputTensor) {
         throw new Error('Output tensor is undefined');
       }
-      outputTensors.push(outputTensor);
+      const {data, dims} = outputTensor;
+      if (!(data instanceof Float32Array)) {
+        throw new TypeError(`Expected Float32Array, got ${data.constructor.name || typeof data}`);
+      }
+      outputTensors.push({
+        data,
+        dims,
+      });
     }
     await session.release();
-  } finally {
-    URL.revokeObjectURL(modelUrl);
+    return transfer({outputTensors}, getFloat32TensorTransferables([outputTensors]));
   }
-  return outputTensors;
 }

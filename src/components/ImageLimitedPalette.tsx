@@ -16,13 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined, LoadingOutlined, MoreOutlined, SwapOutlined} from '@ant-design/icons';
+import {DownloadOutlined, MoreOutlined, SwapOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {MenuProps} from 'antd';
-import {Button, Col, Dropdown, Form, Grid, Row, Space, Spin, Typography} from 'antd';
+import {Button, Col, Dropdown, Form, Grid, Row, Space, Typography} from 'antd';
 import {saveAs} from 'file-saver';
 import {useEffect, useState} from 'react';
 
+import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {
   useZoomableImageCanvas,
   zoomableImageCanvasSupplier,
@@ -50,6 +51,7 @@ export const ImageLimitedPalette: React.FC = () => {
 
   const setLimitedColorSet = useAppStore(state => state.setLimitedColorSet);
   const setLimitedColorSetAsMain = useAppStore(state => state.setLimitedColorSetAsMain);
+  const abortLimitedPalette = useAppStore(state => state.abortLimitedPalette);
 
   const screens = Grid.useBreakpoint();
 
@@ -122,7 +124,7 @@ export const ImageLimitedPalette: React.FC = () => {
   const height = `calc((100dvh - 130px) / ${screens.sm ? 1 : 2})`;
 
   return (
-    <Spin spinning={isLoading} indicator={<LoadingOutlined spin />} size="large">
+    <LoadingIndicator loading={isLoading} onCancel={abortLimitedPalette}>
       <div style={{padding: '0 16px'}}>
         <Space.Compact style={{display: 'flex'}}>
           <Form.Item
@@ -163,6 +165,6 @@ export const ImageLimitedPalette: React.FC = () => {
           <canvas ref={originalCanvasRef} style={{width: '100%', height}} />
         </Col>
       </Row>
-    </Spin>
+    </LoadingIndicator>
   );
 };

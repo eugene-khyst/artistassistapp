@@ -34,11 +34,11 @@ import {medianCutQuantization} from './filter/median-cut';
 const QUANTIZATION_DEPTH = 9;
 
 interface Result {
-  preview: ImageBitmap;
+  limitedPaletteImage: ImageBitmap;
 }
 
 export class LimitedPalette {
-  async getPreview(blob: Blob, colorSet: ColorSet): Promise<Result> {
+  async getLimitedPaletteImage(blob: Blob, colorSet: ColorSet): Promise<Result> {
     console.time('limited-palette');
     const colorMixer = new ColorMixer();
     colorMixer.setColorSet(colorSet, PAPER_WHITE_HEX);
@@ -52,8 +52,8 @@ export class LimitedPalette {
         return similarColor?.colorMixture.layerRgb ?? WHITE;
       });
     });
-    const preview: ImageBitmap = await createImageBitmap(imageData);
+    const limitedPaletteImage: ImageBitmap = await createImageBitmap(imageData);
     console.timeEnd('limited-palette');
-    return transfer({preview}, [preview]);
+    return transfer({limitedPaletteImage}, [limitedPaletteImage]);
   }
 }

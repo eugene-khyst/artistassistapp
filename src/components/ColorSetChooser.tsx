@@ -20,7 +20,6 @@ import {
   AppstoreAddOutlined,
   CopyOutlined,
   DeleteOutlined,
-  LoadingOutlined,
   QrcodeOutlined,
   QuestionCircleOutlined,
   SaveOutlined,
@@ -40,7 +39,6 @@ import {
   Popconfirm,
   Row,
   Space,
-  Spin,
   Typography,
 } from 'antd';
 import type {ForwardedRef} from 'react';
@@ -53,6 +51,7 @@ import {LogoutButton} from '~/src/components/auth/LogoutButton';
 import {ColorSetSelect} from '~/src/components/color-set/ColorSetSelect';
 import {FileSelect} from '~/src/components/file/FileSelect';
 import {LocaleSelect} from '~/src/components/i18n/LocaleSelect';
+import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {COLOR_SETS_BACKUP_NOTIFICATION, PERSISTENT_STORAGE_WARN} from '~/src/components/messages';
 import {QRCode} from '~/src/components/qr/QRCode';
 import {QRScannerModal} from '~/src/components/qr/QRScannerModal';
@@ -551,7 +550,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
           </Trans>
         </Typography.Text>
 
-        <Spin spinning={isLoading} indicator={<LoadingOutlined spin />} size="large">
+        <LoadingIndicator loading={isLoading}>
           <Form
             name="colorSet"
             form={form}
@@ -770,7 +769,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
               </Space>
             </Form.Item>
           </Form>
-        </Spin>
+        </LoadingIndicator>
 
         <Row justify="start">
           <Col xs={24} md={12}>

@@ -16,7 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {LoadingOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {
   Button,
@@ -28,7 +27,6 @@ import {
   Select,
   Slider,
   Space,
-  Spin,
   theme,
   Typography,
 } from 'antd';
@@ -41,6 +39,7 @@ import {AdCard} from '~/src/components/ad/AdCard';
 import {PaletteColorMixtureCard} from '~/src/components/color/PaletteColorMixtureCard';
 import {ReflectanceChartDrawer} from '~/src/components/color/ReflectanceChartDrawer';
 import {ColorSetName} from '~/src/components/color-set/ColorSetName';
+import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {COLOR_PICKER_PRESET_LABELS} from '~/src/components/messages';
 import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
 import type {
@@ -217,7 +216,7 @@ export const ImageColorPicker: React.FC = () => {
 
   return (
     <>
-      <Spin spinning={isLoading} indicator={<LoadingOutlined spin />} size="large">
+      <LoadingIndicator loading={isLoading}>
         <Row>
           <Col xs={24} sm={12} lg={16}>
             <canvas
@@ -391,7 +390,7 @@ export const ImageColorPicker: React.FC = () => {
             </Space>
           </Col>
         </Row>
-      </Spin>
+      </LoadingIndicator>
       <ReflectanceChartDrawer
         colorMixture={reflectanceChartColorMixture}
         targetColor={targetColor}

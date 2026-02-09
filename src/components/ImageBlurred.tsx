@@ -16,19 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-  DownloadOutlined,
-  LoadingOutlined,
-  MoreOutlined,
-  PictureOutlined,
-  StopOutlined,
-} from '@ant-design/icons';
+import {DownloadOutlined, MoreOutlined, PictureOutlined, StopOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
-import {Button, Dropdown, Form, Grid, Radio, Space, Spin} from 'antd';
+import {Button, Dropdown, Form, Grid, Radio, Space} from 'antd';
 import {saveAs} from 'file-saver';
 import {useEffect, useState} from 'react';
 
+import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {
   useZoomableImageCanvas,
   zoomableImageCanvasSupplier,
@@ -127,7 +122,7 @@ export const ImageBlurred: React.FC = () => {
   }
 
   return (
-    <Spin spinning={isBlurredImagesLoading} indicator={<LoadingOutlined spin />} size="large">
+    <LoadingIndicator loading={isBlurredImagesLoading}>
       <Space align="start" style={{width: '100%', justifyContent: 'center', marginBottom: 8}}>
         <Form.Item
           label={t`Blur`}
@@ -174,6 +169,6 @@ export const ImageBlurred: React.FC = () => {
       <div>
         <canvas ref={canvasRef} style={{width: '100%', height: `calc(100dvh - 115px)`}} />
       </div>
-    </Spin>
+    </LoadingIndicator>
   );
 };

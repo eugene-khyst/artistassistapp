@@ -16,13 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-  DownloadOutlined,
-  LoadingOutlined,
-  MoreOutlined,
-  PictureOutlined,
-  ScissorOutlined,
-} from '@ant-design/icons';
+import {DownloadOutlined, MoreOutlined, PictureOutlined, ScissorOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {CheckboxOptionType, RadioChangeEvent} from 'antd';
 import {
@@ -37,7 +31,6 @@ import {
   Row,
   Slider,
   Space,
-  Spin,
   Typography,
 } from 'antd';
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
@@ -49,6 +42,7 @@ import {useCallback, useEffect, useMemo, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {FileSelect} from '~/src/components/file/FileSelect';
+import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {useDebounce} from '~/src/hooks/useDebounce';
 import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
 import type {PipettePointSetEvent} from '~/src/services/canvas/image/image-color-picker-canvas';
@@ -322,7 +316,7 @@ export const ImageColorAdjustment: React.FC = () => {
   const margin = screens.sm ? 0 : 8;
 
   return (
-    <Spin spinning={isColorAdjustedImageLoading} indicator={<LoadingOutlined spin />} size="large">
+    <LoadingIndicator loading={isColorAdjustedImageLoading}>
       <Row>
         {colorUnadjustedImage && (
           <Col xs={24} sm={12} lg={16}>
@@ -612,6 +606,6 @@ export const ImageColorAdjustment: React.FC = () => {
           </Space>
         </Col>
       </Row>
-    </Spin>
+    </LoadingIndicator>
   );
 };

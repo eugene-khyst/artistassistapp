@@ -16,19 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Tensor} from 'onnxruntime-web';
-
 import {Interpolation, interpolationWebGL} from '~/src/services/image/filter/interpolation-webgl';
-import {runInference} from '~/src/services/ml/inference';
-import {imageDataToTensor} from '~/src/services/ml/tensor';
+import type {Float32Tensor} from '~/src/services/ml/tensor';
+import {imageDataToFloat32Tensor} from '~/src/services/ml/tensor';
 import type {OnnxModel} from '~/src/services/ml/types';
-import type {ProgressCallback} from '~/src/utils/fetch';
+import {runInferenceWorker} from '~/src/services/ml/worker/inference-worker-manager';
+import type {FetchProgressCallback} from '~/src/utils/fetch';
 import {applyMask, imageBitmapToImageData} from '~/src/utils/graphics';
 
 export async function removeBackground(
   blob: Blob,
   model: OnnxModel,
-  progressCallback?: ProgressCallback
+  progressCallback?: FetchProgressCallback,
+  signal?: AbortSignal
 ): Promise<OffscreenCanvas> {
   console.time('background-removal');
   const {url: modelUrl, resolution, standardDeviation, mean} = model;
@@ -40,9 +40,14 @@ export async function removeBackground(
   });
   const [imageData] = imageBitmapToImageData(resizedImage);
   resizedImage.close();
-  const inputTensor = imageDataToTensor(imageData, standardDeviation, mean);
-  const [outputTensor] = await runInference(modelUrl, [[inputTensor]], progressCallback);
-  const mask: OffscreenCanvas = tensorToMask(
+  const inputTensor = imageDataToFloat32Tensor(imageData, standardDeviation, mean);
+  const [outputTensor] = await runInferenceWorker(
+    modelUrl,
+    [[inputTensor]],
+    progressCallback,
+    signal
+  );
+  const mask: OffscreenCanvas = float32TensorToMask(
     outputTensor!,
     resolution!,
     originalWidth,
@@ -54,8 +59,8 @@ export async function removeBackground(
   return resultCanvas;
 }
 
-function tensorToMask(
-  {data: maskData}: Tensor,
+function float32TensorToMask(
+  {data: maskData}: Float32Tensor,
   resolution: number,
   width: number,
   height: number
@@ -64,7 +69,7 @@ function tensorToMask(
   const data = new Uint8ClampedArray(4 * totalPixels).fill(255);
   for (let i = 0; i < totalPixels; i++) {
     const j = 4 * i;
-    const alpha = (maskData[i] as number) * 255;
+    const alpha = maskData[i]! * 255;
     data[j + 3] = alpha;
   }
   const canvas = new OffscreenCanvas(resolution, resolution);

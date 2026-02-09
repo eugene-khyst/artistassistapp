@@ -16,8 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Remote} from 'comlink';
-import {wrap} from 'comlink';
 import type {StateCreator} from 'zustand';
 
 import {
@@ -27,19 +25,14 @@ import {
   CUSTOM_COLOR_SET,
   NEW_COLOR_SET,
 } from '~/src/services/color/types';
-import type {LimitedPalette} from '~/src/services/image/limited-palette';
+import {getLimitedPaletteImage} from '~/src/services/image/worker/limited-palette-worker-manager';
 import type {ColorMixerSlice} from '~/src/stores/color-mixer-slice';
 import type {ColorSetSlice} from '~/src/stores/color-set-slice';
 import type {TabSlice} from '~/src/stores/tab-slice';
 import {TabKey} from '~/src/tabs';
+import {isAbortError} from '~/src/utils/promise';
 
 import type {OriginalImageSlice} from './original-image-slice';
-
-const limitedPalette: Remote<LimitedPalette> = wrap(
-  new Worker(new URL('../services/image/worker/limited-palette-worker.ts', import.meta.url), {
-    type: 'module',
-  })
-);
 
 export type ColorId = (string | number | null)[];
 
@@ -60,9 +53,11 @@ function filterColorSet(colorSet: ColorSet | null, colors: ColorId[]): ColorSet 
 export interface LimitedPaletteImageSlice {
   limitedPaletteImage: ImageBitmap | null;
   isLimitedPaletteImageLoading: boolean;
+  limitedPaletteAbortController: AbortController | null;
 
   setLimitedColorSet: (colorIds: ColorId[]) => Promise<void>;
   setLimitedColorSetAsMain: (colorIds: ColorId[]) => void;
+  abortLimitedPalette: () => void;
 }
 
 export const createLimitedPaletteImageSlice: StateCreator<
@@ -73,25 +68,42 @@ export const createLimitedPaletteImageSlice: StateCreator<
 > = (set, get) => ({
   limitedPaletteImage: null,
   isLimitedPaletteImageLoading: false,
+  limitedPaletteAbortController: null,
 
   setLimitedColorSet: async (colorIds: ColorId[]): Promise<void> => {
     const {originalImageFile, colorSet} = get();
     if (!originalImageFile) {
       return;
     }
-    set({isLimitedPaletteImageLoading: true});
     const limitedColorSet: ColorSet | null = filterColorSet(colorSet, colorIds);
     if (!limitedColorSet) {
       return;
     }
-    const {preview: limitedPaletteImage} = await limitedPalette.getPreview(
-      originalImageFile,
-      limitedColorSet
-    );
-    set({
-      limitedPaletteImage,
-      isLimitedPaletteImageLoading: false,
-    });
+    try {
+      const limitedPaletteAbortController = new AbortController();
+      set({
+        limitedPaletteImage: null,
+        isLimitedPaletteImageLoading: true,
+        limitedPaletteAbortController,
+      });
+      const limitedPaletteImage = await getLimitedPaletteImage(
+        originalImageFile,
+        limitedColorSet,
+        limitedPaletteAbortController.signal
+      );
+      set({
+        limitedPaletteImage,
+      });
+    } catch (error) {
+      if (!isAbortError(error)) {
+        throw error;
+      }
+    } finally {
+      set({
+        isLimitedPaletteImageLoading: false,
+        limitedPaletteAbortController: null,
+      });
+    }
   },
   setLimitedColorSetAsMain: (colorIds: ColorId[]): void => {
     if (!colorIds.length) {
@@ -117,5 +129,8 @@ export const createLimitedPaletteImageSlice: StateCreator<
       importedColorSet,
     });
     void get().setActiveTabKey(TabKey.ColorSet);
+  },
+  abortLimitedPalette: (): void => {
+    get().limitedPaletteAbortController?.abort();
   },
 });

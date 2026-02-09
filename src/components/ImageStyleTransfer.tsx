@@ -16,16 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined, LoadingOutlined} from '@ant-design/icons';
+import {DownloadOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {RadioChangeEvent} from 'antd';
-import {App, Button, Card, Col, Grid, Radio, Row, Space, Spin, Typography} from 'antd';
+import {App, Button, Card, Col, Grid, Radio, Row, Space, Typography} from 'antd';
 import Meta from 'antd/es/card/Meta';
 import {saveAs} from 'file-saver';
 import {useEffect, useMemo, useRef, useState} from 'react';
 
 import {EmptyImage} from '~/src/components/empty/EmptyImage';
 import {FileSelect} from '~/src/components/file/FileSelect';
+import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
 import {hasAccessTo} from '~/src/services/auth/utils';
@@ -45,11 +46,12 @@ export const ImageStyleTransfer: React.FC = () => {
   const originalImageFile = useAppStore(state => state.originalImageFile);
   const styleImageFile = useAppStore(state => state.styleImageFile);
   const isStyleTransferLoading = useAppStore(state => state.isStyleTransferLoading);
-  const styleTransferLoadingTip = useAppStore(state => state.styleTransferLoadingTip);
+  const styleTransferDownloadTip = useAppStore(state => state.styleTransferDownloadTip);
   const styledImageBlob = useAppStore(state => state.styledImageBlob);
 
   const setStyleTransferModel = useAppStore(state => state.setStyleTransferModel);
   const setStyleImageFile = useAppStore(state => state.setStyleImageFile);
+  const abortStyleTransfer = useAppStore(state => state.abortStyleTransfer);
   const saveAppSettings = useAppStore(state => state.saveAppSettings);
 
   const screens = Grid.useBreakpoint();
@@ -124,12 +126,19 @@ export const ImageStyleTransfer: React.FC = () => {
   const handleFileChange = ([file]: File[], modelId: string) => {
     void setStyleImageFile(file);
     setModelId(modelId);
+    setStyleTransferModel(models?.get(modelId));
   };
 
   const handleSaveClick = () => {
     if (styledImageUrl) {
       saveAs(styledImageUrl, getFilename(originalImageFile, 'styled'));
     }
+  };
+
+  const handleCancelClick = () => {
+    abortStyleTransfer();
+    setModelId(undefined);
+    setStyleTransferModel(undefined);
   };
 
   if (!originalImageFile) {
@@ -140,11 +149,10 @@ export const ImageStyleTransfer: React.FC = () => {
   const margin = screens.sm ? 0 : 8;
 
   return (
-    <Spin
-      spinning={isLoading}
-      tip={styleTransferLoadingTip}
-      indicator={<LoadingOutlined spin />}
-      size="large"
+    <LoadingIndicator
+      loading={isLoading}
+      downloadTip={styleTransferDownloadTip}
+      onCancel={handleCancelClick}
     >
       <Row>
         <Col xs={24} sm={12} lg={16} style={{display: 'flex', justifyContent: 'center'}}>
@@ -260,6 +268,6 @@ export const ImageStyleTransfer: React.FC = () => {
           </Space>
         </Col>
       </Row>
-    </Spin>
+    </LoadingIndicator>
   );
 };

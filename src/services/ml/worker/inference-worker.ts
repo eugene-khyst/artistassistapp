@@ -16,23 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {transformImage} from '~/src/services/ml/image-transformer';
-import type {OnnxModel} from '~/src/services/ml/types';
-import type {FetchProgressCallback} from '~/src/utils/fetch';
+/// <reference lib="WebWorker" />
 
-export async function transferStyle(
-  images: ImageBitmap[],
-  model: OnnxModel,
-  progressCallback?: FetchProgressCallback,
-  signal?: AbortSignal
-): Promise<OffscreenCanvas> {
-  console.time('style-transfer');
-  const transformedImage: OffscreenCanvas = await transformImage(
-    images,
-    model,
-    progressCallback,
-    signal
-  );
-  console.timeEnd('style-transfer');
-  return transformedImage;
-}
+import * as Comlink from 'comlink';
+
+import {InferenceRunner} from '~/src/services/ml/inference';
+
+Comlink.expose(new InferenceRunner());

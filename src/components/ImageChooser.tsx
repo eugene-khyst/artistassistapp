@@ -16,13 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {LoadingOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {App, Col, Flex, Row, Spin, Typography} from 'antd';
+import {App, Col, Flex, Row, Typography} from 'antd';
 import {useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {FileSelect} from '~/src/components/file/FileSelect';
+import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {PERSISTENT_STORAGE_WARN} from '~/src/components/messages';
 import type {ImageFile} from '~/src/services/image/image-file';
 import {fileToImageFile} from '~/src/services/image/image-file';
@@ -60,7 +60,7 @@ export const ImageChooser: React.FC = () => {
   };
 
   return (
-    <Spin spinning={isLoading} indicator={<LoadingOutlined spin />} size="large">
+    <LoadingIndicator loading={isLoading}>
       <Flex vertical gap="small" style={{padding: '0 16px 16px'}}>
         <Typography.Text strong>
           <Trans>Select a reference photo from your device to paint from</Trans>
@@ -111,6 +111,6 @@ export const ImageChooser: React.FC = () => {
           ))}
         </Row>
       </Flex>
-    </Spin>
+    </LoadingIndicator>
   );
 };

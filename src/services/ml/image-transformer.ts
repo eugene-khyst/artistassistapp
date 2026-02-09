@@ -18,10 +18,10 @@
 
 import {Interpolation, interpolationWebGL} from '~/src/services/image/filter/interpolation-webgl';
 import {clamp} from '~/src/services/math/clamp';
-import {runInference} from '~/src/services/ml/inference';
-import {imageDataToTensor, tensorToImageData} from '~/src/services/ml/tensor';
+import {float32TensorToImageData, imageDataToFloat32Tensor} from '~/src/services/ml/tensor';
 import type {OnnxModel} from '~/src/services/ml/types';
-import type {ProgressCallback} from '~/src/utils/fetch';
+import {runInferenceWorker} from '~/src/services/ml/worker/inference-worker-manager';
+import type {FetchProgressCallback} from '~/src/utils/fetch';
 import {
   createImageBitmapResizedTotalPixels,
   IMAGE_SIZE,
@@ -34,7 +34,8 @@ const MAX_SCALE_FACTOR = 3;
 export async function transformImage(
   images: ImageBitmap[],
   model: OnnxModel,
-  progressCallback?: ProgressCallback
+  progressCallback?: FetchProgressCallback,
+  signal?: AbortSignal
 ): Promise<OffscreenCanvas> {
   const {url: modelUrl, resolution, standardDeviation, mean} = model;
   let imageDataArray: ImageData[];
@@ -69,11 +70,16 @@ export async function transformImage(
   const outputWidth = Math.trunc(scaleFactor * width);
   const outputHeight = Math.trunc(scaleFactor * height);
   const inputTensors = imageDataArray.map(imageData =>
-    imageDataToTensor(imageData, standardDeviation, mean)
+    imageDataToFloat32Tensor(imageData, standardDeviation, mean)
   );
-  const [outputTensor] = await runInference(modelUrl, [inputTensors], progressCallback);
+  const [outputTensor] = await runInferenceWorker(
+    modelUrl,
+    [inputTensors],
+    progressCallback,
+    signal
+  );
   const outputImage = await createImageBitmap(
-    tensorToImageData(outputTensor!, standardDeviation, mean)
+    float32TensorToImageData(outputTensor!, standardDeviation, mean)
   );
   const resizedOutputImage: OffscreenCanvas = interpolationWebGL(
     outputImage,

@@ -117,8 +117,8 @@ export const createCustomColorBrandSlice: StateCreator<
       return brand;
     } catch (e) {
       console.error(e);
+      return;
     }
-    return;
   },
   saveCustomColorBrandAsJson: (brand: CustomColorBrandDefinition): void => {
     const json: string = JSON.stringify(brand, null, 2);

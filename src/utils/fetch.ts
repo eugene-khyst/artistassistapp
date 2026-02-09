@@ -30,7 +30,13 @@ interface ChunkedFile {
   chunks: Chunk[];
 }
 
-export type ProgressCallback = (key: string, progress: number | 'auto') => void;
+export type FetchProgressCallback = (key: string | null, progress?: number) => void;
+
+interface FetchChunkedOptions {
+  concurrency?: number;
+  progressCallback?: FetchProgressCallback;
+  signal?: AbortSignal | null;
+}
 
 export function getCacheName(cacheSuffix?: string): string {
   return [COMMIT_HASH, cacheSuffix].filter(Boolean).join('-');
@@ -66,15 +72,15 @@ export async function cachePutWithRetry(
   }
   const opaque: boolean = response.type === 'opaque' || response.type === 'opaqueredirect';
   if (opaque) {
-    if (!allowOpaqueResponses) {
+    if (allowOpaqueResponses) {
+      console.log('Caching opaque response: success status unknown', request);
+    } else {
       console.warn('Skipping cache: opaque response', request);
       if (strict) {
         throw new Error(`Opaque response for ${url}`);
       } else {
         return;
       }
-    } else {
-      console.log('Caching opaque response: success status unknown', request);
     }
   }
   const extension: string | undefined = getFileExtension(url);
@@ -157,22 +163,22 @@ export async function fetchSWR(
   }
 }
 
-export async function fetchChunked(
-  request: URL,
-  progressCallback?: ProgressCallback
-): Promise<Response> {
-  const chunkedFile: ChunkedFile = await downloadChunkedFileInfo(request);
-  const [baseUrl] = splitUrl(request);
-  return await downloadChunks(baseUrl, chunkedFile, progressCallback);
+export async function fetchChunked(request: URL, options: FetchChunkedOptions): Promise<Response> {
+  const [baseUrl, filename] = splitUrl(request);
+  const {progressCallback} = options;
+  progressCallback?.(filename, 0);
+  const chunkedFile: ChunkedFile = await downloadChunkedFileInfo(request, options);
+  const response: Response = await downloadChunks(baseUrl, chunkedFile, options);
+  progressCallback?.(null);
+  return response;
 }
 
 async function downloadChunkedFileInfo(
   url: URL,
-  progressCallback?: ProgressCallback
+  {signal}: FetchChunkedOptions
 ): Promise<ChunkedFile> {
   const infoUrl = `${url}.json`;
-  progressCallback?.(infoUrl, 'auto');
-  const response: Response = await fetch(infoUrl);
+  const response: Response = await fetch(infoUrl, {signal});
   if (!response.ok) {
     throw new Error(`Failed to download chunked file info ${infoUrl}`);
   }
@@ -183,24 +189,37 @@ async function downloadChunkedFileInfo(
 async function downloadChunks(
   baseUrl: string,
   {filename, size, chunks}: ChunkedFile,
-  progressCallback?: ProgressCallback
+  {concurrency = 5, progressCallback, signal}: FetchChunkedOptions
 ): Promise<Response> {
   const downloadedChunks: Blob[] = [];
+  let completedCount = 0;
 
-  await Promise.all(
-    chunks.map(async ({filename}, i) => {
-      const response = await fetch(new URL(filename, baseUrl));
+  const queue = chunks.map((_, i) => i);
+  let progress = 0;
+
+  async function worker(): Promise<void> {
+    while (queue.length > 0) {
+      const i = queue.shift()!;
+      const chunk: Chunk = chunks[i]!;
+
+      progressCallback?.(chunk.filename, progress);
+
+      const response = await fetch(new URL(chunk.filename, baseUrl), {signal});
       if (!response.ok) {
-        throw new Error(`Failed to download file chunk ${filename}`);
+        throw new Error(`Failed to download file chunk ${chunk.filename}`);
       }
+
       const blob = await response.blob();
       downloadedChunks[i] = blob;
-      if (progressCallback) {
-        const progress = (downloadedChunks.filter(Boolean).length / chunks.length) * 100;
-        progressCallback(`Fetching ${filename}`, progress);
-      }
-    })
-  );
+      completedCount++;
+
+      progress = (completedCount / chunks.length) * 100;
+    }
+  }
+
+  const workers = Array.from({length: Math.min(concurrency, chunks.length)}, () => worker());
+
+  await Promise.all(workers);
 
   const combinedBlob = new Blob(downloadedChunks);
   return new Response(combinedBlob, {
@@ -210,4 +229,8 @@ async function downloadChunks(
       'Content-Length': size.toString(),
     },
   });
+}
+
+export function formatFetchProgress(key: string | null, progress?: number): string | null {
+  return key ? `${progress?.toFixed(0) ?? 0}% (${key})` : null;
 }

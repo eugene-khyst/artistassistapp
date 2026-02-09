@@ -31,9 +31,7 @@ import {createImageBitmapResizedTotalPixels} from '~/src/utils/graphics';
 const rgbChannelsPercentileCalculator: Remote<RgbChannelsPercentileCalculator> = wrap(
   new Worker(
     new URL('../services/image/worker/rgb-channels-percentile-worker.ts', import.meta.url),
-    {
-      type: 'module',
-    }
+    {type: 'module'}
   )
 );
 

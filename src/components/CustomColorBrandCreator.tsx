@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DeleteOutlined, LoadingOutlined, MinusOutlined, SaveOutlined} from '@ant-design/icons';
+import {DeleteOutlined, MinusOutlined, SaveOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {useQueryClient} from '@tanstack/react-query';
 import {
@@ -34,7 +34,6 @@ import {
   Row,
   Slider,
   Space,
-  Spin,
   Typography,
 } from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
@@ -45,6 +44,7 @@ import {OpacitySelect} from '~/src/components/color/OpacitySelect';
 import {ColorTypeSelect} from '~/src/components/color-set/ColorTypeSelect';
 import {CustomColorBrandSelect} from '~/src/components/color-set/CustomColorBrandSelect';
 import {FileSelect} from '~/src/components/file/FileSelect';
+import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {useCreateImageBitmap} from '~/src/hooks/useCreateImageBitmap';
 import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
 import type {PipettePointSetEvent} from '~/src/services/canvas/image/image-color-picker-canvas';
@@ -229,7 +229,7 @@ export const CustomColorBrandCreator: React.FC = () => {
   const margin = screens.sm ? 0 : 8;
 
   return (
-    <Spin spinning={isLoading} indicator={<LoadingOutlined spin />} size="large">
+    <LoadingIndicator loading={isLoading}>
       <Row>
         <Col xs={24} sm={12} lg={8}>
           <canvas
@@ -431,6 +431,6 @@ export const CustomColorBrandCreator: React.FC = () => {
           </Form>
         </Col>
       </Row>
-    </Spin>
+    </LoadingIndicator>
   );
 };
