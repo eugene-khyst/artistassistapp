@@ -97,27 +97,25 @@ export const FileSelect: React.FC<PropsWithChildren<Props>> = ({
   ];
 
   return (
-    <>
-      <div {...getRootProps()}>
-        <input {...getInputProps()} />
+    <div {...getRootProps()}>
+      <input {...getInputProps()} />
 
-        {!isDragActive ? (
-          <Space.Compact>
-            <Button type={type} icon={<UploadOutlined />} onClick={handleClick} disabled={disabled}>
-              {children}
-            </Button>
-            {useReferencePhoto && (
-              <Dropdown menu={{items}}>
-                <Button icon={<MoreOutlined />} />
-              </Dropdown>
-            )}
-          </Space.Compact>
-        ) : (
-          <Button color="primary" variant="dashed" icon={<InboxOutlined />}>
-            Drop the {multiple ? 'files' : 'file'} here...
+      {isDragActive ? (
+        <Button color="primary" variant="dashed" icon={<InboxOutlined />}>
+          Drop the {multiple ? 'files' : 'file'} here...
+        </Button>
+      ) : (
+        <Space.Compact>
+          <Button type={type} icon={<UploadOutlined />} onClick={handleClick} disabled={disabled}>
+            {children}
           </Button>
-        )}
-      </div>
-    </>
+          {useReferencePhoto && (
+            <Dropdown menu={{items}}>
+              <Button icon={<MoreOutlined />} />
+            </Dropdown>
+          )}
+        </Space.Compact>
+      )}
+    </div>
   );
 };

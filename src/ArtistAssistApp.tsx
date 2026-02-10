@@ -39,7 +39,6 @@ import {TabContext} from '~/src/contexts/TabContext';
 import {useColorSetBackup} from '~/src/hooks/useColorSetBackup';
 import {useDoubleBackPressToExit} from '~/src/hooks/useDoubleBackPressToExit';
 import {useFullScreen} from '~/src/hooks/useFullscreen';
-import {useHandleAuthError} from '~/src/hooks/useHandleAuthError';
 import {useInstallPrompt} from '~/src/hooks/useInstallPrompt';
 import {useDisplayMode} from '~/src/hooks/usePwaDisplayMode';
 import {useAppStore} from '~/src/stores/app-store';
@@ -92,8 +91,6 @@ export const ArtistAssistApp: React.FC = () => {
   useDoubleBackPressToExit();
 
   useColorSetBackup();
-
-  useHandleAuthError();
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {

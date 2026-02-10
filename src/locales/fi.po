@@ -73,9 +73,21 @@ msgstr "<0>{similarityText}%</0> samankaltaisuus"
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>ArtistAssistApp</0> on verkkosovellus, joka auttaa taiteilijoita sekoittamaan valokuvien värejä, analysoimaan sävyarvoja, hahmottelemaan valokuvia, piirtämään ruudukoilla, maalaamaan rajoitetuilla paleteilla ja paljon muuta."
 
+#: src/components/alert/AuthErrorHandler.tsx:48
+msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
+msgstr "<0>Tarkista Patreon-tilisi</0>: Varmista, että olet kirjautuneena <1>Patreon.com</1> selaimessasi samalla sähköpostilla, jolla ostit jäsenyytesi. Jos sinulla on useita tilejä, kirjaudu ulos ja kirjaudu takaisin oikealla tilillä."
+
 #: src/components/ColorSetChooser.tsx:460
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Liity ArtistAssistAppiin Patreonissa maksullisena jäsenenä</0> tai <1>kirjaudu sisään Patreonilla</1> , jos olet jo liittynyt, niin saat käyttöösi yli 200 väribrändiä ja kaikkia kuvankäsittelytiloja ilman mainoksia."
+
+#: src/components/alert/AuthErrorHandler.tsx:66
+msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
+msgstr "<0>Yritä kirjautua uudelleen</0>: Kun olet varmistanut, että oikea Patreon-tili on aktiivinen selaimessasi, kirjaudu uudelleen ArtistAssistAppiin."
+
+#: src/components/alert/AuthErrorHandler.tsx:59
+msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
+msgstr "<0>Käytä verkkoselainta</0>: Jos käytät Patreon-sovellusta (iOS/Android), kirjaudu sisään verkkoselaimella (Chrome, Safari, Firefox), sillä sovellus voi joskus häiritä varmennusprosessia."
 
 #: src/components/ImageColorAdjustment.tsx:459
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
@@ -129,7 +141,7 @@ msgstr "Aakkosjärjestyksessä"
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
 msgstr "Vaihtoehtoisesti voit asentaa Chrome-, Edge- tai Opera-selaimen uusimman version ja napsauttaa <0>Asenna-painiketta</0> . Vanhemmissa macOS-versioissa tämä on ainoa vaihtoehto."
 
-#: src/components/alert/AlertTimedReloadFallback.tsx:57
+#: src/components/alert/AlertTimedReloadFallback.tsx:58
 msgid "An application error"
 msgstr "Sovelluksen virhe"
 
@@ -409,7 +421,7 @@ msgstr "Onko sinulla kaupasta ostettu tai mukautettu värisarja?"
 msgid "Don't thin the layer"
 msgstr "Älä ohenna kerrosta"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:69
 msgid "Downloaded file {filename}"
 msgstr "Ladattu tiedosto {filename}"
 
@@ -446,10 +458,6 @@ msgstr "Valonlähteen arvioitu lämpötila Kelvininä kuva on otettu"
 #: src/components/ColorSetChooser.tsx:470
 msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Tutustu ilmaiseen versioon ennen kuin päätät ostaa maksullisen jäsenyyden."
-
-#: src/components/messages.ts:66
-msgid "Failed to verify the ID token."
-msgstr "ID-tunnuksen vahvistaminen epäonnistui."
 
 #: src/components/ColorSetChooser.tsx:385
 #: src/components/CustomColorBrandCreator.tsx:216
@@ -500,8 +508,8 @@ msgid "Help"
 msgstr "Apua"
 
 #: src/components/ColorSetChooser.tsx:475
-msgid "If you are having trouble logging in, please read this <0>guide</0>."
-msgstr "Jos sinulla on ongelmia kirjautumisessa, lue tämä <0>opas</0>."
+msgid "If you are having trouble logging in, please read this <0>troubleshooting guide</0>."
+msgstr "Jos sinulla on vaikeuksia kirjautua sisään, lue tämä <0>vianetsintäopas</0>."
 
 #: src/components/ColorSetChooser.tsx:242
 msgid "If you don't save, changes to the color set may be lost."
@@ -593,7 +601,7 @@ msgstr "Kirjaudu sisään Patreonilla"
 msgid "Log out"
 msgstr "Kirjautua ulos"
 
-#: src/hooks/useHandleAuthError.ts:44
+#: src/components/alert/AuthErrorHandler.tsx:123
 msgid "Login failed"
 msgstr "Kirjautuminen epäonnistui"
 
@@ -784,6 +792,10 @@ msgstr "Paperikoko"
 msgid "Pastel"
 msgstr "Pastelli"
 
+#: src/components/alert/AuthErrorHandler.tsx:32
+msgid "Patreon membership verification failed"
+msgstr "Patreonin jäsenyyden vahvistus epäonnistui"
+
 #: src/components/ImageColorAdjustment.tsx:307
 #: src/components/ImageColorAdjustment.tsx:409
 msgid "Percentile"
@@ -797,7 +809,7 @@ msgstr "Prosenttipiste: Automaattinen valkotasapaino kirkkaimmista alueista, sop
 msgid "Persistent storage"
 msgstr "Pysyvä tallennus"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:64
 msgid "Persistent storage is not enabled"
 msgstr "Pysyvä tallennus ei ole käytössä"
 
@@ -1296,7 +1308,7 @@ msgstr "Käyttöehdot"
 msgid "The app stores all data in the web browser storage even after installation. Clearing the web browser data results in the loss of all app data."
 msgstr "Sovellus tallentaa kaikki tiedot verkkoselaimen tallennustilaan myös asennuksen jälkeen. Verkkoselaimen tietojen tyhjentäminen johtaa kaikkien sovellustietojen menettämiseen."
 
-#: src/components/alert/AlertTimedReloadFallback.tsx:63
+#: src/components/alert/AlertTimedReloadFallback.tsx:64
 msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "Sovellus yrittää ladata uudelleen {reloadCounter} sekunnissa"
 
@@ -1337,7 +1349,7 @@ msgstr "Paksuus"
 msgid "Thin the paint to <0>{fractionText} thickness</0>"
 msgstr "Ohenna maali <0>{fractionText} -paksuuteen</0>"
 
-#: src/components/messages.ts:76
+#: src/components/messages.ts:70
 msgid "This backup file lets you restore your color sets later, so keep it. You can delete any older backup files."
 msgstr "Tämän varmuuskopiotiedoston avulla voit palauttaa värisarjasi myöhemmin, joten säilytä se. Voit poistaa kaikki vanhemmat varmuuskopiotiedostot."
 
@@ -1356,6 +1368,14 @@ msgstr "Tämä vaihe on valinnainen."
 #: src/components/ImageStyleTransfer.tsx:252
 msgid "This style is available to paid Patreon members only"
 msgstr "Tämä tyyli on saatavilla vain maksullisille Patreon-jäsenille"
+
+#: src/components/alert/AuthErrorHandler.tsx:36
+msgid "This usually happens when you're signed in to a <0>different</0> Patreon account than the one used for your ArtistAssistApp membership."
+msgstr "Tämä tapahtuu yleensä, kun olet kirjautuneena <0>eri</0> Patreon-tilille kuin se, jota käytät ArtistAssistApp-jäsenyytessäsi."
+
+#: src/components/alert/AuthErrorHandler.tsx:43
+msgid "To fix this:"
+msgstr "Tämän korjaamiseksi:"
 
 #: src/components/empty/EmptyImage.tsx:42
 msgid "To use the {tabLabel} feature, select a reference photo."
@@ -1377,13 +1397,10 @@ msgstr "Läpinäkyvä"
 msgid "Tutorials and videos"
 msgstr "Opetusohjelmat ja videot"
 
-#: src/components/alert/PromiseErrorBoundary.tsx:33
-msgid "Unexpected error"
-msgstr "Odottamaton virhe"
-
-#: src/components/alert/AlertTimedReloadFallback.tsx:52
-msgid "Unknown error"
-msgstr "Tuntematon virhe"
+#: src/components/alert/AlertTimedReloadFallback.tsx:36
+#: src/components/alert/UnhandledRejectionHandler.tsx:37
+msgid "Unexpected error: {errorMessage}"
+msgstr "Odottamaton virhe: {errorMessage}"
 
 #: src/components/color/ColorSwatchDrawer.tsx:103
 #: src/components/color/PaletteColorMixtureCard.tsx:76
@@ -1432,9 +1449,9 @@ msgstr "Akvarellimaali"
 msgid "Watercolor Pencils"
 msgstr "Akvarellikynät"
 
-#: src/components/messages.ts:64
-msgid "We couldn't verify an active Patreon membership for your account. Please join ArtistAssistApp on Patreon, or sign in to Patreon with the email you used to purchase your membership. Then, log in to ArtistAssistApp again."
-msgstr "Emme pystyneet vahvistamaan aktiivista Patreon-jäsenyyttä tilillesi. Liity ArtistAssistAppiin Patreonissa tai kirjaudu Patreoniin sillä sähköpostiosoitteella, jolla ostit jäsenyytesi. Kirjaudu sitten uudelleen ArtistAssistAppiin."
+#: src/components/alert/AuthErrorHandler.tsx:99
+msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
+msgstr "Kohtasimme ongelman kirjautumistietojesi varmentamisessa. Tämän ongelman voi yleensä ratkaista yrittämällä kirjautua uudelleen sisään."
 
 #: src/components/ColorSetChooser.tsx:687
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
@@ -1501,13 +1518,13 @@ msgstr "Olet valinnut värimerkkejä, jotka ovat vain maksullisten Patreon-jäse
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Olet valinnut tilan, joka on vain maksullisten Patreon-jäsenten käytettävissä"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:65
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app as described in the Install tab."
 msgstr "Tietojasi ei välttämättä tallenneta luotettavasti, jos selain suljetaan. Voit korjata tämän asentamalla sovelluksen Asenna-välilehdellä kuvatulla tavalla."
 
-#: src/components/messages.ts:65
-msgid "Your session has expired. Please log in again."
-msgstr "Istunto on vanhentunut. Kirjaudu sisään uudelleen."
+#: src/components/alert/AuthErrorHandler.tsx:90
+msgid "Your login session has expired. Please sign in again to refresh your access and continue using ArtistAssistApp."
+msgstr "Kirjautumissessiosi on vanhentunut. Kirjaudu uudelleen sisään päivittääksesi käyttöoikeutesi ja jatkaaksesi ArtistAssistAppin käyttöä."
 
 #: src/components/alert/BrowserSupport.tsx:55
 msgid "Your web browser is not supported."

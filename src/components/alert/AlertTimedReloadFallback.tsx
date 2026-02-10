@@ -22,6 +22,7 @@ import React, {useEffect, useState} from 'react';
 import type {FallbackProps} from 'react-error-boundary';
 
 import {ClearStorage} from '~/src/components/storage/ClearStorage';
+import {getErrorMessage} from '~/src/utils/error';
 import {clearCache} from '~/src/utils/storage';
 
 const DELAY_SECONDS = 5;
@@ -30,6 +31,9 @@ export const AlertTimedReloadFallback: React.FC<FallbackProps> = ({error}: Fallb
   const {t} = useLingui();
 
   const [reloadCounter, setReloadCounter] = useState<number>(DELAY_SECONDS);
+
+  const errorMessage: string = getErrorMessage(error);
+  const message: string = t`Unexpected error: ${errorMessage}`;
 
   useEffect(() => {
     const countdownIntervalId = setInterval(() => {
@@ -48,16 +52,13 @@ export const AlertTimedReloadFallback: React.FC<FallbackProps> = ({error}: Fallb
     };
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-  const errorMessage = (error || t`Unknown error`).toString();
-
   return (
     <Alert
       type="error"
       message={t`An application error`}
       description={
         <Space direction="vertical">
-          <Typography.Text>{errorMessage}</Typography.Text>
+          <Typography.Text>{message}</Typography.Text>
           {reloadCounter > 0 && (
             <Typography.Text>
               <Trans>The app will attempt to reload in {reloadCounter} sec</Trans>

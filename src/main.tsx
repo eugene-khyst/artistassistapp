@@ -26,8 +26,9 @@ import {createRoot} from 'react-dom/client';
 import {ErrorBoundary} from 'react-error-boundary';
 
 import {AlertTimedReloadFallback} from '~/src/components/alert/AlertTimedReloadFallback';
+import {AuthErrorHandler} from '~/src/components/alert/AuthErrorHandler';
 import {BrowserSupport} from '~/src/components/alert/BrowserSupport';
-import {PromiseErrorBoundary} from '~/src/components/alert/PromiseErrorBoundary';
+import {UnhandledRejectionHandler} from '~/src/components/alert/UnhandledRejectionHandler';
 import {InternationalizationProvider} from '~/src/contexts/InternationalizationProvider';
 import type {BeforeInstallPromptEvent} from '~/src/pwa';
 import {clearDatabase} from '~/src/services/db/db';
@@ -78,13 +79,15 @@ void (async () => {
       <InternationalizationProvider>
         <App>
           <ErrorBoundary FallbackComponent={AlertTimedReloadFallback}>
-            <PromiseErrorBoundary>
-              <BrowserSupport>
-                <QueryClientProvider client={queryClient}>
-                  <ArtistAssistApp />
-                </QueryClientProvider>
-              </BrowserSupport>
-            </PromiseErrorBoundary>
+            <UnhandledRejectionHandler>
+              <AuthErrorHandler>
+                <BrowserSupport>
+                  <QueryClientProvider client={queryClient}>
+                    <ArtistAssistApp />
+                  </QueryClientProvider>
+                </BrowserSupport>
+              </AuthErrorHandler>
+            </UnhandledRejectionHandler>
           </ErrorBoundary>
         </App>
       </InternationalizationProvider>

@@ -16,14 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {getErrorMessage} from '~/src/utils/error';
+
 const ABORT_ERROR_NAME = 'AbortError';
 
 function createAbortError(reason?: any): DOMException {
-  let message = 'Aborted';
-  if (reason) {
-    message = reason instanceof Error ? reason.message : String(reason);
-  }
-  return new DOMException(message, ABORT_ERROR_NAME);
+  return new DOMException(getErrorMessage(reason), ABORT_ERROR_NAME);
 }
 
 export function isAbortError(error: unknown): boolean {

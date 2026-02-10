@@ -21,7 +21,9 @@ import {App} from 'antd';
 import type {PropsWithChildren} from 'react';
 import {useEffect} from 'react';
 
-export const PromiseErrorBoundary: React.FC<PropsWithChildren> = ({
+import {getErrorMessage} from '~/src/utils/error';
+
+export const UnhandledRejectionHandler: React.FC<PropsWithChildren> = ({
   children,
 }: PropsWithChildren) => {
   const {notification} = App.useApp();
@@ -30,14 +32,9 @@ export const PromiseErrorBoundary: React.FC<PropsWithChildren> = ({
 
   useEffect(() => {
     const promiseRejectionHandler = ({reason}: PromiseRejectionEvent) => {
-      let message = t`Unexpected error`;
-      if (reason instanceof Error) {
-        message = reason.toString();
-      } else if (typeof reason === 'string') {
-        message = reason;
-      }
+      const errorMessage: string = getErrorMessage(reason);
       notification.error({
-        message,
+        message: t`Unexpected error: ${errorMessage}`,
         placement: 'top',
       });
     };

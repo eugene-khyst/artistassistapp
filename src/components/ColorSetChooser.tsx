@@ -479,7 +479,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
                       target="_blank"
                       rel="noopener"
                     >
-                      guide
+                      troubleshooting guide
                     </Typography.Link>
                     .
                   </Trans>

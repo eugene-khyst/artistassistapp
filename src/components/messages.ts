@@ -60,12 +60,6 @@ export const COLOR_PICKER_PRESET_LABELS = {
   paper_white: defineMessage`White paper or canvas`,
 };
 
-export const AUTH_ERRORS: Record<string, MessageDescriptor> = {
-  inactive: defineMessage`We couldn't verify an active Patreon membership for your account. Please join ArtistAssistApp on Patreon, or sign in to Patreon with the email you used to purchase your membership. Then, log in to ArtistAssistApp again.`,
-  expired: defineMessage`Your session has expired. Please log in again.`,
-  invalid_token: defineMessage`Failed to verify the ID token.`,
-};
-
 export const PERSISTENT_STORAGE_WARN = {
   title: defineMessage`Persistent storage is not enabled`,
   content: defineMessage`Your data may not be saved reliably if the browser is closed. To fix this, install the app as described in the Install tab.`,

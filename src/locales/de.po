@@ -73,9 +73,21 @@ msgstr "<0>{similarityText}%</0> Ähnlichkeit"
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>ArtistAssistApp</0> ist eine Web-App, die Künstlern hilft, Farben aus Fotos zu mischen, Tonwerte zu analysieren, Fotos zu umreißen, mit Rastern zu zeichnen, mit begrenzten Paletten zu malen und vieles mehr."
 
+#: src/components/alert/AuthErrorHandler.tsx:48
+msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
+msgstr "<0>Überprüfen Sie Ihr Patreon-Konto</0>: Stellen Sie sicher, dass Sie in Ihrem Webbrowser mit derselben E-Mail-Adresse <1>Patreon.com</1> , mit der Sie Ihre Mitgliedschaft gekauft haben, angemeldet sind. Wenn du mehrere Konten hast, melde dich ab und melde dich wieder mit dem richtigen an."
+
 #: src/components/ColorSetChooser.tsx:460
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Treten Sie ArtistAssistApp auf Patreon als zahlendes Mitglied bei</0> oder <1>melden Sie sich bei Patreon an</1> , wenn Sie bereits beigetreten sind, um Zugang zu mehr als 200 Farbmarken und allen Bildbearbeitungsmodi ohne Werbung zu erhalten."
+
+#: src/components/alert/AuthErrorHandler.tsx:66
+msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
+msgstr "<0>Versuchen Sie erneut einzuloggen</0>: Sobald Sie bestätigt haben, dass das korrekte Patreon-Konto in Ihrem Browser aktiv ist, melden Sie sich erneut bei ArtistAssistApp an."
+
+#: src/components/alert/AuthErrorHandler.tsx:59
+msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
+msgstr "<0>Verwenden Sie einen Webbrowser</0>: Wenn Sie die Patreon-App (iOS/Android) verwenden, melden Sie sich stattdessen über einen Webbrowser (Chrome, Safari, Firefox) an, da die App manchmal den Verifizierungsprozess stören kann."
 
 #: src/components/ImageColorAdjustment.tsx:459
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
@@ -129,7 +141,7 @@ msgstr "Alphabetisch"
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
 msgstr "Alternativ können Sie die neueste Version des Webbrowsers Chrome, Edge oder Opera installieren und auf die Schaltfläche <0>Installieren</0> klicken. In älteren Versionen von macOS ist dies die einzige Option."
 
-#: src/components/alert/AlertTimedReloadFallback.tsx:57
+#: src/components/alert/AlertTimedReloadFallback.tsx:58
 msgid "An application error"
 msgstr "Ein Anwendungsfehler"
 
@@ -409,7 +421,7 @@ msgstr "Haben Sie ein gekauftes oder individuelles Farbset?"
 msgid "Don't thin the layer"
 msgstr "Verdünnen Sie die Schicht nicht"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:69
 msgid "Downloaded file {filename}"
 msgstr "Heruntergeladene Datei {filename}"
 
@@ -446,10 +458,6 @@ msgstr "Geschätzte Temperatur der Lichtquelle in Kelvin mit"
 #: src/components/ColorSetChooser.tsx:470
 msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Erkunden Sie die kostenlose Version, bevor Sie sich für den Kauf einer kostenpflichtigen Mitgliedschaft entscheiden."
-
-#: src/components/messages.ts:66
-msgid "Failed to verify the ID token."
-msgstr "Fehler beim Überprüfen des ID-Tokens."
 
 #: src/components/ColorSetChooser.tsx:385
 #: src/components/CustomColorBrandCreator.tsx:216
@@ -500,8 +508,8 @@ msgid "Help"
 msgstr "Hilfe"
 
 #: src/components/ColorSetChooser.tsx:475
-msgid "If you are having trouble logging in, please read this <0>guide</0>."
-msgstr "Wenn Sie Probleme beim Einloggen haben, lesen Sie bitte diese <0>Anleitung</0>."
+msgid "If you are having trouble logging in, please read this <0>troubleshooting guide</0>."
+msgstr "Wenn Sie Probleme beim Einloggen haben, lesen Sie bitte diese <0>Fehlerbehebungsanleitung</0>."
 
 #: src/components/ColorSetChooser.tsx:242
 msgid "If you don't save, changes to the color set may be lost."
@@ -593,7 +601,7 @@ msgstr "Melde dich mit Patreon an"
 msgid "Log out"
 msgstr "Ausloggen"
 
-#: src/hooks/useHandleAuthError.ts:44
+#: src/components/alert/AuthErrorHandler.tsx:123
 msgid "Login failed"
 msgstr "Anmeldung fehlgeschlagen"
 
@@ -784,6 +792,10 @@ msgstr "Papierformat"
 msgid "Pastel"
 msgstr "Pastell-"
 
+#: src/components/alert/AuthErrorHandler.tsx:32
+msgid "Patreon membership verification failed"
+msgstr "Die Patreon-Mitgliedschaftsverifizierung ist gescheitert"
+
 #: src/components/ImageColorAdjustment.tsx:307
 #: src/components/ImageColorAdjustment.tsx:409
 msgid "Percentile"
@@ -797,7 +809,7 @@ msgstr "Perzentil: Automatischer Weißabgleich aus den hellsten Bereichen, gut f
 msgid "Persistent storage"
 msgstr "Persistenter Speicher"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:64
 msgid "Persistent storage is not enabled"
 msgstr "Persistenter Speicher ist nicht aktiviert"
 
@@ -1296,7 +1308,7 @@ msgstr "Nutzungsbedingungen"
 msgid "The app stores all data in the web browser storage even after installation. Clearing the web browser data results in the loss of all app data."
 msgstr "Die App speichert auch nach der Installation alle Daten im Speicher des Webbrowsers. Das Löschen der Webbrowser-Daten führt zum Verlust aller App-Daten."
 
-#: src/components/alert/AlertTimedReloadFallback.tsx:63
+#: src/components/alert/AlertTimedReloadFallback.tsx:64
 msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "Die App versucht, in {reloadCounter} Sekunden neu zu laden."
 
@@ -1337,7 +1349,7 @@ msgstr "Dicke"
 msgid "Thin the paint to <0>{fractionText} thickness</0>"
 msgstr "Verdünnen Sie die Farbe auf <0>die Dicke {fractionText}</0>"
 
-#: src/components/messages.ts:76
+#: src/components/messages.ts:70
 msgid "This backup file lets you restore your color sets later, so keep it. You can delete any older backup files."
 msgstr "Mit dieser Backup-Datei können Sie Ihre Farbpaletten später wiederherstellen, also behalten Sie sie. Sie können alle älteren Sicherungsdateien löschen."
 
@@ -1356,6 +1368,14 @@ msgstr "Dieser Schritt ist optional."
 #: src/components/ImageStyleTransfer.tsx:252
 msgid "This style is available to paid Patreon members only"
 msgstr "Dieser Stil ist nur für zahlende Patreon-Mitglieder verfügbar"
+
+#: src/components/alert/AuthErrorHandler.tsx:36
+msgid "This usually happens when you're signed in to a <0>different</0> Patreon account than the one used for your ArtistAssistApp membership."
+msgstr "Das passiert normalerweise, wenn du mit einem <0>anderen</0> Patreon-Konto als dem für deine ArtistAssistApp-Mitgliedschaft genutzten Konto angemeldet bist."
+
+#: src/components/alert/AuthErrorHandler.tsx:43
+msgid "To fix this:"
+msgstr "Um das zu beheben:"
 
 #: src/components/empty/EmptyImage.tsx:42
 msgid "To use the {tabLabel} feature, select a reference photo."
@@ -1377,13 +1397,10 @@ msgstr "Durchsichtig"
 msgid "Tutorials and videos"
 msgstr "Tutorials und Videos"
 
-#: src/components/alert/PromiseErrorBoundary.tsx:33
-msgid "Unexpected error"
-msgstr "Unerwarteter Fehler"
-
-#: src/components/alert/AlertTimedReloadFallback.tsx:52
-msgid "Unknown error"
-msgstr "Unbekannter Fehler"
+#: src/components/alert/AlertTimedReloadFallback.tsx:36
+#: src/components/alert/UnhandledRejectionHandler.tsx:37
+msgid "Unexpected error: {errorMessage}"
+msgstr "Unerwarteter Fehler: {errorMessage}"
 
 #: src/components/color/ColorSwatchDrawer.tsx:103
 #: src/components/color/PaletteColorMixtureCard.tsx:76
@@ -1432,9 +1449,9 @@ msgstr "Aquarellfarbe"
 msgid "Watercolor Pencils"
 msgstr "Aquarellstifte"
 
-#: src/components/messages.ts:64
-msgid "We couldn't verify an active Patreon membership for your account. Please join ArtistAssistApp on Patreon, or sign in to Patreon with the email you used to purchase your membership. Then, log in to ArtistAssistApp again."
-msgstr "Wir konnten keine aktive Patreon-Mitgliedschaft für dein Konto verifizieren. Bitte treten Sie ArtistAssistApp auf Patreon bei oder melden Sie sich mit der E-Mail-Adresse an, mit der Sie Ihre Mitgliedschaft gekauft haben. Melden Sie sich dann erneut bei ArtistAssistApp an."
+#: src/components/alert/AuthErrorHandler.tsx:99
+msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
+msgstr "Wir hatten ein Problem bei der Überprüfung Ihrer Zugangsdaten. Dieses Problem lässt sich meist lösen, indem man versucht, sich erneut einzuloggen."
 
 #: src/components/ColorSetChooser.tsx:687
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
@@ -1501,13 +1518,13 @@ msgstr "Du hast Farbmarken ausgewählt, die nur für zahlende Patreon-Mitglieder
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Du hast den Modus ausgewählt, der nur für zahlende Patreon-Mitglieder verfügbar ist"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:65
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app as described in the Install tab."
 msgstr "Es kann sein, dass Ihre Daten nicht zuverlässig gespeichert werden, wenn der Browser geschlossen wird. Um dies zu beheben, installieren Sie die App wie auf der Registerkarte \"Installieren\" beschrieben."
 
-#: src/components/messages.ts:65
-msgid "Your session has expired. Please log in again."
-msgstr "Ihre Sitzung ist abgelaufen. Bitte loggen Sie sich erneut ein."
+#: src/components/alert/AuthErrorHandler.tsx:90
+msgid "Your login session has expired. Please sign in again to refresh your access and continue using ArtistAssistApp."
+msgstr "Ihre Anmeldesitzung ist abgelaufen. Bitte melden Sie sich erneut an, um Ihren Zugang zu aktualisieren und nutzen Sie weiterhin ArtistAssistApp."
 
 #: src/components/alert/BrowserSupport.tsx:55
 msgid "Your web browser is not supported."

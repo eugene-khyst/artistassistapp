@@ -73,9 +73,21 @@ msgstr "<0>{similarityText}%</0> similitudine"
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>ArtistAssistApp</0> este o aplicație web care îi ajută pe artiști să amestece culorile din fotografii, să analizeze valorile tonale, să contureze fotografii, să deseneze cu grile, să picteze cu palete limitate și multe altele."
 
+#: src/components/alert/AuthErrorHandler.tsx:48
+msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
+msgstr "<0>Verifică-ți contul Patreon</0>: Asigură-te că ești conectat la <1>Patreon.com</1> în browserul tău folosind aceeași adresă de email pe care ai folosit-o pentru abonament. Dacă ai mai multe conturi, deconectează-te și reconectează-te cu cel corect."
+
 #: src/components/ColorSetChooser.tsx:460
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Alăturați-vă ArtistAssistApp pe Patreon ca membru plătit</0> sau <1>conectați-vă cu Patreon</1> dacă v-ați înscris deja, pentru a avea acces la peste 200 de mărci de culori și la toate modurile de procesare a imaginilor fără reclame."
+
+#: src/components/alert/AuthErrorHandler.tsx:66
+msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
+msgstr "<0>Reîncearcă autentificarea</0>: După ce ai confirmat că contul corect de Patreon este activ în browser, conectează-te din nou la ArtistAssistApp."
+
+#: src/components/alert/AuthErrorHandler.tsx:59
+msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
+msgstr "<0>Folosește un browser web</0>: Dacă folosești aplicația Patreon (iOS/Android), autentifică-te printr-un browser web (Chrome, Safari, Firefox), deoarece aplicația poate interfera uneori cu procesul de verificare."
 
 #: src/components/ImageColorAdjustment.tsx:459
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
@@ -129,7 +141,7 @@ msgstr "Alfabetic"
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
 msgstr "Alternativ, instalați cea mai recentă versiune a browserului web Chrome, Edge sau Opera și faceți clic pe <0>butonul Instalare</0> . În versiunile mai vechi de macOS, aceasta este singura opțiune."
 
-#: src/components/alert/AlertTimedReloadFallback.tsx:57
+#: src/components/alert/AlertTimedReloadFallback.tsx:58
 msgid "An application error"
 msgstr "O eroare de aplicație"
 
@@ -409,7 +421,7 @@ msgstr "Aveți un set de culori cumpărat din magazin sau personalizat?"
 msgid "Don't thin the layer"
 msgstr "Nu subțiați stratul"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:69
 msgid "Downloaded file {filename}"
 msgstr "Fișier descărcat {filename}"
 
@@ -446,10 +458,6 @@ msgstr "Temperatura estimată a sursei de lumină în Kelvin cu care a fost făc
 #: src/components/ColorSetChooser.tsx:470
 msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Explorați versiunea gratuită înainte de a decide să achiziționați un abonament plătit."
-
-#: src/components/messages.ts:66
-msgid "Failed to verify the ID token."
-msgstr "Nu s-a putut verifica tokenul ID."
 
 #: src/components/ColorSetChooser.tsx:385
 #: src/components/CustomColorBrandCreator.tsx:216
@@ -500,8 +508,8 @@ msgid "Help"
 msgstr "Ajutor"
 
 #: src/components/ColorSetChooser.tsx:475
-msgid "If you are having trouble logging in, please read this <0>guide</0>."
-msgstr "Dacă întâmpinați probleme la conectare, vă rugăm să citiți acest <0>ghid</0>."
+msgid "If you are having trouble logging in, please read this <0>troubleshooting guide</0>."
+msgstr "Dacă întâmpini probleme la autentificare, te rugăm să citești acest <0>ghid de depanare</0>."
 
 #: src/components/ColorSetChooser.tsx:242
 msgid "If you don't save, changes to the color set may be lost."
@@ -593,7 +601,7 @@ msgstr "Conectează-te cu Patreon"
 msgid "Log out"
 msgstr "Deconectați-vă"
 
-#: src/hooks/useHandleAuthError.ts:44
+#: src/components/alert/AuthErrorHandler.tsx:123
 msgid "Login failed"
 msgstr "Conectarea a eșuat"
 
@@ -784,6 +792,10 @@ msgstr "Dimensiunea hârtiei"
 msgid "Pastel"
 msgstr "Pastelate"
 
+#: src/components/alert/AuthErrorHandler.tsx:32
+msgid "Patreon membership verification failed"
+msgstr "Verificarea abonamentului la Patreon a eșuat"
+
 #: src/components/ImageColorAdjustment.tsx:307
 #: src/components/ImageColorAdjustment.tsx:409
 msgid "Percentile"
@@ -797,7 +809,7 @@ msgstr "Percentilă: Balans de alb automat din zonele cele mai luminoase, bun pe
 msgid "Persistent storage"
 msgstr "Stocare persistentă"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:64
 msgid "Persistent storage is not enabled"
 msgstr "Stocarea persistentă nu este activată"
 
@@ -1296,7 +1308,7 @@ msgstr "Termeni de utilizare"
 msgid "The app stores all data in the web browser storage even after installation. Clearing the web browser data results in the loss of all app data."
 msgstr "Aplicația stochează toate datele în spațiul de stocare al browserului web chiar și după instalare. Ștergerea datelor browserului web duce la pierderea tuturor datelor aplicației."
 
-#: src/components/alert/AlertTimedReloadFallback.tsx:63
+#: src/components/alert/AlertTimedReloadFallback.tsx:64
 msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "Aplicația va încerca să se reîncarce în {reloadCounter} sec"
 
@@ -1337,7 +1349,7 @@ msgstr "Grosime"
 msgid "Thin the paint to <0>{fractionText} thickness</0>"
 msgstr "Subțire vopseaua la <0>grosimea {fractionText}</0>"
 
-#: src/components/messages.ts:76
+#: src/components/messages.ts:70
 msgid "This backup file lets you restore your color sets later, so keep it. You can delete any older backup files."
 msgstr "Acest fișier de rezervă vă permite să vă restaurați seturile de culori mai târziu, așa că păstrați-l. Puteți șterge orice fișiere de rezervă mai vechi."
 
@@ -1356,6 +1368,14 @@ msgstr "Acest pas este opțional."
 #: src/components/ImageStyleTransfer.tsx:252
 msgid "This style is available to paid Patreon members only"
 msgstr "Acest stil este disponibil numai pentru membrii Patreon plătiți"
+
+#: src/components/alert/AuthErrorHandler.tsx:36
+msgid "This usually happens when you're signed in to a <0>different</0> Patreon account than the one used for your ArtistAssistApp membership."
+msgstr "Acest lucru se întâmplă de obicei când ești conectat la un <0>alt</0> cont Patreon decât cel folosit pentru abonamentul tău ArtistAssistApp."
+
+#: src/components/alert/AuthErrorHandler.tsx:43
+msgid "To fix this:"
+msgstr "Pentru a rezolva asta:"
 
 #: src/components/empty/EmptyImage.tsx:42
 msgid "To use the {tabLabel} feature, select a reference photo."
@@ -1377,13 +1397,10 @@ msgstr "Transparent"
 msgid "Tutorials and videos"
 msgstr "Tutoriale și videoclipuri"
 
-#: src/components/alert/PromiseErrorBoundary.tsx:33
-msgid "Unexpected error"
-msgstr "Eroare neașteptată"
-
-#: src/components/alert/AlertTimedReloadFallback.tsx:52
-msgid "Unknown error"
-msgstr "Eroare necunoscută"
+#: src/components/alert/AlertTimedReloadFallback.tsx:36
+#: src/components/alert/UnhandledRejectionHandler.tsx:37
+msgid "Unexpected error: {errorMessage}"
+msgstr "Eroare neașteptată: {errorMessage}"
 
 #: src/components/color/ColorSwatchDrawer.tsx:103
 #: src/components/color/PaletteColorMixtureCard.tsx:76
@@ -1432,9 +1449,9 @@ msgstr "Vopsea acuarelă"
 msgid "Watercolor Pencils"
 msgstr "Creioane acuarelă"
 
-#: src/components/messages.ts:64
-msgid "We couldn't verify an active Patreon membership for your account. Please join ArtistAssistApp on Patreon, or sign in to Patreon with the email you used to purchase your membership. Then, log in to ArtistAssistApp again."
-msgstr "Nu am putut verifica dacă ai un abonament activ pe Patreon pentru contul tău. Vă rugăm să vă alăturați ArtistAssistApp pe Patreon sau să vă conectați pe Patreon cu adresa de email folosită pentru achiziționarea abonamentului. Apoi, conectează-te din nou la ArtistAssistApp."
+#: src/components/alert/AuthErrorHandler.tsx:99
+msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
+msgstr "Am întâmpinat o problemă la verificarea autentificării tale. Această problemă poate fi de obicei rezolvată încercând să mă conectez din nou."
 
 #: src/components/ColorSetChooser.tsx:687
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
@@ -1501,13 +1518,13 @@ msgstr "Ai selectat mărci de culori care sunt disponibile numai pentru membrii 
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Ați selectat modul care este disponibil numai pentru membrii Patreon plătiți"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:65
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app as described in the Install tab."
 msgstr "Este posibil ca datele dumneavoastră să nu fie salvate în mod fiabil dacă browserul este închis. Pentru a remedia acest lucru, instalați aplicația așa cum este descris în fila Instalare."
 
-#: src/components/messages.ts:65
-msgid "Your session has expired. Please log in again."
-msgstr "Sesiunea a expirat. Vă rugăm să vă conectați din nou."
+#: src/components/alert/AuthErrorHandler.tsx:90
+msgid "Your login session has expired. Please sign in again to refresh your access and continue using ArtistAssistApp."
+msgstr "Sesiunea ta de autentificare a expirat. Vă rugăm să vă reconectați pentru a vă reîmprospăta accesul și a continua să folosiți ArtistAssistApp."
 
 #: src/components/alert/BrowserSupport.tsx:55
 msgid "Your web browser is not supported."
