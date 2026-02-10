@@ -1,6 +1,5 @@
 import {lingui} from '@lingui/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
-// import * as fs from 'fs';
 import {visualizer} from 'rollup-plugin-visualizer';
 import {PluginOption, defineConfig} from 'vite';
 import glsl from 'vite-plugin-glsl';
@@ -58,10 +57,6 @@ export default defineConfig({
   },
 
   server: {
-    // https: {
-    //   key: fs.readFileSync(`./certs/selfsigned.key`),
-    //   cert: fs.readFileSync(`./certs/selfsigned.crt`),
-    // },
     headers: {
       'Cross-Origin-Opener-Policy': 'same-origin',
       'Cross-Origin-Embedder-Policy': 'require-corp',

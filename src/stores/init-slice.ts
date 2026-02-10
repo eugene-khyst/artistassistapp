@@ -27,6 +27,7 @@ import type {AuthSlice} from '~/src/stores/auth-slice';
 import type {LocaleSlice} from '~/src/stores/locale-slice';
 import type {StyleTransferSlice} from '~/src/stores/style-transfer-slice';
 import {TabKey} from '~/src/tabs';
+import {DisplayMode, getDisplayMode} from '~/src/utils/media';
 
 import type {ColorMixerSlice} from './color-mixer-slice';
 import type {ColorSetSlice} from './color-set-slice';
@@ -81,8 +82,12 @@ export const createInitSlice: StateCreator<
     const {colorSet: importedColorSet, tabKey: importedTabKey} = importFromUrl();
 
     const appSettings: AppSettings = await get().loadAppSettings();
+    const displayMode: DisplayMode = getDisplayMode();
     let activeTabKey: TabKey | undefined = importedTabKey ?? appSettings.activeTabKey;
-    if (importedColorSet) {
+    if (
+      importedColorSet ||
+      (activeTabKey === TabKey.Install && displayMode !== DisplayMode.BROWSER)
+    ) {
       activeTabKey = TabKey.ColorSet;
     }
     if (activeTabKey) {
@@ -106,7 +111,7 @@ export const createInitSlice: StateCreator<
   loadAppSettings: async (): Promise<AppSettings> => {
     const appSettings: AppSettings = {
       ...DEFAULT_APP_SETTINGS,
-      ...((await getAppSettings()) ?? {}),
+      ...(await getAppSettings()),
     };
     set({
       appSettings,

@@ -116,6 +116,12 @@ export const ArtistAssistApp: React.FC = () => {
     };
   }, [isAdModalReady]);
 
+  useEffect(() => {
+    if (activeTabKey === TabKey.Install && pwaDisplayMode !== DisplayMode.BROWSER) {
+      void setActiveTabKey(TabKey.ColorSet);
+    }
+  }, [pwaDisplayMode, activeTabKey, setActiveTabKey]);
+
   const handleTabChange = (activeKey: string) => {
     void (async () => {
       await colorSetChooserRef.current?.checkForUnsavedChanges();

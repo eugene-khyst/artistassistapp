@@ -127,7 +127,7 @@ export const ImageOutline: React.FC = () => {
     setGrid(gridCanvas, {
       ...DEFAULT_GRID_SETTINGS,
       ...defaultGridSettings,
-      ...(grids?.[TabKey.Outline] ?? {}),
+      ...grids?.[TabKey.Outline],
     });
   }, [appSettings, gridCanvas]);
 

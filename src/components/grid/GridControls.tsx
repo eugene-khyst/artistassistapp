@@ -62,7 +62,7 @@ export const GridControls: React.FC<Props> = ({
     diagonals: defaultDiagonals,
   } = {
     ...DEFAULT_GRID_SETTINGS,
-    ...(defaultGridSettings ?? {}),
+    ...defaultGridSettings,
   };
 
   const [gridEnabled, setGridEnabled] = useState<boolean>(!disableable || defaultEnabled);
@@ -104,9 +104,9 @@ export const GridControls: React.FC<Props> = ({
     void saveAppSettings((prev?: AppSettings): Partial<AppSettings> => {
       return {
         grids: {
-          ...(prev?.grids ?? {}),
+          ...prev?.grids,
           [tab]: {
-            ...(prev?.grids?.[tab] ?? {}),
+            ...prev?.grids?.[tab],
             enabled: value,
           },
         },
@@ -119,9 +119,9 @@ export const GridControls: React.FC<Props> = ({
     void saveAppSettings((prev?: AppSettings): Partial<AppSettings> => {
       return {
         grids: {
-          ...(prev?.grids ?? {}),
+          ...prev?.grids,
           [tab]: {
-            ...(prev?.grids?.[tab] ?? {}),
+            ...prev?.grids?.[tab],
             mode: value,
           },
         },
@@ -134,9 +134,9 @@ export const GridControls: React.FC<Props> = ({
     void saveAppSettings((prev?: AppSettings): Partial<AppSettings> => {
       return {
         grids: {
-          ...(prev?.grids ?? {}),
+          ...prev?.grids,
           [tab]: {
-            ...(prev?.grids?.[tab] ?? {}),
+            ...prev?.grids?.[tab],
             size: value,
           },
         },
@@ -150,9 +150,9 @@ export const GridControls: React.FC<Props> = ({
     void saveAppSettings((prev?: AppSettings): Partial<AppSettings> => {
       return {
         grids: {
-          ...(prev?.grids ?? {}),
+          ...prev?.grids,
           [tab]: {
-            ...(prev?.grids?.[tab] ?? {}),
+            ...prev?.grids?.[tab],
             diagonals: value,
           },
         },

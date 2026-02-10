@@ -84,7 +84,6 @@ export async function cachePutWithRetry(
     }
   }
   const extension: string | undefined = getFileExtension(url);
-  const expectedMimeType: string | undefined = extension && EXTENSION_TO_MIME_TYPE[extension];
   const contentType = response.headers.get('Content-Type');
   if (!opaque && extension && !contentType) {
     console.warn(`Skipping cache: missing Content-Type for extension ${extension}`, request);
@@ -94,13 +93,19 @@ export async function cachePutWithRetry(
       return;
     }
   }
-  if (expectedMimeType && contentType && !contentType.includes(expectedMimeType)) {
-    console.warn(
-      `Skipping cache: MIME type mismatch, expected ${expectedMimeType}, got ${contentType}`,
-      request
-    );
+  const expectedMimeTypes: string[] | undefined = extension
+    ? EXTENSION_TO_MIME_TYPE[extension]
+    : undefined;
+
+  if (
+    expectedMimeTypes?.length &&
+    contentType &&
+    !expectedMimeTypes.some(expectedMimeType => contentType.includes(expectedMimeType))
+  ) {
+    const message = `MIME type mismatch for ${url}: expected [${expectedMimeTypes.join(',')}], got ${contentType}`;
+    console.warn('Skipping cache:', message, request);
     if (strict) {
-      throw new Error(`MIME mismatch for ${url}: expected ${expectedMimeType}, got ${contentType}`);
+      throw new Error(message);
     } else {
       return;
     }
