@@ -183,7 +183,8 @@ export function formatColorLabel(
 ): string {
   const {
     show,
-    prefix,
+    prefix: defaultPrefix,
+    prefixes,
     suffix,
     padLength,
     splitAt,
@@ -195,7 +196,11 @@ export function formatColorLabel(
     ...idFormat,
   };
   if (show) {
-    let idStr = `${prefix ?? ''}${padLength ? String(id).padStart(padLength, '0') : id}${suffix ?? ''}`;
+    const prefixOverride = prefixes?.find(
+      ({range: [startId, endId]}) => id >= startId && id <= endId
+    )?.prefix;
+    const prefix: string = prefixOverride ?? defaultPrefix ?? '';
+    let idStr = `${prefix}${padLength ? String(id).padStart(padLength, '0') : id}${suffix ?? ''}`;
     if (splitAt && idStr.length > splitAt) {
       idStr = `${idStr.substring(0, splitAt)}${delimiter}${idStr.substring(splitAt)}`;
     }

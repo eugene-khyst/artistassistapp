@@ -55,30 +55,30 @@ Try it now at [ArtistAssistApp.com](https://artistassistapp.com)
 ArtistAssistApp doesn't depend on any math or color library and includes the implementation of the
 following:
 
-- sRGB to Oklab (WebGL),
-- sRGB to spectral reflectance,
-- subtractive color mixing using empirical model based on the Kubelka-Munk theory,
+- sRGB to Oklab (WebGL)
+- sRGB to spectral reflectance
+- subtractive color mixing using empirical model based on the Kubelka-Munk theory
 - color temperature estimation: warm and cool colors
-- matrix operations,
-- matrix inversion using LU decomposition,
-- solving a system of linear algebraic equations using forward and backward substitution,
+- matrix operations
+- matrix inversion using LU decomposition
+- solving a system of linear algebraic equations using forward and backward substitution
 - the average color of the circular area of the image
 - calculation of color similarity by comparing spectral reflections (weighted geometric mean of angular similarity (cosine) and Euclidean distance)
-- vector operations,
-- WebGL multi-pass rendering,
-- two-pass one-dimensional Gaussian blur (WebGL),
-- Sobel operator for edge detection (WebGL),
-- threshold filter based on perceived lightness (WebGL),
-- Kuwahara blur filter (WebGL),
-- median cut for color quantization,
-- adjusting white balance using the percentile and reference methods (WebGL),
-- adjusting saturation (WebGL),
-- adjusting color levels (WebGL),
-- adjusting color temperature (WebGL),
-- invert colors filter with gamma correction (WebGL),
-- homography, perspective transform from quadrilateral to rectangle (WebGL),
-- ranking images using pairwise comparison and Elo rating system,
-- and more.
+- vector operations
+- WebGL multi-pass rendering
+- two-pass one-dimensional Gaussian blur (WebGL)
+- Sobel operator for edge detection (WebGL)
+- threshold filter based on perceived lightness (WebGL)
+- Kuwahara blur filter (WebGL)
+- median cut for color quantization
+- adjusting white balance using the percentile and reference methods (WebGL)
+- adjusting saturation (WebGL)
+- adjusting color levels (WebGL)
+- adjusting color temperature (WebGL)
+- invert colors filter with gamma correction (WebGL)
+- homography, perspective transform from quadrilateral to rectangle (WebGL)
+- ranking images using pairwise comparison and Elo rating system
+- and more
 
 ArtistAssistApp uses Web Workers for parallel processing and Service Workers for offline access.
 

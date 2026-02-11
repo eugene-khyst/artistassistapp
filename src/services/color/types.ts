@@ -45,9 +45,15 @@ export enum ColorWarmth {
   Neutral = 3,
 }
 
+export interface PrefixRange {
+  range: [number, number];
+  prefix: string;
+}
+
 export interface ColorIdFormat {
   show?: boolean;
   prefix?: string;
+  prefixes?: PrefixRange[];
   suffix?: string;
   padLength?: number;
   splitAt?: number;
