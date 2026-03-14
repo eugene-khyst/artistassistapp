@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {useCallback, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
 interface Result {
   isSupported: boolean;
@@ -27,18 +27,26 @@ interface Result {
 export function useFullScreen(): Result {
   const [isFullscreen, setIsFullscreen] = useState<boolean>(() => !!document.fullscreenElement);
 
+  useEffect(() => {
+    const handleChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', handleChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleChange);
+    };
+  }, []);
+
   const toggleFullScreen = useCallback(() => {
-    if (!document.fullscreenElement) {
-      void document.documentElement.requestFullscreen();
-      setIsFullscreen(true);
-    } else {
+    if (document.fullscreenElement) {
       void document.exitFullscreen();
-      setIsFullscreen(false);
+    } else {
+      void document.documentElement.requestFullscreen();
     }
   }, []);
 
   return {
-    isSupported: typeof document.documentElement.requestFullscreen !== 'undefined',
+    isSupported: 'requestFullscreen' in document.documentElement,
     isFullscreen,
     toggleFullScreen,
   };

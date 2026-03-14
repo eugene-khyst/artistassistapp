@@ -20,12 +20,12 @@ import {
   CheckCircleOutlined,
   CloseCircleOutlined,
   CloudSyncOutlined,
+  DownloadOutlined,
   FileProtectOutlined,
   FileTextOutlined,
   InfoCircleOutlined,
   MailOutlined,
   ReadOutlined,
-  ReloadOutlined,
   StopOutlined,
 } from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
@@ -65,8 +65,10 @@ export const Help: React.FC = () => {
   const storagePersisted = useAppStore(state => state.storagePersisted);
   const storageUsage = useAppStore(state => state.storageUsage);
   const autoSavingColorSetsJson = useAppStore(state => state.appSettings.autoSavingColorSetsJson);
+  const serviceWorkerRegistration = useAppStore(state => state.serviceWorkerRegistration);
 
   const saveAppSettings = useAppStore(state => state.saveAppSettings);
+  const updateServiceWorker = useAppStore(state => state.updateServiceWorker);
 
   const {
     token: {fontSizeSM},
@@ -179,15 +181,14 @@ export const Help: React.FC = () => {
         </Col>
       </Row>
 
-      <Space>
-        <Button
-          icon={<ReloadOutlined />}
-          onClick={() => {
-            window.location.reload();
-          }}
-        >
-          <Trans>Reload</Trans>
-        </Button>
+      {serviceWorkerRegistration ? (
+        <Space>
+          <Trans>A new version of the application is available.</Trans>
+          <Button type="primary" icon={<DownloadOutlined />} onClick={updateServiceWorker}>
+            <Trans>Install update</Trans>
+          </Button>
+        </Space>
+      ) : (
         <Button
           icon={<CloudSyncOutlined />}
           loading={isUpdating}
@@ -195,7 +196,7 @@ export const Help: React.FC = () => {
         >
           <Trans>Check for updates</Trans>
         </Button>
-      </Space>
+      )}
 
       <Divider size="small" />
 

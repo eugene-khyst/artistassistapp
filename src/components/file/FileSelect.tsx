@@ -67,6 +67,8 @@ export const FileSelect: React.FC<PropsWithChildren<Props>> = ({
             </>
           ),
           placement: 'top',
+          duration: 10,
+          showProgress: true,
         });
       }
     },

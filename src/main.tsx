@@ -25,39 +25,23 @@ import type {Root} from 'react-dom/client';
 import {createRoot} from 'react-dom/client';
 import {ErrorBoundary} from 'react-error-boundary';
 
+import {ArtistAssistApp} from '~/src/ArtistAssistApp';
 import {AlertTimedReloadFallback} from '~/src/components/alert/AlertTimedReloadFallback';
 import {AuthErrorHandler} from '~/src/components/alert/AuthErrorHandler';
 import {BrowserSupport} from '~/src/components/alert/BrowserSupport';
 import {UnhandledRejectionHandler} from '~/src/components/alert/UnhandledRejectionHandler';
+import {ServiceWorkerUpdateNotification} from '~/src/components/pwa/ServiceWorkerUpdateNotification';
 import {InternationalizationProvider} from '~/src/contexts/InternationalizationProvider';
-import type {BeforeInstallPromptEvent} from '~/src/pwa';
+import {initializePWA} from '~/src/pwa-init';
 import {clearDatabase} from '~/src/services/db/db';
 import {useAppStore} from '~/src/stores/app-store';
 import {disableScreenLock} from '~/src/wake-lock';
 
-import {ArtistAssistApp} from './ArtistAssistApp';
-import {registerServiceWorker} from './register-service-worker';
-
-const AUTH_VERIFICATION_INTERVAL = 5 * 60000;
-
 void (async () => {
-  registerServiceWorker();
-  window.addEventListener('beforeinstallprompt', (event: BeforeInstallPromptEvent) => {
-    event.preventDefault();
-    useAppStore.getState().setBeforeInstallPromptEvent(event);
-  });
-  window.addEventListener('appinstalled', () => {
-    useAppStore.getState().setBeforeInstallPromptEvent(null);
-  });
+  initializePWA();
   disableScreenLock();
   void clearDatabase();
   await useAppStore.getState().initAppStore();
-
-  setInterval(() => {
-    if (!useAppStore.getState().isAuthValid()) {
-      window.location.reload();
-    }
-  }, AUTH_VERIFICATION_INTERVAL);
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -78,6 +62,7 @@ void (async () => {
     <StrictMode>
       <InternationalizationProvider>
         <App>
+          <ServiceWorkerUpdateNotification />
           <ErrorBoundary FallbackComponent={AlertTimedReloadFallback}>
             <UnhandledRejectionHandler>
               <AuthErrorHandler>

@@ -57,7 +57,7 @@ export function colorSetToUrl({
     brands.map((brand: number) => brand.toString(URL_PARAM_RADIX)).join(URL_PARAM_SEPARATOR)
   );
   Object.entries(colors).forEach(([brandIdStr, colorIds]: [string, number[]]) => {
-    const brand = parseInt(brandIdStr);
+    const brand = Number.parseInt(brandIdStr);
     const ids: number[] = colorIds.map((id: number) => id - (SKU_BASE.get(brand) ?? 0));
     searchParams.set(
       URL_PARAM_COLORS_PREFIX + brandIdStr,
@@ -75,12 +75,12 @@ export function parseUrl(urlStr: string): UrlParsingResult {
   if (!searchParams.has(URL_PARAM_COLOR_TYPE) && !searchParams.has(URL_PARAM_TAB)) {
     return {};
   }
-  const type: ColorType = parseInt(searchParams.get(URL_PARAM_COLOR_TYPE)!, URL_PARAM_RADIX);
+  const type: ColorType = Number.parseInt(searchParams.get(URL_PARAM_COLOR_TYPE)!, URL_PARAM_RADIX);
   if (searchParams.has(URL_PARAM_COLOR_BRANDS)) {
     const brands: number[] = searchParams
       .get(URL_PARAM_COLOR_BRANDS)!
       .split(URL_PARAM_SEPARATOR)
-      .map((brand: string) => parseInt(brand, URL_PARAM_RADIX));
+      .map((brand: string) => Number.parseInt(brand, URL_PARAM_RADIX));
     const colors: Record<number, number[]> = {};
     for (const brand of brands) {
       const paramColors = `${URL_PARAM_COLORS_PREFIX}${brand}`;
@@ -89,7 +89,7 @@ export function parseUrl(urlStr: string): UrlParsingResult {
           .get(paramColors)!
           .split(URL_PARAM_SEPARATOR)
           .map((idStr: string) => {
-            const id = parseInt(idStr, URL_PARAM_RADIX);
+            const id = Number.parseInt(idStr, URL_PARAM_RADIX);
             return id + (SKU_BASE.get(brand) ?? 0);
           });
       }

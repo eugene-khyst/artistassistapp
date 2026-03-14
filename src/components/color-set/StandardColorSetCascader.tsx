@@ -54,7 +54,7 @@ function getStandardColorSetOptions(
               value: computeStandardColorSetDefinitionId(colorSet),
               label: (
                 <>
-                  <Plural value={colorCount} one="# Color" other="# Colors" />
+                  <Plural value={colorCount} one="# color" other="# colors" />
                   {name && ` (${name})`}
                 </>
               ),

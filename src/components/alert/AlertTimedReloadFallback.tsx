@@ -18,10 +18,11 @@
 
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Alert, Space, Typography} from 'antd';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import type {FallbackProps} from 'react-error-boundary';
 
 import {ClearStorage} from '~/src/components/storage/ClearStorage';
+import {useCountdown} from '~/src/hooks/useCountdown';
 import {getErrorMessage} from '~/src/utils/error';
 import {clearCache} from '~/src/utils/storage';
 
@@ -30,27 +31,16 @@ const DELAY_SECONDS = 5;
 export const AlertTimedReloadFallback: React.FC<FallbackProps> = ({error}: FallbackProps) => {
   const {t} = useLingui();
 
-  const [reloadCounter, setReloadCounter] = useState<number>(DELAY_SECONDS);
+  const reloadCounter = useCountdown(true, DELAY_SECONDS);
 
   const errorMessage: string = getErrorMessage(error);
   const message: string = t`Unexpected error: ${errorMessage}`;
 
   useEffect(() => {
-    const countdownIntervalId = setInterval(() => {
-      setReloadCounter(prev => {
-        if (prev <= 1) {
-          clearInterval(countdownIntervalId);
-          void clearCache();
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => {
-      clearInterval(countdownIntervalId);
-    };
-  }, []);
+    if (reloadCounter === 0) {
+      void clearCache();
+    }
+  }, [reloadCounter]);
 
   return (
     <Alert

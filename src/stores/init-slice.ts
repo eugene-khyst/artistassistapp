@@ -107,6 +107,8 @@ export const createInitSlice: StateCreator<
       appInitialized: true,
       isInitialStateLoading: false,
     });
+
+    get().startPeriodicAuthVerification();
   },
   loadAppSettings: async (): Promise<AppSettings> => {
     const appSettings: AppSettings = {

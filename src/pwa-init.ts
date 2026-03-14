@@ -16,13 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export function registerServiceWorker() {
+import type {BeforeInstallPromptEvent} from '~/src/pwa';
+import {useAppStore} from '~/src/stores/app-store';
+
+export function initializePWA() {
+  registerServiceWorker();
+  initPwaInstallListeners();
+}
+
+function registerServiceWorker() {
   if (import.meta.env.PROD && 'serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       void registerAndRefresh();
     });
 
-    let refreshing: boolean;
+    let refreshing = false;
     navigator.serviceWorker.addEventListener('controllerchange', function () {
       if (refreshing) {
         return;
@@ -59,10 +67,20 @@ async function registerAndRefresh() {
       }
     });
   } catch (error) {
-    console.log('Service worker registration failed', error);
+    console.error('Service worker registration failed', error);
   }
 }
 
 function invokeServiceWorkerUpdateFlow(registration: ServiceWorkerRegistration) {
-  registration.waiting?.postMessage('skipWaiting');
+  useAppStore.getState().setServiceWorkerRegistration(registration);
+}
+
+function initPwaInstallListeners() {
+  window.addEventListener('beforeinstallprompt', (event: BeforeInstallPromptEvent) => {
+    event.preventDefault();
+    useAppStore.getState().setBeforeInstallPromptEvent(event);
+  });
+  window.addEventListener('appinstalled', () => {
+    useAppStore.getState().setBeforeInstallPromptEvent(null);
+  });
 }

@@ -21,17 +21,49 @@ import type {StateCreator} from 'zustand';
 import type {BeforeInstallPromptEvent} from '~/src/pwa';
 
 export interface PwaSlice {
+  serviceWorkerRegistration: ServiceWorkerRegistration | null;
+  serviceWorkerUpdatePostponed: boolean;
   beforeInstallPromptEvent: BeforeInstallPromptEvent | null;
 
+  setServiceWorkerRegistration: (registration: ServiceWorkerRegistration | null) => void;
+  updateServiceWorker: () => void;
+  postponeServiceWorkerUpdate: () => void;
   setBeforeInstallPromptEvent: (beforeInstallPromptEvent: BeforeInstallPromptEvent | null) => void;
 }
 
-export const createPwaSlice: StateCreator<PwaSlice, [], [], PwaSlice> = set => ({
+export const createPwaSlice: StateCreator<PwaSlice, [], [], PwaSlice> = (set, get) => ({
   beforeInstallPromptEvent: null,
+  serviceWorkerRegistration: null,
+  serviceWorkerUpdatePostponed: false,
 
+  setServiceWorkerRegistration: (serviceWorkerRegistration: ServiceWorkerRegistration | null) => {
+    set({
+      serviceWorkerRegistration,
+      serviceWorkerUpdatePostponed: false,
+    });
+  },
+  updateServiceWorker: () => {
+    const {serviceWorkerRegistration} = get();
+    if (serviceWorkerRegistration?.waiting) {
+      serviceWorkerRegistration.waiting.postMessage('skipWaiting');
+    } else {
+      console.warn('No waiting service worker found');
+    }
+    set({
+      serviceWorkerRegistration: null,
+      serviceWorkerUpdatePostponed: false,
+    });
+  },
+  postponeServiceWorkerUpdate: () => {
+    set({
+      serviceWorkerUpdatePostponed: true,
+    });
+  },
   setBeforeInstallPromptEvent: (
     beforeInstallPromptEvent: BeforeInstallPromptEvent | null
   ): void => {
-    set({beforeInstallPromptEvent});
+    set({
+      beforeInstallPromptEvent,
+    });
   },
 });

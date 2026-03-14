@@ -159,6 +159,8 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
       message: i18n._(message.id, {filename}),
       description: i18n._(description.id),
       placement: 'topLeft',
+      duration: 10,
+      showProgress: true,
     });
   }, [saveColorSetsAsJson, notification, i18n]);
 
@@ -208,7 +210,8 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
       notification.error({
         message: t`Error while fetching color brand data`,
         placement: 'top',
-        duration: 0,
+        duration: 10,
+        showProgress: true,
       });
     }
   }, [isBrandsError, notification, t]);
@@ -218,7 +221,8 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
       notification.error({
         message: t`Error while fetching standard color set data`,
         placement: 'top',
-        duration: 0,
+        duration: 10,
+        showProgress: true,
       });
     }
   }, [isStandardColorSetsError, notification, t]);
@@ -228,7 +232,8 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
       notification.error({
         message: t`Error while fetching color data`,
         placement: 'top',
-        duration: 0,
+        duration: 10,
+        showProgress: true,
       });
     }
   }, [isColorsError, notification, t]);

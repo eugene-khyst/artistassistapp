@@ -40,7 +40,7 @@ const BROWSER_FEATURES: Record<string, boolean> = {
   indexedDB: typeof indexedDB !== 'undefined',
   localStorage: typeof localStorage !== 'undefined',
 };
-const IS_BROWSER_SUPPORTED = Object.values(BROWSER_FEATURES).every(value => value);
+const IS_BROWSER_SUPPORTED = Object.values(BROWSER_FEATURES).every(Boolean);
 
 export const BrowserSupport: React.FC<PropsWithChildren> = ({children}: PropsWithChildren) => {
   const {
@@ -75,10 +75,10 @@ export const BrowserSupport: React.FC<PropsWithChildren> = ({children}: PropsWit
                 <li>
                   <AndroidOutlined style={{color: colorTextTertiary}} /> Android
                   <ul>
-                    <li>Chrome 69+</li>
+                    <li>Chrome 85+</li>
                     <li>Firefox 105+</li>
                     <li>Opera 73+</li>
-                    <li>Samsung Internet 10.1+</li>
+                    <li>Samsung Internet 14.0+</li>
                   </ul>
                 </li>
               </ul>
@@ -110,10 +110,10 @@ export const BrowserSupport: React.FC<PropsWithChildren> = ({children}: PropsWit
                     <LinuxOutlined style={{color: colorTextTertiary}} /> Linux
                   </Trans>
                   <ul>
-                    <li>Chrome 69+</li>
-                    <li>Edge 79+</li>
+                    <li>Chrome 85+</li>
+                    <li>Edge 85+</li>
                     <li>Firefox 105+</li>
-                    <li>Opera 64+</li>
+                    <li>Opera 71+</li>
                   </ul>
                 </li>
                 <li>

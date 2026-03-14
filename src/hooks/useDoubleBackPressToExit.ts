@@ -20,7 +20,7 @@ import {useLingui} from '@lingui/react/macro';
 import {App} from 'antd';
 import {useEffect, useRef} from 'react';
 
-export function useDoubleBackPressToExit() {
+export function useDoubleBackPressToExit(): void {
   const {message} = App.useApp();
 
   const {t} = useLingui();

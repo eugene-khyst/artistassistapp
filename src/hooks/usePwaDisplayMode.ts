@@ -20,7 +20,7 @@ import {useEffect, useState} from 'react';
 
 import {DisplayMode, getDisplayMode} from '~/src/utils/media';
 
-export function useDisplayMode() {
+export function useDisplayMode(): DisplayMode {
   const [displayMode, setDisplayMode] = useState<DisplayMode>(() => getDisplayMode());
 
   useEffect(() => {

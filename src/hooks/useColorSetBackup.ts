@@ -46,6 +46,8 @@ export function useColorSetBackup(): void {
         message: i18n._(message.id, {filename}),
         description: i18n._(description.id),
         placement: 'topLeft',
+        duration: 10,
+        showProgress: true,
       });
     })();
   }, [appInitialized, saveColorSetsAsJson, notification, i18n]);

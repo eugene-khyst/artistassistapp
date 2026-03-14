@@ -71,9 +71,10 @@ export class AuthClient {
       try {
         this.authentication = await this.authenticate(jwt);
         localStorage.setItem(ID_TOKEN_KEY, jwt);
-        replaceHistory();
       } catch (e) {
         throw authError(e);
+      } finally {
+        replaceHistory();
       }
     }
   }

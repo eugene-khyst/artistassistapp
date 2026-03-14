@@ -18,17 +18,27 @@
 
 import {useEffect, useState} from 'react';
 
-export function useDebounce<T>(value: T, delay = 300): T {
-  const [debouncedValue, setDebouncedValue] = useState(value);
+export function useCountdown(active: boolean, seconds: number): number {
+  const [counter, setCounter] = useState(seconds);
 
   useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
+    if (!active) {
+      return;
+    }
+    const id = setInterval(() => {
+      setCounter(prev => {
+        if (prev <= 1) {
+          clearInterval(id);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
     return () => {
-      clearTimeout(handler);
+      clearInterval(id);
+      setCounter(seconds);
     };
-  }, [value, delay]);
+  }, [active, seconds]);
 
-  return debouncedValue;
+  return active ? counter : 0;
 }

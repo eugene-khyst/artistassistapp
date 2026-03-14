@@ -87,7 +87,7 @@ function isCustomColorBrandAlias(alias: string): boolean {
 }
 
 function getCustomColorBrandIdFromAlias(alias: string): number {
-  return parseInt(alias.replace(CUSTOM_COLOR_BRAND_ALIAS_PREFIX, ''));
+  return Number.parseInt(alias.replace(CUSTOM_COLOR_BRAND_ALIAS_PREFIX, ''));
 }
 
 export const compareColorBrandsByName: Comparator<ColorBrandDefinition> = (
@@ -265,7 +265,7 @@ export function toColorSet(
     type,
     brands: selectedBrandsMap,
     colors: selectedColorsArr.flatMap(([brandIdStr, colorIds]: [string, number[]]): Color[] => {
-      const brandId = parseInt(brandIdStr);
+      const brandId = Number.parseInt(brandIdStr);
       const brandAlias: string | undefined = brands.get(brandId)?.alias;
       if (!brandAlias) {
         return [];

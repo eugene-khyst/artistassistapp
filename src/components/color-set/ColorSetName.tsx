@@ -31,7 +31,7 @@ export const ColorSetName: React.FC<Props> = ({brandColorCounts}: Props) => {
       {brandColorCounts.map(({brandName, colorCount}, index) => (
         <Fragment key={index}>
           {index > 0 && ', '}
-          {brandName} <Plural value={colorCount} one="# Color" other="# Colors" />
+          {brandName} <Plural value={colorCount} one="# color" other="# colors" />
         </Fragment>
       ))}
     </>

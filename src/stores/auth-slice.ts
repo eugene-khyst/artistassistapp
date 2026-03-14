@@ -22,17 +22,22 @@ import {APP_URL, AUTH_URL} from '~/src/config';
 import {AuthClient} from '~/src/services/auth/auth-client';
 import {type Authentication, AuthError} from '~/src/services/auth/types';
 
+const AUTH_VERIFICATION_INTERVAL = 5 * 60000;
+
 export interface AuthSlice {
   authClient: AuthClient;
   auth: Authentication | null;
   isAuthLoading: boolean;
   authError: AuthError | null;
+  authCheckInterval: number | null;
 
   handleAuthRedirectCallback: () => Promise<Authentication | null>;
   loginWithRedirect: () => void;
   logout: () => void;
   isAuthValid: () => boolean;
   clearAuthError: () => void;
+  startPeriodicAuthVerification: () => void;
+  stopPeriodicAuthVerification: () => void;
 }
 
 export const createAuthSlice: StateCreator<AuthSlice, [], [], AuthSlice> = (set, get) => ({
@@ -45,6 +50,7 @@ export const createAuthSlice: StateCreator<AuthSlice, [], [], AuthSlice> = (set,
   auth: null,
   isAuthLoading: false,
   authError: null,
+  authCheckInterval: null,
 
   handleAuthRedirectCallback: async (): Promise<Authentication | null> => {
     set({
@@ -55,7 +61,9 @@ export const createAuthSlice: StateCreator<AuthSlice, [], [], AuthSlice> = (set,
     try {
       await authClient.handleRedirectCallback();
       const auth: Authentication | null = await authClient.getAuthentication();
-      set({auth});
+      set({
+        auth,
+      });
       return auth;
     } catch (error) {
       console.log(error);
@@ -75,6 +83,7 @@ export const createAuthSlice: StateCreator<AuthSlice, [], [], AuthSlice> = (set,
     get().authClient.loginWithRedirect();
   },
   logout: (): void => {
+    get().stopPeriodicAuthVerification();
     get().authClient.logout();
   },
   isAuthValid: (): boolean => {
@@ -84,5 +93,24 @@ export const createAuthSlice: StateCreator<AuthSlice, [], [], AuthSlice> = (set,
     set({
       authError: null,
     });
+  },
+  startPeriodicAuthVerification: () => {
+    const authCheckInterval = window.setInterval(() => {
+      if (!get().isAuthValid()) {
+        window.location.reload();
+      }
+    }, AUTH_VERIFICATION_INTERVAL);
+    set({
+      authCheckInterval,
+    });
+  },
+  stopPeriodicAuthVerification: () => {
+    const {authCheckInterval} = get();
+    if (authCheckInterval !== null) {
+      clearInterval(authCheckInterval);
+      set({
+        authCheckInterval: null,
+      });
+    }
   },
 });

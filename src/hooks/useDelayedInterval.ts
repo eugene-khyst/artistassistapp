@@ -18,17 +18,34 @@
 
 import {useEffect, useState} from 'react';
 
-export function useDebounce<T>(value: T, delay = 300): T {
-  const [debouncedValue, setDebouncedValue] = useState(value);
+type Result = [open: boolean, setOpen: (open: boolean) => void];
+
+export function useDelayedInterval(initialDelay: number, interval: number): Result {
+  const [ready, setReady] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
+    const id = setTimeout(() => {
+      setReady(true);
+      setOpen(true);
+    }, initialDelay);
     return () => {
-      clearTimeout(handler);
+      clearTimeout(id);
+      setReady(false);
     };
-  }, [value, delay]);
+  }, [initialDelay]);
 
-  return debouncedValue;
+  useEffect(() => {
+    if (!ready) {
+      return;
+    }
+    const id = setInterval(() => {
+      setOpen(true);
+    }, interval);
+    return () => {
+      clearInterval(id);
+    };
+  }, [ready, interval]);
+
+  return [open, setOpen];
 }

@@ -104,7 +104,8 @@ export const ImageBackgroundRemoval: React.FC = () => {
       notification.error({
         message: t`Error while fetching ML model data`,
         placement: 'top',
-        duration: 0,
+        duration: 10,
+        showProgress: true,
       });
     }
   }, [isModelsError, notification, t]);

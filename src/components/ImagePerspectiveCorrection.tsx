@@ -106,7 +106,8 @@ export const ImagePerspectiveCorrection: React.FC = () => {
       notification.error({
         message: t`Select 4 points to correct perspective distortion`,
         placement: 'top',
-        duration: 0,
+        duration: 10,
+        showProgress: true,
       });
       return;
     }

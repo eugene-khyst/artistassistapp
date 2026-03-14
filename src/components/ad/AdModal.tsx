@@ -19,48 +19,29 @@
 import {CloseOutlined} from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
 import {Button, Modal} from 'antd';
-import {useEffect, useState} from 'react';
 
 import {Ad} from '~/src/components/ad/Ad';
 import {useAds} from '~/src/hooks/useAds';
+import {useCountdown} from '~/src/hooks/useCountdown';
+import {useDelayedInterval} from '~/src/hooks/useDelayedInterval';
 import type {AdDefinition} from '~/src/services/ads/types';
 import {useAppStore} from '~/src/stores/app-store';
 
 const PLACEMENT = 'popup';
 const DEFAULT_PLACEMENT = 'all';
 const CLOSE_SECONDS = 5;
+const AD_POPUP_INITIAL_DELAY = 1 * 60000;
+const AD_POPUP_INTERVAL = 15 * 60000;
 
-interface Props {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-}
-
-export const AdModal: React.FC<Props> = ({open, setOpen}: Props) => {
+export const AdModal: React.FC = () => {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
 
   const {ads: {ads: allAds, placements} = {ads: {}, placements: {}}} = useAds();
 
-  const [closeCounter, setCloseCounter] = useState<number>(0);
+  const [open, setOpen] = useDelayedInterval(AD_POPUP_INITIAL_DELAY, AD_POPUP_INTERVAL);
 
-  useEffect(() => {
-    if (!open) {
-      return;
-    }
-    setCloseCounter(CLOSE_SECONDS);
-    const intervalId = setInterval(() => {
-      setCloseCounter(prev => {
-        if (prev <= 1) {
-          clearInterval(intervalId);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [open]);
+  const closeCounter = useCountdown(open, CLOSE_SECONDS);
 
   const adKeys: string[] = placements[PLACEMENT] ?? placements[DEFAULT_PLACEMENT] ?? [];
   const ads: AdDefinition[] = adKeys

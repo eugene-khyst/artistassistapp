@@ -20,7 +20,7 @@ import {FullscreenExitOutlined, FullscreenOutlined} from '@ant-design/icons';
 import {useLingui} from '@lingui/react/macro';
 import type {TabsProps} from 'antd';
 import {Col, FloatButton, Row, Tabs, theme} from 'antd';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef} from 'react';
 import StickyBox from 'react-sticky-box';
 
 import {AdModal} from '~/src/components/ad/AdModal';
@@ -57,9 +57,6 @@ import {Palette} from './components/Palette';
 import {WATERMARK_TEXT} from './config';
 import {TabKey} from './tabs';
 
-const AD_POPUP_INITIAL_DELAY = 1 * 60000;
-const AD_POPUP_INTERVAL = 15 * 60000;
-
 export const ArtistAssistApp: React.FC = () => {
   const activeTabKey = useAppStore(state => state.activeTabKey);
   const user = useAppStore(state => state.auth?.user);
@@ -83,35 +80,11 @@ export const ArtistAssistApp: React.FC = () => {
 
   const colorSetChooserRef = useRef<ChangableComponent>(null);
 
-  const [isAdModalReady, setIsAdModalReady] = useState<boolean>(false);
-  const [isAdModalOpen, setIsAdModalOpen] = useState<boolean>(true);
-
   const isLoading: boolean = isInitialStateLoading || isLocaleLoading || isAuthLoading;
 
   useDoubleBackPressToExit();
 
   useColorSetBackup();
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setIsAdModalReady(true);
-    }, AD_POPUP_INITIAL_DELAY);
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!isAdModalReady) {
-      return;
-    }
-    const intervalId = setInterval(() => {
-      setIsAdModalOpen(true);
-    }, AD_POPUP_INTERVAL);
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [isAdModalReady]);
 
   useEffect(() => {
     if (activeTabKey === TabKey.Install && pwaDisplayMode !== DisplayMode.BROWSER) {
@@ -249,7 +222,7 @@ export const ArtistAssistApp: React.FC = () => {
           style={{right: 24, bottom: 24}}
         />
       )}
-      <AdModal open={isAdModalReady && isAdModalOpen} setOpen={setIsAdModalOpen} />
+      <AdModal />
     </LoadingIndicator>
   );
 };
