@@ -19,7 +19,7 @@
 import {FileImageOutlined, InboxOutlined, MoreOutlined, UploadOutlined} from '@ant-design/icons';
 import {useLingui} from '@lingui/react/macro';
 import {App, Button, Dropdown, Space} from 'antd';
-import type {BaseButtonProps} from 'antd/es/button/button';
+import type {BaseButtonProps} from 'antd/es/button/Button';
 import type {MenuProps} from 'antd/lib';
 import type {PropsWithChildren} from 'react';
 import {useCallback} from 'react';
@@ -83,7 +83,7 @@ export const FileSelect: React.FC<PropsWithChildren<Props>> = ({
   });
 
   const handleClick = () => {
-    inputRef.current?.click();
+    inputRef.current.click();
   };
 
   const items: MenuProps['items'] = [

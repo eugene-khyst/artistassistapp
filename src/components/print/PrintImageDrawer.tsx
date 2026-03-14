@@ -138,14 +138,14 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
       onClose={onClose}
     >
       <LoadingIndicator loading={isLoading}>
-        <Space direction="vertical">
+        <Space orientation="vertical">
           <Radio.Group
             value={printMode}
             onChange={e => {
               setPrintMode(e.target.value as PrintMode);
             }}
           >
-            <Space direction="vertical">
+            <Space orientation="vertical">
               <Radio value={PrintMode.Resize}>
                 <Trans>Print a large image onto multiple pages</Trans>
               </Radio>

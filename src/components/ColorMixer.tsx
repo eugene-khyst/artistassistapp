@@ -166,7 +166,7 @@ export const ColorMixer: React.FC = () => {
         </Typography.Text>
 
         <Space size="middle" align="start" wrap>
-          <Space direction="vertical" size="middle">
+          <Space orientation="vertical" size="middle">
             <Form
               name="colorMixture"
               form={form}
@@ -272,7 +272,7 @@ export const ColorMixer: React.FC = () => {
             </Form>
           </Space>
 
-          <Space direction="vertical">
+          <Space orientation="vertical">
             {resultColorMixtures.map((colorMixture: ColorMixture) => (
               <Fragment key={colorMixture.key}>
                 <ColorMixtureDescription

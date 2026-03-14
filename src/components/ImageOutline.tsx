@@ -237,7 +237,7 @@ export const ImageOutline: React.FC = () => {
                   forceRender
                   content={
                     <GridControls
-                      direction="vertical"
+                      orientation="vertical"
                       size="small"
                       gridCanvas={gridCanvas}
                       defaultGridSettings={defaultGridSettings}
@@ -275,7 +275,7 @@ export const ImageOutline: React.FC = () => {
                     )}
                     <Divider style={{margin: 0}} />
                     <GridControls
-                      direction="vertical"
+                      orientation="vertical"
                       size={0}
                       style={{padding: '8px 16px'}}
                       gridCanvas={gridCanvas}

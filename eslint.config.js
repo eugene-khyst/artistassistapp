@@ -39,7 +39,7 @@ export default tseslint.config(
         tsconfigRootDir: import.meta.dirname,
       },
     },
-    settings: {react: {version: '18.3'}},
+    settings: {react: {version: '19'}},
     plugins: {
       react,
       'react-hooks': reactHooks,
@@ -63,6 +63,7 @@ export default tseslint.config(
       'simple-import-sort/exports': 'error',
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
+      'react-hooks/set-state-in-effect': 'off',
       '@typescript-eslint/consistent-type-exports': 'error',
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-explicit-any': 'off',

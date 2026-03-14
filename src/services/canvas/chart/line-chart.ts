@@ -84,7 +84,7 @@ export class LineChart extends Canvas {
     let longestValueWidth = 0;
     const fractionDigits: number = countFractionDigits(yGridlinesStep);
     for (let i = minY; i <= maxY; i += yGridlinesStep) {
-      const label: string = i.toFixed(fractionDigits).toString();
+      const label: string = i.toFixed(fractionDigits);
       const {width} = this.context.measureText(label);
       longestValueWidth = Math.max(longestValueWidth, width);
     }
@@ -160,7 +160,7 @@ export class LineChart extends Canvas {
 
     const fractionDigits: number = countFractionDigits(this.xGridlinesStep);
     for (let i = this.minX; i <= this.maxX; i += this.xGridlinesStep) {
-      const label: string = i.toFixed(fractionDigits).toString();
+      const label: string = i.toFixed(fractionDigits);
       const {x} = this.transformCoordinates(i, 0);
       ctx.save();
       ctx.translate(x, this.canvas.height - this.paddingBottom + this.tickSize + SPACING);
@@ -207,7 +207,7 @@ export class LineChart extends Canvas {
 
     const fractionDigits: number = countFractionDigits(this.yGridlinesStep);
     for (let i = this.minY; i <= this.maxY; i += this.yGridlinesStep) {
-      const label: string = i.toFixed(fractionDigits).toString();
+      const label: string = i.toFixed(fractionDigits);
       const {y} = this.transformCoordinates(0, i);
       ctx.save();
       ctx.translate(this.paddingLeft - this.tickSize - SPACING, y);

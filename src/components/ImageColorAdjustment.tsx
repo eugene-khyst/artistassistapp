@@ -340,7 +340,7 @@ export const ImageColorAdjustment: React.FC = () => {
             overflowY: 'auto',
           }}
         >
-          <Space direction="vertical" style={{display: 'flex', padding: '0 16px 16px'}}>
+          <Space orientation="vertical" style={{display: 'flex', padding: '0 16px 16px'}}>
             <Typography.Text strong>
               <Trans>Select a photo to adjust white balance and colors</Trans>
             </Typography.Text>

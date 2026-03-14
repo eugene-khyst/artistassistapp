@@ -61,7 +61,7 @@ function getColorSetOptions(
   ];
 }
 
-type Props = Omit<SelectProps, 'options' | 'placeholder' | 'showSearch' | 'filterOption'> & {
+type Props = Omit<SelectProps, 'options' | 'placeholder' | 'showSearch'> & {
   colorSets?: ColorSetDefinition[];
   brands?: Map<number, ColorBrandDefinition>;
   onCreateNewClick?: () => void;
@@ -83,8 +83,7 @@ export const ColorSetSelect: React.FC<Props> = ({
       <Select
         options={options}
         placeholder={t`Select from your recent color sets`}
-        showSearch
-        filterOption={filterSelectOptions}
+        showSearch={{filterOption: filterSelectOptions}}
         {...rest}
       />
       <Button icon={<PlusOutlined />} onClick={onCreateNewClick}>

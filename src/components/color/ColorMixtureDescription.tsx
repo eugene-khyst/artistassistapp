@@ -55,7 +55,7 @@ export const ColorMixtureDescription: React.FC<Props> = ({
   const partsRatioText: string = parts.map(({part}: ColorMixturePart) => part).join(':');
   const whiteRatioText: string = formatRatio(whiteFraction, true);
   return (
-    <Space direction="vertical">
+    <Space orientation="vertical">
       {showColors && (
         <>
           {parts.length > 1 && (
@@ -68,7 +68,7 @@ export const ColorMixtureDescription: React.FC<Props> = ({
           <Space>
             {parts.length > 1 ? (
               <>
-                <Space direction="vertical">
+                <Space orientation="vertical">
                   {parts.map(({color, part}: ColorMixturePart, i: number) => {
                     return <ColorDescription colorType={type} key={i} color={color} text={part} />;
                   })}
@@ -90,7 +90,7 @@ export const ColorMixtureDescription: React.FC<Props> = ({
             </Trans>
           </Typography.Text>
           <Space>
-            <Space direction="vertical">
+            <Space orientation="vertical">
               <Space>
                 <ColorSquare
                   color={rgbToHex(...colorMixtureRgb)}

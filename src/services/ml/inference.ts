@@ -22,7 +22,7 @@ import {env, InferenceSession, Tensor} from 'onnxruntime-web';
 import {type Float32Tensor, getFloat32TensorTransferables} from '~/src/services/ml/tensor';
 
 env.wasm.proxy = false;
-env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.23.2/dist/';
+env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.24.3/dist/';
 
 interface Result {
   outputTensors: Float32Tensor[];

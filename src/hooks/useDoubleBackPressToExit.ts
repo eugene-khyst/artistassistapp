@@ -26,7 +26,7 @@ export function useDoubleBackPressToExit(): void {
   const {t} = useLingui();
 
   const backPressedOnce = useRef<boolean>(false);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => {
     if (!window.history.state) {

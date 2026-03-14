@@ -264,7 +264,7 @@ export const CustomColorBrandCreator: React.FC = () => {
           >
             <Row gutter={[32, 32]} style={{width: '100%', padding: '0 16px 16px'}}>
               <Col xs={24} lg={12}>
-                <Space direction="vertical" style={{display: 'flex'}}>
+                <Space orientation="vertical" style={{display: 'flex'}}>
                   <Typography.Text strong>
                     <Trans>Select an image that contains a color chart</Trans>
                   </Typography.Text>

@@ -24,9 +24,9 @@ import React, {useState} from 'react';
 
 import {clearCache, deleteAppData} from '~/src/utils/storage';
 
-type Props = Pick<SpaceProps, 'direction'>;
+type Props = Pick<SpaceProps, 'orientation'>;
 
-export const ClearStorage: React.FC<Props> = ({direction}: Props) => {
+export const ClearStorage: React.FC<Props> = ({orientation}: Props) => {
   const {t} = useLingui();
 
   const [isClearingCache, setIsClearingCache] = useState<boolean>(false);
@@ -51,7 +51,7 @@ export const ClearStorage: React.FC<Props> = ({direction}: Props) => {
   };
 
   return (
-    <Space direction={direction} wrap>
+    <Space orientation={orientation} wrap>
       <Popconfirm
         title={t`Clear cache`}
         description={t`Are you sure you want to clear the cache?`}

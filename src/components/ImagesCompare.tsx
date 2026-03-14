@@ -30,9 +30,9 @@ import type {Score} from '~/src/services/rating/rating';
 import {Player} from '~/src/services/rating/rating';
 import {useAppStore} from '~/src/stores/app-store';
 
-function restartTransitionAnimation(...refs: RefObject<HTMLDivElement>[]) {
+function restartTransitionAnimation(...refs: RefObject<HTMLDivElement | null>[]) {
   const className = 'transition-animation';
-  refs.forEach((ref: RefObject<HTMLDivElement>) => {
+  refs.forEach((ref: RefObject<HTMLDivElement | null>) => {
     const classList: DOMTokenList | undefined = ref.current?.classList;
     if (!classList) {
       return;

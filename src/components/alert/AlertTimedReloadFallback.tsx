@@ -45,9 +45,9 @@ export const AlertTimedReloadFallback: React.FC<FallbackProps> = ({error}: Fallb
   return (
     <Alert
       type="error"
-      message={t`An application error`}
+      title={t`An application error`}
       description={
-        <Space direction="vertical">
+        <Space orientation="vertical">
           <Typography.Text>{message}</Typography.Text>
           {reloadCounter > 0 && (
             <Typography.Text>
@@ -56,7 +56,7 @@ export const AlertTimedReloadFallback: React.FC<FallbackProps> = ({error}: Fallb
           )}
         </Space>
       }
-      action={<ClearStorage direction="vertical" />}
+      action={<ClearStorage orientation="vertical" />}
     />
   );
 };

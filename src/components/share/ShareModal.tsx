@@ -68,7 +68,7 @@ export const ShareModal: React.FC<Props> = ({open, setOpen, url}: Props) => {
       }}
     >
       {url ? (
-        <Space direction="vertical" style={{display: 'flex'}}>
+        <Space orientation="vertical" style={{display: 'flex'}}>
           <Typography.Text>
             <Trans>Copy and share this link</Trans>
           </Typography.Text>

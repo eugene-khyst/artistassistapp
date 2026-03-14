@@ -56,7 +56,7 @@ function getCustomColorBrandOptions(
   ];
 }
 
-type Props = Omit<SelectProps, 'options' | 'placeholder' | 'showSearch' | 'filterOption'> & {
+type Props = Omit<SelectProps, 'options' | 'placeholder' | 'showSearch'> & {
   customColorBrands?: CustomColorBrandDefinition[];
   onCreateNewClick?: () => void;
 };
@@ -76,8 +76,7 @@ export const CustomColorBrandSelect: React.FC<Props> = ({
       <Select
         options={options}
         placeholder={t`Select from your recent brands`}
-        showSearch
-        filterOption={filterSelectOptions}
+        showSearch={{filterOption: filterSelectOptions}}
         {...rest}
       />
       <Button icon={<PlusOutlined />} onClick={onCreateNewClick}>

@@ -53,10 +53,7 @@ function getColorOptions(
   });
 }
 
-type Props = Omit<
-  SelectProps,
-  'options' | 'placeholder' | 'showSearch' | 'filterOption' | 'allowClear'
-> & {
+type Props = Omit<SelectProps, 'options' | 'placeholder' | 'showSearch' | 'allowClear'> & {
   brand: ColorBrandDefinition;
   colors?: Map<number, ColorDefinition>;
 };
@@ -69,8 +66,7 @@ export const ColorSelect: React.FC<Props> = ({brand, colors, ...rest}: Props) =>
     <Select
       options={options}
       placeholder={t`Select colors`}
-      showSearch
-      filterOption={filterSelectOptions}
+      showSearch={{filterOption: filterSelectOptions}}
       allowClear
       {...rest}
     />

@@ -54,7 +54,7 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
     <Drawer
       title={t`Color swatch`}
       placement="right"
-      width="100%"
+      size="100%"
       open={open}
       onClose={onClose}
       styles={{body: {padding: 0}}}

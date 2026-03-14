@@ -107,7 +107,7 @@ export const Install: React.FC<Props> = ({showInstallPromotion, promptToInstall}
               <AppleOutlined /> iOS and iPadOS
             </Trans>
           </Typography.Title>
-          <Space direction="vertical">
+          <Space orientation="vertical">
             <Space align="center">
               <svg width="1.5em" viewBox="0 0 20.283 19.932">
                 <g fill={colorTextTertiary}>
@@ -143,7 +143,7 @@ export const Install: React.FC<Props> = ({showInstallPromotion, promptToInstall}
           <Typography.Title level={4}>
             <AppleOutlined /> macOS
           </Typography.Title>
-          <Space direction="vertical">
+          <Space orientation="vertical">
             <Space align="center">
               <svg width="1.5em" viewBox="0 0 20.283 19.932">
                 <g fill={colorTextTertiary}>

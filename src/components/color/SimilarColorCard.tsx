@@ -61,7 +61,7 @@ export const SimilarColorCard: React.FC<Props> = ({
 
   return (
     <Card size="small">
-      <Space direction="vertical" style={{width: '100%'}}>
+      <Space orientation="vertical" style={{width: '100%'}}>
         <Space>
           <Typography.Text>
             <Trans>

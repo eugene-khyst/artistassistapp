@@ -94,7 +94,7 @@ export const Help: React.FC = () => {
 
   const handleAutoBackupChange = (checked: boolean) => {
     void saveAppSettings({
-      autoSavingColorSetsJson: !!checked,
+      autoSavingColorSetsJson: checked,
     });
   };
 
@@ -106,7 +106,7 @@ export const Help: React.FC = () => {
 
       <Row gutter={24}>
         <Col xs={24} md={12}>
-          <Space direction="vertical" align="start" size={0} style={{width: '100%'}}>
+          <Space orientation="vertical" align="start" size={0} style={{width: '100%'}}>
             <Button
               type="link"
               href={`${WEBSITE_URL}/tutorials/`}
@@ -140,7 +140,7 @@ export const Help: React.FC = () => {
           </Space>
         </Col>
         <Col xs={24} md={12}>
-          <Space direction="vertical" align="start" size={0} style={{width: '100%'}}>
+          <Space orientation="vertical" align="start" size={0} style={{width: '100%'}}>
             <Button
               type="link"
               href={`${WEBSITE_URL}/contact/`}
@@ -226,7 +226,7 @@ export const Help: React.FC = () => {
 
       {storageUsage?.usage && storageUsage.quota && (
         <Space size="middle">
-          <Space direction="vertical">
+          <Space orientation="vertical">
             <Typography.Text>
               <Trans>Storage usage</Trans>
             </Typography.Text>

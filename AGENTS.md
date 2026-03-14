@@ -24,7 +24,7 @@ npm run translate        # Auto-translate .po files via Bing Translate API
 
 ### Application Structure
 
-ArtistAssistApp is a React 18 PWA for artists. The UI is a single `<Tabs>` component in
+ArtistAssistApp is a React 19 PWA for artists. The UI is a single `<Tabs>` component in
 `ArtistAssistApp.tsx` with one tab per feature (ColorSet, Photo, ColorPicker, Palette, ColorMixing,
 Outline, Grid, TonalValues, SimplifiedPhoto, LimitedPalette, StyleTransfer, ColorAdjustment,
 PerspectiveCorrection, BackgroundRemove, Compare, Install, Help). Tab visibility is conditional on

@@ -40,7 +40,7 @@ type Props = {
   gridCanvas?: GridCanvas;
   disableable?: boolean;
   defaultGridSettings?: Partial<GridSettings>;
-} & Pick<SpaceProps, 'direction' | 'size' | 'style'>;
+} & Pick<SpaceProps, 'orientation' | 'size' | 'style'>;
 
 export const GridControls: React.FC<Props> = ({
   gridCanvas,

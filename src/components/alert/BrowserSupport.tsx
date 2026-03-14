@@ -52,7 +52,7 @@ export const BrowserSupport: React.FC<PropsWithChildren> = ({children}: PropsWit
   if (!IS_BROWSER_SUPPORTED) {
     return (
       <div style={{padding: 16}}>
-        <Alert message={t`Your web browser is not supported.`} type="error" showIcon />
+        <Alert title={t`Your web browser is not supported.`} type="error" showIcon />
         <Typography.Title level={2}>
           <Trans>Supported web browsers and operating systems</Trans>
         </Typography.Title>

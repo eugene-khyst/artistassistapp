@@ -42,8 +42,8 @@ export const LoadingIndicator: React.FC<Props> = ({
       spinning={loading}
       size="large"
       indicator={<LoadingOutlined spin />}
-      tip={
-        <Space direction="vertical" align="center">
+      description={
+        <Space orientation="vertical" align="center">
           {
             <Typography.Text style={{color: colorPrimary}}>
               {downloadTip ? (

@@ -447,7 +447,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
           </Trans>
         </Typography.Text>
 
-        <Space direction="vertical" size={0}>
+        <Space orientation="vertical" size={0}>
           {!isAuthLoading &&
             (user ? (
               <Typography.Text strong>
@@ -677,7 +677,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
 
             <Form.Item
               extra={
-                <Space direction="vertical">
+                <Space orientation="vertical">
                   {!isAccessAllowed && (
                     <Typography.Text type="warning">
                       <Trans>

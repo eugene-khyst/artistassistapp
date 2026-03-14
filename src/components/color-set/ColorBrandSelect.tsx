@@ -17,10 +17,10 @@
  */
 
 import {useLingui} from '@lingui/react/macro';
+import type {FlattenOptionData} from '@rc-component/select/es/interface';
 import type {SelectProps} from 'antd';
 import {Select} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
-import type {FlattenOptionData} from 'rc-select/lib/interface';
 
 import {filterSelectOptions} from '~/src/components/utils';
 import type {User} from '~/src/services/auth/types';
@@ -55,7 +55,7 @@ function getColorBrandOptions(
 
 type Props = Omit<
   SelectProps,
-  'options' | 'placeholder' | 'showSearch' | 'filterOption' | 'optionRender' | 'allowClear'
+  'options' | 'placeholder' | 'showSearch' | 'optionRender' | 'allowClear'
 > & {
   brands?: Map<number, ColorBrandDefinition>;
 };
@@ -70,8 +70,7 @@ export const ColorBrandSelect: React.FC<Props> = ({brands, ...rest}: Props) => {
     <Select
       options={options}
       placeholder={t`Select brands`}
-      showSearch
-      filterOption={filterSelectOptions}
+      showSearch={{filterOption: filterSelectOptions}}
       optionRender={({
         data: {fullName, colorCount},
       }: FlattenOptionData<SelectOptionType & {colorCount?: number}>) => (

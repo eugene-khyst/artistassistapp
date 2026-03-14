@@ -20,7 +20,6 @@ import {DownloadOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {RadioChangeEvent} from 'antd';
 import {App, Button, Card, Col, Grid, Radio, Row, Space, Typography} from 'antd';
-import Meta from 'antd/es/card/Meta';
 import {saveAs} from 'file-saver';
 import {useEffect, useMemo, useRef, useState} from 'react';
 
@@ -179,7 +178,7 @@ export const ImageStyleTransfer: React.FC = () => {
             overflowY: 'auto',
           }}
         >
-          <Space direction="vertical" style={{display: 'flex', padding: '0 16px 16px'}}>
+          <Space orientation="vertical" style={{display: 'flex', padding: '0 16px 16px'}}>
             <Typography.Text strong>
               <Trans>Select a style to transfer to your reference photo</Trans>
             </Typography.Text>
@@ -240,11 +239,11 @@ export const ImageStyleTransfer: React.FC = () => {
                           : []
                       }
                     >
-                      <Meta
+                      <Card.Meta
                         title={name}
                         description={
                           (description || !isAccessAllowed) && (
-                            <Space direction="vertical">
+                            <Space orientation="vertical">
                               {description && (
                                 <Typography.Text type="secondary">{description}</Typography.Text>
                               )}

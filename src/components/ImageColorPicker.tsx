@@ -240,10 +240,10 @@ export const ImageColorPicker: React.FC = () => {
             }}
           >
             <Space
-              direction="vertical"
+              orientation="vertical"
               style={{padding: '0 16px 16px', width: '100%', boxSizing: 'border-box'}}
             >
-              <Space direction="vertical" size={0}>
+              <Space orientation="vertical" size={0}>
                 {glazing && (
                   <Space align="start" wrap style={{display: 'flex'}}>
                     <Form.Item
@@ -349,7 +349,7 @@ export const ImageColorPicker: React.FC = () => {
                 )}
               </Space>
               {!isSimilarColorsLoading && !similarColors.length ? (
-                <Space direction="vertical" style={{margin: '8px 0'}}>
+                <Space orientation="vertical" style={{margin: '8px 0'}}>
                   <Typography.Text strong>
                     ⁉️ <Trans>No data</Trans>
                   </Typography.Text>
