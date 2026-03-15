@@ -47,7 +47,9 @@ export class ZoomableImageCanvas extends Canvas {
   private initialPinchCenter: Vector | null = null;
   private initialOffset: Vector | null = null;
   private lastPointerDown: Vector | null = null;
-  private readonly eventListeners: Partial<Record<keyof HTMLElementEventMap, any>>;
+  private readonly eventListeners: {
+    [K in keyof HTMLElementEventMap]?: (event: HTMLElementEventMap[K]) => void;
+  };
 
   constructor(canvas: HTMLCanvasElement, props: ZoomableImageCanvasProps = {}) {
     super(canvas);

@@ -32,9 +32,7 @@ const TARGET_LANGS = [
 type SourceLang = typeof SOURCE_LANG;
 type TargetLang = (typeof TARGET_LANGS)[number];
 
-const PLURAL_FORMS = ['one', 'few', 'many', 'other'] as const;
-
-type PluralForms = (typeof PLURAL_FORMS)[number];
+type PluralForms = 'one' | 'few' | 'many' | 'other';
 
 // CLDR plural categories per language
 // Reference: https://www.unicode.org/cldr/charts/43/supplemental/language_plural_rules.html
@@ -85,19 +83,19 @@ async function translateText(
     targetLang,
     {
       translateOptions: {
-        // @ts-expect-error
+        // @ts-expect-error -- textType is supported by MET API but missing from type definitions
         textType: 'html',
       },
     }
   );
-  return result?.[0]?.translations?.[0]?.text;
+  return result?.[0]?.translations[0]?.text;
 }
 
 function parsePluralMessage(
   ICUpluralsText: string
 ): {variable: string; forms: Map<string, string>} | undefined {
-  const entireMatch: RegExpMatchArray | null = ICUpluralsText.match(
-    /^\{(\w+),\s*plural,\s*(.*)\}$/s
+  const entireMatch: RegExpMatchArray | null = /^\{(\w+),\s*plural,\s*(.*)\}$/s.exec(
+    ICUpluralsText
   );
   if (!entireMatch) {
     return undefined;
@@ -216,7 +214,7 @@ function replacePlaceholders(original: string, translated: string): string {
   return translated.replaceAll(/\{([^}]+)\}/g, () => `{${originalPlaceholders[i++]}}`);
 }
 
-(async () => {
+void (async () => {
   for (const targetLang of TARGET_LANGS) {
     await translatePoTo(SOURCE_LANG, targetLang);
   }

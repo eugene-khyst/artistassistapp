@@ -18,7 +18,7 @@
 
 import {Select} from 'antd';
 import type {DefaultOptionType as SelectOptionType, SelectProps} from 'antd/es/select';
-import React from 'react';
+import type React from 'react';
 
 import {OpacityIcon} from '~/src/components/color/OpacityIcon';
 import {ColorOpacity} from '~/src/services/color/types';

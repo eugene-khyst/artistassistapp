@@ -21,10 +21,12 @@ import {computeIfAbsentInMap} from '~/src/utils/map';
 export type EventListener<S> = (data: S) => void | Promise<void>;
 
 export class EventManager<T extends string> {
-  private readonly listeners = new Map<T, EventListener<any>[]>();
+  private readonly listeners = new Map<T, EventListener<unknown>[]>();
 
   subscribe<S>(eventType: T, listener: EventListener<S>) {
-    computeIfAbsentInMap(this.listeners, eventType, () => []).push(listener);
+    computeIfAbsentInMap(this.listeners, eventType, () => []).push(
+      listener as EventListener<unknown>
+    );
   }
 
   unsubscribe<S>(eventType: T, listener: EventListener<S>) {

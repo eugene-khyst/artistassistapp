@@ -44,8 +44,8 @@ export function getCacheName(cacheSuffix?: string): string {
 
 export const CACHE_NAME_DEFAULT: string = getCacheName();
 
-export function errorResponse(error: any) {
-  return new Response(`Error: ${error}`, {status: 500});
+export function errorResponse(error: unknown) {
+  return new Response(`Error: ${String(error)}`, {status: 500});
 }
 
 async function clearCache(cache: Cache) {

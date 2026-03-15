@@ -1,48 +1,64 @@
+import {defineConfig} from '@eslint/config-helpers';
 import js from '@eslint/js';
-import globals from 'globals';
-import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
-import tseslint from 'typescript-eslint';
-import react from 'eslint-plugin-react';
+import pluginLingui from 'eslint-plugin-lingui';
 import licenseHeader from 'eslint-plugin-license-header';
 import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import unusedImports from 'eslint-plugin-unused-imports';
-import pluginLingui from 'eslint-plugin-lingui';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
-export default tseslint.config(
+const sharedTsRules = {
+  '@typescript-eslint/consistent-type-exports': 'error',
+  '@typescript-eslint/consistent-type-imports': 'error',
+  '@typescript-eslint/no-non-null-assertion': 'off',
+  '@typescript-eslint/no-unused-vars': [
+    'error',
+    {
+      args: 'all',
+      argsIgnorePattern: '^_',
+      caughtErrors: 'all',
+      caughtErrorsIgnorePattern: '^_',
+      destructuredArrayIgnorePattern: '^_',
+      varsIgnorePattern: '^_',
+      ignoreRestSiblings: true,
+    },
+  ],
+  '@typescript-eslint/restrict-template-expressions': ['error', {allowNumber: true}],
+  '@typescript-eslint/prefer-nullish-coalescing': ['error', {ignorePrimitives: true}],
+  '@typescript-eslint/no-unnecessary-type-assertion': 'off',
+};
+
+export default defineConfig(
+  // Global ignores
   {
-    ignores: [
-      'node_modules',
-      'dist',
-      'public',
-      'license-header.ts',
-      'vite.config.ts',
-      'lingui.config.ts',
-      'translate-po.ts',
-    ],
+    ignores: ['node_modules', 'dist', 'public', 'license-header.js'],
   },
+
+  // App source files (src/**/*.{ts,tsx})
   {
     extends: [
       js.configs.recommended,
       ...tseslint.configs.strictTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
+      react.configs.flat.recommended,
+      react.configs.flat['jsx-runtime'],
+      reactHooks.configs.flat['recommended-latest'],
       pluginLingui.configs['flat/recommended'],
     ],
-    files: ['**/*.{ts,tsx}'],
+    files: ['src/**/*.{ts,tsx}'],
     languageOptions: {
-      ecmaVersion: 2022,
-      sourceType: 'module',
       globals: globals.browser,
       parserOptions: {
-        project: ['./tsconfig.json'],
+        projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
     },
     settings: {react: {version: '19'}},
     plugins: {
-      react,
-      'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       'license-header': licenseHeader,
       'no-relative-import-paths': noRelativeImportPaths,
@@ -50,44 +66,43 @@ export default tseslint.config(
       'unused-imports': unusedImports,
     },
     rules: {
-      ...react.configs.recommended.rules,
-      ...react.configs['jsx-runtime'].rules,
-      ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': ['warn', {allowConstantExport: true}],
-      'license-header/header': ['error', './license-header.ts'],
+      ...sharedTsRules,
+      'react/prop-types': 'off',
+      'license-header/header': ['error', './license-header.js'],
       'no-relative-import-paths/no-relative-import-paths': [
         'error',
         {allowSameFolder: true, prefix: '~'},
       ],
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
-      'react-hooks/set-state-in-effect': 'off',
-      '@typescript-eslint/consistent-type-exports': 'error',
-      '@typescript-eslint/consistent-type-imports': 'error',
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-non-null-assertion': 'off',
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        {
-          args: 'all',
-          argsIgnorePattern: '^_',
-          caughtErrors: 'all',
-          caughtErrorsIgnorePattern: '^_',
-          destructuredArrayIgnorePattern: '^_',
-          varsIgnorePattern: '^_',
-          ignoreRestSiblings: true,
-        },
-      ],
-      '@typescript-eslint/restrict-template-expressions': ['error', {allowNumber: true}],
-      '@typescript-eslint/prefer-nullish-coalescing': [
-        'error',
-        {
-          ignorePrimitives: true,
-        },
-      ],
-      '@typescript-eslint/no-unnecessary-type-assertion': 'off',
+      'unused-imports/no-unused-imports': 'error',
+      'unused-imports/no-unused-vars': 'off',
+    },
+  },
+
+  // Node config/script files
+  {
+    extends: [
+      js.configs.recommended,
+      ...tseslint.configs.strictTypeChecked,
+      ...tseslint.configs.stylisticTypeChecked,
+    ],
+    files: ['vite.config.ts', 'lingui.config.ts', 'translate-po.ts'],
+    languageOptions: {
+      globals: globals.node,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    plugins: {
+      'simple-import-sort': simpleImportSort,
+      'unused-imports': unusedImports,
+    },
+    rules: {
+      ...sharedTsRules,
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
       'unused-imports/no-unused-imports': 'error',
       'unused-imports/no-unused-vars': 'off',
     },

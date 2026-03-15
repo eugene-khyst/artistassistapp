@@ -116,6 +116,7 @@ export const ImageOutline: React.FC = () => {
     } else {
       model = null;
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMode(mode);
     setOutlineModel(model);
   }, [setOutlineModel, appSettings, models, user, isAuthLoading]);

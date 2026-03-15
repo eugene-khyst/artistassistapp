@@ -20,7 +20,7 @@ const SCALING_FACTOR = 32;
 
 export type Score = [number, number];
 
-export class Player<T = any> {
+export class Player<T> {
   constructor(
     public data: T,
     public id = 0,
@@ -28,13 +28,14 @@ export class Player<T = any> {
   ) {}
 }
 
-const comparePlayersByRating = ({rating: a}: Player, {rating: b}: Player) => a - b;
+const comparePlayersByRating = ({rating: a}: Player<unknown>, {rating: b}: Player<unknown>) =>
+  a - b;
 
-function probability({rating: rating1}: Player, {rating: rating2}: Player) {
+function probability({rating: rating1}: Player<unknown>, {rating: rating2}: Player<unknown>) {
   return 1.0 / (1.0 + Math.pow(10, (rating1 - rating2) / 400));
 }
 
-function game(player1: Player, player2: Player, [scoreA, scoreB]: Score): void {
+function game(player1: Player<unknown>, player2: Player<unknown>, [scoreA, scoreB]: Score): void {
   const probabilityB = probability(player1, player2);
   const probabilityA = probability(player2, player1);
   player1.rating = player1.rating + SCALING_FACTOR * (scoreA - probabilityA);

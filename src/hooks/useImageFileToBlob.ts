@@ -16,22 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {useEffect, useState} from 'react';
+import {useMemo} from 'react';
 
 import type {ImageFile} from '~/src/services/image/image-file';
 import {arrayBufferToBlob} from '~/src/utils/blob';
 
 export function useImageFileToBlob(imageFile?: ImageFile | null): Blob | undefined {
-  const [blob, setBlob] = useState<Blob>();
-
-  useEffect(() => {
-    if (!imageFile) {
-      setBlob(undefined);
-      return;
-    }
-    const {buffer, type} = imageFile;
-    setBlob(arrayBufferToBlob(buffer, type));
-  }, [imageFile]);
-
-  return blob;
+  return useMemo(
+    () => (imageFile ? arrayBufferToBlob(imageFile.buffer, imageFile.type) : undefined),
+    [imageFile]
+  );
 }

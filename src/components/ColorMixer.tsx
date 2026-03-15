@@ -38,7 +38,7 @@ import {
 } from 'antd';
 import type {Color as PickedColor} from 'antd/es/color-picker';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
-import {Fragment, useEffect, useState} from 'react';
+import {Fragment, useEffect, useMemo, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {COLOR_PICKER_PRESET_LABELS} from '~/src/components/messages';
@@ -101,26 +101,26 @@ export const ColorMixer: React.FC = () => {
   const [backgroundColor, setBackgroundColor] = useState<string>(PAPER_WHITE_HEX);
   const [colors, setColors] = useState<Color[]>([]);
   const [ratio, setRatio] = useState<number[]>([]);
-  const [resultColorMixtures, setResultColorMixtures] = useState<ColorMixture[]>([]);
   const [isOpenReflectanceChart, setIsOpenReflectanceChart] = useState<boolean>(false);
 
   useEffect(() => {
     if (colorSet && isMixable(colorSet.type)) {
       form.setFieldsValue(formInitialValues);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setColors([]);
       setRatio([]);
     }
   }, [colorSet, form]);
 
-  useEffect(() => {
-    setResultColorMixtures(
+  const resultColorMixtures = useMemo<ColorMixture[]>(
+    () =>
       colorSet && colors.length > 0 && colors.length === ratio.length
         ? makeColorMixture(colorSet.type, colors, ratio, backgroundColor).sort(
             compareColorMixturesByConsistency
           )
-        : []
-    );
-  }, [colorSet, colors, ratio, backgroundColor]);
+        : [],
+    [colorSet, colors, ratio, backgroundColor]
+  );
 
   const handleFormValuesChange = (
     _: Partial<ColorMixerForm>,

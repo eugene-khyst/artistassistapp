@@ -17,7 +17,8 @@
  */
 
 import {Plural} from '@lingui/react/macro';
-import React, {Fragment} from 'react';
+import type React from 'react';
+import {Fragment} from 'react';
 
 import type {BrandColorCount} from '~/src/services/color/types';
 

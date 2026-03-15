@@ -138,12 +138,14 @@ export const ImageColorPicker: React.FC = () => {
 
   useEffect(() => {
     if (colorPickerDiameter) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSampleDiameter(colorPickerDiameter);
     }
   }, [colorPickerDiameter]);
 
   useEffect(() => {
     if (colorPickerSort) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSort(colorPickerSort);
     }
   }, [colorPickerSort]);
@@ -160,6 +162,7 @@ export const ImageColorPicker: React.FC = () => {
     colorPickerCanvas.setPipetteDiameter(diameter);
     colorPickerCanvas.setPipettePoint(new Vector(x, y));
     colorPickerCanvas.setMinZoom();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSampleDiameter(diameter);
   }, [colorPickerCanvas, colorPickerPipette]);
 

@@ -18,7 +18,8 @@
 
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Alert, Space, Typography} from 'antd';
-import React, {useEffect} from 'react';
+import type React from 'react';
+import {useEffect} from 'react';
 import type {FallbackProps} from 'react-error-boundary';
 
 import {ClearStorage} from '~/src/components/storage/ClearStorage';

@@ -20,7 +20,8 @@ import {ClearOutlined, DeleteOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {SpaceProps} from 'antd';
 import {Button, Popconfirm, Space} from 'antd';
-import React, {useState} from 'react';
+import type React from 'react';
+import {useState} from 'react';
 
 import {clearCache, deleteAppData} from '~/src/utils/storage';
 
@@ -30,7 +31,7 @@ export const ClearStorage: React.FC<Props> = ({orientation}: Props) => {
   const {t} = useLingui();
 
   const [isClearingCache, setIsClearingCache] = useState<boolean>(false);
-  const [isDeleteingData, setIsDeleteingData] = useState<boolean>(false);
+  const [isDeletingData, setIsDeletingData] = useState<boolean>(false);
 
   const handleClearCache = async () => {
     setIsClearingCache(true);
@@ -42,11 +43,11 @@ export const ClearStorage: React.FC<Props> = ({orientation}: Props) => {
   };
 
   const handleDeleteData = async () => {
-    setIsDeleteingData(true);
+    setIsDeletingData(true);
     try {
       await deleteAppData();
     } finally {
-      setIsDeleteingData(false);
+      setIsDeletingData(false);
     }
   };
 
@@ -74,7 +75,7 @@ export const ClearStorage: React.FC<Props> = ({orientation}: Props) => {
         okText={t`Yes`}
         cancelText={t`No`}
       >
-        <Button icon={<DeleteOutlined />} danger loading={isDeleteingData}>
+        <Button icon={<DeleteOutlined />} danger loading={isDeletingData}>
           <Trans>Delete all app data</Trans>
         </Button>
       </Popconfirm>

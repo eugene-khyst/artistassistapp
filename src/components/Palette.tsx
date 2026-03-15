@@ -50,6 +50,7 @@ export const Palette: React.FC = () => {
 
   useEffect(() => {
     if (colorSet) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setActivePaletteKey(colorSet.type.toString());
     }
   }, [colorSet]);

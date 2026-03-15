@@ -17,7 +17,8 @@
  */
 
 import {theme, Tooltip} from 'antd';
-import React, {memo} from 'react';
+import type React from 'react';
+import {memo} from 'react';
 
 import {Rgb} from '~/src/services/color/space/rgb';
 

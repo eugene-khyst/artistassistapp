@@ -36,6 +36,7 @@ export const QRScannerModal: React.FC<Props> = ({open, setOpen}: Props) => {
 
   useEffect(() => {
     if (open) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsPaused(false);
     }
   }, [open]);

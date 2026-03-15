@@ -23,6 +23,7 @@ export function useCreateObjectUrl(blob?: Blob | null): string | undefined {
 
   useEffect(() => {
     if (!blob) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setUrl(undefined);
       return;
     }

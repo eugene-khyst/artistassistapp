@@ -114,7 +114,7 @@ export class AuthClient {
   }
 }
 
-function authError(e: any): AuthError {
+function authError(e: unknown): AuthError {
   const type: string = e instanceof jose.errors.JWTExpired ? 'expired' : 'invalid_token';
   return new AuthError(type);
 }

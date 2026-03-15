@@ -73,6 +73,7 @@ export const GridControls: React.FC<Props> = ({
   useEffect(() => {
     const {enabled, mode, size, diagonals} = appSettings.grids?.[tab] ?? {};
     if (enabled) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setGridEnabled(enabled);
     }
     if (mode) {

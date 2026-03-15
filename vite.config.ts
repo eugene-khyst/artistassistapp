@@ -1,7 +1,8 @@
 import {lingui} from '@lingui/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
 import {visualizer} from 'rollup-plugin-visualizer';
-import {PluginOption, defineConfig} from 'vite';
+import type {PluginOption} from 'vite';
+import {defineConfig} from 'vite';
 import glsl from 'vite-plugin-glsl';
 import {VitePWA} from 'vite-plugin-pwa';
 import svgr from 'vite-plugin-svgr';
@@ -15,8 +16,11 @@ const glslPlugin: PluginOption = glsl({
 const excludeWasmPlugin: PluginOption = {
   name: 'exclude-wasm',
   generateBundle(_, bundle) {
-    for (const filename in bundle) {
+    for (const filename of Object.keys(bundle)) {
       if (filename.endsWith('.wasm')) {
+        // You can prevent files from being emitted by deleting them from the bundle object
+        // https://rollupjs.org/plugin-development/#generatebundle
+        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
         delete bundle[filename];
       }
     }
@@ -39,7 +43,7 @@ export default defineConfig({
       injectRegister: false,
       injectManifest: {
         maximumFileSizeToCacheInBytes: maxFileSize,
-        globIgnores: ['**\/node_modules\/**\/*', '**\/404.html', '**\/cleanup.html'],
+        globIgnores: ['**/node_modules/**/*', '**/404.html', '**/cleanup.html'],
         buildPlugins: {
           vite: [glslPlugin],
           rollup: [excludeWasmPlugin],

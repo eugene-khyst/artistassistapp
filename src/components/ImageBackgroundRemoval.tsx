@@ -83,7 +83,6 @@ export const ImageBackgroundRemoval: React.FC = () => {
   } = useOnnxModels(OnnxModelType.BackgroundRemoval);
 
   const [modelId, setModelId] = useState<string>();
-  const [position, setPosition] = useState<number>(100);
   const [isColorPickerOpened, setIsColorPickerOpened] = useState<boolean>(false);
 
   const model: OnnxModel | null | undefined = modelId ? models?.get(modelId) : null;
@@ -118,13 +117,12 @@ export const ImageBackgroundRemoval: React.FC = () => {
     const model: OnnxModel | undefined =
       (backgroundRemovalModel ? models?.get(backgroundRemovalModel) : undefined) ??
       getDefaultModel(models, user);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setModelId(model?.id);
     setBackgroundRemovalModel(model);
   }, [setBackgroundRemovalModel, appSettings, models, user, isAuthLoading]);
 
-  useEffect(() => {
-    setPosition(isBackgroundRemovalLoadingDebounced ? 100 : 25);
-  }, [isBackgroundRemovalLoadingDebounced]);
+  const position = isBackgroundRemovalLoadingDebounced ? 100 : 25;
 
   const handleModelChange = (value: string) => {
     setModelId(value);
@@ -218,15 +216,15 @@ export const ImageBackgroundRemoval: React.FC = () => {
           style={{margin: 0}}
           extra={
             !user &&
-            (!isAccessAllowed ? (
+            (isAccessAllowed ? (
+              <Typography.Text type="secondary">
+                <Trans>Only a limited number of modes are available in the free version</Trans>
+              </Typography.Text>
+            ) : (
               <Typography.Text type="warning">
                 <Trans>
                   You&apos;ve selected mode that is available to paid Patreon members only
                 </Trans>
-              </Typography.Text>
-            ) : (
-              <Typography.Text type="secondary">
-                <Trans>Only a limited number of modes are available in the free version</Trans>
               </Typography.Text>
             ))
           }
