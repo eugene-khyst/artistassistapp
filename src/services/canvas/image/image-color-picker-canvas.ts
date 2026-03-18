@@ -191,7 +191,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     const imagePoint: Vector | undefined = this.toImagePoint(pipettePoint);
     this.pipetteRgb = this.getAverageColor(imagePoint) ?? Rgb.WHITE;
     const event: PipettePointSetEvent = {
-      point: pipettePoint!,
+      point: pipettePoint,
       diameter: this.lastPipetteDiameter,
       rgb: this.pipetteRgb,
     };

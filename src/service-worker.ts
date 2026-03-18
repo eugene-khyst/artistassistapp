@@ -64,7 +64,11 @@ async function install(): Promise<void> {
     criticalUrls.map(async url => {
       const request = new Request(url, {cache: 'reload'});
       const response = await fetch(request);
-      await cachePutWithRetry(cache, request, response, true, true, true);
+      await cachePutWithRetry(cache, request, response, {
+        allowOpaqueResponses: true,
+        retry: true,
+        strict: true,
+      });
     })
   );
   await Promise.allSettled(
@@ -72,7 +76,10 @@ async function install(): Promise<void> {
       try {
         const request = new Request(url, {cache: 'reload'});
         const response = await fetch(request);
-        await cachePutWithRetry(cache, request, response, true, true, false);
+        await cachePutWithRetry(cache, request, response, {
+          allowOpaqueResponses: true,
+          retry: true,
+        });
       } catch (error) {
         console.error('Failed to cache optional asset', url, error);
       }
@@ -103,6 +110,8 @@ self.addEventListener('fetch', (event: FetchEvent) => {
       if (url.origin === self.location.origin) {
         if (NO_CACHE_PATHNAMES.has(url.pathname)) {
           response = fetch(request);
+        } else if (request.mode === 'navigate') {
+          response = fetchCacheFirst(new Request('/'));
         } else {
           response = fetchCacheFirst(request);
         }

@@ -59,7 +59,7 @@ export function float32TensorToImageData(
       imageData[j + 3] = 255;
     }
   }
-  return new ImageData(imageData, width!, height!);
+  return new ImageData(imageData, width!, height);
 }
 
 export function getFloat32TensorTransferables(tensors: Float32Tensor[][]) {

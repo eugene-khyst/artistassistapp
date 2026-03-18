@@ -51,7 +51,7 @@ export function toHexString(hex: string): string {
 }
 
 export function packRgb(r: number, g: number, b: number): number {
-  return (r! << 16) + (g! << 8) + b!;
+  return (r << 16) + (g << 8) + b;
 }
 
 export function unpackRgb(packed: number): RgbTuple {

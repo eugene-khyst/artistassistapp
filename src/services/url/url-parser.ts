@@ -39,6 +39,8 @@ const SKU_BASE = new Map<number, number>([
   [45, 6000000], //golden-williamsburg
 ]);
 const URL_PARAM_TAB = 'tab';
+const TAB_KEY_VALUES = new Set<string>(Object.values(TabKey));
+const LOGIN_PATHNAME = '/login';
 
 export function colorSetToUrl({
   type,
@@ -70,58 +72,81 @@ export function colorSetToUrl({
   return url.toString();
 }
 
-export function parseUrl(urlStr: string): UrlParsingResult {
-  const {searchParams} = new URL(urlStr);
-  if (!searchParams.has(URL_PARAM_COLOR_TYPE) && !searchParams.has(URL_PARAM_TAB)) {
-    return {};
+function parseTabFromPathname(url: URL): TabKey | undefined {
+  const slug: string = url.pathname.replace(/^\/|\/$/g, '');
+  if (slug && TAB_KEY_VALUES.has(slug)) {
+    return slug as TabKey;
+  }
+  return undefined;
+}
+
+function parseTabFromSearchParams(searchParams: URLSearchParams): TabKey | undefined {
+  const tab: string | null = searchParams.get(URL_PARAM_TAB);
+  if (tab && TAB_KEY_VALUES.has(tab)) {
+    return tab as TabKey;
+  }
+  return undefined;
+}
+
+function parseColorSetFromSearchParams(
+  searchParams: URLSearchParams
+): ColorSetDefinition | undefined {
+  if (!searchParams.has(URL_PARAM_COLOR_TYPE) || !searchParams.has(URL_PARAM_COLOR_BRANDS)) {
+    return undefined;
   }
   const type: ColorType = Number.parseInt(searchParams.get(URL_PARAM_COLOR_TYPE)!, URL_PARAM_RADIX);
-  if (searchParams.has(URL_PARAM_COLOR_BRANDS)) {
-    const brands: number[] = searchParams
-      .get(URL_PARAM_COLOR_BRANDS)!
-      .split(URL_PARAM_SEPARATOR)
-      .map((brand: string) => Number.parseInt(brand, URL_PARAM_RADIX));
-    const colors: Record<number, number[]> = {};
-    for (const brand of brands) {
-      const paramColors = `${URL_PARAM_COLORS_PREFIX}${brand}`;
-      if (searchParams.has(paramColors)) {
-        colors[brand] = searchParams
-          .get(paramColors)!
-          .split(URL_PARAM_SEPARATOR)
-          .map((idStr: string) => {
-            const id = Number.parseInt(idStr, URL_PARAM_RADIX);
-            return id + (SKU_BASE.get(brand) ?? 0);
-          });
-      }
+  const brands: number[] = searchParams
+    .get(URL_PARAM_COLOR_BRANDS)!
+    .split(URL_PARAM_SEPARATOR)
+    .map((brand: string) => Number.parseInt(brand, URL_PARAM_RADIX));
+  const colors: Record<number, number[]> = {};
+  for (const brand of brands) {
+    const paramColors = `${URL_PARAM_COLORS_PREFIX}${brand}`;
+    if (searchParams.has(paramColors)) {
+      colors[brand] = searchParams
+        .get(paramColors)!
+        .split(URL_PARAM_SEPARATOR)
+        .map((idStr: string) => {
+          const id = Number.parseInt(idStr, URL_PARAM_RADIX);
+          return id + (SKU_BASE.get(brand) ?? 0);
+        });
     }
-    if (!Object.keys(colors).length) {
-      return {};
-    }
-    const name = searchParams.get(URL_PARAM_NAME);
-    return {
-      colorSet: {
-        id: NEW_COLOR_SET,
-        type,
-        brands,
-        standardColorSet: CUSTOM_COLOR_SET,
-        colors,
-        ...(name ? {name} : {}),
-      },
-    };
   }
-  if (searchParams.has(URL_PARAM_TAB)) {
-    const tab: string = searchParams.get(URL_PARAM_TAB)!;
-    if (Object.values(TabKey).includes(tab as TabKey)) {
-      return {tabKey: tab as TabKey};
-    }
+  if (!Object.keys(colors).length) {
+    return undefined;
+  }
+  const name = searchParams.get(URL_PARAM_NAME);
+  return {
+    id: NEW_COLOR_SET,
+    type,
+    brands,
+    standardColorSet: CUSTOM_COLOR_SET,
+    colors,
+    ...(name ? {name} : {}),
+  };
+}
+
+export function parseUrl(urlStr: string): UrlParsingResult {
+  const url = new URL(urlStr);
+  if (url.pathname === LOGIN_PATHNAME) {
+    return {login: true};
+  }
+  const tabKey: TabKey | undefined =
+    parseTabFromPathname(url) ?? parseTabFromSearchParams(url.searchParams);
+  if (tabKey) {
+    return {tabKey};
+  }
+  const colorSet: ColorSetDefinition | undefined = parseColorSetFromSearchParams(url.searchParams);
+  if (colorSet) {
+    return {colorSet};
   }
   return {};
 }
 
 export function importFromUrl(): UrlParsingResult {
   const importedFromUrl: UrlParsingResult = parseUrl(window.location.toString());
-  const {colorSet, tabKey} = importedFromUrl;
-  if (colorSet || tabKey) {
+  const {colorSet, tabKey, login} = importedFromUrl;
+  if (colorSet || tabKey || login) {
     replaceHistory();
   }
   return importedFromUrl;

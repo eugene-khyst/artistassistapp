@@ -70,7 +70,7 @@ export class WebGLRenderer {
     this.uniformLocations = this.programs.map(
       (program, i) =>
         new Map(
-          ['u_flipY', 'u_texture', ...(uniformNames[i] ?? [])!].map(name => [
+          ['u_flipY', 'u_texture', ...(uniformNames[i] ?? [])].map(name => [
             name,
             gl.getUniformLocation(program, name),
           ])
@@ -93,7 +93,7 @@ export class WebGLRenderer {
 
   private linkProgram(vertexShader: WebGLShader, fragmentShader: WebGLShader): WebGLProgram {
     const {gl} = this;
-    const program = gl.createProgram()!;
+    const program = gl.createProgram();
     gl.attachShader(program, vertexShader);
     gl.attachShader(program, fragmentShader);
     gl.linkProgram(program);

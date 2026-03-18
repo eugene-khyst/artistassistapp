@@ -27,8 +27,8 @@ npm run translate        # Auto-translate .po files via Bing Translate API
 ArtistAssistApp is a React 19 PWA for artists. The UI is a single `<Tabs>` component in
 `ArtistAssistApp.tsx` with one tab per feature (ColorSet, Photo, ColorPicker, Palette, ColorMixing,
 Outline, Grid, TonalValues, SimplifiedPhoto, LimitedPalette, StyleTransfer, ColorAdjustment,
-PerspectiveCorrection, BackgroundRemove, Compare, Install, Help). Tab visibility is conditional on
-auth state and PWA display mode.
+PerspectiveCorrection, BackgroundRemove, Compare, Install, CustomColorBrand, Help). Tab visibility is
+conditional on auth state and PWA display mode.
 
 ### State Management
 
@@ -54,6 +54,11 @@ Pure business logic, no React:
   color-sets, images, color-mixtures, custom-brands)
 - **`auth/`** — JWT-based auth client
 - **`math/`** — geometry, matrix operations, GCD, clamp utilities
+- **`ads/`** — ad integration
+- **`event/`** — custom event manager
+- **`print/`** — print functionality
+- **`rating/`** — app rating prompts
+- **`url/`** — URL parsing utilities
 
 ### Web Workers
 
@@ -108,6 +113,7 @@ file.
 
 ### TypeScript
 
-- Strict mode enabled (`tseslint.configs.strictTypeChecked`)
+- Strict mode enabled (`tseslint.configs.strictTypeChecked` + `stylisticTypeChecked`)
 - Unused vars are errors (prefix with `_` to suppress)
-- `any` and non-null assertions (`!`) are allowed (rules turned off)
+- Unused imports are errors (`eslint-plugin-unused-imports`)
+- Non-null assertions (`!`) are allowed (rule turned off)

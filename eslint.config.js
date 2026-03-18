@@ -29,7 +29,6 @@ const sharedTsRules = {
   ],
   '@typescript-eslint/restrict-template-expressions': ['error', {allowNumber: true}],
   '@typescript-eslint/prefer-nullish-coalescing': ['error', {ignorePrimitives: true}],
-  '@typescript-eslint/no-unnecessary-type-assertion': 'off',
 };
 
 export default defineConfig(

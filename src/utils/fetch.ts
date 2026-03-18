@@ -19,6 +19,12 @@
 import {COMMIT_HASH} from '~/src/config';
 import {EXTENSION_TO_MIME_TYPE, getFileExtension, getUrlString, splitUrl} from '~/src/utils/url';
 
+interface CachePutOptions {
+  allowOpaqueResponses?: boolean;
+  retry?: boolean;
+  strict?: boolean;
+}
+
 interface Chunk {
   filename: string;
   size: number;
@@ -57,9 +63,7 @@ export async function cachePutWithRetry(
   cache: Cache,
   request: RequestInfo | URL,
   response: Response,
-  allowOpaqueResponses: boolean,
-  retry = false,
-  strict = false
+  {allowOpaqueResponses = false, retry = false, strict = false}: CachePutOptions = {}
 ): Promise<void> {
   const url: string = getUrlString(request);
   if (!response.ok) {
@@ -117,7 +121,7 @@ export async function cachePutWithRetry(
     if (retry) {
       console.log('Clearing cache and retrying');
       await clearCache(cache);
-      await cachePutWithRetry(cache, request, response, allowOpaqueResponses, false, strict);
+      await cachePutWithRetry(cache, request, response, {allowOpaqueResponses, strict});
     } else if (strict) {
       throw new Error(`Failed to cache ${url}`);
     }
@@ -130,8 +134,11 @@ export async function fetchNetwork(
   allowOpaqueResponses: boolean
 ): Promise<Response> {
   try {
-    const networkResponse = await fetch(request);
-    await cachePutWithRetry(cache, request, networkResponse.clone(), allowOpaqueResponses, true);
+    const networkResponse = await fetch(request, {cache: 'no-cache'});
+    await cachePutWithRetry(cache, request, networkResponse.clone(), {
+      allowOpaqueResponses,
+      retry: true,
+    });
     return networkResponse;
   } catch (error) {
     return errorResponse(error);
@@ -183,7 +190,7 @@ async function downloadChunkedFileInfo(
   {signal}: FetchChunkedOptions
 ): Promise<ChunkedFile> {
   const infoUrl = `${url}.json`;
-  const response: Response = await fetch(infoUrl, {signal});
+  const response: Response = await fetch(infoUrl, {signal, cache: 'no-cache'});
   if (!response.ok) {
     throw new Error(`Failed to download chunked file info ${infoUrl}`);
   }
@@ -202,6 +209,11 @@ async function downloadChunks(
   const queue = chunks.map((_, i) => i);
   let progress = 0;
 
+  const abortController = new AbortController();
+  signal?.addEventListener('abort', () => {
+    abortController.abort(signal.reason);
+  });
+
   async function worker(): Promise<void> {
     while (queue.length > 0) {
       const i = queue.shift()!;
@@ -209,8 +221,11 @@ async function downloadChunks(
 
       progressCallback?.(chunk.filename, progress);
 
-      const response = await fetch(new URL(chunk.filename, baseUrl), {signal});
+      const response = await fetch(new URL(chunk.filename, baseUrl), {
+        signal: abortController.signal,
+      });
       if (!response.ok) {
+        abortController.abort();
         throw new Error(`Failed to download file chunk ${chunk.filename}`);
       }
 
@@ -219,6 +234,7 @@ async function downloadChunks(
       completedCount++;
 
       progress = (completedCount / chunks.length) * 100;
+      progressCallback?.(chunk.filename, progress);
     }
   }
 

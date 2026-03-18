@@ -27,6 +27,8 @@ export const EXTENSION_TO_MIME_TYPE: Record<string, string[]> = {
   gif: ['image/gif'],
   svg: ['image/svg+xml'],
   json: ['application/json'],
+  wasm: ['application/wasm'],
+  onnx: ['application/octet-stream'],
 };
 
 export function getUrlString(requestInfo: RequestInfo | URL): string {

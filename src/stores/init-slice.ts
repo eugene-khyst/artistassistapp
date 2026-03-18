@@ -79,7 +79,15 @@ export const createInitSlice: StateCreator<
     await get().setLocale(getCurrentLocale(), false);
     await get().handleAuthRedirectCallback();
 
-    const {colorSet: importedColorSet, tabKey: importedTabKey} = importFromUrl();
+    const {colorSet: importedColorSet, tabKey: importedTabKey, login} = importFromUrl();
+
+    if (login) {
+      set({
+        isInitialStateLoading: false,
+      });
+      get().loginWithRedirect();
+      return;
+    }
 
     const appSettings: AppSettings = await get().loadAppSettings();
     const displayMode: DisplayMode = getDisplayMode();

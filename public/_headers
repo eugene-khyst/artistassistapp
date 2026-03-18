@@ -2,3 +2,9 @@
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Embedder-Policy: require-corp
   X-Frame-Options: DENY
+
+/*.html
+  Cache-Control: no-cache
+
+/cleanup.html
+  Clear-Site-Data: "cache"

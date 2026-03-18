@@ -38,7 +38,7 @@ export function interpolationWebGL(
   targetHeight: number,
   interpolation = Interpolation.Bilinear
 ): OffscreenCanvas {
-  const fragmentShaderSource = FRAGMENT_SHADER_SOURCES[interpolation]!;
+  const fragmentShaderSource = FRAGMENT_SHADER_SOURCES[interpolation];
   const renderer = new WebGLRenderer([fragmentShaderSource], [], image, [
     targetWidth,
     targetHeight,
