@@ -374,10 +374,13 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
 
   const handleSubmit = async (colorSet: ColorSetDefinition) => {
     if (!(await requestPersistentStorage())) {
-      const {title, content} = PERSISTENT_STORAGE_WARN;
-      await modal.warning({
-        title: t(title),
-        content: t(content),
+      const {message: msg, description} = PERSISTENT_STORAGE_WARN;
+      notification.warning({
+        message: t(msg),
+        description: t(description),
+        placement: 'top',
+        duration: 10,
+        showProgress: true,
       });
     }
     colorSet = await saveColorSet(colorSet, brands, colors);

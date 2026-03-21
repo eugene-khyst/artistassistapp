@@ -29,7 +29,8 @@ export interface Authentication {
 export class AuthError extends Error {
   constructor(
     public type: string,
-    message?: string
+    message?: string,
+    public context?: Record<string, unknown>
   ) {
     super(message);
     this.type = type;

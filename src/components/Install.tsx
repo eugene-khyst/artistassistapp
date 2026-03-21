@@ -76,9 +76,9 @@ export const Install: React.FC<Props> = ({showInstallPromotion, promptToInstall}
                       <li>
                         <AndroidOutlined /> Android
                         <ul>
-                          <li>Chrome 76+</li>
+                          <li>Chrome 85+</li>
                           <li>Opera 73+</li>
-                          <li>Samsung Internet 10.1+</li>
+                          <li>Samsung Internet 14.0+</li>
                         </ul>
                       </li>
                       <li>
@@ -86,13 +86,13 @@ export const Install: React.FC<Props> = ({showInstallPromotion, promptToInstall}
                           <WindowsOutlined /> Windows and <LinuxOutlined /> Linux
                         </Trans>
                         <ul>
-                          <li>Chrome 76+</li>
-                          <li>Edge 79+</li>
-                          <li>Opera 64+</li>
+                          <li>Chrome 85+</li>
+                          <li>Edge 85+</li>
+                          <li>Opera 71+</li>
                         </ul>
                       </li>
                       <li>
-                        <ChromeOutlined /> ChromeOS 76+
+                        <ChromeOutlined /> ChromeOS 85+
                       </li>
                     </ul>
                   </Typography.Paragraph>

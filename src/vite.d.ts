@@ -19,6 +19,7 @@
 interface ImportMetaEnv {
   readonly MODE: 'development' | 'production';
   readonly VITE_COMMIT_HASH?: string;
+  readonly VITE_JWKS?: string;
 }
 
 interface ImportMeta {

@@ -61,8 +61,8 @@ export const COLOR_PICKER_PRESET_LABELS = {
 };
 
 export const PERSISTENT_STORAGE_WARN = {
-  title: defineMessage`Persistent storage is not enabled`,
-  content: defineMessage`Your data may not be saved reliably if the browser is closed. To fix this, install the app as described in the Install tab.`,
+  message: defineMessage`Persistent storage is not enabled`,
+  description: defineMessage`Your data may not be saved reliably if the browser is closed. To fix this, install the app as described in the Install tab.`,
 };
 
 export const COLOR_SETS_BACKUP_NOTIFICATION = {

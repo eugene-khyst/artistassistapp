@@ -52,30 +52,22 @@ const DEFAULT_LOCALE = 'en';
 
 export type Locale = (typeof LOCALES)[number];
 
-const LOCALE_KEY = 'locale';
-
-function getPreferredLocale(): Locale | undefined {
+export function getPreferredLocale(): Locale {
   const locales: string[] = (
     navigator.languages.length ? navigator.languages : [navigator.language]
   ).filter(Boolean);
   const langs: string[] = locales
     .map((locale: string) => locale.split('-')[0]?.toLowerCase())
     .filter((lang): lang is string => !!lang);
-  return mergeAlternating(locales, langs).find((locale): locale is Locale =>
-    LOCALES.includes(locale as Locale)
+  return (
+    mergeAlternating(locales, langs).find((locale): locale is Locale =>
+      LOCALES.includes(locale as Locale)
+    ) ?? DEFAULT_LOCALE
   );
 }
 
-export function getCurrentLocale(): Locale {
-  const locale: string | null = localStorage.getItem(LOCALE_KEY);
-  return (locale as Locale | null) ?? getPreferredLocale() ?? DEFAULT_LOCALE;
-}
-
-export async function setCurrentLocale(locale: Locale, persist: boolean) {
+export async function setCurrentLocale(locale: Locale) {
   await loadMessageCatalog(locale);
-  if (persist) {
-    localStorage.setItem(LOCALE_KEY, locale);
-  }
 }
 
 export async function loadMessageCatalog(locale: Locale) {

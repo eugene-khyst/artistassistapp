@@ -30,7 +30,7 @@ export const LogoutButton: React.FC = () => {
     <Button
       icon={<LogoutOutlined />}
       onClick={() => {
-        logout();
+        void logout();
       }}
     >
       <Trans>Log out</Trans>

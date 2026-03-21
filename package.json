@@ -8,6 +8,7 @@
     "dev": "CF_PAGES_COMMIT_SHA=$(git rev-parse HEAD) vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
+    "start": "npm run build && npm run preview",
     "clean": "rm -rf node_modules/.vite dist",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

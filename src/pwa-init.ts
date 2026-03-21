@@ -25,7 +25,7 @@ export function initializePWA() {
 }
 
 function registerServiceWorker() {
-  if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  if (!import.meta.env.DEV && 'serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       void registerAndRefresh();
     });

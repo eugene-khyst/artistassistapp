@@ -40,7 +40,7 @@ export const ImageChooser: React.FC = () => {
 
   const [sampleImagesLoadingCount, setSampleImagesLoadingCount] = useState<number>(0);
 
-  const {modal} = App.useApp();
+  const {notification} = App.useApp();
 
   const {t} = useLingui();
 
@@ -48,10 +48,13 @@ export const ImageChooser: React.FC = () => {
 
   const handleFileChange = async ([file]: File[]) => {
     if (!(await requestPersistentStorage())) {
-      const {title, content} = PERSISTENT_STORAGE_WARN;
-      await modal.warning({
-        title: t(title),
-        content: t(content),
+      const {message: msg, description} = PERSISTENT_STORAGE_WARN;
+      notification.warning({
+        message: t(msg),
+        description: t(description),
+        placement: 'top',
+        duration: 10,
+        showProgress: true,
       });
     }
     if (file) {

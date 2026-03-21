@@ -33,14 +33,12 @@ import {UnhandledRejectionHandler} from '~/src/components/alert/UnhandledRejecti
 import {ServiceWorkerUpdateNotification} from '~/src/components/pwa/ServiceWorkerUpdateNotification';
 import {InternationalizationProvider} from '~/src/contexts/InternationalizationProvider';
 import {initializePWA} from '~/src/pwa-init';
-import {clearDatabase} from '~/src/services/db/db';
 import {useAppStore} from '~/src/stores/app-store';
 import {disableScreenLock} from '~/src/wake-lock';
 
 void (async () => {
   initializePWA();
   disableScreenLock();
-  void clearDatabase();
   await useAppStore.getState().initAppStore();
 
   const queryClient = new QueryClient({

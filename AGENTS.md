@@ -5,9 +5,10 @@ This file provides guidance to AI coding agents when working with code in this r
 ## Commands
 
 ```bash
-npm run dev          # Start dev server (sets CF_PAGES_COMMIT_SHA from git HEAD)
+npm run dev          # Start dev server with hot reload (no service worker)
+npm run start        # Build + preview production build (with service worker)
 npm run build        # Type-check + Vite build
-npm run preview      # Preview production build
+npm run preview      # Preview production build (without rebuilding)
 npm run lint         # ESLint
 npm run lint:fix     # ESLint with auto-fix
 npm run format       # Prettier check
@@ -20,6 +21,15 @@ npm run lingui:extract  # Extract translatable strings from source to .po files
 npm run translate        # Auto-translate .po files via Bing Translate API
 ```
 
+### Development Workflow
+
+Both `npm run dev` and `npm run start` serve on `localhost:5173` (same origin), so IndexedDB state
+(including ID tokens) persists between them. Use `npm run start` to log in with the full service
+worker, then switch to `npm run dev` for hot reload development.
+
+Cloudflare Pages handles `_redirects` rewrites and `404.html` in production only — neither `dev` nor
+`start` replicate this behavior locally.
+
 ## Architecture
 
 ### Application Structure
@@ -27,8 +37,8 @@ npm run translate        # Auto-translate .po files via Bing Translate API
 ArtistAssistApp is a React 19 PWA for artists. The UI is a single `<Tabs>` component in
 `ArtistAssistApp.tsx` with one tab per feature (ColorSet, Photo, ColorPicker, Palette, ColorMixing,
 Outline, Grid, TonalValues, SimplifiedPhoto, LimitedPalette, StyleTransfer, ColorAdjustment,
-PerspectiveCorrection, BackgroundRemove, Compare, Install, CustomColorBrand, Help). Tab visibility is
-conditional on auth state and PWA display mode.
+PerspectiveCorrection, BackgroundRemove, Compare, Install, CustomColorBrand, Help). Tab visibility
+is conditional on auth state and PWA display mode.
 
 ### State Management
 
@@ -51,8 +61,12 @@ Pure business logic, no React:
 - **`ml/`** — ONNX Runtime Web inference for ML models (background removal, style transfer) via
   `onnxruntime-web`; WASM files loaded from jsDelivr CDN
 - **`db/`** — IndexedDB access via `idb` library; schema defined in `db.ts` (stores: app-settings,
-  color-sets, images, color-mixtures, custom-brands)
-- **`auth/`** — JWT-based auth client
+  color-sets, images, color-mixtures, custom-brands, auth-error, id-token). ID tokens and error
+  data are in the same `artistassistapp` database (`auth-db.ts`)
+- **`auth/`** — JWT-based auth client using OIDC Form Post Response Mode. The auth server POSTs
+  `id_token`, `error`, `error_context` to `/login/callback`, which the service worker intercepts.
+  The SW saves `id_token` to IDB, passes `error` as a URL query param, saves `error_context` to
+  IDB, and redirects to `/`. JWKS public key is provided via `VITE_JWKS` env var
 - **`math/`** — geometry, matrix operations, GCD, clamp utilities
 - **`ads/`** — ad integration
 - **`event/`** — custom event manager
@@ -86,7 +100,9 @@ All user-facing strings must use Lingui macros (`t`, `msg`, `<Trans>`).
 
 Service worker at `src/service-worker.ts`, initialized via `src/pwa-init.ts`. Uses `vite-plugin-pwa`
 with `injectManifest` strategy. Cross-Origin headers (COEP/COOP) are required for SharedArrayBuffer
-support (ONNX WASM threading).
+support (ONNX WASM threading). The service worker intercepts `POST /login/callback` (auth callback)
+and `POST /share-target` (file sharing). All persistence uses IndexedDB — `localStorage` is not
+used.
 
 ### Vite Configuration
 

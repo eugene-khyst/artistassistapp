@@ -1,5 +1,6 @@
+import {readFile, writeFile} from 'node:fs/promises';
+
 import {MET} from 'bing-translate-api';
-import {readFile, writeFile} from 'fs/promises';
 import {po} from 'gettext-parser';
 
 const SOURCE_LANG = 'en' as const;

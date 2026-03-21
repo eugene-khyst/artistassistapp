@@ -25,6 +25,7 @@ declare const self: ServiceWorkerGlobalScope & {
 import type {ColorSetDefinition, CustomColorBrandDefinition} from '~/src/services/color/types';
 import {FileExtension} from '~/src/services/color/types';
 import {getAppSettings, saveAppSettings} from '~/src/services/db/app-settings-db';
+import {saveAuthErrorData, saveIdToken} from '~/src/services/db/auth-db';
 import {saveColorSets} from '~/src/services/db/color-set-db';
 import {saveCustomColorBrand} from '~/src/services/db/custom-brand-db';
 import {saveImageFile} from '~/src/services/db/image-file-db';
@@ -123,18 +124,47 @@ self.addEventListener('fetch', (event: FetchEvent) => {
         response = fetchSWR(request);
       }
       event.respondWith(response);
-    } else if (
-      request.method === 'POST' &&
-      url.origin === self.location.origin &&
-      url.pathname === '/share-target'
-    ) {
-      event.respondWith(receiveSharedData(request));
+    } else if (request.method === 'POST' && url.origin === self.location.origin) {
+      if (url.pathname === '/login/callback') {
+        event.respondWith(receiveAuthCallback(request));
+      } else if (url.pathname === '/share-target') {
+        event.respondWith(receiveSharedData(request));
+      }
     }
   } catch (error) {
     console.error('Service worker fetch error:', error);
     event.respondWith(fetch(request));
   }
 });
+
+async function receiveAuthCallback(request: Request): Promise<Response> {
+  const redirectUrl = new URL('/', self.location.origin);
+  try {
+    const formData: FormData = await request.formData();
+    const idToken = formData.get('id_token') as string | null;
+    const error = formData.get('error') as string | null;
+    const errorContext = formData.get('error_context') as string | null;
+
+    if (idToken) {
+      await saveIdToken(idToken);
+    }
+    if (error) {
+      redirectUrl.searchParams.set('error', error);
+      if (errorContext) {
+        try {
+          const parsed = JSON.parse(errorContext) as Record<string, unknown>;
+          await saveAuthErrorData({context: parsed});
+        } catch (e) {
+          console.error('Failed to parse error context', e);
+        }
+      }
+    }
+  } catch (e) {
+    console.error('Auth callback error', e);
+    redirectUrl.searchParams.set('error', 'unknown');
+  }
+  return Response.redirect(redirectUrl.href, 303);
+}
 
 async function receiveSharedData(request: Request): Promise<Response> {
   const formData: FormData = await request.formData();

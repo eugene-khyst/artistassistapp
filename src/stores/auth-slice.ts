@@ -31,9 +31,9 @@ export interface AuthSlice {
   authError: AuthError | null;
   authCheckInterval: number | null;
 
-  handleAuthRedirectCallback: () => Promise<Authentication | null>;
+  handleAuthCallback: () => Promise<Authentication | null>;
   loginWithRedirect: () => void;
-  logout: () => void;
+  logout: () => Promise<void>;
   isAuthValid: () => boolean;
   clearAuthError: () => void;
   startPeriodicAuthVerification: () => void;
@@ -43,7 +43,7 @@ export interface AuthSlice {
 export const createAuthSlice: StateCreator<AuthSlice, [], [], AuthSlice> = (set, get) => ({
   authClient: new AuthClient({
     domain: AUTH_URL,
-    redirectUri: window.location.origin,
+    redirectUri: `${window.location.origin}/login/callback`,
     issuer: AUTH_URL,
     audience: APP_URL,
   }),
@@ -52,14 +52,14 @@ export const createAuthSlice: StateCreator<AuthSlice, [], [], AuthSlice> = (set,
   authError: null,
   authCheckInterval: null,
 
-  handleAuthRedirectCallback: async (): Promise<Authentication | null> => {
+  handleAuthCallback: async (): Promise<Authentication | null> => {
     set({
       isAuthLoading: true,
       authError: null,
     });
     const {authClient} = get();
     try {
-      await authClient.handleRedirectCallback();
+      await authClient.handleAuthCallback();
       const auth: Authentication | null = await authClient.getAuthentication();
       set({
         auth,
@@ -82,9 +82,9 @@ export const createAuthSlice: StateCreator<AuthSlice, [], [], AuthSlice> = (set,
   loginWithRedirect: (): void => {
     get().authClient.loginWithRedirect();
   },
-  logout: (): void => {
+  logout: async (): Promise<void> => {
     get().stopPeriodicAuthVerification();
-    get().authClient.logout();
+    await get().authClient.logout();
   },
   isAuthValid: (): boolean => {
     return get().authClient.isAuthValid();

@@ -1,3 +1,6 @@
+import fs from 'node:fs';
+import path from 'node:path';
+
 import {lingui} from '@lingui/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
 import {visualizer} from 'rollup-plugin-visualizer';
@@ -26,6 +29,28 @@ const excludeWasmPlugin: PluginOption = {
     }
   },
 };
+
+function parseHeaders(): Record<string, string> {
+  const content = fs.readFileSync(path.resolve(__dirname, 'public/_headers'), 'utf-8');
+  const headers: Record<string, string> = {};
+  let isGlobal = false;
+  for (const line of content.split('\n')) {
+    const trimmed = line.trim();
+    if (trimmed === '/*') {
+      isGlobal = true;
+    } else if (trimmed && !trimmed.startsWith('#') && trimmed.startsWith('/')) {
+      isGlobal = false;
+    } else if (isGlobal && trimmed) {
+      const colonIndex = trimmed.indexOf(':');
+      if (colonIndex > 0) {
+        headers[trimmed.slice(0, colonIndex).trim()] = trimmed.slice(colonIndex + 1).trim();
+      }
+    }
+  }
+  return headers;
+}
+
+const globalHeaders = parseHeaders();
 
 export default defineConfig({
   plugins: [
@@ -61,10 +86,13 @@ export default defineConfig({
   },
 
   server: {
-    headers: {
-      'Cross-Origin-Opener-Policy': 'same-origin',
-      'Cross-Origin-Embedder-Policy': 'require-corp',
-    },
+    port: 5173,
+    headers: globalHeaders,
+  },
+
+  preview: {
+    port: 5173,
+    headers: globalHeaders,
   },
 
   build: {

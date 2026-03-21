@@ -75,7 +75,6 @@ export async function clearCache(reload = true) {
 
 export async function deleteAppData() {
   await clearCache(false);
-  localStorage.clear();
   try {
     await Promise.race([
       deleteDatabase({

@@ -25,11 +25,12 @@ import type {
   ColorType,
   CustomColorBrandDefinition,
 } from '~/src/services/color/types';
+import type {AuthErrorData} from '~/src/services/db/auth-db';
 import type {ImageFile} from '~/src/services/image/image-file';
 import type {AppSettings} from '~/src/services/settings/types';
 
-const DB_NAME = 'artistassistapp';
-const DB_VERSION = 3;
+export const DB_NAME = 'artistassistapp';
+const DB_VERSION = 4;
 
 export interface ArtistAssistAppDB extends DBSchema {
   'app-settings': {
@@ -62,6 +63,14 @@ export interface ArtistAssistAppDB extends DBSchema {
       'by-type': ColorType;
     };
   };
+  'auth-error': {
+    value: AuthErrorData;
+    key: number;
+  };
+  'id-token': {
+    value: string;
+    key: number;
+  };
 }
 
 type KeysEnum<T> = {[P in keyof Required<T>]: 1};
@@ -71,6 +80,8 @@ const artistAssistAppDBKeys: KeysEnum<ArtistAssistAppDB> = {
   images: 1,
   'color-mixtures': 1,
   'custom-brands': 1,
+  'auth-error': 1,
+  'id-token': 1,
 };
 const objectStoreNames: string[] = Object.keys(artistAssistAppDBKeys);
 
@@ -117,6 +128,14 @@ export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artist
         customBrandsStore.createIndex('by-date', 'date');
       }
 
+      if (!db.objectStoreNames.contains('auth-error')) {
+        db.createObjectStore('auth-error');
+      }
+
+      if (!db.objectStoreNames.contains('id-token')) {
+        db.createObjectStore('id-token');
+      }
+
       for (const objectStoreName of db.objectStoreNames) {
         if (!objectStoreNames.includes(objectStoreName)) {
           db.deleteObjectStore(objectStoreName);
@@ -128,16 +147,4 @@ export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artist
 
 export async function deleteDatabase(callbacks?: DeleteDBCallbacks): Promise<void> {
   await deleteDB(DB_NAME, callbacks);
-}
-
-export async function clearDatabase(): Promise<void> {
-  if (typeof indexedDB === 'undefined') {
-    return;
-  }
-  const databases: IDBDatabaseInfo[] = await indexedDB.databases();
-  for (const {name} of databases) {
-    if (name && name !== DB_NAME) {
-      void deleteDB(name);
-    }
-  }
 }

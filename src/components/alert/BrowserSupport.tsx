@@ -38,7 +38,6 @@ const BROWSER_FEATURES: Record<string, boolean> = {
   createImageBitmap: typeof createImageBitmap !== 'undefined',
   webgl2: isWebGl2Supported(),
   indexedDB: typeof indexedDB !== 'undefined',
-  localStorage: typeof localStorage !== 'undefined',
 };
 const IS_BROWSER_SUPPORTED = Object.values(BROWSER_FEATURES).every(Boolean);
 

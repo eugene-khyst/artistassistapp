@@ -18,7 +18,7 @@
 
 import type {StateCreator} from 'zustand';
 
-import {getCurrentLocale} from '~/src/i18n';
+import {getPreferredLocale} from '~/src/i18n';
 import {getAppSettings, saveAppSettings} from '~/src/services/db/app-settings-db';
 import {imageFileToFile} from '~/src/services/image/image-file';
 import type {AppSettings} from '~/src/services/settings/types';
@@ -76,8 +76,9 @@ export const createInitSlice: StateCreator<
       isInitialStateLoading: true,
     });
 
-    await get().setLocale(getCurrentLocale(), false);
-    await get().handleAuthRedirectCallback();
+    const appSettings: AppSettings = await get().loadAppSettings();
+    await get().setLocale(appSettings.locale ?? getPreferredLocale(), false);
+    await get().handleAuthCallback();
 
     const {colorSet: importedColorSet, tabKey: importedTabKey, login} = importFromUrl();
 
@@ -88,8 +89,6 @@ export const createInitSlice: StateCreator<
       get().loginWithRedirect();
       return;
     }
-
-    const appSettings: AppSettings = await get().loadAppSettings();
     const displayMode: DisplayMode = getDisplayMode();
     let activeTabKey: TabKey | undefined = importedTabKey ?? appSettings.activeTabKey;
     if (

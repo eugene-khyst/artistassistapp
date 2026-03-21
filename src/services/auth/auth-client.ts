@@ -20,10 +20,16 @@ import * as jose from 'jose';
 
 import type {Authentication} from '~/src/services/auth/types';
 import {AuthError} from '~/src/services/auth/types';
+import {
+  deleteIdToken,
+  getAndDeleteAuthErrorData,
+  getIdToken,
+  saveIdToken,
+} from '~/src/services/db/auth-db';
 import {replaceHistory} from '~/src/utils/history';
 
-import jwks from './jwks.json';
-
+const JWKS = jose.createLocalJWKSet(JSON.parse(import.meta.env.VITE_JWKS!) as jose.JSONWebKeySet);
+const ERROR_KEY = 'error';
 const ID_TOKEN_KEY = 'id_token';
 
 export function getMagicLink(jwt: string): string {
@@ -45,7 +51,6 @@ export class AuthClient {
   constructor(public props: AuthClientProps) {}
 
   private async authenticate(jwt: string): Promise<Authentication> {
-    const JWKS = jose.createLocalJWKSet(jwks as jose.JSONWebKeySet);
     const {issuer, audience} = this.props;
     const {
       payload: {sub, exp},
@@ -59,18 +64,21 @@ export class AuthClient {
     };
   }
 
-  async handleRedirectCallback(): Promise<void> {
+  async handleAuthCallback(): Promise<void> {
     const {searchParams} = new URL(window.location.toString());
-    if (searchParams.has('error')) {
-      const type = searchParams.get('error');
-      const message = searchParams.get('error_description') ?? '';
-      replaceHistory();
-      throw new AuthError(type!, message);
-    } else if (searchParams.has(ID_TOKEN_KEY)) {
-      const jwt = searchParams.get(ID_TOKEN_KEY)!;
+    const error = searchParams.get(ERROR_KEY);
+    const jwt = searchParams.get(ID_TOKEN_KEY);
+    if (error) {
+      try {
+        const data = await getAndDeleteAuthErrorData();
+        throw new AuthError(error, 'Authentication failed', data?.context);
+      } finally {
+        replaceHistory();
+      }
+    } else if (jwt) {
       try {
         this.authentication = await this.authenticate(jwt);
-        localStorage.setItem(ID_TOKEN_KEY, jwt);
+        await saveIdToken(jwt);
       } catch (e) {
         throw authError(e);
       } finally {
@@ -83,7 +91,7 @@ export class AuthClient {
     if (this.authentication) {
       return this.authentication;
     }
-    const jwt: string | null = localStorage.getItem(ID_TOKEN_KEY);
+    const jwt: string | undefined = await getIdToken();
     if (!jwt) {
       return null;
     }
@@ -91,7 +99,7 @@ export class AuthClient {
       this.authentication = await this.authenticate(jwt);
       return this.authentication;
     } catch (e) {
-      localStorage.removeItem(ID_TOKEN_KEY);
+      await deleteIdToken();
       throw authError(e);
     }
   }
@@ -103,8 +111,8 @@ export class AuthClient {
     window.location.assign(url.toString());
   }
 
-  logout(): void {
-    localStorage.removeItem(ID_TOKEN_KEY);
+  async logout(): Promise<void> {
+    await deleteIdToken();
     window.location.reload();
   }
 

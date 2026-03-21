@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export const COMMIT_HASH: string = import.meta.env.VITE_COMMIT_HASH ?? '0'; //CF_PAGES_COMMIT_SHA
+export const COMMIT_HASH: string = import.meta.env.VITE_COMMIT_HASH!;
 
 export const WEBSITE_URL = 'https://artistassistapp.com';
 export const APP_URL = 'https://app.artistassistapp.com';
