@@ -17,7 +17,6 @@
  */
 
 import {
-  AppstoreAddOutlined,
   CopyOutlined,
   DeleteOutlined,
   QrcodeOutlined,
@@ -51,13 +50,15 @@ import {LogoutButton} from '~/src/components/auth/LogoutButton';
 import {ColorSetSelect} from '~/src/components/color-set/ColorSetSelect';
 import {FileSelect} from '~/src/components/file/FileSelect';
 import {LocaleSelect} from '~/src/components/i18n/LocaleSelect';
+import {InstallButton} from '~/src/components/install/InstallButton';
 import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
-import {COLOR_SETS_BACKUP_NOTIFICATION, PERSISTENT_STORAGE_WARN} from '~/src/components/messages';
 import {QRCode} from '~/src/components/qr/QRCode';
 import {QRScannerModal} from '~/src/components/qr/QRScannerModal';
 import type {ChangableComponent} from '~/src/components/types';
 import {useColorBrands} from '~/src/hooks/useColorBrands';
 import {useColors} from '~/src/hooks/useColors';
+import {useColorSetBackup} from '~/src/hooks/useColorSetBackup';
+import {usePersistentStorage} from '~/src/hooks/usePersistentStorage';
 import {useStandardColorSets} from '~/src/hooks/useStandardColorSets';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {COLOR_MIXING, MAX_COLORS_IN_MIXTURE} from '~/src/services/color/color-mixer';
@@ -72,7 +73,6 @@ import {
 import {colorSetToUrl} from '~/src/services/url/url-parser';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
-import {requestPersistentStorage} from '~/src/utils/storage';
 
 import {ColorBrandSelect} from './color-set/ColorBrandSelect';
 import {ColorSelect} from './color-set/ColorSelect';
@@ -97,12 +97,8 @@ function getEmptyColors(values: ColorSetDefinition): Record<number, number[]> {
     : {};
 }
 
-interface Props {
-  showInstallPromotion: boolean;
-}
-
-export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function ColorSetChooser(
-  {showInstallPromotion}: Props,
+export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetChooser(
+  _,
   ref: ForwardedRef<ChangableComponent>
 ) {
   const user = useAppStore(state => state.auth?.user);
@@ -116,12 +112,14 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
   const saveColorSet = useAppStore(state => state.saveColorSet);
   const loadColorSetsFromJson = useAppStore(state => state.loadColorSetsFromJson);
-  const saveColorSetsAsJson = useAppStore(state => state.saveColorSetsAsJson);
   const deleteColorSet = useAppStore(state => state.deleteColorSet);
 
   const {message, notification, modal} = App.useApp();
 
-  const {t, i18n} = useLingui();
+  const {t} = useLingui();
+
+  const saveColorSetsAsJsonAndNotify = useColorSetBackup();
+  const {checkPersistentStorage, persistentStorageDrawer} = usePersistentStorage();
 
   const mediaDevices: MediaDeviceInfo[] = useDevices();
 
@@ -148,21 +146,6 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
   const [isQRScannerModalOpen, setIsQRScannerModalOpen] = useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [shareColorSetUrl, setShareColorSetUrl] = useState<string>();
-
-  const saveColorSetsAsJsonAndNotify = useCallback(async () => {
-    const filename = await saveColorSetsAsJson();
-    if (!filename) {
-      return;
-    }
-    const {message, description} = COLOR_SETS_BACKUP_NOTIFICATION;
-    notification.info({
-      message: i18n._(message.id, {filename}),
-      description: i18n._(description.id),
-      placement: 'topLeft',
-      duration: 10,
-      showProgress: true,
-    });
-  }, [saveColorSetsAsJson, notification, i18n]);
 
   useEffect(() => {
     if (importedColorSet) {
@@ -373,16 +356,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
   };
 
   const handleSubmit = async (colorSet: ColorSetDefinition) => {
-    if (!(await requestPersistentStorage())) {
-      const {message: msg, description} = PERSISTENT_STORAGE_WARN;
-      notification.warning({
-        message: t(msg),
-        description: t(description),
-        placement: 'top',
-        duration: 10,
-        showProgress: true,
-      });
-    }
+    await checkPersistentStorage();
     colorSet = await saveColorSet(colorSet, brands, colors);
     form.setFieldsValue(colorSet);
     await saveColorSetsAsJsonAndNotify();
@@ -516,14 +490,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
               <Trans>Scan QR code</Trans>
             </Button>
           )}
-          {showInstallPromotion && (
-            <Button
-              icon={<AppstoreAddOutlined />}
-              onClick={() => void setActiveTabKey(TabKey.Install)}
-            >
-              <Trans>Install</Trans>
-            </Button>
-          )}
+          <InstallButton />
           <Button
             type="primary"
             icon={<QuestionCircleOutlined />}
@@ -788,6 +755,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent, Props>(function Co
 
       <QRScannerModal open={isQRScannerModalOpen} setOpen={setIsQRScannerModalOpen} />
       <ShareModal open={isShareModalOpen} setOpen={setIsShareModalOpen} url={shareColorSetUrl} />
+      {persistentStorageDrawer}
     </>
   );
 });

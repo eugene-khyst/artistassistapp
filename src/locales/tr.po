@@ -17,7 +17,7 @@ msgstr ""
 msgid "({colorCount} colors)"
 msgstr "({colorCount} renkleri)"
 
-#: src/components/ColorSetChooser.tsx:652
+#: src/components/ColorSetChooser.tsx:622
 msgid "{brandName} colors"
 msgstr "{brandName} renkleri"
 
@@ -26,21 +26,21 @@ msgstr "{brandName} renkleri"
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# renk} other {# renk}}"
 
-#: src/components/ColorSetChooser.tsx:606
-#: src/components/ColorSetChooser.tsx:653
+#: src/components/ColorSetChooser.tsx:576
+#: src/components/ColorSetChooser.tsx:623
 msgid "{FIELD} are required"
 msgstr "{FIELD} gereklidir"
 
-#: src/components/ColorSetChooser.tsx:573
-#: src/components/ColorSetChooser.tsx:582
-#: src/components/ColorSetChooser.tsx:635
+#: src/components/ColorSetChooser.tsx:543
+#: src/components/ColorSetChooser.tsx:552
+#: src/components/ColorSetChooser.tsx:605
 #: src/components/CustomColorBrandCreator.tsx:315
 #: src/components/CustomColorBrandCreator.tsx:326
 #: src/components/CustomColorBrandCreator.tsx:334
 msgid "{FIELD} is required"
 msgstr "{FIELD} gereklidir"
 
-#: src/components/Install.tsx:54
+#: src/components/InstallDrawer.tsx:42
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux ve <3/> ChromeOS"
 
@@ -48,7 +48,7 @@ msgstr "<0/> Android, <1/> Windows, <2/> Linux ve <3/> ChromeOS"
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> Masaüstü veya dizüstü bilgisayar"
 
-#: src/components/Install.tsx:106
+#: src/components/InstallDrawer.tsx:87
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS ve iPadOS"
 
@@ -61,7 +61,7 @@ msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> Tablet ve <1/> Mobil"
 
 #: src/components/alert/BrowserSupport.tsx:107
-#: src/components/Install.tsx:85
+#: src/components/InstallDrawer.tsx:61
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows ve <1/> Linux"
 
@@ -69,7 +69,7 @@ msgstr "<0/> Windows ve <1/> Linux"
 msgid "<0>{similarityText}%</0> similarity"
 msgstr "<0>{similarityText}%</0> benzerlik"
 
-#: src/components/ColorSetChooser.tsx:443
+#: src/components/ColorSetChooser.tsx:420
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>ArtistAssistApp</0> , sanatçıların fotoğraflardaki renkleri karıştırmasına, ton değerlerini analiz etmesine, fotoğrafların ana hatlarını çizmesine, ızgaralarla çizim yapmasına, sınırlı paletlerle boyamasına ve daha pek çok şeye yardımcı olan bir web uygulamasıdır."
 
@@ -77,7 +77,7 @@ msgstr "<0>ArtistAssistApp</0> , sanatçıların fotoğraflardaki renkleri karı
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Patreon hesabınızı kontrol</0> edin: Üyelik satın alırken kullandığınız aynı e-posta ile web <1>tarayıcınızda Patreon.com</1> için giriş yaptığınızdan emin olun. Birden fazla hesabınız varsa, çıkış yapın ve doğru hesapla tekrar giriş yapın."
 
-#: src/components/ColorSetChooser.tsx:465
+#: src/components/ColorSetChooser.tsx:442
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Patreon'da ArtistAssistApp'e ücretli üye olarak katılın</0> veya daha önce katıldıysanız, 200'den fazla renk markasına ve reklamsız tüm görüntü işleme modlarına erişmek için <1>Patreon ile oturum açın</1> ."
 
@@ -105,15 +105,15 @@ msgstr "%100'den küçük bir değer görüntünün daha az renkli görünmesine
 msgid "About ArtistAssistApp"
 msgstr "ArtistAssistApp Hakkında"
 
-#: src/components/messages.ts:56
+#: src/components/messages.ts:55
 msgid "Acrylic Gouache"
 msgstr "Akrilik Guaj"
 
-#: src/components/messages.ts:55
+#: src/components/messages.ts:54
 msgid "Acrylic Markers"
 msgstr "Akrilik İşaretleyiciler"
 
-#: src/components/messages.ts:49
+#: src/components/messages.ts:48
 msgid "Acrylic Paint"
 msgstr "Akrilik Boya"
 
@@ -125,7 +125,7 @@ msgstr "Renk ekleme"
 msgid "Add color mixtures to the palette."
 msgstr "Palete renk karışımları ekleyin."
 
-#: src/components/ColorSetChooser.tsx:655
+#: src/components/ColorSetChooser.tsx:625
 msgid "Add or remove colors to match your actual color set."
 msgstr "Gerçek renk kümenize uyması için renk ekleyin veya kaldırın."
 
@@ -145,7 +145,7 @@ msgstr "<0>{whiteRatioText} oranında</0> beyaz ekleyin"
 msgid "Alphabetically"
 msgstr "Alfabetik olarak"
 
-#: src/components/Install.tsx:178
+#: src/components/InstallDrawer.tsx:177
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
 msgstr "Alternatif olarak, Chrome, Edge veya Opera web tarayıcısının en son sürümünü yükleyin ve <0>Yükle</0> düğmesini tıklayın. macOS'un eski sürümlerinde bu tek seçenektir."
 
@@ -182,7 +182,7 @@ msgstr "Önbelleği temizlemek istediğinizden emin misiniz?"
 msgid "Are you sure you want to delete all app data?"
 msgstr "Tüm uygulama verilerini silmek istediğinizden emin misiniz?"
 
-#: src/components/ColorSetChooser.tsx:748
+#: src/components/ColorSetChooser.tsx:718
 msgid "Are you sure you want to delete this color set?"
 msgstr "Bu renk setini silmek istediğinizden emin misiniz?"
 
@@ -203,7 +203,7 @@ msgstr "Tüm renk karışımlarını çıkarmak istediğinizden emin misiniz?"
 msgid "Are you sure you want to remove this color mixture?"
 msgstr "Bu renk karışımını çıkarmak istediğinizden emin misiniz?"
 
-#: src/components/ColorSetChooser.tsx:572
+#: src/components/ColorSetChooser.tsx:542
 #: src/components/CustomColorBrandCreator.tsx:325
 msgid "Art medium"
 msgstr "Sanat ortamı"
@@ -291,7 +291,7 @@ msgstr "Renk"
 msgid "Color brand"
 msgstr "Renk markası"
 
-#: src/components/ColorSetChooser.tsx:604
+#: src/components/ColorSetChooser.tsx:574
 msgid "Color brands"
 msgstr "Renk markaları"
 
@@ -311,7 +311,7 @@ msgstr "Renk karışımı"
 msgid "Color picker"
 msgstr "Renk seçici"
 
-#: src/components/ColorSetChooser.tsx:580
+#: src/components/ColorSetChooser.tsx:550
 #: src/components/ImageColorPicker.tsx:347
 #: src/components/messages.ts:26
 msgid "Color set"
@@ -322,7 +322,7 @@ msgstr "Renk seti"
 msgid "Color swatch"
 msgstr "Renk örneği"
 
-#: src/components/messages.ts:51
+#: src/components/messages.ts:50
 msgid "Colored Pencils"
 msgstr "Renkli Kalemler"
 
@@ -358,7 +358,7 @@ msgstr "Bu bağlantıyı kopyalayın ve paylaşın"
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Işık kaynağının sıcaklığının Kelvin cinsinden düzeltilmiş tahmini"
 
-#: src/components/ColorSetChooser.tsx:741
+#: src/components/ColorSetChooser.tsx:711
 msgid "Create a duplicate of this color set for further modification"
 msgstr "Daha fazla değişiklik yapmak için bu renk kümesinin bir kopyasını oluşturun"
 
@@ -367,7 +367,7 @@ msgstr "Daha fazla değişiklik yapmak için bu renk kümesinin bir kopyasını 
 msgid "Create new"
 msgstr "Yeni oluştur"
 
-#: src/components/messages.ts:42
+#: src/components/messages.ts:41
 msgid "Custom brand"
 msgstr "Özel marka"
 
@@ -375,7 +375,7 @@ msgstr "Özel marka"
 msgid "Custom color set"
 msgstr "Özel renk seti"
 
-#: src/components/ColorSetChooser.tsx:762
+#: src/components/ColorSetChooser.tsx:732
 #: src/components/CustomColorBrandCreator.tsx:361
 #: src/components/image/RecentImageCard.tsx:83
 msgid "Delete"
@@ -386,7 +386,7 @@ msgstr "Silmek"
 msgid "Delete all app data"
 msgstr "Tüm uygulama verilerini sil"
 
-#: src/components/ColorSetChooser.tsx:747
+#: src/components/ColorSetChooser.tsx:717
 msgid "Delete the color set"
 msgstr "Renk kümesini silme"
 
@@ -400,7 +400,7 @@ msgstr "Özel markayı silme"
 msgid "Delete the recent photo"
 msgstr "Son fotoğrafı silme"
 
-#: src/components/ColorSetChooser.tsx:757
+#: src/components/ColorSetChooser.tsx:727
 msgid "Delete this color set"
 msgstr "Bu renk kümesini sil"
 
@@ -425,7 +425,7 @@ msgstr "Çap"
 msgid "Dilute the paint with water in a <0>{ratioText} ratio</0>"
 msgstr "Boyayı <0>{ratioText} oranında</0> suyla seyreltin"
 
-#: src/components/ColorSetChooser.tsx:637
+#: src/components/ColorSetChooser.tsx:607
 msgid "Do you have a store-bought or custom color set?"
 msgstr "Mağazadan satın alınan veya özel bir renk setiniz var mı?"
 
@@ -433,7 +433,7 @@ msgstr "Mağazadan satın alınan veya özel bir renk setiniz var mı?"
 msgid "Don't thin the layer"
 msgstr "Katmanı inceltmeyin"
 
-#: src/components/messages.ts:69
+#: src/hooks/useColorSetBackup.ts:26
 msgid "Downloaded file {filename}"
 msgstr "İndirilen dosya {filename}"
 
@@ -441,7 +441,7 @@ msgstr "İndirilen dosya {filename}"
 msgid "Downloading..."
 msgstr "İndiriyorum..."
 
-#: src/components/ColorSetChooser.tsx:744
+#: src/components/ColorSetChooser.tsx:714
 msgid "Duplicate"
 msgstr "Yinelenen"
 
@@ -449,11 +449,11 @@ msgstr "Yinelenen"
 msgid "Email"
 msgstr "E-posta"
 
-#: src/components/ColorSetChooser.tsx:211
+#: src/components/ColorSetChooser.tsx:194
 msgid "Error while fetching color brand data"
 msgstr "Renk marka verileri getirilirken hata oluştu"
 
-#: src/components/ColorSetChooser.tsx:233
+#: src/components/ColorSetChooser.tsx:216
 msgid "Error while fetching color data"
 msgstr "Renk verileri getirilirken hata oluştu"
 
@@ -463,7 +463,7 @@ msgstr "Renk verileri getirilirken hata oluştu"
 msgid "Error while fetching ML model data"
 msgstr "ML modeli verileri getirilirken hata oluştu"
 
-#: src/components/ColorSetChooser.tsx:222
+#: src/components/ColorSetChooser.tsx:205
 msgid "Error while fetching standard color set data"
 msgstr "Standart renk seti verileri getirilirken hata oluştu"
 
@@ -471,11 +471,11 @@ msgstr "Standart renk seti verileri getirilirken hata oluştu"
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Görüntünün çekildiği Kelvin cinsinden ışık kaynağının tahmini sıcaklığı ile çekilmiştir."
 
-#: src/components/ColorSetChooser.tsx:475
+#: src/components/ColorSetChooser.tsx:452
 msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Ücretli bir üyelik satın almaya karar vermeden önce ücretsiz sürümü keşfedin."
 
-#: src/components/ColorSetChooser.tsx:390
+#: src/components/ColorSetChooser.tsx:367
 #: src/components/CustomColorBrandCreator.tsx:216
 msgid "Fill in the required fields"
 msgstr "Gerekli alanları doldurun"
@@ -488,7 +488,7 @@ msgstr "Gama"
 msgid "Gifted membership"
 msgstr "Yetenekli üyelik"
 
-#: src/components/ColorSetChooser.tsx:597
+#: src/components/ColorSetChooser.tsx:567
 msgid "Give your color set a name for easy access."
 msgstr "Kolay erişim için renk setinize bir ad verin."
 
@@ -508,7 +508,7 @@ msgstr "<0>{photoLabel}</0> sekmesine gidin ve bir referans fotoğraf seçin."
 msgid "Go to the <0>{photoLabel}</0> tab and choose your reference photo."
 msgstr "<0>{photoLabel}</0> sekmesine gidin ve referans fotoğrafınızı seçin."
 
-#: src/components/messages.ts:48
+#: src/components/messages.ts:47
 msgid "Gouache"
 msgstr "Guaj"
 
@@ -522,16 +522,16 @@ msgstr "Kılavuz"
 msgid "Height"
 msgstr "Yükseklik"
 
-#: src/components/ColorSetChooser.tsx:529
-#: src/components/messages.ts:43
+#: src/components/ColorSetChooser.tsx:499
+#: src/components/messages.ts:42
 msgid "Help"
 msgstr "Yardım"
 
-#: src/components/ColorSetChooser.tsx:480
+#: src/components/ColorSetChooser.tsx:457
 msgid "If you are having trouble logging in, please read this <0>troubleshooting guide</0>."
 msgstr "Giriş yapmakta zorlanıyorsanız, lütfen bu <0>sorun giderme rehberini</0> okuyun."
 
-#: src/components/ColorSetChooser.tsx:247
+#: src/components/ColorSetChooser.tsx:230
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Kaydetmezseniz, renk kümesinde yapılan değişiklikler kaybolabilir."
 
@@ -543,15 +543,14 @@ msgstr "Arka planı olmayan görüntü"
 msgid "Inspire"
 msgstr "Esinlemek"
 
-#: src/components/ColorSetChooser.tsx:521
-#: src/components/Install.tsx:65
-#: src/components/messages.ts:41
+#: src/components/InstallButton.tsx:42
+#: src/hooks/usePersistentStorage.tsx:65
 msgid "Install"
 msgstr "Yüklemek"
 
-#: src/components/Install.tsx:45
-msgid "Install ArtistAssistApp on your device for easy access even without an Internet connection."
-msgstr "İnternet bağlantısı olmadan bile kolay erişim için ArtistAssistApp'i cihazınıza yükleyin."
+#: src/components/InstallDrawer.tsx:196
+msgid "Install ArtistAssistApp"
+msgstr "ArtistAssistApp Yükle"
 
 #: src/components/Help.tsx:188
 msgid "Install update"
@@ -613,11 +612,11 @@ msgstr "Bağlantı panoya kopyalandı"
 msgid "Load color brand file"
 msgstr "Renkli marka dosyasını yükle"
 
-#: src/components/ColorSetChooser.tsx:772
+#: src/components/ColorSetChooser.tsx:742
 msgid "Load color sets file"
 msgstr "Renk setleri dosyasını yükle"
 
-#: src/components/ColorSetChooser.tsx:539
+#: src/components/ColorSetChooser.tsx:509
 msgid "Log in on another device by scanning the QR code"
 msgstr "QR kodunu tarayarak başka bir cihazda oturum açın"
 
@@ -680,7 +679,7 @@ msgstr "Karışım"
 msgid "Mode"
 msgstr "Mod"
 
-#: src/components/ColorSetChooser.tsx:596
+#: src/components/ColorSetChooser.tsx:566
 #: src/components/CustomColorBrandCreator.tsx:333
 #: src/components/CustomColorBrandCreator.tsx:407
 msgid "Name"
@@ -690,7 +689,7 @@ msgstr "Ad"
 msgid "Name a brand"
 msgstr "Bir markaya isim verin"
 
-#: src/components/ColorSetChooser.tsx:600
+#: src/components/ColorSetChooser.tsx:570
 msgid "Name a color set"
 msgstr "Renk kümesini adlandırma"
 
@@ -716,8 +715,8 @@ msgstr "Sonraki şarj tarihi"
 
 #: src/components/color/AddToPaletteButton.tsx:52
 #: src/components/color/PaletteColorMixtureCard.tsx:105
-#: src/components/ColorSetChooser.tsx:249
-#: src/components/ColorSetChooser.tsx:753
+#: src/components/ColorSetChooser.tsx:232
+#: src/components/ColorSetChooser.tsx:723
 #: src/components/CustomColorBrandCreator.tsx:352
 #: src/components/image/RecentImageCard.tsx:74
 #: src/components/palette/PaletteGrid.tsx:103
@@ -743,15 +742,15 @@ msgstr "Paylaşacak bir şey yok"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Küçük taraftaki hücre sayısı (dikey veya yatay)"
 
-#: src/components/messages.ts:50
+#: src/components/messages.ts:49
 msgid "Oil Paint"
 msgstr "Yağlı Boya"
 
-#: src/components/messages.ts:54
+#: src/components/messages.ts:53
 msgid "Oil Pastel"
 msgstr "Yağlı Pastel"
 
-#: src/components/ColorSetChooser.tsx:619
+#: src/components/ColorSetChooser.tsx:589
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Ücretsiz sürümde yalnızca sınırlı sayıda renk markası mevcuttur"
 
@@ -767,8 +766,8 @@ msgstr "Ücretsiz sürümde yalnızca sınırlı sayıda stil mevcuttur"
 msgid "Opaque"
 msgstr "Donuk"
 
-#: src/components/Install.tsx:118
-#: src/components/Install.tsx:154
+#: src/components/InstallDrawer.tsx:99
+#: src/components/InstallDrawer.tsx:148
 msgid "Open in Safari browser"
 msgstr "Safari tarayıcısında aç"
 
@@ -780,11 +779,11 @@ msgstr "veya Chrome, Edge, Firefox veya Opera web tarayıcısının en son sür�
 msgid "Or scan the QR code"
 msgstr "Veya QR kodunu tarayın"
 
-#: src/components/ImageChooser.tsx:97
+#: src/components/ImageChooser.tsx:89
 msgid "Or select from sample photos"
 msgstr "Veya örnek fotoğraflar arasından seçim yapın"
 
-#: src/components/ImageChooser.tsx:81
+#: src/components/ImageChooser.tsx:73
 msgid "Or select from your recent photos"
 msgstr "Veya en son fotoğraflarınız arasından seçim yapın"
 
@@ -820,7 +819,7 @@ msgstr "Kağıt rengi opak pastel renkler için önemli değildir, çünkü yüz
 msgid "Paper size"
 msgstr "Kağıt boyutu"
 
-#: src/components/messages.ts:53
+#: src/components/messages.ts:52
 msgid "Pastel"
 msgstr "Pastel"
 
@@ -845,7 +844,7 @@ msgstr "Yüzdelik dilim: En parlak alanlardan otomatik beyaz dengesi, çoğu fot
 msgid "Persistent storage"
 msgstr "Kalıcı depolama"
 
-#: src/components/messages.ts:64
+#: src/hooks/usePersistentStorage.tsx:53
 msgid "Persistent storage is not enabled"
 msgstr "Kalıcı depolama etkin değil"
 
@@ -873,11 +872,11 @@ msgstr "Pozisyon: {position}<0/>Değerlendirme: {ratingText}"
 msgid "Postpone"
 msgstr "Erteleme"
 
-#: src/components/Install.tsx:172
+#: src/components/InstallDrawer.tsx:170
 msgid "Press Add to Dock"
 msgstr "Dock'a Ekle'ye basın"
 
-#: src/components/Install.tsx:135
+#: src/components/InstallDrawer.tsx:120
 msgid "Press Add to Home Screen"
 msgstr "Ana Ekrana Ekle'ye basın"
 
@@ -885,13 +884,10 @@ msgstr "Ana Ekrana Ekle'ye basın"
 msgid "Press Back again to exit"
 msgstr "Çıkmak için tekrar Geri tuşuna basın"
 
-#: src/components/Install.tsx:163
+#: src/components/InstallDrawer.tsx:110
+#: src/components/InstallDrawer.tsx:159
 msgid "Press Share in Navigation bar"
 msgstr "Gezinti çubuğunda Paylaş'a basın"
-
-#: src/components/Install.tsx:127
-msgid "Press Share in Navigaton bar"
-msgstr "Navigaton çubuğunda Paylaş'a basın"
 
 #: src/components/empty/EmptyPalette.tsx:70
 msgid "Press the <0>Add to palette</0> button next to the color mixture you like."
@@ -999,11 +995,11 @@ msgstr "Renk karışımını çıkarın"
 msgid "Required"
 msgstr "Gerekli"
 
-#: src/components/Install.tsx:138
+#: src/components/InstallDrawer.tsx:124
 msgid "Requires iOS 16.4+ or iPadOS 16.4+."
 msgstr "iOS 16.4+ veya iPadOS 16.4+ sürümü gereklidir."
 
-#: src/components/Install.tsx:175
+#: src/components/InstallDrawer.tsx:174
 msgid "Requires macOS Sonoma or later."
 msgstr "macOS Sonoma veya sonraki bir sürümü gerekir."
 
@@ -1049,11 +1045,11 @@ msgstr "Doygunluk (%)"
 msgid "Save"
 msgstr "Kurtarmak"
 
-#: src/components/ColorSetChooser.tsx:720
+#: src/components/ColorSetChooser.tsx:690
 msgid "Save & proceed"
 msgstr "Kaydet ve devam et"
 
-#: src/components/ColorSetChooser.tsx:246
+#: src/components/ColorSetChooser.tsx:229
 msgid "Save changes to the color set?"
 msgstr "Renk setindeki değişiklikler kaydedilsin mi?"
 
@@ -1067,7 +1063,7 @@ msgstr "Kaydetme 1,91:1'e genişletildi"
 msgid "Save expanded to 4:5"
 msgstr "Tasarruf 4:5'e genişletildi"
 
-#: src/components/ColorSetChooser.tsx:716
+#: src/components/ColorSetChooser.tsx:686
 msgid "Save the changes to this color set"
 msgstr "Bu renk kümesindeki değişiklikleri kaydedin"
 
@@ -1075,7 +1071,7 @@ msgstr "Bu renk kümesindeki değişiklikleri kaydedin"
 msgid "Scan a QR code"
 msgstr "Bir QR kodu tarayın"
 
-#: src/components/ColorSetChooser.tsx:513
+#: src/components/ColorSetChooser.tsx:490
 msgid "Scan QR code"
 msgstr "QR kodunu tarayın"
 
@@ -1095,7 +1091,7 @@ msgstr "Perspektifi düzeltmek için bir fotoğraf seçin"
 msgid "Select a photo to remove the background from"
 msgstr "Arka planı kaldırmak için bir fotoğraf seçin"
 
-#: src/components/ImageChooser.tsx:66
+#: src/components/ImageChooser.tsx:58
 msgid "Select a reference photo from your device to paint from"
 msgstr "Boyamak için cihazınızdan bir referans fotoğraf seçin"
 
@@ -1119,7 +1115,7 @@ msgstr "Sanat ortamını seçin"
 msgid "Select brands"
 msgstr "Markaları seçin"
 
-#: src/components/ColorSetChooser.tsx:605
+#: src/components/ColorSetChooser.tsx:575
 msgid "Select brands that you use."
 msgstr "Kullandığınız markaları seçin."
 
@@ -1144,7 +1140,7 @@ msgstr "En son markalarınız arasından seçim yapın"
 msgid "Select from your recent color sets"
 msgstr "En son renk setleriniz arasından seçim yapın"
 
-#: src/components/ColorSetChooser.tsx:581
+#: src/components/ColorSetChooser.tsx:551
 msgid "Select from your recent color sets or create a new one."
 msgstr "En son renk setlerinizden birini seçin veya yeni bir tane oluşturun."
 
@@ -1161,7 +1157,7 @@ msgid "Select part"
 msgstr "Parça seç"
 
 #: src/components/ImageBackgroundRemoval.tsx:235
-#: src/components/ImageChooser.tsx:75
+#: src/components/ImageChooser.tsx:67
 #: src/components/ImageColorAdjustment.tsx:350
 #: src/components/ImagePerspectiveCorrection.tsx:233
 msgid "Select photo"
@@ -1183,7 +1179,7 @@ msgstr "Küme seç"
 msgid "Select style image"
 msgstr "Stil görüntüsü seç"
 
-#: src/components/ColorSetChooser.tsx:549
+#: src/components/ColorSetChooser.tsx:519
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Select your art medium, color brands and colors you will paint with and press the <0>Save & proceed</0> button."
 msgstr "Sanat ortamınızı, renk markalarınızı ve boyayacağınız renkleri seçin ve <0>Kaydet ve devam</0> et düğmesine basın."
@@ -1227,12 +1223,12 @@ msgstr "Gölge"
 msgid "Shadows and highlights"
 msgstr "Gölgeler ve vurgular"
 
-#: src/components/ColorSetChooser.tsx:734
+#: src/components/ColorSetChooser.tsx:704
 #: src/components/share/ShareModal.tsx:83
 msgid "Share"
 msgstr "Paylaş"
 
-#: src/components/ColorSetChooser.tsx:731
+#: src/components/ColorSetChooser.tsx:701
 msgid "Share this color set"
 msgstr "Bu renk setini paylaşın"
 
@@ -1300,7 +1296,7 @@ msgstr "Spektral yansıma eğrisi"
 msgid "Square cells"
 msgstr "Kare hücreler"
 
-#: src/components/ColorSetChooser.tsx:634
+#: src/components/ColorSetChooser.tsx:604
 msgid "Standard color set"
 msgstr "Standart renk seti"
 
@@ -1327,10 +1323,6 @@ msgstr "Tarz referans fotoğraf"
 #: src/components/empty/EmptyColorSet.tsx:78
 msgid "Supported art mediums:"
 msgstr "Desteklenen sanat ortamları:"
-
-#: src/components/Install.tsx:72
-msgid "Supported web browsers"
-msgstr "Desteklenen web tarayıcıları"
 
 #: src/components/alert/BrowserSupport.tsx:56
 msgid "Supported web browsers and operating systems"
@@ -1393,11 +1385,11 @@ msgstr "Kalınlık"
 msgid "Thin the paint to <0>{fractionText} thickness</0>"
 msgstr "Boyayı <0>{fractionText} kalınlığına</0> kadar inceltin"
 
-#: src/components/messages.ts:70
+#: src/hooks/useColorSetBackup.ts:27
 msgid "This backup file lets you restore your color sets later, so keep it. You can delete any older backup files."
 msgstr "Bu yedekleme dosyası, renk setlerinizi daha sonra geri yüklemenizi sağlar, bu yüzden saklayın. Eski yedekleme dosyalarını silebilirsiniz."
 
-#: src/components/ColorSetChooser.tsx:660
+#: src/components/ColorSetChooser.tsx:630
 msgid "This color brand is available to paid Patreon members only"
 msgstr "Bu renk markası yalnızca ücretli Patreon üyeleri tarafından kullanılabilir"
 
@@ -1420,6 +1412,10 @@ msgstr "Bu genellikle ArtistAssistApp üyeliğinizde kullanılan hesabdan <0>far
 #: src/components/alert/AuthErrorHandler.tsx:52
 msgid "To fix this:"
 msgstr "Bunu düzeltmek için:"
+
+#: src/components/InstallDrawer.tsx:48
+msgid "To install ArtistAssistApp, use one of the supported web browsers:"
+msgstr "ArtistAssistApp'i kurmak için desteklenen web tarayıcılarından birini kullanın:"
 
 #: src/components/empty/EmptyImage.tsx:42
 msgid "To use the {tabLabel} feature, select a reference photo."
@@ -1493,11 +1489,11 @@ msgstr "Sıcak — Algoritmik tahmin; sanatsal algı değişebilir."
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "Suluboya, daha şeffaf hale getirmek için su ile seyreltilebilir."
 
-#: src/components/messages.ts:47
+#: src/components/messages.ts:46
 msgid "Watercolor Paint"
 msgstr "Suluboya Boya"
 
-#: src/components/messages.ts:52
+#: src/components/messages.ts:51
 msgid "Watercolor Pencils"
 msgstr "Suluboya Kalemleri"
 
@@ -1505,11 +1501,11 @@ msgstr "Suluboya Kalemleri"
 msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
 msgstr "Giriş bilgilerinizi doğrulamakta bir sorunla karşılaştık. Bu sorun genellikle tekrar giriş yapmaya çalışarak çözülebilir."
 
-#: src/components/ColorSetChooser.tsx:692
+#: src/components/ColorSetChooser.tsx:662
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "Toplamda {maxColorsFor2}'den fazla renk seçerken, iki rengin karışımları kullanılmaz."
 
-#: src/components/ColorSetChooser.tsx:700
+#: src/components/ColorSetChooser.tsx:670
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Toplamda {maxColorsFor3}'ten fazla renk seçerken, üç rengin karışımları kullanılmaz."
 
@@ -1526,7 +1522,7 @@ msgstr "Beyaz"
 msgid "White balance"
 msgstr "Beyaz dengesi"
 
-#: src/components/messages.ts:60
+#: src/components/messages.ts:59
 msgid "White paper or canvas"
 msgstr "Beyaz kağıt veya tuval"
 
@@ -1540,8 +1536,8 @@ msgstr "Genişlik"
 
 #: src/components/color/AddToPaletteButton.tsx:51
 #: src/components/color/PaletteColorMixtureCard.tsx:104
-#: src/components/ColorSetChooser.tsx:248
-#: src/components/ColorSetChooser.tsx:752
+#: src/components/ColorSetChooser.tsx:231
+#: src/components/ColorSetChooser.tsx:722
 #: src/components/CustomColorBrandCreator.tsx:351
 #: src/components/image/RecentImageCard.tsx:73
 #: src/components/palette/PaletteGrid.tsx:102
@@ -1550,19 +1546,19 @@ msgstr "Genişlik"
 msgid "Yes"
 msgstr "Evet"
 
-#: src/components/ColorSetChooser.tsx:454
+#: src/components/ColorSetChooser.tsx:431
 msgid "You are logged in and have access to all app features."
 msgstr "Giriş yaptınız ve tüm uygulama özelliklerine erişiminiz var."
 
-#: src/components/ColorSetChooser.tsx:459
+#: src/components/ColorSetChooser.tsx:436
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "Sınırlı sayıda renk markası ve görüntü işleme modu ile <0>ücretsiz sürümü</0> kullanıyorsunuz."
 
-#: src/components/ColorSetChooser.tsx:612
+#: src/components/ColorSetChooser.tsx:582
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Yalnızca ödeme yapan Patreon üyelerine açık olan renk markalarını seçtiniz"
 
-#: src/components/ColorSetChooser.tsx:683
+#: src/components/ColorSetChooser.tsx:653
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Yalnızca ücretli Patreon üyelerine açık olan renk markalarını seçtiniz. Patreon'da ArtistAssistApp'e ücretli üye olarak katılın veya zaten katıldıysanız, Patreon ile oturum açın."
 
@@ -1574,9 +1570,9 @@ msgstr "Yalnızca ücretli Patreon üyelerine açık olan modu seçtiniz"
 msgid "Your account details:"
 msgstr "Hesap detaylarınız:"
 
-#: src/components/messages.ts:65
-msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app as described in the Install tab."
-msgstr "Tarayıcı kapalıysa verileriniz güvenilir bir şekilde kaydedilemeyebilir. Bunu düzeltmek için uygulamayı Yükle sekmesinde açıklandığı gibi yükleyin."
+#: src/hooks/usePersistentStorage.tsx:55
+msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
+msgstr "Tarayıcı kapalıysa verileriniz güvenilir şekilde kaydedilemeyebilir. Bunu düzeltmek için uygulamayı yükleyin."
 
 #: src/components/alert/AuthErrorHandler.tsx:100
 msgid "Your login session has expired. Please sign in again to refresh your access and continue using ArtistAssistApp."

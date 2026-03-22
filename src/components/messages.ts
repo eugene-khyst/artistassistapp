@@ -38,7 +38,6 @@ export const TAB_LABELS: Record<TabKey, MessageDescriptor> = {
   [TabKey.ColorAdjustment]: defineMessage`White balance`,
   [TabKey.BackgroundRemove]: defineMessage`Remove background`,
   [TabKey.Compare]: defineMessage`Compare`,
-  [TabKey.Install]: defineMessage`Install`,
   [TabKey.CustomColorBrand]: defineMessage`Custom brand`,
   [TabKey.Help]: defineMessage`Help`,
 };
@@ -58,14 +57,4 @@ export const COLOR_TYPE_LABELS: Record<ColorType, MessageDescriptor> = {
 
 export const COLOR_PICKER_PRESET_LABELS = {
   paper_white: defineMessage`White paper or canvas`,
-};
-
-export const PERSISTENT_STORAGE_WARN = {
-  message: defineMessage`Persistent storage is not enabled`,
-  description: defineMessage`Your data may not be saved reliably if the browser is closed. To fix this, install the app as described in the Install tab.`,
-};
-
-export const COLOR_SETS_BACKUP_NOTIFICATION = {
-  message: defineMessage`Downloaded file {filename}`,
-  description: defineMessage`This backup file lets you restore your color sets later, so keep it. You can delete any older backup files.`,
 };

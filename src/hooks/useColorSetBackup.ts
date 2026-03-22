@@ -16,39 +16,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {defineMessage} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
 import {App} from 'antd';
-import {useEffect} from 'react';
+import {useCallback} from 'react';
 
-import {COLOR_SETS_BACKUP_NOTIFICATION} from '~/src/components/messages';
 import {useAppStore} from '~/src/stores/app-store';
 
-export function useColorSetBackup(): void {
-  const appInitialized = useAppStore(state => state.appInitialized);
+const backupMessage = defineMessage`Downloaded file {filename}`;
+const backupDescription = defineMessage`This backup file lets you restore your color sets later, so keep it. You can delete any older backup files.`;
 
+export function useColorSetBackup() {
   const saveColorSetsAsJson = useAppStore(state => state.saveColorSetsAsJson);
-
   const {notification} = App.useApp();
-
   const {i18n} = useLingui();
 
-  useEffect(() => {
-    void (async () => {
-      if (!appInitialized) {
-        return;
-      }
-      const filename = await saveColorSetsAsJson();
-      if (!filename) {
-        return;
-      }
-      const {message, description} = COLOR_SETS_BACKUP_NOTIFICATION;
-      notification.info({
-        message: i18n._(message.id, {filename}),
-        description: i18n._(description.id),
-        placement: 'topLeft',
-        duration: 10,
-        showProgress: true,
-      });
-    })();
-  }, [appInitialized, saveColorSetsAsJson, notification, i18n]);
+  return useCallback(async () => {
+    const filename = await saveColorSetsAsJson();
+    if (!filename) {
+      return;
+    }
+    notification.info({
+      message: i18n._(backupMessage.id, {filename}),
+      description: i18n._(backupDescription.id),
+      placement: 'topLeft',
+      duration: 10,
+      showProgress: true,
+    });
+  }, [saveColorSetsAsJson, notification, i18n]);
 }

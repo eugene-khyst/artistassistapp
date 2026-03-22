@@ -61,12 +61,12 @@ Pure business logic, no React:
 - **`ml/`** — ONNX Runtime Web inference for ML models (background removal, style transfer) via
   `onnxruntime-web`; WASM files loaded from jsDelivr CDN
 - **`db/`** — IndexedDB access via `idb` library; schema defined in `db.ts` (stores: app-settings,
-  color-sets, images, color-mixtures, custom-brands, auth-error, id-token). ID tokens and error
-  data are in the same `artistassistapp` database (`auth-db.ts`)
+  color-sets, images, color-mixtures, custom-brands, auth-error, id-token). ID tokens and error data
+  are in the same `artistassistapp` database (`auth-db.ts`)
 - **`auth/`** — JWT-based auth client using OIDC Form Post Response Mode. The auth server POSTs
   `id_token`, `error`, `error_context` to `/login/callback`, which the service worker intercepts.
-  The SW saves `id_token` to IDB, passes `error` as a URL query param, saves `error_context` to
-  IDB, and redirects to `/`. JWKS public key is provided via `VITE_JWKS` env var
+  The SW saves `id_token` to IDB, passes `error` as a URL query param, saves `error_context` to IDB,
+  and redirects to `/`. JWKS public key is provided via `VITE_JWKS` env var
 - **`math/`** — geometry, matrix operations, GCD, clamp utilities
 - **`ads/`** — ad integration
 - **`event/`** — custom event manager

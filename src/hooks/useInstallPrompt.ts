@@ -19,7 +19,6 @@
 import {useCallback} from 'react';
 
 import {useAppStore} from '~/src/stores/app-store';
-import {TabKey} from '~/src/tabs';
 
 interface Result {
   showInstallPromotion: boolean;
@@ -30,7 +29,6 @@ export function useInstallPrompt(): Result {
   const beforeInstallPromptEvent = useAppStore(state => state.beforeInstallPromptEvent);
 
   const setBeforeInstallPromptEvent = useAppStore(state => state.setBeforeInstallPromptEvent);
-  const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
 
   const showInstallPromotion = !!beforeInstallPromptEvent;
 
@@ -39,12 +37,9 @@ export function useInstallPrompt(): Result {
       return;
     }
     void beforeInstallPromptEvent.prompt();
-    const {outcome} = await beforeInstallPromptEvent.userChoice;
-    if (outcome === 'accepted') {
-      void setActiveTabKey(TabKey.ColorSet);
-    }
+    await beforeInstallPromptEvent.userChoice;
     setBeforeInstallPromptEvent(null);
-  }, [setBeforeInstallPromptEvent, setActiveTabKey, beforeInstallPromptEvent]);
+  }, [setBeforeInstallPromptEvent, beforeInstallPromptEvent]);
 
   return {
     showInstallPromotion,

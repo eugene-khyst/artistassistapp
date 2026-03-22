@@ -16,20 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Trans, useLingui} from '@lingui/react/macro';
-import {App, Col, Flex, Row, Typography} from 'antd';
+import {Trans} from '@lingui/react/macro';
+import {Col, Flex, Row, Typography} from 'antd';
 import {useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {FileSelect} from '~/src/components/file/FileSelect';
 import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
-import {PERSISTENT_STORAGE_WARN} from '~/src/components/messages';
+import {usePersistentStorage} from '~/src/hooks/usePersistentStorage';
 import type {ImageFile} from '~/src/services/image/image-file';
 import {fileToImageFile} from '~/src/services/image/image-file';
 import type {SampleImageDefinition} from '~/src/services/image/sample-images';
 import {SAMPLE_IMAGES} from '~/src/services/image/sample-images';
 import {useAppStore} from '~/src/stores/app-store';
-import {requestPersistentStorage} from '~/src/utils/storage';
 
 import {RecentImageCard} from './image/RecentImageCard';
 import {SampleImageCard} from './image/SampleImageCard';
@@ -40,80 +39,72 @@ export const ImageChooser: React.FC = () => {
 
   const [sampleImagesLoadingCount, setSampleImagesLoadingCount] = useState<number>(0);
 
-  const {notification} = App.useApp();
-
-  const {t} = useLingui();
+  const {checkPersistentStorage, persistentStorageDrawer} = usePersistentStorage();
 
   const isLoading: boolean = sampleImagesLoadingCount > 0;
 
   const handleFileChange = async ([file]: File[]) => {
-    if (!(await requestPersistentStorage())) {
-      const {message: msg, description} = PERSISTENT_STORAGE_WARN;
-      notification.warning({
-        message: t(msg),
-        description: t(description),
-        placement: 'top',
-        duration: 10,
-        showProgress: true,
-      });
-    }
+    await checkPersistentStorage();
     if (file) {
       void saveRecentImageFile(await fileToImageFile(file));
     }
   };
 
   return (
-    <LoadingIndicator loading={isLoading}>
-      <Flex vertical gap="small" style={{padding: '0 16px 16px'}}>
-        <Typography.Text strong>
-          <Trans>Select a reference photo from your device to paint from</Trans>
-        </Typography.Text>
-
-        <div>
-          <FileSelect
-            onChange={(files: File[]) => {
-              void handleFileChange(files);
-            }}
-          >
-            <Trans>Select photo</Trans>
-          </FileSelect>
-        </div>
-
-        {recentImageFiles.length > 0 && (
+    <>
+      <LoadingIndicator loading={isLoading}>
+        <Flex vertical gap="small" style={{padding: '0 16px 16px'}}>
           <Typography.Text strong>
-            <Trans>Or select from your recent photos</Trans>
+            <Trans>Select a reference photo from your device to paint from</Trans>
           </Typography.Text>
-        )}
 
-        <Row gutter={[16, 16]} align="top" justify="start" style={{marginBottom: '1em'}}>
-          {recentImageFiles.map((imageFile: ImageFile) => (
-            <Col key={imageFile.id} xs={24} md={12} lg={6}>
-              <RecentImageCard imageFile={imageFile} />
+          <div>
+            <FileSelect
+              onChange={(files: File[]) => {
+                void handleFileChange(files);
+              }}
+            >
+              <Trans>Select photo</Trans>
+            </FileSelect>
+          </div>
+
+          {recentImageFiles.length > 0 && (
+            <Typography.Text strong>
+              <Trans>Or select from your recent photos</Trans>
+            </Typography.Text>
+          )}
+
+          <Row gutter={[16, 16]} align="top" justify="start" style={{marginBottom: '1em'}}>
+            {recentImageFiles.map((imageFile: ImageFile) => (
+              <Col key={imageFile.id} xs={24} md={12} lg={6}>
+                <RecentImageCard imageFile={imageFile} />
+              </Col>
+            ))}
+            <Col xs={24} md={12} lg={6}>
+              <AdCard vertical />
             </Col>
-          ))}
-          <Col xs={24} md={12} lg={6}>
-            <AdCard vertical />
-          </Col>
-        </Row>
+          </Row>
 
-        <Typography.Text strong>
-          <Trans>Or select from sample photos</Trans>
-        </Typography.Text>
+          <Typography.Text strong>
+            <Trans>Or select from sample photos</Trans>
+          </Typography.Text>
 
-        <Row gutter={[16, 16]} align="top" justify="start">
-          {SAMPLE_IMAGES.map(({image, thumbnail, name, id}: SampleImageDefinition) => (
-            <Col key={name} xs={24} md={12} lg={6}>
-              <SampleImageCard
-                image={image}
-                thumbnail={thumbnail}
-                name={name}
-                id={id}
-                setLoadingCount={setSampleImagesLoadingCount}
-              />
-            </Col>
-          ))}
-        </Row>
-      </Flex>
-    </LoadingIndicator>
+          <Row gutter={[16, 16]} align="top" justify="start">
+            {SAMPLE_IMAGES.map(({image, thumbnail, name, id}: SampleImageDefinition) => (
+              <Col key={name} xs={24} md={12} lg={6}>
+                <SampleImageCard
+                  image={image}
+                  thumbnail={thumbnail}
+                  name={name}
+                  id={id}
+                  setLoadingCount={setSampleImagesLoadingCount}
+                />
+              </Col>
+            ))}
+          </Row>
+        </Flex>
+      </LoadingIndicator>
+      {persistentStorageDrawer}
+    </>
   );
 };

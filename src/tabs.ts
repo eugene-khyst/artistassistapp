@@ -32,7 +32,6 @@ export enum TabKey {
   PerspectiveCorrection = 'perspective-correction',
   BackgroundRemove = 'background-remove',
   Compare = 'compare',
-  Install = 'install',
   CustomColorBrand = 'custom-brand',
   Help = 'help',
 }

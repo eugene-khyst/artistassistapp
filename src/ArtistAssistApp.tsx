@@ -31,7 +31,6 @@ import {ImageOutline} from '~/src/components/ImageOutline';
 import {ImagePerspectiveCorrection} from '~/src/components/ImagePerspectiveCorrection';
 import {ImagesCompare} from '~/src/components/ImagesCompare';
 import {ImageStyleTransfer} from '~/src/components/ImageStyleTransfer';
-import {Install} from '~/src/components/Install';
 import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {TAB_LABELS} from '~/src/components/messages';
 import type {ChangableComponent} from '~/src/components/types';
@@ -39,10 +38,7 @@ import {TabContext} from '~/src/contexts/TabContext';
 import {useColorSetBackup} from '~/src/hooks/useColorSetBackup';
 import {useDoubleBackPressToExit} from '~/src/hooks/useDoubleBackPressToExit';
 import {useFullScreen} from '~/src/hooks/useFullscreen';
-import {useInstallPrompt} from '~/src/hooks/useInstallPrompt';
-import {useDisplayMode} from '~/src/hooks/usePwaDisplayMode';
 import {useAppStore} from '~/src/stores/app-store';
-import {DisplayMode} from '~/src/utils/media';
 
 import {ColorMixer} from './components/ColorMixer';
 import {ColorSetChooser} from './components/ColorSetChooser';
@@ -75,22 +71,20 @@ export const ArtistAssistApp: React.FC = () => {
 
   const {isFullscreen, toggleFullScreen, isSupported: isFullScreenSupported} = useFullScreen();
 
-  const {showInstallPromotion, promptToInstall} = useInstallPrompt();
-  const pwaDisplayMode: DisplayMode = useDisplayMode();
-
   const colorSetChooserRef = useRef<ChangableComponent>(null);
 
   const isLoading: boolean = isInitialStateLoading || isLocaleLoading || isAuthLoading;
 
+  const appInitialized = useAppStore(state => state.appInitialized);
+  const saveColorSetsAsJsonAndNotify = useColorSetBackup();
+
   useDoubleBackPressToExit();
 
-  useColorSetBackup();
-
   useEffect(() => {
-    if (activeTabKey === TabKey.Install && pwaDisplayMode !== DisplayMode.BROWSER) {
-      void setActiveTabKey(TabKey.ColorSet);
+    if (appInitialized) {
+      void saveColorSetsAsJsonAndNotify();
     }
-  }, [pwaDisplayMode, activeTabKey, setActiveTabKey]);
+  }, [appInitialized, saveColorSetsAsJsonAndNotify]);
 
   const handleTabChange = (activeKey: string) => {
     void (async () => {
@@ -102,9 +96,7 @@ export const ArtistAssistApp: React.FC = () => {
   const items: TabsProps['items'] = [
     {
       key: TabKey.ColorSet,
-      children: (
-        <ColorSetChooser ref={colorSetChooserRef} showInstallPromotion={showInstallPromotion} />
-      ),
+      children: <ColorSetChooser ref={colorSetChooserRef} />,
     },
     {
       key: TabKey.Photo,
@@ -162,19 +154,6 @@ export const ArtistAssistApp: React.FC = () => {
       key: TabKey.Compare,
       children: <ImagesCompare />,
     },
-    ...(pwaDisplayMode === DisplayMode.BROWSER
-      ? [
-          {
-            key: TabKey.Install,
-            children: (
-              <Install
-                showInstallPromotion={showInstallPromotion}
-                promptToInstall={promptToInstall}
-              />
-            ),
-          },
-        ]
-      : []),
     ...(user
       ? [
           {

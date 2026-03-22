@@ -27,7 +27,6 @@ import type {AuthSlice} from '~/src/stores/auth-slice';
 import type {LocaleSlice} from '~/src/stores/locale-slice';
 import type {StyleTransferSlice} from '~/src/stores/style-transfer-slice';
 import {TabKey} from '~/src/tabs';
-import {DisplayMode, getDisplayMode} from '~/src/utils/media';
 
 import type {ColorMixerSlice} from './color-mixer-slice';
 import type {ColorSetSlice} from './color-set-slice';
@@ -89,12 +88,8 @@ export const createInitSlice: StateCreator<
       get().loginWithRedirect();
       return;
     }
-    const displayMode: DisplayMode = getDisplayMode();
     let activeTabKey: TabKey | undefined = importedTabKey ?? appSettings.activeTabKey;
-    if (
-      importedColorSet ||
-      (activeTabKey === TabKey.Install && displayMode !== DisplayMode.BROWSER)
-    ) {
+    if (importedColorSet) {
       activeTabKey = TabKey.ColorSet;
     }
     if (activeTabKey) {

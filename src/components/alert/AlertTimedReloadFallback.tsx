@@ -27,7 +27,7 @@ import {useCountdown} from '~/src/hooks/useCountdown';
 import {getErrorMessage} from '~/src/utils/error';
 import {clearCache} from '~/src/utils/storage';
 
-const DELAY_SECONDS = 5;
+const DELAY_SECONDS = 10;
 
 export const AlertTimedReloadFallback: React.FC<FallbackProps> = ({error}: FallbackProps) => {
   const {t} = useLingui();

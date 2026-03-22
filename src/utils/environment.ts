@@ -16,18 +16,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export enum DisplayMode {
-  BROWSER = 'browser',
-  STANDALONE = 'standalone',
-  TWA = 'twa',
-}
+export type OS = 'iOS' | 'iPadOS' | 'macOS' | 'Android' | 'Windows' | 'ChromeOS' | 'Linux';
 
-export function getDisplayMode(): DisplayMode {
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-  if (document.referrer.startsWith('android-app://')) {
-    return DisplayMode.TWA;
-  } else if (('standalone' in navigator && navigator.standalone) || isStandalone) {
-    return DisplayMode.STANDALONE;
+export function getOS(): OS | undefined {
+  const ua = navigator.userAgent;
+  const maxTouchPoints = navigator.maxTouchPoints || 0;
+
+  if (/iPhone|iPod/.test(ua)) {
+    return 'iOS';
   }
-  return DisplayMode.BROWSER;
+  if (ua.includes('iPad') || (ua.includes('Mac') && maxTouchPoints > 1)) {
+    return 'iPadOS';
+  }
+  if (ua.includes('Mac')) {
+    return 'macOS';
+  }
+  if (ua.includes('Android')) {
+    return 'Android';
+  }
+  if (ua.includes('Windows')) {
+    return 'Windows';
+  }
+  if (ua.includes('CrOS')) {
+    return 'ChromeOS';
+  }
+  if (ua.includes('Linux')) {
+    return 'Linux';
+  }
+  return undefined;
 }
