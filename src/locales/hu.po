@@ -40,7 +40,7 @@ msgstr "{FIELD} kötelezőek"
 msgid "{FIELD} is required"
 msgstr "{FIELD} kötelező"
 
-#: src/components/InstallDrawer.tsx:42
+#: src/components/install/InstallDrawer.tsx:42
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, Windows, <1/> <2/> Linux és <3/> ChromeOS"
 
@@ -48,7 +48,7 @@ msgstr "<0/> Android, Windows, <1/> <2/> Linux és <3/> ChromeOS"
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> Asztali számítógép vagy laptop"
 
-#: src/components/InstallDrawer.tsx:87
+#: src/components/install/InstallDrawer.tsx:87
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS és iPadOS"
 
@@ -61,7 +61,7 @@ msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> Táblagép és <1/> mobil"
 
 #: src/components/alert/BrowserSupport.tsx:107
-#: src/components/InstallDrawer.tsx:61
+#: src/components/install/InstallDrawer.tsx:61
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows és <1/> Linux"
 
@@ -145,7 +145,7 @@ msgstr "Fehér hozzáadása <0>{whiteRatioText} arányban</0>"
 msgid "Alphabetically"
 msgstr "Betűrendben"
 
-#: src/components/InstallDrawer.tsx:177
+#: src/components/install/InstallDrawer.tsx:177
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
 msgstr "Alternatív megoldásként telepítse a Chrome, az Edge vagy az Opera webböngésző legújabb verzióját, és kattintson a <0>Telepítés</0> gombra. A macOS régebbi verzióiban ez az egyetlen lehetőség."
 
@@ -543,12 +543,12 @@ msgstr "Kép háttér nélkül"
 msgid "Inspire"
 msgstr "Megihlet"
 
-#: src/components/InstallButton.tsx:42
-#: src/hooks/usePersistentStorage.tsx:65
+#: src/components/install/InstallButton.tsx:31
+#: src/hooks/usePersistentStorage.tsx:59
 msgid "Install"
 msgstr "Felszerel"
 
-#: src/components/InstallDrawer.tsx:196
+#: src/components/install/InstallDrawer.tsx:196
 msgid "Install ArtistAssistApp"
 msgstr "Installáld az ArtistAssistApp alkalmazást"
 
@@ -766,8 +766,8 @@ msgstr "Az ingyenes verzióban csak korlátozott számú stílus érhető el"
 msgid "Opaque"
 msgstr "Átlátszatlan"
 
-#: src/components/InstallDrawer.tsx:99
-#: src/components/InstallDrawer.tsx:148
+#: src/components/install/InstallDrawer.tsx:99
+#: src/components/install/InstallDrawer.tsx:148
 msgid "Open in Safari browser"
 msgstr "Megnyitás a Safari böngészőben"
 
@@ -844,7 +844,7 @@ msgstr "Percentilis: Automatikus fehéregyensúly a legvilágosabb területekrő
 msgid "Persistent storage"
 msgstr "Állandó tárolás"
 
-#: src/hooks/usePersistentStorage.tsx:53
+#: src/hooks/usePersistentStorage.tsx:47
 msgid "Persistent storage is not enabled"
 msgstr "Az állandó tárolás nincs engedélyezve"
 
@@ -872,11 +872,11 @@ msgstr "Pozíció: {position}<0/>Értékelés: {ratingText}"
 msgid "Postpone"
 msgstr "Halasztás"
 
-#: src/components/InstallDrawer.tsx:170
+#: src/components/install/InstallDrawer.tsx:170
 msgid "Press Add to Dock"
 msgstr "Nyomja meg a Hozzáadás a dokkolóhoz gombot"
 
-#: src/components/InstallDrawer.tsx:120
+#: src/components/install/InstallDrawer.tsx:120
 msgid "Press Add to Home Screen"
 msgstr "Nyomja meg a Hozzáadás a kezdőképernyőhöz gombot"
 
@@ -884,8 +884,8 @@ msgstr "Nyomja meg a Hozzáadás a kezdőképernyőhöz gombot"
 msgid "Press Back again to exit"
 msgstr "Nyomja meg ismét a Vissza gombot a kilépéshez"
 
-#: src/components/InstallDrawer.tsx:110
-#: src/components/InstallDrawer.tsx:159
+#: src/components/install/InstallDrawer.tsx:110
+#: src/components/install/InstallDrawer.tsx:159
 msgid "Press Share in Navigation bar"
 msgstr "Nyomja meg a Megosztás gombot a navigációs sávon"
 
@@ -995,11 +995,11 @@ msgstr "Távolítsa el a színkeveréket"
 msgid "Required"
 msgstr "Szükséges"
 
-#: src/components/InstallDrawer.tsx:124
+#: src/components/install/InstallDrawer.tsx:124
 msgid "Requires iOS 16.4+ or iPadOS 16.4+."
 msgstr "iOS 16.4+ vagy iPadOS 16.4+ szükséges hozzá."
 
-#: src/components/InstallDrawer.tsx:174
+#: src/components/install/InstallDrawer.tsx:174
 msgid "Requires macOS Sonoma or later."
 msgstr "macOS Sonoma vagy újabb rendszer szükséges hozzá."
 
@@ -1413,7 +1413,7 @@ msgstr "Ez általában akkor történik, amikor <0>egy másik</0> Patreon fiókb
 msgid "To fix this:"
 msgstr "Ennek javítására:"
 
-#: src/components/InstallDrawer.tsx:48
+#: src/components/install/InstallDrawer.tsx:48
 msgid "To install ArtistAssistApp, use one of the supported web browsers:"
 msgstr "Az ArtistAssistApp telepítéséhez használd az egyik támogatott böngészőt:"
 
@@ -1570,7 +1570,7 @@ msgstr "Olyan módot választottál, amely csak a fizetős Patreon-tagok számá
 msgid "Your account details:"
 msgstr "Fiókadatai:"
 
-#: src/hooks/usePersistentStorage.tsx:55
+#: src/hooks/usePersistentStorage.tsx:49
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "Az adataid nem biztos, hogy megbízhatóan mentődnek el, ha a böngésző zárva van. Ennek megoldásához telepítsd az alkalmazást."
 

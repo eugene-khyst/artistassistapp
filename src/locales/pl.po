@@ -40,7 +40,7 @@ msgstr "{FIELD} są wymagane"
 msgid "{FIELD} is required"
 msgstr "Parametr {FIELD} jest wymagany"
 
-#: src/components/InstallDrawer.tsx:42
+#: src/components/install/InstallDrawer.tsx:42
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux i <3/> ChromeOS"
 
@@ -48,7 +48,7 @@ msgstr "<0/> Android, <1/> Windows, <2/> Linux i <3/> ChromeOS"
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> Komputer stacjonarny lub laptop"
 
-#: src/components/InstallDrawer.tsx:87
+#: src/components/install/InstallDrawer.tsx:87
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS i iPadOS"
 
@@ -61,7 +61,7 @@ msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> Tablet i <1/> telefon komórkowy"
 
 #: src/components/alert/BrowserSupport.tsx:107
-#: src/components/InstallDrawer.tsx:61
+#: src/components/install/InstallDrawer.tsx:61
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows i <1/> Linux"
 
@@ -145,7 +145,7 @@ msgstr "Dodaj biel w <0>proporcjach {whiteRatioText}</0>"
 msgid "Alphabetically"
 msgstr "Alfabetycznie"
 
-#: src/components/InstallDrawer.tsx:177
+#: src/components/install/InstallDrawer.tsx:177
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
 msgstr "Możesz też zainstalować najnowszą wersję przeglądarki internetowej Chrome, Edge lub Opera i kliknąć przycisk <0>Instaluj</0> . W starszych wersjach systemu macOS jest to jedyna opcja."
 
@@ -543,12 +543,12 @@ msgstr "Obraz bez tła"
 msgid "Inspire"
 msgstr "Inspirować"
 
-#: src/components/InstallButton.tsx:42
-#: src/hooks/usePersistentStorage.tsx:65
+#: src/components/install/InstallButton.tsx:31
+#: src/hooks/usePersistentStorage.tsx:59
 msgid "Install"
 msgstr "Instalować"
 
-#: src/components/InstallDrawer.tsx:196
+#: src/components/install/InstallDrawer.tsx:196
 msgid "Install ArtistAssistApp"
 msgstr "Zainstaluj ArtistAssist App"
 
@@ -766,8 +766,8 @@ msgstr "W darmowej wersji dostępna jest tylko ograniczona liczba stylów"
 msgid "Opaque"
 msgstr "Nieprzezroczysty"
 
-#: src/components/InstallDrawer.tsx:99
-#: src/components/InstallDrawer.tsx:148
+#: src/components/install/InstallDrawer.tsx:99
+#: src/components/install/InstallDrawer.tsx:148
 msgid "Open in Safari browser"
 msgstr "Otwórz w przeglądarce Safari"
 
@@ -844,7 +844,7 @@ msgstr "Percentyl: Automatyczny balans bieli z najjaśniejszych obszarów, dobry
 msgid "Persistent storage"
 msgstr "Pamięć trwała"
 
-#: src/hooks/usePersistentStorage.tsx:53
+#: src/hooks/usePersistentStorage.tsx:47
 msgid "Persistent storage is not enabled"
 msgstr "Magazyn trwały nie jest włączony"
 
@@ -872,11 +872,11 @@ msgstr "Pozycja: {position}<0/>Ocena: {ratingText}"
 msgid "Postpone"
 msgstr "Odroczenie"
 
-#: src/components/InstallDrawer.tsx:170
+#: src/components/install/InstallDrawer.tsx:170
 msgid "Press Add to Dock"
 msgstr "Naciśnij Dodaj do Docka"
 
-#: src/components/InstallDrawer.tsx:120
+#: src/components/install/InstallDrawer.tsx:120
 msgid "Press Add to Home Screen"
 msgstr "Naciśnij Dodaj do ekranu głównego"
 
@@ -884,8 +884,8 @@ msgstr "Naciśnij Dodaj do ekranu głównego"
 msgid "Press Back again to exit"
 msgstr "Naciśnij ponownie przycisk Wstecz, aby wyjść"
 
-#: src/components/InstallDrawer.tsx:110
-#: src/components/InstallDrawer.tsx:159
+#: src/components/install/InstallDrawer.tsx:110
+#: src/components/install/InstallDrawer.tsx:159
 msgid "Press Share in Navigation bar"
 msgstr "Naciśnij Udostępnij na pasku nawigacyjnym"
 
@@ -995,11 +995,11 @@ msgstr "Usuń mieszaninę kolorów"
 msgid "Required"
 msgstr "Wymagane"
 
-#: src/components/InstallDrawer.tsx:124
+#: src/components/install/InstallDrawer.tsx:124
 msgid "Requires iOS 16.4+ or iPadOS 16.4+."
 msgstr "Wymaga systemu iOS 16.4+ lub iPadOS 16.4+."
 
-#: src/components/InstallDrawer.tsx:174
+#: src/components/install/InstallDrawer.tsx:174
 msgid "Requires macOS Sonoma or later."
 msgstr "Wymaga systemu macOS Sonoma lub nowszego."
 
@@ -1413,7 +1413,7 @@ msgstr "Zazwyczaj dzieje się tak, gdy jesteś zalogowany na <0>inne</0> konto P
 msgid "To fix this:"
 msgstr "Aby to naprawić:"
 
-#: src/components/InstallDrawer.tsx:48
+#: src/components/install/InstallDrawer.tsx:48
 msgid "To install ArtistAssistApp, use one of the supported web browsers:"
 msgstr "Aby zainstalować ArtistAssistApp, użyj jednej z obsługiwanych przeglądarek internetowych:"
 
@@ -1570,7 +1570,7 @@ msgstr "Wybrałeś tryb, który jest dostępny tylko dla płatnych członków Pa
 msgid "Your account details:"
 msgstr "Dane Twojego konta:"
 
-#: src/hooks/usePersistentStorage.tsx:55
+#: src/hooks/usePersistentStorage.tsx:49
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "Twoje dane mogą nie być niezawodnie zapisywane, jeśli przeglądarka jest zamknięta. Aby to naprawić, zainstaluj aplikację."
 

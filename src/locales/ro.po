@@ -40,7 +40,7 @@ msgstr "{FIELD} sunt obligatorii"
 msgid "{FIELD} is required"
 msgstr "{FIELD} este obligatoriu"
 
-#: src/components/InstallDrawer.tsx:42
+#: src/components/install/InstallDrawer.tsx:42
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux și <3/> ChromeOS"
 
@@ -48,7 +48,7 @@ msgstr "<0/> Android, <1/> Windows, <2/> Linux și <3/> ChromeOS"
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> Desktop sau laptop"
 
-#: src/components/InstallDrawer.tsx:87
+#: src/components/install/InstallDrawer.tsx:87
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS și iPadOS"
 
@@ -61,7 +61,7 @@ msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> Tabletă și <1/> mobil"
 
 #: src/components/alert/BrowserSupport.tsx:107
-#: src/components/InstallDrawer.tsx:61
+#: src/components/install/InstallDrawer.tsx:61
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows și <1/> Linux"
 
@@ -145,7 +145,7 @@ msgstr "Adăugați alb într-un <0>raport {whiteRatioText}</0>"
 msgid "Alphabetically"
 msgstr "Alfabetic"
 
-#: src/components/InstallDrawer.tsx:177
+#: src/components/install/InstallDrawer.tsx:177
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
 msgstr "Alternativ, instalați cea mai recentă versiune a browserului web Chrome, Edge sau Opera și faceți clic pe <0>butonul Instalare</0> . În versiunile mai vechi de macOS, aceasta este singura opțiune."
 
@@ -543,12 +543,12 @@ msgstr "Imagine fără fundal"
 msgid "Inspire"
 msgstr "Inspira"
 
-#: src/components/InstallButton.tsx:42
-#: src/hooks/usePersistentStorage.tsx:65
+#: src/components/install/InstallButton.tsx:31
+#: src/hooks/usePersistentStorage.tsx:59
 msgid "Install"
 msgstr "Instala"
 
-#: src/components/InstallDrawer.tsx:196
+#: src/components/install/InstallDrawer.tsx:196
 msgid "Install ArtistAssistApp"
 msgstr "Instalează ArtistAssistApp"
 
@@ -766,8 +766,8 @@ msgstr "Doar un număr limitat de stiluri sunt disponibile în versiunea gratuit
 msgid "Opaque"
 msgstr "Opac"
 
-#: src/components/InstallDrawer.tsx:99
-#: src/components/InstallDrawer.tsx:148
+#: src/components/install/InstallDrawer.tsx:99
+#: src/components/install/InstallDrawer.tsx:148
 msgid "Open in Safari browser"
 msgstr "Deschide în browserul Safari"
 
@@ -844,7 +844,7 @@ msgstr "Percentilă: Balans de alb automat din zonele cele mai luminoase, bun pe
 msgid "Persistent storage"
 msgstr "Stocare persistentă"
 
-#: src/hooks/usePersistentStorage.tsx:53
+#: src/hooks/usePersistentStorage.tsx:47
 msgid "Persistent storage is not enabled"
 msgstr "Stocarea persistentă nu este activată"
 
@@ -872,11 +872,11 @@ msgstr "Poziție: {position}<0/>Evaluare: {ratingText}"
 msgid "Postpone"
 msgstr "Amânare"
 
-#: src/components/InstallDrawer.tsx:170
+#: src/components/install/InstallDrawer.tsx:170
 msgid "Press Add to Dock"
 msgstr "Apăsați Adăugați în Dock"
 
-#: src/components/InstallDrawer.tsx:120
+#: src/components/install/InstallDrawer.tsx:120
 msgid "Press Add to Home Screen"
 msgstr "Apăsați Adăugați la ecranul de pornire"
 
@@ -884,8 +884,8 @@ msgstr "Apăsați Adăugați la ecranul de pornire"
 msgid "Press Back again to exit"
 msgstr "Apăsați din nou Înapoi pentru a ieși"
 
-#: src/components/InstallDrawer.tsx:110
-#: src/components/InstallDrawer.tsx:159
+#: src/components/install/InstallDrawer.tsx:110
+#: src/components/install/InstallDrawer.tsx:159
 msgid "Press Share in Navigation bar"
 msgstr "Apăsați Partajare în bara de navigare"
 
@@ -995,11 +995,11 @@ msgstr "Îndepărtați amestecul de culori"
 msgid "Required"
 msgstr "Necesar"
 
-#: src/components/InstallDrawer.tsx:124
+#: src/components/install/InstallDrawer.tsx:124
 msgid "Requires iOS 16.4+ or iPadOS 16.4+."
 msgstr "Necesită iOS 16.4+ sau iPadOS 16.4+."
 
-#: src/components/InstallDrawer.tsx:174
+#: src/components/install/InstallDrawer.tsx:174
 msgid "Requires macOS Sonoma or later."
 msgstr "Necesită macOS Sonoma sau o versiune ulterioară."
 
@@ -1413,7 +1413,7 @@ msgstr "Acest lucru se întâmplă de obicei când ești conectat la un <0>alt</
 msgid "To fix this:"
 msgstr "Pentru a rezolva asta:"
 
-#: src/components/InstallDrawer.tsx:48
+#: src/components/install/InstallDrawer.tsx:48
 msgid "To install ArtistAssistApp, use one of the supported web browsers:"
 msgstr "Pentru a instala ArtistAssistApp, folosiți unul dintre browserele web suportate:"
 
@@ -1570,7 +1570,7 @@ msgstr "Ați selectat modul care este disponibil numai pentru membrii Patreon pl
 msgid "Your account details:"
 msgstr "Detaliile contului tău:"
 
-#: src/hooks/usePersistentStorage.tsx:55
+#: src/hooks/usePersistentStorage.tsx:49
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "Datele tale s-ar putea să nu fie salvate fiabil dacă browserul este închis. Pentru a rezolva asta, instalează aplicația."
 

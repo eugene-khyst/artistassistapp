@@ -43,10 +43,12 @@ export type AppSettingsUpdater = (prev?: AppSettings) => Partial<AppSettings>;
 export interface InitSlice {
   appInitialized: boolean;
   appSettings: AppSettings;
+  installRequested: boolean;
 
   isInitialStateLoading: boolean;
 
   initAppStore: () => Promise<void>;
+  resetInstallRequested: () => void;
   loadAppSettings: () => Promise<AppSettings>;
   saveAppSettings: (appSettings: Partial<AppSettings> | AppSettingsUpdater) => Promise<void>;
 }
@@ -67,6 +69,7 @@ export const createInitSlice: StateCreator<
 > = (set, get) => ({
   appInitialized: false,
   appSettings: {},
+  installRequested: false,
 
   isInitialStateLoading: false,
 
@@ -79,7 +82,7 @@ export const createInitSlice: StateCreator<
     await get().setLocale(appSettings.locale ?? getPreferredLocale(), false);
     await get().handleAuthCallback();
 
-    const {colorSet: importedColorSet, tabKey: importedTabKey, login} = importFromUrl();
+    const {colorSet: importedColorSet, tabKey: importedTabKey, login, install} = importFromUrl();
 
     if (login) {
       set({
@@ -87,6 +90,9 @@ export const createInitSlice: StateCreator<
       });
       get().loginWithRedirect();
       return;
+    }
+    if (install) {
+      set({installRequested: true});
     }
     let activeTabKey: TabKey | undefined = importedTabKey ?? appSettings.activeTabKey;
     if (importedColorSet) {
@@ -111,6 +117,11 @@ export const createInitSlice: StateCreator<
     });
 
     get().startPeriodicAuthVerification();
+  },
+  resetInstallRequested: (): void => {
+    set({
+      installRequested: false,
+    });
   },
   loadAppSettings: async (): Promise<AppSettings> => {
     const appSettings: AppSettings = {

@@ -40,7 +40,7 @@ msgstr "{FIELD} er påkrævet"
 msgid "{FIELD} is required"
 msgstr "{FIELD} er påkrævet"
 
-#: src/components/InstallDrawer.tsx:42
+#: src/components/install/InstallDrawer.tsx:42
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux og <3/> ChromeOS"
 
@@ -48,7 +48,7 @@ msgstr "<0/> Android, <1/> Windows, <2/> Linux og <3/> ChromeOS"
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> Stationær eller bærbar computer"
 
-#: src/components/InstallDrawer.tsx:87
+#: src/components/install/InstallDrawer.tsx:87
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS og iPadOS"
 
@@ -61,7 +61,7 @@ msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> Tablet og <1/> mobil"
 
 #: src/components/alert/BrowserSupport.tsx:107
-#: src/components/InstallDrawer.tsx:61
+#: src/components/install/InstallDrawer.tsx:61
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows og <1/> Linux"
 
@@ -145,7 +145,7 @@ msgstr "Tilføj hvid i et <0>{whiteRatioText}-forhold</0>"
 msgid "Alphabetically"
 msgstr "Alfabetisk"
 
-#: src/components/InstallDrawer.tsx:177
+#: src/components/install/InstallDrawer.tsx:177
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
 msgstr "Alternativt kan du installere den nyeste version af Chrome-, Edge- eller Opera-webbrowseren og klikke på knappen <0>Installer</0> . I ældre versioner af macOS er dette den eneste mulighed."
 
@@ -543,12 +543,12 @@ msgstr "Billede uden baggrund"
 msgid "Inspire"
 msgstr "Inspirere"
 
-#: src/components/InstallButton.tsx:42
-#: src/hooks/usePersistentStorage.tsx:65
+#: src/components/install/InstallButton.tsx:31
+#: src/hooks/usePersistentStorage.tsx:59
 msgid "Install"
 msgstr "Installere"
 
-#: src/components/InstallDrawer.tsx:196
+#: src/components/install/InstallDrawer.tsx:196
 msgid "Install ArtistAssistApp"
 msgstr "Installer ArtistAssistApp"
 
@@ -766,8 +766,8 @@ msgstr "Kun et begrænset antal stilarter er tilgængelige i den gratis version"
 msgid "Opaque"
 msgstr "Uigennemsigtig"
 
-#: src/components/InstallDrawer.tsx:99
-#: src/components/InstallDrawer.tsx:148
+#: src/components/install/InstallDrawer.tsx:99
+#: src/components/install/InstallDrawer.tsx:148
 msgid "Open in Safari browser"
 msgstr "Åbn i Safari-browseren"
 
@@ -844,7 +844,7 @@ msgstr "Percentil: Automatisk hvidbalance fra lyseste områder, godt til de fles
 msgid "Persistent storage"
 msgstr "Vedvarende opbevaring"
 
-#: src/hooks/usePersistentStorage.tsx:53
+#: src/hooks/usePersistentStorage.tsx:47
 msgid "Persistent storage is not enabled"
 msgstr "Vedvarende lagring er ikke aktiveret"
 
@@ -872,11 +872,11 @@ msgstr "Position: {position}<0/>Rating: {ratingText}"
 msgid "Postpone"
 msgstr "Udsættelse"
 
-#: src/components/InstallDrawer.tsx:170
+#: src/components/install/InstallDrawer.tsx:170
 msgid "Press Add to Dock"
 msgstr "Tryk på Tilføj til Dock"
 
-#: src/components/InstallDrawer.tsx:120
+#: src/components/install/InstallDrawer.tsx:120
 msgid "Press Add to Home Screen"
 msgstr "Tryk på Tilføj til startskærm"
 
@@ -884,8 +884,8 @@ msgstr "Tryk på Tilføj til startskærm"
 msgid "Press Back again to exit"
 msgstr "Tryk på Tilbage igen for at afslutte"
 
-#: src/components/InstallDrawer.tsx:110
-#: src/components/InstallDrawer.tsx:159
+#: src/components/install/InstallDrawer.tsx:110
+#: src/components/install/InstallDrawer.tsx:159
 msgid "Press Share in Navigation bar"
 msgstr "Tryk på Del på navigationslinjen"
 
@@ -995,11 +995,11 @@ msgstr "Fjern farveblandingen"
 msgid "Required"
 msgstr "Kræves"
 
-#: src/components/InstallDrawer.tsx:124
+#: src/components/install/InstallDrawer.tsx:124
 msgid "Requires iOS 16.4+ or iPadOS 16.4+."
 msgstr "Kræver iOS 16.4+ eller iPadOS 16.4+."
 
-#: src/components/InstallDrawer.tsx:174
+#: src/components/install/InstallDrawer.tsx:174
 msgid "Requires macOS Sonoma or later."
 msgstr "Kræver macOS Sonoma eller nyere."
 
@@ -1413,7 +1413,7 @@ msgstr "Dette sker som regel, når du er logget ind på en <0>anden</0> Patreon-
 msgid "To fix this:"
 msgstr "For at løse dette:"
 
-#: src/components/InstallDrawer.tsx:48
+#: src/components/install/InstallDrawer.tsx:48
 msgid "To install ArtistAssistApp, use one of the supported web browsers:"
 msgstr "For at installere ArtistAssistApp skal du bruge en af de understøttede webbrowsere:"
 
@@ -1570,7 +1570,7 @@ msgstr "Du har valgt en tilstand, der kun er tilgængelig for betalende Patreon-
 msgid "Your account details:"
 msgstr "Dine kontooplysninger:"
 
-#: src/hooks/usePersistentStorage.tsx:55
+#: src/hooks/usePersistentStorage.tsx:49
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "Dine data kan muligvis ikke gemmes pålideligt, hvis browseren er lukket. For at løse dette, installer appen."
 

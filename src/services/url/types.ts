@@ -23,4 +23,5 @@ export interface UrlParsingResult {
   colorSet?: ColorSetDefinition;
   tabKey?: TabKey;
   login?: boolean;
+  install?: boolean;
 }

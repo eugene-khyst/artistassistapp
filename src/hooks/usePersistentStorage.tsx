@@ -19,33 +19,27 @@
 import {AppstoreAddOutlined} from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
 import {App, Button} from 'antd';
-import {useCallback, useState} from 'react';
+import {useCallback} from 'react';
 
-import {InstallDrawer} from '~/src/components/install/InstallDrawer';
-import {useInstallPrompt} from '~/src/hooks/useInstallPrompt';
+import {useInstall} from '~/src/hooks/useInstall';
 import {requestPersistentStorage} from '~/src/utils/storage';
 
 const NOTIFICATION_KEY = 'persistent-storage';
 
 interface Result {
   checkPersistentStorage: () => Promise<void>;
-  persistentStorageDrawer: React.ReactNode;
+  installDrawer: React.ReactNode;
 }
 
 export function usePersistentStorage(): Result {
   const {notification} = App.useApp();
-  const {showInstallPromotion, promptToInstall} = useInstallPrompt();
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const {install, installDrawer} = useInstall();
 
   const checkPersistentStorage = useCallback(async () => {
     if (!(await requestPersistentStorage())) {
       const handleInstallClick = () => {
         notification.destroy(NOTIFICATION_KEY);
-        if (showInstallPromotion) {
-          void promptToInstall();
-        } else {
-          setIsDrawerOpen(true);
-        }
+        install();
       };
 
       notification.warning({
@@ -67,16 +61,7 @@ export function usePersistentStorage(): Result {
         ),
       });
     }
-  }, [notification, showInstallPromotion, promptToInstall]);
+  }, [notification, install]);
 
-  const persistentStorageDrawer = (
-    <InstallDrawer
-      open={isDrawerOpen}
-      onClose={() => {
-        setIsDrawerOpen(false);
-      }}
-    />
-  );
-
-  return {checkPersistentStorage, persistentStorageDrawer};
+  return {checkPersistentStorage, installDrawer};
 }

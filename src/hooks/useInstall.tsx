@@ -16,33 +16,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {useCallback} from 'react';
+import {useCallback, useState} from 'react';
 
+import {InstallDrawer} from '~/src/components/install/InstallDrawer';
 import {useAppStore} from '~/src/stores/app-store';
 
 interface Result {
-  showInstallPromotion: boolean;
-  promptToInstall: () => Promise<void>;
+  install: () => void;
+  installDrawer: React.ReactNode;
 }
 
-export function useInstallPrompt(): Result {
+export function useInstall(): Result {
   const beforeInstallPromptEvent = useAppStore(state => state.beforeInstallPromptEvent);
-
   const setBeforeInstallPromptEvent = useAppStore(state => state.setBeforeInstallPromptEvent);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const showInstallPromotion = !!beforeInstallPromptEvent;
-
-  const promptToInstall = useCallback(async () => {
-    if (!beforeInstallPromptEvent) {
-      return;
+  const install = useCallback(() => {
+    if (beforeInstallPromptEvent) {
+      void beforeInstallPromptEvent.prompt();
+      void beforeInstallPromptEvent.userChoice.then(() => {
+        setBeforeInstallPromptEvent(null);
+      });
+    } else {
+      setIsDrawerOpen(true);
     }
-    void beforeInstallPromptEvent.prompt();
-    await beforeInstallPromptEvent.userChoice;
-    setBeforeInstallPromptEvent(null);
-  }, [setBeforeInstallPromptEvent, beforeInstallPromptEvent]);
+  }, [beforeInstallPromptEvent, setBeforeInstallPromptEvent]);
 
-  return {
-    showInstallPromotion,
-    promptToInstall,
-  };
+  const installDrawer = (
+    <InstallDrawer
+      open={isDrawerOpen}
+      onClose={() => {
+        setIsDrawerOpen(false);
+      }}
+    />
+  );
+
+  return {install, installDrawer};
 }

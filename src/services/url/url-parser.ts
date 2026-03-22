@@ -41,6 +41,7 @@ const SKU_BASE = new Map<number, number>([
 const URL_PARAM_TAB = 'tab';
 const TAB_KEY_VALUES = new Set<string>(Object.values(TabKey));
 const LOGIN_PATHNAME = '/login';
+const INSTALL_PATHNAME = '/install';
 
 export function colorSetToUrl({
   type,
@@ -131,6 +132,9 @@ export function parseUrl(urlStr: string): UrlParsingResult {
   if (url.pathname === LOGIN_PATHNAME) {
     return {login: true};
   }
+  if (url.pathname === INSTALL_PATHNAME) {
+    return {install: true};
+  }
   const tabKey: TabKey | undefined =
     parseTabFromPathname(url) ?? parseTabFromSearchParams(url.searchParams);
   if (tabKey) {
@@ -145,8 +149,8 @@ export function parseUrl(urlStr: string): UrlParsingResult {
 
 export function importFromUrl(): UrlParsingResult {
   const importedFromUrl: UrlParsingResult = parseUrl(window.location.toString());
-  const {colorSet, tabKey, login} = importedFromUrl;
-  if (colorSet || tabKey || login) {
+  const {colorSet, tabKey, login, install} = importedFromUrl;
+  if (colorSet || tabKey || login || install) {
     replaceHistory();
   }
   return importedFromUrl;

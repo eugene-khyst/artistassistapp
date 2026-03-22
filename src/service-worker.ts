@@ -47,7 +47,12 @@ const CACHE_NAME_LARGE_FILES = getCacheName('large-files');
 const CACHE_NAMES = new Set([CACHE_NAME_DEFAULT, CACHE_NAME_LARGE_FILES]);
 
 const CACHE_LARGE_FILE_EXTENSIONS: RegExp[] = [/\.onnx\.part\d+$/, /\.wasm$/];
-const NO_CACHE_PATHNAMES = new Set<string>(['/404.html', '/cleanup.html']);
+const SPA_PATHNAMES = new Set<string>([
+  '/',
+  ...Object.values(TabKey).map(tab => `/${tab}`),
+  '/login',
+  '/install',
+]);
 
 function isCloudflareBeacon(url: URL): boolean {
   return (
@@ -109,10 +114,10 @@ self.addEventListener('fetch', (event: FetchEvent) => {
     if (request.method === 'GET') {
       let response: Promise<Response>;
       if (url.origin === self.location.origin) {
-        if (NO_CACHE_PATHNAMES.has(url.pathname)) {
-          response = fetch(request);
-        } else if (request.mode === 'navigate') {
+        if (request.mode === 'navigate' && SPA_PATHNAMES.has(url.pathname)) {
           response = fetchCacheFirst(new Request('/'));
+        } else if (request.mode === 'navigate') {
+          response = fetch(request);
         } else {
           response = fetchCacheFirst(request);
         }

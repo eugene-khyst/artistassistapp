@@ -19,35 +19,18 @@
 import {AppstoreAddOutlined} from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
 import {Button} from 'antd';
-import {useState} from 'react';
 
-import {useInstallPrompt} from '~/src/hooks/useInstallPrompt';
-
-import {InstallDrawer} from './InstallDrawer';
+import {useInstall} from '~/src/hooks/useInstall';
 
 export const InstallButton: React.FC = () => {
-  const {showInstallPromotion, promptToInstall} = useInstallPrompt();
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
-  const handleClick = () => {
-    if (showInstallPromotion) {
-      void promptToInstall();
-    } else {
-      setIsDrawerOpen(true);
-    }
-  };
+  const {install, installDrawer} = useInstall();
 
   return (
     <>
-      <Button icon={<AppstoreAddOutlined />} onClick={handleClick}>
+      <Button icon={<AppstoreAddOutlined />} onClick={install}>
         <Trans>Install</Trans>
       </Button>
-      <InstallDrawer
-        open={isDrawerOpen}
-        onClose={() => {
-          setIsDrawerOpen(false);
-        }}
-      />
+      {installDrawer}
     </>
   );
 };

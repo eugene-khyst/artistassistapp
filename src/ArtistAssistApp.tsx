@@ -38,6 +38,7 @@ import {TabContext} from '~/src/contexts/TabContext';
 import {useColorSetBackup} from '~/src/hooks/useColorSetBackup';
 import {useDoubleBackPressToExit} from '~/src/hooks/useDoubleBackPressToExit';
 import {useFullScreen} from '~/src/hooks/useFullscreen';
+import {useInstall} from '~/src/hooks/useInstall';
 import {useAppStore} from '~/src/stores/app-store';
 
 import {ColorMixer} from './components/ColorMixer';
@@ -76,7 +77,9 @@ export const ArtistAssistApp: React.FC = () => {
   const isLoading: boolean = isInitialStateLoading || isLocaleLoading || isAuthLoading;
 
   const appInitialized = useAppStore(state => state.appInitialized);
+  const installRequested = useAppStore(state => state.installRequested);
   const saveColorSetsAsJsonAndNotify = useColorSetBackup();
+  const {install, installDrawer} = useInstall();
 
   useDoubleBackPressToExit();
 
@@ -85,6 +88,15 @@ export const ArtistAssistApp: React.FC = () => {
       void saveColorSetsAsJsonAndNotify();
     }
   }, [appInitialized, saveColorSetsAsJsonAndNotify]);
+
+  const resetInstallRequested = useAppStore(state => state.resetInstallRequested);
+
+  useEffect(() => {
+    if (installRequested) {
+      install();
+      resetInstallRequested();
+    }
+  }, [installRequested, install, resetInstallRequested]);
 
   const handleTabChange = (activeKey: string) => {
     void (async () => {
@@ -202,6 +214,7 @@ export const ArtistAssistApp: React.FC = () => {
         />
       )}
       <AdModal />
+      {installDrawer}
     </LoadingIndicator>
   );
 };

@@ -119,7 +119,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
   const {t} = useLingui();
 
   const saveColorSetsAsJsonAndNotify = useColorSetBackup();
-  const {checkPersistentStorage, persistentStorageDrawer} = usePersistentStorage();
+  const {checkPersistentStorage, installDrawer} = usePersistentStorage();
 
   const mediaDevices: MediaDeviceInfo[] = useDevices();
 
@@ -755,7 +755,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
 
       <QRScannerModal open={isQRScannerModalOpen} setOpen={setIsQRScannerModalOpen} />
       <ShareModal open={isShareModalOpen} setOpen={setIsShareModalOpen} url={shareColorSetUrl} />
-      {persistentStorageDrawer}
+      {installDrawer}
     </>
   );
 });

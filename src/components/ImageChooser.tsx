@@ -39,7 +39,7 @@ export const ImageChooser: React.FC = () => {
 
   const [sampleImagesLoadingCount, setSampleImagesLoadingCount] = useState<number>(0);
 
-  const {checkPersistentStorage, persistentStorageDrawer} = usePersistentStorage();
+  const {checkPersistentStorage, installDrawer} = usePersistentStorage();
 
   const isLoading: boolean = sampleImagesLoadingCount > 0;
 
@@ -104,7 +104,7 @@ export const ImageChooser: React.FC = () => {
           </Row>
         </Flex>
       </LoadingIndicator>
-      {persistentStorageDrawer}
+      {installDrawer}
     </>
   );
 };

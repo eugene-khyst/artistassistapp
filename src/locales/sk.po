@@ -40,7 +40,7 @@ msgstr "{FIELD} sú povinné"
 msgid "{FIELD} is required"
 msgstr "{FIELD} je povinné"
 
-#: src/components/InstallDrawer.tsx:42
+#: src/components/install/InstallDrawer.tsx:42
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux a <3/> ChromeOS"
 
@@ -48,7 +48,7 @@ msgstr "<0/> Android, <1/> Windows, <2/> Linux a <3/> ChromeOS"
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> Stolný počítač alebo notebook"
 
-#: src/components/InstallDrawer.tsx:87
+#: src/components/install/InstallDrawer.tsx:87
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS a iPadOS"
 
@@ -61,7 +61,7 @@ msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> Tablet a <1/> mobil"
 
 #: src/components/alert/BrowserSupport.tsx:107
-#: src/components/InstallDrawer.tsx:61
+#: src/components/install/InstallDrawer.tsx:61
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows a <1/> Linux"
 
@@ -145,7 +145,7 @@ msgstr "Pridanie bielej farby v <0>pomere {whiteRatioText}</0>"
 msgid "Alphabetically"
 msgstr "Abecedne"
 
-#: src/components/InstallDrawer.tsx:177
+#: src/components/install/InstallDrawer.tsx:177
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
 msgstr "Prípadne si nainštalujte najnovšiu verziu prehliadača Chrome, Edge alebo Opera a kliknite na tlačidlo <0>Inštalovať</0> . V starších verziách systému macOS je to jediná možnosť."
 
@@ -543,12 +543,12 @@ msgstr "Obrázok bez pozadia"
 msgid "Inspire"
 msgstr "Inšpirovať"
 
-#: src/components/InstallButton.tsx:42
-#: src/hooks/usePersistentStorage.tsx:65
+#: src/components/install/InstallButton.tsx:31
+#: src/hooks/usePersistentStorage.tsx:59
 msgid "Install"
 msgstr "Inštalovať"
 
-#: src/components/InstallDrawer.tsx:196
+#: src/components/install/InstallDrawer.tsx:196
 msgid "Install ArtistAssistApp"
 msgstr "Nainštalujte ArtistAssist App"
 
@@ -766,8 +766,8 @@ msgstr "V bezplatnej verzii je k dispozícii len obmedzený počet štýlov"
 msgid "Opaque"
 msgstr "Nepriehľadný"
 
-#: src/components/InstallDrawer.tsx:99
-#: src/components/InstallDrawer.tsx:148
+#: src/components/install/InstallDrawer.tsx:99
+#: src/components/install/InstallDrawer.tsx:148
 msgid "Open in Safari browser"
 msgstr "Otvoriť v prehliadači Safari"
 
@@ -844,7 +844,7 @@ msgstr "Percentil: Automatické vyváženie bielej z najjasnejších oblastí, d
 msgid "Persistent storage"
 msgstr "Trvalé úložisko"
 
-#: src/hooks/usePersistentStorage.tsx:53
+#: src/hooks/usePersistentStorage.tsx:47
 msgid "Persistent storage is not enabled"
 msgstr "Trvalé úložisko nie je povolené"
 
@@ -872,11 +872,11 @@ msgstr "Pozícia: {position}<0/>Rating: {ratingText}"
 msgid "Postpone"
 msgstr "Odloženie"
 
-#: src/components/InstallDrawer.tsx:170
+#: src/components/install/InstallDrawer.tsx:170
 msgid "Press Add to Dock"
 msgstr "Stlačte Pridať do Docku"
 
-#: src/components/InstallDrawer.tsx:120
+#: src/components/install/InstallDrawer.tsx:120
 msgid "Press Add to Home Screen"
 msgstr "Stlačte Pridať na domovskú obrazovku"
 
@@ -884,8 +884,8 @@ msgstr "Stlačte Pridať na domovskú obrazovku"
 msgid "Press Back again to exit"
 msgstr "Opätovným stlačením tlačidla Späť ukončíte"
 
-#: src/components/InstallDrawer.tsx:110
-#: src/components/InstallDrawer.tsx:159
+#: src/components/install/InstallDrawer.tsx:110
+#: src/components/install/InstallDrawer.tsx:159
 msgid "Press Share in Navigation bar"
 msgstr "Stlačte tlačidlo Zdieľať na navigačnom paneli"
 
@@ -995,11 +995,11 @@ msgstr "Odstráňte farebnú zmes"
 msgid "Required"
 msgstr "Požadovaný"
 
-#: src/components/InstallDrawer.tsx:124
+#: src/components/install/InstallDrawer.tsx:124
 msgid "Requires iOS 16.4+ or iPadOS 16.4+."
 msgstr "Vyžaduje sa systém iOS 16.4+ alebo iPadOS 16.4+."
 
-#: src/components/InstallDrawer.tsx:174
+#: src/components/install/InstallDrawer.tsx:174
 msgid "Requires macOS Sonoma or later."
 msgstr "Vyžaduje sa systém macOS Sonoma alebo novší."
 
@@ -1413,7 +1413,7 @@ msgstr "Toto sa zvyčajne stáva, keď ste prihlásený na <0>inom</0> Patreon �
 msgid "To fix this:"
 msgstr "Aby som to napravil:"
 
-#: src/components/InstallDrawer.tsx:48
+#: src/components/install/InstallDrawer.tsx:48
 msgid "To install ArtistAssistApp, use one of the supported web browsers:"
 msgstr "Na inštaláciu ArtistAssistApp použite jeden z podporovaných webových prehliadačov:"
 
@@ -1570,7 +1570,7 @@ msgstr "Vybrali ste režim, ktorý je dostupný len pre platených členov Patre
 msgid "Your account details:"
 msgstr "Údaje o vašom účte:"
 
-#: src/hooks/usePersistentStorage.tsx:55
+#: src/hooks/usePersistentStorage.tsx:49
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "Vaše dáta nemusia byť spoľahlivo uložené, ak je prehliadač zatvorený. Aby ste to opravili, nainštalujte aplikáciu."
 
