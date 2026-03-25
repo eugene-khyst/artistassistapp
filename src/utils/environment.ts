@@ -16,32 +16,56 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export type OS = 'iOS' | 'iPadOS' | 'macOS' | 'Android' | 'Windows' | 'ChromeOS' | 'Linux';
+export enum OS {
+  I_OS = 'iOS',
+  I_PAD_OS = 'iPadOS',
+  MAC_OS = 'macOS',
+  ANDROID = 'Android',
+  WINDOWS = 'Windows',
+  CHROME_OS = 'ChromeOS',
+  LINUX = 'Linux',
+}
+
+export enum DisplayMode {
+  BROWSER = 'browser',
+  STANDALONE = 'standalone',
+  TWA = 'twa',
+}
 
 export function getOS(): OS | undefined {
   const ua = navigator.userAgent;
   const maxTouchPoints = navigator.maxTouchPoints || 0;
 
   if (/iPhone|iPod/.test(ua)) {
-    return 'iOS';
+    return OS.I_OS;
   }
   if (ua.includes('iPad') || (ua.includes('Mac') && maxTouchPoints > 1)) {
-    return 'iPadOS';
+    return OS.I_PAD_OS;
   }
   if (ua.includes('Mac')) {
-    return 'macOS';
+    return OS.MAC_OS;
   }
   if (ua.includes('Android')) {
-    return 'Android';
+    return OS.ANDROID;
   }
   if (ua.includes('Windows')) {
-    return 'Windows';
+    return OS.WINDOWS;
   }
   if (ua.includes('CrOS')) {
-    return 'ChromeOS';
+    return OS.CHROME_OS;
   }
   if (ua.includes('Linux')) {
-    return 'Linux';
+    return OS.LINUX;
   }
   return undefined;
+}
+
+export function getDisplayMode(): DisplayMode {
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+  if (document.referrer.startsWith('android-app://')) {
+    return DisplayMode.TWA;
+  } else if (('standalone' in navigator && navigator.standalone) || isStandalone) {
+    return DisplayMode.STANDALONE;
+  }
+  return DisplayMode.BROWSER;
 }

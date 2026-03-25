@@ -167,19 +167,17 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
   const isAccessAllowed: boolean =
     !selectedBrands || (!isAuthLoading && hasAccessTo(user, selectedBrands));
 
-  const selectedBrandAliases: string[] | undefined = selectedBrands?.map(brand => brand.alias);
-
   const {
     standardColorSets,
     isLoading: isStandardColorSetsLoading,
     isError: isStandardColorSetsError,
-  } = useStandardColorSets(selectedType, selectedBrandAliases);
+  } = useStandardColorSets(selectedType, selectedBrands);
 
   const {
     colors,
     isLoading: isColorsLoading,
     isError: isColorsError,
-  } = useColors(selectedType, selectedBrandAliases);
+  } = useColors(selectedType, selectedBrands);
 
   const isLoading: boolean =
     isColorSetsLoading ||

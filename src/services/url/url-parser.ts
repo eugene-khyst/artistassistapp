@@ -74,7 +74,7 @@ export function colorSetToUrl({
 }
 
 function parseTabFromPathname(url: URL): TabKey | undefined {
-  const slug: string = url.pathname.replace(/^\/|\/$/g, '');
+  const slug: string = url.pathname.replaceAll(/^\/|\/$/g, '');
   if (slug && TAB_KEY_VALUES.has(slug)) {
     return slug as TabKey;
   }

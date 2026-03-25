@@ -176,12 +176,9 @@ export async function fetchSWR(
 }
 
 export async function fetchChunked(request: URL, options: FetchChunkedOptions): Promise<Response> {
-  const [baseUrl, filename] = splitUrl(request);
-  const {progressCallback} = options;
-  progressCallback?.(filename, 0);
+  const [baseUrl] = splitUrl(request);
   const chunkedFile: ChunkedFile = await downloadChunkedFileInfo(request, options);
   const response: Response = await downloadChunks(baseUrl, chunkedFile, options);
-  progressCallback?.(null);
   return response;
 }
 
@@ -209,6 +206,8 @@ async function downloadChunks(
   const queue = chunks.map((_, i) => i);
   let progress = 0;
 
+  progressCallback?.(filename, progress);
+
   const abortController = new AbortController();
   signal?.addEventListener('abort', () => {
     abortController.abort(signal.reason);
@@ -218,8 +217,6 @@ async function downloadChunks(
     while (queue.length > 0) {
       const i = queue.shift()!;
       const chunk: Chunk = chunks[i]!;
-
-      progressCallback?.(chunk.filename, progress);
 
       const response = await fetch(new URL(chunk.filename, baseUrl), {
         signal: abortController.signal,
@@ -234,13 +231,15 @@ async function downloadChunks(
       completedCount++;
 
       progress = (completedCount / chunks.length) * 100;
-      progressCallback?.(chunk.filename, progress);
+      progressCallback?.(filename, progress);
     }
   }
 
   const workers = Array.from({length: Math.min(concurrency, chunks.length)}, () => worker());
 
   await Promise.all(workers);
+
+  progressCallback?.(null);
 
   const combinedBlob = new Blob(downloadedChunks);
   return new Response(combinedBlob, {

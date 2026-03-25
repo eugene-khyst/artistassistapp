@@ -5,10 +5,13 @@
   "scripts": {
     "lingui:extract": "lingui extract --clean",
     "translate": "tsx translate-po.ts",
-    "dev": "CF_PAGES_COMMIT_SHA=$(git rev-parse HEAD) vite",
-    "build": "tsc -b && vite build",
+    "cf-typegen": "wrangler types --path='./functions/types.d.ts'",
+    "dev": "vite",
+    "build": "npm run cf-typegen && tsc -b && vite build",
     "preview": "vite preview",
-    "start": "npm run build && npm run preview",
+    "build:local": "CF_PAGES_COMMIT_SHA=$(date +%s) npm run build",
+    "start:local": "npm run build:local && npm run preview",
+    "start:local-auth": "npm run build:local -- --mode local-auth && npm run preview",
     "clean": "rm -rf node_modules/.vite dist",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -77,7 +80,8 @@
     "vite": "^7.3.1",
     "vite-plugin-glsl": "^1.5.6",
     "vite-plugin-pwa": "^1.2.0",
-    "vite-plugin-svgr": "^4.5.0"
+    "vite-plugin-svgr": "^4.5.0",
+    "wrangler": "^4.77.0"
   },
   "lint-staged": {
     "**/*.{js,jsx}": [

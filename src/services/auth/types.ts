@@ -30,7 +30,7 @@ export class AuthError extends Error {
   constructor(
     public type: string,
     message?: string,
-    public context?: Record<string, unknown>
+    public context?: Record<string, unknown> | null
   ) {
     super(message);
     this.type = type;

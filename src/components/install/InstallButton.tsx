@@ -20,11 +20,17 @@ import {AppstoreAddOutlined} from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
 import {Button} from 'antd';
 
+import {useDisplayMode} from '~/src/hooks/useDisplayMode';
 import {useInstall} from '~/src/hooks/useInstall';
+import {DisplayMode} from '~/src/utils/environment';
 
 export const InstallButton: React.FC = () => {
   const {install, installDrawer} = useInstall();
+  const displayMode = useDisplayMode();
 
+  if (displayMode !== DisplayMode.BROWSER) {
+    return null;
+  }
   return (
     <>
       <Button icon={<AppstoreAddOutlined />} onClick={install}>

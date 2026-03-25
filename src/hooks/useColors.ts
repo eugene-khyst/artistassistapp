@@ -20,7 +20,7 @@ import type {UseQueryResult} from '@tanstack/react-query';
 import {useQueries} from '@tanstack/react-query';
 
 import {fetchColors} from '~/src/services/color/colors';
-import type {ColorDefinition, ColorType} from '~/src/services/color/types';
+import type {ColorBrandDefinition, ColorDefinition, ColorType} from '~/src/services/color/types';
 
 interface Result {
   isLoading: boolean;
@@ -28,7 +28,8 @@ interface Result {
   colors: Map<string, Map<number, ColorDefinition>>;
 }
 
-export function useColors(type?: ColorType, brandAliases?: string[]): Result {
+export function useColors(type?: ColorType, brands?: ColorBrandDefinition[]): Result {
+  const brandAliases: string[] | undefined = brands?.map(({alias}) => alias);
   const results: UseQueryResult<[string, Map<number, ColorDefinition>]>[] = useQueries({
     queries:
       type && brandAliases

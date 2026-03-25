@@ -16,14 +16,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-interface ImportMetaEnv {
-  readonly MODE: 'development' | 'production';
-  readonly VITE_COMMIT_HASH: string;
-  readonly VITE_AUTH_URL: string;
-  readonly VITE_DATA_URL: string;
-  readonly VITE_JWKS: string;
-}
+import {useEffect, useState} from 'react';
 
-interface ImportMeta {
-  readonly env: ImportMetaEnv;
+import {DisplayMode, getDisplayMode} from '~/src/utils/environment';
+
+export function useDisplayMode(): DisplayMode {
+  const [displayMode, setDisplayMode] = useState<DisplayMode>(() => getDisplayMode());
+
+  useEffect(() => {
+    const changeListener = (e: MediaQueryListEvent) => {
+      setDisplayMode(e.matches ? DisplayMode.STANDALONE : DisplayMode.BROWSER);
+    };
+    const mediaQuery: MediaQueryList = window.matchMedia('(display-mode: standalone)');
+    mediaQuery.addEventListener('change', changeListener);
+    return () => {
+      mediaQuery.removeEventListener('change', changeListener);
+    };
+  }, []);
+
+  return displayMode;
 }

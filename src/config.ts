@@ -16,12 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export const COMMIT_HASH: string = import.meta.env.VITE_COMMIT_HASH!;
+export const COMMIT_HASH: string = import.meta.env.VITE_COMMIT_HASH;
+export const AUTH_URL: string = import.meta.env.VITE_AUTH_URL;
+export const DATA_URL: string = import.meta.env.VITE_DATA_URL;
 
 export const WEBSITE_URL = 'https://artistassistapp.com';
 export const APP_URL = 'https://app.artistassistapp.com';
-export const AUTH_URL = 'https://auth.artistassistapp.com';
-export const DATA_URL = 'https://data.artistassistapp.com';
 export const PATREON_URL = 'https://www.patreon.com/artistassistapp';
 export const WATERMARK_TEXT = 'ArtistAssistApp.com';
 

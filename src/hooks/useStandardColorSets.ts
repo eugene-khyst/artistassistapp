@@ -20,7 +20,11 @@ import type {UseQueryResult} from '@tanstack/react-query';
 import {useQueries} from '@tanstack/react-query';
 
 import {fetchStandardColorSets} from '~/src/services/color/colors';
-import type {ColorType, StandardColorSetDefinition} from '~/src/services/color/types';
+import type {
+  ColorBrandDefinition,
+  ColorType,
+  StandardColorSetDefinition,
+} from '~/src/services/color/types';
 
 interface Result {
   isLoading: boolean;
@@ -28,7 +32,8 @@ interface Result {
   standardColorSets: Map<string, Map<string, StandardColorSetDefinition>>;
 }
 
-export function useStandardColorSets(type?: ColorType, brandAliases?: string[]): Result {
+export function useStandardColorSets(type?: ColorType, brands?: ColorBrandDefinition[]): Result {
+  const brandAliases: string[] | undefined = brands?.map(({alias}) => alias);
   const results: UseQueryResult<[string, Map<string, StandardColorSetDefinition>]>[] = useQueries({
     queries:
       type && brandAliases

@@ -16,14 +16,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-interface ImportMetaEnv {
-  readonly MODE: 'development' | 'production';
-  readonly VITE_COMMIT_HASH: string;
-  readonly VITE_AUTH_URL: string;
-  readonly VITE_DATA_URL: string;
-  readonly VITE_JWKS: string;
-}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv;
-}
+export type ServiceWorkerMessage = 'skipWaiting';

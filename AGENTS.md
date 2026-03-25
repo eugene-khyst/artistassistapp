@@ -7,7 +7,8 @@ This file provides guidance to AI coding agents when working with code in this r
 ```bash
 npm run dev          # Start dev server with hot reload (no service worker)
 npm run start        # Build + preview production build (with service worker)
-npm run build        # Type-check + Vite build
+npm run cf-typegen   # Generate Cloudflare Pages Function types into functions/types.d.ts
+npm run build        # Generate CF types + type-check + Vite build
 npm run preview      # Preview production build (without rebuilding)
 npm run lint         # ESLint
 npm run lint:fix     # ESLint with auto-fix
@@ -27,8 +28,9 @@ Both `npm run dev` and `npm run start` serve on `localhost:5173` (same origin), 
 (including ID tokens) persists between them. Use `npm run start` to log in with the full service
 worker, then switch to `npm run dev` for hot reload development.
 
-Cloudflare Pages handles `_redirects` rewrites and `404.html` in production only — neither `dev` nor
-`start` replicate this behavior locally.
+Cloudflare Pages handles `_redirects` rewrites, `404.html`, and Pages Functions in production only —
+neither `dev` nor `start` replicate this behavior locally. The CF Pages Function at
+`functions/login/callback.ts` (the iOS/iPadOS auth fallback) is not exercised in local dev.
 
 ## Architecture
 
@@ -64,9 +66,16 @@ Pure business logic, no React:
   color-sets, images, color-mixtures, custom-brands, auth-error, id-token). ID tokens and error data
   are in the same `artistassistapp` database (`auth-db.ts`)
 - **`auth/`** — JWT-based auth client using OIDC Form Post Response Mode. The auth server POSTs
-  `id_token`, `error`, `error_context` to `/login/callback`, which the service worker intercepts.
-  The SW saves `id_token` to IDB, passes `error` as a URL query param, saves `error_context` to IDB,
-  and redirects to `/`. JWKS public key is provided via `VITE_JWKS` env var
+  `id_token`, `error`, `error_context` to `/login/callback`. JWKS public key via `VITE_JWKS` env
+  var. Two interception paths:
+  1. **Service worker (primary)** — SW intercepts the POST, saves `id_token` to IDB, saves
+     `error_context` to IDB, passes `error` type as a URL query param, and redirects to `/`.
+  2. **CF Pages Function fallback** (`functions/login/callback.ts`) — handles the POST when the SW
+     is not active (known to affect some browsers on iOS/iPadOS). Uses `HTMLRewriter` to inject auth
+     data as a `data-auth-callback` attribute on `<body>`, then serves `index.html`. The client
+     reads from `document.body.dataset.authCallback` first, falling back to URL params. CF Function
+     types are generated via `npm run cf-typegen` into `functions/types.d.ts`; `functions/` is
+     excluded from the root `tsconfig.json` and has its own `functions/tsconfig.json`.
 - **`math/`** — geometry, matrix operations, GCD, clamp utilities
 - **`ads/`** — ad integration
 - **`event/`** — custom event manager
@@ -101,8 +110,9 @@ All user-facing strings must use Lingui macros (`t`, `msg`, `<Trans>`).
 Service worker at `src/service-worker.ts`, initialized via `src/pwa-init.ts`. Uses `vite-plugin-pwa`
 with `injectManifest` strategy. Cross-Origin headers (COEP/COOP) are required for SharedArrayBuffer
 support (ONNX WASM threading). The service worker intercepts `POST /login/callback` (auth callback)
-and `POST /share-target` (file sharing). All persistence uses IndexedDB — `localStorage` is not
-used.
+and `POST /share-target` (file sharing). When the SW is not active, the CF Pages Function at
+`functions/login/callback.ts` handles `POST /login/callback` as a fallback. All persistence uses
+IndexedDB — `localStorage` is not used.
 
 ### Vite Configuration
 

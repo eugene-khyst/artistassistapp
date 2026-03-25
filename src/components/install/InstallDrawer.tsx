@@ -26,7 +26,7 @@ import {
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Drawer, Space, theme, Typography} from 'antd';
 
-import {getOS} from '~/src/utils/environment';
+import {getOS, OS} from '~/src/utils/environment';
 
 const os = getOS();
 
@@ -188,9 +188,9 @@ export const InstallDrawer: React.FC<Props> = ({open, onClose}: Props) => {
   const {t} = useLingui();
 
   const showChromium =
-    !os || os === 'Android' || os === 'Windows' || os === 'Linux' || os === 'ChromeOS';
-  const showIOS = !os || os === 'iOS' || os === 'iPadOS';
-  const showMacOS = !os || os === 'macOS';
+    !os || os === OS.ANDROID || os === OS.WINDOWS || os === OS.LINUX || os === OS.CHROME_OS;
+  const showIOS = !os || os === OS.I_OS || os === OS.I_PAD_OS;
+  const showMacOS = !os || os === OS.MAC_OS;
 
   return (
     <Drawer title={t`Install ArtistAssistApp`} size="large" open={open} onClose={onClose}>

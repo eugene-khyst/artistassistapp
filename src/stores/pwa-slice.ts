@@ -19,6 +19,7 @@
 import type {StateCreator} from 'zustand';
 
 import type {BeforeInstallPromptEvent} from '~/src/pwa';
+import type {ServiceWorkerMessage} from '~/src/sw-message';
 
 export interface PwaSlice {
   serviceWorkerRegistration: ServiceWorkerRegistration | null;
@@ -45,7 +46,7 @@ export const createPwaSlice: StateCreator<PwaSlice, [], [], PwaSlice> = (set, ge
   updateServiceWorker: () => {
     const {serviceWorkerRegistration} = get();
     if (serviceWorkerRegistration?.waiting) {
-      serviceWorkerRegistration.waiting.postMessage('skipWaiting');
+      serviceWorkerRegistration.waiting.postMessage('skipWaiting' satisfies ServiceWorkerMessage);
     } else {
       console.warn('No waiting service worker found');
     }

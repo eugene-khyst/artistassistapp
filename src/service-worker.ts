@@ -33,6 +33,7 @@ import {fileToImageFile} from '~/src/services/image/image-file';
 import type {SampleImageDefinition} from '~/src/services/image/sample-images';
 import {SAMPLE_IMAGES} from '~/src/services/image/sample-images';
 import type {AppSettings} from '~/src/services/settings/types';
+import type {ServiceWorkerMessage} from '~/src/sw-message';
 import {TabKey} from '~/src/tabs';
 import {digestMessage} from '~/src/utils/digest';
 import {
@@ -157,8 +158,8 @@ async function receiveAuthCallback(request: Request): Promise<Response> {
       redirectUrl.searchParams.set('error', error);
       if (errorContext) {
         try {
-          const parsed = JSON.parse(errorContext) as Record<string, unknown>;
-          await saveAuthErrorData({context: parsed});
+          const parsedErrorContext = JSON.parse(errorContext) as Record<string, unknown>;
+          await saveAuthErrorData({context: parsedErrorContext});
         } catch (e) {
           console.error('Failed to parse error context', e);
         }
@@ -222,7 +223,8 @@ async function receiveSharedData(request: Request): Promise<Response> {
 }
 
 self.addEventListener('message', event => {
-  if (event.data === 'skipWaiting') {
+  const data = event.data as ServiceWorkerMessage | null | undefined;
+  if (data === 'skipWaiting') {
     void self.skipWaiting();
   }
 });

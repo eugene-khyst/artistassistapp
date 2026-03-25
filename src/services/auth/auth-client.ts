@@ -28,14 +28,14 @@ import {
 } from '~/src/services/db/auth-db';
 import {replaceHistory} from '~/src/utils/history';
 
-const JWKS = jose.createLocalJWKSet(JSON.parse(import.meta.env.VITE_JWKS!) as jose.JSONWebKeySet);
+const JWKS = jose.createLocalJWKSet(JSON.parse(import.meta.env.VITE_JWKS) as jose.JSONWebKeySet);
 const ERROR_KEY = 'error';
 const ID_TOKEN_KEY = 'id_token';
 
-export function getMagicLink(jwt: string): string {
-  const url = new URL(window.location.origin);
-  url.searchParams.set(ID_TOKEN_KEY, jwt);
-  return url.toString();
+interface AuthCallbackResult {
+  idToken?: string | null;
+  error?: string | null;
+  errorContext?: Record<string, unknown> | null;
 }
 
 export interface AuthClientProps {
@@ -43,6 +43,12 @@ export interface AuthClientProps {
   redirectUri: string;
   issuer: string;
   audience: string;
+}
+
+export function getMagicLink(jwt: string): string {
+  const url = new URL(window.location.origin);
+  url.searchParams.set(ID_TOKEN_KEY, jwt);
+  return url.toString();
 }
 
 export class AuthClient {
@@ -65,26 +71,53 @@ export class AuthClient {
   }
 
   async handleAuthCallback(): Promise<void> {
-    const {searchParams} = new URL(window.location.toString());
-    const error = searchParams.get(ERROR_KEY);
-    const jwt = searchParams.get(ID_TOKEN_KEY);
-    if (error) {
-      try {
-        const data = await getAndDeleteAuthErrorData();
-        throw new AuthError(error, 'Authentication failed', data?.context);
-      } finally {
-        replaceHistory();
+    const result = this.resolveAuthCallback();
+    if (!result) {
+      return;
+    }
+
+    const {idToken, error, errorContext} = result;
+    try {
+      if (error) {
+        const context = errorContext ?? (await getAndDeleteAuthErrorData())?.context;
+        throw new AuthError(error, 'Authentication failed', context);
       }
-    } else if (jwt) {
+      if (idToken) {
+        try {
+          this.authentication = await this.authenticate(idToken);
+          await saveIdToken(idToken);
+        } catch (e) {
+          throw authError(e);
+        }
+      }
+    } finally {
+      replaceHistory();
+    }
+  }
+
+  private resolveAuthCallback(): AuthCallbackResult | null {
+    // Source 1: CF Pages Function injected data (Chrome iOS fallback)
+    const callbackDataAttribute = document.body.dataset['authCallback'];
+    if (callbackDataAttribute) {
       try {
-        this.authentication = await this.authenticate(jwt);
-        await saveIdToken(jwt);
-      } catch (e) {
-        throw authError(e);
-      } finally {
-        replaceHistory();
+        const callbackData = JSON.parse(callbackDataAttribute) as AuthCallbackResult | null;
+        if (callbackData) {
+          return callbackData;
+        }
+      } catch {
+        // Malformed data, fall through to URL params
       }
     }
+
+    // Source 2: URL params (SW redirect / magic link)
+    const {searchParams} = new URL(window.location.toString());
+    const error = searchParams.get(ERROR_KEY);
+    const idToken = searchParams.get(ID_TOKEN_KEY);
+    if (!error && !idToken) {
+      return null;
+    }
+
+    return {idToken, error};
   }
 
   async getAuthentication(): Promise<Authentication | null> {
