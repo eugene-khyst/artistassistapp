@@ -17,7 +17,7 @@ msgstr ""
 msgid "({colorCount} colors)"
 msgstr "({colorCount} 색상)"
 
-#: src/components/ColorSetChooser.tsx:622
+#: src/components/ColorSetChooser.tsx:620
 msgid "{brandName} colors"
 msgstr "{brandName} 색상"
 
@@ -26,17 +26,17 @@ msgstr "{brandName} 색상"
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, other {#가지 색상}}"
 
-#: src/components/ColorSetChooser.tsx:576
-#: src/components/ColorSetChooser.tsx:623
+#: src/components/ColorSetChooser.tsx:574
+#: src/components/ColorSetChooser.tsx:621
 msgid "{FIELD} are required"
 msgstr "{FIELD}는 필수입니다."
 
-#: src/components/ColorSetChooser.tsx:543
-#: src/components/ColorSetChooser.tsx:552
-#: src/components/ColorSetChooser.tsx:605
-#: src/components/CustomColorBrandCreator.tsx:315
-#: src/components/CustomColorBrandCreator.tsx:326
-#: src/components/CustomColorBrandCreator.tsx:334
+#: src/components/ColorSetChooser.tsx:541
+#: src/components/ColorSetChooser.tsx:550
+#: src/components/ColorSetChooser.tsx:603
+#: src/components/CustomColorBrandCreator.tsx:458
+#: src/components/CustomColorBrandCreator.tsx:469
+#: src/components/CustomColorBrandCreator.tsx:477
 msgid "{FIELD} is required"
 msgstr "{FIELD}는 필수입니다."
 
@@ -69,7 +69,7 @@ msgstr "<0/> Windows 및 <1/> Linux"
 msgid "<0>{similarityText}%</0> similarity"
 msgstr "<0>{similarityText}%</0> 유사성"
 
-#: src/components/ColorSetChooser.tsx:420
+#: src/components/ColorSetChooser.tsx:418
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>ArtistAssistApp</0> 은 아티스트가 사진의 색상을 혼합하고, 색조 값을 분석하고, 사진의 윤곽을 그리고, 그리드로 그리고, 제한된 팔레트로 페인팅하는 등의 작업을 수행하는 데 도움이 되는 웹 앱입니다."
 
@@ -77,7 +77,7 @@ msgstr "<0>ArtistAssistApp</0> 은 아티스트가 사진의 색상을 혼합하
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Patreon 계정 확인</0>: 회원권을 구매할 때 사용한 동일한 이메일로 웹 브라우저에서 <1>Patreon.com</1> 로그인되었는지 확인하세요. 계정이 여러 개 있다면, 로그아웃 후 올바른 계정으로 다시 로그인하세요."
 
-#: src/components/ColorSetChooser.tsx:442
+#: src/components/ColorSetChooser.tsx:440
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Patreon의 ArtistAssistApp에 유료 회원으로 가입</0>하거나, 이미 가입한 경우 <1>Patreon에 로그인</1> 하면 200개 이상의 색상 브랜드와 광고 없는 모든 이미지 처리 모드를 이용할 수 있습니다."
 
@@ -125,7 +125,7 @@ msgstr "색상 추가"
 msgid "Add color mixtures to the palette."
 msgstr "색상표에 색상 혼합을 추가합니다."
 
-#: src/components/ColorSetChooser.tsx:625
+#: src/components/ColorSetChooser.tsx:623
 msgid "Add or remove colors to match your actual color set."
 msgstr "실제 색상 세트와 일치하도록 색상을 추가하거나 제거합니다."
 
@@ -182,11 +182,11 @@ msgstr "캐시를 지우시겠습니까?"
 msgid "Are you sure you want to delete all app data?"
 msgstr "모든 앱 데이터를 삭제하시겠습니까?"
 
-#: src/components/ColorSetChooser.tsx:718
+#: src/components/ColorSetChooser.tsx:716
 msgid "Are you sure you want to delete this color set?"
 msgstr "이 색상 세트를 삭제하시겠습니까?"
 
-#: src/components/CustomColorBrandCreator.tsx:347
+#: src/components/CustomColorBrandCreator.tsx:490
 msgid "Are you sure you want to delete this custom brand?"
 msgstr "이 사용자 지정 브랜드를 삭제하시겠습니까?"
 
@@ -203,8 +203,8 @@ msgstr "모든 색상 혼합을 제거하시겠습니까?"
 msgid "Are you sure you want to remove this color mixture?"
 msgstr "이 색상 혼합물을 제거하시겠습니까?"
 
-#: src/components/ColorSetChooser.tsx:542
-#: src/components/CustomColorBrandCreator.tsx:325
+#: src/components/ColorSetChooser.tsx:540
+#: src/components/CustomColorBrandCreator.tsx:468
 msgid "Art medium"
 msgstr "예술 매체"
 
@@ -212,7 +212,7 @@ msgstr "예술 매체"
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp은 <0>Eugene Khyst</0>가 개발했습니다."
 
-#: src/components/CustomColorBrandCreator.tsx:375
+#: src/components/CustomColorBrandCreator.tsx:518
 msgid "At least one color is required"
 msgstr "하나 이상의 색상이 필요합니다."
 
@@ -282,16 +282,16 @@ msgid "Close in {closeCounter} sec"
 msgstr "{closeCounter}초 내에 닫기"
 
 #: src/components/ColorMixer.tsx:205
-#: src/components/CustomColorBrandCreator.tsx:299
+#: src/components/CustomColorBrandCreator.tsx:442
 #: src/components/ImageColorPicker.tsx:320
 msgid "Color"
 msgstr "색"
 
-#: src/components/CustomColorBrandCreator.tsx:314
+#: src/components/CustomColorBrandCreator.tsx:457
 msgid "Color brand"
 msgstr "색상 브랜드"
 
-#: src/components/ColorSetChooser.tsx:574
+#: src/components/ColorSetChooser.tsx:572
 msgid "Color brands"
 msgstr "색상 브랜드"
 
@@ -311,7 +311,7 @@ msgstr "색상 혼합"
 msgid "Color picker"
 msgstr "색상 피커"
 
-#: src/components/ColorSetChooser.tsx:550
+#: src/components/ColorSetChooser.tsx:548
 #: src/components/ImageColorPicker.tsx:347
 #: src/components/messages.ts:26
 msgid "Color set"
@@ -358,7 +358,7 @@ msgstr "이 링크 복사 및 공유"
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "광원의 온도 추정치를 켈빈(Kelvin)으로 수정했습니다."
 
-#: src/components/ColorSetChooser.tsx:711
+#: src/components/ColorSetChooser.tsx:709
 msgid "Create a duplicate of this color set for further modification"
 msgstr "추가 수정을 위해 이 색상 세트의 복제본을 만듭니다."
 
@@ -375,8 +375,8 @@ msgstr "맞춤 브랜드"
 msgid "Custom color set"
 msgstr "사용자 정의 색상 세트"
 
-#: src/components/ColorSetChooser.tsx:732
-#: src/components/CustomColorBrandCreator.tsx:361
+#: src/components/ColorSetChooser.tsx:730
+#: src/components/CustomColorBrandCreator.tsx:504
 #: src/components/image/RecentImageCard.tsx:83
 msgid "Delete"
 msgstr "삭제하다"
@@ -386,12 +386,12 @@ msgstr "삭제하다"
 msgid "Delete all app data"
 msgstr "모든 앱 데이터 삭제"
 
-#: src/components/ColorSetChooser.tsx:717
+#: src/components/ColorSetChooser.tsx:715
 msgid "Delete the color set"
 msgstr "색상 세트 삭제"
 
-#: src/components/CustomColorBrandCreator.tsx:346
-#: src/components/CustomColorBrandCreator.tsx:356
+#: src/components/CustomColorBrandCreator.tsx:489
+#: src/components/CustomColorBrandCreator.tsx:499
 msgid "Delete the custom brand"
 msgstr "사용자 지정 브랜드 삭제"
 
@@ -400,7 +400,7 @@ msgstr "사용자 지정 브랜드 삭제"
 msgid "Delete the recent photo"
 msgstr "최근 사진 삭제"
 
-#: src/components/ColorSetChooser.tsx:727
+#: src/components/ColorSetChooser.tsx:725
 msgid "Delete this color set"
 msgstr "이 색상 세트 삭제"
 
@@ -416,7 +416,7 @@ msgstr "진단"
 msgid "Diagonals"
 msgstr "대각선"
 
-#: src/components/CustomColorBrandCreator.tsx:286
+#: src/components/CustomColorBrandCreator.tsx:429
 #: src/components/ImageColorPicker.tsx:306
 msgid "Diameter"
 msgstr "직경"
@@ -425,7 +425,7 @@ msgstr "직경"
 msgid "Dilute the paint with water in a <0>{ratioText} ratio</0>"
 msgstr "페인트를 <0>물에 {ratioText} 비율</0>로 희석합니다."
 
-#: src/components/ColorSetChooser.tsx:607
+#: src/components/ColorSetChooser.tsx:605
 msgid "Do you have a store-bought or custom color set?"
 msgstr "매장에서 구입한 색상 또는 사용자 정의 색상 세트가 있습니까?"
 
@@ -441,19 +441,23 @@ msgstr "다운로드한 파일 {filename}"
 msgid "Downloading..."
 msgstr "다운로드 중..."
 
-#: src/components/ColorSetChooser.tsx:714
+#: src/components/ColorSetChooser.tsx:712
 msgid "Duplicate"
 msgstr "복사하다"
+
+#: src/components/CustomColorBrandCreator.tsx:101
+msgid "Edit from here on"
+msgstr "여기서부터는 수정"
 
 #: src/components/alert/AuthErrorHandler.tsx:31
 msgid "Email"
 msgstr "이메일"
 
-#: src/components/ColorSetChooser.tsx:194
+#: src/components/ColorSetChooser.tsx:192
 msgid "Error while fetching color brand data"
 msgstr "색상 브랜드 데이터를 가져오는 중 오류 발생"
 
-#: src/components/ColorSetChooser.tsx:216
+#: src/components/ColorSetChooser.tsx:214
 msgid "Error while fetching color data"
 msgstr "색상 데이터를 가져오는 중 오류 발생"
 
@@ -463,7 +467,7 @@ msgstr "색상 데이터를 가져오는 중 오류 발생"
 msgid "Error while fetching ML model data"
 msgstr "ML 모델 데이터를 가져오는 중 오류 발생"
 
-#: src/components/ColorSetChooser.tsx:205
+#: src/components/ColorSetChooser.tsx:203
 msgid "Error while fetching standard color set data"
 msgstr "표준 색상 세트 데이터를 가져오는 중 오류가 발생했습니다."
 
@@ -471,14 +475,18 @@ msgstr "표준 색상 세트 데이터를 가져오는 중 오류가 발생했�
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "이미지를 촬영한 광원의 예상 온도(켈빈)"
 
-#: src/components/ColorSetChooser.tsx:452
+#: src/components/ColorSetChooser.tsx:450
 msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "유료 멤버십 구매를 결정하기 전에 무료 버전을 살펴보세요."
 
-#: src/components/ColorSetChooser.tsx:367
-#: src/components/CustomColorBrandCreator.tsx:216
+#: src/components/ColorSetChooser.tsx:365
+#: src/components/CustomColorBrandCreator.tsx:351
 msgid "Fill in the required fields"
 msgstr "필수 필드를 입력합니다."
+
+#: src/components/CustomColorBrandCreator.tsx:190
+msgid "Finish editing"
+msgstr "편집 완료"
 
 #: src/components/ImageColorAdjustment.tsx:502
 msgid "Gamma"
@@ -488,7 +496,7 @@ msgstr "감마"
 msgid "Gifted membership"
 msgstr "영재 회원"
 
-#: src/components/ColorSetChooser.tsx:567
+#: src/components/ColorSetChooser.tsx:565
 msgid "Give your color set a name for easy access."
 msgstr "쉽게 액세스할 수 있도록 색상 세트에 이름을 지정하십시오."
 
@@ -522,16 +530,16 @@ msgstr "그리드"
 msgid "Height"
 msgstr "높이"
 
-#: src/components/ColorSetChooser.tsx:499
+#: src/components/ColorSetChooser.tsx:497
 #: src/components/messages.ts:42
 msgid "Help"
 msgstr "도움말"
 
-#: src/components/ColorSetChooser.tsx:457
+#: src/components/ColorSetChooser.tsx:455
 msgid "If you are having trouble logging in, please read this <0>troubleshooting guide</0>."
 msgstr "로그인에 어려움이 있다면 이 <0>문제 해결 가이드</0>를 꼭 읽어주세요."
 
-#: src/components/ColorSetChooser.tsx:230
+#: src/components/ColorSetChooser.tsx:228
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "저장하지 않으면 색상 세트에 대한 변경 사항이 손실될 수 있습니다."
 
@@ -543,7 +551,7 @@ msgstr "배경이 없는 이미지"
 msgid "Inspire"
 msgstr "영감"
 
-#: src/components/install/InstallButton.tsx:31
+#: src/components/install/InstallButton.tsx:37
 #: src/hooks/usePersistentStorage.tsx:59
 msgid "Install"
 msgstr "설치하다"
@@ -608,15 +616,15 @@ msgstr "한정 팔레트"
 msgid "Link copied to clipboard"
 msgstr "링크가 클립보드에 복사됨"
 
-#: src/components/CustomColorBrandCreator.tsx:281
+#: src/components/CustomColorBrandCreator.tsx:424
 msgid "Load color brand file"
 msgstr "색상 브랜드 파일 로드"
 
-#: src/components/ColorSetChooser.tsx:742
+#: src/components/ColorSetChooser.tsx:740
 msgid "Load color sets file"
 msgstr "색상 세트 파일 로드"
 
-#: src/components/ColorSetChooser.tsx:509
+#: src/components/ColorSetChooser.tsx:507
 msgid "Log in on another device by scanning the QR code"
 msgstr "QR 코드를 스캔하여 다른 장치에 로그인합니다."
 
@@ -679,17 +687,17 @@ msgstr "혼합"
 msgid "Mode"
 msgstr "모드"
 
-#: src/components/ColorSetChooser.tsx:566
-#: src/components/CustomColorBrandCreator.tsx:333
-#: src/components/CustomColorBrandCreator.tsx:407
+#: src/components/ColorSetChooser.tsx:564
+#: src/components/CustomColorBrandCreator.tsx:169
+#: src/components/CustomColorBrandCreator.tsx:476
 msgid "Name"
 msgstr "이름"
 
-#: src/components/CustomColorBrandCreator.tsx:336
+#: src/components/CustomColorBrandCreator.tsx:479
 msgid "Name a brand"
 msgstr "브랜드 이름 지정"
 
-#: src/components/ColorSetChooser.tsx:570
+#: src/components/ColorSetChooser.tsx:568
 msgid "Name a color set"
 msgstr "색상 세트 이름 지정"
 
@@ -715,9 +723,9 @@ msgstr "다음 청구일"
 
 #: src/components/color/AddToPaletteButton.tsx:52
 #: src/components/color/PaletteColorMixtureCard.tsx:105
-#: src/components/ColorSetChooser.tsx:232
-#: src/components/ColorSetChooser.tsx:723
-#: src/components/CustomColorBrandCreator.tsx:352
+#: src/components/ColorSetChooser.tsx:230
+#: src/components/ColorSetChooser.tsx:721
+#: src/components/CustomColorBrandCreator.tsx:495
 #: src/components/image/RecentImageCard.tsx:74
 #: src/components/palette/PaletteGrid.tsx:103
 #: src/components/storage/ClearStorage.tsx:63
@@ -750,7 +758,7 @@ msgstr "유성 페인트"
 msgid "Oil Pastel"
 msgstr "오일 파스텔"
 
-#: src/components/ColorSetChooser.tsx:589
+#: src/components/ColorSetChooser.tsx:587
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "무료 버전에서는 제한된 수의 색상 브랜드만 사용할 수 있습니다"
 
@@ -758,7 +766,7 @@ msgstr "무료 버전에서는 제한된 수의 색상 브랜드만 사용할 �
 msgid "Only a limited number of modes are available in the free version"
 msgstr "무료 버전에서는 제한된 수의 모드만 사용할 수 있습니다"
 
-#: src/components/ImageStyleTransfer.tsx:194
+#: src/components/ImageStyleTransfer.tsx:197
 msgid "Only a limited number of styles are available in the free version"
 msgstr "무료 버전에서는 제한된 수의 스타일만 사용할 수 있습니다"
 
@@ -989,9 +997,9 @@ msgstr "팔레트에서 제거"
 msgid "Remove the color mixture"
 msgstr "색상 혼합 제거"
 
-#: src/components/CustomColorBrandCreator.tsx:391
-#: src/components/CustomColorBrandCreator.tsx:398
-#: src/components/CustomColorBrandCreator.tsx:405
+#: src/components/CustomColorBrandCreator.tsx:150
+#: src/components/CustomColorBrandCreator.tsx:161
+#: src/components/CustomColorBrandCreator.tsx:167
 msgid "Required"
 msgstr "필수"
 
@@ -1026,7 +1034,7 @@ msgstr "돌다"
 msgid "Saturation (%)"
 msgstr "채도(%)"
 
-#: src/components/CustomColorBrandCreator.tsx:341
+#: src/components/CustomColorBrandCreator.tsx:484
 #: src/components/ImageBackgroundRemoval.tsx:191
 #: src/components/ImageBackgroundRemoval.tsx:257
 #: src/components/ImageBlurred.tsx:111
@@ -1039,17 +1047,17 @@ msgstr "채도(%)"
 #: src/components/ImageOutline.tsx:263
 #: src/components/ImagePerspectiveCorrection.tsx:197
 #: src/components/ImagePerspectiveCorrection.tsx:263
-#: src/components/ImageStyleTransfer.tsx:188
+#: src/components/ImageStyleTransfer.tsx:191
 #: src/components/ImageTonalValues.tsx:92
 #: src/components/ImageTonalValues.tsx:133
 msgid "Save"
 msgstr "구해내다"
 
-#: src/components/ColorSetChooser.tsx:690
+#: src/components/ColorSetChooser.tsx:688
 msgid "Save & proceed"
 msgstr "저장 및 진행"
 
-#: src/components/ColorSetChooser.tsx:229
+#: src/components/ColorSetChooser.tsx:227
 msgid "Save changes to the color set?"
 msgstr "색상 세트에 대한 변경 사항을 저장하시겠습니까?"
 
@@ -1063,7 +1071,7 @@ msgstr "저장이 1.91:1로 확장됨"
 msgid "Save expanded to 4:5"
 msgstr "4:5로 확장된 저장"
 
-#: src/components/ColorSetChooser.tsx:686
+#: src/components/ColorSetChooser.tsx:684
 msgid "Save the changes to this color set"
 msgstr "이 색상 세트에 대한 변경 사항을 저장합니다"
 
@@ -1071,7 +1079,7 @@ msgstr "이 색상 세트에 대한 변경 사항을 저장합니다"
 msgid "Scan a QR code"
 msgstr "QR 코드 스캔"
 
-#: src/components/ColorSetChooser.tsx:490
+#: src/components/ColorSetChooser.tsx:488
 msgid "Scan QR code"
 msgstr "QR 코드 스캔"
 
@@ -1095,11 +1103,11 @@ msgstr "배경을 제거할 사진을 선택합니다."
 msgid "Select a reference photo from your device to paint from"
 msgstr "기기에서 페인팅할 참조 사진을 선택합니다."
 
-#: src/components/ImageStyleTransfer.tsx:183
+#: src/components/ImageStyleTransfer.tsx:186
 msgid "Select a style to transfer to your reference photo"
 msgstr "참조 사진으로 전송할 스타일을 선택합니다."
 
-#: src/components/CustomColorBrandCreator.tsx:269
+#: src/components/CustomColorBrandCreator.tsx:412
 msgid "Select an image that contains a color chart"
 msgstr "색상 차트가 포함된 이미지를 선택합니다"
 
@@ -1115,7 +1123,7 @@ msgstr "예술 매체 선택"
 msgid "Select brands"
 msgstr "브랜드 선택"
 
-#: src/components/ColorSetChooser.tsx:575
+#: src/components/ColorSetChooser.tsx:573
 msgid "Select brands that you use."
 msgstr "사용하는 브랜드를 선택합니다."
 
@@ -1140,11 +1148,11 @@ msgstr "최근 브랜드에서 선택"
 msgid "Select from your recent color sets"
 msgstr "최근 색상 세트에서 선택"
 
-#: src/components/ColorSetChooser.tsx:551
+#: src/components/ColorSetChooser.tsx:549
 msgid "Select from your recent color sets or create a new one."
 msgstr "최근 색상 세트에서 선택하거나 새 색상 세트를 만듭니다."
 
-#: src/components/CustomColorBrandCreator.tsx:274
+#: src/components/CustomColorBrandCreator.tsx:417
 msgid "Select image"
 msgstr "이미지 선택"
 
@@ -1175,11 +1183,11 @@ msgstr "쌍별 비교를 사용하여 순위를 매길 사진을 선택합니다
 msgid "Select set"
 msgstr "세트 선택"
 
-#: src/components/ImageStyleTransfer.tsx:236
+#: src/components/ImageStyleTransfer.tsx:239
 msgid "Select style image"
 msgstr "스타일 이미지 선택"
 
-#: src/components/ColorSetChooser.tsx:519
+#: src/components/ColorSetChooser.tsx:517
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Select your art medium, color brands and colors you will paint with and press the <0>Save & proceed</0> button."
 msgstr "당신의 예술 매체, 색상 브랜드, 그리고 페인팅할 색상을 선택하고 <0>Save & proceed</0> 버튼을 누르세요."
@@ -1223,12 +1231,12 @@ msgstr "그림자"
 msgid "Shadows and highlights"
 msgstr "그림자와 하이라이트"
 
-#: src/components/ColorSetChooser.tsx:704
+#: src/components/ColorSetChooser.tsx:702
 #: src/components/share/ShareModal.tsx:83
 msgid "Share"
 msgstr "공유"
 
-#: src/components/ColorSetChooser.tsx:701
+#: src/components/ColorSetChooser.tsx:699
 msgid "Share this color set"
 msgstr "이 색상 세트 공유"
 
@@ -1296,7 +1304,7 @@ msgstr "스펙트럼 반사율 곡선"
 msgid "Square cells"
 msgstr "제곱 셀"
 
-#: src/components/ColorSetChooser.tsx:604
+#: src/components/ColorSetChooser.tsx:602
 msgid "Standard color set"
 msgstr "표준 색상 세트"
 
@@ -1316,7 +1324,7 @@ msgstr "스토리지 사용량"
 msgid "Straightens skewed photos and removes unwanted edges. Select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "기울어진 사진을 곧게 펴고 원치 않는 가장자리를 제거합니다. 4개의 점을 선택하여 원근 왜곡을 수정한 다음 필요에 따라 여백을 드래그하여 이미지를 자릅니다."
 
-#: src/components/ImageStyleTransfer.tsx:161
+#: src/components/ImageStyleTransfer.tsx:164
 msgid "Styled reference photo"
 msgstr "스타일이 지정된 참조 사진"
 
@@ -1361,7 +1369,7 @@ msgstr "색상 세트에서 혼합할 색상입니다. 이미지의 점을 클�
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
 msgstr "커서 주위의 원형 영역의 지름으로, 해당 영역에 있는 픽셀의 평균 색상을 계산하는 데 사용됩니다."
 
-#: src/components/CustomColorBrandCreator.tsx:287
+#: src/components/CustomColorBrandCreator.tsx:430
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
 msgstr "커서 주위의 원형 영역의 지름으로, 영역 내에 있는 픽셀의 평균 색상을 계산하는 데 사용됩니다."
 
@@ -1389,7 +1397,7 @@ msgstr "페인트를 <0>{fractionText} 두께</0>로 얇게 만듭니다."
 msgid "This backup file lets you restore your color sets later, so keep it. You can delete any older backup files."
 msgstr "이 백업 파일을 사용하면 나중에 색상 세트를 복원할 수 있으므로 보관하십시오. 이전 백업 파일을 삭제할 수 있습니다."
 
-#: src/components/ColorSetChooser.tsx:630
+#: src/components/ColorSetChooser.tsx:628
 msgid "This color brand is available to paid Patreon members only"
 msgstr "이 색상 브랜드는 유료 Patreon 회원만 사용할 수 있습니다"
 
@@ -1401,7 +1409,7 @@ msgstr "이 인쇄 크기는 지원되지 않습니다."
 msgid "This step is optional."
 msgstr "이 단계는 선택 사항입니다."
 
-#: src/components/ImageStyleTransfer.tsx:252
+#: src/components/ImageStyleTransfer.tsx:255
 msgid "This style is available to paid Patreon members only"
 msgstr "이 스타일은 Patreon 유료 회원만 사용할 수 있습니다"
 
@@ -1501,11 +1509,11 @@ msgstr "수채화 연필"
 msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
 msgstr "로그인 자격 증명 검증에 문제가 발생했습니다. 이 문제는 보통 다시 로그인 시도로 해결됩니다."
 
-#: src/components/ColorSetChooser.tsx:662
+#: src/components/ColorSetChooser.tsx:660
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "총 {maxColorsFor2}개 이상의 색상을 선택하는 경우 두 색상의 혼합은 사용되지 않습니다."
 
-#: src/components/ColorSetChooser.tsx:670
+#: src/components/ColorSetChooser.tsx:668
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "총 {maxColorsFor3}개 이상의 색상을 선택하는 경우 세 가지 색상의 혼합은 사용되지 않습니다."
 
@@ -1536,9 +1544,9 @@ msgstr "너비"
 
 #: src/components/color/AddToPaletteButton.tsx:51
 #: src/components/color/PaletteColorMixtureCard.tsx:104
-#: src/components/ColorSetChooser.tsx:231
-#: src/components/ColorSetChooser.tsx:722
-#: src/components/CustomColorBrandCreator.tsx:351
+#: src/components/ColorSetChooser.tsx:229
+#: src/components/ColorSetChooser.tsx:720
+#: src/components/CustomColorBrandCreator.tsx:494
 #: src/components/image/RecentImageCard.tsx:73
 #: src/components/palette/PaletteGrid.tsx:102
 #: src/components/storage/ClearStorage.tsx:62
@@ -1546,19 +1554,19 @@ msgstr "너비"
 msgid "Yes"
 msgstr "예"
 
-#: src/components/ColorSetChooser.tsx:431
+#: src/components/ColorSetChooser.tsx:429
 msgid "You are logged in and have access to all app features."
 msgstr "로그인되어 있으며 모든 앱 기능에 액세스할 수 있습니다."
 
-#: src/components/ColorSetChooser.tsx:436
+#: src/components/ColorSetChooser.tsx:434
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "제한된 수의 색상 브랜드와 이미지 처리 모드가 있는 <0>무료 버전을</0> 사용하고 있습니다."
 
-#: src/components/ColorSetChooser.tsx:582
+#: src/components/ColorSetChooser.tsx:580
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Patreon 유료 회원만 사용할 수 있는 색상 브랜드를 선택했습니다."
 
-#: src/components/ColorSetChooser.tsx:653
+#: src/components/ColorSetChooser.tsx:651
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Patreon 유료 회원만 사용할 수 있는 색상 브랜드를 선택했습니다. Patreon의 ArtistAssistApp에 유료 회원으로 가입하거나 이미 가입한 경우 Patreon으로 로그인하세요."
 

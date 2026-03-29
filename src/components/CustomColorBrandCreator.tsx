@@ -16,15 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DeleteOutlined, MinusOutlined, SaveOutlined} from '@ant-design/icons';
+import {DeleteOutlined, DownOutlined, MinusOutlined, SaveOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {useQueryClient} from '@tanstack/react-query';
+import type {FormInstance} from 'antd';
 import {
   App,
   Button,
   Col,
   ColorPicker,
   Divider,
+  Dropdown,
   Flex,
   Form,
   Grid,
@@ -34,12 +36,14 @@ import {
   Row,
   Slider,
   Space,
+  theme,
   Typography,
 } from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import type {SliderMarks} from 'antd/es/slider';
-import {useCallback, useEffect, useState} from 'react';
+import {memo, useCallback, useEffect, useRef, useState} from 'react';
 
+import {ColorSquare} from '~/src/components/color/ColorSquare';
 import {OpacitySelect} from '~/src/components/color/OpacitySelect';
 import {ColorTypeSelect} from '~/src/components/color-set/ColorTypeSelect';
 import {CustomColorBrandSelect} from '~/src/components/color-set/CustomColorBrandSelect';
@@ -79,6 +83,138 @@ const formInitialValues: CustomColorBrandDefinition = {
   colors: [],
 };
 
+function applyColor(
+  form: FormInstance<CustomColorBrandDefinition>,
+  editFromIndex: number | null,
+  setEditFromIndex: (value: number | null) => void,
+  setScrollToIndex: (value: number | null) => void,
+  hex: string
+): void {
+  const colors = form.getFieldValue('colors') as Partial<ColorDefinition>[];
+  if (editFromIndex !== null && editFromIndex < colors.length) {
+    const newColors = [...colors];
+    newColors[editFromIndex] = {...newColors[editFromIndex], hex: hex.toUpperCase()};
+    form.setFieldValue('colors', newColors);
+    const nextIdx = editFromIndex + 1;
+    const exitEditMode = nextIdx >= newColors.length;
+    setEditFromIndex(exitEditMode ? null : nextIdx);
+    setScrollToIndex(exitEditMode ? editFromIndex : nextIdx);
+  } else {
+    form.setFieldValue('colors', [
+      ...colors,
+      {
+        id: colors.map(({id}) => id ?? 0).reduce((prev, curr) => Math.max(prev, curr), 0) + 1,
+        hex: hex.toUpperCase(),
+      },
+    ]);
+    setScrollToIndex(colors.length);
+  }
+  void form.validateFields(['colors']);
+}
+
+interface ColorDropdownProps {
+  value?: string;
+  isEditTarget?: boolean;
+  onEditFromHere?: () => void;
+}
+
+const ColorDropdown: React.FC<ColorDropdownProps> = ({value, isEditTarget, onEditFromHere}) => {
+  const {
+    token: {colorWarning},
+  } = theme.useToken();
+  return (
+    <Dropdown
+      menu={{
+        items: [
+          {
+            key: '1',
+            label: <Trans>Edit from here on</Trans>,
+            onClick: () => {
+              onEditFromHere?.();
+            },
+          },
+        ],
+      }}
+    >
+      <Button
+        icon={<DownOutlined />}
+        iconPlacement="end"
+        style={isEditTarget ? {borderColor: colorWarning, color: colorWarning} : undefined}
+      >
+        <ColorSquare color={value ?? WHITE_HEX} size="small" />
+      </Button>
+    </Dropdown>
+  );
+};
+
+interface ColorListItemProps {
+  name: number;
+  isEditTarget: boolean;
+  isScrollTarget: boolean;
+  onSetEditFromIndex: (index: number | null) => void;
+  onRemove: (index: number) => void;
+}
+
+const ColorListItem = memo(function ColorListItem({
+  name,
+  isEditTarget,
+  isScrollTarget,
+  onSetEditFromIndex,
+  onRemove,
+}: ColorListItemProps) {
+  const {t} = useLingui();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const status = isEditTarget ? 'warning' : undefined;
+
+  useEffect(() => {
+    if (isScrollTarget) {
+      scrollRef.current?.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+    }
+  }, [isScrollTarget]);
+
+  return (
+    <>
+      <Flex ref={scrollRef} gap="small">
+        <Form.Item name={[name, 'hex']} rules={[{required: true, message: t`Required`}]}>
+          <ColorDropdown
+            isEditTarget={isEditTarget}
+            onEditFromHere={() => {
+              onSetEditFromIndex(name);
+            }}
+          />
+        </Form.Item>
+        <Form.Item name={[name, 'id']} rules={[{required: true, message: t`Required`}]}>
+          <InputNumber placeholder="ID" status={status} style={{width: 70}} />
+        </Form.Item>
+        <Form.Item name={[name, 'name']} rules={[{required: true, message: t`Required`}]}>
+          <Input placeholder={t`Name`} status={status} />
+        </Form.Item>
+        <Form.Item name={[name, 'opacity']}>
+          <OpacitySelect popupMatchSelectWidth={false} status={status} />
+        </Form.Item>
+        <Button
+          shape="circle"
+          icon={<MinusOutlined />}
+          onClick={() => {
+            onRemove(name);
+          }}
+        />
+      </Flex>
+      {isEditTarget && (
+        <Button
+          type="primary"
+          onClick={() => {
+            onSetEditFromIndex(null);
+          }}
+          style={{marginBottom: 24}}
+        >
+          <Trans>Finish editing</Trans>
+        </Button>
+      )}
+    </>
+  );
+});
+
 export const CustomColorBrandCreator: React.FC = () => {
   const customColorBrands = useAppStore(state => state.customColorBrands);
   const latestCustomColorBrand = useAppStore(state => state.latestCustomColorBrand);
@@ -90,12 +226,12 @@ export const CustomColorBrandCreator: React.FC = () => {
   const saveCustomColorBrandAsJson = useAppStore(state => state.saveCustomColorBrandAsJson);
   const deleteCustomColorBrand = useAppStore(state => state.deleteCustomColorBrand);
 
-  const queryClient = useQueryClient();
-
   const screens = Grid.useBreakpoint();
   const {message} = App.useApp();
 
   const {t} = useLingui();
+
+  const queryClient = useQueryClient();
 
   const [form] = Form.useForm<CustomColorBrandDefinition>();
 
@@ -104,34 +240,40 @@ export const CustomColorBrandCreator: React.FC = () => {
   const [imageFile, setImageFile] = useState<File | null>();
   const [sampleDiameter, setSampleDiameter] = useState<number>(DEFAULT_SAMPLE_DIAMETER);
   const [currentColor, setCurrentColor] = useState<string>(WHITE_HEX);
+  const [editFromIndex, setEditFromIndex] = useState<number | null>(null);
+  const [scrollToIndex, setScrollToIndex] = useState<number | null>(null);
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  const removeColorRef = useRef<(index: number) => void>(() => {});
 
   const imageColorPickerCanvasSupplier = useCallback(
     (canvas: HTMLCanvasElement): ImageColorPickerCanvas => {
       const colorPickerCanvas = new ImageColorPickerCanvas(canvas);
       colorPickerCanvas.setPipetteDiameter(DEFAULT_SAMPLE_DIAMETER);
-      const listener = ({rgb}: PipettePointSetEvent) => {
-        const hex = rgb.toHex();
-        setCurrentColor(hex);
-        const colors = form.getFieldValue('colors') as Partial<ColorDefinition>[];
-        form.setFieldValue('colors', [
-          ...colors,
-          {
-            id: colors.map(({id}) => id ?? 0).reduce((prev, curr) => Math.max(prev, curr), 0) + 1,
-            hex: hex.toUpperCase(),
-          },
-        ]);
-        void form.validateFields(['colors']);
-      };
-      colorPickerCanvas.events.subscribe(ColorPickerEventType.PipettePointSet, listener);
       return colorPickerCanvas;
     },
-    [form]
+    []
   );
 
   const {imageBitmap, isLoading: isImageLoading} = useCreateImageBitmap(imageFile);
 
   const {ref: canvasRef, zoomableImageCanvas: colorPickerCanvas} =
     useZoomableImageCanvas<ImageColorPickerCanvas>(imageColorPickerCanvasSupplier, imageBitmap);
+
+  useEffect(() => {
+    if (!colorPickerCanvas) {
+      return;
+    }
+    const listener = ({rgb}: PipettePointSetEvent) => {
+      const hex = rgb.toHex();
+      setCurrentColor(hex);
+      applyColor(form, editFromIndex, setEditFromIndex, setScrollToIndex, hex);
+    };
+    colorPickerCanvas.events.subscribe(ColorPickerEventType.PipettePointSet, listener);
+    return () => {
+      colorPickerCanvas.events.unsubscribe(ColorPickerEventType.PipettePointSet, listener);
+    };
+  }, [form, colorPickerCanvas, editFromIndex]);
 
   useEffect(() => {
     void loadCustomColorBrands();
@@ -143,6 +285,12 @@ export const CustomColorBrandCreator: React.FC = () => {
       form.setFieldsValue(removeRho(latestCustomColorBrand));
     }
   }, [latestCustomColorBrand, form]);
+
+  useEffect(() => {
+    if (scrollToIndex !== null) {
+      setScrollToIndex(null);
+    }
+  }, [scrollToIndex]);
 
   const isLoading: boolean = isImageLoading || isCustomColorBrandsLoading;
 
@@ -165,6 +313,7 @@ export const CustomColorBrandCreator: React.FC = () => {
       invalidateQueries();
       form.resetFields();
       form.setFieldsValue(removeRho(brand));
+      setEditFromIndex(null);
     }
   };
 
@@ -176,20 +325,13 @@ export const CustomColorBrandCreator: React.FC = () => {
   const handleCurrentColorChange = (hex: string) => {
     colorPickerCanvas?.setPipettePoint(null);
     setCurrentColor(hex);
-    const colors = form.getFieldValue('colors') as Partial<ColorDefinition>[];
-    form.setFieldValue('colors', [
-      ...colors,
-      {
-        id: colors.map(({id}) => id ?? 0).reduce((prev, curr) => Math.max(prev, curr), 0) + 1,
-        hex: hex.toUpperCase(),
-      },
-    ]);
-    void form.validateFields(['colors']);
+    applyColor(form, editFromIndex, setEditFromIndex, setScrollToIndex, hex);
   };
 
   const handleFormValuesChange = (changedValues: Partial<CustomColorBrandDefinition>) => {
     if ((changedValues.id ?? -1) >= 0) {
       form.resetFields();
+      setEditFromIndex(null);
       if (changedValues.id! > 0) {
         const brand: CustomColorBrandDefinition | undefined = customColorBrands.find(
           ({id}: CustomColorBrandDefinition) => id === changedValues.id
@@ -222,8 +364,14 @@ export const CustomColorBrandCreator: React.FC = () => {
       await deleteCustomColorBrand(id);
       invalidateQueries();
       form.resetFields();
+      setEditFromIndex(null);
     }
   };
+
+  const handleRemoveColor = useCallback((index: number) => {
+    removeColorRef.current(index);
+    setEditFromIndex(null);
+  }, []);
 
   const height = `calc((100dvh - 75px) / ${screens.sm ? '1' : '2 - 8px'})`;
   const margin = screens.sm ? 0 : 8;
@@ -378,53 +526,31 @@ export const CustomColorBrandCreator: React.FC = () => {
                     },
                   ]}
                 >
-                  {(fields, {remove}, {errors}) => (
-                    <>
-                      {fields
-                        .slice()
-                        .reverse()
-                        .map(({key, name, ...restField}) => (
-                          <Flex key={key} gap="small">
-                            <Form.Item
-                              {...restField}
-                              name={[name, 'hex']}
-                              rules={[{required: true, message: t`Required`}]}
-                            >
-                              <ColorPicker disabled />
-                            </Form.Item>
-                            <Form.Item
-                              {...restField}
-                              name={[name, 'id']}
-                              rules={[{required: true, message: t`Required`}]}
-                            >
-                              <InputNumber placeholder="ID" style={{width: 70}} />
-                            </Form.Item>
-                            <Form.Item
-                              {...restField}
-                              name={[name, 'name']}
-                              rules={[{required: true, message: t`Required`}]}
-                            >
-                              <Input placeholder={t`Name`} />
-                            </Form.Item>
-                            <Form.Item {...restField} name={[name, 'opacity']}>
-                              <OpacitySelect popupMatchSelectWidth={false} />
-                            </Form.Item>
-                            <Button
-                              shape="circle"
-                              icon={<MinusOutlined />}
-                              onClick={() => {
-                                remove(name);
-                              }}
-                            />
-                          </Flex>
+                  {(fields, {remove}, {errors}) => {
+                    // Assigned during render because `remove` is only available in this render prop,
+                    // but consumed in `handleRemoveColor` (a stable useCallback for memo).
+                    // Safe: the ref is only read in click handlers, which fire after commit.
+                    removeColorRef.current = remove;
+                    return (
+                      <>
+                        {fields.map(field => (
+                          <ColorListItem
+                            key={field.key}
+                            name={field.name}
+                            isEditTarget={field.name === editFromIndex}
+                            isScrollTarget={field.name === scrollToIndex}
+                            onSetEditFromIndex={setEditFromIndex}
+                            onRemove={handleRemoveColor}
+                          />
                         ))}
-                      {errors.length > 0 && (
-                        <Form.Item>
-                          <Form.ErrorList errors={errors} />
-                        </Form.Item>
-                      )}
-                    </>
-                  )}
+                        {errors.length > 0 && (
+                          <Form.Item>
+                            <Form.ErrorList errors={errors} />
+                          </Form.Item>
+                        )}
+                      </>
+                    );
+                  }}
                 </Form.List>
               </Col>
             </Row>

@@ -86,11 +86,14 @@ export interface ColorDefinition {
   warmth?: number;
 }
 
+export type ColorDefinitionSource = Omit<ColorDefinition, 'rho'> &
+  Partial<Pick<ColorDefinition, 'rho'>>;
+
 export interface CustomColorBrandDefinition {
   id?: number;
   type?: ColorType;
   name?: string;
-  colors?: Partial<ColorDefinition>[];
+  colors?: ColorDefinitionSource[];
   date?: Date;
 }
 

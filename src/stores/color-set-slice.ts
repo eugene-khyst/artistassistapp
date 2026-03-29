@@ -65,10 +65,7 @@ export interface ColorSetSlice {
   ) => Promise<ColorSetDefinition>;
   loadColorSetsFromJson: (file: File) => Promise<ColorSetDefinition | undefined>;
   saveColorSetsAsJson: () => Promise<string | undefined>;
-  deleteColorSet: (
-    type?: ColorType,
-    idToDelete?: number
-  ) => Promise<ColorSetDefinition | undefined>;
+  deleteColorSet: (type?: ColorType, idToDelete?: number) => Promise<void>;
 }
 
 export const createColorSetSlice: StateCreator<
@@ -201,10 +198,7 @@ export const createColorSetSlice: StateCreator<
     });
     return filename;
   },
-  deleteColorSet: async (
-    type?: ColorType,
-    idToDelete?: number
-  ): Promise<ColorSetDefinition | undefined> => {
+  deleteColorSet: async (type?: ColorType, idToDelete?: number): Promise<void> => {
     if (!type || !idToDelete) {
       return;
     }
@@ -217,9 +211,5 @@ export const createColorSetSlice: StateCreator<
     set({
       colorSets,
     });
-    const [latestColorSetByType] = [...(colorSets.get(type) ?? [])].sort(
-      reverseOrder(compareByDate)
-    );
-    return latestColorSetByType;
   },
 });

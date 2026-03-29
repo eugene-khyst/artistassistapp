@@ -42,14 +42,15 @@ export const ColorSquare: React.FC<Props> = memo(function ColorSquare({
   const sideLength: number = isLarge ? 2 * fontSize * lineHeight : fontSizeLG;
   const borderRadius = isLarge ? 8 : 4;
   const rgb = Rgb.fromHex(color);
+  const hex = rgb.toHex();
   return (
-    <Tooltip title={color}>
+    <Tooltip title={hex}>
       <svg width={sideLength} height={sideLength} className="color-icon">
         <rect
           width={sideLength}
           height={sideLength}
           rx={borderRadius}
-          fill={color}
+          fill={hex}
           strokeWidth={1}
           stroke="#d9d9d9"
         />

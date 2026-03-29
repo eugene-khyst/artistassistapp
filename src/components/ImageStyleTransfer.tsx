@@ -112,7 +112,10 @@ export const ImageStyleTransfer: React.FC = () => {
       radioGroupRef.current
         ?.querySelector(`input[value="${model.id}"]`)
         ?.closest('.ant-radio-wrapper')
-        ?.scrollIntoView();
+        ?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+        });
     }
   }, [setStyleTransferModel, appSettings, models, user, isAuthLoading]);
 

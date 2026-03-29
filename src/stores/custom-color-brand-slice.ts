@@ -20,11 +20,8 @@ import {saveAs} from 'file-saver';
 import type {StateCreator} from 'zustand';
 
 import {Rgb} from '~/src/services/color/space/rgb';
-import {
-  type ColorDefinition,
-  type CustomColorBrandDefinition,
-  FileExtension,
-} from '~/src/services/color/types';
+import type {ColorDefinitionSource, CustomColorBrandDefinition} from '~/src/services/color/types';
+import {FileExtension} from '~/src/services/color/types';
 import {
   deleteCustomColorBrand,
   getCustomColorBrands,
@@ -36,11 +33,11 @@ function calculateRho(brand: CustomColorBrandDefinition): CustomColorBrandDefini
   const {colors} = brand;
   return {
     ...brand,
-    colors: colors?.map(({hex, ...color}: Partial<ColorDefinition>): Partial<ColorDefinition> => {
+    colors: colors?.map(({hex, ...color}: ColorDefinitionSource): ColorDefinitionSource => {
       return {
         ...color,
         hex,
-        rho: [...Rgb.fromHex(hex!).toReflectance().toArray()],
+        rho: [...Rgb.fromHex(hex).toReflectance().toArray()],
       };
     }),
   };
@@ -50,11 +47,9 @@ export function removeRho(brand: CustomColorBrandDefinition): CustomColorBrandDe
   const {colors} = brand;
   return {
     ...brand,
-    colors: colors?.map(
-      ({rho: _, ...color}: Partial<ColorDefinition>): Partial<ColorDefinition> => {
-        return color;
-      }
-    ),
+    colors: colors?.map(({rho: _, ...color}: ColorDefinitionSource): ColorDefinitionSource => {
+      return color;
+    }),
   };
 }
 

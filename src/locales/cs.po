@@ -17,7 +17,7 @@ msgstr ""
 msgid "({colorCount} colors)"
 msgstr "({colorCount} barvy)"
 
-#: src/components/ColorSetChooser.tsx:622
+#: src/components/ColorSetChooser.tsx:620
 msgid "{brandName} colors"
 msgstr "{brandName} barvy"
 
@@ -26,17 +26,17 @@ msgstr "{brandName} barvy"
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# barva} few {# barvy} many {# barev} other {# barev}}"
 
-#: src/components/ColorSetChooser.tsx:576
-#: src/components/ColorSetChooser.tsx:623
+#: src/components/ColorSetChooser.tsx:574
+#: src/components/ColorSetChooser.tsx:621
 msgid "{FIELD} are required"
 msgstr "{FIELD} jsou povinné"
 
-#: src/components/ColorSetChooser.tsx:543
-#: src/components/ColorSetChooser.tsx:552
-#: src/components/ColorSetChooser.tsx:605
-#: src/components/CustomColorBrandCreator.tsx:315
-#: src/components/CustomColorBrandCreator.tsx:326
-#: src/components/CustomColorBrandCreator.tsx:334
+#: src/components/ColorSetChooser.tsx:541
+#: src/components/ColorSetChooser.tsx:550
+#: src/components/ColorSetChooser.tsx:603
+#: src/components/CustomColorBrandCreator.tsx:458
+#: src/components/CustomColorBrandCreator.tsx:469
+#: src/components/CustomColorBrandCreator.tsx:477
 msgid "{FIELD} is required"
 msgstr "{FIELD} je povinné"
 
@@ -69,7 +69,7 @@ msgstr "<0/> Windows a <1/> Linux"
 msgid "<0>{similarityText}%</0> similarity"
 msgstr "<0>{similarityText}%</0> podobnost"
 
-#: src/components/ColorSetChooser.tsx:420
+#: src/components/ColorSetChooser.tsx:418
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>ArtistAssistApp</0> je webová aplikace, která pomáhá umělcům míchat barvy z fotografií, analyzovat tonální hodnoty, obrysy fotografií, kreslit s mřížkami, malovat s omezenými paletami a další."
 
@@ -77,7 +77,7 @@ msgstr "<0>ArtistAssistApp</0> je webová aplikace, která pomáhá umělcům m�
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Zkontrolujte svůj Patreon účet</0>: Ujistěte se, že jste přihlášeni do <1>Patreon.com</1> ve svém webovém prohlížeči pomocí stejného e-mailu, který jste použili při koupi členství. Pokud máte více účtů, odhlaste se a přihlaste se znovu správným účtem."
 
-#: src/components/ColorSetChooser.tsx:442
+#: src/components/ColorSetChooser.tsx:440
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Připojte se k ArtistAssistApp na Patreonu jako placený člen</0>, nebo <1>se přihlaste pomocí Patreonu</1> , pokud jste se již připojili, a získejte přístup k více než 200 barevným značkám a všem režimům zpracování obrazu bez reklam."
 
@@ -125,7 +125,7 @@ msgstr "Přidat barvu"
 msgid "Add color mixtures to the palette."
 msgstr "Přidejte do palety směsi barev."
 
-#: src/components/ColorSetChooser.tsx:625
+#: src/components/ColorSetChooser.tsx:623
 msgid "Add or remove colors to match your actual color set."
 msgstr "Přidejte nebo odstraňte barvy tak, aby odpovídaly vaší skutečné sadě barev."
 
@@ -182,11 +182,11 @@ msgstr "Opravdu chcete vymazat mezipaměť?"
 msgid "Are you sure you want to delete all app data?"
 msgstr "Opravdu chcete smazat všechna data aplikace?"
 
-#: src/components/ColorSetChooser.tsx:718
+#: src/components/ColorSetChooser.tsx:716
 msgid "Are you sure you want to delete this color set?"
 msgstr "Opravdu chcete smazat tuto sadu barev?"
 
-#: src/components/CustomColorBrandCreator.tsx:347
+#: src/components/CustomColorBrandCreator.tsx:490
 msgid "Are you sure you want to delete this custom brand?"
 msgstr "Opravdu chcete smazat tuto vlastní značku?"
 
@@ -203,8 +203,8 @@ msgstr "Opravdu chcete odstranit všechny barevné směsi?"
 msgid "Are you sure you want to remove this color mixture?"
 msgstr "Jste si jisti, že chcete odstranit tuto barevnou směs?"
 
-#: src/components/ColorSetChooser.tsx:542
-#: src/components/CustomColorBrandCreator.tsx:325
+#: src/components/ColorSetChooser.tsx:540
+#: src/components/CustomColorBrandCreator.tsx:468
 msgid "Art medium"
 msgstr "Umělecké médium"
 
@@ -212,7 +212,7 @@ msgstr "Umělecké médium"
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "Aplikaci ArtistAssistApp vyvinul <0>Eugene Khyst</0>"
 
-#: src/components/CustomColorBrandCreator.tsx:375
+#: src/components/CustomColorBrandCreator.tsx:518
 msgid "At least one color is required"
 msgstr "Je vyžadována alespoň jedna barva"
 
@@ -282,16 +282,16 @@ msgid "Close in {closeCounter} sec"
 msgstr "Zavřít za {closeCounter} sekund"
 
 #: src/components/ColorMixer.tsx:205
-#: src/components/CustomColorBrandCreator.tsx:299
+#: src/components/CustomColorBrandCreator.tsx:442
 #: src/components/ImageColorPicker.tsx:320
 msgid "Color"
 msgstr "Barva"
 
-#: src/components/CustomColorBrandCreator.tsx:314
+#: src/components/CustomColorBrandCreator.tsx:457
 msgid "Color brand"
 msgstr "Barva značka"
 
-#: src/components/ColorSetChooser.tsx:574
+#: src/components/ColorSetChooser.tsx:572
 msgid "Color brands"
 msgstr "Barevné značky"
 
@@ -311,7 +311,7 @@ msgstr "Směs barev"
 msgid "Color picker"
 msgstr "Výběr barvy"
 
-#: src/components/ColorSetChooser.tsx:550
+#: src/components/ColorSetChooser.tsx:548
 #: src/components/ImageColorPicker.tsx:347
 #: src/components/messages.ts:26
 msgid "Color set"
@@ -358,7 +358,7 @@ msgstr "Zkopírujte a sdílejte tento odkaz"
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Opravený odhad teploty světelného zdroje v Kelvinech"
 
-#: src/components/ColorSetChooser.tsx:711
+#: src/components/ColorSetChooser.tsx:709
 msgid "Create a duplicate of this color set for further modification"
 msgstr "Vytvořte duplikát této barevné sady pro další úpravy"
 
@@ -375,8 +375,8 @@ msgstr "Vlastní značka"
 msgid "Custom color set"
 msgstr "Vlastní sada barev"
 
-#: src/components/ColorSetChooser.tsx:732
-#: src/components/CustomColorBrandCreator.tsx:361
+#: src/components/ColorSetChooser.tsx:730
+#: src/components/CustomColorBrandCreator.tsx:504
 #: src/components/image/RecentImageCard.tsx:83
 msgid "Delete"
 msgstr "Vymazat"
@@ -386,12 +386,12 @@ msgstr "Vymazat"
 msgid "Delete all app data"
 msgstr "Smazat všechna data aplikace"
 
-#: src/components/ColorSetChooser.tsx:717
+#: src/components/ColorSetChooser.tsx:715
 msgid "Delete the color set"
 msgstr "Odstranění sady barev"
 
-#: src/components/CustomColorBrandCreator.tsx:346
-#: src/components/CustomColorBrandCreator.tsx:356
+#: src/components/CustomColorBrandCreator.tsx:489
+#: src/components/CustomColorBrandCreator.tsx:499
 msgid "Delete the custom brand"
 msgstr "Odstranění vlastní značky"
 
@@ -400,7 +400,7 @@ msgstr "Odstranění vlastní značky"
 msgid "Delete the recent photo"
 msgstr "Smazat poslední fotografii"
 
-#: src/components/ColorSetChooser.tsx:727
+#: src/components/ColorSetChooser.tsx:725
 msgid "Delete this color set"
 msgstr "Smazat tuto sadu barev"
 
@@ -416,7 +416,7 @@ msgstr "Diagnostika"
 msgid "Diagonals"
 msgstr "Diagonály"
 
-#: src/components/CustomColorBrandCreator.tsx:286
+#: src/components/CustomColorBrandCreator.tsx:429
 #: src/components/ImageColorPicker.tsx:306
 msgid "Diameter"
 msgstr "Průměr"
@@ -425,7 +425,7 @@ msgstr "Průměr"
 msgid "Dilute the paint with water in a <0>{ratioText} ratio</0>"
 msgstr "Zřeďte barvu vodou v <0>poměru {ratioText}</0>"
 
-#: src/components/ColorSetChooser.tsx:607
+#: src/components/ColorSetChooser.tsx:605
 msgid "Do you have a store-bought or custom color set?"
 msgstr "Máte sadu barev zakoupenou v obchodě nebo vlastní?"
 
@@ -441,19 +441,23 @@ msgstr "Stažený soubor {filename}"
 msgid "Downloading..."
 msgstr "Stahuji..."
 
-#: src/components/ColorSetChooser.tsx:714
+#: src/components/ColorSetChooser.tsx:712
 msgid "Duplicate"
 msgstr "Duplikát"
+
+#: src/components/CustomColorBrandCreator.tsx:101
+msgid "Edit from here on"
+msgstr "Edit od teď dál"
 
 #: src/components/alert/AuthErrorHandler.tsx:31
 msgid "Email"
 msgstr "E-mail"
 
-#: src/components/ColorSetChooser.tsx:194
+#: src/components/ColorSetChooser.tsx:192
 msgid "Error while fetching color brand data"
 msgstr "Chyba při načítání dat o značce barev"
 
-#: src/components/ColorSetChooser.tsx:216
+#: src/components/ColorSetChooser.tsx:214
 msgid "Error while fetching color data"
 msgstr "Chyba při načítání barevných dat"
 
@@ -463,7 +467,7 @@ msgstr "Chyba při načítání barevných dat"
 msgid "Error while fetching ML model data"
 msgstr "Chyba při načítání dat modelu ML"
 
-#: src/components/ColorSetChooser.tsx:205
+#: src/components/ColorSetChooser.tsx:203
 msgid "Error while fetching standard color set data"
 msgstr "Chyba při načítání dat standardní sady barev"
 
@@ -471,14 +475,18 @@ msgstr "Chyba při načítání dat standardní sady barev"
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Odhadovaná teplota světelného zdroje v Kelvinech, pomocí kterého byl snímek pořízen"
 
-#: src/components/ColorSetChooser.tsx:452
+#: src/components/ColorSetChooser.tsx:450
 msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Než se rozhodnete zakoupit placené členství, prozkoumejte bezplatnou verzi."
 
-#: src/components/ColorSetChooser.tsx:367
-#: src/components/CustomColorBrandCreator.tsx:216
+#: src/components/ColorSetChooser.tsx:365
+#: src/components/CustomColorBrandCreator.tsx:351
 msgid "Fill in the required fields"
 msgstr "Vyplňte povinná pole"
+
+#: src/components/CustomColorBrandCreator.tsx:190
+msgid "Finish editing"
+msgstr "Dokončit úpravy"
 
 #: src/components/ImageColorAdjustment.tsx:502
 msgid "Gamma"
@@ -488,7 +496,7 @@ msgstr "Gama"
 msgid "Gifted membership"
 msgstr "Nadané členství"
 
-#: src/components/ColorSetChooser.tsx:567
+#: src/components/ColorSetChooser.tsx:565
 msgid "Give your color set a name for easy access."
 msgstr "Pojmenujte svou sadu barev, abyste k ní měli snadný přístup."
 
@@ -522,16 +530,16 @@ msgstr "Mřížka"
 msgid "Height"
 msgstr "Výška"
 
-#: src/components/ColorSetChooser.tsx:499
+#: src/components/ColorSetChooser.tsx:497
 #: src/components/messages.ts:42
 msgid "Help"
 msgstr "Pomoc"
 
-#: src/components/ColorSetChooser.tsx:457
+#: src/components/ColorSetChooser.tsx:455
 msgid "If you are having trouble logging in, please read this <0>troubleshooting guide</0>."
 msgstr "Pokud máte potíže s přihlášením, přečtěte si <0>prosím tento návod k řešení problémů</0>."
 
-#: src/components/ColorSetChooser.tsx:230
+#: src/components/ColorSetChooser.tsx:228
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Pokud soubor barev neuložíte, změny sady barev mohou být ztraceny."
 
@@ -543,7 +551,7 @@ msgstr "Obrázek bez pozadí"
 msgid "Inspire"
 msgstr "Inspirovat"
 
-#: src/components/install/InstallButton.tsx:31
+#: src/components/install/InstallButton.tsx:37
 #: src/hooks/usePersistentStorage.tsx:59
 msgid "Install"
 msgstr "Nainstalovat"
@@ -608,15 +616,15 @@ msgstr "Omezená paleta"
 msgid "Link copied to clipboard"
 msgstr "Odkaz zkopírován do schránky"
 
-#: src/components/CustomColorBrandCreator.tsx:281
+#: src/components/CustomColorBrandCreator.tsx:424
 msgid "Load color brand file"
 msgstr "Načíst barevný soubor značky"
 
-#: src/components/ColorSetChooser.tsx:742
+#: src/components/ColorSetChooser.tsx:740
 msgid "Load color sets file"
 msgstr "Načíst soubor sad barev"
 
-#: src/components/ColorSetChooser.tsx:509
+#: src/components/ColorSetChooser.tsx:507
 msgid "Log in on another device by scanning the QR code"
 msgstr "Přihlaste se na jiném zařízení naskenováním QR kódu"
 
@@ -679,17 +687,17 @@ msgstr "Směs"
 msgid "Mode"
 msgstr "Režim"
 
-#: src/components/ColorSetChooser.tsx:566
-#: src/components/CustomColorBrandCreator.tsx:333
-#: src/components/CustomColorBrandCreator.tsx:407
+#: src/components/ColorSetChooser.tsx:564
+#: src/components/CustomColorBrandCreator.tsx:169
+#: src/components/CustomColorBrandCreator.tsx:476
 msgid "Name"
 msgstr "Jméno"
 
-#: src/components/CustomColorBrandCreator.tsx:336
+#: src/components/CustomColorBrandCreator.tsx:479
 msgid "Name a brand"
 msgstr "Pojmenujte značku"
 
-#: src/components/ColorSetChooser.tsx:570
+#: src/components/ColorSetChooser.tsx:568
 msgid "Name a color set"
 msgstr "Pojmenování sady barev"
 
@@ -715,9 +723,9 @@ msgstr "Další datum nabíjení"
 
 #: src/components/color/AddToPaletteButton.tsx:52
 #: src/components/color/PaletteColorMixtureCard.tsx:105
-#: src/components/ColorSetChooser.tsx:232
-#: src/components/ColorSetChooser.tsx:723
-#: src/components/CustomColorBrandCreator.tsx:352
+#: src/components/ColorSetChooser.tsx:230
+#: src/components/ColorSetChooser.tsx:721
+#: src/components/CustomColorBrandCreator.tsx:495
 #: src/components/image/RecentImageCard.tsx:74
 #: src/components/palette/PaletteGrid.tsx:103
 #: src/components/storage/ClearStorage.tsx:63
@@ -750,7 +758,7 @@ msgstr "Olejový nátěr"
 msgid "Oil Pastel"
 msgstr "Olejový pastel"
 
-#: src/components/ColorSetChooser.tsx:589
+#: src/components/ColorSetChooser.tsx:587
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "V bezplatné verzi je k dispozici pouze omezený počet barevných značek"
 
@@ -758,7 +766,7 @@ msgstr "V bezplatné verzi je k dispozici pouze omezený počet barevných znač
 msgid "Only a limited number of modes are available in the free version"
 msgstr "V bezplatné verzi je k dispozici pouze omezený počet režimů"
 
-#: src/components/ImageStyleTransfer.tsx:194
+#: src/components/ImageStyleTransfer.tsx:197
 msgid "Only a limited number of styles are available in the free version"
 msgstr "V bezplatné verzi je k dispozici pouze omezený počet stylů"
 
@@ -989,9 +997,9 @@ msgstr "Odstranit z palety"
 msgid "Remove the color mixture"
 msgstr "Odstraňte směs barev"
 
-#: src/components/CustomColorBrandCreator.tsx:391
-#: src/components/CustomColorBrandCreator.tsx:398
-#: src/components/CustomColorBrandCreator.tsx:405
+#: src/components/CustomColorBrandCreator.tsx:150
+#: src/components/CustomColorBrandCreator.tsx:161
+#: src/components/CustomColorBrandCreator.tsx:167
 msgid "Required"
 msgstr "Požadovaný"
 
@@ -1026,7 +1034,7 @@ msgstr "Otáčet"
 msgid "Saturation (%)"
 msgstr "Sytost (%)"
 
-#: src/components/CustomColorBrandCreator.tsx:341
+#: src/components/CustomColorBrandCreator.tsx:484
 #: src/components/ImageBackgroundRemoval.tsx:191
 #: src/components/ImageBackgroundRemoval.tsx:257
 #: src/components/ImageBlurred.tsx:111
@@ -1039,17 +1047,17 @@ msgstr "Sytost (%)"
 #: src/components/ImageOutline.tsx:263
 #: src/components/ImagePerspectiveCorrection.tsx:197
 #: src/components/ImagePerspectiveCorrection.tsx:263
-#: src/components/ImageStyleTransfer.tsx:188
+#: src/components/ImageStyleTransfer.tsx:191
 #: src/components/ImageTonalValues.tsx:92
 #: src/components/ImageTonalValues.tsx:133
 msgid "Save"
 msgstr "Uložit"
 
-#: src/components/ColorSetChooser.tsx:690
+#: src/components/ColorSetChooser.tsx:688
 msgid "Save & proceed"
 msgstr "Uložit a pokračovat"
 
-#: src/components/ColorSetChooser.tsx:229
+#: src/components/ColorSetChooser.tsx:227
 msgid "Save changes to the color set?"
 msgstr "Uložit změny do sady barev?"
 
@@ -1063,7 +1071,7 @@ msgstr "Úspora rozšířena na 1,91:1"
 msgid "Save expanded to 4:5"
 msgstr "Uložení rozšířeno na 4:5"
 
-#: src/components/ColorSetChooser.tsx:686
+#: src/components/ColorSetChooser.tsx:684
 msgid "Save the changes to this color set"
 msgstr "Uložte změny do této sady barev"
 
@@ -1071,7 +1079,7 @@ msgstr "Uložte změny do této sady barev"
 msgid "Scan a QR code"
 msgstr "Naskenujte QR kód"
 
-#: src/components/ColorSetChooser.tsx:490
+#: src/components/ColorSetChooser.tsx:488
 msgid "Scan QR code"
 msgstr "Naskenujte QR kód"
 
@@ -1095,11 +1103,11 @@ msgstr "Vyberte fotografii, ze které chcete odstranit pozadí"
 msgid "Select a reference photo from your device to paint from"
 msgstr "Vyberte referenční fotografii ze svého zařízení, podle které chcete malovat"
 
-#: src/components/ImageStyleTransfer.tsx:183
+#: src/components/ImageStyleTransfer.tsx:186
 msgid "Select a style to transfer to your reference photo"
 msgstr "Vyberte styl, který chcete přenést na referenční fotografii"
 
-#: src/components/CustomColorBrandCreator.tsx:269
+#: src/components/CustomColorBrandCreator.tsx:412
 msgid "Select an image that contains a color chart"
 msgstr "Vyberte obraz, který obsahuje tabulku barev"
 
@@ -1115,7 +1123,7 @@ msgstr "Vybrat umělecké médium"
 msgid "Select brands"
 msgstr "Vybrat značky"
 
-#: src/components/ColorSetChooser.tsx:575
+#: src/components/ColorSetChooser.tsx:573
 msgid "Select brands that you use."
 msgstr "Vyberte značky, které používáte."
 
@@ -1140,11 +1148,11 @@ msgstr "Vyberte si ze svých nedávných značek"
 msgid "Select from your recent color sets"
 msgstr "Výběr z posledních sad barev"
 
-#: src/components/ColorSetChooser.tsx:551
+#: src/components/ColorSetChooser.tsx:549
 msgid "Select from your recent color sets or create a new one."
 msgstr "Vyberte si z posledních sad barev nebo vytvořte novou."
 
-#: src/components/CustomColorBrandCreator.tsx:274
+#: src/components/CustomColorBrandCreator.tsx:417
 msgid "Select image"
 msgstr "Vybrat obrázek"
 
@@ -1175,11 +1183,11 @@ msgstr "Vyberte fotografie k hodnocení pomocí párového srovnání"
 msgid "Select set"
 msgstr "Vyberte sadu"
 
-#: src/components/ImageStyleTransfer.tsx:236
+#: src/components/ImageStyleTransfer.tsx:239
 msgid "Select style image"
 msgstr "Vybrat styl obrázku"
 
-#: src/components/ColorSetChooser.tsx:519
+#: src/components/ColorSetChooser.tsx:517
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Select your art medium, color brands and colors you will paint with and press the <0>Save & proceed</0> button."
 msgstr "Vyberte své umělecké médium, barevné značky a barvy, kterými budete malovat, a stiskněte tlačítko <0>Uložit a pokračovat</0> ."
@@ -1223,12 +1231,12 @@ msgstr "Stín"
 msgid "Shadows and highlights"
 msgstr "Stíny a světla"
 
-#: src/components/ColorSetChooser.tsx:704
+#: src/components/ColorSetChooser.tsx:702
 #: src/components/share/ShareModal.tsx:83
 msgid "Share"
 msgstr "Sdílet"
 
-#: src/components/ColorSetChooser.tsx:701
+#: src/components/ColorSetChooser.tsx:699
 msgid "Share this color set"
 msgstr "Sdílet tuto sadu barev"
 
@@ -1296,7 +1304,7 @@ msgstr "Křivka spektrální odrazivosti"
 msgid "Square cells"
 msgstr "Čtvercové buňky"
 
-#: src/components/ColorSetChooser.tsx:604
+#: src/components/ColorSetChooser.tsx:602
 msgid "Standard color set"
 msgstr "Standardní sada barev"
 
@@ -1316,7 +1324,7 @@ msgstr "Využití úložiště"
 msgid "Straightens skewed photos and removes unwanted edges. Select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "Narovná zkosené fotografie a odstraní nežádoucí okraje. Vyberte 4 body pro opravu zkreslení perspektivy a poté volitelně přetáhněte okraje pro oříznutí obrazu."
 
-#: src/components/ImageStyleTransfer.tsx:161
+#: src/components/ImageStyleTransfer.tsx:164
 msgid "Styled reference photo"
 msgstr "Stylizovaná referenční fotografie"
 
@@ -1361,7 +1369,7 @@ msgstr "Barva, která má být namíchána z vaší sady barev. Vyberte barvu kl
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
 msgstr "Průměr kruhové oblasti kolem kurzoru, který se používá k výpočtu průměrné barvy obrazových bodů v této oblasti."
 
-#: src/components/CustomColorBrandCreator.tsx:287
+#: src/components/CustomColorBrandCreator.tsx:430
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
 msgstr "Průměr kruhové oblasti kolem kurzoru, který se používá k výpočtu průměrné barvy obrazových bodů v oblasti."
 
@@ -1389,7 +1397,7 @@ msgstr "Zřeďte malbu na <0>tloušťku {fractionText}</0>"
 msgid "This backup file lets you restore your color sets later, so keep it. You can delete any older backup files."
 msgstr "Tento záložní soubor vám umožní obnovit sady barev později, takže si jej uschovejte. Můžete odstranit všechny starší záložní soubory."
 
-#: src/components/ColorSetChooser.tsx:630
+#: src/components/ColorSetChooser.tsx:628
 msgid "This color brand is available to paid Patreon members only"
 msgstr "Tato barevná značka je k dispozici pouze platícím členům Patreonu"
 
@@ -1401,7 +1409,7 @@ msgstr "Tato velikost tisku není podporována"
 msgid "This step is optional."
 msgstr "Tento krok je volitelný."
 
-#: src/components/ImageStyleTransfer.tsx:252
+#: src/components/ImageStyleTransfer.tsx:255
 msgid "This style is available to paid Patreon members only"
 msgstr "Tento styl je k dispozici pouze pro platící členy Patreonu"
 
@@ -1501,11 +1509,11 @@ msgstr "Akvarelové tužky"
 msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
 msgstr "Narazili jsme na problém s ověřením vašich přihlašovacích údajů. Tento problém se obvykle dá vyřešit pokusem o opětovné přihlášení."
 
-#: src/components/ColorSetChooser.tsx:662
+#: src/components/ColorSetChooser.tsx:660
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "Při výběru více než {maxColorsFor2} barev celkem se nepoužijí směsi dvou barev."
 
-#: src/components/ColorSetChooser.tsx:670
+#: src/components/ColorSetChooser.tsx:668
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Při výběru více než {maxColorsFor3} barev celkem se nepoužijí směsi tří barev."
 
@@ -1536,9 +1544,9 @@ msgstr "Šířka"
 
 #: src/components/color/AddToPaletteButton.tsx:51
 #: src/components/color/PaletteColorMixtureCard.tsx:104
-#: src/components/ColorSetChooser.tsx:231
-#: src/components/ColorSetChooser.tsx:722
-#: src/components/CustomColorBrandCreator.tsx:351
+#: src/components/ColorSetChooser.tsx:229
+#: src/components/ColorSetChooser.tsx:720
+#: src/components/CustomColorBrandCreator.tsx:494
 #: src/components/image/RecentImageCard.tsx:73
 #: src/components/palette/PaletteGrid.tsx:102
 #: src/components/storage/ClearStorage.tsx:62
@@ -1546,19 +1554,19 @@ msgstr "Šířka"
 msgid "Yes"
 msgstr "Ano"
 
-#: src/components/ColorSetChooser.tsx:431
+#: src/components/ColorSetChooser.tsx:429
 msgid "You are logged in and have access to all app features."
 msgstr "Jste přihlášeni a máte přístup ke všem funkcím aplikace."
 
-#: src/components/ColorSetChooser.tsx:436
+#: src/components/ColorSetChooser.tsx:434
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "Používáte <0>bezplatnou verzi</0> s omezeným počtem barevných značek a režimů zpracování obrazu."
 
-#: src/components/ColorSetChooser.tsx:582
+#: src/components/ColorSetChooser.tsx:580
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Vybrali jste barevné značky, které jsou dostupné pouze pro placené členy Patreonu"
 
-#: src/components/ColorSetChooser.tsx:653
+#: src/components/ColorSetChooser.tsx:651
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Vybrali jste barevné značky, které jsou dostupné pouze pro platící členy Patreonu. Připojte se k ArtistAssistApp na Patreonu jako placený člen nebo se přihlaste pomocí Patreonu, pokud jste se již připojili."
 
