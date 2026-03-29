@@ -34,9 +34,9 @@ msgstr "{FIELD} gereklidir"
 #: src/components/ColorSetChooser.tsx:541
 #: src/components/ColorSetChooser.tsx:550
 #: src/components/ColorSetChooser.tsx:603
-#: src/components/CustomColorBrandCreator.tsx:458
-#: src/components/CustomColorBrandCreator.tsx:469
-#: src/components/CustomColorBrandCreator.tsx:477
+#: src/components/CustomColorBrandCreator.tsx:463
+#: src/components/CustomColorBrandCreator.tsx:474
+#: src/components/CustomColorBrandCreator.tsx:482
 msgid "{FIELD} is required"
 msgstr "{FIELD} gereklidir"
 
@@ -186,7 +186,7 @@ msgstr "Tüm uygulama verilerini silmek istediğinizden emin misiniz?"
 msgid "Are you sure you want to delete this color set?"
 msgstr "Bu renk setini silmek istediğinizden emin misiniz?"
 
-#: src/components/CustomColorBrandCreator.tsx:490
+#: src/components/CustomColorBrandCreator.tsx:495
 msgid "Are you sure you want to delete this custom brand?"
 msgstr "Bu özel markayı silmek istediğinizden emin misiniz?"
 
@@ -204,7 +204,7 @@ msgid "Are you sure you want to remove this color mixture?"
 msgstr "Bu renk karışımını çıkarmak istediğinizden emin misiniz?"
 
 #: src/components/ColorSetChooser.tsx:540
-#: src/components/CustomColorBrandCreator.tsx:468
+#: src/components/CustomColorBrandCreator.tsx:473
 msgid "Art medium"
 msgstr "Sanat ortamı"
 
@@ -212,7 +212,7 @@ msgstr "Sanat ortamı"
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp, <0>Eugene Khyst</0> tarafından geliştirilmiştir"
 
-#: src/components/CustomColorBrandCreator.tsx:518
+#: src/components/CustomColorBrandCreator.tsx:523
 msgid "At least one color is required"
 msgstr "En az bir renk gereklidir"
 
@@ -282,12 +282,12 @@ msgid "Close in {closeCounter} sec"
 msgstr "{closeCounter} saniye içinde kapatın"
 
 #: src/components/ColorMixer.tsx:205
-#: src/components/CustomColorBrandCreator.tsx:442
+#: src/components/CustomColorBrandCreator.tsx:447
 #: src/components/ImageColorPicker.tsx:320
 msgid "Color"
 msgstr "Renk"
 
-#: src/components/CustomColorBrandCreator.tsx:457
+#: src/components/CustomColorBrandCreator.tsx:462
 msgid "Color brand"
 msgstr "Renk markası"
 
@@ -376,7 +376,7 @@ msgid "Custom color set"
 msgstr "Özel renk seti"
 
 #: src/components/ColorSetChooser.tsx:730
-#: src/components/CustomColorBrandCreator.tsx:504
+#: src/components/CustomColorBrandCreator.tsx:509
 #: src/components/image/RecentImageCard.tsx:83
 msgid "Delete"
 msgstr "Silmek"
@@ -390,8 +390,8 @@ msgstr "Tüm uygulama verilerini sil"
 msgid "Delete the color set"
 msgstr "Renk kümesini silme"
 
-#: src/components/CustomColorBrandCreator.tsx:489
-#: src/components/CustomColorBrandCreator.tsx:499
+#: src/components/CustomColorBrandCreator.tsx:494
+#: src/components/CustomColorBrandCreator.tsx:504
 msgid "Delete the custom brand"
 msgstr "Özel markayı silme"
 
@@ -416,7 +416,7 @@ msgstr "Tanılama"
 msgid "Diagonals"
 msgstr "Çapraz"
 
-#: src/components/CustomColorBrandCreator.tsx:429
+#: src/components/CustomColorBrandCreator.tsx:434
 #: src/components/ImageColorPicker.tsx:306
 msgid "Diameter"
 msgstr "Çap"
@@ -441,11 +441,19 @@ msgstr "İndirilen dosya {filename}"
 msgid "Downloading..."
 msgstr "İndiriyorum..."
 
+#: src/components/file/FileSelect.tsx:104
+msgid "Drop the file here..."
+msgstr "Dosyayı buraya bırak..."
+
+#: src/components/file/FileSelect.tsx:104
+msgid "Drop the files here..."
+msgstr "Dosyaları buraya bırak..."
+
 #: src/components/ColorSetChooser.tsx:712
 msgid "Duplicate"
 msgstr "Yinelenen"
 
-#: src/components/CustomColorBrandCreator.tsx:101
+#: src/components/CustomColorBrandCreator.tsx:131
 msgid "Edit from here on"
 msgstr "Buradan itibaren düzenleme"
 
@@ -480,11 +488,11 @@ msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Ücretli bir üyelik satın almaya karar vermeden önce ücretsiz sürümü keşfedin."
 
 #: src/components/ColorSetChooser.tsx:365
-#: src/components/CustomColorBrandCreator.tsx:351
+#: src/components/CustomColorBrandCreator.tsx:358
 msgid "Fill in the required fields"
 msgstr "Gerekli alanları doldurun"
 
-#: src/components/CustomColorBrandCreator.tsx:190
+#: src/components/CustomColorBrandCreator.tsx:211
 msgid "Finish editing"
 msgstr "Montajı bitir"
 
@@ -616,7 +624,7 @@ msgstr "Sınırlı palet"
 msgid "Link copied to clipboard"
 msgstr "Bağlantı panoya kopyalandı"
 
-#: src/components/CustomColorBrandCreator.tsx:424
+#: src/components/CustomColorBrandCreator.tsx:429
 msgid "Load color brand file"
 msgstr "Renkli marka dosyasını yükle"
 
@@ -688,12 +696,12 @@ msgid "Mode"
 msgstr "Mod"
 
 #: src/components/ColorSetChooser.tsx:564
-#: src/components/CustomColorBrandCreator.tsx:169
-#: src/components/CustomColorBrandCreator.tsx:476
+#: src/components/CustomColorBrandCreator.tsx:190
+#: src/components/CustomColorBrandCreator.tsx:481
 msgid "Name"
 msgstr "Ad"
 
-#: src/components/CustomColorBrandCreator.tsx:479
+#: src/components/CustomColorBrandCreator.tsx:484
 msgid "Name a brand"
 msgstr "Bir markaya isim verin"
 
@@ -725,7 +733,7 @@ msgstr "Sonraki şarj tarihi"
 #: src/components/color/PaletteColorMixtureCard.tsx:105
 #: src/components/ColorSetChooser.tsx:230
 #: src/components/ColorSetChooser.tsx:721
-#: src/components/CustomColorBrandCreator.tsx:495
+#: src/components/CustomColorBrandCreator.tsx:500
 #: src/components/image/RecentImageCard.tsx:74
 #: src/components/palette/PaletteGrid.tsx:103
 #: src/components/storage/ClearStorage.tsx:63
@@ -997,9 +1005,9 @@ msgstr "Paletten kaldır"
 msgid "Remove the color mixture"
 msgstr "Renk karışımını çıkarın"
 
-#: src/components/CustomColorBrandCreator.tsx:150
-#: src/components/CustomColorBrandCreator.tsx:161
-#: src/components/CustomColorBrandCreator.tsx:167
+#: src/components/CustomColorBrandCreator.tsx:178
+#: src/components/CustomColorBrandCreator.tsx:186
+#: src/components/CustomColorBrandCreator.tsx:189
 msgid "Required"
 msgstr "Gerekli"
 
@@ -1034,7 +1042,7 @@ msgstr "Döndürmek"
 msgid "Saturation (%)"
 msgstr "Doygunluk (%)"
 
-#: src/components/CustomColorBrandCreator.tsx:484
+#: src/components/CustomColorBrandCreator.tsx:489
 #: src/components/ImageBackgroundRemoval.tsx:191
 #: src/components/ImageBackgroundRemoval.tsx:257
 #: src/components/ImageBlurred.tsx:111
@@ -1107,7 +1115,7 @@ msgstr "Boyamak için cihazınızdan bir referans fotoğraf seçin"
 msgid "Select a style to transfer to your reference photo"
 msgstr "Referans fotoğrafınıza aktarmak için bir stil seçin"
 
-#: src/components/CustomColorBrandCreator.tsx:412
+#: src/components/CustomColorBrandCreator.tsx:417
 msgid "Select an image that contains a color chart"
 msgstr "Renk şeması içeren bir görüntü seçin"
 
@@ -1152,7 +1160,7 @@ msgstr "En son renk setleriniz arasından seçim yapın"
 msgid "Select from your recent color sets or create a new one."
 msgstr "En son renk setlerinizden birini seçin veya yeni bir tane oluşturun."
 
-#: src/components/CustomColorBrandCreator.tsx:417
+#: src/components/CustomColorBrandCreator.tsx:422
 msgid "Select image"
 msgstr "Resim seç"
 
@@ -1369,7 +1377,7 @@ msgstr "Renk setinizden karıştırılacak renk. Görüntüdeki bir noktayı tı
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
 msgstr "İmlecin etrafındaki dairesel alanın çapı, o alandaki piksellerin ortalama rengini hesaplamak için kullanılır."
 
-#: src/components/CustomColorBrandCreator.tsx:430
+#: src/components/CustomColorBrandCreator.tsx:435
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
 msgstr "İmlecin etrafındaki dairesel alanın çapı, alan içindeki piksellerin ortalama rengini hesaplamak için kullanılır."
 
@@ -1445,8 +1453,11 @@ msgstr "Saydam"
 msgid "Tutorials and videos"
 msgstr "Öğreticiler ve videolar"
 
-#: src/components/alert/AlertTimedReloadFallback.tsx:38
 #: src/components/alert/UnhandledRejectionHandler.tsx:37
+msgid "Unexpected error"
+msgstr "Beklenmedik bir hata"
+
+#: src/components/alert/AlertTimedReloadFallback.tsx:38
 msgid "Unexpected error: {errorMessage}"
 msgstr "Beklenmedik hata: {errorMessage}"
 
@@ -1473,7 +1484,7 @@ msgstr "İnce bir tabaka elde etmenizi sağlayan cam ortamları kullanın, örne
 msgid "Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original oil paint layer. You should be able to get the consistency of runny sour cream. Linseed oil is a popular glazing medium."
 msgstr "İnce bir tabaka elde etmenizi sağlayan cam ortamları kullanın, örneğin orijinal yağlı boya tabakasının 1 / 10'u. Akan ekşi krema kıvamını elde edebilmelisiniz. Keten tohumu yağı popüler bir cam ortamıdır."
 
-#: src/components/file/FileSelect.tsx:92
+#: src/components/file/FileSelect.tsx:89
 msgid "Use reference photo"
 msgstr "Referans fotoğrafı kullan"
 
@@ -1546,7 +1557,7 @@ msgstr "Genişlik"
 #: src/components/color/PaletteColorMixtureCard.tsx:104
 #: src/components/ColorSetChooser.tsx:229
 #: src/components/ColorSetChooser.tsx:720
-#: src/components/CustomColorBrandCreator.tsx:494
+#: src/components/CustomColorBrandCreator.tsx:499
 #: src/components/image/RecentImageCard.tsx:73
 #: src/components/palette/PaletteGrid.tsx:102
 #: src/components/storage/ClearStorage.tsx:62

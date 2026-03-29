@@ -34,9 +34,9 @@ msgstr "{FIELD} sono obbligatori"
 #: src/components/ColorSetChooser.tsx:541
 #: src/components/ColorSetChooser.tsx:550
 #: src/components/ColorSetChooser.tsx:603
-#: src/components/CustomColorBrandCreator.tsx:458
-#: src/components/CustomColorBrandCreator.tsx:469
-#: src/components/CustomColorBrandCreator.tsx:477
+#: src/components/CustomColorBrandCreator.tsx:463
+#: src/components/CustomColorBrandCreator.tsx:474
+#: src/components/CustomColorBrandCreator.tsx:482
 msgid "{FIELD} is required"
 msgstr "{FIELD} è obbligatorio"
 
@@ -186,7 +186,7 @@ msgstr "Sei sicuro di voler eliminare tutti i dati dell'app?"
 msgid "Are you sure you want to delete this color set?"
 msgstr "Sei sicuro di voler eliminare questo set di colori?"
 
-#: src/components/CustomColorBrandCreator.tsx:490
+#: src/components/CustomColorBrandCreator.tsx:495
 msgid "Are you sure you want to delete this custom brand?"
 msgstr "Sei sicuro di voler eliminare questo marchio personalizzato?"
 
@@ -204,7 +204,7 @@ msgid "Are you sure you want to remove this color mixture?"
 msgstr "Sei sicuro di voler rimuovere questa miscela di colori?"
 
 #: src/components/ColorSetChooser.tsx:540
-#: src/components/CustomColorBrandCreator.tsx:468
+#: src/components/CustomColorBrandCreator.tsx:473
 msgid "Art medium"
 msgstr "Mezzo artistico"
 
@@ -212,7 +212,7 @@ msgstr "Mezzo artistico"
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp è sviluppato da <0>Eugene Khyst</0>"
 
-#: src/components/CustomColorBrandCreator.tsx:518
+#: src/components/CustomColorBrandCreator.tsx:523
 msgid "At least one color is required"
 msgstr "È richiesto almeno un colore"
 
@@ -282,12 +282,12 @@ msgid "Close in {closeCounter} sec"
 msgstr "Chiudi in {closeCounter} sec"
 
 #: src/components/ColorMixer.tsx:205
-#: src/components/CustomColorBrandCreator.tsx:442
+#: src/components/CustomColorBrandCreator.tsx:447
 #: src/components/ImageColorPicker.tsx:320
 msgid "Color"
 msgstr "Colore"
 
-#: src/components/CustomColorBrandCreator.tsx:457
+#: src/components/CustomColorBrandCreator.tsx:462
 msgid "Color brand"
 msgstr "Marca del colore"
 
@@ -376,7 +376,7 @@ msgid "Custom color set"
 msgstr "Set di colori personalizzati"
 
 #: src/components/ColorSetChooser.tsx:730
-#: src/components/CustomColorBrandCreator.tsx:504
+#: src/components/CustomColorBrandCreator.tsx:509
 #: src/components/image/RecentImageCard.tsx:83
 msgid "Delete"
 msgstr "Cancellare"
@@ -390,8 +390,8 @@ msgstr "Elimina tutti i dati dell'app"
 msgid "Delete the color set"
 msgstr "Eliminare il set di colori"
 
-#: src/components/CustomColorBrandCreator.tsx:489
-#: src/components/CustomColorBrandCreator.tsx:499
+#: src/components/CustomColorBrandCreator.tsx:494
+#: src/components/CustomColorBrandCreator.tsx:504
 msgid "Delete the custom brand"
 msgstr "Eliminare il marchio personalizzato"
 
@@ -416,7 +416,7 @@ msgstr "Diagnostica"
 msgid "Diagonals"
 msgstr "Diagonali"
 
-#: src/components/CustomColorBrandCreator.tsx:429
+#: src/components/CustomColorBrandCreator.tsx:434
 #: src/components/ImageColorPicker.tsx:306
 msgid "Diameter"
 msgstr "Diametro"
@@ -441,11 +441,19 @@ msgstr "File scaricato {filename}"
 msgid "Downloading..."
 msgstr "Sto scaricando..."
 
+#: src/components/file/FileSelect.tsx:104
+msgid "Drop the file here..."
+msgstr "Lascia il file qui..."
+
+#: src/components/file/FileSelect.tsx:104
+msgid "Drop the files here..."
+msgstr "Lascia i file qui..."
+
 #: src/components/ColorSetChooser.tsx:712
 msgid "Duplicate"
 msgstr "Duplicare"
 
-#: src/components/CustomColorBrandCreator.tsx:101
+#: src/components/CustomColorBrandCreator.tsx:131
 msgid "Edit from here on"
 msgstr "Modifica da qui in poi"
 
@@ -480,11 +488,11 @@ msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Esplora la versione gratuita prima di decidere di acquistare un abbonamento a pagamento."
 
 #: src/components/ColorSetChooser.tsx:365
-#: src/components/CustomColorBrandCreator.tsx:351
+#: src/components/CustomColorBrandCreator.tsx:358
 msgid "Fill in the required fields"
 msgstr "Compila i campi obbligatori"
 
-#: src/components/CustomColorBrandCreator.tsx:190
+#: src/components/CustomColorBrandCreator.tsx:211
 msgid "Finish editing"
 msgstr "Termina la revisione"
 
@@ -616,7 +624,7 @@ msgstr "Tavolozza limitata"
 msgid "Link copied to clipboard"
 msgstr "Link copiato negli appunti"
 
-#: src/components/CustomColorBrandCreator.tsx:424
+#: src/components/CustomColorBrandCreator.tsx:429
 msgid "Load color brand file"
 msgstr "Carica il file del marchio del colore"
 
@@ -688,12 +696,12 @@ msgid "Mode"
 msgstr "Modo"
 
 #: src/components/ColorSetChooser.tsx:564
-#: src/components/CustomColorBrandCreator.tsx:169
-#: src/components/CustomColorBrandCreator.tsx:476
+#: src/components/CustomColorBrandCreator.tsx:190
+#: src/components/CustomColorBrandCreator.tsx:481
 msgid "Name"
 msgstr "Nome"
 
-#: src/components/CustomColorBrandCreator.tsx:479
+#: src/components/CustomColorBrandCreator.tsx:484
 msgid "Name a brand"
 msgstr "Assegna un nome a un marchio"
 
@@ -725,7 +733,7 @@ msgstr "Prossima data di carica"
 #: src/components/color/PaletteColorMixtureCard.tsx:105
 #: src/components/ColorSetChooser.tsx:230
 #: src/components/ColorSetChooser.tsx:721
-#: src/components/CustomColorBrandCreator.tsx:495
+#: src/components/CustomColorBrandCreator.tsx:500
 #: src/components/image/RecentImageCard.tsx:74
 #: src/components/palette/PaletteGrid.tsx:103
 #: src/components/storage/ClearStorage.tsx:63
@@ -997,9 +1005,9 @@ msgstr "Rimuovi dalla tavolozza"
 msgid "Remove the color mixture"
 msgstr "Rimuovere la miscela di colori"
 
-#: src/components/CustomColorBrandCreator.tsx:150
-#: src/components/CustomColorBrandCreator.tsx:161
-#: src/components/CustomColorBrandCreator.tsx:167
+#: src/components/CustomColorBrandCreator.tsx:178
+#: src/components/CustomColorBrandCreator.tsx:186
+#: src/components/CustomColorBrandCreator.tsx:189
 msgid "Required"
 msgstr "Obbligatorio"
 
@@ -1034,7 +1042,7 @@ msgstr "Ruotare"
 msgid "Saturation (%)"
 msgstr "Saturazione (%)"
 
-#: src/components/CustomColorBrandCreator.tsx:484
+#: src/components/CustomColorBrandCreator.tsx:489
 #: src/components/ImageBackgroundRemoval.tsx:191
 #: src/components/ImageBackgroundRemoval.tsx:257
 #: src/components/ImageBlurred.tsx:111
@@ -1107,7 +1115,7 @@ msgstr "Seleziona una foto di riferimento dal tuo dispositivo da cui dipingere"
 msgid "Select a style to transfer to your reference photo"
 msgstr "Seleziona uno stile da trasferire sulla tua foto di riferimento"
 
-#: src/components/CustomColorBrandCreator.tsx:412
+#: src/components/CustomColorBrandCreator.tsx:417
 msgid "Select an image that contains a color chart"
 msgstr "Seleziona un'immagine che contiene una tabella dei colori"
 
@@ -1152,7 +1160,7 @@ msgstr "Seleziona dai tuoi set di colori recenti"
 msgid "Select from your recent color sets or create a new one."
 msgstr "Seleziona dai tuoi set di colori recenti o creane uno nuovo."
 
-#: src/components/CustomColorBrandCreator.tsx:417
+#: src/components/CustomColorBrandCreator.tsx:422
 msgid "Select image"
 msgstr "Seleziona immagine"
 
@@ -1369,7 +1377,7 @@ msgstr "Il colore da miscelare dal set di colori. Seleziona un colore facendo cl
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
 msgstr "Il diametro dell'area circolare attorno al cursore, utilizzato per calcolare il colore medio dei pixel in quell'area."
 
-#: src/components/CustomColorBrandCreator.tsx:430
+#: src/components/CustomColorBrandCreator.tsx:435
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
 msgstr "Il diametro dell'area circolare attorno al cursore, utilizzato per calcolare il colore medio dei pixel all'interno dell'area."
 
@@ -1445,8 +1453,11 @@ msgstr "Trasparente"
 msgid "Tutorials and videos"
 msgstr "Tutorial e video"
 
-#: src/components/alert/AlertTimedReloadFallback.tsx:38
 #: src/components/alert/UnhandledRejectionHandler.tsx:37
+msgid "Unexpected error"
+msgstr "Errore inaspettato"
+
+#: src/components/alert/AlertTimedReloadFallback.tsx:38
 msgid "Unexpected error: {errorMessage}"
 msgstr "Errore inaspettato: {errorMessage}"
 
@@ -1473,7 +1484,7 @@ msgstr "Utilizzare mezzi di velatura che consentano di ottenere uno strato sotti
 msgid "Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original oil paint layer. You should be able to get the consistency of runny sour cream. Linseed oil is a popular glazing medium."
 msgstr "Utilizzare mezzi di velatura che consentano di ottenere uno strato sottile, ad esempio 1/10 dello strato originale di pittura ad olio. Dovresti essere in grado di ottenere la consistenza della panna acida che cola. L'olio di lino è un popolare mezzo di glassatura."
 
-#: src/components/file/FileSelect.tsx:92
+#: src/components/file/FileSelect.tsx:89
 msgid "Use reference photo"
 msgstr "Usa la foto di riferimento"
 
@@ -1546,7 +1557,7 @@ msgstr "Larghezza"
 #: src/components/color/PaletteColorMixtureCard.tsx:104
 #: src/components/ColorSetChooser.tsx:229
 #: src/components/ColorSetChooser.tsx:720
-#: src/components/CustomColorBrandCreator.tsx:494
+#: src/components/CustomColorBrandCreator.tsx:499
 #: src/components/image/RecentImageCard.tsx:73
 #: src/components/palette/PaletteGrid.tsx:102
 #: src/components/storage/ClearStorage.tsx:62

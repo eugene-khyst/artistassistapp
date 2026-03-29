@@ -41,7 +41,7 @@ export const ServiceWorkerUpdateNotification: React.FC = () => {
     }
     notification.open({
       key: NOTIFICATION_KEY,
-      message: <Trans>Update available</Trans>,
+      title: <Trans>Update available</Trans>,
       description: (
         <Trans>A new version of the app is available and will be installed automatically.</Trans>
       ),

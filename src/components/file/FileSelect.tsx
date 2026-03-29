@@ -17,7 +17,7 @@
  */
 
 import {FileImageOutlined, InboxOutlined, MoreOutlined, UploadOutlined} from '@ant-design/icons';
-import {useLingui} from '@lingui/react/macro';
+import {Trans, useLingui} from '@lingui/react/macro';
 import {App, Button, Dropdown, Space} from 'antd';
 import type {BaseButtonProps} from 'antd/es/button/Button';
 import type {MenuProps} from 'antd/lib';
@@ -55,14 +55,11 @@ export const FileSelect: React.FC<PropsWithChildren<Props>> = ({
       onChange(acceptedFiles);
       for (const {file, errors} of fileRejections) {
         notification.error({
-          message: (
+          title: file.name,
+          description: (
             <>
-              {file.name}:<br />
-              {errors.map(({message}) => (
-                <>
-                  {message}
-                  <br />
-                </>
+              {errors.map(({message}, index) => (
+                <div key={index}>{message}</div>
               ))}
             </>
           ),
@@ -104,7 +101,7 @@ export const FileSelect: React.FC<PropsWithChildren<Props>> = ({
 
       {isDragActive ? (
         <Button color="primary" variant="dashed" icon={<InboxOutlined />}>
-          Drop the {multiple ? 'files' : 'file'} here...
+          {multiple ? <Trans>Drop the files here...</Trans> : <Trans>Drop the file here...</Trans>}
         </Button>
       ) : (
         <Space.Compact>

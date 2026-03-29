@@ -34,9 +34,9 @@ msgstr "{FIELD} sunt obligatorii"
 #: src/components/ColorSetChooser.tsx:541
 #: src/components/ColorSetChooser.tsx:550
 #: src/components/ColorSetChooser.tsx:603
-#: src/components/CustomColorBrandCreator.tsx:458
-#: src/components/CustomColorBrandCreator.tsx:469
-#: src/components/CustomColorBrandCreator.tsx:477
+#: src/components/CustomColorBrandCreator.tsx:463
+#: src/components/CustomColorBrandCreator.tsx:474
+#: src/components/CustomColorBrandCreator.tsx:482
 msgid "{FIELD} is required"
 msgstr "{FIELD} este obligatoriu"
 
@@ -186,7 +186,7 @@ msgstr "Sigur doriți să ștergeți toate datele aplicației?"
 msgid "Are you sure you want to delete this color set?"
 msgstr "Sigur doriți să ștergeți acest set de culori?"
 
-#: src/components/CustomColorBrandCreator.tsx:490
+#: src/components/CustomColorBrandCreator.tsx:495
 msgid "Are you sure you want to delete this custom brand?"
 msgstr "Sunteți sigur că doriți să ștergeți această marcă personalizată?"
 
@@ -204,7 +204,7 @@ msgid "Are you sure you want to remove this color mixture?"
 msgstr "Sunteți sigur că doriți să eliminați acest amestec de culori?"
 
 #: src/components/ColorSetChooser.tsx:540
-#: src/components/CustomColorBrandCreator.tsx:468
+#: src/components/CustomColorBrandCreator.tsx:473
 msgid "Art medium"
 msgstr "Mediu de artă"
 
@@ -212,7 +212,7 @@ msgstr "Mediu de artă"
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp este dezvoltat de <0>Eugene Khyst</0>"
 
-#: src/components/CustomColorBrandCreator.tsx:518
+#: src/components/CustomColorBrandCreator.tsx:523
 msgid "At least one color is required"
 msgstr "Este necesară cel puțin o culoare"
 
@@ -282,12 +282,12 @@ msgid "Close in {closeCounter} sec"
 msgstr "Închidere în {closeCounter} sec"
 
 #: src/components/ColorMixer.tsx:205
-#: src/components/CustomColorBrandCreator.tsx:442
+#: src/components/CustomColorBrandCreator.tsx:447
 #: src/components/ImageColorPicker.tsx:320
 msgid "Color"
 msgstr "Culoare"
 
-#: src/components/CustomColorBrandCreator.tsx:457
+#: src/components/CustomColorBrandCreator.tsx:462
 msgid "Color brand"
 msgstr "Marca de culoare"
 
@@ -376,7 +376,7 @@ msgid "Custom color set"
 msgstr "Set de culori personalizate"
 
 #: src/components/ColorSetChooser.tsx:730
-#: src/components/CustomColorBrandCreator.tsx:504
+#: src/components/CustomColorBrandCreator.tsx:509
 #: src/components/image/RecentImageCard.tsx:83
 msgid "Delete"
 msgstr "Șterge"
@@ -390,8 +390,8 @@ msgstr "Ștergeți toate datele aplicației"
 msgid "Delete the color set"
 msgstr "Ștergeți setul de culori"
 
-#: src/components/CustomColorBrandCreator.tsx:489
-#: src/components/CustomColorBrandCreator.tsx:499
+#: src/components/CustomColorBrandCreator.tsx:494
+#: src/components/CustomColorBrandCreator.tsx:504
 msgid "Delete the custom brand"
 msgstr "Ștergeți marca personalizată"
 
@@ -416,7 +416,7 @@ msgstr "Diagnosticare"
 msgid "Diagonals"
 msgstr "Diagonale"
 
-#: src/components/CustomColorBrandCreator.tsx:429
+#: src/components/CustomColorBrandCreator.tsx:434
 #: src/components/ImageColorPicker.tsx:306
 msgid "Diameter"
 msgstr "Diametru"
@@ -441,11 +441,19 @@ msgstr "Fișier descărcat {filename}"
 msgid "Downloading..."
 msgstr "Descărcare..."
 
+#: src/components/file/FileSelect.tsx:104
+msgid "Drop the file here..."
+msgstr "Lasă fișierul aici..."
+
+#: src/components/file/FileSelect.tsx:104
+msgid "Drop the files here..."
+msgstr "Lasă fișierele aici..."
+
 #: src/components/ColorSetChooser.tsx:712
 msgid "Duplicate"
 msgstr "Duplicat"
 
-#: src/components/CustomColorBrandCreator.tsx:101
+#: src/components/CustomColorBrandCreator.tsx:131
 msgid "Edit from here on"
 msgstr "Editare de aici înainte"
 
@@ -480,11 +488,11 @@ msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Explorați versiunea gratuită înainte de a decide să achiziționați un abonament plătit."
 
 #: src/components/ColorSetChooser.tsx:365
-#: src/components/CustomColorBrandCreator.tsx:351
+#: src/components/CustomColorBrandCreator.tsx:358
 msgid "Fill in the required fields"
 msgstr "Completați câmpurile obligatorii"
 
-#: src/components/CustomColorBrandCreator.tsx:190
+#: src/components/CustomColorBrandCreator.tsx:211
 msgid "Finish editing"
 msgstr "Finalizarea editării"
 
@@ -616,7 +624,7 @@ msgstr "Paletă limitată"
 msgid "Link copied to clipboard"
 msgstr "Link copiat în clipboard"
 
-#: src/components/CustomColorBrandCreator.tsx:424
+#: src/components/CustomColorBrandCreator.tsx:429
 msgid "Load color brand file"
 msgstr "Încărcați fișierul de marcă color"
 
@@ -688,12 +696,12 @@ msgid "Mode"
 msgstr "Mod"
 
 #: src/components/ColorSetChooser.tsx:564
-#: src/components/CustomColorBrandCreator.tsx:169
-#: src/components/CustomColorBrandCreator.tsx:476
+#: src/components/CustomColorBrandCreator.tsx:190
+#: src/components/CustomColorBrandCreator.tsx:481
 msgid "Name"
 msgstr "Nume"
 
-#: src/components/CustomColorBrandCreator.tsx:479
+#: src/components/CustomColorBrandCreator.tsx:484
 msgid "Name a brand"
 msgstr "Denumiți o marcă"
 
@@ -725,7 +733,7 @@ msgstr "Următoarea dată de încărcare"
 #: src/components/color/PaletteColorMixtureCard.tsx:105
 #: src/components/ColorSetChooser.tsx:230
 #: src/components/ColorSetChooser.tsx:721
-#: src/components/CustomColorBrandCreator.tsx:495
+#: src/components/CustomColorBrandCreator.tsx:500
 #: src/components/image/RecentImageCard.tsx:74
 #: src/components/palette/PaletteGrid.tsx:103
 #: src/components/storage/ClearStorage.tsx:63
@@ -997,9 +1005,9 @@ msgstr "Eliminați din paletă"
 msgid "Remove the color mixture"
 msgstr "Îndepărtați amestecul de culori"
 
-#: src/components/CustomColorBrandCreator.tsx:150
-#: src/components/CustomColorBrandCreator.tsx:161
-#: src/components/CustomColorBrandCreator.tsx:167
+#: src/components/CustomColorBrandCreator.tsx:178
+#: src/components/CustomColorBrandCreator.tsx:186
+#: src/components/CustomColorBrandCreator.tsx:189
 msgid "Required"
 msgstr "Necesar"
 
@@ -1034,7 +1042,7 @@ msgstr "Roti"
 msgid "Saturation (%)"
 msgstr "Saturație (%)"
 
-#: src/components/CustomColorBrandCreator.tsx:484
+#: src/components/CustomColorBrandCreator.tsx:489
 #: src/components/ImageBackgroundRemoval.tsx:191
 #: src/components/ImageBackgroundRemoval.tsx:257
 #: src/components/ImageBlurred.tsx:111
@@ -1107,7 +1115,7 @@ msgstr "Selectați o fotografie de referință de pe dispozitiv pentru a picta"
 msgid "Select a style to transfer to your reference photo"
 msgstr "Selectează un stil pe care să-l transferi în fotografia de referință"
 
-#: src/components/CustomColorBrandCreator.tsx:412
+#: src/components/CustomColorBrandCreator.tsx:417
 msgid "Select an image that contains a color chart"
 msgstr "Selectați o imagine care conține o diagramă de culori"
 
@@ -1152,7 +1160,7 @@ msgstr "Selectați din seturile de culori recente"
 msgid "Select from your recent color sets or create a new one."
 msgstr "Selectați din seturile de culori recente sau creați unul nou."
 
-#: src/components/CustomColorBrandCreator.tsx:417
+#: src/components/CustomColorBrandCreator.tsx:422
 msgid "Select image"
 msgstr "Selectează imaginea"
 
@@ -1369,7 +1377,7 @@ msgstr "Culoarea care urmează să fie amestecată din setul de culori. Selecta�
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
 msgstr "Diametrul zonei circulare din jurul cursorului, folosit pentru a calcula culoarea medie a pixelilor din acea zonă."
 
-#: src/components/CustomColorBrandCreator.tsx:430
+#: src/components/CustomColorBrandCreator.tsx:435
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
 msgstr "Diametrul zonei circulare din jurul cursorului, utilizat pentru a calcula culoarea medie a pixelilor din zonă."
 
@@ -1445,8 +1453,11 @@ msgstr "Transparent"
 msgid "Tutorials and videos"
 msgstr "Tutoriale și videoclipuri"
 
-#: src/components/alert/AlertTimedReloadFallback.tsx:38
 #: src/components/alert/UnhandledRejectionHandler.tsx:37
+msgid "Unexpected error"
+msgstr "Eroare neașteptată"
+
+#: src/components/alert/AlertTimedReloadFallback.tsx:38
 msgid "Unexpected error: {errorMessage}"
 msgstr "Eroare neașteptată: {errorMessage}"
 
@@ -1473,7 +1484,7 @@ msgstr "Utilizați medii de glazurare care vă permit să obțineți un strat su
 msgid "Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original oil paint layer. You should be able to get the consistency of runny sour cream. Linseed oil is a popular glazing medium."
 msgstr "Utilizați medii de glazurare care vă permit să obțineți un strat subțire, de exemplu, 1/10 din stratul original de vopsea în ulei. Ar trebui să puteți obține consistența smântânii curgătoare. Uleiul de in este un mediu popular de glazurare."
 
-#: src/components/file/FileSelect.tsx:92
+#: src/components/file/FileSelect.tsx:89
 msgid "Use reference photo"
 msgstr "Utilizați fotografia de referință"
 
@@ -1546,7 +1557,7 @@ msgstr "Lățime"
 #: src/components/color/PaletteColorMixtureCard.tsx:104
 #: src/components/ColorSetChooser.tsx:229
 #: src/components/ColorSetChooser.tsx:720
-#: src/components/CustomColorBrandCreator.tsx:494
+#: src/components/CustomColorBrandCreator.tsx:499
 #: src/components/image/RecentImageCard.tsx:73
 #: src/components/palette/PaletteGrid.tsx:102
 #: src/components/storage/ClearStorage.tsx:62

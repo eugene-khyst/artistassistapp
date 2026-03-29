@@ -37,7 +37,7 @@ export function useColorSetBackup() {
       return;
     }
     notification.info({
-      message: i18n._(backupMessage.id, {filename}),
+      title: i18n._(backupMessage.id, {filename}),
       description: i18n._(backupDescription.id),
       placement: 'topLeft',
       duration: 10,

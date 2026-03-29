@@ -86,7 +86,7 @@ export const ImageStyleTransfer: React.FC = () => {
   useEffect(() => {
     if (isModelsError) {
       notification.error({
-        message: t`Error while fetching ML model data`,
+        title: t`Error while fetching ML model data`,
         placement: 'top',
         duration: 10,
         showProgress: true,

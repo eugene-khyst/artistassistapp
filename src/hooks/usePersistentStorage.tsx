@@ -44,7 +44,7 @@ export function usePersistentStorage(): Result {
 
       notification.warning({
         key: NOTIFICATION_KEY,
-        message: <Trans>Persistent storage is not enabled</Trans>,
+        title: <Trans>Persistent storage is not enabled</Trans>,
         description: (
           <Trans>
             Your data may not be saved reliably if the browser is closed. To fix this, install the

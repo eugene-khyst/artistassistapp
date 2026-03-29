@@ -34,7 +34,8 @@ export const UnhandledRejectionHandler: React.FC<PropsWithChildren> = ({
     const promiseRejectionHandler = ({reason}: PromiseRejectionEvent) => {
       const errorMessage: string = getErrorMessage(reason);
       notification.error({
-        message: t`Unexpected error: ${errorMessage}`,
+        title: t`Unexpected error`,
+        description: errorMessage,
         placement: 'top',
         duration: 10,
         showProgress: true,

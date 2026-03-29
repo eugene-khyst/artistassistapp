@@ -189,7 +189,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
   useEffect(() => {
     if (isBrandsError) {
       notification.error({
-        message: t`Error while fetching color brand data`,
+        title: t`Error while fetching color brand data`,
         placement: 'top',
         duration: 10,
         showProgress: true,
@@ -200,7 +200,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
   useEffect(() => {
     if (isStandardColorSetsError) {
       notification.error({
-        message: t`Error while fetching standard color set data`,
+        title: t`Error while fetching standard color set data`,
         placement: 'top',
         duration: 10,
         showProgress: true,
@@ -211,7 +211,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
   useEffect(() => {
     if (isColorsError) {
       notification.error({
-        message: t`Error while fetching color data`,
+        title: t`Error while fetching color data`,
         placement: 'top',
         duration: 10,
         showProgress: true,
