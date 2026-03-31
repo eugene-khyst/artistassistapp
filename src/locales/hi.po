@@ -158,7 +158,7 @@ msgid "Application build hash"
 msgstr "एप्लिकेशन बिल्ड हैश"
 
 #: src/components/ImageLimitedPalette.tsx:153
-#: src/components/ImagePerspectiveCorrection.tsx:240
+#: src/components/ImagePerspectiveCorrection.tsx:241
 msgid "Apply"
 msgstr "लागू करना"
 
@@ -235,7 +235,7 @@ msgstr "सफेद बिंदु क्षेत्र का औसत र�
 msgid "Background"
 msgstr "पृष्ठभूमि"
 
-#: src/components/ImageBlurred.tsx:128
+#: src/components/ImageBlurred.tsx:134
 msgid "Blur"
 msgstr "कलंक"
 
@@ -338,7 +338,7 @@ msgstr "तुलना करना"
 msgid "Contact"
 msgstr "संपर्क"
 
-#: src/components/ImageBlurred.tsx:129
+#: src/components/ImageBlurred.tsx:135
 msgid "Controls the radius of the median filter."
 msgstr "मीडियन फ़िल्टर की त्रिज्या को नियंत्रित करता है।"
 
@@ -441,11 +441,11 @@ msgstr "डाउनलोड की गई फ़ाइल {filename}"
 msgid "Downloading..."
 msgstr "डाउनलोड हो रहा है..."
 
-#: src/components/file/FileSelect.tsx:104
+#: src/components/file/FileSelect.tsx:106
 msgid "Drop the file here..."
 msgstr "फ़ाइल को यहाँ छोड़ दें..."
 
-#: src/components/file/FileSelect.tsx:104
+#: src/components/file/FileSelect.tsx:106
 msgid "Drop the files here..."
 msgstr "फाइलों को यहां छोड़ दें..."
 
@@ -592,7 +592,7 @@ msgstr "Patreon में शामिल हों"
 msgid "Language"
 msgstr "भाषा"
 
-#: src/components/ImageBlurred.tsx:139
+#: src/components/ImageBlurred.tsx:145
 msgid "Large"
 msgstr "बड़ा"
 
@@ -665,7 +665,7 @@ msgstr "कम आउटपुट और उच्च आउटपुट"
 msgid "Margin"
 msgstr "गुंजाइश"
 
-#: src/components/ImageBlurred.tsx:138
+#: src/components/ImageBlurred.tsx:144
 msgid "Medium"
 msgstr "मध्यम"
 
@@ -746,7 +746,7 @@ msgstr "नहीं"
 msgid "No data"
 msgstr "कोई डेटा नहीं"
 
-#: src/components/ImageBlurred.tsx:136
+#: src/components/ImageBlurred.tsx:142
 msgid "None"
 msgstr "कोई नहीं"
 
@@ -1019,8 +1019,8 @@ msgstr "iOS 16.4+ या iPadOS 16.4+ आवश्यक है।"
 msgid "Requires macOS Sonoma or later."
 msgstr "macOS सोनोमा या बाद के संस्करण की आवश्यकता है।"
 
-#: src/components/ImagePerspectiveCorrection.tsx:179
-#: src/components/ImagePerspectiveCorrection.tsx:247
+#: src/components/ImagePerspectiveCorrection.tsx:180
+#: src/components/ImagePerspectiveCorrection.tsx:248
 msgid "Reset"
 msgstr "रीसेट"
 
@@ -1033,8 +1033,8 @@ msgstr "<0>{paletteLabel}</0> टैब पर लौटें।"
 msgid "Return to the <0>{tabLabel}</0> tab."
 msgstr "<0>{tabLabel}</0> टैब पर लौटें।"
 
-#: src/components/ImagePerspectiveCorrection.tsx:187
-#: src/components/ImagePerspectiveCorrection.tsx:251
+#: src/components/ImagePerspectiveCorrection.tsx:188
+#: src/components/ImagePerspectiveCorrection.tsx:252
 msgid "Rotate"
 msgstr "घूमना"
 
@@ -1045,16 +1045,16 @@ msgstr "संतृप्ति (%)"
 #: src/components/CustomColorBrandCreator.tsx:489
 #: src/components/ImageBackgroundRemoval.tsx:191
 #: src/components/ImageBackgroundRemoval.tsx:257
-#: src/components/ImageBlurred.tsx:111
-#: src/components/ImageBlurred.tsx:157
+#: src/components/ImageBlurred.tsx:117
+#: src/components/ImageBlurred.tsx:163
 #: src/components/ImageColorAdjustment.tsx:360
 #: src/components/ImageGrid.tsx:70
 #: src/components/ImageGrid.tsx:90
 #: src/components/ImageLimitedPalette.tsx:104
 #: src/components/ImageOutline.tsx:185
 #: src/components/ImageOutline.tsx:263
-#: src/components/ImagePerspectiveCorrection.tsx:197
-#: src/components/ImagePerspectiveCorrection.tsx:263
+#: src/components/ImagePerspectiveCorrection.tsx:198
+#: src/components/ImagePerspectiveCorrection.tsx:264
 #: src/components/ImageStyleTransfer.tsx:191
 #: src/components/ImageTonalValues.tsx:92
 #: src/components/ImageTonalValues.tsx:133
@@ -1070,12 +1070,12 @@ msgid "Save changes to the color set?"
 msgstr "रंग सेट में परिवर्तन सहेजें?"
 
 #: src/components/ImageColorAdjustment.tsx:296
-#: src/components/ImagePerspectiveCorrection.tsx:168
+#: src/components/ImagePerspectiveCorrection.tsx:169
 msgid "Save expanded to 1.91:1"
 msgstr "सहेजें 1.91:1 तक विस्तारित"
 
 #: src/components/ImageColorAdjustment.tsx:288
-#: src/components/ImagePerspectiveCorrection.tsx:160
+#: src/components/ImagePerspectiveCorrection.tsx:161
 msgid "Save expanded to 4:5"
 msgstr "सहेजें 4:5 तक विस्तारित"
 
@@ -1091,7 +1091,7 @@ msgstr "QR कोड स्कैन करें"
 msgid "Scan QR code"
 msgstr "QR कोड स्कैन करें"
 
-#: src/components/ImagePerspectiveCorrection.tsx:107
+#: src/components/ImagePerspectiveCorrection.tsx:108
 msgid "Select 4 points to correct perspective distortion"
 msgstr "परिप्रेक्ष्य विरूपण को सही करने के लिए 4 बिंदुओं का चयन करें"
 
@@ -1099,7 +1099,7 @@ msgstr "परिप्रेक्ष्य विरूपण को सही
 msgid "Select a photo to adjust white balance and colors"
 msgstr "श्वेत संतुलन और रंगों को समायोजित करने के लिए एक तस्वीर का चयन करें"
 
-#: src/components/ImagePerspectiveCorrection.tsx:223
+#: src/components/ImagePerspectiveCorrection.tsx:224
 msgid "Select a photo to correct the perspective"
 msgstr "परिप्रेक्ष्य को सही करने के लिए एक तस्वीर का चयन करें"
 
@@ -1175,7 +1175,7 @@ msgstr "भाग का चयन करें"
 #: src/components/ImageBackgroundRemoval.tsx:235
 #: src/components/ImageChooser.tsx:67
 #: src/components/ImageColorAdjustment.tsx:350
-#: src/components/ImagePerspectiveCorrection.tsx:233
+#: src/components/ImagePerspectiveCorrection.tsx:234
 msgid "Select photo"
 msgstr "फ़ोटो का चयन करें"
 
@@ -1221,7 +1221,7 @@ msgstr "पृष्ठभूमि के रूप में सेट कर�
 msgid "Set as main color set"
 msgstr "मुख्य रंग सेट के रूप में सेट करें"
 
-#: src/components/ImageBlurred.tsx:100
+#: src/components/ImageBlurred.tsx:106
 #: src/components/ImageColorAdjustment.tsx:377
 msgid "Set as reference"
 msgstr "संदर्भ के रूप में सेट करें"
@@ -1264,10 +1264,6 @@ msgstr "फोटो पर दिखाएं"
 msgid "Show or hide diagonal lines"
 msgstr "विकर्ण रेखाएँ दिखाना या छुपाना"
 
-#: src/components/grid/GridControls.tsx:174
-msgid "Show or hide grid"
-msgstr "ग्रिड दिखाना या छुपाना"
-
 #: src/components/color/ReflectanceChartDrawer.tsx:84
 #: src/components/ImageColorPicker.tsx:210
 msgid "Similarity"
@@ -1289,7 +1285,7 @@ msgstr "विभिन्न रंगों के तेल पेस्ट�
 msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition."
 msgstr "विभिन्न रंगों के पेस्टल क्षेत्रों को थोड़ा ओवरलैप करें और एक चिकनी संक्रमण बनाने के लिए धीरे से मिश्रण करें।"
 
-#: src/components/ImageBlurred.tsx:137
+#: src/components/ImageBlurred.tsx:143
 msgid "Small"
 msgstr "मामूली"
 
@@ -1328,7 +1324,7 @@ msgstr "अभी भी परेशानी हो रही है? कृ�
 msgid "Storage usage"
 msgstr "भंडारण उपयोग"
 
-#: src/components/ImagePerspectiveCorrection.tsx:226
+#: src/components/ImagePerspectiveCorrection.tsx:227
 msgid "Straightens skewed photos and removes unwanted edges. Select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "तिरछी तस्वीरों को सीधा करता है और अवांछित किनारों को हटाता है। परिप्रेक्ष्य विरूपण को सही करने के लिए 4 बिंदुओं का चयन करें, फिर छवि को क्रॉप करने के लिए वैकल्पिक रूप से मार्जिन खींचें।"
 
@@ -1484,7 +1480,7 @@ msgstr "ग्लेज़िंग माध्यमों का उपयो
 msgid "Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original oil paint layer. You should be able to get the consistency of runny sour cream. Linseed oil is a popular glazing medium."
 msgstr "ग्लेज़िंग माध्यमों का उपयोग करें जो आपको एक पतली परत प्राप्त करने की अनुमति देते हैं, उदाहरण के लिए, मूल तेल पेंट परत का 1/10। आपको बहती खट्टा क्रीम की स्थिरता प्राप्त करने में सक्षम होना चाहिए। अलसी का तेल एक लोकप्रिय ग्लेज़िंग माध्यम है।"
 
-#: src/components/file/FileSelect.tsx:89
+#: src/components/file/FileSelect.tsx:91
 msgid "Use reference photo"
 msgstr "संदर्भ फ़ोटो का उपयोग करें"
 
@@ -1535,8 +1531,8 @@ msgid "White"
 msgstr "सफेद"
 
 #: src/components/ImageColorAdjustment.tsx:393
-#: src/components/ImagePerspectiveCorrection.tsx:206
-#: src/components/ImagePerspectiveCorrection.tsx:275
+#: src/components/ImagePerspectiveCorrection.tsx:207
+#: src/components/ImagePerspectiveCorrection.tsx:276
 #: src/components/messages.ts:38
 msgid "White balance"
 msgstr "श्वेत संतुलन"

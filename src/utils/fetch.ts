@@ -198,7 +198,7 @@ async function downloadChunkedFileInfo(
 async function downloadChunks(
   baseUrl: string,
   {filename, size, chunks}: ChunkedFile,
-  {concurrency = 5, progressCallback, signal}: FetchChunkedOptions
+  {concurrency = 3, progressCallback, signal}: FetchChunkedOptions
 ): Promise<Response> {
   const downloadedChunks: Blob[] = [];
   let completedCount = 0;

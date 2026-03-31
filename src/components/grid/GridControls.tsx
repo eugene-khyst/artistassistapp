@@ -171,7 +171,7 @@ export const GridControls: React.FC<Props> = ({
   return (
     <Space {...props}>
       {disableable && (
-        <Form.Item label={t`Show grid`} tooltip={t`Show or hide grid`} style={{margin: 0}}>
+        <Form.Item label={t`Show grid`} style={{margin: 0}}>
           <Checkbox checked={gridEnabled} onChange={handleEnabledChange} />
         </Form.Item>
       )}

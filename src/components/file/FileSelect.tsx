@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {FileImageOutlined, InboxOutlined, MoreOutlined, UploadOutlined} from '@ant-design/icons';
+import {DownOutlined, FileImageOutlined, InboxOutlined, UploadOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {App, Button, Dropdown, Space} from 'antd';
+import {App, Button, Dropdown, Grid, Space} from 'antd';
 import type {BaseButtonProps} from 'antd/es/button/Button';
 import type {MenuProps} from 'antd/lib';
 import type {PropsWithChildren} from 'react';
@@ -45,6 +45,8 @@ export const FileSelect: React.FC<PropsWithChildren<Props>> = ({
   multiple,
 }: PropsWithChildren<Props>) => {
   const originalImageFile = useAppStore(state => state.originalImageFile);
+
+  const screens = Grid.useBreakpoint();
 
   const {notification} = App.useApp();
 
@@ -100,17 +102,22 @@ export const FileSelect: React.FC<PropsWithChildren<Props>> = ({
       <input {...getInputProps()} />
 
       {isDragActive ? (
-        <Button color="primary" variant="dashed" icon={<InboxOutlined />}>
+        <Button color="primary" variant="dashed" icon={screens.sm ? <InboxOutlined /> : null}>
           {multiple ? <Trans>Drop the files here...</Trans> : <Trans>Drop the file here...</Trans>}
         </Button>
       ) : (
         <Space.Compact>
-          <Button type={type} icon={<UploadOutlined />} onClick={handleClick} disabled={disabled}>
+          <Button
+            type={type}
+            icon={screens.sm ? <UploadOutlined /> : null}
+            onClick={handleClick}
+            disabled={disabled}
+          >
             {children}
           </Button>
           {useReferencePhoto && (
             <Dropdown menu={{items}}>
-              <Button icon={<MoreOutlined />} />
+              <Button icon={<DownOutlined />} />
             </Dropdown>
           )}
         </Space.Compact>

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined, MoreOutlined, PictureOutlined, ScissorOutlined} from '@ant-design/icons';
+import {DownloadOutlined, DownOutlined, PictureOutlined, ScissorOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {CheckboxOptionType, RadioChangeEvent} from 'antd';
 import {
@@ -360,7 +360,7 @@ export const ImageColorAdjustment: React.FC = () => {
                     <Trans>Save</Trans>
                   </Button>
                   <Dropdown menu={{items: saveItems}}>
-                    <Button icon={<MoreOutlined />} />
+                    <Button icon={<DownOutlined />} />
                   </Dropdown>
                 </Space.Compact>
               )}

@@ -158,7 +158,7 @@ msgid "Application build hash"
 msgstr "Hash de compilación de aplicaciones"
 
 #: src/components/ImageLimitedPalette.tsx:153
-#: src/components/ImagePerspectiveCorrection.tsx:240
+#: src/components/ImagePerspectiveCorrection.tsx:241
 msgid "Apply"
 msgstr "Aplicar"
 
@@ -235,7 +235,7 @@ msgstr "Color promedio del área del punto blanco"
 msgid "Background"
 msgstr "Fondo"
 
-#: src/components/ImageBlurred.tsx:128
+#: src/components/ImageBlurred.tsx:134
 msgid "Blur"
 msgstr "Desdibujar"
 
@@ -338,7 +338,7 @@ msgstr "Comparar"
 msgid "Contact"
 msgstr "Contacto"
 
-#: src/components/ImageBlurred.tsx:129
+#: src/components/ImageBlurred.tsx:135
 msgid "Controls the radius of the median filter."
 msgstr "Controla el radio del filtro mediano."
 
@@ -441,11 +441,11 @@ msgstr "Archivo descargado {filename}"
 msgid "Downloading..."
 msgstr "Descargando..."
 
-#: src/components/file/FileSelect.tsx:104
+#: src/components/file/FileSelect.tsx:106
 msgid "Drop the file here..."
 msgstr "Déjame el expediente aquí..."
 
-#: src/components/file/FileSelect.tsx:104
+#: src/components/file/FileSelect.tsx:106
 msgid "Drop the files here..."
 msgstr "Deja los archivos aquí..."
 
@@ -592,7 +592,7 @@ msgstr "Únete en Patreon"
 msgid "Language"
 msgstr "Idioma"
 
-#: src/components/ImageBlurred.tsx:139
+#: src/components/ImageBlurred.tsx:145
 msgid "Large"
 msgstr "Grande"
 
@@ -665,7 +665,7 @@ msgstr "Bajo rendimiento y alto rendimiento"
 msgid "Margin"
 msgstr "Margen"
 
-#: src/components/ImageBlurred.tsx:138
+#: src/components/ImageBlurred.tsx:144
 msgid "Medium"
 msgstr "Medio"
 
@@ -746,7 +746,7 @@ msgstr "No"
 msgid "No data"
 msgstr "Sin datos"
 
-#: src/components/ImageBlurred.tsx:136
+#: src/components/ImageBlurred.tsx:142
 msgid "None"
 msgstr "Ninguno"
 
@@ -1019,8 +1019,8 @@ msgstr "Requiere iOS 16.4+ o iPadOS 16.4+."
 msgid "Requires macOS Sonoma or later."
 msgstr "Requiere macOS Sonoma o posterior."
 
-#: src/components/ImagePerspectiveCorrection.tsx:179
-#: src/components/ImagePerspectiveCorrection.tsx:247
+#: src/components/ImagePerspectiveCorrection.tsx:180
+#: src/components/ImagePerspectiveCorrection.tsx:248
 msgid "Reset"
 msgstr "Restablecimiento"
 
@@ -1033,8 +1033,8 @@ msgstr "Regrese a la pestaña <0>{paletteLabel}</0> ."
 msgid "Return to the <0>{tabLabel}</0> tab."
 msgstr "Vuelva a la pestaña <0>{tabLabel}</0> ."
 
-#: src/components/ImagePerspectiveCorrection.tsx:187
-#: src/components/ImagePerspectiveCorrection.tsx:251
+#: src/components/ImagePerspectiveCorrection.tsx:188
+#: src/components/ImagePerspectiveCorrection.tsx:252
 msgid "Rotate"
 msgstr "Rotar"
 
@@ -1045,16 +1045,16 @@ msgstr "Saturación (%)"
 #: src/components/CustomColorBrandCreator.tsx:489
 #: src/components/ImageBackgroundRemoval.tsx:191
 #: src/components/ImageBackgroundRemoval.tsx:257
-#: src/components/ImageBlurred.tsx:111
-#: src/components/ImageBlurred.tsx:157
+#: src/components/ImageBlurred.tsx:117
+#: src/components/ImageBlurred.tsx:163
 #: src/components/ImageColorAdjustment.tsx:360
 #: src/components/ImageGrid.tsx:70
 #: src/components/ImageGrid.tsx:90
 #: src/components/ImageLimitedPalette.tsx:104
 #: src/components/ImageOutline.tsx:185
 #: src/components/ImageOutline.tsx:263
-#: src/components/ImagePerspectiveCorrection.tsx:197
-#: src/components/ImagePerspectiveCorrection.tsx:263
+#: src/components/ImagePerspectiveCorrection.tsx:198
+#: src/components/ImagePerspectiveCorrection.tsx:264
 #: src/components/ImageStyleTransfer.tsx:191
 #: src/components/ImageTonalValues.tsx:92
 #: src/components/ImageTonalValues.tsx:133
@@ -1070,12 +1070,12 @@ msgid "Save changes to the color set?"
 msgstr "¿Guardar los cambios en el conjunto de colores?"
 
 #: src/components/ImageColorAdjustment.tsx:296
-#: src/components/ImagePerspectiveCorrection.tsx:168
+#: src/components/ImagePerspectiveCorrection.tsx:169
 msgid "Save expanded to 1.91:1"
 msgstr "Guardar ampliado a 1.91:1"
 
 #: src/components/ImageColorAdjustment.tsx:288
-#: src/components/ImagePerspectiveCorrection.tsx:160
+#: src/components/ImagePerspectiveCorrection.tsx:161
 msgid "Save expanded to 4:5"
 msgstr "Guardar ampliado a 4:5"
 
@@ -1091,7 +1091,7 @@ msgstr "Escanear un código QR"
 msgid "Scan QR code"
 msgstr "Escanear código QR"
 
-#: src/components/ImagePerspectiveCorrection.tsx:107
+#: src/components/ImagePerspectiveCorrection.tsx:108
 msgid "Select 4 points to correct perspective distortion"
 msgstr "Seleccione 4 puntos para corregir la distorsión de la perspectiva"
 
@@ -1099,7 +1099,7 @@ msgstr "Seleccione 4 puntos para corregir la distorsión de la perspectiva"
 msgid "Select a photo to adjust white balance and colors"
 msgstr "Selecciona una foto para ajustar el balance de blancos y los colores"
 
-#: src/components/ImagePerspectiveCorrection.tsx:223
+#: src/components/ImagePerspectiveCorrection.tsx:224
 msgid "Select a photo to correct the perspective"
 msgstr "Seleccione una foto para corregir la perspectiva"
 
@@ -1175,7 +1175,7 @@ msgstr "Seleccionar parte"
 #: src/components/ImageBackgroundRemoval.tsx:235
 #: src/components/ImageChooser.tsx:67
 #: src/components/ImageColorAdjustment.tsx:350
-#: src/components/ImagePerspectiveCorrection.tsx:233
+#: src/components/ImagePerspectiveCorrection.tsx:234
 msgid "Select photo"
 msgstr "Seleccionar foto"
 
@@ -1221,7 +1221,7 @@ msgstr "Establecer como fondo"
 msgid "Set as main color set"
 msgstr "Establecer como conjunto de colores principal"
 
-#: src/components/ImageBlurred.tsx:100
+#: src/components/ImageBlurred.tsx:106
 #: src/components/ImageColorAdjustment.tsx:377
 msgid "Set as reference"
 msgstr "Establecer como referencia"
@@ -1264,10 +1264,6 @@ msgstr "Mostrar en la foto"
 msgid "Show or hide diagonal lines"
 msgstr "Mostrar u ocultar líneas diagonales"
 
-#: src/components/grid/GridControls.tsx:174
-msgid "Show or hide grid"
-msgstr "Mostrar u ocultar cuadrícula"
-
 #: src/components/color/ReflectanceChartDrawer.tsx:84
 #: src/components/ImageColorPicker.tsx:210
 msgid "Similarity"
@@ -1289,7 +1285,7 @@ msgstr "Superponga ligeramente las áreas de pastel al óleo de diferentes color
 msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition."
 msgstr "Superponga ligeramente las áreas pastel de diferentes colores y mezcle suavemente para crear una transición suave."
 
-#: src/components/ImageBlurred.tsx:137
+#: src/components/ImageBlurred.tsx:143
 msgid "Small"
 msgstr "Pequeño"
 
@@ -1328,7 +1324,7 @@ msgstr "¿Sigues teniendo problemas? Por favor, consulta esta <0>guía de soluci
 msgid "Storage usage"
 msgstr "Uso de almacenamiento"
 
-#: src/components/ImagePerspectiveCorrection.tsx:226
+#: src/components/ImagePerspectiveCorrection.tsx:227
 msgid "Straightens skewed photos and removes unwanted edges. Select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "Endereza las fotos sesgadas y elimina los bordes no deseados. Seleccione 4 puntos para corregir la distorsión de la perspectiva y, si lo desea, arrastre los márgenes para recortar la imagen."
 
@@ -1484,7 +1480,7 @@ msgstr "Use medios de glaseado que le permitan obtener una capa delgada, por eje
 msgid "Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original oil paint layer. You should be able to get the consistency of runny sour cream. Linseed oil is a popular glazing medium."
 msgstr "Use medios de vidriado que le permitan obtener una capa delgada, por ejemplo, 1/10 de la capa original de pintura al óleo. Deberías poder obtener la consistencia de una crema agria líquida. El aceite de linaza es un medio de glaseado popular."
 
-#: src/components/file/FileSelect.tsx:89
+#: src/components/file/FileSelect.tsx:91
 msgid "Use reference photo"
 msgstr "Usar foto de referencia"
 
@@ -1535,8 +1531,8 @@ msgid "White"
 msgstr "Blanco"
 
 #: src/components/ImageColorAdjustment.tsx:393
-#: src/components/ImagePerspectiveCorrection.tsx:206
-#: src/components/ImagePerspectiveCorrection.tsx:275
+#: src/components/ImagePerspectiveCorrection.tsx:207
+#: src/components/ImagePerspectiveCorrection.tsx:276
 #: src/components/messages.ts:38
 msgid "White balance"
 msgstr "Balance de blancos"

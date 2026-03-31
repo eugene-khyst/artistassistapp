@@ -68,7 +68,9 @@ export const OnnxModelSelect: React.FC<Props> = ({models, ...rest}: Props) => {
       optionRender={option => (
         <Flex vertical>
           {option.data.label}
-          <Typography.Text type="secondary">{option.data['description']}</Typography.Text>
+          <Typography.Text type="secondary" style={{whiteSpace: 'pre-line'}}>
+            {option.data['description']}
+          </Typography.Text>
         </Flex>
       )}
       popupMatchSelectWidth={false}

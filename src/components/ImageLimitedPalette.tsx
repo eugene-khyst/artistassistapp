@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined, MoreOutlined, SwapOutlined} from '@ant-design/icons';
+import {DownloadOutlined, DownOutlined, SwapOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {MenuProps} from 'antd';
 import {Button, Col, Dropdown, Form, Grid, Row, Space, Typography} from 'antd';
@@ -153,7 +153,7 @@ export const ImageLimitedPalette: React.FC = () => {
             <Trans>Apply</Trans>
           </Button>
           <Dropdown menu={{items}}>
-            <Button icon={<MoreOutlined />} />
+            <Button icon={<DownOutlined />} />
           </Dropdown>
         </Space.Compact>
       </div>

@@ -35,19 +35,14 @@ export async function runInferenceWorker(
   signal?: AbortSignal
 ): Promise<Float32Tensor[]> {
   const modelResponse: Response = await fetchChunked(new URL(modelUrl), {progressCallback, signal});
-  const modelBlob: Blob = await modelResponse.blob();
-  modelUrl = URL.createObjectURL(modelBlob);
-  try {
-    const {outputTensors} = await inferenceWorker.run(
-      worker =>
-        worker.runInference(
-          modelUrl,
-          transfer(inputTensors, getFloat32TensorTransferables(inputTensors))
-        ),
-      signal
-    );
-    return outputTensors;
-  } finally {
-    URL.revokeObjectURL(modelUrl);
-  }
+  const modelData = new Uint8Array(await modelResponse.arrayBuffer());
+  const {outputTensors} = await inferenceWorker.run(
+    worker =>
+      worker.runInference(
+        transfer(modelData, [modelData.buffer]),
+        transfer(inputTensors, getFloat32TensorTransferables(inputTensors))
+      ),
+    signal
+  );
+  return outputTensors;
 }

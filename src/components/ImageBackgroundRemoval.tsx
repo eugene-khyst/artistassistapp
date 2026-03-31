@@ -244,7 +244,7 @@ export const ImageBackgroundRemoval: React.FC = () => {
                 models={models}
                 value={modelId}
                 onChange={handleModelChange}
-                style={{width: 105}}
+                style={{width: 120}}
               />
             </Form.Item>
             {screens.sm ? (

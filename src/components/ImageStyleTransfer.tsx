@@ -114,7 +114,7 @@ export const ImageStyleTransfer: React.FC = () => {
         ?.closest('.ant-radio-wrapper')
         ?.scrollIntoView({
           behavior: 'smooth',
-          block: 'nearest',
+          block: 'start',
         });
     }
   }, [setStyleTransferModel, appSettings, models, user, isAuthLoading]);

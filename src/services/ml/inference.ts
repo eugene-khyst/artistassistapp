@@ -29,12 +29,20 @@ interface Result {
 }
 
 export class InferenceRunner {
-  async runInference(modelUrl: string, inputTensors: Float32Tensor[][]): Promise<Result> {
+  async runInference(modelData: Uint8Array, inputTensors: Float32Tensor[][]): Promise<Result> {
     const outputTensors: Float32Tensor[] = [];
-    const session = await InferenceSession.create(modelUrl, {
+    const session = await InferenceSession.create(modelData, {
       executionProviders: ['wasm'],
       graphOptimizationLevel: 'all',
       executionMode: 'parallel',
+      extra: {
+        session: {
+          set_denormal_as_zero: '1',
+        },
+        optimization: {
+          enable_gelu_approximation: '1',
+        },
+      },
     });
     for (const inputTensor of inputTensors) {
       const feeds: InferenceSession.FeedsType = Object.fromEntries(

@@ -16,7 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined, MoreOutlined, PictureOutlined, StopOutlined} from '@ant-design/icons';
+import {
+  DownloadOutlined,
+  DownOutlined,
+  MoreOutlined,
+  PictureOutlined,
+  StopOutlined,
+} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
 import {Button, Dropdown, Form, Grid, Radio, Space} from 'antd';
@@ -157,7 +163,7 @@ export const ImageBlurred: React.FC = () => {
               <Trans>Save</Trans>
             </Button>
             <Dropdown menu={{items: imageItems}}>
-              <Button icon={<MoreOutlined />} />
+              <Button icon={<DownOutlined />} />
             </Dropdown>
           </Space.Compact>
         ) : (

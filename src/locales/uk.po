@@ -158,7 +158,7 @@ msgid "Application build hash"
 msgstr "Хеш збірки програми"
 
 #: src/components/ImageLimitedPalette.tsx:153
-#: src/components/ImagePerspectiveCorrection.tsx:240
+#: src/components/ImagePerspectiveCorrection.tsx:241
 msgid "Apply"
 msgstr "Застосовувати"
 
@@ -235,7 +235,7 @@ msgstr "Середній колір області білої точки"
 msgid "Background"
 msgstr "Фон"
 
-#: src/components/ImageBlurred.tsx:128
+#: src/components/ImageBlurred.tsx:134
 msgid "Blur"
 msgstr "Розмиття"
 
@@ -338,7 +338,7 @@ msgstr "Порівняти"
 msgid "Contact"
 msgstr "Контакти"
 
-#: src/components/ImageBlurred.tsx:129
+#: src/components/ImageBlurred.tsx:135
 msgid "Controls the radius of the median filter."
 msgstr "Керує радіусом медіанного фільтра."
 
@@ -441,11 +441,11 @@ msgstr "Завантажений файл {filename}"
 msgid "Downloading..."
 msgstr "Завантаження..."
 
-#: src/components/file/FileSelect.tsx:104
+#: src/components/file/FileSelect.tsx:106
 msgid "Drop the file here..."
 msgstr "Залиш справу тут..."
 
-#: src/components/file/FileSelect.tsx:104
+#: src/components/file/FileSelect.tsx:106
 msgid "Drop the files here..."
 msgstr "Залиш файли сюди..."
 
@@ -592,7 +592,7 @@ msgstr "Приєднуйтесь на Patreon"
 msgid "Language"
 msgstr "Мова"
 
-#: src/components/ImageBlurred.tsx:139
+#: src/components/ImageBlurred.tsx:145
 msgid "Large"
 msgstr "Велике"
 
@@ -665,7 +665,7 @@ msgstr "Низька продуктивність і висока продукт
 msgid "Margin"
 msgstr "Полі"
 
-#: src/components/ImageBlurred.tsx:138
+#: src/components/ImageBlurred.tsx:144
 msgid "Medium"
 msgstr "Середнє"
 
@@ -746,7 +746,7 @@ msgstr "Ні"
 msgid "No data"
 msgstr "Немає даних"
 
-#: src/components/ImageBlurred.tsx:136
+#: src/components/ImageBlurred.tsx:142
 msgid "None"
 msgstr "Нема"
 
@@ -1019,8 +1019,8 @@ msgstr "Потрібна iOS 16.4+ або iPadOS 16.4+."
 msgid "Requires macOS Sonoma or later."
 msgstr "Потрібна macOS Sonoma або новішої версії."
 
-#: src/components/ImagePerspectiveCorrection.tsx:179
-#: src/components/ImagePerspectiveCorrection.tsx:247
+#: src/components/ImagePerspectiveCorrection.tsx:180
+#: src/components/ImagePerspectiveCorrection.tsx:248
 msgid "Reset"
 msgstr "Скинути"
 
@@ -1033,8 +1033,8 @@ msgstr "Поверніться до вкладки <0>{paletteLabel}</0> ."
 msgid "Return to the <0>{tabLabel}</0> tab."
 msgstr "Поверніться до вкладки <0>{tabLabel}</0> ."
 
-#: src/components/ImagePerspectiveCorrection.tsx:187
-#: src/components/ImagePerspectiveCorrection.tsx:251
+#: src/components/ImagePerspectiveCorrection.tsx:188
+#: src/components/ImagePerspectiveCorrection.tsx:252
 msgid "Rotate"
 msgstr "Повернути"
 
@@ -1045,16 +1045,16 @@ msgstr "Насиченість (%)"
 #: src/components/CustomColorBrandCreator.tsx:489
 #: src/components/ImageBackgroundRemoval.tsx:191
 #: src/components/ImageBackgroundRemoval.tsx:257
-#: src/components/ImageBlurred.tsx:111
-#: src/components/ImageBlurred.tsx:157
+#: src/components/ImageBlurred.tsx:117
+#: src/components/ImageBlurred.tsx:163
 #: src/components/ImageColorAdjustment.tsx:360
 #: src/components/ImageGrid.tsx:70
 #: src/components/ImageGrid.tsx:90
 #: src/components/ImageLimitedPalette.tsx:104
 #: src/components/ImageOutline.tsx:185
 #: src/components/ImageOutline.tsx:263
-#: src/components/ImagePerspectiveCorrection.tsx:197
-#: src/components/ImagePerspectiveCorrection.tsx:263
+#: src/components/ImagePerspectiveCorrection.tsx:198
+#: src/components/ImagePerspectiveCorrection.tsx:264
 #: src/components/ImageStyleTransfer.tsx:191
 #: src/components/ImageTonalValues.tsx:92
 #: src/components/ImageTonalValues.tsx:133
@@ -1070,12 +1070,12 @@ msgid "Save changes to the color set?"
 msgstr "Зберегти зміни в наборі кольорів?"
 
 #: src/components/ImageColorAdjustment.tsx:296
-#: src/components/ImagePerspectiveCorrection.tsx:168
+#: src/components/ImagePerspectiveCorrection.tsx:169
 msgid "Save expanded to 1.91:1"
 msgstr "Зберегти розширено до 1,91:1"
 
 #: src/components/ImageColorAdjustment.tsx:288
-#: src/components/ImagePerspectiveCorrection.tsx:160
+#: src/components/ImagePerspectiveCorrection.tsx:161
 msgid "Save expanded to 4:5"
 msgstr "Зберегти розширено до 4:5"
 
@@ -1091,7 +1091,7 @@ msgstr "Відскануйте QR-код"
 msgid "Scan QR code"
 msgstr "Відскануйте QR-код"
 
-#: src/components/ImagePerspectiveCorrection.tsx:107
+#: src/components/ImagePerspectiveCorrection.tsx:108
 msgid "Select 4 points to correct perspective distortion"
 msgstr "Виберіть 4 точки, щоб виправити спотворення перспективи"
 
@@ -1099,7 +1099,7 @@ msgstr "Виберіть 4 точки, щоб виправити спотвор�
 msgid "Select a photo to adjust white balance and colors"
 msgstr "Виберіть фотографію, щоб налаштувати баланс білого та кольори"
 
-#: src/components/ImagePerspectiveCorrection.tsx:223
+#: src/components/ImagePerspectiveCorrection.tsx:224
 msgid "Select a photo to correct the perspective"
 msgstr "Виберіть фотографію, щоб виправити перспективу"
 
@@ -1175,7 +1175,7 @@ msgstr "Оберіть частину"
 #: src/components/ImageBackgroundRemoval.tsx:235
 #: src/components/ImageChooser.tsx:67
 #: src/components/ImageColorAdjustment.tsx:350
-#: src/components/ImagePerspectiveCorrection.tsx:233
+#: src/components/ImagePerspectiveCorrection.tsx:234
 msgid "Select photo"
 msgstr "Вибрати фото"
 
@@ -1221,7 +1221,7 @@ msgstr "Встановити в якості фону"
 msgid "Set as main color set"
 msgstr "Набір як основний набір кольорів"
 
-#: src/components/ImageBlurred.tsx:100
+#: src/components/ImageBlurred.tsx:106
 #: src/components/ImageColorAdjustment.tsx:377
 msgid "Set as reference"
 msgstr "Встановити як еталон"
@@ -1264,10 +1264,6 @@ msgstr "Показати на фото"
 msgid "Show or hide diagonal lines"
 msgstr "Відображення або приховування діагональних ліній"
 
-#: src/components/grid/GridControls.tsx:174
-msgid "Show or hide grid"
-msgstr "Відображення або приховування сітки"
-
 #: src/components/color/ReflectanceChartDrawer.tsx:84
 #: src/components/ImageColorPicker.tsx:210
 msgid "Similarity"
@@ -1289,7 +1285,7 @@ msgstr "Злегка перекрийте олійні пастельні діл
 msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition."
 msgstr "Злегка накладіть пастельні ділянки різних кольорів і акуратно розтушуйте, щоб створити плавний перехід."
 
-#: src/components/ImageBlurred.tsx:137
+#: src/components/ImageBlurred.tsx:143
 msgid "Small"
 msgstr "Мале"
 
@@ -1328,7 +1324,7 @@ msgstr "Все ще маєте труднощі? Будь ласка, зверн
 msgid "Storage usage"
 msgstr "Використання сховища"
 
-#: src/components/ImagePerspectiveCorrection.tsx:226
+#: src/components/ImagePerspectiveCorrection.tsx:227
 msgid "Straightens skewed photos and removes unwanted edges. Select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "Вирівнює перекошені фотографії та видаляє небажані краї. Виберіть 4 точки, щоб виправити спотворення перспективи, а потім за бажанням перетягніть поля, щоб обрізати зображення."
 
@@ -1484,7 +1480,7 @@ msgstr "Використовуйте засоби для глазуруванн�
 msgid "Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original oil paint layer. You should be able to get the consistency of runny sour cream. Linseed oil is a popular glazing medium."
 msgstr "Використовуйте лесурні середовища, що дозволяють отримати тонкий шар, наприклад, 1/10 від початкового шару олійної фарби. У вас повинна вийти консистенція рідкої сметани. Лляна олія є популярним середовищем для глазурування."
 
-#: src/components/file/FileSelect.tsx:89
+#: src/components/file/FileSelect.tsx:91
 msgid "Use reference photo"
 msgstr "Використовуйте еталонне фото"
 
@@ -1535,8 +1531,8 @@ msgid "White"
 msgstr "Білий"
 
 #: src/components/ImageColorAdjustment.tsx:393
-#: src/components/ImagePerspectiveCorrection.tsx:206
-#: src/components/ImagePerspectiveCorrection.tsx:275
+#: src/components/ImagePerspectiveCorrection.tsx:207
+#: src/components/ImagePerspectiveCorrection.tsx:276
 #: src/components/messages.ts:38
 msgid "White balance"
 msgstr "Баланс білого"

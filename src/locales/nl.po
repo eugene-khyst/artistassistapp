@@ -158,7 +158,7 @@ msgid "Application build hash"
 msgstr "Hash voor het bouwen van applicaties"
 
 #: src/components/ImageLimitedPalette.tsx:153
-#: src/components/ImagePerspectiveCorrection.tsx:240
+#: src/components/ImagePerspectiveCorrection.tsx:241
 msgid "Apply"
 msgstr "Toepassen"
 
@@ -235,7 +235,7 @@ msgstr "Gemiddelde kleur van het witpuntgebied"
 msgid "Background"
 msgstr "Achtergrond"
 
-#: src/components/ImageBlurred.tsx:128
+#: src/components/ImageBlurred.tsx:134
 msgid "Blur"
 msgstr "Vervagen"
 
@@ -338,7 +338,7 @@ msgstr "Vergelijken"
 msgid "Contact"
 msgstr "Contact"
 
-#: src/components/ImageBlurred.tsx:129
+#: src/components/ImageBlurred.tsx:135
 msgid "Controls the radius of the median filter."
 msgstr "Hiermee regelt u de straal van het middenfilter."
 
@@ -441,11 +441,11 @@ msgstr "Gedownload bestand {filename}"
 msgid "Downloading..."
 msgstr "Downloaden..."
 
-#: src/components/file/FileSelect.tsx:104
+#: src/components/file/FileSelect.tsx:106
 msgid "Drop the file here..."
 msgstr "Laat het dossier hier vallen..."
 
-#: src/components/file/FileSelect.tsx:104
+#: src/components/file/FileSelect.tsx:106
 msgid "Drop the files here..."
 msgstr "Laat de bestanden hier vallen..."
 
@@ -592,7 +592,7 @@ msgstr "Doe mee op Patreon"
 msgid "Language"
 msgstr "Taal"
 
-#: src/components/ImageBlurred.tsx:139
+#: src/components/ImageBlurred.tsx:145
 msgid "Large"
 msgstr "Groot"
 
@@ -665,7 +665,7 @@ msgstr "Lage output en hoge output"
 msgid "Margin"
 msgstr "Marge"
 
-#: src/components/ImageBlurred.tsx:138
+#: src/components/ImageBlurred.tsx:144
 msgid "Medium"
 msgstr "Gemiddeld"
 
@@ -746,7 +746,7 @@ msgstr "Nee"
 msgid "No data"
 msgstr "Geen gegevens"
 
-#: src/components/ImageBlurred.tsx:136
+#: src/components/ImageBlurred.tsx:142
 msgid "None"
 msgstr "Geen"
 
@@ -1019,8 +1019,8 @@ msgstr "Vereist iOS 16.4+ of iPadOS 16.4+."
 msgid "Requires macOS Sonoma or later."
 msgstr "Vereist macOS Sonoma of hoger."
 
-#: src/components/ImagePerspectiveCorrection.tsx:179
-#: src/components/ImagePerspectiveCorrection.tsx:247
+#: src/components/ImagePerspectiveCorrection.tsx:180
+#: src/components/ImagePerspectiveCorrection.tsx:248
 msgid "Reset"
 msgstr "Terugstellen"
 
@@ -1033,8 +1033,8 @@ msgstr "Keer terug naar het tabblad <0>{paletteLabel}</0> ."
 msgid "Return to the <0>{tabLabel}</0> tab."
 msgstr "Ga terug naar het tabblad <0>{tabLabel}</0> ."
 
-#: src/components/ImagePerspectiveCorrection.tsx:187
-#: src/components/ImagePerspectiveCorrection.tsx:251
+#: src/components/ImagePerspectiveCorrection.tsx:188
+#: src/components/ImagePerspectiveCorrection.tsx:252
 msgid "Rotate"
 msgstr "Draaien"
 
@@ -1045,16 +1045,16 @@ msgstr "Verzadiging (%)"
 #: src/components/CustomColorBrandCreator.tsx:489
 #: src/components/ImageBackgroundRemoval.tsx:191
 #: src/components/ImageBackgroundRemoval.tsx:257
-#: src/components/ImageBlurred.tsx:111
-#: src/components/ImageBlurred.tsx:157
+#: src/components/ImageBlurred.tsx:117
+#: src/components/ImageBlurred.tsx:163
 #: src/components/ImageColorAdjustment.tsx:360
 #: src/components/ImageGrid.tsx:70
 #: src/components/ImageGrid.tsx:90
 #: src/components/ImageLimitedPalette.tsx:104
 #: src/components/ImageOutline.tsx:185
 #: src/components/ImageOutline.tsx:263
-#: src/components/ImagePerspectiveCorrection.tsx:197
-#: src/components/ImagePerspectiveCorrection.tsx:263
+#: src/components/ImagePerspectiveCorrection.tsx:198
+#: src/components/ImagePerspectiveCorrection.tsx:264
 #: src/components/ImageStyleTransfer.tsx:191
 #: src/components/ImageTonalValues.tsx:92
 #: src/components/ImageTonalValues.tsx:133
@@ -1070,12 +1070,12 @@ msgid "Save changes to the color set?"
 msgstr "Wijzigingen in de kleurenset opslaan?"
 
 #: src/components/ImageColorAdjustment.tsx:296
-#: src/components/ImagePerspectiveCorrection.tsx:168
+#: src/components/ImagePerspectiveCorrection.tsx:169
 msgid "Save expanded to 1.91:1"
 msgstr "Opslaan uitgebreid naar 1.91:1"
 
 #: src/components/ImageColorAdjustment.tsx:288
-#: src/components/ImagePerspectiveCorrection.tsx:160
+#: src/components/ImagePerspectiveCorrection.tsx:161
 msgid "Save expanded to 4:5"
 msgstr "Opslaan uitgebreid naar 4:5"
 
@@ -1091,7 +1091,7 @@ msgstr "Scan een QR-code"
 msgid "Scan QR code"
 msgstr "QR-code scannen"
 
-#: src/components/ImagePerspectiveCorrection.tsx:107
+#: src/components/ImagePerspectiveCorrection.tsx:108
 msgid "Select 4 points to correct perspective distortion"
 msgstr "Selecteer 4 punten om perspectiefvervorming te corrigeren"
 
@@ -1099,7 +1099,7 @@ msgstr "Selecteer 4 punten om perspectiefvervorming te corrigeren"
 msgid "Select a photo to adjust white balance and colors"
 msgstr "Selecteer een foto om de witbalans en kleuren aan te passen"
 
-#: src/components/ImagePerspectiveCorrection.tsx:223
+#: src/components/ImagePerspectiveCorrection.tsx:224
 msgid "Select a photo to correct the perspective"
 msgstr "Selecteer een foto om het perspectief te corrigeren"
 
@@ -1175,7 +1175,7 @@ msgstr "Selecteer onderdeel"
 #: src/components/ImageBackgroundRemoval.tsx:235
 #: src/components/ImageChooser.tsx:67
 #: src/components/ImageColorAdjustment.tsx:350
-#: src/components/ImagePerspectiveCorrection.tsx:233
+#: src/components/ImagePerspectiveCorrection.tsx:234
 msgid "Select photo"
 msgstr "Selecteer foto"
 
@@ -1221,7 +1221,7 @@ msgstr "Instellen als achtergrond"
 msgid "Set as main color set"
 msgstr "Instellen als hoofdkleurenset"
 
-#: src/components/ImageBlurred.tsx:100
+#: src/components/ImageBlurred.tsx:106
 #: src/components/ImageColorAdjustment.tsx:377
 msgid "Set as reference"
 msgstr "Instellen als referentie"
@@ -1264,10 +1264,6 @@ msgstr "Toon op foto"
 msgid "Show or hide diagonal lines"
 msgstr "Diagonale lijnen weergeven of verbergen"
 
-#: src/components/grid/GridControls.tsx:174
-msgid "Show or hide grid"
-msgstr "Raster weergeven of verbergen"
-
 #: src/components/color/ReflectanceChartDrawer.tsx:84
 #: src/components/ImageColorPicker.tsx:210
 msgid "Similarity"
@@ -1289,7 +1285,7 @@ msgstr "Overlap oliepastelgebieden van verschillende kleuren lichtjes en meng vo
 msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition."
 msgstr "Overlap pastelgebieden van verschillende kleuren lichtjes en meng voorzichtig om een vloeiende overgang te creëren."
 
-#: src/components/ImageBlurred.tsx:137
+#: src/components/ImageBlurred.tsx:143
 msgid "Small"
 msgstr "Klein"
 
@@ -1328,7 +1324,7 @@ msgstr "Nog steeds problemen? Raadpleeg deze <0>handleiding voor probleemoplossi
 msgid "Storage usage"
 msgstr "Gebruik van opslag"
 
-#: src/components/ImagePerspectiveCorrection.tsx:226
+#: src/components/ImagePerspectiveCorrection.tsx:227
 msgid "Straightens skewed photos and removes unwanted edges. Select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "Trekt scheve foto's recht en verwijdert ongewenste randen. Selecteer 4 punten om perspectiefvervorming te corrigeren en sleep vervolgens eventueel marges om de afbeelding bij te snijden."
 
@@ -1484,7 +1480,7 @@ msgstr "Gebruik glazuurmediums waarmee je een dunne laag krijgt, bijvoorbeeld 1/
 msgid "Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original oil paint layer. You should be able to get the consistency of runny sour cream. Linseed oil is a popular glazing medium."
 msgstr "Gebruik glazuurmediums waarmee u een dunne laag kunt krijgen, bijvoorbeeld 1/10 van de originele olieverflaag. Je zou in staat moeten zijn om de consistentie van vloeibare zure room te krijgen. Lijnolie is een populair glazuurmedium."
 
-#: src/components/file/FileSelect.tsx:89
+#: src/components/file/FileSelect.tsx:91
 msgid "Use reference photo"
 msgstr "Referentiefoto gebruiken"
 
@@ -1535,8 +1531,8 @@ msgid "White"
 msgstr "Wit"
 
 #: src/components/ImageColorAdjustment.tsx:393
-#: src/components/ImagePerspectiveCorrection.tsx:206
-#: src/components/ImagePerspectiveCorrection.tsx:275
+#: src/components/ImagePerspectiveCorrection.tsx:207
+#: src/components/ImagePerspectiveCorrection.tsx:276
 #: src/components/messages.ts:38
 msgid "White balance"
 msgstr "Witbalans"

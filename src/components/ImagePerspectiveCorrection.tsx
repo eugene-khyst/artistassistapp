@@ -21,6 +21,7 @@ import {
   CheckOutlined,
   CloseOutlined,
   DownloadOutlined,
+  DownOutlined,
   MoreOutlined,
   QuestionCircleOutlined,
   RotateRightOutlined,
@@ -263,7 +264,7 @@ export const ImagePerspectiveCorrection: React.FC = () => {
                           <Trans>Save</Trans>
                         </Button>
                         <Dropdown menu={{items: saveItems}}>
-                          <Button icon={<MoreOutlined />} />
+                          <Button icon={<DownOutlined />} />
                         </Dropdown>
                       </Space.Compact>
                       <Button
