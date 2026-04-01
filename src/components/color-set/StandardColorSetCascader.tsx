@@ -86,6 +86,7 @@ export const StandardColorSetCascader: React.FC<Props> = ({
       placeholder={t`Select set`}
       showSearch={{filter: filterCascaderOptions}}
       expandTrigger="hover"
+      allowClear={false}
       {...rest}
     />
   );

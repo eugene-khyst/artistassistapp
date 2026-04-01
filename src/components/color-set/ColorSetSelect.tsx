@@ -26,7 +26,7 @@ import {ColorSetName} from '~/src/components/color-set/ColorSetName';
 import {filterSelectOptions} from '~/src/components/utils';
 import {colorSetDefinitionToBrandColorCounts} from '~/src/services/color/colors';
 import type {ColorBrandDefinition, ColorSetDefinition} from '~/src/services/color/types';
-import {compareByDate, reverseOrder} from '~/src/utils/comparator';
+import {byDate, reverseOrder} from '~/src/utils/comparator';
 
 const NEW_COLOR_SET_OPTION: SelectOptionType = {
   value: 0,
@@ -51,7 +51,7 @@ function getColorSetOptions(
     NEW_COLOR_SET_OPTION,
     ...colorSets
       .slice()
-      .sort(reverseOrder(compareByDate))
+      .sort(reverseOrder(byDate(({date}) => date)))
       .map((colorSet: ColorSetDefinition) => ({
         value: colorSet.id,
         label: colorSet.name || (

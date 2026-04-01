@@ -24,7 +24,7 @@ import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 
 import {filterSelectOptions} from '~/src/components/utils';
 import type {CustomColorBrandDefinition} from '~/src/services/color/types';
-import {compareByDate, reverseOrder} from '~/src/utils/comparator';
+import {byDate, reverseOrder} from '~/src/utils/comparator';
 
 const NEW_CUSTOM_COLOR_BRAND_OPTION: SelectOptionType = {
   value: 0,
@@ -48,7 +48,7 @@ function getCustomColorBrandOptions(
     NEW_CUSTOM_COLOR_BRAND_OPTION,
     ...customColorBrands
       .slice()
-      .sort(reverseOrder(compareByDate))
+      .sort(reverseOrder(byDate(({date}) => date)))
       .map(({id, name}: CustomColorBrandDefinition) => ({
         value: id,
         label: name,

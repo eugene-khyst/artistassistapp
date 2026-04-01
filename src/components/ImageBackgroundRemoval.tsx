@@ -35,10 +35,7 @@ import {useOnnxModels} from '~/src/hooks/useOnnxModels';
 import type {User} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {WHITE_HEX} from '~/src/services/color/space/rgb';
-import {
-  compareOnnxModelsByFreeTierAndPriority,
-  compareOnnxModelsByPriority,
-} from '~/src/services/ml/models';
+import {compareOnnxModelsByPriority} from '~/src/services/ml/models';
 import type {OnnxModel} from '~/src/services/ml/types';
 import {OnnxModelType} from '~/src/services/ml/types';
 import {useAppStore} from '~/src/stores/app-store';
@@ -49,7 +46,7 @@ function getDefaultModel(models?: Map<string, OnnxModel>, user?: User): OnnxMode
     return;
   }
   const [model] = [...models.values()].sort(
-    user ? compareOnnxModelsByPriority : compareOnnxModelsByFreeTierAndPriority
+    compareOnnxModelsByPriority({prioritizeFreeTier: !user})
   );
   return model;
 }
@@ -177,7 +174,7 @@ export const ImageBackgroundRemoval: React.FC = () => {
 
   const items: MenuProps['items'] = [
     {
-      key: '1',
+      key: 'background',
       label: t`Background`,
       icon: <BgColorsOutlined />,
       onClick: () => {
@@ -187,7 +184,7 @@ export const ImageBackgroundRemoval: React.FC = () => {
     ...(imageWithoutBackgroundUrl
       ? [
           {
-            key: '2',
+            key: 'save',
             label: t`Save`,
             icon: <DownloadOutlined />,
             onClick: handleSaveClick,

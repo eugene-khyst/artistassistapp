@@ -32,7 +32,7 @@ import type {
 } from '~/src/services/color/types';
 import {ColorType} from '~/src/services/color/types';
 import {getCustomColorBrand, getCustomColorBrandsByType} from '~/src/services/db/custom-brand-db';
-import type {Comparator} from '~/src/utils/comparator';
+import {byBoolean, byString, type Comparator, compare, reverseOrder} from '~/src/utils/comparator';
 import {fetchSWR} from '~/src/utils/fetch';
 
 import {Rgb} from './space/rgb';
@@ -90,17 +90,15 @@ function getCustomColorBrandIdFromAlias(alias: string): number {
   return Number.parseInt(alias.replace(CUSTOM_COLOR_BRAND_ALIAS_PREFIX, ''));
 }
 
-export const compareColorBrandsByName: Comparator<ColorBrandDefinition> = (
-  {fullName: a},
-  {fullName: b}
-) => a.localeCompare(b);
-
-export const compareColorBrandsByFreeTierAndName: Comparator<ColorBrandDefinition> = (a, b) =>
-  (a.freeTier ?? false) === (b.freeTier ?? false)
-    ? compareColorBrandsByName(a, b)
-    : a.freeTier
-      ? -1
-      : 1;
+export const compareColorBrandsByName = ({
+  prioritizeFreeTier,
+}: {
+  prioritizeFreeTier: boolean;
+}): Comparator<ColorBrandDefinition> =>
+  compare(
+    prioritizeFreeTier && reverseOrder(byBoolean(({freeTier}) => freeTier)),
+    byString(({fullName}) => fullName)
+  );
 
 function getResourceUrl(
   resource: 'brands' | 'colors' | 'sets',
@@ -250,8 +248,8 @@ export function toColorSet(
   colors?: Map<string, Map<number, ColorDefinition>>,
   user?: User | null
 ): ColorSet | undefined {
-  const selectedColorsArr: [string, number[]][] = Object.entries(selectedColors ?? {});
-  if (!id || !type || !selectedColorsArr.length || !brands || !colors) {
+  const selectedColorsArray: [string, number[]][] = Object.entries(selectedColors ?? {});
+  if (!id || !type || !selectedColorsArray.length || !brands || !colors) {
     return;
   }
   const selectedBrandsMap = new Map<number, ColorBrandDefinition>(
@@ -264,7 +262,7 @@ export function toColorSet(
     name,
     type,
     brands: selectedBrandsMap,
-    colors: selectedColorsArr.flatMap(([brandIdStr, colorIds]: [string, number[]]): Color[] => {
+    colors: selectedColorsArray.flatMap(([brandIdStr, colorIds]: [string, number[]]): Color[] => {
       const brandId = Number.parseInt(brandIdStr);
       const brandAlias: string | undefined = brands.get(brandId)?.alias;
       if (!brandAlias) {

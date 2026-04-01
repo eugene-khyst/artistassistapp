@@ -29,10 +29,7 @@ import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
 import {hasAccessTo} from '~/src/services/auth/utils';
-import {
-  compareOnnxModelsByFreeTierAndPriority,
-  compareOnnxModelsByPriority,
-} from '~/src/services/ml/models';
+import {compareOnnxModelsByPriority} from '~/src/services/ml/models';
 import type {OnnxModel} from '~/src/services/ml/types';
 import {OnnxModelType} from '~/src/services/ml/types';
 import {useAppStore} from '~/src/stores/app-store';
@@ -67,9 +64,7 @@ export const ImageStyleTransfer: React.FC = () => {
 
   const modelArray: OnnxModel[] = useMemo(
     () =>
-      [...(models?.values() ?? [])].sort(
-        !user ? compareOnnxModelsByFreeTierAndPriority : compareOnnxModelsByPriority
-      ),
+      [...(models?.values() ?? [])].sort(compareOnnxModelsByPriority({prioritizeFreeTier: !user})),
     [models, user]
   );
 
@@ -104,7 +99,7 @@ export const ImageStyleTransfer: React.FC = () => {
       model = models.get(styleTransferModel);
     }
     model ??= [...models.values()]
-      .sort(!user ? compareOnnxModelsByFreeTierAndPriority : compareOnnxModelsByPriority)
+      .sort(compareOnnxModelsByPriority({prioritizeFreeTier: !user}))
       .find(({numInputs = 1}) => numInputs === 1 || styleTransferImage);
     setModelId(model?.id);
     setStyleTransferModel(model);

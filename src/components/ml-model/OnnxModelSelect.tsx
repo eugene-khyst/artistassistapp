@@ -22,10 +22,7 @@ import type {DefaultOptionType} from 'antd/es/select';
 
 import type {User} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
-import {
-  compareOnnxModelsByFreeTierAndPriority,
-  compareOnnxModelsByPriority,
-} from '~/src/services/ml/models';
+import {compareOnnxModelsByPriority} from '~/src/services/ml/models';
 import type {OnnxModel} from '~/src/services/ml/types';
 import {useAppStore} from '~/src/stores/app-store';
 
@@ -41,7 +38,7 @@ function getOnnxModelOptions(
     return [];
   }
   return [...models.values()]
-    .sort(!user ? compareOnnxModelsByFreeTierAndPriority : compareOnnxModelsByPriority)
+    .sort(compareOnnxModelsByPriority({prioritizeFreeTier: !user}))
     .map(model => {
       const {id, name, description} = model;
       return {

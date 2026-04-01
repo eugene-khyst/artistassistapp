@@ -82,13 +82,13 @@ export const ImageTonalValues: React.FC = () => {
 
   const items: MenuProps['items'] = [
     {
-      key: '1',
+      key: 'print',
       label: t`Print`,
       icon: <PrinterOutlined />,
       onClick: handlePrintClick,
     },
     {
-      key: '2',
+      key: 'save',
       label: t`Save`,
       icon: <DownloadOutlined />,
       onClick: () => {

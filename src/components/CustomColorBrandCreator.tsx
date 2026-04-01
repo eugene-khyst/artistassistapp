@@ -127,7 +127,7 @@ const ColorDropdown: React.FC<ColorDropdownProps> = ({value, isEditTarget, onEdi
       menu={{
         items: [
           {
-            key: '1',
+            key: 'edit-from-here',
             label: <Trans>Edit from here on</Trans>,
             onClick: () => {
               onEditFromHere?.();

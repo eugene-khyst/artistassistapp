@@ -25,10 +25,7 @@ import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {filterSelectOptions} from '~/src/components/utils';
 import type {User} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
-import {
-  compareColorBrandsByFreeTierAndName,
-  compareColorBrandsByName,
-} from '~/src/services/color/colors';
+import {compareColorBrandsByName} from '~/src/services/color/colors';
 import type {ColorBrandDefinition} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
 
@@ -40,7 +37,7 @@ function getColorBrandOptions(
     return [];
   }
   return [...brands.values()]
-    .sort(!user ? compareColorBrandsByFreeTierAndName : compareColorBrandsByName)
+    .sort(compareColorBrandsByName({prioritizeFreeTier: !user}))
     .map(brand => {
       const {id, fullName, colorCount} = brand;
       return {

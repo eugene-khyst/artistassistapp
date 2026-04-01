@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/color-set/ColorBrandSelect.tsx:78
+#: src/components/color-set/ColorBrandSelect.tsx:75
 msgid "({colorCount} colors)"
 msgstr "({colorCount} colori)"
 
@@ -141,10 +141,6 @@ msgstr "Aggiungi alla tavolozza"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Aggiungi il bianco in un <0>rapporto {whiteRatioText}</0>"
 
-#: src/components/palette/PaletteGrid.tsx:73
-msgid "Alphabetically"
-msgstr "Alfabeticamente"
-
 #: src/components/install/InstallDrawer.tsx:177
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
 msgstr "In alternativa, installa l'ultima versione del browser Web Chrome, Edge o Opera e fai clic sul pulsante <0>Installa</0> . Nelle versioni precedenti di macOS, questa è l'unica opzione."
@@ -194,7 +190,7 @@ msgstr "Sei sicuro di voler eliminare questo marchio personalizzato?"
 msgid "Are you sure you want to delete this photo?"
 msgstr "Sei sicuro di voler eliminare questa foto?"
 
-#: src/components/palette/PaletteGrid.tsx:100
+#: src/components/palette/PaletteGrid.tsx:105
 msgid "Are you sure you want to remove all color mixtures?"
 msgstr "Sei sicuro di voler rimuovere tutte le miscele di colori?"
 
@@ -229,8 +225,8 @@ msgid "Average color of the white point area"
 msgstr "Colore medio dell'area del punto bianco"
 
 #: src/components/ColorMixer.tsx:179
-#: src/components/ImageBackgroundRemoval.tsx:181
-#: src/components/ImageBackgroundRemoval.tsx:252
+#: src/components/ImageBackgroundRemoval.tsx:178
+#: src/components/ImageBackgroundRemoval.tsx:249
 #: src/components/ImageColorPicker.tsx:253
 msgid "Background"
 msgstr "Sfondo"
@@ -238,6 +234,28 @@ msgstr "Sfondo"
 #: src/components/ImageBlurred.tsx:134
 msgid "Blur"
 msgstr "Sfocatura"
+
+#: src/components/palette/PaletteGrid.tsx:75
+msgid "By date added"
+msgstr "Per data aggiunta"
+
+#: src/components/color-set/ColorSelect.tsx:119
+#: src/components/palette/PaletteGrid.tsx:77
+msgid "By hue"
+msgstr "Per tonalità"
+
+#: src/components/color-set/ColorSelect.tsx:112
+msgid "By ID"
+msgstr "Per ID"
+
+#: src/components/color-set/ColorSelect.tsx:126
+#: src/components/palette/PaletteGrid.tsx:78
+msgid "By lightness"
+msgstr "Per leggerezza"
+
+#: src/components/palette/PaletteGrid.tsx:76
+msgid "By name"
+msgstr "Per nome"
 
 #: src/components/loading/LoadingIndicator.tsx:60
 msgid "Cancel"
@@ -254,10 +272,6 @@ msgstr "Cellule"
 #: src/components/Help.tsx:197
 msgid "Check for updates"
 msgstr "Controlla gli aggiornamenti"
-
-#: src/components/palette/PaletteGrid.tsx:72
-msgid "Chronologically"
-msgstr "Cronologicamente"
 
 #: src/components/storage/ClearStorage.tsx:57
 #: src/components/storage/ClearStorage.tsx:66
@@ -318,7 +332,7 @@ msgid "Color set"
 msgstr "Set di colori"
 
 #: src/components/color/ColorSwatchDrawer.tsx:55
-#: src/components/palette/PaletteGrid.tsx:88
+#: src/components/palette/PaletteGrid.tsx:93
 msgid "Color swatch"
 msgstr "Campione di colore"
 
@@ -469,9 +483,9 @@ msgstr "Errore durante il recupero dei dati del marchio del colore"
 msgid "Error while fetching color data"
 msgstr "Errore durante il recupero dei dati di colore"
 
-#: src/components/ImageBackgroundRemoval.tsx:104
+#: src/components/ImageBackgroundRemoval.tsx:101
 #: src/components/ImageOutline.tsx:99
-#: src/components/ImageStyleTransfer.tsx:89
+#: src/components/ImageStyleTransfer.tsx:84
 msgid "Error while fetching ML model data"
 msgstr "Errore durante il recupero dei dati del modello ML"
 
@@ -551,7 +565,7 @@ msgstr "Se hai difficoltà ad accedere, ti preghiamo di leggere questa <0>guida 
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Se non si salva, le modifiche apportate al set di colori potrebbero andare perse."
 
-#: src/components/ImageBackgroundRemoval.tsx:291
+#: src/components/ImageBackgroundRemoval.tsx:288
 msgid "Image without background"
 msgstr "Immagine senza sfondo"
 
@@ -690,7 +704,7 @@ msgid "Mixture"
 msgstr "Mistura"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:99
-#: src/components/ImageBackgroundRemoval.tsx:239
+#: src/components/ImageBackgroundRemoval.tsx:236
 #: src/components/ImageOutline.tsx:223
 msgid "Mode"
 msgstr "Modo"
@@ -735,7 +749,7 @@ msgstr "Prossima data di carica"
 #: src/components/ColorSetChooser.tsx:721
 #: src/components/CustomColorBrandCreator.tsx:500
 #: src/components/image/RecentImageCard.tsx:74
-#: src/components/palette/PaletteGrid.tsx:103
+#: src/components/palette/PaletteGrid.tsx:108
 #: src/components/storage/ClearStorage.tsx:63
 #: src/components/storage/ClearStorage.tsx:76
 msgid "No"
@@ -745,6 +759,10 @@ msgstr "No"
 #: src/components/ImageColorPicker.tsx:357
 msgid "No data"
 msgstr "Nessun dato"
+
+#: src/components/color-set/ColorSelect.tsx:105
+msgid "No sorting"
+msgstr "Niente smistamento"
 
 #: src/components/ImageBlurred.tsx:142
 msgid "None"
@@ -770,11 +788,11 @@ msgstr "Olio Pastello"
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Nella versione gratuita è disponibile solo un numero limitato di marche di colori"
 
-#: src/components/ImageBackgroundRemoval.tsx:221
+#: src/components/ImageBackgroundRemoval.tsx:218
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Nella versione gratuita è disponibile solo un numero limitato di modalità"
 
-#: src/components/ImageStyleTransfer.tsx:197
+#: src/components/ImageStyleTransfer.tsx:192
 msgid "Only a limited number of styles are available in the free version"
 msgstr "Nella versione gratuita è disponibile solo un numero limitato di stili"
 
@@ -807,7 +825,7 @@ msgstr "Oppure seleziona una delle tue foto recenti"
 msgid "Original color temperature (K)"
 msgstr "Temperatura di colore originale (K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:284
+#: src/components/ImageBackgroundRemoval.tsx:281
 msgid "Original photo"
 msgstr "Foto originale"
 
@@ -920,7 +938,7 @@ msgstr "Anteprima"
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:86
 #: src/components/ImageTonalValues.tsx:125
-#: src/components/palette/PaletteGrid.tsx:96
+#: src/components/palette/PaletteGrid.tsx:101
 #: src/components/print/PrintImageDrawer.tsx:132
 msgid "Print"
 msgstr "Stampare"
@@ -983,11 +1001,11 @@ msgstr "Riflettanza"
 msgid "Remove"
 msgstr "Togliere"
 
-#: src/components/palette/PaletteGrid.tsx:106
+#: src/components/palette/PaletteGrid.tsx:111
 msgid "Remove all"
 msgstr "Rimuovi tutto"
 
-#: src/components/palette/PaletteGrid.tsx:99
+#: src/components/palette/PaletteGrid.tsx:104
 msgid "Remove all color mixtures"
 msgstr "Rimuovere tutte le miscele di colori"
 
@@ -1043,8 +1061,8 @@ msgid "Saturation (%)"
 msgstr "Saturazione (%)"
 
 #: src/components/CustomColorBrandCreator.tsx:489
-#: src/components/ImageBackgroundRemoval.tsx:191
-#: src/components/ImageBackgroundRemoval.tsx:257
+#: src/components/ImageBackgroundRemoval.tsx:188
+#: src/components/ImageBackgroundRemoval.tsx:254
 #: src/components/ImageBlurred.tsx:117
 #: src/components/ImageBlurred.tsx:163
 #: src/components/ImageColorAdjustment.tsx:360
@@ -1055,7 +1073,7 @@ msgstr "Saturazione (%)"
 #: src/components/ImageOutline.tsx:263
 #: src/components/ImagePerspectiveCorrection.tsx:198
 #: src/components/ImagePerspectiveCorrection.tsx:264
-#: src/components/ImageStyleTransfer.tsx:191
+#: src/components/ImageStyleTransfer.tsx:186
 #: src/components/ImageTonalValues.tsx:92
 #: src/components/ImageTonalValues.tsx:133
 msgid "Save"
@@ -1103,7 +1121,7 @@ msgstr "Seleziona una foto per regolare il bilanciamento del bianco e i colori"
 msgid "Select a photo to correct the perspective"
 msgstr "Seleziona una foto per correggere la prospettiva"
 
-#: src/components/ImageBackgroundRemoval.tsx:213
+#: src/components/ImageBackgroundRemoval.tsx:210
 msgid "Select a photo to remove the background from"
 msgstr "Seleziona una foto da cui rimuovere lo sfondo"
 
@@ -1111,7 +1129,7 @@ msgstr "Seleziona una foto da cui rimuovere lo sfondo"
 msgid "Select a reference photo from your device to paint from"
 msgstr "Seleziona una foto di riferimento dal tuo dispositivo da cui dipingere"
 
-#: src/components/ImageStyleTransfer.tsx:186
+#: src/components/ImageStyleTransfer.tsx:181
 msgid "Select a style to transfer to your reference photo"
 msgstr "Seleziona uno stile da trasferire sulla tua foto di riferimento"
 
@@ -1127,7 +1145,7 @@ msgstr "Selezionate un numero qualsiasi di colori da miscelare e specificate la 
 msgid "Select art medium"
 msgstr "Seleziona il mezzo artistico"
 
-#: src/components/color-set/ColorBrandSelect.tsx:72
+#: src/components/color-set/ColorBrandSelect.tsx:69
 msgid "Select brands"
 msgstr "Marchi selezionati"
 
@@ -1140,7 +1158,7 @@ msgid "Select color"
 msgstr "Seleziona il colore"
 
 #: src/components/color-set/ColorCascader.tsx:94
-#: src/components/color-set/ColorSelect.tsx:68
+#: src/components/color-set/ColorSelect.tsx:138
 msgid "Select colors"
 msgstr "Seleziona i colori"
 
@@ -1172,7 +1190,7 @@ msgstr "Seleziona lingua"
 msgid "Select part"
 msgstr "Seleziona parte"
 
-#: src/components/ImageBackgroundRemoval.tsx:235
+#: src/components/ImageBackgroundRemoval.tsx:232
 #: src/components/ImageChooser.tsx:67
 #: src/components/ImageColorAdjustment.tsx:350
 #: src/components/ImagePerspectiveCorrection.tsx:234
@@ -1191,7 +1209,7 @@ msgstr "Seleziona le foto da classificare utilizzando il confronto a coppie"
 msgid "Select set"
 msgstr "Seleziona set"
 
-#: src/components/ImageStyleTransfer.tsx:239
+#: src/components/ImageStyleTransfer.tsx:234
 msgid "Select style image"
 msgstr "Seleziona lo stile dell'immagine"
 
@@ -1289,8 +1307,9 @@ msgstr "Sovrapponi leggermente le aree pastello di diversi colori e sfuma delica
 msgid "Small"
 msgstr "Piccolo"
 
+#: src/components/color-set/ColorSelect.tsx:151
 #: src/components/ImageColorPicker.tsx:333
-#: src/components/palette/PaletteGrid.tsx:109
+#: src/components/palette/PaletteGrid.tsx:114
 msgid "Sort"
 msgstr "Sorta"
 
@@ -1328,7 +1347,7 @@ msgstr "Utilizzo dello spazio di archiviazione"
 msgid "Straightens skewed photos and removes unwanted edges. Select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "Raddrizza le foto inclinate e rimuove i bordi indesiderati. Seleziona 4 punti per correggere la distorsione prospettica, quindi facoltativamente trascina i margini per ritagliare l'immagine."
 
-#: src/components/ImageStyleTransfer.tsx:164
+#: src/components/ImageStyleTransfer.tsx:159
 msgid "Styled reference photo"
 msgstr "Foto di riferimento in stile"
 
@@ -1413,7 +1432,7 @@ msgstr "Questo formato di stampa non è supportato"
 msgid "This step is optional."
 msgstr "Questo passaggio è facoltativo."
 
-#: src/components/ImageStyleTransfer.tsx:255
+#: src/components/ImageStyleTransfer.tsx:250
 msgid "This style is available to paid Patreon members only"
 msgstr "Questo stile è disponibile solo per i membri Patreon a pagamento"
 
@@ -1460,7 +1479,7 @@ msgstr "Errore inaspettato: {errorMessage}"
 #: src/components/color/ColorSwatchDrawer.tsx:103
 #: src/components/color/PaletteColorMixtureCard.tsx:76
 #: src/components/color/SimilarColorCard.tsx:84
-#: src/components/palette/PaletteGrid.tsx:137
+#: src/components/palette/PaletteGrid.tsx:142
 msgid "Untitled mixture"
 msgstr "Miscela senza titolo"
 
@@ -1524,7 +1543,7 @@ msgstr "Quando si selezionano più di {maxColorsFor2} colori in totale, non veng
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Quando si selezionano più di {maxColorsFor3} colori in totale, non vengono utilizzate miscele di tre colori."
 
-#: src/components/ImageBackgroundRemoval.tsx:160
+#: src/components/ImageBackgroundRemoval.tsx:157
 #: src/components/ImageColorAdjustment.tsx:442
 #: src/components/ImageColorPicker.tsx:300
 msgid "White"
@@ -1555,7 +1574,7 @@ msgstr "Larghezza"
 #: src/components/ColorSetChooser.tsx:720
 #: src/components/CustomColorBrandCreator.tsx:499
 #: src/components/image/RecentImageCard.tsx:73
-#: src/components/palette/PaletteGrid.tsx:102
+#: src/components/palette/PaletteGrid.tsx:107
 #: src/components/storage/ClearStorage.tsx:62
 #: src/components/storage/ClearStorage.tsx:75
 msgid "Yes"
@@ -1577,7 +1596,7 @@ msgstr "Hai selezionato marche di colori disponibili solo per gli utenti Patreon
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Hai selezionato marche di colori disponibili solo per gli abbonati Patreon a pagamento. Unisciti a ArtistAssistApp su Patreon come membro a pagamento o accedi con Patreon se ti sei già iscritto."
 
-#: src/components/ImageBackgroundRemoval.tsx:225
+#: src/components/ImageBackgroundRemoval.tsx:222
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Hai selezionato la modalità disponibile solo per gli utenti Patreon a pagamento"
 

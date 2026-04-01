@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Oklab} from '~/src/services/color/space/oklab';
 import {clamp} from '~/src/services/math/clamp';
 
 import {Reflectance} from './reflectance';
@@ -110,6 +111,10 @@ export class Rgb {
 
   toReflectance(): Reflectance {
     return Reflectance.fromRgb(this);
+  }
+
+  toOklab(): Oklab {
+    return Oklab.fromRgb(this);
   }
 
   isBlack(): boolean {

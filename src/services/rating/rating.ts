@@ -16,6 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {Comparator} from '~/src/utils/comparator';
+import {byNumber, reverseOrder} from '~/src/utils/comparator';
+
 const SCALING_FACTOR = 32;
 
 export type Score = [number, number];
@@ -28,8 +31,9 @@ export class Player<T> {
   ) {}
 }
 
-const comparePlayersByRating = ({rating: a}: Player<unknown>, {rating: b}: Player<unknown>) =>
-  a - b;
+const comparePlayersByRating: Comparator<Player<unknown>> = reverseOrder(
+  byNumber(({rating}) => rating)
+);
 
 function probability({rating: rating1}: Player<unknown>, {rating: rating2}: Player<unknown>) {
   return 1.0 / (1.0 + Math.pow(10, (rating1 - rating2) / 400));
@@ -81,7 +85,7 @@ export class Tournament<T> {
   }
 
   getPlayersByRating(): Player<T>[] {
-    return [...this.players].sort(comparePlayersByRating).reverse();
+    return [...this.players].sort(comparePlayersByRating);
   }
 
   getUnfinishedGames(): Game<T>[] {

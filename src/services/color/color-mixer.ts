@@ -18,7 +18,16 @@
 
 import {gcd} from '~/src/services/math/gcd';
 import {unique} from '~/src/utils/array';
-import type {Comparator} from '~/src/utils/comparator';
+import {
+  by,
+  byDate,
+  byLength,
+  byNumber,
+  byString,
+  type Comparator,
+  compare,
+  reverseOrder,
+} from '~/src/utils/comparator';
 import type {Fraction} from '~/src/utils/fraction';
 import {not} from '~/src/utils/predicate';
 
@@ -250,53 +259,38 @@ class MixedColorLayer {
   }
 }
 
-const compareColorMixturePartsByParts = (
-  {part: a}: ColorMixturePart,
-  {part: b}: ColorMixturePart
-): number => a - b;
+const compareColorMixturePartsByParts: Comparator<ColorMixturePart> = reverseOrder(
+  byNumber(({part}) => part)
+);
 
 const compareColorMixturePartsByColors = (
   {color: a}: ColorMixturePart,
   {color: b}: ColorMixturePart
 ): number => a.brand - b.brand || a.id - b.id;
 
-export const compareColorMixturesByDate = (
-  {date: a}: ColorMixture,
-  {date: b}: ColorMixture
-): number => (a?.getTime() ?? 0) - (b?.getTime() ?? 0);
-
-export const compareColorMixturesByName = (a: ColorMixture, b: ColorMixture): number => {
-  if (!a.name && !b.name) {
-    return -1 * compareColorMixturesByDate(a, b);
-  }
-  if (!a.name) {
-    return 1;
-  }
-  if (!b.name) {
-    return -1;
-  }
-  return a.name.localeCompare(b.name);
-};
+export const compareColorMixturesByName: Comparator<ColorMixture> = compare(
+  byString(({name}) => name),
+  reverseOrder(byDate(({date}) => date))
+);
 
 export const compareColorMixturesByConsistency: Comparator<ColorMixture> = (
   {consistency: [aColorPart, aWhole]}: ColorMixture,
   {consistency: [bColorPart, bWhole]}: ColorMixture
 ) => bColorPart / bWhole - aColorPart / aWhole;
 
-export const compareSimilarColorsBySimilarity: Comparator<SimilarColor> = (
-  {similarity: a}: SimilarColor,
-  {similarity: b}: SimilarColor
-) => b - a;
+export const compareSimilarColorsBySimilarity: Comparator<SimilarColor> = reverseOrder(
+  byNumber(({similarity}) => similarity)
+);
 
-export const compareSimilarColorsByColorMixturePartLength: Comparator<SimilarColor> = (
-  {colorMixture: {parts: aParts}, similarity: aSim}: SimilarColor,
-  {colorMixture: {parts: bParts}, similarity: bSim}: SimilarColor
-) => aParts.length - bParts.length || bSim - aSim;
+export const compareSimilarColorsByColorMixturePartLength: Comparator<SimilarColor> = compare(
+  byLength(({colorMixture: {parts}}) => parts),
+  compareSimilarColorsBySimilarity
+);
 
-export const compareSimilarColorsByConsistency: Comparator<SimilarColor> = (
-  {colorMixture: aColorMixture, similarity: aSim}: SimilarColor,
-  {colorMixture: bColorMixture, similarity: bSim}: SimilarColor
-) => compareColorMixturesByConsistency(aColorMixture, bColorMixture) || bSim - aSim;
+export const compareSimilarColorsByConsistency: Comparator<SimilarColor> = compare(
+  by(({colorMixture}) => colorMixture, compareColorMixturesByConsistency),
+  compareSimilarColorsBySimilarity
+);
 
 function getColorMixtureKey(
   type: ColorType,
@@ -349,7 +343,6 @@ function mixColors(colors: UnmixedColor[], ratios: number[]): MixedColor {
   }
   const reflectance = Reflectance.mixKM(reflectances, ratios);
   parts.sort(compareColorMixturePartsByParts);
-  parts.reverse();
   return new MixedColor(reflectance, parts);
 }
 
@@ -500,13 +493,13 @@ function isFirstLayer({rgb}: Background): boolean {
 
 function findSimilarColors(
   reflectance: Reflectance,
-  mixedColorLayersArr: MixedColorLayer[][],
+  mixedColorLayersArray: MixedColorLayer[][],
   type: ColorType,
   limit = 1,
   minSimilarity = 0
 ): SimilarColor[] {
   let similarColors: WithHash<SimilarColor>[] = [];
-  for (const layers of mixedColorLayersArr) {
+  for (const layers of mixedColorLayersArray) {
     for (const layer of layers) {
       const similarity: number = layer.reflectance.calculateSimilarity(reflectance);
       if (minSimilarity > 0 && similarity <= minSimilarity) {

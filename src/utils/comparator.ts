@@ -18,11 +18,58 @@
 
 export type Comparator<T> = (a: T, b: T) => number;
 
+export const by =
+  <T, P>(fn: (item: T) => P | null | undefined, comparator: Comparator<P>): Comparator<T> =>
+  (a, b) => {
+    const aVal = fn(a);
+    const bVal = fn(b);
+    if (!aVal && !bVal) return 0;
+    if (!aVal) return 1;
+    if (!bVal) return -1;
+    return comparator(aVal, bVal);
+  };
+
+export const byString = <T>(fn: (item: T) => string | null | undefined): Comparator<T> =>
+  by(fn, (a: string, b: string): number => a.localeCompare(b));
+
+export const byNumber =
+  <T>(fn: (item: T) => number | null | undefined): Comparator<T> =>
+  (a, b) =>
+    (fn(a) ?? 0) - (fn(b) ?? 0);
+
+export const byBoolean =
+  <T>(fn: (item: T) => boolean | null | undefined): Comparator<T> =>
+  (a, b) =>
+    Number(fn(a) ?? false) - Number(fn(b) ?? false);
+
+export const byDate =
+  <T>(fn: (item: T) => Date | null | undefined): Comparator<T> =>
+  (a, b) =>
+    (fn(a)?.getTime() ?? 0) - (fn(b)?.getTime() ?? 0);
+
+export const byLength =
+  <T>(fn: (item: T) => unknown[] | null | undefined): Comparator<T> =>
+  (a, b) =>
+    (fn(a)?.length ?? 0) - (fn(b)?.length ?? 0);
+
+export function compare<T>(
+  ...comparators: (Comparator<T> | false | null | undefined)[]
+): Comparator<T> {
+  return (a: T, b: T): number => {
+    let result = 0;
+    for (const comparator of comparators) {
+      if (!comparator) {
+        continue;
+      }
+      result = comparator(a, b);
+      if (result) {
+        break;
+      }
+    }
+    return result;
+  };
+}
+
 export function reverseOrder<T>(comparator: Comparator<T>): Comparator<T> {
   return (a: T, b: T): number => -1 * comparator(a, b);
 }
-
-export const compareById: Comparator<{id?: number}> = ({id: a}, {id: b}) => (a ?? 0) - (b ?? 0);
-
-export const compareByDate: Comparator<{date?: Date}> = ({date: a}, {date: b}) =>
-  (a?.getTime() ?? 0) - (b?.getTime() ?? 0);

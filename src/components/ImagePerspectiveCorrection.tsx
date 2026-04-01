@@ -157,7 +157,7 @@ export const ImagePerspectiveCorrection: React.FC = () => {
 
   const saveItems: MenuProps['items'] = [
     {
-      key: 's1',
+      key: 'save-4:5',
       label: t`Save expanded to 4:5`,
       icon: <DownloadOutlined />,
       onClick: () => {
@@ -165,7 +165,7 @@ export const ImagePerspectiveCorrection: React.FC = () => {
       },
     },
     {
-      key: 's2',
+      key: 'save-1.91:1',
       label: t`Save expanded to 1.91:1`,
       icon: <DownloadOutlined />,
       onClick: () => {
@@ -176,7 +176,7 @@ export const ImagePerspectiveCorrection: React.FC = () => {
 
   const items: MenuProps['items'] = [
     {
-      key: '1',
+      key: 'reset',
       label: t`Reset`,
       icon: <CloseOutlined />,
       onClick: handleResetClick,
@@ -184,7 +184,7 @@ export const ImagePerspectiveCorrection: React.FC = () => {
     ...(!perspectiveCorrectedImage
       ? [
           {
-            key: '2',
+            key: 'rotate',
             label: t`Rotate`,
             icon: <RotateRightOutlined />,
             onClick: handleRotateClick,
@@ -194,7 +194,7 @@ export const ImagePerspectiveCorrection: React.FC = () => {
     ...(perspectiveCorrectedImage
       ? [
           {
-            key: '3',
+            key: 'save',
             label: t`Save`,
             icon: <DownloadOutlined />,
             onClick: () => {
@@ -203,7 +203,7 @@ export const ImagePerspectiveCorrection: React.FC = () => {
           },
           ...saveItems,
           {
-            key: '4',
+            key: 'white-balance',
             label: t`White balance`,
             icon: <BarChartOutlined />,
             onClick: () => {

@@ -365,7 +365,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
     void message.error(t`Fill in the required fields`);
   };
 
-  const handleDuplicateButtonClick = () => {
+  const handleDuplicateClick = () => {
     setHasUnsavedChanges(true);
     const {id: _id, name: _name, ...colorSet} = form.getFieldsValue();
     const newColorSet: ColorSetDefinition = {
@@ -376,7 +376,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
     form.setFieldsValue(newColorSet);
   };
 
-  const handleDeleteButtonClick = async () => {
+  const handleDeleteClick = async () => {
     setHasUnsavedChanges(true);
     if (!selectedColorSetId) {
       return;
@@ -503,7 +503,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
             ghost
             items={[
               {
-                key: '1',
+                key: 'log-in-by-qr',
                 label: t`Log in on another device by scanning the QR code`,
                 children: <QRCode value={magicLink} />,
               },
@@ -707,7 +707,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
                     <Button
                       icon={<CopyOutlined />}
                       title={t`Create a duplicate of this color set for further modification`}
-                      onClick={handleDuplicateButtonClick}
+                      onClick={handleDuplicateClick}
                     >
                       <Trans>Duplicate</Trans>
                     </Button>
@@ -715,7 +715,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
                       title={t`Delete the color set`}
                       description={t`Are you sure you want to delete this color set?`}
                       onConfirm={() => {
-                        void handleDeleteButtonClick();
+                        void handleDeleteClick();
                       }}
                       okText={t`Yes`}
                       cancelText={t`No`}

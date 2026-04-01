@@ -284,7 +284,7 @@ export const ImageColorAdjustment: React.FC = () => {
 
   const saveItems: MenuProps['items'] = [
     {
-      key: '1',
+      key: 'save-4:5',
       label: t`Save expanded to 4:5`,
       icon: <DownloadOutlined />,
       onClick: () => {
@@ -292,7 +292,7 @@ export const ImageColorAdjustment: React.FC = () => {
       },
     },
     {
-      key: '2',
+      key: 'save-1.91:1',
       label: t`Save expanded to 1.91:1`,
       icon: <DownloadOutlined />,
       onClick: () => {

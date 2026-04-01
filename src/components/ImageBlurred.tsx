@@ -102,7 +102,7 @@ export const ImageBlurred: React.FC = () => {
 
   const imageItems: MenuProps['items'] = [
     {
-      key: '2',
+      key: 'set-as-reference',
       label: t`Set as reference`,
       icon: <PictureOutlined />,
       onClick: () => {
@@ -113,7 +113,7 @@ export const ImageBlurred: React.FC = () => {
 
   const items: MenuProps['items'] = [
     {
-      key: '1',
+      key: 'save',
       label: t`Save`,
       icon: <DownloadOutlined />,
       onClick: () => {

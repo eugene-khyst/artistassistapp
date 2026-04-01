@@ -18,6 +18,14 @@
 
 import {DATA_URL} from '~/src/config';
 import type {OnnxModel, OnnxModelType} from '~/src/services/ml/types';
+import {
+  byBoolean,
+  byNumber,
+  byString,
+  type Comparator,
+  compare,
+  reverseOrder,
+} from '~/src/utils/comparator';
 import {fetchSWR} from '~/src/utils/fetch';
 
 export async function fetchOnnxModels(type: OnnxModelType): Promise<Map<string, OnnxModel>> {
@@ -26,12 +34,13 @@ export async function fetchOnnxModels(type: OnnxModelType): Promise<Map<string, 
   return new Map(models.map((model: OnnxModel) => [model.id, model]));
 }
 
-export const compareOnnxModelsByPriority = (a: OnnxModel, b: OnnxModel) =>
-  (b.priority ?? 0) - (a.priority ?? 0) || a.name.localeCompare(b.name);
-
-export const compareOnnxModelsByFreeTierAndPriority = (a: OnnxModel, b: OnnxModel) =>
-  (a.freeTier ?? false) === (b.freeTier ?? false)
-    ? compareOnnxModelsByPriority(a, b)
-    : a.freeTier
-      ? -1
-      : 1;
+export const compareOnnxModelsByPriority = ({
+  prioritizeFreeTier,
+}: {
+  prioritizeFreeTier: boolean;
+}): Comparator<OnnxModel> =>
+  compare(
+    prioritizeFreeTier && reverseOrder(byBoolean(({freeTier}) => freeTier)),
+    reverseOrder(byNumber(({priority}) => priority)),
+    byString(({name}) => name)
+  );

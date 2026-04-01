@@ -16,18 +16,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {SortAscendingOutlined} from '@ant-design/icons';
 import {useLingui} from '@lingui/react/macro';
 import type {SelectProps} from 'antd';
-import {Flex, Select, Typography} from 'antd';
+import {Button, Dropdown, Flex, Grid, Select, Space, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
+import type {MenuProps} from 'antd/lib';
+import {useState} from 'react';
 
 import {ColorSquare} from '~/src/components/color/ColorSquare';
 import {OpacityIcon} from '~/src/components/color/OpacityIcon';
 import {WarmthIcon} from '~/src/components/color/WarmthIcon';
 import {filterSelectOptions} from '~/src/components/utils';
 import {formatColorLabel} from '~/src/services/color/colors';
-import {toHexString} from '~/src/services/color/space/rgb';
+import {Rgb, toHexString} from '~/src/services/color/space/rgb';
 import type {ColorBrandDefinition, ColorDefinition} from '~/src/services/color/types';
+import {degrees} from '~/src/services/math/geometry';
+import {byNumber, type Comparator, reverseOrder} from '~/src/utils/comparator';
+
+enum Sort {
+  ById = 1,
+  ByHue = 2,
+  ByLightness = 3,
+}
+
+const COLOR_COMPARATORS: Record<Sort, Comparator<ColorDefinition>> = {
+  [Sort.ById]: byNumber(({id}) => id),
+  [Sort.ByHue]: byNumber(({hex}) => degrees(Rgb.fromHex(hex).toOklab().toOklch().h)),
+  [Sort.ByLightness]: reverseOrder(byNumber(({hex}) => Rgb.fromHex(hex).toOklab().l)),
+};
 
 function getColorOptions(
   brand: ColorBrandDefinition,
@@ -53,22 +70,87 @@ function getColorOptions(
   });
 }
 
-type Props = Omit<SelectProps, 'options' | 'placeholder' | 'showSearch' | 'allowClear'> & {
+type Props = Omit<
+  SelectProps<number[]>,
+  'options' | 'placeholder' | 'showSearch' | 'allowClear'
+> & {
   brand: ColorBrandDefinition;
   colors?: Map<number, ColorDefinition>;
 };
 
-export const ColorSelect: React.FC<Props> = ({brand, colors, ...rest}: Props) => {
+export const ColorSelect: React.FC<Props> = ({brand, colors, value, ...rest}: Props) => {
+  const screens = Grid.useBreakpoint();
+
   const {t} = useLingui();
 
+  const [sort, setSort] = useState<Sort>();
+
   const options = getColorOptions(brand, colors);
+
+  const selectedColors: ColorDefinition[] | undefined = value
+    ?.map((id: number): ColorDefinition | undefined => colors?.get(id))
+    .filter((color): color is ColorDefinition => !!color);
+
+  if (sort) {
+    selectedColors?.sort(COLOR_COMPARATORS[sort]);
+  }
+
+  const selectedIds: number[] | null | undefined = selectedColors?.length
+    ? selectedColors.map(({id}) => id)
+    : value;
+
+  const items: MenuProps['items'] = [
+    {
+      key: 'no-sorting',
+      label: t`No sorting`,
+      onClick: () => {
+        setSort(undefined);
+      },
+    },
+    {
+      key: String(Sort.ById),
+      label: t`By ID`,
+      onClick: () => {
+        setSort(Sort.ById);
+      },
+    },
+    {
+      key: String(Sort.ByHue),
+      label: t`By hue`,
+      onClick: () => {
+        setSort(Sort.ByHue);
+      },
+    },
+    {
+      key: String(Sort.ByLightness),
+      label: t`By lightness`,
+      onClick: () => {
+        setSort(Sort.ByLightness);
+      },
+    },
+  ];
+
   return (
-    <Select
-      options={options}
-      placeholder={t`Select colors`}
-      showSearch={{filterOption: filterSelectOptions}}
-      allowClear
-      {...rest}
-    />
+    <Space.Compact block>
+      <Select
+        value={selectedIds}
+        options={options}
+        placeholder={t`Select colors`}
+        showSearch={{filterOption: filterSelectOptions}}
+        allowClear
+        {...rest}
+      />
+      <Dropdown
+        menu={{
+          items,
+          selectable: true,
+          selectedKeys: [sort ? String(sort) : 'no-sorting'],
+        }}
+      >
+        <Button icon={<SortAscendingOutlined />} style={{height: 'auto'}}>
+          {screens.lg && t`Sort`}
+        </Button>
+      </Dropdown>
+    </Space.Compact>
   );
 };

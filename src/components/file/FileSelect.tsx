@@ -87,7 +87,7 @@ export const FileSelect: React.FC<PropsWithChildren<Props>> = ({
 
   const items: MenuProps['items'] = [
     {
-      key: '1',
+      key: 'use-reference',
       label: t`Use reference photo`,
       icon: <FileImageOutlined />,
       onClick: () => {

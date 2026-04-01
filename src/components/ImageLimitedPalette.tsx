@@ -100,7 +100,7 @@ export const ImageLimitedPalette: React.FC = () => {
 
   const items: MenuProps['items'] = [
     {
-      key: '1',
+      key: 'save',
       label: t`Save`,
       icon: <DownloadOutlined />,
       onClick: () => {
@@ -109,7 +109,7 @@ export const ImageLimitedPalette: React.FC = () => {
       disabled: !limitedPaletteImage,
     },
     {
-      key: '2',
+      key: 'set-as-main-color-set',
       label: t`Set as main color set`,
       icon: <SwapOutlined />,
       onClick: handleSetAsMainClick,

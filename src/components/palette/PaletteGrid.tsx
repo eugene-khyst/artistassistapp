@@ -26,23 +26,26 @@ import {useReactToPrint} from 'react-to-print';
 import {AdCard} from '~/src/components/ad/AdCard';
 import {ColorMixtureDescription} from '~/src/components/color/ColorMixtureDescription';
 import {PaletteColorMixtureCard} from '~/src/components/color/PaletteColorMixtureCard';
-import {
-  compareColorMixturesByDate,
-  compareColorMixturesByName,
-} from '~/src/services/color/color-mixer';
+import {compareColorMixturesByName} from '~/src/services/color/color-mixer';
+import {Rgb} from '~/src/services/color/space/rgb';
 import type {ColorMixture, ColorType} from '~/src/services/color/types';
+import {degrees} from '~/src/services/math/geometry';
 import {useAppStore} from '~/src/stores/app-store';
 import type {Comparator} from '~/src/utils/comparator';
-import {reverseOrder} from '~/src/utils/comparator';
+import {byDate, byNumber, reverseOrder} from '~/src/utils/comparator';
 
 enum Sort {
-  ByDataIndex = 1,
+  ByDate = 1,
   ByName = 2,
+  ByHue = 3,
+  ByLightness = 4,
 }
 
 const COLOR_MIXTURES_COMPARATORS: Record<Sort, Comparator<ColorMixture>> = {
-  [Sort.ByDataIndex]: reverseOrder(compareColorMixturesByDate),
+  [Sort.ByDate]: reverseOrder(byDate(({date}) => date)),
   [Sort.ByName]: compareColorMixturesByName,
+  [Sort.ByHue]: byNumber(({layerRgb}) => degrees(new Rgb(...layerRgb).toOklab().toOklch().h)),
+  [Sort.ByLightness]: reverseOrder(byNumber(({layerRgb}) => new Rgb(...layerRgb).toOklab().l)),
 };
 
 interface Props {
@@ -60,7 +63,7 @@ export const PaletteGrid: React.FC<Props> = ({
 
   const {t} = useLingui();
 
-  const [sort, setSort] = useState<Sort>(Sort.ByDataIndex);
+  const [sort, setSort] = useState<Sort>(Sort.ByDate);
   const printRef = useRef<HTMLDivElement>(null);
 
   const handlePrint = useReactToPrint({
@@ -69,8 +72,10 @@ export const PaletteGrid: React.FC<Props> = ({
   });
 
   const sortOptions: SelectOptionType[] = [
-    {value: Sort.ByDataIndex, label: t`Chronologically`},
-    {value: Sort.ByName, label: t`Alphabetically`},
+    {value: Sort.ByDate, label: t`By date added`},
+    {value: Sort.ByName, label: t`By name`},
+    {value: Sort.ByHue, label: t`By hue`},
+    {value: Sort.ByLightness, label: t`By lightness`},
   ];
 
   const sortedColorMixtures = colorMixtures?.slice().sort(COLOR_MIXTURES_COMPARATORS[sort]);
@@ -113,7 +118,7 @@ export const PaletteGrid: React.FC<Props> = ({
               setSort(value);
             }}
             options={sortOptions}
-            style={{width: 150}}
+            style={{width: 140}}
           />
         </Form.Item>
       </Space>

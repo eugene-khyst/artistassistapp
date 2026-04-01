@@ -38,7 +38,7 @@ import {
 import type {AuthSlice} from '~/src/stores/auth-slice';
 import type {InitSlice} from '~/src/stores/init-slice';
 import {groupBy} from '~/src/utils/array';
-import {compareByDate, compareById, reverseOrder} from '~/src/utils/comparator';
+import {byDate, byNumber, reverseOrder} from '~/src/utils/comparator';
 import {digestMessage} from '~/src/utils/digest';
 
 import type {ColorMixerSlice} from './color-mixer-slice';
@@ -90,7 +90,7 @@ export const createColorSetSlice: StateCreator<
       ({type}: ColorSetDefinition) => type
     );
     for (const colorSetsByType of colorSets.values()) {
-      colorSetsByType.sort(reverseOrder(compareByDate));
+      colorSetsByType.sort(reverseOrder(byDate(({date}) => date)));
     }
 
     const latestColorSet: ColorSetDefinition | null =
@@ -158,7 +158,7 @@ export const createColorSetSlice: StateCreator<
       const json: string = await file.text();
       const colorSets = JSON.parse(json) as ColorSetDefinition[];
       await saveColorSets(colorSets);
-      colorSets.sort(reverseOrder(compareByDate));
+      colorSets.sort(reverseOrder(byDate(({date}) => date)));
       set({
         colorSets: groupBy(colorSets, ({type}: ColorSetDefinition) => type),
       });
@@ -181,10 +181,10 @@ export const createColorSetSlice: StateCreator<
     if (!autoSavingColorSetsJson || !colorSets.size) {
       return;
     }
-    const colorSetsArr: ColorSetDefinition[] = removeDate(
-      [...colorSets.values()].flat().sort(compareById)
+    const colorSetsArray: ColorSetDefinition[] = removeDate(
+      [...colorSets.values()].flat().sort(byNumber(({id}) => id))
     );
-    const json: string = JSON.stringify(colorSetsArr, null, 2);
+    const json: string = JSON.stringify(colorSetsArray, null, 2);
     const hash: string = await digestMessage(json);
     const {latestColorSetsJsonHash} = get().appSettings;
     if (hash === latestColorSetsJsonHash) {
