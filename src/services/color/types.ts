@@ -27,9 +27,10 @@ export enum ColorType {
   WatercolorPencils = 5,
   Gouache = 6,
   AcrylicGouache = 7,
-  Pastel = 8,
+  DryPastel = 8,
   OilPastel = 9,
   AcrylicMarkers = 10,
+  WaxPastel = 11,
 }
 
 export enum ColorOpacity {

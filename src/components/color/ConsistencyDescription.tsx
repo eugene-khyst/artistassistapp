@@ -98,7 +98,7 @@ const CONSISTENCIES: Partial<Record<ColorType, ConsistencyDescriptionConfig>> = 
     labelRender: PRESSURE,
     tooltip: defineMessage`Apply less pressure to make the watercolor pencil layer more transparent`,
   },
-  [ColorType.Pastel]: {
+  [ColorType.DryPastel]: {
     labelRender: STROKES,
     tooltip: defineMessage`Slightly overlap pastel areas of different colors and blend gently to create a smooth transition.`,
   },

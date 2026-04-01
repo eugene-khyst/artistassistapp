@@ -87,7 +87,7 @@ export const COLOR_MIXING: Record<ColorType, ColorMixingConfig> = {
     glazing: true,
     wash: true,
   },
-  [ColorType.Pastel]: {
+  [ColorType.DryPastel]: {
     mixing: false,
     tint: false,
     glazing: true,
@@ -97,6 +97,12 @@ export const COLOR_MIXING: Record<ColorType, ColorMixingConfig> = {
     mixing: false,
     tint: false,
     glazing: true,
+    wash: false,
+  },
+  [ColorType.WaxPastel]: {
+    mixing: false,
+    tint: false,
+    glazing: false,
     wash: false,
   },
   [ColorType.AcrylicMarkers]: {
@@ -547,7 +553,9 @@ export function isMixable(type: ColorType): boolean {
 }
 
 export function isPastel(type: ColorType): boolean {
-  return type === ColorType.Pastel || type === ColorType.OilPastel;
+  return (
+    type === ColorType.DryPastel || type === ColorType.OilPastel || type === ColorType.WaxPastel
+  );
 }
 
 export class ColorMixer {

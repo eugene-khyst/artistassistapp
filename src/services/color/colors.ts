@@ -41,13 +41,14 @@ export const COLOR_TYPES: ColorType[] = [
   ColorType.WatercolorPaint,
   ColorType.Gouache,
   ColorType.AcrylicPaint,
+  ColorType.AcrylicGouache,
   ColorType.OilPaint,
+  ColorType.DryPastel,
+  ColorType.OilPastel,
+  ColorType.WaxPastel,
   ColorType.ColoredPencils,
   ColorType.WatercolorPencils,
-  ColorType.Pastel,
-  ColorType.OilPastel,
   ColorType.AcrylicMarkers,
-  ColorType.AcrylicGouache,
 ];
 
 const COLOR_TYPE_ALIASES: Record<ColorType, string> = {
@@ -57,8 +58,9 @@ const COLOR_TYPE_ALIASES: Record<ColorType, string> = {
   [ColorType.OilPaint]: 'oil-paint',
   [ColorType.ColoredPencils]: 'colored-pencils',
   [ColorType.WatercolorPencils]: 'watercolor-pencils',
-  [ColorType.Pastel]: 'pastel',
+  [ColorType.DryPastel]: 'pastel',
   [ColorType.OilPastel]: 'oil-pastel',
+  [ColorType.WaxPastel]: 'wax-pastel',
   [ColorType.AcrylicMarkers]: 'acrylic-markers',
   [ColorType.AcrylicGouache]: 'acrylic-gouache',
 };
