@@ -62,7 +62,7 @@ export const ImageStyleTransfer: React.FC = () => {
     isError: isModelsError,
   } = useOnnxModels(OnnxModelType.StyleTransfer);
 
-  const modelArray: OnnxModel[] = useMemo(
+  const sortedModels: OnnxModel[] = useMemo(
     () =>
       [...(models?.values() ?? [])].sort(compareOnnxModelsByPriority({prioritizeFreeTier: !user})),
     [models, user]
@@ -197,7 +197,7 @@ export const ImageStyleTransfer: React.FC = () => {
               ref={radioGroupRef}
               value={modelId}
               onChange={handleModelChange}
-              options={modelArray.map((model: OnnxModel) => {
+              options={sortedModels.map((model: OnnxModel) => {
                 const {id, name, description, image, numInputs = 1} = model;
                 const isAccessAllowed = hasAccessTo(user, model);
                 const imageUrl = numInputs > 1 ? styleImageUrl : image;
@@ -213,6 +213,7 @@ export const ImageStyleTransfer: React.FC = () => {
                             src={imageUrl}
                             alt={name}
                             crossOrigin="anonymous"
+                            loading="lazy"
                             style={{
                               display: 'block',
                               maxHeight: 200,

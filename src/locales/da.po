@@ -475,6 +475,10 @@ msgstr "Redigering herfra"
 msgid "Email"
 msgstr "E-mail"
 
+#: src/components/ImageChooser.tsx:64
+msgid "Error loading sample photos"
+msgstr "Fejllæsningseksempler på fotos"
+
 #: src/components/ColorSetChooser.tsx:192
 msgid "Error while fetching color brand data"
 msgstr "Fejl under hentning af farvemærkedata"
@@ -813,11 +817,11 @@ msgstr "eller installer den nyeste version af Chrome-, Edge-, Firefox- eller Ope
 msgid "Or scan the QR code"
 msgstr "Eller scan QR-koden"
 
-#: src/components/ImageChooser.tsx:89
+#: src/components/ImageChooser.tsx:117
 msgid "Or select from sample photos"
 msgstr "Eller vælg mellem eksempler på fotos"
 
-#: src/components/ImageChooser.tsx:73
+#: src/components/ImageChooser.tsx:99
 msgid "Or select from your recent photos"
 msgstr "Eller vælg blandt dine seneste billeder"
 
@@ -1125,7 +1129,7 @@ msgstr "Vælg et foto for at rette perspektivet"
 msgid "Select a photo to remove the background from"
 msgstr "Vælg et foto, som baggrunden skal fjernes fra"
 
-#: src/components/ImageChooser.tsx:58
+#: src/components/ImageChooser.tsx:84
 msgid "Select a reference photo from your device to paint from"
 msgstr "Vælg et referencefoto fra din enhed, som du vil male fra"
 
@@ -1191,7 +1195,7 @@ msgid "Select part"
 msgstr "Vælg del"
 
 #: src/components/ImageBackgroundRemoval.tsx:232
-#: src/components/ImageChooser.tsx:67
+#: src/components/ImageChooser.tsx:93
 #: src/components/ImageColorAdjustment.tsx:350
 #: src/components/ImagePerspectiveCorrection.tsx:234
 msgid "Select photo"
@@ -1209,7 +1213,7 @@ msgstr "Vælg billeder, der skal rangeres ved hjælp af parvis sammenligning"
 msgid "Select set"
 msgstr "Vælg sæt"
 
-#: src/components/ImageStyleTransfer.tsx:234
+#: src/components/ImageStyleTransfer.tsx:235
 msgid "Select style image"
 msgstr "Vælg typografibillede"
 
@@ -1432,7 +1436,7 @@ msgstr "Denne udskriftsstørrelse understøttes ikke"
 msgid "This step is optional."
 msgstr "Dette trin er valgfrit."
 
-#: src/components/ImageStyleTransfer.tsx:250
+#: src/components/ImageStyleTransfer.tsx:251
 msgid "This style is available to paid Patreon members only"
 msgstr "Denne stil er kun tilgængelig for betalte Patreon-medlemmer"
 

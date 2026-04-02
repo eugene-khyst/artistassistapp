@@ -18,46 +18,29 @@
 
 import {Card} from 'antd';
 
-import type {ImageFile} from '~/src/services/image/image-file';
-import {blobToImageFile} from '~/src/services/image/image-file';
+import type {SampleImageDefinition} from '~/src/services/image/sample-images';
 import {useAppStore} from '~/src/stores/app-store';
+import {splitUrl} from '~/src/utils/url';
 
 interface Props {
-  image: string | URL;
-  thumbnail?: string | URL;
-  name: string;
-  id: number;
-  setLoadingCount: (value: (prevCount: number) => number) => void;
+  sampleImage: SampleImageDefinition;
 }
 
-export const SampleImageCard: React.FC<Props> = ({
-  image,
-  thumbnail,
-  name,
-  id,
-  setLoadingCount,
-}: Props) => {
-  const setImageFile = useAppStore(state => state.setImageFile);
+export const SampleImageCard: React.FC<Props> = ({sampleImage}: Props) => {
+  const loadSampleImage = useAppStore(state => state.loadSampleImage);
 
-  const handleCardClick = () => {
-    void (async () => {
-      setLoadingCount((prev: number) => prev + 1);
-      const response: Response = await fetch(image);
-      const blob: Blob = await response.blob();
-      const imageFile: ImageFile = await blobToImageFile(blob);
-      imageFile.id = id;
-      void setImageFile(imageFile);
-      setLoadingCount((prev: number) => prev - 1);
-    })();
-  };
+  const [baseUrl, filename] = splitUrl(new URL(sampleImage.image));
+  const thumbnail = `${baseUrl}thumbnails/${filename}`;
 
   return (
     <Card
       hoverable
-      onClick={handleCardClick}
-      cover={<img src={thumbnail?.toString() ?? image.toString()} alt={name} loading="lazy" />}
+      onClick={() => {
+        void loadSampleImage(sampleImage);
+      }}
+      cover={<img src={thumbnail} alt={sampleImage.name} crossOrigin="anonymous" loading="lazy" />}
     >
-      <Card.Meta title={name} />
+      <Card.Meta title={sampleImage.name} />
     </Card>
   );
 };

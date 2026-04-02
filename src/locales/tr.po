@@ -475,6 +475,10 @@ msgstr "Buradan itibaren düzenleme"
 msgid "Email"
 msgstr "E-posta"
 
+#: src/components/ImageChooser.tsx:64
+msgid "Error loading sample photos"
+msgstr "Hata yükleme örnek fotoğrafları"
+
 #: src/components/ColorSetChooser.tsx:192
 msgid "Error while fetching color brand data"
 msgstr "Renk marka verileri getirilirken hata oluştu"
@@ -813,11 +817,11 @@ msgstr "veya Chrome, Edge, Firefox veya Opera web tarayıcısının en son sür�
 msgid "Or scan the QR code"
 msgstr "Veya QR kodunu tarayın"
 
-#: src/components/ImageChooser.tsx:89
+#: src/components/ImageChooser.tsx:117
 msgid "Or select from sample photos"
 msgstr "Veya örnek fotoğraflar arasından seçim yapın"
 
-#: src/components/ImageChooser.tsx:73
+#: src/components/ImageChooser.tsx:99
 msgid "Or select from your recent photos"
 msgstr "Veya en son fotoğraflarınız arasından seçim yapın"
 
@@ -1125,7 +1129,7 @@ msgstr "Perspektifi düzeltmek için bir fotoğraf seçin"
 msgid "Select a photo to remove the background from"
 msgstr "Arka planı kaldırmak için bir fotoğraf seçin"
 
-#: src/components/ImageChooser.tsx:58
+#: src/components/ImageChooser.tsx:84
 msgid "Select a reference photo from your device to paint from"
 msgstr "Boyamak için cihazınızdan bir referans fotoğraf seçin"
 
@@ -1191,7 +1195,7 @@ msgid "Select part"
 msgstr "Parça seç"
 
 #: src/components/ImageBackgroundRemoval.tsx:232
-#: src/components/ImageChooser.tsx:67
+#: src/components/ImageChooser.tsx:93
 #: src/components/ImageColorAdjustment.tsx:350
 #: src/components/ImagePerspectiveCorrection.tsx:234
 msgid "Select photo"
@@ -1209,7 +1213,7 @@ msgstr "İkili karşılaştırmayı kullanarak sıralanacak fotoğrafları seçi
 msgid "Select set"
 msgstr "Küme seç"
 
-#: src/components/ImageStyleTransfer.tsx:234
+#: src/components/ImageStyleTransfer.tsx:235
 msgid "Select style image"
 msgstr "Stil görüntüsü seç"
 
@@ -1432,7 +1436,7 @@ msgstr "Bu yazdırma boyutu desteklenmiyor"
 msgid "This step is optional."
 msgstr "Bu adım isteğe bağlıdır."
 
-#: src/components/ImageStyleTransfer.tsx:250
+#: src/components/ImageStyleTransfer.tsx:251
 msgid "This style is available to paid Patreon members only"
 msgstr "Bu stil yalnızca ücretli Patreon üyeleri tarafından kullanılabilir"
 

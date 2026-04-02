@@ -19,11 +19,12 @@
 import type {IDBPTransaction} from 'idb';
 
 import type {ImageFile} from '~/src/services/image/image-file';
+import {digestArrayBuffer} from '~/src/utils/digest';
 
 import type {ArtistAssistAppDB} from './db';
 import {dbPromise} from './db';
 
-const MAX_IMAGE_FILES = 15;
+const MAX_IMAGE_FILES = 32;
 
 export async function getLastImageFile(): Promise<ImageFile | undefined> {
   const db = await dbPromise;
@@ -41,7 +42,18 @@ export async function getImageFiles(): Promise<ImageFile[]> {
 export async function saveImageFile(imageFile: ImageFile): Promise<void> {
   const db = await dbPromise;
   imageFile.date = new Date();
+  imageFile.digest = await digestArrayBuffer(imageFile.buffer);
   if (!imageFile.id) {
+    const existing: ImageFile | undefined = await db.getFromIndex(
+      'images',
+      'by-digest',
+      imageFile.digest
+    );
+    if (existing?.id) {
+      imageFile.id = existing.id;
+      await db.put('images', imageFile);
+      return;
+    }
     const tx = db.transaction(['images', 'color-mixtures'], 'readwrite');
     const imageFileIds: number[] = await tx.objectStore('images').index('by-date').getAllKeys();
     imageFileIds.reverse();

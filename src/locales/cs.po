@@ -475,6 +475,10 @@ msgstr "Edit od teď dál"
 msgid "Email"
 msgstr "E-mail"
 
+#: src/components/ImageChooser.tsx:64
+msgid "Error loading sample photos"
+msgstr "Chyba při načítání vzorkových fotografií"
+
 #: src/components/ColorSetChooser.tsx:192
 msgid "Error while fetching color brand data"
 msgstr "Chyba při načítání dat o značce barev"
@@ -813,11 +817,11 @@ msgstr "nebo nainstalujte nejnovější verzi webového prohlížeče Chrome, Ed
 msgid "Or scan the QR code"
 msgstr "Nebo naskenujte QR kód"
 
-#: src/components/ImageChooser.tsx:89
+#: src/components/ImageChooser.tsx:117
 msgid "Or select from sample photos"
 msgstr "Nebo si vyberte z ukázkových fotografií"
 
-#: src/components/ImageChooser.tsx:73
+#: src/components/ImageChooser.tsx:99
 msgid "Or select from your recent photos"
 msgstr "Nebo si vyberte z posledních fotografií"
 
@@ -1125,7 +1129,7 @@ msgstr "Vyberte fotografii pro korekci perspektivy"
 msgid "Select a photo to remove the background from"
 msgstr "Vyberte fotografii, ze které chcete odstranit pozadí"
 
-#: src/components/ImageChooser.tsx:58
+#: src/components/ImageChooser.tsx:84
 msgid "Select a reference photo from your device to paint from"
 msgstr "Vyberte referenční fotografii ze svého zařízení, podle které chcete malovat"
 
@@ -1191,7 +1195,7 @@ msgid "Select part"
 msgstr "Vybrat díl"
 
 #: src/components/ImageBackgroundRemoval.tsx:232
-#: src/components/ImageChooser.tsx:67
+#: src/components/ImageChooser.tsx:93
 #: src/components/ImageColorAdjustment.tsx:350
 #: src/components/ImagePerspectiveCorrection.tsx:234
 msgid "Select photo"
@@ -1209,7 +1213,7 @@ msgstr "Vyberte fotografie k hodnocení pomocí párového srovnání"
 msgid "Select set"
 msgstr "Vyberte sadu"
 
-#: src/components/ImageStyleTransfer.tsx:234
+#: src/components/ImageStyleTransfer.tsx:235
 msgid "Select style image"
 msgstr "Vybrat styl obrázku"
 
@@ -1432,7 +1436,7 @@ msgstr "Tato velikost tisku není podporována"
 msgid "This step is optional."
 msgstr "Tento krok je volitelný."
 
-#: src/components/ImageStyleTransfer.tsx:250
+#: src/components/ImageStyleTransfer.tsx:251
 msgid "This style is available to paid Patreon members only"
 msgstr "Tento styl je k dispozici pouze pro platící členy Patreonu"
 

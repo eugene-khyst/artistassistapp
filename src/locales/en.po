@@ -475,6 +475,10 @@ msgstr "Edit from here on"
 msgid "Email"
 msgstr "Email"
 
+#: src/components/ImageChooser.tsx:64
+msgid "Error loading sample photos"
+msgstr "Error loading sample photos"
+
 #: src/components/ColorSetChooser.tsx:192
 msgid "Error while fetching color brand data"
 msgstr "Error while fetching color brand data"
@@ -813,11 +817,11 @@ msgstr "or install the latest version of the Chrome, Edge, Firefox or Opera web 
 msgid "Or scan the QR code"
 msgstr "Or scan the QR code"
 
-#: src/components/ImageChooser.tsx:89
+#: src/components/ImageChooser.tsx:117
 msgid "Or select from sample photos"
 msgstr "Or select from sample photos"
 
-#: src/components/ImageChooser.tsx:73
+#: src/components/ImageChooser.tsx:99
 msgid "Or select from your recent photos"
 msgstr "Or select from your recent photos"
 
@@ -1125,7 +1129,7 @@ msgstr "Select a photo to correct the perspective"
 msgid "Select a photo to remove the background from"
 msgstr "Select a photo to remove the background from"
 
-#: src/components/ImageChooser.tsx:58
+#: src/components/ImageChooser.tsx:84
 msgid "Select a reference photo from your device to paint from"
 msgstr "Select a reference photo from your device to paint from"
 
@@ -1191,7 +1195,7 @@ msgid "Select part"
 msgstr "Select part"
 
 #: src/components/ImageBackgroundRemoval.tsx:232
-#: src/components/ImageChooser.tsx:67
+#: src/components/ImageChooser.tsx:93
 #: src/components/ImageColorAdjustment.tsx:350
 #: src/components/ImagePerspectiveCorrection.tsx:234
 msgid "Select photo"
@@ -1209,7 +1213,7 @@ msgstr "Select photos to rank using pairwise comparison"
 msgid "Select set"
 msgstr "Select set"
 
-#: src/components/ImageStyleTransfer.tsx:234
+#: src/components/ImageStyleTransfer.tsx:235
 msgid "Select style image"
 msgstr "Select style image"
 
@@ -1432,7 +1436,7 @@ msgstr "This print size is not supported"
 msgid "This step is optional."
 msgstr "This step is optional."
 
-#: src/components/ImageStyleTransfer.tsx:250
+#: src/components/ImageStyleTransfer.tsx:251
 msgid "This style is available to paid Patreon members only"
 msgstr "This style is available to paid Patreon members only"
 

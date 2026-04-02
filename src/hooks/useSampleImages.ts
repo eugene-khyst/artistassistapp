@@ -16,24 +16,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-type Algorithm = 'SHA-256' | 'SHA-384' | 'SHA-512';
+import type {UseQueryResult} from '@tanstack/react-query';
+import {useQuery} from '@tanstack/react-query';
 
-function toHex(buffer: ArrayBuffer): string {
-  return Array.from(new Uint8Array(buffer))
-    .map(b => b.toString(16).padStart(2, '0'))
-    .join('');
+import {fetchSampleImages, type SampleImageDefinition} from '~/src/services/image/sample-images';
+
+interface Result {
+  isLoading: boolean;
+  isError: boolean;
+  error: Error | null;
+  sampleImages?: SampleImageDefinition[];
 }
 
-export async function digestArrayBuffer(
-  buffer: BufferSource,
-  algorithm: Algorithm = 'SHA-256'
-): Promise<string> {
-  return toHex(await crypto.subtle.digest(algorithm, buffer));
-}
-
-export async function digestMessage(
-  message: string,
-  algorithm: Algorithm = 'SHA-256'
-): Promise<string> {
-  return digestArrayBuffer(new TextEncoder().encode(message), algorithm);
+export function useSampleImages(): Result {
+  const {isLoading, isError, error, data}: UseQueryResult<SampleImageDefinition[]> = useQuery({
+    queryKey: ['sample-images'],
+    queryFn: fetchSampleImages,
+  });
+  return {
+    isLoading,
+    isError,
+    error,
+    sampleImages: data,
+  };
 }

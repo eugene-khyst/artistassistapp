@@ -16,19 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Trans} from '@lingui/react/macro';
-import {Col, Flex, Row, Typography} from 'antd';
-import {useState} from 'react';
+import {Trans, useLingui} from '@lingui/react/macro';
+import {App, Col, Flex, Row, Typography} from 'antd';
+import {useEffect, useMemo} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {FileSelect} from '~/src/components/file/FileSelect';
 import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {usePersistentStorage} from '~/src/hooks/usePersistentStorage';
+import {useSampleImages} from '~/src/hooks/useSampleImages';
 import type {ImageFile} from '~/src/services/image/image-file';
 import {fileToImageFile} from '~/src/services/image/image-file';
 import type {SampleImageDefinition} from '~/src/services/image/sample-images';
-import {SAMPLE_IMAGES} from '~/src/services/image/sample-images';
 import {useAppStore} from '~/src/stores/app-store';
+import {byNumber, reverseOrder} from '~/src/utils/comparator';
 
 import {RecentImageCard} from './image/RecentImageCard';
 import {SampleImageCard} from './image/SampleImageCard';
@@ -36,12 +37,37 @@ import {SampleImageCard} from './image/SampleImageCard';
 export const ImageChooser: React.FC = () => {
   const recentImageFiles = useAppStore(state => state.recentImageFiles);
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
+  const isSampleImageLoading = useAppStore(state => state.isSampleImageLoading);
 
-  const [sampleImagesLoadingCount, setSampleImagesLoadingCount] = useState<number>(0);
+  const {notification} = App.useApp();
+
+  const {t} = useLingui();
+
+  const {
+    sampleImages,
+    isLoading: isSampleImagesLoading,
+    isError: isSampleImagesError,
+  } = useSampleImages();
+
+  const sortedSampleImages: SampleImageDefinition[] | undefined = useMemo(
+    () => sampleImages?.slice().sort(reverseOrder(byNumber(({priority}) => priority))),
+    [sampleImages]
+  );
 
   const {checkPersistentStorage, installDrawer} = usePersistentStorage();
 
-  const isLoading: boolean = sampleImagesLoadingCount > 0;
+  const isLoading: boolean = isSampleImagesLoading || isSampleImageLoading;
+
+  useEffect(() => {
+    if (isSampleImagesError) {
+      notification.error({
+        title: t`Error loading sample photos`,
+        placement: 'top',
+        duration: 10,
+        showProgress: true,
+      });
+    }
+  }, [isSampleImagesError, notification, t]);
 
   const handleFileChange = async ([file]: File[]) => {
     await checkPersistentStorage();
@@ -76,7 +102,7 @@ export const ImageChooser: React.FC = () => {
 
           <Row gutter={[16, 16]} align="top" justify="start" style={{marginBottom: '1em'}}>
             {recentImageFiles.map((imageFile: ImageFile) => (
-              <Col key={imageFile.id} xs={24} md={12} lg={6}>
+              <Col key={imageFile.id} xs={24} sm={12} lg={6}>
                 <RecentImageCard imageFile={imageFile} />
               </Col>
             ))}
@@ -85,23 +111,21 @@ export const ImageChooser: React.FC = () => {
             </Col>
           </Row>
 
-          <Typography.Text strong>
-            <Trans>Or select from sample photos</Trans>
-          </Typography.Text>
+          {!!sortedSampleImages?.length && (
+            <>
+              <Typography.Text strong>
+                <Trans>Or select from sample photos</Trans>
+              </Typography.Text>
 
-          <Row gutter={[16, 16]} align="top" justify="start">
-            {SAMPLE_IMAGES.map(({image, thumbnail, name, id}: SampleImageDefinition) => (
-              <Col key={name} xs={24} md={12} lg={6}>
-                <SampleImageCard
-                  image={image}
-                  thumbnail={thumbnail}
-                  name={name}
-                  id={id}
-                  setLoadingCount={setSampleImagesLoadingCount}
-                />
-              </Col>
-            ))}
-          </Row>
+              <Row gutter={[16, 16]} align="top" justify="start">
+                {sortedSampleImages.map(sampleImage => (
+                  <Col key={sampleImage.name} xs={24} sm={12} lg={6}>
+                    <SampleImageCard sampleImage={sampleImage} />
+                  </Col>
+                ))}
+              </Row>
+            </>
+          )}
         </Flex>
       </LoadingIndicator>
       {installDrawer}

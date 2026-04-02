@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {DBSchema, DeleteDBCallbacks, IDBPDatabase} from 'idb';
+import type {DBSchema, DeleteDBCallbacks, IDBPDatabase, IDBPTransaction, StoreNames} from 'idb';
 import {deleteDB, openDB} from 'idb';
 
 import type {
@@ -30,7 +30,7 @@ import type {ImageFile} from '~/src/services/image/image-file';
 import type {AppSettings} from '~/src/services/settings/types';
 
 export const DB_NAME = 'artistassistapp';
-const DB_VERSION = 4;
+const DB_VERSION = 5;
 
 export interface ArtistAssistAppDB extends DBSchema {
   'app-settings': {
@@ -48,12 +48,17 @@ export interface ArtistAssistAppDB extends DBSchema {
   images: {
     value: ImageFile;
     key: number;
-    indexes: {'by-date': Date};
+    indexes: {
+      'by-date': Date;
+      'by-digest': string;
+    };
   };
   'color-mixtures': {
     value: ColorMixture;
     key: number;
-    indexes: {'by-imageFileId': number};
+    indexes: {
+      'by-imageFileId': number;
+    };
   };
   'custom-brands': {
     value: CustomColorBrandDefinition;
@@ -89,7 +94,16 @@ export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artist
   DB_NAME,
   DB_VERSION,
   {
-    upgrade(db: IDBPDatabase<ArtistAssistAppDB>) {
+    upgrade(
+      db: IDBPDatabase<ArtistAssistAppDB>,
+      _oldVersion: number,
+      _newVersion: number | null,
+      transaction: IDBPTransaction<
+        ArtistAssistAppDB,
+        StoreNames<ArtistAssistAppDB>[],
+        'versionchange'
+      >
+    ) {
       if (!db.objectStoreNames.contains('app-settings')) {
         db.createObjectStore('app-settings');
       }
@@ -109,6 +123,10 @@ export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artist
           autoIncrement: true,
         });
         imageFilesStore.createIndex('by-date', 'date');
+      }
+      const imageFilesStore = transaction.objectStore('images');
+      if (!imageFilesStore.indexNames.contains('by-digest')) {
+        imageFilesStore.createIndex('by-digest', 'digest');
       }
 
       if (!db.objectStoreNames.contains('color-mixtures')) {

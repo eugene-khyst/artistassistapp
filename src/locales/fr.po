@@ -475,6 +475,10 @@ msgstr "Édition à partir de là"
 msgid "Email"
 msgstr "Email"
 
+#: src/components/ImageChooser.tsx:64
+msgid "Error loading sample photos"
+msgstr "Erreur de chargement des photos d’échantillons"
+
 #: src/components/ColorSetChooser.tsx:192
 msgid "Error while fetching color brand data"
 msgstr "Erreur lors de la récupération des données de marque de couleur"
@@ -813,11 +817,11 @@ msgstr "ou installer la dernière version du navigateur Web Chrome, Edge, Firefo
 msgid "Or scan the QR code"
 msgstr "Ou scannez le code QR"
 
-#: src/components/ImageChooser.tsx:89
+#: src/components/ImageChooser.tsx:117
 msgid "Or select from sample photos"
 msgstr "Ou choisissez parmi des exemples de photos"
 
-#: src/components/ImageChooser.tsx:73
+#: src/components/ImageChooser.tsx:99
 msgid "Or select from your recent photos"
 msgstr "Ou sélectionnez parmi vos photos récentes"
 
@@ -1125,7 +1129,7 @@ msgstr "Sélectionnez une photo pour corriger la perspective"
 msgid "Select a photo to remove the background from"
 msgstr "Sélectionnez une photo dont vous souhaitez supprimer l’arrière-plan"
 
-#: src/components/ImageChooser.tsx:58
+#: src/components/ImageChooser.tsx:84
 msgid "Select a reference photo from your device to paint from"
 msgstr "Sélectionnez une photo de référence de votre appareil à partir de laquelle peindre"
 
@@ -1191,7 +1195,7 @@ msgid "Select part"
 msgstr "Sélectionner une pièce"
 
 #: src/components/ImageBackgroundRemoval.tsx:232
-#: src/components/ImageChooser.tsx:67
+#: src/components/ImageChooser.tsx:93
 #: src/components/ImageColorAdjustment.tsx:350
 #: src/components/ImagePerspectiveCorrection.tsx:234
 msgid "Select photo"
@@ -1209,7 +1213,7 @@ msgstr "Sélectionnez les photos à classer à l’aide de la comparaison par pa
 msgid "Select set"
 msgstr "Sélectionnez définir"
 
-#: src/components/ImageStyleTransfer.tsx:234
+#: src/components/ImageStyleTransfer.tsx:235
 msgid "Select style image"
 msgstr "Sélectionner le style de l’image"
 
@@ -1432,7 +1436,7 @@ msgstr "Cette taille d’impression n’est pas prise en charge"
 msgid "This step is optional."
 msgstr "Cette étape est facultative."
 
-#: src/components/ImageStyleTransfer.tsx:250
+#: src/components/ImageStyleTransfer.tsx:251
 msgid "This style is available to paid Patreon members only"
 msgstr "Ce style n’est disponible que pour les membres payants de Patreon"
 

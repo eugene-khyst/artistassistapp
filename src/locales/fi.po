@@ -475,6 +475,10 @@ msgstr "Muokkaus tästä eteenpäin"
 msgid "Email"
 msgstr "Sähköposti"
 
+#: src/components/ImageChooser.tsx:64
+msgid "Error loading sample photos"
+msgstr "Virhe ladataan esimerkkikuvia"
+
 #: src/components/ColorSetChooser.tsx:192
 msgid "Error while fetching color brand data"
 msgstr "Virhe haettaessa väribränditietoja"
@@ -813,11 +817,11 @@ msgstr "tai asenna Chrome-, Edge-, Firefox- tai Opera-selaimen uusin versio"
 msgid "Or scan the QR code"
 msgstr "Tai skannaa QR-koodi"
 
-#: src/components/ImageChooser.tsx:89
+#: src/components/ImageChooser.tsx:117
 msgid "Or select from sample photos"
 msgstr "Voit myös valita esimerkkikuvista"
 
-#: src/components/ImageChooser.tsx:73
+#: src/components/ImageChooser.tsx:99
 msgid "Or select from your recent photos"
 msgstr "Voit myös valita viimeisimmistä kuvistasi"
 
@@ -1125,7 +1129,7 @@ msgstr "Valitse valokuva perspektiivin korjaamiseksi"
 msgid "Select a photo to remove the background from"
 msgstr "Valitse valokuva, josta haluat poistaa taustan"
 
-#: src/components/ImageChooser.tsx:58
+#: src/components/ImageChooser.tsx:84
 msgid "Select a reference photo from your device to paint from"
 msgstr "Valitse laitteestasi viitekuva, josta maalaat"
 
@@ -1191,7 +1195,7 @@ msgid "Select part"
 msgstr "Valitse osa"
 
 #: src/components/ImageBackgroundRemoval.tsx:232
-#: src/components/ImageChooser.tsx:67
+#: src/components/ImageChooser.tsx:93
 #: src/components/ImageColorAdjustment.tsx:350
 #: src/components/ImagePerspectiveCorrection.tsx:234
 msgid "Select photo"
@@ -1209,7 +1213,7 @@ msgstr "Valitse valokuvat, jotka haluat luokitella pareittain vertailun avulla"
 msgid "Select set"
 msgstr "Valitse joukko"
 
-#: src/components/ImageStyleTransfer.tsx:234
+#: src/components/ImageStyleTransfer.tsx:235
 msgid "Select style image"
 msgstr "Valitse tyylikuva"
 
@@ -1432,7 +1436,7 @@ msgstr "Tätä tulostuskokoa ei tueta"
 msgid "This step is optional."
 msgstr "Tämä vaihe on valinnainen."
 
-#: src/components/ImageStyleTransfer.tsx:250
+#: src/components/ImageStyleTransfer.tsx:251
 msgid "This style is available to paid Patreon members only"
 msgstr "Tämä tyyli on saatavilla vain maksullisille Patreon-jäsenille"
 

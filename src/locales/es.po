@@ -475,6 +475,10 @@ msgstr "Edición a partir de aquí"
 msgid "Email"
 msgstr "Correo electrónico"
 
+#: src/components/ImageChooser.tsx:64
+msgid "Error loading sample photos"
+msgstr "Error al cargar fotos de muestra"
+
 #: src/components/ColorSetChooser.tsx:192
 msgid "Error while fetching color brand data"
 msgstr "Error al obtener datos de marca de color"
@@ -813,11 +817,11 @@ msgstr "o instale la última versión del navegador web Chrome, Edge, Firefox u 
 msgid "Or scan the QR code"
 msgstr "O escanea el código QR"
 
-#: src/components/ImageChooser.tsx:89
+#: src/components/ImageChooser.tsx:117
 msgid "Or select from sample photos"
 msgstr "O seleccione de fotos de muestra"
 
-#: src/components/ImageChooser.tsx:73
+#: src/components/ImageChooser.tsx:99
 msgid "Or select from your recent photos"
 msgstr "O selecciona una de tus fotos recientes"
 
@@ -1125,7 +1129,7 @@ msgstr "Seleccione una foto para corregir la perspectiva"
 msgid "Select a photo to remove the background from"
 msgstr "Seleccione una foto para eliminar el fondo"
 
-#: src/components/ImageChooser.tsx:58
+#: src/components/ImageChooser.tsx:84
 msgid "Select a reference photo from your device to paint from"
 msgstr "Selecciona una foto de referencia de tu dispositivo para pintar"
 
@@ -1191,7 +1195,7 @@ msgid "Select part"
 msgstr "Seleccionar parte"
 
 #: src/components/ImageBackgroundRemoval.tsx:232
-#: src/components/ImageChooser.tsx:67
+#: src/components/ImageChooser.tsx:93
 #: src/components/ImageColorAdjustment.tsx:350
 #: src/components/ImagePerspectiveCorrection.tsx:234
 msgid "Select photo"
@@ -1209,7 +1213,7 @@ msgstr "Seleccionar fotos para clasificar mediante la comparación por pares"
 msgid "Select set"
 msgstr "Seleccione establecer"
 
-#: src/components/ImageStyleTransfer.tsx:234
+#: src/components/ImageStyleTransfer.tsx:235
 msgid "Select style image"
 msgstr "Seleccionar imagen de estilo"
 
@@ -1432,7 +1436,7 @@ msgstr "Este tamaño de impresión no es compatible"
 msgid "This step is optional."
 msgstr "Este paso es opcional."
 
-#: src/components/ImageStyleTransfer.tsx:250
+#: src/components/ImageStyleTransfer.tsx:251
 msgid "This style is available to paid Patreon members only"
 msgstr "Este estilo solo está disponible para miembros pagos de Patreon"
 

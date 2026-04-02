@@ -475,6 +475,10 @@ msgstr "여기서부터는 수정"
 msgid "Email"
 msgstr "이메일"
 
+#: src/components/ImageChooser.tsx:64
+msgid "Error loading sample photos"
+msgstr "샘플 사진 로딩 오류"
+
 #: src/components/ColorSetChooser.tsx:192
 msgid "Error while fetching color brand data"
 msgstr "색상 브랜드 데이터를 가져오는 중 오류 발생"
@@ -813,11 +817,11 @@ msgstr "또는 최신 버전의 Chrome, Edge, Firefox 또는 Opera 웹 브라우
 msgid "Or scan the QR code"
 msgstr "또는 QR 코드를 스캔합니다."
 
-#: src/components/ImageChooser.tsx:89
+#: src/components/ImageChooser.tsx:117
 msgid "Or select from sample photos"
 msgstr "또는 샘플 사진에서 선택"
 
-#: src/components/ImageChooser.tsx:73
+#: src/components/ImageChooser.tsx:99
 msgid "Or select from your recent photos"
 msgstr "또는 최근 사진에서 선택합니다."
 
@@ -1125,7 +1129,7 @@ msgstr "원근을 교정할 사진을 선택합니다."
 msgid "Select a photo to remove the background from"
 msgstr "배경을 제거할 사진을 선택합니다."
 
-#: src/components/ImageChooser.tsx:58
+#: src/components/ImageChooser.tsx:84
 msgid "Select a reference photo from your device to paint from"
 msgstr "기기에서 페인팅할 참조 사진을 선택합니다."
 
@@ -1191,7 +1195,7 @@ msgid "Select part"
 msgstr "파트 선택"
 
 #: src/components/ImageBackgroundRemoval.tsx:232
-#: src/components/ImageChooser.tsx:67
+#: src/components/ImageChooser.tsx:93
 #: src/components/ImageColorAdjustment.tsx:350
 #: src/components/ImagePerspectiveCorrection.tsx:234
 msgid "Select photo"
@@ -1209,7 +1213,7 @@ msgstr "쌍별 비교를 사용하여 순위를 매길 사진을 선택합니다
 msgid "Select set"
 msgstr "세트 선택"
 
-#: src/components/ImageStyleTransfer.tsx:234
+#: src/components/ImageStyleTransfer.tsx:235
 msgid "Select style image"
 msgstr "스타일 이미지 선택"
 
@@ -1432,7 +1436,7 @@ msgstr "이 인쇄 크기는 지원되지 않습니다."
 msgid "This step is optional."
 msgstr "이 단계는 선택 사항입니다."
 
-#: src/components/ImageStyleTransfer.tsx:250
+#: src/components/ImageStyleTransfer.tsx:251
 msgid "This style is available to paid Patreon members only"
 msgstr "이 스타일은 Patreon 유료 회원만 사용할 수 있습니다"
 

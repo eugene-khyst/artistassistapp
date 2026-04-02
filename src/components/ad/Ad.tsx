@@ -21,17 +21,12 @@ import type {ReactNode} from 'react';
 import {useEffect, useState} from 'react';
 import reactStringReplace from 'react-string-replace';
 
-import {DATA_URL} from '~/src/config';
 import type {AdDefinition} from '~/src/services/ads/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 import {randomInt} from '~/src/utils/random';
 
 const AD_CHANGE_INTERVAL = 15 * 1000;
-
-function getImageUrl(image: string, adsUrl: string): string {
-  return new URL(image, adsUrl).toString();
-}
 
 function formatRichText(text: string): ReactNode[] {
   let i = 1;
@@ -81,7 +76,7 @@ export const Ad: React.FC<Props> = ({ads, vertical = false, footer, style}: Prop
     <Flex vertical={vertical || !screens.md} align="center">
       {ad.image && (
         <img
-          src={getImageUrl(ad.image, DATA_URL)}
+          src={ad.image}
           alt="Ad"
           crossOrigin="anonymous"
           style={{

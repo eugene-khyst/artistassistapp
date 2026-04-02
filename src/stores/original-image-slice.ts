@@ -27,7 +27,8 @@ import {
   getLastImageFile,
   saveImageFile,
 } from '~/src/services/db/image-file-db';
-import {type ImageFile, imageFileToFile} from '~/src/services/image/image-file';
+import {blobToImageFile, type ImageFile, imageFileToFile} from '~/src/services/image/image-file';
+import type {SampleImageDefinition} from '~/src/services/image/sample-images';
 import {TabKey} from '~/src/tabs';
 import {createImageBitmapResizedTotalPixels, IMAGE_SIZE} from '~/src/utils/graphics';
 
@@ -47,11 +48,13 @@ export interface OriginalImageSlice {
   originalImageFile: File | null;
   originalImage: ImageBitmap | null;
   isOriginalImageLoading: boolean;
+  isSampleImageLoading: boolean;
 
   setImageFile: (imageFile: ImageFile | null, setActiveTabKey?: boolean) => Promise<void>;
   loadRecentImageFiles: () => Promise<void>;
   saveRecentImageFile: (imageFile: ImageFile) => Promise<void>;
   deleteRecentImageFile: (imageFile: ImageFile) => Promise<void>;
+  loadSampleImage: (sampleImage: SampleImageDefinition) => Promise<void>;
 }
 
 export const createOriginalImageSlice: StateCreator<
@@ -74,6 +77,7 @@ export const createOriginalImageSlice: StateCreator<
   originalImageFile: null,
   originalImage: null,
   isOriginalImageLoading: false,
+  isSampleImageLoading: false,
 
   loadRecentImageFiles: async (): Promise<void> => {
     const recentImageFiles: ImageFile[] = await getImageFiles();
@@ -146,6 +150,21 @@ export const createOriginalImageSlice: StateCreator<
       if (get().imageFile?.id === idToDelete) {
         await get().setImageFile(null);
       }
+    }
+  },
+  loadSampleImage: async ({image}: SampleImageDefinition): Promise<void> => {
+    set({
+      isSampleImageLoading: true,
+    });
+    try {
+      const response: Response = await fetch(image, {mode: 'cors'});
+      const blob: Blob = await response.blob();
+      const imageFile: ImageFile = await blobToImageFile(blob);
+      await get().saveRecentImageFile(imageFile);
+    } finally {
+      set({
+        isSampleImageLoading: false,
+      });
     }
   },
 });

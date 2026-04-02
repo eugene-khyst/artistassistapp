@@ -30,8 +30,6 @@ import {saveColorSets} from '~/src/services/db/color-set-db';
 import {saveCustomColorBrand} from '~/src/services/db/custom-brand-db';
 import {saveImageFile} from '~/src/services/db/image-file-db';
 import {fileToImageFile} from '~/src/services/image/image-file';
-import type {SampleImageDefinition} from '~/src/services/image/sample-images';
-import {SAMPLE_IMAGES} from '~/src/services/image/sample-images';
 import type {AppSettings} from '~/src/services/settings/types';
 import type {ServiceWorkerMessage} from '~/src/sw-message';
 import {TabKey} from '~/src/tabs';
@@ -64,9 +62,6 @@ function isCloudflareBeacon(url: URL): boolean {
 async function install(): Promise<void> {
   const cache = await caches.open(CACHE_NAME_DEFAULT);
   const criticalUrls: string[] = ['/', ...new Set(self.__WB_MANIFEST.map(({url}) => url))];
-  const optionalUrls: string[] = SAMPLE_IMAGES.flatMap(
-    ({image, thumbnail}: SampleImageDefinition): string[] => [image, thumbnail]
-  );
   await Promise.all(
     criticalUrls.map(async url => {
       const request = new Request(url, {cache: 'reload'});
@@ -76,20 +71,6 @@ async function install(): Promise<void> {
         retry: true,
         strict: true,
       });
-    })
-  );
-  await Promise.allSettled(
-    optionalUrls.map(async url => {
-      try {
-        const request = new Request(url, {cache: 'reload'});
-        const response = await fetch(request);
-        await cachePutWithRetry(cache, request, response, {
-          allowOpaqueResponses: true,
-          retry: true,
-        });
-      } catch (error) {
-        console.error('Failed to cache optional asset', url, error);
-      }
     })
   );
 }

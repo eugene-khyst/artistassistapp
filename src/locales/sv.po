@@ -475,6 +475,10 @@ msgstr "Redigering härifrån"
 msgid "Email"
 msgstr "E-post"
 
+#: src/components/ImageChooser.tsx:64
+msgid "Error loading sample photos"
+msgstr "Felladdning exempelfoton"
+
 #: src/components/ColorSetChooser.tsx:192
 msgid "Error while fetching color brand data"
 msgstr "Fel vid hämtning av färgmärkesdata"
@@ -813,11 +817,11 @@ msgstr "eller installera den senaste versionen av webbläsaren Chrome, Edge, Fir
 msgid "Or scan the QR code"
 msgstr "Eller skanna QR-koden"
 
-#: src/components/ImageChooser.tsx:89
+#: src/components/ImageChooser.tsx:117
 msgid "Or select from sample photos"
 msgstr "Eller välj bland exempelfoton"
 
-#: src/components/ImageChooser.tsx:73
+#: src/components/ImageChooser.tsx:99
 msgid "Or select from your recent photos"
 msgstr "Du kan också välja bland dina senaste foton"
 
@@ -1125,7 +1129,7 @@ msgstr "Välj ett foto för att korrigera perspektivet"
 msgid "Select a photo to remove the background from"
 msgstr "Välj ett foto som du vill ta bort bakgrunden från"
 
-#: src/components/ImageChooser.tsx:58
+#: src/components/ImageChooser.tsx:84
 msgid "Select a reference photo from your device to paint from"
 msgstr "Välj ett referensfoto från din enhet att måla från"
 
@@ -1191,7 +1195,7 @@ msgid "Select part"
 msgstr "Välj variabler"
 
 #: src/components/ImageBackgroundRemoval.tsx:232
-#: src/components/ImageChooser.tsx:67
+#: src/components/ImageChooser.tsx:93
 #: src/components/ImageColorAdjustment.tsx:350
 #: src/components/ImagePerspectiveCorrection.tsx:234
 msgid "Select photo"
@@ -1209,7 +1213,7 @@ msgstr "Välj foton som ska rankas med hjälp av parvis jämförelse"
 msgid "Select set"
 msgstr "Välj uppsättning"
 
-#: src/components/ImageStyleTransfer.tsx:234
+#: src/components/ImageStyleTransfer.tsx:235
 msgid "Select style image"
 msgstr "Välj stilbild"
 
@@ -1432,7 +1436,7 @@ msgstr "Den här utskriftsstorleken stöds inte"
 msgid "This step is optional."
 msgstr "Det här steget är valfritt."
 
-#: src/components/ImageStyleTransfer.tsx:250
+#: src/components/ImageStyleTransfer.tsx:251
 msgid "This style is available to paid Patreon members only"
 msgstr "Den här stilen är endast tillgänglig för betalda Patreon-medlemmar"
 

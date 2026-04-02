@@ -475,6 +475,10 @@ msgstr "Redigering herfra"
 msgid "Email"
 msgstr "E-post"
 
+#: src/components/ImageChooser.tsx:64
+msgid "Error loading sample photos"
+msgstr "Feillasting av eksempelbilder"
+
 #: src/components/ColorSetChooser.tsx:192
 msgid "Error while fetching color brand data"
 msgstr "Feil under henting av fargemerkedata"
@@ -813,11 +817,11 @@ msgstr "eller installer den nyeste versjonen av nettleseren Chrome, Edge, Firefo
 msgid "Or scan the QR code"
 msgstr "Eller skann QR-koden"
 
-#: src/components/ImageChooser.tsx:89
+#: src/components/ImageChooser.tsx:117
 msgid "Or select from sample photos"
 msgstr "Eller velg fra eksempelbilder"
 
-#: src/components/ImageChooser.tsx:73
+#: src/components/ImageChooser.tsx:99
 msgid "Or select from your recent photos"
 msgstr "Eller velg blant de siste bildene dine"
 
@@ -1125,7 +1129,7 @@ msgstr "Velg et bilde for å korrigere perspektivet"
 msgid "Select a photo to remove the background from"
 msgstr "Velg et bilde du vil fjerne bakgrunnen fra"
 
-#: src/components/ImageChooser.tsx:58
+#: src/components/ImageChooser.tsx:84
 msgid "Select a reference photo from your device to paint from"
 msgstr "Velg et referansebilde fra enheten du vil male fra"
 
@@ -1191,7 +1195,7 @@ msgid "Select part"
 msgstr "Velg del"
 
 #: src/components/ImageBackgroundRemoval.tsx:232
-#: src/components/ImageChooser.tsx:67
+#: src/components/ImageChooser.tsx:93
 #: src/components/ImageColorAdjustment.tsx:350
 #: src/components/ImagePerspectiveCorrection.tsx:234
 msgid "Select photo"
@@ -1209,7 +1213,7 @@ msgstr "Velg bilder som skal rangeres ved hjelp av parvis sammenligning"
 msgid "Select set"
 msgstr "Velg sett"
 
-#: src/components/ImageStyleTransfer.tsx:234
+#: src/components/ImageStyleTransfer.tsx:235
 msgid "Select style image"
 msgstr "Velg stilbilde"
 
@@ -1432,7 +1436,7 @@ msgstr "Denne utskriftsstørrelsen støttes ikke"
 msgid "This step is optional."
 msgstr "Dette trinnet er valgfritt."
 
-#: src/components/ImageStyleTransfer.tsx:250
+#: src/components/ImageStyleTransfer.tsx:251
 msgid "This style is available to paid Patreon members only"
 msgstr "Denne stilen er kun tilgjengelig for betalte Patreon-medlemmer"
 

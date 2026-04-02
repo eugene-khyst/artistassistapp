@@ -16,21 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {DATA_URL} from '~/src/config';
+import {fetchSWR} from '~/src/utils/fetch';
+
 export interface SampleImageDefinition {
   image: string;
-  thumbnail: string;
   name: string;
-  id: number;
+  priority: number;
 }
 
-export const SAMPLE_IMAGES: SampleImageDefinition[] = [
-  {name: 'Chrysanthemum', id: -1000},
-  {name: 'Sunset', id: -1001},
-].map(
-  ({name, id}): SampleImageDefinition => ({
-    image: `/sample-images/${name.toLowerCase()}.webp`,
-    thumbnail: `/sample-images/${name.toLowerCase()}-thumbnail.webp`,
-    name,
-    id,
-  })
-);
+export async function fetchSampleImages(): Promise<SampleImageDefinition[]> {
+  const response = await fetchSWR(`${DATA_URL}/reference-photos.json`);
+  return (await response.json()) as SampleImageDefinition[];
+}

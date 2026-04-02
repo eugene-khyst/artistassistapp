@@ -24,6 +24,7 @@ export interface ImageFile {
   type: string;
   name?: string;
   date?: Date;
+  digest?: string;
 }
 
 export async function fileToImageFile(file: File): Promise<ImageFile> {
