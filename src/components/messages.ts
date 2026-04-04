@@ -57,5 +57,5 @@ export const COLOR_TYPE_LABELS: Record<ColorType, MessageDescriptor> = {
 };
 
 export const COLOR_PICKER_PRESET_LABELS = {
-  paper_white: defineMessage`White paper or canvas`,
+  PAPER_WHITE: defineMessage`White paper or canvas`,
 };

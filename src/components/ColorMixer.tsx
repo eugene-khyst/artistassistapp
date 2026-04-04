@@ -184,7 +184,7 @@ export const ColorMixer: React.FC = () => {
                   value={backgroundColor}
                   presets={[
                     {
-                      label: t(COLOR_PICKER_PRESET_LABELS.paper_white),
+                      label: t(COLOR_PICKER_PRESET_LABELS.PAPER_WHITE),
                       colors: [PAPER_WHITE_HEX],
                     },
                   ]}

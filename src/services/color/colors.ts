@@ -69,7 +69,7 @@ const CUSTOM_COLOR_BRAND_ID_BASE = 100000;
 const CUSTOM_COLOR_BRAND_ALIAS_PREFIX = 'custom:';
 
 export function computeStandardColorSetDefinitionId({name, colors}: StandardColorSetDefinition) {
-  return `${colors.length} ${name || ''}`.trim();
+  return `${colors.length} ${name ?? ''}`.trim();
 }
 
 function toColorBrandDefinition({

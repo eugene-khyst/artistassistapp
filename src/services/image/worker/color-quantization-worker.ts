@@ -20,6 +20,6 @@
 
 import * as Comlink from 'comlink';
 
-import {LimitedPalette} from '~/src/services/image/limited-palette';
+import {ColorQuantization} from '~/src/services/image/color-quantization';
 
-Comlink.expose(new LimitedPalette());
+Comlink.expose(new ColorQuantization());

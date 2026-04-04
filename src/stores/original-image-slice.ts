@@ -29,6 +29,7 @@ import {
 } from '~/src/services/db/image-file-db';
 import {blobToImageFile, type ImageFile, imageFileToFile} from '~/src/services/image/image-file';
 import type {SampleImageDefinition} from '~/src/services/image/sample-images';
+import type {ColorMatchImageSlice} from '~/src/stores/color-match-image-slice';
 import {TabKey} from '~/src/tabs';
 import {createImageBitmapResizedTotalPixels, IMAGE_SIZE} from '~/src/utils/graphics';
 
@@ -59,6 +60,7 @@ export interface OriginalImageSlice {
 
 export const createOriginalImageSlice: StateCreator<
   OriginalImageSlice &
+    ColorMatchImageSlice &
     TabSlice &
     ColorMixerSlice &
     PaletteSlice &
@@ -92,6 +94,7 @@ export const createOriginalImageSlice: StateCreator<
   setImageFile: async (imageFile: ImageFile | null, setActiveTabKey = true): Promise<void> => {
     const prev: (ImageBitmap | null)[] = [
       get().originalImage,
+      get().colorMatchImage,
       get().tonalImages,
       get().blurredImages,
       get().outlineImage,
@@ -109,6 +112,7 @@ export const createOriginalImageSlice: StateCreator<
       imageFile,
       originalImageFile,
       isOriginalImageLoading: true,
+      colorMatchImage: null,
       tonalImages: [],
       blurredImages: [],
       outlineImage: null,
@@ -152,14 +156,14 @@ export const createOriginalImageSlice: StateCreator<
       }
     }
   },
-  loadSampleImage: async ({image}: SampleImageDefinition): Promise<void> => {
+  loadSampleImage: async ({image, name}: SampleImageDefinition): Promise<void> => {
     set({
       isSampleImageLoading: true,
     });
     try {
       const response: Response = await fetch(image, {mode: 'cors'});
       const blob: Blob = await response.blob();
-      const imageFile: ImageFile = await blobToImageFile(blob);
+      const imageFile: ImageFile = await blobToImageFile(blob, name);
       await get().saveRecentImageFile(imageFile);
     } finally {
       set({

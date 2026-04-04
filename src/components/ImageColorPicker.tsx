@@ -16,23 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Trans, useLingui} from '@lingui/react/macro';
+import {DownOutlined, MoreOutlined, SortAscendingOutlined} from '@ant-design/icons';
+import {Plural, Trans, useLingui} from '@lingui/react/macro';
 import {
   Button,
   Col,
   ColorPicker,
+  Dropdown,
   Form,
   Grid,
   Row,
-  Select,
   Slider,
   Space,
   theme,
   Typography,
 } from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
-import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import type {SliderMarks} from 'antd/es/slider';
+import type {MenuProps} from 'antd/lib';
 import {useCallback, useEffect, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
@@ -60,6 +61,7 @@ import {
   PAPER_WHITE_HEX,
 } from '~/src/services/color/color-mixer';
 import {colorSetToBrandColorCounts} from '~/src/services/color/colors';
+import {Rgb} from '~/src/services/color/space/rgb';
 import {type ColorMixture, type SimilarColor} from '~/src/services/color/types';
 import {Vector} from '~/src/services/math/geometry';
 import {ColorPickerSort} from '~/src/services/settings/types';
@@ -79,11 +81,34 @@ const SIMILAR_COLORS_COMPARATORS: Record<ColorPickerSort, Comparator<SimilarColo
   [ColorPickerSort.ByConsistency]: compareSimilarColorsByConsistency,
 };
 
+const PastelInfo: React.FC = () => {
+  const {
+    token: {fontSize, colorText, lineHeight},
+  } = theme.useToken();
+
+  return (
+    <div
+      style={{
+        width: 234,
+        fontSize,
+        color: colorText,
+        lineHeight,
+        marginBottom: 8,
+      }}
+    >
+      <Trans>
+        Paper color doesn&apos;t matter for opaque pastels, as they completely cover the surface.
+      </Trans>
+    </div>
+  );
+};
+
 export const ImageColorPicker: React.FC = () => {
   const colorPickerDiameter = useAppStore(state => state.appSettings.colorPickerDiameter);
   const colorPickerSort = useAppStore(state => state.appSettings.colorPickerSort);
   const colorSet = useAppStore(state => state.colorSet);
   const originalImage = useAppStore(state => state.originalImage);
+  const colorMatchImage = useAppStore(state => state.colorMatchImage);
   const backgroundColor = useAppStore(state => state.backgroundColor);
   const targetColor = useAppStore(state => state.targetColor);
   const colorPickerPipette = useAppStore(state => state.colorPickerPipette);
@@ -94,18 +119,20 @@ export const ImageColorPicker: React.FC = () => {
   const isColorMixerSetLoading = useAppStore(state => state.isColorMixerSetLoading);
   const isColorMixerBackgroundLoading = useAppStore(state => state.isColorMixerBackgroundLoading);
   const isOriginalImageLoading = useAppStore(state => state.isOriginalImageLoading);
+  const isSampleImageLoading = useAppStore(state => state.isSampleImageLoading);
+  const isPosterizedImageLoading = useAppStore(state => state.isPosterizedImageLoading);
+  const isColorMatchImageLoading = useAppStore(state => state.isColorMatchImageLoading);
   const isSimilarColorsLoading = useAppStore(state => state.isSimilarColorsLoading);
 
   const setTargetColor = useAppStore(state => state.setTargetColor);
   const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
+  const setColorMatchImage = useAppStore(state => state.setColorMatchImage);
+  const posterizeImage = useAppStore(state => state.posterizeImage);
   const selectPaletteColorMixtures = useAppStore(state => state.selectPaletteColorMixtures);
   const saveAppSettings = useAppStore(state => state.saveAppSettings);
+  const abortPosterizeImage = useAppStore(state => state.abortPosterizeImage);
 
   const screens = Grid.useBreakpoint();
-
-  const {
-    token: {fontSize, colorText, lineHeight},
-  } = theme.useToken();
 
   const {t} = useLingui();
 
@@ -115,11 +142,12 @@ export const ImageColorPicker: React.FC = () => {
       const listener = ({rgb, point: {x, y}, diameter}: PipettePointSetEvent) => {
         void setTargetColor(rgb.toHex(), {x, y, diameter});
         selectPaletteColorMixtures(colorPickerCanvas.getSamplesNearby(x, y).map(({key}) => key));
+        setColorMatchImage(null);
       };
       colorPickerCanvas.events.subscribe(ColorPickerEventType.PipettePointSet, listener);
       return colorPickerCanvas;
     },
-    [setTargetColor, selectPaletteColorMixtures]
+    [setTargetColor, selectPaletteColorMixtures, setColorMatchImage]
   );
 
   const {ref: canvasRef, zoomableImageCanvas: colorPickerCanvas} =
@@ -134,6 +162,9 @@ export const ImageColorPicker: React.FC = () => {
     isColorMixerSetLoading ||
     isColorMixerBackgroundLoading ||
     isOriginalImageLoading ||
+    isSampleImageLoading ||
+    isPosterizedImageLoading ||
+    isColorMatchImageLoading ||
     isSimilarColorsLoading;
 
   useEffect(() => {
@@ -182,6 +213,10 @@ export const ImageColorPicker: React.FC = () => {
     );
   }, [colorPickerCanvas, paletteColorMixtures]);
 
+  useEffect(() => {
+    colorPickerCanvas?.setOverlayImage(colorMatchImage);
+  }, [colorPickerCanvas, colorMatchImage]);
+
   const handleReflectanceChartClick = useCallback((colorMixture?: ColorMixture) => {
     setReflectanceChartColorMixture(colorMixture);
     setIsOpenReflectanceChart(true);
@@ -200,26 +235,65 @@ export const ImageColorPicker: React.FC = () => {
   const handleTargetColorChange = (color: AggregationColor) => {
     colorPickerCanvas?.setPipettePoint(null);
     void setTargetColor(color.toHexString(), null);
+    setColorMatchImage(null);
+  };
+
+  const handleColorMatchImageClick = () => {
+    setColorMatchImage(!colorMatchImage ? Rgb.fromHex(targetColor).toTuple() : null);
   };
 
   if (!colorSet) {
     return <EmptyColorSet imageSupported={true} />;
   }
 
-  const sortOptions: SelectOptionType[] = [
-    {value: ColorPickerSort.BySimilarity, label: t`Similarity`},
-    {value: ColorPickerSort.ByNumberOfColors, label: t`Color count`},
-    {value: ColorPickerSort.ByConsistency, label: t`Thickness`},
-  ];
-
   const {mixing, glazing} = COLOR_MIXING[colorSet.type];
+
+  const sortItems: MenuProps['items'] = (
+    [
+      [
+        ColorPickerSort.BySimilarity,
+        t`Similarity`,
+        t`Sort by the similarity of the mixture to the target color`,
+      ],
+      [
+        ColorPickerSort.ByNumberOfColors,
+        t`Color count`,
+        t`Sort by the number of colors in the mixture`,
+      ],
+      [ColorPickerSort.ByConsistency, t`Thickness`, t`Sort by the thickness of the mixture`],
+    ] as [ColorPickerSort, string, string][]
+  ).map(([sort, label, title]) => ({
+    key: String(sort),
+    label,
+    title,
+    onClick: () => {
+      handleSortChange(sort);
+    },
+  }));
+
+  const posterizeItems: MenuProps['items'] = [
+    {
+      type: 'group',
+      label: t`Reduce color palette to`,
+      children: [4, 5, 6].map(quantizationDepth => {
+        const colorCount = 2 ** quantizationDepth;
+        return {
+          key: String(quantizationDepth),
+          label: <Plural value={colorCount} one="# color" other="# colors" />,
+          onClick: () => {
+            void posterizeImage(quantizationDepth);
+          },
+        };
+      }),
+    },
+  ];
 
   const height = `calc((100dvh - 75px) / ${screens.sm ? '1' : '2 - 8px'})`;
   const margin = screens.sm ? 0 : 8;
 
   return (
     <>
-      <LoadingIndicator loading={isLoading}>
+      <LoadingIndicator loading={isLoading} onCancel={abortPosterizeImage}>
         <Row>
           <Col xs={24} sm={12} lg={16}>
             <canvas
@@ -244,64 +318,84 @@ export const ImageColorPicker: React.FC = () => {
           >
             <Space
               orientation="vertical"
-              style={{padding: '0 16px 16px', width: '100%', boxSizing: 'border-box'}}
+              size="small"
+              style={{
+                padding: '0 16px 16px',
+                width: '100%',
+                boxSizing: 'border-box',
+              }}
             >
-              <Space orientation="vertical" size={0}>
-                {glazing && (
-                  <Space align="start" wrap style={{display: 'flex'}}>
+              <Space orientation="vertical" size={0} style={{width: '100%'}}>
+                <Space size="small" align="start">
+                  {glazing && (
                     <Form.Item
                       label={t`Background`}
                       tooltip={t`The color of paper or canvas, or the color of the base layer when glazed.`}
                       style={{marginBottom: 0}}
                     >
-                      <ColorPicker
-                        presets={[
-                          {
-                            label: t(COLOR_PICKER_PRESET_LABELS.paper_white),
-                            colors: [PAPER_WHITE_HEX],
-                          },
-                        ]}
-                        showText
-                        disabledAlpha
-                        value={backgroundColor}
-                        onChangeComplete={(color: AggregationColor) => {
-                          void setBackgroundColor(color.toHexString());
-                        }}
-                        panelRender={panel => (
-                          <div>
-                            {isPastel(colorSet.type) && (
-                              <div
-                                style={{
-                                  width: 234,
-                                  fontSize,
-                                  color: colorText,
-                                  lineHeight,
-                                  marginBottom: 8,
-                                }}
-                              >
-                                <Trans>
-                                  Paper color doesn&apos;t matter for opaque pastels, as they
-                                  completely cover the surface.
-                                </Trans>
-                              </div>
-                            )}
-                            {panel}
-                          </div>
-                        )}
-                      />
+                      <Space.Compact>
+                        <ColorPicker
+                          presets={[
+                            {
+                              label: t(COLOR_PICKER_PRESET_LABELS.PAPER_WHITE),
+                              colors: [PAPER_WHITE_HEX],
+                            },
+                          ]}
+                          showText={false}
+                          disabledAlpha
+                          value={backgroundColor}
+                          onChangeComplete={(color: AggregationColor) => {
+                            void setBackgroundColor(color.toHexString());
+                          }}
+                          panelRender={panel => (
+                            <div>
+                              {isPastel(colorSet.type) && <PastelInfo />}
+                              {panel}
+                            </div>
+                          )}
+                        />
+
+                        <Button
+                          title={t`Use white paper or canvas as a background`}
+                          onClick={() => {
+                            void setBackgroundColor(PAPER_WHITE_HEX);
+                          }}
+                        >
+                          <Trans>White</Trans>
+                        </Button>
+                      </Space.Compact>
                     </Form.Item>
-                    <Form.Item style={{marginBottom: 0}}>
-                      <Button
-                        title={t`Use white paper or canvas as a background`}
-                        onClick={() => {
-                          void setBackgroundColor(PAPER_WHITE_HEX);
+                  )}
+
+                  {originalImage &&
+                    (screens.md ? (
+                      <Dropdown menu={{items: posterizeItems}}>
+                        <Button
+                          icon={<DownOutlined />}
+                          iconPlacement="end"
+                          title={t`Reduce the number of colors in the photo`}
+                        >
+                          <Trans>Reduce colors</Trans>
+                        </Button>
+                      </Dropdown>
+                    ) : (
+                      <Dropdown
+                        menu={{
+                          items: [
+                            {
+                              key: 'posterize',
+                              label: t`Reduce colors`,
+                              title: t`Reduce the number of colors in the photo`,
+                              children: posterizeItems,
+                            },
+                          ],
                         }}
                       >
-                        <Trans>White</Trans>
-                      </Button>
-                    </Form.Item>
-                  </Space>
-                )}
+                        <Button icon={<MoreOutlined />} />
+                      </Dropdown>
+                    ))}
+                </Space>
+
                 <Form.Item
                   label={t`Diameter`}
                   tooltip={t`The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area.`}
@@ -315,42 +409,74 @@ export const ImageColorPicker: React.FC = () => {
                     marks={SAMPLE_DIAMETER_SLIDER_MARKS}
                   />
                 </Form.Item>
-                <Space align="center" wrap style={{display: 'flex'}}>
+
+                <Space size="small" align="start">
                   <Form.Item
                     label={t`Color`}
                     tooltip={t`The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup.`}
                     style={{marginBottom: 0}}
                   >
-                    <ColorPicker
-                      value={targetColor}
-                      onChangeComplete={handleTargetColorChange}
-                      showText
-                      disabledAlpha
-                    />
-                  </Form.Item>
-                  {mixing && (
-                    <Form.Item
-                      label={t`Sort`}
-                      tooltip={t`Sort by the similarity of the mixture to the target color, or by the number of colors in the mixture, or by the thickness of the mixture.`}
-                      style={{marginBottom: 0}}
-                    >
-                      <Select
-                        value={sort}
-                        onChange={handleSortChange}
-                        options={sortOptions}
-                        popupMatchSelectWidth={false}
+                    <Space.Compact>
+                      <ColorPicker
+                        value={targetColor}
+                        onChangeComplete={handleTargetColorChange}
+                        showText={false}
+                        disabledAlpha
                       />
+                      <Dropdown
+                        menu={{
+                          items: [
+                            {
+                              key: 'color-match',
+                              label: t`Show matching areas`,
+                              title: t`Show areas on the photo that match this color`,
+                              onClick: handleColorMatchImageClick,
+                            },
+                          ],
+                          selectedKeys: colorMatchImage ? ['color-match'] : undefined,
+                        }}
+                      >
+                        <Button icon={<DownOutlined />} />
+                      </Dropdown>
+                    </Space.Compact>
+                  </Form.Item>
+
+                  {mixing && (
+                    <Form.Item style={{marginBottom: 0}}>
+                      <Dropdown
+                        menu={{
+                          items: sortItems,
+                          selectedKeys: [String(sort)],
+                        }}
+                      >
+                        <Button icon={<SortAscendingOutlined />}>
+                          <Trans>Sort</Trans>
+                        </Button>
+                      </Dropdown>
                     </Form.Item>
                   )}
                 </Space>
-                {screens.sm && (
-                  <Form.Item label={t`Color set`} style={{marginBottom: 0}}>
-                    {colorSet.name || (
-                      <ColorSetName brandColorCounts={colorSetToBrandColorCounts(colorSet)} />
-                    )}
-                  </Form.Item>
+
+                {screens.md && (
+                  <Space size="small" align="center">
+                    <Form.Item
+                      label={t`Color set`}
+                      labelCol={{
+                        style: {
+                          display: 'flex',
+                          alignItems: 'center',
+                        },
+                      }}
+                      style={{marginBottom: 0}}
+                    >
+                      {colorSet.name || (
+                        <ColorSetName brandColorCounts={colorSetToBrandColorCounts(colorSet)} />
+                      )}
+                    </Form.Item>
+                  </Space>
                 )}
               </Space>
+
               {!isSimilarColorsLoading && !similarColors.length ? (
                 <Space orientation="vertical" style={{margin: '8px 0'}}>
                   <Typography.Text strong>

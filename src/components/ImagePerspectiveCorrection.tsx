@@ -174,46 +174,6 @@ export const ImagePerspectiveCorrection: React.FC = () => {
     },
   ];
 
-  const items: MenuProps['items'] = [
-    {
-      key: 'reset',
-      label: t`Reset`,
-      icon: <CloseOutlined />,
-      onClick: handleResetClick,
-    },
-    ...(!perspectiveCorrectedImage
-      ? [
-          {
-            key: 'rotate',
-            label: t`Rotate`,
-            icon: <RotateRightOutlined />,
-            onClick: handleRotateClick,
-          },
-        ]
-      : []),
-    ...(perspectiveCorrectedImage
-      ? [
-          {
-            key: 'save',
-            label: t`Save`,
-            icon: <DownloadOutlined />,
-            onClick: () => {
-              void handleSaveClick();
-            },
-          },
-          ...saveItems,
-          {
-            key: 'white-balance',
-            label: t`White balance`,
-            icon: <BarChartOutlined />,
-            onClick: () => {
-              void handleWhiteBalanceClick();
-            },
-          },
-        ]
-      : []),
-  ];
-
   const canvasStyle = {width: '100%', height: `calc(100dvh - 145px)`};
 
   return (
@@ -279,7 +239,49 @@ export const ImagePerspectiveCorrection: React.FC = () => {
                   )}
                 </>
               ) : (
-                <Dropdown menu={{items}}>
+                <Dropdown
+                  menu={{
+                    items: [
+                      {
+                        key: 'reset',
+                        label: t`Reset`,
+                        icon: <CloseOutlined />,
+                        onClick: handleResetClick,
+                      },
+                      ...(!perspectiveCorrectedImage
+                        ? [
+                            {
+                              key: 'rotate',
+                              label: t`Rotate`,
+                              icon: <RotateRightOutlined />,
+                              onClick: handleRotateClick,
+                            },
+                          ]
+                        : []),
+                      ...(perspectiveCorrectedImage
+                        ? [
+                            {
+                              key: 'save',
+                              label: t`Save`,
+                              icon: <DownloadOutlined />,
+                              onClick: () => {
+                                void handleSaveClick();
+                              },
+                            },
+                            ...saveItems,
+                            {
+                              key: 'white-balance',
+                              label: t`White balance`,
+                              icon: <BarChartOutlined />,
+                              onClick: () => {
+                                void handleWhiteBalanceClick();
+                              },
+                            },
+                          ]
+                        : []),
+                    ],
+                  }}
+                >
                   <Button icon={<MoreOutlined />} />
                 </Dropdown>
               )}

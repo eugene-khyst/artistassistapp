@@ -23,6 +23,7 @@ msgstr "{brandName} 색상"
 
 #: src/components/color-set/ColorSetName.tsx:35
 #: src/components/color-set/StandardColorSetCascader.tsx:57
+#: src/components/ImageColorPicker.tsx:282
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, other {#가지 색상}}"
 
@@ -153,8 +154,8 @@ msgstr "응용 프로그램 오류"
 msgid "Application build hash"
 msgstr "응용 프로그램 빌드 해시"
 
-#: src/components/ImageLimitedPalette.tsx:153
-#: src/components/ImagePerspectiveCorrection.tsx:241
+#: src/components/ImageLimitedPalette.tsx:133
+#: src/components/ImagePerspectiveCorrection.tsx:201
 msgid "Apply"
 msgstr "적용하다"
 
@@ -190,7 +191,7 @@ msgstr "이 사용자 지정 브랜드를 삭제하시겠습니까?"
 msgid "Are you sure you want to delete this photo?"
 msgstr "이 사진을 삭제하시겠습니까?"
 
-#: src/components/palette/PaletteGrid.tsx:105
+#: src/components/palette/PaletteGrid.tsx:118
 msgid "Are you sure you want to remove all color mixtures?"
 msgstr "모든 색상 혼합을 제거하시겠습니까?"
 
@@ -225,22 +226,22 @@ msgid "Average color of the white point area"
 msgstr "화이트 포인트 영역의 평균 색상"
 
 #: src/components/ColorMixer.tsx:179
-#: src/components/ImageBackgroundRemoval.tsx:178
-#: src/components/ImageBackgroundRemoval.tsx:249
-#: src/components/ImageColorPicker.tsx:253
+#: src/components/ImageBackgroundRemoval.tsx:228
+#: src/components/ImageBackgroundRemoval.tsx:252
+#: src/components/ImageColorPicker.tsx:332
 msgid "Background"
 msgstr "배경"
 
-#: src/components/ImageBlurred.tsx:134
+#: src/components/ImageBlurred.tsx:122
 msgid "Blur"
 msgstr "흐리게"
 
-#: src/components/palette/PaletteGrid.tsx:75
+#: src/components/palette/PaletteGrid.tsx:81
 msgid "By date added"
 msgstr "날짜 추가로"
 
 #: src/components/color-set/ColorSelect.tsx:119
-#: src/components/palette/PaletteGrid.tsx:77
+#: src/components/palette/PaletteGrid.tsx:83
 msgid "By hue"
 msgstr "색조별"
 
@@ -249,11 +250,11 @@ msgid "By ID"
 msgstr "ID별"
 
 #: src/components/color-set/ColorSelect.tsx:126
-#: src/components/palette/PaletteGrid.tsx:78
+#: src/components/palette/PaletteGrid.tsx:84
 msgid "By lightness"
 msgstr "가벼움에 의해"
 
-#: src/components/palette/PaletteGrid.tsx:76
+#: src/components/palette/PaletteGrid.tsx:82
 msgid "By name"
 msgstr "이름에 따라"
 
@@ -283,7 +284,7 @@ msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "사진의 아무 곳이나 클릭🖱️하거나 탭👆하여 흰색 점을 선택합니다."
 
 #: src/components/empty/EmptyPalette.tsx:64
-#: src/components/ImageColorPicker.tsx:360
+#: src/components/ImageColorPicker.tsx:486
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "사진의 아무 곳이나 클릭 🖱️ 또는 탭👆하거나, 색상 선택기 팝업을 사용하여 색상에서 혼합할 대상 색상을 선택합니다."
 
@@ -297,7 +298,7 @@ msgstr "{closeCounter}초 내에 닫기"
 
 #: src/components/ColorMixer.tsx:205
 #: src/components/CustomColorBrandCreator.tsx:447
-#: src/components/ImageColorPicker.tsx:320
+#: src/components/ImageColorPicker.tsx:415
 msgid "Color"
 msgstr "색"
 
@@ -309,7 +310,7 @@ msgstr "색상 브랜드"
 msgid "Color brands"
 msgstr "색상 브랜드"
 
-#: src/components/ImageColorPicker.tsx:211
+#: src/components/ImageColorPicker.tsx:260
 msgid "Color count"
 msgstr "색상 개수"
 
@@ -326,13 +327,13 @@ msgid "Color picker"
 msgstr "색상 피커"
 
 #: src/components/ColorSetChooser.tsx:548
-#: src/components/ImageColorPicker.tsx:347
+#: src/components/ImageColorPicker.tsx:463
 #: src/components/messages.ts:26
 msgid "Color set"
 msgstr "색상 세트"
 
 #: src/components/color/ColorSwatchDrawer.tsx:55
-#: src/components/palette/PaletteGrid.tsx:93
+#: src/components/palette/PaletteGrid.tsx:106
 msgid "Color swatch"
 msgstr "색상 견본"
 
@@ -340,7 +341,7 @@ msgstr "색상 견본"
 msgid "Colored Pencils"
 msgstr "색연필"
 
-#: src/components/ImageLimitedPalette.tsx:131
+#: src/components/ImageLimitedPalette.tsx:111
 msgid "Colors"
 msgstr "색상"
 
@@ -352,7 +353,7 @@ msgstr "비교하다"
 msgid "Contact"
 msgstr "접촉"
 
-#: src/components/ImageBlurred.tsx:135
+#: src/components/ImageBlurred.tsx:123
 msgid "Controls the radius of the median filter."
 msgstr "중앙분리대 필터의 반지름을 제어합니다."
 
@@ -431,7 +432,7 @@ msgid "Diagonals"
 msgstr "대각선"
 
 #: src/components/CustomColorBrandCreator.tsx:434
-#: src/components/ImageColorPicker.tsx:306
+#: src/components/ImageColorPicker.tsx:400
 msgid "Diameter"
 msgstr "직경"
 
@@ -547,7 +548,7 @@ msgid "Gouache"
 msgstr "구아슈"
 
 #: src/components/grid/GridControls.tsx:178
-#: src/components/ImageOutline.tsx:250
+#: src/components/ImageOutline.tsx:233
 #: src/components/messages.ts:33
 msgid "Grid"
 msgstr "그리드"
@@ -569,7 +570,7 @@ msgstr "로그인에 어려움이 있다면 이 <0>문제 해결 가이드</0>�
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "저장하지 않으면 색상 세트에 대한 변경 사항이 손실될 수 있습니다."
 
-#: src/components/ImageBackgroundRemoval.tsx:288
+#: src/components/ImageBackgroundRemoval.tsx:290
 msgid "Image without background"
 msgstr "배경이 없는 이미지"
 
@@ -610,7 +611,7 @@ msgstr "Patreon에 가입하기"
 msgid "Language"
 msgstr "언어"
 
-#: src/components/ImageBlurred.tsx:145
+#: src/components/ImageBlurred.tsx:133
 msgid "Large"
 msgstr "큰"
 
@@ -626,7 +627,7 @@ msgstr "마지막으로 사용한 {dateText}"
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "왼쪽: {unfinishedGamesSize}"
 
-#: src/components/ImageTonalValues.tsx:105
+#: src/components/ImageTonalValues.tsx:88
 msgid "Light tone"
 msgstr "밝은 색조"
 
@@ -683,11 +684,11 @@ msgstr "낮은 출력 및 높은 출력"
 msgid "Margin"
 msgstr "여백"
 
-#: src/components/ImageBlurred.tsx:144
+#: src/components/ImageBlurred.tsx:132
 msgid "Medium"
 msgstr "보통"
 
-#: src/components/ImageTonalValues.tsx:106
+#: src/components/ImageTonalValues.tsx:89
 msgid "Mid tone"
 msgstr "중간 톤"
 
@@ -708,8 +709,8 @@ msgid "Mixture"
 msgstr "혼합"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:99
-#: src/components/ImageBackgroundRemoval.tsx:236
-#: src/components/ImageOutline.tsx:223
+#: src/components/ImageBackgroundRemoval.tsx:215
+#: src/components/ImageOutline.tsx:206
 msgid "Mode"
 msgstr "모드"
 
@@ -753,14 +754,14 @@ msgstr "다음 청구일"
 #: src/components/ColorSetChooser.tsx:721
 #: src/components/CustomColorBrandCreator.tsx:500
 #: src/components/image/RecentImageCard.tsx:74
-#: src/components/palette/PaletteGrid.tsx:108
+#: src/components/palette/PaletteGrid.tsx:121
 #: src/components/storage/ClearStorage.tsx:63
 #: src/components/storage/ClearStorage.tsx:76
 msgid "No"
 msgstr "아니요"
 
 #: src/components/empty/EmptyPalette.tsx:39
-#: src/components/ImageColorPicker.tsx:357
+#: src/components/ImageColorPicker.tsx:483
 msgid "No data"
 msgstr "데이터가 없습니다"
 
@@ -768,7 +769,7 @@ msgstr "데이터가 없습니다"
 msgid "No sorting"
 msgstr "분류 금지"
 
-#: src/components/ImageBlurred.tsx:142
+#: src/components/ImageBlurred.tsx:130
 msgid "None"
 msgstr "없음"
 
@@ -792,7 +793,7 @@ msgstr "오일 파스텔"
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "무료 버전에서는 제한된 수의 색상 브랜드만 사용할 수 있습니다"
 
-#: src/components/ImageBackgroundRemoval.tsx:218
+#: src/components/ImageBackgroundRemoval.tsx:197
 msgid "Only a limited number of modes are available in the free version"
 msgstr "무료 버전에서는 제한된 수의 모드만 사용할 수 있습니다"
 
@@ -829,7 +830,7 @@ msgstr "또는 최근 사진에서 선택합니다."
 msgid "Original color temperature (K)"
 msgstr "원래 색온도(K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:281
+#: src/components/ImageBackgroundRemoval.tsx:283
 msgid "Original photo"
 msgstr "원본 사진"
 
@@ -849,7 +850,7 @@ msgstr "위에"
 msgid "Palette"
 msgstr "팔레트"
 
-#: src/components/ImageColorPicker.tsx:282
+#: src/components/ImageColorPicker.tsx:99
 msgid "Paper color doesn't matter for opaque pastels, as they completely cover the surface."
 msgstr "불투명 파스텔은 종이 색상이 상관없어요. 표면을 완전히 덮기 때문이죠."
 
@@ -898,7 +899,7 @@ msgstr "사진"
 msgid "Photo ranking"
 msgstr "사진 순위"
 
-#: src/components/ImageColorPicker.tsx:366
+#: src/components/ImageColorPicker.tsx:492
 msgid "Pinch to zoom (or use the mouse wheel) and drag to pan"
 msgstr "핀치하여 확대/축소(또는 마우스 휠 사용)하고 드래그하여 이동"
 
@@ -935,14 +936,14 @@ msgstr "원하는 색상 혼합물 옆에 있는 <0>Add to palette(팔레트에 
 msgid "Preview"
 msgstr "미리 보기"
 
-#: src/components/ImageGrid.tsx:64
-#: src/components/ImageGrid.tsx:87
-#: src/components/ImageOutline.tsx:179
+#: src/components/ImageGrid.tsx:71
+#: src/components/ImageGrid.tsx:83
+#: src/components/ImageOutline.tsx:238
 #: src/components/ImageOutline.tsx:255
 #: src/components/ImagesCompare.tsx:167
-#: src/components/ImageTonalValues.tsx:86
+#: src/components/ImageTonalValues.tsx:108
 #: src/components/ImageTonalValues.tsx:125
-#: src/components/palette/PaletteGrid.tsx:101
+#: src/components/palette/PaletteGrid.tsx:114
 #: src/components/print/PrintImageDrawer.tsx:132
 msgid "Print"
 msgstr "인쇄하다"
@@ -967,7 +968,7 @@ msgstr "처리 중..."
 msgid "Quality"
 msgstr "질"
 
-#: src/components/ImageOutline.tsx:217
+#: src/components/ImageOutline.tsx:200
 msgid "Quality mode is available to paid Patreon members only"
 msgstr "품질 모드는 Patreon 유료 회원만 사용할 수 있습니다."
 
@@ -991,6 +992,20 @@ msgstr "등급: {player2RatingText}"
 msgid "Ratio"
 msgstr "비율"
 
+#: src/components/ImageColorPicker.tsx:277
+msgid "Reduce color palette to"
+msgstr "색상 팔레트를 다음과 같이 줄이세요"
+
+#: src/components/ImageColorPicker.tsx:378
+#: src/components/ImageColorPicker.tsx:387
+msgid "Reduce colors"
+msgstr "색상 감소"
+
+#: src/components/ImageColorPicker.tsx:376
+#: src/components/ImageColorPicker.tsx:388
+msgid "Reduce the number of colors in the photo"
+msgstr "사진의 색상 수를 줄이세요"
+
 #: src/components/color/ColorSwatchDrawer.tsx:76
 #: src/components/ImageColorAdjustment.tsx:311
 msgid "Reference"
@@ -1005,11 +1020,11 @@ msgstr "반사율"
 msgid "Remove"
 msgstr "제거하다"
 
-#: src/components/palette/PaletteGrid.tsx:111
+#: src/components/palette/PaletteGrid.tsx:124
 msgid "Remove all"
 msgstr "모두 제거"
 
-#: src/components/palette/PaletteGrid.tsx:104
+#: src/components/palette/PaletteGrid.tsx:117
 msgid "Remove all color mixtures"
 msgstr "모든 색상 혼합 제거"
 
@@ -1041,8 +1056,8 @@ msgstr "iOS 16.4+ 또는 iPadOS 16.4+가 필요합니다."
 msgid "Requires macOS Sonoma or later."
 msgstr "macOS Sonoma 및 이후 버전이 필요합니다."
 
-#: src/components/ImagePerspectiveCorrection.tsx:180
-#: src/components/ImagePerspectiveCorrection.tsx:248
+#: src/components/ImagePerspectiveCorrection.tsx:208
+#: src/components/ImagePerspectiveCorrection.tsx:247
 msgid "Reset"
 msgstr "재설정"
 
@@ -1055,8 +1070,8 @@ msgstr "<0>{paletteLabel}</0> 탭으로 돌아갑니다."
 msgid "Return to the <0>{tabLabel}</0> tab."
 msgstr "<0>{tabLabel}</0> 탭으로 돌아갑니다."
 
-#: src/components/ImagePerspectiveCorrection.tsx:188
-#: src/components/ImagePerspectiveCorrection.tsx:252
+#: src/components/ImagePerspectiveCorrection.tsx:212
+#: src/components/ImagePerspectiveCorrection.tsx:255
 msgid "Rotate"
 msgstr "돌다"
 
@@ -1065,21 +1080,21 @@ msgid "Saturation (%)"
 msgstr "채도(%)"
 
 #: src/components/CustomColorBrandCreator.tsx:489
-#: src/components/ImageBackgroundRemoval.tsx:188
-#: src/components/ImageBackgroundRemoval.tsx:254
-#: src/components/ImageBlurred.tsx:117
+#: src/components/ImageBackgroundRemoval.tsx:233
+#: src/components/ImageBackgroundRemoval.tsx:262
+#: src/components/ImageBlurred.tsx:151
 #: src/components/ImageBlurred.tsx:163
 #: src/components/ImageColorAdjustment.tsx:360
-#: src/components/ImageGrid.tsx:70
-#: src/components/ImageGrid.tsx:90
-#: src/components/ImageLimitedPalette.tsx:104
-#: src/components/ImageOutline.tsx:185
-#: src/components/ImageOutline.tsx:263
-#: src/components/ImagePerspectiveCorrection.tsx:198
-#: src/components/ImagePerspectiveCorrection.tsx:264
+#: src/components/ImageGrid.tsx:74
+#: src/components/ImageGrid.tsx:89
+#: src/components/ImageLimitedPalette.tsx:140
+#: src/components/ImageOutline.tsx:246
+#: src/components/ImageOutline.tsx:261
+#: src/components/ImagePerspectiveCorrection.tsx:224
+#: src/components/ImagePerspectiveCorrection.tsx:265
 #: src/components/ImageStyleTransfer.tsx:186
-#: src/components/ImageTonalValues.tsx:92
-#: src/components/ImageTonalValues.tsx:133
+#: src/components/ImageTonalValues.tsx:116
+#: src/components/ImageTonalValues.tsx:131
 msgid "Save"
 msgstr "구해내다"
 
@@ -1121,11 +1136,11 @@ msgstr "4개의 점을 선택하여 원근 왜곡을 보정합니다."
 msgid "Select a photo to adjust white balance and colors"
 msgstr "화이트 밸런스와 색상을 조정할 사진을 선택합니다."
 
-#: src/components/ImagePerspectiveCorrection.tsx:224
+#: src/components/ImagePerspectiveCorrection.tsx:184
 msgid "Select a photo to correct the perspective"
 msgstr "원근을 교정할 사진을 선택합니다."
 
-#: src/components/ImageBackgroundRemoval.tsx:210
+#: src/components/ImageBackgroundRemoval.tsx:189
 msgid "Select a photo to remove the background from"
 msgstr "배경을 제거할 사진을 선택합니다."
 
@@ -1166,7 +1181,7 @@ msgstr "색상 선택"
 msgid "Select colors"
 msgstr "색상 선택"
 
-#: src/components/ImageLimitedPalette.tsx:136
+#: src/components/ImageLimitedPalette.tsx:116
 msgid "Select from 1 to {MAX_COLORS} colors"
 msgstr "1에서 {MAX_COLORS}까지 색상 선택"
 
@@ -1194,10 +1209,10 @@ msgstr "언어 선택"
 msgid "Select part"
 msgstr "파트 선택"
 
-#: src/components/ImageBackgroundRemoval.tsx:232
+#: src/components/ImageBackgroundRemoval.tsx:211
 #: src/components/ImageChooser.tsx:93
 #: src/components/ImageColorAdjustment.tsx:350
-#: src/components/ImagePerspectiveCorrection.tsx:234
+#: src/components/ImagePerspectiveCorrection.tsx:194
 msgid "Select photo"
 msgstr "사진 선택"
 
@@ -1239,7 +1254,7 @@ msgstr "회기 종료"
 msgid "Set as background"
 msgstr "배경으로 설정"
 
-#: src/components/ImageLimitedPalette.tsx:113
+#: src/components/ImageLimitedPalette.tsx:149
 msgid "Set as main color set"
 msgstr "메인 컬러 세트로 설정"
 
@@ -1253,7 +1268,7 @@ msgstr "참조로 설정"
 msgid "Set the color of the base layer for the glazing"
 msgstr "글레이징의 기본 레이어 색상을 설정합니다"
 
-#: src/components/ImageTonalValues.tsx:107
+#: src/components/ImageTonalValues.tsx:90
 msgid "Shadow"
 msgstr "그림자"
 
@@ -1274,9 +1289,17 @@ msgstr "이 색상 세트 공유"
 msgid "Share your color set"
 msgstr "색상 세트 공유하기"
 
+#: src/components/ImageColorPicker.tsx:432
+msgid "Show areas on the photo that match this color"
+msgstr "사진에서 이 색상과 일치하는 부분을 보여주세요"
+
 #: src/components/grid/GridControls.tsx:174
 msgid "Show grid"
 msgstr "그리드 표시"
+
+#: src/components/ImageColorPicker.tsx:431
+msgid "Show matching areas"
+msgstr "매칭 영역을 보여주세요"
 
 #: src/components/color/PaletteColorMixtureCard.tsx:89
 msgid "Show on photo"
@@ -1287,7 +1310,7 @@ msgid "Show or hide diagonal lines"
 msgstr "대각선 표시 또는 숨기기"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:84
-#: src/components/ImageColorPicker.tsx:210
+#: src/components/ImageColorPicker.tsx:255
 msgid "Similarity"
 msgstr "유사성"
 
@@ -1307,19 +1330,27 @@ msgstr "색상이 다른 오일 파스텔 영역을 약간 겹치고 부드럽�
 msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition."
 msgstr "색상이 다른 파스텔 영역을 약간 겹치고 부드럽게 혼합하여 부드러운 전환을 만듭니다."
 
-#: src/components/ImageBlurred.tsx:143
+#: src/components/ImageBlurred.tsx:131
 msgid "Small"
 msgstr "작다"
 
-#: src/components/color-set/ColorSelect.tsx:151
-#: src/components/ImageColorPicker.tsx:333
-#: src/components/palette/PaletteGrid.tsx:114
+#: src/components/color-set/ColorSelect.tsx:150
+#: src/components/ImageColorPicker.tsx:453
+#: src/components/palette/PaletteGrid.tsx:135
 msgid "Sort"
 msgstr "종류"
 
-#: src/components/ImageColorPicker.tsx:334
-msgid "Sort by the similarity of the mixture to the target color, or by the number of colors in the mixture, or by the thickness of the mixture."
-msgstr "대상 색상과 혼합물의 유사성, 혼합물의 색상 수 또는 혼합물의 두께를 기준으로 정렬합니다."
+#: src/components/ImageColorPicker.tsx:261
+msgid "Sort by the number of colors in the mixture"
+msgstr "혼합물 내 색상 수로 정렬하세요"
+
+#: src/components/ImageColorPicker.tsx:256
+msgid "Sort by the similarity of the mixture to the target color"
+msgstr "혼합물이 목표 색상과 얼마나 유사한지로 정렬하세요"
+
+#: src/components/ImageColorPicker.tsx:263
+msgid "Sort by the thickness of the mixture"
+msgstr "혼합물의 두께로 정렬하세요"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:90
 #: src/components/color/SimilarColorCard.tsx:104
@@ -1347,7 +1378,7 @@ msgstr "아직도 어려움이 있나요? 이 <0>문제 해결 가이드</0>를 
 msgid "Storage usage"
 msgstr "스토리지 사용량"
 
-#: src/components/ImagePerspectiveCorrection.tsx:227
+#: src/components/ImagePerspectiveCorrection.tsx:187
 msgid "Straightens skewed photos and removes unwanted edges. Select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "기울어진 사진을 곧게 펴고 원치 않는 가장자리를 제거합니다. 4개의 점을 선택하여 원근 왜곡을 수정한 다음 필요에 따라 여백을 드래그하여 이미지를 자릅니다."
 
@@ -1384,15 +1415,15 @@ msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "앱이 {reloadCounter}초 후에 다시 로드를 시도합니다."
 
 #: src/components/ColorMixer.tsx:180
-#: src/components/ImageColorPicker.tsx:254
+#: src/components/ImageColorPicker.tsx:333
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "종이나 캔버스의 색상 또는 유약을 바를 때 기본 레이어의 색상입니다."
 
-#: src/components/ImageColorPicker.tsx:321
+#: src/components/ImageColorPicker.tsx:416
 msgid "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
 msgstr "색상 세트에서 혼합할 색상입니다. 이미지의 점을 클릭하여 색상을 선택하거나 색상 선택기 팝업을 사용합니다."
 
-#: src/components/ImageColorPicker.tsx:307
+#: src/components/ImageColorPicker.tsx:401
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
 msgstr "커서 주위의 원형 영역의 지름으로, 해당 영역에 있는 픽셀의 평균 색상을 계산하는 데 사용됩니다."
 
@@ -1412,7 +1443,7 @@ msgstr "각 사진에는 하나의 공통 팔레트와 별도의 팔레트가 �
 msgid "Thick pigment"
 msgstr "두꺼운 안료"
 
-#: src/components/ImageColorPicker.tsx:212
+#: src/components/ImageColorPicker.tsx:263
 msgid "Thickness"
 msgstr "두께"
 
@@ -1483,7 +1514,7 @@ msgstr "예상치 못한 오류: {errorMessage}"
 #: src/components/color/ColorSwatchDrawer.tsx:103
 #: src/components/color/PaletteColorMixtureCard.tsx:76
 #: src/components/color/SimilarColorCard.tsx:84
-#: src/components/palette/PaletteGrid.tsx:142
+#: src/components/palette/PaletteGrid.tsx:156
 msgid "Untitled mixture"
 msgstr "제목 없는 혼합"
 
@@ -1507,7 +1538,7 @@ msgstr "예를 들어 원래 유성 페인트 층의 1/10과 같이 얇은 층�
 msgid "Use reference photo"
 msgstr "참조 사진 사용"
 
-#: src/components/ImageColorPicker.tsx:295
+#: src/components/ImageColorPicker.tsx:359
 msgid "Use white paper or canvas as a background"
 msgstr "흰 종이나 캔버스를 배경으로 사용하세요"
 
@@ -1515,7 +1546,7 @@ msgstr "흰 종이나 캔버스를 배경으로 사용하세요"
 msgid "Used"
 msgstr "사용"
 
-#: src/components/ImageLimitedPalette.tsx:132
+#: src/components/ImageLimitedPalette.tsx:112
 msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 msgstr "제한된 팔레트를 사용하면 색상 조화를 이루는 데 도움이 됩니다. 최대 {MAX_COLORS}개의 색상을 주 색상으로 선택합니다."
 
@@ -1553,13 +1584,13 @@ msgstr "총 {maxColorsFor3}개 이상의 색상을 선택하는 경우 세 가�
 
 #: src/components/ImageBackgroundRemoval.tsx:157
 #: src/components/ImageColorAdjustment.tsx:442
-#: src/components/ImageColorPicker.tsx:300
+#: src/components/ImageColorPicker.tsx:364
 msgid "White"
 msgstr "하얀"
 
 #: src/components/ImageColorAdjustment.tsx:393
-#: src/components/ImagePerspectiveCorrection.tsx:207
-#: src/components/ImagePerspectiveCorrection.tsx:276
+#: src/components/ImagePerspectiveCorrection.tsx:236
+#: src/components/ImagePerspectiveCorrection.tsx:274
 #: src/components/messages.ts:38
 msgid "White balance"
 msgstr "화이트 밸런스"
@@ -1582,7 +1613,7 @@ msgstr "너비"
 #: src/components/ColorSetChooser.tsx:720
 #: src/components/CustomColorBrandCreator.tsx:499
 #: src/components/image/RecentImageCard.tsx:73
-#: src/components/palette/PaletteGrid.tsx:107
+#: src/components/palette/PaletteGrid.tsx:120
 #: src/components/storage/ClearStorage.tsx:62
 #: src/components/storage/ClearStorage.tsx:75
 msgid "Yes"
@@ -1604,7 +1635,7 @@ msgstr "Patreon 유료 회원만 사용할 수 있는 색상 브랜드를 선택
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Patreon 유료 회원만 사용할 수 있는 색상 브랜드를 선택했습니다. Patreon의 ArtistAssistApp에 유료 회원으로 가입하거나 이미 가입한 경우 Patreon으로 로그인하세요."
 
-#: src/components/ImageBackgroundRemoval.tsx:222
+#: src/components/ImageBackgroundRemoval.tsx:201
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Patreon 유료 회원만 사용할 수 있는 모드를 선택했습니다."
 

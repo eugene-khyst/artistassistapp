@@ -31,14 +31,30 @@ import {computeIfAbsentInMap} from '~/src/utils/map';
 
 import {medianCutQuantization} from './filter/median-cut';
 
-const QUANTIZATION_DEPTH = 9;
-
 interface Result {
-  limitedPaletteImage: ImageBitmap;
+  quantizedImage: ImageBitmap;
 }
 
-export class LimitedPalette {
-  async getLimitedPaletteImage(blob: Blob, colorSet: ColorSet): Promise<Result> {
+export class ColorQuantization {
+  async getPosterizedImage(blob: Blob, quantizationDepth: number): Promise<Result> {
+    console.time('posterize');
+    const resizedImage: ImageBitmap = await createImageBitmapResizedTotalPixels(
+      blob,
+      IMAGE_SIZE.SD
+    );
+    const [imageData] = imageBitmapToImageData(resizedImage);
+    resizedImage.close();
+    medianCutQuantization(imageData, quantizationDepth);
+    const quantizedImage: ImageBitmap = await createImageBitmap(imageData);
+    console.timeEnd('posterize');
+    return transfer({quantizedImage}, [quantizedImage]);
+  }
+
+  async getLimitedPaletteImage(
+    blob: Blob,
+    colorSet: ColorSet,
+    quantizationDepth = 9
+  ): Promise<Result> {
     console.time('limited-palette');
     const colorMixer = new ColorMixer();
     colorMixer.setColorSet(colorSet, PAPER_WHITE_HEX);
@@ -46,14 +62,14 @@ export class LimitedPalette {
     const [imageData] = imageBitmapToImageData(image);
     image.close();
     const similarColors = new Map<number, RgbTuple>();
-    medianCutQuantization(imageData, QUANTIZATION_DEPTH, (mean: RgbTuple): RgbTuple => {
+    medianCutQuantization(imageData, quantizationDepth, (mean: RgbTuple): RgbTuple => {
       return computeIfAbsentInMap(similarColors, packRgb(...mean), () => {
         const similarColor = colorMixer.findSimilarColor(mean);
         return similarColor?.colorMixture.layerRgb ?? WHITE;
       });
     });
-    const limitedPaletteImage: ImageBitmap = await createImageBitmap(imageData);
+    const quantizedImage: ImageBitmap = await createImageBitmap(imageData);
     console.timeEnd('limited-palette');
-    return transfer({limitedPaletteImage}, [limitedPaletteImage]);
+    return transfer({quantizedImage}, [quantizedImage]);
   }
 }

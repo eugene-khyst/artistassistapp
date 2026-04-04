@@ -53,7 +53,7 @@ export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
     window.addEventListener('resize', listener);
     return () => {
       zoomableImageCanvas?.destroy();
-      window.removeEventListener('load', listener);
+      window.removeEventListener('resize', listener);
     };
   }, [zoomableImageCanvas]);
 

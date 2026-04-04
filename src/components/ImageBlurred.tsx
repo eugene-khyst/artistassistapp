@@ -111,18 +111,6 @@ export const ImageBlurred: React.FC = () => {
     },
   ];
 
-  const items: MenuProps['items'] = [
-    {
-      key: 'save',
-      label: t`Save`,
-      icon: <DownloadOutlined />,
-      onClick: () => {
-        void handleSaveClick();
-      },
-    },
-    ...imageItems,
-  ];
-
   if (!originalImage) {
     return <EmptyImage />;
   }
@@ -167,7 +155,21 @@ export const ImageBlurred: React.FC = () => {
             </Dropdown>
           </Space.Compact>
         ) : (
-          <Dropdown menu={{items}}>
+          <Dropdown
+            menu={{
+              items: [
+                {
+                  key: 'save',
+                  label: t`Save`,
+                  icon: <DownloadOutlined />,
+                  onClick: () => {
+                    void handleSaveClick();
+                  },
+                },
+                ...imageItems,
+              ],
+            }}
+          >
             <Button icon={<MoreOutlined />} />
           </Dropdown>
         )}

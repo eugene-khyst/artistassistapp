@@ -17,21 +17,33 @@
  */
 
 import type {ColorSet} from '~/src/services/color/types';
-import type {LimitedPalette} from '~/src/services/image/limited-palette';
+import type {ColorQuantization} from '~/src/services/image/color-quantization';
 import {WorkerManager} from '~/src/utils/worker-manager';
 
-const limitedPaletteWorker = new WorkerManager<LimitedPalette>(
-  () => new Worker(new URL('./limited-palette-worker.ts', import.meta.url), {type: 'module'})
+const colorQuantizationWorker = new WorkerManager<ColorQuantization>(
+  () => new Worker(new URL('./color-quantization-worker.ts', import.meta.url), {type: 'module'})
 );
+
+export async function getPosterizedImage(
+  originalImageFile: File,
+  quantizationDepth: number,
+  signal?: AbortSignal
+): Promise<ImageBitmap> {
+  const {quantizedImage} = await colorQuantizationWorker.run(
+    worker => worker.getPosterizedImage(originalImageFile, quantizationDepth),
+    signal
+  );
+  return quantizedImage;
+}
 
 export async function getLimitedPaletteImage(
   originalImageFile: File,
   limitedColorSet: ColorSet,
   signal?: AbortSignal
 ): Promise<ImageBitmap> {
-  const {limitedPaletteImage} = await limitedPaletteWorker.run(
+  const {quantizedImage} = await colorQuantizationWorker.run(
     worker => worker.getLimitedPaletteImage(originalImageFile, limitedColorSet),
     signal
   );
-  return limitedPaletteImage;
+  return quantizedImage;
 }

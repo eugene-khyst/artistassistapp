@@ -18,7 +18,7 @@
 
 import {DownloadOutlined, MoreOutlined, PrinterOutlined, TableOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import type {CheckboxOptionType, MenuProps} from 'antd';
+import type {CheckboxOptionType} from 'antd';
 import {
   App,
   Button,
@@ -173,23 +173,6 @@ export const ImageOutline: React.FC = () => {
     },
   ];
 
-  const items: MenuProps['items'] = [
-    {
-      key: 'print',
-      label: t`Print`,
-      icon: <PrinterOutlined />,
-      onClick: handlePrintClick,
-    },
-    {
-      key: 'save',
-      label: t`Save`,
-      icon: <DownloadOutlined />,
-      onClick: () => {
-        handleSaveClick();
-      },
-    },
-  ];
-
   const contentStyle: CSSProperties = {
     backgroundColor: token.colorBgElevated,
     borderRadius: token.borderRadiusLG,
@@ -265,7 +248,24 @@ export const ImageOutline: React.FC = () => {
               </>
             ) : (
               <Dropdown
-                menu={{items}}
+                menu={{
+                  items: [
+                    {
+                      key: 'print',
+                      label: t`Print`,
+                      icon: <PrinterOutlined />,
+                      onClick: handlePrintClick,
+                    },
+                    {
+                      key: 'save',
+                      label: t`Save`,
+                      icon: <DownloadOutlined />,
+                      onClick: () => {
+                        handleSaveClick();
+                      },
+                    },
+                  ],
+                }}
                 popupRender={menu => (
                   <div style={contentStyle}>
                     {React.cloneElement(

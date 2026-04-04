@@ -89,7 +89,7 @@ Heavy computation runs off the main thread using Web Workers + Comlink for RPC:
 
 - `color-mixer-worker.ts` — wraps `ColorMixer` class
 - `inference-worker.ts` — wraps `InferenceRunner` (ONNX)
-- `limited-palette-worker.ts` — limited palette computation
+- `color-quantization-worker.ts` — color quantization (posterize, limited palette)
 - `rgb-channels-percentile-worker.ts` — image statistics
 
 Worker managers in `src/services/*/worker/*-worker-manager.ts` handle creating/communicating with

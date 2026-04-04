@@ -102,11 +102,13 @@ export class ZoomableImageCanvas extends Canvas {
     return 'grab';
   }
 
+  protected static imageDimension(image: ImageBitmap | null): Rectangle {
+    return image ? new Rectangle(new Vector(image.width, image.height)) : Rectangle.ZERO;
+  }
+
   setImages(images: ImageBitmap[]): void {
     this.images = images;
-    this.imageDimensions = this.images.map(
-      (image: ImageBitmap) => new Rectangle(new Vector(image.width, image.height))
-    );
+    this.imageDimensions = this.images.map(image => ZoomableImageCanvas.imageDimension(image));
     this.offset = Vector.ZERO;
     this.dragStart = null;
     this.isDragging = false;

@@ -18,7 +18,6 @@
 
 import {DownloadOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import type {MenuProps} from 'antd';
 import {Button, Dropdown, Grid, Space} from 'antd';
 
 import {GridControls} from '~/src/components/grid/GridControls';
@@ -58,21 +57,6 @@ export const ImageGrid: React.FC = () => {
     void gridCanvas?.saveAsImage(getFilename(originalImageFile, 'grid'));
   };
 
-  const items: MenuProps['items'] = [
-    {
-      key: 'print',
-      label: t`Print`,
-      icon: <PrinterOutlined />,
-      onClick: handlePrintClick,
-    },
-    {
-      key: 'save',
-      label: t`Save`,
-      icon: <DownloadOutlined />,
-      onClick: handleSaveClick,
-    },
-  ];
-
   if (!originalImage) {
     return <EmptyImage />;
   }
@@ -91,7 +75,24 @@ export const ImageGrid: React.FC = () => {
             </Button>
           </>
         ) : (
-          <Dropdown menu={{items}}>
+          <Dropdown
+            menu={{
+              items: [
+                {
+                  key: 'print',
+                  label: t`Print`,
+                  icon: <PrinterOutlined />,
+                  onClick: handlePrintClick,
+                },
+                {
+                  key: 'save',
+                  label: t`Save`,
+                  icon: <DownloadOutlined />,
+                  onClick: handleSaveClick,
+                },
+              ],
+            }}
+          >
             <Button icon={<MoreOutlined />} />
           </Dropdown>
         )}

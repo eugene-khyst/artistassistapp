@@ -25,7 +25,7 @@ import {
   CUSTOM_COLOR_SET,
   NEW_COLOR_SET,
 } from '~/src/services/color/types';
-import {getLimitedPaletteImage} from '~/src/services/image/worker/limited-palette-worker-manager';
+import {getLimitedPaletteImage} from '~/src/services/image/worker/color-quantization-worker-manager';
 import type {ColorMixerSlice} from '~/src/stores/color-mixer-slice';
 import type {ColorSetSlice} from '~/src/stores/color-set-slice';
 import type {TabSlice} from '~/src/stores/tab-slice';
@@ -71,7 +71,7 @@ export const createLimitedPaletteImageSlice: StateCreator<
   limitedPaletteAbortController: null,
 
   setLimitedColorSet: async (colorIds: ColorId[]): Promise<void> => {
-    const {originalImageFile, colorSet} = get();
+    const {originalImageFile, colorSet, limitedPaletteImage: prev} = get();
     if (!originalImageFile) {
       return;
     }
@@ -86,6 +86,7 @@ export const createLimitedPaletteImageSlice: StateCreator<
         isLimitedPaletteImageLoading: true,
         limitedPaletteAbortController,
       });
+      prev?.close();
       const limitedPaletteImage = await getLimitedPaletteImage(
         originalImageFile,
         limitedColorSet,

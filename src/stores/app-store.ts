@@ -20,11 +20,17 @@ import {create} from 'zustand';
 
 import type {AuthSlice} from '~/src/stores/auth-slice';
 import {createAuthSlice} from '~/src/stores/auth-slice';
+import {
+  type ColorMatchImageSlice,
+  createColorMatchImageSlice,
+} from '~/src/stores/color-match-image-slice';
 import {createLocaleSlice, type LocaleSlice} from '~/src/stores/locale-slice';
 import {
   createPerspectiveCorrectionSlice,
   type PerspectiveCorrectionSlice,
 } from '~/src/stores/perspective-correction-slice';
+import type {PosterizedImageSlice} from '~/src/stores/posterized-image-slice';
+import {createPosterizedImageSlice} from '~/src/stores/posterized-image-slice';
 import type {PwaSlice} from '~/src/stores/pwa-slice';
 import {createPwaSlice} from '~/src/stores/pwa-slice';
 
@@ -59,6 +65,8 @@ export const useAppStore = create<
     ColorSetSlice &
     ColorMixerSlice &
     OriginalImageSlice &
+    PosterizedImageSlice &
+    ColorMatchImageSlice &
     PaletteSlice &
     TonalImagesSlice &
     BlurredImagesSlice &
@@ -80,6 +88,8 @@ export const useAppStore = create<
   ...createColorSetSlice(...a),
   ...createColorMixerSlice(...a),
   ...createOriginalImageSlice(...a),
+  ...createPosterizedImageSlice(...a),
+  ...createColorMatchImageSlice(...a),
   ...createPaletteSlice(...a),
   ...createTonalImagesSlice(...a),
   ...createBlurredImagesSlice(...a),

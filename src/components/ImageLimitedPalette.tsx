@@ -18,7 +18,6 @@
 
 import {DownloadOutlined, DownOutlined, SwapOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import type {MenuProps} from 'antd';
 import {Button, Col, Dropdown, Form, Grid, Row, Space, Typography} from 'antd';
 import {saveAs} from 'file-saver';
 import {useEffect, useState} from 'react';
@@ -98,25 +97,6 @@ export const ImageLimitedPalette: React.FC = () => {
     );
   };
 
-  const items: MenuProps['items'] = [
-    {
-      key: 'save',
-      label: t`Save`,
-      icon: <DownloadOutlined />,
-      onClick: () => {
-        void handleSaveClick();
-      },
-      disabled: !limitedPaletteImage,
-    },
-    {
-      key: 'set-as-main-color-set',
-      label: t`Set as main color set`,
-      icon: <SwapOutlined />,
-      onClick: handleSetAsMainClick,
-      disabled: !colors.length,
-    },
-  ];
-
   if (!colorSet || !originalImage || !isMixable(colorSet.type)) {
     return <EmptyColorSet supportedColorTypes={MIXABLE_COLOR_TYPES} imageMandatory={true} />;
   }
@@ -152,7 +132,28 @@ export const ImageLimitedPalette: React.FC = () => {
           >
             <Trans>Apply</Trans>
           </Button>
-          <Dropdown menu={{items}}>
+          <Dropdown
+            menu={{
+              items: [
+                {
+                  key: 'save',
+                  label: t`Save`,
+                  icon: <DownloadOutlined />,
+                  onClick: () => {
+                    void handleSaveClick();
+                  },
+                  disabled: !limitedPaletteImage,
+                },
+                {
+                  key: 'set-as-main-color-set',
+                  label: t`Set as main color set`,
+                  icon: <SwapOutlined />,
+                  onClick: handleSetAsMainClick,
+                  disabled: !colors.length,
+                },
+              ],
+            }}
+          >
             <Button icon={<DownOutlined />} />
           </Dropdown>
         </Space.Compact>

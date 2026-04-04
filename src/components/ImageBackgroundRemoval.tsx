@@ -18,7 +18,7 @@
 
 import {BgColorsOutlined, DownloadOutlined, MoreOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import type {ColorPickerProps, MenuProps} from 'antd';
+import type {ColorPickerProps} from 'antd';
 import {App, Button, ColorPicker, Dropdown, Flex, Form, Grid, Space, Typography} from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import {saveAs} from 'file-saver';
@@ -172,27 +172,6 @@ export const ImageBackgroundRemoval: React.FC = () => {
     },
   };
 
-  const items: MenuProps['items'] = [
-    {
-      key: 'background',
-      label: t`Background`,
-      icon: <BgColorsOutlined />,
-      onClick: () => {
-        setIsColorPickerOpened(true);
-      },
-    },
-    ...(imageWithoutBackgroundUrl
-      ? [
-          {
-            key: 'save',
-            label: t`Save`,
-            icon: <DownloadOutlined />,
-            onClick: handleSaveClick,
-          },
-        ]
-      : []),
-  ];
-
   const imageStyle: CSSProperties = {
     maxWidth: '100%',
     maxHeight: `calc(100dvh - 145px)`,
@@ -265,7 +244,30 @@ export const ImageBackgroundRemoval: React.FC = () => {
                 }}
                 {...colorPickerProps}
               >
-                <Dropdown menu={{items}}>
+                <Dropdown
+                  menu={{
+                    items: [
+                      {
+                        key: 'background',
+                        label: t`Background`,
+                        icon: <BgColorsOutlined />,
+                        onClick: () => {
+                          setIsColorPickerOpened(true);
+                        },
+                      },
+                      ...(imageWithoutBackgroundUrl
+                        ? [
+                            {
+                              key: 'save',
+                              label: t`Save`,
+                              icon: <DownloadOutlined />,
+                              onClick: handleSaveClick,
+                            },
+                          ]
+                        : []),
+                    ],
+                  }}
+                >
                   <Button icon={<MoreOutlined />} />
                 </Dropdown>
               </ColorPicker>

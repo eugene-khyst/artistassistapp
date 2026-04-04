@@ -18,7 +18,7 @@
 
 import {DownloadOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
+import type {CheckboxOptionType, RadioChangeEvent} from 'antd';
 import {Button, Col, Dropdown, Grid, Radio, Row, Space} from 'antd';
 import {saveAs} from 'file-saver';
 import {useEffect, useState} from 'react';
@@ -80,23 +80,6 @@ export const ImageTonalValues: React.FC = () => {
     saveAs(await imageBitmapToBlob(image), getFilename(originalImageFile, 'tonal-values'));
   };
 
-  const items: MenuProps['items'] = [
-    {
-      key: 'print',
-      label: t`Print`,
-      icon: <PrinterOutlined />,
-      onClick: handlePrintClick,
-    },
-    {
-      key: 'save',
-      label: t`Save`,
-      icon: <DownloadOutlined />,
-      onClick: () => {
-        void handleSaveClick();
-      },
-    },
-  ];
-
   if (!originalImage) {
     return <EmptyImage />;
   }
@@ -134,7 +117,26 @@ export const ImageTonalValues: React.FC = () => {
             </Button>
           </>
         ) : (
-          <Dropdown menu={{items}}>
+          <Dropdown
+            menu={{
+              items: [
+                {
+                  key: 'print',
+                  label: t`Print`,
+                  icon: <PrinterOutlined />,
+                  onClick: handlePrintClick,
+                },
+                {
+                  key: 'save',
+                  label: t`Save`,
+                  icon: <DownloadOutlined />,
+                  onClick: () => {
+                    void handleSaveClick();
+                  },
+                },
+              ],
+            }}
+          >
             <Button icon={<MoreOutlined />} />
           </Dropdown>
         )}

@@ -20,7 +20,7 @@ import type {RgbTuple} from '~/src/services/color/space/rgb';
 import {linearizeRgbChannel, Rgb, unlinearizeRgbChannel} from '~/src/services/color/space/rgb';
 import {EventManager} from '~/src/services/event/event-manager';
 import {clamp} from '~/src/services/math/clamp';
-import {Vector} from '~/src/services/math/geometry';
+import {Rectangle, Vector} from '~/src/services/math/geometry';
 import {getRgbaForCoord, imageBitmapToOffscreenCanvas} from '~/src/utils/graphics';
 
 import type {ZoomableImageCanvasProps} from './zoomable-image-canvas';
@@ -69,6 +69,9 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
   private indicatorDiameter: number;
   private sampleRadius: number;
   private colorPickerImageIndex: number;
+  private overlayImage: ImageBitmap | null = null;
+  private overlayImageDimension: Rectangle = Rectangle.ZERO;
+
   public readonly events = new EventManager<ColorPickerEventType>();
 
   constructor(
@@ -91,6 +94,20 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
 
   protected override getCursor(): string {
     return this.pipetteEnabled ? 'crosshair' : super.getCursor();
+  }
+
+  setOverlayImage(image: ImageBitmap | null) {
+    this.overlayImage = image;
+    this.overlayImageDimension = ZoomableImageCanvas.imageDimension(image);
+    this.requestRedraw();
+  }
+
+  protected override getImage(images?: ImageBitmap[]): ImageBitmap | null {
+    return this.overlayImage ?? super.getImage(images);
+  }
+
+  protected override getImageDimension(): Rectangle {
+    return this.overlayImage ? this.overlayImageDimension : super.getImageDimension();
   }
 
   protected override onImagesLoaded(): void {

@@ -16,10 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DatabaseOutlined, DeleteOutlined, PrinterOutlined} from '@ant-design/icons';
+import {
+  DatabaseOutlined,
+  DeleteOutlined,
+  PrinterOutlined,
+  SortAscendingOutlined,
+} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Button, Card, Col, Form, Popconfirm, Row, Select, Space, Typography} from 'antd';
-import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
+import {Button, Card, Col, Dropdown, Popconfirm, Row, Space, Typography} from 'antd';
+import type {MenuProps} from 'antd/lib';
 import {useRef, useState} from 'react';
 import {useReactToPrint} from 'react-to-print';
 
@@ -71,12 +76,20 @@ export const PaletteGrid: React.FC<Props> = ({
     documentTitle: 'ArtistAssistApp',
   });
 
-  const sortOptions: SelectOptionType[] = [
-    {value: Sort.ByDate, label: t`By date added`},
-    {value: Sort.ByName, label: t`By name`},
-    {value: Sort.ByHue, label: t`By hue`},
-    {value: Sort.ByLightness, label: t`By lightness`},
-  ];
+  const sortItems: MenuProps['items'] = (
+    [
+      [Sort.ByDate, t`By date added`],
+      [Sort.ByName, t`By name`],
+      [Sort.ByHue, t`By hue`],
+      [Sort.ByLightness, t`By lightness`],
+    ] as [Sort, string][]
+  ).map(([sort, label]) => ({
+    key: String(sort),
+    label,
+    onClick: () => {
+      setSort(sort);
+    },
+  }));
 
   const sortedColorMixtures = colorMixtures?.slice().sort(COLOR_MIXTURES_COMPARATORS[sort]);
 
@@ -111,16 +124,17 @@ export const PaletteGrid: React.FC<Props> = ({
             <Trans>Remove all</Trans>
           </Button>
         </Popconfirm>
-        <Form.Item label={t`Sort`} style={{marginBottom: 0}}>
-          <Select
-            value={sort}
-            onChange={(value: Sort) => {
-              setSort(value);
-            }}
-            options={sortOptions}
-            style={{width: 140}}
-          />
-        </Form.Item>
+
+        <Dropdown
+          menu={{
+            items: sortItems,
+            selectedKeys: [String(sort)],
+          }}
+        >
+          <Button icon={<SortAscendingOutlined />}>
+            <Trans>Sort</Trans>
+          </Button>
+        </Dropdown>
       </Space>
       <Row gutter={[16, 16]} justify="start">
         {sortedColorMixtures.map((colorMixture: ColorMixture) => (

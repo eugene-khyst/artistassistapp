@@ -19,6 +19,8 @@
 import {Oklch} from './oklch';
 import {linearizeRgbChannel as linearize, Rgb, unlinearizeRgbChannel as unlinearize} from './rgb';
 
+export type OklabTuple = [l: number, a: number, b: number];
+
 export class Oklab {
   constructor(
     public l: number,
@@ -60,6 +62,10 @@ export class Oklab {
     const b = -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s;
 
     return new Rgb(unlinearize(r), unlinearize(g), unlinearize(b));
+  }
+
+  toTuple(): OklabTuple {
+    return [this.l, this.a, this.b];
   }
 
   toOklch(): Oklch {

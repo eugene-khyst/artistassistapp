@@ -17,7 +17,7 @@
  */
 
 import {SortAscendingOutlined} from '@ant-design/icons';
-import {useLingui} from '@lingui/react/macro';
+import {Trans, useLingui} from '@lingui/react/macro';
 import type {SelectProps} from 'antd';
 import {Button, Dropdown, Flex, Grid, Select, Space, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
@@ -143,12 +143,11 @@ export const ColorSelect: React.FC<Props> = ({brand, colors, value, ...rest}: Pr
       <Dropdown
         menu={{
           items,
-          selectable: true,
           selectedKeys: [sort ? String(sort) : 'no-sorting'],
         }}
       >
         <Button icon={<SortAscendingOutlined />} style={{height: 'auto'}}>
-          {screens.lg && t`Sort`}
+          {screens.lg && <Trans>Sort</Trans>}
         </Button>
       </Dropdown>
     </Space.Compact>
