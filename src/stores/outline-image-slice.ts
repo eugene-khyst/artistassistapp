@@ -58,6 +58,7 @@ export const createOutlineImageSlice: StateCreator<
     void get().loadOutlineImage();
   },
   loadOutlineImage: async (): Promise<void> => {
+    get().abortOutline();
     const {originalImage, outlineModel, outlineImage, auth} = get();
     if (
       outlineImage ||
@@ -67,14 +68,14 @@ export const createOutlineImageSlice: StateCreator<
     ) {
       return;
     }
+    const outlineAbortController = new AbortController();
+    set({
+      outlineImage: null,
+      isOutlineImageLoading: true,
+      outlineDownloadTip: null,
+      outlineAbortController,
+    });
     try {
-      const outlineAbortController = new AbortController();
-      set({
-        isOutlineImageLoading: true,
-        outlineDownloadTip: null,
-        outlineAbortController,
-        outlineImage: null,
-      });
       const outlineImage = await getOutline(
         originalImage,
         outlineModel,
@@ -91,11 +92,13 @@ export const createOutlineImageSlice: StateCreator<
         throw error;
       }
     } finally {
-      set({
-        isOutlineImageLoading: false,
-        outlineDownloadTip: null,
-        outlineAbortController: null,
-      });
+      if (get().outlineAbortController === outlineAbortController) {
+        set({
+          isOutlineImageLoading: false,
+          outlineDownloadTip: null,
+          outlineAbortController: null,
+        });
+      }
     }
   },
   abortOutline: (): void => {

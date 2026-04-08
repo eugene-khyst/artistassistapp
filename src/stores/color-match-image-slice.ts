@@ -27,7 +27,7 @@ export interface ColorMatchImageSlice {
 
   isColorMatchImageLoading: boolean;
 
-  setColorMatchImage: (color: RgbTuple | null) => void;
+  setColorMatchImage: (color: RgbTuple | null) => Promise<void>;
 }
 
 export const createColorMatchImageSlice: StateCreator<
@@ -40,13 +40,13 @@ export const createColorMatchImageSlice: StateCreator<
 
   isColorMatchImageLoading: false,
 
-  setColorMatchImage: (color: RgbTuple | null): void => {
+  setColorMatchImage: async (color: RgbTuple | null): Promise<void> => {
     const {originalImage, colorMatchImage: prev} = get();
     set({
       isColorMatchImageLoading: true,
     });
     const colorMatchImage: ImageBitmap | null =
-      originalImage && color ? getColorMatchImage(originalImage, color) : null;
+      originalImage && color ? await getColorMatchImage(originalImage, color) : null;
     set({
       colorMatchImage,
       isColorMatchImageLoading: false,

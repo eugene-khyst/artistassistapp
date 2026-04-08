@@ -29,10 +29,17 @@ import {OpacityIcon} from '~/src/components/color/OpacityIcon';
 import {WarmthIcon} from '~/src/components/color/WarmthIcon';
 import {filterSelectOptions} from '~/src/components/utils';
 import {formatColorLabel} from '~/src/services/color/colors';
-import {Rgb, toHexString} from '~/src/services/color/space/rgb';
+import {rgbToOklab} from '~/src/services/color/space/oklab';
+import {oklabToOklch} from '~/src/services/color/space/oklch';
+import {hexToRgb} from '~/src/services/color/space/rgb';
 import type {ColorBrandDefinition, ColorDefinition} from '~/src/services/color/types';
 import {degrees} from '~/src/services/math/geometry';
-import {byNumber, type Comparator, reverseOrder} from '~/src/utils/comparator';
+import {
+  createExtractorComparator,
+  decorateSortUndecorate,
+  type ExtractorComparator,
+} from '~/src/utils/array';
+import {byNumber, reverseOrder} from '~/src/utils/comparator';
 
 enum Sort {
   ById = 1,
@@ -40,10 +47,23 @@ enum Sort {
   ByLightness = 3,
 }
 
-const COLOR_COMPARATORS: Record<Sort, Comparator<ColorDefinition>> = {
-  [Sort.ById]: byNumber(({id}) => id),
-  [Sort.ByHue]: byNumber(({hex}) => degrees(Rgb.fromHex(hex).toOklab().toOklch().h)),
-  [Sort.ByLightness]: reverseOrder(byNumber(({hex}) => Rgb.fromHex(hex).toOklab().l)),
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const COLOR_COMPARATORS: Record<Sort, ExtractorComparator<ColorDefinition, any>> = {
+  [Sort.ById]: createExtractorComparator<ColorDefinition>(byNumber(({id}) => id)),
+  [Sort.ByHue]: createExtractorComparator<ColorDefinition, number>(
+    byNumber(d => d),
+    ({hex}) => {
+      const [, , h] = oklabToOklch(...rgbToOklab(...hexToRgb(hex)));
+      return degrees(h);
+    }
+  ),
+  [Sort.ByLightness]: createExtractorComparator<ColorDefinition, number>(
+    reverseOrder(byNumber(l => l)),
+    ({hex}) => {
+      const [l] = rgbToOklab(...hexToRgb(hex));
+      return l;
+    }
+  ),
 };
 
 function getColorOptions(
@@ -60,7 +80,7 @@ function getColorOptions(
       value: color.id,
       label: (
         <Flex key={label} gap="small" align="center">
-          <ColorSquare color={toHexString(hex)} />
+          <ColorSquare hex={hex} />
           <Typography.Text>{label}</Typography.Text>
           <OpacityIcon opacity={opacity} />
           <WarmthIcon warmth={warmth} />
@@ -87,12 +107,12 @@ export const ColorSelect: React.FC<Props> = ({brand, colors, value, ...rest}: Pr
 
   const options = getColorOptions(brand, colors);
 
-  const selectedColors: ColorDefinition[] | undefined = value
+  let selectedColors: ColorDefinition[] | undefined = value
     ?.map((id: number): ColorDefinition | undefined => colors?.get(id))
     .filter((color): color is ColorDefinition => !!color);
 
   if (sort) {
-    selectedColors?.sort(COLOR_COMPARATORS[sort]);
+    selectedColors = decorateSortUndecorate(selectedColors, COLOR_COMPARATORS[sort]);
   }
 
   const selectedIds: number[] | null | undefined = selectedColors?.length

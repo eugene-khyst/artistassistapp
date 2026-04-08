@@ -20,6 +20,7 @@ import {DeleteOutlined, PlusOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {ButtonProps} from 'antd';
 import {Button, Popconfirm} from 'antd';
+import {memo} from 'react';
 
 import type {ColorMixture} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
@@ -29,19 +30,17 @@ type Props = {
   linkToImage?: boolean;
 } & ButtonProps;
 
-export const AddToPaletteButton: React.FC<Props> = ({
+export const AddToPaletteButton: React.FC<Props> = memo(function AddToPaletteButton({
   colorMixture,
   linkToImage = true,
   size,
   style,
-}: Props) => {
-  const paletteColorMixtures = useAppStore(state => state.paletteColorMixtures);
+}: Props) {
+  const colorMixtureExists = useAppStore(state => state.paletteColorMixtures.has(colorMixture.key));
   const saveToPalette = useAppStore(state => state.saveToPalette);
   const deleteFromPalette = useAppStore(state => state.deleteFromPalette);
 
   const {t} = useLingui();
-
-  const colorMixtureExists = paletteColorMixtures.has(colorMixture.key);
 
   return colorMixtureExists ? (
     <Popconfirm
@@ -65,4 +64,4 @@ export const AddToPaletteButton: React.FC<Props> = ({
       <Trans>Add to palette</Trans>
     </Button>
   );
-};
+});

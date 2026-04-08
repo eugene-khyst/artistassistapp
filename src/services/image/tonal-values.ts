@@ -24,7 +24,7 @@ export async function getTonalValues(
   thresholds: [number, number, number] = [0.825, 0.6, 0.35]
 ): Promise<ImageBitmap[]> {
   console.time('tonal-values');
-  const image: ImageBitmap = await createImageBitmapResizedTotalPixels(blob, IMAGE_SIZE.HD);
+  const [image] = await createImageBitmapResizedTotalPixels(blob, IMAGE_SIZE.HD);
   thresholds.sort((a: number, b: number) => b - a);
   const tonalValues: ImageBitmap[] = thresholdFilterWebGL(image, thresholds);
   image.close();

@@ -28,7 +28,7 @@ export interface PosterizedImageSlice {
   isPosterizedImageLoading: boolean;
   posterizeImageAbortController: AbortController | null;
 
-  posterizeImage: (quantizationDepth: number) => Promise<void>;
+  posterizeImage: (maxColors: number) => Promise<void>;
   abortPosterizeImage: () => void;
 }
 
@@ -41,26 +41,28 @@ export const createPosterizedImageSlice: StateCreator<
   isPosterizedImageLoading: false,
   posterizeImageAbortController: null,
 
-  posterizeImage: async (quantizationDepth: number): Promise<void> => {
-    const {originalImageFile} = get();
-    if (!originalImageFile) {
+  posterizeImage: async (maxColors: number): Promise<void> => {
+    get().abortPosterizeImage();
+    const {originalImageFile, originalImage} = get();
+    if (!originalImageFile || !originalImage) {
       return;
     }
+    const posterizeImageAbortController = new AbortController();
+    set({
+      isPosterizedImageLoading: true,
+      posterizeImageAbortController,
+    });
     try {
-      const posterizeImageAbortController = new AbortController();
-      set({
-        isPosterizedImageLoading: true,
-        posterizeImageAbortController,
-      });
       const posterizedImage: ImageBitmap = await getPosterizedImage(
-        originalImageFile,
-        quantizationDepth,
+        originalImage,
+        maxColors,
         posterizeImageAbortController.signal
       );
       const imageFile: ImageFile = await blobToImageFile(
-        await imageBitmapToBlob(posterizedImage),
-        `${originalImageFile.name} ${2 ** quantizationDepth} colors`.trim()
+        await imageBitmapToBlob(posterizedImage, null, {type: 'image/png'}),
+        `${originalImageFile.name} ${maxColors} colors`.trim()
       );
+      imageFile.maxColors = maxColors;
       posterizedImage.close();
       await get().saveRecentImageFile(imageFile);
     } catch (error) {
@@ -68,10 +70,12 @@ export const createPosterizedImageSlice: StateCreator<
         throw error;
       }
     } finally {
-      set({
-        isPosterizedImageLoading: false,
-        posterizeImageAbortController: null,
-      });
+      if (get().posterizeImageAbortController === posterizeImageAbortController) {
+        set({
+          isPosterizedImageLoading: false,
+          posterizeImageAbortController: null,
+        });
+      }
     }
   },
   abortPosterizeImage: (): void => {

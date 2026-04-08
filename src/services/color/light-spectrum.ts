@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Rgb} from './space/rgb';
+import type {RgbTuple} from './space/rgb';
 
 export const WAVELENGTH_RANGE = new Uint16Array(36).map((_, i) => 380 + 10 * i);
 
 const GAMMA = 0.8;
 const MAX_INTENSITY = 255;
 
-export function wavelengthToColor(wavelength: number): Rgb {
+export function wavelengthToColor(wavelength: number): RgbTuple {
   let red, green, blue, factor;
   if (wavelength >= 380 && wavelength < 440) {
     red = -(wavelength - 440) / (440 - 380);
@@ -73,5 +73,5 @@ export function wavelengthToColor(wavelength: number): Rgb {
   if (blue !== 0) {
     blue = Math.round(MAX_INTENSITY * Math.pow(blue * factor, GAMMA));
   }
-  return new Rgb(red, green, blue);
+  return [red, green, blue];
 }

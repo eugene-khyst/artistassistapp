@@ -17,7 +17,7 @@
  */
 
 import {Canvas} from '~/src/services/canvas/canvas';
-import {Rgb, type RgbTuple} from '~/src/services/color/space/rgb';
+import {rgbToHex, type RgbTuple} from '~/src/services/color/space/rgb';
 import {Vector} from '~/src/services/math/geometry';
 import type {TypedArray} from '~/src/utils/array';
 import {countFractionDigits} from '~/src/utils/format';
@@ -241,7 +241,7 @@ export class LineChart extends Canvas {
     ctx.save();
 
     ctx.lineWidth = lineWidth;
-    const colorHex: string = new Rgb(...color).toHex();
+    const colorHex: string = rgbToHex(...color);
     ctx.strokeStyle = colorHex;
     ctx.fillStyle = colorHex;
     ctx.shadowOffsetX = 2;

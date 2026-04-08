@@ -34,7 +34,7 @@ import {
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import type {SliderMarks} from 'antd/es/slider';
 import type {MenuProps} from 'antd/lib';
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {PaletteColorMixtureCard} from '~/src/components/color/PaletteColorMixtureCard';
@@ -61,7 +61,7 @@ import {
   PAPER_WHITE_HEX,
 } from '~/src/services/color/color-mixer';
 import {colorSetToBrandColorCounts} from '~/src/services/color/colors';
-import {Rgb} from '~/src/services/color/space/rgb';
+import {hexToRgb, rgbToHex} from '~/src/services/color/space/rgb';
 import {type ColorMixture, type SimilarColor} from '~/src/services/color/types';
 import {Vector} from '~/src/services/math/geometry';
 import {ColorPickerSort} from '~/src/services/settings/types';
@@ -107,6 +107,7 @@ export const ImageColorPicker: React.FC = () => {
   const colorPickerDiameter = useAppStore(state => state.appSettings.colorPickerDiameter);
   const colorPickerSort = useAppStore(state => state.appSettings.colorPickerSort);
   const colorSet = useAppStore(state => state.colorSet);
+  const imageFile = useAppStore(state => state.imageFile);
   const originalImage = useAppStore(state => state.originalImage);
   const colorMatchImage = useAppStore(state => state.colorMatchImage);
   const backgroundColor = useAppStore(state => state.backgroundColor);
@@ -121,6 +122,7 @@ export const ImageColorPicker: React.FC = () => {
   const isOriginalImageLoading = useAppStore(state => state.isOriginalImageLoading);
   const isSampleImageLoading = useAppStore(state => state.isSampleImageLoading);
   const isPosterizedImageLoading = useAppStore(state => state.isPosterizedImageLoading);
+  const isBuildPaletteLoading = useAppStore(state => state.isBuildPaletteLoading);
   const isColorMatchImageLoading = useAppStore(state => state.isColorMatchImageLoading);
   const isSimilarColorsLoading = useAppStore(state => state.isSimilarColorsLoading);
 
@@ -128,9 +130,11 @@ export const ImageColorPicker: React.FC = () => {
   const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
   const setColorMatchImage = useAppStore(state => state.setColorMatchImage);
   const posterizeImage = useAppStore(state => state.posterizeImage);
+  const buildPalette = useAppStore(state => state.buildPalette);
   const selectPaletteColorMixtures = useAppStore(state => state.selectPaletteColorMixtures);
   const saveAppSettings = useAppStore(state => state.saveAppSettings);
   const abortPosterizeImage = useAppStore(state => state.abortPosterizeImage);
+  const abortBuildPalette = useAppStore(state => state.abortBuildPalette);
 
   const screens = Grid.useBreakpoint();
 
@@ -140,9 +144,9 @@ export const ImageColorPicker: React.FC = () => {
     (canvas: HTMLCanvasElement): ImageColorPickerCanvas => {
       const colorPickerCanvas = new ImageColorPickerCanvas(canvas);
       const listener = ({rgb, point: {x, y}, diameter}: PipettePointSetEvent) => {
-        void setTargetColor(rgb.toHex(), {x, y, diameter});
+        void setTargetColor(rgbToHex(...rgb), {x, y, diameter});
         selectPaletteColorMixtures(colorPickerCanvas.getSamplesNearby(x, y).map(({key}) => key));
-        setColorMatchImage(null);
+        void setColorMatchImage(null);
       };
       colorPickerCanvas.events.subscribe(ColorPickerEventType.PipettePointSet, listener);
       return colorPickerCanvas;
@@ -164,6 +168,7 @@ export const ImageColorPicker: React.FC = () => {
     isOriginalImageLoading ||
     isSampleImageLoading ||
     isPosterizedImageLoading ||
+    isBuildPaletteLoading ||
     isColorMatchImageLoading ||
     isSimilarColorsLoading;
 
@@ -235,12 +240,22 @@ export const ImageColorPicker: React.FC = () => {
   const handleTargetColorChange = (color: AggregationColor) => {
     colorPickerCanvas?.setPipettePoint(null);
     void setTargetColor(color.toHexString(), null);
-    setColorMatchImage(null);
+    void setColorMatchImage(null);
   };
 
   const handleColorMatchImageClick = () => {
-    setColorMatchImage(!colorMatchImage ? Rgb.fromHex(targetColor).toTuple() : null);
+    void setColorMatchImage(colorMatchImage ? null : hexToRgb(targetColor));
   };
+
+  const handleCancelLoading = () => {
+    abortPosterizeImage();
+    abortBuildPalette();
+  };
+
+  const sortedSimilarColors = useMemo(
+    () => similarColors.slice().sort(SIMILAR_COLORS_COMPARATORS[sort]),
+    [similarColors, sort]
+  );
 
   if (!colorSet) {
     return <EmptyColorSet imageSupported={true} />;
@@ -271,20 +286,21 @@ export const ImageColorPicker: React.FC = () => {
     },
   }));
 
+  const availableMaxColors = [24, 36, 48].filter(
+    mc => !imageFile?.maxColors || mc < imageFile.maxColors
+  );
+
   const posterizeItems: MenuProps['items'] = [
     {
       type: 'group',
       label: t`Reduce color palette to`,
-      children: [4, 5, 6].map(quantizationDepth => {
-        const colorCount = 2 ** quantizationDepth;
-        return {
-          key: String(quantizationDepth),
-          label: <Plural value={colorCount} one="# color" other="# colors" />,
-          onClick: () => {
-            void posterizeImage(quantizationDepth);
-          },
-        };
-      }),
+      children: availableMaxColors.map(colorCount => ({
+        key: String(colorCount),
+        label: <Plural value={colorCount} one="# color" other="# colors" />,
+        onClick: () => {
+          void posterizeImage(colorCount);
+        },
+      })),
     },
   ];
 
@@ -293,7 +309,7 @@ export const ImageColorPicker: React.FC = () => {
 
   return (
     <>
-      <LoadingIndicator loading={isLoading} onCancel={abortPosterizeImage}>
+      <LoadingIndicator loading={isLoading} onCancel={handleCancelLoading}>
         <Row>
           <Col xs={24} sm={12} lg={16}>
             <canvas
@@ -326,75 +342,45 @@ export const ImageColorPicker: React.FC = () => {
               }}
             >
               <Space orientation="vertical" size={0} style={{width: '100%'}}>
-                <Space size="small" align="start">
-                  {glazing && (
-                    <Form.Item
-                      label={t`Background`}
-                      tooltip={t`The color of paper or canvas, or the color of the base layer when glazed.`}
-                      style={{marginBottom: 0}}
-                    >
-                      <Space.Compact>
-                        <ColorPicker
-                          presets={[
-                            {
-                              label: t(COLOR_PICKER_PRESET_LABELS.PAPER_WHITE),
-                              colors: [PAPER_WHITE_HEX],
-                            },
-                          ]}
-                          showText={false}
-                          disabledAlpha
-                          value={backgroundColor}
-                          onChangeComplete={(color: AggregationColor) => {
-                            void setBackgroundColor(color.toHexString());
-                          }}
-                          panelRender={panel => (
-                            <div>
-                              {isPastel(colorSet.type) && <PastelInfo />}
-                              {panel}
-                            </div>
-                          )}
-                        />
+                {glazing && (
+                  <Form.Item
+                    label={t`Background`}
+                    tooltip={t`The color of paper or canvas, or the color of the base layer when glazed.`}
+                    style={{marginBottom: 0}}
+                  >
+                    <Space.Compact>
+                      <ColorPicker
+                        presets={[
+                          {
+                            label: t(COLOR_PICKER_PRESET_LABELS.PAPER_WHITE),
+                            colors: [PAPER_WHITE_HEX],
+                          },
+                        ]}
+                        showText={false}
+                        disabledAlpha
+                        value={backgroundColor}
+                        onChangeComplete={(color: AggregationColor) => {
+                          void setBackgroundColor(color.toHexString());
+                        }}
+                        panelRender={panel => (
+                          <div>
+                            {isPastel(colorSet.type) && <PastelInfo />}
+                            {panel}
+                          </div>
+                        )}
+                      />
 
-                        <Button
-                          title={t`Use white paper or canvas as a background`}
-                          onClick={() => {
-                            void setBackgroundColor(PAPER_WHITE_HEX);
-                          }}
-                        >
-                          <Trans>White</Trans>
-                        </Button>
-                      </Space.Compact>
-                    </Form.Item>
-                  )}
-
-                  {originalImage &&
-                    (screens.md ? (
-                      <Dropdown menu={{items: posterizeItems}}>
-                        <Button
-                          icon={<DownOutlined />}
-                          iconPlacement="end"
-                          title={t`Reduce the number of colors in the photo`}
-                        >
-                          <Trans>Reduce colors</Trans>
-                        </Button>
-                      </Dropdown>
-                    ) : (
-                      <Dropdown
-                        menu={{
-                          items: [
-                            {
-                              key: 'posterize',
-                              label: t`Reduce colors`,
-                              title: t`Reduce the number of colors in the photo`,
-                              children: posterizeItems,
-                            },
-                          ],
+                      <Button
+                        title={t`Use white paper or canvas as a background`}
+                        onClick={() => {
+                          void setBackgroundColor(PAPER_WHITE_HEX);
                         }}
                       >
-                        <Button icon={<MoreOutlined />} />
-                      </Dropdown>
-                    ))}
-                </Space>
+                        <Trans>White</Trans>
+                      </Button>
+                    </Space.Compact>
+                  </Form.Item>
+                )}
 
                 <Form.Item
                   label={t`Diameter`}
@@ -455,7 +441,59 @@ export const ImageColorPicker: React.FC = () => {
                       </Dropdown>
                     </Form.Item>
                   )}
+
+                  {!screens.md && (
+                    <Dropdown
+                      menu={{
+                        items: [
+                          {
+                            key: 'posterize',
+                            label: t`Reduce colors`,
+                            title: t`Reduce the number of colors in the photo`,
+                            children: posterizeItems,
+                          },
+                          {
+                            key: 'build-palette',
+                            label: t`Build palette`,
+                            title: t`Automatically find the best color mixtures for this photo`,
+                            onClick: () => {
+                              void buildPalette();
+                            },
+                          },
+                        ],
+                      }}
+                    >
+                      <Button icon={<MoreOutlined />} />
+                    </Dropdown>
+                  )}
                 </Space>
+
+                {screens.md && (
+                  <Space size="small" align="start" style={{marginTop: 8}}>
+                    {originalImage && availableMaxColors.length > 0 && (
+                      <Dropdown menu={{items: posterizeItems}}>
+                        <Button
+                          icon={<DownOutlined />}
+                          iconPlacement="end"
+                          title={t`Reduce the number of colors in the photo`}
+                        >
+                          <Trans>Reduce colors</Trans>
+                        </Button>
+                      </Dropdown>
+                    )}
+
+                    {originalImage && (
+                      <Button
+                        title={t`Automatically find the best color mixtures for this photo`}
+                        onClick={() => {
+                          void buildPalette();
+                        }}
+                      >
+                        <Trans>Build palette</Trans>
+                      </Button>
+                    )}
+                  </Space>
+                )}
 
                 {screens.md && (
                   <Space size="small" align="center">
@@ -499,20 +537,17 @@ export const ImageColorPicker: React.FC = () => {
                       key={`selected-${colorMixture.key}`}
                       colorMixture={colorMixture}
                       showOnPhoto={false}
-                      style={{borderColor: 'black'}}
+                      className="selected-palette-card"
                     />
                   ))}
-                  {similarColors
-                    .slice()
-                    .sort(SIMILAR_COLORS_COMPARATORS[sort])
-                    .map((similarColor: SimilarColor) => (
-                      <SimilarColorCard
-                        key={similarColor.colorMixture.key}
-                        targetColor={targetColor}
-                        similarColor={similarColor}
-                        onReflectanceChartClick={handleReflectanceChartClick}
-                      />
-                    ))}
+                  {sortedSimilarColors.map((similarColor: SimilarColor) => (
+                    <SimilarColorCard
+                      key={similarColor.colorMixture.key}
+                      targetColor={targetColor}
+                      similarColor={similarColor}
+                      onReflectanceChartClick={handleReflectanceChartClick}
+                    />
+                  ))}
                 </>
               )}
               <AdCard vertical />

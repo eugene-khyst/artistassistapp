@@ -98,12 +98,12 @@ export class ZoomableImageCanvas extends Canvas {
     });
   }
 
-  protected getCursor(): string {
-    return 'grab';
+  static imageDimension(image: ImageBitmap | null): Rectangle {
+    return image ? new Rectangle(new Vector(image.width, image.height)) : Rectangle.ZERO;
   }
 
-  protected static imageDimension(image: ImageBitmap | null): Rectangle {
-    return image ? new Rectangle(new Vector(image.width, image.height)) : Rectangle.ZERO;
+  protected getCursor(): string {
+    return 'grab';
   }
 
   setImages(images: ImageBitmap[]): void {

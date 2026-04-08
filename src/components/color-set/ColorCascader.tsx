@@ -57,7 +57,7 @@ function getColorOptions(colorSet?: ColorSet | null): CascaderOptionType[] {
             value: color.id,
             label: (
               <Flex key={label} gap="small" align="center">
-                <ColorSquare color={rgbToHex(...rgb)} />
+                <ColorSquare hex={rgbToHex(...rgb)} />
                 <Typography.Text>{label}</Typography.Text>
                 <OpacityIcon opacity={opacity} />
                 <WarmthIcon warmth={warmth} />

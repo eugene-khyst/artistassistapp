@@ -20,6 +20,7 @@ import {BgColorsOutlined, DeleteOutlined, PictureOutlined} from '@ant-design/ico
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Card, Popconfirm, Space, Typography} from 'antd';
 import type {CardProps} from 'antd/lib';
+import {memo} from 'react';
 
 import {ColorMixtureDescription} from '~/src/components/color/ColorMixtureDescription';
 import {rgbToHex} from '~/src/services/color/space/rgb';
@@ -30,17 +31,17 @@ import {TabKey} from '~/src/tabs';
 type Props = {
   colorMixture: ColorMixture;
   showOnPhoto?: boolean;
-} & Pick<CardProps, 'style'>;
+} & Pick<CardProps, 'style' | 'className'>;
 
-export const PaletteColorMixtureCard: React.FC<Props> = ({
+export const PaletteColorMixtureCard: React.FC<Props> = memo(function PaletteColorMixtureCard({
   colorMixture,
   showOnPhoto = true,
   ...props
-}: Props) => {
+}: Props) {
   const saveToPalette = useAppStore(state => state.saveToPalette);
   const deleteFromPalette = useAppStore(state => state.deleteFromPalette);
   const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
-  const setColorPickerPipet = useAppStore(state => state.setColorPickerPipet);
+  const setColorPickerPipette = useAppStore(state => state.setColorPickerPipette);
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
 
   const {t} = useLingui();
@@ -52,7 +53,7 @@ export const PaletteColorMixtureCard: React.FC<Props> = ({
   const handleShowOnPhotoClick = () => {
     const {samplingArea} = colorMixture;
     if (samplingArea) {
-      setColorPickerPipet(samplingArea);
+      setColorPickerPipette(samplingArea);
       void setActiveTabKey(TabKey.ColorPicker);
     }
   };
@@ -112,4 +113,4 @@ export const PaletteColorMixtureCard: React.FC<Props> = ({
       </Space>
     </Card>
   );
-};
+});

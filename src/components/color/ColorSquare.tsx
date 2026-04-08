@@ -20,18 +20,18 @@ import {theme, Tooltip} from 'antd';
 import type React from 'react';
 import {memo} from 'react';
 
-import {Rgb} from '~/src/services/color/space/rgb';
+import {hexToRgb, isRgbDark, toHexString} from '~/src/services/color/space/rgb';
 
 type Size = 'small' | 'large';
 
 interface Props {
-  color: string;
+  hex: string;
   size?: Size;
   text?: string | number;
 }
 
 export const ColorSquare: React.FC<Props> = memo(function ColorSquare({
-  color,
+  hex,
   size = 'small',
   text,
 }: Props) {
@@ -41,16 +41,16 @@ export const ColorSquare: React.FC<Props> = memo(function ColorSquare({
   const isLarge = size === 'large';
   const sideLength: number = isLarge ? 2 * fontSize * lineHeight : fontSizeLG;
   const borderRadius = isLarge ? 8 : 4;
-  const rgb = Rgb.fromHex(color);
-  const hex = rgb.toHex();
+  const rgb = hexToRgb(hex);
+  const hexString = toHexString(hex);
   return (
-    <Tooltip title={hex}>
+    <Tooltip title={hexString}>
       <svg width={sideLength} height={sideLength} className="color-icon">
         <rect
           width={sideLength}
           height={sideLength}
           rx={borderRadius}
-          fill={hex}
+          fill={hexString}
           strokeWidth={1}
           stroke="#d9d9d9"
         />
@@ -60,7 +60,7 @@ export const ColorSquare: React.FC<Props> = memo(function ColorSquare({
             y="50%"
             dominantBaseline="middle"
             textAnchor="middle"
-            fill={rgb.isDark() ? '#fff' : '#000'}
+            fill={isRgbDark(...rgb) ? '#fff' : '#000'}
             fontSize={16}
             fontWeight="bold"
           >

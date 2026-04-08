@@ -123,9 +123,9 @@ export const createOriginalImageSlice: StateCreator<
       similarColors: [],
       paletteColorMixtures,
     });
-    const originalImage: ImageBitmap | null = originalImageFile
+    const [originalImage] = originalImageFile
       ? await createImageBitmapResizedTotalPixels(originalImageFile, IMAGE_SIZE['2K'])
-      : null;
+      : [null];
     set({
       originalImage,
       isOriginalImageLoading: false,

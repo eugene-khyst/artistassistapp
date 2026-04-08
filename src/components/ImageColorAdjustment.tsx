@@ -51,7 +51,7 @@ import {
   ImageColorPickerCanvas,
 } from '~/src/services/canvas/image/image-color-picker-canvas';
 import {kelvinToRgb} from '~/src/services/color/color-temperature';
-import {WHITE_HEX} from '~/src/services/color/space/rgb';
+import {rgbToHex, WHITE_HEX} from '~/src/services/color/space/rgb';
 import type {AdjustmentParameters} from '~/src/services/image/color-adjustment';
 import {blobToImageFile} from '~/src/services/image/image-file';
 import {useAppStore} from '~/src/stores/app-store';
@@ -174,7 +174,7 @@ export const ImageColorAdjustment: React.FC = () => {
         colorPickerImageIndex: 1,
       });
       const listener = ({rgb}: PipettePointSetEvent) => {
-        setWhitePoint(rgb.toHex());
+        setWhitePoint(rgbToHex(...rgb));
       };
       colorPickerCanvas.events.subscribe(ColorPickerEventType.PipettePointSet, listener);
       return colorPickerCanvas;

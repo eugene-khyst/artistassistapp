@@ -20,9 +20,14 @@ import {useLingui} from '@lingui/react/macro';
 import {Col, Drawer, Grid, Row} from 'antd';
 
 import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
-import {Rgb} from '~/src/services/color/space/rgb';
+import {rgbToOklab} from '~/src/services/color/space/oklab';
+import {oklabToOklch} from '~/src/services/color/space/oklch';
+import {isRgbDark, rgbToHex} from '~/src/services/color/space/rgb';
 import type {ColorMixture} from '~/src/services/color/types';
+import {degrees} from '~/src/services/math/geometry';
 import {useAppStore} from '~/src/stores/app-store';
+import {createExtractorComparator, decorateSortUndecorate} from '~/src/utils/array';
+import {byNumber} from '~/src/utils/comparator';
 
 interface Props {
   colorMixtures?: ColorMixture[];
@@ -43,11 +48,12 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
 
   const imageUrl: string | undefined = useCreateObjectUrl(originalImageFile);
 
-  const isFullHeight = screens.sm || !imageUrl;
-  const imageHeight = imageUrl ? `calc((100dvh - 60px) / ${isFullHeight ? 1 : 2})` : 0;
-  const colorSwatchHeight = `calc((100dvh - 60px) / ${isFullHeight ? 1 : 2})`;
+  const isFullHeight: boolean = screens.sm || !imageUrl;
+  const divider: number = isFullHeight ? 1 : 2;
+  const imageHeight = imageUrl ? `calc((100dvh - 60px) / ${divider})` : 0;
+  const colorSwatchHeight = `calc((100dvh - 60px) / ${divider})`;
   const colorStripeHeight = `max(calc((100dvh - 60px) / (${
-    Math.min(colorMixtures?.length || 10, 10) * (isFullHeight ? 1 : 2)
+    Math.min(colorMixtures?.length || 10, 10) * divider
   })), 24px)`;
 
   return (
@@ -80,13 +86,23 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
                 maxWidth: '100%',
                 maxHeight: '100%',
                 verticalAlign: 'middle',
+                objectFit: 'contain',
               }}
             />
           )}
         </Col>
         <Col xs={24} sm={12} style={{maxHeight: colorSwatchHeight, overflowY: 'auto'}}>
-          {colorMixtures?.map((colorMixture: ColorMixture) => {
-            const rgb = new Rgb(...colorMixture.layerRgb);
+          {decorateSortUndecorate(
+            colorMixtures,
+            createExtractorComparator<ColorMixture, number>(
+              byNumber(d => d),
+              ({layerRgb}) => {
+                const [, , h] = oklabToOklch(...rgbToOklab(...layerRgb));
+                return degrees(h);
+              }
+            )
+          )?.map((colorMixture: ColorMixture) => {
+            const {layerRgb} = colorMixture;
             return (
               <div
                 key={colorMixture.key}
@@ -96,8 +112,8 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
                   textAlign: 'center',
                   fontSize: 14,
                   fontWeight: 'bold',
-                  backgroundColor: rgb.toHex(),
-                  color: rgb.isDark() ? '#fff' : '#000',
+                  backgroundColor: rgbToHex(...layerRgb),
+                  color: isRgbDark(...layerRgb) ? '#fff' : '#000',
                 }}
               >
                 {colorMixture.name || t`Untitled mixture`}

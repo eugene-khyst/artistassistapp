@@ -17,7 +17,7 @@
  */
 
 import {WAVELENGTH_RANGE, wavelengthToColor} from '~/src/services/color/light-spectrum';
-import {WHITE} from '~/src/services/color/space/rgb';
+import {rgbToHex, WHITE} from '~/src/services/color/space/rgb';
 import type {TypedArray} from '~/src/utils/array';
 
 import {LineChart} from './line-chart';
@@ -39,7 +39,7 @@ export class ReflectanceChart extends LineChart {
     const sx = this.scaleX;
     for (let wavelength = this.minX; wavelength < this.maxX; wavelength++) {
       const {x: x0} = this.transformCoordinates(wavelength, 0);
-      this.context.fillStyle = wavelengthToColor(wavelength).toHex();
+      this.context.fillStyle = rgbToHex(...wavelengthToColor(wavelength));
       this.context.fillRect(x0, y0, 2 * sx, height);
     }
   }

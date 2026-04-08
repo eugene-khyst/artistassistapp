@@ -19,7 +19,8 @@
 import {saveAs} from 'file-saver';
 import type {StateCreator} from 'zustand';
 
-import {Rgb} from '~/src/services/color/space/rgb';
+import {Reflectance} from '~/src/services/color/space/reflectance';
+import {hexToRgb} from '~/src/services/color/space/rgb';
 import type {ColorDefinitionSource, CustomColorBrandDefinition} from '~/src/services/color/types';
 import {FileExtension} from '~/src/services/color/types';
 import {
@@ -37,7 +38,7 @@ function calculateRho(brand: CustomColorBrandDefinition): CustomColorBrandDefini
       return {
         ...color,
         hex,
-        rho: [...Rgb.fromHex(hex).toReflectance().toArray()],
+        rho: [...Reflectance.fromRgb(...hexToRgb(hex)).toArray()],
       };
     }),
   };

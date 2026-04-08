@@ -23,7 +23,8 @@ msgstr "{brandName} colores"
 
 #: src/components/color-set/ColorSetName.tsx:35
 #: src/components/color-set/StandardColorSetCascader.tsx:57
-#: src/components/ImageColorPicker.tsx:282
+#: src/components/ImageColorPicker.tsx:299
+#: src/components/Palette.tsx:92
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# color} other {# colores}}"
 
@@ -66,7 +67,7 @@ msgstr "<0/> Tableta y <1/> móvil"
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows y <1/> Linux"
 
-#: src/components/color/SimilarColorCard.tsx:67
+#: src/components/color/SimilarColorCard.tsx:68
 msgid "<0>{similarityText}%</0> similarity"
 msgstr "<0>{similarityText}%</0> de similitud"
 
@@ -134,11 +135,11 @@ msgstr "Agregue o elimine colores para que coincidan con su conjunto de colores 
 msgid "Add photos"
 msgstr "Añadir fotos"
 
-#: src/components/color/AddToPaletteButton.tsx:65
+#: src/components/color/AddToPaletteButton.tsx:64
 msgid "Add to palette"
 msgstr "Añadir a la paleta"
 
-#: src/components/color/ColorMixtureDescription.tsx:88
+#: src/components/color/ColorMixtureDescription.tsx:89
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Agregue blanco en una <0>proporción {whiteRatioText}</0>"
 
@@ -191,12 +192,12 @@ msgstr "¿Estás seguro de que quieres eliminar esta marca personalizada?"
 msgid "Are you sure you want to delete this photo?"
 msgstr "¿Estás seguro de que quieres eliminar esta foto?"
 
-#: src/components/palette/PaletteGrid.tsx:118
+#: src/components/palette/PaletteGrid.tsx:136
 msgid "Are you sure you want to remove all color mixtures?"
 msgstr "¿Estás seguro de que quieres eliminar todas las mezclas de colores?"
 
-#: src/components/color/AddToPaletteButton.tsx:49
-#: src/components/color/PaletteColorMixtureCard.tsx:102
+#: src/components/color/AddToPaletteButton.tsx:48
+#: src/components/color/PaletteColorMixtureCard.tsx:103
 msgid "Are you sure you want to remove this color mixture?"
 msgstr "¿Estás seguro de que quieres eliminar esta mezcla de colores?"
 
@@ -221,6 +222,11 @@ msgstr "Error de autenticación"
 msgid "Automatic backup of color sets"
 msgstr "Copia de seguridad automática de conjuntos de colores"
 
+#: src/components/ImageColorPicker.tsx:458
+#: src/components/ImageColorPicker.tsx:487
+msgid "Automatically find the best color mixtures for this photo"
+msgstr "Automáticamente encuentra las mejores mezclas de color para esta foto"
+
 #: src/components/ImageColorAdjustment.tsx:435
 msgid "Average color of the white point area"
 msgstr "Color promedio del área del punto blanco"
@@ -228,7 +234,7 @@ msgstr "Color promedio del área del punto blanco"
 #: src/components/ColorMixer.tsx:179
 #: src/components/ImageBackgroundRemoval.tsx:228
 #: src/components/ImageBackgroundRemoval.tsx:252
-#: src/components/ImageColorPicker.tsx:332
+#: src/components/ImageColorPicker.tsx:347
 msgid "Background"
 msgstr "Fondo"
 
@@ -236,25 +242,30 @@ msgstr "Fondo"
 msgid "Blur"
 msgstr "Desdibujar"
 
-#: src/components/palette/PaletteGrid.tsx:81
+#: src/components/ImageColorPicker.tsx:457
+#: src/components/ImageColorPicker.tsx:492
+msgid "Build palette"
+msgstr "Paleta de construcción"
+
+#: src/components/palette/PaletteGrid.tsx:96
 msgid "By date added"
 msgstr "Por fecha añadida"
 
-#: src/components/color-set/ColorSelect.tsx:119
-#: src/components/palette/PaletteGrid.tsx:83
+#: src/components/color-set/ColorSelect.tsx:139
+#: src/components/palette/PaletteGrid.tsx:98
 msgid "By hue"
 msgstr "Por matiz"
 
-#: src/components/color-set/ColorSelect.tsx:112
+#: src/components/color-set/ColorSelect.tsx:132
 msgid "By ID"
 msgstr "Por identificación"
 
-#: src/components/color-set/ColorSelect.tsx:126
-#: src/components/palette/PaletteGrid.tsx:84
+#: src/components/color-set/ColorSelect.tsx:146
+#: src/components/palette/PaletteGrid.tsx:99
 msgid "By lightness"
 msgstr "Por la ligereza"
 
-#: src/components/palette/PaletteGrid.tsx:82
+#: src/components/palette/PaletteGrid.tsx:97
 msgid "By name"
 msgstr "Por nombre"
 
@@ -284,7 +295,7 @@ msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Haz clic 🖱️ o toca 👆 en cualquier parte de la foto para elegir un punto blanco."
 
 #: src/components/empty/EmptyPalette.tsx:64
-#: src/components/ImageColorPicker.tsx:486
+#: src/components/ImageColorPicker.tsx:524
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "Toque o haga 👆 clic 🖱️ en cualquier parte de la foto, o use la ventana emergente del selector de color para elegir un color de destino para mezclar entre sus colores."
 
@@ -298,7 +309,7 @@ msgstr "Cerrar en {closeCounter} seg"
 
 #: src/components/ColorMixer.tsx:205
 #: src/components/CustomColorBrandCreator.tsx:447
-#: src/components/ImageColorPicker.tsx:415
+#: src/components/ImageColorPicker.tsx:401
 msgid "Color"
 msgstr "Color"
 
@@ -310,7 +321,7 @@ msgstr "Marca de color"
 msgid "Color brands"
 msgstr "Marcas de color"
 
-#: src/components/ImageColorPicker.tsx:260
+#: src/components/ImageColorPicker.tsx:275
 msgid "Color count"
 msgstr "Recuento de colores"
 
@@ -318,7 +329,7 @@ msgstr "Recuento de colores"
 msgid "Color mixing"
 msgstr "Mezcla de colores"
 
-#: src/components/color/ColorMixtureDescription.tsx:101
+#: src/components/color/ColorMixtureDescription.tsx:102
 msgid "Color mixture"
 msgstr "Mezcla de colores"
 
@@ -327,13 +338,13 @@ msgid "Color picker"
 msgstr "Selector de color"
 
 #: src/components/ColorSetChooser.tsx:548
-#: src/components/ImageColorPicker.tsx:463
+#: src/components/ImageColorPicker.tsx:501
 #: src/components/messages.ts:26
 msgid "Color set"
 msgstr "Conjunto de colores"
 
-#: src/components/color/ColorSwatchDrawer.tsx:55
-#: src/components/palette/PaletteGrid.tsx:106
+#: src/components/color/ColorSwatchDrawer.tsx:61
+#: src/components/palette/PaletteGrid.tsx:124
 msgid "Color swatch"
 msgstr "Muestra de color"
 
@@ -432,7 +443,7 @@ msgid "Diagonals"
 msgstr "Diagonales"
 
 #: src/components/CustomColorBrandCreator.tsx:434
-#: src/components/ImageColorPicker.tsx:400
+#: src/components/ImageColorPicker.tsx:386
 msgid "Diameter"
 msgstr "Diámetro"
 
@@ -696,7 +707,7 @@ msgstr "Tono medio"
 msgid "Midtones"
 msgstr "Tonos medios"
 
-#: src/components/color/ColorMixtureDescription.tsx:63
+#: src/components/color/ColorMixtureDescription.tsx:64
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Mezclar colores en una <0>proporción {partsRatioText}</0>"
 
@@ -704,11 +715,11 @@ msgstr "Mezclar colores en una <0>proporción {partsRatioText}</0>"
 msgid "Mix your colors in any proportions so you don't waste real paints."
 msgstr "Mezcla tus colores en cualquier proporción para que no desperdicies pinturas reales."
 
-#: src/components/color/ReflectanceChartDrawer.tsx:85
+#: src/components/color/ReflectanceChartDrawer.tsx:87
 msgid "Mixture"
 msgstr "Mezcla"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:99
+#: src/components/color/ReflectanceChartDrawer.tsx:101
 #: src/components/ImageBackgroundRemoval.tsx:215
 #: src/components/ImageOutline.tsx:206
 msgid "Mode"
@@ -748,24 +759,24 @@ msgstr "Nueva comparación"
 msgid "Next charge date"
 msgstr "Fecha de carga del próximo cargo"
 
-#: src/components/color/AddToPaletteButton.tsx:52
-#: src/components/color/PaletteColorMixtureCard.tsx:105
+#: src/components/color/AddToPaletteButton.tsx:51
+#: src/components/color/PaletteColorMixtureCard.tsx:106
 #: src/components/ColorSetChooser.tsx:230
 #: src/components/ColorSetChooser.tsx:721
 #: src/components/CustomColorBrandCreator.tsx:500
 #: src/components/image/RecentImageCard.tsx:74
-#: src/components/palette/PaletteGrid.tsx:121
+#: src/components/palette/PaletteGrid.tsx:139
 #: src/components/storage/ClearStorage.tsx:63
 #: src/components/storage/ClearStorage.tsx:76
 msgid "No"
 msgstr "No"
 
 #: src/components/empty/EmptyPalette.tsx:39
-#: src/components/ImageColorPicker.tsx:483
+#: src/components/ImageColorPicker.tsx:521
 msgid "No data"
 msgstr "Sin datos"
 
-#: src/components/color-set/ColorSelect.tsx:105
+#: src/components/color-set/ColorSelect.tsx:125
 msgid "No sorting"
 msgstr "Sin ordenar"
 
@@ -842,7 +853,7 @@ msgstr "Contorno"
 msgid "Output levels"
 msgstr "Niveles de salida"
 
-#: src/components/color/ColorMixtureDescription.tsx:126
+#: src/components/color/ColorMixtureDescription.tsx:127
 msgid "over"
 msgstr "sobre"
 
@@ -899,7 +910,7 @@ msgstr "Foto"
 msgid "Photo ranking"
 msgstr "Clasificación de fotos"
 
-#: src/components/ImageColorPicker.tsx:492
+#: src/components/ImageColorPicker.tsx:530
 msgid "Pinch to zoom (or use the mouse wheel) and drag to pan"
 msgstr "Pellizque para hacer zoom (o use la rueda del ratón) y arrastre para desplazarse"
 
@@ -943,7 +954,7 @@ msgstr "Vista previa"
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
 #: src/components/ImageTonalValues.tsx:125
-#: src/components/palette/PaletteGrid.tsx:114
+#: src/components/palette/PaletteGrid.tsx:132
 #: src/components/print/PrintImageDrawer.tsx:132
 msgid "Print"
 msgstr "Impresión"
@@ -992,39 +1003,39 @@ msgstr "Valoración: {player2RatingText}"
 msgid "Ratio"
 msgstr "Proporción"
 
-#: src/components/ImageColorPicker.tsx:277
+#: src/components/ImageColorPicker.tsx:296
 msgid "Reduce color palette to"
 msgstr "Reducir la paleta de colores a"
 
-#: src/components/ImageColorPicker.tsx:378
-#: src/components/ImageColorPicker.tsx:387
+#: src/components/ImageColorPicker.tsx:451
+#: src/components/ImageColorPicker.tsx:480
 msgid "Reduce colors"
 msgstr "Reducir colores"
 
-#: src/components/ImageColorPicker.tsx:376
-#: src/components/ImageColorPicker.tsx:388
+#: src/components/ImageColorPicker.tsx:452
+#: src/components/ImageColorPicker.tsx:478
 msgid "Reduce the number of colors in the photo"
 msgstr "Reduce el número de colores en la foto"
 
-#: src/components/color/ColorSwatchDrawer.tsx:76
+#: src/components/color/ColorSwatchDrawer.tsx:82
 #: src/components/ImageColorAdjustment.tsx:311
 msgid "Reference"
 msgstr "Referencia"
 
-#: src/components/color/SimilarColorCard.tsx:109
+#: src/components/color/SimilarColorCard.tsx:110
 #: src/components/ColorMixer.tsx:265
 msgid "Reflectance"
 msgstr "Reflectancia"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:108
+#: src/components/color/PaletteColorMixtureCard.tsx:109
 msgid "Remove"
 msgstr "Eliminar"
 
-#: src/components/palette/PaletteGrid.tsx:124
+#: src/components/palette/PaletteGrid.tsx:142
 msgid "Remove all"
 msgstr "Eliminar todo"
 
-#: src/components/palette/PaletteGrid.tsx:117
+#: src/components/palette/PaletteGrid.tsx:135
 msgid "Remove all color mixtures"
 msgstr "Retire todas las mezclas de colores"
 
@@ -1033,12 +1044,12 @@ msgstr "Retire todas las mezclas de colores"
 msgid "Remove background"
 msgstr "Eliminar fondo"
 
-#: src/components/color/AddToPaletteButton.tsx:55
+#: src/components/color/AddToPaletteButton.tsx:54
 msgid "Remove from palette"
 msgstr "Quitar de la paleta"
 
-#: src/components/color/AddToPaletteButton.tsx:48
-#: src/components/color/PaletteColorMixtureCard.tsx:101
+#: src/components/color/AddToPaletteButton.tsx:47
+#: src/components/color/PaletteColorMixtureCard.tsx:102
 msgid "Remove the color mixture"
 msgstr "Retira la mezcla de colores"
 
@@ -1177,7 +1188,7 @@ msgid "Select color"
 msgstr "Seleccionar color"
 
 #: src/components/color-set/ColorCascader.tsx:94
-#: src/components/color-set/ColorSelect.tsx:138
+#: src/components/color-set/ColorSelect.tsx:158
 msgid "Select colors"
 msgstr "Seleccionar colores"
 
@@ -1249,8 +1260,8 @@ msgstr "Semitransparente"
 msgid "Session expired"
 msgstr "Sesión finalizada"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:98
-#: src/components/color/SimilarColorCard.tsx:98
+#: src/components/color/PaletteColorMixtureCard.tsx:99
+#: src/components/color/SimilarColorCard.tsx:99
 msgid "Set as background"
 msgstr "Establecer como fondo"
 
@@ -1263,8 +1274,8 @@ msgstr "Establecer como conjunto de colores principal"
 msgid "Set as reference"
 msgstr "Establecer como referencia"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:95
-#: src/components/color/SimilarColorCard.tsx:93
+#: src/components/color/PaletteColorMixtureCard.tsx:96
+#: src/components/color/SimilarColorCard.tsx:94
 msgid "Set the color of the base layer for the glazing"
 msgstr "Establece el color de la capa base para el acristalamiento"
 
@@ -1289,7 +1300,7 @@ msgstr "Comparte este conjunto de colores"
 msgid "Share your color set"
 msgstr "Comparte tu conjunto de colores"
 
-#: src/components/ImageColorPicker.tsx:432
+#: src/components/ImageColorPicker.tsx:418
 msgid "Show areas on the photo that match this color"
 msgstr "Muestra las zonas de la foto que coincidan con este color"
 
@@ -1297,11 +1308,11 @@ msgstr "Muestra las zonas de la foto que coincidan con este color"
 msgid "Show grid"
 msgstr "Mostrar cuadrícula"
 
-#: src/components/ImageColorPicker.tsx:431
+#: src/components/ImageColorPicker.tsx:417
 msgid "Show matching areas"
 msgstr "Mostrar áreas que coincidan"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:89
+#: src/components/color/PaletteColorMixtureCard.tsx:90
 msgid "Show on photo"
 msgstr "Mostrar en la foto"
 
@@ -1309,12 +1320,12 @@ msgstr "Mostrar en la foto"
 msgid "Show or hide diagonal lines"
 msgstr "Mostrar u ocultar líneas diagonales"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:84
-#: src/components/ImageColorPicker.tsx:255
+#: src/components/color/ReflectanceChartDrawer.tsx:86
+#: src/components/ImageColorPicker.tsx:270
 msgid "Similarity"
 msgstr "Similitud"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:100
+#: src/components/color/ReflectanceChartDrawer.tsx:102
 msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
 msgstr "El modo de similitud compara los colores de destino y sugeridos. En el modo Mezcla, se muestran las partes del color que componen la mezcla."
 
@@ -1334,26 +1345,26 @@ msgstr "Superponga ligeramente las áreas pastel de diferentes colores y mezcle 
 msgid "Small"
 msgstr "Pequeño"
 
-#: src/components/color-set/ColorSelect.tsx:150
-#: src/components/ImageColorPicker.tsx:453
-#: src/components/palette/PaletteGrid.tsx:135
+#: src/components/color-set/ColorSelect.tsx:170
+#: src/components/ImageColorPicker.tsx:439
+#: src/components/palette/PaletteGrid.tsx:153
 msgid "Sort"
 msgstr "Ordenar"
 
-#: src/components/ImageColorPicker.tsx:261
+#: src/components/ImageColorPicker.tsx:276
 msgid "Sort by the number of colors in the mixture"
 msgstr "Ordena por el número de colores en la mezcla"
 
-#: src/components/ImageColorPicker.tsx:256
+#: src/components/ImageColorPicker.tsx:271
 msgid "Sort by the similarity of the mixture to the target color"
 msgstr "Ordena por la similitud de la mezcla con el color objetivo"
 
-#: src/components/ImageColorPicker.tsx:263
+#: src/components/ImageColorPicker.tsx:278
 msgid "Sort by the thickness of the mixture"
 msgstr "Ordena según el grosor de la mezcla"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:90
-#: src/components/color/SimilarColorCard.tsx:104
+#: src/components/color/ReflectanceChartDrawer.tsx:92
+#: src/components/color/SimilarColorCard.tsx:105
 #: src/components/ColorMixer.tsx:259
 msgid "Spectral reflectance curve"
 msgstr "Curva de reflectancia espectral"
@@ -1415,15 +1426,15 @@ msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "La aplicación intentará recargarse en {reloadCounter} s"
 
 #: src/components/ColorMixer.tsx:180
-#: src/components/ImageColorPicker.tsx:333
+#: src/components/ImageColorPicker.tsx:348
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "El color del papel o lienzo, o el color de la capa base cuando está esmaltada."
 
-#: src/components/ImageColorPicker.tsx:416
+#: src/components/ImageColorPicker.tsx:402
 msgid "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
 msgstr "El color que se va a mezclar del conjunto de colores. Seleccione un color haciendo clic en un punto de la imagen o utilice la ventana emergente del selector de color."
 
-#: src/components/ImageColorPicker.tsx:401
+#: src/components/ImageColorPicker.tsx:387
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
 msgstr "El diámetro del área circular alrededor del cursor, utilizado para calcular el color promedio de los píxeles en esa área."
 
@@ -1443,7 +1454,7 @@ msgstr "Hay una paleta común y una paleta separada para cada foto."
 msgid "Thick pigment"
 msgstr "Pigmento espeso"
 
-#: src/components/ImageColorPicker.tsx:263
+#: src/components/ImageColorPicker.tsx:278
 msgid "Thickness"
 msgstr "Espesor"
 
@@ -1511,10 +1522,10 @@ msgstr "Error inesperado"
 msgid "Unexpected error: {errorMessage}"
 msgstr "Error inesperado: {errorMessage}"
 
-#: src/components/color/ColorSwatchDrawer.tsx:103
-#: src/components/color/PaletteColorMixtureCard.tsx:76
-#: src/components/color/SimilarColorCard.tsx:84
-#: src/components/palette/PaletteGrid.tsx:156
+#: src/components/color/ColorSwatchDrawer.tsx:119
+#: src/components/color/PaletteColorMixtureCard.tsx:77
+#: src/components/color/SimilarColorCard.tsx:85
+#: src/components/palette/PaletteGrid.tsx:174
 msgid "Untitled mixture"
 msgstr "Mezcla sin título"
 
@@ -1538,7 +1549,7 @@ msgstr "Use medios de vidriado que le permitan obtener una capa delgada, por eje
 msgid "Use reference photo"
 msgstr "Usar foto de referencia"
 
-#: src/components/ImageColorPicker.tsx:359
+#: src/components/ImageColorPicker.tsx:374
 msgid "Use white paper or canvas as a background"
 msgstr "Utiliza papel blanco o lienzo como fondo"
 
@@ -1584,7 +1595,7 @@ msgstr "Al seleccionar más de {maxColorsFor3} colores en total, no se utilizan 
 
 #: src/components/ImageBackgroundRemoval.tsx:157
 #: src/components/ImageColorAdjustment.tsx:442
-#: src/components/ImageColorPicker.tsx:364
+#: src/components/ImageColorPicker.tsx:379
 msgid "White"
 msgstr "Blanco"
 
@@ -1607,13 +1618,13 @@ msgstr "Punto blanco"
 msgid "Width"
 msgstr "Ancho"
 
-#: src/components/color/AddToPaletteButton.tsx:51
-#: src/components/color/PaletteColorMixtureCard.tsx:104
+#: src/components/color/AddToPaletteButton.tsx:50
+#: src/components/color/PaletteColorMixtureCard.tsx:105
 #: src/components/ColorSetChooser.tsx:229
 #: src/components/ColorSetChooser.tsx:720
 #: src/components/CustomColorBrandCreator.tsx:499
 #: src/components/image/RecentImageCard.tsx:73
-#: src/components/palette/PaletteGrid.tsx:120
+#: src/components/palette/PaletteGrid.tsx:138
 #: src/components/storage/ClearStorage.tsx:62
 #: src/components/storage/ClearStorage.tsx:75
 msgid "Yes"

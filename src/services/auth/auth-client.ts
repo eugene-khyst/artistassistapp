@@ -87,7 +87,7 @@ export class AuthClient {
           this.authentication = await this.authenticate(idToken);
           await saveIdToken(idToken);
         } catch (e) {
-          throw authError(e);
+          throw createAuthError(e);
         }
       }
     } finally {
@@ -133,7 +133,7 @@ export class AuthClient {
       return this.authentication;
     } catch (e) {
       await deleteIdToken();
-      throw authError(e);
+      throw createAuthError(e);
     }
   }
 
@@ -155,7 +155,7 @@ export class AuthClient {
   }
 }
 
-function authError(e: unknown): AuthError {
+function createAuthError(e: unknown): AuthError {
   const type: string = e instanceof jose.errors.JWTExpired ? 'expired' : 'invalid_token';
   return new AuthError(type);
 }

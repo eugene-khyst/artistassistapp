@@ -16,7 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Rgb, type RgbTuple} from '~/src/services/color/space/rgb';
+import {rgbToOklab} from '~/src/services/color/space/oklab';
+import {type RgbTuple} from '~/src/services/color/space/rgb';
 import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
 import {copyOffscreenCanvas} from '~/src/utils/graphics';
 
@@ -31,10 +32,7 @@ export function colorMatchFilterWebGL(
   renderer.render([
     {
       setUniforms(gl, locations) {
-        gl.uniform3fv(
-          locations.get('u_oklab')!,
-          new Float32Array(new Rgb(...color).toOklab().toTuple())
-        );
+        gl.uniform3fv(locations.get('u_oklab')!, new Float32Array(rgbToOklab(...color)));
         gl.uniform1f(locations.get('u_threshold')!, threshold);
       },
     },

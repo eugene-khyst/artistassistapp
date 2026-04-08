@@ -39,11 +39,8 @@ export async function getOutline(
     );
     outline = transformedImage.transferToImageBitmap();
   } else {
-    const resizedImage: ImageBitmap = await createImageBitmapResizedTotalPixels(
-      image,
-      IMAGE_SIZE['2K']
-    );
-    outline = sobelEdgeDetectionWebGL(resizedImage, 5);
+    const [resizedImage] = await createImageBitmapResizedTotalPixels(image, IMAGE_SIZE['2K']);
+    outline = sobelEdgeDetectionWebGL(resizedImage);
     resizedImage.close();
   }
   console.timeEnd('outline');

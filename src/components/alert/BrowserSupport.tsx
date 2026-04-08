@@ -74,10 +74,10 @@ export const BrowserSupport: React.FC<PropsWithChildren> = ({children}: PropsWit
                 <li>
                   <AndroidOutlined style={{color: colorTextTertiary}} /> Android
                   <ul>
-                    <li>Chrome 85+</li>
+                    <li>Chrome 98+</li>
                     <li>Firefox 105+</li>
-                    <li>Opera 73+</li>
-                    <li>Samsung Internet 14.0+</li>
+                    <li>Opera 84+</li>
+                    <li>Samsung Internet 18.0+</li>
                   </ul>
                 </li>
               </ul>
@@ -109,10 +109,10 @@ export const BrowserSupport: React.FC<PropsWithChildren> = ({children}: PropsWit
                     <LinuxOutlined style={{color: colorTextTertiary}} /> Linux
                   </Trans>
                   <ul>
-                    <li>Chrome 85+</li>
-                    <li>Edge 85+</li>
+                    <li>Chrome 98+</li>
+                    <li>Edge 98+</li>
                     <li>Firefox 105+</li>
-                    <li>Opera 71+</li>
+                    <li>Opera 84+</li>
                   </ul>
                 </li>
                 <li>

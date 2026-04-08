@@ -40,13 +40,13 @@ export const ColorDescription: React.FC<Props> = ({colorType, color, text}: Prop
   const brand: ColorBrandDefinition | undefined = brands?.get(brandId);
 
   if (!brand) {
-    return <ColorSquare color={WHITE_HEX} size="large" />;
+    return <ColorSquare hex={WHITE_HEX} size="large" />;
   }
 
   const {shortName, fullName} = brand;
   return (
     <Space>
-      <ColorSquare color={rgbToHex(...rgb)} size="large" text={text} />
+      <ColorSquare hex={rgbToHex(...rgb)} size="large" text={text} />
       <span>
         <Tooltip title={fullName}>
           <Typography.Text>{shortName || fullName}</Typography.Text>

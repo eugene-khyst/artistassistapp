@@ -35,7 +35,7 @@ import {getCustomColorBrand, getCustomColorBrandsByType} from '~/src/services/db
 import {byBoolean, byString, type Comparator, compare, reverseOrder} from '~/src/utils/comparator';
 import {fetchSWR} from '~/src/utils/fetch';
 
-import {Rgb} from './space/rgb';
+import {hexToRgb} from './space/rgb';
 
 export const COLOR_TYPES: ColorType[] = [
   ColorType.WatercolorPaint,
@@ -278,7 +278,7 @@ export function toColorSet(
             brand: brandId,
             id,
             name,
-            rgb: Rgb.fromHex(hex).toTuple(),
+            rgb: hexToRgb(hex),
             rho,
             opacity,
             warmth,

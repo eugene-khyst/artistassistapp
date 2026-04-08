@@ -18,6 +18,7 @@
 
 import {Trans} from '@lingui/react/macro';
 import {Space, Typography} from 'antd';
+import {memo} from 'react';
 
 import {rgbToHex} from '~/src/services/color/space/rgb';
 import type {ColorMixture, ColorMixturePart} from '~/src/services/color/types';
@@ -35,7 +36,7 @@ interface Props {
   showTooltips?: boolean;
 }
 
-export const ColorMixtureDescription: React.FC<Props> = ({
+export const ColorMixtureDescription: React.FC<Props> = memo(function ColorMixtureDescription({
   colorMixture: {
     type,
     parts,
@@ -50,7 +51,7 @@ export const ColorMixtureDescription: React.FC<Props> = ({
   showColors = true,
   showConsistency = true,
   showTooltips = true,
-}: Props) => {
+}: Props) {
   const [whitePart, colorMixturePart] = toRatio(whiteFraction);
   const partsRatioText: string = parts.map(({part}: ColorMixturePart) => part).join(':');
   const whiteRatioText: string = formatRatio(whiteFraction, true);
@@ -74,7 +75,7 @@ export const ColorMixtureDescription: React.FC<Props> = ({
                   })}
                 </Space>
                 <Typography.Text>=</Typography.Text>
-                <ColorSquare color={rgbToHex(...colorMixtureRgb)} size="large" />
+                <ColorSquare hex={rgbToHex(...colorMixtureRgb)} size="large" />
               </>
             ) : (
               <ColorDescription colorType={type} color={parts[0]!.color} />
@@ -93,7 +94,7 @@ export const ColorMixtureDescription: React.FC<Props> = ({
             <Space orientation="vertical">
               <Space>
                 <ColorSquare
-                  color={rgbToHex(...colorMixtureRgb)}
+                  hex={rgbToHex(...colorMixtureRgb)}
                   text={colorMixturePart}
                   size="large"
                 />
@@ -104,7 +105,7 @@ export const ColorMixtureDescription: React.FC<Props> = ({
               <ColorDescription colorType={type} color={white} text={whitePart} />
             </Space>
             <Typography.Text>=</Typography.Text>
-            <ColorSquare color={rgbToHex(...tintRgb)} size="large" />
+            <ColorSquare hex={rgbToHex(...tintRgb)} size="large" />
           </Space>
         </>
       )}
@@ -118,20 +119,20 @@ export const ColorMixtureDescription: React.FC<Props> = ({
           {backgroundRgb && (
             <Space>
               <ColorSquare
-                color={rgbToHex(...tintRgb)}
+                hex={rgbToHex(...tintRgb)}
                 text={formatFraction(consistency)}
                 size="large"
               />
               <Typography.Text>
                 <Trans>over</Trans>
               </Typography.Text>
-              <ColorSquare color={rgbToHex(...backgroundRgb)} size="large" />
+              <ColorSquare hex={rgbToHex(...backgroundRgb)} size="large" />
               <Typography.Text>=</Typography.Text>
-              <ColorSquare color={rgbToHex(...layerRgb)} size="large" />
+              <ColorSquare hex={rgbToHex(...layerRgb)} size="large" />
             </Space>
           )}
         </>
       )}
     </Space>
   );
-};
+});

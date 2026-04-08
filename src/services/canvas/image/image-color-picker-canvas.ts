@@ -17,7 +17,13 @@
  */
 
 import type {RgbTuple} from '~/src/services/color/space/rgb';
-import {linearizeRgbChannel, Rgb, unlinearizeRgbChannel} from '~/src/services/color/space/rgb';
+import {
+  isRgbDark,
+  linearizeRgbChannel,
+  rgbToHex,
+  unlinearizeRgbChannel,
+  WHITE,
+} from '~/src/services/color/space/rgb';
 import {EventManager} from '~/src/services/event/event-manager';
 import {clamp} from '~/src/services/math/clamp';
 import {Rectangle, Vector} from '~/src/services/math/geometry';
@@ -38,7 +44,7 @@ export enum ColorPickerEventType {
 export interface PipettePointSetEvent {
   point: Vector;
   diameter: number;
-  rgb: Rgb;
+  rgb: RgbTuple;
 }
 
 export interface ColorPickerSample {
@@ -60,7 +66,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
   private pipetteEnabled = true;
   private pipetteDiameter: number;
   private pipettePoint: Vector | null = null;
-  private pipetteRgb: Rgb = Rgb.WHITE;
+  private pipetteRgb: RgbTuple = WHITE;
   private lastPipetteDiameter: number;
   private offscreenCanvases: OffscreenCanvas[] = [];
   private samples: ColorPickerSample[] = [];
@@ -145,7 +151,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
         this.indicatorDiameter > pipetteDiameter ? this.indicatorDiameter : pipetteDiameter + 2;
       const lineWidth = this.lineWidth / this.zoom;
       ctx.lineWidth = lineWidth;
-      const isDark = this.pipetteRgb.isDark();
+      const isDark = isRgbDark(...this.pipetteRgb);
       let isDarkToggle = isDark;
       for (let i = PIPETTE_OUTLINE_COUNT; i >= 1; i--) {
         ctx.strokeStyle = isDarkToggle ? '#000' : '#fff';
@@ -166,10 +172,9 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
   private drawSamples(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
     for (const {x, y, rgb} of this.samples) {
       ctx.lineWidth = this.lineWidth / this.zoom;
-      const sampleRgb = new Rgb(...rgb);
-      const isDark = sampleRgb.isDark();
+      const isDark = isRgbDark(...rgb);
       ctx.strokeStyle = ctx.fillStyle = isDark ? '#fff' : '#000';
-      ctx.fillStyle = sampleRgb.toHex();
+      ctx.fillStyle = rgbToHex(...rgb);
       this.drawCircle(ctx, new Vector(x, y), this.sampleRadius / this.zoom);
       ctx.fill();
       ctx.stroke();
@@ -206,7 +211,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     this.pipettePoint = pipettePoint;
     this.lastPipetteDiameter = this.pipetteDiameter;
     const imagePoint: Vector | undefined = this.toImagePoint(pipettePoint);
-    this.pipetteRgb = this.getAverageColor(imagePoint) ?? Rgb.WHITE;
+    this.pipetteRgb = this.getAverageColor(imagePoint) ?? WHITE;
     const event: PipettePointSetEvent = {
       point: pipettePoint,
       diameter: this.lastPipetteDiameter,
@@ -216,7 +221,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     this.requestRedraw();
   }
 
-  private getAverageColor({x, y}: Vector): Rgb | null {
+  private getAverageColor({x, y}: Vector): RgbTuple | null {
     const diameter = Math.round(this.pipetteDiameter);
     const radius = diameter / 2;
     const canvas = this.getOffscreenCanvas();
@@ -230,10 +235,9 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     return this.getAverageColorFromImageData(imageData);
   }
 
-  private getAverageColorFromImageData({data, width, height}: ImageData): Rgb {
+  private getAverageColorFromImageData({data, width, height}: ImageData): RgbTuple {
     if (data.length <= 4) {
-      const [r, g, b] = data.subarray(0, 3);
-      return new Rgb(r!, g!, b!);
+      return [data[0]!, data[1]!, data[2]!];
     }
     const diameter = Math.trunc(Math.min(width, height));
     const radius = Math.trunc(diameter / 2);
@@ -252,13 +256,14 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
       }
     }
     if (count === 0) {
-      return Rgb.WHITE;
+      return WHITE;
     }
-    const mean: RgbTuple = [0, 0, 0];
-    for (let channel = 0; channel < 3; channel++) {
-      mean[channel] = unlinearizeRgbChannel(total[channel]! / count);
-    }
-    return new Rgb(...mean);
+    const [totalR, totalG, totalB] = total;
+    return [
+      unlinearizeRgbChannel(totalR / count),
+      unlinearizeRgbChannel(totalG / count),
+      unlinearizeRgbChannel(totalB / count),
+    ];
   }
 
   getSamples(): ColorPickerSample[] {

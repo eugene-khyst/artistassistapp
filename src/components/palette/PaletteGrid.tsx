@@ -32,11 +32,13 @@ import {AdCard} from '~/src/components/ad/AdCard';
 import {ColorMixtureDescription} from '~/src/components/color/ColorMixtureDescription';
 import {PaletteColorMixtureCard} from '~/src/components/color/PaletteColorMixtureCard';
 import {compareColorMixturesByName} from '~/src/services/color/color-mixer';
-import {Rgb} from '~/src/services/color/space/rgb';
+import {rgbToOklab} from '~/src/services/color/space/oklab';
+import {oklabToOklch} from '~/src/services/color/space/oklch';
 import type {ColorMixture, ColorType} from '~/src/services/color/types';
 import {degrees} from '~/src/services/math/geometry';
 import {useAppStore} from '~/src/stores/app-store';
-import type {Comparator} from '~/src/utils/comparator';
+import type {ExtractorComparator} from '~/src/utils/array';
+import {createExtractorComparator, decorateSortUndecorate} from '~/src/utils/array';
 import {byDate, byNumber, reverseOrder} from '~/src/utils/comparator';
 
 enum Sort {
@@ -46,11 +48,24 @@ enum Sort {
   ByLightness = 4,
 }
 
-const COLOR_MIXTURES_COMPARATORS: Record<Sort, Comparator<ColorMixture>> = {
-  [Sort.ByDate]: reverseOrder(byDate(({date}) => date)),
-  [Sort.ByName]: compareColorMixturesByName,
-  [Sort.ByHue]: byNumber(({layerRgb}) => degrees(new Rgb(...layerRgb).toOklab().toOklch().h)),
-  [Sort.ByLightness]: reverseOrder(byNumber(({layerRgb}) => new Rgb(...layerRgb).toOklab().l)),
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const COLOR_MIXTURES_COMPARATORS: Record<Sort, ExtractorComparator<ColorMixture, any>> = {
+  [Sort.ByDate]: createExtractorComparator<ColorMixture>(reverseOrder(byDate(({date}) => date))),
+  [Sort.ByName]: createExtractorComparator<ColorMixture>(compareColorMixturesByName),
+  [Sort.ByHue]: createExtractorComparator<ColorMixture, number>(
+    byNumber(d => d),
+    ({layerRgb}) => {
+      const [, , h] = oklabToOklch(...rgbToOklab(...layerRgb));
+      return degrees(h);
+    }
+  ),
+  [Sort.ByLightness]: createExtractorComparator<ColorMixture, number>(
+    reverseOrder(byNumber(l => l)),
+    ({layerRgb}) => {
+      const [l] = rgbToOklab(...layerRgb);
+      return l;
+    }
+  ),
 };
 
 interface Props {
@@ -91,7 +106,10 @@ export const PaletteGrid: React.FC<Props> = ({
     },
   }));
 
-  const sortedColorMixtures = colorMixtures?.slice().sort(COLOR_MIXTURES_COMPARATORS[sort]);
+  const sortedColorMixtures = decorateSortUndecorate(
+    colorMixtures,
+    COLOR_MIXTURES_COMPARATORS[sort]
+  );
 
   return sortedColorMixtures ? (
     <>

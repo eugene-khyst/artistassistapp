@@ -19,7 +19,8 @@
 import {clamp} from '~/src/services/math/clamp';
 import {Matrix} from '~/src/services/math/matrix';
 
-import {linearizeRgbChannel, Rgb, unlinearizeRgbChannel} from './rgb';
+import type {RgbTuple} from './rgb';
+import {linearizeRgbChannel, unlinearizeRgbChannel} from './rgb';
 
 const SIZE = 36;
 const MAX_ITERATIONS = 100;
@@ -102,12 +103,12 @@ export class Reflectance {
     return new Reflectance(Matrix.fromColumn(rho));
   }
 
-  static fromRgb(rgb: Rgb): Reflectance {
-    if (rgb.isBlack()) {
+  static fromRgb(r: number, g: number, b: number): Reflectance {
+    if (r === 0 && g === 0 && b === 0) {
       return Reflectance.BLACK;
     }
 
-    if (rgb.isWhite()) {
+    if (r === 255 && g === 255 && b === 255) {
       return Reflectance.WHITE;
     }
 
@@ -115,7 +116,7 @@ export class Reflectance {
     d.set(0, 0, 2);
     d.set(SIZE - 1, SIZE - 1, 2);
 
-    const rgbMatrix = Matrix.fromColumn(rgb.toTuple()).map(linearizeRgbChannel);
+    const rgbMatrix = Matrix.fromColumn([r, g, b]).map(linearizeRgbChannel);
 
     let z = Matrix.zeros(SIZE, 1);
     let lambda = Matrix.zeros(3, 1);
@@ -153,9 +154,9 @@ export class Reflectance {
     throw new Error(`No solution found in ${MAX_ITERATIONS} iterations.`);
   }
 
-  toRgb(): Rgb {
+  toRgbTuple(): RgbTuple {
     const rgb: Matrix = RHO_TO_LINEAR_RGB.multiply(this.rho).map(unlinearizeRgbChannel);
-    return new Rgb(rgb.get(0, 0), rgb.get(1, 0), rgb.get(2, 0));
+    return [rgb.get(0, 0), rgb.get(1, 0), rgb.get(2, 0)];
   }
 
   toArray(): Float64Array {

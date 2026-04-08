@@ -16,18 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {OklabTuple} from './oklab';
+import {type Remote, wrap} from 'comlink';
 
-export type OklchTuple = [l: number, c: number, h: number];
+import type {ColorMixer} from '~/src/services/color/color-mixer';
 
-export function oklabToOklch(l: number, a: number, b: number): OklchTuple {
-  const c = Math.hypot(a, b);
-  const h = Math.atan2(b, a);
-  return [l, c, h];
-}
-
-export function oklchToOklab(l: number, c: number, h: number): OklabTuple {
-  const a = c * Math.cos(h);
-  const b = c * Math.sin(h);
-  return [l, a, b];
-}
+export const colorMixer: Remote<ColorMixer> = wrap(
+  new Worker(new URL('./color-mixer-worker.ts', import.meta.url), {
+    type: 'module',
+  })
+);

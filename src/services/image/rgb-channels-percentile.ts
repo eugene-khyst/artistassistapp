@@ -23,35 +23,51 @@ import {
   imageBitmapToImageData,
 } from '~/src/utils/graphics';
 
-function sortRgbChannels(imageData: ImageData): Uint8ClampedArray[] {
+function buildCumulativeHistograms(imageData: ImageData): Uint32Array[] {
   const {data} = imageData;
-  const pixelCount = Math.floor(data.length / 4);
-  const channels = Array.from({length: 3}, () => new Uint8ClampedArray(pixelCount));
-  for (let i = 0, j = 0; i < data.length; i += 4, j++) {
+  const histograms = Array.from({length: 3}, () => new Uint32Array(256));
+  for (let i = 0; i < data.length; i += 4) {
     for (let channel = 0; channel < 3; channel++) {
-      channels[channel]![j] = data[i + channel]!;
+      const value = data[i + channel]!;
+      histograms[channel]![value]!++;
     }
   }
-  channels.forEach(channel => channel.sort());
-  return channels;
+  for (const histogram of histograms) {
+    for (let i = 1; i < 256; i++) {
+      histogram[i]! += histogram[i - 1]!;
+    }
+  }
+  return histograms;
 }
 
 export class RgbChannelsPercentileCalculator {
-  sortedRgbChannels: Uint8ClampedArray[] = [];
+  private cumulativeHistograms: Uint32Array[] = [];
+  private pixelCount = 0;
 
   async setImage(blob: Blob): Promise<void> {
-    const image: ImageBitmap = await createImageBitmapResizedTotalPixels(blob, IMAGE_SIZE['2K']);
+    const [image] = await createImageBitmapResizedTotalPixels(blob, IMAGE_SIZE['2K']);
     const [imageData] = imageBitmapToImageData(image);
     image.close();
-    console.time('sort-rgb-channels');
-    this.sortedRgbChannels = sortRgbChannels(imageData);
-    console.timeEnd('sort-rgb-channels');
+    console.time('build-rgb-histograms');
+    this.pixelCount = Math.floor(imageData.data.length / 4);
+    this.cumulativeHistograms = buildCumulativeHistograms(imageData);
+    console.timeEnd('build-rgb-histograms');
   }
 
   calculatePercentiles(percentile: number): number[] {
-    return this.sortedRgbChannels.map(channel => {
-      const index = Math.floor(percentile * channel.length) - 1;
-      return linearizeRgbChannel(channel[Math.max(0, index)]!);
+    const target = Math.max(0, Math.floor(percentile * this.pixelCount) - 1);
+    return this.cumulativeHistograms.map(cumulative => {
+      let lo = 0;
+      let hi = 255;
+      while (lo < hi) {
+        const mid = (lo + hi) >>> 1;
+        if (cumulative[mid]! <= target) {
+          lo = mid + 1;
+        } else {
+          hi = mid;
+        }
+      }
+      return linearizeRgbChannel(lo);
     });
   }
 }

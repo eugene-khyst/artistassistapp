@@ -50,10 +50,7 @@ export async function transformImage(
   } else {
     imageDataArray = await Promise.all(
       images.map(async (image): Promise<ImageData> => {
-        const resizedImage: ImageBitmap = await createImageBitmapResizedTotalPixels(
-          image,
-          IMAGE_SIZE.SD
-        );
+        const [resizedImage] = await createImageBitmapResizedTotalPixels(image, IMAGE_SIZE.SD);
         const [imageData] = imageBitmapToImageData(resizedImage);
         resizedImage.close();
         return imageData;

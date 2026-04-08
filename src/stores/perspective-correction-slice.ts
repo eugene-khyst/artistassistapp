@@ -60,7 +60,7 @@ export const createPerspectiveCorrectionSlice: StateCreator<
       set({
         isPerspectiveCorrectedImageLoading: true,
       });
-      perspectiveUncorrectedImage = await createImageBitmapResizedTotalPixels(
+      [perspectiveUncorrectedImage] = await createImageBitmapResizedTotalPixels(
         imageFileToCorrectPerspective,
         10e6
       );

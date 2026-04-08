@@ -57,7 +57,7 @@ import {
   ImageColorPickerCanvas,
   MIN_COLOR_PICKER_DIAMETER,
 } from '~/src/services/canvas/image/image-color-picker-canvas';
-import {WHITE_HEX} from '~/src/services/color/space/rgb';
+import {rgbToHex, WHITE_HEX} from '~/src/services/color/space/rgb';
 import {
   type ColorDefinition,
   type CustomColorBrandDefinition,
@@ -141,7 +141,7 @@ const ColorDropdown: React.FC<ColorDropdownProps> = ({value, isEditTarget, onEdi
         iconPlacement="end"
         style={isEditTarget ? {borderColor: colorWarning, color: colorWarning} : undefined}
       >
-        <ColorSquare color={value ?? WHITE_HEX} size="small" />
+        <ColorSquare hex={value ?? WHITE_HEX} size="small" />
       </Button>
     </Dropdown>
   );
@@ -265,7 +265,7 @@ export const CustomColorBrandCreator: React.FC = () => {
       return;
     }
     const listener = ({rgb}: PipettePointSetEvent) => {
-      const hex = rgb.toHex();
+      const hex = rgbToHex(...rgb);
       setCurrentColor(hex);
       applyColor(form, editFromIndex, setEditFromIndex, setScrollToIndex, hex);
     };

@@ -96,7 +96,7 @@ export default defineConfig({
   },
 
   build: {
-    target: ['chrome85', 'edge85', 'firefox105', 'safari16.4', 'ios16.4'],
+    target: ['chrome98', 'edge98', 'firefox105', 'safari16.4', 'ios16.4'],
     sourcemap: true,
     chunkSizeWarningLimit: maxFileSize,
     rollupOptions: {

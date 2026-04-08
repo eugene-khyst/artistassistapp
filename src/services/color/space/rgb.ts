@@ -16,15 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Oklab} from '~/src/services/color/space/oklab';
 import {clamp} from '~/src/services/math/clamp';
-
-import {Reflectance} from './reflectance';
 
 export type RgbTuple = [r: number, g: number, b: number];
 
 export const WHITE_HEX = '#FFF';
 export const WHITE: RgbTuple = [255, 255, 255];
+export const BLACK: RgbTuple = [0, 0, 0];
 
 const HASH_CHAR_CODE: number = '#'.charCodeAt(0);
 
@@ -36,6 +34,33 @@ export function linearizeRgbChannel(value: number): number {
 export function unlinearizeRgbChannel(value: number): number {
   const v = clamp(value, 0, 1);
   return Math.round(255 * (v <= 0.0031308 ? 12.92 * v : 1.055 * Math.pow(v, 1 / 2.4) - 0.055));
+}
+
+const HEX_VALUES = new Uint8Array(128);
+'0123456789abcdef'.split('').forEach((char, i) => {
+  HEX_VALUES[char.charCodeAt(0)] = i;
+  HEX_VALUES[char.toUpperCase().charCodeAt(0)] = i;
+});
+
+export function hexToRgb(hex: string): RgbTuple {
+  const offset = hex.charCodeAt(0) === HASH_CHAR_CODE ? 1 : 0;
+  const len = hex.length - offset;
+  if (len === 6) {
+    const h0 = HEX_VALUES[hex.charCodeAt(offset)]!;
+    const h1 = HEX_VALUES[hex.charCodeAt(offset + 1)]!;
+    const h2 = HEX_VALUES[hex.charCodeAt(offset + 2)]!;
+    const h3 = HEX_VALUES[hex.charCodeAt(offset + 3)]!;
+    const h4 = HEX_VALUES[hex.charCodeAt(offset + 4)]!;
+    const h5 = HEX_VALUES[hex.charCodeAt(offset + 5)]!;
+    return [(h0 << 4) | h1, (h2 << 4) | h3, (h4 << 4) | h5];
+  }
+  if (len === 3) {
+    const h0 = HEX_VALUES[hex.charCodeAt(offset)]!;
+    const h1 = HEX_VALUES[hex.charCodeAt(offset + 1)]!;
+    const h2 = HEX_VALUES[hex.charCodeAt(offset + 2)]!;
+    return [(h0 << 4) | h0, (h1 << 4) | h1, (h2 << 4) | h2];
+  }
+  throw new Error(`Can't convert hex ${hex} to RGB`);
 }
 
 function channelToHex(value: number): string {
@@ -62,86 +87,25 @@ export function unpackRgb(packed: number): RgbTuple {
   return [r, g, b];
 }
 
-export class Rgb {
-  private static readonly HEX_VALUES = new Uint8Array(128);
-  static {
-    '0123456789abcdef'.split('').forEach((char, i) => {
-      Rgb.HEX_VALUES[char.charCodeAt(0)] = i;
-      Rgb.HEX_VALUES[char.toUpperCase().charCodeAt(0)] = i;
-    });
-  }
+export function getRgbLuminance(r: number, g: number, b: number): number {
+  return (
+    0.2126 * linearizeRgbChannel(r) +
+    0.7152 * linearizeRgbChannel(g) +
+    0.0722 * linearizeRgbChannel(b)
+  );
+}
 
-  static readonly WHITE = new Rgb(255, 255, 255);
-  static readonly BLACK = new Rgb(0, 0, 0);
+export function isRgbDark(r: number, g: number, b: number): boolean {
+  return getRgbLuminance(r, g, b) < 0.5;
+}
 
-  constructor(
-    public readonly r: number,
-    public readonly g: number,
-    public readonly b: number
-  ) {}
-
-  static fromHex(hex: string): Rgb {
-    const offset = hex.charCodeAt(0) === HASH_CHAR_CODE ? 1 : 0;
-    const len = hex.length - offset;
-    if (len === 6) {
-      const h0 = Rgb.HEX_VALUES[hex.charCodeAt(offset)]!;
-      const h1 = Rgb.HEX_VALUES[hex.charCodeAt(offset + 1)]!;
-      const h2 = Rgb.HEX_VALUES[hex.charCodeAt(offset + 2)]!;
-      const h3 = Rgb.HEX_VALUES[hex.charCodeAt(offset + 3)]!;
-      const h4 = Rgb.HEX_VALUES[hex.charCodeAt(offset + 4)]!;
-      const h5 = Rgb.HEX_VALUES[hex.charCodeAt(offset + 5)]!;
-      return new Rgb((h0 << 4) | h1, (h2 << 4) | h3, (h4 << 4) | h5);
-    }
-    if (len === 3) {
-      const h0 = Rgb.HEX_VALUES[hex.charCodeAt(offset)]!;
-      const h1 = Rgb.HEX_VALUES[hex.charCodeAt(offset + 1)]!;
-      const h2 = Rgb.HEX_VALUES[hex.charCodeAt(offset + 2)]!;
-      return new Rgb((h0 << 4) | h0, (h1 << 4) | h1, (h2 << 4) | h2);
-    }
-    throw new Error(`Can't convert hex ${hex} to RGB`);
-  }
-
-  toTuple(): RgbTuple {
-    return [this.r, this.g, this.b];
-  }
-
-  toHex(hashSymbol?: boolean): string {
-    return rgbToHex(this.r, this.g, this.b, hashSymbol);
-  }
-
-  toReflectance(): Reflectance {
-    return Reflectance.fromRgb(this);
-  }
-
-  toOklab(): Oklab {
-    return Oklab.fromRgb(this);
-  }
-
-  isBlack(): boolean {
-    return this.r === 0 && this.g === 0 && this.b === 0;
-  }
-
-  isWhite(): boolean {
-    return this.r === 255 && this.g === 255 && this.b === 255;
-  }
-
-  getLuminance(): number {
-    return (
-      0.2126 * linearizeRgbChannel(this.r) +
-      0.7152 * linearizeRgbChannel(this.g) +
-      0.0722 * linearizeRgbChannel(this.b)
-    );
-  }
-
-  isDark() {
-    return this.getLuminance() < 0.5;
-  }
-
-  isLight() {
-    return !this.isDark();
-  }
-
-  equals({r, g, b}: Rgb) {
-    return this.r === r && this.g === g && this.b === b;
-  }
+export function rgbEqual(
+  r1: number,
+  g1: number,
+  b1: number,
+  r2: number,
+  g2: number,
+  b2: number
+): boolean {
+  return r1 === r2 && g1 === g2 && b1 === b2;
 }

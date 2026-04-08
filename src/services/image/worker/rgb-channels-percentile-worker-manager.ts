@@ -16,18 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {OklabTuple} from './oklab';
+import type {Remote} from 'comlink';
+import {wrap} from 'comlink';
 
-export type OklchTuple = [l: number, c: number, h: number];
+import type {RgbChannelsPercentileCalculator} from '~/src/services/image/rgb-channels-percentile';
 
-export function oklabToOklch(l: number, a: number, b: number): OklchTuple {
-  const c = Math.hypot(a, b);
-  const h = Math.atan2(b, a);
-  return [l, c, h];
-}
-
-export function oklchToOklab(l: number, c: number, h: number): OklabTuple {
-  const a = c * Math.cos(h);
-  const b = c * Math.sin(h);
-  return [l, a, b];
-}
+export const rgbChannelsPercentileCalculator: Remote<RgbChannelsPercentileCalculator> = wrap(
+  new Worker(new URL('./rgb-channels-percentile-worker.ts', import.meta.url), {type: 'module'})
+);

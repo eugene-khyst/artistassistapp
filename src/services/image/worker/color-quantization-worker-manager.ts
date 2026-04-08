@@ -18,6 +18,7 @@
 
 import type {ColorSet} from '~/src/services/color/types';
 import type {ColorQuantization} from '~/src/services/image/color-quantization';
+import type {SamplingPoint} from '~/src/services/image/sampling-point';
 import {WorkerManager} from '~/src/utils/worker-manager';
 
 const colorQuantizationWorker = new WorkerManager<ColorQuantization>(
@@ -25,24 +26,35 @@ const colorQuantizationWorker = new WorkerManager<ColorQuantization>(
 );
 
 export async function getPosterizedImage(
-  originalImageFile: File,
-  quantizationDepth: number,
+  image: ImageBitmap,
+  maxColors: number,
   signal?: AbortSignal
 ): Promise<ImageBitmap> {
   const {quantizedImage} = await colorQuantizationWorker.run(
-    worker => worker.getPosterizedImage(originalImageFile, quantizationDepth),
+    worker => worker.getPosterizedImage(image, maxColors),
     signal
   );
   return quantizedImage;
 }
 
+export async function getSamplingPoints(
+  image: ImageBitmap,
+  signal?: AbortSignal
+): Promise<SamplingPoint[]> {
+  const samplingPoints: SamplingPoint[] = await colorQuantizationWorker.run(
+    worker => worker.getSamplingPoints(image),
+    signal
+  );
+  return samplingPoints;
+}
+
 export async function getLimitedPaletteImage(
-  originalImageFile: File,
+  image: ImageBitmap,
   limitedColorSet: ColorSet,
   signal?: AbortSignal
 ): Promise<ImageBitmap> {
   const {quantizedImage} = await colorQuantizationWorker.run(
-    worker => worker.getLimitedPaletteImage(originalImageFile, limitedColorSet),
+    worker => worker.getLimitedPaletteImage(image, limitedColorSet),
     signal
   );
   return quantizedImage;

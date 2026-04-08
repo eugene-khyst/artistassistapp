@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {by, type Comparator} from '~/src/utils/comparator';
+
 export type TypedArray =
   | Int8Array
   | Uint8Array
@@ -92,4 +94,36 @@ export function groupBy<T, Key>(
     }
     return groups;
   }, new Map<Key, T[]>());
+}
+
+export type ExtractorComparator<T, P> = [
+  comparator: Comparator<P>,
+  extractor?: (item: T) => P | null | undefined,
+];
+
+export function createExtractorComparator<T, P = T>(
+  comparator: Comparator<P>,
+  extractor?: (item: T) => P | null | undefined
+): ExtractorComparator<T, P> {
+  return [comparator, extractor];
+}
+
+export function decorateSortUndecorate<T, P>(
+  array: T[] | undefined,
+  [comparator, extractor]: ExtractorComparator<T, P>
+): T[] | undefined {
+  if (!array) {
+    return;
+  }
+  if (extractor) {
+    return array
+      .map(item => ({
+        item,
+        value: extractor(item),
+      }))
+      .sort(by(({value}) => value, comparator))
+      .map(({item}) => item);
+  } else {
+    return [...array].sort(comparator as unknown as Comparator<T>);
+  }
 }

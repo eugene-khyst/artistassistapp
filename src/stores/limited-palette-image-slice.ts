@@ -71,24 +71,25 @@ export const createLimitedPaletteImageSlice: StateCreator<
   limitedPaletteAbortController: null,
 
   setLimitedColorSet: async (colorIds: ColorId[]): Promise<void> => {
-    const {originalImageFile, colorSet, limitedPaletteImage: prev} = get();
-    if (!originalImageFile) {
+    get().abortLimitedPalette();
+    const {originalImage, colorSet, limitedPaletteImage: prev} = get();
+    if (!originalImage) {
       return;
     }
     const limitedColorSet: ColorSet | null = filterColorSet(colorSet, colorIds);
     if (!limitedColorSet) {
       return;
     }
+    const limitedPaletteAbortController = new AbortController();
+    set({
+      limitedPaletteImage: null,
+      isLimitedPaletteImageLoading: true,
+      limitedPaletteAbortController,
+    });
     try {
-      const limitedPaletteAbortController = new AbortController();
-      set({
-        limitedPaletteImage: null,
-        isLimitedPaletteImageLoading: true,
-        limitedPaletteAbortController,
-      });
       prev?.close();
       const limitedPaletteImage = await getLimitedPaletteImage(
-        originalImageFile,
+        originalImage,
         limitedColorSet,
         limitedPaletteAbortController.signal
       );
@@ -100,10 +101,12 @@ export const createLimitedPaletteImageSlice: StateCreator<
         throw error;
       }
     } finally {
-      set({
-        isLimitedPaletteImageLoading: false,
-        limitedPaletteAbortController: null,
-      });
+      if (get().limitedPaletteAbortController === limitedPaletteAbortController) {
+        set({
+          isLimitedPaletteImageLoading: false,
+          limitedPaletteAbortController: null,
+        });
+      }
     }
   },
   setLimitedColorSetAsMain: (colorIds: ColorId[]): void => {

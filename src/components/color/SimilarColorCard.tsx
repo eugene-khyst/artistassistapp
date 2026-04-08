@@ -19,6 +19,7 @@
 import {BgColorsOutlined, LineChartOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Card, Space, Typography} from 'antd';
+import {memo} from 'react';
 
 import {AddToPaletteButton} from '~/src/components/color/AddToPaletteButton';
 import {ColorSquare} from '~/src/components/color/ColorSquare';
@@ -35,12 +36,14 @@ interface Props {
   onReflectanceChartClick: (colorMixture?: ColorMixture) => void;
 }
 
-export const SimilarColorCard: React.FC<Props> = ({
+export const SimilarColorCard: React.FC<Props> = memo(function SimilarColorCard({
   targetColor,
   similarColor: {colorMixture, similarity},
   onReflectanceChartClick,
-}: Props) => {
-  const paletteColorMixtures = useAppStore(state => state.paletteColorMixtures);
+}: Props) {
+  const paletteColorMixture = useAppStore(state =>
+    state.paletteColorMixtures.get(colorMixture.key)
+  );
 
   const saveToPalette = useAppStore(state => state.saveToPalette);
   const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
@@ -49,8 +52,6 @@ export const SimilarColorCard: React.FC<Props> = ({
 
   const {type} = colorMixture;
   const {glazing} = COLOR_MIXING[type];
-
-  const paletteColorMixture: ColorMixture | undefined = paletteColorMixtures.get(colorMixture.key);
   const similarityText: string = similarity.toFixed(1);
 
   const handleTitleEdited = (value: string) => {
@@ -68,8 +69,8 @@ export const SimilarColorCard: React.FC<Props> = ({
               <Typography.Text strong>{similarityText}%</Typography.Text> similarity
             </Trans>
           </Typography.Text>
-          <ColorSquare size="small" color={targetColor} />
-          <ColorSquare size="small" color={rgbToHex(...colorMixture.layerRgb)} />
+          <ColorSquare size="small" hex={targetColor} />
+          <ColorSquare size="small" hex={rgbToHex(...colorMixture.layerRgb)} />
         </Space>
         <ColorMixtureDescription colorMixture={colorMixture} />
         {paletteColorMixture && (
@@ -112,4 +113,4 @@ export const SimilarColorCard: React.FC<Props> = ({
       </Space>
     </Card>
   );
-};
+});

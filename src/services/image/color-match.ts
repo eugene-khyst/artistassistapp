@@ -18,14 +18,32 @@
 
 import type {RgbTuple} from '~/src/services/color/space/rgb';
 import {colorMatchFilterWebGL} from '~/src/services/image/filter/color-match-webgl';
+import type {KernelSize} from '~/src/services/image/filter/gaussian-blur-webgl';
+import {sobelEdgeDetectionWebGL} from '~/src/services/image/filter/sobel-operator-webgl';
+import {createImageBitmapResizedTotalPixels, IMAGE_SIZE, mergeImages} from '~/src/utils/graphics';
 
-export function getColorMatchImage(
+const COLOR_MATCH_DELTA_E_OK_THRESHOLD = 0.05;
+const GAUSSIAN_BLUR_KERNEL_SIZE: KernelSize = 11;
+
+export async function getColorMatchImage(
   image: ImageBitmap,
-  color: RgbTuple,
-  threshold = 0.05
-): ImageBitmap {
+  color: RgbTuple
+): Promise<ImageBitmap> {
   console.time('color-match');
-  const colorMatchImage: ImageBitmap = colorMatchFilterWebGL(image, color, threshold);
+  const [resizedImage] = await createImageBitmapResizedTotalPixels(image, IMAGE_SIZE['2K']);
+  const outlineImage: ImageBitmap = sobelEdgeDetectionWebGL(
+    resizedImage,
+    GAUSSIAN_BLUR_KERNEL_SIZE
+  );
+  const colorMatchImage: ImageBitmap = colorMatchFilterWebGL(
+    resizedImage,
+    color,
+    COLOR_MATCH_DELTA_E_OK_THRESHOLD
+  );
+  resizedImage.close();
+  const mergedImage: ImageBitmap = mergeImages(outlineImage, colorMatchImage);
+  colorMatchImage.close();
+  outlineImage.close();
   console.timeEnd('color-match');
-  return colorMatchImage;
+  return mergedImage;
 }

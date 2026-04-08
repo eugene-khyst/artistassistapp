@@ -74,6 +74,7 @@ export const createStyleTransferSlice: StateCreator<
     }
   },
   loadStyledImage: async (): Promise<void> => {
+    get().abortStyleTransfer();
     const {originalImage, styleImageFile, styleTransferModel, styledImageBlob, auth} = get();
     if (
       styledImageBlob ||
@@ -89,14 +90,14 @@ export const createStyleTransferSlice: StateCreator<
     }
     const styleImage: ImageBitmap | null =
       numInputs > 1 && styleImageFile ? await createImageBitmap(styleImageFile) : null;
+    const styleTransferAbortController = new AbortController();
+    set({
+      styledImageBlob: null,
+      isStyleTransferLoading: true,
+      styleTransferDownloadTip: null,
+      styleTransferAbortController,
+    });
     try {
-      const styleTransferAbortController = new AbortController();
-      set({
-        isStyleTransferLoading: true,
-        styleTransferDownloadTip: null,
-        styleTransferAbortController,
-        styledImageBlob: null,
-      });
       const images = styleImage ? [originalImage, styleImage] : [originalImage];
       const styledImageCanvas: OffscreenCanvas = await transferStyle(
         images,
@@ -116,11 +117,13 @@ export const createStyleTransferSlice: StateCreator<
       }
     } finally {
       styleImage?.close();
-      set({
-        isStyleTransferLoading: false,
-        styleTransferDownloadTip: null,
-        styleTransferAbortController: null,
-      });
+      if (get().styleTransferAbortController === styleTransferAbortController) {
+        set({
+          isStyleTransferLoading: false,
+          styleTransferDownloadTip: null,
+          styleTransferAbortController: null,
+        });
+      }
     }
   },
   abortStyleTransfer: (): void => {

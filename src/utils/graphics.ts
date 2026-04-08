@@ -51,7 +51,7 @@ const NOOP_DRAW_IMAGE_PARAMS_SUPPLIER: DrawImageParamsSupplier = (
 export async function createImageBitmapResizedTotalPixels(
   image: ImageBitmapSource,
   totalPixels: number
-): Promise<ImageBitmap> {
+): Promise<[ImageBitmap, number]> {
   const imageBitmap: ImageBitmap = await createImageBitmap(image);
   const {width, height} = imageBitmap;
   const scaleFactor: number = Math.min(1, Math.sqrt(totalPixels / (width * height)));
@@ -59,7 +59,7 @@ export async function createImageBitmapResizedTotalPixels(
     resizeWidth: Math.trunc(scaleFactor * width),
   });
   imageBitmap.close();
-  return scaledImage;
+  return [scaledImage, scaleFactor];
 }
 
 export function rotateImageBitmapClockwise(image: ImageBitmap): ImageBitmap {
@@ -255,6 +255,17 @@ export function applyMask(image: ImageBitmap, mask: OffscreenCanvas): OffscreenC
   ctx.globalCompositeOperation = 'destination-in';
   ctx.drawImage(mask, 0, 0);
   return canvas;
+}
+
+export function mergeImages(...images: ImageBitmap[]): ImageBitmap {
+  const width = Math.max(...images.map(({width}) => width));
+  const height = Math.max(...images.map(({height}) => height));
+  const canvas = new OffscreenCanvas(width, height);
+  const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d')!;
+  for (const image of images) {
+    ctx.drawImage(image, 0, 0);
+  }
+  return canvas.transferToImageBitmap();
 }
 
 export function getIndexForCoord(x: number, y: number, width: number, channel: number): number {

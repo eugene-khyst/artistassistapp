@@ -27,9 +27,11 @@ import type {Size} from '~/src/utils/types';
 import gaussianBlurFragmentShaderSource from './glsl/gaussian-blur.glsl';
 import sobelOperatorFragmentShaderSource from './glsl/sobel-operator.glsl';
 
+const GAUSSIAN_BLUR_KERNEL_SIZE: KernelSize = 5;
+
 export function sobelEdgeDetectionWebGL(
   image: ImageBitmap,
-  gaussianBlurKernelSize: KernelSize
+  gaussianBlurKernelSize = GAUSSIAN_BLUR_KERNEL_SIZE
 ): ImageBitmap {
   const renderer = new WebGLRenderer(
     [gaussianBlurFragmentShaderSource, sobelOperatorFragmentShaderSource],

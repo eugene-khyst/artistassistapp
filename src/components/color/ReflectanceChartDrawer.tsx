@@ -24,7 +24,9 @@ import {useEffect, useState} from 'react';
 import {ColorMixtureDescription} from '~/src/components/color/ColorMixtureDescription';
 import {COLOR_TYPE_LABELS} from '~/src/components/messages';
 import {useReflectanceChart} from '~/src/hooks/useReflectanceChart';
-import {Rgb} from '~/src/services/color/space/rgb';
+import {Reflectance} from '~/src/services/color/space/reflectance';
+import type {RgbTuple} from '~/src/services/color/space/rgb';
+import {hexToRgb} from '~/src/services/color/space/rgb';
 import type {ColorMixture, ColorMixturePart} from '~/src/services/color/types';
 
 enum ChartMode {
@@ -71,8 +73,8 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
       }
     }
     if (targetColor && chartMode === ChartMode.Similarity) {
-      const rgb = Rgb.fromHex(targetColor);
-      reflectanceChart.addReflectance(rgb.toReflectance().toArray(), rgb.toTuple());
+      const rgb: RgbTuple = hexToRgb(targetColor);
+      reflectanceChart.addReflectance(Reflectance.fromRgb(...rgb).toArray(), rgb);
     }
   }, [reflectanceChart, targetColor, colorMixture, chartMode]);
 

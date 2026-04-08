@@ -20,8 +20,8 @@ import {getErrorMessage} from '~/src/utils/error';
 
 const ABORT_ERROR_NAME = 'AbortError';
 
-function createAbortError(reason?: unknown): DOMException {
-  return new DOMException(getErrorMessage(reason), ABORT_ERROR_NAME);
+export function createAbortError(reason?: unknown): DOMException {
+  return new DOMException(getErrorMessage(reason) || 'Aborted', ABORT_ERROR_NAME);
 }
 
 export function isAbortError(error: unknown): boolean {

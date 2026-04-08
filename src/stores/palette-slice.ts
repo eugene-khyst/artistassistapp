@@ -18,22 +18,35 @@
 
 import type {StateCreator} from 'zustand';
 
-import type {ColorMixture, ColorType} from '~/src/services/color/types';
+import type {ColorMixture, ColorType, SamplingArea} from '~/src/services/color/types';
 import {
   deleteColorMixture,
   getColorMixtures,
   saveColorMixture,
 } from '~/src/services/db/color-mixture-db';
+import {createAbortError} from '~/src/utils/promise';
 
 import type {ColorMixerSlice} from './color-mixer-slice';
 import type {OriginalImageSlice} from './original-image-slice';
 
+export interface SaveToPaletteEntry {
+  colorMixture: ColorMixture;
+  linkToImage?: boolean;
+  samplingArea?: SamplingArea;
+}
+
 export interface PaletteSlice {
   paletteColorMixtures: Map<string, ColorMixture>;
   selectedPaletteColorMixtures: Map<string, ColorMixture>;
+  isPaletteLoading: boolean;
 
   loadPaletteColorMixtures: () => Promise<void>;
-  saveToPalette: (colorMixture: ColorMixture, linkToImage?: boolean) => Promise<void>;
+  saveToPalette: (
+    colorMixture: ColorMixture,
+    linkToImage?: boolean,
+    samplingArea?: SamplingArea
+  ) => Promise<void>;
+  saveToPaletteBulk: (entries: SaveToPaletteEntry[], signal?: AbortSignal) => Promise<void>;
   deleteFromPalette: (colorMixture: ColorMixture) => Promise<void>;
   deleteAllFromPalette: (type: ColorType) => Promise<void>;
   selectPaletteColorMixtures: (keys: string[]) => void;
@@ -47,31 +60,46 @@ export const createPaletteSlice: StateCreator<
 > = (set, get) => ({
   paletteColorMixtures: new Map(),
   selectedPaletteColorMixtures: new Map(),
+  isPaletteLoading: false,
 
   loadPaletteColorMixtures: async (): Promise<void> => {
     const {imageFile} = get();
-    const paletteColorMixtures = new Map<string, ColorMixture>(
-      (await getColorMixtures(imageFile?.id)).map(colorMixture => [colorMixture.key, colorMixture])
-    );
     set({
-      paletteColorMixtures,
+      isPaletteLoading: true,
     });
+    try {
+      const paletteColorMixtures = new Map<string, ColorMixture>(
+        (await getColorMixtures(imageFile?.id)).map(colorMixture => [
+          colorMixture.key,
+          colorMixture,
+        ])
+      );
+      set({
+        paletteColorMixtures,
+      });
+    } finally {
+      set({
+        isPaletteLoading: false,
+      });
+    }
   },
-  saveToPalette: async (colorMixture: ColorMixture, linkToImage = true): Promise<void> => {
-    const {id, key} = colorMixture;
-    const isNew = !id;
-    colorMixture = {
-      ...colorMixture,
-      ...(isNew && linkToImage
-        ? {
-            imageFileId: get().imageFile?.id,
-            samplingArea: get().samplingArea,
-          }
-        : {}),
-    };
-    await saveColorMixture(colorMixture);
-
+  saveToPalette: async (
+    colorMixture: ColorMixture,
+    linkToImage = true,
+    samplingArea?: SamplingArea
+  ): Promise<void> => {
+    await get().saveToPaletteBulk([
+      {
+        colorMixture,
+        linkToImage,
+        samplingArea,
+      },
+    ]);
+  },
+  saveToPaletteBulk: async (entries: SaveToPaletteEntry[], signal?: AbortSignal): Promise<void> => {
     const {
+      imageFile,
+      samplingArea: defaultSamplingArea,
       paletteColorMixtures: prevPaletteColorMixtures,
       selectedPaletteColorMixtures: prevSelected,
     } = get();
@@ -79,17 +107,55 @@ export const createPaletteSlice: StateCreator<
     const paletteColorMixtures = new Map<string, ColorMixture>(prevPaletteColorMixtures);
     let selectedPaletteColorMixtures = prevSelected;
 
-    paletteColorMixtures.set(key, colorMixture);
-
-    if (selectedPaletteColorMixtures.has(key)) {
-      selectedPaletteColorMixtures = new Map(prevSelected);
-      selectedPaletteColorMixtures.set(key, colorMixture);
-    }
-
     set({
-      paletteColorMixtures,
-      selectedPaletteColorMixtures,
+      isPaletteLoading: true,
     });
+
+    try {
+      const merged = new Map<string, SaveToPaletteEntry>();
+      for (const e of entries) {
+        if (!merged.has(e.colorMixture.key)) {
+          merged.set(e.colorMixture.key, e);
+        }
+      }
+
+      for (const entry of merged.values()) {
+        if (signal?.aborted) {
+          throw createAbortError();
+        }
+        const {key} = entry.colorMixture;
+        const existing = paletteColorMixtures.get(key);
+        const id = entry.colorMixture.id ?? existing?.id;
+        const isNew = !id;
+        const colorMixture: ColorMixture = {
+          ...existing,
+          ...entry.colorMixture,
+          ...(isNew && (entry.linkToImage ?? true)
+            ? {
+                imageFileId: imageFile?.id,
+                samplingArea: entry.samplingArea ?? defaultSamplingArea,
+              }
+            : {}),
+          ...(id ? {id} : {}),
+        };
+        await saveColorMixture(colorMixture);
+
+        paletteColorMixtures.set(key, colorMixture);
+
+        if (selectedPaletteColorMixtures.has(key)) {
+          if (selectedPaletteColorMixtures === prevSelected) {
+            selectedPaletteColorMixtures = new Map(prevSelected);
+          }
+          selectedPaletteColorMixtures.set(key, colorMixture);
+        }
+      }
+    } finally {
+      set({
+        paletteColorMixtures,
+        selectedPaletteColorMixtures,
+        isPaletteLoading: false,
+      });
+    }
   },
   deleteFromPalette: async ({key: keyToDelete}: ColorMixture): Promise<void> => {
     const {
@@ -102,25 +168,34 @@ export const createPaletteSlice: StateCreator<
       return;
     }
 
-    const {id: idToDelete} = colorMixture;
-    if (idToDelete) {
-      await deleteColorMixture(idToDelete);
-    }
-
-    const paletteColorMixtures = new Map(prevPaletteColorMixtures);
-    let selectedPaletteColorMixtures = prevSelected;
-
-    paletteColorMixtures.delete(keyToDelete);
-
-    if (selectedPaletteColorMixtures.has(keyToDelete)) {
-      selectedPaletteColorMixtures = new Map(prevSelected);
-      selectedPaletteColorMixtures.delete(keyToDelete);
-    }
-
     set({
-      paletteColorMixtures,
-      selectedPaletteColorMixtures,
+      isPaletteLoading: true,
     });
+    try {
+      const {id: idToDelete} = colorMixture;
+      if (idToDelete) {
+        await deleteColorMixture(idToDelete);
+      }
+
+      const paletteColorMixtures = new Map(prevPaletteColorMixtures);
+      let selectedPaletteColorMixtures = prevSelected;
+
+      paletteColorMixtures.delete(keyToDelete);
+
+      if (selectedPaletteColorMixtures.has(keyToDelete)) {
+        selectedPaletteColorMixtures = new Map(prevSelected);
+        selectedPaletteColorMixtures.delete(keyToDelete);
+      }
+
+      set({
+        paletteColorMixtures,
+        selectedPaletteColorMixtures,
+      });
+    } finally {
+      set({
+        isPaletteLoading: false,
+      });
+    }
   },
   deleteAllFromPalette: async (typeToDelete: ColorType): Promise<void> => {
     const {
@@ -135,24 +210,33 @@ export const createPaletteSlice: StateCreator<
       }
     }
 
-    for (const key of keysToDelete) {
-      const colorMixture = prevPaletteColorMixtures.get(key);
-      if (colorMixture?.id) {
-        await deleteColorMixture(colorMixture.id);
-      }
-    }
-
-    const paletteColorMixtures = new Map(prevPaletteColorMixtures);
-    const selectedPaletteColorMixtures = new Map(prevSelected);
-    for (const key of keysToDelete) {
-      paletteColorMixtures.delete(key);
-      selectedPaletteColorMixtures.delete(key);
-    }
-
     set({
-      paletteColorMixtures,
-      selectedPaletteColorMixtures,
+      isPaletteLoading: true,
     });
+    try {
+      for (const key of keysToDelete) {
+        const colorMixture = prevPaletteColorMixtures.get(key);
+        if (colorMixture?.id) {
+          await deleteColorMixture(colorMixture.id);
+        }
+      }
+
+      const paletteColorMixtures = new Map(prevPaletteColorMixtures);
+      const selectedPaletteColorMixtures = new Map(prevSelected);
+      for (const key of keysToDelete) {
+        paletteColorMixtures.delete(key);
+        selectedPaletteColorMixtures.delete(key);
+      }
+
+      set({
+        paletteColorMixtures,
+        selectedPaletteColorMixtures,
+      });
+    } finally {
+      set({
+        isPaletteLoading: false,
+      });
+    }
   },
   selectPaletteColorMixtures: (keys: string[]): void => {
     const {paletteColorMixtures} = get();

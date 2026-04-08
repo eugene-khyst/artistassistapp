@@ -16,24 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Remote} from 'comlink';
-import {wrap} from 'comlink';
 import type {StateCreator} from 'zustand';
 
-import {linearizeRgbChannel, Rgb} from '~/src/services/color/space/rgb';
+import {hexToRgb, linearizeRgbChannel} from '~/src/services/color/space/rgb';
 import {
   type AdjustmentParameters,
   getColorAdjustedImage,
 } from '~/src/services/image/color-adjustment';
-import type {RgbChannelsPercentileCalculator} from '~/src/services/image/rgb-channels-percentile';
+import {rgbChannelsPercentileCalculator} from '~/src/services/image/worker/rgb-channels-percentile-worker-manager';
 import {createImageBitmapResizedTotalPixels} from '~/src/utils/graphics';
-
-const rgbChannelsPercentileCalculator: Remote<RgbChannelsPercentileCalculator> = wrap(
-  new Worker(
-    new URL('../services/image/worker/rgb-channels-percentile-worker.ts', import.meta.url),
-    {type: 'module'}
-  )
-);
 
 export interface ColorAdjustmentSlice {
   imageFileToAdjustColors: File | null;
@@ -69,7 +60,7 @@ export const createColorAdjustmentSlice: StateCreator<
         isColorAdjustedImageLoading: true,
       });
       await rgbChannelsPercentileCalculator.setImage(imageFileToAdjustColors);
-      colorUnadjustedImage = await createImageBitmapResizedTotalPixels(
+      [colorUnadjustedImage] = await createImageBitmapResizedTotalPixels(
         imageFileToAdjustColors,
         10e6
       );
@@ -106,9 +97,7 @@ export const createColorAdjustmentSlice: StateCreator<
     get().adjustImageColors(maxValues, params);
   },
   adjustImageColorsReference: (whitePoint: string, params: AdjustmentParameters): void => {
-    const maxValues: number[] = Rgb.fromHex(whitePoint)
-      .toTuple()
-      .map(v => linearizeRgbChannel(v));
+    const maxValues: number[] = hexToRgb(whitePoint).map(v => linearizeRgbChannel(v));
     get().adjustImageColors(maxValues, params);
   },
 });

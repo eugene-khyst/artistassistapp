@@ -21,7 +21,7 @@ import {createImageBitmapResizedTotalPixels, IMAGE_SIZE} from '~/src/utils/graph
 
 export async function getBlurred(blob: Blob): Promise<ImageBitmap[]> {
   console.time('blur');
-  const image: ImageBitmap = await createImageBitmapResizedTotalPixels(blob, IMAGE_SIZE.HD);
+  const [image] = await createImageBitmapResizedTotalPixels(blob, IMAGE_SIZE.HD);
   let blurred: ImageBitmap[] = kuwaharaFilterWebGL(image, [2, 3, 4]);
   blurred = [image, ...blurred];
   console.timeEnd('blur');

@@ -25,6 +25,7 @@ export interface ImageFile {
   name?: string;
   date?: Date;
   digest?: string;
+  maxColors?: number;
 }
 
 export async function fileToImageFile(file: File): Promise<ImageFile> {

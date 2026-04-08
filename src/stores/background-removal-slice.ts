@@ -81,6 +81,7 @@ export const createBackgroundRemovalSlice: StateCreator<
     void get().removeBackground();
   },
   removeBackground: async (): Promise<void> => {
+    get().abortBackgroundRemoval();
     const {
       imageFileToRemoveBackground,
       backgroundRemovalColor,
@@ -97,13 +98,13 @@ export const createBackgroundRemovalSlice: StateCreator<
     ) {
       return;
     }
+    const backgroundRemovalAbortController = new AbortController();
+    set({
+      isBackgroundRemovalLoading: true,
+      backgroundRemovalDownloadTip: null,
+      backgroundRemovalAbortController,
+    });
     try {
-      const backgroundRemovalAbortController = new AbortController();
-      set({
-        isBackgroundRemovalLoading: true,
-        backgroundRemovalDownloadTip: null,
-        backgroundRemovalAbortController,
-      });
       if (!imageWithoutBackgroundCanvas) {
         imageWithoutBackgroundCanvas = await removeBackground(
           imageFileToRemoveBackground,
@@ -135,11 +136,13 @@ export const createBackgroundRemovalSlice: StateCreator<
         throw error;
       }
     } finally {
-      set({
-        isBackgroundRemovalLoading: false,
-        backgroundRemovalDownloadTip: null,
-        backgroundRemovalAbortController: null,
-      });
+      if (get().backgroundRemovalAbortController === backgroundRemovalAbortController) {
+        set({
+          isBackgroundRemovalLoading: false,
+          backgroundRemovalDownloadTip: null,
+          backgroundRemovalAbortController: null,
+        });
+      }
     }
   },
   abortBackgroundRemoval: (): void => {

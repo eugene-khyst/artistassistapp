@@ -177,7 +177,7 @@ export class WebGLRenderer {
 
     const textures =
       renderPasses.length > 1
-        ? Array.from({length: Math.min(renderPasses.length - 1, 2)}).map(() => this.createTexture())
+        ? Array.from({length: Math.min(renderPasses.length - 1, 2)}, () => this.createTexture())
         : [];
     const framebuffers = textures.map(texture => this.createFramebuffer(texture));
 

@@ -16,11 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {useLingui} from '@lingui/react/macro';
+import {Plural, useLingui} from '@lingui/react/macro';
 import type {CollapseProps} from 'antd';
 import {Collapse, Typography} from 'antd';
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 
+import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {COLOR_TYPE_LABELS} from '~/src/components/messages';
 import {COLOR_TYPES} from '~/src/services/color/colors';
 import type {ColorMixture, ColorType} from '~/src/services/color/types';
@@ -36,6 +37,7 @@ type ItemType = ArrayElement<CollapseProps['items']>;
 export const Palette: React.FC = () => {
   const colorSet = useAppStore(state => state.colorSet);
   const paletteColorMixtures = useAppStore(state => state.paletteColorMixtures);
+  const isPaletteLoading = useAppStore(state => state.isPaletteLoading);
 
   const {t} = useLingui();
 
@@ -47,6 +49,8 @@ export const Palette: React.FC = () => {
     ColorMixture[] | undefined
   >();
   const [isOpenColorSwatch, setIsOpenColorSwatch] = useState<boolean>(false);
+
+  const isLoading: boolean = isPaletteLoading;
 
   useEffect(() => {
     if (colorSet) {
@@ -60,20 +64,39 @@ export const Palette: React.FC = () => {
     setIsOpenColorSwatch(true);
   }, []);
 
+  const colorMixturesByType = useMemo(() => {
+    const result = new Map<ColorType, ColorMixture[]>();
+    for (const cm of paletteColorMixtures.values()) {
+      const arr = result.get(cm.type);
+      if (arr) {
+        arr.push(cm);
+      } else {
+        result.set(cm.type, [cm]);
+      }
+    }
+    return result;
+  }, [paletteColorMixtures]);
+
   const items: ItemType[] = COLOR_TYPES.map((colorType: ColorType): ItemType | undefined => {
-    const colorMixturesByType: ColorMixture[] | undefined = [
-      ...paletteColorMixtures.values(),
-    ].filter(({type}: ColorMixture) => type === colorType);
-    if (!colorMixturesByType.length) {
+    const mixtures = colorMixturesByType.get(colorType);
+    if (!mixtures?.length) {
       return;
     }
+    const colorCount: number = mixtures.length;
     return {
       key: colorType.toString(),
-      label: <Typography.Text strong>{t(COLOR_TYPE_LABELS[colorType])}</Typography.Text>,
+      label: (
+        <>
+          <Typography.Text strong>{t(COLOR_TYPE_LABELS[colorType])}</Typography.Text>{' '}
+          <Typography.Text>
+            <Plural value={colorCount} one="# color" other="# colors" />
+          </Typography.Text>
+        </>
+      ),
       children: (
         <PaletteGrid
           colorType={colorType}
-          colorMixtures={colorMixturesByType}
+          colorMixtures={mixtures}
           showColorSwatch={showColorSwatch}
         />
       ),
@@ -89,7 +112,7 @@ export const Palette: React.FC = () => {
   }
 
   return (
-    <>
+    <LoadingIndicator loading={isLoading}>
       <div style={{padding: '0 16px 16px'}}>
         <Collapse
           collapsible="icon"
@@ -107,6 +130,6 @@ export const Palette: React.FC = () => {
           setIsOpenColorSwatch(false);
         }}
       />
-    </>
+    </LoadingIndicator>
   );
 };

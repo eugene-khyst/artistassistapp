@@ -23,8 +23,19 @@ export abstract class Canvas {
   private redrawRequested = false;
   private animationFrameId: ReturnType<typeof requestAnimationFrame> | null = null;
 
+  private readonly onBitmapRestored = () => {
+    this.requestRedraw();
+  };
+
   constructor(public canvas: HTMLCanvasElement) {
     this.context = canvas.getContext('2d')!;
+
+    // Recover from browser-discarded canvas bitmaps (allowed by the HTML spec).
+    // These events cover tab restore, bfcache, and window refocus.
+    document.addEventListener('visibilitychange', this.onBitmapRestored);
+    window.addEventListener('pageshow', this.onBitmapRestored);
+    window.addEventListener('focus', this.onBitmapRestored);
+
     this.startRenderLoop();
   }
 
@@ -64,6 +75,9 @@ export abstract class Canvas {
     if (this.animationFrameId) {
       cancelAnimationFrame(this.animationFrameId);
     }
+    document.removeEventListener('visibilitychange', this.onBitmapRestored);
+    window.removeEventListener('pageshow', this.onBitmapRestored);
+    window.removeEventListener('focus', this.onBitmapRestored);
   }
 
   protected getCanvasCenter(): Vector {
