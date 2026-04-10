@@ -221,9 +221,7 @@ export const createPaletteSlice: StateCreator<
       return;
     }
 
-    const keysToDelete: string[] = [...(prev.get(type)?.values() ?? [])]
-      .filter(({id}) => id)
-      .map(({key}) => key);
+    const keysToDelete: string[] = [...(prev.get(type)?.values() ?? [])].map(({key}) => key);
 
     set({
       isPaletteLoading: true,

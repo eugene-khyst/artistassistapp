@@ -261,7 +261,7 @@ export const ImageColorPicker: React.FC = () => {
   );
 
   if (!colorSet) {
-    return <EmptyColorSet imageSupported={true} />;
+    return <EmptyColorSet imageSupported />;
   }
 
   const {mixing, glazing} = COLOR_MIXING[colorSet.type];

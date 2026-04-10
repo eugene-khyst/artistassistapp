@@ -24,6 +24,8 @@ import {
   type ColorMatchImageSlice,
   createColorMatchImageSlice,
 } from '~/src/stores/color-match-image-slice';
+import type {ColorMixingChartSlice} from '~/src/stores/color-mixing-chart-slice';
+import {createColorMixingChartSlice} from '~/src/stores/color-mixing-chart-slice';
 import {createLocaleSlice, type LocaleSlice} from '~/src/stores/locale-slice';
 import {
   createPerspectiveCorrectionSlice,
@@ -64,6 +66,7 @@ export const useAppStore = create<
     TabSlice &
     ColorSetSlice &
     ColorMixerSlice &
+    ColorMixingChartSlice &
     OriginalImageSlice &
     PosterizedImageSlice &
     ColorMatchImageSlice &
@@ -87,6 +90,7 @@ export const useAppStore = create<
   ...createTabSlice(...a),
   ...createColorSetSlice(...a),
   ...createColorMixerSlice(...a),
+  ...createColorMixingChartSlice(...a),
   ...createOriginalImageSlice(...a),
   ...createPosterizedImageSlice(...a),
   ...createColorMatchImageSlice(...a),

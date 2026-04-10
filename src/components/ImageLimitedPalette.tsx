@@ -29,8 +29,8 @@ import {
 } from '~/src/hooks/useZoomableImageCanvas';
 import type {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
 import {isMixable, MIXABLE_COLOR_TYPES} from '~/src/services/color/color-mixer';
+import type {ColorId} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
-import type {ColorId} from '~/src/stores/limited-palette-image-slice';
 import {getFilename} from '~/src/utils/filename';
 import {imageBitmapToBlob} from '~/src/utils/graphics';
 
@@ -56,7 +56,7 @@ export const ImageLimitedPalette: React.FC = () => {
 
   const {t} = useLingui();
 
-  const [colors, setColors] = useState<ColorId[]>([]);
+  const [colorIds, setColorIds] = useState<ColorId[]>([]);
 
   const {ref: limitedPaletteCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
@@ -71,20 +71,15 @@ export const ImageLimitedPalette: React.FC = () => {
   const isLoading: boolean = isOriginalImageLoading || isLimitedPaletteImageLoading;
 
   useEffect(() => {
-    setColors([]);
+    setColorIds([]);
   }, [colorSet]);
 
-  const handleColorsChange = (value: (string | number | null)[] | (string | number | null)[][]) => {
-    const colors = value as (string | number)[][];
-    setColors(colors);
-  };
-
   const handleApplyClick = () => {
-    void setLimitedColorSet(colors);
+    void setLimitedColorSet(colorIds);
   };
 
   const handleSetAsMainClick = () => {
-    setLimitedColorSetAsMain(colors);
+    setLimitedColorSetAsMain(colorIds);
   };
 
   const handleSaveClick = async () => {
@@ -98,65 +93,71 @@ export const ImageLimitedPalette: React.FC = () => {
   };
 
   if (!colorSet || !originalImage || !isMixable(colorSet.type)) {
-    return <EmptyColorSet supportedColorTypes={MIXABLE_COLOR_TYPES} imageMandatory={true} />;
+    return <EmptyColorSet supportedColorTypes={MIXABLE_COLOR_TYPES} imageMandatory />;
   }
 
   const height = `calc((100dvh - 130px) / ${screens.sm ? 1 : 2})`;
 
   return (
     <LoadingIndicator loading={isLoading} onCancel={abortLimitedPalette}>
-      <div style={{padding: '0 16px'}}>
-        <Space.Compact style={{display: 'flex'}}>
-          <Form.Item
-            label={t`Colors`}
-            tooltip={t`Using a limited palette helps achieve color harmony. Select up to ${MAX_COLORS} colors to be your primaries.`}
-            style={{flexGrow: 1, marginBottom: 0}}
-            extra={
-              <Typography.Text type={colors.length > MAX_COLORS ? 'danger' : 'secondary'}>
-                <Trans>Select from 1 to {MAX_COLORS} colors</Trans>
-              </Typography.Text>
-            }
-            validateStatus={colors.length > MAX_COLORS ? 'error' : undefined}
-          >
+      <div>
+        <Form.Item
+          label={t`Colors`}
+          tooltip={t`Using a limited palette helps achieve color harmony. Select up to ${MAX_COLORS} colors to be your primaries.`}
+          style={{
+            marginBottom: 0,
+            padding: '0 16px',
+          }}
+          extra={
+            <Typography.Text type={colorIds.length > MAX_COLORS ? 'danger' : 'secondary'}>
+              <Trans>Select from 1 to {MAX_COLORS} colors</Trans>
+            </Typography.Text>
+          }
+          validateStatus={colorIds.length > MAX_COLORS ? 'error' : undefined}
+        >
+          <Space.Compact style={{display: 'flex'}}>
             <ColorCascader
-              value={colors}
-              onChange={handleColorsChange}
+              value={colorIds}
+              onChange={value => {
+                setColorIds(value);
+              }}
               multiple
               maxTagCount="responsive"
+              style={{flexGrow: 1}}
             />
-          </Form.Item>
-          <Button
-            type="primary"
-            onClick={handleApplyClick}
-            disabled={colors.length == 0 || colors.length > MAX_COLORS}
-          >
-            <Trans>Apply</Trans>
-          </Button>
-          <Dropdown
-            menu={{
-              items: [
-                {
-                  key: 'save',
-                  label: t`Save`,
-                  icon: <DownloadOutlined />,
-                  onClick: () => {
-                    void handleSaveClick();
+            <Button
+              type="primary"
+              onClick={handleApplyClick}
+              disabled={!colorIds.length || colorIds.length > MAX_COLORS}
+            >
+              <Trans>Apply</Trans>
+            </Button>
+            <Dropdown
+              menu={{
+                items: [
+                  {
+                    key: 'save',
+                    label: t`Save`,
+                    icon: <DownloadOutlined />,
+                    onClick: () => {
+                      void handleSaveClick();
+                    },
+                    disabled: !limitedPaletteImage,
                   },
-                  disabled: !limitedPaletteImage,
-                },
-                {
-                  key: 'set-as-main-color-set',
-                  label: t`Set as main color set`,
-                  icon: <SwapOutlined />,
-                  onClick: handleSetAsMainClick,
-                  disabled: !colors.length,
-                },
-              ],
-            }}
-          >
-            <Button icon={<DownOutlined />} />
-          </Dropdown>
-        </Space.Compact>
+                  {
+                    key: 'set-as-main-color-set',
+                    label: t`Set as main color set`,
+                    icon: <SwapOutlined />,
+                    onClick: handleSetAsMainClick,
+                    disabled: !colorIds.length,
+                  },
+                ],
+              }}
+            >
+              <Button icon={<DownOutlined />} />
+            </Dropdown>
+          </Space.Compact>
+        </Form.Item>
       </div>
       <Row>
         <Col xs={24} sm={12}>

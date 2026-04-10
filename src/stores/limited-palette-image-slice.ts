@@ -18,14 +18,10 @@
 
 import type {StateCreator} from 'zustand';
 
-import {
-  type Color,
-  type ColorSet,
-  type ColorSetDefinition,
-  CUSTOM_COLOR_SET,
-  NEW_COLOR_SET,
-} from '~/src/services/color/types';
-import {getLimitedPaletteImage} from '~/src/services/image/worker/color-quantization-worker-manager';
+import {filterColorSet} from '~/src/services/color/colors';
+import type {ColorId, ColorSet, ColorSetDefinition} from '~/src/services/color/types';
+import {CUSTOM_COLOR_SET, NEW_COLOR_SET} from '~/src/services/color/types';
+import {colorQuantizationWorker} from '~/src/services/image/worker/color-quantization-worker-manager';
 import type {ColorMixerSlice} from '~/src/stores/color-mixer-slice';
 import type {ColorSetSlice} from '~/src/stores/color-set-slice';
 import type {TabSlice} from '~/src/stores/tab-slice';
@@ -33,22 +29,6 @@ import {TabKey} from '~/src/tabs';
 import {isAbortError} from '~/src/utils/promise';
 
 import type {OriginalImageSlice} from './original-image-slice';
-
-export type ColorId = (string | number | null)[];
-
-function filterColorSet(colorSet: ColorSet | null, colors: ColorId[]): ColorSet | null {
-  return colorSet
-    ? {
-        type: colorSet.type,
-        brands: colorSet.brands,
-        colors: colors
-          .map(([brandId, colorId]): Color | undefined =>
-            colorSet.colors.find(({brand, id}: Color) => brandId === brand && colorId === id)
-          )
-          .filter((color): color is Color => !!color),
-      }
-    : null;
-}
 
 export interface LimitedPaletteImageSlice {
   limitedPaletteImage: ImageBitmap | null;
@@ -88,13 +68,12 @@ export const createLimitedPaletteImageSlice: StateCreator<
     });
     try {
       prev?.close();
-      const limitedPaletteImage = await getLimitedPaletteImage(
-        originalImage,
-        limitedColorSet,
+      const {quantizedImage} = await colorQuantizationWorker.run(
+        worker => worker.getLimitedPaletteImage(originalImage, limitedColorSet),
         limitedPaletteAbortController.signal
       );
       set({
-        limitedPaletteImage,
+        limitedPaletteImage: quantizedImage,
       });
     } catch (error) {
       if (!isAbortError(error)) {

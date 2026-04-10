@@ -18,7 +18,7 @@
 
 import {transfer} from 'comlink';
 
-import {ColorMixer, PAPER_WHITE_HEX} from '~/src/services/color/color-mixer';
+import {ColorMixer, PAPER_WHITE} from '~/src/services/color/color-mixer';
 import type {RgbTuple} from '~/src/services/color/space/rgb';
 import {packRgb, WHITE} from '~/src/services/color/space/rgb';
 import type {ColorSet} from '~/src/services/color/types';
@@ -75,7 +75,7 @@ export class ColorQuantization {
   async getLimitedPaletteImage(image: ImageBitmap, colorSet: ColorSet): Promise<Result> {
     console.time('limited-palette');
     const colorMixer = new ColorMixer();
-    colorMixer.setColorSet(colorSet, PAPER_WHITE_HEX);
+    colorMixer.setColorSet(colorSet, PAPER_WHITE);
     const [resizedImage] = await createImageBitmapResizedTotalPixels(image, IMAGE_SIZE.SD);
     const [imageData] = imageBitmapToImageData(resizedImage);
     resizedImage.close();

@@ -19,52 +19,20 @@
 import {SortAscendingOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {SelectProps} from 'antd';
-import {Button, Dropdown, Flex, Grid, Select, Space, Typography} from 'antd';
+import {Button, Dropdown, Grid, Select, Space} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import type {MenuProps} from 'antd/lib';
 import {useState} from 'react';
 
-import {ColorSquare} from '~/src/components/color/ColorSquare';
-import {OpacityIcon} from '~/src/components/color/OpacityIcon';
-import {WarmthIcon} from '~/src/components/color/WarmthIcon';
+import {ColorLabel} from '~/src/components/color/ColorLabel';
 import {filterSelectOptions} from '~/src/components/utils';
-import {formatColorLabel} from '~/src/services/color/colors';
-import {rgbToOklab} from '~/src/services/color/space/oklab';
-import {oklabToOklch} from '~/src/services/color/space/oklch';
-import {hexToRgb} from '~/src/services/color/space/rgb';
-import type {ColorBrandDefinition, ColorDefinition} from '~/src/services/color/types';
-import {degrees} from '~/src/services/math/geometry';
 import {
-  createExtractorComparator,
-  decorateSortUndecorate,
-  type ExtractorComparator,
-} from '~/src/utils/array';
-import {byNumber, reverseOrder} from '~/src/utils/comparator';
-
-enum Sort {
-  ById = 1,
-  ByHue = 2,
-  ByLightness = 3,
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const COLOR_COMPARATORS: Record<Sort, ExtractorComparator<ColorDefinition, any>> = {
-  [Sort.ById]: createExtractorComparator<ColorDefinition>(byNumber(({id}) => id)),
-  [Sort.ByHue]: createExtractorComparator<ColorDefinition, number>(
-    byNumber(d => d),
-    ({hex}) => {
-      const [, , h] = oklabToOklch(...rgbToOklab(...hexToRgb(hex)));
-      return degrees(h);
-    }
-  ),
-  [Sort.ByLightness]: createExtractorComparator<ColorDefinition, number>(
-    reverseOrder(byNumber(l => l)),
-    ({hex}) => {
-      const [l] = rgbToOklab(...hexToRgb(hex));
-      return l;
-    }
-  ),
-};
+  COLOR_DEFINITION_COMPARATORS,
+  ColorSort,
+  formatColorLabel,
+} from '~/src/services/color/colors';
+import type {ColorBrandDefinition, ColorDefinition} from '~/src/services/color/types';
+import {decorateSortUndecorate} from '~/src/utils/array';
 
 function getColorOptions(
   brand: ColorBrandDefinition,
@@ -74,18 +42,10 @@ function getColorOptions(
     return [];
   }
   return [...colors.values()].map((color: ColorDefinition) => {
-    const {hex, opacity, warmth} = color;
-    const label: string = formatColorLabel(color, brand);
+    const label = formatColorLabel(color, brand);
     return {
       value: color.id,
-      label: (
-        <Flex key={label} gap="small" align="center">
-          <ColorSquare hex={hex} />
-          <Typography.Text>{label}</Typography.Text>
-          <OpacityIcon opacity={opacity} />
-          <WarmthIcon warmth={warmth} />
-        </Flex>
-      ),
+      label: <ColorLabel key={label} color={color} brand={brand} label={label} />,
     };
   });
 }
@@ -103,7 +63,7 @@ export const ColorSelect: React.FC<Props> = ({brand, colors, value, ...rest}: Pr
 
   const {t} = useLingui();
 
-  const [sort, setSort] = useState<Sort>();
+  const [sort, setSort] = useState<ColorSort>();
 
   const options = getColorOptions(brand, colors);
 
@@ -112,7 +72,7 @@ export const ColorSelect: React.FC<Props> = ({brand, colors, value, ...rest}: Pr
     .filter((color): color is ColorDefinition => !!color);
 
   if (sort) {
-    selectedColors = decorateSortUndecorate(selectedColors, COLOR_COMPARATORS[sort]);
+    selectedColors = decorateSortUndecorate(selectedColors, COLOR_DEFINITION_COMPARATORS[sort]);
   }
 
   const selectedIds: number[] | null | undefined = selectedColors?.length
@@ -128,24 +88,24 @@ export const ColorSelect: React.FC<Props> = ({brand, colors, value, ...rest}: Pr
       },
     },
     {
-      key: String(Sort.ById),
+      key: String(ColorSort.ById),
       label: t`By ID`,
       onClick: () => {
-        setSort(Sort.ById);
+        setSort(ColorSort.ById);
       },
     },
     {
-      key: String(Sort.ByHue),
+      key: String(ColorSort.ByHue),
       label: t`By hue`,
       onClick: () => {
-        setSort(Sort.ByHue);
+        setSort(ColorSort.ByHue);
       },
     },
     {
-      key: String(Sort.ByLightness),
+      key: String(ColorSort.ByLightness),
       label: t`By lightness`,
       onClick: () => {
-        setSort(Sort.ByLightness);
+        setSort(ColorSort.ByLightness);
       },
     },
   ];

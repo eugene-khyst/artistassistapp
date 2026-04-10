@@ -22,7 +22,7 @@ msgid "{brandName} colors"
 msgstr "{brandName} barvy"
 
 #: src/components/color-set/ColorSetName.tsx:35
-#: src/components/color-set/StandardColorSetCascader.tsx:57
+#: src/components/color-set/StandardColorSetCascader.tsx:58
 #: src/components/ImageColorPicker.tsx:302
 #: src/components/Palette.tsx:77
 msgid "{colorCount, plural, one {# color} other {# colors}}"
@@ -91,6 +91,10 @@ msgstr "<0>Zkuste se znovu přihlásit</0>: Jakmile potvrdíte, že správný Pa
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Použijte webový prohlížeč</0>: Pokud používáte aplikaci Patreon (iOS/Android), přihlaste se přes webový prohlížeč (Chrome, Safari, Firefox), protože aplikace může někdy narušit proces ověřování."
 
+#: src/components/ColorMixingChart.tsx:131
+msgid "A grid showing the result of mixing each pair of selected colors"
+msgstr "Mřížka ukazující výsledek míchání každé dvojice vybraných barev"
+
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:46
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "Nová verze aplikace je dostupná a bude automaticky nainstalována."
@@ -107,19 +111,19 @@ msgstr "Hodnota menší než 100 % způsobí, že obraz bude vypadat méně bare
 msgid "About ArtistAssistApp"
 msgstr "O aplikaci ArtistAssist App"
 
-#: src/components/messages.ts:56
+#: src/components/messages.ts:57
 msgid "Acrylic Gouache"
 msgstr "Akrylový kvaš"
 
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Acrylic Markers"
 msgstr "Akrylové popisovače"
 
-#: src/components/messages.ts:48
+#: src/components/messages.ts:49
 msgid "Acrylic Paint"
 msgstr "Akrylátový lak"
 
-#: src/components/ColorMixer.tsx:255
+#: src/components/ColorMixer.tsx:256
 msgid "Add color"
 msgstr "Přidat barvu"
 
@@ -159,7 +163,7 @@ msgstr "Chyba aplikace"
 msgid "Application build hash"
 msgstr "Hodnota hash sestavení aplikace"
 
-#: src/components/ColorMixingChart.tsx:133
+#: src/components/ColorMixingChart.tsx:155
 #: src/components/ImageLimitedPalette.tsx:133
 #: src/components/ImagePerspectiveCorrection.tsx:201
 msgid "Apply"
@@ -197,7 +201,7 @@ msgstr "Opravdu chcete smazat tuto vlastní značku?"
 msgid "Are you sure you want to delete this photo?"
 msgstr "Opravdu chcete tuto fotografii smazat?"
 
-#: src/components/palette/PaletteGrid.tsx:144
+#: src/components/palette/PaletteGrid.tsx:112
 msgid "Are you sure you want to remove all color mixtures?"
 msgstr "Opravdu chcete odstranit všechny barevné směsi?"
 
@@ -236,7 +240,7 @@ msgstr "Automaticky najděte nejlepší barevné směsi pro tuto fotografii"
 msgid "Average color of the white point area"
 msgstr "Průměrná barva oblasti bílého bodu"
 
-#: src/components/ColorMixer.tsx:179
+#: src/components/ColorMixer.tsx:180
 #: src/components/ImageBackgroundRemoval.tsx:228
 #: src/components/ImageBackgroundRemoval.tsx:252
 #: src/components/ImageColorPicker.tsx:350
@@ -248,25 +252,26 @@ msgstr "Pozadí"
 msgid "Build palette"
 msgstr "Build paleta"
 
-#: src/components/palette/PaletteGrid.tsx:104
+#: src/components/palette/PaletteGrid.tsx:72
 msgid "By date added"
 msgstr "Podle data přidání"
 
-#: src/components/color-set/ColorSelect.tsx:139
-#: src/components/palette/PaletteGrid.tsx:106
+#: src/components/color-set/ColorSelect.tsx:99
+#: src/components/ColorMixingChart.tsx:105
+#: src/components/palette/PaletteGrid.tsx:74
 msgid "By hue"
 msgstr "Podle barvy"
 
-#: src/components/color-set/ColorSelect.tsx:132
+#: src/components/color-set/ColorSelect.tsx:92
 msgid "By ID"
 msgstr "Podle ID"
 
-#: src/components/color-set/ColorSelect.tsx:146
-#: src/components/palette/PaletteGrid.tsx:107
+#: src/components/color-set/ColorSelect.tsx:106
+#: src/components/palette/PaletteGrid.tsx:75
 msgid "By lightness"
 msgstr "Lehkostí"
 
-#: src/components/palette/PaletteGrid.tsx:105
+#: src/components/palette/PaletteGrid.tsx:73
 msgid "By name"
 msgstr "Jméno"
 
@@ -308,7 +313,7 @@ msgstr "Zavřít"
 msgid "Close in {closeCounter} sec"
 msgstr "Zavřít za {closeCounter} sekund"
 
-#: src/components/ColorMixer.tsx:205
+#: src/components/ColorMixer.tsx:206
 #: src/components/CustomColorBrandCreator.tsx:447
 #: src/components/ImageColorPicker.tsx:404
 msgid "Color"
@@ -330,6 +335,10 @@ msgstr "Počet barev"
 msgid "Color mixing"
 msgstr "Míchání barev"
 
+#: src/components/messages.ts:35
+msgid "Color mixing chart"
+msgstr "Barevný míchací diagram"
+
 #: src/components/color/ColorMixtureDescription.tsx:102
 msgid "Color mixture"
 msgstr "Směs barev"
@@ -344,21 +353,21 @@ msgstr "Výběr barvy"
 msgid "Color set"
 msgstr "Barevná sada"
 
-#: src/components/color/ColorSwatchDrawer.tsx:61
-#: src/components/palette/PaletteGrid.tsx:132
+#: src/components/color/ColorSwatchDrawer.tsx:58
+#: src/components/palette/PaletteGrid.tsx:100
 msgid "Color swatch"
 msgstr "Barvy"
 
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Colored Pencils"
 msgstr "Barevné tužky"
 
-#: src/components/ColorMixingChart.tsx:111
-#: src/components/ImageLimitedPalette.tsx:111
+#: src/components/ColorMixingChart.tsx:130
+#: src/components/ImageLimitedPalette.tsx:105
 msgid "Colors"
 msgstr "Barvy"
 
-#: src/components/messages.ts:40
+#: src/components/messages.ts:41
 msgid "Compare"
 msgstr "Porovnat"
 
@@ -386,16 +395,16 @@ msgstr "Opravený odhad teploty světelného zdroje v Kelvinech"
 msgid "Create a duplicate of this color set for further modification"
 msgstr "Vytvořte duplikát této barevné sady pro další úpravy"
 
-#: src/components/color-set/ColorSetSelect.tsx:90
+#: src/components/color-set/ColorSetSelect.tsx:97
 #: src/components/color-set/CustomColorBrandSelect.tsx:83
 msgid "Create new"
 msgstr "Vytvořit nový"
 
-#: src/components/messages.ts:41
+#: src/components/messages.ts:42
 msgid "Custom brand"
 msgstr "Vlastní značka"
 
-#: src/components/color-set/StandardColorSetCascader.tsx:29
+#: src/components/color-set/StandardColorSetCascader.tsx:30
 msgid "Custom color set"
 msgstr "Vlastní sada barev"
 
@@ -472,6 +481,10 @@ msgstr "Polož tu složku..."
 #: src/components/file/FileSelect.tsx:106
 msgid "Drop the files here..."
 msgstr "Položte sem soubory..."
+
+#: src/components/messages.ts:53
+msgid "Dry Pastel"
+msgstr "Suché pastely"
 
 #: src/components/ColorSetChooser.tsx:712
 msgid "Duplicate"
@@ -552,7 +565,7 @@ msgstr "Přejděte na záložku <0>{photoLabel}</0> a vyberte referenční fotog
 msgid "Go to the <0>{photoLabel}</0> tab and choose your reference photo."
 msgstr "Přejděte na kartu <0>{photoLabel}</0> a vyberte svou referenční fotografii."
 
-#: src/components/messages.ts:47
+#: src/components/messages.ts:48
 msgid "Gouache"
 msgstr "Kvaš"
 
@@ -567,7 +580,7 @@ msgid "Height"
 msgstr "Výška"
 
 #: src/components/ColorSetChooser.tsx:497
-#: src/components/messages.ts:42
+#: src/components/messages.ts:43
 msgid "Help"
 msgstr "Pomoc"
 
@@ -583,7 +596,7 @@ msgstr "Pokud soubor barev neuložíte, změny sady barev mohou být ztraceny."
 msgid "Image without background"
 msgstr "Obrázek bez pozadí"
 
-#: src/components/messages.ts:36
+#: src/components/messages.ts:37
 msgid "Inspire"
 msgstr "Inspirovat"
 
@@ -644,7 +657,7 @@ msgstr "Světlý tón"
 msgid "Lighten the pressure to <0>{fractionText}</0>"
 msgstr "Snižte tlak na <0>{fractionText}</0>"
 
-#: src/components/messages.ts:35
+#: src/components/messages.ts:36
 msgid "Limited palette"
 msgstr "Omezená paleta"
 
@@ -713,7 +726,7 @@ msgstr "Střední tóny"
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Míchání barev v <0>poměru {partsRatioText}</0>"
 
-#: src/components/ColorMixer.tsx:165
+#: src/components/ColorMixer.tsx:166
 msgid "Mix your colors in any proportions so you don't waste real paints."
 msgstr "Míchejte barvy v libovolném poměru, abyste neplýtvali skutečnými barvami."
 
@@ -767,7 +780,7 @@ msgstr "Další datum nabíjení"
 #: src/components/ColorSetChooser.tsx:721
 #: src/components/CustomColorBrandCreator.tsx:500
 #: src/components/image/RecentImageCard.tsx:74
-#: src/components/palette/PaletteGrid.tsx:147
+#: src/components/palette/PaletteGrid.tsx:115
 #: src/components/storage/ClearStorage.tsx:63
 #: src/components/storage/ClearStorage.tsx:76
 msgid "No"
@@ -778,7 +791,8 @@ msgstr "Ne"
 msgid "No data"
 msgstr "Žádná data"
 
-#: src/components/color-set/ColorSelect.tsx:125
+#: src/components/color-set/ColorSelect.tsx:85
+#: src/components/ColorMixingChart.tsx:95
 msgid "No sorting"
 msgstr "Žádné třídění"
 
@@ -794,11 +808,11 @@ msgstr "Není co sdílet"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Počet buněk na menší straně (svisle nebo vodorovně)"
 
-#: src/components/messages.ts:49
+#: src/components/messages.ts:50
 msgid "Oil Paint"
 msgstr "Olejový nátěr"
 
-#: src/components/messages.ts:53
+#: src/components/messages.ts:54
 msgid "Oil Pastel"
 msgstr "Olejový pastel"
 
@@ -871,10 +885,6 @@ msgstr "Barva papíru u neprůhledných pastelů nehraje roli, protože povrch z
 msgid "Paper size"
 msgstr "Papíru"
 
-#: src/components/messages.ts:52
-msgid "Pastel"
-msgstr "Pastel"
-
 #: src/components/alert/AuthErrorHandler.tsx:40
 msgid "Patreon membership verification failed"
 msgstr "Ověření členství na Patreonu neúspěšné"
@@ -900,7 +910,7 @@ msgstr "Trvalé úložiště"
 msgid "Persistent storage is not enabled"
 msgstr "Trvalé úložiště není povoleno"
 
-#: src/components/messages.ts:37
+#: src/components/messages.ts:38
 msgid "Perspective"
 msgstr "Perspektiva"
 
@@ -956,7 +966,7 @@ msgstr "Náhled"
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
 #: src/components/ImageTonalValues.tsx:125
-#: src/components/palette/PaletteGrid.tsx:140
+#: src/components/palette/PaletteGrid.tsx:108
 #: src/components/print/PrintImageDrawer.tsx:132
 msgid "Print"
 msgstr "Tisknout"
@@ -1001,7 +1011,7 @@ msgstr "Hodnocení: {player1RatingText}"
 msgid "Rating: {player2RatingText}"
 msgstr "Hodnocení: {player2RatingText}"
 
-#: src/components/ColorMixer.tsx:201
+#: src/components/ColorMixer.tsx:202
 msgid "Ratio"
 msgstr "Poměr"
 
@@ -1019,13 +1029,13 @@ msgstr "Redukovat barvy"
 msgid "Reduce the number of colors in the photo"
 msgstr "Snižte počet barev na fotografii"
 
-#: src/components/color/ColorSwatchDrawer.tsx:82
+#: src/components/color/ColorSwatchDrawer.tsx:79
 #: src/components/ImageColorAdjustment.tsx:311
 msgid "Reference"
 msgstr "Odkaz"
 
 #: src/components/color/SimilarColorCard.tsx:110
-#: src/components/ColorMixer.tsx:265
+#: src/components/ColorMixer.tsx:266
 msgid "Reflectance"
 msgstr "Odrazivost"
 
@@ -1033,16 +1043,16 @@ msgstr "Odrazivost"
 msgid "Remove"
 msgstr "Odstranit"
 
-#: src/components/palette/PaletteGrid.tsx:150
+#: src/components/palette/PaletteGrid.tsx:118
 msgid "Remove all"
 msgstr "Odstranit vše"
 
-#: src/components/palette/PaletteGrid.tsx:143
+#: src/components/palette/PaletteGrid.tsx:111
 msgid "Remove all color mixtures"
 msgstr "Odstranit všechny směsi barev"
 
 #: src/components/ImageColorAdjustment.tsx:384
-#: src/components/messages.ts:39
+#: src/components/messages.ts:40
 msgid "Remove background"
 msgstr "Odstranit pozadí"
 
@@ -1092,7 +1102,7 @@ msgstr "Otáčet"
 msgid "Saturation (%)"
 msgstr "Sytost (%)"
 
-#: src/components/ColorMixingChart.tsx:140
+#: src/components/ColorMixingChart.tsx:117
 #: src/components/CustomColorBrandCreator.tsx:489
 #: src/components/ImageBackgroundRemoval.tsx:233
 #: src/components/ImageBackgroundRemoval.tsx:262
@@ -1170,7 +1180,7 @@ msgstr "Vyberte styl, který chcete přenést na referenční fotografii"
 msgid "Select an image that contains a color chart"
 msgstr "Vyberte obraz, který obsahuje tabulku barev"
 
-#: src/components/ColorMixer.tsx:208
+#: src/components/ColorMixer.tsx:209
 msgid "Select any number of colors to mix and specify the part of each color in the resulting mix."
 msgstr "Vyberte libovolný počet barev, které chcete smíchat, a určete část každé barvy ve výsledném mixu."
 
@@ -1186,17 +1196,20 @@ msgstr "Vybrat značky"
 msgid "Select brands that you use."
 msgstr "Vyberte značky, které používáte."
 
-#: src/components/color-set/ColorCascader.tsx:94
+#: src/components/color-set/ColorCascader.tsx:107
 msgid "Select color"
 msgstr "Vybrat barvu"
 
-#: src/components/color-set/ColorCascader.tsx:94
-#: src/components/color-set/ColorSelect.tsx:158
+#: src/components/color-set/ColorCascader.tsx:107
+#: src/components/color-set/ColorSelect.tsx:118
 msgid "Select colors"
 msgstr "Vyberte barvy"
 
-#: src/components/ColorMixingChart.tsx:116
-#: src/components/ImageLimitedPalette.tsx:116
+#: src/components/ColorMixingChart.tsx:135
+msgid "Select colors to build a mixing chart"
+msgstr "Vyberte barvy pro vytvoření mixovacího schématu"
+
+#: src/components/ImageLimitedPalette.tsx:113
 msgid "Select from 1 to {MAX_COLORS} colors"
 msgstr "Vyberte si barvu od 1 do {MAX_COLORS}"
 
@@ -1204,7 +1217,7 @@ msgstr "Vyberte si barvu od 1 do {MAX_COLORS}"
 msgid "Select from your recent brands"
 msgstr "Vyberte si ze svých nedávných značek"
 
-#: src/components/color-set/ColorSetSelect.tsx:85
+#: src/components/color-set/ColorSetSelect.tsx:92
 msgid "Select from your recent color sets"
 msgstr "Výběr z posledních sad barev"
 
@@ -1220,7 +1233,7 @@ msgstr "Vybrat obrázek"
 msgid "Select language"
 msgstr "Vybrat jazyk"
 
-#: src/components/ColorMixer.tsx:222
+#: src/components/ColorMixer.tsx:223
 msgid "Select part"
 msgstr "Vybrat díl"
 
@@ -1239,7 +1252,7 @@ msgstr "Vybrat fotografie"
 msgid "Select photos to rank using pairwise comparison"
 msgstr "Vyberte fotografie k hodnocení pomocí párového srovnání"
 
-#: src/components/color-set/StandardColorSetCascader.tsx:86
+#: src/components/color-set/StandardColorSetCascader.tsx:87
 msgid "Select set"
 msgstr "Vyberte sadu"
 
@@ -1269,7 +1282,6 @@ msgstr "Zasedání skončilo"
 msgid "Set as background"
 msgstr "Nastavit jako pozadí"
 
-#: src/components/ColorMixingChart.tsx:149
 #: src/components/ImageLimitedPalette.tsx:149
 msgid "Set as main color set"
 msgstr "Nastavit jako hlavní sadu barev"
@@ -1350,9 +1362,10 @@ msgstr "Mírně překryjte pastelové oblasti různých barev a jemně je rozet�
 msgid "Small"
 msgstr "Malý"
 
-#: src/components/color-set/ColorSelect.tsx:170
+#: src/components/color-set/ColorSelect.tsx:130
+#: src/components/ColorMixingChart.tsx:90
 #: src/components/ImageColorPicker.tsx:442
-#: src/components/palette/PaletteGrid.tsx:161
+#: src/components/palette/PaletteGrid.tsx:129
 msgid "Sort"
 msgstr "Třídit"
 
@@ -1370,7 +1383,7 @@ msgstr "Seřadit podle tloušťky směsi"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:92
 #: src/components/color/SimilarColorCard.tsx:105
-#: src/components/ColorMixer.tsx:259
+#: src/components/ColorMixer.tsx:260
 msgid "Spectral reflectance curve"
 msgstr "Křivka spektrální odrazivosti"
 
@@ -1434,7 +1447,7 @@ msgstr "Aplikace ukládá všechna data do úložiště webového prohlížeče 
 msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "Aplikace se pokusí znovu načíst za {reloadCounter} s"
 
-#: src/components/ColorMixer.tsx:180
+#: src/components/ColorMixer.tsx:181
 #: src/components/ImageColorPicker.tsx:351
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "Barva papíru nebo plátna, případně barva podkladové vrstvy při glazování."
@@ -1531,10 +1544,10 @@ msgstr "Neočekávaná chyba"
 msgid "Unexpected error: {errorMessage}"
 msgstr "Neočekávaná chyba: {errorMessage}"
 
-#: src/components/color/ColorSwatchDrawer.tsx:119
+#: src/components/color/ColorSwatchDrawer.tsx:110
 #: src/components/color/PaletteColorMixtureCard.tsx:77
 #: src/components/color/SimilarColorCard.tsx:85
-#: src/components/palette/PaletteGrid.tsx:183
+#: src/components/palette/PaletteGrid.tsx:151
 msgid "Untitled mixture"
 msgstr "Směs bez názvu"
 
@@ -1566,8 +1579,7 @@ msgstr "Použijte bílý papír nebo plátno jako pozadí"
 msgid "Used"
 msgstr "Ojetý"
 
-#: src/components/ColorMixingChart.tsx:112
-#: src/components/ImageLimitedPalette.tsx:112
+#: src/components/ImageLimitedPalette.tsx:106
 msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 msgstr "Použití omezené palety pomáhá dosáhnout harmonie barev. Vyberte až {MAX_COLORS} barev, které budou vašimi primárními barvami."
 
@@ -1579,15 +1591,15 @@ msgstr "Warm — Algoritmický odhad; Umělecké vnímání se může lišit."
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "Akvarel lze ředit vodou, aby byl průhlednější."
 
-#: src/components/messages.ts:46
+#: src/components/messages.ts:47
 msgid "Watercolor Paint"
 msgstr "Akvarelová barva"
 
-#: src/components/messages.ts:51
+#: src/components/messages.ts:52
 msgid "Watercolor Pencils"
 msgstr "Akvarelové tužky"
 
-#: src/components/messages.ts:54
+#: src/components/messages.ts:55
 msgid "Wax Pastel"
 msgstr "Vosková pastel"
 
@@ -1612,11 +1624,11 @@ msgstr "Bílý"
 #: src/components/ImageColorAdjustment.tsx:393
 #: src/components/ImagePerspectiveCorrection.tsx:236
 #: src/components/ImagePerspectiveCorrection.tsx:274
-#: src/components/messages.ts:38
+#: src/components/messages.ts:39
 msgid "White balance"
 msgstr "Vyvážení bílé"
 
-#: src/components/messages.ts:60
+#: src/components/messages.ts:61
 msgid "White paper or canvas"
 msgstr "Bílý papír nebo plátno"
 
@@ -1634,7 +1646,7 @@ msgstr "Šířka"
 #: src/components/ColorSetChooser.tsx:720
 #: src/components/CustomColorBrandCreator.tsx:499
 #: src/components/image/RecentImageCard.tsx:73
-#: src/components/palette/PaletteGrid.tsx:146
+#: src/components/palette/PaletteGrid.tsx:114
 #: src/components/storage/ClearStorage.tsx:62
 #: src/components/storage/ClearStorage.tsx:75
 msgid "Yes"

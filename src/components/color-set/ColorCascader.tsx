@@ -17,22 +17,49 @@
  */
 
 import {useLingui} from '@lingui/react/macro';
-import {Cascader, Flex, Typography} from 'antd';
-import type {CascaderAutoProps, DefaultOptionType as CascaderOptionType} from 'antd/es/cascader';
+import {Cascader} from 'antd';
+import type {CascaderProps, DefaultOptionType} from 'antd/es/cascader';
 
-import {ColorSquare} from '~/src/components/color/ColorSquare';
-import {OpacityIcon} from '~/src/components/color/OpacityIcon';
-import {WarmthIcon} from '~/src/components/color/WarmthIcon';
+import {ColorLabel} from '~/src/components/color/ColorLabel';
 import {filterCascaderOptions} from '~/src/components/utils';
 import {formatColorLabel} from '~/src/services/color/colors';
-import {rgbToHex} from '~/src/services/color/space/rgb';
-import type {Color, ColorSet} from '~/src/services/color/types';
+import type {Color, ColorId, ColorSet} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {computeIfAbsentInMap} from '~/src/utils/map';
 
+type ColorCascaderBaseProps = Omit<
+  CascaderProps<DefaultOptionType, string, false>,
+  | 'options'
+  | 'placeholder'
+  | 'showSearch'
+  | 'expandTrigger'
+  | 'showCheckedStrategy'
+  | 'displayRender'
+  | 'allowClear'
+  | 'multiple'
+  | 'value'
+  | 'onChange'
+> & {
+  multiple?: boolean;
+};
+
+type ColorCascaderSingleProps = ColorCascaderBaseProps & {
+  multiple?: false;
+  value?: ColorId;
+  onChange?: (value: ColorId, selectOptions: DefaultOptionType[]) => void;
+};
+
+type ColorCascaderMultipleProps = ColorCascaderBaseProps & {
+  multiple: true;
+  value?: ColorId[];
+  onChange?: (value: ColorId[], selectOptions: DefaultOptionType[][]) => void;
+};
+
+type ColorCascaderProps = ColorCascaderSingleProps | ColorCascaderMultipleProps;
+
 const displayRender = (labels: string[]) => labels[labels.length - 1];
 
-function getColorOptions(colorSet?: ColorSet | null): CascaderOptionType[] {
+function getColorOptions(colorSet?: ColorSet | null): DefaultOptionType[] {
   if (!colorSet) {
     return [];
   }
@@ -42,7 +69,7 @@ function getColorOptions(colorSet?: ColorSet | null): CascaderOptionType[] {
     computeIfAbsentInMap(colorMap, color.brand, (): Color[] => []).push(color)
   );
   return [...colorMap.entries()]
-    .map(([brandId, colors]: [number, Color[]]): CascaderOptionType | undefined => {
+    .map(([brandId, colors]: [number, Color[]]): DefaultOptionType | undefined => {
       const brand = brands.get(brandId);
       if (!brand) {
         return;
@@ -51,37 +78,23 @@ function getColorOptions(colorSet?: ColorSet | null): CascaderOptionType[] {
         value: brandId,
         label: brand.fullName,
         children: [...colors.values()].map((color: Color) => {
-          const {rgb, opacity, warmth} = color;
-          const label: string = formatColorLabel(color, brand);
+          const label = formatColorLabel(color, brand);
           return {
             value: color.id,
-            label: (
-              <Flex key={label} gap="small" align="center">
-                <ColorSquare hex={rgbToHex(...rgb)} />
-                <Typography.Text>{label}</Typography.Text>
-                <OpacityIcon opacity={opacity} />
-                <WarmthIcon warmth={warmth} />
-              </Flex>
-            ),
+            label: <ColorLabel key={label} color={color} brand={brand} label={label} />,
           };
         }),
       };
     })
-    .filter((option): option is CascaderOptionType => !!option);
+    .filter((option): option is DefaultOptionType => !!option);
 }
 
-type Props = Omit<
-  CascaderAutoProps,
-  | 'options'
-  | 'placeholder'
-  | 'showSearch'
-  | 'expandTrigger'
-  | 'showCheckedStrategy'
-  | 'displayRender'
-  | 'allowClear'
->;
-
-export const ColorCascader: React.FC<Props> = ({multiple, ...rest}: Props) => {
+export const ColorCascader: React.FC<ColorCascaderProps> = ({
+  multiple,
+  value,
+  onChange,
+  ...rest
+}: ColorCascaderProps) => {
   const colorSet = useAppStore(state => state.colorSet);
 
   const {t} = useLingui();
@@ -98,6 +111,8 @@ export const ColorCascader: React.FC<Props> = ({multiple, ...rest}: Props) => {
       displayRender={displayRender}
       allowClear={!!multiple}
       multiple={multiple}
+      value={value}
+      onChange={onChange}
       {...rest}
     />
   );

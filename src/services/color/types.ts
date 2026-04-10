@@ -111,6 +111,8 @@ export interface ColorSetDefinition {
   date?: Date;
 }
 
+export type ColorId = (string | number | null)[];
+
 export interface Color {
   brand: number;
   id: number;

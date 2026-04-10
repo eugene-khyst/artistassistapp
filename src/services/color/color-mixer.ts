@@ -16,8 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {rgbToOklab} from '~/src/services/color/space/oklab';
+import {oklabToOklch} from '~/src/services/color/space/oklch';
 import {gcd} from '~/src/services/math/gcd';
-import {unique} from '~/src/utils/array';
+import {degrees} from '~/src/services/math/geometry';
+import type {ExtractorComparator} from '~/src/utils/array';
+import {createExtractorComparator, unique} from '~/src/utils/array';
 import {
   by,
   byDate,
@@ -149,6 +153,71 @@ export const PAPER_WHITE: RgbTuple = hexToRgb(PAPER_WHITE_HEX);
 
 type WithHash<T> = T & {hash: string};
 
+const compareColorMixturePartsByParts: Comparator<ColorMixturePart> = reverseOrder(
+  byNumber(({part}) => part)
+);
+
+const compareColorMixturePartsByColors = (
+  {color: a}: ColorMixturePart,
+  {color: b}: ColorMixturePart
+): number => a.brand - b.brand || a.id - b.id;
+
+export const compareColorMixturesByName: Comparator<ColorMixture> = compare(
+  byString(({name}) => name),
+  reverseOrder(byDate(({date}) => date))
+);
+
+export const compareColorMixturesByConsistency: Comparator<ColorMixture> = (
+  {consistency: [aColorPart, aWhole]}: ColorMixture,
+  {consistency: [bColorPart, bWhole]}: ColorMixture
+) => bColorPart / bWhole - aColorPart / aWhole;
+
+export const compareSimilarColorsBySimilarity: Comparator<SimilarColor> = reverseOrder(
+  byNumber(({similarity}) => similarity)
+);
+
+export const compareSimilarColorsByColorMixturePartLength: Comparator<SimilarColor> = compare(
+  byLength(({colorMixture: {parts}}) => parts),
+  compareSimilarColorsBySimilarity
+);
+
+export const compareSimilarColorsByConsistency: Comparator<SimilarColor> = compare(
+  by(({colorMixture}) => colorMixture, compareColorMixturesByConsistency),
+  compareSimilarColorsBySimilarity
+);
+
+export enum ColorMixtureSort {
+  ByDate = 1,
+  ByName = 2,
+  ByHue = 3,
+  ByLightness = 4,
+}
+
+export const COLOR_MIXTURES_COMPARATORS: Record<
+  ColorMixtureSort,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ExtractorComparator<ColorMixture, any>
+> = {
+  [ColorMixtureSort.ByDate]: createExtractorComparator<ColorMixture>(
+    reverseOrder(byDate(({date}) => date))
+  ),
+  [ColorMixtureSort.ByName]: createExtractorComparator<ColorMixture>(compareColorMixturesByName),
+  [ColorMixtureSort.ByHue]: createExtractorComparator<ColorMixture, number>(
+    byNumber(d => d),
+    ({layerRgb}) => {
+      const [, , h] = oklabToOklch(...rgbToOklab(...layerRgb));
+      return degrees(h);
+    }
+  ),
+  [ColorMixtureSort.ByLightness]: createExtractorComparator<ColorMixture, number>(
+    reverseOrder(byNumber(l => l)),
+    ({layerRgb}) => {
+      const [l] = rgbToOklab(...layerRgb);
+      return l;
+    }
+  ),
+};
+
 class UnmixedColor {
   color: Color;
   rgb: RgbTuple;
@@ -264,39 +333,6 @@ class MixedColorLayer {
     return new MixedColorLayer(color.reflectance, color, WHOLE);
   }
 }
-
-const compareColorMixturePartsByParts: Comparator<ColorMixturePart> = reverseOrder(
-  byNumber(({part}) => part)
-);
-
-const compareColorMixturePartsByColors = (
-  {color: a}: ColorMixturePart,
-  {color: b}: ColorMixturePart
-): number => a.brand - b.brand || a.id - b.id;
-
-export const compareColorMixturesByName: Comparator<ColorMixture> = compare(
-  byString(({name}) => name),
-  reverseOrder(byDate(({date}) => date))
-);
-
-export const compareColorMixturesByConsistency: Comparator<ColorMixture> = (
-  {consistency: [aColorPart, aWhole]}: ColorMixture,
-  {consistency: [bColorPart, bWhole]}: ColorMixture
-) => bColorPart / bWhole - aColorPart / aWhole;
-
-export const compareSimilarColorsBySimilarity: Comparator<SimilarColor> = reverseOrder(
-  byNumber(({similarity}) => similarity)
-);
-
-export const compareSimilarColorsByColorMixturePartLength: Comparator<SimilarColor> = compare(
-  byLength(({colorMixture: {parts}}) => parts),
-  compareSimilarColorsBySimilarity
-);
-
-export const compareSimilarColorsByConsistency: Comparator<SimilarColor> = compare(
-  by(({colorMixture}) => colorMixture, compareColorMixturesByConsistency),
-  compareSimilarColorsBySimilarity
-);
 
 function getColorMixtureKey(
   type: ColorType,
@@ -453,26 +489,18 @@ function mixTints(colors: MixedColor[], whites: UnmixedColor[]): MixedColorTint[
 }
 
 function makeTintLayers(colors: MixedColor[], whites: UnmixedColor[]): MixedColorLayer[] {
-  const tints = mixTints(colors, whites);
-  const result: MixedColorLayer[] = new Array<MixedColorLayer>(tints.length);
-  for (let i = 0; i < tints.length; i++) {
-    result[i] = tints[i]!.toMixedColorLayer();
-  }
-  return result;
+  return mixTints(colors, whites).map(tint => tint.toMixedColorLayer());
 }
 
 function toMixedColorLayers(colors: MixedColor[]): MixedColorLayer[] {
-  const result: MixedColorLayer[] = new Array<MixedColorLayer>(colors.length);
-  for (let i = 0; i < colors.length; i++) {
-    result[i] = colors[i]!.toMixedColorTint().toMixedColorLayer();
-  }
-  return result;
+  return colors.map(color => color.toMixedColorTint().toMixedColorLayer());
 }
 
 function makeThinnedLayers(
   colors: MixedColor[],
   background?: Background,
-  layering = true
+  layering = true,
+  fractions = FRACTIONS
 ): MixedColorLayer[] {
   if (!colors.length || !background || !layering) {
     return toMixedColorLayers(colors);
@@ -481,7 +509,7 @@ function makeThinnedLayers(
   for (const color of colors) {
     const tint = color.toMixedColorTint();
     result.push(tint.toMixedColorLayer());
-    for (const [colorPart, whole] of FRACTIONS) {
+    for (const [colorPart, whole] of fractions) {
       const mixedReflectance = Reflectance.mixKM(
         [color.reflectance, background.reflectance],
         [colorPart, whole - colorPart]
@@ -531,20 +559,26 @@ function findSimilarColors(
   return similarColors;
 }
 
+export function makeSingleColorMixture(type: ColorType, color: Color): ColorMixture {
+  return new UnmixedColor(color)
+    .toMixedColor()
+    .toMixedColorTint()
+    .toMixedColorLayer()
+    .toColorMixture(type);
+}
+
 export function makeColorMixture(
   type: ColorType,
   colors: Color[],
   ratio: number[],
-  backgroundColor: string
+  backgroundColor: RgbTuple,
+  fractions?: Fraction[]
 ): ColorMixture[] {
   const mixedColors: MixedColor[] = [mixColors(toUnmixedColors(colors), ratio)];
-  const background = new Background(hexToRgb(backgroundColor));
+  const background = new Background(backgroundColor);
   const {glazing, wash} = COLOR_MIXING[type];
   const layering = isFirstLayer(background) ? wash : glazing;
-  const layers: MixedColorLayer[] = [
-    ...makeTintLayers(mixedColors, []),
-    ...makeThinnedLayers(mixedColors, background, layering),
-  ];
+  const layers: MixedColorLayer[] = makeThinnedLayers(mixedColors, background, layering, fractions);
   return layers.map((layer: MixedColorLayer): ColorMixture => layer.toColorMixture(type));
 }
 
@@ -565,14 +599,14 @@ export class ColorMixer {
   private thinnedLayers = new Map<number, MixedColorLayer[]>();
   private background = new Background(PAPER_WHITE);
 
-  setColorSet(colorSet: ColorSet, backgroundColor: string) {
+  setColorSet(colorSet: ColorSet, backgroundColor: RgbTuple) {
     this.colorSet = colorSet;
     this.mixColors();
     this.setBackgroundColor(backgroundColor);
   }
 
-  setBackgroundColor(backgroundColor: string) {
-    this.background = new Background(hexToRgb(backgroundColor));
+  setBackgroundColor(backgroundColor: RgbTuple) {
+    this.background = new Background(backgroundColor);
     this.makeThinnedLayers();
   }
 

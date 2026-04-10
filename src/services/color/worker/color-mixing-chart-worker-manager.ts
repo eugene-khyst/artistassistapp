@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {ColorQuantization} from '~/src/services/image/color-quantization';
+import type {ColorMixingChart} from '~/src/services/color/color-mixing-chart';
 import {WorkerManager} from '~/src/utils/worker-manager';
 
-export const colorQuantizationWorker = new WorkerManager<ColorQuantization>(
-  () => new Worker(new URL('./color-quantization-worker.ts', import.meta.url), {type: 'module'})
+export const colorMixingChartWorker = new WorkerManager<ColorMixingChart>(
+  () => new Worker(new URL('./color-mixing-chart-worker.ts', import.meta.url), {type: 'module'})
 );
