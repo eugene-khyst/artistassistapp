@@ -19,11 +19,14 @@
 import {DATA_URL} from '~/src/config';
 import type {User} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
+import {rgbToOklab} from '~/src/services/color/space/oklab';
+import {oklabToOklch} from '~/src/services/color/space/oklch';
 import type {
   BrandColorCount,
   Color,
   ColorBrandDefinition,
   ColorDefinition,
+  ColorId,
   ColorIdFormat,
   ColorSet,
   ColorSetDefinition,
@@ -32,17 +35,27 @@ import type {
 } from '~/src/services/color/types';
 import {ColorType} from '~/src/services/color/types';
 import {getCustomColorBrand, getCustomColorBrandsByType} from '~/src/services/db/custom-brand-db';
-import {byBoolean, byString, type Comparator, compare, reverseOrder} from '~/src/utils/comparator';
+import {degrees} from '~/src/services/math/geometry';
+import type {ExtractorComparator} from '~/src/utils/array';
+import {createExtractorComparator, decorateSortUndecorate} from '~/src/utils/array';
+import {
+  byBoolean,
+  byNumber,
+  byString,
+  type Comparator,
+  compare,
+  reverseOrder,
+} from '~/src/utils/comparator';
 import {fetchSWR} from '~/src/utils/fetch';
 
 import {hexToRgb} from './space/rgb';
 
 export const COLOR_TYPES: ColorType[] = [
   ColorType.WatercolorPaint,
-  ColorType.Gouache,
-  ColorType.AcrylicPaint,
-  ColorType.AcrylicGouache,
   ColorType.OilPaint,
+  ColorType.AcrylicPaint,
+  ColorType.Gouache,
+  ColorType.AcrylicGouache,
   ColorType.DryPastel,
   ColorType.OilPastel,
   ColorType.WaxPastel,
@@ -101,6 +114,77 @@ export const compareColorBrandsByName = ({
     prioritizeFreeTier && reverseOrder(byBoolean(({freeTier}) => freeTier)),
     byString(({fullName}) => fullName)
   );
+
+export enum ColorSort {
+  ById = 1,
+  ByHue = 2,
+  ByLightness = 3,
+}
+
+const NEUTRAL_CHROMA_THRESHOLD = 0.03;
+const EARTH_CHROMA_THRESHOLD = 0.1;
+const WARM_HUE_MIN = 20;
+const WARM_HUE_MAX = 110;
+
+export function getSortHueKey(rgb: [number, number, number]): [number, number, number] {
+  const [l, c, h] = oklabToOklch(...rgbToOklab(...rgb));
+  const hue = degrees(h);
+  if (c < NEUTRAL_CHROMA_THRESHOLD) {
+    return [2, -l, c];
+  }
+  if (hue >= WARM_HUE_MIN && hue <= WARM_HUE_MAX && c < EARTH_CHROMA_THRESHOLD) {
+    return [1, hue, -l];
+  }
+  return [0, hue, -l];
+}
+
+export function getSortLightness(rgb: [number, number, number]): [number, number, number] {
+  const [l, c, h] = oklabToOklch(...rgbToOklab(...rgb));
+  return [l, c, degrees(h)];
+}
+
+const byHueKey = compare(
+  byNumber(([group]: [number, number, number]) => group),
+  byNumber(([, secondary]: [number, number, number]) => secondary),
+  byNumber(([, , tertiary]: [number, number, number]) => tertiary)
+);
+
+const byLightnessKey = compare(
+  reverseOrder(byNumber(([l]: [number, number, number]) => l)),
+  reverseOrder(byNumber(([, c]: [number, number, number]) => c)),
+  byNumber(([, , h]: [number, number, number]) => h)
+);
+
+export const COLOR_DEFINITION_COMPARATORS: Record<
+  ColorSort,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ExtractorComparator<ColorDefinition, any>
+> = {
+  [ColorSort.ById]: createExtractorComparator<ColorDefinition>(byNumber(({id}) => id)),
+  [ColorSort.ByHue]: createExtractorComparator<ColorDefinition, [number, number, number]>(
+    byHueKey,
+    ({hex}) => getSortHueKey(hexToRgb(hex))
+  ),
+  [ColorSort.ByLightness]: createExtractorComparator<ColorDefinition, [number, number, number]>(
+    byLightnessKey,
+    ({hex}) => getSortLightness(hexToRgb(hex))
+  ),
+};
+
+export const COLOR_COMPARATORS: Record<
+  ColorSort,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ExtractorComparator<Color, any>
+> = {
+  [ColorSort.ById]: createExtractorComparator<Color>(byNumber(({id}) => id)),
+  [ColorSort.ByHue]: createExtractorComparator<Color, [number, number, number]>(byHueKey, ({rgb}) =>
+    getSortHueKey(rgb)
+  ),
+  [ColorSort.ByLightness]: createExtractorComparator<Color, [number, number, number]>(
+    byLightnessKey,
+    ({rgb}) => getSortLightness(rgb)
+  ),
+};
 
 function getResourceUrl(
   resource: 'brands' | 'colors' | 'sets',
@@ -285,5 +369,36 @@ export function toColorSet(
           })
         );
     }),
+  };
+}
+
+export function filterColorSet(colorSet: ColorSet | null, colorIds: ColorId[]): ColorSet | null {
+  if (!colorSet) {
+    return null;
+  }
+  const {type, brands} = colorSet;
+  return {
+    type,
+    brands,
+    colors: colorIds
+      .map(([brandId, colorId]): Color | undefined =>
+        colorSet.colors.find(({brand, id}: Color) => brandId === brand && colorId === id)
+      )
+      .filter((color): color is Color => !!color),
+  };
+}
+
+export function sortColorSet(colorSet: ColorSet | null, sort?: ColorSort): ColorSet | null {
+  if (!colorSet) {
+    return null;
+  }
+  if (!sort) {
+    return colorSet;
+  }
+  const {type, brands} = colorSet;
+  return {
+    type,
+    brands,
+    colors: decorateSortUndecorate(colorSet.colors, COLOR_COMPARATORS[sort])!,
   };
 }

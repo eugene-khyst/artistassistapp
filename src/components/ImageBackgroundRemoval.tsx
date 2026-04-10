@@ -245,6 +245,7 @@ export const ImageBackgroundRemoval: React.FC = () => {
                 {...colorPickerProps}
               >
                 <Dropdown
+                  trigger={['click']}
                   menu={{
                     items: [
                       {

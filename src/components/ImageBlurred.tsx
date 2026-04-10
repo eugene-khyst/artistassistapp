@@ -152,12 +152,13 @@ export const ImageBlurred: React.FC = () => {
             >
               <Trans>Save</Trans>
             </Button>
-            <Dropdown menu={{items: imageItems}}>
+            <Dropdown menu={{items: imageItems}} trigger={['click']}>
               <Button icon={<DownOutlined />} />
             </Dropdown>
           </Space.Compact>
         ) : (
           <Dropdown
+            trigger={['click']}
             menu={{
               items: [
                 {

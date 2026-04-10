@@ -76,6 +76,7 @@ export const ImageGrid: React.FC = () => {
           </>
         ) : (
           <Dropdown
+            trigger={['click']}
             menu={{
               items: [
                 {

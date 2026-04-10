@@ -19,6 +19,8 @@
 import type {MessageDescriptor} from '@lingui/core';
 import {defineMessage} from '@lingui/core/macro';
 
+import {ColorMixtureSort} from '~/src/services/color/color-mixer';
+import {ColorSort} from '~/src/services/color/colors';
 import {ColorType} from '~/src/services/color/types';
 import {TabKey} from '~/src/tabs';
 
@@ -32,6 +34,7 @@ export const TAB_LABELS: Record<TabKey, MessageDescriptor> = {
   [TabKey.Outline]: defineMessage`Outline`,
   [TabKey.Grid]: defineMessage`Grid`,
   [TabKey.ColorMixing]: defineMessage`Color mixing`,
+  [TabKey.ColorMixingChart]: defineMessage`Color mixing chart`,
   [TabKey.LimitedPalette]: defineMessage`Limited palette`,
   [TabKey.StyleTransfer]: defineMessage`Inspire`,
   [TabKey.PerspectiveCorrection]: defineMessage`Perspective`,
@@ -49,7 +52,7 @@ export const COLOR_TYPE_LABELS: Record<ColorType, MessageDescriptor> = {
   [ColorType.OilPaint]: defineMessage`Oil Paint`,
   [ColorType.ColoredPencils]: defineMessage`Colored Pencils`,
   [ColorType.WatercolorPencils]: defineMessage`Watercolor Pencils`,
-  [ColorType.DryPastel]: defineMessage`Pastel`,
+  [ColorType.DryPastel]: defineMessage`Dry Pastel`,
   [ColorType.OilPastel]: defineMessage`Oil Pastel`,
   [ColorType.WaxPastel]: defineMessage`Wax Pastel`,
   [ColorType.AcrylicMarkers]: defineMessage`Acrylic Markers`,
@@ -58,4 +61,17 @@ export const COLOR_TYPE_LABELS: Record<ColorType, MessageDescriptor> = {
 
 export const COLOR_PICKER_PRESET_LABELS = {
   PAPER_WHITE: defineMessage`White paper or canvas`,
+};
+
+export const COLOR_SORT_LABELS: Record<ColorSort, MessageDescriptor> = {
+  [ColorSort.ById]: defineMessage`By ID`,
+  [ColorSort.ByHue]: defineMessage`By hue`,
+  [ColorSort.ByLightness]: defineMessage`By lightness`,
+};
+
+export const COLOR_MIXTURE_SORT_LABELS: Record<ColorMixtureSort, MessageDescriptor> = {
+  [ColorMixtureSort.ByDate]: defineMessage`By date added`,
+  [ColorMixtureSort.ByName]: defineMessage`By name`,
+  [ColorMixtureSort.ByHue]: defineMessage`By hue`,
+  [ColorMixtureSort.ByLightness]: defineMessage`By lightness`,
 };

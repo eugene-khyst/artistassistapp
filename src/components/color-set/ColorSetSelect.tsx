@@ -52,12 +52,19 @@ function getColorSetOptions(
     ...colorSets
       .slice()
       .sort(reverseOrder(byDate(({date}) => date)))
-      .map((colorSet: ColorSetDefinition) => ({
-        value: colorSet.id,
-        label: colorSet.name || (
-          <ColorSetName brandColorCounts={colorSetDefinitionToBrandColorCounts(colorSet, brands)} />
-        ),
-      })),
+      .map((colorSet: ColorSetDefinition) => {
+        if (colorSet.name) {
+          return {value: colorSet.id, label: colorSet.name};
+        }
+        const brandColorCounts = colorSetDefinitionToBrandColorCounts(colorSet, brands);
+        const key = brandColorCounts
+          .map(({brandName, colorCount}) => `${brandName} ${colorCount}`)
+          .join(' ');
+        return {
+          value: colorSet.id,
+          label: <ColorSetName key={key} brandColorCounts={brandColorCounts} />,
+        };
+      }),
   ];
 }
 

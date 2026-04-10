@@ -248,6 +248,7 @@ export const ImageOutline: React.FC = () => {
               </>
             ) : (
               <Dropdown
+                trigger={['click']}
                 menu={{
                   items: [
                     {

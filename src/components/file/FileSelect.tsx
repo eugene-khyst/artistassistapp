@@ -116,7 +116,7 @@ export const FileSelect: React.FC<PropsWithChildren<Props>> = ({
             {children}
           </Button>
           {useReferencePhoto && (
-            <Dropdown menu={{items}}>
+            <Dropdown menu={{items}} trigger={['click']}>
               <Button icon={<DownOutlined />} />
             </Dropdown>
           )}

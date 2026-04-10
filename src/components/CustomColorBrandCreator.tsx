@@ -124,6 +124,7 @@ const ColorDropdown: React.FC<ColorDropdownProps> = ({value, isEditTarget, onEdi
   } = theme.useToken();
   return (
     <Dropdown
+      trigger={['click']}
       menu={{
         items: [
           {

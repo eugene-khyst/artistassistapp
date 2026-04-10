@@ -20,14 +20,11 @@ import {useLingui} from '@lingui/react/macro';
 import {Col, Drawer, Grid, Row} from 'antd';
 
 import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
-import {rgbToOklab} from '~/src/services/color/space/oklab';
-import {oklabToOklch} from '~/src/services/color/space/oklch';
+import {COLOR_MIXTURES_COMPARATORS, ColorMixtureSort} from '~/src/services/color/color-mixer';
 import {isRgbDark, rgbToHex} from '~/src/services/color/space/rgb';
 import type {ColorMixture} from '~/src/services/color/types';
-import {degrees} from '~/src/services/math/geometry';
 import {useAppStore} from '~/src/stores/app-store';
-import {createExtractorComparator, decorateSortUndecorate} from '~/src/utils/array';
-import {byNumber} from '~/src/utils/comparator';
+import {decorateSortUndecorate} from '~/src/utils/array';
 
 interface Props {
   colorMixtures?: ColorMixture[];
@@ -94,13 +91,7 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
         <Col xs={24} sm={12} style={{maxHeight: colorSwatchHeight, overflowY: 'auto'}}>
           {decorateSortUndecorate(
             colorMixtures,
-            createExtractorComparator<ColorMixture, number>(
-              byNumber(d => d),
-              ({layerRgb}) => {
-                const [, , h] = oklabToOklch(...rgbToOklab(...layerRgb));
-                return degrees(h);
-              }
-            )
+            COLOR_MIXTURES_COMPARATORS[ColorMixtureSort.ByHue]
           )?.map((colorMixture: ColorMixture) => {
             const {layerRgb} = colorMixture;
             return (

@@ -22,7 +22,7 @@ msgid "{brandName} colors"
 msgstr "{brandName} kleuren"
 
 #: src/components/color-set/ColorSetName.tsx:35
-#: src/components/color-set/StandardColorSetCascader.tsx:57
+#: src/components/color-set/StandardColorSetCascader.tsx:58
 #: src/components/ImageColorPicker.tsx:302
 #: src/components/Palette.tsx:77
 msgid "{colorCount, plural, one {# color} other {# colors}}"
@@ -91,6 +91,10 @@ msgstr "<0>Probeer opnieuw in te loggen</0>: Zodra je hebt bevestigd dat het jui
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Gebruik een webbrowser</0>: Als je de Patreon-app (iOS/Android) gebruikt, log dan in via een webbrowser (Chrome, Safari, Firefox), omdat de app soms het verificatieproces kan verstoren."
 
+#: src/components/ColorMixingChart.tsx:131
+msgid "A grid showing the result of mixing each pair of selected colors"
+msgstr "Een raster dat het resultaat toont van het mengen van elk paar geselecteerde kleuren"
+
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:46
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "Er is een nieuwe versie van de app beschikbaar en zal automatisch worden geïnstalleerd."
@@ -107,19 +111,19 @@ msgstr "Een waarde van minder dan 100% zorgt ervoor dat de afbeelding er minder 
 msgid "About ArtistAssistApp"
 msgstr "Over ArtistAssistApp"
 
-#: src/components/messages.ts:56
+#: src/components/messages.ts:57
 msgid "Acrylic Gouache"
 msgstr "Acryl gouache"
 
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Acrylic Markers"
 msgstr "Acryl markers"
 
-#: src/components/messages.ts:48
+#: src/components/messages.ts:49
 msgid "Acrylic Paint"
 msgstr "Acrylverf"
 
-#: src/components/ColorMixer.tsx:255
+#: src/components/ColorMixer.tsx:256
 msgid "Add color"
 msgstr "Kleur toevoegen"
 
@@ -159,7 +163,7 @@ msgstr "Een fout in de toepassing"
 msgid "Application build hash"
 msgstr "Hash voor het bouwen van applicaties"
 
-#: src/components/ColorMixingChart.tsx:133
+#: src/components/ColorMixingChart.tsx:155
 #: src/components/ImageLimitedPalette.tsx:133
 #: src/components/ImagePerspectiveCorrection.tsx:201
 msgid "Apply"
@@ -197,7 +201,7 @@ msgstr "Weet u zeker dat u dit aangepaste merk wilt verwijderen?"
 msgid "Are you sure you want to delete this photo?"
 msgstr "Weet je zeker dat je deze foto wilt verwijderen?"
 
-#: src/components/palette/PaletteGrid.tsx:144
+#: src/components/palette/PaletteGrid.tsx:112
 msgid "Are you sure you want to remove all color mixtures?"
 msgstr "Weet je zeker dat je alle kleurmengsels wilt verwijderen?"
 
@@ -236,7 +240,7 @@ msgstr "Zoek automatisch de beste kleurmengsels voor deze foto"
 msgid "Average color of the white point area"
 msgstr "Gemiddelde kleur van het witpuntgebied"
 
-#: src/components/ColorMixer.tsx:179
+#: src/components/ColorMixer.tsx:180
 #: src/components/ImageBackgroundRemoval.tsx:228
 #: src/components/ImageBackgroundRemoval.tsx:252
 #: src/components/ImageColorPicker.tsx:350
@@ -248,25 +252,26 @@ msgstr "Achtergrond"
 msgid "Build palette"
 msgstr "Palet opbouwen"
 
-#: src/components/palette/PaletteGrid.tsx:104
+#: src/components/palette/PaletteGrid.tsx:72
 msgid "By date added"
 msgstr "Op datum toegevoegd"
 
-#: src/components/color-set/ColorSelect.tsx:139
-#: src/components/palette/PaletteGrid.tsx:106
+#: src/components/color-set/ColorSelect.tsx:99
+#: src/components/ColorMixingChart.tsx:105
+#: src/components/palette/PaletteGrid.tsx:74
 msgid "By hue"
 msgstr "Per kleur"
 
-#: src/components/color-set/ColorSelect.tsx:132
+#: src/components/color-set/ColorSelect.tsx:92
 msgid "By ID"
 msgstr "Op ID"
 
-#: src/components/color-set/ColorSelect.tsx:146
-#: src/components/palette/PaletteGrid.tsx:107
+#: src/components/color-set/ColorSelect.tsx:106
+#: src/components/palette/PaletteGrid.tsx:75
 msgid "By lightness"
 msgstr "Door lichtheid"
 
-#: src/components/palette/PaletteGrid.tsx:105
+#: src/components/palette/PaletteGrid.tsx:73
 msgid "By name"
 msgstr "Op naam"
 
@@ -308,7 +313,7 @@ msgstr "Sluiten"
 msgid "Close in {closeCounter} sec"
 msgstr "Sluiten in {closeCounter} sec"
 
-#: src/components/ColorMixer.tsx:205
+#: src/components/ColorMixer.tsx:206
 #: src/components/CustomColorBrandCreator.tsx:447
 #: src/components/ImageColorPicker.tsx:404
 msgid "Color"
@@ -330,6 +335,10 @@ msgstr "Aantal kleuren"
 msgid "Color mixing"
 msgstr "Kleur mengen"
 
+#: src/components/messages.ts:35
+msgid "Color mixing chart"
+msgstr "Kleurmengschema"
+
 #: src/components/color/ColorMixtureDescription.tsx:102
 msgid "Color mixture"
 msgstr "Kleurenmengsel"
@@ -344,21 +353,21 @@ msgstr "Kleurkiezer"
 msgid "Color set"
 msgstr "Kleur set"
 
-#: src/components/color/ColorSwatchDrawer.tsx:61
-#: src/components/palette/PaletteGrid.tsx:132
+#: src/components/color/ColorSwatchDrawer.tsx:58
+#: src/components/palette/PaletteGrid.tsx:100
 msgid "Color swatch"
 msgstr "Kleurstaal"
 
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Colored Pencils"
 msgstr "Kleurpotloden"
 
-#: src/components/ColorMixingChart.tsx:111
-#: src/components/ImageLimitedPalette.tsx:111
+#: src/components/ColorMixingChart.tsx:130
+#: src/components/ImageLimitedPalette.tsx:105
 msgid "Colors"
 msgstr "Kleuren"
 
-#: src/components/messages.ts:40
+#: src/components/messages.ts:41
 msgid "Compare"
 msgstr "Vergelijken"
 
@@ -386,16 +395,16 @@ msgstr "Gecorrigeerde schatting van de temperatuur van de lichtbron in Kelvin"
 msgid "Create a duplicate of this color set for further modification"
 msgstr "Maak een duplicaat van deze kleurenset voor verdere wijziging"
 
-#: src/components/color-set/ColorSetSelect.tsx:90
+#: src/components/color-set/ColorSetSelect.tsx:97
 #: src/components/color-set/CustomColorBrandSelect.tsx:83
 msgid "Create new"
 msgstr "Nieuwe maken"
 
-#: src/components/messages.ts:41
+#: src/components/messages.ts:42
 msgid "Custom brand"
 msgstr "Aangepast merk"
 
-#: src/components/color-set/StandardColorSetCascader.tsx:29
+#: src/components/color-set/StandardColorSetCascader.tsx:30
 msgid "Custom color set"
 msgstr "Aangepaste kleurenset"
 
@@ -472,6 +481,10 @@ msgstr "Laat het dossier hier vallen..."
 #: src/components/file/FileSelect.tsx:106
 msgid "Drop the files here..."
 msgstr "Laat de bestanden hier vallen..."
+
+#: src/components/messages.ts:53
+msgid "Dry Pastel"
+msgstr "Droog Pastel"
 
 #: src/components/ColorSetChooser.tsx:712
 msgid "Duplicate"
@@ -552,7 +565,7 @@ msgstr "Ga naar het tabblad <0>{photoLabel}</0> en kies een referentiefoto."
 msgid "Go to the <0>{photoLabel}</0> tab and choose your reference photo."
 msgstr "Ga naar het tabblad <0>{photoLabel}</0> en kies je referentiefoto."
 
-#: src/components/messages.ts:47
+#: src/components/messages.ts:48
 msgid "Gouache"
 msgstr "Gouache"
 
@@ -567,7 +580,7 @@ msgid "Height"
 msgstr "Hoogte"
 
 #: src/components/ColorSetChooser.tsx:497
-#: src/components/messages.ts:42
+#: src/components/messages.ts:43
 msgid "Help"
 msgstr "Help"
 
@@ -583,7 +596,7 @@ msgstr "Als u niet opslaat, gaan wijzigingen in de kleurenset mogelijk verloren.
 msgid "Image without background"
 msgstr "Afbeelding zonder achtergrond"
 
-#: src/components/messages.ts:36
+#: src/components/messages.ts:37
 msgid "Inspire"
 msgstr "Inspireren"
 
@@ -644,7 +657,7 @@ msgstr "Lichte toon"
 msgid "Lighten the pressure to <0>{fractionText}</0>"
 msgstr "Verlicht de druk naar <0>{fractionText}</0>"
 
-#: src/components/messages.ts:35
+#: src/components/messages.ts:36
 msgid "Limited palette"
 msgstr "Beperkt palet"
 
@@ -713,7 +726,7 @@ msgstr "Middentonen"
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Meng kleuren in een <0>{partsRatioText} verhouding</0>"
 
-#: src/components/ColorMixer.tsx:165
+#: src/components/ColorMixer.tsx:166
 msgid "Mix your colors in any proportions so you don't waste real paints."
 msgstr "Meng je kleuren in elke verhouding, zodat je geen echte verf verspilt."
 
@@ -767,7 +780,7 @@ msgstr "Volgende aanklachtdatum"
 #: src/components/ColorSetChooser.tsx:721
 #: src/components/CustomColorBrandCreator.tsx:500
 #: src/components/image/RecentImageCard.tsx:74
-#: src/components/palette/PaletteGrid.tsx:147
+#: src/components/palette/PaletteGrid.tsx:115
 #: src/components/storage/ClearStorage.tsx:63
 #: src/components/storage/ClearStorage.tsx:76
 msgid "No"
@@ -778,7 +791,8 @@ msgstr "Nee"
 msgid "No data"
 msgstr "Geen gegevens"
 
-#: src/components/color-set/ColorSelect.tsx:125
+#: src/components/color-set/ColorSelect.tsx:85
+#: src/components/ColorMixingChart.tsx:95
 msgid "No sorting"
 msgstr "Geen sortering"
 
@@ -794,11 +808,11 @@ msgstr "Niets te delen"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Aantal cellen aan de kleinere kant (verticaal of horizontaal)"
 
-#: src/components/messages.ts:49
+#: src/components/messages.ts:50
 msgid "Oil Paint"
 msgstr "Olieverf"
 
-#: src/components/messages.ts:53
+#: src/components/messages.ts:54
 msgid "Oil Pastel"
 msgstr "Olie pastel"
 
@@ -871,10 +885,6 @@ msgstr "De papierkleur maakt niet uit voor dekkende pasteltinten, want ze bedekk
 msgid "Paper size"
 msgstr "Papierformaat"
 
-#: src/components/messages.ts:52
-msgid "Pastel"
-msgstr "Pastel"
-
 #: src/components/alert/AuthErrorHandler.tsx:40
 msgid "Patreon membership verification failed"
 msgstr "Patreon-lidmaatschapsverificatie mislukt"
@@ -900,7 +910,7 @@ msgstr "Permanente opslag"
 msgid "Persistent storage is not enabled"
 msgstr "Permanente opslag is niet ingeschakeld"
 
-#: src/components/messages.ts:37
+#: src/components/messages.ts:38
 msgid "Perspective"
 msgstr "Perspectief"
 
@@ -956,7 +966,7 @@ msgstr "Voorbeeld"
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
 #: src/components/ImageTonalValues.tsx:125
-#: src/components/palette/PaletteGrid.tsx:140
+#: src/components/palette/PaletteGrid.tsx:108
 #: src/components/print/PrintImageDrawer.tsx:132
 msgid "Print"
 msgstr "Afdrukken"
@@ -1001,7 +1011,7 @@ msgstr "Beoordeling: {player1RatingText}"
 msgid "Rating: {player2RatingText}"
 msgstr "Beoordeling: {player2RatingText}"
 
-#: src/components/ColorMixer.tsx:201
+#: src/components/ColorMixer.tsx:202
 msgid "Ratio"
 msgstr "Verhouding"
 
@@ -1019,13 +1029,13 @@ msgstr "Verminder kleuren"
 msgid "Reduce the number of colors in the photo"
 msgstr "Verminder het aantal kleuren in de foto"
 
-#: src/components/color/ColorSwatchDrawer.tsx:82
+#: src/components/color/ColorSwatchDrawer.tsx:79
 #: src/components/ImageColorAdjustment.tsx:311
 msgid "Reference"
 msgstr "Referentie"
 
 #: src/components/color/SimilarColorCard.tsx:110
-#: src/components/ColorMixer.tsx:265
+#: src/components/ColorMixer.tsx:266
 msgid "Reflectance"
 msgstr "Reflectie"
 
@@ -1033,16 +1043,16 @@ msgstr "Reflectie"
 msgid "Remove"
 msgstr "Verwijderen"
 
-#: src/components/palette/PaletteGrid.tsx:150
+#: src/components/palette/PaletteGrid.tsx:118
 msgid "Remove all"
 msgstr "Alles verwijderen"
 
-#: src/components/palette/PaletteGrid.tsx:143
+#: src/components/palette/PaletteGrid.tsx:111
 msgid "Remove all color mixtures"
 msgstr "Verwijder alle kleurmengsels"
 
 #: src/components/ImageColorAdjustment.tsx:384
-#: src/components/messages.ts:39
+#: src/components/messages.ts:40
 msgid "Remove background"
 msgstr "Achtergrond verwijderen"
 
@@ -1092,7 +1102,7 @@ msgstr "Draaien"
 msgid "Saturation (%)"
 msgstr "Verzadiging (%)"
 
-#: src/components/ColorMixingChart.tsx:140
+#: src/components/ColorMixingChart.tsx:117
 #: src/components/CustomColorBrandCreator.tsx:489
 #: src/components/ImageBackgroundRemoval.tsx:233
 #: src/components/ImageBackgroundRemoval.tsx:262
@@ -1170,7 +1180,7 @@ msgstr "Selecteer een stijl om over te brengen naar uw referentiefoto"
 msgid "Select an image that contains a color chart"
 msgstr "Selecteer een afbeelding die een kleurenkaart bevat"
 
-#: src/components/ColorMixer.tsx:208
+#: src/components/ColorMixer.tsx:209
 msgid "Select any number of colors to mix and specify the part of each color in the resulting mix."
 msgstr "Selecteer een willekeurig aantal kleuren om te mengen en specificeer het deel van elke kleur in de resulterende mix."
 
@@ -1186,17 +1196,20 @@ msgstr "Selecteer merken"
 msgid "Select brands that you use."
 msgstr "Selecteer merken die u gebruikt."
 
-#: src/components/color-set/ColorCascader.tsx:94
+#: src/components/color-set/ColorCascader.tsx:107
 msgid "Select color"
 msgstr "Selecteer kleur"
 
-#: src/components/color-set/ColorCascader.tsx:94
-#: src/components/color-set/ColorSelect.tsx:158
+#: src/components/color-set/ColorCascader.tsx:107
+#: src/components/color-set/ColorSelect.tsx:118
 msgid "Select colors"
 msgstr "Selecteer kleuren"
 
-#: src/components/ColorMixingChart.tsx:116
-#: src/components/ImageLimitedPalette.tsx:116
+#: src/components/ColorMixingChart.tsx:135
+msgid "Select colors to build a mixing chart"
+msgstr "Selecteer kleuren om een mengtabel te maken"
+
+#: src/components/ImageLimitedPalette.tsx:113
 msgid "Select from 1 to {MAX_COLORS} colors"
 msgstr "Kies uit 1 tot {MAX_COLORS} kleuren"
 
@@ -1204,7 +1217,7 @@ msgstr "Kies uit 1 tot {MAX_COLORS} kleuren"
 msgid "Select from your recent brands"
 msgstr "Maak een keuze uit uw recente merken"
 
-#: src/components/color-set/ColorSetSelect.tsx:85
+#: src/components/color-set/ColorSetSelect.tsx:92
 msgid "Select from your recent color sets"
 msgstr "Maak een keuze uit uw recente kleurensets"
 
@@ -1220,7 +1233,7 @@ msgstr "Selecteer afbeelding"
 msgid "Select language"
 msgstr "Taal selecteren"
 
-#: src/components/ColorMixer.tsx:222
+#: src/components/ColorMixer.tsx:223
 msgid "Select part"
 msgstr "Selecteer onderdeel"
 
@@ -1239,7 +1252,7 @@ msgstr "Selecteer foto's"
 msgid "Select photos to rank using pairwise comparison"
 msgstr "Selecteer foto's om te rangschikken met behulp van paarsgewijze vergelijking"
 
-#: src/components/color-set/StandardColorSetCascader.tsx:86
+#: src/components/color-set/StandardColorSetCascader.tsx:87
 msgid "Select set"
 msgstr "Set selecteren"
 
@@ -1269,7 +1282,6 @@ msgstr "Sessie afgelopen"
 msgid "Set as background"
 msgstr "Instellen als achtergrond"
 
-#: src/components/ColorMixingChart.tsx:149
 #: src/components/ImageLimitedPalette.tsx:149
 msgid "Set as main color set"
 msgstr "Instellen als hoofdkleurenset"
@@ -1350,9 +1362,10 @@ msgstr "Overlap pastelgebieden van verschillende kleuren lichtjes en meng voorzi
 msgid "Small"
 msgstr "Klein"
 
-#: src/components/color-set/ColorSelect.tsx:170
+#: src/components/color-set/ColorSelect.tsx:130
+#: src/components/ColorMixingChart.tsx:90
 #: src/components/ImageColorPicker.tsx:442
-#: src/components/palette/PaletteGrid.tsx:161
+#: src/components/palette/PaletteGrid.tsx:129
 msgid "Sort"
 msgstr "Soort"
 
@@ -1370,7 +1383,7 @@ msgstr "Sorteer op dikte van het mengsel"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:92
 #: src/components/color/SimilarColorCard.tsx:105
-#: src/components/ColorMixer.tsx:259
+#: src/components/ColorMixer.tsx:260
 msgid "Spectral reflectance curve"
 msgstr "Spectrale reflectiecurve"
 
@@ -1434,7 +1447,7 @@ msgstr "De app slaat alle gegevens op in de opslag van de webbrowser, zelfs na i
 msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "De app probeert opnieuw te laden in {reloadCounter} sec"
 
-#: src/components/ColorMixer.tsx:180
+#: src/components/ColorMixer.tsx:181
 #: src/components/ImageColorPicker.tsx:351
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "De kleur van papier of canvas, of de kleur van de basislaag wanneer deze geglazuurd is."
@@ -1531,10 +1544,10 @@ msgstr "Onverwachte fout"
 msgid "Unexpected error: {errorMessage}"
 msgstr "Onverwachte fout: {errorMessage}"
 
-#: src/components/color/ColorSwatchDrawer.tsx:119
+#: src/components/color/ColorSwatchDrawer.tsx:110
 #: src/components/color/PaletteColorMixtureCard.tsx:77
 #: src/components/color/SimilarColorCard.tsx:85
-#: src/components/palette/PaletteGrid.tsx:183
+#: src/components/palette/PaletteGrid.tsx:151
 msgid "Untitled mixture"
 msgstr "Mengsel zonder titel"
 
@@ -1566,8 +1579,7 @@ msgstr "Gebruik wit papier of canvas als achtergrond"
 msgid "Used"
 msgstr "Gebruikt"
 
-#: src/components/ColorMixingChart.tsx:112
-#: src/components/ImageLimitedPalette.tsx:112
+#: src/components/ImageLimitedPalette.tsx:106
 msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 msgstr "Het gebruik van een beperkt palet helpt bij het bereiken van kleurharmonie. Selecteer maximaal {MAX_COLORS} kleuren als uw primaire kleuren."
 
@@ -1579,15 +1591,15 @@ msgstr "Warm — Algoritmische schatting; Artistieke perceptie kan variëren."
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "Aquarel kan worden verdund met water om het transparanter te maken."
 
-#: src/components/messages.ts:46
+#: src/components/messages.ts:47
 msgid "Watercolor Paint"
 msgstr "Aquarel Verf"
 
-#: src/components/messages.ts:51
+#: src/components/messages.ts:52
 msgid "Watercolor Pencils"
 msgstr "Aquarel potloden"
 
-#: src/components/messages.ts:54
+#: src/components/messages.ts:55
 msgid "Wax Pastel"
 msgstr "Waspastel"
 
@@ -1612,11 +1624,11 @@ msgstr "Wit"
 #: src/components/ImageColorAdjustment.tsx:393
 #: src/components/ImagePerspectiveCorrection.tsx:236
 #: src/components/ImagePerspectiveCorrection.tsx:274
-#: src/components/messages.ts:38
+#: src/components/messages.ts:39
 msgid "White balance"
 msgstr "Witbalans"
 
-#: src/components/messages.ts:60
+#: src/components/messages.ts:61
 msgid "White paper or canvas"
 msgstr "Wit papier of canvas"
 
@@ -1634,7 +1646,7 @@ msgstr "Breedte"
 #: src/components/ColorSetChooser.tsx:720
 #: src/components/CustomColorBrandCreator.tsx:499
 #: src/components/image/RecentImageCard.tsx:73
-#: src/components/palette/PaletteGrid.tsx:146
+#: src/components/palette/PaletteGrid.tsx:114
 #: src/components/storage/ClearStorage.tsx:62
 #: src/components/storage/ClearStorage.tsx:75
 msgid "Yes"

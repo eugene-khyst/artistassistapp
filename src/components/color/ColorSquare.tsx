@@ -28,12 +28,14 @@ interface Props {
   hex: string;
   size?: Size;
   text?: string | number;
+  showTooltip?: boolean;
 }
 
 export const ColorSquare: React.FC<Props> = memo(function ColorSquare({
   hex,
   size = 'small',
   text,
+  showTooltip = true,
 }: Props) {
   const {
     token: {fontSize, fontSizeLG, lineHeight},
@@ -44,7 +46,7 @@ export const ColorSquare: React.FC<Props> = memo(function ColorSquare({
   const rgb = hexToRgb(hex);
   const hexString = toHexString(hex);
   return (
-    <Tooltip title={hexString}>
+    <Tooltip title={showTooltip ? hexString : undefined}>
       <svg width={sideLength} height={sideLength} className="color-icon">
         <rect
           width={sideLength}

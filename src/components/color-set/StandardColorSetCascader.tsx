@@ -19,6 +19,7 @@
 import {Plural, Trans, useLingui} from '@lingui/react/macro';
 import {Cascader} from 'antd';
 import type {CascaderAutoProps, DefaultOptionType as CascaderOptionType} from 'antd/es/cascader';
+import {Fragment} from 'react';
 
 import {filterCascaderOptions} from '~/src/components/utils';
 import {computeStandardColorSetDefinitionId} from '~/src/services/color/colors';
@@ -53,10 +54,10 @@ function getStandardColorSetOptions(
             return {
               value: computeStandardColorSetDefinitionId(colorSet),
               label: (
-                <>
+                <Fragment key={`${colorCount} ${name ?? ''}`.trim()}>
                   <Plural value={colorCount} one="# color" other="# colors" />
                   {name && ` (${name})`}
-                </>
+                </Fragment>
               ),
             };
           }),

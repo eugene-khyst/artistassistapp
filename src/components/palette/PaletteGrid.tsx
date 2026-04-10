@@ -31,42 +31,11 @@ import {useReactToPrint} from 'react-to-print';
 import {AdCard} from '~/src/components/ad/AdCard';
 import {ColorMixtureDescription} from '~/src/components/color/ColorMixtureDescription';
 import {PaletteColorMixtureCard} from '~/src/components/color/PaletteColorMixtureCard';
-import {compareColorMixturesByName} from '~/src/services/color/color-mixer';
-import {rgbToOklab} from '~/src/services/color/space/oklab';
-import {oklabToOklch} from '~/src/services/color/space/oklch';
+import {COLOR_MIXTURE_SORT_LABELS} from '~/src/components/messages';
+import {COLOR_MIXTURES_COMPARATORS, ColorMixtureSort} from '~/src/services/color/color-mixer';
 import type {ColorMixture, ColorType} from '~/src/services/color/types';
-import {degrees} from '~/src/services/math/geometry';
 import {useAppStore} from '~/src/stores/app-store';
-import type {ExtractorComparator} from '~/src/utils/array';
-import {createExtractorComparator, decorateSortUndecorate} from '~/src/utils/array';
-import {byDate, byNumber, reverseOrder} from '~/src/utils/comparator';
-
-enum Sort {
-  ByDate = 1,
-  ByName = 2,
-  ByHue = 3,
-  ByLightness = 4,
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const COLOR_MIXTURES_COMPARATORS: Record<Sort, ExtractorComparator<ColorMixture, any>> = {
-  [Sort.ByDate]: createExtractorComparator<ColorMixture>(reverseOrder(byDate(({date}) => date))),
-  [Sort.ByName]: createExtractorComparator<ColorMixture>(compareColorMixturesByName),
-  [Sort.ByHue]: createExtractorComparator<ColorMixture, number>(
-    byNumber(d => d),
-    ({layerRgb}) => {
-      const [, , h] = oklabToOklch(...rgbToOklab(...layerRgb));
-      return degrees(h);
-    }
-  ),
-  [Sort.ByLightness]: createExtractorComparator<ColorMixture, number>(
-    reverseOrder(byNumber(l => l)),
-    ({layerRgb}) => {
-      const [l] = rgbToOklab(...layerRgb);
-      return l;
-    }
-  ),
-};
+import {decorateSortUndecorate} from '~/src/utils/array';
 
 interface Props {
   colorType: ColorType;
@@ -80,7 +49,7 @@ export const PaletteGrid: React.FC<Props> = ({colorType, showColorSwatch}: Props
 
   const {t} = useLingui();
 
-  const [sort, setSort] = useState<Sort>(Sort.ByDate);
+  const [sort, setSort] = useState<ColorMixtureSort>(ColorMixtureSort.ByDate);
   const [isPrintContentVisible, setIsPrintContentVisible] = useState<boolean>(false);
 
   const printRef = useRef<HTMLDivElement>(null);
@@ -99,18 +68,16 @@ export const PaletteGrid: React.FC<Props> = ({colorType, showColorSwatch}: Props
     }
   }, [isPrintContentVisible, handlePrint]);
 
-  const sortItems: MenuProps['items'] = (
-    [
-      [Sort.ByDate, t`By date added`],
-      [Sort.ByName, t`By name`],
-      [Sort.ByHue, t`By hue`],
-      [Sort.ByLightness, t`By lightness`],
-    ] as [Sort, string][]
-  ).map(([sort, label]) => ({
-    key: String(sort),
-    label,
+  const sortItems: MenuProps['items'] = [
+    ColorMixtureSort.ByDate,
+    ColorMixtureSort.ByName,
+    ColorMixtureSort.ByHue,
+    ColorMixtureSort.ByLightness,
+  ].map(value => ({
+    key: String(value),
+    label: t(COLOR_MIXTURE_SORT_LABELS[value]),
     onClick: () => {
-      setSort(sort);
+      setSort(value);
     },
   }));
 
@@ -152,6 +119,7 @@ export const PaletteGrid: React.FC<Props> = ({colorType, showColorSwatch}: Props
         </Popconfirm>
 
         <Dropdown
+          trigger={['click']}
           menu={{
             items: sortItems,
             selectedKeys: [String(sort)],

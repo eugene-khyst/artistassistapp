@@ -118,6 +118,7 @@ export const ImageTonalValues: React.FC = () => {
           </>
         ) : (
           <Dropdown
+            trigger={['click']}
             menu={{
               items: [
                 {

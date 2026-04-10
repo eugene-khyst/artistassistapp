@@ -50,6 +50,7 @@ import {
   MIXABLE_COLOR_TYPES,
   PAPER_WHITE_HEX,
 } from '~/src/services/color/color-mixer';
+import {hexToRgb} from '~/src/services/color/space/rgb';
 import type {Color, ColorMixture} from '~/src/services/color/types';
 import {gcd} from '~/src/services/math/gcd';
 import {useAppStore} from '~/src/stores/app-store';
@@ -112,10 +113,10 @@ export const ColorMixer: React.FC = () => {
     }
   }, [colorSet, form]);
 
-  const resultColorMixtures = useMemo<ColorMixture[]>(
+  const colorMixtures = useMemo<ColorMixture[]>(
     () =>
       colorSet && colors.length > 0 && colors.length === ratio.length
-        ? makeColorMixture(colorSet.type, colors, ratio, backgroundColor).sort(
+        ? makeColorMixture(colorSet.type, colors, ratio, hexToRgb(backgroundColor)).sort(
             compareColorMixturesByConsistency
           )
         : [],
@@ -257,7 +258,7 @@ export const ColorMixer: React.FC = () => {
                         <Button
                           icon={<LineChartOutlined />}
                           title={t`Spectral reflectance curve`}
-                          disabled={!resultColorMixtures.some(isThickConsistency)}
+                          disabled={!colorMixtures.some(isThickConsistency)}
                           onClick={() => {
                             setIsOpenReflectanceChart(true);
                           }}
@@ -273,7 +274,7 @@ export const ColorMixer: React.FC = () => {
           </Space>
 
           <Space orientation="vertical">
-            {resultColorMixtures.map((colorMixture: ColorMixture) => (
+            {colorMixtures.map((colorMixture: ColorMixture) => (
               <Fragment key={colorMixture.key}>
                 <ColorMixtureDescription
                   colorMixture={colorMixture}
@@ -298,7 +299,7 @@ export const ColorMixer: React.FC = () => {
         </Row>
       </Flex>
       <ReflectanceChartDrawer
-        colorMixture={resultColorMixtures.find(isThickConsistency)}
+        colorMixture={colorMixtures.find(isThickConsistency)}
         open={isOpenReflectanceChart}
         onClose={() => {
           setIsOpenReflectanceChart(false);

@@ -24,6 +24,7 @@ import {useEffect, useRef} from 'react';
 import StickyBox from 'react-sticky-box';
 
 import {AdModal} from '~/src/components/ad/AdModal';
+import {ColorMixingChart} from '~/src/components/ColorMixingChart';
 import {CustomColorBrandCreator} from '~/src/components/CustomColorBrandCreator';
 import {ImageBackgroundRemoval} from '~/src/components/ImageBackgroundRemoval';
 import {ImageColorAdjustment} from '~/src/components/ImageColorAdjustment';
@@ -125,6 +126,10 @@ export const ArtistAssistApp: React.FC = () => {
     {
       key: TabKey.ColorMixing,
       children: <ColorMixer />,
+    },
+    {
+      key: TabKey.ColorMixingChart,
+      children: <ColorMixingChart />,
     },
     {
       key: TabKey.Outline,

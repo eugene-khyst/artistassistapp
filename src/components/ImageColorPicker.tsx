@@ -261,7 +261,7 @@ export const ImageColorPicker: React.FC = () => {
   );
 
   if (!colorSet) {
-    return <EmptyColorSet imageSupported={true} />;
+    return <EmptyColorSet imageSupported />;
   }
 
   const {mixing, glazing} = COLOR_MIXING[colorSet.type];
@@ -413,6 +413,7 @@ export const ImageColorPicker: React.FC = () => {
                         disabledAlpha
                       />
                       <Dropdown
+                        trigger={['click']}
                         menu={{
                           items: [
                             {
@@ -433,6 +434,7 @@ export const ImageColorPicker: React.FC = () => {
                   {mixing && (
                     <Form.Item style={{marginBottom: 0}}>
                       <Dropdown
+                        trigger={['click']}
                         menu={{
                           items: sortItems,
                           selectedKeys: [String(sort)],
@@ -447,6 +449,7 @@ export const ImageColorPicker: React.FC = () => {
 
                   {!screens.md && (
                     <Dropdown
+                      trigger={['click']}
                       menu={{
                         items: [
                           {
@@ -474,7 +477,7 @@ export const ImageColorPicker: React.FC = () => {
                 {screens.md && (
                   <Space size="small" align="start" style={{marginTop: 8}}>
                     {originalImage && availableMaxColors.length > 0 && (
-                      <Dropdown menu={{items: posterizeItems}}>
+                      <Dropdown menu={{items: posterizeItems}} trigger={['click']}>
                         <Button
                           icon={<DownOutlined />}
                           iconPlacement="end"

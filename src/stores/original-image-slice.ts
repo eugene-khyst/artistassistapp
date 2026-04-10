@@ -87,6 +87,8 @@ export const createOriginalImageSlice: StateCreator<
     const imageFile: ImageFile | undefined = await getLastImageFile();
     if (imageFile) {
       await get().setImageFile(imageFile, false);
+    } else {
+      await get().loadPaletteColorMixtures();
     }
   },
   setImageFile: async (imageFile: ImageFile | null, setActiveTabKey = true): Promise<void> => {

@@ -223,7 +223,7 @@ export const ImagePerspectiveCorrection: React.FC = () => {
                         >
                           <Trans>Save</Trans>
                         </Button>
-                        <Dropdown menu={{items: saveItems}}>
+                        <Dropdown menu={{items: saveItems}} trigger={['click']}>
                           <Button icon={<DownOutlined />} />
                         </Dropdown>
                       </Space.Compact>
@@ -240,6 +240,7 @@ export const ImagePerspectiveCorrection: React.FC = () => {
                 </>
               ) : (
                 <Dropdown
+                  trigger={['click']}
                   menu={{
                     items: [
                       {

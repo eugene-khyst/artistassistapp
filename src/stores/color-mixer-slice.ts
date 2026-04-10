@@ -19,12 +19,12 @@
 import type {StateCreator} from 'zustand';
 
 import {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
-import {PAPER_WHITE_HEX} from '~/src/services/color/color-mixer';
+import {PAPER_WHITE, PAPER_WHITE_HEX} from '~/src/services/color/color-mixer';
 import {hexToRgb, type RgbTuple} from '~/src/services/color/space/rgb';
 import type {ColorSet, SamplingArea, SimilarColor} from '~/src/services/color/types';
 import {colorMixer} from '~/src/services/color/worker/color-mixer-worker-manager';
 import {mergeSimilarSamplingPoints, type SamplingPoint} from '~/src/services/image/sampling-point';
-import {getSamplingPoints} from '~/src/services/image/worker/color-quantization-worker-manager';
+import {colorQuantizationWorker} from '~/src/services/image/worker/color-quantization-worker-manager';
 import type {PaletteSlice, SaveToPaletteEntry} from '~/src/stores/palette-slice';
 import {TabKey} from '~/src/tabs';
 import {abortablePromise, createAbortError, isAbortError} from '~/src/utils/promise';
@@ -50,7 +50,7 @@ export interface ColorMixerSlice {
   buildPaletteAbortController: AbortController | null;
 
   setColorSet: (colorSet: ColorSet, setActiveTabKey?: boolean) => Promise<void>;
-  setBackgroundColor: (backgroundColor: string | null) => Promise<void>;
+  setBackgroundColor: (backgroundColor: string) => Promise<void>;
   setTargetColor: (color: string, samplingArea: SamplingArea | null) => Promise<void>;
   setColorPickerPipette: (colorPickerPipette: SamplingArea | null) => void;
   buildPalette: () => Promise<void>;
@@ -87,13 +87,13 @@ export const createColorMixerSlice: StateCreator<
       backgroundColor: PAPER_WHITE_HEX,
       similarColors: [],
     });
-    await colorMixer.setColorSet(colorSet, PAPER_WHITE_HEX);
+    await colorMixer.setColorSet(colorSet, PAPER_WHITE);
     set({
       isColorMixerSetLoading: false,
     });
     await get().setTargetColor(targetColor, samplingArea);
   },
-  setBackgroundColor: async (backgroundColor: string | null): Promise<void> => {
+  setBackgroundColor: async (backgroundColor: string): Promise<void> => {
     const {targetColor} = get();
     set({
       isColorMixerBackgroundLoading: true,
@@ -101,7 +101,7 @@ export const createColorMixerSlice: StateCreator<
       similarColors: [],
       isSimilarColorsLoading: true,
     });
-    await colorMixer.setBackgroundColor(backgroundColor ?? PAPER_WHITE_HEX);
+    await colorMixer.setBackgroundColor(hexToRgb(backgroundColor));
     set({
       isColorMixerBackgroundLoading: false,
       similarColors: await colorMixer.findSimilarColors(hexToRgb(targetColor)),
@@ -140,7 +140,10 @@ export const createColorMixerSlice: StateCreator<
       buildPaletteAbortController,
     });
     try {
-      const rawPoints: SamplingPoint[] = await getSamplingPoints(originalImage, signal);
+      const rawPoints: SamplingPoint[] = await colorQuantizationWorker.run(
+        worker => worker.getSamplingPoints(originalImage),
+        signal
+      );
 
       const targetColors: RgbTuple[] = rawPoints.map(({rgb}) => rgb);
       const similarColors: (SimilarColor | undefined)[] = await abortablePromise(
