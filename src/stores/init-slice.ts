@@ -98,17 +98,17 @@ export const createInitSlice: StateCreator<
     if (importedColorSet) {
       activeTabKey = TabKey.ColorSet;
     }
-    if (activeTabKey) {
-      void get().setActiveTabKey(activeTabKey);
-    }
 
     await get().loadColorSets(importedColorSet);
     await get().loadRecentImageFiles();
-    await get().loadPaletteColorMixtures();
 
     const {styleTransferImage} = appSettings;
     if (styleTransferImage) {
       await get().setStyleImageFile(imageFileToFile(styleTransferImage));
+    }
+
+    if (activeTabKey) {
+      void get().setActiveTabKey(activeTabKey);
     }
 
     set({

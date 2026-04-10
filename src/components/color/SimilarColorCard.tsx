@@ -42,7 +42,7 @@ export const SimilarColorCard: React.FC<Props> = memo(function SimilarColorCard(
   onReflectanceChartClick,
 }: Props) {
   const paletteColorMixture = useAppStore(state =>
-    state.paletteColorMixtures.get(colorMixture.key)
+    state.paletteColorMixtures.get(colorMixture.type)?.get(colorMixture.key)
   );
 
   const saveToPalette = useAppStore(state => state.saveToPalette);

@@ -36,7 +36,9 @@ export const AddToPaletteButton: React.FC<Props> = memo(function AddToPaletteBut
   size,
   style,
 }: Props) {
-  const colorMixtureExists = useAppStore(state => state.paletteColorMixtures.has(colorMixture.key));
+  const colorMixtureExists = useAppStore(
+    state => !!state.paletteColorMixtures.get(colorMixture.type)?.has(colorMixture.key)
+  );
   const saveToPalette = useAppStore(state => state.saveToPalette);
   const deleteFromPalette = useAppStore(state => state.deleteFromPalette);
 

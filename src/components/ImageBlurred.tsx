@@ -47,6 +47,7 @@ const MEDIAN_FILTER_RADIUS_OPTIONS_SHORT: CheckboxOptionType<number>[] = [
   {value: 1, label: 'S'},
   {value: 2, label: 'M'},
   {value: 3, label: 'L'},
+  {value: 4, label: 'XL'},
 ];
 
 const DEFAULT_BLURRED_IMAGE_INDEX = 1;
@@ -119,8 +120,8 @@ export const ImageBlurred: React.FC = () => {
     <LoadingIndicator loading={isBlurredImagesLoading}>
       <Space align="start" style={{width: '100%', justifyContent: 'center', marginBottom: 8}}>
         <Form.Item
-          label={t`Blur`}
-          tooltip={t`Controls the radius of the median filter.`}
+          label={t`Strength`}
+          tooltip={t`Adjusts how strongly the image is smoothed.`}
           style={{marginBottom: 0}}
         >
           <Radio.Group
@@ -131,6 +132,7 @@ export const ImageBlurred: React.FC = () => {
                     {value: 1, label: t`Small`},
                     {value: 2, label: t`Medium`},
                     {value: 3, label: t`Large`},
+                    {value: 4, label: t`Max`},
                   ]
                 : MEDIAN_FILTER_RADIUS_OPTIONS_SHORT
             }

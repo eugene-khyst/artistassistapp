@@ -25,7 +25,7 @@ import {
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Card, Col, Dropdown, Popconfirm, Row, Space, Typography} from 'antd';
 import type {MenuProps} from 'antd/lib';
-import {useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useReactToPrint} from 'react-to-print';
 
 import {AdCard} from '~/src/components/ad/AdCard';
@@ -70,26 +70,34 @@ const COLOR_MIXTURES_COMPARATORS: Record<Sort, ExtractorComparator<ColorMixture,
 
 interface Props {
   colorType: ColorType;
-  colorMixtures?: ColorMixture[];
   showColorSwatch: (colorMixture: ColorMixture[]) => void;
 }
 
-export const PaletteGrid: React.FC<Props> = ({
-  colorType,
-  colorMixtures,
-  showColorSwatch,
-}: Props) => {
+export const PaletteGrid: React.FC<Props> = ({colorType, showColorSwatch}: Props) => {
+  const colorMixtures = useAppStore(state => state.paletteColorMixtures.get(colorType));
+
   const deleteAllFromPalette = useAppStore(state => state.deleteAllFromPalette);
 
   const {t} = useLingui();
 
   const [sort, setSort] = useState<Sort>(Sort.ByDate);
+  const [isPrintContentVisible, setIsPrintContentVisible] = useState<boolean>(false);
+
   const printRef = useRef<HTMLDivElement>(null);
 
   const handlePrint = useReactToPrint({
     contentRef: printRef,
     documentTitle: 'ArtistAssistApp',
+    onAfterPrint: () => {
+      setIsPrintContentVisible(false);
+    },
   });
+
+  useEffect(() => {
+    if (isPrintContentVisible) {
+      handlePrint();
+    }
+  }, [isPrintContentVisible, handlePrint]);
 
   const sortItems: MenuProps['items'] = (
     [
@@ -107,7 +115,7 @@ export const PaletteGrid: React.FC<Props> = ({
   }));
 
   const sortedColorMixtures = decorateSortUndecorate(
-    colorMixtures,
+    [...(colorMixtures?.values() ?? [])],
     COLOR_MIXTURES_COMPARATORS[sort]
   );
 
@@ -126,7 +134,7 @@ export const PaletteGrid: React.FC<Props> = ({
         <Button
           icon={<PrinterOutlined />}
           onClick={() => {
-            handlePrint();
+            setIsPrintContentVisible(true);
           }}
         >
           <Trans>Print</Trans>
@@ -164,22 +172,24 @@ export const PaletteGrid: React.FC<Props> = ({
           <AdCard vertical />
         </Col>
       </Row>
-      <div className="print-only">
-        <Row ref={printRef} gutter={[16, 16]} justify="start">
-          {sortedColorMixtures.map((colorMixture: ColorMixture) => (
-            <Col key={colorMixture.key} xs={24} sm={12} md={8}>
-              <Card size="small">
-                <Space orientation="vertical">
-                  <Typography.Text style={{fontWeight: 'bold'}}>
-                    {colorMixture.name || t`Untitled mixture`}
-                  </Typography.Text>
-                  <ColorMixtureDescription colorMixture={colorMixture} showTooltips={false} />
-                </Space>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-      </div>
+      {isPrintContentVisible && (
+        <div className="print-only">
+          <Row ref={printRef} gutter={[16, 16]} justify="start">
+            {sortedColorMixtures.map((colorMixture: ColorMixture) => (
+              <Col key={colorMixture.key} xs={24} sm={12} md={8}>
+                <Card size="small">
+                  <Space orientation="vertical">
+                    <Typography.Text style={{fontWeight: 'bold'}}>
+                      {colorMixture.name || t`Untitled mixture`}
+                    </Typography.Text>
+                    <ColorMixtureDescription colorMixture={colorMixture} showTooltips={false} />
+                  </Space>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </div>
+      )}
     </>
   ) : null;
 };

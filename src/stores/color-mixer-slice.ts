@@ -114,6 +114,7 @@ export const createColorMixerSlice: StateCreator<
       samplingArea,
       colorPickerPipette: null,
       similarColors: [],
+      selectedPaletteColorMixtures: new Map(),
       isSimilarColorsLoading: true,
     });
     set({

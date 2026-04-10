@@ -17,9 +17,9 @@
  */
 
 import {Plural, useLingui} from '@lingui/react/macro';
-import type {CollapseProps} from 'antd';
-import {Collapse, Typography} from 'antd';
-import {useCallback, useEffect, useMemo, useState} from 'react';
+import {Tabs, Typography} from 'antd';
+import type {TabsProps} from 'antd/lib';
+import {useCallback, useEffect, useState} from 'react';
 
 import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {COLOR_TYPE_LABELS} from '~/src/components/messages';
@@ -32,18 +32,16 @@ import {ColorSwatchDrawer} from './color/ColorSwatchDrawer';
 import {EmptyPalette} from './empty/EmptyPalette';
 import {PaletteGrid} from './palette/PaletteGrid';
 
-type ItemType = ArrayElement<CollapseProps['items']>;
+type ItemType = ArrayElement<TabsProps['items']>;
 
 export const Palette: React.FC = () => {
-  const colorSet = useAppStore(state => state.colorSet);
+  const colorSetColorType = useAppStore(state => state.colorSet?.type);
   const paletteColorMixtures = useAppStore(state => state.paletteColorMixtures);
   const isPaletteLoading = useAppStore(state => state.isPaletteLoading);
 
   const {t} = useLingui();
 
-  const [activePaletteKey, setActivePaletteKey] = useState<string | string[]>(
-    COLOR_TYPES.map((colorType: ColorType) => colorType.toString())
-  );
+  const [activePaletteKey, setActivePaletteKey] = useState<string>();
 
   const [colorSwatchColorMixtures, setColorSwatchColorMixtures] = useState<
     ColorMixture[] | undefined
@@ -53,36 +51,23 @@ export const Palette: React.FC = () => {
   const isLoading: boolean = isPaletteLoading;
 
   useEffect(() => {
-    if (colorSet) {
+    if (colorSetColorType) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setActivePaletteKey(colorSet.type.toString());
+      setActivePaletteKey(colorSetColorType.toString());
     }
-  }, [colorSet]);
+  }, [colorSetColorType]);
 
   const showColorSwatch = useCallback((colorMixtures: ColorMixture[]) => {
     setColorSwatchColorMixtures(colorMixtures);
     setIsOpenColorSwatch(true);
   }, []);
 
-  const colorMixturesByType = useMemo(() => {
-    const result = new Map<ColorType, ColorMixture[]>();
-    for (const cm of paletteColorMixtures.values()) {
-      const arr = result.get(cm.type);
-      if (arr) {
-        arr.push(cm);
-      } else {
-        result.set(cm.type, [cm]);
-      }
-    }
-    return result;
-  }, [paletteColorMixtures]);
-
   const items: ItemType[] = COLOR_TYPES.map((colorType: ColorType): ItemType | undefined => {
-    const mixtures = colorMixturesByType.get(colorType);
-    if (!mixtures?.length) {
+    const mixtures = paletteColorMixtures.get(colorType);
+    if (!mixtures?.size && colorType !== colorSetColorType) {
       return;
     }
-    const colorCount: number = mixtures.length;
+    const colorCount: number = mixtures?.size ?? 0;
     return {
       key: colorType.toString(),
       label: (
@@ -93,17 +78,15 @@ export const Palette: React.FC = () => {
           </Typography.Text>
         </>
       ),
-      children: (
-        <PaletteGrid
-          colorType={colorType}
-          colorMixtures={mixtures}
-          showColorSwatch={showColorSwatch}
-        />
+      children: mixtures?.size ? (
+        <PaletteGrid colorType={colorType} showColorSwatch={showColorSwatch} />
+      ) : (
+        <EmptyPalette />
       ),
     };
   }).filter((item): item is ItemType => !!item);
 
-  const handleActiveKeyChange = (keys: string | string[]) => {
+  const handleTabChange = (keys: string) => {
     setActivePaletteKey(keys);
   };
 
@@ -114,13 +97,12 @@ export const Palette: React.FC = () => {
   return (
     <LoadingIndicator loading={isLoading}>
       <div style={{padding: '0 16px 16px'}}>
-        <Collapse
-          collapsible="icon"
-          size="large"
-          bordered={false}
-          onChange={handleActiveKeyChange}
+        <Tabs
           items={items}
           activeKey={activePaletteKey}
+          onChange={handleTabChange}
+          size="small"
+          tabBarGutter={0}
         />
       </div>
       <ColorSwatchDrawer

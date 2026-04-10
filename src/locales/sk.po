@@ -23,8 +23,8 @@ msgstr "Farby {brandName}"
 
 #: src/components/color-set/ColorSetName.tsx:35
 #: src/components/color-set/StandardColorSetCascader.tsx:57
-#: src/components/ImageColorPicker.tsx:299
-#: src/components/Palette.tsx:92
+#: src/components/ImageColorPicker.tsx:302
+#: src/components/Palette.tsx:77
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# farba} few {# farby} many {# farieb} other {# farieb}}"
 
@@ -135,13 +135,17 @@ msgstr "Pridajte alebo odstráňte farby tak, aby zodpovedali vašej skutočnej 
 msgid "Add photos"
 msgstr "Pridanie fotiek"
 
-#: src/components/color/AddToPaletteButton.tsx:64
+#: src/components/color/AddToPaletteButton.tsx:66
 msgid "Add to palette"
 msgstr "Pridať do palety"
 
 #: src/components/color/ColorMixtureDescription.tsx:89
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Pridanie bielej farby v <0>pomere {whiteRatioText}</0>"
+
+#: src/components/ImageBlurred.tsx:124
+msgid "Adjusts how strongly the image is smoothed."
+msgstr "Upravuje, ako silno je obraz vyhladený."
 
 #: src/components/install/InstallDrawer.tsx:177
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
@@ -155,6 +159,7 @@ msgstr "Chyba aplikácie"
 msgid "Application build hash"
 msgstr "Hodnota hash zostavenia aplikácie"
 
+#: src/components/ColorMixingChart.tsx:133
 #: src/components/ImageLimitedPalette.tsx:133
 #: src/components/ImagePerspectiveCorrection.tsx:201
 msgid "Apply"
@@ -192,11 +197,11 @@ msgstr "Naozaj chcete odstrániť túto vlastnú značku?"
 msgid "Are you sure you want to delete this photo?"
 msgstr "Naozaj chcete túto fotografiu odstrániť?"
 
-#: src/components/palette/PaletteGrid.tsx:136
+#: src/components/palette/PaletteGrid.tsx:144
 msgid "Are you sure you want to remove all color mixtures?"
 msgstr "Naozaj chcete odstrániť všetky farebné zmesi?"
 
-#: src/components/color/AddToPaletteButton.tsx:48
+#: src/components/color/AddToPaletteButton.tsx:50
 #: src/components/color/PaletteColorMixtureCard.tsx:103
 msgid "Are you sure you want to remove this color mixture?"
 msgstr "Naozaj chcete túto farebnú zmes odstrániť?"
@@ -222,8 +227,8 @@ msgstr "Chyba autentifikácie"
 msgid "Automatic backup of color sets"
 msgstr "Automatické zálohovanie farebných sád"
 
-#: src/components/ImageColorPicker.tsx:458
-#: src/components/ImageColorPicker.tsx:487
+#: src/components/ImageColorPicker.tsx:461
+#: src/components/ImageColorPicker.tsx:490
 msgid "Automatically find the best color mixtures for this photo"
 msgstr "Automaticky nájdite najlepšie farebné zmesi pre túto fotografiu"
 
@@ -234,25 +239,21 @@ msgstr "Priemerná farba oblasti bieleho bodu"
 #: src/components/ColorMixer.tsx:179
 #: src/components/ImageBackgroundRemoval.tsx:228
 #: src/components/ImageBackgroundRemoval.tsx:252
-#: src/components/ImageColorPicker.tsx:347
+#: src/components/ImageColorPicker.tsx:350
 msgid "Background"
 msgstr "Pozadie"
 
-#: src/components/ImageBlurred.tsx:122
-msgid "Blur"
-msgstr "Rozmazať"
-
-#: src/components/ImageColorPicker.tsx:457
-#: src/components/ImageColorPicker.tsx:492
+#: src/components/ImageColorPicker.tsx:460
+#: src/components/ImageColorPicker.tsx:495
 msgid "Build palette"
 msgstr "Build palette"
 
-#: src/components/palette/PaletteGrid.tsx:96
+#: src/components/palette/PaletteGrid.tsx:104
 msgid "By date added"
 msgstr "Podľa dátumu pridania"
 
 #: src/components/color-set/ColorSelect.tsx:139
-#: src/components/palette/PaletteGrid.tsx:98
+#: src/components/palette/PaletteGrid.tsx:106
 msgid "By hue"
 msgstr "Podľa farby"
 
@@ -261,11 +262,11 @@ msgid "By ID"
 msgstr "Podľa ID"
 
 #: src/components/color-set/ColorSelect.tsx:146
-#: src/components/palette/PaletteGrid.tsx:99
+#: src/components/palette/PaletteGrid.tsx:107
 msgid "By lightness"
 msgstr "Ľahkosťou"
 
-#: src/components/palette/PaletteGrid.tsx:97
+#: src/components/palette/PaletteGrid.tsx:105
 msgid "By name"
 msgstr "Názov"
 
@@ -295,7 +296,7 @@ msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Kliknutím 🖱️ alebo ťuknutím na 👆 ľubovoľné miesto na fotke vyberte biely bod."
 
 #: src/components/empty/EmptyPalette.tsx:64
-#: src/components/ImageColorPicker.tsx:524
+#: src/components/ImageColorPicker.tsx:527
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "Kliknite alebo ťuknite 🖱️ 👆 na ľubovoľné miesto na fotke, prípadne pomocou vyskakovacieho okna výberu farieb vyberte cieľovú farbu, ktorú chcete zmiešať z farieb."
 
@@ -309,7 +310,7 @@ msgstr "Zatvorenie za {closeCounter} s"
 
 #: src/components/ColorMixer.tsx:205
 #: src/components/CustomColorBrandCreator.tsx:447
-#: src/components/ImageColorPicker.tsx:401
+#: src/components/ImageColorPicker.tsx:404
 msgid "Color"
 msgstr "Farba"
 
@@ -321,7 +322,7 @@ msgstr "Farebná značka"
 msgid "Color brands"
 msgstr "Farebné značky"
 
-#: src/components/ImageColorPicker.tsx:275
+#: src/components/ImageColorPicker.tsx:278
 msgid "Color count"
 msgstr "Počet farieb"
 
@@ -338,13 +339,13 @@ msgid "Color picker"
 msgstr "Výber farieb"
 
 #: src/components/ColorSetChooser.tsx:548
-#: src/components/ImageColorPicker.tsx:501
+#: src/components/ImageColorPicker.tsx:504
 #: src/components/messages.ts:26
 msgid "Color set"
 msgstr "Farebná sada"
 
 #: src/components/color/ColorSwatchDrawer.tsx:61
-#: src/components/palette/PaletteGrid.tsx:124
+#: src/components/palette/PaletteGrid.tsx:132
 msgid "Color swatch"
 msgstr "Vzorkovník farieb"
 
@@ -352,6 +353,7 @@ msgstr "Vzorkovník farieb"
 msgid "Colored Pencils"
 msgstr "Farebné ceruzky"
 
+#: src/components/ColorMixingChart.tsx:111
 #: src/components/ImageLimitedPalette.tsx:111
 msgid "Colors"
 msgstr "Farby"
@@ -363,10 +365,6 @@ msgstr "Porovnať"
 #: src/components/Help.tsx:152
 msgid "Contact"
 msgstr "Kontakt"
-
-#: src/components/ImageBlurred.tsx:123
-msgid "Controls the radius of the median filter."
-msgstr "Ovláda polomer stredného filtra."
 
 #: src/components/color/WarmthIcon.tsx:42
 msgid "Cool — Algorithmic estimate; artistic perception may vary."
@@ -443,7 +441,7 @@ msgid "Diagonals"
 msgstr "Uhlopriečky"
 
 #: src/components/CustomColorBrandCreator.tsx:434
-#: src/components/ImageColorPicker.tsx:386
+#: src/components/ImageColorPicker.tsx:389
 msgid "Diameter"
 msgstr "Priemer"
 
@@ -622,7 +620,7 @@ msgstr "Pripojte sa k Patreonu"
 msgid "Language"
 msgstr "Jazyk"
 
-#: src/components/ImageBlurred.tsx:133
+#: src/components/ImageBlurred.tsx:134
 msgid "Large"
 msgstr "Veľký"
 
@@ -695,7 +693,11 @@ msgstr "Nízky výkon a vysoký výkon"
 msgid "Margin"
 msgstr "Okraj"
 
-#: src/components/ImageBlurred.tsx:132
+#: src/components/ImageBlurred.tsx:135
+msgid "Max"
+msgstr "Max"
+
+#: src/components/ImageBlurred.tsx:133
 msgid "Medium"
 msgstr "Stredná"
 
@@ -759,20 +761,20 @@ msgstr "Nové porovnanie"
 msgid "Next charge date"
 msgstr "Dátum ďalšieho nabíjania"
 
-#: src/components/color/AddToPaletteButton.tsx:51
+#: src/components/color/AddToPaletteButton.tsx:53
 #: src/components/color/PaletteColorMixtureCard.tsx:106
 #: src/components/ColorSetChooser.tsx:230
 #: src/components/ColorSetChooser.tsx:721
 #: src/components/CustomColorBrandCreator.tsx:500
 #: src/components/image/RecentImageCard.tsx:74
-#: src/components/palette/PaletteGrid.tsx:139
+#: src/components/palette/PaletteGrid.tsx:147
 #: src/components/storage/ClearStorage.tsx:63
 #: src/components/storage/ClearStorage.tsx:76
 msgid "No"
 msgstr "Nie"
 
 #: src/components/empty/EmptyPalette.tsx:39
-#: src/components/ImageColorPicker.tsx:521
+#: src/components/ImageColorPicker.tsx:524
 msgid "No data"
 msgstr "Žiadne údaje"
 
@@ -780,7 +782,7 @@ msgstr "Žiadne údaje"
 msgid "No sorting"
 msgstr "Žiadne triedenie"
 
-#: src/components/ImageBlurred.tsx:130
+#: src/components/ImageBlurred.tsx:131
 msgid "None"
 msgstr "Žiadny"
 
@@ -910,7 +912,7 @@ msgstr "Fotka"
 msgid "Photo ranking"
 msgstr "Poradie fotografií"
 
-#: src/components/ImageColorPicker.tsx:530
+#: src/components/ImageColorPicker.tsx:533
 msgid "Pinch to zoom (or use the mouse wheel) and drag to pan"
 msgstr "Stiahnutím prstov zväčšite (alebo použite koliesko myši) a potiahnutím posúvajte"
 
@@ -954,7 +956,7 @@ msgstr "Náhľad"
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
 #: src/components/ImageTonalValues.tsx:125
-#: src/components/palette/PaletteGrid.tsx:132
+#: src/components/palette/PaletteGrid.tsx:140
 #: src/components/print/PrintImageDrawer.tsx:132
 msgid "Print"
 msgstr "Tlačiť"
@@ -1003,17 +1005,17 @@ msgstr "Hodnotenie: {player2RatingText}"
 msgid "Ratio"
 msgstr "Pomer"
 
-#: src/components/ImageColorPicker.tsx:296
+#: src/components/ImageColorPicker.tsx:299
 msgid "Reduce color palette to"
 msgstr "Zredukujte farebnú paletu na"
 
-#: src/components/ImageColorPicker.tsx:451
-#: src/components/ImageColorPicker.tsx:480
+#: src/components/ImageColorPicker.tsx:454
+#: src/components/ImageColorPicker.tsx:483
 msgid "Reduce colors"
 msgstr "Zmenšiť farby"
 
-#: src/components/ImageColorPicker.tsx:452
-#: src/components/ImageColorPicker.tsx:478
+#: src/components/ImageColorPicker.tsx:455
+#: src/components/ImageColorPicker.tsx:481
 msgid "Reduce the number of colors in the photo"
 msgstr "Znížte počet farieb na fotografii"
 
@@ -1031,11 +1033,11 @@ msgstr "Odrazivosť"
 msgid "Remove"
 msgstr "Odstrániť"
 
-#: src/components/palette/PaletteGrid.tsx:142
+#: src/components/palette/PaletteGrid.tsx:150
 msgid "Remove all"
 msgstr "Odstrániť všetko"
 
-#: src/components/palette/PaletteGrid.tsx:135
+#: src/components/palette/PaletteGrid.tsx:143
 msgid "Remove all color mixtures"
 msgstr "Odstráňte všetky farebné zmesi"
 
@@ -1044,11 +1046,11 @@ msgstr "Odstráňte všetky farebné zmesi"
 msgid "Remove background"
 msgstr "Odstránenie pozadia"
 
-#: src/components/color/AddToPaletteButton.tsx:54
+#: src/components/color/AddToPaletteButton.tsx:56
 msgid "Remove from palette"
 msgstr "Odstrániť z palety"
 
-#: src/components/color/AddToPaletteButton.tsx:47
+#: src/components/color/AddToPaletteButton.tsx:49
 #: src/components/color/PaletteColorMixtureCard.tsx:102
 msgid "Remove the color mixture"
 msgstr "Odstráňte farebnú zmes"
@@ -1090,11 +1092,12 @@ msgstr "Rotovať"
 msgid "Saturation (%)"
 msgstr "Sýtosť (%)"
 
+#: src/components/ColorMixingChart.tsx:140
 #: src/components/CustomColorBrandCreator.tsx:489
 #: src/components/ImageBackgroundRemoval.tsx:233
 #: src/components/ImageBackgroundRemoval.tsx:262
-#: src/components/ImageBlurred.tsx:151
-#: src/components/ImageBlurred.tsx:163
+#: src/components/ImageBlurred.tsx:153
+#: src/components/ImageBlurred.tsx:165
 #: src/components/ImageColorAdjustment.tsx:360
 #: src/components/ImageGrid.tsx:74
 #: src/components/ImageGrid.tsx:89
@@ -1192,6 +1195,7 @@ msgstr "Vyberte farbu"
 msgid "Select colors"
 msgstr "Vyberte farby"
 
+#: src/components/ColorMixingChart.tsx:116
 #: src/components/ImageLimitedPalette.tsx:116
 msgid "Select from 1 to {MAX_COLORS} colors"
 msgstr "Vyberte si od 1 do {MAX_COLORS} farieb"
@@ -1265,11 +1269,12 @@ msgstr "Zasadnutie skončilo"
 msgid "Set as background"
 msgstr "Nastaviť ako pozadie"
 
+#: src/components/ColorMixingChart.tsx:149
 #: src/components/ImageLimitedPalette.tsx:149
 msgid "Set as main color set"
 msgstr "Nastaviť ako hlavnú sadu farieb"
 
-#: src/components/ImageBlurred.tsx:106
+#: src/components/ImageBlurred.tsx:107
 #: src/components/ImageColorAdjustment.tsx:377
 msgid "Set as reference"
 msgstr "Nastaviť ako referenciu"
@@ -1300,7 +1305,7 @@ msgstr "Zdieľajte túto farebnú sadu"
 msgid "Share your color set"
 msgstr "Zdieľanie sady farieb"
 
-#: src/components/ImageColorPicker.tsx:418
+#: src/components/ImageColorPicker.tsx:421
 msgid "Show areas on the photo that match this color"
 msgstr "Ukážte na fotografii oblasti, ktoré zodpovedajú tejto farbe"
 
@@ -1308,7 +1313,7 @@ msgstr "Ukážte na fotografii oblasti, ktoré zodpovedajú tejto farbe"
 msgid "Show grid"
 msgstr "Zobraziť mriežku"
 
-#: src/components/ImageColorPicker.tsx:417
+#: src/components/ImageColorPicker.tsx:420
 msgid "Show matching areas"
 msgstr "Zobraziť zodpovedajúce oblasti"
 
@@ -1321,7 +1326,7 @@ msgid "Show or hide diagonal lines"
 msgstr "Zobrazenie alebo skrytie diagonálnych čiar"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:86
-#: src/components/ImageColorPicker.tsx:270
+#: src/components/ImageColorPicker.tsx:273
 msgid "Similarity"
 msgstr "Podobnosť"
 
@@ -1341,25 +1346,25 @@ msgstr "Mierne prekrývajte olejové pastelové oblasti rôznych farieb a jemne 
 msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition."
 msgstr "Mierne prekrývajte pastelové oblasti rôznych farieb a jemne premiešajte, aby ste vytvorili hladký prechod."
 
-#: src/components/ImageBlurred.tsx:131
+#: src/components/ImageBlurred.tsx:132
 msgid "Small"
 msgstr "Malý"
 
 #: src/components/color-set/ColorSelect.tsx:170
-#: src/components/ImageColorPicker.tsx:439
-#: src/components/palette/PaletteGrid.tsx:153
+#: src/components/ImageColorPicker.tsx:442
+#: src/components/palette/PaletteGrid.tsx:161
 msgid "Sort"
 msgstr "Triediť"
 
-#: src/components/ImageColorPicker.tsx:276
+#: src/components/ImageColorPicker.tsx:279
 msgid "Sort by the number of colors in the mixture"
 msgstr "Zoradiť podľa počtu farieb v zmesi"
 
-#: src/components/ImageColorPicker.tsx:271
+#: src/components/ImageColorPicker.tsx:274
 msgid "Sort by the similarity of the mixture to the target color"
 msgstr "Zoradiť podľa podobnosti zmesi s cieľovou farbou"
 
-#: src/components/ImageColorPicker.tsx:278
+#: src/components/ImageColorPicker.tsx:281
 msgid "Sort by the thickness of the mixture"
 msgstr "Zoradiť podľa hrúbky zmesi"
 
@@ -1392,6 +1397,10 @@ msgstr "Využitie úložiska"
 #: src/components/ImagePerspectiveCorrection.tsx:187
 msgid "Straightens skewed photos and removes unwanted edges. Select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "Narovná zošikmené fotografie a odstráni nežiaduce okraje. Vyberte 4 body na korekciu skreslenia perspektívy a potom voliteľne potiahnutím okrajov orežte obrázok."
+
+#: src/components/ImageBlurred.tsx:123
+msgid "Strength"
+msgstr "Sila"
 
 #: src/components/ImageStyleTransfer.tsx:159
 msgid "Styled reference photo"
@@ -1426,15 +1435,15 @@ msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "Aplikácia sa pokúsi znova načítať za {reloadCounter} sekúnd"
 
 #: src/components/ColorMixer.tsx:180
-#: src/components/ImageColorPicker.tsx:348
+#: src/components/ImageColorPicker.tsx:351
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "Farba papiera alebo plátna, alebo farba základnej vrstvy pri glazovaní."
 
-#: src/components/ImageColorPicker.tsx:402
+#: src/components/ImageColorPicker.tsx:405
 msgid "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
 msgstr "Farba, ktorá sa má zmiešať z vašej sady farieb. Vyberte farbu kliknutím na bod na obrázku alebo použite kontextové okno výberu farby."
 
-#: src/components/ImageColorPicker.tsx:387
+#: src/components/ImageColorPicker.tsx:390
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
 msgstr "Priemer kruhovej oblasti okolo kurzora, ktorý sa používa na výpočet priemernej farby pixelov v danej oblasti."
 
@@ -1454,7 +1463,7 @@ msgstr "Pre každú fotografiu existuje jedna spoločná paleta a samostatná pa
 msgid "Thick pigment"
 msgstr "Hustý pigment"
 
-#: src/components/ImageColorPicker.tsx:278
+#: src/components/ImageColorPicker.tsx:281
 msgid "Thickness"
 msgstr "Hrúbka"
 
@@ -1525,7 +1534,7 @@ msgstr "Neočakávaná chyba: {errorMessage}"
 #: src/components/color/ColorSwatchDrawer.tsx:119
 #: src/components/color/PaletteColorMixtureCard.tsx:77
 #: src/components/color/SimilarColorCard.tsx:85
-#: src/components/palette/PaletteGrid.tsx:174
+#: src/components/palette/PaletteGrid.tsx:183
 msgid "Untitled mixture"
 msgstr "Zmes bez názvu"
 
@@ -1549,7 +1558,7 @@ msgstr "Použite zasklievacie médiá, ktoré vám umožnia získať tenkú vrst
 msgid "Use reference photo"
 msgstr "Použiť referenčnú fotografiu"
 
-#: src/components/ImageColorPicker.tsx:374
+#: src/components/ImageColorPicker.tsx:377
 msgid "Use white paper or canvas as a background"
 msgstr "Použite biely papier alebo plátno ako pozadie"
 
@@ -1557,6 +1566,7 @@ msgstr "Použite biely papier alebo plátno ako pozadie"
 msgid "Used"
 msgstr "Používaný"
 
+#: src/components/ColorMixingChart.tsx:112
 #: src/components/ImageLimitedPalette.tsx:112
 msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 msgstr "Použitie obmedzenej palety pomáha dosiahnuť farebnú harmóniu. Vyberte až {MAX_COLORS} farieb, ktoré budú vašimi primárnymi."
@@ -1595,7 +1605,7 @@ msgstr "Pri výbere viac ako {maxColorsFor3} farieb sa nepoužívajú zmesi troc
 
 #: src/components/ImageBackgroundRemoval.tsx:157
 #: src/components/ImageColorAdjustment.tsx:442
-#: src/components/ImageColorPicker.tsx:379
+#: src/components/ImageColorPicker.tsx:382
 msgid "White"
 msgstr "Biely"
 
@@ -1618,13 +1628,13 @@ msgstr "Biely bod"
 msgid "Width"
 msgstr "Šírka"
 
-#: src/components/color/AddToPaletteButton.tsx:50
+#: src/components/color/AddToPaletteButton.tsx:52
 #: src/components/color/PaletteColorMixtureCard.tsx:105
 #: src/components/ColorSetChooser.tsx:229
 #: src/components/ColorSetChooser.tsx:720
 #: src/components/CustomColorBrandCreator.tsx:499
 #: src/components/image/RecentImageCard.tsx:73
-#: src/components/palette/PaletteGrid.tsx:138
+#: src/components/palette/PaletteGrid.tsx:146
 #: src/components/storage/ClearStorage.tsx:62
 #: src/components/storage/ClearStorage.tsx:75
 msgid "Yes"

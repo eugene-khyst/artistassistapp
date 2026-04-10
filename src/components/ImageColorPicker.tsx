@@ -203,8 +203,11 @@ export const ImageColorPicker: React.FC = () => {
   }, [colorPickerCanvas, colorPickerPipette]);
 
   useEffect(() => {
+    if (!colorSet) {
+      return;
+    }
     colorPickerCanvas?.setSamples(
-      [...paletteColorMixtures.values()].flatMap(
+      [...(paletteColorMixtures.get(colorSet.type)?.values() ?? [])].flatMap(
         ({key, samplingArea, layerRgb}): ColorPickerSample | ColorPickerSample[] =>
           samplingArea
             ? {
@@ -216,7 +219,7 @@ export const ImageColorPicker: React.FC = () => {
             : []
       )
     );
-  }, [colorPickerCanvas, paletteColorMixtures]);
+  }, [colorPickerCanvas, paletteColorMixtures, colorSet]);
 
   useEffect(() => {
     colorPickerCanvas?.setOverlayImage(colorMatchImage);

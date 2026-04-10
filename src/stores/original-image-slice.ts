@@ -19,8 +19,6 @@
 import type {StateCreator} from 'zustand';
 
 import {PAPER_WHITE_HEX} from '~/src/services/color/color-mixer';
-import type {ColorMixture} from '~/src/services/color/types';
-import {getColorMixtures} from '~/src/services/db/color-mixture-db';
 import {
   deleteImageFile,
   getImageFiles,
@@ -105,9 +103,6 @@ export const createOriginalImageSlice: StateCreator<
       await get().setActiveTabKey(activeTabKey);
     }
     const originalImageFile: File | null = imageFile ? imageFileToFile(imageFile) : null;
-    const paletteColorMixtures = new Map<string, ColorMixture>(
-      (await getColorMixtures(imageFile?.id)).map(colorMixture => [colorMixture.key, colorMixture])
-    );
     set({
       imageFile,
       originalImageFile,
@@ -121,8 +116,8 @@ export const createOriginalImageSlice: StateCreator<
       backgroundColor: PAPER_WHITE_HEX,
       targetColor: PAPER_WHITE_HEX,
       similarColors: [],
-      paletteColorMixtures,
     });
+    await get().loadPaletteColorMixtures();
     const [originalImage] = originalImageFile
       ? await createImageBitmapResizedTotalPixels(originalImageFile, IMAGE_SIZE['2K'])
       : [null];
