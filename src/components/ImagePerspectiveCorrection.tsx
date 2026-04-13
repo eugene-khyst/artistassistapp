@@ -17,6 +17,7 @@
  */
 
 import {
+  AimOutlined,
   BarChartOutlined,
   CheckOutlined,
   CloseOutlined,
@@ -115,6 +116,22 @@ export const ImagePerspectiveCorrection: React.FC = () => {
     correctImagePerspective(imagePerspectiveCorrectionCanvas.getVertices());
   };
 
+  const handleAutoDetectClick = () => {
+    if (!imagePerspectiveCorrectionCanvas) {
+      return;
+    }
+
+    if (!imagePerspectiveCorrectionCanvas.autoDetectVertices()) {
+      notification.error({
+        title: t`Could not detect the paper or canvas automatically`,
+        description: t`Adjust the 4 points manually.`,
+        placement: 'top',
+        duration: 10,
+        showProgress: true,
+      });
+    }
+  };
+
   const handleResetClick = () => {
     resetPerspectiveCorrection();
     imagePerspectiveCorrectionCanvas?.resetVertices();
@@ -184,7 +201,7 @@ export const ImagePerspectiveCorrection: React.FC = () => {
             <Trans>Select a photo to correct the perspective</Trans>
           </Typography.Text>
           <Tooltip
-            title={t`Straightens skewed photos and removes unwanted edges. Select 4 points to correct perspective distortion, then optionally drag margins to crop the image.`}
+            title={t`Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image.`}
           >
             <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
           </Tooltip>
@@ -197,6 +214,9 @@ export const ImagePerspectiveCorrection: React.FC = () => {
             <>
               {!perspectiveCorrectedImage && (
                 <>
+                  <Button icon={<AimOutlined />} onClick={handleAutoDetectClick}>
+                    <Trans>Auto-detect</Trans>
+                  </Button>
                   <Button icon={<CheckOutlined />} onClick={handleApplyClick}>
                     <Trans>Apply</Trans>
                   </Button>
@@ -249,16 +269,6 @@ export const ImagePerspectiveCorrection: React.FC = () => {
                         icon: <CloseOutlined />,
                         onClick: handleResetClick,
                       },
-                      ...(!perspectiveCorrectedImage
-                        ? [
-                            {
-                              key: 'rotate',
-                              label: t`Rotate`,
-                              icon: <RotateRightOutlined />,
-                              onClick: handleRotateClick,
-                            },
-                          ]
-                        : []),
                       ...(perspectiveCorrectedImage
                         ? [
                             {
@@ -279,7 +289,20 @@ export const ImagePerspectiveCorrection: React.FC = () => {
                               },
                             },
                           ]
-                        : []),
+                        : [
+                            {
+                              key: 'auto-detect',
+                              label: t`Auto-detect`,
+                              icon: <AimOutlined />,
+                              onClick: handleAutoDetectClick,
+                            },
+                            {
+                              key: 'rotate',
+                              label: t`Rotate`,
+                              icon: <RotateRightOutlined />,
+                              onClick: handleRotateClick,
+                            },
+                          ]),
                     ],
                   }}
                 >

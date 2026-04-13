@@ -36,9 +36,9 @@ msgstr "{FIELD} ovat pakollisia"
 #: src/components/ColorSetChooser.tsx:541
 #: src/components/ColorSetChooser.tsx:550
 #: src/components/ColorSetChooser.tsx:603
-#: src/components/CustomColorBrandCreator.tsx:463
-#: src/components/CustomColorBrandCreator.tsx:474
-#: src/components/CustomColorBrandCreator.tsx:482
+#: src/components/CustomColorBrandCreator.tsx:464
+#: src/components/CustomColorBrandCreator.tsx:475
+#: src/components/CustomColorBrandCreator.tsx:483
 msgid "{FIELD} is required"
 msgstr "{FIELD} on pakollinen"
 
@@ -91,7 +91,7 @@ msgstr "<0>Yritä kirjautua uudelleen</0>: Kun olet varmistanut, että oikea Pat
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Käytä verkkoselainta</0>: Jos käytät Patreon-sovellusta (iOS/Android), kirjaudu sisään verkkoselaimella (Chrome, Safari, Firefox), sillä sovellus voi joskus häiritä varmennusprosessia."
 
-#: src/components/ColorMixingChart.tsx:131
+#: src/components/ColorMixingChart.tsx:132
 msgid "A grid showing the result of mixing each pair of selected colors"
 msgstr "Ruudukko, joka näyttää jokaisen valittujen väriparin sekoittamisen tuloksen"
 
@@ -111,15 +111,15 @@ msgstr "Alle 100 %:n arvo saa kuvan näyttämään vähemmän värikkäältä ja
 msgid "About ArtistAssistApp"
 msgstr "Tietoja ArtistAssistAppista"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:59
 msgid "Acrylic Gouache"
 msgstr "Akryyli guassi"
 
-#: src/components/messages.ts:56
+#: src/components/messages.ts:58
 msgid "Acrylic Markers"
 msgstr "Akryyli-merkit"
 
-#: src/components/messages.ts:49
+#: src/components/messages.ts:51
 msgid "Acrylic Paint"
 msgstr "Akryyliväri"
 
@@ -147,6 +147,10 @@ msgstr "Lisää palettiin"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Lisää valkoista <0>{whiteRatioText}-suhteessa</0>"
 
+#: src/components/ImagePerspectiveCorrection.tsx:127
+msgid "Adjust the 4 points manually."
+msgstr "Säädä neljää pistettä manuaalisesti."
+
 #: src/components/ImageBlurred.tsx:124
 msgid "Adjusts how strongly the image is smoothed."
 msgstr "Säätää sitä, kuinka vahvasti kuva on tasoitettu."
@@ -163,9 +167,9 @@ msgstr "Sovelluksen virhe"
 msgid "Application build hash"
 msgstr "Sovelluksen koontitiiviste"
 
-#: src/components/ColorMixingChart.tsx:155
+#: src/components/ColorMixingChart.tsx:156
 #: src/components/ImageLimitedPalette.tsx:133
-#: src/components/ImagePerspectiveCorrection.tsx:201
+#: src/components/ImagePerspectiveCorrection.tsx:221
 msgid "Apply"
 msgstr "Käyttää"
 
@@ -193,7 +197,7 @@ msgstr "Oletko varma, että haluat poistaa kaikki sovellustiedot?"
 msgid "Are you sure you want to delete this color set?"
 msgstr "Haluatko varmasti poistaa tämän värisarjan?"
 
-#: src/components/CustomColorBrandCreator.tsx:495
+#: src/components/CustomColorBrandCreator.tsx:496
 msgid "Are you sure you want to delete this custom brand?"
 msgstr "Oletko varma, että haluat poistaa tämän mukautetun tuotemerkin?"
 
@@ -201,7 +205,7 @@ msgstr "Oletko varma, että haluat poistaa tämän mukautetun tuotemerkin?"
 msgid "Are you sure you want to delete this photo?"
 msgstr "Oletko varma, että haluat poistaa tämän kuvan?"
 
-#: src/components/palette/PaletteGrid.tsx:112
+#: src/components/palette/PaletteGrid.tsx:111
 msgid "Are you sure you want to remove all color mixtures?"
 msgstr "Oletko varma, että haluat poistaa kaikki väriseokset?"
 
@@ -211,7 +215,7 @@ msgid "Are you sure you want to remove this color mixture?"
 msgstr "Oletko varma, että haluat poistaa tämän väriseoksen?"
 
 #: src/components/ColorSetChooser.tsx:540
-#: src/components/CustomColorBrandCreator.tsx:473
+#: src/components/CustomColorBrandCreator.tsx:474
 msgid "Art medium"
 msgstr "Taiteen väline"
 
@@ -219,7 +223,7 @@ msgstr "Taiteen väline"
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistAppin on kehittänyt <0>Eugene Khyst</0>"
 
-#: src/components/CustomColorBrandCreator.tsx:523
+#: src/components/CustomColorBrandCreator.tsx:524
 msgid "At least one color is required"
 msgstr "Vähintään yksi väri vaaditaan"
 
@@ -227,12 +231,17 @@ msgstr "Vähintään yksi väri vaaditaan"
 msgid "Authentication error"
 msgstr "Todennusvirhe"
 
+#: src/components/ImagePerspectiveCorrection.tsx:218
+#: src/components/ImagePerspectiveCorrection.tsx:295
+msgid "Auto-detect"
+msgstr "Automaattinen tunnistus"
+
 #: src/components/Help.tsx:205
 msgid "Automatic backup of color sets"
 msgstr "Värisarjojen automaattinen varmuuskopiointi"
 
-#: src/components/ImageColorPicker.tsx:461
-#: src/components/ImageColorPicker.tsx:490
+#: src/components/ImageColorPicker.tsx:464
+#: src/components/ImageColorPicker.tsx:493
 msgid "Automatically find the best color mixtures for this photo"
 msgstr "Löydä automaattisesti parhaat väriseokset tähän kuvaan"
 
@@ -242,36 +251,35 @@ msgstr "Valkoisen pistealueen keskimääräinen väri"
 
 #: src/components/ColorMixer.tsx:180
 #: src/components/ImageBackgroundRemoval.tsx:228
-#: src/components/ImageBackgroundRemoval.tsx:252
+#: src/components/ImageBackgroundRemoval.tsx:253
 #: src/components/ImageColorPicker.tsx:350
 msgid "Background"
 msgstr "Tausta"
 
-#: src/components/ImageColorPicker.tsx:460
-#: src/components/ImageColorPicker.tsx:495
+#: src/components/ImageColorPicker.tsx:463
+#: src/components/ImageColorPicker.tsx:498
 msgid "Build palette"
 msgstr "Rakennuspaletti"
 
-#: src/components/palette/PaletteGrid.tsx:72
+#: src/components/messages.ts:73
 msgid "By date added"
 msgstr "Lisätyn päivämäärän mukaan"
 
-#: src/components/color-set/ColorSelect.tsx:99
-#: src/components/ColorMixingChart.tsx:105
-#: src/components/palette/PaletteGrid.tsx:74
+#: src/components/messages.ts:68
+#: src/components/messages.ts:75
 msgid "By hue"
 msgstr "Sävyn mukaan"
 
-#: src/components/color-set/ColorSelect.tsx:92
+#: src/components/messages.ts:67
 msgid "By ID"
 msgstr "ID:n mukaan"
 
-#: src/components/color-set/ColorSelect.tsx:106
-#: src/components/palette/PaletteGrid.tsx:75
+#: src/components/messages.ts:69
+#: src/components/messages.ts:76
 msgid "By lightness"
 msgstr "Keveyttä"
 
-#: src/components/palette/PaletteGrid.tsx:73
+#: src/components/messages.ts:74
 msgid "By name"
 msgstr "Nimeltä"
 
@@ -301,7 +309,7 @@ msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Valitse valkoinen piste klikkaamalla 🖱️ tai napauttamalla 👆 mitä tahansa kuvan kohtaa."
 
 #: src/components/empty/EmptyPalette.tsx:64
-#: src/components/ImageColorPicker.tsx:527
+#: src/components/ImageColorPicker.tsx:530
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "Napsauta 🖱️ tai napauta 👆 mitä tahansa valokuvan kohtaa tai valitse värivalitsimen ponnahdusikkunasta väriväri, jota haluat sekoittaa väreistäsi."
 
@@ -314,12 +322,12 @@ msgid "Close in {closeCounter} sec"
 msgstr "Sulje {closeCounter} sekunnissa"
 
 #: src/components/ColorMixer.tsx:206
-#: src/components/CustomColorBrandCreator.tsx:447
+#: src/components/CustomColorBrandCreator.tsx:448
 #: src/components/ImageColorPicker.tsx:404
 msgid "Color"
 msgstr "Väri"
 
-#: src/components/CustomColorBrandCreator.tsx:462
+#: src/components/CustomColorBrandCreator.tsx:463
 msgid "Color brand"
 msgstr "Väri merkki"
 
@@ -331,11 +339,11 @@ msgstr "Värimerkit"
 msgid "Color count"
 msgstr "Värien määrä"
 
-#: src/components/messages.ts:34
+#: src/components/messages.ts:36
 msgid "Color mixing"
 msgstr "Värien sekoitus"
 
-#: src/components/messages.ts:35
+#: src/components/messages.ts:37
 msgid "Color mixing chart"
 msgstr "Värien sekoitustaulukko"
 
@@ -343,31 +351,31 @@ msgstr "Värien sekoitustaulukko"
 msgid "Color mixture"
 msgstr "Värisekoitus"
 
-#: src/components/messages.ts:28
+#: src/components/messages.ts:30
 msgid "Color picker"
 msgstr "Värinvalitsin"
 
 #: src/components/ColorSetChooser.tsx:548
-#: src/components/ImageColorPicker.tsx:504
-#: src/components/messages.ts:26
+#: src/components/ImageColorPicker.tsx:507
+#: src/components/messages.ts:28
 msgid "Color set"
 msgstr "Värisarja"
 
 #: src/components/color/ColorSwatchDrawer.tsx:58
-#: src/components/palette/PaletteGrid.tsx:100
+#: src/components/palette/PaletteGrid.tsx:99
 msgid "Color swatch"
 msgstr "Värimalli"
 
-#: src/components/messages.ts:51
+#: src/components/messages.ts:53
 msgid "Colored Pencils"
 msgstr "Värikynät"
 
-#: src/components/ColorMixingChart.tsx:130
+#: src/components/ColorMixingChart.tsx:131
 #: src/components/ImageLimitedPalette.tsx:105
 msgid "Colors"
 msgstr "Värit"
 
-#: src/components/messages.ts:41
+#: src/components/messages.ts:43
 msgid "Compare"
 msgstr "Verrata"
 
@@ -391,6 +399,10 @@ msgstr "Kopioi ja jaa tämä linkki"
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Korjattu arvio valonlähteen lämpötilasta kelvineinä"
 
+#: src/components/ImagePerspectiveCorrection.tsx:126
+msgid "Could not detect the paper or canvas automatically"
+msgstr "Paperia tai kangasta ei havaittu automaattisesti"
+
 #: src/components/ColorSetChooser.tsx:709
 msgid "Create a duplicate of this color set for further modification"
 msgstr "Luo kopio tästä värijoukosta lisämuokkausta varten"
@@ -400,7 +412,7 @@ msgstr "Luo kopio tästä värijoukosta lisämuokkausta varten"
 msgid "Create new"
 msgstr "Luo uusi"
 
-#: src/components/messages.ts:42
+#: src/components/messages.ts:44
 msgid "Custom brand"
 msgstr "Mukautettu tuotemerkki"
 
@@ -409,7 +421,7 @@ msgid "Custom color set"
 msgstr "Mukautettu värisarja"
 
 #: src/components/ColorSetChooser.tsx:730
-#: src/components/CustomColorBrandCreator.tsx:509
+#: src/components/CustomColorBrandCreator.tsx:510
 #: src/components/image/RecentImageCard.tsx:83
 msgid "Delete"
 msgstr "Poistaa"
@@ -423,8 +435,8 @@ msgstr "Poista kaikki sovellustiedot"
 msgid "Delete the color set"
 msgstr "Värijoukon poistaminen"
 
-#: src/components/CustomColorBrandCreator.tsx:494
-#: src/components/CustomColorBrandCreator.tsx:504
+#: src/components/CustomColorBrandCreator.tsx:495
+#: src/components/CustomColorBrandCreator.tsx:505
 msgid "Delete the custom brand"
 msgstr "Poista mukautettu tuotemerkki"
 
@@ -449,7 +461,7 @@ msgstr "Diagnostiikka"
 msgid "Diagonals"
 msgstr "Lävistäjät"
 
-#: src/components/CustomColorBrandCreator.tsx:434
+#: src/components/CustomColorBrandCreator.tsx:435
 #: src/components/ImageColorPicker.tsx:389
 msgid "Diameter"
 msgstr "Halkaisija"
@@ -482,7 +494,7 @@ msgstr "Pudota tiedosto tähän..."
 msgid "Drop the files here..."
 msgstr "Pudota tiedostot tänne..."
 
-#: src/components/messages.ts:53
+#: src/components/messages.ts:55
 msgid "Dry Pastel"
 msgstr "Kuiva pastelli"
 
@@ -490,7 +502,7 @@ msgstr "Kuiva pastelli"
 msgid "Duplicate"
 msgstr "Kaksoiskappale"
 
-#: src/components/CustomColorBrandCreator.tsx:131
+#: src/components/CustomColorBrandCreator.tsx:132
 msgid "Edit from here on"
 msgstr "Muokkaus tästä eteenpäin"
 
@@ -529,11 +541,11 @@ msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Tutustu ilmaiseen versioon ennen kuin päätät ostaa maksullisen jäsenyyden."
 
 #: src/components/ColorSetChooser.tsx:365
-#: src/components/CustomColorBrandCreator.tsx:358
+#: src/components/CustomColorBrandCreator.tsx:359
 msgid "Fill in the required fields"
 msgstr "Täytä vaaditut kentät"
 
-#: src/components/CustomColorBrandCreator.tsx:211
+#: src/components/CustomColorBrandCreator.tsx:212
 msgid "Finish editing"
 msgstr "Viimeistely editointi"
 
@@ -565,13 +577,13 @@ msgstr "Mene <0>{photoLabel}</0> -välilehdelle ja valitse viitekuva."
 msgid "Go to the <0>{photoLabel}</0> tab and choose your reference photo."
 msgstr "Siirry <0>{photoLabel}</0> -välilehdelle ja valitse viitekuvasi."
 
-#: src/components/messages.ts:48
+#: src/components/messages.ts:50
 msgid "Gouache"
 msgstr "Guassi"
 
 #: src/components/grid/GridControls.tsx:178
 #: src/components/ImageOutline.tsx:233
-#: src/components/messages.ts:33
+#: src/components/messages.ts:35
 msgid "Grid"
 msgstr "Hila"
 
@@ -580,7 +592,7 @@ msgid "Height"
 msgstr "Korkeus"
 
 #: src/components/ColorSetChooser.tsx:497
-#: src/components/messages.ts:43
+#: src/components/messages.ts:45
 msgid "Help"
 msgstr "Apua"
 
@@ -592,11 +604,11 @@ msgstr "Jos sinulla on vaikeuksia kirjautua sisään, lue tämä <0>vianetsintä
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Jos et tallenna, värijoukkoon tehdyt muutokset saattavat kadota."
 
-#: src/components/ImageBackgroundRemoval.tsx:290
+#: src/components/ImageBackgroundRemoval.tsx:291
 msgid "Image without background"
 msgstr "Kuva ilman taustaa"
 
-#: src/components/messages.ts:37
+#: src/components/messages.ts:39
 msgid "Inspire"
 msgstr "Innoittaa"
 
@@ -657,7 +669,7 @@ msgstr "Vaalea sävy"
 msgid "Lighten the pressure to <0>{fractionText}</0>"
 msgstr "Kevennä painetta <0>{fractionText}</0>"
 
-#: src/components/messages.ts:36
+#: src/components/messages.ts:38
 msgid "Limited palette"
 msgstr "Rajoitettu paletti"
 
@@ -665,7 +677,7 @@ msgstr "Rajoitettu paletti"
 msgid "Link copied to clipboard"
 msgstr "Linkki kopioitu leikepöydälle"
 
-#: src/components/CustomColorBrandCreator.tsx:429
+#: src/components/CustomColorBrandCreator.tsx:430
 msgid "Load color brand file"
 msgstr "Lataa värimerkkitiedosto"
 
@@ -741,12 +753,12 @@ msgid "Mode"
 msgstr "Moodi"
 
 #: src/components/ColorSetChooser.tsx:564
-#: src/components/CustomColorBrandCreator.tsx:190
-#: src/components/CustomColorBrandCreator.tsx:481
+#: src/components/CustomColorBrandCreator.tsx:191
+#: src/components/CustomColorBrandCreator.tsx:482
 msgid "Name"
 msgstr "Nimi"
 
-#: src/components/CustomColorBrandCreator.tsx:484
+#: src/components/CustomColorBrandCreator.tsx:485
 msgid "Name a brand"
 msgstr "Nimeä brändi"
 
@@ -778,21 +790,21 @@ msgstr "Seuraava latauspäivä"
 #: src/components/color/PaletteColorMixtureCard.tsx:106
 #: src/components/ColorSetChooser.tsx:230
 #: src/components/ColorSetChooser.tsx:721
-#: src/components/CustomColorBrandCreator.tsx:500
+#: src/components/CustomColorBrandCreator.tsx:501
 #: src/components/image/RecentImageCard.tsx:74
-#: src/components/palette/PaletteGrid.tsx:115
+#: src/components/palette/PaletteGrid.tsx:114
 #: src/components/storage/ClearStorage.tsx:63
 #: src/components/storage/ClearStorage.tsx:76
 msgid "No"
 msgstr "Ei"
 
 #: src/components/empty/EmptyPalette.tsx:39
-#: src/components/ImageColorPicker.tsx:524
+#: src/components/ImageColorPicker.tsx:527
 msgid "No data"
 msgstr "Ei tietoja"
 
-#: src/components/color-set/ColorSelect.tsx:85
-#: src/components/ColorMixingChart.tsx:95
+#: src/components/color-set/ColorSelect.tsx:86
+#: src/components/ColorMixingChart.tsx:96
 msgid "No sorting"
 msgstr "Ei lajittelua"
 
@@ -808,11 +820,11 @@ msgstr "Ei mitään jaettavaa"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Solujen lukumäärä pienemmällä puolella (pysty- tai vaakasuora)"
 
-#: src/components/messages.ts:50
+#: src/components/messages.ts:52
 msgid "Oil Paint"
 msgstr "Öljymaali"
 
-#: src/components/messages.ts:54
+#: src/components/messages.ts:56
 msgid "Oil Pastel"
 msgstr "Öljy Pastelli"
 
@@ -857,11 +869,11 @@ msgstr "Voit myös valita viimeisimmistä kuvistasi"
 msgid "Original color temperature (K)"
 msgstr "Alkuperäinen värilämpötila (K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:283
+#: src/components/ImageBackgroundRemoval.tsx:284
 msgid "Original photo"
 msgstr "Alkuperäinen kuva"
 
-#: src/components/messages.ts:32
+#: src/components/messages.ts:34
 msgid "Outline"
 msgstr "Hahmotella"
 
@@ -873,7 +885,7 @@ msgstr "Lähtötasot"
 msgid "over"
 msgstr "ohi"
 
-#: src/components/messages.ts:29
+#: src/components/messages.ts:31
 msgid "Palette"
 msgstr "Paletti"
 
@@ -910,11 +922,11 @@ msgstr "Pysyvä tallennus"
 msgid "Persistent storage is not enabled"
 msgstr "Pysyvä tallennus ei ole käytössä"
 
-#: src/components/messages.ts:38
+#: src/components/messages.ts:40
 msgid "Perspective"
 msgstr "Perspektiivi"
 
-#: src/components/messages.ts:27
+#: src/components/messages.ts:29
 msgid "Photo"
 msgstr "Valokuva"
 
@@ -922,7 +934,7 @@ msgstr "Valokuva"
 msgid "Photo ranking"
 msgstr "Valokuvien sijoitus"
 
-#: src/components/ImageColorPicker.tsx:533
+#: src/components/ImageColorPicker.tsx:536
 msgid "Pinch to zoom (or use the mouse wheel) and drag to pan"
 msgstr "Zoomaa nipistämällä (tai käytä hiiren rullaa) ja panoroi vetämällä"
 
@@ -960,13 +972,13 @@ msgid "Preview"
 msgstr "Ennakkoesitys"
 
 #: src/components/ImageGrid.tsx:71
-#: src/components/ImageGrid.tsx:83
+#: src/components/ImageGrid.tsx:84
 #: src/components/ImageOutline.tsx:238
-#: src/components/ImageOutline.tsx:255
+#: src/components/ImageOutline.tsx:256
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
-#: src/components/ImageTonalValues.tsx:125
-#: src/components/palette/PaletteGrid.tsx:108
+#: src/components/ImageTonalValues.tsx:126
+#: src/components/palette/PaletteGrid.tsx:107
 #: src/components/print/PrintImageDrawer.tsx:132
 msgid "Print"
 msgstr "Vedos"
@@ -1019,13 +1031,13 @@ msgstr "Suhde"
 msgid "Reduce color palette to"
 msgstr "Pienennä väripaletti"
 
-#: src/components/ImageColorPicker.tsx:454
-#: src/components/ImageColorPicker.tsx:483
+#: src/components/ImageColorPicker.tsx:457
+#: src/components/ImageColorPicker.tsx:486
 msgid "Reduce colors"
 msgstr "Vähennä värejä"
 
-#: src/components/ImageColorPicker.tsx:455
-#: src/components/ImageColorPicker.tsx:481
+#: src/components/ImageColorPicker.tsx:458
+#: src/components/ImageColorPicker.tsx:484
 msgid "Reduce the number of colors in the photo"
 msgstr "Vähennä kuvan värien määrää"
 
@@ -1043,16 +1055,16 @@ msgstr "Heijastussuhde"
 msgid "Remove"
 msgstr "Poistaa"
 
-#: src/components/palette/PaletteGrid.tsx:118
+#: src/components/palette/PaletteGrid.tsx:117
 msgid "Remove all"
 msgstr "Poista kaikki"
 
-#: src/components/palette/PaletteGrid.tsx:111
+#: src/components/palette/PaletteGrid.tsx:110
 msgid "Remove all color mixtures"
 msgstr "Poista kaikki väriseokset"
 
 #: src/components/ImageColorAdjustment.tsx:384
-#: src/components/messages.ts:40
+#: src/components/messages.ts:42
 msgid "Remove background"
 msgstr "Poista tausta"
 
@@ -1065,9 +1077,9 @@ msgstr "Poista paletista"
 msgid "Remove the color mixture"
 msgstr "Poista väriseos"
 
-#: src/components/CustomColorBrandCreator.tsx:178
-#: src/components/CustomColorBrandCreator.tsx:186
-#: src/components/CustomColorBrandCreator.tsx:189
+#: src/components/CustomColorBrandCreator.tsx:179
+#: src/components/CustomColorBrandCreator.tsx:187
+#: src/components/CustomColorBrandCreator.tsx:190
 msgid "Required"
 msgstr "Pakollinen"
 
@@ -1079,8 +1091,8 @@ msgstr "Vaatii iOS 16.4+:n tai iPadOS 16.4+:n."
 msgid "Requires macOS Sonoma or later."
 msgstr "Vaatii macOS Sonoman tai uudemman."
 
-#: src/components/ImagePerspectiveCorrection.tsx:208
-#: src/components/ImagePerspectiveCorrection.tsx:247
+#: src/components/ImagePerspectiveCorrection.tsx:228
+#: src/components/ImagePerspectiveCorrection.tsx:268
 msgid "Reset"
 msgstr "Nollata"
 
@@ -1093,8 +1105,8 @@ msgstr "Palaa <0>{paletteLabel}</0> -välilehteen."
 msgid "Return to the <0>{tabLabel}</0> tab."
 msgstr "Palaa <0>{tabLabel}</0> -välilehteen."
 
-#: src/components/ImagePerspectiveCorrection.tsx:212
-#: src/components/ImagePerspectiveCorrection.tsx:255
+#: src/components/ImagePerspectiveCorrection.tsx:232
+#: src/components/ImagePerspectiveCorrection.tsx:301
 msgid "Rotate"
 msgstr "Kiertää"
 
@@ -1102,23 +1114,23 @@ msgstr "Kiertää"
 msgid "Saturation (%)"
 msgstr "Kylläisyys (%)"
 
-#: src/components/ColorMixingChart.tsx:117
-#: src/components/CustomColorBrandCreator.tsx:489
+#: src/components/ColorMixingChart.tsx:118
+#: src/components/CustomColorBrandCreator.tsx:490
 #: src/components/ImageBackgroundRemoval.tsx:233
-#: src/components/ImageBackgroundRemoval.tsx:262
+#: src/components/ImageBackgroundRemoval.tsx:263
 #: src/components/ImageBlurred.tsx:153
-#: src/components/ImageBlurred.tsx:165
+#: src/components/ImageBlurred.tsx:166
 #: src/components/ImageColorAdjustment.tsx:360
 #: src/components/ImageGrid.tsx:74
-#: src/components/ImageGrid.tsx:89
-#: src/components/ImageLimitedPalette.tsx:140
+#: src/components/ImageGrid.tsx:90
+#: src/components/ImageLimitedPalette.tsx:141
 #: src/components/ImageOutline.tsx:246
-#: src/components/ImageOutline.tsx:261
-#: src/components/ImagePerspectiveCorrection.tsx:224
-#: src/components/ImagePerspectiveCorrection.tsx:265
+#: src/components/ImageOutline.tsx:262
+#: src/components/ImagePerspectiveCorrection.tsx:244
+#: src/components/ImagePerspectiveCorrection.tsx:276
 #: src/components/ImageStyleTransfer.tsx:186
 #: src/components/ImageTonalValues.tsx:116
-#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageTonalValues.tsx:132
 msgid "Save"
 msgstr "Säästää"
 
@@ -1131,12 +1143,12 @@ msgid "Save changes to the color set?"
 msgstr "Tallennatko muutokset värijoukkoon?"
 
 #: src/components/ImageColorAdjustment.tsx:296
-#: src/components/ImagePerspectiveCorrection.tsx:169
+#: src/components/ImagePerspectiveCorrection.tsx:186
 msgid "Save expanded to 1.91:1"
 msgstr "Tallennus laajennettu 1,91:1:een"
 
 #: src/components/ImageColorAdjustment.tsx:288
-#: src/components/ImagePerspectiveCorrection.tsx:161
+#: src/components/ImagePerspectiveCorrection.tsx:178
 msgid "Save expanded to 4:5"
 msgstr "Tallennus laajennettuna 4:5:een"
 
@@ -1152,7 +1164,7 @@ msgstr "Skannaa QR-koodi"
 msgid "Scan QR code"
 msgstr "Skannaa QR-koodi"
 
-#: src/components/ImagePerspectiveCorrection.tsx:108
+#: src/components/ImagePerspectiveCorrection.tsx:109
 msgid "Select 4 points to correct perspective distortion"
 msgstr "Valitse 4 pistettä korjataksesi perspektiivin vääristymän"
 
@@ -1160,7 +1172,7 @@ msgstr "Valitse 4 pistettä korjataksesi perspektiivin vääristymän"
 msgid "Select a photo to adjust white balance and colors"
 msgstr "Valitse valokuva säätääksesi valkotasapainoa ja värejä"
 
-#: src/components/ImagePerspectiveCorrection.tsx:184
+#: src/components/ImagePerspectiveCorrection.tsx:201
 msgid "Select a photo to correct the perspective"
 msgstr "Valitse valokuva perspektiivin korjaamiseksi"
 
@@ -1176,7 +1188,7 @@ msgstr "Valitse laitteestasi viitekuva, josta maalaat"
 msgid "Select a style to transfer to your reference photo"
 msgstr "Valitse tyyli, jonka haluat siirtää viitekuvaasi"
 
-#: src/components/CustomColorBrandCreator.tsx:417
+#: src/components/CustomColorBrandCreator.tsx:418
 msgid "Select an image that contains a color chart"
 msgstr "Valitse kuva, joka sisältää värikartan"
 
@@ -1201,11 +1213,11 @@ msgid "Select color"
 msgstr "Valitse väri"
 
 #: src/components/color-set/ColorCascader.tsx:107
-#: src/components/color-set/ColorSelect.tsx:118
+#: src/components/color-set/ColorSelect.tsx:105
 msgid "Select colors"
 msgstr "Valitse värit"
 
-#: src/components/ColorMixingChart.tsx:135
+#: src/components/ColorMixingChart.tsx:136
 msgid "Select colors to build a mixing chart"
 msgstr "Valitse värit sekoitustaulukon rakentamiseksi"
 
@@ -1225,7 +1237,7 @@ msgstr "Valitse viimeisimmistä värisarjoistasi"
 msgid "Select from your recent color sets or create a new one."
 msgstr "Valitse viimeisimmistä värijoukoistasi tai luo uusi."
 
-#: src/components/CustomColorBrandCreator.tsx:422
+#: src/components/CustomColorBrandCreator.tsx:423
 msgid "Select image"
 msgstr "Valitse kuva"
 
@@ -1240,7 +1252,7 @@ msgstr "Valitse osa"
 #: src/components/ImageBackgroundRemoval.tsx:211
 #: src/components/ImageChooser.tsx:93
 #: src/components/ImageColorAdjustment.tsx:350
-#: src/components/ImagePerspectiveCorrection.tsx:194
+#: src/components/ImagePerspectiveCorrection.tsx:211
 msgid "Select photo"
 msgstr "Valitse kuva"
 
@@ -1282,7 +1294,7 @@ msgstr "Istunto päättyi"
 msgid "Set as background"
 msgstr "Aseta taustaksi"
 
-#: src/components/ImageLimitedPalette.tsx:149
+#: src/components/ImageLimitedPalette.tsx:150
 msgid "Set as main color set"
 msgstr "Aseta päävärisarjaksi"
 
@@ -1317,7 +1329,7 @@ msgstr "Jaa tämä värisarja"
 msgid "Share your color set"
 msgstr "Värisarjan jakaminen"
 
-#: src/components/ImageColorPicker.tsx:421
+#: src/components/ImageColorPicker.tsx:422
 msgid "Show areas on the photo that match this color"
 msgstr "Näytä kuvassa alueet, jotka vastaavat tätä väriä"
 
@@ -1325,7 +1337,7 @@ msgstr "Näytä kuvassa alueet, jotka vastaavat tätä väriä"
 msgid "Show grid"
 msgstr "Näytä ruudukko"
 
-#: src/components/ImageColorPicker.tsx:420
+#: src/components/ImageColorPicker.tsx:421
 msgid "Show matching areas"
 msgstr "Näytä yhteensopivat alueet"
 
@@ -1346,7 +1358,7 @@ msgstr "Samankaltaisuus"
 msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
 msgstr "Samankaltaisuustila vertaa kohdeväriä ja ehdotettuja värejä. Sekoitustilassa näytetään seoksen muodostavat värin osat."
 
-#: src/components/messages.ts:31
+#: src/components/messages.ts:33
 msgid "Simplified"
 msgstr "Yksinkertaistettu"
 
@@ -1362,9 +1374,9 @@ msgstr "Limitä hieman erivärisiä pastellialueita ja häivytä varovasti tasai
 msgid "Small"
 msgstr "Pieni"
 
-#: src/components/color-set/ColorSelect.tsx:130
-#: src/components/ColorMixingChart.tsx:90
-#: src/components/ImageColorPicker.tsx:442
+#: src/components/color-set/ColorSelect.tsx:118
+#: src/components/ColorMixingChart.tsx:91
+#: src/components/ImageColorPicker.tsx:444
 #: src/components/palette/PaletteGrid.tsx:129
 msgid "Sort"
 msgstr "Laji"
@@ -1407,9 +1419,9 @@ msgstr "Onko sinulla vielä vaikeuksia? Katso tämä <0>vianetsintäopas</0>."
 msgid "Storage usage"
 msgstr "Tallennustilan käyttö"
 
-#: src/components/ImagePerspectiveCorrection.tsx:187
-msgid "Straightens skewed photos and removes unwanted edges. Select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
-msgstr "Suoristaa vinoja valokuvia ja poistaa ei-toivotut reunat. Valitse 4 pistettä korjataksesi perspektiivin vääristymän ja rajaa sitten kuvaa vetämällä marginaaleja."
+#: src/components/ImagePerspectiveCorrection.tsx:204
+msgid "Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
+msgstr "Se suoristaa vinoutuneita kuvia ja poistaa ei-toivotut reunat. Käytä automaattista tunnistusta tai valitse 4 pistettä perspektiivivääristymän korjaamiseen, ja halutessasi vedä marginaaleja kuvan rajaamiseen."
 
 #: src/components/ImageBlurred.tsx:123
 msgid "Strength"
@@ -1460,7 +1472,7 @@ msgstr "Värisarjasta sekoitettava väri. Valitse väri napsauttamalla kuvan koh
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
 msgstr "Kohdistimen ympärillä olevan pyöreän alueen halkaisija, jota käytetään kyseisen alueen pikselien keskimääräisen värin laskemiseen."
 
-#: src/components/CustomColorBrandCreator.tsx:435
+#: src/components/CustomColorBrandCreator.tsx:436
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
 msgstr "Kohdistimen ympärillä olevan pyöreän alueen halkaisija, jota käytetään alueen pikselien keskivärin laskemiseen."
 
@@ -1524,7 +1536,7 @@ msgstr "Jos haluat käyttää {tabLabel}-ominaisuutta, valitse viitekuva."
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with."
 msgstr "Käyttääksesi {tabLabel}-ominaisuutta, valitse tuettu taidemedia ja värit, joilla maalataan."
 
-#: src/components/messages.ts:30
+#: src/components/messages.ts:32
 msgid "Tonal values"
 msgstr "Sävyarvot"
 
@@ -1591,15 +1603,15 @@ msgstr "Lämmin – algoritminen arvio; taiteellinen käsitys voi vaihdella."
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "Akvarelli voidaan laimentaa vedellä, jotta se olisi läpinäkyvämpi."
 
-#: src/components/messages.ts:47
+#: src/components/messages.ts:49
 msgid "Watercolor Paint"
 msgstr "Akvarellimaali"
 
-#: src/components/messages.ts:52
+#: src/components/messages.ts:54
 msgid "Watercolor Pencils"
 msgstr "Akvarellikynät"
 
-#: src/components/messages.ts:55
+#: src/components/messages.ts:57
 msgid "Wax Pastel"
 msgstr "Vahapastelli"
 
@@ -1622,13 +1634,13 @@ msgid "White"
 msgstr "Valkoinen"
 
 #: src/components/ImageColorAdjustment.tsx:393
-#: src/components/ImagePerspectiveCorrection.tsx:236
-#: src/components/ImagePerspectiveCorrection.tsx:274
-#: src/components/messages.ts:39
+#: src/components/ImagePerspectiveCorrection.tsx:256
+#: src/components/ImagePerspectiveCorrection.tsx:285
+#: src/components/messages.ts:41
 msgid "White balance"
 msgstr "Valkotasapaino"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:63
 msgid "White paper or canvas"
 msgstr "Valkoinen paperi tai kangas"
 
@@ -1644,9 +1656,9 @@ msgstr "Leveys"
 #: src/components/color/PaletteColorMixtureCard.tsx:105
 #: src/components/ColorSetChooser.tsx:229
 #: src/components/ColorSetChooser.tsx:720
-#: src/components/CustomColorBrandCreator.tsx:499
+#: src/components/CustomColorBrandCreator.tsx:500
 #: src/components/image/RecentImageCard.tsx:73
-#: src/components/palette/PaletteGrid.tsx:114
+#: src/components/palette/PaletteGrid.tsx:113
 #: src/components/storage/ClearStorage.tsx:62
 #: src/components/storage/ClearStorage.tsx:75
 msgid "Yes"

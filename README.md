@@ -36,7 +36,7 @@ ArtistAssistApp offers the following features:
 - Mix harmonious colors with limited palettes
 - Get inspired by applying artistic styles to your photos
 - Adjust white balance and colors of photos of your paintings
-- Adjust perspective and geometry of photos of your paintings
+- Adjust perspective and geometry of photos of your paintings, with automatic detection of the painting's corners
 - Easily remove backgrounds from photos of your paintings
 - Rank your photos using a pairwise comparison
 - Sync your color sets across devices
@@ -80,6 +80,7 @@ following:
 - adjusting color temperature (WebGL)
 - invert colors filter with gamma correction (WebGL)
 - homography, perspective transform from quadrilateral to rectangle (WebGL)
+- automatic detection of painting corners via Sobel gradients on Oklab lightness (WebGL), per-boundary argmax scan with orientation-confidence weighting, and weighted PCA line fitting with iterative outlier rejection
 - ranking images using pairwise comparison and Elo rating system
 - and more
 

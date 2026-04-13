@@ -15,5 +15,5 @@ out vec4 fragColor;
 void main() {
   vec4 color = texture(u_texture, v_texCoord);
   float deltaEOk = length(rgbToOklab(color.rgb) - u_oklab);
-  fragColor = (deltaEOk <= u_threshold) ? color : vec4(0.0f);
+  fragColor = (deltaEOk <= u_threshold) ? color : vec4(0.0);
 }

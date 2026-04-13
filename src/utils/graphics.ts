@@ -189,6 +189,26 @@ export function resizeAndCrop(targetWidth: number, targetHeight: number): DrawIm
   };
 }
 
+export function resizeToLongestSize(maxSide: number): DrawImageParamsSupplier {
+  return ({width: origWidth, height: origHeight}: DrawImageParams): DrawImageParams => {
+    const scale = Math.min(1, maxSide / Math.max(origWidth, origHeight));
+    const targetWidth = Math.max(1, Math.round(origWidth * scale));
+    const targetHeight = Math.max(1, Math.round(origHeight * scale));
+    return {
+      width: targetWidth,
+      height: targetHeight,
+      sx: 0,
+      sy: 0,
+      sw: origWidth,
+      sh: origHeight,
+      dx: 0,
+      dy: 0,
+      dw: targetWidth,
+      dh: targetHeight,
+    };
+  };
+}
+
 export function imageBitmapToOffscreenCanvas(
   image: ImageBitmap,
   willReadFrequently = false,

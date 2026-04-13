@@ -66,7 +66,12 @@ Pure business logic, no React:
 - **`canvas/`** — canvas rendering classes (zoomable image canvas, color picker canvas, grid canvas,
   reflectance chart). Base `Canvas` class recovers from browser-discarded bitmaps via
   `visibilitychange`/`pageshow`/`focus` event listeners
-- **`image/`** — image processing: outline (Sobel operator), tonal values, perspective correction,
+- **`image/`** — image processing: outline (Sobel operator), tonal values, perspective correction
+  (`perspective-correction.ts`: `autoDetectPerspectiveVertices` downscales to ≤512px, runs the
+  `sobelGradientsXyWebGL` sibling shader to get per-pixel X/Y Sobel gradients on Oklab L packed as
+  RGBA8, then per boundary does a margin-restricted argmax scan with an orientation-confidence and
+  edge-bias weighted score, weighted PCA line fit with iterative outlier rejection, intersects the
+  four lines, and validates the quadrilateral for convexity/area/min-edge-length),
   blur, limited palette, style transfer, background removal, sampling points (`sampling-point.ts`:
   Chamfer 3-4 distance transform finds deepest pixel per color region, greedy merge by
   chroma/deltaE_OK), color match overlay (`color-match.ts`: composites Sobel outline with

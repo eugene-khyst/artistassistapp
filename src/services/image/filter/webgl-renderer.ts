@@ -171,7 +171,7 @@ export class WebGLRenderer {
     gl.clear(gl.COLOR_BUFFER_BIT);
   }
 
-  render(renderPasses: RenderPass[] = [{}]) {
+  render(renderPasses: RenderPass[] = [{}], rawOrientation = false) {
     const {gl} = this;
     const {width, height} = this.canvas;
 
@@ -195,7 +195,7 @@ export class WebGLRenderer {
       gl.useProgram(program);
       gl.bindVertexArray(vao);
 
-      gl.uniform1f(locations.get('u_flipY')!, framebuffers.length && isNotLast ? 0.0 : 1.0);
+      gl.uniform1f(locations.get('u_flipY')!, isNotLast || rawOrientation ? 0.0 : 1.0);
       gl.uniform1i(locations.get('u_texture')!, 0);
       if (setUniforms) {
         setUniforms(gl, locations);
@@ -211,6 +211,16 @@ export class WebGLRenderer {
       i++;
     }
     this.checkErrors();
+  }
+
+  readPixels(): Uint8Array {
+    const {
+      gl,
+      canvas: {width, height},
+    } = this;
+    const pixels = new Uint8Array(width * height * 4);
+    gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+    return pixels;
   }
 
   cleanUp() {

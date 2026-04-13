@@ -36,9 +36,9 @@ msgstr "{FIELD} jsou povinné"
 #: src/components/ColorSetChooser.tsx:541
 #: src/components/ColorSetChooser.tsx:550
 #: src/components/ColorSetChooser.tsx:603
-#: src/components/CustomColorBrandCreator.tsx:463
-#: src/components/CustomColorBrandCreator.tsx:474
-#: src/components/CustomColorBrandCreator.tsx:482
+#: src/components/CustomColorBrandCreator.tsx:464
+#: src/components/CustomColorBrandCreator.tsx:475
+#: src/components/CustomColorBrandCreator.tsx:483
 msgid "{FIELD} is required"
 msgstr "{FIELD} je povinné"
 
@@ -91,7 +91,7 @@ msgstr "<0>Zkuste se znovu přihlásit</0>: Jakmile potvrdíte, že správný Pa
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Použijte webový prohlížeč</0>: Pokud používáte aplikaci Patreon (iOS/Android), přihlaste se přes webový prohlížeč (Chrome, Safari, Firefox), protože aplikace může někdy narušit proces ověřování."
 
-#: src/components/ColorMixingChart.tsx:131
+#: src/components/ColorMixingChart.tsx:132
 msgid "A grid showing the result of mixing each pair of selected colors"
 msgstr "Mřížka ukazující výsledek míchání každé dvojice vybraných barev"
 
@@ -111,15 +111,15 @@ msgstr "Hodnota menší než 100 % způsobí, že obraz bude vypadat méně bare
 msgid "About ArtistAssistApp"
 msgstr "O aplikaci ArtistAssist App"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:59
 msgid "Acrylic Gouache"
 msgstr "Akrylový kvaš"
 
-#: src/components/messages.ts:56
+#: src/components/messages.ts:58
 msgid "Acrylic Markers"
 msgstr "Akrylové popisovače"
 
-#: src/components/messages.ts:49
+#: src/components/messages.ts:51
 msgid "Acrylic Paint"
 msgstr "Akrylátový lak"
 
@@ -147,6 +147,10 @@ msgstr "Přidat do palety"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Přidejte bílou v <0>poměru {whiteRatioText}</0>"
 
+#: src/components/ImagePerspectiveCorrection.tsx:127
+msgid "Adjust the 4 points manually."
+msgstr "Nastavte 4 body ručně."
+
 #: src/components/ImageBlurred.tsx:124
 msgid "Adjusts how strongly the image is smoothed."
 msgstr "Upravuje, jak silně je obraz vyhlazený."
@@ -163,9 +167,9 @@ msgstr "Chyba aplikace"
 msgid "Application build hash"
 msgstr "Hodnota hash sestavení aplikace"
 
-#: src/components/ColorMixingChart.tsx:155
+#: src/components/ColorMixingChart.tsx:156
 #: src/components/ImageLimitedPalette.tsx:133
-#: src/components/ImagePerspectiveCorrection.tsx:201
+#: src/components/ImagePerspectiveCorrection.tsx:221
 msgid "Apply"
 msgstr "Použít"
 
@@ -193,7 +197,7 @@ msgstr "Opravdu chcete smazat všechna data aplikace?"
 msgid "Are you sure you want to delete this color set?"
 msgstr "Opravdu chcete smazat tuto sadu barev?"
 
-#: src/components/CustomColorBrandCreator.tsx:495
+#: src/components/CustomColorBrandCreator.tsx:496
 msgid "Are you sure you want to delete this custom brand?"
 msgstr "Opravdu chcete smazat tuto vlastní značku?"
 
@@ -201,7 +205,7 @@ msgstr "Opravdu chcete smazat tuto vlastní značku?"
 msgid "Are you sure you want to delete this photo?"
 msgstr "Opravdu chcete tuto fotografii smazat?"
 
-#: src/components/palette/PaletteGrid.tsx:112
+#: src/components/palette/PaletteGrid.tsx:111
 msgid "Are you sure you want to remove all color mixtures?"
 msgstr "Opravdu chcete odstranit všechny barevné směsi?"
 
@@ -211,7 +215,7 @@ msgid "Are you sure you want to remove this color mixture?"
 msgstr "Jste si jisti, že chcete odstranit tuto barevnou směs?"
 
 #: src/components/ColorSetChooser.tsx:540
-#: src/components/CustomColorBrandCreator.tsx:473
+#: src/components/CustomColorBrandCreator.tsx:474
 msgid "Art medium"
 msgstr "Umělecké médium"
 
@@ -219,7 +223,7 @@ msgstr "Umělecké médium"
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "Aplikaci ArtistAssistApp vyvinul <0>Eugene Khyst</0>"
 
-#: src/components/CustomColorBrandCreator.tsx:523
+#: src/components/CustomColorBrandCreator.tsx:524
 msgid "At least one color is required"
 msgstr "Je vyžadována alespoň jedna barva"
 
@@ -227,12 +231,17 @@ msgstr "Je vyžadována alespoň jedna barva"
 msgid "Authentication error"
 msgstr "Chyba autentizace"
 
+#: src/components/ImagePerspectiveCorrection.tsx:218
+#: src/components/ImagePerspectiveCorrection.tsx:295
+msgid "Auto-detect"
+msgstr "Automatické detekování"
+
 #: src/components/Help.tsx:205
 msgid "Automatic backup of color sets"
 msgstr "Automatické zálohování sad barev"
 
-#: src/components/ImageColorPicker.tsx:461
-#: src/components/ImageColorPicker.tsx:490
+#: src/components/ImageColorPicker.tsx:464
+#: src/components/ImageColorPicker.tsx:493
 msgid "Automatically find the best color mixtures for this photo"
 msgstr "Automaticky najděte nejlepší barevné směsi pro tuto fotografii"
 
@@ -242,36 +251,35 @@ msgstr "Průměrná barva oblasti bílého bodu"
 
 #: src/components/ColorMixer.tsx:180
 #: src/components/ImageBackgroundRemoval.tsx:228
-#: src/components/ImageBackgroundRemoval.tsx:252
+#: src/components/ImageBackgroundRemoval.tsx:253
 #: src/components/ImageColorPicker.tsx:350
 msgid "Background"
 msgstr "Pozadí"
 
-#: src/components/ImageColorPicker.tsx:460
-#: src/components/ImageColorPicker.tsx:495
+#: src/components/ImageColorPicker.tsx:463
+#: src/components/ImageColorPicker.tsx:498
 msgid "Build palette"
 msgstr "Build paleta"
 
-#: src/components/palette/PaletteGrid.tsx:72
+#: src/components/messages.ts:73
 msgid "By date added"
 msgstr "Podle data přidání"
 
-#: src/components/color-set/ColorSelect.tsx:99
-#: src/components/ColorMixingChart.tsx:105
-#: src/components/palette/PaletteGrid.tsx:74
+#: src/components/messages.ts:68
+#: src/components/messages.ts:75
 msgid "By hue"
 msgstr "Podle barvy"
 
-#: src/components/color-set/ColorSelect.tsx:92
+#: src/components/messages.ts:67
 msgid "By ID"
 msgstr "Podle ID"
 
-#: src/components/color-set/ColorSelect.tsx:106
-#: src/components/palette/PaletteGrid.tsx:75
+#: src/components/messages.ts:69
+#: src/components/messages.ts:76
 msgid "By lightness"
 msgstr "Lehkostí"
 
-#: src/components/palette/PaletteGrid.tsx:73
+#: src/components/messages.ts:74
 msgid "By name"
 msgstr "Jméno"
 
@@ -301,7 +309,7 @@ msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Kliknutím 🖱️ nebo klepnutím 👆 kamkoli na fotografii vyberte bílý bod."
 
 #: src/components/empty/EmptyPalette.tsx:64
-#: src/components/ImageColorPicker.tsx:527
+#: src/components/ImageColorPicker.tsx:530
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "Klikněte 🖱️ nebo klepněte 👆 kamkoli na fotografii nebo pomocí vyskakovacího okna pro výběr barvy vyberte cílovou barvu, kterou chcete z barev namíchat."
 
@@ -314,12 +322,12 @@ msgid "Close in {closeCounter} sec"
 msgstr "Zavřít za {closeCounter} sekund"
 
 #: src/components/ColorMixer.tsx:206
-#: src/components/CustomColorBrandCreator.tsx:447
+#: src/components/CustomColorBrandCreator.tsx:448
 #: src/components/ImageColorPicker.tsx:404
 msgid "Color"
 msgstr "Barva"
 
-#: src/components/CustomColorBrandCreator.tsx:462
+#: src/components/CustomColorBrandCreator.tsx:463
 msgid "Color brand"
 msgstr "Barva značka"
 
@@ -331,11 +339,11 @@ msgstr "Barevné značky"
 msgid "Color count"
 msgstr "Počet barev"
 
-#: src/components/messages.ts:34
+#: src/components/messages.ts:36
 msgid "Color mixing"
 msgstr "Míchání barev"
 
-#: src/components/messages.ts:35
+#: src/components/messages.ts:37
 msgid "Color mixing chart"
 msgstr "Barevný míchací diagram"
 
@@ -343,31 +351,31 @@ msgstr "Barevný míchací diagram"
 msgid "Color mixture"
 msgstr "Směs barev"
 
-#: src/components/messages.ts:28
+#: src/components/messages.ts:30
 msgid "Color picker"
 msgstr "Výběr barvy"
 
 #: src/components/ColorSetChooser.tsx:548
-#: src/components/ImageColorPicker.tsx:504
-#: src/components/messages.ts:26
+#: src/components/ImageColorPicker.tsx:507
+#: src/components/messages.ts:28
 msgid "Color set"
 msgstr "Barevná sada"
 
 #: src/components/color/ColorSwatchDrawer.tsx:58
-#: src/components/palette/PaletteGrid.tsx:100
+#: src/components/palette/PaletteGrid.tsx:99
 msgid "Color swatch"
 msgstr "Barvy"
 
-#: src/components/messages.ts:51
+#: src/components/messages.ts:53
 msgid "Colored Pencils"
 msgstr "Barevné tužky"
 
-#: src/components/ColorMixingChart.tsx:130
+#: src/components/ColorMixingChart.tsx:131
 #: src/components/ImageLimitedPalette.tsx:105
 msgid "Colors"
 msgstr "Barvy"
 
-#: src/components/messages.ts:41
+#: src/components/messages.ts:43
 msgid "Compare"
 msgstr "Porovnat"
 
@@ -391,6 +399,10 @@ msgstr "Zkopírujte a sdílejte tento odkaz"
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Opravený odhad teploty světelného zdroje v Kelvinech"
 
+#: src/components/ImagePerspectiveCorrection.tsx:126
+msgid "Could not detect the paper or canvas automatically"
+msgstr "Nepodařilo se automaticky detekovat papír ani plátno"
+
 #: src/components/ColorSetChooser.tsx:709
 msgid "Create a duplicate of this color set for further modification"
 msgstr "Vytvořte duplikát této barevné sady pro další úpravy"
@@ -400,7 +412,7 @@ msgstr "Vytvořte duplikát této barevné sady pro další úpravy"
 msgid "Create new"
 msgstr "Vytvořit nový"
 
-#: src/components/messages.ts:42
+#: src/components/messages.ts:44
 msgid "Custom brand"
 msgstr "Vlastní značka"
 
@@ -409,7 +421,7 @@ msgid "Custom color set"
 msgstr "Vlastní sada barev"
 
 #: src/components/ColorSetChooser.tsx:730
-#: src/components/CustomColorBrandCreator.tsx:509
+#: src/components/CustomColorBrandCreator.tsx:510
 #: src/components/image/RecentImageCard.tsx:83
 msgid "Delete"
 msgstr "Vymazat"
@@ -423,8 +435,8 @@ msgstr "Smazat všechna data aplikace"
 msgid "Delete the color set"
 msgstr "Odstranění sady barev"
 
-#: src/components/CustomColorBrandCreator.tsx:494
-#: src/components/CustomColorBrandCreator.tsx:504
+#: src/components/CustomColorBrandCreator.tsx:495
+#: src/components/CustomColorBrandCreator.tsx:505
 msgid "Delete the custom brand"
 msgstr "Odstranění vlastní značky"
 
@@ -449,7 +461,7 @@ msgstr "Diagnostika"
 msgid "Diagonals"
 msgstr "Diagonály"
 
-#: src/components/CustomColorBrandCreator.tsx:434
+#: src/components/CustomColorBrandCreator.tsx:435
 #: src/components/ImageColorPicker.tsx:389
 msgid "Diameter"
 msgstr "Průměr"
@@ -482,7 +494,7 @@ msgstr "Polož tu složku..."
 msgid "Drop the files here..."
 msgstr "Položte sem soubory..."
 
-#: src/components/messages.ts:53
+#: src/components/messages.ts:55
 msgid "Dry Pastel"
 msgstr "Suché pastely"
 
@@ -490,7 +502,7 @@ msgstr "Suché pastely"
 msgid "Duplicate"
 msgstr "Duplikát"
 
-#: src/components/CustomColorBrandCreator.tsx:131
+#: src/components/CustomColorBrandCreator.tsx:132
 msgid "Edit from here on"
 msgstr "Edit od teď dál"
 
@@ -529,11 +541,11 @@ msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Než se rozhodnete zakoupit placené členství, prozkoumejte bezplatnou verzi."
 
 #: src/components/ColorSetChooser.tsx:365
-#: src/components/CustomColorBrandCreator.tsx:358
+#: src/components/CustomColorBrandCreator.tsx:359
 msgid "Fill in the required fields"
 msgstr "Vyplňte povinná pole"
 
-#: src/components/CustomColorBrandCreator.tsx:211
+#: src/components/CustomColorBrandCreator.tsx:212
 msgid "Finish editing"
 msgstr "Dokončit úpravy"
 
@@ -565,13 +577,13 @@ msgstr "Přejděte na záložku <0>{photoLabel}</0> a vyberte referenční fotog
 msgid "Go to the <0>{photoLabel}</0> tab and choose your reference photo."
 msgstr "Přejděte na kartu <0>{photoLabel}</0> a vyberte svou referenční fotografii."
 
-#: src/components/messages.ts:48
+#: src/components/messages.ts:50
 msgid "Gouache"
 msgstr "Kvaš"
 
 #: src/components/grid/GridControls.tsx:178
 #: src/components/ImageOutline.tsx:233
-#: src/components/messages.ts:33
+#: src/components/messages.ts:35
 msgid "Grid"
 msgstr "Mřížka"
 
@@ -580,7 +592,7 @@ msgid "Height"
 msgstr "Výška"
 
 #: src/components/ColorSetChooser.tsx:497
-#: src/components/messages.ts:43
+#: src/components/messages.ts:45
 msgid "Help"
 msgstr "Pomoc"
 
@@ -592,11 +604,11 @@ msgstr "Pokud máte potíže s přihlášením, přečtěte si <0>prosím tento 
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Pokud soubor barev neuložíte, změny sady barev mohou být ztraceny."
 
-#: src/components/ImageBackgroundRemoval.tsx:290
+#: src/components/ImageBackgroundRemoval.tsx:291
 msgid "Image without background"
 msgstr "Obrázek bez pozadí"
 
-#: src/components/messages.ts:37
+#: src/components/messages.ts:39
 msgid "Inspire"
 msgstr "Inspirovat"
 
@@ -657,7 +669,7 @@ msgstr "Světlý tón"
 msgid "Lighten the pressure to <0>{fractionText}</0>"
 msgstr "Snižte tlak na <0>{fractionText}</0>"
 
-#: src/components/messages.ts:36
+#: src/components/messages.ts:38
 msgid "Limited palette"
 msgstr "Omezená paleta"
 
@@ -665,7 +677,7 @@ msgstr "Omezená paleta"
 msgid "Link copied to clipboard"
 msgstr "Odkaz zkopírován do schránky"
 
-#: src/components/CustomColorBrandCreator.tsx:429
+#: src/components/CustomColorBrandCreator.tsx:430
 msgid "Load color brand file"
 msgstr "Načíst barevný soubor značky"
 
@@ -741,12 +753,12 @@ msgid "Mode"
 msgstr "Režim"
 
 #: src/components/ColorSetChooser.tsx:564
-#: src/components/CustomColorBrandCreator.tsx:190
-#: src/components/CustomColorBrandCreator.tsx:481
+#: src/components/CustomColorBrandCreator.tsx:191
+#: src/components/CustomColorBrandCreator.tsx:482
 msgid "Name"
 msgstr "Jméno"
 
-#: src/components/CustomColorBrandCreator.tsx:484
+#: src/components/CustomColorBrandCreator.tsx:485
 msgid "Name a brand"
 msgstr "Pojmenujte značku"
 
@@ -778,21 +790,21 @@ msgstr "Další datum nabíjení"
 #: src/components/color/PaletteColorMixtureCard.tsx:106
 #: src/components/ColorSetChooser.tsx:230
 #: src/components/ColorSetChooser.tsx:721
-#: src/components/CustomColorBrandCreator.tsx:500
+#: src/components/CustomColorBrandCreator.tsx:501
 #: src/components/image/RecentImageCard.tsx:74
-#: src/components/palette/PaletteGrid.tsx:115
+#: src/components/palette/PaletteGrid.tsx:114
 #: src/components/storage/ClearStorage.tsx:63
 #: src/components/storage/ClearStorage.tsx:76
 msgid "No"
 msgstr "Ne"
 
 #: src/components/empty/EmptyPalette.tsx:39
-#: src/components/ImageColorPicker.tsx:524
+#: src/components/ImageColorPicker.tsx:527
 msgid "No data"
 msgstr "Žádná data"
 
-#: src/components/color-set/ColorSelect.tsx:85
-#: src/components/ColorMixingChart.tsx:95
+#: src/components/color-set/ColorSelect.tsx:86
+#: src/components/ColorMixingChart.tsx:96
 msgid "No sorting"
 msgstr "Žádné třídění"
 
@@ -808,11 +820,11 @@ msgstr "Není co sdílet"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Počet buněk na menší straně (svisle nebo vodorovně)"
 
-#: src/components/messages.ts:50
+#: src/components/messages.ts:52
 msgid "Oil Paint"
 msgstr "Olejový nátěr"
 
-#: src/components/messages.ts:54
+#: src/components/messages.ts:56
 msgid "Oil Pastel"
 msgstr "Olejový pastel"
 
@@ -857,11 +869,11 @@ msgstr "Nebo si vyberte z posledních fotografií"
 msgid "Original color temperature (K)"
 msgstr "Původní barevná teplota (K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:283
+#: src/components/ImageBackgroundRemoval.tsx:284
 msgid "Original photo"
 msgstr "Původní fotografie"
 
-#: src/components/messages.ts:32
+#: src/components/messages.ts:34
 msgid "Outline"
 msgstr "Osnova"
 
@@ -873,7 +885,7 @@ msgstr "Výstupní úrovně"
 msgid "over"
 msgstr "přes"
 
-#: src/components/messages.ts:29
+#: src/components/messages.ts:31
 msgid "Palette"
 msgstr "Paleta"
 
@@ -910,11 +922,11 @@ msgstr "Trvalé úložiště"
 msgid "Persistent storage is not enabled"
 msgstr "Trvalé úložiště není povoleno"
 
-#: src/components/messages.ts:38
+#: src/components/messages.ts:40
 msgid "Perspective"
 msgstr "Perspektiva"
 
-#: src/components/messages.ts:27
+#: src/components/messages.ts:29
 msgid "Photo"
 msgstr "Foto"
 
@@ -922,7 +934,7 @@ msgstr "Foto"
 msgid "Photo ranking"
 msgstr "Hodnocení fotografií"
 
-#: src/components/ImageColorPicker.tsx:533
+#: src/components/ImageColorPicker.tsx:536
 msgid "Pinch to zoom (or use the mouse wheel) and drag to pan"
 msgstr "Stažením prstů přiblížíte (nebo použijete kolečko myši) a tažením se posunete"
 
@@ -960,13 +972,13 @@ msgid "Preview"
 msgstr "Náhled"
 
 #: src/components/ImageGrid.tsx:71
-#: src/components/ImageGrid.tsx:83
+#: src/components/ImageGrid.tsx:84
 #: src/components/ImageOutline.tsx:238
-#: src/components/ImageOutline.tsx:255
+#: src/components/ImageOutline.tsx:256
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
-#: src/components/ImageTonalValues.tsx:125
-#: src/components/palette/PaletteGrid.tsx:108
+#: src/components/ImageTonalValues.tsx:126
+#: src/components/palette/PaletteGrid.tsx:107
 #: src/components/print/PrintImageDrawer.tsx:132
 msgid "Print"
 msgstr "Tisknout"
@@ -1019,13 +1031,13 @@ msgstr "Poměr"
 msgid "Reduce color palette to"
 msgstr "Omezte barevnou paletu na"
 
-#: src/components/ImageColorPicker.tsx:454
-#: src/components/ImageColorPicker.tsx:483
+#: src/components/ImageColorPicker.tsx:457
+#: src/components/ImageColorPicker.tsx:486
 msgid "Reduce colors"
 msgstr "Redukovat barvy"
 
-#: src/components/ImageColorPicker.tsx:455
-#: src/components/ImageColorPicker.tsx:481
+#: src/components/ImageColorPicker.tsx:458
+#: src/components/ImageColorPicker.tsx:484
 msgid "Reduce the number of colors in the photo"
 msgstr "Snižte počet barev na fotografii"
 
@@ -1043,16 +1055,16 @@ msgstr "Odrazivost"
 msgid "Remove"
 msgstr "Odstranit"
 
-#: src/components/palette/PaletteGrid.tsx:118
+#: src/components/palette/PaletteGrid.tsx:117
 msgid "Remove all"
 msgstr "Odstranit vše"
 
-#: src/components/palette/PaletteGrid.tsx:111
+#: src/components/palette/PaletteGrid.tsx:110
 msgid "Remove all color mixtures"
 msgstr "Odstranit všechny směsi barev"
 
 #: src/components/ImageColorAdjustment.tsx:384
-#: src/components/messages.ts:40
+#: src/components/messages.ts:42
 msgid "Remove background"
 msgstr "Odstranit pozadí"
 
@@ -1065,9 +1077,9 @@ msgstr "Odstranit z palety"
 msgid "Remove the color mixture"
 msgstr "Odstraňte směs barev"
 
-#: src/components/CustomColorBrandCreator.tsx:178
-#: src/components/CustomColorBrandCreator.tsx:186
-#: src/components/CustomColorBrandCreator.tsx:189
+#: src/components/CustomColorBrandCreator.tsx:179
+#: src/components/CustomColorBrandCreator.tsx:187
+#: src/components/CustomColorBrandCreator.tsx:190
 msgid "Required"
 msgstr "Požadovaný"
 
@@ -1079,8 +1091,8 @@ msgstr "Vyžaduje iOS 16.4+ nebo iPadOS 16.4+."
 msgid "Requires macOS Sonoma or later."
 msgstr "Vyžaduje macOS Sonoma nebo novější."
 
-#: src/components/ImagePerspectiveCorrection.tsx:208
-#: src/components/ImagePerspectiveCorrection.tsx:247
+#: src/components/ImagePerspectiveCorrection.tsx:228
+#: src/components/ImagePerspectiveCorrection.tsx:268
 msgid "Reset"
 msgstr "Resetovat"
 
@@ -1093,8 +1105,8 @@ msgstr "Vraťte se na kartu <0>{paletteLabel}</0> ."
 msgid "Return to the <0>{tabLabel}</0> tab."
 msgstr "Vraťte se na kartu <0>{tabLabel}</0> ."
 
-#: src/components/ImagePerspectiveCorrection.tsx:212
-#: src/components/ImagePerspectiveCorrection.tsx:255
+#: src/components/ImagePerspectiveCorrection.tsx:232
+#: src/components/ImagePerspectiveCorrection.tsx:301
 msgid "Rotate"
 msgstr "Otáčet"
 
@@ -1102,23 +1114,23 @@ msgstr "Otáčet"
 msgid "Saturation (%)"
 msgstr "Sytost (%)"
 
-#: src/components/ColorMixingChart.tsx:117
-#: src/components/CustomColorBrandCreator.tsx:489
+#: src/components/ColorMixingChart.tsx:118
+#: src/components/CustomColorBrandCreator.tsx:490
 #: src/components/ImageBackgroundRemoval.tsx:233
-#: src/components/ImageBackgroundRemoval.tsx:262
+#: src/components/ImageBackgroundRemoval.tsx:263
 #: src/components/ImageBlurred.tsx:153
-#: src/components/ImageBlurred.tsx:165
+#: src/components/ImageBlurred.tsx:166
 #: src/components/ImageColorAdjustment.tsx:360
 #: src/components/ImageGrid.tsx:74
-#: src/components/ImageGrid.tsx:89
-#: src/components/ImageLimitedPalette.tsx:140
+#: src/components/ImageGrid.tsx:90
+#: src/components/ImageLimitedPalette.tsx:141
 #: src/components/ImageOutline.tsx:246
-#: src/components/ImageOutline.tsx:261
-#: src/components/ImagePerspectiveCorrection.tsx:224
-#: src/components/ImagePerspectiveCorrection.tsx:265
+#: src/components/ImageOutline.tsx:262
+#: src/components/ImagePerspectiveCorrection.tsx:244
+#: src/components/ImagePerspectiveCorrection.tsx:276
 #: src/components/ImageStyleTransfer.tsx:186
 #: src/components/ImageTonalValues.tsx:116
-#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageTonalValues.tsx:132
 msgid "Save"
 msgstr "Uložit"
 
@@ -1131,12 +1143,12 @@ msgid "Save changes to the color set?"
 msgstr "Uložit změny do sady barev?"
 
 #: src/components/ImageColorAdjustment.tsx:296
-#: src/components/ImagePerspectiveCorrection.tsx:169
+#: src/components/ImagePerspectiveCorrection.tsx:186
 msgid "Save expanded to 1.91:1"
 msgstr "Úspora rozšířena na 1,91:1"
 
 #: src/components/ImageColorAdjustment.tsx:288
-#: src/components/ImagePerspectiveCorrection.tsx:161
+#: src/components/ImagePerspectiveCorrection.tsx:178
 msgid "Save expanded to 4:5"
 msgstr "Uložení rozšířeno na 4:5"
 
@@ -1152,7 +1164,7 @@ msgstr "Naskenujte QR kód"
 msgid "Scan QR code"
 msgstr "Naskenujte QR kód"
 
-#: src/components/ImagePerspectiveCorrection.tsx:108
+#: src/components/ImagePerspectiveCorrection.tsx:109
 msgid "Select 4 points to correct perspective distortion"
 msgstr "Výběrem 4 bodů opravíte zkreslení perspektivy"
 
@@ -1160,7 +1172,7 @@ msgstr "Výběrem 4 bodů opravíte zkreslení perspektivy"
 msgid "Select a photo to adjust white balance and colors"
 msgstr "Vyberte fotografii, kterou chcete upravit vyvážení bílé a barvy"
 
-#: src/components/ImagePerspectiveCorrection.tsx:184
+#: src/components/ImagePerspectiveCorrection.tsx:201
 msgid "Select a photo to correct the perspective"
 msgstr "Vyberte fotografii pro korekci perspektivy"
 
@@ -1176,7 +1188,7 @@ msgstr "Vyberte referenční fotografii ze svého zařízení, podle které chce
 msgid "Select a style to transfer to your reference photo"
 msgstr "Vyberte styl, který chcete přenést na referenční fotografii"
 
-#: src/components/CustomColorBrandCreator.tsx:417
+#: src/components/CustomColorBrandCreator.tsx:418
 msgid "Select an image that contains a color chart"
 msgstr "Vyberte obraz, který obsahuje tabulku barev"
 
@@ -1201,11 +1213,11 @@ msgid "Select color"
 msgstr "Vybrat barvu"
 
 #: src/components/color-set/ColorCascader.tsx:107
-#: src/components/color-set/ColorSelect.tsx:118
+#: src/components/color-set/ColorSelect.tsx:105
 msgid "Select colors"
 msgstr "Vyberte barvy"
 
-#: src/components/ColorMixingChart.tsx:135
+#: src/components/ColorMixingChart.tsx:136
 msgid "Select colors to build a mixing chart"
 msgstr "Vyberte barvy pro vytvoření mixovacího schématu"
 
@@ -1225,7 +1237,7 @@ msgstr "Výběr z posledních sad barev"
 msgid "Select from your recent color sets or create a new one."
 msgstr "Vyberte si z posledních sad barev nebo vytvořte novou."
 
-#: src/components/CustomColorBrandCreator.tsx:422
+#: src/components/CustomColorBrandCreator.tsx:423
 msgid "Select image"
 msgstr "Vybrat obrázek"
 
@@ -1240,7 +1252,7 @@ msgstr "Vybrat díl"
 #: src/components/ImageBackgroundRemoval.tsx:211
 #: src/components/ImageChooser.tsx:93
 #: src/components/ImageColorAdjustment.tsx:350
-#: src/components/ImagePerspectiveCorrection.tsx:194
+#: src/components/ImagePerspectiveCorrection.tsx:211
 msgid "Select photo"
 msgstr "Vybrat fotografii"
 
@@ -1282,7 +1294,7 @@ msgstr "Zasedání skončilo"
 msgid "Set as background"
 msgstr "Nastavit jako pozadí"
 
-#: src/components/ImageLimitedPalette.tsx:149
+#: src/components/ImageLimitedPalette.tsx:150
 msgid "Set as main color set"
 msgstr "Nastavit jako hlavní sadu barev"
 
@@ -1317,7 +1329,7 @@ msgstr "Sdílet tuto sadu barev"
 msgid "Share your color set"
 msgstr "Sdílejte svou sadu barev"
 
-#: src/components/ImageColorPicker.tsx:421
+#: src/components/ImageColorPicker.tsx:422
 msgid "Show areas on the photo that match this color"
 msgstr "Ukažte na fotografii oblasti, které ladí s touto barvou"
 
@@ -1325,7 +1337,7 @@ msgstr "Ukažte na fotografii oblasti, které ladí s touto barvou"
 msgid "Show grid"
 msgstr "Zobrazit mřížku"
 
-#: src/components/ImageColorPicker.tsx:420
+#: src/components/ImageColorPicker.tsx:421
 msgid "Show matching areas"
 msgstr "Zobrazit odpovídající oblasti"
 
@@ -1346,7 +1358,7 @@ msgstr "Podobnost"
 msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
 msgstr "Režim podobnosti porovnává cílovou a navrhovanou barvu. V režimu míchání se zobrazí části barvy, které tvoří směs."
 
-#: src/components/messages.ts:31
+#: src/components/messages.ts:33
 msgid "Simplified"
 msgstr "Zjednodušený"
 
@@ -1362,9 +1374,9 @@ msgstr "Mírně překryjte pastelové oblasti různých barev a jemně je rozet�
 msgid "Small"
 msgstr "Malý"
 
-#: src/components/color-set/ColorSelect.tsx:130
-#: src/components/ColorMixingChart.tsx:90
-#: src/components/ImageColorPicker.tsx:442
+#: src/components/color-set/ColorSelect.tsx:118
+#: src/components/ColorMixingChart.tsx:91
+#: src/components/ImageColorPicker.tsx:444
 #: src/components/palette/PaletteGrid.tsx:129
 msgid "Sort"
 msgstr "Třídit"
@@ -1407,9 +1419,9 @@ msgstr "Pořád máte potíže? Podívejte se prosím <0>na tento návod k řeš
 msgid "Storage usage"
 msgstr "Využití úložiště"
 
-#: src/components/ImagePerspectiveCorrection.tsx:187
-msgid "Straightens skewed photos and removes unwanted edges. Select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
-msgstr "Narovná zkosené fotografie a odstraní nežádoucí okraje. Vyberte 4 body pro opravu zkreslení perspektivy a poté volitelně přetáhněte okraje pro oříznutí obrazu."
+#: src/components/ImagePerspectiveCorrection.tsx:204
+msgid "Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
+msgstr "Narovnává nakřivé fotografie a odstraňuje nežádoucí okraje. Použijte automatickou detekci nebo vyberte 4 body pro korekci perspektivního zkreslení, pak volitelně táhněte okraje pro oříznutí obrázku."
 
 #: src/components/ImageBlurred.tsx:123
 msgid "Strength"
@@ -1460,7 +1472,7 @@ msgstr "Barva, která má být namíchána z vaší sady barev. Vyberte barvu kl
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
 msgstr "Průměr kruhové oblasti kolem kurzoru, který se používá k výpočtu průměrné barvy obrazových bodů v této oblasti."
 
-#: src/components/CustomColorBrandCreator.tsx:435
+#: src/components/CustomColorBrandCreator.tsx:436
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
 msgstr "Průměr kruhové oblasti kolem kurzoru, který se používá k výpočtu průměrné barvy obrazových bodů v oblasti."
 
@@ -1524,7 +1536,7 @@ msgstr "Chcete-li použít funkci {tabLabel}, vyberte referenční fotografii."
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with."
 msgstr "Pro použití funkce {tabLabel} vyberte podporované umělecké médium a barvy, kterými budete malovat."
 
-#: src/components/messages.ts:30
+#: src/components/messages.ts:32
 msgid "Tonal values"
 msgstr "Tonální hodnoty"
 
@@ -1591,15 +1603,15 @@ msgstr "Warm — Algoritmický odhad; Umělecké vnímání se může lišit."
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "Akvarel lze ředit vodou, aby byl průhlednější."
 
-#: src/components/messages.ts:47
+#: src/components/messages.ts:49
 msgid "Watercolor Paint"
 msgstr "Akvarelová barva"
 
-#: src/components/messages.ts:52
+#: src/components/messages.ts:54
 msgid "Watercolor Pencils"
 msgstr "Akvarelové tužky"
 
-#: src/components/messages.ts:55
+#: src/components/messages.ts:57
 msgid "Wax Pastel"
 msgstr "Vosková pastel"
 
@@ -1622,13 +1634,13 @@ msgid "White"
 msgstr "Bílý"
 
 #: src/components/ImageColorAdjustment.tsx:393
-#: src/components/ImagePerspectiveCorrection.tsx:236
-#: src/components/ImagePerspectiveCorrection.tsx:274
-#: src/components/messages.ts:39
+#: src/components/ImagePerspectiveCorrection.tsx:256
+#: src/components/ImagePerspectiveCorrection.tsx:285
+#: src/components/messages.ts:41
 msgid "White balance"
 msgstr "Vyvážení bílé"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:63
 msgid "White paper or canvas"
 msgstr "Bílý papír nebo plátno"
 
@@ -1644,9 +1656,9 @@ msgstr "Šířka"
 #: src/components/color/PaletteColorMixtureCard.tsx:105
 #: src/components/ColorSetChooser.tsx:229
 #: src/components/ColorSetChooser.tsx:720
-#: src/components/CustomColorBrandCreator.tsx:499
+#: src/components/CustomColorBrandCreator.tsx:500
 #: src/components/image/RecentImageCard.tsx:73
-#: src/components/palette/PaletteGrid.tsx:114
+#: src/components/palette/PaletteGrid.tsx:113
 #: src/components/storage/ClearStorage.tsx:62
 #: src/components/storage/ClearStorage.tsx:75
 msgid "Yes"

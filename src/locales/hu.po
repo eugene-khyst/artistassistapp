@@ -36,9 +36,9 @@ msgstr "{FIELD} kötelezőek"
 #: src/components/ColorSetChooser.tsx:541
 #: src/components/ColorSetChooser.tsx:550
 #: src/components/ColorSetChooser.tsx:603
-#: src/components/CustomColorBrandCreator.tsx:463
-#: src/components/CustomColorBrandCreator.tsx:474
-#: src/components/CustomColorBrandCreator.tsx:482
+#: src/components/CustomColorBrandCreator.tsx:464
+#: src/components/CustomColorBrandCreator.tsx:475
+#: src/components/CustomColorBrandCreator.tsx:483
 msgid "{FIELD} is required"
 msgstr "{FIELD} kötelező"
 
@@ -91,7 +91,7 @@ msgstr "<0>Próbáld újra a bejelentkezést</0>: Miután megerősítetted, hogy
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Webböngészőt használj</0>: Ha a Patreon alkalmazást használod (iOS/Android), jelentkezz be böngészőn keresztül (Chrome, Safari, Firefox), mert az alkalmazás néha zavarhatja az ellenőrzési folyamatot."
 
-#: src/components/ColorMixingChart.tsx:131
+#: src/components/ColorMixingChart.tsx:132
 msgid "A grid showing the result of mixing each pair of selected colors"
 msgstr "Egy rács, amely bemutatja az egyes kiválasztott színpárok keverésének eredményét"
 
@@ -111,15 +111,15 @@ msgstr "A 100%-nál kisebb érték kevésbé színes, a 100%-nál nagyobb érté
 msgid "About ArtistAssistApp"
 msgstr "Az ArtistAssistApp-ról"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:59
 msgid "Acrylic Gouache"
 msgstr "Akril gouache"
 
-#: src/components/messages.ts:56
+#: src/components/messages.ts:58
 msgid "Acrylic Markers"
 msgstr "Akril jelölők"
 
-#: src/components/messages.ts:49
+#: src/components/messages.ts:51
 msgid "Acrylic Paint"
 msgstr "Akril festék"
 
@@ -147,6 +147,10 @@ msgstr "Hozzáadás a palettához"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Fehér hozzáadása <0>{whiteRatioText} arányban</0>"
 
+#: src/components/ImagePerspectiveCorrection.tsx:127
+msgid "Adjust the 4 points manually."
+msgstr "Állítsd be a 4 pontot kézzel."
+
 #: src/components/ImageBlurred.tsx:124
 msgid "Adjusts how strongly the image is smoothed."
 msgstr "Szabályozza, mennyire erősen simítják a képet."
@@ -163,9 +167,9 @@ msgstr "Alkalmazáshiba"
 msgid "Application build hash"
 msgstr "Alkalmazás buildelési kivonata"
 
-#: src/components/ColorMixingChart.tsx:155
+#: src/components/ColorMixingChart.tsx:156
 #: src/components/ImageLimitedPalette.tsx:133
-#: src/components/ImagePerspectiveCorrection.tsx:201
+#: src/components/ImagePerspectiveCorrection.tsx:221
 msgid "Apply"
 msgstr "Alkalmaz"
 
@@ -193,7 +197,7 @@ msgstr "Biztosan törölni szeretné az összes alkalmazásadatot?"
 msgid "Are you sure you want to delete this color set?"
 msgstr "Biztosan törölni szeretné ezt a színkészletet?"
 
-#: src/components/CustomColorBrandCreator.tsx:495
+#: src/components/CustomColorBrandCreator.tsx:496
 msgid "Are you sure you want to delete this custom brand?"
 msgstr "Biztos benne, hogy törölni szeretné ezt az egyedi márkát?"
 
@@ -201,7 +205,7 @@ msgstr "Biztos benne, hogy törölni szeretné ezt az egyedi márkát?"
 msgid "Are you sure you want to delete this photo?"
 msgstr "Biztosan törölni akarja ezt a fényképet?"
 
-#: src/components/palette/PaletteGrid.tsx:112
+#: src/components/palette/PaletteGrid.tsx:111
 msgid "Are you sure you want to remove all color mixtures?"
 msgstr "Biztos benne, hogy el akarja távolítani az összes színkeveréket?"
 
@@ -211,7 +215,7 @@ msgid "Are you sure you want to remove this color mixture?"
 msgstr "Biztos benne, hogy el akarja távolítani ezt a színkeveréket?"
 
 #: src/components/ColorSetChooser.tsx:540
-#: src/components/CustomColorBrandCreator.tsx:473
+#: src/components/CustomColorBrandCreator.tsx:474
 msgid "Art medium"
 msgstr "Művészeti médium"
 
@@ -219,7 +223,7 @@ msgstr "Művészeti médium"
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "Az ArtistAssistApp-ot <0>Eugene Khyst</0> fejlesztette"
 
-#: src/components/CustomColorBrandCreator.tsx:523
+#: src/components/CustomColorBrandCreator.tsx:524
 msgid "At least one color is required"
 msgstr "Legalább egy szín szükséges"
 
@@ -227,12 +231,17 @@ msgstr "Legalább egy szín szükséges"
 msgid "Authentication error"
 msgstr "Hitelesítési hiba"
 
+#: src/components/ImagePerspectiveCorrection.tsx:218
+#: src/components/ImagePerspectiveCorrection.tsx:295
+msgid "Auto-detect"
+msgstr "Automatikus észlelés"
+
 #: src/components/Help.tsx:205
 msgid "Automatic backup of color sets"
 msgstr "A színkészletek automatikus biztonsági mentése"
 
-#: src/components/ImageColorPicker.tsx:461
-#: src/components/ImageColorPicker.tsx:490
+#: src/components/ImageColorPicker.tsx:464
+#: src/components/ImageColorPicker.tsx:493
 msgid "Automatically find the best color mixtures for this photo"
 msgstr "Automatikusan találd meg a legjobb színkeverékeket ehhez a fotóhoz"
 
@@ -242,36 +251,35 @@ msgstr "A fehérpont-terület átlagos színe"
 
 #: src/components/ColorMixer.tsx:180
 #: src/components/ImageBackgroundRemoval.tsx:228
-#: src/components/ImageBackgroundRemoval.tsx:252
+#: src/components/ImageBackgroundRemoval.tsx:253
 #: src/components/ImageColorPicker.tsx:350
 msgid "Background"
 msgstr "Háttér"
 
-#: src/components/ImageColorPicker.tsx:460
-#: src/components/ImageColorPicker.tsx:495
+#: src/components/ImageColorPicker.tsx:463
+#: src/components/ImageColorPicker.tsx:498
 msgid "Build palette"
 msgstr "Építési paletta"
 
-#: src/components/palette/PaletteGrid.tsx:72
+#: src/components/messages.ts:73
 msgid "By date added"
 msgstr "Hozzáadási dátum szerint"
 
-#: src/components/color-set/ColorSelect.tsx:99
-#: src/components/ColorMixingChart.tsx:105
-#: src/components/palette/PaletteGrid.tsx:74
+#: src/components/messages.ts:68
+#: src/components/messages.ts:75
 msgid "By hue"
 msgstr "Szín szerint"
 
-#: src/components/color-set/ColorSelect.tsx:92
+#: src/components/messages.ts:67
 msgid "By ID"
 msgstr "Azonosító szerint"
 
-#: src/components/color-set/ColorSelect.tsx:106
-#: src/components/palette/PaletteGrid.tsx:75
+#: src/components/messages.ts:69
+#: src/components/messages.ts:76
 msgid "By lightness"
 msgstr "A könnyedség által"
 
-#: src/components/palette/PaletteGrid.tsx:73
+#: src/components/messages.ts:74
 msgid "By name"
 msgstr "Név szerint"
 
@@ -301,7 +309,7 @@ msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Kattintson 🖱️ vagy koppintson 👆 a fénykép tetszőleges pontjára a fehér pont kiválasztásához."
 
 #: src/components/empty/EmptyPalette.tsx:64
-#: src/components/ImageColorPicker.tsx:527
+#: src/components/ImageColorPicker.tsx:530
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "Kattintson 🖱️ vagy koppintson 👆 a fénykép tetszőleges pontjára, vagy a színválasztó előugró ablakában válassza ki a színek közül keverni kívánt célszínt."
 
@@ -314,12 +322,12 @@ msgid "Close in {closeCounter} sec"
 msgstr "Bezárás {closeCounter} másodperc alatt"
 
 #: src/components/ColorMixer.tsx:206
-#: src/components/CustomColorBrandCreator.tsx:447
+#: src/components/CustomColorBrandCreator.tsx:448
 #: src/components/ImageColorPicker.tsx:404
 msgid "Color"
 msgstr "Szín"
 
-#: src/components/CustomColorBrandCreator.tsx:462
+#: src/components/CustomColorBrandCreator.tsx:463
 msgid "Color brand"
 msgstr "Szín márka"
 
@@ -331,11 +339,11 @@ msgstr "Színes márkák"
 msgid "Color count"
 msgstr "Színszám"
 
-#: src/components/messages.ts:34
+#: src/components/messages.ts:36
 msgid "Color mixing"
 msgstr "Színkeverés"
 
-#: src/components/messages.ts:35
+#: src/components/messages.ts:37
 msgid "Color mixing chart"
 msgstr "Színkeverési táblázat"
 
@@ -343,31 +351,31 @@ msgstr "Színkeverési táblázat"
 msgid "Color mixture"
 msgstr "Színkeverék"
 
-#: src/components/messages.ts:28
+#: src/components/messages.ts:30
 msgid "Color picker"
 msgstr "Színválasztó"
 
 #: src/components/ColorSetChooser.tsx:548
-#: src/components/ImageColorPicker.tsx:504
-#: src/components/messages.ts:26
+#: src/components/ImageColorPicker.tsx:507
+#: src/components/messages.ts:28
 msgid "Color set"
 msgstr "Színkészlet"
 
 #: src/components/color/ColorSwatchDrawer.tsx:58
-#: src/components/palette/PaletteGrid.tsx:100
+#: src/components/palette/PaletteGrid.tsx:99
 msgid "Color swatch"
 msgstr "Színmintát"
 
-#: src/components/messages.ts:51
+#: src/components/messages.ts:53
 msgid "Colored Pencils"
 msgstr "Színes ceruzák"
 
-#: src/components/ColorMixingChart.tsx:130
+#: src/components/ColorMixingChart.tsx:131
 #: src/components/ImageLimitedPalette.tsx:105
 msgid "Colors"
 msgstr "Színek"
 
-#: src/components/messages.ts:41
+#: src/components/messages.ts:43
 msgid "Compare"
 msgstr "Összehasonlít"
 
@@ -391,6 +399,10 @@ msgstr "Másolja és ossza meg ezt a linket"
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "A fényforrás hőmérsékletének korrigált becslése Kelvinben"
 
+#: src/components/ImagePerspectiveCorrection.tsx:126
+msgid "Could not detect the paper or canvas automatically"
+msgstr "Nem tudtam automatikusan érzékelni a papírt vagy vásznat"
+
 #: src/components/ColorSetChooser.tsx:709
 msgid "Create a duplicate of this color set for further modification"
 msgstr "Hozzon létre egy másolatot ebből a színkészletből további módosításhoz"
@@ -400,7 +412,7 @@ msgstr "Hozzon létre egy másolatot ebből a színkészletből további módos�
 msgid "Create new"
 msgstr "Új létrehozása"
 
-#: src/components/messages.ts:42
+#: src/components/messages.ts:44
 msgid "Custom brand"
 msgstr "Egyedi márka"
 
@@ -409,7 +421,7 @@ msgid "Custom color set"
 msgstr "Egyedi színkészlet"
 
 #: src/components/ColorSetChooser.tsx:730
-#: src/components/CustomColorBrandCreator.tsx:509
+#: src/components/CustomColorBrandCreator.tsx:510
 #: src/components/image/RecentImageCard.tsx:83
 msgid "Delete"
 msgstr "Töröl"
@@ -423,8 +435,8 @@ msgstr "Az összes alkalmazásadat törlése"
 msgid "Delete the color set"
 msgstr "A színkészlet törlése"
 
-#: src/components/CustomColorBrandCreator.tsx:494
-#: src/components/CustomColorBrandCreator.tsx:504
+#: src/components/CustomColorBrandCreator.tsx:495
+#: src/components/CustomColorBrandCreator.tsx:505
 msgid "Delete the custom brand"
 msgstr "Az egyéni márka törlése"
 
@@ -449,7 +461,7 @@ msgstr "Diagnosztika"
 msgid "Diagonals"
 msgstr "Átlók"
 
-#: src/components/CustomColorBrandCreator.tsx:434
+#: src/components/CustomColorBrandCreator.tsx:435
 #: src/components/ImageColorPicker.tsx:389
 msgid "Diameter"
 msgstr "Átmérő"
@@ -482,7 +494,7 @@ msgstr "Dobd ide az aktát..."
 msgid "Drop the files here..."
 msgstr "Dobd ide a fájlokat..."
 
-#: src/components/messages.ts:53
+#: src/components/messages.ts:55
 msgid "Dry Pastel"
 msgstr "Száraz pasztell"
 
@@ -490,7 +502,7 @@ msgstr "Száraz pasztell"
 msgid "Duplicate"
 msgstr "Ismétlődő"
 
-#: src/components/CustomColorBrandCreator.tsx:131
+#: src/components/CustomColorBrandCreator.tsx:132
 msgid "Edit from here on"
 msgstr "Innen szerkesztés"
 
@@ -529,11 +541,11 @@ msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Fedezze fel az ingyenes verziót, mielőtt fizetős tagság vásárlása mellett dönt."
 
 #: src/components/ColorSetChooser.tsx:365
-#: src/components/CustomColorBrandCreator.tsx:358
+#: src/components/CustomColorBrandCreator.tsx:359
 msgid "Fill in the required fields"
 msgstr "Töltse ki a szükséges mezőket"
 
-#: src/components/CustomColorBrandCreator.tsx:211
+#: src/components/CustomColorBrandCreator.tsx:212
 msgid "Finish editing"
 msgstr "Vágás befejezése"
 
@@ -565,13 +577,13 @@ msgstr "Menj a <0>{photoLabel}</0> fülre, és válassz egy referencia fotót."
 msgid "Go to the <0>{photoLabel}</0> tab and choose your reference photo."
 msgstr "Lépjen a <0>{photoLabel}</0> fülre, és válassza ki a referenciafotót."
 
-#: src/components/messages.ts:48
+#: src/components/messages.ts:50
 msgid "Gouache"
 msgstr "Gouache"
 
 #: src/components/grid/GridControls.tsx:178
 #: src/components/ImageOutline.tsx:233
-#: src/components/messages.ts:33
+#: src/components/messages.ts:35
 msgid "Grid"
 msgstr "Rács"
 
@@ -580,7 +592,7 @@ msgid "Height"
 msgstr "Magasság"
 
 #: src/components/ColorSetChooser.tsx:497
-#: src/components/messages.ts:43
+#: src/components/messages.ts:45
 msgid "Help"
 msgstr "Segítség"
 
@@ -592,11 +604,11 @@ msgstr "Ha nehézségeid vannak a bejelentkezéssel, kérjük, olvasd el ezt a <
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Ha nem menti a műveletet, előfordulhat, hogy a színkészlet módosításai elvesznek."
 
-#: src/components/ImageBackgroundRemoval.tsx:290
+#: src/components/ImageBackgroundRemoval.tsx:291
 msgid "Image without background"
 msgstr "Kép háttér nélkül"
 
-#: src/components/messages.ts:37
+#: src/components/messages.ts:39
 msgid "Inspire"
 msgstr "Megihlet"
 
@@ -657,7 +669,7 @@ msgstr "Világos tónus"
 msgid "Lighten the pressure to <0>{fractionText}</0>"
 msgstr "Csökkentse a nyomást <0>a {fractionText}-re</0>"
 
-#: src/components/messages.ts:36
+#: src/components/messages.ts:38
 msgid "Limited palette"
 msgstr "Korlátozott paletta"
 
@@ -665,7 +677,7 @@ msgstr "Korlátozott paletta"
 msgid "Link copied to clipboard"
 msgstr "Link a vágólapra másolva"
 
-#: src/components/CustomColorBrandCreator.tsx:429
+#: src/components/CustomColorBrandCreator.tsx:430
 msgid "Load color brand file"
 msgstr "Töltse be a színmárka fájlt"
 
@@ -741,12 +753,12 @@ msgid "Mode"
 msgstr "Üzemmód"
 
 #: src/components/ColorSetChooser.tsx:564
-#: src/components/CustomColorBrandCreator.tsx:190
-#: src/components/CustomColorBrandCreator.tsx:481
+#: src/components/CustomColorBrandCreator.tsx:191
+#: src/components/CustomColorBrandCreator.tsx:482
 msgid "Name"
 msgstr "Név"
 
-#: src/components/CustomColorBrandCreator.tsx:484
+#: src/components/CustomColorBrandCreator.tsx:485
 msgid "Name a brand"
 msgstr "Márka elnevezése"
 
@@ -778,21 +790,21 @@ msgstr "Következő töltési dátum"
 #: src/components/color/PaletteColorMixtureCard.tsx:106
 #: src/components/ColorSetChooser.tsx:230
 #: src/components/ColorSetChooser.tsx:721
-#: src/components/CustomColorBrandCreator.tsx:500
+#: src/components/CustomColorBrandCreator.tsx:501
 #: src/components/image/RecentImageCard.tsx:74
-#: src/components/palette/PaletteGrid.tsx:115
+#: src/components/palette/PaletteGrid.tsx:114
 #: src/components/storage/ClearStorage.tsx:63
 #: src/components/storage/ClearStorage.tsx:76
 msgid "No"
 msgstr "Nem"
 
 #: src/components/empty/EmptyPalette.tsx:39
-#: src/components/ImageColorPicker.tsx:524
+#: src/components/ImageColorPicker.tsx:527
 msgid "No data"
 msgstr "Nincs adat"
 
-#: src/components/color-set/ColorSelect.tsx:85
-#: src/components/ColorMixingChart.tsx:95
+#: src/components/color-set/ColorSelect.tsx:86
+#: src/components/ColorMixingChart.tsx:96
 msgid "No sorting"
 msgstr "Nincs besorolás"
 
@@ -808,11 +820,11 @@ msgstr "Nincs megosztani való"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "A kisebb oldalon lévő cellák száma (függőleges vagy vízszintes)"
 
-#: src/components/messages.ts:50
+#: src/components/messages.ts:52
 msgid "Oil Paint"
 msgstr "Olajfesték"
 
-#: src/components/messages.ts:54
+#: src/components/messages.ts:56
 msgid "Oil Pastel"
 msgstr "Olaj pasztell"
 
@@ -857,11 +869,11 @@ msgstr "Vagy válasszon a legutóbbi fotói közül"
 msgid "Original color temperature (K)"
 msgstr "Eredeti színhőmérséklet (K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:283
+#: src/components/ImageBackgroundRemoval.tsx:284
 msgid "Original photo"
 msgstr "Eredeti fotó"
 
-#: src/components/messages.ts:32
+#: src/components/messages.ts:34
 msgid "Outline"
 msgstr "Vázlat"
 
@@ -873,7 +885,7 @@ msgstr "Kimeneti szintek"
 msgid "over"
 msgstr "fölött"
 
-#: src/components/messages.ts:29
+#: src/components/messages.ts:31
 msgid "Palette"
 msgstr "Paletta"
 
@@ -910,11 +922,11 @@ msgstr "Állandó tárolás"
 msgid "Persistent storage is not enabled"
 msgstr "Az állandó tárolás nincs engedélyezve"
 
-#: src/components/messages.ts:38
+#: src/components/messages.ts:40
 msgid "Perspective"
 msgstr "Távlat"
 
-#: src/components/messages.ts:27
+#: src/components/messages.ts:29
 msgid "Photo"
 msgstr "Fénykép"
 
@@ -922,7 +934,7 @@ msgstr "Fénykép"
 msgid "Photo ranking"
 msgstr "Fotók rangsorolása"
 
-#: src/components/ImageColorPicker.tsx:533
+#: src/components/ImageColorPicker.tsx:536
 msgid "Pinch to zoom (or use the mouse wheel) and drag to pan"
 msgstr "Csippentéssel nagyíthatja (vagy használhatja az egér görgőjét), és húzással pásztázhat"
 
@@ -960,13 +972,13 @@ msgid "Preview"
 msgstr "Előnézet"
 
 #: src/components/ImageGrid.tsx:71
-#: src/components/ImageGrid.tsx:83
+#: src/components/ImageGrid.tsx:84
 #: src/components/ImageOutline.tsx:238
-#: src/components/ImageOutline.tsx:255
+#: src/components/ImageOutline.tsx:256
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
-#: src/components/ImageTonalValues.tsx:125
-#: src/components/palette/PaletteGrid.tsx:108
+#: src/components/ImageTonalValues.tsx:126
+#: src/components/palette/PaletteGrid.tsx:107
 #: src/components/print/PrintImageDrawer.tsx:132
 msgid "Print"
 msgstr "Nyomtat"
@@ -1019,13 +1031,13 @@ msgstr "Arány"
 msgid "Reduce color palette to"
 msgstr "A színpalettát a"
 
-#: src/components/ImageColorPicker.tsx:454
-#: src/components/ImageColorPicker.tsx:483
+#: src/components/ImageColorPicker.tsx:457
+#: src/components/ImageColorPicker.tsx:486
 msgid "Reduce colors"
 msgstr "Színek csökkentése"
 
-#: src/components/ImageColorPicker.tsx:455
-#: src/components/ImageColorPicker.tsx:481
+#: src/components/ImageColorPicker.tsx:458
+#: src/components/ImageColorPicker.tsx:484
 msgid "Reduce the number of colors in the photo"
 msgstr "Csökkentsd a színek számát a fotón"
 
@@ -1043,16 +1055,16 @@ msgstr "Visszaverődés"
 msgid "Remove"
 msgstr "Eltávolít"
 
-#: src/components/palette/PaletteGrid.tsx:118
+#: src/components/palette/PaletteGrid.tsx:117
 msgid "Remove all"
 msgstr "Összes eltávolítása"
 
-#: src/components/palette/PaletteGrid.tsx:111
+#: src/components/palette/PaletteGrid.tsx:110
 msgid "Remove all color mixtures"
 msgstr "Távolítson el minden színkeveréket"
 
 #: src/components/ImageColorAdjustment.tsx:384
-#: src/components/messages.ts:40
+#: src/components/messages.ts:42
 msgid "Remove background"
 msgstr "Háttér eltávolítása"
 
@@ -1065,9 +1077,9 @@ msgstr "Eltávolítás a palettáról"
 msgid "Remove the color mixture"
 msgstr "Távolítsa el a színkeveréket"
 
-#: src/components/CustomColorBrandCreator.tsx:178
-#: src/components/CustomColorBrandCreator.tsx:186
-#: src/components/CustomColorBrandCreator.tsx:189
+#: src/components/CustomColorBrandCreator.tsx:179
+#: src/components/CustomColorBrandCreator.tsx:187
+#: src/components/CustomColorBrandCreator.tsx:190
 msgid "Required"
 msgstr "Szükséges"
 
@@ -1079,8 +1091,8 @@ msgstr "iOS 16.4+ vagy iPadOS 16.4+ szükséges hozzá."
 msgid "Requires macOS Sonoma or later."
 msgstr "macOS Sonoma vagy újabb rendszer szükséges hozzá."
 
-#: src/components/ImagePerspectiveCorrection.tsx:208
-#: src/components/ImagePerspectiveCorrection.tsx:247
+#: src/components/ImagePerspectiveCorrection.tsx:228
+#: src/components/ImagePerspectiveCorrection.tsx:268
 msgid "Reset"
 msgstr "Átszed"
 
@@ -1093,8 +1105,8 @@ msgstr "Térjen vissza a <0>{paletteLabel}</0> lapra."
 msgid "Return to the <0>{tabLabel}</0> tab."
 msgstr "Térjen vissza a <0>{tabLabel}</0> lapra."
 
-#: src/components/ImagePerspectiveCorrection.tsx:212
-#: src/components/ImagePerspectiveCorrection.tsx:255
+#: src/components/ImagePerspectiveCorrection.tsx:232
+#: src/components/ImagePerspectiveCorrection.tsx:301
 msgid "Rotate"
 msgstr "Forog"
 
@@ -1102,23 +1114,23 @@ msgstr "Forog"
 msgid "Saturation (%)"
 msgstr "Telítettség (%)"
 
-#: src/components/ColorMixingChart.tsx:117
-#: src/components/CustomColorBrandCreator.tsx:489
+#: src/components/ColorMixingChart.tsx:118
+#: src/components/CustomColorBrandCreator.tsx:490
 #: src/components/ImageBackgroundRemoval.tsx:233
-#: src/components/ImageBackgroundRemoval.tsx:262
+#: src/components/ImageBackgroundRemoval.tsx:263
 #: src/components/ImageBlurred.tsx:153
-#: src/components/ImageBlurred.tsx:165
+#: src/components/ImageBlurred.tsx:166
 #: src/components/ImageColorAdjustment.tsx:360
 #: src/components/ImageGrid.tsx:74
-#: src/components/ImageGrid.tsx:89
-#: src/components/ImageLimitedPalette.tsx:140
+#: src/components/ImageGrid.tsx:90
+#: src/components/ImageLimitedPalette.tsx:141
 #: src/components/ImageOutline.tsx:246
-#: src/components/ImageOutline.tsx:261
-#: src/components/ImagePerspectiveCorrection.tsx:224
-#: src/components/ImagePerspectiveCorrection.tsx:265
+#: src/components/ImageOutline.tsx:262
+#: src/components/ImagePerspectiveCorrection.tsx:244
+#: src/components/ImagePerspectiveCorrection.tsx:276
 #: src/components/ImageStyleTransfer.tsx:186
 #: src/components/ImageTonalValues.tsx:116
-#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageTonalValues.tsx:132
 msgid "Save"
 msgstr "Megment"
 
@@ -1131,12 +1143,12 @@ msgid "Save changes to the color set?"
 msgstr "Menti a színkészlet módosításait?"
 
 #: src/components/ImageColorAdjustment.tsx:296
-#: src/components/ImagePerspectiveCorrection.tsx:169
+#: src/components/ImagePerspectiveCorrection.tsx:186
 msgid "Save expanded to 1.91:1"
 msgstr "A mentés 1,91:1-re bővítve"
 
 #: src/components/ImageColorAdjustment.tsx:288
-#: src/components/ImagePerspectiveCorrection.tsx:161
+#: src/components/ImagePerspectiveCorrection.tsx:178
 msgid "Save expanded to 4:5"
 msgstr "A mentés 4:5-re bővítve"
 
@@ -1152,7 +1164,7 @@ msgstr "QR-kód beolvasása"
 msgid "Scan QR code"
 msgstr "QR-kód beolvasása"
 
-#: src/components/ImagePerspectiveCorrection.tsx:108
+#: src/components/ImagePerspectiveCorrection.tsx:109
 msgid "Select 4 points to correct perspective distortion"
 msgstr "Válasszon 4 pontot a perspektíva torzításának korrigálásához"
 
@@ -1160,7 +1172,7 @@ msgstr "Válasszon 4 pontot a perspektíva torzításának korrigálásához"
 msgid "Select a photo to adjust white balance and colors"
 msgstr "Válasszon ki egy fényképet a fehéregyensúly és a színek beállításához"
 
-#: src/components/ImagePerspectiveCorrection.tsx:184
+#: src/components/ImagePerspectiveCorrection.tsx:201
 msgid "Select a photo to correct the perspective"
 msgstr "Válasszon ki egy fényképet a perspektíva korrigálásához"
 
@@ -1176,7 +1188,7 @@ msgstr "Válasszon ki egy referenciafotót az eszközről a festéshez"
 msgid "Select a style to transfer to your reference photo"
 msgstr "Válassza ki a referenciafotóra átvinni kívánt stílust"
 
-#: src/components/CustomColorBrandCreator.tsx:417
+#: src/components/CustomColorBrandCreator.tsx:418
 msgid "Select an image that contains a color chart"
 msgstr "Színdiagramot tartalmazó kép kiválasztása"
 
@@ -1201,11 +1213,11 @@ msgid "Select color"
 msgstr "Szín kiválasztása"
 
 #: src/components/color-set/ColorCascader.tsx:107
-#: src/components/color-set/ColorSelect.tsx:118
+#: src/components/color-set/ColorSelect.tsx:105
 msgid "Select colors"
 msgstr "Válasszon színeket"
 
-#: src/components/ColorMixingChart.tsx:135
+#: src/components/ColorMixingChart.tsx:136
 msgid "Select colors to build a mixing chart"
 msgstr "Válassz színeket keverési táblázat elkészítéséhez"
 
@@ -1225,7 +1237,7 @@ msgstr "Válasszon a legutóbbi színkészletek közül"
 msgid "Select from your recent color sets or create a new one."
 msgstr "Válasszon a legutóbbi színkészletek közül, vagy hozzon létre egy újat."
 
-#: src/components/CustomColorBrandCreator.tsx:422
+#: src/components/CustomColorBrandCreator.tsx:423
 msgid "Select image"
 msgstr "Kép kiválasztása"
 
@@ -1240,7 +1252,7 @@ msgstr "Alkatrész kiválasztása"
 #: src/components/ImageBackgroundRemoval.tsx:211
 #: src/components/ImageChooser.tsx:93
 #: src/components/ImageColorAdjustment.tsx:350
-#: src/components/ImagePerspectiveCorrection.tsx:194
+#: src/components/ImagePerspectiveCorrection.tsx:211
 msgid "Select photo"
 msgstr "Fénykép kiválasztása"
 
@@ -1282,7 +1294,7 @@ msgstr "A szekció lejárt"
 msgid "Set as background"
 msgstr "Beállítás háttérként"
 
-#: src/components/ImageLimitedPalette.tsx:149
+#: src/components/ImageLimitedPalette.tsx:150
 msgid "Set as main color set"
 msgstr "Beállítás fő színkészletként"
 
@@ -1317,7 +1329,7 @@ msgstr "Ossza meg ezt a színkészletet"
 msgid "Share your color set"
 msgstr "Ossza meg színkészletét"
 
-#: src/components/ImageColorPicker.tsx:421
+#: src/components/ImageColorPicker.tsx:422
 msgid "Show areas on the photo that match this color"
 msgstr "Mutassuk meg a képen azokat a részeket, amelyek megfelelnek ennek a színnek"
 
@@ -1325,7 +1337,7 @@ msgstr "Mutassuk meg a képen azokat a részeket, amelyek megfelelnek ennek a sz
 msgid "Show grid"
 msgstr "Rács megjelenítése"
 
-#: src/components/ImageColorPicker.tsx:420
+#: src/components/ImageColorPicker.tsx:421
 msgid "Show matching areas"
 msgstr "Megjelenítési egyeztetési területek"
 
@@ -1346,7 +1358,7 @@ msgstr "Hasonlóság"
 msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
 msgstr "A hasonlósági mód összehasonlítja a cél és a javasolt színeket. Keverés módban a szín azon részei jelennek meg, amelyek a keveréket alkotják."
 
-#: src/components/messages.ts:31
+#: src/components/messages.ts:33
 msgid "Simplified"
 msgstr "Egyszerűsített"
 
@@ -1362,9 +1374,9 @@ msgstr "Enyhén fedje át a különböző színű pasztell területeket, és fin
 msgid "Small"
 msgstr "Kicsi"
 
-#: src/components/color-set/ColorSelect.tsx:130
-#: src/components/ColorMixingChart.tsx:90
-#: src/components/ImageColorPicker.tsx:442
+#: src/components/color-set/ColorSelect.tsx:118
+#: src/components/ColorMixingChart.tsx:91
+#: src/components/ImageColorPicker.tsx:444
 #: src/components/palette/PaletteGrid.tsx:129
 msgid "Sort"
 msgstr "Fajta"
@@ -1407,9 +1419,9 @@ msgstr "Még mindig gondjaid vannak? Kérjük, tekintse meg ezt a <0>hibakeresé
 msgid "Storage usage"
 msgstr "Tárhely használat"
 
-#: src/components/ImagePerspectiveCorrection.tsx:187
-msgid "Straightens skewed photos and removes unwanted edges. Select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
-msgstr "Kiegyenesíti a ferde fényképeket, és eltávolítja a nem kívánt szegélyeket. Jelöljön ki 4 pontot a perspektíva torzításának javításához, majd opcionálisan húzza a margókat a kép kivágásához."
+#: src/components/ImagePerspectiveCorrection.tsx:204
+msgid "Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
+msgstr "Kiegyenesíti a ferde fotókat, és eltávolítja a nem kívánt széleket. Használj automatikus detektálást vagy válassz 4 pontot a perspektíva torzításához, majd opcionálisan húzd a margókat a kép vágásához."
 
 #: src/components/ImageBlurred.tsx:123
 msgid "Strength"
@@ -1460,7 +1472,7 @@ msgstr "A színkészletből keverni kívánt szín. Válasszon ki egy színt a k
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
 msgstr "A kurzor körüli kör alakú terület átmérője, amely az adott területen lévő képpontok átlagos színének kiszámítására szolgál."
 
-#: src/components/CustomColorBrandCreator.tsx:435
+#: src/components/CustomColorBrandCreator.tsx:436
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
 msgstr "A kurzor körüli kör alakú terület átmérője, amely a területen belüli pixelek átlagos színének kiszámítására szolgál."
 
@@ -1524,7 +1536,7 @@ msgstr "A {tabLabel} funkció használatához válasszon ki egy referenciafotót
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with."
 msgstr "A {tabLabel} funkció használatához válaszd ki a támogatott művészeti médiumot és a színeket, amelyekkel festhetsz."
 
-#: src/components/messages.ts:30
+#: src/components/messages.ts:32
 msgid "Tonal values"
 msgstr "Tónusértékek"
 
@@ -1591,15 +1603,15 @@ msgstr "Meleg – Algoritmikus becslés; A művészi felfogás változhat."
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "Az akvarell vízzel hígítható, hogy átlátszóbb legyen."
 
-#: src/components/messages.ts:47
+#: src/components/messages.ts:49
 msgid "Watercolor Paint"
 msgstr "Akvarell festék"
 
-#: src/components/messages.ts:52
+#: src/components/messages.ts:54
 msgid "Watercolor Pencils"
 msgstr "Akvarell ceruzák"
 
-#: src/components/messages.ts:55
+#: src/components/messages.ts:57
 msgid "Wax Pastel"
 msgstr "Viaszpasztell"
 
@@ -1622,13 +1634,13 @@ msgid "White"
 msgstr "Fehér"
 
 #: src/components/ImageColorAdjustment.tsx:393
-#: src/components/ImagePerspectiveCorrection.tsx:236
-#: src/components/ImagePerspectiveCorrection.tsx:274
-#: src/components/messages.ts:39
+#: src/components/ImagePerspectiveCorrection.tsx:256
+#: src/components/ImagePerspectiveCorrection.tsx:285
+#: src/components/messages.ts:41
 msgid "White balance"
 msgstr "Fehéregyensúly"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:63
 msgid "White paper or canvas"
 msgstr "Fehér papír vagy vászon"
 
@@ -1644,9 +1656,9 @@ msgstr "Szélesség"
 #: src/components/color/PaletteColorMixtureCard.tsx:105
 #: src/components/ColorSetChooser.tsx:229
 #: src/components/ColorSetChooser.tsx:720
-#: src/components/CustomColorBrandCreator.tsx:499
+#: src/components/CustomColorBrandCreator.tsx:500
 #: src/components/image/RecentImageCard.tsx:73
-#: src/components/palette/PaletteGrid.tsx:114
+#: src/components/palette/PaletteGrid.tsx:113
 #: src/components/storage/ClearStorage.tsx:62
 #: src/components/storage/ClearStorage.tsx:75
 msgid "Yes"
