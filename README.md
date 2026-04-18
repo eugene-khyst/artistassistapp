@@ -27,6 +27,7 @@ ArtistAssistApp offers the following features:
 
 - Match any color from your photo or learn how to accurately mix it
 - Mix any colors of any brands in any proportions
+- Generate a color mixing chart from any subset of your colors to plan mixes without wasting paint
 - Automatically build a palette from a photo with the best matching color mixtures
 - Save & access your favorite color mixes instantly
 - Convert photos to clean outlines with ease
@@ -66,14 +67,19 @@ following:
 - the average color of the circular area of the image
 - calculation of color similarity by comparing spectral reflections (weighted geometric mean of angular similarity (cosine) and Euclidean distance)
 - sampling point detection via Chamfer 3-4 distance transform (finds the optimal point per color region)
+- greedy merging of sampling points by Oklab chroma and ΔE to select minimal, perceptually distinct palette entries
 - vector operations
 - WebGL multi-pass rendering
 - two-pass one-dimensional Gaussian blur (WebGL)
 - Sobel operator for edge detection (WebGL)
+- separable grayscale dilation (max morphology) for edge thickening (WebGL)
 - threshold filter based on perceived lightness (WebGL)
+- Otsu's method for automatic threshold selection in Oklab lightness (CPU)
 - Kuwahara blur filter (WebGL)
 - color match filter using Oklab Euclidean distance (WebGL)
 - color quantization (over-quantize by recursive bucket splitting, then merge closest in Oklab)
+- blue noise ordered dithering with a precomputed threshold texture
+- image resampling via bilinear, bicubic and Lanczos interpolation (WebGL)
 - adjusting white balance using the percentile and reference methods (WebGL)
 - adjusting saturation (WebGL)
 - adjusting color levels (WebGL)

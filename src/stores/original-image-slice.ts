@@ -29,7 +29,7 @@ import {blobToImageFile, type ImageFile, imageFileToFile} from '~/src/services/i
 import type {SampleImageDefinition} from '~/src/services/image/sample-images';
 import type {ColorMatchImageSlice} from '~/src/stores/color-match-image-slice';
 import {TabKey} from '~/src/tabs';
-import {createImageBitmapResizedTotalPixels, IMAGE_SIZE} from '~/src/utils/graphics';
+import {createImageBitmapAndResize, IMAGE_SIZE, ResizeImage} from '~/src/utils/graphics';
 
 import type {BlurredImagesSlice} from './blurred-images-slice';
 import type {ColorMixerSlice} from './color-mixer-slice';
@@ -120,9 +120,12 @@ export const createOriginalImageSlice: StateCreator<
       similarColors: [],
     });
     await get().loadPaletteColorMixtures();
-    const [originalImage] = originalImageFile
-      ? await createImageBitmapResizedTotalPixels(originalImageFile, IMAGE_SIZE['2K'])
-      : [null];
+    const originalImage = originalImageFile
+      ? await createImageBitmapAndResize(
+          originalImageFile,
+          ResizeImage.resizeToPixelCount(IMAGE_SIZE['2K'])
+        )
+      : null;
     set({
       originalImage,
       isOriginalImageLoading: false,

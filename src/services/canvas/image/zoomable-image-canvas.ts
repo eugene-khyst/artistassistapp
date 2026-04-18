@@ -19,9 +19,10 @@
 import {saveAs} from 'file-saver';
 
 import {Canvas} from '~/src/services/canvas/canvas';
-import {clamp} from '~/src/services/math/clamp';
 import {Rectangle, Vector} from '~/src/services/math/geometry';
+import type {DrawImageSource} from '~/src/utils/graphics';
 import {offscreenCanvasToBlob} from '~/src/utils/graphics';
+import {clamp} from '~/src/utils/math-utils';
 
 export interface ZoomableImageCanvasProps {
   zoomFactor?: number;
@@ -30,7 +31,7 @@ export interface ZoomableImageCanvasProps {
 }
 
 export class ZoomableImageCanvas extends Canvas {
-  protected images: ImageBitmap[] = [];
+  protected images: DrawImageSource[] = [];
   protected imageDimensions: Rectangle[] = [];
   protected imageIndex = 0;
   protected offset = Vector.ZERO;
@@ -98,7 +99,7 @@ export class ZoomableImageCanvas extends Canvas {
     });
   }
 
-  static imageDimension(image: ImageBitmap | null): Rectangle {
+  static imageDimension(image: DrawImageSource | null): Rectangle {
     return image ? new Rectangle(new Vector(image.width, image.height)) : Rectangle.ZERO;
   }
 
@@ -128,7 +129,7 @@ export class ZoomableImageCanvas extends Canvas {
     this.requestRedraw();
   }
 
-  protected getImage(images?: ImageBitmap[]): ImageBitmap | null {
+  protected getImage(images?: DrawImageSource[]): DrawImageSource | null {
     images ??= this.images;
     return images.length > this.imageIndex ? images[this.imageIndex]! : null;
   }
@@ -175,9 +176,9 @@ export class ZoomableImageCanvas extends Canvas {
 
   protected drawImage(
     ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
-    images?: ImageBitmap[]
+    images?: DrawImageSource[]
   ): void {
-    const image: ImageBitmap | null = this.getImage(images);
+    const image: DrawImageSource | null = this.getImage(images);
     if (image) {
       const {center}: Rectangle = this.getImageDimension();
       ctx.drawImage(image, -center.x, -center.y);
@@ -210,10 +211,8 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   private getMinZoom(): number {
-    const image: ImageBitmap | OffscreenCanvas | null = this.getImage();
-    return !image
-      ? 1
-      : Math.min(this.canvas.width / image.width, this.canvas.height / image.height);
+    const image: DrawImageSource | null = this.getImage();
+    return image ? Math.min(this.canvas.width / image.width, this.canvas.height / image.height) : 1;
   }
 
   private clampZoom(zoom: number): number {
@@ -391,7 +390,7 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   protected convertToOffscreenCanvas(): OffscreenCanvas | null {
-    const image: ImageBitmap | OffscreenCanvas | null = this.getImage();
+    const image: DrawImageSource | null = this.getImage();
     if (!image) {
       return null;
     }

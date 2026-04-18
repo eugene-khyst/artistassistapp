@@ -16,31 +16,44 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-  gaussianBlurRenderPasses,
-  type KernelSize,
-} from '~/src/services/image/filter/gaussian-blur-webgl';
+import {dilationRenderPasses} from '~/src/services/image/filter/dilation-webgl';
+import {gaussianBlurRenderPasses} from '~/src/services/image/filter/gaussian-blur-webgl';
+import type {KernelSize} from '~/src/services/image/filter/types';
+import type {RenderPass} from '~/src/services/image/filter/webgl-renderer';
 import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
+import type {DrawImageSource} from '~/src/utils/graphics';
 import {copyOffscreenCanvas} from '~/src/utils/graphics';
 import type {Size} from '~/src/utils/types';
 
+import dilationFragmentShaderSource from './glsl/dilation.glsl';
 import gaussianBlurFragmentShaderSource from './glsl/gaussian-blur.glsl';
 import sobelOperatorFragmentShaderSource from './glsl/sobel-operator.glsl';
 
-const GAUSSIAN_BLUR_KERNEL_SIZE: KernelSize = 5;
+export interface SobelParams {
+  gaussianBlurKernelSize?: KernelSize;
+  dilationKernelSize?: KernelSize;
+}
 
 export function sobelEdgeDetectionWebGL(
-  image: ImageBitmap,
-  gaussianBlurKernelSize = GAUSSIAN_BLUR_KERNEL_SIZE
-): ImageBitmap {
+  image: DrawImageSource,
+  {gaussianBlurKernelSize = 5, dilationKernelSize = 3}: SobelParams = {}
+): OffscreenCanvas {
   const renderer = new WebGLRenderer(
-    [gaussianBlurFragmentShaderSource, sobelOperatorFragmentShaderSource],
-    [['u_texelSize', 'u_kernel', 'u_kernelSize', 'u_direction'], ['u_texelSize']],
+    [
+      gaussianBlurFragmentShaderSource,
+      sobelOperatorFragmentShaderSource,
+      dilationFragmentShaderSource,
+    ],
+    [
+      ['u_texelSize', 'u_kernel', 'u_kernelSize', 'u_direction'],
+      ['u_texelSize'],
+      ['u_texelSize', 'u_kernelSize', 'u_direction'],
+    ],
     image
   );
   const {width, height} = image;
   const texelSize: Size = [1.0 / width, 1.0 / height];
-  renderer.render([
+  const renderPasses: RenderPass[] = [
     ...gaussianBlurRenderPasses(texelSize, gaussianBlurKernelSize, 0),
     {
       programIndex: 1,
@@ -48,8 +61,10 @@ export function sobelEdgeDetectionWebGL(
         gl.uniform2f(locations.get('u_texelSize')!, ...texelSize);
       },
     },
-  ]);
-  const resultImage = copyOffscreenCanvas(renderer.canvas).transferToImageBitmap();
+    ...dilationRenderPasses(texelSize, dilationKernelSize, 2),
+  ];
+  renderer.render(renderPasses);
+  const result = copyOffscreenCanvas(renderer.canvas);
   renderer.cleanUp();
-  return resultImage;
+  return result;
 }

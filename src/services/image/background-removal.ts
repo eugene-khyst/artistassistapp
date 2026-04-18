@@ -17,12 +17,13 @@
  */
 
 import {Interpolation, interpolationWebGL} from '~/src/services/image/filter/interpolation-webgl';
+import {imageBitmapToImageData} from '~/src/services/ml/image-transformer';
 import type {Float32Tensor} from '~/src/services/ml/tensor';
 import {imageDataToFloat32Tensor} from '~/src/services/ml/tensor';
 import type {OnnxModel} from '~/src/services/ml/types';
 import {runInferenceWorker} from '~/src/services/ml/worker/inference-worker-manager';
 import type {FetchProgressCallback} from '~/src/utils/fetch';
-import {applyMask, imageBitmapToImageData} from '~/src/utils/graphics';
+import {applyMask} from '~/src/utils/graphics';
 
 export async function removeBackground(
   blob: Blob,
@@ -31,51 +32,51 @@ export async function removeBackground(
   signal?: AbortSignal
 ): Promise<OffscreenCanvas> {
   console.time('background-removal');
-  const {url: modelUrl, resolution, standardDeviation, mean} = model;
+  const {url: modelUrl, outputName} = model;
   const originalImage = await createImageBitmap(blob);
-  const {width: originalWidth, height: originalHeight} = originalImage;
-  const resizedImage = await createImageBitmap(originalImage, {
-    resizeWidth: resolution,
-    resizeHeight: resolution,
-  });
-  const [imageData] = imageBitmapToImageData(resizedImage);
-  resizedImage.close();
-  const inputTensor = imageDataToFloat32Tensor(imageData, standardDeviation, mean);
+  const [imageData] = imageBitmapToImageData([originalImage], model);
+  const inputTensor = imageDataToFloat32Tensor(imageData!, model);
   const [outputTensor] = await runInferenceWorker(
     modelUrl,
     [[inputTensor]],
+    outputName,
     progressCallback,
     signal
   );
-  const mask: OffscreenCanvas = float32TensorToMask(
+  const mask: ImageBitmap = await float32TensorToMask(
     outputTensor!,
-    resolution!,
-    originalWidth,
-    originalHeight
+    imageData!.width,
+    imageData!.height,
+    originalImage.width,
+    originalImage.height
   );
   const resultCanvas: OffscreenCanvas = applyMask(originalImage, mask);
   originalImage.close();
+  mask.close();
   console.timeEnd('background-removal');
   return resultCanvas;
 }
 
-function float32TensorToMask(
+async function float32TensorToMask(
   {data: maskData}: Float32Tensor,
-  resolution: number,
-  width: number,
-  height: number
-): OffscreenCanvas {
-  const totalPixels = resolution * resolution;
-  const data = new Uint8ClampedArray(4 * totalPixels).fill(255);
-  for (let i = 0; i < totalPixels; i++) {
+  origWidth: number,
+  origHeight: number,
+  targetWidth: number,
+  targetHeight: number
+): Promise<ImageBitmap> {
+  const pixelCount = origWidth * origHeight;
+  const data = new Uint8ClampedArray(4 * pixelCount).fill(255);
+  for (let i = 0; i < pixelCount; i++) {
     const j = 4 * i;
     const alpha = maskData[i]! * 255;
     data[j + 3] = alpha;
   }
-  const canvas = new OffscreenCanvas(resolution, resolution);
-  const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d')!;
-  ctx.putImageData(new ImageData(data, resolution, resolution), 0, 0);
-  return interpolationWebGL(canvas, width, height, Interpolation.Bilinear);
+  return interpolationWebGL(
+    await createImageBitmap(new ImageData(data, origWidth, origHeight)),
+    targetWidth,
+    targetHeight,
+    Interpolation.Bilinear
+  ).transferToImageBitmap();
 }
 
 export function fillBackgroundWithColor(canvas: OffscreenCanvas, color: string): void {

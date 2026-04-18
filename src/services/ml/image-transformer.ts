@@ -17,73 +17,76 @@
  */
 
 import {Interpolation, interpolationWebGL} from '~/src/services/image/filter/interpolation-webgl';
-import {clamp} from '~/src/services/math/clamp';
 import {float32TensorToImageData, imageDataToFloat32Tensor} from '~/src/services/ml/tensor';
 import type {OnnxModel} from '~/src/services/ml/types';
 import {runInferenceWorker} from '~/src/services/ml/worker/inference-worker-manager';
 import type {FetchProgressCallback} from '~/src/utils/fetch';
+import type {DrawImageSource} from '~/src/utils/graphics';
 import {
-  createImageBitmapResizedTotalPixels,
+  DrawImage,
+  drawImageToOffscreenCanvas,
   IMAGE_SIZE,
-  imageBitmapToImageData,
-  resizeAndCrop,
+  offscreenCanvasToImageData,
 } from '~/src/utils/graphics';
+import {clamp} from '~/src/utils/math-utils';
 
-const MAX_SCALE_FACTOR = 3;
+const MAX_SCALE = 3;
 
 export async function transformImage(
-  images: ImageBitmap[],
+  images: DrawImageSource[],
   model: OnnxModel,
   progressCallback?: FetchProgressCallback,
   signal?: AbortSignal
-): Promise<OffscreenCanvas> {
-  const {url: modelUrl, resolution, standardDeviation, mean} = model;
-  let imageDataArray: ImageData[];
-  let width = 0;
-  let height = 0;
-  if (resolution) {
-    imageDataArray = images.map((image: ImageBitmap): ImageData => {
-      const [imageData] = imageBitmapToImageData(image, resizeAndCrop(resolution, resolution));
-      return imageData;
-    });
-    width = height = resolution;
-  } else {
-    imageDataArray = await Promise.all(
-      images.map(async (image): Promise<ImageData> => {
-        const [resizedImage] = await createImageBitmapResizedTotalPixels(image, IMAGE_SIZE.SD);
-        const [imageData] = imageBitmapToImageData(resizedImage);
-        resizedImage.close();
-        return imageData;
-      })
-    );
-    const [image] = images;
-    ({width, height} = image!);
-  }
-  const scaleFactor: number = clamp(
-    Math.sqrt(IMAGE_SIZE.HD / (width * height)),
-    1,
-    MAX_SCALE_FACTOR
-  );
-  const outputWidth = Math.trunc(scaleFactor * width);
-  const outputHeight = Math.trunc(scaleFactor * height);
-  const inputTensors = imageDataArray.map(imageData =>
-    imageDataToFloat32Tensor(imageData, standardDeviation, mean)
-  );
+): Promise<ImageBitmap> {
+  const {url: modelUrl, outputName} = model;
+  const imageDataArray: ImageData[] = imageBitmapToImageData(images, model);
+  const [imageData] = imageDataArray;
+  const {width, height} = imageData!;
+  const scale: number = clamp(Math.sqrt(IMAGE_SIZE['2K'] / (width * height)), 1, MAX_SCALE);
+  const resizeWidth = Math.round(scale * width);
+  const resizeHeight = Math.round(scale * height);
+  const inputTensors = imageDataArray.map(imageData => imageDataToFloat32Tensor(imageData, model));
   const [outputTensor] = await runInferenceWorker(
     modelUrl,
     [inputTensors],
+    outputName,
     progressCallback,
     signal
   );
-  const outputImage = await createImageBitmap(
-    float32TensorToImageData(outputTensor!, standardDeviation, mean)
-  );
-  const resizedOutputImage: OffscreenCanvas = interpolationWebGL(
+  const outputImage = await createImageBitmap(float32TensorToImageData(outputTensor!, model));
+  const resizedOutputImage = interpolationWebGL(
     outputImage,
-    outputWidth,
-    outputHeight,
+    resizeWidth,
+    resizeHeight,
     Interpolation.Lanczos
-  );
+  ).transferToImageBitmap();
   outputImage.close();
   return resizedOutputImage;
+}
+
+export function imageBitmapToImageData(
+  images: DrawImageSource[],
+  {
+    resolution,
+    maxPixelCount = IMAGE_SIZE.SD,
+    inputSizeMultiple,
+    preserveAspectRatio = false,
+  }: OnnxModel
+): ImageData[] {
+  const [width, height] = Array.isArray(resolution) ? resolution : [resolution, resolution];
+  const drawImage =
+    width && height
+      ? preserveAspectRatio
+        ? DrawImage.resizeAndCrop(width, height)
+        : DrawImage.resizeToSize(width, height)
+      : DrawImage.resizeToPixelCount(maxPixelCount, inputSizeMultiple);
+  return images.map(
+    (image: DrawImageSource): ImageData =>
+      offscreenCanvasToImageData(
+        ...drawImageToOffscreenCanvas(image, {
+          willReadFrequently: true,
+          drawImage,
+        })
+      )
+  );
 }

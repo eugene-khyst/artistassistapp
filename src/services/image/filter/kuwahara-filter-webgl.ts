@@ -17,16 +17,17 @@
  */
 
 import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
+import type {DrawImageSource} from '~/src/utils/graphics';
 import {copyOffscreenCanvas} from '~/src/utils/graphics';
 import type {Size} from '~/src/utils/types';
 
 import fragmentShaderSource from './glsl/kuwahara-filter.glsl';
 
-export function kuwaharaFilterWebGL(image: ImageBitmap, radiuses: number[]): ImageBitmap[] {
+export function kuwaharaFilterWebGL(image: DrawImageSource, radiuses: number[]): OffscreenCanvas[] {
   const renderer = new WebGLRenderer([fragmentShaderSource], [['u_texelSize', 'u_radius']], image);
   const {width, height} = image;
   const texelSize: Size = [1.0 / width, 1.0 / height];
-  const resultImages = radiuses.map(radius => {
+  const results: OffscreenCanvas[] = radiuses.map(radius => {
     renderer.clear();
     renderer.render([
       {
@@ -36,8 +37,8 @@ export function kuwaharaFilterWebGL(image: ImageBitmap, radiuses: number[]): Ima
         },
       },
     ]);
-    return copyOffscreenCanvas(renderer.canvas).transferToImageBitmap();
+    return copyOffscreenCanvas(renderer.canvas);
   });
   renderer.cleanUp();
-  return resultImages;
+  return results;
 }

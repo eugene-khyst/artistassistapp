@@ -103,7 +103,7 @@ msgstr "A new version of the app is available and will be installed automaticall
 msgid "A new version of the application is available."
 msgstr "A new version of the application is available."
 
-#: src/components/ImageColorAdjustment.tsx:459
+#: src/components/ImageColorAdjustment.tsx:458
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 
@@ -169,7 +169,7 @@ msgstr "Application build hash"
 
 #: src/components/ColorMixingChart.tsx:156
 #: src/components/ImageLimitedPalette.tsx:133
-#: src/components/ImagePerspectiveCorrection.tsx:221
+#: src/components/ImagePerspectiveCorrection.tsx:222
 msgid "Apply"
 msgstr "Apply"
 
@@ -231,8 +231,8 @@ msgstr "At least one color is required"
 msgid "Authentication error"
 msgstr "Authentication error"
 
-#: src/components/ImagePerspectiveCorrection.tsx:218
-#: src/components/ImagePerspectiveCorrection.tsx:295
+#: src/components/ImagePerspectiveCorrection.tsx:219
+#: src/components/ImagePerspectiveCorrection.tsx:296
 msgid "Auto-detect"
 msgstr "Auto-detect"
 
@@ -245,13 +245,13 @@ msgstr "Automatic backup of color sets"
 msgid "Automatically find the best color mixtures for this photo"
 msgstr "Automatically find the best color mixtures for this photo"
 
-#: src/components/ImageColorAdjustment.tsx:435
+#: src/components/ImageColorAdjustment.tsx:434
 msgid "Average color of the white point area"
 msgstr "Average color of the white point area"
 
 #: src/components/ColorMixer.tsx:180
-#: src/components/ImageBackgroundRemoval.tsx:228
-#: src/components/ImageBackgroundRemoval.tsx:253
+#: src/components/ImageBackgroundRemoval.tsx:217
+#: src/components/ImageBackgroundRemoval.tsx:242
 #: src/components/ImageColorPicker.tsx:350
 msgid "Background"
 msgstr "Background"
@@ -304,7 +304,7 @@ msgstr "Check for updates"
 msgid "Clear cache"
 msgstr "Clear cache"
 
-#: src/components/ImageColorAdjustment.tsx:428
+#: src/components/ImageColorAdjustment.tsx:427
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 
@@ -395,7 +395,7 @@ msgstr "Copy"
 msgid "Copy and share this link"
 msgstr "Copy and share this link"
 
-#: src/components/ImageColorAdjustment.tsx:578
+#: src/components/ImageColorAdjustment.tsx:577
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Corrected estimation of the temperature of the light source in Kelvin"
 
@@ -522,8 +522,8 @@ msgstr "Error while fetching color brand data"
 msgid "Error while fetching color data"
 msgstr "Error while fetching color data"
 
-#: src/components/ImageBackgroundRemoval.tsx:101
-#: src/components/ImageOutline.tsx:99
+#: src/components/ImageBackgroundRemoval.tsx:90
+#: src/components/ImageOutline.tsx:92
 #: src/components/ImageStyleTransfer.tsx:84
 msgid "Error while fetching ML model data"
 msgstr "Error while fetching ML model data"
@@ -532,7 +532,7 @@ msgstr "Error while fetching ML model data"
 msgid "Error while fetching standard color set data"
 msgstr "Error while fetching standard color set data"
 
-#: src/components/ImageColorAdjustment.tsx:549
+#: src/components/ImageColorAdjustment.tsx:548
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Estimated temperature of the light source in Kelvin the image was taken with"
 
@@ -549,7 +549,7 @@ msgstr "Fill in the required fields"
 msgid "Finish editing"
 msgstr "Finish editing"
 
-#: src/components/ImageColorAdjustment.tsx:502
+#: src/components/ImageColorAdjustment.tsx:501
 msgid "Gamma"
 msgstr "Gamma"
 
@@ -582,7 +582,7 @@ msgid "Gouache"
 msgstr "Gouache"
 
 #: src/components/grid/GridControls.tsx:178
-#: src/components/ImageOutline.tsx:233
+#: src/components/ImageOutline.tsx:219
 #: src/components/messages.ts:35
 msgid "Grid"
 msgstr "Grid"
@@ -604,7 +604,7 @@ msgstr "If you are having trouble logging in, please read this <0>troubleshootin
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "If you don't save, changes to the color set may be lost."
 
-#: src/components/ImageBackgroundRemoval.tsx:291
+#: src/components/ImageBackgroundRemoval.tsx:280
 msgid "Image without background"
 msgstr "Image without background"
 
@@ -625,7 +625,7 @@ msgstr "Install ArtistAssistApp"
 msgid "Install update"
 msgstr "Install update"
 
-#: src/components/ImageColorAdjustment.tsx:577
+#: src/components/ImageColorAdjustment.tsx:576
 msgid "Intended color temperature (K)"
 msgstr "Intended color temperature (K)"
 
@@ -705,11 +705,11 @@ msgstr "Login failed"
 msgid "Login session is valid until {expirationText}"
 msgstr "Login session is valid until {expirationText}"
 
-#: src/components/ImageColorAdjustment.tsx:476
+#: src/components/ImageColorAdjustment.tsx:475
 msgid "Low input and high input"
 msgstr "Low input and high input"
 
-#: src/components/ImageColorAdjustment.tsx:523
+#: src/components/ImageColorAdjustment.tsx:522
 msgid "Low output and high output"
 msgstr "Low output and high output"
 
@@ -730,7 +730,7 @@ msgstr "Medium"
 msgid "Mid tone"
 msgstr "Mid tone"
 
-#: src/components/ImageColorAdjustment.tsx:501
+#: src/components/ImageColorAdjustment.tsx:500
 msgid "Midtones"
 msgstr "Midtones"
 
@@ -747,8 +747,8 @@ msgid "Mixture"
 msgstr "Mixture"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:101
-#: src/components/ImageBackgroundRemoval.tsx:215
-#: src/components/ImageOutline.tsx:206
+#: src/components/ImageBackgroundRemoval.tsx:204
+#: src/components/ImageOutline.tsx:192
 msgid "Mode"
 msgstr "Mode"
 
@@ -832,7 +832,8 @@ msgstr "Oil Pastel"
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Only a limited number of color brands are available in the free version"
 
-#: src/components/ImageBackgroundRemoval.tsx:197
+#: src/components/ImageBackgroundRemoval.tsx:186
+#: src/components/ImageOutline.tsx:179
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Only a limited number of modes are available in the free version"
 
@@ -865,11 +866,11 @@ msgstr "Or select from sample photos"
 msgid "Or select from your recent photos"
 msgstr "Or select from your recent photos"
 
-#: src/components/ImageColorAdjustment.tsx:548
+#: src/components/ImageColorAdjustment.tsx:547
 msgid "Original color temperature (K)"
 msgstr "Original color temperature (K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:284
+#: src/components/ImageBackgroundRemoval.tsx:273
 msgid "Original photo"
 msgstr "Original photo"
 
@@ -877,7 +878,7 @@ msgstr "Original photo"
 msgid "Outline"
 msgstr "Outline"
 
-#: src/components/ImageColorAdjustment.tsx:522
+#: src/components/ImageColorAdjustment.tsx:521
 msgid "Output levels"
 msgstr "Output levels"
 
@@ -905,12 +906,12 @@ msgstr "Patreon membership verification failed"
 msgid "Patron status"
 msgstr "Patron status"
 
-#: src/components/ImageColorAdjustment.tsx:307
-#: src/components/ImageColorAdjustment.tsx:409
+#: src/components/ImageColorAdjustment.tsx:306
+#: src/components/ImageColorAdjustment.tsx:408
 msgid "Percentile"
 msgstr "Percentile"
 
-#: src/components/ImageColorAdjustment.tsx:394
+#: src/components/ImageColorAdjustment.tsx:393
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 
@@ -967,14 +968,14 @@ msgstr "Press Share in Navigation bar"
 msgid "Press the <0>Add to palette</0> button next to the color mixture you like."
 msgstr "Press the <0>Add to palette</0> button next to the color mixture you like."
 
-#: src/components/ImageColorAdjustment.tsx:388
+#: src/components/ImageColorAdjustment.tsx:387
 msgid "Preview"
 msgstr "Preview"
 
 #: src/components/ImageGrid.tsx:71
 #: src/components/ImageGrid.tsx:84
-#: src/components/ImageOutline.tsx:238
-#: src/components/ImageOutline.tsx:256
+#: src/components/ImageOutline.tsx:224
+#: src/components/ImageOutline.tsx:242
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
 #: src/components/ImageTonalValues.tsx:126
@@ -998,18 +999,6 @@ msgstr "Privacy policy"
 #: src/components/loading/LoadingIndicator.tsx:54
 msgid "Processing..."
 msgstr "Processing..."
-
-#: src/components/ImageOutline.tsx:171
-msgid "Quality"
-msgstr "Quality"
-
-#: src/components/ImageOutline.tsx:200
-msgid "Quality mode is available to paid Patreon members only"
-msgstr "Quality mode is available to paid Patreon members only"
-
-#: src/components/ImageOutline.tsx:167
-msgid "Quick"
-msgstr "Quick"
 
 #: src/components/Help.tsx:237
 msgid "Quota"
@@ -1042,7 +1031,7 @@ msgid "Reduce the number of colors in the photo"
 msgstr "Reduce the number of colors in the photo"
 
 #: src/components/color/ColorSwatchDrawer.tsx:79
-#: src/components/ImageColorAdjustment.tsx:311
+#: src/components/ImageColorAdjustment.tsx:310
 msgid "Reference"
 msgstr "Reference"
 
@@ -1063,7 +1052,7 @@ msgstr "Remove all"
 msgid "Remove all color mixtures"
 msgstr "Remove all color mixtures"
 
-#: src/components/ImageColorAdjustment.tsx:384
+#: src/components/ImageColorAdjustment.tsx:383
 #: src/components/messages.ts:42
 msgid "Remove background"
 msgstr "Remove background"
@@ -1091,8 +1080,8 @@ msgstr "Requires iOS 16.4+ or iPadOS 16.4+."
 msgid "Requires macOS Sonoma or later."
 msgstr "Requires macOS Sonoma or later."
 
-#: src/components/ImagePerspectiveCorrection.tsx:228
-#: src/components/ImagePerspectiveCorrection.tsx:268
+#: src/components/ImagePerspectiveCorrection.tsx:229
+#: src/components/ImagePerspectiveCorrection.tsx:269
 msgid "Reset"
 msgstr "Reset"
 
@@ -1105,29 +1094,29 @@ msgstr "Return to the <0>{paletteLabel}</0> tab."
 msgid "Return to the <0>{tabLabel}</0> tab."
 msgstr "Return to the <0>{tabLabel}</0> tab."
 
-#: src/components/ImagePerspectiveCorrection.tsx:232
-#: src/components/ImagePerspectiveCorrection.tsx:301
+#: src/components/ImagePerspectiveCorrection.tsx:233
+#: src/components/ImagePerspectiveCorrection.tsx:302
 msgid "Rotate"
 msgstr "Rotate"
 
-#: src/components/ImageColorAdjustment.tsx:458
+#: src/components/ImageColorAdjustment.tsx:457
 msgid "Saturation (%)"
 msgstr "Saturation (%)"
 
 #: src/components/ColorMixingChart.tsx:118
 #: src/components/CustomColorBrandCreator.tsx:490
-#: src/components/ImageBackgroundRemoval.tsx:233
-#: src/components/ImageBackgroundRemoval.tsx:263
+#: src/components/ImageBackgroundRemoval.tsx:222
+#: src/components/ImageBackgroundRemoval.tsx:252
 #: src/components/ImageBlurred.tsx:153
 #: src/components/ImageBlurred.tsx:166
-#: src/components/ImageColorAdjustment.tsx:360
+#: src/components/ImageColorAdjustment.tsx:359
 #: src/components/ImageGrid.tsx:74
 #: src/components/ImageGrid.tsx:90
 #: src/components/ImageLimitedPalette.tsx:141
-#: src/components/ImageOutline.tsx:246
-#: src/components/ImageOutline.tsx:262
-#: src/components/ImagePerspectiveCorrection.tsx:244
-#: src/components/ImagePerspectiveCorrection.tsx:276
+#: src/components/ImageOutline.tsx:232
+#: src/components/ImageOutline.tsx:248
+#: src/components/ImagePerspectiveCorrection.tsx:245
+#: src/components/ImagePerspectiveCorrection.tsx:277
 #: src/components/ImageStyleTransfer.tsx:186
 #: src/components/ImageTonalValues.tsx:116
 #: src/components/ImageTonalValues.tsx:132
@@ -1142,13 +1131,13 @@ msgstr "Save & proceed"
 msgid "Save changes to the color set?"
 msgstr "Save changes to the color set?"
 
-#: src/components/ImageColorAdjustment.tsx:296
-#: src/components/ImagePerspectiveCorrection.tsx:186
+#: src/components/ImageColorAdjustment.tsx:295
+#: src/components/ImagePerspectiveCorrection.tsx:187
 msgid "Save expanded to 1.91:1"
 msgstr "Save expanded to 1.91:1"
 
-#: src/components/ImageColorAdjustment.tsx:288
-#: src/components/ImagePerspectiveCorrection.tsx:178
+#: src/components/ImageColorAdjustment.tsx:287
+#: src/components/ImagePerspectiveCorrection.tsx:179
 msgid "Save expanded to 4:5"
 msgstr "Save expanded to 4:5"
 
@@ -1168,15 +1157,15 @@ msgstr "Scan QR code"
 msgid "Select 4 points to correct perspective distortion"
 msgstr "Select 4 points to correct perspective distortion"
 
-#: src/components/ImageColorAdjustment.tsx:345
+#: src/components/ImageColorAdjustment.tsx:344
 msgid "Select a photo to adjust white balance and colors"
 msgstr "Select a photo to adjust white balance and colors"
 
-#: src/components/ImagePerspectiveCorrection.tsx:201
+#: src/components/ImagePerspectiveCorrection.tsx:202
 msgid "Select a photo to correct the perspective"
 msgstr "Select a photo to correct the perspective"
 
-#: src/components/ImageBackgroundRemoval.tsx:189
+#: src/components/ImageBackgroundRemoval.tsx:178
 msgid "Select a photo to remove the background from"
 msgstr "Select a photo to remove the background from"
 
@@ -1249,10 +1238,10 @@ msgstr "Select language"
 msgid "Select part"
 msgstr "Select part"
 
-#: src/components/ImageBackgroundRemoval.tsx:211
+#: src/components/ImageBackgroundRemoval.tsx:200
 #: src/components/ImageChooser.tsx:93
-#: src/components/ImageColorAdjustment.tsx:350
-#: src/components/ImagePerspectiveCorrection.tsx:211
+#: src/components/ImageColorAdjustment.tsx:349
+#: src/components/ImagePerspectiveCorrection.tsx:212
 msgid "Select photo"
 msgstr "Select photo"
 
@@ -1299,7 +1288,7 @@ msgid "Set as main color set"
 msgstr "Set as main color set"
 
 #: src/components/ImageBlurred.tsx:107
-#: src/components/ImageColorAdjustment.tsx:377
+#: src/components/ImageColorAdjustment.tsx:376
 msgid "Set as reference"
 msgstr "Set as reference"
 
@@ -1312,7 +1301,7 @@ msgstr "Set the color of the base layer for the glazing"
 msgid "Shadow"
 msgstr "Shadow"
 
-#: src/components/ImageColorAdjustment.tsx:475
+#: src/components/ImageColorAdjustment.tsx:474
 msgid "Shadows and highlights"
 msgstr "Shadows and highlights"
 
@@ -1419,7 +1408,7 @@ msgstr "Still having trouble? Please refer to this <0>troubleshooting guide</0>.
 msgid "Storage usage"
 msgstr "Storage usage"
 
-#: src/components/ImagePerspectiveCorrection.tsx:204
+#: src/components/ImagePerspectiveCorrection.tsx:205
 msgid "Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 
@@ -1627,15 +1616,15 @@ msgstr "When selecting more than {maxColorsFor2} colors in total, mixtures of tw
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 
-#: src/components/ImageBackgroundRemoval.tsx:157
-#: src/components/ImageColorAdjustment.tsx:442
+#: src/components/ImageBackgroundRemoval.tsx:146
+#: src/components/ImageColorAdjustment.tsx:441
 #: src/components/ImageColorPicker.tsx:382
 msgid "White"
 msgstr "White"
 
-#: src/components/ImageColorAdjustment.tsx:393
-#: src/components/ImagePerspectiveCorrection.tsx:256
-#: src/components/ImagePerspectiveCorrection.tsx:285
+#: src/components/ImageColorAdjustment.tsx:392
+#: src/components/ImagePerspectiveCorrection.tsx:257
+#: src/components/ImagePerspectiveCorrection.tsx:286
 #: src/components/messages.ts:41
 msgid "White balance"
 msgstr "White balance"
@@ -1644,7 +1633,7 @@ msgstr "White balance"
 msgid "White paper or canvas"
 msgstr "White paper or canvas"
 
-#: src/components/ImageColorAdjustment.tsx:434
+#: src/components/ImageColorAdjustment.tsx:433
 msgid "White point"
 msgstr "White point"
 
@@ -1680,7 +1669,8 @@ msgstr "You've selected color brands that are available to paid Patreon members 
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 
-#: src/components/ImageBackgroundRemoval.tsx:201
+#: src/components/ImageBackgroundRemoval.tsx:190
+#: src/components/ImageOutline.tsx:183
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "You've selected mode that is available to paid Patreon members only"
 

@@ -18,6 +18,7 @@
 
 import {invertColorsWebGL} from '~/src/services/image/filter/invert-colors-webgl';
 import type {Vector} from '~/src/services/math/geometry';
+import type {DrawImageSource} from '~/src/utils/graphics';
 import {IMAGE_SIZE} from '~/src/utils/graphics';
 
 import type {ZoomableImageCanvasProps} from './zoomable-image-canvas';
@@ -29,7 +30,7 @@ export interface OverlayDrawingCanvasProps extends ZoomableImageCanvasProps {
 
 export abstract class OverlayDrawingCanvas extends ZoomableImageCanvas {
   protected lineWidth: number;
-  private invertedImages: ImageBitmap[] = [];
+  private invertedImages: OffscreenCanvas[] = [];
 
   constructor(canvas: HTMLCanvasElement, props: OverlayDrawingCanvasProps = {}) {
     super(canvas, props);
@@ -39,7 +40,7 @@ export abstract class OverlayDrawingCanvas extends ZoomableImageCanvas {
 
   protected override onImagesLoaded(): void {
     console.time('invert-colors');
-    this.invertedImages = this.images.map((image: ImageBitmap): ImageBitmap => {
+    this.invertedImages = this.images.map((image: DrawImageSource): OffscreenCanvas => {
       return invertColorsWebGL(image);
     });
     console.timeEnd('invert-colors');
@@ -90,7 +91,7 @@ export abstract class OverlayDrawingCanvas extends ZoomableImageCanvas {
   }
 
   override convertToOffscreenCanvas(): OffscreenCanvas | null {
-    const image: ImageBitmap | OffscreenCanvas | null = this.getImage();
+    const image: DrawImageSource | null = this.getImage();
     if (!image) {
       return null;
     }

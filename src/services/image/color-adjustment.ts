@@ -17,6 +17,7 @@
  */
 
 import {adjustColorsWebGL} from '~/src/services/image/filter/color-adjustment-webgl';
+import type {DrawImageSource} from '~/src/utils/graphics';
 
 export interface AdjustmentParameters {
   saturation?: number;
@@ -30,12 +31,16 @@ export interface AdjustmentParameters {
 }
 
 export function getColorAdjustedImage(
-  image: ImageBitmap,
+  image: DrawImageSource,
   maxValues: number[],
   params: AdjustmentParameters
 ): ImageBitmap {
   console.time('color-adjustment');
-  const colorAdjustedImage: ImageBitmap = adjustColorsWebGL(image, maxValues, params);
+  const colorAdjustedImage: ImageBitmap = adjustColorsWebGL(
+    image,
+    maxValues,
+    params
+  ).transferToImageBitmap();
   console.timeEnd('color-adjustment');
   return colorAdjustedImage;
 }

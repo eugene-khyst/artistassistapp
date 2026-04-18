@@ -21,7 +21,8 @@ import type {StateCreator} from 'zustand';
 import {getPerspectiveCorrectionImage} from '~/src/services/image/perspective-correction';
 import type {Vector} from '~/src/services/math/geometry';
 import {
-  createImageBitmapResizedTotalPixels,
+  createImageBitmapAndResize,
+  ResizeImage,
   rotateImageBitmapClockwise,
 } from '~/src/utils/graphics';
 
@@ -60,9 +61,9 @@ export const createPerspectiveCorrectionSlice: StateCreator<
       set({
         isPerspectiveCorrectedImageLoading: true,
       });
-      [perspectiveUncorrectedImage] = await createImageBitmapResizedTotalPixels(
+      perspectiveUncorrectedImage = await createImageBitmapAndResize(
         imageFileToCorrectPerspective,
-        10e6
+        ResizeImage.resizeToPixelCount(10e6)
       );
     }
     set({

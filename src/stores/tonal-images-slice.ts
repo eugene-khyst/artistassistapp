@@ -26,7 +26,7 @@ export interface TonalImagesSlice {
   tonalImages: ImageBitmap[];
   isTonalImagesLoading: boolean;
 
-  loadTonalImages: () => Promise<void>;
+  loadTonalImages: () => void;
 }
 
 export const createTonalImagesSlice: StateCreator<
@@ -38,15 +38,15 @@ export const createTonalImagesSlice: StateCreator<
   tonalImages: [],
   isTonalImagesLoading: false,
 
-  loadTonalImages: async (): Promise<void> => {
-    const {originalImageFile, tonalImages} = get();
-    if (tonalImages.length || !originalImageFile) {
+  loadTonalImages: (): void => {
+    const {originalImage, tonalImages} = get();
+    if (tonalImages.length || !originalImage) {
       return;
     }
     set({
       isTonalImagesLoading: true,
     });
-    const newTonalImages = await getTonalValues(originalImageFile);
+    const newTonalImages = getTonalValues(originalImage);
     set({
       tonalImages: newTonalImages,
       isTonalImagesLoading: false,

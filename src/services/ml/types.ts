@@ -22,16 +22,30 @@ export enum OnnxModelType {
   StyleTransfer = 'style-transfer',
 }
 
+export type ColorChannelOrdering = 'RGB' | 'BGR';
+
+export enum PostProcessing {
+  MeanStdNormalization = 'mean-std-normalization',
+  Invert = 'invert',
+  ScaleTo255 = 'scale-to-255',
+}
+
 export interface OnnxModel {
   id: string;
   name: string;
   description?: string;
   image?: string;
   url: string;
-  resolution?: number;
+  numInputs?: 1 | 2;
+  resolution?: number | [number, number];
+  maxPixelCount?: number;
+  inputSizeMultiple?: number;
+  preserveAspectRatio?: boolean;
+  colorChannelOrdering?: ColorChannelOrdering;
   standardDeviation?: [number, number, number];
   mean?: [number, number, number];
-  numInputs?: 1 | 2;
+  outputName?: string;
+  postProcessing?: PostProcessing[];
   priority?: number;
   freeTier?: boolean;
 }

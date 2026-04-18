@@ -16,6 +16,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export function clamp(number: number, min: number, max: number): number {
-  return Math.min(Math.max(min, number), max);
-}
+export type KernelSize = 3 | 5 | 7 | 9 | 11 | 13 | 15 | 17 | 19 | 21 | 23 | 25;

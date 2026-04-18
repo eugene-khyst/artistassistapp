@@ -51,7 +51,7 @@ export const createTabSlice: StateCreator<
     await get().saveAppSettings({activeTabKey});
     set({activeTabKey});
     if (activeTabKey === TabKey.TonalValues) {
-      void get().loadTonalImages();
+      get().loadTonalImages();
     } else if (activeTabKey === TabKey.SimplifiedPhoto) {
       void get().loadBlurredImages();
     } else if (activeTabKey === TabKey.Outline) {

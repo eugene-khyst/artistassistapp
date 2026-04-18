@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {transfer} from 'comlink';
 import type {StateCreator} from 'zustand';
 
 import {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
@@ -27,6 +28,8 @@ import {mergeSimilarSamplingPoints, type SamplingPoint} from '~/src/services/ima
 import {colorQuantizationWorker} from '~/src/services/image/worker/color-quantization-worker-manager';
 import type {PaletteSlice, SaveToPaletteEntry} from '~/src/stores/palette-slice';
 import {TabKey} from '~/src/tabs';
+import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '~/src/utils/graphics';
+import {clamp} from '~/src/utils/math-utils';
 import {abortablePromise, createAbortError, isAbortError} from '~/src/utils/promise';
 
 import type {OriginalImageSlice} from './original-image-slice';
@@ -140,10 +143,22 @@ export const createColorMixerSlice: StateCreator<
       buildPaletteAbortController,
     });
     try {
-      const rawPoints: SamplingPoint[] = await colorQuantizationWorker.run(
-        worker => worker.getSamplingPoints(originalImage),
-        signal
+      const resizedImage = await resizeImageBitmap(
+        originalImage,
+        ResizeImage.resizeToPixelCount(IMAGE_SIZE.SD)
       );
+      const {width: resizeWidth, height: resizeHeight} = resizedImage;
+      const {width: origWidth, height: origHeight} = originalImage;
+      const rawPoints: SamplingPoint[] = (
+        await colorQuantizationWorker.run(
+          worker => worker.getSamplingPoints(transfer(resizedImage, [resizedImage])),
+          signal
+        )
+      ).map(({x, y, ...rest}) => ({
+        x: clamp(Math.round(x / (resizeWidth / origWidth)), 0, origWidth - 1),
+        y: clamp(Math.round(y / (resizeHeight / origHeight)), 0, origHeight - 1),
+        ...rest,
+      }));
 
       const targetColors: RgbTuple[] = rawPoints.map(({rgb}) => rgb);
       const similarColors: (SimilarColor | undefined)[] = await abortablePromise(

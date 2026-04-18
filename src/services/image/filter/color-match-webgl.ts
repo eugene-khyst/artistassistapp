@@ -19,15 +19,16 @@
 import {rgbToOklab} from '~/src/services/color/space/oklab';
 import {type RgbTuple} from '~/src/services/color/space/rgb';
 import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
+import type {DrawImageSource} from '~/src/utils/graphics';
 import {copyOffscreenCanvas} from '~/src/utils/graphics';
 
 import fragmentShaderSource from './glsl/color-match.glsl';
 
 export function colorMatchFilterWebGL(
-  image: ImageBitmap,
+  image: DrawImageSource,
   color: RgbTuple,
   threshold: number
-): ImageBitmap {
+): OffscreenCanvas {
   const renderer = new WebGLRenderer([fragmentShaderSource], [['u_oklab', 'u_threshold']], image);
   renderer.render([
     {
@@ -37,7 +38,7 @@ export function colorMatchFilterWebGL(
       },
     },
   ]);
-  const resultImage = copyOffscreenCanvas(renderer.canvas).transferToImageBitmap();
+  const result = copyOffscreenCanvas(renderer.canvas);
   renderer.cleanUp();
-  return resultImage;
+  return result;
 }

@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {transfer} from 'comlink';
 import type {StateCreator} from 'zustand';
 
 import {filterColorSet} from '~/src/services/color/colors';
@@ -26,6 +27,7 @@ import type {ColorMixerSlice} from '~/src/stores/color-mixer-slice';
 import type {ColorSetSlice} from '~/src/stores/color-set-slice';
 import type {TabSlice} from '~/src/stores/tab-slice';
 import {TabKey} from '~/src/tabs';
+import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '~/src/utils/graphics';
 import {isAbortError} from '~/src/utils/promise';
 
 import type {OriginalImageSlice} from './original-image-slice';
@@ -68,8 +70,13 @@ export const createLimitedPaletteImageSlice: StateCreator<
     });
     try {
       prev?.close();
+      const resizedImage = await resizeImageBitmap(
+        originalImage,
+        ResizeImage.resizeToPixelCount(IMAGE_SIZE.SD)
+      );
       const {quantizedImage} = await colorQuantizationWorker.run(
-        worker => worker.getLimitedPaletteImage(originalImage, limitedColorSet),
+        worker =>
+          worker.getLimitedPaletteImage(transfer(resizedImage, [resizedImage]), limitedColorSet),
         limitedPaletteAbortController.signal
       );
       set({

@@ -60,12 +60,7 @@ export const createOutlineImageSlice: StateCreator<
   loadOutlineImage: async (): Promise<void> => {
     get().abortOutline();
     const {originalImage, outlineModel, outlineImage, auth} = get();
-    if (
-      outlineImage ||
-      !originalImage ||
-      outlineModel === undefined ||
-      (outlineModel && !hasAccessTo(auth?.user, outlineModel))
-    ) {
+    if (outlineImage || !originalImage || !outlineModel || !hasAccessTo(auth?.user, outlineModel)) {
       return;
     }
     const outlineAbortController = new AbortController();

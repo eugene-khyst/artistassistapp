@@ -16,12 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {transfer} from 'comlink';
 import type {StateCreator} from 'zustand';
 
 import {blobToImageFile, type ImageFile} from '~/src/services/image/image-file';
 import {colorQuantizationWorker} from '~/src/services/image/worker/color-quantization-worker-manager';
 import type {OriginalImageSlice} from '~/src/stores/original-image-slice';
-import {imageBitmapToBlob} from '~/src/utils/graphics';
+import {IMAGE_SIZE, imageBitmapToBlob, ResizeImage, resizeImageBitmap} from '~/src/utils/graphics';
 import {isAbortError} from '~/src/utils/promise';
 
 export interface PosterizedImageSlice {
@@ -53,12 +54,16 @@ export const createPosterizedImageSlice: StateCreator<
       posterizeImageAbortController,
     });
     try {
+      const resizedImage = await resizeImageBitmap(
+        originalImage,
+        ResizeImage.resizeToPixelCount(IMAGE_SIZE.SD)
+      );
       const {quantizedImage} = await colorQuantizationWorker.run(
-        worker => worker.getPosterizedImage(originalImage, maxColors),
+        worker => worker.getPosterizedImage(transfer(resizedImage, [resizedImage]), maxColors),
         posterizeImageAbortController.signal
       );
       const imageFile: ImageFile = await blobToImageFile(
-        await imageBitmapToBlob(quantizedImage, null, {type: 'image/png'}),
+        await imageBitmapToBlob(quantizedImage, {encodeOptions: {type: 'image/png'}}),
         `${originalImageFile.name} ${maxColors} colors`.trim()
       );
       imageFile.maxColors = maxColors;

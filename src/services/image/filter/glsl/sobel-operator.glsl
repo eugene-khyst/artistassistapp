@@ -24,13 +24,14 @@ void main() {
     }
   }
 
-  float sumX = 0.0, sumY = 0.0;
+  vec3 sumX = vec3(0.0);
+  vec3 sumY = vec3(0.0);
   for (int i = 0; i < 9; i++) {
     vec3 oklab = rgbToOklab(samples[i]);
-    sumX += G_X[i] * oklab.x;
-    sumY += G_Y[i] * oklab.x;
+    sumX += G_X[i] * oklab;
+    sumY += G_Y[i] * oklab;
   }
 
-  float edge = sqrt(sumX * sumX + sumY * sumY);
-  fragColor = vec4(vec3(1.0, 1.0, 1.0) - vec3(edge), 1.0);
+  float edge = sqrt(dot(sumX, sumX) + dot(sumY, sumY));
+  fragColor = vec4(vec3(1.0 - edge), 1.0);
 }

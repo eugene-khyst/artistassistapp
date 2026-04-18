@@ -19,15 +19,16 @@
 import {transformImage} from '~/src/services/ml/image-transformer';
 import type {OnnxModel} from '~/src/services/ml/types';
 import type {FetchProgressCallback} from '~/src/utils/fetch';
+import type {DrawImageSource} from '~/src/utils/graphics';
 
 export async function transferStyle(
-  images: ImageBitmap[],
+  images: DrawImageSource[],
   model: OnnxModel,
   progressCallback?: FetchProgressCallback,
   signal?: AbortSignal
-): Promise<OffscreenCanvas> {
+): Promise<ImageBitmap> {
   console.time('style-transfer');
-  const transformedImage: OffscreenCanvas = await transformImage(
+  const transformedImage: ImageBitmap = await transformImage(
     images,
     model,
     progressCallback,

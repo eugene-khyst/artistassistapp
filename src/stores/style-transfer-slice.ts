@@ -26,7 +26,7 @@ import type {AuthSlice} from '~/src/stores/auth-slice';
 import type {InitSlice} from '~/src/stores/init-slice';
 import type {OriginalImageSlice} from '~/src/stores/original-image-slice';
 import {formatFetchProgress} from '~/src/utils/fetch';
-import {offscreenCanvasToBlob} from '~/src/utils/graphics';
+import {imageBitmapToBlob} from '~/src/utils/graphics';
 import {isAbortError} from '~/src/utils/promise';
 
 export interface StyleTransferSlice {
@@ -99,7 +99,7 @@ export const createStyleTransferSlice: StateCreator<
     });
     try {
       const images = styleImage ? [originalImage, styleImage] : [originalImage];
-      const styledImageCanvas: OffscreenCanvas = await transferStyle(
+      const styledImage: ImageBitmap = await transferStyle(
         images,
         styleTransferModel,
         (key, progress) => {
@@ -107,7 +107,7 @@ export const createStyleTransferSlice: StateCreator<
         },
         styleTransferAbortController.signal
       );
-      const styledImageBlob: Blob = await offscreenCanvasToBlob(styledImageCanvas);
+      const styledImageBlob: Blob = await imageBitmapToBlob(styledImage);
       set({
         styledImageBlob,
       });

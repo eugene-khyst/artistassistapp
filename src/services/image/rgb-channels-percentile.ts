@@ -17,11 +17,7 @@
  */
 
 import {linearizeRgbChannel} from '~/src/services/color/space/rgb';
-import {
-  createImageBitmapResizedTotalPixels,
-  IMAGE_SIZE,
-  imageBitmapToImageData,
-} from '~/src/utils/graphics';
+import {drawImageToOffscreenCanvas, offscreenCanvasToImageData} from '~/src/utils/graphics';
 
 function buildCumulativeHistograms(imageData: ImageData): Uint32Array[] {
   const {data} = imageData;
@@ -44,11 +40,14 @@ export class RgbChannelsPercentileCalculator {
   private cumulativeHistograms: Uint32Array[] = [];
   private pixelCount = 0;
 
-  async setImage(blob: Blob): Promise<void> {
-    const [image] = await createImageBitmapResizedTotalPixels(blob, IMAGE_SIZE['2K']);
-    const [imageData] = imageBitmapToImageData(image);
-    image.close();
+  setImage(image: ImageBitmap): void {
     console.time('build-rgb-histograms');
+    const imageData: ImageData = offscreenCanvasToImageData(
+      ...drawImageToOffscreenCanvas(image, {
+        willReadFrequently: true,
+      })
+    );
+    image.close();
     this.pixelCount = Math.floor(imageData.data.length / 4);
     this.cumulativeHistograms = buildCumulativeHistograms(imageData);
     console.timeEnd('build-rgb-histograms');

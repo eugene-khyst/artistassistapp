@@ -32,24 +32,13 @@ import {OnnxModelSelect} from '~/src/components/ml-model/OnnxModelSelect';
 import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
 import {useDebounce} from '~/src/hooks/useDebounce';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
-import type {User} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {WHITE_HEX} from '~/src/services/color/space/rgb';
-import {compareOnnxModelsByPriority} from '~/src/services/ml/models';
+import {getDefaultModel} from '~/src/services/ml/models';
 import type {OnnxModel} from '~/src/services/ml/types';
 import {OnnxModelType} from '~/src/services/ml/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
-
-function getDefaultModel(models?: Map<string, OnnxModel>, user?: User): OnnxModel | undefined {
-  if (!models) {
-    return;
-  }
-  const [model] = [...models.values()].sort(
-    compareOnnxModelsByPriority({prioritizeFreeTier: !user})
-  );
-  return model;
-}
 
 export const ImageBackgroundRemoval: React.FC = () => {
   const user = useAppStore(state => state.auth?.user);
@@ -107,12 +96,12 @@ export const ImageBackgroundRemoval: React.FC = () => {
   }, [isModelsError, notification, t]);
 
   useEffect(() => {
-    if (isAuthLoading) {
+    if (isAuthLoading || !models?.size) {
       return;
     }
     const {backgroundRemovalModel} = appSettings;
     const model: OnnxModel | undefined =
-      (backgroundRemovalModel ? models?.get(backgroundRemovalModel) : undefined) ??
+      (backgroundRemovalModel && models.get(backgroundRemovalModel)) ||
       getDefaultModel(models, user);
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setModelId(model?.id);
@@ -132,7 +121,7 @@ export const ImageBackgroundRemoval: React.FC = () => {
     if (!modelId) {
       const {backgroundRemovalModel} = appSettings;
       const model: OnnxModel | undefined =
-        (backgroundRemovalModel ? models?.get(backgroundRemovalModel) : undefined) ??
+        (backgroundRemovalModel && models?.get(backgroundRemovalModel)) ||
         getDefaultModel(models, user);
       setModelId(model?.id);
       setBackgroundRemovalModel(model);

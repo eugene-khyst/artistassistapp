@@ -35,17 +35,17 @@ export interface SamplingPoint {
  */
 export function computeSamplingPoints(imageData: ImageData): SamplingPoint[] {
   const {data, width, height} = imageData;
-  const totalPixels = width * height;
+  const pixelCount = width * height;
 
-  const colorKeys = new Uint32Array(totalPixels);
+  const colorKeys = new Uint32Array(pixelCount);
 
-  for (let i = 0; i < totalPixels; i++) {
+  for (let i = 0; i < pixelCount; i++) {
     const di = i << 2;
     colorKeys[i] = packRgb(data[di]!, data[di + 1]!, data[di + 2]!);
   }
 
   // Distance field: boundary pixels → 0, all others → INF (not yet measured).
-  const dist = new Uint16Array(totalPixels);
+  const dist = new Uint16Array(pixelCount);
   const INF = 0xffff;
 
   for (let y = 0; y < height; y++) {

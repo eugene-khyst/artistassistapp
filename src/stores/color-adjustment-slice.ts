@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {transfer} from 'comlink';
 import type {StateCreator} from 'zustand';
 
 import {hexToRgb, linearizeRgbChannel} from '~/src/services/color/space/rgb';
@@ -24,7 +25,12 @@ import {
   getColorAdjustedImage,
 } from '~/src/services/image/color-adjustment';
 import {rgbChannelsPercentileCalculator} from '~/src/services/image/worker/rgb-channels-percentile-worker-manager';
-import {createImageBitmapResizedTotalPixels} from '~/src/utils/graphics';
+import {
+  createImageBitmapAndResize,
+  IMAGE_SIZE,
+  ResizeImage,
+  resizeImageBitmap,
+} from '~/src/utils/graphics';
 
 export interface ColorAdjustmentSlice {
   imageFileToAdjustColors: File | null;
@@ -59,11 +65,15 @@ export const createColorAdjustmentSlice: StateCreator<
       set({
         isColorAdjustedImageLoading: true,
       });
-      await rgbChannelsPercentileCalculator.setImage(imageFileToAdjustColors);
-      [colorUnadjustedImage] = await createImageBitmapResizedTotalPixels(
+      colorUnadjustedImage = await createImageBitmapAndResize(
         imageFileToAdjustColors,
-        10e6
+        ResizeImage.resizeToPixelCount(10e6)
       );
+      const resizedImage = await resizeImageBitmap(
+        colorUnadjustedImage,
+        ResizeImage.resizeToPixelCount(IMAGE_SIZE['2K'])
+      );
+      await rgbChannelsPercentileCalculator.setImage(transfer(resizedImage, [resizedImage]));
     }
     set({
       imageFileToAdjustColors,

@@ -29,7 +29,11 @@ interface Result {
 }
 
 export class InferenceRunner {
-  async runInference(modelData: Uint8Array, inputTensors: Float32Tensor[][]): Promise<Result> {
+  async runInference(
+    modelData: Uint8Array,
+    inputTensors: Float32Tensor[][],
+    outputName?: string
+  ): Promise<Result> {
     const outputTensors: Float32Tensor[] = [];
     const session = await InferenceSession.create(modelData, {
       executionProviders: ['wasm'],
@@ -52,7 +56,7 @@ export class InferenceRunner {
         ])
       );
       const results = await session.run(feeds);
-      const outputTensor = results[session.outputNames[0]!];
+      const outputTensor = results[outputName ?? session.outputNames[0]!];
       if (!outputTensor) {
         throw new Error('Output tensor is undefined');
       }

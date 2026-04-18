@@ -16,11 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export const IMAGE_SIZE = {
-  SD: 720 * 480,
-  HD: 1280 * 720,
-  '2K': 2560 * 1440,
-};
+import {identity} from '~/src/utils/function';
+import {ceilToMultiple} from '~/src/utils/math-utils';
+
+export type DrawImageSource = ImageBitmap | OffscreenCanvas;
 
 export interface Margins {
   top: number;
@@ -42,37 +41,168 @@ export interface DrawImageParams {
   dh: number;
 }
 
-export type DrawImageParamsSupplier = (drawImageParams: DrawImageParams) => DrawImageParams;
+export type DrawImageParamsSupplier = (params: DrawImageParams) => DrawImageParams;
 
-const NOOP_DRAW_IMAGE_PARAMS_SUPPLIER: DrawImageParamsSupplier = (
-  drawImageParams: DrawImageParams
-): DrawImageParams => drawImageParams;
+export const DrawImage = {
+  cropMargins: (margins?: Margins): DrawImageParamsSupplier => {
+    const {top = 0, bottom = 0, left = 0, right = 0} = margins ?? {};
+    return ({width: origWidth, height: origHeight}: DrawImageParams): DrawImageParams => {
+      const targetWidth = origWidth - left - right;
+      const targetHeight = origHeight - top - bottom;
+      if (targetWidth <= 0 || targetHeight <= 0) {
+        throw new Error('Incorrect image crop area');
+      }
+      return {
+        width: targetWidth,
+        height: targetHeight,
+        sx: left,
+        sy: top,
+        sw: targetWidth,
+        sh: targetHeight,
+        dx: 0,
+        dy: 0,
+        dw: targetWidth,
+        dh: targetHeight,
+      };
+    };
+  },
 
-export async function createImageBitmapResizedTotalPixels(
-  image: ImageBitmapSource,
-  totalPixels: number
-): Promise<[ImageBitmap, number]> {
-  const imageBitmap: ImageBitmap = await createImageBitmap(image);
-  const {width, height} = imageBitmap;
-  const scaleFactor: number = Math.min(1, Math.sqrt(totalPixels / (width * height)));
-  const scaledImage: ImageBitmap = await createImageBitmap(imageBitmap, {
-    resizeWidth: Math.trunc(scaleFactor * width),
-  });
-  imageBitmap.close();
-  return [scaledImage, scaleFactor];
+  expandToAspectRatio: (targetAspectRatio?: number): DrawImageParamsSupplier => {
+    return ({
+      width: origWidth,
+      height: origHeight,
+      sx,
+      sy,
+      sw,
+      sh,
+      dw,
+      dh,
+    }: DrawImageParams): DrawImageParams => {
+      let targetWidth = origWidth;
+      let targetHeight = origHeight;
+      let dx = 0;
+      let dy = 0;
+      if (targetAspectRatio) {
+        const origAspectRatio = origWidth / origHeight;
+        if (targetAspectRatio > origAspectRatio) {
+          targetWidth = origHeight * targetAspectRatio;
+          dx = (targetWidth - origWidth) / 2;
+        } else {
+          targetHeight = origWidth / targetAspectRatio;
+          dy = (targetHeight - origHeight) / 2;
+        }
+      }
+      return {
+        width: targetWidth,
+        height: targetHeight,
+        sx,
+        sy,
+        sw,
+        sh,
+        dx,
+        dy,
+        dw,
+        dh,
+      };
+    };
+  },
+
+  resizeAndCrop: (targetWidth: number, targetHeight: number): DrawImageParamsSupplier => {
+    const targetAspectRatio = targetWidth / targetHeight;
+    return ({width: origWidth, height: origHeight}: DrawImageParams): DrawImageParams => {
+      const origAspectRatio = origWidth / origHeight;
+      let sw = origWidth;
+      let sh = origHeight;
+      let sx = 0;
+      let sy = 0;
+      if (origAspectRatio > targetAspectRatio) {
+        sw = origHeight * targetAspectRatio;
+        sx = (origWidth - sw) / 2;
+      } else {
+        sh = origWidth / targetAspectRatio;
+        sy = (origHeight - sh) / 2;
+      }
+      return {
+        width: targetWidth,
+        height: targetHeight,
+        sx,
+        sy,
+        sw,
+        sh,
+        dx: 0,
+        dy: 0,
+        dw: targetWidth,
+        dh: targetHeight,
+      };
+    };
+  },
+
+  scale: (scale: number, sizeMultiple?: number): DrawImageParamsSupplier => {
+    return ({width: origWidth, height: origHeight}: DrawImageParams): DrawImageParams => {
+      let targetWidth = Math.max(1, Math.round(origWidth * scale));
+      let targetHeight = Math.max(1, Math.round(origHeight * scale));
+      if (sizeMultiple) {
+        targetWidth = ceilToMultiple(targetWidth, sizeMultiple);
+        targetHeight = ceilToMultiple(targetHeight, sizeMultiple);
+      }
+      return {
+        width: targetWidth,
+        height: targetHeight,
+        sx: 0,
+        sy: 0,
+        sw: origWidth,
+        sh: origHeight,
+        dx: 0,
+        dy: 0,
+        dw: targetWidth,
+        dh: targetHeight,
+      };
+    };
+  },
+
+  resizeToPixelCount: (pixelCount: number, sizeMultiple?: number): DrawImageParamsSupplier => {
+    return (params: DrawImageParams): DrawImageParams => {
+      const {width, height} = params;
+      const scale: number = Math.min(1, Math.sqrt(pixelCount / (width * height)));
+      return DrawImage.scale(scale, sizeMultiple)(params);
+    };
+  },
+
+  resizeToSize: (targetWidth: number, targetHeight: number): DrawImageParamsSupplier => {
+    return ({width: origWidth, height: origHeight}: DrawImageParams): DrawImageParams => {
+      return {
+        width: targetWidth,
+        height: targetHeight,
+        sx: 0,
+        sy: 0,
+        sw: origWidth,
+        sh: origHeight,
+        dx: 0,
+        dy: 0,
+        dw: targetWidth,
+        dh: targetHeight,
+      };
+    };
+  },
+};
+
+function chainDrawImageParamsSuppliers(
+  suppliers:
+    | DrawImageParamsSupplier
+    | null
+    | undefined
+    | (DrawImageParamsSupplier | null | undefined)[]
+): DrawImageParamsSupplier {
+  if (!Array.isArray(suppliers)) {
+    return suppliers ?? identity;
+  }
+  return (initialParams: DrawImageParams): DrawImageParams =>
+    suppliers
+      .filter((supplier): supplier is DrawImageParamsSupplier => !!supplier)
+      .reduce((params, supplier) => supplier(params), initialParams);
 }
 
-export function rotateImageBitmapClockwise(image: ImageBitmap): ImageBitmap {
-  const {width, height} = image;
-  const canvas = new OffscreenCanvas(height, width);
-  const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d')!;
-  ctx.translate(height / 2, width / 2);
-  ctx.rotate(Math.PI / 2);
-  ctx.drawImage(image, -width / 2, -height / 2);
-  return canvas.transferToImageBitmap();
-}
-
-function drawImage({width, height}: ImageBitmap): DrawImageParams {
+function imageToDrawImageParams({width, height}: DrawImageSource): DrawImageParams {
   return {
     width,
     height,
@@ -87,137 +217,80 @@ function drawImage({width, height}: ImageBitmap): DrawImageParams {
   };
 }
 
-export function chain(
-  ...suppliers: (DrawImageParamsSupplier | null | undefined)[]
-): DrawImageParamsSupplier {
-  return (initialParams: DrawImageParams): DrawImageParams =>
-    suppliers
-      .filter((supplier): supplier is DrawImageParamsSupplier => !!supplier)
-      .reduce((params, supplier) => supplier(params), initialParams);
-}
+export type ResizeImageParamsSupplier = (image: DrawImageSource) => ImageBitmapOptions;
 
-export function cropMargins(margins?: Margins): DrawImageParamsSupplier {
-  const {top = 0, bottom = 0, left = 0, right = 0} = margins ?? {};
-  return ({width: origWidth, height: origHeight}: DrawImageParams): DrawImageParams => {
-    const targetWidth = origWidth - left - right;
-    const targetHeight = origHeight - top - bottom;
-    if (targetWidth <= 0 || targetHeight <= 0) {
-      throw new Error('Incorrect image crop area');
-    }
-    return {
-      width: targetWidth,
-      height: targetHeight,
-      sx: left,
-      sy: top,
-      sw: targetWidth,
-      sh: targetHeight,
-      dx: 0,
-      dy: 0,
-      dw: targetWidth,
-      dh: targetHeight,
+export const ResizeImage = {
+  resizeToPixelCount: (pixelCount: number): ResizeImageParamsSupplier => {
+    return ({width, height}: DrawImageSource): ImageBitmapOptions => {
+      const scale: number = Math.min(1, Math.sqrt(pixelCount / (width * height)));
+      const resizeWidth = Math.max(1, Math.round(width * scale));
+      return {
+        resizeWidth,
+      };
     };
-  };
+  },
+};
+
+export const IMAGE_SIZE = {
+  SD: 720 * 480,
+  HD: 1280 * 720,
+  '2K': 2560 * 1440,
+};
+
+export async function resizeImageBitmap(
+  image: DrawImageSource,
+  resizeImageParamsSupplier?: ResizeImageParamsSupplier | null,
+  resizeQuality?: ResizeQuality
+): Promise<ImageBitmap> {
+  const scaledImage: ImageBitmap = await createImageBitmap(image, {
+    ...resizeImageParamsSupplier?.(image),
+    resizeQuality: resizeQuality ?? 'high',
+  });
+  return scaledImage;
 }
 
-export function expandToAspectRatio(targetAspectRatio?: number): DrawImageParamsSupplier {
-  return ({
-    width: origWidth,
-    height: origHeight,
-    sx,
-    sy,
-    sw,
-    sh,
-    dw,
-    dh,
-  }: DrawImageParams): DrawImageParams => {
-    let targetWidth = origWidth;
-    let targetHeight = origHeight;
-    let dx = 0;
-    let dy = 0;
-    if (targetAspectRatio) {
-      const origAspectRatio = origWidth / origHeight;
-      if (targetAspectRatio > origAspectRatio) {
-        targetWidth = origHeight * targetAspectRatio;
-        dx = (targetWidth - origWidth) / 2;
-      } else {
-        targetHeight = origWidth / targetAspectRatio;
-        dy = (targetHeight - origHeight) / 2;
-      }
-    }
-    return {
-      width: targetWidth,
-      height: targetHeight,
-      sx,
-      sy,
-      sw,
-      sh,
-      dx,
-      dy,
-      dw,
-      dh,
-    };
-  };
+export async function createImageBitmapAndResize(
+  blob: Blob,
+  resizeImageParamsSupplier?: ResizeImageParamsSupplier | null
+): Promise<ImageBitmap> {
+  const image: ImageBitmap = await createImageBitmap(blob);
+  const scaledImage: ImageBitmap = await createImageBitmap(
+    image,
+    resizeImageParamsSupplier?.(image)
+  );
+  image.close();
+  return scaledImage;
 }
 
-export function resizeAndCrop(targetWidth: number, targetHeight: number): DrawImageParamsSupplier {
-  const targetAspectRatio = targetWidth / targetHeight;
-  return ({width: origWidth, height: origHeight}: DrawImageParams): DrawImageParams => {
-    const origAspectRatio = origWidth / origHeight;
-    let sw = origWidth;
-    let sh = origHeight;
-    let sx = 0;
-    let sy = 0;
-    if (origAspectRatio > targetAspectRatio) {
-      sw = origHeight * targetAspectRatio;
-      sx = (origWidth - sw) / 2;
-    } else {
-      sh = origWidth / targetAspectRatio;
-      sy = (origHeight - sh) / 2;
-    }
-    return {
-      width: targetWidth,
-      height: targetHeight,
-      sx,
-      sy,
-      sw,
-      sh,
-      dx: 0,
-      dy: 0,
-      dw: targetWidth,
-      dh: targetHeight,
-    };
-  };
+export function rotateImageBitmapClockwise(image: ImageBitmap): ImageBitmap {
+  const {width, height} = image;
+  const canvas = new OffscreenCanvas(height, width);
+  const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d')!;
+  ctx.translate(height / 2, width / 2);
+  ctx.rotate(Math.PI / 2);
+  ctx.drawImage(image, -width / 2, -height / 2);
+  return canvas.transferToImageBitmap();
 }
 
-export function resizeToLongestSize(maxSide: number): DrawImageParamsSupplier {
-  return ({width: origWidth, height: origHeight}: DrawImageParams): DrawImageParams => {
-    const scale = Math.min(1, maxSide / Math.max(origWidth, origHeight));
-    const targetWidth = Math.max(1, Math.round(origWidth * scale));
-    const targetHeight = Math.max(1, Math.round(origHeight * scale));
-    return {
-      width: targetWidth,
-      height: targetHeight,
-      sx: 0,
-      sy: 0,
-      sw: origWidth,
-      sh: origHeight,
-      dx: 0,
-      dy: 0,
-      dw: targetWidth,
-      dh: targetHeight,
-    };
-  };
+export interface DrawImageOptions {
+  willReadFrequently?: boolean;
+  drawImage?: DrawImageParamsSupplier | null | (DrawImageParamsSupplier | null | undefined)[];
+  fillStyle?: string;
 }
 
-export function imageBitmapToOffscreenCanvas(
-  image: ImageBitmap,
-  willReadFrequently = false,
-  drawImageParamsSupplier?: DrawImageParamsSupplier | null,
-  fillStyle = '#fff'
+export function drawImageToOffscreenCanvas(
+  image: DrawImageSource,
+  {
+    willReadFrequently = false,
+    drawImage: drawImageParamsSuppliers,
+    fillStyle = '#fff',
+  }: DrawImageOptions = {}
 ): [OffscreenCanvas, OffscreenCanvasRenderingContext2D] {
-  const {width, height, sx, sy, sw, sh, dx, dy, dw, dh} = (
-    drawImageParamsSupplier ?? NOOP_DRAW_IMAGE_PARAMS_SUPPLIER
-  )(drawImage(image));
+  const drawImageParamsSupplier: DrawImageParamsSupplier =
+    chainDrawImageParamsSuppliers(drawImageParamsSuppliers);
+  const {width, height, sx, sy, sw, sh, dx, dy, dw, dh} = drawImageParamsSupplier(
+    imageToDrawImageParams(image)
+  );
   const canvas = new OffscreenCanvas(width, height);
   const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d', {
     willReadFrequently,
@@ -228,21 +301,13 @@ export function imageBitmapToOffscreenCanvas(
   return [canvas, ctx];
 }
 
-export function imageBitmapToImageData(
-  image: ImageBitmap,
-  drawImageParamsSupplier?: DrawImageParamsSupplier
-): [ImageData, OffscreenCanvas, OffscreenCanvasRenderingContext2D] {
-  const [canvas, ctx] = imageBitmapToOffscreenCanvas(image, true, drawImageParamsSupplier);
-  const {width, height} = canvas;
-  return [ctx.getImageData(0, 0, width, height), canvas, ctx];
-}
-
-export function imageDataToOffscreenCanvas(imageData: ImageData): OffscreenCanvas {
-  const {width, height} = imageData;
-  const canvas = new OffscreenCanvas(width, height);
-  const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d')!;
-  ctx.putImageData(imageData, 0, 0);
-  return canvas;
+export function offscreenCanvasToImageData(
+  canvas: OffscreenCanvas,
+  ctx?: OffscreenCanvasRenderingContext2D
+): ImageData {
+  ctx ??= canvas.getContext('2d', {willReadFrequently: true})!;
+  const {width, height} = ctx.canvas;
+  return ctx.getImageData(0, 0, width, height);
 }
 
 export async function offscreenCanvasToBlob(
@@ -255,11 +320,13 @@ export async function offscreenCanvasToBlob(
 
 export async function imageBitmapToBlob(
   image: ImageBitmap,
-  drawImageParamsSupplier?: DrawImageParamsSupplier | null,
-  options?: ImageEncodeOptions
+  {
+    encodeOptions,
+    ...drawImageOptions
+  }: Omit<DrawImageOptions, 'willReadFrequently'> & {encodeOptions?: ImageEncodeOptions} = {}
 ): Promise<Blob> {
-  const [canvas] = imageBitmapToOffscreenCanvas(image, false, drawImageParamsSupplier);
-  return await offscreenCanvasToBlob(canvas, options);
+  const [canvas] = drawImageToOffscreenCanvas(image, drawImageOptions);
+  return await offscreenCanvasToBlob(canvas, encodeOptions);
 }
 
 export function copyOffscreenCanvas(canvas: OffscreenCanvas): OffscreenCanvas {
@@ -269,23 +336,18 @@ export function copyOffscreenCanvas(canvas: OffscreenCanvas): OffscreenCanvas {
   return canvasCopy;
 }
 
-export function applyMask(image: ImageBitmap, mask: OffscreenCanvas): OffscreenCanvas {
-  const [canvas, ctx] = imageBitmapToOffscreenCanvas(image);
-  ctx.drawImage(image, 0, 0);
+export function applyMask(image: DrawImageSource, mask: DrawImageSource): OffscreenCanvas {
+  const [canvas, ctx] = drawImageToOffscreenCanvas(image);
   ctx.globalCompositeOperation = 'destination-in';
   ctx.drawImage(mask, 0, 0);
   return canvas;
 }
 
-export function mergeImages(...images: ImageBitmap[]): ImageBitmap {
-  const width = Math.max(...images.map(({width}) => width));
-  const height = Math.max(...images.map(({height}) => height));
-  const canvas = new OffscreenCanvas(width, height);
-  const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d')!;
-  for (const image of images) {
+export function mergeImages(destCanvas: OffscreenCanvas, ...srcImages: DrawImageSource[]): void {
+  const ctx: OffscreenCanvasRenderingContext2D = destCanvas.getContext('2d')!;
+  for (const image of srcImages) {
     ctx.drawImage(image, 0, 0);
   }
-  return canvas.transferToImageBitmap();
 }
 
 export function getIndexForCoord(x: number, y: number, width: number, channel: number): number {

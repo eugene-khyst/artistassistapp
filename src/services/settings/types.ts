@@ -33,11 +33,6 @@ export enum GridMode {
   Rectangular_2x2 = 4,
 }
 
-export enum OutlineMode {
-  Quick = 0,
-  Quality = 1,
-}
-
 export interface GridSettings {
   enabled: boolean;
   mode: GridMode;
@@ -51,7 +46,7 @@ export interface AppSettings {
   colorPickerDiameter?: number;
   colorPickerSort?: ColorPickerSort;
   grids?: Partial<Record<TabKey, Partial<GridSettings>>>;
-  outlineMode?: OutlineMode;
+  outlineModel?: string | null;
   backgroundRemovalModel?: string;
   styleTransferModel?: string;
   styleTransferImage?: ImageFile;

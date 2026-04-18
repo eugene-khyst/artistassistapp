@@ -25,9 +25,10 @@ import {
   WHITE,
 } from '~/src/services/color/space/rgb';
 import {EventManager} from '~/src/services/event/event-manager';
-import {clamp} from '~/src/services/math/clamp';
 import {Rectangle, Vector} from '~/src/services/math/geometry';
-import {getRgbaForCoord, imageBitmapToOffscreenCanvas} from '~/src/utils/graphics';
+import type {DrawImageSource} from '~/src/utils/graphics';
+import {drawImageToOffscreenCanvas, getRgbaForCoord} from '~/src/utils/graphics';
+import {clamp} from '~/src/utils/math-utils';
 
 import type {ZoomableImageCanvasProps} from './zoomable-image-canvas';
 import {ZoomableImageCanvas} from './zoomable-image-canvas';
@@ -108,7 +109,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     this.requestRedraw();
   }
 
-  protected override getImage(images?: ImageBitmap[]): ImageBitmap | null {
+  protected override getImage(images?: ImageBitmap[]): DrawImageSource | null {
     return this.overlayImage ?? super.getImage(images);
   }
 
@@ -124,8 +125,8 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
   private initOffscreenCanvases(): void {
     this.offscreenCanvases = this.images
       .filter((_, index) => this.colorPickerImageIndex < 0 || this.colorPickerImageIndex === index)
-      .map((bitmap: ImageBitmap) => {
-        const [canvas] = imageBitmapToOffscreenCanvas(bitmap, true);
+      .map((image: DrawImageSource) => {
+        const [canvas] = drawImageToOffscreenCanvas(image, {willReadFrequently: true});
         return canvas;
       });
   }

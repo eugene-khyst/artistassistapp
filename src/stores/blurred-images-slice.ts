@@ -39,14 +39,14 @@ export const createBlurredImagesSlice: StateCreator<
   isBlurredImagesLoading: false,
 
   loadBlurredImages: async (): Promise<void> => {
-    const {originalImageFile, blurredImages} = get();
-    if (blurredImages.length || !originalImageFile) {
+    const {originalImage, blurredImages} = get();
+    if (blurredImages.length || !originalImage) {
       return;
     }
     set({
       isBlurredImagesLoading: true,
     });
-    const newBlurredImages = await getBlurred(originalImageFile);
+    const newBlurredImages = await getBlurred(originalImage);
     set({
       blurredImages: newBlurredImages,
       isBlurredImagesLoading: false,

@@ -146,7 +146,7 @@ export const ImageColorPicker: React.FC = () => {
       const listener = ({rgb, point: {x, y}, diameter}: PipettePointSetEvent) => {
         void setTargetColor(rgbToHex(...rgb), {x, y, diameter});
         selectPaletteColorMixtures(colorPickerCanvas.getSamplesNearby(x, y).map(({key}) => key));
-        void setColorMatchImage(null);
+        setColorMatchImage(null);
       };
       colorPickerCanvas.events.subscribe(ColorPickerEventType.PipettePointSet, listener);
       return colorPickerCanvas;
@@ -243,11 +243,11 @@ export const ImageColorPicker: React.FC = () => {
   const handleTargetColorChange = (color: AggregationColor) => {
     colorPickerCanvas?.setPipettePoint(null);
     void setTargetColor(color.toHexString(), null);
-    void setColorMatchImage(null);
+    setColorMatchImage(null);
   };
 
   const handleColorMatchImageClick = () => {
-    void setColorMatchImage(colorMatchImage ? null : hexToRgb(targetColor));
+    setColorMatchImage(colorMatchImage ? null : hexToRgb(targetColor));
   };
 
   const handleCancelLoading = () => {

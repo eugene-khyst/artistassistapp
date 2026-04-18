@@ -17,6 +17,7 @@
  */
 
 import {DATA_URL} from '~/src/config';
+import type {User} from '~/src/services/auth/types';
 import type {OnnxModel, OnnxModelType} from '~/src/services/ml/types';
 import {
   byBoolean,
@@ -32,6 +33,20 @@ export async function fetchOnnxModels(type: OnnxModelType): Promise<Map<string, 
   const response = await fetchSWR(`${DATA_URL}/ml-models/${type}.json`);
   const models = (await response.json()) as OnnxModel[];
   return new Map(models.map((model: OnnxModel) => [model.id, model]));
+}
+
+export function getDefaultModel(
+  models?: Map<string, OnnxModel>,
+  user?: User,
+  predicate: (model: OnnxModel) => boolean = () => true
+): OnnxModel | undefined {
+  if (!models) {
+    return;
+  }
+  const [model] = [...models.values()]
+    .filter(model => predicate(model))
+    .sort(compareOnnxModelsByPriority({prioritizeFreeTier: !user}));
+  return model;
 }
 
 export const compareOnnxModelsByPriority = ({

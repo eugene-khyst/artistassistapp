@@ -23,12 +23,16 @@ import {
   sortVertices,
 } from '~/src/services/image/perspective-correction';
 import {Vector} from '~/src/services/math/geometry';
+import type {DrawImageSource} from '~/src/utils/graphics';
 import {copyOffscreenCanvas} from '~/src/utils/graphics';
 import type {Size} from '~/src/utils/types';
 
 import fragmentShaderSource from './glsl/perspective-correction.glsl';
 
-export function correctPerspectiveWebGL(image: ImageBitmap, vertices: Vector[]): ImageBitmap {
+export function correctPerspectiveWebGL(
+  image: DrawImageSource,
+  vertices: Vector[]
+): OffscreenCanvas {
   const sortedVertices = sortVertices(vertices);
   const destSize: Size = calculateDestSize(sortedVertices);
   const [destWidth, destHeight] = destSize;
@@ -60,7 +64,7 @@ export function correctPerspectiveWebGL(image: ImageBitmap, vertices: Vector[]):
       },
     },
   ]);
-  const resultImage = copyOffscreenCanvas(renderer.canvas).transferToImageBitmap();
+  const result = copyOffscreenCanvas(renderer.canvas);
   renderer.cleanUp();
-  return resultImage;
+  return result;
 }

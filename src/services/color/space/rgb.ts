@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {clamp} from '~/src/services/math/clamp';
+import {clamp} from '~/src/utils/math-utils';
 
 export type RgbTuple = [r: number, g: number, b: number];
 

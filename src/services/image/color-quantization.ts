@@ -24,12 +24,7 @@ import {packRgb, WHITE} from '~/src/services/color/space/rgb';
 import type {ColorSet} from '~/src/services/color/types';
 import type {SamplingPoint} from '~/src/services/image/sampling-point';
 import {computeSamplingPoints} from '~/src/services/image/sampling-point';
-import {clamp} from '~/src/services/math/clamp';
-import {
-  createImageBitmapResizedTotalPixels,
-  IMAGE_SIZE,
-  imageBitmapToImageData,
-} from '~/src/utils/graphics';
+import {drawImageToOffscreenCanvas, offscreenCanvasToImageData} from '~/src/utils/graphics';
 import {computeIfAbsentInMap} from '~/src/utils/map';
 
 import {quantizeColors, rgbTransformInOklab} from './filter/color-quantize';
@@ -43,31 +38,28 @@ interface Result {
 export class ColorQuantization {
   async getPosterizedImage(image: ImageBitmap, maxColors: number): Promise<Result> {
     console.time('posterize');
-    const [resizedImage] = await createImageBitmapResizedTotalPixels(image, IMAGE_SIZE.SD);
-    const [imageData] = imageBitmapToImageData(resizedImage);
-    resizedImage.close();
+    const imageData: ImageData = offscreenCanvasToImageData(
+      ...drawImageToOffscreenCanvas(image, {
+        willReadFrequently: true,
+      })
+    );
+    image.close();
     quantizeColors(imageData, maxColors);
     const quantizedImage: ImageBitmap = await createImageBitmap(imageData);
     console.timeEnd('posterize');
     return transfer({quantizedImage}, [quantizedImage]);
   }
 
-  async getSamplingPoints(image: ImageBitmap): Promise<SamplingPoint[]> {
+  getSamplingPoints(image: ImageBitmap): SamplingPoint[] {
     console.time('sampling-points');
-    const [resizedImage, scaleFactor] = await createImageBitmapResizedTotalPixels(
-      image,
-      IMAGE_SIZE.SD
-    );
-    const [imageData] = imageBitmapToImageData(resizedImage);
-    resizedImage.close();
-    quantizeColors(imageData, MAX_COLORS);
-    const samplingPoints: SamplingPoint[] = computeSamplingPoints(imageData).map(
-      ({x, y, ...rest}) => ({
-        x: clamp(Math.round(x / scaleFactor), 0, image.width - 1),
-        y: clamp(Math.round(y / scaleFactor), 0, image.height - 1),
-        ...rest,
+    const imageData: ImageData = offscreenCanvasToImageData(
+      ...drawImageToOffscreenCanvas(image, {
+        willReadFrequently: true,
       })
     );
+    image.close();
+    quantizeColors(imageData, MAX_COLORS);
+    const samplingPoints: SamplingPoint[] = computeSamplingPoints(imageData);
     console.timeEnd('sampling-points');
     return samplingPoints;
   }
@@ -76,10 +68,12 @@ export class ColorQuantization {
     console.time('limited-palette');
     const colorMixer = new ColorMixer();
     colorMixer.setColorSet(colorSet, PAPER_WHITE);
-    const [resizedImage] = await createImageBitmapResizedTotalPixels(image, IMAGE_SIZE.SD);
-    const [imageData] = imageBitmapToImageData(resizedImage);
-    resizedImage.close();
-
+    const imageData: ImageData = offscreenCanvasToImageData(
+      ...drawImageToOffscreenCanvas(image, {
+        willReadFrequently: true,
+      })
+    );
+    image.close();
     const similarColors = new Map<number, RgbTuple>();
     quantizeColors(
       imageData,
@@ -94,7 +88,6 @@ export class ColorQuantization {
           )
       )
     );
-
     const quantizedImage: ImageBitmap = await createImageBitmap(imageData);
     console.timeEnd('limited-palette');
     return transfer({quantizedImage}, [quantizedImage]);

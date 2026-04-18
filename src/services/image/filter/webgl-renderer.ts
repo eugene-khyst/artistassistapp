@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {DrawImageSource} from '~/src/utils/graphics';
 import type {Size} from '~/src/utils/types';
 
 import vertexShaderSource from './glsl/vertex.glsl';
@@ -44,7 +45,7 @@ export class WebGLRenderer {
   constructor(
     fragmentShaderSources: string[],
     uniformNames: string[][],
-    image: ImageBitmap | OffscreenCanvas,
+    image: DrawImageSource,
     size?: Size | null
   ) {
     const [width, height] = size ?? [image.width, image.height];

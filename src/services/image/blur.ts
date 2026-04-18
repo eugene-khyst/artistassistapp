@@ -17,13 +17,19 @@
  */
 
 import {kuwaharaFilterWebGL} from '~/src/services/image/filter/kuwahara-filter-webgl';
-import {createImageBitmapResizedTotalPixels, IMAGE_SIZE} from '~/src/utils/graphics';
+import type {DrawImageSource} from '~/src/utils/graphics';
+import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '~/src/utils/graphics';
 
-export async function getBlurred(blob: Blob): Promise<ImageBitmap[]> {
+export async function getBlurred(image: DrawImageSource): Promise<ImageBitmap[]> {
   console.time('blur');
-  const [image] = await createImageBitmapResizedTotalPixels(blob, IMAGE_SIZE.HD);
-  let blurred: ImageBitmap[] = kuwaharaFilterWebGL(image, [2, 3, 4, 5]);
-  blurred = [image, ...blurred];
+  const resizedImage = await resizeImageBitmap(
+    image,
+    ResizeImage.resizeToPixelCount(IMAGE_SIZE.HD)
+  );
+  let blurred: ImageBitmap[] = kuwaharaFilterWebGL(resizedImage, [2, 3, 4, 5]).map(canvas =>
+    canvas.transferToImageBitmap()
+  );
+  blurred = [resizedImage, ...blurred];
   console.timeEnd('blur');
   return blurred;
 }

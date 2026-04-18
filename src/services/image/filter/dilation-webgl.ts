@@ -23,39 +23,38 @@ import type {DrawImageSource} from '~/src/utils/graphics';
 import {copyOffscreenCanvas} from '~/src/utils/graphics';
 import type {Size} from '~/src/utils/types';
 
-import fragmentShaderSource from './glsl/gaussian-blur.glsl';
+import fragmentShaderSource from './glsl/dilation.glsl';
 
-export function gaussianBlurWebGL(image: DrawImageSource, kernelSize: KernelSize): OffscreenCanvas {
+export function dilationWebGL(image: DrawImageSource, kernelSize: KernelSize): OffscreenCanvas {
   const renderer = new WebGLRenderer(
     [fragmentShaderSource],
-    [['u_texelSize', 'u_kernel', 'u_kernelSize', 'u_direction']],
+    [['u_texelSize', 'u_kernelSize', 'u_direction']],
     image
   );
   const {width, height} = image;
   const texelSize: Size = [1.0 / width, 1.0 / height];
-  renderer.render(gaussianBlurRenderPasses(texelSize, kernelSize));
+  renderer.render(dilationRenderPasses(texelSize, kernelSize));
   const result = copyOffscreenCanvas(renderer.canvas);
   renderer.cleanUp();
   return result;
 }
 
-export function gaussianBlurRenderPasses(
+export function dilationRenderPasses(
   texelSize: Size,
   kernelSize: KernelSize,
   programIndex = 0
 ): RenderPass[] {
-  const kernel = createGaussianKernel(kernelSize);
   return [
     {
       programIndex,
       setUniforms(gl, locations) {
-        setUniforms(gl, locations, texelSize, kernel, [1.0, 0.0]);
+        setUniforms(gl, locations, texelSize, kernelSize, [1.0, 0.0]);
       },
     },
     {
       programIndex,
       setUniforms(gl, locations) {
-        setUniforms(gl, locations, texelSize, kernel, [0.0, 1.0]);
+        setUniforms(gl, locations, texelSize, kernelSize, [0.0, 1.0]);
       },
     },
   ];
@@ -65,30 +64,10 @@ function setUniforms(
   gl: WebGL2RenderingContext,
   locations: Map<string, WebGLUniformLocation | null>,
   texelSize: Size,
-  kernel: Float32Array,
+  kernelSize: KernelSize,
   direction: Size
 ) {
   gl.uniform2f(locations.get('u_texelSize')!, ...texelSize);
-  gl.uniform1fv(locations.get('u_kernel')!, kernel);
-  gl.uniform1i(locations.get('u_kernelSize')!, kernel.length);
+  gl.uniform1i(locations.get('u_kernelSize')!, kernelSize);
   gl.uniform2f(locations.get('u_direction')!, ...direction);
-}
-
-function createGaussianKernel(size: KernelSize): Float32Array {
-  const radius = (size - 1) / 2;
-  const sigma = 0.3 * (radius - 1) + 0.8;
-  const kernel = new Float32Array(size);
-  const twoSigmaSquare = 2 * sigma ** 2;
-  let sum = 0;
-  let i = 0;
-  for (let x = -radius; x <= radius; x++) {
-    const weight = Math.exp(-(x ** 2) / twoSigmaSquare);
-    kernel[i] = weight;
-    sum += weight;
-    i++;
-  }
-  for (let i = 0; i < kernel.length; i++) {
-    kernel[i]! /= sum;
-  }
-  return kernel;
 }

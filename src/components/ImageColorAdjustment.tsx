@@ -57,7 +57,7 @@ import {blobToImageFile} from '~/src/services/image/image-file';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 import {getFilename} from '~/src/utils/filename';
-import {expandToAspectRatio, imageBitmapToBlob} from '~/src/utils/graphics';
+import {DrawImage, imageBitmapToBlob} from '~/src/utils/graphics';
 
 enum WhiteBalanceMethod {
   Percentile = 0,
@@ -246,10 +246,9 @@ export const ImageColorAdjustment: React.FC = () => {
     if (!colorAdjustedImage) {
       return;
     }
-    const blob: Blob = await imageBitmapToBlob(
-      colorAdjustedImage,
-      expandToAspectRatio(aspectRatio)
-    );
+    const blob: Blob = await imageBitmapToBlob(colorAdjustedImage, {
+      drawImage: DrawImage.expandToAspectRatio(aspectRatio),
+    });
     saveAs(blob, getFilename(imageFileToAdjustColors, FILENAME_SUFFIX));
   };
 

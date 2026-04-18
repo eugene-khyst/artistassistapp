@@ -40,7 +40,7 @@ import {ImagePerspectiveCorrectionCanvas} from '~/src/services/canvas/image/imag
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 import {getFilename} from '~/src/utils/filename';
-import {chain, cropMargins, expandToAspectRatio, imageBitmapToBlob} from '~/src/utils/graphics';
+import {DrawImage, imageBitmapToBlob} from '~/src/utils/graphics';
 
 const FILENAME_SUFFIX = 'perspective-corrected';
 
@@ -148,10 +148,12 @@ export const ImagePerspectiveCorrection: React.FC = () => {
     if (!perspectiveCorrectedImage) {
       return;
     }
-    const blob: Blob = await imageBitmapToBlob(
-      perspectiveCorrectedImage,
-      chain(cropMargins(imageCroppingCanvas?.getMargins()), expandToAspectRatio(aspectRatio))
-    );
+    const blob: Blob = await imageBitmapToBlob(perspectiveCorrectedImage, {
+      drawImage: [
+        DrawImage.cropMargins(imageCroppingCanvas?.getMargins()),
+        DrawImage.expandToAspectRatio(aspectRatio),
+      ],
+    });
     saveAs(blob, getFilename(imageFileToCorrectPerspective, FILENAME_SUFFIX));
   };
 
@@ -159,10 +161,9 @@ export const ImagePerspectiveCorrection: React.FC = () => {
     if (!perspectiveCorrectedImage) {
       return;
     }
-    const blob: Blob = await imageBitmapToBlob(
-      perspectiveCorrectedImage,
-      cropMargins(imageCroppingCanvas?.getMargins())
-    );
+    const blob: Blob = await imageBitmapToBlob(perspectiveCorrectedImage, {
+      drawImage: DrawImage.cropMargins(imageCroppingCanvas?.getMargins()),
+    });
     void setImageFileToAdjustColors(
       new File([blob], getFilename(imageFileToCorrectPerspective, FILENAME_SUFFIX) ?? '', {
         type: blob.type,

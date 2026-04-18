@@ -20,17 +20,30 @@ import {correctPerspectiveWebGL} from '~/src/services/image/filter/perspective-c
 import {sobelGradientsXyWebGL} from '~/src/services/image/filter/sobel-gradients-xy-webgl';
 import {compareByX, compareByY, Vector} from '~/src/services/math/geometry';
 import {Matrix} from '~/src/services/math/matrix';
-import {imageBitmapToOffscreenCanvas, resizeToLongestSize} from '~/src/utils/graphics';
+import {
+  DrawImage,
+  type DrawImageSource,
+  drawImageToOffscreenCanvas,
+  IMAGE_SIZE,
+} from '~/src/utils/graphics';
 import type {Size} from '~/src/utils/types';
 
-const AUTO_DETECT_MAX_SIDE = 512;
-const AUTO_DETECT_MIN_AREA_RATIO = 0.12;
-const AUTO_DETECT_OUTLIER_DISTANCE_PX = 6;
-const AUTO_DETECT_SAMPLE_PERCENTILE = 0.45;
-const AUTO_DETECT_SAMPLE_STEP_DIVISOR = 256;
-const AUTO_DETECT_IMAGE_MARGIN_RATIO = 0.05;
-const AUTO_DETECT_MAX_CORNER_OVERSHOOT_RATIO = 0.1;
+const MIN_SIDE = 32;
+const MIN_AREA_RATIO = 0.12;
+const OUTLIER_DISTANCE_PX = 6;
+const MIN_VIABLE_SAMPLE_COUNT = 12;
+const SAMPLE_PERCENTILE = 0.45;
+const SAMPLE_STEP_DIVISOR = 256;
+const IMAGE_MARGIN_RATIO = 0.05;
+const MAX_CORNER_OVERSHOOT_RATIO = 0.1;
+const BOUNDARY_SCAN_MIN_RATIO = 0.2;
+const BOUNDARY_SCAN_MAX_RATIO = 0.8;
+const EDGE_BIAS_BASE_WEIGHT = 0.4;
+const EDGE_BIAS_WEIGHT_RANGE = 0.6;
+const ORIENTATION_BASE_WEIGHT = 0.25;
+const ORIENTATION_WEIGHT_RANGE = 0.75;
 const LINE_FIT_ITERATIONS = 3;
+const OUTLIER_REJECTION_MULTIPLIER = 2.5;
 
 type Boundary = 'top' | 'right' | 'bottom' | 'left';
 
@@ -45,11 +58,14 @@ interface Line {
   c: number;
 }
 
-export function getPerspectiveCorrectionImage(image: ImageBitmap, vertices: Vector[]): ImageBitmap {
+export function getPerspectiveCorrectionImage(
+  image: DrawImageSource,
+  vertices: Vector[]
+): ImageBitmap {
   console.time('perspective-correction');
-  const perspectiveCorrectedImage: ImageBitmap = correctPerspectiveWebGL(image, vertices);
+  const perspectiveCorrectedImage: OffscreenCanvas = correctPerspectiveWebGL(image, vertices);
   console.timeEnd('perspective-correction');
-  return perspectiveCorrectedImage;
+  return perspectiveCorrectedImage.transferToImageBitmap();
 }
 
 export function sortVertices(vertices: Vector[]): Vector[] {
@@ -108,14 +124,12 @@ export function computeHomography(src: Vector[], dest: Vector[]): Matrix | null 
   }
 }
 
-export function autoDetectPerspectiveVertices(image: ImageBitmap): Vector[] | null {
-  const [canvas] = imageBitmapToOffscreenCanvas(
-    image,
-    false,
-    resizeToLongestSize(AUTO_DETECT_MAX_SIDE)
-  );
+export function autoDetectPerspectiveVertices(image: DrawImageSource): Vector[] | null {
+  const [canvas] = drawImageToOffscreenCanvas(image, {
+    drawImage: DrawImage.resizeToPixelCount(IMAGE_SIZE.SD),
+  });
   const {width, height} = canvas;
-  if (width < 32 || height < 32) {
+  if (width < MIN_SIDE || height < MIN_SIDE) {
     return null;
   }
 
@@ -172,13 +186,10 @@ function collectBoundarySamples(
   height: number,
   boundary: Boundary
 ): WeightedPoint[] {
-  const marginX = Math.max(3, Math.round(width * AUTO_DETECT_IMAGE_MARGIN_RATIO));
-  const marginY = Math.max(3, Math.round(height * AUTO_DETECT_IMAGE_MARGIN_RATIO));
+  const marginX = Math.max(3, Math.round(width * IMAGE_MARGIN_RATIO));
+  const marginY = Math.max(3, Math.round(height * IMAGE_MARGIN_RATIO));
   const horizontal = boundary === 'top' || boundary === 'bottom';
-  const scanStep = Math.max(
-    1,
-    Math.round(Math.max(width, height) / AUTO_DETECT_SAMPLE_STEP_DIVISOR)
-  );
+  const scanStep = Math.max(1, Math.round(Math.max(width, height) / SAMPLE_STEP_DIVISOR));
 
   const fixedStart = horizontal ? marginX : marginY;
   const fixedEnd = horizontal ? width - marginX : height - marginY;
@@ -186,16 +197,16 @@ function collectBoundarySamples(
   const variableStart = horizontal
     ? boundary === 'top'
       ? marginY
-      : Math.max(marginY, Math.round(height * 0.2))
+      : Math.max(marginY, Math.round(height * BOUNDARY_SCAN_MIN_RATIO))
     : boundary === 'left'
       ? marginX
-      : Math.max(marginX, Math.round(width * 0.2));
+      : Math.max(marginX, Math.round(width * BOUNDARY_SCAN_MIN_RATIO));
   const variableEnd = horizontal
     ? boundary === 'top'
-      ? Math.min(height - marginY, Math.round(height * 0.8))
+      ? Math.min(height - marginY, Math.round(height * BOUNDARY_SCAN_MAX_RATIO))
       : height - marginY
     : boundary === 'left'
-      ? Math.min(width - marginX, Math.round(width * 0.8))
+      ? Math.min(width - marginX, Math.round(width * BOUNDARY_SCAN_MAX_RATIO))
       : width - marginX;
 
   if (fixedStart >= fixedEnd || variableStart >= variableEnd) {
@@ -211,15 +222,18 @@ function collectBoundarySamples(
       const x = horizontal ? fixed : variable;
       const y = horizontal ? variable : fixed;
       const index = y * width + x;
-      const primary = Math.abs(horizontal ? gradientY[index]! : gradientX[index]!);
-      const secondary = Math.abs(horizontal ? gradientX[index]! : gradientY[index]!);
+      const primary = horizontal ? gradientY[index]! : gradientX[index]!;
+      const secondary = horizontal ? gradientX[index]! : gradientY[index]!;
       const normalizedPosition = horizontal
         ? y / Math.max(1, height - 1)
         : x / Math.max(1, width - 1);
       const edgeBias =
         boundary === 'top' || boundary === 'left' ? 1 - normalizedPosition : normalizedPosition;
       const orientationConfidence = primary / Math.max(primary + secondary, Number.EPSILON);
-      const score = primary * (0.4 + 0.6 * edgeBias) * (0.25 + 0.75 * orientationConfidence);
+      const positionWeight = EDGE_BIAS_BASE_WEIGHT + EDGE_BIAS_WEIGHT_RANGE * edgeBias;
+      const orientationWeight =
+        ORIENTATION_BASE_WEIGHT + ORIENTATION_WEIGHT_RANGE * orientationConfidence;
+      const score = primary * positionWeight * orientationWeight;
       if (score > bestScore) {
         bestScore = score;
         bestPosition = variable;
@@ -240,16 +254,16 @@ function collectBoundarySamples(
 }
 
 function filterBoundarySamples(samples: WeightedPoint[]): WeightedPoint[] {
-  if (samples.length <= 12) {
+  if (samples.length <= MIN_VIABLE_SAMPLE_COUNT) {
     return samples;
   }
 
   const scoreThreshold = percentile(
     samples.map(({weight}) => weight),
-    AUTO_DETECT_SAMPLE_PERCENTILE
+    SAMPLE_PERCENTILE
   );
   const filteredSamples = samples.filter(({weight}) => weight >= scoreThreshold);
-  return filteredSamples.length >= 12 ? filteredSamples : samples;
+  return filteredSamples.length >= MIN_VIABLE_SAMPLE_COUNT ? filteredSamples : samples;
 }
 
 function fitBoundaryLine(samples: WeightedPoint[]): Line | null {
@@ -269,8 +283,8 @@ function fitBoundaryLine(samples: WeightedPoint[]): Line | null {
     const line = fittedLine;
     const distances = activeSamples.map(({point}) => distanceToLine(point, line));
     const distanceThreshold = Math.max(
-      AUTO_DETECT_OUTLIER_DISTANCE_PX,
-      2.5 * percentile(distances, 0.5)
+      OUTLIER_DISTANCE_PX,
+      OUTLIER_REJECTION_MULTIPLIER * percentile(distances, 0.5)
     );
     const inliers = activeSamples.filter((_, index) => distances[index]! <= distanceThreshold);
     if (inliers.length < 2 || inliers.length === activeSamples.length) {
@@ -345,8 +359,8 @@ function isValidDetectedQuadrilateral(vertices: Vector[], width: number, height:
     return false;
   }
 
-  const maxOvershootX = width * AUTO_DETECT_MAX_CORNER_OVERSHOOT_RATIO;
-  const maxOvershootY = height * AUTO_DETECT_MAX_CORNER_OVERSHOOT_RATIO;
+  const maxOvershootX = width * MAX_CORNER_OVERSHOOT_RATIO;
+  const maxOvershootY = height * MAX_CORNER_OVERSHOOT_RATIO;
   if (
     vertices.some(({x, y}) => {
       return (
@@ -367,7 +381,7 @@ function isValidDetectedQuadrilateral(vertices: Vector[], width: number, height:
   }
 
   const area = Math.abs(getPolygonArea(vertices));
-  if (area < width * height * AUTO_DETECT_MIN_AREA_RATIO) {
+  if (area < width * height * MIN_AREA_RATIO) {
     return false;
   }
 

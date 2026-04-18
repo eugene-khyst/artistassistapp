@@ -18,9 +18,9 @@
 
 import type {ZoomableImageCanvasProps} from '~/src/services/canvas/image/zoomable-image-canvas';
 import {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
-import {clamp} from '~/src/services/math/clamp';
 import {Rectangle, Vector} from '~/src/services/math/geometry';
 import {type Margins} from '~/src/utils/graphics';
+import {clamp} from '~/src/utils/math-utils';
 
 const LINE_WIDTH = 1.5;
 

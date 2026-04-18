@@ -16,33 +16,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {sobelEdgeDetectionWebGL} from '~/src/services/image/filter/sobel-operator-webgl';
+import {computeOtsuThreshold} from '~/src/services/image/filter/otsu-threshold';
+import {sobelEdgeDetectionWebGL} from '~/src/services/image/filter/sobel-edge-detection-webgl';
+import {thresholdFilterWebGL} from '~/src/services/image/filter/threshold-webgl';
 import {transformImage} from '~/src/services/ml/image-transformer';
-import type {OnnxModel} from '~/src/services/ml/types';
+import {type OnnxModel} from '~/src/services/ml/types';
 import type {FetchProgressCallback} from '~/src/utils/fetch';
-import {createImageBitmapResizedTotalPixels, IMAGE_SIZE} from '~/src/utils/graphics';
+import type {DrawImageSource} from '~/src/utils/graphics';
+import {offscreenCanvasToImageData} from '~/src/utils/graphics';
 
 export async function getOutline(
-  image: ImageBitmap,
-  model?: OnnxModel | null,
+  image: DrawImageSource,
+  model: OnnxModel,
   progressCallback?: FetchProgressCallback,
   signal?: AbortSignal
 ): Promise<ImageBitmap> {
   console.time('outline');
-  let outline: ImageBitmap;
-  if (model) {
-    const transformedImage: OffscreenCanvas = await transformImage(
-      [image],
-      model,
-      progressCallback,
-      signal
-    );
-    outline = transformedImage.transferToImageBitmap();
+  let outlineImage: ImageBitmap;
+  if (model.url) {
+    outlineImage = await transformImage([image], model, progressCallback, signal);
   } else {
-    const [resizedImage] = await createImageBitmapResizedTotalPixels(image, IMAGE_SIZE['2K']);
-    outline = sobelEdgeDetectionWebGL(resizedImage);
-    resizedImage.close();
+    outlineImage = sobelEdgeDetection(image);
   }
   console.timeEnd('outline');
-  return outline;
+  return outlineImage;
+}
+
+function sobelEdgeDetection(image: DrawImageSource) {
+  const sobelImage: OffscreenCanvas = sobelEdgeDetectionWebGL(image);
+  const threshold = computeOtsuThreshold(offscreenCanvasToImageData(sobelImage), true);
+  const [thresholdImage] = thresholdFilterWebGL(sobelImage, [threshold], [0], true);
+  return thresholdImage!.transferToImageBitmap();
 }

@@ -31,6 +31,7 @@ const inferenceWorker = new WorkerManager<InferenceRunner>(
 export async function runInferenceWorker(
   modelUrl: string,
   inputTensors: Float32Tensor[][],
+  outputName?: string,
   progressCallback?: FetchProgressCallback,
   signal?: AbortSignal
 ): Promise<Float32Tensor[]> {
@@ -40,7 +41,8 @@ export async function runInferenceWorker(
     worker =>
       worker.runInference(
         transfer(modelData, [modelData.buffer]),
-        transfer(inputTensors, getFloat32TensorTransferables(inputTensors))
+        transfer(inputTensors, getFloat32TensorTransferables(inputTensors)),
+        outputName
       ),
     signal
   );

@@ -16,17 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {thresholdFilterWebGL} from '~/src/services/image/filter/threshold-webgl';
-import type {DrawImageSource} from '~/src/utils/graphics';
-
-const THRESHOLDS = [0.825, 0.6, 0.35];
-const TONAL_VALUES: number[] = [2 / 3, 1 / 3, 0];
-
-export function getTonalValues(image: DrawImageSource): ImageBitmap[] {
-  console.time('tonal-values');
-  const tonalValues: ImageBitmap[] = thresholdFilterWebGL(image, THRESHOLDS, TONAL_VALUES).map(
-    canvas => canvas.transferToImageBitmap()
-  );
-  console.timeEnd('tonal-values');
-  return tonalValues;
+export function identity<T>(arg: T): T {
+  return arg;
 }

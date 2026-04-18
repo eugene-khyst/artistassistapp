@@ -18,38 +18,34 @@
 
 import {DownloadOutlined, MoreOutlined, PrinterOutlined, TableOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import type {CheckboxOptionType} from 'antd';
-import {
-  App,
-  Button,
-  Divider,
-  Dropdown,
-  Form,
-  Grid,
-  Popover,
-  Radio,
-  Space,
-  theme,
-  Typography,
-} from 'antd';
+import {App, Button, Divider, Dropdown, Form, Grid, Popover, Space, theme, Typography} from 'antd';
 import type {CSSProperties} from 'react';
 import React, {useEffect, useState} from 'react';
 
 import {DEFAULT_GRID_SETTINGS, setGrid} from '~/src/components/grid/grid';
 import {GridControls} from '~/src/components/grid/GridControls';
 import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
+import {OnnxModelSelect} from '~/src/components/ml-model/OnnxModelSelect';
 import {PrintImageDrawer} from '~/src/components/print/PrintImageDrawer';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
 import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
+import {hasAccessTo} from '~/src/services/auth/utils';
 import {GridCanvas} from '~/src/services/canvas/image/grid-canvas';
+import {getDefaultModel} from '~/src/services/ml/models';
 import type {OnnxModel} from '~/src/services/ml/types';
 import {OnnxModelType} from '~/src/services/ml/types';
-import {OutlineMode} from '~/src/services/settings/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 import {getFilename} from '~/src/utils/filename';
 
 import {EmptyImage} from './empty/EmptyImage';
+
+const fallbackModel: OnnxModel = {
+  id: 'sobel-edge-detection',
+  name: 'Quick',
+  url: '',
+  freeTier: true,
+};
 
 const defaultGridSettings = {enabled: false};
 
@@ -88,8 +84,12 @@ export const ImageOutline: React.FC = () => {
     outlineImage
   );
 
-  const [mode, setMode] = useState<OutlineMode>(OutlineMode.Quick);
+  const [modelId, setModelId] = useState<string>();
   const [isOpenPrintImage, setIsOpenPrintImage] = useState<boolean>(false);
+
+  const model: OnnxModel | null | undefined = modelId ? models?.get(modelId) : null;
+
+  const isAccessAllowed: boolean = !model || (!isAuthLoading && hasAccessTo(user, model));
 
   const isLoading: boolean = isModelsLoading || isOutlineImageLoading || isAuthLoading;
 
@@ -105,19 +105,15 @@ export const ImageOutline: React.FC = () => {
   }, [isModelsError, notification, t]);
 
   useEffect(() => {
-    if (isAuthLoading || !models) {
+    if (isAuthLoading || !models?.size) {
       return;
     }
-    const {outlineMode} = appSettings;
-    const mode: OutlineMode = (user && outlineMode) || OutlineMode.Quick;
-    let model: OnnxModel | null | undefined;
-    if (mode === OutlineMode.Quality) {
-      [model] = models.values();
-    } else {
-      model = null;
-    }
+    const {outlineModel} = appSettings;
+    const model: OnnxModel =
+      (outlineModel && models.get(outlineModel)) ||
+      (getDefaultModel(models, user) ?? fallbackModel);
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMode(mode);
+    setModelId(model.id);
     setOutlineModel(model);
   }, [setOutlineModel, appSettings, models, user, isAuthLoading]);
 
@@ -133,12 +129,10 @@ export const ImageOutline: React.FC = () => {
     });
   }, [appSettings, gridCanvas]);
 
-  const handleModeChange = (value: OutlineMode) => {
-    const model: OnnxModel | null | undefined =
-      value === OutlineMode.Quality ? models?.values().next().value : null;
-    setMode(value);
-    setOutlineModel(model);
-    void saveAppSettings({outlineMode: value});
+  const handleModelChange = (value: string) => {
+    setModelId(value);
+    setOutlineModel(models?.get(value));
+    void saveAppSettings({outlineModel: value});
   };
 
   const handlePrintClick = () => {
@@ -154,24 +148,19 @@ export const ImageOutline: React.FC = () => {
 
   const handleCancelClick = () => {
     abortOutline();
-    handleModeChange(OutlineMode.Quick);
+    const model: OnnxModel =
+      getDefaultModel(
+        models,
+        user,
+        ({url, freeTier}: OnnxModel): boolean => !url && (!!user || !!freeTier)
+      ) ?? fallbackModel;
+    setModelId(model.id);
+    setOutlineModel(model);
   };
 
   if (!originalImageFile) {
     return <EmptyImage />;
   }
-
-  const modeOptions: CheckboxOptionType<number>[] = [
-    {
-      value: OutlineMode.Quick,
-      label: t`Quick`,
-    },
-    {
-      value: OutlineMode.Quality,
-      label: t`Quality`,
-      disabled: !user,
-    },
-  ];
 
   const contentStyle: CSSProperties = {
     backgroundColor: token.colorBgElevated,
@@ -183,35 +172,41 @@ export const ImageOutline: React.FC = () => {
     boxShadow: 'none',
   };
 
-  const isQuickMode: boolean = mode === OutlineMode.Quick;
-
   return (
     <LoadingIndicator
       loading={isLoading}
-      downloadTip={!isQuickMode && outlineDownloadTip}
-      onCancel={!isQuickMode && handleCancelClick}
+      downloadTip={!!modelId && outlineDownloadTip}
+      onCancel={!!modelId && handleCancelClick}
     >
       <div style={{display: 'flex', width: '100%', justifyContent: 'center', marginBottom: 8}}>
         <Form.Item
           style={{margin: 0}}
           extra={
-            !user && (
+            !user &&
+            (isAccessAllowed ? (
               <Typography.Text type="secondary">
-                <Trans>Quality mode is available to paid Patreon members only</Trans>
+                <Trans>Only a limited number of modes are available in the free version</Trans>
               </Typography.Text>
-            )
+            ) : (
+              <Typography.Text type="warning">
+                <Trans>
+                  You&apos;ve selected mode that is available to paid Patreon members only
+                </Trans>
+              </Typography.Text>
+            ))
           }
         >
           <Space align="start" style={{display: 'flex'}}>
-            <Form.Item label={t`Mode`} style={{margin: 0}}>
-              <Radio.Group
-                options={modeOptions}
-                value={mode}
-                onChange={e => {
-                  handleModeChange(e.target.value as OutlineMode);
-                }}
-                optionType="button"
-                buttonStyle="solid"
+            <Form.Item
+              label={screens.sm ? t`Mode` : null}
+              style={{margin: 0}}
+              validateStatus={!isAccessAllowed ? 'warning' : undefined}
+            >
+              <OnnxModelSelect
+                models={models}
+                value={modelId}
+                onChange={handleModelChange}
+                style={{width: 120}}
               />
             </Form.Item>
             {screens.sm ? (

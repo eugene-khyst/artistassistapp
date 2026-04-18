@@ -19,6 +19,7 @@
 import type {SelectProps} from 'antd';
 import {Flex, Select, Typography} from 'antd';
 import type {DefaultOptionType} from 'antd/es/select';
+import type {ReactNode} from 'react';
 
 import type {User} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
@@ -27,7 +28,7 @@ import type {OnnxModel} from '~/src/services/ml/types';
 import {useAppStore} from '~/src/stores/app-store';
 
 interface SelectOptionType extends DefaultOptionType {
-  description?: string;
+  description?: ReactNode;
 }
 
 function getOnnxModelOptions(
@@ -50,6 +51,20 @@ function getOnnxModelOptions(
     });
 }
 
+const SelectOption: React.FC<Pick<SelectOptionType, 'label' | 'description'>> = ({
+  label,
+  description,
+}) => {
+  return (
+    <Flex vertical>
+      {label}
+      <Typography.Text type="secondary" style={{whiteSpace: 'pre-line'}}>
+        {description}
+      </Typography.Text>
+    </Flex>
+  );
+};
+
 type Props = SelectProps & {
   models?: Map<string, OnnxModel>;
 };
@@ -59,16 +74,11 @@ export const OnnxModelSelect: React.FC<Props> = ({models, ...rest}: Props) => {
 
   const options = getOnnxModelOptions(user, models);
   return (
-    <Select
+    <Select<string, SelectOptionType>
       options={options}
       {...rest}
-      optionRender={option => (
-        <Flex vertical>
-          {option.data.label}
-          <Typography.Text type="secondary" style={{whiteSpace: 'pre-line'}}>
-            {option.data['description']}
-          </Typography.Text>
-        </Flex>
+      optionRender={({data: {label, description}}) => (
+        <SelectOption label={label} description={description} />
       )}
       popupMatchSelectWidth={false}
     />

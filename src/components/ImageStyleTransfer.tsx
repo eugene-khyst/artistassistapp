@@ -90,7 +90,7 @@ export const ImageStyleTransfer: React.FC = () => {
   }, [isModelsError, notification, t]);
 
   useEffect(() => {
-    if (isAuthLoading || !models) {
+    if (isAuthLoading || !models?.size) {
       return;
     }
     const {styleTransferModel, styleTransferImage} = appSettings;
@@ -121,7 +121,7 @@ export const ImageStyleTransfer: React.FC = () => {
     void saveAppSettings({styleTransferModel: value});
   };
 
-  const handleFileChange = ([file]: File[], modelId: string) => {
+  const handleStyleImageFileChange = ([file]: File[], modelId: string) => {
     void setStyleImageFile(file);
     setModelId(modelId);
     setStyleTransferModel(models?.get(modelId));
@@ -228,7 +228,7 @@ export const ImageStyleTransfer: React.FC = () => {
                               <FileSelect
                                 key={id}
                                 onChange={(files: File[]) => {
-                                  handleFileChange(files, id);
+                                  handleStyleImageFileChange(files, id);
                                 }}
                                 disabled={!isAccessAllowed}
                               >

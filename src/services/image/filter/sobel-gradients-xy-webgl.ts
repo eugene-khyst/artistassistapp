@@ -17,6 +17,7 @@
  */
 
 import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
+import type {DrawImageSource} from '~/src/utils/graphics';
 import type {Size} from '~/src/utils/types';
 
 import fragmentShaderSource from './glsl/sobel-gradients-xy.glsl';
@@ -28,7 +29,7 @@ export interface SobelGradients {
   height: number;
 }
 
-export function sobelGradientsXyWebGL(image: ImageBitmap | OffscreenCanvas): SobelGradients {
+export function sobelGradientsXyWebGL(image: DrawImageSource): SobelGradients {
   const renderer = new WebGLRenderer([fragmentShaderSource], [['u_texelSize']], image);
   const {width, height} = image;
   const texelSize: Size = [1.0 / width, 1.0 / height];
