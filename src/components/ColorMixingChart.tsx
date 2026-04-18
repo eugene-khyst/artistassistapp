@@ -16,7 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined, DownOutlined, SortAscendingOutlined} from '@ant-design/icons';
+import {
+  DownloadOutlined,
+  DownOutlined,
+  PrinterOutlined,
+  SortAscendingOutlined,
+} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Dropdown, Form, Space, Typography} from 'antd';
 import type {MenuProps} from 'antd/lib';
@@ -32,6 +37,7 @@ import {isMixable, MIXABLE_COLOR_TYPES} from '~/src/services/color/color-mixer';
 import {ColorSort} from '~/src/services/color/colors';
 import {rgbToHex, WHITE_HEX} from '~/src/services/color/space/rgb';
 import type {ColorId} from '~/src/services/color/types';
+import {printImages} from '~/src/services/print/print';
 import {useAppStore} from '~/src/stores/app-store';
 
 import {ColorCascader} from './color-set/ColorCascader';
@@ -72,14 +78,25 @@ export const ColorMixingChart: React.FC = () => {
     void setColorMixingChartColors(colorIds, sort);
   };
 
-  const handleSaveClick = async () => {
+  const getColorMixingChartImage = async (): Promise<Blob | null> => {
     if (!chartRef.current) {
-      return;
+      return null;
     }
-    const blob: Blob | null = await htmlToImage.toBlob(chartRef.current, {
+    return htmlToImage.toBlob(chartRef.current, {
       skipFonts: true,
       backgroundColor: WHITE_HEX,
     });
+  };
+
+  const handlePrintClick = async () => {
+    const blob: Blob | null = await getColorMixingChartImage();
+    if (blob) {
+      void printImages(blob);
+    }
+  };
+
+  const handleSaveClick = async () => {
+    const blob: Blob | null = await getColorMixingChartImage();
     if (blob) {
       saveAs(blob, 'color-mixing-chart.png');
     }
@@ -114,6 +131,15 @@ export const ColorMixingChart: React.FC = () => {
       ],
     },
     {
+      key: 'print',
+      label: t`Print`,
+      icon: <PrinterOutlined />,
+      onClick: () => {
+        void handlePrintClick();
+      },
+      disabled: !colorMixingChartMixtures.length,
+    },
+    {
       key: 'save',
       label: t`Save`,
       icon: <DownloadOutlined />,
@@ -126,7 +152,13 @@ export const ColorMixingChart: React.FC = () => {
 
   return (
     <LoadingIndicator loading={isLoading} onCancel={abortColorMixingChart}>
-      <div style={{overflow: 'auto', maxHeight: 'calc(100dvh - 60px)'}}>
+      <div
+        style={{
+          overflow: 'auto',
+          minHeight: 250,
+          maxHeight: 'calc(100dvh - 60px)',
+        }}
+      >
         <Form.Item
           label={t`Colors`}
           tooltip={t`A grid showing the result of mixing each pair of selected colors`}

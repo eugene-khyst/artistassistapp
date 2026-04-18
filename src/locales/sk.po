@@ -91,7 +91,7 @@ msgstr "<0>Skúste sa znova prihlásiť</0>: Keď potvrdíte, že správny Patre
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Používajte webový prehliadač:</0> Ak používate aplikáciu Patreon (iOS/Android), prihláste sa cez webový prehliadač (Chrome, Safari, Firefox), pretože aplikácia môže niekedy zasahovať do overovacieho procesu."
 
-#: src/components/ColorMixingChart.tsx:132
+#: src/components/ColorMixingChart.tsx:164
 msgid "A grid showing the result of mixing each pair of selected colors"
 msgstr "Mriežka zobrazujúca výsledok miešania každého páru vybraných farieb"
 
@@ -167,7 +167,7 @@ msgstr "Chyba aplikácie"
 msgid "Application build hash"
 msgstr "Hodnota hash zostavenia aplikácie"
 
-#: src/components/ColorMixingChart.tsx:156
+#: src/components/ColorMixingChart.tsx:188
 #: src/components/ImageLimitedPalette.tsx:133
 #: src/components/ImagePerspectiveCorrection.tsx:222
 msgid "Apply"
@@ -370,7 +370,7 @@ msgstr "Vzorkovník farieb"
 msgid "Colored Pencils"
 msgstr "Farebné ceruzky"
 
-#: src/components/ColorMixingChart.tsx:131
+#: src/components/ColorMixingChart.tsx:163
 #: src/components/ImageLimitedPalette.tsx:105
 msgid "Colors"
 msgstr "Farby"
@@ -523,7 +523,7 @@ msgid "Error while fetching color data"
 msgstr "Chyba pri načítavaní údajov o farbách"
 
 #: src/components/ImageBackgroundRemoval.tsx:90
-#: src/components/ImageOutline.tsx:92
+#: src/components/ImageOutline.tsx:99
 #: src/components/ImageStyleTransfer.tsx:84
 msgid "Error while fetching ML model data"
 msgstr "Chyba pri načítavaní údajov modelu strojového učenia"
@@ -582,7 +582,7 @@ msgid "Gouache"
 msgstr "Gvaše"
 
 #: src/components/grid/GridControls.tsx:178
-#: src/components/ImageOutline.tsx:219
+#: src/components/ImageOutline.tsx:228
 #: src/components/messages.ts:35
 msgid "Grid"
 msgstr "Mriežka"
@@ -748,7 +748,7 @@ msgstr "Zmes"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:101
 #: src/components/ImageBackgroundRemoval.tsx:204
-#: src/components/ImageOutline.tsx:192
+#: src/components/ImageOutline.tsx:201
 msgid "Mode"
 msgstr "Režim"
 
@@ -804,7 +804,7 @@ msgid "No data"
 msgstr "Žiadne údaje"
 
 #: src/components/color-set/ColorSelect.tsx:86
-#: src/components/ColorMixingChart.tsx:96
+#: src/components/ColorMixingChart.tsx:113
 msgid "No sorting"
 msgstr "Žiadne triedenie"
 
@@ -833,7 +833,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "V bezplatnej verzii je k dispozícii iba obmedzený počet farebných značiek"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageOutline.tsx:179
+#: src/components/ImageOutline.tsx:188
 msgid "Only a limited number of modes are available in the free version"
 msgstr "V bezplatnej verzii je k dispozícii iba obmedzený počet režimov"
 
@@ -972,10 +972,11 @@ msgstr "Stlačte tlačidlo <0>Pridať do palety</0> vedľa farebnej zmesi, ktor�
 msgid "Preview"
 msgstr "Náhľad"
 
+#: src/components/ColorMixingChart.tsx:135
 #: src/components/ImageGrid.tsx:71
 #: src/components/ImageGrid.tsx:84
-#: src/components/ImageOutline.tsx:224
-#: src/components/ImageOutline.tsx:242
+#: src/components/ImageOutline.tsx:233
+#: src/components/ImageOutline.tsx:251
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
 #: src/components/ImageTonalValues.tsx:126
@@ -1103,7 +1104,7 @@ msgstr "Rotovať"
 msgid "Saturation (%)"
 msgstr "Sýtosť (%)"
 
-#: src/components/ColorMixingChart.tsx:118
+#: src/components/ColorMixingChart.tsx:144
 #: src/components/CustomColorBrandCreator.tsx:490
 #: src/components/ImageBackgroundRemoval.tsx:222
 #: src/components/ImageBackgroundRemoval.tsx:252
@@ -1113,8 +1114,8 @@ msgstr "Sýtosť (%)"
 #: src/components/ImageGrid.tsx:74
 #: src/components/ImageGrid.tsx:90
 #: src/components/ImageLimitedPalette.tsx:141
-#: src/components/ImageOutline.tsx:232
-#: src/components/ImageOutline.tsx:248
+#: src/components/ImageOutline.tsx:241
+#: src/components/ImageOutline.tsx:257
 #: src/components/ImagePerspectiveCorrection.tsx:245
 #: src/components/ImagePerspectiveCorrection.tsx:277
 #: src/components/ImageStyleTransfer.tsx:186
@@ -1206,7 +1207,7 @@ msgstr "Vyberte farbu"
 msgid "Select colors"
 msgstr "Vyberte farby"
 
-#: src/components/ColorMixingChart.tsx:136
+#: src/components/ColorMixingChart.tsx:168
 msgid "Select colors to build a mixing chart"
 msgstr "Vyberte farby na vytvorenie mixovacieho schémy"
 
@@ -1364,7 +1365,7 @@ msgid "Small"
 msgstr "Malý"
 
 #: src/components/color-set/ColorSelect.tsx:118
-#: src/components/ColorMixingChart.tsx:91
+#: src/components/ColorMixingChart.tsx:108
 #: src/components/ImageColorPicker.tsx:444
 #: src/components/palette/PaletteGrid.tsx:129
 msgid "Sort"
@@ -1670,7 +1671,7 @@ msgid "You've selected color brands that are available to paid Patreon members o
 msgstr "Vybrali ste farebné značky, ktoré sú dostupné iba plateným členom Patreonu. Pripojte sa k ArtistAssistApp na Patreone ako platený člen alebo sa prihláste pomocou Patreonu, ak ste sa už pripojili."
 
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:183
+#: src/components/ImageOutline.tsx:192
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Vybrali ste režim, ktorý je dostupný len pre platených členov Patreonu"
 

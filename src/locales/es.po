@@ -91,7 +91,7 @@ msgstr "<0>Intenta volver a iniciar sesión</0>: Una vez que hayas confirmado qu
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Usa un navegador web</0>: Si usas la app de Patreon (iOS/Android), inicia sesión desde un navegador web (Chrome, Safari, Firefox), ya que la app a veces puede interferir con el proceso de verificación."
 
-#: src/components/ColorMixingChart.tsx:132
+#: src/components/ColorMixingChart.tsx:164
 msgid "A grid showing the result of mixing each pair of selected colors"
 msgstr "Una cuadrícula que muestra el resultado de mezclar cada par de colores seleccionados"
 
@@ -167,7 +167,7 @@ msgstr "Un error de aplicación"
 msgid "Application build hash"
 msgstr "Hash de compilación de aplicaciones"
 
-#: src/components/ColorMixingChart.tsx:156
+#: src/components/ColorMixingChart.tsx:188
 #: src/components/ImageLimitedPalette.tsx:133
 #: src/components/ImagePerspectiveCorrection.tsx:222
 msgid "Apply"
@@ -370,7 +370,7 @@ msgstr "Muestra de color"
 msgid "Colored Pencils"
 msgstr "Lápices"
 
-#: src/components/ColorMixingChart.tsx:131
+#: src/components/ColorMixingChart.tsx:163
 #: src/components/ImageLimitedPalette.tsx:105
 msgid "Colors"
 msgstr "Colores"
@@ -523,7 +523,7 @@ msgid "Error while fetching color data"
 msgstr "Error al obtener datos de color"
 
 #: src/components/ImageBackgroundRemoval.tsx:90
-#: src/components/ImageOutline.tsx:92
+#: src/components/ImageOutline.tsx:99
 #: src/components/ImageStyleTransfer.tsx:84
 msgid "Error while fetching ML model data"
 msgstr "Error al obtener datos del modelo de ML"
@@ -582,7 +582,7 @@ msgid "Gouache"
 msgstr "Guache"
 
 #: src/components/grid/GridControls.tsx:178
-#: src/components/ImageOutline.tsx:219
+#: src/components/ImageOutline.tsx:228
 #: src/components/messages.ts:35
 msgid "Grid"
 msgstr "Rejilla"
@@ -748,7 +748,7 @@ msgstr "Mezcla"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:101
 #: src/components/ImageBackgroundRemoval.tsx:204
-#: src/components/ImageOutline.tsx:192
+#: src/components/ImageOutline.tsx:201
 msgid "Mode"
 msgstr "Modo"
 
@@ -804,7 +804,7 @@ msgid "No data"
 msgstr "Sin datos"
 
 #: src/components/color-set/ColorSelect.tsx:86
-#: src/components/ColorMixingChart.tsx:96
+#: src/components/ColorMixingChart.tsx:113
 msgid "No sorting"
 msgstr "Sin ordenar"
 
@@ -833,7 +833,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "Solo un número limitado de marcas de color están disponibles en la versión gratuita"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageOutline.tsx:179
+#: src/components/ImageOutline.tsx:188
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Solo hay un número limitado de modos disponibles en la versión gratuita"
 
@@ -972,10 +972,11 @@ msgstr "Presione el botón <0>Agregar a la paleta</0> junto a la mezcla de color
 msgid "Preview"
 msgstr "Vista previa"
 
+#: src/components/ColorMixingChart.tsx:135
 #: src/components/ImageGrid.tsx:71
 #: src/components/ImageGrid.tsx:84
-#: src/components/ImageOutline.tsx:224
-#: src/components/ImageOutline.tsx:242
+#: src/components/ImageOutline.tsx:233
+#: src/components/ImageOutline.tsx:251
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
 #: src/components/ImageTonalValues.tsx:126
@@ -1103,7 +1104,7 @@ msgstr "Rotar"
 msgid "Saturation (%)"
 msgstr "Saturación (%)"
 
-#: src/components/ColorMixingChart.tsx:118
+#: src/components/ColorMixingChart.tsx:144
 #: src/components/CustomColorBrandCreator.tsx:490
 #: src/components/ImageBackgroundRemoval.tsx:222
 #: src/components/ImageBackgroundRemoval.tsx:252
@@ -1113,8 +1114,8 @@ msgstr "Saturación (%)"
 #: src/components/ImageGrid.tsx:74
 #: src/components/ImageGrid.tsx:90
 #: src/components/ImageLimitedPalette.tsx:141
-#: src/components/ImageOutline.tsx:232
-#: src/components/ImageOutline.tsx:248
+#: src/components/ImageOutline.tsx:241
+#: src/components/ImageOutline.tsx:257
 #: src/components/ImagePerspectiveCorrection.tsx:245
 #: src/components/ImagePerspectiveCorrection.tsx:277
 #: src/components/ImageStyleTransfer.tsx:186
@@ -1206,7 +1207,7 @@ msgstr "Seleccionar color"
 msgid "Select colors"
 msgstr "Seleccionar colores"
 
-#: src/components/ColorMixingChart.tsx:136
+#: src/components/ColorMixingChart.tsx:168
 msgid "Select colors to build a mixing chart"
 msgstr "Selecciona colores para crear una tabla de mezcla"
 
@@ -1364,7 +1365,7 @@ msgid "Small"
 msgstr "Pequeño"
 
 #: src/components/color-set/ColorSelect.tsx:118
-#: src/components/ColorMixingChart.tsx:91
+#: src/components/ColorMixingChart.tsx:108
 #: src/components/ImageColorPicker.tsx:444
 #: src/components/palette/PaletteGrid.tsx:129
 msgid "Sort"
@@ -1670,7 +1671,7 @@ msgid "You've selected color brands that are available to paid Patreon members o
 msgstr "Has seleccionado marcas de color que solo están disponibles para los miembros de pago de Patreon. Únete a ArtistAssistApp en Patreon como miembro de pago o inicia sesión con Patreon si ya te has unido."
 
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:183
+#: src/components/ImageOutline.tsx:192
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Has seleccionado el modo que está disponible solo para los miembros pagos de Patreon"
 

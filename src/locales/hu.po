@@ -91,7 +91,7 @@ msgstr "<0>Próbáld újra a bejelentkezést</0>: Miután megerősítetted, hogy
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Webböngészőt használj</0>: Ha a Patreon alkalmazást használod (iOS/Android), jelentkezz be böngészőn keresztül (Chrome, Safari, Firefox), mert az alkalmazás néha zavarhatja az ellenőrzési folyamatot."
 
-#: src/components/ColorMixingChart.tsx:132
+#: src/components/ColorMixingChart.tsx:164
 msgid "A grid showing the result of mixing each pair of selected colors"
 msgstr "Egy rács, amely bemutatja az egyes kiválasztott színpárok keverésének eredményét"
 
@@ -167,7 +167,7 @@ msgstr "Alkalmazáshiba"
 msgid "Application build hash"
 msgstr "Alkalmazás buildelési kivonata"
 
-#: src/components/ColorMixingChart.tsx:156
+#: src/components/ColorMixingChart.tsx:188
 #: src/components/ImageLimitedPalette.tsx:133
 #: src/components/ImagePerspectiveCorrection.tsx:222
 msgid "Apply"
@@ -370,7 +370,7 @@ msgstr "Színmintát"
 msgid "Colored Pencils"
 msgstr "Színes ceruzák"
 
-#: src/components/ColorMixingChart.tsx:131
+#: src/components/ColorMixingChart.tsx:163
 #: src/components/ImageLimitedPalette.tsx:105
 msgid "Colors"
 msgstr "Színek"
@@ -523,7 +523,7 @@ msgid "Error while fetching color data"
 msgstr "Hiba a színadatok beolvasása közben"
 
 #: src/components/ImageBackgroundRemoval.tsx:90
-#: src/components/ImageOutline.tsx:92
+#: src/components/ImageOutline.tsx:99
 #: src/components/ImageStyleTransfer.tsx:84
 msgid "Error while fetching ML model data"
 msgstr "Hiba az ML-modell adatainak lekérése során"
@@ -582,7 +582,7 @@ msgid "Gouache"
 msgstr "Gouache"
 
 #: src/components/grid/GridControls.tsx:178
-#: src/components/ImageOutline.tsx:219
+#: src/components/ImageOutline.tsx:228
 #: src/components/messages.ts:35
 msgid "Grid"
 msgstr "Rács"
@@ -748,7 +748,7 @@ msgstr "Keverék"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:101
 #: src/components/ImageBackgroundRemoval.tsx:204
-#: src/components/ImageOutline.tsx:192
+#: src/components/ImageOutline.tsx:201
 msgid "Mode"
 msgstr "Üzemmód"
 
@@ -804,7 +804,7 @@ msgid "No data"
 msgstr "Nincs adat"
 
 #: src/components/color-set/ColorSelect.tsx:86
-#: src/components/ColorMixingChart.tsx:96
+#: src/components/ColorMixingChart.tsx:113
 msgid "No sorting"
 msgstr "Nincs besorolás"
 
@@ -833,7 +833,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "Csak korlátozott számú színmárka érhető el az ingyenes verzióban"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageOutline.tsx:179
+#: src/components/ImageOutline.tsx:188
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Az ingyenes verzióban csak korlátozott számú mód érhető el"
 
@@ -972,10 +972,11 @@ msgstr "Nyomja meg a <0>Hozzáadás a palettához</0> gombot a kívánt színkev
 msgid "Preview"
 msgstr "Előnézet"
 
+#: src/components/ColorMixingChart.tsx:135
 #: src/components/ImageGrid.tsx:71
 #: src/components/ImageGrid.tsx:84
-#: src/components/ImageOutline.tsx:224
-#: src/components/ImageOutline.tsx:242
+#: src/components/ImageOutline.tsx:233
+#: src/components/ImageOutline.tsx:251
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
 #: src/components/ImageTonalValues.tsx:126
@@ -1103,7 +1104,7 @@ msgstr "Forog"
 msgid "Saturation (%)"
 msgstr "Telítettség (%)"
 
-#: src/components/ColorMixingChart.tsx:118
+#: src/components/ColorMixingChart.tsx:144
 #: src/components/CustomColorBrandCreator.tsx:490
 #: src/components/ImageBackgroundRemoval.tsx:222
 #: src/components/ImageBackgroundRemoval.tsx:252
@@ -1113,8 +1114,8 @@ msgstr "Telítettség (%)"
 #: src/components/ImageGrid.tsx:74
 #: src/components/ImageGrid.tsx:90
 #: src/components/ImageLimitedPalette.tsx:141
-#: src/components/ImageOutline.tsx:232
-#: src/components/ImageOutline.tsx:248
+#: src/components/ImageOutline.tsx:241
+#: src/components/ImageOutline.tsx:257
 #: src/components/ImagePerspectiveCorrection.tsx:245
 #: src/components/ImagePerspectiveCorrection.tsx:277
 #: src/components/ImageStyleTransfer.tsx:186
@@ -1206,7 +1207,7 @@ msgstr "Szín kiválasztása"
 msgid "Select colors"
 msgstr "Válasszon színeket"
 
-#: src/components/ColorMixingChart.tsx:136
+#: src/components/ColorMixingChart.tsx:168
 msgid "Select colors to build a mixing chart"
 msgstr "Válassz színeket keverési táblázat elkészítéséhez"
 
@@ -1364,7 +1365,7 @@ msgid "Small"
 msgstr "Kicsi"
 
 #: src/components/color-set/ColorSelect.tsx:118
-#: src/components/ColorMixingChart.tsx:91
+#: src/components/ColorMixingChart.tsx:108
 #: src/components/ImageColorPicker.tsx:444
 #: src/components/palette/PaletteGrid.tsx:129
 msgid "Sort"
@@ -1670,7 +1671,7 @@ msgid "You've selected color brands that are available to paid Patreon members o
 msgstr "Olyan színmárkákat választottál, amelyek csak a fizetős Patreon-tagok számára érhetők el. Csatlakozz az ArtistAssistApp-hoz a Patreonon fizetős tagként, vagy jelentkezz be a Patreonnal, ha már csatlakoztál."
 
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:183
+#: src/components/ImageOutline.tsx:192
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Olyan módot választottál, amely csak a fizetős Patreon-tagok számára érhető el"
 
