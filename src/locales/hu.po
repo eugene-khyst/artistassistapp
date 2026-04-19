@@ -123,7 +123,7 @@ msgstr "Akril jelölők"
 msgid "Acrylic Paint"
 msgstr "Akril festék"
 
-#: src/components/ColorMixer.tsx:256
+#: src/components/ColorMixer.tsx:259
 msgid "Add color"
 msgstr "Szín hozzáadása"
 
@@ -249,7 +249,7 @@ msgstr "Automatikusan találd meg a legjobb színkeverékeket ehhez a fotóhoz"
 msgid "Average color of the white point area"
 msgstr "A fehérpont-terület átlagos színe"
 
-#: src/components/ColorMixer.tsx:180
+#: src/components/ColorMixer.tsx:183
 #: src/components/ImageBackgroundRemoval.tsx:217
 #: src/components/ImageBackgroundRemoval.tsx:242
 #: src/components/ImageColorPicker.tsx:350
@@ -321,7 +321,7 @@ msgstr "Bezár"
 msgid "Close in {closeCounter} sec"
 msgstr "Bezárás {closeCounter} másodperc alatt"
 
-#: src/components/ColorMixer.tsx:206
+#: src/components/ColorMixer.tsx:209
 #: src/components/CustomColorBrandCreator.tsx:448
 #: src/components/ImageColorPicker.tsx:404
 msgid "Color"
@@ -510,6 +510,11 @@ msgstr "Innen szerkesztés"
 msgid "Email"
 msgstr "E-mail"
 
+#: src/components/ImageOutline.tsx:307
+#: src/components/ImageOutline.tsx:355
+msgid "Enter lightbox mode to trace the outline through your paper."
+msgstr "Lépj be lightbox módba, hogy végigkövesd a körvonalat a dolgozatodon."
+
 #: src/components/ImageChooser.tsx:64
 msgid "Error loading sample photos"
 msgstr "Hiba betöltése mintafotók"
@@ -523,7 +528,7 @@ msgid "Error while fetching color data"
 msgstr "Hiba a színadatok beolvasása közben"
 
 #: src/components/ImageBackgroundRemoval.tsx:90
-#: src/components/ImageOutline.tsx:99
+#: src/components/ImageOutline.tsx:119
 #: src/components/ImageStyleTransfer.tsx:84
 msgid "Error while fetching ML model data"
 msgstr "Hiba az ML-modell adatainak lekérése során"
@@ -582,7 +587,6 @@ msgid "Gouache"
 msgstr "Gouache"
 
 #: src/components/grid/GridControls.tsx:178
-#: src/components/ImageOutline.tsx:228
 #: src/components/messages.ts:35
 msgid "Grid"
 msgstr "Rács"
@@ -661,6 +665,11 @@ msgstr "Utoljára használt {dateText}"
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "Maradt az összehasonlításhoz: {unfinishedGamesSize}"
 
+#: src/components/ImageOutline.tsx:314
+#: src/components/ImageOutline.tsx:354
+msgid "Light box"
+msgstr "Világítódoboz"
+
 #: src/components/ImageTonalValues.tsx:88
 msgid "Light tone"
 msgstr "Világos tónus"
@@ -738,7 +747,7 @@ msgstr "Középtónusok"
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Keverje össze a színeket <0>{partsRatioText} arányban</0>"
 
-#: src/components/ColorMixer.tsx:166
+#: src/components/ColorMixer.tsx:169
 msgid "Mix your colors in any proportions so you don't waste real paints."
 msgstr "Keverje össze a színeket bármilyen arányban, hogy ne pazarolja el a valódi festékeket."
 
@@ -748,7 +757,7 @@ msgstr "Keverék"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:101
 #: src/components/ImageBackgroundRemoval.tsx:204
-#: src/components/ImageOutline.tsx:201
+#: src/components/ImageOutline.tsx:283
 msgid "Mode"
 msgstr "Üzemmód"
 
@@ -833,7 +842,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "Csak korlátozott számú színmárka érhető el az ingyenes verzióban"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageOutline.tsx:188
+#: src/components/ImageOutline.tsx:270
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Az ingyenes verzióban csak korlátozott számú mód érhető el"
 
@@ -975,8 +984,8 @@ msgstr "Előnézet"
 #: src/components/ColorMixingChart.tsx:135
 #: src/components/ImageGrid.tsx:71
 #: src/components/ImageGrid.tsx:84
-#: src/components/ImageOutline.tsx:233
-#: src/components/ImageOutline.tsx:251
+#: src/components/ImageOutline.tsx:297
+#: src/components/ImageOutline.tsx:340
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
 #: src/components/ImageTonalValues.tsx:126
@@ -1013,7 +1022,7 @@ msgstr "Értékelés: {player1RatingText}"
 msgid "Rating: {player2RatingText}"
 msgstr "Értékelés: {player2RatingText}"
 
-#: src/components/ColorMixer.tsx:202
+#: src/components/ColorMixer.tsx:205
 msgid "Ratio"
 msgstr "Arány"
 
@@ -1037,7 +1046,7 @@ msgid "Reference"
 msgstr "Utalás"
 
 #: src/components/color/SimilarColorCard.tsx:110
-#: src/components/ColorMixer.tsx:266
+#: src/components/ColorMixer.tsx:269
 msgid "Reflectance"
 msgstr "Visszaverődés"
 
@@ -1114,8 +1123,8 @@ msgstr "Telítettség (%)"
 #: src/components/ImageGrid.tsx:74
 #: src/components/ImageGrid.tsx:90
 #: src/components/ImageLimitedPalette.tsx:141
-#: src/components/ImageOutline.tsx:241
-#: src/components/ImageOutline.tsx:257
+#: src/components/ImageOutline.tsx:305
+#: src/components/ImageOutline.tsx:346
 #: src/components/ImagePerspectiveCorrection.tsx:245
 #: src/components/ImagePerspectiveCorrection.tsx:277
 #: src/components/ImageStyleTransfer.tsx:186
@@ -1182,7 +1191,7 @@ msgstr "Válassza ki a referenciafotóra átvinni kívánt stílust"
 msgid "Select an image that contains a color chart"
 msgstr "Színdiagramot tartalmazó kép kiválasztása"
 
-#: src/components/ColorMixer.tsx:209
+#: src/components/ColorMixer.tsx:212
 msgid "Select any number of colors to mix and specify the part of each color in the resulting mix."
 msgstr "Válasszon ki tetszőleges számú színt a keverni, és adja meg az egyes színek részét az eredményül kapott keverékben."
 
@@ -1235,7 +1244,7 @@ msgstr "Kép kiválasztása"
 msgid "Select language"
 msgstr "Nyelv kiválasztása"
 
-#: src/components/ColorMixer.tsx:223
+#: src/components/ColorMixer.tsx:226
 msgid "Select part"
 msgstr "Alkatrész kiválasztása"
 
@@ -1385,7 +1394,7 @@ msgstr "A keverék vastagsága szerint soroljuk"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:92
 #: src/components/color/SimilarColorCard.tsx:105
-#: src/components/ColorMixer.tsx:260
+#: src/components/ColorMixer.tsx:263
 msgid "Spectral reflectance curve"
 msgstr "Spektrális visszaverődési görbe"
 
@@ -1429,6 +1438,11 @@ msgstr "Támogatott művészeti médiumok:"
 msgid "Supported web browsers and operating systems"
 msgstr "Támogatott webböngészők és operációs rendszerek"
 
+#: src/components/lightbox/LightboxOverlay.tsx:106
+#: src/components/lightbox/LightboxOverlay.tsx:110
+msgid "Swipe to unlock"
+msgstr "Húzd fel a feloldáshoz"
+
 #: src/components/print/PrintImageDrawer.tsx:223
 msgid "Taped margin width around the painting area"
 msgstr "Ragasztott margószélesség a festési terület körül"
@@ -1449,7 +1463,7 @@ msgstr "Az alkalmazás a telepítés után is minden adatot tárol a webböngés
 msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "Az alkalmazás {reloadCounter} másodpercen belül megpróbálja újratölteni"
 
-#: src/components/ColorMixer.tsx:181
+#: src/components/ColorMixer.tsx:184
 #: src/components/ImageColorPicker.tsx:351
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "A papír vagy a vászon színe, vagy az alapréteg színe üvegezve."
@@ -1671,7 +1685,7 @@ msgid "You've selected color brands that are available to paid Patreon members o
 msgstr "Olyan színmárkákat választottál, amelyek csak a fizetős Patreon-tagok számára érhetők el. Csatlakozz az ArtistAssistApp-hoz a Patreonon fizetős tagként, vagy jelentkezz be a Patreonnal, ha már csatlakoztál."
 
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:192
+#: src/components/ImageOutline.tsx:274
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Olyan módot választottál, amely csak a fizetős Patreon-tagok számára érhető el"
 

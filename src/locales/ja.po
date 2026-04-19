@@ -123,7 +123,7 @@ msgstr "アクリルマーカー"
 msgid "Acrylic Paint"
 msgstr "アクリル絵の具"
 
-#: src/components/ColorMixer.tsx:256
+#: src/components/ColorMixer.tsx:259
 msgid "Add color"
 msgstr "色を追加"
 
@@ -249,7 +249,7 @@ msgstr "この写真に最適な色の組み合わせを自動的に見つけて
 msgid "Average color of the white point area"
 msgstr "白点領域の平均色"
 
-#: src/components/ColorMixer.tsx:180
+#: src/components/ColorMixer.tsx:183
 #: src/components/ImageBackgroundRemoval.tsx:217
 #: src/components/ImageBackgroundRemoval.tsx:242
 #: src/components/ImageColorPicker.tsx:350
@@ -321,7 +321,7 @@ msgstr "閉める"
 msgid "Close in {closeCounter} sec"
 msgstr "{closeCounter} 秒で閉じる"
 
-#: src/components/ColorMixer.tsx:206
+#: src/components/ColorMixer.tsx:209
 #: src/components/CustomColorBrandCreator.tsx:448
 #: src/components/ImageColorPicker.tsx:404
 msgid "Color"
@@ -510,6 +510,11 @@ msgstr "ここから追記します"
 msgid "Email"
 msgstr "メール"
 
+#: src/components/ImageOutline.tsx:307
+#: src/components/ImageOutline.tsx:355
+msgid "Enter lightbox mode to trace the outline through your paper."
+msgstr "ライトボックスモードに入って、紙のアウトラインをなぞります。"
+
 #: src/components/ImageChooser.tsx:64
 msgid "Error loading sample photos"
 msgstr "サンプル写真の読み込みエラー"
@@ -523,7 +528,7 @@ msgid "Error while fetching color data"
 msgstr "カラーデータの取得中にエラーが発生しました"
 
 #: src/components/ImageBackgroundRemoval.tsx:90
-#: src/components/ImageOutline.tsx:99
+#: src/components/ImageOutline.tsx:119
 #: src/components/ImageStyleTransfer.tsx:84
 msgid "Error while fetching ML model data"
 msgstr "ML モデル データのフェッチ中にエラーが発生しました"
@@ -582,7 +587,6 @@ msgid "Gouache"
 msgstr "ガッシュ"
 
 #: src/components/grid/GridControls.tsx:178
-#: src/components/ImageOutline.tsx:228
 #: src/components/messages.ts:35
 msgid "Grid"
 msgstr "グリッド"
@@ -661,6 +665,11 @@ msgstr "最後に使用した {dateText}"
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "比較する左: {unfinishedGamesSize}"
 
+#: src/components/ImageOutline.tsx:314
+#: src/components/ImageOutline.tsx:354
+msgid "Light box"
+msgstr "ライトボックス"
+
 #: src/components/ImageTonalValues.tsx:88
 msgid "Light tone"
 msgstr "ライトトーン"
@@ -738,7 +747,7 @@ msgstr "ミッドトーン"
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "<0>{partsRatioText} の比率</0>で色を混ぜる"
 
-#: src/components/ColorMixer.tsx:166
+#: src/components/ColorMixer.tsx:169
 msgid "Mix your colors in any proportions so you don't waste real paints."
 msgstr "本物の塗料を無駄にしないように、色を任意の比率で混ぜてください。"
 
@@ -748,7 +757,7 @@ msgstr "混交"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:101
 #: src/components/ImageBackgroundRemoval.tsx:204
-#: src/components/ImageOutline.tsx:201
+#: src/components/ImageOutline.tsx:283
 msgid "Mode"
 msgstr "モード"
 
@@ -833,7 +842,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "無料版では、限られた数のカラーブランドしか利用できません"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageOutline.tsx:188
+#: src/components/ImageOutline.tsx:270
 msgid "Only a limited number of modes are available in the free version"
 msgstr "無料版で利用できるモードは限られています"
 
@@ -975,8 +984,8 @@ msgstr "プレビュー"
 #: src/components/ColorMixingChart.tsx:135
 #: src/components/ImageGrid.tsx:71
 #: src/components/ImageGrid.tsx:84
-#: src/components/ImageOutline.tsx:233
-#: src/components/ImageOutline.tsx:251
+#: src/components/ImageOutline.tsx:297
+#: src/components/ImageOutline.tsx:340
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
 #: src/components/ImageTonalValues.tsx:126
@@ -1013,7 +1022,7 @@ msgstr "レーティング: {player1RatingText}"
 msgid "Rating: {player2RatingText}"
 msgstr "評価: {player2RatingText}"
 
-#: src/components/ColorMixer.tsx:202
+#: src/components/ColorMixer.tsx:205
 msgid "Ratio"
 msgstr "比"
 
@@ -1037,7 +1046,7 @@ msgid "Reference"
 msgstr "参考"
 
 #: src/components/color/SimilarColorCard.tsx:110
-#: src/components/ColorMixer.tsx:266
+#: src/components/ColorMixer.tsx:269
 msgid "Reflectance"
 msgstr "反射率"
 
@@ -1114,8 +1123,8 @@ msgstr "彩度(%)"
 #: src/components/ImageGrid.tsx:74
 #: src/components/ImageGrid.tsx:90
 #: src/components/ImageLimitedPalette.tsx:141
-#: src/components/ImageOutline.tsx:241
-#: src/components/ImageOutline.tsx:257
+#: src/components/ImageOutline.tsx:305
+#: src/components/ImageOutline.tsx:346
 #: src/components/ImagePerspectiveCorrection.tsx:245
 #: src/components/ImagePerspectiveCorrection.tsx:277
 #: src/components/ImageStyleTransfer.tsx:186
@@ -1182,7 +1191,7 @@ msgstr "参照写真に転送するスタイルを選択します"
 msgid "Select an image that contains a color chart"
 msgstr "カラーチャートを含む画像を選択する"
 
-#: src/components/ColorMixer.tsx:209
+#: src/components/ColorMixer.tsx:212
 msgid "Select any number of colors to mix and specify the part of each color in the resulting mix."
 msgstr "混合する色をいくつでも選択し、結果の混合の各色の一部を指定します。"
 
@@ -1235,7 +1244,7 @@ msgstr "画像を選択"
 msgid "Select language"
 msgstr "言語の選択"
 
-#: src/components/ColorMixer.tsx:223
+#: src/components/ColorMixer.tsx:226
 msgid "Select part"
 msgstr "パーツを選択"
 
@@ -1385,7 +1394,7 @@ msgstr "混合物の濃度で並べ替えてください"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:92
 #: src/components/color/SimilarColorCard.tsx:105
-#: src/components/ColorMixer.tsx:260
+#: src/components/ColorMixer.tsx:263
 msgid "Spectral reflectance curve"
 msgstr "分光反射率曲線"
 
@@ -1429,6 +1438,11 @@ msgstr "支援される芸術媒体:"
 msgid "Supported web browsers and operating systems"
 msgstr "サポートされている Web ブラウザーとオペレーティング システム"
 
+#: src/components/lightbox/LightboxOverlay.tsx:106
+#: src/components/lightbox/LightboxOverlay.tsx:110
+msgid "Swipe to unlock"
+msgstr "スワイプでアンロック"
+
 #: src/components/print/PrintImageDrawer.tsx:223
 msgid "Taped margin width around the painting area"
 msgstr "ペイント領域の周囲のテープで留められた余白の幅"
@@ -1449,7 +1463,7 @@ msgstr "アプリは、インストール後もすべてのデータをWebブラ
 msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "アプリは {reloadCounter} 秒で再読み込みを試みます"
 
-#: src/components/ColorMixer.tsx:181
+#: src/components/ColorMixer.tsx:184
 #: src/components/ImageColorPicker.tsx:351
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "紙やキャンバスの色、またはグレーズをかけたときのベースレイヤーの色。"
@@ -1671,7 +1685,7 @@ msgid "You've selected color brands that are available to paid Patreon members o
 msgstr "有料のPatreonメンバーのみが利用できるカラーブランドを選択しました。PatreonのArtistAssistAppに有料会員として参加するか、すでに参加している場合はPatreonでログインします。"
 
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:192
+#: src/components/ImageOutline.tsx:274
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "有料のPatreonメンバーのみが利用できるモードを選択しました"
 

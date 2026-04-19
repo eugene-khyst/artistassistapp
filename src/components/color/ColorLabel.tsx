@@ -54,9 +54,11 @@ export const ColorLabel: React.FC<Props> = ({
   return (
     <Flex vertical gap={0} align={alignItems}>
       {showBrandName && <Typography.Text type="secondary">{brandName}</Typography.Text>}
-      <Flex gap="small" align="center">
+      <Flex gap="small" align="center" style={{minWidth: 0}}>
         {showHex && <ColorSquare hex={hex} />}
-        <Typography.Text>{label}</Typography.Text>
+        <Typography.Text ellipsis style={{minWidth: 0}}>
+          {label}
+        </Typography.Text>
         {showOpacity && <OpacityIcon opacity={opacity} />}
         {showWarmth && <WarmthIcon warmth={warmth} />}
       </Flex>

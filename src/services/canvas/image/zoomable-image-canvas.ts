@@ -24,9 +24,12 @@ import type {DrawImageSource} from '~/src/utils/graphics';
 import {offscreenCanvasToBlob} from '~/src/utils/graphics';
 import {clamp} from '~/src/utils/math-utils';
 
+const MIN_IMAGE_SIDE = 200;
+
 export interface ZoomableImageCanvasProps {
-  zoomFactor?: number;
+  allowZoomBelowFit?: boolean;
   maxZoom?: number;
+  zoomFactor?: number;
   imageSmoothingEnabled?: boolean;
 }
 
@@ -36,8 +39,9 @@ export class ZoomableImageCanvas extends Canvas {
   protected imageIndex = 0;
   protected offset = Vector.ZERO;
   protected zoom = 1;
-  private readonly maxZoom: number;
   private readonly zoomFactor: number;
+  private readonly maxZoom: number;
+  private readonly allowZoomBelowFit: boolean;
   private readonly imageSmoothingEnabled: boolean;
   private dragDelayTimerId: ReturnType<typeof setTimeout> | null = null;
   private readonly longPressDurationMs = 250;
@@ -48,6 +52,7 @@ export class ZoomableImageCanvas extends Canvas {
   private initialPinchCenter: Vector | null = null;
   private initialOffset: Vector | null = null;
   private lastPointerDown: Vector | null = null;
+  private autoFit = true;
   private readonly eventListeners: {
     [K in keyof HTMLElementEventMap]?: (event: HTMLElementEventMap[K]) => void;
   };
@@ -58,6 +63,7 @@ export class ZoomableImageCanvas extends Canvas {
     ({
       zoomFactor: this.zoomFactor = 1.1,
       maxZoom: this.maxZoom = 20,
+      allowZoomBelowFit: this.allowZoomBelowFit = false,
       imageSmoothingEnabled: this.imageSmoothingEnabled = true,
     } = props);
 
@@ -114,8 +120,9 @@ export class ZoomableImageCanvas extends Canvas {
     this.dragStart = null;
     this.isDragging = false;
     this.initialPinchDistance = null;
-    this.zoom = this.getMinZoom();
+    this.zoom = this.getFitToCanvasZoom();
     this.lastZoom = this.zoom;
+    this.autoFit = true;
     this.onImagesLoaded();
     this.requestRedraw();
   }
@@ -152,10 +159,15 @@ export class ZoomableImageCanvas extends Canvas {
 
   protected override draw(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
     const canvas: HTMLCanvasElement | OffscreenCanvas = ctx.canvas;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const isMainCanvas = canvas === this.canvas;
+    const dpr = isMainCanvas ? this.dpr : 1;
+    const cssW = canvas.width / dpr;
+    const cssH = canvas.height / dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, cssW, cssH);
     ctx.imageSmoothingEnabled = this.imageSmoothingEnabled;
     ctx.save();
-    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.translate(cssW / 2, cssH / 2);
     ctx.scale(this.zoom, this.zoom);
     ctx.translate(this.offset.x, this.offset.y);
     try {
@@ -199,24 +211,29 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   private canvasToWorld({x, y}: Vector): Vector {
-    const {width, height} = this.canvas;
-    return new Vector((x - width / 2) / this.zoom, (y - height / 2) / this.zoom);
+    return new Vector((x - this.cssWidth / 2) / this.zoom, (y - this.cssHeight / 2) / this.zoom);
   }
 
   private getMaxOffset(): Vector {
     const {width, height}: Rectangle = this.getImageDimension();
-    const x = Math.max(0, (width - this.canvas.width / this.zoom) / 2);
-    const y = Math.max(0, (height - this.canvas.height / this.zoom) / 2);
+    const x = Math.max(0, (width - this.cssWidth / this.zoom) / 2);
+    const y = Math.max(0, (height - this.cssHeight / this.zoom) / 2);
     return new Vector(x, y);
+  }
+
+  private getFitToCanvasZoom(): number {
+    const image: DrawImageSource | null = this.getImage();
+    return image ? Math.min(this.cssWidth / image.width, this.cssHeight / image.height) : 1;
   }
 
   private getMinZoom(): number {
     const image: DrawImageSource | null = this.getImage();
-    return image ? Math.min(this.canvas.width / image.width, this.canvas.height / image.height) : 1;
+    return image ? Math.min(MIN_IMAGE_SIDE / image.width, MIN_IMAGE_SIDE / image.height) : 1;
   }
 
   private clampZoom(zoom: number): number {
-    return clamp(zoom, this.getMinZoom(), this.maxZoom);
+    const minZoom: number = this.allowZoomBelowFit ? this.getMinZoom() : this.getFitToCanvasZoom();
+    return clamp(zoom, minZoom, this.maxZoom);
   }
 
   private clampOffset({x, y}: Vector): Vector {
@@ -247,6 +264,7 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   protected onDrag(point: Vector, dragStart: Vector): void {
+    this.autoFit = false;
     this.setOffset(point.subtract(dragStart));
   }
 
@@ -336,6 +354,7 @@ export class ZoomableImageCanvas extends Canvas {
     const term2 = this.initialPinchCenter!.subtract(canvasCenter).divide(this.lastZoom);
     const newOffset = term1.subtract(term2).add(this.initialOffset!);
 
+    this.autoFit = false;
     this.setTransform(newZoom, newOffset);
   }
 
@@ -363,6 +382,7 @@ export class ZoomableImageCanvas extends Canvas {
       .subtract(mouseToCenter.divide(oldZoom))
       .add(mouseToCenter.divide(newZoom));
 
+    this.autoFit = false;
     this.setTransform(newZoom, newOffset);
   }
 
@@ -381,12 +401,25 @@ export class ZoomableImageCanvas extends Canvas {
     this.lastZoom = this.zoom;
   }
 
-  setMinZoom(): void {
-    this.setZoom(this.getMinZoom());
+  zoomToFit(): void {
+    this.autoFit = true;
+    this.offset = Vector.ZERO;
+    this.setZoom(this.getFitToCanvasZoom());
+  }
+
+  disableAutoFit(): void {
+    this.autoFit = false;
   }
 
   protected override onCanvasResized(): void {
-    this.setTransform(this.zoom, this.offset);
+    if (this.autoFit) {
+      this.zoom = this.getFitToCanvasZoom();
+      this.offset = Vector.ZERO;
+      this.lastZoom = this.zoom;
+      this.requestRedraw();
+    } else {
+      this.setTransform(this.zoom, this.offset);
+    }
   }
 
   protected convertToOffscreenCanvas(): OffscreenCanvas | null {

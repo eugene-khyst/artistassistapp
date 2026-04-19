@@ -94,7 +94,7 @@ export const ImageTonalValues: React.FC = () => {
 
   return (
     <LoadingIndicator loading={isLoading}>
-      <Space align="center" style={{width: '100%', justifyContent: 'center', marginBottom: 8}}>
+      <Space align="center" style={{marginBottom: 8, padding: '0 16px'}}>
         <Radio.Group
           options={toneOptions}
           value={tonalImageIndex}

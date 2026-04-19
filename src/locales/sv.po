@@ -123,7 +123,7 @@ msgstr "Akryl markörer"
 msgid "Acrylic Paint"
 msgstr "Akrylfärg"
 
-#: src/components/ColorMixer.tsx:256
+#: src/components/ColorMixer.tsx:259
 msgid "Add color"
 msgstr "Lägg till färg"
 
@@ -249,7 +249,7 @@ msgstr "Hitta automatiskt de bästa färgblandningarna för detta foto"
 msgid "Average color of the white point area"
 msgstr "Genomsnittlig färg på vitpunktsområdet"
 
-#: src/components/ColorMixer.tsx:180
+#: src/components/ColorMixer.tsx:183
 #: src/components/ImageBackgroundRemoval.tsx:217
 #: src/components/ImageBackgroundRemoval.tsx:242
 #: src/components/ImageColorPicker.tsx:350
@@ -321,7 +321,7 @@ msgstr "Stänga"
 msgid "Close in {closeCounter} sec"
 msgstr "Stäng om {closeCounter} sek"
 
-#: src/components/ColorMixer.tsx:206
+#: src/components/ColorMixer.tsx:209
 #: src/components/CustomColorBrandCreator.tsx:448
 #: src/components/ImageColorPicker.tsx:404
 msgid "Color"
@@ -510,6 +510,11 @@ msgstr "Redigering härifrån"
 msgid "Email"
 msgstr "E-post"
 
+#: src/components/ImageOutline.tsx:307
+#: src/components/ImageOutline.tsx:355
+msgid "Enter lightbox mode to trace the outline through your paper."
+msgstr "Gå in i ljusboxsläge för att rita konturen genom ditt papper."
+
 #: src/components/ImageChooser.tsx:64
 msgid "Error loading sample photos"
 msgstr "Felladdning exempelfoton"
@@ -523,7 +528,7 @@ msgid "Error while fetching color data"
 msgstr "Fel vid hämtning av färgdata"
 
 #: src/components/ImageBackgroundRemoval.tsx:90
-#: src/components/ImageOutline.tsx:99
+#: src/components/ImageOutline.tsx:119
 #: src/components/ImageStyleTransfer.tsx:84
 msgid "Error while fetching ML model data"
 msgstr "Fel vid hämtning av ML-modelldata"
@@ -582,7 +587,6 @@ msgid "Gouache"
 msgstr "Gouache"
 
 #: src/components/grid/GridControls.tsx:178
-#: src/components/ImageOutline.tsx:228
 #: src/components/messages.ts:35
 msgid "Grid"
 msgstr "Gitter"
@@ -661,6 +665,11 @@ msgstr "Senast använd {dateText}"
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "Vänster för att jämföra: {unfinishedGamesSize}"
 
+#: src/components/ImageOutline.tsx:314
+#: src/components/ImageOutline.tsx:354
+msgid "Light box"
+msgstr "Ljuslåda"
+
 #: src/components/ImageTonalValues.tsx:88
 msgid "Light tone"
 msgstr "Ljus ton"
@@ -738,7 +747,7 @@ msgstr "Mellantoner"
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Blanda färger i ett <0>{partsRatioText}-förhållande</0>"
 
-#: src/components/ColorMixer.tsx:166
+#: src/components/ColorMixer.tsx:169
 msgid "Mix your colors in any proportions so you don't waste real paints."
 msgstr "Blanda dina färger i vilka proportioner som helst så att du inte slösar bort riktiga färger."
 
@@ -748,7 +757,7 @@ msgstr "Blandning"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:101
 #: src/components/ImageBackgroundRemoval.tsx:204
-#: src/components/ImageOutline.tsx:201
+#: src/components/ImageOutline.tsx:283
 msgid "Mode"
 msgstr "Läge"
 
@@ -833,7 +842,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "Endast ett begränsat antal färgmärken finns tillgängliga i gratisversionen"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageOutline.tsx:188
+#: src/components/ImageOutline.tsx:270
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Endast ett begränsat antal lägen är tillgängliga i gratisversionen"
 
@@ -975,8 +984,8 @@ msgstr "Förhandsvisning"
 #: src/components/ColorMixingChart.tsx:135
 #: src/components/ImageGrid.tsx:71
 #: src/components/ImageGrid.tsx:84
-#: src/components/ImageOutline.tsx:233
-#: src/components/ImageOutline.tsx:251
+#: src/components/ImageOutline.tsx:297
+#: src/components/ImageOutline.tsx:340
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
 #: src/components/ImageTonalValues.tsx:126
@@ -1013,7 +1022,7 @@ msgstr "Betyg: {player1RatingText}"
 msgid "Rating: {player2RatingText}"
 msgstr "Betyg: {player2RatingText}"
 
-#: src/components/ColorMixer.tsx:202
+#: src/components/ColorMixer.tsx:205
 msgid "Ratio"
 msgstr "Förhållande"
 
@@ -1037,7 +1046,7 @@ msgid "Reference"
 msgstr "Hänvisning"
 
 #: src/components/color/SimilarColorCard.tsx:110
-#: src/components/ColorMixer.tsx:266
+#: src/components/ColorMixer.tsx:269
 msgid "Reflectance"
 msgstr "Reflektans"
 
@@ -1114,8 +1123,8 @@ msgstr "Mättnad (%)"
 #: src/components/ImageGrid.tsx:74
 #: src/components/ImageGrid.tsx:90
 #: src/components/ImageLimitedPalette.tsx:141
-#: src/components/ImageOutline.tsx:241
-#: src/components/ImageOutline.tsx:257
+#: src/components/ImageOutline.tsx:305
+#: src/components/ImageOutline.tsx:346
 #: src/components/ImagePerspectiveCorrection.tsx:245
 #: src/components/ImagePerspectiveCorrection.tsx:277
 #: src/components/ImageStyleTransfer.tsx:186
@@ -1182,7 +1191,7 @@ msgstr "Välj en stil som ska överföras till referensfotot"
 msgid "Select an image that contains a color chart"
 msgstr "Markera en bild som innehåller en färgkarta"
 
-#: src/components/ColorMixer.tsx:209
+#: src/components/ColorMixer.tsx:212
 msgid "Select any number of colors to mix and specify the part of each color in the resulting mix."
 msgstr "Välj valfritt antal färger som ska blandas och ange delen av varje färg i den resulterande blandningen."
 
@@ -1235,7 +1244,7 @@ msgstr "Välj bild"
 msgid "Select language"
 msgstr "Välj språk"
 
-#: src/components/ColorMixer.tsx:223
+#: src/components/ColorMixer.tsx:226
 msgid "Select part"
 msgstr "Välj variabler"
 
@@ -1385,7 +1394,7 @@ msgstr "Sortera efter blandningens tjocklek"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:92
 #: src/components/color/SimilarColorCard.tsx:105
-#: src/components/ColorMixer.tsx:260
+#: src/components/ColorMixer.tsx:263
 msgid "Spectral reflectance curve"
 msgstr "Spektral reflektanskurva"
 
@@ -1429,6 +1438,11 @@ msgstr "Stödda konstmedier:"
 msgid "Supported web browsers and operating systems"
 msgstr "Webbläsare och operativsystem som stöds"
 
+#: src/components/lightbox/LightboxOverlay.tsx:106
+#: src/components/lightbox/LightboxOverlay.tsx:110
+msgid "Swipe to unlock"
+msgstr "Svep för att låsa upp"
+
 #: src/components/print/PrintImageDrawer.tsx:223
 msgid "Taped margin width around the painting area"
 msgstr "Tejpad marginalbredd runt målningsytan"
@@ -1449,7 +1463,7 @@ msgstr "Appen lagrar all data i webbläsarens lagring även efter installationen
 msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "Appen kommer att försöka ladda om i {reloadCounter} sek"
 
-#: src/components/ColorMixer.tsx:181
+#: src/components/ColorMixer.tsx:184
 #: src/components/ImageColorPicker.tsx:351
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "Färgen på papper eller duk, eller färgen på baslagret när det glaseras."
@@ -1671,7 +1685,7 @@ msgid "You've selected color brands that are available to paid Patreon members o
 msgstr "Du har valt färgmärken som endast är tillgängliga för betalande Patreon-medlemmar. Gå med i ArtistAssistApp på Patreon som betalande medlem eller logga in med Patreon om du redan har gått med."
 
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:192
+#: src/components/ImageOutline.tsx:274
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Du har valt ett läge som endast är tillgängligt för betalande Patreon-medlemmar"
 

@@ -123,7 +123,7 @@ msgstr "Akrylové popisovače"
 msgid "Acrylic Paint"
 msgstr "Akrylátový lak"
 
-#: src/components/ColorMixer.tsx:256
+#: src/components/ColorMixer.tsx:259
 msgid "Add color"
 msgstr "Přidat barvu"
 
@@ -249,7 +249,7 @@ msgstr "Automaticky najděte nejlepší barevné směsi pro tuto fotografii"
 msgid "Average color of the white point area"
 msgstr "Průměrná barva oblasti bílého bodu"
 
-#: src/components/ColorMixer.tsx:180
+#: src/components/ColorMixer.tsx:183
 #: src/components/ImageBackgroundRemoval.tsx:217
 #: src/components/ImageBackgroundRemoval.tsx:242
 #: src/components/ImageColorPicker.tsx:350
@@ -321,7 +321,7 @@ msgstr "Zavřít"
 msgid "Close in {closeCounter} sec"
 msgstr "Zavřít za {closeCounter} sekund"
 
-#: src/components/ColorMixer.tsx:206
+#: src/components/ColorMixer.tsx:209
 #: src/components/CustomColorBrandCreator.tsx:448
 #: src/components/ImageColorPicker.tsx:404
 msgid "Color"
@@ -510,6 +510,11 @@ msgstr "Edit od teď dál"
 msgid "Email"
 msgstr "E-mail"
 
+#: src/components/ImageOutline.tsx:307
+#: src/components/ImageOutline.tsx:355
+msgid "Enter lightbox mode to trace the outline through your paper."
+msgstr "Zapněte režim lightbox, abyste obrysy přetáhli po papíru."
+
 #: src/components/ImageChooser.tsx:64
 msgid "Error loading sample photos"
 msgstr "Chyba při načítání vzorkových fotografií"
@@ -523,7 +528,7 @@ msgid "Error while fetching color data"
 msgstr "Chyba při načítání barevných dat"
 
 #: src/components/ImageBackgroundRemoval.tsx:90
-#: src/components/ImageOutline.tsx:99
+#: src/components/ImageOutline.tsx:119
 #: src/components/ImageStyleTransfer.tsx:84
 msgid "Error while fetching ML model data"
 msgstr "Chyba při načítání dat modelu ML"
@@ -582,7 +587,6 @@ msgid "Gouache"
 msgstr "Kvaš"
 
 #: src/components/grid/GridControls.tsx:178
-#: src/components/ImageOutline.tsx:228
 #: src/components/messages.ts:35
 msgid "Grid"
 msgstr "Mřížka"
@@ -661,6 +665,11 @@ msgstr "Naposledy použito {dateText}"
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "Vlevo k porovnání: {unfinishedGamesSize}"
 
+#: src/components/ImageOutline.tsx:314
+#: src/components/ImageOutline.tsx:354
+msgid "Light box"
+msgstr "Světelná skříň"
+
 #: src/components/ImageTonalValues.tsx:88
 msgid "Light tone"
 msgstr "Světlý tón"
@@ -738,7 +747,7 @@ msgstr "Střední tóny"
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Míchání barev v <0>poměru {partsRatioText}</0>"
 
-#: src/components/ColorMixer.tsx:166
+#: src/components/ColorMixer.tsx:169
 msgid "Mix your colors in any proportions so you don't waste real paints."
 msgstr "Míchejte barvy v libovolném poměru, abyste neplýtvali skutečnými barvami."
 
@@ -748,7 +757,7 @@ msgstr "Směs"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:101
 #: src/components/ImageBackgroundRemoval.tsx:204
-#: src/components/ImageOutline.tsx:201
+#: src/components/ImageOutline.tsx:283
 msgid "Mode"
 msgstr "Režim"
 
@@ -833,7 +842,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "V bezplatné verzi je k dispozici pouze omezený počet barevných značek"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageOutline.tsx:188
+#: src/components/ImageOutline.tsx:270
 msgid "Only a limited number of modes are available in the free version"
 msgstr "V bezplatné verzi je k dispozici pouze omezený počet režimů"
 
@@ -975,8 +984,8 @@ msgstr "Náhled"
 #: src/components/ColorMixingChart.tsx:135
 #: src/components/ImageGrid.tsx:71
 #: src/components/ImageGrid.tsx:84
-#: src/components/ImageOutline.tsx:233
-#: src/components/ImageOutline.tsx:251
+#: src/components/ImageOutline.tsx:297
+#: src/components/ImageOutline.tsx:340
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
 #: src/components/ImageTonalValues.tsx:126
@@ -1013,7 +1022,7 @@ msgstr "Hodnocení: {player1RatingText}"
 msgid "Rating: {player2RatingText}"
 msgstr "Hodnocení: {player2RatingText}"
 
-#: src/components/ColorMixer.tsx:202
+#: src/components/ColorMixer.tsx:205
 msgid "Ratio"
 msgstr "Poměr"
 
@@ -1037,7 +1046,7 @@ msgid "Reference"
 msgstr "Odkaz"
 
 #: src/components/color/SimilarColorCard.tsx:110
-#: src/components/ColorMixer.tsx:266
+#: src/components/ColorMixer.tsx:269
 msgid "Reflectance"
 msgstr "Odrazivost"
 
@@ -1114,8 +1123,8 @@ msgstr "Sytost (%)"
 #: src/components/ImageGrid.tsx:74
 #: src/components/ImageGrid.tsx:90
 #: src/components/ImageLimitedPalette.tsx:141
-#: src/components/ImageOutline.tsx:241
-#: src/components/ImageOutline.tsx:257
+#: src/components/ImageOutline.tsx:305
+#: src/components/ImageOutline.tsx:346
 #: src/components/ImagePerspectiveCorrection.tsx:245
 #: src/components/ImagePerspectiveCorrection.tsx:277
 #: src/components/ImageStyleTransfer.tsx:186
@@ -1182,7 +1191,7 @@ msgstr "Vyberte styl, který chcete přenést na referenční fotografii"
 msgid "Select an image that contains a color chart"
 msgstr "Vyberte obraz, který obsahuje tabulku barev"
 
-#: src/components/ColorMixer.tsx:209
+#: src/components/ColorMixer.tsx:212
 msgid "Select any number of colors to mix and specify the part of each color in the resulting mix."
 msgstr "Vyberte libovolný počet barev, které chcete smíchat, a určete část každé barvy ve výsledném mixu."
 
@@ -1235,7 +1244,7 @@ msgstr "Vybrat obrázek"
 msgid "Select language"
 msgstr "Vybrat jazyk"
 
-#: src/components/ColorMixer.tsx:223
+#: src/components/ColorMixer.tsx:226
 msgid "Select part"
 msgstr "Vybrat díl"
 
@@ -1385,7 +1394,7 @@ msgstr "Seřadit podle tloušťky směsi"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:92
 #: src/components/color/SimilarColorCard.tsx:105
-#: src/components/ColorMixer.tsx:260
+#: src/components/ColorMixer.tsx:263
 msgid "Spectral reflectance curve"
 msgstr "Křivka spektrální odrazivosti"
 
@@ -1429,6 +1438,11 @@ msgstr "Podporovaná umělecká média:"
 msgid "Supported web browsers and operating systems"
 msgstr "Podporované webové prohlížeče a operační systémy"
 
+#: src/components/lightbox/LightboxOverlay.tsx:106
+#: src/components/lightbox/LightboxOverlay.tsx:110
+msgid "Swipe to unlock"
+msgstr "Odemkněte přejetím prstem"
+
 #: src/components/print/PrintImageDrawer.tsx:223
 msgid "Taped margin width around the painting area"
 msgstr "Šířka přilepených okrajů kolem oblasti malby"
@@ -1449,7 +1463,7 @@ msgstr "Aplikace ukládá všechna data do úložiště webového prohlížeče 
 msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "Aplikace se pokusí znovu načíst za {reloadCounter} s"
 
-#: src/components/ColorMixer.tsx:181
+#: src/components/ColorMixer.tsx:184
 #: src/components/ImageColorPicker.tsx:351
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "Barva papíru nebo plátna, případně barva podkladové vrstvy při glazování."
@@ -1671,7 +1685,7 @@ msgid "You've selected color brands that are available to paid Patreon members o
 msgstr "Vybrali jste barevné značky, které jsou dostupné pouze pro platící členy Patreonu. Připojte se k ArtistAssistApp na Patreonu jako placený člen nebo se přihlaste pomocí Patreonu, pokud jste se již připojili."
 
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:192
+#: src/components/ImageOutline.tsx:274
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Vybrali jste režim, který je dostupný pouze pro platící členy Patreonu"
 

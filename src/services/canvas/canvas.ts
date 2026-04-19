@@ -20,6 +20,9 @@ import {Vector} from '~/src/services/math/geometry';
 
 export abstract class Canvas {
   protected context: CanvasRenderingContext2D;
+  protected cssWidth = 0;
+  protected cssHeight = 0;
+  protected dpr = 1;
   private redrawRequested = false;
   private animationFrameId: ReturnType<typeof requestAnimationFrame> | null = null;
 
@@ -29,9 +32,10 @@ export abstract class Canvas {
 
   constructor(public canvas: HTMLCanvasElement) {
     this.context = canvas.getContext('2d')!;
+    this.cssWidth = canvas.width;
+    this.cssHeight = canvas.height;
 
-    // Recover from browser-discarded canvas bitmaps (allowed by the HTML spec).
-    // These events cover tab restore, bfcache, and window refocus.
+    // Recover from browser-discarded canvas bitmaps
     document.addEventListener('visibilitychange', this.onBitmapRestored);
     window.addEventListener('pageshow', this.onBitmapRestored);
     window.addEventListener('focus', this.onBitmapRestored);
@@ -61,8 +65,12 @@ export abstract class Canvas {
   }
 
   setSize(width: number, height: number): void {
-    this.canvas.width = width;
-    this.canvas.height = height;
+    this.dpr = window.devicePixelRatio || 1;
+    this.cssWidth = width;
+    this.cssHeight = height;
+    this.canvas.width = Math.round(width * this.dpr);
+    this.canvas.height = Math.round(height * this.dpr);
+    this.context.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
     this.onCanvasResized();
     this.requestRedraw();
   }
@@ -81,6 +89,6 @@ export abstract class Canvas {
   }
 
   protected getCanvasCenter(): Vector {
-    return new Vector(this.canvas.width / 2, this.canvas.height / 2);
+    return new Vector(this.cssWidth / 2, this.cssHeight / 2);
   }
 }

@@ -123,7 +123,7 @@ msgstr "Acryl markers"
 msgid "Acrylic Paint"
 msgstr "Acrylverf"
 
-#: src/components/ColorMixer.tsx:256
+#: src/components/ColorMixer.tsx:259
 msgid "Add color"
 msgstr "Kleur toevoegen"
 
@@ -249,7 +249,7 @@ msgstr "Zoek automatisch de beste kleurmengsels voor deze foto"
 msgid "Average color of the white point area"
 msgstr "Gemiddelde kleur van het witpuntgebied"
 
-#: src/components/ColorMixer.tsx:180
+#: src/components/ColorMixer.tsx:183
 #: src/components/ImageBackgroundRemoval.tsx:217
 #: src/components/ImageBackgroundRemoval.tsx:242
 #: src/components/ImageColorPicker.tsx:350
@@ -321,7 +321,7 @@ msgstr "Sluiten"
 msgid "Close in {closeCounter} sec"
 msgstr "Sluiten in {closeCounter} sec"
 
-#: src/components/ColorMixer.tsx:206
+#: src/components/ColorMixer.tsx:209
 #: src/components/CustomColorBrandCreator.tsx:448
 #: src/components/ImageColorPicker.tsx:404
 msgid "Color"
@@ -510,6 +510,11 @@ msgstr "Bewerking vanaf hier"
 msgid "Email"
 msgstr "E-mail"
 
+#: src/components/ImageOutline.tsx:307
+#: src/components/ImageOutline.tsx:355
+msgid "Enter lightbox mode to trace the outline through your paper."
+msgstr "Begin de lightbox-modus om de omtrek door je papier te trekken."
+
 #: src/components/ImageChooser.tsx:64
 msgid "Error loading sample photos"
 msgstr "Foutlaadvoorbeeldfoto's"
@@ -523,7 +528,7 @@ msgid "Error while fetching color data"
 msgstr "Fout bij het ophalen van kleurgegevens"
 
 #: src/components/ImageBackgroundRemoval.tsx:90
-#: src/components/ImageOutline.tsx:99
+#: src/components/ImageOutline.tsx:119
 #: src/components/ImageStyleTransfer.tsx:84
 msgid "Error while fetching ML model data"
 msgstr "Fout bij het ophalen van ML-modelgegevens"
@@ -582,7 +587,6 @@ msgid "Gouache"
 msgstr "Gouache"
 
 #: src/components/grid/GridControls.tsx:178
-#: src/components/ImageOutline.tsx:228
 #: src/components/messages.ts:35
 msgid "Grid"
 msgstr "Rooster"
@@ -661,6 +665,11 @@ msgstr "Laatst gebruikt {dateText}"
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "Links om te vergelijken: {unfinishedGamesSize}"
 
+#: src/components/ImageOutline.tsx:314
+#: src/components/ImageOutline.tsx:354
+msgid "Light box"
+msgstr "Lichtkast"
+
 #: src/components/ImageTonalValues.tsx:88
 msgid "Light tone"
 msgstr "Lichte toon"
@@ -738,7 +747,7 @@ msgstr "Middentonen"
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Meng kleuren in een <0>{partsRatioText} verhouding</0>"
 
-#: src/components/ColorMixer.tsx:166
+#: src/components/ColorMixer.tsx:169
 msgid "Mix your colors in any proportions so you don't waste real paints."
 msgstr "Meng je kleuren in elke verhouding, zodat je geen echte verf verspilt."
 
@@ -748,7 +757,7 @@ msgstr "Mengsel"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:101
 #: src/components/ImageBackgroundRemoval.tsx:204
-#: src/components/ImageOutline.tsx:201
+#: src/components/ImageOutline.tsx:283
 msgid "Mode"
 msgstr "Wijze"
 
@@ -833,7 +842,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "In de gratis versie is slechts een beperkt aantal kleurmerken beschikbaar"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageOutline.tsx:188
+#: src/components/ImageOutline.tsx:270
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Er is slechts een beperkt aantal modi beschikbaar in de gratis versie"
 
@@ -975,8 +984,8 @@ msgstr "Voorbeeld"
 #: src/components/ColorMixingChart.tsx:135
 #: src/components/ImageGrid.tsx:71
 #: src/components/ImageGrid.tsx:84
-#: src/components/ImageOutline.tsx:233
-#: src/components/ImageOutline.tsx:251
+#: src/components/ImageOutline.tsx:297
+#: src/components/ImageOutline.tsx:340
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
 #: src/components/ImageTonalValues.tsx:126
@@ -1013,7 +1022,7 @@ msgstr "Beoordeling: {player1RatingText}"
 msgid "Rating: {player2RatingText}"
 msgstr "Beoordeling: {player2RatingText}"
 
-#: src/components/ColorMixer.tsx:202
+#: src/components/ColorMixer.tsx:205
 msgid "Ratio"
 msgstr "Verhouding"
 
@@ -1037,7 +1046,7 @@ msgid "Reference"
 msgstr "Referentie"
 
 #: src/components/color/SimilarColorCard.tsx:110
-#: src/components/ColorMixer.tsx:266
+#: src/components/ColorMixer.tsx:269
 msgid "Reflectance"
 msgstr "Reflectie"
 
@@ -1114,8 +1123,8 @@ msgstr "Verzadiging (%)"
 #: src/components/ImageGrid.tsx:74
 #: src/components/ImageGrid.tsx:90
 #: src/components/ImageLimitedPalette.tsx:141
-#: src/components/ImageOutline.tsx:241
-#: src/components/ImageOutline.tsx:257
+#: src/components/ImageOutline.tsx:305
+#: src/components/ImageOutline.tsx:346
 #: src/components/ImagePerspectiveCorrection.tsx:245
 #: src/components/ImagePerspectiveCorrection.tsx:277
 #: src/components/ImageStyleTransfer.tsx:186
@@ -1182,7 +1191,7 @@ msgstr "Selecteer een stijl om over te brengen naar uw referentiefoto"
 msgid "Select an image that contains a color chart"
 msgstr "Selecteer een afbeelding die een kleurenkaart bevat"
 
-#: src/components/ColorMixer.tsx:209
+#: src/components/ColorMixer.tsx:212
 msgid "Select any number of colors to mix and specify the part of each color in the resulting mix."
 msgstr "Selecteer een willekeurig aantal kleuren om te mengen en specificeer het deel van elke kleur in de resulterende mix."
 
@@ -1235,7 +1244,7 @@ msgstr "Selecteer afbeelding"
 msgid "Select language"
 msgstr "Taal selecteren"
 
-#: src/components/ColorMixer.tsx:223
+#: src/components/ColorMixer.tsx:226
 msgid "Select part"
 msgstr "Selecteer onderdeel"
 
@@ -1385,7 +1394,7 @@ msgstr "Sorteer op dikte van het mengsel"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:92
 #: src/components/color/SimilarColorCard.tsx:105
-#: src/components/ColorMixer.tsx:260
+#: src/components/ColorMixer.tsx:263
 msgid "Spectral reflectance curve"
 msgstr "Spectrale reflectiecurve"
 
@@ -1429,6 +1438,11 @@ msgstr "Ondersteunde kunstmedia:"
 msgid "Supported web browsers and operating systems"
 msgstr "Ondersteunde webbrowsers en besturingssystemen"
 
+#: src/components/lightbox/LightboxOverlay.tsx:106
+#: src/components/lightbox/LightboxOverlay.tsx:110
+msgid "Swipe to unlock"
+msgstr "Veeg om te ontgrendelen"
+
 #: src/components/print/PrintImageDrawer.tsx:223
 msgid "Taped margin width around the painting area"
 msgstr "Getapete margebreedte rond het schildergebied"
@@ -1449,7 +1463,7 @@ msgstr "De app slaat alle gegevens op in de opslag van de webbrowser, zelfs na i
 msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "De app probeert opnieuw te laden in {reloadCounter} sec"
 
-#: src/components/ColorMixer.tsx:181
+#: src/components/ColorMixer.tsx:184
 #: src/components/ImageColorPicker.tsx:351
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "De kleur van papier of canvas, of de kleur van de basislaag wanneer deze geglazuurd is."
@@ -1671,7 +1685,7 @@ msgid "You've selected color brands that are available to paid Patreon members o
 msgstr "Je hebt kleurmerken geselecteerd die alleen beschikbaar zijn voor betalende Patreon-leden. Word lid van ArtistAssistApp op Patreon als betaald lid of log in met Patreon als je al lid bent geworden."
 
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:192
+#: src/components/ImageOutline.tsx:274
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Je hebt een modus geselecteerd die alleen beschikbaar is voor betaalde Patreon-leden"
 

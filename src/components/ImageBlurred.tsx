@@ -118,7 +118,7 @@ export const ImageBlurred: React.FC = () => {
 
   return (
     <LoadingIndicator loading={isBlurredImagesLoading}>
-      <Space align="start" style={{width: '100%', justifyContent: 'center', marginBottom: 8}}>
+      <Space align="start" style={{marginBottom: 8, padding: '0 16px'}}>
         <Form.Item
           label={t`Strength`}
           tooltip={t`Adjusts how strongly the image is smoothed.`}

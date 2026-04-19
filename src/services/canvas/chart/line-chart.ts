@@ -95,11 +95,11 @@ export class LineChart extends Canvas {
   }
 
   protected get scaleX(): number {
-    return (this.canvas.width - this.paddingLeft) / this.rangeX;
+    return (this.cssWidth - this.paddingLeft) / this.rangeX;
   }
 
   protected get scaleY(): number {
-    return (this.canvas.height - this.paddingTop - this.paddingBottom) / this.rangeY;
+    return (this.cssHeight - this.paddingTop - this.paddingBottom) / this.rangeY;
   }
 
   protected transformCoordinates(x: number, y: number): Vector {
@@ -136,7 +136,7 @@ export class LineChart extends Canvas {
     ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
   ): void {
     ctx.fillStyle = this.backgroundColor;
-    ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    ctx.fillRect(0, 0, this.cssWidth, this.cssHeight);
   }
 
   private drawXAxis(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
@@ -149,7 +149,7 @@ export class LineChart extends Canvas {
       ctx.beginPath();
       const {x} = this.transformCoordinates(i, 0);
       ctx.moveTo(x, this.paddingTop);
-      ctx.lineTo(x, this.canvas.height - this.paddingBottom + this.tickSize);
+      ctx.lineTo(x, this.cssHeight - this.paddingBottom + this.tickSize);
       ctx.stroke();
     }
 
@@ -163,7 +163,7 @@ export class LineChart extends Canvas {
       const label: string = i.toFixed(fractionDigits);
       const {x} = this.transformCoordinates(i, 0);
       ctx.save();
-      ctx.translate(x, this.canvas.height - this.paddingBottom + this.tickSize + SPACING);
+      ctx.translate(x, this.cssHeight - this.paddingBottom + this.tickSize + SPACING);
       ctx.fillText(label, 0, 0);
       ctx.restore();
     }
@@ -172,13 +172,8 @@ export class LineChart extends Canvas {
 
     ctx.save();
     ctx.translate(
-      this.paddingLeft + (this.canvas.width - this.paddingLeft) / 2,
-      this.canvas.height -
-        this.paddingBottom +
-        this.tickSize +
-        SPACING +
-        this.fontSize +
-        2 * SPACING
+      this.paddingLeft + (this.cssWidth - this.paddingLeft) / 2,
+      this.cssHeight - this.paddingBottom + this.tickSize + SPACING + this.fontSize + 2 * SPACING
     );
     ctx.fillText(this.xAxisLabel, 0, 0);
     ctx.restore();
@@ -196,7 +191,7 @@ export class LineChart extends Canvas {
       ctx.beginPath();
       const {y} = this.transformCoordinates(0, j);
       ctx.moveTo(this.paddingLeft - this.tickSize, y);
-      ctx.lineTo(this.canvas.width, y);
+      ctx.lineTo(this.cssWidth, y);
       ctx.stroke();
     }
 
@@ -222,7 +217,7 @@ export class LineChart extends Canvas {
     ctx.save();
     ctx.translate(
       SPACING,
-      this.paddingTop + (this.canvas.height - this.paddingTop - this.paddingBottom) / 2
+      this.paddingTop + (this.cssHeight - this.paddingTop - this.paddingBottom) / 2
     );
     ctx.rotate(-Math.PI / 2);
     ctx.fillText(this.yAxisLabel, 0, 0);

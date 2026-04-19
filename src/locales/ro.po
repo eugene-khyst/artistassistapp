@@ -123,7 +123,7 @@ msgstr "Markere acrilice"
 msgid "Acrylic Paint"
 msgstr "Acril"
 
-#: src/components/ColorMixer.tsx:256
+#: src/components/ColorMixer.tsx:259
 msgid "Add color"
 msgstr "Adăugați culoare"
 
@@ -249,7 +249,7 @@ msgstr "Găsește automat cele mai bune amestecuri de culori pentru această fot
 msgid "Average color of the white point area"
 msgstr "Culoarea medie a zonei punctului alb"
 
-#: src/components/ColorMixer.tsx:180
+#: src/components/ColorMixer.tsx:183
 #: src/components/ImageBackgroundRemoval.tsx:217
 #: src/components/ImageBackgroundRemoval.tsx:242
 #: src/components/ImageColorPicker.tsx:350
@@ -321,7 +321,7 @@ msgstr "Închide"
 msgid "Close in {closeCounter} sec"
 msgstr "Închidere în {closeCounter} sec"
 
-#: src/components/ColorMixer.tsx:206
+#: src/components/ColorMixer.tsx:209
 #: src/components/CustomColorBrandCreator.tsx:448
 #: src/components/ImageColorPicker.tsx:404
 msgid "Color"
@@ -510,6 +510,11 @@ msgstr "Editare de aici înainte"
 msgid "Email"
 msgstr "Email"
 
+#: src/components/ImageOutline.tsx:307
+#: src/components/ImageOutline.tsx:355
+msgid "Enter lightbox mode to trace the outline through your paper."
+msgstr "Intră în modul lightbox pentru a trasa conturul prin hârtie."
+
 #: src/components/ImageChooser.tsx:64
 msgid "Error loading sample photos"
 msgstr "Eroare la încărcarea fotografiilor de probă"
@@ -523,7 +528,7 @@ msgid "Error while fetching color data"
 msgstr "Eroare la preluarea datelor de culoare"
 
 #: src/components/ImageBackgroundRemoval.tsx:90
-#: src/components/ImageOutline.tsx:99
+#: src/components/ImageOutline.tsx:119
 #: src/components/ImageStyleTransfer.tsx:84
 msgid "Error while fetching ML model data"
 msgstr "Eroare la preluarea datelor modelului ML"
@@ -582,7 +587,6 @@ msgid "Gouache"
 msgstr "Guasa"
 
 #: src/components/grid/GridControls.tsx:178
-#: src/components/ImageOutline.tsx:228
 #: src/components/messages.ts:35
 msgid "Grid"
 msgstr "Grilă"
@@ -661,6 +665,11 @@ msgstr "Ultima utilizare {dateText}"
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "Rămas pentru comparație: {unfinishedGamesSize}"
 
+#: src/components/ImageOutline.tsx:314
+#: src/components/ImageOutline.tsx:354
+msgid "Light box"
+msgstr "Cutia luminii"
+
 #: src/components/ImageTonalValues.tsx:88
 msgid "Light tone"
 msgstr "Ton deschis"
@@ -738,7 +747,7 @@ msgstr "Tonuri medii"
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Amestecarea culorilor într-un <0>raport {partsRatioText}</0>"
 
-#: src/components/ColorMixer.tsx:166
+#: src/components/ColorMixer.tsx:169
 msgid "Mix your colors in any proportions so you don't waste real paints."
 msgstr "Amestecați culorile în orice proporții, astfel încât să nu irosiți vopsele adevărate."
 
@@ -748,7 +757,7 @@ msgstr "Amestec"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:101
 #: src/components/ImageBackgroundRemoval.tsx:204
-#: src/components/ImageOutline.tsx:201
+#: src/components/ImageOutline.tsx:283
 msgid "Mode"
 msgstr "Mod"
 
@@ -833,7 +842,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "Doar un număr limitat de mărci de culori sunt disponibile în versiunea gratuită"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageOutline.tsx:188
+#: src/components/ImageOutline.tsx:270
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Doar un număr limitat de moduri sunt disponibile în versiunea gratuită"
 
@@ -975,8 +984,8 @@ msgstr "Previzualizare"
 #: src/components/ColorMixingChart.tsx:135
 #: src/components/ImageGrid.tsx:71
 #: src/components/ImageGrid.tsx:84
-#: src/components/ImageOutline.tsx:233
-#: src/components/ImageOutline.tsx:251
+#: src/components/ImageOutline.tsx:297
+#: src/components/ImageOutline.tsx:340
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
 #: src/components/ImageTonalValues.tsx:126
@@ -1013,7 +1022,7 @@ msgstr "Evaluare: {player1RatingText}"
 msgid "Rating: {player2RatingText}"
 msgstr "Evaluare: {player2RatingText}"
 
-#: src/components/ColorMixer.tsx:202
+#: src/components/ColorMixer.tsx:205
 msgid "Ratio"
 msgstr "Raport"
 
@@ -1037,7 +1046,7 @@ msgid "Reference"
 msgstr "Referință"
 
 #: src/components/color/SimilarColorCard.tsx:110
-#: src/components/ColorMixer.tsx:266
+#: src/components/ColorMixer.tsx:269
 msgid "Reflectance"
 msgstr "Reflectanță"
 
@@ -1114,8 +1123,8 @@ msgstr "Saturație (%)"
 #: src/components/ImageGrid.tsx:74
 #: src/components/ImageGrid.tsx:90
 #: src/components/ImageLimitedPalette.tsx:141
-#: src/components/ImageOutline.tsx:241
-#: src/components/ImageOutline.tsx:257
+#: src/components/ImageOutline.tsx:305
+#: src/components/ImageOutline.tsx:346
 #: src/components/ImagePerspectiveCorrection.tsx:245
 #: src/components/ImagePerspectiveCorrection.tsx:277
 #: src/components/ImageStyleTransfer.tsx:186
@@ -1182,7 +1191,7 @@ msgstr "Selectează un stil pe care să-l transferi în fotografia de referinț�
 msgid "Select an image that contains a color chart"
 msgstr "Selectați o imagine care conține o diagramă de culori"
 
-#: src/components/ColorMixer.tsx:209
+#: src/components/ColorMixer.tsx:212
 msgid "Select any number of colors to mix and specify the part of each color in the resulting mix."
 msgstr "Selectați orice număr de culori de amestecat și specificați partea fiecărei culori din amestecul rezultat."
 
@@ -1235,7 +1244,7 @@ msgstr "Selectează imaginea"
 msgid "Select language"
 msgstr "Selectează limba"
 
-#: src/components/ColorMixer.tsx:223
+#: src/components/ColorMixer.tsx:226
 msgid "Select part"
 msgstr "Selectează piesa"
 
@@ -1385,7 +1394,7 @@ msgstr "Sortează după grosimea amestecului"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:92
 #: src/components/color/SimilarColorCard.tsx:105
-#: src/components/ColorMixer.tsx:260
+#: src/components/ColorMixer.tsx:263
 msgid "Spectral reflectance curve"
 msgstr "Curba de reflectanță spectrală"
 
@@ -1429,6 +1438,11 @@ msgstr "Medii artistice suportate:"
 msgid "Supported web browsers and operating systems"
 msgstr "Browsere web și sisteme de operare acceptate"
 
+#: src/components/lightbox/LightboxOverlay.tsx:106
+#: src/components/lightbox/LightboxOverlay.tsx:110
+msgid "Swipe to unlock"
+msgstr "Glisează pentru a debloca"
+
 #: src/components/print/PrintImageDrawer.tsx:223
 msgid "Taped margin width around the painting area"
 msgstr "Lățimea marginii lipite în jurul zonei de vopsire"
@@ -1449,7 +1463,7 @@ msgstr "Aplicația stochează toate datele în spațiul de stocare al browserulu
 msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "Aplicația va încerca să se reîncarce în {reloadCounter} sec"
 
-#: src/components/ColorMixer.tsx:181
+#: src/components/ColorMixer.tsx:184
 #: src/components/ImageColorPicker.tsx:351
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "Culoarea hârtiei sau a pânzei sau culoarea stratului de bază atunci când este glazurat."
@@ -1671,7 +1685,7 @@ msgid "You've selected color brands that are available to paid Patreon members o
 msgstr "Ai selectat mărci de culori care sunt disponibile numai pentru membrii Patreon plătiți. Alăturați-vă ArtistAssistApp pe Patreon ca membru plătit sau conectați-vă cu Patreon dacă v-ați înscris deja."
 
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:192
+#: src/components/ImageOutline.tsx:274
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Ați selectat modul care este disponibil numai pentru membrii Patreon plătiți"
 

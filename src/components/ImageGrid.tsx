@@ -63,7 +63,7 @@ export const ImageGrid: React.FC = () => {
 
   return (
     <LoadingIndicator loading={isOriginalImageLoading}>
-      <Space align="start" style={{width: '100%', justifyContent: 'center', marginBottom: 8}}>
+      <Space align="start" style={{marginBottom: 8, padding: '0 16px'}}>
         <GridControls gridCanvas={gridCanvas} />
         {screens.sm ? (
           <>

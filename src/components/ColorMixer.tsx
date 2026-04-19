@@ -29,6 +29,7 @@ import {
   ColorPicker,
   Flex,
   Form,
+  Grid,
   Row,
   Select,
   Space,
@@ -96,6 +97,8 @@ export const ColorMixer: React.FC = () => {
   } = theme.useToken();
 
   const {t} = useLingui();
+
+  const screens = Grid.useBreakpoint();
 
   const [form] = Form.useForm();
 
@@ -167,7 +170,7 @@ export const ColorMixer: React.FC = () => {
         </Typography.Text>
 
         <Space size="middle" align="start" wrap>
-          <Space orientation="vertical" size="middle">
+          <Space orientation="vertical" size="middle" style={{width: screens.md ? 420 : 360}}>
             <Form
               name="colorMixture"
               form={form}
@@ -228,7 +231,7 @@ export const ColorMixer: React.FC = () => {
                         <Form.Item
                           {...restField}
                           name={[name, 'color']}
-                          style={{flexGrow: 1, marginBottom: 0}}
+                          style={{flexGrow: 1, minWidth: 0, marginBottom: 0}}
                         >
                           <ColorCascader />
                         </Form.Item>

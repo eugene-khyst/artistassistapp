@@ -197,7 +197,7 @@ export const ImageColorPicker: React.FC = () => {
     const {x, y, diameter} = colorPickerPipette;
     colorPickerCanvas.setPipetteDiameter(diameter);
     colorPickerCanvas.setPipettePoint(new Vector(x, y));
-    colorPickerCanvas.setMinZoom();
+    colorPickerCanvas.zoomToFit();
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setSampleDiameter(diameter);
   }, [colorPickerCanvas, colorPickerPipette]);

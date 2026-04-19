@@ -123,7 +123,7 @@ msgstr "Akryyli-merkit"
 msgid "Acrylic Paint"
 msgstr "Akryyliväri"
 
-#: src/components/ColorMixer.tsx:256
+#: src/components/ColorMixer.tsx:259
 msgid "Add color"
 msgstr "Lisää väriä"
 
@@ -249,7 +249,7 @@ msgstr "Löydä automaattisesti parhaat väriseokset tähän kuvaan"
 msgid "Average color of the white point area"
 msgstr "Valkoisen pistealueen keskimääräinen väri"
 
-#: src/components/ColorMixer.tsx:180
+#: src/components/ColorMixer.tsx:183
 #: src/components/ImageBackgroundRemoval.tsx:217
 #: src/components/ImageBackgroundRemoval.tsx:242
 #: src/components/ImageColorPicker.tsx:350
@@ -321,7 +321,7 @@ msgstr "Sulkea"
 msgid "Close in {closeCounter} sec"
 msgstr "Sulje {closeCounter} sekunnissa"
 
-#: src/components/ColorMixer.tsx:206
+#: src/components/ColorMixer.tsx:209
 #: src/components/CustomColorBrandCreator.tsx:448
 #: src/components/ImageColorPicker.tsx:404
 msgid "Color"
@@ -510,6 +510,11 @@ msgstr "Muokkaus tästä eteenpäin"
 msgid "Email"
 msgstr "Sähköposti"
 
+#: src/components/ImageOutline.tsx:307
+#: src/components/ImageOutline.tsx:355
+msgid "Enter lightbox mode to trace the outline through your paper."
+msgstr "Siirry valolaatikkotilaan jäljittääksesi ääriviivat paperisi läpi."
+
 #: src/components/ImageChooser.tsx:64
 msgid "Error loading sample photos"
 msgstr "Virhe ladataan esimerkkikuvia"
@@ -523,7 +528,7 @@ msgid "Error while fetching color data"
 msgstr "Virhe haettaessa väritietoja"
 
 #: src/components/ImageBackgroundRemoval.tsx:90
-#: src/components/ImageOutline.tsx:99
+#: src/components/ImageOutline.tsx:119
 #: src/components/ImageStyleTransfer.tsx:84
 msgid "Error while fetching ML model data"
 msgstr "Virhe koneoppimismallin tietoja haettaessa"
@@ -582,7 +587,6 @@ msgid "Gouache"
 msgstr "Guassi"
 
 #: src/components/grid/GridControls.tsx:178
-#: src/components/ImageOutline.tsx:228
 #: src/components/messages.ts:35
 msgid "Grid"
 msgstr "Hila"
@@ -661,6 +665,11 @@ msgstr "Viimeksi käytetty {dateText}"
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "Jäljellä vertailua varten: {unfinishedGamesSize}"
 
+#: src/components/ImageOutline.tsx:314
+#: src/components/ImageOutline.tsx:354
+msgid "Light box"
+msgstr "Valolaatikko"
+
 #: src/components/ImageTonalValues.tsx:88
 msgid "Light tone"
 msgstr "Vaalea sävy"
@@ -738,7 +747,7 @@ msgstr "Keskisävyt"
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Värien sekoittaminen <0>{partsRatioText}-suhteessa</0>"
 
-#: src/components/ColorMixer.tsx:166
+#: src/components/ColorMixer.tsx:169
 msgid "Mix your colors in any proportions so you don't waste real paints."
 msgstr "Sekoita värejä missä tahansa suhteessa, jotta et tuhlaa oikeita maaleja."
 
@@ -748,7 +757,7 @@ msgstr "Sekoitus"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:101
 #: src/components/ImageBackgroundRemoval.tsx:204
-#: src/components/ImageOutline.tsx:201
+#: src/components/ImageOutline.tsx:283
 msgid "Mode"
 msgstr "Moodi"
 
@@ -833,7 +842,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "Ilmaisessa versiossa on saatavilla vain rajoitettu määrä värimerkkejä"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageOutline.tsx:188
+#: src/components/ImageOutline.tsx:270
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Ilmaisessa versiossa on käytettävissä vain rajoitettu määrä tiloja"
 
@@ -975,8 +984,8 @@ msgstr "Ennakkoesitys"
 #: src/components/ColorMixingChart.tsx:135
 #: src/components/ImageGrid.tsx:71
 #: src/components/ImageGrid.tsx:84
-#: src/components/ImageOutline.tsx:233
-#: src/components/ImageOutline.tsx:251
+#: src/components/ImageOutline.tsx:297
+#: src/components/ImageOutline.tsx:340
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
 #: src/components/ImageTonalValues.tsx:126
@@ -1013,7 +1022,7 @@ msgstr "Arvosana: {player1RatingText}"
 msgid "Rating: {player2RatingText}"
 msgstr "Arvosana: {player2RatingText}"
 
-#: src/components/ColorMixer.tsx:202
+#: src/components/ColorMixer.tsx:205
 msgid "Ratio"
 msgstr "Suhde"
 
@@ -1037,7 +1046,7 @@ msgid "Reference"
 msgstr "Viittaus"
 
 #: src/components/color/SimilarColorCard.tsx:110
-#: src/components/ColorMixer.tsx:266
+#: src/components/ColorMixer.tsx:269
 msgid "Reflectance"
 msgstr "Heijastussuhde"
 
@@ -1114,8 +1123,8 @@ msgstr "Kylläisyys (%)"
 #: src/components/ImageGrid.tsx:74
 #: src/components/ImageGrid.tsx:90
 #: src/components/ImageLimitedPalette.tsx:141
-#: src/components/ImageOutline.tsx:241
-#: src/components/ImageOutline.tsx:257
+#: src/components/ImageOutline.tsx:305
+#: src/components/ImageOutline.tsx:346
 #: src/components/ImagePerspectiveCorrection.tsx:245
 #: src/components/ImagePerspectiveCorrection.tsx:277
 #: src/components/ImageStyleTransfer.tsx:186
@@ -1182,7 +1191,7 @@ msgstr "Valitse tyyli, jonka haluat siirtää viitekuvaasi"
 msgid "Select an image that contains a color chart"
 msgstr "Valitse kuva, joka sisältää värikartan"
 
-#: src/components/ColorMixer.tsx:209
+#: src/components/ColorMixer.tsx:212
 msgid "Select any number of colors to mix and specify the part of each color in the resulting mix."
 msgstr "Valitse haluamasi määrä sekoitettavia värejä ja määritä kunkin värin osa tuloksena olevasta sekoituksesta."
 
@@ -1235,7 +1244,7 @@ msgstr "Valitse kuva"
 msgid "Select language"
 msgstr "Valitse kieli"
 
-#: src/components/ColorMixer.tsx:223
+#: src/components/ColorMixer.tsx:226
 msgid "Select part"
 msgstr "Valitse osa"
 
@@ -1385,7 +1394,7 @@ msgstr "Lajittele seoksen paksuuden mukaan"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:92
 #: src/components/color/SimilarColorCard.tsx:105
-#: src/components/ColorMixer.tsx:260
+#: src/components/ColorMixer.tsx:263
 msgid "Spectral reflectance curve"
 msgstr "Spektrin heijastuskäyrä"
 
@@ -1429,6 +1438,11 @@ msgstr "Tuetut taidemediat:"
 msgid "Supported web browsers and operating systems"
 msgstr "Tuetut verkkoselaimet ja käyttöjärjestelmät"
 
+#: src/components/lightbox/LightboxOverlay.tsx:106
+#: src/components/lightbox/LightboxOverlay.tsx:110
+msgid "Swipe to unlock"
+msgstr "Pyyhkäisy avataksesi"
+
 #: src/components/print/PrintImageDrawer.tsx:223
 msgid "Taped margin width around the painting area"
 msgstr "Teipattu reunuksen leveys maalausalueen ympärillä"
@@ -1449,7 +1463,7 @@ msgstr "Sovellus tallentaa kaikki tiedot verkkoselaimen tallennustilaan myös as
 msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "Sovellus yrittää ladata uudelleen {reloadCounter} sekunnissa"
 
-#: src/components/ColorMixer.tsx:181
+#: src/components/ColorMixer.tsx:184
 #: src/components/ImageColorPicker.tsx:351
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "Paperin tai kankaan väri tai aluskerroksen väri lasitettuna."
@@ -1671,7 +1685,7 @@ msgid "You've selected color brands that are available to paid Patreon members o
 msgstr "Olet valinnut värimerkkejä, jotka ovat vain maksullisten Patreon-jäsenten käytettävissä. Liity ArtistAssistAppiin Patreonissa maksullisena jäsenenä tai kirjaudu sisään Patreonilla, jos olet jo liittynyt."
 
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:192
+#: src/components/ImageOutline.tsx:274
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Olet valinnut tilan, joka on vain maksullisten Patreon-jäsenten käytettävissä"
 
