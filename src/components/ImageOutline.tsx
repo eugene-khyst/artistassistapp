@@ -16,7 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {BulbOutlined, DownloadOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons';
+import {
+  BulbOutlined,
+  DownloadOutlined,
+  MoreOutlined,
+  PrinterOutlined,
+  VideoCameraOutlined,
+} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {
   App,
@@ -32,7 +38,7 @@ import {
   Typography,
 } from 'antd';
 import type {CSSProperties} from 'react';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import {DEFAULT_GRID_SETTINGS, setGrid} from '~/src/components/grid/grid';
 import {GridControls} from '~/src/components/grid/GridControls';
@@ -40,7 +46,8 @@ import {LightboxOverlay} from '~/src/components/lightbox/LightboxOverlay';
 import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {OnnxModelSelect} from '~/src/components/ml-model/OnnxModelSelect';
 import {PrintImageDrawer} from '~/src/components/print/PrintImageDrawer';
-import {useFullScreen} from '~/src/hooks/useFullscreen';
+import {useArMode} from '~/src/hooks/useArMode';
+import {useLightbox} from '~/src/hooks/useLightbox';
 import {useOnnxModels} from '~/src/hooks/useOnnxModels';
 import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
 import {hasAccessTo} from '~/src/services/auth/utils';
@@ -76,6 +83,8 @@ export const ImageOutline: React.FC = () => {
   const outlineDownloadTip = useAppStore(state => state.outlineDownloadTip);
   const outlineImage = useAppStore(state => state.outlineImage);
 
+  const activeTabKey = useAppStore(state => state.activeTabKey);
+
   const setOutlineModel = useAppStore(state => state.setOutlineModel);
   const abortOutline = useAppStore(state => state.abortOutline);
   const saveAppSettings = useAppStore(state => state.saveAppSettings);
@@ -98,14 +107,38 @@ export const ImageOutline: React.FC = () => {
     outlineImage
   );
 
-  const {isSupported: isFullScreenSupported} = useFullScreen();
-
   const [modelId, setModelId] = useState<string>();
   const [isOpenPrintImage, setIsOpenPrintImage] = useState<boolean>(false);
-  const [isLightbox, setIsLightbox] = useState<boolean>(false);
 
-  const lightboxContainerRef = useRef<HTMLDivElement>(null);
-  const enteredFullscreenRef = useRef<boolean>(false);
+  const onLightboxEnter = useCallback(() => {
+    gridCanvas?.disableAutoFit();
+  }, [gridCanvas]);
+
+  const {
+    isLightbox,
+    containerRef: lightboxContainerRef,
+    open: openLightbox,
+    close: closeLightbox,
+  } = useLightbox({onEnter: onLightboxEnter});
+
+  const onArPermissionDenied = useCallback(() => {
+    notification.error({
+      title: t`Camera access is required for AR tracing`,
+      placement: 'top',
+      duration: 10,
+      showProgress: true,
+    });
+  }, [notification, t]);
+
+  const {
+    isArMode,
+    videoRef,
+    enter: enterArMode,
+    exit: exitArMode,
+  } = useArMode({
+    isActive: activeTabKey === TabKey.Outline,
+    onPermissionDenied: onArPermissionDenied,
+  });
 
   const model: OnnxModel | null | undefined = modelId ? models?.get(modelId) : null;
 
@@ -149,42 +182,16 @@ export const ImageOutline: React.FC = () => {
     });
   }, [appSettings, gridCanvas]);
 
-  const handleLightboxClose = async () => {
-    setIsLightbox(false);
-    const orientation = screen.orientation as ScreenOrientation & {
-      unlock?: () => void;
-    };
-    if (typeof orientation.unlock === 'function') {
-      try {
-        orientation.unlock();
-      } catch {
-        // ignore
-      }
-    }
-    if (enteredFullscreenRef.current && document.fullscreenElement) {
-      try {
-        await document.exitFullscreen();
-      } catch {
-        // ignore
-      }
-    }
-    enteredFullscreenRef.current = false;
-  };
-
-  useEffect(() => {
-    if (!isLightbox) {
+  const handleArToggle = async () => {
+    if (isArMode) {
+      exitArMode();
       return;
     }
-    const handleFullscreenChange = () => {
-      if (enteredFullscreenRef.current && !document.fullscreenElement) {
-        void handleLightboxClose();
-      }
-    };
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-    return () => {
-      document.removeEventListener('fullscreenchange', handleFullscreenChange);
-    };
-  }, [isLightbox]);
+    if (isLightbox) {
+      await closeLightbox();
+    }
+    await enterArMode();
+  };
 
   const handleModelChange = (value: string) => {
     setModelId(value);
@@ -204,29 +211,10 @@ export const ImageOutline: React.FC = () => {
   };
 
   const handleLightboxClick = async () => {
-    gridCanvas?.disableAutoFit();
-    setIsLightbox(true);
-    let enteredFullscreen = false;
-    const target = lightboxContainerRef.current;
-    if (isFullScreenSupported && target && !document.fullscreenElement) {
-      try {
-        await target.requestFullscreen();
-        enteredFullscreen = true;
-      } catch {
-        // ignore
-      }
+    if (isArMode) {
+      exitArMode();
     }
-    enteredFullscreenRef.current = enteredFullscreen;
-    const orientation = screen.orientation as ScreenOrientation & {
-      lock?: (orientation: OrientationType) => Promise<void>;
-    };
-    if (typeof orientation.lock === 'function') {
-      try {
-        await orientation.lock(orientation.type);
-      } catch {
-        // ignore
-      }
-    }
+    await openLightbox();
   };
 
   const handleCancelClick = () => {
@@ -314,6 +302,17 @@ export const ImageOutline: React.FC = () => {
                   <Trans>Light box</Trans>
                 </Button>
               </Tooltip>
+              <Tooltip title={t`View the outline over the live camera to trace in AR.`}>
+                <Button
+                  type={isArMode ? 'primary' : 'default'}
+                  icon={<VideoCameraOutlined />}
+                  onClick={() => {
+                    void handleArToggle();
+                  }}
+                >
+                  {isArMode ? <Trans>Exit AR</Trans> : <Trans>AR</Trans>}
+                </Button>
+              </Tooltip>
               <Popover
                 trigger="click"
                 forceRender
@@ -358,6 +357,15 @@ export const ImageOutline: React.FC = () => {
                       void handleLightboxClick();
                     },
                   },
+                  {
+                    key: 'ar',
+                    label: isArMode ? t`Exit AR` : t`AR`,
+                    title: t`View the outline over the live camera to trace in AR.`,
+                    icon: <VideoCameraOutlined />,
+                    onClick: () => {
+                      void handleArToggle();
+                    },
+                  },
                 ],
               }}
               popupRender={menu => (
@@ -387,20 +395,42 @@ export const ImageOutline: React.FC = () => {
       </Form.Item>
       <div
         ref={lightboxContainerRef}
-        style={isLightbox ? {backgroundColor: token.colorBgContainer} : undefined}
+        style={{
+          position: 'relative',
+          ...(isLightbox ? {backgroundColor: token.colorBgContainer} : {}),
+        }}
       >
+        {isArMode && (
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            playsInline
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          />
+        )}
         <canvas
           ref={canvasRef}
           style={{
             width: '100%',
             height: isLightbox ? '100dvh' : `calc(100dvh - 115px)`,
             display: 'block',
+            position: 'relative',
+            filter: isArMode ? 'invert(1)' : undefined,
+            mixBlendMode: isArMode ? 'difference' : undefined,
           }}
         />
         {isLightbox && (
           <LightboxOverlay
             onUnlock={() => {
-              void handleLightboxClose();
+              void closeLightbox();
             }}
           />
         )}

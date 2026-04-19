@@ -185,6 +185,11 @@ msgstr "Zastosuj mniejszy nacisk, aby warstwa ołówka akwarelowego była bardzi
 msgid "Apply strokes of each color in a <0>{ratioText} ratio</0>"
 msgstr "Stosowanie pociągnięć każdego koloru w <0>proporcji {ratioText}</0>"
 
+#: src/components/ImageOutline.tsx:313
+#: src/components/ImageOutline.tsx:362
+msgid "AR"
+msgstr "AR"
+
 #: src/components/storage/ClearStorage.tsx:58
 msgid "Are you sure you want to clear the cache?"
 msgstr "Czy na pewno chcesz wyczyścić pamięć podręczną?"
@@ -282,6 +287,10 @@ msgstr "Przez lekkość"
 #: src/components/messages.ts:74
 msgid "By name"
 msgstr "Imię i nazwisko"
+
+#: src/components/ImageOutline.tsx:126
+msgid "Camera access is required for AR tracing"
+msgstr "Dostęp do kamery jest wymagany do śledzenia AR"
 
 #: src/components/loading/LoadingIndicator.tsx:60
 msgid "Cancel"
@@ -510,8 +519,8 @@ msgstr "Dalej edycja"
 msgid "Email"
 msgstr "E-mail"
 
-#: src/components/ImageOutline.tsx:307
-#: src/components/ImageOutline.tsx:355
+#: src/components/ImageOutline.tsx:295
+#: src/components/ImageOutline.tsx:354
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Przejdź do trybu lightbox, aby przerysować kontur na papierze."
 
@@ -528,7 +537,7 @@ msgid "Error while fetching color data"
 msgstr "Błąd podczas pobierania danych kolorów"
 
 #: src/components/ImageBackgroundRemoval.tsx:90
-#: src/components/ImageOutline.tsx:119
+#: src/components/ImageOutline.tsx:152
 #: src/components/ImageStyleTransfer.tsx:84
 msgid "Error while fetching ML model data"
 msgstr "Błąd podczas pobierania danych modelu uczenia maszynowego"
@@ -540,6 +549,11 @@ msgstr "Błąd podczas pobierania danych standardowego zestawu kolorów"
 #: src/components/ImageColorAdjustment.tsx:548
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Szacowana temperatura źródła światła w kelwinach, za pomocą którego wykonano zdjęcie"
+
+#: src/components/ImageOutline.tsx:313
+#: src/components/ImageOutline.tsx:362
+msgid "Exit AR"
+msgstr "Wyjście AR"
 
 #: src/components/ColorSetChooser.tsx:450
 msgid "Explore the free version before deciding to purchase a paid membership."
@@ -665,8 +679,8 @@ msgstr "Ostatnio używany {dateText}"
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "Lewo do porównania: {unfinishedGamesSize}"
 
-#: src/components/ImageOutline.tsx:314
-#: src/components/ImageOutline.tsx:354
+#: src/components/ImageOutline.tsx:302
+#: src/components/ImageOutline.tsx:353
 msgid "Light box"
 msgstr "Skrzynka świetlna"
 
@@ -757,7 +771,7 @@ msgstr "Mieszanina"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:101
 #: src/components/ImageBackgroundRemoval.tsx:204
-#: src/components/ImageOutline.tsx:283
+#: src/components/ImageOutline.tsx:271
 msgid "Mode"
 msgstr "Tryb"
 
@@ -842,7 +856,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "W darmowej wersji dostępna jest tylko ograniczona liczba marek kolorystycznych"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageOutline.tsx:270
+#: src/components/ImageOutline.tsx:258
 msgid "Only a limited number of modes are available in the free version"
 msgstr "W darmowej wersji dostępna jest tylko ograniczona liczba trybów"
 
@@ -984,8 +998,8 @@ msgstr "Prapremiera"
 #: src/components/ColorMixingChart.tsx:135
 #: src/components/ImageGrid.tsx:71
 #: src/components/ImageGrid.tsx:84
-#: src/components/ImageOutline.tsx:297
-#: src/components/ImageOutline.tsx:340
+#: src/components/ImageOutline.tsx:285
+#: src/components/ImageOutline.tsx:339
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
 #: src/components/ImageTonalValues.tsx:126
@@ -1121,8 +1135,8 @@ msgstr "Nasycenie (%)"
 #: src/components/ImageGrid.tsx:74
 #: src/components/ImageGrid.tsx:90
 #: src/components/ImageLimitedPalette.tsx:141
-#: src/components/ImageOutline.tsx:305
-#: src/components/ImageOutline.tsx:346
+#: src/components/ImageOutline.tsx:293
+#: src/components/ImageOutline.tsx:345
 #: src/components/ImagePerspectiveCorrection.tsx:245
 #: src/components/ImagePerspectiveCorrection.tsx:277
 #: src/components/ImageStyleTransfer.tsx:186
@@ -1597,6 +1611,11 @@ msgstr "Używany"
 msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 msgstr "Korzystanie z ograniczonej palety pomaga osiągnąć harmonię kolorów. Wybierz maksymalnie {MAX_COLORS} kolorów jako kolory podstawowe."
 
+#: src/components/ImageOutline.tsx:305
+#: src/components/ImageOutline.tsx:363
+msgid "View the outline over the live camera to trace in AR."
+msgstr "Obejrzyj kontur na kamerze na żywo, aby obrysować w AR."
+
 #: src/components/color/WarmthIcon.tsx:38
 msgid "Warm — Algorithmic estimate; artistic perception may vary."
 msgstr "Ciepły — oszacowanie algorytmiczne; Percepcja artystyczna może się różnić."
@@ -1683,7 +1702,7 @@ msgid "You've selected color brands that are available to paid Patreon members o
 msgstr "Wybrałeś kolorowe marki, które są dostępne tylko dla płatnych członków Patreon. Dołącz do ArtistAssistApp na Patreonie jako płatny członek lub zaloguj się za pomocą Patreon, jeśli już dołączyłeś."
 
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:274
+#: src/components/ImageOutline.tsx:262
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Wybrałeś tryb, który jest dostępny tylko dla płatnych członków Patreona"
 

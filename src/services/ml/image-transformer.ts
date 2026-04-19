@@ -25,12 +25,10 @@ import type {DrawImageSource} from '~/src/utils/graphics';
 import {
   DrawImage,
   drawImageToOffscreenCanvas,
+  fitToAspectRatio,
   IMAGE_SIZE,
   offscreenCanvasToImageData,
 } from '~/src/utils/graphics';
-import {clamp} from '~/src/utils/math-utils';
-
-const MAX_SCALE = 3;
 
 export async function transformImage(
   images: DrawImageSource[],
@@ -38,13 +36,14 @@ export async function transformImage(
   progressCallback?: FetchProgressCallback,
   signal?: AbortSignal
 ): Promise<ImageBitmap> {
-  const {url: modelUrl, outputName} = model;
+  const {url: modelUrl, resolution, preserveAspectRatio, outputName} = model;
+  const [image] = images;
+  const {width, height} = image!;
+  const [resizeWidth, resizeHeight] =
+    preserveAspectRatio && resolution
+      ? fitToAspectRatio(width, height, resolution)
+      : [width, height];
   const imageDataArray: ImageData[] = imageBitmapToImageData(images, model);
-  const [imageData] = imageDataArray;
-  const {width, height} = imageData!;
-  const scale: number = clamp(Math.sqrt(IMAGE_SIZE['2K'] / (width * height)), 1, MAX_SCALE);
-  const resizeWidth = Math.round(scale * width);
-  const resizeHeight = Math.round(scale * height);
   const inputTensors = imageDataArray.map(imageData => imageDataToFloat32Tensor(imageData, model));
   const [outputTensor] = await runInferenceWorker(
     modelUrl,

@@ -5,31 +5,37 @@ This file provides guidance to AI coding agents when working with code in this r
 ## Commands
 
 ```bash
-npm run dev          # Start dev server with hot reload (no service worker)
-npm run start        # Build + preview production build (with service worker)
-npm run cf-typegen   # Generate Cloudflare Pages Function types into functions/types.d.ts
-npm run build        # Generate CF types + type-check + Vite build
-npm run preview      # Preview production build (without rebuilding)
-npm run lint         # ESLint
-npm run lint:fix     # ESLint with auto-fix
-npm run format       # Prettier check
-npm run format:write # Prettier auto-format
-npm run check        # TypeScript type-check only (no emit)
-npm run test         # Runs check + lint + format (no actual test runner)
+npm run dev             # Start dev server with hot reload (no service worker)
+npm run cf-typegen      # Generate Cloudflare Pages Function types into functions/types.d.ts
+npm run build           # Generate CF types + type-check + Vite build
+npm run build:local     # Same as build, but sets CF_PAGES_COMMIT_SHA=$(date +%s) so VITE_COMMIT_HASH is non-empty
+npm run build:local-auth # build:local in `local-auth` Vite mode (loads .env.local-auth)
+npm run preview         # Preview the already-built production bundle (with service worker)
+npm run clean           # Remove node_modules/.vite and dist
+npm run lint            # ESLint
+npm run lint:fix        # ESLint with auto-fix
+npm run format          # Prettier check
+npm run format:write    # Prettier auto-format
+npm run check           # TypeScript type-check only (no emit)
+npm run test            # Runs check + lint + format (no actual test runner)
 
 # i18n workflow
 npm run lingui:extract  # Extract translatable strings from source to .po files
-npm run translate        # Auto-translate .po files via Bing Translate API
+npm run translate       # Auto-translate .po files via Bing Translate API
 ```
 
 ### Development Workflow
 
-Both `npm run dev` and `npm run start` serve on `localhost:5173` (same origin), so IndexedDB state
-(including ID tokens) persists between them. Use `npm run start` to log in with the full service
-worker, then switch to `npm run dev` for hot reload development.
+- `npm run dev` — hot reload, no service worker.
+- `npm run build:local && npm run preview` — build + preview the production bundle with the service
+  worker active. Use `build:local-auth` instead when testing against a local auth server.
+
+Both `dev` and `preview` serve on `localhost:5173` (same origin), so IndexedDB state (including ID
+tokens) persists between them. Log in once via `build:local` + `preview` to get the full service
+worker, then switch to `dev` for hot-reload development.
 
 Cloudflare Pages handles `_redirects` rewrites, `404.html`, and Pages Functions in production only —
-neither `dev` nor `start` replicate this behavior locally. The CF Pages Function at
+neither `dev` nor `preview` replicates this behavior locally. The CF Pages Function at
 `functions/login/callback.ts` (the iOS/iPadOS auth fallback) is not exercised in local dev.
 
 ## Architecture
@@ -38,12 +44,14 @@ neither `dev` nor `start` replicate this behavior locally. The CF Pages Function
 
 ArtistAssistApp is a React 19 PWA for artists. The UI is a single `<Tabs>` component in
 `ArtistAssistApp.tsx` with one tab per feature (ColorSet, Photo, ColorPicker, Palette, ColorMixing,
-Outline, Grid, TonalValues, SimplifiedPhoto, LimitedPalette, StyleTransfer, ColorAdjustment,
-PerspectiveCorrection, BackgroundRemove, Compare, Install, CustomColorBrand, Help). Tab visibility
-is conditional on auth state and PWA display mode. Feature tabs that run ML models (Outline,
-StyleTransfer, BackgroundRemove) share an `OnnxModelSelect` dropdown; the Outline tab's "quick"
-option is modeled as a local ONNX model entry with an empty `url` (access gated via `hasAccessTo`
-and `freeTier`).
+ColorMixingChart, Outline, Grid, TonalValues, SimplifiedPhoto, LimitedPalette, StyleTransfer,
+ColorAdjustment, PerspectiveCorrection, BackgroundRemove, Compare, CustomColorBrand, Help). Tab
+visibility is conditional on auth state and PWA display mode. Feature tabs that run ML models
+(Outline, StyleTransfer, BackgroundRemove) share an `OnnxModelSelect` dropdown; the Outline tab's
+"quick" option is modeled as a local ONNX model entry with an empty `url` (access gated via
+`hasAccessTo` and `freeTier`). The Outline tab additionally supports two viewing modes: **Light
+box** (fullscreen + screen-orientation lock, for tracing paper laid on a tablet screen) and **AR**
+(live rear-camera feed with the outline overlaid, for tracing onto non-flat surfaces).
 
 ### State Management
 
@@ -58,6 +66,26 @@ Notable slices:
   Uses shared `colorMixer` worker singleton instead of inline Worker creation.
 - **`palette-slice.ts`** — `saveToPaletteBulk()` for batch-saving palette entries with abort signal
   support
+
+### Custom Hooks (`src/hooks/`)
+
+- **`useLightbox`** — manages lightbox state, `requestFullscreen` on a container ref,
+  `screen.orientation.lock(...)`, and auto-close when the user exits fullscreen via Esc. Has an
+  in-flight guard (`isOpeningRef`) so double-clicks can't desync `enteredFullscreenRef` and leave
+  the app stuck in fullscreen on close.
+- **`useArMode`** — manages the AR camera stream:
+  `getUserMedia({video: {facingMode: {ideal: 'environment'}}})` (rear camera preferred, graceful
+  fallback to front), stream lifecycle, unmount race guard (`isMountedRef` stops tracks that resolve
+  after unmount), concurrent-entry guard (`isRequestingRef`), and auto-exit when the parent passes
+  `isActive: false` (e.g. user switches tabs). Returns a `videoRef` for the consuming `<video>`
+  element.
+
+The Outline tab orchestrates mutual exclusion between the two (entering AR closes the lightbox and
+vice versa). The AR overlay itself is pure CSS: the outline `<canvas>` is rendered above the
+`<video>` with `filter: invert(1)` and `mix-blend-mode: difference`, so each stroke paints as the
+color complement of the live camera pixel underneath — max contrast on any surface color, no WebGL
+pass. This is distinct from the grid/overlay pre-inversion (`invert-colors-webgl.ts` +
+`invert-colors.glsl`).
 
 ### Services Layer (`src/services/`)
 

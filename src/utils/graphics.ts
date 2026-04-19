@@ -370,6 +370,18 @@ export function getRgbaForCoord(
   return data.subarray(i, i + 4);
 }
 
+export function fitToAspectRatio(
+  origWidth: number,
+  origHeight: number,
+  resolution: number | [number, number]
+): [number, number] {
+  const [width, height] = Array.isArray(resolution) ? resolution : [resolution, resolution];
+  const aspectRatio = width / height;
+  return origWidth / origHeight > aspectRatio
+    ? [Math.round(origHeight * aspectRatio), origHeight]
+    : [origWidth, Math.round(origWidth / aspectRatio)];
+}
+
 export function isWebGl2Supported(): boolean {
   try {
     const canvas = new OffscreenCanvas(1, 1);

@@ -171,12 +171,14 @@ export const ImageStyleTransfer: React.FC = () => {
           sm={12}
           lg={8}
           style={{
+            display: 'flex',
+            flexDirection: 'column',
             maxHeight: height,
             marginTop: margin,
-            overflowY: 'auto',
+            padding: '0 16px',
           }}
         >
-          <Space orientation="vertical" style={{display: 'flex', padding: '0 16px 16px'}}>
+          <Space vertical style={{marginBottom: 8}}>
             <Typography.Text strong>
               <Trans>Select a style to transfer to your reference photo</Trans>
             </Typography.Text>
@@ -192,7 +194,9 @@ export const ImageStyleTransfer: React.FC = () => {
                 <Trans>Only a limited number of styles are available in the free version</Trans>
               </Typography.Text>
             )}
+          </Space>
 
+          <div style={{flex: 1, minHeight: 0, overflowY: 'auto'}}>
             <Radio.Group
               ref={radioGroupRef}
               value={modelId}
@@ -262,9 +266,9 @@ export const ImageStyleTransfer: React.FC = () => {
                   disabled: !isAccessAllowed,
                 };
               })}
-              style={{display: 'flex', flexDirection: 'column', gap: 8}}
+              style={{display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 16}}
             />
-          </Space>
+          </div>
         </Col>
       </Row>
     </LoadingIndicator>

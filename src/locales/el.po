@@ -185,6 +185,11 @@ msgstr "Εφαρμόστε λιγότερη πίεση για να κάνετε 
 msgid "Apply strokes of each color in a <0>{ratioText} ratio</0>"
 msgstr "Εφαρμογή περιγραμμάτων κάθε χρώματος σε <0>αναλογία {ratioText}</0>"
 
+#: src/components/ImageOutline.tsx:313
+#: src/components/ImageOutline.tsx:362
+msgid "AR"
+msgstr "AR"
+
 #: src/components/storage/ClearStorage.tsx:58
 msgid "Are you sure you want to clear the cache?"
 msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε την προσωρινή μνήμη;"
@@ -282,6 +287,10 @@ msgstr "Με ελαφρότητα"
 #: src/components/messages.ts:74
 msgid "By name"
 msgstr "Με το όνομα"
+
+#: src/components/ImageOutline.tsx:126
+msgid "Camera access is required for AR tracing"
+msgstr "Απαιτείται πρόσβαση στην κάμερα για ανίχνευση AR"
 
 #: src/components/loading/LoadingIndicator.tsx:60
 msgid "Cancel"
@@ -510,8 +519,8 @@ msgstr "Επεξεργασία από εδώ και πέρα"
 msgid "Email"
 msgstr "Ηλεκτρονικό ταχυδρομείο"
 
-#: src/components/ImageOutline.tsx:307
-#: src/components/ImageOutline.tsx:355
+#: src/components/ImageOutline.tsx:295
+#: src/components/ImageOutline.tsx:354
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Μπείτε στη λειτουργία lightbox για να εντοπίσετε το περίγραμμα στο χαρτί σας."
 
@@ -528,7 +537,7 @@ msgid "Error while fetching color data"
 msgstr "Σφάλμα κατά τη λήψη δεδομένων χρώματος"
 
 #: src/components/ImageBackgroundRemoval.tsx:90
-#: src/components/ImageOutline.tsx:119
+#: src/components/ImageOutline.tsx:152
 #: src/components/ImageStyleTransfer.tsx:84
 msgid "Error while fetching ML model data"
 msgstr "Σφάλμα κατά τη λήψη δεδομένων μοντέλου ML"
@@ -540,6 +549,11 @@ msgstr "Σφάλμα κατά τη λήψη τυπικών δεδομένων σ
 #: src/components/ImageColorAdjustment.tsx:548
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Εκτιμώμενη θερμοκρασία της πηγής φωτός στο Kelvin η εικόνα λήφθηκε με"
+
+#: src/components/ImageOutline.tsx:313
+#: src/components/ImageOutline.tsx:362
+msgid "Exit AR"
+msgstr "Έξοδος από το AR"
 
 #: src/components/ColorSetChooser.tsx:450
 msgid "Explore the free version before deciding to purchase a paid membership."
@@ -665,8 +679,8 @@ msgstr "Τελευταία χρήση {dateText}"
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "Αριστερά για σύγκριση: {unfinishedGamesSize}"
 
-#: src/components/ImageOutline.tsx:314
-#: src/components/ImageOutline.tsx:354
+#: src/components/ImageOutline.tsx:302
+#: src/components/ImageOutline.tsx:353
 msgid "Light box"
 msgstr "Φωτιστικό κουτί"
 
@@ -757,7 +771,7 @@ msgstr "Μείγμα"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:101
 #: src/components/ImageBackgroundRemoval.tsx:204
-#: src/components/ImageOutline.tsx:283
+#: src/components/ImageOutline.tsx:271
 msgid "Mode"
 msgstr "Μόδα"
 
@@ -842,7 +856,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "Μόνο ένας περιορισμένος αριθμός εμπορικών σημάτων χρωμάτων είναι διαθέσιμος στη δωρεάν έκδοση"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageOutline.tsx:270
+#: src/components/ImageOutline.tsx:258
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Μόνο ένας περιορισμένος αριθμός λειτουργιών είναι διαθέσιμος στη δωρεάν έκδοση"
 
@@ -984,8 +998,8 @@ msgstr "Προεπισκόπηση"
 #: src/components/ColorMixingChart.tsx:135
 #: src/components/ImageGrid.tsx:71
 #: src/components/ImageGrid.tsx:84
-#: src/components/ImageOutline.tsx:297
-#: src/components/ImageOutline.tsx:340
+#: src/components/ImageOutline.tsx:285
+#: src/components/ImageOutline.tsx:339
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
 #: src/components/ImageTonalValues.tsx:126
@@ -1121,8 +1135,8 @@ msgstr "Κορεσμός (%)"
 #: src/components/ImageGrid.tsx:74
 #: src/components/ImageGrid.tsx:90
 #: src/components/ImageLimitedPalette.tsx:141
-#: src/components/ImageOutline.tsx:305
-#: src/components/ImageOutline.tsx:346
+#: src/components/ImageOutline.tsx:293
+#: src/components/ImageOutline.tsx:345
 #: src/components/ImagePerspectiveCorrection.tsx:245
 #: src/components/ImagePerspectiveCorrection.tsx:277
 #: src/components/ImageStyleTransfer.tsx:186
@@ -1597,6 +1611,11 @@ msgstr "Μεταχειρισμένος"
 msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 msgstr "Η χρήση περιορισμένης παλέτας βοηθά στην επίτευξη αρμονίας χρωμάτων. Επιλέξτε έως {MAX_COLORS} χρώματα για να είναι τα κύρια στοιχεία σας."
 
+#: src/components/ImageOutline.tsx:305
+#: src/components/ImageOutline.tsx:363
+msgid "View the outline over the live camera to trace in AR."
+msgstr "Δείτε το περίγραμμα πάνω από τη ζωντανή κάμερα για ανίχνευση σε AR."
+
 #: src/components/color/WarmthIcon.tsx:38
 msgid "Warm — Algorithmic estimate; artistic perception may vary."
 msgstr "Θερμός — Αλγοριθμική εκτίμηση. Η καλλιτεχνική αντίληψη μπορεί να διαφέρει."
@@ -1683,7 +1702,7 @@ msgid "You've selected color brands that are available to paid Patreon members o
 msgstr "Έχετε επιλέξει επωνυμίες χρωμάτων που είναι διαθέσιμες μόνο σε μέλη Patreon επί πληρωμή. Εγγραφείτε στο ArtistAssistApp στο Patreon ως μέλος επί πληρωμή ή συνδεθείτε με το Patreon αν έχετε ήδη εγγραφεί."
 
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:274
+#: src/components/ImageOutline.tsx:262
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Έχετε επιλέξει τη λειτουργία που είναι διαθέσιμη μόνο σε μέλη Patreon επί πληρωμή"
 

@@ -185,6 +185,11 @@ msgstr "Aplicați mai puțină presiune pentru a face stratul de creion acuarel�
 msgid "Apply strokes of each color in a <0>{ratioText} ratio</0>"
 msgstr "Aplicarea liniilor fiecărei culori într-un <0>raport {ratioText}</0>"
 
+#: src/components/ImageOutline.tsx:313
+#: src/components/ImageOutline.tsx:362
+msgid "AR"
+msgstr "AR"
+
 #: src/components/storage/ClearStorage.tsx:58
 msgid "Are you sure you want to clear the cache?"
 msgstr "Sunteți sigur că doriți să ștergeți memoria cache?"
@@ -282,6 +287,10 @@ msgstr "Prin ușurință"
 #: src/components/messages.ts:74
 msgid "By name"
 msgstr "După nume"
+
+#: src/components/ImageOutline.tsx:126
+msgid "Camera access is required for AR tracing"
+msgstr "Accesul la cameră este necesar pentru trasarea AR"
 
 #: src/components/loading/LoadingIndicator.tsx:60
 msgid "Cancel"
@@ -510,8 +519,8 @@ msgstr "Editare de aici înainte"
 msgid "Email"
 msgstr "Email"
 
-#: src/components/ImageOutline.tsx:307
-#: src/components/ImageOutline.tsx:355
+#: src/components/ImageOutline.tsx:295
+#: src/components/ImageOutline.tsx:354
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Intră în modul lightbox pentru a trasa conturul prin hârtie."
 
@@ -528,7 +537,7 @@ msgid "Error while fetching color data"
 msgstr "Eroare la preluarea datelor de culoare"
 
 #: src/components/ImageBackgroundRemoval.tsx:90
-#: src/components/ImageOutline.tsx:119
+#: src/components/ImageOutline.tsx:152
 #: src/components/ImageStyleTransfer.tsx:84
 msgid "Error while fetching ML model data"
 msgstr "Eroare la preluarea datelor modelului ML"
@@ -540,6 +549,11 @@ msgstr "Eroare la preluarea datelor setului de culori standard"
 #: src/components/ImageColorAdjustment.tsx:548
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Temperatura estimată a sursei de lumină în Kelvin cu care a fost făcută imaginea"
+
+#: src/components/ImageOutline.tsx:313
+#: src/components/ImageOutline.tsx:362
+msgid "Exit AR"
+msgstr "Ieșirea AR"
 
 #: src/components/ColorSetChooser.tsx:450
 msgid "Explore the free version before deciding to purchase a paid membership."
@@ -665,8 +679,8 @@ msgstr "Ultima utilizare {dateText}"
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "Rămas pentru comparație: {unfinishedGamesSize}"
 
-#: src/components/ImageOutline.tsx:314
-#: src/components/ImageOutline.tsx:354
+#: src/components/ImageOutline.tsx:302
+#: src/components/ImageOutline.tsx:353
 msgid "Light box"
 msgstr "Cutia luminii"
 
@@ -757,7 +771,7 @@ msgstr "Amestec"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:101
 #: src/components/ImageBackgroundRemoval.tsx:204
-#: src/components/ImageOutline.tsx:283
+#: src/components/ImageOutline.tsx:271
 msgid "Mode"
 msgstr "Mod"
 
@@ -842,7 +856,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "Doar un număr limitat de mărci de culori sunt disponibile în versiunea gratuită"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageOutline.tsx:270
+#: src/components/ImageOutline.tsx:258
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Doar un număr limitat de moduri sunt disponibile în versiunea gratuită"
 
@@ -984,8 +998,8 @@ msgstr "Previzualizare"
 #: src/components/ColorMixingChart.tsx:135
 #: src/components/ImageGrid.tsx:71
 #: src/components/ImageGrid.tsx:84
-#: src/components/ImageOutline.tsx:297
-#: src/components/ImageOutline.tsx:340
+#: src/components/ImageOutline.tsx:285
+#: src/components/ImageOutline.tsx:339
 #: src/components/ImagesCompare.tsx:167
 #: src/components/ImageTonalValues.tsx:108
 #: src/components/ImageTonalValues.tsx:126
@@ -1121,8 +1135,8 @@ msgstr "Saturație (%)"
 #: src/components/ImageGrid.tsx:74
 #: src/components/ImageGrid.tsx:90
 #: src/components/ImageLimitedPalette.tsx:141
-#: src/components/ImageOutline.tsx:305
-#: src/components/ImageOutline.tsx:346
+#: src/components/ImageOutline.tsx:293
+#: src/components/ImageOutline.tsx:345
 #: src/components/ImagePerspectiveCorrection.tsx:245
 #: src/components/ImagePerspectiveCorrection.tsx:277
 #: src/components/ImageStyleTransfer.tsx:186
@@ -1597,6 +1611,11 @@ msgstr "Folosit"
 msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
 msgstr "Utilizarea unei palete limitate ajută la obținerea armoniei culorilor. Selectați până la {MAX_COLORS} culori pentru a fi principale."
 
+#: src/components/ImageOutline.tsx:305
+#: src/components/ImageOutline.tsx:363
+msgid "View the outline over the live camera to trace in AR."
+msgstr "Vezi conturul peste camera live pentru a urmări în AR."
+
 #: src/components/color/WarmthIcon.tsx:38
 msgid "Warm — Algorithmic estimate; artistic perception may vary."
 msgstr "Cald — Estimare algoritmică; percepția artistică poate varia."
@@ -1683,7 +1702,7 @@ msgid "You've selected color brands that are available to paid Patreon members o
 msgstr "Ai selectat mărci de culori care sunt disponibile numai pentru membrii Patreon plătiți. Alăturați-vă ArtistAssistApp pe Patreon ca membru plătit sau conectați-vă cu Patreon dacă v-ați înscris deja."
 
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:274
+#: src/components/ImageOutline.tsx:262
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Ați selectat modul care este disponibil numai pentru membrii Patreon plătiți"
 

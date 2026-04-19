@@ -30,8 +30,8 @@ ArtistAssistApp offers the following features:
 - Generate a color mixing chart from any subset of your colors to plan mixes without wasting paint
 - Automatically build a palette from a photo with the best matching color mixtures
 - Save & access your favorite color mixes instantly
-- Convert photos to clean outlines with ease
-- Draw a grid over your reference photo for accurate drawing
+- Convert your photos into clean outlines, then trace them your way: print at any size on your home printer, turn your tablet or laptop into a light box (no printer needed), or overlay directly onto canvas, walls, or any surface with AR.
+- Add a grid over your reference photo for accurate, proportional drawing.
 - Analyze tonal values to improve contrast
 - Simplify photos by smoothing details
 - Mix harmonious colors with limited palettes
