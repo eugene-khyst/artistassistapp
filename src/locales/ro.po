@@ -23,7 +23,7 @@ msgstr "{brandName} culori"
 
 #: src/components/color-set/ColorSetName.tsx:35
 #: src/components/color-set/StandardColorSetCascader.tsx:58
-#: src/components/ImageColorPicker.tsx:302
+#: src/components/ImageColorPicker.tsx:305
 #: src/components/Palette.tsx:77
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# culoare} few {# culori} other {# de culori}}"
@@ -240,8 +240,8 @@ msgstr "Detecție automată"
 msgid "Automatic backup of color sets"
 msgstr "Backup automat al seturilor de culori"
 
-#: src/components/ImageColorPicker.tsx:464
-#: src/components/ImageColorPicker.tsx:493
+#: src/components/ImageColorPicker.tsx:470
+#: src/components/ImageColorPicker.tsx:499
 msgid "Automatically find the best color mixtures for this photo"
 msgstr "Găsește automat cele mai bune amestecuri de culori pentru această fotografie"
 
@@ -252,12 +252,12 @@ msgstr "Culoarea medie a zonei punctului alb"
 #: src/components/ColorMixer.tsx:183
 #: src/components/ImageBackgroundRemoval.tsx:217
 #: src/components/ImageBackgroundRemoval.tsx:242
-#: src/components/ImageColorPicker.tsx:350
+#: src/components/ImageColorPicker.tsx:354
 msgid "Background"
 msgstr "Fond"
 
-#: src/components/ImageColorPicker.tsx:463
-#: src/components/ImageColorPicker.tsx:498
+#: src/components/ImageColorPicker.tsx:469
+#: src/components/ImageColorPicker.tsx:504
 msgid "Build palette"
 msgstr "Distribuție de construcții"
 
@@ -309,7 +309,7 @@ msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Faceți clic 🖱️ sau atingeți 👆 oriunde în fotografie pentru a alege un punct alb."
 
 #: src/components/empty/EmptyPalette.tsx:64
-#: src/components/ImageColorPicker.tsx:530
+#: src/components/ImageColorPicker.tsx:536
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "Faceți clic 🖱️ sau atingeți 👆 oriunde în fotografie sau utilizați fereastra pop-up selector de culori pentru a alege o culoare țintă pe care să o amestecați din culorile dvs."
 
@@ -323,7 +323,7 @@ msgstr "Închidere în {closeCounter} sec"
 
 #: src/components/ColorMixer.tsx:209
 #: src/components/CustomColorBrandCreator.tsx:448
-#: src/components/ImageColorPicker.tsx:404
+#: src/components/ImageColorPicker.tsx:408
 msgid "Color"
 msgstr "Culoare"
 
@@ -335,7 +335,7 @@ msgstr "Marca de culoare"
 msgid "Color brands"
 msgstr "Mărci de culori"
 
-#: src/components/ImageColorPicker.tsx:278
+#: src/components/ImageColorPicker.tsx:279
 msgid "Color count"
 msgstr "Număr de culori"
 
@@ -356,7 +356,7 @@ msgid "Color picker"
 msgstr "Selector de culori"
 
 #: src/components/ColorSetChooser.tsx:548
-#: src/components/ImageColorPicker.tsx:507
+#: src/components/ImageColorPicker.tsx:513
 #: src/components/messages.ts:28
 msgid "Color set"
 msgstr "Set de culori"
@@ -462,7 +462,7 @@ msgid "Diagonals"
 msgstr "Diagonale"
 
 #: src/components/CustomColorBrandCreator.tsx:435
-#: src/components/ImageColorPicker.tsx:389
+#: src/components/ImageColorPicker.tsx:393
 msgid "Diameter"
 msgstr "Diametru"
 
@@ -808,11 +808,11 @@ msgid "No"
 msgstr "Nu"
 
 #: src/components/empty/EmptyPalette.tsx:39
-#: src/components/ImageColorPicker.tsx:527
+#: src/components/ImageColorPicker.tsx:533
 msgid "No data"
 msgstr "Fără date"
 
-#: src/components/color-set/ColorSelect.tsx:86
+#: src/components/color-set/ColorSelect.tsx:88
 #: src/components/ColorMixingChart.tsx:113
 msgid "No sorting"
 msgstr "Fără repartizare"
@@ -899,7 +899,7 @@ msgstr "peste"
 msgid "Palette"
 msgstr "Paleta"
 
-#: src/components/ImageColorPicker.tsx:99
+#: src/components/ImageColorPicker.tsx:100
 msgid "Paper color doesn't matter for opaque pastels, as they completely cover the surface."
 msgstr "Culoarea hârtiei nu contează pentru pastelurile opace, deoarece acoperă complet suprafața."
 
@@ -944,7 +944,7 @@ msgstr "Fotografie"
 msgid "Photo ranking"
 msgstr "Clasamentul fotografiilor"
 
-#: src/components/ImageColorPicker.tsx:536
+#: src/components/ImageColorPicker.tsx:542
 msgid "Pinch to zoom (or use the mouse wheel) and drag to pan"
 msgstr "Apropiați degetele pentru a mări (sau utilizați rotița mouse-ului) și trageți pentru a panorama"
 
@@ -1026,17 +1026,15 @@ msgstr "Evaluare: {player2RatingText}"
 msgid "Ratio"
 msgstr "Raport"
 
-#: src/components/ImageColorPicker.tsx:299
+#: src/components/ImageColorPicker.tsx:302
 msgid "Reduce color palette to"
 msgstr "Reduceți paleta de culori la"
 
-#: src/components/ImageColorPicker.tsx:457
-#: src/components/ImageColorPicker.tsx:486
+#: src/components/ImageColorPicker.tsx:492
 msgid "Reduce colors"
 msgstr "Reducerea culorilor"
 
-#: src/components/ImageColorPicker.tsx:458
-#: src/components/ImageColorPicker.tsx:484
+#: src/components/ImageColorPicker.tsx:490
 msgid "Reduce the number of colors in the photo"
 msgstr "Reduceți numărul de culori din fotografie"
 
@@ -1207,12 +1205,12 @@ msgstr "Selectați mărcile"
 msgid "Select brands that you use."
 msgstr "Selectați mărcile pe care le utilizați."
 
-#: src/components/color-set/ColorCascader.tsx:107
+#: src/components/color-set/ColorCascader.tsx:110
 msgid "Select color"
 msgstr "Selectează culoarea"
 
-#: src/components/color-set/ColorCascader.tsx:107
-#: src/components/color-set/ColorSelect.tsx:105
+#: src/components/color-set/ColorCascader.tsx:110
+#: src/components/color-set/ColorSelect.tsx:107
 msgid "Select colors"
 msgstr "Selectați culorile"
 
@@ -1328,7 +1326,7 @@ msgstr "Partajați acest set de culori"
 msgid "Share your color set"
 msgstr "Partajarea setului de culori"
 
-#: src/components/ImageColorPicker.tsx:422
+#: src/components/ImageColorPicker.tsx:426
 msgid "Show areas on the photo that match this color"
 msgstr "Arată zonele de pe fotografie care corespund acestei culori"
 
@@ -1336,7 +1334,7 @@ msgstr "Arată zonele de pe fotografie care corespund acestei culori"
 msgid "Show grid"
 msgstr "Afișați grila"
 
-#: src/components/ImageColorPicker.tsx:421
+#: src/components/ImageColorPicker.tsx:425
 msgid "Show matching areas"
 msgstr "Arată zonele de potrivire"
 
@@ -1349,7 +1347,7 @@ msgid "Show or hide diagonal lines"
 msgstr "Afișarea sau ascunderea liniilor diagonale"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:86
-#: src/components/ImageColorPicker.tsx:273
+#: src/components/ImageColorPicker.tsx:274
 msgid "Similarity"
 msgstr "Similitudine"
 
@@ -1373,22 +1371,22 @@ msgstr "Suprapuneți ușor zonele pastelate de diferite culori și amestecați u
 msgid "Small"
 msgstr "Mic"
 
-#: src/components/color-set/ColorSelect.tsx:118
+#: src/components/color-set/ColorSelect.tsx:120
 #: src/components/ColorMixingChart.tsx:108
-#: src/components/ImageColorPicker.tsx:444
+#: src/components/ImageColorPicker.tsx:448
 #: src/components/palette/PaletteGrid.tsx:129
 msgid "Sort"
 msgstr "Fel"
 
-#: src/components/ImageColorPicker.tsx:279
+#: src/components/ImageColorPicker.tsx:280
 msgid "Sort by the number of colors in the mixture"
 msgstr "Sortează după numărul de culori din amestec"
 
-#: src/components/ImageColorPicker.tsx:274
+#: src/components/ImageColorPicker.tsx:275
 msgid "Sort by the similarity of the mixture to the target color"
 msgstr "Sortează după asemănarea amestecului cu culoarea țintă"
 
-#: src/components/ImageColorPicker.tsx:281
+#: src/components/ImageColorPicker.tsx:282
 msgid "Sort by the thickness of the mixture"
 msgstr "Sortează după grosimea amestecului"
 
@@ -1464,15 +1462,15 @@ msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "Aplicația va încerca să se reîncarce în {reloadCounter} sec"
 
 #: src/components/ColorMixer.tsx:184
-#: src/components/ImageColorPicker.tsx:351
+#: src/components/ImageColorPicker.tsx:355
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "Culoarea hârtiei sau a pânzei sau culoarea stratului de bază atunci când este glazurat."
 
-#: src/components/ImageColorPicker.tsx:405
+#: src/components/ImageColorPicker.tsx:409
 msgid "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
 msgstr "Culoarea care urmează să fie amestecată din setul de culori. Selectați o culoare făcând clic pe un punct de pe imagine sau utilizați fereastra pop-up de selectare a culorilor."
 
-#: src/components/ImageColorPicker.tsx:390
+#: src/components/ImageColorPicker.tsx:394
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
 msgstr "Diametrul zonei circulare din jurul cursorului, folosit pentru a calcula culoarea medie a pixelilor din acea zonă."
 
@@ -1492,7 +1490,7 @@ msgstr "Există o paletă comună și o paletă separată pentru fiecare fotogra
 msgid "Thick pigment"
 msgstr "Pigment gros"
 
-#: src/components/ImageColorPicker.tsx:281
+#: src/components/ImageColorPicker.tsx:282
 msgid "Thickness"
 msgstr "Grosime"
 
@@ -1587,7 +1585,7 @@ msgstr "Utilizați medii de glazurare care vă permit să obțineți un strat su
 msgid "Use reference photo"
 msgstr "Utilizați fotografia de referință"
 
-#: src/components/ImageColorPicker.tsx:377
+#: src/components/ImageColorPicker.tsx:381
 msgid "Use white paper or canvas as a background"
 msgstr "Folosește hârtie albă sau pânză ca fundal"
 
@@ -1633,7 +1631,7 @@ msgstr "Când selectați mai mult de {maxColorsFor3} culori în total, nu se uti
 
 #: src/components/ImageBackgroundRemoval.tsx:146
 #: src/components/ImageColorAdjustment.tsx:441
-#: src/components/ImageColorPicker.tsx:382
+#: src/components/ImageColorPicker.tsx:386
 msgid "White"
 msgstr "Alb"
 

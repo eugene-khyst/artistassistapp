@@ -23,7 +23,7 @@ msgstr "colori {brandName}"
 
 #: src/components/color-set/ColorSetName.tsx:35
 #: src/components/color-set/StandardColorSetCascader.tsx:58
-#: src/components/ImageColorPicker.tsx:302
+#: src/components/ImageColorPicker.tsx:305
 #: src/components/Palette.tsx:77
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# colore} other {# colori}}"
@@ -240,8 +240,8 @@ msgstr "Auto-rilevamento"
 msgid "Automatic backup of color sets"
 msgstr "Backup automatico dei set di colori"
 
-#: src/components/ImageColorPicker.tsx:464
-#: src/components/ImageColorPicker.tsx:493
+#: src/components/ImageColorPicker.tsx:470
+#: src/components/ImageColorPicker.tsx:499
 msgid "Automatically find the best color mixtures for this photo"
 msgstr "Trova automaticamente le migliori miscele di colori per questa foto"
 
@@ -252,12 +252,12 @@ msgstr "Colore medio dell'area del punto bianco"
 #: src/components/ColorMixer.tsx:183
 #: src/components/ImageBackgroundRemoval.tsx:217
 #: src/components/ImageBackgroundRemoval.tsx:242
-#: src/components/ImageColorPicker.tsx:350
+#: src/components/ImageColorPicker.tsx:354
 msgid "Background"
 msgstr "Sfondo"
 
-#: src/components/ImageColorPicker.tsx:463
-#: src/components/ImageColorPicker.tsx:498
+#: src/components/ImageColorPicker.tsx:469
+#: src/components/ImageColorPicker.tsx:504
 msgid "Build palette"
 msgstr "Palette di costruzione"
 
@@ -309,7 +309,7 @@ msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Tocca o fai 👆 clic 🖱️ in un punto qualsiasi della foto per scegliere un punto bianco."
 
 #: src/components/empty/EmptyPalette.tsx:64
-#: src/components/ImageColorPicker.tsx:530
+#: src/components/ImageColorPicker.tsx:536
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "Fai clic 🖱️ o tocca 👆 un punto qualsiasi della foto oppure utilizza il menu a comparsa del selettore colore per scegliere un colore di destinazione da miscelare tra i colori."
 
@@ -323,7 +323,7 @@ msgstr "Chiudi in {closeCounter} sec"
 
 #: src/components/ColorMixer.tsx:209
 #: src/components/CustomColorBrandCreator.tsx:448
-#: src/components/ImageColorPicker.tsx:404
+#: src/components/ImageColorPicker.tsx:408
 msgid "Color"
 msgstr "Colore"
 
@@ -335,7 +335,7 @@ msgstr "Marca del colore"
 msgid "Color brands"
 msgstr "Marche di colori"
 
-#: src/components/ImageColorPicker.tsx:278
+#: src/components/ImageColorPicker.tsx:279
 msgid "Color count"
 msgstr "Conteggio dei colori"
 
@@ -356,7 +356,7 @@ msgid "Color picker"
 msgstr "Selettore colore"
 
 #: src/components/ColorSetChooser.tsx:548
-#: src/components/ImageColorPicker.tsx:507
+#: src/components/ImageColorPicker.tsx:513
 #: src/components/messages.ts:28
 msgid "Color set"
 msgstr "Set di colori"
@@ -462,7 +462,7 @@ msgid "Diagonals"
 msgstr "Diagonali"
 
 #: src/components/CustomColorBrandCreator.tsx:435
-#: src/components/ImageColorPicker.tsx:389
+#: src/components/ImageColorPicker.tsx:393
 msgid "Diameter"
 msgstr "Diametro"
 
@@ -808,11 +808,11 @@ msgid "No"
 msgstr "No"
 
 #: src/components/empty/EmptyPalette.tsx:39
-#: src/components/ImageColorPicker.tsx:527
+#: src/components/ImageColorPicker.tsx:533
 msgid "No data"
 msgstr "Nessun dato"
 
-#: src/components/color-set/ColorSelect.tsx:86
+#: src/components/color-set/ColorSelect.tsx:88
 #: src/components/ColorMixingChart.tsx:113
 msgid "No sorting"
 msgstr "Niente smistamento"
@@ -899,7 +899,7 @@ msgstr "sopra"
 msgid "Palette"
 msgstr "Tavolozza"
 
-#: src/components/ImageColorPicker.tsx:99
+#: src/components/ImageColorPicker.tsx:100
 msgid "Paper color doesn't matter for opaque pastels, as they completely cover the surface."
 msgstr "Il colore della carta non conta per i pastelli opachi, perché coprono completamente la superficie."
 
@@ -944,7 +944,7 @@ msgstr "Foto"
 msgid "Photo ranking"
 msgstr "Classifica delle foto"
 
-#: src/components/ImageColorPicker.tsx:536
+#: src/components/ImageColorPicker.tsx:542
 msgid "Pinch to zoom (or use the mouse wheel) and drag to pan"
 msgstr "Pizzica per ingrandire (o usa la rotellina del mouse) e trascina per eseguire la panoramica"
 
@@ -1026,17 +1026,15 @@ msgstr "Valutazione: {player2RatingText}"
 msgid "Ratio"
 msgstr "Rapporto"
 
-#: src/components/ImageColorPicker.tsx:299
+#: src/components/ImageColorPicker.tsx:302
 msgid "Reduce color palette to"
 msgstr "Riduci la palette di colori a"
 
-#: src/components/ImageColorPicker.tsx:457
-#: src/components/ImageColorPicker.tsx:486
+#: src/components/ImageColorPicker.tsx:492
 msgid "Reduce colors"
 msgstr "Ridurre i colori"
 
-#: src/components/ImageColorPicker.tsx:458
-#: src/components/ImageColorPicker.tsx:484
+#: src/components/ImageColorPicker.tsx:490
 msgid "Reduce the number of colors in the photo"
 msgstr "Riduci il numero di colori nella foto"
 
@@ -1207,12 +1205,12 @@ msgstr "Marchi selezionati"
 msgid "Select brands that you use."
 msgstr "Seleziona le marche che utilizzi."
 
-#: src/components/color-set/ColorCascader.tsx:107
+#: src/components/color-set/ColorCascader.tsx:110
 msgid "Select color"
 msgstr "Seleziona il colore"
 
-#: src/components/color-set/ColorCascader.tsx:107
-#: src/components/color-set/ColorSelect.tsx:105
+#: src/components/color-set/ColorCascader.tsx:110
+#: src/components/color-set/ColorSelect.tsx:107
 msgid "Select colors"
 msgstr "Seleziona i colori"
 
@@ -1328,7 +1326,7 @@ msgstr "Condividi questo set di colori"
 msgid "Share your color set"
 msgstr "Condividi il tuo set di colori"
 
-#: src/components/ImageColorPicker.tsx:422
+#: src/components/ImageColorPicker.tsx:426
 msgid "Show areas on the photo that match this color"
 msgstr "Mostra le aree sulla foto che corrispondono a questo colore"
 
@@ -1336,7 +1334,7 @@ msgstr "Mostra le aree sulla foto che corrispondono a questo colore"
 msgid "Show grid"
 msgstr "Mostra griglia"
 
-#: src/components/ImageColorPicker.tsx:421
+#: src/components/ImageColorPicker.tsx:425
 msgid "Show matching areas"
 msgstr "Mostra le aree corrispondenti"
 
@@ -1349,7 +1347,7 @@ msgid "Show or hide diagonal lines"
 msgstr "Mostra o nascondi le linee diagonali"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:86
-#: src/components/ImageColorPicker.tsx:273
+#: src/components/ImageColorPicker.tsx:274
 msgid "Similarity"
 msgstr "Somiglianza"
 
@@ -1373,22 +1371,22 @@ msgstr "Sovrapponi leggermente le aree pastello di diversi colori e sfuma delica
 msgid "Small"
 msgstr "Piccolo"
 
-#: src/components/color-set/ColorSelect.tsx:118
+#: src/components/color-set/ColorSelect.tsx:120
 #: src/components/ColorMixingChart.tsx:108
-#: src/components/ImageColorPicker.tsx:444
+#: src/components/ImageColorPicker.tsx:448
 #: src/components/palette/PaletteGrid.tsx:129
 msgid "Sort"
 msgstr "Sorta"
 
-#: src/components/ImageColorPicker.tsx:279
+#: src/components/ImageColorPicker.tsx:280
 msgid "Sort by the number of colors in the mixture"
 msgstr "Ordina per numero di colori nella miscela"
 
-#: src/components/ImageColorPicker.tsx:274
+#: src/components/ImageColorPicker.tsx:275
 msgid "Sort by the similarity of the mixture to the target color"
 msgstr "Ordina in base alla somiglianza della miscela con il colore target"
 
-#: src/components/ImageColorPicker.tsx:281
+#: src/components/ImageColorPicker.tsx:282
 msgid "Sort by the thickness of the mixture"
 msgstr "Ordina in base allo spessore della miscela"
 
@@ -1464,15 +1462,15 @@ msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "L'app tenterà di ricaricarsi in {reloadCounter} sec"
 
 #: src/components/ColorMixer.tsx:184
-#: src/components/ImageColorPicker.tsx:351
+#: src/components/ImageColorPicker.tsx:355
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "Il colore della carta o della tela, o il colore dello strato di base quando smaltato."
 
-#: src/components/ImageColorPicker.tsx:405
+#: src/components/ImageColorPicker.tsx:409
 msgid "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
 msgstr "Il colore da miscelare dal set di colori. Seleziona un colore facendo clic su un punto dell'immagine o utilizza il popup del selettore colore."
 
-#: src/components/ImageColorPicker.tsx:390
+#: src/components/ImageColorPicker.tsx:394
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
 msgstr "Il diametro dell'area circolare attorno al cursore, utilizzato per calcolare il colore medio dei pixel in quell'area."
 
@@ -1492,7 +1490,7 @@ msgstr "C'è una tavolozza comune e una tavolozza separata per ogni foto."
 msgid "Thick pigment"
 msgstr "Pigmento denso"
 
-#: src/components/ImageColorPicker.tsx:281
+#: src/components/ImageColorPicker.tsx:282
 msgid "Thickness"
 msgstr "Spessore"
 
@@ -1587,7 +1585,7 @@ msgstr "Utilizzare mezzi di velatura che consentano di ottenere uno strato sotti
 msgid "Use reference photo"
 msgstr "Usa la foto di riferimento"
 
-#: src/components/ImageColorPicker.tsx:377
+#: src/components/ImageColorPicker.tsx:381
 msgid "Use white paper or canvas as a background"
 msgstr "Usa carta bianca o tela come sfondo"
 
@@ -1633,7 +1631,7 @@ msgstr "Quando si selezionano più di {maxColorsFor3} colori in totale, non veng
 
 #: src/components/ImageBackgroundRemoval.tsx:146
 #: src/components/ImageColorAdjustment.tsx:441
-#: src/components/ImageColorPicker.tsx:382
+#: src/components/ImageColorPicker.tsx:386
 msgid "White"
 msgstr "Bianco"
 

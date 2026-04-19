@@ -399,6 +399,6 @@ export function sortColorSet(colorSet: ColorSet | null, sort?: ColorSort): Color
   return {
     type,
     brands,
-    colors: decorateSortUndecorate(colorSet.colors, COLOR_COMPARATORS[sort])!,
+    colors: decorateSortUndecorate(colorSet.colors, COLOR_COMPARATORS[sort]),
   };
 }

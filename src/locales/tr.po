@@ -23,7 +23,7 @@ msgstr "{brandName} renkleri"
 
 #: src/components/color-set/ColorSetName.tsx:35
 #: src/components/color-set/StandardColorSetCascader.tsx:58
-#: src/components/ImageColorPicker.tsx:302
+#: src/components/ImageColorPicker.tsx:305
 #: src/components/Palette.tsx:77
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# renk} other {# renk}}"
@@ -240,8 +240,8 @@ msgstr "Otomatik algılama"
 msgid "Automatic backup of color sets"
 msgstr "Renk setlerinin otomatik yedeklenmesi"
 
-#: src/components/ImageColorPicker.tsx:464
-#: src/components/ImageColorPicker.tsx:493
+#: src/components/ImageColorPicker.tsx:470
+#: src/components/ImageColorPicker.tsx:499
 msgid "Automatically find the best color mixtures for this photo"
 msgstr "Bu fotoğraf için en iyi renk karışımlarını otomatik olarak bulun"
 
@@ -252,12 +252,12 @@ msgstr "Beyaz nokta alanının ortalama rengi"
 #: src/components/ColorMixer.tsx:183
 #: src/components/ImageBackgroundRemoval.tsx:217
 #: src/components/ImageBackgroundRemoval.tsx:242
-#: src/components/ImageColorPicker.tsx:350
+#: src/components/ImageColorPicker.tsx:354
 msgid "Background"
 msgstr "Arka plan"
 
-#: src/components/ImageColorPicker.tsx:463
-#: src/components/ImageColorPicker.tsx:498
+#: src/components/ImageColorPicker.tsx:469
+#: src/components/ImageColorPicker.tsx:504
 msgid "Build palette"
 msgstr "Yapı paleti"
 
@@ -309,7 +309,7 @@ msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Beyaz bir nokta seçmek için fotoğrafta herhangi bir yeri tıklayın 🖱️ veya dokunun 👆."
 
 #: src/components/empty/EmptyPalette.tsx:64
-#: src/components/ImageColorPicker.tsx:530
+#: src/components/ImageColorPicker.tsx:536
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "Fotoğrafta herhangi bir yere tıklayın 🖱️ veya dokunun 👆 ya da renklerinizden karıştırmak üzere bir hedef renk seçmek için renk seçici açılır penceresini kullanın."
 
@@ -323,7 +323,7 @@ msgstr "{closeCounter} saniye içinde kapatın"
 
 #: src/components/ColorMixer.tsx:209
 #: src/components/CustomColorBrandCreator.tsx:448
-#: src/components/ImageColorPicker.tsx:404
+#: src/components/ImageColorPicker.tsx:408
 msgid "Color"
 msgstr "Renk"
 
@@ -335,7 +335,7 @@ msgstr "Renk markası"
 msgid "Color brands"
 msgstr "Renk markaları"
 
-#: src/components/ImageColorPicker.tsx:278
+#: src/components/ImageColorPicker.tsx:279
 msgid "Color count"
 msgstr "Renk sayımı"
 
@@ -356,7 +356,7 @@ msgid "Color picker"
 msgstr "Renk seçici"
 
 #: src/components/ColorSetChooser.tsx:548
-#: src/components/ImageColorPicker.tsx:507
+#: src/components/ImageColorPicker.tsx:513
 #: src/components/messages.ts:28
 msgid "Color set"
 msgstr "Renk seti"
@@ -462,7 +462,7 @@ msgid "Diagonals"
 msgstr "Çapraz"
 
 #: src/components/CustomColorBrandCreator.tsx:435
-#: src/components/ImageColorPicker.tsx:389
+#: src/components/ImageColorPicker.tsx:393
 msgid "Diameter"
 msgstr "Çap"
 
@@ -808,11 +808,11 @@ msgid "No"
 msgstr "Hayır"
 
 #: src/components/empty/EmptyPalette.tsx:39
-#: src/components/ImageColorPicker.tsx:527
+#: src/components/ImageColorPicker.tsx:533
 msgid "No data"
 msgstr "Veri yok"
 
-#: src/components/color-set/ColorSelect.tsx:86
+#: src/components/color-set/ColorSelect.tsx:88
 #: src/components/ColorMixingChart.tsx:113
 msgid "No sorting"
 msgstr "Sıralama yok"
@@ -899,7 +899,7 @@ msgstr "üzerinde"
 msgid "Palette"
 msgstr "Palet"
 
-#: src/components/ImageColorPicker.tsx:99
+#: src/components/ImageColorPicker.tsx:100
 msgid "Paper color doesn't matter for opaque pastels, as they completely cover the surface."
 msgstr "Kağıt rengi opak pastel renkler için önemli değildir, çünkü yüzeyi tamamen kaplar."
 
@@ -944,7 +944,7 @@ msgstr "Fotoğraf"
 msgid "Photo ranking"
 msgstr "Fotoğraf sıralaması"
 
-#: src/components/ImageColorPicker.tsx:536
+#: src/components/ImageColorPicker.tsx:542
 msgid "Pinch to zoom (or use the mouse wheel) and drag to pan"
 msgstr "Yakınlaştırmak için sıkıştırın (veya fare tekerleğini kullanın) ve kaydırmak için sürükleyin"
 
@@ -1026,17 +1026,15 @@ msgstr "Değerlendirme: {player2RatingText}"
 msgid "Ratio"
 msgstr "Oran"
 
-#: src/components/ImageColorPicker.tsx:299
+#: src/components/ImageColorPicker.tsx:302
 msgid "Reduce color palette to"
 msgstr "Renk paletini şu şekilde azalt"
 
-#: src/components/ImageColorPicker.tsx:457
-#: src/components/ImageColorPicker.tsx:486
+#: src/components/ImageColorPicker.tsx:492
 msgid "Reduce colors"
 msgstr "Renkleri azalt"
 
-#: src/components/ImageColorPicker.tsx:458
-#: src/components/ImageColorPicker.tsx:484
+#: src/components/ImageColorPicker.tsx:490
 msgid "Reduce the number of colors in the photo"
 msgstr "Fotoğraftaki renk sayısını azaltın"
 
@@ -1207,12 +1205,12 @@ msgstr "Markaları seçin"
 msgid "Select brands that you use."
 msgstr "Kullandığınız markaları seçin."
 
-#: src/components/color-set/ColorCascader.tsx:107
+#: src/components/color-set/ColorCascader.tsx:110
 msgid "Select color"
 msgstr "Renk seç"
 
-#: src/components/color-set/ColorCascader.tsx:107
-#: src/components/color-set/ColorSelect.tsx:105
+#: src/components/color-set/ColorCascader.tsx:110
+#: src/components/color-set/ColorSelect.tsx:107
 msgid "Select colors"
 msgstr "Renkleri seçin"
 
@@ -1328,7 +1326,7 @@ msgstr "Bu renk setini paylaşın"
 msgid "Share your color set"
 msgstr "Renk setinizi paylaşın"
 
-#: src/components/ImageColorPicker.tsx:422
+#: src/components/ImageColorPicker.tsx:426
 msgid "Show areas on the photo that match this color"
 msgstr "Fotoğrafta bu renkle eşleşen alanları göster"
 
@@ -1336,7 +1334,7 @@ msgstr "Fotoğrafta bu renkle eşleşen alanları göster"
 msgid "Show grid"
 msgstr "Izgarayı göster"
 
-#: src/components/ImageColorPicker.tsx:421
+#: src/components/ImageColorPicker.tsx:425
 msgid "Show matching areas"
 msgstr "Eşleşme alanlarını göster"
 
@@ -1349,7 +1347,7 @@ msgid "Show or hide diagonal lines"
 msgstr "Çapraz çizgileri gösterme veya gizleme"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:86
-#: src/components/ImageColorPicker.tsx:273
+#: src/components/ImageColorPicker.tsx:274
 msgid "Similarity"
 msgstr "Benzerlik"
 
@@ -1373,22 +1371,22 @@ msgstr "Farklı renklerdeki pastel alanları hafifçe üst üste getirin ve yumu
 msgid "Small"
 msgstr "Küçük"
 
-#: src/components/color-set/ColorSelect.tsx:118
+#: src/components/color-set/ColorSelect.tsx:120
 #: src/components/ColorMixingChart.tsx:108
-#: src/components/ImageColorPicker.tsx:444
+#: src/components/ImageColorPicker.tsx:448
 #: src/components/palette/PaletteGrid.tsx:129
 msgid "Sort"
 msgstr "Tür"
 
-#: src/components/ImageColorPicker.tsx:279
+#: src/components/ImageColorPicker.tsx:280
 msgid "Sort by the number of colors in the mixture"
 msgstr "Karışımdaki renk sayısına göre sıralayın"
 
-#: src/components/ImageColorPicker.tsx:274
+#: src/components/ImageColorPicker.tsx:275
 msgid "Sort by the similarity of the mixture to the target color"
 msgstr "Karışımın hedef renge benzerliğine göre sıralayın"
 
-#: src/components/ImageColorPicker.tsx:281
+#: src/components/ImageColorPicker.tsx:282
 msgid "Sort by the thickness of the mixture"
 msgstr "Karışımın kalınlığına göre sıralayın"
 
@@ -1464,15 +1462,15 @@ msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "Uygulama, {reloadCounter} saniye içinde yeniden yüklemeyi dener"
 
 #: src/components/ColorMixer.tsx:184
-#: src/components/ImageColorPicker.tsx:351
+#: src/components/ImageColorPicker.tsx:355
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "Kağıdın veya tuvalin rengi veya sırlandığında taban katmanının rengi."
 
-#: src/components/ImageColorPicker.tsx:405
+#: src/components/ImageColorPicker.tsx:409
 msgid "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
 msgstr "Renk setinizden karıştırılacak renk. Görüntüdeki bir noktayı tıklatarak bir renk seçin veya renk seçici açılır penceresini kullanın."
 
-#: src/components/ImageColorPicker.tsx:390
+#: src/components/ImageColorPicker.tsx:394
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
 msgstr "İmlecin etrafındaki dairesel alanın çapı, o alandaki piksellerin ortalama rengini hesaplamak için kullanılır."
 
@@ -1492,7 +1490,7 @@ msgstr "Her fotoğraf için ortak bir palet ve ayrı bir palet vardır."
 msgid "Thick pigment"
 msgstr "Kalın pigment"
 
-#: src/components/ImageColorPicker.tsx:281
+#: src/components/ImageColorPicker.tsx:282
 msgid "Thickness"
 msgstr "Kalınlık"
 
@@ -1587,7 +1585,7 @@ msgstr "İnce bir tabaka elde etmenizi sağlayan cam ortamları kullanın, örne
 msgid "Use reference photo"
 msgstr "Referans fotoğrafı kullan"
 
-#: src/components/ImageColorPicker.tsx:377
+#: src/components/ImageColorPicker.tsx:381
 msgid "Use white paper or canvas as a background"
 msgstr "Arka plan olarak beyaz kağıt veya tuval kullanın"
 
@@ -1633,7 +1631,7 @@ msgstr "Toplamda {maxColorsFor3}'ten fazla renk seçerken, üç rengin karışı
 
 #: src/components/ImageBackgroundRemoval.tsx:146
 #: src/components/ImageColorAdjustment.tsx:441
-#: src/components/ImageColorPicker.tsx:382
+#: src/components/ImageColorPicker.tsx:386
 msgid "White"
 msgstr "Beyaz"
 

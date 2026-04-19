@@ -23,7 +23,7 @@ msgstr "{brandName} farger"
 
 #: src/components/color-set/ColorSetName.tsx:35
 #: src/components/color-set/StandardColorSetCascader.tsx:58
-#: src/components/ImageColorPicker.tsx:302
+#: src/components/ImageColorPicker.tsx:305
 #: src/components/Palette.tsx:77
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# farge} other {# farger}}"
@@ -240,8 +240,8 @@ msgstr "Auto-deteksjon"
 msgid "Automatic backup of color sets"
 msgstr "Automatisk sikkerhetskopiering av fargesett"
 
-#: src/components/ImageColorPicker.tsx:464
-#: src/components/ImageColorPicker.tsx:493
+#: src/components/ImageColorPicker.tsx:470
+#: src/components/ImageColorPicker.tsx:499
 msgid "Automatically find the best color mixtures for this photo"
 msgstr "Finn automatisk de beste fargeblandingene til dette bildet"
 
@@ -252,12 +252,12 @@ msgstr "Gjennomsnittlig farge på hvitpunktområdet"
 #: src/components/ColorMixer.tsx:183
 #: src/components/ImageBackgroundRemoval.tsx:217
 #: src/components/ImageBackgroundRemoval.tsx:242
-#: src/components/ImageColorPicker.tsx:350
+#: src/components/ImageColorPicker.tsx:354
 msgid "Background"
 msgstr "Bakgrunn"
 
-#: src/components/ImageColorPicker.tsx:463
-#: src/components/ImageColorPicker.tsx:498
+#: src/components/ImageColorPicker.tsx:469
+#: src/components/ImageColorPicker.tsx:504
 msgid "Build palette"
 msgstr "Bygg palett"
 
@@ -309,7 +309,7 @@ msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Klikk 🖱️ eller trykk 👆 hvor som helst i bildet for å velge et hvitpunkt."
 
 #: src/components/empty/EmptyPalette.tsx:64
-#: src/components/ImageColorPicker.tsx:530
+#: src/components/ImageColorPicker.tsx:536
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "Klikk 🖱️ eller trykk 👆 hvor som helst i bildet, eller bruk hurtigvinduet for fargevelger til å velge en målfarge du vil blande fra fargene dine."
 
@@ -323,7 +323,7 @@ msgstr "Lukk på {closeCounter} sek"
 
 #: src/components/ColorMixer.tsx:209
 #: src/components/CustomColorBrandCreator.tsx:448
-#: src/components/ImageColorPicker.tsx:404
+#: src/components/ImageColorPicker.tsx:408
 msgid "Color"
 msgstr "Farge"
 
@@ -335,7 +335,7 @@ msgstr "Farge merke"
 msgid "Color brands"
 msgstr "Fargemerker"
 
-#: src/components/ImageColorPicker.tsx:278
+#: src/components/ImageColorPicker.tsx:279
 msgid "Color count"
 msgstr "Antall farger"
 
@@ -356,7 +356,7 @@ msgid "Color picker"
 msgstr "Fargevelger"
 
 #: src/components/ColorSetChooser.tsx:548
-#: src/components/ImageColorPicker.tsx:507
+#: src/components/ImageColorPicker.tsx:513
 #: src/components/messages.ts:28
 msgid "Color set"
 msgstr "Farge sett"
@@ -462,7 +462,7 @@ msgid "Diagonals"
 msgstr "Diagonaler"
 
 #: src/components/CustomColorBrandCreator.tsx:435
-#: src/components/ImageColorPicker.tsx:389
+#: src/components/ImageColorPicker.tsx:393
 msgid "Diameter"
 msgstr "Diameter"
 
@@ -808,11 +808,11 @@ msgid "No"
 msgstr "Nei"
 
 #: src/components/empty/EmptyPalette.tsx:39
-#: src/components/ImageColorPicker.tsx:527
+#: src/components/ImageColorPicker.tsx:533
 msgid "No data"
 msgstr "Ingen data"
 
-#: src/components/color-set/ColorSelect.tsx:86
+#: src/components/color-set/ColorSelect.tsx:88
 #: src/components/ColorMixingChart.tsx:113
 msgid "No sorting"
 msgstr "Ingen sortering"
@@ -899,7 +899,7 @@ msgstr "over"
 msgid "Palette"
 msgstr "Palett"
 
-#: src/components/ImageColorPicker.tsx:99
+#: src/components/ImageColorPicker.tsx:100
 msgid "Paper color doesn't matter for opaque pastels, as they completely cover the surface."
 msgstr "Papirfargen spiller ingen rolle for ugjennomsiktige pasteller, siden de dekker hele overflaten."
 
@@ -944,7 +944,7 @@ msgstr "Foto"
 msgid "Photo ranking"
 msgstr "Rangering av bilder"
 
-#: src/components/ImageColorPicker.tsx:536
+#: src/components/ImageColorPicker.tsx:542
 msgid "Pinch to zoom (or use the mouse wheel) and drag to pan"
 msgstr "Knip for å zoome (eller bruk musehjulet) og dra for å panorere"
 
@@ -1026,17 +1026,15 @@ msgstr "Vurdering: {player2RatingText}"
 msgid "Ratio"
 msgstr "Forhold"
 
-#: src/components/ImageColorPicker.tsx:299
+#: src/components/ImageColorPicker.tsx:302
 msgid "Reduce color palette to"
 msgstr "Reduser fargepaletten til"
 
-#: src/components/ImageColorPicker.tsx:457
-#: src/components/ImageColorPicker.tsx:486
+#: src/components/ImageColorPicker.tsx:492
 msgid "Reduce colors"
 msgstr "Reduser farger"
 
-#: src/components/ImageColorPicker.tsx:458
-#: src/components/ImageColorPicker.tsx:484
+#: src/components/ImageColorPicker.tsx:490
 msgid "Reduce the number of colors in the photo"
 msgstr "Reduser antall farger i bildet"
 
@@ -1207,12 +1205,12 @@ msgstr "Velg merker"
 msgid "Select brands that you use."
 msgstr "Velg merker du bruker."
 
-#: src/components/color-set/ColorCascader.tsx:107
+#: src/components/color-set/ColorCascader.tsx:110
 msgid "Select color"
 msgstr "Velg farge"
 
-#: src/components/color-set/ColorCascader.tsx:107
-#: src/components/color-set/ColorSelect.tsx:105
+#: src/components/color-set/ColorCascader.tsx:110
+#: src/components/color-set/ColorSelect.tsx:107
 msgid "Select colors"
 msgstr "Velg farger"
 
@@ -1328,7 +1326,7 @@ msgstr "Del dette fargesettet"
 msgid "Share your color set"
 msgstr "Del fargesettet ditt"
 
-#: src/components/ImageColorPicker.tsx:422
+#: src/components/ImageColorPicker.tsx:426
 msgid "Show areas on the photo that match this color"
 msgstr "Vis områder på bildet som matcher denne fargen"
 
@@ -1336,7 +1334,7 @@ msgstr "Vis områder på bildet som matcher denne fargen"
 msgid "Show grid"
 msgstr "Vis rutenett"
 
-#: src/components/ImageColorPicker.tsx:421
+#: src/components/ImageColorPicker.tsx:425
 msgid "Show matching areas"
 msgstr "Vis matchingsområder"
 
@@ -1349,7 +1347,7 @@ msgid "Show or hide diagonal lines"
 msgstr "Vise eller skjule diagonale linjer"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:86
-#: src/components/ImageColorPicker.tsx:273
+#: src/components/ImageColorPicker.tsx:274
 msgid "Similarity"
 msgstr "Likheten"
 
@@ -1373,22 +1371,22 @@ msgstr "Overlapp pastellområder litt i forskjellige farger og bland forsiktig f
 msgid "Small"
 msgstr "Liten"
 
-#: src/components/color-set/ColorSelect.tsx:118
+#: src/components/color-set/ColorSelect.tsx:120
 #: src/components/ColorMixingChart.tsx:108
-#: src/components/ImageColorPicker.tsx:444
+#: src/components/ImageColorPicker.tsx:448
 #: src/components/palette/PaletteGrid.tsx:129
 msgid "Sort"
 msgstr "Sortere"
 
-#: src/components/ImageColorPicker.tsx:279
+#: src/components/ImageColorPicker.tsx:280
 msgid "Sort by the number of colors in the mixture"
 msgstr "Sorter etter antall farger i blandingen"
 
-#: src/components/ImageColorPicker.tsx:274
+#: src/components/ImageColorPicker.tsx:275
 msgid "Sort by the similarity of the mixture to the target color"
 msgstr "Sorter etter likheten mellom blandingen og målfargen"
 
-#: src/components/ImageColorPicker.tsx:281
+#: src/components/ImageColorPicker.tsx:282
 msgid "Sort by the thickness of the mixture"
 msgstr "Sorter etter tykkelsen på blandingen"
 
@@ -1464,15 +1462,15 @@ msgid "The app will attempt to reload in {reloadCounter} sec"
 msgstr "Appen vil forsøke å laste inn på nytt om {reloadCounter} sek"
 
 #: src/components/ColorMixer.tsx:184
-#: src/components/ImageColorPicker.tsx:351
+#: src/components/ImageColorPicker.tsx:355
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "Fargen på papir eller lerret, eller fargen på underlaget når det er glasert."
 
-#: src/components/ImageColorPicker.tsx:405
+#: src/components/ImageColorPicker.tsx:409
 msgid "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
 msgstr "Fargen som skal blandes fra fargesettet. Velg en farge ved å klikke på et punkt på bildet, eller bruk popup-vinduet for fargevelger."
 
-#: src/components/ImageColorPicker.tsx:390
+#: src/components/ImageColorPicker.tsx:394
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
 msgstr "Diameteren på det sirkulære området rundt markøren, brukt til å beregne gjennomsnittsfargen på pikslene i det området."
 
@@ -1492,7 +1490,7 @@ msgstr "Det er en felles palett og en egen palett for hvert bilde."
 msgid "Thick pigment"
 msgstr "Tykt pigment"
 
-#: src/components/ImageColorPicker.tsx:281
+#: src/components/ImageColorPicker.tsx:282
 msgid "Thickness"
 msgstr "Tykkelse"
 
@@ -1587,7 +1585,7 @@ msgstr "Bruk glassmedier som lar deg få et tynt lag, for eksempel 1/10 av det o
 msgid "Use reference photo"
 msgstr "Bruk referansebilde"
 
-#: src/components/ImageColorPicker.tsx:377
+#: src/components/ImageColorPicker.tsx:381
 msgid "Use white paper or canvas as a background"
 msgstr "Bruk hvitt papir eller lerret som bakgrunn"
 
@@ -1633,7 +1631,7 @@ msgstr "Når du velger mer enn {maxColorsFor3} farger totalt, brukes ikke blandi
 
 #: src/components/ImageBackgroundRemoval.tsx:146
 #: src/components/ImageColorAdjustment.tsx:441
-#: src/components/ImageColorPicker.tsx:382
+#: src/components/ImageColorPicker.tsx:386
 msgid "White"
 msgstr "Hvit"
 

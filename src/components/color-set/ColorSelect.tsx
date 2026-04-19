@@ -42,13 +42,15 @@ function getColorOptions(
   if (!colors?.size) {
     return [];
   }
-  return [...colors.values()].map((color: ColorDefinition) => {
-    const label = formatColorLabel(color, brand);
-    return {
-      value: color.id,
-      label: <ColorLabel key={label} color={color} brand={brand} label={label} />,
-    };
-  });
+  return decorateSortUndecorate(colors.values(), COLOR_DEFINITION_COMPARATORS[ColorSort.ByHue]).map(
+    (color: ColorDefinition) => {
+      const label = formatColorLabel(color, brand);
+      return {
+        value: color.id,
+        label: <ColorLabel key={label} color={color} brand={brand} label={label} />,
+      };
+    }
+  );
 }
 
 type Props = Omit<

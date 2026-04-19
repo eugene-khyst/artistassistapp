@@ -82,7 +82,7 @@ export const PaletteGrid: React.FC<Props> = ({colorType, showColorSwatch}: Props
   }));
 
   const sortedColorMixtures = decorateSortUndecorate(
-    [...(colorMixtures?.values() ?? [])],
+    colorMixtures?.values(),
     COLOR_MIXTURES_COMPARATORS[sort]
   );
 

@@ -22,9 +22,10 @@ import type {CascaderProps, DefaultOptionType} from 'antd/es/cascader';
 
 import {ColorLabel} from '~/src/components/color/ColorLabel';
 import {filterCascaderOptions} from '~/src/components/utils';
-import {formatColorLabel} from '~/src/services/color/colors';
+import {COLOR_COMPARATORS, ColorSort, formatColorLabel} from '~/src/services/color/colors';
 import type {Color, ColorId, ColorSet} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
+import {decorateSortUndecorate} from '~/src/utils/array';
 import {computeIfAbsentInMap} from '~/src/utils/map';
 
 type ColorCascaderBaseProps = Omit<
@@ -77,13 +78,15 @@ function getColorOptions(colorSet?: ColorSet | null): DefaultOptionType[] {
       return {
         value: brandId,
         label: brand.fullName,
-        children: [...colors.values()].map((color: Color) => {
-          const label = formatColorLabel(color, brand);
-          return {
-            value: color.id,
-            label: <ColorLabel key={label} color={color} brand={brand} label={label} />,
-          };
-        }),
+        children: decorateSortUndecorate(colors, COLOR_COMPARATORS[ColorSort.ByHue]).map(
+          (color: Color) => {
+            const label = formatColorLabel(color, brand);
+            return {
+              value: color.id,
+              label: <ColorLabel key={label} color={color} brand={brand} label={label} />,
+            };
+          }
+        ),
       };
     })
     .filter((option): option is DefaultOptionType => !!option);

@@ -32,6 +32,7 @@ import {
   Typography,
 } from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
+import type {MenuDividerType} from 'antd/es/menu/interface';
 import type {SliderMarks} from 'antd/es/slider';
 import type {MenuProps} from 'antd/lib';
 import {useCallback, useEffect, useMemo, useState} from 'react';
@@ -293,19 +294,22 @@ export const ImageColorPicker: React.FC = () => {
     mc => !imageFile?.maxColors || mc < imageFile.maxColors
   );
 
-  const posterizeItems: MenuProps['items'] = [
-    {
-      type: 'group',
-      label: t`Reduce color palette to`,
-      children: availableMaxColors.map(colorCount => ({
-        key: String(colorCount),
-        label: <Plural value={colorCount} one="# color" other="# colors" />,
-        onClick: () => {
-          void posterizeImage(colorCount);
-        },
-      })),
-    },
-  ];
+  const posterizeItems: MenuProps['items'] =
+    availableMaxColors.length > 0
+      ? [
+          {
+            type: 'group',
+            label: t`Reduce color palette to`,
+            children: availableMaxColors.map(colorCount => ({
+              key: String(colorCount),
+              label: <Plural value={colorCount} one="# color" other="# colors" />,
+              onClick: () => {
+                void posterizeImage(colorCount);
+              },
+            })),
+          },
+        ]
+      : [];
 
   const height = `calc((100dvh - 75px) / ${screens.sm ? '1' : '2 - 8px'})`;
   const margin = screens.sm ? 0 : 8;
@@ -452,12 +456,14 @@ export const ImageColorPicker: React.FC = () => {
                       trigger={['click']}
                       menu={{
                         items: [
-                          {
-                            key: 'posterize',
-                            label: t`Reduce colors`,
-                            title: t`Reduce the number of colors in the photo`,
-                            children: posterizeItems,
-                          },
+                          ...posterizeItems,
+                          ...(availableMaxColors.length > 0
+                            ? [
+                                {
+                                  type: 'divider',
+                                } as MenuDividerType,
+                              ]
+                            : []),
                           {
                             key: 'build-palette',
                             label: t`Build palette`,

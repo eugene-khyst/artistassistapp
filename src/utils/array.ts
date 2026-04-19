@@ -109,14 +109,24 @@ export function createExtractorComparator<T, P = T>(
 }
 
 export function decorateSortUndecorate<T, P>(
-  array: T[] | undefined,
+  iterable: Iterable<T>,
+  [comparator, extractor]: ExtractorComparator<T, P>
+): T[];
+
+export function decorateSortUndecorate<T, P>(
+  iterable: Iterable<T> | undefined,
+  [comparator, extractor]: ExtractorComparator<T, P>
+): T[] | undefined;
+
+export function decorateSortUndecorate<T, P>(
+  iterable: Iterable<T> | undefined,
   [comparator, extractor]: ExtractorComparator<T, P>
 ): T[] | undefined {
-  if (!array) {
-    return;
+  if (!iterable) {
+    return undefined;
   }
   if (extractor) {
-    return array
+    return [...iterable]
       .map(item => ({
         item,
         value: extractor(item),
@@ -124,6 +134,6 @@ export function decorateSortUndecorate<T, P>(
       .sort(by(({value}) => value, comparator))
       .map(({item}) => item);
   } else {
-    return [...array].sort(comparator as unknown as Comparator<T>);
+    return [...iterable].sort(comparator as unknown as Comparator<T>);
   }
 }
