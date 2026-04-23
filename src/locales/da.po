@@ -17,7 +17,7 @@ msgstr ""
 msgid "({colorCount} colors)"
 msgstr "({colorCount} farver)"
 
-#: src/components/ColorSetChooser.tsx:620
+#: src/components/ColorSetChooser.tsx:636
 msgid "{brandName} colors"
 msgstr "{brandName} farver"
 
@@ -28,14 +28,14 @@ msgstr "{brandName} farver"
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# farve} other {# farver}}"
 
-#: src/components/ColorSetChooser.tsx:574
-#: src/components/ColorSetChooser.tsx:621
+#: src/components/ColorSetChooser.tsx:590
+#: src/components/ColorSetChooser.tsx:637
 msgid "{FIELD} are required"
 msgstr "{FIELD} er påkrævet"
 
-#: src/components/ColorSetChooser.tsx:541
-#: src/components/ColorSetChooser.tsx:550
-#: src/components/ColorSetChooser.tsx:603
+#: src/components/ColorSetChooser.tsx:557
+#: src/components/ColorSetChooser.tsx:566
+#: src/components/ColorSetChooser.tsx:619
 #: src/components/CustomColorBrandCreator.tsx:464
 #: src/components/CustomColorBrandCreator.tsx:475
 #: src/components/CustomColorBrandCreator.tsx:483
@@ -71,7 +71,7 @@ msgstr "<0/> Windows og <1/> Linux"
 msgid "<0>{similarityText}%</0> similarity"
 msgstr "<0>{similarityText}%</0> lighed"
 
-#: src/components/ColorSetChooser.tsx:418
+#: src/components/ColorSetChooser.tsx:434
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>ArtistAssistApp</0> er en webapp, der hjælper kunstnere med at blande farver fra fotos, analysere toneværdier, skitsere fotos, tegne med gitre, male med begrænsede paletter og mere."
 
@@ -79,7 +79,7 @@ msgstr "<0>ArtistAssistApp</0> er en webapp, der hjælper kunstnere med at bland
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Tjek din Patreon-konto</0>: Sørg for, at du er logget ind for at <1>Patreon.com</1> i din webbrowser med samme e-mail, som du brugte til at købe dit medlemskab. Hvis du har flere konti, så log ud og log ind igen med den korrekte."
 
-#: src/components/ColorSetChooser.tsx:440
+#: src/components/ColorSetChooser.tsx:456
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Tilmeld dig ArtistAssistApp på Patreon som betalt medlem</0>, eller <1>log ind med Patreon</1> , hvis du allerede har tilmeldt dig, for at få adgang til mere end 200 farvemærker og alle billedbehandlingstilstande uden annoncer."
 
@@ -131,7 +131,7 @@ msgstr "Tilføj farve"
 msgid "Add color mixtures to the palette."
 msgstr "Tilsæt farveblandinger til paletten."
 
-#: src/components/ColorSetChooser.tsx:623
+#: src/components/ColorSetChooser.tsx:639
 msgid "Add or remove colors to match your actual color set."
 msgstr "Tilføj eller fjern farver, så de passer til dit faktiske farvesæt."
 
@@ -198,7 +198,7 @@ msgstr "Er du sikker på, at du vil rydde cachen?"
 msgid "Are you sure you want to delete all app data?"
 msgstr "Er du sikker på, at du vil slette alle appdata?"
 
-#: src/components/ColorSetChooser.tsx:716
+#: src/components/ColorSetChooser.tsx:742
 msgid "Are you sure you want to delete this color set?"
 msgstr "Er du sikker på, at du vil slette dette farvesæt?"
 
@@ -219,7 +219,7 @@ msgstr "Er du sikker på, at du vil fjerne alle farveblandinger?"
 msgid "Are you sure you want to remove this color mixture?"
 msgstr "Er du sikker på, at du vil fjerne denne farveblanding?"
 
-#: src/components/ColorSetChooser.tsx:540
+#: src/components/ColorSetChooser.tsx:556
 #: src/components/CustomColorBrandCreator.tsx:474
 msgid "Art medium"
 msgstr "Kunstmedie"
@@ -292,6 +292,7 @@ msgstr "Efter navn"
 msgid "Camera access is required for AR tracing"
 msgstr "Kameraadgang er påkrævet for AR-sporing"
 
+#: src/components/color-set/MergeColorSetsDrawer.tsx:109
 #: src/components/loading/LoadingIndicator.tsx:60
 msgid "Cancel"
 msgstr "Annuller"
@@ -340,7 +341,7 @@ msgstr "Farve"
 msgid "Color brand"
 msgstr "Farve mærke"
 
-#: src/components/ColorSetChooser.tsx:572
+#: src/components/ColorSetChooser.tsx:588
 msgid "Color brands"
 msgstr "Farve mærker"
 
@@ -364,7 +365,7 @@ msgstr "Farve blanding"
 msgid "Color picker"
 msgstr "Farvevælger"
 
-#: src/components/ColorSetChooser.tsx:548
+#: src/components/ColorSetChooser.tsx:564
 #: src/components/ImageColorPicker.tsx:513
 #: src/components/messages.ts:28
 msgid "Color set"
@@ -412,9 +413,13 @@ msgstr "Korrigeret estimering af lyskildens temperatur i Kelvin"
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Kunne ikke automatisk registrere papiret eller lærredet"
 
-#: src/components/ColorSetChooser.tsx:709
+#: src/components/ColorSetChooser.tsx:724
 msgid "Create a duplicate of this color set for further modification"
 msgstr "Opret en kopi af dette farvesæt til yderligere ændringer"
+
+#: src/components/ColorSetChooser.tsx:733
+msgid "Create a new color set by merging existing ones"
+msgstr "Opret et nyt farvesæt ved at sammenflette eksisterende"
 
 #: src/components/color-set/ColorSetSelect.tsx:97
 #: src/components/color-set/CustomColorBrandSelect.tsx:83
@@ -429,7 +434,7 @@ msgstr "Brugerdefineret mærke"
 msgid "Custom color set"
 msgstr "Brugerdefineret farvesæt"
 
-#: src/components/ColorSetChooser.tsx:730
+#: src/components/ColorSetChooser.tsx:756
 #: src/components/CustomColorBrandCreator.tsx:510
 #: src/components/image/RecentImageCard.tsx:83
 msgid "Delete"
@@ -440,7 +445,7 @@ msgstr "Slette"
 msgid "Delete all app data"
 msgstr "Slet alle appdata"
 
-#: src/components/ColorSetChooser.tsx:715
+#: src/components/ColorSetChooser.tsx:741
 msgid "Delete the color set"
 msgstr "Slet farvesættet"
 
@@ -454,7 +459,7 @@ msgstr "Slet det tilpassede brand"
 msgid "Delete the recent photo"
 msgstr "Slet det seneste billede"
 
-#: src/components/ColorSetChooser.tsx:725
+#: src/components/ColorSetChooser.tsx:751
 msgid "Delete this color set"
 msgstr "Slet dette farvesæt"
 
@@ -479,7 +484,7 @@ msgstr "Diameter"
 msgid "Dilute the paint with water in a <0>{ratioText} ratio</0>"
 msgstr "Fortynd malingen med vand i <0>forholdet {ratioText}</0>"
 
-#: src/components/ColorSetChooser.tsx:605
+#: src/components/ColorSetChooser.tsx:621
 msgid "Do you have a store-bought or custom color set?"
 msgstr "Har du et butikskøbt eller tilpasset farvesæt?"
 
@@ -507,7 +512,7 @@ msgstr "Læg filerne her..."
 msgid "Dry Pastel"
 msgstr "Tør Pastel"
 
-#: src/components/ColorSetChooser.tsx:712
+#: src/components/ColorSetChooser.tsx:727
 msgid "Duplicate"
 msgstr "Multiplicere"
 
@@ -528,11 +533,11 @@ msgstr "Gå i lightbox-tilstand for at tegne omridset gennem dit papir."
 msgid "Error loading sample photos"
 msgstr "Fejllæsningseksempler på fotos"
 
-#: src/components/ColorSetChooser.tsx:192
+#: src/components/ColorSetChooser.tsx:196
 msgid "Error while fetching color brand data"
 msgstr "Fejl under hentning af farvemærkedata"
 
-#: src/components/ColorSetChooser.tsx:214
+#: src/components/ColorSetChooser.tsx:218
 msgid "Error while fetching color data"
 msgstr "Fejl under hentning af farvedata"
 
@@ -542,7 +547,7 @@ msgstr "Fejl under hentning af farvedata"
 msgid "Error while fetching ML model data"
 msgstr "Fejl under hentning af ML-modeldata"
 
-#: src/components/ColorSetChooser.tsx:203
+#: src/components/ColorSetChooser.tsx:207
 msgid "Error while fetching standard color set data"
 msgstr "Fejl under hentning af standardfarvesætdata"
 
@@ -555,11 +560,11 @@ msgstr "Estimeret temperatur af lyskilden i Kelvin, billedet blev taget med"
 msgid "Exit AR"
 msgstr "Forlad AR"
 
-#: src/components/ColorSetChooser.tsx:450
+#: src/components/ColorSetChooser.tsx:466
 msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Udforsk den gratis version, før du beslutter dig for at købe et betalt medlemskab."
 
-#: src/components/ColorSetChooser.tsx:365
+#: src/components/ColorSetChooser.tsx:369
 #: src/components/CustomColorBrandCreator.tsx:359
 msgid "Fill in the required fields"
 msgstr "Udfyld de påkrævede felter"
@@ -576,7 +581,7 @@ msgstr "Gamma"
 msgid "Gifted membership"
 msgstr "Gavemedlemskab"
 
-#: src/components/ColorSetChooser.tsx:565
+#: src/components/ColorSetChooser.tsx:581
 msgid "Give your color set a name for easy access."
 msgstr "Giv dit farvesæt et navn, så du nemt kan få adgang til det."
 
@@ -609,16 +614,16 @@ msgstr "Gitter"
 msgid "Height"
 msgstr "Højde"
 
-#: src/components/ColorSetChooser.tsx:497
+#: src/components/ColorSetChooser.tsx:513
 #: src/components/messages.ts:45
 msgid "Help"
 msgstr "Hjælp"
 
-#: src/components/ColorSetChooser.tsx:455
+#: src/components/ColorSetChooser.tsx:471
 msgid "If you are having trouble logging in, please read this <0>troubleshooting guide</0>."
 msgstr "Hvis du har problemer med at logge ind, så læs venligst denne <0>fejlfindingsvejledning</0>."
 
-#: src/components/ColorSetChooser.tsx:228
+#: src/components/ColorSetChooser.tsx:232
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Hvis du ikke gemmer, kan ændringer af farvesættet gå tabt."
 
@@ -704,11 +709,11 @@ msgstr "Link kopieret til udklipsholder"
 msgid "Load color brand file"
 msgstr "Indlæs farvemærkefil"
 
-#: src/components/ColorSetChooser.tsx:740
+#: src/components/ColorSetChooser.tsx:765
 msgid "Load color sets file"
 msgstr "Indlæs farvesætfil"
 
-#: src/components/ColorSetChooser.tsx:507
+#: src/components/ColorSetChooser.tsx:523
 msgid "Log in on another device by scanning the QR code"
 msgstr "Log ind på en anden enhed ved at scanne QR-koden"
 
@@ -749,6 +754,15 @@ msgstr "Max"
 msgid "Medium"
 msgstr "Medium"
 
+#: src/components/color-set/MergeColorSetsDrawer.tsx:106
+#: src/components/ColorSetChooser.tsx:736
+msgid "Merge"
+msgstr "Sammenlægning"
+
+#: src/components/color-set/MergeColorSetsDrawer.tsx:66
+msgid "Merge color sets"
+msgstr "Sammenflet farvesæt"
+
 #: src/components/ImageTonalValues.tsx:89
 msgid "Mid tone"
 msgstr "Mellemtone"
@@ -775,7 +789,7 @@ msgstr "Blanding"
 msgid "Mode"
 msgstr "Tilstand"
 
-#: src/components/ColorSetChooser.tsx:564
+#: src/components/ColorSetChooser.tsx:580
 #: src/components/CustomColorBrandCreator.tsx:191
 #: src/components/CustomColorBrandCreator.tsx:482
 msgid "Name"
@@ -785,7 +799,7 @@ msgstr "Navn"
 msgid "Name a brand"
 msgstr "Navngiv et brand"
 
-#: src/components/ColorSetChooser.tsx:568
+#: src/components/ColorSetChooser.tsx:584
 msgid "Name a color set"
 msgstr "Navngiv et farvesæt"
 
@@ -811,8 +825,8 @@ msgstr "Næste ladedato"
 
 #: src/components/color/AddToPaletteButton.tsx:53
 #: src/components/color/PaletteColorMixtureCard.tsx:106
-#: src/components/ColorSetChooser.tsx:230
-#: src/components/ColorSetChooser.tsx:721
+#: src/components/ColorSetChooser.tsx:234
+#: src/components/ColorSetChooser.tsx:747
 #: src/components/CustomColorBrandCreator.tsx:501
 #: src/components/image/RecentImageCard.tsx:74
 #: src/components/palette/PaletteGrid.tsx:114
@@ -851,7 +865,7 @@ msgstr "Oliemaling"
 msgid "Oil Pastel"
 msgstr "Olie Pastel"
 
-#: src/components/ColorSetChooser.tsx:587
+#: src/components/ColorSetChooser.tsx:603
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Kun et begrænset antal farvemærker er tilgængelige i den gratis version"
 
@@ -860,7 +874,7 @@ msgstr "Kun et begrænset antal farvemærker er tilgængelige i den gratis versi
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Kun et begrænset antal tilstande er tilgængelige i den gratis version"
 
-#: src/components/ImageStyleTransfer.tsx:192
+#: src/components/ImageStyleTransfer.tsx:194
 msgid "Only a limited number of styles are available in the free version"
 msgstr "Kun et begrænset antal stilarter er tilgængelige i den gratis version"
 
@@ -1139,17 +1153,17 @@ msgstr "Mætning (%)"
 #: src/components/ImageOutline.tsx:345
 #: src/components/ImagePerspectiveCorrection.tsx:245
 #: src/components/ImagePerspectiveCorrection.tsx:277
-#: src/components/ImageStyleTransfer.tsx:186
+#: src/components/ImageStyleTransfer.tsx:188
 #: src/components/ImageTonalValues.tsx:116
 #: src/components/ImageTonalValues.tsx:132
 msgid "Save"
 msgstr "Spare"
 
-#: src/components/ColorSetChooser.tsx:688
+#: src/components/ColorSetChooser.tsx:704
 msgid "Save & proceed"
 msgstr "Gem og fortsæt"
 
-#: src/components/ColorSetChooser.tsx:227
+#: src/components/ColorSetChooser.tsx:231
 msgid "Save changes to the color set?"
 msgstr "Gemme ændringer i farvesættet?"
 
@@ -1163,7 +1177,7 @@ msgstr "Gem indhold udvidet til 1,91:1"
 msgid "Save expanded to 4:5"
 msgstr "Gem udvidet til 4:5"
 
-#: src/components/ColorSetChooser.tsx:684
+#: src/components/ColorSetChooser.tsx:700
 msgid "Save the changes to this color set"
 msgstr "Gem ændringerne i dette farvesæt"
 
@@ -1171,7 +1185,7 @@ msgstr "Gem ændringerne i dette farvesæt"
 msgid "Scan a QR code"
 msgstr "Scan en QR-kode"
 
-#: src/components/ColorSetChooser.tsx:488
+#: src/components/ColorSetChooser.tsx:504
 msgid "Scan QR code"
 msgstr "Scan QR-kode"
 
@@ -1195,7 +1209,7 @@ msgstr "Vælg et foto, som baggrunden skal fjernes fra"
 msgid "Select a reference photo from your device to paint from"
 msgstr "Vælg et referencefoto fra din enhed, som du vil male fra"
 
-#: src/components/ImageStyleTransfer.tsx:181
+#: src/components/ImageStyleTransfer.tsx:183
 msgid "Select a style to transfer to your reference photo"
 msgstr "Vælg et format, der skal overføres til dit referencefoto"
 
@@ -1215,7 +1229,7 @@ msgstr "Vælg kunstmedie"
 msgid "Select brands"
 msgstr "Vælg mærker"
 
-#: src/components/ColorSetChooser.tsx:573
+#: src/components/ColorSetChooser.tsx:589
 msgid "Select brands that you use."
 msgstr "Vælg de brands, du bruger."
 
@@ -1244,7 +1258,7 @@ msgstr "Vælg mellem dine seneste mærker"
 msgid "Select from your recent color sets"
 msgstr "Vælg mellem dine seneste farvesæt"
 
-#: src/components/ColorSetChooser.tsx:549
+#: src/components/ColorSetChooser.tsx:565
 msgid "Select from your recent color sets or create a new one."
 msgstr "Vælg mellem dine seneste farvesæt, eller opret et nyt."
 
@@ -1279,11 +1293,15 @@ msgstr "Vælg billeder, der skal rangeres ved hjælp af parvis sammenligning"
 msgid "Select set"
 msgstr "Vælg sæt"
 
-#: src/components/ImageStyleTransfer.tsx:235
+#: src/components/ImageStyleTransfer.tsx:239
 msgid "Select style image"
 msgstr "Vælg typografibillede"
 
-#: src/components/ColorSetChooser.tsx:517
+#: src/components/color-set/MergeColorSetsDrawer.tsx:74
+msgid "Select the color sets you want to merge. A new color set will be created that includes all the colors from the selected sets."
+msgstr "Vælg de farvesæt, du vil sammenlægge. Et nyt farvesæt vil blive oprettet, som inkluderer alle farver fra de valgte sæt."
+
+#: src/components/ColorSetChooser.tsx:533
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Select your art medium, color brands and colors you will paint with and press the <0>Save & proceed</0> button."
 msgstr "Vælg dit kunstmedie, farvemærker og farver, du vil male med, og tryk på <0>knappen Gem og fortsæt</0> ."
@@ -1327,12 +1345,12 @@ msgstr "Skygge"
 msgid "Shadows and highlights"
 msgstr "Skygger og højlys"
 
-#: src/components/ColorSetChooser.tsx:702
+#: src/components/ColorSetChooser.tsx:718
 #: src/components/share/ShareModal.tsx:83
 msgid "Share"
 msgstr "Aktie"
 
-#: src/components/ColorSetChooser.tsx:699
+#: src/components/ColorSetChooser.tsx:715
 msgid "Share this color set"
 msgstr "Del dette farvesæt"
 
@@ -1414,7 +1432,7 @@ msgstr "Spektral reflektanskurve"
 msgid "Square cells"
 msgstr "Kvadratiske celler"
 
-#: src/components/ColorSetChooser.tsx:602
+#: src/components/ColorSetChooser.tsx:618
 msgid "Standard color set"
 msgstr "Standard farve sæt"
 
@@ -1516,7 +1534,7 @@ msgstr "Fortynd malingen til <0>{fractionText} tykkelse</0>"
 msgid "This backup file lets you restore your color sets later, so keep it. You can delete any older backup files."
 msgstr "Denne sikkerhedskopifil giver dig mulighed for at gendanne dine farvesæt senere, så behold den. Du kan slette alle ældre sikkerhedskopifiler."
 
-#: src/components/ColorSetChooser.tsx:628
+#: src/components/ColorSetChooser.tsx:644
 msgid "This color brand is available to paid Patreon members only"
 msgstr "Dette farvemærke er kun tilgængeligt for betalte Patreon-medlemmer"
 
@@ -1528,7 +1546,7 @@ msgstr "Denne udskriftsstørrelse understøttes ikke"
 msgid "This step is optional."
 msgstr "Dette trin er valgfrit."
 
-#: src/components/ImageStyleTransfer.tsx:251
+#: src/components/ImageStyleTransfer.tsx:255
 msgid "This style is available to paid Patreon members only"
 msgstr "Denne stil er kun tilgængelig for betalte Patreon-medlemmer"
 
@@ -1640,11 +1658,11 @@ msgstr "Vokspastel"
 msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
 msgstr "Vi stødte på et problem med at verificere dine loginoplysninger. Dette problem kan som regel løses ved at prøve at logge ind igen."
 
-#: src/components/ColorSetChooser.tsx:660
+#: src/components/ColorSetChooser.tsx:676
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "Når du vælger mere end {maxColorsFor2} farver i alt, bruges blandinger af to farver ikke."
 
-#: src/components/ColorSetChooser.tsx:668
+#: src/components/ColorSetChooser.tsx:684
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Når du vælger mere end {maxColorsFor3} farver i alt, bruges blandinger af tre farver ikke."
 
@@ -1675,8 +1693,8 @@ msgstr "Bredde"
 
 #: src/components/color/AddToPaletteButton.tsx:52
 #: src/components/color/PaletteColorMixtureCard.tsx:105
-#: src/components/ColorSetChooser.tsx:229
-#: src/components/ColorSetChooser.tsx:720
+#: src/components/ColorSetChooser.tsx:233
+#: src/components/ColorSetChooser.tsx:746
 #: src/components/CustomColorBrandCreator.tsx:500
 #: src/components/image/RecentImageCard.tsx:73
 #: src/components/palette/PaletteGrid.tsx:113
@@ -1685,19 +1703,19 @@ msgstr "Bredde"
 msgid "Yes"
 msgstr "Ja"
 
-#: src/components/ColorSetChooser.tsx:429
+#: src/components/ColorSetChooser.tsx:445
 msgid "You are logged in and have access to all app features."
 msgstr "Du er logget ind og har adgang til alle app-funktioner."
 
-#: src/components/ColorSetChooser.tsx:434
+#: src/components/ColorSetChooser.tsx:450
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "Du bruger den <0>gratis version</0> med et begrænset antal farvemærker og billedbehandlingstilstande."
 
-#: src/components/ColorSetChooser.tsx:580
+#: src/components/ColorSetChooser.tsx:596
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Du har valgt farvemærker, der kun er tilgængelige for betalende Patreon-medlemmer"
 
-#: src/components/ColorSetChooser.tsx:651
+#: src/components/ColorSetChooser.tsx:667
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Du har valgt farvemærker, der kun er tilgængelige for betalende Patreon-medlemmer. Tilmeld dig ArtistAssistApp på Patreon som betalt medlem, eller log ind med Patreon, hvis du allerede har tilmeldt dig."
 

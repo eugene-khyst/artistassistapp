@@ -330,10 +330,10 @@ export const CustomColorBrandCreator: React.FC = () => {
   };
 
   const handleFormValuesChange = (changedValues: Partial<CustomColorBrandDefinition>) => {
-    if ((changedValues.id ?? -1) >= 0) {
+    if (changedValues.id !== undefined) {
       form.resetFields();
       setEditFromIndex(null);
-      if (changedValues.id! > 0) {
+      if (changedValues.id > 0) {
         const brand: CustomColorBrandDefinition | undefined = customColorBrands.find(
           ({id}: CustomColorBrandDefinition) => id === changedValues.id
         );

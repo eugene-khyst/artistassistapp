@@ -19,6 +19,7 @@
 import {
   CopyOutlined,
   DeleteOutlined,
+  MergeCellsOutlined,
   QrcodeOutlined,
   QuestionCircleOutlined,
   SaveOutlined,
@@ -62,6 +63,7 @@ import {usePersistentStorage} from '~/src/hooks/usePersistentStorage';
 import {useStandardColorSets} from '~/src/hooks/useStandardColorSets';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {COLOR_MIXING, MAX_COLORS_IN_MIXTURE} from '~/src/services/color/color-mixer';
+import {mergeColorSets} from '~/src/services/color/colors';
 import {
   type ColorBrandDefinition,
   type ColorSetDefinition,
@@ -77,6 +79,7 @@ import {TabKey} from '~/src/tabs';
 import {ColorBrandSelect} from './color-set/ColorBrandSelect';
 import {ColorSelect} from './color-set/ColorSelect';
 import {ColorTypeSelect} from './color-set/ColorTypeSelect';
+import {MergeColorSetsDrawer} from './color-set/MergeColorSetsDrawer';
 import {StandardColorSetCascader} from './color-set/StandardColorSetCascader';
 import {ShareModal} from './share/ShareModal';
 
@@ -146,6 +149,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
   const [isQRScannerModalOpen, setIsQRScannerModalOpen] = useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [shareColorSetUrl, setShareColorSetUrl] = useState<string>();
+  const [isMergeDrawerOpen, setIsMergeDrawerOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (importedColorSet) {
@@ -279,7 +283,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
       }
     }
 
-    if ((changedValues.id ?? -1) >= 0) {
+    if (changedValues.id !== undefined) {
       form.setFieldsValue({
         id: 0,
         name: undefined,
@@ -288,7 +292,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
         colors: emptyColors,
       });
 
-      if (changedValues.id! > 0 && values.type) {
+      if (changedValues.id > 0 && values.type) {
         const colorSet: ColorSetDefinition | undefined = colorSets
           .get(values.type)
           ?.find(({id}: ColorSetDefinition) => id === changedValues.id);
@@ -302,7 +306,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
       const [standardColorSetBrand] = values.standardColorSet ?? [];
       const standardColorSet: ColorSetDefinition['standardColorSet'] =
         standardColorSetBrand && !values.brands?.includes(standardColorSetBrand)
-          ? undefined
+          ? CUSTOM_COLOR_SET
           : values.standardColorSet;
 
       const colors: Partial<Record<number, number[]>> = {...emptyColors};
@@ -323,11 +327,11 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
       if (brandId && name) {
         const brandAlias: string | undefined = brands?.get(brandId)?.alias;
         if (brandAlias) {
-          const colors: Partial<Record<number, number[]>> = {...emptyColors};
-          colors[brandId] = standardColorSets.get(brandAlias)?.get(name)?.colors ?? [];
-
           form.setFieldsValue({
-            colors,
+            colors: {
+              ...values.colors,
+              [brandId]: standardColorSets.get(brandAlias)?.get(name)?.colors ?? [],
+            },
           });
         }
       }
@@ -376,8 +380,19 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
     form.setFieldsValue(newColorSet);
   };
 
-  const handleDeleteClick = async () => {
+  const handleMergeClick = async () => {
+    await checkForUnsavedChanges();
+    setIsMergeDrawerOpen(true);
+  };
+
+  const handleMerge = (selected: ColorSetDefinition[]) => {
     setHasUnsavedChanges(true);
+    const newColorSet: ColorSetDefinition = mergeColorSets(selected);
+    form.setFieldsValue(newColorSet);
+    setIsMergeDrawerOpen(false);
+  };
+
+  const handleDeleteClick = async () => {
     if (!selectedColorSetId) {
       return;
     }
@@ -386,6 +401,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
     form.setFieldsValue({
       type: selectedType,
     });
+    setHasUnsavedChanges(false);
   };
 
   const handleJsonFileChange = async ([file]: File[]) => {
@@ -693,6 +709,45 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
                       <JoinButton />
                     </>
                   ))}
+                {!!selectedColorSetId && (
+                  <Button
+                    icon={<CopyOutlined />}
+                    title={t`Create a duplicate of this color set for further modification`}
+                    onClick={handleDuplicateClick}
+                  >
+                    <Trans>Duplicate</Trans>
+                  </Button>
+                )}
+                {colorSetsByType.length >= 2 && (
+                  <Button
+                    icon={<MergeCellsOutlined />}
+                    title={t`Create a new color set by merging existing ones`}
+                    onClick={() => void handleMergeClick()}
+                  >
+                    <Trans>Merge</Trans>
+                  </Button>
+                )}
+                {!!selectedColorSetId && (
+                  <Popconfirm
+                    title={t`Delete the color set`}
+                    description={t`Are you sure you want to delete this color set?`}
+                    onConfirm={() => {
+                      void handleDeleteClick();
+                    }}
+                    okText={t`Yes`}
+                    cancelText={t`No`}
+                  >
+                    <Button
+                      icon={<DeleteOutlined />}
+                      title={t`Delete this color set`}
+                      onClick={e => {
+                        e.stopPropagation();
+                      }}
+                    >
+                      <Trans>Delete</Trans>
+                    </Button>
+                  </Popconfirm>
+                )}
                 {selectedColorsCount > 0 && (
                   <Button
                     icon={<ShareAltOutlined />}
@@ -701,36 +756,6 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
                   >
                     <Trans>Share</Trans>
                   </Button>
-                )}
-                {!!selectedColorSetId && (
-                  <>
-                    <Button
-                      icon={<CopyOutlined />}
-                      title={t`Create a duplicate of this color set for further modification`}
-                      onClick={handleDuplicateClick}
-                    >
-                      <Trans>Duplicate</Trans>
-                    </Button>
-                    <Popconfirm
-                      title={t`Delete the color set`}
-                      description={t`Are you sure you want to delete this color set?`}
-                      onConfirm={() => {
-                        void handleDeleteClick();
-                      }}
-                      okText={t`Yes`}
-                      cancelText={t`No`}
-                    >
-                      <Button
-                        icon={<DeleteOutlined />}
-                        title={t`Delete this color set`}
-                        onClick={e => {
-                          e.stopPropagation();
-                        }}
-                      >
-                        <Trans>Delete</Trans>
-                      </Button>
-                    </Popconfirm>
-                  </>
                 )}
                 <FileSelect
                   type="default"
@@ -753,6 +778,15 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
 
       <QRScannerModal open={isQRScannerModalOpen} setOpen={setIsQRScannerModalOpen} />
       <ShareModal open={isShareModalOpen} setOpen={setIsShareModalOpen} url={shareColorSetUrl} />
+      <MergeColorSetsDrawer
+        open={isMergeDrawerOpen}
+        onClose={() => {
+          setIsMergeDrawerOpen(false);
+        }}
+        colorSets={colorSetsByType}
+        brands={brands}
+        onMerge={handleMerge}
+      />
       {installDrawer}
     </>
   );

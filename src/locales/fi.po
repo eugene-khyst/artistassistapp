@@ -17,7 +17,7 @@ msgstr ""
 msgid "({colorCount} colors)"
 msgstr "({colorCount} värit)"
 
-#: src/components/ColorSetChooser.tsx:620
+#: src/components/ColorSetChooser.tsx:636
 msgid "{brandName} colors"
 msgstr "{brandName} värit"
 
@@ -28,14 +28,14 @@ msgstr "{brandName} värit"
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# väri} other {# väriä}}"
 
-#: src/components/ColorSetChooser.tsx:574
-#: src/components/ColorSetChooser.tsx:621
+#: src/components/ColorSetChooser.tsx:590
+#: src/components/ColorSetChooser.tsx:637
 msgid "{FIELD} are required"
 msgstr "{FIELD} ovat pakollisia"
 
-#: src/components/ColorSetChooser.tsx:541
-#: src/components/ColorSetChooser.tsx:550
-#: src/components/ColorSetChooser.tsx:603
+#: src/components/ColorSetChooser.tsx:557
+#: src/components/ColorSetChooser.tsx:566
+#: src/components/ColorSetChooser.tsx:619
 #: src/components/CustomColorBrandCreator.tsx:464
 #: src/components/CustomColorBrandCreator.tsx:475
 #: src/components/CustomColorBrandCreator.tsx:483
@@ -71,7 +71,7 @@ msgstr "<0/> Windows ja <1/> Linux"
 msgid "<0>{similarityText}%</0> similarity"
 msgstr "<0>{similarityText}%</0> samankaltaisuus"
 
-#: src/components/ColorSetChooser.tsx:418
+#: src/components/ColorSetChooser.tsx:434
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>ArtistAssistApp</0> on verkkosovellus, joka auttaa taiteilijoita sekoittamaan valokuvien värejä, analysoimaan sävyarvoja, hahmottelemaan valokuvia, piirtämään ruudukoilla, maalaamaan rajoitetuilla paleteilla ja paljon muuta."
 
@@ -79,7 +79,7 @@ msgstr "<0>ArtistAssistApp</0> on verkkosovellus, joka auttaa taiteilijoita seko
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Tarkista Patreon-tilisi</0>: Varmista, että olet kirjautuneena <1>Patreon.com</1> selaimessasi samalla sähköpostilla, jolla ostit jäsenyytesi. Jos sinulla on useita tilejä, kirjaudu ulos ja kirjaudu takaisin oikealla tilillä."
 
-#: src/components/ColorSetChooser.tsx:440
+#: src/components/ColorSetChooser.tsx:456
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Liity ArtistAssistAppiin Patreonissa maksullisena jäsenenä</0> tai <1>kirjaudu sisään Patreonilla</1> , jos olet jo liittynyt, niin saat käyttöösi yli 200 väribrändiä ja kaikkia kuvankäsittelytiloja ilman mainoksia."
 
@@ -131,7 +131,7 @@ msgstr "Lisää väriä"
 msgid "Add color mixtures to the palette."
 msgstr "Lisää väriseoksia palettiin."
 
-#: src/components/ColorSetChooser.tsx:623
+#: src/components/ColorSetChooser.tsx:639
 msgid "Add or remove colors to match your actual color set."
 msgstr "Lisää tai poista värejä todellisen värijoukon mukaan."
 
@@ -198,7 +198,7 @@ msgstr "Oletko varma, että haluat tyhjentää välimuistin?"
 msgid "Are you sure you want to delete all app data?"
 msgstr "Oletko varma, että haluat poistaa kaikki sovellustiedot?"
 
-#: src/components/ColorSetChooser.tsx:716
+#: src/components/ColorSetChooser.tsx:742
 msgid "Are you sure you want to delete this color set?"
 msgstr "Haluatko varmasti poistaa tämän värisarjan?"
 
@@ -219,7 +219,7 @@ msgstr "Oletko varma, että haluat poistaa kaikki väriseokset?"
 msgid "Are you sure you want to remove this color mixture?"
 msgstr "Oletko varma, että haluat poistaa tämän väriseoksen?"
 
-#: src/components/ColorSetChooser.tsx:540
+#: src/components/ColorSetChooser.tsx:556
 #: src/components/CustomColorBrandCreator.tsx:474
 msgid "Art medium"
 msgstr "Taiteen väline"
@@ -292,6 +292,7 @@ msgstr "Nimeltä"
 msgid "Camera access is required for AR tracing"
 msgstr "Kameran käyttö on pakollinen AR-jäljitykseen"
 
+#: src/components/color-set/MergeColorSetsDrawer.tsx:109
 #: src/components/loading/LoadingIndicator.tsx:60
 msgid "Cancel"
 msgstr "Peruuta"
@@ -340,7 +341,7 @@ msgstr "Väri"
 msgid "Color brand"
 msgstr "Väri merkki"
 
-#: src/components/ColorSetChooser.tsx:572
+#: src/components/ColorSetChooser.tsx:588
 msgid "Color brands"
 msgstr "Värimerkit"
 
@@ -364,7 +365,7 @@ msgstr "Värisekoitus"
 msgid "Color picker"
 msgstr "Värinvalitsin"
 
-#: src/components/ColorSetChooser.tsx:548
+#: src/components/ColorSetChooser.tsx:564
 #: src/components/ImageColorPicker.tsx:513
 #: src/components/messages.ts:28
 msgid "Color set"
@@ -412,9 +413,13 @@ msgstr "Korjattu arvio valonlähteen lämpötilasta kelvineinä"
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Paperia tai kangasta ei havaittu automaattisesti"
 
-#: src/components/ColorSetChooser.tsx:709
+#: src/components/ColorSetChooser.tsx:724
 msgid "Create a duplicate of this color set for further modification"
 msgstr "Luo kopio tästä värijoukosta lisämuokkausta varten"
+
+#: src/components/ColorSetChooser.tsx:733
+msgid "Create a new color set by merging existing ones"
+msgstr "Luo uusi värijoukko yhdistämällä olemassa olevat"
 
 #: src/components/color-set/ColorSetSelect.tsx:97
 #: src/components/color-set/CustomColorBrandSelect.tsx:83
@@ -429,7 +434,7 @@ msgstr "Mukautettu tuotemerkki"
 msgid "Custom color set"
 msgstr "Mukautettu värisarja"
 
-#: src/components/ColorSetChooser.tsx:730
+#: src/components/ColorSetChooser.tsx:756
 #: src/components/CustomColorBrandCreator.tsx:510
 #: src/components/image/RecentImageCard.tsx:83
 msgid "Delete"
@@ -440,7 +445,7 @@ msgstr "Poistaa"
 msgid "Delete all app data"
 msgstr "Poista kaikki sovellustiedot"
 
-#: src/components/ColorSetChooser.tsx:715
+#: src/components/ColorSetChooser.tsx:741
 msgid "Delete the color set"
 msgstr "Värijoukon poistaminen"
 
@@ -454,7 +459,7 @@ msgstr "Poista mukautettu tuotemerkki"
 msgid "Delete the recent photo"
 msgstr "Viimeisimmän kuvan poistaminen"
 
-#: src/components/ColorSetChooser.tsx:725
+#: src/components/ColorSetChooser.tsx:751
 msgid "Delete this color set"
 msgstr "Poista tämä värijoukko"
 
@@ -479,7 +484,7 @@ msgstr "Halkaisija"
 msgid "Dilute the paint with water in a <0>{ratioText} ratio</0>"
 msgstr "Laimenna maali vedellä <0>suhteessa {ratioText}</0>"
 
-#: src/components/ColorSetChooser.tsx:605
+#: src/components/ColorSetChooser.tsx:621
 msgid "Do you have a store-bought or custom color set?"
 msgstr "Onko sinulla kaupasta ostettu tai mukautettu värisarja?"
 
@@ -507,7 +512,7 @@ msgstr "Pudota tiedostot tänne..."
 msgid "Dry Pastel"
 msgstr "Kuiva pastelli"
 
-#: src/components/ColorSetChooser.tsx:712
+#: src/components/ColorSetChooser.tsx:727
 msgid "Duplicate"
 msgstr "Kaksoiskappale"
 
@@ -528,11 +533,11 @@ msgstr "Siirry valolaatikkotilaan jäljittääksesi ääriviivat paperisi läpi.
 msgid "Error loading sample photos"
 msgstr "Virhe ladataan esimerkkikuvia"
 
-#: src/components/ColorSetChooser.tsx:192
+#: src/components/ColorSetChooser.tsx:196
 msgid "Error while fetching color brand data"
 msgstr "Virhe haettaessa väribränditietoja"
 
-#: src/components/ColorSetChooser.tsx:214
+#: src/components/ColorSetChooser.tsx:218
 msgid "Error while fetching color data"
 msgstr "Virhe haettaessa väritietoja"
 
@@ -542,7 +547,7 @@ msgstr "Virhe haettaessa väritietoja"
 msgid "Error while fetching ML model data"
 msgstr "Virhe koneoppimismallin tietoja haettaessa"
 
-#: src/components/ColorSetChooser.tsx:203
+#: src/components/ColorSetChooser.tsx:207
 msgid "Error while fetching standard color set data"
 msgstr "Virhe haettaessa vakiovärijoukkotietoja"
 
@@ -555,11 +560,11 @@ msgstr "Valonlähteen arvioitu lämpötila Kelvininä kuva on otettu"
 msgid "Exit AR"
 msgstr "Exit AR"
 
-#: src/components/ColorSetChooser.tsx:450
+#: src/components/ColorSetChooser.tsx:466
 msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Tutustu ilmaiseen versioon ennen kuin päätät ostaa maksullisen jäsenyyden."
 
-#: src/components/ColorSetChooser.tsx:365
+#: src/components/ColorSetChooser.tsx:369
 #: src/components/CustomColorBrandCreator.tsx:359
 msgid "Fill in the required fields"
 msgstr "Täytä vaaditut kentät"
@@ -576,7 +581,7 @@ msgstr "Gamma"
 msgid "Gifted membership"
 msgstr "Lahjakas jäsenyys"
 
-#: src/components/ColorSetChooser.tsx:565
+#: src/components/ColorSetChooser.tsx:581
 msgid "Give your color set a name for easy access."
 msgstr "Anna värisarjallesi nimi, jotta sitä on helppo käyttää."
 
@@ -609,16 +614,16 @@ msgstr "Hila"
 msgid "Height"
 msgstr "Korkeus"
 
-#: src/components/ColorSetChooser.tsx:497
+#: src/components/ColorSetChooser.tsx:513
 #: src/components/messages.ts:45
 msgid "Help"
 msgstr "Apua"
 
-#: src/components/ColorSetChooser.tsx:455
+#: src/components/ColorSetChooser.tsx:471
 msgid "If you are having trouble logging in, please read this <0>troubleshooting guide</0>."
 msgstr "Jos sinulla on vaikeuksia kirjautua sisään, lue tämä <0>vianetsintäopas</0>."
 
-#: src/components/ColorSetChooser.tsx:228
+#: src/components/ColorSetChooser.tsx:232
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Jos et tallenna, värijoukkoon tehdyt muutokset saattavat kadota."
 
@@ -704,11 +709,11 @@ msgstr "Linkki kopioitu leikepöydälle"
 msgid "Load color brand file"
 msgstr "Lataa värimerkkitiedosto"
 
-#: src/components/ColorSetChooser.tsx:740
+#: src/components/ColorSetChooser.tsx:765
 msgid "Load color sets file"
 msgstr "Lataa värisarjatiedosto"
 
-#: src/components/ColorSetChooser.tsx:507
+#: src/components/ColorSetChooser.tsx:523
 msgid "Log in on another device by scanning the QR code"
 msgstr "Kirjaudu sisään toisella laitteella skannaamalla QR-koodi"
 
@@ -749,6 +754,15 @@ msgstr "Max"
 msgid "Medium"
 msgstr "Keskiverto"
 
+#: src/components/color-set/MergeColorSetsDrawer.tsx:106
+#: src/components/ColorSetChooser.tsx:736
+msgid "Merge"
+msgstr "Yhdistyminen"
+
+#: src/components/color-set/MergeColorSetsDrawer.tsx:66
+msgid "Merge color sets"
+msgstr "Yhdistä värisarjat"
+
 #: src/components/ImageTonalValues.tsx:89
 msgid "Mid tone"
 msgstr "Keskisävy"
@@ -775,7 +789,7 @@ msgstr "Sekoitus"
 msgid "Mode"
 msgstr "Moodi"
 
-#: src/components/ColorSetChooser.tsx:564
+#: src/components/ColorSetChooser.tsx:580
 #: src/components/CustomColorBrandCreator.tsx:191
 #: src/components/CustomColorBrandCreator.tsx:482
 msgid "Name"
@@ -785,7 +799,7 @@ msgstr "Nimi"
 msgid "Name a brand"
 msgstr "Nimeä brändi"
 
-#: src/components/ColorSetChooser.tsx:568
+#: src/components/ColorSetChooser.tsx:584
 msgid "Name a color set"
 msgstr "Värijoukon nimeäminen"
 
@@ -811,8 +825,8 @@ msgstr "Seuraava latauspäivä"
 
 #: src/components/color/AddToPaletteButton.tsx:53
 #: src/components/color/PaletteColorMixtureCard.tsx:106
-#: src/components/ColorSetChooser.tsx:230
-#: src/components/ColorSetChooser.tsx:721
+#: src/components/ColorSetChooser.tsx:234
+#: src/components/ColorSetChooser.tsx:747
 #: src/components/CustomColorBrandCreator.tsx:501
 #: src/components/image/RecentImageCard.tsx:74
 #: src/components/palette/PaletteGrid.tsx:114
@@ -851,7 +865,7 @@ msgstr "Öljymaali"
 msgid "Oil Pastel"
 msgstr "Öljy Pastelli"
 
-#: src/components/ColorSetChooser.tsx:587
+#: src/components/ColorSetChooser.tsx:603
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Ilmaisessa versiossa on saatavilla vain rajoitettu määrä värimerkkejä"
 
@@ -860,7 +874,7 @@ msgstr "Ilmaisessa versiossa on saatavilla vain rajoitettu määrä värimerkkej
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Ilmaisessa versiossa on käytettävissä vain rajoitettu määrä tiloja"
 
-#: src/components/ImageStyleTransfer.tsx:192
+#: src/components/ImageStyleTransfer.tsx:194
 msgid "Only a limited number of styles are available in the free version"
 msgstr "Ilmaisessa versiossa on saatavilla vain rajoitettu määrä tyylejä"
 
@@ -1139,17 +1153,17 @@ msgstr "Kylläisyys (%)"
 #: src/components/ImageOutline.tsx:345
 #: src/components/ImagePerspectiveCorrection.tsx:245
 #: src/components/ImagePerspectiveCorrection.tsx:277
-#: src/components/ImageStyleTransfer.tsx:186
+#: src/components/ImageStyleTransfer.tsx:188
 #: src/components/ImageTonalValues.tsx:116
 #: src/components/ImageTonalValues.tsx:132
 msgid "Save"
 msgstr "Säästää"
 
-#: src/components/ColorSetChooser.tsx:688
+#: src/components/ColorSetChooser.tsx:704
 msgid "Save & proceed"
 msgstr "Tallenna ja jatka"
 
-#: src/components/ColorSetChooser.tsx:227
+#: src/components/ColorSetChooser.tsx:231
 msgid "Save changes to the color set?"
 msgstr "Tallennatko muutokset värijoukkoon?"
 
@@ -1163,7 +1177,7 @@ msgstr "Tallennus laajennettu 1,91:1:een"
 msgid "Save expanded to 4:5"
 msgstr "Tallennus laajennettuna 4:5:een"
 
-#: src/components/ColorSetChooser.tsx:684
+#: src/components/ColorSetChooser.tsx:700
 msgid "Save the changes to this color set"
 msgstr "Tallenna tähän värijoukkoon tehdyt muutokset"
 
@@ -1171,7 +1185,7 @@ msgstr "Tallenna tähän värijoukkoon tehdyt muutokset"
 msgid "Scan a QR code"
 msgstr "Skannaa QR-koodi"
 
-#: src/components/ColorSetChooser.tsx:488
+#: src/components/ColorSetChooser.tsx:504
 msgid "Scan QR code"
 msgstr "Skannaa QR-koodi"
 
@@ -1195,7 +1209,7 @@ msgstr "Valitse valokuva, josta haluat poistaa taustan"
 msgid "Select a reference photo from your device to paint from"
 msgstr "Valitse laitteestasi viitekuva, josta maalaat"
 
-#: src/components/ImageStyleTransfer.tsx:181
+#: src/components/ImageStyleTransfer.tsx:183
 msgid "Select a style to transfer to your reference photo"
 msgstr "Valitse tyyli, jonka haluat siirtää viitekuvaasi"
 
@@ -1215,7 +1229,7 @@ msgstr "Valitse taideväline"
 msgid "Select brands"
 msgstr "Valitse tuotemerkit"
 
-#: src/components/ColorSetChooser.tsx:573
+#: src/components/ColorSetChooser.tsx:589
 msgid "Select brands that you use."
 msgstr "Valitse käyttämäsi tuotemerkit."
 
@@ -1244,7 +1258,7 @@ msgstr "Valitse viimeisimmistä brändeistäsi"
 msgid "Select from your recent color sets"
 msgstr "Valitse viimeisimmistä värisarjoistasi"
 
-#: src/components/ColorSetChooser.tsx:549
+#: src/components/ColorSetChooser.tsx:565
 msgid "Select from your recent color sets or create a new one."
 msgstr "Valitse viimeisimmistä värijoukoistasi tai luo uusi."
 
@@ -1279,11 +1293,15 @@ msgstr "Valitse valokuvat, jotka haluat luokitella pareittain vertailun avulla"
 msgid "Select set"
 msgstr "Valitse joukko"
 
-#: src/components/ImageStyleTransfer.tsx:235
+#: src/components/ImageStyleTransfer.tsx:239
 msgid "Select style image"
 msgstr "Valitse tyylikuva"
 
-#: src/components/ColorSetChooser.tsx:517
+#: src/components/color-set/MergeColorSetsDrawer.tsx:74
+msgid "Select the color sets you want to merge. A new color set will be created that includes all the colors from the selected sets."
+msgstr "Valitse väriset, jotka haluat yhdistää. Luodaan uusi värisarja, joka sisältää kaikki valitut värit."
+
+#: src/components/ColorSetChooser.tsx:533
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Select your art medium, color brands and colors you will paint with and press the <0>Save & proceed</0> button."
 msgstr "Valitse taideväline, värimerkit ja värit, joilla maalaat, ja paina <0>Tallenna ja jatka</0> -painiketta."
@@ -1327,12 +1345,12 @@ msgstr "Varjo"
 msgid "Shadows and highlights"
 msgstr "Varjot ja valot"
 
-#: src/components/ColorSetChooser.tsx:702
+#: src/components/ColorSetChooser.tsx:718
 #: src/components/share/ShareModal.tsx:83
 msgid "Share"
 msgstr "Jakaa"
 
-#: src/components/ColorSetChooser.tsx:699
+#: src/components/ColorSetChooser.tsx:715
 msgid "Share this color set"
 msgstr "Jaa tämä värisarja"
 
@@ -1414,7 +1432,7 @@ msgstr "Spektrin heijastuskäyrä"
 msgid "Square cells"
 msgstr "Neliönmuotoiset solut"
 
-#: src/components/ColorSetChooser.tsx:602
+#: src/components/ColorSetChooser.tsx:618
 msgid "Standard color set"
 msgstr "Vakiovärisarja"
 
@@ -1516,7 +1534,7 @@ msgstr "Ohenna maali <0>{fractionText} -paksuuteen</0>"
 msgid "This backup file lets you restore your color sets later, so keep it. You can delete any older backup files."
 msgstr "Tämän varmuuskopiotiedoston avulla voit palauttaa värisarjasi myöhemmin, joten säilytä se. Voit poistaa kaikki vanhemmat varmuuskopiotiedostot."
 
-#: src/components/ColorSetChooser.tsx:628
+#: src/components/ColorSetChooser.tsx:644
 msgid "This color brand is available to paid Patreon members only"
 msgstr "Tämä värimerkki on saatavilla vain maksullisille Patreon-jäsenille"
 
@@ -1528,7 +1546,7 @@ msgstr "Tätä tulostuskokoa ei tueta"
 msgid "This step is optional."
 msgstr "Tämä vaihe on valinnainen."
 
-#: src/components/ImageStyleTransfer.tsx:251
+#: src/components/ImageStyleTransfer.tsx:255
 msgid "This style is available to paid Patreon members only"
 msgstr "Tämä tyyli on saatavilla vain maksullisille Patreon-jäsenille"
 
@@ -1640,11 +1658,11 @@ msgstr "Vahapastelli"
 msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
 msgstr "Kohtasimme ongelman kirjautumistietojesi varmentamisessa. Tämän ongelman voi yleensä ratkaista yrittämällä kirjautua uudelleen sisään."
 
-#: src/components/ColorSetChooser.tsx:660
+#: src/components/ColorSetChooser.tsx:676
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "Kun valitset yhteensä enemmän kuin {maxColorsFor2} väriä, kahden värin sekoituksia ei käytetä."
 
-#: src/components/ColorSetChooser.tsx:668
+#: src/components/ColorSetChooser.tsx:684
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Kun valitset yhteensä enemmän kuin {maxColorsFor3} väriä, kolmen värin sekoituksia ei käytetä."
 
@@ -1675,8 +1693,8 @@ msgstr "Leveys"
 
 #: src/components/color/AddToPaletteButton.tsx:52
 #: src/components/color/PaletteColorMixtureCard.tsx:105
-#: src/components/ColorSetChooser.tsx:229
-#: src/components/ColorSetChooser.tsx:720
+#: src/components/ColorSetChooser.tsx:233
+#: src/components/ColorSetChooser.tsx:746
 #: src/components/CustomColorBrandCreator.tsx:500
 #: src/components/image/RecentImageCard.tsx:73
 #: src/components/palette/PaletteGrid.tsx:113
@@ -1685,19 +1703,19 @@ msgstr "Leveys"
 msgid "Yes"
 msgstr "Kyllä"
 
-#: src/components/ColorSetChooser.tsx:429
+#: src/components/ColorSetChooser.tsx:445
 msgid "You are logged in and have access to all app features."
 msgstr "Olet kirjautunut sisään ja sinulla on pääsy kaikkiin sovelluksen ominaisuuksiin."
 
-#: src/components/ColorSetChooser.tsx:434
+#: src/components/ColorSetChooser.tsx:450
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "Käytät <0>ilmaista versiota</0> rajoitetulla määrällä värimerkkejä ja kuvankäsittelytiloja."
 
-#: src/components/ColorSetChooser.tsx:580
+#: src/components/ColorSetChooser.tsx:596
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Olet valinnut värimerkkejä, jotka ovat vain maksullisten Patreon-jäsenten saatavilla"
 
-#: src/components/ColorSetChooser.tsx:651
+#: src/components/ColorSetChooser.tsx:667
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Olet valinnut värimerkkejä, jotka ovat vain maksullisten Patreon-jäsenten käytettävissä. Liity ArtistAssistAppiin Patreonissa maksullisena jäsenenä tai kirjaudu sisään Patreonilla, jos olet jo liittynyt."
 

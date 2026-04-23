@@ -33,7 +33,7 @@ import type {
   CustomColorBrandDefinition,
   StandardColorSetDefinition,
 } from '~/src/services/color/types';
-import {ColorType} from '~/src/services/color/types';
+import {ColorType, CUSTOM_COLOR_SET, NEW_COLOR_SET} from '~/src/services/color/types';
 import {getCustomColorBrand, getCustomColorBrandsByType} from '~/src/services/db/custom-brand-db';
 import {degrees} from '~/src/services/math/geometry';
 import type {ExtractorComparator} from '~/src/utils/array';
@@ -47,6 +47,7 @@ import {
   reverseOrder,
 } from '~/src/utils/comparator';
 import {fetchSWR} from '~/src/utils/fetch';
+import {computeIfAbsentInMap} from '~/src/utils/map';
 
 import {hexToRgb} from './space/rgb';
 
@@ -102,7 +103,7 @@ function isCustomColorBrandAlias(alias: string): boolean {
 }
 
 function getCustomColorBrandIdFromAlias(alias: string): number {
-  return Number.parseInt(alias.replace(CUSTOM_COLOR_BRAND_ALIAS_PREFIX, ''));
+  return Number(alias.replace(CUSTOM_COLOR_BRAND_ALIAS_PREFIX, ''));
 }
 
 export const compareColorBrandsByName = ({
@@ -349,7 +350,7 @@ export function toColorSet(
     type,
     brands: selectedBrandsMap,
     colors: selectedColorsArray.flatMap(([brandIdStr, colorIds]: [string, number[]]): Color[] => {
-      const brandId = Number.parseInt(brandIdStr);
+      const brandId = Number(brandIdStr);
       const brandAlias: string | undefined = brands.get(brandId)?.alias;
       if (!brandAlias) {
         return [];
@@ -400,5 +401,35 @@ export function sortColorSet(colorSet: ColorSet | null, sort?: ColorSort): Color
     type,
     brands,
     colors: decorateSortUndecorate(colorSet.colors, COLOR_COMPARATORS[sort]),
+  };
+}
+
+export function mergeColorSets(colorSets: ColorSetDefinition[]): ColorSetDefinition {
+  const [colorSet] = colorSets;
+  const type = colorSet?.type;
+  const brandSet = new Set<number>();
+  const colorsByBrand = new Map<number, Set<number>>();
+  for (const {brands, colors} of colorSets) {
+    brands?.forEach((brandId: number) => brandSet.add(brandId));
+    for (const [brandIdStr, ids] of Object.entries(colors ?? {})) {
+      const bucket = computeIfAbsentInMap(
+        colorsByBrand,
+        Number(brandIdStr),
+        () => new Set<number>()
+      );
+      ids.forEach((id: number) => bucket.add(id));
+    }
+  }
+  const colors: Record<number, number[]> = {};
+  for (const [brandId, ids] of colorsByBrand) {
+    colors[brandId] = [...ids];
+  }
+  return {
+    id: NEW_COLOR_SET,
+    type,
+    name: undefined,
+    brands: [...brandSet],
+    standardColorSet: CUSTOM_COLOR_SET,
+    colors,
   };
 }

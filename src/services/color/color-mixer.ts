@@ -117,7 +117,7 @@ export const COLOR_MIXING: Record<ColorType, ColorMixingConfig> = {
 
 export const MIXABLE_COLOR_TYPES: ColorType[] = Object.entries(COLOR_MIXING)
   .filter(([_, {mixing}]) => mixing)
-  .map(([colorType, _]) => Number.parseInt(colorType) as ColorType);
+  .map(([colorType, _]) => Number(colorType) as ColorType);
 
 export const MAX_COLORS_IN_MIXTURE: Record<2 | 3, number> = {
   2: Number.MAX_VALUE,
