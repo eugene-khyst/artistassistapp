@@ -37,9 +37,13 @@ import {useAppStore} from '~/src/stores/app-store';
 import {disableScreenLock} from '~/src/wake-lock';
 
 void (async () => {
-  initializePWA();
-  disableScreenLock();
-  await useAppStore.getState().initAppStore();
+  try {
+    initializePWA();
+    disableScreenLock();
+    await useAppStore.getState().initAppStore();
+  } catch (error) {
+    useAppStore.getState().addInitError('initialize app', error);
+  }
 
   const queryClient = new QueryClient({
     defaultOptions: {

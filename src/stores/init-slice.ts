@@ -27,6 +27,7 @@ import type {AuthSlice} from '~/src/stores/auth-slice';
 import type {LocaleSlice} from '~/src/stores/locale-slice';
 import type {StyleTransferSlice} from '~/src/stores/style-transfer-slice';
 import {TabKey} from '~/src/tabs';
+import {getErrorMessage} from '~/src/utils/error';
 
 import type {ColorMixerSlice} from './color-mixer-slice';
 import type {ColorSetSlice} from './color-set-slice';
@@ -47,10 +48,14 @@ export interface InitSlice {
 
   isInitialStateLoading: boolean;
 
+  initErrors: unknown[];
+
   initAppStore: () => Promise<void>;
   resetInstallRequested: () => void;
   loadAppSettings: () => Promise<AppSettings>;
   saveAppSettings: (appSettings: Partial<AppSettings> | AppSettingsUpdater) => Promise<void>;
+  addInitError: (label: string, error: unknown) => void;
+  clearInitErrors: () => void;
 }
 
 export const createInitSlice: StateCreator<
@@ -73,50 +78,78 @@ export const createInitSlice: StateCreator<
 
   isInitialStateLoading: false,
 
+  initErrors: [],
+
   initAppStore: async (): Promise<void> => {
-    set({
-      isInitialStateLoading: true,
-    });
+    if (get().appInitialized) {
+      return;
+    }
 
-    const appSettings: AppSettings = await get().loadAppSettings();
-    await get().setLocale(appSettings.locale ?? getPreferredLocale(), false);
-    await get().handleAuthCallback();
+    const tryStep = async (label: string, fn: () => unknown): Promise<void> => {
+      try {
+        await fn();
+      } catch (error) {
+        get().addInitError(label, error);
+      }
+    };
 
-    const {colorSet: importedColorSet, tabKey: importedTabKey, login, install} = importFromUrl();
+    try {
+      set({
+        isInitialStateLoading: true,
+      });
+      let appSettings: AppSettings = {...DEFAULT_APP_SETTINGS};
+      try {
+        appSettings = await get().loadAppSettings();
+      } catch (error) {
+        get().addInitError('load app settings', error);
+      }
 
-    if (login) {
+      await tryStep('set locale', () =>
+        get().setLocale(appSettings.locale ?? getPreferredLocale(), false)
+      );
+      await tryStep('initialize auth client', () => {
+        get().initAuthClient();
+      });
+      await tryStep('handle auth callback', () => get().handleAuthCallback());
+
+      const {colorSet: importedColorSet, tabKey: importedTabKey, login, install} = importFromUrl();
+
+      if (login) {
+        get().loginWithRedirect();
+        return;
+      }
+      if (install) {
+        set({installRequested: true});
+      }
+      let activeTabKey: TabKey | undefined = importedTabKey ?? appSettings.activeTabKey;
+      if (importedColorSet) {
+        activeTabKey = TabKey.ColorSet;
+      }
+
+      await tryStep('load color sets', () => get().loadColorSets(importedColorSet));
+      await tryStep('load recent image files', () => get().loadRecentImageFiles());
+
+      const {styleTransferImage} = appSettings;
+      if (styleTransferImage) {
+        await tryStep('set style image file', () =>
+          get().setStyleImageFile(imageFileToFile(styleTransferImage))
+        );
+      }
+
+      if (activeTabKey) {
+        void get().setActiveTabKey(activeTabKey);
+      }
+
+      set({
+        appInitialized: true,
+      });
+
+      get().startPeriodicAuthVerification();
+    } finally {
       set({
         isInitialStateLoading: false,
       });
-      get().loginWithRedirect();
-      return;
     }
-    if (install) {
-      set({installRequested: true});
-    }
-    let activeTabKey: TabKey | undefined = importedTabKey ?? appSettings.activeTabKey;
-    if (importedColorSet) {
-      activeTabKey = TabKey.ColorSet;
-    }
-
-    await get().loadColorSets(importedColorSet);
-    await get().loadRecentImageFiles();
-
-    const {styleTransferImage} = appSettings;
-    if (styleTransferImage) {
-      await get().setStyleImageFile(imageFileToFile(styleTransferImage));
-    }
-
-    if (activeTabKey) {
-      void get().setActiveTabKey(activeTabKey);
-    }
-
-    set({
-      appInitialized: true,
-      isInitialStateLoading: false,
-    });
-
-    get().startPeriodicAuthVerification();
   },
   resetInstallRequested: (): void => {
     set({
@@ -142,5 +175,13 @@ export const createInitSlice: StateCreator<
     set({
       appSettings,
     });
+  },
+  addInitError: (label: string, error: unknown): void => {
+    console.error(`Failed to ${label}`, error);
+    const wrappedError = new Error(`Failed to ${label}: ${getErrorMessage(error)}`, {cause: error});
+    set(({initErrors}) => ({initErrors: [...initErrors, wrappedError]}));
+  },
+  clearInitErrors: (): void => {
+    set({initErrors: []});
   },
 });

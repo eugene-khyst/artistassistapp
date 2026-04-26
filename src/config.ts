@@ -19,6 +19,7 @@
 export const COMMIT_HASH: string = import.meta.env.VITE_COMMIT_HASH;
 export const AUTH_URL: string = import.meta.env.VITE_AUTH_URL;
 export const DATA_URL: string = import.meta.env.VITE_DATA_URL;
+export const PUBLIC_JWK: string = import.meta.env.VITE_PUBLIC_JWK;
 
 export const WEBSITE_URL = 'https://artistassistapp.com';
 export const APP_URL = 'https://app.artistassistapp.com';

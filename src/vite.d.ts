@@ -21,7 +21,7 @@ interface ImportMetaEnv {
   readonly VITE_COMMIT_HASH: string;
   readonly VITE_AUTH_URL: string;
   readonly VITE_DATA_URL: string;
-  readonly VITE_JWKS: string;
+  readonly VITE_PUBLIC_JWK: string;
 }
 
 interface ImportMeta {

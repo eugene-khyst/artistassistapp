@@ -21,6 +21,7 @@ import {App} from 'antd';
 import type {PropsWithChildren} from 'react';
 import {useEffect} from 'react';
 
+import {useAppStore} from '~/src/stores/app-store';
 import {getErrorMessage} from '~/src/utils/error';
 
 export const UnhandledRejectionHandler: React.FC<PropsWithChildren> = ({
@@ -31,15 +32,26 @@ export const UnhandledRejectionHandler: React.FC<PropsWithChildren> = ({
   const {t} = useLingui();
 
   useEffect(() => {
-    const promiseRejectionHandler = ({reason}: PromiseRejectionEvent) => {
-      const errorMessage: string = getErrorMessage(reason);
+    const showError = (reason: unknown): void => {
       notification.error({
         title: t`Unexpected error`,
-        description: errorMessage,
+        description: getErrorMessage(reason),
         placement: 'top',
         duration: 10,
         showProgress: true,
       });
+    };
+
+    const {initErrors, clearInitErrors} = useAppStore.getState();
+    if (initErrors.length > 0) {
+      initErrors.forEach(error => {
+        showError(error);
+      });
+      clearInitErrors();
+    }
+
+    const promiseRejectionHandler = ({reason}: PromiseRejectionEvent) => {
+      showError(reason);
     };
     window.addEventListener('unhandledrejection', promiseRejectionHandler);
     return () => {

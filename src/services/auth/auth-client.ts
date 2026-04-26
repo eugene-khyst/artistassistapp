@@ -28,7 +28,6 @@ import {
 } from '~/src/services/db/auth-db';
 import {replaceHistory} from '~/src/utils/history';
 
-const JWKS = jose.createLocalJWKSet(JSON.parse(import.meta.env.VITE_JWKS) as jose.JSONWebKeySet);
 const ERROR_KEY = 'error';
 const ID_TOKEN_KEY = 'id_token';
 
@@ -43,6 +42,7 @@ export interface AuthClientProps {
   redirectUri: string;
   issuer: string;
   audience: string;
+  jwks: jose.JWTVerifyGetKey;
 }
 
 export function getMagicLink(jwt: string): string {
@@ -57,10 +57,10 @@ export class AuthClient {
   constructor(public props: AuthClientProps) {}
 
   private async authenticate(jwt: string): Promise<Authentication> {
-    const {issuer, audience} = this.props;
+    const {issuer, audience, jwks} = this.props;
     const {
       payload: {sub, exp},
-    } = await jose.jwtVerify(jwt, JWKS, {issuer, audience});
+    } = await jose.jwtVerify(jwt, jwks, {issuer, audience});
     return {
       user: {
         id: sub!,
@@ -96,7 +96,7 @@ export class AuthClient {
   }
 
   private resolveAuthCallback(): AuthCallbackResult | null {
-    // Source 1: CF Pages Function injected data (Chrome iOS fallback)
+    // Cloudflare Pages Function injected data (iOS fallback)
     const callbackDataAttribute = document.body.dataset['authCallback'];
     if (callbackDataAttribute) {
       try {
@@ -104,12 +104,12 @@ export class AuthClient {
         if (callbackData) {
           return callbackData;
         }
-      } catch {
-        // Malformed data, fall through to URL params
+      } catch (e) {
+        console.error('Malformed auth callback data', e);
       }
     }
 
-    // Source 2: URL params (SW redirect / magic link)
+    // URL params (Service Worker redirect)
     const {searchParams} = new URL(window.location.toString());
     const error = searchParams.get(ERROR_KEY);
     const idToken = searchParams.get(ID_TOKEN_KEY);
@@ -149,9 +149,9 @@ export class AuthClient {
     window.location.reload();
   }
 
-  isAuthValid(): boolean {
+  isAuthExpired(): boolean {
     const exp = this.authentication?.expiration;
-    return !exp || new Date() < exp;
+    return !!exp && new Date() >= exp;
   }
 }
 

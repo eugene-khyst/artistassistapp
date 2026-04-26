@@ -17,11 +17,10 @@
  */
 
 export function computeIfAbsentInMap<K, V>(map: Map<K, V>, key: K, valueFn: (key: K) => V): V {
-  const value: V | undefined = map.get(key);
-  if (value) {
-    return value;
+  let value: V | undefined = map.get(key);
+  if (value === undefined) {
+    value = valueFn(key);
+    map.set(key, value);
   }
-  const newValue: V = valueFn(key);
-  map.set(key, newValue);
-  return newValue;
+  return value;
 }

@@ -20,18 +20,25 @@ import {LogoutOutlined} from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
 import {Button} from 'antd';
 import type React from 'react';
+import {useState} from 'react';
 
 import {useAppStore} from '~/src/stores/app-store';
 
 export const LogoutButton: React.FC = () => {
+  const authClient = useAppStore(state => state.authClient);
   const logout = useAppStore(state => state.logout);
+
+  const [clicked, setClicked] = useState<boolean>(false);
 
   return (
     <Button
       icon={<LogoutOutlined />}
       onClick={() => {
         void logout();
+        setClicked(true);
       }}
+      loading={clicked}
+      disabled={!authClient}
     >
       <Trans>Log out</Trans>
     </Button>

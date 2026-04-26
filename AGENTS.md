@@ -59,6 +59,21 @@ A single Zustand store (`src/stores/app-store.ts`) composed from many slices —
 area. Slices live in `src/stores/*-slice.ts`. The store is initialized at startup via
 `initAppStore()` which loads persisted state from IndexedDB.
 
+Bootstrap is fault-tolerant: each side-effecting step in `initAppStore` (`loadAppSettings`,
+`setLocale`, `initAuthClient`, `handleAuthCallback`, `loadColorSets`, `loadRecentImageFiles`,
+`setStyleImageFile`) runs through a local `tryStep` helper that catches errors and routes them to
+`addInitError(label, error)` instead of aborting the rest of init. `addInitError` logs to the
+console and pushes a labeled, cause-preserving Error onto an `initErrors` queue (label becomes the
+user-visible "Failed to ..." prefix; the original error is kept on `error.cause`). `main.tsx` wraps
+the whole pre-render block (`initializePWA`, `disableScreenLock`, `initAppStore`) in a single
+try/catch that funnels any escaping error through the same `addInitError`, so render always runs.
+`UnhandledRejectionHandler` drains `initErrors` once on mount (via `useAppStore.getState()`, no
+subscription) and shows each as an Ant Design `notification.error`; runtime rejections after that go
+through its `unhandledrejection` listener. The outer try/finally in `initAppStore` guarantees
+`isInitialStateLoading` is reset even if a step throws, so the UI never gets stuck loading.
+`addInitError` is effectively pre-mount-only — anything pushed after the handler mounts won't
+surface in the UI.
+
 Notable slices:
 
 - **`color-mixer-slice.ts`** — `buildPalette()` gets sampling points from the quantized image,
@@ -133,8 +148,8 @@ Pure business logic, no React:
   color-sets, images, color-mixtures, custom-brands, auth-error, id-token). ID tokens and error data
   are in the same `artistassistapp` database (`auth-db.ts`)
 - **`auth/`** — JWT-based auth client using OIDC Form Post Response Mode. The auth server POSTs
-  `id_token`, `error`, `error_context` to `/login/callback`. JWKS public key via `VITE_JWKS` env
-  var. Two interception paths:
+  `id_token`, `error`, `error_context` to `/login/callback`. JWK public key via `VITE_PUBLIC_JWK`
+  env var. Two interception paths:
   1. **Service worker (primary)** — SW intercepts the POST, saves `id_token` to IDB, saves
      `error_context` to IDB, passes `error` type as a URL query param, and redirects to `/`.
   2. **CF Pages Function fallback** (`functions/login/callback.ts`) — handles the POST when the SW

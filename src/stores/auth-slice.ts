@@ -16,48 +16,64 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import * as jose from 'jose';
 import type {StateCreator} from 'zustand';
 
-import {APP_URL, AUTH_URL} from '~/src/config';
+import {APP_URL, AUTH_URL, PUBLIC_JWK} from '~/src/config';
 import {AuthClient} from '~/src/services/auth/auth-client';
 import {type Authentication, AuthError} from '~/src/services/auth/types';
 
 const AUTH_VERIFICATION_INTERVAL = 5 * 60000;
 
 export interface AuthSlice {
-  authClient: AuthClient;
+  authClient: AuthClient | null;
   auth: Authentication | null;
   isAuthLoading: boolean;
   authError: AuthError | null;
   authCheckInterval: number | null;
 
+  initAuthClient: () => void;
   handleAuthCallback: () => Promise<Authentication | null>;
   loginWithRedirect: () => void;
   logout: () => Promise<void>;
-  isAuthValid: () => boolean;
+  isAuthExpired: () => boolean;
   clearAuthError: () => void;
   startPeriodicAuthVerification: () => void;
   stopPeriodicAuthVerification: () => void;
 }
 
 export const createAuthSlice: StateCreator<AuthSlice, [], [], AuthSlice> = (set, get) => ({
-  authClient: new AuthClient({
-    domain: AUTH_URL,
-    redirectUri: `${window.location.origin}/login/callback`,
-    issuer: AUTH_URL,
-    audience: APP_URL,
-  }),
+  authClient: null,
   auth: null,
   isAuthLoading: false,
   authError: null,
   authCheckInterval: null,
 
+  initAuthClient: (): void => {
+    if (get().authClient) {
+      return;
+    }
+    set({
+      authClient: new AuthClient({
+        domain: AUTH_URL,
+        redirectUri: `${window.location.origin}/login/callback`,
+        issuer: AUTH_URL,
+        audience: APP_URL,
+        jwks: jose.createLocalJWKSet({
+          keys: [JSON.parse(PUBLIC_JWK) as jose.JWK],
+        }),
+      }),
+    });
+  },
   handleAuthCallback: async (): Promise<Authentication | null> => {
+    const {authClient} = get();
+    if (!authClient) {
+      return null;
+    }
     set({
       isAuthLoading: true,
       authError: null,
     });
-    const {authClient} = get();
     try {
       await authClient.handleAuthCallback();
       const auth: Authentication | null = await authClient.getAuthentication();
@@ -80,14 +96,14 @@ export const createAuthSlice: StateCreator<AuthSlice, [], [], AuthSlice> = (set,
     }
   },
   loginWithRedirect: (): void => {
-    get().authClient.loginWithRedirect();
+    get().authClient?.loginWithRedirect();
   },
   logout: async (): Promise<void> => {
     get().stopPeriodicAuthVerification();
-    await get().authClient.logout();
+    await get().authClient?.logout();
   },
-  isAuthValid: (): boolean => {
-    return get().authClient.isAuthValid();
+  isAuthExpired: (): boolean => {
+    return get().authClient?.isAuthExpired() ?? false;
   },
   clearAuthError: (): void => {
     set({
@@ -96,7 +112,7 @@ export const createAuthSlice: StateCreator<AuthSlice, [], [], AuthSlice> = (set,
   },
   startPeriodicAuthVerification: () => {
     const authCheckInterval = window.setInterval(() => {
-      if (!get().isAuthValid()) {
+      if (get().isAuthExpired()) {
         window.location.reload();
       }
     }, AUTH_VERIFICATION_INTERVAL);
