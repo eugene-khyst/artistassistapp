@@ -75,7 +75,7 @@ msgstr "<0>{similarityText}%</0> likhet"
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>ArtistAssistApp</0> är en webbapp som hjälper konstnärer att blanda färger från foton, analysera tonvärden, skissera foton, rita med rutnät, måla med begränsade paletter och mer."
 
-#: src/components/alert/AuthErrorHandler.tsx:57
+#: src/components/alert/AuthErrorHandler.tsx:60
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Kontrollera ditt Patreon-konto</0>: Se till att du är inloggad för <1>att Patreon.com</1> i din webbläsare med samma e-postadress som du använde för att köpa ditt medlemskap. Om du har flera konton, logga ut och logga in igen med rätt konto."
 
@@ -83,11 +83,11 @@ msgstr "<0>Kontrollera ditt Patreon-konto</0>: Se till att du är inloggad för 
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Gå med i ArtistAssistApp på Patreon som betalande medlem</0>, eller <1>logga in med Patreon</1> om du redan har gått med, för att få tillgång till mer än 200 färgmärken och alla bildbehandlingslägen utan annonser."
 
-#: src/components/alert/AuthErrorHandler.tsx:75
+#: src/components/alert/AuthErrorHandler.tsx:78
 msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
 msgstr "<0>Försök logga in igen</0>: När du har bekräftat att rätt Patreon-konto är aktivt i din webbläsare, logga in på ArtistAssistApp igen."
 
-#: src/components/alert/AuthErrorHandler.tsx:68
+#: src/components/alert/AuthErrorHandler.tsx:71
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Använd en webbläsare</0>: Om du använder Patreon-appen (iOS/Android), logga in via en webbläsare (Chrome, Safari, Firefox) istället, eftersom appen ibland kan störa verifieringsprocessen."
 
@@ -232,7 +232,7 @@ msgstr "ArtistAssistApp är utvecklat av <0>Eugene Khyst</0>"
 msgid "At least one color is required"
 msgstr "Minst en färg krävs"
 
-#: src/components/alert/AuthErrorHandler.tsx:107
+#: src/components/alert/AuthErrorHandler.tsx:110
 msgid "Authentication error"
 msgstr "Autentiseringsfel"
 
@@ -463,6 +463,10 @@ msgstr "Ta bort det senaste fotot"
 msgid "Delete this color set"
 msgstr "Ta bort den här färguppsättningen"
 
+#: src/components/alert/AuthErrorHandler.tsx:31
+msgid "Details"
+msgstr "Detaljer"
+
 #: src/components/ImagesCompare.tsx:123
 msgid "Determine the best photo by pairwise comparison"
 msgstr "Bestäm det bästa fotot genom parvis jämförelse"
@@ -520,7 +524,7 @@ msgstr "Duplicera"
 msgid "Edit from here on"
 msgstr "Redigering härifrån"
 
-#: src/components/alert/AuthErrorHandler.tsx:31
+#: src/components/alert/AuthErrorHandler.tsx:34
 msgid "Email"
 msgstr "E-post"
 
@@ -528,6 +532,14 @@ msgstr "E-post"
 #: src/components/ImageOutline.tsx:354
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Gå in i ljusboxsläge för att rita konturen genom ditt papper."
+
+#: src/components/alert/AuthErrorHandler.tsx:32
+msgid "Error"
+msgstr "Fel"
+
+#: src/components/alert/AuthErrorHandler.tsx:33
+msgid "Error description"
+msgstr "Felbeskrivning"
 
 #: src/components/ImageChooser.tsx:64
 msgid "Error loading sample photos"
@@ -577,7 +589,7 @@ msgstr "Färdig redigering"
 msgid "Gamma"
 msgstr "Gamma"
 
-#: src/components/alert/AuthErrorHandler.tsx:35
+#: src/components/alert/AuthErrorHandler.tsx:38
 msgid "Gifted membership"
 msgstr "Medlemskap för begåvade medlemmar"
 
@@ -672,7 +684,7 @@ msgstr "Språk"
 msgid "Large"
 msgstr "Stor"
 
-#: src/components/alert/AuthErrorHandler.tsx:33
+#: src/components/alert/AuthErrorHandler.tsx:36
 msgid "Last charge status"
 msgstr "Senaste laddningens status"
 
@@ -717,15 +729,16 @@ msgstr "Ladda färguppsättningsfil"
 msgid "Log in on another device by scanning the QR code"
 msgstr "Logga in på en annan enhet genom att skanna QR-koden"
 
-#: src/components/auth/LoginButton.tsx:44
+#: src/components/auth/LoginButton.tsx:42
 msgid "Log in with Patreon"
 msgstr "Logga in med Patreon"
 
-#: src/components/auth/LogoutButton.tsx:43
+#: src/components/auth/LogoutButton.tsx:41
 msgid "Log out"
 msgstr "Logga ut"
 
-#: src/components/alert/AuthErrorHandler.tsx:137
+#: src/components/alert/AuthErrorHandler.tsx:119
+#: src/components/alert/AuthErrorHandler.tsx:150
 msgid "Login failed"
 msgstr "Inloggningen misslyckades"
 
@@ -819,7 +832,7 @@ msgstr "Ny färguppsättning"
 msgid "New comparison"
 msgstr "Ny jämförelse"
 
-#: src/components/alert/AuthErrorHandler.tsx:34
+#: src/components/alert/AuthErrorHandler.tsx:37
 msgid "Next charge date"
 msgstr "Nästa laddningsdatum"
 
@@ -935,11 +948,11 @@ msgstr "Pappersfärg spelar ingen roll för ogenomskinliga pasteller, eftersom d
 msgid "Paper size"
 msgstr "Pappersstorlek"
 
-#: src/components/alert/AuthErrorHandler.tsx:40
+#: src/components/alert/AuthErrorHandler.tsx:43
 msgid "Patreon membership verification failed"
 msgstr "Patreon-medlemskapsverifieringen misslyckades"
 
-#: src/components/alert/AuthErrorHandler.tsx:32
+#: src/components/alert/AuthErrorHandler.tsx:35
 msgid "Patron status"
 msgstr "Beskyddarstatus"
 
@@ -1314,7 +1327,7 @@ msgstr "Halvogenomskinlig"
 msgid "Semi-transparent"
 msgstr "Halvgenomskinlig"
 
-#: src/components/alert/AuthErrorHandler.tsx:98
+#: src/components/alert/AuthErrorHandler.tsx:101
 msgid "Session expired"
 msgstr "Sessionen har upphört"
 
@@ -1440,7 +1453,7 @@ msgstr "Standardfärguppsättning"
 msgid "Standard print"
 msgstr "Standard-tryck"
 
-#: src/components/alert/AuthErrorHandler.tsx:82
+#: src/components/alert/AuthErrorHandler.tsx:85
 msgid "Still having trouble? Please refer to this <0>troubleshooting guide</0>."
 msgstr "Har du fortfarande problem? Vänligen se denna <0>felsökningsguide</0>."
 
@@ -1550,11 +1563,11 @@ msgstr "Det här steget är valfritt."
 msgid "This style is available to paid Patreon members only"
 msgstr "Den här stilen är endast tillgänglig för betalda Patreon-medlemmar"
 
-#: src/components/alert/AuthErrorHandler.tsx:44
+#: src/components/alert/AuthErrorHandler.tsx:47
 msgid "This usually happens when you're signed in to a <0>different</0> Patreon account than the one used for your ArtistAssistApp membership."
 msgstr "Detta händer oftast när du är inloggad på ett <0>annat</0> Patreon-konto än det som användes för ditt ArtistAssistApp-medlemskap."
 
-#: src/components/alert/AuthErrorHandler.tsx:52
+#: src/components/alert/AuthErrorHandler.tsx:55
 msgid "To fix this:"
 msgstr "För att åtgärda detta:"
 
@@ -1654,9 +1667,13 @@ msgstr "Akvarellpennor"
 msgid "Wax Pastel"
 msgstr "Vaxpastell"
 
-#: src/components/alert/AuthErrorHandler.tsx:109
+#: src/components/alert/AuthErrorHandler.tsx:112
 msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
 msgstr "Vi stötte på ett problem med att verifiera dina inloggningsuppgifter. Detta problem kan oftast lösas genom att försöka logga in igen."
+
+#: src/components/alert/AuthErrorHandler.tsx:123
+msgid "We were unable to log you in."
+msgstr "Vi kunde inte logga in dig."
 
 #: src/components/ColorSetChooser.tsx:676
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
@@ -1724,7 +1741,7 @@ msgstr "Du har valt färgmärken som endast är tillgängliga för betalande Pat
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Du har valt ett läge som endast är tillgängligt för betalande Patreon-medlemmar"
 
-#: src/components/alert/AuthErrorHandler.tsx:145
+#: src/components/alert/AuthErrorHandler.tsx:158
 msgid "Your account details:"
 msgstr "Dina kontouppgifter:"
 
@@ -1732,7 +1749,7 @@ msgstr "Dina kontouppgifter:"
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "Dina data kanske inte sparas pålitligt om webbläsaren är stängd. För att lösa detta, installera appen."
 
-#: src/components/alert/AuthErrorHandler.tsx:100
+#: src/components/alert/AuthErrorHandler.tsx:103
 msgid "Your login session has expired. Please sign in again to refresh your access and continue using ArtistAssistApp."
 msgstr "Din inloggningssession har gått ut. Logga in igen för att uppdatera din åtkomst och fortsätt använda ArtistAssistApp."
 

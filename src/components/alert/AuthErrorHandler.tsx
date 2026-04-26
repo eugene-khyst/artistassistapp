@@ -28,6 +28,9 @@ import {TabKey} from '~/src/tabs';
 type AuthErrorMessage = Pick<ModalFuncProps, 'title' | 'content'>;
 
 const ERROR_CONTEXT_LABELS: Record<string, ReactNode> = {
+  message: <Trans>Details</Trans>,
+  error: <Trans>Error</Trans>,
+  error_description: <Trans>Error description</Trans>,
   email: <Trans>Email</Trans>,
   patron_status: <Trans>Patron status</Trans>,
   last_charge_status: <Trans>Last charge status</Trans>,
@@ -110,6 +113,16 @@ const AUTH_ERRORS: Record<string, AuthErrorMessage> = {
         We encountered a problem verifying your login credentials. This issue can usually be
         resolved by trying to log in again.
       </Trans>
+    ),
+  },
+  unknown: {
+    title: <Trans>Login failed</Trans>,
+    content: (
+      <Typography>
+        <p>
+          <Trans>We were unable to log you in.</Trans>
+        </p>
+      </Typography>
     ),
   },
 };

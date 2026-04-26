@@ -75,7 +75,7 @@ msgstr "<0>{similarityText}%</0> podobieństwa"
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>ArtistAssistApp</0> to aplikacja internetowa, która pomaga artystom mieszać kolory ze zdjęć, analizować wartości tonalne, konturować zdjęcia, rysować za pomocą siatek, malować przy użyciu ograniczonych palet i nie tylko."
 
-#: src/components/alert/AuthErrorHandler.tsx:57
+#: src/components/alert/AuthErrorHandler.tsx:60
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Sprawdź swoje konto Patreon</0>: Upewnij się, że jesteś zalogowany do <1>Patreon.com</1> w przeglądarce internetowej, używając tego samego e-maila, którego użyłeś do zakupu członkostwa. Jeśli masz więcej kont, wyloguj się i zaloguj się ponownie za pomocą właściwego."
 
@@ -83,11 +83,11 @@ msgstr "<0>Sprawdź swoje konto Patreon</0>: Upewnij się, że jesteś zalogowan
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Dołącz do ArtistAssistApp na Patreon jako płatny członek</0> lub <1>zaloguj się za pomocą Patreon</1> , jeśli już dołączyłeś, aby uzyskać dostęp do ponad 200 marek kolorów i wszystkich trybów przetwarzania obrazu bez reklam."
 
-#: src/components/alert/AuthErrorHandler.tsx:75
+#: src/components/alert/AuthErrorHandler.tsx:78
 msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
 msgstr "<0>Spróbuj ponownie zalogować</0>: Po potwierdzeniu, że konto Patreon jest aktywne w przeglądarce, zaloguj się ponownie do ArtistAssistApp."
 
-#: src/components/alert/AuthErrorHandler.tsx:68
+#: src/components/alert/AuthErrorHandler.tsx:71
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Użyj przeglądarki internetowej</0>: Jeśli korzystasz z aplikacji Patreon (iOS/Android), zaloguj się przez przeglądarkę (Chrome, Safari, Firefox), ponieważ aplikacja czasem może zakłócać proces weryfikacji."
 
@@ -232,7 +232,7 @@ msgstr "ArtistAssistApp został opracowany przez <0>Eugene'a Khysta</0>"
 msgid "At least one color is required"
 msgstr "Wymagany jest co najmniej jeden kolor"
 
-#: src/components/alert/AuthErrorHandler.tsx:107
+#: src/components/alert/AuthErrorHandler.tsx:110
 msgid "Authentication error"
 msgstr "Błąd uwierzytelniania"
 
@@ -463,6 +463,10 @@ msgstr "Usuń ostatnie zdjęcie"
 msgid "Delete this color set"
 msgstr "Usuń ten zestaw kolorów"
 
+#: src/components/alert/AuthErrorHandler.tsx:31
+msgid "Details"
+msgstr "Szczegóły"
+
 #: src/components/ImagesCompare.tsx:123
 msgid "Determine the best photo by pairwise comparison"
 msgstr "Określ najlepsze zdjęcie przez porównanie parami"
@@ -520,7 +524,7 @@ msgstr "Duplikat"
 msgid "Edit from here on"
 msgstr "Dalej edycja"
 
-#: src/components/alert/AuthErrorHandler.tsx:31
+#: src/components/alert/AuthErrorHandler.tsx:34
 msgid "Email"
 msgstr "E-mail"
 
@@ -528,6 +532,14 @@ msgstr "E-mail"
 #: src/components/ImageOutline.tsx:354
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Przejdź do trybu lightbox, aby przerysować kontur na papierze."
+
+#: src/components/alert/AuthErrorHandler.tsx:32
+msgid "Error"
+msgstr "Błąd"
+
+#: src/components/alert/AuthErrorHandler.tsx:33
+msgid "Error description"
+msgstr "Opis błędu"
 
 #: src/components/ImageChooser.tsx:64
 msgid "Error loading sample photos"
@@ -577,7 +589,7 @@ msgstr "Zakończ edycję"
 msgid "Gamma"
 msgstr "Gamma"
 
-#: src/components/alert/AuthErrorHandler.tsx:35
+#: src/components/alert/AuthErrorHandler.tsx:38
 msgid "Gifted membership"
 msgstr "Członkostwo dla uzdolnionych"
 
@@ -672,7 +684,7 @@ msgstr "Język"
 msgid "Large"
 msgstr "Duży"
 
-#: src/components/alert/AuthErrorHandler.tsx:33
+#: src/components/alert/AuthErrorHandler.tsx:36
 msgid "Last charge status"
 msgstr "Status ostatniego ładunku"
 
@@ -717,15 +729,16 @@ msgstr "Wczytaj plik zestawów kolorów"
 msgid "Log in on another device by scanning the QR code"
 msgstr "Zaloguj się na innym urządzeniu, skanując kod QR"
 
-#: src/components/auth/LoginButton.tsx:44
+#: src/components/auth/LoginButton.tsx:42
 msgid "Log in with Patreon"
 msgstr "Zaloguj się za pomocą Patreona"
 
-#: src/components/auth/LogoutButton.tsx:43
+#: src/components/auth/LogoutButton.tsx:41
 msgid "Log out"
 msgstr "Wyloguj się"
 
-#: src/components/alert/AuthErrorHandler.tsx:137
+#: src/components/alert/AuthErrorHandler.tsx:119
+#: src/components/alert/AuthErrorHandler.tsx:150
 msgid "Login failed"
 msgstr "Logowanie nie powiodło się"
 
@@ -819,7 +832,7 @@ msgstr "Nowy zestaw kolorów"
 msgid "New comparison"
 msgstr "Nowe porównanie"
 
-#: src/components/alert/AuthErrorHandler.tsx:34
+#: src/components/alert/AuthErrorHandler.tsx:37
 msgid "Next charge date"
 msgstr "Następna data obciążenia"
 
@@ -935,11 +948,11 @@ msgstr "Kolor papieru nie ma znaczenia przy nieprzezroczystych pastelach, bo ca�
 msgid "Paper size"
 msgstr "Rozmiar papieru"
 
-#: src/components/alert/AuthErrorHandler.tsx:40
+#: src/components/alert/AuthErrorHandler.tsx:43
 msgid "Patreon membership verification failed"
 msgstr "Weryfikacja członkostwa w Patreonie nie powiodła się"
 
-#: src/components/alert/AuthErrorHandler.tsx:32
+#: src/components/alert/AuthErrorHandler.tsx:35
 msgid "Patron status"
 msgstr "Status patrona"
 
@@ -1314,7 +1327,7 @@ msgstr "Półprzezroczysty"
 msgid "Semi-transparent"
 msgstr "Półprzezroczysty"
 
-#: src/components/alert/AuthErrorHandler.tsx:98
+#: src/components/alert/AuthErrorHandler.tsx:101
 msgid "Session expired"
 msgstr "Sesja wygasła"
 
@@ -1440,7 +1453,7 @@ msgstr "Standardowy zestaw kolorów"
 msgid "Standard print"
 msgstr "Druk standardowy"
 
-#: src/components/alert/AuthErrorHandler.tsx:82
+#: src/components/alert/AuthErrorHandler.tsx:85
 msgid "Still having trouble? Please refer to this <0>troubleshooting guide</0>."
 msgstr "Nadal masz problemy? Proszę zapoznać się <0>z tym poradnikiem rozwiązywania problemów</0>."
 
@@ -1550,11 +1563,11 @@ msgstr "Ten krok jest opcjonalny."
 msgid "This style is available to paid Patreon members only"
 msgstr "Ten styl jest dostępny tylko dla płatnych członków Patreona"
 
-#: src/components/alert/AuthErrorHandler.tsx:44
+#: src/components/alert/AuthErrorHandler.tsx:47
 msgid "This usually happens when you're signed in to a <0>different</0> Patreon account than the one used for your ArtistAssistApp membership."
 msgstr "Zazwyczaj dzieje się tak, gdy jesteś zalogowany na <0>inne</0> konto Patreon niż to, którego używasz w ramach członkostwa w ArtistAssistApp."
 
-#: src/components/alert/AuthErrorHandler.tsx:52
+#: src/components/alert/AuthErrorHandler.tsx:55
 msgid "To fix this:"
 msgstr "Aby to naprawić:"
 
@@ -1654,9 +1667,13 @@ msgstr "Kredki akwarelowe"
 msgid "Wax Pastel"
 msgstr "Wax Pastel"
 
-#: src/components/alert/AuthErrorHandler.tsx:109
+#: src/components/alert/AuthErrorHandler.tsx:112
 msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
 msgstr "Napotkaliśmy problem z weryfikacją danych logowania. Ten problem zwykle można rozwiązać, próbując ponownie się zalogować."
+
+#: src/components/alert/AuthErrorHandler.tsx:123
+msgid "We were unable to log you in."
+msgstr "Nie udało nam się cię zalogować."
 
 #: src/components/ColorSetChooser.tsx:676
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
@@ -1724,7 +1741,7 @@ msgstr "Wybrałeś kolorowe marki, które są dostępne tylko dla płatnych czł
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Wybrałeś tryb, który jest dostępny tylko dla płatnych członków Patreona"
 
-#: src/components/alert/AuthErrorHandler.tsx:145
+#: src/components/alert/AuthErrorHandler.tsx:158
 msgid "Your account details:"
 msgstr "Dane Twojego konta:"
 
@@ -1732,7 +1749,7 @@ msgstr "Dane Twojego konta:"
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "Twoje dane mogą nie być niezawodnie zapisywane, jeśli przeglądarka jest zamknięta. Aby to naprawić, zainstaluj aplikację."
 
-#: src/components/alert/AuthErrorHandler.tsx:100
+#: src/components/alert/AuthErrorHandler.tsx:103
 msgid "Your login session has expired. Please sign in again to refresh your access and continue using ArtistAssistApp."
 msgstr "Twoja sesja logowania wygasła. Prosimy o ponowne zalogowanie, aby odświeżyć dostęp i kontynuować korzystanie z ArtistAssistApp."
 
