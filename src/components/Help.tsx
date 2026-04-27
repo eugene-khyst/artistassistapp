@@ -47,8 +47,9 @@ import dayjs from 'dayjs';
 import {useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
-import {ClearStorage} from '~/src/components/storage/ClearStorage';
-import {COMMIT_HASH, DATE_TIME_FORMAT, WEBSITE_URL} from '~/src/config';
+import {ClearCacheButton} from '~/src/components/storage/ClearCacheButton';
+import {DeleteAppDataButton} from '~/src/components/storage/DeleteAppDataButton';
+import {BUILD_ID, DATE_TIME_FORMAT, WEBSITE_URL} from '~/src/config';
 import {useAppStore} from '~/src/stores/app-store';
 import {formatBytes} from '~/src/utils/format';
 
@@ -247,7 +248,10 @@ export const Help: React.FC = () => {
         </Space>
       )}
 
-      <ClearStorage />
+      <Space wrap>
+        <ClearCacheButton />
+        <DeleteAppDataButton />
+      </Space>
 
       <Typography.Text type="secondary">
         <Trans>
@@ -268,7 +272,7 @@ export const Help: React.FC = () => {
       </Typography.Text>
 
       <Typography.Text type="secondary" style={{fontSize: fontSizeSM}}>
-        <Trans>Application build hash</Trans>: {COMMIT_HASH}
+        <Trans>Application build ID</Trans>: {BUILD_ID}
       </Typography.Text>
 
       {expirationText && (

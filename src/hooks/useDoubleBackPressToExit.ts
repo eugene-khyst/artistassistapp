@@ -18,7 +18,7 @@
 
 import {useLingui} from '@lingui/react/macro';
 import {App} from 'antd';
-import {useEffect, useRef} from 'react';
+import {useEffect, useEffectEvent, useRef} from 'react';
 
 export function useDoubleBackPressToExit(): void {
   const {message} = App.useApp();
@@ -28,33 +28,33 @@ export function useDoubleBackPressToExit(): void {
   const backPressedOnce = useRef<boolean>(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
+  const onPopState = useEffectEvent(() => {
+    if (backPressedOnce.current) {
+      return;
+    }
+
+    window.history.pushState({}, '');
+
+    message.info(t`Press Back again to exit`, 3);
+    backPressedOnce.current = true;
+
+    timeoutRef.current = setTimeout(() => {
+      backPressedOnce.current = false;
+    }, 3000);
+  });
+
   useEffect(() => {
     if (!window.history.state) {
       window.history.pushState({}, '');
     }
 
-    const handlePopState = () => {
-      if (backPressedOnce.current) {
-        return;
-      }
-
-      window.history.pushState({}, '');
-
-      message.info(t`Press Back again to exit`, 3);
-      backPressedOnce.current = true;
-
-      timeoutRef.current = setTimeout(() => {
-        backPressedOnce.current = false;
-      }, 3000);
-    };
-
-    window.addEventListener('popstate', handlePopState);
+    window.addEventListener('popstate', onPopState);
 
     return () => {
-      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('popstate', onPopState);
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [message, t]);
+  }, []);
 }

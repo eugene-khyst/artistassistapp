@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {Authentication} from '~/src/services/auth/types';
 import {computeOtsuThreshold} from '~/src/services/image/filter/otsu-threshold';
 import {sobelEdgeDetectionWebGL} from '~/src/services/image/filter/sobel-edge-detection-webgl';
 import {thresholdFilterWebGL} from '~/src/services/image/filter/threshold-webgl';
@@ -28,13 +29,14 @@ import {offscreenCanvasToImageData} from '~/src/utils/graphics';
 export async function getOutline(
   image: DrawImageSource,
   model: OnnxModel,
+  auth: Authentication | null,
   progressCallback?: FetchProgressCallback,
   signal?: AbortSignal
 ): Promise<ImageBitmap> {
   console.time('outline');
   let outlineImage: ImageBitmap;
   if (model.url) {
-    outlineImage = await transformImage([image], model, progressCallback, signal);
+    outlineImage = await transformImage([image], model, auth, progressCallback, signal);
   } else {
     outlineImage = sobelEdgeDetection(image);
   }

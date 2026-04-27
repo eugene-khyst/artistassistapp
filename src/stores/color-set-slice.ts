@@ -20,6 +20,7 @@ import dayjs from 'dayjs';
 import {saveAs} from 'file-saver';
 import type {StateCreator} from 'zustand';
 
+import {ForceLogoutError} from '~/src/services/auth/types';
 import {fetchColorBrands, fetchColorsBulk, toColorSet} from '~/src/services/color/colors';
 import {
   type ColorBrandDefinition,
@@ -62,7 +63,7 @@ export interface ColorSetSlice {
     brands?: Map<number, ColorBrandDefinition>,
     colors?: Map<string, Map<number, ColorDefinition>>,
     setActiveTabKey?: boolean
-  ) => Promise<ColorSetDefinition>;
+  ) => Promise<ColorSetDefinition | undefined>;
   loadColorSetsFromJson: (file: File) => Promise<ColorSetDefinition | undefined>;
   saveColorSetsAsJson: () => Promise<string | undefined>;
   deleteColorSet: (type?: ColorType, idToDelete?: number) => Promise<void>;
@@ -81,55 +82,74 @@ export const createColorSetSlice: StateCreator<
   isColorSetsLoading: false,
 
   loadColorSets: async (importedColorSet?: ColorSetDefinition): Promise<void> => {
-    set({
-      isColorSetsLoading: true,
-    });
+    try {
+      set({
+        isColorSetsLoading: true,
+      });
 
-    const colorSets: Map<ColorType, ColorSetDefinition[]> = groupBy(
-      await getColorSets(),
-      ({type}: ColorSetDefinition) => type
-    );
-    for (const colorSetsByType of colorSets.values()) {
-      colorSetsByType.sort(reverseOrder(byDate(({date}) => date)));
-    }
+      const colorSets: Map<ColorType, ColorSetDefinition[]> = groupBy(
+        await getColorSets(),
+        ({type}: ColorSetDefinition) => type
+      );
+      for (const colorSetsByType of colorSets.values()) {
+        colorSetsByType.sort(reverseOrder(byDate(({date}) => date)));
+      }
 
-    const latestColorSet: ColorSetDefinition | null =
-      (!importedColorSet && (await getLastColorSet())) || null;
+      const latestColorSet: ColorSetDefinition | null =
+        (!importedColorSet && (await getLastColorSet())) || null;
 
-    if (latestColorSet) {
-      const {auth} = get();
-      const {type, brands: brandIds} = latestColorSet;
-      if (!type || !brandIds) {
+      if (latestColorSet) {
+        const {auth} = get();
+        const {type, brands: brandIds} = latestColorSet;
+        if (!type || !brandIds) {
+          return;
+        }
+
+        const brands = await fetchColorBrands(type);
+        const brandAliases = brandIds
+          .map((id: number): string | undefined => brands.get(id)?.alias)
+          .filter((alias): alias is string => !!alias);
+        const colors: Map<string, Map<number, ColorDefinition>> = await fetchColorsBulk(
+          type,
+          brandAliases,
+          auth
+        );
+        const colorSet = toColorSet(latestColorSet, brands, colors, auth?.user);
+        if (colorSet) {
+          void get().setColorSet(colorSet, false);
+        }
+      }
+
+      set({
+        colorSets,
+        importedColorSet,
+        latestColorSet,
+      });
+    } catch (error) {
+      if (error instanceof ForceLogoutError) {
+        void get().logout(error.reason);
         return;
       }
-
-      const brands = await fetchColorBrands(type);
-      const brandAliases = brandIds
-        .map((id: number): string | undefined => brands.get(id)?.alias)
-        .filter((alias): alias is string => !!alias);
-      const colors: Map<string, Map<number, ColorDefinition>> = await fetchColorsBulk(
-        type,
-        brandAliases
-      );
-      const colorSet = toColorSet(latestColorSet, brands, colors, auth?.user);
-      if (colorSet) {
-        void get().setColorSet(colorSet, false);
-      }
+      throw error;
+    } finally {
+      set({
+        isColorSetsLoading: false,
+      });
     }
-
-    set({
-      colorSets,
-      importedColorSet,
-      latestColorSet,
-      isColorSetsLoading: false,
-    });
   },
   saveColorSet: async (
     colorSetDef: ColorSetDefinition,
     brands?: Map<number, ColorBrandDefinition>,
     colors?: Map<string, Map<number, ColorDefinition>>,
     setActiveTabKey?: boolean
-  ): Promise<ColorSetDefinition> => {
+  ): Promise<ColorSetDefinition | undefined> => {
+    if (
+      !Object.values(colorSetDef.colors ?? {}).some(
+        (ids: number[] | undefined) => (ids?.length ?? 0) > 0
+      )
+    ) {
+      return undefined;
+    }
     const {colorSets: prevColorSets, auth} = get();
     const {id, ...colorSetDefWithoutId} = colorSetDef;
     colorSetDef = {

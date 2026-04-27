@@ -18,7 +18,7 @@
 
 interface ImportMetaEnv {
   readonly MODE: 'development' | 'production';
-  readonly VITE_COMMIT_HASH: string;
+  readonly VITE_BUILD_ID: string;
   readonly VITE_AUTH_URL: string;
   readonly VITE_DATA_URL: string;
   readonly VITE_PUBLIC_JWK: string;

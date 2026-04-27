@@ -18,6 +18,7 @@
 
 import type {StateCreator} from 'zustand';
 
+import {ForceLogoutError} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {getOutline} from '~/src/services/image/outline';
 import type {OnnxModel} from '~/src/services/ml/types';
@@ -74,6 +75,7 @@ export const createOutlineImageSlice: StateCreator<
       const outlineImage = await getOutline(
         originalImage,
         outlineModel,
+        auth,
         (key, progress) => {
           set({outlineDownloadTip: formatFetchProgress(key, progress)});
         },
@@ -83,6 +85,10 @@ export const createOutlineImageSlice: StateCreator<
         outlineImage,
       });
     } catch (error) {
+      if (error instanceof ForceLogoutError) {
+        void get().logout(error.reason);
+        return;
+      }
       if (!isAbortError(error)) {
         throw error;
       }

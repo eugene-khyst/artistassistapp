@@ -17,7 +17,7 @@ msgstr ""
 msgid "({colorCount} colors)"
 msgstr "({colorCount} culori)"
 
-#: src/components/ColorSetChooser.tsx:636
+#: src/components/ColorSetChooser.tsx:650
 msgid "{brandName} colors"
 msgstr "{brandName} culori"
 
@@ -28,14 +28,14 @@ msgstr "{brandName} culori"
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# culoare} few {# culori} other {# de culori}}"
 
-#: src/components/ColorSetChooser.tsx:590
-#: src/components/ColorSetChooser.tsx:637
+#: src/components/ColorSetChooser.tsx:603
+#: src/components/ColorSetChooser.tsx:651
 msgid "{FIELD} are required"
 msgstr "{FIELD} sunt obligatorii"
 
-#: src/components/ColorSetChooser.tsx:557
-#: src/components/ColorSetChooser.tsx:566
-#: src/components/ColorSetChooser.tsx:619
+#: src/components/ColorSetChooser.tsx:570
+#: src/components/ColorSetChooser.tsx:579
+#: src/components/ColorSetChooser.tsx:632
 #: src/components/CustomColorBrandCreator.tsx:464
 #: src/components/CustomColorBrandCreator.tsx:475
 #: src/components/CustomColorBrandCreator.tsx:483
@@ -71,23 +71,23 @@ msgstr "<0/> Windows și <1/> Linux"
 msgid "<0>{similarityText}%</0> similarity"
 msgstr "<0>{similarityText}%</0> similitudine"
 
-#: src/components/ColorSetChooser.tsx:434
+#: src/components/ColorSetChooser.tsx:449
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>ArtistAssistApp</0> este o aplicație web care îi ajută pe artiști să amestece culorile din fotografii, să analizeze valorile tonale, să contureze fotografii, să deseneze cu grile, să picteze cu palete limitate și multe altele."
 
-#: src/components/alert/AuthErrorHandler.tsx:60
+#: src/components/alert/AuthErrorHandler.tsx:61
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Verifică-ți contul Patreon</0>: Asigură-te că ești conectat la <1>Patreon.com</1> în browserul tău folosind aceeași adresă de email pe care ai folosit-o pentru abonament. Dacă ai mai multe conturi, deconectează-te și reconectează-te cu cel corect."
 
-#: src/components/ColorSetChooser.tsx:456
+#: src/components/ColorSetChooser.tsx:470
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Alăturați-vă ArtistAssistApp pe Patreon ca membru plătit</0> sau <1>conectați-vă cu Patreon</1> dacă v-ați înscris deja, pentru a avea acces la peste 200 de mărci de culori și la toate modurile de procesare a imaginilor fără reclame."
 
-#: src/components/alert/AuthErrorHandler.tsx:78
+#: src/components/alert/AuthErrorHandler.tsx:79
 msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
 msgstr "<0>Reîncearcă autentificarea</0>: După ce ai confirmat că contul corect de Patreon este activ în browser, conectează-te din nou la ArtistAssistApp."
 
-#: src/components/alert/AuthErrorHandler.tsx:71
+#: src/components/alert/AuthErrorHandler.tsx:72
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Folosește un browser web</0>: Dacă folosești aplicația Patreon (iOS/Android), autentifică-te printr-un browser web (Chrome, Safari, Firefox), deoarece aplicația poate interfera uneori cu procesul de verificare."
 
@@ -99,7 +99,7 @@ msgstr "O grilă care arată rezultatul amestecării fiecărei perechi de culori
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "O versiune nouă a aplicației este disponibilă și va fi instalată automat."
 
-#: src/components/Help.tsx:186
+#: src/components/Help.tsx:187
 msgid "A new version of the application is available."
 msgstr "O versiune nouă a aplicației este disponibilă."
 
@@ -107,7 +107,7 @@ msgstr "O versiune nouă a aplicației este disponibilă."
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "O valoare mai mică de 100% face ca imaginea să pară mai puțin colorată, iar o valoare mai mare de 100% o face să pară prea colorată"
 
-#: src/components/Help.tsx:128
+#: src/components/Help.tsx:129
 msgid "About ArtistAssistApp"
 msgstr "Despre ArtistAssistApp"
 
@@ -131,7 +131,7 @@ msgstr "Adăugați culoare"
 msgid "Add color mixtures to the palette."
 msgstr "Adăugați amestecuri de culori în paletă."
 
-#: src/components/ColorSetChooser.tsx:639
+#: src/components/ColorSetChooser.tsx:653
 msgid "Add or remove colors to match your actual color set."
 msgstr "Adăugați sau eliminați culori pentru a se potrivi cu setul de culori real."
 
@@ -159,13 +159,13 @@ msgstr "Ajustează cât de puternic este netezită imaginea."
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
 msgstr "Alternativ, instalați cea mai recentă versiune a browserului web Chrome, Edge sau Opera și faceți clic pe <0>butonul Instalare</0> . În versiunile mai vechi de macOS, aceasta este singura opțiune."
 
-#: src/components/alert/AlertTimedReloadFallback.tsx:49
+#: src/components/alert/AlertFallback.tsx:42
 msgid "An application error"
 msgstr "O eroare de aplicație"
 
-#: src/components/Help.tsx:271
-msgid "Application build hash"
-msgstr "Hash de compilare a aplicației"
+#: src/components/Help.tsx:275
+msgid "Application build ID"
+msgstr "ID-ul construcției aplicației"
 
 #: src/components/ColorMixingChart.tsx:188
 #: src/components/ImageLimitedPalette.tsx:133
@@ -190,15 +190,15 @@ msgstr "Aplicarea liniilor fiecărei culori într-un <0>raport {ratioText}</0>"
 msgid "AR"
 msgstr "AR"
 
-#: src/components/storage/ClearStorage.tsx:58
+#: src/components/storage/ClearCacheButton.tsx:44
 msgid "Are you sure you want to clear the cache?"
 msgstr "Sunteți sigur că doriți să ștergeți memoria cache?"
 
-#: src/components/storage/ClearStorage.tsx:71
+#: src/components/storage/DeleteAppDataButton.tsx:44
 msgid "Are you sure you want to delete all app data?"
 msgstr "Sigur doriți să ștergeți toate datele aplicației?"
 
-#: src/components/ColorSetChooser.tsx:733
+#: src/components/ColorSetChooser.tsx:745
 msgid "Are you sure you want to delete this color set?"
 msgstr "Sigur doriți să ștergeți acest set de culori?"
 
@@ -219,12 +219,12 @@ msgstr "Sunteți sigur că doriți să eliminați toate amestecurile de culori?"
 msgid "Are you sure you want to remove this color mixture?"
 msgstr "Sunteți sigur că doriți să eliminați acest amestec de culori?"
 
-#: src/components/ColorSetChooser.tsx:556
+#: src/components/ColorSetChooser.tsx:569
 #: src/components/CustomColorBrandCreator.tsx:474
 msgid "Art medium"
 msgstr "Mediu de artă"
 
-#: src/components/Help.tsx:262
+#: src/components/Help.tsx:266
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp este dezvoltat de <0>Eugene Khyst</0>"
 
@@ -232,7 +232,7 @@ msgstr "ArtistAssistApp este dezvoltat de <0>Eugene Khyst</0>"
 msgid "At least one color is required"
 msgstr "Este necesară cel puțin o culoare"
 
-#: src/components/alert/AuthErrorHandler.tsx:110
+#: src/components/alert/AuthErrorHandler.tsx:116
 msgid "Authentication error"
 msgstr "Eroare de autentificare"
 
@@ -241,7 +241,7 @@ msgstr "Eroare de autentificare"
 msgid "Auto-detect"
 msgstr "Detecție automată"
 
-#: src/components/Help.tsx:205
+#: src/components/Help.tsx:206
 msgid "Automatic backup of color sets"
 msgstr "Backup automat al seturilor de culori"
 
@@ -297,7 +297,7 @@ msgstr "Accesul la cameră este necesar pentru trasarea AR"
 msgid "Cancel"
 msgstr "Anulează"
 
-#: src/components/Help.tsx:138
+#: src/components/Help.tsx:139
 msgid "Cancel a paid membership"
 msgstr "Anularea unui abonament plătit"
 
@@ -305,12 +305,12 @@ msgstr "Anularea unui abonament plătit"
 msgid "Cells"
 msgstr "Celule"
 
-#: src/components/Help.tsx:197
+#: src/components/Help.tsx:198
 msgid "Check for updates"
 msgstr "Verificați dacă există actualizări"
 
-#: src/components/storage/ClearStorage.tsx:57
-#: src/components/storage/ClearStorage.tsx:66
+#: src/components/storage/ClearCacheButton.tsx:43
+#: src/components/storage/ClearCacheButton.tsx:52
 msgid "Clear cache"
 msgstr "Ștergeți memoria cache"
 
@@ -341,7 +341,7 @@ msgstr "Culoare"
 msgid "Color brand"
 msgstr "Marca de culoare"
 
-#: src/components/ColorSetChooser.tsx:588
+#: src/components/ColorSetChooser.tsx:601
 msgid "Color brands"
 msgstr "Mărci de culori"
 
@@ -365,7 +365,7 @@ msgstr "Amestec de culori"
 msgid "Color picker"
 msgstr "Selector de culori"
 
-#: src/components/ColorSetChooser.tsx:564
+#: src/components/ColorSetChooser.tsx:577
 #: src/components/ImageColorPicker.tsx:513
 #: src/components/messages.ts:28
 msgid "Color set"
@@ -389,7 +389,7 @@ msgstr "Culori"
 msgid "Compare"
 msgstr "Compara"
 
-#: src/components/Help.tsx:152
+#: src/components/Help.tsx:153
 msgid "Contact"
 msgstr "Contact"
 
@@ -413,11 +413,11 @@ msgstr "Estimarea corectată a temperaturii sursei de lumină în Kelvin"
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Nu a putut detecta automat hârtia sau pânza"
 
-#: src/components/ColorSetChooser.tsx:715
+#: src/components/ColorSetChooser.tsx:720
 msgid "Create a duplicate of this color set for further modification"
 msgstr "Creați un duplicat al acestui set de culori pentru modificări ulterioare"
 
-#: src/components/ColorSetChooser.tsx:724
+#: src/components/ColorSetChooser.tsx:729
 msgid "Create a new color set by merging existing ones"
 msgstr "Creează un nou set de culori prin unirea celor existente"
 
@@ -434,18 +434,18 @@ msgstr "Brand personalizat"
 msgid "Custom color set"
 msgstr "Set de culori personalizate"
 
-#: src/components/ColorSetChooser.tsx:747
+#: src/components/ColorSetChooser.tsx:759
 #: src/components/CustomColorBrandCreator.tsx:510
 #: src/components/image/RecentImageCard.tsx:83
 msgid "Delete"
 msgstr "Șterge"
 
-#: src/components/storage/ClearStorage.tsx:70
-#: src/components/storage/ClearStorage.tsx:79
+#: src/components/storage/DeleteAppDataButton.tsx:43
+#: src/components/storage/DeleteAppDataButton.tsx:52
 msgid "Delete all app data"
 msgstr "Ștergeți toate datele aplicației"
 
-#: src/components/ColorSetChooser.tsx:732
+#: src/components/ColorSetChooser.tsx:744
 msgid "Delete the color set"
 msgstr "Ștergeți setul de culori"
 
@@ -459,11 +459,11 @@ msgstr "Ștergeți marca personalizată"
 msgid "Delete the recent photo"
 msgstr "Ștergeți fotografia recentă"
 
-#: src/components/ColorSetChooser.tsx:742
+#: src/components/ColorSetChooser.tsx:754
 msgid "Delete this color set"
 msgstr "Ștergeți acest set de culori"
 
-#: src/components/alert/AuthErrorHandler.tsx:31
+#: src/components/alert/AuthErrorHandler.tsx:32
 msgid "Details"
 msgstr "Detalii"
 
@@ -488,7 +488,7 @@ msgstr "Diametru"
 msgid "Dilute the paint with water in a <0>{ratioText} ratio</0>"
 msgstr "Diluați vopseaua cu apă într-un <0>raport {ratioText}</0>"
 
-#: src/components/ColorSetChooser.tsx:621
+#: src/components/ColorSetChooser.tsx:634
 msgid "Do you have a store-bought or custom color set?"
 msgstr "Aveți un set de culori cumpărat din magazin sau personalizat?"
 
@@ -516,15 +516,15 @@ msgstr "Lasă fișierele aici..."
 msgid "Dry Pastel"
 msgstr "Pastel uscat"
 
-#: src/components/ColorSetChooser.tsx:718
+#: src/components/ColorSetChooser.tsx:723
 msgid "Duplicate"
 msgstr "Duplicat"
 
-#: src/components/CustomColorBrandCreator.tsx:132
+#: src/components/CustomColorBrandCreator.tsx:133
 msgid "Edit from here on"
 msgstr "Editare de aici înainte"
 
-#: src/components/alert/AuthErrorHandler.tsx:34
+#: src/components/alert/AuthErrorHandler.tsx:35
 msgid "Email"
 msgstr "Email"
 
@@ -533,23 +533,23 @@ msgstr "Email"
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Intră în modul lightbox pentru a trasa conturul prin hârtie."
 
-#: src/components/alert/AuthErrorHandler.tsx:32
+#: src/components/alert/AuthErrorHandler.tsx:33
 msgid "Error"
 msgstr "Eroare"
 
-#: src/components/alert/AuthErrorHandler.tsx:33
+#: src/components/alert/AuthErrorHandler.tsx:34
 msgid "Error description"
 msgstr "Descrierea erorii"
 
-#: src/components/ImageChooser.tsx:64
+#: src/components/ImageChooser.tsx:65
 msgid "Error loading sample photos"
 msgstr "Eroare la încărcarea fotografiilor de probă"
 
-#: src/components/ColorSetChooser.tsx:196
+#: src/components/ColorSetChooser.tsx:198
 msgid "Error while fetching color brand data"
 msgstr "Eroare la preluarea datelor de marcă de culoare"
 
-#: src/components/ColorSetChooser.tsx:218
+#: src/components/ColorSetChooser.tsx:220
 msgid "Error while fetching color data"
 msgstr "Eroare la preluarea datelor de culoare"
 
@@ -559,7 +559,7 @@ msgstr "Eroare la preluarea datelor de culoare"
 msgid "Error while fetching ML model data"
 msgstr "Eroare la preluarea datelor modelului ML"
 
-#: src/components/ColorSetChooser.tsx:207
+#: src/components/ColorSetChooser.tsx:209
 msgid "Error while fetching standard color set data"
 msgstr "Eroare la preluarea datelor setului de culori standard"
 
@@ -572,16 +572,16 @@ msgstr "Temperatura estimată a sursei de lumină în Kelvin cu care a fost făc
 msgid "Exit AR"
 msgstr "Ieșirea AR"
 
-#: src/components/ColorSetChooser.tsx:466
+#: src/components/ColorSetChooser.tsx:480
 msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Explorați versiunea gratuită înainte de a decide să achiziționați un abonament plătit."
 
-#: src/components/ColorSetChooser.tsx:369
+#: src/components/ColorSetChooser.tsx:384
 #: src/components/CustomColorBrandCreator.tsx:359
 msgid "Fill in the required fields"
 msgstr "Completați câmpurile obligatorii"
 
-#: src/components/CustomColorBrandCreator.tsx:212
+#: src/components/CustomColorBrandCreator.tsx:213
 msgid "Finish editing"
 msgstr "Finalizarea editării"
 
@@ -589,11 +589,11 @@ msgstr "Finalizarea editării"
 msgid "Gamma"
 msgstr "Gamma"
 
-#: src/components/alert/AuthErrorHandler.tsx:38
+#: src/components/alert/AuthErrorHandler.tsx:39
 msgid "Gifted membership"
 msgstr "Calitatea de membru supradotat"
 
-#: src/components/ColorSetChooser.tsx:581
+#: src/components/ColorSetChooser.tsx:594
 msgid "Give your color set a name for easy access."
 msgstr "Dați un nume setului de culori pentru un acces ușor."
 
@@ -626,16 +626,16 @@ msgstr "Grilă"
 msgid "Height"
 msgstr "Înălțime"
 
-#: src/components/ColorSetChooser.tsx:513
+#: src/components/ColorSetChooser.tsx:526
 #: src/components/messages.ts:45
 msgid "Help"
 msgstr "Ajutor"
 
-#: src/components/ColorSetChooser.tsx:471
+#: src/components/ColorSetChooser.tsx:485
 msgid "If you are having trouble logging in, please read this <0>troubleshooting guide</0>."
 msgstr "Dacă întâmpini probleme la autentificare, te rugăm să citești acest <0>ghid de depanare</0>."
 
-#: src/components/ColorSetChooser.tsx:232
+#: src/components/ColorSetChooser.tsx:245
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Dacă nu salvați, modificările aduse setului de culori se pot pierde."
 
@@ -656,7 +656,7 @@ msgstr "Instala"
 msgid "Install ArtistAssistApp"
 msgstr "Instalează ArtistAssistApp"
 
-#: src/components/Help.tsx:188
+#: src/components/Help.tsx:189
 msgid "Install update"
 msgstr "Actualizare instalare"
 
@@ -684,7 +684,7 @@ msgstr "Limbă"
 msgid "Large"
 msgstr "Mare"
 
-#: src/components/alert/AuthErrorHandler.tsx:36
+#: src/components/alert/AuthErrorHandler.tsx:37
 msgid "Last charge status"
 msgstr "Starea ultimei încărcături"
 
@@ -721,11 +721,11 @@ msgstr "Link copiat în clipboard"
 msgid "Load color brand file"
 msgstr "Încărcați fișierul de marcă color"
 
-#: src/components/ColorSetChooser.tsx:765
+#: src/components/ColorSetChooser.tsx:777
 msgid "Load color sets file"
 msgstr "Încărcați fișierul seturi de culori"
 
-#: src/components/ColorSetChooser.tsx:523
+#: src/components/ColorSetChooser.tsx:536
 msgid "Log in on another device by scanning the QR code"
 msgstr "Conectați-vă pe un alt dispozitiv scanând codul QR"
 
@@ -737,12 +737,12 @@ msgstr "Conectează-te cu Patreon"
 msgid "Log out"
 msgstr "Deconectați-vă"
 
-#: src/components/alert/AuthErrorHandler.tsx:119
-#: src/components/alert/AuthErrorHandler.tsx:150
+#: src/components/alert/AuthErrorHandler.tsx:125
+#: src/components/alert/AuthErrorHandler.tsx:156
 msgid "Login failed"
 msgstr "Conectarea a eșuat"
 
-#: src/components/Help.tsx:276
+#: src/components/Help.tsx:280
 msgid "Login session is valid until {expirationText}"
 msgstr "Sesiunea de conectare este valabilă până la {expirationText}"
 
@@ -768,7 +768,7 @@ msgid "Medium"
 msgstr "Medie"
 
 #: src/components/color-set/MergeColorSetsDrawer.tsx:106
-#: src/components/ColorSetChooser.tsx:727
+#: src/components/ColorSetChooser.tsx:732
 msgid "Merge"
 msgstr "Fuziunea"
 
@@ -802,8 +802,8 @@ msgstr "Amestec"
 msgid "Mode"
 msgstr "Mod"
 
-#: src/components/ColorSetChooser.tsx:580
-#: src/components/CustomColorBrandCreator.tsx:191
+#: src/components/ColorSetChooser.tsx:593
+#: src/components/CustomColorBrandCreator.tsx:192
 #: src/components/CustomColorBrandCreator.tsx:482
 msgid "Name"
 msgstr "Nume"
@@ -812,7 +812,7 @@ msgstr "Nume"
 msgid "Name a brand"
 msgstr "Denumiți o marcă"
 
-#: src/components/ColorSetChooser.tsx:584
+#: src/components/ColorSetChooser.tsx:597
 msgid "Name a color set"
 msgstr "Denumiți un set de culori"
 
@@ -832,19 +832,19 @@ msgstr "Set de culori nou"
 msgid "New comparison"
 msgstr "Comparație nouă"
 
-#: src/components/alert/AuthErrorHandler.tsx:37
+#: src/components/alert/AuthErrorHandler.tsx:38
 msgid "Next charge date"
 msgstr "Următoarea dată de încărcare"
 
 #: src/components/color/AddToPaletteButton.tsx:53
 #: src/components/color/PaletteColorMixtureCard.tsx:106
-#: src/components/ColorSetChooser.tsx:234
-#: src/components/ColorSetChooser.tsx:738
+#: src/components/ColorSetChooser.tsx:247
+#: src/components/ColorSetChooser.tsx:750
 #: src/components/CustomColorBrandCreator.tsx:501
 #: src/components/image/RecentImageCard.tsx:74
 #: src/components/palette/PaletteGrid.tsx:114
-#: src/components/storage/ClearStorage.tsx:63
-#: src/components/storage/ClearStorage.tsx:76
+#: src/components/storage/ClearCacheButton.tsx:49
+#: src/components/storage/DeleteAppDataButton.tsx:49
 msgid "No"
 msgstr "Nu"
 
@@ -878,7 +878,7 @@ msgstr "Vopsea în ulei"
 msgid "Oil Pastel"
 msgstr "Pastel în ulei"
 
-#: src/components/ColorSetChooser.tsx:603
+#: src/components/ColorSetChooser.tsx:616
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Doar un număr limitat de mărci de culori sunt disponibile în versiunea gratuită"
 
@@ -908,11 +908,11 @@ msgstr "sau instalați cea mai recentă versiune a browserului web Chrome, Edge,
 msgid "Or scan the QR code"
 msgstr "Sau scanați codul QR"
 
-#: src/components/ImageChooser.tsx:117
+#: src/components/ImageChooser.tsx:121
 msgid "Or select from sample photos"
 msgstr "Sau selectați din poze eșantion"
 
-#: src/components/ImageChooser.tsx:99
+#: src/components/ImageChooser.tsx:103
 msgid "Or select from your recent photos"
 msgstr "Sau selectați din fotografiile recente"
 
@@ -948,11 +948,11 @@ msgstr "Culoarea hârtiei nu contează pentru pastelurile opace, deoarece acoper
 msgid "Paper size"
 msgstr "Dimensiunea hârtiei"
 
-#: src/components/alert/AuthErrorHandler.tsx:43
+#: src/components/alert/AuthErrorHandler.tsx:44
 msgid "Patreon membership verification failed"
 msgstr "Verificarea abonamentului la Patreon a eșuat"
 
-#: src/components/alert/AuthErrorHandler.tsx:35
+#: src/components/alert/AuthErrorHandler.tsx:36
 msgid "Patron status"
 msgstr "Statut de patron"
 
@@ -965,7 +965,7 @@ msgstr "Percentile"
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Percentilă: Balans de alb automat din zonele cele mai luminoase, bun pentru majoritatea fotografiilor. Referință: Balans de alb manual folosind zona albă selectată."
 
-#: src/components/Help.tsx:214
+#: src/components/Help.tsx:215
 msgid "Persistent storage"
 msgstr "Stocare persistentă"
 
@@ -1005,7 +1005,7 @@ msgstr "Apăsați Adăugați în Dock"
 msgid "Press Add to Home Screen"
 msgstr "Apăsați Adăugați la ecranul de pornire"
 
-#: src/hooks/useDoubleBackPressToExit.ts:43
+#: src/hooks/useDoubleBackPressToExit.ts:38
 msgid "Press Back again to exit"
 msgstr "Apăsați din nou Înapoi pentru a ieși"
 
@@ -1043,7 +1043,7 @@ msgstr "Imprimarea unei imagini mari pe mai multe pagini"
 msgid "Print preview"
 msgstr "Imprimării"
 
-#: src/components/Help.tsx:162
+#: src/components/Help.tsx:163
 msgid "Privacy policy"
 msgstr "Politica de confidențialitate"
 
@@ -1051,7 +1051,7 @@ msgstr "Politica de confidențialitate"
 msgid "Processing..."
 msgstr "Procesare..."
 
-#: src/components/Help.tsx:237
+#: src/components/Help.tsx:238
 msgid "Quota"
 msgstr "Cotă"
 
@@ -1089,6 +1089,10 @@ msgstr "Referință"
 msgid "Reflectance"
 msgstr "Reflectanță"
 
+#: src/components/alert/AlertFallback.tsx:72
+msgid "Reload"
+msgstr "Reîncărcare"
+
 #: src/components/color/PaletteColorMixtureCard.tsx:109
 msgid "Remove"
 msgstr "Depărta"
@@ -1115,9 +1119,9 @@ msgstr "Eliminați din paletă"
 msgid "Remove the color mixture"
 msgstr "Îndepărtați amestecul de culori"
 
-#: src/components/CustomColorBrandCreator.tsx:179
-#: src/components/CustomColorBrandCreator.tsx:187
-#: src/components/CustomColorBrandCreator.tsx:190
+#: src/components/CustomColorBrandCreator.tsx:180
+#: src/components/CustomColorBrandCreator.tsx:188
+#: src/components/CustomColorBrandCreator.tsx:191
 msgid "Required"
 msgstr "Necesar"
 
@@ -1172,11 +1176,11 @@ msgstr "Saturație (%)"
 msgid "Save"
 msgstr "Salva"
 
-#: src/components/ColorSetChooser.tsx:704
+#: src/components/ColorSetChooser.tsx:715
 msgid "Save & proceed"
 msgstr "Salvați și continuați"
 
-#: src/components/ColorSetChooser.tsx:231
+#: src/components/ColorSetChooser.tsx:244
 msgid "Save changes to the color set?"
 msgstr "Salvați modificările la setul de culori?"
 
@@ -1190,7 +1194,7 @@ msgstr "Salvați extins la 1,91:1"
 msgid "Save expanded to 4:5"
 msgstr "Salvare extinsă la 4:5"
 
-#: src/components/ColorSetChooser.tsx:700
+#: src/components/ColorSetChooser.tsx:711
 msgid "Save the changes to this color set"
 msgstr "Salvați modificările aduse acestui set de culori"
 
@@ -1198,7 +1202,7 @@ msgstr "Salvați modificările aduse acestui set de culori"
 msgid "Scan a QR code"
 msgstr "Scanați un cod QR"
 
-#: src/components/ColorSetChooser.tsx:504
+#: src/components/ColorSetChooser.tsx:517
 msgid "Scan QR code"
 msgstr "Scanați codul QR"
 
@@ -1218,7 +1222,7 @@ msgstr "Selectați o fotografie pentru a corecta perspectiva"
 msgid "Select a photo to remove the background from"
 msgstr "Selectați o fotografie din care să eliminați fundalul"
 
-#: src/components/ImageChooser.tsx:84
+#: src/components/ImageChooser.tsx:88
 msgid "Select a reference photo from your device to paint from"
 msgstr "Selectați o fotografie de referință de pe dispozitiv pentru a picta"
 
@@ -1238,11 +1242,16 @@ msgstr "Selectați orice număr de culori de amestecat și specificați partea f
 msgid "Select art medium"
 msgstr "Selectați mediul de artă"
 
+#: src/components/ColorSetChooser.tsx:254
+#: src/components/ColorSetChooser.tsx:372
+msgid "Select at least one color before saving the color set."
+msgstr "Selectează cel puțin o culoare înainte de a salva setul de culori."
+
 #: src/components/color-set/ColorBrandSelect.tsx:69
 msgid "Select brands"
 msgstr "Selectați mărcile"
 
-#: src/components/ColorSetChooser.tsx:589
+#: src/components/ColorSetChooser.tsx:602
 msgid "Select brands that you use."
 msgstr "Selectați mărcile pe care le utilizați."
 
@@ -1271,7 +1280,7 @@ msgstr "Selectează dintre mărcile tale recente"
 msgid "Select from your recent color sets"
 msgstr "Selectați din seturile de culori recente"
 
-#: src/components/ColorSetChooser.tsx:565
+#: src/components/ColorSetChooser.tsx:578
 msgid "Select from your recent color sets or create a new one."
 msgstr "Selectați din seturile de culori recente sau creați unul nou."
 
@@ -1288,7 +1297,7 @@ msgid "Select part"
 msgstr "Selectează piesa"
 
 #: src/components/ImageBackgroundRemoval.tsx:200
-#: src/components/ImageChooser.tsx:93
+#: src/components/ImageChooser.tsx:97
 #: src/components/ImageColorAdjustment.tsx:349
 #: src/components/ImagePerspectiveCorrection.tsx:212
 msgid "Select photo"
@@ -1314,7 +1323,7 @@ msgstr "Selectați imaginea de stil"
 msgid "Select the color sets you want to merge. A new color set will be created that includes all the colors from the selected sets."
 msgstr "Selectează seturile de culori pe care vrei să le combini. Va fi creat un nou set de culori care să includă toate culorile din seturile selectate."
 
-#: src/components/ColorSetChooser.tsx:533
+#: src/components/ColorSetChooser.tsx:546
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Select your art medium, color brands and colors you will paint with and press the <0>Save & proceed</0> button."
 msgstr "Selectați mediul de artă, mărcile de culori și culorile cu care veți picta și apăsați butonul <0>Salvați și continuați</0> ."
@@ -1327,7 +1336,7 @@ msgstr "Semi-opac"
 msgid "Semi-transparent"
 msgstr "Semi-transparent"
 
-#: src/components/alert/AuthErrorHandler.tsx:101
+#: src/components/alert/AuthErrorHandler.tsx:107
 msgid "Session expired"
 msgstr "Sesiunea s-a încheiat"
 
@@ -1358,12 +1367,12 @@ msgstr "Umbră"
 msgid "Shadows and highlights"
 msgstr "Umbre și lumini"
 
-#: src/components/ColorSetChooser.tsx:757
+#: src/components/ColorSetChooser.tsx:769
 #: src/components/share/ShareModal.tsx:83
 msgid "Share"
 msgstr "Acțiune"
 
-#: src/components/ColorSetChooser.tsx:754
+#: src/components/ColorSetChooser.tsx:766
 msgid "Share this color set"
 msgstr "Partajați acest set de culori"
 
@@ -1416,6 +1425,10 @@ msgstr "Suprapuneți ușor zonele pastelate de diferite culori și amestecați u
 msgid "Small"
 msgstr "Mic"
 
+#: src/components/alert/AlertFallback.tsx:46
+msgid "Something went wrong. Please send us a screenshot of the error message to our <0>contacts</0>. This will really help us identify the cause."
+msgstr "Ceva a mers prost. Vă rugăm să ne trimiteți o captură de ecran a mesajului de eroare către <0>contactele</0> noastre. Acest lucru ne va ajuta cu adevărat să identificăm cauza."
+
 #: src/components/color-set/ColorSelect.tsx:120
 #: src/components/ColorMixingChart.tsx:108
 #: src/components/ImageColorPicker.tsx:448
@@ -1445,7 +1458,7 @@ msgstr "Curba de reflectanță spectrală"
 msgid "Square cells"
 msgstr "Celule pătrate"
 
-#: src/components/ColorSetChooser.tsx:618
+#: src/components/ColorSetChooser.tsx:631
 msgid "Standard color set"
 msgstr "Set de culori standard"
 
@@ -1453,11 +1466,11 @@ msgstr "Set de culori standard"
 msgid "Standard print"
 msgstr "Imprimare standard"
 
-#: src/components/alert/AuthErrorHandler.tsx:85
+#: src/components/alert/AuthErrorHandler.tsx:86
 msgid "Still having trouble? Please refer to this <0>troubleshooting guide</0>."
 msgstr "Încă ai probleme? Vă rugăm să consultați acest <0>ghid de depanare</0>."
 
-#: src/components/Help.tsx:231
+#: src/components/Help.tsx:232
 msgid "Storage usage"
 msgstr "Utilizarea spațiului de stocare"
 
@@ -1481,8 +1494,8 @@ msgstr "Medii artistice suportate:"
 msgid "Supported web browsers and operating systems"
 msgstr "Browsere web și sisteme de operare acceptate"
 
-#: src/components/lightbox/LightboxOverlay.tsx:106
 #: src/components/lightbox/LightboxOverlay.tsx:110
+#: src/components/lightbox/LightboxOverlay.tsx:114
 msgid "Swipe to unlock"
 msgstr "Glisează pentru a debloca"
 
@@ -1494,22 +1507,22 @@ msgstr "Lățimea marginii lipite în jurul zonei de vopsire"
 msgid "Target print size"
 msgstr "Dimensiune țintă de imprimare"
 
-#: src/components/Help.tsx:172
+#: src/components/Help.tsx:173
 msgid "Terms of use"
 msgstr "Termeni de utilizare"
 
-#: src/components/Help.tsx:253
+#: src/components/Help.tsx:257
 msgid "The app stores all data in the web browser storage even after installation. Clearing the web browser data results in the loss of all app data."
 msgstr "Aplicația stochează toate datele în spațiul de stocare al browserului web chiar și după instalare. Ștergerea datelor browserului web duce la pierderea tuturor datelor aplicației."
-
-#: src/components/alert/AlertTimedReloadFallback.tsx:55
-msgid "The app will attempt to reload in {reloadCounter} sec"
-msgstr "Aplicația va încerca să se reîncarce în {reloadCounter} sec"
 
 #: src/components/ColorMixer.tsx:184
 #: src/components/ImageColorPicker.tsx:355
 msgid "The color of paper or canvas, or the color of the base layer when glazed."
 msgstr "Culoarea hârtiei sau a pânzei sau culoarea stratului de bază atunci când este glazurat."
+
+#: src/components/ColorSetChooser.tsx:238
+msgid "The color set can't be saved because not all required fields are filled."
+msgstr "Setul de culori nu poate fi salvat pentru că nu toate câmpurile necesare sunt completate."
 
 #: src/components/ImageColorPicker.tsx:409
 msgid "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
@@ -1547,7 +1560,7 @@ msgstr "Subțire vopseaua la <0>grosimea {fractionText}</0>"
 msgid "This backup file lets you restore your color sets later, so keep it. You can delete any older backup files."
 msgstr "Acest fișier de rezervă vă permite să vă restaurați seturile de culori mai târziu, așa că păstrați-l. Puteți șterge orice fișiere de rezervă mai vechi."
 
-#: src/components/ColorSetChooser.tsx:644
+#: src/components/ColorSetChooser.tsx:657
 msgid "This color brand is available to paid Patreon members only"
 msgstr "Această marcă de culoare este disponibilă numai pentru membrii Patreon plătiți"
 
@@ -1563,11 +1576,11 @@ msgstr "Acest pas este opțional."
 msgid "This style is available to paid Patreon members only"
 msgstr "Acest stil este disponibil numai pentru membrii Patreon plătiți"
 
-#: src/components/alert/AuthErrorHandler.tsx:47
+#: src/components/alert/AuthErrorHandler.tsx:48
 msgid "This usually happens when you're signed in to a <0>different</0> Patreon account than the one used for your ArtistAssistApp membership."
 msgstr "Acest lucru se întâmplă de obicei când ești conectat la un <0>alt</0> cont Patreon decât cel folosit pentru abonamentul tău ArtistAssistApp."
 
-#: src/components/alert/AuthErrorHandler.tsx:55
+#: src/components/alert/AuthErrorHandler.tsx:56
 msgid "To fix this:"
 msgstr "Pentru a rezolva asta:"
 
@@ -1591,15 +1604,15 @@ msgstr "Valori tonale"
 msgid "Transparent"
 msgstr "Transparent"
 
-#: src/components/Help.tsx:118
+#: src/components/Help.tsx:119
 msgid "Tutorials and videos"
 msgstr "Tutoriale și videoclipuri"
 
-#: src/components/alert/UnhandledRejectionHandler.tsx:37
+#: src/components/alert/UnhandledRejectionHandler.tsx:36
 msgid "Unexpected error"
 msgstr "Eroare neașteptată"
 
-#: src/components/alert/AlertTimedReloadFallback.tsx:38
+#: src/components/alert/AlertFallback.tsx:37
 msgid "Unexpected error: {errorMessage}"
 msgstr "Eroare neașteptată: {errorMessage}"
 
@@ -1634,7 +1647,7 @@ msgstr "Utilizați fotografia de referință"
 msgid "Use white paper or canvas as a background"
 msgstr "Folosește hârtie albă sau pânză ca fundal"
 
-#: src/components/Help.tsx:234
+#: src/components/Help.tsx:235
 msgid "Used"
 msgstr "Folosit"
 
@@ -1667,19 +1680,19 @@ msgstr "Creioane acuarelă"
 msgid "Wax Pastel"
 msgstr "Pastel de ceară"
 
-#: src/components/alert/AuthErrorHandler.tsx:112
+#: src/components/alert/AuthErrorHandler.tsx:118
 msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
 msgstr "Am întâmpinat o problemă la verificarea autentificării tale. Această problemă poate fi de obicei rezolvată încercând să mă conectez din nou."
 
-#: src/components/alert/AuthErrorHandler.tsx:123
+#: src/components/alert/AuthErrorHandler.tsx:129
 msgid "We were unable to log you in."
 msgstr "Nu am reușit să vă conectăm."
 
-#: src/components/ColorSetChooser.tsx:676
+#: src/components/ColorSetChooser.tsx:687
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "Când selectați mai mult de {maxColorsFor2} culori în total, nu se utilizează amestecuri de două culori."
 
-#: src/components/ColorSetChooser.tsx:684
+#: src/components/ColorSetChooser.tsx:695
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Când selectați mai mult de {maxColorsFor3} culori în total, nu se utilizează amestecuri de trei culori."
 
@@ -1710,29 +1723,29 @@ msgstr "Lățime"
 
 #: src/components/color/AddToPaletteButton.tsx:52
 #: src/components/color/PaletteColorMixtureCard.tsx:105
-#: src/components/ColorSetChooser.tsx:233
-#: src/components/ColorSetChooser.tsx:737
+#: src/components/ColorSetChooser.tsx:246
+#: src/components/ColorSetChooser.tsx:749
 #: src/components/CustomColorBrandCreator.tsx:500
 #: src/components/image/RecentImageCard.tsx:73
 #: src/components/palette/PaletteGrid.tsx:113
-#: src/components/storage/ClearStorage.tsx:62
-#: src/components/storage/ClearStorage.tsx:75
+#: src/components/storage/ClearCacheButton.tsx:48
+#: src/components/storage/DeleteAppDataButton.tsx:48
 msgid "Yes"
 msgstr "Da"
 
-#: src/components/ColorSetChooser.tsx:445
+#: src/components/ColorSetChooser.tsx:459
 msgid "You are logged in and have access to all app features."
 msgstr "Sunteți conectat și aveți acces la toate funcțiile aplicației."
 
-#: src/components/ColorSetChooser.tsx:450
+#: src/components/ColorSetChooser.tsx:464
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "Utilizați <0>versiunea gratuită</0> cu un număr limitat de mărci de culori și moduri de procesare a imaginii."
 
-#: src/components/ColorSetChooser.tsx:596
+#: src/components/ColorSetChooser.tsx:609
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Ai selectat mărci de culori care sunt disponibile numai pentru membrii Patreon plătiți"
 
-#: src/components/ColorSetChooser.tsx:667
+#: src/components/ColorSetChooser.tsx:678
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Ai selectat mărci de culori care sunt disponibile numai pentru membrii Patreon plătiți. Alăturați-vă ArtistAssistApp pe Patreon ca membru plătit sau conectați-vă cu Patreon dacă v-ați înscris deja."
 
@@ -1741,7 +1754,7 @@ msgstr "Ai selectat mărci de culori care sunt disponibile numai pentru membrii 
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Ați selectat modul care este disponibil numai pentru membrii Patreon plătiți"
 
-#: src/components/alert/AuthErrorHandler.tsx:158
+#: src/components/alert/AuthErrorHandler.tsx:100
 msgid "Your account details:"
 msgstr "Detaliile contului tău:"
 
@@ -1749,7 +1762,7 @@ msgstr "Detaliile contului tău:"
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "Datele tale s-ar putea să nu fie salvate fiabil dacă browserul este închis. Pentru a rezolva asta, instalează aplicația."
 
-#: src/components/alert/AuthErrorHandler.tsx:103
+#: src/components/alert/AuthErrorHandler.tsx:109
 msgid "Your login session has expired. Please sign in again to refresh your access and continue using ArtistAssistApp."
 msgstr "Sesiunea ta de autentificare a expirat. Vă rugăm să vă reconectați pentru a vă reîmprospăta accesul și a continua să folosiți ArtistAssistApp."
 

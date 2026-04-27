@@ -54,7 +54,8 @@ export const ImageChooser: React.FC = () => {
     [sampleImages]
   );
 
-  const {checkPersistentStorage, installDrawer} = usePersistentStorage();
+  const {requestPersistentStorage, showPersistentStorageWarning, installDrawer} =
+    usePersistentStorage();
 
   const isLoading: boolean = isSampleImagesLoading || isSampleImageLoading;
 
@@ -70,9 +71,12 @@ export const ImageChooser: React.FC = () => {
   }, [isSampleImagesError, notification, t]);
 
   const handleFileChange = async ([file]: File[]) => {
-    await checkPersistentStorage();
     if (file) {
+      const granted = await requestPersistentStorage();
       void saveRecentImageFile(await fileToImageFile(file));
+      if (!granted) {
+        showPersistentStorageWarning();
+      }
     }
   };
 

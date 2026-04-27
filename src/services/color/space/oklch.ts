@@ -16,18 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {degrees, radians} from '~/src/services/math/geometry';
+
 import type {OklabTuple} from './oklab';
 
-export type OklchTuple = [l: number, c: number, h: number];
+export type OklchTuple = [l: number, c: number, hDeg: number];
 
 export function oklabToOklch(l: number, a: number, b: number): OklchTuple {
   const c = Math.hypot(a, b);
-  const h = Math.atan2(b, a);
-  return [l, c, h];
+  const hDeg = degrees(Math.atan2(b, a));
+  return [l, c, hDeg];
 }
 
-export function oklchToOklab(l: number, c: number, h: number): OklabTuple {
-  const a = c * Math.cos(h);
-  const b = c * Math.sin(h);
+export function oklchToOklab(l: number, c: number, hDeg: number): OklabTuple {
+  const hRad = radians(hDeg);
+  const a = c * Math.cos(hRad);
+  const b = c * Math.sin(hRad);
   return [l, a, b];
 }

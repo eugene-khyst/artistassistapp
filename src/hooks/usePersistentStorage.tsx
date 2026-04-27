@@ -27,7 +27,8 @@ import {requestPersistentStorage} from '~/src/utils/storage';
 const NOTIFICATION_KEY = 'persistent-storage';
 
 interface Result {
-  checkPersistentStorage: () => Promise<void>;
+  requestPersistentStorage: () => Promise<boolean>;
+  showPersistentStorageWarning: () => void;
   installDrawer: React.ReactNode;
 }
 
@@ -35,33 +36,31 @@ export function usePersistentStorage(): Result {
   const {notification} = App.useApp();
   const {install, installDrawer} = useInstall();
 
-  const checkPersistentStorage = useCallback(async () => {
-    if (!(await requestPersistentStorage())) {
-      const handleInstallClick = () => {
-        notification.destroy(NOTIFICATION_KEY);
-        install();
-      };
+  const showPersistentStorageWarning = useCallback(() => {
+    const handleInstallClick = () => {
+      notification.destroy(NOTIFICATION_KEY);
+      install();
+    };
 
-      notification.warning({
-        key: NOTIFICATION_KEY,
-        title: <Trans>Persistent storage is not enabled</Trans>,
-        description: (
-          <Trans>
-            Your data may not be saved reliably if the browser is closed. To fix this, install the
-            app.
-          </Trans>
-        ),
-        placement: 'top',
-        duration: 10,
-        showProgress: true,
-        actions: (
-          <Button type="primary" icon={<AppstoreAddOutlined />} onClick={handleInstallClick}>
-            <Trans>Install</Trans>
-          </Button>
-        ),
-      });
-    }
+    notification.warning({
+      key: NOTIFICATION_KEY,
+      title: <Trans>Persistent storage is not enabled</Trans>,
+      description: (
+        <Trans>
+          Your data may not be saved reliably if the browser is closed. To fix this, install the
+          app.
+        </Trans>
+      ),
+      placement: 'top',
+      duration: 10,
+      showProgress: true,
+      actions: (
+        <Button type="primary" icon={<AppstoreAddOutlined />} onClick={handleInstallClick}>
+          <Trans>Install</Trans>
+        </Button>
+      ),
+    });
   }, [notification, install]);
 
-  return {checkPersistentStorage, installDrawer};
+  return {requestPersistentStorage, showPersistentStorageWarning, installDrawer};
 }

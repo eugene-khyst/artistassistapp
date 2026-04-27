@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {Authentication} from '~/src/services/auth/types';
 import {Interpolation, interpolationWebGL} from '~/src/services/image/filter/interpolation-webgl';
 import {float32TensorToImageData, imageDataToFloat32Tensor} from '~/src/services/ml/tensor';
 import type {OnnxModel} from '~/src/services/ml/types';
@@ -33,6 +34,7 @@ import {
 export async function transformImage(
   images: DrawImageSource[],
   model: OnnxModel,
+  auth: Authentication | null,
   progressCallback?: FetchProgressCallback,
   signal?: AbortSignal
 ): Promise<ImageBitmap> {
@@ -47,6 +49,7 @@ export async function transformImage(
   const inputTensors = imageDataArray.map(imageData => imageDataToFloat32Tensor(imageData, model));
   const [outputTensor] = await runInferenceWorker(
     modelUrl,
+    auth,
     [inputTensors],
     outputName,
     progressCallback,

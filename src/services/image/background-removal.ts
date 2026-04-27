@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {Authentication} from '~/src/services/auth/types';
 import {Interpolation, interpolationWebGL} from '~/src/services/image/filter/interpolation-webgl';
 import {imageBitmapToImageData} from '~/src/services/ml/image-transformer';
 import type {Float32Tensor} from '~/src/services/ml/tensor';
@@ -28,6 +29,7 @@ import {applyMask} from '~/src/utils/graphics';
 export async function removeBackground(
   blob: Blob,
   model: OnnxModel,
+  auth: Authentication | null,
   progressCallback?: FetchProgressCallback,
   signal?: AbortSignal
 ): Promise<OffscreenCanvas> {
@@ -38,6 +40,7 @@ export async function removeBackground(
   const inputTensor = imageDataToFloat32Tensor(imageData!, model);
   const [outputTensor] = await runInferenceWorker(
     modelUrl,
+    auth,
     [[inputTensor]],
     outputName,
     progressCallback,

@@ -18,6 +18,7 @@
 
 import type {StateCreator} from 'zustand';
 
+import {ForceLogoutError} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {fileToImageFile} from '~/src/services/image/image-file';
 import {transferStyle} from '~/src/services/image/style-transfer';
@@ -102,6 +103,7 @@ export const createStyleTransferSlice: StateCreator<
       const styledImage: ImageBitmap = await transferStyle(
         images,
         styleTransferModel,
+        auth,
         (key, progress) => {
           set({styleTransferDownloadTip: formatFetchProgress(key, progress)});
         },
@@ -112,6 +114,10 @@ export const createStyleTransferSlice: StateCreator<
         styledImageBlob,
       });
     } catch (error) {
+      if (error instanceof ForceLogoutError) {
+        void get().logout(error.reason);
+        return;
+      }
       if (!isAbortError(error)) {
         throw error;
       }

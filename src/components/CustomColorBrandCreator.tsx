@@ -65,6 +65,7 @@ import {
 } from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {removeRho} from '~/src/stores/custom-color-brand-slice';
+import {noop} from '~/src/utils/function';
 
 const FIELD = '${label}';
 
@@ -244,8 +245,7 @@ export const CustomColorBrandCreator: React.FC = () => {
   const [editFromIndex, setEditFromIndex] = useState<number | null>(null);
   const [scrollToIndex, setScrollToIndex] = useState<number | null>(null);
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const removeColorRef = useRef<(index: number) => void>(() => {});
+  const removeColorRef = useRef<(index: number) => void>(noop);
 
   const imageColorPickerCanvasSupplier = useCallback(
     (canvas: HTMLCanvasElement): ImageColorPickerCanvas => {

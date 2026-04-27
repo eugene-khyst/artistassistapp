@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export const COMMIT_HASH: string = import.meta.env.VITE_COMMIT_HASH;
+export const BUILD_ID: string = import.meta.env.VITE_BUILD_ID;
 export const AUTH_URL: string = import.meta.env.VITE_AUTH_URL;
 export const DATA_URL: string = import.meta.env.VITE_DATA_URL;
 export const PUBLIC_JWK: string = import.meta.env.VITE_PUBLIC_JWK;

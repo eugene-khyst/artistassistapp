@@ -23,16 +23,32 @@ export interface User {
 export interface Authentication {
   user: User;
   expiration: Date;
+  dataEncryptionKey: Uint8Array<ArrayBuffer>;
   magicLink: string;
+}
+
+export enum AuthErrorType {
+  Inactive = 'inactive',
+  Expired = 'expired',
+  InvalidToken = 'invalid_token',
+  Unknown = 'unknown',
 }
 
 export class AuthError extends Error {
   constructor(
-    public type: string,
+    public type: AuthErrorType,
     message?: string,
     public context?: Record<string, unknown> | null
   ) {
     super(message);
-    this.type = type;
+  }
+}
+
+export class ForceLogoutError extends Error {
+  constructor(
+    public reason: AuthErrorType = AuthErrorType.InvalidToken,
+    message?: string
+  ) {
+    super(message);
   }
 }

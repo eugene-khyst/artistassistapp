@@ -19,7 +19,7 @@
 import {useLingui} from '@lingui/react/macro';
 import {App} from 'antd';
 import type {PropsWithChildren} from 'react';
-import {useEffect} from 'react';
+import {useEffect, useEffectEvent} from 'react';
 
 import {useAppStore} from '~/src/stores/app-store';
 import {getErrorMessage} from '~/src/utils/error';
@@ -31,17 +31,17 @@ export const UnhandledRejectionHandler: React.FC<PropsWithChildren> = ({
 
   const {t} = useLingui();
 
-  useEffect(() => {
-    const showError = (reason: unknown): void => {
-      notification.error({
-        title: t`Unexpected error`,
-        description: getErrorMessage(reason),
-        placement: 'top',
-        duration: 10,
-        showProgress: true,
-      });
-    };
+  const showError = useEffectEvent((error: unknown) => {
+    notification.error({
+      title: t`Unexpected error`,
+      description: getErrorMessage(error),
+      placement: 'top',
+      duration: 10,
+      showProgress: true,
+    });
+  });
 
+  useEffect(() => {
     const {initErrors, clearInitErrors} = useAppStore.getState();
     if (initErrors.length > 0) {
       initErrors.forEach(error => {
@@ -57,7 +57,7 @@ export const UnhandledRejectionHandler: React.FC<PropsWithChildren> = ({
     return () => {
       window.removeEventListener('unhandledrejection', promiseRejectionHandler);
     };
-  }, [notification, t]);
+  }, []);
 
   return <>{children}</>;
 };

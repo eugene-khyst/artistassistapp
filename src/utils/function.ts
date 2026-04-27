@@ -19,3 +19,11 @@
 export function identity<T>(arg: T): T {
   return arg;
 }
+
+export function noop(): void {
+  // noop
+}
+
+export async function asyncNoop(): Promise<void> {
+  // noop
+}

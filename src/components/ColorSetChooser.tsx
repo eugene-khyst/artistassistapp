@@ -41,8 +41,8 @@ import {
   Space,
   Typography,
 } from 'antd';
-import type {ForwardedRef} from 'react';
-import {forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState} from 'react';
+import type React from 'react';
+import {useCallback, useContext, useEffect, useRef, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {JoinButton} from '~/src/components/auth/JoinButton';
@@ -55,7 +55,7 @@ import {InstallButton} from '~/src/components/install/InstallButton';
 import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {QRCode} from '~/src/components/qr/QRCode';
 import {QRScannerModal} from '~/src/components/qr/QRScannerModal';
-import type {ChangableComponent} from '~/src/components/types';
+import {UnsavedChangesContext} from '~/src/contexts/UnsavedChangesContext';
 import {useColorBrands} from '~/src/hooks/useColorBrands';
 import {useColors} from '~/src/hooks/useColors';
 import {useColorSetBackup} from '~/src/hooks/useColorSetBackup';
@@ -75,6 +75,7 @@ import {
 import {colorSetToUrl} from '~/src/services/url/url-parser';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
+import {asyncNoop} from '~/src/utils/function';
 
 import {ColorBrandSelect} from './color-set/ColorBrandSelect';
 import {ColorSelect} from './color-set/ColorSelect';
@@ -100,10 +101,7 @@ function getEmptyColors(values: ColorSetDefinition): Record<number, number[]> {
     : {};
 }
 
-export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetChooser(
-  _,
-  ref: ForwardedRef<ChangableComponent>
-) {
+export const ColorSetChooser: React.FC = () => {
   const user = useAppStore(state => state.auth?.user);
   const magicLink = useAppStore(state => state.auth?.magicLink);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
@@ -117,12 +115,15 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
   const loadColorSetsFromJson = useAppStore(state => state.loadColorSetsFromJson);
   const deleteColorSet = useAppStore(state => state.deleteColorSet);
 
+  const {registerChecker, checkUnsaved} = useContext(UnsavedChangesContext);
+
   const {message, notification, modal} = App.useApp();
 
   const {t} = useLingui();
 
   const saveColorSetsAsJsonAndNotify = useColorSetBackup();
-  const {checkPersistentStorage, installDrawer} = usePersistentStorage();
+  const {requestPersistentStorage, showPersistentStorageWarning, installDrawer} =
+    usePersistentStorage();
 
   const mediaDevices: MediaDeviceInfo[] = useDevices();
 
@@ -145,15 +146,16 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
     .map((ids: number[] | undefined) => ids?.length ?? 0)
     .reduce((a: number, b: number) => a + b, 0);
 
-  const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
   const [isQRScannerModalOpen, setIsQRScannerModalOpen] = useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [shareColorSetUrl, setShareColorSetUrl] = useState<string>();
   const [isMergeDrawerOpen, setIsMergeDrawerOpen] = useState<boolean>(false);
 
+  const hasUnsavedChangesRef = useRef<boolean>(false);
+
   useEffect(() => {
     if (importedColorSet) {
-      setHasUnsavedChanges(true);
+      hasUnsavedChangesRef.current = true;
       form.resetFields();
       form.setFieldsValue(importedColorSet);
     } else if (latestColorSet) {
@@ -223,48 +225,54 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
     }
   }, [isColorsError, notification, t]);
 
-  const checkForUnsavedChanges = useCallback(async (): Promise<void> => {
-    if (!hasUnsavedChanges) {
-      return;
-    }
-    const confirmed: boolean = await modal.confirm({
-      title: t`Save changes to the color set?`,
-      content: t`If you don't save, changes to the color set may be lost.`,
-      okText: t`Yes`,
-      cancelText: t`No`,
-      focusTriggerAfterClose: false,
-    });
-    if (confirmed) {
-      let colorSet = form.getFieldsValue();
-      colorSet = await saveColorSet(colorSet, brands, colors, false);
-      form.setFieldsValue(colorSet);
-      await saveColorSetsAsJsonAndNotify();
-    }
-    setHasUnsavedChanges(false);
-  }, [
-    modal,
-    form,
-    brands,
-    colors,
-    saveColorSet,
-    saveColorSetsAsJsonAndNotify,
-    hasUnsavedChanges,
-    t,
-  ]);
+  const onCheckUnsavedRef = useRef<() => Promise<void>>(asyncNoop);
+  useEffect(() => {
+    onCheckUnsavedRef.current = async (): Promise<void> => {
+      if (!hasUnsavedChangesRef.current) {
+        return;
+      }
+      try {
+        await form.validateFields();
+      } catch {
+        void message.warning(
+          t`The color set can't be saved because not all required fields are filled.`
+        );
+        hasUnsavedChangesRef.current = false;
+        return;
+      }
+      const confirmed: boolean = await modal.confirm({
+        title: t`Save changes to the color set?`,
+        content: t`If you don't save, changes to the color set may be lost.`,
+        okText: t`Yes`,
+        cancelText: t`No`,
+        focusTriggerAfterClose: false,
+      });
+      if (confirmed) {
+        const granted = await requestPersistentStorage();
+        const saved = await saveColorSet(form.getFieldsValue(), brands, colors, false);
+        if (!saved) {
+          void message.warning(t`Select at least one color before saving the color set.`);
+          return;
+        }
+        form.setFieldsValue(saved);
+        await saveColorSetsAsJsonAndNotify();
+        if (!granted) {
+          showPersistentStorageWarning();
+        }
+      }
+      hasUnsavedChangesRef.current = false;
+    };
+  });
 
-  useImperativeHandle(
-    ref,
-    () => ({
-      checkForUnsavedChanges,
-    }),
-    [checkForUnsavedChanges]
-  );
+  const onCheckUnsaved = useCallback(() => onCheckUnsavedRef.current(), []);
+
+  useEffect(() => registerChecker(onCheckUnsaved), [registerChecker, onCheckUnsaved]);
 
   const handleFormValuesChange = (
     changedValues: Partial<ColorSetDefinition>,
     values: ColorSetDefinition
   ) => {
-    setHasUnsavedChanges(true);
+    hasUnsavedChangesRef.current = true;
 
     const emptyColors: Partial<Record<number, number[]>> = getEmptyColors(values);
 
@@ -345,7 +353,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
   };
 
   const handleCreateNewClick = async () => {
-    await checkForUnsavedChanges();
+    await checkUnsaved();
     const emptyColors: Record<number, number[]> = getEmptyColors(form.getFieldsValue());
     const newColorSet: ColorSetDefinition = {
       id: NEW_COLOR_SET,
@@ -357,20 +365,27 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
     form.setFieldsValue(newColorSet);
   };
 
-  const handleSubmit = async (colorSet: ColorSetDefinition) => {
-    await checkPersistentStorage();
-    colorSet = await saveColorSet(colorSet, brands, colors);
-    form.setFieldsValue(colorSet);
+  const handleFinish = async (colorSet: ColorSetDefinition) => {
+    const granted = await requestPersistentStorage();
+    const saved = await saveColorSet(colorSet, brands, colors);
+    if (!saved) {
+      void message.warning(t`Select at least one color before saving the color set.`);
+      return;
+    }
+    form.setFieldsValue(saved);
     await saveColorSetsAsJsonAndNotify();
-    setHasUnsavedChanges(false);
+    if (!granted) {
+      showPersistentStorageWarning();
+    }
+    hasUnsavedChangesRef.current = false;
   };
 
-  const handleSubmitFailed = () => {
+  const handleFinishFailed = () => {
     void message.error(t`Fill in the required fields`);
   };
 
   const handleDuplicateClick = () => {
-    setHasUnsavedChanges(true);
+    hasUnsavedChangesRef.current = true;
     const {id: _id, name: _name, ...colorSet} = form.getFieldsValue();
     const newColorSet: ColorSetDefinition = {
       id: NEW_COLOR_SET,
@@ -381,12 +396,12 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
   };
 
   const handleMergeClick = async () => {
-    await checkForUnsavedChanges();
+    await checkUnsaved();
     setIsMergeDrawerOpen(true);
   };
 
   const handleMerge = (selected: ColorSetDefinition[]) => {
-    setHasUnsavedChanges(true);
+    hasUnsavedChangesRef.current = true;
     const newColorSet: ColorSetDefinition = mergeColorSets(selected);
     form.setFieldsValue(newColorSet);
     setIsMergeDrawerOpen(false);
@@ -401,7 +416,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
     form.setFieldsValue({
       type: selectedType,
     });
-    setHasUnsavedChanges(false);
+    hasUnsavedChangesRef.current = false;
   };
 
   const handleJsonFileChange = async ([file]: File[]) => {
@@ -410,7 +425,7 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
     }
     const colorSet: ColorSetDefinition | undefined = await loadColorSetsFromJson(file);
     if (colorSet) {
-      setHasUnsavedChanges(true);
+      hasUnsavedChangesRef.current = true;
       form.resetFields();
       form.setFieldsValue(colorSet);
     }
@@ -439,61 +454,59 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
         </Typography.Text>
 
         <Space orientation="vertical" size={0}>
-          {!isAuthLoading &&
-            (user ? (
-              <Typography.Text strong>
-                <Trans>You are logged in and have access to all app features.</Trans>
+          {user ? (
+            <Typography.Text strong>
+              <Trans>You are logged in and have access to all app features.</Trans>
+            </Typography.Text>
+          ) : (
+            <>
+              <Typography.Text>
+                <Trans>
+                  You are using the <Typography.Text strong>free version</Typography.Text> with a
+                  limited number of color brands and image processing modes.
+                </Trans>
               </Typography.Text>
-            ) : (
-              <>
-                <Typography.Text>
-                  <Trans>
-                    You are using the <Typography.Text strong>free version</Typography.Text> with a
-                    limited number of color brands and image processing modes.
-                  </Trans>
-                </Typography.Text>
-                <Typography.Text>
-                  <Trans>
-                    <Typography.Text strong>
-                      Join ArtistAssistApp on Patreon as a paid member
-                    </Typography.Text>
-                    , or <Typography.Text strong>log in with Patreon</Typography.Text> if
-                    you&apos;ve already joined, to get access to more than 200 color brands and all
-                    image processing modes without ads.
-                  </Trans>
-                </Typography.Text>
-                <Typography.Text>
-                  <Trans>
-                    Explore the free version before deciding to purchase a paid membership.
-                  </Trans>
-                </Typography.Text>
-                <Typography.Text strong>
-                  <Trans>
-                    If you are having trouble logging in, please read this{' '}
-                    <Typography.Link
-                      href="https://www.patreon.com/posts/having-trouble-115178129"
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      troubleshooting guide
-                    </Typography.Link>
-                    .
-                  </Trans>
-                </Typography.Text>
-              </>
-            ))}
+              <Typography.Text>
+                <Trans>
+                  <Typography.Text strong>
+                    Join ArtistAssistApp on Patreon as a paid member
+                  </Typography.Text>
+                  , or <Typography.Text strong>log in with Patreon</Typography.Text> if you&apos;ve
+                  already joined, to get access to more than 200 color brands and all image
+                  processing modes without ads.
+                </Trans>
+              </Typography.Text>
+              <Typography.Text>
+                <Trans>
+                  Explore the free version before deciding to purchase a paid membership.
+                </Trans>
+              </Typography.Text>
+              <Typography.Text strong>
+                <Trans>
+                  If you are having trouble logging in, please read this{' '}
+                  <Typography.Link
+                    href="https://www.patreon.com/posts/having-trouble-115178129"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    troubleshooting guide
+                  </Typography.Link>
+                  .
+                </Trans>
+              </Typography.Text>
+            </>
+          )}
         </Space>
 
         <Space wrap>
-          {!isAuthLoading &&
-            (user ? (
-              <LogoutButton />
-            ) : (
-              <>
-                <LoginButton />
-                <JoinButton />
-              </>
-            ))}
+          {user ? (
+            <LogoutButton />
+          ) : (
+            <>
+              <LoginButton />
+              <JoinButton />
+            </>
+          )}
           {!!mediaDevices.length && (
             <Button
               icon={<QrcodeOutlined />}
@@ -545,8 +558,8 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
             form={form}
             initialValues={formInitialValues}
             onValuesChange={handleFormValuesChange}
-            onFinish={values => void handleSubmit(values)}
-            onFinishFailed={handleSubmitFailed}
+            onFinish={values => void handleFinish(values)}
+            onFinishFailed={handleFinishFailed}
             layout="vertical"
             requiredMark="optional"
             autoComplete="off"
@@ -628,7 +641,8 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
             )}
             {!!selectedType &&
               selectedBrands?.map((brand: ColorBrandDefinition) => {
-                const brandName = brand.shortName || brand.fullName;
+                const brandName: string = brand.shortName || brand.fullName;
+                const hasAccess: boolean = hasAccessTo(user, brand);
                 return (
                   <Form.Item
                     key={brand.id}
@@ -638,22 +652,19 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
                     dependencies={['type', 'brands', 'standardColorSet']}
                     tooltip={t`Add or remove colors to match your actual color set.`}
                     extra={
-                      !isAuthLoading &&
-                      !hasAccessTo(user, brand) && (
+                      !hasAccess && (
                         <Typography.Text type="warning">
                           <Trans>This color brand is available to paid Patreon members only</Trans>
                         </Typography.Text>
                       )
                     }
-                    validateStatus={
-                      !isAuthLoading && !hasAccessTo(user, brand) ? 'warning' : undefined
-                    }
+                    validateStatus={!hasAccess ? 'warning' : undefined}
                   >
                     <ColorSelect
                       mode="multiple"
                       colors={colors.get(brand.alias)}
                       brand={brand}
-                      disabled={!hasAccessTo(user, brand)}
+                      disabled={!hasAccess}
                     />
                   </Form.Item>
                 );
@@ -692,8 +703,8 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
               style={{marginBottom: 0}}
             >
               <Space wrap>
-                {!isAuthLoading &&
-                  (isAccessAllowed ? (
+                {isAccessAllowed ? (
+                  <>
                     <Button
                       ref={saveButtonRef}
                       icon={<SaveOutlined />}
@@ -703,29 +714,30 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
                     >
                       <Trans>Save & proceed</Trans>
                     </Button>
-                  ) : (
-                    <>
-                      <LoginButton />
-                      <JoinButton />
-                    </>
-                  ))}
-                {!!selectedColorSetId && (
-                  <Button
-                    icon={<CopyOutlined />}
-                    title={t`Create a duplicate of this color set for further modification`}
-                    onClick={handleDuplicateClick}
-                  >
-                    <Trans>Duplicate</Trans>
-                  </Button>
-                )}
-                {colorSetsByType.length >= 2 && (
-                  <Button
-                    icon={<MergeCellsOutlined />}
-                    title={t`Create a new color set by merging existing ones`}
-                    onClick={() => void handleMergeClick()}
-                  >
-                    <Trans>Merge</Trans>
-                  </Button>
+                    {!!selectedColorSetId && (
+                      <Button
+                        icon={<CopyOutlined />}
+                        title={t`Create a duplicate of this color set for further modification`}
+                        onClick={handleDuplicateClick}
+                      >
+                        <Trans>Duplicate</Trans>
+                      </Button>
+                    )}
+                    {colorSetsByType.length >= 2 && (
+                      <Button
+                        icon={<MergeCellsOutlined />}
+                        title={t`Create a new color set by merging existing ones`}
+                        onClick={() => void handleMergeClick()}
+                      >
+                        <Trans>Merge</Trans>
+                      </Button>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <LoginButton />
+                    <JoinButton />
+                  </>
                 )}
                 {!!selectedColorSetId && (
                   <Popconfirm
@@ -790,4 +802,4 @@ export const ColorSetChooser = forwardRef<ChangableComponent>(function ColorSetC
       {installDrawer}
     </>
   );
-});
+};

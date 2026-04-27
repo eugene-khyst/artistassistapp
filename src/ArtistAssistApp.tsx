@@ -20,7 +20,7 @@ import {FullscreenExitOutlined, FullscreenOutlined} from '@ant-design/icons';
 import {useLingui} from '@lingui/react/macro';
 import type {TabsProps} from 'antd';
 import {Col, FloatButton, Row, Tabs, theme} from 'antd';
-import {useEffect, useRef} from 'react';
+import {useContext, useEffect} from 'react';
 import StickyBox from 'react-sticky-box';
 
 import {AdModal} from '~/src/components/ad/AdModal';
@@ -34,8 +34,8 @@ import {ImagesCompare} from '~/src/components/ImagesCompare';
 import {ImageStyleTransfer} from '~/src/components/ImageStyleTransfer';
 import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {TAB_LABELS} from '~/src/components/messages';
-import type {ChangableComponent} from '~/src/components/types';
 import {TabContext} from '~/src/contexts/TabContext';
+import {UnsavedChangesContext} from '~/src/contexts/UnsavedChangesContext';
 import {useColorSetBackup} from '~/src/hooks/useColorSetBackup';
 import {useDoubleBackPressToExit} from '~/src/hooks/useDoubleBackPressToExit';
 import {useFullScreen} from '~/src/hooks/useFullscreen';
@@ -65,6 +65,8 @@ export const ArtistAssistApp: React.FC = () => {
 
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
 
+  const {checkUnsaved} = useContext(UnsavedChangesContext);
+
   const {
     token: {colorBgContainer},
   } = theme.useToken();
@@ -72,8 +74,6 @@ export const ArtistAssistApp: React.FC = () => {
   const {t} = useLingui();
 
   const {isFullscreen, toggleFullScreen, isSupported: isFullScreenSupported} = useFullScreen();
-
-  const colorSetChooserRef = useRef<ChangableComponent>(null);
 
   const isLoading: boolean = isInitialStateLoading || isLocaleLoading || isAuthLoading;
 
@@ -101,7 +101,7 @@ export const ArtistAssistApp: React.FC = () => {
 
   const handleTabChange = (activeKey: string) => {
     void (async () => {
-      await colorSetChooserRef.current?.checkForUnsavedChanges();
+      await checkUnsaved();
       void setActiveTabKey(activeKey as TabKey);
     })();
   };
@@ -109,7 +109,7 @@ export const ArtistAssistApp: React.FC = () => {
   const items: TabsProps['items'] = [
     {
       key: TabKey.ColorSet,
-      children: <ColorSetChooser ref={colorSetChooserRef} />,
+      children: <ColorSetChooser />,
     },
     {
       key: TabKey.Photo,

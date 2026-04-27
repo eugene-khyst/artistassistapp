@@ -203,7 +203,7 @@ export const ImageStyleTransfer: React.FC = () => {
               onChange={handleModelChange}
               options={sortedModels.map((model: OnnxModel) => {
                 const {id, name, description, image, numInputs = 1} = model;
-                const isAccessAllowed = hasAccessTo(user, model);
+                const hasAccess = hasAccessTo(user, model);
                 const imageUrl = numInputs > 1 ? styleImageUrl : image;
                 return {
                   value: id,
@@ -234,7 +234,7 @@ export const ImageStyleTransfer: React.FC = () => {
                                 onChange={(files: File[]) => {
                                   handleStyleImageFileChange(files, id);
                                 }}
-                                disabled={!isAccessAllowed}
+                                disabled={!hasAccess}
                               >
                                 <Trans>Select style image</Trans>
                               </FileSelect>,
@@ -245,12 +245,12 @@ export const ImageStyleTransfer: React.FC = () => {
                       <Card.Meta
                         title={name}
                         description={
-                          (description || !isAccessAllowed) && (
+                          (description || !hasAccess) && (
                             <Space orientation="vertical">
                               {description && (
                                 <Typography.Text type="secondary">{description}</Typography.Text>
                               )}
-                              {!isAccessAllowed && (
+                              {!hasAccess && (
                                 <Typography.Text type="warning">
                                   <Trans>
                                     This style is available to paid Patreon members only
@@ -263,7 +263,7 @@ export const ImageStyleTransfer: React.FC = () => {
                       />
                     </Card>
                   ),
-                  disabled: !isAccessAllowed,
+                  disabled: !hasAccess,
                 };
               })}
               style={{display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 16}}

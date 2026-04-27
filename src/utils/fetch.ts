@@ -16,8 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {COMMIT_HASH} from '~/src/config';
-import {EXTENSION_TO_MIME_TYPE, getFileExtension, getUrlString, splitUrl} from '~/src/utils/url';
+import {BUILD_ID} from '~/src/config';
+import {type Authentication, ForceLogoutError} from '~/src/services/auth/types';
+import {decryptDataIfNeeded} from '~/src/services/auth/utils';
+import {checkMimeType} from '~/src/utils/mime';
+import {getFileExtension, getUrlString, splitUrl} from '~/src/utils/url';
 
 interface CachePutOptions {
   allowOpaqueResponses?: boolean;
@@ -45,7 +48,7 @@ interface FetchChunkedOptions {
 }
 
 export function getCacheName(cacheSuffix?: string): string {
-  return [COMMIT_HASH, cacheSuffix].filter(Boolean).join('-');
+  return [BUILD_ID, cacheSuffix].filter(Boolean).join('-');
 }
 
 export const CACHE_NAME_DEFAULT: string = getCacheName();
@@ -88,7 +91,7 @@ export async function cachePutWithRetry(
     }
   }
   const extension: string | undefined = getFileExtension(url);
-  const contentType = response.headers.get('Content-Type');
+  const contentType: string | null = response.headers.get('Content-Type');
   if (!opaque && extension && !contentType) {
     console.warn(`Skipping cache: missing Content-Type for extension ${extension}`, request);
     if (strict) {
@@ -97,16 +100,9 @@ export async function cachePutWithRetry(
       return;
     }
   }
-  const expectedMimeTypes: string[] | undefined = extension
-    ? EXTENSION_TO_MIME_TYPE[extension]
-    : undefined;
-
-  if (
-    expectedMimeTypes?.length &&
-    contentType &&
-    !expectedMimeTypes.some(expectedMimeType => contentType.includes(expectedMimeType))
-  ) {
-    const message = `MIME type mismatch for ${url}: expected [${expectedMimeTypes.join(',')}], got ${contentType}`;
+  const {ok, expected} = checkMimeType(extension, contentType);
+  if (!ok) {
+    const message = `MIME type mismatch for ${url}: expected ${expected}, got ${contentType}`;
     console.warn('Skipping cache:', message, request);
     if (strict) {
       throw new Error(message);
@@ -175,15 +171,20 @@ export async function fetchSWR(
   }
 }
 
-export async function fetchChunked(request: URL, options: FetchChunkedOptions): Promise<Response> {
+export async function fetchChunked(
+  request: URL,
+  auth: Authentication | null,
+  options: FetchChunkedOptions
+): Promise<Response> {
   const [baseUrl] = splitUrl(request);
-  const chunkedFile: ChunkedFile = await downloadChunkedFileInfo(request, options);
+  const chunkedFile: ChunkedFile = await downloadChunkedFileInfo(request, auth, options);
   const response: Response = await downloadChunks(baseUrl, chunkedFile, options);
   return response;
 }
 
 async function downloadChunkedFileInfo(
   url: URL,
+  auth: Authentication | null,
   {signal}: FetchChunkedOptions
 ): Promise<ChunkedFile> {
   const infoUrl = `${url}.json`;
@@ -191,7 +192,11 @@ async function downloadChunkedFileInfo(
   if (!response.ok) {
     throw new Error(`Failed to download chunked file info ${infoUrl}`);
   }
-  const chunkedFile = (await response.json()) as ChunkedFile;
+  const data: unknown = await response.json();
+  const chunkedFile: ChunkedFile | undefined = await decryptDataIfNeeded(data, auth);
+  if (!chunkedFile) {
+    throw new ForceLogoutError();
+  }
   return chunkedFile;
 }
 

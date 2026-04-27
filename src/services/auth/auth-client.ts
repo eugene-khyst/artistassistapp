@@ -19,13 +19,16 @@
 import * as jose from 'jose';
 
 import type {Authentication} from '~/src/services/auth/types';
+import {AuthErrorType} from '~/src/services/auth/types';
 import {AuthError} from '~/src/services/auth/types';
+import {toAuthErrorType} from '~/src/services/auth/utils';
 import {
   deleteIdToken,
   getAndDeleteAuthErrorData,
   getIdToken,
   saveIdToken,
 } from '~/src/services/db/auth-db';
+import {base64To256BitKey} from '~/src/utils/crypto';
 import {replaceHistory} from '~/src/utils/history';
 
 const ERROR_KEY = 'error';
@@ -53,19 +56,26 @@ export function getMagicLink(jwt: string): string {
 
 export class AuthClient {
   private authentication: Authentication | null = null;
+  private loggingIn = false;
+  private loggingOut = false;
 
   constructor(public props: AuthClientProps) {}
 
   private async authenticate(jwt: string): Promise<Authentication> {
     const {issuer, audience, jwks} = this.props;
     const {
-      payload: {sub, exp},
+      payload: {sub, exp, dek},
     } = await jose.jwtVerify(jwt, jwks, {issuer, audience});
+    if (typeof sub !== 'string' || typeof exp !== 'number' || typeof dek !== 'string') {
+      const message = 'ID token missing required claims';
+      throw new AuthError(AuthErrorType.InvalidToken, message, {message});
+    }
     return {
       user: {
-        id: sub!,
+        id: sub,
       },
-      expiration: new Date(exp! * 1000),
+      expiration: new Date(exp * 1000),
+      dataEncryptionKey: base64To256BitKey(dek),
       magicLink: getMagicLink(jwt),
     };
   }
@@ -75,19 +85,18 @@ export class AuthClient {
     if (!result) {
       return;
     }
-
     const {idToken, error, errorContext} = result;
     try {
       if (error) {
         const context = errorContext ?? (await getAndDeleteAuthErrorData())?.context;
-        throw new AuthError(error, 'Authentication failed', context);
+        throw new AuthError(toAuthErrorType(error), 'Authentication failed', context);
       }
       if (idToken) {
         try {
           this.authentication = await this.authenticate(idToken);
           await saveIdToken(idToken);
-        } catch (e) {
-          throw createAuthError(e);
+        } catch (error) {
+          throw error instanceof AuthError ? error : createAuthError(error);
         }
       }
     } finally {
@@ -138,15 +147,29 @@ export class AuthClient {
   }
 
   loginWithRedirect(): void {
+    if (this.loggingIn) {
+      return;
+    }
+    this.loggingIn = true;
     const url = new URL(this.props.domain);
     url.pathname = '/authorize';
     url.searchParams.append('redirect_uri', this.props.redirectUri);
     window.location.assign(url.toString());
   }
 
-  async logout(): Promise<void> {
+  async logout(error?: AuthErrorType): Promise<void> {
+    if (this.loggingOut) {
+      return;
+    }
+    this.loggingOut = true;
     await deleteIdToken();
-    window.location.reload();
+    if (error) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('error', error);
+      window.location.href = url.href;
+    } else {
+      window.location.reload();
+    }
   }
 
   isAuthExpired(): boolean {
@@ -156,6 +179,7 @@ export class AuthClient {
 }
 
 function createAuthError(e: unknown): AuthError {
-  const type: string = e instanceof jose.errors.JWTExpired ? 'expired' : 'invalid_token';
+  const type: AuthErrorType =
+    e instanceof jose.errors.JWTExpired ? AuthErrorType.Expired : AuthErrorType.InvalidToken;
   return new AuthError(type);
 }

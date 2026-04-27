@@ -21,6 +21,7 @@ import {useQueries} from '@tanstack/react-query';
 
 import {fetchColors} from '~/src/services/color/colors';
 import type {ColorBrandDefinition, ColorDefinition, ColorType} from '~/src/services/color/types';
+import {useAppStore} from '~/src/stores/app-store';
 
 interface Result {
   isLoading: boolean;
@@ -29,19 +30,23 @@ interface Result {
 }
 
 export function useColors(type?: ColorType, brands?: ColorBrandDefinition[]): Result {
+  const auth = useAppStore(state => state.auth);
+
   const brandAliases: string[] | undefined = brands?.map(({alias}) => alias);
+
   const results: UseQueryResult<[string, Map<number, ColorDefinition>]>[] = useQueries({
     queries:
       type && brandAliases
         ? brandAliases.map((brandAlias: string) => ({
-            queryKey: ['colors', type, brandAlias],
+            queryKey: ['colors', type, brandAlias, auth?.user.id ?? null],
             queryFn: async (): Promise<[string, Map<number, ColorDefinition>]> => [
               brandAlias,
-              await fetchColors(type, brandAlias),
+              await fetchColors(type, brandAlias, auth),
             ],
           }))
         : [],
   });
+
   return {
     isLoading: results.some(result => result.isLoading),
     isError: results.some(result => result.isError),

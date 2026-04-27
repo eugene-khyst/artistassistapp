@@ -18,6 +18,7 @@
 
 import type {StateCreator} from 'zustand';
 
+import {ForceLogoutError} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {fillBackgroundWithColor, removeBackground} from '~/src/services/image/background-removal';
 import type {OnnxModel} from '~/src/services/ml/types';
@@ -109,6 +110,7 @@ export const createBackgroundRemovalSlice: StateCreator<
         imageWithoutBackgroundCanvas = await removeBackground(
           imageFileToRemoveBackground,
           backgroundRemovalModel,
+          auth,
           (key, progress) => {
             set({
               backgroundRemovalDownloadTip: formatFetchProgress(key, progress),
@@ -132,6 +134,10 @@ export const createBackgroundRemovalSlice: StateCreator<
         imageWithoutBackgroundBlob,
       });
     } catch (error) {
+      if (error instanceof ForceLogoutError) {
+        void get().logout(error.reason);
+        return;
+      }
       if (!isAbortError(error)) {
         throw error;
       }

@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {Authentication} from '~/src/services/auth/types';
 import {transformImage} from '~/src/services/ml/image-transformer';
 import type {OnnxModel} from '~/src/services/ml/types';
 import type {FetchProgressCallback} from '~/src/utils/fetch';
@@ -24,6 +25,7 @@ import type {DrawImageSource} from '~/src/utils/graphics';
 export async function transferStyle(
   images: DrawImageSource[],
   model: OnnxModel,
+  auth: Authentication | null,
   progressCallback?: FetchProgressCallback,
   signal?: AbortSignal
 ): Promise<ImageBitmap> {
@@ -31,6 +33,7 @@ export async function transferStyle(
   const transformedImage: ImageBitmap = await transformImage(
     images,
     model,
+    auth,
     progressCallback,
     signal
   );

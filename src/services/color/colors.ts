@@ -17,8 +17,8 @@
  */
 
 import {DATA_URL} from '~/src/config';
-import type {User} from '~/src/services/auth/types';
-import {hasAccessTo} from '~/src/services/auth/utils';
+import {type Authentication, type User} from '~/src/services/auth/types';
+import {decryptDataIfNeeded, hasAccessTo} from '~/src/services/auth/utils';
 import {rgbToOklab} from '~/src/services/color/space/oklab';
 import {oklabToOklch} from '~/src/services/color/space/oklch';
 import type {
@@ -35,7 +35,6 @@ import type {
 } from '~/src/services/color/types';
 import {ColorType, CUSTOM_COLOR_SET, NEW_COLOR_SET} from '~/src/services/color/types';
 import {getCustomColorBrand, getCustomColorBrandsByType} from '~/src/services/db/custom-brand-db';
-import {degrees} from '~/src/services/math/geometry';
 import type {ExtractorComparator} from '~/src/utils/array';
 import {createExtractorComparator, decorateSortUndecorate} from '~/src/utils/array';
 import {
@@ -129,19 +128,17 @@ const WARM_HUE_MAX = 110;
 
 export function getSortHueKey(rgb: [number, number, number]): [number, number, number] {
   const [l, c, h] = oklabToOklch(...rgbToOklab(...rgb));
-  const hue = degrees(h);
   if (c < NEUTRAL_CHROMA_THRESHOLD) {
     return [2, -l, c];
   }
-  if (hue >= WARM_HUE_MIN && hue <= WARM_HUE_MAX && c < EARTH_CHROMA_THRESHOLD) {
-    return [1, hue, -l];
+  if (h >= WARM_HUE_MIN && h <= WARM_HUE_MAX && c < EARTH_CHROMA_THRESHOLD) {
+    return [1, h, -l];
   }
-  return [0, hue, -l];
+  return [0, h, -l];
 }
 
 export function getSortLightness(rgb: [number, number, number]): [number, number, number] {
-  const [l, c, h] = oklabToOklch(...rgbToOklab(...rgb));
-  return [l, c, degrees(h)];
+  return oklabToOklch(...rgbToOklab(...rgb));
 }
 
 const byHueKey = compare(
@@ -187,7 +184,7 @@ export const COLOR_COMPARATORS: Record<
   ),
 };
 
-function getResourceUrl(
+function getDataUrl(
   resource: 'brands' | 'colors' | 'sets',
   type: ColorType,
   brandAlias?: string
@@ -203,7 +200,7 @@ function getResourceUrl(
 export async function fetchColorBrands(
   type: ColorType
 ): Promise<Map<number, ColorBrandDefinition>> {
-  const url = getResourceUrl('brands', type);
+  const url = getDataUrl('brands', type);
   const response = await fetchSWR(url);
   const brands = (await response.json()) as ColorBrandDefinition[];
   const customBrands = (await getCustomColorBrandsByType(type)).map(toColorBrandDefinition);
@@ -218,7 +215,7 @@ export async function fetchStandardColorSets(
 ): Promise<Map<string, StandardColorSetDefinition>> {
   let sets: StandardColorSetDefinition[] = [];
   if (!isCustomColorBrandAlias(brandAlias)) {
-    const url = getResourceUrl('sets', type, brandAlias);
+    const url = getDataUrl('sets', type, brandAlias);
     const response = await fetchSWR(url);
     sets = (await response.json()) as StandardColorSetDefinition[];
   }
@@ -232,30 +229,33 @@ export async function fetchStandardColorSets(
 
 export async function fetchColors(
   type: ColorType,
-  brandAlias: string
+  brandAlias: string,
+  auth: Authentication | null
 ): Promise<Map<number, ColorDefinition>> {
   let colors: ColorDefinition[] = [];
   if (isCustomColorBrandAlias(brandAlias)) {
     colors = ((await getCustomColorBrand(getCustomColorBrandIdFromAlias(brandAlias)))?.colors ??
       []) as ColorDefinition[];
   } else {
-    const url = getResourceUrl('colors', type, brandAlias);
+    const url = getDataUrl('colors', type, brandAlias);
     const response = await fetchSWR(url);
-    colors = (await response.json()) as ColorDefinition[];
+    const data: unknown = await response.json();
+    colors = (await decryptDataIfNeeded(data, auth)) ?? [];
   }
   return new Map(colors.map((color: ColorDefinition) => [color.id, color]));
 }
 
 export async function fetchColorsBulk(
   type: ColorType,
-  brandAliases: string[]
+  brandAliases: string[],
+  auth: Authentication | null
 ): Promise<Map<string, Map<number, ColorDefinition>>> {
   return new Map(
     await Promise.all(
       brandAliases.map(
         async (brandAlias: string): Promise<[string, Map<number, ColorDefinition>]> => [
           brandAlias,
-          await fetchColors(type, brandAlias),
+          await fetchColors(type, brandAlias, auth),
         ]
       )
     )
@@ -309,7 +309,7 @@ export function colorSetDefinitionToBrandColorCounts(
   }
   return brandIds.map((brandId: number): BrandColorCount => {
     const {shortName, fullName} = brands.get(brandId) ?? {};
-    const colorCount = colors[brandId]!.length;
+    const colorCount = colors[brandId]?.length ?? 0;
     return {
       brandName: `${shortName || fullName}`,
       colorCount,

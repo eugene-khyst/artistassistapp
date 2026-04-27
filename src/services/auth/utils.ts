@@ -16,12 +16,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {User} from '~/src/services/auth/types';
+import type {Authentication, User} from '~/src/services/auth/types';
+import {AuthErrorType, ForceLogoutError} from '~/src/services/auth/types';
+import {decrypt, isEncrypted} from '~/src/utils/crypto';
 
-export function hasAccessTo<
-  T extends {
-    freeTier?: boolean;
-  },
->(user?: User | null, value?: T | T[] | null): boolean {
+export interface TieredResource {
+  freeTier?: boolean;
+}
+
+export function hasAccessTo(
+  user?: User | null,
+  value?: TieredResource | TieredResource[] | null
+): boolean {
   return !value || ![value].flat().some(({freeTier}) => !freeTier) || !!user;
+}
+
+export async function decryptDataIfNeeded<T>(
+  data: unknown,
+  auth: Authentication | null
+): Promise<T | undefined> {
+  if (isEncrypted(data)) {
+    if (auth) {
+      try {
+        const decrypted: string = await decrypt(data, auth.dataEncryptionKey);
+        return JSON.parse(decrypted) as T;
+      } catch {
+        throw new ForceLogoutError();
+      }
+    } else {
+      return;
+    }
+  } else {
+    return data as T;
+  }
+}
+
+export function toAuthErrorType(value: string | null | undefined): AuthErrorType {
+  return Object.values(AuthErrorType).includes(value as AuthErrorType)
+    ? (value as AuthErrorType)
+    : AuthErrorType.Unknown;
 }

@@ -21,6 +21,7 @@ import type {StateCreator} from 'zustand';
 
 import {APP_URL, AUTH_URL, PUBLIC_JWK} from '~/src/config';
 import {AuthClient} from '~/src/services/auth/auth-client';
+import type {AuthErrorType} from '~/src/services/auth/types';
 import {type Authentication, AuthError} from '~/src/services/auth/types';
 
 const AUTH_VERIFICATION_INTERVAL = 5 * 60000;
@@ -35,7 +36,7 @@ export interface AuthSlice {
   initAuthClient: () => void;
   handleAuthCallback: () => Promise<Authentication | null>;
   loginWithRedirect: () => void;
-  logout: () => Promise<void>;
+  logout: (error?: AuthErrorType) => Promise<void>;
   isAuthExpired: () => boolean;
   clearAuthError: () => void;
   startPeriodicAuthVerification: () => void;
@@ -98,9 +99,9 @@ export const createAuthSlice: StateCreator<AuthSlice, [], [], AuthSlice> = (set,
   loginWithRedirect: (): void => {
     get().authClient?.loginWithRedirect();
   },
-  logout: async (): Promise<void> => {
+  logout: async (error?: AuthErrorType): Promise<void> => {
     get().stopPeriodicAuthVerification();
-    await get().authClient?.logout();
+    await get().authClient?.logout(error);
   },
   isAuthExpired: (): boolean => {
     return get().authClient?.isAuthExpired() ?? false;

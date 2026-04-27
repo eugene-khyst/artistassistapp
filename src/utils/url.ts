@@ -16,21 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export const EXTENSION_TO_MIME_TYPE: Record<string, string[]> = {
-  js: ['text/javascript', 'application/javascript'],
-  css: ['text/css'],
-  html: ['text/html'],
-  webp: ['image/webp'],
-  png: ['image/png'],
-  jpg: ['image/jpeg'],
-  jpeg: ['image/jpeg'],
-  gif: ['image/gif'],
-  svg: ['image/svg+xml'],
-  json: ['application/json'],
-  wasm: ['application/wasm'],
-  onnx: ['application/octet-stream'],
-};
-
 export function getUrlString(requestInfo: RequestInfo | URL): string {
   if (requestInfo instanceof URL) {
     return requestInfo.href;

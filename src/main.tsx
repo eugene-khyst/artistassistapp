@@ -18,7 +18,7 @@
 
 import './index.css';
 
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {QueryCache, QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {App} from 'antd';
 import {StrictMode} from 'react';
 import type {Root} from 'react-dom/client';
@@ -26,13 +26,15 @@ import {createRoot} from 'react-dom/client';
 import {ErrorBoundary} from 'react-error-boundary';
 
 import {ArtistAssistApp} from '~/src/ArtistAssistApp';
-import {AlertTimedReloadFallback} from '~/src/components/alert/AlertTimedReloadFallback';
+import {AlertFallback} from '~/src/components/alert/AlertFallback';
 import {AuthErrorHandler} from '~/src/components/alert/AuthErrorHandler';
 import {BrowserSupport} from '~/src/components/alert/BrowserSupport';
 import {UnhandledRejectionHandler} from '~/src/components/alert/UnhandledRejectionHandler';
 import {ServiceWorkerUpdateNotification} from '~/src/components/pwa/ServiceWorkerUpdateNotification';
 import {InternationalizationProvider} from '~/src/contexts/InternationalizationProvider';
+import {UnsavedChangesProvider} from '~/src/contexts/UnsavedChangesContext';
 import {initializePWA} from '~/src/pwa-init';
+import {ForceLogoutError} from '~/src/services/auth/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {disableScreenLock} from '~/src/wake-lock';
 
@@ -46,6 +48,13 @@ void (async () => {
   }
 
   const queryClient = new QueryClient({
+    queryCache: new QueryCache({
+      onError: error => {
+        if (error instanceof ForceLogoutError) {
+          void useAppStore.getState().logout(error.reason);
+        }
+      },
+    }),
     defaultOptions: {
       queries: {
         networkMode: 'offlineFirst',
@@ -65,12 +74,14 @@ void (async () => {
       <InternationalizationProvider>
         <App>
           <ServiceWorkerUpdateNotification />
-          <ErrorBoundary FallbackComponent={AlertTimedReloadFallback}>
+          <ErrorBoundary FallbackComponent={AlertFallback}>
             <UnhandledRejectionHandler>
               <AuthErrorHandler>
                 <BrowserSupport>
                   <QueryClientProvider client={queryClient}>
-                    <ArtistAssistApp />
+                    <UnsavedChangesProvider>
+                      <ArtistAssistApp />
+                    </UnsavedChangesProvider>
                   </QueryClientProvider>
                 </BrowserSupport>
               </AuthErrorHandler>

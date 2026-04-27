@@ -16,29 +16,41 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {LogoutOutlined} from '@ant-design/icons';
-import {Trans} from '@lingui/react/macro';
-import {Button} from 'antd';
+import {ClearOutlined} from '@ant-design/icons';
+import {Trans, useLingui} from '@lingui/react/macro';
+import {Button, Popconfirm} from 'antd';
 import type React from 'react';
 import {useState} from 'react';
 
-import {useAppStore} from '~/src/stores/app-store';
+import {clearCache} from '~/src/utils/storage';
 
-export const LogoutButton: React.FC = () => {
-  const logout = useAppStore(state => state.logout);
+export const ClearCacheButton: React.FC = () => {
+  const {t} = useLingui();
 
-  const [clicked, setClicked] = useState<boolean>(false);
+  const [isClearing, setIsClearing] = useState<boolean>(false);
+
+  const handleClearCache = async () => {
+    try {
+      setIsClearing(true);
+      await clearCache();
+    } finally {
+      setIsClearing(false);
+    }
+  };
 
   return (
-    <Button
-      icon={<LogoutOutlined />}
-      onClick={() => {
-        void logout();
-        setClicked(true);
+    <Popconfirm
+      title={t`Clear cache`}
+      description={t`Are you sure you want to clear the cache?`}
+      onConfirm={() => {
+        void handleClearCache();
       }}
-      loading={clicked}
+      okText={t`Yes`}
+      cancelText={t`No`}
     >
-      <Trans>Log out</Trans>
-    </Button>
+      <Button icon={<ClearOutlined />} loading={isClearing}>
+        <Trans>Clear cache</Trans>
+      </Button>
+    </Popconfirm>
   );
 };

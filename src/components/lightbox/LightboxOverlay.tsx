@@ -19,7 +19,7 @@
 import {RightOutlined} from '@ant-design/icons';
 import {useLingui} from '@lingui/react/macro';
 import type {PointerEvent as ReactPointerEvent} from 'react';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useEffectEvent, useRef, useState} from 'react';
 
 interface LightboxOverlayProps {
   onUnlock: () => void;
@@ -39,17 +39,21 @@ export const LightboxOverlay: React.FC<LightboxOverlayProps> = ({onUnlock}) => {
   const startXRef = useRef<number | null>(null);
   const pointerIdRef = useRef<number | null>(null);
 
+  const handleEscape = useEffectEvent(() => {
+    onUnlock();
+  });
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        onUnlock();
+        handleEscape();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [onUnlock]);
+  }, []);
 
   const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (pointerIdRef.current !== null) {

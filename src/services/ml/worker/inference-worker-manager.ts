@@ -18,6 +18,7 @@
 
 import {transfer} from 'comlink';
 
+import type {Authentication} from '~/src/services/auth/types';
 import type {InferenceRunner} from '~/src/services/ml/inference';
 import {type Float32Tensor, getFloat32TensorTransferables} from '~/src/services/ml/tensor';
 import type {FetchProgressCallback} from '~/src/utils/fetch';
@@ -30,12 +31,16 @@ const inferenceWorker = new WorkerManager<InferenceRunner>(
 
 export async function runInferenceWorker(
   modelUrl: string,
+  auth: Authentication | null,
   inputTensors: Float32Tensor[][],
   outputName?: string,
   progressCallback?: FetchProgressCallback,
   signal?: AbortSignal
 ): Promise<Float32Tensor[]> {
-  const modelResponse: Response = await fetchChunked(new URL(modelUrl), {progressCallback, signal});
+  const modelResponse: Response = await fetchChunked(new URL(modelUrl), auth, {
+    progressCallback,
+    signal,
+  });
   const modelData = new Uint8Array(await modelResponse.arrayBuffer());
   const {outputTensors} = await inferenceWorker.run(
     worker =>

@@ -22,6 +22,7 @@ import {App, Typography} from 'antd';
 import type {PropsWithChildren, ReactNode} from 'react';
 import {useEffect} from 'react';
 
+import {AuthErrorType} from '~/src/services/auth/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 
@@ -39,7 +40,7 @@ const ERROR_CONTEXT_LABELS: Record<string, ReactNode> = {
 };
 
 const AUTH_ERRORS: Record<string, AuthErrorMessage> = {
-  inactive: {
+  [AuthErrorType.Inactive]: {
     title: <Trans>Patreon membership verification failed</Trans>,
     content: (
       <Typography>
@@ -94,10 +95,15 @@ const AUTH_ERRORS: Record<string, AuthErrorMessage> = {
             .
           </Trans>
         </p>
+        <p>
+          <Typography.Text strong>
+            <Trans>Your account details:</Trans>
+          </Typography.Text>
+        </p>
       </Typography>
     ),
   },
-  expired: {
+  [AuthErrorType.Expired]: {
     title: <Trans>Session expired</Trans>,
     content: (
       <Trans>
@@ -106,7 +112,7 @@ const AUTH_ERRORS: Record<string, AuthErrorMessage> = {
       </Trans>
     ),
   },
-  invalid_token: {
+  [AuthErrorType.InvalidToken]: {
     title: <Trans>Authentication error</Trans>,
     content: (
       <Trans>
@@ -115,7 +121,7 @@ const AUTH_ERRORS: Record<string, AuthErrorMessage> = {
       </Trans>
     ),
   },
-  unknown: {
+  [AuthErrorType.Unknown]: {
     title: <Trans>Login failed</Trans>,
     content: (
       <Typography>
@@ -152,26 +158,19 @@ export const AuthErrorHandler: React.FC<PropsWithChildren> = ({children}: PropsW
             <>
               {content}
               {contextEntries.length > 0 && (
-                <>
-                  <p>
-                    <Typography.Text strong>
-                      <Trans>Your account details:</Trans>
-                    </Typography.Text>
-                  </p>
-                  <ul style={{listStyle: 'none', padding: 0}}>
-                    {contextEntries.map(([key, value]) => (
-                      <li key={key}>
-                        <Typography.Text strong>{ERROR_CONTEXT_LABELS[key]}</Typography.Text>
-                        {': '}
-                        {typeof value === 'string' ||
-                        typeof value === 'number' ||
-                        typeof value === 'boolean'
-                          ? String(value)
-                          : JSON.stringify(value)}
-                      </li>
-                    ))}
-                  </ul>
-                </>
+                <ul style={{listStyle: 'none', padding: 0}}>
+                  {contextEntries.map(([key, value]) => (
+                    <li key={key}>
+                      <Typography.Text strong>{ERROR_CONTEXT_LABELS[key]}</Typography.Text>
+                      {': '}
+                      {typeof value === 'string' ||
+                      typeof value === 'number' ||
+                      typeof value === 'boolean'
+                        ? String(value)
+                        : JSON.stringify(value)}
+                    </li>
+                  ))}
+                </ul>
               )}
             </>
           ),
