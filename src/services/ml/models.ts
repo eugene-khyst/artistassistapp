@@ -29,10 +29,9 @@ import {
 } from '~/src/utils/comparator';
 import {fetchSWR} from '~/src/utils/fetch';
 
-export async function fetchOnnxModels(type: OnnxModelType): Promise<Map<string, OnnxModel>> {
+export async function fetchOnnxModels(type: OnnxModelType): Promise<OnnxModel[]> {
   const response = await fetchSWR(`${DATA_URL}/ml-models/${type}.json`);
-  const models = (await response.json()) as OnnxModel[];
-  return new Map(models.map((model: OnnxModel) => [model.id, model]));
+  return (await response.json()) as OnnxModel[];
 }
 
 export function getDefaultModel(

@@ -312,9 +312,8 @@ export function offscreenCanvasToImageData(
 
 export async function offscreenCanvasToBlob(
   offscreenCanvas: OffscreenCanvas,
-  options?: ImageEncodeOptions
+  {type = 'image/jpeg', quality = 0.95}: ImageEncodeOptions = {}
 ): Promise<Blob> {
-  const {type = 'image/jpeg', quality = 0.95} = options ?? {};
   return await offscreenCanvas.convertToBlob({type, quality});
 }
 

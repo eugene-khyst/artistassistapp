@@ -20,6 +20,7 @@ export enum OnnxModelType {
   LineDrawing = 'line-drawing',
   BackgroundRemoval = 'background-removal',
   StyleTransfer = 'style-transfer',
+  PerspectiveCorrection = 'perspective-correction',
 }
 
 export type ColorChannelOrdering = 'RGB' | 'BGR';

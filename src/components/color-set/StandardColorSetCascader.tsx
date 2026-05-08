@@ -22,7 +22,6 @@ import type {CascaderAutoProps, DefaultOptionType as CascaderOptionType} from 'a
 import {Fragment} from 'react';
 
 import {filterCascaderOptions} from '~/src/components/utils';
-import {computeStandardColorSetDefinitionId} from '~/src/services/color/colors';
 import type {ColorBrandDefinition, StandardColorSetDefinition} from '~/src/services/color/types';
 
 const CUSTOM_COLOR_SET_OPTION: CascaderOptionType = {
@@ -48,11 +47,11 @@ function getStandardColorSetOptions(
         return {
           value: id,
           label: fullName,
-          children: [...standardColorSets.values()].map((colorSet: StandardColorSetDefinition) => {
+          children: [...standardColorSets.entries()].map(([id, colorSet]) => {
             const {name, colors} = colorSet;
             const colorCount: number = colors.length;
             return {
-              value: computeStandardColorSetDefinitionId(colorSet),
+              value: id,
               label: (
                 <Fragment key={`${colorCount} ${name ?? ''}`.trim()}>
                   <Plural value={colorCount} one="# color" other="# colors" />

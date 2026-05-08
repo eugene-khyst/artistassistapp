@@ -24,3 +24,14 @@ export function computeIfAbsentInMap<K, V>(map: Map<K, V>, key: K, valueFn: (key
   }
   return value;
 }
+
+export function indexById<T extends {id: string | number}>(values: T[]): Map<T['id'], T> {
+  return new Map(values.map((value: T) => [value.id, value]));
+}
+
+export function indexBy<K extends string | number, T>(
+  values: T[],
+  keyFn: (value: T) => K
+): Map<K, T> {
+  return new Map(values.map((value: T) => [keyFn(value), value]));
+}

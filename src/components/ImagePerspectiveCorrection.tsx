@@ -31,16 +31,21 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {App, Button, Dropdown, Flex, Grid, Space, theme, Tooltip, Typography} from 'antd';
 import type {MenuProps} from 'antd/lib';
 import {saveAs} from 'file-saver';
+import {useEffect} from 'react';
 
 import {FileSelect} from '~/src/components/file/FileSelect';
 import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
+import {useOnnxModel} from '~/src/hooks/useOnnxModel';
 import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
 import {ImageCroppingCanvas} from '~/src/services/canvas/image/image-cropping-canvas';
 import {ImagePerspectiveCorrectionCanvas} from '~/src/services/canvas/image/image-perspective-correction-canvas';
+import type {Vector} from '~/src/services/math/geometry';
+import {OnnxModelType} from '~/src/services/ml/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 import {getFilename} from '~/src/utils/filename';
 import {DrawImage, imageBitmapToBlob} from '~/src/utils/graphics';
+import {isAbortError} from '~/src/utils/promise';
 
 const FILENAME_SUFFIX = 'perspective-corrected';
 
@@ -58,9 +63,12 @@ export const ImagePerspectiveCorrection: React.FC = () => {
   const imageFileToCorrectPerspective = useAppStore(state => state.imageFileToCorrectPerspective);
   const perspectiveUncorrectedImage = useAppStore(state => state.perspectiveUncorrectedImage);
   const perspectiveCorrectedImage = useAppStore(state => state.perspectiveCorrectedImage);
-
   const isPerspectiveCorrectedImageLoading = useAppStore(
     state => state.isPerspectiveCorrectedImageLoading
+  );
+  const isPerspectiveAutoDetectLoading = useAppStore(state => state.isPerspectiveAutoDetectLoading);
+  const perspectiveAutoDetectDownloadTip = useAppStore(
+    state => state.perspectiveAutoDetectDownloadTip
   );
 
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
@@ -70,6 +78,9 @@ export const ImagePerspectiveCorrection: React.FC = () => {
   const rotatePerspectiveUncorrectedImage = useAppStore(
     state => state.rotatePerspectiveUncorrectedImage
   );
+  const setPerspectiveCorrectionModel = useAppStore(state => state.setPerspectiveCorrectionModel);
+  const autoDetectPerspectiveVertices = useAppStore(state => state.autoDetectPerspectiveVertices);
+  const abortPerspectiveAutoDetect = useAppStore(state => state.abortPerspectiveAutoDetect);
   const correctImagePerspective = useAppStore(state => state.correctImagePerspective);
   const resetPerspectiveCorrection = useAppStore(state => state.resetPerspectiveCorrection);
   const setImageFileToAdjustColors = useAppStore(state => state.setImageFileToAdjustColors);
@@ -84,6 +95,12 @@ export const ImagePerspectiveCorrection: React.FC = () => {
 
   const {t} = useLingui();
 
+  const {
+    model,
+    isLoading: isModelLoading,
+    isError: isModelError,
+  } = useOnnxModel(OnnxModelType.PerspectiveCorrection, 'docaligner-fastvit-t8');
+
   const {ref: canvas1Ref, zoomableImageCanvas: imagePerspectiveCorrectionCanvas} =
     useZoomableImageCanvas<ImagePerspectiveCorrectionCanvas>(
       imagePerspectiveCorrectionCanvasSupplier,
@@ -95,6 +112,24 @@ export const ImagePerspectiveCorrection: React.FC = () => {
       imageCroppingCanvasSupplier,
       perspectiveCorrectedImage
     );
+
+  const isLoading: boolean =
+    isModelLoading || isPerspectiveAutoDetectLoading || isPerspectiveCorrectedImageLoading;
+
+  useEffect(() => {
+    if (isModelError) {
+      notification.error({
+        title: t`Error while fetching ML model data`,
+        placement: 'top',
+        duration: 10,
+        showProgress: true,
+      });
+    }
+  }, [isModelError, notification, t]);
+
+  useEffect(() => {
+    setPerspectiveCorrectionModel(model);
+  }, [setPerspectiveCorrectionModel, model]);
 
   const handleFileChange = ([file]: File[]) => {
     void setImageFileToCorrectPerspective(file ?? null);
@@ -116,12 +151,20 @@ export const ImagePerspectiveCorrection: React.FC = () => {
     correctImagePerspective(imagePerspectiveCorrectionCanvas.getVertices());
   };
 
-  const handleAutoDetectClick = () => {
+  const handleAutoDetectClick = async () => {
     if (!imagePerspectiveCorrectionCanvas) {
       return;
     }
-
-    if (!imagePerspectiveCorrectionCanvas.autoDetectVertices()) {
+    let vertices: Vector[] | null;
+    try {
+      vertices = await autoDetectPerspectiveVertices();
+    } catch (error) {
+      if (isAbortError(error)) {
+        return;
+      }
+      throw error;
+    }
+    if (!vertices) {
       notification.error({
         title: t`Could not detect the paper or canvas automatically`,
         description: t`Adjust the 4 points manually.`,
@@ -129,7 +172,9 @@ export const ImagePerspectiveCorrection: React.FC = () => {
         duration: 10,
         showProgress: true,
       });
+      return;
     }
+    imagePerspectiveCorrectionCanvas.setVertices(vertices);
   };
 
   const handleResetClick = () => {
@@ -173,6 +218,10 @@ export const ImagePerspectiveCorrection: React.FC = () => {
     void setActiveTabKey(TabKey.ColorAdjustment);
   };
 
+  const handleCancelClick = () => {
+    abortPerspectiveAutoDetect();
+  };
+
   const saveItems: MenuProps['items'] = [
     {
       key: 'save-4:5',
@@ -195,7 +244,11 @@ export const ImagePerspectiveCorrection: React.FC = () => {
   const canvasStyle = {width: '100%', height: `calc(100dvh - 145px)`};
 
   return (
-    <LoadingIndicator loading={isPerspectiveCorrectedImageLoading}>
+    <LoadingIndicator
+      loading={isLoading}
+      downloadTip={perspectiveAutoDetectDownloadTip}
+      onCancel={handleCancelClick}
+    >
       <Flex vertical gap="small" style={{marginBottom: 8, padding: '0 16px'}}>
         <Space align="center" size={4}>
           <Typography.Text strong>
@@ -215,7 +268,13 @@ export const ImagePerspectiveCorrection: React.FC = () => {
             <>
               {!perspectiveCorrectedImage && (
                 <>
-                  <Button icon={<AimOutlined />} onClick={handleAutoDetectClick}>
+                  <Button
+                    icon={<AimOutlined />}
+                    loading={isPerspectiveAutoDetectLoading}
+                    onClick={() => {
+                      void handleAutoDetectClick();
+                    }}
+                  >
                     <Trans>Auto-detect</Trans>
                   </Button>
                   <Button icon={<CheckOutlined />} onClick={handleApplyClick}>
@@ -295,7 +354,9 @@ export const ImagePerspectiveCorrection: React.FC = () => {
                               key: 'auto-detect',
                               label: t`Auto-detect`,
                               icon: <AimOutlined />,
-                              onClick: handleAutoDetectClick,
+                              onClick: () => {
+                                void handleAutoDetectClick();
+                              },
                             },
                             {
                               key: 'rotate',

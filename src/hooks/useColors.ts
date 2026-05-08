@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {UseQueryResult} from '@tanstack/react-query';
 import {useQueries} from '@tanstack/react-query';
+import {useCallback, useMemo} from 'react';
 
-import {fetchColors} from '~/src/services/color/colors';
+import {fetchColors, indexColors} from '~/src/services/color/colors';
 import type {ColorBrandDefinition, ColorDefinition, ColorType} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
 
@@ -29,31 +29,48 @@ interface Result {
   colors: Map<string, Map<number, ColorDefinition>>;
 }
 
+interface QueryResult {
+  isLoading: boolean;
+  isError: boolean;
+  data?: Map<number, ColorDefinition>;
+}
+
 export function useColors(type?: ColorType, brands?: ColorBrandDefinition[]): Result {
   const auth = useAppStore(state => state.auth);
 
-  const brandAliases: string[] | undefined = brands?.map(({alias}) => alias);
+  const brandAliases: string[] | undefined = useMemo(
+    () => brands?.map(({alias}) => alias),
+    [brands]
+  );
 
-  const results: UseQueryResult<[string, Map<number, ColorDefinition>]>[] = useQueries({
-    queries:
+  const queries = useMemo(
+    () =>
       type && brandAliases
         ? brandAliases.map((brandAlias: string) => ({
             queryKey: ['colors', type, brandAlias, auth?.user.id ?? null],
-            queryFn: async (): Promise<[string, Map<number, ColorDefinition>]> => [
-              brandAlias,
-              await fetchColors(type, brandAlias, auth),
-            ],
+            queryFn: () => fetchColors(type, brandAlias, auth),
+            select: indexColors,
           }))
         : [],
-  });
+    [type, brandAliases, auth]
+  );
 
-  return {
-    isLoading: results.some(result => result.isLoading),
-    isError: results.some(result => result.isError),
-    colors: new Map(
-      results
-        .map(({data}) => data)
-        .filter((data): data is [string, Map<number, ColorDefinition>] => !!data)
-    ),
-  };
+  const combine = useCallback(
+    (results: QueryResult[]): Result => ({
+      isLoading: results.some(result => result.isLoading),
+      isError: results.some(result => result.isError),
+      colors: new Map(
+        results
+          .map(({data}, i) =>
+            data && brandAliases
+              ? ([brandAliases[i]!, data] as [string, Map<number, ColorDefinition>])
+              : undefined
+          )
+          .filter((entry): entry is [string, Map<number, ColorDefinition>] => !!entry)
+      ),
+    }),
+    [brandAliases]
+  );
+
+  return useQueries({queries, combine});
 }

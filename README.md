@@ -80,13 +80,15 @@ following:
 - color quantization (over-quantize by recursive bucket splitting, then merge closest in Oklab)
 - blue noise ordered dithering with a precomputed threshold texture
 - image resampling via bilinear, bicubic and Lanczos interpolation (WebGL)
+- bilinear interpolation (CPU)
 - adjusting white balance using the percentile and reference methods (WebGL)
 - adjusting saturation (WebGL)
 - adjusting color levels (WebGL)
 - adjusting color temperature (WebGL)
 - invert colors filter with gamma correction (WebGL)
 - homography, perspective transform from quadrilateral to rectangle (WebGL)
-- automatic detection of painting corners via Sobel gradients on Oklab lightness (WebGL), per-boundary argmax scan with orientation-confidence weighting, and weighted PCA line fitting with iterative outlier rejection
+- automatic detection of painting corners via a neural network that regresses a 4-channel corner heatmap
+- corner localization from heatmaps: Otsu thresholding, Moore-Neighbor 8-connectivity contour tracing, and polygon area and centroid via Green's theorem (shoelace formula) on the largest blob per channel
 - ranking images using pairwise comparison and Elo rating system
 - and more
 

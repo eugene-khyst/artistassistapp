@@ -42,7 +42,7 @@ import {
   Typography,
 } from 'antd';
 import type React from 'react';
-import {useCallback, useContext, useEffect, useRef, useState} from 'react';
+import {useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {JoinButton} from '~/src/components/auth/JoinButton';
@@ -166,9 +166,13 @@ export const ColorSetChooser: React.FC = () => {
 
   const {brands, isLoading: isBrandsLoading, isError: isBrandsError} = useColorBrands(selectedType);
 
-  const selectedBrands: ColorBrandDefinition[] | undefined = selectedBrandIds
-    ?.map((id: number) => brands?.get(id))
-    .filter((brand): brand is ColorBrandDefinition => !!brand);
+  const selectedBrands: ColorBrandDefinition[] | undefined = useMemo(
+    () =>
+      selectedBrandIds
+        ?.map((id: number) => brands?.get(id))
+        .filter((brand): brand is ColorBrandDefinition => !!brand),
+    [selectedBrandIds, brands]
+  );
 
   const isAccessAllowed: boolean =
     !selectedBrands || (!isAuthLoading && hasAccessTo(user, selectedBrands));

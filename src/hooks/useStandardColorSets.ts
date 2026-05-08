@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {UseQueryResult} from '@tanstack/react-query';
 import {useQueries} from '@tanstack/react-query';
+import {useCallback, useMemo} from 'react';
 
-import {fetchStandardColorSets} from '~/src/services/color/colors';
+import {fetchStandardColorSets, indexStandardColorSets} from '~/src/services/color/colors';
 import type {
   ColorBrandDefinition,
   ColorType,
@@ -32,27 +32,43 @@ interface Result {
   standardColorSets: Map<string, Map<string, StandardColorSetDefinition>>;
 }
 
+interface QueryResult {
+  isLoading: boolean;
+  isError: boolean;
+  data?: Map<string, StandardColorSetDefinition>;
+}
+
 export function useStandardColorSets(type?: ColorType, brands?: ColorBrandDefinition[]): Result {
-  const brandAliases: string[] | undefined = brands?.map(({alias}) => alias);
-  const results: UseQueryResult<[string, Map<string, StandardColorSetDefinition>]>[] = useQueries({
-    queries:
+  const brandAliases: string[] | undefined = useMemo(
+    () => brands?.map(({alias}) => alias),
+    [brands]
+  );
+  const queries = useMemo(
+    () =>
       type && brandAliases
         ? brandAliases.map((brandAlias: string) => ({
             queryKey: ['standardColorSets', type, brandAlias],
-            queryFn: async (): Promise<[string, Map<string, StandardColorSetDefinition>]> => [
-              brandAlias,
-              await fetchStandardColorSets(type, brandAlias),
-            ],
+            queryFn: () => fetchStandardColorSets(type, brandAlias),
+            select: indexStandardColorSets,
           }))
         : [],
-  });
-  return {
-    isLoading: results.some(result => result.isLoading),
-    isError: results.some(result => result.isError),
-    standardColorSets: new Map(
-      results
-        .map(({data}) => data)
-        .filter((data): data is [string, Map<string, StandardColorSetDefinition>] => !!data)
-    ),
-  };
+    [type, brandAliases]
+  );
+  const combine = useCallback(
+    (results: QueryResult[]): Result => ({
+      isLoading: results.some(result => result.isLoading),
+      isError: results.some(result => result.isError),
+      standardColorSets: new Map(
+        results
+          .map(({data}, i) =>
+            data && brandAliases
+              ? ([brandAliases[i]!, data] as [string, Map<string, StandardColorSetDefinition>])
+              : undefined
+          )
+          .filter((entry): entry is [string, Map<string, StandardColorSetDefinition>] => !!entry)
+      ),
+    }),
+    [brandAliases]
+  );
+  return useQueries({queries, combine});
 }

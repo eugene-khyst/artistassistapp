@@ -18,8 +18,16 @@
 
 import type {StateCreator} from 'zustand';
 
-import {getPerspectiveCorrectionImage} from '~/src/services/image/perspective-correction';
+import {ForceLogoutError} from '~/src/services/auth/types';
+import {hasAccessTo} from '~/src/services/auth/utils';
+import {
+  detectDocumentCorners,
+  getPerspectiveCorrectionImage,
+} from '~/src/services/image/perspective-correction';
 import type {Vector} from '~/src/services/math/geometry';
+import type {OnnxModel} from '~/src/services/ml/types';
+import type {AuthSlice} from '~/src/stores/auth-slice';
+import {formatFetchProgress} from '~/src/utils/fetch';
 import {
   createImageBitmapAndResize,
   ResizeImage,
@@ -32,14 +40,22 @@ export interface PerspectiveCorrectionSlice {
   perspectiveCorrectedImage: ImageBitmap | null;
   isPerspectiveCorrectedImageLoading: boolean;
 
+  perspectiveCorrectionModel?: OnnxModel;
+  isPerspectiveAutoDetectLoading: boolean;
+  perspectiveAutoDetectDownloadTip: string | null;
+  perspectiveAutoDetectAbortController: AbortController | null;
+
   setImageFileToCorrectPerspective: (imageFileToCorrectPerspective: File | null) => Promise<void>;
   correctImagePerspective: (vertices: Vector[]) => void;
   resetPerspectiveCorrection: () => void;
   rotatePerspectiveUncorrectedImage: () => void;
+  setPerspectiveCorrectionModel: (perspectiveCorrectionModel: OnnxModel | undefined) => void;
+  autoDetectPerspectiveVertices: () => Promise<Vector[] | null>;
+  abortPerspectiveAutoDetect: () => void;
 }
 
 export const createPerspectiveCorrectionSlice: StateCreator<
-  PerspectiveCorrectionSlice,
+  PerspectiveCorrectionSlice & AuthSlice,
   [],
   [],
   PerspectiveCorrectionSlice
@@ -49,9 +65,14 @@ export const createPerspectiveCorrectionSlice: StateCreator<
   perspectiveCorrectedImage: null,
   isPerspectiveCorrectedImageLoading: false,
 
+  isPerspectiveAutoDetectLoading: false,
+  perspectiveAutoDetectDownloadTip: null,
+  perspectiveAutoDetectAbortController: null,
+
   setImageFileToCorrectPerspective: async (
     imageFileToCorrectPerspective: File | null
   ): Promise<void> => {
+    get().abortPerspectiveAutoDetect();
     const {
       perspectiveUncorrectedImage: prevPerspectiveUncorrectedImage,
       perspectiveCorrectedImage: prevPerspectiveCorrectedImage,
@@ -100,6 +121,7 @@ export const createPerspectiveCorrectionSlice: StateCreator<
     prev?.close();
   },
   rotatePerspectiveUncorrectedImage: (): void => {
+    get().abortPerspectiveAutoDetect();
     const {perspectiveUncorrectedImage, perspectiveCorrectedImage} = get();
     if (!perspectiveUncorrectedImage) {
       return;
@@ -109,5 +131,58 @@ export const createPerspectiveCorrectionSlice: StateCreator<
       perspectiveCorrectedImage: null,
     });
     [perspectiveUncorrectedImage, perspectiveCorrectedImage].forEach(prev => prev?.close());
+  },
+  setPerspectiveCorrectionModel: (perspectiveCorrectionModel: OnnxModel | undefined): void => {
+    set({
+      perspectiveCorrectionModel,
+    });
+  },
+  autoDetectPerspectiveVertices: async (): Promise<Vector[] | null> => {
+    get().abortPerspectiveAutoDetect();
+    const {perspectiveUncorrectedImage, perspectiveCorrectionModel, auth} = get();
+    if (
+      !perspectiveUncorrectedImage ||
+      !perspectiveCorrectionModel ||
+      !hasAccessTo(auth?.user, perspectiveCorrectionModel)
+    ) {
+      return null;
+    }
+    const perspectiveAutoDetectAbortController = new AbortController();
+    set({
+      isPerspectiveAutoDetectLoading: true,
+      perspectiveAutoDetectDownloadTip: null,
+      perspectiveAutoDetectAbortController,
+    });
+    try {
+      return await detectDocumentCorners(
+        perspectiveUncorrectedImage,
+        perspectiveCorrectionModel,
+        auth,
+        (key, progress) => {
+          set({
+            perspectiveAutoDetectDownloadTip: formatFetchProgress(key, progress),
+          });
+        },
+        perspectiveAutoDetectAbortController.signal
+      );
+    } catch (error) {
+      if (error instanceof ForceLogoutError) {
+        void get().logout(error.reason);
+        return null;
+      }
+      // Propagate AbortError so the UI can skip the error toast on cancel.
+      throw error;
+    } finally {
+      if (get().perspectiveAutoDetectAbortController === perspectiveAutoDetectAbortController) {
+        set({
+          isPerspectiveAutoDetectLoading: false,
+          perspectiveAutoDetectDownloadTip: null,
+          perspectiveAutoDetectAbortController: null,
+        });
+      }
+    }
+  },
+  abortPerspectiveAutoDetect: (): void => {
+    get().perspectiveAutoDetectAbortController?.abort();
   },
 });

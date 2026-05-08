@@ -41,6 +41,7 @@ import type {InitSlice} from '~/src/stores/init-slice';
 import {groupBy} from '~/src/utils/array';
 import {byDate, byNumber, reverseOrder} from '~/src/utils/comparator';
 import {digestMessage} from '~/src/utils/digest';
+import {indexById} from '~/src/utils/map';
 
 import type {ColorMixerSlice} from './color-mixer-slice';
 
@@ -105,7 +106,7 @@ export const createColorSetSlice: StateCreator<
           return;
         }
 
-        const brands = await fetchColorBrands(type);
+        const brands = indexById(await fetchColorBrands(type));
         const brandAliases = brandIds
           .map((id: number): string | undefined => brands.get(id)?.alias)
           .filter((alias): alias is string => !!alias);

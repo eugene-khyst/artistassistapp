@@ -36,6 +36,12 @@ export function computeOtsuThreshold({data}: ImageData, grayscaleInput = false):
     }
     hist[bin]!++;
   }
+  const bestThreshold = computeOtsuThresholdFromHistogram(hist, total);
+  console.timeEnd('compute-otsu-threshold');
+  return bestThreshold / 255;
+}
+
+export function computeOtsuThresholdFromHistogram(hist: Int32Array, total: number): number {
   let totalMoment = 0;
   for (let i = 0; i < 256; i++) {
     totalMoment += i * hist[i]!;
@@ -56,16 +62,12 @@ export function computeOtsuThreshold({data}: ImageData, grayscaleInput = false):
     backgroundMoment += i * hist[i]!;
     const meanBackground = backgroundMoment / backgroundWeight;
     const meanForeground = (totalMoment - backgroundMoment) / foregroundWeight;
-    const variance =
-      backgroundWeight *
-      foregroundWeight *
-      (meanBackground - meanForeground) *
-      (meanBackground - meanForeground);
+    const diff = meanBackground - meanForeground;
+    const variance = backgroundWeight * foregroundWeight * diff * diff;
     if (variance > maxVariance) {
       maxVariance = variance;
       bestThreshold = i;
     }
   }
-  console.timeEnd('compute-otsu-threshold');
-  return bestThreshold / 255;
+  return bestThreshold;
 }

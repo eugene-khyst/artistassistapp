@@ -46,7 +46,7 @@ import {
   reverseOrder,
 } from '~/src/utils/comparator';
 import {fetchSWR} from '~/src/utils/fetch';
-import {computeIfAbsentInMap} from '~/src/utils/map';
+import {computeIfAbsentInMap, indexBy, indexById} from '~/src/utils/map';
 
 import {hexToRgb} from './space/rgb';
 
@@ -197,53 +197,47 @@ function getDataUrl(
   }
 }
 
-export async function fetchColorBrands(
-  type: ColorType
-): Promise<Map<number, ColorBrandDefinition>> {
+export async function fetchColorBrands(type: ColorType): Promise<ColorBrandDefinition[]> {
   const url = getDataUrl('brands', type);
   const response = await fetchSWR(url);
   const brands = (await response.json()) as ColorBrandDefinition[];
   const customBrands = (await getCustomColorBrandsByType(type)).map(toColorBrandDefinition);
-  return new Map(
-    [...brands, ...customBrands].map((brand: ColorBrandDefinition) => [brand.id, brand])
-  );
+  return [...brands, ...customBrands];
 }
 
 export async function fetchStandardColorSets(
   type: ColorType,
   brandAlias: string
-): Promise<Map<string, StandardColorSetDefinition>> {
-  let sets: StandardColorSetDefinition[] = [];
-  if (!isCustomColorBrandAlias(brandAlias)) {
-    const url = getDataUrl('sets', type, brandAlias);
-    const response = await fetchSWR(url);
-    sets = (await response.json()) as StandardColorSetDefinition[];
+): Promise<StandardColorSetDefinition[]> {
+  if (isCustomColorBrandAlias(brandAlias)) {
+    return [];
   }
-  return new Map(
-    sets.map((standardColorSet: StandardColorSetDefinition) => [
-      computeStandardColorSetDefinitionId(standardColorSet),
-      standardColorSet,
-    ])
-  );
+  const url = getDataUrl('sets', type, brandAlias);
+  const response = await fetchSWR(url);
+  return (await response.json()) as StandardColorSetDefinition[];
 }
+
+export const indexStandardColorSets = (
+  sets: StandardColorSetDefinition[]
+): Map<string, StandardColorSetDefinition> => indexBy(sets, computeStandardColorSetDefinitionId);
 
 export async function fetchColors(
   type: ColorType,
   brandAlias: string,
   auth: Authentication | null
-): Promise<Map<number, ColorDefinition>> {
-  let colors: ColorDefinition[] = [];
+): Promise<ColorDefinition[]> {
   if (isCustomColorBrandAlias(brandAlias)) {
-    colors = ((await getCustomColorBrand(getCustomColorBrandIdFromAlias(brandAlias)))?.colors ??
+    return ((await getCustomColorBrand(getCustomColorBrandIdFromAlias(brandAlias)))?.colors ??
       []) as ColorDefinition[];
-  } else {
-    const url = getDataUrl('colors', type, brandAlias);
-    const response = await fetchSWR(url);
-    const data: unknown = await response.json();
-    colors = (await decryptDataIfNeeded(data, auth)) ?? [];
   }
-  return new Map(colors.map((color: ColorDefinition) => [color.id, color]));
+  const url = getDataUrl('colors', type, brandAlias);
+  const response = await fetchSWR(url);
+  const data: unknown = await response.json();
+  return (await decryptDataIfNeeded(data, auth)) ?? [];
 }
+
+export const indexColors = (colors: ColorDefinition[]): Map<number, ColorDefinition> =>
+  indexById(colors);
 
 export async function fetchColorsBulk(
   type: ColorType,
@@ -255,7 +249,7 @@ export async function fetchColorsBulk(
       brandAliases.map(
         async (brandAlias: string): Promise<[string, Map<number, ColorDefinition>]> => [
           brandAlias,
-          await fetchColors(type, brandAlias, auth),
+          indexById(await fetchColors(type, brandAlias, auth)),
         ]
       )
     )

@@ -18,28 +18,25 @@
 
 import type {UseQueryResult} from '@tanstack/react-query';
 import {useQuery} from '@tanstack/react-query';
+import {useCallback} from 'react';
 
 import {fetchOnnxModels} from '~/src/services/ml/models';
 import type {OnnxModel, OnnxModelType} from '~/src/services/ml/types';
-import {indexById} from '~/src/utils/map';
 
-interface Result {
-  isLoading: boolean;
-  isError: boolean;
-  error: Error | null;
-  models?: Map<string, OnnxModel>;
-}
-
-export function useOnnxModels(type: OnnxModelType): Result {
-  const {isLoading, isError, error, data}: UseQueryResult<Map<string, OnnxModel>> = useQuery({
+export function useOnnxModel(type: OnnxModelType, id: string | undefined) {
+  const {isLoading, isError, error, data}: UseQueryResult<OnnxModel | undefined> = useQuery({
     queryKey: ['ml-models', type],
     queryFn: () => fetchOnnxModels(type),
-    select: indexById,
+    enabled: !!id,
+    select: useCallback(
+      (models: OnnxModel[]) => (id ? models.find(model => model.id === id) : undefined),
+      [id]
+    ),
   });
   return {
     isLoading,
     isError,
     error,
-    models: data,
+    model: data,
   };
 }

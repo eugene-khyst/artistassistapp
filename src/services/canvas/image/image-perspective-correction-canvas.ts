@@ -18,10 +18,7 @@
 
 import type {OverlayDrawingCanvasProps} from '~/src/services/canvas/image/overlay-drawing-canvas';
 import {OverlayDrawingCanvas} from '~/src/services/canvas/image/overlay-drawing-canvas';
-import {
-  autoDetectPerspectiveVertices,
-  sortVertices,
-} from '~/src/services/image/perspective-correction';
+import {sortVertices} from '~/src/services/image/perspective-correction';
 import type {Rectangle, Vector} from '~/src/services/math/geometry';
 
 export interface ImagePerspectiveCorrectionCanvasProps extends OverlayDrawingCanvasProps {
@@ -49,9 +46,7 @@ export class ImagePerspectiveCorrectionCanvas extends OverlayDrawingCanvas {
   protected override onImagesLoaded(): void {
     super.onImagesLoaded();
     this.vertices = [];
-    if (!this.autoDetectVertices()) {
-      this.requestRedraw();
-    }
+    this.requestRedraw();
   }
 
   private drawQuadrilateral(
@@ -96,21 +91,6 @@ export class ImagePerspectiveCorrectionCanvas extends OverlayDrawingCanvas {
     const {center}: Rectangle = this.getImageDimension();
     this.vertices = sortVertices(vertices.map((vertex: Vector) => vertex.subtract(center)));
     this.requestRedraw();
-  }
-
-  autoDetectVertices(): boolean {
-    const image = this.getImage();
-    if (!image) {
-      return false;
-    }
-
-    const detectedVertices = autoDetectPerspectiveVertices(image);
-    if (!detectedVertices) {
-      return false;
-    }
-
-    this.setVertices(detectedVertices);
-    return true;
   }
 
   getVertices(): Vector[] {

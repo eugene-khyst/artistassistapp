@@ -21,6 +21,7 @@ import {useQuery} from '@tanstack/react-query';
 
 import {fetchColorBrands} from '~/src/services/color/colors';
 import type {ColorBrandDefinition, ColorType} from '~/src/services/color/types';
+import {indexById} from '~/src/utils/map';
 
 interface Result {
   isLoading: boolean;
@@ -35,6 +36,7 @@ export function useColorBrands(type?: ColorType): Result {
       queryKey: ['brands', type],
       queryFn: () => fetchColorBrands(type!),
       enabled: !!type,
+      select: indexById,
     });
   return {
     isLoading,
