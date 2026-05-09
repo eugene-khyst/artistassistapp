@@ -46,7 +46,7 @@ msgstr "{FIELD} on pakollinen"
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux ja <3/> ChromeOS"
 
-#: src/components/alert/BrowserSupport.tsx:89
+#: src/components/error/BrowserSupport.tsx:89
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> Pöytäkone tai kannettava tietokone"
 
@@ -54,15 +54,15 @@ msgstr "<0/> Pöytäkone tai kannettava tietokone"
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS ja iPadOS"
 
-#: src/components/alert/BrowserSupport.tsx:69
+#: src/components/error/BrowserSupport.tsx:69
 msgid "<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older versions of iPadOS and iOS)"
 msgstr "<0/> iPadOS 16.4+ tai iOS 16.4+ (ei tueta missään selaimessa vanhemmissa iPadOS- ja iOS-versioissa)"
 
-#: src/components/alert/BrowserSupport.tsx:62
+#: src/components/error/BrowserSupport.tsx:62
 msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> Tabletti ja <1/> mobiili"
 
-#: src/components/alert/BrowserSupport.tsx:107
+#: src/components/error/BrowserSupport.tsx:107
 #: src/components/install/InstallDrawer.tsx:61
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows ja <1/> Linux"
@@ -75,7 +75,7 @@ msgstr "<0>{similarityText}%</0> samankaltaisuus"
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>ArtistAssistApp</0> on verkkosovellus, joka auttaa taiteilijoita sekoittamaan valokuvien värejä, analysoimaan sävyarvoja, hahmottelemaan valokuvia, piirtämään ruudukoilla, maalaamaan rajoitetuilla paleteilla ja paljon muuta."
 
-#: src/components/alert/AuthErrorHandler.tsx:61
+#: src/components/error/AuthErrorHandler.tsx:61
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Tarkista Patreon-tilisi</0>: Varmista, että olet kirjautuneena <1>Patreon.com</1> selaimessasi samalla sähköpostilla, jolla ostit jäsenyytesi. Jos sinulla on useita tilejä, kirjaudu ulos ja kirjaudu takaisin oikealla tilillä."
 
@@ -83,11 +83,11 @@ msgstr "<0>Tarkista Patreon-tilisi</0>: Varmista, että olet kirjautuneena <1>Pa
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Liity ArtistAssistAppiin Patreonissa maksullisena jäsenenä</0> tai <1>kirjaudu sisään Patreonilla</1> , jos olet jo liittynyt, niin saat käyttöösi yli 200 väribrändiä ja kaikkia kuvankäsittelytiloja ilman mainoksia."
 
-#: src/components/alert/AuthErrorHandler.tsx:79
+#: src/components/error/AuthErrorHandler.tsx:79
 msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
 msgstr "<0>Yritä kirjautua uudelleen</0>: Kun olet varmistanut, että oikea Patreon-tili on aktiivinen selaimessasi, kirjaudu uudelleen ArtistAssistAppiin."
 
-#: src/components/alert/AuthErrorHandler.tsx:72
+#: src/components/error/AuthErrorHandler.tsx:72
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Käytä verkkoselainta</0>: Jos käytät Patreon-sovellusta (iOS/Android), kirjaudu sisään verkkoselaimella (Chrome, Safari, Firefox), sillä sovellus voi joskus häiritä varmennusprosessia."
 
@@ -155,13 +155,13 @@ msgstr "Säädä neljää pistettä manuaalisesti."
 msgid "Adjusts how strongly the image is smoothed."
 msgstr "Säätää sitä, kuinka vahvasti kuva on tasoitettu."
 
+#: src/components/error/InstanceConflictAlert.tsx:34
+msgid "Already open in another tab"
+msgstr "Olen jo auki toisessa välilehdessä"
+
 #: src/components/install/InstallDrawer.tsx:177
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
 msgstr "Vaihtoehtoisesti voit asentaa Chrome-, Edge- tai Opera-selaimen uusimman version ja napsauttaa <0>Asenna-painiketta</0> . Vanhemmissa macOS-versioissa tämä on ainoa vaihtoehto."
-
-#: src/components/alert/AlertFallback.tsx:42
-msgid "An application error"
-msgstr "Sovelluksen virhe"
 
 #: src/components/Help.tsx:275
 msgid "Application build ID"
@@ -224,6 +224,10 @@ msgstr "Oletko varma, että haluat poistaa tämän väriseoksen?"
 msgid "Art medium"
 msgstr "Taiteen väline"
 
+#: src/components/error/InstanceConflictAlert.tsx:38
+msgid "ArtistAssistApp can only be used in one browser tab at a time."
+msgstr "ArtistAssistAppia voi käyttää vain yhdessä selaimen välilehdessä kerrallaan."
+
 #: src/components/Help.tsx:266
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistAppin on kehittänyt <0>Eugene Khyst</0>"
@@ -232,7 +236,7 @@ msgstr "ArtistAssistAppin on kehittänyt <0>Eugene Khyst</0>"
 msgid "At least one color is required"
 msgstr "Vähintään yksi väri vaaditaan"
 
-#: src/components/alert/AuthErrorHandler.tsx:116
+#: src/components/error/AuthErrorHandler.tsx:116
 msgid "Authentication error"
 msgstr "Todennusvirhe"
 
@@ -300,6 +304,10 @@ msgstr "Peruuta"
 #: src/components/Help.tsx:139
 msgid "Cancel a paid membership"
 msgstr "Maksullisen jäsenyyden peruuttaminen"
+
+#: src/components/error/InstanceConflictAlert.tsx:64
+msgid "Cancel waiting"
+msgstr "Peruuta odotus"
 
 #: src/components/grid/GridControls.tsx:188
 msgid "Cells"
@@ -463,7 +471,7 @@ msgstr "Viimeisimmän kuvan poistaminen"
 msgid "Delete this color set"
 msgstr "Poista tämä värijoukko"
 
-#: src/components/alert/AuthErrorHandler.tsx:32
+#: src/components/error/AuthErrorHandler.tsx:32
 msgid "Details"
 msgstr "Yksityiskohdat"
 
@@ -471,7 +479,7 @@ msgstr "Yksityiskohdat"
 msgid "Determine the best photo by pairwise comparison"
 msgstr "Määritä paras valokuva pareittain vertaamalla"
 
-#: src/components/alert/BrowserSupport.tsx:126
+#: src/components/error/BrowserSupport.tsx:126
 msgid "Diagnostics"
 msgstr "Diagnostiikka"
 
@@ -524,7 +532,7 @@ msgstr "Kaksoiskappale"
 msgid "Edit from here on"
 msgstr "Muokkaus tästä eteenpäin"
 
-#: src/components/alert/AuthErrorHandler.tsx:35
+#: src/components/error/AuthErrorHandler.tsx:35
 msgid "Email"
 msgstr "Sähköposti"
 
@@ -533,11 +541,11 @@ msgstr "Sähköposti"
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Siirry valolaatikkotilaan jäljittääksesi ääriviivat paperisi läpi."
 
-#: src/components/alert/AuthErrorHandler.tsx:33
+#: src/components/error/AuthErrorHandler.tsx:33
 msgid "Error"
 msgstr "Virhe"
 
-#: src/components/alert/AuthErrorHandler.tsx:34
+#: src/components/error/AuthErrorHandler.tsx:34
 msgid "Error description"
 msgstr "Virhekuvaus"
 
@@ -590,7 +598,7 @@ msgstr "Viimeistely editointi"
 msgid "Gamma"
 msgstr "Gamma"
 
-#: src/components/alert/AuthErrorHandler.tsx:39
+#: src/components/error/AuthErrorHandler.tsx:39
 msgid "Gifted membership"
 msgstr "Lahjakas jäsenyys"
 
@@ -685,7 +693,7 @@ msgstr "Kieli"
 msgid "Large"
 msgstr "Suuri"
 
-#: src/components/alert/AuthErrorHandler.tsx:37
+#: src/components/error/AuthErrorHandler.tsx:37
 msgid "Last charge status"
 msgstr "Viimeisen latauksen tila"
 
@@ -738,8 +746,8 @@ msgstr "Kirjaudu sisään Patreonilla"
 msgid "Log out"
 msgstr "Kirjautua ulos"
 
-#: src/components/alert/AuthErrorHandler.tsx:125
-#: src/components/alert/AuthErrorHandler.tsx:156
+#: src/components/error/AuthErrorHandler.tsx:125
+#: src/components/error/AuthErrorHandler.tsx:156
 msgid "Login failed"
 msgstr "Kirjautuminen epäonnistui"
 
@@ -833,7 +841,7 @@ msgstr "Uusi värisarja"
 msgid "New comparison"
 msgstr "Uusi vertailu"
 
-#: src/components/alert/AuthErrorHandler.tsx:38
+#: src/components/error/AuthErrorHandler.tsx:38
 msgid "Next charge date"
 msgstr "Seuraava latauspäivä"
 
@@ -901,7 +909,7 @@ msgstr "Läpinäkymätön"
 msgid "Open in Safari browser"
 msgstr "Avaa Safari-selaimessa"
 
-#: src/components/alert/BrowserSupport.tsx:99
+#: src/components/error/BrowserSupport.tsx:99
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "tai asenna Chrome-, Edge-, Firefox- tai Opera-selaimen uusin versio"
 
@@ -949,11 +957,11 @@ msgstr "Paperin värillä ei ole merkitystä läpinäkyvissä pastellisävyissä
 msgid "Paper size"
 msgstr "Paperikoko"
 
-#: src/components/alert/AuthErrorHandler.tsx:44
+#: src/components/error/AuthErrorHandler.tsx:44
 msgid "Patreon membership verification failed"
 msgstr "Patreonin jäsenyyden vahvistus epäonnistui"
 
-#: src/components/alert/AuthErrorHandler.tsx:36
+#: src/components/error/AuthErrorHandler.tsx:36
 msgid "Patron status"
 msgstr "Suojelijastatus"
 
@@ -989,6 +997,10 @@ msgstr "Valokuvien sijoitus"
 #: src/components/ImageColorPicker.tsx:542
 msgid "Pinch to zoom (or use the mouse wheel) and drag to pan"
 msgstr "Zoomaa nipistämällä (tai käytä hiiren rullaa) ja panoroi vetämällä"
+
+#: src/components/error/ErrorFallback.tsx:43
+msgid "Please send us a screenshot of this error via our <0>contacts</0>. It will help us identify the cause."
+msgstr "Lähetäthän meille kuvakaappauksen tästä virheestä <0>yhteystietojemme</0> kautta. Se auttaa meitä tunnistamaan syyn."
 
 #: src/components/ImagesCompare.tsx:179
 msgid "Position: {position}<0/>Rating: {ratingText}"
@@ -1090,7 +1102,7 @@ msgstr "Viittaus"
 msgid "Reflectance"
 msgstr "Heijastussuhde"
 
-#: src/components/alert/AlertFallback.tsx:72
+#: src/components/error/ErrorFallback.tsx:69
 msgid "Reload"
 msgstr "Lataa uudelleen"
 
@@ -1337,7 +1349,7 @@ msgstr "Puoliksi läpinäkymätön"
 msgid "Semi-transparent"
 msgstr "Puoliksi läpinäkyvä"
 
-#: src/components/alert/AuthErrorHandler.tsx:107
+#: src/components/error/AuthErrorHandler.tsx:107
 msgid "Session expired"
 msgstr "Istunto päättyi"
 
@@ -1426,9 +1438,9 @@ msgstr "Limitä hieman erivärisiä pastellialueita ja häivytä varovasti tasai
 msgid "Small"
 msgstr "Pieni"
 
-#: src/components/alert/AlertFallback.tsx:46
-msgid "Something went wrong. Please send us a screenshot of the error message to our <0>contacts</0>. This will really help us identify the cause."
-msgstr "Jokin meni pieleen. Lähetä meille kuvakaappaus virheilmoituksesta <0>yhteystietojemme</0> kanssa. Tämä auttaa meitä todella tunnistamaan syyn."
+#: src/components/error/ErrorFallback.tsx:39
+msgid "Something went wrong"
+msgstr "Jokin meni pieleen"
 
 #: src/components/color-set/ColorSelect.tsx:120
 #: src/components/ColorMixingChart.tsx:108
@@ -1467,7 +1479,7 @@ msgstr "Vakiovärisarja"
 msgid "Standard print"
 msgstr "Vakiopainatus"
 
-#: src/components/alert/AuthErrorHandler.tsx:86
+#: src/components/error/AuthErrorHandler.tsx:86
 msgid "Still having trouble? Please refer to this <0>troubleshooting guide</0>."
 msgstr "Onko sinulla vielä vaikeuksia? Katso tämä <0>vianetsintäopas</0>."
 
@@ -1491,7 +1503,7 @@ msgstr "Tyylitelty viitekuva"
 msgid "Supported art mediums:"
 msgstr "Tuetut taidemediat:"
 
-#: src/components/alert/BrowserSupport.tsx:56
+#: src/components/error/BrowserSupport.tsx:56
 msgid "Supported web browsers and operating systems"
 msgstr "Tuetut verkkoselaimet ja käyttöjärjestelmät"
 
@@ -1577,11 +1589,15 @@ msgstr "Tämä vaihe on valinnainen."
 msgid "This style is available to paid Patreon members only"
 msgstr "Tämä tyyli on saatavilla vain maksullisille Patreon-jäsenille"
 
-#: src/components/alert/AuthErrorHandler.tsx:48
+#: src/components/error/InstanceConflictAlert.tsx:42
+msgid "This tab will open automatically when the other tab closes."
+msgstr "Tämä välilehti avautuu automaattisesti, kun toinen välilehti sulkeutuu."
+
+#: src/components/error/AuthErrorHandler.tsx:48
 msgid "This usually happens when you're signed in to a <0>different</0> Patreon account than the one used for your ArtistAssistApp membership."
 msgstr "Tämä tapahtuu yleensä, kun olet kirjautuneena <0>eri</0> Patreon-tilille kuin se, jota käytät ArtistAssistApp-jäsenyytessäsi."
 
-#: src/components/alert/AuthErrorHandler.tsx:56
+#: src/components/error/AuthErrorHandler.tsx:56
 msgid "To fix this:"
 msgstr "Tämän korjaamiseksi:"
 
@@ -1597,6 +1613,10 @@ msgstr "Jos haluat käyttää {tabLabel}-ominaisuutta, valitse viitekuva."
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with."
 msgstr "Käyttääksesi {tabLabel}-ominaisuutta, valitse tuettu taidemedia ja värit, joilla maalataan."
 
+#: src/components/error/InstanceConflictAlert.tsx:46
+msgid "To use this tab instead, close the other tab."
+msgstr "Tämän välilehden käyttämiseksi sulje toinen välilehti."
+
 #: src/components/messages.ts:32
 msgid "Tonal values"
 msgstr "Sävyarvot"
@@ -1609,11 +1629,11 @@ msgstr "Läpinäkyvä"
 msgid "Tutorials and videos"
 msgstr "Opetusohjelmat ja videot"
 
-#: src/components/alert/UnhandledRejectionHandler.tsx:36
+#: src/components/error/UnhandledRejectionHandler.tsx:36
 msgid "Unexpected error"
 msgstr "Odottamaton virhe"
 
-#: src/components/alert/AlertFallback.tsx:37
+#: src/components/error/ErrorFallback.tsx:52
 msgid "Unexpected error: {errorMessage}"
 msgstr "Odottamaton virhe: {errorMessage}"
 
@@ -1643,6 +1663,10 @@ msgstr "Käytä lasitusaineita, joiden avulla saat ohuen kerroksen, esimerkiksi 
 #: src/components/file/FileSelect.tsx:91
 msgid "Use reference photo"
 msgstr "Käytä viitekuvaa"
+
+#: src/components/error/InstanceConflictAlert.tsx:64
+msgid "Use this tab instead"
+msgstr "Käytä tätä välilehteä sen sijaan"
 
 #: src/components/ImageColorPicker.tsx:381
 msgid "Use white paper or canvas as a background"
@@ -1681,11 +1705,11 @@ msgstr "Akvarellikynät"
 msgid "Wax Pastel"
 msgstr "Vahapastelli"
 
-#: src/components/alert/AuthErrorHandler.tsx:118
+#: src/components/error/AuthErrorHandler.tsx:118
 msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
 msgstr "Kohtasimme ongelman kirjautumistietojesi varmentamisessa. Tämän ongelman voi yleensä ratkaista yrittämällä kirjautua uudelleen sisään."
 
-#: src/components/alert/AuthErrorHandler.tsx:129
+#: src/components/error/AuthErrorHandler.tsx:129
 msgid "We were unable to log you in."
 msgstr "Emme pystyneet kirjautumaan sisään."
 
@@ -1755,7 +1779,7 @@ msgstr "Olet valinnut värimerkkejä, jotka ovat vain maksullisten Patreon-jäse
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Olet valinnut tilan, joka on vain maksullisten Patreon-jäsenten käytettävissä"
 
-#: src/components/alert/AuthErrorHandler.tsx:100
+#: src/components/error/AuthErrorHandler.tsx:100
 msgid "Your account details:"
 msgstr "Tilisi tiedot:"
 
@@ -1763,10 +1787,10 @@ msgstr "Tilisi tiedot:"
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "Tietojasi ei välttämättä tallenneta luotettavasti, jos selain on suljettu. Tämän korjaamiseksi asenna sovellus."
 
-#: src/components/alert/AuthErrorHandler.tsx:109
+#: src/components/error/AuthErrorHandler.tsx:109
 msgid "Your login session has expired. Please sign in again to refresh your access and continue using ArtistAssistApp."
 msgstr "Kirjautumissessiosi on vanhentunut. Kirjaudu uudelleen sisään päivittääksesi käyttöoikeutesi ja jatkaaksesi ArtistAssistAppin käyttöä."
 
-#: src/components/alert/BrowserSupport.tsx:54
+#: src/components/error/BrowserSupport.tsx:54
 msgid "Your web browser is not supported."
 msgstr "Verkkoselaintasi ei tueta."

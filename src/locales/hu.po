@@ -46,7 +46,7 @@ msgstr "{FIELD} kötelező"
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, Windows, <1/> <2/> Linux és <3/> ChromeOS"
 
-#: src/components/alert/BrowserSupport.tsx:89
+#: src/components/error/BrowserSupport.tsx:89
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> Asztali számítógép vagy laptop"
 
@@ -54,15 +54,15 @@ msgstr "<0/> Asztali számítógép vagy laptop"
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS és iPadOS"
 
-#: src/components/alert/BrowserSupport.tsx:69
+#: src/components/error/BrowserSupport.tsx:69
 msgid "<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older versions of iPadOS and iOS)"
 msgstr "<0/> iPadOS 16.4+ vagy iOS 16.4+ (az iPadOS és az iOS régebbi verzióin egyetlen böngésző sem támogatott)"
 
-#: src/components/alert/BrowserSupport.tsx:62
+#: src/components/error/BrowserSupport.tsx:62
 msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> Táblagép és <1/> mobil"
 
-#: src/components/alert/BrowserSupport.tsx:107
+#: src/components/error/BrowserSupport.tsx:107
 #: src/components/install/InstallDrawer.tsx:61
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows és <1/> Linux"
@@ -75,7 +75,7 @@ msgstr "<0>{similarityText}%</0> hasonlóság"
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>Az ArtistAssistApp</0> egy webalkalmazás, amely segít a művészeknek a fényképek színeinek keverésében, a tónusértékek elemzésében, a fényképek körvonalazásában, rácsokkal való rajzolásban, korlátozott palettákkal való festésben stb."
 
-#: src/components/alert/AuthErrorHandler.tsx:61
+#: src/components/error/AuthErrorHandler.tsx:61
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Ellenőrizd a Patreon fiókodat</0>: Győződj meg róla, hogy bejelentkezve <1>vagy Patreon.com</1> böngésződben ugyanazzal az e-mail címmel, amellyel a tagságod megvásárlásához használtad. Ha több fiókod van, jelentkezz ki és jelentkezz vissza a megfelelővel."
 
@@ -83,11 +83,11 @@ msgstr "<0>Ellenőrizd a Patreon fiókodat</0>: Győződj meg róla, hogy bejele
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Csatlakozzon az ArtistAssistApp-hoz a Patreonon fizetős tagként</0>, vagy <1>jelentkezzen be a Patreonnal</1> , ha már csatlakozott, hogy több mint 200 színmárkához és az összes képfeldolgozási módhoz hozzáférjen hirdetések nélkül."
 
-#: src/components/alert/AuthErrorHandler.tsx:79
+#: src/components/error/AuthErrorHandler.tsx:79
 msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
 msgstr "<0>Próbáld újra a bejelentkezést</0>: Miután megerősítetted, hogy a megfelelő Patreon fiók aktív a böngésződben, jelentkezz be újra az ArtistAssistApp-ba."
 
-#: src/components/alert/AuthErrorHandler.tsx:72
+#: src/components/error/AuthErrorHandler.tsx:72
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Webböngészőt használj</0>: Ha a Patreon alkalmazást használod (iOS/Android), jelentkezz be böngészőn keresztül (Chrome, Safari, Firefox), mert az alkalmazás néha zavarhatja az ellenőrzési folyamatot."
 
@@ -155,13 +155,13 @@ msgstr "Állítsd be a 4 pontot kézzel."
 msgid "Adjusts how strongly the image is smoothed."
 msgstr "Szabályozza, mennyire erősen simítják a képet."
 
+#: src/components/error/InstanceConflictAlert.tsx:34
+msgid "Already open in another tab"
+msgstr "Már megnyitom egy másik fülön"
+
 #: src/components/install/InstallDrawer.tsx:177
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
 msgstr "Alternatív megoldásként telepítse a Chrome, az Edge vagy az Opera webböngésző legújabb verzióját, és kattintson a <0>Telepítés</0> gombra. A macOS régebbi verzióiban ez az egyetlen lehetőség."
-
-#: src/components/alert/AlertFallback.tsx:42
-msgid "An application error"
-msgstr "Alkalmazáshiba"
 
 #: src/components/Help.tsx:275
 msgid "Application build ID"
@@ -224,6 +224,10 @@ msgstr "Biztos benne, hogy el akarja távolítani ezt a színkeveréket?"
 msgid "Art medium"
 msgstr "Művészeti médium"
 
+#: src/components/error/InstanceConflictAlert.tsx:38
+msgid "ArtistAssistApp can only be used in one browser tab at a time."
+msgstr "Az ArtistAssistApp egyszerre csak egy böngészőfülön használható."
+
 #: src/components/Help.tsx:266
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "Az ArtistAssistApp-ot <0>Eugene Khyst</0> fejlesztette"
@@ -232,7 +236,7 @@ msgstr "Az ArtistAssistApp-ot <0>Eugene Khyst</0> fejlesztette"
 msgid "At least one color is required"
 msgstr "Legalább egy szín szükséges"
 
-#: src/components/alert/AuthErrorHandler.tsx:116
+#: src/components/error/AuthErrorHandler.tsx:116
 msgid "Authentication error"
 msgstr "Hitelesítési hiba"
 
@@ -300,6 +304,10 @@ msgstr "Törlés"
 #: src/components/Help.tsx:139
 msgid "Cancel a paid membership"
 msgstr "Fizetős tagság lemondása"
+
+#: src/components/error/InstanceConflictAlert.tsx:64
+msgid "Cancel waiting"
+msgstr "Lemondom a várakozást"
 
 #: src/components/grid/GridControls.tsx:188
 msgid "Cells"
@@ -463,7 +471,7 @@ msgstr "A legutóbbi fotó törlése"
 msgid "Delete this color set"
 msgstr "Törölje ezt a színkészletet"
 
-#: src/components/alert/AuthErrorHandler.tsx:32
+#: src/components/error/AuthErrorHandler.tsx:32
 msgid "Details"
 msgstr "Részletek"
 
@@ -471,7 +479,7 @@ msgstr "Részletek"
 msgid "Determine the best photo by pairwise comparison"
 msgstr "Határozza meg a legjobb fényképet páronkénti összehasonlítással"
 
-#: src/components/alert/BrowserSupport.tsx:126
+#: src/components/error/BrowserSupport.tsx:126
 msgid "Diagnostics"
 msgstr "Diagnosztika"
 
@@ -524,7 +532,7 @@ msgstr "Ismétlődő"
 msgid "Edit from here on"
 msgstr "Innen szerkesztés"
 
-#: src/components/alert/AuthErrorHandler.tsx:35
+#: src/components/error/AuthErrorHandler.tsx:35
 msgid "Email"
 msgstr "E-mail"
 
@@ -533,11 +541,11 @@ msgstr "E-mail"
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Lépj be lightbox módba, hogy végigkövesd a körvonalat a dolgozatodon."
 
-#: src/components/alert/AuthErrorHandler.tsx:33
+#: src/components/error/AuthErrorHandler.tsx:33
 msgid "Error"
 msgstr "Hiba"
 
-#: src/components/alert/AuthErrorHandler.tsx:34
+#: src/components/error/AuthErrorHandler.tsx:34
 msgid "Error description"
 msgstr "Hibaleírás"
 
@@ -590,7 +598,7 @@ msgstr "Vágás befejezése"
 msgid "Gamma"
 msgstr "Gamma"
 
-#: src/components/alert/AuthErrorHandler.tsx:39
+#: src/components/error/AuthErrorHandler.tsx:39
 msgid "Gifted membership"
 msgstr "Tehetséges tagság"
 
@@ -685,7 +693,7 @@ msgstr "Nyelv"
 msgid "Large"
 msgstr "Nagy"
 
-#: src/components/alert/AuthErrorHandler.tsx:37
+#: src/components/error/AuthErrorHandler.tsx:37
 msgid "Last charge status"
 msgstr "Utolsó töltési állapot"
 
@@ -738,8 +746,8 @@ msgstr "Bejelentkezés a Patreonnal"
 msgid "Log out"
 msgstr "Kijelentkezik"
 
-#: src/components/alert/AuthErrorHandler.tsx:125
-#: src/components/alert/AuthErrorHandler.tsx:156
+#: src/components/error/AuthErrorHandler.tsx:125
+#: src/components/error/AuthErrorHandler.tsx:156
 msgid "Login failed"
 msgstr "A bejelentkezés sikertelen"
 
@@ -833,7 +841,7 @@ msgstr "Új színkészlet"
 msgid "New comparison"
 msgstr "Új összehasonlítás"
 
-#: src/components/alert/AuthErrorHandler.tsx:38
+#: src/components/error/AuthErrorHandler.tsx:38
 msgid "Next charge date"
 msgstr "Következő töltési dátum"
 
@@ -901,7 +909,7 @@ msgstr "Átlátszatlan"
 msgid "Open in Safari browser"
 msgstr "Megnyitás a Safari böngészőben"
 
-#: src/components/alert/BrowserSupport.tsx:99
+#: src/components/error/BrowserSupport.tsx:99
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "vagy telepítse a Chrome, Edge, Firefox vagy Opera webböngésző legújabb verzióját"
 
@@ -949,11 +957,11 @@ msgstr "A papír színe nem számít az átlátszatlan pasztelleknél, mert telj
 msgid "Paper size"
 msgstr "Papírméret"
 
-#: src/components/alert/AuthErrorHandler.tsx:44
+#: src/components/error/AuthErrorHandler.tsx:44
 msgid "Patreon membership verification failed"
 msgstr "A Patreon tagsági ellenőrzés sikertelen"
 
-#: src/components/alert/AuthErrorHandler.tsx:36
+#: src/components/error/AuthErrorHandler.tsx:36
 msgid "Patron status"
 msgstr "Patrónus státusz"
 
@@ -989,6 +997,10 @@ msgstr "Fotók rangsorolása"
 #: src/components/ImageColorPicker.tsx:542
 msgid "Pinch to zoom (or use the mouse wheel) and drag to pan"
 msgstr "Csippentéssel nagyíthatja (vagy használhatja az egér görgőjét), és húzással pásztázhat"
+
+#: src/components/error/ErrorFallback.tsx:43
+msgid "Please send us a screenshot of this error via our <0>contacts</0>. It will help us identify the cause."
+msgstr "Kérjük, küldjön nekünk képernyőképet erről a <0>hibáról a kapcsolatainkon</0> keresztül. Segít azonosítani az okát."
 
 #: src/components/ImagesCompare.tsx:179
 msgid "Position: {position}<0/>Rating: {ratingText}"
@@ -1090,7 +1102,7 @@ msgstr "Utalás"
 msgid "Reflectance"
 msgstr "Visszaverődés"
 
-#: src/components/alert/AlertFallback.tsx:72
+#: src/components/error/ErrorFallback.tsx:69
 msgid "Reload"
 msgstr "Újratöltés"
 
@@ -1337,7 +1349,7 @@ msgstr "Félig átlátszatlan"
 msgid "Semi-transparent"
 msgstr "Félig átlátszó"
 
-#: src/components/alert/AuthErrorHandler.tsx:107
+#: src/components/error/AuthErrorHandler.tsx:107
 msgid "Session expired"
 msgstr "A szekció lejárt"
 
@@ -1426,9 +1438,9 @@ msgstr "Enyhén fedje át a különböző színű pasztell területeket, és fin
 msgid "Small"
 msgstr "Kicsi"
 
-#: src/components/alert/AlertFallback.tsx:46
-msgid "Something went wrong. Please send us a screenshot of the error message to our <0>contacts</0>. This will really help us identify the cause."
-msgstr "Valami félresikerült. Kérjük, küldjön el nekünk egy képernyőképet a hibaüzenetről <0>a kapcsolattartóinknak</0>. Ez valóban segít azonosítani az okot."
+#: src/components/error/ErrorFallback.tsx:39
+msgid "Something went wrong"
+msgstr "Valami rosszul ment"
 
 #: src/components/color-set/ColorSelect.tsx:120
 #: src/components/ColorMixingChart.tsx:108
@@ -1467,7 +1479,7 @@ msgstr "Szabványos színkészlet"
 msgid "Standard print"
 msgstr "Normál nyomtatás"
 
-#: src/components/alert/AuthErrorHandler.tsx:86
+#: src/components/error/AuthErrorHandler.tsx:86
 msgid "Still having trouble? Please refer to this <0>troubleshooting guide</0>."
 msgstr "Még mindig gondjaid vannak? Kérjük, tekintse meg ezt a <0>hibakeresési útmutatót</0>."
 
@@ -1491,7 +1503,7 @@ msgstr "Stílusos referenciafotó"
 msgid "Supported art mediums:"
 msgstr "Támogatott művészeti médiumok:"
 
-#: src/components/alert/BrowserSupport.tsx:56
+#: src/components/error/BrowserSupport.tsx:56
 msgid "Supported web browsers and operating systems"
 msgstr "Támogatott webböngészők és operációs rendszerek"
 
@@ -1577,11 +1589,15 @@ msgstr "Ez a lépés nem kötelező."
 msgid "This style is available to paid Patreon members only"
 msgstr "Ez a stílus csak fizetős Patreon-tagok számára érhető el."
 
-#: src/components/alert/AuthErrorHandler.tsx:48
+#: src/components/error/InstanceConflictAlert.tsx:42
+msgid "This tab will open automatically when the other tab closes."
+msgstr "Ez a lap automatikusan megnyílik, amikor a másik tabut bezárul."
+
+#: src/components/error/AuthErrorHandler.tsx:48
 msgid "This usually happens when you're signed in to a <0>different</0> Patreon account than the one used for your ArtistAssistApp membership."
 msgstr "Ez általában akkor történik, amikor <0>egy másik</0> Patreon fiókba vagy bejelentkezve, mint amit az ArtistAssistApp tagságnál használsz."
 
-#: src/components/alert/AuthErrorHandler.tsx:56
+#: src/components/error/AuthErrorHandler.tsx:56
 msgid "To fix this:"
 msgstr "Ennek javítására:"
 
@@ -1597,6 +1613,10 @@ msgstr "A {tabLabel} funkció használatához válasszon ki egy referenciafotót
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with."
 msgstr "A {tabLabel} funkció használatához válaszd ki a támogatott művészeti médiumot és a színeket, amelyekkel festhetsz."
 
+#: src/components/error/InstanceConflictAlert.tsx:46
+msgid "To use this tab instead, close the other tab."
+msgstr "Ha ezt a fület szeretnéd használni, zárd be a másik fület."
+
 #: src/components/messages.ts:32
 msgid "Tonal values"
 msgstr "Tónusértékek"
@@ -1609,11 +1629,11 @@ msgstr "Átlátszó"
 msgid "Tutorials and videos"
 msgstr "Oktatóanyagok és videók"
 
-#: src/components/alert/UnhandledRejectionHandler.tsx:36
+#: src/components/error/UnhandledRejectionHandler.tsx:36
 msgid "Unexpected error"
 msgstr "Váratlan hiba"
 
-#: src/components/alert/AlertFallback.tsx:37
+#: src/components/error/ErrorFallback.tsx:52
 msgid "Unexpected error: {errorMessage}"
 msgstr "Váratlan hiba: {errorMessage}"
 
@@ -1643,6 +1663,10 @@ msgstr "Használjon olyan üvegező közegeket, amelyek lehetővé teszik, hogy 
 #: src/components/file/FileSelect.tsx:91
 msgid "Use reference photo"
 msgstr "Referenciafotó használata"
+
+#: src/components/error/InstanceConflictAlert.tsx:64
+msgid "Use this tab instead"
+msgstr "Használd inkább ezt a fület"
 
 #: src/components/ImageColorPicker.tsx:381
 msgid "Use white paper or canvas as a background"
@@ -1681,11 +1705,11 @@ msgstr "Akvarell ceruzák"
 msgid "Wax Pastel"
 msgstr "Viaszpasztell"
 
-#: src/components/alert/AuthErrorHandler.tsx:118
+#: src/components/error/AuthErrorHandler.tsx:118
 msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
 msgstr "Problémánk volt a bejelentkezési adataid ellenőrzésével. Ezt a problémát általában úgy lehet megoldani, ha újra próbálunk bejelentkezni."
 
-#: src/components/alert/AuthErrorHandler.tsx:129
+#: src/components/error/AuthErrorHandler.tsx:129
 msgid "We were unable to log you in."
 msgstr "Nem tudtunk bejelentkezni."
 
@@ -1755,7 +1779,7 @@ msgstr "Olyan színmárkákat választottál, amelyek csak a fizetős Patreon-ta
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Olyan módot választottál, amely csak a fizetős Patreon-tagok számára érhető el"
 
-#: src/components/alert/AuthErrorHandler.tsx:100
+#: src/components/error/AuthErrorHandler.tsx:100
 msgid "Your account details:"
 msgstr "Fiókadatai:"
 
@@ -1763,10 +1787,10 @@ msgstr "Fiókadatai:"
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "Az adataid nem biztos, hogy megbízhatóan mentődnek el, ha a böngésző zárva van. Ennek megoldásához telepítsd az alkalmazást."
 
-#: src/components/alert/AuthErrorHandler.tsx:109
+#: src/components/error/AuthErrorHandler.tsx:109
 msgid "Your login session has expired. Please sign in again to refresh your access and continue using ArtistAssistApp."
 msgstr "A bejelentkezési alkalom lejárt. Kérjük, jelentkezzen be újra, hogy frissítse hozzáférését, és folytassa az ArtistAssistApp használatát."
 
-#: src/components/alert/BrowserSupport.tsx:54
+#: src/components/error/BrowserSupport.tsx:54
 msgid "Your web browser is not supported."
 msgstr "A webböngésző nem támogatott."

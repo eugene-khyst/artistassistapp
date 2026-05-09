@@ -30,29 +30,26 @@ import {getErrorMessage} from '~/src/utils/error';
 
 const preStyle: CSSProperties = {whiteSpace: 'pre-wrap', wordBreak: 'break-word', margin: 0};
 
-export const AlertFallback: React.FC<FallbackProps> = ({error}: FallbackProps) => {
+export const ErrorFallback: React.FC<FallbackProps> = ({error}: FallbackProps) => {
   const {t} = useLingui();
-
   const errorMessage: string = getErrorMessage(error);
-  const message: string = t`Unexpected error: ${errorMessage}`;
-
   return (
     <Alert
       type="error"
-      title={t`An application error`}
+      title={t`Something went wrong`}
       description={
         <Typography>
           <Typography.Paragraph>
             <Trans>
-              Something went wrong. Please send us a screenshot of the error message to our{' '}
+              Please send us a screenshot of this error via our{' '}
               <Typography.Link href={`${WEBSITE_URL}/contact/`} target="_blank" rel="noopener">
                 contacts
               </Typography.Link>
-              . This will really help us identify the cause.
+              . It will help us identify the cause.
             </Trans>
           </Typography.Paragraph>
           <Typography.Paragraph>
-            <pre style={preStyle}>{message}</pre>
+            <pre style={preStyle}>{t`Unexpected error: ${errorMessage}`}</pre>
           </Typography.Paragraph>
           {error instanceof Error && error.stack && (
             <Typography.Paragraph>

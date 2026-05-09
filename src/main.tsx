@@ -26,23 +26,27 @@ import {createRoot} from 'react-dom/client';
 import {ErrorBoundary} from 'react-error-boundary';
 
 import {ArtistAssistApp} from '~/src/ArtistAssistApp';
-import {AlertFallback} from '~/src/components/alert/AlertFallback';
-import {AuthErrorHandler} from '~/src/components/alert/AuthErrorHandler';
-import {BrowserSupport} from '~/src/components/alert/BrowserSupport';
-import {UnhandledRejectionHandler} from '~/src/components/alert/UnhandledRejectionHandler';
+import {AuthErrorHandler} from '~/src/components/error/AuthErrorHandler';
+import {BrowserSupport} from '~/src/components/error/BrowserSupport';
+import {ErrorFallback} from '~/src/components/error/ErrorFallback';
+import {InstanceConflictAlert} from '~/src/components/error/InstanceConflictAlert';
+import {UnhandledRejectionHandler} from '~/src/components/error/UnhandledRejectionHandler';
 import {ServiceWorkerUpdateNotification} from '~/src/components/pwa/ServiceWorkerUpdateNotification';
 import {InternationalizationProvider} from '~/src/contexts/InternationalizationProvider';
 import {UnsavedChangesProvider} from '~/src/contexts/UnsavedChangesContext';
 import {initializePWA} from '~/src/pwa-init';
 import {ForceLogoutError} from '~/src/services/auth/types';
+import {runSingleInstanceOrConflict} from '~/src/single-instance';
 import {useAppStore} from '~/src/stores/app-store';
 import {disableScreenLock} from '~/src/wake-lock';
 
-void (async () => {
+const root: Root = createRoot(document.getElementById('root')!);
+
+async function renderApp(): Promise<void> {
   try {
     initializePWA();
     disableScreenLock();
-    await useAppStore.getState().initAppStore();
+    await useAppStore.getState().initApp();
   } catch (error) {
     useAppStore.getState().addInitError('initialize app', error);
   }
@@ -68,13 +72,12 @@ void (async () => {
     },
   });
 
-  const root: Root = createRoot(document.getElementById('root')!);
   root.render(
     <StrictMode>
       <InternationalizationProvider>
         <App>
           <ServiceWorkerUpdateNotification />
-          <ErrorBoundary FallbackComponent={AlertFallback}>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
             <UnhandledRejectionHandler>
               <AuthErrorHandler>
                 <BrowserSupport>
@@ -91,4 +94,30 @@ void (async () => {
       </InternationalizationProvider>
     </StrictMode>
   );
-})();
+}
+
+async function renderInstanceConflictAlert(): Promise<void> {
+  try {
+    await useAppStore.getState().initLocale();
+  } catch (error) {
+    useAppStore.getState().addInitError('initialize locale', error);
+  }
+  root.render(
+    <StrictMode>
+      <InternationalizationProvider>
+        <App>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <UnhandledRejectionHandler>
+              <InstanceConflictAlert />
+            </UnhandledRejectionHandler>
+          </ErrorBoundary>
+        </App>
+      </InternationalizationProvider>
+    </StrictMode>
+  );
+}
+
+void runSingleInstanceOrConflict({
+  onActiveInstance: renderApp,
+  onConflict: renderInstanceConflictAlert,
+});

@@ -46,11 +46,12 @@ export interface InitSlice {
   appSettings: AppSettings;
   installRequested: boolean;
 
-  isInitialStateLoading: boolean;
+  isAppInitializing: boolean;
 
   initErrors: unknown[];
 
-  initAppStore: () => Promise<void>;
+  initApp: () => Promise<void>;
+  initLocale: () => Promise<void>;
   resetInstallRequested: () => void;
   loadAppSettings: () => Promise<AppSettings>;
   saveAppSettings: (appSettings: Partial<AppSettings> | AppSettingsUpdater) => Promise<void>;
@@ -76,11 +77,11 @@ export const createInitSlice: StateCreator<
   appSettings: {},
   installRequested: false,
 
-  isInitialStateLoading: false,
+  isAppInitializing: false,
 
   initErrors: [],
 
-  initAppStore: async (): Promise<void> => {
+  initApp: async (): Promise<void> => {
     if (get().appInitialized) {
       return;
     }
@@ -95,7 +96,7 @@ export const createInitSlice: StateCreator<
 
     try {
       set({
-        isInitialStateLoading: true,
+        isAppInitializing: true,
       });
       let appSettings: AppSettings = {...DEFAULT_APP_SETTINGS};
       try {
@@ -147,8 +148,21 @@ export const createInitSlice: StateCreator<
       get().startPeriodicAuthVerification();
     } finally {
       set({
-        isInitialStateLoading: false,
+        isAppInitializing: false,
       });
+    }
+  },
+  initLocale: async (): Promise<void> => {
+    let appSettings: AppSettings = {...DEFAULT_APP_SETTINGS};
+    try {
+      appSettings = await get().loadAppSettings();
+    } catch (error) {
+      get().addInitError('load app settings', error);
+    }
+    try {
+      await get().setLocale(appSettings.locale ?? getPreferredLocale(), false);
+    } catch (error) {
+      get().addInitError('set locale', error);
     }
   },
   resetInstallRequested: (): void => {

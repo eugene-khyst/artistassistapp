@@ -46,7 +46,7 @@ msgstr "{FIELD} é obrigatório"
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux e <3/> ChromeOS"
 
-#: src/components/alert/BrowserSupport.tsx:89
+#: src/components/error/BrowserSupport.tsx:89
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> Desktop ou laptop"
 
@@ -54,15 +54,15 @@ msgstr "<0/> Desktop ou laptop"
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS e iPadOS"
 
-#: src/components/alert/BrowserSupport.tsx:69
+#: src/components/error/BrowserSupport.tsx:69
 msgid "<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older versions of iPadOS and iOS)"
 msgstr "<0/> iPadOS 16.4+ ou iOS 16.4+ (não compatível com nenhum navegador em versões mais antigas do iPadOS e iOS)"
 
-#: src/components/alert/BrowserSupport.tsx:62
+#: src/components/error/BrowserSupport.tsx:62
 msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> Tablet e <1/> celular"
 
-#: src/components/alert/BrowserSupport.tsx:107
+#: src/components/error/BrowserSupport.tsx:107
 #: src/components/install/InstallDrawer.tsx:61
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows e <1/> Linux"
@@ -75,7 +75,7 @@ msgstr "<0>{similarityText}%</0> similaridade"
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>ArtistAssistApp</0> é um aplicativo da web que ajuda os artistas a misturar cores de fotos, analisar valores tonais, contornar fotos, desenhar com grades, pintar com paletas limitadas e muito mais."
 
-#: src/components/alert/AuthErrorHandler.tsx:61
+#: src/components/error/AuthErrorHandler.tsx:61
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Verifique sua conta no Patreon</0>: Certifique-se de estar logado <1>em Patreon.com</1> no seu navegador usando o mesmo e-mail que usou para comprar sua assinatura. Se você tiver várias contas, faça logout e volte a entrar com a conta."
 
@@ -83,11 +83,11 @@ msgstr "<0>Verifique sua conta no Patreon</0>: Certifique-se de estar logado <1>
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Junte-se ao ArtistAssistApp no Patreon como um membro pago</0> ou <1>faça login com o Patreon</1> se você já tiver se inscrito, para ter acesso a mais de 200 marcas de cores e todos os modos de processamento de imagem sem anúncios."
 
-#: src/components/alert/AuthErrorHandler.tsx:79
+#: src/components/error/AuthErrorHandler.tsx:79
 msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
 msgstr "<0>Tente novamente o login</0>: Depois de confirmar que a conta correta do Patreon está ativa no seu navegador, faça login novamente no ArtistAssistApp."
 
-#: src/components/alert/AuthErrorHandler.tsx:72
+#: src/components/error/AuthErrorHandler.tsx:72
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Use um navegador web</0>: Se você estiver usando o aplicativo Patreon (iOS/Android), faça login via navegador web (Chrome, Safari, Firefox), pois o app às vezes pode interferir no processo de verificação."
 
@@ -155,13 +155,13 @@ msgstr "Ajuste os 4 pontos manualmente."
 msgid "Adjusts how strongly the image is smoothed."
 msgstr "Ajusta o quão intensamente a imagem é suavizada."
 
+#: src/components/error/InstanceConflictAlert.tsx:34
+msgid "Already open in another tab"
+msgstr "Já aberto em outra aba"
+
 #: src/components/install/InstallDrawer.tsx:177
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
 msgstr "Como alternativa, instale a versão mais recente do navegador Chrome, Edge ou Opera e clique no botão <0>Instalar</0> . Em versões mais antigas do macOS, esta é a única opção."
-
-#: src/components/alert/AlertFallback.tsx:42
-msgid "An application error"
-msgstr "Um erro de aplicativo"
 
 #: src/components/Help.tsx:275
 msgid "Application build ID"
@@ -224,6 +224,10 @@ msgstr "Tem certeza de que deseja remover essa mistura de cores?"
 msgid "Art medium"
 msgstr "Meio de arte"
 
+#: src/components/error/InstanceConflictAlert.tsx:38
+msgid "ArtistAssistApp can only be used in one browser tab at a time."
+msgstr "O ArtistAssistApp só pode ser usado em uma aba do navegador por vez."
+
 #: src/components/Help.tsx:266
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp é desenvolvido por <0>Eugene Khyst</0>"
@@ -232,7 +236,7 @@ msgstr "ArtistAssistApp é desenvolvido por <0>Eugene Khyst</0>"
 msgid "At least one color is required"
 msgstr "Pelo menos uma cor é necessária"
 
-#: src/components/alert/AuthErrorHandler.tsx:116
+#: src/components/error/AuthErrorHandler.tsx:116
 msgid "Authentication error"
 msgstr "Erro de autenticação"
 
@@ -300,6 +304,10 @@ msgstr "Cancelar"
 #: src/components/Help.tsx:139
 msgid "Cancel a paid membership"
 msgstr "Cancelar uma assinatura paga"
+
+#: src/components/error/InstanceConflictAlert.tsx:64
+msgid "Cancel waiting"
+msgstr "Cancelar a espera"
 
 #: src/components/grid/GridControls.tsx:188
 msgid "Cells"
@@ -463,7 +471,7 @@ msgstr "Excluir a foto recente"
 msgid "Delete this color set"
 msgstr "Excluir este conjunto de cores"
 
-#: src/components/alert/AuthErrorHandler.tsx:32
+#: src/components/error/AuthErrorHandler.tsx:32
 msgid "Details"
 msgstr "Detalhes"
 
@@ -471,7 +479,7 @@ msgstr "Detalhes"
 msgid "Determine the best photo by pairwise comparison"
 msgstr "Determine a melhor foto por comparação em pares"
 
-#: src/components/alert/BrowserSupport.tsx:126
+#: src/components/error/BrowserSupport.tsx:126
 msgid "Diagnostics"
 msgstr "Diagnostics"
 
@@ -524,7 +532,7 @@ msgstr "Duplicar"
 msgid "Edit from here on"
 msgstr "Editando daqui em diante"
 
-#: src/components/alert/AuthErrorHandler.tsx:35
+#: src/components/error/AuthErrorHandler.tsx:35
 msgid "Email"
 msgstr "E-mail"
 
@@ -533,11 +541,11 @@ msgstr "E-mail"
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Entre no modo lightbox para traçar o contorno pelo seu papel."
 
-#: src/components/alert/AuthErrorHandler.tsx:33
+#: src/components/error/AuthErrorHandler.tsx:33
 msgid "Error"
 msgstr "Erro"
 
-#: src/components/alert/AuthErrorHandler.tsx:34
+#: src/components/error/AuthErrorHandler.tsx:34
 msgid "Error description"
 msgstr "Descrição do erro"
 
@@ -590,7 +598,7 @@ msgstr "Finalizar a edição"
 msgid "Gamma"
 msgstr "Gama"
 
-#: src/components/alert/AuthErrorHandler.tsx:39
+#: src/components/error/AuthErrorHandler.tsx:39
 msgid "Gifted membership"
 msgstr "Filiação para doações"
 
@@ -685,7 +693,7 @@ msgstr "Idioma"
 msgid "Large"
 msgstr "Grande"
 
-#: src/components/alert/AuthErrorHandler.tsx:37
+#: src/components/error/AuthErrorHandler.tsx:37
 msgid "Last charge status"
 msgstr "Status da última carga"
 
@@ -738,8 +746,8 @@ msgstr "Faça login com o Patreon"
 msgid "Log out"
 msgstr "Sair"
 
-#: src/components/alert/AuthErrorHandler.tsx:125
-#: src/components/alert/AuthErrorHandler.tsx:156
+#: src/components/error/AuthErrorHandler.tsx:125
+#: src/components/error/AuthErrorHandler.tsx:156
 msgid "Login failed"
 msgstr "Falha no login"
 
@@ -833,7 +841,7 @@ msgstr "Novo conjunto de cores"
 msgid "New comparison"
 msgstr "Nova comparação"
 
-#: src/components/alert/AuthErrorHandler.tsx:38
+#: src/components/error/AuthErrorHandler.tsx:38
 msgid "Next charge date"
 msgstr "Próxima data de cobrança"
 
@@ -901,7 +909,7 @@ msgstr "Opaco"
 msgid "Open in Safari browser"
 msgstr "Abrir no navegador Safari"
 
-#: src/components/alert/BrowserSupport.tsx:99
+#: src/components/error/BrowserSupport.tsx:99
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "ou instale a versão mais recente do navegador Chrome, Edge, Firefox ou Opera"
 
@@ -949,11 +957,11 @@ msgstr "A cor do papel não importa para pastéis opacos, pois eles cobrem compl
 msgid "Paper size"
 msgstr "Tamanho do papel"
 
-#: src/components/alert/AuthErrorHandler.tsx:44
+#: src/components/error/AuthErrorHandler.tsx:44
 msgid "Patreon membership verification failed"
 msgstr "A verificação de associação ao Patreon falhou"
 
-#: src/components/alert/AuthErrorHandler.tsx:36
+#: src/components/error/AuthErrorHandler.tsx:36
 msgid "Patron status"
 msgstr "Status de patrono"
 
@@ -989,6 +997,10 @@ msgstr "Classificação de fotos"
 #: src/components/ImageColorPicker.tsx:542
 msgid "Pinch to zoom (or use the mouse wheel) and drag to pan"
 msgstr "Aperte para ampliar (ou use a roda do mouse) e arraste para deslocar"
+
+#: src/components/error/ErrorFallback.tsx:43
+msgid "Please send us a screenshot of this error via our <0>contacts</0>. It will help us identify the cause."
+msgstr "Por favor, envie uma captura de tela desse erro através dos <0>nossos contatos</0>. Isso nos ajudará a identificar a causa."
 
 #: src/components/ImagesCompare.tsx:179
 msgid "Position: {position}<0/>Rating: {ratingText}"
@@ -1090,7 +1102,7 @@ msgstr "Referência"
 msgid "Reflectance"
 msgstr "Refletância"
 
-#: src/components/alert/AlertFallback.tsx:72
+#: src/components/error/ErrorFallback.tsx:69
 msgid "Reload"
 msgstr "Recarregar"
 
@@ -1337,7 +1349,7 @@ msgstr "Semi-opaco"
 msgid "Semi-transparent"
 msgstr "Semitransparente"
 
-#: src/components/alert/AuthErrorHandler.tsx:107
+#: src/components/error/AuthErrorHandler.tsx:107
 msgid "Session expired"
 msgstr "Sessão encerrada"
 
@@ -1426,9 +1438,9 @@ msgstr "Sobreponha ligeiramente áreas pastel de cores diferentes e misture suav
 msgid "Small"
 msgstr "Pequeno"
 
-#: src/components/alert/AlertFallback.tsx:46
-msgid "Something went wrong. Please send us a screenshot of the error message to our <0>contacts</0>. This will really help us identify the cause."
-msgstr "Algo deu errado. Por favor, envie uma captura de tela da mensagem de erro para nossos <0>contatos</0>. Isso realmente nos ajudará a identificar a causa."
+#: src/components/error/ErrorFallback.tsx:39
+msgid "Something went wrong"
+msgstr "Algo deu errado"
 
 #: src/components/color-set/ColorSelect.tsx:120
 #: src/components/ColorMixingChart.tsx:108
@@ -1467,7 +1479,7 @@ msgstr "Conjunto de cores padrão"
 msgid "Standard print"
 msgstr "Impressão padrão"
 
-#: src/components/alert/AuthErrorHandler.tsx:86
+#: src/components/error/AuthErrorHandler.tsx:86
 msgid "Still having trouble? Please refer to this <0>troubleshooting guide</0>."
 msgstr "Ainda está tendo dificuldades? Por favor, consulte este <0>guia de solução de problemas</0>."
 
@@ -1491,7 +1503,7 @@ msgstr "Foto de referência estilizada"
 msgid "Supported art mediums:"
 msgstr "Meios artísticos suportados:"
 
-#: src/components/alert/BrowserSupport.tsx:56
+#: src/components/error/BrowserSupport.tsx:56
 msgid "Supported web browsers and operating systems"
 msgstr "Navegadores da Web e sistemas operacionais compatíveis"
 
@@ -1577,11 +1589,15 @@ msgstr "Esta etapa é opcional."
 msgid "This style is available to paid Patreon members only"
 msgstr "Este estilo está disponível apenas para membros pagos do Patreon"
 
-#: src/components/alert/AuthErrorHandler.tsx:48
+#: src/components/error/InstanceConflictAlert.tsx:42
+msgid "This tab will open automatically when the other tab closes."
+msgstr "Essa aba será aberta automaticamente quando a outra aba fechar."
+
+#: src/components/error/AuthErrorHandler.tsx:48
 msgid "This usually happens when you're signed in to a <0>different</0> Patreon account than the one used for your ArtistAssistApp membership."
 msgstr "Isso geralmente acontece quando você está logado em uma conta <0>Patreon diferente</0> daquela usada na sua assinatura do ArtistAssistApp."
 
-#: src/components/alert/AuthErrorHandler.tsx:56
+#: src/components/error/AuthErrorHandler.tsx:56
 msgid "To fix this:"
 msgstr "Para resolver isso:"
 
@@ -1597,6 +1613,10 @@ msgstr "Para usar o recurso {tabLabel}, selecione uma foto de referência."
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with."
 msgstr "Para usar o recurso {tabLabel}, selecione o meio artístico suportado e as cores para pintar."
 
+#: src/components/error/InstanceConflictAlert.tsx:46
+msgid "To use this tab instead, close the other tab."
+msgstr "Para usar essa aba, feche a outra aba."
+
 #: src/components/messages.ts:32
 msgid "Tonal values"
 msgstr "Valores tonais"
@@ -1609,11 +1629,11 @@ msgstr "Transparente"
 msgid "Tutorials and videos"
 msgstr "Tutoriais e vídeos"
 
-#: src/components/alert/UnhandledRejectionHandler.tsx:36
+#: src/components/error/UnhandledRejectionHandler.tsx:36
 msgid "Unexpected error"
 msgstr "Erro inesperado"
 
-#: src/components/alert/AlertFallback.tsx:37
+#: src/components/error/ErrorFallback.tsx:52
 msgid "Unexpected error: {errorMessage}"
 msgstr "Erro inesperado: {errorMessage}"
 
@@ -1643,6 +1663,10 @@ msgstr "Use meios de envidraçamento que permitam obter uma camada fina, por exe
 #: src/components/file/FileSelect.tsx:91
 msgid "Use reference photo"
 msgstr "Usar foto de referência"
+
+#: src/components/error/InstanceConflictAlert.tsx:64
+msgid "Use this tab instead"
+msgstr "Use esta aba em vez disso"
 
 #: src/components/ImageColorPicker.tsx:381
 msgid "Use white paper or canvas as a background"
@@ -1681,11 +1705,11 @@ msgstr "Lápis de aquarela"
 msgid "Wax Pastel"
 msgstr "Pastel de Cera"
 
-#: src/components/alert/AuthErrorHandler.tsx:118
+#: src/components/error/AuthErrorHandler.tsx:118
 msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
 msgstr "Tivemos um problema para verificar suas credenciais de login. Esse problema geralmente pode ser resolvido tentando fazer login novamente."
 
-#: src/components/alert/AuthErrorHandler.tsx:129
+#: src/components/error/AuthErrorHandler.tsx:129
 msgid "We were unable to log you in."
 msgstr "Não conseguimos fazer login com você."
 
@@ -1755,7 +1779,7 @@ msgstr "Você selecionou marcas de cores que estão disponíveis apenas para mem
 msgid "You've selected mode that is available to paid Patreon members only"
 msgstr "Você selecionou o modo que está disponível apenas para membros pagos do Patreon"
 
-#: src/components/alert/AuthErrorHandler.tsx:100
+#: src/components/error/AuthErrorHandler.tsx:100
 msgid "Your account details:"
 msgstr "Detalhes da sua conta:"
 
@@ -1763,10 +1787,10 @@ msgstr "Detalhes da sua conta:"
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "Seus dados podem não ser salvos de forma confiável se o navegador estiver fechado. Para resolver isso, instale o app."
 
-#: src/components/alert/AuthErrorHandler.tsx:109
+#: src/components/error/AuthErrorHandler.tsx:109
 msgid "Your login session has expired. Please sign in again to refresh your access and continue using ArtistAssistApp."
 msgstr "Sua sessão de login expirou. Por favor, faça login novamente para atualizar seu acesso e continue usando o ArtistAssistApp."
 
-#: src/components/alert/BrowserSupport.tsx:54
+#: src/components/error/BrowserSupport.tsx:54
 msgid "Your web browser is not supported."
 msgstr "Seu navegador da Web não é compatível."

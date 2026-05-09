@@ -44,14 +44,21 @@ ONNX" (used by the Outline "quick" mode, gated by `freeTier`).
 ### State Management
 
 Single Zustand store (`src/stores/app-store.ts`) composed from per-feature slices in
-`src/stores/*-slice.ts`. `initAppStore()` loads persisted state from IndexedDB at startup.
+`src/stores/*-slice.ts`. `initApp()` loads persisted state from IndexedDB at startup; `initLocale()`
+is the lighter init for the conflict-tab path (loads `appSettings` + `setLocale` only).
 
 Bootstrap is fault-tolerant: side-effecting init steps run through `tryStep` and route failures to
 `addInitError(label, error)` instead of aborting; `main.tsx` wraps the pre-render block in a
 matching try/catch so render always runs. `addInitError` queues labeled cause-preserving Errors that
 `UnhandledRejectionHandler` drains once on mount as `notification.error` toasts — it is effectively
-pre-mount-only. `initAppStore`'s outer try/finally resets `isInitialStateLoading` even on failure,
-so the UI never gets stuck loading.
+pre-mount-only. `initApp`'s outer try/finally resets `isAppInitializing` even on failure, so the UI
+never gets stuck loading.
+
+App startup is gated by `src/single-instance.ts` (Web Locks API): only one tab holds the
+`artistassistapp:app-instance` lock and renders the full app. Other tabs render
+`InstanceConflictAlert` and can promote via `waitForPrimaryTabToClose()`, which queues a lock
+request that fires `renderApp` once the primary tab releases. Browsers without `navigator.locks`
+fall back to "always primary".
 
 ### Custom Hooks (`src/hooks/`)
 

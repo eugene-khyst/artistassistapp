@@ -59,7 +59,7 @@ export const ArtistAssistApp: React.FC = () => {
   const activeTabKey = useAppStore(state => state.activeTabKey);
   const user = useAppStore(state => state.auth?.user);
 
-  const isInitialStateLoading = useAppStore(state => state.isInitialStateLoading);
+  const isAppInitializing = useAppStore(state => state.isAppInitializing);
   const isLocaleLoading = useAppStore(state => state.isLocaleLoading);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
 
@@ -75,7 +75,7 @@ export const ArtistAssistApp: React.FC = () => {
 
   const {isFullscreen, toggleFullScreen, isSupported: isFullScreenSupported} = useFullScreen();
 
-  const isLoading: boolean = isInitialStateLoading || isLocaleLoading || isAuthLoading;
+  const isLoading: boolean = isAppInitializing || isLocaleLoading || isAuthLoading;
 
   const appInitialized = useAppStore(state => state.appInitialized);
   const installRequested = useAppStore(state => state.installRequested);
