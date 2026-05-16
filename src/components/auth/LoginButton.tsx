@@ -20,24 +20,21 @@ import {LoginOutlined} from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
 import {Button} from 'antd';
 import type React from 'react';
-import {useState} from 'react';
 
 import {useAppStore} from '~/src/stores/app-store';
 
 export const LoginButton: React.FC = () => {
   const loginWithRedirect = useAppStore(state => state.loginWithRedirect);
-
-  const [clicked, setClicked] = useState<boolean>(false);
+  const isLoginPending = useAppStore(state => !!state.authAttempt);
 
   return (
     <Button
       type="primary"
       icon={<LoginOutlined />}
       onClick={() => {
-        loginWithRedirect();
-        setClicked(true);
+        void loginWithRedirect();
       }}
-      loading={clicked}
+      loading={isLoginPending}
     >
       <Trans>Log in with Patreon</Trans>
     </Button>

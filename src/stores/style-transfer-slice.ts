@@ -23,8 +23,8 @@ import {hasAccessTo} from '~/src/services/auth/utils';
 import {fileToImageFile} from '~/src/services/image/image-file';
 import {transferStyle} from '~/src/services/image/style-transfer';
 import type {OnnxModel} from '~/src/services/ml/types';
+import type {AppSlice} from '~/src/stores/app-slice';
 import type {AuthSlice} from '~/src/stores/auth-slice';
-import type {InitSlice} from '~/src/stores/init-slice';
 import type {OriginalImageSlice} from '~/src/stores/original-image-slice';
 import {formatFetchProgress} from '~/src/utils/fetch';
 import {imageBitmapToBlob} from '~/src/utils/graphics';
@@ -45,7 +45,7 @@ export interface StyleTransferSlice {
 }
 
 export const createStyleTransferSlice: StateCreator<
-  StyleTransferSlice & InitSlice & OriginalImageSlice & AuthSlice,
+  StyleTransferSlice & AppSlice & OriginalImageSlice & AuthSlice,
   [],
   [],
   StyleTransferSlice

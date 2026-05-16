@@ -26,25 +26,23 @@ import {createRoot} from 'react-dom/client';
 import {ErrorBoundary} from 'react-error-boundary';
 
 import {ArtistAssistApp} from '~/src/ArtistAssistApp';
-import {AuthErrorHandler} from '~/src/components/error/AuthErrorHandler';
+import {AuthFeedbackHandler} from '~/src/components/error/AuthFeedbackHandler';
 import {BrowserSupport} from '~/src/components/error/BrowserSupport';
 import {ErrorFallback} from '~/src/components/error/ErrorFallback';
-import {InstanceConflictAlert} from '~/src/components/error/InstanceConflictAlert';
 import {UnhandledRejectionHandler} from '~/src/components/error/UnhandledRejectionHandler';
 import {ServiceWorkerUpdateNotification} from '~/src/components/pwa/ServiceWorkerUpdateNotification';
 import {InternationalizationProvider} from '~/src/contexts/InternationalizationProvider';
 import {UnsavedChangesProvider} from '~/src/contexts/UnsavedChangesContext';
-import {initializePWA} from '~/src/pwa-init';
+import type {BeforeInstallPromptEvent} from '~/src/pwa';
 import {ForceLogoutError} from '~/src/services/auth/types';
-import {runSingleInstanceOrConflict} from '~/src/single-instance';
 import {useAppStore} from '~/src/stores/app-store';
+import {registerServiceWorker} from '~/src/utils/service-worker';
 import {disableScreenLock} from '~/src/wake-lock';
 
 const root: Root = createRoot(document.getElementById('root')!);
 
 async function renderApp(): Promise<void> {
   try {
-    initializePWA();
     disableScreenLock();
     await useAppStore.getState().initApp();
   } catch (error) {
@@ -79,7 +77,7 @@ async function renderApp(): Promise<void> {
           <ServiceWorkerUpdateNotification />
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             <UnhandledRejectionHandler>
-              <AuthErrorHandler>
+              <AuthFeedbackHandler>
                 <BrowserSupport>
                   <QueryClientProvider client={queryClient}>
                     <UnsavedChangesProvider>
@@ -87,7 +85,7 @@ async function renderApp(): Promise<void> {
                     </UnsavedChangesProvider>
                   </QueryClientProvider>
                 </BrowserSupport>
-              </AuthErrorHandler>
+              </AuthFeedbackHandler>
             </UnhandledRejectionHandler>
           </ErrorBoundary>
         </App>
@@ -96,28 +94,15 @@ async function renderApp(): Promise<void> {
   );
 }
 
-async function renderInstanceConflictAlert(): Promise<void> {
-  try {
-    await useAppStore.getState().initLocale();
-  } catch (error) {
-    useAppStore.getState().addInitError('initialize locale', error);
-  }
-  root.render(
-    <StrictMode>
-      <InternationalizationProvider>
-        <App>
-          <ErrorBoundary FallbackComponent={ErrorFallback}>
-            <UnhandledRejectionHandler>
-              <InstanceConflictAlert />
-            </UnhandledRejectionHandler>
-          </ErrorBoundary>
-        </App>
-      </InternationalizationProvider>
-    </StrictMode>
-  );
-}
-
-void runSingleInstanceOrConflict({
-  onActiveInstance: renderApp,
-  onConflict: renderInstanceConflictAlert,
+registerServiceWorker(registration => {
+  useAppStore.getState().setServiceWorkerRegistration(registration);
 });
+window.addEventListener('beforeinstallprompt', (event: BeforeInstallPromptEvent) => {
+  event.preventDefault();
+  useAppStore.getState().setBeforeInstallPromptEvent(event);
+});
+window.addEventListener('appinstalled', () => {
+  useAppStore.getState().setBeforeInstallPromptEvent(null);
+});
+
+void renderApp();

@@ -25,7 +25,7 @@ import type {ColorId, ColorSet, SamplingArea, SimilarColor} from '~/src/services
 import {colorMixer} from '~/src/services/color/worker/color-mixer-worker-manager';
 import {mergeSimilarSamplingPoints, type SamplingPoint} from '~/src/services/image/sampling-point';
 import {colorQuantizationWorker} from '~/src/services/image/worker/color-quantization-worker-manager';
-import type {InitSlice} from '~/src/stores/init-slice';
+import type {AppSlice} from '~/src/stores/app-slice';
 import type {PaletteSlice, SaveToPaletteEntry} from '~/src/stores/palette-slice';
 import {TabKey} from '~/src/tabs';
 import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '~/src/utils/graphics';
@@ -82,7 +82,7 @@ export interface ColorMixerSlice {
 }
 
 export const createColorMixerSlice: StateCreator<
-  ColorMixerSlice & InitSlice & TabSlice & OriginalImageSlice & PaletteSlice,
+  ColorMixerSlice & AppSlice & TabSlice & OriginalImageSlice & PaletteSlice,
   [],
   [],
   ColorMixerSlice

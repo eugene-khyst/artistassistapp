@@ -23,7 +23,7 @@ import {applyMigrations} from '~/src/services/db/migrations';
 import {type ArtistAssistAppDB, OBJECT_STORE_NAMES} from '~/src/services/db/schema';
 
 export const DB_NAME = 'artistassistapp';
-const DB_VERSION = 6;
+const DB_VERSION = 7;
 const DB_MIGRATIONS_LOCK_NAME = 'artistassistapp:db-migrations';
 
 const internalDbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<ArtistAssistAppDB>(
@@ -91,6 +91,10 @@ const internalDbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artis
         });
         customBrandsStore.createIndex('by-type', 'type');
         customBrandsStore.createIndex('by-date', 'date');
+      }
+
+      if (!db.objectStoreNames.contains('auth-attempt')) {
+        db.createObjectStore('auth-attempt');
       }
 
       if (!db.objectStoreNames.contains('auth-error')) {

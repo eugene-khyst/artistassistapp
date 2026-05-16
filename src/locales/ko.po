@@ -55,9 +55,7 @@ msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS 및 iPadOS"
 
 #: src/components/error/BrowserSupport.tsx:69
-msgid ""
-"<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older "
-"versions of iPadOS and iOS)"
+msgid "<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older versions of iPadOS and iOS)"
 msgstr "<0/> iPadOS 16.4+ 또는 iOS 16.4+(이전 버전의 iPadOS 및 iOS의 브라우저에서는 지원되지 않음)"
 
 #: src/components/error/BrowserSupport.tsx:62
@@ -74,54 +72,27 @@ msgid "<0>{similarityText}%</0> similarity"
 msgstr "<0>{similarityText}%</0> 유사성"
 
 #: src/components/ColorSetChooser.tsx:453
-msgid ""
-"<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from "
-"photos, analyze tonal values, outline photos, draw with grids, paint with "
-"limited palettes, and more."
-msgstr ""
-"<0>ArtistAssistApp</0> 은 아티스트가 사진의 색상을 혼합하고, 색조 값을 분석하고, 사진의 윤곽을 그리고, 그리드로 "
-"그리고, 제한된 팔레트로 페인팅하는 등의 작업을 수행하는 데 도움이 되는 웹 앱입니다."
+msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
+msgstr "<0>ArtistAssistApp</0> 은 아티스트가 사진의 색상을 혼합하고, 색조 값을 분석하고, 사진의 윤곽을 그리고, 그리드로 그리고, 제한된 팔레트로 페인팅하는 등의 작업을 수행하는 데 도움이 되는 웹 앱입니다."
 
-#: src/components/error/AuthErrorHandler.tsx:61
-msgid ""
-"<0>Check your Patreon account</0>: Ensure you are signed in to "
-"<1>Patreon.com</1> in your web browser using the same email you used to "
-"purchase your membership. If you have multiple accounts, sign out and sign "
-"back in with the correct one."
-msgstr ""
-"<0>Patreon 계정 확인</0>: 회원권을 구매할 때 사용한 동일한 이메일로 웹 브라우저에서 <1>Patreon.com</1> "
-"로그인되었는지 확인하세요. 계정이 여러 개 있다면, 로그아웃 후 올바른 계정으로 다시 로그인하세요."
+#: src/components/error/AuthFeedbackHandler.tsx:64
+msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
+msgstr "<0>Patreon 계정 확인</0>: 회원권을 구매할 때 사용한 동일한 이메일로 웹 브라우저에서 <1>Patreon.com</1> 로그인되었는지 확인하세요. 계정이 여러 개 있다면, 로그아웃 후 올바른 계정으로 다시 로그인하세요."
 
 #: src/components/ColorSetChooser.tsx:474
-msgid ""
-"<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with "
-"Patreon</1> if you've already joined, to get access to more than 200 color "
-"brands and all image processing modes without ads."
-msgstr ""
-"<0>Patreon의 ArtistAssistApp에 유료 회원으로 가입</0>하거나, 이미 가입한 경우 <1>Patreon에 "
-"로그인</1> 하면 200개 이상의 색상 브랜드와 광고 없는 모든 이미지 처리 모드를 이용할 수 있습니다."
+msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
+msgstr "<0>Patreon의 ArtistAssistApp에 유료 회원으로 가입</0>하거나, 이미 가입한 경우 <1>Patreon에 로그인</1> 하면 200개 이상의 색상 브랜드와 광고 없는 모든 이미지 처리 모드를 이용할 수 있습니다."
 
-#: src/components/error/AuthErrorHandler.tsx:79
-msgid ""
-"<0>Retry login</0>: Once you have confirmed the correct Patreon account is "
-"active in your browser, log in to ArtistAssistApp again."
-msgstr ""
-"<0>로그인 재시도</0>: 브라우저에서 올바른 Patreon 계정이 활성화되어 있음을 확인한 후, 다시 ArtistAssistApp에 "
-"로그인하세요."
+#: src/components/error/AuthFeedbackHandler.tsx:82
+msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
+msgstr "<0>로그인 재시도</0>: 브라우저에서 올바른 Patreon 계정이 활성화되어 있음을 확인한 후, 다시 ArtistAssistApp에 로그인하세요."
 
-#: src/components/error/AuthErrorHandler.tsx:72
-msgid ""
-"<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), "
-"log in via a web browser (Chrome, Safari, Firefox) instead, as the app can "
-"sometimes interfere with the verification process."
-msgstr ""
-"<0>웹 브라우저 사용</0>: Patreon 앱(iOS/Android)을 사용 중이라면, 웹 브라우저(Chrome, Safari, "
-"Firefox)로 로그인하세요. 앱이 인증 과정에 간섭할 수 있기 때문입니다."
+#: src/components/error/AuthFeedbackHandler.tsx:75
+msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
+msgstr "<0>웹 브라우저 사용</0>: Patreon 앱(iOS/Android)을 사용 중이라면, 웹 브라우저(Chrome, Safari, Firefox)로 로그인하세요. 앱이 인증 과정에 간섭할 수 있기 때문입니다."
 
 #: src/components/ImageColorPicker.tsx:332
-msgid ""
-"A color mixed into every suggested mixture to help the palette feel more "
-"harmonious. Also known as a mother color."
+msgid "A color mixed into every suggested mixture to help the palette feel more harmonious. Also known as a mother color."
 msgstr "제안된 모든 혼합물에 색상을 섞어 팔레트가 더 조화롭게 느껴지도록 했다. 모색으로도 알려져 있습니다."
 
 #: src/components/ColorMixingChart.tsx:165
@@ -137,9 +108,7 @@ msgid "A new version of the application is available."
 msgstr "애플리케이션의 새로운 버전이 제공됩니다."
 
 #: src/components/ImageColorAdjustment.tsx:459
-msgid ""
-"A value less than 100% makes the image look less colorful, and a value "
-"greater than 100% makes it look too colorful"
+msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "값이 100%보다 작으면 이미지가 덜 화려하게 보이고 100%보다 크면 이미지가 너무 화려하게 보입니다"
 
 #: src/components/Help.tsx:129
@@ -190,18 +159,9 @@ msgstr "4개 포인트를 수동으로 조정하세요."
 msgid "Adjusts the strength of image smoothing."
 msgstr "이미지 스무딩 강도를 조절합니다."
 
-#: src/components/error/InstanceConflictAlert.tsx:44
-msgid "Already open in another tab"
-msgstr "이미 다른 탭에서 열려 있습니다"
-
 #: src/components/install/InstallDrawer.tsx:177
-msgid ""
-"Alternatively, install the latest version of Chrome, Edge or Opera web "
-"browser and click the <0>Install</0> button. In older versions of macOS, "
-"this is the only option."
-msgstr ""
-"또는 최신 버전의 Chrome, Edge 또는 Opera 웹 브라우저를 설치하고 <0>설치</0> 버튼을 클릭합니다. 이전 버전의 "
-"macOS에서는 이것이 유일한 옵션입니다."
+msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
+msgstr "또는 최신 버전의 Chrome, Edge 또는 Opera 웹 브라우저를 설치하고 <0>설치</0> 버튼을 클릭합니다. 이전 버전의 macOS에서는 이것이 유일한 옵션입니다."
 
 #: src/components/Help.tsx:275
 msgid "Application build ID"
@@ -268,9 +228,9 @@ msgstr "이 색상 혼합물을 제거하시겠습니까?"
 msgid "Art medium"
 msgstr "예술 매체"
 
-#: src/components/error/InstanceConflictAlert.tsx:48
-msgid "ArtistAssistApp can only be used in one browser tab at a time."
-msgstr "ArtistAssistApp은 한 번에 한 번에 한 브라우저 탭에서만 사용할 수 있습니다."
+#: src/components/error/AuthFeedbackHandler.tsx:142
+msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
+msgstr "ArtistAssistApp은 귀하의 Patreon 로그인 결과를 받지 못했습니다. 이런 현상은 다른 브라우저나 앱에서 로그인이 열릴 때 발생할 수 있습니다. 다시 로그인해 주세요."
 
 #: src/components/Help.tsx:266
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
@@ -280,7 +240,7 @@ msgstr "ArtistAssistApp은 <0>Eugene Khyst</0>가 개발했습니다."
 msgid "At least one color is required"
 msgstr "하나 이상의 색상이 필요합니다."
 
-#: src/components/error/AuthErrorHandler.tsx:116
+#: src/components/error/AuthFeedbackHandler.tsx:119
 msgid "Authentication error"
 msgstr "인증 오류"
 
@@ -349,10 +309,6 @@ msgstr "취소"
 msgid "Cancel a paid membership"
 msgstr "유료 멤버십 취소하기"
 
-#: src/components/error/InstanceConflictAlert.tsx:63
-msgid "Cancel waiting"
-msgstr "기다리기 취소"
-
 #: src/components/grid/GridControls.tsx:188
 msgid "Cells"
 msgstr "셀"
@@ -383,15 +339,11 @@ msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "사진의 아무 곳이나 클릭🖱️하거나 탭👆하여 흰색 점을 선택합니다."
 
 #: src/components/empty/EmptyTargetColor.tsx:30
-msgid ""
-"Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up "
-"to choose a target color for mixing from your colors."
+msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color for mixing from your colors."
 msgstr "사진 어디든 클릭🖱️하거나 탭👆하거나, 색상 선택 팝업을 사용해 색상에서 혼합할 타깃 색상을 선택하세요."
 
 #: src/components/empty/EmptyPalette.tsx:64
-msgid ""
-"Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up "
-"to choose a target color to mix from your colors."
+msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "사진의 아무 곳이나 클릭 🖱️ 또는 탭👆하거나, 색상 선택기 팝업을 사용하여 색상에서 혼합할 대상 색상을 선택합니다."
 
 #: src/components/ad/AdModal.tsx:71
@@ -541,7 +493,7 @@ msgstr "이 색상 세트 삭제"
 msgid "Dense layer"
 msgstr "조밀층"
 
-#: src/components/error/AuthErrorHandler.tsx:32
+#: src/components/error/AuthFeedbackHandler.tsx:29
 msgid "Details"
 msgstr "세부 사항"
 
@@ -597,7 +549,7 @@ msgstr "복사하다"
 msgid "Edit from here on"
 msgstr "여기서부터는 수정"
 
-#: src/components/error/AuthErrorHandler.tsx:35
+#: src/components/error/AuthFeedbackHandler.tsx:32
 msgid "Email"
 msgstr "이메일"
 
@@ -606,11 +558,11 @@ msgstr "이메일"
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "라이트박스 모드에 들어가 종이 전체에 윤곽선을 따라 그려보세요."
 
-#: src/components/error/AuthErrorHandler.tsx:33
+#: src/components/error/AuthFeedbackHandler.tsx:30
 msgid "Error"
 msgstr "오류"
 
-#: src/components/error/AuthErrorHandler.tsx:34
+#: src/components/error/AuthFeedbackHandler.tsx:31
 msgid "Error description"
 msgstr "오류 설명"
 
@@ -671,7 +623,7 @@ msgstr "완전 전력입니다"
 msgid "Gamma"
 msgstr "감마"
 
-#: src/components/error/AuthErrorHandler.tsx:39
+#: src/components/error/AuthFeedbackHandler.tsx:36
 msgid "Gifted membership"
 msgstr "영재 회원"
 
@@ -718,9 +670,7 @@ msgid "Help"
 msgstr "도움말"
 
 #: src/components/ColorSetChooser.tsx:489
-msgid ""
-"If you are having trouble logging in, please read this <0>troubleshooting "
-"guide</0>."
+msgid "If you are having trouble logging in, please read this <0>troubleshooting guide</0>."
 msgstr "로그인에 어려움이 있다면 이 <0>문제 해결 가이드</0>를 꼭 읽어주세요."
 
 #: src/components/ColorSetChooser.tsx:249
@@ -732,9 +682,7 @@ msgid "Image without background"
 msgstr "배경이 없는 이미지"
 
 #: src/components/ImageColorPicker.tsx:316
-msgid ""
-"Include transparent layers over the surface or underlayer when finding "
-"matches."
+msgid "Include transparent layers over the surface or underlayer when finding matches."
 msgstr "매칭을 찾을 때는 표면이나 하층 위에 투명 층을 포함하세요."
 
 #: src/components/messages.ts:39
@@ -763,13 +711,8 @@ msgid "Invalid QR code"
 msgstr "잘못된 QR 코드"
 
 #: src/components/ImagesCompare.tsx:99
-msgid ""
-"It can be difficult to choose between multiple photos. Comparing each photo "
-"with others in pairs simplifies the choice and helps to identify the most "
-"preferred one."
-msgstr ""
-"여러 사진 중에서 선택하기 어려울 수 있습니다. 각 사진을 쌍으로 다른 사진과 비교하면 선택이 간단해지고 가장 선호하는 사진을 식별하는 "
-"데 도움이 됩니다."
+msgid "It can be difficult to choose between multiple photos. Comparing each photo with others in pairs simplifies the choice and helps to identify the most preferred one."
+msgstr "여러 사진 중에서 선택하기 어려울 수 있습니다. 각 사진을 쌍으로 다른 사진과 비교하면 선택이 간단해지고 가장 선호하는 사진을 식별하는 데 도움이 됩니다."
 
 #: src/components/auth/JoinButton.tsx:28
 msgid "Join on Patreon"
@@ -787,7 +730,7 @@ msgstr "언어"
 msgid "Large"
 msgstr "큰"
 
-#: src/components/error/AuthErrorHandler.tsx:37
+#: src/components/error/AuthFeedbackHandler.tsx:34
 msgid "Last charge status"
 msgstr "마지막 충전 상태"
 
@@ -839,7 +782,7 @@ msgstr "색상 세트 파일 로드"
 msgid "Log in on another device by scanning the QR code"
 msgstr "QR 코드를 스캔하여 다른 장치에 로그인합니다."
 
-#: src/components/auth/LoginButton.tsx:42
+#: src/components/auth/LoginButton.tsx:39
 msgid "Log in with Patreon"
 msgstr "Patreon으로 로그인하기"
 
@@ -847,10 +790,14 @@ msgstr "Patreon으로 로그인하기"
 msgid "Log out"
 msgstr "로그아웃"
 
-#: src/components/error/AuthErrorHandler.tsx:125
-#: src/components/error/AuthErrorHandler.tsx:156
+#: src/components/error/AuthFeedbackHandler.tsx:128
+#: src/components/error/AuthFeedbackHandler.tsx:187
 msgid "Login failed"
 msgstr "로그인 실패"
+
+#: src/components/error/AuthFeedbackHandler.tsx:138
+msgid "Login result not received"
+msgstr "로그인 결과가 받지 못했습니다"
 
 #: src/components/Help.tsx:280
 msgid "Login session is valid until {expirationText}"
@@ -951,7 +898,7 @@ msgstr "새로운 색상 세트"
 msgid "New comparison"
 msgstr "새로운 비교"
 
-#: src/components/error/AuthErrorHandler.tsx:38
+#: src/components/error/AuthFeedbackHandler.tsx:35
 msgid "Next charge date"
 msgstr "다음 청구일"
 
@@ -1031,9 +978,7 @@ msgid "Open in Safari browser"
 msgstr "Safari 브라우저에서 열기"
 
 #: src/components/error/BrowserSupport.tsx:99
-msgid ""
-"or install the latest version of the Chrome, Edge, Firefox or Opera web "
-"browser"
+msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "또는 최신 버전의 Chrome, Edge, Firefox 또는 Opera 웹 브라우저를 설치합니다."
 
 #: src/components/share/ShareModal.tsx:92
@@ -1076,11 +1021,11 @@ msgstr "팔레트"
 msgid "Paper size"
 msgstr "용지 크기"
 
-#: src/components/error/AuthErrorHandler.tsx:44
+#: src/components/error/AuthFeedbackHandler.tsx:47
 msgid "Patreon membership verification failed"
 msgstr "Patreon 회원 확인 실패"
 
-#: src/components/error/AuthErrorHandler.tsx:36
+#: src/components/error/AuthFeedbackHandler.tsx:33
 msgid "Patron status"
 msgstr "후원자 지위"
 
@@ -1090,9 +1035,7 @@ msgid "Percentile"
 msgstr "백분위"
 
 #: src/components/ImageColorAdjustment.tsx:393
-msgid ""
-"Percentile: Auto white balance from brightest areas, good for most photos. "
-"Reference: Manual white balance using selected white area."
+msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "백분위수: 가장 밝은 영역에서 자동 화이트 밸런스로 대부분의 사진에 적합합니다. 참조: 선택한 화이트 영역을 사용한 수동 화이트 밸런스."
 
 #: src/components/Help.tsx:215
@@ -1120,9 +1063,7 @@ msgid "Pinch or scroll to zoom, drag to pan."
 msgstr "핀치나 스크롤로 확대하고, 드래그하면 팬으로 이동하세요."
 
 #: src/components/error/ErrorFallback.tsx:43
-msgid ""
-"Please send us a screenshot of this error via our <0>contacts</0>. It will "
-"help us identify the cause."
+msgid "Please send us a screenshot of this error via our <0>contacts</0>. It will help us identify the cause."
 msgstr "이 오류 스크린샷을 연락처로 보내주시기 <0>바랍니다.</0> 원인을 파악하는 데 도움이 될 것입니다."
 
 #: src/components/ImagesCompare.tsx:179
@@ -1376,9 +1317,7 @@ msgid "Select an image that contains a color chart"
 msgstr "색상 차트가 포함된 이미지를 선택합니다"
 
 #: src/components/ColorMixer.tsx:192
-msgid ""
-"Select any number of colors to mix and specify the part of each color in "
-"the resulting mix."
+msgid "Select any number of colors to mix and specify the part of each color in the resulting mix."
 msgstr "혼합할 색상을 원하는 수만큼 선택하고 결과 혼합에서 각 색상의 부분을 지정합니다."
 
 #: src/components/color-set/ColorTypeSelect.tsx:38
@@ -1463,16 +1402,12 @@ msgid "Select style image"
 msgstr "스타일 이미지 선택"
 
 #: src/components/color-set/MergeColorSetsDrawer.tsx:74
-msgid ""
-"Select the color sets you want to merge. A new color set will be created "
-"that includes all the colors from the selected sets."
+msgid "Select the color sets you want to merge. A new color set will be created that includes all the colors from the selected sets."
 msgstr "합치고 싶은 색상 세트를 선택하세요. 선택한 색상 세트의 모든 색상을 포함하는 새로운 색상 세트가 생성됩니다."
 
 #: src/components/ColorSetChooser.tsx:550
 #: src/components/empty/EmptyColorSet.tsx:71
-msgid ""
-"Select your art medium, color brands, and the colors you will paint with, "
-"then press <0>Save & continue</0>."
+msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>."
 msgstr "아트 매체, 색상 브랜드, 그리고 사용할 색상을 선택한 후 <0>저장 후 계속</0>하세요."
 
 #: src/components/color/OpacityIcon.tsx:47
@@ -1483,7 +1418,7 @@ msgstr "반투명"
 msgid "Semi-transparent"
 msgstr "반투명"
 
-#: src/components/error/AuthErrorHandler.tsx:107
+#: src/components/error/AuthFeedbackHandler.tsx:110
 msgid "Session expired"
 msgstr "회기 종료"
 
@@ -1567,9 +1502,7 @@ msgid "Similarity"
 msgstr "유사성"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:99
-msgid ""
-"Similarity mode compares the target and suggested colors. In Mixture mode, "
-"the parts of the color that make up the mixture are displayed."
+msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
 msgstr "유사성 모드는 대상 색상과 제안된 색상을 비교합니다. 혼합 모드에서는 혼합물을 구성하는 색상 부분이 표시됩니다."
 
 #: src/components/messages.ts:33
@@ -1577,21 +1510,15 @@ msgid "Simplified"
 msgstr "쉽게 한"
 
 #: src/components/color/ConsistencyDescription.tsx:148
-msgid ""
-"Slightly overlap oil pastel areas of different colors and blend gently to "
-"create a smooth transition."
+msgid "Slightly overlap oil pastel areas of different colors and blend gently to create a smooth transition."
 msgstr "색상이 다른 오일 파스텔 영역을 약간 겹치고 부드럽게 혼합하여 부드러운 전환을 만듭니다."
 
 #: src/components/color/ConsistencyDescription.tsx:141
-msgid ""
-"Slightly overlap pastel areas of different colors and blend gently to "
-"create a smooth transition."
+msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition."
 msgstr "색상이 다른 파스텔 영역을 약간 겹치고 부드럽게 혼합하여 부드러운 전환을 만듭니다."
 
 #: src/components/color/ConsistencyDescription.tsx:155
-msgid ""
-"Slightly overlap wax pastel areas of different colors and blend firmly to "
-"create a smooth transition."
+msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition."
 msgstr "다양한 색상의 왁스 파스텔 영역을 약간 겹쳐서 단단히 블렌딩하여 부드러운 전환을 만듭니다."
 
 #: src/components/ImageBlurred.tsx:133
@@ -1618,9 +1545,7 @@ msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "혼합물 내 색상 수순으로 적은 것부터 많은 것까지 정렬하세요."
 
 #: src/components/ImageColorPicker.tsx:403
-msgid ""
-"Sort by the similarity of the mixture to the target color, from highest to "
-"lowest."
+msgid "Sort by the similarity of the mixture to the target color, from highest to lowest."
 msgstr "혼합물과 목표 색상의 유사도, 가장 높은 순서부터 낮은 순서로 정렬하세요."
 
 #: src/components/color/ReflectanceChartDrawer.tsx:89
@@ -1641,7 +1566,7 @@ msgstr "표준 색상 세트"
 msgid "Standard print"
 msgstr "표준 인쇄"
 
-#: src/components/error/AuthErrorHandler.tsx:86
+#: src/components/error/AuthFeedbackHandler.tsx:89
 msgid "Still having trouble? Please refer to this <0>troubleshooting guide</0>."
 msgstr "아직도 어려움이 있나요? 이 <0>문제 해결 가이드</0>를 참고해 주세요."
 
@@ -1654,13 +1579,8 @@ msgid "Storage usage"
 msgstr "스토리지 사용량"
 
 #: src/components/ImagePerspectiveCorrection.tsx:258
-msgid ""
-"Straightens skewed photos and removes unwanted edges. Use auto-detect or "
-"select 4 points to correct perspective distortion, then optionally drag "
-"margins to crop the image."
-msgstr ""
-"비뚤어진 사진을 곧게 펴고 원치 않는 모서리를 제거합니다. 원근 왜곡을 보정하려면 자동 감지 또는 4개 지점을 선택하고, 선택적으로 "
-"여백을 드래그해서 이미지를 자르세요."
+msgid "Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
+msgstr "비뚤어진 사진을 곧게 펴고 원치 않는 모서리를 제거합니다. 원근 왜곡을 보정하려면 자동 감지 또는 4개 지점을 선택하고, 선택적으로 여백을 드래그해서 이미지를 자르세요."
 
 #: src/components/ImageBlurred.tsx:123
 msgid "Strength"
@@ -1706,9 +1626,7 @@ msgid "Terms of use"
 msgstr "이용 약관"
 
 #: src/components/Help.tsx:257
-msgid ""
-"The app stores all data in the web browser storage even after installation. "
-"Clearing the web browser data results in the loss of all app data."
+msgid "The app stores all data in the web browser storage even after installation. Clearing the web browser data results in the loss of all app data."
 msgstr "앱은 설치 후에도 웹 브라우저 저장소에 모든 데이터를 저장합니다. 웹 브라우저 데이터를 지우면 모든 앱 데이터가 손실됩니다."
 
 #: src/components/color/UnderlayerColorPicker.tsx:59
@@ -1720,15 +1638,11 @@ msgid "The color set can't be saved because not all required fields are filled."
 msgstr "색상 세트는 모든 필수 필드가 채워지지 않아 저장할 수 없습니다."
 
 #: src/components/ImageColorPicker.tsx:271
-msgid ""
-"The color to be mixed from your color set. Select a color by clicking a "
-"point on the image, or use the color picker popup."
+msgid "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
 msgstr "색상 세트에서 혼합할 색상입니다. 이미지의 점을 클릭하여 색상을 선택하거나 색상 선택기 팝업을 사용합니다."
 
 #: src/components/CustomColorBrandCreator.tsx:436
-msgid ""
-"The diameter of the circular area around the cursor, used to calculate the "
-"average color of the pixels within the area."
+msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
 msgstr "커서 주위의 원형 영역의 지름으로, 영역 내에 있는 픽셀의 평균 색상을 계산하는 데 사용됩니다."
 
 #: src/components/color/UnderlayerColorPicker.tsx:98
@@ -1752,9 +1666,7 @@ msgid "Thin the paint to <0>{fractionText} thickness</0>"
 msgstr "페인트를 <0>{fractionText} 두께</0>로 얇게 만듭니다."
 
 #: src/hooks/useColorSetBackup.ts:27
-msgid ""
-"This backup file lets you restore your color sets later, so keep it. You "
-"can delete any older backup files."
+msgid "This backup file lets you restore your color sets later, so keep it. You can delete any older backup files."
 msgstr "이 백업 파일을 사용하면 나중에 색상 세트를 복원할 수 있으므로 보관하십시오. 이전 백업 파일을 삭제할 수 있습니다."
 
 #: src/components/ColorSetChooser.tsx:661
@@ -1777,17 +1689,11 @@ msgstr "이 단계는 선택 사항입니다."
 msgid "This style is available to paid Patreon members only"
 msgstr "이 스타일은 Patreon 유료 회원만 사용할 수 있습니다"
 
-#: src/components/error/InstanceConflictAlert.tsx:52
-msgid "This tab will open automatically when the other tab closes."
-msgstr "이 탭은 다른 탭이 닫히면 자동으로 열립니다."
-
-#: src/components/error/AuthErrorHandler.tsx:48
-msgid ""
-"This usually happens when you're signed in to a <0>different</0> Patreon "
-"account than the one used for your ArtistAssistApp membership."
+#: src/components/error/AuthFeedbackHandler.tsx:51
+msgid "This usually happens when you're signed in to a <0>different</0> Patreon account than the one used for your ArtistAssistApp membership."
 msgstr "보통 ArtistAssistApp 멤버십에 사용된 계정과 <0>다른</0> Patreon 계정에 로그인했을 때 발생합니다."
 
-#: src/components/error/AuthErrorHandler.tsx:56
+#: src/components/error/AuthFeedbackHandler.tsx:59
 msgid "To fix this:"
 msgstr "이 문제를 해결하려면:"
 
@@ -1800,14 +1706,8 @@ msgid "To use the {tabLabel} feature, select a reference photo."
 msgstr "{tabLabel} 기능을 사용하려면 참조 사진을 선택합니다."
 
 #: src/components/empty/EmptyColorSet.tsx:54
-msgid ""
-"To use the {tabLabel} feature, select supported art medium and colors to "
-"paint with."
+msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with."
 msgstr "{tabLabel} 기능을 사용하려면 지원되는 아트 매체와 색상을 선택해 사용하세요."
-
-#: src/components/error/InstanceConflictAlert.tsx:56
-msgid "To use this tab instead, close the other tab."
-msgstr "이 탭을 사용하려면 다른 탭을 닫으세요."
 
 #: src/components/messages.ts:32
 msgid "Tonal values"
@@ -1866,36 +1766,23 @@ msgid "Use full pressure."
 msgstr "최대 압력을 사용하세요."
 
 #: src/components/color/ConsistencyDescription.tsx:120
-msgid ""
-"Use glazing mediums that allow you to get a thin layer, for example, 1/10 "
-"of the original acrylic paint layer."
+msgid "Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original acrylic paint layer."
 msgstr "예를 들어 원래 아크릴 페인트 층의 1/10과 같이 얇은 층을 얻을 수 있는 유약 매체를 사용하십시오."
 
 #: src/components/color/ConsistencyDescription.tsx:113
-msgid ""
-"Use glazing mediums that allow you to get a thin layer, for example, 1/10 "
-"of the original oil paint layer. You should be able to get the consistency "
-"of runny sour cream. Linseed oil is a popular glazing medium."
-msgstr ""
-"예를 들어 원래 유성 페인트 층의 1/10과 같이 얇은 층을 얻을 수 있는 유약 매체를 사용하십시오. 묽은 사워 크림의 농도를 얻을 수 "
-"있어야 합니다. 아마씨 기름은 인기 있는 유약 매체입니다."
+msgid "Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original oil paint layer. You should be able to get the consistency of runny sour cream. Linseed oil is a popular glazing medium."
+msgstr "예를 들어 원래 유성 페인트 층의 1/10과 같이 얇은 층을 얻을 수 있는 유약 매체를 사용하십시오. 묽은 사워 크림의 농도를 얻을 수 있어야 합니다. 아마씨 기름은 인기 있는 유약 매체입니다."
 
 #: src/components/file/FileSelect.tsx:91
 msgid "Use reference photo"
 msgstr "참조 사진 사용"
-
-#: src/components/error/InstanceConflictAlert.tsx:63
-msgid "Use this tab instead"
-msgstr "대신 이 탭을 사용하세요"
 
 #: src/components/Help.tsx:235
 msgid "Used"
 msgstr "사용"
 
 #: src/components/ImageLimitedPalette.tsx:107
-msgid ""
-"Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} "
-"primary colors."
+msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "제한된 팔레트를 사용하면 색상 조화를 이루는 데 도움이 됩니다. 1–{MAX_COLORS} 기본 색상을 선택하세요."
 
 #: src/components/ImageOutline.tsx:305
@@ -1923,26 +1810,20 @@ msgstr "수채화 연필"
 msgid "Wax Pastel"
 msgstr "왁스 파스텔"
 
-#: src/components/error/AuthErrorHandler.tsx:118
-msgid ""
-"We encountered a problem verifying your login credentials. This issue can "
-"usually be resolved by trying to log in again."
+#: src/components/error/AuthFeedbackHandler.tsx:121
+msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
 msgstr "로그인 자격 증명 검증에 문제가 발생했습니다. 이 문제는 보통 다시 로그인 시도로 해결됩니다."
 
-#: src/components/error/AuthErrorHandler.tsx:129
+#: src/components/error/AuthFeedbackHandler.tsx:132
 msgid "We were unable to log you in."
 msgstr "로그인할 수 없었습니다."
 
 #: src/components/ColorSetChooser.tsx:691
-msgid ""
-"When selecting more than {maxColorsFor2} colors in total, mixtures of two "
-"colors are not used."
+msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "총 {maxColorsFor2}개 이상의 색상을 선택하는 경우 두 색상의 혼합은 사용되지 않습니다."
 
 #: src/components/ColorSetChooser.tsx:699
-msgid ""
-"When selecting more than {maxColorsFor3} colors in total, mixtures of three "
-"colors are not used."
+msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "총 {maxColorsFor3}개 이상의 색상을 선택하는 경우 세 가지 색상의 혼합은 사용되지 않습니다."
 
 #: src/components/ImageBackgroundRemoval.tsx:148
@@ -1983,9 +1864,7 @@ msgid "Yes"
 msgstr "예"
 
 #: src/components/ImageChooser.tsx:81
-msgid ""
-"You already have many recent photos saved. Remove the oldest one to free up "
-"space? The new photo will still be added."
+msgid "You already have many recent photos saved. Remove the oldest one to free up space? The new photo will still be added."
 msgstr "이미 최근 사진이 많이 저장되어 있어요. 가장 오래된 것을 제거해서 공간을 확보하는 건가요? 새 사진은 여전히 추가될 예정입니다."
 
 #: src/components/ColorSetChooser.tsx:463
@@ -1993,10 +1872,16 @@ msgid "You are logged in and have access to all app features."
 msgstr "로그인되어 있으며 모든 앱 기능에 액세스할 수 있습니다."
 
 #: src/components/ColorSetChooser.tsx:468
-msgid ""
-"You are using the <0>free version</0> with a limited number of color brands "
-"and image processing modes."
+msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "제한된 수의 색상 브랜드와 이미지 처리 모드가 있는 <0>무료 버전을</0> 사용하고 있습니다."
+
+#: src/components/error/AuthFeedbackHandler.tsx:162
+msgid "You can keep working in this browser tab, or switch back to the installed ArtistAssistApp — you're logged in there too."
+msgstr "이 브라우저 탭에서 계속 작업할 수도 있고, 설치된 ArtistAssistApp으로 다시 전환할 수도 있습니다 — 거기에도 로그인되어 있습니다."
+
+#: src/components/error/AuthFeedbackHandler.tsx:160
+msgid "You're logged in"
+msgstr "로그인 상태입니다"
 
 #: src/components/ImageBackgroundRemoval.tsx:206
 #: src/components/ImageOutline.tsx:261
@@ -2008,28 +1893,19 @@ msgid "You've selected color brands that are available to paid Patreon members o
 msgstr "Patreon 유료 회원만 사용할 수 있는 색상 브랜드를 선택했습니다."
 
 #: src/components/ColorSetChooser.tsx:682
-msgid ""
-"You've selected color brands that are available to paid Patreon members "
-"only. Join ArtistAssistApp on Patreon as a paid member or log in with "
-"Patreon if you've already joined."
-msgstr ""
-"Patreon 유료 회원만 사용할 수 있는 색상 브랜드를 선택했습니다. Patreon의 ArtistAssistApp에 유료 회원으로 "
-"가입하거나 이미 가입한 경우 Patreon으로 로그인하세요."
+msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
+msgstr "Patreon 유료 회원만 사용할 수 있는 색상 브랜드를 선택했습니다. Patreon의 ArtistAssistApp에 유료 회원으로 가입하거나 이미 가입한 경우 Patreon으로 로그인하세요."
 
-#: src/components/error/AuthErrorHandler.tsx:100
+#: src/components/error/AuthFeedbackHandler.tsx:103
 msgid "Your account details:"
 msgstr "계좌 정보:"
 
 #: src/hooks/usePersistentStorage.tsx:49
-msgid ""
-"Your data may not be saved reliably if the browser is closed. To fix this, "
-"install the app."
+msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "브라우저가 닫혀 있으면 데이터가 안정적으로 저장되지 않을 수 있습니다. 이 문제를 해결하려면 앱을 설치하세요."
 
-#: src/components/error/AuthErrorHandler.tsx:109
-msgid ""
-"Your login session has expired. Please sign in again to refresh your access "
-"and continue using ArtistAssistApp."
+#: src/components/error/AuthFeedbackHandler.tsx:112
+msgid "Your login session has expired. Please sign in again to refresh your access and continue using ArtistAssistApp."
 msgstr "로그인 세션이 만료되었습니다. 다시 로그인하여 접근 권한을 새로고침하고 ArtistAssistApp 사용을 계속해 주세요."
 
 #: src/components/error/BrowserSupport.tsx:54

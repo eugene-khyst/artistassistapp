@@ -26,9 +26,7 @@ msgstr "{brandName} kolory"
 #: src/components/ImageColorPicker.tsx:366
 #: src/components/Palette.tsx:77
 msgid "{colorCount, plural, one {# color} other {# colors}}"
-msgstr ""
-"{colorCount, plural, one {# kolor} few {# kolory} many {# kolorów} other {# "
-"kolorów}}"
+msgstr "{colorCount, plural, one {# kolor} few {# kolory} many {# kolorów} other {# kolorów}}"
 
 #: src/components/ColorSetChooser.tsx:607
 #: src/components/ColorSetChooser.tsx:655
@@ -57,12 +55,8 @@ msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS i iPadOS"
 
 #: src/components/error/BrowserSupport.tsx:69
-msgid ""
-"<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older "
-"versions of iPadOS and iOS)"
-msgstr ""
-"<0/> iPadOS 16.4+ lub iOS 16.4+ (nieobsługiwane w żadnej przeglądarce w "
-"starszych wersjach iPadOS i iOS)"
+msgid "<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older versions of iPadOS and iOS)"
+msgstr "<0/> iPadOS 16.4+ lub iOS 16.4+ (nieobsługiwane w żadnej przeglądarce w starszych wersjach iPadOS i iOS)"
 
 #: src/components/error/BrowserSupport.tsx:62
 msgid "<0/> Tablet and <1/> Mobile"
@@ -78,64 +72,28 @@ msgid "<0>{similarityText}%</0> similarity"
 msgstr "<0>{similarityText}%</0> podobieństwa"
 
 #: src/components/ColorSetChooser.tsx:453
-msgid ""
-"<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from "
-"photos, analyze tonal values, outline photos, draw with grids, paint with "
-"limited palettes, and more."
-msgstr ""
-"<0>ArtistAssistApp</0> to aplikacja internetowa, która pomaga artystom "
-"mieszać kolory ze zdjęć, analizować wartości tonalne, konturować zdjęcia, "
-"rysować za pomocą siatek, malować przy użyciu ograniczonych palet i nie "
-"tylko."
+msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
+msgstr "<0>ArtistAssistApp</0> to aplikacja internetowa, która pomaga artystom mieszać kolory ze zdjęć, analizować wartości tonalne, konturować zdjęcia, rysować za pomocą siatek, malować przy użyciu ograniczonych palet i nie tylko."
 
-#: src/components/error/AuthErrorHandler.tsx:61
-msgid ""
-"<0>Check your Patreon account</0>: Ensure you are signed in to "
-"<1>Patreon.com</1> in your web browser using the same email you used to "
-"purchase your membership. If you have multiple accounts, sign out and sign "
-"back in with the correct one."
-msgstr ""
-"<0>Sprawdź swoje konto Patreon</0>: Upewnij się, że jesteś zalogowany do "
-"<1>Patreon.com</1> w przeglądarce internetowej, używając tego samego "
-"e-maila, którego użyłeś do zakupu członkostwa. Jeśli masz więcej kont, "
-"wyloguj się i zaloguj się ponownie za pomocą właściwego."
+#: src/components/error/AuthFeedbackHandler.tsx:64
+msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
+msgstr "<0>Sprawdź swoje konto Patreon</0>: Upewnij się, że jesteś zalogowany do <1>Patreon.com</1> w przeglądarce internetowej, używając tego samego e-maila, którego użyłeś do zakupu członkostwa. Jeśli masz więcej kont, wyloguj się i zaloguj się ponownie za pomocą właściwego."
 
 #: src/components/ColorSetChooser.tsx:474
-msgid ""
-"<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with "
-"Patreon</1> if you've already joined, to get access to more than 200 color "
-"brands and all image processing modes without ads."
-msgstr ""
-"<0>Dołącz do ArtistAssistApp na Patreon jako płatny członek</0> lub "
-"<1>zaloguj się za pomocą Patreon</1> , jeśli już dołączyłeś, aby uzyskać "
-"dostęp do ponad 200 marek kolorów i wszystkich trybów przetwarzania obrazu "
-"bez reklam."
+msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
+msgstr "<0>Dołącz do ArtistAssistApp na Patreon jako płatny członek</0> lub <1>zaloguj się za pomocą Patreon</1> , jeśli już dołączyłeś, aby uzyskać dostęp do ponad 200 marek kolorów i wszystkich trybów przetwarzania obrazu bez reklam."
 
-#: src/components/error/AuthErrorHandler.tsx:79
-msgid ""
-"<0>Retry login</0>: Once you have confirmed the correct Patreon account is "
-"active in your browser, log in to ArtistAssistApp again."
-msgstr ""
-"<0>Spróbuj ponownie zalogować</0>: Po potwierdzeniu, że konto Patreon jest "
-"aktywne w przeglądarce, zaloguj się ponownie do ArtistAssistApp."
+#: src/components/error/AuthFeedbackHandler.tsx:82
+msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
+msgstr "<0>Spróbuj ponownie zalogować</0>: Po potwierdzeniu, że konto Patreon jest aktywne w przeglądarce, zaloguj się ponownie do ArtistAssistApp."
 
-#: src/components/error/AuthErrorHandler.tsx:72
-msgid ""
-"<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), "
-"log in via a web browser (Chrome, Safari, Firefox) instead, as the app can "
-"sometimes interfere with the verification process."
-msgstr ""
-"<0>Użyj przeglądarki internetowej</0>: Jeśli korzystasz z aplikacji Patreon "
-"(iOS/Android), zaloguj się przez przeglądarkę (Chrome, Safari, Firefox), "
-"ponieważ aplikacja czasem może zakłócać proces weryfikacji."
+#: src/components/error/AuthFeedbackHandler.tsx:75
+msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
+msgstr "<0>Użyj przeglądarki internetowej</0>: Jeśli korzystasz z aplikacji Patreon (iOS/Android), zaloguj się przez przeglądarkę (Chrome, Safari, Firefox), ponieważ aplikacja czasem może zakłócać proces weryfikacji."
 
 #: src/components/ImageColorPicker.tsx:332
-msgid ""
-"A color mixed into every suggested mixture to help the palette feel more "
-"harmonious. Also known as a mother color."
-msgstr ""
-"Kolor wmieszany w każdą proponowaną mieszankę, by paleta była bardziej "
-"harmonijna. Znany również jako kolor matczyny."
+msgid "A color mixed into every suggested mixture to help the palette feel more harmonious. Also known as a mother color."
+msgstr "Kolor wmieszany w każdą proponowaną mieszankę, by paleta była bardziej harmonijna. Znany również jako kolor matczyny."
 
 #: src/components/ColorMixingChart.tsx:165
 msgid "A grid showing the result of mixing each pair of selected colors"
@@ -143,21 +101,15 @@ msgstr "Siatka pokazująca efekt mieszania każdej pary wybranych kolorów"
 
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:46
 msgid "A new version of the app is available and will be installed automatically."
-msgstr ""
-"Dostępna jest nowa wersja aplikacji, która zostanie zainstalowana "
-"automatycznie."
+msgstr "Dostępna jest nowa wersja aplikacji, która zostanie zainstalowana automatycznie."
 
 #: src/components/Help.tsx:187
 msgid "A new version of the application is available."
 msgstr "Dostępna jest nowa wersja aplikacji."
 
 #: src/components/ImageColorAdjustment.tsx:459
-msgid ""
-"A value less than 100% makes the image look less colorful, and a value "
-"greater than 100% makes it look too colorful"
-msgstr ""
-"Wartość mniejsza niż 100% sprawia, że obraz wygląda na mniej kolorowy, a "
-"wartość większa niż 100% sprawia, że wygląda on zbyt kolorowo"
+msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
+msgstr "Wartość mniejsza niż 100% sprawia, że obraz wygląda na mniej kolorowy, a wartość większa niż 100% sprawia, że wygląda on zbyt kolorowo"
 
 #: src/components/Help.tsx:129
 msgid "About ArtistAssistApp"
@@ -207,19 +159,9 @@ msgstr "Reguluj te 4 punkty ręcznie."
 msgid "Adjusts the strength of image smoothing."
 msgstr "Reguluje wytrzymałość wygładzania obrazu."
 
-#: src/components/error/InstanceConflictAlert.tsx:44
-msgid "Already open in another tab"
-msgstr "Już otwarte w innej karcie"
-
 #: src/components/install/InstallDrawer.tsx:177
-msgid ""
-"Alternatively, install the latest version of Chrome, Edge or Opera web "
-"browser and click the <0>Install</0> button. In older versions of macOS, "
-"this is the only option."
-msgstr ""
-"Możesz też zainstalować najnowszą wersję przeglądarki internetowej Chrome, "
-"Edge lub Opera i kliknąć przycisk <0>Instaluj</0> . W starszych wersjach "
-"systemu macOS jest to jedyna opcja."
+msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
+msgstr "Możesz też zainstalować najnowszą wersję przeglądarki internetowej Chrome, Edge lub Opera i kliknąć przycisk <0>Instaluj</0> . W starszych wersjach systemu macOS jest to jedyna opcja."
 
 #: src/components/Help.tsx:275
 msgid "Application build ID"
@@ -241,9 +183,7 @@ msgstr "Stosuj mniejszy nacisk, aby warstwa kredek była bardziej przezroczysta.
 
 #: src/components/color/ConsistencyDescription.tsx:134
 msgid "Apply less pressure to make the watercolor pencil layer more transparent."
-msgstr ""
-"Stosuj mniejszy nacisk, aby warstwa kredek akwarelowych była bardziej "
-"przezroczysta."
+msgstr "Stosuj mniejszy nacisk, aby warstwa kredek akwarelowych była bardziej przezroczysta."
 
 #: src/components/color/ConsistencyDescription.tsx:94
 msgid "Apply strokes of each color in a <0>{ratioText} ratio</0>"
@@ -288,11 +228,9 @@ msgstr "Czy na pewno chcesz usunąć tę mieszankę kolorów?"
 msgid "Art medium"
 msgstr "Medium artystyczne"
 
-#: src/components/error/InstanceConflictAlert.tsx:48
-msgid "ArtistAssistApp can only be used in one browser tab at a time."
-msgstr ""
-"ArtistAssist App można używać tylko w jednej zakładce przeglądarki "
-"jednocześnie."
+#: src/components/error/AuthFeedbackHandler.tsx:142
+msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
+msgstr "ArtistAssistApp nie otrzymała wyników twojego logowania na Patreon. Może się to zdarzyć, gdy logowanie się otwiera w innej przeglądarce lub aplikacji. Proszę, spróbuj zalogować się ponownie."
 
 #: src/components/Help.tsx:266
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
@@ -302,7 +240,7 @@ msgstr "ArtistAssistApp został opracowany przez <0>Eugene'a Khysta</0>"
 msgid "At least one color is required"
 msgstr "Wymagany jest co najmniej jeden kolor"
 
-#: src/components/error/AuthErrorHandler.tsx:116
+#: src/components/error/AuthFeedbackHandler.tsx:119
 msgid "Authentication error"
 msgstr "Błąd uwierzytelniania"
 
@@ -371,10 +309,6 @@ msgstr "Anuluj"
 msgid "Cancel a paid membership"
 msgstr "Anulowanie płatnego członkostwa"
 
-#: src/components/error/InstanceConflictAlert.tsx:63
-msgid "Cancel waiting"
-msgstr "Anuluj oczekiwanie"
-
 #: src/components/grid/GridControls.tsx:188
 msgid "Cells"
 msgstr "Komórek"
@@ -402,27 +336,15 @@ msgstr "Przezroczysty, jednoczący kolor"
 
 #: src/components/ImageColorAdjustment.tsx:427
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
-msgstr ""
-"Kliknij 🖱️ lub naciśnij 👆 dowolne miejsce na zdjęciu, aby wybrać punkt "
-"bieli."
+msgstr "Kliknij 🖱️ lub naciśnij 👆 dowolne miejsce na zdjęciu, aby wybrać punkt bieli."
 
 #: src/components/empty/EmptyTargetColor.tsx:30
-msgid ""
-"Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up "
-"to choose a target color for mixing from your colors."
-msgstr ""
-"Kliknij 🖱️ lub stuknij 👆 dowolne miejsce na zdjęciu albo użyj "
-"wyskakującego okna wyboru kolorów, aby wybrać docelowy kolor do mieszania z "
-"twoich kolorów."
+msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color for mixing from your colors."
+msgstr "Kliknij 🖱️ lub stuknij 👆 dowolne miejsce na zdjęciu albo użyj wyskakującego okna wyboru kolorów, aby wybrać docelowy kolor do mieszania z twoich kolorów."
 
 #: src/components/empty/EmptyPalette.tsx:64
-msgid ""
-"Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up "
-"to choose a target color to mix from your colors."
-msgstr ""
-"Kliknij 🖱️ lub naciśnij 👆 dowolne miejsce na zdjęciu lub użyj "
-"wyskakującego okienka próbnika kolorów, aby wybrać kolor docelowy, który ma "
-"być mieszany z kolorów."
+msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
+msgstr "Kliknij 🖱️ lub naciśnij 👆 dowolne miejsce na zdjęciu lub użyj wyskakującego okienka próbnika kolorów, aby wybrać kolor docelowy, który ma być mieszany z kolorów."
 
 #: src/components/ad/AdModal.tsx:71
 msgid "Close"
@@ -495,9 +417,7 @@ msgstr "Kontakt"
 
 #: src/components/ImageColorPicker.tsx:253
 msgid "Controls how large an area is averaged when you pick a color from the photo."
-msgstr ""
-"Kontroluje, jak duża powierzchnia jest uśredniona, gdy wybierasz kolor ze "
-"zdjęcia."
+msgstr "Kontroluje, jak duża powierzchnia jest uśredniona, gdy wybierasz kolor ze zdjęcia."
 
 #: src/components/color/WarmthIcon.tsx:42
 msgid "Cool — Algorithmic estimate; artistic perception may vary."
@@ -573,7 +493,7 @@ msgstr "Usuń ten zestaw kolorów"
 msgid "Dense layer"
 msgstr "Warstwa gęsta"
 
-#: src/components/error/AuthErrorHandler.tsx:32
+#: src/components/error/AuthFeedbackHandler.tsx:29
 msgid "Details"
 msgstr "Szczegóły"
 
@@ -629,7 +549,7 @@ msgstr "Duplikat"
 msgid "Edit from here on"
 msgstr "Dalej edycja"
 
-#: src/components/error/AuthErrorHandler.tsx:35
+#: src/components/error/AuthFeedbackHandler.tsx:32
 msgid "Email"
 msgstr "E-mail"
 
@@ -638,11 +558,11 @@ msgstr "E-mail"
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Przejdź do trybu lightbox, aby przerysować kontur na papierze."
 
-#: src/components/error/AuthErrorHandler.tsx:33
+#: src/components/error/AuthFeedbackHandler.tsx:30
 msgid "Error"
 msgstr "Błąd"
 
-#: src/components/error/AuthErrorHandler.tsx:34
+#: src/components/error/AuthFeedbackHandler.tsx:31
 msgid "Error description"
 msgstr "Opis błędu"
 
@@ -671,9 +591,7 @@ msgstr "Błąd podczas pobierania danych standardowego zestawu kolorów"
 
 #: src/components/ImageColorAdjustment.tsx:549
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
-msgstr ""
-"Szacowana temperatura źródła światła w kelwinach, za pomocą którego "
-"wykonano zdjęcie"
+msgstr "Szacowana temperatura źródła światła w kelwinach, za pomocą którego wykonano zdjęcie"
 
 #: src/components/ImageOutline.tsx:313
 #: src/components/ImageOutline.tsx:362
@@ -682,9 +600,7 @@ msgstr "Wyjście AR"
 
 #: src/components/ColorSetChooser.tsx:484
 msgid "Explore the free version before deciding to purchase a paid membership."
-msgstr ""
-"Zapoznaj się z darmową wersją przed podjęciem decyzji o zakupie płatnego "
-"członkostwa."
+msgstr "Zapoznaj się z darmową wersją przed podjęciem decyzji o zakupie płatnego członkostwa."
 
 #: src/components/ColorSetChooser.tsx:388
 #: src/components/CustomColorBrandCreator.tsx:359
@@ -707,7 +623,7 @@ msgstr "Pełna siła"
 msgid "Gamma"
 msgstr "Gamma"
 
-#: src/components/error/AuthErrorHandler.tsx:39
+#: src/components/error/AuthFeedbackHandler.tsx:36
 msgid "Gifted membership"
 msgstr "Członkostwo dla uzdolnionych"
 
@@ -733,9 +649,7 @@ msgstr "Przejdź do zakładki <0>{photoLabel}</0> i wybierz zdjęcie referencyjn
 
 #: src/components/empty/EmptyImage.tsx:48
 msgid "Go to the <0>{photoLabel}</0> tab and choose your reference photo."
-msgstr ""
-"Przejdź do zakładki <0>{photoLabel}</0> i wybierz swoje zdjęcie "
-"referencyjne."
+msgstr "Przejdź do zakładki <0>{photoLabel}</0> i wybierz swoje zdjęcie referencyjne."
 
 #: src/components/messages.ts:50
 msgid "Gouache"
@@ -756,12 +670,8 @@ msgid "Help"
 msgstr "Pomoc"
 
 #: src/components/ColorSetChooser.tsx:489
-msgid ""
-"If you are having trouble logging in, please read this <0>troubleshooting "
-"guide</0>."
-msgstr ""
-"Jeśli masz problemy z logowaniem, przeczytaj <0>ten poradnik rozwiązywania "
-"problemów</0>."
+msgid "If you are having trouble logging in, please read this <0>troubleshooting guide</0>."
+msgstr "Jeśli masz problemy z logowaniem, przeczytaj <0>ten poradnik rozwiązywania problemów</0>."
 
 #: src/components/ColorSetChooser.tsx:249
 msgid "If you don't save, changes to the color set may be lost."
@@ -772,12 +682,8 @@ msgid "Image without background"
 msgstr "Obraz bez tła"
 
 #: src/components/ImageColorPicker.tsx:316
-msgid ""
-"Include transparent layers over the surface or underlayer when finding "
-"matches."
-msgstr ""
-"Dodaj przezroczyste warstwy na powierzchni lub pod powierzchnią przy "
-"szukaniu dopasowanych warstw."
+msgid "Include transparent layers over the surface or underlayer when finding matches."
+msgstr "Dodaj przezroczyste warstwy na powierzchni lub pod powierzchnią przy szukaniu dopasowanych warstw."
 
 #: src/components/messages.ts:39
 msgid "Inspire"
@@ -805,14 +711,8 @@ msgid "Invalid QR code"
 msgstr "Nieprawidłowy kod QR"
 
 #: src/components/ImagesCompare.tsx:99
-msgid ""
-"It can be difficult to choose between multiple photos. Comparing each photo "
-"with others in pairs simplifies the choice and helps to identify the most "
-"preferred one."
-msgstr ""
-"Wybór między wieloma zdjęciami może być trudny. Porównanie każdego zdjęcia "
-"z innymi w parach upraszcza wybór i pomaga zidentyfikować najbardziej "
-"preferowane."
+msgid "It can be difficult to choose between multiple photos. Comparing each photo with others in pairs simplifies the choice and helps to identify the most preferred one."
+msgstr "Wybór między wieloma zdjęciami może być trudny. Porównanie każdego zdjęcia z innymi w parach upraszcza wybór i pomaga zidentyfikować najbardziej preferowane."
 
 #: src/components/auth/JoinButton.tsx:28
 msgid "Join on Patreon"
@@ -830,7 +730,7 @@ msgstr "Język"
 msgid "Large"
 msgstr "Duży"
 
-#: src/components/error/AuthErrorHandler.tsx:37
+#: src/components/error/AuthFeedbackHandler.tsx:34
 msgid "Last charge status"
 msgstr "Status ostatniego ładunku"
 
@@ -882,7 +782,7 @@ msgstr "Wczytaj plik zestawów kolorów"
 msgid "Log in on another device by scanning the QR code"
 msgstr "Zaloguj się na innym urządzeniu, skanując kod QR"
 
-#: src/components/auth/LoginButton.tsx:42
+#: src/components/auth/LoginButton.tsx:39
 msgid "Log in with Patreon"
 msgstr "Zaloguj się za pomocą Patreona"
 
@@ -890,10 +790,14 @@ msgstr "Zaloguj się za pomocą Patreona"
 msgid "Log out"
 msgstr "Wyloguj się"
 
-#: src/components/error/AuthErrorHandler.tsx:125
-#: src/components/error/AuthErrorHandler.tsx:156
+#: src/components/error/AuthFeedbackHandler.tsx:128
+#: src/components/error/AuthFeedbackHandler.tsx:187
 msgid "Login failed"
 msgstr "Logowanie nie powiodło się"
+
+#: src/components/error/AuthFeedbackHandler.tsx:138
+msgid "Login result not received"
+msgstr "Wynik logowania nie otrzymał"
 
 #: src/components/Help.tsx:280
 msgid "Login session is valid until {expirationText}"
@@ -980,9 +884,7 @@ msgstr "Nadawanie nazwy zestawowi kolorów"
 
 #: src/components/color/WarmthIcon.tsx:46
 msgid "Neutral — Algorithmic estimate; artistic perception may vary."
-msgstr ""
-"Neutralny — oszacowanie algorytmiczne; Percepcja artystyczna może się "
-"różnić."
+msgstr "Neutralny — oszacowanie algorytmiczne; Percepcja artystyczna może się różnić."
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:35
 msgid "New brand"
@@ -996,7 +898,7 @@ msgstr "Nowy zestaw kolorów"
 msgid "New comparison"
 msgstr "Nowe porównanie"
 
-#: src/components/error/AuthErrorHandler.tsx:38
+#: src/components/error/AuthFeedbackHandler.tsx:35
 msgid "Next charge date"
 msgstr "Następna data obciążenia"
 
@@ -1051,9 +953,7 @@ msgstr "Pastel olejny"
 
 #: src/components/ColorSetChooser.tsx:620
 msgid "Only a limited number of color brands are available in the free version"
-msgstr ""
-"W darmowej wersji dostępna jest tylko ograniczona liczba marek "
-"kolorystycznych"
+msgstr "W darmowej wersji dostępna jest tylko ograniczona liczba marek kolorystycznych"
 
 #: src/components/ImageBackgroundRemoval.tsx:202
 #: src/components/ImageOutline.tsx:257
@@ -1078,12 +978,8 @@ msgid "Open in Safari browser"
 msgstr "Otwórz w przeglądarce Safari"
 
 #: src/components/error/BrowserSupport.tsx:99
-msgid ""
-"or install the latest version of the Chrome, Edge, Firefox or Opera web "
-"browser"
-msgstr ""
-"lub zainstaluj najnowszą wersję przeglądarki internetowej Chrome, Edge, "
-"Firefox lub Opera"
+msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
+msgstr "lub zainstaluj najnowszą wersję przeglądarki internetowej Chrome, Edge, Firefox lub Opera"
 
 #: src/components/share/ShareModal.tsx:92
 msgid "Or scan the QR code"
@@ -1125,11 +1021,11 @@ msgstr "Paleta"
 msgid "Paper size"
 msgstr "Rozmiar papieru"
 
-#: src/components/error/AuthErrorHandler.tsx:44
+#: src/components/error/AuthFeedbackHandler.tsx:47
 msgid "Patreon membership verification failed"
 msgstr "Weryfikacja członkostwa w Patreonie nie powiodła się"
 
-#: src/components/error/AuthErrorHandler.tsx:36
+#: src/components/error/AuthFeedbackHandler.tsx:33
 msgid "Patron status"
 msgstr "Status patrona"
 
@@ -1139,13 +1035,8 @@ msgid "Percentile"
 msgstr "Percentyl"
 
 #: src/components/ImageColorAdjustment.tsx:393
-msgid ""
-"Percentile: Auto white balance from brightest areas, good for most photos. "
-"Reference: Manual white balance using selected white area."
-msgstr ""
-"Percentyl: Automatyczny balans bieli z najjaśniejszych obszarów, dobry dla "
-"większości zdjęć. Odniesienie: Ręczny balans bieli przy użyciu wybranego "
-"obszaru bieli."
+msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
+msgstr "Percentyl: Automatyczny balans bieli z najjaśniejszych obszarów, dobry dla większości zdjęć. Odniesienie: Ręczny balans bieli przy użyciu wybranego obszaru bieli."
 
 #: src/components/Help.tsx:215
 msgid "Persistent storage"
@@ -1172,12 +1063,8 @@ msgid "Pinch or scroll to zoom, drag to pan."
 msgstr "Uszczypnij lub przewiń, aby powiększyć, przeciągnij, żeby przesunąć widok."
 
 #: src/components/error/ErrorFallback.tsx:43
-msgid ""
-"Please send us a screenshot of this error via our <0>contacts</0>. It will "
-"help us identify the cause."
-msgstr ""
-"Prosimy o przesłanie nam zrzutu ekranu tego błędu przez <0>nasze "
-"kontakty</0>. Pomoże nam to zidentyfikować przyczynę."
+msgid "Please send us a screenshot of this error via our <0>contacts</0>. It will help us identify the cause."
+msgstr "Prosimy o przesłanie nam zrzutu ekranu tego błędu przez <0>nasze kontakty</0>. Pomoże nam to zidentyfikować przyczynę."
 
 #: src/components/ImagesCompare.tsx:179
 msgid "Position: {position}<0/>Rating: {ratingText}"
@@ -1206,9 +1093,7 @@ msgstr "Naciśnij Udostępnij na pasku nawigacyjnym"
 
 #: src/components/empty/EmptyPalette.tsx:70
 msgid "Press the <0>Add to palette</0> button next to the color mixture you like."
-msgstr ""
-"Naciśnij przycisk <0>Dodaj do palety</0> obok mieszanki kolorów, którą "
-"lubisz."
+msgstr "Naciśnij przycisk <0>Dodaj do palety</0> obok mieszanki kolorów, którą lubisz."
 
 #: src/components/ImageColorAdjustment.tsx:387
 msgid "Preview"
@@ -1421,9 +1306,7 @@ msgstr "Wybierz zdjęcie, z którego chcesz usunąć tło"
 
 #: src/components/ImageChooser.tsx:104
 msgid "Select a reference photo from your device to paint from"
-msgstr ""
-"Wybierz zdjęcie referencyjne z urządzenia, na podstawie którego chcesz "
-"malować"
+msgstr "Wybierz zdjęcie referencyjne z urządzenia, na podstawie którego chcesz malować"
 
 #: src/components/ImageStyleTransfer.tsx:183
 msgid "Select a style to transfer to your reference photo"
@@ -1434,12 +1317,8 @@ msgid "Select an image that contains a color chart"
 msgstr "Zaznaczanie obrazu zawierającego wzornik kolorów"
 
 #: src/components/ColorMixer.tsx:192
-msgid ""
-"Select any number of colors to mix and specify the part of each color in "
-"the resulting mix."
-msgstr ""
-"Wybierz dowolną liczbę kolorów do wymieszania i określ część każdego koloru "
-"w wynikowej mieszance."
+msgid "Select any number of colors to mix and specify the part of each color in the resulting mix."
+msgstr "Wybierz dowolną liczbę kolorów do wymieszania i określ część każdego koloru w wynikowej mieszance."
 
 #: src/components/color-set/ColorTypeSelect.tsx:38
 msgid "Select art medium"
@@ -1523,21 +1402,13 @@ msgid "Select style image"
 msgstr "Wybierz styl obrazu"
 
 #: src/components/color-set/MergeColorSetsDrawer.tsx:74
-msgid ""
-"Select the color sets you want to merge. A new color set will be created "
-"that includes all the colors from the selected sets."
-msgstr ""
-"Wybierz zestawy kolorów, które chcesz połączyć. Zostanie utworzony nowy "
-"zestaw kolorów, który obejmie wszystkie kolory z wybranych zestawów."
+msgid "Select the color sets you want to merge. A new color set will be created that includes all the colors from the selected sets."
+msgstr "Wybierz zestawy kolorów, które chcesz połączyć. Zostanie utworzony nowy zestaw kolorów, który obejmie wszystkie kolory z wybranych zestawów."
 
 #: src/components/ColorSetChooser.tsx:550
 #: src/components/empty/EmptyColorSet.tsx:71
-msgid ""
-"Select your art medium, color brands, and the colors you will paint with, "
-"then press <0>Save & continue</0>."
-msgstr ""
-"Wybierz medium artystyczne, kolory, marki i kolory, którymi będziesz "
-"malować, następnie naciśnij <0>Zapisz i kontynuuj</0>."
+msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>."
+msgstr "Wybierz medium artystyczne, kolory, marki i kolory, którymi będziesz malować, następnie naciśnij <0>Zapisz i kontynuuj</0>."
 
 #: src/components/color/OpacityIcon.tsx:47
 msgid "Semi-opaque"
@@ -1547,7 +1418,7 @@ msgstr "Półprzezroczysty"
 msgid "Semi-transparent"
 msgstr "Półprzezroczysty"
 
-#: src/components/error/AuthErrorHandler.tsx:107
+#: src/components/error/AuthFeedbackHandler.tsx:110
 msgid "Session expired"
 msgstr "Sesja wygasła"
 
@@ -1631,40 +1502,24 @@ msgid "Similarity"
 msgstr "Podobieństwo"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:99
-msgid ""
-"Similarity mode compares the target and suggested colors. In Mixture mode, "
-"the parts of the color that make up the mixture are displayed."
-msgstr ""
-"Tryb podobieństwa porównuje kolory docelowe i sugerowane. W trybie "
-"mieszania wyświetlane są części koloru, które składają się na mieszankę."
+msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
+msgstr "Tryb podobieństwa porównuje kolory docelowe i sugerowane. W trybie mieszania wyświetlane są części koloru, które składają się na mieszankę."
 
 #: src/components/messages.ts:33
 msgid "Simplified"
 msgstr "Uproszczony"
 
 #: src/components/color/ConsistencyDescription.tsx:148
-msgid ""
-"Slightly overlap oil pastel areas of different colors and blend gently to "
-"create a smooth transition."
-msgstr ""
-"Lekko nałóż na siebie pastelowe obszary olejne w różnych kolorach i "
-"delikatnie rozetrzyj, aby uzyskać płynne przejście."
+msgid "Slightly overlap oil pastel areas of different colors and blend gently to create a smooth transition."
+msgstr "Lekko nałóż na siebie pastelowe obszary olejne w różnych kolorach i delikatnie rozetrzyj, aby uzyskać płynne przejście."
 
 #: src/components/color/ConsistencyDescription.tsx:141
-msgid ""
-"Slightly overlap pastel areas of different colors and blend gently to "
-"create a smooth transition."
-msgstr ""
-"Lekko nakładaj na siebie pastelowe obszary o różnych kolorach i delikatnie "
-"mieszaj, aby uzyskać płynne przejście."
+msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition."
+msgstr "Lekko nakładaj na siebie pastelowe obszary o różnych kolorach i delikatnie mieszaj, aby uzyskać płynne przejście."
 
 #: src/components/color/ConsistencyDescription.tsx:155
-msgid ""
-"Slightly overlap wax pastel areas of different colors and blend firmly to "
-"create a smooth transition."
-msgstr ""
-"Delikatnie nakładaj na siebie pastelowe obszary woskowe o różnych kolorach "
-"i mocno mieszaj, aby uzyskać płynne przejście."
+msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition."
+msgstr "Delikatnie nakładaj na siebie pastelowe obszary woskowe o różnych kolorach i mocno mieszaj, aby uzyskać płynne przejście."
 
 #: src/components/ImageBlurred.tsx:133
 msgid "Small"
@@ -1683,21 +1538,15 @@ msgstr "Rodzaj"
 
 #: src/components/ImageColorPicker.tsx:414
 msgid "Sort by mixture opacity, from opaque to transparent."
-msgstr ""
-"Sortuj według mieszanki, przezroczystości, od nieprzezroczystej po "
-"przezroczystą."
+msgstr "Sortuj według mieszanki, przezroczystości, od nieprzezroczystej po przezroczystą."
 
 #: src/components/ImageColorPicker.tsx:408
 msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "Sortuj według liczby kolorów w mieszance, od najmniejszej do najmniej."
 
 #: src/components/ImageColorPicker.tsx:403
-msgid ""
-"Sort by the similarity of the mixture to the target color, from highest to "
-"lowest."
-msgstr ""
-"Sortuj według podobieństwa mieszanki do docelowego koloru, od najwyższego "
-"do najniższego."
+msgid "Sort by the similarity of the mixture to the target color, from highest to lowest."
+msgstr "Sortuj według podobieństwa mieszanki do docelowego koloru, od najwyższego do najniższego."
 
 #: src/components/color/ReflectanceChartDrawer.tsx:89
 #: src/components/color/SimilarColorCard.tsx:110
@@ -1717,11 +1566,9 @@ msgstr "Standardowy zestaw kolorów"
 msgid "Standard print"
 msgstr "Druk standardowy"
 
-#: src/components/error/AuthErrorHandler.tsx:86
+#: src/components/error/AuthFeedbackHandler.tsx:89
 msgid "Still having trouble? Please refer to this <0>troubleshooting guide</0>."
-msgstr ""
-"Nadal masz problemy? Proszę zapoznać się <0>z tym poradnikiem rozwiązywania "
-"problemów</0>."
+msgstr "Nadal masz problemy? Proszę zapoznać się <0>z tym poradnikiem rozwiązywania problemów</0>."
 
 #: src/components/ImageChooser.tsx:80
 msgid "Storage may fill up"
@@ -1732,15 +1579,8 @@ msgid "Storage usage"
 msgstr "Wykorzystanie pamięci masowej"
 
 #: src/components/ImagePerspectiveCorrection.tsx:258
-msgid ""
-"Straightens skewed photos and removes unwanted edges. Use auto-detect or "
-"select 4 points to correct perspective distortion, then optionally drag "
-"margins to crop the image."
-msgstr ""
-"Prostuje krzywe zdjęcia i usuwa niepożądane krawędzie. Użyj automatycznego "
-"wykrywania lub wybierz 4 punkty, aby skorygować zniekształcenia "
-"perspektywy, a następnie opcjonalnie przeciągnij marginesy, aby przyciąć "
-"obraz."
+msgid "Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
+msgstr "Prostuje krzywe zdjęcia i usuwa niepożądane krawędzie. Użyj automatycznego wykrywania lub wybierz 4 punkty, aby skorygować zniekształcenia perspektywy, a następnie opcjonalnie przeciągnij marginesy, aby przyciąć obraz."
 
 #: src/components/ImageBlurred.tsx:123
 msgid "Strength"
@@ -1786,13 +1626,8 @@ msgid "Terms of use"
 msgstr "Warunki korzystania"
 
 #: src/components/Help.tsx:257
-msgid ""
-"The app stores all data in the web browser storage even after installation. "
-"Clearing the web browser data results in the loss of all app data."
-msgstr ""
-"Aplikacja przechowuje wszystkie dane w pamięci przeglądarki internetowej "
-"nawet po instalacji. Wyczyszczenie danych przeglądarki internetowej "
-"powoduje utratę wszystkich danych aplikacji."
+msgid "The app stores all data in the web browser storage even after installation. Clearing the web browser data results in the loss of all app data."
+msgstr "Aplikacja przechowuje wszystkie dane w pamięci przeglądarki internetowej nawet po instalacji. Wyczyszczenie danych przeglądarki internetowej powoduje utratę wszystkich danych aplikacji."
 
 #: src/components/color/UnderlayerColorPicker.tsx:59
 msgid "The color of your paper, canvas, or painting surface."
@@ -1800,25 +1635,15 @@ msgstr "Kolor papieru, płótna lub powierzchni do malowania."
 
 #: src/components/ColorSetChooser.tsx:242
 msgid "The color set can't be saved because not all required fields are filled."
-msgstr ""
-"Zestawu kolorów nie da się zapisać, ponieważ nie wszystkie wymagane pola są "
-"wypełnione."
+msgstr "Zestawu kolorów nie da się zapisać, ponieważ nie wszystkie wymagane pola są wypełnione."
 
 #: src/components/ImageColorPicker.tsx:271
-msgid ""
-"The color to be mixed from your color set. Select a color by clicking a "
-"point on the image, or use the color picker popup."
-msgstr ""
-"Kolor, który ma zostać zmieszany z zestawu kolorów. Wybierz kolor, klikając "
-"punkt na obrazie lub użyj wyskakującego okienka próbnika kolorów."
+msgid "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
+msgstr "Kolor, który ma zostać zmieszany z zestawu kolorów. Wybierz kolor, klikając punkt na obrazie lub użyj wyskakującego okienka próbnika kolorów."
 
 #: src/components/CustomColorBrandCreator.tsx:436
-msgid ""
-"The diameter of the circular area around the cursor, used to calculate the "
-"average color of the pixels within the area."
-msgstr ""
-"Średnica okrągłego obszaru wokół kursora, używana do obliczania średniego "
-"koloru pikseli w tym obszarze."
+msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
+msgstr "Średnica okrągłego obszaru wokół kursora, używana do obliczania średniego koloru pikseli w tym obszarze."
 
 #: src/components/color/UnderlayerColorPicker.tsx:98
 msgid "The dried layer you want to glaze over."
@@ -1841,13 +1666,8 @@ msgid "Thin the paint to <0>{fractionText} thickness</0>"
 msgstr "Rozcieńczyć farbę do <0>grubości {fractionText}</0>"
 
 #: src/hooks/useColorSetBackup.ts:27
-msgid ""
-"This backup file lets you restore your color sets later, so keep it. You "
-"can delete any older backup files."
-msgstr ""
-"Ten plik kopii zapasowej umożliwia późniejsze przywrócenie zestawów "
-"kolorów, więc zachowaj go. Możesz usunąć wszystkie starsze pliki kopii "
-"zapasowych."
+msgid "This backup file lets you restore your color sets later, so keep it. You can delete any older backup files."
+msgstr "Ten plik kopii zapasowej umożliwia późniejsze przywrócenie zestawów kolorów, więc zachowaj go. Możesz usunąć wszystkie starsze pliki kopii zapasowych."
 
 #: src/components/ColorSetChooser.tsx:661
 msgid "This color brand is available to paid Patreon members only"
@@ -1869,43 +1689,25 @@ msgstr "Ten krok jest opcjonalny."
 msgid "This style is available to paid Patreon members only"
 msgstr "Ten styl jest dostępny tylko dla płatnych członków Patreona"
 
-#: src/components/error/InstanceConflictAlert.tsx:52
-msgid "This tab will open automatically when the other tab closes."
-msgstr "Ta zakładka otworzy się automatycznie, gdy druga zakładka się zamknie."
+#: src/components/error/AuthFeedbackHandler.tsx:51
+msgid "This usually happens when you're signed in to a <0>different</0> Patreon account than the one used for your ArtistAssistApp membership."
+msgstr "Zazwyczaj dzieje się tak, gdy jesteś zalogowany na <0>inne</0> konto Patreon niż to, którego używasz w ramach członkostwa w ArtistAssistApp."
 
-#: src/components/error/AuthErrorHandler.tsx:48
-msgid ""
-"This usually happens when you're signed in to a <0>different</0> Patreon "
-"account than the one used for your ArtistAssistApp membership."
-msgstr ""
-"Zazwyczaj dzieje się tak, gdy jesteś zalogowany na <0>inne</0> konto "
-"Patreon niż to, którego używasz w ramach członkostwa w ArtistAssistApp."
-
-#: src/components/error/AuthErrorHandler.tsx:56
+#: src/components/error/AuthFeedbackHandler.tsx:59
 msgid "To fix this:"
 msgstr "Aby to naprawić:"
 
 #: src/components/install/InstallDrawer.tsx:48
 msgid "To install ArtistAssistApp, use one of the supported web browsers:"
-msgstr ""
-"Aby zainstalować ArtistAssistApp, użyj jednej z obsługiwanych przeglądarek "
-"internetowych:"
+msgstr "Aby zainstalować ArtistAssistApp, użyj jednej z obsługiwanych przeglądarek internetowych:"
 
 #: src/components/empty/EmptyImage.tsx:42
 msgid "To use the {tabLabel} feature, select a reference photo."
 msgstr "Aby użyć funkcji {tabLabel}, wybierz zdjęcie referencyjne."
 
 #: src/components/empty/EmptyColorSet.tsx:54
-msgid ""
-"To use the {tabLabel} feature, select supported art medium and colors to "
-"paint with."
-msgstr ""
-"Aby użyć funkcji {tabLabel}, wybierz obsługiwane medium artystyczne i "
-"kolory do malowania."
-
-#: src/components/error/InstanceConflictAlert.tsx:56
-msgid "To use this tab instead, close the other tab."
-msgstr "Aby użyć tej zakładki, zamknij drugą kartę."
+msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with."
+msgstr "Aby użyć funkcji {tabLabel}, wybierz obsługiwane medium artystyczne i kolory do malowania."
 
 #: src/components/messages.ts:32
 msgid "Tonal values"
@@ -1964,43 +1766,24 @@ msgid "Use full pressure."
 msgstr "Używaj pełnego ciśnienia."
 
 #: src/components/color/ConsistencyDescription.tsx:120
-msgid ""
-"Use glazing mediums that allow you to get a thin layer, for example, 1/10 "
-"of the original acrylic paint layer."
-msgstr ""
-"Używaj środków do glazurowania, które pozwalają uzyskać cienką warstwę, na "
-"przykład 1/10 oryginalnej warstwy farby akrylowej."
+msgid "Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original acrylic paint layer."
+msgstr "Używaj środków do glazurowania, które pozwalają uzyskać cienką warstwę, na przykład 1/10 oryginalnej warstwy farby akrylowej."
 
 #: src/components/color/ConsistencyDescription.tsx:113
-msgid ""
-"Use glazing mediums that allow you to get a thin layer, for example, 1/10 "
-"of the original oil paint layer. You should be able to get the consistency "
-"of runny sour cream. Linseed oil is a popular glazing medium."
-msgstr ""
-"Używaj środków do glazury, które pozwalają uzyskać cienką warstwę, na "
-"przykład 1/10 oryginalnej warstwy farby olejnej. Powinieneś być w stanie "
-"uzyskać konsystencję płynnej śmietany. Olej lniany jest popularnym środkiem "
-"glazurującym."
+msgid "Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original oil paint layer. You should be able to get the consistency of runny sour cream. Linseed oil is a popular glazing medium."
+msgstr "Używaj środków do glazury, które pozwalają uzyskać cienką warstwę, na przykład 1/10 oryginalnej warstwy farby olejnej. Powinieneś być w stanie uzyskać konsystencję płynnej śmietany. Olej lniany jest popularnym środkiem glazurującym."
 
 #: src/components/file/FileSelect.tsx:91
 msgid "Use reference photo"
 msgstr "Użyj zdjęcia referencyjnego"
-
-#: src/components/error/InstanceConflictAlert.tsx:63
-msgid "Use this tab instead"
-msgstr "Użyj tej zakładki"
 
 #: src/components/Help.tsx:235
 msgid "Used"
 msgstr "Używany"
 
 #: src/components/ImageLimitedPalette.tsx:107
-msgid ""
-"Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} "
-"primary colors."
-msgstr ""
-"Używanie ograniczonej palety pomaga osiągnąć harmonię kolorów. Wybierz "
-"1–{MAX_COLORS} kolorów podstawowych."
+msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
+msgstr "Używanie ograniczonej palety pomaga osiągnąć harmonię kolorów. Wybierz 1–{MAX_COLORS} kolorów podstawowych."
 
 #: src/components/ImageOutline.tsx:305
 #: src/components/ImageOutline.tsx:363
@@ -2027,33 +1810,21 @@ msgstr "Kredki akwarelowe"
 msgid "Wax Pastel"
 msgstr "Wax Pastel"
 
-#: src/components/error/AuthErrorHandler.tsx:118
-msgid ""
-"We encountered a problem verifying your login credentials. This issue can "
-"usually be resolved by trying to log in again."
-msgstr ""
-"Napotkaliśmy problem z weryfikacją danych logowania. Ten problem zwykle "
-"można rozwiązać, próbując ponownie się zalogować."
+#: src/components/error/AuthFeedbackHandler.tsx:121
+msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
+msgstr "Napotkaliśmy problem z weryfikacją danych logowania. Ten problem zwykle można rozwiązać, próbując ponownie się zalogować."
 
-#: src/components/error/AuthErrorHandler.tsx:129
+#: src/components/error/AuthFeedbackHandler.tsx:132
 msgid "We were unable to log you in."
 msgstr "Nie udało nam się cię zalogować."
 
 #: src/components/ColorSetChooser.tsx:691
-msgid ""
-"When selecting more than {maxColorsFor2} colors in total, mixtures of two "
-"colors are not used."
-msgstr ""
-"W przypadku wybrania łącznie więcej niż {maxColorsFor2} kolorów nie są "
-"używane mieszanki dwóch kolorów."
+msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
+msgstr "W przypadku wybrania łącznie więcej niż {maxColorsFor2} kolorów nie są używane mieszanki dwóch kolorów."
 
 #: src/components/ColorSetChooser.tsx:699
-msgid ""
-"When selecting more than {maxColorsFor3} colors in total, mixtures of three "
-"colors are not used."
-msgstr ""
-"W przypadku wybrania łącznie więcej niż {maxColorsFor3} kolorów, nie są "
-"używane mieszanki trzech kolorów."
+msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
+msgstr "W przypadku wybrania łącznie więcej niż {maxColorsFor3} kolorów, nie są używane mieszanki trzech kolorów."
 
 #: src/components/ImageBackgroundRemoval.tsx:148
 #: src/components/ImageColorAdjustment.tsx:442
@@ -2093,24 +1864,24 @@ msgid "Yes"
 msgstr "Tak"
 
 #: src/components/ImageChooser.tsx:81
-msgid ""
-"You already have many recent photos saved. Remove the oldest one to free up "
-"space? The new photo will still be added."
-msgstr ""
-"Masz już wiele świeżych zdjęć zapisanych. Usunąć najstarszą, żeby zrobić "
-"więcej miejsca? Nowe zdjęcie nadal zostanie dodane."
+msgid "You already have many recent photos saved. Remove the oldest one to free up space? The new photo will still be added."
+msgstr "Masz już wiele świeżych zdjęć zapisanych. Usunąć najstarszą, żeby zrobić więcej miejsca? Nowe zdjęcie nadal zostanie dodane."
 
 #: src/components/ColorSetChooser.tsx:463
 msgid "You are logged in and have access to all app features."
 msgstr "Jesteś zalogowany i masz dostęp do wszystkich funkcji aplikacji."
 
 #: src/components/ColorSetChooser.tsx:468
-msgid ""
-"You are using the <0>free version</0> with a limited number of color brands "
-"and image processing modes."
-msgstr ""
-"Używasz <0>darmowej wersji</0> z ograniczoną liczbą marek kolorów i trybów "
-"przetwarzania obrazu."
+msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
+msgstr "Używasz <0>darmowej wersji</0> z ograniczoną liczbą marek kolorów i trybów przetwarzania obrazu."
+
+#: src/components/error/AuthFeedbackHandler.tsx:162
+msgid "You can keep working in this browser tab, or switch back to the installed ArtistAssistApp — you're logged in there too."
+msgstr "Możesz dalej pracować w tej zakładce przeglądarki lub wrócić do zainstalowanej aplikacji ArtistAssist — tam też jesteś zalogowany."
+
+#: src/components/error/AuthFeedbackHandler.tsx:160
+msgid "You're logged in"
+msgstr "Jesteś zalogowany"
 
 #: src/components/ImageBackgroundRemoval.tsx:206
 #: src/components/ImageOutline.tsx:261
@@ -2119,39 +1890,23 @@ msgstr "Wybrałeś tryb dostępny tylko dla płatnych członków Patreona"
 
 #: src/components/ColorSetChooser.tsx:613
 msgid "You've selected color brands that are available to paid Patreon members only"
-msgstr ""
-"Wybrałeś marki kolorystyczne, które są dostępne tylko dla płatnych członków "
-"Patreona"
+msgstr "Wybrałeś marki kolorystyczne, które są dostępne tylko dla płatnych członków Patreona"
 
 #: src/components/ColorSetChooser.tsx:682
-msgid ""
-"You've selected color brands that are available to paid Patreon members "
-"only. Join ArtistAssistApp on Patreon as a paid member or log in with "
-"Patreon if you've already joined."
-msgstr ""
-"Wybrałeś kolorowe marki, które są dostępne tylko dla płatnych członków "
-"Patreon. Dołącz do ArtistAssistApp na Patreonie jako płatny członek lub "
-"zaloguj się za pomocą Patreon, jeśli już dołączyłeś."
+msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
+msgstr "Wybrałeś kolorowe marki, które są dostępne tylko dla płatnych członków Patreon. Dołącz do ArtistAssistApp na Patreonie jako płatny członek lub zaloguj się za pomocą Patreon, jeśli już dołączyłeś."
 
-#: src/components/error/AuthErrorHandler.tsx:100
+#: src/components/error/AuthFeedbackHandler.tsx:103
 msgid "Your account details:"
 msgstr "Dane Twojego konta:"
 
 #: src/hooks/usePersistentStorage.tsx:49
-msgid ""
-"Your data may not be saved reliably if the browser is closed. To fix this, "
-"install the app."
-msgstr ""
-"Twoje dane mogą nie być niezawodnie zapisywane, jeśli przeglądarka jest "
-"zamknięta. Aby to naprawić, zainstaluj aplikację."
+msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
+msgstr "Twoje dane mogą nie być niezawodnie zapisywane, jeśli przeglądarka jest zamknięta. Aby to naprawić, zainstaluj aplikację."
 
-#: src/components/error/AuthErrorHandler.tsx:109
-msgid ""
-"Your login session has expired. Please sign in again to refresh your access "
-"and continue using ArtistAssistApp."
-msgstr ""
-"Twoja sesja logowania wygasła. Prosimy o ponowne zalogowanie, aby odświeżyć "
-"dostęp i kontynuować korzystanie z ArtistAssistApp."
+#: src/components/error/AuthFeedbackHandler.tsx:112
+msgid "Your login session has expired. Please sign in again to refresh your access and continue using ArtistAssistApp."
+msgstr "Twoja sesja logowania wygasła. Prosimy o ponowne zalogowanie, aby odświeżyć dostęp i kontynuować korzystanie z ArtistAssistApp."
 
 #: src/components/error/BrowserSupport.tsx:54
 msgid "Your web browser is not supported."

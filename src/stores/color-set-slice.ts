@@ -36,8 +36,8 @@ import {
   getLastColorSet,
   saveColorSets,
 } from '~/src/services/db/color-set-db';
+import type {AppSlice} from '~/src/stores/app-slice';
 import type {AuthSlice} from '~/src/stores/auth-slice';
-import type {InitSlice} from '~/src/stores/init-slice';
 import {groupBy} from '~/src/utils/array';
 import {byDate, byNumber, reverseOrder} from '~/src/utils/comparator';
 import {digestMessage} from '~/src/utils/digest';
@@ -71,7 +71,7 @@ export interface ColorSetSlice {
 }
 
 export const createColorSetSlice: StateCreator<
-  ColorSetSlice & InitSlice & ColorMixerSlice & AuthSlice,
+  ColorSetSlice & AppSlice & ColorMixerSlice & AuthSlice,
   [],
   [],
   ColorSetSlice

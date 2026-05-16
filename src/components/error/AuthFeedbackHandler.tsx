@@ -17,16 +17,13 @@
  */
 
 import {Trans, useLingui} from '@lingui/react/macro';
-import type {ModalFuncProps} from 'antd';
 import {App, Typography} from 'antd';
 import type {PropsWithChildren, ReactNode} from 'react';
 import {useEffect} from 'react';
 
-import {AuthErrorType} from '~/src/services/auth/types';
+import {AuthErrorType, AuthNoticeType} from '~/src/services/auth/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
-
-type AuthErrorMessage = Pick<ModalFuncProps, 'title' | 'content'>;
 
 const ERROR_CONTEXT_LABELS: Record<string, ReactNode> = {
   message: <Trans>Details</Trans>,
@@ -39,7 +36,13 @@ const ERROR_CONTEXT_LABELS: Record<string, ReactNode> = {
   is_gifted: <Trans>Gifted membership</Trans>,
 };
 
-const AUTH_ERRORS: Record<string, AuthErrorMessage> = {
+const AUTH_ERRORS: Record<
+  string,
+  {
+    title: React.ReactNode;
+    content: React.ReactNode;
+  }
+> = {
   [AuthErrorType.Inactive]: {
     title: <Trans>Patreon membership verification failed</Trans>,
     content: (
@@ -131,60 +134,109 @@ const AUTH_ERRORS: Record<string, AuthErrorMessage> = {
       </Typography>
     ),
   },
+  [AuthErrorType.LoginResultMissing]: {
+    title: <Trans>Login result not received</Trans>,
+    content: (
+      <Typography>
+        <p>
+          <Trans>
+            ArtistAssistApp did not receive the result of your Patreon login. This can happen when
+            login opens in another browser or app. Please try logging in again.
+          </Trans>
+        </p>
+      </Typography>
+    ),
+  },
 };
 
-export const AuthErrorHandler: React.FC<PropsWithChildren> = ({children}: PropsWithChildren) => {
+const AUTH_NOTICES: Record<
+  string,
+  {
+    title: React.ReactNode;
+    description: React.ReactNode;
+  }
+> = {
+  [AuthNoticeType.LoginCompletedInBrowser]: {
+    title: <Trans>You&apos;re logged in</Trans>,
+    description: (
+      <Trans>
+        You can keep working in this browser tab, or switch back to the installed ArtistAssistApp —
+        you&apos;re logged in there too.
+      </Trans>
+    ),
+  },
+};
+
+export const AuthFeedbackHandler: React.FC<PropsWithChildren> = ({children}: PropsWithChildren) => {
   const authError = useAppStore(state => state.authError);
+  const authNotice = useAppStore(state => state.authNotice);
 
   const clearAuthError = useAppStore(state => state.clearAuthError);
+  const clearAuthNotice = useAppStore(state => state.clearAuthNotice);
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
 
-  const {modal} = App.useApp();
+  const {modal, notification} = App.useApp();
 
   const {t} = useLingui();
 
   useEffect(() => {
     void (async () => {
-      if (authError) {
-        const {title, content} = AUTH_ERRORS[authError.type] ?? {};
-        const contextEntries = authError.context
-          ? Object.entries(authError.context).filter(
-              ([key, value]) => key in ERROR_CONTEXT_LABELS && (value || value === 0)
-            )
-          : [];
-        await modal.warning({
-          title: title ?? t`Login failed`,
-          content: (
-            <>
-              {content}
-              {contextEntries.length > 0 && (
-                <ul style={{listStyle: 'none', padding: 0}}>
-                  {contextEntries.map(([key, value]) => (
-                    <li key={key}>
-                      <Typography.Text strong>{ERROR_CONTEXT_LABELS[key]}</Typography.Text>
-                      {': '}
-                      {typeof value === 'string' ||
-                      typeof value === 'number' ||
-                      typeof value === 'boolean'
-                        ? String(value)
-                        : JSON.stringify(value)}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </>
-          ),
-          width: '100%',
-          footer: null,
-          closable: true,
-          afterClose() {
-            clearAuthError();
-            void setActiveTabKey(TabKey.ColorSet);
-          },
-        });
+      if (!authError) {
+        return;
       }
+      const {title = t`Login failed`, content} = AUTH_ERRORS[authError.type] ?? {};
+      const contextEntries = authError.context
+        ? Object.entries(authError.context).filter(
+            ([key, value]) => key in ERROR_CONTEXT_LABELS && (value || value === 0)
+          )
+        : [];
+      await modal.warning({
+        title,
+        content: (
+          <>
+            {content}
+            {contextEntries.length > 0 && (
+              <ul style={{listStyle: 'none', padding: 0}}>
+                {contextEntries.map(([key, value]) => (
+                  <li key={key}>
+                    <Typography.Text strong>{ERROR_CONTEXT_LABELS[key]}</Typography.Text>
+                    {': '}
+                    {typeof value === 'string' ||
+                    typeof value === 'number' ||
+                    typeof value === 'boolean'
+                      ? String(value)
+                      : JSON.stringify(value)}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </>
+        ),
+        width: '100%',
+        footer: null,
+        closable: true,
+        afterClose() {
+          clearAuthError();
+          void setActiveTabKey(TabKey.ColorSet);
+        },
+      });
     })();
   }, [modal, authError, clearAuthError, setActiveTabKey, t]);
+
+  useEffect(() => {
+    if (!authNotice) {
+      return;
+    }
+    const {title, description} = AUTH_NOTICES[authNotice] ?? {};
+    notification.info({
+      title,
+      description,
+      placement: 'top',
+      duration: 10,
+      showProgress: true,
+    });
+    clearAuthNotice();
+  }, [notification, authNotice, clearAuthNotice]);
 
   return <>{children}</>;
 };

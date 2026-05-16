@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {DisplayMode} from '~/src/utils/environment';
+
 export interface User {
   id: string;
 }
@@ -27,10 +29,24 @@ export interface Authentication {
   magicLink: string;
 }
 
+export interface AuthAttempt {
+  pendingSince: number;
+  displayMode: DisplayMode;
+}
+
+export interface AuthErrorData {
+  context?: Record<string, unknown>;
+}
+
+export enum AuthNoticeType {
+  LoginCompletedInBrowser = 'login_completed_in_browser',
+}
+
 export enum AuthErrorType {
   Inactive = 'inactive',
   Expired = 'expired',
   InvalidToken = 'invalid_token',
+  LoginResultMissing = 'login_result_missing',
   Unknown = 'unknown',
 }
 

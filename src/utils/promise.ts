@@ -32,11 +32,9 @@ export function abortablePromise<T>(promise: Promise<T>, signal?: AbortSignal): 
   if (!signal) {
     return promise;
   }
-
   if (signal.aborted) {
     throw createAbortError(signal.reason);
   }
-
   const abortPromise = new Promise<never>((_, reject) => {
     signal.addEventListener(
       'abort',
@@ -46,6 +44,24 @@ export function abortablePromise<T>(promise: Promise<T>, signal?: AbortSignal): 
       {once: true}
     );
   });
-
   return Promise.race([promise, abortPromise]);
+}
+
+export async function withTimeout<T>(
+  promise: Promise<T>,
+  timeoutMs: number
+): Promise<T | undefined> {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<undefined>(resolve => {
+    timeoutId = setTimeout(() => {
+      resolve(undefined);
+    }, timeoutMs);
+  });
+  try {
+    return await Promise.race([promise, timeout]);
+  } finally {
+    if (timeoutId !== undefined) {
+      clearTimeout(timeoutId);
+    }
+  }
 }

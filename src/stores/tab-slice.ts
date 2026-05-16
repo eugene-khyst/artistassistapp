@@ -18,7 +18,7 @@
 
 import type {StateCreator} from 'zustand';
 
-import type {InitSlice} from '~/src/stores/init-slice';
+import type {AppSlice} from '~/src/stores/app-slice';
 import {TabKey} from '~/src/tabs';
 
 import type {BlurredImagesSlice} from './blurred-images-slice';
@@ -35,7 +35,7 @@ export interface TabSlice {
 
 export const createTabSlice: StateCreator<
   TabSlice &
-    InitSlice &
+    AppSlice &
     TonalImagesSlice &
     BlurredImagesSlice &
     OutlineImageSlice &

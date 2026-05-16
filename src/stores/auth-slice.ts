@@ -16,61 +16,55 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import * as jose from 'jose';
 import type {StateCreator} from 'zustand';
 
 import {APP_URL, AUTH_URL, PUBLIC_JWK} from '~/src/config';
 import {AuthClient} from '~/src/services/auth/auth-client';
-import type {AuthErrorType} from '~/src/services/auth/types';
-import {type Authentication, AuthError} from '~/src/services/auth/types';
+import type {AuthAttempt, Authentication, AuthNoticeType} from '~/src/services/auth/types';
+import {AuthError, AuthErrorType} from '~/src/services/auth/types';
+import {deleteAuthAttempt, getAuthAttempt, saveAuthAttempt} from '~/src/services/db/auth-db';
+import type {AppSlice} from '~/src/stores/app-slice';
+import {getDisplayMode} from '~/src/utils/environment';
 
-const AUTH_VERIFICATION_INTERVAL = 5 * 60000;
+const authClient = new AuthClient({
+  domain: AUTH_URL,
+  redirectUri: `${window.location.origin}/login/callback`,
+  issuer: AUTH_URL,
+  audience: APP_URL,
+  jwk: PUBLIC_JWK,
+});
 
 export interface AuthSlice {
-  authClient: AuthClient | null;
   auth: Authentication | null;
+  authAttempt: AuthAttempt | null;
   isAuthLoading: boolean;
   authError: AuthError | null;
-  authCheckInterval: number | null;
+  authNotice: AuthNoticeType | null;
+  isLoggingOut: boolean;
 
-  initAuthClient: () => void;
   handleAuthCallback: () => Promise<Authentication | null>;
-  loginWithRedirect: () => void;
+  loginWithRedirect: () => Promise<void>;
   logout: (error?: AuthErrorType) => Promise<void>;
   isAuthExpired: () => boolean;
   clearAuthError: () => void;
-  startPeriodicAuthVerification: () => void;
-  stopPeriodicAuthVerification: () => void;
+  clearAuthNotice: () => void;
+  loadAuthAttempt: () => Promise<void>;
+  clearAuthAttempt: () => Promise<void>;
+  failPendingAuthAttempt: () => Promise<void>;
 }
 
-export const createAuthSlice: StateCreator<AuthSlice, [], [], AuthSlice> = (set, get) => ({
-  authClient: null,
+export const createAuthSlice: StateCreator<AuthSlice & AppSlice, [], [], AuthSlice> = (
+  set,
+  get
+) => ({
   auth: null,
+  authAttempt: null,
   isAuthLoading: false,
   authError: null,
-  authCheckInterval: null,
+  authNotice: null,
+  isLoggingOut: false,
 
-  initAuthClient: (): void => {
-    if (get().authClient) {
-      return;
-    }
-    set({
-      authClient: new AuthClient({
-        domain: AUTH_URL,
-        redirectUri: `${window.location.origin}/login/callback`,
-        issuer: AUTH_URL,
-        audience: APP_URL,
-        jwks: jose.createLocalJWKSet({
-          keys: [JSON.parse(PUBLIC_JWK) as jose.JWK],
-        }),
-      }),
-    });
-  },
   handleAuthCallback: async (): Promise<Authentication | null> => {
-    const {authClient} = get();
-    if (!authClient) {
-      return null;
-    }
     set({
       isAuthLoading: true,
       authError: null,
@@ -96,38 +90,67 @@ export const createAuthSlice: StateCreator<AuthSlice, [], [], AuthSlice> = (set,
       });
     }
   },
-  loginWithRedirect: (): void => {
-    get().authClient?.loginWithRedirect();
+  loginWithRedirect: async (): Promise<void> => {
+    const {authAttempt} = get();
+    if (authAttempt) {
+      return;
+    }
+    const attempt: AuthAttempt = {
+      pendingSince: Date.now(),
+      displayMode: getDisplayMode(),
+    };
+    set({
+      authAttempt: attempt,
+      authError: null,
+    });
+    try {
+      await saveAuthAttempt(attempt);
+      await authClient.loginWithRedirect();
+    } catch (error) {
+      console.error(error);
+      await deleteAuthAttempt().catch(() => undefined);
+      set({
+        authAttempt: null,
+        authError: new AuthError(AuthErrorType.Unknown),
+      });
+    }
   },
   logout: async (error?: AuthErrorType): Promise<void> => {
-    get().stopPeriodicAuthVerification();
-    await get().authClient?.logout(error);
+    const {isLoggingOut} = get();
+    if (isLoggingOut) {
+      return;
+    }
+    set({isLoggingOut: true});
+    await authClient.logout(error);
   },
   isAuthExpired: (): boolean => {
-    return get().authClient?.isAuthExpired() ?? false;
+    return authClient.isAuthExpired();
   },
   clearAuthError: (): void => {
     set({
       authError: null,
     });
   },
-  startPeriodicAuthVerification: () => {
-    const authCheckInterval = window.setInterval(() => {
-      if (get().isAuthExpired()) {
-        window.location.reload();
-      }
-    }, AUTH_VERIFICATION_INTERVAL);
+  clearAuthNotice: (): void => {
     set({
-      authCheckInterval,
+      authNotice: null,
     });
   },
-  stopPeriodicAuthVerification: () => {
-    const {authCheckInterval} = get();
-    if (authCheckInterval !== null) {
-      clearInterval(authCheckInterval);
-      set({
-        authCheckInterval: null,
-      });
-    }
+  loadAuthAttempt: async (): Promise<void> => {
+    set({
+      authAttempt: (await getAuthAttempt()) ?? null,
+    });
+  },
+  clearAuthAttempt: async (): Promise<void> => {
+    await deleteAuthAttempt();
+    set({
+      authAttempt: null,
+    });
+  },
+  failPendingAuthAttempt: async (): Promise<void> => {
+    set({
+      authError: new AuthError(AuthErrorType.LoginResultMissing),
+    });
+    await get().clearAuthAttempt();
   },
 });

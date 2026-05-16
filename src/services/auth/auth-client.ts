@@ -19,8 +19,7 @@
 import * as jose from 'jose';
 
 import type {Authentication} from '~/src/services/auth/types';
-import {AuthErrorType} from '~/src/services/auth/types';
-import {AuthError} from '~/src/services/auth/types';
+import {AuthError, AuthErrorType} from '~/src/services/auth/types';
 import {toAuthErrorType} from '~/src/services/auth/utils';
 import {
   deleteIdToken,
@@ -30,6 +29,7 @@ import {
 } from '~/src/services/db/auth-db';
 import {base64To256BitKey} from '~/src/utils/crypto';
 import {replaceHistory} from '~/src/utils/history';
+import {waitForServiceWorkerActivation} from '~/src/utils/service-worker';
 
 const ERROR_KEY = 'error';
 const ID_TOKEN_KEY = 'id_token';
@@ -37,7 +37,6 @@ const ID_TOKEN_KEY = 'id_token';
 interface AuthCallbackResult {
   idToken?: string | null;
   error?: string | null;
-  errorContext?: Record<string, unknown> | null;
 }
 
 export interface AuthClientProps {
@@ -45,7 +44,7 @@ export interface AuthClientProps {
   redirectUri: string;
   issuer: string;
   audience: string;
-  jwks: jose.JWTVerifyGetKey;
+  jwk: string;
 }
 
 export function getMagicLink(jwt: string): string {
@@ -56,16 +55,30 @@ export function getMagicLink(jwt: string): string {
 
 export class AuthClient {
   private authentication: Authentication | null = null;
-  private loggingIn = false;
-  private loggingOut = false;
+  private jwks: jose.JWTVerifyGetKey | undefined;
 
   constructor(public props: AuthClientProps) {}
 
+  // Built lazily so a malformed JWK fails as an auth error at first verify
+  // rather than throwing at construction.
+  private getJwks(): jose.JWTVerifyGetKey {
+    if (!this.jwks) {
+      try {
+        this.jwks = jose.createLocalJWKSet({
+          keys: [JSON.parse(this.props.jwk) as jose.JWK],
+        });
+      } catch {
+        throw new AuthError(AuthErrorType.Unknown);
+      }
+    }
+    return this.jwks;
+  }
+
   private async authenticate(jwt: string): Promise<Authentication> {
-    const {issuer, audience, jwks} = this.props;
+    const {issuer, audience} = this.props;
     const {
       payload: {sub, exp, dek},
-    } = await jose.jwtVerify(jwt, jwks, {issuer, audience});
+    } = await jose.jwtVerify(jwt, this.getJwks(), {issuer, audience});
     if (typeof sub !== 'string' || typeof exp !== 'number' || typeof dek !== 'string') {
       const message = 'ID token missing required claims';
       throw new AuthError(AuthErrorType.InvalidToken, message, {message});
@@ -85,10 +98,10 @@ export class AuthClient {
     if (!result) {
       return;
     }
-    const {idToken, error, errorContext} = result;
+    const {idToken, error} = result;
     try {
       if (error) {
-        const context = errorContext ?? (await getAndDeleteAuthErrorData())?.context;
+        const context = (await getAndDeleteAuthErrorData())?.context;
         throw new AuthError(toAuthErrorType(error), 'Authentication failed', context);
       }
       if (idToken) {
@@ -105,20 +118,6 @@ export class AuthClient {
   }
 
   private resolveAuthCallback(): AuthCallbackResult | null {
-    // Cloudflare Pages Function injected data (iOS fallback)
-    const callbackDataAttribute = document.body.dataset['authCallback'];
-    if (callbackDataAttribute) {
-      try {
-        const callbackData = JSON.parse(callbackDataAttribute) as AuthCallbackResult | null;
-        if (callbackData) {
-          return callbackData;
-        }
-      } catch (e) {
-        console.error('Malformed auth callback data', e);
-      }
-    }
-
-    // URL params (Service Worker redirect)
     const {searchParams} = new URL(window.location.toString());
     const error = searchParams.get(ERROR_KEY);
     const idToken = searchParams.get(ID_TOKEN_KEY);
@@ -146,11 +145,8 @@ export class AuthClient {
     }
   }
 
-  loginWithRedirect(): void {
-    if (this.loggingIn) {
-      return;
-    }
-    this.loggingIn = true;
+  async loginWithRedirect(): Promise<void> {
+    await waitForServiceWorkerActivation();
     const url = new URL(this.props.domain);
     url.pathname = '/authorize';
     url.searchParams.append('redirect_uri', this.props.redirectUri);
@@ -158,10 +154,6 @@ export class AuthClient {
   }
 
   async logout(error?: AuthErrorType): Promise<void> {
-    if (this.loggingOut) {
-      return;
-    }
-    this.loggingOut = true;
     await deleteIdToken();
     if (error) {
       const url = new URL(window.location.href);

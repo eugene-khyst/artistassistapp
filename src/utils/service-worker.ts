@@ -16,20 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {BeforeInstallPromptEvent} from '~/src/pwa';
-import {useAppStore} from '~/src/stores/app-store';
+import {withTimeout} from '~/src/utils/promise';
 
-export function initializePWA() {
-  registerServiceWorker();
-  initPwaInstallListeners();
-}
+type ServiceWorkerUpdateHandler = (registration: ServiceWorkerRegistration) => void;
 
-function registerServiceWorker() {
+export function registerServiceWorker(onUpdateFound: ServiceWorkerUpdateHandler): void {
   if (!import.meta.env.DEV && 'serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      void registerAndRefresh();
-    });
-
+    void registerAndRefresh(onUpdateFound);
     let refreshing = false;
     navigator.serviceWorker.addEventListener('controllerchange', function () {
       if (refreshing) {
@@ -41,7 +34,7 @@ function registerServiceWorker() {
   }
 }
 
-async function registerAndRefresh() {
+async function registerAndRefresh(onUpdateFound: ServiceWorkerUpdateHandler): Promise<void> {
   try {
     const registration: ServiceWorkerRegistration = await navigator.serviceWorker.register(
       '/service-worker.js',
@@ -50,17 +43,15 @@ async function registerAndRefresh() {
         updateViaCache: 'none',
       }
     );
-
     if (registration.waiting) {
-      invokeServiceWorkerUpdateFlow(registration);
+      onUpdateFound(registration);
     }
-
     registration.addEventListener('updatefound', () => {
       if (registration.installing) {
         registration.installing.addEventListener('statechange', () => {
           if (registration.waiting) {
             if (navigator.serviceWorker.controller) {
-              invokeServiceWorkerUpdateFlow(registration);
+              onUpdateFound(registration);
             }
           }
         });
@@ -71,16 +62,9 @@ async function registerAndRefresh() {
   }
 }
 
-function invokeServiceWorkerUpdateFlow(registration: ServiceWorkerRegistration) {
-  useAppStore.getState().setServiceWorkerRegistration(registration);
-}
-
-function initPwaInstallListeners() {
-  window.addEventListener('beforeinstallprompt', (event: BeforeInstallPromptEvent) => {
-    event.preventDefault();
-    useAppStore.getState().setBeforeInstallPromptEvent(event);
-  });
-  window.addEventListener('appinstalled', () => {
-    useAppStore.getState().setBeforeInstallPromptEvent(null);
-  });
+export async function waitForServiceWorkerActivation(timeoutMs = 5000): Promise<void> {
+  if (import.meta.env.DEV || !('serviceWorker' in navigator)) {
+    return;
+  }
+  await withTimeout(navigator.serviceWorker.ready, timeoutMs);
 }

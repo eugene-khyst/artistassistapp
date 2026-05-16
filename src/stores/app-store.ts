@@ -17,6 +17,7 @@
  */
 
 import {create} from 'zustand';
+import {subscribeWithSelector} from 'zustand/middleware';
 
 import type {AuthSlice} from '~/src/stores/auth-slice';
 import {createAuthSlice} from '~/src/stores/auth-slice';
@@ -36,6 +37,7 @@ import {createPosterizedImageSlice} from '~/src/stores/posterized-image-slice';
 import type {PwaSlice} from '~/src/stores/pwa-slice';
 import {createPwaSlice} from '~/src/stores/pwa-slice';
 
+import {type AppSlice, createAppSlice} from './app-slice';
 import {
   type BackgroundRemovalSlice,
   createBackgroundRemovalSlice,
@@ -45,7 +47,6 @@ import {type ColorAdjustmentSlice, createColorAdjustmentSlice} from './color-adj
 import {type ColorMixerSlice, createColorMixerSlice} from './color-mixer-slice';
 import {type ColorSetSlice, createColorSetSlice} from './color-set-slice';
 import {createCustomColorBrandSlice, type CustomColorBrandSlice} from './custom-color-brand-slice';
-import {createInitSlice, type InitSlice} from './init-slice';
 import {
   createLimitedPaletteImageSlice,
   type LimitedPaletteImageSlice,
@@ -82,29 +83,31 @@ export const useAppStore = create<
     TournamentSlice &
     CustomColorBrandSlice &
     StorageSlice &
-    InitSlice
->()((...a) => ({
-  ...createPwaSlice(...a),
-  ...createLocaleSlice(...a),
-  ...createAuthSlice(...a),
-  ...createTabSlice(...a),
-  ...createColorSetSlice(...a),
-  ...createColorMixerSlice(...a),
-  ...createColorMixingChartSlice(...a),
-  ...createOriginalImageSlice(...a),
-  ...createPosterizedImageSlice(...a),
-  ...createColorMatchImageSlice(...a),
-  ...createPaletteSlice(...a),
-  ...createTonalImagesSlice(...a),
-  ...createBlurredImagesSlice(...a),
-  ...createOutlineImageSlice(...a),
-  ...createLimitedPaletteImageSlice(...a),
-  ...createStyleTransferSlice(...a),
-  ...createPerspectiveCorrectionSlice(...a),
-  ...createColorAdjustmentSlice(...a),
-  ...createBackgroundRemovalSlice(...a),
-  ...createTournamentSlice(...a),
-  ...createCustomColorBrandSlice(...a),
-  ...createStorageSlice(...a),
-  ...createInitSlice(...a),
-}));
+    AppSlice
+>()(
+  subscribeWithSelector((...a) => ({
+    ...createPwaSlice(...a),
+    ...createLocaleSlice(...a),
+    ...createAuthSlice(...a),
+    ...createTabSlice(...a),
+    ...createColorSetSlice(...a),
+    ...createColorMixerSlice(...a),
+    ...createColorMixingChartSlice(...a),
+    ...createOriginalImageSlice(...a),
+    ...createPosterizedImageSlice(...a),
+    ...createColorMatchImageSlice(...a),
+    ...createPaletteSlice(...a),
+    ...createTonalImagesSlice(...a),
+    ...createBlurredImagesSlice(...a),
+    ...createOutlineImageSlice(...a),
+    ...createLimitedPaletteImageSlice(...a),
+    ...createStyleTransferSlice(...a),
+    ...createPerspectiveCorrectionSlice(...a),
+    ...createColorAdjustmentSlice(...a),
+    ...createBackgroundRemovalSlice(...a),
+    ...createTournamentSlice(...a),
+    ...createCustomColorBrandSlice(...a),
+    ...createStorageSlice(...a),
+    ...createAppSlice(...a),
+  }))
+);

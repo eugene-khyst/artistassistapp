@@ -18,13 +18,13 @@
 
 import type {DBSchema, StoreNames} from 'idb';
 
+import type {AuthAttempt, AuthErrorData} from '~/src/services/auth/types';
 import type {
   ColorMixture,
   ColorSetDefinition,
   ColorType,
   CustomColorBrandDefinition,
 } from '~/src/services/color/types';
-import type {AuthErrorData} from '~/src/services/db/auth-db';
 import type {AppliedMigration} from '~/src/services/db/migrations';
 import type {ImageFile} from '~/src/services/image/image-file';
 import type {AppSettings} from '~/src/services/settings/types';
@@ -72,6 +72,10 @@ export interface ArtistAssistAppDB extends DBSchema {
       'by-type': ColorType;
     };
   };
+  'auth-attempt': {
+    value: AuthAttempt;
+    key: number;
+  };
   'auth-error': {
     value: AuthErrorData;
     key: number;
@@ -89,6 +93,7 @@ const OBJECT_STORES = {
   images: true,
   'color-mixtures': true,
   'custom-brands': true,
+  'auth-attempt': true,
   'auth-error': true,
   'id-token': true,
 } as const satisfies Record<StoreNames<ArtistAssistAppDB>, true>;

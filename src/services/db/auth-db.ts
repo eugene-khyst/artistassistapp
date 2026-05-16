@@ -16,12 +16,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {AuthAttempt, AuthErrorData} from '~/src/services/auth/types';
+
 import {dbPromise} from './db';
 
 const KEY = 0;
 
-export interface AuthErrorData {
-  context?: Record<string, unknown>;
+export async function getAuthAttempt(): Promise<AuthAttempt | undefined> {
+  const db = await dbPromise;
+  return await db.get('auth-attempt', KEY);
+}
+
+export async function saveAuthAttempt(attempt: AuthAttempt): Promise<void> {
+  const db = await dbPromise;
+  await db.put('auth-attempt', attempt, KEY);
+}
+
+export async function deleteAuthAttempt(): Promise<void> {
+  const db = await dbPromise;
+  await db.delete('auth-attempt', KEY);
 }
 
 export async function saveAuthErrorData(data: AuthErrorData): Promise<void> {
