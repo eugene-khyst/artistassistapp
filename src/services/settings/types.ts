@@ -44,12 +44,14 @@ export interface AppSettings {
   locale?: Locale;
   activeTabKey?: TabKey;
   colorPickerDiameter?: number;
-  colorPickerSort?: ColorPickerSort;
+  colorPickerSurfaceHex: string;
+  colorPickerLayeringEnabled: boolean;
+  colorPickerSort: ColorPickerSort;
   grids?: Partial<Record<TabKey, Partial<GridSettings>>>;
   outlineModel?: string | null;
   backgroundRemovalModel?: string;
   styleTransferModel?: string;
   styleTransferImage?: ImageFile;
-  autoSavingColorSetsJson?: boolean;
+  autoSavingColorSetsJson: boolean;
   latestColorSetsJsonHash?: string;
 }

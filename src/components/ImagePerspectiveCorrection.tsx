@@ -260,7 +260,7 @@ export const ImagePerspectiveCorrection: React.FC = () => {
             <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
           </Tooltip>
         </Space>
-        <Space align="start">
+        <Space>
           <FileSelect onChange={handleFileChange} useReferencePhoto>
             <Trans>Select photo</Trans>
           </FileSelect>

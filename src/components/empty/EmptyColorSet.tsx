@@ -69,8 +69,8 @@ export const EmptyColorSet: React.FC<Props> = ({
           </li>
           <li>
             <Trans>
-              Select your art medium, color brands and colors you will paint with and press the{' '}
-              <Typography.Text strong>Save & proceed</Typography.Text> button.
+              Select your art medium, color brands, and the colors you will paint with, then press{' '}
+              <Typography.Text strong>Save & continue</Typography.Text>.
             </Trans>
             {supportedColorTypes && (
               <>

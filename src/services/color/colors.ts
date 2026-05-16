@@ -28,6 +28,7 @@ import type {
   ColorDefinition,
   ColorId,
   ColorIdFormat,
+  ColorMixture,
   ColorSet,
   ColorSetDefinition,
   CustomColorBrandDefinition,
@@ -64,6 +65,12 @@ export const COLOR_TYPES: ColorType[] = [
   ColorType.AcrylicMarkers,
 ];
 
+export const PASTEL_COLOR_TYPES = new Set<ColorType>([
+  ColorType.DryPastel,
+  ColorType.OilPastel,
+  ColorType.WaxPastel,
+]);
+
 const COLOR_TYPE_ALIASES: Record<ColorType, string> = {
   [ColorType.WatercolorPaint]: 'watercolor-paint',
   [ColorType.Gouache]: 'gouache',
@@ -80,6 +87,10 @@ const COLOR_TYPE_ALIASES: Record<ColorType, string> = {
 
 const CUSTOM_COLOR_BRAND_ID_BASE = 100000;
 const CUSTOM_COLOR_BRAND_ALIAS_PREFIX = 'custom:';
+
+export function isPastel(type: ColorType): boolean {
+  return PASTEL_COLOR_TYPES.has(type);
+}
 
 export function computeStandardColorSetDefinitionId({name, colors}: StandardColorSetDefinition) {
   return `${colors.length} ${name ?? ''}`.trim();
@@ -426,4 +437,15 @@ export function mergeColorSets(colorSets: ColorSetDefinition[]): ColorSetDefinit
     standardColorSet: CUSTOM_COLOR_SET,
     colors,
   };
+}
+
+export function getColorId({parts}: ColorMixture): ColorId | null {
+  if (parts.length > 1) {
+    return null;
+  }
+  const [part] = parts;
+  const {
+    color: {brand, id},
+  } = part!;
+  return [brand, id];
 }

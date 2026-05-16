@@ -28,15 +28,16 @@ import {useAppStore} from '~/src/stores/app-store';
 import {decorateSortUndecorate} from '~/src/utils/array';
 import {computeIfAbsentInMap} from '~/src/utils/map';
 
+type OptionType = Omit<DefaultOptionType, 'value'> & {value?: number | null};
+
 type ColorCascaderBaseProps = Omit<
-  CascaderProps<DefaultOptionType, string, false>,
+  CascaderProps<OptionType, 'value', false>,
   | 'options'
   | 'placeholder'
   | 'showSearch'
   | 'expandTrigger'
   | 'showCheckedStrategy'
   | 'displayRender'
-  | 'allowClear'
   | 'multiple'
   | 'value'
   | 'onChange'
@@ -47,20 +48,20 @@ type ColorCascaderBaseProps = Omit<
 type ColorCascaderSingleProps = ColorCascaderBaseProps & {
   multiple?: false;
   value?: ColorId;
-  onChange?: (value: ColorId, selectOptions: DefaultOptionType[]) => void;
+  onChange?: (value: ColorId, selectOptions: OptionType[]) => void;
 };
 
 type ColorCascaderMultipleProps = ColorCascaderBaseProps & {
   multiple: true;
   value?: ColorId[];
-  onChange?: (value: ColorId[], selectOptions: DefaultOptionType[][]) => void;
+  onChange?: (value: ColorId[], selectOptions: OptionType[][]) => void;
 };
 
 type ColorCascaderProps = ColorCascaderSingleProps | ColorCascaderMultipleProps;
 
 const displayRender = (labels: string[]) => labels[labels.length - 1];
 
-function getColorOptions(colorSet?: ColorSet | null): DefaultOptionType[] {
+function getColorOptions(colorSet: ColorSet | null): OptionType[] {
   if (!colorSet) {
     return [];
   }
@@ -70,7 +71,7 @@ function getColorOptions(colorSet?: ColorSet | null): DefaultOptionType[] {
     computeIfAbsentInMap(colorMap, color.brand, (): Color[] => []).push(color)
   );
   return [...colorMap.entries()]
-    .map(([brandId, colors]: [number, Color[]]): DefaultOptionType | undefined => {
+    .map(([brandId, colors]: [number, Color[]]): OptionType | undefined => {
       const brand = brands.get(brandId);
       if (!brand) {
         return;
@@ -89,11 +90,12 @@ function getColorOptions(colorSet?: ColorSet | null): DefaultOptionType[] {
         ),
       };
     })
-    .filter((option): option is DefaultOptionType => !!option);
+    .filter((option): option is OptionType => !!option);
 }
 
 export const ColorCascader: React.FC<ColorCascaderProps> = ({
   multiple,
+  allowClear,
   value,
   onChange,
   ...rest
@@ -105,17 +107,18 @@ export const ColorCascader: React.FC<ColorCascaderProps> = ({
   const options = getColorOptions(colorSet);
   return (
     // @ts-expect-error Cascader prop drilling
-    <Cascader
+    <Cascader<OptionType>
       options={options}
       placeholder={multiple ? t`Select colors` : t`Select color`}
       showSearch={{filter: filterCascaderOptions}}
       expandTrigger="hover"
       showCheckedStrategy={Cascader.SHOW_CHILD}
       displayRender={displayRender}
-      allowClear={!!multiple}
+      allowClear={allowClear ?? !!multiple}
       multiple={multiple}
       value={value}
       onChange={onChange}
+      classNames={{popup: {root: 'color-cascader'}}}
       {...rest}
     />
   );

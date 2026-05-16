@@ -161,6 +161,7 @@ export const ColorMixingChart: React.FC = () => {
       >
         <Form.Item
           label={t`Colors`}
+          labelCol={{style: {paddingBottom: 0}}}
           tooltip={t`A grid showing the result of mixing each pair of selected colors`}
           style={{flexGrow: 1, marginBottom: 0, padding: '0 16px'}}
           extra={
@@ -248,7 +249,7 @@ export const ColorMixingChart: React.FC = () => {
                     showBrandName
                   />
                 </span>
-                <ColorSquare hex={rgbToHex(...color.rgb)} size="large" showTooltip={false} />
+                <ColorSquare hex={rgbToHex(...color.rgb)} size="large" />
               </div>
             ))}
             {/* Data rows */}
@@ -277,15 +278,10 @@ export const ColorMixingChart: React.FC = () => {
                       showWarmth={false}
                       showBrandName
                     />
-                    <ColorSquare hex={rgbToHex(...color.rgb)} size="large" showTooltip={false} />
+                    <ColorSquare hex={rgbToHex(...color.rgb)} size="large" />
                   </div>
                   {colorMixtures.map(({layerRgb}, j) => (
-                    <ColorSquare
-                      key={`cell-${i}-${j}`}
-                      hex={rgbToHex(...layerRgb)}
-                      size="large"
-                      showTooltip={false}
-                    />
+                    <ColorSquare key={`cell-${i}-${j}`} hex={rgbToHex(...layerRgb)} size="large" />
                   ))}
                 </Fragment>
               );

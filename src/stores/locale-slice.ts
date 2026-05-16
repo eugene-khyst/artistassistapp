@@ -20,7 +20,7 @@ import type {Locale as AntdLocale} from 'antd/es/locale';
 import type {StateCreator} from 'zustand';
 
 import {loadAntdLocale, type Locale, setCurrentLocale} from '~/src/i18n';
-import {saveAppSettings} from '~/src/services/db/app-settings-db';
+import type {InitSlice} from '~/src/stores/init-slice';
 
 export interface LocaleSlice {
   locale?: Locale;
@@ -30,7 +30,10 @@ export interface LocaleSlice {
   setLocale: (locale: Locale, persist?: boolean) => Promise<void>;
 }
 
-export const createLocaleSlice: StateCreator<LocaleSlice, [], [], LocaleSlice> = set => ({
+export const createLocaleSlice: StateCreator<LocaleSlice & InitSlice, [], [], LocaleSlice> = (
+  set,
+  get
+) => ({
   isLocaleLoading: false,
 
   setLocale: async (locale: Locale, persist = true): Promise<void> => {
@@ -39,7 +42,7 @@ export const createLocaleSlice: StateCreator<LocaleSlice, [], [], LocaleSlice> =
     });
     await setCurrentLocale(locale);
     if (persist) {
-      await saveAppSettings({locale});
+      await get().saveAppSettings({locale});
     }
     const antdLocale = await loadAntdLocale(locale);
     set({

@@ -16,15 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {BgColorsOutlined, DeleteOutlined, PictureOutlined} from '@ant-design/icons';
+import {DeleteOutlined, PictureOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Button, Card, Popconfirm, Space, Typography} from 'antd';
+import {Button, Card, Col, Popconfirm, Row, Space, Typography} from 'antd';
 import type {CardProps} from 'antd/lib';
 import {memo} from 'react';
 
 import {ColorMixtureDescription} from '~/src/components/color/ColorMixtureDescription';
+import {COLOR_MIXING} from '~/src/services/color/color-mixer';
+import {getColorId, isPastel} from '~/src/services/color/colors';
 import {rgbToHex} from '~/src/services/color/space/rgb';
-import type {ColorMixture} from '~/src/services/color/types';
+import {type ColorMixture, Layering} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 
@@ -40,11 +42,16 @@ export const PaletteColorMixtureCard: React.FC<Props> = memo(function PaletteCol
 }: Props) {
   const saveToPalette = useAppStore(state => state.saveToPalette);
   const deleteFromPalette = useAppStore(state => state.deleteFromPalette);
-  const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
+  const setUnderlayer = useAppStore(state => state.setUnderlayer);
+  const setMotherColor = useAppStore(state => state.setMotherColor);
   const setColorPickerPipette = useAppStore(state => state.setColorPickerPipette);
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
 
   const {t} = useLingui();
+
+  const {type} = colorMixture;
+  const {mixing, layering} = COLOR_MIXING[type];
+  const pastel: boolean = isPastel(type);
 
   const handleTitleEdited = (value: string) => {
     void saveToPalette({...colorMixture, name: value});
@@ -58,8 +65,13 @@ export const PaletteColorMixtureCard: React.FC<Props> = memo(function PaletteCol
     }
   };
 
-  const handleSetAsBgClick = () => {
-    void setBackgroundColor(rgbToHex(...colorMixture.layerRgb));
+  const handleSetAsUnderlayerClick = () => {
+    void setUnderlayer(rgbToHex(...colorMixture.layerRgb));
+    void setActiveTabKey(TabKey.ColorPicker);
+  };
+
+  const handleSetAsMotherColorClick = () => {
+    void setMotherColor(getColorId(colorMixture));
     void setActiveTabKey(TabKey.ColorPicker);
   };
 
@@ -79,37 +91,68 @@ export const PaletteColorMixtureCard: React.FC<Props> = memo(function PaletteCol
 
         <ColorMixtureDescription colorMixture={colorMixture} />
 
-        <Space wrap>
+        <Row gutter={8}>
           {showOnPhoto && (
-            <Button
-              size="small"
-              icon={<PictureOutlined />}
-              onClick={handleShowOnPhotoClick}
-              disabled={!colorMixture.samplingArea}
-            >
-              <Trans>Show on photo</Trans>
-            </Button>
+            <Col xs={12}>
+              <Button
+                block
+                size="small"
+                icon={<PictureOutlined />}
+                title={
+                  colorMixture.samplingArea
+                    ? t`Show this color on the reference photo.`
+                    : t`This color was not sampled from a photo.`
+                }
+                onClick={handleShowOnPhotoClick}
+                disabled={!colorMixture.samplingArea}
+              >
+                <Trans>Show on photo</Trans>
+              </Button>
+            </Col>
           )}
-          <Button
-            size="small"
-            icon={<BgColorsOutlined />}
-            title={t`Set the color of the base layer for the glazing`}
-            onClick={handleSetAsBgClick}
-          >
-            <Trans>Set as background</Trans>
-          </Button>
-          <Popconfirm
-            title={t`Remove the color mixture`}
-            description={t`Are you sure you want to remove this color mixture?`}
-            onConfirm={() => void deleteFromPalette(colorMixture)}
-            okText={t`Yes`}
-            cancelText={t`No`}
-          >
-            <Button size="small" icon={<DeleteOutlined />}>
-              <Trans>Remove</Trans>
-            </Button>
-          </Popconfirm>
-        </Space>
+          <Col xs={12}>
+            <Popconfirm
+              title={t`Remove the color mixture`}
+              description={t`Are you sure you want to remove this color mixture?`}
+              onConfirm={() => void deleteFromPalette(colorMixture)}
+              okText={t`Yes`}
+              cancelText={t`No`}
+            >
+              <Button block size="small" icon={<DeleteOutlined />}>
+                <Trans>Remove from palette</Trans>
+              </Button>
+            </Popconfirm>
+          </Col>
+        </Row>
+
+        <Row gutter={8}>
+          {layering !== Layering.None && (
+            <Col xs={12}>
+              <Button
+                block
+                size="small"
+                title={
+                  pastel ? t`Set as underlayer for blending.` : t`Set as underlayer for glazing.`
+                }
+                onClick={handleSetAsUnderlayerClick}
+              >
+                <Trans>Set as underlayer</Trans>
+              </Button>
+            </Col>
+          )}
+          {mixing && colorMixture.parts.length === 1 && (
+            <Col xs={12}>
+              <Button
+                block
+                size="small"
+                title={t`Mix this color into every mixture.`}
+                onClick={handleSetAsMotherColorClick}
+              >
+                <Trans>Set as unifying color</Trans>
+              </Button>
+            </Col>
+          )}
+        </Row>
       </Space>
     </Card>
   );

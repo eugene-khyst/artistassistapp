@@ -30,6 +30,7 @@ import {saveColorSets} from '~/src/services/db/color-set-db';
 import {saveCustomColorBrand} from '~/src/services/db/custom-brand-db';
 import {saveImageFile} from '~/src/services/db/image-file-db';
 import {fileToImageFile} from '~/src/services/image/image-file';
+import {DEFAULT_APP_SETTINGS} from '~/src/services/settings/app-settings';
 import type {AppSettings} from '~/src/services/settings/types';
 import type {ServiceWorkerMessage} from '~/src/sw-message';
 import {TabKey} from '~/src/tabs';
@@ -157,8 +158,8 @@ async function receiveSharedData(request: Request): Promise<Response> {
   const formData: FormData = await request.formData();
   // 'shared_files' = current; 'images' = legacy from older PWA installs
   const files = [...formData.getAll('shared_files'), ...formData.getAll('images')] as File[];
-  const prevAppSettings: AppSettings = (await getAppSettings()) ?? {};
-  let appSettings: AppSettings | undefined;
+  const prevAppSettings: AppSettings = (await getAppSettings()) ?? DEFAULT_APP_SETTINGS;
+  let appSettings: Partial<AppSettings> | undefined;
   for (const file of files) {
     try {
       const {name, type} = file;

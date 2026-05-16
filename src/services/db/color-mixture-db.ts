@@ -20,15 +20,19 @@ import type {ColorMixture} from '~/src/services/color/types';
 
 import {dbPromise} from './db';
 
-export async function getColorMixtures(imageFileId?: number | null): Promise<ColorMixture[]> {
+export const EMPTY_DIGEST = '';
+
+export async function getColorMixtures(imageFileDigest?: string | null): Promise<ColorMixture[]> {
   const db = await dbPromise;
-  const index = db.transaction('color-mixtures').store.index('by-imageFileId');
-  return (await index.getAll(0)).concat(imageFileId ? await index.getAll(imageFileId) : []);
+  const index = db.transaction('color-mixtures').store.index('by-imageFileDigest');
+  return (await index.getAll(EMPTY_DIGEST)).concat(
+    imageFileDigest ? await index.getAll(imageFileDigest) : []
+  );
 }
 
 export async function saveColorMixture(colorMixture: ColorMixture): Promise<void> {
   const db = await dbPromise;
-  colorMixture.imageFileId = colorMixture.imageFileId ?? 0;
+  colorMixture.imageFileDigest ??= EMPTY_DIGEST;
   if (!colorMixture.id) {
     colorMixture.date = new Date();
   }

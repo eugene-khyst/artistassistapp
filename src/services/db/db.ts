@@ -16,81 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {DBSchema, DeleteDBCallbacks, IDBPDatabase, IDBPTransaction, StoreNames} from 'idb';
+import type {DeleteDBCallbacks, IDBPDatabase, IDBPTransaction, StoreNames} from 'idb';
 import {deleteDB, openDB} from 'idb';
 
-import type {
-  ColorMixture,
-  ColorSetDefinition,
-  ColorType,
-  CustomColorBrandDefinition,
-} from '~/src/services/color/types';
-import type {AuthErrorData} from '~/src/services/db/auth-db';
-import type {ImageFile} from '~/src/services/image/image-file';
-import type {AppSettings} from '~/src/services/settings/types';
+import {applyMigrations} from '~/src/services/db/migrations';
+import {type ArtistAssistAppDB, OBJECT_STORE_NAMES} from '~/src/services/db/schema';
 
 export const DB_NAME = 'artistassistapp';
-const DB_VERSION = 5;
+const DB_VERSION = 6;
+const DB_MIGRATIONS_LOCK_NAME = 'artistassistapp:db-migrations';
 
-export interface ArtistAssistAppDB extends DBSchema {
-  'app-settings': {
-    value: AppSettings;
-    key: number;
-  };
-  'color-sets': {
-    value: ColorSetDefinition;
-    key: number;
-    indexes: {
-      'by-date': Date;
-      'by-type': ColorType;
-    };
-  };
-  images: {
-    value: ImageFile;
-    key: number;
-    indexes: {
-      'by-date': Date;
-      'by-digest': string;
-    };
-  };
-  'color-mixtures': {
-    value: ColorMixture;
-    key: number;
-    indexes: {
-      'by-imageFileId': number;
-    };
-  };
-  'custom-brands': {
-    value: CustomColorBrandDefinition;
-    key: number;
-    indexes: {
-      'by-date': Date;
-      'by-type': ColorType;
-    };
-  };
-  'auth-error': {
-    value: AuthErrorData;
-    key: number;
-  };
-  'id-token': {
-    value: string;
-    key: number;
-  };
-}
-
-type KeysEnum<T> = {[P in keyof Required<T>]: 1};
-const artistAssistAppDBKeys: KeysEnum<ArtistAssistAppDB> = {
-  'app-settings': 1,
-  'color-sets': 1,
-  images: 1,
-  'color-mixtures': 1,
-  'custom-brands': 1,
-  'auth-error': 1,
-  'id-token': 1,
-};
-const objectStoreNames: string[] = Object.keys(artistAssistAppDBKeys);
-
-export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<ArtistAssistAppDB>(
+const internalDbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<ArtistAssistAppDB>(
   DB_NAME,
   DB_VERSION,
   {
@@ -98,12 +34,16 @@ export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artist
       db: IDBPDatabase<ArtistAssistAppDB>,
       _oldVersion: number,
       _newVersion: number | null,
-      transaction: IDBPTransaction<
-        ArtistAssistAppDB,
-        StoreNames<ArtistAssistAppDB>[],
-        'versionchange'
-      >
+      tx: IDBPTransaction<ArtistAssistAppDB, StoreNames<ArtistAssistAppDB>[], 'versionchange'>
     ) {
+      if (!db.objectStoreNames.contains('migrations')) {
+        const migrationsStore = db.createObjectStore('migrations', {
+          keyPath: 'id',
+          autoIncrement: true,
+        });
+        migrationsStore.createIndex('by-name', 'name', {unique: true});
+      }
+
       if (!db.objectStoreNames.contains('app-settings')) {
         db.createObjectStore('app-settings');
       }
@@ -124,17 +64,24 @@ export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artist
         });
         imageFilesStore.createIndex('by-date', 'date');
       }
-      const imageFilesStore = transaction.objectStore('images');
+      const imageFilesStore = tx.objectStore('images');
       if (!imageFilesStore.indexNames.contains('by-digest')) {
         imageFilesStore.createIndex('by-digest', 'digest');
       }
 
       if (!db.objectStoreNames.contains('color-mixtures')) {
-        const colorMixturesStore = db.createObjectStore('color-mixtures', {
+        db.createObjectStore('color-mixtures', {
           keyPath: 'id',
           autoIncrement: true,
         });
-        colorMixturesStore.createIndex('by-imageFileId', 'imageFileId');
+      }
+      const colorMixturesStore = tx.objectStore('color-mixtures');
+      if (!colorMixturesStore.indexNames.contains('by-imageFileDigest')) {
+        colorMixturesStore.createIndex('by-imageFileDigest', 'imageFileDigest');
+      }
+      // @ts-expect-error 'by-imageFileId' is no longer in the schema (replaced by 'by-imageFileDigest' in migration 001).
+      if (colorMixturesStore.indexNames.contains('by-imageFileId')) {
+        colorMixturesStore.deleteIndex('by-imageFileId');
       }
 
       if (!db.objectStoreNames.contains('custom-brands')) {
@@ -155,11 +102,21 @@ export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artist
       }
 
       for (const objectStoreName of db.objectStoreNames) {
-        if (!objectStoreNames.includes(objectStoreName)) {
+        if (!OBJECT_STORE_NAMES.includes(objectStoreName)) {
           db.deleteObjectStore(objectStoreName);
         }
       }
     },
+  }
+);
+
+export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = internalDbPromise.then(
+  async (db): Promise<IDBPDatabase<ArtistAssistAppDB>> => {
+    const lockManager: LockManager | undefined = 'locks' in navigator ? navigator.locks : undefined;
+    if (!lockManager) {
+      return applyMigrations(db);
+    }
+    return lockManager.request(DB_MIGRATIONS_LOCK_NAME, () => applyMigrations(db));
   }
 );
 

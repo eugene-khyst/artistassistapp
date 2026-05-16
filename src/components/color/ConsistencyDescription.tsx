@@ -23,17 +23,38 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {Space, theme, Tooltip, Typography} from 'antd';
 import type {ReactNode} from 'react';
 
-import {isThickConsistency} from '~/src/services/color/color-mixer';
+import {isFullStrength} from '~/src/services/color/color-mixer';
 import {ColorType} from '~/src/services/color/types';
 import {formatFraction, formatRatio} from '~/src/utils/format';
 import type {Fraction} from '~/src/utils/fraction';
 
 interface ConsistencyDescriptionConfig {
-  labelRender: (fraction: Fraction) => ReactNode;
-  tooltip: MessageDescriptor;
+  fullStrength: {
+    label: MessageDescriptor;
+    tooltip: MessageDescriptor;
+  };
+  transparent: {
+    labelRender: (fraction: Fraction) => ReactNode;
+    tooltip: MessageDescriptor;
+  };
 }
 
-const DILUTED_IN_WATER = (fraction: Fraction) => {
+const fullStrength: ConsistencyDescriptionConfig['fullStrength'] = {
+  label: defineMessage`Full strength`,
+  tooltip: defineMessage`Use at full strength.`,
+};
+
+const fullPressure: ConsistencyDescriptionConfig['fullStrength'] = {
+  label: defineMessage`Full pressure`,
+  tooltip: defineMessage`Use full pressure.`,
+};
+
+const denseLayer: ConsistencyDescriptionConfig['fullStrength'] = {
+  label: defineMessage`Dense layer`,
+  tooltip: defineMessage`Apply densely.`,
+};
+
+const dilutedInWater = (fraction: Fraction) => {
   const ratioText: string = formatRatio(fraction);
   return (
     <Typography.Text>
@@ -44,7 +65,7 @@ const DILUTED_IN_WATER = (fraction: Fraction) => {
   );
 };
 
-const LAYER_THIKNESS = (fraction: Fraction) => {
+const layerThickness = (fraction: Fraction) => {
   const fractionText: string = formatFraction(fraction);
   return (
     <Typography.Text>
@@ -55,7 +76,7 @@ const LAYER_THIKNESS = (fraction: Fraction) => {
   );
 };
 
-const PRESSURE = (fraction: Fraction) => {
+const pressure = (fraction: Fraction) => {
   const fractionText = formatFraction(fraction);
   return (
     <Typography.Text>
@@ -66,7 +87,7 @@ const PRESSURE = (fraction: Fraction) => {
   );
 };
 
-const STROKES = (fraction: Fraction) => {
+const strokes = (fraction: Fraction) => {
   const ratioText = formatRatio(fraction);
   return (
     <Typography.Text>
@@ -77,34 +98,62 @@ const STROKES = (fraction: Fraction) => {
   );
 };
 
-const CONSISTENCIES: Partial<Record<ColorType, ConsistencyDescriptionConfig>> = {
+const DESCRIPTIONS: Partial<Record<ColorType, ConsistencyDescriptionConfig>> = {
   [ColorType.WatercolorPaint]: {
-    labelRender: DILUTED_IN_WATER,
-    tooltip: defineMessage`Watercolor can be diluted with water to make it more transparent.`,
+    fullStrength: fullStrength,
+    transparent: {
+      labelRender: dilutedInWater,
+      tooltip: defineMessage`Watercolor can be diluted with water to make it more transparent.`,
+    },
   },
   [ColorType.OilPaint]: {
-    labelRender: LAYER_THIKNESS,
-    tooltip: defineMessage`Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original oil paint layer. You should be able to get the consistency of runny sour cream. Linseed oil is a popular glazing medium.`,
+    fullStrength: fullStrength,
+    transparent: {
+      labelRender: layerThickness,
+      tooltip: defineMessage`Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original oil paint layer. You should be able to get the consistency of runny sour cream. Linseed oil is a popular glazing medium.`,
+    },
   },
   [ColorType.AcrylicPaint]: {
-    labelRender: LAYER_THIKNESS,
-    tooltip: defineMessage`Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original acrylic paint layer.`,
+    fullStrength: fullStrength,
+    transparent: {
+      labelRender: layerThickness,
+      tooltip: defineMessage`Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original acrylic paint layer.`,
+    },
   },
   [ColorType.ColoredPencils]: {
-    labelRender: PRESSURE,
-    tooltip: defineMessage`Apply less pressure to make the colored pencil layer more transparent`,
+    fullStrength: fullPressure,
+    transparent: {
+      labelRender: pressure,
+      tooltip: defineMessage`Apply less pressure to make the colored pencil layer more transparent.`,
+    },
   },
   [ColorType.WatercolorPencils]: {
-    labelRender: PRESSURE,
-    tooltip: defineMessage`Apply less pressure to make the watercolor pencil layer more transparent`,
+    fullStrength: fullPressure,
+    transparent: {
+      labelRender: pressure,
+      tooltip: defineMessage`Apply less pressure to make the watercolor pencil layer more transparent.`,
+    },
   },
   [ColorType.DryPastel]: {
-    labelRender: STROKES,
-    tooltip: defineMessage`Slightly overlap pastel areas of different colors and blend gently to create a smooth transition.`,
+    fullStrength: denseLayer,
+    transparent: {
+      labelRender: strokes,
+      tooltip: defineMessage`Slightly overlap pastel areas of different colors and blend gently to create a smooth transition.`,
+    },
   },
   [ColorType.OilPastel]: {
-    labelRender: STROKES,
-    tooltip: defineMessage`Slightly overlap oil pastel areas of different colors and blend gently to create a smooth transition.`,
+    fullStrength: denseLayer,
+    transparent: {
+      labelRender: strokes,
+      tooltip: defineMessage`Slightly overlap oil pastel areas of different colors and blend gently to create a smooth transition.`,
+    },
+  },
+  [ColorType.WaxPastel]: {
+    fullStrength: denseLayer,
+    transparent: {
+      labelRender: strokes,
+      tooltip: defineMessage`Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition.`,
+    },
   },
 };
 
@@ -125,28 +174,26 @@ export const ConsistencyDescription: React.FC<Props> = ({
 
   const {t} = useLingui();
 
-  const config = CONSISTENCIES[colorType];
+  const config = DESCRIPTIONS[colorType];
   if (!config) {
     return null;
   }
-  const {labelRender, tooltip} = config;
+  const {fullStrength, transparent} = config;
 
-  return isThickConsistency({consistency}) ? (
+  return isFullStrength({consistency}) ? (
     <Space size={4}>
-      <Typography.Text>
-        <Trans>Thick pigment</Trans>
-      </Typography.Text>
+      <Typography.Text>{t(fullStrength.label)}</Typography.Text>
       {showTooltip && (
-        <Tooltip title={t`Don't thin the layer`}>
+        <Tooltip title={t(fullStrength.tooltip)}>
           <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
         </Tooltip>
       )}
     </Space>
   ) : (
     <Space size={4}>
-      {labelRender(consistency)}
+      {transparent.labelRender(consistency)}
       {showTooltip && (
-        <Tooltip title={t(tooltip)}>
+        <Tooltip title={t(transparent.tooltip)}>
           <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
         </Tooltip>
       )}

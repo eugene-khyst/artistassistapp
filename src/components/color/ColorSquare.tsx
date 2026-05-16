@@ -16,60 +16,84 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {theme, Tooltip} from 'antd';
+import {theme} from 'antd';
 import type React from 'react';
 import {memo} from 'react';
 
+import type {RgbTuple} from '~/src/services/color/space/rgb';
 import {hexToRgb, isRgbDark, toHexString} from '~/src/services/color/space/rgb';
 
 type Size = 'small' | 'large';
 
 interface Props {
-  hex: string;
+  hex: string | null;
   size?: Size;
   text?: string | number;
-  showTooltip?: boolean;
 }
 
 export const ColorSquare: React.FC<Props> = memo(function ColorSquare({
   hex,
   size = 'small',
   text,
-  showTooltip = true,
 }: Props) {
   const {
     token: {fontSize, fontSizeLG, lineHeight},
   } = theme.useToken();
-  const isLarge = size === 'large';
+
+  const isLarge: boolean = size === 'large';
   const sideLength: number = isLarge ? 2 * fontSize * lineHeight : fontSizeLG;
-  const borderRadius = isLarge ? 8 : 4;
-  const rgb = hexToRgb(hex);
-  const hexString = toHexString(hex);
-  return (
-    <Tooltip title={showTooltip ? hexString : undefined}>
+  const borderRadius: number = isLarge ? 8 : 4;
+
+  if (!hex) {
+    const halfBorderRadius = borderRadius / 2;
+    return (
       <svg width={sideLength} height={sideLength} className="color-icon">
         <rect
           width={sideLength}
           height={sideLength}
           rx={borderRadius}
-          fill={hexString}
+          fill="#fff"
           strokeWidth={1}
           stroke="#d9d9d9"
         />
-        {!!text && (
-          <text
-            x="50%"
-            y="50%"
-            dominantBaseline="middle"
-            textAnchor="middle"
-            fill={isRgbDark(...rgb) ? '#fff' : '#000'}
-            fontSize={16}
-            fontWeight="bold"
-          >
-            {text}
-          </text>
-        )}
+        <line
+          x1={sideLength - halfBorderRadius}
+          y1={halfBorderRadius}
+          x2={halfBorderRadius}
+          y2={sideLength - halfBorderRadius}
+          stroke="#f00"
+          strokeWidth="1"
+          strokeLinecap="round"
+        />
       </svg>
-    </Tooltip>
+    );
+  }
+
+  const rgb: RgbTuple = hexToRgb(hex);
+  const hexString: string = toHexString(hex);
+  return (
+    <svg width={sideLength} height={sideLength} className="color-icon">
+      <rect
+        width={sideLength}
+        height={sideLength}
+        rx={borderRadius}
+        fill={hexString}
+        strokeWidth={1}
+        stroke="#d9d9d9"
+      />
+      {!!text && (
+        <text
+          x="50%"
+          y="50%"
+          dominantBaseline="middle"
+          textAnchor="middle"
+          fill={isRgbDark(...rgb) ? '#fff' : '#000'}
+          fontSize={16}
+          fontWeight="bold"
+        >
+          {text}
+        </text>
+      )}
+    </svg>
   );
 });

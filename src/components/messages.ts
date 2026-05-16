@@ -33,7 +33,7 @@ export const TAB_LABELS: Record<TabKey, MessageDescriptor> = {
   [TabKey.SimplifiedPhoto]: defineMessage`Simplified`,
   [TabKey.Outline]: defineMessage`Outline`,
   [TabKey.Grid]: defineMessage`Grid`,
-  [TabKey.ColorMixing]: defineMessage`Color mixing`,
+  [TabKey.ColorMixing]: defineMessage`Color mixer`,
   [TabKey.ColorMixingChart]: defineMessage`Color mixing chart`,
   [TabKey.LimitedPalette]: defineMessage`Limited palette`,
   [TabKey.StyleTransfer]: defineMessage`Inspire`,

@@ -82,7 +82,7 @@ export const createPaletteSlice: StateCreator<
       isPaletteLoading: true,
     });
     try {
-      const paletteColorMixtures: ColorMixture[] = await getColorMixtures(imageFile?.id);
+      const paletteColorMixtures: ColorMixture[] = await getColorMixtures(imageFile?.digest);
       set({
         paletteColorMixtures: computeColorMixturesByType(paletteColorMixtures),
         selectedPaletteColorMixtures: new Map(),
@@ -151,7 +151,7 @@ export const createPaletteSlice: StateCreator<
           ...entry.colorMixture,
           ...(isNew && (entry.linkToImage ?? true)
             ? {
-                imageFileId: imageFile?.id,
+                imageFileDigest: imageFile?.digest,
                 samplingArea: entry.samplingArea,
               }
             : {}),

@@ -43,6 +43,7 @@ export class ColorMixingChart {
           type,
           [colors[i]!, colors[j]!],
           [1, 1],
+          null,
           PAPER_WHITE,
           [[1, 2]]
         );

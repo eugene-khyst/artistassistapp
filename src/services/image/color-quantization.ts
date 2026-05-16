@@ -67,7 +67,7 @@ export class ColorQuantization {
   async getLimitedPaletteImage(image: ImageBitmap, colorSet: ColorSet): Promise<Result> {
     console.time('limited-palette');
     const colorMixer = new ColorMixer();
-    colorMixer.setColorSet(colorSet, PAPER_WHITE);
+    colorMixer.setColorSet(colorSet, null, PAPER_WHITE);
     const imageData: ImageData = offscreenCanvasToImageData(
       ...drawImageToOffscreenCanvas(image, {
         willReadFrequently: true,
@@ -84,7 +84,7 @@ export class ColorQuantization {
           computeIfAbsentInMap(
             similarColors,
             packRgb(...color),
-            () => colorMixer.findSimilarColor(color)?.colorMixture.layerRgb ?? WHITE
+            () => colorMixer.findSimilarColor(color, true)?.colorMixture.layerRgb ?? WHITE
           )
       )
     );

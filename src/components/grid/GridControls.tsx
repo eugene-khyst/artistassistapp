@@ -48,7 +48,7 @@ export const GridControls: React.FC<Props> = ({
   defaultGridSettings,
   ...props
 }: Props) => {
-  const appSettings = useAppStore(state => state.appSettings);
+  const grids = useAppStore(state => state.appSettings.grids);
   const saveAppSettings = useAppStore(state => state.saveAppSettings);
 
   const {t} = useLingui();
@@ -71,7 +71,7 @@ export const GridControls: React.FC<Props> = ({
   const [gridDiagonals, setGridDiagonals] = useState<boolean>(defaultDiagonals);
 
   useEffect(() => {
-    const {enabled, mode, size, diagonals} = appSettings.grids?.[tab] ?? {};
+    const {enabled, mode, size, diagonals} = grids?.[tab] ?? {};
     if (enabled) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setGridEnabled(enabled);
@@ -85,7 +85,7 @@ export const GridControls: React.FC<Props> = ({
     if (diagonals) {
       setGridDiagonals(diagonals);
     }
-  }, [appSettings, tab]);
+  }, [grids, tab]);
 
   useEffect(() => {
     if (!gridCanvas) {
@@ -171,7 +171,7 @@ export const GridControls: React.FC<Props> = ({
   return (
     <Space {...props}>
       {disableable && (
-        <Form.Item label={t`Show grid`} style={{margin: 0}}>
+        <Form.Item label={t`Show grid`} labelCol={{style: {paddingBottom: 0}}} style={{margin: 0}}>
           <Checkbox checked={gridEnabled} onChange={handleEnabledChange} />
         </Form.Item>
       )}
@@ -194,6 +194,7 @@ export const GridControls: React.FC<Props> = ({
       ) : (
         <Form.Item
           label={t`Diagonals`}
+          labelCol={{style: {paddingBottom: 0}}}
           tooltip={t`Show or hide diagonal lines`}
           style={{margin: 0}}
         >

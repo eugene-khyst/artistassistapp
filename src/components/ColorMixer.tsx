@@ -23,30 +23,17 @@ import {
   QuestionCircleOutlined,
 } from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {
-  Button,
-  Col,
-  ColorPicker,
-  Flex,
-  Form,
-  Grid,
-  Row,
-  Select,
-  Space,
-  theme,
-  Tooltip,
-  Typography,
-} from 'antd';
-import type {Color as PickedColor} from 'antd/es/color-picker';
+import {Button, Col, Flex, Form, Grid, Row, Select, Space, theme, Tooltip, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {Fragment, useEffect, useMemo, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
-import {COLOR_PICKER_PRESET_LABELS} from '~/src/components/messages';
+import {UnderlayerColorPicker} from '~/src/components/color/UnderlayerColorPicker';
 import {
   compareColorMixturesByConsistency,
+  FRACTIONS,
+  isFullStrength,
   isMixable,
-  isThickConsistency,
   makeColorMixture,
   MIXABLE_COLOR_TYPES,
   PAPER_WHITE_HEX,
@@ -102,7 +89,8 @@ export const ColorMixer: React.FC = () => {
 
   const [form] = Form.useForm();
 
-  const [backgroundColor, setBackgroundColor] = useState<string>(PAPER_WHITE_HEX);
+  const [underlayerHex, setUnderlayerHex] = useState<string | null>(null);
+  const [surfaceHex, setSurfaceHex] = useState<string>(PAPER_WHITE_HEX);
   const [colors, setColors] = useState<Color[]>([]);
   const [ratio, setRatio] = useState<number[]>([]);
   const [isOpenReflectanceChart, setIsOpenReflectanceChart] = useState<boolean>(false);
@@ -116,15 +104,19 @@ export const ColorMixer: React.FC = () => {
     }
   }, [colorSet, form]);
 
-  const colorMixtures = useMemo<ColorMixture[]>(
-    () =>
-      colorSet && colors.length > 0 && colors.length === ratio.length
-        ? makeColorMixture(colorSet.type, colors, ratio, hexToRgb(backgroundColor)).sort(
-            compareColorMixturesByConsistency
-          )
-        : [],
-    [colorSet, colors, ratio, backgroundColor]
-  );
+  const colorMixtures = useMemo<ColorMixture[]>(() => {
+    if (!colorSet || !colors.length || colors.length !== ratio.length) {
+      return [];
+    }
+    return makeColorMixture(
+      colorSet.type,
+      colors,
+      ratio,
+      underlayerHex ? hexToRgb(underlayerHex) : null,
+      hexToRgb(surfaceHex),
+      FRACTIONS
+    ).sort(compareColorMixturesByConsistency);
+  }, [colorSet, colors, ratio, underlayerHex, surfaceHex]);
 
   const handleFormValuesChange = (
     _: Partial<ColorMixerForm>,
@@ -162,6 +154,8 @@ export const ColorMixer: React.FC = () => {
     return <EmptyColorSet supportedColorTypes={MIXABLE_COLOR_TYPES} />;
   }
 
+  const ratioWidth = 55;
+
   return (
     <>
       <Flex vertical gap="middle" style={{padding: '0 16px 16px'}}>
@@ -170,7 +164,13 @@ export const ColorMixer: React.FC = () => {
         </Typography.Text>
 
         <Space size="middle" align="start" wrap>
-          <Space orientation="vertical" size="middle" style={{width: screens.md ? 420 : 360}}>
+          <Space orientation="vertical" size="small" style={{width: screens.md ? 420 : 360}}>
+            <UnderlayerColorPicker
+              underlayerHex={underlayerHex}
+              setUnderlayerHex={setUnderlayerHex}
+              surfaceHex={surfaceHex}
+              setSurfaceHex={setSurfaceHex}
+            />
             <Form
               name="colorMixture"
               form={form}
@@ -179,29 +179,9 @@ export const ColorMixer: React.FC = () => {
               requiredMark={false}
               autoComplete="off"
             >
-              <Form.Item
-                label={t`Background`}
-                tooltip={t`The color of paper or canvas, or the color of the base layer when glazed.`}
-                style={{marginBottom: 0}}
-              >
-                <ColorPicker
-                  value={backgroundColor}
-                  presets={[
-                    {
-                      label: t(COLOR_PICKER_PRESET_LABELS.PAPER_WHITE),
-                      colors: [PAPER_WHITE_HEX],
-                    },
-                  ]}
-                  onChangeComplete={(color: PickedColor) => {
-                    setBackgroundColor(color.toHexString());
-                  }}
-                  showText
-                  disabledAlpha
-                />
-              </Form.Item>
               <Form.Item style={{marginBottom: 0}}>
                 <Flex gap="small" align="center">
-                  <Typography.Text style={{display: 'inline-block', width: 50}}>
+                  <Typography.Text style={{display: 'inline-block', width: ratioWidth}}>
                     <Trans>Ratio</Trans>
                   </Typography.Text>
                   <Typography.Text>×</Typography.Text>
@@ -224,7 +204,7 @@ export const ColorMixer: React.FC = () => {
                           <Select
                             options={RATIO_OPTIONS}
                             placeholder={t`Select part`}
-                            style={{width: 55}}
+                            style={{width: ratioWidth}}
                           />
                         </Form.Item>
                         {'×'}
@@ -246,30 +226,28 @@ export const ColorMixer: React.FC = () => {
                         )}
                       </Flex>
                     ))}
-                    <Form.Item style={{margin: '16px 0 0'}}>
-                      <Space>
-                        <Button
-                          type="primary"
-                          icon={<PlusOutlined />}
-                          disabled={fields.length >= MAX_COLORS}
-                          onClick={() => {
-                            add(defaultValue);
-                          }}
-                        >
-                          <Trans>Add color</Trans>
-                        </Button>
-                        <Button
-                          icon={<LineChartOutlined />}
-                          title={t`Spectral reflectance curve`}
-                          disabled={!colorMixtures.some(isThickConsistency)}
-                          onClick={() => {
-                            setIsOpenReflectanceChart(true);
-                          }}
-                        >
-                          <Trans>Reflectance</Trans>
-                        </Button>
-                      </Space>
-                    </Form.Item>
+                    <Space>
+                      <Button
+                        type="primary"
+                        icon={<PlusOutlined />}
+                        disabled={fields.length >= MAX_COLORS}
+                        onClick={() => {
+                          add(defaultValue);
+                        }}
+                      >
+                        <Trans>Add color</Trans>
+                      </Button>
+                      <Button
+                        icon={<LineChartOutlined />}
+                        title={t`Spectral reflectance curve`}
+                        disabled={!colorMixtures.some(isFullStrength)}
+                        onClick={() => {
+                          setIsOpenReflectanceChart(true);
+                        }}
+                      >
+                        <Trans>Reflectance</Trans>
+                      </Button>
+                    </Space>
                   </>
                 )}
               </Form.List>
@@ -281,8 +259,8 @@ export const ColorMixer: React.FC = () => {
               <Fragment key={colorMixture.key}>
                 <ColorMixtureDescription
                   colorMixture={colorMixture}
-                  showColors={isThickConsistency(colorMixture)}
-                  showConsistency={!isThickConsistency(colorMixture)}
+                  showColors={isFullStrength(colorMixture)}
+                  showConsistency={!isFullStrength(colorMixture)}
                 />
                 <AddToPaletteButton
                   colorMixture={colorMixture}
@@ -302,7 +280,7 @@ export const ColorMixer: React.FC = () => {
         </Row>
       </Flex>
       <ReflectanceChartDrawer
-        colorMixture={colorMixtures.find(isThickConsistency)}
+        colorMixture={colorMixtures.find(isFullStrength)}
         open={isOpenReflectanceChart}
         onClose={() => {
           setIsOpenReflectanceChart(false);

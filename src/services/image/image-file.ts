@@ -17,15 +17,16 @@
  */
 
 import {arrayBufferToBlob} from '~/src/utils/blob';
+import {digestArrayBuffer} from '~/src/utils/digest';
 
 export interface ImageFile {
   id?: number;
   buffer: ArrayBuffer;
   type: string;
   name?: string;
-  date?: Date;
-  digest?: string;
+  digest: string;
   maxColors?: number;
+  date?: Date;
 }
 
 export async function fileToImageFile(file: File): Promise<ImageFile> {
@@ -33,10 +34,13 @@ export async function fileToImageFile(file: File): Promise<ImageFile> {
 }
 
 export async function blobToImageFile(blob: Blob, name?: string): Promise<ImageFile> {
+  const buffer: ArrayBuffer = await blob.arrayBuffer();
+  const digest: string = await digestArrayBuffer(buffer);
   return {
-    buffer: await blob.arrayBuffer(),
+    buffer,
     type: blob.type,
     name,
+    digest,
     date: new Date(),
   };
 }

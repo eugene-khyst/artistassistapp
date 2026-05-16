@@ -21,7 +21,8 @@ import type {StateCreator} from 'zustand';
 import {getPreferredLocale} from '~/src/i18n';
 import {getAppSettings, saveAppSettings} from '~/src/services/db/app-settings-db';
 import {imageFileToFile} from '~/src/services/image/image-file';
-import type {AppSettings} from '~/src/services/settings/types';
+import {DEFAULT_APP_SETTINGS} from '~/src/services/settings/app-settings';
+import {type AppSettings} from '~/src/services/settings/types';
 import {importFromUrl} from '~/src/services/url/url-parser';
 import type {AuthSlice} from '~/src/stores/auth-slice';
 import type {LocaleSlice} from '~/src/stores/locale-slice';
@@ -34,10 +35,6 @@ import type {ColorSetSlice} from './color-set-slice';
 import type {OriginalImageSlice} from './original-image-slice';
 import type {PaletteSlice} from './palette-slice';
 import type {TabSlice} from './tab-slice';
-
-const DEFAULT_APP_SETTINGS: AppSettings = {
-  autoSavingColorSetsJson: true,
-};
 
 export type AppSettingsUpdater = (prev?: AppSettings) => Partial<AppSettings>;
 
@@ -74,7 +71,7 @@ export const createInitSlice: StateCreator<
   InitSlice
 > = (set, get) => ({
   appInitialized: false,
-  appSettings: {},
+  appSettings: {...DEFAULT_APP_SETTINGS},
   installRequested: false,
 
   isAppInitializing: false,
@@ -98,6 +95,7 @@ export const createInitSlice: StateCreator<
       set({
         isAppInitializing: true,
       });
+
       let appSettings: AppSettings = {...DEFAULT_APP_SETTINGS};
       try {
         appSettings = await get().loadAppSettings();
@@ -181,10 +179,10 @@ export const createInitSlice: StateCreator<
     return appSettings;
   },
   saveAppSettings: async (update: Partial<AppSettings> | AppSettingsUpdater): Promise<void> => {
-    const {appSettings} = get();
+    const {appSettings: prevAppSettings} = get();
     const values: Partial<AppSettings> =
-      typeof update === 'function' ? update(appSettings) : update;
-    Object.assign(appSettings, values);
+      typeof update === 'function' ? update(prevAppSettings) : update;
+    const appSettings = {...prevAppSettings, ...values};
     await saveAppSettings(appSettings);
     set({
       appSettings,

@@ -111,7 +111,7 @@ export interface ColorSetDefinition {
   date?: Date;
 }
 
-export type ColorId = (string | number | null)[];
+export type ColorId = (number | null)[];
 
 export interface Color {
   brand: number;
@@ -135,11 +135,16 @@ export interface BrandColorCount {
   colorCount: number;
 }
 
+export enum Layering {
+  None = 0,
+  OverColorOnly = 1,
+  Always = 2,
+}
+
 export interface ColorMixingConfig {
   mixing: boolean;
   tint: boolean;
-  glazing: boolean;
-  wash: boolean;
+  layering: Layering;
 }
 
 export interface ColorMixturePartDefinition {
@@ -178,10 +183,10 @@ export interface ColorMixture {
   white?: Color | null;
   tintRgb: RgbTuple;
   consistency: Fraction;
-  backgroundRgb?: RgbTuple | null;
+  underlayerRgb?: RgbTuple | null;
   layerRgb: RgbTuple;
   layerRho: number[] | Float64Array;
-  imageFileId?: number | null;
+  imageFileDigest?: string | null;
   samplingArea?: SamplingArea | null;
   date?: Date | null;
 }

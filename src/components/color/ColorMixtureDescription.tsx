@@ -45,7 +45,7 @@ export const ColorMixtureDescription: React.FC<Props> = memo(function ColorMixtu
     white,
     tintRgb,
     consistency,
-    backgroundRgb,
+    underlayerRgb,
     layerRgb,
   },
   showColors = true,
@@ -116,7 +116,7 @@ export const ColorMixtureDescription: React.FC<Props> = memo(function ColorMixtu
             consistency={consistency}
             showTooltip={showTooltips}
           />
-          {backgroundRgb && (
+          {underlayerRgb && (
             <Space>
               <ColorSquare
                 hex={rgbToHex(...tintRgb)}
@@ -126,7 +126,7 @@ export const ColorMixtureDescription: React.FC<Props> = memo(function ColorMixtu
               <Typography.Text>
                 <Trans>over</Trans>
               </Typography.Text>
-              <ColorSquare hex={rgbToHex(...backgroundRgb)} size="large" />
+              <ColorSquare hex={rgbToHex(...underlayerRgb)} size="large" />
               <Typography.Text>=</Typography.Text>
               <ColorSquare hex={rgbToHex(...layerRgb)} size="large" />
             </Space>

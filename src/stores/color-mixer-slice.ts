@@ -20,12 +20,12 @@ import {transfer} from 'comlink';
 import type {StateCreator} from 'zustand';
 
 import {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
-import {PAPER_WHITE, PAPER_WHITE_HEX} from '~/src/services/color/color-mixer';
 import {hexToRgb, type RgbTuple} from '~/src/services/color/space/rgb';
-import type {ColorSet, SamplingArea, SimilarColor} from '~/src/services/color/types';
+import type {ColorId, ColorSet, SamplingArea, SimilarColor} from '~/src/services/color/types';
 import {colorMixer} from '~/src/services/color/worker/color-mixer-worker-manager';
 import {mergeSimilarSamplingPoints, type SamplingPoint} from '~/src/services/image/sampling-point';
 import {colorQuantizationWorker} from '~/src/services/image/worker/color-quantization-worker-manager';
+import type {InitSlice} from '~/src/stores/init-slice';
 import type {PaletteSlice, SaveToPaletteEntry} from '~/src/stores/palette-slice';
 import {TabKey} from '~/src/tabs';
 import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '~/src/utils/graphics';
@@ -39,12 +39,27 @@ interface SamplingPointWithSimilarColor extends SamplingPoint {
   similarColor: SimilarColor;
 }
 
+async function findSimilarColors(
+  targetColorHex: string | null,
+  includeTransparentLayers: boolean,
+  motherColorId?: ColorId | null
+): Promise<SimilarColor[]> {
+  if (!targetColorHex) {
+    return [];
+  }
+  return colorMixer.findSimilarColors(
+    hexToRgb(targetColorHex),
+    includeTransparentLayers,
+    motherColorId
+  );
+}
+
 export interface ColorMixerSlice {
   colorSet: ColorSet | null;
-  isColorMixerSetLoading: boolean;
-  backgroundColor: string | null;
-  isColorMixerBackgroundLoading: boolean;
-  targetColor: string;
+  underlayerHex: string | null;
+  isColorMixerLoading: boolean;
+  motherColorId: ColorId | null;
+  targetColorHex: string | null;
   samplingArea: SamplingArea | null;
   colorPickerPipette: SamplingArea | null;
   similarColors: SimilarColor[];
@@ -53,24 +68,30 @@ export interface ColorMixerSlice {
   buildPaletteAbortController: AbortController | null;
 
   setColorSet: (colorSet: ColorSet, setActiveTabKey?: boolean) => Promise<void>;
-  setBackgroundColor: (backgroundColor: string) => Promise<void>;
-  setTargetColor: (color: string, samplingArea: SamplingArea | null) => Promise<void>;
+  setUnderlayer: (underlayerHex: string | null) => Promise<void>;
+  setSurface: (surfaceHex: string) => Promise<void>;
+  setLayeringEnabled: (layeringEnabled: boolean) => Promise<void>;
+  setMotherColor: (motherColorId: ColorId | null) => Promise<void>;
+  setTargetColor: (
+    targetColorHex: string | null,
+    samplingArea: SamplingArea | null
+  ) => Promise<void>;
   setColorPickerPipette: (colorPickerPipette: SamplingArea | null) => void;
   buildPalette: () => Promise<void>;
   abortBuildPalette: () => void;
 }
 
 export const createColorMixerSlice: StateCreator<
-  ColorMixerSlice & TabSlice & OriginalImageSlice & PaletteSlice,
+  ColorMixerSlice & InitSlice & TabSlice & OriginalImageSlice & PaletteSlice,
   [],
   [],
   ColorMixerSlice
 > = (set, get) => ({
   colorSet: null,
-  isColorMixerSetLoading: false,
-  backgroundColor: PAPER_WHITE_HEX,
-  isColorMixerBackgroundLoading: false,
-  targetColor: PAPER_WHITE_HEX,
+  isColorMixerLoading: false,
+  underlayerHex: null,
+  motherColorId: null,
+  targetColorHex: null,
   samplingArea: null,
   colorPickerPipette: null,
   similarColors: [],
@@ -79,51 +100,167 @@ export const createColorMixerSlice: StateCreator<
   buildPaletteAbortController: null,
 
   setColorSet: async (colorSet: ColorSet, setActiveTabKey = true): Promise<void> => {
-    const {imageFile, targetColor, samplingArea} = get();
+    const {
+      imageFile,
+      targetColorHex,
+      samplingArea,
+      appSettings: {colorPickerSurfaceHex},
+    } = get();
     if (setActiveTabKey) {
       const activeTabKey = imageFile ? TabKey.ColorPicker : TabKey.Photo;
       await get().setActiveTabKey(activeTabKey);
     }
     set({
       colorSet,
-      isColorMixerSetLoading: true,
-      backgroundColor: PAPER_WHITE_HEX,
+      isColorMixerLoading: true,
+      underlayerHex: null,
+      motherColorId: null,
       similarColors: [],
     });
-    await colorMixer.setColorSet(colorSet, PAPER_WHITE);
-    set({
-      isColorMixerSetLoading: false,
-    });
-    await get().setTargetColor(targetColor, samplingArea);
+    try {
+      await colorMixer.setColorSet(colorSet, null, hexToRgb(colorPickerSurfaceHex));
+    } finally {
+      set({
+        isColorMixerLoading: false,
+      });
+    }
+    await get().setTargetColor(targetColorHex, samplingArea);
   },
-  setBackgroundColor: async (backgroundColor: string): Promise<void> => {
-    const {targetColor} = get();
+  setUnderlayer: async (underlayerHex: string | null): Promise<void> => {
+    const {
+      targetColorHex,
+      motherColorId,
+      appSettings: {colorPickerLayeringEnabled},
+    } = get();
     set({
-      isColorMixerBackgroundLoading: true,
-      backgroundColor,
+      isColorMixerLoading: true,
+      underlayerHex,
       similarColors: [],
       isSimilarColorsLoading: true,
     });
-    await colorMixer.setBackgroundColor(hexToRgb(backgroundColor));
-    set({
-      isColorMixerBackgroundLoading: false,
-      similarColors: await colorMixer.findSimilarColors(hexToRgb(targetColor)),
-      isSimilarColorsLoading: false,
-    });
+    try {
+      await colorMixer.setUnderlayer(underlayerHex ? hexToRgb(underlayerHex) : null);
+      const similarColors: SimilarColor[] = await findSimilarColors(
+        targetColorHex,
+        colorPickerLayeringEnabled,
+        motherColorId
+      );
+      set({
+        similarColors,
+      });
+    } finally {
+      set({
+        isColorMixerLoading: false,
+        isSimilarColorsLoading: false,
+      });
+    }
   },
-  setTargetColor: async (targetColor: string, samplingArea: SamplingArea | null): Promise<void> => {
+  setSurface: async (surfaceHex: string): Promise<void> => {
+    await get().saveAppSettings({colorPickerSurfaceHex: surfaceHex});
+    const {
+      targetColorHex,
+      motherColorId,
+      appSettings: {colorPickerLayeringEnabled},
+    } = get();
     set({
-      targetColor,
+      isColorMixerLoading: true,
+      similarColors: [],
+      isSimilarColorsLoading: true,
+    });
+    try {
+      await colorMixer.setSurface(hexToRgb(surfaceHex));
+      const similarColors: SimilarColor[] = await findSimilarColors(
+        targetColorHex,
+        colorPickerLayeringEnabled,
+        motherColorId
+      );
+      set({
+        similarColors,
+      });
+    } finally {
+      set({
+        isColorMixerLoading: false,
+        isSimilarColorsLoading: false,
+      });
+    }
+  },
+  setLayeringEnabled: async (layeringEnabled: boolean): Promise<void> => {
+    await get().saveAppSettings({colorPickerLayeringEnabled: layeringEnabled});
+    const {targetColorHex, motherColorId} = get();
+    set({
+      similarColors: [],
+      isSimilarColorsLoading: true,
+    });
+    try {
+      const similarColors: SimilarColor[] = await findSimilarColors(
+        targetColorHex,
+        layeringEnabled,
+        motherColorId
+      );
+      set({
+        similarColors,
+      });
+    } finally {
+      set({
+        isSimilarColorsLoading: false,
+      });
+    }
+  },
+  setMotherColor: async (motherColorId: ColorId | null): Promise<void> => {
+    const {
+      targetColorHex,
+      appSettings: {colorPickerLayeringEnabled},
+    } = get();
+    set({
+      motherColorId,
+      similarColors: [],
+      isSimilarColorsLoading: true,
+    });
+    try {
+      const similarColors: SimilarColor[] = await findSimilarColors(
+        targetColorHex,
+        colorPickerLayeringEnabled,
+        motherColorId
+      );
+      set({
+        similarColors,
+      });
+    } finally {
+      set({
+        isSimilarColorsLoading: false,
+      });
+    }
+  },
+  setTargetColor: async (
+    targetColorHex: string | null,
+    samplingArea: SamplingArea | null
+  ): Promise<void> => {
+    const {
+      motherColorId,
+      appSettings: {colorPickerLayeringEnabled},
+    } = get();
+    set({
+      targetColorHex,
       samplingArea,
       colorPickerPipette: null,
       similarColors: [],
       selectedPaletteColorMixtures: new Map(),
       isSimilarColorsLoading: true,
     });
-    set({
-      similarColors: await colorMixer.findSimilarColors(hexToRgb(targetColor)),
-      isSimilarColorsLoading: false,
-    });
+    try {
+      const similarColors: SimilarColor[] = await findSimilarColors(
+        targetColorHex,
+        colorPickerLayeringEnabled,
+        motherColorId
+      );
+      set({
+        similarColors,
+      });
+    } finally {
+      set({
+        isSimilarColorsLoading: false,
+      });
+    }
   },
   setColorPickerPipette: (colorPickerPipette: SamplingArea | null): void => {
     set({
@@ -132,7 +269,11 @@ export const createColorMixerSlice: StateCreator<
   },
   buildPalette: async (): Promise<void> => {
     get().abortBuildPalette();
-    const {originalImage} = get();
+    const {
+      originalImage,
+      motherColorId,
+      appSettings: {colorPickerLayeringEnabled},
+    } = get();
     if (!originalImage) {
       return;
     }
@@ -162,7 +303,7 @@ export const createColorMixerSlice: StateCreator<
 
       const targetColors: RgbTuple[] = rawPoints.map(({rgb}) => rgb);
       const similarColors: (SimilarColor | undefined)[] = await abortablePromise(
-        colorMixer.findSimilarColorBulk(targetColors),
+        colorMixer.findSimilarColorBulk(targetColors, colorPickerLayeringEnabled, motherColorId),
         signal
       );
 

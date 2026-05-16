@@ -34,12 +34,15 @@ import {byNumber, reverseOrder} from '~/src/utils/comparator';
 import {RecentImageCard} from './image/RecentImageCard';
 import {SampleImageCard} from './image/SampleImageCard';
 
+const MAX_IMAGE_FILES = 20;
+
 export const ImageChooser: React.FC = () => {
   const recentImageFiles = useAppStore(state => state.recentImageFiles);
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
+  const deleteRecentImageFile = useAppStore(state => state.deleteRecentImageFile);
   const isSampleImageLoading = useAppStore(state => state.isSampleImageLoading);
 
-  const {notification} = App.useApp();
+  const {notification, modal} = App.useApp();
 
   const {t} = useLingui();
 
@@ -72,6 +75,19 @@ export const ImageChooser: React.FC = () => {
 
   const handleFileChange = async ([file]: File[]) => {
     if (file) {
+      if (recentImageFiles.length >= MAX_IMAGE_FILES) {
+        const confirmed: boolean = await modal.confirm({
+          title: t`Storage may fill up`,
+          content: t`You already have many recent photos saved. Remove the oldest one to free up space? The new photo will still be added.`,
+          okText: t`Remove oldest`,
+          cancelText: t`Keep all`,
+          focusTriggerAfterClose: false,
+        });
+        if (confirmed) {
+          const oldestImageFile: ImageFile = recentImageFiles[recentImageFiles.length - 1]!;
+          await deleteRecentImageFile(oldestImageFile);
+        }
+      }
       const granted = await requestPersistentStorage();
       void saveRecentImageFile(await fileToImageFile(file));
       if (!granted) {
@@ -106,7 +122,7 @@ export const ImageChooser: React.FC = () => {
 
           <Row gutter={[16, 16]} align="top" justify="start" style={{marginBottom: '1em'}}>
             {recentImageFiles.map((imageFile: ImageFile) => (
-              <Col key={imageFile.id} xs={24} sm={12} lg={6}>
+              <Col key={imageFile.digest} xs={24} sm={12} lg={6}>
                 <RecentImageCard imageFile={imageFile} />
               </Col>
             ))}

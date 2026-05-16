@@ -18,7 +18,6 @@
 
 import type {StateCreator} from 'zustand';
 
-import {PAPER_WHITE_HEX} from '~/src/services/color/color-mixer';
 import {
   deleteImageFile,
   getImageFiles,
@@ -115,10 +114,10 @@ export const createOriginalImageSlice: StateCreator<
       outlineImage: null,
       limitedPaletteImage: null,
       styledImageBlob: null,
-      backgroundColor: PAPER_WHITE_HEX,
-      targetColor: PAPER_WHITE_HEX,
       similarColors: [],
     });
+    await get().setTargetColor(null, null);
+    await get().setUnderlayer(null);
     await get().loadPaletteColorMixtures();
     const originalImage = originalImageFile
       ? await createImageBitmapAndResize(
@@ -145,15 +144,13 @@ export const createOriginalImageSlice: StateCreator<
     }));
     await get().setImageFile(imageFile);
   },
-  deleteRecentImageFile: async ({id: idToDelete}: ImageFile): Promise<void> => {
-    if (idToDelete) {
-      await deleteImageFile(idToDelete);
-      set(({recentImageFiles}) => ({
-        recentImageFiles: recentImageFiles.filter(({id}: ImageFile) => id !== idToDelete),
-      }));
-      if (get().imageFile?.id === idToDelete) {
-        await get().setImageFile(null);
-      }
+  deleteRecentImageFile: async ({digest: digestToDelete}: ImageFile): Promise<void> => {
+    await deleteImageFile(digestToDelete);
+    set(({recentImageFiles}) => ({
+      recentImageFiles: recentImageFiles.filter(({digest}: ImageFile) => digest !== digestToDelete),
+    }));
+    if (get().imageFile?.digest === digestToDelete) {
+      await get().setImageFile(null);
     }
   },
   loadSampleImage: async ({image, name}: SampleImageDefinition): Promise<void> => {

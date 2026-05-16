@@ -29,21 +29,20 @@ import type {RgbTuple} from '~/src/services/color/space/rgb';
 import {hexToRgb} from '~/src/services/color/space/rgb';
 import type {ColorMixture, ColorMixturePart} from '~/src/services/color/types';
 
-enum ChartMode {
-  Similarity = 1,
-  Mixture = 2,
-}
+type ChartMode = 'similarity' | 'mixture';
 
 interface Props {
-  targetColor?: string;
+  defaultChartMode?: ChartMode;
   colorMixture?: ColorMixture;
+  targetColorHex?: string | null;
   open?: boolean;
   onClose?: () => void;
 }
 
 export const ReflectanceChartDrawer: React.FC<Props> = ({
-  targetColor,
+  defaultChartMode = 'mixture',
   colorMixture,
+  targetColorHex,
   open = false,
   onClose,
 }: Props) => {
@@ -51,9 +50,7 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
 
   const {ref: canvasRef, reflectanceChart} = useReflectanceChart();
 
-  const [chartMode, setChartMode] = useState<ChartMode>(
-    targetColor ? ChartMode.Similarity : ChartMode.Mixture
-  );
+  const [chartMode, setChartMode] = useState<ChartMode>(defaultChartMode);
 
   useEffect(() => {
     if (!reflectanceChart) {
@@ -63,7 +60,7 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
     if (colorMixture) {
       const {layerRgb, layerRho, parts, white} = colorMixture;
       reflectanceChart.addReflectance(layerRho, layerRgb, 3);
-      if (chartMode === ChartMode.Mixture) {
+      if (chartMode === 'mixture') {
         parts.forEach(({color: {rho, rgb}}: ColorMixturePart) => {
           reflectanceChart.addReflectance(rho, rgb);
         });
@@ -72,19 +69,19 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
         }
       }
     }
-    if (targetColor && chartMode === ChartMode.Similarity) {
-      const rgb: RgbTuple = hexToRgb(targetColor);
+    if (targetColorHex && chartMode === 'similarity') {
+      const rgb: RgbTuple = hexToRgb(targetColorHex);
       reflectanceChart.addReflectance(Reflectance.fromRgb(...rgb).toArray(), rgb);
     }
-  }, [reflectanceChart, targetColor, colorMixture, chartMode]);
+  }, [reflectanceChart, targetColorHex, colorMixture, chartMode]);
 
   const handleChartModeChange = (e: RadioChangeEvent) => {
-    setChartMode(e.target.value as number);
+    setChartMode(e.target.value as ChartMode);
   };
 
-  const chartOptions: CheckboxOptionType<number>[] = [
-    {value: ChartMode.Similarity, label: t`Similarity`},
-    {value: ChartMode.Mixture, label: t`Mixture`},
+  const chartOptions: CheckboxOptionType<ChartMode>[] = [
+    {value: 'similarity', label: t`Similarity`},
+    {value: 'mixture', label: t`Mixture`},
   ];
 
   return (
@@ -96,7 +93,7 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
       onClose={onClose}
     >
       <canvas ref={canvasRef} width="688" height="388" style={{marginBottom: 16}} />
-      {targetColor && (
+      {targetColorHex && (
         <Form.Item
           label={t`Mode`}
           tooltip={t`Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed.`}

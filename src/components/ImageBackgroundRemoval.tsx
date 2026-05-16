@@ -16,16 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {BgColorsOutlined, DownloadOutlined, MoreOutlined} from '@ant-design/icons';
+import {CloseCircleOutlined, DownloadOutlined, MoreOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import type {ColorPickerProps} from 'antd';
-import {App, Button, ColorPicker, Dropdown, Flex, Form, Grid, Space, Typography} from 'antd';
+import {App, Button, Divider, Dropdown, Flex, Form, Grid, Space, theme, Typography} from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import {saveAs} from 'file-saver';
 import type {CSSProperties} from 'react';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ReactCompareSlider, ReactCompareSliderImage} from 'react-compare-slider';
 
+import {ColorPicker} from '~/src/components/color/ColorPicker';
 import {FileSelect} from '~/src/components/file/FileSelect';
 import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {OnnxModelSelect} from '~/src/components/ml-model/OnnxModelSelect';
@@ -43,7 +43,7 @@ import {getFilename} from '~/src/utils/filename';
 export const ImageBackgroundRemoval: React.FC = () => {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
-  const appSettings = useAppStore(state => state.appSettings);
+  const backgroundRemovalModel = useAppStore(state => state.appSettings.backgroundRemovalModel);
   const imageFileToRemoveBackground = useAppStore(state => state.imageFileToRemoveBackground);
   const backgroundRemovalColor = useAppStore(state => state.backgroundRemovalColor);
   const isBackgroundRemovalLoading = useAppStore(state => state.isBackgroundRemovalLoading);
@@ -56,6 +56,7 @@ export const ImageBackgroundRemoval: React.FC = () => {
   const abortBackgroundRemoval = useAppStore(state => state.abortBackgroundRemoval);
   const saveAppSettings = useAppStore(state => state.saveAppSettings);
 
+  const {token} = theme.useToken();
   const screens = Grid.useBreakpoint();
 
   const {notification} = App.useApp();
@@ -69,7 +70,6 @@ export const ImageBackgroundRemoval: React.FC = () => {
   } = useOnnxModels(OnnxModelType.BackgroundRemoval);
 
   const [modelId, setModelId] = useState<string>();
-  const [isColorPickerOpened, setIsColorPickerOpened] = useState<boolean>(false);
 
   const model: OnnxModel | null | undefined = modelId ? models?.get(modelId) : null;
 
@@ -99,14 +99,13 @@ export const ImageBackgroundRemoval: React.FC = () => {
     if (isAuthLoading || !models?.size) {
       return;
     }
-    const {backgroundRemovalModel} = appSettings;
     const model: OnnxModel | undefined =
       (backgroundRemovalModel && models.get(backgroundRemovalModel)) ||
       getDefaultModel(models, user);
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setModelId(model?.id);
     setBackgroundRemovalModel(model);
-  }, [setBackgroundRemovalModel, appSettings, models, user, isAuthLoading]);
+  }, [backgroundRemovalModel, setBackgroundRemovalModel, models, user, isAuthLoading]);
 
   const position = isBackgroundRemovalLoadingDebounced ? 100 : 25;
 
@@ -119,7 +118,6 @@ export const ImageBackgroundRemoval: React.FC = () => {
   const handleFileChange = ([file]: File[]) => {
     setImageFileToRemoveBackground(file ?? null);
     if (!modelId) {
-      const {backgroundRemovalModel} = appSettings;
       const model: OnnxModel | undefined =
         (backgroundRemovalModel && models?.get(backgroundRemovalModel)) ||
         getDefaultModel(models, user);
@@ -140,31 +138,49 @@ export const ImageBackgroundRemoval: React.FC = () => {
     setBackgroundRemovalModel(undefined);
   };
 
-  const colorPickerProps: ColorPickerProps = {
-    presets: [
-      {
-        label: t`White`,
-        colors: [WHITE_HEX],
-      },
-    ],
-    disabledAlpha: true,
-    allowClear: true,
-    value: backgroundRemovalColor,
-    onChangeComplete: (color: AggregationColor) => {
-      const {a} = color.toRgb();
-      if (a !== 0) {
-        setBackgroundRemovalColor(color.toHexString());
-      }
-    },
-    onClear: () => {
-      setBackgroundRemovalColor(null);
-    },
-  };
+  const colorPicker = (
+    <Form.Item label={t`Background`} style={{marginBottom: 0}}>
+      <Space.Compact>
+        <ColorPicker
+          title={t`Background`}
+          presets={[
+            {
+              label: t`White`,
+              colors: [WHITE_HEX],
+            },
+          ]}
+          disabledAlpha
+          value={backgroundRemovalColor ?? undefined}
+          onChangeComplete={(color: AggregationColor) => {
+            setBackgroundRemovalColor(color.toHexString());
+          }}
+          classNames={{popup: {root: 'color-picker-high-z-index'}}}
+        />
+        <Button
+          icon={<CloseCircleOutlined />}
+          title={t`Clear background color`}
+          onClick={() => {
+            setBackgroundRemovalColor(null);
+          }}
+        />
+      </Space.Compact>
+    </Form.Item>
+  );
 
   const imageStyle: CSSProperties = {
     maxWidth: '100%',
     maxHeight: `calc(100dvh - 145px)`,
     objectFit: 'contain',
+  };
+
+  const contentStyle: CSSProperties = {
+    backgroundColor: token.colorBgElevated,
+    borderRadius: token.borderRadiusLG,
+    boxShadow: token.boxShadowSecondary,
+  };
+
+  const menuStyle: CSSProperties = {
+    boxShadow: 'none',
   };
 
   return (
@@ -188,13 +204,13 @@ export const ImageBackgroundRemoval: React.FC = () => {
             ) : (
               <Typography.Text type="warning">
                 <Trans>
-                  You&apos;ve selected mode that is available to paid Patreon members only
+                  You&apos;ve selected a mode that is available to paid Patreon members only
                 </Trans>
               </Typography.Text>
             ))
           }
         >
-          <Space align="start" style={{display: 'flex'}}>
+          <Space style={{display: 'flex'}}>
             {isAccessAllowed && (
               <FileSelect onChange={handleFileChange} useReferencePhoto>
                 <Trans>Select photo</Trans>
@@ -214,9 +230,7 @@ export const ImageBackgroundRemoval: React.FC = () => {
             </Form.Item>
             {screens.sm ? (
               <>
-                <Form.Item label={t`Background`} style={{marginBottom: 0}}>
-                  <ColorPicker {...colorPickerProps} />
-                </Form.Item>
+                {colorPicker}
                 {imageWithoutBackgroundUrl && (
                   <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
                     <Trans>Save</Trans>
@@ -224,43 +238,37 @@ export const ImageBackgroundRemoval: React.FC = () => {
                 )}
               </>
             ) : (
-              <ColorPicker
-                open={isColorPickerOpened}
-                onOpenChange={(open: boolean) => {
-                  if (!open) {
-                    setIsColorPickerOpened(open);
-                  }
+              <Dropdown
+                trigger={['click']}
+                menu={{
+                  items: [
+                    ...(imageWithoutBackgroundUrl
+                      ? [
+                          {
+                            key: 'save',
+                            label: t`Save`,
+                            icon: <DownloadOutlined />,
+                            onClick: handleSaveClick,
+                          },
+                        ]
+                      : []),
+                  ],
                 }}
-                {...colorPickerProps}
+                popupRender={menu => (
+                  <div style={contentStyle}>
+                    <div style={{padding: '8px 16px'}}>{colorPicker}</div>
+                    <Divider style={{margin: 0}} />
+                    {React.cloneElement(
+                      menu as React.ReactElement<{
+                        style: React.CSSProperties;
+                      }>,
+                      {style: menuStyle}
+                    )}
+                  </div>
+                )}
               >
-                <Dropdown
-                  trigger={['click']}
-                  menu={{
-                    items: [
-                      {
-                        key: 'background',
-                        label: t`Background`,
-                        icon: <BgColorsOutlined />,
-                        onClick: () => {
-                          setIsColorPickerOpened(true);
-                        },
-                      },
-                      ...(imageWithoutBackgroundUrl
-                        ? [
-                            {
-                              key: 'save',
-                              label: t`Save`,
-                              icon: <DownloadOutlined />,
-                              onClick: handleSaveClick,
-                            },
-                          ]
-                        : []),
-                    ],
-                  }}
-                >
-                  <Button icon={<MoreOutlined />} />
-                </Dropdown>
-              </ColorPicker>
+                <Button icon={<MoreOutlined />} />
+              </Dropdown>
             )}
           </Space>
         </Form.Item>

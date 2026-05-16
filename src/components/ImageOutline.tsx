@@ -77,7 +77,8 @@ const gridCanvasSupplier = (canvas: HTMLCanvasElement): GridCanvas => {
 export const ImageOutline: React.FC = () => {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
-  const appSettings = useAppStore(state => state.appSettings);
+  const outlineModel = useAppStore(state => state.appSettings.outlineModel);
+  const grids = useAppStore(state => state.appSettings.grids);
   const originalImageFile = useAppStore(state => state.originalImageFile);
   const isOutlineImageLoading = useAppStore(state => state.isOutlineImageLoading);
   const outlineDownloadTip = useAppStore(state => state.outlineDownloadTip);
@@ -161,26 +162,24 @@ export const ImageOutline: React.FC = () => {
     if (isAuthLoading || !models?.size) {
       return;
     }
-    const {outlineModel} = appSettings;
     const model: OnnxModel =
       (outlineModel && models.get(outlineModel)) ||
       (getDefaultModel(models, user) ?? fallbackModel);
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setModelId(model.id);
     setOutlineModel(model);
-  }, [setOutlineModel, appSettings, models, user, isAuthLoading]);
+  }, [outlineModel, setOutlineModel, models, user, isAuthLoading]);
 
   useEffect(() => {
     if (!gridCanvas) {
       return;
     }
-    const {grids} = appSettings;
     setGrid(gridCanvas, {
       ...DEFAULT_GRID_SETTINGS,
       ...defaultGridSettings,
       ...grids?.[TabKey.Outline],
     });
-  }, [appSettings, gridCanvas]);
+  }, [grids, gridCanvas]);
 
   const handleArToggle = async () => {
     if (isArMode) {
@@ -260,15 +259,16 @@ export const ImageOutline: React.FC = () => {
           ) : (
             <Typography.Text type="warning">
               <Trans>
-                You&apos;ve selected mode that is available to paid Patreon members only
+                You&apos;ve selected a mode that is available to paid Patreon members only
               </Trans>
             </Typography.Text>
           ))
         }
       >
-        <Space align="start" style={{display: 'flex'}}>
+        <Space style={{display: 'flex'}}>
           <Form.Item
             label={screens.sm ? t`Mode` : null}
+            labelCol={{style: {paddingBottom: 0}}}
             style={{margin: 0}}
             validateStatus={!isAccessAllowed ? 'warning' : undefined}
           >
@@ -299,7 +299,7 @@ export const ImageOutline: React.FC = () => {
                     void handleLightboxClick();
                   }}
                 >
-                  <Trans>Light box</Trans>
+                  <Trans>Lightbox</Trans>
                 </Button>
               </Tooltip>
               <Tooltip title={t`View the outline over the live camera to trace in AR.`}>

@@ -16,16 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {BgColorsOutlined, LineChartOutlined} from '@ant-design/icons';
+import {LineChartOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Button, Card, Space, Typography} from 'antd';
+import {Button, Card, Col, Row, Space, Typography} from 'antd';
 import {memo} from 'react';
 
 import {AddToPaletteButton} from '~/src/components/color/AddToPaletteButton';
 import {ColorSquare} from '~/src/components/color/ColorSquare';
 import {COLOR_MIXING} from '~/src/services/color/color-mixer';
+import {getColorId, isPastel} from '~/src/services/color/colors';
 import {rgbToHex} from '~/src/services/color/space/rgb';
-import type {ColorMixture, SimilarColor} from '~/src/services/color/types';
+import {type ColorMixture, Layering, type SimilarColor} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
 
 import {ColorMixtureDescription} from './ColorMixtureDescription';
@@ -46,18 +47,29 @@ export const SimilarColorCard: React.FC<Props> = memo(function SimilarColorCard(
   );
 
   const saveToPalette = useAppStore(state => state.saveToPalette);
-  const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
+  const setUnderlayer = useAppStore(state => state.setUnderlayer);
+  const setMotherColor = useAppStore(state => state.setMotherColor);
 
   const {t} = useLingui();
 
   const {type} = colorMixture;
-  const {glazing} = COLOR_MIXING[type];
+  const {mixing, layering} = COLOR_MIXING[type];
+  const pastel: boolean = isPastel(type);
+
   const similarityText: string = similarity.toFixed(1);
 
   const handleTitleEdited = (value: string) => {
     if (paletteColorMixture) {
       void saveToPalette({...paletteColorMixture, name: value});
     }
+  };
+
+  const handleSetAsUnderlayerClick = () => {
+    void setUnderlayer(rgbToHex(...colorMixture.layerRgb));
+  };
+
+  const handleSetAsMotherColorClick = () => {
+    void setMotherColor(getColorId(colorMixture));
   };
 
   return (
@@ -85,31 +97,54 @@ export const SimilarColorCard: React.FC<Props> = memo(function SimilarColorCard(
             {paletteColorMixture.name || t`Untitled mixture`}
           </Typography.Text>
         )}
-        <Space wrap>
-          <AddToPaletteButton size="small" colorMixture={colorMixture} />
-          {glazing && (
+
+        <Row gutter={8}>
+          <Col xs={12}>
+            <AddToPaletteButton block size="small" colorMixture={colorMixture} />
+          </Col>
+          <Col xs={12}>
             <Button
+              block
               size="small"
-              icon={<BgColorsOutlined />}
-              title={t`Set the color of the base layer for the glazing`}
+              icon={<LineChartOutlined />}
+              title={t`Spectral reflectance curve`}
               onClick={() => {
-                void setBackgroundColor(rgbToHex(...colorMixture.layerRgb));
+                onReflectanceChartClick(colorMixture);
               }}
             >
-              <Trans>Set as background</Trans>
+              <Trans>Reflectance</Trans>
             </Button>
+          </Col>
+        </Row>
+
+        <Row gutter={8}>
+          {layering !== Layering.None && (
+            <Col xs={12}>
+              <Button
+                block
+                size="small"
+                title={
+                  pastel ? t`Set as underlayer for blending.` : t`Set as underlayer for glazing.`
+                }
+                onClick={handleSetAsUnderlayerClick}
+              >
+                <Trans>Set as underlayer</Trans>
+              </Button>
+            </Col>
           )}
-          <Button
-            size="small"
-            icon={<LineChartOutlined />}
-            title={t`Spectral reflectance curve`}
-            onClick={() => {
-              onReflectanceChartClick(colorMixture);
-            }}
-          >
-            <Trans>Reflectance</Trans>
-          </Button>
-        </Space>
+          {mixing && colorMixture.parts.length === 1 && (
+            <Col xs={12}>
+              <Button
+                block
+                size="small"
+                title={t`Mix this color into every mixture.`}
+                onClick={handleSetAsMotherColorClick}
+              >
+                <Trans>Set as unifying color</Trans>
+              </Button>
+            </Col>
+          )}
+        </Row>
       </Space>
     </Card>
   );

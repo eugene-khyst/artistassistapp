@@ -33,8 +33,7 @@ type Props = {
 export const AddToPaletteButton: React.FC<Props> = memo(function AddToPaletteButton({
   colorMixture,
   linkToImage = true,
-  size,
-  style,
+  ...props
 }: Props) {
   const colorMixtureExists = useAppStore(
     state => !!state.paletteColorMixtures.get(colorMixture.type)?.has(colorMixture.key)
@@ -52,16 +51,15 @@ export const AddToPaletteButton: React.FC<Props> = memo(function AddToPaletteBut
       okText={t`Yes`}
       cancelText={t`No`}
     >
-      <Button size={size} icon={<DeleteOutlined />} style={style}>
+      <Button icon={<DeleteOutlined />} {...props}>
         <Trans>Remove from palette</Trans>
       </Button>
     </Popconfirm>
   ) : (
     <Button
-      size={size}
       icon={<PlusOutlined />}
       onClick={() => void saveToPalette(colorMixture, linkToImage)}
-      style={style}
+      {...props}
     >
       <Trans>Add to palette</Trans>
     </Button>

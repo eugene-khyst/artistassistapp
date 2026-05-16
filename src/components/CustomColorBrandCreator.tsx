@@ -24,7 +24,6 @@ import {
   App,
   Button,
   Col,
-  ColorPicker,
   Divider,
   Dropdown,
   Flex,
@@ -43,6 +42,7 @@ import type {AggregationColor} from 'antd/es/color-picker/color';
 import type {SliderMarks} from 'antd/es/slider';
 import {memo, useCallback, useEffect, useRef, useState} from 'react';
 
+import {ColorPicker} from '~/src/components/color/ColorPicker';
 import {ColorSquare} from '~/src/components/color/ColorSquare';
 import {OpacitySelect} from '~/src/components/color/OpacitySelect';
 import {ColorTypeSelect} from '~/src/components/color-set/ColorTypeSelect';

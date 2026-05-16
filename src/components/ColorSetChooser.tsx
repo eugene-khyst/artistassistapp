@@ -548,11 +548,11 @@ export const ColorSetChooser: React.FC = () => {
 
         <Typography.Text strong>
           <Trans>
-            Select your art medium, color brands and colors you will paint with and press the{' '}
+            Select your art medium, color brands, and the colors you will paint with, then press{' '}
             <Typography.Link onClick={() => saveButtonRef.current?.focus()}>
-              Save & proceed
-            </Typography.Link>{' '}
-            button.
+              Save & continue
+            </Typography.Link>
+            .
           </Trans>
         </Typography.Text>
 
@@ -716,7 +716,7 @@ export const ColorSetChooser: React.FC = () => {
                       type="primary"
                       htmlType="submit"
                     >
-                      <Trans>Save & proceed</Trans>
+                      <Trans>Save & continue</Trans>
                     </Button>
                     {!!selectedColorSetId && (
                       <Button

@@ -38,7 +38,8 @@ import {getFilename} from '~/src/utils/filename';
 export const ImageStyleTransfer: React.FC = () => {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
-  const appSettings = useAppStore(state => state.appSettings);
+  const styleTransferModel = useAppStore(state => state.appSettings.styleTransferModel);
+  const styleTransferImage = useAppStore(state => state.appSettings.styleTransferImage);
   const originalImageFile = useAppStore(state => state.originalImageFile);
   const styleImageFile = useAppStore(state => state.styleImageFile);
   const isStyleTransferLoading = useAppStore(state => state.isStyleTransferLoading);
@@ -93,7 +94,6 @@ export const ImageStyleTransfer: React.FC = () => {
     if (isAuthLoading || !models?.size) {
       return;
     }
-    const {styleTransferModel, styleTransferImage} = appSettings;
     let model: OnnxModel | undefined;
     if (styleTransferModel) {
       model = models.get(styleTransferModel);
@@ -112,7 +112,7 @@ export const ImageStyleTransfer: React.FC = () => {
           block: 'start',
         });
     }
-  }, [setStyleTransferModel, appSettings, models, user, isAuthLoading]);
+  }, [styleTransferModel, setStyleTransferModel, styleTransferImage, models, user, isAuthLoading]);
 
   const handleModelChange = (e: RadioChangeEvent) => {
     const value = e.target.value as string;

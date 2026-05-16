@@ -16,21 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {IDBPTransaction} from 'idb';
-
 import type {ImageFile} from '~/src/services/image/image-file';
-import {digestArrayBuffer} from '~/src/utils/digest';
 
-import type {ArtistAssistAppDB} from './db';
 import {dbPromise} from './db';
-
-const MAX_IMAGE_FILES = 32;
 
 export async function getLastImageFile(): Promise<ImageFile | undefined> {
   const db = await dbPromise;
   const index = db.transaction('images').store.index('by-date');
   const cursor = await index.openCursor(null, 'prev');
-  return cursor ? cursor.value : undefined;
+  return cursor?.value;
 }
 
 export async function getImageFiles(): Promise<ImageFile[]> {
@@ -41,52 +35,31 @@ export async function getImageFiles(): Promise<ImageFile[]> {
 
 export async function saveImageFile(imageFile: ImageFile): Promise<void> {
   const db = await dbPromise;
+  const tx = db.transaction('images', 'readwrite');
   imageFile.date = new Date();
-  imageFile.digest = await digestArrayBuffer(imageFile.buffer);
-  if (!imageFile.id) {
-    const existing: ImageFile | undefined = await db.getFromIndex(
-      'images',
-      'by-digest',
-      imageFile.digest
-    );
-    if (existing?.id) {
-      imageFile.id = existing.id;
-      await db.put('images', imageFile);
-      return;
-    }
-    const tx = db.transaction(['images', 'color-mixtures'], 'readwrite');
-    const imageFileIds: number[] = await tx.objectStore('images').index('by-date').getAllKeys();
-    imageFileIds.reverse();
-    if (imageFileIds.length >= MAX_IMAGE_FILES) {
-      for (const id of imageFileIds.slice(MAX_IMAGE_FILES - 1)) {
-        void deleteImageFileAndColorMixtures(tx, id);
-      }
-    }
-    const id: number = await tx.objectStore('images').put(imageFile);
-    imageFile.id = id;
-    await tx.done;
-  } else {
-    await db.put('images', imageFile);
+  const existing: ImageFile | undefined = await tx.store.index('by-digest').get(imageFile.digest);
+  if (existing?.id) {
+    imageFile.id = existing.id;
   }
-}
-
-export async function deleteImageFile(id: number): Promise<void> {
-  const db = await dbPromise;
-  const tx = db.transaction(['images', 'color-mixtures'], 'readwrite');
-  await deleteImageFileAndColorMixtures(tx, id);
+  imageFile.id = await tx.store.put(imageFile);
   await tx.done;
 }
 
-async function deleteImageFileAndColorMixtures(
-  tx: IDBPTransaction<ArtistAssistAppDB, ('images' | 'color-mixtures')[], 'readwrite'>,
-  idToDelete: number
-): Promise<void> {
-  await tx.objectStore('images').delete(idToDelete);
+export async function deleteImageFile(digest: string): Promise<void> {
+  const db = await dbPromise;
+  const tx = db.transaction(['images', 'color-mixtures'], 'readwrite');
+  const imagesStore = tx.objectStore('images');
+  const imageFileId = await imagesStore.index('by-digest').getKey(digest);
+  if (imageFileId) {
+    await imagesStore.delete(imageFileId);
+  }
   const colorMixtureIds = await tx
     .objectStore('color-mixtures')
-    .index('by-imageFileId')
-    .getAllKeys(idToDelete);
+    .index('by-imageFileDigest')
+    .getAllKeys(digest);
+  const colorMixturesStore = tx.objectStore('color-mixtures');
   for (const id of colorMixtureIds) {
-    void tx.objectStore('color-mixtures').delete(id);
+    await colorMixturesStore.delete(id);
   }
+  await tx.done;
 }

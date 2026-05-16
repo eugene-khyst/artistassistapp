@@ -23,7 +23,6 @@ import {
   Button,
   Checkbox,
   Col,
-  ColorPicker,
   Dropdown,
   Form,
   Grid,
@@ -41,6 +40,7 @@ import {saveAs} from 'file-saver';
 import {useCallback, useEffect, useMemo, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
+import {ColorPicker} from '~/src/components/color/ColorPicker';
 import {FileSelect} from '~/src/components/file/FileSelect';
 import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {useDebounce} from '~/src/hooks/useDebounce';
@@ -435,6 +435,7 @@ export const ImageColorAdjustment: React.FC = () => {
                       style={{margin: 0}}
                     >
                       <ColorPicker
+                        title={t`White point`}
                         value={whitePoint}
                         presets={[
                           {

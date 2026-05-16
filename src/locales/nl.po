@@ -23,7 +23,7 @@ msgstr "{brandName} kleuren"
 
 #: src/components/color-set/ColorSetName.tsx:35
 #: src/components/color-set/StandardColorSetCascader.tsx:57
-#: src/components/ImageColorPicker.tsx:305
+#: src/components/ImageColorPicker.tsx:366
 #: src/components/Palette.tsx:77
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# kleur} other {# kleuren}}"
@@ -55,8 +55,12 @@ msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS en iPadOS"
 
 #: src/components/error/BrowserSupport.tsx:69
-msgid "<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older versions of iPadOS and iOS)"
-msgstr "<0/> iPadOS 16.4+ of iOS 16.4+ (niet ondersteund in een browser op oudere versies van iPadOS en iOS)"
+msgid ""
+"<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older "
+"versions of iPadOS and iOS)"
+msgstr ""
+"<0/> iPadOS 16.4+ of iOS 16.4+ (niet ondersteund in een browser op oudere "
+"versies van iPadOS en iOS)"
 
 #: src/components/error/BrowserSupport.tsx:62
 msgid "<0/> Tablet and <1/> Mobile"
@@ -67,45 +71,93 @@ msgstr "<0/> Tablet en <1/> mobiel"
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows en <1/> Linux"
 
-#: src/components/color/SimilarColorCard.tsx:68
+#: src/components/color/SimilarColorCard.tsx:80
 msgid "<0>{similarityText}%</0> similarity"
 msgstr "<0>{similarityText}%</0> gelijkenis"
 
 #: src/components/ColorSetChooser.tsx:453
-msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
-msgstr "<0>ArtistAssistApp</0> is een web-app die kunstenaars helpt om kleuren uit foto's te mengen, toonwaarden te analyseren, foto's te schetsen, te tekenen met rasters, te schilderen met beperkte paletten en meer."
+msgid ""
+"<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from "
+"photos, analyze tonal values, outline photos, draw with grids, paint with "
+"limited palettes, and more."
+msgstr ""
+"<0>ArtistAssistApp</0> is een web-app die kunstenaars helpt om kleuren uit "
+"foto's te mengen, toonwaarden te analyseren, foto's te schetsen, te tekenen "
+"met rasters, te schilderen met beperkte paletten en meer."
 
 #: src/components/error/AuthErrorHandler.tsx:61
-msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
-msgstr "<0>Controleer je Patreon-account</0>: Zorg ervoor dat je bent ingelogd bij <1>Patreon.com</1> in je webbrowser met hetzelfde e-mailadres dat je gebruikte om je lidmaatschap te kopen. Als je meerdere accounts hebt, log dan uit en log weer in met het juiste account."
+msgid ""
+"<0>Check your Patreon account</0>: Ensure you are signed in to "
+"<1>Patreon.com</1> in your web browser using the same email you used to "
+"purchase your membership. If you have multiple accounts, sign out and sign "
+"back in with the correct one."
+msgstr ""
+"<0>Controleer je Patreon-account</0>: Zorg ervoor dat je bent ingelogd bij "
+"<1>Patreon.com</1> in je webbrowser met hetzelfde e-mailadres dat je "
+"gebruikte om je lidmaatschap te kopen. Als je meerdere accounts hebt, log "
+"dan uit en log weer in met het juiste account."
 
 #: src/components/ColorSetChooser.tsx:474
-msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
-msgstr "<0>Word lid van ArtistAssistApp op Patreon als betaald lid</0>, of <1>log in met Patreon</1> als je al lid bent geworden, om toegang te krijgen tot meer dan 200 kleurenmerken en alle beeldverwerkingsmodi zonder advertenties."
+msgid ""
+"<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with "
+"Patreon</1> if you've already joined, to get access to more than 200 color "
+"brands and all image processing modes without ads."
+msgstr ""
+"<0>Word lid van ArtistAssistApp op Patreon als betaald lid</0>, of <1>log "
+"in met Patreon</1> als je al lid bent geworden, om toegang te krijgen tot "
+"meer dan 200 kleurenmerken en alle beeldverwerkingsmodi zonder advertenties."
 
 #: src/components/error/AuthErrorHandler.tsx:79
-msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
-msgstr "<0>Probeer opnieuw in te loggen</0>: Zodra je hebt bevestigd dat het juiste Patreon-account actief is in je browser, log je opnieuw in op ArtistAssistApp."
+msgid ""
+"<0>Retry login</0>: Once you have confirmed the correct Patreon account is "
+"active in your browser, log in to ArtistAssistApp again."
+msgstr ""
+"<0>Probeer opnieuw in te loggen</0>: Zodra je hebt bevestigd dat het juiste "
+"Patreon-account actief is in je browser, log je opnieuw in op "
+"ArtistAssistApp."
 
 #: src/components/error/AuthErrorHandler.tsx:72
-msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
-msgstr "<0>Gebruik een webbrowser</0>: Als je de Patreon-app (iOS/Android) gebruikt, log dan in via een webbrowser (Chrome, Safari, Firefox), omdat de app soms het verificatieproces kan verstoren."
+msgid ""
+"<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), "
+"log in via a web browser (Chrome, Safari, Firefox) instead, as the app can "
+"sometimes interfere with the verification process."
+msgstr ""
+"<0>Gebruik een webbrowser</0>: Als je de Patreon-app (iOS/Android) "
+"gebruikt, log dan in via een webbrowser (Chrome, Safari, Firefox), omdat de "
+"app soms het verificatieproces kan verstoren."
 
-#: src/components/ColorMixingChart.tsx:164
+#: src/components/ImageColorPicker.tsx:332
+msgid ""
+"A color mixed into every suggested mixture to help the palette feel more "
+"harmonious. Also known as a mother color."
+msgstr ""
+"Een kleur die in elke voorgestelde mix wordt gemengd om het palet "
+"harmonischer te laten aanvoelen. Ook wel moederkleur genoemd."
+
+#: src/components/ColorMixingChart.tsx:165
 msgid "A grid showing the result of mixing each pair of selected colors"
-msgstr "Een raster dat het resultaat toont van het mengen van elk paar geselecteerde kleuren"
+msgstr ""
+"Een raster dat het resultaat toont van het mengen van elk paar "
+"geselecteerde kleuren"
 
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:46
 msgid "A new version of the app is available and will be installed automatically."
-msgstr "Er is een nieuwe versie van de app beschikbaar en zal automatisch worden geïnstalleerd."
+msgstr ""
+"Er is een nieuwe versie van de app beschikbaar en zal automatisch worden "
+"geïnstalleerd."
 
 #: src/components/Help.tsx:187
 msgid "A new version of the application is available."
 msgstr "Een nieuwe versie van de applicatie is beschikbaar."
 
-#: src/components/ImageColorAdjustment.tsx:458
-msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
-msgstr "Een waarde van minder dan 100% zorgt ervoor dat de afbeelding er minder kleurrijk uitziet en een waarde van meer dan 100% zorgt ervoor dat deze er te kleurrijk uitziet"
+#: src/components/ImageColorAdjustment.tsx:459
+msgid ""
+"A value less than 100% makes the image look less colorful, and a value "
+"greater than 100% makes it look too colorful"
+msgstr ""
+"Een waarde van minder dan 100% zorgt ervoor dat de afbeelding er minder "
+"kleurrijk uitziet en een waarde van meer dan 100% zorgt ervoor dat deze er "
+"te kleurrijk uitziet"
 
 #: src/components/Help.tsx:129
 msgid "About ArtistAssistApp"
@@ -123,7 +175,7 @@ msgstr "Acryl markers"
 msgid "Acrylic Paint"
 msgstr "Acrylverf"
 
-#: src/components/ColorMixer.tsx:259
+#: src/components/ColorMixer.tsx:238
 msgid "Add color"
 msgstr "Kleur toevoegen"
 
@@ -133,13 +185,15 @@ msgstr "Voeg kleurmengsels toe aan het palet."
 
 #: src/components/ColorSetChooser.tsx:657
 msgid "Add or remove colors to match your actual color set."
-msgstr "Voeg kleuren toe of verwijder ze zodat ze overeenkomen met uw werkelijke kleurenset."
+msgstr ""
+"Voeg kleuren toe of verwijder ze zodat ze overeenkomen met uw werkelijke "
+"kleurenset."
 
 #: src/components/ImagesCompare.tsx:107
 msgid "Add photos"
 msgstr "Foto's toevoegen"
 
-#: src/components/color/AddToPaletteButton.tsx:66
+#: src/components/color/AddToPaletteButton.tsx:64
 msgid "Add to palette"
 msgstr "Toevoegen aan palet"
 
@@ -151,37 +205,47 @@ msgstr "Voeg wit toe in een <0>{whiteRatioText} verhouding</0>"
 msgid "Adjust the 4 points manually."
 msgstr "Stel de 4 punten handmatig aan."
 
-#: src/components/ImageBlurred.tsx:124
-msgid "Adjusts how strongly the image is smoothed."
-msgstr "Past aan hoe sterk het beeld wordt gladgestreken."
+#: src/components/ImageBlurred.tsx:125
+msgid "Adjusts the strength of image smoothing."
+msgstr "Past de sterkte van beeldgladmaking aan."
 
-#: src/components/error/InstanceConflictAlert.tsx:34
+#: src/components/error/InstanceConflictAlert.tsx:44
 msgid "Already open in another tab"
 msgstr "Al geopend in een ander tabblad"
 
 #: src/components/install/InstallDrawer.tsx:177
-msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
-msgstr "U kunt ook de nieuwste versie van de webbrowser Chrome, Edge of Opera installeren en op de knop <0>Installeren</0> klikken. In oudere versies van macOS is dit de enige optie."
+msgid ""
+"Alternatively, install the latest version of Chrome, Edge or Opera web "
+"browser and click the <0>Install</0> button. In older versions of macOS, "
+"this is the only option."
+msgstr ""
+"U kunt ook de nieuwste versie van de webbrowser Chrome, Edge of Opera "
+"installeren en op de knop <0>Installeren</0> klikken. In oudere versies van "
+"macOS is dit de enige optie."
 
 #: src/components/Help.tsx:275
 msgid "Application build ID"
 msgstr "Applicatie-build ID"
 
-#: src/components/ColorMixingChart.tsx:188
-#: src/components/ImageLimitedPalette.tsx:133
+#: src/components/ColorMixingChart.tsx:189
+#: src/components/ImageLimitedPalette.tsx:134
 #: src/components/ImagePerspectiveCorrection.tsx:281
 msgid "Apply"
 msgstr "Toepassen"
 
-#: src/components/color/ConsistencyDescription.tsx:95
-msgid "Apply less pressure to make the colored pencil layer more transparent"
-msgstr "Oefen minder druk uit om de kleurpotloodlaag transparanter te maken"
+#: src/components/color/ConsistencyDescription.tsx:54
+msgid "Apply densely."
+msgstr "Breng het dicht aan."
 
-#: src/components/color/ConsistencyDescription.tsx:99
-msgid "Apply less pressure to make the watercolor pencil layer more transparent"
-msgstr "Oefen minder druk uit om de aquarelpotloodlaag transparanter te maken"
+#: src/components/color/ConsistencyDescription.tsx:127
+msgid "Apply less pressure to make the colored pencil layer more transparent."
+msgstr "Druk minder uit om de kleurpotloodlaag transparanter te maken."
 
-#: src/components/color/ConsistencyDescription.tsx:73
+#: src/components/color/ConsistencyDescription.tsx:134
+msgid "Apply less pressure to make the watercolor pencil layer more transparent."
+msgstr "Druk minder om de aquarelpotloodlaag transparanter te maken."
+
+#: src/components/color/ConsistencyDescription.tsx:94
 msgid "Apply strokes of each color in a <0>{ratioText} ratio</0>"
 msgstr "Pas streken van elke kleur toe in een <0>{ratioText}-verhouding</0>"
 
@@ -214,8 +278,8 @@ msgstr "Weet je zeker dat je deze foto wilt verwijderen?"
 msgid "Are you sure you want to remove all color mixtures?"
 msgstr "Weet je zeker dat je alle kleurmengsels wilt verwijderen?"
 
-#: src/components/color/AddToPaletteButton.tsx:50
-#: src/components/color/PaletteColorMixtureCard.tsx:103
+#: src/components/color/AddToPaletteButton.tsx:49
+#: src/components/color/PaletteColorMixtureCard.tsx:116
 msgid "Are you sure you want to remove this color mixture?"
 msgstr "Weet je zeker dat je dit kleurenmengsel wilt verwijderen?"
 
@@ -224,7 +288,7 @@ msgstr "Weet je zeker dat je dit kleurenmengsel wilt verwijderen?"
 msgid "Art medium"
 msgstr "Kunst medium"
 
-#: src/components/error/InstanceConflictAlert.tsx:38
+#: src/components/error/InstanceConflictAlert.tsx:48
 msgid "ArtistAssistApp can only be used in one browser tab at a time."
 msgstr "ArtistAssistApp kan slechts in één browsertab tegelijk worden gebruikt."
 
@@ -240,6 +304,10 @@ msgstr "Er is ten minste één kleur vereist"
 msgid "Authentication error"
 msgstr "Authenticatiefout"
 
+#: src/components/ImageColorPicker.tsx:394
+msgid "Auto palette"
+msgstr "Auto palet"
+
 #: src/components/ImagePerspectiveCorrection.tsx:278
 #: src/components/ImagePerspectiveCorrection.tsx:355
 msgid "Auto-detect"
@@ -249,26 +317,22 @@ msgstr "Automatische detectie"
 msgid "Automatic backup of color sets"
 msgstr "Automatische back-up van kleurensets"
 
-#: src/components/ImageColorPicker.tsx:470
-#: src/components/ImageColorPicker.tsx:499
-msgid "Automatically find the best color mixtures for this photo"
-msgstr "Zoek automatisch de beste kleurmengsels voor deze foto"
+#: src/components/ImageColorPicker.tsx:389
+msgid "Automatically find the best color mixtures for this photo."
+msgstr "Vind automatisch de beste kleurmengsels voor deze foto."
 
 #: src/components/ImageColorAdjustment.tsx:434
 msgid "Average color of the white point area"
 msgstr "Gemiddelde kleur van het witpuntgebied"
 
-#: src/components/ColorMixer.tsx:183
-#: src/components/ImageBackgroundRemoval.tsx:217
-#: src/components/ImageBackgroundRemoval.tsx:242
-#: src/components/ImageColorPicker.tsx:354
+#: src/components/ImageBackgroundRemoval.tsx:142
+#: src/components/ImageBackgroundRemoval.tsx:145
 msgid "Background"
 msgstr "Achtergrond"
 
-#: src/components/ImageColorPicker.tsx:469
-#: src/components/ImageColorPicker.tsx:504
-msgid "Build palette"
-msgstr "Palet opbouwen"
+#: src/components/ImageColorPicker.tsx:314
+msgid "Blending"
+msgstr "Blending"
 
 #: src/components/messages.ts:73
 msgid "By date added"
@@ -292,7 +356,7 @@ msgstr "Door lichtheid"
 msgid "By name"
 msgstr "Op naam"
 
-#: src/components/ImageOutline.tsx:126
+#: src/components/ImageOutline.tsx:127
 msgid "Camera access is required for AR tracing"
 msgstr "Camera-toegang is vereist voor AR-tracering"
 
@@ -305,7 +369,7 @@ msgstr "Annuleren"
 msgid "Cancel a paid membership"
 msgstr "Een betaald lidmaatschap opzeggen"
 
-#: src/components/error/InstanceConflictAlert.tsx:64
+#: src/components/error/InstanceConflictAlert.tsx:63
 msgid "Cancel waiting"
 msgstr "Wachten annuleren"
 
@@ -317,19 +381,42 @@ msgstr "Cellen"
 msgid "Check for updates"
 msgstr "Controleren op updates"
 
+#: src/components/ImageBackgroundRemoval.tsx:161
+msgid "Clear background color"
+msgstr "Heldere achtergrondkleur"
+
 #: src/components/storage/ClearCacheButton.tsx:43
 #: src/components/storage/ClearCacheButton.tsx:52
 msgid "Clear cache"
 msgstr "Cache wissen"
 
+#: src/components/color/UnderlayerColorPicker.tsx:115
+msgid "Clear underlayer"
+msgstr "Transparante onderlaag"
+
+#: src/components/ImageColorPicker.tsx:345
+msgid "Clear unifying color"
+msgstr "Heldere, verenigende kleur"
+
 #: src/components/ImageColorAdjustment.tsx:427
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Klik 🖱️ of tik 👆 ergens in de foto om een witpunt te kiezen."
 
+#: src/components/empty/EmptyTargetColor.tsx:30
+msgid ""
+"Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up "
+"to choose a target color for mixing from your colors."
+msgstr ""
+"Klik 🖱️ of tik 👆 ergens op de foto, of gebruik de kleurkeuze-pop-up om "
+"een doelkleur te kiezen die je uit je kleuren kunt mengen."
+
 #: src/components/empty/EmptyPalette.tsx:64
-#: src/components/ImageColorPicker.tsx:536
-msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
-msgstr "Klik 🖱️ of tik 👆 ergens in de foto of gebruik de pop-up van de kleurkiezer om een doelkleur te kiezen die u uit uw kleuren wilt mengen."
+msgid ""
+"Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up "
+"to choose a target color to mix from your colors."
+msgstr ""
+"Klik 🖱️ of tik 👆 ergens in de foto of gebruik de pop-up van de "
+"kleurkiezer om een doelkleur te kiezen die u uit uw kleuren wilt mengen."
 
 #: src/components/ad/AdModal.tsx:71
 msgid "Close"
@@ -339,9 +426,8 @@ msgstr "Sluiten"
 msgid "Close in {closeCounter} sec"
 msgstr "Sluiten in {closeCounter} sec"
 
-#: src/components/ColorMixer.tsx:209
+#: src/components/ColorMixer.tsx:189
 #: src/components/CustomColorBrandCreator.tsx:448
-#: src/components/ImageColorPicker.tsx:408
 msgid "Color"
 msgstr "Kleur"
 
@@ -353,13 +439,13 @@ msgstr "Kleur merk"
 msgid "Color brands"
 msgstr "Kleur merken"
 
-#: src/components/ImageColorPicker.tsx:279
+#: src/components/ImageColorPicker.tsx:407
 msgid "Color count"
 msgstr "Aantal kleuren"
 
 #: src/components/messages.ts:36
-msgid "Color mixing"
-msgstr "Kleur mengen"
+msgid "Color mixer"
+msgstr "Kleurmixer"
 
 #: src/components/messages.ts:37
 msgid "Color mixing chart"
@@ -374,7 +460,7 @@ msgid "Color picker"
 msgstr "Kleurkiezer"
 
 #: src/components/ColorSetChooser.tsx:581
-#: src/components/ImageColorPicker.tsx:513
+#: src/components/ImageColorPicker.tsx:235
 #: src/components/messages.ts:28
 msgid "Color set"
 msgstr "Kleur set"
@@ -401,6 +487,12 @@ msgstr "Vergelijken"
 msgid "Contact"
 msgstr "Contact"
 
+#: src/components/ImageColorPicker.tsx:253
+msgid "Controls how large an area is averaged when you pick a color from the photo."
+msgstr ""
+"Bepaalt hoe groot een gebied gemiddeld wordt wanneer je een kleur uit de "
+"foto kiest."
+
 #: src/components/color/WarmthIcon.tsx:42
 msgid "Cool — Algorithmic estimate; artistic perception may vary."
 msgstr "Cool — Algoritmische schatting; Artistieke perceptie kan variëren."
@@ -413,7 +505,7 @@ msgstr "Kopiëren"
 msgid "Copy and share this link"
 msgstr "Kopieer en deel deze link"
 
-#: src/components/ImageColorAdjustment.tsx:577
+#: src/components/ImageColorAdjustment.tsx:578
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Gecorrigeerde schatting van de temperatuur van de lichtbron in Kelvin"
 
@@ -471,6 +563,10 @@ msgstr "De recente foto verwijderen"
 msgid "Delete this color set"
 msgstr "Deze kleurenset verwijderen"
 
+#: src/components/color/ConsistencyDescription.tsx:53
+msgid "Dense layer"
+msgstr "Dichte laag"
+
 #: src/components/error/AuthErrorHandler.tsx:32
 msgid "Details"
 msgstr "Details"
@@ -488,21 +584,16 @@ msgid "Diagonals"
 msgstr "Diagonalen"
 
 #: src/components/CustomColorBrandCreator.tsx:435
-#: src/components/ImageColorPicker.tsx:393
 msgid "Diameter"
 msgstr "Middellijn"
 
-#: src/components/color/ConsistencyDescription.tsx:40
+#: src/components/color/ConsistencyDescription.tsx:61
 msgid "Dilute the paint with water in a <0>{ratioText} ratio</0>"
 msgstr "Verdun de verf met water in een <0>{ratioText} verhouding</0>"
 
 #: src/components/ColorSetChooser.tsx:638
 msgid "Do you have a store-bought or custom color set?"
 msgstr "Heb je een in de winkel gekochte of op maat gemaakte kleurenset?"
-
-#: src/components/color/ConsistencyDescription.tsx:140
-msgid "Don't thin the layer"
-msgstr "Verdun de laag niet"
 
 #: src/hooks/useColorSetBackup.ts:26
 msgid "Downloaded file {filename}"
@@ -549,7 +640,7 @@ msgstr "Fout"
 msgid "Error description"
 msgstr "Foutbeschrijving"
 
-#: src/components/ImageChooser.tsx:65
+#: src/components/ImageChooser.tsx:68
 msgid "Error loading sample photos"
 msgstr "Foutlaadvoorbeeldfoto's"
 
@@ -562,9 +653,9 @@ msgid "Error while fetching color data"
 msgstr "Fout bij het ophalen van kleurgegevens"
 
 #: src/components/ImageBackgroundRemoval.tsx:90
-#: src/components/ImageOutline.tsx:152
+#: src/components/ImageOutline.tsx:153
 #: src/components/ImagePerspectiveCorrection.tsx:122
-#: src/components/ImageStyleTransfer.tsx:84
+#: src/components/ImageStyleTransfer.tsx:85
 msgid "Error while fetching ML model data"
 msgstr "Fout bij het ophalen van ML-modelgegevens"
 
@@ -572,7 +663,7 @@ msgstr "Fout bij het ophalen van ML-modelgegevens"
 msgid "Error while fetching standard color set data"
 msgstr "Fout bij het ophalen van gegevens van de standaardkleurenset"
 
-#: src/components/ImageColorAdjustment.tsx:548
+#: src/components/ImageColorAdjustment.tsx:549
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Geschatte temperatuur van de lichtbron in Kelvin waarmee de foto is gemaakt"
 
@@ -583,7 +674,9 @@ msgstr "Exit AR"
 
 #: src/components/ColorSetChooser.tsx:484
 msgid "Explore the free version before deciding to purchase a paid membership."
-msgstr "Verken de gratis versie voordat u besluit een betaald lidmaatschap aan te schaffen."
+msgstr ""
+"Verken de gratis versie voordat u besluit een betaald lidmaatschap aan te "
+"schaffen."
 
 #: src/components/ColorSetChooser.tsx:388
 #: src/components/CustomColorBrandCreator.tsx:359
@@ -594,7 +687,15 @@ msgstr "Vul de verplichte velden in"
 msgid "Finish editing"
 msgstr "Afwerking van de montage"
 
-#: src/components/ImageColorAdjustment.tsx:501
+#: src/components/color/ConsistencyDescription.tsx:48
+msgid "Full pressure"
+msgstr "Volle druk"
+
+#: src/components/color/ConsistencyDescription.tsx:43
+msgid "Full strength"
+msgstr "Volle sterkte"
+
+#: src/components/ImageColorAdjustment.tsx:502
 msgid "Gamma"
 msgstr "Gamma"
 
@@ -605,6 +706,10 @@ msgstr "Begaafd lidmaatschap"
 #: src/components/ColorSetChooser.tsx:598
 msgid "Give your color set a name for easy access."
 msgstr "Geef je kleurenset een naam voor gemakkelijke toegang."
+
+#: src/components/ImageColorPicker.tsx:314
+msgid "Glazing"
+msgstr "Beglazing"
 
 #: src/components/empty/EmptyPalette.tsx:55
 msgid "Go to the <0>{colorPickerLabel}</0> tab."
@@ -641,16 +746,28 @@ msgid "Help"
 msgstr "Help"
 
 #: src/components/ColorSetChooser.tsx:489
-msgid "If you are having trouble logging in, please read this <0>troubleshooting guide</0>."
-msgstr "Als je moeite hebt met inloggen, lees dan deze <0>handleiding voor probleemoplossing</0>."
+msgid ""
+"If you are having trouble logging in, please read this <0>troubleshooting "
+"guide</0>."
+msgstr ""
+"Als je moeite hebt met inloggen, lees dan deze <0>handleiding voor "
+"probleemoplossing</0>."
 
 #: src/components/ColorSetChooser.tsx:249
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Als u niet opslaat, gaan wijzigingen in de kleurenset mogelijk verloren."
 
-#: src/components/ImageBackgroundRemoval.tsx:280
+#: src/components/ImageBackgroundRemoval.tsx:288
 msgid "Image without background"
 msgstr "Afbeelding zonder achtergrond"
+
+#: src/components/ImageColorPicker.tsx:316
+msgid ""
+"Include transparent layers over the surface or underlayer when finding "
+"matches."
+msgstr ""
+"Voeg transparante lagen toe over het oppervlak of de onderlaag bij het "
+"zoeken naar matches."
 
 #: src/components/messages.ts:39
 msgid "Inspire"
@@ -669,7 +786,7 @@ msgstr "Installeer ArtistAssistApp"
 msgid "Install update"
 msgstr "Installatie-update"
 
-#: src/components/ImageColorAdjustment.tsx:576
+#: src/components/ImageColorAdjustment.tsx:577
 msgid "Intended color temperature (K)"
 msgstr "Beoogde kleurtemperatuur (K)"
 
@@ -678,18 +795,28 @@ msgid "Invalid QR code"
 msgstr "Ongeldige QR-code"
 
 #: src/components/ImagesCompare.tsx:99
-msgid "It can be difficult to choose between multiple photos. Comparing each photo with others in pairs simplifies the choice and helps to identify the most preferred one."
-msgstr "Het kan moeilijk zijn om te kiezen tussen meerdere foto's. Door elke foto in paren met andere te vergelijken, wordt de keuze vereenvoudigd en kan de foto worden geïdentificeerd die de meeste voorkeur geniet."
+msgid ""
+"It can be difficult to choose between multiple photos. Comparing each photo "
+"with others in pairs simplifies the choice and helps to identify the most "
+"preferred one."
+msgstr ""
+"Het kan moeilijk zijn om te kiezen tussen meerdere foto's. Door elke foto "
+"in paren met andere te vergelijken, wordt de keuze vereenvoudigd en kan de "
+"foto worden geïdentificeerd die de meeste voorkeur geniet."
 
 #: src/components/auth/JoinButton.tsx:28
 msgid "Join on Patreon"
 msgstr "Doe mee op Patreon"
 
+#: src/components/ImageChooser.tsx:83
+msgid "Keep all"
+msgstr "Houd alles vast"
+
 #: src/components/i18n/LocaleSelect.tsx:66
 msgid "Language"
 msgstr "Taal"
 
-#: src/components/ImageBlurred.tsx:134
+#: src/components/ImageBlurred.tsx:135
 msgid "Large"
 msgstr "Groot"
 
@@ -705,7 +832,10 @@ msgstr "Laatst gebruikt {dateText}"
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "Links om te vergelijken: {unfinishedGamesSize}"
 
-#: src/components/ImageOutline.tsx:302
+#: src/components/ImageColorPicker.tsx:512
+msgid "Less"
+msgstr "Minder"
+
 #: src/components/ImageOutline.tsx:353
 msgid "Light box"
 msgstr "Lichtkast"
@@ -714,7 +844,11 @@ msgstr "Lichtkast"
 msgid "Light tone"
 msgstr "Lichte toon"
 
-#: src/components/color/ConsistencyDescription.tsx:62
+#: src/components/ImageOutline.tsx:302
+msgid "Lightbox"
+msgstr "Lightbox"
+
+#: src/components/color/ConsistencyDescription.tsx:83
 msgid "Lighten the pressure to <0>{fractionText}</0>"
 msgstr "Verlicht de druk naar <0>{fractionText}</0>"
 
@@ -755,11 +889,11 @@ msgstr "Inloggen mislukt"
 msgid "Login session is valid until {expirationText}"
 msgstr "Inlogsessie is geldig tot {expirationText}"
 
-#: src/components/ImageColorAdjustment.tsx:475
+#: src/components/ImageColorAdjustment.tsx:476
 msgid "Low input and high input"
 msgstr "Lage input en hoge input"
 
-#: src/components/ImageColorAdjustment.tsx:522
+#: src/components/ImageColorAdjustment.tsx:523
 msgid "Low output and high output"
 msgstr "Lage output en hoge output"
 
@@ -768,11 +902,11 @@ msgstr "Lage output en hoge output"
 msgid "Margin"
 msgstr "Marge"
 
-#: src/components/ImageBlurred.tsx:135
+#: src/components/ImageBlurred.tsx:136
 msgid "Max"
 msgstr "Max"
 
-#: src/components/ImageBlurred.tsx:133
+#: src/components/ImageBlurred.tsx:134
 msgid "Medium"
 msgstr "Gemiddeld"
 
@@ -789,7 +923,7 @@ msgstr "Kleursets samenvoegen"
 msgid "Mid tone"
 msgstr "Middentoon"
 
-#: src/components/ImageColorAdjustment.tsx:500
+#: src/components/ImageColorAdjustment.tsx:501
 msgid "Midtones"
 msgstr "Middentonen"
 
@@ -797,19 +931,28 @@ msgstr "Middentonen"
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Meng kleuren in een <0>{partsRatioText} verhouding</0>"
 
-#: src/components/ColorMixer.tsx:169
+#: src/components/color/PaletteColorMixtureCard.tsx:148
+#: src/components/color/SimilarColorCard.tsx:140
+msgid "Mix this color into every mixture."
+msgstr "Meng deze kleur door elk mengsel."
+
+#: src/components/ColorMixer.tsx:163
 msgid "Mix your colors in any proportions so you don't waste real paints."
 msgstr "Meng je kleuren in elke verhouding, zodat je geen echte verf verspilt."
 
-#: src/components/color/ReflectanceChartDrawer.tsx:87
+#: src/components/color/ReflectanceChartDrawer.tsx:84
 msgid "Mixture"
 msgstr "Mengsel"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:101
-#: src/components/ImageBackgroundRemoval.tsx:204
-#: src/components/ImageOutline.tsx:271
+#: src/components/color/ReflectanceChartDrawer.tsx:98
+#: src/components/ImageBackgroundRemoval.tsx:220
+#: src/components/ImageOutline.tsx:270
 msgid "Mode"
 msgstr "Wijze"
+
+#: src/components/ImageColorPicker.tsx:512
+msgid "More"
+msgstr "Meer"
 
 #: src/components/ColorSetChooser.tsx:597
 #: src/components/CustomColorBrandCreator.tsx:192
@@ -845,8 +988,8 @@ msgstr "Nieuwe vergelijking"
 msgid "Next charge date"
 msgstr "Volgende aanklachtdatum"
 
-#: src/components/color/AddToPaletteButton.tsx:53
-#: src/components/color/PaletteColorMixtureCard.tsx:106
+#: src/components/color/AddToPaletteButton.tsx:52
+#: src/components/color/PaletteColorMixtureCard.tsx:119
 #: src/components/ColorSetChooser.tsx:251
 #: src/components/ColorSetChooser.tsx:754
 #: src/components/CustomColorBrandCreator.tsx:501
@@ -858,16 +1001,23 @@ msgid "No"
 msgstr "Nee"
 
 #: src/components/empty/EmptyPalette.tsx:39
-#: src/components/ImageColorPicker.tsx:533
 msgid "No data"
 msgstr "Geen gegevens"
+
+#: src/components/empty/EmptySimilarColors.tsx:27
+msgid "No matching color mixtures were found."
+msgstr "Er werden geen bijpassende kleurmengsels gevonden."
 
 #: src/components/color-set/ColorSelect.tsx:88
 #: src/components/ColorMixingChart.tsx:113
 msgid "No sorting"
 msgstr "Geen sortering"
 
-#: src/components/ImageBlurred.tsx:131
+#: src/components/empty/EmptyTargetColor.tsx:27
+msgid "No target color is selected."
+msgstr "Er is geen doelkleur geselecteerd."
+
+#: src/components/ImageBlurred.tsx:132
 msgid "None"
 msgstr "Geen"
 
@@ -891,14 +1041,18 @@ msgstr "Olie pastel"
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "In de gratis versie is slechts een beperkt aantal kleurmerken beschikbaar"
 
-#: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageOutline.tsx:258
+#: src/components/ImageBackgroundRemoval.tsx:202
+#: src/components/ImageOutline.tsx:257
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Er is slechts een beperkt aantal modi beschikbaar in de gratis versie"
 
 #: src/components/ImageStyleTransfer.tsx:194
 msgid "Only a limited number of styles are available in the free version"
 msgstr "Er is slechts een beperkt aantal stijlen beschikbaar in de gratis versie"
+
+#: src/components/ImageColorPicker.tsx:413
+msgid "Opacity"
+msgstr "Opaciteit"
 
 #: src/components/color/OpacityIcon.tsx:51
 msgid "Opaque"
@@ -910,26 +1064,30 @@ msgid "Open in Safari browser"
 msgstr "Openen in Safari-browser"
 
 #: src/components/error/BrowserSupport.tsx:99
-msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
-msgstr "of installeer de nieuwste versie van de webbrowser Chrome, Edge, Firefox of Opera"
+msgid ""
+"or install the latest version of the Chrome, Edge, Firefox or Opera web "
+"browser"
+msgstr ""
+"of installeer de nieuwste versie van de webbrowser Chrome, Edge, Firefox of "
+"Opera"
 
 #: src/components/share/ShareModal.tsx:92
 msgid "Or scan the QR code"
 msgstr "Of scan de QR-code"
 
-#: src/components/ImageChooser.tsx:121
+#: src/components/ImageChooser.tsx:137
 msgid "Or select from sample photos"
 msgstr "Of maak een keuze uit voorbeeldfoto's"
 
-#: src/components/ImageChooser.tsx:103
+#: src/components/ImageChooser.tsx:119
 msgid "Or select from your recent photos"
 msgstr "Of maak een keuze uit uw recente foto's"
 
-#: src/components/ImageColorAdjustment.tsx:547
+#: src/components/ImageColorAdjustment.tsx:548
 msgid "Original color temperature (K)"
 msgstr "Originele kleurtemperatuur (K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:273
+#: src/components/ImageBackgroundRemoval.tsx:281
 msgid "Original photo"
 msgstr "Originele foto"
 
@@ -937,7 +1095,7 @@ msgstr "Originele foto"
 msgid "Outline"
 msgstr "Omtrek"
 
-#: src/components/ImageColorAdjustment.tsx:521
+#: src/components/ImageColorAdjustment.tsx:522
 msgid "Output levels"
 msgstr "Output niveaus"
 
@@ -948,10 +1106,6 @@ msgstr "over"
 #: src/components/messages.ts:31
 msgid "Palette"
 msgstr "Palet"
-
-#: src/components/ImageColorPicker.tsx:100
-msgid "Paper color doesn't matter for opaque pastels, as they completely cover the surface."
-msgstr "De papierkleur maakt niet uit voor dekkende pasteltinten, want ze bedekken het oppervlak volledig."
 
 #: src/components/print/PrintImageDrawer.tsx:160
 msgid "Paper size"
@@ -971,8 +1125,13 @@ msgid "Percentile"
 msgstr "Percentiel"
 
 #: src/components/ImageColorAdjustment.tsx:393
-msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
-msgstr "Percentiel: Automatische witbalans van de helderste gebieden, goed voor de meeste foto's. Referentie: Handmatige witbalans met behulp van het geselecteerde witte gebied."
+msgid ""
+"Percentile: Auto white balance from brightest areas, good for most photos. "
+"Reference: Manual white balance using selected white area."
+msgstr ""
+"Percentiel: Automatische witbalans van de helderste gebieden, goed voor de "
+"meeste foto's. Referentie: Handmatige witbalans met behulp van het "
+"geselecteerde witte gebied."
 
 #: src/components/Help.tsx:215
 msgid "Persistent storage"
@@ -994,13 +1153,17 @@ msgstr "Foto"
 msgid "Photo ranking"
 msgstr "Foto rangschikking"
 
-#: src/components/ImageColorPicker.tsx:542
-msgid "Pinch to zoom (or use the mouse wheel) and drag to pan"
-msgstr "Knijp om in te zoomen (of gebruik het muiswiel) en sleep om te pannen"
+#: src/components/empty/EmptyTargetColor.tsx:36
+msgid "Pinch or scroll to zoom, drag to pan."
+msgstr "Knijp of scroll om in te zoomen, sleep om te pannen."
 
 #: src/components/error/ErrorFallback.tsx:43
-msgid "Please send us a screenshot of this error via our <0>contacts</0>. It will help us identify the cause."
-msgstr "Stuur ons alstublieft een screenshot van deze fout via onze <0>contacten</0>. Het zal ons helpen de oorzaak te achterhalen."
+msgid ""
+"Please send us a screenshot of this error via our <0>contacts</0>. It will "
+"help us identify the cause."
+msgstr ""
+"Stuur ons alstublieft een screenshot van deze fout via onze "
+"<0>contacten</0>. Het zal ons helpen de oorzaak te achterhalen."
 
 #: src/components/ImagesCompare.tsx:179
 msgid "Position: {position}<0/>Rating: {ratingText}"
@@ -1029,7 +1192,9 @@ msgstr "Druk op Delen in navigatiebalk"
 
 #: src/components/empty/EmptyPalette.tsx:70
 msgid "Press the <0>Add to palette</0> button next to the color mixture you like."
-msgstr "Druk op de knop <0>Toevoegen aan palet</0> naast de kleurenmix die je leuk vindt."
+msgstr ""
+"Druk op de knop <0>Toevoegen aan palet</0> naast de kleurenmix die je leuk "
+"vindt."
 
 #: src/components/ImageColorAdjustment.tsx:387
 msgid "Preview"
@@ -1076,39 +1241,35 @@ msgstr "Beoordeling: {player1RatingText}"
 msgid "Rating: {player2RatingText}"
 msgstr "Beoordeling: {player2RatingText}"
 
-#: src/components/ColorMixer.tsx:205
+#: src/components/ColorMixer.tsx:185
 msgid "Ratio"
 msgstr "Verhouding"
 
-#: src/components/ImageColorPicker.tsx:302
+#: src/components/ImageColorPicker.tsx:363
 msgid "Reduce color palette to"
 msgstr "Verminder het kleurenpalet tot"
 
-#: src/components/ImageColorPicker.tsx:492
+#: src/components/ImageColorPicker.tsx:382
 msgid "Reduce colors"
 msgstr "Verminder kleuren"
 
-#: src/components/ImageColorPicker.tsx:490
-msgid "Reduce the number of colors in the photo"
-msgstr "Verminder het aantal kleuren in de foto"
+#: src/components/ImageColorPicker.tsx:380
+msgid "Reduce the number of colors in the photo."
+msgstr "Verminder het aantal kleuren op de foto."
 
 #: src/components/color/ColorSwatchDrawer.tsx:79
 #: src/components/ImageColorAdjustment.tsx:310
 msgid "Reference"
 msgstr "Referentie"
 
-#: src/components/color/SimilarColorCard.tsx:110
-#: src/components/ColorMixer.tsx:269
+#: src/components/color/SimilarColorCard.tsx:115
+#: src/components/ColorMixer.tsx:248
 msgid "Reflectance"
 msgstr "Reflectie"
 
 #: src/components/error/ErrorFallback.tsx:69
 msgid "Reload"
 msgstr "Herladen"
-
-#: src/components/color/PaletteColorMixtureCard.tsx:109
-msgid "Remove"
-msgstr "Verwijderen"
 
 #: src/components/palette/PaletteGrid.tsx:117
 msgid "Remove all"
@@ -1123,12 +1284,17 @@ msgstr "Verwijder alle kleurmengsels"
 msgid "Remove background"
 msgstr "Achtergrond verwijderen"
 
-#: src/components/color/AddToPaletteButton.tsx:56
+#: src/components/color/AddToPaletteButton.tsx:55
+#: src/components/color/PaletteColorMixtureCard.tsx:122
 msgid "Remove from palette"
 msgstr "Verwijderen uit palet"
 
-#: src/components/color/AddToPaletteButton.tsx:49
-#: src/components/color/PaletteColorMixtureCard.tsx:102
+#: src/components/ImageChooser.tsx:82
+msgid "Remove oldest"
+msgstr "Verwijder de oudste"
+
+#: src/components/color/AddToPaletteButton.tsx:48
+#: src/components/color/PaletteColorMixtureCard.tsx:115
 msgid "Remove the color mixture"
 msgstr "Verwijder het kleurenmengsel"
 
@@ -1165,20 +1331,24 @@ msgstr "Ga terug naar het tabblad <0>{tabLabel}</0> ."
 msgid "Rotate"
 msgstr "Draaien"
 
-#: src/components/ImageColorAdjustment.tsx:457
+#: src/components/ImageColorPicker.tsx:251
+msgid "Sample size"
+msgstr "Steekproefgrootte"
+
+#: src/components/ImageColorAdjustment.tsx:458
 msgid "Saturation (%)"
 msgstr "Verzadiging (%)"
 
 #: src/components/ColorMixingChart.tsx:144
 #: src/components/CustomColorBrandCreator.tsx:490
-#: src/components/ImageBackgroundRemoval.tsx:222
-#: src/components/ImageBackgroundRemoval.tsx:252
-#: src/components/ImageBlurred.tsx:153
-#: src/components/ImageBlurred.tsx:166
+#: src/components/ImageBackgroundRemoval.tsx:236
+#: src/components/ImageBackgroundRemoval.tsx:249
+#: src/components/ImageBlurred.tsx:154
+#: src/components/ImageBlurred.tsx:167
 #: src/components/ImageColorAdjustment.tsx:359
 #: src/components/ImageGrid.tsx:74
 #: src/components/ImageGrid.tsx:90
-#: src/components/ImageLimitedPalette.tsx:141
+#: src/components/ImageLimitedPalette.tsx:142
 #: src/components/ImageOutline.tsx:293
 #: src/components/ImageOutline.tsx:345
 #: src/components/ImagePerspectiveCorrection.tsx:304
@@ -1190,7 +1360,7 @@ msgid "Save"
 msgstr "Redden"
 
 #: src/components/ColorSetChooser.tsx:719
-msgid "Save & proceed"
+msgid "Save & continue"
 msgstr "Opslaan en doorgaan"
 
 #: src/components/ColorSetChooser.tsx:248
@@ -1231,11 +1401,11 @@ msgstr "Selecteer een foto om de witbalans en kleuren aan te passen"
 msgid "Select a photo to correct the perspective"
 msgstr "Selecteer een foto om het perspectief te corrigeren"
 
-#: src/components/ImageBackgroundRemoval.tsx:178
+#: src/components/ImageBackgroundRemoval.tsx:194
 msgid "Select a photo to remove the background from"
 msgstr "Selecteer een foto waarvan u de achtergrond wilt verwijderen"
 
-#: src/components/ImageChooser.tsx:88
+#: src/components/ImageChooser.tsx:104
 msgid "Select a reference photo from your device to paint from"
 msgstr "Selecteer een referentiefoto op uw apparaat om vanaf te schilderen"
 
@@ -1247,9 +1417,13 @@ msgstr "Selecteer een stijl om over te brengen naar uw referentiefoto"
 msgid "Select an image that contains a color chart"
 msgstr "Selecteer een afbeelding die een kleurenkaart bevat"
 
-#: src/components/ColorMixer.tsx:212
-msgid "Select any number of colors to mix and specify the part of each color in the resulting mix."
-msgstr "Selecteer een willekeurig aantal kleuren om te mengen en specificeer het deel van elke kleur in de resulterende mix."
+#: src/components/ColorMixer.tsx:192
+msgid ""
+"Select any number of colors to mix and specify the part of each color in "
+"the resulting mix."
+msgstr ""
+"Selecteer een willekeurig aantal kleuren om te mengen en specificeer het "
+"deel van elke kleur in de resulterende mix."
 
 #: src/components/color-set/ColorTypeSelect.tsx:38
 msgid "Select art medium"
@@ -1268,20 +1442,20 @@ msgstr "Selecteer merken"
 msgid "Select brands that you use."
 msgstr "Selecteer merken die u gebruikt."
 
-#: src/components/color-set/ColorCascader.tsx:110
+#: src/components/color-set/ColorCascader.tsx:112
 msgid "Select color"
 msgstr "Selecteer kleur"
 
-#: src/components/color-set/ColorCascader.tsx:110
+#: src/components/color-set/ColorCascader.tsx:112
 #: src/components/color-set/ColorSelect.tsx:107
 msgid "Select colors"
 msgstr "Selecteer kleuren"
 
-#: src/components/ColorMixingChart.tsx:168
+#: src/components/ColorMixingChart.tsx:169
 msgid "Select colors to build a mixing chart"
 msgstr "Selecteer kleuren om een mengtabel te maken"
 
-#: src/components/ImageLimitedPalette.tsx:113
+#: src/components/ImageLimitedPalette.tsx:114
 msgid "Select from 1 to {MAX_COLORS} colors"
 msgstr "Kies uit 1 tot {MAX_COLORS} kleuren"
 
@@ -1305,12 +1479,12 @@ msgstr "Selecteer afbeelding"
 msgid "Select language"
 msgstr "Taal selecteren"
 
-#: src/components/ColorMixer.tsx:226
+#: src/components/ColorMixer.tsx:206
 msgid "Select part"
 msgstr "Selecteer onderdeel"
 
-#: src/components/ImageBackgroundRemoval.tsx:200
-#: src/components/ImageChooser.tsx:97
+#: src/components/ImageBackgroundRemoval.tsx:216
+#: src/components/ImageChooser.tsx:113
 #: src/components/ImageColorAdjustment.tsx:349
 #: src/components/ImagePerspectiveCorrection.tsx:265
 msgid "Select photo"
@@ -1333,13 +1507,21 @@ msgid "Select style image"
 msgstr "Selecteer stijlafbeelding"
 
 #: src/components/color-set/MergeColorSetsDrawer.tsx:74
-msgid "Select the color sets you want to merge. A new color set will be created that includes all the colors from the selected sets."
-msgstr "Selecteer de kleursets die je wilt samenvoegen. Er wordt een nieuwe kleurenset aangemaakt die alle kleuren uit de geselecteerde sets bevat."
+msgid ""
+"Select the color sets you want to merge. A new color set will be created "
+"that includes all the colors from the selected sets."
+msgstr ""
+"Selecteer de kleursets die je wilt samenvoegen. Er wordt een nieuwe "
+"kleurenset aangemaakt die alle kleuren uit de geselecteerde sets bevat."
 
 #: src/components/ColorSetChooser.tsx:550
 #: src/components/empty/EmptyColorSet.tsx:71
-msgid "Select your art medium, color brands and colors you will paint with and press the <0>Save & proceed</0> button."
-msgstr "Selecteer je kunstmedium, kleurmerken en kleuren waarmee je gaat schilderen en druk op de knop <0>Opslaan en doorgaan</0> ."
+msgid ""
+"Select your art medium, color brands, and the colors you will paint with, "
+"then press <0>Save & continue</0>."
+msgstr ""
+"Selecteer je kunstmedium, kleurmerken en de kleuren waarmee je gaat "
+"schilderen, en druk dan <0>op Opslaan en doorgaan</0>."
 
 #: src/components/color/OpacityIcon.tsx:47
 msgid "Semi-opaque"
@@ -1353,12 +1535,7 @@ msgstr "Semi-transparant"
 msgid "Session expired"
 msgstr "Sessie afgelopen"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:99
-#: src/components/color/SimilarColorCard.tsx:99
-msgid "Set as background"
-msgstr "Instellen als achtergrond"
-
-#: src/components/ImageLimitedPalette.tsx:150
+#: src/components/ImageLimitedPalette.tsx:151
 msgid "Set as main color set"
 msgstr "Instellen als hoofdkleurenset"
 
@@ -1367,16 +1544,31 @@ msgstr "Instellen als hoofdkleurenset"
 msgid "Set as reference"
 msgstr "Instellen als referentie"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:96
-#: src/components/color/SimilarColorCard.tsx:94
-msgid "Set the color of the base layer for the glazing"
-msgstr "Stel de kleur van de basislaag voor de beglazing in"
+#: src/components/color/PaletteColorMixtureCard.tsx:139
+#: src/components/color/SimilarColorCard.tsx:131
+msgid "Set as underlayer"
+msgstr "Ingesteld als onderlaag"
+
+#: src/components/color/PaletteColorMixtureCard.tsx:135
+#: src/components/color/SimilarColorCard.tsx:127
+msgid "Set as underlayer for blending."
+msgstr "Zet het als onderlaag voor blending."
+
+#: src/components/color/PaletteColorMixtureCard.tsx:135
+#: src/components/color/SimilarColorCard.tsx:127
+msgid "Set as underlayer for glazing."
+msgstr "Zet het als onderlaag voor glazuren."
+
+#: src/components/color/PaletteColorMixtureCard.tsx:151
+#: src/components/color/SimilarColorCard.tsx:143
+msgid "Set as unifying color"
+msgstr "Ingesteld als unificerende kleur"
 
 #: src/components/ImageTonalValues.tsx:90
 msgid "Shadow"
 msgstr "Schaduw"
 
-#: src/components/ImageColorAdjustment.tsx:474
+#: src/components/ImageColorAdjustment.tsx:475
 msgid "Shadows and highlights"
 msgstr "Schaduwen en hooglichten"
 
@@ -1393,48 +1585,73 @@ msgstr "Deel deze kleurenset"
 msgid "Share your color set"
 msgstr "Deel je kleurenset"
 
-#: src/components/ImageColorPicker.tsx:426
-msgid "Show areas on the photo that match this color"
-msgstr "Laat gebieden op de foto zien die bij deze kleur passen"
+#: src/components/ImageColorPicker.tsx:289
+msgid "Show areas on the photo that match this color."
+msgstr "Laat op de foto gebieden zien die bij deze kleur passen."
 
 #: src/components/grid/GridControls.tsx:174
 msgid "Show grid"
 msgstr "Toon raster"
 
-#: src/components/ImageColorPicker.tsx:425
+#: src/components/ImageColorPicker.tsx:288
 msgid "Show matching areas"
 msgstr "Show-matchinggebieden"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:90
+#: src/components/color/PaletteColorMixtureCard.tsx:109
 msgid "Show on photo"
 msgstr "Toon op foto"
 
-#: src/components/grid/GridControls.tsx:197
+#: src/components/grid/GridControls.tsx:198
 msgid "Show or hide diagonal lines"
 msgstr "Diagonale lijnen weergeven of verbergen"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:86
-#: src/components/ImageColorPicker.tsx:274
+#: src/components/color/PaletteColorMixtureCard.tsx:103
+msgid "Show this color on the reference photo."
+msgstr "Laat deze kleur zien op de referentiefoto."
+
+#: src/components/color/ReflectanceChartDrawer.tsx:83
+#: src/components/ImageColorPicker.tsx:402
 msgid "Similarity"
 msgstr "Gelijkenis"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:102
-msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
-msgstr "De gelijkenismodus vergelijkt het doel en de voorgestelde kleuren. In de modus Mengsel worden de delen van de kleur waaruit het mengsel bestaat, weergegeven."
+#: src/components/color/ReflectanceChartDrawer.tsx:99
+msgid ""
+"Similarity mode compares the target and suggested colors. In Mixture mode, "
+"the parts of the color that make up the mixture are displayed."
+msgstr ""
+"De gelijkenismodus vergelijkt het doel en de voorgestelde kleuren. In de "
+"modus Mengsel worden de delen van de kleur waaruit het mengsel bestaat, "
+"weergegeven."
 
 #: src/components/messages.ts:33
 msgid "Simplified"
 msgstr "Vereenvoudigd"
 
-#: src/components/color/ConsistencyDescription.tsx:107
-msgid "Slightly overlap oil pastel areas of different colors and blend gently to create a smooth transition."
-msgstr "Overlap oliepastelgebieden van verschillende kleuren lichtjes en meng voorzichtig om een vloeiende overgang te creëren."
+#: src/components/color/ConsistencyDescription.tsx:148
+msgid ""
+"Slightly overlap oil pastel areas of different colors and blend gently to "
+"create a smooth transition."
+msgstr ""
+"Overlap oliepastelgebieden van verschillende kleuren lichtjes en meng "
+"voorzichtig om een vloeiende overgang te creëren."
 
-#: src/components/color/ConsistencyDescription.tsx:103
-msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition."
-msgstr "Overlap pastelgebieden van verschillende kleuren lichtjes en meng voorzichtig om een vloeiende overgang te creëren."
+#: src/components/color/ConsistencyDescription.tsx:141
+msgid ""
+"Slightly overlap pastel areas of different colors and blend gently to "
+"create a smooth transition."
+msgstr ""
+"Overlap pastelgebieden van verschillende kleuren lichtjes en meng "
+"voorzichtig om een vloeiende overgang te creëren."
 
-#: src/components/ImageBlurred.tsx:132
+#: src/components/color/ConsistencyDescription.tsx:155
+msgid ""
+"Slightly overlap wax pastel areas of different colors and blend firmly to "
+"create a smooth transition."
+msgstr ""
+"Bedek zachtjes wax pastelgebieden in verschillende kleuren en blend stevig "
+"om een vloeiende overgang te creëren."
+
+#: src/components/ImageBlurred.tsx:133
 msgid "Small"
 msgstr "Klein"
 
@@ -1444,26 +1661,30 @@ msgstr "Er ging iets mis"
 
 #: src/components/color-set/ColorSelect.tsx:120
 #: src/components/ColorMixingChart.tsx:108
-#: src/components/ImageColorPicker.tsx:448
+#: src/components/ImageColorPicker.tsx:439
 #: src/components/palette/PaletteGrid.tsx:129
 msgid "Sort"
 msgstr "Soort"
 
-#: src/components/ImageColorPicker.tsx:280
-msgid "Sort by the number of colors in the mixture"
-msgstr "Sorteer op het aantal kleuren in de mengsel."
+#: src/components/ImageColorPicker.tsx:414
+msgid "Sort by mixture opacity, from opaque to transparent."
+msgstr "Sorteer op mengsel, van ondoorzichtig tot transparant."
 
-#: src/components/ImageColorPicker.tsx:275
-msgid "Sort by the similarity of the mixture to the target color"
-msgstr "Sorteer op gelijkenis van het mengsel met de doelkleur"
+#: src/components/ImageColorPicker.tsx:408
+msgid "Sort by the number of colors in the mixture, from fewest to most."
+msgstr "Sorteer op het aantal kleuren in de mengsel, van het minste tot het meeste."
 
-#: src/components/ImageColorPicker.tsx:282
-msgid "Sort by the thickness of the mixture"
-msgstr "Sorteer op dikte van het mengsel"
+#: src/components/ImageColorPicker.tsx:403
+msgid ""
+"Sort by the similarity of the mixture to the target color, from highest to "
+"lowest."
+msgstr ""
+"Sorteer op gelijkenis van het mengsel met de doelkleur, van hoog naar "
+"laagst."
 
-#: src/components/color/ReflectanceChartDrawer.tsx:92
-#: src/components/color/SimilarColorCard.tsx:105
-#: src/components/ColorMixer.tsx:263
+#: src/components/color/ReflectanceChartDrawer.tsx:89
+#: src/components/color/SimilarColorCard.tsx:110
+#: src/components/ColorMixer.tsx:242
 msgid "Spectral reflectance curve"
 msgstr "Spectrale reflectiecurve"
 
@@ -1481,15 +1702,27 @@ msgstr "Standaard bedrukking"
 
 #: src/components/error/AuthErrorHandler.tsx:86
 msgid "Still having trouble? Please refer to this <0>troubleshooting guide</0>."
-msgstr "Nog steeds problemen? Raadpleeg deze <0>handleiding voor probleemoplossing</0>."
+msgstr ""
+"Nog steeds problemen? Raadpleeg deze <0>handleiding voor "
+"probleemoplossing</0>."
+
+#: src/components/ImageChooser.tsx:80
+msgid "Storage may fill up"
+msgstr "Opslag kan vol raken"
 
 #: src/components/Help.tsx:232
 msgid "Storage usage"
 msgstr "Gebruik van opslag"
 
 #: src/components/ImagePerspectiveCorrection.tsx:258
-msgid "Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
-msgstr "Maakt scheve foto's recht en verwijdert ongewenste randen. Gebruik auto-detect of selecteer 4 punten om perspectiefvervorming te corrigeren, en sleep eventueel de marges om het beeld bij te snijden."
+msgid ""
+"Straightens skewed photos and removes unwanted edges. Use auto-detect or "
+"select 4 points to correct perspective distortion, then optionally drag "
+"margins to crop the image."
+msgstr ""
+"Maakt scheve foto's recht en verwijdert ongewenste randen. Gebruik "
+"auto-detect of selecteer 4 punten om perspectiefvervorming te corrigeren, "
+"en sleep eventueel de marges om het beeld bij te snijden."
 
 #: src/components/ImageBlurred.tsx:123
 msgid "Strength"
@@ -1507,6 +1740,11 @@ msgstr "Ondersteunde kunstmedia:"
 msgid "Supported web browsers and operating systems"
 msgstr "Ondersteunde webbrowsers en besturingssystemen"
 
+#: src/components/color/UnderlayerColorPicker.tsx:57
+#: src/components/color/UnderlayerColorPicker.tsx:63
+msgid "Surface color"
+msgstr "Oppervlaktekleur"
+
 #: src/components/lightbox/LightboxOverlay.tsx:110
 #: src/components/lightbox/LightboxOverlay.tsx:114
 msgid "Swipe to unlock"
@@ -1515,6 +1753,11 @@ msgstr "Veeg om te ontgrendelen"
 #: src/components/print/PrintImageDrawer.tsx:223
 msgid "Taped margin width around the painting area"
 msgstr "Getapete margebreedte rond het schildergebied"
+
+#: src/components/ImageColorPicker.tsx:269
+#: src/components/ImageColorPicker.tsx:276
+msgid "Target color"
+msgstr "Doelkleur"
 
 #: src/components/print/PrintImageDrawer.tsx:172
 msgid "Target print size"
@@ -1525,29 +1768,47 @@ msgid "Terms of use"
 msgstr "Gebruiksvoorwaarden"
 
 #: src/components/Help.tsx:257
-msgid "The app stores all data in the web browser storage even after installation. Clearing the web browser data results in the loss of all app data."
-msgstr "De app slaat alle gegevens op in de opslag van de webbrowser, zelfs na installatie. Het wissen van de webbrowsergegevens leidt tot het verlies van alle app-gegevens."
+msgid ""
+"The app stores all data in the web browser storage even after installation. "
+"Clearing the web browser data results in the loss of all app data."
+msgstr ""
+"De app slaat alle gegevens op in de opslag van de webbrowser, zelfs na "
+"installatie. Het wissen van de webbrowsergegevens leidt tot het verlies van "
+"alle app-gegevens."
 
-#: src/components/ColorMixer.tsx:184
-#: src/components/ImageColorPicker.tsx:355
-msgid "The color of paper or canvas, or the color of the base layer when glazed."
-msgstr "De kleur van papier of canvas, of de kleur van de basislaag wanneer deze geglazuurd is."
+#: src/components/color/UnderlayerColorPicker.tsx:59
+msgid "The color of your paper, canvas, or painting surface."
+msgstr "De kleur van je papier, doek of schilderoppervlak."
 
 #: src/components/ColorSetChooser.tsx:242
 msgid "The color set can't be saved because not all required fields are filled."
-msgstr "De kleurenset kan niet worden opgeslagen omdat niet alle vereiste velden worden ingevuld."
+msgstr ""
+"De kleurenset kan niet worden opgeslagen omdat niet alle vereiste velden "
+"worden ingevuld."
 
-#: src/components/ImageColorPicker.tsx:409
-msgid "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
-msgstr "De te mengen kleur uit je kleurenset. Selecteer een kleur door op een punt op de afbeelding te klikken of gebruik de pop-up van de kleurkiezer."
-
-#: src/components/ImageColorPicker.tsx:394
-msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels in that area."
-msgstr "De diameter van het cirkelvormige gebied rond de cursor, dat wordt gebruikt om de gemiddelde kleur van de pixels in dat gebied te berekenen."
+#: src/components/ImageColorPicker.tsx:271
+msgid ""
+"The color to be mixed from your color set. Select a color by clicking a "
+"point on the image, or use the color picker popup."
+msgstr ""
+"De te mengen kleur uit je kleurenset. Selecteer een kleur door op een punt "
+"op de afbeelding te klikken of gebruik de pop-up van de kleurkiezer."
 
 #: src/components/CustomColorBrandCreator.tsx:436
-msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
-msgstr "De diameter van het cirkelvormige gebied rond de cursor, dat wordt gebruikt om de gemiddelde kleur van de pixels in het gebied te berekenen."
+msgid ""
+"The diameter of the circular area around the cursor, used to calculate the "
+"average color of the pixels within the area."
+msgstr ""
+"De diameter van het cirkelvormige gebied rond de cursor, dat wordt gebruikt "
+"om de gemiddelde kleur van de pixels in het gebied te berekenen."
+
+#: src/components/color/UnderlayerColorPicker.tsx:98
+msgid "The dried layer you want to glaze over."
+msgstr "De gedroogde laag die je wilt overglazen."
+
+#: src/components/color/UnderlayerColorPicker.tsx:97
+msgid "The existing pastel layer you want to blend over."
+msgstr "De bestaande pastellaag die je wilt overgaan."
 
 #: src/components/print/PrintImageDrawer.tsx:225
 msgid "The margin is too large"
@@ -1557,25 +1818,25 @@ msgstr "De marge is te groot"
 msgid "There is one common palette and a separate palette for each photo."
 msgstr "Er is één gemeenschappelijk palet en voor elke foto een apart palet."
 
-#: src/components/color/ConsistencyDescription.tsx:137
-msgid "Thick pigment"
-msgstr "Dik pigment"
-
-#: src/components/ImageColorPicker.tsx:282
-msgid "Thickness"
-msgstr "Dikte"
-
-#: src/components/color/ConsistencyDescription.tsx:51
+#: src/components/color/ConsistencyDescription.tsx:72
 msgid "Thin the paint to <0>{fractionText} thickness</0>"
 msgstr "Verdun de verf tot <0>{fractionText} dikte</0>"
 
 #: src/hooks/useColorSetBackup.ts:27
-msgid "This backup file lets you restore your color sets later, so keep it. You can delete any older backup files."
-msgstr "Met dit back-upbestand kunt u uw kleursets later herstellen, dus bewaar het. U kunt oudere back-upbestanden verwijderen."
+msgid ""
+"This backup file lets you restore your color sets later, so keep it. You "
+"can delete any older backup files."
+msgstr ""
+"Met dit back-upbestand kunt u uw kleursets later herstellen, dus bewaar "
+"het. U kunt oudere back-upbestanden verwijderen."
 
 #: src/components/ColorSetChooser.tsx:661
 msgid "This color brand is available to paid Patreon members only"
 msgstr "Dit kleurmerk is alleen beschikbaar voor betaalde Patreon-leden"
+
+#: src/components/color/PaletteColorMixtureCard.tsx:104
+msgid "This color was not sampled from a photo."
+msgstr "Deze kleur is niet uit een foto gehaald."
 
 #: src/components/print/PrintImageDrawer.tsx:174
 msgid "This print size is not supported"
@@ -1589,13 +1850,18 @@ msgstr "Deze stap is optioneel."
 msgid "This style is available to paid Patreon members only"
 msgstr "Deze stijl is alleen beschikbaar voor betaalde Patreon-leden"
 
-#: src/components/error/InstanceConflictAlert.tsx:42
+#: src/components/error/InstanceConflictAlert.tsx:52
 msgid "This tab will open automatically when the other tab closes."
 msgstr "Dit tabblad opent automatisch wanneer het andere tabblad sluit."
 
 #: src/components/error/AuthErrorHandler.tsx:48
-msgid "This usually happens when you're signed in to a <0>different</0> Patreon account than the one used for your ArtistAssistApp membership."
-msgstr "Dit gebeurt meestal wanneer je bent ingelogd op een <0>ander</0> Patreon-account dan het account dat je voor je ArtistAssistApp-lidmaatschap gebruikt."
+msgid ""
+"This usually happens when you're signed in to a <0>different</0> Patreon "
+"account than the one used for your ArtistAssistApp membership."
+msgstr ""
+"Dit gebeurt meestal wanneer je bent ingelogd op een <0>ander</0> "
+"Patreon-account dan het account dat je voor je ArtistAssistApp-lidmaatschap "
+"gebruikt."
 
 #: src/components/error/AuthErrorHandler.tsx:56
 msgid "To fix this:"
@@ -1603,17 +1869,23 @@ msgstr "Om dit op te lossen:"
 
 #: src/components/install/InstallDrawer.tsx:48
 msgid "To install ArtistAssistApp, use one of the supported web browsers:"
-msgstr "Om ArtistAssistApp te installeren, gebruik je een van de ondersteunde webbrowsers:"
+msgstr ""
+"Om ArtistAssistApp te installeren, gebruik je een van de ondersteunde "
+"webbrowsers:"
 
 #: src/components/empty/EmptyImage.tsx:42
 msgid "To use the {tabLabel} feature, select a reference photo."
 msgstr "Als u de functie {tabLabel} wilt gebruiken, selecteert u een referentiefoto."
 
 #: src/components/empty/EmptyColorSet.tsx:54
-msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with."
-msgstr "Om de {tabLabel}-functie te gebruiken, selecteer je het ondersteunde kunstmedium en kleuren om mee te schilderen."
+msgid ""
+"To use the {tabLabel} feature, select supported art medium and colors to "
+"paint with."
+msgstr ""
+"Om de {tabLabel}-functie te gebruiken, selecteer je het ondersteunde "
+"kunstmedium en kleuren om mee te schilderen."
 
-#: src/components/error/InstanceConflictAlert.tsx:46
+#: src/components/error/InstanceConflictAlert.tsx:56
 msgid "To use this tab instead, close the other tab."
 msgstr "Om dit tabblad te gebruiken, sluit je het andere tabblad."
 
@@ -1625,9 +1897,18 @@ msgstr "Tonale waarden"
 msgid "Transparent"
 msgstr "Doorzichtig"
 
+#: src/components/empty/EmptySimilarColors.tsx:30
+msgid "Try adding some colors to your color set."
+msgstr "Probeer wat kleuren toe te voegen aan je kleurenset."
+
 #: src/components/Help.tsx:119
 msgid "Tutorials and videos"
 msgstr "Tutorials en video's"
+
+#: src/components/color/UnderlayerColorPicker.tsx:93
+#: src/components/color/UnderlayerColorPicker.tsx:104
+msgid "Underlayer"
+msgstr "Onderlaag"
 
 #: src/components/error/UnhandledRejectionHandler.tsx:36
 msgid "Unexpected error"
@@ -1637,9 +1918,13 @@ msgstr "Onverwachte fout"
 msgid "Unexpected error: {errorMessage}"
 msgstr "Onverwachte fout: {errorMessage}"
 
+#: src/components/ImageColorPicker.tsx:330
+msgid "Unifying color"
+msgstr "Verenigende kleur"
+
 #: src/components/color/ColorSwatchDrawer.tsx:110
-#: src/components/color/PaletteColorMixtureCard.tsx:77
-#: src/components/color/SimilarColorCard.tsx:85
+#: src/components/color/PaletteColorMixtureCard.tsx:89
+#: src/components/color/SimilarColorCard.tsx:97
 #: src/components/palette/PaletteGrid.tsx:151
 msgid "Untitled mixture"
 msgstr "Mengsel zonder titel"
@@ -1652,33 +1937,52 @@ msgstr "Update beschikbaar"
 msgid "Update now"
 msgstr "Update nu"
 
-#: src/components/color/ConsistencyDescription.tsx:91
-msgid "Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original acrylic paint layer."
-msgstr "Gebruik glazuurmediums waarmee je een dunne laag krijgt, bijvoorbeeld 1/10 van de originele acrylverflaag."
+#: src/components/color/ConsistencyDescription.tsx:44
+msgid "Use at full strength."
+msgstr "Gebruik op volle kracht."
 
-#: src/components/color/ConsistencyDescription.tsx:87
-msgid "Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original oil paint layer. You should be able to get the consistency of runny sour cream. Linseed oil is a popular glazing medium."
-msgstr "Gebruik glazuurmediums waarmee u een dunne laag kunt krijgen, bijvoorbeeld 1/10 van de originele olieverflaag. Je zou in staat moeten zijn om de consistentie van vloeibare zure room te krijgen. Lijnolie is een populair glazuurmedium."
+#: src/components/color/ConsistencyDescription.tsx:49
+msgid "Use full pressure."
+msgstr "Gebruik volle druk."
+
+#: src/components/color/ConsistencyDescription.tsx:120
+msgid ""
+"Use glazing mediums that allow you to get a thin layer, for example, 1/10 "
+"of the original acrylic paint layer."
+msgstr ""
+"Gebruik glazuurmediums waarmee je een dunne laag krijgt, bijvoorbeeld 1/10 "
+"van de originele acrylverflaag."
+
+#: src/components/color/ConsistencyDescription.tsx:113
+msgid ""
+"Use glazing mediums that allow you to get a thin layer, for example, 1/10 "
+"of the original oil paint layer. You should be able to get the consistency "
+"of runny sour cream. Linseed oil is a popular glazing medium."
+msgstr ""
+"Gebruik glazuurmediums waarmee u een dunne laag kunt krijgen, bijvoorbeeld "
+"1/10 van de originele olieverflaag. Je zou in staat moeten zijn om de "
+"consistentie van vloeibare zure room te krijgen. Lijnolie is een populair "
+"glazuurmedium."
 
 #: src/components/file/FileSelect.tsx:91
 msgid "Use reference photo"
 msgstr "Referentiefoto gebruiken"
 
-#: src/components/error/InstanceConflictAlert.tsx:64
+#: src/components/error/InstanceConflictAlert.tsx:63
 msgid "Use this tab instead"
 msgstr "Gebruik in plaats daarvan dit tabblad"
-
-#: src/components/ImageColorPicker.tsx:381
-msgid "Use white paper or canvas as a background"
-msgstr "Gebruik wit papier of canvas als achtergrond"
 
 #: src/components/Help.tsx:235
 msgid "Used"
 msgstr "Gebruikt"
 
-#: src/components/ImageLimitedPalette.tsx:106
-msgid "Using a limited palette helps achieve color harmony. Select up to {MAX_COLORS} colors to be your primaries."
-msgstr "Het gebruik van een beperkt palet helpt bij het bereiken van kleurharmonie. Selecteer maximaal {MAX_COLORS} kleuren als uw primaire kleuren."
+#: src/components/ImageLimitedPalette.tsx:107
+msgid ""
+"Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} "
+"primary colors."
+msgstr ""
+"Het gebruik van een beperkt palet helpt om kleurharmonie te bereiken. "
+"Selecteer 1–{MAX_COLORS} primaire kleuren."
 
 #: src/components/ImageOutline.tsx:305
 #: src/components/ImageOutline.tsx:363
@@ -1689,7 +1993,7 @@ msgstr "Bekijk de omtrek boven de live camera om in AR te traceren."
 msgid "Warm — Algorithmic estimate; artistic perception may vary."
 msgstr "Warm — Algoritmische schatting; Artistieke perceptie kan variëren."
 
-#: src/components/color/ConsistencyDescription.tsx:83
+#: src/components/color/ConsistencyDescription.tsx:106
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "Aquarel kan worden verdund met water om het transparanter te maken."
 
@@ -1706,24 +2010,35 @@ msgid "Wax Pastel"
 msgstr "Waspastel"
 
 #: src/components/error/AuthErrorHandler.tsx:118
-msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
-msgstr "We zijn een probleem tegengekomen bij het verifiëren van uw inloggegevens. Dit probleem kan meestal worden opgelost door opnieuw in te loggen."
+msgid ""
+"We encountered a problem verifying your login credentials. This issue can "
+"usually be resolved by trying to log in again."
+msgstr ""
+"We zijn een probleem tegengekomen bij het verifiëren van uw inloggegevens. "
+"Dit probleem kan meestal worden opgelost door opnieuw in te loggen."
 
 #: src/components/error/AuthErrorHandler.tsx:129
 msgid "We were unable to log you in."
 msgstr "We konden je niet inloggen."
 
 #: src/components/ColorSetChooser.tsx:691
-msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
-msgstr "Bij het selecteren van meer dan {maxColorsFor2} kleuren in totaal, worden geen mengsels van twee kleuren gebruikt."
+msgid ""
+"When selecting more than {maxColorsFor2} colors in total, mixtures of two "
+"colors are not used."
+msgstr ""
+"Bij het selecteren van meer dan {maxColorsFor2} kleuren in totaal, worden "
+"geen mengsels van twee kleuren gebruikt."
 
 #: src/components/ColorSetChooser.tsx:699
-msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
-msgstr "Bij het selecteren van meer dan {maxColorsFor3} kleuren in totaal, worden geen mengsels van drie kleuren gebruikt."
+msgid ""
+"When selecting more than {maxColorsFor3} colors in total, mixtures of three "
+"colors are not used."
+msgstr ""
+"Bij het selecteren van meer dan {maxColorsFor3} kleuren in totaal, worden "
+"geen mengsels van drie kleuren gebruikt."
 
-#: src/components/ImageBackgroundRemoval.tsx:146
-#: src/components/ImageColorAdjustment.tsx:441
-#: src/components/ImageColorPicker.tsx:386
+#: src/components/ImageBackgroundRemoval.tsx:148
+#: src/components/ImageColorAdjustment.tsx:442
 msgid "White"
 msgstr "Wit"
 
@@ -1739,6 +2054,7 @@ msgid "White paper or canvas"
 msgstr "Wit papier of canvas"
 
 #: src/components/ImageColorAdjustment.tsx:433
+#: src/components/ImageColorAdjustment.tsx:438
 msgid "White point"
 msgstr "Witpunt"
 
@@ -1746,8 +2062,8 @@ msgstr "Witpunt"
 msgid "Width"
 msgstr "Breedte"
 
-#: src/components/color/AddToPaletteButton.tsx:52
-#: src/components/color/PaletteColorMixtureCard.tsx:105
+#: src/components/color/AddToPaletteButton.tsx:51
+#: src/components/color/PaletteColorMixtureCard.tsx:118
 #: src/components/ColorSetChooser.tsx:250
 #: src/components/ColorSetChooser.tsx:753
 #: src/components/CustomColorBrandCreator.tsx:500
@@ -1758,38 +2074,68 @@ msgstr "Breedte"
 msgid "Yes"
 msgstr "Ja"
 
+#: src/components/ImageChooser.tsx:81
+msgid ""
+"You already have many recent photos saved. Remove the oldest one to free up "
+"space? The new photo will still be added."
+msgstr ""
+"Je hebt al veel recente foto's opgeslagen. De oudste verwijderen om ruimte "
+"vrij te maken? De nieuwe foto zal nog steeds worden toegevoegd."
+
 #: src/components/ColorSetChooser.tsx:463
 msgid "You are logged in and have access to all app features."
 msgstr "Je bent ingelogd en hebt toegang tot alle functies van de app."
 
 #: src/components/ColorSetChooser.tsx:468
-msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
-msgstr "U gebruikt de <0>gratis versie</0> met een beperkt aantal kleurmerken en beeldverwerkingsmodi."
+msgid ""
+"You are using the <0>free version</0> with a limited number of color brands "
+"and image processing modes."
+msgstr ""
+"U gebruikt de <0>gratis versie</0> met een beperkt aantal kleurmerken en "
+"beeldverwerkingsmodi."
+
+#: src/components/ImageBackgroundRemoval.tsx:206
+#: src/components/ImageOutline.tsx:261
+msgid "You've selected a mode that is available to paid Patreon members only"
+msgstr ""
+"Je hebt een modus gekozen die alleen beschikbaar is voor betalende "
+"Patreon-leden"
 
 #: src/components/ColorSetChooser.tsx:613
 msgid "You've selected color brands that are available to paid Patreon members only"
-msgstr "Je hebt kleurmerken geselecteerd die alleen beschikbaar zijn voor betalende Patreon-leden"
+msgstr ""
+"Je hebt kleurmerken geselecteerd die alleen beschikbaar zijn voor betalende "
+"Patreon-leden"
 
 #: src/components/ColorSetChooser.tsx:682
-msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
-msgstr "Je hebt kleurmerken geselecteerd die alleen beschikbaar zijn voor betalende Patreon-leden. Word lid van ArtistAssistApp op Patreon als betaald lid of log in met Patreon als je al lid bent geworden."
-
-#: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:262
-msgid "You've selected mode that is available to paid Patreon members only"
-msgstr "Je hebt een modus geselecteerd die alleen beschikbaar is voor betaalde Patreon-leden"
+msgid ""
+"You've selected color brands that are available to paid Patreon members "
+"only. Join ArtistAssistApp on Patreon as a paid member or log in with "
+"Patreon if you've already joined."
+msgstr ""
+"Je hebt kleurmerken geselecteerd die alleen beschikbaar zijn voor betalende "
+"Patreon-leden. Word lid van ArtistAssistApp op Patreon als betaald lid of "
+"log in met Patreon als je al lid bent geworden."
 
 #: src/components/error/AuthErrorHandler.tsx:100
 msgid "Your account details:"
 msgstr "Uw accountgegevens:"
 
 #: src/hooks/usePersistentStorage.tsx:49
-msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
-msgstr "Je gegevens worden mogelijk niet betrouwbaar opgeslagen als de browser gesloten is. Om dit op te lossen, installeer je de app."
+msgid ""
+"Your data may not be saved reliably if the browser is closed. To fix this, "
+"install the app."
+msgstr ""
+"Je gegevens worden mogelijk niet betrouwbaar opgeslagen als de browser "
+"gesloten is. Om dit op te lossen, installeer je de app."
 
 #: src/components/error/AuthErrorHandler.tsx:109
-msgid "Your login session has expired. Please sign in again to refresh your access and continue using ArtistAssistApp."
-msgstr "Je inlogsessie is verlopen. Log opnieuw in om uw toegang te verversen en ArtistAssistApp te blijven gebruiken."
+msgid ""
+"Your login session has expired. Please sign in again to refresh your access "
+"and continue using ArtistAssistApp."
+msgstr ""
+"Je inlogsessie is verlopen. Log opnieuw in om uw toegang te verversen en "
+"ArtistAssistApp te blijven gebruiken."
 
 #: src/components/error/BrowserSupport.tsx:54
 msgid "Your web browser is not supported."

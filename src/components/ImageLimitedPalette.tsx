@@ -103,7 +103,8 @@ export const ImageLimitedPalette: React.FC = () => {
       <div>
         <Form.Item
           label={t`Colors`}
-          tooltip={t`Using a limited palette helps achieve color harmony. Select up to ${MAX_COLORS} colors to be your primaries.`}
+          labelCol={{style: {paddingBottom: 0}}}
+          tooltip={t`Using a limited palette helps achieve color harmony. Select 1–${MAX_COLORS} primary colors.`}
           style={{
             marginBottom: 0,
             padding: '0 16px',
