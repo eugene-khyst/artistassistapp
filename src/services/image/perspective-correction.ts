@@ -16,18 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Authentication} from '~/src/services/auth/types';
+import {type Authentication, ForceLogoutError} from '~/src/services/auth/types';
 import {correctPerspectiveWebGL} from '~/src/services/image/filter/perspective-correction-webgl';
-import {heatmapTensorToCorners} from '~/src/services/image/heatmap-corners';
+import {detectDocumentCornersHeatmap} from '~/src/services/image/heatmap-corner-detection';
+import {detectDocumentCornersSobel} from '~/src/services/image/sobel-corner-detection';
 import type {Vector} from '~/src/services/math/geometry';
-import {compareByX, compareByY} from '~/src/services/math/geometry';
 import {Matrix} from '~/src/services/math/matrix';
-import {imageBitmapToImageData} from '~/src/services/ml/image-transformer';
-import {imageDataToFloat32Tensor} from '~/src/services/ml/tensor';
 import type {OnnxModel} from '~/src/services/ml/types';
-import {runInferenceWorker} from '~/src/services/ml/worker/inference-worker-manager';
 import type {FetchProgressCallback} from '~/src/utils/fetch';
 import {type DrawImageSource} from '~/src/utils/graphics';
+import {isAbortError} from '~/src/utils/promise';
 import type {Size} from '~/src/utils/types';
 
 export function getPerspectiveCorrectionImage(
@@ -38,13 +36,6 @@ export function getPerspectiveCorrectionImage(
   const perspectiveCorrectedImage: OffscreenCanvas = correctPerspectiveWebGL(image, vertices);
   console.timeEnd('perspective-correction');
   return perspectiveCorrectedImage.transferToImageBitmap();
-}
-
-export function sortVertices(vertices: Vector[]): Vector[] {
-  const sortedByY = [...vertices].sort(compareByY);
-  const [topLeft, topRight] = sortedByY.slice(0, 2).sort(compareByX);
-  const [bottomLeft, bottomRight] = sortedByY.slice(2, 4).sort(compareByX);
-  return [topLeft, topRight, bottomRight, bottomLeft].filter((value): value is Vector => !!value);
 }
 
 export function calculateDestSize(vertices: Vector[]): Size {
@@ -103,23 +94,22 @@ export async function detectDocumentCorners(
   progressCallback?: FetchProgressCallback,
   signal?: AbortSignal
 ): Promise<Vector[] | null> {
-  console.time('detect-document-corners');
-  const [imageData] = imageBitmapToImageData([image], model);
-  const inputTensor = imageDataToFloat32Tensor(imageData!, model);
-  const [outputTensor] = await runInferenceWorker(
-    model.url,
-    auth,
-    [[inputTensor]],
-    model.outputName,
-    progressCallback,
-    signal
-  );
-  const corners: Vector[] = heatmapTensorToCorners(outputTensor!, image.width, image.height).filter(
-    (corner): corner is Vector => !!corner
-  );
-  console.timeEnd('detect-document-corners');
-  if (corners.length !== 4) {
-    return null;
+  try {
+    const corners = await detectDocumentCornersHeatmap(
+      image,
+      model,
+      auth,
+      progressCallback,
+      signal
+    );
+    if (corners) {
+      return corners;
+    }
+  } catch (error) {
+    if (isAbortError(error) || error instanceof ForceLogoutError) {
+      throw error;
+    }
+    console.error(error);
   }
-  return sortVertices(corners);
+  return detectDocumentCornersSobel(image);
 }

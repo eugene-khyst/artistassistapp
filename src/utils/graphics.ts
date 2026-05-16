@@ -184,6 +184,14 @@ export const DrawImage = {
       };
     };
   },
+
+  resizeToLongestSide: (maxSide: number): DrawImageParamsSupplier => {
+    return (params: DrawImageParams): DrawImageParams => {
+      const {width, height} = params;
+      const scale = Math.min(1, maxSide / Math.max(width, height));
+      return DrawImage.scale(scale)(params);
+    };
+  },
 };
 
 function chainDrawImageParamsSuppliers(

@@ -17,12 +17,9 @@
  */
 
 import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
-import {
-  calculateDestSize,
-  computeHomography,
-  sortVertices,
-} from '~/src/services/image/perspective-correction';
+import {calculateDestSize, computeHomography} from '~/src/services/image/perspective-correction';
 import {Vector} from '~/src/services/math/geometry';
+import {orderCornersClockwise} from '~/src/services/math/geometry';
 import type {DrawImageSource} from '~/src/utils/graphics';
 import {copyOffscreenCanvas} from '~/src/utils/graphics';
 import type {Size} from '~/src/utils/types';
@@ -33,7 +30,7 @@ export function correctPerspectiveWebGL(
   image: DrawImageSource,
   vertices: Vector[]
 ): OffscreenCanvas {
-  const sortedVertices = sortVertices(vertices);
+  const sortedVertices = orderCornersClockwise(vertices);
   const destSize: Size = calculateDestSize(sortedVertices);
   const [destWidth, destHeight] = destSize;
   const destVertices = [

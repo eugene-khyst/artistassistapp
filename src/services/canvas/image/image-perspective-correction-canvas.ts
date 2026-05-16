@@ -18,8 +18,8 @@
 
 import type {OverlayDrawingCanvasProps} from '~/src/services/canvas/image/overlay-drawing-canvas';
 import {OverlayDrawingCanvas} from '~/src/services/canvas/image/overlay-drawing-canvas';
-import {sortVertices} from '~/src/services/image/perspective-correction';
 import type {Rectangle, Vector} from '~/src/services/math/geometry';
+import {orderCornersClockwise} from '~/src/services/math/geometry';
 
 export interface ImagePerspectiveCorrectionCanvasProps extends OverlayDrawingCanvasProps {
   vertexRadius?: number;
@@ -76,7 +76,7 @@ export class ImagePerspectiveCorrectionCanvas extends OverlayDrawingCanvas {
     if (this.vertices.length < 4) {
       this.vertices.push(vertex);
       if (this.vertices.length === 4) {
-        this.vertices = sortVertices(this.vertices);
+        this.vertices = orderCornersClockwise(this.vertices);
       }
       this.requestRedraw();
     }
@@ -89,7 +89,9 @@ export class ImagePerspectiveCorrectionCanvas extends OverlayDrawingCanvas {
 
   setVertices(vertices: Vector[]): void {
     const {center}: Rectangle = this.getImageDimension();
-    this.vertices = sortVertices(vertices.map((vertex: Vector) => vertex.subtract(center)));
+    this.vertices = orderCornersClockwise(
+      vertices.map((vertex: Vector) => vertex.subtract(center))
+    );
     this.requestRedraw();
   }
 
@@ -119,7 +121,7 @@ export class ImagePerspectiveCorrectionCanvas extends OverlayDrawingCanvas {
     this.activeVertex = point.subtract(this.offset);
     this.vertices = [...this.inactiveVertices, this.activeVertex];
     if (this.vertices.length === 4) {
-      this.vertices = sortVertices(this.vertices);
+      this.vertices = orderCornersClockwise(this.vertices);
     }
   }
 

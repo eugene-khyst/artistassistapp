@@ -16,10 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {Authentication} from '~/src/services/auth/types';
 import {bilinearInterpolation} from '~/src/services/image/filter/interpolation';
 import {computeOtsuThresholdFromHistogram} from '~/src/services/image/filter/otsu-threshold';
-import {Vector} from '~/src/services/math/geometry';
-import type {Float32Tensor} from '~/src/services/ml/tensor';
+import {orderCornersClockwise, Vector} from '~/src/services/math/geometry';
+import {imageBitmapToImageData} from '~/src/services/ml/image-transformer';
+import {type Float32Tensor, imageDataToFloat32Tensor} from '~/src/services/ml/tensor';
+import type {OnnxModel} from '~/src/services/ml/types';
+import {runInferenceWorker} from '~/src/services/ml/worker/inference-worker-manager';
+import type {FetchProgressCallback} from '~/src/utils/fetch';
 import {clamp} from '~/src/utils/math-utils';
 
 const HEATMAP_THRESHOLD = 0.3;
@@ -37,7 +42,35 @@ const NEIGHBOR_OFFSETS = [
   [1, -1],
 ] as const;
 
-export function heatmapTensorToCorners(
+export async function detectDocumentCornersHeatmap(
+  image: ImageBitmap,
+  model: OnnxModel,
+  auth: Authentication | null,
+  progressCallback?: FetchProgressCallback,
+  signal?: AbortSignal
+): Promise<Vector[] | null> {
+  console.time('detect-document-corners');
+  const [imageData] = imageBitmapToImageData([image], model);
+  const inputTensor = imageDataToFloat32Tensor(imageData!, model);
+  const [outputTensor] = await runInferenceWorker(
+    model.url,
+    auth,
+    [[inputTensor]],
+    model.outputName,
+    progressCallback,
+    signal
+  );
+  const corners: Vector[] = heatmapTensorToCorners(outputTensor!, image.width, image.height).filter(
+    (corner): corner is Vector => !!corner
+  );
+  console.timeEnd('detect-document-corners');
+  if (corners.length !== 4) {
+    return null;
+  }
+  return orderCornersClockwise(corners);
+}
+
+function heatmapTensorToCorners(
   {data, dims}: Float32Tensor,
   origWidth: number,
   origHeight: number

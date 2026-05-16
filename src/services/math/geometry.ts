@@ -92,3 +92,10 @@ export function degrees(radians: number): number {
 
 export const compareByX: Comparator<Vector> = (a: Vector, b: Vector) => a.x - b.x;
 export const compareByY: Comparator<Vector> = (a: Vector, b: Vector) => a.y - b.y;
+
+export function orderCornersClockwise(vertices: Vector[]): Vector[] {
+  const sortedByY = [...vertices].sort(compareByY);
+  const [topLeft, topRight] = sortedByY.slice(0, 2).sort(compareByX);
+  const [bottomLeft, bottomRight] = sortedByY.slice(2, 4).sort(compareByX);
+  return [topLeft, topRight, bottomRight, bottomLeft].filter((value): value is Vector => !!value);
+}
