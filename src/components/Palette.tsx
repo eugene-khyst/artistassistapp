@@ -19,7 +19,7 @@
 import {Plural, useLingui} from '@lingui/react/macro';
 import {Tabs, Typography} from 'antd';
 import type {TabsProps} from 'antd/lib';
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useState} from 'react';
 
 import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {COLOR_TYPE_LABELS} from '~/src/components/messages';
@@ -34,28 +34,26 @@ import {PaletteGrid} from './palette/PaletteGrid';
 
 type ItemType = ArrayElement<TabsProps['items']>;
 
-export const Palette: React.FC = () => {
+export function Palette() {
   const colorSetColorType = useAppStore(state => state.colorSet?.type);
   const paletteColorMixtures = useAppStore(state => state.paletteColorMixtures);
   const isPaletteLoading = useAppStore(state => state.isPaletteLoading);
 
   const {t} = useLingui();
 
-  const [activePaletteKey, setActivePaletteKey] = useState<string>();
-
+  const [selectedPaletteKey, setSelectedPaletteKey] = useState<string>();
   const [colorSwatchColorMixtures, setColorSwatchColorMixtures] = useState<
     ColorMixture[] | undefined
   >();
   const [isOpenColorSwatch, setIsOpenColorSwatch] = useState<boolean>(false);
 
-  const isLoading: boolean = isPaletteLoading;
+  const [prevColorSetColorType, setPrevColorSetColorType] = useState(colorSetColorType);
+  if (colorSetColorType !== prevColorSetColorType) {
+    setPrevColorSetColorType(colorSetColorType);
+    setSelectedPaletteKey(undefined);
+  }
 
-  useEffect(() => {
-    if (colorSetColorType) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setActivePaletteKey(colorSetColorType.toString());
-    }
-  }, [colorSetColorType]);
+  const isLoading: boolean = isPaletteLoading;
 
   const showColorSwatch = useCallback((colorMixtures: ColorMixture[]) => {
     setColorSwatchColorMixtures(colorMixtures);
@@ -86,8 +84,14 @@ export const Palette: React.FC = () => {
     };
   }).filter((item): item is ItemType => !!item);
 
+  const colorSetPaletteKey = colorSetColorType?.toString();
+  const activePaletteKey =
+    selectedPaletteKey && items.some(({key}) => key === selectedPaletteKey)
+      ? selectedPaletteKey
+      : colorSetPaletteKey;
+
   const handleTabChange = (keys: string) => {
-    setActivePaletteKey(keys);
+    setSelectedPaletteKey(keys);
   };
 
   if (!paletteColorMixtures.size) {
@@ -114,4 +118,4 @@ export const Palette: React.FC = () => {
       />
     </LoadingIndicator>
   );
-};
+}

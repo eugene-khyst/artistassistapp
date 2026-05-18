@@ -21,6 +21,7 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import type {SelectProps} from 'antd';
 import {Button, Grid, Select, Space, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
+import {useMemo} from 'react';
 
 import {ColorSetName} from '~/src/components/color-set/ColorSetName';
 import {filterSelectOptions} from '~/src/components/utils';
@@ -28,7 +29,9 @@ import {colorSetDefinitionToBrandColorCounts} from '~/src/services/color/colors'
 import type {ColorBrandDefinition, ColorSetDefinition} from '~/src/services/color/types';
 import {byDate, reverseOrder} from '~/src/utils/comparator';
 
-const NEW_COLOR_SET_OPTION: SelectOptionType = {
+const showSearch = {filterOption: filterSelectOptions};
+
+const newColorSetOption: SelectOptionType = {
   value: 0,
   label: (
     <>
@@ -45,10 +48,10 @@ function getColorSetOptions(
   brands?: Map<number, ColorBrandDefinition>
 ): SelectOptionType[] {
   if (!colorSets?.length) {
-    return [NEW_COLOR_SET_OPTION];
+    return [newColorSetOption];
   }
   return [
-    NEW_COLOR_SET_OPTION,
+    newColorSetOption,
     ...colorSets
       .slice()
       .sort(reverseOrder(byDate(({date}) => date)))
@@ -74,23 +77,19 @@ type Props = Omit<SelectProps, 'options' | 'placeholder' | 'showSearch'> & {
   onCreateNewClick?: () => void;
 };
 
-export const ColorSetSelect: React.FC<Props> = ({
-  colorSets,
-  brands,
-  onCreateNewClick,
-  ...rest
-}: Props) => {
+export function ColorSetSelect({colorSets, brands, onCreateNewClick, ...rest}: Readonly<Props>) {
   const screens = Grid.useBreakpoint();
 
   const {t} = useLingui();
 
-  const options = getColorSetOptions(colorSets, brands);
+  const options = useMemo(() => getColorSetOptions(colorSets, brands), [colorSets, brands]);
+
   return (
     <Space.Compact block>
       <Select
         options={options}
         placeholder={t`Select from your recent color sets`}
-        showSearch={{filterOption: filterSelectOptions}}
+        showSearch={showSearch}
         {...rest}
       />
       <Button icon={<PlusOutlined />} onClick={onCreateNewClick}>
@@ -98,4 +97,4 @@ export const ColorSetSelect: React.FC<Props> = ({
       </Button>
     </Space.Compact>
   );
-};
+}

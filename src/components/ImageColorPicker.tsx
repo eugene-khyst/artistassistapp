@@ -28,7 +28,6 @@ import {Button, Checkbox, Col, Dropdown, Form, Grid, Row, Slider, Space} from 'a
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import type {SliderMarks} from 'antd/es/slider';
 import type {MenuProps} from 'antd/lib';
-import type React from 'react';
 import {useCallback, useEffect, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
@@ -70,7 +69,7 @@ const SAMPLE_DIAMETER_SLIDER_MARKS: SliderMarks = Object.fromEntries(
   [1, 10, 20, 30, 40, 50].map((i: number) => [i, i])
 );
 
-export const ImageColorPicker: React.FC = () => {
+export function ImageColorPicker() {
   const colorPickerSort = useAppStore(state => state.appSettings.colorPickerSort);
   const colorPickerLayeringEnabled = useAppStore(
     state => state.appSettings.colorPickerLayeringEnabled
@@ -153,6 +152,14 @@ export const ImageColorPicker: React.FC = () => {
     }
   }, [colorPickerCanvas, sampleDiameterDebounced, saveAppSettings]);
 
+  const [prevPipette, setPrevPipette] = useState(colorPickerPipette);
+  if (colorPickerPipette !== prevPipette) {
+    setPrevPipette(colorPickerPipette);
+    if (colorPickerPipette) {
+      setSampleDiameter(colorPickerPipette.diameter);
+    }
+  }
+
   useEffect(() => {
     if (!colorPickerCanvas || !colorPickerPipette) {
       return;
@@ -161,8 +168,6 @@ export const ImageColorPicker: React.FC = () => {
     colorPickerCanvas.setPipetteDiameter(diameter);
     colorPickerCanvas.setPipettePoint(new Vector(x, y));
     colorPickerCanvas.zoomToFit();
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setSampleDiameter(diameter);
   }, [colorPickerCanvas, colorPickerPipette]);
 
   useEffect(() => {
@@ -274,7 +279,7 @@ export const ImageColorPicker: React.FC = () => {
       <Space.Compact>
         <ColorPicker
           title={t`Target color`}
-          value={targetColorHex ?? undefined}
+          value={targetColorHex}
           onChangeComplete={handleTargetColorChange}
           showText={false}
           disabledAlpha
@@ -551,4 +556,4 @@ export const ImageColorPicker: React.FC = () => {
       />
     </>
   );
-};
+}

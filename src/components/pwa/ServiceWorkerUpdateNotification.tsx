@@ -24,7 +24,7 @@ import {useAppStore} from '~/src/stores/app-store';
 
 const NOTIFICATION_KEY = 'sw-update';
 
-export const ServiceWorkerUpdateNotification: React.FC = () => {
+export function ServiceWorkerUpdateNotification() {
   const serviceWorkerRegistration = useAppStore(state => state.serviceWorkerRegistration);
   const serviceWorkerUpdatePostponed = useAppStore(state => state.serviceWorkerUpdatePostponed);
   const updateServiceWorker = useAppStore(state => state.updateServiceWorker);
@@ -68,4 +68,4 @@ export const ServiceWorkerUpdateNotification: React.FC = () => {
   }, [open, notification, updateServiceWorker, postponeServiceWorkerUpdate]);
 
   return null;
-};
+}

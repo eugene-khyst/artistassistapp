@@ -19,12 +19,11 @@
 import {ClearOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Popconfirm} from 'antd';
-import type React from 'react';
 import {useState} from 'react';
 
 import {clearCache} from '~/src/utils/storage';
 
-export const ClearCacheButton: React.FC = () => {
+export function ClearCacheButton() {
   const {t} = useLingui();
 
   const [isClearing, setIsClearing] = useState<boolean>(false);
@@ -53,4 +52,4 @@ export const ClearCacheButton: React.FC = () => {
       </Button>
     </Popconfirm>
   );
-};
+}

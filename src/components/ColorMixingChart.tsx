@@ -23,11 +23,11 @@ import {
   SortAscendingOutlined,
 } from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Button, Dropdown, Form, Space, Typography} from 'antd';
+import {Button, Dropdown, Form, Grid, Space, Typography} from 'antd';
 import type {MenuProps} from 'antd/lib';
 import {saveAs} from 'file-saver';
 import * as htmlToImage from 'html-to-image';
-import {Fragment, useEffect, useRef, useState} from 'react';
+import {Fragment, useRef, useState} from 'react';
 
 import {ColorLabel} from '~/src/components/color/ColorLabel';
 import {ColorSquare} from '~/src/components/color/ColorSquare';
@@ -43,7 +43,7 @@ import {useAppStore} from '~/src/stores/app-store';
 import {ColorCascader} from './color-set/ColorCascader';
 import {EmptyColorSet} from './empty/EmptyColorSet';
 
-export const ColorMixingChart: React.FC = () => {
+export function ColorMixingChart() {
   const colorSet = useAppStore(state => state.colorSet);
   const colorMixingChartSet = useAppStore(state => state.colorMixingChartSet);
   const colorMixingChartMixtures = useAppStore(state => state.colorMixingChartMixtures);
@@ -52,6 +52,8 @@ export const ColorMixingChart: React.FC = () => {
 
   const setColorMixingChartColors = useAppStore(state => state.setColorMixingChartColors);
   const abortColorMixingChart = useAppStore(state => state.abortColorMixingChart);
+
+  const screens = Grid.useBreakpoint();
 
   const {t} = useLingui();
 
@@ -62,10 +64,11 @@ export const ColorMixingChart: React.FC = () => {
 
   const isLoading: boolean = isColorMixingChartLoading;
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+  const [prevColorSet, setPrevColorSet] = useState(colorSet);
+  if (colorSet !== prevColorSet) {
+    setPrevColorSet(colorSet);
     setColorIds([]);
-  }, [colorSet]);
+  }
 
   if (!colorSet || !isMixable(colorSet.type)) {
     return <EmptyColorSet supportedColorTypes={MIXABLE_COLOR_TYPES} />;
@@ -173,9 +176,7 @@ export const ColorMixingChart: React.FC = () => {
           <Space.Compact style={{display: 'flex'}}>
             <ColorCascader
               value={colorIds}
-              onChange={value => {
-                setColorIds(value);
-              }}
+              onChange={setColorIds}
               multiple
               maxTagCount="responsive"
             />
@@ -246,6 +247,7 @@ export const ColorMixingChart: React.FC = () => {
                     brand={colorMixingChartSet.brands.get(color.brand)!}
                     showHex={false}
                     showWarmth={false}
+                    showOpacity={screens.md}
                     showBrandName
                   />
                 </span>
@@ -276,6 +278,7 @@ export const ColorMixingChart: React.FC = () => {
                       brand={colorMixingChartSet.brands.get(color.brand)!}
                       showHex={false}
                       showWarmth={false}
+                      showOpacity={screens.md}
                       showBrandName
                     />
                     <ColorSquare hex={rgbToHex(...color.rgb)} size="large" />
@@ -291,4 +294,4 @@ export const ColorMixingChart: React.FC = () => {
       </div>
     </LoadingIndicator>
   );
-};
+}

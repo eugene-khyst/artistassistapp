@@ -17,7 +17,7 @@
  */
 
 import {Button, Flex, Grid, Space, Typography} from 'antd';
-import type {ReactNode} from 'react';
+import type {CSSProperties, ReactNode} from 'react';
 import {useEffect, useState} from 'react';
 import reactStringReplace from 'react-string-replace';
 
@@ -49,10 +49,10 @@ interface Props {
   ads?: AdDefinition[];
   vertical?: boolean;
   footer?: ReactNode;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 }
 
-export const Ad: React.FC<Props> = ({ads, vertical = false, footer, style}: Props) => {
+export function Ad({ads, vertical = false, footer, style}: Readonly<Props>) {
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
 
   const screens = Grid.useBreakpoint();
@@ -109,4 +109,4 @@ export const Ad: React.FC<Props> = ({ads, vertical = false, footer, style}: Prop
       </Flex>
     </Flex>
   );
-};
+}

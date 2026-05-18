@@ -39,9 +39,10 @@ const BROWSER_FEATURES: Record<string, boolean> = {
   webgl2: isWebGl2Supported(),
   indexedDB: typeof indexedDB !== 'undefined',
 };
+
 const IS_BROWSER_SUPPORTED = Object.values(BROWSER_FEATURES).every(Boolean);
 
-export const BrowserSupport: React.FC<PropsWithChildren> = ({children}: PropsWithChildren) => {
+export function BrowserSupport({children}: Readonly<PropsWithChildren>) {
   const {
     token: {colorTextTertiary},
   } = theme.useToken();
@@ -139,4 +140,4 @@ export const BrowserSupport: React.FC<PropsWithChildren> = ({children}: PropsWit
     );
   }
   return children;
-};
+}

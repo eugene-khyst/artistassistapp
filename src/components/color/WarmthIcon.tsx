@@ -51,11 +51,11 @@ interface Props {
   warmth?: ColorWarmth;
 }
 
-export const WarmthIcon: React.FC<Props> = ({warmth}: Props) => {
+export function WarmthIcon({warmth}: Readonly<Props>) {
   const {t} = useLingui();
   if (!warmth) {
     return <></>;
   }
   const {tooltip, icon} = WARMTH[warmth];
   return <Tooltip title={t(tooltip)}>{icon}</Tooltip>;
-};
+}

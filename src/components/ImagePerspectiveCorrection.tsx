@@ -59,7 +59,7 @@ const imageCroppingCanvasSupplier = (canvas: HTMLCanvasElement): ImageCroppingCa
   return new ImageCroppingCanvas(canvas);
 };
 
-export const ImagePerspectiveCorrection: React.FC = () => {
+export function ImagePerspectiveCorrection() {
   const imageFileToCorrectPerspective = useAppStore(state => state.imageFileToCorrectPerspective);
   const perspectiveUncorrectedImage = useAppStore(state => state.perspectiveUncorrectedImage);
   const perspectiveCorrectedImage = useAppStore(state => state.perspectiveCorrectedImage);
@@ -383,4 +383,4 @@ export const ImagePerspectiveCorrection: React.FC = () => {
       </Flex>
     </LoadingIndicator>
   );
-};
+}

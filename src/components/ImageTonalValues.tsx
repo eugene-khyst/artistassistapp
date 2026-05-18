@@ -36,7 +36,7 @@ import {imageBitmapToBlob} from '~/src/utils/graphics';
 
 import {EmptyImage} from './empty/EmptyImage';
 
-export const ImageTonalValues: React.FC = () => {
+export function ImageTonalValues() {
   const originalImageFile = useAppStore(state => state.originalImageFile);
   const originalImage = useAppStore(state => state.originalImage);
   const tonalImages = useAppStore(state => state.tonalImages);
@@ -152,4 +152,4 @@ export const ImageTonalValues: React.FC = () => {
       </Row>
     </LoadingIndicator>
   );
-};
+}

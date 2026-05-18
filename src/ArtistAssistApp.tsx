@@ -55,7 +55,7 @@ import {Palette} from './components/Palette';
 import {WATERMARK_TEXT} from './config';
 import {TabKey} from './tabs';
 
-export const ArtistAssistApp: React.FC = () => {
+export function ArtistAssistApp() {
   const activeTabKey = useAppStore(state => state.activeTabKey);
   const user = useAppStore(state => state.auth?.user);
 
@@ -156,12 +156,12 @@ export const ArtistAssistApp: React.FC = () => {
       children: <ImageStyleTransfer />,
     },
     {
-      key: TabKey.ColorAdjustment,
-      children: <ImageColorAdjustment />,
-    },
-    {
       key: TabKey.PerspectiveCorrection,
       children: <ImagePerspectiveCorrection />,
+    },
+    {
+      key: TabKey.ColorAdjustment,
+      children: <ImageColorAdjustment />,
     },
     {
       key: TabKey.BackgroundRemove,
@@ -222,4 +222,4 @@ export const ArtistAssistApp: React.FC = () => {
       {installDrawer}
     </LoadingIndicator>
   );
-};
+}

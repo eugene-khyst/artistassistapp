@@ -31,7 +31,7 @@ interface Props {
   imageFile: ImageFile;
 }
 
-export const RecentImageCard: React.FC<Props> = ({imageFile}: Props) => {
+export function RecentImageCard({imageFile}: Readonly<Props>) {
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
   const deleteRecentImageFile = useAppStore(state => state.deleteRecentImageFile);
 
@@ -89,4 +89,4 @@ export const RecentImageCard: React.FC<Props> = ({imageFile}: Props) => {
       </Card>
     )
   );
-};
+}

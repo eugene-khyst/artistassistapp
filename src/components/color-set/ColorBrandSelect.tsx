@@ -21,6 +21,7 @@ import type {FlattenOptionData} from '@rc-component/select/es/interface';
 import type {SelectProps} from 'antd';
 import {Select} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
+import {useCallback, useMemo} from 'react';
 
 import {filterSelectOptions} from '~/src/components/utils';
 import type {User} from '~/src/services/auth/types';
@@ -28,6 +29,8 @@ import {hasAccessTo} from '~/src/services/auth/utils';
 import {compareColorBrandsByName} from '~/src/services/color/colors';
 import type {ColorBrandDefinition} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
+
+const showSearch = {filterOption: filterSelectOptions};
 
 function getColorBrandOptions(
   user?: User | null,
@@ -57,26 +60,32 @@ type Props = Omit<
   brands?: Map<number, ColorBrandDefinition>;
 };
 
-export const ColorBrandSelect: React.FC<Props> = ({brands, ...rest}: Props) => {
+export function ColorBrandSelect({brands, ...rest}: Readonly<Props>) {
   const user = useAppStore(state => state.auth?.user);
 
   const {t} = useLingui();
 
-  const options = getColorBrandOptions(user, brands);
+  const options = useMemo(() => getColorBrandOptions(user, brands), [user, brands]);
+
+  const optionRender = useCallback(
+    ({
+      data: {fullName, colorCount},
+    }: FlattenOptionData<SelectOptionType & {colorCount?: number}>) => (
+      <>
+        {fullName} {!!colorCount && t`(${colorCount} colors)`}
+      </>
+    ),
+    [t]
+  );
+
   return (
     <Select
       options={options}
       placeholder={t`Select brands`}
-      showSearch={{filterOption: filterSelectOptions}}
-      optionRender={({
-        data: {fullName, colorCount},
-      }: FlattenOptionData<SelectOptionType & {colorCount?: number}>) => (
-        <>
-          {fullName} {!!colorCount && t`(${colorCount} colors)`}
-        </>
-      )}
+      showSearch={showSearch}
+      optionRender={optionRender}
       allowClear
       {...rest}
     />
   );
-};
+}

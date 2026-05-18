@@ -27,12 +27,7 @@ interface Props extends PropsWithChildren {
   onCancel?: (() => void) | false;
 }
 
-export const LoadingIndicator: React.FC<Props> = ({
-  loading,
-  downloadTip,
-  onCancel,
-  children,
-}: Props) => {
+export function LoadingIndicator({loading, downloadTip, onCancel, children}: Readonly<Props>) {
   const {
     token: {colorPrimary},
   } = theme.useToken();
@@ -66,4 +61,4 @@ export const LoadingIndicator: React.FC<Props> = ({
       {children}
     </Spin>
   );
-};
+}

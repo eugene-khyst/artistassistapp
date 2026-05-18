@@ -30,7 +30,7 @@ type Props = {
   Pick<HTMLAttributes<HTMLDivElement>, 'onClick'>;
 
 export const ImageCard = forwardRef<HTMLDivElement, Props>(function ImageCard(
-  {file, description, hoverable, onClick}: Props,
+  {file, description, hoverable, onClick}: Readonly<Props>,
   ref: ForwardedRef<HTMLDivElement>
 ) {
   const imageUrl: string | undefined = useCreateObjectUrl(file);

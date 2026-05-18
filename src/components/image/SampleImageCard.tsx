@@ -26,7 +26,7 @@ interface Props {
   sampleImage: SampleImageDefinition;
 }
 
-export const SampleImageCard: React.FC<Props> = ({sampleImage}: Props) => {
+export function SampleImageCard({sampleImage}: Readonly<Props>) {
   const loadSampleImage = useAppStore(state => state.loadSampleImage);
 
   const [baseUrl, filename] = splitUrl(new URL(sampleImage.image));
@@ -43,4 +43,4 @@ export const SampleImageCard: React.FC<Props> = ({sampleImage}: Props) => {
       <Card.Meta title={sampleImage.name} />
     </Card>
   );
-};
+}

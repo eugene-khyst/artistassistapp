@@ -18,14 +18,13 @@
 
 import {Trans} from '@lingui/react/macro';
 import {Button} from 'antd';
-import type React from 'react';
 
 import {PATREON_URL} from '~/src/config';
 
-export const JoinButton: React.FC = () => {
+export function JoinButton() {
   return (
     <Button type="primary" href={PATREON_URL} target="_blank" rel="noopener">
       <Trans>Join on Patreon</Trans>
     </Button>
   );
-};
+}

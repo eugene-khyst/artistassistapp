@@ -34,13 +34,7 @@ interface Props {
   onMerge: (selected: ColorSetDefinition[]) => void;
 }
 
-export const MergeColorSetsDrawer: React.FC<Props> = ({
-  open,
-  onClose,
-  colorSets,
-  brands,
-  onMerge,
-}: Props) => {
+export function MergeColorSetsDrawer({open, onClose, colorSets, brands, onMerge}: Readonly<Props>) {
   const {t} = useLingui();
 
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
@@ -77,13 +71,7 @@ export const MergeColorSetsDrawer: React.FC<Props> = ({
           </Trans>
         </Typography.Text>
 
-        <Checkbox.Group
-          value={selectedIds}
-          onChange={values => {
-            setSelectedIds(values);
-          }}
-          style={{width: '100%'}}
-        >
+        <Checkbox.Group value={selectedIds} onChange={setSelectedIds} style={{width: '100%'}}>
           <Space orientation="vertical" size="small" style={{width: '100%'}}>
             {sortedColorSets.map(colorSet => {
               const brandColorCounts = colorSetDefinitionToBrandColorCounts(colorSet, brands);
@@ -112,4 +100,4 @@ export const MergeColorSetsDrawer: React.FC<Props> = ({
       </Flex>
     </Drawer>
   );
-};
+}

@@ -24,7 +24,7 @@ import {TAB_LABELS} from '~/src/components/messages';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 
-export const EmptyPalette: React.FC = () => {
+export function EmptyPalette() {
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
 
   const {t} = useLingui();
@@ -87,4 +87,4 @@ export const EmptyPalette: React.FC = () => {
       </Row>
     </div>
   );
-};
+}

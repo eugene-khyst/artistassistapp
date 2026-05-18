@@ -25,8 +25,8 @@ export interface TieredResource {
 }
 
 export function hasAccessTo(
-  user?: User | null,
-  value?: TieredResource | TieredResource[] | null
+  user: User | null | undefined,
+  value: TieredResource | TieredResource[] | null | undefined
 ): boolean {
   return !value || ![value].flat().some(({freeTier}) => !freeTier) || !!user;
 }

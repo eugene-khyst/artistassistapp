@@ -24,7 +24,7 @@ interface Props {
   size?: number;
 }
 
-export const Logo: React.FC<Props> = ({name = false, tagline = false, size}: Props) => {
+export function Logo({name = false, tagline = false, size}: Readonly<Props>) {
   const {
     token: {fontSizeHeading1, fontSizeHeading2},
   } = theme.useToken();
@@ -82,4 +82,4 @@ export const Logo: React.FC<Props> = ({name = false, tagline = false, size}: Pro
       )}
     </Space>
   );
-};
+}

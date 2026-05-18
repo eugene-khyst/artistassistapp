@@ -33,7 +33,7 @@ const CLOSE_SECONDS = 5;
 const AD_POPUP_INITIAL_DELAY = 1 * 60000;
 const AD_POPUP_INTERVAL = 15 * 60000;
 
-export const AdModal: React.FC = () => {
+export function AdModal() {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
 
@@ -76,4 +76,4 @@ export const AdModal: React.FC = () => {
       />
     </Modal>
   );
-};
+}

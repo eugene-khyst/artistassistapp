@@ -17,7 +17,6 @@
  */
 
 import {theme} from 'antd';
-import type React from 'react';
 import {memo} from 'react';
 
 import type {RgbTuple} from '~/src/services/color/space/rgb';
@@ -31,11 +30,7 @@ interface Props {
   text?: string | number;
 }
 
-export const ColorSquare: React.FC<Props> = memo(function ColorSquare({
-  hex,
-  size = 'small',
-  text,
-}: Props) {
+export const ColorSquare = memo(function ColorSquare({hex, size = 'small', text}: Readonly<Props>) {
   const {
     token: {fontSize, fontSizeLG, lineHeight},
   } = theme.useToken();

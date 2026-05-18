@@ -20,8 +20,7 @@ import {CloseCircleOutlined, DownOutlined} from '@ant-design/icons';
 import {useLingui} from '@lingui/react/macro';
 import {Button, Dropdown, Form, Space, theme} from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
-import type {CSSProperties} from 'react';
-import type React from 'react';
+import {useCallback, useMemo} from 'react';
 
 import {ColorPicker} from '~/src/components/color/ColorPicker';
 import {COLOR_PICKER_PRESET_LABELS} from '~/src/components/messages';
@@ -37,12 +36,12 @@ interface Props {
   setSurfaceHex: (value: string) => void | Promise<void>;
 }
 
-export const UnderlayerColorPicker: React.FC<Props> = ({
+export function UnderlayerColorPicker({
   underlayerHex,
   setUnderlayerHex,
   surfaceHex,
   setSurfaceHex,
-}: Props) => {
+}: Readonly<Props>) {
   const colorType = useAppStore(state => state.colorSet?.type);
 
   const {token} = theme.useToken();
@@ -52,41 +51,53 @@ export const UnderlayerColorPicker: React.FC<Props> = ({
   const {layering = Layering.None} = colorType ? COLOR_MIXING[colorType] : {};
   const pastel: boolean = !!colorType && isPastel(colorType);
 
-  const surfaceColorPicker = (
-    <Form.Item
-      label={t`Surface color`}
-      labelCol={{style: {paddingBottom: 0}}}
-      tooltip={t`The color of your paper, canvas, or painting surface.`}
-      style={{marginBottom: 0}}
-    >
-      <ColorPicker
-        title={t`Surface color`}
-        presets={[
-          {
-            label: t(COLOR_PICKER_PRESET_LABELS.PAPER_WHITE),
-            colors: [PAPER_WHITE_HEX],
-          },
-        ]}
-        showText={false}
-        disabledAlpha
-        value={surfaceHex}
-        onChangeComplete={(color: AggregationColor) => {
-          void setSurfaceHex(color.toHexString());
+  const surfaceColorPicker = useMemo(
+    () => (
+      <Form.Item
+        label={t`Surface color`}
+        labelCol={{style: {paddingBottom: 0}}}
+        tooltip={t`The color of your paper, canvas, or painting surface.`}
+        style={{marginBottom: 0}}
+      >
+        <ColorPicker
+          title={t`Surface color`}
+          presets={[
+            {
+              label: t(COLOR_PICKER_PRESET_LABELS.PAPER_WHITE),
+              colors: [PAPER_WHITE_HEX],
+            },
+          ]}
+          showText={false}
+          disabledAlpha
+          value={surfaceHex}
+          onChangeComplete={(color: AggregationColor) => {
+            void setSurfaceHex(color.toHexString());
+          }}
+          classNames={{popup: {root: 'color-picker-high-z-index'}}}
+        />
+      </Form.Item>
+    ),
+    [t, surfaceHex, setSurfaceHex]
+  );
+
+  const popupRender = useCallback(
+    () => (
+      <div
+        style={{
+          backgroundColor: token.colorBgElevated,
+          borderRadius: token.borderRadiusLG,
+          boxShadow: token.boxShadowSecondary,
         }}
-        classNames={{popup: {root: 'color-picker-high-z-index'}}}
-      />
-    </Form.Item>
+      >
+        <div style={{padding: '8px 16px'}}>{surfaceColorPicker}</div>
+      </div>
+    ),
+    [surfaceColorPicker, token]
   );
 
   if (layering === Layering.None) {
     return surfaceColorPicker;
   }
-
-  const contentStyle: CSSProperties = {
-    backgroundColor: token.colorBgElevated,
-    borderRadius: token.borderRadiusLG,
-    boxShadow: token.boxShadowSecondary,
-  };
 
   return (
     <Form.Item
@@ -104,7 +115,7 @@ export const UnderlayerColorPicker: React.FC<Props> = ({
           title={t`Underlayer`}
           showText={false}
           disabledAlpha
-          value={underlayerHex ?? undefined}
+          value={underlayerHex}
           onChangeComplete={(color: AggregationColor) => {
             void setUnderlayerHex(color.toHexString());
           }}
@@ -117,17 +128,10 @@ export const UnderlayerColorPicker: React.FC<Props> = ({
             void setUnderlayerHex(null);
           }}
         />
-        <Dropdown
-          trigger={['click']}
-          popupRender={() => (
-            <div style={contentStyle}>
-              <div style={{padding: '8px 16px'}}>{surfaceColorPicker}</div>
-            </div>
-          )}
-        >
+        <Dropdown trigger={['click']} popupRender={popupRender}>
           <Button icon={<DownOutlined />} />
         </Dropdown>
       </Space.Compact>
     </Form.Item>
   );
-};
+}

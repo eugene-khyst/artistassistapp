@@ -107,7 +107,7 @@ export const COLOR_MIXING: Record<ColorType, ColorMixingConfig> = {
 
 export const MIXABLE_COLOR_TYPES: ColorType[] = Object.entries(COLOR_MIXING)
   .filter(([_, {mixing}]) => mixing)
-  .map(([colorType, _]) => Number(colorType) as ColorType);
+  .map(([colorType, _]) => Number(colorType));
 
 export const MAX_COLORS_IN_MIXTURE: Record<2 | 3, number> = {
   2: Number.MAX_VALUE,
@@ -225,6 +225,11 @@ class UnmixedColor {
     this.color = color;
     this.rgb = color.rgb;
     this.reflectance = Reflectance.fromArray(color.rho);
+  }
+
+  is([brandId, colorId]: ColorId): boolean {
+    const {brand, id} = this.color;
+    return brand === brandId && id === colorId;
   }
 
   toMixedColor(): MixedColor {
@@ -541,9 +546,9 @@ function findSimilarColors(
   for (const layers of mixedColorLayersArray) {
     for (const layer of layers) {
       const {
-        colorTint: {color},
+        colorTint: {color, white},
       } = layer;
-      if (motherColorId && (color.parts.length === 1 || !color.includes(motherColorId))) {
+      if (motherColorId && !color.includes(motherColorId) && !white?.is(motherColorId)) {
         continue;
       }
       const similarity: number = layer.reflectance.calculateSimilarity(reflectance);

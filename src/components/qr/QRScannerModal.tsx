@@ -27,19 +27,20 @@ interface Props {
   setOpen: (open: boolean) => void;
 }
 
-export const QRScannerModal: React.FC<Props> = ({open, setOpen}: Props) => {
+export function QRScannerModal({open, setOpen}: Readonly<Props>) {
   const {message} = App.useApp();
 
   const {t} = useLingui();
 
   const [isPaused, setIsPaused] = useState<boolean>(true);
 
-  useEffect(() => {
+  const [prevOpen, setPrevOpen] = useState(open);
+  if (open !== prevOpen) {
+    setPrevOpen(open);
     if (open) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsPaused(false);
     }
-  }, [open]);
+  }
 
   useEffect(() => {
     if (isPaused) {
@@ -81,4 +82,4 @@ export const QRScannerModal: React.FC<Props> = ({open, setOpen}: Props) => {
       </div>
     </Modal>
   );
-};
+}

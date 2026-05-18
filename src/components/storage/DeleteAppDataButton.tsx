@@ -19,12 +19,11 @@
 import {DeleteOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Popconfirm} from 'antd';
-import type React from 'react';
 import {useState} from 'react';
 
 import {deleteAppData} from '~/src/utils/storage';
 
-export const DeleteAppDataButton: React.FC = () => {
+export function DeleteAppDataButton() {
   const {t} = useLingui();
 
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
@@ -53,4 +52,4 @@ export const DeleteAppDataButton: React.FC = () => {
       </Button>
     </Popconfirm>
   );
-};
+}

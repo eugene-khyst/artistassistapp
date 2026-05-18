@@ -42,7 +42,11 @@ import {imageBitmapToBlob} from '~/src/utils/graphics';
 
 import {EmptyImage} from './empty/EmptyImage';
 
-const MEDIAN_FILTER_RADIUS_OPTIONS_SHORT: CheckboxOptionType<number>[] = [
+const DEFAULT_IMAGE_INDEX = 1;
+
+const FILENAME_SUFFIX = 'simplified';
+
+const blurStrengthShortOptions: CheckboxOptionType<number>[] = [
   {value: 0, label: <StopOutlined />},
   {value: 1, label: 'S'},
   {value: 2, label: 'M'},
@@ -50,11 +54,7 @@ const MEDIAN_FILTER_RADIUS_OPTIONS_SHORT: CheckboxOptionType<number>[] = [
   {value: 4, label: 'XL'},
 ];
 
-const DEFAULT_BLURRED_IMAGE_INDEX = 1;
-
-const FILENAME_SUFFIX = 'simplified';
-
-export const ImageBlurred: React.FC = () => {
+export function ImageBlurred() {
   const originalImageFile = useAppStore(state => state.originalImageFile);
   const originalImage = useAppStore(state => state.originalImage);
   const blurredImages = useAppStore(state => state.blurredImages);
@@ -72,7 +72,7 @@ export const ImageBlurred: React.FC = () => {
     blurredImages
   );
 
-  const [blurredImageIndex, setBlurredImageIndex] = useState<number>(DEFAULT_BLURRED_IMAGE_INDEX);
+  const [blurredImageIndex, setBlurredImageIndex] = useState<number>(DEFAULT_IMAGE_INDEX);
 
   useEffect(() => {
     zoomableImageCanvas?.setImageIndex(blurredImageIndex);
@@ -116,27 +116,25 @@ export const ImageBlurred: React.FC = () => {
     return <EmptyImage />;
   }
 
+  const blurStrengthOptions: CheckboxOptionType<number>[] = [
+    {value: 0, label: t`None`},
+    {value: 1, label: t`Small`},
+    {value: 2, label: t`Medium`},
+    {value: 3, label: t`Large`},
+    {value: 4, label: t`Max`},
+  ];
+
   return (
     <LoadingIndicator loading={isBlurredImagesLoading}>
       <Space style={{marginBottom: 8, padding: '0 16px'}}>
         <Form.Item
-          label={t`Strength`}
+          label={screens.sm ? t`Strength` : null}
           labelCol={{style: {paddingBottom: 0}}}
           tooltip={t`Adjusts the strength of image smoothing.`}
           style={{marginBottom: 0}}
         >
           <Radio.Group
-            options={
-              screens.sm
-                ? [
-                    {value: 0, label: t`None`},
-                    {value: 1, label: t`Small`},
-                    {value: 2, label: t`Medium`},
-                    {value: 3, label: t`Large`},
-                    {value: 4, label: t`Max`},
-                  ]
-                : MEDIAN_FILTER_RADIUS_OPTIONS_SHORT
-            }
+            options={screens.sm ? blurStrengthOptions : blurStrengthShortOptions}
             value={blurredImageIndex}
             onChange={handleBlurChange}
             optionType="button"
@@ -183,4 +181,4 @@ export const ImageBlurred: React.FC = () => {
       </div>
     </LoadingIndicator>
   );
-};
+}

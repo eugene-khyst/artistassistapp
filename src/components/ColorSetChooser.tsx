@@ -41,7 +41,6 @@ import {
   Space,
   Typography,
 } from 'antd';
-import type React from 'react';
 import {useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
@@ -101,7 +100,7 @@ function getEmptyColors(values: ColorSetDefinition): Record<number, number[]> {
     : {};
 }
 
-export const ColorSetChooser: React.FC = () => {
+export function ColorSetChooser() {
   const user = useAppStore(state => state.auth?.user);
   const magicLink = useAppStore(state => state.auth?.magicLink);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
@@ -806,4 +805,4 @@ export const ColorSetChooser: React.FC = () => {
       {installDrawer}
     </>
   );
-};
+}

@@ -18,7 +18,6 @@
 
 import {Select} from 'antd';
 import type {DefaultOptionType as SelectOptionType, SelectProps} from 'antd/es/select';
-import type React from 'react';
 
 import {OpacityIcon} from '~/src/components/color/OpacityIcon';
 import {ColorOpacity} from '~/src/services/color/types';
@@ -37,6 +36,6 @@ const OPACITY_OPTIONS: SelectOptionType[] = [
 
 type Props = Omit<SelectProps, 'options' | 'placeholder' | 'allowClear'>;
 
-export const OpacitySelect: React.FC<Props> = props => {
+export function OpacitySelect(props: Readonly<Props>) {
   return <Select options={OPACITY_OPTIONS} placeholder="Opa." allowClear {...props} />;
-};
+}

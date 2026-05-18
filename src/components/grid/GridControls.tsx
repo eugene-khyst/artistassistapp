@@ -42,12 +42,12 @@ type Props = {
   defaultGridSettings?: Partial<GridSettings>;
 } & Pick<SpaceProps, 'orientation' | 'size' | 'style'>;
 
-export const GridControls: React.FC<Props> = ({
+export function GridControls({
   gridCanvas,
   disableable = false,
   defaultGridSettings,
   ...props
-}: Props) => {
+}: Readonly<Props>) {
   const grids = useAppStore(state => state.appSettings.grids);
   const saveAppSettings = useAppStore(state => state.saveAppSettings);
 
@@ -203,4 +203,4 @@ export const GridControls: React.FC<Props> = ({
       )}
     </Space>
   );
-};
+}

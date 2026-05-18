@@ -39,8 +39,8 @@ const ERROR_CONTEXT_LABELS: Record<string, ReactNode> = {
 const AUTH_ERRORS: Record<
   string,
   {
-    title: React.ReactNode;
-    content: React.ReactNode;
+    title: ReactNode;
+    content: ReactNode;
   }
 > = {
   [AuthErrorType.Inactive]: {
@@ -152,8 +152,8 @@ const AUTH_ERRORS: Record<
 const AUTH_NOTICES: Record<
   string,
   {
-    title: React.ReactNode;
-    description: React.ReactNode;
+    title: ReactNode;
+    description: ReactNode;
   }
 > = {
   [AuthNoticeType.LoginCompletedInBrowser]: {
@@ -167,7 +167,7 @@ const AUTH_NOTICES: Record<
   },
 };
 
-export const AuthFeedbackHandler: React.FC<PropsWithChildren> = ({children}: PropsWithChildren) => {
+export function AuthFeedbackHandler({children}: Readonly<PropsWithChildren>) {
   const authError = useAppStore(state => state.authError);
   const authNotice = useAppStore(state => state.authNotice);
 
@@ -239,4 +239,4 @@ export const AuthFeedbackHandler: React.FC<PropsWithChildren> = ({children}: Pro
   }, [notification, authNotice, clearAuthNotice]);
 
   return <>{children}</>;
-};
+}

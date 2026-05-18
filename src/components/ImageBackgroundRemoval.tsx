@@ -21,8 +21,8 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {App, Button, Divider, Dropdown, Flex, Form, Grid, Space, theme, Typography} from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import {saveAs} from 'file-saver';
-import type {CSSProperties} from 'react';
-import React, {useEffect, useState} from 'react';
+import type {CSSProperties, ReactElement, ReactNode} from 'react';
+import {cloneElement, useCallback, useEffect, useMemo, useState} from 'react';
 import {ReactCompareSlider, ReactCompareSliderImage} from 'react-compare-slider';
 
 import {ColorPicker} from '~/src/components/color/ColorPicker';
@@ -40,7 +40,9 @@ import {OnnxModelType} from '~/src/services/ml/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
 
-export const ImageBackgroundRemoval: React.FC = () => {
+const menuStyle: CSSProperties = {boxShadow: 'none'};
+
+export function ImageBackgroundRemoval() {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
   const backgroundRemovalModel = useAppStore(state => state.appSettings.backgroundRemovalModel);
@@ -69,10 +71,21 @@ export const ImageBackgroundRemoval: React.FC = () => {
     isError: isModelsError,
   } = useOnnxModels(OnnxModelType.BackgroundRemoval);
 
-  const [modelId, setModelId] = useState<string>();
+  // null = explicit cancel; undefined = use default
+  const [selectedModelId, setSelectedModelId] = useState<string | null>();
 
-  const model: OnnxModel | null | undefined = modelId ? models?.get(modelId) : null;
+  const defaultModel = useMemo<OnnxModel | undefined>(() => {
+    if (isAuthLoading || !models?.size) {
+      return undefined;
+    }
+    return (
+      (backgroundRemovalModel && models.get(backgroundRemovalModel)) ||
+      getDefaultModel(models, user)
+    );
+  }, [backgroundRemovalModel, models, user, isAuthLoading]);
 
+  const modelId = selectedModelId === null ? undefined : (selectedModelId ?? defaultModel?.id);
+  const model: OnnxModel | undefined = modelId ? models?.get(modelId) : undefined;
   const isAccessAllowed: boolean = !model || (!isAuthLoading && hasAccessTo(user, model));
 
   const isLoading: boolean = isModelsLoading || isBackgroundRemovalLoading || isAuthLoading;
@@ -99,19 +112,13 @@ export const ImageBackgroundRemoval: React.FC = () => {
     if (isAuthLoading || !models?.size) {
       return;
     }
-    const model: OnnxModel | undefined =
-      (backgroundRemovalModel && models.get(backgroundRemovalModel)) ||
-      getDefaultModel(models, user);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setModelId(model?.id);
-    setBackgroundRemovalModel(model);
-  }, [backgroundRemovalModel, setBackgroundRemovalModel, models, user, isAuthLoading]);
+    setBackgroundRemovalModel(modelId ? models.get(modelId) : undefined);
+  }, [modelId, models, setBackgroundRemovalModel, isAuthLoading]);
 
   const position = isBackgroundRemovalLoadingDebounced ? 100 : 25;
 
   const handleModelChange = (value: string) => {
-    setModelId(value);
-    setBackgroundRemovalModel(models?.get(value));
+    setSelectedModelId(value);
     void saveAppSettings({backgroundRemovalModel: value});
   };
 
@@ -121,8 +128,7 @@ export const ImageBackgroundRemoval: React.FC = () => {
       const model: OnnxModel | undefined =
         (backgroundRemovalModel && models?.get(backgroundRemovalModel)) ||
         getDefaultModel(models, user);
-      setModelId(model?.id);
-      setBackgroundRemovalModel(model);
+      setSelectedModelId(model?.id);
     }
   };
 
@@ -134,37 +140,40 @@ export const ImageBackgroundRemoval: React.FC = () => {
 
   const handleCancelClick = () => {
     abortBackgroundRemoval();
-    setModelId(undefined);
+    setSelectedModelId(null);
     setBackgroundRemovalModel(undefined);
   };
 
-  const colorPicker = (
-    <Form.Item label={t`Background`} style={{marginBottom: 0}}>
-      <Space.Compact>
-        <ColorPicker
-          title={t`Background`}
-          presets={[
-            {
-              label: t`White`,
-              colors: [WHITE_HEX],
-            },
-          ]}
-          disabledAlpha
-          value={backgroundRemovalColor ?? undefined}
-          onChangeComplete={(color: AggregationColor) => {
-            setBackgroundRemovalColor(color.toHexString());
-          }}
-          classNames={{popup: {root: 'color-picker-high-z-index'}}}
-        />
-        <Button
-          icon={<CloseCircleOutlined />}
-          title={t`Clear background color`}
-          onClick={() => {
-            setBackgroundRemovalColor(null);
-          }}
-        />
-      </Space.Compact>
-    </Form.Item>
+  const colorPicker = useMemo(
+    () => (
+      <Form.Item label={t`Background`} style={{marginBottom: 0}}>
+        <Space.Compact>
+          <ColorPicker
+            title={t`Background`}
+            presets={[
+              {
+                label: t`White`,
+                colors: [WHITE_HEX],
+              },
+            ]}
+            disabledAlpha
+            value={backgroundRemovalColor ?? undefined}
+            onChangeComplete={(color: AggregationColor) => {
+              setBackgroundRemovalColor(color.toHexString());
+            }}
+            classNames={{popup: {root: 'color-picker-high-z-index'}}}
+          />
+          <Button
+            icon={<CloseCircleOutlined />}
+            title={t`Clear background color`}
+            onClick={() => {
+              setBackgroundRemovalColor(null);
+            }}
+          />
+        </Space.Compact>
+      </Form.Item>
+    ),
+    [t, backgroundRemovalColor, setBackgroundRemovalColor]
   );
 
   const imageStyle: CSSProperties = {
@@ -173,15 +182,27 @@ export const ImageBackgroundRemoval: React.FC = () => {
     objectFit: 'contain',
   };
 
-  const contentStyle: CSSProperties = {
-    backgroundColor: token.colorBgElevated,
-    borderRadius: token.borderRadiusLG,
-    boxShadow: token.boxShadowSecondary,
-  };
-
-  const menuStyle: CSSProperties = {
-    boxShadow: 'none',
-  };
+  const popupRender = useCallback(
+    (menu: ReactNode) => (
+      <div
+        style={{
+          backgroundColor: token.colorBgElevated,
+          borderRadius: token.borderRadiusLG,
+          boxShadow: token.boxShadowSecondary,
+        }}
+      >
+        <div style={{padding: '8px 16px'}}>{colorPicker}</div>
+        <Divider style={{margin: 0}} />
+        {cloneElement(
+          menu as ReactElement<{
+            style: CSSProperties;
+          }>,
+          {style: menuStyle}
+        )}
+      </div>
+    ),
+    [colorPicker, token]
+  );
 
   return (
     <LoadingIndicator
@@ -254,18 +275,7 @@ export const ImageBackgroundRemoval: React.FC = () => {
                       : []),
                   ],
                 }}
-                popupRender={menu => (
-                  <div style={contentStyle}>
-                    <div style={{padding: '8px 16px'}}>{colorPicker}</div>
-                    <Divider style={{margin: 0}} />
-                    {React.cloneElement(
-                      menu as React.ReactElement<{
-                        style: React.CSSProperties;
-                      }>,
-                      {style: menuStyle}
-                    )}
-                  </div>
-                )}
+                popupRender={popupRender}
               >
                 <Button icon={<MoreOutlined />} />
               </Dropdown>
@@ -293,4 +303,4 @@ export const ImageBackgroundRemoval: React.FC = () => {
       />
     </LoadingIndicator>
   );
-};
+}

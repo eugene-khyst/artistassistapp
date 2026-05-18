@@ -36,7 +36,7 @@ import {SampleImageCard} from './image/SampleImageCard';
 
 const MAX_IMAGE_FILES = 20;
 
-export const ImageChooser: React.FC = () => {
+export function ImageChooser() {
   const recentImageFiles = useAppStore(state => state.recentImageFiles);
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
   const deleteRecentImageFile = useAppStore(state => state.deleteRecentImageFile);
@@ -151,4 +151,4 @@ export const ImageChooser: React.FC = () => {
       {installDrawer}
     </>
   );
-};
+}

@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {ReactNode} from 'react';
 import {useCallback, useState} from 'react';
 
 import {InstallDrawer} from '~/src/components/install/InstallDrawer';
@@ -23,7 +24,7 @@ import {useAppStore} from '~/src/stores/app-store';
 
 interface Result {
   install: () => void;
-  installDrawer: React.ReactNode;
+  installDrawer: ReactNode;
 }
 
 export function useInstall(): Result {

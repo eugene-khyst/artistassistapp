@@ -24,9 +24,7 @@ import {useEffect, useEffectEvent} from 'react';
 import {useAppStore} from '~/src/stores/app-store';
 import {getErrorMessage} from '~/src/utils/error';
 
-export const UnhandledRejectionHandler: React.FC<PropsWithChildren> = ({
-  children,
-}: PropsWithChildren) => {
+export function UnhandledRejectionHandler({children}: Readonly<PropsWithChildren>) {
   const {notification} = App.useApp();
 
   const {t} = useLingui();
@@ -60,4 +58,4 @@ export const UnhandledRejectionHandler: React.FC<PropsWithChildren> = ({
   }, []);
 
   return <>{children}</>;
-};
+}

@@ -32,7 +32,7 @@ interface Props {
   vertical?: boolean;
 }
 
-export const AdCard: React.FC<Props> = ({vertical = false}: Props) => {
+export function AdCard({vertical = false}: Readonly<Props>) {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
 
@@ -61,4 +61,4 @@ export const AdCard: React.FC<Props> = ({vertical = false}: Props) => {
       <Ad vertical={vertical} ads={ads} />
     </Card>
   );
-};
+}

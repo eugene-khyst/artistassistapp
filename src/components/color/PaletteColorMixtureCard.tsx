@@ -35,11 +35,11 @@ type Props = {
   showOnPhoto?: boolean;
 } & Pick<CardProps, 'style' | 'className'>;
 
-export const PaletteColorMixtureCard: React.FC<Props> = memo(function PaletteColorMixtureCard({
+export const PaletteColorMixtureCard = memo(function PaletteColorMixtureCard({
   colorMixture,
   showOnPhoto = true,
   ...props
-}: Props) {
+}: Readonly<Props>) {
   const saveToPalette = useAppStore(state => state.saveToPalette);
   const deleteFromPalette = useAppStore(state => state.deleteFromPalette);
   const setUnderlayer = useAppStore(state => state.setUnderlayer);

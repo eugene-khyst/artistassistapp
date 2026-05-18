@@ -56,6 +56,7 @@ import type {AdjustmentParameters} from '~/src/services/image/color-adjustment';
 import {blobToImageFile} from '~/src/services/image/image-file';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
+import {range} from '~/src/utils/array';
 import {getFilename} from '~/src/utils/filename';
 import {DrawImage, imageBitmapToBlob} from '~/src/utils/graphics';
 
@@ -64,21 +65,25 @@ enum WhiteBalanceMethod {
   Reference = 1,
 }
 
+const FILENAME_SUFFIX = 'color-adjusted';
+
 const PERCENTILE_MIN = 80;
 const PERCENTILE_MAX = 100;
-const PERCENTILE_SLIDER_MARKS: SliderMarks = Object.fromEntries(
-  [80, 85, 90, 95, 100].map((i: number) => [i, i])
-);
 
 const SATURATION_MIN = 80;
 const SATURATION_MAX = 130;
-const SATURATION_SLIDER_MARKS: SliderMarks = Object.fromEntries(
-  [80, 90, 100, 110, 120, 130].map((i: number) => [i, i])
-);
 
 const RGB_MIN = 0;
 const RGB_MAX = 255;
-const RGB_SLIDER_MARKS: SliderMarks = Object.fromEntries([0, 127, 255].map((i: number) => [i, i]));
+
+const GAMMA_MIN = 0;
+const GAMMA_MAX = 100;
+const GAMMA_VALUES = [0.5, 1, 2];
+
+const COLOR_TEMP_MIN = 1500;
+const COLOR_TEMP_MAX = 12000;
+const COLOR_TEMP_STEP = 50;
+const COLOR_TEMP_VALUES = [1500, 3000, 6000, 9000, 12000];
 
 function gammaToPercent(gamma: number): number {
   return 50 * (Math.log(gamma) / Math.log(2) + 1);
@@ -88,21 +93,23 @@ function percentToGamma(percent: number): number {
   return Math.exp((percent / 50 - 1) * Math.log(2));
 }
 
-const GAMMA_VALUES = [0.5, 1, 2];
-const GAMMA_MIN = 0;
-const GAMMA_MAX = 100;
-const GAMMA_SLIDER_MARKS: SliderMarks = Object.fromEntries(
+const percentileSliderMarks: SliderMarks = Object.fromEntries(
+  range(PERCENTILE_MIN, PERCENTILE_MAX, 5).map((i: number) => [i, i])
+);
+
+const saturationSliderMarks: SliderMarks = Object.fromEntries(
+  range(SATURATION_MIN, SATURATION_MAX, 10).map((i: number) => [i, i])
+);
+
+const rgbSliderMarks: SliderMarks = Object.fromEntries([0, 127, 255].map((i: number) => [i, i]));
+
+const gammaSliderMarks: SliderMarks = Object.fromEntries(
   GAMMA_VALUES.map(gamma => [gammaToPercent(gamma), gamma])
 );
 
-const COLOR_TEMP_MIN = 1500;
-const COLOR_TEMP_MAX = 12000;
-const COLOR_TEMP_STEP = 50;
-const COLOR_TEMP_SLIDER_MARKS: SliderMarks = Object.fromEntries(
-  [1500, 3000, 6000, 9000, 12000].map((i: number) => [i, i])
+const colorTempSliderMarks: SliderMarks = Object.fromEntries(
+  COLOR_TEMP_VALUES.map((i: number) => [i, i])
 );
-
-const FILENAME_SUFFIX = 'color-adjusted';
 
 function levelsGradient(min: number, max: number): string {
   return `linear-gradient(to right, rgb(${min}, ${min}, ${min}) 0%, rgb(${max}, ${max}, ${max}) 100%)`;
@@ -132,7 +139,7 @@ function kelvinGradient(minKelvin: number, maxKelvin: number, steps = 10): strin
   return `linear-gradient(to right, ${stops.join(', ')})`;
 }
 
-export const ImageColorAdjustment: React.FC = () => {
+export function ImageColorAdjustment() {
   const imageFileToAdjustColors = useAppStore(state => state.imageFileToAdjustColors);
   const colorUnadjustedImage = useAppStore(state => state.colorUnadjustedImage);
   const colorAdjustedImage = useAppStore(state => state.colorAdjustedImage);
@@ -416,7 +423,7 @@ export const ImageColorAdjustment: React.FC = () => {
                       }}
                       min={PERCENTILE_MIN}
                       max={PERCENTILE_MAX}
-                      marks={PERCENTILE_SLIDER_MARKS}
+                      marks={percentileSliderMarks}
                     />
                   </Form.Item>
                 )}
@@ -466,7 +473,7 @@ export const ImageColorAdjustment: React.FC = () => {
                     }}
                     min={SATURATION_MIN}
                     max={SATURATION_MAX}
-                    marks={SATURATION_SLIDER_MARKS}
+                    marks={saturationSliderMarks}
                   />
                 </Form.Item>
 
@@ -484,7 +491,7 @@ export const ImageColorAdjustment: React.FC = () => {
                     }}
                     min={RGB_MIN}
                     max={RGB_MAX}
-                    marks={RGB_SLIDER_MARKS}
+                    marks={rgbSliderMarks}
                     styles={{
                       track: {
                         background: 'transparent',
@@ -509,7 +516,7 @@ export const ImageColorAdjustment: React.FC = () => {
                     }}
                     min={GAMMA_MIN}
                     max={GAMMA_MAX}
-                    marks={GAMMA_SLIDER_MARKS}
+                    marks={gammaSliderMarks}
                     step={2}
                     tooltip={{
                       formatter: value => percentToGamma(value!).toFixed(2),
@@ -531,7 +538,7 @@ export const ImageColorAdjustment: React.FC = () => {
                     }}
                     min={RGB_MIN}
                     max={RGB_MAX}
-                    marks={RGB_SLIDER_MARKS}
+                    marks={rgbSliderMarks}
                     styles={{
                       track: {
                         background: 'transparent',
@@ -556,7 +563,7 @@ export const ImageColorAdjustment: React.FC = () => {
                     }}
                     min={COLOR_TEMP_MIN}
                     max={COLOR_TEMP_MAX}
-                    marks={COLOR_TEMP_SLIDER_MARKS}
+                    marks={colorTempSliderMarks}
                     step={COLOR_TEMP_STEP}
                     styles={{
                       track: {
@@ -585,7 +592,7 @@ export const ImageColorAdjustment: React.FC = () => {
                     }}
                     min={COLOR_TEMP_MIN}
                     max={COLOR_TEMP_MAX}
-                    marks={COLOR_TEMP_SLIDER_MARKS}
+                    marks={colorTempSliderMarks}
                     step={COLOR_TEMP_STEP}
                     styles={{
                       track: {
@@ -608,4 +615,4 @@ export const ImageColorAdjustment: React.FC = () => {
       </Row>
     </LoadingIndicator>
   );
-};
+}

@@ -29,6 +29,7 @@ export function useCreateImageBitmap(blob?: Blob | null): Result {
 
   useEffect(() => {
     if (!blob) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setImageBitmap(undefined);
       return;
     }

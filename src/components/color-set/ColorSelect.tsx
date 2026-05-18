@@ -22,7 +22,7 @@ import type {SelectProps} from 'antd';
 import {Button, Dropdown, Grid, Select, Space} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import type {MenuProps} from 'antd/lib';
-import {useState} from 'react';
+import {useMemo, useState} from 'react';
 
 import {ColorLabel} from '~/src/components/color/ColorLabel';
 import {COLOR_SORT_LABELS} from '~/src/components/messages';
@@ -34,6 +34,8 @@ import {
 } from '~/src/services/color/colors';
 import type {ColorBrandDefinition, ColorDefinition} from '~/src/services/color/types';
 import {decorateSortUndecorate} from '~/src/utils/array';
+
+const showSearch = {filterOption: filterSelectOptions};
 
 function getColorOptions(
   brand: ColorBrandDefinition,
@@ -61,14 +63,14 @@ type Props = Omit<
   colors?: Map<number, ColorDefinition>;
 };
 
-export const ColorSelect: React.FC<Props> = ({brand, colors, value, ...rest}: Props) => {
+export function ColorSelect({brand, colors, value, ...rest}: Readonly<Props>) {
   const screens = Grid.useBreakpoint();
 
   const {t} = useLingui();
 
   const [sort, setSort] = useState<ColorSort>();
 
-  const options = getColorOptions(brand, colors);
+  const options = useMemo(() => getColorOptions(brand, colors), [brand, colors]);
 
   let selectedColors: ColorDefinition[] | undefined = value
     ?.map((id: number): ColorDefinition | undefined => colors?.get(id))
@@ -105,7 +107,7 @@ export const ColorSelect: React.FC<Props> = ({brand, colors, value, ...rest}: Pr
         value={selectedIds}
         options={options}
         placeholder={t`Select colors`}
-        showSearch={{filterOption: filterSelectOptions}}
+        showSearch={showSearch}
         allowClear
         {...rest}
       />
@@ -122,4 +124,4 @@ export const ColorSelect: React.FC<Props> = ({brand, colors, value, ...rest}: Pr
       </Dropdown>
     </Space.Compact>
   );
-};
+}

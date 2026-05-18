@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {ReactNode} from 'react';
+import type {PropsWithChildren} from 'react';
 import {createContext, useMemo, useRef} from 'react';
 
 import {asyncNoop, noop} from '~/src/utils/function';
@@ -33,7 +33,7 @@ export const UnsavedChangesContext = createContext<ContextType>({
   checkUnsaved: asyncNoop,
 });
 
-export const UnsavedChangesProvider: React.FC<{children: ReactNode}> = ({children}) => {
+export function UnsavedChangesProvider({children}: Readonly<PropsWithChildren>) {
   const checkersRef = useRef<Set<Checker>>(new Set());
 
   const value = useMemo<ContextType>(
@@ -54,4 +54,4 @@ export const UnsavedChangesProvider: React.FC<{children: ReactNode}> = ({childre
   );
 
   return <UnsavedChangesContext.Provider value={value}>{children}</UnsavedChangesContext.Provider>;
-};
+}

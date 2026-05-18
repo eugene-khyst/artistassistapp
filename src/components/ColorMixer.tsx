@@ -50,19 +50,19 @@ import {ReflectanceChartDrawer} from './color/ReflectanceChartDrawer';
 import {ColorCascader} from './color-set/ColorCascader';
 import {EmptyColorSet} from './empty/EmptyColorSet';
 
-const RATIO_OPTIONS: SelectOptionType[] = range(1, 9).map((part: number) => ({
-  value: part,
-  label: part,
-}));
-
-const MAX_COLORS = 4;
-
 interface ColorMixerForm {
   colors: {
     color?: [number, number];
     part?: number;
   }[];
 }
+
+const MAX_COLORS = 4;
+
+const ratioOptions: SelectOptionType[] = range(1, 9).map((part: number) => ({
+  value: part,
+  label: part,
+}));
 
 const defaultValue = {
   part: 1,
@@ -76,7 +76,7 @@ const formInitialValues = {
   ],
 };
 
-export const ColorMixer: React.FC = () => {
+export function ColorMixer() {
   const colorSet = useAppStore(state => state.colorSet);
 
   const {
@@ -100,6 +100,7 @@ export const ColorMixer: React.FC = () => {
       form.setFieldsValue(formInitialValues);
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setColors([]);
+
       setRatio([]);
     }
   }, [colorSet, form]);
@@ -202,7 +203,7 @@ export const ColorMixer: React.FC = () => {
                       <Flex key={key} gap="small" align="center" style={{marginBottom: 8}}>
                         <Form.Item {...restField} name={[name, 'part']} style={{marginBottom: 0}}>
                           <Select
-                            options={RATIO_OPTIONS}
+                            options={ratioOptions}
                             placeholder={t`Select part`}
                             style={{width: ratioWidth}}
                           />
@@ -288,4 +289,4 @@ export const ColorMixer: React.FC = () => {
       />
     </>
   );
-};
+}

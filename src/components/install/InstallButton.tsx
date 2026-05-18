@@ -24,7 +24,7 @@ import {useDisplayMode} from '~/src/hooks/useDisplayMode';
 import {useInstall} from '~/src/hooks/useInstall';
 import {DisplayMode} from '~/src/utils/environment';
 
-export const InstallButton: React.FC = () => {
+export function InstallButton() {
   const {install, installDrawer} = useInstall();
   const displayMode = useDisplayMode();
 
@@ -39,4 +39,4 @@ export const InstallButton: React.FC = () => {
       {installDrawer}
     </>
   );
-};
+}

@@ -21,12 +21,15 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import type {SelectProps} from 'antd';
 import {Button, Grid, Select, Space, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
+import {useMemo} from 'react';
 
 import {filterSelectOptions} from '~/src/components/utils';
 import type {CustomColorBrandDefinition} from '~/src/services/color/types';
 import {byDate, reverseOrder} from '~/src/utils/comparator';
 
-const NEW_CUSTOM_COLOR_BRAND_OPTION: SelectOptionType = {
+const showSearch = {filterOption: filterSelectOptions};
+
+const newCustomColorBrandOption: SelectOptionType = {
   value: 0,
   label: (
     <>
@@ -42,10 +45,10 @@ function getCustomColorBrandOptions(
   customColorBrands?: CustomColorBrandDefinition[]
 ): SelectOptionType[] {
   if (!customColorBrands?.length) {
-    return [NEW_CUSTOM_COLOR_BRAND_OPTION];
+    return [newCustomColorBrandOption];
   }
   return [
-    NEW_CUSTOM_COLOR_BRAND_OPTION,
+    newCustomColorBrandOption,
     ...customColorBrands
       .slice()
       .sort(reverseOrder(byDate(({date}) => date)))
@@ -61,22 +64,23 @@ type Props = Omit<SelectProps, 'options' | 'placeholder' | 'showSearch'> & {
   onCreateNewClick?: () => void;
 };
 
-export const CustomColorBrandSelect: React.FC<Props> = ({
+export function CustomColorBrandSelect({
   customColorBrands,
   onCreateNewClick,
   ...rest
-}: Props) => {
+}: Readonly<Props>) {
   const screens = Grid.useBreakpoint();
 
   const {t} = useLingui();
 
-  const options = getCustomColorBrandOptions(customColorBrands);
+  const options = useMemo(() => getCustomColorBrandOptions(customColorBrands), [customColorBrands]);
+
   return (
     <Space.Compact block>
       <Select
         options={options}
         placeholder={t`Select from your recent brands`}
-        showSearch={{filterOption: filterSelectOptions}}
+        showSearch={showSearch}
         {...rest}
       />
       <Button icon={<PlusOutlined />} onClick={onCreateNewClick}>
@@ -84,4 +88,4 @@ export const CustomColorBrandSelect: React.FC<Props> = ({
       </Button>
     </Space.Compact>
   );
-};
+}

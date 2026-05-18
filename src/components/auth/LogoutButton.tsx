@@ -19,12 +19,11 @@
 import {LogoutOutlined} from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
 import {Button} from 'antd';
-import type React from 'react';
 import {useState} from 'react';
 
 import {useAppStore} from '~/src/stores/app-store';
 
-export const LogoutButton: React.FC = () => {
+export function LogoutButton() {
   const logout = useAppStore(state => state.logout);
 
   const [clicked, setClicked] = useState<boolean>(false);
@@ -41,4 +40,4 @@ export const LogoutButton: React.FC = () => {
       <Trans>Log out</Trans>
     </Button>
   );
-};
+}

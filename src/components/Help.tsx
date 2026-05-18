@@ -61,7 +61,7 @@ const THREE_COLORS: ProgressProps['strokeColor'] = {
   '100%': '#FF0000',
 };
 
-export const Help: React.FC = () => {
+export function Help() {
   const expiration = useAppStore(state => state.auth?.expiration);
   const storagePersisted = useAppStore(state => state.storagePersisted);
   const storageUsage = useAppStore(state => state.storageUsage);
@@ -282,4 +282,4 @@ export const Help: React.FC = () => {
       )}
     </Flex>
   );
-};
+}

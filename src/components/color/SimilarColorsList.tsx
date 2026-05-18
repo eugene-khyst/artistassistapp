@@ -45,7 +45,7 @@ interface Props {
   onReflectanceChartClick: (colorMixture?: ColorMixture) => void;
 }
 
-export const SimilarColorsList: React.FC<Props> = ({sort, onReflectanceChartClick}) => {
+export function SimilarColorsList({sort, onReflectanceChartClick}: Readonly<Props>) {
   const colorType = useAppStore(state => state.colorSet?.type);
   const targetColorHex = useAppStore(state => state.targetColorHex);
   const similarColors = useAppStore(state => state.similarColors);
@@ -87,4 +87,4 @@ export const SimilarColorsList: React.FC<Props> = ({sort, onReflectanceChartClic
       )}
     </Space>
   );
-};
+}

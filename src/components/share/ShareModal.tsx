@@ -30,7 +30,7 @@ interface Props {
   url?: string;
 }
 
-export const ShareModal: React.FC<Props> = ({open, setOpen, url}: Props) => {
+export function ShareModal({open, setOpen, url}: Readonly<Props>) {
   const {message} = App.useApp();
 
   const {t} = useLingui();
@@ -100,4 +100,4 @@ export const ShareModal: React.FC<Props> = ({open, setOpen, url}: Props) => {
       )}
     </Modal>
   );
-};
+}

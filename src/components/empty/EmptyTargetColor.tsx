@@ -18,9 +18,8 @@
 
 import {Trans} from '@lingui/react/macro';
 import {Space, Typography} from 'antd';
-import type React from 'react';
 
-export const EmptyTargetColor: React.FC = () => {
+export function EmptyTargetColor() {
   return (
     <Space orientation="vertical">
       <Typography.Text strong>
@@ -37,4 +36,4 @@ export const EmptyTargetColor: React.FC = () => {
       </Typography.Text>
     </Space>
   );
-};
+}

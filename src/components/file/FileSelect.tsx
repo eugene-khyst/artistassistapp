@@ -21,7 +21,7 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {App, Button, Dropdown, Grid, Space} from 'antd';
 import type {BaseButtonProps} from 'antd/es/button/Button';
 import type {MenuProps} from 'antd/lib';
-import type {PropsWithChildren} from 'react';
+import type {InputHTMLAttributes, PropsWithChildren} from 'react';
 import {useCallback} from 'react';
 import type {Accept, FileRejection} from 'react-dropzone';
 import {useDropzone} from 'react-dropzone';
@@ -33,9 +33,9 @@ type Props = {
   useReferencePhoto?: boolean;
   onChange: (files: File[]) => void;
 } & Pick<BaseButtonProps, 'type'> &
-  Pick<React.InputHTMLAttributes<HTMLInputElement>, 'multiple' | 'disabled'>;
+  Pick<InputHTMLAttributes<HTMLInputElement>, 'multiple' | 'disabled'>;
 
-export const FileSelect: React.FC<PropsWithChildren<Props>> = ({
+export function FileSelect({
   children,
   useReferencePhoto = false,
   onChange,
@@ -43,7 +43,7 @@ export const FileSelect: React.FC<PropsWithChildren<Props>> = ({
   accept = {'image/*': []},
   disabled,
   multiple,
-}: PropsWithChildren<Props>) => {
+}: Readonly<PropsWithChildren<Props>>) {
   const originalImageFile = useAppStore(state => state.originalImageFile);
 
   const screens = Grid.useBreakpoint();
@@ -124,4 +124,4 @@ export const FileSelect: React.FC<PropsWithChildren<Props>> = ({
       )}
     </div>
   );
-};
+}

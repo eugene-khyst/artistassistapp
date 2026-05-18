@@ -33,11 +33,11 @@ interface Props {
   supportedColorTypes?: ColorType[];
 }
 
-export const EmptyColorSet: React.FC<Props> = ({
+export function EmptyColorSet({
   imageSupported = false,
   imageMandatory = false,
   supportedColorTypes,
-}: Props) => {
+}: Readonly<Props>) {
   const tab: TabKey = useContext(TabContext);
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
 
@@ -111,4 +111,4 @@ export const EmptyColorSet: React.FC<Props> = ({
       </Row>
     </div>
   );
-};
+}

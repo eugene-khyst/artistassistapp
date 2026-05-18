@@ -74,6 +74,9 @@ export const createBackgroundRemovalSlice: StateCreator<
     void get().removeBackground();
   },
   setBackgroundRemovalModel: (backgroundRemovalModel: OnnxModel | undefined): void => {
+    if (get().backgroundRemovalModel === backgroundRemovalModel) {
+      return;
+    }
     set({
       backgroundRemovalModel,
       imageWithoutBackgroundCanvas: null,

@@ -56,11 +56,11 @@ interface Props {
   opacity?: ColorOpacity;
 }
 
-export const OpacityIcon: React.FC<Props> = ({opacity}: Props) => {
+export function OpacityIcon({opacity}: Readonly<Props>) {
   const {t} = useLingui();
   if (!opacity) {
     return <></>;
   }
   const {tooltip, icon} = OPACITIES[opacity];
   return <Tooltip title={t(tooltip)}>{icon}</Tooltip>;
-};
+}

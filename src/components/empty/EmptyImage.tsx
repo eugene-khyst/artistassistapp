@@ -26,7 +26,7 @@ import {TabContext} from '~/src/contexts/TabContext';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 
-export const EmptyImage: React.FC = () => {
+export function EmptyImage() {
   const tab: TabKey = useContext(TabContext);
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
 
@@ -68,4 +68,4 @@ export const EmptyImage: React.FC = () => {
       </Row>
     </div>
   );
-};
+}

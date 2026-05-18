@@ -37,11 +37,11 @@ interface Props {
   onReflectanceChartClick: (colorMixture?: ColorMixture) => void;
 }
 
-export const SimilarColorCard: React.FC<Props> = memo(function SimilarColorCard({
+export const SimilarColorCard = memo(function SimilarColorCard({
   targetColor,
   similarColor: {colorMixture, similarity},
   onReflectanceChartClick,
-}: Props) {
+}: Readonly<Props>) {
   const paletteColorMixture = useAppStore(state =>
     state.paletteColorMixtures.get(colorMixture.type)?.get(colorMixture.key)
   );

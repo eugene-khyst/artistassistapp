@@ -35,7 +35,7 @@ interface Props {
   onClose: () => void;
 }
 
-const ChromiumInstructions: React.FC = () => {
+function ChromiumInstructions() {
   return (
     <Space orientation="vertical" size="small">
       <Typography.Title level={4} style={{margin: 0}}>
@@ -74,9 +74,9 @@ const ChromiumInstructions: React.FC = () => {
       </Typography.Paragraph>
     </Space>
   );
-};
+}
 
-const IOSInstructions: React.FC = () => {
+function IOSInstructions() {
   const {
     token: {colorTextTertiary},
   } = theme.useToken();
@@ -125,9 +125,9 @@ const IOSInstructions: React.FC = () => {
       </Typography.Text>
     </Space>
   );
-};
+}
 
-const MacOSInstructions: React.FC = () => {
+function MacOSInstructions() {
   const {
     token: {colorTextTertiary},
   } = theme.useToken();
@@ -182,9 +182,9 @@ const MacOSInstructions: React.FC = () => {
       </Typography.Text>
     </Space>
   );
-};
+}
 
-export const InstallDrawer: React.FC<Props> = ({open, onClose}: Props) => {
+export function InstallDrawer({open, onClose}: Readonly<Props>) {
   const {t} = useLingui();
 
   const showChromium =
@@ -201,4 +201,4 @@ export const InstallDrawer: React.FC<Props> = ({open, onClose}: Props) => {
       </Space>
     </Drawer>
   );
-};
+}

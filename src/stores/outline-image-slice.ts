@@ -52,6 +52,9 @@ export const createOutlineImageSlice: StateCreator<
   outlineImage: null,
 
   setOutlineModel: (outlineModel?: OnnxModel | null): void => {
+    if (get().outlineModel === outlineModel) {
+      return;
+    }
     set({
       outlineModel,
       outlineImage: null,

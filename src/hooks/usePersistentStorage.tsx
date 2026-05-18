@@ -19,6 +19,7 @@
 import {AppstoreAddOutlined} from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
 import {App, Button} from 'antd';
+import type {ReactNode} from 'react';
 import {useCallback} from 'react';
 
 import {useInstall} from '~/src/hooks/useInstall';
@@ -29,7 +30,7 @@ const NOTIFICATION_KEY = 'persistent-storage';
 interface Result {
   requestPersistentStorage: () => Promise<boolean>;
   showPersistentStorageWarning: () => void;
-  installDrawer: React.ReactNode;
+  installDrawer: ReactNode;
 }
 
 export function usePersistentStorage(): Result {

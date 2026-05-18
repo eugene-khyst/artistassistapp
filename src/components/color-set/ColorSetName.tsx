@@ -17,7 +17,6 @@
  */
 
 import {Plural} from '@lingui/react/macro';
-import type React from 'react';
 import {Fragment} from 'react';
 
 import type {BrandColorCount} from '~/src/services/color/types';
@@ -26,7 +25,7 @@ interface Props {
   brandColorCounts: BrandColorCount[];
 }
 
-export const ColorSetName: React.FC<Props> = ({brandColorCounts}: Props) => {
+export function ColorSetName({brandColorCounts}: Readonly<Props>) {
   return (
     <>
       {brandColorCounts.map(({brandName, colorCount}, index) => (
@@ -37,4 +36,4 @@ export const ColorSetName: React.FC<Props> = ({brandColorCounts}: Props) => {
       ))}
     </>
   );
-};
+}

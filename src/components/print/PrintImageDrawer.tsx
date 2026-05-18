@@ -55,7 +55,7 @@ interface Props {
   onClose?: () => void;
 }
 
-export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}: Props) => {
+export function PrintImageDrawer({image, open = false, onClose}: Readonly<Props>) {
   const {t} = useLingui();
 
   const [printMode, setPrintMode] = useState<PrintMode>(PrintMode.Resize);
@@ -79,6 +79,7 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
   const isPrintDisabled: boolean = printMode === PrintMode.Resize && !printPreview;
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsTargetSizeError(false);
     setIsMarginError(false);
     if (!image || !debouncedTargetWidth || !debouncedTargetHeight) {
@@ -160,9 +161,7 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
               <Form.Item label={t`Paper size`} style={{marginBottom: 0}}>
                 <Select
                   value={paperSize}
-                  onChange={value => {
-                    setPaperSize(value);
-                  }}
+                  onChange={setPaperSize}
                   options={PAPER_SIZE_OPTIONS}
                   style={{width: 170}}
                 />
@@ -177,9 +176,7 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
                 <Space.Compact block>
                   <InputNumber
                     value={targetWidth}
-                    onChange={value => {
-                      setTargetWidth(value);
-                    }}
+                    onChange={setTargetWidth}
                     min={1}
                     max={1000}
                     step={0.1}
@@ -198,9 +195,7 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
                   />
                   <InputNumber
                     value={targetHeight}
-                    onChange={value => {
-                      setTargetHeight(value);
-                    }}
+                    onChange={setTargetHeight}
                     min={1}
                     max={1000}
                     step={0.1}
@@ -209,9 +204,7 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
                   />
                   <Select
                     value={targetUnit}
-                    onChange={value => {
-                      setTargetUnit(value);
-                    }}
+                    onChange={setTargetUnit}
                     options={LENGTH_UNIT_OPTIONS}
                     style={{width: 70}}
                   />
@@ -265,4 +258,4 @@ export const PrintImageDrawer: React.FC<Props> = ({image, open = false, onClose}
       </LoadingIndicator>
     </Drawer>
   );
-};
+}

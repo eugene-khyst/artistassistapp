@@ -37,9 +37,10 @@ neither `dev` nor `preview` replicates this locally, so the CF Pages Function at
 ## Architecture
 
 React 19 PWA. Single `<Tabs>` UI in `ArtistAssistApp.tsx` — tab visibility is conditional on auth
-state and PWA display mode. The Outline, StyleTransfer, and BackgroundRemove tabs share an
-`OnnxModelSelect`; an `OnnxModel` with empty `url` means "run the local WebGL pipeline instead of
-ONNX" (used by the Outline "quick" mode, gated by `freeTier`).
+state and PWA display mode. Outline and BackgroundRemove use `OnnxModelSelect`; StyleTransfer
+renders model radio cards because some models require a separate style image. An `OnnxModel` with
+empty `url` means "run the local WebGL pipeline instead of ONNX" (used by the Outline "quick" mode,
+gated by `freeTier`).
 
 ### State Management
 
@@ -58,8 +59,9 @@ never gets stuck loading.
 - **`useLightbox`** — wraps `requestFullscreen` + `screen.orientation.lock`. Has an in-flight guard
   so double-clicks can't desync the fullscreen-entry flag and leave the app stuck in fullscreen on
   close.
-- **`useArMode`** — `getUserMedia` rear camera with front-camera fallback. Has an unmount race guard
-  (stops tracks that resolve after unmount) and a concurrent-entry guard.
+- **`useArMode`** — `getUserMedia` rear camera request (`facingMode: {ideal: 'environment'}`). Has
+  an unmount race guard (stops tracks that resolve after unmount), a tab-deactivation guard for
+  pending camera requests, and a concurrent-entry guard.
 
 The Outline tab orchestrates mutual exclusion between the two. The AR overlay itself is pure CSS:
 the outline `<canvas>` is rendered above the `<video>` with `filter: invert(1)` and
@@ -78,7 +80,7 @@ Pure business logic, no React. Notable non-obvious bits:
   `visibilitychange`/`pageshow`/`focus` listeners.
 - **`image/`** — `outline.ts` dispatches on `OnnxModel.url` (ONNX vs. local Sobel pipeline);
   `perspective-correction.ts` runs an ONNX heatmap-regression model and extracts corners via
-  `heatmap-corners.ts` (CPU bilinear upscale + Otsu + Moore-Neighbor 8-conn contour trace +
+  `heatmap-corner-detection.ts` (CPU bilinear upscale + Otsu + Moore-Neighbor 8-conn contour trace +
   Green's-theorem centroid on the largest blob per channel); `sampling-point.ts` picks deepest pixel
   per region via Chamfer 3-4 distance transform; `color-match.ts` reuses the Sobel+Otsu+threshold
   pipeline.
@@ -137,6 +139,10 @@ identity must be stable: pass the helper directly under `useQuery`; for `useQuer
 module-scope adapter (e.g. `indexColors` in `useColors.ts`) since TS can't propagate the queryFn
 type to the per-query `select` generic. `combine` must be `useCallback`'d.
 
+Store slices that cache an `OnnxModel` should guard redundant setter calls by object identity, not
+by `id`, so React Query refetches can propagate same-id metadata changes (`url`, access tier,
+pre/post-processing) into the active pipeline.
+
 Callers must pass _stable_ collection props — see `selectedBrands` in `ColorSetChooser.tsx`. Antd's
 `Form.useWatch` already returns reference-stable values.
 
@@ -167,8 +173,9 @@ drawn the bitmap onto its own canvas.
 
 ### Internationalization
 
-Lingui-based. Source locale `src/locales/en.po`. After adding new strings: `npm run lingui:extract`
-then `npm run translate`. All user-facing strings must use Lingui macros (`t`, `msg`, `<Trans>`).
+Lingui-based. Source locale `src/locales/en.po`. After adding or changing source strings:
+`npm run lingui:extract` then `npm run translate`. All user-facing strings must use Lingui macros
+(`t`, `msg`, `<Trans>`).
 
 ### PWA
 

@@ -19,7 +19,6 @@
 import {ReloadOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Alert, Button, Space, Typography} from 'antd';
-import type React from 'react';
 import type {CSSProperties} from 'react';
 import type {FallbackProps} from 'react-error-boundary';
 
@@ -30,7 +29,7 @@ import {getErrorMessage} from '~/src/utils/error';
 
 const preStyle: CSSProperties = {whiteSpace: 'pre-wrap', wordBreak: 'break-word', margin: 0};
 
-export const ErrorFallback: React.FC<FallbackProps> = ({error}: FallbackProps) => {
+export function ErrorFallback({error}: Readonly<FallbackProps>) {
   const {t} = useLingui();
   const errorMessage: string = getErrorMessage(error);
   return (
@@ -75,4 +74,4 @@ export const ErrorFallback: React.FC<FallbackProps> = ({error}: FallbackProps) =
       style={{margin: 8}}
     />
   );
-};
+}

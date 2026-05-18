@@ -163,11 +163,11 @@ interface Props {
   showTooltip?: boolean;
 }
 
-export const ConsistencyDescription: React.FC<Props> = ({
+export function ConsistencyDescription({
   colorType,
   consistency,
   showTooltip = true,
-}: Props) => {
+}: Readonly<Props>) {
   const {
     token: {colorTextTertiary},
   } = theme.useToken();
@@ -199,4 +199,4 @@ export const ConsistencyDescription: React.FC<Props> = ({
       )}
     </Space>
   );
-};
+}

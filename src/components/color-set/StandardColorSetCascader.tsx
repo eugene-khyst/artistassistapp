@@ -19,12 +19,14 @@
 import {Plural, Trans, useLingui} from '@lingui/react/macro';
 import {Cascader} from 'antd';
 import type {CascaderAutoProps, DefaultOptionType as CascaderOptionType} from 'antd/es/cascader';
-import {Fragment} from 'react';
+import {Fragment, useMemo} from 'react';
 
 import {filterCascaderOptions} from '~/src/components/utils';
 import type {ColorBrandDefinition, StandardColorSetDefinition} from '~/src/services/color/types';
 
-const CUSTOM_COLOR_SET_OPTION: CascaderOptionType = {
+const showSearch = {filter: filterCascaderOptions};
+
+const customColorSetOption: CascaderOptionType = {
   value: 0,
   label: <Trans>Custom color set</Trans>,
 };
@@ -37,7 +39,7 @@ function getStandardColorSetOptions(
     return [];
   }
   return [
-    CUSTOM_COLOR_SET_OPTION,
+    customColorSetOption,
     ...brands
       .map(({id, alias, fullName}: ColorBrandDefinition): CascaderOptionType | undefined => {
         const standardColorSets = standardColorSetMap.get(alias);
@@ -71,23 +73,23 @@ type Props = Omit<CascaderAutoProps, 'options' | 'placeholder' | 'showSearch' | 
   standardColorSets?: Map<string, Map<string, StandardColorSetDefinition>>;
 };
 
-export const StandardColorSetCascader: React.FC<Props> = ({
-  brands,
-  standardColorSets,
-  ...rest
-}: Props) => {
+export function StandardColorSetCascader({brands, standardColorSets, ...rest}: Readonly<Props>) {
   const {t} = useLingui();
 
-  const options = getStandardColorSetOptions(brands, standardColorSets);
+  const options = useMemo(
+    () => getStandardColorSetOptions(brands, standardColorSets),
+    [brands, standardColorSets]
+  );
+
   return (
     // @ts-expect-error Cascader prop drilling
     <Cascader
       options={options}
       placeholder={t`Select set`}
-      showSearch={{filter: filterCascaderOptions}}
+      showSearch={showSearch}
       expandTrigger="hover"
       allowClear={false}
       {...rest}
     />
   );
-};
+}

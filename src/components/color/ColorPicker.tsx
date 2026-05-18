@@ -19,16 +19,11 @@
 import {CloseOutlined} from '@ant-design/icons';
 import type {ColorPickerProps} from 'antd';
 import {Button, ColorPicker as AntdColorPicker, Grid, theme, Typography} from 'antd';
-import type React from 'react';
 import {type PropsWithChildren, useState} from 'react';
 
 type Props = ColorPickerProps & {title?: string};
 
-export const ColorPicker: React.FC<PropsWithChildren<Props>> = ({
-  children,
-  title,
-  ...props
-}: PropsWithChildren<Props>) => {
+export function ColorPicker({children, title, ...props}: Readonly<PropsWithChildren<Props>>) {
   const screens = Grid.useBreakpoint();
   const {
     token: {colorTextTertiary, fontSizeLG},
@@ -88,4 +83,4 @@ export const ColorPicker: React.FC<PropsWithChildren<Props>> = ({
       {children}
     </AntdColorPicker>
   );
-};
+}

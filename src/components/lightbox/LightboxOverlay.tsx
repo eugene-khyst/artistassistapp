@@ -31,7 +31,7 @@ const KNOB_SIZE = 40;
 const UNLOCK_THRESHOLD = 0.9;
 const MAX_DX = TRACK_WIDTH - KNOB_SIZE - TRACK_PADDING * 2;
 
-export const LightboxOverlay: React.FC<LightboxOverlayProps> = ({onUnlock}) => {
+export function LightboxOverlay({onUnlock}: Readonly<LightboxOverlayProps>) {
   const {t} = useLingui();
 
   const [dx, setDx] = useState<number>(0);
@@ -124,4 +124,4 @@ export const LightboxOverlay: React.FC<LightboxOverlayProps> = ({onUnlock}) => {
       </div>
     </div>
   );
-};
+}

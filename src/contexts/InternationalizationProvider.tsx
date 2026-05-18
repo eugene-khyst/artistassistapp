@@ -23,9 +23,7 @@ import {type PropsWithChildren} from 'react';
 
 import {useAppStore} from '~/src/stores/app-store';
 
-export const InternationalizationProvider: React.FC<PropsWithChildren> = ({
-  children,
-}: PropsWithChildren) => {
+export function InternationalizationProvider({children}: Readonly<PropsWithChildren>) {
   const antdLocale = useAppStore(state => state.antdLocale);
 
   return (
@@ -33,4 +31,4 @@ export const InternationalizationProvider: React.FC<PropsWithChildren> = ({
       <ConfigProvider locale={antdLocale}>{children}</ConfigProvider>
     </I18nProvider>
   );
-};
+}

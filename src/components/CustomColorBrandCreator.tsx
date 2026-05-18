@@ -88,7 +88,7 @@ function applyColor(
   form: FormInstance<CustomColorBrandDefinition>,
   editFromIndex: number | null,
   setEditFromIndex: (value: number | null) => void,
-  setScrollToIndex: (value: number | null) => void,
+  scrollToColor: (index: number) => void,
   hex: string
 ): void {
   const colors = form.getFieldValue('colors') as Partial<ColorDefinition>[];
@@ -99,7 +99,7 @@ function applyColor(
     const nextIdx = editFromIndex + 1;
     const exitEditMode = nextIdx >= newColors.length;
     setEditFromIndex(exitEditMode ? null : nextIdx);
-    setScrollToIndex(exitEditMode ? editFromIndex : nextIdx);
+    scrollToColor(exitEditMode ? editFromIndex : nextIdx);
   } else {
     form.setFieldValue('colors', [
       ...colors,
@@ -108,18 +108,19 @@ function applyColor(
         hex: hex.toUpperCase(),
       },
     ]);
-    setScrollToIndex(colors.length);
+    scrollToColor(colors.length);
   }
   void form.validateFields(['colors']);
 }
 
 interface ColorDropdownProps {
+  id?: string;
   value?: string;
   isEditTarget?: boolean;
   onEditFromHere?: () => void;
 }
 
-const ColorDropdown: React.FC<ColorDropdownProps> = ({value, isEditTarget, onEditFromHere}) => {
+function ColorDropdown({id, value, isEditTarget, onEditFromHere}: Readonly<ColorDropdownProps>) {
   const {
     token: {colorWarning},
   } = theme.useToken();
@@ -139,6 +140,7 @@ const ColorDropdown: React.FC<ColorDropdownProps> = ({value, isEditTarget, onEdi
       }}
     >
       <Button
+        id={id}
         icon={<DownOutlined />}
         iconPlacement="end"
         style={isEditTarget ? {borderColor: colorWarning, color: colorWarning} : undefined}
@@ -147,12 +149,11 @@ const ColorDropdown: React.FC<ColorDropdownProps> = ({value, isEditTarget, onEdi
       </Button>
     </Dropdown>
   );
-};
+}
 
 interface ColorListItemProps {
   name: number;
   isEditTarget: boolean;
-  isScrollTarget: boolean;
   onSetEditFromIndex: (index: number | null) => void;
   onRemove: (index: number) => void;
 }
@@ -160,23 +161,15 @@ interface ColorListItemProps {
 const ColorListItem = memo(function ColorListItem({
   name,
   isEditTarget,
-  isScrollTarget,
   onSetEditFromIndex,
   onRemove,
 }: ColorListItemProps) {
   const {t} = useLingui();
-  const scrollRef = useRef<HTMLDivElement>(null);
   const status = isEditTarget ? 'warning' : undefined;
-
-  useEffect(() => {
-    if (isScrollTarget) {
-      scrollRef.current?.scrollIntoView({behavior: 'smooth', block: 'nearest'});
-    }
-  }, [isScrollTarget]);
 
   return (
     <>
-      <Flex ref={scrollRef} gap="small">
+      <Flex gap="small">
         <Form.Item name={[name, 'hex']} rules={[{required: true, message: t`Required`}]}>
           <ColorDropdown
             isEditTarget={isEditTarget}
@@ -217,7 +210,7 @@ const ColorListItem = memo(function ColorListItem({
   );
 });
 
-export const CustomColorBrandCreator: React.FC = () => {
+export function CustomColorBrandCreator() {
   const customColorBrands = useAppStore(state => state.customColorBrands);
   const latestCustomColorBrand = useAppStore(state => state.latestCustomColorBrand);
   const isCustomColorBrandsLoading = useAppStore(state => state.isCustomColorBrandsLoading);
@@ -243,9 +236,17 @@ export const CustomColorBrandCreator: React.FC = () => {
   const [sampleDiameter, setSampleDiameter] = useState<number>(DEFAULT_SAMPLE_DIAMETER);
   const [currentColor, setCurrentColor] = useState<string>(WHITE_HEX);
   const [editFromIndex, setEditFromIndex] = useState<number | null>(null);
-  const [scrollToIndex, setScrollToIndex] = useState<number | null>(null);
 
   const removeColorRef = useRef<(index: number) => void>(noop);
+
+  const scrollToColor = useCallback(
+    (index: number) => {
+      requestAnimationFrame(() => {
+        form.scrollToField(['colors', index, 'hex'], {behavior: 'smooth', block: 'nearest'});
+      });
+    },
+    [form]
+  );
 
   const imageColorPickerCanvasSupplier = useCallback(
     (canvas: HTMLCanvasElement): ImageColorPickerCanvas => {
@@ -268,13 +269,13 @@ export const CustomColorBrandCreator: React.FC = () => {
     const listener = ({rgb}: PipettePointSetEvent) => {
       const hex = rgbToHex(...rgb);
       setCurrentColor(hex);
-      applyColor(form, editFromIndex, setEditFromIndex, setScrollToIndex, hex);
+      applyColor(form, editFromIndex, setEditFromIndex, scrollToColor, hex);
     };
     colorPickerCanvas.events.subscribe(ColorPickerEventType.PipettePointSet, listener);
     return () => {
       colorPickerCanvas.events.unsubscribe(ColorPickerEventType.PipettePointSet, listener);
     };
-  }, [form, colorPickerCanvas, editFromIndex]);
+  }, [form, colorPickerCanvas, editFromIndex, scrollToColor]);
 
   useEffect(() => {
     void loadCustomColorBrands();
@@ -286,12 +287,6 @@ export const CustomColorBrandCreator: React.FC = () => {
       form.setFieldsValue(removeRho(latestCustomColorBrand));
     }
   }, [latestCustomColorBrand, form]);
-
-  useEffect(() => {
-    if (scrollToIndex !== null) {
-      setScrollToIndex(null);
-    }
-  }, [scrollToIndex]);
 
   const isLoading: boolean = isImageLoading || isCustomColorBrandsLoading;
 
@@ -326,7 +321,7 @@ export const CustomColorBrandCreator: React.FC = () => {
   const handleCurrentColorChange = (hex: string) => {
     colorPickerCanvas?.setPipettePoint(null);
     setCurrentColor(hex);
-    applyColor(form, editFromIndex, setEditFromIndex, setScrollToIndex, hex);
+    applyColor(form, editFromIndex, setEditFromIndex, scrollToColor, hex);
   };
 
   const handleFormValuesChange = (changedValues: Partial<CustomColorBrandDefinition>) => {
@@ -539,7 +534,6 @@ export const CustomColorBrandCreator: React.FC = () => {
                             key={field.key}
                             name={field.name}
                             isEditTarget={field.name === editFromIndex}
-                            isScrollTarget={field.name === scrollToIndex}
                             onSetEditFromIndex={setEditFromIndex}
                             onRemove={handleRemoveColor}
                           />
@@ -560,4 +554,4 @@ export const CustomColorBrandCreator: React.FC = () => {
       </Row>
     </LoadingIndicator>
   );
-};
+}

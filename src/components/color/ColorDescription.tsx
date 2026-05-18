@@ -33,7 +33,7 @@ interface Props {
   text?: string | number;
 }
 
-export const ColorDescription: React.FC<Props> = ({colorType, color, text}: Props) => {
+export function ColorDescription({colorType, color, text}: Readonly<Props>) {
   const {brands} = useColorBrands(colorType);
 
   const {brand: brandId, rgb, opacity, warmth} = color;
@@ -60,4 +60,4 @@ export const ColorDescription: React.FC<Props> = ({colorType, color, text}: Prop
       </span>
     </Space>
   );
-};
+}

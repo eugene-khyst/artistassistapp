@@ -37,8 +37,8 @@ import {
   Tooltip,
   Typography,
 } from 'antd';
-import type {CSSProperties} from 'react';
-import React, {useCallback, useEffect, useState} from 'react';
+import type {CSSProperties, ReactElement, ReactNode} from 'react';
+import {cloneElement, useCallback, useEffect, useMemo, useState} from 'react';
 
 import {DEFAULT_GRID_SETTINGS, setGrid} from '~/src/components/grid/grid';
 import {GridControls} from '~/src/components/grid/GridControls';
@@ -61,20 +61,15 @@ import {getFilename} from '~/src/utils/filename';
 
 import {EmptyImage} from './empty/EmptyImage';
 
-const fallbackModel: OnnxModel = {
-  id: 'sobel-edge-detection',
-  name: 'Quick',
-  url: '',
-  freeTier: true,
-};
-
 const defaultGridSettings = {enabled: false};
+
+const menuStyle: CSSProperties = {boxShadow: 'none'};
 
 const gridCanvasSupplier = (canvas: HTMLCanvasElement): GridCanvas => {
   return new GridCanvas(canvas, {allowZoomBelowFit: true});
 };
 
-export const ImageOutline: React.FC = () => {
+export function ImageOutline() {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
   const outlineModel = useAppStore(state => state.appSettings.outlineModel);
@@ -108,8 +103,15 @@ export const ImageOutline: React.FC = () => {
     outlineImage
   );
 
-  const [modelId, setModelId] = useState<string>();
+  const [selectedModelId, setSelectedModelId] = useState<string>();
   const [isOpenPrintImage, setIsOpenPrintImage] = useState<boolean>(false);
+
+  const defaultModel = useMemo<OnnxModel | undefined>(() => {
+    if (isAuthLoading || !models?.size) {
+      return undefined;
+    }
+    return (outlineModel && models.get(outlineModel)) || getDefaultModel(models, user);
+  }, [outlineModel, models, user, isAuthLoading]);
 
   const onLightboxEnter = useCallback(() => {
     gridCanvas?.disableAutoFit();
@@ -141,8 +143,8 @@ export const ImageOutline: React.FC = () => {
     onPermissionDenied: onArPermissionDenied,
   });
 
-  const model: OnnxModel | null | undefined = modelId ? models?.get(modelId) : null;
-
+  const modelId = selectedModelId ?? defaultModel?.id;
+  const model: OnnxModel | undefined = modelId ? models?.get(modelId) : undefined;
   const isAccessAllowed: boolean = !model || (!isAuthLoading && hasAccessTo(user, model));
 
   const isLoading: boolean = isModelsLoading || isOutlineImageLoading || isAuthLoading;
@@ -159,16 +161,11 @@ export const ImageOutline: React.FC = () => {
   }, [isModelsError, notification, t]);
 
   useEffect(() => {
-    if (isAuthLoading || !models?.size) {
+    if (isAuthLoading || !models?.size || modelId === undefined) {
       return;
     }
-    const model: OnnxModel =
-      (outlineModel && models.get(outlineModel)) ||
-      (getDefaultModel(models, user) ?? fallbackModel);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setModelId(model.id);
-    setOutlineModel(model);
-  }, [outlineModel, setOutlineModel, models, user, isAuthLoading]);
+    setOutlineModel(models.get(modelId));
+  }, [modelId, models, setOutlineModel, isAuthLoading]);
 
   useEffect(() => {
     if (!gridCanvas) {
@@ -193,8 +190,7 @@ export const ImageOutline: React.FC = () => {
   };
 
   const handleModelChange = (value: string) => {
-    setModelId(value);
-    setOutlineModel(models?.get(value));
+    setSelectedModelId(value);
     void saveAppSettings({outlineModel: value});
   };
 
@@ -218,29 +214,46 @@ export const ImageOutline: React.FC = () => {
 
   const handleCancelClick = () => {
     abortOutline();
-    const model: OnnxModel =
-      getDefaultModel(
-        models,
-        user,
-        ({url, freeTier}: OnnxModel): boolean => !url && (!!user || !!freeTier)
-      ) ?? fallbackModel;
-    setModelId(model.id);
-    setOutlineModel(model);
+    const quickModel = getDefaultModel(
+      models,
+      user,
+      ({url, freeTier}: OnnxModel): boolean => !url && (!!user || !!freeTier)
+    );
+    setSelectedModelId(quickModel?.id);
   };
+
+  const popupRender = useCallback(
+    (menu: ReactNode) => (
+      <div
+        style={{
+          backgroundColor: token.colorBgElevated,
+          borderRadius: token.borderRadiusLG,
+          boxShadow: token.boxShadowSecondary,
+        }}
+      >
+        {cloneElement(
+          menu as ReactElement<{
+            style: CSSProperties;
+          }>,
+          {style: menuStyle}
+        )}
+        <Divider style={{margin: 0}} />
+        <GridControls
+          orientation="vertical"
+          size={0}
+          style={{padding: '8px 16px'}}
+          gridCanvas={gridCanvas}
+          defaultGridSettings={defaultGridSettings}
+          disableable
+        />
+      </div>
+    ),
+    [gridCanvas, token]
+  );
 
   if (!originalImageFile) {
     return <EmptyImage />;
   }
-
-  const contentStyle: CSSProperties = {
-    backgroundColor: token.colorBgElevated,
-    borderRadius: token.borderRadiusLG,
-    boxShadow: token.boxShadowSecondary,
-  };
-
-  const menuStyle: CSSProperties = {
-    boxShadow: 'none',
-  };
 
   return (
     <LoadingIndicator
@@ -368,25 +381,7 @@ export const ImageOutline: React.FC = () => {
                   },
                 ],
               }}
-              popupRender={menu => (
-                <div style={contentStyle}>
-                  {React.cloneElement(
-                    menu as React.ReactElement<{
-                      style: React.CSSProperties;
-                    }>,
-                    {style: menuStyle}
-                  )}
-                  <Divider style={{margin: 0}} />
-                  <GridControls
-                    orientation="vertical"
-                    size={0}
-                    style={{padding: '8px 16px'}}
-                    gridCanvas={gridCanvas}
-                    defaultGridSettings={defaultGridSettings}
-                    disableable
-                  />
-                </div>
-              )}
+              popupRender={popupRender}
             >
               <Button icon={<MoreOutlined />} />
             </Dropdown>
@@ -444,4 +439,4 @@ export const ImageOutline: React.FC = () => {
       />
     </LoadingIndicator>
   );
-};
+}

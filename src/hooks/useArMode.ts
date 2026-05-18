@@ -16,26 +16,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {useCallback, useEffect, useRef, useState} from 'react';
+import type {RefObject} from 'react';
+import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
 
-interface Options {
+interface UseArModeOptions {
   isActive: boolean;
   onPermissionDenied?: () => void;
 }
 
 interface Result {
   isArMode: boolean;
-  videoRef: React.RefObject<HTMLVideoElement | null>;
+  videoRef: RefObject<HTMLVideoElement | null>;
   enter: () => Promise<boolean>;
   exit: () => void;
 }
 
-export function useArMode({isActive, onPermissionDenied}: Options): Result {
+export function useArMode({isActive, onPermissionDenied}: UseArModeOptions): Result {
   const [isArMode, setIsArMode] = useState<boolean>(false);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const isRequestingRef = useRef<boolean>(false);
+  const isActiveRef = useRef<boolean>(isActive);
   const isMountedRef = useRef<boolean>(true);
   const onPermissionDeniedRef = useRef(onPermissionDenied);
 
@@ -65,8 +67,24 @@ export function useArMode({isActive, onPermissionDenied}: Options): Result {
     stopStream();
   }, [stopStream]);
 
+  const [prevIsActive, setPrevIsActive] = useState(isActive);
+  if (isActive !== prevIsActive) {
+    setPrevIsActive(isActive);
+    if (!isActive) {
+      setIsArMode(false);
+    }
+  }
+
+  // Keep the ref current before a pending getUserMedia continuation can read it.
+  useLayoutEffect(() => {
+    isActiveRef.current = isActive;
+    if (!isActive) {
+      stopStream();
+    }
+  }, [isActive, stopStream]);
+
   const enter = useCallback(async (): Promise<boolean> => {
-    if (isRequestingRef.current || isArMode) {
+    if (!isActive || isRequestingRef.current || isArMode) {
       return isArMode;
     }
     isRequestingRef.current = true;
@@ -74,7 +92,7 @@ export function useArMode({isActive, onPermissionDenied}: Options): Result {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: {facingMode: {ideal: 'environment'}},
       });
-      if (!isMountedRef.current) {
+      if (!isMountedRef.current || !isActiveRef.current) {
         stream.getTracks().forEach(track => {
           track.stop();
         });
@@ -91,7 +109,7 @@ export function useArMode({isActive, onPermissionDenied}: Options): Result {
     } finally {
       isRequestingRef.current = false;
     }
-  }, [isArMode]);
+  }, [isActive, isArMode]);
 
   useEffect(() => {
     if (isArMode && videoRef.current && streamRef.current) {
@@ -104,12 +122,6 @@ export function useArMode({isActive, onPermissionDenied}: Options): Result {
       stopStream();
     };
   }, [stopStream]);
-
-  useEffect(() => {
-    if (isArMode && !isActive) {
-      exit();
-    }
-  }, [isArMode, isActive, exit]);
 
   return {isArMode, videoRef, enter, exit};
 }

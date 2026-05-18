@@ -27,7 +27,7 @@ import type {ColorType} from '~/src/services/color/types';
 
 type Props = Omit<SelectProps, 'options' | 'placeholder'>;
 
-export const ColorTypeSelect: React.FC<Props> = (props: Props) => {
+export function ColorTypeSelect(props: Readonly<Props>) {
   const {t} = useLingui();
 
   const options: SelectOptionType[] = COLOR_TYPES.map((colorType: ColorType) => ({
@@ -36,4 +36,4 @@ export const ColorTypeSelect: React.FC<Props> = (props: Props) => {
   }));
 
   return <Select options={options} placeholder={t`Select art medium`} {...props} />;
-};
+}

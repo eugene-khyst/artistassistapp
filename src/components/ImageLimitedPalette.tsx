@@ -20,7 +20,7 @@ import {DownloadOutlined, DownOutlined, SwapOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Col, Dropdown, Form, Grid, Row, Space, Typography} from 'antd';
 import {saveAs} from 'file-saver';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 
 import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
 import {
@@ -39,7 +39,7 @@ import {EmptyColorSet} from './empty/EmptyColorSet';
 
 const MAX_COLORS = 7;
 
-export const ImageLimitedPalette: React.FC = () => {
+export function ImageLimitedPalette() {
   const colorSet = useAppStore(state => state.colorSet);
   const originalImageFile = useAppStore(state => state.originalImageFile);
   const originalImage = useAppStore(state => state.originalImage);
@@ -70,9 +70,11 @@ export const ImageLimitedPalette: React.FC = () => {
 
   const isLoading: boolean = isOriginalImageLoading || isLimitedPaletteImageLoading;
 
-  useEffect(() => {
+  const [prevColorSet, setPrevColorSet] = useState(colorSet);
+  if (colorSet !== prevColorSet) {
+    setPrevColorSet(colorSet);
     setColorIds([]);
-  }, [colorSet]);
+  }
 
   const handleApplyClick = () => {
     void setLimitedColorSet(colorIds);
@@ -119,9 +121,7 @@ export const ImageLimitedPalette: React.FC = () => {
           <Space.Compact style={{display: 'flex'}}>
             <ColorCascader
               value={colorIds}
-              onChange={value => {
-                setColorIds(value);
-              }}
+              onChange={setColorIds}
               multiple
               maxTagCount="responsive"
               style={{flexGrow: 1}}
@@ -171,4 +171,4 @@ export const ImageLimitedPalette: React.FC = () => {
       </Row>
     </LoadingIndicator>
   );
-};
+}

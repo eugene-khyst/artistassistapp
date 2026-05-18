@@ -17,7 +17,7 @@
  */
 
 import {Flex, Typography} from 'antd';
-import type React from 'react';
+import type {CSSProperties} from 'react';
 
 import {ColorSquare} from '~/src/components/color/ColorSquare';
 import {OpacityIcon} from '~/src/components/color/OpacityIcon';
@@ -34,10 +34,10 @@ interface Props {
   showBrandName?: boolean;
   showOpacity?: boolean;
   showWarmth?: boolean;
-  alignItems?: React.CSSProperties['alignItems'];
+  alignItems?: CSSProperties['alignItems'];
 }
 
-export const ColorLabel: React.FC<Props> = ({
+export function ColorLabel({
   color,
   brand,
   label,
@@ -46,7 +46,7 @@ export const ColorLabel: React.FC<Props> = ({
   showOpacity = true,
   showWarmth = true,
   alignItems,
-}: Props) => {
+}: Readonly<Props>) {
   const {opacity, warmth} = color;
   const hex: string = 'hex' in color ? color.hex : rgbToHex(...color.rgb);
   label ??= formatColorLabel(color, brand);
@@ -64,4 +64,4 @@ export const ColorLabel: React.FC<Props> = ({
       </Flex>
     </Flex>
   );
-};
+}

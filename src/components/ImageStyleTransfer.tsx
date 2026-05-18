@@ -21,6 +21,7 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import type {RadioChangeEvent} from 'antd';
 import {App, Button, Card, Col, Grid, Radio, Row, Space, Typography} from 'antd';
 import {saveAs} from 'file-saver';
+import type {CSSProperties} from 'react';
 import {useEffect, useMemo, useRef, useState} from 'react';
 
 import {EmptyImage} from '~/src/components/empty/EmptyImage';
@@ -35,7 +36,20 @@ import {OnnxModelType} from '~/src/services/ml/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
 
-export const ImageStyleTransfer: React.FC = () => {
+const radioGroupStyle: CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+  marginBottom: 16,
+};
+
+const coverImageStyle: CSSProperties = {
+  display: 'block',
+  maxHeight: 200,
+  objectFit: 'contain',
+};
+
+export function ImageStyleTransfer() {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
   const styleTransferModel = useAppStore(state => state.appSettings.styleTransferModel);
@@ -69,9 +83,23 @@ export const ImageStyleTransfer: React.FC = () => {
     [models, user]
   );
 
-  const [modelId, setModelId] = useState<string>();
+  // null = explicit cancel; undefined = use default
+  const [selectedModelId, setSelectedModelId] = useState<string | null>();
+
+  const defaultModel = useMemo<OnnxModel | undefined>(() => {
+    if (isAuthLoading || !models?.size) {
+      return undefined;
+    }
+    const persisted = styleTransferModel ? models.get(styleTransferModel) : undefined;
+    return (
+      persisted ?? sortedModels.find(({numInputs = 1}) => numInputs === 1 || styleTransferImage)
+    );
+  }, [styleTransferModel, styleTransferImage, models, sortedModels, isAuthLoading]);
 
   const radioGroupRef = useRef<HTMLDivElement>(null);
+  const hasScrolledToDefaultRef = useRef(false);
+
+  const modelId = selectedModelId === null ? undefined : (selectedModelId ?? defaultModel?.id);
 
   const isLoading: boolean = isModelsLoading || isStyleTransferLoading || isAuthLoading;
 
@@ -94,37 +122,24 @@ export const ImageStyleTransfer: React.FC = () => {
     if (isAuthLoading || !models?.size) {
       return;
     }
-    let model: OnnxModel | undefined;
-    if (styleTransferModel) {
-      model = models.get(styleTransferModel);
+    setStyleTransferModel(modelId ? models.get(modelId) : undefined);
+  }, [modelId, models, setStyleTransferModel, isAuthLoading]);
+
+  useEffect(() => {
+    if (hasScrolledToDefaultRef.current || selectedModelId !== undefined || !defaultModel?.id) {
+      return;
     }
-    model ??= [...models.values()]
-      .sort(compareOnnxModelsByPriority({prioritizeFreeTier: !user}))
-      .find(({numInputs = 1}) => numInputs === 1 || styleTransferImage);
-    setModelId(model?.id);
-    setStyleTransferModel(model);
-    if (model?.id) {
-      radioGroupRef.current
-        ?.querySelector(`input[value="${model.id}"]`)
-        ?.closest('.ant-radio-wrapper')
-        ?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        });
-    }
-  }, [styleTransferModel, setStyleTransferModel, styleTransferImage, models, user, isAuthLoading]);
+    hasScrolledToDefaultRef.current = true;
+    radioGroupRef.current
+      ?.querySelector(`input[value="${defaultModel.id}"]`)
+      ?.closest('.ant-radio-wrapper')
+      ?.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }, [selectedModelId, defaultModel?.id]);
 
   const handleModelChange = (e: RadioChangeEvent) => {
     const value = e.target.value as string;
-    setModelId(value);
-    setStyleTransferModel(models?.get(value));
+    setSelectedModelId(value);
     void saveAppSettings({styleTransferModel: value});
-  };
-
-  const handleStyleImageFileChange = ([file]: File[], modelId: string) => {
-    void setStyleImageFile(file);
-    setModelId(modelId);
-    setStyleTransferModel(models?.get(modelId));
   };
 
   const handleSaveClick = () => {
@@ -135,9 +150,74 @@ export const ImageStyleTransfer: React.FC = () => {
 
   const handleCancelClick = () => {
     abortStyleTransfer();
-    setModelId(undefined);
+    setSelectedModelId(null);
     setStyleTransferModel(undefined);
   };
+
+  const radioOptions = useMemo(
+    () =>
+      sortedModels.map((model: OnnxModel) => {
+        const {id, name, description, image, numInputs = 1} = model;
+        const hasAccess = hasAccessTo(user, model);
+        const imageUrl = numInputs > 1 ? styleImageUrl : image;
+        return {
+          value: id,
+          label: (
+            <Card
+              key={id}
+              hoverable
+              cover={
+                imageUrl && (
+                  <img
+                    src={imageUrl}
+                    alt={name}
+                    crossOrigin="anonymous"
+                    loading="lazy"
+                    style={coverImageStyle}
+                  />
+                )
+              }
+              actions={
+                numInputs > 1
+                  ? [
+                      <FileSelect
+                        key={id}
+                        onChange={([file]: File[]) => {
+                          void setStyleImageFile(file);
+                          setSelectedModelId(id);
+                        }}
+                        disabled={!hasAccess}
+                      >
+                        <Trans>Select style image</Trans>
+                      </FileSelect>,
+                    ]
+                  : []
+              }
+            >
+              <Card.Meta
+                title={name}
+                description={
+                  (description || !hasAccess) && (
+                    <Space orientation="vertical">
+                      {description && (
+                        <Typography.Text type="secondary">{description}</Typography.Text>
+                      )}
+                      {!hasAccess && (
+                        <Typography.Text type="warning">
+                          <Trans>This style is available to paid Patreon members only</Trans>
+                        </Typography.Text>
+                      )}
+                    </Space>
+                  )
+                }
+              />
+            </Card>
+          ),
+          disabled: !hasAccess,
+        };
+      }),
+    [sortedModels, user, styleImageUrl, setStyleImageFile]
+  );
 
   if (!originalImageFile) {
     return <EmptyImage />;
@@ -201,76 +281,12 @@ export const ImageStyleTransfer: React.FC = () => {
               ref={radioGroupRef}
               value={modelId}
               onChange={handleModelChange}
-              options={sortedModels.map((model: OnnxModel) => {
-                const {id, name, description, image, numInputs = 1} = model;
-                const hasAccess = hasAccessTo(user, model);
-                const imageUrl = numInputs > 1 ? styleImageUrl : image;
-                return {
-                  value: id,
-                  label: (
-                    <Card
-                      key={id}
-                      hoverable
-                      cover={
-                        imageUrl && (
-                          <img
-                            src={imageUrl}
-                            alt={name}
-                            crossOrigin="anonymous"
-                            loading="lazy"
-                            style={{
-                              display: 'block',
-                              maxHeight: 200,
-                              objectFit: 'contain',
-                            }}
-                          />
-                        )
-                      }
-                      actions={
-                        numInputs > 1
-                          ? [
-                              <FileSelect
-                                key={id}
-                                onChange={(files: File[]) => {
-                                  handleStyleImageFileChange(files, id);
-                                }}
-                                disabled={!hasAccess}
-                              >
-                                <Trans>Select style image</Trans>
-                              </FileSelect>,
-                            ]
-                          : []
-                      }
-                    >
-                      <Card.Meta
-                        title={name}
-                        description={
-                          (description || !hasAccess) && (
-                            <Space orientation="vertical">
-                              {description && (
-                                <Typography.Text type="secondary">{description}</Typography.Text>
-                              )}
-                              {!hasAccess && (
-                                <Typography.Text type="warning">
-                                  <Trans>
-                                    This style is available to paid Patreon members only
-                                  </Trans>
-                                </Typography.Text>
-                              )}
-                            </Space>
-                          )
-                        }
-                      />
-                    </Card>
-                  ),
-                  disabled: !hasAccess,
-                };
-              })}
-              style={{display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 16}}
+              options={radioOptions}
+              style={radioGroupStyle}
             />
           </div>
         </Col>
       </Row>
     </LoadingIndicator>
   );
-};
+}

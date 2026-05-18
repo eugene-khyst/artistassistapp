@@ -19,6 +19,7 @@
 import {useLingui} from '@lingui/react/macro';
 import {Cascader} from 'antd';
 import type {CascaderProps, DefaultOptionType} from 'antd/es/cascader';
+import {useMemo} from 'react';
 
 import {ColorLabel} from '~/src/components/color/ColorLabel';
 import {filterCascaderOptions} from '~/src/components/utils';
@@ -30,36 +31,9 @@ import {computeIfAbsentInMap} from '~/src/utils/map';
 
 type OptionType = Omit<DefaultOptionType, 'value'> & {value?: number | null};
 
-type ColorCascaderBaseProps = Omit<
-  CascaderProps<OptionType, 'value', false>,
-  | 'options'
-  | 'placeholder'
-  | 'showSearch'
-  | 'expandTrigger'
-  | 'showCheckedStrategy'
-  | 'displayRender'
-  | 'multiple'
-  | 'value'
-  | 'onChange'
-> & {
-  multiple?: boolean;
-};
-
-type ColorCascaderSingleProps = ColorCascaderBaseProps & {
-  multiple?: false;
-  value?: ColorId;
-  onChange?: (value: ColorId, selectOptions: OptionType[]) => void;
-};
-
-type ColorCascaderMultipleProps = ColorCascaderBaseProps & {
-  multiple: true;
-  value?: ColorId[];
-  onChange?: (value: ColorId[], selectOptions: OptionType[][]) => void;
-};
-
-type ColorCascaderProps = ColorCascaderSingleProps | ColorCascaderMultipleProps;
-
 const displayRender = (labels: string[]) => labels[labels.length - 1];
+const showSearch = {filter: filterCascaderOptions};
+const classNames = {popup: {root: 'color-cascader'}};
 
 function getColorOptions(colorSet: ColorSet | null): OptionType[] {
   if (!colorSet) {
@@ -93,24 +67,54 @@ function getColorOptions(colorSet: ColorSet | null): OptionType[] {
     .filter((option): option is OptionType => !!option);
 }
 
-export const ColorCascader: React.FC<ColorCascaderProps> = ({
+type ColorCascaderBaseProps = Omit<
+  CascaderProps<OptionType, 'value', false>,
+  | 'options'
+  | 'placeholder'
+  | 'showSearch'
+  | 'expandTrigger'
+  | 'showCheckedStrategy'
+  | 'displayRender'
+  | 'multiple'
+  | 'value'
+  | 'onChange'
+> & {
+  multiple?: boolean;
+};
+
+type ColorCascaderSingleProps = ColorCascaderBaseProps & {
+  multiple?: false;
+  value?: ColorId;
+  onChange?: (value: ColorId, selectOptions: OptionType[]) => void;
+};
+
+type ColorCascaderMultipleProps = ColorCascaderBaseProps & {
+  multiple: true;
+  value?: ColorId[];
+  onChange?: (value: ColorId[], selectOptions: OptionType[][]) => void;
+};
+
+type ColorCascaderProps = ColorCascaderSingleProps | ColorCascaderMultipleProps;
+
+export function ColorCascader({
   multiple,
   allowClear,
   value,
   onChange,
   ...rest
-}: ColorCascaderProps) => {
+}: Readonly<ColorCascaderProps>) {
   const colorSet = useAppStore(state => state.colorSet);
 
   const {t} = useLingui();
 
-  const options = getColorOptions(colorSet);
+  const options = useMemo(() => getColorOptions(colorSet), [colorSet]);
+
   return (
     // @ts-expect-error Cascader prop drilling
     <Cascader<OptionType>
       options={options}
       placeholder={multiple ? t`Select colors` : t`Select color`}
-      showSearch={{filter: filterCascaderOptions}}
+      showSearch={showSearch}
       expandTrigger="hover"
       showCheckedStrategy={Cascader.SHOW_CHILD}
       displayRender={displayRender}
@@ -118,8 +122,8 @@ export const ColorCascader: React.FC<ColorCascaderProps> = ({
       multiple={multiple}
       value={value}
       onChange={onChange}
-      classNames={{popup: {root: 'color-cascader'}}}
+      classNames={classNames}
       {...rest}
     />
   );
-};
+}

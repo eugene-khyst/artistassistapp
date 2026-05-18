@@ -56,6 +56,9 @@ export const createStyleTransferSlice: StateCreator<
   styledImageBlob: null,
 
   setStyleTransferModel: (styleTransferModel?: OnnxModel): void => {
+    if (get().styleTransferModel === styleTransferModel) {
+      return;
+    }
     set({
       styleTransferModel,
       styledImageBlob: null,

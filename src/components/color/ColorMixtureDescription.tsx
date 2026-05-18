@@ -36,7 +36,7 @@ interface Props {
   showTooltips?: boolean;
 }
 
-export const ColorMixtureDescription: React.FC<Props> = memo(function ColorMixtureDescription({
+export const ColorMixtureDescription = memo(function ColorMixtureDescription({
   colorMixture: {
     type,
     parts,
@@ -51,7 +51,7 @@ export const ColorMixtureDescription: React.FC<Props> = memo(function ColorMixtu
   showColors = true,
   showConsistency = true,
   showTooltips = true,
-}: Props) {
+}: Readonly<Props>) {
   const [whitePart, colorMixturePart] = toRatio(whiteFraction);
   const partsRatioText: string = parts.map(({part}: ColorMixturePart) => part).join(':');
   const whiteRatioText: string = formatRatio(whiteFraction, true);

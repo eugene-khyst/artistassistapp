@@ -44,7 +44,7 @@ function restartTransitionAnimation(...refs: RefObject<HTMLDivElement | null>[])
   });
 }
 
-export const ImagesCompare: React.FC = () => {
+export function ImagesCompare() {
   const nextGame = useAppStore(state => state.nextGame);
   const unfinishedGamesSize = useAppStore(state => state.unfinishedGamesSize);
   const playersByRating = useAppStore(state => state.playersByRating);
@@ -197,4 +197,4 @@ export const ImagesCompare: React.FC = () => {
       </Row>
     </Flex>
   );
-};
+}

@@ -39,13 +39,13 @@ interface Props {
   onClose?: () => void;
 }
 
-export const ReflectanceChartDrawer: React.FC<Props> = ({
+export function ReflectanceChartDrawer({
   defaultChartMode = 'mixture',
   colorMixture,
   targetColorHex,
   open = false,
   onClose,
-}: Props) => {
+}: Readonly<Props>) {
   const {t} = useLingui();
 
   const {ref: canvasRef, reflectanceChart} = useReflectanceChart();
@@ -116,4 +116,4 @@ export const ReflectanceChartDrawer: React.FC<Props> = ({
       )}
     </Drawer>
   );
-};
+}

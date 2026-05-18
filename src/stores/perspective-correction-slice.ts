@@ -133,6 +133,9 @@ export const createPerspectiveCorrectionSlice: StateCreator<
     [perspectiveUncorrectedImage, perspectiveCorrectedImage].forEach(prev => prev?.close());
   },
   setPerspectiveCorrectionModel: (perspectiveCorrectionModel: OnnxModel | undefined): void => {
+    if (get().perspectiveCorrectionModel === perspectiveCorrectionModel) {
+      return;
+    }
     set({
       perspectiveCorrectionModel,
     });

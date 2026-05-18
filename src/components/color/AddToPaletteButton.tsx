@@ -30,11 +30,11 @@ type Props = {
   linkToImage?: boolean;
 } & ButtonProps;
 
-export const AddToPaletteButton: React.FC<Props> = memo(function AddToPaletteButton({
+export const AddToPaletteButton = memo(function AddToPaletteButton({
   colorMixture,
   linkToImage = true,
   ...props
-}: Props) {
+}: Readonly<Props>) {
   const colorMixtureExists = useAppStore(
     state => !!state.paletteColorMixtures.get(colorMixture.type)?.has(colorMixture.key)
   );

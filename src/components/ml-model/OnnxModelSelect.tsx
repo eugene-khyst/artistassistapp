@@ -16,10 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {FlattenOptionData} from '@rc-component/select/es/interface';
 import type {SelectProps} from 'antd';
 import {Flex, Select, Typography} from 'antd';
 import type {DefaultOptionType} from 'antd/es/select';
-import type {ReactNode} from 'react';
+import {type ReactNode, useMemo} from 'react';
 
 import type {User} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
@@ -51,10 +52,10 @@ function getOnnxModelOptions(
     });
 }
 
-const SelectOption: React.FC<Pick<SelectOptionType, 'label' | 'description'>> = ({
+function SelectOption({
   label,
   description,
-}) => {
+}: Readonly<Pick<SelectOptionType, 'label' | 'description'>>) {
   return (
     <Flex vertical>
       {label}
@@ -63,24 +64,29 @@ const SelectOption: React.FC<Pick<SelectOptionType, 'label' | 'description'>> = 
       </Typography.Text>
     </Flex>
   );
-};
+}
+
+const renderOption = ({
+  data: {label, description},
+}: FlattenOptionData<SelectOptionType>): ReactNode => (
+  <SelectOption label={label} description={description} />
+);
 
 type Props = SelectProps & {
   models?: Map<string, OnnxModel>;
 };
 
-export const OnnxModelSelect: React.FC<Props> = ({models, ...rest}: Props) => {
+export function OnnxModelSelect({models, ...rest}: Readonly<Props>) {
   const user = useAppStore(state => state.auth?.user);
 
-  const options = getOnnxModelOptions(user, models);
+  const options = useMemo(() => getOnnxModelOptions(user, models), [user, models]);
+
   return (
     <Select<string, SelectOptionType>
       options={options}
       {...rest}
-      optionRender={({data: {label, description}}) => (
-        <SelectOption label={label} description={description} />
-      )}
+      optionRender={renderOption}
       popupMatchSelectWidth={false}
     />
   );
-};
+}

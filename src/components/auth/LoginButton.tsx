@@ -19,11 +19,10 @@
 import {LoginOutlined} from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
 import {Button} from 'antd';
-import type React from 'react';
 
 import {useAppStore} from '~/src/stores/app-store';
 
-export const LoginButton: React.FC = () => {
+export function LoginButton() {
   const loginWithRedirect = useAppStore(state => state.loginWithRedirect);
   const isLoginPending = useAppStore(state => !!state.authAttempt);
 
@@ -39,4 +38,4 @@ export const LoginButton: React.FC = () => {
       <Trans>Log in with Patreon</Trans>
     </Button>
   );
-};
+}

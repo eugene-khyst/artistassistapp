@@ -22,6 +22,6 @@ interface Props {
   value: string | string[];
 }
 
-export const QRCode: React.FC<Props> = ({value}: Props) => {
+export function QRCode({value}: Readonly<Props>) {
   return <QRCodeCanvas value={value} size={256} marginSize={4} />;
-};
+}

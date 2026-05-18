@@ -42,7 +42,7 @@ interface Props {
   showColorSwatch: (colorMixture: ColorMixture[]) => void;
 }
 
-export const PaletteGrid: React.FC<Props> = ({colorType, showColorSwatch}: Props) => {
+export function PaletteGrid({colorType, showColorSwatch}: Readonly<Props>) {
   const colorMixtures = useAppStore(state => state.paletteColorMixtures.get(colorType));
 
   const deleteAllFromPalette = useAppStore(state => state.deleteAllFromPalette);
@@ -160,4 +160,4 @@ export const PaletteGrid: React.FC<Props> = ({colorType, showColorSwatch}: Props
       )}
     </>
   ) : null;
-};
+}

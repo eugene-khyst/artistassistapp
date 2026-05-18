@@ -55,7 +55,7 @@ const LOCALE_OPTIONS: SelectOptionType[] = Object.entries(LOCALE_LABELS).map(([v
   label,
 }));
 
-export const LocaleSelect: React.FC = () => {
+export function LocaleSelect() {
   const locale = useAppStore(state => state.locale);
 
   const setLocale = useAppStore(state => state.setLocale);
@@ -77,4 +77,4 @@ export const LocaleSelect: React.FC = () => {
       />
     </Form.Item>
   );
-};
+}

@@ -32,8 +32,9 @@ export type TypedArray =
 export type ArrayElement<ArrayType extends readonly unknown[] | undefined> =
   ArrayType extends readonly (infer ElementType)[] ? ElementType : never;
 
-export function range(min: number, max: number): number[] {
-  return Array.from({length: max - min + 1}, (_, i) => i + min);
+export function range(min: number, max: number, step = 1): number[] {
+  const length = Math.floor((max - min) / step) + 1;
+  return Array.from({length}, (_, i) => min + i * step);
 }
 
 export function unique<T>(array: T[], identityFn: (element: T) => string | number) {

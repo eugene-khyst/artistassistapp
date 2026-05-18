@@ -34,7 +34,7 @@ const gridCanvasSupplier = (canvas: HTMLCanvasElement): GridCanvas => {
   return new GridCanvas(canvas);
 };
 
-export const ImageGrid: React.FC = () => {
+export function ImageGrid() {
   const originalImageFile = useAppStore(state => state.originalImageFile);
   const originalImage = useAppStore(state => state.originalImage);
 
@@ -103,4 +103,4 @@ export const ImageGrid: React.FC = () => {
       </div>
     </LoadingIndicator>
   );
-};
+}

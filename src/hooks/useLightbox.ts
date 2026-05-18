@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {RefObject} from 'react';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
 import {useFullScreen} from '~/src/hooks/useFullscreen';
@@ -26,7 +27,7 @@ interface Options {
 
 interface Result {
   isLightbox: boolean;
-  containerRef: React.RefObject<HTMLDivElement | null>;
+  containerRef: RefObject<HTMLDivElement | null>;
   open: () => Promise<void>;
   close: () => Promise<void>;
 }

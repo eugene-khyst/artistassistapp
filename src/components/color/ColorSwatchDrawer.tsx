@@ -32,11 +32,7 @@ interface Props {
   onClose?: () => void;
 }
 
-export const ColorSwatchDrawer: React.FC<Props> = ({
-  colorMixtures,
-  open = false,
-  onClose,
-}: Props) => {
+export function ColorSwatchDrawer({colorMixtures, open = false, onClose}: Readonly<Props>) {
   const originalImageFile = useAppStore(state => state.originalImageFile);
 
   const screens = Grid.useBreakpoint();
@@ -115,4 +111,4 @@ export const ColorSwatchDrawer: React.FC<Props> = ({
       </Row>
     </Drawer>
   );
-};
+}
