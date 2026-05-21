@@ -28,14 +28,12 @@ import {
   Dropdown,
   Flex,
   Form,
-  Grid,
   Input,
   InputNumber,
   Popconfirm,
   Row,
   Slider,
   Space,
-  theme,
   Typography,
 } from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
@@ -66,6 +64,8 @@ import {
 import {useAppStore} from '~/src/stores/app-store';
 import {removeRho} from '~/src/stores/custom-color-brand-slice';
 import {noop} from '~/src/utils/function';
+
+import styles from './CustomColorBrandCreator.module.css';
 
 const FIELD = '${label}';
 
@@ -121,9 +121,6 @@ interface ColorDropdownProps {
 }
 
 function ColorDropdown({id, value, isEditTarget, onEditFromHere}: Readonly<ColorDropdownProps>) {
-  const {
-    token: {colorWarning},
-  } = theme.useToken();
   return (
     <Dropdown
       trigger={['click']}
@@ -143,7 +140,7 @@ function ColorDropdown({id, value, isEditTarget, onEditFromHere}: Readonly<Color
         id={id}
         icon={<DownOutlined />}
         iconPlacement="end"
-        style={isEditTarget ? {borderColor: colorWarning, color: colorWarning} : undefined}
+        className={isEditTarget ? styles['editTarget'] : undefined}
       >
         <ColorSquare hex={value ?? WHITE_HEX} size="small" />
       </Button>
@@ -179,7 +176,7 @@ const ColorListItem = memo(function ColorListItem({
           />
         </Form.Item>
         <Form.Item name={[name, 'id']} rules={[{required: true, message: t`Required`}]}>
-          <InputNumber placeholder="ID" status={status} style={{width: 70}} />
+          <InputNumber placeholder="ID" status={status} className={styles['colorIdInput']} />
         </Form.Item>
         <Form.Item name={[name, 'name']} rules={[{required: true, message: t`Required`}]}>
           <Input placeholder={t`Name`} status={status} />
@@ -201,7 +198,7 @@ const ColorListItem = memo(function ColorListItem({
           onClick={() => {
             onSetEditFromIndex(null);
           }}
-          style={{marginBottom: 24}}
+          className="u-mb-lg"
         >
           <Trans>Finish editing</Trans>
         </Button>
@@ -221,7 +218,6 @@ export function CustomColorBrandCreator() {
   const saveCustomColorBrandAsJson = useAppStore(state => state.saveCustomColorBrandAsJson);
   const deleteCustomColorBrand = useAppStore(state => state.deleteCustomColorBrand);
 
-  const screens = Grid.useBreakpoint();
   const {message} = App.useApp();
 
   const {t} = useLingui();
@@ -369,32 +365,13 @@ export function CustomColorBrandCreator() {
     setEditFromIndex(null);
   }, []);
 
-  const height = `calc((100dvh - 75px) / ${screens.sm ? '1' : '2 - 8px'})`;
-  const margin = screens.sm ? 0 : 8;
-
   return (
     <LoadingIndicator loading={isLoading}>
       <Row>
         <Col xs={24} sm={12} lg={8}>
-          <canvas
-            ref={canvasRef}
-            style={{
-              width: '100%',
-              height,
-              marginBottom: margin,
-            }}
-          />
+          <canvas ref={canvasRef} className={styles['previewCanvas']} />
         </Col>
-        <Col
-          xs={24}
-          sm={12}
-          lg={16}
-          style={{
-            maxHeight: height,
-            marginTop: margin,
-            overflowY: 'auto',
-          }}
-        >
+        <Col xs={24} sm={12} lg={16} className={styles['sidePanel']}>
           <Form
             name="customColorBrand"
             form={form}
@@ -406,9 +383,9 @@ export function CustomColorBrandCreator() {
             requiredMark="optional"
             autoComplete="off"
           >
-            <Row gutter={[32, 32]} style={{width: '100%', padding: '0 16px 16px'}}>
+            <Row gutter={[32, 32]} className={styles['formGrid']}>
               <Col xs={24} lg={12}>
-                <Space orientation="vertical" style={{display: 'flex'}}>
+                <Space orientation="vertical" className={styles['controlStack']}>
                   <Typography.Text strong>
                     <Trans>Select an image that contains a color chart</Trans>
                   </Typography.Text>
@@ -429,7 +406,7 @@ export function CustomColorBrandCreator() {
                   <Form.Item
                     label={t`Diameter`}
                     tooltip={t`The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area.`}
-                    style={{marginBottom: 0}}
+                    className="u-mb-0"
                   >
                     <Slider
                       value={sampleDiameter}
@@ -440,7 +417,7 @@ export function CustomColorBrandCreator() {
                     />
                   </Form.Item>
 
-                  <Form.Item label={t`Color`} style={{marginBottom: 0}}>
+                  <Form.Item label={t`Color`} className="u-mb-0">
                     <ColorPicker
                       value={currentColor}
                       onChangeComplete={(color: AggregationColor) => {
@@ -451,7 +428,7 @@ export function CustomColorBrandCreator() {
                     />
                   </Form.Item>
 
-                  <Divider style={{margin: '8px 0'}} />
+                  <Divider className="u-divider-compact" />
 
                   <Form.Item
                     name="id"

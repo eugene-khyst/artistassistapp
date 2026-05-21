@@ -58,6 +58,7 @@ import {ColorPickerSort} from '~/src/services/settings/types';
 import {useAppStore} from '~/src/stores/app-store';
 
 import {EmptyColorSet} from './empty/EmptyColorSet';
+import styles from './ImageColorPicker.module.css';
 
 interface SortOption {
   sort: ColorPickerSort;
@@ -239,12 +240,9 @@ export function ImageColorPicker() {
       <Form.Item
         label={t`Color set`}
         labelCol={{
-          style: {
-            display: 'flex',
-            alignItems: 'center',
-          },
+          className: styles['colorSetLabel'],
         }}
-        style={{marginBottom: 0}}
+        className="u-mb-0"
       >
         {colorSet.name || <ColorSetName brandColorCounts={colorSetToBrandColorCounts(colorSet)} />}
       </Form.Item>
@@ -254,9 +252,9 @@ export function ImageColorPicker() {
   const diameterSlider = (
     <Form.Item
       label={t`Sample size`}
-      labelCol={{style: {paddingBottom: 0}}}
+      labelCol={{className: 'u-pb-0'}}
       tooltip={t`Controls how large an area is averaged when you pick a color from the photo.`}
-      style={{marginBottom: 0}}
+      className="u-mb-0"
     >
       <Slider
         value={sampleDiameter}
@@ -264,7 +262,7 @@ export function ImageColorPicker() {
         min={MIN_COLOR_PICKER_DIAMETER}
         max={50}
         marks={SAMPLE_DIAMETER_SLIDER_MARKS}
-        style={{marginBlock: '4px 22px'}}
+        className={styles['diameterSlider']}
       />
     </Form.Item>
   );
@@ -272,9 +270,9 @@ export function ImageColorPicker() {
   const targetColorPicker = (
     <Form.Item
       label={t`Target color`}
-      labelCol={{style: {paddingBottom: 0}}}
+      labelCol={{className: 'u-pb-0'}}
       tooltip={t`The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup.`}
-      style={{marginBottom: 0}}
+      className="u-mb-0"
     >
       <Space.Compact>
         <ColorPicker
@@ -317,9 +315,9 @@ export function ImageColorPicker() {
   const glazingCheckbox = (
     <Form.Item
       label={pastel ? t`Blending` : t`Glazing`}
-      labelCol={{style: {paddingBottom: 0}}}
+      labelCol={{className: 'u-pb-0'}}
       tooltip={t`Include transparent layers over the surface or underlayer when finding matches.`}
-      style={{marginBottom: 0}}
+      className="u-mb-0"
     >
       <Checkbox
         checked={colorPickerLayeringEnabled}
@@ -333,17 +331,17 @@ export function ImageColorPicker() {
   const motherColorCascader = (
     <Form.Item
       label={t`Unifying color`}
-      labelCol={{style: {paddingBottom: 0}}}
+      labelCol={{className: 'u-pb-0'}}
       tooltip={t`A color mixed into every suggested mixture to help the palette feel more harmonious. Also known as a mother color.`}
-      style={{marginBottom: 0}}
+      className="u-mb-0"
     >
-      <Space.Compact style={{display: 'flex'}}>
+      <Space.Compact className={styles['compactStretch']}>
         <ColorCascader
           value={motherColorId ?? undefined}
           onChange={color => {
             void setMotherColor(color);
           }}
-          style={{minWidth: 0, flex: 1}}
+          className={styles['cascaderGrow']}
         />
         <Button
           icon={<CloseCircleOutlined />}
@@ -432,7 +430,7 @@ export function ImageColorPicker() {
     }));
 
   const sortButton = mixing && (
-    <Form.Item style={{marginBottom: 0}}>
+    <Form.Item className="u-mb-0">
       <Dropdown
         trigger={['click']}
         menu={{
@@ -447,44 +445,16 @@ export function ImageColorPicker() {
     </Form.Item>
   );
 
-  const height = `calc((100dvh - 75px) / ${screens.sm ? '1' : '2 - 8px'})`;
-  const margin = screens.sm ? 0 : 8;
-
   return (
     <>
       <LoadingIndicator loading={isLoading} onCancel={handleCancelLoading}>
         <Row>
           <Col xs={24} sm={12} lg={16}>
-            <canvas
-              ref={canvasRef}
-              style={{
-                width: '100%',
-                height,
-                marginBottom: margin,
-              }}
-            />
+            <canvas ref={canvasRef} className={styles['previewCanvas']} />
           </Col>
-          <Col
-            xs={24}
-            sm={12}
-            lg={8}
-            style={{
-              marginTop: margin,
-              width: '100%',
-              maxHeight: height,
-              overflowY: 'auto',
-            }}
-          >
-            <Space
-              orientation="vertical"
-              size="small"
-              style={{
-                padding: '0 16px 16px',
-                width: '100%',
-                boxSizing: 'border-box',
-              }}
-            >
-              <Space orientation="vertical" size="small" style={{width: '100%'}}>
+          <Col xs={24} sm={12} lg={8} className={styles['sidePanel']}>
+            <Space orientation="vertical" size="small" className={styles['controls']}>
+              <Space orientation="vertical" size="small" className="u-w-100">
                 {screens.md ? (
                   <>
                     {colorSetName}
@@ -518,7 +488,7 @@ export function ImageColorPicker() {
                       </Button>
                     </Space>
                     {isExpandedControls && (
-                      <Space orientation="vertical" size="small" style={{width: '100%'}}>
+                      <Space orientation="vertical" size="small" className="u-w-100">
                         {colorSetName}
                         <Space size="middle">
                           {underlayerColorPicker}

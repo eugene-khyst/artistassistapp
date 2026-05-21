@@ -19,7 +19,7 @@
 import {FullscreenExitOutlined, FullscreenOutlined} from '@ant-design/icons';
 import {useLingui} from '@lingui/react/macro';
 import type {TabsProps} from 'antd';
-import {Col, FloatButton, Row, Tabs, theme} from 'antd';
+import {Col, FloatButton, Row, Tabs} from 'antd';
 import {useContext, useEffect} from 'react';
 import StickyBox from 'react-sticky-box';
 
@@ -42,6 +42,7 @@ import {useFullScreen} from '~/src/hooks/useFullscreen';
 import {useInstall} from '~/src/hooks/useInstall';
 import {useAppStore} from '~/src/stores/app-store';
 
+import styles from './ArtistAssistApp.module.css';
 import {ColorMixer} from './components/ColorMixer';
 import {ColorSetChooser} from './components/ColorSetChooser';
 import {Help} from './components/Help';
@@ -55,6 +56,8 @@ import {Palette} from './components/Palette';
 import {WATERMARK_TEXT} from './config';
 import {TabKey} from './tabs';
 
+const tabMore: TabsProps['more'] = {trigger: ['click']};
+
 export function ArtistAssistApp() {
   const activeTabKey = useAppStore(state => state.activeTabKey);
   const user = useAppStore(state => state.auth?.user);
@@ -66,10 +69,6 @@ export function ArtistAssistApp() {
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
 
   const {checkUnsaved} = useContext(UnsavedChangesContext);
-
-  const {
-    token: {colorBgContainer},
-  } = theme.useToken();
 
   const {t} = useLingui();
 
@@ -190,21 +189,23 @@ export function ArtistAssistApp() {
   }));
 
   const renderTabBar: TabsProps['renderTabBar'] = ({mobile: _, ...props}, DefaultTabBar) => (
-    <StickyBox offsetTop={0} offsetBottom={20} style={{zIndex: 10}}>
-      <DefaultTabBar mobile={false} {...props} style={{background: colorBgContainer}} />
+    <StickyBox offsetTop={0} offsetBottom={20} className={styles['stickyTabBar']}>
+      <DefaultTabBar mobile={false} {...props} className={styles['tabBar']} />
     </StickyBox>
   );
 
   return (
     <LoadingIndicator loading={isLoading}>
-      <div className="watermark">{WATERMARK_TEXT}</div>
+      <div className={styles['watermark']}>{WATERMARK_TEXT}</div>
       <Row justify="center">
         <Col xs={24} xxl={18}>
           <Tabs
+            className={styles['tabs']}
             renderTabBar={renderTabBar}
             items={items}
             activeKey={activeTabKey}
             onChange={handleTabChange}
+            more={tabMore}
             size="large"
             tabBarGutter={0}
           />
@@ -215,7 +216,7 @@ export function ArtistAssistApp() {
           icon={isFullscreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
           shape="square"
           onClick={toggleFullScreen}
-          style={{right: 24, bottom: 24}}
+          className={styles['fullscreenButton']}
         />
       )}
       <AdModal />

@@ -100,7 +100,7 @@ export function Palette() {
 
   return (
     <LoadingIndicator loading={isLoading}>
-      <div style={{padding: '0 16px 16px'}}>
+      <div className="u-tab-content">
         <Tabs
           items={items}
           activeKey={activePaletteKey}

@@ -18,7 +18,7 @@
 
 import {DownloadOutlined, DownOutlined, SwapOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Button, Col, Dropdown, Form, Grid, Row, Space, Typography} from 'antd';
+import {Button, Col, Dropdown, Form, Row, Space, Typography} from 'antd';
 import {saveAs} from 'file-saver';
 import {useState} from 'react';
 
@@ -36,6 +36,7 @@ import {imageBitmapToBlob} from '~/src/utils/graphics';
 
 import {ColorCascader} from './color-set/ColorCascader';
 import {EmptyColorSet} from './empty/EmptyColorSet';
+import styles from './ImageLimitedPalette.module.css';
 
 const MAX_COLORS = 7;
 
@@ -51,8 +52,6 @@ export function ImageLimitedPalette() {
   const setLimitedColorSet = useAppStore(state => state.setLimitedColorSet);
   const setLimitedColorSetAsMain = useAppStore(state => state.setLimitedColorSetAsMain);
   const abortLimitedPalette = useAppStore(state => state.abortLimitedPalette);
-
-  const screens = Grid.useBreakpoint();
 
   const {t} = useLingui();
 
@@ -98,19 +97,14 @@ export function ImageLimitedPalette() {
     return <EmptyColorSet supportedColorTypes={MIXABLE_COLOR_TYPES} imageMandatory />;
   }
 
-  const height = `calc((100dvh - 130px) / ${screens.sm ? 1 : 2})`;
-
   return (
     <LoadingIndicator loading={isLoading} onCancel={abortLimitedPalette}>
       <div>
         <Form.Item
           label={t`Colors`}
-          labelCol={{style: {paddingBottom: 0}}}
+          labelCol={{className: 'u-pb-0'}}
           tooltip={t`Using a limited palette helps achieve color harmony. Select 1–${MAX_COLORS} primary colors.`}
-          style={{
-            marginBottom: 0,
-            padding: '0 16px',
-          }}
+          className={styles['colorsFormItem']}
           extra={
             <Typography.Text type={colorIds.length > MAX_COLORS ? 'danger' : 'secondary'}>
               <Trans>Select from 1 to {MAX_COLORS} colors</Trans>
@@ -118,13 +112,13 @@ export function ImageLimitedPalette() {
           }
           validateStatus={colorIds.length > MAX_COLORS ? 'error' : undefined}
         >
-          <Space.Compact style={{display: 'flex'}}>
+          <Space.Compact className="u-flex">
             <ColorCascader
               value={colorIds}
               onChange={setColorIds}
               multiple
               maxTagCount="responsive"
-              style={{flexGrow: 1}}
+              className={styles['cascader']}
             />
             <Button
               type="primary"
@@ -163,10 +157,10 @@ export function ImageLimitedPalette() {
       </div>
       <Row>
         <Col xs={24} sm={12}>
-          <canvas ref={limitedPaletteCanvasRef} style={{width: '100%', height}} />
+          <canvas ref={limitedPaletteCanvasRef} className={styles['previewCanvas']} />
         </Col>
         <Col xs={24} sm={12}>
-          <canvas ref={originalCanvasRef} style={{width: '100%', height}} />
+          <canvas ref={originalCanvasRef} className={styles['previewCanvas']} />
         </Col>
       </Row>
     </LoadingIndicator>

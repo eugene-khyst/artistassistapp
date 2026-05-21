@@ -18,8 +18,9 @@
 
 import {CloseCircleOutlined, DownloadOutlined, MoreOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {App, Button, Divider, Dropdown, Flex, Form, Grid, Space, theme, Typography} from 'antd';
+import {App, Button, Divider, Dropdown, Flex, Form, Grid, Space, Typography} from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
+import {clsx} from 'clsx';
 import {saveAs} from 'file-saver';
 import type {CSSProperties, ReactElement, ReactNode} from 'react';
 import {cloneElement, useCallback, useEffect, useMemo, useState} from 'react';
@@ -40,7 +41,10 @@ import {OnnxModelType} from '~/src/services/ml/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
 
+import styles from './ImageBackgroundRemoval.module.css';
+
 const menuStyle: CSSProperties = {boxShadow: 'none'};
+const compareImageStyle: CSSProperties = {objectFit: 'contain'};
 
 export function ImageBackgroundRemoval() {
   const user = useAppStore(state => state.auth?.user);
@@ -58,7 +62,6 @@ export function ImageBackgroundRemoval() {
   const abortBackgroundRemoval = useAppStore(state => state.abortBackgroundRemoval);
   const saveAppSettings = useAppStore(state => state.saveAppSettings);
 
-  const {token} = theme.useToken();
   const screens = Grid.useBreakpoint();
 
   const {notification} = App.useApp();
@@ -146,7 +149,7 @@ export function ImageBackgroundRemoval() {
 
   const colorPicker = useMemo(
     () => (
-      <Form.Item label={t`Background`} style={{marginBottom: 0}}>
+      <Form.Item label={t`Background`} className="u-mb-0">
         <Space.Compact>
           <ColorPicker
             title={t`Background`}
@@ -176,23 +179,11 @@ export function ImageBackgroundRemoval() {
     [t, backgroundRemovalColor, setBackgroundRemovalColor]
   );
 
-  const imageStyle: CSSProperties = {
-    maxWidth: '100%',
-    maxHeight: `calc(100dvh - 145px)`,
-    objectFit: 'contain',
-  };
-
   const popupRender = useCallback(
     (menu: ReactNode) => (
-      <div
-        style={{
-          backgroundColor: token.colorBgElevated,
-          borderRadius: token.borderRadiusLG,
-          boxShadow: token.boxShadowSecondary,
-        }}
-      >
-        <div style={{padding: '8px 16px'}}>{colorPicker}</div>
-        <Divider style={{margin: 0}} />
+      <div className="u-popup-panel">
+        <div className="u-popup-content">{colorPicker}</div>
+        <Divider className="u-m-0" />
         {cloneElement(
           menu as ReactElement<{
             style: CSSProperties;
@@ -201,7 +192,7 @@ export function ImageBackgroundRemoval() {
         )}
       </div>
     ),
-    [colorPicker, token]
+    [colorPicker]
   );
 
   return (
@@ -210,12 +201,12 @@ export function ImageBackgroundRemoval() {
       downloadTip={backgroundRemovalDownloadTip}
       onCancel={handleCancelClick}
     >
-      <Flex vertical gap="small" style={{marginBottom: 8, padding: '0 16px'}}>
+      <Flex vertical gap="small" className="u-tab-toolbar">
         <Typography.Text strong>
           <Trans>Select a photo to remove the background from</Trans>
         </Typography.Text>
         <Form.Item
-          style={{margin: 0}}
+          className="u-m-0"
           extra={
             !user &&
             (isAccessAllowed ? (
@@ -231,7 +222,7 @@ export function ImageBackgroundRemoval() {
             ))
           }
         >
-          <Space style={{display: 'flex'}}>
+          <Space className="u-flex">
             {isAccessAllowed && (
               <FileSelect onChange={handleFileChange} useReferencePhoto>
                 <Trans>Select photo</Trans>
@@ -239,14 +230,14 @@ export function ImageBackgroundRemoval() {
             )}
             <Form.Item
               label={screens.sm ? t`Mode` : null}
-              style={{margin: 0}}
+              className="u-m-0"
               validateStatus={!isAccessAllowed ? 'warning' : undefined}
             >
               <OnnxModelSelect
                 models={models}
                 value={modelId}
                 onChange={handleModelChange}
-                style={{width: 120}}
+                className={styles['modelSelect']}
               />
             </Form.Item>
             {screens.sm ? (
@@ -288,7 +279,12 @@ export function ImageBackgroundRemoval() {
         position={position}
         itemOne={
           imageUrl && (
-            <ReactCompareSliderImage src={imageUrl} alt={t`Original photo`} style={imageStyle} />
+            <ReactCompareSliderImage
+              src={imageUrl}
+              alt={t`Original photo`}
+              className={styles['compareImage']}
+              style={compareImageStyle}
+            />
           )
         }
         itemTwo={
@@ -296,7 +292,8 @@ export function ImageBackgroundRemoval() {
             <ReactCompareSliderImage
               src={imageWithoutBackgroundUrl}
               alt={t`Image without background`}
-              style={{backgroundColor: '#fff', ...imageStyle}}
+              className={clsx(styles['compareImage'], styles['whiteBackground'])}
+              style={compareImageStyle}
             />
           )
         }

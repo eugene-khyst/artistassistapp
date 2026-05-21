@@ -35,6 +35,7 @@ import {getFilename} from '~/src/utils/filename';
 import {imageBitmapToBlob} from '~/src/utils/graphics';
 
 import {EmptyImage} from './empty/EmptyImage';
+import styles from './ImageTonalValues.module.css';
 
 export function ImageTonalValues() {
   const originalImageFile = useAppStore(state => state.originalImageFile);
@@ -90,11 +91,9 @@ export function ImageTonalValues() {
     {value: 2, label: t`Shadow`},
   ];
 
-  const height = `calc((100dvh - 115px) / ${screens.sm ? 1 : 2})`;
-
   return (
     <LoadingIndicator loading={isLoading}>
-      <Space align="center" style={{marginBottom: 8, padding: '0 16px'}}>
+      <Space align="center" className="u-tab-toolbar">
         <Radio.Group
           options={toneOptions}
           value={tonalImageIndex}
@@ -144,10 +143,10 @@ export function ImageTonalValues() {
       </Space>
       <Row>
         <Col xs={24} sm={12}>
-          <canvas ref={tonalValuesCanvasRef} style={{width: '100%', height}} />
+          <canvas ref={tonalValuesCanvasRef} className={styles['previewCanvas']} />
         </Col>
         <Col xs={24} sm={12}>
-          <canvas ref={originalCanvasRef} style={{width: '100%', height}} />
+          <canvas ref={originalCanvasRef} className={styles['previewCanvas']} />
         </Col>
       </Row>
     </LoadingIndicator>

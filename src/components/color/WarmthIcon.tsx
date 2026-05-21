@@ -34,15 +34,15 @@ interface WarmthDescription {
 
 const WARMTH: Record<ColorWarmth, WarmthDescription> = {
   [ColorWarmth.Warm]: {
-    icon: <Warm className="warmth-icon" />,
+    icon: <Warm className="u-icon-1em" />,
     tooltip: defineMessage`Warm — Algorithmic estimate; artistic perception may vary.`,
   },
   [ColorWarmth.Cool]: {
-    icon: <Cool className="warmth-icon" />,
+    icon: <Cool className="u-icon-1em" />,
     tooltip: defineMessage`Cool — Algorithmic estimate; artistic perception may vary.`,
   },
   [ColorWarmth.Neutral]: {
-    icon: <Neutral className="warmth-icon" />,
+    icon: <Neutral className="u-icon-1em" />,
     tooltip: defineMessage`Neutral — Algorithmic estimate; artistic perception may vary.`,
   },
 };

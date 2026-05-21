@@ -28,6 +28,8 @@ import {compareOnnxModelsByPriority} from '~/src/services/ml/models';
 import type {OnnxModel} from '~/src/services/ml/types';
 import {useAppStore} from '~/src/stores/app-store';
 
+import styles from './OnnxModelSelect.module.css';
+
 interface SelectOptionType extends DefaultOptionType {
   description?: ReactNode;
 }
@@ -59,7 +61,7 @@ function SelectOption({
   return (
     <Flex vertical>
       {label}
-      <Typography.Text type="secondary" style={{whiteSpace: 'pre-line'}}>
+      <Typography.Text type="secondary" className={styles['optionDescription']}>
         {description}
       </Typography.Text>
     </Flex>

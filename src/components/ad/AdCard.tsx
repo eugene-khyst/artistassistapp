@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Card, theme} from 'antd';
+import {Card} from 'antd';
 import {useContext} from 'react';
 
 import {Ad} from '~/src/components/ad/Ad';
@@ -25,6 +25,8 @@ import {useAds} from '~/src/hooks/useAds';
 import type {AdDefinition} from '~/src/services/ads/types';
 import {useAppStore} from '~/src/stores/app-store';
 import type {TabKey} from '~/src/tabs';
+
+import styles from './AdCard.module.css';
 
 const DEFAULT_PLACEMENT = 'all';
 
@@ -40,10 +42,6 @@ export function AdCard({vertical = false}: Readonly<Props>) {
 
   const {ads: {ads: allAds, placements} = {ads: {}, placements: {}}} = useAds();
 
-  const {
-    token: {colorFillSecondary},
-  } = theme.useToken();
-
   const adKeys: string[] = placements[tab] ?? placements[DEFAULT_PLACEMENT] ?? [];
   const ads: AdDefinition[] = adKeys
     .map((adKey: string): AdDefinition | undefined => allAds[adKey])
@@ -53,11 +51,7 @@ export function AdCard({vertical = false}: Readonly<Props>) {
     return <></>;
   }
   return (
-    <Card
-      hoverable
-      style={{backgroundColor: colorFillSecondary}}
-      styles={{body: {padding: 0, overflow: 'hidden'}}}
-    >
+    <Card hoverable className="u-bg-fill-secondary" classNames={{body: styles['body']}}>
       <Ad vertical={vertical} ads={ads} />
     </Card>
   );

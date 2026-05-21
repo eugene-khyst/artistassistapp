@@ -33,10 +33,10 @@ import {
   Grid,
   Popover,
   Space,
-  theme,
   Tooltip,
   Typography,
 } from 'antd';
+import {clsx} from 'clsx';
 import type {CSSProperties, ReactElement, ReactNode} from 'react';
 import {cloneElement, useCallback, useEffect, useMemo, useState} from 'react';
 
@@ -60,6 +60,7 @@ import {TabKey} from '~/src/tabs';
 import {getFilename} from '~/src/utils/filename';
 
 import {EmptyImage} from './empty/EmptyImage';
+import styles from './ImageOutline.module.css';
 
 const defaultGridSettings = {enabled: false};
 
@@ -85,7 +86,6 @@ export function ImageOutline() {
   const abortOutline = useAppStore(state => state.abortOutline);
   const saveAppSettings = useAppStore(state => state.saveAppSettings);
 
-  const {token} = theme.useToken();
   const screens = Grid.useBreakpoint();
 
   const {notification} = App.useApp();
@@ -224,31 +224,25 @@ export function ImageOutline() {
 
   const popupRender = useCallback(
     (menu: ReactNode) => (
-      <div
-        style={{
-          backgroundColor: token.colorBgElevated,
-          borderRadius: token.borderRadiusLG,
-          boxShadow: token.boxShadowSecondary,
-        }}
-      >
+      <div className={styles['popup']}>
         {cloneElement(
           menu as ReactElement<{
             style: CSSProperties;
           }>,
           {style: menuStyle}
         )}
-        <Divider style={{margin: 0}} />
+        <Divider className="u-m-0" />
         <GridControls
           orientation="vertical"
           size={0}
-          style={{padding: '8px 16px'}}
+          className={styles['dropdownGridControls']}
           gridCanvas={gridCanvas}
           defaultGridSettings={defaultGridSettings}
           disableable
         />
       </div>
     ),
-    [gridCanvas, token]
+    [gridCanvas]
   );
 
   if (!originalImageFile) {
@@ -262,7 +256,7 @@ export function ImageOutline() {
       onCancel={!!modelId && handleCancelClick}
     >
       <Form.Item
-        style={{marginBottom: 8, padding: '0 16px'}}
+        className="u-tab-toolbar"
         extra={
           !user &&
           (isAccessAllowed ? (
@@ -278,18 +272,18 @@ export function ImageOutline() {
           ))
         }
       >
-        <Space style={{display: 'flex'}}>
+        <Space className={styles['actions']}>
           <Form.Item
             label={screens.sm ? t`Mode` : null}
-            labelCol={{style: {paddingBottom: 0}}}
-            style={{margin: 0}}
+            labelCol={{className: 'u-pb-0'}}
+            className="u-m-0"
             validateStatus={!isAccessAllowed ? 'warning' : undefined}
           >
             <OnnxModelSelect
               models={models}
               value={modelId}
               onChange={handleModelChange}
-              style={{width: 120}}
+              className={styles['modelSelect']}
             />
           </Form.Item>
           {screens.sm ? (
@@ -390,37 +384,18 @@ export function ImageOutline() {
       </Form.Item>
       <div
         ref={lightboxContainerRef}
-        style={{
-          position: 'relative',
-          ...(isLightbox ? {backgroundColor: token.colorBgContainer} : {}),
-        }}
+        className={clsx(styles['lightboxContainer'], isLightbox && styles['lightboxBackground'])}
       >
         {isArMode && (
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            playsInline
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            }}
-          />
+          <video ref={videoRef} autoPlay muted playsInline className={styles['arVideo']} />
         )}
         <canvas
           ref={canvasRef}
-          style={{
-            width: '100%',
-            height: isLightbox ? '100dvh' : `calc(100dvh - 115px)`,
-            display: 'block',
-            position: 'relative',
-            filter: isArMode ? 'invert(1)' : undefined,
-            mixBlendMode: isArMode ? 'difference' : undefined,
-          }}
+          className={clsx(
+            styles['previewCanvas'],
+            isLightbox ? styles['canvasLightbox'] : styles['canvasNormal'],
+            isArMode && styles['canvasAr']
+          )}
         />
         {isLightbox && (
           <LightboxOverlay

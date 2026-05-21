@@ -16,4 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {CSSProperties} from 'react';
+
 export type Size = [width: number, height: number];
+
+export type CssVariables = CSSProperties & Record<`--${string}`, string | number>;

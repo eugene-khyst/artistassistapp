@@ -88,7 +88,7 @@ export function PaletteGrid({colorType, showColorSwatch}: Readonly<Props>) {
 
   return sortedColorMixtures ? (
     <>
-      <Space align="center" wrap style={{marginBottom: 16}}>
+      <Space align="center" wrap className="u-mb">
         <Button
           type="primary"
           icon={<DatabaseOutlined />}
@@ -141,13 +141,13 @@ export function PaletteGrid({colorType, showColorSwatch}: Readonly<Props>) {
         </Col>
       </Row>
       {isPrintContentVisible && (
-        <div className="print-only">
+        <div className="u-print-only">
           <Row ref={printRef} gutter={[16, 16]} justify="start">
             {sortedColorMixtures.map((colorMixture: ColorMixture) => (
               <Col key={colorMixture.key} xs={24} sm={12} md={8}>
                 <Card size="small">
                   <Space orientation="vertical">
-                    <Typography.Text style={{fontWeight: 'bold'}}>
+                    <Typography.Text strong>
                       {colorMixture.name || t`Untitled mixture`}
                     </Typography.Text>
                     <ColorMixtureDescription colorMixture={colorMixture} showTooltips={false} />

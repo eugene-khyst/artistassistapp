@@ -1,0 +1,61 @@
+.scroll {
+  overflow: auto;
+  min-height: 250px;
+  max-height: calc(100dvh - 60px);
+}
+
+.colorsFormItem {
+  flex-grow: 1;
+  margin-bottom: 0 !important;
+  padding: 0 var(--ant-padding);
+}
+
+.chart {
+  display: grid;
+  grid-template-columns: auto repeat(var(--chart-color-count), auto);
+  gap: var(--ant-margin-xs);
+  align-items: center;
+  width: max-content;
+  padding: var(--ant-padding-xs);
+  box-sizing: content-box;
+}
+
+/* Hardcoded white (not var(--ant-color-bg-container)) because the chart is exported via html-to-image. */
+.stickyCorner {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  align-self: stretch;
+  background-color: white;
+}
+
+.stickyHeader {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  align-self: stretch;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--ant-margin-xxs);
+}
+
+.verticalLabel {
+  writing-mode: sideways-lr;
+}
+
+.stickyRowHeader {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  align-self: stretch;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--ant-margin-xs);
+  white-space: nowrap;
+}

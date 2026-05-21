@@ -25,6 +25,9 @@ import {isRgbDark, rgbToHex} from '~/src/services/color/space/rgb';
 import type {ColorMixture} from '~/src/services/color/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {decorateSortUndecorate} from '~/src/utils/array';
+import type {CssVariables} from '~/src/utils/types';
+
+import styles from './ColorSwatchDrawer.module.css';
 
 interface Props {
   colorMixtures?: ColorMixture[];
@@ -48,6 +51,8 @@ export function ColorSwatchDrawer({colorMixtures, open = false, onClose}: Readon
   const colorStripeHeight = `max(calc((100dvh - 60px) / (${
     Math.min(colorMixtures?.length || 10, 10) * divider
   })), 24px)`;
+  const imageColumnStyle: CssVariables = {'--image-height': imageHeight};
+  const swatchColumnStyle: CssVariables = {'--swatch-height': colorSwatchHeight};
 
   return (
     <Drawer
@@ -56,53 +61,25 @@ export function ColorSwatchDrawer({colorMixtures, open = false, onClose}: Readon
       size="100%"
       open={open}
       onClose={onClose}
-      styles={{body: {padding: 0}}}
+      classNames={{body: styles['body']}}
     >
       <Row>
-        <Col
-          xs={24}
-          sm={12}
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            height: imageHeight,
-            lineHeight: imageHeight,
-            textAlign: 'center',
-          }}
-        >
-          {imageUrl && (
-            <img
-              alt={t`Reference`}
-              src={imageUrl}
-              style={{
-                display: 'block',
-                maxWidth: '100%',
-                maxHeight: '100%',
-                verticalAlign: 'middle',
-                objectFit: 'contain',
-              }}
-            />
-          )}
+        <Col xs={24} sm={12} className={styles['imageColumn']} style={imageColumnStyle}>
+          {imageUrl && <img alt={t`Reference`} src={imageUrl} className={styles['image']} />}
         </Col>
-        <Col xs={24} sm={12} style={{maxHeight: colorSwatchHeight, overflowY: 'auto'}}>
+        <Col xs={24} sm={12} className={styles['swatchColumn']} style={swatchColumnStyle}>
           {decorateSortUndecorate(
             colorMixtures,
             COLOR_MIXTURES_COMPARATORS[ColorMixtureSort.ByHue]
           )?.map((colorMixture: ColorMixture) => {
             const {layerRgb} = colorMixture;
+            const stripeStyle: CssVariables = {
+              '--stripe-height': colorStripeHeight,
+              '--stripe-bg': rgbToHex(...layerRgb),
+              '--stripe-color': isRgbDark(...layerRgb) ? '#fff' : '#000',
+            };
             return (
-              <div
-                key={colorMixture.key}
-                style={{
-                  height: colorStripeHeight,
-                  lineHeight: colorStripeHeight,
-                  textAlign: 'center',
-                  fontSize: 14,
-                  fontWeight: 'bold',
-                  backgroundColor: rgbToHex(...layerRgb),
-                  color: isRgbDark(...layerRgb) ? '#fff' : '#000',
-                }}
-              >
+              <div key={colorMixture.key} className={styles['stripe']} style={stripeStyle}>
                 {colorMixture.name || t`Untitled mixture`}
               </div>
             );

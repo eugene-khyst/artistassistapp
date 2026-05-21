@@ -1,0 +1,82 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  touch-action: none;
+  overscroll-behavior: contain;
+  user-select: none;
+  -webkit-user-select: none;
+  background-color: transparent;
+}
+
+.track {
+  position: fixed;
+  left: 50%;
+  bottom: calc(32px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  width: 240px;
+  height: 48px;
+  border-radius: 24px;
+  background-color: var(--ant-color-bg-mask);
+  box-shadow: var(--ant-box-shadow-secondary);
+  padding: 4px;
+  box-sizing: border-box;
+  overflow: hidden;
+  touch-action: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--lightbox-progress);
+  background-color: var(--ant-color-primary);
+  opacity: 0.4;
+  pointer-events: none;
+  transition: width 150ms ease;
+}
+
+.fillDragging {
+  transition: none;
+}
+
+.label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ant-color-text-light-solid);
+  font-size: var(--ant-font-size);
+  font-weight: 500;
+  opacity: var(--lightbox-label-opacity);
+  pointer-events: none;
+}
+
+.knob {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--ant-color-bg-container);
+  color: var(--ant-color-text);
+  border: 1px solid var(--ant-color-border);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  touch-action: none;
+  box-shadow: var(--ant-box-shadow);
+  font-size: var(--ant-font-size-lg);
+  transform: translateX(var(--lightbox-knob-offset));
+  transition: transform 200ms ease;
+}
+
+.knobDragging {
+  transition: none;
+}

@@ -1,0 +1,10 @@
+.previewCanvas {
+  width: 100%;
+  height: calc((100dvh - 115px) / 2);
+}
+
+@media (min-width: 576px) {
+  .previewCanvas {
+    height: calc(100dvh - 115px);
+  }
+}

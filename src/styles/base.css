@@ -1,0 +1,26 @@
+:root {
+  color-scheme: only light !important;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background: #fff;
+}
+
+body {
+  overscroll-behavior: contain;
+}
+
+canvas {
+  display: block;
+}
+
+@media print {
+  html,
+  body {
+    print-color-adjust: exact;
+  }
+}

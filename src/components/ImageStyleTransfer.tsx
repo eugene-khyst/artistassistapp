@@ -19,9 +19,8 @@
 import {DownloadOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {RadioChangeEvent} from 'antd';
-import {App, Button, Card, Col, Grid, Radio, Row, Space, Typography} from 'antd';
+import {App, Button, Card, Col, Radio, Row, Space, Typography} from 'antd';
 import {saveAs} from 'file-saver';
-import type {CSSProperties} from 'react';
 import {useEffect, useMemo, useRef, useState} from 'react';
 
 import {EmptyImage} from '~/src/components/empty/EmptyImage';
@@ -36,18 +35,7 @@ import {OnnxModelType} from '~/src/services/ml/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
 
-const radioGroupStyle: CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 8,
-  marginBottom: 16,
-};
-
-const coverImageStyle: CSSProperties = {
-  display: 'block',
-  maxHeight: 200,
-  objectFit: 'contain',
-};
+import styles from './ImageStyleTransfer.module.css';
 
 export function ImageStyleTransfer() {
   const user = useAppStore(state => state.auth?.user);
@@ -64,8 +52,6 @@ export function ImageStyleTransfer() {
   const setStyleImageFile = useAppStore(state => state.setStyleImageFile);
   const abortStyleTransfer = useAppStore(state => state.abortStyleTransfer);
   const saveAppSettings = useAppStore(state => state.saveAppSettings);
-
-  const screens = Grid.useBreakpoint();
 
   const {notification} = App.useApp();
 
@@ -173,7 +159,7 @@ export function ImageStyleTransfer() {
                     alt={name}
                     crossOrigin="anonymous"
                     loading="lazy"
-                    style={coverImageStyle}
+                    className={styles['coverImage']}
                   />
                 )
               }
@@ -223,9 +209,6 @@ export function ImageStyleTransfer() {
     return <EmptyImage />;
   }
 
-  const height = `calc((100dvh - 75px) / ${screens.sm ? '1' : '2 - 8px'})`;
-  const margin = screens.sm ? 0 : 8;
-
   return (
     <LoadingIndicator
       loading={isLoading}
@@ -233,32 +216,15 @@ export function ImageStyleTransfer() {
       onCancel={handleCancelClick}
     >
       <Row>
-        <Col xs={24} sm={12} lg={16} style={{display: 'flex', justifyContent: 'center'}}>
+        <Col xs={24} sm={12} lg={16} className={styles['imageColumn']}>
           <img
             src={styledImageUrl ?? originalImageUrl}
             alt={t`Styled reference photo`}
-            style={{
-              display: 'block',
-              maxWidth: '100%',
-              maxHeight: height,
-              objectFit: 'contain',
-              marginBottom: margin,
-            }}
+            className={styles['previewImage']}
           />
         </Col>
-        <Col
-          xs={24}
-          sm={12}
-          lg={8}
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            maxHeight: height,
-            marginTop: margin,
-            padding: '0 16px',
-          }}
-        >
-          <Space vertical style={{marginBottom: 8}}>
+        <Col xs={24} sm={12} lg={8} className={styles['sidePanel']}>
+          <Space vertical className={styles['header']}>
             <Typography.Text strong>
               <Trans>Select a style to transfer to your reference photo</Trans>
             </Typography.Text>
@@ -276,13 +242,13 @@ export function ImageStyleTransfer() {
             )}
           </Space>
 
-          <div style={{flex: 1, minHeight: 0, overflowY: 'auto'}}>
+          <div className={styles['optionsScroll']}>
             <Radio.Group
               ref={radioGroupRef}
               value={modelId}
               onChange={handleModelChange}
               options={radioOptions}
-              style={radioGroupStyle}
+              className={styles['radioGroup']}
             />
           </div>
         </Col>

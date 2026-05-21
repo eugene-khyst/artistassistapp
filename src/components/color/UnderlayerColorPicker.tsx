@@ -18,7 +18,7 @@
 
 import {CloseCircleOutlined, DownOutlined} from '@ant-design/icons';
 import {useLingui} from '@lingui/react/macro';
-import {Button, Dropdown, Form, Space, theme} from 'antd';
+import {Button, Dropdown, Form, Space} from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import {useCallback, useMemo} from 'react';
 
@@ -44,8 +44,6 @@ export function UnderlayerColorPicker({
 }: Readonly<Props>) {
   const colorType = useAppStore(state => state.colorSet?.type);
 
-  const {token} = theme.useToken();
-
   const {t} = useLingui();
 
   const {layering = Layering.None} = colorType ? COLOR_MIXING[colorType] : {};
@@ -55,9 +53,9 @@ export function UnderlayerColorPicker({
     () => (
       <Form.Item
         label={t`Surface color`}
-        labelCol={{style: {paddingBottom: 0}}}
+        labelCol={{className: 'u-pb-0'}}
         tooltip={t`The color of your paper, canvas, or painting surface.`}
-        style={{marginBottom: 0}}
+        className="u-mb-0"
       >
         <ColorPicker
           title={t`Surface color`}
@@ -82,17 +80,11 @@ export function UnderlayerColorPicker({
 
   const popupRender = useCallback(
     () => (
-      <div
-        style={{
-          backgroundColor: token.colorBgElevated,
-          borderRadius: token.borderRadiusLG,
-          boxShadow: token.boxShadowSecondary,
-        }}
-      >
-        <div style={{padding: '8px 16px'}}>{surfaceColorPicker}</div>
+      <div className="u-popup-panel">
+        <div className="u-popup-content">{surfaceColorPicker}</div>
       </div>
     ),
-    [surfaceColorPicker, token]
+    [surfaceColorPicker]
   );
 
   if (layering === Layering.None) {
@@ -102,13 +94,13 @@ export function UnderlayerColorPicker({
   return (
     <Form.Item
       label={t`Underlayer`}
-      labelCol={{style: {paddingBottom: 0}}}
+      labelCol={{className: 'u-pb-0'}}
       tooltip={
         pastel
           ? t`The existing pastel layer you want to blend over.`
           : t`The dried layer you want to glaze over.`
       }
-      style={{marginBottom: 0}}
+      className="u-mb-0"
     >
       <Space.Compact>
         <ColorPicker

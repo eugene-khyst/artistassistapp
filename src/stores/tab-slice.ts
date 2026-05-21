@@ -20,6 +20,7 @@ import type {StateCreator} from 'zustand';
 
 import type {AppSlice} from '~/src/stores/app-slice';
 import {TabKey} from '~/src/tabs';
+import {blurFocusedElementIn} from '~/src/utils/focus';
 
 import type {BlurredImagesSlice} from './blurred-images-slice';
 import type {OutlineImageSlice} from './outline-image-slice';
@@ -48,7 +49,11 @@ export const createTabSlice: StateCreator<
   activeTabKey: TabKey.ColorSet,
 
   setActiveTabKey: async (activeTabKey: TabKey): Promise<void> => {
+    if (activeTabKey === get().activeTabKey) {
+      return;
+    }
     await get().saveAppSettings({activeTabKey});
+    blurFocusedElementIn('[role="tabpanel"]');
     set({activeTabKey});
     if (activeTabKey === TabKey.TonalValues) {
       get().loadTonalImages();

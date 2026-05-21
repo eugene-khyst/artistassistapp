@@ -18,16 +18,15 @@
 
 import {CloseOutlined} from '@ant-design/icons';
 import type {ColorPickerProps} from 'antd';
-import {Button, ColorPicker as AntdColorPicker, Grid, theme, Typography} from 'antd';
+import {Button, ColorPicker as AntdColorPicker, Grid, Typography} from 'antd';
 import {type PropsWithChildren, useState} from 'react';
+
+import styles from './ColorPicker.module.css';
 
 type Props = ColorPickerProps & {title?: string};
 
 export function ColorPicker({children, title, ...props}: Readonly<PropsWithChildren<Props>>) {
   const screens = Grid.useBreakpoint();
-  const {
-    token: {colorTextTertiary, fontSizeLG},
-  } = theme.useToken();
 
   const [internalOpen, setInternalOpen] = useState<boolean>(false);
 
@@ -50,26 +49,15 @@ export function ColorPicker({children, title, ...props}: Readonly<PropsWithChild
         screens.md ? (
           panel
         ) : (
-          <div style={{position: 'relative', paddingTop: 36}}>
-            <div
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                gap: 8,
-              }}
-            >
-              <Typography.Text ellipsis style={{flex: 1, minWidth: 0}}>
+          <div className={styles['mobilePanel']}>
+            <div className={styles['mobileHeader']}>
+              <Typography.Text ellipsis className={styles['mobileTitle']}>
                 {title}
               </Typography.Text>
               <Button
                 type="text"
                 size="middle"
-                icon={<CloseOutlined style={{color: colorTextTertiary, fontSize: fontSizeLG}} />}
+                icon={<CloseOutlined className={styles['closeIcon']} />}
                 onClick={() => {
                   handleOpenChange(false);
                 }}

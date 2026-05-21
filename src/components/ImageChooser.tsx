@@ -99,7 +99,7 @@ export function ImageChooser() {
   return (
     <>
       <LoadingIndicator loading={isLoading}>
-        <Flex vertical gap="small" style={{padding: '0 16px 16px'}}>
+        <Flex vertical gap="small" className="u-tab-content">
           <Typography.Text strong>
             <Trans>Select a reference photo from your device to paint from</Trans>
           </Typography.Text>
@@ -120,7 +120,7 @@ export function ImageChooser() {
             </Typography.Text>
           )}
 
-          <Row gutter={[16, 16]} align="top" justify="start" style={{marginBottom: '1em'}}>
+          <Row gutter={[16, 16]} align="top" justify="start" className="u-mb-em">
             {recentImageFiles.map((imageFile: ImageFile) => (
               <Col key={imageFile.digest} xs={24} sm={12} lg={6}>
                 <RecentImageCard imageFile={imageFile} />

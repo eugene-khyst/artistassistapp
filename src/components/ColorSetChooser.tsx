@@ -445,7 +445,7 @@ export function ColorSetChooser() {
 
   return (
     <>
-      <Flex vertical gap="small" style={{padding: '0 16px 16px'}}>
+      <Flex vertical gap="small" className="u-tab-content">
         <LocaleSelect />
 
         <Typography.Text>
@@ -543,7 +543,7 @@ export function ColorSetChooser() {
           />
         )}
 
-        <Divider style={{margin: '8px 0'}} />
+        <Divider className="u-divider-compact" />
 
         <Typography.Text strong>
           <Trans>
@@ -703,7 +703,7 @@ export function ColorSetChooser() {
                   )}
                 </Space>
               }
-              style={{marginBottom: 0}}
+              className="u-mb-0"
             >
               <Space wrap>
                 {isAccessAllowed ? (

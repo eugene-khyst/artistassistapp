@@ -30,19 +30,7 @@ import {
 } from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
 import type {ProgressProps} from 'antd';
-import {
-  Button,
-  Col,
-  Divider,
-  Flex,
-  Progress,
-  Row,
-  Space,
-  Switch,
-  Tag,
-  theme,
-  Typography,
-} from 'antd';
+import {Button, Col, Divider, Flex, Progress, Row, Space, Switch, Tag, Typography} from 'antd';
 import dayjs from 'dayjs';
 import {useState} from 'react';
 
@@ -71,10 +59,6 @@ export function Help() {
   const saveAppSettings = useAppStore(state => state.saveAppSettings);
   const updateServiceWorker = useAppStore(state => state.updateServiceWorker);
 
-  const {
-    token: {fontSizeSM},
-  } = theme.useToken();
-
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
 
   const expirationText: string | undefined =
@@ -100,14 +84,14 @@ export function Help() {
   };
 
   return (
-    <Flex vertical gap="small" align="center" style={{padding: '0 16px 16px'}}>
-      <div style={{textAlign: 'center'}}>
+    <Flex vertical gap="small" align="center" className="u-tab-content">
+      <div className="u-text-center">
         <Logo name tagline />
       </div>
 
       <Row gutter={24}>
         <Col xs={24} md={12}>
-          <Space orientation="vertical" align="start" size={0} style={{width: '100%'}}>
+          <Space orientation="vertical" align="start" size={0} className="u-w-100">
             <Button
               type="link"
               href={`${WEBSITE_URL}/tutorials/`}
@@ -141,7 +125,7 @@ export function Help() {
           </Space>
         </Col>
         <Col xs={24} md={12}>
-          <Space orientation="vertical" align="start" size={0} style={{width: '100%'}}>
+          <Space orientation="vertical" align="start" size={0} className="u-w-100">
             <Button
               type="link"
               href={`${WEBSITE_URL}/contact/`}
@@ -271,12 +255,12 @@ export function Help() {
         </Trans>
       </Typography.Text>
 
-      <Typography.Text type="secondary" style={{fontSize: fontSizeSM}}>
+      <Typography.Text type="secondary" className="u-text-sm">
         <Trans>Application build ID</Trans>: {BUILD_ID}
       </Typography.Text>
 
       {expirationText && (
-        <Typography.Text type="secondary" style={{fontSize: fontSizeSM}}>
+        <Typography.Text type="secondary" className="u-text-sm">
           <Trans>Login session is valid until {expirationText}</Trans>
         </Typography.Text>
       )}

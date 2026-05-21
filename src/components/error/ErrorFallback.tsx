@@ -19,7 +19,6 @@
 import {ReloadOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Alert, Button, Space, Typography} from 'antd';
-import type {CSSProperties} from 'react';
 import type {FallbackProps} from 'react-error-boundary';
 
 import {ClearCacheButton} from '~/src/components/storage/ClearCacheButton';
@@ -27,7 +26,7 @@ import {DeleteAppDataButton} from '~/src/components/storage/DeleteAppDataButton'
 import {WEBSITE_URL} from '~/src/config';
 import {getErrorMessage} from '~/src/utils/error';
 
-const preStyle: CSSProperties = {whiteSpace: 'pre-wrap', wordBreak: 'break-word', margin: 0};
+import styles from './ErrorFallback.module.css';
 
 export function ErrorFallback({error}: Readonly<FallbackProps>) {
   const {t} = useLingui();
@@ -48,17 +47,17 @@ export function ErrorFallback({error}: Readonly<FallbackProps>) {
             </Trans>
           </Typography.Paragraph>
           <Typography.Paragraph>
-            <pre style={preStyle}>{t`Unexpected error: ${errorMessage}`}</pre>
+            <pre className={styles['pre']}>{t`Unexpected error: ${errorMessage}`}</pre>
           </Typography.Paragraph>
           {error instanceof Error && error.stack && (
             <Typography.Paragraph>
-              <pre style={preStyle}>{error.stack}</pre>
+              <pre className={styles['pre']}>{error.stack}</pre>
             </Typography.Paragraph>
           )}
         </Typography>
       }
       action={
-        <Space orientation="vertical" style={{margin: 8}}>
+        <Space orientation="vertical" className={styles['action']}>
           <Button
             icon={<ReloadOutlined />}
             onClick={() => {
@@ -71,7 +70,7 @@ export function ErrorFallback({error}: Readonly<FallbackProps>) {
           <DeleteAppDataButton />
         </Space>
       }
-      style={{margin: 8}}
+      className={styles['alert']}
     />
   );
 }

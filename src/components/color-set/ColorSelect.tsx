@@ -118,7 +118,7 @@ export function ColorSelect({brand, colors, value, ...rest}: Readonly<Props>) {
           selectedKeys: [sort ? `sort-${sort}` : 'no-sorting'],
         }}
       >
-        <Button icon={<SortAscendingOutlined />} style={{height: 'auto'}}>
+        <Button icon={<SortAscendingOutlined />} className="u-h-auto">
           {screens.lg && <Trans>Sort</Trans>}
         </Button>
       </Dropdown>

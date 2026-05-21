@@ -29,11 +29,13 @@ import {useAppStore} from '~/src/stores/app-store';
 import {decorateSortUndecorate} from '~/src/utils/array';
 import {computeIfAbsentInMap} from '~/src/utils/map';
 
+import styles from './ColorCascader.module.css';
+
 type OptionType = Omit<DefaultOptionType, 'value'> & {value?: number | null};
 
 const displayRender = (labels: string[]) => labels[labels.length - 1];
 const showSearch = {filter: filterCascaderOptions};
-const classNames = {popup: {root: 'color-cascader'}};
+const classNames = {popup: {root: styles['popup']}};
 
 function getColorOptions(colorSet: ColorSet | null): OptionType[] {
   if (!colorSet) {

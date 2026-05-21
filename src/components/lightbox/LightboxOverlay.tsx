@@ -18,8 +18,13 @@
 
 import {RightOutlined} from '@ant-design/icons';
 import {useLingui} from '@lingui/react/macro';
+import {clsx} from 'clsx';
 import type {PointerEvent as ReactPointerEvent} from 'react';
 import {useEffect, useEffectEvent, useRef, useState} from 'react';
+
+import type {CssVariables} from '~/src/utils/types';
+
+import styles from './LightboxOverlay.module.css';
 
 interface LightboxOverlayProps {
   onUnlock: () => void;
@@ -91,33 +96,31 @@ export function LightboxOverlay({onUnlock}: Readonly<LightboxOverlayProps>) {
   };
 
   const progress = dx / MAX_DX;
+  const trackStyle: CssVariables = {
+    '--lightbox-progress': `${Math.round(progress * 100)}%`,
+    '--lightbox-label-opacity': Math.max(0, 1 - progress * 1.5),
+    '--lightbox-knob-offset': `${dx}px`,
+  };
 
   return (
     <div
-      className="lightbox-overlay"
+      className={styles['overlay']}
       onContextMenu={event => {
         event.preventDefault();
       }}
     >
-      <div className="lightbox-track">
-        <div
-          className={isDragging ? 'lightbox-fill lightbox-fill--dragging' : 'lightbox-fill'}
-          style={{width: `${Math.round(progress * 100)}%`}}
-        />
-        <div
-          className="lightbox-label"
-          style={{opacity: Math.max(0, 1 - progress * 1.5)}}
-        >{t`Swipe to unlock`}</div>
+      <div className={styles['track']} style={trackStyle}>
+        <div className={clsx(styles['fill'], isDragging && styles['fillDragging'])} />
+        <div className={styles['label']}>{t`Swipe to unlock`}</div>
         <div
           role="button"
           tabIndex={0}
           aria-label={t`Swipe to unlock`}
-          className={isDragging ? 'lightbox-knob lightbox-knob--dragging' : 'lightbox-knob'}
+          className={clsx(styles['knob'], isDragging && styles['knobDragging'])}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerUp}
-          style={{transform: `translateX(${dx}px)`}}
         >
           <RightOutlined />
         </div>

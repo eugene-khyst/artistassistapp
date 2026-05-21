@@ -188,6 +188,29 @@ threading). The SW intercepts `POST /login/callback` (auth — see `auth/` above
 
 - Path alias: `~/src/` → `/src/` (use this prefix for all non-same-folder imports).
 
+### Styling
+
+Three-layer system loaded from `src/index.css`: `styles/base.css` (resets),
+`styles/antd-overrides.css` (`.ant-*` selectors), `styles/utilities.css` (global `u-*` classes —
+utilities and shared semantic patterns like `u-tab-content`, `u-popup-panel`). Per-component styles
+live in co-located `*.module.css`. AntD 6 has `cssVar: true` by default, so AntD design tokens are
+available everywhere as CSS variables (`--ant-padding`, `--ant-color-bg-elevated`, etc.) — prefer
+them over hardcoded values or `theme.useToken()`.
+
+**Critical:** AntD 6's CSS-in-JS injects rules into `<head>` at runtime, _after_ bundled CSS. So
+overrides on AntD components at equal class specificity lose by source order. Any utility or module
+class that overrides a property AntD touches (`width` on Select/Input/Cascader; `margin` on
+Form.Item, Divider, Slider; `padding` on Modal/Drawer/Card body slots; `color` on Typography and
+`.anticon` icons; `background-color` on Card/Tabs nav) **needs `!important`**. Inline `style` never
+hit this because spec 1000 always wins — class-based replacements do.
+
+Dynamic values pass through CSS custom properties on `style`, typed via `CssVariables` in
+`src/utils/types.ts` (e.g. LightboxOverlay swipe progress, ColorMixingChart column count). Reach for
+this pattern instead of computing pixel values in JS when the CSS can consume a variable.
+
+CSS Modules use bracket access (`styles['fooBar']`) — the generated `.d.ts` exposes an index
+signature, so `styles.fooBar` errors with TS4111.
+
 ## Code Conventions
 
 ### License Header

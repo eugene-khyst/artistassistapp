@@ -1,0 +1,40 @@
+.editTarget {
+  color: var(--ant-color-warning) !important;
+  border-color: var(--ant-color-warning) !important;
+}
+
+.colorIdInput {
+  width: 70px !important;
+}
+
+.previewCanvas {
+  width: 100%;
+  height: calc(100dvh - 75px);
+  margin-bottom: 0;
+}
+
+.sidePanel {
+  max-height: calc(100dvh - 75px);
+  margin-top: 0;
+  overflow-y: auto;
+}
+
+.formGrid {
+  width: 100%;
+  padding: 0 var(--ant-padding) var(--ant-padding);
+}
+
+.controlStack {
+  display: flex !important;
+}
+
+@media (max-width: 575px) {
+  .previewCanvas {
+    height: calc((100dvh - 75px) / 2 - var(--ant-margin-xs));
+    margin-bottom: var(--ant-margin-xs);
+  }
+
+  .sidePanel {
+    max-height: calc((100dvh - 75px) / 2 - var(--ant-margin-xs));
+  }
+}

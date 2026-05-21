@@ -27,7 +27,7 @@ import {
   WindowsOutlined,
 } from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Alert, Col, Row, theme, Typography} from 'antd';
+import {Alert, Col, Row, Typography} from 'antd';
 import type {PropsWithChildren} from 'react';
 
 import {isWebGl2Supported} from '~/src/utils/graphics';
@@ -43,15 +43,11 @@ const BROWSER_FEATURES: Record<string, boolean> = {
 const IS_BROWSER_SUPPORTED = Object.values(BROWSER_FEATURES).every(Boolean);
 
 export function BrowserSupport({children}: Readonly<PropsWithChildren>) {
-  const {
-    token: {colorTextTertiary},
-  } = theme.useToken();
-
   const {t} = useLingui();
 
   if (!IS_BROWSER_SUPPORTED) {
     return (
-      <div style={{padding: 16}}>
+      <div className="u-p">
         <Alert title={t`Your web browser is not supported.`} type="error" showIcon />
         <Typography.Title level={2}>
           <Trans>Supported web browsers and operating systems</Trans>
@@ -61,19 +57,19 @@ export function BrowserSupport({children}: Readonly<PropsWithChildren>) {
             <Typography.Paragraph>
               <Typography.Title level={3}>
                 <Trans>
-                  <TabletOutlined style={{color: colorTextTertiary}} /> Tablet and{' '}
-                  <MobileOutlined style={{color: colorTextTertiary}} /> Mobile
+                  <TabletOutlined className="u-text-tertiary" /> Tablet and{' '}
+                  <MobileOutlined className="u-text-tertiary" /> Mobile
                 </Trans>
               </Typography.Title>
               <ul>
                 <li>
                   <Trans>
-                    <AppleOutlined style={{color: colorTextTertiary}} /> iPadOS 16.4+ or iOS 16.4+
-                    (not supported in any browser on older versions of iPadOS and iOS)
+                    <AppleOutlined className="u-text-tertiary" /> iPadOS 16.4+ or iOS 16.4+ (not
+                    supported in any browser on older versions of iPadOS and iOS)
                   </Trans>
                 </li>
                 <li>
-                  <AndroidOutlined style={{color: colorTextTertiary}} /> Android
+                  <AndroidOutlined className="u-text-tertiary" /> Android
                   <ul>
                     <li>Chrome 98+</li>
                     <li>Firefox 105+</li>
@@ -88,12 +84,12 @@ export function BrowserSupport({children}: Readonly<PropsWithChildren>) {
             <Typography.Paragraph>
               <Typography.Title level={3}>
                 <Trans>
-                  <DesktopOutlined style={{color: colorTextTertiary}} /> Desktop or laptop
+                  <DesktopOutlined className="u-text-tertiary" /> Desktop or laptop
                 </Trans>
               </Typography.Title>
               <ul>
                 <li>
-                  <AppleOutlined style={{color: colorTextTertiary}} /> macOS
+                  <AppleOutlined className="u-text-tertiary" /> macOS
                   <ul>
                     <li>Safari 16.4 (macOS Big Sur, Monterey, Ventura, Sonoma or later)</li>
                     <li>
@@ -106,8 +102,8 @@ export function BrowserSupport({children}: Readonly<PropsWithChildren>) {
                 </li>
                 <li>
                   <Trans>
-                    <WindowsOutlined style={{color: colorTextTertiary}} /> Windows and{' '}
-                    <LinuxOutlined style={{color: colorTextTertiary}} /> Linux
+                    <WindowsOutlined className="u-text-tertiary" /> Windows and{' '}
+                    <LinuxOutlined className="u-text-tertiary" /> Linux
                   </Trans>
                   <ul>
                     <li>Chrome 98+</li>
@@ -117,7 +113,7 @@ export function BrowserSupport({children}: Readonly<PropsWithChildren>) {
                   </ul>
                 </li>
                 <li>
-                  <ChromeOutlined style={{color: colorTextTertiary}} /> ChromeOS 69+
+                  <ChromeOutlined className="u-text-tertiary" /> ChromeOS 69+
                 </li>
               </ul>
             </Typography.Paragraph>

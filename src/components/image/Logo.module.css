@@ -1,0 +1,57 @@
+.root {
+  width: 100%;
+}
+
+.image {
+  display: block;
+}
+
+.name {
+  text-align: center;
+  font-family: Kalam, cursive;
+  font-size: var(--ant-font-size-heading-1);
+  font-weight: bold;
+  line-height: 1em;
+}
+
+.tagline {
+  text-align: center;
+  font-family: Kalam, cursive;
+  font-size: var(--ant-font-size-heading-2);
+  line-height: 1em;
+  color: white;
+}
+
+.dropShadow {
+  filter: drop-shadow(1px 1px 5px var(--shadow-color));
+}
+
+.dropShadowLarge {
+  filter: drop-shadow(2px 2px 10px var(--shadow-color));
+}
+
+.textOutline {
+  --stroke-color: white;
+  -webkit-text-stroke: 4px var(--stroke-color);
+  paint-order: stroke fill;
+}
+
+.textOutlineBlack {
+  --stroke-color: black;
+}
+
+.artist {
+  color: #656b89;
+}
+
+.assist {
+  color: #7b6085;
+}
+
+.app {
+  color: #895983;
+}
+
+.dotCom {
+  color: #945382;
+}

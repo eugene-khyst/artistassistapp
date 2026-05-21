@@ -38,7 +38,7 @@ interface Props {
 function ChromiumInstructions() {
   return (
     <Space orientation="vertical" size="small">
-      <Typography.Title level={4} style={{margin: 0}}>
+      <Typography.Title level={4} className="u-m-0">
         <Trans>
           <AndroidOutlined /> Android, <WindowsOutlined /> Windows, <LinuxOutlined /> Linux and{' '}
           <ChromeOutlined /> ChromeOS
@@ -47,8 +47,8 @@ function ChromiumInstructions() {
       <Typography.Text>
         <Trans>To install ArtistAssistApp, use one of the supported web browsers:</Trans>
       </Typography.Text>
-      <Typography.Paragraph style={{margin: 0}}>
-        <ul style={{margin: 0}}>
+      <Typography.Paragraph className="u-m-0">
+        <ul className="u-m-0">
           <li>
             <AndroidOutlined /> Android
             <ul>
@@ -83,7 +83,7 @@ function IOSInstructions() {
 
   return (
     <Space orientation="vertical" size="small">
-      <Typography.Title level={4} style={{margin: 0}}>
+      <Typography.Title level={4} className="u-m-0">
         <Trans>
           <AppleOutlined /> iOS and iPadOS
         </Trans>
@@ -134,7 +134,7 @@ function MacOSInstructions() {
 
   return (
     <Space orientation="vertical" size="small">
-      <Typography.Title level={4} style={{margin: 0}}>
+      <Typography.Title level={4} className="u-m-0">
         <AppleOutlined /> macOS
       </Typography.Title>
       <Space align="center">

@@ -29,6 +29,7 @@ import {useAppStore} from '~/src/stores/app-store';
 import {getFilename} from '~/src/utils/filename';
 
 import {EmptyImage} from './empty/EmptyImage';
+import styles from './ImageGrid.module.css';
 
 const gridCanvasSupplier = (canvas: HTMLCanvasElement): GridCanvas => {
   return new GridCanvas(canvas);
@@ -63,7 +64,7 @@ export function ImageGrid() {
 
   return (
     <LoadingIndicator loading={isOriginalImageLoading}>
-      <Space style={{marginBottom: 8, padding: '0 16px'}}>
+      <Space className="u-tab-toolbar">
         <GridControls gridCanvas={gridCanvas} />
         {screens.sm ? (
           <>
@@ -99,7 +100,7 @@ export function ImageGrid() {
         )}
       </Space>
       <div>
-        <canvas ref={canvasRef} style={{width: '100%', height: `calc(100dvh - 115px)`}} />
+        <canvas ref={canvasRef} className={styles['previewCanvas']} />
       </div>
     </LoadingIndicator>
   );

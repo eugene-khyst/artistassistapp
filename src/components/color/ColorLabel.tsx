@@ -54,9 +54,9 @@ export function ColorLabel({
   return (
     <Flex vertical gap={0} align={alignItems}>
       {showBrandName && <Typography.Text type="secondary">{brandName}</Typography.Text>}
-      <Flex gap="small" align="center" style={{minWidth: 0}}>
+      <Flex gap="small" align="center" className="u-min-w-0">
         {showHex && <ColorSquare hex={hex} />}
-        <Typography.Text ellipsis style={{minWidth: 0}}>
+        <Typography.Text ellipsis className="u-min-w-0">
           {label}
         </Typography.Text>
         {showOpacity && <OpacityIcon opacity={opacity} />}

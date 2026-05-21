@@ -22,6 +22,8 @@ import {Scanner} from '@yudiel/react-qr-scanner';
 import {App, Modal} from 'antd';
 import {useEffect, useState} from 'react';
 
+import styles from './QRScannerModal.module.css';
+
 interface Props {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -58,7 +60,7 @@ export function QRScannerModal({open, setOpen}: Readonly<Props>) {
         setIsPaused(true);
       }}
     >
-      <div style={{minHeight: 472}}>
+      <div className={styles['scanner']}>
         <Scanner
           formats={['qr_code']}
           paused={isPaused}

@@ -22,6 +22,8 @@ import {memo} from 'react';
 import type {RgbTuple} from '~/src/services/color/space/rgb';
 import {hexToRgb, isRgbDark, toHexString} from '~/src/services/color/space/rgb';
 
+import styles from './ColorSquare.module.css';
+
 type Size = 'small' | 'large';
 
 interface Props {
@@ -42,7 +44,7 @@ export const ColorSquare = memo(function ColorSquare({hex, size = 'small', text}
   if (!hex) {
     const halfBorderRadius = borderRadius / 2;
     return (
-      <svg width={sideLength} height={sideLength} className="color-icon">
+      <svg width={sideLength} height={sideLength} className={styles['icon']}>
         <rect
           width={sideLength}
           height={sideLength}
@@ -67,7 +69,7 @@ export const ColorSquare = memo(function ColorSquare({hex, size = 'small', text}
   const rgb: RgbTuple = hexToRgb(hex);
   const hexString: string = toHexString(hex);
   return (
-    <svg width={sideLength} height={sideLength} className="color-icon">
+    <svg width={sideLength} height={sideLength} className={styles['icon']}>
       <rect
         width={sideLength}
         height={sideLength}

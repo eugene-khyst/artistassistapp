@@ -18,7 +18,7 @@
 
 import {PrinterOutlined, QuestionCircleOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Button, Col, Flex, Row, Space, theme, Tooltip, Typography} from 'antd';
+import {Button, Col, Flex, Row, Space, Tooltip, Typography} from 'antd';
 import type {RefObject} from 'react';
 import {useEffect, useRef} from 'react';
 import {useReactToPrint} from 'react-to-print';
@@ -30,8 +30,12 @@ import type {Score} from '~/src/services/rating/rating';
 import {Player} from '~/src/services/rating/rating';
 import {useAppStore} from '~/src/stores/app-store';
 
+import styles from './ImagesCompare.module.css';
+
+const TRANSITION_ANIMATION_CLASS = styles['transitionAnimation']!;
+
 function restartTransitionAnimation(...refs: RefObject<HTMLDivElement | null>[]) {
-  const className = 'transition-animation';
+  const className = TRANSITION_ANIMATION_CLASS;
   refs.forEach((ref: RefObject<HTMLDivElement | null>) => {
     const classList: DOMTokenList | undefined = ref.current?.classList;
     if (!classList) {
@@ -51,10 +55,6 @@ export function ImagesCompare() {
   const addPlayer = useAppStore(state => state.addPlayer);
   const setScore = useAppStore(state => state.setScore);
   const newTournament = useAppStore(state => state.newTournament);
-
-  const {
-    token: {colorTextTertiary},
-  } = theme.useToken();
 
   const {t} = useLingui();
 
@@ -90,7 +90,7 @@ export function ImagesCompare() {
   const player2RatingText: string | undefined = nextGame?.player2.rating.toFixed(1);
 
   return (
-    <Flex vertical gap="small" style={{padding: '0 16px 16px'}}>
+    <Flex vertical gap="small" className="u-tab-content">
       <Space align="center" size={4}>
         <Typography.Text strong>
           <Trans>Select photos to rank using pairwise comparison</Trans>
@@ -98,7 +98,7 @@ export function ImagesCompare() {
         <Tooltip
           title={t`It can be difficult to choose between multiple photos. Comparing each photo with others in pairs simplifies the choice and helps to identify the most preferred one.`}
         >
-          <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
+          <QuestionCircleOutlined className="u-help-icon" />
         </Tooltip>
       </Space>
 

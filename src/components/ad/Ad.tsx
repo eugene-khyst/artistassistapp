@@ -17,7 +17,8 @@
  */
 
 import {Button, Flex, Grid, Space, Typography} from 'antd';
-import type {CSSProperties, ReactNode} from 'react';
+import {clsx} from 'clsx';
+import type {ReactNode} from 'react';
 import {useEffect, useState} from 'react';
 import reactStringReplace from 'react-string-replace';
 
@@ -25,6 +26,8 @@ import type {AdDefinition} from '~/src/services/ads/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 import {randomInt} from '~/src/utils/random';
+
+import styles from './Ad.module.css';
 
 const AD_CHANGE_INTERVAL = 15 * 1000;
 
@@ -49,10 +52,10 @@ interface Props {
   ads?: AdDefinition[];
   vertical?: boolean;
   footer?: ReactNode;
-  style?: CSSProperties;
+  contentClassName?: string;
 }
 
-export function Ad({ads, vertical = false, footer, style}: Readonly<Props>) {
+export function Ad({ads, vertical = false, footer, contentClassName}: Readonly<Props>) {
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
 
   const screens = Grid.useBreakpoint();
@@ -75,20 +78,10 @@ export function Ad({ads, vertical = false, footer, style}: Readonly<Props>) {
   return (
     <Flex vertical={vertical || !screens.md} align="center">
       {ad.image && (
-        <img
-          src={ad.image}
-          alt="Ad"
-          crossOrigin="anonymous"
-          style={{
-            display: 'block',
-            width: 200,
-            height: 200,
-            objectFit: 'contain',
-          }}
-        />
+        <img src={ad.image} alt="Ad" crossOrigin="anonymous" className={styles['image']} />
       )}
-      <Flex vertical align="flex-start" style={{padding: 16, ...style}}>
-        <div style={{marginBottom: 16, textAlign: 'justify'}}>{formatRichText(ad.text)}</div>
+      <Flex vertical align="flex-start" className={clsx(styles['content'], contentClassName)}>
+        <div className={styles['text']}>{formatRichText(ad.text)}</div>
         <Space>
           {ad.linkUrl && (
             <Button type="primary" size="large" href={ad.linkUrl} target="_blank" rel="noopener">

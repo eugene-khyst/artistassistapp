@@ -35,19 +35,19 @@ interface OpacityDescription {
 
 const OPACITIES: Record<ColorOpacity, OpacityDescription> = {
   [ColorOpacity.Transparent]: {
-    icon: <Transparent className="opacity-icon" />,
+    icon: <Transparent className="u-icon-1em" />,
     tooltip: defineMessage`Transparent`,
   },
   [ColorOpacity.SemiTransparent]: {
-    icon: <SemiTransparent className="opacity-icon" />,
+    icon: <SemiTransparent className="u-icon-1em" />,
     tooltip: defineMessage`Semi-transparent`,
   },
   [ColorOpacity.SemiOpaque]: {
-    icon: <SemiOpaque className="opacity-icon" />,
+    icon: <SemiOpaque className="u-icon-1em" />,
     tooltip: defineMessage`Semi-opaque`,
   },
   [ColorOpacity.Opaque]: {
-    icon: <Opaque className="opacity-icon" />,
+    icon: <Opaque className="u-icon-1em" />,
     tooltip: defineMessage`Opaque`,
   },
 };

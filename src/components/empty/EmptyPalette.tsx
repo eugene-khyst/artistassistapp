@@ -33,7 +33,7 @@ export function EmptyPalette() {
   const paletteLabel: string = t(TAB_LABELS[TabKey.Palette]);
 
   return (
-    <div style={{padding: '0 16px 16px'}}>
+    <div className="u-tab-content">
       <Typography.Paragraph>
         <Typography.Text strong>
           ⁉️ <Trans>No data</Trans>

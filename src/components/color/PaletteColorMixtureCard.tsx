@@ -77,14 +77,14 @@ export const PaletteColorMixtureCard = memo(function PaletteColorMixtureCard({
 
   return (
     <Card size="small" {...props}>
-      <Space orientation="vertical" style={{width: '100%'}}>
+      <Space orientation="vertical" className="u-w-100">
         <Typography.Text
           editable={{
             text: colorMixture.name ?? '',
             onChange: handleTitleEdited,
             autoSize: false,
           }}
-          style={{width: '100%', fontWeight: 'bold'}}
+          className="u-w-100 u-font-bold"
         >
           {colorMixture.name || t`Untitled mixture`}
         </Typography.Text>

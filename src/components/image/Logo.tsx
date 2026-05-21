@@ -16,7 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Space, theme} from 'antd';
+import {Space} from 'antd';
+import {clsx} from 'clsx';
+
+import styles from './Logo.module.css';
 
 interface Props {
   name?: boolean;
@@ -25,57 +28,31 @@ interface Props {
 }
 
 export function Logo({name = false, tagline = false, size}: Readonly<Props>) {
-  const {
-    token: {fontSizeHeading1, fontSizeHeading2},
-  } = theme.useToken();
-
   return (
-    <Space orientation="vertical" align="center" style={{width: '100%'}}>
+    <Space orientation="vertical" align="center" className={styles['root']}>
       <img
         src="/assets/favicon/favicon.svg"
         alt="ArtistAssistApp logo"
-        className="drop-shadow-lg"
-        style={{
-          display: 'block',
-          width: size ?? 150,
-        }}
+        className={clsx(styles['image'], styles['dropShadowLarge'])}
+        width={size ?? 150}
       />
 
       {name && (
-        <div
-          className="drop-shadow"
-          style={{
-            textAlign: 'center',
-            fontFamily: 'Kalam',
-            fontSize: fontSizeHeading1,
-            fontWeight: 'bold',
-            lineHeight: '1em',
-          }}
-        >
-          <span className="text-outline" style={{color: '#656b89'}}>
-            Artist
-          </span>
-          <span className="text-outline" style={{color: '#7b6085'}}>
-            Assist
-          </span>
-          <span className="text-outline" style={{color: '#895983'}}>
-            App
-          </span>
-          <span className="text-outline" style={{color: '#945382'}}>
-            .com
-          </span>
+        <div className={clsx(styles['name'], styles['dropShadow'])}>
+          <span className={clsx(styles['textOutline'], styles['artist'])}>Artist</span>
+          <span className={clsx(styles['textOutline'], styles['assist'])}>Assist</span>
+          <span className={clsx(styles['textOutline'], styles['app'])}>App</span>
+          <span className={clsx(styles['textOutline'], styles['dotCom'])}>.com</span>
         </div>
       )}
       {tagline && (
         <div
-          className="text-outline text-outline-black drop-shadow"
-          style={{
-            textAlign: 'center',
-            fontFamily: 'Kalam',
-            fontSize: fontSizeHeading2,
-            lineHeight: '1em',
-            color: 'white',
-          }}
+          className={clsx(
+            styles['tagline'],
+            styles['textOutline'],
+            styles['textOutlineBlack'],
+            styles['dropShadow']
+          )}
         >
           Paint better with ease
         </div>

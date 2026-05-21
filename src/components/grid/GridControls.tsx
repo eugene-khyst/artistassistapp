@@ -31,6 +31,8 @@ import {GridMode} from '~/src/services/settings/types';
 import {useAppStore} from '~/src/stores/app-store';
 import type {TabKey} from '~/src/tabs';
 
+import styles from './GridControls.module.css';
+
 const SQUARE_GRID_SIZE_OPTIONS: SelectOptionType[] = [4, 6, 8, 10, 12].map((size: number) => ({
   value: size,
   label: size,
@@ -40,7 +42,7 @@ type Props = {
   gridCanvas?: GridCanvas;
   disableable?: boolean;
   defaultGridSettings?: Partial<GridSettings>;
-} & Pick<SpaceProps, 'orientation' | 'size' | 'style'>;
+} & Pick<SpaceProps, 'className' | 'orientation' | 'size' | 'style'>;
 
 export function GridControls({
   gridCanvas,
@@ -171,32 +173,36 @@ export function GridControls({
   return (
     <Space {...props}>
       {disableable && (
-        <Form.Item label={t`Show grid`} labelCol={{style: {paddingBottom: 0}}} style={{margin: 0}}>
+        <Form.Item
+          label={t`Show grid`}
+          labelCol={{className: 'u-pb-0'}}
+          className={styles['formItem']}
+        >
           <Checkbox checked={gridEnabled} onChange={handleEnabledChange} />
         </Form.Item>
       )}
-      <Form.Item label={t`Grid`} style={{margin: 0}}>
+      <Form.Item label={t`Grid`} className={styles['formItem']}>
         <Select
           value={gridMode}
           onChange={handleModeChange}
           options={gridOptions}
-          style={{width: 125}}
+          className={styles['select']}
         />
       </Form.Item>
       {gridMode === GridMode.Square ? (
         <Form.Item
           label={t`Cells`}
           tooltip={t`Number of cells on the smaller side (vertical or horizontal)`}
-          style={{margin: 0}}
+          className={styles['formItem']}
         >
           <Select value={gridSize} onChange={handleSizeChange} options={SQUARE_GRID_SIZE_OPTIONS} />
         </Form.Item>
       ) : (
         <Form.Item
           label={t`Diagonals`}
-          labelCol={{style: {paddingBottom: 0}}}
+          labelCol={{className: 'u-pb-0'}}
           tooltip={t`Show or hide diagonal lines`}
-          style={{margin: 0}}
+          className={styles['formItem']}
         >
           <Checkbox checked={gridDiagonals} onChange={handleDiagonalsChange} />
         </Form.Item>

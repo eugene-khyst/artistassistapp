@@ -1,0 +1,52 @@
+.popup {
+  background: var(--ant-color-bg-elevated);
+  border-radius: var(--ant-border-radius-lg);
+  box-shadow: var(--ant-box-shadow-secondary);
+}
+
+.dropdownGridControls {
+  padding: var(--ant-padding-xs) var(--ant-padding);
+}
+
+.actions {
+  display: flex !important;
+}
+
+.modelSelect {
+  width: 120px !important;
+}
+
+.lightboxContainer {
+  position: relative;
+}
+
+.lightboxBackground {
+  background-color: var(--ant-color-bg-container);
+}
+
+.arVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.previewCanvas {
+  width: 100%;
+  display: block;
+  position: relative;
+}
+
+.canvasNormal {
+  height: calc(100dvh - 115px);
+}
+
+.canvasLightbox {
+  height: 100dvh;
+}
+
+.canvasAr {
+  filter: invert(1);
+  mix-blend-mode: difference;
+}

@@ -19,19 +19,7 @@
 import {DownloadOutlined, DownOutlined, PictureOutlined, ScissorOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {CheckboxOptionType, RadioChangeEvent} from 'antd';
-import {
-  Button,
-  Checkbox,
-  Col,
-  Dropdown,
-  Form,
-  Grid,
-  Radio,
-  Row,
-  Slider,
-  Space,
-  Typography,
-} from 'antd';
+import {Button, Checkbox, Col, Dropdown, Form, Radio, Row, Slider, Space, Typography} from 'antd';
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import type {SliderMarks} from 'antd/es/slider';
@@ -59,6 +47,8 @@ import {TabKey} from '~/src/tabs';
 import {range} from '~/src/utils/array';
 import {getFilename} from '~/src/utils/filename';
 import {DrawImage, imageBitmapToBlob} from '~/src/utils/graphics';
+
+import styles from './ImageColorAdjustment.module.css';
 
 enum WhiteBalanceMethod {
   Percentile = 0,
@@ -152,8 +142,6 @@ export function ImageColorAdjustment() {
   const adjustImageColorsPercentile = useAppStore(state => state.adjustImageColorsPercentile);
   const adjustImageColorsReference = useAppStore(state => state.adjustImageColorsReference);
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
-
-  const screens = Grid.useBreakpoint();
 
   const {t} = useLingui();
 
@@ -318,35 +306,16 @@ export function ImageColorAdjustment() {
     },
   ];
 
-  const height = `calc((100dvh - 75px) / ${screens.sm ? '1' : '2 - 8px'})`;
-  const margin = screens.sm ? 0 : 8;
-
   return (
     <LoadingIndicator loading={isColorAdjustedImageLoading}>
       <Row>
         {colorUnadjustedImage && (
           <Col xs={24} sm={12} lg={16}>
-            <canvas
-              ref={canvasRef}
-              style={{
-                width: '100%',
-                height,
-                marginBottom: margin,
-              }}
-            />
+            <canvas ref={canvasRef} className={styles['previewCanvas']} />
           </Col>
         )}
-        <Col
-          xs={24}
-          sm={12}
-          lg={8}
-          style={{
-            maxHeight: height,
-            marginTop: margin,
-            overflowY: 'auto',
-          }}
-        >
-          <Space orientation="vertical" style={{display: 'flex', padding: '0 16px 16px'}}>
+        <Col xs={24} sm={12} lg={8} className={styles['sidePanel']}>
+          <Space orientation="vertical" className={styles['controls']}>
             <Typography.Text strong>
               <Trans>Select a photo to adjust white balance and colors</Trans>
             </Typography.Text>
@@ -391,14 +360,15 @@ export function ImageColorAdjustment() {
                   </Button>
                 </Space>
 
-                <Form.Item label={t`Preview`} style={{marginBottom: 0}}>
+                <Form.Item label={t`Preview`} labelCol={{className: 'u-pb-0'}} className="u-mb-0">
                   <Checkbox checked={isPreview} onChange={handlePreviewChange} />
                 </Form.Item>
 
                 <Form.Item
                   label={t`White balance`}
+                  labelCol={{className: 'u-pb-0'}}
                   tooltip={t`Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area.`}
-                  style={{margin: 0}}
+                  className="u-m-0"
                 >
                   <Radio.Group
                     options={modeOptions}
@@ -413,8 +383,9 @@ export function ImageColorAdjustment() {
                   <Form.Item
                     layout="vertical"
                     label={t`Percentile`}
+                    labelCol={{className: 'u-pb-0'}}
                     tooltip={`Smaller percentile values correspond to stronger whitening`}
-                    style={{marginBottom: 0}}
+                    className="u-mb-0"
                   >
                     <Slider
                       value={percentile}
@@ -438,8 +409,9 @@ export function ImageColorAdjustment() {
 
                     <Form.Item
                       label={t`White point`}
+                      labelCol={{className: 'u-pb-0'}}
                       tooltip={t`Average color of the white point area`}
-                      style={{margin: 0}}
+                      className="u-m-0"
                     >
                       <ColorPicker
                         title={t`White point`}
@@ -463,8 +435,9 @@ export function ImageColorAdjustment() {
                 <Form.Item
                   layout="vertical"
                   label={t`Saturation (%)`}
+                  labelCol={{className: 'u-pb-0'}}
                   tooltip={t`A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful`}
-                  style={{marginBottom: 0}}
+                  className="u-mb-0"
                 >
                   <Slider
                     value={saturation}
@@ -480,8 +453,9 @@ export function ImageColorAdjustment() {
                 <Form.Item
                   layout="vertical"
                   label={t`Shadows and highlights`}
+                  labelCol={{className: 'u-pb-0'}}
                   tooltip={t`Low input and high input`}
-                  style={{marginBottom: 0}}
+                  className="u-mb-0"
                 >
                   <Slider
                     range
@@ -506,8 +480,9 @@ export function ImageColorAdjustment() {
                 <Form.Item
                   layout="vertical"
                   label={t`Midtones`}
+                  labelCol={{className: 'u-pb-0'}}
                   tooltip={t`Gamma`}
-                  style={{marginBottom: 0}}
+                  className="u-mb-0"
                 >
                   <Slider
                     value={gammaPercent}
@@ -527,8 +502,9 @@ export function ImageColorAdjustment() {
                 <Form.Item
                   layout="vertical"
                   label={t`Output levels`}
+                  labelCol={{className: 'u-pb-0'}}
                   tooltip={t`Low output and high output`}
-                  style={{marginBottom: 0}}
+                  className="u-mb-0"
                 >
                   <Slider
                     range
@@ -553,8 +529,9 @@ export function ImageColorAdjustment() {
                 <Form.Item
                   layout="vertical"
                   label={t`Original color temperature (K)`}
+                  labelCol={{className: 'u-pb-0'}}
                   tooltip={t`Estimated temperature of the light source in Kelvin the image was taken with`}
-                  style={{marginBottom: 0}}
+                  className="u-mb-0"
                 >
                   <Slider
                     value={originalTemperature}
@@ -582,8 +559,9 @@ export function ImageColorAdjustment() {
                 <Form.Item
                   layout="vertical"
                   label={t`Intended color temperature (K)`}
+                  labelCol={{className: 'u-pb-0'}}
                   tooltip={t`Corrected estimation of the temperature of the light source in Kelvin`}
-                  style={{marginBottom: 0}}
+                  className="u-mb-0"
                 >
                   <Slider
                     value={targetTemperature}

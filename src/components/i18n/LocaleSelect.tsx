@@ -63,7 +63,7 @@ export function LocaleSelect() {
   const {t} = useLingui();
 
   return (
-    <Form.Item label={t`Language`} style={{marginBottom: 0}}>
+    <Form.Item label={t`Language`} className="u-mb-0">
       <Select
         options={LOCALE_OPTIONS}
         placeholder={t`Select language`}
@@ -73,7 +73,7 @@ export function LocaleSelect() {
           void setLocale(value);
         }}
         popupMatchSelectWidth={false}
-        style={{width: 'auto'}}
+        className="u-w-auto"
       />
     </Form.Item>
   );

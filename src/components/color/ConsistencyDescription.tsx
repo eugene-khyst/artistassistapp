@@ -20,7 +20,7 @@ import {QuestionCircleOutlined} from '@ant-design/icons';
 import type {MessageDescriptor} from '@lingui/core';
 import {defineMessage} from '@lingui/core/macro';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Space, theme, Tooltip, Typography} from 'antd';
+import {Space, Tooltip, Typography} from 'antd';
 import type {ReactNode} from 'react';
 
 import {isFullStrength} from '~/src/services/color/color-mixer';
@@ -168,10 +168,6 @@ export function ConsistencyDescription({
   consistency,
   showTooltip = true,
 }: Readonly<Props>) {
-  const {
-    token: {colorTextTertiary},
-  } = theme.useToken();
-
   const {t} = useLingui();
 
   const config = DESCRIPTIONS[colorType];
@@ -185,7 +181,7 @@ export function ConsistencyDescription({
       <Typography.Text>{t(fullStrength.label)}</Typography.Text>
       {showTooltip && (
         <Tooltip title={t(fullStrength.tooltip)}>
-          <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
+          <QuestionCircleOutlined className="u-help-icon" />
         </Tooltip>
       )}
     </Space>
@@ -194,7 +190,7 @@ export function ConsistencyDescription({
       {transparent.labelRender(consistency)}
       {showTooltip && (
         <Tooltip title={t(transparent.tooltip)}>
-          <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
+          <QuestionCircleOutlined className="u-help-icon" />
         </Tooltip>
       )}
     </Space>

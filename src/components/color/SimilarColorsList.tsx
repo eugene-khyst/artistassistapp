@@ -34,6 +34,8 @@ import {ColorPickerSort} from '~/src/services/settings/types';
 import {useAppStore} from '~/src/stores/app-store';
 import type {Comparator} from '~/src/utils/comparator';
 
+import styles from './SimilarColorsList.module.css';
+
 const SIMILAR_COLORS_COMPARATORS: Record<ColorPickerSort, Comparator<SimilarColor>> = {
   [ColorPickerSort.BySimilarity]: compareSimilarColorsBySimilarity,
   [ColorPickerSort.ByNumberOfColors]: compareSimilarColorsByColorMixturePartLength,
@@ -64,13 +66,13 @@ export function SimilarColorsList({sort, onReflectanceChartClick}: Readonly<Prop
     return <EmptyTargetColor />;
   }
   return (
-    <Space orientation="vertical" style={{width: '100%'}}>
+    <Space orientation="vertical" className="u-w-100">
       {[...selectedPaletteColorMixtures.values()].map(colorMixture => (
         <PaletteColorMixtureCard
           key={`selected-${colorMixture.key}`}
           colorMixture={colorMixture}
           showOnPhoto={false}
-          className="selected-palette-card"
+          className={styles['selectedPaletteCard']}
         />
       ))}
       {!isSimilarColorsLoading && !similarColors.length ? (

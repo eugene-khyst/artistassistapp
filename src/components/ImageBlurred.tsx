@@ -41,6 +41,7 @@ import {getFilename} from '~/src/utils/filename';
 import {imageBitmapToBlob} from '~/src/utils/graphics';
 
 import {EmptyImage} from './empty/EmptyImage';
+import styles from './ImageBlurred.module.css';
 
 const DEFAULT_IMAGE_INDEX = 1;
 
@@ -126,12 +127,12 @@ export function ImageBlurred() {
 
   return (
     <LoadingIndicator loading={isBlurredImagesLoading}>
-      <Space style={{marginBottom: 8, padding: '0 16px'}}>
+      <Space className="u-tab-toolbar">
         <Form.Item
           label={screens.sm ? t`Strength` : null}
-          labelCol={{style: {paddingBottom: 0}}}
+          labelCol={{className: 'u-pb-0'}}
           tooltip={t`Adjusts the strength of image smoothing.`}
-          style={{marginBottom: 0}}
+          className="u-mb-0"
         >
           <Radio.Group
             options={screens.sm ? blurStrengthOptions : blurStrengthShortOptions}
@@ -177,7 +178,7 @@ export function ImageBlurred() {
         )}
       </Space>
       <div>
-        <canvas ref={canvasRef} style={{width: '100%', height: `calc(100dvh - 115px)`}} />
+        <canvas ref={canvasRef} className={styles['previewCanvas']} />
       </div>
     </LoadingIndicator>
   );

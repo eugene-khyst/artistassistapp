@@ -92,12 +92,12 @@ export function ReflectanceChartDrawer({
       open={open}
       onClose={onClose}
     >
-      <canvas ref={canvasRef} width="688" height="388" style={{marginBottom: 16}} />
+      <canvas ref={canvasRef} width="688" height="388" className="u-mb" />
       {targetColorHex && (
         <Form.Item
           label={t`Mode`}
           tooltip={t`Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed.`}
-          style={{marginBottom: 0}}
+          className="u-mb-0"
         >
           <Radio.Group
             options={chartOptions}

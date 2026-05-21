@@ -196,7 +196,7 @@ export function AuthFeedbackHandler({children}: Readonly<PropsWithChildren>) {
           <>
             {content}
             {contextEntries.length > 0 && (
-              <ul style={{listStyle: 'none', padding: 0}}>
+              <ul className="u-list-unstyled">
                 {contextEntries.map(([key, value]) => (
                   <li key={key}>
                     <Typography.Text strong>{ERROR_CONTEXT_LABELS[key]}</Typography.Text>

@@ -48,7 +48,7 @@ export function EmptyColorSet({
   const photoLabel: string = t(TAB_LABELS[TabKey.Photo]);
 
   return (
-    <div style={{padding: '0 16px 16px'}}>
+    <div className="u-tab-content">
       <Typography.Paragraph>
         <Typography.Text strong>
           <Trans>

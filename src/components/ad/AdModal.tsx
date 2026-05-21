@@ -72,7 +72,7 @@ export function AdModal() {
             </Button>
           )
         }
-        style={{paddingBottom: 0}}
+        contentClassName="u-pb-0"
       />
     </Modal>
   );

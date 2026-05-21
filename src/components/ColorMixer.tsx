@@ -23,7 +23,7 @@ import {
   QuestionCircleOutlined,
 } from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Button, Col, Flex, Form, Grid, Row, Select, Space, theme, Tooltip, Typography} from 'antd';
+import {Button, Col, Flex, Form, Row, Select, Space, Tooltip, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {Fragment, useEffect, useMemo, useState} from 'react';
 
@@ -48,6 +48,7 @@ import {AddToPaletteButton} from './color/AddToPaletteButton';
 import {ColorMixtureDescription} from './color/ColorMixtureDescription';
 import {ReflectanceChartDrawer} from './color/ReflectanceChartDrawer';
 import {ColorCascader} from './color-set/ColorCascader';
+import styles from './ColorMixer.module.css';
 import {EmptyColorSet} from './empty/EmptyColorSet';
 
 interface ColorMixerForm {
@@ -79,13 +80,7 @@ const formInitialValues = {
 export function ColorMixer() {
   const colorSet = useAppStore(state => state.colorSet);
 
-  const {
-    token: {colorTextTertiary},
-  } = theme.useToken();
-
   const {t} = useLingui();
-
-  const screens = Grid.useBreakpoint();
 
   const [form] = Form.useForm();
 
@@ -155,17 +150,15 @@ export function ColorMixer() {
     return <EmptyColorSet supportedColorTypes={MIXABLE_COLOR_TYPES} />;
   }
 
-  const ratioWidth = 55;
-
   return (
     <>
-      <Flex vertical gap="middle" style={{padding: '0 16px 16px'}}>
+      <Flex vertical gap="middle" className="u-tab-content">
         <Typography.Text strong>
           <Trans>Mix your colors in any proportions so you don&apos;t waste real paints.</Trans>
         </Typography.Text>
 
         <Space size="middle" align="start" wrap>
-          <Space orientation="vertical" size="small" style={{width: screens.md ? 420 : 360}}>
+          <Space orientation="vertical" size="small" className={styles['inputColumn']}>
             <UnderlayerColorPicker
               underlayerHex={underlayerHex}
               setUnderlayerHex={setUnderlayerHex}
@@ -180,9 +173,9 @@ export function ColorMixer() {
               requiredMark={false}
               autoComplete="off"
             >
-              <Form.Item style={{marginBottom: 0}}>
+              <Form.Item className="u-mb-0">
                 <Flex gap="small" align="center">
-                  <Typography.Text style={{display: 'inline-block', width: ratioWidth}}>
+                  <Typography.Text className={styles['ratioLabel']}>
                     <Trans>Ratio</Trans>
                   </Typography.Text>
                   <Typography.Text>×</Typography.Text>
@@ -192,7 +185,7 @@ export function ColorMixer() {
                   <Tooltip
                     title={t`Select any number of colors to mix and specify the part of each color in the resulting mix.`}
                   >
-                    <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
+                    <QuestionCircleOutlined className="u-help-icon" />
                   </Tooltip>
                 </Flex>
               </Form.Item>
@@ -200,19 +193,19 @@ export function ColorMixer() {
                 {(fields, {add, remove}) => (
                   <>
                     {fields.map(({key, name, ...restField}) => (
-                      <Flex key={key} gap="small" align="center" style={{marginBottom: 8}}>
-                        <Form.Item {...restField} name={[name, 'part']} style={{marginBottom: 0}}>
+                      <Flex key={key} gap="small" align="center" className={styles['colorRow']}>
+                        <Form.Item {...restField} name={[name, 'part']} className="u-mb-0">
                           <Select
                             options={ratioOptions}
                             placeholder={t`Select part`}
-                            style={{width: ratioWidth}}
+                            className={styles['ratioSelect']}
                           />
                         </Form.Item>
                         {'×'}
                         <Form.Item
                           {...restField}
                           name={[name, 'color']}
-                          style={{flexGrow: 1, minWidth: 0, marginBottom: 0}}
+                          className={styles['colorFormItem']}
                         >
                           <ColorCascader />
                         </Form.Item>
@@ -267,7 +260,7 @@ export function ColorMixer() {
                   colorMixture={colorMixture}
                   linkToImage={false}
                   size="small"
-                  style={{marginBottom: 8}}
+                  className="u-mb-xs"
                 />
               </Fragment>
             ))}

@@ -39,9 +39,15 @@ import {rgbToHex, WHITE_HEX} from '~/src/services/color/space/rgb';
 import type {ColorId} from '~/src/services/color/types';
 import {printImages} from '~/src/services/print/print';
 import {useAppStore} from '~/src/stores/app-store';
+import type {CssVariables} from '~/src/utils/types';
 
 import {ColorCascader} from './color-set/ColorCascader';
+import styles from './ColorMixingChart.module.css';
 import {EmptyColorSet} from './empty/EmptyColorSet';
+
+function getChartStyle(colorCount: number): CssVariables {
+  return {'--chart-color-count': colorCount};
+}
 
 export function ColorMixingChart() {
   const colorSet = useAppStore(state => state.colorSet);
@@ -155,25 +161,19 @@ export function ColorMixingChart() {
 
   return (
     <LoadingIndicator loading={isLoading} onCancel={abortColorMixingChart}>
-      <div
-        style={{
-          overflow: 'auto',
-          minHeight: 250,
-          maxHeight: 'calc(100dvh - 60px)',
-        }}
-      >
+      <div className={styles['scroll']}>
         <Form.Item
           label={t`Colors`}
-          labelCol={{style: {paddingBottom: 0}}}
+          labelCol={{className: 'u-pb-0'}}
           tooltip={t`A grid showing the result of mixing each pair of selected colors`}
-          style={{flexGrow: 1, marginBottom: 0, padding: '0 16px'}}
+          className={styles['colorsFormItem']}
           extra={
             <Typography.Text type="secondary">
               <Trans>Select colors to build a mixing chart</Trans>
             </Typography.Text>
           }
         >
-          <Space.Compact style={{display: 'flex'}}>
+          <Space.Compact className="u-flex">
             <ColorCascader
               value={colorIds}
               onChange={setColorIds}
@@ -204,44 +204,14 @@ export function ColorMixingChart() {
         {colorMixingChartSet?.colors && colorMixingChartMixtures.length > 0 && (
           <div
             ref={chartRef}
-            style={{
-              display: 'grid',
-              gridTemplateColumns: `auto repeat(${colorMixingChartSet.colors.length}, auto)`,
-              gap: 8,
-              alignItems: 'center',
-              width: 'max-content',
-              padding: 8,
-              boxSizing: 'content-box',
-            }}
+            className={styles['chart']}
+            style={getChartStyle(colorMixingChartSet.colors.length)}
           >
             {/* Header row */}
-            <div
-              style={{
-                position: 'sticky',
-                top: 0,
-                left: 0,
-                zIndex: 3,
-                alignSelf: 'stretch',
-                backgroundColor: 'white',
-              }}
-            />
+            <div className={styles['stickyCorner']} />
             {colorMixingChartSet.colors.map((color, i) => (
-              <div
-                key={`header-${i}`}
-                style={{
-                  position: 'sticky',
-                  top: 0,
-                  zIndex: 2,
-                  alignSelf: 'stretch',
-                  backgroundColor: 'white',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'flex-end',
-                  gap: 4,
-                }}
-              >
-                <span style={{writingMode: 'sideways-lr'}}>
+              <div key={`header-${i}`} className={styles['stickyHeader']}>
+                <span className={styles['verticalLabel']}>
                   <ColorLabel
                     color={color}
                     brand={colorMixingChartSet.brands.get(color.brand)!}
@@ -259,20 +229,7 @@ export function ColorMixingChart() {
               const color = colorMixingChartSet.colors[i]!;
               return (
                 <Fragment key={`row-${i}`}>
-                  <div
-                    style={{
-                      position: 'sticky',
-                      left: 0,
-                      zIndex: 1,
-                      alignSelf: 'stretch',
-                      backgroundColor: 'white',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'flex-end',
-                      gap: 8,
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
+                  <div className={styles['stickyRowHeader']}>
                     <ColorLabel
                       color={color}
                       brand={colorMixingChartSet.brands.get(color.brand)!}

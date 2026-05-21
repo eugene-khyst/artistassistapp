@@ -1,0 +1,52 @@
+.ant-skeleton .ant-skeleton-content .ant-skeleton-paragraph {
+  margin-top: 0 !important;
+}
+
+.ant-skeleton .ant-skeleton-content .ant-skeleton-paragraph > li + li {
+  margin-block-start: var(--ant-margin-xs) !important;
+}
+
+.color-picker-high-z-index {
+  z-index: 1200 !important;
+}
+
+@media print {
+  .ant-card {
+    page-break-inside: avoid !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .ant-cascader-dropdown {
+    left: 0 !important;
+    max-width: 100vw !important;
+    overflow: auto !important;
+    overscroll-behavior: contain !important;
+  }
+
+  .ant-popover.ant-color-picker {
+    position: fixed !important;
+    top: 50dvh !important;
+    left: 50vw !important;
+    transform: translate(-50%, -50%) !important;
+    max-width: calc(100vw - var(--ant-padding) - var(--ant-padding)) !important;
+  }
+
+  .ant-popover.ant-color-picker .ant-popover-arrow {
+    display: none !important;
+  }
+
+  .ant-popover.ant-color-picker .ant-popover-container {
+    max-height: calc(
+      100dvh - var(--ant-padding) - var(--ant-padding) - env(safe-area-inset-top, 0px) -
+        env(safe-area-inset-bottom, 0px)
+    ) !important;
+    overflow: auto !important;
+    overscroll-behavior: contain !important;
+  }
+
+  .ant-popover.ant-color-picker .ant-color-picker-select,
+  .ant-popover.ant-color-picker .ant-color-picker-slider {
+    touch-action: none !important;
+  }
+}

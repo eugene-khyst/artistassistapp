@@ -28,7 +28,7 @@ import {
   RotateRightOutlined,
 } from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {App, Button, Dropdown, Flex, Grid, Space, theme, Tooltip, Typography} from 'antd';
+import {App, Button, Dropdown, Flex, Grid, Space, Tooltip, Typography} from 'antd';
 import type {MenuProps} from 'antd/lib';
 import {saveAs} from 'file-saver';
 import {useEffect} from 'react';
@@ -46,6 +46,8 @@ import {TabKey} from '~/src/tabs';
 import {getFilename} from '~/src/utils/filename';
 import {DrawImage, imageBitmapToBlob} from '~/src/utils/graphics';
 import {isAbortError} from '~/src/utils/promise';
+
+import styles from './ImagePerspectiveCorrection.module.css';
 
 const FILENAME_SUFFIX = 'perspective-corrected';
 
@@ -86,10 +88,6 @@ export function ImagePerspectiveCorrection() {
   const setImageFileToAdjustColors = useAppStore(state => state.setImageFileToAdjustColors);
 
   const screens = Grid.useBreakpoint();
-
-  const {
-    token: {colorTextTertiary},
-  } = theme.useToken();
 
   const {notification} = App.useApp();
 
@@ -241,15 +239,13 @@ export function ImagePerspectiveCorrection() {
     },
   ];
 
-  const canvasStyle = {width: '100%', height: `calc(100dvh - 145px)`};
-
   return (
     <LoadingIndicator
       loading={isLoading}
       downloadTip={perspectiveAutoDetectDownloadTip}
       onCancel={handleCancelClick}
     >
-      <Flex vertical gap="small" style={{marginBottom: 8, padding: '0 16px'}}>
+      <Flex vertical gap="small" className="u-tab-toolbar">
         <Space align="center" size={4}>
           <Typography.Text strong>
             <Trans>Select a photo to correct the perspective</Trans>
@@ -257,7 +253,7 @@ export function ImagePerspectiveCorrection() {
           <Tooltip
             title={t`Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image.`}
           >
-            <QuestionCircleOutlined style={{color: colorTextTertiary, cursor: 'help'}} />
+            <QuestionCircleOutlined className="u-help-icon" />
           </Tooltip>
         </Space>
         <Space>
@@ -376,9 +372,11 @@ export function ImagePerspectiveCorrection() {
         </Space>
         <div>
           {perspectiveUncorrectedImage && !perspectiveCorrectedImage && (
-            <canvas ref={canvas1Ref} style={canvasStyle} />
+            <canvas ref={canvas1Ref} className={styles['previewCanvas']} />
           )}
-          {perspectiveCorrectedImage && <canvas ref={canvas2Ref} style={canvasStyle} />}
+          {perspectiveCorrectedImage && (
+            <canvas ref={canvas2Ref} className={styles['previewCanvas']} />
+          )}
         </div>
       </Flex>
     </LoadingIndicator>

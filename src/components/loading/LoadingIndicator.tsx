@@ -18,7 +18,7 @@
 
 import {LoadingOutlined, StopOutlined} from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
-import {Button, Space, Spin, theme, Typography} from 'antd';
+import {Button, Space, Spin, Typography} from 'antd';
 import type {PropsWithChildren, ReactNode} from 'react';
 
 interface Props extends PropsWithChildren {
@@ -28,10 +28,6 @@ interface Props extends PropsWithChildren {
 }
 
 export function LoadingIndicator({loading, downloadTip, onCancel, children}: Readonly<Props>) {
-  const {
-    token: {colorPrimary},
-  } = theme.useToken();
-
   return (
     <Spin
       spinning={loading}
@@ -40,7 +36,7 @@ export function LoadingIndicator({loading, downloadTip, onCancel, children}: Rea
       description={
         <Space orientation="vertical" align="center">
           {
-            <Typography.Text style={{color: colorPrimary}}>
+            <Typography.Text className="u-text-primary">
               {downloadTip ? (
                 <>
                   <Trans>Downloading...</Trans> {downloadTip}

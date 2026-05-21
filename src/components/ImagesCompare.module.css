@@ -1,0 +1,14 @@
+.transitionAnimation img {
+  animation: scale 1s ease 0s 1 alternate;
+}
+
+@keyframes scale {
+  0%,
+  99% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.2);
+  }
+}

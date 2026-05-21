@@ -1,0 +1,23 @@
+.mobilePanel {
+  position: relative;
+  padding-top: 36px;
+}
+
+.mobileHeader {
+  position: absolute;
+  inset: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ant-margin-xs);
+}
+
+.mobileTitle {
+  flex: 1;
+  min-width: 0;
+}
+
+.closeIcon {
+  color: var(--ant-color-text-tertiary);
+  font-size: var(--ant-font-size-lg);
+}

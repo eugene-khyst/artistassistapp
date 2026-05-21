@@ -1,0 +1,28 @@
+.inputColumn {
+  width: 360px;
+}
+
+.ratioLabel {
+  display: inline-block;
+  width: 55px;
+}
+
+.ratioSelect {
+  width: 55px !important;
+}
+
+.colorRow {
+  margin-bottom: var(--ant-margin-xs);
+}
+
+.colorFormItem {
+  flex-grow: 1;
+  min-width: 0;
+  margin-bottom: 0 !important;
+}
+
+@media (min-width: 768px) {
+  .inputColumn {
+    width: 420px;
+  }
+}

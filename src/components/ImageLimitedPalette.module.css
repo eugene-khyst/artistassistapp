@@ -1,0 +1,19 @@
+.colorsFormItem {
+  margin-bottom: 0 !important;
+  padding: 0 var(--ant-padding);
+}
+
+.cascader {
+  flex-grow: 1;
+}
+
+.previewCanvas {
+  width: 100%;
+  height: calc((100dvh - 130px) / 2);
+}
+
+@media (min-width: 576px) {
+  .previewCanvas {
+    height: calc(100dvh - 130px);
+  }
+}

@@ -36,6 +36,8 @@ import {LengthUnit} from '~/src/services/math/types';
 import {PAPER_SIZES, printImages} from '~/src/services/print/print';
 import {PaperSize} from '~/src/services/print/types';
 
+import styles from './PrintImageDrawer.module.css';
+
 enum PrintMode {
   Standard,
   Resize,
@@ -158,18 +160,18 @@ export function PrintImageDrawer({image, open = false, onClose}: Readonly<Props>
 
           {printMode === PrintMode.Resize && (
             <>
-              <Form.Item label={t`Paper size`} style={{marginBottom: 0}}>
+              <Form.Item label={t`Paper size`} className="u-mb-0">
                 <Select
                   value={paperSize}
                   onChange={setPaperSize}
                   options={PAPER_SIZE_OPTIONS}
-                  style={{width: 170}}
+                  className={styles['paperSizeSelect']}
                 />
               </Form.Item>
 
               <Form.Item
                 label={t`Target print size`}
-                style={{marginBottom: 0}}
+                className="u-mb-0"
                 help={isTargetSizeError ? t`This print size is not supported` : null}
                 validateStatus={isTargetSizeError ? 'error' : undefined}
               >
@@ -181,18 +183,9 @@ export function PrintImageDrawer({image, open = false, onClose}: Readonly<Props>
                     max={1000}
                     step={0.1}
                     placeholder={t`Width`}
-                    style={{width: 70}}
+                    className={styles['numberInput']}
                   />
-                  <Input
-                    placeholder="×"
-                    style={{
-                      width: 30,
-                      borderInlineStart: 0,
-                      borderInlineEnd: 0,
-                      pointerEvents: 'none',
-                    }}
-                    disabled
-                  />
+                  <Input placeholder="×" className={styles['separatorInput']} disabled />
                   <InputNumber
                     value={targetHeight}
                     onChange={setTargetHeight}
@@ -200,13 +193,13 @@ export function PrintImageDrawer({image, open = false, onClose}: Readonly<Props>
                     max={1000}
                     step={0.1}
                     placeholder={t`Height`}
-                    style={{width: 70}}
+                    className={styles['numberInput']}
                   />
                   <Select
                     value={targetUnit}
                     onChange={setTargetUnit}
                     options={LENGTH_UNIT_OPTIONS}
-                    style={{width: 70}}
+                    className={styles['numberInput']}
                   />
                 </Space.Compact>
               </Form.Item>
@@ -214,7 +207,7 @@ export function PrintImageDrawer({image, open = false, onClose}: Readonly<Props>
               <Form.Item
                 label={t`Margin`}
                 tooltip={t`Taped margin width around the painting area`}
-                style={{marginBottom: 0}}
+                className="u-mb-0"
                 help={isMarginError ? t`The margin is too large` : null}
                 validateStatus={isMarginError ? 'error' : undefined}
               >
@@ -228,14 +221,11 @@ export function PrintImageDrawer({image, open = false, onClose}: Readonly<Props>
                     max={10}
                     step={0.1}
                     placeholder={t`Margin`}
-                    style={{width: 70}}
+                    className={styles['numberInput']}
                   />
                   <Input
                     placeholder={LENGTH_UNITS.get(targetUnit)?.abbreviation}
-                    style={{
-                      width: 50,
-                      pointerEvents: 'none',
-                    }}
+                    className={styles['unitInput']}
                     disabled
                   />
                 </Space.Compact>
@@ -245,11 +235,7 @@ export function PrintImageDrawer({image, open = false, onClose}: Readonly<Props>
                 <img
                   src={previewImageUrl}
                   alt={t`Print preview`}
-                  style={{
-                    display: 'block',
-                    maxWidth: '100%',
-                    maxHeight: 480,
-                  }}
+                  className={styles['previewImage']}
                 />
               )}
             </>

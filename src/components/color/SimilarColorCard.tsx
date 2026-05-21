@@ -74,7 +74,7 @@ export const SimilarColorCard = memo(function SimilarColorCard({
 
   return (
     <Card size="small">
-      <Space orientation="vertical" style={{width: '100%'}}>
+      <Space orientation="vertical" className="u-w-100">
         <Space>
           <Typography.Text>
             <Trans>
@@ -92,7 +92,7 @@ export const SimilarColorCard = memo(function SimilarColorCard({
               onChange: handleTitleEdited,
               autoSize: false,
             }}
-            style={{width: '100%', fontWeight: 'bold'}}
+            className="u-w-100 u-font-bold"
           >
             {paletteColorMixture.name || t`Untitled mixture`}
           </Typography.Text>

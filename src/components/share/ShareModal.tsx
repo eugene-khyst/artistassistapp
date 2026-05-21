@@ -68,11 +68,11 @@ export function ShareModal({open, setOpen, url}: Readonly<Props>) {
       }}
     >
       {url ? (
-        <Space orientation="vertical" style={{display: 'flex'}}>
+        <Space orientation="vertical" className="u-flex">
           <Typography.Text>
             <Trans>Copy and share this link</Trans>
           </Typography.Text>
-          <Space.Compact style={{width: '100%'}}>
+          <Space.Compact className="u-w-100">
             <Input value={url} />
             {SHARE_AVAILABLE ? (
               <Button
