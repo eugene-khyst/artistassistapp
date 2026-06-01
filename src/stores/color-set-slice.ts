@@ -51,13 +51,12 @@ function removeDate(colorSets: ColorSetDefinition[]): ColorSetDefinition[] {
 }
 
 export interface ColorSetSlice {
-  importedColorSet: ColorSetDefinition | null;
   latestColorSet: ColorSetDefinition | null;
   colorSets: Map<ColorType, ColorSetDefinition[]>;
 
   isColorSetsLoading: boolean;
 
-  loadColorSets: (importedColorSet?: ColorSetDefinition) => Promise<void>;
+  loadColorSets: () => Promise<void>;
   saveColorSet: (
     colorSet: ColorSetDefinition,
     brands?: Map<number, ColorBrandDefinition>,
@@ -75,13 +74,12 @@ export const createColorSetSlice: StateCreator<
   [],
   ColorSetSlice
 > = (set, get) => ({
-  importedColorSet: null,
   latestColorSet: null,
   colorSets: new Map(),
 
   isColorSetsLoading: false,
 
-  loadColorSets: async (importedColorSet?: ColorSetDefinition): Promise<void> => {
+  loadColorSets: async (): Promise<void> => {
     try {
       set({
         isColorSetsLoading: true,
@@ -95,8 +93,7 @@ export const createColorSetSlice: StateCreator<
         colorSetsByType.sort(reverseOrder(byDate(({date}) => date)));
       }
 
-      const latestColorSet: ColorSetDefinition | null =
-        (!importedColorSet && (await getLastColorSet())) || null;
+      const latestColorSet: ColorSetDefinition | null = (await getLastColorSet()) ?? null;
 
       if (latestColorSet) {
         const {auth} = get();
@@ -122,7 +119,6 @@ export const createColorSetSlice: StateCreator<
 
       set({
         colorSets,
-        importedColorSet,
         latestColorSet,
       });
     } finally {

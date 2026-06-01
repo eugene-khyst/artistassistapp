@@ -81,6 +81,40 @@ import {MergeColorSetsDrawer} from './color-set/MergeColorSetsDrawer';
 import {StandardColorSetCascader} from './color-set/StandardColorSetCascader';
 import {ShareModal} from './share/ShareModal';
 
+function JoinOrLoginButtons() {
+  const mediaDevices: MediaDeviceInfo[] = useDevices();
+  return (
+    <>
+      <JoinButton />
+      <LoginOAuthButton />
+      {!!mediaDevices.length && (
+        <QRScannerButton
+          type="primary"
+          modalContent={
+            <Typography.Paragraph className="u-m-0">
+              <ol className="u-m-0">
+                <li>
+                  <Trans>Open the app on a device where you are logged in</Trans>
+                </li>
+                <li>
+                  <Trans>
+                    Press <Typography.Text strong>Show login QR</Typography.Text>
+                  </Trans>
+                </li>
+                <li>
+                  <Trans>Scan its QR code here</Trans>
+                </li>
+              </ol>
+            </Typography.Paragraph>
+          }
+        >
+          <Trans>Log in by QR</Trans>
+        </QRScannerButton>
+      )}
+    </>
+  );
+}
+
 const FIELD = '${label}';
 
 const maxColorsFor2: number = MAX_COLORS_IN_MIXTURE[2];
@@ -101,7 +135,6 @@ function getEmptyColors(values: ColorSetDefinition): Record<number, number[]> {
 export function ColorSetChooser() {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
-  const importedColorSet = useAppStore(state => state.importedColorSet);
   const latestColorSet = useAppStore(state => state.latestColorSet);
   const colorSets = useAppStore(state => state.colorSets);
   const isColorSetsLoading = useAppStore(state => state.isColorSetsLoading);
@@ -120,8 +153,6 @@ export function ColorSetChooser() {
   const saveColorSetsAsJsonAndNotify = useColorSetBackup();
   const {requestPersistentStorage, showPersistentStorageWarning, installDrawer} =
     usePersistentStorage();
-
-  const mediaDevices: MediaDeviceInfo[] = useDevices();
 
   const [form] = Form.useForm<ColorSetDefinition>();
   const selectedType = Form.useWatch<ColorType | undefined>('type', form);
@@ -149,15 +180,11 @@ export function ColorSetChooser() {
   const hasUnsavedChangesRef = useRef<boolean>(false);
 
   useEffect(() => {
-    if (importedColorSet) {
-      hasUnsavedChangesRef.current = true;
-      form.resetFields();
-      form.setFieldsValue(importedColorSet);
-    } else if (latestColorSet) {
+    if (latestColorSet) {
       form.resetFields();
       form.setFieldsValue(latestColorSet);
     }
-  }, [form, importedColorSet, latestColorSet]);
+  }, [form, latestColorSet]);
 
   const {brands, isLoading: isBrandsLoading, isError: isBrandsError} = useColorBrands(selectedType);
 
@@ -486,41 +513,14 @@ export function ColorSetChooser() {
           )}
         </Space>
 
-        <Space wrap>
+        <Flex gap="small" wrap>
           {user ? (
             <>
               <LoginQRButton />
               <LogoutButton />
             </>
           ) : (
-            <>
-              <JoinButton />
-              <LoginOAuthButton />
-              {!!mediaDevices.length && (
-                <QRScannerButton
-                  type="primary"
-                  modalContent={
-                    <Typography.Paragraph className="u-m-0">
-                      <ol className="u-m-0">
-                        <li>
-                          <Trans>Open the app on a device where you are logged in</Trans>
-                        </li>
-                        <li>
-                          <Trans>
-                            Press <Typography.Text strong>Show login QR</Typography.Text>
-                          </Trans>
-                        </li>
-                        <li>
-                          <Trans>Scan its QR code here</Trans>
-                        </li>
-                      </ol>
-                    </Typography.Paragraph>
-                  }
-                >
-                  <Trans>Log in by QR</Trans>
-                </QRScannerButton>
-              )}
-            </>
+            <JoinOrLoginButtons />
           )}
           <InstallButton />
           <Button
@@ -529,7 +529,7 @@ export function ColorSetChooser() {
           >
             <Trans>Help</Trans>
           </Button>
-        </Space>
+        </Flex>
 
         <Divider className="u-divider-compact" />
 
@@ -693,7 +693,7 @@ export function ColorSetChooser() {
               }
               className="u-mb-0"
             >
-              <Space wrap>
+              <Flex gap="small" wrap>
                 {isAccessAllowed ? (
                   <>
                     <Button
@@ -725,10 +725,7 @@ export function ColorSetChooser() {
                     )}
                   </>
                 ) : (
-                  <>
-                    <LoginOAuthButton />
-                    <JoinButton />
-                  </>
+                  <JoinOrLoginButtons />
                 )}
                 {!!selectedColorSetId && (
                   <Popconfirm
@@ -767,7 +764,7 @@ export function ColorSetChooser() {
                 >
                   <Trans>Load color sets file</Trans>
                 </FileSelect>
-              </Space>
+              </Flex>
             </Form.Item>
           </Form>
         </LoadingIndicator>

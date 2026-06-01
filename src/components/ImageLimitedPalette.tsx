@@ -77,7 +77,7 @@ export function ImageLimitedPalette() {
   };
 
   const handleSetAsMainClick = () => {
-    setLimitedColorSetAsMain(colorIds);
+    void setLimitedColorSetAsMain(colorIds);
   };
 
   const handleSaveClick = async () => {

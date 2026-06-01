@@ -38,7 +38,7 @@ export interface LimitedPaletteImageSlice {
   limitedPaletteAbortController: AbortController | null;
 
   setLimitedColorSet: (colorIds: ColorId[]) => Promise<void>;
-  setLimitedColorSetAsMain: (colorIds: ColorId[]) => void;
+  setLimitedColorSetAsMain: (colorIds: ColorId[]) => Promise<void>;
   abortLimitedPalette: () => void;
 }
 
@@ -97,7 +97,7 @@ export const createLimitedPaletteImageSlice: StateCreator<
     }
   },
 
-  setLimitedColorSetAsMain: (colorIds: ColorId[]): void => {
+  setLimitedColorSetAsMain: async (colorIds: ColorId[]): Promise<void> => {
     if (!colorIds.length) {
       return;
     }
@@ -107,7 +107,7 @@ export const createLimitedPaletteImageSlice: StateCreator<
       return;
     }
     const {type, brands, colors} = limitedColorSet;
-    const importedColorSet: ColorSetDefinition = {
+    const colorSetDefinition: ColorSetDefinition = {
       id: NEW_COLOR_SET,
       type,
       brands: [...brands.keys()],
@@ -117,9 +117,8 @@ export const createLimitedPaletteImageSlice: StateCreator<
         return acc;
       }, {}),
     };
-    set({
-      importedColorSet,
-    });
+    await get().saveColorSet(colorSetDefinition);
+    await get().loadColorSets();
     void get().setActiveTabKey(TabKey.ColorSet);
   },
 

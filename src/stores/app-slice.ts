@@ -25,7 +25,7 @@ import {getAppSettings, saveAppSettings} from '@/services/db/app-settings-db';
 import {imageFileToFile} from '@/services/image/image-file';
 import {DEFAULT_APP_SETTINGS} from '@/services/settings/app-settings';
 import {type AppSettings} from '@/services/settings/types';
-import {importFromUrl} from '@/services/url/url-parser';
+import {parseUrl} from '@/services/url/url-parser';
 import type {AuthSlice} from '@/stores/auth-slice';
 import type {LocaleSlice} from '@/stores/locale-slice';
 import type {StyleTransferSlice} from '@/stores/style-transfer-slice';
@@ -33,6 +33,7 @@ import {initAuthAttemptWatcher} from '@/stores/watchers/auth-attempt-watcher';
 import {initAuthExpiryWatcher} from '@/stores/watchers/auth-expiry-watcher';
 import {TabKey} from '@/tabs';
 import {getErrorMessage} from '@/utils/error';
+import {replaceHistory} from '@/utils/history';
 
 import type {ColorMixerSlice} from './color-mixer-slice';
 import type {ColorSetSlice} from './color-set-slice';
@@ -127,7 +128,11 @@ export const createAppSlice: StateCreator<
 
         initAuthAttemptWatcher();
 
-        const {colorSet: importedColorSet, tabKey: importedTabKey, install} = importFromUrl();
+        const {
+          colorSet: importedColorSet,
+          tabKey: importedTabKey,
+          install,
+        } = parseUrl(window.location.toString());
 
         if (install) {
           set({
@@ -137,9 +142,13 @@ export const createAppSlice: StateCreator<
         let activeTabKey: TabKey | undefined = importedTabKey ?? appSettings.activeTabKey;
         if (importedColorSet) {
           activeTabKey = TabKey.ColorSet;
+          await tryStep('save imported color set', () => get().saveColorSet(importedColorSet));
+        }
+        if (importedColorSet || importedTabKey || install) {
+          replaceHistory();
         }
 
-        await tryStep('load color sets', () => get().loadColorSets(importedColorSet));
+        await tryStep('load color sets', () => get().loadColorSets());
         await tryStep('load recent image files', () => get().loadRecentImageFiles());
 
         const {styleTransferImage} = appSettings;

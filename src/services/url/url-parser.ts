@@ -24,7 +24,6 @@ import {
 } from '@/services/color/types';
 import type {UrlParsingResult} from '@/services/url/types';
 import {TabKey} from '@/tabs';
-import {replaceHistory} from '@/utils/history';
 
 const URL_PARAM_COLOR_TYPE = 't';
 const URL_PARAM_COLOR_BRANDS = 'b';
@@ -141,13 +140,4 @@ export function parseUrl(urlStr: string): UrlParsingResult {
     return {colorSet};
   }
   return {};
-}
-
-export function importFromUrl(): UrlParsingResult {
-  const importedFromUrl: UrlParsingResult = parseUrl(window.location.toString());
-  const {colorSet, tabKey, install} = importedFromUrl;
-  if (colorSet || tabKey || install) {
-    replaceHistory();
-  }
-  return importedFromUrl;
 }
