@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {AuthAttempt, AuthErrorData} from '~/src/services/auth/types';
+import type {AuthAttempt, AuthErrorData, AuthSession} from '~/src/services/auth/types';
 
 import {dbPromise} from './db';
 
@@ -53,17 +53,17 @@ export async function getAndDeleteAuthErrorData(): Promise<AuthErrorData | undef
   return data;
 }
 
-export async function saveIdToken(jwt: string): Promise<void> {
+export async function saveAuthSession(session: AuthSession): Promise<void> {
   const db = await dbPromise;
-  await db.put('id-token', jwt, KEY);
+  await db.put('auth-session', session, KEY);
 }
 
-export async function getIdToken(): Promise<string | undefined> {
+export async function getAuthSession(): Promise<AuthSession | undefined> {
   const db = await dbPromise;
-  return await db.get('id-token', KEY);
+  return await db.get('auth-session', KEY);
 }
 
-export async function deleteIdToken(): Promise<void> {
+export async function deleteAuthSession(): Promise<void> {
   const db = await dbPromise;
-  await db.delete('id-token', KEY);
+  await db.delete('auth-session', KEY);
 }

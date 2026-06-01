@@ -31,13 +31,12 @@ import {
 import {Trans} from '@lingui/react/macro';
 import type {ProgressProps} from 'antd';
 import {Button, Col, Divider, Flex, Progress, Row, Space, Switch, Tag, Typography} from 'antd';
-import dayjs from 'dayjs';
 import {useState} from 'react';
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {ClearCacheButton} from '~/src/components/storage/ClearCacheButton';
 import {DeleteAppDataButton} from '~/src/components/storage/DeleteAppDataButton';
-import {BUILD_ID, DATE_TIME_FORMAT, WEBSITE_URL} from '~/src/config';
+import {BUILD_ID, WEBSITE_URL} from '~/src/config';
 import {useAppStore} from '~/src/stores/app-store';
 import {formatBytes} from '~/src/utils/format';
 
@@ -50,7 +49,6 @@ const THREE_COLORS: ProgressProps['strokeColor'] = {
 };
 
 export function Help() {
-  const expiration = useAppStore(state => state.auth?.expiration);
   const storagePersisted = useAppStore(state => state.storagePersisted);
   const storageUsage = useAppStore(state => state.storageUsage);
   const autoSavingColorSetsJson = useAppStore(state => state.appSettings.autoSavingColorSetsJson);
@@ -60,9 +58,6 @@ export function Help() {
   const updateServiceWorker = useAppStore(state => state.updateServiceWorker);
 
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
-
-  const expirationText: string | undefined =
-    expiration && dayjs(expiration).format(DATE_TIME_FORMAT);
 
   const handleUpdateClick = async () => {
     if (!('serviceWorker' in navigator)) {
@@ -258,12 +253,6 @@ export function Help() {
       <Typography.Text type="secondary" className="u-text-sm">
         <Trans>Application build ID</Trans>: {BUILD_ID}
       </Typography.Text>
-
-      {expirationText && (
-        <Typography.Text type="secondary" className="u-text-sm">
-          <Trans>Login session is valid until {expirationText}</Trans>
-        </Typography.Text>
-      )}
     </Flex>
   );
 }

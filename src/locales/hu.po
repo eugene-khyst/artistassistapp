@@ -17,7 +17,7 @@ msgstr ""
 msgid "({colorCount} colors)"
 msgstr "({colorCount} színek)"
 
-#: src/components/ColorSetChooser.tsx:653
+#: src/components/ColorSetChooser.tsx:641
 msgid "{brandName} colors"
 msgstr "{brandName} színek"
 
@@ -28,14 +28,18 @@ msgstr "{brandName} színek"
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# szín} other {# szín}}"
 
-#: src/components/ColorSetChooser.tsx:606
-#: src/components/ColorSetChooser.tsx:654
+#: src/components/auth/LoginQRButton.tsx:66
+msgid "{expiresIn, plural, one {QR code expires in # second} other {QR code expires in # seconds}}"
+msgstr "{expiresIn, plural, one {A QR-kód # másodperc alatt lejár} other {A QR-kód # másodperc múlva lejár}}"
+
+#: src/components/ColorSetChooser.tsx:594
+#: src/components/ColorSetChooser.tsx:642
 msgid "{FIELD} are required"
 msgstr "{FIELD} kötelezőek"
 
-#: src/components/ColorSetChooser.tsx:573
-#: src/components/ColorSetChooser.tsx:582
-#: src/components/ColorSetChooser.tsx:635
+#: src/components/ColorSetChooser.tsx:561
+#: src/components/ColorSetChooser.tsx:570
+#: src/components/ColorSetChooser.tsx:623
 #: src/components/CustomColorBrandCreator.tsx:436
 #: src/components/CustomColorBrandCreator.tsx:447
 #: src/components/CustomColorBrandCreator.tsx:455
@@ -71,23 +75,23 @@ msgstr "<0/> Windows és <1/> Linux"
 msgid "<0>{similarityText}%</0> similarity"
 msgstr "<0>{similarityText}%</0> hasonlóság"
 
-#: src/components/ColorSetChooser.tsx:452
+#: src/components/ColorSetChooser.tsx:450
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>Az ArtistAssistApp</0> egy webalkalmazás, amely segít a művészeknek a fényképek színeinek keverésében, a tónusértékek elemzésében, a fényképek körvonalazásában, rácsokkal való rajzolásban, korlátozott palettákkal való festésben stb."
 
-#: src/components/error/AuthFeedbackHandler.tsx:64
+#: src/components/error/AuthFeedbackHandler.tsx:71
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Ellenőrizd a Patreon fiókodat</0>: Győződj meg róla, hogy bejelentkezve <1>vagy Patreon.com</1> böngésződben ugyanazzal az e-mail címmel, amellyel a tagságod megvásárlásához használtad. Ha több fiókod van, jelentkezz ki és jelentkezz vissza a megfelelővel."
 
-#: src/components/ColorSetChooser.tsx:473
+#: src/components/ColorSetChooser.tsx:471
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Csatlakozzon az ArtistAssistApp-hoz a Patreonon fizetős tagként</0>, vagy <1>jelentkezzen be a Patreonnal</1> , ha már csatlakozott, hogy több mint 200 színmárkához és az összes képfeldolgozási módhoz hozzáférjen hirdetések nélkül."
 
-#: src/components/error/AuthFeedbackHandler.tsx:82
+#: src/components/error/AuthFeedbackHandler.tsx:89
 msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
 msgstr "<0>Próbáld újra a bejelentkezést</0>: Miután megerősítetted, hogy a megfelelő Patreon fiók aktív a böngésződben, jelentkezz be újra az ArtistAssistApp-ba."
 
-#: src/components/error/AuthFeedbackHandler.tsx:75
+#: src/components/error/AuthFeedbackHandler.tsx:82
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Webböngészőt használj</0>: Ha a Patreon alkalmazást használod (iOS/Android), jelentkezz be böngészőn keresztül (Chrome, Safari, Firefox), mert az alkalmazás néha zavarhatja az ellenőrzési folyamatot."
 
@@ -103,7 +107,7 @@ msgstr "Egy rács, amely bemutatja az egyes kiválasztott színpárok keverésé
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "Az alkalmazás új verziója is elérhető, és automatikusan telepíthető."
 
-#: src/components/Help.tsx:171
+#: src/components/Help.tsx:166
 msgid "A new version of the application is available."
 msgstr "Az alkalmazás új verziója elérhető."
 
@@ -111,7 +115,7 @@ msgstr "Az alkalmazás új verziója elérhető."
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "A 100%-nál kisebb érték kevésbé színes, a 100%-nál nagyobb érték pedig túl színesnek tűnik"
 
-#: src/components/Help.tsx:113
+#: src/components/Help.tsx:108
 msgid "About ArtistAssistApp"
 msgstr "Az ArtistAssistApp-ról"
 
@@ -135,7 +139,7 @@ msgstr "Szín hozzáadása"
 msgid "Add color mixtures to the palette."
 msgstr "Adjon hozzá színkeverékeket a palettához."
 
-#: src/components/ColorSetChooser.tsx:656
+#: src/components/ColorSetChooser.tsx:644
 msgid "Add or remove colors to match your actual color set."
 msgstr "Adjon hozzá vagy távolítson el színeket a tényleges színkészletnek megfelelően."
 
@@ -167,7 +171,7 @@ msgstr "Állítja a kép simításának erejét."
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
 msgstr "Alternatív megoldásként telepítse a Chrome, az Edge vagy az Opera webböngésző legújabb verzióját, és kattintson a <0>Telepítés</0> gombra. A macOS régebbi verzióiban ez az egyetlen lehetőség."
 
-#: src/components/Help.tsx:259
+#: src/components/Help.tsx:254
 msgid "Application build ID"
 msgstr "Application build ID"
 
@@ -206,7 +210,7 @@ msgstr "Biztosan törölni akarja a gyorsítótárat?"
 msgid "Are you sure you want to delete all app data?"
 msgstr "Biztosan törölni szeretné az összes alkalmazásadatot?"
 
-#: src/components/ColorSetChooser.tsx:748
+#: src/components/ColorSetChooser.tsx:736
 msgid "Are you sure you want to delete this color set?"
 msgstr "Biztosan törölni szeretné ezt a színkészletet?"
 
@@ -227,16 +231,16 @@ msgstr "Biztos benne, hogy el akarja távolítani az összes színkeveréket?"
 msgid "Are you sure you want to remove this color mixture?"
 msgstr "Biztos benne, hogy el akarja távolítani ezt a színkeveréket?"
 
-#: src/components/ColorSetChooser.tsx:572
+#: src/components/ColorSetChooser.tsx:560
 #: src/components/CustomColorBrandCreator.tsx:446
 msgid "Art medium"
 msgstr "Művészeti médium"
 
-#: src/components/error/AuthFeedbackHandler.tsx:142
+#: src/components/error/AuthFeedbackHandler.tsx:139
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "Az ArtistAssistApp nem kapta meg a Patreon-bejelentkezésed eredményét. Ez akkor fordulhat elő, amikor a bejelentkezés egy másik böngészőben vagy alkalmazásban nyílik meg. Kérlek, próbálj újra bejelentkezni."
 
-#: src/components/Help.tsx:250
+#: src/components/Help.tsx:245
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "Az ArtistAssistApp-ot <0>Eugene Khyst</0> fejlesztette"
 
@@ -244,7 +248,7 @@ msgstr "Az ArtistAssistApp-ot <0>Eugene Khyst</0> fejlesztette"
 msgid "At least one color is required"
 msgstr "Legalább egy szín szükséges"
 
-#: src/components/error/AuthFeedbackHandler.tsx:119
+#: src/components/error/AuthFeedbackHandler.tsx:113
 msgid "Authentication error"
 msgstr "Hitelesítési hiba"
 
@@ -257,7 +261,7 @@ msgstr "Autó paletta"
 msgid "Auto-detect"
 msgstr "Automatikus észlelés"
 
-#: src/components/Help.tsx:190
+#: src/components/Help.tsx:185
 msgid "Automatic backup of color sets"
 msgstr "A színkészletek automatikus biztonsági mentése"
 
@@ -309,7 +313,7 @@ msgstr "Az AR követéshez kamerahozzáférés szükséges"
 msgid "Cancel"
 msgstr "Törlés"
 
-#: src/components/Help.tsx:123
+#: src/components/Help.tsx:118
 msgid "Cancel a paid membership"
 msgstr "Fizetős tagság lemondása"
 
@@ -317,7 +321,7 @@ msgstr "Fizetős tagság lemondása"
 msgid "Cells"
 msgstr "Sejtek"
 
-#: src/components/Help.tsx:182
+#: src/components/Help.tsx:177
 msgid "Check for updates"
 msgstr "Frissítések keresése"
 
@@ -367,7 +371,7 @@ msgstr "Szín"
 msgid "Color brand"
 msgstr "Szín márka"
 
-#: src/components/ColorSetChooser.tsx:604
+#: src/components/ColorSetChooser.tsx:592
 msgid "Color brands"
 msgstr "Színes márkák"
 
@@ -391,7 +395,7 @@ msgstr "Színkeverék"
 msgid "Color picker"
 msgstr "Színválasztó"
 
-#: src/components/ColorSetChooser.tsx:580
+#: src/components/ColorSetChooser.tsx:568
 #: src/components/ImageColorPicker.tsx:241
 #: src/components/messages.ts:28
 msgid "Color set"
@@ -415,7 +419,7 @@ msgstr "Színek"
 msgid "Compare"
 msgstr "Összehasonlít"
 
-#: src/components/Help.tsx:137
+#: src/components/Help.tsx:132
 msgid "Contact"
 msgstr "Érintkezés"
 
@@ -443,11 +447,11 @@ msgstr "A fényforrás hőmérsékletének korrigált becslése Kelvinben"
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Nem tudtam automatikusan érzékelni a papírt vagy vásznat"
 
-#: src/components/ColorSetChooser.tsx:723
+#: src/components/ColorSetChooser.tsx:711
 msgid "Create a duplicate of this color set for further modification"
 msgstr "Hozzon létre egy másolatot ebből a színkészletből további módosításhoz"
 
-#: src/components/ColorSetChooser.tsx:732
+#: src/components/ColorSetChooser.tsx:720
 msgid "Create a new color set by merging existing ones"
 msgstr "Hozz létre egy új színkészletet a meglévő színek összevonásával"
 
@@ -464,7 +468,7 @@ msgstr "Egyedi színkészlet"
 msgid "Custom colors"
 msgstr "Egyedi színek"
 
-#: src/components/ColorSetChooser.tsx:762
+#: src/components/ColorSetChooser.tsx:750
 #: src/components/CustomColorBrandCreator.tsx:482
 #: src/components/image/RecentImageCard.tsx:83
 msgid "Delete"
@@ -475,7 +479,7 @@ msgstr "Töröl"
 msgid "Delete all app data"
 msgstr "Az összes alkalmazásadat törlése"
 
-#: src/components/ColorSetChooser.tsx:747
+#: src/components/ColorSetChooser.tsx:735
 msgid "Delete the color set"
 msgstr "A színkészlet törlése"
 
@@ -489,7 +493,7 @@ msgstr "Az egyéni márka törlése"
 msgid "Delete the recent photo"
 msgstr "A legutóbbi fotó törlése"
 
-#: src/components/ColorSetChooser.tsx:757
+#: src/components/ColorSetChooser.tsx:745
 msgid "Delete this color set"
 msgstr "Törölje ezt a színkészletet"
 
@@ -497,7 +501,7 @@ msgstr "Törölje ezt a színkészletet"
 msgid "Dense layer"
 msgstr "Sűrű réteg"
 
-#: src/components/error/AuthFeedbackHandler.tsx:29
+#: src/components/error/AuthFeedbackHandler.tsx:36
 msgid "Details"
 msgstr "Részletek"
 
@@ -521,7 +525,7 @@ msgstr "Átmérő"
 msgid "Dilute the paint with water in a <0>{ratioText} ratio</0>"
 msgstr "Hígítsa fel a festéket vízzel <0>{ratioText} arányban</0>"
 
-#: src/components/ColorSetChooser.tsx:637
+#: src/components/ColorSetChooser.tsx:625
 msgid "Do you have a store-bought or custom color set?"
 msgstr "Van bolti vagy egyedi színkészlete?"
 
@@ -545,7 +549,7 @@ msgstr "Dobd ide a fájlokat..."
 msgid "Dry Pastel"
 msgstr "Száraz pasztell"
 
-#: src/components/ColorSetChooser.tsx:726
+#: src/components/ColorSetChooser.tsx:714
 msgid "Duplicate"
 msgstr "Ismétlődő"
 
@@ -553,7 +557,7 @@ msgstr "Ismétlődő"
 msgid "Edit from here on"
 msgstr "Innen szerkesztés"
 
-#: src/components/error/AuthFeedbackHandler.tsx:32
+#: src/components/error/AuthFeedbackHandler.tsx:39
 msgid "Email"
 msgstr "E-mail"
 
@@ -562,11 +566,11 @@ msgstr "E-mail"
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Lépj be lightbox módba, hogy végigkövesd a körvonalat a dolgozatodon."
 
-#: src/components/error/AuthFeedbackHandler.tsx:30
+#: src/components/error/AuthFeedbackHandler.tsx:37
 msgid "Error"
 msgstr "Hiba"
 
-#: src/components/error/AuthFeedbackHandler.tsx:31
+#: src/components/error/AuthFeedbackHandler.tsx:38
 msgid "Error description"
 msgstr "Hibaleírás"
 
@@ -574,11 +578,11 @@ msgstr "Hibaleírás"
 msgid "Error loading sample photos"
 msgstr "Hiba betöltése mintafotók"
 
-#: src/components/ColorSetChooser.tsx:201
+#: src/components/ColorSetChooser.tsx:197
 msgid "Error while fetching color brand data"
 msgstr "Hiba a színmárka adatainak beolvasása közben"
 
-#: src/components/ColorSetChooser.tsx:223
+#: src/components/ColorSetChooser.tsx:219
 msgid "Error while fetching color data"
 msgstr "Hiba a színadatok beolvasása közben"
 
@@ -589,7 +593,7 @@ msgstr "Hiba a színadatok beolvasása közben"
 msgid "Error while fetching ML model data"
 msgstr "Hiba az ML-modell adatainak lekérése során"
 
-#: src/components/ColorSetChooser.tsx:212
+#: src/components/ColorSetChooser.tsx:208
 msgid "Error while fetching standard color set data"
 msgstr "Hiba a szabványos színkészlet adatainak beolvasásakor"
 
@@ -602,11 +606,11 @@ msgstr "A fényforrás becsült hőmérséklete Kelvinben a kép a következőkk
 msgid "Exit AR"
 msgstr "Exit AR"
 
-#: src/components/ColorSetChooser.tsx:483
+#: src/components/ColorSetChooser.tsx:481
 msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Fedezze fel az ingyenes verziót, mielőtt fizetős tagság vásárlása mellett dönt."
 
-#: src/components/ColorSetChooser.tsx:387
+#: src/components/ColorSetChooser.tsx:385
 #: src/components/CustomColorBrandCreator.tsx:350
 msgid "Fill in the required fields"
 msgstr "Töltse ki a szükséges mezőket"
@@ -627,11 +631,15 @@ msgstr "Teljes erővel"
 msgid "Gamma"
 msgstr "Gamma"
 
-#: src/components/error/AuthFeedbackHandler.tsx:36
+#: src/components/auth/LoginQRButton.tsx:51
+msgid "Get a new QR code"
+msgstr "Szerezz új QR-kódot"
+
+#: src/components/error/AuthFeedbackHandler.tsx:43
 msgid "Gifted membership"
 msgstr "Tehetséges tagság"
 
-#: src/components/ColorSetChooser.tsx:597
+#: src/components/ColorSetChooser.tsx:585
 msgid "Give your color set a name for easy access."
 msgstr "Adjon nevet a színkészletnek a könnyű hozzáférés érdekében."
 
@@ -668,16 +676,12 @@ msgstr "Rács"
 msgid "Height"
 msgstr "Magasság"
 
-#: src/components/ColorSetChooser.tsx:529
+#: src/components/ColorSetChooser.tsx:530
 #: src/components/messages.ts:45
 msgid "Help"
 msgstr "Segítség"
 
-#: src/components/ColorSetChooser.tsx:488
-msgid "If you are having trouble logging in, please read this <0>troubleshooting guide</0>."
-msgstr "Ha nehézségeid vannak a bejelentkezéssel, kérjük, olvasd el ezt a <0>hibaelhárító útmutatót</0>."
-
-#: src/components/ColorSetChooser.tsx:248
+#: src/components/ColorSetChooser.tsx:244
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Ha nem menti a műveletet, előfordulhat, hogy a színkészlet módosításai elvesznek."
 
@@ -702,7 +706,7 @@ msgstr "Felszerel"
 msgid "Install ArtistAssistApp"
 msgstr "Installáld az ArtistAssistApp alkalmazást"
 
-#: src/components/Help.tsx:173
+#: src/components/Help.tsx:168
 msgid "Install update"
 msgstr "Telepítési frissítés"
 
@@ -710,7 +714,11 @@ msgstr "Telepítési frissítés"
 msgid "Intended color temperature (K)"
 msgstr "Tervezett színhőmérséklet (K)"
 
-#: src/components/qr/QRScannerModal.tsx:81
+#: src/components/error/AuthFeedbackHandler.tsx:122
+msgid "Invalid login link"
+msgstr "Érvénytelen bejelentkezési link"
+
+#: src/components/qr/QRScannerModal.tsx:89
 msgid "Invalid QR code"
 msgstr "Érvénytelen QR-kód"
 
@@ -734,7 +742,7 @@ msgstr "Nyelv"
 msgid "Large"
 msgstr "Nagy"
 
-#: src/components/error/AuthFeedbackHandler.tsx:34
+#: src/components/error/AuthFeedbackHandler.tsx:41
 msgid "Last charge status"
 msgstr "Utolsó töltési állapot"
 
@@ -778,34 +786,33 @@ msgstr "Link a vágólapra másolva"
 msgid "Load color brand file"
 msgstr "Töltse be a színmárka fájlt"
 
-#: src/components/ColorSetChooser.tsx:780
+#: src/components/ColorSetChooser.tsx:768
 msgid "Load color sets file"
 msgstr "Színkészletfájl betöltése"
 
-#: src/components/ColorSetChooser.tsx:539
-msgid "Log in on another device by scanning the QR code"
-msgstr "Jelentkezzen be egy másik eszközön a QR-kód beolvasásával"
+#: src/components/ColorSetChooser.tsx:520
+msgid "Log in by QR"
+msgstr "Bejelentkezés QR segítségével"
 
-#: src/components/auth/LoginButton.tsx:38
+#: src/components/auth/LoginOAuthButton.tsx:36
 msgid "Log in with Patreon"
 msgstr "Bejelentkezés a Patreonnal"
 
-#: src/components/auth/LogoutButton.tsx:40
+#: src/components/auth/LogoutButton.tsx:38
 msgid "Log out"
 msgstr "Kijelentkezik"
 
-#: src/components/error/AuthFeedbackHandler.tsx:128
-#: src/components/error/AuthFeedbackHandler.tsx:187
+#: src/components/error/AuthFeedbackHandler.tsx:203
 msgid "Login failed"
 msgstr "A bejelentkezés sikertelen"
 
-#: src/components/error/AuthFeedbackHandler.tsx:138
+#: src/components/auth/LoginQRButton.tsx:45
+msgid "Login QR code"
+msgstr "Bejelentkezés QR kód"
+
+#: src/components/error/AuthFeedbackHandler.tsx:137
 msgid "Login result not received"
 msgstr "Bejelentkezési eredmény nem érkezett meg"
-
-#: src/components/Help.tsx:264
-msgid "Login session is valid until {expirationText}"
-msgstr "A bejelentkezési munkamenet {expirationText} napig érvényes"
 
 #: src/components/ImageColorAdjustment.tsx:457
 msgid "Low input and high input"
@@ -829,7 +836,7 @@ msgid "Medium"
 msgstr "Közepes"
 
 #: src/components/color-set/MergeColorSetsDrawer.tsx:94
-#: src/components/ColorSetChooser.tsx:735
+#: src/components/ColorSetChooser.tsx:723
 msgid "Merge"
 msgstr "Egyesülés"
 
@@ -872,7 +879,7 @@ msgstr "Üzemmód"
 msgid "More"
 msgstr "További"
 
-#: src/components/ColorSetChooser.tsx:596
+#: src/components/ColorSetChooser.tsx:584
 #: src/components/CustomColorBrandCreator.tsx:182
 #: src/components/CustomColorBrandCreator.tsx:454
 msgid "Name"
@@ -882,7 +889,7 @@ msgstr "Név"
 msgid "Name a brand"
 msgstr "Márka elnevezése"
 
-#: src/components/ColorSetChooser.tsx:600
+#: src/components/ColorSetChooser.tsx:588
 msgid "Name a color set"
 msgstr "Színkészlet elnevezése"
 
@@ -902,14 +909,14 @@ msgstr "Új színkészlet"
 msgid "New comparison"
 msgstr "Új összehasonlítás"
 
-#: src/components/error/AuthFeedbackHandler.tsx:35
+#: src/components/error/AuthFeedbackHandler.tsx:42
 msgid "Next charge date"
 msgstr "Következő töltési dátum"
 
 #: src/components/color/AddToPaletteButton.tsx:52
 #: src/components/color/PaletteColorMixtureCard.tsx:119
-#: src/components/ColorSetChooser.tsx:250
-#: src/components/ColorSetChooser.tsx:753
+#: src/components/ColorSetChooser.tsx:246
+#: src/components/ColorSetChooser.tsx:741
 #: src/components/CustomColorBrandCreator.tsx:473
 #: src/components/image/RecentImageCard.tsx:74
 #: src/components/palette/PaletteGrid.tsx:114
@@ -955,7 +962,7 @@ msgstr "Olajfesték"
 msgid "Oil Pastel"
 msgstr "Olaj pasztell"
 
-#: src/components/ColorSetChooser.tsx:619
+#: src/components/ColorSetChooser.tsx:607
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Csak korlátozott számú színmárka érhető el az ingyenes verzióban"
 
@@ -980,6 +987,10 @@ msgstr "Átlátszatlan"
 #: src/components/install/InstallDrawer.tsx:148
 msgid "Open in Safari browser"
 msgstr "Megnyitás a Safari böngészőben"
+
+#: src/components/ColorSetChooser.tsx:506
+msgid "Open the app on a device where you are logged in"
+msgstr "Nyisd meg az alkalmazást egy olyan eszközön, ahol be vagy jelentkezve"
 
 #: src/components/error/BrowserSupport.tsx:96
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
@@ -1025,11 +1036,11 @@ msgstr "Paletta"
 msgid "Paper size"
 msgstr "Papírméret"
 
-#: src/components/error/AuthFeedbackHandler.tsx:47
+#: src/components/error/AuthFeedbackHandler.tsx:54
 msgid "Patreon membership verification failed"
 msgstr "A Patreon tagsági ellenőrzés sikertelen"
 
-#: src/components/error/AuthFeedbackHandler.tsx:33
+#: src/components/error/AuthFeedbackHandler.tsx:40
 msgid "Patron status"
 msgstr "Patrónus státusz"
 
@@ -1042,7 +1053,7 @@ msgstr "Percentilis"
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Percentilis: Automatikus fehéregyensúly a legvilágosabb területekről, a legtöbb fényképhez jó. Referencia: Kézi fehéregyensúly a kiválasztott fehér terület használatával."
 
-#: src/components/Help.tsx:199
+#: src/components/Help.tsx:194
 msgid "Persistent storage"
 msgstr "Állandó tárolás"
 
@@ -1073,6 +1084,10 @@ msgstr "Pozíció: {position}<0/>Értékelés: {ratingText}"
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:63
 msgid "Postpone"
 msgstr "Halasztás"
+
+#: src/components/ColorSetChooser.tsx:509
+msgid "Press <0>Show login QR</0>"
+msgstr "Nyomd <0>meg a Megjelenítés bejelentkezési QR-ét</0>"
 
 #: src/components/install/InstallDrawer.tsx:170
 msgid "Press Add to Dock"
@@ -1120,7 +1135,7 @@ msgstr "Nagy kép nyomtatása több oldalra"
 msgid "Print preview"
 msgstr "Nyomtatási kép"
 
-#: src/components/Help.tsx:147
+#: src/components/Help.tsx:142
 msgid "Privacy policy"
 msgstr "Adatvédelem"
 
@@ -1128,7 +1143,11 @@ msgstr "Adatvédelem"
 msgid "Processing..."
 msgstr "Feldolgozás..."
 
-#: src/components/Help.tsx:222
+#: src/components/auth/LoginQRButton.tsx:75
+msgid "QR code expired."
+msgstr "A QR-kód lejárt."
+
+#: src/components/Help.tsx:217
 msgid "Quota"
 msgstr "Kvóta"
 
@@ -1258,11 +1277,11 @@ msgstr "Telítettség (%)"
 msgid "Save"
 msgstr "Megment"
 
-#: src/components/ColorSetChooser.tsx:718
+#: src/components/ColorSetChooser.tsx:706
 msgid "Save & continue"
 msgstr "Mentés és folytatás"
 
-#: src/components/ColorSetChooser.tsx:247
+#: src/components/ColorSetChooser.tsx:243
 msgid "Save changes to the color set?"
 msgstr "Menti a színkészlet módosításait?"
 
@@ -1276,17 +1295,21 @@ msgstr "A mentés 1,91:1-re bővítve"
 msgid "Save expanded to 4:5"
 msgstr "A mentés 4:5-re bővítve"
 
-#: src/components/ColorSetChooser.tsx:714
+#: src/components/ColorSetChooser.tsx:702
 msgid "Save the changes to this color set"
 msgstr "A színkészlet módosításainak mentése"
 
-#: src/components/qr/QRScannerModal.tsx:55
+#: src/components/qr/QRScannerModal.tsx:58
 msgid "Scan a QR code"
 msgstr "QR-kód beolvasása"
 
-#: src/components/ColorSetChooser.tsx:520
-msgid "Scan QR code"
-msgstr "QR-kód beolvasása"
+#: src/components/ColorSetChooser.tsx:514
+msgid "Scan its QR code here"
+msgstr "Szkenneld be a QR-kódját itt."
+
+#: src/components/auth/LoginQRButton.tsx:62
+msgid "Scan this code on the device you want to log in."
+msgstr "Szkenneld be ezt a kódot azon az eszközön, amibe be akarsz jelentkezni."
 
 #: src/components/ImagePerspectiveCorrection.tsx:142
 msgid "Select 4 points to correct perspective distortion"
@@ -1324,8 +1347,8 @@ msgstr "Válasszon ki tetszőleges számú színt a keverni, és adja meg az egy
 msgid "Select art medium"
 msgstr "Művészeti médium kiválasztása"
 
-#: src/components/ColorSetChooser.tsx:257
-#: src/components/ColorSetChooser.tsx:375
+#: src/components/ColorSetChooser.tsx:255
+#: src/components/ColorSetChooser.tsx:373
 msgid "Select at least one color before saving the color set."
 msgstr "Válassz legalább egy színt, mielőtt elmented a színkészletet."
 
@@ -1333,7 +1356,7 @@ msgstr "Válassz legalább egy színt, mielőtt elmented a színkészletet."
 msgid "Select brands"
 msgstr "Márkák kiválasztása"
 
-#: src/components/ColorSetChooser.tsx:605
+#: src/components/ColorSetChooser.tsx:593
 msgid "Select brands that you use."
 msgstr "Válassza ki az Ön által használt márkákat."
 
@@ -1362,7 +1385,7 @@ msgstr "Válasszon a legutóbbi márkák közül"
 msgid "Select from your recent color sets"
 msgstr "Válasszon a legutóbbi színkészletek közül"
 
-#: src/components/ColorSetChooser.tsx:581
+#: src/components/ColorSetChooser.tsx:569
 msgid "Select from your recent color sets or create a new one."
 msgstr "Válasszon a legutóbbi színkészletek közül, vagy hozzon létre egy újat."
 
@@ -1405,7 +1428,7 @@ msgstr "Stíluskép kiválasztása"
 msgid "Select the color sets you want to merge. A new color set will be created that includes all the colors from the selected sets."
 msgstr "Válaszd ki azokat a színkészleteket, amelyeket össze akarsz vonni. Egy új színkészlet készül, amely tartalmazza a kiválasztott halmazok összes színét."
 
-#: src/components/ColorSetChooser.tsx:549
+#: src/components/ColorSetChooser.tsx:537
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>."
 msgstr "Válaszd ki a művészeti médiumodat, a színmárkákat és a festeni kívánt színeket, majd nyomd <0>meg a Mentés és a folytatás</0> gombot."
@@ -1418,7 +1441,7 @@ msgstr "Félig átlátszatlan"
 msgid "Semi-transparent"
 msgstr "Félig átlátszó"
 
-#: src/components/error/AuthFeedbackHandler.tsx:110
+#: src/components/error/AuthFeedbackHandler.tsx:104
 msgid "Session expired"
 msgstr "A szekció lejárt"
 
@@ -1459,12 +1482,12 @@ msgstr "Árnyék"
 msgid "Shadows and highlights"
 msgstr "Árnyékok és csúcsfények"
 
-#: src/components/ColorSetChooser.tsx:772
+#: src/components/ColorSetChooser.tsx:760
 #: src/components/share/ShareModal.tsx:83
 msgid "Share"
 msgstr "Részvény"
 
-#: src/components/ColorSetChooser.tsx:769
+#: src/components/ColorSetChooser.tsx:757
 msgid "Share this color set"
 msgstr "Ossza meg ezt a színkészletet"
 
@@ -1479,6 +1502,10 @@ msgstr "Mutassuk meg a képen olyan területeket, amelyek megfelelnek ennek a sz
 #: src/components/grid/GridControls.tsx:177
 msgid "Show grid"
 msgstr "Rács megjelenítése"
+
+#: src/components/auth/LoginQRButton.tsx:109
+msgid "Show login QR"
+msgstr "Bejelentkezés megtekintése QR"
 
 #: src/components/ImageColorPicker.tsx:291
 msgid "Show matching areas"
@@ -1495,6 +1522,10 @@ msgstr "Átlós vonalak megjelenítése vagy elrejtése"
 #: src/components/color/PaletteColorMixtureCard.tsx:103
 msgid "Show this color on the reference photo."
 msgstr "Mutassuk meg ezt a színt a referencia fotón."
+
+#: src/components/error/AuthFeedbackHandler.tsx:128
+msgid "Sign in required"
+msgstr "Bejelentkezés szükséges"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:83
 #: src/components/ImageColorPicker.tsx:405
@@ -1529,6 +1560,10 @@ msgstr "Kicsi"
 msgid "Something went wrong"
 msgstr "Valami rosszul ment"
 
+#: src/components/error/AuthFeedbackHandler.tsx:156
+msgid "Something went wrong while logging you in. Please try again. If the problem persists, check your internet connection."
+msgstr "Valami elromlott, amikor bejelentkeztem. Kérlek, próbáld meg újra. Ha a probléma továbbra is fennáll, ellenőrizd az internetkapcsolatodat."
+
 #: src/components/color-set/ColorSelect.tsx:122
 #: src/components/ColorMixingChart.tsx:117
 #: src/components/ImageColorPicker.tsx:442
@@ -1558,7 +1593,7 @@ msgstr "Spektrális visszaverődési görbe"
 msgid "Square cells"
 msgstr "Négyzet alakú cellák"
 
-#: src/components/ColorSetChooser.tsx:634
+#: src/components/ColorSetChooser.tsx:622
 msgid "Standard color set"
 msgstr "Szabványos színkészlet"
 
@@ -1566,15 +1601,11 @@ msgstr "Szabványos színkészlet"
 msgid "Standard print"
 msgstr "Normál nyomtatás"
 
-#: src/components/error/AuthFeedbackHandler.tsx:89
-msgid "Still having trouble? Please refer to this <0>troubleshooting guide</0>."
-msgstr "Még mindig gondjaid vannak? Kérjük, tekintse meg ezt a <0>hibakeresési útmutatót</0>."
-
 #: src/components/ImageChooser.tsx:80
 msgid "Storage may fill up"
 msgstr "A tároló megtelhet"
 
-#: src/components/Help.tsx:216
+#: src/components/Help.tsx:211
 msgid "Storage usage"
 msgstr "Tárhely használat"
 
@@ -1625,11 +1656,11 @@ msgstr "Célszín"
 msgid "Target print size"
 msgstr "Cél nyomtatási méret"
 
-#: src/components/Help.tsx:157
+#: src/components/Help.tsx:152
 msgid "Terms of use"
 msgstr "Felhasználási feltételek"
 
-#: src/components/Help.tsx:241
+#: src/components/Help.tsx:236
 msgid "The app stores all data in the web browser storage even after installation. Clearing the web browser data results in the loss of all app data."
 msgstr "Az alkalmazás a telepítés után is minden adatot tárol a webböngésző tárhelyén. A webböngésző adatainak törlése az összes alkalmazásadat elvesztését eredményezi."
 
@@ -1637,7 +1668,7 @@ msgstr "Az alkalmazás a telepítés után is minden adatot tárol a webböngés
 msgid "The color of your paper, canvas, or painting surface."
 msgstr "A papír, vászon vagy festményfelület színe."
 
-#: src/components/ColorSetChooser.tsx:241
+#: src/components/ColorSetChooser.tsx:237
 msgid "The color set can't be saved because not all required fields are filled."
 msgstr "A színkészlet nem menthető el, mert nem minden kötelező mező van kitöltve."
 
@@ -1673,13 +1704,17 @@ msgstr "Hígítsa a festéket <0>{fractionText} vastagságúra</0>"
 msgid "This backup file lets you restore your color sets later, so keep it. You can delete any older backup files."
 msgstr "Ez a biztonsági mentési fájl lehetővé teszi a színkészletek későbbi visszaállítását, ezért tartsa meg. Törölheti a régebbi biztonsági mentési fájlokat."
 
-#: src/components/ColorSetChooser.tsx:660
+#: src/components/ColorSetChooser.tsx:648
 msgid "This color brand is available to paid Patreon members only"
 msgstr "Ez a színmárka csak fizetős Patreon tagok számára érhető el"
 
 #: src/components/color/PaletteColorMixtureCard.tsx:104
 msgid "This color was not sampled from a photo."
 msgstr "Ezt a színt nem fotóról mintázták."
+
+#: src/components/error/AuthFeedbackHandler.tsx:124
+msgid "This login link is invalid or has expired. Please get a new one and try again."
+msgstr "Ez a bejelentkezési link érvénytelen vagy lejárt. Kérlek, szerezz egy újat, és próbáld újra."
 
 #: src/components/print/PrintImageDrawer.tsx:175
 msgid "This print size is not supported"
@@ -1693,11 +1728,11 @@ msgstr "Ez a lépés nem kötelező."
 msgid "This style is available to paid Patreon members only"
 msgstr "Ez a stílus csak fizetős Patreon-tagok számára érhető el."
 
-#: src/components/error/AuthFeedbackHandler.tsx:51
+#: src/components/error/AuthFeedbackHandler.tsx:58
 msgid "This usually happens when you're signed in to a <0>different</0> Patreon account than the one used for your ArtistAssistApp membership."
 msgstr "Ez általában akkor történik, amikor <0>egy másik</0> Patreon fiókba vagy bejelentkezve, mint amit az ArtistAssistApp tagságnál használsz."
 
-#: src/components/error/AuthFeedbackHandler.tsx:59
+#: src/components/error/AuthFeedbackHandler.tsx:66
 msgid "To fix this:"
 msgstr "Ennek javítására:"
 
@@ -1717,6 +1752,10 @@ msgstr "A {tabLabel} funkció használatához válaszd ki a támogatott művész
 msgid "Tonal values"
 msgstr "Tónusértékek"
 
+#: src/components/error/AuthFeedbackHandler.tsx:148
+msgid "Too many login requests were made in a short time. Please wait a minute, then try again."
+msgstr "Túl sok bejelentkezési kérés történt rövid idő alatt. Kérlek, várj egy percet, aztán próbáld újra."
+
 #: src/components/color/OpacityIcon.tsx:39
 msgid "Transparent"
 msgstr "Átlátszó"
@@ -1725,7 +1764,11 @@ msgstr "Átlátszó"
 msgid "Try adding some colors to your color set."
 msgstr "Próbálj meg néhány színt hozzáadni a színkészletedhez."
 
-#: src/components/Help.tsx:103
+#: src/components/error/AuthFeedbackHandler.tsx:146
+msgid "Try again in a minute"
+msgstr "Próbáld meg újra egy perc múlva"
+
+#: src/components/Help.tsx:98
 msgid "Tutorials and videos"
 msgstr "Oktatóanyagok és videók"
 
@@ -1734,7 +1777,7 @@ msgstr "Oktatóanyagok és videók"
 msgid "Underlayer"
 msgstr "Alsó réteg"
 
-#: src/components/error/UnhandledRejectionHandler.tsx:34
+#: src/components/error/UnhandledRejectionHandler.tsx:35
 msgid "Unexpected error"
 msgstr "Váratlan hiba"
 
@@ -1781,7 +1824,7 @@ msgstr "Használjon olyan üvegező közegeket, amelyek lehetővé teszik, hogy 
 msgid "Use reference photo"
 msgstr "Referenciafotó használata"
 
-#: src/components/Help.tsx:219
+#: src/components/Help.tsx:214
 msgid "Used"
 msgstr "Használt"
 
@@ -1814,19 +1857,23 @@ msgstr "Akvarell ceruzák"
 msgid "Wax Pastel"
 msgstr "Viaszpasztell"
 
-#: src/components/error/AuthFeedbackHandler.tsx:121
+#: src/components/error/AuthFeedbackHandler.tsx:154
+msgid "We couldn't verify your session"
+msgstr "Nem tudtuk ellenőrizni az ülésedet"
+
+#: src/components/error/AuthFeedbackHandler.tsx:130
+msgid "We couldn't verify your session. Please sign in again to continue using ArtistAssistApp."
+msgstr "Nem tudtuk ellenőrizni a foglalkozásodat. Kérjük, jelentkezzen be újra, hogy továbbra is az ArtistAssistApp használatát."
+
+#: src/components/error/AuthFeedbackHandler.tsx:115
 msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
 msgstr "Problémánk volt a bejelentkezési adataid ellenőrzésével. Ezt a problémát általában úgy lehet megoldani, ha újra próbálunk bejelentkezni."
 
-#: src/components/error/AuthFeedbackHandler.tsx:132
-msgid "We were unable to log you in."
-msgstr "Nem tudtunk bejelentkezni."
-
-#: src/components/ColorSetChooser.tsx:690
+#: src/components/ColorSetChooser.tsx:678
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "Ha összesen több mint {maxColorsFor2} színt jelöl ki, a program nem használ két szín keverékét."
 
-#: src/components/ColorSetChooser.tsx:698
+#: src/components/ColorSetChooser.tsx:686
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Ha összesen több mint {maxColorsFor3} színt jelöl ki, a program nem használ három szín keverékét."
 
@@ -1856,8 +1903,8 @@ msgstr "Szélesség"
 
 #: src/components/color/AddToPaletteButton.tsx:51
 #: src/components/color/PaletteColorMixtureCard.tsx:118
-#: src/components/ColorSetChooser.tsx:249
-#: src/components/ColorSetChooser.tsx:752
+#: src/components/ColorSetChooser.tsx:245
+#: src/components/ColorSetChooser.tsx:740
 #: src/components/CustomColorBrandCreator.tsx:472
 #: src/components/image/RecentImageCard.tsx:73
 #: src/components/palette/PaletteGrid.tsx:113
@@ -1870,19 +1917,19 @@ msgstr "Igen"
 msgid "You already have many recent photos saved. Remove the oldest one to free up space? The new photo will still be added."
 msgstr "Már sok friss fotót mentettél el. Eltávolítani a legrégebbi, hogy helyet szabadítsanak fel? Az új fotót továbbra is hozzáadjuk."
 
-#: src/components/ColorSetChooser.tsx:462
+#: src/components/ColorSetChooser.tsx:460
 msgid "You are logged in and have access to all app features."
 msgstr "Be van jelentkezve, és hozzáfér az alkalmazás összes funkciójához."
 
-#: src/components/ColorSetChooser.tsx:467
+#: src/components/ColorSetChooser.tsx:465
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "Az <0>ingyenes verziót</0> korlátozott számú színmárkával és képfeldolgozási móddal használja."
 
-#: src/components/error/AuthFeedbackHandler.tsx:162
+#: src/components/error/AuthFeedbackHandler.tsx:174
 msgid "You can keep working in this browser tab, or switch back to the installed ArtistAssistApp — you're logged in there too."
 msgstr "Folytathatod a munkát ezen a böngészőfülön, vagy visszaválthatsz a telepített ArtistAssistApp-ra — ott is be vagy jelentkezve."
 
-#: src/components/error/AuthFeedbackHandler.tsx:160
+#: src/components/error/AuthFeedbackHandler.tsx:172
 msgid "You're logged in"
 msgstr "Bejelentkeztél"
 
@@ -1891,15 +1938,15 @@ msgstr "Bejelentkeztél"
 msgid "You've selected a mode that is available to paid Patreon members only"
 msgstr "Olyan módot választottál, amely csak a fizetős Patreon tagok számára elérhető"
 
-#: src/components/ColorSetChooser.tsx:612
+#: src/components/ColorSetChooser.tsx:600
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Olyan színmárkákat választottál, amelyek csak fizetős Patreon-tagok számára érhetők el"
 
-#: src/components/ColorSetChooser.tsx:681
+#: src/components/ColorSetChooser.tsx:669
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Olyan színmárkákat választottál, amelyek csak a fizetős Patreon-tagok számára érhetők el. Csatlakozz az ArtistAssistApp-hoz a Patreonon fizetős tagként, vagy jelentkezz be a Patreonnal, ha már csatlakoztál."
 
-#: src/components/error/AuthFeedbackHandler.tsx:103
+#: src/components/error/AuthFeedbackHandler.tsx:97
 msgid "Your account details:"
 msgstr "Fiókadatai:"
 
@@ -1907,7 +1954,7 @@ msgstr "Fiókadatai:"
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "Az adataid nem biztos, hogy megbízhatóan mentődnek el, ha a böngésző zárva van. Ennek megoldásához telepítsd az alkalmazást."
 
-#: src/components/error/AuthFeedbackHandler.tsx:112
+#: src/components/error/AuthFeedbackHandler.tsx:106
 msgid "Your login session has expired. Please sign in again to refresh your access and continue using ArtistAssistApp."
 msgstr "A bejelentkezési alkalom lejárt. Kérjük, jelentkezzen be újra, hogy frissítse hozzáférését, és folytassa az ArtistAssistApp használatát."
 

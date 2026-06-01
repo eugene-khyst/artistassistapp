@@ -16,26 +16,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Trans} from '@lingui/react/macro';
-import {Button} from 'antd';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
-import {useAppStore} from '~/src/stores/app-store';
+function getRemainingSeconds(targetDate?: Date | null): number {
+  return targetDate ? Math.max(0, Math.round((targetDate.getTime() - Date.now()) / 1000)) : 0;
+}
 
-export function LogoutButton() {
-  const logout = useAppStore(state => state.logout);
-
-  const [clicked, setClicked] = useState<boolean>(false);
-
-  return (
-    <Button
-      onClick={() => {
-        void logout();
-        setClicked(true);
-      }}
-      loading={clicked}
-    >
-      <Trans>Log out</Trans>
-    </Button>
-  );
+export function useCountdownUntil(targetDate?: Date | null, active = true): number {
+  const [, tick] = useState(0);
+  useEffect(() => {
+    if (!active || !targetDate) return;
+    const id = setInterval(() => {
+      tick(t => t + 1);
+    }, 1000);
+    return () => {
+      clearInterval(id);
+    };
+  }, [active, targetDate]);
+  return active ? getRemainingSeconds(targetDate) : 0;
 }

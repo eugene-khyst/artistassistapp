@@ -16,23 +16,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {JWTExpired} from 'jose/errors';
 import type {StateCreator} from 'zustand';
 
-import {APP_URL, AUTH_URL, PUBLIC_JWK} from '~/src/config';
-import {AuthClient} from '~/src/services/auth/auth-client';
-import type {AuthAttempt, Authentication, AuthNoticeType} from '~/src/services/auth/types';
-import {AuthError, AuthErrorType} from '~/src/services/auth/types';
-import {deleteAuthAttempt, getAuthAttempt, saveAuthAttempt} from '~/src/services/db/auth-db';
+import {
+  isWithinRefreshWindow,
+  loginWithRedirect as initiateLoginRedirect,
+  readAuthCallbackError,
+  refreshSession,
+  requestLoginLink,
+  requestLogout,
+  verifyIdToken,
+} from '~/src/services/auth/auth-client';
+import type {AuthAttempt, Authentication, LoginLink} from '~/src/services/auth/types';
+import {
+  AuthError,
+  AuthErrorType,
+  AuthNoticeType,
+  TERMINAL_AUTH_ERRORS,
+} from '~/src/services/auth/types';
+import {
+  deleteAuthAttempt,
+  deleteAuthSession,
+  getAuthAttempt,
+  getAuthSession,
+  saveAuthAttempt,
+} from '~/src/services/db/auth-db';
 import type {AppSlice} from '~/src/stores/app-slice';
-import {getDisplayMode} from '~/src/utils/environment';
+import {DisplayMode, getDisplayMode} from '~/src/utils/environment';
 
-const authClient = new AuthClient({
-  domain: AUTH_URL,
-  redirectUri: `${window.location.origin}/login/callback`,
-  issuer: AUTH_URL,
-  audience: APP_URL,
-  jwk: PUBLIC_JWK,
-});
+// How long before expiry to refresh the ID token.
+export const AUTH_REFRESH_WINDOW_MS = 60 * 60 * 1000;
+
+// Two logout calls at once share one run; the first caller's error type wins.
+let logoutPromise: Promise<void> | null = null;
 
 export interface AuthSlice {
   auth: Authentication | null;
@@ -40,15 +57,16 @@ export interface AuthSlice {
   isAuthLoading: boolean;
   authError: AuthError | null;
   authNotice: AuthNoticeType | null;
-  isLoggingOut: boolean;
+  loginLink: LoginLink | null;
 
-  handleAuthCallback: () => Promise<Authentication | null>;
+  resolveAuth: () => Promise<void>;
+  handleAuthCallback: () => Promise<void>;
   loginWithRedirect: () => Promise<void>;
   logout: (error?: AuthErrorType) => Promise<void>;
-  isAuthExpired: () => boolean;
+  getLoginLink: () => Promise<LoginLink>;
   clearAuthError: () => void;
   clearAuthNotice: () => void;
-  loadAuthAttempt: () => Promise<void>;
+  completeAuthAttempt: () => Promise<void>;
   clearAuthAttempt: () => Promise<void>;
   failPendingAuthAttempt: () => Promise<void>;
 }
@@ -62,34 +80,79 @@ export const createAuthSlice: StateCreator<AuthSlice & AppSlice, [], [], AuthSli
   isAuthLoading: false,
   authError: null,
   authNotice: null,
-  isLoggingOut: false,
+  loginLink: null,
 
-  handleAuthCallback: async (): Promise<Authentication | null> => {
-    set({
-      isAuthLoading: true,
-      authError: null,
-    });
+  resolveAuth: async (): Promise<void> => {
+    const session = await getAuthSession();
+    const {auth: priorAuth} = get();
+    if (!session) {
+      if (priorAuth) {
+        // Another tab logged out - reload to clear cached data from memory.
+        await get().logout();
+      }
+      return;
+    }
+    // Refresh the session, then verify the new token. Returns null when another tab
+    // cleared the session (logout already triggered); throws on refresh/verify failure.
+    const refreshAndVerify = async (): Promise<Authentication | null> => {
+      const refreshed = await refreshSession(session);
+      if (refreshed === null) {
+        await get().logout();
+        return null;
+      }
+      return verifyIdToken(refreshed);
+    };
     try {
-      await authClient.handleAuthCallback();
-      const auth: Authentication | null = await authClient.getAuthentication();
+      let auth = await verifyIdToken(session);
+      if (isWithinRefreshWindow(auth, AUTH_REFRESH_WINDOW_MS)) {
+        try {
+          const refreshed = await refreshAndVerify();
+          if (refreshed === null) {
+            return;
+          }
+          auth = refreshed;
+        } catch (err) {
+          const authError = AuthError.fromError(err);
+          if (TERMINAL_AUTH_ERRORS.has(authError.type)) {
+            await get().logout(authError.type);
+            return;
+          }
+          // Couldn't reach the server, but the token is still valid; keep using it.
+        }
+      }
       set({
         auth,
       });
-      return auth;
     } catch (error) {
-      console.log(error);
-      if (error instanceof AuthError) {
-        set({
-          authError: error,
-        });
+      if (error instanceof JWTExpired) {
+        try {
+          const auth = await refreshAndVerify();
+          if (auth === null) {
+            return;
+          }
+          set({
+            auth,
+          });
+        } catch (refreshError) {
+          // Token already strict-expired; any refresh failure is fatal.
+          const authError = AuthError.fromError(refreshError);
+          await get().logout(authError.type);
+        }
+      } else {
+        await get().logout(AuthErrorType.InvalidToken);
       }
-      return null;
-    } finally {
+    }
+  },
+
+  handleAuthCallback: async (): Promise<void> => {
+    const error = await readAuthCallbackError();
+    if (error) {
       set({
-        isAuthLoading: false,
+        authError: error,
       });
     }
   },
+
   loginWithRedirect: async (): Promise<void> => {
     const {authAttempt} = get();
     if (authAttempt) {
@@ -105,51 +168,111 @@ export const createAuthSlice: StateCreator<AuthSlice & AppSlice, [], [], AuthSli
     });
     try {
       await saveAuthAttempt(attempt);
-      await authClient.loginWithRedirect();
+      initiateLoginRedirect();
     } catch (error) {
-      console.error(error);
-      await deleteAuthAttempt().catch(() => undefined);
+      try {
+        await deleteAuthAttempt();
+      } catch {
+        // ignore
+      }
       set({
         authAttempt: null,
-        authError: new AuthError(AuthErrorType.Unknown),
+        authError: AuthError.fromError(error),
       });
     }
   },
+
   logout: async (error?: AuthErrorType): Promise<void> => {
-    const {isLoggingOut} = get();
-    if (isLoggingOut) {
-      return;
+    if (logoutPromise) {
+      return logoutPromise;
     }
-    set({isLoggingOut: true});
-    await authClient.logout(error);
+    logoutPromise = (async () => {
+      try {
+        await requestLogout();
+      } catch {
+        // Offline or server down - local logout still proceeds.
+      }
+      try {
+        await deleteAuthSession();
+      } catch (deleteError) {
+        console.error('Failed to delete auth session', deleteError);
+      }
+      if (error) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('error', error);
+        window.history.replaceState({}, '', url);
+      }
+      window.location.reload();
+    })();
+    return logoutPromise;
   },
-  isAuthExpired: (): boolean => {
-    return authClient.isAuthExpired();
+
+  getLoginLink: async (): Promise<LoginLink> => {
+    const {loginLink} = get();
+    if (loginLink && new Date() < loginLink.expiresAt) {
+      return loginLink;
+    }
+    try {
+      const newLoginLink = await requestLoginLink();
+      set({
+        loginLink: newLoginLink,
+      });
+      return newLoginLink;
+    } catch (error) {
+      const authError = AuthError.fromError(error);
+      if (TERMINAL_AUTH_ERRORS.has(authError.type)) {
+        void get().logout(authError.type);
+      } else {
+        set({
+          authError,
+        });
+      }
+      throw authError;
+    }
   },
+
   clearAuthError: (): void => {
     set({
       authError: null,
     });
   },
+
   clearAuthNotice: (): void => {
     set({
       authNotice: null,
     });
   },
-  loadAuthAttempt: async (): Promise<void> => {
+
+  completeAuthAttempt: async (): Promise<void> => {
+    const authAttempt = (await getAuthAttempt()) ?? null;
     set({
-      authAttempt: (await getAuthAttempt()) ?? null,
+      authAttempt,
     });
+    const {auth, authError} = get();
+    if (authAttempt && (auth || authError)) {
+      if (
+        auth &&
+        authAttempt.displayMode !== DisplayMode.BROWSER &&
+        getDisplayMode() === DisplayMode.BROWSER
+      ) {
+        set({
+          authNotice: AuthNoticeType.LoginCompletedInBrowser,
+        });
+      }
+      await get().clearAuthAttempt();
+    }
   },
+
   clearAuthAttempt: async (): Promise<void> => {
     await deleteAuthAttempt();
     set({
       authAttempt: null,
     });
   },
+
   failPendingAuthAttempt: async (): Promise<void> => {
     set({
-      authError: new AuthError(AuthErrorType.LoginResultMissing),
+      authError: new AuthError(AuthErrorType.LoginResultMissing, 'Login result missing'),
     });
     await get().clearAuthAttempt();
   },

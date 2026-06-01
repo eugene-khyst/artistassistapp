@@ -20,7 +20,6 @@ import {
   CopyOutlined,
   DeleteOutlined,
   MergeCellsOutlined,
-  QrcodeOutlined,
   QuestionCircleOutlined,
   SaveOutlined,
   ShareAltOutlined,
@@ -31,7 +30,6 @@ import {
   App,
   Button,
   Col,
-  Collapse,
   Divider,
   Flex,
   Form,
@@ -45,15 +43,15 @@ import {useCallback, useContext, useEffect, useMemo, useRef, useState} from 'rea
 
 import {AdCard} from '~/src/components/ad/AdCard';
 import {JoinButton} from '~/src/components/auth/JoinButton';
-import {LoginButton} from '~/src/components/auth/LoginButton';
+import {LoginOAuthButton} from '~/src/components/auth/LoginOAuthButton';
+import {LoginQRButton} from '~/src/components/auth/LoginQRButton';
 import {LogoutButton} from '~/src/components/auth/LogoutButton';
 import {ColorSetSelect} from '~/src/components/color-set/ColorSetSelect';
 import {FileSelect} from '~/src/components/file/FileSelect';
 import {LocaleSelect} from '~/src/components/i18n/LocaleSelect';
 import {InstallButton} from '~/src/components/install/InstallButton';
 import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
-import {QRCode} from '~/src/components/qr/QRCode';
-import {QRScannerModal} from '~/src/components/qr/QRScannerModal';
+import {QRScannerButton} from '~/src/components/qr/QRScannerButton';
 import {UnsavedChangesContext} from '~/src/contexts/UnsavedChangesContext';
 import {useColorBrands} from '~/src/hooks/useColorBrands';
 import {useColors} from '~/src/hooks/useColors';
@@ -102,7 +100,6 @@ function getEmptyColors(values: ColorSetDefinition): Record<number, number[]> {
 
 export function ColorSetChooser() {
   const user = useAppStore(state => state.auth?.user);
-  const magicLink = useAppStore(state => state.auth?.magicLink);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
   const importedColorSet = useAppStore(state => state.importedColorSet);
   const latestColorSet = useAppStore(state => state.latestColorSet);
@@ -145,7 +142,6 @@ export function ColorSetChooser() {
     .map((ids: number[] | undefined) => ids?.length ?? 0)
     .reduce((a: number, b: number) => a + b, 0);
 
-  const [isQRScannerModalOpen, setIsQRScannerModalOpen] = useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [shareColorSetUrl, setShareColorSetUrl] = useState<string>();
   const [isMergeDrawerOpen, setIsMergeDrawerOpen] = useState<boolean>(false);
@@ -252,7 +248,9 @@ export function ColorSetChooser() {
       });
       if (confirmed) {
         const granted = await requestPersistentStorage();
-        const saved = await saveColorSet(form.getFieldsValue(), brands, colors, false);
+        const saved = await saveColorSet(form.getFieldsValue(), brands, colors, {
+          setActiveTabKey: false,
+        });
         if (!saved) {
           void message.warning(t`Select at least one color before saving the color set.`);
           return;
@@ -484,64 +482,54 @@ export function ColorSetChooser() {
                   Explore the free version before deciding to purchase a paid membership.
                 </Trans>
               </Typography.Text>
-              <Typography.Text strong>
-                <Trans>
-                  If you are having trouble logging in, please read this{' '}
-                  <Typography.Link
-                    href="https://www.patreon.com/posts/having-trouble-115178129"
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    troubleshooting guide
-                  </Typography.Link>
-                  .
-                </Trans>
-              </Typography.Text>
             </>
           )}
         </Space>
 
         <Space wrap>
           {user ? (
-            <LogoutButton />
+            <>
+              <LoginQRButton />
+              <LogoutButton />
+            </>
           ) : (
             <>
-              <LoginButton />
               <JoinButton />
+              <LoginOAuthButton />
+              {!!mediaDevices.length && (
+                <QRScannerButton
+                  type="primary"
+                  modalContent={
+                    <Typography.Paragraph className="u-m-0">
+                      <ol className="u-m-0">
+                        <li>
+                          <Trans>Open the app on a device where you are logged in</Trans>
+                        </li>
+                        <li>
+                          <Trans>
+                            Press <Typography.Text strong>Show login QR</Typography.Text>
+                          </Trans>
+                        </li>
+                        <li>
+                          <Trans>Scan its QR code here</Trans>
+                        </li>
+                      </ol>
+                    </Typography.Paragraph>
+                  }
+                >
+                  <Trans>Log in by QR</Trans>
+                </QRScannerButton>
+              )}
             </>
-          )}
-          {!!mediaDevices.length && (
-            <Button
-              icon={<QrcodeOutlined />}
-              onClick={() => {
-                setIsQRScannerModalOpen(true);
-              }}
-            >
-              <Trans>Scan QR code</Trans>
-            </Button>
           )}
           <InstallButton />
           <Button
-            type="primary"
             icon={<QuestionCircleOutlined />}
             onClick={() => void setActiveTabKey(TabKey.Help)}
           >
             <Trans>Help</Trans>
           </Button>
         </Space>
-
-        {magicLink && (
-          <Collapse
-            ghost
-            items={[
-              {
-                key: 'log-in-by-qr',
-                label: t`Log in on another device by scanning the QR code`,
-                children: <QRCode value={magicLink} />,
-              },
-            ]}
-          />
-        )}
 
         <Divider className="u-divider-compact" />
 
@@ -738,7 +726,7 @@ export function ColorSetChooser() {
                   </>
                 ) : (
                   <>
-                    <LoginButton />
+                    <LoginOAuthButton />
                     <JoinButton />
                   </>
                 )}
@@ -791,7 +779,6 @@ export function ColorSetChooser() {
         </Row>
       </Flex>
 
-      <QRScannerModal open={isQRScannerModalOpen} setOpen={setIsQRScannerModalOpen} />
       <ShareModal open={isShareModalOpen} setOpen={setIsShareModalOpen} url={shareColorSetUrl} />
       <MergeColorSetsDrawer
         open={isMergeDrawerOpen}

@@ -17,7 +17,7 @@ msgstr ""
 msgid "({colorCount} colors)"
 msgstr "(farby {colorCount})"
 
-#: src/components/ColorSetChooser.tsx:653
+#: src/components/ColorSetChooser.tsx:641
 msgid "{brandName} colors"
 msgstr "Farby {brandName}"
 
@@ -28,14 +28,18 @@ msgstr "Farby {brandName}"
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# farba} few {# farby} many {# farieb} other {# farieb}}"
 
-#: src/components/ColorSetChooser.tsx:606
-#: src/components/ColorSetChooser.tsx:654
+#: src/components/auth/LoginQRButton.tsx:66
+msgid "{expiresIn, plural, one {QR code expires in # second} other {QR code expires in # seconds}}"
+msgstr "{expiresIn, plural, one {QR kód vyprší o # sekundu} few {QR kód vyprší o # sekundy} many {QR kód vyprší o # sekúnd} other {QR kód vyprší o # sekúnd}}"
+
+#: src/components/ColorSetChooser.tsx:594
+#: src/components/ColorSetChooser.tsx:642
 msgid "{FIELD} are required"
 msgstr "{FIELD} sú povinné"
 
-#: src/components/ColorSetChooser.tsx:573
-#: src/components/ColorSetChooser.tsx:582
-#: src/components/ColorSetChooser.tsx:635
+#: src/components/ColorSetChooser.tsx:561
+#: src/components/ColorSetChooser.tsx:570
+#: src/components/ColorSetChooser.tsx:623
 #: src/components/CustomColorBrandCreator.tsx:436
 #: src/components/CustomColorBrandCreator.tsx:447
 #: src/components/CustomColorBrandCreator.tsx:455
@@ -71,23 +75,23 @@ msgstr "<0/> Windows a <1/> Linux"
 msgid "<0>{similarityText}%</0> similarity"
 msgstr "<0>{similarityText}%</0> podobnosť"
 
-#: src/components/ColorSetChooser.tsx:452
+#: src/components/ColorSetChooser.tsx:450
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>ArtistAssistApp</0> je webová aplikácia, ktorá pomáha umelcom miešať farby z fotografií, analyzovať tonálne hodnoty, načrtávať fotografie, kresliť pomocou mriežok, maľovať s obmedzenými paletami a ďalšie."
 
-#: src/components/error/AuthFeedbackHandler.tsx:64
+#: src/components/error/AuthFeedbackHandler.tsx:71
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Skontrolujte svoj Patreon účet</0>: Uistite sa, že ste prihlásení do <1>Patreon.com</1> vo svojom webovom prehliadači s rovnakým e-mailom, aký ste použili pri kúpe členstva. Ak máte viacero účtov, odhláste sa a znovu sa prihláste správnym účtom."
 
-#: src/components/ColorSetChooser.tsx:473
+#: src/components/ColorSetChooser.tsx:471
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Pripojte sa k ArtistAssistApp na Patreone ako platený člen</0> alebo <1>sa prihláste pomocou Patreonu</1> , ak ste sa už pripojili, a získajte prístup k viac ako 200 farebným značkám a všetkým režimom spracovania obrazu bez reklám."
 
-#: src/components/error/AuthFeedbackHandler.tsx:82
+#: src/components/error/AuthFeedbackHandler.tsx:89
 msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
 msgstr "<0>Skúste sa znova prihlásiť</0>: Keď potvrdíte, že správny Patreon účet je aktívny vo vašom prehliadači, prihláste sa znova do ArtistAssistApp."
 
-#: src/components/error/AuthFeedbackHandler.tsx:75
+#: src/components/error/AuthFeedbackHandler.tsx:82
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Používajte webový prehliadač:</0> Ak používate aplikáciu Patreon (iOS/Android), prihláste sa cez webový prehliadač (Chrome, Safari, Firefox), pretože aplikácia môže niekedy zasahovať do overovacieho procesu."
 
@@ -103,7 +107,7 @@ msgstr "Mriežka zobrazujúca výsledok miešania každého páru vybraných far
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "Nová verzia aplikácie je dostupná a bude nainštalovaná automaticky."
 
-#: src/components/Help.tsx:171
+#: src/components/Help.tsx:166
 msgid "A new version of the application is available."
 msgstr "Nová verzia aplikácie je dostupná."
 
@@ -111,7 +115,7 @@ msgstr "Nová verzia aplikácie je dostupná."
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Hodnota menšia ako 100 % spôsobí, že obrázok bude vyzerať menej farebne a hodnota vyššia ako 100 % spôsobí, že bude vyzerať príliš farebne"
 
-#: src/components/Help.tsx:113
+#: src/components/Help.tsx:108
 msgid "About ArtistAssistApp"
 msgstr "O aplikácii ArtistAssist"
 
@@ -135,7 +139,7 @@ msgstr "Pridanie farby"
 msgid "Add color mixtures to the palette."
 msgstr "Pridajte do palety farebné zmesi."
 
-#: src/components/ColorSetChooser.tsx:656
+#: src/components/ColorSetChooser.tsx:644
 msgid "Add or remove colors to match your actual color set."
 msgstr "Pridajte alebo odstráňte farby tak, aby zodpovedali vašej skutočnej množine farieb."
 
@@ -167,7 +171,7 @@ msgstr "Upravuje silu vyhladzovania obrazu."
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
 msgstr "Prípadne si nainštalujte najnovšiu verziu prehliadača Chrome, Edge alebo Opera a kliknite na tlačidlo <0>Inštalovať</0> . V starších verziách systému macOS je to jediná možnosť."
 
-#: src/components/Help.tsx:259
+#: src/components/Help.tsx:254
 msgid "Application build ID"
 msgstr "ID zostavenia aplikácie"
 
@@ -206,7 +210,7 @@ msgstr "Naozaj chcete vymazať vyrovnávaciu pamäť?"
 msgid "Are you sure you want to delete all app data?"
 msgstr "Naozaj chcete odstrániť všetky údaje aplikácie?"
 
-#: src/components/ColorSetChooser.tsx:748
+#: src/components/ColorSetChooser.tsx:736
 msgid "Are you sure you want to delete this color set?"
 msgstr "Naozaj chcete odstrániť túto množinu farieb?"
 
@@ -227,16 +231,16 @@ msgstr "Naozaj chcete odstrániť všetky farebné zmesi?"
 msgid "Are you sure you want to remove this color mixture?"
 msgstr "Naozaj chcete túto farebnú zmes odstrániť?"
 
-#: src/components/ColorSetChooser.tsx:572
+#: src/components/ColorSetChooser.tsx:560
 #: src/components/CustomColorBrandCreator.tsx:446
 msgid "Art medium"
 msgstr "Umelecké médium"
 
-#: src/components/error/AuthFeedbackHandler.tsx:142
+#: src/components/error/AuthFeedbackHandler.tsx:139
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssist App nedostal výsledok vášho prihlásenia na Patreon. Toto sa môže stať, keď sa prihlásiť otvorí v inom prehliadači alebo aplikácii. Prosím, skúste sa znova prihlásiť."
 
-#: src/components/Help.tsx:250
+#: src/components/Help.tsx:245
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp vyvinul <0>Eugene Khyst</0>"
 
@@ -244,7 +248,7 @@ msgstr "ArtistAssistApp vyvinul <0>Eugene Khyst</0>"
 msgid "At least one color is required"
 msgstr "Vyžaduje sa aspoň jedna farba"
 
-#: src/components/error/AuthFeedbackHandler.tsx:119
+#: src/components/error/AuthFeedbackHandler.tsx:113
 msgid "Authentication error"
 msgstr "Chyba autentifikácie"
 
@@ -257,7 +261,7 @@ msgstr "Automatická paleta"
 msgid "Auto-detect"
 msgstr "Automatická detekcia"
 
-#: src/components/Help.tsx:190
+#: src/components/Help.tsx:185
 msgid "Automatic backup of color sets"
 msgstr "Automatické zálohovanie farebných sád"
 
@@ -309,7 +313,7 @@ msgstr "Pre AR trasing je potrebný prístup do kamery"
 msgid "Cancel"
 msgstr "Zrušiť"
 
-#: src/components/Help.tsx:123
+#: src/components/Help.tsx:118
 msgid "Cancel a paid membership"
 msgstr "Zrušenie plateného členstva"
 
@@ -317,7 +321,7 @@ msgstr "Zrušenie plateného členstva"
 msgid "Cells"
 msgstr "Bunky"
 
-#: src/components/Help.tsx:182
+#: src/components/Help.tsx:177
 msgid "Check for updates"
 msgstr "Skontrolujte aktualizácie"
 
@@ -367,7 +371,7 @@ msgstr "Farba"
 msgid "Color brand"
 msgstr "Farebná značka"
 
-#: src/components/ColorSetChooser.tsx:604
+#: src/components/ColorSetChooser.tsx:592
 msgid "Color brands"
 msgstr "Farebné značky"
 
@@ -391,7 +395,7 @@ msgstr "Farebná zmes"
 msgid "Color picker"
 msgstr "Výber farieb"
 
-#: src/components/ColorSetChooser.tsx:580
+#: src/components/ColorSetChooser.tsx:568
 #: src/components/ImageColorPicker.tsx:241
 #: src/components/messages.ts:28
 msgid "Color set"
@@ -415,7 +419,7 @@ msgstr "Farby"
 msgid "Compare"
 msgstr "Porovnať"
 
-#: src/components/Help.tsx:137
+#: src/components/Help.tsx:132
 msgid "Contact"
 msgstr "Kontakt"
 
@@ -443,11 +447,11 @@ msgstr "Opravený odhad teploty svetelného zdroja v Kelvinoch"
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Nedokázal automaticky rozpoznať papier ani plátno"
 
-#: src/components/ColorSetChooser.tsx:723
+#: src/components/ColorSetChooser.tsx:711
 msgid "Create a duplicate of this color set for further modification"
 msgstr "Vytvorte duplikát tejto sady farieb na ďalšie úpravy"
 
-#: src/components/ColorSetChooser.tsx:732
+#: src/components/ColorSetChooser.tsx:720
 msgid "Create a new color set by merging existing ones"
 msgstr "Vytvorte novú farebnú sadu zlúčením existujúcich"
 
@@ -464,7 +468,7 @@ msgstr "Vlastná sada farieb"
 msgid "Custom colors"
 msgstr "Vlastné farby"
 
-#: src/components/ColorSetChooser.tsx:762
+#: src/components/ColorSetChooser.tsx:750
 #: src/components/CustomColorBrandCreator.tsx:482
 #: src/components/image/RecentImageCard.tsx:83
 msgid "Delete"
@@ -475,7 +479,7 @@ msgstr "Odstrániť"
 msgid "Delete all app data"
 msgstr "Odstránenie všetkých údajov aplikácie"
 
-#: src/components/ColorSetChooser.tsx:747
+#: src/components/ColorSetChooser.tsx:735
 msgid "Delete the color set"
 msgstr "Odstránenie množiny farieb"
 
@@ -489,7 +493,7 @@ msgstr "Odstránenie vlastnej značky"
 msgid "Delete the recent photo"
 msgstr "Odstránenie nedávnej fotky"
 
-#: src/components/ColorSetChooser.tsx:757
+#: src/components/ColorSetChooser.tsx:745
 msgid "Delete this color set"
 msgstr "Odstránenie tejto množiny farieb"
 
@@ -497,7 +501,7 @@ msgstr "Odstránenie tejto množiny farieb"
 msgid "Dense layer"
 msgstr "Hustá vrstva"
 
-#: src/components/error/AuthFeedbackHandler.tsx:29
+#: src/components/error/AuthFeedbackHandler.tsx:36
 msgid "Details"
 msgstr "Podrobnosti"
 
@@ -521,7 +525,7 @@ msgstr "Priemer"
 msgid "Dilute the paint with water in a <0>{ratioText} ratio</0>"
 msgstr "Farbu zrieďte vodou v <0>pomere {ratioText}</0>"
 
-#: src/components/ColorSetChooser.tsx:637
+#: src/components/ColorSetChooser.tsx:625
 msgid "Do you have a store-bought or custom color set?"
 msgstr "Máte farebnú sadu zakúpenú v obchode alebo na mieru?"
 
@@ -545,7 +549,7 @@ msgstr "Polož súbory sem..."
 msgid "Dry Pastel"
 msgstr "Suché pastelové"
 
-#: src/components/ColorSetChooser.tsx:726
+#: src/components/ColorSetChooser.tsx:714
 msgid "Duplicate"
 msgstr "Duplikát"
 
@@ -553,7 +557,7 @@ msgstr "Duplikát"
 msgid "Edit from here on"
 msgstr "Edit odtiaľ ďalej"
 
-#: src/components/error/AuthFeedbackHandler.tsx:32
+#: src/components/error/AuthFeedbackHandler.tsx:39
 msgid "Email"
 msgstr "Email"
 
@@ -562,11 +566,11 @@ msgstr "Email"
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Vstúpte do režimu lightbox, aby ste obkresili obrys cez papier."
 
-#: src/components/error/AuthFeedbackHandler.tsx:30
+#: src/components/error/AuthFeedbackHandler.tsx:37
 msgid "Error"
 msgstr "Chyba"
 
-#: src/components/error/AuthFeedbackHandler.tsx:31
+#: src/components/error/AuthFeedbackHandler.tsx:38
 msgid "Error description"
 msgstr "Popis chyby"
 
@@ -574,11 +578,11 @@ msgstr "Popis chyby"
 msgid "Error loading sample photos"
 msgstr "Chyba pri načítaní vzorových fotografií"
 
-#: src/components/ColorSetChooser.tsx:201
+#: src/components/ColorSetChooser.tsx:197
 msgid "Error while fetching color brand data"
 msgstr "Chyba pri načítavaní údajov o značke farieb"
 
-#: src/components/ColorSetChooser.tsx:223
+#: src/components/ColorSetChooser.tsx:219
 msgid "Error while fetching color data"
 msgstr "Chyba pri načítavaní údajov o farbách"
 
@@ -589,7 +593,7 @@ msgstr "Chyba pri načítavaní údajov o farbách"
 msgid "Error while fetching ML model data"
 msgstr "Chyba pri načítavaní údajov modelu strojového učenia"
 
-#: src/components/ColorSetChooser.tsx:212
+#: src/components/ColorSetChooser.tsx:208
 msgid "Error while fetching standard color set data"
 msgstr "Chyba pri načítaní údajov štandardnej sady farieb"
 
@@ -602,11 +606,11 @@ msgstr "Odhadovaná teplota svetelného zdroja v Kelvinoch, snímka bola uroben�
 msgid "Exit AR"
 msgstr "Exit AR"
 
-#: src/components/ColorSetChooser.tsx:483
+#: src/components/ColorSetChooser.tsx:481
 msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Pred rozhodnutím o kúpe plateného členstva preskúmajte bezplatnú verziu."
 
-#: src/components/ColorSetChooser.tsx:387
+#: src/components/ColorSetChooser.tsx:385
 #: src/components/CustomColorBrandCreator.tsx:350
 msgid "Fill in the required fields"
 msgstr "Vyplňte povinné polia"
@@ -627,11 +631,15 @@ msgstr "Plná sila"
 msgid "Gamma"
 msgstr "Gama"
 
-#: src/components/error/AuthFeedbackHandler.tsx:36
+#: src/components/auth/LoginQRButton.tsx:51
+msgid "Get a new QR code"
+msgstr "Získajte nový QR kód"
+
+#: src/components/error/AuthFeedbackHandler.tsx:43
 msgid "Gifted membership"
 msgstr "Nadané členstvo"
 
-#: src/components/ColorSetChooser.tsx:597
+#: src/components/ColorSetChooser.tsx:585
 msgid "Give your color set a name for easy access."
 msgstr "Pomenujte svoju farebnú sadu, aby ste k nej mali jednoduchý prístup."
 
@@ -668,16 +676,12 @@ msgstr "Mriežka"
 msgid "Height"
 msgstr "Výška"
 
-#: src/components/ColorSetChooser.tsx:529
+#: src/components/ColorSetChooser.tsx:530
 #: src/components/messages.ts:45
 msgid "Help"
 msgstr "Pomoc"
 
-#: src/components/ColorSetChooser.tsx:488
-msgid "If you are having trouble logging in, please read this <0>troubleshooting guide</0>."
-msgstr "Ak máte problém s prihlásením, prečítajte si <0>prosím tento návod na riešenie problémov</0>."
-
-#: src/components/ColorSetChooser.tsx:248
+#: src/components/ColorSetChooser.tsx:244
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Ak ich neuložíte, zmeny v množine farieb sa môžu stratiť."
 
@@ -702,7 +706,7 @@ msgstr "Inštalovať"
 msgid "Install ArtistAssistApp"
 msgstr "Nainštalujte ArtistAssist App"
 
-#: src/components/Help.tsx:173
+#: src/components/Help.tsx:168
 msgid "Install update"
 msgstr "Aktualizácia inštalácie"
 
@@ -710,7 +714,11 @@ msgstr "Aktualizácia inštalácie"
 msgid "Intended color temperature (K)"
 msgstr "Zamýšľaná teplota farieb (K)"
 
-#: src/components/qr/QRScannerModal.tsx:81
+#: src/components/error/AuthFeedbackHandler.tsx:122
+msgid "Invalid login link"
+msgstr "Neplatný prihlasovací odkaz"
+
+#: src/components/qr/QRScannerModal.tsx:89
 msgid "Invalid QR code"
 msgstr "Neplatný QR kód"
 
@@ -734,7 +742,7 @@ msgstr "Jazyk"
 msgid "Large"
 msgstr "Veľký"
 
-#: src/components/error/AuthFeedbackHandler.tsx:34
+#: src/components/error/AuthFeedbackHandler.tsx:41
 msgid "Last charge status"
 msgstr "Stav posledného obvinenia"
 
@@ -778,34 +786,33 @@ msgstr "Odkaz skopírovaný do schránky"
 msgid "Load color brand file"
 msgstr "Načítať súbor značky farieb"
 
-#: src/components/ColorSetChooser.tsx:780
+#: src/components/ColorSetChooser.tsx:768
 msgid "Load color sets file"
 msgstr "Načítať súbor sád farieb"
 
-#: src/components/ColorSetChooser.tsx:539
-msgid "Log in on another device by scanning the QR code"
-msgstr "Prihláste sa na inom zariadení naskenovaním QR kódu"
+#: src/components/ColorSetChooser.tsx:520
+msgid "Log in by QR"
+msgstr "Prihlásiť sa cez QR"
 
-#: src/components/auth/LoginButton.tsx:38
+#: src/components/auth/LoginOAuthButton.tsx:36
 msgid "Log in with Patreon"
 msgstr "Prihláste sa pomocou Patreonu"
 
-#: src/components/auth/LogoutButton.tsx:40
+#: src/components/auth/LogoutButton.tsx:38
 msgid "Log out"
 msgstr "Odhlásiť sa"
 
-#: src/components/error/AuthFeedbackHandler.tsx:128
-#: src/components/error/AuthFeedbackHandler.tsx:187
+#: src/components/error/AuthFeedbackHandler.tsx:203
 msgid "Login failed"
 msgstr "Prihlásenie zlyhalo"
 
-#: src/components/error/AuthFeedbackHandler.tsx:138
+#: src/components/auth/LoginQRButton.tsx:45
+msgid "Login QR code"
+msgstr "Prihlasovací QR kód"
+
+#: src/components/error/AuthFeedbackHandler.tsx:137
 msgid "Login result not received"
 msgstr "Výsledok prihlásenia nebol prijatý"
-
-#: src/components/Help.tsx:264
-msgid "Login session is valid until {expirationText}"
-msgstr "Prihlasovacia relácia je platná do {expirationText}"
 
 #: src/components/ImageColorAdjustment.tsx:457
 msgid "Low input and high input"
@@ -829,7 +836,7 @@ msgid "Medium"
 msgstr "Stredná"
 
 #: src/components/color-set/MergeColorSetsDrawer.tsx:94
-#: src/components/ColorSetChooser.tsx:735
+#: src/components/ColorSetChooser.tsx:723
 msgid "Merge"
 msgstr "Zlúčenie"
 
@@ -872,7 +879,7 @@ msgstr "Režim"
 msgid "More"
 msgstr "Viac"
 
-#: src/components/ColorSetChooser.tsx:596
+#: src/components/ColorSetChooser.tsx:584
 #: src/components/CustomColorBrandCreator.tsx:182
 #: src/components/CustomColorBrandCreator.tsx:454
 msgid "Name"
@@ -882,7 +889,7 @@ msgstr "Meno"
 msgid "Name a brand"
 msgstr "Pomenujte značku"
 
-#: src/components/ColorSetChooser.tsx:600
+#: src/components/ColorSetChooser.tsx:588
 msgid "Name a color set"
 msgstr "Pomenovanie množiny farieb"
 
@@ -902,14 +909,14 @@ msgstr "Nová farebná sada"
 msgid "New comparison"
 msgstr "Nové porovnanie"
 
-#: src/components/error/AuthFeedbackHandler.tsx:35
+#: src/components/error/AuthFeedbackHandler.tsx:42
 msgid "Next charge date"
 msgstr "Dátum ďalšieho nabíjania"
 
 #: src/components/color/AddToPaletteButton.tsx:52
 #: src/components/color/PaletteColorMixtureCard.tsx:119
-#: src/components/ColorSetChooser.tsx:250
-#: src/components/ColorSetChooser.tsx:753
+#: src/components/ColorSetChooser.tsx:246
+#: src/components/ColorSetChooser.tsx:741
 #: src/components/CustomColorBrandCreator.tsx:473
 #: src/components/image/RecentImageCard.tsx:74
 #: src/components/palette/PaletteGrid.tsx:114
@@ -955,7 +962,7 @@ msgstr "Olejová farba"
 msgid "Oil Pastel"
 msgstr "Olejový pastel"
 
-#: src/components/ColorSetChooser.tsx:619
+#: src/components/ColorSetChooser.tsx:607
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "V bezplatnej verzii je k dispozícii iba obmedzený počet farebných značiek"
 
@@ -980,6 +987,10 @@ msgstr "Nepriehľadný"
 #: src/components/install/InstallDrawer.tsx:148
 msgid "Open in Safari browser"
 msgstr "Otvoriť v prehliadači Safari"
+
+#: src/components/ColorSetChooser.tsx:506
+msgid "Open the app on a device where you are logged in"
+msgstr "Otvorte aplikáciu na zariadení, kde ste prihlásení"
 
 #: src/components/error/BrowserSupport.tsx:96
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
@@ -1025,11 +1036,11 @@ msgstr "Paleta"
 msgid "Paper size"
 msgstr "Veľkosť papiera"
 
-#: src/components/error/AuthFeedbackHandler.tsx:47
+#: src/components/error/AuthFeedbackHandler.tsx:54
 msgid "Patreon membership verification failed"
 msgstr "Overenie členstva na Patreone zlyhalo"
 
-#: src/components/error/AuthFeedbackHandler.tsx:33
+#: src/components/error/AuthFeedbackHandler.tsx:40
 msgid "Patron status"
 msgstr "Patrónsky status"
 
@@ -1042,7 +1053,7 @@ msgstr "Percentil"
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Percentil: Automatické vyváženie bielej z najjasnejších oblastí, dobré pre väčšinu fotografií. Referencie: Manuálne vyváženie bielej farby s použitím zvolenej bielej oblasti."
 
-#: src/components/Help.tsx:199
+#: src/components/Help.tsx:194
 msgid "Persistent storage"
 msgstr "Trvalé úložisko"
 
@@ -1073,6 +1084,10 @@ msgstr "Pozícia: {position}<0/>Rating: {ratingText}"
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:63
 msgid "Postpone"
 msgstr "Odloženie"
+
+#: src/components/ColorSetChooser.tsx:509
+msgid "Press <0>Show login QR</0>"
+msgstr "<0>Prihlasovanie do tlačovej relácie QR</0>"
 
 #: src/components/install/InstallDrawer.tsx:170
 msgid "Press Add to Dock"
@@ -1120,7 +1135,7 @@ msgstr "Tlač veľkého obrázka na viacero strán"
 msgid "Print preview"
 msgstr "Ukážka tlače"
 
-#: src/components/Help.tsx:147
+#: src/components/Help.tsx:142
 msgid "Privacy policy"
 msgstr "Zásady ochrany osobných údajov"
 
@@ -1128,7 +1143,11 @@ msgstr "Zásady ochrany osobných údajov"
 msgid "Processing..."
 msgstr "Spracovávam..."
 
-#: src/components/Help.tsx:222
+#: src/components/auth/LoginQRButton.tsx:75
+msgid "QR code expired."
+msgstr "QR kód vypršal."
+
+#: src/components/Help.tsx:217
 msgid "Quota"
 msgstr "Kvóta"
 
@@ -1258,11 +1277,11 @@ msgstr "Sýtosť (%)"
 msgid "Save"
 msgstr "Zachrániť"
 
-#: src/components/ColorSetChooser.tsx:718
+#: src/components/ColorSetChooser.tsx:706
 msgid "Save & continue"
 msgstr "Uložiť a pokračovať"
 
-#: src/components/ColorSetChooser.tsx:247
+#: src/components/ColorSetChooser.tsx:243
 msgid "Save changes to the color set?"
 msgstr "Uložiť zmeny v množine farieb?"
 
@@ -1276,17 +1295,21 @@ msgstr "Uloženie rozšírené na 1,91:1"
 msgid "Save expanded to 4:5"
 msgstr "Uloženie rozšírené na 4:5"
 
-#: src/components/ColorSetChooser.tsx:714
+#: src/components/ColorSetChooser.tsx:702
 msgid "Save the changes to this color set"
 msgstr "Uložte zmeny do tejto množiny farieb"
 
-#: src/components/qr/QRScannerModal.tsx:55
+#: src/components/qr/QRScannerModal.tsx:58
 msgid "Scan a QR code"
 msgstr "Naskenujte QR kód"
 
-#: src/components/ColorSetChooser.tsx:520
-msgid "Scan QR code"
-msgstr "Naskenujte QR kód"
+#: src/components/ColorSetChooser.tsx:514
+msgid "Scan its QR code here"
+msgstr "Naskenujte jeho QR kód tu"
+
+#: src/components/auth/LoginQRButton.tsx:62
+msgid "Scan this code on the device you want to log in."
+msgstr "Naskenujte tento kód na zariadení, do ktorého sa chcete prihlásiť."
 
 #: src/components/ImagePerspectiveCorrection.tsx:142
 msgid "Select 4 points to correct perspective distortion"
@@ -1324,8 +1347,8 @@ msgstr "Vyberte ľubovoľný počet farieb, ktoré chcete zmiešať, a zadajte �
 msgid "Select art medium"
 msgstr "Vyberte umelecké médium"
 
-#: src/components/ColorSetChooser.tsx:257
-#: src/components/ColorSetChooser.tsx:375
+#: src/components/ColorSetChooser.tsx:255
+#: src/components/ColorSetChooser.tsx:373
 msgid "Select at least one color before saving the color set."
 msgstr "Vyberte aspoň jednu farbu pred uložením farebnej sady."
 
@@ -1333,7 +1356,7 @@ msgstr "Vyberte aspoň jednu farbu pred uložením farebnej sady."
 msgid "Select brands"
 msgstr "Vyberte značky"
 
-#: src/components/ColorSetChooser.tsx:605
+#: src/components/ColorSetChooser.tsx:593
 msgid "Select brands that you use."
 msgstr "Vyberte značky, ktoré používate."
 
@@ -1362,7 +1385,7 @@ msgstr "Vyberte si zo svojich najnovších značiek"
 msgid "Select from your recent color sets"
 msgstr "Vyberte si z nedávnych farebných sád"
 
-#: src/components/ColorSetChooser.tsx:581
+#: src/components/ColorSetChooser.tsx:569
 msgid "Select from your recent color sets or create a new one."
 msgstr "Vyberte si zo svojich nedávnych farebných sád alebo vytvorte novú."
 
@@ -1405,7 +1428,7 @@ msgstr "Výber štýlu obrázka"
 msgid "Select the color sets you want to merge. A new color set will be created that includes all the colors from the selected sets."
 msgstr "Vyberte farebné sady, ktoré chcete zlúčiť. Vytvorí sa nová farebná sada, ktorá bude obsahovať všetky farby z vybraných sád."
 
-#: src/components/ColorSetChooser.tsx:549
+#: src/components/ColorSetChooser.tsx:537
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>."
 msgstr "Vyberte si umelecké médium, farby, značky a farby, ktorými budete maľovať, potom stlačte <0>Uložiť a pokračovať</0>."
@@ -1418,7 +1441,7 @@ msgstr "Polonepriehľadné"
 msgid "Semi-transparent"
 msgstr "Polopriehľadné"
 
-#: src/components/error/AuthFeedbackHandler.tsx:110
+#: src/components/error/AuthFeedbackHandler.tsx:104
 msgid "Session expired"
 msgstr "Zasadnutie skončilo"
 
@@ -1459,12 +1482,12 @@ msgstr "Tieň"
 msgid "Shadows and highlights"
 msgstr "Tiene a svetlá"
 
-#: src/components/ColorSetChooser.tsx:772
+#: src/components/ColorSetChooser.tsx:760
 #: src/components/share/ShareModal.tsx:83
 msgid "Share"
 msgstr "Akcia"
 
-#: src/components/ColorSetChooser.tsx:769
+#: src/components/ColorSetChooser.tsx:757
 msgid "Share this color set"
 msgstr "Zdieľajte túto farebnú sadu"
 
@@ -1479,6 +1502,10 @@ msgstr "Ukážte miesta na fotografii, ktoré zodpovedajú tejto farbe."
 #: src/components/grid/GridControls.tsx:177
 msgid "Show grid"
 msgstr "Zobraziť mriežku"
+
+#: src/components/auth/LoginQRButton.tsx:109
+msgid "Show login QR"
+msgstr "Zobraziť prihlásenie QR"
 
 #: src/components/ImageColorPicker.tsx:291
 msgid "Show matching areas"
@@ -1495,6 +1522,10 @@ msgstr "Zobrazenie alebo skrytie diagonálnych čiar"
 #: src/components/color/PaletteColorMixtureCard.tsx:103
 msgid "Show this color on the reference photo."
 msgstr "Zobraziť túto farbu na referenčnej fotografii."
+
+#: src/components/error/AuthFeedbackHandler.tsx:128
+msgid "Sign in required"
+msgstr "Vyžaduje sa prihlásenie"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:83
 #: src/components/ImageColorPicker.tsx:405
@@ -1529,6 +1560,10 @@ msgstr "Malý"
 msgid "Something went wrong"
 msgstr "Niečo sa pokazilo"
 
+#: src/components/error/AuthFeedbackHandler.tsx:156
+msgid "Something went wrong while logging you in. Please try again. If the problem persists, check your internet connection."
+msgstr "Niečo sa pokazilo pri prihlasovaní. Prosím, skúste to znova. Ak problém pretrváva, skontrolujte svoje internetové pripojenie."
+
 #: src/components/color-set/ColorSelect.tsx:122
 #: src/components/ColorMixingChart.tsx:117
 #: src/components/ImageColorPicker.tsx:442
@@ -1558,7 +1593,7 @@ msgstr "Krivka spektrálnej odrazivosti"
 msgid "Square cells"
 msgstr "Štvorcové bunky"
 
-#: src/components/ColorSetChooser.tsx:634
+#: src/components/ColorSetChooser.tsx:622
 msgid "Standard color set"
 msgstr "Štandardná sada farieb"
 
@@ -1566,15 +1601,11 @@ msgstr "Štandardná sada farieb"
 msgid "Standard print"
 msgstr "Štandardná tlač"
 
-#: src/components/error/AuthFeedbackHandler.tsx:89
-msgid "Still having trouble? Please refer to this <0>troubleshooting guide</0>."
-msgstr "Stále máte problémy? Prosím, pozrite si <0>tento návod na riešenie problémov</0>."
-
 #: src/components/ImageChooser.tsx:80
 msgid "Storage may fill up"
 msgstr "Sklad sa môže zaplniť"
 
-#: src/components/Help.tsx:216
+#: src/components/Help.tsx:211
 msgid "Storage usage"
 msgstr "Využitie úložiska"
 
@@ -1625,11 +1656,11 @@ msgstr "Cieľová farba"
 msgid "Target print size"
 msgstr "Cieľová veľkosť tlače"
 
-#: src/components/Help.tsx:157
+#: src/components/Help.tsx:152
 msgid "Terms of use"
 msgstr "Podmienky používania"
 
-#: src/components/Help.tsx:241
+#: src/components/Help.tsx:236
 msgid "The app stores all data in the web browser storage even after installation. Clearing the web browser data results in the loss of all app data."
 msgstr "Aplikácia ukladá všetky údaje do úložiska webového prehliadača aj po inštalácii. Vymazanie údajov webového prehliadača má za následok stratu všetkých údajov aplikácie."
 
@@ -1637,7 +1668,7 @@ msgstr "Aplikácia ukladá všetky údaje do úložiska webového prehliadača a
 msgid "The color of your paper, canvas, or painting surface."
 msgstr "Farba vášho papiera, plátna alebo povrchu na maľovanie."
 
-#: src/components/ColorSetChooser.tsx:241
+#: src/components/ColorSetChooser.tsx:237
 msgid "The color set can't be saved because not all required fields are filled."
 msgstr "Farebná sada sa nedá uložiť, pretože nie všetky požadované polia sú vyplnené."
 
@@ -1673,13 +1704,17 @@ msgstr "Zriedenie farby na <0>hrúbku {fractionText}</0>"
 msgid "This backup file lets you restore your color sets later, so keep it. You can delete any older backup files."
 msgstr "Tento záložný súbor vám umožní obnoviť sady farieb neskôr, takže si ho ponecháte. Môžete odstrániť všetky staršie záložné súbory."
 
-#: src/components/ColorSetChooser.tsx:660
+#: src/components/ColorSetChooser.tsx:648
 msgid "This color brand is available to paid Patreon members only"
 msgstr "Táto farebná značka je dostupná iba pre platených členov Patreonu"
 
 #: src/components/color/PaletteColorMixtureCard.tsx:104
 msgid "This color was not sampled from a photo."
 msgstr "Táto farba nebola vzorkovaná z fotografie."
+
+#: src/components/error/AuthFeedbackHandler.tsx:124
+msgid "This login link is invalid or has expired. Please get a new one and try again."
+msgstr "Tento prihlasovací odkaz je neplatný alebo vypršal. Prosím, kúpte si nový a skúste to znova."
 
 #: src/components/print/PrintImageDrawer.tsx:175
 msgid "This print size is not supported"
@@ -1693,11 +1728,11 @@ msgstr "Tento krok je voliteľný."
 msgid "This style is available to paid Patreon members only"
 msgstr "Tento štýl je dostupný iba pre platených členov Patreonu"
 
-#: src/components/error/AuthFeedbackHandler.tsx:51
+#: src/components/error/AuthFeedbackHandler.tsx:58
 msgid "This usually happens when you're signed in to a <0>different</0> Patreon account than the one used for your ArtistAssistApp membership."
 msgstr "Toto sa zvyčajne stáva, keď ste prihlásený na <0>inom</0> Patreon účte, než aký používate pre členstvo v ArtistAssistApp."
 
-#: src/components/error/AuthFeedbackHandler.tsx:59
+#: src/components/error/AuthFeedbackHandler.tsx:66
 msgid "To fix this:"
 msgstr "Aby som to napravil:"
 
@@ -1717,6 +1752,10 @@ msgstr "Ak chcete použiť funkciu {tabLabel}, vyberte podporované umelecké m�
 msgid "Tonal values"
 msgstr "Tonálne hodnoty"
 
+#: src/components/error/AuthFeedbackHandler.tsx:148
+msgid "Too many login requests were made in a short time. Please wait a minute, then try again."
+msgstr "Bolo podaných príliš veľa prihlasovacích žiadostí za krátky čas. Prosím, počkajte chvíľu, potom skúste znova."
+
 #: src/components/color/OpacityIcon.tsx:39
 msgid "Transparent"
 msgstr "Priehľadný"
@@ -1725,7 +1764,11 @@ msgstr "Priehľadný"
 msgid "Try adding some colors to your color set."
 msgstr "Skúste pridať nejaké farby do svojej farebnej sady."
 
-#: src/components/Help.tsx:103
+#: src/components/error/AuthFeedbackHandler.tsx:146
+msgid "Try again in a minute"
+msgstr "Skús to znova o chvíľu"
+
+#: src/components/Help.tsx:98
 msgid "Tutorials and videos"
 msgstr "Návody a videá"
 
@@ -1734,7 +1777,7 @@ msgstr "Návody a videá"
 msgid "Underlayer"
 msgstr "Podkladová vrstva"
 
-#: src/components/error/UnhandledRejectionHandler.tsx:34
+#: src/components/error/UnhandledRejectionHandler.tsx:35
 msgid "Unexpected error"
 msgstr "Neočakávaná chyba"
 
@@ -1781,7 +1824,7 @@ msgstr "Použite zasklievacie médiá, ktoré vám umožnia získať tenkú vrst
 msgid "Use reference photo"
 msgstr "Použiť referenčnú fotografiu"
 
-#: src/components/Help.tsx:219
+#: src/components/Help.tsx:214
 msgid "Used"
 msgstr "Používaný"
 
@@ -1814,19 +1857,23 @@ msgstr "Akvarelové ceruzky"
 msgid "Wax Pastel"
 msgstr "Wax Pastel"
 
-#: src/components/error/AuthFeedbackHandler.tsx:121
+#: src/components/error/AuthFeedbackHandler.tsx:154
+msgid "We couldn't verify your session"
+msgstr "Nemohli sme overiť vašu reláciu"
+
+#: src/components/error/AuthFeedbackHandler.tsx:130
+msgid "We couldn't verify your session. Please sign in again to continue using ArtistAssistApp."
+msgstr "Nemohli sme overiť tvoju reláciu. Prosím, prihláste sa znova, aby ste mohli pokračovať v používaní aplikácie ArtistAssist."
+
+#: src/components/error/AuthFeedbackHandler.tsx:115
 msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
 msgstr "Narazili sme na problém s overením vašich prihlasovacích údajov. Tento problém sa zvyčajne dá vyriešiť opätovným pokusom o prihlásenie."
 
-#: src/components/error/AuthFeedbackHandler.tsx:132
-msgid "We were unable to log you in."
-msgstr "Nepodarilo sa nám ťa prihlásiť."
-
-#: src/components/ColorSetChooser.tsx:690
+#: src/components/ColorSetChooser.tsx:678
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "Pri výbere celkovo viac ako {maxColorsFor2} farieb sa nepoužívajú zmesi dvoch farieb."
 
-#: src/components/ColorSetChooser.tsx:698
+#: src/components/ColorSetChooser.tsx:686
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Pri výbere viac ako {maxColorsFor3} farieb sa nepoužívajú zmesi troch farieb."
 
@@ -1856,8 +1903,8 @@ msgstr "Šírka"
 
 #: src/components/color/AddToPaletteButton.tsx:51
 #: src/components/color/PaletteColorMixtureCard.tsx:118
-#: src/components/ColorSetChooser.tsx:249
-#: src/components/ColorSetChooser.tsx:752
+#: src/components/ColorSetChooser.tsx:245
+#: src/components/ColorSetChooser.tsx:740
 #: src/components/CustomColorBrandCreator.tsx:472
 #: src/components/image/RecentImageCard.tsx:73
 #: src/components/palette/PaletteGrid.tsx:113
@@ -1870,19 +1917,19 @@ msgstr "Áno"
 msgid "You already have many recent photos saved. Remove the oldest one to free up space? The new photo will still be added."
 msgstr "Už máte uložených veľa nedávnych fotografií. Odstrániť ten najstarší, aby ste uvoľnili miesto? Nová fotografia bude stále pridaná."
 
-#: src/components/ColorSetChooser.tsx:462
+#: src/components/ColorSetChooser.tsx:460
 msgid "You are logged in and have access to all app features."
 msgstr "Ste prihlásení a máte prístup ku všetkým funkciám aplikácie."
 
-#: src/components/ColorSetChooser.tsx:467
+#: src/components/ColorSetChooser.tsx:465
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "Používate <0>bezplatnú verziu</0> s obmedzeným počtom farebných značiek a režimov spracovania obrazu."
 
-#: src/components/error/AuthFeedbackHandler.tsx:162
+#: src/components/error/AuthFeedbackHandler.tsx:174
 msgid "You can keep working in this browser tab, or switch back to the installed ArtistAssistApp — you're logged in there too."
 msgstr "Môžete pokračovať v práci v tejto karte prehliadača alebo sa vrátiť k nainštalovanej aplikácii ArtistAssist — ste tam tiež prihlásení."
 
-#: src/components/error/AuthFeedbackHandler.tsx:160
+#: src/components/error/AuthFeedbackHandler.tsx:172
 msgid "You're logged in"
 msgstr "Ste prihlásený"
 
@@ -1891,15 +1938,15 @@ msgstr "Ste prihlásený"
 msgid "You've selected a mode that is available to paid Patreon members only"
 msgstr "Vybrali ste režim, ktorý je dostupný len pre platených členov Patreonu"
 
-#: src/components/ColorSetChooser.tsx:612
+#: src/components/ColorSetChooser.tsx:600
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Vybrali ste farebné značky, ktoré sú dostupné iba plateným členom Patreonu"
 
-#: src/components/ColorSetChooser.tsx:681
+#: src/components/ColorSetChooser.tsx:669
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Vybrali ste farebné značky, ktoré sú dostupné iba plateným členom Patreonu. Pripojte sa k ArtistAssistApp na Patreone ako platený člen alebo sa prihláste pomocou Patreonu, ak ste sa už pripojili."
 
-#: src/components/error/AuthFeedbackHandler.tsx:103
+#: src/components/error/AuthFeedbackHandler.tsx:97
 msgid "Your account details:"
 msgstr "Údaje o vašom účte:"
 
@@ -1907,7 +1954,7 @@ msgstr "Údaje o vašom účte:"
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "Vaše dáta nemusia byť spoľahlivo uložené, ak je prehliadač zatvorený. Aby ste to opravili, nainštalujte aplikáciu."
 
-#: src/components/error/AuthFeedbackHandler.tsx:112
+#: src/components/error/AuthFeedbackHandler.tsx:106
 msgid "Your login session has expired. Please sign in again to refresh your access and continue using ArtistAssistApp."
 msgstr "Vaša prihlasovacia relácia vypršala. Prosím, prihláste sa znova, aby ste obnovili svoj prístup a mohli pokračovať v používaní aplikácie ArtistAssist."
 

@@ -86,6 +86,7 @@ export const createCustomColorBrandSlice: StateCreator<
       isCustomColorBrandsLoading: false,
     });
   },
+
   saveCustomColorBrand: async (
     brand: CustomColorBrandDefinition
   ): Promise<CustomColorBrandDefinition> => {
@@ -103,6 +104,7 @@ export const createCustomColorBrandSlice: StateCreator<
     });
     return brand;
   },
+
   loadCustomColorBrandFromJson: async (
     file: File
   ): Promise<CustomColorBrandDefinition | undefined> => {
@@ -116,6 +118,7 @@ export const createCustomColorBrandSlice: StateCreator<
       return;
     }
   },
+
   saveCustomColorBrandAsJson: (brand: CustomColorBrandDefinition): void => {
     const json: string = JSON.stringify(brand, null, 2);
     saveAs(
@@ -123,6 +126,7 @@ export const createCustomColorBrandSlice: StateCreator<
       `${brand.name}${FileExtension.CustomColorBrand}`
     );
   },
+
   deleteCustomColorBrand: async (idToDelete?: number): Promise<void> => {
     if (idToDelete) {
       await deleteCustomColorBrand(idToDelete);

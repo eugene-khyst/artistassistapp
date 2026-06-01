@@ -16,26 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Trans} from '@lingui/react/macro';
-import {Button} from 'antd';
-import {useState} from 'react';
-
-import {useAppStore} from '~/src/stores/app-store';
-
-export function LogoutButton() {
-  const logout = useAppStore(state => state.logout);
-
-  const [clicked, setClicked] = useState<boolean>(false);
-
-  return (
-    <Button
-      onClick={() => {
-        void logout();
-        setClicked(true);
-      }}
-      loading={clicked}
-    >
-      <Trans>Log out</Trans>
-    </Button>
-  );
+export async function safeReadJson<T>(response: Response): Promise<T | undefined> {
+  try {
+    return (await response.json()) as T;
+  } catch {
+    return undefined;
+  }
 }

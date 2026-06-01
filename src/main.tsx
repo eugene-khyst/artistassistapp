@@ -53,7 +53,7 @@ async function renderApp(): Promise<void> {
     queryCache: new QueryCache({
       onError: error => {
         if (error instanceof ForceLogoutError) {
-          void useAppStore.getState().logout(error.reason);
+          void useAppStore.getState().logout(error.type);
         }
       },
     }),

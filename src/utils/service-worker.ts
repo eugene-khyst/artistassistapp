@@ -16,8 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {withTimeout} from '~/src/utils/promise';
-
 type ServiceWorkerUpdateHandler = (registration: ServiceWorkerRegistration) => void;
 
 export function registerServiceWorker(onUpdateFound: ServiceWorkerUpdateHandler): void {
@@ -60,11 +58,4 @@ async function registerAndRefresh(onUpdateFound: ServiceWorkerUpdateHandler): Pr
   } catch (error) {
     console.error('Service worker registration failed', error);
   }
-}
-
-export async function waitForServiceWorkerActivation(timeoutMs = 5000): Promise<void> {
-  if (import.meta.env.DEV || !('serviceWorker' in navigator)) {
-    return;
-  }
-  await withTimeout(navigator.serviceWorker.ready, timeoutMs);
 }

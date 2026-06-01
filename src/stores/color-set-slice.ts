@@ -20,7 +20,6 @@ import dayjs from 'dayjs';
 import {saveAs} from 'file-saver';
 import type {StateCreator} from 'zustand';
 
-import {ForceLogoutError} from '~/src/services/auth/types';
 import {fetchColorBrands, fetchColorsBulk, toColorSet} from '~/src/services/color/colors';
 import {
   type ColorBrandDefinition,
@@ -63,7 +62,7 @@ export interface ColorSetSlice {
     colorSet: ColorSetDefinition,
     brands?: Map<number, ColorBrandDefinition>,
     colors?: Map<string, Map<number, ColorDefinition>>,
-    setActiveTabKey?: boolean
+    options?: {setActiveTabKey?: boolean}
   ) => Promise<ColorSetDefinition | undefined>;
   loadColorSetsFromJson: (file: File) => Promise<ColorSetDefinition | undefined>;
   saveColorSetsAsJson: () => Promise<string | undefined>;
@@ -117,7 +116,7 @@ export const createColorSetSlice: StateCreator<
         );
         const colorSet = toColorSet(latestColorSet, brands, colors, auth?.user);
         if (colorSet) {
-          void get().setColorSet(colorSet, false);
+          void get().setColorSet(colorSet, {setActiveTabKey: false});
         }
       }
 
@@ -126,23 +125,18 @@ export const createColorSetSlice: StateCreator<
         importedColorSet,
         latestColorSet,
       });
-    } catch (error) {
-      if (error instanceof ForceLogoutError) {
-        void get().logout(error.reason);
-        return;
-      }
-      throw error;
     } finally {
       set({
         isColorSetsLoading: false,
       });
     }
   },
+
   saveColorSet: async (
     colorSetDef: ColorSetDefinition,
     brands?: Map<number, ColorBrandDefinition>,
     colors?: Map<string, Map<number, ColorDefinition>>,
-    setActiveTabKey?: boolean
+    {setActiveTabKey}: {setActiveTabKey?: boolean} = {}
   ): Promise<ColorSetDefinition | undefined> => {
     if (
       !Object.values(colorSetDef.colors ?? {}).some(
@@ -170,10 +164,11 @@ export const createColorSetSlice: StateCreator<
     });
     const colorSet: ColorSet | undefined = toColorSet(colorSetDef, brands, colors, auth?.user);
     if (colorSet) {
-      void get().setColorSet(colorSet, setActiveTabKey);
+      void get().setColorSet(colorSet, {setActiveTabKey});
     }
     return colorSetDef;
   },
+
   loadColorSetsFromJson: async (file: File): Promise<ColorSetDefinition | undefined> => {
     try {
       const json: string = await file.text();
@@ -194,6 +189,7 @@ export const createColorSetSlice: StateCreator<
     }
     return;
   },
+
   saveColorSetsAsJson: async (): Promise<string | undefined> => {
     const {
       appSettings: {autoSavingColorSetsJson},
@@ -219,6 +215,7 @@ export const createColorSetSlice: StateCreator<
     });
     return filename;
   },
+
   deleteColorSet: async (type?: ColorType, idToDelete?: number): Promise<void> => {
     if (!type || !idToDelete) {
       return;

@@ -41,7 +41,7 @@ export async function decryptDataIfNeeded<T>(
         const decrypted: string = await decrypt(data, auth.dataEncryptionKey);
         return JSON.parse(decrypted) as T;
       } catch {
-        throw new ForceLogoutError();
+        throw new ForceLogoutError(AuthErrorType.InvalidToken, 'Invalid token');
       }
     } else {
       return;

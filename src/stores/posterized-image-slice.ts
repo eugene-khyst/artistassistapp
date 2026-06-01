@@ -70,9 +70,10 @@ export const createPosterizedImageSlice: StateCreator<
       quantizedImage.close();
       await get().saveRecentImageFile(imageFile);
     } catch (error) {
-      if (!isAbortError(error)) {
-        throw error;
+      if (isAbortError(error)) {
+        return;
       }
+      throw error;
     } finally {
       if (get().posterizeImageAbortController === posterizeImageAbortController) {
         set({
@@ -82,6 +83,7 @@ export const createPosterizedImageSlice: StateCreator<
       }
     }
   },
+
   abortPosterizeImage: (): void => {
     get().posterizeImageAbortController?.abort();
   },

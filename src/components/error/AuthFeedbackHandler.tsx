@@ -25,6 +25,13 @@ import {AuthErrorType, AuthNoticeType} from '~/src/services/auth/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {TabKey} from '~/src/tabs';
 
+function formatContextValue(value: unknown): string {
+  if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+    return String(value);
+  }
+  return JSON.stringify(value);
+}
+
 const ERROR_CONTEXT_LABELS: Record<string, ReactNode> = {
   message: <Trans>Details</Trans>,
   error: <Trans>Error</Trans>,
@@ -86,19 +93,6 @@ const AUTH_ERRORS: Record<
           </li>
         </ol>
         <p>
-          <Trans>
-            Still having trouble? Please refer to this{' '}
-            <Typography.Link
-              href="https://www.patreon.com/posts/having-trouble-115178129"
-              target="_blank"
-              rel="noopener"
-            >
-              troubleshooting guide
-            </Typography.Link>
-            .
-          </Trans>
-        </p>
-        <p>
           <Typography.Text strong>
             <Trans>Your account details:</Trans>
           </Typography.Text>
@@ -124,27 +118,45 @@ const AUTH_ERRORS: Record<
       </Trans>
     ),
   },
-  [AuthErrorType.Unknown]: {
-    title: <Trans>Login failed</Trans>,
+  [AuthErrorType.InvalidLoginLink]: {
+    title: <Trans>Invalid login link</Trans>,
     content: (
-      <Typography>
-        <p>
-          <Trans>We were unable to log you in.</Trans>
-        </p>
-      </Typography>
+      <Trans>This login link is invalid or has expired. Please get a new one and try again.</Trans>
+    ),
+  },
+  [AuthErrorType.Unauthorized]: {
+    title: <Trans>Sign in required</Trans>,
+    content: (
+      <Trans>
+        We couldn&apos;t verify your session. Please sign in again to continue using
+        ArtistAssistApp.
+      </Trans>
     ),
   },
   [AuthErrorType.LoginResultMissing]: {
     title: <Trans>Login result not received</Trans>,
     content: (
-      <Typography>
-        <p>
-          <Trans>
-            ArtistAssistApp did not receive the result of your Patreon login. This can happen when
-            login opens in another browser or app. Please try logging in again.
-          </Trans>
-        </p>
-      </Typography>
+      <Trans>
+        ArtistAssistApp did not receive the result of your Patreon login. This can happen when login
+        opens in another browser or app. Please try logging in again.
+      </Trans>
+    ),
+  },
+  [AuthErrorType.RateLimited]: {
+    title: <Trans>Try again in a minute</Trans>,
+    content: (
+      <Trans>
+        Too many login requests were made in a short time. Please wait a minute, then try again.
+      </Trans>
+    ),
+  },
+  [AuthErrorType.Unknown]: {
+    title: <Trans>We couldn&apos;t verify your session</Trans>,
+    content: (
+      <Trans>
+        Something went wrong while logging you in. Please try again. If the problem persists, check
+        your internet connection.
+      </Trans>
     ),
   },
 };
@@ -180,47 +192,42 @@ export function AuthFeedbackHandler({children}: Readonly<PropsWithChildren>) {
   const {t} = useLingui();
 
   useEffect(() => {
-    void (async () => {
-      if (!authError) {
-        return;
-      }
-      const {title = t`Login failed`, content} = AUTH_ERRORS[authError.type] ?? {};
-      const contextEntries = authError.context
-        ? Object.entries(authError.context).filter(
-            ([key, value]) => key in ERROR_CONTEXT_LABELS && (value || value === 0)
-          )
-        : [];
-      await modal.warning({
-        title,
-        content: (
-          <>
-            {content}
-            {contextEntries.length > 0 && (
-              <ul className="u-list-unstyled">
-                {contextEntries.map(([key, value]) => (
-                  <li key={key}>
-                    <Typography.Text strong>{ERROR_CONTEXT_LABELS[key]}</Typography.Text>
-                    {': '}
-                    {typeof value === 'string' ||
-                    typeof value === 'number' ||
-                    typeof value === 'boolean'
-                      ? String(value)
-                      : JSON.stringify(value)}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </>
-        ),
-        width: '100%',
-        footer: null,
-        closable: true,
-        afterClose() {
-          clearAuthError();
-          void setActiveTabKey(TabKey.ColorSet);
-        },
-      });
-    })();
+    if (!authError) {
+      return;
+    }
+    const {title, content} = AUTH_ERRORS[authError.type] ?? {};
+    const contextEntries = Object.entries(authError.context).filter(
+      ([key, value]) => key in ERROR_CONTEXT_LABELS && value != null && value !== ''
+    );
+    const ctrl = modal.warning({
+      title: title ?? t`Login failed`,
+      content: (
+        <>
+          {content}
+          {contextEntries.length > 0 && (
+            <ul className="u-list-unstyled">
+              {contextEntries.map(([key, value]) => (
+                <li key={key}>
+                  <Typography.Text strong>{ERROR_CONTEXT_LABELS[key]}</Typography.Text>
+                  {': '}
+                  {formatContextValue(value)}
+                </li>
+              ))}
+            </ul>
+          )}
+        </>
+      ),
+      width: '100%',
+      footer: null,
+      closable: true,
+      afterClose: () => {
+        clearAuthError();
+        void setActiveTabKey(TabKey.ColorSet);
+      },
+    });
+    return () => {
+      ctrl.destroy();
+    };
   }, [modal, authError, clearAuthError, setActiveTabKey, t]);
 
   useEffect(() => {

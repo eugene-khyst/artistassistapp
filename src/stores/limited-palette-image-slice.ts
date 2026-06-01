@@ -83,9 +83,10 @@ export const createLimitedPaletteImageSlice: StateCreator<
         limitedPaletteImage: quantizedImage,
       });
     } catch (error) {
-      if (!isAbortError(error)) {
-        throw error;
+      if (isAbortError(error)) {
+        return;
       }
+      throw error;
     } finally {
       if (get().limitedPaletteAbortController === limitedPaletteAbortController) {
         set({
@@ -95,6 +96,7 @@ export const createLimitedPaletteImageSlice: StateCreator<
       }
     }
   },
+
   setLimitedColorSetAsMain: (colorIds: ColorId[]): void => {
     if (!colorIds.length) {
       return;
@@ -120,6 +122,7 @@ export const createLimitedPaletteImageSlice: StateCreator<
     });
     void get().setActiveTabKey(TabKey.ColorSet);
   },
+
   abortLimitedPalette: (): void => {
     get().limitedPaletteAbortController?.abort();
   },

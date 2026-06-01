@@ -16,7 +16,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {JWTExpired} from 'jose/errors';
+
 import type {DisplayMode} from '~/src/utils/environment';
+import {getErrorMessage} from '~/src/utils/error';
+
+export interface AuthTokenResponse {
+  id_token: string;
+  refresh_expires_at: number;
+}
+
+export interface AuthErrorResponse {
+  error?: string;
+  error_context?: Record<string, unknown>;
+}
+
+export interface LoginLinkResponse {
+  link: string;
+  expires_at: number;
+}
 
 export interface User {
   id: string;
@@ -24,9 +42,9 @@ export interface User {
 
 export interface Authentication {
   user: User;
-  expiration: Date;
+  idTokenExpiresAt: Date;
+  refreshExpiresAt: Date;
   dataEncryptionKey: Uint8Array<ArrayBuffer>;
-  magicLink: string;
 }
 
 export interface AuthAttempt {
@@ -38,33 +56,72 @@ export interface AuthErrorData {
   context?: Record<string, unknown>;
 }
 
+export interface AuthSession {
+  idToken: string;
+  refreshExpiresAt: Date;
+}
+
+export interface LoginLink {
+  link: URL;
+  expiresAt: Date;
+}
+
 export enum AuthNoticeType {
   LoginCompletedInBrowser = 'login_completed_in_browser',
 }
 
 export enum AuthErrorType {
+  Unauthorized = 'unauthorized',
   Inactive = 'inactive',
   Expired = 'expired',
   InvalidToken = 'invalid_token',
+  InvalidLoginLink = 'invalid_login_link',
   LoginResultMissing = 'login_result_missing',
+  RateLimited = 'rate_limited',
   Unknown = 'unknown',
 }
+
+// Errors that mean the credential is rejected.
+export const TERMINAL_AUTH_ERRORS: ReadonlySet<AuthErrorType> = new Set([
+  AuthErrorType.Unauthorized,
+  AuthErrorType.Inactive,
+  AuthErrorType.InvalidToken,
+  AuthErrorType.Expired,
+]);
 
 export class AuthError extends Error {
   constructor(
     public type: AuthErrorType,
-    message?: string,
-    public context?: Record<string, unknown> | null
+    message: string,
+    public context: Record<string, unknown> = {},
+    cause?: unknown
   ) {
-    super(message);
+    super(message, {cause});
+    this.name = 'AuthError';
+  }
+
+  static fromError(
+    error: unknown,
+    message?: string,
+    fallbackType: AuthErrorType = AuthErrorType.Unknown
+  ): AuthError {
+    if (error instanceof AuthError) {
+      return error;
+    }
+    if (error instanceof JWTExpired) {
+      return new AuthError(AuthErrorType.Expired, message ?? 'Session expired', {}, error);
+    }
+    message ??= getErrorMessage(error);
+    return new AuthError(fallbackType, message, {}, error);
   }
 }
 
 export class ForceLogoutError extends Error {
   constructor(
-    public reason: AuthErrorType = AuthErrorType.InvalidToken,
+    public type: AuthErrorType,
     message?: string
   ) {
     super(message);
+    this.name = 'ForceLogoutError';
   }
 }

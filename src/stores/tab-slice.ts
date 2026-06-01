@@ -54,7 +54,9 @@ export const createTabSlice: StateCreator<
     }
     await get().saveAppSettings({activeTabKey});
     blurFocusedElementIn('[role="tabpanel"]');
-    set({activeTabKey});
+    set({
+      activeTabKey,
+    });
     if (activeTabKey === TabKey.TonalValues) {
       get().loadTonalImages();
     } else if (activeTabKey === TabKey.SimplifiedPhoto) {

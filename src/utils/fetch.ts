@@ -17,7 +17,7 @@
  */
 
 import {BUILD_ID} from '~/src/config';
-import {type Authentication, ForceLogoutError} from '~/src/services/auth/types';
+import {type Authentication} from '~/src/services/auth/types';
 import {decryptDataIfNeeded} from '~/src/services/auth/utils';
 import {checkMimeType} from '~/src/utils/mime';
 import {getFileExtension, getUrlString, splitUrl} from '~/src/utils/url';
@@ -178,8 +178,7 @@ export async function fetchChunked(
 ): Promise<Response> {
   const [baseUrl] = splitUrl(request);
   const chunkedFile: ChunkedFile = await downloadChunkedFileInfo(request, auth, options);
-  const response: Response = await downloadChunks(baseUrl, chunkedFile, options);
-  return response;
+  return await downloadChunks(baseUrl, chunkedFile, options);
 }
 
 async function downloadChunkedFileInfo(
@@ -193,9 +192,9 @@ async function downloadChunkedFileInfo(
     throw new Error(`Failed to download chunked file info ${infoUrl}`);
   }
   const data: unknown = await response.json();
-  const chunkedFile: ChunkedFile | undefined = await decryptDataIfNeeded(data, auth);
+  const chunkedFile = await decryptDataIfNeeded<ChunkedFile>(data, auth);
   if (!chunkedFile) {
-    throw new ForceLogoutError();
+    throw new Error(`Chunked file undecryptable: ${infoUrl}`);
   }
   return chunkedFile;
 }

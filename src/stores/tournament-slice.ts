@@ -51,16 +51,21 @@ export const createTournamentSlice: StateCreator<TournamentSlice, [], [], Tourna
       playersByRating: tournament.getPlayersByRating(),
     });
   },
+
   addPlayer: (player: Player<File>): void => {
     get().tournament.addPlayer(player);
     get().updateTournament();
   },
+
   setScore: (score: Score): void => {
     get().nextGame?.setScore(score);
     get().updateTournament();
   },
+
   newTournament: (): void => {
-    set({tournament: new Tournament()});
+    set({
+      tournament: new Tournament(),
+    });
     get().updateTournament();
   },
 });

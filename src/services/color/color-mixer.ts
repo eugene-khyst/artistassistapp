@@ -534,6 +534,16 @@ function makeTransparentLayers(
   return result;
 }
 
+function getMatchingLimits(colorSet: ColorSet): [number, number][] {
+  const {type, colors} = colorSet;
+  const {mixing} = COLOR_MIXING[type];
+  const maxNumOfColors: keyof typeof MATCHING_LIMITS =
+    ([3, 2] as (keyof typeof MAX_COLORS_IN_MIXTURE)[]).find(
+      numOfColors => mixing && colors.length <= MAX_COLORS_IN_MIXTURE[numOfColors]
+    ) ?? 1;
+  return MATCHING_LIMITS[maxNumOfColors];
+}
+
 function findSimilarColors(
   reflectance: Reflectance,
   mixedColorLayersArray: MixedColorLayer[][],
@@ -611,7 +621,7 @@ export function isMixable(type: ColorType): boolean {
 }
 
 export class ColorMixer {
-  private colorSet?: ColorSet;
+  private colorSet: ColorSet | null = null;
   private mixedColors: [number, MixedColor[]][] = [];
   private opaqueLayers = new Map<number, MixedColorLayer[]>();
   private tintLayers = new Map<number, MixedColorLayer[]>();
@@ -619,7 +629,11 @@ export class ColorMixer {
   private surface = new SubstrateLayer(PAPER_WHITE);
   private underlayer: SubstrateLayer | null = null;
 
-  setColorSet(colorSet: ColorSet, underlayerRgb: RgbTuple | null, surfaceRgb: RgbTuple): void {
+  setColorSet(
+    colorSet: ColorSet | null,
+    underlayerRgb: RgbTuple | null,
+    surfaceRgb: RgbTuple
+  ): void {
     this.colorSet = colorSet;
     this.mixColors();
     this.underlayer = underlayerRgb ? new SubstrateLayer(underlayerRgb) : null;
@@ -645,7 +659,14 @@ export class ColorMixer {
 
   private mixColors(): void {
     console.time('mix-colors');
-    const {type, colors} = this.colorSet!;
+    if (!this.colorSet) {
+      this.mixedColors = [];
+      this.opaqueLayers.clear();
+      this.tintLayers.clear();
+      console.timeEnd('mix-colors');
+      return;
+    }
+    const {type, colors} = this.colorSet;
     const {mixing, tint} = COLOR_MIXING[type];
     const unmixedColors = toUnmixedColors(colors);
     const [unmixedColorsWithoutWhites, whites] = toUnmixedColorsAndWhites(unmixedColors, tint);
@@ -686,6 +707,7 @@ export class ColorMixer {
 
   private makeTransparentLayers(): void {
     if (!this.colorSet) {
+      this.transparentLayers.clear();
       return;
     }
     console.time('make-transparent-layers');
@@ -706,26 +728,16 @@ export class ColorMixer {
     console.timeEnd('make-transparent-layers');
   }
 
-  private getMatchingLimits(): [number, number][] {
-    const {type, colors} = this.colorSet!;
-    const {mixing} = COLOR_MIXING[type];
-    const maxNumOfColors: keyof typeof MATCHING_LIMITS =
-      ([3, 2] as (keyof typeof MAX_COLORS_IN_MIXTURE)[]).find(
-        numOfColors => mixing && colors.length <= MAX_COLORS_IN_MIXTURE[numOfColors]
-      ) ?? 1;
-    return MATCHING_LIMITS[maxNumOfColors];
-  }
-
   findSimilarColors(
     targetColor: RgbTuple,
     includeTransparentLayers: boolean,
     motherColorId?: ColorId | null
   ): SimilarColor[] {
+    const {colorSet} = this;
     const effectiveUnderlayer = this.getEffectiveUnderlayer();
-    if (!this.colorSet || rgbEqual(...effectiveUnderlayer.rgb, ...targetColor)) {
+    if (!colorSet || rgbEqual(...effectiveUnderlayer.rgb, ...targetColor)) {
       return [];
     }
-    const {type} = this.colorSet;
     const reflectance = Reflectance.fromRgb(...targetColor);
     const result = [
       this.opaqueLayers,
@@ -736,11 +748,11 @@ export class ColorMixer {
         return [];
       }
       let minSimilarity = 0;
-      return this.getMatchingLimits().flatMap(([numOfColors, limit]) => {
+      return getMatchingLimits(colorSet).flatMap(([numOfColors, limit]) => {
         const similarColors = findSimilarColors(
           reflectance,
-          [layers.get(numOfColors)!],
-          type,
+          [layers.get(numOfColors) ?? []],
+          colorSet.type,
           limit,
           minSimilarity,
           motherColorId

@@ -90,6 +90,7 @@ export const createOriginalImageSlice: StateCreator<
       await get().loadPaletteColorMixtures();
     }
   },
+
   setImageFile: async (imageFile: ImageFile | null, setActiveTabKey = true): Promise<void> => {
     const prev: (ImageBitmap | null)[] = [
       get().originalImage,
@@ -133,6 +134,7 @@ export const createOriginalImageSlice: StateCreator<
       image?.close();
     });
   },
+
   saveRecentImageFile: async (imageFile: ImageFile): Promise<void> => {
     imageFile = {...imageFile};
     await saveImageFile(imageFile);
@@ -144,6 +146,7 @@ export const createOriginalImageSlice: StateCreator<
     }));
     await get().setImageFile(imageFile);
   },
+
   deleteRecentImageFile: async ({digest: digestToDelete}: ImageFile): Promise<void> => {
     await deleteImageFile(digestToDelete);
     set(({recentImageFiles}) => ({
@@ -153,6 +156,7 @@ export const createOriginalImageSlice: StateCreator<
       await get().setImageFile(null);
     }
   },
+
   loadSampleImage: async ({image, name}: SampleImageDefinition): Promise<void> => {
     set({
       isSampleImageLoading: true,

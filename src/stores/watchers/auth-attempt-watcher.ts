@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {getIdToken} from '~/src/services/db/auth-db';
+import {getAuthSession} from '~/src/services/db/auth-db';
 import {useAppStore} from '~/src/stores/app-store';
 
 const TIMEOUT = 10 * 60 * 1000;
@@ -25,22 +25,29 @@ const POLL_INTERVAL = 1000;
 let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
 async function pollAuthAttempt(): Promise<void> {
-  const state = useAppStore.getState();
-  const since: number | undefined = state.authAttempt?.pendingSince;
+  const {authAttempt, auth, completeAuthAttempt, clearAuthAttempt, failPendingAuthAttempt} =
+    useAppStore.getState();
+  const since: number | undefined = authAttempt?.pendingSince;
   if (since === undefined) {
     return;
   }
-  if (state.auth) {
-    await state.clearAuthAttempt();
+  if (auth) {
+    await completeAuthAttempt();
     return;
   }
-  if (await getIdToken()) {
-    await state.clearAuthAttempt();
+  if (await getAuthSession()) {
+    // Clear before reload so a delayed or interrupted reload can't leave a
+    // stale pending attempt behind.
+    try {
+      await clearAuthAttempt();
+    } catch {
+      // ignore
+    }
     window.location.reload();
     return;
   }
   if (Date.now() - since > TIMEOUT) {
-    await state.failPendingAuthAttempt();
+    await failPendingAuthAttempt();
     return;
   }
   schedule();

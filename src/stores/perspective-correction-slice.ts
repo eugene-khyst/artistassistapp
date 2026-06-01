@@ -18,7 +18,6 @@
 
 import type {StateCreator} from 'zustand';
 
-import {ForceLogoutError} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {
   detectDocumentCorners,
@@ -95,6 +94,7 @@ export const createPerspectiveCorrectionSlice: StateCreator<
     });
     [prevPerspectiveUncorrectedImage, prevPerspectiveCorrectedImage].forEach(prev => prev?.close());
   },
+
   correctImagePerspective: (vertices: Vector[]): void => {
     const {perspectiveUncorrectedImage, perspectiveCorrectedImage: prev} = get();
     if (!perspectiveUncorrectedImage) {
@@ -113,6 +113,7 @@ export const createPerspectiveCorrectionSlice: StateCreator<
     });
     prev?.close();
   },
+
   resetPerspectiveCorrection: (): void => {
     const {perspectiveCorrectedImage: prev} = get();
     set({
@@ -120,6 +121,7 @@ export const createPerspectiveCorrectionSlice: StateCreator<
     });
     prev?.close();
   },
+
   rotatePerspectiveUncorrectedImage: (): void => {
     get().abortPerspectiveAutoDetect();
     const {perspectiveUncorrectedImage, perspectiveCorrectedImage} = get();
@@ -132,6 +134,7 @@ export const createPerspectiveCorrectionSlice: StateCreator<
     });
     [perspectiveUncorrectedImage, perspectiveCorrectedImage].forEach(prev => prev?.close());
   },
+
   setPerspectiveCorrectionModel: (perspectiveCorrectionModel: OnnxModel | undefined): void => {
     if (get().perspectiveCorrectionModel === perspectiveCorrectionModel) {
       return;
@@ -140,6 +143,7 @@ export const createPerspectiveCorrectionSlice: StateCreator<
       perspectiveCorrectionModel,
     });
   },
+
   autoDetectPerspectiveVertices: async (): Promise<Vector[] | null> => {
     get().abortPerspectiveAutoDetect();
     const {perspectiveUncorrectedImage, perspectiveCorrectionModel, auth} = get();
@@ -168,13 +172,6 @@ export const createPerspectiveCorrectionSlice: StateCreator<
         },
         perspectiveAutoDetectAbortController.signal
       );
-    } catch (error) {
-      if (error instanceof ForceLogoutError) {
-        void get().logout(error.reason);
-        return null;
-      }
-      // Propagate AbortError so the UI can skip the error toast on cancel.
-      throw error;
     } finally {
       if (get().perspectiveAutoDetectAbortController === perspectiveAutoDetectAbortController) {
         set({
@@ -185,6 +182,7 @@ export const createPerspectiveCorrectionSlice: StateCreator<
       }
     }
   },
+
   abortPerspectiveAutoDetect: (): void => {
     get().perspectiveAutoDetectAbortController?.abort();
   },

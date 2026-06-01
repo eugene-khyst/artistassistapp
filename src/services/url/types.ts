@@ -22,6 +22,5 @@ import type {TabKey} from '~/src/tabs';
 export interface UrlParsingResult {
   colorSet?: ColorSetDefinition;
   tabKey?: TabKey;
-  login?: boolean;
   install?: boolean;
 }

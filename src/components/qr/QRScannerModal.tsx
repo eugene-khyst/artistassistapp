@@ -19,8 +19,11 @@
 import {useLingui} from '@lingui/react/macro';
 import type {IDetectedBarcode} from '@yudiel/react-qr-scanner';
 import {Scanner} from '@yudiel/react-qr-scanner';
-import {App, Modal} from 'antd';
+import {App, Modal, Space} from 'antd';
+import type {PropsWithChildren} from 'react';
 import {useEffect, useState} from 'react';
+
+import {AUTH_URL} from '~/src/config';
 
 import styles from './QRScannerModal.module.css';
 
@@ -29,7 +32,7 @@ interface Props {
   setOpen: (open: boolean) => void;
 }
 
-export function QRScannerModal({open, setOpen}: Readonly<Props>) {
+export function QRScannerModal({open, setOpen, children}: Readonly<PropsWithChildren<Props>>) {
   const {message} = App.useApp();
 
   const {t} = useLingui();
@@ -60,28 +63,34 @@ export function QRScannerModal({open, setOpen}: Readonly<Props>) {
         setIsPaused(true);
       }}
     >
-      <div className={styles['scanner']}>
-        <Scanner
-          formats={['qr_code']}
-          paused={isPaused}
-          onScan={(result: IDetectedBarcode[]) => {
-            const {rawValue} = result[0] ?? {};
-            if (!rawValue) {
-              return;
-            }
-            try {
-              const url = new URL(rawValue);
-              if (url.origin === window.location.origin) {
-                window.location.assign(url.toString());
+      <Space orientation="vertical">
+        {children}
+        <div className={styles['scanner']}>
+          <Scanner
+            formats={['qr_code']}
+            paused={isPaused}
+            onScan={(result: IDetectedBarcode[]) => {
+              const {rawValue} = result[0] ?? {};
+              if (!rawValue) {
                 return;
               }
-            } catch {
-              // ignore
-            }
-            void message.info(t`Invalid QR code`);
-          }}
-        />
-      </div>
+              try {
+                const url = new URL(rawValue);
+                if (
+                  url.origin === window.location.origin ||
+                  url.origin === new URL(AUTH_URL).origin
+                ) {
+                  window.location.assign(url.toString());
+                  return;
+                }
+              } catch {
+                // ignore
+              }
+              void message.info(t`Invalid QR code`);
+            }}
+          />
+        </div>
+      </Space>
     </Modal>
   );
 }

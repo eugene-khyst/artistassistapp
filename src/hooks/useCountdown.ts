@@ -18,7 +18,7 @@
 
 import {useEffect, useState} from 'react';
 
-export function useCountdown(active: boolean, seconds: number): number {
+export function useCountdown(seconds: number, active = true): number {
   const [counter, setCounter] = useState(seconds);
 
   useEffect(() => {

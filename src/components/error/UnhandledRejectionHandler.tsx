@@ -21,6 +21,7 @@ import {App} from 'antd';
 import type {PropsWithChildren} from 'react';
 import {useEffect, useEffectEvent} from 'react';
 
+import {ForceLogoutError} from '~/src/services/auth/types';
 import {useAppStore} from '~/src/stores/app-store';
 import {getErrorMessage} from '~/src/utils/error';
 
@@ -48,8 +49,13 @@ export function UnhandledRejectionHandler({children}: Readonly<PropsWithChildren
       clearInitErrors();
     }
 
-    const promiseRejectionHandler = ({reason}: PromiseRejectionEvent) => {
-      showError(reason);
+    const promiseRejectionHandler = (event: PromiseRejectionEvent) => {
+      if (event.reason instanceof ForceLogoutError) {
+        event.preventDefault();
+        void useAppStore.getState().logout(event.reason.type);
+        return;
+      }
+      showError(event.reason);
     };
     window.addEventListener('unhandledrejection', promiseRejectionHandler);
     return () => {

@@ -67,7 +67,7 @@ export interface ColorMixerSlice {
   isBuildPaletteLoading: boolean;
   buildPaletteAbortController: AbortController | null;
 
-  setColorSet: (colorSet: ColorSet, setActiveTabKey?: boolean) => Promise<void>;
+  setColorSet: (colorSet: ColorSet, options?: {setActiveTabKey?: boolean}) => Promise<void>;
   setUnderlayer: (underlayerHex: string | null) => Promise<void>;
   setSurface: (surfaceHex: string) => Promise<void>;
   setLayeringEnabled: (layeringEnabled: boolean) => Promise<void>;
@@ -99,7 +99,10 @@ export const createColorMixerSlice: StateCreator<
   isBuildPaletteLoading: false,
   buildPaletteAbortController: null,
 
-  setColorSet: async (colorSet: ColorSet, setActiveTabKey = true): Promise<void> => {
+  setColorSet: async (
+    colorSet: ColorSet,
+    {setActiveTabKey = true}: {setActiveTabKey?: boolean} = {}
+  ): Promise<void> => {
     const {
       imageFile,
       targetColorHex,
@@ -111,8 +114,8 @@ export const createColorMixerSlice: StateCreator<
       await get().setActiveTabKey(activeTabKey);
     }
     set({
-      colorSet,
       isColorMixerLoading: true,
+      colorSet,
       underlayerHex: null,
       motherColorId: null,
       similarColors: [],
@@ -126,6 +129,7 @@ export const createColorMixerSlice: StateCreator<
     }
     await get().setTargetColor(targetColorHex, samplingArea);
   },
+
   setUnderlayer: async (underlayerHex: string | null): Promise<void> => {
     const {
       targetColorHex,
@@ -155,6 +159,7 @@ export const createColorMixerSlice: StateCreator<
       });
     }
   },
+
   setSurface: async (surfaceHex: string): Promise<void> => {
     await get().saveAppSettings({colorPickerSurfaceHex: surfaceHex});
     const {
@@ -184,6 +189,7 @@ export const createColorMixerSlice: StateCreator<
       });
     }
   },
+
   setLayeringEnabled: async (layeringEnabled: boolean): Promise<void> => {
     await get().saveAppSettings({colorPickerLayeringEnabled: layeringEnabled});
     const {targetColorHex, motherColorId} = get();
@@ -206,6 +212,7 @@ export const createColorMixerSlice: StateCreator<
       });
     }
   },
+
   setMotherColor: async (motherColorId: ColorId | null): Promise<void> => {
     const {
       targetColorHex,
@@ -231,6 +238,7 @@ export const createColorMixerSlice: StateCreator<
       });
     }
   },
+
   setTargetColor: async (
     targetColorHex: string | null,
     samplingArea: SamplingArea | null
@@ -262,11 +270,13 @@ export const createColorMixerSlice: StateCreator<
       });
     }
   },
+
   setColorPickerPipette: (colorPickerPipette: SamplingArea | null): void => {
     set({
       colorPickerPipette,
     });
   },
+
   buildPalette: async (): Promise<void> => {
     get().abortBuildPalette();
     const {
@@ -345,9 +355,10 @@ export const createColorMixerSlice: StateCreator<
       }
       await get().saveToPaletteBulk(paletteEntries, signal);
     } catch (error) {
-      if (!isAbortError(error)) {
-        throw error;
+      if (isAbortError(error)) {
+        return;
       }
+      throw error;
     } finally {
       if (get().buildPaletteAbortController === buildPaletteAbortController) {
         set({
@@ -357,6 +368,7 @@ export const createColorMixerSlice: StateCreator<
       }
     }
   },
+
   abortBuildPalette: (): void => {
     get().buildPaletteAbortController?.abort();
   },

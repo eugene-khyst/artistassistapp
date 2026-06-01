@@ -16,26 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Trans} from '@lingui/react/macro';
-import {Button} from 'antd';
-import {useState} from 'react';
-
-import {useAppStore} from '~/src/stores/app-store';
-
-export function LogoutButton() {
-  const logout = useAppStore(state => state.logout);
-
-  const [clicked, setClicked] = useState<boolean>(false);
-
-  return (
-    <Button
-      onClick={() => {
-        void logout();
-        setClicked(true);
-      }}
-      loading={clicked}
-    >
-      <Trans>Log out</Trans>
-    </Button>
-  );
+export async function withWebLock<T>(name: string, callback: () => Promise<T>): Promise<T> {
+  const lockManager: LockManager | undefined =
+    typeof navigator !== 'undefined' && 'locks' in navigator ? navigator.locks : undefined;
+  if (!lockManager) {
+    return await callback();
+  }
+  return await lockManager.request(name, callback);
 }

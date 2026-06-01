@@ -71,9 +71,10 @@ export const createColorMixingChartSlice: StateCreator<
         colorMixingChartMixtures,
       });
     } catch (error) {
-      if (!isAbortError(error)) {
-        throw error;
+      if (isAbortError(error)) {
+        return;
       }
+      throw error;
     } finally {
       if (get().colorMixingChartAbortController === colorMixingChartAbortController) {
         set({
@@ -83,6 +84,7 @@ export const createColorMixingChartSlice: StateCreator<
       }
     }
   },
+
   abortColorMixingChart: (): void => {
     get().colorMixingChartAbortController?.abort();
   },

@@ -18,7 +18,6 @@
 
 import type {StateCreator} from 'zustand';
 
-import {ForceLogoutError} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {fillBackgroundWithColor, removeBackground} from '~/src/services/image/background-removal';
 import type {OnnxModel} from '~/src/services/ml/types';
@@ -66,6 +65,7 @@ export const createBackgroundRemovalSlice: StateCreator<
     });
     void get().removeBackground();
   },
+
   setBackgroundRemovalColor: (backgroundRemovalColor: string | null): void => {
     set({
       backgroundRemovalColor,
@@ -73,6 +73,7 @@ export const createBackgroundRemovalSlice: StateCreator<
     });
     void get().removeBackground();
   },
+
   setBackgroundRemovalModel: (backgroundRemovalModel: OnnxModel | undefined): void => {
     if (get().backgroundRemovalModel === backgroundRemovalModel) {
       return;
@@ -84,6 +85,7 @@ export const createBackgroundRemovalSlice: StateCreator<
     });
     void get().removeBackground();
   },
+
   removeBackground: async (): Promise<void> => {
     get().abortBackgroundRemoval();
     const {
@@ -137,13 +139,10 @@ export const createBackgroundRemovalSlice: StateCreator<
         imageWithoutBackgroundBlob,
       });
     } catch (error) {
-      if (error instanceof ForceLogoutError) {
-        void get().logout(error.reason);
+      if (isAbortError(error)) {
         return;
       }
-      if (!isAbortError(error)) {
-        throw error;
-      }
+      throw error;
     } finally {
       if (get().backgroundRemovalAbortController === backgroundRemovalAbortController) {
         set({
@@ -154,6 +153,7 @@ export const createBackgroundRemovalSlice: StateCreator<
       }
     }
   },
+
   abortBackgroundRemoval: (): void => {
     get().backgroundRemovalAbortController?.abort();
   },

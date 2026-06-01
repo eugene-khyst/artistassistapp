@@ -16,26 +16,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {LoginOutlined} from '@ant-design/icons';
-import {Trans} from '@lingui/react/macro';
 import {Button} from 'antd';
+import type {ButtonProps} from 'antd/lib';
+import type {PropsWithChildren, ReactNode} from 'react';
+import {useState} from 'react';
 
-import {useAppStore} from '~/src/stores/app-store';
+import {QRScannerModal} from '~/src/components/qr/QRScannerModal';
 
-export function LoginButton() {
-  const loginWithRedirect = useAppStore(state => state.loginWithRedirect);
-  const isLoginPending = useAppStore(state => !!state.authAttempt);
+type Props = ButtonProps & {
+  modalContent?: ReactNode;
+};
 
+export function QRScannerButton({
+  modalContent,
+  children,
+  onClick,
+  ...props
+}: Readonly<PropsWithChildren<Props>>) {
+  const [open, setOpen] = useState<boolean>(false);
   return (
-    <Button
-      type="primary"
-      icon={<LoginOutlined />}
-      onClick={() => {
-        void loginWithRedirect();
-      }}
-      loading={isLoginPending}
-    >
-      <Trans>Log in with Patreon</Trans>
-    </Button>
+    <>
+      <Button
+        onClick={e => {
+          onClick?.(e);
+          setOpen(true);
+        }}
+        {...props}
+      >
+        {children}
+      </Button>
+      <QRScannerModal open={open} setOpen={setOpen}>
+        {modalContent}
+      </QRScannerModal>
+    </>
   );
 }

@@ -41,7 +41,7 @@ export function AdModal() {
 
   const [open, setOpen] = useDelayedInterval(AD_POPUP_INITIAL_DELAY, AD_POPUP_INTERVAL);
 
-  const closeCounter = useCountdown(open, CLOSE_SECONDS);
+  const closeCounter = useCountdown(CLOSE_SECONDS, open);
 
   const adKeys: string[] = placements[PLACEMENT] ?? placements[DEFAULT_PLACEMENT] ?? [];
   const ads: AdDefinition[] = adKeys

@@ -93,6 +93,7 @@ export const createPaletteSlice: StateCreator<
       });
     }
   },
+
   saveToPalette: async (
     colorMixture: ColorMixture,
     linkToImage = true,
@@ -106,6 +107,7 @@ export const createPaletteSlice: StateCreator<
       },
     ]);
   },
+
   saveToPaletteBulk: async (entries: SaveToPaletteEntry[], signal?: AbortSignal): Promise<void> => {
     const {
       imageFile,
@@ -176,6 +178,7 @@ export const createPaletteSlice: StateCreator<
       });
     }
   },
+
   deleteFromPalette: async ({type, key}: ColorMixture): Promise<void> => {
     const {paletteColorMixtures: prev, selectedPaletteColorMixtures: prevSelected} = get();
 
@@ -214,6 +217,7 @@ export const createPaletteSlice: StateCreator<
       });
     }
   },
+
   deleteAllFromPalette: async (type: ColorType): Promise<void> => {
     const {paletteColorMixtures: prev, selectedPaletteColorMixtures: prevSelected} = get();
 
@@ -261,6 +265,7 @@ export const createPaletteSlice: StateCreator<
       });
     }
   },
+
   selectPaletteColorMixtures: (keys: string[]): void => {
     const {paletteColorMixtures, colorSet} = get();
     if (!colorSet) {

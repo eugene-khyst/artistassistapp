@@ -16,162 +16,152 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import * as jose from 'jose';
+import type {JWK, JWTVerifyGetKey} from 'jose';
+import {createLocalJWKSet, jwtVerify} from 'jose';
 
-import type {Authentication} from '~/src/services/auth/types';
+import {APP_URL, AUTH_URL, PUBLIC_JWK} from '~/src/config';
+import type {
+  Authentication,
+  AuthErrorData,
+  AuthErrorResponse,
+  AuthSession,
+  AuthTokenResponse,
+  LoginLink,
+  LoginLinkResponse,
+} from '~/src/services/auth/types';
 import {AuthError, AuthErrorType} from '~/src/services/auth/types';
 import {toAuthErrorType} from '~/src/services/auth/utils';
 import {
-  deleteIdToken,
   getAndDeleteAuthErrorData,
-  getIdToken,
-  saveIdToken,
+  getAuthSession,
+  saveAuthSession,
 } from '~/src/services/db/auth-db';
 import {base64To256BitKey} from '~/src/utils/crypto';
+import {fromEpochSeconds} from '~/src/utils/date';
 import {replaceHistory} from '~/src/utils/history';
-import {waitForServiceWorkerActivation} from '~/src/utils/service-worker';
+import {safeReadJson} from '~/src/utils/json';
+import {withWebLock} from '~/src/utils/web-lock';
 
-const ERROR_KEY = 'error';
-const ID_TOKEN_KEY = 'id_token';
+const REDIRECT_URI = `${window.location.origin}/login/callback`;
+const AUTH_REFRESH_LOCK_NAME = 'artistassistapp:auth-refresh';
+const ERROR_PARAM = 'error';
 
-interface AuthCallbackResult {
-  idToken?: string | null;
-  error?: string | null;
-}
+let jwks: JWTVerifyGetKey | undefined;
 
-export interface AuthClientProps {
-  domain: string;
-  redirectUri: string;
-  issuer: string;
-  audience: string;
-  jwk: string;
-}
-
-export function getMagicLink(jwt: string): string {
-  const url = new URL(window.location.origin);
-  url.searchParams.set(ID_TOKEN_KEY, jwt);
-  return url.toString();
-}
-
-export class AuthClient {
-  private authentication: Authentication | null = null;
-  private jwks: jose.JWTVerifyGetKey | undefined;
-
-  constructor(public props: AuthClientProps) {}
-
-  // Built lazily so a malformed JWK fails as an auth error at first verify
-  // rather than throwing at construction.
-  private getJwks(): jose.JWTVerifyGetKey {
-    if (!this.jwks) {
-      try {
-        this.jwks = jose.createLocalJWKSet({
-          keys: [JSON.parse(this.props.jwk) as jose.JWK],
-        });
-      } catch {
-        throw new AuthError(AuthErrorType.Unknown);
-      }
+// Lazy so a malformed JWK surfaces as an auth error at first verify, not at module load.
+function getJwks(): JWTVerifyGetKey {
+  if (!jwks) {
+    try {
+      jwks = createLocalJWKSet({keys: [JSON.parse(PUBLIC_JWK) as JWK]});
+    } catch (error) {
+      throw AuthError.fromError(error);
     }
-    return this.jwks;
   }
+  return jwks;
+}
 
-  private async authenticate(jwt: string): Promise<Authentication> {
-    const {issuer, audience} = this.props;
-    const {
-      payload: {sub, exp, dek},
-    } = await jose.jwtVerify(jwt, this.getJwks(), {issuer, audience});
-    if (typeof sub !== 'string' || typeof exp !== 'number' || typeof dek !== 'string') {
-      const message = 'ID token missing required claims';
-      throw new AuthError(AuthErrorType.InvalidToken, message, {message});
+export async function verifyIdToken({
+  idToken,
+  refreshExpiresAt,
+}: AuthSession): Promise<Authentication> {
+  const {
+    payload: {sub, exp, dek},
+  } = await jwtVerify(idToken, getJwks(), {issuer: AUTH_URL, audience: APP_URL});
+  if (typeof sub !== 'string' || typeof exp !== 'number' || typeof dek !== 'string') {
+    throw new AuthError(AuthErrorType.InvalidToken, 'Invalid token');
+  }
+  return {
+    user: {id: sub},
+    idTokenExpiresAt: fromEpochSeconds(exp),
+    refreshExpiresAt,
+    dataEncryptionKey: base64To256BitKey(dek),
+  };
+}
+
+export function isWithinRefreshWindow(auth: Authentication, windowMs: number): boolean {
+  return auth.idTokenExpiresAt.getTime() - Date.now() <= windowMs;
+}
+
+// Returns null when another tab cleared the session while we waited for the lock;
+// caller treats null as a silent cross-tab logout.
+export async function refreshSession(previous: AuthSession): Promise<AuthSession | null> {
+  return await withWebLock(AUTH_REFRESH_LOCK_NAME, async () => {
+    const current = await getAuthSession();
+    if (!current) {
+      return null;
     }
-    return {
-      user: {
-        id: sub,
-      },
-      expiration: new Date(exp * 1000),
-      dataEncryptionKey: base64To256BitKey(dek),
-      magicLink: getMagicLink(jwt),
+    if (current.idToken !== previous.idToken) {
+      // Another tab already refreshed; use its result.
+      return current;
+    }
+    if (new Date() >= current.refreshExpiresAt) {
+      throw new AuthError(AuthErrorType.Expired, 'Session expired');
+    }
+    const response = await fetch(new URL('/login/refresh', AUTH_URL), {
+      method: 'POST',
+      credentials: 'include',
+      signal: AbortSignal.timeout(15000),
+    });
+    if (!response.ok) {
+      const {error, error_context} = (await safeReadJson<AuthErrorResponse>(response)) ?? {};
+      throw new AuthError(toAuthErrorType(error), 'Could not refresh session', error_context);
+    }
+    const {id_token, refresh_expires_at} = (await response.json()) as AuthTokenResponse;
+    const refreshed: AuthSession = {
+      idToken: id_token,
+      refreshExpiresAt: fromEpochSeconds(refresh_expires_at),
     };
-  }
-
-  async handleAuthCallback(): Promise<void> {
-    const result = this.resolveAuthCallback();
-    if (!result) {
-      return;
-    }
-    const {idToken, error} = result;
-    try {
-      if (error) {
-        const context = (await getAndDeleteAuthErrorData())?.context;
-        throw new AuthError(toAuthErrorType(error), 'Authentication failed', context);
-      }
-      if (idToken) {
-        try {
-          this.authentication = await this.authenticate(idToken);
-          await saveIdToken(idToken);
-        } catch (error) {
-          throw error instanceof AuthError ? error : createAuthError(error);
-        }
-      }
-    } finally {
-      replaceHistory();
-    }
-  }
-
-  private resolveAuthCallback(): AuthCallbackResult | null {
-    const {searchParams} = new URL(window.location.toString());
-    const error = searchParams.get(ERROR_KEY);
-    const idToken = searchParams.get(ID_TOKEN_KEY);
-    if (!error && !idToken) {
-      return null;
-    }
-
-    return {idToken, error};
-  }
-
-  async getAuthentication(): Promise<Authentication | null> {
-    if (this.authentication) {
-      return this.authentication;
-    }
-    const jwt: string | undefined = await getIdToken();
-    if (!jwt) {
-      return null;
-    }
-    try {
-      this.authentication = await this.authenticate(jwt);
-      return this.authentication;
-    } catch (e) {
-      await deleteIdToken();
-      throw createAuthError(e);
-    }
-  }
-
-  async loginWithRedirect(): Promise<void> {
-    await waitForServiceWorkerActivation();
-    const url = new URL(this.props.domain);
-    url.pathname = '/authorize';
-    url.searchParams.append('redirect_uri', this.props.redirectUri);
-    window.location.assign(url.toString());
-  }
-
-  async logout(error?: AuthErrorType): Promise<void> {
-    await deleteIdToken();
-    if (error) {
-      const url = new URL(window.location.href);
-      url.searchParams.set('error', error);
-      window.location.href = url.href;
-    } else {
-      window.location.reload();
-    }
-  }
-
-  isAuthExpired(): boolean {
-    const exp = this.authentication?.expiration;
-    return !!exp && new Date() >= exp;
-  }
+    await saveAuthSession(refreshed);
+    return refreshed;
+  });
 }
 
-function createAuthError(e: unknown): AuthError {
-  const type: AuthErrorType =
-    e instanceof jose.errors.JWTExpired ? AuthErrorType.Expired : AuthErrorType.InvalidToken;
-  return new AuthError(type);
+export async function requestLogout(): Promise<void> {
+  await fetch(new URL('/logout', AUTH_URL), {
+    method: 'POST',
+    credentials: 'include',
+    signal: AbortSignal.timeout(2000),
+  });
+}
+
+export async function requestLoginLink(): Promise<LoginLink> {
+  const url = new URL('/login-link', AUTH_URL);
+  url.searchParams.set('redirect_uri', REDIRECT_URI);
+  const response = await fetch(url, {
+    method: 'POST',
+    credentials: 'include',
+    signal: AbortSignal.timeout(5000),
+  });
+  if (!response.ok) {
+    const {error, error_context} = (await safeReadJson<AuthErrorResponse>(response)) ?? {};
+    throw new AuthError(toAuthErrorType(error), 'Could not create login link', error_context);
+  }
+  const {link, expires_at} = (await response.json()) as LoginLinkResponse;
+  return {
+    link: new URL(link),
+    expiresAt: fromEpochSeconds(expires_at),
+  };
+}
+
+export function loginWithRedirect(): void {
+  const url = new URL('/authorize', AUTH_URL);
+  url.searchParams.set('redirect_uri', REDIRECT_URI);
+  window.location.assign(url);
+}
+
+export async function readAuthCallbackError(): Promise<AuthError | null> {
+  const errorParam = new URL(window.location.href).searchParams.get(ERROR_PARAM);
+  if (!errorParam) {
+    return null;
+  }
+  let context: AuthErrorData['context'] | undefined;
+  try {
+    const data = await getAndDeleteAuthErrorData();
+    context = data?.context;
+  } catch (err) {
+    console.error('Failed to read auth error context', err);
+  } finally {
+    replaceHistory();
+  }
+  return new AuthError(toAuthErrorType(errorParam), 'Login failed', context);
 }

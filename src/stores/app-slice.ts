@@ -20,7 +20,7 @@ import type {StateCreator} from 'zustand';
 
 import {getPreferredLocale} from '~/src/i18n';
 import {normalizeInjectedAuthCallback} from '~/src/services/auth/auth-callback-normalizer';
-import {AuthNoticeType} from '~/src/services/auth/types';
+import {ForceLogoutError} from '~/src/services/auth/types';
 import {getAppSettings, saveAppSettings} from '~/src/services/db/app-settings-db';
 import {imageFileToFile} from '~/src/services/image/image-file';
 import {DEFAULT_APP_SETTINGS} from '~/src/services/settings/app-settings';
@@ -32,7 +32,6 @@ import type {StyleTransferSlice} from '~/src/stores/style-transfer-slice';
 import {initAuthAttemptWatcher} from '~/src/stores/watchers/auth-attempt-watcher';
 import {initAuthExpiryWatcher} from '~/src/stores/watchers/auth-expiry-watcher';
 import {TabKey} from '~/src/tabs';
-import {DisplayMode, getDisplayMode} from '~/src/utils/environment';
 import {getErrorMessage} from '~/src/utils/error';
 
 import type {ColorMixerSlice} from './color-mixer-slice';
@@ -78,6 +77,10 @@ export const createAppSlice: StateCreator<
     try {
       await fn();
     } catch (error) {
+      if (error instanceof ForceLogoutError) {
+        void get().logout(error.type);
+        return;
+      }
       get().addInitError(label, error);
     }
   };
@@ -108,37 +111,28 @@ export const createAppSlice: StateCreator<
           get().setLocale(appSettings.locale ?? getPreferredLocale(), false)
         );
 
-        await tryStep('load auth attempt', () => get().loadAuthAttempt());
         await tryStep('normalize injected auth callback', () => normalizeInjectedAuthCallback());
         await tryStep('handle auth callback', () => get().handleAuthCallback());
-
-        const authAttempt = get().authAttempt;
-        if (authAttempt && (get().auth || get().authError)) {
-          if (
-            get().auth &&
-            authAttempt.displayMode !== DisplayMode.BROWSER &&
-            getDisplayMode() === DisplayMode.BROWSER
-          ) {
-            set({authNotice: AuthNoticeType.LoginCompletedInBrowser});
-          }
-          await tryStep('clear auth attempt', () => get().clearAuthAttempt());
+        set({
+          isAuthLoading: true,
+        });
+        try {
+          await tryStep('resolve auth', () => get().resolveAuth());
+        } finally {
+          set({
+            isAuthLoading: false,
+          });
         }
+        await tryStep('complete auth attempt', () => get().completeAuthAttempt());
 
         initAuthAttemptWatcher();
 
-        const {
-          colorSet: importedColorSet,
-          tabKey: importedTabKey,
-          login,
-          install,
-        } = importFromUrl();
+        const {colorSet: importedColorSet, tabKey: importedTabKey, install} = importFromUrl();
 
-        if (login) {
-          await get().loginWithRedirect();
-          return;
-        }
         if (install) {
-          set({installRequested: true});
+          set({
+            installRequested: true,
+          });
         }
         let activeTabKey: TabKey | undefined = importedTabKey ?? appSettings.activeTabKey;
         if (importedColorSet) {
@@ -170,11 +164,13 @@ export const createAppSlice: StateCreator<
         });
       }
     },
+
     resetInstallRequested: (): void => {
       set({
         installRequested: false,
       });
     },
+
     loadAppSettings: async (): Promise<AppSettings> => {
       const appSettings: AppSettings = {
         ...DEFAULT_APP_SETTINGS,
@@ -185,6 +181,7 @@ export const createAppSlice: StateCreator<
       });
       return appSettings;
     },
+
     saveAppSettings: async (update: Partial<AppSettings> | AppSettingsUpdater): Promise<void> => {
       const {appSettings: prevAppSettings} = get();
       const values: Partial<AppSettings> =
@@ -195,6 +192,7 @@ export const createAppSlice: StateCreator<
         appSettings,
       });
     },
+
     addInitError: (label: string, error: unknown): void => {
       console.error(`Failed to ${label}`, error);
       const wrappedError = new Error(`Failed to ${label}: ${getErrorMessage(error)}`, {
@@ -202,8 +200,11 @@ export const createAppSlice: StateCreator<
       });
       set(({initErrors}) => ({initErrors: [...initErrors, wrappedError]}));
     },
+
     clearInitErrors: (): void => {
-      set({initErrors: []});
+      set({
+        initErrors: [],
+      });
     },
   };
 };

@@ -17,12 +17,14 @@
  */
 
 import type {IDBPDatabase, IDBPTransaction} from 'idb';
+import {decodeJwt} from 'jose';
 
 import type {RgbTuple} from '~/src/services/color/space/rgb';
 import type {ColorMixture} from '~/src/services/color/types';
 import {EMPTY_DIGEST} from '~/src/services/db/color-mixture-db';
 import {type ArtistAssistAppDB, OBJECT_STORE_NAMES, type StoreName} from '~/src/services/db/schema';
 import type {ImageFile} from '~/src/services/image/image-file';
+import {fromEpochSeconds} from '~/src/utils/date';
 import {digestArrayBuffer} from '~/src/utils/digest';
 
 export interface AppliedMigration {
@@ -47,6 +49,8 @@ function defineMigration<T = unknown>({name, prepare, migrate}: Migration<T>): M
     migrate: (tx, data) => migrate(tx, data as T),
   };
 }
+
+const ACCESS_TOKEN_TTL = 30 * 24 * 60 * 60;
 
 const MIGRATIONS: Migration[] = [
   defineMigration<Map<number, string>>({
@@ -96,6 +100,34 @@ const MIGRATIONS: Migration[] = [
           ...data,
           underlayerRgb: backgroundRgb,
         });
+      }
+    },
+  }),
+  defineMigration({
+    name: '003-auth-session',
+    migrate: async (tx): Promise<void> => {
+      const key = 0;
+      const idTokenStore = tx.objectStore('id-token');
+      const idToken = await idTokenStore.get(key);
+      if (!idToken) {
+        return;
+      }
+      try {
+        const {iat} = decodeJwt(idToken);
+        if (!iat) {
+          return;
+        }
+        await tx.objectStore('auth-session').put(
+          {
+            idToken,
+            refreshExpiresAt: fromEpochSeconds(iat + ACCESS_TOKEN_TTL),
+          },
+          key
+        );
+      } catch {
+        // Skip malformed token.
+      } finally {
+        await idTokenStore.delete(key);
       }
     },
   }),

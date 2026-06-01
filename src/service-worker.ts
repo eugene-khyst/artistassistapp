@@ -22,10 +22,11 @@ declare const self: ServiceWorkerGlobalScope & {
   __WB_MANIFEST: {url: string}[];
 };
 
+import {AuthErrorType} from '~/src/services/auth/types';
 import type {ColorSetDefinition, CustomColorBrandDefinition} from '~/src/services/color/types';
 import {FileExtension} from '~/src/services/color/types';
 import {getAppSettings, saveAppSettings} from '~/src/services/db/app-settings-db';
-import {saveAuthErrorData, saveIdToken} from '~/src/services/db/auth-db';
+import {saveAuthErrorData, saveAuthSession} from '~/src/services/db/auth-db';
 import {saveColorSets} from '~/src/services/db/color-set-db';
 import {saveCustomColorBrand} from '~/src/services/db/custom-brand-db';
 import {saveImageFile} from '~/src/services/db/image-file-db';
@@ -34,6 +35,7 @@ import {DEFAULT_APP_SETTINGS} from '~/src/services/settings/app-settings';
 import type {AppSettings} from '~/src/services/settings/types';
 import type {ServiceWorkerMessage} from '~/src/sw-message';
 import {TabKey} from '~/src/tabs';
+import {fromEpochSeconds} from '~/src/utils/date';
 import {digestMessage} from '~/src/utils/digest';
 import {
   CACHE_NAME_DEFAULT,
@@ -50,7 +52,6 @@ const CACHE_LARGE_FILE_EXTENSIONS: RegExp[] = [/\.onnx\.part\d+$/, /\.wasm$/];
 const SPA_PATHNAMES = new Set<string>([
   '/',
   ...Object.values(TabKey).map(tab => `/${tab}`),
-  '/login',
   '/install',
 ]);
 
@@ -94,6 +95,9 @@ self.addEventListener('fetch', (event: FetchEvent) => {
   const {request} = event;
   try {
     const url = new URL(request.url);
+    if (request.method === 'HEAD') {
+      return;
+    }
     if (request.method === 'GET') {
       let response: Promise<Response>;
       if (url.origin === self.location.origin) {
@@ -130,14 +134,16 @@ async function receiveAuthCallback(request: Request): Promise<Response> {
   try {
     const formData: FormData = await request.formData();
     const idToken = formData.get('id_token') as string | null;
+    const refreshExpiresAt = formData.get('refresh_expires_at') as string | null;
     const error = formData.get('error') as string | null;
     const errorContext = formData.get('error_context') as string | null;
 
-    if (idToken) {
-      await saveIdToken(idToken);
-    }
-    if (error) {
-      redirectUrl.searchParams.set('error', error);
+    if (idToken && refreshExpiresAt) {
+      await saveAuthSession({
+        idToken,
+        refreshExpiresAt: fromEpochSeconds(refreshExpiresAt),
+      });
+    } else {
       if (errorContext) {
         try {
           const parsedErrorContext = JSON.parse(errorContext) as Record<string, unknown>;
@@ -146,10 +152,11 @@ async function receiveAuthCallback(request: Request): Promise<Response> {
           console.error('Failed to parse error context', e);
         }
       }
+      redirectUrl.searchParams.set('error', error ?? AuthErrorType.LoginResultMissing);
     }
   } catch (e) {
     console.error('Auth callback error', e);
-    redirectUrl.searchParams.set('error', 'unknown');
+    redirectUrl.searchParams.set('error', AuthErrorType.Unknown);
   }
   return Response.redirect(redirectUrl.href, 303);
 }

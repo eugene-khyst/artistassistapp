@@ -16,27 +16,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {getAuthSession} from '~/src/services/db/auth-db';
 import {useAppStore} from '~/src/stores/app-store';
 
-const VERIFICATION_INTERVAL = 5 * 60 * 1000;
+const POLL_INTERVAL = 60 * 1000;
 
 let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
-function checkAuthExpiry(): void {
-  const state = useAppStore.getState();
-  if (!state.auth) {
+async function pollAuthExpiry(): Promise<void> {
+  const dbSession = await getAuthSession();
+  const {logout, resolveAuth} = useAppStore.getState();
+  if (!dbSession) {
+    // Another tab logged out; reload silently.
+    void logout();
     return;
   }
-  if (state.isAuthExpired()) {
-    window.location.reload();
-    return;
+  await resolveAuth();
+  // Skip scheduling if resolveAuth triggered a logout — page is reloading.
+  if (useAppStore.getState().auth) {
+    schedule();
   }
-  schedule();
 }
 
 function schedule(): void {
   clearTimeout(timeoutId);
-  timeoutId = setTimeout(checkAuthExpiry, VERIFICATION_INTERVAL);
+  timeoutId = setTimeout(() => void pollAuthExpiry(), POLL_INTERVAL);
 }
 
 function stop(): void {
@@ -44,17 +48,13 @@ function stop(): void {
   timeoutId = undefined;
 }
 
-// Reloads the app once the ID token has expired to prevent a stale session from remaining active.
-// Runs only while authenticated. The store subscription activates/deactivates it.
 export function initAuthExpiryWatcher(): void {
   useAppStore.subscribe(
     state => state.auth,
     auth => {
-      if (auth) {
-        if (timeoutId === undefined) {
-          schedule();
-        }
-      } else {
+      if (auth && timeoutId === undefined) {
+        schedule();
+      } else if (!auth) {
         stop();
       }
     },

@@ -83,6 +83,7 @@ export const createColorAdjustmentSlice: StateCreator<
     });
     [prevColorUnadjustedImage, prevColorAdjustedImage].forEach(prev => prev?.close());
   },
+
   adjustImageColors: (maxValues: number[], params: AdjustmentParameters): void => {
     const {colorUnadjustedImage, colorAdjustedImage: prev} = get();
     if (!colorUnadjustedImage) {
@@ -98,6 +99,7 @@ export const createColorAdjustmentSlice: StateCreator<
     });
     prev?.close();
   },
+
   adjustImageColorsPercentile: async (
     percentile: number,
     params: AdjustmentParameters
@@ -106,6 +108,7 @@ export const createColorAdjustmentSlice: StateCreator<
       await rgbChannelsPercentileCalculator.calculatePercentiles(percentile);
     get().adjustImageColors(maxValues, params);
   },
+
   adjustImageColorsReference: (whitePoint: string, params: AdjustmentParameters): void => {
     const maxValues: number[] = hexToRgb(whitePoint).map(v => linearizeRgbChannel(v));
     get().adjustImageColors(maxValues, params);

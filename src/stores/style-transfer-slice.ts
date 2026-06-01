@@ -18,7 +18,6 @@
 
 import type {StateCreator} from 'zustand';
 
-import {ForceLogoutError} from '~/src/services/auth/types';
 import {hasAccessTo} from '~/src/services/auth/utils';
 import {fileToImageFile} from '~/src/services/image/image-file';
 import {transferStyle} from '~/src/services/image/style-transfer';
@@ -65,6 +64,7 @@ export const createStyleTransferSlice: StateCreator<
     });
     void get().loadStyledImage();
   },
+
   setStyleImageFile: async (styleImageFile?: File): Promise<void> => {
     if (styleImageFile) {
       set({
@@ -77,6 +77,7 @@ export const createStyleTransferSlice: StateCreator<
       void get().loadStyledImage();
     }
   },
+
   loadStyledImage: async (): Promise<void> => {
     get().abortStyleTransfer();
     const {originalImage, styleImageFile, styleTransferModel, styledImageBlob, auth} = get();
@@ -108,7 +109,9 @@ export const createStyleTransferSlice: StateCreator<
         styleTransferModel,
         auth,
         (key, progress) => {
-          set({styleTransferDownloadTip: formatFetchProgress(key, progress)});
+          set({
+            styleTransferDownloadTip: formatFetchProgress(key, progress),
+          });
         },
         styleTransferAbortController.signal
       );
@@ -117,13 +120,10 @@ export const createStyleTransferSlice: StateCreator<
         styledImageBlob,
       });
     } catch (error) {
-      if (error instanceof ForceLogoutError) {
-        void get().logout(error.reason);
+      if (isAbortError(error)) {
         return;
       }
-      if (!isAbortError(error)) {
-        throw error;
-      }
+      throw error;
     } finally {
       styleImage?.close();
       if (get().styleTransferAbortController === styleTransferAbortController) {
@@ -135,6 +135,7 @@ export const createStyleTransferSlice: StateCreator<
       }
     }
   },
+
   abortStyleTransfer: (): void => {
     get().styleTransferAbortController?.abort();
   },

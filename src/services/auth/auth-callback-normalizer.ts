@@ -16,12 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {saveAuthErrorData, saveIdToken} from '~/src/services/db/auth-db';
+import {AuthErrorType} from '~/src/services/auth/types';
+import {saveAuthErrorData, saveAuthSession} from '~/src/services/db/auth-db';
+import {fromEpochSeconds} from '~/src/utils/date';
 
 interface InjectedAuthCallback {
-  idToken?: string | null;
-  error?: string | null;
-  errorContext?: Record<string, unknown> | null;
+  idToken: string | null;
+  refreshExpiresAt: number | null;
+  error: string | null;
+  errorContext: Record<string, unknown> | null;
 }
 
 // CF Pages Function fallback (iOS/iPadOS, no SW) injects the auth result as a
@@ -45,16 +48,19 @@ export async function normalizeInjectedAuthCallback(): Promise<void> {
   if (!data) {
     return;
   }
-
-  if (data.idToken) {
-    await saveIdToken(data.idToken);
-  }
-  if (data.error) {
-    await saveAuthErrorData({context: data.errorContext ?? undefined});
-    const url = new URL(window.location.href);
-    url.searchParams.set('error', data.error);
-    window.history.replaceState({}, '', url);
-  } else {
+  const {idToken, refreshExpiresAt, error, errorContext} = data;
+  if (idToken && refreshExpiresAt) {
+    await saveAuthSession({
+      idToken,
+      refreshExpiresAt: fromEpochSeconds(refreshExpiresAt),
+    });
     window.history.replaceState({}, '', '/');
+  } else {
+    if (errorContext) {
+      await saveAuthErrorData({context: errorContext});
+    }
+    const url = new URL(window.location.href);
+    url.searchParams.set('error', error ?? AuthErrorType.LoginResultMissing);
+    window.history.replaceState({}, '', url);
   }
 }

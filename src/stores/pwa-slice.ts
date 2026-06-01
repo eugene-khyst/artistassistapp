@@ -43,6 +43,7 @@ export const createPwaSlice: StateCreator<PwaSlice, [], [], PwaSlice> = (set, ge
       serviceWorkerUpdatePostponed: false,
     });
   },
+
   updateServiceWorker: () => {
     const {serviceWorkerRegistration} = get();
     if (serviceWorkerRegistration?.waiting) {
@@ -55,11 +56,13 @@ export const createPwaSlice: StateCreator<PwaSlice, [], [], PwaSlice> = (set, ge
       serviceWorkerUpdatePostponed: false,
     });
   },
+
   postponeServiceWorkerUpdate: () => {
     set({
       serviceWorkerUpdatePostponed: true,
     });
   },
+
   setBeforeInstallPromptEvent: (
     beforeInstallPromptEvent: BeforeInstallPromptEvent | null
   ): void => {

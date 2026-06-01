@@ -28,6 +28,7 @@ export const onRequestPost: PagesFunction<Env> = async context => {
   const formData = await context.request.formData();
 
   const idToken = formData.get('id_token') as string | null;
+  const refreshExpiresAt = formData.get('refresh_expires_at') as string | null;
   const error = formData.get('error') as string | null;
   const errorContext = formData.get('error_context') as string | null;
 
@@ -42,6 +43,7 @@ export const onRequestPost: PagesFunction<Env> = async context => {
 
   const data = {
     idToken,
+    refreshExpiresAt: refreshExpiresAt ? Number(refreshExpiresAt) : null,
     error,
     errorContext: parsedErrorContext,
   };
