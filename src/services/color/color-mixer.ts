@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {getSortHueKey, getSortLightness} from '~/src/services/color/colors';
-import {gcd} from '~/src/services/math/gcd';
-import type {ExtractorComparator} from '~/src/utils/array';
-import {createExtractorComparator, unique} from '~/src/utils/array';
+import {getSortHueKey, getSortLightness} from '@/services/color/colors';
+import {gcd} from '@/services/math/gcd';
+import type {ExtractorComparator} from '@/utils/array';
+import {createExtractorComparator, unique} from '@/utils/array';
 import {
   by,
   byDate,
@@ -29,9 +29,9 @@ import {
   type Comparator,
   compare,
   reverseOrder,
-} from '~/src/utils/comparator';
-import type {Fraction} from '~/src/utils/fraction';
-import {not} from '~/src/utils/predicate';
+} from '@/utils/comparator';
+import type {Fraction} from '@/utils/fraction';
+import {not} from '@/utils/predicate';
 
 import {Reflectance} from './space/reflectance';
 import type {RgbTuple} from './space/rgb';

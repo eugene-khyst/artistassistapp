@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {dilationRenderPasses} from '~/src/services/image/filter/dilation-webgl';
-import {gaussianBlurRenderPasses} from '~/src/services/image/filter/gaussian-blur-webgl';
-import type {KernelSize} from '~/src/services/image/filter/types';
-import type {RenderPass} from '~/src/services/image/filter/webgl-renderer';
-import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
-import type {DrawImageSource} from '~/src/utils/graphics';
-import {copyOffscreenCanvas} from '~/src/utils/graphics';
-import type {Size} from '~/src/utils/types';
+import {dilationRenderPasses} from '@/services/image/filter/dilation-webgl';
+import {gaussianBlurRenderPasses} from '@/services/image/filter/gaussian-blur-webgl';
+import type {KernelSize} from '@/services/image/filter/types';
+import type {RenderPass} from '@/services/image/filter/webgl-renderer';
+import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
+import type {DrawImageSource} from '@/utils/graphics';
+import {copyOffscreenCanvas} from '@/utils/graphics';
+import type {Size} from '@/utils/types';
 
 import dilationFragmentShaderSource from './glsl/dilation.glsl';
 import gaussianBlurFragmentShaderSource from './glsl/gaussian-blur.glsl';

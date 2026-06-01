@@ -19,7 +19,7 @@
 import type {Remote} from 'comlink';
 import {wrap} from 'comlink';
 
-import {abortablePromise, isAbortError} from '~/src/utils/promise';
+import {abortablePromise, isAbortError} from '@/utils/promise';
 
 export class WorkerManager<T> {
   private worker: Worker | null = null;

@@ -18,16 +18,16 @@
 
 import type {StateCreator} from 'zustand';
 
-import {hasAccessTo} from '~/src/services/auth/utils';
-import {fileToImageFile} from '~/src/services/image/image-file';
-import {transferStyle} from '~/src/services/image/style-transfer';
-import type {OnnxModel} from '~/src/services/ml/types';
-import type {AppSlice} from '~/src/stores/app-slice';
-import type {AuthSlice} from '~/src/stores/auth-slice';
-import type {OriginalImageSlice} from '~/src/stores/original-image-slice';
-import {formatFetchProgress} from '~/src/utils/fetch';
-import {imageBitmapToBlob} from '~/src/utils/graphics';
-import {isAbortError} from '~/src/utils/promise';
+import {hasAccessTo} from '@/services/auth/utils';
+import {fileToImageFile} from '@/services/image/image-file';
+import {transferStyle} from '@/services/image/style-transfer';
+import type {OnnxModel} from '@/services/ml/types';
+import type {AppSlice} from '@/stores/app-slice';
+import type {AuthSlice} from '@/stores/auth-slice';
+import type {OriginalImageSlice} from '@/stores/original-image-slice';
+import {formatFetchProgress} from '@/utils/fetch';
+import {imageBitmapToBlob} from '@/utils/graphics';
+import {isAbortError} from '@/utils/promise';
 
 export interface StyleTransferSlice {
   styleTransferModel?: OnnxModel;

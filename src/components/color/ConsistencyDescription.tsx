@@ -23,10 +23,10 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {Space, Tooltip, Typography} from 'antd';
 import type {ReactNode} from 'react';
 
-import {isFullStrength} from '~/src/services/color/color-mixer';
-import {ColorType} from '~/src/services/color/types';
-import {formatFraction, formatRatio} from '~/src/utils/format';
-import type {Fraction} from '~/src/utils/fraction';
+import {isFullStrength} from '@/services/color/color-mixer';
+import {ColorType} from '@/services/color/types';
+import {formatFraction, formatRatio} from '@/utils/format';
+import type {Fraction} from '@/utils/fraction';
 
 interface ConsistencyDescriptionConfig {
   fullStrength: {

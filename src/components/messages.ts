@@ -19,10 +19,10 @@
 import type {MessageDescriptor} from '@lingui/core';
 import {defineMessage} from '@lingui/core/macro';
 
-import {ColorMixtureSort} from '~/src/services/color/color-mixer';
-import {ColorSort} from '~/src/services/color/colors';
-import {ColorType} from '~/src/services/color/types';
-import {TabKey} from '~/src/tabs';
+import {ColorMixtureSort} from '@/services/color/color-mixer';
+import {ColorSort} from '@/services/color/colors';
+import {ColorType} from '@/services/color/types';
+import {TabKey} from '@/tabs';
 
 export const TAB_LABELS: Record<TabKey, MessageDescriptor> = {
   [TabKey.ColorSet]: defineMessage`Color set`,

@@ -21,9 +21,9 @@ import {App} from 'antd';
 import type {PropsWithChildren} from 'react';
 import {useEffect, useEffectEvent} from 'react';
 
-import {ForceLogoutError} from '~/src/services/auth/types';
-import {useAppStore} from '~/src/stores/app-store';
-import {getErrorMessage} from '~/src/utils/error';
+import {ForceLogoutError} from '@/services/auth/types';
+import {useAppStore} from '@/stores/app-store';
+import {getErrorMessage} from '@/utils/error';
 
 export function UnhandledRejectionHandler({children}: Readonly<PropsWithChildren>) {
   const {notification} = App.useApp();

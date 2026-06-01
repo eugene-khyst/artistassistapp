@@ -18,8 +18,8 @@
 
 import {useMemo} from 'react';
 
-import type {ImageFile} from '~/src/services/image/image-file';
-import {arrayBufferToBlob} from '~/src/utils/blob';
+import type {ImageFile} from '@/services/image/image-file';
+import {arrayBufferToBlob} from '@/utils/blob';
 
 export function useImageFileToBlob(imageFile?: ImageFile | null): Blob | undefined {
   return useMemo(

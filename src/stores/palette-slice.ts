@@ -18,14 +18,14 @@
 
 import type {StateCreator} from 'zustand';
 
-import type {ColorMixture, ColorType, SamplingArea} from '~/src/services/color/types';
+import type {ColorMixture, ColorType, SamplingArea} from '@/services/color/types';
 import {
   deleteColorMixture,
   getColorMixtures,
   saveColorMixture,
-} from '~/src/services/db/color-mixture-db';
-import {computeIfAbsentInMap} from '~/src/utils/map';
-import {createAbortError} from '~/src/utils/promise';
+} from '@/services/db/color-mixture-db';
+import {computeIfAbsentInMap} from '@/utils/map';
+import {createAbortError} from '@/utils/promise';
 
 import type {ColorMixerSlice} from './color-mixer-slice';
 import type {OriginalImageSlice} from './original-image-slice';

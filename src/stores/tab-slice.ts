@@ -18,9 +18,9 @@
 
 import type {StateCreator} from 'zustand';
 
-import type {AppSlice} from '~/src/stores/app-slice';
-import {TabKey} from '~/src/tabs';
-import {blurFocusedElementIn} from '~/src/utils/focus';
+import type {AppSlice} from '@/stores/app-slice';
+import {TabKey} from '@/tabs';
+import {blurFocusedElementIn} from '@/utils/focus';
 
 import type {BlurredImagesSlice} from './blurred-images-slice';
 import type {OutlineImageSlice} from './outline-image-slice';

@@ -19,8 +19,8 @@
 import type {Locale as AntdLocale} from 'antd/es/locale';
 import type {StateCreator} from 'zustand';
 
-import {loadAntdLocale, type Locale, setCurrentLocale} from '~/src/i18n';
-import type {AppSlice} from '~/src/stores/app-slice';
+import {loadAntdLocale, type Locale, setCurrentLocale} from '@/i18n';
+import type {AppSlice} from '@/stores/app-slice';
 
 export interface LocaleSlice {
   locale?: Locale;

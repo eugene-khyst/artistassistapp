@@ -19,9 +19,9 @@
 import type {DeleteDBCallbacks, IDBPDatabase, IDBPTransaction, StoreNames} from 'idb';
 import {deleteDB, openDB} from 'idb';
 
-import {applyMigrations} from '~/src/services/db/migrations';
-import {type ArtistAssistAppDB, OBJECT_STORE_NAMES} from '~/src/services/db/schema';
-import {withWebLock} from '~/src/utils/web-lock';
+import {applyMigrations} from '@/services/db/migrations';
+import {type ArtistAssistAppDB, OBJECT_STORE_NAMES} from '@/services/db/schema';
+import {withWebLock} from '@/utils/web-lock';
 
 const DB_NAME = 'artistassistapp';
 const DB_VERSION = 8;

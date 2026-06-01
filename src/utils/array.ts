@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {by, type Comparator} from '~/src/utils/comparator';
+import {by, type Comparator} from '@/utils/comparator';
 
 export type TypedArray =
   | Int8Array

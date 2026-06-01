@@ -19,9 +19,9 @@
 import type {UseQueryResult} from '@tanstack/react-query';
 import {useQuery} from '@tanstack/react-query';
 
-import {fetchOnnxModels} from '~/src/services/ml/models';
-import type {OnnxModel, OnnxModelType} from '~/src/services/ml/types';
-import {indexById} from '~/src/utils/map';
+import {fetchOnnxModels} from '@/services/ml/models';
+import type {OnnxModel, OnnxModelType} from '@/services/ml/types';
+import {indexById} from '@/utils/map';
 
 interface Result {
   isLoading: boolean;

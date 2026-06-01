@@ -22,12 +22,12 @@ import {Button, Dropdown, Form, Space} from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import {useCallback, useMemo} from 'react';
 
-import {ColorPicker} from '~/src/components/color/ColorPicker';
-import {COLOR_PICKER_PRESET_LABELS} from '~/src/components/messages';
-import {COLOR_MIXING, PAPER_WHITE_HEX} from '~/src/services/color/color-mixer';
-import {isPastel} from '~/src/services/color/colors';
-import {Layering} from '~/src/services/color/types';
-import {useAppStore} from '~/src/stores/app-store';
+import {ColorPicker} from '@/components/color/ColorPicker';
+import {COLOR_PICKER_PRESET_LABELS} from '@/components/messages';
+import {COLOR_MIXING, PAPER_WHITE_HEX} from '@/services/color/color-mixer';
+import {isPastel} from '@/services/color/colors';
+import {Layering} from '@/services/color/types';
+import {useAppStore} from '@/stores/app-store';
 
 interface Props {
   underlayerHex: string | null;

@@ -21,7 +21,7 @@ import type {ButtonProps} from 'antd/lib';
 import type {PropsWithChildren, ReactNode} from 'react';
 import {useState} from 'react';
 
-import {QRScannerModal} from '~/src/components/qr/QRScannerModal';
+import {QRScannerModal} from '@/components/qr/QRScannerModal';
 
 type Props = ButtonProps & {
   modalContent?: ReactNode;

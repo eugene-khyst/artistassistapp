@@ -21,9 +21,9 @@ import {Plural, Trans, useLingui} from '@lingui/react/macro';
 import {Button, Modal, Space, Spin, Typography} from 'antd';
 import {useState} from 'react';
 
-import {QRCode} from '~/src/components/qr/QRCode';
-import {useCountdownUntil} from '~/src/hooks/useCountdownUntil';
-import {useAppStore} from '~/src/stores/app-store';
+import {QRCode} from '@/components/qr/QRCode';
+import {useCountdownUntil} from '@/hooks/useCountdownUntil';
+import {useAppStore} from '@/stores/app-store';
 
 interface LoginQRModalProps {
   loading: boolean;

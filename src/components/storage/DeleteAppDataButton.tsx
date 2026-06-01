@@ -21,7 +21,7 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Popconfirm} from 'antd';
 import {useState} from 'react';
 
-import {deleteAppData} from '~/src/utils/storage';
+import {deleteAppData} from '@/utils/storage';
 
 export function DeleteAppDataButton() {
   const {t} = useLingui();

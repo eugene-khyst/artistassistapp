@@ -19,23 +19,23 @@
 import {create} from 'zustand';
 import {subscribeWithSelector} from 'zustand/middleware';
 
-import type {AuthSlice} from '~/src/stores/auth-slice';
-import {createAuthSlice} from '~/src/stores/auth-slice';
+import type {AuthSlice} from '@/stores/auth-slice';
+import {createAuthSlice} from '@/stores/auth-slice';
 import {
   type ColorMatchImageSlice,
   createColorMatchImageSlice,
-} from '~/src/stores/color-match-image-slice';
-import type {ColorMixingChartSlice} from '~/src/stores/color-mixing-chart-slice';
-import {createColorMixingChartSlice} from '~/src/stores/color-mixing-chart-slice';
-import {createLocaleSlice, type LocaleSlice} from '~/src/stores/locale-slice';
+} from '@/stores/color-match-image-slice';
+import type {ColorMixingChartSlice} from '@/stores/color-mixing-chart-slice';
+import {createColorMixingChartSlice} from '@/stores/color-mixing-chart-slice';
+import {createLocaleSlice, type LocaleSlice} from '@/stores/locale-slice';
 import {
   createPerspectiveCorrectionSlice,
   type PerspectiveCorrectionSlice,
-} from '~/src/stores/perspective-correction-slice';
-import type {PosterizedImageSlice} from '~/src/stores/posterized-image-slice';
-import {createPosterizedImageSlice} from '~/src/stores/posterized-image-slice';
-import type {PwaSlice} from '~/src/stores/pwa-slice';
-import {createPwaSlice} from '~/src/stores/pwa-slice';
+} from '@/stores/perspective-correction-slice';
+import type {PosterizedImageSlice} from '@/stores/posterized-image-slice';
+import {createPosterizedImageSlice} from '@/stores/posterized-image-slice';
+import type {PwaSlice} from '@/stores/pwa-slice';
+import {createPwaSlice} from '@/stores/pwa-slice';
 
 import {type AppSlice, createAppSlice} from './app-slice';
 import {

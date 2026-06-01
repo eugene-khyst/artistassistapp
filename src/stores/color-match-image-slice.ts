@@ -18,9 +18,9 @@
 
 import type {StateCreator} from 'zustand';
 
-import type {RgbTuple} from '~/src/services/color/space/rgb';
-import {getColorMatchImage} from '~/src/services/image/color-match';
-import type {OriginalImageSlice} from '~/src/stores/original-image-slice';
+import type {RgbTuple} from '@/services/color/space/rgb';
+import {getColorMatchImage} from '@/services/image/color-match';
+import type {OriginalImageSlice} from '@/stores/original-image-slice';
 
 export interface ColorMatchImageSlice {
   colorMatchImage: ImageBitmap | null;

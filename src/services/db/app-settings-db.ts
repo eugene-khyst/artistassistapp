@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {AppSettings} from '~/src/services/settings/types';
+import type {AppSettings} from '@/services/settings/types';
 
 import {dbPromise} from './db';
 

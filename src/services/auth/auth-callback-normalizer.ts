@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {AuthErrorType} from '~/src/services/auth/types';
-import {saveAuthErrorData, saveAuthSession} from '~/src/services/db/auth-db';
-import {fromEpochSeconds} from '~/src/utils/date';
+import {AuthErrorType} from '@/services/auth/types';
+import {saveAuthErrorData, saveAuthSession} from '@/services/db/auth-db';
+import {fromEpochSeconds} from '@/utils/date';
 
 interface InjectedAuthCallback {
   idToken: string | null;

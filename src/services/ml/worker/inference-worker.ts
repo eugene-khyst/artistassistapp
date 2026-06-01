@@ -20,6 +20,6 @@
 
 import * as Comlink from 'comlink';
 
-import {InferenceRunner} from '~/src/services/ml/inference';
+import {InferenceRunner} from '@/services/ml/inference';
 
 Comlink.expose(new InferenceRunner());

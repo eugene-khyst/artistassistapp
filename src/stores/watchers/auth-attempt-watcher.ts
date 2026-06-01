@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {getAuthSession} from '~/src/services/db/auth-db';
-import {useAppStore} from '~/src/stores/app-store';
+import {getAuthSession} from '@/services/db/auth-db';
+import {useAppStore} from '@/stores/app-store';
 
 const TIMEOUT = 10 * 60 * 1000;
 const POLL_INTERVAL = 1000;

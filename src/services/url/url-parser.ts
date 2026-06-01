@@ -21,10 +21,10 @@ import {
   type ColorType,
   CUSTOM_COLOR_SET,
   NEW_COLOR_SET,
-} from '~/src/services/color/types';
-import type {UrlParsingResult} from '~/src/services/url/types';
-import {TabKey} from '~/src/tabs';
-import {replaceHistory} from '~/src/utils/history';
+} from '@/services/color/types';
+import type {UrlParsingResult} from '@/services/url/types';
+import {TabKey} from '@/tabs';
+import {replaceHistory} from '@/utils/history';
 
 const URL_PARAM_COLOR_TYPE = 't';
 const URL_PARAM_COLOR_BRANDS = 'b';

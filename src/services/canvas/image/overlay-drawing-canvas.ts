@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {invertColorsWebGL} from '~/src/services/image/filter/invert-colors-webgl';
-import type {Vector} from '~/src/services/math/geometry';
-import type {DrawImageSource} from '~/src/utils/graphics';
-import {IMAGE_SIZE} from '~/src/utils/graphics';
+import {invertColorsWebGL} from '@/services/image/filter/invert-colors-webgl';
+import type {Vector} from '@/services/math/geometry';
+import type {DrawImageSource} from '@/utils/graphics';
+import {IMAGE_SIZE} from '@/utils/graphics';
 
 import type {ZoomableImageCanvasProps} from './zoomable-image-canvas';
 import {ZoomableImageCanvas} from './zoomable-image-canvas';

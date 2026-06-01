@@ -18,13 +18,13 @@
 
 import type {StateCreator} from 'zustand';
 
-import {hasAccessTo} from '~/src/services/auth/utils';
-import {fillBackgroundWithColor, removeBackground} from '~/src/services/image/background-removal';
-import type {OnnxModel} from '~/src/services/ml/types';
-import type {AuthSlice} from '~/src/stores/auth-slice';
-import {formatFetchProgress} from '~/src/utils/fetch';
-import {copyOffscreenCanvas, offscreenCanvasToBlob} from '~/src/utils/graphics';
-import {isAbortError} from '~/src/utils/promise';
+import {hasAccessTo} from '@/services/auth/utils';
+import {fillBackgroundWithColor, removeBackground} from '@/services/image/background-removal';
+import type {OnnxModel} from '@/services/ml/types';
+import type {AuthSlice} from '@/stores/auth-slice';
+import {formatFetchProgress} from '@/utils/fetch';
+import {copyOffscreenCanvas, offscreenCanvasToBlob} from '@/utils/graphics';
+import {isAbortError} from '@/utils/promise';
 
 export interface BackgroundRemovalSlice {
   imageFileToRemoveBackground: File | null;

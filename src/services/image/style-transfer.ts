@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Authentication} from '~/src/services/auth/types';
-import {transformImage} from '~/src/services/ml/image-transformer';
-import type {OnnxModel} from '~/src/services/ml/types';
-import type {FetchProgressCallback} from '~/src/utils/fetch';
-import type {DrawImageSource} from '~/src/utils/graphics';
+import type {Authentication} from '@/services/auth/types';
+import {transformImage} from '@/services/ml/image-transformer';
+import type {OnnxModel} from '@/services/ml/types';
+import type {FetchProgressCallback} from '@/utils/fetch';
+import type {DrawImageSource} from '@/utils/graphics';
 
 export async function transferStyle(
   images: DrawImageSource[],

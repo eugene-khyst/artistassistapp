@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Locale} from '~/src/i18n';
-import type {ImageFile} from '~/src/services/image/image-file';
-import type {TabKey} from '~/src/tabs';
+import type {Locale} from '@/i18n';
+import type {ImageFile} from '@/services/image/image-file';
+import type {TabKey} from '@/tabs';
 
 export enum ColorPickerSort {
   BySimilarity = 1,

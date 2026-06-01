@@ -19,13 +19,13 @@
 import {useLingui} from '@lingui/react/macro';
 import {Col, Drawer, Grid, Row} from 'antd';
 
-import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
-import {COLOR_MIXTURES_COMPARATORS, ColorMixtureSort} from '~/src/services/color/color-mixer';
-import {isRgbDark, rgbToHex} from '~/src/services/color/space/rgb';
-import type {ColorMixture} from '~/src/services/color/types';
-import {useAppStore} from '~/src/stores/app-store';
-import {decorateSortUndecorate} from '~/src/utils/array';
-import type {CssVariables} from '~/src/utils/types';
+import {useCreateObjectUrl} from '@/hooks/useCreateObjectUrl';
+import {COLOR_MIXTURES_COMPARATORS, ColorMixtureSort} from '@/services/color/color-mixer';
+import {isRgbDark, rgbToHex} from '@/services/color/space/rgb';
+import type {ColorMixture} from '@/services/color/types';
+import {useAppStore} from '@/stores/app-store';
+import {decorateSortUndecorate} from '@/utils/array';
+import type {CssVariables} from '@/utils/types';
 
 import styles from './ColorSwatchDrawer.module.css';
 

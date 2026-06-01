@@ -19,12 +19,12 @@
 import {useQueries} from '@tanstack/react-query';
 import {useCallback, useMemo} from 'react';
 
-import {fetchStandardColorSets, indexStandardColorSets} from '~/src/services/color/colors';
+import {fetchStandardColorSets, indexStandardColorSets} from '@/services/color/colors';
 import type {
   ColorBrandDefinition,
   ColorType,
   StandardColorSetDefinition,
-} from '~/src/services/color/types';
+} from '@/services/color/types';
 
 interface Result {
   isLoading: boolean;

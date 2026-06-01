@@ -20,16 +20,16 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {App, Col, Flex, Row, Typography} from 'antd';
 import {useEffect, useMemo} from 'react';
 
-import {AdCard} from '~/src/components/ad/AdCard';
-import {FileSelect} from '~/src/components/file/FileSelect';
-import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
-import {usePersistentStorage} from '~/src/hooks/usePersistentStorage';
-import {useSampleImages} from '~/src/hooks/useSampleImages';
-import type {ImageFile} from '~/src/services/image/image-file';
-import {fileToImageFile} from '~/src/services/image/image-file';
-import type {SampleImageDefinition} from '~/src/services/image/sample-images';
-import {useAppStore} from '~/src/stores/app-store';
-import {byNumber, reverseOrder} from '~/src/utils/comparator';
+import {AdCard} from '@/components/ad/AdCard';
+import {FileSelect} from '@/components/file/FileSelect';
+import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {usePersistentStorage} from '@/hooks/usePersistentStorage';
+import {useSampleImages} from '@/hooks/useSampleImages';
+import type {ImageFile} from '@/services/image/image-file';
+import {fileToImageFile} from '@/services/image/image-file';
+import type {SampleImageDefinition} from '@/services/image/sample-images';
+import {useAppStore} from '@/stores/app-store';
+import {byNumber, reverseOrder} from '@/utils/comparator';
 
 import {RecentImageCard} from './image/RecentImageCard';
 import {SampleImageCard} from './image/SampleImageCard';

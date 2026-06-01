@@ -16,16 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Authentication} from '~/src/services/auth/types';
-import {bilinearInterpolation} from '~/src/services/image/filter/interpolation';
-import {computeOtsuThresholdFromHistogram} from '~/src/services/image/filter/otsu-threshold';
-import {orderCornersClockwise, Vector} from '~/src/services/math/geometry';
-import {imageBitmapToImageData} from '~/src/services/ml/image-transformer';
-import {type Float32Tensor, imageDataToFloat32Tensor} from '~/src/services/ml/tensor';
-import type {OnnxModel} from '~/src/services/ml/types';
-import {runInferenceWorker} from '~/src/services/ml/worker/inference-worker-manager';
-import type {FetchProgressCallback} from '~/src/utils/fetch';
-import {clamp} from '~/src/utils/math-utils';
+import type {Authentication} from '@/services/auth/types';
+import {bilinearInterpolation} from '@/services/image/filter/interpolation';
+import {computeOtsuThresholdFromHistogram} from '@/services/image/filter/otsu-threshold';
+import {orderCornersClockwise, Vector} from '@/services/math/geometry';
+import {imageBitmapToImageData} from '@/services/ml/image-transformer';
+import {type Float32Tensor, imageDataToFloat32Tensor} from '@/services/ml/tensor';
+import type {OnnxModel} from '@/services/ml/types';
+import {runInferenceWorker} from '@/services/ml/worker/inference-worker-manager';
+import type {FetchProgressCallback} from '@/utils/fetch';
+import {clamp} from '@/utils/math-utils';
 
 const HEATMAP_THRESHOLD = 0.3;
 const MIN_VERTEX_COUNT = 3;

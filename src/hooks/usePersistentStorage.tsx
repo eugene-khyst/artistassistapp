@@ -22,8 +22,8 @@ import {App, Button} from 'antd';
 import type {ReactNode} from 'react';
 import {useCallback} from 'react';
 
-import {useInstall} from '~/src/hooks/useInstall';
-import {requestPersistentStorage} from '~/src/utils/storage';
+import {useInstall} from '@/hooks/useInstall';
+import {requestPersistentStorage} from '@/utils/storage';
 
 const NOTIFICATION_KEY = 'persistent-storage';
 

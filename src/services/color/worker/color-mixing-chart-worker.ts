@@ -20,6 +20,6 @@
 
 import * as Comlink from 'comlink';
 
-import {ColorMixingChart} from '~/src/services/color/color-mixing-chart';
+import {ColorMixingChart} from '@/services/color/color-mixing-chart';
 
 Comlink.expose(new ColorMixingChart());

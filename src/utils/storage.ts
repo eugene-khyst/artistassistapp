@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {deleteDatabase} from '~/src/services/db/db';
+import {deleteDatabase} from '@/services/db/db';
 
 export async function requestPersistentStorage(): Promise<boolean> {
   if (

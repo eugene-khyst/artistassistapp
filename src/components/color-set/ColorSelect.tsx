@@ -24,16 +24,12 @@ import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import type {MenuProps} from 'antd/lib';
 import {useMemo, useState} from 'react';
 
-import {ColorLabel} from '~/src/components/color/ColorLabel';
-import {COLOR_SORT_LABELS} from '~/src/components/messages';
-import {filterSelectOptions} from '~/src/components/utils';
-import {
-  COLOR_DEFINITION_COMPARATORS,
-  ColorSort,
-  formatColorLabel,
-} from '~/src/services/color/colors';
-import type {ColorBrandDefinition, ColorDefinition} from '~/src/services/color/types';
-import {decorateSortUndecorate} from '~/src/utils/array';
+import {ColorLabel} from '@/components/color/ColorLabel';
+import {COLOR_SORT_LABELS} from '@/components/messages';
+import {filterSelectOptions} from '@/components/utils';
+import {COLOR_DEFINITION_COMPARATORS, ColorSort, formatColorLabel} from '@/services/color/colors';
+import type {ColorBrandDefinition, ColorDefinition} from '@/services/color/types';
+import {decorateSortUndecorate} from '@/utils/array';
 
 const showSearch = {filterOption: filterSelectOptions};
 

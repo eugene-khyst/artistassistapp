@@ -19,7 +19,7 @@
 import {Trans} from '@lingui/react/macro';
 import {Button} from 'antd';
 
-import {PATREON_URL} from '~/src/config';
+import {PATREON_URL} from '@/config';
 
 export function JoinButton() {
   return (

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {RgbTuple} from '~/src/services/color/space/rgb';
+import type {RgbTuple} from '@/services/color/space/rgb';
 
 export function kelvinToRgb(tmp: number): RgbTuple {
   tmp = tmp / 100;

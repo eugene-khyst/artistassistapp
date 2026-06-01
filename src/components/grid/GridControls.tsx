@@ -23,13 +23,13 @@ import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import type {SpaceProps} from 'antd/lib';
 import {useContext, useEffect, useState} from 'react';
 
-import {DEFAULT_GRID_SETTINGS, setGrid} from '~/src/components/grid/grid';
-import {TabContext} from '~/src/contexts/TabContext';
-import {type GridCanvas} from '~/src/services/canvas/image/grid-canvas';
-import type {AppSettings, GridSettings} from '~/src/services/settings/types';
-import {GridMode} from '~/src/services/settings/types';
-import {useAppStore} from '~/src/stores/app-store';
-import type {TabKey} from '~/src/tabs';
+import {DEFAULT_GRID_SETTINGS, setGrid} from '@/components/grid/grid';
+import {TabContext} from '@/contexts/TabContext';
+import {type GridCanvas} from '@/services/canvas/image/grid-canvas';
+import type {AppSettings, GridSettings} from '@/services/settings/types';
+import {GridMode} from '@/services/settings/types';
+import {useAppStore} from '@/stores/app-store';
+import type {TabKey} from '@/tabs';
 
 import styles from './GridControls.module.css';
 

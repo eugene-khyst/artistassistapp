@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Size} from '~/src/utils/types';
+import type {Size} from '@/utils/types';
 
 export enum PageOrientation {
   Portrait = 'portrait',

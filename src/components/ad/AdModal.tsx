@@ -20,12 +20,12 @@ import {CloseOutlined} from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
 import {Button, Modal} from 'antd';
 
-import {Ad} from '~/src/components/ad/Ad';
-import {useAds} from '~/src/hooks/useAds';
-import {useCountdown} from '~/src/hooks/useCountdown';
-import {useDelayedInterval} from '~/src/hooks/useDelayedInterval';
-import type {AdDefinition} from '~/src/services/ads/types';
-import {useAppStore} from '~/src/stores/app-store';
+import {Ad} from '@/components/ad/Ad';
+import {useAds} from '@/hooks/useAds';
+import {useCountdown} from '@/hooks/useCountdown';
+import {useDelayedInterval} from '@/hooks/useDelayedInterval';
+import type {AdDefinition} from '@/services/ads/types';
+import {useAppStore} from '@/stores/app-store';
 
 const PLACEMENT = 'popup';
 const DEFAULT_PLACEMENT = 'all';

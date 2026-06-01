@@ -21,13 +21,13 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Card, Col, Row, Space, Typography} from 'antd';
 import {memo} from 'react';
 
-import {AddToPaletteButton} from '~/src/components/color/AddToPaletteButton';
-import {ColorSquare} from '~/src/components/color/ColorSquare';
-import {COLOR_MIXING} from '~/src/services/color/color-mixer';
-import {getColorId, isPastel} from '~/src/services/color/colors';
-import {rgbToHex} from '~/src/services/color/space/rgb';
-import {type ColorMixture, Layering, type SimilarColor} from '~/src/services/color/types';
-import {useAppStore} from '~/src/stores/app-store';
+import {AddToPaletteButton} from '@/components/color/AddToPaletteButton';
+import {ColorSquare} from '@/components/color/ColorSquare';
+import {COLOR_MIXING} from '@/services/color/color-mixer';
+import {getColorId, isPastel} from '@/services/color/colors';
+import {rgbToHex} from '@/services/color/space/rgb';
+import {type ColorMixture, Layering, type SimilarColor} from '@/services/color/types';
+import {useAppStore} from '@/stores/app-store';
 
 import {ColorMixtureDescription} from './ColorMixtureDescription';
 

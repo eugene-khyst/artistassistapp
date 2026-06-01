@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {AuthAttempt, AuthErrorData, AuthSession} from '~/src/services/auth/types';
+import type {AuthAttempt, AuthErrorData, AuthSession} from '@/services/auth/types';
 
 import {dbPromise} from './db';
 

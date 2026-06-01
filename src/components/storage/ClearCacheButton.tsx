@@ -21,7 +21,7 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Popconfirm} from 'antd';
 import {useState} from 'react';
 
-import {clearCache} from '~/src/utils/storage';
+import {clearCache} from '@/utils/storage';
 
 export function ClearCacheButton() {
   const {t} = useLingui();

@@ -18,8 +18,8 @@
 
 import type {StateCreator} from 'zustand';
 
-import type {BeforeInstallPromptEvent} from '~/src/pwa';
-import type {ServiceWorkerMessage} from '~/src/sw-message';
+import type {BeforeInstallPromptEvent} from '@/pwa';
+import type {ServiceWorkerMessage} from '@/sw-message';
 
 export interface PwaSlice {
   serviceWorkerRegistration: ServiceWorkerRegistration | null;

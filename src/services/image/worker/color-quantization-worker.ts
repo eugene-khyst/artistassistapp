@@ -20,6 +20,6 @@
 
 import * as Comlink from 'comlink';
 
-import {ColorQuantization} from '~/src/services/image/color-quantization';
+import {ColorQuantization} from '@/services/image/color-quantization';
 
 Comlink.expose(new ColorQuantization());

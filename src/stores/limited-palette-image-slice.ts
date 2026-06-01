@@ -19,16 +19,16 @@
 import {transfer} from 'comlink';
 import type {StateCreator} from 'zustand';
 
-import {filterColorSet} from '~/src/services/color/colors';
-import type {ColorId, ColorSet, ColorSetDefinition} from '~/src/services/color/types';
-import {CUSTOM_COLOR_SET, NEW_COLOR_SET} from '~/src/services/color/types';
-import {colorQuantizationWorker} from '~/src/services/image/worker/color-quantization-worker-manager';
-import type {ColorMixerSlice} from '~/src/stores/color-mixer-slice';
-import type {ColorSetSlice} from '~/src/stores/color-set-slice';
-import type {TabSlice} from '~/src/stores/tab-slice';
-import {TabKey} from '~/src/tabs';
-import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '~/src/utils/graphics';
-import {isAbortError} from '~/src/utils/promise';
+import {filterColorSet} from '@/services/color/colors';
+import type {ColorId, ColorSet, ColorSetDefinition} from '@/services/color/types';
+import {CUSTOM_COLOR_SET, NEW_COLOR_SET} from '@/services/color/types';
+import {colorQuantizationWorker} from '@/services/image/worker/color-quantization-worker-manager';
+import type {ColorMixerSlice} from '@/stores/color-mixer-slice';
+import type {ColorSetSlice} from '@/stores/color-set-slice';
+import type {TabSlice} from '@/stores/tab-slice';
+import {TabKey} from '@/tabs';
+import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
+import {isAbortError} from '@/utils/promise';
 
 import type {OriginalImageSlice} from './original-image-slice';
 

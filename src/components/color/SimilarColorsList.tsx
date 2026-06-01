@@ -19,20 +19,20 @@
 import {Space} from 'antd';
 import {useMemo} from 'react';
 
-import {PaletteColorMixtureCard} from '~/src/components/color/PaletteColorMixtureCard';
-import {SimilarColorCard} from '~/src/components/color/SimilarColorCard';
-import {EmptySimilarColors} from '~/src/components/empty/EmptySimilarColors';
-import {EmptyTargetColor} from '~/src/components/empty/EmptyTargetColor';
+import {PaletteColorMixtureCard} from '@/components/color/PaletteColorMixtureCard';
+import {SimilarColorCard} from '@/components/color/SimilarColorCard';
+import {EmptySimilarColors} from '@/components/empty/EmptySimilarColors';
+import {EmptyTargetColor} from '@/components/empty/EmptyTargetColor';
 import {
   COLOR_MIXING,
   compareSimilarColorsByColorMixturePartLength,
   compareSimilarColorsByConsistency,
   compareSimilarColorsBySimilarity,
-} from '~/src/services/color/color-mixer';
-import type {ColorMixture, SimilarColor} from '~/src/services/color/types';
-import {ColorPickerSort} from '~/src/services/settings/types';
-import {useAppStore} from '~/src/stores/app-store';
-import type {Comparator} from '~/src/utils/comparator';
+} from '@/services/color/color-mixer';
+import type {ColorMixture, SimilarColor} from '@/services/color/types';
+import {ColorPickerSort} from '@/services/settings/types';
+import {useAppStore} from '@/stores/app-store';
+import type {Comparator} from '@/utils/comparator';
 
 import styles from './SimilarColorsList.module.css';
 

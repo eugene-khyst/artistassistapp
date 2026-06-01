@@ -19,7 +19,7 @@
 import {Plural} from '@lingui/react/macro';
 import {Fragment} from 'react';
 
-import type {BrandColorCount} from '~/src/services/color/types';
+import type {BrandColorCount} from '@/services/color/types';
 
 interface Props {
   brandColorCounts: BrandColorCount[];

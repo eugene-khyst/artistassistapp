@@ -29,17 +29,17 @@ import {saveAs} from 'file-saver';
 import * as htmlToImage from 'html-to-image';
 import {Fragment, useRef, useState} from 'react';
 
-import {ColorLabel} from '~/src/components/color/ColorLabel';
-import {ColorSquare} from '~/src/components/color/ColorSquare';
-import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
-import {COLOR_SORT_LABELS} from '~/src/components/messages';
-import {isMixable, MIXABLE_COLOR_TYPES} from '~/src/services/color/color-mixer';
-import {ColorSort} from '~/src/services/color/colors';
-import {rgbToHex, WHITE_HEX} from '~/src/services/color/space/rgb';
-import type {ColorId} from '~/src/services/color/types';
-import {printImages} from '~/src/services/print/print';
-import {useAppStore} from '~/src/stores/app-store';
-import type {CssVariables} from '~/src/utils/types';
+import {ColorLabel} from '@/components/color/ColorLabel';
+import {ColorSquare} from '@/components/color/ColorSquare';
+import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {COLOR_SORT_LABELS} from '@/components/messages';
+import {isMixable, MIXABLE_COLOR_TYPES} from '@/services/color/color-mixer';
+import {ColorSort} from '@/services/color/colors';
+import {rgbToHex, WHITE_HEX} from '@/services/color/space/rgb';
+import type {ColorId} from '@/services/color/types';
+import {printImages} from '@/services/print/print';
+import {useAppStore} from '@/stores/app-store';
+import type {CssVariables} from '@/utils/types';
 
 import {ColorCascader} from './color-set/ColorCascader';
 import styles from './ColorMixingChart.module.css';

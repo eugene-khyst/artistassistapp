@@ -18,7 +18,7 @@
 
 import type {StateCreator} from 'zustand';
 
-import {getTonalValues} from '~/src/services/image/tonal-values';
+import {getTonalValues} from '@/services/image/tonal-values';
 
 import type {OriginalImageSlice} from './original-image-slice';
 

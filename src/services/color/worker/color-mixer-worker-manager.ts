@@ -18,7 +18,7 @@
 
 import {type Remote, wrap} from 'comlink';
 
-import type {ColorMixer} from '~/src/services/color/color-mixer';
+import type {ColorMixer} from '@/services/color/color-mixer';
 
 export const colorMixer: Remote<ColorMixer> = wrap(
   new Worker(new URL('./color-mixer-worker.ts', import.meta.url), {

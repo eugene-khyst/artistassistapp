@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {TypedArray} from '~/src/utils/array';
+import type {TypedArray} from '@/utils/array';
 
 const SINGULARITY_THRESHOLD = 1e-11;
 

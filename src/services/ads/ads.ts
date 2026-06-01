@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DATA_URL} from '~/src/config';
-import type {AdsDefinition} from '~/src/services/ads/types';
-import {fetchSWR} from '~/src/utils/fetch';
+import {DATA_URL} from '@/config';
+import type {AdsDefinition} from '@/services/ads/types';
+import {fetchSWR} from '@/utils/fetch';
 
 export async function fetchAds(): Promise<AdsDefinition> {
   const response = await fetchSWR(`${DATA_URL}/ads.json`);

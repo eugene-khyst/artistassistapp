@@ -21,11 +21,11 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Card, Popconfirm} from 'antd';
 import dayjs from 'dayjs';
 
-import {DATE_TIME_FORMAT} from '~/src/config';
-import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
-import {useImageFileToBlob} from '~/src/hooks/useImageFileToBlob';
-import type {ImageFile} from '~/src/services/image/image-file';
-import {useAppStore} from '~/src/stores/app-store';
+import {DATE_TIME_FORMAT} from '@/config';
+import {useCreateObjectUrl} from '@/hooks/useCreateObjectUrl';
+import {useImageFileToBlob} from '@/hooks/useImageFileToBlob';
+import type {ImageFile} from '@/services/image/image-file';
+import {useAppStore} from '@/stores/app-store';
 
 interface Props {
   imageFile: ImageFile;

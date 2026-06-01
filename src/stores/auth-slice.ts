@@ -27,23 +27,23 @@ import {
   requestLoginLink,
   requestLogout,
   verifyIdToken,
-} from '~/src/services/auth/auth-client';
-import type {AuthAttempt, Authentication, LoginLink} from '~/src/services/auth/types';
+} from '@/services/auth/auth-client';
+import type {AuthAttempt, Authentication, LoginLink} from '@/services/auth/types';
 import {
   AuthError,
   AuthErrorType,
   AuthNoticeType,
   TERMINAL_AUTH_ERRORS,
-} from '~/src/services/auth/types';
+} from '@/services/auth/types';
 import {
   deleteAuthAttempt,
   deleteAuthSession,
   getAuthAttempt,
   getAuthSession,
   saveAuthAttempt,
-} from '~/src/services/db/auth-db';
-import type {AppSlice} from '~/src/stores/app-slice';
-import {DisplayMode, getDisplayMode} from '~/src/utils/environment';
+} from '@/services/db/auth-db';
+import type {AppSlice} from '@/stores/app-slice';
+import {DisplayMode, getDisplayMode} from '@/utils/environment';
 
 // How long before expiry to refresh the ID token.
 export const AUTH_REFRESH_WINDOW_MS = 60 * 60 * 1000;

@@ -27,8 +27,8 @@ import {Button, Col, Flex, Form, Row, Select, Space, Tooltip, Typography} from '
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {Fragment, useEffect, useMemo, useState} from 'react';
 
-import {AdCard} from '~/src/components/ad/AdCard';
-import {UnderlayerColorPicker} from '~/src/components/color/UnderlayerColorPicker';
+import {AdCard} from '@/components/ad/AdCard';
+import {UnderlayerColorPicker} from '@/components/color/UnderlayerColorPicker';
 import {
   compareColorMixturesByConsistency,
   FRACTIONS,
@@ -37,12 +37,12 @@ import {
   makeColorMixture,
   MIXABLE_COLOR_TYPES,
   PAPER_WHITE_HEX,
-} from '~/src/services/color/color-mixer';
-import {hexToRgb} from '~/src/services/color/space/rgb';
-import type {Color, ColorMixture} from '~/src/services/color/types';
-import {gcd} from '~/src/services/math/gcd';
-import {useAppStore} from '~/src/stores/app-store';
-import {range} from '~/src/utils/array';
+} from '@/services/color/color-mixer';
+import {hexToRgb} from '@/services/color/space/rgb';
+import type {Color, ColorMixture} from '@/services/color/types';
+import {gcd} from '@/services/math/gcd';
+import {useAppStore} from '@/stores/app-store';
+import {range} from '@/utils/array';
 
 import {AddToPaletteButton} from './color/AddToPaletteButton';
 import {ColorMixtureDescription} from './color/ColorMixtureDescription';

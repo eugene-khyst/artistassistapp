@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {adjustColorsWebGL} from '~/src/services/image/filter/color-adjustment-webgl';
-import type {DrawImageSource} from '~/src/utils/graphics';
+import {adjustColorsWebGL} from '@/services/image/filter/color-adjustment-webgl';
+import type {DrawImageSource} from '@/utils/graphics';
 
 export interface AdjustmentParameters {
   saturation?: number;

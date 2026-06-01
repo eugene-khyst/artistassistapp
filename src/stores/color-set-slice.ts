@@ -20,7 +20,7 @@ import dayjs from 'dayjs';
 import {saveAs} from 'file-saver';
 import type {StateCreator} from 'zustand';
 
-import {fetchColorBrands, fetchColorsBulk, toColorSet} from '~/src/services/color/colors';
+import {fetchColorBrands, fetchColorsBulk, toColorSet} from '@/services/color/colors';
 import {
   type ColorBrandDefinition,
   type ColorDefinition,
@@ -28,19 +28,19 @@ import {
   type ColorSetDefinition,
   type ColorType,
   FileExtension,
-} from '~/src/services/color/types';
+} from '@/services/color/types';
 import {
   deleteColorSet,
   getColorSets,
   getLastColorSet,
   saveColorSets,
-} from '~/src/services/db/color-set-db';
-import type {AppSlice} from '~/src/stores/app-slice';
-import type {AuthSlice} from '~/src/stores/auth-slice';
-import {groupBy} from '~/src/utils/array';
-import {byDate, byNumber, reverseOrder} from '~/src/utils/comparator';
-import {digestMessage} from '~/src/utils/digest';
-import {indexById} from '~/src/utils/map';
+} from '@/services/db/color-set-db';
+import type {AppSlice} from '@/stores/app-slice';
+import type {AuthSlice} from '@/stores/auth-slice';
+import {groupBy} from '@/utils/array';
+import {byDate, byNumber, reverseOrder} from '@/utils/comparator';
+import {digestMessage} from '@/utils/digest';
+import {indexById} from '@/utils/map';
 
 import type {ColorMixerSlice} from './color-mixer-slice';
 

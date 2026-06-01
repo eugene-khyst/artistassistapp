@@ -16,19 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {RgbTuple} from '~/src/services/color/space/rgb';
+import type {RgbTuple} from '@/services/color/space/rgb';
 import {
   isRgbDark,
   linearizeRgbChannel,
   rgbToHex,
   unlinearizeRgbChannel,
   WHITE,
-} from '~/src/services/color/space/rgb';
-import {EventManager} from '~/src/services/event/event-manager';
-import {Rectangle, Vector} from '~/src/services/math/geometry';
-import type {DrawImageSource} from '~/src/utils/graphics';
-import {drawImageToOffscreenCanvas, getRgbaForCoord} from '~/src/utils/graphics';
-import {clamp} from '~/src/utils/math-utils';
+} from '@/services/color/space/rgb';
+import {EventManager} from '@/services/event/event-manager';
+import {Rectangle, Vector} from '@/services/math/geometry';
+import type {DrawImageSource} from '@/utils/graphics';
+import {drawImageToOffscreenCanvas, getRgbaForCoord} from '@/utils/graphics';
+import {clamp} from '@/utils/math-utils';
 
 import type {ZoomableImageCanvasProps} from './zoomable-image-canvas';
 import {ZoomableImageCanvas} from './zoomable-image-canvas';

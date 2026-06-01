@@ -30,7 +30,7 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {Alert, Col, Row, Typography} from 'antd';
 import type {PropsWithChildren} from 'react';
 
-import {isWebGl2Supported} from '~/src/utils/graphics';
+import {isWebGl2Supported} from '@/utils/graphics';
 
 const BROWSER_FEATURES: Record<string, boolean> = {
   Worker: typeof Worker !== 'undefined',

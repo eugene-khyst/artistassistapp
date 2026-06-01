@@ -19,9 +19,9 @@
 import type {UseQueryResult} from '@tanstack/react-query';
 import {useQuery} from '@tanstack/react-query';
 
-import {fetchColorBrands} from '~/src/services/color/colors';
-import type {ColorBrandDefinition, ColorType} from '~/src/services/color/types';
-import {indexById} from '~/src/utils/map';
+import {fetchColorBrands} from '@/services/color/colors';
+import type {ColorBrandDefinition, ColorType} from '@/services/color/types';
+import {indexById} from '@/utils/map';
 
 interface Result {
   isLoading: boolean;

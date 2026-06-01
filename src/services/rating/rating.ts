@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Comparator} from '~/src/utils/comparator';
-import {byNumber, reverseOrder} from '~/src/utils/comparator';
+import type {Comparator} from '@/utils/comparator';
+import {byNumber, reverseOrder} from '@/utils/comparator';
 
 const SCALING_FACTOR = 32;
 

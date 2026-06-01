@@ -70,7 +70,7 @@ export default defineConfig(
       'license-header/header': ['error', './license-header.js'],
       'no-relative-import-paths/no-relative-import-paths': [
         'error',
-        {allowSameFolder: true, prefix: '~'},
+        {allowSameFolder: true, prefix: '@', rootDir: 'src'},
       ],
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',

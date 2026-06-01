@@ -30,32 +30,32 @@ import type {SliderMarks} from 'antd/es/slider';
 import type {MenuProps} from 'antd/lib';
 import {useCallback, useEffect, useState} from 'react';
 
-import {AdCard} from '~/src/components/ad/AdCard';
-import {ColorPicker} from '~/src/components/color/ColorPicker';
-import {ReflectanceChartDrawer} from '~/src/components/color/ReflectanceChartDrawer';
-import {SimilarColorsList} from '~/src/components/color/SimilarColorsList';
-import {UnderlayerColorPicker} from '~/src/components/color/UnderlayerColorPicker';
-import {ColorCascader} from '~/src/components/color-set/ColorCascader';
-import {ColorSetName} from '~/src/components/color-set/ColorSetName';
-import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
-import {useDebounce} from '~/src/hooks/useDebounce';
-import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
+import {AdCard} from '@/components/ad/AdCard';
+import {ColorPicker} from '@/components/color/ColorPicker';
+import {ReflectanceChartDrawer} from '@/components/color/ReflectanceChartDrawer';
+import {SimilarColorsList} from '@/components/color/SimilarColorsList';
+import {UnderlayerColorPicker} from '@/components/color/UnderlayerColorPicker';
+import {ColorCascader} from '@/components/color-set/ColorCascader';
+import {ColorSetName} from '@/components/color-set/ColorSetName';
+import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {useDebounce} from '@/hooks/useDebounce';
+import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
 import type {
   ColorPickerSample,
   PipettePointSetEvent,
-} from '~/src/services/canvas/image/image-color-picker-canvas';
+} from '@/services/canvas/image/image-color-picker-canvas';
 import {
   ColorPickerEventType,
   ImageColorPickerCanvas,
   MIN_COLOR_PICKER_DIAMETER,
-} from '~/src/services/canvas/image/image-color-picker-canvas';
-import {COLOR_MIXING} from '~/src/services/color/color-mixer';
-import {colorSetToBrandColorCounts, isPastel} from '~/src/services/color/colors';
-import {hexToRgb, rgbToHex} from '~/src/services/color/space/rgb';
-import {type ColorMixture, Layering} from '~/src/services/color/types';
-import {Vector} from '~/src/services/math/geometry';
-import {ColorPickerSort} from '~/src/services/settings/types';
-import {useAppStore} from '~/src/stores/app-store';
+} from '@/services/canvas/image/image-color-picker-canvas';
+import {COLOR_MIXING} from '@/services/color/color-mixer';
+import {colorSetToBrandColorCounts, isPastel} from '@/services/color/colors';
+import {hexToRgb, rgbToHex} from '@/services/color/space/rgb';
+import {type ColorMixture, Layering} from '@/services/color/types';
+import {Vector} from '@/services/math/geometry';
+import {ColorPickerSort} from '@/services/settings/types';
+import {useAppStore} from '@/stores/app-store';
 
 import {EmptyColorSet} from './empty/EmptyColorSet';
 import styles from './ImageColorPicker.module.css';

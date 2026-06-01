@@ -19,7 +19,7 @@
 import type {JWK, JWTVerifyGetKey} from 'jose';
 import {createLocalJWKSet, jwtVerify} from 'jose';
 
-import {APP_URL, AUTH_URL, PUBLIC_JWK} from '~/src/config';
+import {APP_URL, AUTH_URL, PUBLIC_JWK} from '@/config';
 import type {
   Authentication,
   AuthErrorData,
@@ -28,19 +28,15 @@ import type {
   AuthTokenResponse,
   LoginLink,
   LoginLinkResponse,
-} from '~/src/services/auth/types';
-import {AuthError, AuthErrorType} from '~/src/services/auth/types';
-import {toAuthErrorType} from '~/src/services/auth/utils';
-import {
-  getAndDeleteAuthErrorData,
-  getAuthSession,
-  saveAuthSession,
-} from '~/src/services/db/auth-db';
-import {base64To256BitKey} from '~/src/utils/crypto';
-import {fromEpochSeconds} from '~/src/utils/date';
-import {replaceHistory} from '~/src/utils/history';
-import {safeReadJson} from '~/src/utils/json';
-import {withWebLock} from '~/src/utils/web-lock';
+} from '@/services/auth/types';
+import {AuthError, AuthErrorType} from '@/services/auth/types';
+import {toAuthErrorType} from '@/services/auth/utils';
+import {getAndDeleteAuthErrorData, getAuthSession, saveAuthSession} from '@/services/db/auth-db';
+import {base64To256BitKey} from '@/utils/crypto';
+import {fromEpochSeconds} from '@/utils/date';
+import {replaceHistory} from '@/utils/history';
+import {safeReadJson} from '@/utils/json';
+import {withWebLock} from '@/utils/web-lock';
 
 const REDIRECT_URI = `${window.location.origin}/login/callback`;
 const AUTH_REFRESH_LOCK_NAME = 'artistassistapp:auth-refresh';

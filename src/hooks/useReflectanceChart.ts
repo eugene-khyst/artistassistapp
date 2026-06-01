@@ -19,7 +19,7 @@
 import type {RefCallback} from 'react';
 import {useCallback, useState} from 'react';
 
-import {ReflectanceChart} from '~/src/services/canvas/chart/reflectance-chart';
+import {ReflectanceChart} from '@/services/canvas/chart/reflectance-chart';
 
 interface Result {
   ref: RefCallback<HTMLCanvasElement>;

@@ -20,9 +20,9 @@ import {AppstoreAddOutlined} from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
 import {Button} from 'antd';
 
-import {useDisplayMode} from '~/src/hooks/useDisplayMode';
-import {useInstall} from '~/src/hooks/useInstall';
-import {DisplayMode} from '~/src/utils/environment';
+import {useDisplayMode} from '@/hooks/useDisplayMode';
+import {useInstall} from '@/hooks/useInstall';
+import {DisplayMode} from '@/utils/environment';
 
 export function InstallButton() {
   const {install, installDrawer} = useInstall();

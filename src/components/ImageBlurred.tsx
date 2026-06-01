@@ -29,16 +29,13 @@ import {Button, Dropdown, Form, Grid, Radio, Space} from 'antd';
 import {saveAs} from 'file-saver';
 import {useEffect, useState} from 'react';
 
-import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
-import {
-  useZoomableImageCanvas,
-  zoomableImageCanvasSupplier,
-} from '~/src/hooks/useZoomableImageCanvas';
-import type {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
-import {blobToImageFile} from '~/src/services/image/image-file';
-import {useAppStore} from '~/src/stores/app-store';
-import {getFilename} from '~/src/utils/filename';
-import {imageBitmapToBlob} from '~/src/utils/graphics';
+import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '@/hooks/useZoomableImageCanvas';
+import type {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
+import {blobToImageFile} from '@/services/image/image-file';
+import {useAppStore} from '@/stores/app-store';
+import {getFilename} from '@/utils/filename';
+import {imageBitmapToBlob} from '@/utils/graphics';
 
 import {EmptyImage} from './empty/EmptyImage';
 import styles from './ImageBlurred.module.css';

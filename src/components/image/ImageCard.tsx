@@ -21,7 +21,7 @@ import type {CardMetaProps, CardProps} from 'antd/es/card';
 import type {ForwardedRef, HTMLAttributes} from 'react';
 import {forwardRef} from 'react';
 
-import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
+import {useCreateObjectUrl} from '@/hooks/useCreateObjectUrl';
 
 type Props = {
   file: File;

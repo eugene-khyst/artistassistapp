@@ -23,17 +23,17 @@ import {App, Button, Card, Col, Radio, Row, Space, Typography} from 'antd';
 import {saveAs} from 'file-saver';
 import {useEffect, useMemo, useRef, useState} from 'react';
 
-import {EmptyImage} from '~/src/components/empty/EmptyImage';
-import {FileSelect} from '~/src/components/file/FileSelect';
-import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
-import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
-import {useOnnxModels} from '~/src/hooks/useOnnxModels';
-import {hasAccessTo} from '~/src/services/auth/utils';
-import {compareOnnxModelsByPriority} from '~/src/services/ml/models';
-import type {OnnxModel} from '~/src/services/ml/types';
-import {OnnxModelType} from '~/src/services/ml/types';
-import {useAppStore} from '~/src/stores/app-store';
-import {getFilename} from '~/src/utils/filename';
+import {EmptyImage} from '@/components/empty/EmptyImage';
+import {FileSelect} from '@/components/file/FileSelect';
+import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {useCreateObjectUrl} from '@/hooks/useCreateObjectUrl';
+import {useOnnxModels} from '@/hooks/useOnnxModels';
+import {hasAccessTo} from '@/services/auth/utils';
+import {compareOnnxModelsByPriority} from '@/services/ml/models';
+import type {OnnxModel} from '@/services/ml/types';
+import {OnnxModelType} from '@/services/ml/types';
+import {useAppStore} from '@/stores/app-store';
+import {getFilename} from '@/utils/filename';
 
 import styles from './ImageStyleTransfer.module.css';
 

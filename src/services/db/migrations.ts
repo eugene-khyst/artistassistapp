@@ -19,13 +19,13 @@
 import type {IDBPDatabase, IDBPTransaction} from 'idb';
 import {decodeJwt} from 'jose';
 
-import type {RgbTuple} from '~/src/services/color/space/rgb';
-import type {ColorMixture} from '~/src/services/color/types';
-import {EMPTY_DIGEST} from '~/src/services/db/color-mixture-db';
-import {type ArtistAssistAppDB, OBJECT_STORE_NAMES, type StoreName} from '~/src/services/db/schema';
-import type {ImageFile} from '~/src/services/image/image-file';
-import {fromEpochSeconds} from '~/src/utils/date';
-import {digestArrayBuffer} from '~/src/utils/digest';
+import type {RgbTuple} from '@/services/color/space/rgb';
+import type {ColorMixture} from '@/services/color/types';
+import {EMPTY_DIGEST} from '@/services/db/color-mixture-db';
+import {type ArtistAssistAppDB, OBJECT_STORE_NAMES, type StoreName} from '@/services/db/schema';
+import type {ImageFile} from '@/services/image/image-file';
+import {fromEpochSeconds} from '@/utils/date';
+import {digestArrayBuffer} from '@/utils/digest';
 
 export interface AppliedMigration {
   id?: number;

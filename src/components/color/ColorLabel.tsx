@@ -19,12 +19,12 @@
 import {Flex, Typography} from 'antd';
 import type {CSSProperties} from 'react';
 
-import {ColorSquare} from '~/src/components/color/ColorSquare';
-import {OpacityIcon} from '~/src/components/color/OpacityIcon';
-import {WarmthIcon} from '~/src/components/color/WarmthIcon';
-import {formatColorLabel} from '~/src/services/color/colors';
-import {rgbToHex} from '~/src/services/color/space/rgb';
-import type {Color, ColorBrandDefinition, ColorDefinition} from '~/src/services/color/types';
+import {ColorSquare} from '@/components/color/ColorSquare';
+import {OpacityIcon} from '@/components/color/OpacityIcon';
+import {WarmthIcon} from '@/components/color/WarmthIcon';
+import {formatColorLabel} from '@/services/color/colors';
+import {rgbToHex} from '@/services/color/space/rgb';
+import type {Color, ColorBrandDefinition, ColorDefinition} from '@/services/color/types';
 
 interface Props {
   color: ColorDefinition | Color;

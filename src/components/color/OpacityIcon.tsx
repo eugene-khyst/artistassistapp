@@ -22,11 +22,11 @@ import {useLingui} from '@lingui/react/macro';
 import {Tooltip} from 'antd';
 import type {ReactNode} from 'react';
 
-import Opaque from '~/src/icons/opacity/opaque.svg?react';
-import SemiOpaque from '~/src/icons/opacity/semi-opaque.svg?react';
-import SemiTransparent from '~/src/icons/opacity/semi-transparent.svg?react';
-import Transparent from '~/src/icons/opacity/transparent.svg?react';
-import {ColorOpacity} from '~/src/services/color/types';
+import Opaque from '@/icons/opacity/opaque.svg?react';
+import SemiOpaque from '@/icons/opacity/semi-opaque.svg?react';
+import SemiTransparent from '@/icons/opacity/semi-transparent.svg?react';
+import Transparent from '@/icons/opacity/transparent.svg?react';
+import {ColorOpacity} from '@/services/color/types';
 
 interface OpacityDescription {
   icon: ReactNode;

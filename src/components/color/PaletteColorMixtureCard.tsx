@@ -22,13 +22,13 @@ import {Button, Card, Col, Popconfirm, Row, Space, Typography} from 'antd';
 import type {CardProps} from 'antd/lib';
 import {memo} from 'react';
 
-import {ColorMixtureDescription} from '~/src/components/color/ColorMixtureDescription';
-import {COLOR_MIXING} from '~/src/services/color/color-mixer';
-import {getColorId, isPastel} from '~/src/services/color/colors';
-import {rgbToHex} from '~/src/services/color/space/rgb';
-import {type ColorMixture, Layering} from '~/src/services/color/types';
-import {useAppStore} from '~/src/stores/app-store';
-import {TabKey} from '~/src/tabs';
+import {ColorMixtureDescription} from '@/components/color/ColorMixtureDescription';
+import {COLOR_MIXING} from '@/services/color/color-mixer';
+import {getColorId, isPastel} from '@/services/color/colors';
+import {rgbToHex} from '@/services/color/space/rgb';
+import {type ColorMixture, Layering} from '@/services/color/types';
+import {useAppStore} from '@/stores/app-store';
+import {TabKey} from '@/tabs';
 
 type Props = {
   colorMixture: ColorMixture;

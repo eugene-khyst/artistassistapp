@@ -19,8 +19,8 @@
 import type {ReactNode} from 'react';
 import {useCallback, useState} from 'react';
 
-import {InstallDrawer} from '~/src/components/install/InstallDrawer';
-import {useAppStore} from '~/src/stores/app-store';
+import {InstallDrawer} from '@/components/install/InstallDrawer';
+import {useAppStore} from '@/stores/app-store';
 
 interface Result {
   install: () => void;

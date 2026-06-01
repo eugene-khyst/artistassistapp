@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {ColorMixingChart} from '~/src/services/color/color-mixing-chart';
-import {WorkerManager} from '~/src/utils/worker-manager';
+import type {ColorMixingChart} from '@/services/color/color-mixing-chart';
+import {WorkerManager} from '@/utils/worker-manager';
 
 export const colorMixingChartWorker = new WorkerManager<ColorMixingChart>(
   () => new Worker(new URL('./color-mixing-chart-worker.ts', import.meta.url), {type: 'module'})

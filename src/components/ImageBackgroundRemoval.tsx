@@ -26,20 +26,20 @@ import type {CSSProperties, ReactElement, ReactNode} from 'react';
 import {cloneElement, useCallback, useEffect, useMemo, useState} from 'react';
 import {ReactCompareSlider, ReactCompareSliderImage} from 'react-compare-slider';
 
-import {ColorPicker} from '~/src/components/color/ColorPicker';
-import {FileSelect} from '~/src/components/file/FileSelect';
-import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
-import {OnnxModelSelect} from '~/src/components/ml-model/OnnxModelSelect';
-import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
-import {useDebounce} from '~/src/hooks/useDebounce';
-import {useOnnxModels} from '~/src/hooks/useOnnxModels';
-import {hasAccessTo} from '~/src/services/auth/utils';
-import {WHITE_HEX} from '~/src/services/color/space/rgb';
-import {getDefaultModel} from '~/src/services/ml/models';
-import type {OnnxModel} from '~/src/services/ml/types';
-import {OnnxModelType} from '~/src/services/ml/types';
-import {useAppStore} from '~/src/stores/app-store';
-import {getFilename} from '~/src/utils/filename';
+import {ColorPicker} from '@/components/color/ColorPicker';
+import {FileSelect} from '@/components/file/FileSelect';
+import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {OnnxModelSelect} from '@/components/ml-model/OnnxModelSelect';
+import {useCreateObjectUrl} from '@/hooks/useCreateObjectUrl';
+import {useDebounce} from '@/hooks/useDebounce';
+import {useOnnxModels} from '@/hooks/useOnnxModels';
+import {hasAccessTo} from '@/services/auth/utils';
+import {WHITE_HEX} from '@/services/color/space/rgb';
+import {getDefaultModel} from '@/services/ml/models';
+import type {OnnxModel} from '@/services/ml/types';
+import {OnnxModelType} from '@/services/ml/types';
+import {useAppStore} from '@/stores/app-store';
+import {getFilename} from '@/utils/filename';
 
 import styles from './ImageBackgroundRemoval.module.css';
 

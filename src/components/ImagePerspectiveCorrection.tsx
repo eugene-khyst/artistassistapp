@@ -33,19 +33,19 @@ import type {MenuProps} from 'antd/lib';
 import {saveAs} from 'file-saver';
 import {useEffect} from 'react';
 
-import {FileSelect} from '~/src/components/file/FileSelect';
-import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
-import {useOnnxModel} from '~/src/hooks/useOnnxModel';
-import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
-import {ImageCroppingCanvas} from '~/src/services/canvas/image/image-cropping-canvas';
-import {ImagePerspectiveCorrectionCanvas} from '~/src/services/canvas/image/image-perspective-correction-canvas';
-import type {Vector} from '~/src/services/math/geometry';
-import {OnnxModelType} from '~/src/services/ml/types';
-import {useAppStore} from '~/src/stores/app-store';
-import {TabKey} from '~/src/tabs';
-import {getFilename} from '~/src/utils/filename';
-import {DrawImage, imageBitmapToBlob} from '~/src/utils/graphics';
-import {isAbortError} from '~/src/utils/promise';
+import {FileSelect} from '@/components/file/FileSelect';
+import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {useOnnxModel} from '@/hooks/useOnnxModel';
+import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
+import {ImageCroppingCanvas} from '@/services/canvas/image/image-cropping-canvas';
+import {ImagePerspectiveCorrectionCanvas} from '@/services/canvas/image/image-perspective-correction-canvas';
+import type {Vector} from '@/services/math/geometry';
+import {OnnxModelType} from '@/services/ml/types';
+import {useAppStore} from '@/stores/app-store';
+import {TabKey} from '@/tabs';
+import {getFilename} from '@/utils/filename';
+import {DrawImage, imageBitmapToBlob} from '@/utils/graphics';
+import {isAbortError} from '@/utils/promise';
 
 import styles from './ImagePerspectiveCorrection.module.css';
 

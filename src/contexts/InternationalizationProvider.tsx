@@ -21,7 +21,7 @@ import {I18nProvider} from '@lingui/react';
 import {ConfigProvider} from 'antd';
 import {type PropsWithChildren} from 'react';
 
-import {useAppStore} from '~/src/stores/app-store';
+import {useAppStore} from '@/stores/app-store';
 
 export function InternationalizationProvider({children}: Readonly<PropsWithChildren>) {
   const antdLocale = useAppStore(state => state.antdLocale);

@@ -18,6 +18,6 @@
 
 import {createContext} from 'react';
 
-import {TabKey} from '~/src/tabs';
+import {TabKey} from '@/tabs';
 
 export const TabContext = createContext(TabKey.ColorSet);

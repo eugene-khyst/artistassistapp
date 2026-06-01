@@ -22,7 +22,7 @@ import {clsx} from 'clsx';
 import type {PointerEvent as ReactPointerEvent} from 'react';
 import {useEffect, useEffectEvent, useRef, useState} from 'react';
 
-import type {CssVariables} from '~/src/utils/types';
+import type {CssVariables} from '@/utils/types';
 
 import styles from './LightboxOverlay.module.css';
 

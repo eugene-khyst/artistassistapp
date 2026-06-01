@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {OverlayDrawingCanvasProps} from '~/src/services/canvas/image/overlay-drawing-canvas';
-import {OverlayDrawingCanvas} from '~/src/services/canvas/image/overlay-drawing-canvas';
-import type {Rectangle} from '~/src/services/math/geometry';
-import {Vector} from '~/src/services/math/geometry';
+import type {OverlayDrawingCanvasProps} from '@/services/canvas/image/overlay-drawing-canvas';
+import {OverlayDrawingCanvas} from '@/services/canvas/image/overlay-drawing-canvas';
+import type {Rectangle} from '@/services/math/geometry';
+import {Vector} from '@/services/math/geometry';
 
 export enum GridType {
   Square = 1,

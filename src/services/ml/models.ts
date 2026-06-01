@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DATA_URL} from '~/src/config';
-import type {User} from '~/src/services/auth/types';
-import type {OnnxModel, OnnxModelType} from '~/src/services/ml/types';
+import {DATA_URL} from '@/config';
+import type {User} from '@/services/auth/types';
+import type {OnnxModel, OnnxModelType} from '@/services/ml/types';
 import {
   byBoolean,
   byNumber,
@@ -26,8 +26,8 @@ import {
   type Comparator,
   compare,
   reverseOrder,
-} from '~/src/utils/comparator';
-import {fetchSWR} from '~/src/utils/fetch';
+} from '@/utils/comparator';
+import {fetchSWR} from '@/utils/fetch';
 
 export async function fetchOnnxModels(type: OnnxModelType): Promise<OnnxModel[]> {
   const response = await fetchSWR(`${DATA_URL}/ml-models/${type}.json`);

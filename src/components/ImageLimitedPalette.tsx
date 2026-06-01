@@ -22,17 +22,14 @@ import {Button, Col, Dropdown, Form, Row, Space, Typography} from 'antd';
 import {saveAs} from 'file-saver';
 import {useState} from 'react';
 
-import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
-import {
-  useZoomableImageCanvas,
-  zoomableImageCanvasSupplier,
-} from '~/src/hooks/useZoomableImageCanvas';
-import type {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
-import {isMixable, MIXABLE_COLOR_TYPES} from '~/src/services/color/color-mixer';
-import type {ColorId} from '~/src/services/color/types';
-import {useAppStore} from '~/src/stores/app-store';
-import {getFilename} from '~/src/utils/filename';
-import {imageBitmapToBlob} from '~/src/utils/graphics';
+import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '@/hooks/useZoomableImageCanvas';
+import type {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
+import {isMixable, MIXABLE_COLOR_TYPES} from '@/services/color/color-mixer';
+import type {ColorId} from '@/services/color/types';
+import {useAppStore} from '@/stores/app-store';
+import {getFilename} from '@/utils/filename';
+import {imageBitmapToBlob} from '@/utils/graphics';
 
 import {ColorCascader} from './color-set/ColorCascader';
 import {EmptyColorSet} from './empty/EmptyColorSet';

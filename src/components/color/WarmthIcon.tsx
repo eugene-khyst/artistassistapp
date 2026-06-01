@@ -22,10 +22,10 @@ import {useLingui} from '@lingui/react/macro';
 import {Tooltip} from 'antd';
 import type {ReactNode} from 'react';
 
-import Cool from '~/src/icons/warmth/cool.svg?react';
-import Neutral from '~/src/icons/warmth/neutral.svg?react';
-import Warm from '~/src/icons/warmth/warm.svg?react';
-import {ColorWarmth} from '~/src/services/color/types';
+import Cool from '@/icons/warmth/cool.svg?react';
+import Neutral from '@/icons/warmth/neutral.svg?react';
+import Warm from '@/icons/warmth/warm.svg?react';
+import {ColorWarmth} from '@/services/color/types';
 
 interface WarmthDescription {
   icon: ReactNode;

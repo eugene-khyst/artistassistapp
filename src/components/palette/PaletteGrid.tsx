@@ -28,14 +28,14 @@ import type {MenuProps} from 'antd/lib';
 import {useEffect, useRef, useState} from 'react';
 import {useReactToPrint} from 'react-to-print';
 
-import {AdCard} from '~/src/components/ad/AdCard';
-import {ColorMixtureDescription} from '~/src/components/color/ColorMixtureDescription';
-import {PaletteColorMixtureCard} from '~/src/components/color/PaletteColorMixtureCard';
-import {COLOR_MIXTURE_SORT_LABELS} from '~/src/components/messages';
-import {COLOR_MIXTURES_COMPARATORS, ColorMixtureSort} from '~/src/services/color/color-mixer';
-import type {ColorMixture, ColorType} from '~/src/services/color/types';
-import {useAppStore} from '~/src/stores/app-store';
-import {decorateSortUndecorate} from '~/src/utils/array';
+import {AdCard} from '@/components/ad/AdCard';
+import {ColorMixtureDescription} from '@/components/color/ColorMixtureDescription';
+import {PaletteColorMixtureCard} from '@/components/color/PaletteColorMixtureCard';
+import {COLOR_MIXTURE_SORT_LABELS} from '@/components/messages';
+import {COLOR_MIXTURES_COMPARATORS, ColorMixtureSort} from '@/services/color/color-mixer';
+import type {ColorMixture, ColorType} from '@/services/color/types';
+import {useAppStore} from '@/stores/app-store';
+import {decorateSortUndecorate} from '@/utils/array';
 
 interface Props {
   colorType: ColorType;

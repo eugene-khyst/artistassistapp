@@ -40,30 +40,30 @@ import type {AggregationColor} from 'antd/es/color-picker/color';
 import type {SliderMarks} from 'antd/es/slider';
 import {memo, useCallback, useEffect, useRef, useState} from 'react';
 
-import {ColorPicker} from '~/src/components/color/ColorPicker';
-import {ColorSquare} from '~/src/components/color/ColorSquare';
-import {OpacitySelect} from '~/src/components/color/OpacitySelect';
-import {ColorTypeSelect} from '~/src/components/color-set/ColorTypeSelect';
-import {CustomColorBrandSelect} from '~/src/components/color-set/CustomColorBrandSelect';
-import {FileSelect} from '~/src/components/file/FileSelect';
-import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
-import {useCreateImageBitmap} from '~/src/hooks/useCreateImageBitmap';
-import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
-import type {PipettePointSetEvent} from '~/src/services/canvas/image/image-color-picker-canvas';
+import {ColorPicker} from '@/components/color/ColorPicker';
+import {ColorSquare} from '@/components/color/ColorSquare';
+import {OpacitySelect} from '@/components/color/OpacitySelect';
+import {ColorTypeSelect} from '@/components/color-set/ColorTypeSelect';
+import {CustomColorBrandSelect} from '@/components/color-set/CustomColorBrandSelect';
+import {FileSelect} from '@/components/file/FileSelect';
+import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {useCreateImageBitmap} from '@/hooks/useCreateImageBitmap';
+import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
+import type {PipettePointSetEvent} from '@/services/canvas/image/image-color-picker-canvas';
 import {
   ColorPickerEventType,
   ImageColorPickerCanvas,
   MIN_COLOR_PICKER_DIAMETER,
-} from '~/src/services/canvas/image/image-color-picker-canvas';
-import {rgbToHex, WHITE_HEX} from '~/src/services/color/space/rgb';
+} from '@/services/canvas/image/image-color-picker-canvas';
+import {rgbToHex, WHITE_HEX} from '@/services/color/space/rgb';
 import {
   type ColorDefinition,
   type CustomColorBrandDefinition,
   FileExtension,
-} from '~/src/services/color/types';
-import {useAppStore} from '~/src/stores/app-store';
-import {removeRho} from '~/src/stores/custom-color-brand-slice';
-import {noop} from '~/src/utils/function';
+} from '@/services/color/types';
+import {useAppStore} from '@/stores/app-store';
+import {removeRho} from '@/stores/custom-color-brand-slice';
+import {noop} from '@/utils/function';
 
 import styles from './CustomColorBrandCreator.module.css';
 

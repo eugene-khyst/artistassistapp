@@ -19,7 +19,7 @@
 import {Trans} from '@lingui/react/macro';
 import {Button} from 'antd';
 
-import {useAppStore} from '~/src/stores/app-store';
+import {useAppStore} from '@/stores/app-store';
 
 export function LoginOAuthButton() {
   const loginWithRedirect = useAppStore(state => state.loginWithRedirect);

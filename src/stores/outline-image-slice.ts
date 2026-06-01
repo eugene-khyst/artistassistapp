@@ -18,12 +18,12 @@
 
 import type {StateCreator} from 'zustand';
 
-import {hasAccessTo} from '~/src/services/auth/utils';
-import {getOutline} from '~/src/services/image/outline';
-import type {OnnxModel} from '~/src/services/ml/types';
-import type {AuthSlice} from '~/src/stores/auth-slice';
-import {formatFetchProgress} from '~/src/utils/fetch';
-import {isAbortError} from '~/src/utils/promise';
+import {hasAccessTo} from '@/services/auth/utils';
+import {getOutline} from '@/services/image/outline';
+import type {OnnxModel} from '@/services/ml/types';
+import type {AuthSlice} from '@/stores/auth-slice';
+import {formatFetchProgress} from '@/utils/fetch';
+import {isAbortError} from '@/utils/promise';
 
 import type {OriginalImageSlice} from './original-image-slice';
 

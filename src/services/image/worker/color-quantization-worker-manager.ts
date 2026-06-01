@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {ColorQuantization} from '~/src/services/image/color-quantization';
-import {WorkerManager} from '~/src/utils/worker-manager';
+import type {ColorQuantization} from '@/services/image/color-quantization';
+import {WorkerManager} from '@/utils/worker-manager';
 
 export const colorQuantizationWorker = new WorkerManager<ColorQuantization>(
   () => new Worker(new URL('./color-quantization-worker.ts', import.meta.url), {type: 'module'})

@@ -26,7 +26,7 @@ import {
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Drawer, Space, theme, Typography} from 'antd';
 
-import {getOS, OS} from '~/src/utils/environment';
+import {getOS, OS} from '@/utils/environment';
 
 const os = getOS();
 

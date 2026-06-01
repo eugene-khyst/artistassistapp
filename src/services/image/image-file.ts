@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {arrayBufferToBlob} from '~/src/utils/blob';
-import {digestArrayBuffer} from '~/src/utils/digest';
+import {arrayBufferToBlob} from '@/utils/blob';
+import {digestArrayBuffer} from '@/utils/digest';
 
 export interface ImageFile {
   id?: number;

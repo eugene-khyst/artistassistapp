@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {ColorSetDefinition} from '~/src/services/color/types';
-import type {TabKey} from '~/src/tabs';
+import type {ColorSetDefinition} from '@/services/color/types';
+import type {TabKey} from '@/tabs';
 
 export interface UrlParsingResult {
   colorSet?: ColorSetDefinition;

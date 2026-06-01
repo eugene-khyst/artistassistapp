@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {LengthUnitDefinition} from '~/src/services/math/types';
-import {LengthUnit} from '~/src/services/math/types';
-import type {Comparator} from '~/src/utils/comparator';
+import type {LengthUnitDefinition} from '@/services/math/types';
+import {LengthUnit} from '@/services/math/types';
+import type {Comparator} from '@/utils/comparator';
 
 export const LENGTH_UNITS = new Map<LengthUnit, LengthUnitDefinition>([
   [LengthUnit.Millimeter, {abbreviation: 'mm', toMillimeters: number => number}],

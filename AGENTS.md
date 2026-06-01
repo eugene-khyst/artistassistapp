@@ -160,7 +160,7 @@ threading). The SW handles auth callbacks and file sharing. All persistence uses
 
 ### Vite Configuration
 
-- Path alias: `~/src/` → `/src/` (use this prefix for all non-same-folder imports).
+- Path alias: `@/` → `/src/` (use this prefix for all non-same-folder imports).
 
 ### Styling
 
@@ -195,7 +195,7 @@ Every `.ts`/`.tsx` file (except config files and generated files with `/* eslint
 
 ### Imports
 
-- Use the `~/src/` alias for cross-folder imports (enforced by ESLint — no relative `../` paths
+- Use the `@/` alias for cross-folder imports (enforced by ESLint — no relative `../` paths
   except within the same folder).
 - Imports must be sorted (`simple-import-sort`).
 - Use `import type` for type-only imports (`@typescript-eslint/consistent-type-imports`).

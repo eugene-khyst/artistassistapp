@@ -19,12 +19,12 @@
 import {Card} from 'antd';
 import {useContext} from 'react';
 
-import {Ad} from '~/src/components/ad/Ad';
-import {TabContext} from '~/src/contexts/TabContext';
-import {useAds} from '~/src/hooks/useAds';
-import type {AdDefinition} from '~/src/services/ads/types';
-import {useAppStore} from '~/src/stores/app-store';
-import type {TabKey} from '~/src/tabs';
+import {Ad} from '@/components/ad/Ad';
+import {TabContext} from '@/contexts/TabContext';
+import {useAds} from '@/hooks/useAds';
+import type {AdDefinition} from '@/services/ads/types';
+import {useAppStore} from '@/stores/app-store';
+import type {TabKey} from '@/tabs';
 
 import styles from './AdCard.module.css';
 

@@ -16,17 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {OklabTuple} from '~/src/services/color/space/oklab';
+import type {OklabTuple} from '@/services/color/space/oklab';
 import {
   deltaEOk,
   oklabToRgb,
   rgbToOklab,
   writeOklabToRgb,
   writeRgbToOklab,
-} from '~/src/services/color/space/oklab';
-import type {RgbTuple} from '~/src/services/color/space/rgb';
-import {ditherOrdered} from '~/src/services/image/filter/dither';
-import {quickselect} from '~/src/utils/quickselect';
+} from '@/services/color/space/oklab';
+import type {RgbTuple} from '@/services/color/space/rgb';
+import {ditherOrdered} from '@/services/image/filter/dither';
+import {quickselect} from '@/utils/quickselect';
 
 const OVER_QUANTIZE_FACTOR = 3;
 

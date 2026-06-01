@@ -18,7 +18,7 @@
 
 import type {StateCreator} from 'zustand';
 
-import {getBlurred} from '~/src/services/image/blur';
+import {getBlurred} from '@/services/image/blur';
 
 import type {OriginalImageSlice} from './original-image-slice';
 

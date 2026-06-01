@@ -23,7 +23,7 @@ import {App, Modal, Space} from 'antd';
 import type {PropsWithChildren} from 'react';
 import {useEffect, useState} from 'react';
 
-import {AUTH_URL} from '~/src/config';
+import {AUTH_URL} from '@/config';
 
 import styles from './QRScannerModal.module.css';
 

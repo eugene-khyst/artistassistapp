@@ -18,21 +18,21 @@
 
 import type {StateCreator} from 'zustand';
 
-import {getPreferredLocale} from '~/src/i18n';
-import {normalizeInjectedAuthCallback} from '~/src/services/auth/auth-callback-normalizer';
-import {ForceLogoutError} from '~/src/services/auth/types';
-import {getAppSettings, saveAppSettings} from '~/src/services/db/app-settings-db';
-import {imageFileToFile} from '~/src/services/image/image-file';
-import {DEFAULT_APP_SETTINGS} from '~/src/services/settings/app-settings';
-import {type AppSettings} from '~/src/services/settings/types';
-import {importFromUrl} from '~/src/services/url/url-parser';
-import type {AuthSlice} from '~/src/stores/auth-slice';
-import type {LocaleSlice} from '~/src/stores/locale-slice';
-import type {StyleTransferSlice} from '~/src/stores/style-transfer-slice';
-import {initAuthAttemptWatcher} from '~/src/stores/watchers/auth-attempt-watcher';
-import {initAuthExpiryWatcher} from '~/src/stores/watchers/auth-expiry-watcher';
-import {TabKey} from '~/src/tabs';
-import {getErrorMessage} from '~/src/utils/error';
+import {getPreferredLocale} from '@/i18n';
+import {normalizeInjectedAuthCallback} from '@/services/auth/auth-callback-normalizer';
+import {ForceLogoutError} from '@/services/auth/types';
+import {getAppSettings, saveAppSettings} from '@/services/db/app-settings-db';
+import {imageFileToFile} from '@/services/image/image-file';
+import {DEFAULT_APP_SETTINGS} from '@/services/settings/app-settings';
+import {type AppSettings} from '@/services/settings/types';
+import {importFromUrl} from '@/services/url/url-parser';
+import type {AuthSlice} from '@/stores/auth-slice';
+import type {LocaleSlice} from '@/stores/locale-slice';
+import type {StyleTransferSlice} from '@/stores/style-transfer-slice';
+import {initAuthAttemptWatcher} from '@/stores/watchers/auth-attempt-watcher';
+import {initAuthExpiryWatcher} from '@/stores/watchers/auth-expiry-watcher';
+import {TabKey} from '@/tabs';
+import {getErrorMessage} from '@/utils/error';
 
 import type {ColorMixerSlice} from './color-mixer-slice';
 import type {ColorSetSlice} from './color-set-slice';

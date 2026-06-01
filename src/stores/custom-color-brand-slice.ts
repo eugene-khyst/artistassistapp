@@ -19,16 +19,16 @@
 import {saveAs} from 'file-saver';
 import type {StateCreator} from 'zustand';
 
-import {Reflectance} from '~/src/services/color/space/reflectance';
-import {hexToRgb} from '~/src/services/color/space/rgb';
-import type {ColorDefinitionSource, CustomColorBrandDefinition} from '~/src/services/color/types';
-import {FileExtension} from '~/src/services/color/types';
+import {Reflectance} from '@/services/color/space/reflectance';
+import {hexToRgb} from '@/services/color/space/rgb';
+import type {ColorDefinitionSource, CustomColorBrandDefinition} from '@/services/color/types';
+import {FileExtension} from '@/services/color/types';
 import {
   deleteCustomColorBrand,
   getCustomColorBrands,
   getLastCustomColorBrand,
   saveCustomColorBrand,
-} from '~/src/services/db/custom-brand-db';
+} from '@/services/db/custom-brand-db';
 
 function calculateRho(brand: CustomColorBrandDefinition): CustomColorBrandDefinition {
   const {colors} = brand;

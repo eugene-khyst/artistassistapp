@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {ZoomableImageCanvasProps} from '~/src/services/canvas/image/zoomable-image-canvas';
-import {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
-import {Rectangle, Vector} from '~/src/services/math/geometry';
-import {type Margins} from '~/src/utils/graphics';
-import {clamp} from '~/src/utils/math-utils';
+import type {ZoomableImageCanvasProps} from '@/services/canvas/image/zoomable-image-canvas';
+import {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
+import {Rectangle, Vector} from '@/services/math/geometry';
+import {type Margins} from '@/utils/graphics';
+import {clamp} from '@/utils/math-utils';
 
 const LINE_WIDTH = 1.5;
 

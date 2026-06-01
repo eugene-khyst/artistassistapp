@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Authentication, User} from '~/src/services/auth/types';
-import {AuthErrorType, ForceLogoutError} from '~/src/services/auth/types';
-import {decrypt, isEncrypted} from '~/src/utils/crypto';
+import type {Authentication, User} from '@/services/auth/types';
+import {AuthErrorType, ForceLogoutError} from '@/services/auth/types';
+import {decrypt, isEncrypted} from '@/utils/crypto';
 
 export interface TieredResource {
   freeTier?: boolean;

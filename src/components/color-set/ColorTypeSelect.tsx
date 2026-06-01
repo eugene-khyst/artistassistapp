@@ -21,9 +21,9 @@ import type {SelectProps} from 'antd';
 import {Select} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 
-import {COLOR_TYPE_LABELS} from '~/src/components/messages';
-import {COLOR_TYPES} from '~/src/services/color/colors';
-import type {ColorType} from '~/src/services/color/types';
+import {COLOR_TYPE_LABELS} from '@/components/messages';
+import {COLOR_TYPES} from '@/services/color/colors';
+import type {ColorType} from '@/services/color/types';
 
 type Props = Omit<SelectProps, 'options' | 'placeholder'>;
 

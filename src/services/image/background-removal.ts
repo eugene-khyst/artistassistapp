@@ -16,15 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Authentication} from '~/src/services/auth/types';
-import {Interpolation, interpolationWebGL} from '~/src/services/image/filter/interpolation-webgl';
-import {imageBitmapToImageData} from '~/src/services/ml/image-transformer';
-import type {Float32Tensor} from '~/src/services/ml/tensor';
-import {imageDataToFloat32Tensor} from '~/src/services/ml/tensor';
-import type {OnnxModel} from '~/src/services/ml/types';
-import {runInferenceWorker} from '~/src/services/ml/worker/inference-worker-manager';
-import type {FetchProgressCallback} from '~/src/utils/fetch';
-import {applyMask} from '~/src/utils/graphics';
+import type {Authentication} from '@/services/auth/types';
+import {Interpolation, interpolationWebGL} from '@/services/image/filter/interpolation-webgl';
+import {imageBitmapToImageData} from '@/services/ml/image-transformer';
+import type {Float32Tensor} from '@/services/ml/tensor';
+import {imageDataToFloat32Tensor} from '@/services/ml/tensor';
+import type {OnnxModel} from '@/services/ml/types';
+import {runInferenceWorker} from '@/services/ml/worker/inference-worker-manager';
+import type {FetchProgressCallback} from '@/utils/fetch';
+import {applyMask} from '@/utils/graphics';
 
 export async function removeBackground(
   blob: Blob,

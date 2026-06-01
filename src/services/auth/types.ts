@@ -18,8 +18,8 @@
 
 import {JWTExpired} from 'jose/errors';
 
-import type {DisplayMode} from '~/src/utils/environment';
-import {getErrorMessage} from '~/src/utils/error';
+import type {DisplayMode} from '@/utils/environment';
+import {getErrorMessage} from '@/utils/error';
 
 export interface AuthTokenResponse {
   id_token: string;

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {getErrorMessage} from '~/src/utils/error';
+import {getErrorMessage} from '@/utils/error';
 
 const ABORT_ERROR_NAME = 'AbortError';
 

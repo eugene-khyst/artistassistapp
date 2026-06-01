@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {clamp} from '~/src/utils/math-utils';
+import {clamp} from '@/utils/math-utils';
 
 // Pixel-center mapping `srcCoord = (dstCoord + 0.5) * scale - 0.5` with replicate-edge clamping.
 export function bilinearInterpolation(

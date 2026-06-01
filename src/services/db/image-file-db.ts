@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {ImageFile} from '~/src/services/image/image-file';
+import type {ImageFile} from '@/services/image/image-file';
 
 import {dbPromise} from './db';
 

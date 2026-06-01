@@ -19,8 +19,8 @@
 import type {RefCallback} from 'react';
 import {useCallback, useEffect, useState} from 'react';
 
-import {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
-import {debounce} from '~/src/utils/debounce';
+import {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
+import {debounce} from '@/utils/debounce';
 
 export function zoomableImageCanvasSupplier(canvas: HTMLCanvasElement): ZoomableImageCanvas {
   return new ZoomableImageCanvas(canvas);

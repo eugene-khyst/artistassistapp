@@ -19,11 +19,11 @@
 import {transfer} from 'comlink';
 import type {StateCreator} from 'zustand';
 
-import {blobToImageFile, type ImageFile} from '~/src/services/image/image-file';
-import {colorQuantizationWorker} from '~/src/services/image/worker/color-quantization-worker-manager';
-import type {OriginalImageSlice} from '~/src/stores/original-image-slice';
-import {IMAGE_SIZE, imageBitmapToBlob, ResizeImage, resizeImageBitmap} from '~/src/utils/graphics';
-import {isAbortError} from '~/src/utils/promise';
+import {blobToImageFile, type ImageFile} from '@/services/image/image-file';
+import {colorQuantizationWorker} from '@/services/image/worker/color-quantization-worker-manager';
+import type {OriginalImageSlice} from '@/stores/original-image-slice';
+import {IMAGE_SIZE, imageBitmapToBlob, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
+import {isAbortError} from '@/utils/promise';
 
 export interface PosterizedImageSlice {
   isPosterizedImageLoading: boolean;

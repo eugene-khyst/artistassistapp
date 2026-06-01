@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {BUILD_ID} from '~/src/config';
-import {type Authentication} from '~/src/services/auth/types';
-import {decryptDataIfNeeded} from '~/src/services/auth/utils';
-import {checkMimeType} from '~/src/utils/mime';
-import {getFileExtension, getUrlString, splitUrl} from '~/src/utils/url';
+import {BUILD_ID} from '@/config';
+import {type Authentication} from '@/services/auth/types';
+import {decryptDataIfNeeded} from '@/services/auth/utils';
+import {checkMimeType} from '@/utils/mime';
+import {getFileExtension, getUrlString, splitUrl} from '@/utils/url';
 
 interface CachePutOptions {
   allowOpaqueResponses?: boolean;

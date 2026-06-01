@@ -18,16 +18,16 @@
 
 import type {DBSchema, StoreNames} from 'idb';
 
-import type {AuthAttempt, AuthErrorData, AuthSession} from '~/src/services/auth/types';
+import type {AuthAttempt, AuthErrorData, AuthSession} from '@/services/auth/types';
 import type {
   ColorMixture,
   ColorSetDefinition,
   ColorType,
   CustomColorBrandDefinition,
-} from '~/src/services/color/types';
-import type {AppliedMigration} from '~/src/services/db/migrations';
-import type {ImageFile} from '~/src/services/image/image-file';
-import type {AppSettings} from '~/src/services/settings/types';
+} from '@/services/color/types';
+import type {AppliedMigration} from '@/services/db/migrations';
+import type {ImageFile} from '@/services/image/image-file';
+import type {AppSettings} from '@/services/settings/types';
 
 export interface ArtistAssistAppDB extends DBSchema {
   migrations: {

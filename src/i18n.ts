@@ -20,7 +20,7 @@ import type {Messages} from '@lingui/core';
 import {i18n} from '@lingui/core';
 import type {Locale as AntdLocale} from 'antd/es/locale';
 
-import {mergeAlternating} from '~/src/utils/array';
+import {mergeAlternating} from '@/utils/array';
 
 const LOCALES = [
   'bg',

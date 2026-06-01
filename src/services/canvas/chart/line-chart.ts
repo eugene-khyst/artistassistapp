@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Canvas} from '~/src/services/canvas/canvas';
-import {rgbToHex, type RgbTuple} from '~/src/services/color/space/rgb';
-import {Vector} from '~/src/services/math/geometry';
-import type {TypedArray} from '~/src/utils/array';
-import {countFractionDigits} from '~/src/utils/format';
+import {Canvas} from '@/services/canvas/canvas';
+import {rgbToHex, type RgbTuple} from '@/services/color/space/rgb';
+import {Vector} from '@/services/math/geometry';
+import type {TypedArray} from '@/utils/array';
+import {countFractionDigits} from '@/utils/format';
 
 const SPACING = 3;
 

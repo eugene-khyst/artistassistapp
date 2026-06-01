@@ -16,12 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-  makeColorMixture,
-  makeSingleColorMixture,
-  PAPER_WHITE,
-} from '~/src/services/color/color-mixer';
-import type {ColorMixture, ColorSet} from '~/src/services/color/types';
+import {makeColorMixture, makeSingleColorMixture, PAPER_WHITE} from '@/services/color/color-mixer';
+import type {ColorMixture, ColorSet} from '@/services/color/types';
 
 export class ColorMixingChart {
   makeColorMixingChart(colorSet: ColorSet | null): ColorMixture[][] {

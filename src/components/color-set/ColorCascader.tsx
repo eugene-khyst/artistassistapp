@@ -21,13 +21,13 @@ import {Cascader} from 'antd';
 import type {CascaderProps, DefaultOptionType} from 'antd/es/cascader';
 import {useMemo} from 'react';
 
-import {ColorLabel} from '~/src/components/color/ColorLabel';
-import {filterCascaderOptions} from '~/src/components/utils';
-import {COLOR_COMPARATORS, ColorSort, formatColorLabel} from '~/src/services/color/colors';
-import type {Color, ColorId, ColorSet} from '~/src/services/color/types';
-import {useAppStore} from '~/src/stores/app-store';
-import {decorateSortUndecorate} from '~/src/utils/array';
-import {computeIfAbsentInMap} from '~/src/utils/map';
+import {ColorLabel} from '@/components/color/ColorLabel';
+import {filterCascaderOptions} from '@/components/utils';
+import {COLOR_COMPARATORS, ColorSort, formatColorLabel} from '@/services/color/colors';
+import type {Color, ColorId, ColorSet} from '@/services/color/types';
+import {useAppStore} from '@/stores/app-store';
+import {decorateSortUndecorate} from '@/utils/array';
+import {computeIfAbsentInMap} from '@/utils/map';
 
 import styles from './ColorCascader.module.css';
 

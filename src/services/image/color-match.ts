@@ -16,13 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {RgbTuple} from '~/src/services/color/space/rgb';
-import {colorMatchFilterWebGL} from '~/src/services/image/filter/color-match-webgl';
-import {computeOtsuThreshold} from '~/src/services/image/filter/otsu-threshold';
-import {sobelEdgeDetectionWebGL} from '~/src/services/image/filter/sobel-edge-detection-webgl';
-import {thresholdFilterWebGL} from '~/src/services/image/filter/threshold-webgl';
-import type {DrawImageSource} from '~/src/utils/graphics';
-import {mergeImages, offscreenCanvasToImageData} from '~/src/utils/graphics';
+import type {RgbTuple} from '@/services/color/space/rgb';
+import {colorMatchFilterWebGL} from '@/services/image/filter/color-match-webgl';
+import {computeOtsuThreshold} from '@/services/image/filter/otsu-threshold';
+import {sobelEdgeDetectionWebGL} from '@/services/image/filter/sobel-edge-detection-webgl';
+import {thresholdFilterWebGL} from '@/services/image/filter/threshold-webgl';
+import type {DrawImageSource} from '@/utils/graphics';
+import {mergeImages, offscreenCanvasToImageData} from '@/utils/graphics';
 
 const COLOR_MATCH_DELTA_E_OK_THRESHOLD = 0.05;
 

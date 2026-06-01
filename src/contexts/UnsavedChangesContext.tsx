@@ -19,7 +19,7 @@
 import type {PropsWithChildren} from 'react';
 import {createContext, useMemo, useRef} from 'react';
 
-import {asyncNoop, noop} from '~/src/utils/function';
+import {asyncNoop, noop} from '@/utils/function';
 
 type Checker = () => Promise<void>;
 

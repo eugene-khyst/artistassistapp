@@ -19,18 +19,15 @@
 import {transfer} from 'comlink';
 import type {StateCreator} from 'zustand';
 
-import {hexToRgb, linearizeRgbChannel} from '~/src/services/color/space/rgb';
-import {
-  type AdjustmentParameters,
-  getColorAdjustedImage,
-} from '~/src/services/image/color-adjustment';
-import {rgbChannelsPercentileCalculator} from '~/src/services/image/worker/rgb-channels-percentile-worker-manager';
+import {hexToRgb, linearizeRgbChannel} from '@/services/color/space/rgb';
+import {type AdjustmentParameters, getColorAdjustedImage} from '@/services/image/color-adjustment';
+import {rgbChannelsPercentileCalculator} from '@/services/image/worker/rgb-channels-percentile-worker-manager';
 import {
   createImageBitmapAndResize,
   IMAGE_SIZE,
   ResizeImage,
   resizeImageBitmap,
-} from '~/src/utils/graphics';
+} from '@/utils/graphics';
 
 export interface ColorAdjustmentSlice {
   imageFileToAdjustColors: File | null;

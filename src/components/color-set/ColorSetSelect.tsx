@@ -23,11 +23,11 @@ import {Button, Grid, Select, Space, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useMemo} from 'react';
 
-import {ColorSetName} from '~/src/components/color-set/ColorSetName';
-import {filterSelectOptions} from '~/src/components/utils';
-import {colorSetDefinitionToBrandColorCounts} from '~/src/services/color/colors';
-import type {ColorBrandDefinition, ColorSetDefinition} from '~/src/services/color/types';
-import {byDate, reverseOrder} from '~/src/utils/comparator';
+import {ColorSetName} from '@/components/color-set/ColorSetName';
+import {filterSelectOptions} from '@/components/utils';
+import {colorSetDefinitionToBrandColorCounts} from '@/services/color/colors';
+import type {ColorBrandDefinition, ColorSetDefinition} from '@/services/color/types';
+import {byDate, reverseOrder} from '@/utils/comparator';
 
 const showSearch = {filterOption: filterSelectOptions};
 

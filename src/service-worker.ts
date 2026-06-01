@@ -22,28 +22,28 @@ declare const self: ServiceWorkerGlobalScope & {
   __WB_MANIFEST: {url: string}[];
 };
 
-import {AuthErrorType} from '~/src/services/auth/types';
-import type {ColorSetDefinition, CustomColorBrandDefinition} from '~/src/services/color/types';
-import {FileExtension} from '~/src/services/color/types';
-import {getAppSettings, saveAppSettings} from '~/src/services/db/app-settings-db';
-import {saveAuthErrorData, saveAuthSession} from '~/src/services/db/auth-db';
-import {saveColorSets} from '~/src/services/db/color-set-db';
-import {saveCustomColorBrand} from '~/src/services/db/custom-brand-db';
-import {saveImageFile} from '~/src/services/db/image-file-db';
-import {fileToImageFile} from '~/src/services/image/image-file';
-import {DEFAULT_APP_SETTINGS} from '~/src/services/settings/app-settings';
-import type {AppSettings} from '~/src/services/settings/types';
-import type {ServiceWorkerMessage} from '~/src/sw-message';
-import {TabKey} from '~/src/tabs';
-import {fromEpochSeconds} from '~/src/utils/date';
-import {digestMessage} from '~/src/utils/digest';
+import {AuthErrorType} from '@/services/auth/types';
+import type {ColorSetDefinition, CustomColorBrandDefinition} from '@/services/color/types';
+import {FileExtension} from '@/services/color/types';
+import {getAppSettings, saveAppSettings} from '@/services/db/app-settings-db';
+import {saveAuthErrorData, saveAuthSession} from '@/services/db/auth-db';
+import {saveColorSets} from '@/services/db/color-set-db';
+import {saveCustomColorBrand} from '@/services/db/custom-brand-db';
+import {saveImageFile} from '@/services/db/image-file-db';
+import {fileToImageFile} from '@/services/image/image-file';
+import {DEFAULT_APP_SETTINGS} from '@/services/settings/app-settings';
+import type {AppSettings} from '@/services/settings/types';
+import type {ServiceWorkerMessage} from '@/sw-message';
+import {TabKey} from '@/tabs';
+import {fromEpochSeconds} from '@/utils/date';
+import {digestMessage} from '@/utils/digest';
 import {
   CACHE_NAME_DEFAULT,
   cachePutWithRetry,
   fetchCacheFirst,
   fetchSWR,
   getCacheName,
-} from '~/src/utils/fetch';
+} from '@/utils/fetch';
 
 const CACHE_NAME_LARGE_FILES = getCacheName('large-files');
 const CACHE_NAMES = new Set([CACHE_NAME_DEFAULT, CACHE_NAME_LARGE_FILES]);

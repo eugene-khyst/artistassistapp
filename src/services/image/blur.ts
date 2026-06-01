@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {kuwaharaFilterWebGL} from '~/src/services/image/filter/kuwahara-filter-webgl';
-import type {DrawImageSource} from '~/src/utils/graphics';
-import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '~/src/utils/graphics';
+import {kuwaharaFilterWebGL} from '@/services/image/filter/kuwahara-filter-webgl';
+import type {DrawImageSource} from '@/utils/graphics';
+import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
 
 export async function getBlurred(image: DrawImageSource): Promise<ImageBitmap[]> {
   console.time('blur');

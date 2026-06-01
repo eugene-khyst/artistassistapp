@@ -19,7 +19,7 @@
 import type {RefObject} from 'react';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
-import {useFullScreen} from '~/src/hooks/useFullscreen';
+import {useFullScreen} from '@/hooks/useFullscreen';
 
 interface Options {
   onEnter?: () => void;

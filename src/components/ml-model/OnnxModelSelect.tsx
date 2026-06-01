@@ -22,11 +22,11 @@ import {Flex, Select, Typography} from 'antd';
 import type {DefaultOptionType} from 'antd/es/select';
 import {type ReactNode, useMemo} from 'react';
 
-import type {User} from '~/src/services/auth/types';
-import {hasAccessTo} from '~/src/services/auth/utils';
-import {compareOnnxModelsByPriority} from '~/src/services/ml/models';
-import type {OnnxModel} from '~/src/services/ml/types';
-import {useAppStore} from '~/src/stores/app-store';
+import type {User} from '@/services/auth/types';
+import {hasAccessTo} from '@/services/auth/utils';
+import {compareOnnxModelsByPriority} from '@/services/ml/models';
+import type {OnnxModel} from '@/services/ml/types';
+import {useAppStore} from '@/stores/app-store';
 
 import styles from './OnnxModelSelect.module.css';
 

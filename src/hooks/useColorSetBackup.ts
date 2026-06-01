@@ -21,7 +21,7 @@ import {useLingui} from '@lingui/react/macro';
 import {App} from 'antd';
 import {useCallback} from 'react';
 
-import {useAppStore} from '~/src/stores/app-store';
+import {useAppStore} from '@/stores/app-store';
 
 const backupMessage = defineMessage`Downloaded file {filename}`;
 const backupDescription = defineMessage`This backup file lets you restore your color sets later, so keep it. You can delete any older backup files.`;

@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {DrawImageSource} from '~/src/utils/graphics';
-import type {Size} from '~/src/utils/types';
+import type {DrawImageSource} from '@/utils/graphics';
+import type {Size} from '@/utils/types';
 
 import vertexShaderSource from './glsl/vertex.glsl';
 

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {computeIfAbsentInMap} from '~/src/utils/map';
+import {computeIfAbsentInMap} from '@/utils/map';
 
 export type EventListener<S> = (data: S) => void | Promise<void>;
 

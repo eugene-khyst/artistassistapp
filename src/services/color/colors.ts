@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DATA_URL} from '~/src/config';
-import {type Authentication, type User} from '~/src/services/auth/types';
-import {decryptDataIfNeeded, hasAccessTo} from '~/src/services/auth/utils';
-import {rgbToOklab} from '~/src/services/color/space/oklab';
-import {oklabToOklch} from '~/src/services/color/space/oklch';
+import {DATA_URL} from '@/config';
+import {type Authentication, type User} from '@/services/auth/types';
+import {decryptDataIfNeeded, hasAccessTo} from '@/services/auth/utils';
+import {rgbToOklab} from '@/services/color/space/oklab';
+import {oklabToOklch} from '@/services/color/space/oklch';
 import type {
   BrandColorCount,
   Color,
@@ -33,11 +33,11 @@ import type {
   ColorSetDefinition,
   CustomColorBrandDefinition,
   StandardColorSetDefinition,
-} from '~/src/services/color/types';
-import {ColorType, CUSTOM_COLOR_SET, NEW_COLOR_SET} from '~/src/services/color/types';
-import {getCustomColorBrand, getCustomColorBrandsByType} from '~/src/services/db/custom-brand-db';
-import type {ExtractorComparator} from '~/src/utils/array';
-import {createExtractorComparator, decorateSortUndecorate} from '~/src/utils/array';
+} from '@/services/color/types';
+import {ColorType, CUSTOM_COLOR_SET, NEW_COLOR_SET} from '@/services/color/types';
+import {getCustomColorBrand, getCustomColorBrandsByType} from '@/services/db/custom-brand-db';
+import type {ExtractorComparator} from '@/utils/array';
+import {createExtractorComparator, decorateSortUndecorate} from '@/utils/array';
 import {
   byBoolean,
   byNumber,
@@ -45,9 +45,9 @@ import {
   type Comparator,
   compare,
   reverseOrder,
-} from '~/src/utils/comparator';
-import {fetchSWR} from '~/src/utils/fetch';
-import {computeIfAbsentInMap, indexBy, indexById} from '~/src/utils/map';
+} from '@/utils/comparator';
+import {fetchSWR} from '@/utils/fetch';
+import {computeIfAbsentInMap, indexBy, indexById} from '@/utils/map';
 
 import {hexToRgb} from './space/rgb';
 

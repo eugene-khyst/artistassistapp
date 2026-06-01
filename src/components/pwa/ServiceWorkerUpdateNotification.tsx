@@ -20,7 +20,7 @@ import {Trans} from '@lingui/react/macro';
 import {App, Button, Space} from 'antd';
 import {useEffect} from 'react';
 
-import {useAppStore} from '~/src/stores/app-store';
+import {useAppStore} from '@/stores/app-store';
 
 const NOTIFICATION_KEY = 'sw-update';
 

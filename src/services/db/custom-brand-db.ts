@@ -20,7 +20,7 @@ import type {
   ColorSetDefinition,
   ColorType,
   CustomColorBrandDefinition,
-} from '~/src/services/color/types';
+} from '@/services/color/types';
 
 import {dbPromise} from './db';
 

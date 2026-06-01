@@ -22,10 +22,10 @@ import type {ReactNode} from 'react';
 import {useEffect, useState} from 'react';
 import reactStringReplace from 'react-string-replace';
 
-import type {AdDefinition} from '~/src/services/ads/types';
-import {useAppStore} from '~/src/stores/app-store';
-import {TabKey} from '~/src/tabs';
-import {randomInt} from '~/src/utils/random';
+import type {AdDefinition} from '@/services/ads/types';
+import {useAppStore} from '@/stores/app-store';
+import {TabKey} from '@/tabs';
+import {randomInt} from '@/utils/random';
 
 import styles from './Ad.module.css';
 

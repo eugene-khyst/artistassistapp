@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Fraction} from '~/src/utils/fraction';
+import type {Fraction} from '@/utils/fraction';
 
 export function countFractionDigits(number: number): number {
   const numberStr = String(number);

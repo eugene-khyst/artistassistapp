@@ -23,12 +23,12 @@ import {
   getImageFiles,
   getLastImageFile,
   saveImageFile,
-} from '~/src/services/db/image-file-db';
-import {blobToImageFile, type ImageFile, imageFileToFile} from '~/src/services/image/image-file';
-import type {SampleImageDefinition} from '~/src/services/image/sample-images';
-import type {ColorMatchImageSlice} from '~/src/stores/color-match-image-slice';
-import {TabKey} from '~/src/tabs';
-import {createImageBitmapAndResize, IMAGE_SIZE, ResizeImage} from '~/src/utils/graphics';
+} from '@/services/db/image-file-db';
+import {blobToImageFile, type ImageFile, imageFileToFile} from '@/services/image/image-file';
+import type {SampleImageDefinition} from '@/services/image/sample-images';
+import type {ColorMatchImageSlice} from '@/stores/color-match-image-slice';
+import {TabKey} from '@/tabs';
+import {createImageBitmapAndResize, IMAGE_SIZE, ResizeImage} from '@/utils/graphics';
 
 import type {BlurredImagesSlice} from './blurred-images-slice';
 import type {ColorMixerSlice} from './color-mixer-slice';

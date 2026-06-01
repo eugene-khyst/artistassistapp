@@ -19,8 +19,8 @@
 import {theme} from 'antd';
 import {memo} from 'react';
 
-import type {RgbTuple} from '~/src/services/color/space/rgb';
-import {hexToRgb, isRgbDark, toHexString} from '~/src/services/color/space/rgb';
+import type {RgbTuple} from '@/services/color/space/rgb';
+import {hexToRgb, isRgbDark, toHexString} from '@/services/color/space/rgb';
 
 import styles from './ColorSquare.module.css';
 

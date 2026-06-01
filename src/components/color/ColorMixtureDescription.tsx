@@ -20,10 +20,10 @@ import {Trans} from '@lingui/react/macro';
 import {Space, Typography} from 'antd';
 import {memo} from 'react';
 
-import {rgbToHex} from '~/src/services/color/space/rgb';
-import type {ColorMixture, ColorMixturePart} from '~/src/services/color/types';
-import {formatFraction, formatRatio} from '~/src/utils/format';
-import {toRatio} from '~/src/utils/fraction';
+import {rgbToHex} from '@/services/color/space/rgb';
+import type {ColorMixture, ColorMixturePart} from '@/services/color/types';
+import {formatFraction, formatRatio} from '@/utils/format';
+import {toRatio} from '@/utils/fraction';
 
 import {ColorDescription} from './ColorDescription';
 import {ColorSquare} from './ColorSquare';

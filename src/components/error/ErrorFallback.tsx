@@ -21,10 +21,10 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {Alert, Button, Space, Typography} from 'antd';
 import type {FallbackProps} from 'react-error-boundary';
 
-import {ClearCacheButton} from '~/src/components/storage/ClearCacheButton';
-import {DeleteAppDataButton} from '~/src/components/storage/DeleteAppDataButton';
-import {WEBSITE_URL} from '~/src/config';
-import {getErrorMessage} from '~/src/utils/error';
+import {ClearCacheButton} from '@/components/storage/ClearCacheButton';
+import {DeleteAppDataButton} from '@/components/storage/DeleteAppDataButton';
+import {WEBSITE_URL} from '@/config';
+import {getErrorMessage} from '@/utils/error';
 
 import styles from './ErrorFallback.module.css';
 

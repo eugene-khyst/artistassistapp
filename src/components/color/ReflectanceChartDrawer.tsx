@@ -21,13 +21,13 @@ import type {CheckboxOptionType, RadioChangeEvent} from 'antd';
 import {Drawer, Form, Radio, Typography} from 'antd';
 import {useEffect, useState} from 'react';
 
-import {ColorMixtureDescription} from '~/src/components/color/ColorMixtureDescription';
-import {COLOR_TYPE_LABELS} from '~/src/components/messages';
-import {useReflectanceChart} from '~/src/hooks/useReflectanceChart';
-import {Reflectance} from '~/src/services/color/space/reflectance';
-import type {RgbTuple} from '~/src/services/color/space/rgb';
-import {hexToRgb} from '~/src/services/color/space/rgb';
-import type {ColorMixture, ColorMixturePart} from '~/src/services/color/types';
+import {ColorMixtureDescription} from '@/components/color/ColorMixtureDescription';
+import {COLOR_TYPE_LABELS} from '@/components/messages';
+import {useReflectanceChart} from '@/hooks/useReflectanceChart';
+import {Reflectance} from '@/services/color/space/reflectance';
+import type {RgbTuple} from '@/services/color/space/rgb';
+import {hexToRgb} from '@/services/color/space/rgb';
+import type {ColorMixture, ColorMixturePart} from '@/services/color/types';
 
 type ChartMode = 'similarity' | 'mixture';
 

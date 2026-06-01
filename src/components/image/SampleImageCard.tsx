@@ -18,9 +18,9 @@
 
 import {Card} from 'antd';
 
-import type {SampleImageDefinition} from '~/src/services/image/sample-images';
-import {useAppStore} from '~/src/stores/app-store';
-import {splitUrl} from '~/src/utils/url';
+import type {SampleImageDefinition} from '@/services/image/sample-images';
+import {useAppStore} from '@/stores/app-store';
+import {splitUrl} from '@/utils/url';
 
 interface Props {
   sampleImage: SampleImageDefinition;

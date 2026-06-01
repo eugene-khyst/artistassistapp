@@ -33,12 +33,12 @@ import type {ProgressProps} from 'antd';
 import {Button, Col, Divider, Flex, Progress, Row, Space, Switch, Tag, Typography} from 'antd';
 import {useState} from 'react';
 
-import {AdCard} from '~/src/components/ad/AdCard';
-import {ClearCacheButton} from '~/src/components/storage/ClearCacheButton';
-import {DeleteAppDataButton} from '~/src/components/storage/DeleteAppDataButton';
-import {BUILD_ID, WEBSITE_URL} from '~/src/config';
-import {useAppStore} from '~/src/stores/app-store';
-import {formatBytes} from '~/src/utils/format';
+import {AdCard} from '@/components/ad/AdCard';
+import {ClearCacheButton} from '@/components/storage/ClearCacheButton';
+import {DeleteAppDataButton} from '@/components/storage/DeleteAppDataButton';
+import {BUILD_ID, WEBSITE_URL} from '@/config';
+import {useAppStore} from '@/stores/app-store';
+import {formatBytes} from '@/utils/format';
 
 import {Logo} from './image/Logo';
 

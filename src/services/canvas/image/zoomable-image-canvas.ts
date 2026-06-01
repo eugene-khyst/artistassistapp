@@ -18,11 +18,11 @@
 
 import {saveAs} from 'file-saver';
 
-import {Canvas} from '~/src/services/canvas/canvas';
-import {Rectangle, Vector} from '~/src/services/math/geometry';
-import type {DrawImageSource} from '~/src/utils/graphics';
-import {offscreenCanvasToBlob} from '~/src/utils/graphics';
-import {clamp} from '~/src/utils/math-utils';
+import {Canvas} from '@/services/canvas/canvas';
+import {Rectangle, Vector} from '@/services/math/geometry';
+import type {DrawImageSource} from '@/utils/graphics';
+import {offscreenCanvasToBlob} from '@/utils/graphics';
+import {clamp} from '@/utils/math-utils';
 
 const MIN_IMAGE_SIDE = 200;
 

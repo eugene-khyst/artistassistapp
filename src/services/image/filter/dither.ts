@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {OklabTuple} from '~/src/services/color/space/oklab';
+import type {OklabTuple} from '@/services/color/space/oklab';
 
 import {BLUE_NOISE, BLUE_NOISE_SIZE} from './blue-noise';
 

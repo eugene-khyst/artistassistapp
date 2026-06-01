@@ -20,8 +20,8 @@ import type {UseQueryResult} from '@tanstack/react-query';
 import {useQuery} from '@tanstack/react-query';
 import {useCallback} from 'react';
 
-import {fetchOnnxModels} from '~/src/services/ml/models';
-import type {OnnxModel, OnnxModelType} from '~/src/services/ml/types';
+import {fetchOnnxModels} from '@/services/ml/models';
+import type {OnnxModel, OnnxModelType} from '@/services/ml/types';
 
 export function useOnnxModel(type: OnnxModelType, id: string | undefined) {
   const {isLoading, isError, error, data}: UseQueryResult<OnnxModel | undefined> = useQuery({

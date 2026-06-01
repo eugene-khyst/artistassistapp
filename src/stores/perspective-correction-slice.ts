@@ -18,20 +18,20 @@
 
 import type {StateCreator} from 'zustand';
 
-import {hasAccessTo} from '~/src/services/auth/utils';
+import {hasAccessTo} from '@/services/auth/utils';
 import {
   detectDocumentCorners,
   getPerspectiveCorrectionImage,
-} from '~/src/services/image/perspective-correction';
-import type {Vector} from '~/src/services/math/geometry';
-import type {OnnxModel} from '~/src/services/ml/types';
-import type {AuthSlice} from '~/src/stores/auth-slice';
-import {formatFetchProgress} from '~/src/utils/fetch';
+} from '@/services/image/perspective-correction';
+import type {Vector} from '@/services/math/geometry';
+import type {OnnxModel} from '@/services/ml/types';
+import type {AuthSlice} from '@/stores/auth-slice';
+import {formatFetchProgress} from '@/utils/fetch';
 import {
   createImageBitmapAndResize,
   ResizeImage,
   rotateImageBitmapClockwise,
-} from '~/src/utils/graphics';
+} from '@/utils/graphics';
 
 export interface PerspectiveCorrectionSlice {
   imageFileToCorrectPerspective: File | null;

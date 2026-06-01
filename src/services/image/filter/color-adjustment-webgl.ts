@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {kelvinToRgb} from '~/src/services/color/color-temperature';
-import type {AdjustmentParameters} from '~/src/services/image/color-adjustment';
-import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
-import type {DrawImageSource} from '~/src/utils/graphics';
-import {copyOffscreenCanvas} from '~/src/utils/graphics';
+import {kelvinToRgb} from '@/services/color/color-temperature';
+import type {AdjustmentParameters} from '@/services/image/color-adjustment';
+import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
+import type {DrawImageSource} from '@/utils/graphics';
+import {copyOffscreenCanvas} from '@/utils/graphics';
 
 import fragmentShaderSource from './glsl/color-adjustment.glsl';
 

@@ -19,8 +19,8 @@
 import {Select} from 'antd';
 import type {DefaultOptionType as SelectOptionType, SelectProps} from 'antd/es/select';
 
-import {OpacityIcon} from '~/src/components/color/OpacityIcon';
-import {ColorOpacity} from '~/src/services/color/types';
+import {OpacityIcon} from '@/components/color/OpacityIcon';
+import {ColorOpacity} from '@/services/color/types';
 
 const OPACITY_OPTIONS: SelectOptionType[] = [
   ColorOpacity.Transparent,

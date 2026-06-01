@@ -20,7 +20,7 @@ import {Trans} from '@lingui/react/macro';
 import {Button} from 'antd';
 import {useState} from 'react';
 
-import {useAppStore} from '~/src/stores/app-store';
+import {useAppStore} from '@/stores/app-store';
 
 export function LogoutButton() {
   const logout = useAppStore(state => state.logout);

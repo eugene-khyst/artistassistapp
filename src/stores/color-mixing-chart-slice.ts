@@ -18,12 +18,12 @@
 
 import type {StateCreator} from 'zustand';
 
-import type {ColorSort} from '~/src/services/color/colors';
-import {filterColorSet, sortColorSet} from '~/src/services/color/colors';
-import type {ColorId, ColorMixture, ColorSet} from '~/src/services/color/types';
-import {colorMixingChartWorker} from '~/src/services/color/worker/color-mixing-chart-worker-manager';
-import type {ColorMixerSlice} from '~/src/stores/color-mixer-slice';
-import {isAbortError} from '~/src/utils/promise';
+import type {ColorSort} from '@/services/color/colors';
+import {filterColorSet, sortColorSet} from '@/services/color/colors';
+import type {ColorId, ColorMixture, ColorSet} from '@/services/color/types';
+import {colorMixingChartWorker} from '@/services/color/worker/color-mixing-chart-worker-manager';
+import type {ColorMixerSlice} from '@/stores/color-mixer-slice';
+import {isAbortError} from '@/utils/promise';
 
 export interface ColorMixingChartSlice {
   colorMixingChartSet: ColorSet | null;

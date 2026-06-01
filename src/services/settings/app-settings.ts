@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {PAPER_WHITE_HEX} from '~/src/services/color/color-mixer';
-import type {AppSettings} from '~/src/services/settings/types';
-import {ColorPickerSort} from '~/src/services/settings/types';
+import {PAPER_WHITE_HEX} from '@/services/color/color-mixer';
+import type {AppSettings} from '@/services/settings/types';
+import {ColorPickerSort} from '@/services/settings/types';
 
 export const DEFAULT_APP_SETTINGS: AppSettings = {
   colorPickerSurfaceHex: PAPER_WHITE_HEX,

@@ -18,12 +18,12 @@
 
 import {transfer} from 'comlink';
 
-import type {Authentication} from '~/src/services/auth/types';
-import type {InferenceRunner} from '~/src/services/ml/inference';
-import {type Float32Tensor, getFloat32TensorTransferables} from '~/src/services/ml/tensor';
-import type {FetchProgressCallback} from '~/src/utils/fetch';
-import {fetchChunked} from '~/src/utils/fetch';
-import {WorkerManager} from '~/src/utils/worker-manager';
+import type {Authentication} from '@/services/auth/types';
+import type {InferenceRunner} from '@/services/ml/inference';
+import {type Float32Tensor, getFloat32TensorTransferables} from '@/services/ml/tensor';
+import type {FetchProgressCallback} from '@/utils/fetch';
+import {fetchChunked} from '@/utils/fetch';
+import {WorkerManager} from '@/utils/worker-manager';
 
 const inferenceWorker = new WorkerManager<InferenceRunner>(
   () => new Worker(new URL('./inference-worker.ts', import.meta.url), {type: 'module'})

@@ -82,7 +82,7 @@ export default defineConfig({
   },
 
   resolve: {
-    alias: [{find: /^~\/src\//, replacement: '/src/'}],
+    alias: [{find: /^@\//, replacement: '/src/'}],
   },
 
   server: {

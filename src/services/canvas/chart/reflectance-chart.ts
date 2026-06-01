@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {WAVELENGTH_RANGE, wavelengthToColor} from '~/src/services/color/light-spectrum';
-import {rgbToHex, WHITE} from '~/src/services/color/space/rgb';
-import type {TypedArray} from '~/src/utils/array';
+import {WAVELENGTH_RANGE, wavelengthToColor} from '@/services/color/light-spectrum';
+import {rgbToHex, WHITE} from '@/services/color/space/rgb';
+import type {TypedArray} from '@/utils/array';
 
 import {LineChart} from './line-chart';
 

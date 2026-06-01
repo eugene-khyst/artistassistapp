@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {ColorMixture} from '~/src/services/color/types';
+import type {ColorMixture} from '@/services/color/types';
 
 import {dbPromise} from './db';
 

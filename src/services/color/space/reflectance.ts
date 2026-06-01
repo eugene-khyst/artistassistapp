@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Matrix} from '~/src/services/math/matrix';
-import {clamp} from '~/src/utils/math-utils';
+import {Matrix} from '@/services/math/matrix';
+import {clamp} from '@/utils/math-utils';
 
 import type {RgbTuple} from './rgb';
 import {linearizeRgbChannel, unlinearizeRgbChannel} from './rgb';

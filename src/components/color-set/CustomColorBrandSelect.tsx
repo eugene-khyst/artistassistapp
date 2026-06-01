@@ -23,9 +23,9 @@ import {Button, Grid, Select, Space, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useMemo} from 'react';
 
-import {filterSelectOptions} from '~/src/components/utils';
-import type {CustomColorBrandDefinition} from '~/src/services/color/types';
-import {byDate, reverseOrder} from '~/src/utils/comparator';
+import {filterSelectOptions} from '@/components/utils';
+import type {CustomColorBrandDefinition} from '@/services/color/types';
+import {byDate, reverseOrder} from '@/utils/comparator';
 
 const showSearch = {filterOption: filterSelectOptions};
 

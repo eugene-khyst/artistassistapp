@@ -18,8 +18,8 @@
 
 import type {StateCreator} from 'zustand';
 
-import type {Game, Player, Score} from '~/src/services/rating/rating';
-import {Tournament} from '~/src/services/rating/rating';
+import type {Game, Player, Score} from '@/services/rating/rating';
+import {Tournament} from '@/services/rating/rating';
 
 export interface TournamentSlice {
   tournament: Tournament<File>;

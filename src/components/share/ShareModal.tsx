@@ -20,7 +20,7 @@ import {CopyOutlined, ShareAltOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {App, Button, Input, Modal, Space, Typography} from 'antd';
 
-import {QRCode} from '~/src/components/qr/QRCode';
+import {QRCode} from '@/components/qr/QRCode';
 
 const SHARE_AVAILABLE: boolean = 'share' in navigator;
 

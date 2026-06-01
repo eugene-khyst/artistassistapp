@@ -21,20 +21,20 @@ import {Button, Drawer, Form, Input, InputNumber, Radio, Select, Space} from 'an
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useEffect, useState} from 'react';
 
-import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
-import {useCreateObjectUrl} from '~/src/hooks/useCreateObjectUrl';
-import {useDebounce} from '~/src/hooks/useDebounce';
+import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {useCreateObjectUrl} from '@/hooks/useCreateObjectUrl';
+import {useDebounce} from '@/hooks/useDebounce';
 import {
   type ImagePagesPreview,
   MarginError,
   splitImageIntoPages,
   splitImageIntoPagesPreview,
   TargetSizeError,
-} from '~/src/services/image/splitter';
-import {LENGTH_UNITS} from '~/src/services/math/geometry';
-import {LengthUnit} from '~/src/services/math/types';
-import {PAPER_SIZES, printImages} from '~/src/services/print/print';
-import {PaperSize} from '~/src/services/print/types';
+} from '@/services/image/splitter';
+import {LENGTH_UNITS} from '@/services/math/geometry';
+import {LengthUnit} from '@/services/math/types';
+import {PAPER_SIZES, printImages} from '@/services/print/print';
+import {PaperSize} from '@/services/print/types';
 
 import styles from './PrintImageDrawer.module.css';
 

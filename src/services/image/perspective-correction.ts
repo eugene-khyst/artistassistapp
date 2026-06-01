@@ -16,17 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {type Authentication, ForceLogoutError} from '~/src/services/auth/types';
-import {correctPerspectiveWebGL} from '~/src/services/image/filter/perspective-correction-webgl';
-import {detectDocumentCornersHeatmap} from '~/src/services/image/heatmap-corner-detection';
-import {detectDocumentCornersSobel} from '~/src/services/image/sobel-corner-detection';
-import type {Vector} from '~/src/services/math/geometry';
-import {Matrix} from '~/src/services/math/matrix';
-import type {OnnxModel} from '~/src/services/ml/types';
-import type {FetchProgressCallback} from '~/src/utils/fetch';
-import {type DrawImageSource} from '~/src/utils/graphics';
-import {isAbortError} from '~/src/utils/promise';
-import type {Size} from '~/src/utils/types';
+import {type Authentication, ForceLogoutError} from '@/services/auth/types';
+import {correctPerspectiveWebGL} from '@/services/image/filter/perspective-correction-webgl';
+import {detectDocumentCornersHeatmap} from '@/services/image/heatmap-corner-detection';
+import {detectDocumentCornersSobel} from '@/services/image/sobel-corner-detection';
+import type {Vector} from '@/services/math/geometry';
+import {Matrix} from '@/services/math/matrix';
+import type {OnnxModel} from '@/services/ml/types';
+import type {FetchProgressCallback} from '@/utils/fetch';
+import {type DrawImageSource} from '@/utils/graphics';
+import {isAbortError} from '@/utils/promise';
+import type {Size} from '@/utils/types';
 
 export function getPerspectiveCorrectionImage(
   image: DrawImageSource,

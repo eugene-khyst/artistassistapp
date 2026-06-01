@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {type ColorChannelOrdering, type OnnxModel, PostProcessing} from '~/src/services/ml/types';
-import {clamp} from '~/src/utils/math-utils';
+import {type ColorChannelOrdering, type OnnxModel, PostProcessing} from '@/services/ml/types';
+import {clamp} from '@/utils/math-utils';
 
 export interface Float32Tensor {
   data: Float32Array;

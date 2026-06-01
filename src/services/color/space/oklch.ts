@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {degrees, radians} from '~/src/services/math/geometry';
+import {degrees, radians} from '@/services/math/geometry';
 
 import type {OklabTuple} from './oklab';
 

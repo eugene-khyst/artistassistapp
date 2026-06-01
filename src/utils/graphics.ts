@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {identity} from '~/src/utils/function';
-import {ceilToMultiple} from '~/src/utils/math-utils';
+import {identity} from '@/utils/function';
+import {ceilToMultiple} from '@/utils/math-utils';
 
 export type DrawImageSource = ImageBitmap | OffscreenCanvas;
 

@@ -21,12 +21,12 @@ import {Tabs, Typography} from 'antd';
 import type {TabsProps} from 'antd/lib';
 import {useCallback, useState} from 'react';
 
-import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
-import {COLOR_TYPE_LABELS} from '~/src/components/messages';
-import {COLOR_TYPES} from '~/src/services/color/colors';
-import type {ColorMixture, ColorType} from '~/src/services/color/types';
-import {useAppStore} from '~/src/stores/app-store';
-import type {ArrayElement} from '~/src/utils/array';
+import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {COLOR_TYPE_LABELS} from '@/components/messages';
+import {COLOR_TYPES} from '@/services/color/colors';
+import type {ColorMixture, ColorType} from '@/services/color/types';
+import {useAppStore} from '@/stores/app-store';
+import type {ArrayElement} from '@/utils/array';
 
 import {ColorSwatchDrawer} from './color/ColorSwatchDrawer';
 import {EmptyPalette} from './empty/EmptyPalette';

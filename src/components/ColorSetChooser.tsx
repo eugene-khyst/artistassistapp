@@ -41,26 +41,26 @@ import {
 } from 'antd';
 import {useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react';
 
-import {AdCard} from '~/src/components/ad/AdCard';
-import {JoinButton} from '~/src/components/auth/JoinButton';
-import {LoginOAuthButton} from '~/src/components/auth/LoginOAuthButton';
-import {LoginQRButton} from '~/src/components/auth/LoginQRButton';
-import {LogoutButton} from '~/src/components/auth/LogoutButton';
-import {ColorSetSelect} from '~/src/components/color-set/ColorSetSelect';
-import {FileSelect} from '~/src/components/file/FileSelect';
-import {LocaleSelect} from '~/src/components/i18n/LocaleSelect';
-import {InstallButton} from '~/src/components/install/InstallButton';
-import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
-import {QRScannerButton} from '~/src/components/qr/QRScannerButton';
-import {UnsavedChangesContext} from '~/src/contexts/UnsavedChangesContext';
-import {useColorBrands} from '~/src/hooks/useColorBrands';
-import {useColors} from '~/src/hooks/useColors';
-import {useColorSetBackup} from '~/src/hooks/useColorSetBackup';
-import {usePersistentStorage} from '~/src/hooks/usePersistentStorage';
-import {useStandardColorSets} from '~/src/hooks/useStandardColorSets';
-import {hasAccessTo} from '~/src/services/auth/utils';
-import {COLOR_MIXING, MAX_COLORS_IN_MIXTURE} from '~/src/services/color/color-mixer';
-import {mergeColorSets} from '~/src/services/color/colors';
+import {AdCard} from '@/components/ad/AdCard';
+import {JoinButton} from '@/components/auth/JoinButton';
+import {LoginOAuthButton} from '@/components/auth/LoginOAuthButton';
+import {LoginQRButton} from '@/components/auth/LoginQRButton';
+import {LogoutButton} from '@/components/auth/LogoutButton';
+import {ColorSetSelect} from '@/components/color-set/ColorSetSelect';
+import {FileSelect} from '@/components/file/FileSelect';
+import {LocaleSelect} from '@/components/i18n/LocaleSelect';
+import {InstallButton} from '@/components/install/InstallButton';
+import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {QRScannerButton} from '@/components/qr/QRScannerButton';
+import {UnsavedChangesContext} from '@/contexts/UnsavedChangesContext';
+import {useColorBrands} from '@/hooks/useColorBrands';
+import {useColors} from '@/hooks/useColors';
+import {useColorSetBackup} from '@/hooks/useColorSetBackup';
+import {usePersistentStorage} from '@/hooks/usePersistentStorage';
+import {useStandardColorSets} from '@/hooks/useStandardColorSets';
+import {hasAccessTo} from '@/services/auth/utils';
+import {COLOR_MIXING, MAX_COLORS_IN_MIXTURE} from '@/services/color/color-mixer';
+import {mergeColorSets} from '@/services/color/colors';
 import {
   type ColorBrandDefinition,
   type ColorSetDefinition,
@@ -68,11 +68,11 @@ import {
   CUSTOM_COLOR_SET,
   FileExtension,
   NEW_COLOR_SET,
-} from '~/src/services/color/types';
-import {colorSetToUrl} from '~/src/services/url/url-parser';
-import {useAppStore} from '~/src/stores/app-store';
-import {TabKey} from '~/src/tabs';
-import {asyncNoop} from '~/src/utils/function';
+} from '@/services/color/types';
+import {colorSetToUrl} from '@/services/url/url-parser';
+import {useAppStore} from '@/stores/app-store';
+import {TabKey} from '@/tabs';
+import {asyncNoop} from '@/utils/function';
 
 import {ColorBrandSelect} from './color-set/ColorBrandSelect';
 import {ColorSelect} from './color-set/ColorSelect';

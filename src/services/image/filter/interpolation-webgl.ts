@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
-import {copyOffscreenCanvas} from '~/src/utils/graphics';
+import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
+import {copyOffscreenCanvas} from '@/utils/graphics';
 
 import bicubicFragmentShaderSource from './glsl/bicubic-interpolation.glsl';
 import bilinearFragmentShaderSource from './glsl/bilinear-interpolation.glsl';

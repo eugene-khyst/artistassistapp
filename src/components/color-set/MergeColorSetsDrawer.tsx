@@ -21,10 +21,10 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Checkbox, Drawer, Flex, Space, Typography} from 'antd';
 import {useState} from 'react';
 
-import {ColorSetName} from '~/src/components/color-set/ColorSetName';
-import {colorSetDefinitionToBrandColorCounts} from '~/src/services/color/colors';
-import type {ColorBrandDefinition, ColorSetDefinition} from '~/src/services/color/types';
-import {byDate, reverseOrder} from '~/src/utils/comparator';
+import {ColorSetName} from '@/components/color-set/ColorSetName';
+import {colorSetDefinitionToBrandColorCounts} from '@/services/color/colors';
+import type {ColorBrandDefinition, ColorSetDefinition} from '@/services/color/types';
+import {byDate, reverseOrder} from '@/utils/comparator';
 
 interface Props {
   open: boolean;

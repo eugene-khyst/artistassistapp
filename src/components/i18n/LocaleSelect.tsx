@@ -21,8 +21,8 @@ import {useLingui} from '@lingui/react/macro';
 import {Form, Select} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 
-import {type Locale} from '~/src/i18n';
-import {useAppStore} from '~/src/stores/app-store';
+import {type Locale} from '@/i18n';
+import {useAppStore} from '@/stores/app-store';
 
 const LOCALE_LABELS: Record<Locale, string> = {
   bg: 'Български',

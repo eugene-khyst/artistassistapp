@@ -18,14 +18,14 @@
 
 import {transfer} from 'comlink';
 
-import {ColorMixer, PAPER_WHITE} from '~/src/services/color/color-mixer';
-import type {RgbTuple} from '~/src/services/color/space/rgb';
-import {packRgb, WHITE} from '~/src/services/color/space/rgb';
-import type {ColorSet} from '~/src/services/color/types';
-import type {SamplingPoint} from '~/src/services/image/sampling-point';
-import {computeSamplingPoints} from '~/src/services/image/sampling-point';
-import {drawImageToOffscreenCanvas, offscreenCanvasToImageData} from '~/src/utils/graphics';
-import {computeIfAbsentInMap} from '~/src/utils/map';
+import {ColorMixer, PAPER_WHITE} from '@/services/color/color-mixer';
+import type {RgbTuple} from '@/services/color/space/rgb';
+import {packRgb, WHITE} from '@/services/color/space/rgb';
+import type {ColorSet} from '@/services/color/types';
+import type {SamplingPoint} from '@/services/image/sampling-point';
+import {computeSamplingPoints} from '@/services/image/sampling-point';
+import {drawImageToOffscreenCanvas, offscreenCanvasToImageData} from '@/utils/graphics';
+import {computeIfAbsentInMap} from '@/utils/map';
 
 import {quantizeColors, rgbTransformInOklab} from './filter/color-quantize';
 

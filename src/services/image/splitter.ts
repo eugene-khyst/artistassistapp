@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {PAPER_SIZES} from '~/src/services/print/print';
-import type {PaperSize} from '~/src/services/print/types';
-import {PageOrientation} from '~/src/services/print/types';
-import {IMAGE_SIZE} from '~/src/utils/graphics';
-import type {Size} from '~/src/utils/types';
+import {PAPER_SIZES} from '@/services/print/print';
+import type {PaperSize} from '@/services/print/types';
+import {PageOrientation} from '@/services/print/types';
+import {IMAGE_SIZE} from '@/utils/graphics';
+import type {Size} from '@/utils/types';
 
 const MAX_CANVAS_SIZE = 8192;
 

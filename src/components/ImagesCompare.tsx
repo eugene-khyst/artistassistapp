@@ -23,12 +23,12 @@ import type {RefObject} from 'react';
 import {useEffect, useRef} from 'react';
 import {useReactToPrint} from 'react-to-print';
 
-import {AdCard} from '~/src/components/ad/AdCard';
-import {FileSelect} from '~/src/components/file/FileSelect';
-import {ImageCard} from '~/src/components/image/ImageCard';
-import type {Score} from '~/src/services/rating/rating';
-import {Player} from '~/src/services/rating/rating';
-import {useAppStore} from '~/src/stores/app-store';
+import {AdCard} from '@/components/ad/AdCard';
+import {FileSelect} from '@/components/file/FileSelect';
+import {ImageCard} from '@/components/image/ImageCard';
+import type {Score} from '@/services/rating/rating';
+import {Player} from '@/services/rating/rating';
+import {useAppStore} from '@/stores/app-store';
 
 import styles from './ImagesCompare.module.css';
 

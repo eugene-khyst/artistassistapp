@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DATA_URL} from '~/src/config';
-import {fetchSWR} from '~/src/utils/fetch';
+import {DATA_URL} from '@/config';
+import {fetchSWR} from '@/utils/fetch';
 
 export interface SampleImageDefinition {
   image: string;

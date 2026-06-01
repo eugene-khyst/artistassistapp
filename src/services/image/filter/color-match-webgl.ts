@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {rgbToOklab} from '~/src/services/color/space/oklab';
-import {type RgbTuple} from '~/src/services/color/space/rgb';
-import {WebGLRenderer} from '~/src/services/image/filter/webgl-renderer';
-import type {DrawImageSource} from '~/src/utils/graphics';
-import {copyOffscreenCanvas} from '~/src/utils/graphics';
+import {rgbToOklab} from '@/services/color/space/oklab';
+import {type RgbTuple} from '@/services/color/space/rgb';
+import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
+import type {DrawImageSource} from '@/utils/graphics';
+import {copyOffscreenCanvas} from '@/utils/graphics';
 
 import fragmentShaderSource from './glsl/color-match.glsl';
 

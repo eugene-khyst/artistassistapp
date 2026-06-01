@@ -27,26 +27,26 @@ import type {MenuProps} from 'antd/lib';
 import {saveAs} from 'file-saver';
 import {useCallback, useEffect, useMemo, useState} from 'react';
 
-import {AdCard} from '~/src/components/ad/AdCard';
-import {ColorPicker} from '~/src/components/color/ColorPicker';
-import {FileSelect} from '~/src/components/file/FileSelect';
-import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
-import {useDebounce} from '~/src/hooks/useDebounce';
-import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
-import type {PipettePointSetEvent} from '~/src/services/canvas/image/image-color-picker-canvas';
+import {AdCard} from '@/components/ad/AdCard';
+import {ColorPicker} from '@/components/color/ColorPicker';
+import {FileSelect} from '@/components/file/FileSelect';
+import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {useDebounce} from '@/hooks/useDebounce';
+import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
+import type {PipettePointSetEvent} from '@/services/canvas/image/image-color-picker-canvas';
 import {
   ColorPickerEventType,
   ImageColorPickerCanvas,
-} from '~/src/services/canvas/image/image-color-picker-canvas';
-import {kelvinToRgb} from '~/src/services/color/color-temperature';
-import {rgbToHex, WHITE_HEX} from '~/src/services/color/space/rgb';
-import type {AdjustmentParameters} from '~/src/services/image/color-adjustment';
-import {blobToImageFile} from '~/src/services/image/image-file';
-import {useAppStore} from '~/src/stores/app-store';
-import {TabKey} from '~/src/tabs';
-import {range} from '~/src/utils/array';
-import {getFilename} from '~/src/utils/filename';
-import {DrawImage, imageBitmapToBlob} from '~/src/utils/graphics';
+} from '@/services/canvas/image/image-color-picker-canvas';
+import {kelvinToRgb} from '@/services/color/color-temperature';
+import {rgbToHex, WHITE_HEX} from '@/services/color/space/rgb';
+import type {AdjustmentParameters} from '@/services/image/color-adjustment';
+import {blobToImageFile} from '@/services/image/image-file';
+import {useAppStore} from '@/stores/app-store';
+import {TabKey} from '@/tabs';
+import {range} from '@/utils/array';
+import {getFilename} from '@/utils/filename';
+import {DrawImage, imageBitmapToBlob} from '@/utils/graphics';
 
 import styles from './ImageColorAdjustment.module.css';
 

@@ -20,6 +20,6 @@
 
 import * as Comlink from 'comlink';
 
-import {ColorMixer} from '~/src/services/color/color-mixer';
+import {ColorMixer} from '@/services/color/color-mixer';
 
 Comlink.expose(new ColorMixer());

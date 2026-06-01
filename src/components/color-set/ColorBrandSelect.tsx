@@ -23,12 +23,12 @@ import {Select} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useCallback, useMemo} from 'react';
 
-import {filterSelectOptions} from '~/src/components/utils';
-import type {User} from '~/src/services/auth/types';
-import {hasAccessTo} from '~/src/services/auth/utils';
-import {compareColorBrandsByName} from '~/src/services/color/colors';
-import type {ColorBrandDefinition} from '~/src/services/color/types';
-import {useAppStore} from '~/src/stores/app-store';
+import {filterSelectOptions} from '@/components/utils';
+import type {User} from '@/services/auth/types';
+import {hasAccessTo} from '@/services/auth/utils';
+import {compareColorBrandsByName} from '@/services/color/colors';
+import type {ColorBrandDefinition} from '@/services/color/types';
+import {useAppStore} from '@/stores/app-store';
 
 const showSearch = {filterOption: filterSelectOptions};
 

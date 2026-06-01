@@ -19,7 +19,7 @@
 import type {UseQueryResult} from '@tanstack/react-query';
 import {useQuery} from '@tanstack/react-query';
 
-import {fetchSampleImages, type SampleImageDefinition} from '~/src/services/image/sample-images';
+import {fetchSampleImages, type SampleImageDefinition} from '@/services/image/sample-images';
 
 interface Result {
   isLoading: boolean;

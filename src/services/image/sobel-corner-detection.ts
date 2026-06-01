@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {sobelGradientsXyWebGL} from '~/src/services/image/filter/sobel-gradients-xy-webgl';
-import {orderCornersClockwise, Vector} from '~/src/services/math/geometry';
-import {DrawImage, drawImageToOffscreenCanvas} from '~/src/utils/graphics';
+import {sobelGradientsXyWebGL} from '@/services/image/filter/sobel-gradients-xy-webgl';
+import {orderCornersClockwise, Vector} from '@/services/math/geometry';
+import {DrawImage, drawImageToOffscreenCanvas} from '@/utils/graphics';
 
 const AUTO_DETECT_MAX_SIDE = 512;
 const AUTO_DETECT_MIN_AREA_RATIO = 0.12;

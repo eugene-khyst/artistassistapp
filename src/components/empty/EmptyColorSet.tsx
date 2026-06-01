@@ -20,12 +20,12 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {Col, Row, Typography} from 'antd';
 import {useContext} from 'react';
 
-import {AdCard} from '~/src/components/ad/AdCard';
-import {COLOR_TYPE_LABELS, TAB_LABELS} from '~/src/components/messages';
-import {TabContext} from '~/src/contexts/TabContext';
-import type {ColorType} from '~/src/services/color/types';
-import {useAppStore} from '~/src/stores/app-store';
-import {TabKey} from '~/src/tabs';
+import {AdCard} from '@/components/ad/AdCard';
+import {COLOR_TYPE_LABELS, TAB_LABELS} from '@/components/messages';
+import {TabContext} from '@/contexts/TabContext';
+import type {ColorType} from '@/services/color/types';
+import {useAppStore} from '@/stores/app-store';
+import {TabKey} from '@/tabs';
 
 interface Props {
   imageSupported?: boolean;

@@ -19,9 +19,9 @@
 import {useQueries} from '@tanstack/react-query';
 import {useCallback, useMemo} from 'react';
 
-import {fetchColors, indexColors} from '~/src/services/color/colors';
-import type {ColorBrandDefinition, ColorDefinition, ColorType} from '~/src/services/color/types';
-import {useAppStore} from '~/src/stores/app-store';
+import {fetchColors, indexColors} from '@/services/color/colors';
+import type {ColorBrandDefinition, ColorDefinition, ColorType} from '@/services/color/types';
+import {useAppStore} from '@/stores/app-store';
 
 interface Result {
   isLoading: boolean;

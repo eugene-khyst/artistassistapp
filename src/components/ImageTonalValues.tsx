@@ -23,16 +23,13 @@ import {Button, Col, Dropdown, Grid, Radio, Row, Space} from 'antd';
 import {saveAs} from 'file-saver';
 import {useEffect, useState} from 'react';
 
-import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
-import {
-  useZoomableImageCanvas,
-  zoomableImageCanvasSupplier,
-} from '~/src/hooks/useZoomableImageCanvas';
-import type {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
-import {printImages} from '~/src/services/print/print';
-import {useAppStore} from '~/src/stores/app-store';
-import {getFilename} from '~/src/utils/filename';
-import {imageBitmapToBlob} from '~/src/utils/graphics';
+import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '@/hooks/useZoomableImageCanvas';
+import type {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
+import {printImages} from '@/services/print/print';
+import {useAppStore} from '@/stores/app-store';
+import {getFilename} from '@/utils/filename';
+import {imageBitmapToBlob} from '@/utils/graphics';
 
 import {EmptyImage} from './empty/EmptyImage';
 import styles from './ImageTonalValues.module.css';

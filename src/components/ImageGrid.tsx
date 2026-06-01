@@ -20,13 +20,13 @@ import {DownloadOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Dropdown, Grid, Space} from 'antd';
 
-import {GridControls} from '~/src/components/grid/GridControls';
-import {LoadingIndicator} from '~/src/components/loading/LoadingIndicator';
-import {useZoomableImageCanvas} from '~/src/hooks/useZoomableImageCanvas';
-import {GridCanvas} from '~/src/services/canvas/image/grid-canvas';
-import {printImages} from '~/src/services/print/print';
-import {useAppStore} from '~/src/stores/app-store';
-import {getFilename} from '~/src/utils/filename';
+import {GridControls} from '@/components/grid/GridControls';
+import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
+import {GridCanvas} from '@/services/canvas/image/grid-canvas';
+import {printImages} from '@/services/print/print';
+import {useAppStore} from '@/stores/app-store';
+import {getFilename} from '@/utils/filename';
 
 import {EmptyImage} from './empty/EmptyImage';
 import styles from './ImageGrid.module.css';

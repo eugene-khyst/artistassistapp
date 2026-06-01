@@ -18,7 +18,7 @@
 
 import {useEffect, useState} from 'react';
 
-import {DisplayMode, getDisplayMode} from '~/src/utils/environment';
+import {DisplayMode, getDisplayMode} from '@/utils/environment';
 
 export function useDisplayMode(): DisplayMode {
   const [displayMode, setDisplayMode] = useState<DisplayMode>(() => getDisplayMode());

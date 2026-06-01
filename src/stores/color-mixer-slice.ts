@@ -19,18 +19,18 @@
 import {transfer} from 'comlink';
 import type {StateCreator} from 'zustand';
 
-import {ZoomableImageCanvas} from '~/src/services/canvas/image/zoomable-image-canvas';
-import {hexToRgb, type RgbTuple} from '~/src/services/color/space/rgb';
-import type {ColorId, ColorSet, SamplingArea, SimilarColor} from '~/src/services/color/types';
-import {colorMixer} from '~/src/services/color/worker/color-mixer-worker-manager';
-import {mergeSimilarSamplingPoints, type SamplingPoint} from '~/src/services/image/sampling-point';
-import {colorQuantizationWorker} from '~/src/services/image/worker/color-quantization-worker-manager';
-import type {AppSlice} from '~/src/stores/app-slice';
-import type {PaletteSlice, SaveToPaletteEntry} from '~/src/stores/palette-slice';
-import {TabKey} from '~/src/tabs';
-import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '~/src/utils/graphics';
-import {clamp} from '~/src/utils/math-utils';
-import {abortablePromise, createAbortError, isAbortError} from '~/src/utils/promise';
+import {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
+import {hexToRgb, type RgbTuple} from '@/services/color/space/rgb';
+import type {ColorId, ColorSet, SamplingArea, SimilarColor} from '@/services/color/types';
+import {colorMixer} from '@/services/color/worker/color-mixer-worker-manager';
+import {mergeSimilarSamplingPoints, type SamplingPoint} from '@/services/image/sampling-point';
+import {colorQuantizationWorker} from '@/services/image/worker/color-quantization-worker-manager';
+import type {AppSlice} from '@/stores/app-slice';
+import type {PaletteSlice, SaveToPaletteEntry} from '@/stores/palette-slice';
+import {TabKey} from '@/tabs';
+import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
+import {clamp} from '@/utils/math-utils';
+import {abortablePromise, createAbortError, isAbortError} from '@/utils/promise';
 
 import type {OriginalImageSlice} from './original-image-slice';
 import type {TabSlice} from './tab-slice';

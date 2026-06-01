@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {ColorSetDefinition} from '~/src/services/color/types';
+import type {ColorSetDefinition} from '@/services/color/types';
 
 import {dbPromise} from './db';
 

@@ -18,12 +18,12 @@
 
 import {Space, Tooltip, Typography} from 'antd';
 
-import {OpacityIcon} from '~/src/components/color/OpacityIcon';
-import {WarmthIcon} from '~/src/components/color/WarmthIcon';
-import {useColorBrands} from '~/src/hooks/useColorBrands';
-import {formatColorLabel} from '~/src/services/color/colors';
-import {rgbToHex, WHITE_HEX} from '~/src/services/color/space/rgb';
-import type {Color, ColorBrandDefinition, ColorType} from '~/src/services/color/types';
+import {OpacityIcon} from '@/components/color/OpacityIcon';
+import {WarmthIcon} from '@/components/color/WarmthIcon';
+import {useColorBrands} from '@/hooks/useColorBrands';
+import {formatColorLabel} from '@/services/color/colors';
+import {rgbToHex, WHITE_HEX} from '@/services/color/space/rgb';
+import type {Color, ColorBrandDefinition, ColorType} from '@/services/color/types';
 
 import {ColorSquare} from './ColorSquare';
 

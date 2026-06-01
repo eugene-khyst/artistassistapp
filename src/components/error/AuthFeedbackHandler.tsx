@@ -21,9 +21,9 @@ import {App, Typography} from 'antd';
 import type {PropsWithChildren, ReactNode} from 'react';
 import {useEffect} from 'react';
 
-import {AuthErrorType, AuthNoticeType} from '~/src/services/auth/types';
-import {useAppStore} from '~/src/stores/app-store';
-import {TabKey} from '~/src/tabs';
+import {AuthErrorType, AuthNoticeType} from '@/services/auth/types';
+import {useAppStore} from '@/stores/app-store';
+import {TabKey} from '@/tabs';
 
 function formatContextValue(value: unknown): string {
   if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {

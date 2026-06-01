@@ -26,7 +26,7 @@ import {useCallback} from 'react';
 import type {Accept, FileRejection} from 'react-dropzone';
 import {useDropzone} from 'react-dropzone';
 
-import {useAppStore} from '~/src/stores/app-store';
+import {useAppStore} from '@/stores/app-store';
 
 type Props = {
   accept?: Accept;

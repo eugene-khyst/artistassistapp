@@ -22,8 +22,8 @@ import type {ButtonProps} from 'antd';
 import {Button, Popconfirm} from 'antd';
 import {memo} from 'react';
 
-import type {ColorMixture} from '~/src/services/color/types';
-import {useAppStore} from '~/src/stores/app-store';
+import type {ColorMixture} from '@/services/color/types';
+import {useAppStore} from '@/stores/app-store';
 
 type Props = {
   colorMixture: ColorMixture;

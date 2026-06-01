@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {linearizeRgbChannel} from '~/src/services/color/space/rgb';
-import {drawImageToOffscreenCanvas, offscreenCanvasToImageData} from '~/src/utils/graphics';
+import {linearizeRgbChannel} from '@/services/color/space/rgb';
+import {drawImageToOffscreenCanvas, offscreenCanvasToImageData} from '@/utils/graphics';
 
 function buildCumulativeHistograms(imageData: ImageData): Uint32Array[] {
   const {data} = imageData;
