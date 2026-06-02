@@ -19,17 +19,16 @@
 import {DownloadOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {RadioChangeEvent} from 'antd';
-import {App, Button, Card, Col, Radio, Row, Space, Typography} from 'antd';
+import {Button, Card, Col, Radio, Row, Space, Typography} from 'antd';
 import {saveAs} from 'file-saver';
-import {useEffect, useMemo, useRef, useState} from 'react';
+import {useEffect, useMemo, useRef} from 'react';
 
 import {EmptyImage} from '@/components/empty/EmptyImage';
 import {FileSelect} from '@/components/file/FileSelect';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {useCreateObjectUrl} from '@/hooks/useCreateObjectUrl';
-import {useOnnxModels} from '@/hooks/useOnnxModels';
+import {useSelectedOnnxModel} from '@/hooks/useSelectedOnnxModel';
 import {hasAccessTo} from '@/services/auth/utils';
-import {compareOnnxModelsByPriority} from '@/services/ml/models';
 import type {OnnxModel} from '@/services/ml/types';
 import {OnnxModelType} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
@@ -40,7 +39,6 @@ import styles from './ImageStyleTransfer.module.css';
 export function ImageStyleTransfer() {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
-  const styleTransferModel = useAppStore(state => state.appSettings.styleTransferModel);
   const styleTransferImage = useAppStore(state => state.appSettings.styleTransferImage);
   const originalImageFile = useAppStore(state => state.originalImageFile);
   const styleImageFile = useAppStore(state => state.styleImageFile);
@@ -51,65 +49,32 @@ export function ImageStyleTransfer() {
   const setStyleTransferModel = useAppStore(state => state.setStyleTransferModel);
   const setStyleImageFile = useAppStore(state => state.setStyleImageFile);
   const abortStyleTransfer = useAppStore(state => state.abortStyleTransfer);
-  const saveAppSettings = useAppStore(state => state.saveAppSettings);
-
-  const {notification} = App.useApp();
 
   const {t} = useLingui();
 
   const {
-    models,
-    isLoading: isModelsLoading,
-    isError: isModelsError,
-  } = useOnnxModels(OnnxModelType.StyleTransfer);
-
-  const sortedModels: OnnxModel[] = useMemo(
-    () =>
-      [...(models?.values() ?? [])].sort(compareOnnxModelsByPriority({prioritizeFreeTier: !user})),
-    [models, user]
-  );
-
-  // null = explicit cancel; undefined = use default
-  const [selectedModelId, setSelectedModelId] = useState<string | null>();
-
-  const defaultModel = useMemo<OnnxModel | undefined>(() => {
-    if (isAuthLoading || !models?.size) {
-      return undefined;
-    }
-    const persisted = styleTransferModel ? models.get(styleTransferModel) : undefined;
-    return (
-      persisted ?? sortedModels.find(({numInputs = 1}) => numInputs === 1 || styleTransferImage)
-    );
-  }, [styleTransferModel, styleTransferImage, models, sortedModels, isAuthLoading]);
+    sortedModels,
+    defaultModel,
+    modelId,
+    selectedModelId,
+    isModelsLoading,
+    selectModel,
+    setSelectedModelId,
+  } = useSelectedOnnxModel({
+    type: OnnxModelType.StyleTransfer,
+    settingsKey: 'styleTransferModel',
+    setModel: setStyleTransferModel,
+    defaultPredicate: ({numInputs = 1}) => numInputs === 1 || !!styleTransferImage,
+  });
 
   const radioGroupRef = useRef<HTMLDivElement>(null);
   const hasScrolledToDefaultRef = useRef(false);
-
-  const modelId = selectedModelId === null ? undefined : (selectedModelId ?? defaultModel?.id);
 
   const isLoading: boolean = isModelsLoading || isStyleTransferLoading || isAuthLoading;
 
   const originalImageUrl: string | undefined = useCreateObjectUrl(originalImageFile);
   const styleImageUrl: string | undefined = useCreateObjectUrl(styleImageFile);
   const styledImageUrl: string | undefined = useCreateObjectUrl(styledImageBlob);
-
-  useEffect(() => {
-    if (isModelsError) {
-      notification.error({
-        title: t`Error while fetching ML model data`,
-        placement: 'top',
-        duration: 10,
-        showProgress: true,
-      });
-    }
-  }, [isModelsError, notification, t]);
-
-  useEffect(() => {
-    if (isAuthLoading || !models?.size) {
-      return;
-    }
-    setStyleTransferModel(modelId ? models.get(modelId) : undefined);
-  }, [modelId, models, setStyleTransferModel, isAuthLoading]);
 
   useEffect(() => {
     if (hasScrolledToDefaultRef.current || selectedModelId !== undefined || !defaultModel?.id) {
@@ -123,9 +88,7 @@ export function ImageStyleTransfer() {
   }, [selectedModelId, defaultModel?.id]);
 
   const handleModelChange = (e: RadioChangeEvent) => {
-    const value = e.target.value as string;
-    setSelectedModelId(value);
-    void saveAppSettings({styleTransferModel: value});
+    selectModel(e.target.value as string);
   };
 
   const handleSaveClick = () => {
@@ -137,7 +100,6 @@ export function ImageStyleTransfer() {
   const handleCancelClick = () => {
     abortStyleTransfer();
     setSelectedModelId(null);
-    setStyleTransferModel(undefined);
   };
 
   const radioOptions = useMemo(
@@ -202,7 +164,7 @@ export function ImageStyleTransfer() {
           disabled: !hasAccess,
         };
       }),
-    [sortedModels, user, styleImageUrl, setStyleImageFile]
+    [sortedModels, user, styleImageUrl, setStyleImageFile, setSelectedModelId]
   );
 
   if (!originalImageFile) {

@@ -195,8 +195,8 @@ Every `.ts`/`.tsx` file (except config files and generated files with `/* eslint
 
 ### Imports
 
-- Use the `@/` alias for cross-folder imports (enforced by ESLint — no relative `../` paths
-  except within the same folder).
+- Use the `@/` alias for cross-folder imports (enforced by ESLint — no relative `../` paths except
+  within the same folder).
 - Imports must be sorted (`simple-import-sort`).
 - Use `import type` for type-only imports (`@typescript-eslint/consistent-type-imports`).
 

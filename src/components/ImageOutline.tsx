@@ -38,7 +38,7 @@ import {
 } from 'antd';
 import {clsx} from 'clsx';
 import type {CSSProperties, ReactElement, ReactNode} from 'react';
-import {cloneElement, useCallback, useEffect, useMemo, useState} from 'react';
+import {cloneElement, useCallback, useEffect, useState} from 'react';
 
 import {DEFAULT_GRID_SETTINGS, setGrid} from '@/components/grid/grid';
 import {GridControls} from '@/components/grid/GridControls';
@@ -48,9 +48,8 @@ import {OnnxModelSelect} from '@/components/ml-model/OnnxModelSelect';
 import {PrintImageDrawer} from '@/components/print/PrintImageDrawer';
 import {useArMode} from '@/hooks/useArMode';
 import {useLightbox} from '@/hooks/useLightbox';
-import {useOnnxModels} from '@/hooks/useOnnxModels';
+import {useSelectedOnnxModel} from '@/hooks/useSelectedOnnxModel';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
-import {hasAccessTo} from '@/services/auth/utils';
 import {GridCanvas} from '@/services/canvas/image/grid-canvas';
 import {getDefaultModel} from '@/services/ml/models';
 import type {OnnxModel} from '@/services/ml/types';
@@ -73,7 +72,6 @@ const gridCanvasSupplier = (canvas: HTMLCanvasElement): GridCanvas => {
 export function ImageOutline() {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
-  const outlineModel = useAppStore(state => state.appSettings.outlineModel);
   const grids = useAppStore(state => state.appSettings.grids);
   const originalImageFile = useAppStore(state => state.originalImageFile);
   const isOutlineImageLoading = useAppStore(state => state.isOutlineImageLoading);
@@ -84,7 +82,6 @@ export function ImageOutline() {
 
   const setOutlineModel = useAppStore(state => state.setOutlineModel);
   const abortOutline = useAppStore(state => state.abortOutline);
-  const saveAppSettings = useAppStore(state => state.saveAppSettings);
 
   const screens = Grid.useBreakpoint();
 
@@ -92,26 +89,19 @@ export function ImageOutline() {
 
   const {t} = useLingui();
 
-  const {
-    models,
-    isLoading: isModelsLoading,
-    isError: isModelsError,
-  } = useOnnxModels(OnnxModelType.LineDrawing);
+  const {models, modelId, isAccessAllowed, isModelsLoading, selectModel, setSelectedModelId} =
+    useSelectedOnnxModel({
+      type: OnnxModelType.LineDrawing,
+      settingsKey: 'outlineModel',
+      setModel: setOutlineModel,
+    });
 
   const {ref: canvasRef, zoomableImageCanvas: gridCanvas} = useZoomableImageCanvas<GridCanvas>(
     gridCanvasSupplier,
     outlineImage
   );
 
-  const [selectedModelId, setSelectedModelId] = useState<string>();
   const [isOpenPrintImage, setIsOpenPrintImage] = useState<boolean>(false);
-
-  const defaultModel = useMemo<OnnxModel | undefined>(() => {
-    if (isAuthLoading || !models?.size) {
-      return undefined;
-    }
-    return (outlineModel && models.get(outlineModel)) || getDefaultModel(models, user);
-  }, [outlineModel, models, user, isAuthLoading]);
 
   const onLightboxEnter = useCallback(() => {
     gridCanvas?.disableAutoFit();
@@ -143,29 +133,7 @@ export function ImageOutline() {
     onPermissionDenied: onArPermissionDenied,
   });
 
-  const modelId = selectedModelId ?? defaultModel?.id;
-  const model: OnnxModel | undefined = modelId ? models?.get(modelId) : undefined;
-  const isAccessAllowed: boolean = !model || (!isAuthLoading && hasAccessTo(user, model));
-
   const isLoading: boolean = isModelsLoading || isOutlineImageLoading || isAuthLoading;
-
-  useEffect(() => {
-    if (isModelsError) {
-      notification.error({
-        title: t`Error while fetching ML model data`,
-        placement: 'top',
-        duration: 10,
-        showProgress: true,
-      });
-    }
-  }, [isModelsError, notification, t]);
-
-  useEffect(() => {
-    if (isAuthLoading || !models?.size || modelId === undefined) {
-      return;
-    }
-    setOutlineModel(models.get(modelId));
-  }, [modelId, models, setOutlineModel, isAuthLoading]);
 
   useEffect(() => {
     if (!gridCanvas) {
@@ -187,11 +155,6 @@ export function ImageOutline() {
       await closeLightbox();
     }
     await enterArMode();
-  };
-
-  const handleModelChange = (value: string) => {
-    setSelectedModelId(value);
-    void saveAppSettings({outlineModel: value});
   };
 
   const handlePrintClick = () => {
@@ -282,7 +245,7 @@ export function ImageOutline() {
             <OnnxModelSelect
               models={models}
               value={modelId}
-              onChange={handleModelChange}
+              onChange={selectModel}
               className={styles['modelSelect']}
             />
           </Form.Item>

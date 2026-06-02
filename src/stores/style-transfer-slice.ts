@@ -58,6 +58,7 @@ export const createStyleTransferSlice: StateCreator<
     if (get().styleTransferModel === styleTransferModel) {
       return;
     }
+    get().abortStyleTransfer();
     set({
       styleTransferModel,
       styledImageBlob: null,
@@ -67,6 +68,7 @@ export const createStyleTransferSlice: StateCreator<
 
   setStyleImageFile: async (styleImageFile?: File): Promise<void> => {
     if (styleImageFile) {
+      get().abortStyleTransfer();
       set({
         styleImageFile,
         styledImageBlob: null,
@@ -79,10 +81,17 @@ export const createStyleTransferSlice: StateCreator<
   },
 
   loadStyledImage: async (): Promise<void> => {
-    get().abortStyleTransfer();
-    const {originalImage, styleImageFile, styleTransferModel, styledImageBlob, auth} = get();
+    const {
+      originalImage,
+      styleImageFile,
+      styleTransferModel,
+      styledImageBlob,
+      isStyleTransferLoading,
+      auth,
+    } = get();
     if (
       styledImageBlob ||
+      isStyleTransferLoading ||
       !originalImage ||
       !styleTransferModel ||
       !hasAccessTo(auth?.user, styleTransferModel)
@@ -93,8 +102,6 @@ export const createStyleTransferSlice: StateCreator<
     if (numInputs > 1 && !styleImageFile) {
       return;
     }
-    const styleImage: ImageBitmap | null =
-      numInputs > 1 && styleImageFile ? await createImageBitmap(styleImageFile) : null;
     const styleTransferAbortController = new AbortController();
     set({
       styledImageBlob: null,
@@ -102,9 +109,12 @@ export const createStyleTransferSlice: StateCreator<
       styleTransferDownloadTip: null,
       styleTransferAbortController,
     });
+    let styleImage: ImageBitmap | null = null;
+    let styledImage: ImageBitmap | null = null;
     try {
+      styleImage = numInputs > 1 && styleImageFile ? await createImageBitmap(styleImageFile) : null;
       const images = styleImage ? [originalImage, styleImage] : [originalImage];
-      const styledImage: ImageBitmap = await transferStyle(
+      styledImage = await transferStyle(
         images,
         styleTransferModel,
         auth,
@@ -116,9 +126,11 @@ export const createStyleTransferSlice: StateCreator<
         styleTransferAbortController.signal
       );
       const styledImageBlob: Blob = await imageBitmapToBlob(styledImage);
-      set({
-        styledImageBlob,
-      });
+      if (get().styleTransferAbortController === styleTransferAbortController) {
+        set({
+          styledImageBlob,
+        });
+      }
     } catch (error) {
       if (isAbortError(error)) {
         return;
@@ -126,6 +138,7 @@ export const createStyleTransferSlice: StateCreator<
       throw error;
     } finally {
       styleImage?.close();
+      styledImage?.close();
       if (get().styleTransferAbortController === styleTransferAbortController) {
         set({
           isStyleTransferLoading: false,
@@ -137,6 +150,14 @@ export const createStyleTransferSlice: StateCreator<
   },
 
   abortStyleTransfer: (): void => {
-    get().styleTransferAbortController?.abort();
+    const {styleTransferAbortController} = get();
+    if (styleTransferAbortController) {
+      styleTransferAbortController.abort();
+      set({
+        isStyleTransferLoading: false,
+        styleTransferDownloadTip: null,
+        styleTransferAbortController: null,
+      });
+    }
   },
 });

@@ -18,12 +18,12 @@
 
 import {CloseCircleOutlined, DownloadOutlined, MoreOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {App, Button, Divider, Dropdown, Flex, Form, Grid, Space, Typography} from 'antd';
+import {Button, Divider, Dropdown, Flex, Form, Grid, Space, Typography} from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import {clsx} from 'clsx';
 import {saveAs} from 'file-saver';
 import type {CSSProperties, ReactElement, ReactNode} from 'react';
-import {cloneElement, useCallback, useEffect, useMemo, useState} from 'react';
+import {cloneElement, useCallback, useMemo} from 'react';
 import {ReactCompareSlider, ReactCompareSliderImage} from 'react-compare-slider';
 
 import {ColorPicker} from '@/components/color/ColorPicker';
@@ -32,11 +32,8 @@ import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {OnnxModelSelect} from '@/components/ml-model/OnnxModelSelect';
 import {useCreateObjectUrl} from '@/hooks/useCreateObjectUrl';
 import {useDebounce} from '@/hooks/useDebounce';
-import {useOnnxModels} from '@/hooks/useOnnxModels';
-import {hasAccessTo} from '@/services/auth/utils';
+import {useSelectedOnnxModel} from '@/hooks/useSelectedOnnxModel';
 import {WHITE_HEX} from '@/services/color/space/rgb';
-import {getDefaultModel} from '@/services/ml/models';
-import type {OnnxModel} from '@/services/ml/types';
 import {OnnxModelType} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
 import {getFilename} from '@/utils/filename';
@@ -49,7 +46,6 @@ const compareImageStyle: CSSProperties = {objectFit: 'contain'};
 export function ImageBackgroundRemoval() {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
-  const backgroundRemovalModel = useAppStore(state => state.appSettings.backgroundRemovalModel);
   const imageFileToRemoveBackground = useAppStore(state => state.imageFileToRemoveBackground);
   const backgroundRemovalColor = useAppStore(state => state.backgroundRemovalColor);
   const isBackgroundRemovalLoading = useAppStore(state => state.isBackgroundRemovalLoading);
@@ -60,36 +56,24 @@ export function ImageBackgroundRemoval() {
   const setBackgroundRemovalModel = useAppStore(state => state.setBackgroundRemovalModel);
   const setBackgroundRemovalColor = useAppStore(state => state.setBackgroundRemovalColor);
   const abortBackgroundRemoval = useAppStore(state => state.abortBackgroundRemoval);
-  const saveAppSettings = useAppStore(state => state.saveAppSettings);
 
   const screens = Grid.useBreakpoint();
-
-  const {notification} = App.useApp();
 
   const {t} = useLingui();
 
   const {
     models,
-    isLoading: isModelsLoading,
-    isError: isModelsError,
-  } = useOnnxModels(OnnxModelType.BackgroundRemoval);
-
-  // null = explicit cancel; undefined = use default
-  const [selectedModelId, setSelectedModelId] = useState<string | null>();
-
-  const defaultModel = useMemo<OnnxModel | undefined>(() => {
-    if (isAuthLoading || !models?.size) {
-      return undefined;
-    }
-    return (
-      (backgroundRemovalModel && models.get(backgroundRemovalModel)) ||
-      getDefaultModel(models, user)
-    );
-  }, [backgroundRemovalModel, models, user, isAuthLoading]);
-
-  const modelId = selectedModelId === null ? undefined : (selectedModelId ?? defaultModel?.id);
-  const model: OnnxModel | undefined = modelId ? models?.get(modelId) : undefined;
-  const isAccessAllowed: boolean = !model || (!isAuthLoading && hasAccessTo(user, model));
+    modelId,
+    defaultModel,
+    isAccessAllowed,
+    isModelsLoading,
+    selectModel,
+    setSelectedModelId,
+  } = useSelectedOnnxModel({
+    type: OnnxModelType.BackgroundRemoval,
+    settingsKey: 'backgroundRemovalModel',
+    setModel: setBackgroundRemovalModel,
+  });
 
   const isLoading: boolean = isModelsLoading || isBackgroundRemovalLoading || isAuthLoading;
 
@@ -100,38 +84,12 @@ export function ImageBackgroundRemoval() {
 
   const isBackgroundRemovalLoadingDebounced = useDebounce(isBackgroundRemovalLoading, 100);
 
-  useEffect(() => {
-    if (isModelsError) {
-      notification.error({
-        title: t`Error while fetching ML model data`,
-        placement: 'top',
-        duration: 10,
-        showProgress: true,
-      });
-    }
-  }, [isModelsError, notification, t]);
-
-  useEffect(() => {
-    if (isAuthLoading || !models?.size) {
-      return;
-    }
-    setBackgroundRemovalModel(modelId ? models.get(modelId) : undefined);
-  }, [modelId, models, setBackgroundRemovalModel, isAuthLoading]);
-
   const position = isBackgroundRemovalLoadingDebounced ? 100 : 25;
-
-  const handleModelChange = (value: string) => {
-    setSelectedModelId(value);
-    void saveAppSettings({backgroundRemovalModel: value});
-  };
 
   const handleFileChange = ([file]: File[]) => {
     setImageFileToRemoveBackground(file ?? null);
     if (!modelId) {
-      const model: OnnxModel | undefined =
-        (backgroundRemovalModel && models?.get(backgroundRemovalModel)) ||
-        getDefaultModel(models, user);
-      setSelectedModelId(model?.id);
+      setSelectedModelId(defaultModel?.id);
     }
   };
 
@@ -144,7 +102,6 @@ export function ImageBackgroundRemoval() {
   const handleCancelClick = () => {
     abortBackgroundRemoval();
     setSelectedModelId(null);
-    setBackgroundRemovalModel(undefined);
   };
 
   const colorPicker = useMemo(
@@ -236,7 +193,7 @@ export function ImageBackgroundRemoval() {
               <OnnxModelSelect
                 models={models}
                 value={modelId}
-                onChange={handleModelChange}
+                onChange={selectModel}
                 className={styles['modelSelect']}
               />
             </Form.Item>

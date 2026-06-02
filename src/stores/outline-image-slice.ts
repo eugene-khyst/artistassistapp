@@ -54,6 +54,7 @@ export const createOutlineImageSlice: StateCreator<
     if (get().outlineModel === outlineModel) {
       return;
     }
+    get().abortOutline();
     set({
       outlineModel,
       outlineImage: null,
@@ -62,9 +63,14 @@ export const createOutlineImageSlice: StateCreator<
   },
 
   loadOutlineImage: async (): Promise<void> => {
-    get().abortOutline();
-    const {originalImage, outlineModel, outlineImage, auth} = get();
-    if (outlineImage || !originalImage || !outlineModel || !hasAccessTo(auth?.user, outlineModel)) {
+    const {originalImage, outlineModel, outlineImage, isOutlineImageLoading, auth} = get();
+    if (
+      outlineImage ||
+      isOutlineImageLoading ||
+      !originalImage ||
+      !outlineModel ||
+      !hasAccessTo(auth?.user, outlineModel)
+    ) {
       return;
     }
     const outlineAbortController = new AbortController();
@@ -86,9 +92,13 @@ export const createOutlineImageSlice: StateCreator<
         },
         outlineAbortController.signal
       );
-      set({
-        outlineImage,
-      });
+      if (get().outlineAbortController === outlineAbortController) {
+        set({
+          outlineImage,
+        });
+      } else {
+        outlineImage.close();
+      }
     } catch (error) {
       if (isAbortError(error)) {
         return;
@@ -106,6 +116,14 @@ export const createOutlineImageSlice: StateCreator<
   },
 
   abortOutline: (): void => {
-    get().outlineAbortController?.abort();
+    const {outlineAbortController} = get();
+    if (outlineAbortController) {
+      outlineAbortController.abort();
+      set({
+        isOutlineImageLoading: false,
+        outlineDownloadTip: null,
+        outlineAbortController: null,
+      });
+    }
   },
 });
