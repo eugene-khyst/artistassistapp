@@ -32,9 +32,17 @@ export async function saveAuthAttempt(attempt: AuthAttempt): Promise<void> {
   await db.put('auth-attempt', attempt, KEY);
 }
 
-export async function deleteAuthAttempt(): Promise<void> {
+export async function deleteAuthAttemptIfPendingSince(pendingSince: number): Promise<boolean> {
   const db = await dbPromise;
-  await db.delete('auth-attempt', KEY);
+  const tx = db.transaction('auth-attempt', 'readwrite');
+  const attempt = await tx.store.get(KEY);
+  if (attempt?.pendingSince !== pendingSince) {
+    await tx.done;
+    return false;
+  }
+  await tx.store.delete(KEY);
+  await tx.done;
+  return true;
 }
 
 export async function saveAuthErrorData(data: AuthErrorData): Promise<void> {

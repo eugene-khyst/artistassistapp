@@ -20,63 +20,50 @@ import {getAuthSession} from '@/services/db/auth-db';
 import {useAppStore} from '@/stores/app-store';
 
 const TIMEOUT = 10 * 60 * 1000;
-const POLL_INTERVAL = 1000;
 
-let timeoutId: ReturnType<typeof setTimeout> | undefined;
+let initialized = false;
 
-async function pollAuthAttempt(): Promise<void> {
-  const {authAttempt, auth, completeAuthAttempt, clearAuthAttempt, failPendingAuthAttempt} =
+async function syncAuthAttempt(): Promise<void> {
+  const {auth, clearPendingAuthAttempt, failPendingAuthAttempt, loadAuthAttempt} =
     useAppStore.getState();
-  const since: number | undefined = authAttempt?.pendingSince;
-  if (since === undefined) {
-    return;
-  }
-  if (auth) {
-    await completeAuthAttempt();
-    return;
-  }
-  if (await getAuthSession()) {
-    // Clear before reload so a delayed or interrupted reload can't leave a
-    // stale pending attempt behind.
+  const session = await getAuthSession();
+  const authAttempt = await loadAuthAttempt();
+  if (session) {
     try {
-      await clearAuthAttempt();
+      if (authAttempt) {
+        await clearPendingAuthAttempt(authAttempt.pendingSince);
+      }
     } catch {
       // ignore
     }
-    window.location.reload();
+    if (!auth) {
+      window.location.reload();
+    }
     return;
   }
-  if (Date.now() - since > TIMEOUT) {
-    await failPendingAuthAttempt();
-    return;
+  if (authAttempt && Date.now() - authAttempt.pendingSince > TIMEOUT) {
+    await failPendingAuthAttempt(authAttempt.pendingSince);
   }
-  schedule();
 }
 
-function schedule(): void {
-  clearTimeout(timeoutId);
-  timeoutId = setTimeout(() => void pollAuthAttempt(), POLL_INTERVAL);
+function runSyncWhenVisible(): void {
+  if (document.visibilityState !== 'hidden') {
+    const {auth, authAttempt} = useAppStore.getState();
+    if (auth && !authAttempt) {
+      return;
+    }
+    void syncAuthAttempt();
+  }
 }
 
-function stop(): void {
-  clearTimeout(timeoutId);
-  timeoutId = undefined;
-}
-
-// Fixes a PWA window stuck on a spinner when login finished in a different
-// browser, by checking the saved IDB state once a second.
+// Fixes a PWA window stuck on a stale auth state when login finishes in
+// another browser while this window is sleeping.
 export function initAuthAttemptWatcher(): void {
-  useAppStore.subscribe(
-    state => state.authAttempt,
-    authAttempt => {
-      if (authAttempt) {
-        if (timeoutId === undefined) {
-          void pollAuthAttempt();
-        }
-      } else {
-        stop();
-      }
-    },
-    {fireImmediately: true}
-  );
+  if (initialized) {
+    return;
+  }
+  initialized = true;
+  document.addEventListener('visibilitychange', runSyncWhenVisible);
+  window.addEventListener('pageshow', runSyncWhenVisible);
+  runSyncWhenVisible();
 }

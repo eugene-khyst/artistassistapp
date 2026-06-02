@@ -23,7 +23,7 @@ import {useAppStore} from '@/stores/app-store';
 
 export function LoginOAuthButton() {
   const loginWithRedirect = useAppStore(state => state.loginWithRedirect);
-  const isLoginPending = useAppStore(state => !!state.authAttempt);
+  const isLoginPending = useAppStore(state => state.isLoginRedirecting);
 
   return (
     <Button

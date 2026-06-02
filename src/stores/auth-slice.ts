@@ -36,7 +36,7 @@ import {
   TERMINAL_AUTH_ERRORS,
 } from '@/services/auth/types';
 import {
-  deleteAuthAttempt,
+  deleteAuthAttemptIfPendingSince,
   deleteAuthSession,
   getAuthAttempt,
   getAuthSession,
@@ -55,6 +55,7 @@ export interface AuthSlice {
   auth: Authentication | null;
   authAttempt: AuthAttempt | null;
   isAuthLoading: boolean;
+  isLoginRedirecting: boolean;
   authError: AuthError | null;
   authNotice: AuthNoticeType | null;
   loginLink: LoginLink | null;
@@ -67,8 +68,9 @@ export interface AuthSlice {
   clearAuthError: () => void;
   clearAuthNotice: () => void;
   completeAuthAttempt: () => Promise<void>;
-  clearAuthAttempt: () => Promise<void>;
-  failPendingAuthAttempt: () => Promise<void>;
+  loadAuthAttempt: () => Promise<AuthAttempt | null>;
+  clearPendingAuthAttempt: (pendingSince: number) => Promise<boolean>;
+  failPendingAuthAttempt: (pendingSince: number) => Promise<void>;
 }
 
 export const createAuthSlice: StateCreator<AuthSlice & AppSlice, [], [], AuthSlice> = (
@@ -78,6 +80,7 @@ export const createAuthSlice: StateCreator<AuthSlice & AppSlice, [], [], AuthSli
   auth: null,
   authAttempt: null,
   isAuthLoading: false,
+  isLoginRedirecting: false,
   authError: null,
   authNotice: null,
   loginLink: null,
@@ -145,17 +148,16 @@ export const createAuthSlice: StateCreator<AuthSlice & AppSlice, [], [], AuthSli
   },
 
   handleAuthCallback: async (): Promise<void> => {
-    const error = await readAuthCallbackError();
-    if (error) {
+    const authError = await readAuthCallbackError();
+    if (authError) {
       set({
-        authError: error,
+        authError,
       });
     }
   },
 
   loginWithRedirect: async (): Promise<void> => {
-    const {authAttempt} = get();
-    if (authAttempt) {
+    if (get().isLoginRedirecting) {
       return;
     }
     const attempt: AuthAttempt = {
@@ -163,21 +165,28 @@ export const createAuthSlice: StateCreator<AuthSlice & AppSlice, [], [], AuthSli
       displayMode: getDisplayMode(),
     };
     set({
-      authAttempt: attempt,
       authError: null,
+      isLoginRedirecting: true,
     });
     try {
       await saveAuthAttempt(attempt);
+      set({
+        authAttempt: attempt,
+        authError: null,
+      });
       initiateLoginRedirect();
     } catch (error) {
       try {
-        await deleteAuthAttempt();
+        await get().clearPendingAuthAttempt(attempt.pendingSince);
       } catch {
         // ignore
       }
       set({
-        authAttempt: null,
         authError: AuthError.fromError(error),
+      });
+    } finally {
+      set({
+        isLoginRedirecting: false,
       });
     }
   },
@@ -244,10 +253,7 @@ export const createAuthSlice: StateCreator<AuthSlice & AppSlice, [], [], AuthSli
   },
 
   completeAuthAttempt: async (): Promise<void> => {
-    const authAttempt = (await getAuthAttempt()) ?? null;
-    set({
-      authAttempt,
-    });
+    const authAttempt = await get().loadAuthAttempt();
     const {auth, authError} = get();
     if (authAttempt && (auth || authError)) {
       if (
@@ -259,21 +265,48 @@ export const createAuthSlice: StateCreator<AuthSlice & AppSlice, [], [], AuthSli
           authNotice: AuthNoticeType.LoginCompletedInBrowser,
         });
       }
-      await get().clearAuthAttempt();
+      await get().clearPendingAuthAttempt(authAttempt.pendingSince);
     }
   },
 
-  clearAuthAttempt: async (): Promise<void> => {
-    await deleteAuthAttempt();
+  loadAuthAttempt: async (): Promise<AuthAttempt | null> => {
+    const authAttempt = (await getAuthAttempt()) ?? null;
     set({
-      authAttempt: null,
+      authAttempt,
     });
+    return authAttempt;
   },
 
-  failPendingAuthAttempt: async (): Promise<void> => {
-    set({
-      authError: new AuthError(AuthErrorType.LoginResultMissing, 'Login result missing'),
+  clearPendingAuthAttempt: async (pendingSince: number): Promise<boolean> => {
+    const cleared = await deleteAuthAttemptIfPendingSince(pendingSince);
+    const storedAuthAttempt = (await getAuthAttempt()) ?? null;
+    set(state => {
+      const localAuthAttempt = state.authAttempt;
+      if (localAuthAttempt?.pendingSince !== pendingSince) {
+        return {};
+      }
+      return {
+        authAttempt: storedAuthAttempt,
+      };
     });
-    await get().clearAuthAttempt();
+    return cleared;
+  },
+
+  failPendingAuthAttempt: async (pendingSince: number): Promise<void> => {
+    const cleared = await get().clearPendingAuthAttempt(pendingSince);
+    if (!cleared) {
+      return;
+    }
+    set(state => {
+      if (state.authAttempt) {
+        return {};
+      }
+      if (state.isLoginRedirecting) {
+        return {};
+      }
+      return {
+        authError: new AuthError(AuthErrorType.LoginResultMissing, 'Login result missing'),
+      };
+    });
   },
 });
