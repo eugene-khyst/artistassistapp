@@ -321,7 +321,7 @@ export function ImageColorAdjustment() {
             </Typography.Text>
 
             <Space>
-              <FileSelect onChange={handleFileChange} useReferencePhoto>
+              <FileSelect onChange={handleFileChange} showUseReferencePhoto showUseCopiedImage>
                 <Trans>Select photo</Trans>
               </FileSelect>
               {colorAdjustedImage && (

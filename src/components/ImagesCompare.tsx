@@ -103,7 +103,12 @@ export function ImagesCompare() {
       </Space>
 
       <Space>
-        <FileSelect type={isNew ? 'primary' : 'default'} multiple onChange={handleFileChange}>
+        <FileSelect
+          showUseCopiedImage
+          type={isNew ? 'primary' : 'default'}
+          multiple
+          onChange={handleFileChange}
+        >
           {isNew ? t`Select photos` : t`Add photos`}
         </FileSelect>
         {!isNew && (

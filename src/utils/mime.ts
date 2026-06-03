@@ -28,6 +28,13 @@ const mime = new Mime(standardTypes).define(customTypes, true);
 
 type Result = {ok: true; expected: string | null} | {ok: false; expected: string};
 
+function matchesMimeType(actual: MIMEType, accepted: MIMEType): boolean {
+  return (
+    (accepted.type === '*' || actual.type === accepted.type) &&
+    (accepted.subtype === '*' || actual.subtype === accepted.subtype)
+  );
+}
+
 export function checkMimeType(
   extension: string | null | undefined,
   contentType: string | null | undefined
@@ -41,4 +48,23 @@ export function checkMimeType(
     ok: actual.essence === expected || (expected === 'text/javascript' && actual.isJavaScript()),
     expected,
   };
+}
+
+export function findAcceptedMimeType(
+  contentTypes: readonly string[],
+  accept: string[]
+): string | undefined {
+  return contentTypes.find(contentType => {
+    const actual: MIMEType | null = MIMEType.parse(contentType);
+    if (!actual) {
+      return false;
+    }
+    return accept.some(acceptedType => {
+      const accepted: MIMEType | null = MIMEType.parse(acceptedType);
+      if (!accepted) {
+        return false;
+      }
+      return matchesMimeType(actual, accepted);
+    });
+  });
 }

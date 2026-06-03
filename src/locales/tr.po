@@ -75,7 +75,7 @@ msgstr "<0/> Windows ve <1/> Linux"
 msgid "<0>{similarityText}%</0> similarity"
 msgstr "<0>{similarityText}%</0> benzerlik"
 
-#: src/components/ColorSetChooser.tsx:450
+#: src/components/ColorSetChooser.tsx:477
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>ArtistAssistApp</0> , sanatçıların fotoğraflardaki renkleri karıştırmasına, ton değerlerini analiz etmesine, fotoğrafların ana hatlarını çizmesine, ızgaralarla çizim yapmasına, sınırlı paletlerle boyamasına ve daha pek çok şeye yardımcı olan bir web uygulamasıdır."
 
@@ -83,7 +83,7 @@ msgstr "<0>ArtistAssistApp</0> , sanatçıların fotoğraflardaki renkleri karı
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Patreon hesabınızı kontrol</0> edin: Üyelik satın alırken kullandığınız aynı e-posta ile web <1>tarayıcınızda Patreon.com</1> için giriş yaptığınızdan emin olun. Birden fazla hesabınız varsa, çıkış yapın ve doğru hesapla tekrar giriş yapın."
 
-#: src/components/ColorSetChooser.tsx:471
+#: src/components/ColorSetChooser.tsx:498
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Patreon'da ArtistAssistApp'e ücretli üye olarak katılın</0> veya daha önce katıldıysanız, 200'den fazla renk markasına ve reklamsız tüm görüntü işleme modlarına erişmek için <1>Patreon ile oturum açın</1> ."
 
@@ -143,7 +143,7 @@ msgstr "Palete renk karışımları ekleyin."
 msgid "Add or remove colors to match your actual color set."
 msgstr "Gerçek renk kümenize uyması için renk ekleyin veya kaldırın."
 
-#: src/components/ImagesCompare.tsx:107
+#: src/components/ImagesCompare.tsx:112
 msgid "Add photos"
 msgstr "Fotoğraf ekleme"
 
@@ -163,9 +163,13 @@ msgstr "Renkleri ayarla"
 msgid "Adjust the 4 points manually."
 msgstr "4 noktayı manuel olarak ayarlayın."
 
-#: src/components/ImageBlurred.tsx:134
+#: src/components/ImageBlurred.tsx:129
 msgid "Adjusts the strength of image smoothing."
 msgstr "Görüntü düzgünleştirmenin gücünü ayarlar."
+
+#: src/components/file/FileSelect.tsx:133
+msgid "Allow clipboard access, then try again."
+msgstr "Panoya erişimine izin verin, sonra tekrar deneyin."
 
 #: src/components/install/InstallDrawer.tsx:177
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
@@ -176,7 +180,7 @@ msgid "Application build ID"
 msgstr "Uygulama derleme ID'si"
 
 #: src/components/ColorMixingChart.tsx:190
-#: src/components/ImageLimitedPalette.tsx:128
+#: src/components/ImageLimitedPalette.tsx:122
 #: src/components/ImagePerspectiveCorrection.tsx:277
 msgid "Apply"
 msgstr "Uygulamak"
@@ -197,8 +201,8 @@ msgstr "Suluboya kalem katmanını daha şeffaf hale getirmek için daha az bask
 msgid "Apply strokes of each color in a <0>{ratioText} ratio</0>"
 msgstr "Her rengin konturlarını <0>{ratioText} oranında</0> uygulayın"
 
-#: src/components/ImageOutline.tsx:320
-#: src/components/ImageOutline.tsx:369
+#: src/components/ImageOutline.tsx:283
+#: src/components/ImageOutline.tsx:332
 msgid "AR"
 msgstr "AR"
 
@@ -210,7 +214,7 @@ msgstr "Önbelleği temizlemek istediğinizden emin misiniz?"
 msgid "Are you sure you want to delete all app data?"
 msgstr "Tüm uygulama verilerini silmek istediğinizden emin misiniz?"
 
-#: src/components/ColorSetChooser.tsx:736
+#: src/components/ColorSetChooser.tsx:733
 msgid "Are you sure you want to delete this color set?"
 msgstr "Bu renk setini silmek istediğinizden emin misiniz?"
 
@@ -273,8 +277,8 @@ msgstr "Bu fotoğraf için otomatik olarak en iyi renk karışımlarını bulun.
 msgid "Average color of the white point area"
 msgstr "Beyaz nokta alanının ortalama rengi"
 
-#: src/components/ImageBackgroundRemoval.tsx:152
-#: src/components/ImageBackgroundRemoval.tsx:155
+#: src/components/ImageBackgroundRemoval.tsx:109
+#: src/components/ImageBackgroundRemoval.tsx:112
 msgid "Background"
 msgstr "Arka plan"
 
@@ -304,7 +308,7 @@ msgstr "Hafiflikle"
 msgid "By name"
 msgstr "İsimle"
 
-#: src/components/ImageOutline.tsx:129
+#: src/components/ImageOutline.tsx:119
 msgid "Camera access is required for AR tracing"
 msgstr "AR izleme için kamera erişimi gereklidir"
 
@@ -317,6 +321,10 @@ msgstr "İptal et"
 msgid "Cancel a paid membership"
 msgstr "Ücretli üyeliği iptal etme"
 
+#: src/components/file/FileSelect.tsx:140
+msgid "Cannot use copied image"
+msgstr "Kopyalanmış görüntü kullanılamıyor"
+
 #: src/components/grid/GridControls.tsx:194
 msgid "Cells"
 msgstr "Hücre"
@@ -325,7 +333,7 @@ msgstr "Hücre"
 msgid "Check for updates"
 msgstr "Güncellemeleri kontrol et"
 
-#: src/components/ImageBackgroundRemoval.tsx:171
+#: src/components/ImageBackgroundRemoval.tsx:128
 msgid "Clear background color"
 msgstr "Açık arka plan rengi"
 
@@ -401,7 +409,7 @@ msgstr "Renk seçici"
 msgid "Color set"
 msgstr "Renk seti"
 
-#: src/components/color/ColorSwatchDrawer.tsx:59
+#: src/components/color/ColorSwatchDrawer.tsx:61
 #: src/components/palette/PaletteGrid.tsx:99
 msgid "Color swatch"
 msgstr "Renk örneği"
@@ -411,7 +419,7 @@ msgid "Colored Pencils"
 msgstr "Renkli Kalemler"
 
 #: src/components/ColorMixingChart.tsx:166
-#: src/components/ImageLimitedPalette.tsx:104
+#: src/components/ImageLimitedPalette.tsx:98
 msgid "Colors"
 msgstr "Renk"
 
@@ -434,6 +442,10 @@ msgstr "Cool — Algoritmik tahmin; sanatsal algı değişebilir."
 #: src/components/share/ShareModal.tsx:87
 msgid "Copy"
 msgstr "Kopya etmek"
+
+#: src/components/file/FileSelect.tsx:131
+msgid "Copy a supported image to the clipboard, then try again."
+msgstr "Desteklenen bir görseli panoya kopyalayın, sonra tekrar deneyin."
 
 #: src/components/share/ShareModal.tsx:73
 msgid "Copy and share this link"
@@ -468,7 +480,7 @@ msgstr "Özel renk seti"
 msgid "Custom colors"
 msgstr "Özel renkler"
 
-#: src/components/ColorSetChooser.tsx:750
+#: src/components/ColorSetChooser.tsx:747
 #: src/components/CustomColorBrandCreator.tsx:482
 #: src/components/image/RecentImageCard.tsx:83
 msgid "Delete"
@@ -479,7 +491,7 @@ msgstr "Silmek"
 msgid "Delete all app data"
 msgstr "Tüm uygulama verilerini sil"
 
-#: src/components/ColorSetChooser.tsx:735
+#: src/components/ColorSetChooser.tsx:732
 msgid "Delete the color set"
 msgstr "Renk kümesini silme"
 
@@ -493,7 +505,7 @@ msgstr "Özel markayı silme"
 msgid "Delete the recent photo"
 msgstr "Son fotoğrafı silme"
 
-#: src/components/ColorSetChooser.tsx:745
+#: src/components/ColorSetChooser.tsx:742
 msgid "Delete this color set"
 msgstr "Bu renk kümesini sil"
 
@@ -505,7 +517,7 @@ msgstr "Yoğun tabaka"
 msgid "Details"
 msgstr "Detaylar"
 
-#: src/components/ImagesCompare.tsx:123
+#: src/components/ImagesCompare.tsx:128
 msgid "Determine the best photo by pairwise comparison"
 msgstr "İkili karşılaştırma ile en iyi fotoğrafı belirleyin"
 
@@ -537,11 +549,11 @@ msgstr "İndirilen dosya {filename}"
 msgid "Downloading..."
 msgstr "İndiriyorum..."
 
-#: src/components/file/FileSelect.tsx:106
+#: src/components/file/FileSelect.tsx:179
 msgid "Drop the file here..."
 msgstr "Dosyayı buraya bırak..."
 
-#: src/components/file/FileSelect.tsx:106
+#: src/components/file/FileSelect.tsx:179
 msgid "Drop the files here..."
 msgstr "Dosyaları buraya bırak..."
 
@@ -561,8 +573,8 @@ msgstr "Buradan itibaren düzenleme"
 msgid "Email"
 msgstr "E-posta"
 
-#: src/components/ImageOutline.tsx:302
-#: src/components/ImageOutline.tsx:361
+#: src/components/ImageOutline.tsx:265
+#: src/components/ImageOutline.tsx:324
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Makalenizde taslağı izlemek için ışık kutusu moduna geçin."
 
@@ -578,22 +590,20 @@ msgstr "Hata açıklaması"
 msgid "Error loading sample photos"
 msgstr "Hata yükleme örnek fotoğrafları"
 
-#: src/components/ColorSetChooser.tsx:197
+#: src/components/ColorSetChooser.tsx:224
 msgid "Error while fetching color brand data"
 msgstr "Renk marka verileri getirilirken hata oluştu"
 
-#: src/components/ColorSetChooser.tsx:219
+#: src/components/ColorSetChooser.tsx:246
 msgid "Error while fetching color data"
 msgstr "Renk verileri getirilirken hata oluştu"
 
-#: src/components/ImageBackgroundRemoval.tsx:106
-#: src/components/ImageOutline.tsx:155
 #: src/components/ImagePerspectiveCorrection.tsx:120
-#: src/components/ImageStyleTransfer.tsx:99
+#: src/hooks/useSelectedOnnxModel.ts:95
 msgid "Error while fetching ML model data"
 msgstr "ML modeli verileri getirilirken hata oluştu"
 
-#: src/components/ColorSetChooser.tsx:208
+#: src/components/ColorSetChooser.tsx:235
 msgid "Error while fetching standard color set data"
 msgstr "Standart renk seti verileri getirilirken hata oluştu"
 
@@ -601,16 +611,16 @@ msgstr "Standart renk seti verileri getirilirken hata oluştu"
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Görüntünün çekildiği Kelvin cinsinden ışık kaynağının tahmini sıcaklığı ile çekilmiştir."
 
-#: src/components/ImageOutline.tsx:320
-#: src/components/ImageOutline.tsx:369
+#: src/components/ImageOutline.tsx:283
+#: src/components/ImageOutline.tsx:332
 msgid "Exit AR"
 msgstr "AR'den çıkış"
 
-#: src/components/ColorSetChooser.tsx:481
+#: src/components/ColorSetChooser.tsx:508
 msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Ücretli bir üyelik satın almaya karar vermeden önce ücretsiz sürümü keşfedin."
 
-#: src/components/ColorSetChooser.tsx:385
+#: src/components/ColorSetChooser.tsx:412
 #: src/components/CustomColorBrandCreator.tsx:350
 msgid "Fill in the required fields"
 msgstr "Gerekli alanları doldurun"
@@ -681,11 +691,11 @@ msgstr "Yükseklik"
 msgid "Help"
 msgstr "Yardım"
 
-#: src/components/ColorSetChooser.tsx:244
+#: src/components/ColorSetChooser.tsx:271
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Kaydetmezseniz, renk kümesinde yapılan değişiklikler kaybolabilir."
 
-#: src/components/ImageBackgroundRemoval.tsx:294
+#: src/components/ImageBackgroundRemoval.tsx:251
 msgid "Image without background"
 msgstr "Arka planı olmayan görüntü"
 
@@ -738,7 +748,7 @@ msgstr "Hepsini sakla"
 msgid "Language"
 msgstr "Dil"
 
-#: src/components/ImageBlurred.tsx:124
+#: src/components/ImageBlurred.tsx:119
 msgid "Large"
 msgstr "Büyük"
 
@@ -750,7 +760,7 @@ msgstr "Son şarj durumu"
 msgid "Last used {dateText}"
 msgstr "Son kullanılan {dateText}"
 
-#: src/components/ImagesCompare.tsx:150
+#: src/components/ImagesCompare.tsx:155
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "Karşılaştırmak için kaldı: {unfinishedGamesSize}"
 
@@ -758,15 +768,15 @@ msgstr "Karşılaştırmak için kaldı: {unfinishedGamesSize}"
 msgid "Less"
 msgstr "Daha Az"
 
-#: src/components/ImageOutline.tsx:360
+#: src/components/ImageOutline.tsx:323
 msgid "Light box"
 msgstr "Işık kutusu"
 
-#: src/components/ImageTonalValues.tsx:89
+#: src/components/ImageTonalValues.tsx:86
 msgid "Light tone"
 msgstr "Hafif ton"
 
-#: src/components/ImageOutline.tsx:309
+#: src/components/ImageOutline.tsx:272
 msgid "Lightbox"
 msgstr "Lightbox"
 
@@ -786,11 +796,11 @@ msgstr "Bağlantı panoya kopyalandı"
 msgid "Load color brand file"
 msgstr "Renkli marka dosyasını yükle"
 
-#: src/components/ColorSetChooser.tsx:768
+#: src/components/ColorSetChooser.tsx:765
 msgid "Load color sets file"
 msgstr "Renk setleri dosyasını yükle"
 
-#: src/components/ColorSetChooser.tsx:520
+#: src/components/ColorSetChooser.tsx:111
 msgid "Log in by QR"
 msgstr "QR ile giriş yapın"
 
@@ -827,11 +837,11 @@ msgstr "Düşük çıkış ve yüksek çıkış"
 msgid "Margin"
 msgstr "Kenar boşluğu"
 
-#: src/components/ImageBlurred.tsx:125
+#: src/components/ImageBlurred.tsx:120
 msgid "Max"
 msgstr "Max"
 
-#: src/components/ImageBlurred.tsx:123
+#: src/components/ImageBlurred.tsx:118
 msgid "Medium"
 msgstr "Orta"
 
@@ -844,7 +854,7 @@ msgstr "Birleşme"
 msgid "Merge color sets"
 msgstr "Renk setlerini birleştir"
 
-#: src/components/ImageTonalValues.tsx:90
+#: src/components/ImageTonalValues.tsx:87
 msgid "Mid tone"
 msgstr "Orta ton"
 
@@ -870,8 +880,8 @@ msgid "Mixture"
 msgstr "Karışım"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:98
-#: src/components/ImageBackgroundRemoval.tsx:232
-#: src/components/ImageOutline.tsx:277
+#: src/components/ImageBackgroundRemoval.tsx:189
+#: src/components/ImageOutline.tsx:240
 msgid "Mode"
 msgstr "Mod"
 
@@ -905,7 +915,7 @@ msgstr "Yeni marka"
 msgid "New color set"
 msgstr "Yeni renk seti"
 
-#: src/components/ImagesCompare.tsx:115
+#: src/components/ImagesCompare.tsx:120
 msgid "New comparison"
 msgstr "Yeni karşılaştırma"
 
@@ -915,8 +925,8 @@ msgstr "Sonraki şarj tarihi"
 
 #: src/components/color/AddToPaletteButton.tsx:52
 #: src/components/color/PaletteColorMixtureCard.tsx:119
-#: src/components/ColorSetChooser.tsx:246
-#: src/components/ColorSetChooser.tsx:741
+#: src/components/ColorSetChooser.tsx:273
+#: src/components/ColorSetChooser.tsx:738
 #: src/components/CustomColorBrandCreator.tsx:473
 #: src/components/image/RecentImageCard.tsx:74
 #: src/components/palette/PaletteGrid.tsx:114
@@ -933,7 +943,7 @@ msgstr "Veri yok"
 msgid "No matching color mixtures were found."
 msgstr "Eşleşen renk karışımı bulunamadı."
 
-#: src/components/color-set/ColorSelect.tsx:90
+#: src/components/color-set/ColorSelect.tsx:86
 #: src/components/ColorMixingChart.tsx:122
 msgid "No sorting"
 msgstr "Sıralama yok"
@@ -942,7 +952,7 @@ msgstr "Sıralama yok"
 msgid "No target color is selected."
 msgstr "Hedef renk seçilmez."
 
-#: src/components/ImageBlurred.tsx:121
+#: src/components/ImageBlurred.tsx:116
 msgid "None"
 msgstr "Hiç kimse"
 
@@ -966,12 +976,12 @@ msgstr "Yağlı Pastel"
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Ücretsiz sürümde yalnızca sınırlı sayıda renk markası mevcuttur"
 
-#: src/components/ImageBackgroundRemoval.tsx:214
-#: src/components/ImageOutline.tsx:264
+#: src/components/ImageBackgroundRemoval.tsx:171
+#: src/components/ImageOutline.tsx:227
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Ücretsiz sürümde yalnızca sınırlı sayıda mod mevcuttur"
 
-#: src/components/ImageStyleTransfer.tsx:240
+#: src/components/ImageStyleTransfer.tsx:206
 msgid "Only a limited number of styles are available in the free version"
 msgstr "Ücretsiz sürümde yalnızca sınırlı sayıda stil mevcuttur"
 
@@ -988,7 +998,7 @@ msgstr "Donuk"
 msgid "Open in Safari browser"
 msgstr "Safari tarayıcısında aç"
 
-#: src/components/ColorSetChooser.tsx:506
+#: src/components/ColorSetChooser.tsx:97
 msgid "Open the app on a device where you are logged in"
 msgstr "Giriş yaptığınız cihazda uygulamayı açın"
 
@@ -1000,11 +1010,11 @@ msgstr "veya Chrome, Edge, Firefox veya Opera web tarayıcısının en son sür�
 msgid "Or scan the QR code"
 msgstr "Veya QR kodunu tarayın"
 
-#: src/components/ImageChooser.tsx:137
+#: src/components/ImageChooser.tsx:138
 msgid "Or select from sample photos"
 msgstr "Veya örnek fotoğraflar arasından seçim yapın"
 
-#: src/components/ImageChooser.tsx:119
+#: src/components/ImageChooser.tsx:120
 msgid "Or select from your recent photos"
 msgstr "Veya en son fotoğraflarınız arasından seçim yapın"
 
@@ -1012,7 +1022,7 @@ msgstr "Veya en son fotoğraflarınız arasından seçim yapın"
 msgid "Original color temperature (K)"
 msgstr "Orijinal renk sıcaklığı (K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:284
+#: src/components/ImageBackgroundRemoval.tsx:241
 msgid "Original photo"
 msgstr "Orijinal fotoğraf"
 
@@ -1065,7 +1075,7 @@ msgstr "Kalıcı depolama etkin değil"
 msgid "Photo"
 msgstr "Fotoğraf"
 
-#: src/components/ImagesCompare.tsx:159
+#: src/components/ImagesCompare.tsx:164
 msgid "Photo ranking"
 msgstr "Fotoğraf sıralaması"
 
@@ -1077,7 +1087,7 @@ msgstr "Yakınlaştırmak için sıkıştırmak veya kaydırmak, kaydırmak içi
 msgid "Please send us a screenshot of this error via our <0>contacts</0>. It will help us identify the cause."
 msgstr "Lütfen bu hatanın ekran görüntüsünü iletişim <0>bilgilerimiz</0> üzerinden gönderin. Bu, nedenini belirlememize yardımcı olacak."
 
-#: src/components/ImagesCompare.tsx:179
+#: src/components/ImagesCompare.tsx:184
 msgid "Position: {position}<0/>Rating: {ratingText}"
 msgstr "Pozisyon: {position}<0/>Değerlendirme: {ratingText}"
 
@@ -1085,7 +1095,7 @@ msgstr "Pozisyon: {position}<0/>Değerlendirme: {ratingText}"
 msgid "Postpone"
 msgstr "Erteleme"
 
-#: src/components/ColorSetChooser.tsx:509
+#: src/components/ColorSetChooser.tsx:100
 msgid "Press <0>Show login QR</0>"
 msgstr "Giriş <0>QR göster</0> düğmesine basın"
 
@@ -1117,11 +1127,11 @@ msgstr "Önizleme"
 #: src/components/ColorMixingChart.tsx:144
 #: src/components/ImageGrid.tsx:72
 #: src/components/ImageGrid.tsx:85
-#: src/components/ImageOutline.tsx:292
-#: src/components/ImageOutline.tsx:346
-#: src/components/ImagesCompare.tsx:167
-#: src/components/ImageTonalValues.tsx:107
-#: src/components/ImageTonalValues.tsx:125
+#: src/components/ImageOutline.tsx:255
+#: src/components/ImageOutline.tsx:309
+#: src/components/ImagesCompare.tsx:172
+#: src/components/ImageTonalValues.tsx:104
+#: src/components/ImageTonalValues.tsx:122
 #: src/components/palette/PaletteGrid.tsx:107
 #: src/components/print/PrintImageDrawer.tsx:135
 msgid "Print"
@@ -1151,11 +1161,11 @@ msgstr "QR kod süresi dolmuş."
 msgid "Quota"
 msgstr "Kota"
 
-#: src/components/ImagesCompare.tsx:130
+#: src/components/ImagesCompare.tsx:135
 msgid "Rating: {player1RatingText}"
 msgstr "Değerlendirme: {player1RatingText}"
 
-#: src/components/ImagesCompare.tsx:141
+#: src/components/ImagesCompare.tsx:146
 msgid "Rating: {player2RatingText}"
 msgstr "Değerlendirme: {player2RatingText}"
 
@@ -1175,7 +1185,7 @@ msgstr "Renkleri azalt"
 msgid "Reduce the number of colors in the photo."
 msgstr "Fotoğraftaki renk sayısını azaltın."
 
-#: src/components/color/ColorSwatchDrawer.tsx:68
+#: src/components/color/ColorSwatchDrawer.tsx:70
 #: src/components/ImageColorAdjustment.tsx:305
 msgid "Reference"
 msgstr "Referans"
@@ -1259,21 +1269,21 @@ msgstr "Doygunluk (%)"
 
 #: src/components/ColorMixingChart.tsx:153
 #: src/components/CustomColorBrandCreator.tsx:462
-#: src/components/ImageBackgroundRemoval.tsx:248
-#: src/components/ImageBackgroundRemoval.tsx:261
-#: src/components/ImageBlurred.tsx:153
-#: src/components/ImageBlurred.tsx:166
+#: src/components/ImageBackgroundRemoval.tsx:205
+#: src/components/ImageBackgroundRemoval.tsx:218
+#: src/components/ImageBlurred.tsx:148
+#: src/components/ImageBlurred.tsx:161
 #: src/components/ImageColorAdjustment.tsx:335
 #: src/components/ImageGrid.tsx:75
 #: src/components/ImageGrid.tsx:91
-#: src/components/ImageLimitedPalette.tsx:136
-#: src/components/ImageOutline.tsx:300
-#: src/components/ImageOutline.tsx:352
+#: src/components/ImageLimitedPalette.tsx:130
+#: src/components/ImageOutline.tsx:263
+#: src/components/ImageOutline.tsx:315
 #: src/components/ImagePerspectiveCorrection.tsx:300
 #: src/components/ImagePerspectiveCorrection.tsx:332
-#: src/components/ImageStyleTransfer.tsx:234
-#: src/components/ImageTonalValues.tsx:115
-#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageStyleTransfer.tsx:200
+#: src/components/ImageTonalValues.tsx:112
+#: src/components/ImageTonalValues.tsx:128
 msgid "Save"
 msgstr "Kurtarmak"
 
@@ -1281,7 +1291,7 @@ msgstr "Kurtarmak"
 msgid "Save & continue"
 msgstr "Kaydet ve devam et"
 
-#: src/components/ColorSetChooser.tsx:243
+#: src/components/ColorSetChooser.tsx:270
 msgid "Save changes to the color set?"
 msgstr "Renk setindeki değişiklikler kaydedilsin mi?"
 
@@ -1303,7 +1313,7 @@ msgstr "Bu renk kümesindeki değişiklikleri kaydedin"
 msgid "Scan a QR code"
 msgstr "Bir QR kodu tarayın"
 
-#: src/components/ColorSetChooser.tsx:514
+#: src/components/ColorSetChooser.tsx:105
 msgid "Scan its QR code here"
 msgstr "QR kodunu buradan tarayın"
 
@@ -1323,7 +1333,7 @@ msgstr "Beyaz dengesini ve renkleri ayarlamak için bir fotoğraf seçin"
 msgid "Select a photo to correct the perspective"
 msgstr "Perspektifi düzeltmek için bir fotoğraf seçin"
 
-#: src/components/ImageBackgroundRemoval.tsx:206
+#: src/components/ImageBackgroundRemoval.tsx:163
 msgid "Select a photo to remove the background from"
 msgstr "Arka planı kaldırmak için bir fotoğraf seçin"
 
@@ -1331,7 +1341,7 @@ msgstr "Arka planı kaldırmak için bir fotoğraf seçin"
 msgid "Select a reference photo from your device to paint from"
 msgstr "Boyamak için cihazınızdan bir referans fotoğraf seçin"
 
-#: src/components/ImageStyleTransfer.tsx:229
+#: src/components/ImageStyleTransfer.tsx:195
 msgid "Select a style to transfer to your reference photo"
 msgstr "Referans fotoğrafınıza aktarmak için bir stil seçin"
 
@@ -1347,8 +1357,8 @@ msgstr "Karıştırmak için herhangi bir sayıda renk seçin ve elde edilen kar
 msgid "Select art medium"
 msgstr "Sanat ortamını seçin"
 
-#: src/components/ColorSetChooser.tsx:255
-#: src/components/ColorSetChooser.tsx:373
+#: src/components/ColorSetChooser.tsx:282
+#: src/components/ColorSetChooser.tsx:400
 msgid "Select at least one color before saving the color set."
 msgstr "Renk setini kaydetmeden önce en az bir renk seçin."
 
@@ -1365,7 +1375,7 @@ msgid "Select color"
 msgstr "Renk seç"
 
 #: src/components/color-set/ColorCascader.tsx:118
-#: src/components/color-set/ColorSelect.tsx:109
+#: src/components/color-set/ColorSelect.tsx:105
 msgid "Select colors"
 msgstr "Renkleri seçin"
 
@@ -1373,7 +1383,7 @@ msgstr "Renkleri seçin"
 msgid "Select colors to build a mixing chart"
 msgstr "Karıştırma tablosu oluşturmak için renkleri seçin"
 
-#: src/components/ImageLimitedPalette.tsx:110
+#: src/components/ImageLimitedPalette.tsx:104
 msgid "Select from 1 to {MAX_COLORS} colors"
 msgstr "1 ila {MAX_COLORS} renk arasından seçim yapın"
 
@@ -1401,14 +1411,14 @@ msgstr "Dil seçin"
 msgid "Select part"
 msgstr "Parça seç"
 
-#: src/components/ImageBackgroundRemoval.tsx:228
-#: src/components/ImageChooser.tsx:113
+#: src/components/ImageBackgroundRemoval.tsx:185
+#: src/components/ImageChooser.tsx:114
 #: src/components/ImageColorAdjustment.tsx:325
 #: src/components/ImagePerspectiveCorrection.tsx:261
 msgid "Select photo"
 msgstr "Fotoğraf seç"
 
-#: src/components/ImagesCompare.tsx:107
+#: src/components/ImagesCompare.tsx:112
 msgid "Select photos"
 msgstr "Fotoğrafları seçin"
 
@@ -1420,7 +1430,7 @@ msgstr "İkili karşılaştırmayı kullanarak sıralanacak fotoğrafları seçi
 msgid "Select set"
 msgstr "Küme seç"
 
-#: src/components/ImageStyleTransfer.tsx:177
+#: src/components/ImageStyleTransfer.tsx:142
 msgid "Select style image"
 msgstr "Stil görüntüsü seç"
 
@@ -1445,11 +1455,11 @@ msgstr "Yarı saydam"
 msgid "Session expired"
 msgstr "Oturum sona erdi"
 
-#: src/components/ImageLimitedPalette.tsx:145
+#: src/components/ImageLimitedPalette.tsx:139
 msgid "Set as main color set"
 msgstr "Ana renk seti olarak ayarla"
 
-#: src/components/ImageBlurred.tsx:108
+#: src/components/ImageBlurred.tsx:103
 #: src/components/ImageColorAdjustment.tsx:352
 msgid "Set as reference"
 msgstr "Referans olarak ayarla"
@@ -1474,7 +1484,7 @@ msgstr "Cam için alt katman olarak ayarlanmış."
 msgid "Set as unifying color"
 msgstr "Birleştirici renk olarak ayarlanır"
 
-#: src/components/ImageTonalValues.tsx:91
+#: src/components/ImageTonalValues.tsx:88
 msgid "Shadow"
 msgstr "Gölge"
 
@@ -1482,12 +1492,12 @@ msgstr "Gölge"
 msgid "Shadows and highlights"
 msgstr "Gölgeler ve vurgular"
 
-#: src/components/ColorSetChooser.tsx:760
+#: src/components/ColorSetChooser.tsx:757
 #: src/components/share/ShareModal.tsx:83
 msgid "Share"
 msgstr "Paylaş"
 
-#: src/components/ColorSetChooser.tsx:757
+#: src/components/ColorSetChooser.tsx:754
 msgid "Share this color set"
 msgstr "Bu renk setini paylaşın"
 
@@ -1552,7 +1562,7 @@ msgstr "Farklı renklerdeki pastel alanları hafifçe üst üste getirin ve yumu
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition."
 msgstr "Farklı renklerdeki mumlu pastel alanları hafifçe üst üste örtüp sert bir şekilde karıştırarak pürüzsüz bir geçiş oluşturun."
 
-#: src/components/ImageBlurred.tsx:122
+#: src/components/ImageBlurred.tsx:117
 msgid "Small"
 msgstr "Küçük"
 
@@ -1564,7 +1574,7 @@ msgstr "Bir şeyler ters gitti"
 msgid "Something went wrong while logging you in. Please try again. If the problem persists, check your internet connection."
 msgstr "Giriş yaparken bir şeyler ters gitti. Lütfen tekrar dene. Sorun devam ederse, internet bağlantınızı kontrol edin."
 
-#: src/components/color-set/ColorSelect.tsx:122
+#: src/components/color-set/ColorSelect.tsx:118
 #: src/components/ColorMixingChart.tsx:117
 #: src/components/ImageColorPicker.tsx:442
 #: src/components/palette/PaletteGrid.tsx:129
@@ -1617,11 +1627,11 @@ msgstr "Düzleştir"
 msgid "Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "Çarpık fotoğrafları düzeltir ve istenmeyen kenarları kaldırır. Perspektif bozulmasını düzeltmek için otomatik algılama veya 4 nokta seçin, ardından isteğe bağlı olarak kenarları sürükleyerek görüntüyü kırpabilirsiniz."
 
-#: src/components/ImageBlurred.tsx:132
+#: src/components/ImageBlurred.tsx:127
 msgid "Strength"
 msgstr "Güç"
 
-#: src/components/ImageStyleTransfer.tsx:222
+#: src/components/ImageStyleTransfer.tsx:188
 msgid "Styled reference photo"
 msgstr "Tarz referans fotoğraf"
 
@@ -1668,7 +1678,7 @@ msgstr "Uygulama, kurulumdan sonra bile tüm verileri web tarayıcısı deposund
 msgid "The color of your paper, canvas, or painting surface."
 msgstr "Kağıdınızı, tuvalinizi veya resim yüzeyinizin rengi."
 
-#: src/components/ColorSetChooser.tsx:237
+#: src/components/ColorSetChooser.tsx:264
 msgid "The color set can't be saved because not all required fields are filled."
 msgstr "Renk seti kaydedilemez çünkü tüm gerekli alanlar doldurulmuyor."
 
@@ -1724,7 +1734,7 @@ msgstr "Bu yazdırma boyutu desteklenmiyor"
 msgid "This step is optional."
 msgstr "Bu adım isteğe bağlıdır."
 
-#: src/components/ImageStyleTransfer.tsx:193
+#: src/components/ImageStyleTransfer.tsx:159
 msgid "This style is available to paid Patreon members only"
 msgstr "Bu stil yalnızca ücretli Patreon üyeleri tarafından kullanılabilir"
 
@@ -1789,7 +1799,7 @@ msgstr "Beklenmedik hata: {errorMessage}"
 msgid "Unifying color"
 msgstr "Birleştirici renk"
 
-#: src/components/color/ColorSwatchDrawer.tsx:83
+#: src/components/color/ColorSwatchDrawer.tsx:85
 #: src/components/color/PaletteColorMixtureCard.tsx:89
 #: src/components/color/SimilarColorCard.tsx:97
 #: src/components/palette/PaletteGrid.tsx:151
@@ -1808,6 +1818,10 @@ msgstr "Şimdi güncelleme"
 msgid "Use at full strength."
 msgstr "Tam güçte kullanın."
 
+#: src/components/file/FileSelect.tsx:163
+msgid "Use copied image"
+msgstr "Kopyalanmış görüntü kullanın"
+
 #: src/components/color/ConsistencyDescription.tsx:49
 msgid "Use full pressure."
 msgstr "Tam basıncı kullanın."
@@ -1820,7 +1834,7 @@ msgstr "İnce bir tabaka elde etmenizi sağlayan cam ortamları kullanın, örne
 msgid "Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original oil paint layer. You should be able to get the consistency of runny sour cream. Linseed oil is a popular glazing medium."
 msgstr "İnce bir tabaka elde etmenizi sağlayan cam ortamları kullanın, örneğin orijinal yağlı boya tabakasının 1 / 10'u. Akan ekşi krema kıvamını elde edebilmelisiniz. Keten tohumu yağı popüler bir cam ortamıdır."
 
-#: src/components/file/FileSelect.tsx:91
+#: src/components/file/FileSelect.tsx:152
 msgid "Use reference photo"
 msgstr "Referans fotoğrafı kullan"
 
@@ -1828,12 +1842,12 @@ msgstr "Referans fotoğrafı kullan"
 msgid "Used"
 msgstr "Kullanılmış"
 
-#: src/components/ImageLimitedPalette.tsx:106
+#: src/components/ImageLimitedPalette.tsx:100
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Sınırlı bir palet kullanmak renk uyumu sağlanmasına yardımcı olur. 1–{MAX_COLORS} birincil renk seçin."
 
-#: src/components/ImageOutline.tsx:312
-#: src/components/ImageOutline.tsx:370
+#: src/components/ImageOutline.tsx:275
+#: src/components/ImageOutline.tsx:333
 msgid "View the outline over the live camera to trace in AR."
 msgstr "Canlı kameranın üzerinden taslağı AR ile izlemek için görüntüleyin."
 
@@ -1877,7 +1891,7 @@ msgstr "Toplamda {maxColorsFor2}'den fazla renk seçerken, iki rengin karışım
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Toplamda {maxColorsFor3}'ten fazla renk seçerken, üç rengin karışımları kullanılmaz."
 
-#: src/components/ImageBackgroundRemoval.tsx:158
+#: src/components/ImageBackgroundRemoval.tsx:115
 #: src/components/ImageColorAdjustment.tsx:421
 msgid "White"
 msgstr "Beyaz"
@@ -1903,8 +1917,8 @@ msgstr "Genişlik"
 
 #: src/components/color/AddToPaletteButton.tsx:51
 #: src/components/color/PaletteColorMixtureCard.tsx:118
-#: src/components/ColorSetChooser.tsx:245
-#: src/components/ColorSetChooser.tsx:740
+#: src/components/ColorSetChooser.tsx:272
+#: src/components/ColorSetChooser.tsx:737
 #: src/components/CustomColorBrandCreator.tsx:472
 #: src/components/image/RecentImageCard.tsx:73
 #: src/components/palette/PaletteGrid.tsx:113
@@ -1917,11 +1931,11 @@ msgstr "Evet"
 msgid "You already have many recent photos saved. Remove the oldest one to free up space? The new photo will still be added."
 msgstr "Zaten birçok güncel fotoğrafın kaydedildi. En eski olanı çıkarıp alan boşaltmak mı? Yeni fotoğraf yine eklenecek."
 
-#: src/components/ColorSetChooser.tsx:460
+#: src/components/ColorSetChooser.tsx:487
 msgid "You are logged in and have access to all app features."
 msgstr "Giriş yaptınız ve tüm uygulama özelliklerine erişiminiz var."
 
-#: src/components/ColorSetChooser.tsx:465
+#: src/components/ColorSetChooser.tsx:492
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "Sınırlı sayıda renk markası ve görüntü işleme modu ile <0>ücretsiz sürümü</0> kullanıyorsunuz."
 
@@ -1933,8 +1947,8 @@ msgstr "Bu tarayıcı sekmesinde çalışmaya devam edebilir veya yüklü Artist
 msgid "You're logged in"
 msgstr "Giriş yaptın"
 
-#: src/components/ImageBackgroundRemoval.tsx:218
-#: src/components/ImageOutline.tsx:268
+#: src/components/ImageBackgroundRemoval.tsx:175
+#: src/components/ImageOutline.tsx:231
 msgid "You've selected a mode that is available to paid Patreon members only"
 msgstr "Sadece ücretli Patreon üyelerine açık bir mod seçtiniz"
 
@@ -1949,6 +1963,10 @@ msgstr "Yalnızca ücretli Patreon üyelerine açık olan renk markalarını se�
 #: src/components/error/AuthFeedbackHandler.tsx:97
 msgid "Your account details:"
 msgstr "Hesap detaylarınız:"
+
+#: src/components/file/FileSelect.tsx:136
+msgid "Your browser does not support reading images from the clipboard."
+msgstr "Tarayıcınız panodan görüntüleri okumayı desteklemiyor."
 
 #: src/hooks/usePersistentStorage.tsx:50
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."

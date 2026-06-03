@@ -16,7 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownOutlined, FileImageOutlined, InboxOutlined, UploadOutlined} from '@ant-design/icons';
+import {
+  DownOutlined,
+  FileImageOutlined,
+  InboxOutlined,
+  SnippetsOutlined,
+  UploadOutlined,
+} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {App, Button, Dropdown, Grid, Space} from 'antd';
 import type {BaseButtonProps} from 'antd/es/button/Button';
@@ -28,17 +34,20 @@ import {useDropzone} from 'react-dropzone';
 
 import {imageFileToFile} from '@/services/image/image-file';
 import {useAppStore} from '@/stores/app-store';
+import {findAcceptedMimeType} from '@/utils/mime';
 
 type Props = {
   accept?: Accept;
-  useReferencePhoto?: boolean;
+  showUseReferencePhoto?: boolean;
+  showUseCopiedImage?: boolean;
   onChange: (files: File[]) => void;
 } & Pick<BaseButtonProps, 'type'> &
   Pick<InputHTMLAttributes<HTMLInputElement>, 'multiple' | 'disabled'>;
 
 export function FileSelect({
   children,
-  useReferencePhoto = false,
+  showUseReferencePhoto = false,
+  showUseCopiedImage = false,
   onChange,
   type = 'primary',
   accept = {'image/*': []},
@@ -80,22 +89,85 @@ export function FileSelect({
     accept,
     multiple,
     onDrop,
+    disabled,
   });
 
   const handleClick = () => {
     inputRef.current.click();
   };
 
+  const handleClipboardImageClick = async () => {
+    let errorDescription: string;
+
+    if ('clipboard' in navigator && 'read' in navigator.clipboard) {
+      try {
+        const clipboardItems: ClipboardItem[] = await navigator.clipboard.read();
+        const files: File[] = [];
+
+        for (const item of clipboardItems) {
+          const type = findAcceptedMimeType(item.types, Object.keys(accept));
+          if (!type) {
+            continue;
+          }
+
+          const blob: Blob = await item.getType(type);
+          files.push(
+            new File([blob], `copied-image`, {
+              type: blob.type || type,
+              lastModified: Date.now(),
+            })
+          );
+
+          if (!multiple) {
+            break;
+          }
+        }
+
+        if (files.length) {
+          onChange(files);
+          return;
+        }
+
+        errorDescription = t`Copy a supported image to the clipboard, then try again.`;
+      } catch {
+        errorDescription = t`Allow clipboard access, then try again.`;
+      }
+    } else {
+      errorDescription = t`Your browser does not support reading images from the clipboard.`;
+    }
+
+    notification.error({
+      title: t`Cannot use copied image`,
+      description: errorDescription,
+      placement: 'top',
+      duration: 10,
+      showProgress: true,
+    });
+  };
+
   const items: MenuProps['items'] = [
-    {
-      key: 'use-reference',
-      label: t`Use reference photo`,
-      icon: <FileImageOutlined />,
-      onClick: () => {
-        onChange(imageFile ? [imageFileToFile(imageFile)] : []);
-      },
-      disabled: !imageFile,
-    },
+    showUseReferencePhoto
+      ? {
+          key: 'use-reference',
+          label: t`Use reference photo`,
+          icon: <FileImageOutlined />,
+          onClick: () => {
+            onChange(imageFile ? [imageFileToFile(imageFile)] : []);
+          },
+          disabled: disabled || !imageFile,
+        }
+      : null,
+    showUseCopiedImage
+      ? {
+          key: 'use-copied-image',
+          label: t`Use copied image`,
+          icon: <SnippetsOutlined />,
+          onClick: () => {
+            void handleClipboardImageClick();
+          },
+          disabled,
+        }
+      : null,
   ];
 
   return (
@@ -116,7 +188,7 @@ export function FileSelect({
           >
             {children}
           </Button>
-          {useReferencePhoto && (
+          {(showUseReferencePhoto || showUseCopiedImage) && (
             <Dropdown menu={{items}} trigger={['click']}>
               <Button icon={<DownOutlined />} />
             </Dropdown>

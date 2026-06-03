@@ -391,7 +391,7 @@ export function CustomColorBrandCreator() {
                   </Typography.Text>
 
                   <Space>
-                    <FileSelect onChange={handleImageFileChange}>
+                    <FileSelect onChange={handleImageFileChange} showUseCopiedImage>
                       <Trans>Select image</Trans>
                     </FileSelect>
                     <FileSelect

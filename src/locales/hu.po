@@ -75,7 +75,7 @@ msgstr "<0/> Windows és <1/> Linux"
 msgid "<0>{similarityText}%</0> similarity"
 msgstr "<0>{similarityText}%</0> hasonlóság"
 
-#: src/components/ColorSetChooser.tsx:450
+#: src/components/ColorSetChooser.tsx:477
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>Az ArtistAssistApp</0> egy webalkalmazás, amely segít a művészeknek a fényképek színeinek keverésében, a tónusértékek elemzésében, a fényképek körvonalazásában, rácsokkal való rajzolásban, korlátozott palettákkal való festésben stb."
 
@@ -83,7 +83,7 @@ msgstr "<0>Az ArtistAssistApp</0> egy webalkalmazás, amely segít a művészekn
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Ellenőrizd a Patreon fiókodat</0>: Győződj meg róla, hogy bejelentkezve <1>vagy Patreon.com</1> böngésződben ugyanazzal az e-mail címmel, amellyel a tagságod megvásárlásához használtad. Ha több fiókod van, jelentkezz ki és jelentkezz vissza a megfelelővel."
 
-#: src/components/ColorSetChooser.tsx:471
+#: src/components/ColorSetChooser.tsx:498
 msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
 msgstr "<0>Csatlakozzon az ArtistAssistApp-hoz a Patreonon fizetős tagként</0>, vagy <1>jelentkezzen be a Patreonnal</1> , ha már csatlakozott, hogy több mint 200 színmárkához és az összes képfeldolgozási módhoz hozzáférjen hirdetések nélkül."
 
@@ -143,7 +143,7 @@ msgstr "Adjon hozzá színkeverékeket a palettához."
 msgid "Add or remove colors to match your actual color set."
 msgstr "Adjon hozzá vagy távolítson el színeket a tényleges színkészletnek megfelelően."
 
-#: src/components/ImagesCompare.tsx:107
+#: src/components/ImagesCompare.tsx:112
 msgid "Add photos"
 msgstr "Fényképek hozzáadása"
 
@@ -163,9 +163,13 @@ msgstr "Színek beállítása"
 msgid "Adjust the 4 points manually."
 msgstr "Állítsd be a 4 pontot kézzel."
 
-#: src/components/ImageBlurred.tsx:134
+#: src/components/ImageBlurred.tsx:129
 msgid "Adjusts the strength of image smoothing."
 msgstr "Állítja a kép simításának erejét."
+
+#: src/components/file/FileSelect.tsx:133
+msgid "Allow clipboard access, then try again."
+msgstr "Engedélyezd a lepitőasztalhoz való hozzáférést, majd próbáld újra."
 
 #: src/components/install/InstallDrawer.tsx:177
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
@@ -176,7 +180,7 @@ msgid "Application build ID"
 msgstr "Application build ID"
 
 #: src/components/ColorMixingChart.tsx:190
-#: src/components/ImageLimitedPalette.tsx:128
+#: src/components/ImageLimitedPalette.tsx:122
 #: src/components/ImagePerspectiveCorrection.tsx:277
 msgid "Apply"
 msgstr "Alkalmaz"
@@ -197,8 +201,8 @@ msgstr "Kevesebb nyomást alkalmazz, hogy az akvarellceruza réteg átlátszóbb
 msgid "Apply strokes of each color in a <0>{ratioText} ratio</0>"
 msgstr "Az egyes színek körvonalainak alkalmazása <0>{ratioText} arányban</0>"
 
-#: src/components/ImageOutline.tsx:320
-#: src/components/ImageOutline.tsx:369
+#: src/components/ImageOutline.tsx:283
+#: src/components/ImageOutline.tsx:332
 msgid "AR"
 msgstr "AR"
 
@@ -210,7 +214,7 @@ msgstr "Biztosan törölni akarja a gyorsítótárat?"
 msgid "Are you sure you want to delete all app data?"
 msgstr "Biztosan törölni szeretné az összes alkalmazásadatot?"
 
-#: src/components/ColorSetChooser.tsx:736
+#: src/components/ColorSetChooser.tsx:733
 msgid "Are you sure you want to delete this color set?"
 msgstr "Biztosan törölni szeretné ezt a színkészletet?"
 
@@ -273,8 +277,8 @@ msgstr "Automatikusan találd meg a legjobb színkeverékeket ehhez a fotóhoz."
 msgid "Average color of the white point area"
 msgstr "A fehérpont-terület átlagos színe"
 
-#: src/components/ImageBackgroundRemoval.tsx:152
-#: src/components/ImageBackgroundRemoval.tsx:155
+#: src/components/ImageBackgroundRemoval.tsx:109
+#: src/components/ImageBackgroundRemoval.tsx:112
 msgid "Background"
 msgstr "Háttér"
 
@@ -304,7 +308,7 @@ msgstr "A könnyedség által"
 msgid "By name"
 msgstr "Név szerint"
 
-#: src/components/ImageOutline.tsx:129
+#: src/components/ImageOutline.tsx:119
 msgid "Camera access is required for AR tracing"
 msgstr "Az AR követéshez kamerahozzáférés szükséges"
 
@@ -317,6 +321,10 @@ msgstr "Törlés"
 msgid "Cancel a paid membership"
 msgstr "Fizetős tagság lemondása"
 
+#: src/components/file/FileSelect.tsx:140
+msgid "Cannot use copied image"
+msgstr "Nem lehet másolt képet használni"
+
 #: src/components/grid/GridControls.tsx:194
 msgid "Cells"
 msgstr "Sejtek"
@@ -325,7 +333,7 @@ msgstr "Sejtek"
 msgid "Check for updates"
 msgstr "Frissítések keresése"
 
-#: src/components/ImageBackgroundRemoval.tsx:171
+#: src/components/ImageBackgroundRemoval.tsx:128
 msgid "Clear background color"
 msgstr "Tiszta háttérszín"
 
@@ -401,7 +409,7 @@ msgstr "Színválasztó"
 msgid "Color set"
 msgstr "Színkészlet"
 
-#: src/components/color/ColorSwatchDrawer.tsx:59
+#: src/components/color/ColorSwatchDrawer.tsx:61
 #: src/components/palette/PaletteGrid.tsx:99
 msgid "Color swatch"
 msgstr "Színmintát"
@@ -411,7 +419,7 @@ msgid "Colored Pencils"
 msgstr "Színes ceruzák"
 
 #: src/components/ColorMixingChart.tsx:166
-#: src/components/ImageLimitedPalette.tsx:104
+#: src/components/ImageLimitedPalette.tsx:98
 msgid "Colors"
 msgstr "Színek"
 
@@ -434,6 +442,10 @@ msgstr "Cool – Algoritmikus becslés; A művészi felfogás változhat."
 #: src/components/share/ShareModal.tsx:87
 msgid "Copy"
 msgstr "Másolat"
+
+#: src/components/file/FileSelect.tsx:131
+msgid "Copy a supported image to the clipboard, then try again."
+msgstr "Másolj egy támogatott képet a clipboardra, majd próbáld újra."
 
 #: src/components/share/ShareModal.tsx:73
 msgid "Copy and share this link"
@@ -468,7 +480,7 @@ msgstr "Egyedi színkészlet"
 msgid "Custom colors"
 msgstr "Egyedi színek"
 
-#: src/components/ColorSetChooser.tsx:750
+#: src/components/ColorSetChooser.tsx:747
 #: src/components/CustomColorBrandCreator.tsx:482
 #: src/components/image/RecentImageCard.tsx:83
 msgid "Delete"
@@ -479,7 +491,7 @@ msgstr "Töröl"
 msgid "Delete all app data"
 msgstr "Az összes alkalmazásadat törlése"
 
-#: src/components/ColorSetChooser.tsx:735
+#: src/components/ColorSetChooser.tsx:732
 msgid "Delete the color set"
 msgstr "A színkészlet törlése"
 
@@ -493,7 +505,7 @@ msgstr "Az egyéni márka törlése"
 msgid "Delete the recent photo"
 msgstr "A legutóbbi fotó törlése"
 
-#: src/components/ColorSetChooser.tsx:745
+#: src/components/ColorSetChooser.tsx:742
 msgid "Delete this color set"
 msgstr "Törölje ezt a színkészletet"
 
@@ -505,7 +517,7 @@ msgstr "Sűrű réteg"
 msgid "Details"
 msgstr "Részletek"
 
-#: src/components/ImagesCompare.tsx:123
+#: src/components/ImagesCompare.tsx:128
 msgid "Determine the best photo by pairwise comparison"
 msgstr "Határozza meg a legjobb fényképet páronkénti összehasonlítással"
 
@@ -537,11 +549,11 @@ msgstr "Letöltött fájl {filename}"
 msgid "Downloading..."
 msgstr "Letöltés..."
 
-#: src/components/file/FileSelect.tsx:106
+#: src/components/file/FileSelect.tsx:179
 msgid "Drop the file here..."
 msgstr "Dobd ide az aktát..."
 
-#: src/components/file/FileSelect.tsx:106
+#: src/components/file/FileSelect.tsx:179
 msgid "Drop the files here..."
 msgstr "Dobd ide a fájlokat..."
 
@@ -561,8 +573,8 @@ msgstr "Innen szerkesztés"
 msgid "Email"
 msgstr "E-mail"
 
-#: src/components/ImageOutline.tsx:302
-#: src/components/ImageOutline.tsx:361
+#: src/components/ImageOutline.tsx:265
+#: src/components/ImageOutline.tsx:324
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Lépj be lightbox módba, hogy végigkövesd a körvonalat a dolgozatodon."
 
@@ -578,22 +590,20 @@ msgstr "Hibaleírás"
 msgid "Error loading sample photos"
 msgstr "Hiba betöltése mintafotók"
 
-#: src/components/ColorSetChooser.tsx:197
+#: src/components/ColorSetChooser.tsx:224
 msgid "Error while fetching color brand data"
 msgstr "Hiba a színmárka adatainak beolvasása közben"
 
-#: src/components/ColorSetChooser.tsx:219
+#: src/components/ColorSetChooser.tsx:246
 msgid "Error while fetching color data"
 msgstr "Hiba a színadatok beolvasása közben"
 
-#: src/components/ImageBackgroundRemoval.tsx:106
-#: src/components/ImageOutline.tsx:155
 #: src/components/ImagePerspectiveCorrection.tsx:120
-#: src/components/ImageStyleTransfer.tsx:99
+#: src/hooks/useSelectedOnnxModel.ts:95
 msgid "Error while fetching ML model data"
 msgstr "Hiba az ML-modell adatainak lekérése során"
 
-#: src/components/ColorSetChooser.tsx:208
+#: src/components/ColorSetChooser.tsx:235
 msgid "Error while fetching standard color set data"
 msgstr "Hiba a szabványos színkészlet adatainak beolvasásakor"
 
@@ -601,16 +611,16 @@ msgstr "Hiba a szabványos színkészlet adatainak beolvasásakor"
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "A fényforrás becsült hőmérséklete Kelvinben a kép a következőkkel készült:"
 
-#: src/components/ImageOutline.tsx:320
-#: src/components/ImageOutline.tsx:369
+#: src/components/ImageOutline.tsx:283
+#: src/components/ImageOutline.tsx:332
 msgid "Exit AR"
 msgstr "Exit AR"
 
-#: src/components/ColorSetChooser.tsx:481
+#: src/components/ColorSetChooser.tsx:508
 msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Fedezze fel az ingyenes verziót, mielőtt fizetős tagság vásárlása mellett dönt."
 
-#: src/components/ColorSetChooser.tsx:385
+#: src/components/ColorSetChooser.tsx:412
 #: src/components/CustomColorBrandCreator.tsx:350
 msgid "Fill in the required fields"
 msgstr "Töltse ki a szükséges mezőket"
@@ -681,11 +691,11 @@ msgstr "Magasság"
 msgid "Help"
 msgstr "Segítség"
 
-#: src/components/ColorSetChooser.tsx:244
+#: src/components/ColorSetChooser.tsx:271
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Ha nem menti a műveletet, előfordulhat, hogy a színkészlet módosításai elvesznek."
 
-#: src/components/ImageBackgroundRemoval.tsx:294
+#: src/components/ImageBackgroundRemoval.tsx:251
 msgid "Image without background"
 msgstr "Kép háttér nélkül"
 
@@ -738,7 +748,7 @@ msgstr "Tartsd meg az összes"
 msgid "Language"
 msgstr "Nyelv"
 
-#: src/components/ImageBlurred.tsx:124
+#: src/components/ImageBlurred.tsx:119
 msgid "Large"
 msgstr "Nagy"
 
@@ -750,7 +760,7 @@ msgstr "Utolsó töltési állapot"
 msgid "Last used {dateText}"
 msgstr "Utoljára használt {dateText}"
 
-#: src/components/ImagesCompare.tsx:150
+#: src/components/ImagesCompare.tsx:155
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "Maradt az összehasonlításhoz: {unfinishedGamesSize}"
 
@@ -758,15 +768,15 @@ msgstr "Maradt az összehasonlításhoz: {unfinishedGamesSize}"
 msgid "Less"
 msgstr "Kevesebb"
 
-#: src/components/ImageOutline.tsx:360
+#: src/components/ImageOutline.tsx:323
 msgid "Light box"
 msgstr "Világítódoboz"
 
-#: src/components/ImageTonalValues.tsx:89
+#: src/components/ImageTonalValues.tsx:86
 msgid "Light tone"
 msgstr "Világos tónus"
 
-#: src/components/ImageOutline.tsx:309
+#: src/components/ImageOutline.tsx:272
 msgid "Lightbox"
 msgstr "Lightbox"
 
@@ -786,11 +796,11 @@ msgstr "Link a vágólapra másolva"
 msgid "Load color brand file"
 msgstr "Töltse be a színmárka fájlt"
 
-#: src/components/ColorSetChooser.tsx:768
+#: src/components/ColorSetChooser.tsx:765
 msgid "Load color sets file"
 msgstr "Színkészletfájl betöltése"
 
-#: src/components/ColorSetChooser.tsx:520
+#: src/components/ColorSetChooser.tsx:111
 msgid "Log in by QR"
 msgstr "Bejelentkezés QR segítségével"
 
@@ -827,11 +837,11 @@ msgstr "Alacsony teljesítmény és nagy teljesítmény"
 msgid "Margin"
 msgstr "Margó"
 
-#: src/components/ImageBlurred.tsx:125
+#: src/components/ImageBlurred.tsx:120
 msgid "Max"
 msgstr "Max"
 
-#: src/components/ImageBlurred.tsx:123
+#: src/components/ImageBlurred.tsx:118
 msgid "Medium"
 msgstr "Közepes"
 
@@ -844,7 +854,7 @@ msgstr "Egyesülés"
 msgid "Merge color sets"
 msgstr "Színhalmazok egyesítése"
 
-#: src/components/ImageTonalValues.tsx:90
+#: src/components/ImageTonalValues.tsx:87
 msgid "Mid tone"
 msgstr "Középtónusú"
 
@@ -870,8 +880,8 @@ msgid "Mixture"
 msgstr "Keverék"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:98
-#: src/components/ImageBackgroundRemoval.tsx:232
-#: src/components/ImageOutline.tsx:277
+#: src/components/ImageBackgroundRemoval.tsx:189
+#: src/components/ImageOutline.tsx:240
 msgid "Mode"
 msgstr "Üzemmód"
 
@@ -905,7 +915,7 @@ msgstr "Új márka"
 msgid "New color set"
 msgstr "Új színkészlet"
 
-#: src/components/ImagesCompare.tsx:115
+#: src/components/ImagesCompare.tsx:120
 msgid "New comparison"
 msgstr "Új összehasonlítás"
 
@@ -915,8 +925,8 @@ msgstr "Következő töltési dátum"
 
 #: src/components/color/AddToPaletteButton.tsx:52
 #: src/components/color/PaletteColorMixtureCard.tsx:119
-#: src/components/ColorSetChooser.tsx:246
-#: src/components/ColorSetChooser.tsx:741
+#: src/components/ColorSetChooser.tsx:273
+#: src/components/ColorSetChooser.tsx:738
 #: src/components/CustomColorBrandCreator.tsx:473
 #: src/components/image/RecentImageCard.tsx:74
 #: src/components/palette/PaletteGrid.tsx:114
@@ -933,7 +943,7 @@ msgstr "Nincs adat"
 msgid "No matching color mixtures were found."
 msgstr "Nem találtak megfelelő színkeveréket."
 
-#: src/components/color-set/ColorSelect.tsx:90
+#: src/components/color-set/ColorSelect.tsx:86
 #: src/components/ColorMixingChart.tsx:122
 msgid "No sorting"
 msgstr "Nincs besorolás"
@@ -942,7 +952,7 @@ msgstr "Nincs besorolás"
 msgid "No target color is selected."
 msgstr "Nincs kiválasztva célszín."
 
-#: src/components/ImageBlurred.tsx:121
+#: src/components/ImageBlurred.tsx:116
 msgid "None"
 msgstr "Egyik sem"
 
@@ -966,12 +976,12 @@ msgstr "Olaj pasztell"
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Csak korlátozott számú színmárka érhető el az ingyenes verzióban"
 
-#: src/components/ImageBackgroundRemoval.tsx:214
-#: src/components/ImageOutline.tsx:264
+#: src/components/ImageBackgroundRemoval.tsx:171
+#: src/components/ImageOutline.tsx:227
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Az ingyenes verzióban csak korlátozott számú mód érhető el"
 
-#: src/components/ImageStyleTransfer.tsx:240
+#: src/components/ImageStyleTransfer.tsx:206
 msgid "Only a limited number of styles are available in the free version"
 msgstr "Az ingyenes verzióban csak korlátozott számú stílus érhető el"
 
@@ -988,7 +998,7 @@ msgstr "Átlátszatlan"
 msgid "Open in Safari browser"
 msgstr "Megnyitás a Safari böngészőben"
 
-#: src/components/ColorSetChooser.tsx:506
+#: src/components/ColorSetChooser.tsx:97
 msgid "Open the app on a device where you are logged in"
 msgstr "Nyisd meg az alkalmazást egy olyan eszközön, ahol be vagy jelentkezve"
 
@@ -1000,11 +1010,11 @@ msgstr "vagy telepítse a Chrome, Edge, Firefox vagy Opera webböngésző legúj
 msgid "Or scan the QR code"
 msgstr "Vagy olvassa be a QR-kódot"
 
-#: src/components/ImageChooser.tsx:137
+#: src/components/ImageChooser.tsx:138
 msgid "Or select from sample photos"
 msgstr "Vagy válasszon a mintafotók közül"
 
-#: src/components/ImageChooser.tsx:119
+#: src/components/ImageChooser.tsx:120
 msgid "Or select from your recent photos"
 msgstr "Vagy válasszon a legutóbbi fotói közül"
 
@@ -1012,7 +1022,7 @@ msgstr "Vagy válasszon a legutóbbi fotói közül"
 msgid "Original color temperature (K)"
 msgstr "Eredeti színhőmérséklet (K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:284
+#: src/components/ImageBackgroundRemoval.tsx:241
 msgid "Original photo"
 msgstr "Eredeti fotó"
 
@@ -1065,7 +1075,7 @@ msgstr "Az állandó tárolás nincs engedélyezve"
 msgid "Photo"
 msgstr "Fénykép"
 
-#: src/components/ImagesCompare.tsx:159
+#: src/components/ImagesCompare.tsx:164
 msgid "Photo ranking"
 msgstr "Fotók rangsorolása"
 
@@ -1077,7 +1087,7 @@ msgstr "Csípd vagy görgess nagyításhoz, húzd a pásztázáshoz."
 msgid "Please send us a screenshot of this error via our <0>contacts</0>. It will help us identify the cause."
 msgstr "Kérjük, küldjön nekünk képernyőképet erről a <0>hibáról a kapcsolatainkon</0> keresztül. Segít azonosítani az okát."
 
-#: src/components/ImagesCompare.tsx:179
+#: src/components/ImagesCompare.tsx:184
 msgid "Position: {position}<0/>Rating: {ratingText}"
 msgstr "Pozíció: {position}<0/>Értékelés: {ratingText}"
 
@@ -1085,7 +1095,7 @@ msgstr "Pozíció: {position}<0/>Értékelés: {ratingText}"
 msgid "Postpone"
 msgstr "Halasztás"
 
-#: src/components/ColorSetChooser.tsx:509
+#: src/components/ColorSetChooser.tsx:100
 msgid "Press <0>Show login QR</0>"
 msgstr "Nyomd <0>meg a Megjelenítés bejelentkezési QR-ét</0>"
 
@@ -1117,11 +1127,11 @@ msgstr "Előnézet"
 #: src/components/ColorMixingChart.tsx:144
 #: src/components/ImageGrid.tsx:72
 #: src/components/ImageGrid.tsx:85
-#: src/components/ImageOutline.tsx:292
-#: src/components/ImageOutline.tsx:346
-#: src/components/ImagesCompare.tsx:167
-#: src/components/ImageTonalValues.tsx:107
-#: src/components/ImageTonalValues.tsx:125
+#: src/components/ImageOutline.tsx:255
+#: src/components/ImageOutline.tsx:309
+#: src/components/ImagesCompare.tsx:172
+#: src/components/ImageTonalValues.tsx:104
+#: src/components/ImageTonalValues.tsx:122
 #: src/components/palette/PaletteGrid.tsx:107
 #: src/components/print/PrintImageDrawer.tsx:135
 msgid "Print"
@@ -1151,11 +1161,11 @@ msgstr "A QR-kód lejárt."
 msgid "Quota"
 msgstr "Kvóta"
 
-#: src/components/ImagesCompare.tsx:130
+#: src/components/ImagesCompare.tsx:135
 msgid "Rating: {player1RatingText}"
 msgstr "Értékelés: {player1RatingText}"
 
-#: src/components/ImagesCompare.tsx:141
+#: src/components/ImagesCompare.tsx:146
 msgid "Rating: {player2RatingText}"
 msgstr "Értékelés: {player2RatingText}"
 
@@ -1175,7 +1185,7 @@ msgstr "Színek csökkentése"
 msgid "Reduce the number of colors in the photo."
 msgstr "Csökkentsd a képen lévő színek számát."
 
-#: src/components/color/ColorSwatchDrawer.tsx:68
+#: src/components/color/ColorSwatchDrawer.tsx:70
 #: src/components/ImageColorAdjustment.tsx:305
 msgid "Reference"
 msgstr "Utalás"
@@ -1259,21 +1269,21 @@ msgstr "Telítettség (%)"
 
 #: src/components/ColorMixingChart.tsx:153
 #: src/components/CustomColorBrandCreator.tsx:462
-#: src/components/ImageBackgroundRemoval.tsx:248
-#: src/components/ImageBackgroundRemoval.tsx:261
-#: src/components/ImageBlurred.tsx:153
-#: src/components/ImageBlurred.tsx:166
+#: src/components/ImageBackgroundRemoval.tsx:205
+#: src/components/ImageBackgroundRemoval.tsx:218
+#: src/components/ImageBlurred.tsx:148
+#: src/components/ImageBlurred.tsx:161
 #: src/components/ImageColorAdjustment.tsx:335
 #: src/components/ImageGrid.tsx:75
 #: src/components/ImageGrid.tsx:91
-#: src/components/ImageLimitedPalette.tsx:136
-#: src/components/ImageOutline.tsx:300
-#: src/components/ImageOutline.tsx:352
+#: src/components/ImageLimitedPalette.tsx:130
+#: src/components/ImageOutline.tsx:263
+#: src/components/ImageOutline.tsx:315
 #: src/components/ImagePerspectiveCorrection.tsx:300
 #: src/components/ImagePerspectiveCorrection.tsx:332
-#: src/components/ImageStyleTransfer.tsx:234
-#: src/components/ImageTonalValues.tsx:115
-#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageStyleTransfer.tsx:200
+#: src/components/ImageTonalValues.tsx:112
+#: src/components/ImageTonalValues.tsx:128
 msgid "Save"
 msgstr "Megment"
 
@@ -1281,7 +1291,7 @@ msgstr "Megment"
 msgid "Save & continue"
 msgstr "Mentés és folytatás"
 
-#: src/components/ColorSetChooser.tsx:243
+#: src/components/ColorSetChooser.tsx:270
 msgid "Save changes to the color set?"
 msgstr "Menti a színkészlet módosításait?"
 
@@ -1303,7 +1313,7 @@ msgstr "A színkészlet módosításainak mentése"
 msgid "Scan a QR code"
 msgstr "QR-kód beolvasása"
 
-#: src/components/ColorSetChooser.tsx:514
+#: src/components/ColorSetChooser.tsx:105
 msgid "Scan its QR code here"
 msgstr "Szkenneld be a QR-kódját itt."
 
@@ -1323,7 +1333,7 @@ msgstr "Válasszon ki egy fényképet a fehéregyensúly és a színek beállít
 msgid "Select a photo to correct the perspective"
 msgstr "Válasszon ki egy fényképet a perspektíva korrigálásához"
 
-#: src/components/ImageBackgroundRemoval.tsx:206
+#: src/components/ImageBackgroundRemoval.tsx:163
 msgid "Select a photo to remove the background from"
 msgstr "Válasszon ki egy fényképet, amelyről el szeretné távolítani a hátteret"
 
@@ -1331,7 +1341,7 @@ msgstr "Válasszon ki egy fényképet, amelyről el szeretné távolítani a há
 msgid "Select a reference photo from your device to paint from"
 msgstr "Válasszon ki egy referenciafotót az eszközről a festéshez"
 
-#: src/components/ImageStyleTransfer.tsx:229
+#: src/components/ImageStyleTransfer.tsx:195
 msgid "Select a style to transfer to your reference photo"
 msgstr "Válassza ki a referenciafotóra átvinni kívánt stílust"
 
@@ -1347,8 +1357,8 @@ msgstr "Válasszon ki tetszőleges számú színt a keverni, és adja meg az egy
 msgid "Select art medium"
 msgstr "Művészeti médium kiválasztása"
 
-#: src/components/ColorSetChooser.tsx:255
-#: src/components/ColorSetChooser.tsx:373
+#: src/components/ColorSetChooser.tsx:282
+#: src/components/ColorSetChooser.tsx:400
 msgid "Select at least one color before saving the color set."
 msgstr "Válassz legalább egy színt, mielőtt elmented a színkészletet."
 
@@ -1365,7 +1375,7 @@ msgid "Select color"
 msgstr "Szín kiválasztása"
 
 #: src/components/color-set/ColorCascader.tsx:118
-#: src/components/color-set/ColorSelect.tsx:109
+#: src/components/color-set/ColorSelect.tsx:105
 msgid "Select colors"
 msgstr "Válasszon színeket"
 
@@ -1373,7 +1383,7 @@ msgstr "Válasszon színeket"
 msgid "Select colors to build a mixing chart"
 msgstr "Válassz színeket keverési táblázat elkészítéséhez"
 
-#: src/components/ImageLimitedPalette.tsx:110
+#: src/components/ImageLimitedPalette.tsx:104
 msgid "Select from 1 to {MAX_COLORS} colors"
 msgstr "Válasszon 1 és {MAX_COLORS} szín közül"
 
@@ -1401,14 +1411,14 @@ msgstr "Nyelv kiválasztása"
 msgid "Select part"
 msgstr "Alkatrész kiválasztása"
 
-#: src/components/ImageBackgroundRemoval.tsx:228
-#: src/components/ImageChooser.tsx:113
+#: src/components/ImageBackgroundRemoval.tsx:185
+#: src/components/ImageChooser.tsx:114
 #: src/components/ImageColorAdjustment.tsx:325
 #: src/components/ImagePerspectiveCorrection.tsx:261
 msgid "Select photo"
 msgstr "Fénykép kiválasztása"
 
-#: src/components/ImagesCompare.tsx:107
+#: src/components/ImagesCompare.tsx:112
 msgid "Select photos"
 msgstr "Fényképek kiválasztása"
 
@@ -1420,7 +1430,7 @@ msgstr "Válassza ki a rangsorolni kívánt fényképeket páronkénti összehas
 msgid "Select set"
 msgstr "Készlet kiválasztása"
 
-#: src/components/ImageStyleTransfer.tsx:177
+#: src/components/ImageStyleTransfer.tsx:142
 msgid "Select style image"
 msgstr "Stíluskép kiválasztása"
 
@@ -1445,11 +1455,11 @@ msgstr "Félig átlátszó"
 msgid "Session expired"
 msgstr "A szekció lejárt"
 
-#: src/components/ImageLimitedPalette.tsx:145
+#: src/components/ImageLimitedPalette.tsx:139
 msgid "Set as main color set"
 msgstr "Beállítás fő színkészletként"
 
-#: src/components/ImageBlurred.tsx:108
+#: src/components/ImageBlurred.tsx:103
 #: src/components/ImageColorAdjustment.tsx:352
 msgid "Set as reference"
 msgstr "Beállítás referenciaként"
@@ -1474,7 +1484,7 @@ msgstr "Alaprétegként állítsd be az üvegezéshez."
 msgid "Set as unifying color"
 msgstr "Egységes színként állítva"
 
-#: src/components/ImageTonalValues.tsx:91
+#: src/components/ImageTonalValues.tsx:88
 msgid "Shadow"
 msgstr "Árnyék"
 
@@ -1482,12 +1492,12 @@ msgstr "Árnyék"
 msgid "Shadows and highlights"
 msgstr "Árnyékok és csúcsfények"
 
-#: src/components/ColorSetChooser.tsx:760
+#: src/components/ColorSetChooser.tsx:757
 #: src/components/share/ShareModal.tsx:83
 msgid "Share"
 msgstr "Részvény"
 
-#: src/components/ColorSetChooser.tsx:757
+#: src/components/ColorSetChooser.tsx:754
 msgid "Share this color set"
 msgstr "Ossza meg ezt a színkészletet"
 
@@ -1552,7 +1562,7 @@ msgstr "Enyhén fedje át a különböző színű pasztell területeket, és fin
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition."
 msgstr "Enyhén fedd át a viaszpasztell területeket különböző színekben, és tömör összekeveréssel, hogy sima átmenetet hozzanak létre."
 
-#: src/components/ImageBlurred.tsx:122
+#: src/components/ImageBlurred.tsx:117
 msgid "Small"
 msgstr "Kicsi"
 
@@ -1564,7 +1574,7 @@ msgstr "Valami rosszul ment"
 msgid "Something went wrong while logging you in. Please try again. If the problem persists, check your internet connection."
 msgstr "Valami elromlott, amikor bejelentkeztem. Kérlek, próbáld meg újra. Ha a probléma továbbra is fennáll, ellenőrizd az internetkapcsolatodat."
 
-#: src/components/color-set/ColorSelect.tsx:122
+#: src/components/color-set/ColorSelect.tsx:118
 #: src/components/ColorMixingChart.tsx:117
 #: src/components/ImageColorPicker.tsx:442
 #: src/components/palette/PaletteGrid.tsx:129
@@ -1617,11 +1627,11 @@ msgstr "Egyenesítsd ki"
 msgid "Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "Kiegyenesíti a ferde fotókat, és eltávolítja a nem kívánt széleket. Használj automatikus detektálást vagy válassz 4 pontot a perspektíva torzításához, majd opcionálisan húzd a margókat a kép vágásához."
 
-#: src/components/ImageBlurred.tsx:132
+#: src/components/ImageBlurred.tsx:127
 msgid "Strength"
 msgstr "Erő"
 
-#: src/components/ImageStyleTransfer.tsx:222
+#: src/components/ImageStyleTransfer.tsx:188
 msgid "Styled reference photo"
 msgstr "Stílusos referenciafotó"
 
@@ -1668,7 +1678,7 @@ msgstr "Az alkalmazás a telepítés után is minden adatot tárol a webböngés
 msgid "The color of your paper, canvas, or painting surface."
 msgstr "A papír, vászon vagy festményfelület színe."
 
-#: src/components/ColorSetChooser.tsx:237
+#: src/components/ColorSetChooser.tsx:264
 msgid "The color set can't be saved because not all required fields are filled."
 msgstr "A színkészlet nem menthető el, mert nem minden kötelező mező van kitöltve."
 
@@ -1724,7 +1734,7 @@ msgstr "Ez a nyomtatási méret nem támogatott"
 msgid "This step is optional."
 msgstr "Ez a lépés nem kötelező."
 
-#: src/components/ImageStyleTransfer.tsx:193
+#: src/components/ImageStyleTransfer.tsx:159
 msgid "This style is available to paid Patreon members only"
 msgstr "Ez a stílus csak fizetős Patreon-tagok számára érhető el."
 
@@ -1789,7 +1799,7 @@ msgstr "Váratlan hiba: {errorMessage}"
 msgid "Unifying color"
 msgstr "Egységes szín"
 
-#: src/components/color/ColorSwatchDrawer.tsx:83
+#: src/components/color/ColorSwatchDrawer.tsx:85
 #: src/components/color/PaletteColorMixtureCard.tsx:89
 #: src/components/color/SimilarColorCard.tsx:97
 #: src/components/palette/PaletteGrid.tsx:151
@@ -1808,6 +1818,10 @@ msgstr "Frissítés most"
 msgid "Use at full strength."
 msgstr "Teljes erővel használd."
 
+#: src/components/file/FileSelect.tsx:163
+msgid "Use copied image"
+msgstr "Másolt képet használj"
+
 #: src/components/color/ConsistencyDescription.tsx:49
 msgid "Use full pressure."
 msgstr "Használj teljes nyomást."
@@ -1820,7 +1834,7 @@ msgstr "Használjon olyan üvegező közegeket, amelyek lehetővé teszik, hogy 
 msgid "Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original oil paint layer. You should be able to get the consistency of runny sour cream. Linseed oil is a popular glazing medium."
 msgstr "Használjon olyan üvegező közegeket, amelyek lehetővé teszik, hogy vékony réteget kapjon, például az eredeti olajfesték réteg 1/10-ét. Képesnek kell lennie arra, hogy folyós tejföl állagot kapjon. A lenmagolaj népszerű üvegező közeg."
 
-#: src/components/file/FileSelect.tsx:91
+#: src/components/file/FileSelect.tsx:152
 msgid "Use reference photo"
 msgstr "Referenciafotó használata"
 
@@ -1828,12 +1842,12 @@ msgstr "Referenciafotó használata"
 msgid "Used"
 msgstr "Használt"
 
-#: src/components/ImageLimitedPalette.tsx:106
+#: src/components/ImageLimitedPalette.tsx:100
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "A korlátozott paletta használata segít színharmonia elérésében. Válassz 1–{MAX_COLORS} alapszíneket."
 
-#: src/components/ImageOutline.tsx:312
-#: src/components/ImageOutline.tsx:370
+#: src/components/ImageOutline.tsx:275
+#: src/components/ImageOutline.tsx:333
 msgid "View the outline over the live camera to trace in AR."
 msgstr "Nézd meg a körvonalat az élő kamerán keresztül, hogy AR-ben követhesd a nyomot."
 
@@ -1877,7 +1891,7 @@ msgstr "Ha összesen több mint {maxColorsFor2} színt jelöl ki, a program nem 
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Ha összesen több mint {maxColorsFor3} színt jelöl ki, a program nem használ három szín keverékét."
 
-#: src/components/ImageBackgroundRemoval.tsx:158
+#: src/components/ImageBackgroundRemoval.tsx:115
 #: src/components/ImageColorAdjustment.tsx:421
 msgid "White"
 msgstr "Fehér"
@@ -1903,8 +1917,8 @@ msgstr "Szélesség"
 
 #: src/components/color/AddToPaletteButton.tsx:51
 #: src/components/color/PaletteColorMixtureCard.tsx:118
-#: src/components/ColorSetChooser.tsx:245
-#: src/components/ColorSetChooser.tsx:740
+#: src/components/ColorSetChooser.tsx:272
+#: src/components/ColorSetChooser.tsx:737
 #: src/components/CustomColorBrandCreator.tsx:472
 #: src/components/image/RecentImageCard.tsx:73
 #: src/components/palette/PaletteGrid.tsx:113
@@ -1917,11 +1931,11 @@ msgstr "Igen"
 msgid "You already have many recent photos saved. Remove the oldest one to free up space? The new photo will still be added."
 msgstr "Már sok friss fotót mentettél el. Eltávolítani a legrégebbi, hogy helyet szabadítsanak fel? Az új fotót továbbra is hozzáadjuk."
 
-#: src/components/ColorSetChooser.tsx:460
+#: src/components/ColorSetChooser.tsx:487
 msgid "You are logged in and have access to all app features."
 msgstr "Be van jelentkezve, és hozzáfér az alkalmazás összes funkciójához."
 
-#: src/components/ColorSetChooser.tsx:465
+#: src/components/ColorSetChooser.tsx:492
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "Az <0>ingyenes verziót</0> korlátozott számú színmárkával és képfeldolgozási móddal használja."
 
@@ -1933,8 +1947,8 @@ msgstr "Folytathatod a munkát ezen a böngészőfülön, vagy visszaválthatsz 
 msgid "You're logged in"
 msgstr "Bejelentkeztél"
 
-#: src/components/ImageBackgroundRemoval.tsx:218
-#: src/components/ImageOutline.tsx:268
+#: src/components/ImageBackgroundRemoval.tsx:175
+#: src/components/ImageOutline.tsx:231
 msgid "You've selected a mode that is available to paid Patreon members only"
 msgstr "Olyan módot választottál, amely csak a fizetős Patreon tagok számára elérhető"
 
@@ -1949,6 +1963,10 @@ msgstr "Olyan színmárkákat választottál, amelyek csak a fizetős Patreon-ta
 #: src/components/error/AuthFeedbackHandler.tsx:97
 msgid "Your account details:"
 msgstr "Fiókadatai:"
+
+#: src/components/file/FileSelect.tsx:136
+msgid "Your browser does not support reading images from the clipboard."
+msgstr "A böngésződ nem támogatja a képek olvasását a clipboardról."
 
 #: src/hooks/usePersistentStorage.tsx:50
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."

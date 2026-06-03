@@ -106,6 +106,7 @@ export function ImageChooser() {
 
           <div>
             <FileSelect
+              showUseCopiedImage
               onChange={(files: File[]) => {
                 void handleFileChange(files);
               }}

@@ -130,18 +130,20 @@ export function ImageStyleTransfer() {
               actions={
                 numInputs > 1
                   ? [
-                      <FileSelect
-                        key={id}
-                        onChange={([file]: File[]) => {
-                          void setStyleImageFile(file);
-                          setSelectedModelId(id);
-                        }}
-                        disabled={!hasAccess}
-                      >
-                        <Trans>Select style image</Trans>
-                      </FileSelect>,
+                      <div key={id} className="u-px">
+                        <FileSelect
+                          showUseCopiedImage
+                          onChange={([file]: File[]) => {
+                            void setStyleImageFile(file);
+                            setSelectedModelId(id);
+                          }}
+                          disabled={!hasAccess}
+                        >
+                          <Trans>Select style image</Trans>
+                        </FileSelect>
+                      </div>,
                     ]
-                  : []
+                  : undefined
               }
             >
               <Card.Meta

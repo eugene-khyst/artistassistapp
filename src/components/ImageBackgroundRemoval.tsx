@@ -181,7 +181,7 @@ export function ImageBackgroundRemoval() {
         >
           <Space className="u-flex">
             {isAccessAllowed && (
-              <FileSelect onChange={handleFileChange} useReferencePhoto>
+              <FileSelect onChange={handleFileChange} showUseReferencePhoto showUseCopiedImage>
                 <Trans>Select photo</Trans>
               </FileSelect>
             )}

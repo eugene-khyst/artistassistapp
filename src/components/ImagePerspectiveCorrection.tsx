@@ -257,7 +257,7 @@ export function ImagePerspectiveCorrection() {
           </Tooltip>
         </Space>
         <Space>
-          <FileSelect onChange={handleFileChange} useReferencePhoto>
+          <FileSelect onChange={handleFileChange} showUseReferencePhoto showUseCopiedImage>
             <Trans>Select photo</Trans>
           </FileSelect>
           {perspectiveUncorrectedImage && (
