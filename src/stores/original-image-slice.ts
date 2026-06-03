@@ -43,7 +43,6 @@ export interface OriginalImageSlice {
   imageFile: ImageFile | null;
   recentImageFiles: ImageFile[];
 
-  originalImageFile: File | null;
   originalImage: ImageBitmap | null;
   isOriginalImageLoading: boolean;
   isSampleImageLoading: boolean;
@@ -73,7 +72,6 @@ export const createOriginalImageSlice: StateCreator<
   imageFile: null,
   recentImageFiles: [],
 
-  originalImageFile: null,
   originalImage: null,
   isOriginalImageLoading: false,
   isSampleImageLoading: false,
@@ -104,10 +102,8 @@ export const createOriginalImageSlice: StateCreator<
       const activeTabKey = get().colorSet ? TabKey.ColorPicker : TabKey.ColorSet;
       await get().setActiveTabKey(activeTabKey);
     }
-    const originalImageFile: File | null = imageFile ? imageFileToFile(imageFile) : null;
     set({
       imageFile,
-      originalImageFile,
       isOriginalImageLoading: true,
       colorMatchImage: null,
       tonalImages: [],
@@ -120,9 +116,9 @@ export const createOriginalImageSlice: StateCreator<
     await get().setTargetColor(null, null);
     await get().setUnderlayer(null);
     await get().loadPaletteColorMixtures();
-    const originalImage = originalImageFile
+    const originalImage = imageFile
       ? await createImageBitmapAndResize(
-          originalImageFile,
+          imageFileToFile(imageFile),
           ResizeImage.resizeToPixelCount(IMAGE_SIZE['2K'])
         )
       : null;

@@ -44,8 +44,8 @@ export const createPosterizedImageSlice: StateCreator<
 
   posterizeImage: async (maxColors: number): Promise<void> => {
     get().abortPosterizeImage();
-    const {originalImageFile, originalImage} = get();
-    if (!originalImageFile || !originalImage) {
+    const {imageFile, originalImage} = get();
+    if (!imageFile || !originalImage) {
       return;
     }
     const posterizeImageAbortController = new AbortController();
@@ -62,13 +62,13 @@ export const createPosterizedImageSlice: StateCreator<
         worker => worker.getPosterizedImage(transfer(resizedImage, [resizedImage]), maxColors),
         posterizeImageAbortController.signal
       );
-      const imageFile: ImageFile = await blobToImageFile(
+      const posterizedImageFile: ImageFile = await blobToImageFile(
         await imageBitmapToBlob(quantizedImage, {encodeOptions: {type: 'image/png'}}),
-        `${originalImageFile.name} ${maxColors} colors`.trim()
+        `${imageFile.name ?? ''} ${maxColors} colors`.trim()
       );
-      imageFile.maxColors = maxColors;
+      posterizedImageFile.maxColors = maxColors;
       quantizedImage.close();
-      await get().saveRecentImageFile(imageFile);
+      await get().saveRecentImageFile(posterizedImageFile);
     } catch (error) {
       if (isAbortError(error)) {
         return;

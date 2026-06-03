@@ -27,6 +27,7 @@ import {EmptyImage} from '@/components/empty/EmptyImage';
 import {FileSelect} from '@/components/file/FileSelect';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {useCreateObjectUrl} from '@/hooks/useCreateObjectUrl';
+import {useImageFileToBlob} from '@/hooks/useImageFileToBlob';
 import {useSelectedOnnxModel} from '@/hooks/useSelectedOnnxModel';
 import {hasAccessTo} from '@/services/auth/utils';
 import type {OnnxModel} from '@/services/ml/types';
@@ -40,8 +41,7 @@ export function ImageStyleTransfer() {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
   const styleTransferImage = useAppStore(state => state.appSettings.styleTransferImage);
-  const originalImageFile = useAppStore(state => state.originalImageFile);
-  const styleImageFile = useAppStore(state => state.styleImageFile);
+  const imageFile = useAppStore(state => state.imageFile);
   const isStyleTransferLoading = useAppStore(state => state.isStyleTransferLoading);
   const styleTransferDownloadTip = useAppStore(state => state.styleTransferDownloadTip);
   const styledImageBlob = useAppStore(state => state.styledImageBlob);
@@ -72,8 +72,10 @@ export function ImageStyleTransfer() {
 
   const isLoading: boolean = isModelsLoading || isStyleTransferLoading || isAuthLoading;
 
-  const originalImageUrl: string | undefined = useCreateObjectUrl(originalImageFile);
-  const styleImageUrl: string | undefined = useCreateObjectUrl(styleImageFile);
+  const styleImageBlob: Blob | undefined = useImageFileToBlob(styleTransferImage);
+  const originalImageBlob: Blob | undefined = useImageFileToBlob(imageFile);
+  const originalImageUrl: string | undefined = useCreateObjectUrl(originalImageBlob);
+  const styleImageUrl: string | undefined = useCreateObjectUrl(styleImageBlob);
   const styledImageUrl: string | undefined = useCreateObjectUrl(styledImageBlob);
 
   useEffect(() => {
@@ -93,7 +95,7 @@ export function ImageStyleTransfer() {
 
   const handleSaveClick = () => {
     if (styledImageUrl) {
-      saveAs(styledImageUrl, getFilename(originalImageFile, 'styled'));
+      saveAs(styledImageUrl, getFilename(imageFile, 'styled'));
     }
   };
 
@@ -167,7 +169,7 @@ export function ImageStyleTransfer() {
     [sortedModels, user, styleImageUrl, setStyleImageFile, setSelectedModelId]
   );
 
-  if (!originalImageFile) {
+  if (!imageFile) {
     return <EmptyImage />;
   }
 

@@ -35,7 +35,7 @@ import {EmptyImage} from './empty/EmptyImage';
 import styles from './ImageTonalValues.module.css';
 
 export function ImageTonalValues() {
-  const originalImageFile = useAppStore(state => state.originalImageFile);
+  const imageFile = useAppStore(state => state.imageFile);
   const originalImage = useAppStore(state => state.originalImage);
   const tonalImages = useAppStore(state => state.tonalImages);
 
@@ -75,7 +75,7 @@ export function ImageTonalValues() {
     if (!image) {
       return;
     }
-    saveAs(await imageBitmapToBlob(image), getFilename(originalImageFile, 'tonal-values'));
+    saveAs(await imageBitmapToBlob(image), getFilename(imageFile, 'tonal-values'));
   };
 
   if (!originalImage) {

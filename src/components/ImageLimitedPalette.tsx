@@ -39,7 +39,7 @@ const MAX_COLORS = 7;
 
 export function ImageLimitedPalette() {
   const colorSet = useAppStore(state => state.colorSet);
-  const originalImageFile = useAppStore(state => state.originalImageFile);
+  const imageFile = useAppStore(state => state.imageFile);
   const originalImage = useAppStore(state => state.originalImage);
   const limitedPaletteImage = useAppStore(state => state.limitedPaletteImage);
 
@@ -84,10 +84,7 @@ export function ImageLimitedPalette() {
     if (!limitedPaletteImage) {
       return;
     }
-    saveAs(
-      await imageBitmapToBlob(limitedPaletteImage),
-      getFilename(originalImageFile, 'limited-palette')
-    );
+    saveAs(await imageBitmapToBlob(limitedPaletteImage), getFilename(imageFile, 'limited-palette'));
   };
 
   if (!colorSet || !originalImage || !isMixable(colorSet.type)) {

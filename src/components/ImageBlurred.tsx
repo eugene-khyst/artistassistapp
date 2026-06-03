@@ -53,7 +53,7 @@ const blurStrengthShortOptions: CheckboxOptionType<number>[] = [
 ];
 
 export function ImageBlurred() {
-  const originalImageFile = useAppStore(state => state.originalImageFile);
+  const imageFile = useAppStore(state => state.imageFile);
   const originalImage = useAppStore(state => state.originalImage);
   const blurredImages = useAppStore(state => state.blurredImages);
 
@@ -85,7 +85,7 @@ export function ImageBlurred() {
     if (!image) {
       return;
     }
-    saveAs(await imageBitmapToBlob(image), getFilename(originalImageFile, FILENAME_SUFFIX));
+    saveAs(await imageBitmapToBlob(image), getFilename(imageFile, FILENAME_SUFFIX));
   };
 
   const handleSetAsReferenceClick = async () => {
@@ -94,9 +94,7 @@ export function ImageBlurred() {
       return;
     }
     const blob: Blob = await imageBitmapToBlob(image);
-    void saveRecentImageFile(
-      await blobToImageFile(blob, getFilename(originalImageFile, FILENAME_SUFFIX))
-    );
+    void saveRecentImageFile(await blobToImageFile(blob, getFilename(imageFile, FILENAME_SUFFIX)));
   };
 
   const imageItems: MenuProps['items'] = [

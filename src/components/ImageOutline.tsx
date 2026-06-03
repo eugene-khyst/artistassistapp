@@ -73,7 +73,7 @@ export function ImageOutline() {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
   const grids = useAppStore(state => state.appSettings.grids);
-  const originalImageFile = useAppStore(state => state.originalImageFile);
+  const imageFile = useAppStore(state => state.imageFile);
   const isOutlineImageLoading = useAppStore(state => state.isOutlineImageLoading);
   const outlineDownloadTip = useAppStore(state => state.outlineDownloadTip);
   const outlineImage = useAppStore(state => state.outlineImage);
@@ -165,7 +165,7 @@ export function ImageOutline() {
     if (!outlineImage) {
       return;
     }
-    void gridCanvas?.saveAsImage(getFilename(originalImageFile, 'outline'));
+    void gridCanvas?.saveAsImage(getFilename(imageFile, 'outline'));
   };
 
   const handleLightboxClick = async () => {
@@ -208,7 +208,7 @@ export function ImageOutline() {
     [gridCanvas]
   );
 
-  if (!originalImageFile) {
+  if (!imageFile) {
     return <EmptyImage />;
   }
 

@@ -22,7 +22,6 @@ import {getPreferredLocale} from '@/i18n';
 import {normalizeInjectedAuthCallback} from '@/services/auth/auth-callback-normalizer';
 import {ForceLogoutError} from '@/services/auth/types';
 import {getAppSettings, saveAppSettings} from '@/services/db/app-settings-db';
-import {imageFileToFile} from '@/services/image/image-file';
 import {DEFAULT_APP_SETTINGS} from '@/services/settings/app-settings';
 import {type AppSettings} from '@/services/settings/types';
 import {parseUrl} from '@/services/url/url-parser';
@@ -31,6 +30,7 @@ import type {LocaleSlice} from '@/stores/locale-slice';
 import type {StyleTransferSlice} from '@/stores/style-transfer-slice';
 import {initAuthAttemptWatcher} from '@/stores/watchers/auth-attempt-watcher';
 import {initAuthExpiryWatcher} from '@/stores/watchers/auth-expiry-watcher';
+import {initPersistedStateSyncWatcher} from '@/stores/watchers/persisted-state-sync-watcher';
 import {TabKey} from '@/tabs';
 import {getErrorMessage} from '@/utils/error';
 import {replaceHistory} from '@/utils/history';
@@ -149,14 +149,9 @@ export const createAppSlice: StateCreator<
         }
 
         await tryStep('load color sets', () => get().loadColorSets());
-        await tryStep('load recent image files', () => get().loadRecentImageFiles());
+        initPersistedStateSyncWatcher();
 
-        const {styleTransferImage} = appSettings;
-        if (styleTransferImage) {
-          await tryStep('set style image file', () =>
-            get().setStyleImageFile(imageFileToFile(styleTransferImage))
-          );
-        }
+        await tryStep('load recent image files', () => get().loadRecentImageFiles());
 
         if (activeTabKey) {
           void get().setActiveTabKey(activeTabKey);

@@ -16,11 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export function getFilename(file: File | null, suffix: string): string | undefined {
-  if (!file) {
+interface NamedFile {
+  name?: string;
+}
+
+export function getFilename(
+  file: NamedFile | null | undefined,
+  suffix: string
+): string | undefined {
+  if (!file?.name) {
     return;
   }
-  const {name} = file;
-  const [origName] = name.split('.');
+  const [origName] = file.name.split('.');
   return `${origName}-${suffix}`;
 }

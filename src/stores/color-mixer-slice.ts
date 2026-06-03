@@ -39,6 +39,10 @@ interface SamplingPointWithSimilarColor extends SamplingPoint {
   similarColor: SimilarColor;
 }
 
+interface ColorMixerUpdateOptions {
+  persist?: boolean;
+}
+
 async function findSimilarColors(
   targetColorHex: string | null,
   includeTransparentLayers: boolean,
@@ -69,8 +73,11 @@ export interface ColorMixerSlice {
 
   setColorSet: (colorSet: ColorSet, options?: {setActiveTabKey?: boolean}) => Promise<void>;
   setUnderlayer: (underlayerHex: string | null) => Promise<void>;
-  setSurface: (surfaceHex: string) => Promise<void>;
-  setLayeringEnabled: (layeringEnabled: boolean) => Promise<void>;
+  setSurface: (surfaceHex: string, options?: ColorMixerUpdateOptions) => Promise<void>;
+  setLayeringEnabled: (
+    layeringEnabled: boolean,
+    options?: ColorMixerUpdateOptions
+  ) => Promise<void>;
   setMotherColor: (motherColorId: ColorId | null) => Promise<void>;
   setTargetColor: (
     targetColorHex: string | null,
@@ -160,8 +167,13 @@ export const createColorMixerSlice: StateCreator<
     }
   },
 
-  setSurface: async (surfaceHex: string): Promise<void> => {
-    await get().saveAppSettings({colorPickerSurfaceHex: surfaceHex});
+  setSurface: async (
+    surfaceHex: string,
+    {persist = true}: ColorMixerUpdateOptions = {}
+  ): Promise<void> => {
+    if (persist) {
+      await get().saveAppSettings({colorPickerSurfaceHex: surfaceHex});
+    }
     const {
       targetColorHex,
       motherColorId,
@@ -190,8 +202,13 @@ export const createColorMixerSlice: StateCreator<
     }
   },
 
-  setLayeringEnabled: async (layeringEnabled: boolean): Promise<void> => {
-    await get().saveAppSettings({colorPickerLayeringEnabled: layeringEnabled});
+  setLayeringEnabled: async (
+    layeringEnabled: boolean,
+    {persist = true}: ColorMixerUpdateOptions = {}
+  ): Promise<void> => {
+    if (persist) {
+      await get().saveAppSettings({colorPickerLayeringEnabled: layeringEnabled});
+    }
     const {targetColorHex, motherColorId} = get();
     set({
       similarColors: [],

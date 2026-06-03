@@ -36,7 +36,7 @@ const gridCanvasSupplier = (canvas: HTMLCanvasElement): GridCanvas => {
 };
 
 export function ImageGrid() {
-  const originalImageFile = useAppStore(state => state.originalImageFile);
+  const imageFile = useAppStore(state => state.imageFile);
   const originalImage = useAppStore(state => state.originalImage);
 
   const isOriginalImageLoading = useAppStore(state => state.isOriginalImageLoading);
@@ -55,7 +55,7 @@ export function ImageGrid() {
   };
 
   const handleSaveClick = () => {
-    void gridCanvas?.saveAsImage(getFilename(originalImageFile, 'grid'));
+    void gridCanvas?.saveAsImage(getFilename(imageFile, 'grid'));
   };
 
   if (!originalImage) {

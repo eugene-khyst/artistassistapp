@@ -26,6 +26,7 @@ import {useCallback} from 'react';
 import type {Accept, FileRejection} from 'react-dropzone';
 import {useDropzone} from 'react-dropzone';
 
+import {imageFileToFile} from '@/services/image/image-file';
 import {useAppStore} from '@/stores/app-store';
 
 type Props = {
@@ -44,7 +45,7 @@ export function FileSelect({
   disabled,
   multiple,
 }: Readonly<PropsWithChildren<Props>>) {
-  const originalImageFile = useAppStore(state => state.originalImageFile);
+  const imageFile = useAppStore(state => state.imageFile);
 
   const screens = Grid.useBreakpoint();
 
@@ -91,9 +92,9 @@ export function FileSelect({
       label: t`Use reference photo`,
       icon: <FileImageOutlined />,
       onClick: () => {
-        onChange(originalImageFile ? [originalImageFile] : []);
+        onChange(imageFile ? [imageFileToFile(imageFile)] : []);
       },
-      disabled: !originalImageFile,
+      disabled: !imageFile,
     },
   ];
 
