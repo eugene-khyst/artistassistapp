@@ -17,9 +17,13 @@ msgstr ""
 msgid "({colorCount} colors)"
 msgstr "({colorCount} kolorów)"
 
-#: src/components/ColorSetChooser.tsx:641
+#: src/components/ColorSetChooser.tsx:643
 msgid "{brandName} colors"
 msgstr "{brandName} kolory"
+
+#: src/components/ad/AdModal.tsx:66
+msgid "{closeCounter, plural, one {Close in # second} other {Close in # seconds}}"
+msgstr "{closeCounter, plural, one {Zamknąć w # sekundę} few {Zamknąć za # sekundy} many {Zamykam za # sekund} other {Zamykamy za # sekund}}"
 
 #: src/components/color-set/ColorSetName.tsx:34
 #: src/components/color-set/StandardColorSetCascader.tsx:59
@@ -28,23 +32,31 @@ msgstr "{brandName} kolory"
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# kolor} few {# kolory} many {# kolorów} other {# kolorów}}"
 
-#: src/components/auth/LoginQRButton.tsx:66
+#: src/components/auth/LoginEmailOtpButton.tsx:177
+msgid "{expiresIn, plural, one {Code expires in # second} other {Code expires in # seconds}}"
+msgstr "{expiresIn, plural, one {Kod wygasa za # sekundę} few {Kod wygasa za # sekundy} many {Kod wygasa za # sekund} other {Kod wygasa za # sekund}}"
+
+#: src/components/auth/LoginQRButton.tsx:73
 msgid "{expiresIn, plural, one {QR code expires in # second} other {QR code expires in # seconds}}"
 msgstr "{expiresIn, plural, one {Kod QR wygasa za # sekundę} few {Kod QR wygasa za # sekundy} many {Kod QR wygasa za # sekund} other {Kod QR wygasa za # sekund}}"
 
-#: src/components/ColorSetChooser.tsx:594
-#: src/components/ColorSetChooser.tsx:642
+#: src/components/ColorSetChooser.tsx:596
+#: src/components/ColorSetChooser.tsx:644
 msgid "{FIELD} are required"
 msgstr "{FIELD} są wymagane"
 
-#: src/components/ColorSetChooser.tsx:561
-#: src/components/ColorSetChooser.tsx:570
-#: src/components/ColorSetChooser.tsx:623
+#: src/components/ColorSetChooser.tsx:563
+#: src/components/ColorSetChooser.tsx:572
+#: src/components/ColorSetChooser.tsx:625
 #: src/components/CustomColorBrandCreator.tsx:436
 #: src/components/CustomColorBrandCreator.tsx:447
 #: src/components/CustomColorBrandCreator.tsx:455
 msgid "{FIELD} is required"
 msgstr "Parametr {FIELD} jest wymagany"
+
+#: src/components/auth/LoginEmailOtpButton.tsx:194
+msgid "{retryIn, plural, one {Resend code in # second} other {Resend code in # seconds}}"
+msgstr "{retryIn, plural, one {Wyślij kod ponownie w # sekundę} few {Wyślij kod ponownie za # sekundy} many {Wyślij kod ponownie za # sekund} other {Wyślij kod ponownie za # sekund}}"
 
 #: src/components/install/InstallDrawer.tsx:42
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
@@ -75,23 +87,23 @@ msgstr "<0/> Windows i <1/> Linux"
 msgid "<0>{similarityText}%</0> similarity"
 msgstr "<0>{similarityText}%</0> podobieństwa"
 
-#: src/components/ColorSetChooser.tsx:477
+#: src/components/ColorSetChooser.tsx:479
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>ArtistAssistApp</0> to aplikacja internetowa, która pomaga artystom mieszać kolory ze zdjęć, analizować wartości tonalne, konturować zdjęcia, rysować za pomocą siatek, malować przy użyciu ograniczonych palet i nie tylko."
 
-#: src/components/error/AuthFeedbackHandler.tsx:71
+#: src/components/error/AuthFeedbackHandler.tsx:77
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Sprawdź swoje konto Patreon</0>: Upewnij się, że jesteś zalogowany do <1>Patreon.com</1> w przeglądarce internetowej, używając tego samego e-maila, którego użyłeś do zakupu członkostwa. Jeśli masz więcej kont, wyloguj się i zaloguj się ponownie za pomocą właściwego."
 
-#: src/components/ColorSetChooser.tsx:498
-msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
-msgstr "<0>Dołącz do ArtistAssistApp na Patreon jako płatny członek</0> lub <1>zaloguj się za pomocą Patreon</1> , jeśli już dołączyłeś, aby uzyskać dostęp do ponad 200 marek kolorów i wszystkich trybów przetwarzania obrazu bez reklam."
+#: src/components/ColorSetChooser.tsx:500
+msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 250 color brands and all image processing modes without ads."
+msgstr "<0>Dołącz do ArtistAssist App na Patreonie jako płatny członek</0> lub <1>zaloguj się na Patreonie</1> , jeśli już dołączyłeś, aby uzyskać dostęp do ponad 250 marek kolorowych i wszystkich trybów przetwarzania obrazów bez reklam."
 
-#: src/components/error/AuthFeedbackHandler.tsx:89
+#: src/components/error/AuthFeedbackHandler.tsx:95
 msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
 msgstr "<0>Spróbuj ponownie zalogować</0>: Po potwierdzeniu, że konto Patreon jest aktywne w przeglądarce, zaloguj się ponownie do ArtistAssistApp."
 
-#: src/components/error/AuthFeedbackHandler.tsx:82
+#: src/components/error/AuthFeedbackHandler.tsx:88
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Użyj przeglądarki internetowej</0>: Jeśli korzystasz z aplikacji Patreon (iOS/Android), zaloguj się przez przeglądarkę (Chrome, Safari, Firefox), ponieważ aplikacja czasem może zakłócać proces weryfikacji."
 
@@ -139,7 +151,7 @@ msgstr "Dodaj kolor"
 msgid "Add color mixtures to the palette."
 msgstr "Dodaj mieszanki kolorów do palety."
 
-#: src/components/ColorSetChooser.tsx:644
+#: src/components/ColorSetChooser.tsx:646
 msgid "Add or remove colors to match your actual color set."
 msgstr "Dodaj lub usuń kolory, aby dopasować je do rzeczywistego zestawu kolorów."
 
@@ -155,6 +167,8 @@ msgstr "Dodaj do palety"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Dodaj biel w <0>proporcjach {whiteRatioText}</0>"
 
+#: src/components/ImagePerspectiveCorrection.tsx:312
+#: src/components/ImagePerspectiveCorrection.tsx:341
 #: src/components/messages.ts:41
 msgid "Adjust colors"
 msgstr "Dostosuj kolory"
@@ -214,7 +228,7 @@ msgstr "Czy na pewno chcesz wyczyścić pamięć podręczną?"
 msgid "Are you sure you want to delete all app data?"
 msgstr "Czy na pewno chcesz usunąć wszystkie dane aplikacji?"
 
-#: src/components/ColorSetChooser.tsx:733
+#: src/components/ColorSetChooser.tsx:735
 msgid "Are you sure you want to delete this color set?"
 msgstr "Czy na pewno chcesz usunąć ten zestaw kolorów?"
 
@@ -235,12 +249,12 @@ msgstr "Czy na pewno chcesz usunąć wszystkie mieszanki kolorów?"
 msgid "Are you sure you want to remove this color mixture?"
 msgstr "Czy na pewno chcesz usunąć tę mieszankę kolorów?"
 
-#: src/components/ColorSetChooser.tsx:560
+#: src/components/ColorSetChooser.tsx:562
 #: src/components/CustomColorBrandCreator.tsx:446
 msgid "Art medium"
 msgstr "Medium artystyczne"
 
-#: src/components/error/AuthFeedbackHandler.tsx:139
+#: src/components/error/AuthFeedbackHandler.tsx:188
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistApp nie otrzymała wyników twojego logowania na Patreon. Może się to zdarzyć, gdy logowanie się otwiera w innej przeglądarce lub aplikacji. Proszę, spróbuj zalogować się ponownie."
 
@@ -252,7 +266,7 @@ msgstr "ArtistAssistApp został opracowany przez <0>Eugene'a Khysta</0>"
 msgid "At least one color is required"
 msgstr "Wymagany jest co najmniej jeden kolor"
 
-#: src/components/error/AuthFeedbackHandler.tsx:113
+#: src/components/error/AuthFeedbackHandler.tsx:147
 msgid "Authentication error"
 msgstr "Błąd uwierzytelniania"
 
@@ -362,13 +376,13 @@ msgstr "Kliknij 🖱️ lub stuknij 👆 dowolne miejsce na zdjęciu albo użyj 
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "Kliknij 🖱️ lub naciśnij 👆 dowolne miejsce na zdjęciu lub użyj wyskakującego okienka próbnika kolorów, aby wybrać kolor docelowy, który ma być mieszany z kolorów."
 
-#: src/components/ad/AdModal.tsx:71
+#: src/components/ad/AdModal.tsx:75
 msgid "Close"
 msgstr "Zamykać"
 
-#: src/components/ad/AdModal.tsx:62
-msgid "Close in {closeCounter} sec"
-msgstr "Zamknij w {closeCounter} sekund"
+#: src/components/auth/LoginEmailOtpButton.tsx:169
+msgid "Code is required"
+msgstr "Wymagany jest kod"
 
 #: src/components/ColorMixer.tsx:183
 #: src/components/CustomColorBrandCreator.tsx:420
@@ -379,7 +393,7 @@ msgstr "Kolor"
 msgid "Color brand"
 msgstr "Marka kolorystyczna"
 
-#: src/components/ColorSetChooser.tsx:592
+#: src/components/ColorSetChooser.tsx:594
 msgid "Color brands"
 msgstr "Marki kolorystyczne"
 
@@ -403,7 +417,7 @@ msgstr "Mieszanka kolorów"
 msgid "Color picker"
 msgstr "Próbnik kolorów"
 
-#: src/components/ColorSetChooser.tsx:568
+#: src/components/ColorSetChooser.tsx:570
 #: src/components/ImageColorPicker.tsx:241
 #: src/components/messages.ts:28
 msgid "Color set"
@@ -459,11 +473,11 @@ msgstr "Poprawiono oszacowanie temperatury źródła światła w stopniach Kelvi
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Nie udało się automatycznie wykryć papieru ani płótna"
 
-#: src/components/ColorSetChooser.tsx:711
+#: src/components/ColorSetChooser.tsx:713
 msgid "Create a duplicate of this color set for further modification"
 msgstr "Utwórz duplikat tego zestawu kolorów w celu dalszej modyfikacji"
 
-#: src/components/ColorSetChooser.tsx:720
+#: src/components/ColorSetChooser.tsx:722
 msgid "Create a new color set by merging existing ones"
 msgstr "Stwórz nowy zestaw kolorów, łącząc istniejące"
 
@@ -480,7 +494,7 @@ msgstr "Niestandardowy zestaw kolorów"
 msgid "Custom colors"
 msgstr "Niestandardowe kolory"
 
-#: src/components/ColorSetChooser.tsx:747
+#: src/components/ColorSetChooser.tsx:749
 #: src/components/CustomColorBrandCreator.tsx:482
 #: src/components/image/RecentImageCard.tsx:83
 msgid "Delete"
@@ -491,7 +505,7 @@ msgstr "Usunąć"
 msgid "Delete all app data"
 msgstr "Usuń wszystkie dane aplikacji"
 
-#: src/components/ColorSetChooser.tsx:732
+#: src/components/ColorSetChooser.tsx:734
 msgid "Delete the color set"
 msgstr "Usuwanie zestawu kolorów"
 
@@ -505,7 +519,7 @@ msgstr "Usuwanie niestandardowej marki"
 msgid "Delete the recent photo"
 msgstr "Usuń ostatnie zdjęcie"
 
-#: src/components/ColorSetChooser.tsx:742
+#: src/components/ColorSetChooser.tsx:744
 msgid "Delete this color set"
 msgstr "Usuń ten zestaw kolorów"
 
@@ -513,7 +527,7 @@ msgstr "Usuń ten zestaw kolorów"
 msgid "Dense layer"
 msgstr "Warstwa gęsta"
 
-#: src/components/error/AuthFeedbackHandler.tsx:36
+#: src/components/error/AuthFeedbackHandler.tsx:42
 msgid "Details"
 msgstr "Szczegóły"
 
@@ -537,7 +551,7 @@ msgstr "Średnica"
 msgid "Dilute the paint with water in a <0>{ratioText} ratio</0>"
 msgstr "Rozcieńczyć farbę wodą w <0>proporcji {ratioText}</0>"
 
-#: src/components/ColorSetChooser.tsx:625
+#: src/components/ColorSetChooser.tsx:627
 msgid "Do you have a store-bought or custom color set?"
 msgstr "Czy masz kupiony w sklepie lub niestandardowy zestaw kolorów?"
 
@@ -561,7 +575,7 @@ msgstr "Rzuć tu pliki..."
 msgid "Dry Pastel"
 msgstr "Suchy pastelowy kolor"
 
-#: src/components/ColorSetChooser.tsx:714
+#: src/components/ColorSetChooser.tsx:716
 msgid "Duplicate"
 msgstr "Duplikat"
 
@@ -569,20 +583,36 @@ msgstr "Duplikat"
 msgid "Edit from here on"
 msgstr "Dalej edycja"
 
-#: src/components/error/AuthFeedbackHandler.tsx:39
+#: src/components/error/AuthFeedbackHandler.tsx:45
 msgid "Email"
 msgstr "E-mail"
+
+#: src/components/auth/LoginEmailOtpButton.tsx:90
+msgid "Email is required"
+msgstr "Wymagany jest e-mail"
+
+#: src/components/auth/LoginEmailOtpButton.tsx:94
+msgid "Enter a valid email"
+msgstr "Wpisz ważny e-mail"
 
 #: src/components/ImageOutline.tsx:265
 #: src/components/ImageOutline.tsx:324
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Przejdź do trybu lightbox, aby przerysować kontur na papierze."
 
-#: src/components/error/AuthFeedbackHandler.tsx:37
+#: src/components/auth/LoginEmailOtpButton.tsx:242
+msgid "Enter the code"
+msgstr "Wprowadź kod"
+
+#: src/components/auth/LoginEmailOtpButton.tsx:65
+msgid "Enter the email address for your Patreon account. We'll send a one-time login code if it has an active ArtistAssistApp membership."
+msgstr "Wpisz adres e-mail swojego konta na Patreon. Wyślemy jednorazowy kod logowania, jeśli ma aktywne członkostwo w ArtistAssistApp."
+
+#: src/components/error/AuthFeedbackHandler.tsx:43
 msgid "Error"
 msgstr "Błąd"
 
-#: src/components/error/AuthFeedbackHandler.tsx:38
+#: src/components/error/AuthFeedbackHandler.tsx:44
 msgid "Error description"
 msgstr "Opis błędu"
 
@@ -590,11 +620,11 @@ msgstr "Opis błędu"
 msgid "Error loading sample photos"
 msgstr "Próbki zdjęć z błędem"
 
-#: src/components/ColorSetChooser.tsx:224
+#: src/components/ColorSetChooser.tsx:226
 msgid "Error while fetching color brand data"
 msgstr "Błąd podczas pobierania danych marki koloru"
 
-#: src/components/ColorSetChooser.tsx:246
+#: src/components/ColorSetChooser.tsx:248
 msgid "Error while fetching color data"
 msgstr "Błąd podczas pobierania danych kolorów"
 
@@ -603,7 +633,7 @@ msgstr "Błąd podczas pobierania danych kolorów"
 msgid "Error while fetching ML model data"
 msgstr "Błąd podczas pobierania danych modelu uczenia maszynowego"
 
-#: src/components/ColorSetChooser.tsx:235
+#: src/components/ColorSetChooser.tsx:237
 msgid "Error while fetching standard color set data"
 msgstr "Błąd podczas pobierania danych standardowego zestawu kolorów"
 
@@ -616,11 +646,11 @@ msgstr "Szacowana temperatura źródła światła w kelwinach, za pomocą które
 msgid "Exit AR"
 msgstr "Wyjście AR"
 
-#: src/components/ColorSetChooser.tsx:508
+#: src/components/ColorSetChooser.tsx:510
 msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Zapoznaj się z darmową wersją przed podjęciem decyzji o zakupie płatnego członkostwa."
 
-#: src/components/ColorSetChooser.tsx:412
+#: src/components/ColorSetChooser.tsx:414
 #: src/components/CustomColorBrandCreator.tsx:350
 msgid "Fill in the required fields"
 msgstr "Wypełnij wymagane pola"
@@ -641,15 +671,19 @@ msgstr "Pełna siła"
 msgid "Gamma"
 msgstr "Gamma"
 
-#: src/components/auth/LoginQRButton.tsx:51
+#: src/components/auth/LoginEmailOtpButton.tsx:109
+msgid "Get a code"
+msgstr "Zdobądź kod"
+
+#: src/components/auth/LoginQRButton.tsx:58
 msgid "Get a new QR code"
 msgstr "Zdobądź nowy kod QR"
 
-#: src/components/error/AuthFeedbackHandler.tsx:43
+#: src/components/error/AuthFeedbackHandler.tsx:49
 msgid "Gifted membership"
 msgstr "Członkostwo dla uzdolnionych"
 
-#: src/components/ColorSetChooser.tsx:585
+#: src/components/ColorSetChooser.tsx:587
 msgid "Give your color set a name for easy access."
 msgstr "Nadaj nazwę swojemu zestawowi kolorów, aby mieć do niego łatwy dostęp."
 
@@ -686,12 +720,12 @@ msgstr "Siatka"
 msgid "Height"
 msgstr "Wysokość"
 
-#: src/components/ColorSetChooser.tsx:530
+#: src/components/ColorSetChooser.tsx:532
 #: src/components/messages.ts:45
 msgid "Help"
 msgstr "Pomoc"
 
-#: src/components/ColorSetChooser.tsx:271
+#: src/components/ColorSetChooser.tsx:273
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Jeśli nie zapiszesz koloru, zmiany w zestawie kolorów mogą zostać utracone."
 
@@ -724,7 +758,11 @@ msgstr "Aktualizacja instalacji"
 msgid "Intended color temperature (K)"
 msgstr "Planowana temperatura barwowa (K)"
 
-#: src/components/error/AuthFeedbackHandler.tsx:122
+#: src/components/error/AuthFeedbackHandler.tsx:162
+msgid "Invalid login code"
+msgstr "Nieprawidłowy kod logowania"
+
+#: src/components/error/AuthFeedbackHandler.tsx:156
 msgid "Invalid login link"
 msgstr "Nieprawidłowy link logowania"
 
@@ -752,7 +790,7 @@ msgstr "Język"
 msgid "Large"
 msgstr "Duży"
 
-#: src/components/error/AuthFeedbackHandler.tsx:41
+#: src/components/error/AuthFeedbackHandler.tsx:47
 msgid "Last charge status"
 msgstr "Status ostatniego ładunku"
 
@@ -796,31 +834,40 @@ msgstr "Link skopiowany do schowka"
 msgid "Load color brand file"
 msgstr "Załaduj plik marki koloru"
 
-#: src/components/ColorSetChooser.tsx:765
+#: src/components/ColorSetChooser.tsx:767
 msgid "Load color sets file"
 msgstr "Wczytaj plik zestawów kolorów"
 
-#: src/components/ColorSetChooser.tsx:111
-msgid "Log in by QR"
-msgstr "Zaloguj się przez QR"
+#: src/components/auth/LoginEmailOtpButton.tsx:204
+msgid "Log in"
+msgstr "Zaloguj się"
+
+#: src/components/auth/LoginEmailOtpButton.tsx:242
+#: src/components/auth/LoginEmailOtpButton.tsx:272
+msgid "Log in with email"
+msgstr "Zaloguj się za pomocą e-maila"
 
 #: src/components/auth/LoginOAuthButton.tsx:36
 msgid "Log in with Patreon"
 msgstr "Zaloguj się za pomocą Patreona"
 
+#: src/components/ColorSetChooser.tsx:113
+msgid "Log in with QR code"
+msgstr "Zaloguj się za pomocą kodu QR"
+
 #: src/components/auth/LogoutButton.tsx:38
 msgid "Log out"
 msgstr "Wyloguj się"
 
-#: src/components/error/AuthFeedbackHandler.tsx:203
+#: src/components/error/AuthFeedbackHandler.tsx:252
 msgid "Login failed"
 msgstr "Logowanie nie powiodło się"
 
-#: src/components/auth/LoginQRButton.tsx:45
+#: src/components/auth/LoginQRButton.tsx:51
 msgid "Login QR code"
 msgstr "Kod QR do logowania"
 
-#: src/components/error/AuthFeedbackHandler.tsx:137
+#: src/components/error/AuthFeedbackHandler.tsx:186
 msgid "Login result not received"
 msgstr "Wynik logowania nie otrzymał"
 
@@ -846,7 +893,7 @@ msgid "Medium"
 msgstr "Średni"
 
 #: src/components/color-set/MergeColorSetsDrawer.tsx:94
-#: src/components/ColorSetChooser.tsx:723
+#: src/components/ColorSetChooser.tsx:725
 msgid "Merge"
 msgstr "Połączenie"
 
@@ -889,7 +936,7 @@ msgstr "Tryb"
 msgid "More"
 msgstr "Więcej"
 
-#: src/components/ColorSetChooser.tsx:584
+#: src/components/ColorSetChooser.tsx:586
 #: src/components/CustomColorBrandCreator.tsx:182
 #: src/components/CustomColorBrandCreator.tsx:454
 msgid "Name"
@@ -899,9 +946,13 @@ msgstr "Nazwa"
 msgid "Name a brand"
 msgstr "Nazwij markę"
 
-#: src/components/ColorSetChooser.tsx:588
+#: src/components/ColorSetChooser.tsx:590
 msgid "Name a color set"
 msgstr "Nadawanie nazwy zestawowi kolorów"
+
+#: src/components/auth/LoginEmailOtpButton.tsx:103
+msgid "name@example.com"
+msgstr "name@example.com"
 
 #: src/components/color/WarmthIcon.tsx:46
 msgid "Neutral — Algorithmic estimate; artistic perception may vary."
@@ -919,14 +970,14 @@ msgstr "Nowy zestaw kolorów"
 msgid "New comparison"
 msgstr "Nowe porównanie"
 
-#: src/components/error/AuthFeedbackHandler.tsx:42
+#: src/components/error/AuthFeedbackHandler.tsx:48
 msgid "Next charge date"
 msgstr "Następna data obciążenia"
 
 #: src/components/color/AddToPaletteButton.tsx:52
 #: src/components/color/PaletteColorMixtureCard.tsx:119
-#: src/components/ColorSetChooser.tsx:273
-#: src/components/ColorSetChooser.tsx:738
+#: src/components/ColorSetChooser.tsx:275
+#: src/components/ColorSetChooser.tsx:740
 #: src/components/CustomColorBrandCreator.tsx:473
 #: src/components/image/RecentImageCard.tsx:74
 #: src/components/palette/PaletteGrid.tsx:114
@@ -956,6 +1007,10 @@ msgstr "Nie wybiera się koloru celu."
 msgid "None"
 msgstr "Żaden"
 
+#: src/components/auth/LoginEmailOtpButton.tsx:71
+msgid "Not sure which email Patreon uses? Check your <0>Patreon basic settings</0>."
+msgstr "Nie jesteś pewien, jakiego maila używa Patreon? Sprawdź <0>podstawowe ustawienia Patreona</0>."
+
 #: src/components/share/ShareModal.tsx:98
 msgid "Nothing to share"
 msgstr "Nic do udostępnienia"
@@ -972,7 +1027,7 @@ msgstr "Farba olejna"
 msgid "Oil Pastel"
 msgstr "Pastel olejny"
 
-#: src/components/ColorSetChooser.tsx:607
+#: src/components/ColorSetChooser.tsx:609
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "W darmowej wersji dostępna jest tylko ograniczona liczba marek kolorystycznych"
 
@@ -998,9 +1053,13 @@ msgstr "Nieprzezroczysty"
 msgid "Open in Safari browser"
 msgstr "Otwórz w przeglądarce Safari"
 
-#: src/components/ColorSetChooser.tsx:97
+#: src/components/ColorSetChooser.tsx:99
 msgid "Open the app on a device where you are logged in"
 msgstr "Otwórz aplikację na urządzeniu, na którym jesteś zalogowany"
+
+#: src/components/error/AuthFeedbackHandler.tsx:121
+msgid "Open your <0>Patreon basic settings</0> and confirm that the listed email address is the same one you entered."
+msgstr "<0>Otwórz podstawowe ustawienia Patreona</0> i popewnij, że podany adres e-mail to ten sam, który wpisasz."
 
 #: src/components/error/BrowserSupport.tsx:96
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
@@ -1046,11 +1105,15 @@ msgstr "Paleta"
 msgid "Paper size"
 msgstr "Rozmiar papieru"
 
-#: src/components/error/AuthFeedbackHandler.tsx:54
+#: src/components/error/AuthFeedbackHandler.tsx:110
+msgid "Patreon member email address not found"
+msgstr "Adres e-mail członka Patreon nie znaleziony"
+
+#: src/components/error/AuthFeedbackHandler.tsx:60
 msgid "Patreon membership verification failed"
 msgstr "Weryfikacja członkostwa w Patreonie nie powiodła się"
 
-#: src/components/error/AuthFeedbackHandler.tsx:40
+#: src/components/error/AuthFeedbackHandler.tsx:46
 msgid "Patron status"
 msgstr "Status patrona"
 
@@ -1095,9 +1158,9 @@ msgstr "Pozycja: {position}<0/>Ocena: {ratingText}"
 msgid "Postpone"
 msgstr "Odroczenie"
 
-#: src/components/ColorSetChooser.tsx:100
-msgid "Press <0>Show login QR</0>"
-msgstr "<0>Zalogowanie do programu prasowego QR</0>"
+#: src/components/ColorSetChooser.tsx:102
+msgid "Press <0>Show login QR code</0>"
+msgstr "Naciśnij <0>Pokaż kod QR logowania</0>"
 
 #: src/components/install/InstallDrawer.tsx:170
 msgid "Press Add to Dock"
@@ -1153,7 +1216,7 @@ msgstr "Polityka prywatności"
 msgid "Processing..."
 msgstr "Przetwarzam..."
 
-#: src/components/auth/LoginQRButton.tsx:75
+#: src/components/auth/LoginQRButton.tsx:82
 msgid "QR code expired."
 msgstr "Kod QR wygasł."
 
@@ -1240,6 +1303,10 @@ msgstr "Wymaga systemu iOS 16.4+ lub iPadOS 16.4+."
 msgid "Requires macOS Sonoma or later."
 msgstr "Wymaga systemu macOS Sonoma lub nowszego."
 
+#: src/components/auth/LoginEmailOtpButton.tsx:200
+msgid "Resend code"
+msgstr "Kod ponownego wyślij"
+
 #: src/components/ImagePerspectiveCorrection.tsx:284
 #: src/components/ImagePerspectiveCorrection.tsx:324
 msgid "Reset"
@@ -1287,11 +1354,11 @@ msgstr "Nasycenie (%)"
 msgid "Save"
 msgstr "Zapisać"
 
-#: src/components/ColorSetChooser.tsx:706
+#: src/components/ColorSetChooser.tsx:708
 msgid "Save & continue"
 msgstr "Zapisz i kontynuuj"
 
-#: src/components/ColorSetChooser.tsx:270
+#: src/components/ColorSetChooser.tsx:272
 msgid "Save changes to the color set?"
 msgstr "Zapisać zmiany w zestawie kolorów?"
 
@@ -1305,7 +1372,7 @@ msgstr "Zapis rozszerzony do 1,91:1"
 msgid "Save expanded to 4:5"
 msgstr "Zapis rozszerzony do 4:5"
 
-#: src/components/ColorSetChooser.tsx:702
+#: src/components/ColorSetChooser.tsx:704
 msgid "Save the changes to this color set"
 msgstr "Zapisz zmiany w tym zestawie kolorów"
 
@@ -1313,11 +1380,11 @@ msgstr "Zapisz zmiany w tym zestawie kolorów"
 msgid "Scan a QR code"
 msgstr "Zeskanuj kod QR"
 
-#: src/components/ColorSetChooser.tsx:105
+#: src/components/ColorSetChooser.tsx:107
 msgid "Scan its QR code here"
 msgstr "Zeskanuj jego kod QR tutaj"
 
-#: src/components/auth/LoginQRButton.tsx:62
+#: src/components/auth/LoginQRButton.tsx:69
 msgid "Scan this code on the device you want to log in."
 msgstr "Zeskanuj ten kod na urządzeniu, na które chcesz się zalogować."
 
@@ -1357,8 +1424,8 @@ msgstr "Wybierz dowolną liczbę kolorów do wymieszania i określ część każ
 msgid "Select art medium"
 msgstr "Wybierz medium artystyczne"
 
-#: src/components/ColorSetChooser.tsx:282
-#: src/components/ColorSetChooser.tsx:400
+#: src/components/ColorSetChooser.tsx:284
+#: src/components/ColorSetChooser.tsx:402
 msgid "Select at least one color before saving the color set."
 msgstr "Wybierz przynajmniej jeden kolor przed zapisaniem zestawu kolorów."
 
@@ -1366,7 +1433,7 @@ msgstr "Wybierz przynajmniej jeden kolor przed zapisaniem zestawu kolorów."
 msgid "Select brands"
 msgstr "Wybierz marki"
 
-#: src/components/ColorSetChooser.tsx:593
+#: src/components/ColorSetChooser.tsx:595
 msgid "Select brands that you use."
 msgstr "Wybierz marki, których używasz."
 
@@ -1395,7 +1462,7 @@ msgstr "Wybierz jedną z najnowszych marek"
 msgid "Select from your recent color sets"
 msgstr "Wybieranie z ostatnio używanych zestawów kolorów"
 
-#: src/components/ColorSetChooser.tsx:569
+#: src/components/ColorSetChooser.tsx:571
 msgid "Select from your recent color sets or create a new one."
 msgstr "Wybierz jeden z ostatnich zestawów kolorów lub utwórz nowy."
 
@@ -1438,7 +1505,7 @@ msgstr "Wybierz styl obrazu"
 msgid "Select the color sets you want to merge. A new color set will be created that includes all the colors from the selected sets."
 msgstr "Wybierz zestawy kolorów, które chcesz połączyć. Zostanie utworzony nowy zestaw kolorów, który obejmie wszystkie kolory z wybranych zestawów."
 
-#: src/components/ColorSetChooser.tsx:537
+#: src/components/ColorSetChooser.tsx:539
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>."
 msgstr "Wybierz medium artystyczne, kolory, marki i kolory, którymi będziesz malować, następnie naciśnij <0>Zapisz i kontynuuj</0>."
@@ -1451,7 +1518,11 @@ msgstr "Półprzezroczysty"
 msgid "Semi-transparent"
 msgstr "Półprzezroczysty"
 
-#: src/components/error/AuthFeedbackHandler.tsx:104
+#: src/components/auth/LoginEmailOtpButton.tsx:160
+msgid "Sent to <0>{email}</0>"
+msgstr "Wysłane na <0>{email}</0>"
+
+#: src/components/error/AuthFeedbackHandler.tsx:138
 msgid "Session expired"
 msgstr "Sesja wygasła"
 
@@ -1492,12 +1563,12 @@ msgstr "Cień"
 msgid "Shadows and highlights"
 msgstr "Cienie i światła"
 
-#: src/components/ColorSetChooser.tsx:757
+#: src/components/ColorSetChooser.tsx:759
 #: src/components/share/ShareModal.tsx:83
 msgid "Share"
 msgstr "Udostępnij"
 
-#: src/components/ColorSetChooser.tsx:754
+#: src/components/ColorSetChooser.tsx:756
 msgid "Share this color set"
 msgstr "Udostępnij ten zestaw kolorów"
 
@@ -1513,9 +1584,9 @@ msgstr "Pokaż na zdjęciu obszary pasujące do tego koloru."
 msgid "Show grid"
 msgstr "Pokaż siatkę"
 
-#: src/components/auth/LoginQRButton.tsx:109
-msgid "Show login QR"
-msgstr "Pokaż QR do logowania"
+#: src/components/auth/LoginQRButton.tsx:115
+msgid "Show login QR code"
+msgstr "Pokaż kod QR do logowania"
 
 #: src/components/ImageColorPicker.tsx:291
 msgid "Show matching areas"
@@ -1533,7 +1604,7 @@ msgstr "Pokazywanie lub ukrywanie linii ukośnych"
 msgid "Show this color on the reference photo."
 msgstr "Pokaż ten kolor na zdjęciu referencyjnym."
 
-#: src/components/error/AuthFeedbackHandler.tsx:128
+#: src/components/error/AuthFeedbackHandler.tsx:177
 msgid "Sign in required"
 msgstr "Wymagane zalogowanie"
 
@@ -1570,7 +1641,7 @@ msgstr "Mały"
 msgid "Something went wrong"
 msgstr "Coś poszło nie tak"
 
-#: src/components/error/AuthFeedbackHandler.tsx:156
+#: src/components/error/AuthFeedbackHandler.tsx:205
 msgid "Something went wrong while logging you in. Please try again. If the problem persists, check your internet connection."
 msgstr "Coś poszło nie tak podczas logowania. Proszę, spróbuj ponownie. Jeśli problem się utrzymuje, sprawdź swoje połączenie internetowe."
 
@@ -1603,7 +1674,7 @@ msgstr "Krzywa odbicia spektralnego"
 msgid "Square cells"
 msgstr "Komórki kwadratowe"
 
-#: src/components/ColorSetChooser.tsx:622
+#: src/components/ColorSetChooser.tsx:624
 msgid "Standard color set"
 msgstr "Standardowy zestaw kolorów"
 
@@ -1674,11 +1745,15 @@ msgstr "Warunki korzystania"
 msgid "The app stores all data in the web browser storage even after installation. Clearing the web browser data results in the loss of all app data."
 msgstr "Aplikacja przechowuje wszystkie dane w pamięci przeglądarki internetowej nawet po instalacji. Wyczyszczenie danych przeglądarki internetowej powoduje utratę wszystkich danych aplikacji."
 
+#: src/components/error/AuthFeedbackHandler.tsx:164
+msgid "The code you entered is incorrect or expired. Check the latest email from ArtistAssistApp and try again, or request a new login code."
+msgstr "Wpisany przez Ciebie kod jest nieprawidłowy lub nieważny. Sprawdź najnowszy e-mail z ArtistAssistApp i spróbuj ponownie lub poproś o nowy kod logowania."
+
 #: src/components/color/UnderlayerColorPicker.tsx:57
 msgid "The color of your paper, canvas, or painting surface."
 msgstr "Kolor papieru, płótna lub powierzchni do malowania."
 
-#: src/components/ColorSetChooser.tsx:264
+#: src/components/ColorSetChooser.tsx:266
 msgid "The color set can't be saved because not all required fields are filled."
 msgstr "Zestawu kolorów nie da się zapisać, ponieważ nie wszystkie wymagane pola są wypełnione."
 
@@ -1714,7 +1789,7 @@ msgstr "Rozcieńczyć farbę do <0>grubości {fractionText}</0>"
 msgid "This backup file lets you restore your color sets later, so keep it. You can delete any older backup files."
 msgstr "Ten plik kopii zapasowej umożliwia późniejsze przywrócenie zestawów kolorów, więc zachowaj go. Możesz usunąć wszystkie starsze pliki kopii zapasowych."
 
-#: src/components/ColorSetChooser.tsx:648
+#: src/components/ColorSetChooser.tsx:650
 msgid "This color brand is available to paid Patreon members only"
 msgstr "Ta marka kolorystyczna jest dostępna tylko dla płatnych członków Patreona"
 
@@ -1722,7 +1797,11 @@ msgstr "Ta marka kolorystyczna jest dostępna tylko dla płatnych członków Pat
 msgid "This color was not sampled from a photo."
 msgstr "Ten kolor nie został pobrany ze zdjęcia."
 
-#: src/components/error/AuthFeedbackHandler.tsx:124
+#: src/components/error/AuthFeedbackHandler.tsx:173
+msgid "This login code can't be used anymore. Request a new code to continue."
+msgstr "Ten kod logowania nie może być już używany. Poproś o nowy kod, aby kontynuować."
+
+#: src/components/error/AuthFeedbackHandler.tsx:158
 msgid "This login link is invalid or has expired. Please get a new one and try again."
 msgstr "Ten link logowania jest nieprawidłowy lub wygasł. Proszę, kup nowy i spróbuj ponownie."
 
@@ -1738,11 +1817,11 @@ msgstr "Ten krok jest opcjonalny."
 msgid "This style is available to paid Patreon members only"
 msgstr "Ten styl jest dostępny tylko dla płatnych członków Patreona"
 
-#: src/components/error/AuthFeedbackHandler.tsx:58
+#: src/components/error/AuthFeedbackHandler.tsx:64
 msgid "This usually happens when you're signed in to a <0>different</0> Patreon account than the one used for your ArtistAssistApp membership."
 msgstr "Zazwyczaj dzieje się tak, gdy jesteś zalogowany na <0>inne</0> konto Patreon niż to, którego używasz w ramach członkostwa w ArtistAssistApp."
 
-#: src/components/error/AuthFeedbackHandler.tsx:66
+#: src/components/error/AuthFeedbackHandler.tsx:72
 msgid "To fix this:"
 msgstr "Aby to naprawić:"
 
@@ -1762,7 +1841,11 @@ msgstr "Aby użyć funkcji {tabLabel}, wybierz obsługiwane medium artystyczne i
 msgid "Tonal values"
 msgstr "Wartości tonalne"
 
-#: src/components/error/AuthFeedbackHandler.tsx:148
+#: src/components/error/AuthFeedbackHandler.tsx:171
+msgid "Too many incorrect codes"
+msgstr "Za dużo błędnych kodów"
+
+#: src/components/error/AuthFeedbackHandler.tsx:197
 msgid "Too many login requests were made in a short time. Please wait a minute, then try again."
 msgstr "Zbyt wiele próśb logowania zostało złożone w krótkim czasie. Proszę poczekać chwilę, a potem spróbuj ponownie."
 
@@ -1774,7 +1857,7 @@ msgstr "Przejrzysty"
 msgid "Try adding some colors to your color set."
 msgstr "Spróbuj dodać trochę kolorów do swojego zestawu kolorów."
 
-#: src/components/error/AuthFeedbackHandler.tsx:146
+#: src/components/error/AuthFeedbackHandler.tsx:195
 msgid "Try again in a minute"
 msgstr "Spróbuj za chwilę"
 
@@ -1871,23 +1954,27 @@ msgstr "Kredki akwarelowe"
 msgid "Wax Pastel"
 msgstr "Wax Pastel"
 
-#: src/components/error/AuthFeedbackHandler.tsx:154
+#: src/components/error/AuthFeedbackHandler.tsx:114
+msgid "We couldn't find an ArtistAssistApp Patreon membership for the email address you entered. Use the email address shown on your Patreon account for your ArtistAssistApp membership, then request a new login code."
+msgstr "Nie mogliśmy znaleźć członkostwa ArtistAssist App na Patreonie dla podanego przez Ciebie adresu e-mail. Użyj adresu e-mail podanego na swoim koncie Patreon jako członkostwo w ArtistAssistApp, a następnie poproś o nowy kod logowania."
+
+#: src/components/error/AuthFeedbackHandler.tsx:203
 msgid "We couldn't verify your session"
 msgstr "Nie mogliśmy zweryfikować twojej sesji"
 
-#: src/components/error/AuthFeedbackHandler.tsx:130
+#: src/components/error/AuthFeedbackHandler.tsx:179
 msgid "We couldn't verify your session. Please sign in again to continue using ArtistAssistApp."
 msgstr "Nie mogliśmy zweryfikować twojej sesji. Prosimy o ponowne zalogowanie, aby kontynuować korzystanie z ArtistAssistApp."
 
-#: src/components/error/AuthFeedbackHandler.tsx:115
+#: src/components/error/AuthFeedbackHandler.tsx:149
 msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
 msgstr "Napotkaliśmy problem z weryfikacją danych logowania. Ten problem zwykle można rozwiązać, próbując ponownie się zalogować."
 
-#: src/components/ColorSetChooser.tsx:678
+#: src/components/ColorSetChooser.tsx:680
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "W przypadku wybrania łącznie więcej niż {maxColorsFor2} kolorów nie są używane mieszanki dwóch kolorów."
 
-#: src/components/ColorSetChooser.tsx:686
+#: src/components/ColorSetChooser.tsx:688
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "W przypadku wybrania łącznie więcej niż {maxColorsFor3} kolorów, nie są używane mieszanki trzech kolorów."
 
@@ -1897,8 +1984,6 @@ msgid "White"
 msgstr "Biały"
 
 #: src/components/ImageColorAdjustment.tsx:368
-#: src/components/ImagePerspectiveCorrection.tsx:312
-#: src/components/ImagePerspectiveCorrection.tsx:341
 msgid "White balance"
 msgstr "Balans bieli"
 
@@ -1917,8 +2002,8 @@ msgstr "Szerokość"
 
 #: src/components/color/AddToPaletteButton.tsx:51
 #: src/components/color/PaletteColorMixtureCard.tsx:118
-#: src/components/ColorSetChooser.tsx:272
-#: src/components/ColorSetChooser.tsx:737
+#: src/components/ColorSetChooser.tsx:274
+#: src/components/ColorSetChooser.tsx:739
 #: src/components/CustomColorBrandCreator.tsx:472
 #: src/components/image/RecentImageCard.tsx:73
 #: src/components/palette/PaletteGrid.tsx:113
@@ -1931,19 +2016,19 @@ msgstr "Tak"
 msgid "You already have many recent photos saved. Remove the oldest one to free up space? The new photo will still be added."
 msgstr "Masz już wiele świeżych zdjęć zapisanych. Usunąć najstarszą, żeby zrobić więcej miejsca? Nowe zdjęcie nadal zostanie dodane."
 
-#: src/components/ColorSetChooser.tsx:487
+#: src/components/ColorSetChooser.tsx:489
 msgid "You are logged in and have access to all app features."
 msgstr "Jesteś zalogowany i masz dostęp do wszystkich funkcji aplikacji."
 
-#: src/components/ColorSetChooser.tsx:492
+#: src/components/ColorSetChooser.tsx:494
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "Używasz <0>darmowej wersji</0> z ograniczoną liczbą marek kolorów i trybów przetwarzania obrazu."
 
-#: src/components/error/AuthFeedbackHandler.tsx:174
+#: src/components/error/AuthFeedbackHandler.tsx:223
 msgid "You can keep working in this browser tab, or switch back to the installed ArtistAssistApp — you're logged in there too."
 msgstr "Możesz dalej pracować w tej zakładce przeglądarki lub wrócić do zainstalowanej aplikacji ArtistAssist — tam też jesteś zalogowany."
 
-#: src/components/error/AuthFeedbackHandler.tsx:172
+#: src/components/error/AuthFeedbackHandler.tsx:221
 msgid "You're logged in"
 msgstr "Jesteś zalogowany"
 
@@ -1952,15 +2037,15 @@ msgstr "Jesteś zalogowany"
 msgid "You've selected a mode that is available to paid Patreon members only"
 msgstr "Wybrałeś tryb dostępny tylko dla płatnych członków Patreona"
 
-#: src/components/ColorSetChooser.tsx:600
+#: src/components/ColorSetChooser.tsx:602
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Wybrałeś marki kolorystyczne, które są dostępne tylko dla płatnych członków Patreona"
 
-#: src/components/ColorSetChooser.tsx:669
+#: src/components/ColorSetChooser.tsx:671
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Wybrałeś kolorowe marki, które są dostępne tylko dla płatnych członków Patreon. Dołącz do ArtistAssistApp na Patreonie jako płatny członek lub zaloguj się za pomocą Patreon, jeśli już dołączyłeś."
 
-#: src/components/error/AuthFeedbackHandler.tsx:97
+#: src/components/error/AuthFeedbackHandler.tsx:103
 msgid "Your account details:"
 msgstr "Dane Twojego konta:"
 
@@ -1972,7 +2057,7 @@ msgstr "Twoja przeglądarka nie obsługuje odczytu obrazów ze schowka."
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "Twoje dane mogą nie być niezawodnie zapisywane, jeśli przeglądarka jest zamknięta. Aby to naprawić, zainstaluj aplikację."
 
-#: src/components/error/AuthFeedbackHandler.tsx:106
+#: src/components/error/AuthFeedbackHandler.tsx:140
 msgid "Your login session has expired. Please sign in again to refresh your access and continue using ArtistAssistApp."
 msgstr "Twoja sesja logowania wygasła. Prosimy o ponowne zalogowanie, aby odświeżyć dostęp i kontynuować korzystanie z ArtistAssistApp."
 

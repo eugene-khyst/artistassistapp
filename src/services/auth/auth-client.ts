@@ -26,6 +26,8 @@ import type {
   AuthErrorResponse,
   AuthSession,
   AuthTokenResponse,
+  Expirable,
+  ExpirableResponse,
   LoginLink,
   LoginLinkResponse,
 } from '@/services/auth/types';
@@ -137,6 +139,47 @@ export async function requestLoginLink(): Promise<LoginLink> {
     link: new URL(link),
     expiresAt: fromEpochSeconds(expires_at),
   };
+}
+
+export async function requestLoginEmailOtp(email: string): Promise<Expirable> {
+  const url = new URL('/login/email/otp', AUTH_URL);
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify({email}),
+    signal: AbortSignal.timeout(5000),
+  });
+  if (!response.ok) {
+    const {error, error_context} = (await safeReadJson<AuthErrorResponse>(response)) ?? {};
+    throw new AuthError(toAuthErrorType(error), 'Could not request login email OTP', error_context);
+  }
+  const {expires_at} = (await response.json()) as ExpirableResponse;
+  return {
+    expiresAt: fromEpochSeconds(expires_at),
+  };
+}
+
+export async function verifyLoginEmailOtp(email: string, otp: string): Promise<AuthSession> {
+  const url = new URL('/login/email/otp/verify', AUTH_URL);
+  const response = await fetch(url, {
+    method: 'POST',
+    credentials: 'include',
+    body: JSON.stringify({
+      email,
+      otp,
+    }),
+    signal: AbortSignal.timeout(5000),
+  });
+  if (!response.ok) {
+    const {error, error_context} = (await safeReadJson<AuthErrorResponse>(response)) ?? {};
+    throw new AuthError(toAuthErrorType(error), 'Could not verify login email OTP', error_context);
+  }
+  const {id_token, refresh_expires_at} = (await response.json()) as AuthTokenResponse;
+  const session: AuthSession = {
+    idToken: id_token,
+    refreshExpiresAt: fromEpochSeconds(refresh_expires_at),
+  };
+  await saveAuthSession(session);
+  return session;
 }
 
 export function loginWithRedirect(): void {

@@ -32,6 +32,12 @@ function formatContextValue(value: unknown): string {
   return JSON.stringify(value);
 }
 
+const ERROR_TYPES_WITH_VISIBLE_CONTEXT: ReadonlySet<AuthErrorType> = new Set([
+  AuthErrorType.Inactive,
+  AuthErrorType.Unauthorized,
+  AuthErrorType.Unknown,
+]);
+
 const ERROR_CONTEXT_LABELS: Record<string, ReactNode> = {
   message: <Trans>Details</Trans>,
   error: <Trans>Error</Trans>,
@@ -100,6 +106,34 @@ const AUTH_ERRORS: Record<
       </Typography>
     ),
   },
+  [AuthErrorType.MemberNotFound]: {
+    title: <Trans>Patreon member email address not found</Trans>,
+    content: (
+      <Typography>
+        <p>
+          <Trans>
+            We couldn&apos;t find an ArtistAssistApp Patreon membership for the email address you
+            entered. Use the email address shown on your Patreon account for your ArtistAssistApp
+            membership, then request a new login code.
+          </Trans>
+        </p>
+        <p>
+          <Trans>
+            Open your{' '}
+            <Typography.Link
+              strong
+              href="https://www.patreon.com/settings/basics"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Patreon basic settings
+            </Typography.Link>{' '}
+            and confirm that the listed email address is the same one you entered.
+          </Trans>
+        </p>
+      </Typography>
+    ),
+  },
   [AuthErrorType.Expired]: {
     title: <Trans>Session expired</Trans>,
     content: (
@@ -122,6 +156,21 @@ const AUTH_ERRORS: Record<
     title: <Trans>Invalid login link</Trans>,
     content: (
       <Trans>This login link is invalid or has expired. Please get a new one and try again.</Trans>
+    ),
+  },
+  [AuthErrorType.InvalidLoginOtp]: {
+    title: <Trans>Invalid login code</Trans>,
+    content: (
+      <Trans>
+        The code you entered is incorrect or expired. Check the latest email from ArtistAssistApp
+        and try again, or request a new login code.
+      </Trans>
+    ),
+  },
+  [AuthErrorType.LoginOtpMaxAttemptsExceeded]: {
+    title: <Trans>Too many incorrect codes</Trans>,
+    content: (
+      <Trans>This login code can&apos;t be used anymore. Request a new code to continue.</Trans>
     ),
   },
   [AuthErrorType.Unauthorized]: {
@@ -204,7 +253,7 @@ export function AuthFeedbackHandler({children}: Readonly<PropsWithChildren>) {
       content: (
         <>
           {content}
-          {contextEntries.length > 0 && (
+          {ERROR_TYPES_WITH_VISIBLE_CONTEXT.has(authError.type) && contextEntries.length > 0 && (
             <ul className="u-list-unstyled">
               {contextEntries.map(([key, value]) => (
                 <li key={key}>
@@ -220,6 +269,7 @@ export function AuthFeedbackHandler({children}: Readonly<PropsWithChildren>) {
       width: '100%',
       footer: null,
       closable: true,
+      zIndex: 1200,
       afterClose: () => {
         clearAuthError();
         void setActiveTabKey(TabKey.ColorSet);

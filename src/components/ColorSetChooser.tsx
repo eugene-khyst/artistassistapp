@@ -43,6 +43,7 @@ import {useCallback, useContext, useEffect, useMemo, useRef, useState} from 'rea
 
 import {AdCard} from '@/components/ad/AdCard';
 import {JoinButton} from '@/components/auth/JoinButton';
+import {LoginEmailOtpButton} from '@/components/auth/LoginEmailOtpButton';
 import {LoginOAuthButton} from '@/components/auth/LoginOAuthButton';
 import {LoginQRButton} from '@/components/auth/LoginQRButton';
 import {LogoutButton} from '@/components/auth/LogoutButton';
@@ -87,6 +88,7 @@ function JoinOrLoginButtons() {
     <>
       <JoinButton />
       <LoginOAuthButton />
+      <LoginEmailOtpButton />
       {!!mediaDevices.length && (
         <QRScannerButton
           type="primary"
@@ -98,7 +100,7 @@ function JoinOrLoginButtons() {
                 </li>
                 <li>
                   <Trans>
-                    Press <Typography.Text strong>Show login QR</Typography.Text>
+                    Press <Typography.Text strong>Show login QR code</Typography.Text>
                   </Trans>
                 </li>
                 <li>
@@ -108,7 +110,7 @@ function JoinOrLoginButtons() {
             </Typography.Paragraph>
           }
         >
-          <Trans>Log in by QR</Trans>
+          <Trans>Log in with QR code</Trans>
         </QRScannerButton>
       )}
     </>
@@ -500,7 +502,7 @@ export function ColorSetChooser() {
                     Join ArtistAssistApp on Patreon as a paid member
                   </Typography.Text>
                   , or <Typography.Text strong>log in with Patreon</Typography.Text> if you&apos;ve
-                  already joined, to get access to more than 200 color brands and all image
+                  already joined, to get access to more than 250 color brands and all image
                   processing modes without ads.
                 </Trans>
               </Typography.Text>

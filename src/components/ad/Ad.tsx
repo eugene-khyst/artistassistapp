@@ -82,23 +82,21 @@ export function Ad({ads, vertical = false, footer, contentClassName}: Readonly<P
       )}
       <Flex vertical align="flex-start" className={clsx(styles['content'], contentClassName)}>
         <div className={styles['text']}>{formatRichText(ad.text)}</div>
-        <Space>
-          {ad.linkUrl && (
-            <Button type="primary" size="large" href={ad.linkUrl} target="_blank" rel="noopener">
-              {ad.linkText}
-            </Button>
-          )}
-          {ad.linkTab && Object.values(TabKey).includes(ad.linkTab as TabKey) && (
-            <Button
-              type="primary"
-              size="large"
-              onClick={() => void setActiveTabKey(ad.linkTab as TabKey)}
-            >
-              {ad.linkText}
-            </Button>
-          )}
-          {footer}
-        </Space>
+        <div className="u-w-100 u-text-right">
+          <Space>
+            {footer}
+            {ad.linkUrl && (
+              <Button type="primary" href={ad.linkUrl} target="_blank" rel="noopener">
+                {ad.linkText}
+              </Button>
+            )}
+            {ad.linkTab && Object.values(TabKey).includes(ad.linkTab as TabKey) && (
+              <Button type="primary" onClick={() => void setActiveTabKey(ad.linkTab as TabKey)}>
+                {ad.linkText}
+              </Button>
+            )}
+          </Space>
+        </div>
       </Flex>
     </Flex>
   );

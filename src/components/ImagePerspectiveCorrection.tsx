@@ -200,7 +200,7 @@ export function ImagePerspectiveCorrection() {
     saveAs(blob, getFilename(imageFileToCorrectPerspective, FILENAME_SUFFIX));
   };
 
-  const handleWhiteBalanceClick = async () => {
+  const handleAdjustColorsClick = async () => {
     if (!perspectiveCorrectedImage) {
       return;
     }
@@ -306,10 +306,10 @@ export function ImagePerspectiveCorrection() {
                       <Button
                         icon={<BarChartOutlined />}
                         onClick={() => {
-                          void handleWhiteBalanceClick();
+                          void handleAdjustColorsClick();
                         }}
                       >
-                        <Trans>White balance</Trans>
+                        <Trans>Adjust colors</Trans>
                       </Button>
                     </>
                   )}
@@ -337,11 +337,11 @@ export function ImagePerspectiveCorrection() {
                             },
                             ...saveItems,
                             {
-                              key: 'white-balance',
-                              label: t`White balance`,
+                              key: 'adjust-colors',
+                              label: t`Adjust colors`,
                               icon: <BarChartOutlined />,
                               onClick: () => {
-                                void handleWhiteBalanceClick();
+                                void handleAdjustColorsClick();
                               },
                             },
                           ]

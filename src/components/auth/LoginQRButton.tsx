@@ -18,9 +18,9 @@
 
 import {QrcodeOutlined} from '@ant-design/icons';
 import {Plural, Trans, useLingui} from '@lingui/react/macro';
-import {Button, Modal, Space, Spin, Typography} from 'antd';
-import {useState} from 'react';
+import {Button, Modal, Space, Typography} from 'antd';
 
+import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {QRCode} from '@/components/qr/QRCode';
 import {useCountdownUntil} from '@/hooks/useCountdownUntil';
 import {useAppStore} from '@/stores/app-store';
@@ -32,12 +32,18 @@ interface LoginQRModalProps {
   onRefresh: () => void;
 }
 
+const AUTH_MODAL_Z_INDEX = 1100;
+
 function LoginQRModal({loading, open, onClose, onRefresh}: Readonly<LoginQRModalProps>) {
   const loginLink = useAppStore(state => state.loginLink);
+  const isLoginLinkLoading = useAppStore(state => state.isLoginLinkLoading);
 
   const {t} = useLingui();
 
-  const expiresIn = useCountdownUntil(loginLink?.expiresAt, open && !!loginLink && !loading);
+  const expiresIn: number = useCountdownUntil(
+    loginLink?.expiresAt,
+    open && !!loginLink && !loading
+  );
   const hasValidLoginLink = loginLink && expiresIn > 0;
 
   return (
@@ -45,16 +51,17 @@ function LoginQRModal({loading, open, onClose, onRefresh}: Readonly<LoginQRModal
       title={t`Login QR code`}
       centered
       open={open}
+      zIndex={AUTH_MODAL_Z_INDEX}
       footer={
         hasValidLoginLink ? null : (
-          <Button type="primary" onClick={onRefresh}>
+          <Button type="primary" loading={isLoginLinkLoading} onClick={onRefresh}>
             <Trans>Get a new QR code</Trans>
           </Button>
         )
       }
       onCancel={onClose}
     >
-      <Spin spinning={loading}>
+      <LoadingIndicator loading={loading}>
         <Space orientation="vertical">
           {hasValidLoginLink ? (
             <>
@@ -76,46 +83,45 @@ function LoginQRModal({loading, open, onClose, onRefresh}: Readonly<LoginQRModal
             </Typography.Text>
           )}
         </Space>
-      </Spin>
+      </LoadingIndicator>
     </Modal>
   );
 }
 
 export function LoginQRButton() {
-  const getLoginLink = useAppStore(state => state.getLoginLink);
+  const loadLoginLink = useAppStore(state => state.loadLoginLink);
+  const isLoginLinkLoading = useAppStore(state => state.isLoginLinkLoading);
+  const isLoginQRModalOpen = useAppStore(state => state.isLoginQRModalOpen);
+  const setLoginQRModalOpen = useAppStore(state => state.setLoginQRModalOpen);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const loadLoginLink = async () => {
-    setIsLoading(true);
-    try {
-      await getLoginLink();
-    } catch {
-      // AuthFeedbackHandler surfaces the error.
-    } finally {
-      setIsLoading(false);
-    }
+  const handleClick = async () => {
+    setLoginQRModalOpen(await loadLoginLink());
   };
 
-  const handleClick = () => {
-    setIsModalOpen(true);
-    void loadLoginLink();
+  const handleRefresh = async () => {
+    await loadLoginLink();
   };
 
   return (
     <>
-      <Button type="primary" icon={<QrcodeOutlined />} onClick={handleClick}>
-        <Trans>Show login QR</Trans>
+      <Button
+        type="primary"
+        icon={<QrcodeOutlined />}
+        loading={isLoginLinkLoading}
+        onClick={() => {
+          void handleClick();
+        }}
+      >
+        <Trans>Show login QR code</Trans>
       </Button>
       <LoginQRModal
-        loading={isLoading}
-        open={isModalOpen}
+        loading={isLoginLinkLoading}
+        open={isLoginQRModalOpen}
         onClose={() => {
-          setIsModalOpen(false);
+          setLoginQRModalOpen(false);
         }}
         onRefresh={() => {
-          void loadLoginLink();
+          void handleRefresh();
         }}
       />
     </>

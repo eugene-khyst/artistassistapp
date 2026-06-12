@@ -19,16 +19,8 @@
 import {JWTExpired} from 'jose/errors';
 import type {StateCreator} from 'zustand';
 
-import {
-  isWithinRefreshWindow,
-  loginWithRedirect as initiateLoginRedirect,
-  readAuthCallbackError,
-  refreshSession,
-  requestLoginLink,
-  requestLogout,
-  verifyIdToken,
-} from '@/services/auth/auth-client';
-import type {AuthAttempt, Authentication, LoginLink} from '@/services/auth/types';
+import * as AuthClient from '@/services/auth/auth-client';
+import type {AuthAttempt, Authentication, Expirable, LoginLink} from '@/services/auth/types';
 import {
   AuthError,
   AuthErrorType,
@@ -48,8 +40,13 @@ import {DisplayMode, getDisplayMode} from '@/utils/environment';
 // How long before expiry to refresh the ID token.
 export const AUTH_REFRESH_WINDOW_MS = 60 * 60 * 1000;
 
+const LOGIN_EMAIL_OTP_RETRY_MS = 60 * 1000;
+
 // Two logout calls at once share one run; the first caller's error type wins.
 let logoutPromise: Promise<void> | null = null;
+let requestLoginEmailOtpPromise: Promise<void> | null = null;
+let verifyLoginEmailOtpPromise: Promise<AuthErrorType | null> | null = null;
+let loginLinkPromise: Promise<boolean> | null = null;
 
 export interface AuthSlice {
   auth: Authentication | null;
@@ -58,13 +55,24 @@ export interface AuthSlice {
   isLoginRedirecting: boolean;
   authError: AuthError | null;
   authNotice: AuthNoticeType | null;
+  isLoginEmailOtpModalOpen: boolean;
+  isLoginQRModalOpen: boolean;
+  loginEmailOtp: Expirable | null;
+  loginEmailOtpRetryAt: Date | null;
+  isRequestLoginEmailOtpLoading: boolean;
+  isVerifyLoginEmailOtpLoading: boolean;
   loginLink: LoginLink | null;
+  isLoginLinkLoading: boolean;
 
   resolveAuth: () => Promise<void>;
   handleAuthCallback: () => Promise<void>;
   loginWithRedirect: () => Promise<void>;
   logout: (error?: AuthErrorType) => Promise<void>;
-  getLoginLink: () => Promise<LoginLink>;
+  requestLoginEmailOtp: (email: string) => Promise<void>;
+  verifyLoginEmailOtp: (email: string, otp: string) => Promise<AuthErrorType | null>;
+  loadLoginLink: () => Promise<boolean>;
+  setLoginEmailOtpModalOpen: (open: boolean) => void;
+  setLoginQRModalOpen: (open: boolean) => void;
   clearAuthError: () => void;
   clearAuthNotice: () => void;
   completeAuthAttempt: () => Promise<void>;
@@ -83,7 +91,14 @@ export const createAuthSlice: StateCreator<AuthSlice & AppSlice, [], [], AuthSli
   isLoginRedirecting: false,
   authError: null,
   authNotice: null,
+  isLoginEmailOtpModalOpen: false,
+  isLoginQRModalOpen: false,
+  loginEmailOtp: null,
+  loginEmailOtpRetryAt: null,
+  isRequestLoginEmailOtpLoading: false,
+  isVerifyLoginEmailOtpLoading: false,
   loginLink: null,
+  isLoginLinkLoading: false,
 
   resolveAuth: async (): Promise<void> => {
     const session = await getAuthSession();
@@ -98,24 +113,24 @@ export const createAuthSlice: StateCreator<AuthSlice & AppSlice, [], [], AuthSli
     // Refresh the session, then verify the new token. Returns null when another tab
     // cleared the session (logout already triggered); throws on refresh/verify failure.
     const refreshAndVerify = async (): Promise<Authentication | null> => {
-      const refreshed = await refreshSession(session);
+      const refreshed = await AuthClient.refreshSession(session);
       if (refreshed === null) {
         await get().logout();
         return null;
       }
-      return verifyIdToken(refreshed);
+      return AuthClient.verifyIdToken(refreshed);
     };
     try {
-      let auth = await verifyIdToken(session);
-      if (isWithinRefreshWindow(auth, AUTH_REFRESH_WINDOW_MS)) {
+      let auth = await AuthClient.verifyIdToken(session);
+      if (AuthClient.isWithinRefreshWindow(auth, AUTH_REFRESH_WINDOW_MS)) {
         try {
           const refreshed = await refreshAndVerify();
           if (refreshed === null) {
             return;
           }
           auth = refreshed;
-        } catch (err) {
-          const authError = AuthError.fromError(err);
+        } catch (error) {
+          const authError = AuthError.fromError(error);
           if (TERMINAL_AUTH_ERRORS.has(authError.type)) {
             await get().logout(authError.type);
             return;
@@ -148,7 +163,7 @@ export const createAuthSlice: StateCreator<AuthSlice & AppSlice, [], [], AuthSli
   },
 
   handleAuthCallback: async (): Promise<void> => {
-    const authError = await readAuthCallbackError();
+    const authError = await AuthClient.readAuthCallbackError();
     if (authError) {
       set({
         authError,
@@ -174,7 +189,7 @@ export const createAuthSlice: StateCreator<AuthSlice & AppSlice, [], [], AuthSli
         authAttempt: attempt,
         authError: null,
       });
-      initiateLoginRedirect();
+      AuthClient.loginWithRedirect();
     } catch (error) {
       try {
         await get().clearPendingAuthAttempt(attempt.pendingSince);
@@ -197,7 +212,7 @@ export const createAuthSlice: StateCreator<AuthSlice & AppSlice, [], [], AuthSli
     }
     logoutPromise = (async () => {
       try {
-        await requestLogout();
+        await AuthClient.requestLogout();
       } catch {
         // Offline or server down - local logout still proceeds.
       }
@@ -216,28 +231,123 @@ export const createAuthSlice: StateCreator<AuthSlice & AppSlice, [], [], AuthSli
     return logoutPromise;
   },
 
-  getLoginLink: async (): Promise<LoginLink> => {
-    const {loginLink} = get();
-    if (loginLink && new Date() < loginLink.expiresAt) {
-      return loginLink;
+  requestLoginEmailOtp: async (email: string): Promise<void> => {
+    if (requestLoginEmailOtpPromise) {
+      return requestLoginEmailOtpPromise;
     }
-    try {
-      const newLoginLink = await requestLoginLink();
+    requestLoginEmailOtpPromise = (async () => {
       set({
-        loginLink: newLoginLink,
+        isRequestLoginEmailOtpLoading: true,
+        loginEmailOtpRetryAt: new Date(Date.now() + LOGIN_EMAIL_OTP_RETRY_MS),
       });
-      return newLoginLink;
-    } catch (error) {
-      const authError = AuthError.fromError(error);
-      if (TERMINAL_AUTH_ERRORS.has(authError.type)) {
-        void get().logout(authError.type);
-      } else {
+      try {
+        const loginEmailOtp = await AuthClient.requestLoginEmailOtp(email);
+        set({
+          loginEmailOtp,
+        });
+      } catch (error) {
+        const authError = AuthError.fromError(error);
         set({
           authError,
         });
+      } finally {
+        set({
+          isRequestLoginEmailOtpLoading: false,
+        });
       }
-      throw authError;
+    })();
+    try {
+      await requestLoginEmailOtpPromise;
+    } finally {
+      requestLoginEmailOtpPromise = null;
     }
+  },
+
+  verifyLoginEmailOtp: async (email: string, otp: string): Promise<AuthErrorType | null> => {
+    if (verifyLoginEmailOtpPromise) {
+      return verifyLoginEmailOtpPromise;
+    }
+    verifyLoginEmailOtpPromise = (async () => {
+      set({
+        isVerifyLoginEmailOtpLoading: true,
+      });
+      try {
+        await AuthClient.verifyLoginEmailOtp(email, otp);
+        window.location.reload();
+        return null;
+      } catch (error) {
+        const authError = AuthError.fromError(error);
+        set({
+          authError,
+          ...(authError.type === AuthErrorType.LoginOtpMaxAttemptsExceeded
+            ? {
+                loginEmailOtp: null,
+                loginEmailOtpRetryAt: null,
+              }
+            : {}),
+        });
+        return authError.type;
+      } finally {
+        set({
+          isVerifyLoginEmailOtpLoading: false,
+        });
+      }
+    })();
+    try {
+      return await verifyLoginEmailOtpPromise;
+    } finally {
+      verifyLoginEmailOtpPromise = null;
+    }
+  },
+
+  loadLoginLink: async (): Promise<boolean> => {
+    if (loginLinkPromise) {
+      return loginLinkPromise;
+    }
+    const {loginLink} = get();
+    if (loginLink && new Date() < loginLink.expiresAt) {
+      return true;
+    }
+    loginLinkPromise = (async () => {
+      set({
+        isLoginLinkLoading: true,
+      });
+      try {
+        const newLoginLink = await AuthClient.requestLoginLink();
+        set({
+          loginLink: newLoginLink,
+        });
+        return true;
+      } catch (error) {
+        const authError = AuthError.fromError(error);
+        set({
+          authError,
+          loginLink: null,
+        });
+        return false;
+      } finally {
+        set({
+          isLoginLinkLoading: false,
+        });
+      }
+    })();
+    try {
+      return await loginLinkPromise;
+    } finally {
+      loginLinkPromise = null;
+    }
+  },
+
+  setLoginEmailOtpModalOpen: (open: boolean): void => {
+    set({
+      isLoginEmailOtpModalOpen: open,
+    });
+  },
+
+  setLoginQRModalOpen: (open: boolean): void => {
+    set({
+      isLoginQRModalOpen: open,
+    });
   },
 
   clearAuthError: (): void => {

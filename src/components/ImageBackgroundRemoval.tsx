@@ -163,7 +163,7 @@ export function ImageBackgroundRemoval() {
           <Trans>Select a photo to remove the background from</Trans>
         </Typography.Text>
         <Form.Item
-          className="u-m-0"
+          className="u-mb-0"
           extra={
             !user &&
             (isAccessAllowed ? (
@@ -187,7 +187,7 @@ export function ImageBackgroundRemoval() {
             )}
             <Form.Item
               label={screens.sm ? t`Mode` : null}
-              className="u-m-0"
+              className="u-mb-0"
               validateStatus={!isAccessAllowed ? 'warning' : undefined}
             >
               <OnnxModelSelect

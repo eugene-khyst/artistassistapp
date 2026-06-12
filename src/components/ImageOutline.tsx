@@ -239,7 +239,7 @@ export function ImageOutline() {
           <Form.Item
             label={screens.sm ? t`Mode` : null}
             labelCol={{className: 'u-pb-0'}}
-            className="u-m-0"
+            className="u-mb-0"
             validateStatus={!isAccessAllowed ? 'warning' : undefined}
           >
             <OnnxModelSelect

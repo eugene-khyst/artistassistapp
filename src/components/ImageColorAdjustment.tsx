@@ -368,7 +368,7 @@ export function ImageColorAdjustment() {
                   label={t`White balance`}
                   labelCol={{className: 'u-pb-0'}}
                   tooltip={t`Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area.`}
-                  className="u-m-0"
+                  className="u-mb-0"
                 >
                   <Radio.Group
                     options={modeOptions}
@@ -411,7 +411,7 @@ export function ImageColorAdjustment() {
                       label={t`White point`}
                       labelCol={{className: 'u-pb-0'}}
                       tooltip={t`Average color of the white point area`}
-                      className="u-m-0"
+                      className="u-mb-0"
                     >
                       <ColorPicker
                         title={t`White point`}

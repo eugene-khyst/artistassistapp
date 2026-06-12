@@ -31,9 +31,12 @@ export interface AuthErrorResponse {
   error_context?: Record<string, unknown>;
 }
 
-export interface LoginLinkResponse {
-  link: string;
+export interface ExpirableResponse {
   expires_at: number;
+}
+
+export interface LoginLinkResponse extends ExpirableResponse {
+  link: string;
 }
 
 export interface User {
@@ -61,9 +64,12 @@ export interface AuthSession {
   refreshExpiresAt: Date;
 }
 
-export interface LoginLink {
-  link: URL;
+export interface Expirable {
   expiresAt: Date;
+}
+
+export interface LoginLink extends Expirable {
+  link: URL;
 }
 
 export enum AuthNoticeType {
@@ -72,10 +78,13 @@ export enum AuthNoticeType {
 
 export enum AuthErrorType {
   Unauthorized = 'unauthorized',
+  MemberNotFound = 'member_not_found',
   Inactive = 'inactive',
   Expired = 'expired',
   InvalidToken = 'invalid_token',
   InvalidLoginLink = 'invalid_login_link',
+  InvalidLoginOtp = 'invalid_login_otp',
+  LoginOtpMaxAttemptsExceeded = 'login_otp_attempts_exceeded',
   LoginResultMissing = 'login_result_missing',
   RateLimited = 'rate_limited',
   Unknown = 'unknown',
@@ -84,6 +93,7 @@ export enum AuthErrorType {
 // Errors that mean the credential is rejected.
 export const TERMINAL_AUTH_ERRORS: ReadonlySet<AuthErrorType> = new Set([
   AuthErrorType.Unauthorized,
+  AuthErrorType.MemberNotFound,
   AuthErrorType.Inactive,
   AuthErrorType.InvalidToken,
   AuthErrorType.Expired,

@@ -17,9 +17,13 @@ msgstr ""
 msgid "({colorCount} colors)"
 msgstr "({colorCount} renkleri)"
 
-#: src/components/ColorSetChooser.tsx:641
+#: src/components/ColorSetChooser.tsx:643
 msgid "{brandName} colors"
 msgstr "{brandName} renkleri"
+
+#: src/components/ad/AdModal.tsx:66
+msgid "{closeCounter, plural, one {Close in # second} other {Close in # seconds}}"
+msgstr "{closeCounter, plural, one {# saniyede kapanıyoruz} other {# saniye içinde kapanış}}"
 
 #: src/components/color-set/ColorSetName.tsx:34
 #: src/components/color-set/StandardColorSetCascader.tsx:59
@@ -28,23 +32,31 @@ msgstr "{brandName} renkleri"
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# renk} other {# renk}}"
 
-#: src/components/auth/LoginQRButton.tsx:66
+#: src/components/auth/LoginEmailOtpButton.tsx:177
+msgid "{expiresIn, plural, one {Code expires in # second} other {Code expires in # seconds}}"
+msgstr "{expiresIn, plural, one {Kod # saniyede sona erer} other {Kod # saniye içinde geçer}}"
+
+#: src/components/auth/LoginQRButton.tsx:73
 msgid "{expiresIn, plural, one {QR code expires in # second} other {QR code expires in # seconds}}"
 msgstr "{expiresIn, plural, one {QR kod # saniyede geçer} other {QR kod # saniye içinde geçer}}"
 
-#: src/components/ColorSetChooser.tsx:594
-#: src/components/ColorSetChooser.tsx:642
+#: src/components/ColorSetChooser.tsx:596
+#: src/components/ColorSetChooser.tsx:644
 msgid "{FIELD} are required"
 msgstr "{FIELD} gereklidir"
 
-#: src/components/ColorSetChooser.tsx:561
-#: src/components/ColorSetChooser.tsx:570
-#: src/components/ColorSetChooser.tsx:623
+#: src/components/ColorSetChooser.tsx:563
+#: src/components/ColorSetChooser.tsx:572
+#: src/components/ColorSetChooser.tsx:625
 #: src/components/CustomColorBrandCreator.tsx:436
 #: src/components/CustomColorBrandCreator.tsx:447
 #: src/components/CustomColorBrandCreator.tsx:455
 msgid "{FIELD} is required"
 msgstr "{FIELD} gereklidir"
+
+#: src/components/auth/LoginEmailOtpButton.tsx:194
+msgid "{retryIn, plural, one {Resend code in # second} other {Resend code in # seconds}}"
+msgstr "{retryIn, plural, one {Kodu # saniyede yeniden gönder} other {Kodu # saniye içinde yeniden gönder}}"
 
 #: src/components/install/InstallDrawer.tsx:42
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
@@ -75,23 +87,23 @@ msgstr "<0/> Windows ve <1/> Linux"
 msgid "<0>{similarityText}%</0> similarity"
 msgstr "<0>{similarityText}%</0> benzerlik"
 
-#: src/components/ColorSetChooser.tsx:477
+#: src/components/ColorSetChooser.tsx:479
 msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
 msgstr "<0>ArtistAssistApp</0> , sanatçıların fotoğraflardaki renkleri karıştırmasına, ton değerlerini analiz etmesine, fotoğrafların ana hatlarını çizmesine, ızgaralarla çizim yapmasına, sınırlı paletlerle boyamasına ve daha pek çok şeye yardımcı olan bir web uygulamasıdır."
 
-#: src/components/error/AuthFeedbackHandler.tsx:71
+#: src/components/error/AuthFeedbackHandler.tsx:77
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Patreon hesabınızı kontrol</0> edin: Üyelik satın alırken kullandığınız aynı e-posta ile web <1>tarayıcınızda Patreon.com</1> için giriş yaptığınızdan emin olun. Birden fazla hesabınız varsa, çıkış yapın ve doğru hesapla tekrar giriş yapın."
 
-#: src/components/ColorSetChooser.tsx:498
-msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 200 color brands and all image processing modes without ads."
-msgstr "<0>Patreon'da ArtistAssistApp'e ücretli üye olarak katılın</0> veya daha önce katıldıysanız, 200'den fazla renk markasına ve reklamsız tüm görüntü işleme modlarına erişmek için <1>Patreon ile oturum açın</1> ."
+#: src/components/ColorSetChooser.tsx:500
+msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 250 color brands and all image processing modes without ads."
+msgstr "Ücretli üye <0>olarak Patreon'da ArtistAssistApp'e</0> katılın veya zaten katılıyorsanız <1>Patreon'a</1> giriş yapın; böylece 250'den fazla renkli markaya ve reklamsız tüm görüntü işleme modlarına erişim elde edin."
 
-#: src/components/error/AuthFeedbackHandler.tsx:89
+#: src/components/error/AuthFeedbackHandler.tsx:95
 msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
 msgstr "<0>Yeniden giriş yapmayı dene</0>: Tarayıcınızda doğru Patreon hesabının aktif olduğunu doğruladıktan sonra tekrar ArtistAssistApp'e giriş yapın."
 
-#: src/components/error/AuthFeedbackHandler.tsx:82
+#: src/components/error/AuthFeedbackHandler.tsx:88
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "Web <0>tarayıcısı kullanın</0>: Patreon uygulamasını (iOS/Android) kullanıyorsanız, doğrulama sürecini bazen engelleyebileceği için bir web tarayıcısından (Chrome, Safari, Firefox) giriş yapın."
 
@@ -139,7 +151,7 @@ msgstr "Renk ekleme"
 msgid "Add color mixtures to the palette."
 msgstr "Palete renk karışımları ekleyin."
 
-#: src/components/ColorSetChooser.tsx:644
+#: src/components/ColorSetChooser.tsx:646
 msgid "Add or remove colors to match your actual color set."
 msgstr "Gerçek renk kümenize uyması için renk ekleyin veya kaldırın."
 
@@ -155,6 +167,8 @@ msgstr "Palete ekle"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "<0>{whiteRatioText} oranında</0> beyaz ekleyin"
 
+#: src/components/ImagePerspectiveCorrection.tsx:312
+#: src/components/ImagePerspectiveCorrection.tsx:341
 #: src/components/messages.ts:41
 msgid "Adjust colors"
 msgstr "Renkleri ayarla"
@@ -214,7 +228,7 @@ msgstr "Önbelleği temizlemek istediğinizden emin misiniz?"
 msgid "Are you sure you want to delete all app data?"
 msgstr "Tüm uygulama verilerini silmek istediğinizden emin misiniz?"
 
-#: src/components/ColorSetChooser.tsx:733
+#: src/components/ColorSetChooser.tsx:735
 msgid "Are you sure you want to delete this color set?"
 msgstr "Bu renk setini silmek istediğinizden emin misiniz?"
 
@@ -235,12 +249,12 @@ msgstr "Tüm renk karışımlarını çıkarmak istediğinizden emin misiniz?"
 msgid "Are you sure you want to remove this color mixture?"
 msgstr "Bu renk karışımını çıkarmak istediğinizden emin misiniz?"
 
-#: src/components/ColorSetChooser.tsx:560
+#: src/components/ColorSetChooser.tsx:562
 #: src/components/CustomColorBrandCreator.tsx:446
 msgid "Art medium"
 msgstr "Sanat ortamı"
 
-#: src/components/error/AuthFeedbackHandler.tsx:139
+#: src/components/error/AuthFeedbackHandler.tsx:188
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistApp, Patreon girişinizin sonucunu almadı. Bu, başka bir tarayıcıda veya uygulamada giriş açıldığında gerçekleşebilir. Lütfen tekrar giriş yapmayı deneyin."
 
@@ -252,7 +266,7 @@ msgstr "ArtistAssistApp, <0>Eugene Khyst</0> tarafından geliştirilmiştir"
 msgid "At least one color is required"
 msgstr "En az bir renk gereklidir"
 
-#: src/components/error/AuthFeedbackHandler.tsx:113
+#: src/components/error/AuthFeedbackHandler.tsx:147
 msgid "Authentication error"
 msgstr "Kimlik doğrulama hatası"
 
@@ -362,13 +376,13 @@ msgstr "Fotoğrafta herhangi bir yere tıklayabilir 🖱️ veya 👆 dokunabili
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "Fotoğrafta herhangi bir yere tıklayın 🖱️ veya dokunun 👆 ya da renklerinizden karıştırmak üzere bir hedef renk seçmek için renk seçici açılır penceresini kullanın."
 
-#: src/components/ad/AdModal.tsx:71
+#: src/components/ad/AdModal.tsx:75
 msgid "Close"
 msgstr "Kapatmak"
 
-#: src/components/ad/AdModal.tsx:62
-msgid "Close in {closeCounter} sec"
-msgstr "{closeCounter} saniye içinde kapatın"
+#: src/components/auth/LoginEmailOtpButton.tsx:169
+msgid "Code is required"
+msgstr "Kod gereklidir"
 
 #: src/components/ColorMixer.tsx:183
 #: src/components/CustomColorBrandCreator.tsx:420
@@ -379,7 +393,7 @@ msgstr "Renk"
 msgid "Color brand"
 msgstr "Renk markası"
 
-#: src/components/ColorSetChooser.tsx:592
+#: src/components/ColorSetChooser.tsx:594
 msgid "Color brands"
 msgstr "Renk markaları"
 
@@ -403,7 +417,7 @@ msgstr "Renk karışımı"
 msgid "Color picker"
 msgstr "Renk seçici"
 
-#: src/components/ColorSetChooser.tsx:568
+#: src/components/ColorSetChooser.tsx:570
 #: src/components/ImageColorPicker.tsx:241
 #: src/components/messages.ts:28
 msgid "Color set"
@@ -459,11 +473,11 @@ msgstr "Işık kaynağının sıcaklığının Kelvin cinsinden düzeltilmiş ta
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Kağıdı veya tuvali otomatik olarak tespit edemedim"
 
-#: src/components/ColorSetChooser.tsx:711
+#: src/components/ColorSetChooser.tsx:713
 msgid "Create a duplicate of this color set for further modification"
 msgstr "Daha fazla değişiklik yapmak için bu renk kümesinin bir kopyasını oluşturun"
 
-#: src/components/ColorSetChooser.tsx:720
+#: src/components/ColorSetChooser.tsx:722
 msgid "Create a new color set by merging existing ones"
 msgstr "Mevcut olanları birleştirerek yeni bir renk seti oluşturun"
 
@@ -480,7 +494,7 @@ msgstr "Özel renk seti"
 msgid "Custom colors"
 msgstr "Özel renkler"
 
-#: src/components/ColorSetChooser.tsx:747
+#: src/components/ColorSetChooser.tsx:749
 #: src/components/CustomColorBrandCreator.tsx:482
 #: src/components/image/RecentImageCard.tsx:83
 msgid "Delete"
@@ -491,7 +505,7 @@ msgstr "Silmek"
 msgid "Delete all app data"
 msgstr "Tüm uygulama verilerini sil"
 
-#: src/components/ColorSetChooser.tsx:732
+#: src/components/ColorSetChooser.tsx:734
 msgid "Delete the color set"
 msgstr "Renk kümesini silme"
 
@@ -505,7 +519,7 @@ msgstr "Özel markayı silme"
 msgid "Delete the recent photo"
 msgstr "Son fotoğrafı silme"
 
-#: src/components/ColorSetChooser.tsx:742
+#: src/components/ColorSetChooser.tsx:744
 msgid "Delete this color set"
 msgstr "Bu renk kümesini sil"
 
@@ -513,7 +527,7 @@ msgstr "Bu renk kümesini sil"
 msgid "Dense layer"
 msgstr "Yoğun tabaka"
 
-#: src/components/error/AuthFeedbackHandler.tsx:36
+#: src/components/error/AuthFeedbackHandler.tsx:42
 msgid "Details"
 msgstr "Detaylar"
 
@@ -537,7 +551,7 @@ msgstr "Çap"
 msgid "Dilute the paint with water in a <0>{ratioText} ratio</0>"
 msgstr "Boyayı <0>{ratioText} oranında</0> suyla seyreltin"
 
-#: src/components/ColorSetChooser.tsx:625
+#: src/components/ColorSetChooser.tsx:627
 msgid "Do you have a store-bought or custom color set?"
 msgstr "Mağazadan satın alınan veya özel bir renk setiniz var mı?"
 
@@ -561,7 +575,7 @@ msgstr "Dosyaları buraya bırak..."
 msgid "Dry Pastel"
 msgstr "Kuru Pastel"
 
-#: src/components/ColorSetChooser.tsx:714
+#: src/components/ColorSetChooser.tsx:716
 msgid "Duplicate"
 msgstr "Yinelenen"
 
@@ -569,20 +583,36 @@ msgstr "Yinelenen"
 msgid "Edit from here on"
 msgstr "Buradan itibaren düzenleme"
 
-#: src/components/error/AuthFeedbackHandler.tsx:39
+#: src/components/error/AuthFeedbackHandler.tsx:45
 msgid "Email"
 msgstr "E-posta"
+
+#: src/components/auth/LoginEmailOtpButton.tsx:90
+msgid "Email is required"
+msgstr "E-posta zorunludur"
+
+#: src/components/auth/LoginEmailOtpButton.tsx:94
+msgid "Enter a valid email"
+msgstr "Geçerli bir e-posta gönderin"
 
 #: src/components/ImageOutline.tsx:265
 #: src/components/ImageOutline.tsx:324
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Makalenizde taslağı izlemek için ışık kutusu moduna geçin."
 
-#: src/components/error/AuthFeedbackHandler.tsx:37
+#: src/components/auth/LoginEmailOtpButton.tsx:242
+msgid "Enter the code"
+msgstr "Kodu gir"
+
+#: src/components/auth/LoginEmailOtpButton.tsx:65
+msgid "Enter the email address for your Patreon account. We'll send a one-time login code if it has an active ArtistAssistApp membership."
+msgstr "Patreon hesabınızın e-posta adresini girin. Aktif ArtistAssistApp üyeliği varsa tek seferlik giriş kodu göndereceğiz."
+
+#: src/components/error/AuthFeedbackHandler.tsx:43
 msgid "Error"
 msgstr "Hata"
 
-#: src/components/error/AuthFeedbackHandler.tsx:38
+#: src/components/error/AuthFeedbackHandler.tsx:44
 msgid "Error description"
 msgstr "Hata açıklaması"
 
@@ -590,11 +620,11 @@ msgstr "Hata açıklaması"
 msgid "Error loading sample photos"
 msgstr "Hata yükleme örnek fotoğrafları"
 
-#: src/components/ColorSetChooser.tsx:224
+#: src/components/ColorSetChooser.tsx:226
 msgid "Error while fetching color brand data"
 msgstr "Renk marka verileri getirilirken hata oluştu"
 
-#: src/components/ColorSetChooser.tsx:246
+#: src/components/ColorSetChooser.tsx:248
 msgid "Error while fetching color data"
 msgstr "Renk verileri getirilirken hata oluştu"
 
@@ -603,7 +633,7 @@ msgstr "Renk verileri getirilirken hata oluştu"
 msgid "Error while fetching ML model data"
 msgstr "ML modeli verileri getirilirken hata oluştu"
 
-#: src/components/ColorSetChooser.tsx:235
+#: src/components/ColorSetChooser.tsx:237
 msgid "Error while fetching standard color set data"
 msgstr "Standart renk seti verileri getirilirken hata oluştu"
 
@@ -616,11 +646,11 @@ msgstr "Görüntünün çekildiği Kelvin cinsinden ışık kaynağının tahmin
 msgid "Exit AR"
 msgstr "AR'den çıkış"
 
-#: src/components/ColorSetChooser.tsx:508
+#: src/components/ColorSetChooser.tsx:510
 msgid "Explore the free version before deciding to purchase a paid membership."
 msgstr "Ücretli bir üyelik satın almaya karar vermeden önce ücretsiz sürümü keşfedin."
 
-#: src/components/ColorSetChooser.tsx:412
+#: src/components/ColorSetChooser.tsx:414
 #: src/components/CustomColorBrandCreator.tsx:350
 msgid "Fill in the required fields"
 msgstr "Gerekli alanları doldurun"
@@ -641,15 +671,19 @@ msgstr "Tam güç"
 msgid "Gamma"
 msgstr "Gama"
 
-#: src/components/auth/LoginQRButton.tsx:51
+#: src/components/auth/LoginEmailOtpButton.tsx:109
+msgid "Get a code"
+msgstr "Bir kod alın"
+
+#: src/components/auth/LoginQRButton.tsx:58
 msgid "Get a new QR code"
 msgstr "Yeni bir QR kod alın"
 
-#: src/components/error/AuthFeedbackHandler.tsx:43
+#: src/components/error/AuthFeedbackHandler.tsx:49
 msgid "Gifted membership"
 msgstr "Yetenekli üyelik"
 
-#: src/components/ColorSetChooser.tsx:585
+#: src/components/ColorSetChooser.tsx:587
 msgid "Give your color set a name for easy access."
 msgstr "Kolay erişim için renk setinize bir ad verin."
 
@@ -686,12 +720,12 @@ msgstr "Kılavuz"
 msgid "Height"
 msgstr "Yükseklik"
 
-#: src/components/ColorSetChooser.tsx:530
+#: src/components/ColorSetChooser.tsx:532
 #: src/components/messages.ts:45
 msgid "Help"
 msgstr "Yardım"
 
-#: src/components/ColorSetChooser.tsx:271
+#: src/components/ColorSetChooser.tsx:273
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Kaydetmezseniz, renk kümesinde yapılan değişiklikler kaybolabilir."
 
@@ -724,7 +758,11 @@ msgstr "Kurulum güncellemesi"
 msgid "Intended color temperature (K)"
 msgstr "Amaçlanan renk sıcaklığı (K)"
 
-#: src/components/error/AuthFeedbackHandler.tsx:122
+#: src/components/error/AuthFeedbackHandler.tsx:162
+msgid "Invalid login code"
+msgstr "Geçersiz giriş kodu"
+
+#: src/components/error/AuthFeedbackHandler.tsx:156
 msgid "Invalid login link"
 msgstr "Geçersiz giriş bağlantısı"
 
@@ -752,7 +790,7 @@ msgstr "Dil"
 msgid "Large"
 msgstr "Büyük"
 
-#: src/components/error/AuthFeedbackHandler.tsx:41
+#: src/components/error/AuthFeedbackHandler.tsx:47
 msgid "Last charge status"
 msgstr "Son şarj durumu"
 
@@ -796,31 +834,40 @@ msgstr "Bağlantı panoya kopyalandı"
 msgid "Load color brand file"
 msgstr "Renkli marka dosyasını yükle"
 
-#: src/components/ColorSetChooser.tsx:765
+#: src/components/ColorSetChooser.tsx:767
 msgid "Load color sets file"
 msgstr "Renk setleri dosyasını yükle"
 
-#: src/components/ColorSetChooser.tsx:111
-msgid "Log in by QR"
-msgstr "QR ile giriş yapın"
+#: src/components/auth/LoginEmailOtpButton.tsx:204
+msgid "Log in"
+msgstr "Giriş"
+
+#: src/components/auth/LoginEmailOtpButton.tsx:242
+#: src/components/auth/LoginEmailOtpButton.tsx:272
+msgid "Log in with email"
+msgstr "E-posta ile giriş yapın"
 
 #: src/components/auth/LoginOAuthButton.tsx:36
 msgid "Log in with Patreon"
 msgstr "Patreon ile giriş yap"
 
+#: src/components/ColorSetChooser.tsx:113
+msgid "Log in with QR code"
+msgstr "QR koduyla giriş yapın"
+
 #: src/components/auth/LogoutButton.tsx:38
 msgid "Log out"
 msgstr "Oturumu kapat"
 
-#: src/components/error/AuthFeedbackHandler.tsx:203
+#: src/components/error/AuthFeedbackHandler.tsx:252
 msgid "Login failed"
 msgstr "Oturum açma başarısız oldu"
 
-#: src/components/auth/LoginQRButton.tsx:45
+#: src/components/auth/LoginQRButton.tsx:51
 msgid "Login QR code"
 msgstr "Giriş QR kodu"
 
-#: src/components/error/AuthFeedbackHandler.tsx:137
+#: src/components/error/AuthFeedbackHandler.tsx:186
 msgid "Login result not received"
 msgstr "Giriş sonucu alınmadı"
 
@@ -846,7 +893,7 @@ msgid "Medium"
 msgstr "Orta"
 
 #: src/components/color-set/MergeColorSetsDrawer.tsx:94
-#: src/components/ColorSetChooser.tsx:723
+#: src/components/ColorSetChooser.tsx:725
 msgid "Merge"
 msgstr "Birleşme"
 
@@ -889,7 +936,7 @@ msgstr "Mod"
 msgid "More"
 msgstr "Daha fazlası"
 
-#: src/components/ColorSetChooser.tsx:584
+#: src/components/ColorSetChooser.tsx:586
 #: src/components/CustomColorBrandCreator.tsx:182
 #: src/components/CustomColorBrandCreator.tsx:454
 msgid "Name"
@@ -899,9 +946,13 @@ msgstr "Ad"
 msgid "Name a brand"
 msgstr "Bir markaya isim verin"
 
-#: src/components/ColorSetChooser.tsx:588
+#: src/components/ColorSetChooser.tsx:590
 msgid "Name a color set"
 msgstr "Renk kümesini adlandırma"
+
+#: src/components/auth/LoginEmailOtpButton.tsx:103
+msgid "name@example.com"
+msgstr "name@example.com"
 
 #: src/components/color/WarmthIcon.tsx:46
 msgid "Neutral — Algorithmic estimate; artistic perception may vary."
@@ -919,14 +970,14 @@ msgstr "Yeni renk seti"
 msgid "New comparison"
 msgstr "Yeni karşılaştırma"
 
-#: src/components/error/AuthFeedbackHandler.tsx:42
+#: src/components/error/AuthFeedbackHandler.tsx:48
 msgid "Next charge date"
 msgstr "Sonraki şarj tarihi"
 
 #: src/components/color/AddToPaletteButton.tsx:52
 #: src/components/color/PaletteColorMixtureCard.tsx:119
-#: src/components/ColorSetChooser.tsx:273
-#: src/components/ColorSetChooser.tsx:738
+#: src/components/ColorSetChooser.tsx:275
+#: src/components/ColorSetChooser.tsx:740
 #: src/components/CustomColorBrandCreator.tsx:473
 #: src/components/image/RecentImageCard.tsx:74
 #: src/components/palette/PaletteGrid.tsx:114
@@ -956,6 +1007,10 @@ msgstr "Hedef renk seçilmez."
 msgid "None"
 msgstr "Hiç kimse"
 
+#: src/components/auth/LoginEmailOtpButton.tsx:71
+msgid "Not sure which email Patreon uses? Check your <0>Patreon basic settings</0>."
+msgstr "Patreon'un hangi e-postayı kullandığından emin değil misiniz? <0>Patreon temel ayarlarınızı</0> kontrol edin."
+
 #: src/components/share/ShareModal.tsx:98
 msgid "Nothing to share"
 msgstr "Paylaşacak bir şey yok"
@@ -972,7 +1027,7 @@ msgstr "Yağlı Boya"
 msgid "Oil Pastel"
 msgstr "Yağlı Pastel"
 
-#: src/components/ColorSetChooser.tsx:607
+#: src/components/ColorSetChooser.tsx:609
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Ücretsiz sürümde yalnızca sınırlı sayıda renk markası mevcuttur"
 
@@ -998,9 +1053,13 @@ msgstr "Donuk"
 msgid "Open in Safari browser"
 msgstr "Safari tarayıcısında aç"
 
-#: src/components/ColorSetChooser.tsx:97
+#: src/components/ColorSetChooser.tsx:99
 msgid "Open the app on a device where you are logged in"
 msgstr "Giriş yaptığınız cihazda uygulamayı açın"
+
+#: src/components/error/AuthFeedbackHandler.tsx:121
+msgid "Open your <0>Patreon basic settings</0> and confirm that the listed email address is the same one you entered."
+msgstr "<0>Patreon temel ayarlarınızı</0> açın ve listelenen e-posta adresinin girdiğiniz adresle aynı olduğunu doğrulayın."
 
 #: src/components/error/BrowserSupport.tsx:96
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
@@ -1046,11 +1105,15 @@ msgstr "Palet"
 msgid "Paper size"
 msgstr "Kağıt boyutu"
 
-#: src/components/error/AuthFeedbackHandler.tsx:54
+#: src/components/error/AuthFeedbackHandler.tsx:110
+msgid "Patreon member email address not found"
+msgstr "Patreon üye e-posta adresi bulunamadı"
+
+#: src/components/error/AuthFeedbackHandler.tsx:60
 msgid "Patreon membership verification failed"
 msgstr "Patreon üyelik doğrulaması başarısız oldu"
 
-#: src/components/error/AuthFeedbackHandler.tsx:40
+#: src/components/error/AuthFeedbackHandler.tsx:46
 msgid "Patron status"
 msgstr "Koruyucu statüsü"
 
@@ -1095,9 +1158,9 @@ msgstr "Pozisyon: {position}<0/>Değerlendirme: {ratingText}"
 msgid "Postpone"
 msgstr "Erteleme"
 
-#: src/components/ColorSetChooser.tsx:100
-msgid "Press <0>Show login QR</0>"
-msgstr "Giriş <0>QR göster</0> düğmesine basın"
+#: src/components/ColorSetChooser.tsx:102
+msgid "Press <0>Show login QR code</0>"
+msgstr "<0>Giriş QR kodunu göster</0>"
 
 #: src/components/install/InstallDrawer.tsx:170
 msgid "Press Add to Dock"
@@ -1153,7 +1216,7 @@ msgstr "Gizlilik Politikası"
 msgid "Processing..."
 msgstr "İşleme..."
 
-#: src/components/auth/LoginQRButton.tsx:75
+#: src/components/auth/LoginQRButton.tsx:82
 msgid "QR code expired."
 msgstr "QR kod süresi dolmuş."
 
@@ -1240,6 +1303,10 @@ msgstr "iOS 16.4+ veya iPadOS 16.4+ sürümü gereklidir."
 msgid "Requires macOS Sonoma or later."
 msgstr "macOS Sonoma veya sonraki bir sürümü gerekir."
 
+#: src/components/auth/LoginEmailOtpButton.tsx:200
+msgid "Resend code"
+msgstr "Kod yeniden gönder"
+
 #: src/components/ImagePerspectiveCorrection.tsx:284
 #: src/components/ImagePerspectiveCorrection.tsx:324
 msgid "Reset"
@@ -1287,11 +1354,11 @@ msgstr "Doygunluk (%)"
 msgid "Save"
 msgstr "Kurtarmak"
 
-#: src/components/ColorSetChooser.tsx:706
+#: src/components/ColorSetChooser.tsx:708
 msgid "Save & continue"
 msgstr "Kaydet ve devam et"
 
-#: src/components/ColorSetChooser.tsx:270
+#: src/components/ColorSetChooser.tsx:272
 msgid "Save changes to the color set?"
 msgstr "Renk setindeki değişiklikler kaydedilsin mi?"
 
@@ -1305,7 +1372,7 @@ msgstr "Kaydetme 1,91:1'e genişletildi"
 msgid "Save expanded to 4:5"
 msgstr "Tasarruf 4:5'e genişletildi"
 
-#: src/components/ColorSetChooser.tsx:702
+#: src/components/ColorSetChooser.tsx:704
 msgid "Save the changes to this color set"
 msgstr "Bu renk kümesindeki değişiklikleri kaydedin"
 
@@ -1313,11 +1380,11 @@ msgstr "Bu renk kümesindeki değişiklikleri kaydedin"
 msgid "Scan a QR code"
 msgstr "Bir QR kodu tarayın"
 
-#: src/components/ColorSetChooser.tsx:105
+#: src/components/ColorSetChooser.tsx:107
 msgid "Scan its QR code here"
 msgstr "QR kodunu buradan tarayın"
 
-#: src/components/auth/LoginQRButton.tsx:62
+#: src/components/auth/LoginQRButton.tsx:69
 msgid "Scan this code on the device you want to log in."
 msgstr "Giriş yapmak istediğiniz cihazda bu kodu tarayın."
 
@@ -1357,8 +1424,8 @@ msgstr "Karıştırmak için herhangi bir sayıda renk seçin ve elde edilen kar
 msgid "Select art medium"
 msgstr "Sanat ortamını seçin"
 
-#: src/components/ColorSetChooser.tsx:282
-#: src/components/ColorSetChooser.tsx:400
+#: src/components/ColorSetChooser.tsx:284
+#: src/components/ColorSetChooser.tsx:402
 msgid "Select at least one color before saving the color set."
 msgstr "Renk setini kaydetmeden önce en az bir renk seçin."
 
@@ -1366,7 +1433,7 @@ msgstr "Renk setini kaydetmeden önce en az bir renk seçin."
 msgid "Select brands"
 msgstr "Markaları seçin"
 
-#: src/components/ColorSetChooser.tsx:593
+#: src/components/ColorSetChooser.tsx:595
 msgid "Select brands that you use."
 msgstr "Kullandığınız markaları seçin."
 
@@ -1395,7 +1462,7 @@ msgstr "En son markalarınız arasından seçim yapın"
 msgid "Select from your recent color sets"
 msgstr "En son renk setleriniz arasından seçim yapın"
 
-#: src/components/ColorSetChooser.tsx:569
+#: src/components/ColorSetChooser.tsx:571
 msgid "Select from your recent color sets or create a new one."
 msgstr "En son renk setlerinizden birini seçin veya yeni bir tane oluşturun."
 
@@ -1438,7 +1505,7 @@ msgstr "Stil görüntüsü seç"
 msgid "Select the color sets you want to merge. A new color set will be created that includes all the colors from the selected sets."
 msgstr "Birleştirmek istediğiniz renk setlerini seçin. Seçilen setlerden tüm renkleri içeren yeni bir renk seti oluşturulur."
 
-#: src/components/ColorSetChooser.tsx:537
+#: src/components/ColorSetChooser.tsx:539
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>."
 msgstr "Sanat ortamınızı, renk markalarınızı ve boyayacağınız renkleri seçin, sonra <0>Kaydet ve Devam</0> et'e basın."
@@ -1451,7 +1518,11 @@ msgstr "Yarı opak"
 msgid "Semi-transparent"
 msgstr "Yarı saydam"
 
-#: src/components/error/AuthFeedbackHandler.tsx:104
+#: src/components/auth/LoginEmailOtpButton.tsx:160
+msgid "Sent to <0>{email}</0>"
+msgstr "<0>{email}</0> adresine gönderildi"
+
+#: src/components/error/AuthFeedbackHandler.tsx:138
 msgid "Session expired"
 msgstr "Oturum sona erdi"
 
@@ -1492,12 +1563,12 @@ msgstr "Gölge"
 msgid "Shadows and highlights"
 msgstr "Gölgeler ve vurgular"
 
-#: src/components/ColorSetChooser.tsx:757
+#: src/components/ColorSetChooser.tsx:759
 #: src/components/share/ShareModal.tsx:83
 msgid "Share"
 msgstr "Paylaş"
 
-#: src/components/ColorSetChooser.tsx:754
+#: src/components/ColorSetChooser.tsx:756
 msgid "Share this color set"
 msgstr "Bu renk setini paylaşın"
 
@@ -1513,9 +1584,9 @@ msgstr "Fotoğrafta bu renkle eşleşen alanları gösterin."
 msgid "Show grid"
 msgstr "Izgarayı göster"
 
-#: src/components/auth/LoginQRButton.tsx:109
-msgid "Show login QR"
-msgstr "Giriş QR göster"
+#: src/components/auth/LoginQRButton.tsx:115
+msgid "Show login QR code"
+msgstr "Giriş QR kodunu göster"
 
 #: src/components/ImageColorPicker.tsx:291
 msgid "Show matching areas"
@@ -1533,7 +1604,7 @@ msgstr "Çapraz çizgileri gösterme veya gizleme"
 msgid "Show this color on the reference photo."
 msgstr "Bu rengi referans fotoğrafta gösterin."
 
-#: src/components/error/AuthFeedbackHandler.tsx:128
+#: src/components/error/AuthFeedbackHandler.tsx:177
 msgid "Sign in required"
 msgstr "Giriş zorunlu"
 
@@ -1570,7 +1641,7 @@ msgstr "Küçük"
 msgid "Something went wrong"
 msgstr "Bir şeyler ters gitti"
 
-#: src/components/error/AuthFeedbackHandler.tsx:156
+#: src/components/error/AuthFeedbackHandler.tsx:205
 msgid "Something went wrong while logging you in. Please try again. If the problem persists, check your internet connection."
 msgstr "Giriş yaparken bir şeyler ters gitti. Lütfen tekrar dene. Sorun devam ederse, internet bağlantınızı kontrol edin."
 
@@ -1603,7 +1674,7 @@ msgstr "Spektral yansıma eğrisi"
 msgid "Square cells"
 msgstr "Kare hücreler"
 
-#: src/components/ColorSetChooser.tsx:622
+#: src/components/ColorSetChooser.tsx:624
 msgid "Standard color set"
 msgstr "Standart renk seti"
 
@@ -1674,11 +1745,15 @@ msgstr "Kullanım şartları"
 msgid "The app stores all data in the web browser storage even after installation. Clearing the web browser data results in the loss of all app data."
 msgstr "Uygulama, kurulumdan sonra bile tüm verileri web tarayıcısı deposunda saklar. Web tarayıcısı verilerinin temizlenmesi, tüm uygulama verilerinin kaybolmasına neden olur."
 
+#: src/components/error/AuthFeedbackHandler.tsx:164
+msgid "The code you entered is incorrect or expired. Check the latest email from ArtistAssistApp and try again, or request a new login code."
+msgstr "Girdiğiniz kod yanlış ya da süresi dolmuş. ArtistAssistApp'ten en son e-postayı kontrol edin ve tekrar deneyin ya da yeni bir giriş kodu talep edin."
+
 #: src/components/color/UnderlayerColorPicker.tsx:57
 msgid "The color of your paper, canvas, or painting surface."
 msgstr "Kağıdınızı, tuvalinizi veya resim yüzeyinizin rengi."
 
-#: src/components/ColorSetChooser.tsx:264
+#: src/components/ColorSetChooser.tsx:266
 msgid "The color set can't be saved because not all required fields are filled."
 msgstr "Renk seti kaydedilemez çünkü tüm gerekli alanlar doldurulmuyor."
 
@@ -1714,7 +1789,7 @@ msgstr "Boyayı <0>{fractionText} kalınlığına</0> kadar inceltin"
 msgid "This backup file lets you restore your color sets later, so keep it. You can delete any older backup files."
 msgstr "Bu yedekleme dosyası, renk setlerinizi daha sonra geri yüklemenizi sağlar, bu yüzden saklayın. Eski yedekleme dosyalarını silebilirsiniz."
 
-#: src/components/ColorSetChooser.tsx:648
+#: src/components/ColorSetChooser.tsx:650
 msgid "This color brand is available to paid Patreon members only"
 msgstr "Bu renk markası yalnızca ücretli Patreon üyeleri tarafından kullanılabilir"
 
@@ -1722,7 +1797,11 @@ msgstr "Bu renk markası yalnızca ücretli Patreon üyeleri tarafından kullan�
 msgid "This color was not sampled from a photo."
 msgstr "Bu renk bir fotoğraftan örneklenmemiştir."
 
-#: src/components/error/AuthFeedbackHandler.tsx:124
+#: src/components/error/AuthFeedbackHandler.tsx:173
+msgid "This login code can't be used anymore. Request a new code to continue."
+msgstr "Bu giriş kodu artık kullanılamaz. Devam etmek için yeni bir kod talep edin."
+
+#: src/components/error/AuthFeedbackHandler.tsx:158
 msgid "This login link is invalid or has expired. Please get a new one and try again."
 msgstr "Bu giriş bağlantısı geçersiz veya süresi dolmuş. Lütfen yenisini alın ve tekrar deneyin."
 
@@ -1738,11 +1817,11 @@ msgstr "Bu adım isteğe bağlıdır."
 msgid "This style is available to paid Patreon members only"
 msgstr "Bu stil yalnızca ücretli Patreon üyeleri tarafından kullanılabilir"
 
-#: src/components/error/AuthFeedbackHandler.tsx:58
+#: src/components/error/AuthFeedbackHandler.tsx:64
 msgid "This usually happens when you're signed in to a <0>different</0> Patreon account than the one used for your ArtistAssistApp membership."
 msgstr "Bu genellikle ArtistAssistApp üyeliğinizde kullanılan hesabdan <0>farklı</0> bir Patreon hesabına giriş yaptığınızda olur."
 
-#: src/components/error/AuthFeedbackHandler.tsx:66
+#: src/components/error/AuthFeedbackHandler.tsx:72
 msgid "To fix this:"
 msgstr "Bunu düzeltmek için:"
 
@@ -1762,7 +1841,11 @@ msgstr "{tabLabel} özelliğini kullanmak için, desteklenen sanat ortamı ve bo
 msgid "Tonal values"
 msgstr "Ton değerleri"
 
-#: src/components/error/AuthFeedbackHandler.tsx:148
+#: src/components/error/AuthFeedbackHandler.tsx:171
+msgid "Too many incorrect codes"
+msgstr "Çok fazla yanlış kod var"
+
+#: src/components/error/AuthFeedbackHandler.tsx:197
 msgid "Too many login requests were made in a short time. Please wait a minute, then try again."
 msgstr "Kısa sürede çok fazla giriş talebi yapıldı. Lütfen bir dakika bekleyin, sonra tekrar deneyin."
 
@@ -1774,7 +1857,7 @@ msgstr "Saydam"
 msgid "Try adding some colors to your color set."
 msgstr "Renk setinize bazı renkler eklemeyi deneyin."
 
-#: src/components/error/AuthFeedbackHandler.tsx:146
+#: src/components/error/AuthFeedbackHandler.tsx:195
 msgid "Try again in a minute"
 msgstr "Bir dakika sonra tekrar dene"
 
@@ -1871,23 +1954,27 @@ msgstr "Suluboya Kalemleri"
 msgid "Wax Pastel"
 msgstr "Mum Pastel"
 
-#: src/components/error/AuthFeedbackHandler.tsx:154
+#: src/components/error/AuthFeedbackHandler.tsx:114
+msgid "We couldn't find an ArtistAssistApp Patreon membership for the email address you entered. Use the email address shown on your Patreon account for your ArtistAssistApp membership, then request a new login code."
+msgstr "Girdiğiniz e-posta adresi için ArtistAssistApp Patreon üyeliği bulamadık. ArtistAssistApp üyeliğiniz için Patreon hesabınızda gösterilen e-posta adresini kullanın, ardından yeni bir giriş kodu talep edin."
+
+#: src/components/error/AuthFeedbackHandler.tsx:203
 msgid "We couldn't verify your session"
 msgstr "Seansınızı doğrulayamadık"
 
-#: src/components/error/AuthFeedbackHandler.tsx:130
+#: src/components/error/AuthFeedbackHandler.tsx:179
 msgid "We couldn't verify your session. Please sign in again to continue using ArtistAssistApp."
 msgstr "Seansınızı doğrulayamadık. ArtistAssistApp'ı kullanmaya devam etmek için lütfen tekrar giriş yapın."
 
-#: src/components/error/AuthFeedbackHandler.tsx:115
+#: src/components/error/AuthFeedbackHandler.tsx:149
 msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
 msgstr "Giriş bilgilerinizi doğrulamakta bir sorunla karşılaştık. Bu sorun genellikle tekrar giriş yapmaya çalışarak çözülebilir."
 
-#: src/components/ColorSetChooser.tsx:678
+#: src/components/ColorSetChooser.tsx:680
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "Toplamda {maxColorsFor2}'den fazla renk seçerken, iki rengin karışımları kullanılmaz."
 
-#: src/components/ColorSetChooser.tsx:686
+#: src/components/ColorSetChooser.tsx:688
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Toplamda {maxColorsFor3}'ten fazla renk seçerken, üç rengin karışımları kullanılmaz."
 
@@ -1897,8 +1984,6 @@ msgid "White"
 msgstr "Beyaz"
 
 #: src/components/ImageColorAdjustment.tsx:368
-#: src/components/ImagePerspectiveCorrection.tsx:312
-#: src/components/ImagePerspectiveCorrection.tsx:341
 msgid "White balance"
 msgstr "Beyaz dengesi"
 
@@ -1917,8 +2002,8 @@ msgstr "Genişlik"
 
 #: src/components/color/AddToPaletteButton.tsx:51
 #: src/components/color/PaletteColorMixtureCard.tsx:118
-#: src/components/ColorSetChooser.tsx:272
-#: src/components/ColorSetChooser.tsx:737
+#: src/components/ColorSetChooser.tsx:274
+#: src/components/ColorSetChooser.tsx:739
 #: src/components/CustomColorBrandCreator.tsx:472
 #: src/components/image/RecentImageCard.tsx:73
 #: src/components/palette/PaletteGrid.tsx:113
@@ -1931,19 +2016,19 @@ msgstr "Evet"
 msgid "You already have many recent photos saved. Remove the oldest one to free up space? The new photo will still be added."
 msgstr "Zaten birçok güncel fotoğrafın kaydedildi. En eski olanı çıkarıp alan boşaltmak mı? Yeni fotoğraf yine eklenecek."
 
-#: src/components/ColorSetChooser.tsx:487
+#: src/components/ColorSetChooser.tsx:489
 msgid "You are logged in and have access to all app features."
 msgstr "Giriş yaptınız ve tüm uygulama özelliklerine erişiminiz var."
 
-#: src/components/ColorSetChooser.tsx:492
+#: src/components/ColorSetChooser.tsx:494
 msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
 msgstr "Sınırlı sayıda renk markası ve görüntü işleme modu ile <0>ücretsiz sürümü</0> kullanıyorsunuz."
 
-#: src/components/error/AuthFeedbackHandler.tsx:174
+#: src/components/error/AuthFeedbackHandler.tsx:223
 msgid "You can keep working in this browser tab, or switch back to the installed ArtistAssistApp — you're logged in there too."
 msgstr "Bu tarayıcı sekmesinde çalışmaya devam edebilir veya yüklü ArtistAssistApp'e geri dönebilirsiniz — orada da giriş yapmışsınız."
 
-#: src/components/error/AuthFeedbackHandler.tsx:172
+#: src/components/error/AuthFeedbackHandler.tsx:221
 msgid "You're logged in"
 msgstr "Giriş yaptın"
 
@@ -1952,15 +2037,15 @@ msgstr "Giriş yaptın"
 msgid "You've selected a mode that is available to paid Patreon members only"
 msgstr "Sadece ücretli Patreon üyelerine açık bir mod seçtiniz"
 
-#: src/components/ColorSetChooser.tsx:600
+#: src/components/ColorSetChooser.tsx:602
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Yalnızca ödeme yapan Patreon üyelerine açık olan renk markalarını seçtiniz"
 
-#: src/components/ColorSetChooser.tsx:669
+#: src/components/ColorSetChooser.tsx:671
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Yalnızca ücretli Patreon üyelerine açık olan renk markalarını seçtiniz. Patreon'da ArtistAssistApp'e ücretli üye olarak katılın veya zaten katıldıysanız, Patreon ile oturum açın."
 
-#: src/components/error/AuthFeedbackHandler.tsx:97
+#: src/components/error/AuthFeedbackHandler.tsx:103
 msgid "Your account details:"
 msgstr "Hesap detaylarınız:"
 
@@ -1972,7 +2057,7 @@ msgstr "Tarayıcınız panodan görüntüleri okumayı desteklemiyor."
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "Tarayıcı kapalıysa verileriniz güvenilir şekilde kaydedilemeyebilir. Bunu düzeltmek için uygulamayı yükleyin."
 
-#: src/components/error/AuthFeedbackHandler.tsx:106
+#: src/components/error/AuthFeedbackHandler.tsx:140
 msgid "Your login session has expired. Please sign in again to refresh your access and continue using ArtistAssistApp."
 msgstr "Giriş oturumun süresi doldu. Lütfen tekrar giriş yaparak erişiminizi yenileyin ve ArtistAssistApp'ı kullanmaya devam edin."
 

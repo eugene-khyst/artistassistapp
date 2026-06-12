@@ -17,7 +17,7 @@
  */
 
 import {CloseOutlined} from '@ant-design/icons';
-import {Trans} from '@lingui/react/macro';
+import {Plural, Trans} from '@lingui/react/macro';
 import {Button, Modal} from 'antd';
 
 import {Ad} from '@/components/ad/Ad';
@@ -36,12 +36,16 @@ const AD_POPUP_INTERVAL = 15 * 60000;
 export function AdModal() {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
+  const isLoginEmailOtpModalOpen = useAppStore(state => state.isLoginEmailOtpModalOpen);
+  const isLoginQRModalOpen = useAppStore(state => state.isLoginQRModalOpen);
 
   const {ads: {ads: allAds, placements} = {ads: {}, placements: {}}} = useAds();
 
   const [open, setOpen] = useDelayedInterval(AD_POPUP_INITIAL_DELAY, AD_POPUP_INTERVAL);
 
-  const closeCounter = useCountdown(CLOSE_SECONDS, open);
+  const isOpen = open && !isLoginEmailOtpModalOpen && !isLoginQRModalOpen;
+
+  const closeCounter = useCountdown(CLOSE_SECONDS, isOpen);
 
   const adKeys: string[] = placements[PLACEMENT] ?? placements[DEFAULT_PLACEMENT] ?? [];
   const ads: AdDefinition[] = adKeys
@@ -52,14 +56,14 @@ export function AdModal() {
     return <></>;
   }
   return (
-    <Modal centered open={open} footer={null} closeIcon={null}>
+    <Modal centered open={isOpen} footer={null} closeIcon={null}>
       <Ad
         vertical
         ads={ads}
         footer={
           closeCounter > 0 ? (
             <Button loading>
-              <Trans>Close in {closeCounter} sec</Trans>
+              <Plural value={closeCounter} one="Close in # second" other="Close in # seconds" />
             </Button>
           ) : (
             <Button
