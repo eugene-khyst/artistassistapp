@@ -49,7 +49,7 @@ import {isAbortError} from '@/utils/promise';
 
 import styles from './ImagePerspectiveCorrection.module.css';
 
-const FILENAME_SUFFIX = 'perspective-corrected';
+const FILENAME_SUFFIX = 'straightened';
 
 const imagePerspectiveCorrectionCanvasSupplier = (
   canvas: HTMLCanvasElement

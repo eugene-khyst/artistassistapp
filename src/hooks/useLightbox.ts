@@ -32,6 +32,17 @@ interface Result {
   close: () => Promise<void>;
 }
 
+async function exitFullscreenIfNeeded(): Promise<void> {
+  if (!document.fullscreenElement) {
+    return;
+  }
+  try {
+    await document.exitFullscreen();
+  } catch {
+    // ignore
+  }
+}
+
 export function useLightbox({onEnter}: Options = {}): Result {
   const [isLightbox, setIsLightbox] = useState<boolean>(false);
 
@@ -73,12 +84,18 @@ export function useLightbox({onEnter}: Options = {}): Result {
       setIsLightbox(true);
       let enteredFullscreen = false;
       const target = containerRef.current;
-      if (isFullScreenSupported && target && !document.fullscreenElement) {
-        try {
-          await target.requestFullscreen();
+      if (isFullScreenSupported && target) {
+        if (document.fullscreenElement === target) {
           enteredFullscreen = true;
-        } catch {
-          // ignore
+        } else {
+          await exitFullscreenIfNeeded();
+          try {
+            await target.requestFullscreen();
+            enteredFullscreen = true;
+          } catch {
+            setIsLightbox(false);
+            return;
+          }
         }
       }
       enteredFullscreenRef.current = enteredFullscreen;
