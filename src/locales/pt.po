@@ -36,7 +36,7 @@ msgstr "{colorCount, plural, one {# cor} other {# cores}}"
 msgid "{expiresIn, plural, one {Code expires in # second} other {Code expires in # seconds}}"
 msgstr "{expiresIn, plural, one {O código expira em # segundo} other {Código expira em # segundos}}"
 
-#: src/components/auth/LoginQRButton.tsx:73
+#: src/components/auth/LoginQRButton.tsx:74
 msgid "{expiresIn, plural, one {QR code expires in # second} other {QR code expires in # seconds}}"
 msgstr "{expiresIn, plural, one {O código QR expira em # segundo} other {O código QR expira em # segundos}}"
 
@@ -400,6 +400,11 @@ msgstr "Marcas de cores"
 #: src/components/ImageColorPicker.tsx:410
 msgid "Color count"
 msgstr "Contagem de cores"
+
+#: src/components/ImageTonalValues.tsx:125
+#: src/components/ImageTonalValues.tsx:128
+msgid "Color map"
+msgstr "Mapa de cores"
 
 #: src/components/messages.ts:36
 msgid "Color mixer"
@@ -810,7 +815,8 @@ msgstr "Menos"
 msgid "Light box"
 msgstr "Caixa de luz"
 
-#: src/components/ImageTonalValues.tsx:86
+#: src/components/ImageTonalValues.tsx:95
+#: src/components/ImageTonalValues.tsx:98
 msgid "Light tone"
 msgstr "Tom claro"
 
@@ -901,7 +907,8 @@ msgstr "Fusão"
 msgid "Merge color sets"
 msgstr "Conjuntos de cores de fusão"
 
-#: src/components/ImageTonalValues.tsx:87
+#: src/components/ImageTonalValues.tsx:105
+#: src/components/ImageTonalValues.tsx:108
 msgid "Mid tone"
 msgstr "Tom médio"
 
@@ -1193,8 +1200,8 @@ msgstr "Visualizar"
 #: src/components/ImageOutline.tsx:255
 #: src/components/ImageOutline.tsx:309
 #: src/components/ImagesCompare.tsx:172
-#: src/components/ImageTonalValues.tsx:104
-#: src/components/ImageTonalValues.tsx:122
+#: src/components/ImageTonalValues.tsx:146
+#: src/components/ImageTonalValues.tsx:164
 #: src/components/palette/PaletteGrid.tsx:107
 #: src/components/print/PrintImageDrawer.tsx:135
 msgid "Print"
@@ -1216,7 +1223,7 @@ msgstr "Política de privacidade"
 msgid "Processing..."
 msgstr "Processando..."
 
-#: src/components/auth/LoginQRButton.tsx:82
+#: src/components/auth/LoginQRButton.tsx:84
 msgid "QR code expired."
 msgstr "Código QR expirado."
 
@@ -1349,8 +1356,8 @@ msgstr "Saturação (%)"
 #: src/components/ImagePerspectiveCorrection.tsx:300
 #: src/components/ImagePerspectiveCorrection.tsx:332
 #: src/components/ImageStyleTransfer.tsx:200
-#: src/components/ImageTonalValues.tsx:112
-#: src/components/ImageTonalValues.tsx:128
+#: src/components/ImageTonalValues.tsx:154
+#: src/components/ImageTonalValues.tsx:170
 msgid "Save"
 msgstr "Salvar"
 
@@ -1555,7 +1562,8 @@ msgstr "Coloque como camada inferior para o esmalte."
 msgid "Set as unifying color"
 msgstr "Definido como cor unificadora"
 
-#: src/components/ImageTonalValues.tsx:88
+#: src/components/ImageTonalValues.tsx:115
+#: src/components/ImageTonalValues.tsx:118
 msgid "Shadow"
 msgstr "Sombra"
 
@@ -1584,7 +1592,7 @@ msgstr "Mostre áreas na foto que combinem com essa cor."
 msgid "Show grid"
 msgstr "Mostrar grade"
 
-#: src/components/auth/LoginQRButton.tsx:115
+#: src/components/auth/LoginQRButton.tsx:117
 msgid "Show login QR code"
 msgstr "Mostrar código QR de login"
 

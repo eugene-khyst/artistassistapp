@@ -46,8 +46,8 @@ export const ColorSquare = memo(function ColorSquare({hex, size = 'small', text}
     return (
       <svg width={sideLength} height={sideLength} className={styles['icon']}>
         <rect
-          width={sideLength}
-          height={sideLength}
+          width="100%"
+          height="100%"
           rx={borderRadius}
           fill="#fff"
           strokeWidth={1}
@@ -71,8 +71,8 @@ export const ColorSquare = memo(function ColorSquare({hex, size = 'small', text}
   return (
     <svg width={sideLength} height={sideLength} className={styles['icon']}>
       <rect
-        width={sideLength}
-        height={sideLength}
+        width="100%"
+        height="100%"
         rx={borderRadius}
         fill={hexString}
         strokeWidth={1}

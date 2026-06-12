@@ -318,6 +318,12 @@ export function offscreenCanvasToImageData(
   return ctx.getImageData(0, 0, width, height);
 }
 
+export function imageDataToOffscreenCanvas(imageData: ImageData): OffscreenCanvas {
+  const canvas = new OffscreenCanvas(imageData.width, imageData.height);
+  canvas.getContext('2d')!.putImageData(imageData, 0, 0);
+  return canvas;
+}
+
 export async function offscreenCanvasToBlob(
   offscreenCanvas: OffscreenCanvas,
   {type = 'image/jpeg', quality = 0.95}: ImageEncodeOptions = {}

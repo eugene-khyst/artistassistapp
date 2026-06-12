@@ -36,7 +36,7 @@ msgstr "{colorCount, plural, one {# culoare} few {# culori} other {# de culori}}
 msgid "{expiresIn, plural, one {Code expires in # second} other {Code expires in # seconds}}"
 msgstr "{expiresIn, plural, one {Codul expiră în # secundă} few {Codul expiră în # secunde} other {Codul expiră în # de secunde}}"
 
-#: src/components/auth/LoginQRButton.tsx:73
+#: src/components/auth/LoginQRButton.tsx:74
 msgid "{expiresIn, plural, one {QR code expires in # second} other {QR code expires in # seconds}}"
 msgstr "{expiresIn, plural, one {Codul QR expiră în # secundă} few {Codul QR expiră în # secunde} other {Codul QR expiră în # de secunde}}"
 
@@ -400,6 +400,11 @@ msgstr "Mărci de culori"
 #: src/components/ImageColorPicker.tsx:410
 msgid "Color count"
 msgstr "Număr de culori"
+
+#: src/components/ImageTonalValues.tsx:125
+#: src/components/ImageTonalValues.tsx:128
+msgid "Color map"
+msgstr "Hartă de culori"
 
 #: src/components/messages.ts:36
 msgid "Color mixer"
@@ -810,7 +815,8 @@ msgstr "Mai puțin"
 msgid "Light box"
 msgstr "Cutia luminii"
 
-#: src/components/ImageTonalValues.tsx:86
+#: src/components/ImageTonalValues.tsx:95
+#: src/components/ImageTonalValues.tsx:98
 msgid "Light tone"
 msgstr "Ton deschis"
 
@@ -901,7 +907,8 @@ msgstr "Fuziunea"
 msgid "Merge color sets"
 msgstr "Seturi de culori de uniune"
 
-#: src/components/ImageTonalValues.tsx:87
+#: src/components/ImageTonalValues.tsx:105
+#: src/components/ImageTonalValues.tsx:108
 msgid "Mid tone"
 msgstr "Ton mediu"
 
@@ -1193,8 +1200,8 @@ msgstr "Previzualizare"
 #: src/components/ImageOutline.tsx:255
 #: src/components/ImageOutline.tsx:309
 #: src/components/ImagesCompare.tsx:172
-#: src/components/ImageTonalValues.tsx:104
-#: src/components/ImageTonalValues.tsx:122
+#: src/components/ImageTonalValues.tsx:146
+#: src/components/ImageTonalValues.tsx:164
 #: src/components/palette/PaletteGrid.tsx:107
 #: src/components/print/PrintImageDrawer.tsx:135
 msgid "Print"
@@ -1216,7 +1223,7 @@ msgstr "Politica de confidențialitate"
 msgid "Processing..."
 msgstr "Procesare..."
 
-#: src/components/auth/LoginQRButton.tsx:82
+#: src/components/auth/LoginQRButton.tsx:84
 msgid "QR code expired."
 msgstr "Codul QR a expirat."
 
@@ -1349,8 +1356,8 @@ msgstr "Saturație (%)"
 #: src/components/ImagePerspectiveCorrection.tsx:300
 #: src/components/ImagePerspectiveCorrection.tsx:332
 #: src/components/ImageStyleTransfer.tsx:200
-#: src/components/ImageTonalValues.tsx:112
-#: src/components/ImageTonalValues.tsx:128
+#: src/components/ImageTonalValues.tsx:154
+#: src/components/ImageTonalValues.tsx:170
 msgid "Save"
 msgstr "Salva"
 
@@ -1555,7 +1562,8 @@ msgstr "Setați ca strat de bază pentru glazură."
 msgid "Set as unifying color"
 msgstr "Set ca culoare unificatoare"
 
-#: src/components/ImageTonalValues.tsx:88
+#: src/components/ImageTonalValues.tsx:115
+#: src/components/ImageTonalValues.tsx:118
 msgid "Shadow"
 msgstr "Umbră"
 
@@ -1584,7 +1592,7 @@ msgstr "Arată zonele de pe fotografie care se potrivesc cu această culoare."
 msgid "Show grid"
 msgstr "Afișați grila"
 
-#: src/components/auth/LoginQRButton.tsx:115
+#: src/components/auth/LoginQRButton.tsx:117
 msgid "Show login QR code"
 msgstr "Afișează codul QR de autentificare"
 

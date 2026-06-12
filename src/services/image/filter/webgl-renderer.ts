@@ -23,10 +23,17 @@ import vertexShaderSource from './glsl/vertex.glsl';
 
 export interface RenderPass {
   programIndex?: number;
+  textures?: RenderPassTexture[];
   setUniforms?: (
     gl: WebGL2RenderingContext,
     locations: Map<string, WebGLUniformLocation | null>
   ) => void;
+}
+
+export interface RenderPassTexture {
+  name: string;
+  source: TexImageSource;
+  unit?: number;
 }
 
 export class WebGLRenderer {
@@ -167,6 +174,32 @@ export class WebGLRenderer {
     return framebuffer;
   }
 
+  private bindRenderPassTextures(
+    renderPassTextures: RenderPassTexture[] | undefined,
+    locations: Map<string, WebGLUniformLocation | null>
+  ) {
+    if (!renderPassTextures?.length) {
+      return;
+    }
+
+    const {gl} = this;
+    const maxTextureUnits = gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS) as number;
+    renderPassTextures.forEach(({name, source, unit}, i) => {
+      const textureUnit = unit ?? i + 1;
+      if (textureUnit <= 0) {
+        throw new Error('Texture unit 0 is reserved for the source image');
+      }
+      if (textureUnit >= maxTextureUnits) {
+        throw new Error(`Texture unit ${textureUnit} exceeds the WebGL limit ${maxTextureUnits}`);
+      }
+
+      gl.activeTexture(gl.TEXTURE0 + textureUnit);
+      this.createTexture(source);
+      gl.uniform1i(locations.get(name)!, textureUnit);
+    });
+    gl.activeTexture(gl.TEXTURE0);
+  }
+
   clear() {
     const {gl} = this;
     gl.clear(gl.COLOR_BUFFER_BIT);
@@ -186,7 +219,7 @@ export class WebGLRenderer {
     gl.bindTexture(gl.TEXTURE_2D, this.imageTexture);
 
     let i = 0;
-    for (const {programIndex = 0, setUniforms} of renderPasses) {
+    for (const {programIndex = 0, textures: renderPassTextures, setUniforms} of renderPasses) {
       const isNotLast = i < renderPasses.length - 1;
 
       const program = this.programs[programIndex]!;
@@ -198,9 +231,8 @@ export class WebGLRenderer {
 
       gl.uniform1f(locations.get('u_flipY')!, isNotLast || rawOrientation ? 0.0 : 1.0);
       gl.uniform1i(locations.get('u_texture')!, 0);
-      if (setUniforms) {
-        setUniforms(gl, locations);
-      }
+      this.bindRenderPassTextures(renderPassTextures, locations);
+      setUniforms?.(gl, locations);
 
       gl.bindFramebuffer(gl.FRAMEBUFFER, isNotLast ? framebuffers[i % 2]! : null);
       gl.viewport(0, 0, width, height);

@@ -69,13 +69,15 @@ function LoginQRModal({loading, open, onClose, onRefresh}: Readonly<LoginQRModal
                 <Trans>Scan this code on the device you want to log in.</Trans>
               </Typography.Text>
               <QRCode value={loginLink.link.toString()} />
-              <Typography.Text>
-                <Plural
-                  value={expiresIn}
-                  one="QR code expires in # second"
-                  other="QR code expires in # seconds"
-                />
-              </Typography.Text>
+              {expiresIn < 60 && (
+                <Typography.Text type="secondary">
+                  <Plural
+                    value={expiresIn}
+                    one="QR code expires in # second"
+                    other="QR code expires in # seconds"
+                  />
+                </Typography.Text>
+              )}
             </>
           ) : (
             <Typography.Text>

@@ -36,7 +36,7 @@ msgstr "{colorCount, plural, one {# färg} other {# färger}}"
 msgid "{expiresIn, plural, one {Code expires in # second} other {Code expires in # seconds}}"
 msgstr "{expiresIn, plural, one {Koden går ut om # sekund} other {Koden går ut om # sekunder}}"
 
-#: src/components/auth/LoginQRButton.tsx:73
+#: src/components/auth/LoginQRButton.tsx:74
 msgid "{expiresIn, plural, one {QR code expires in # second} other {QR code expires in # seconds}}"
 msgstr "{expiresIn, plural, one {QR-koden går ut om # sekund} other {QR-koden går ut om # sekunder}}"
 
@@ -400,6 +400,11 @@ msgstr "Färgmärken"
 #: src/components/ImageColorPicker.tsx:410
 msgid "Color count"
 msgstr "Antal färger"
+
+#: src/components/ImageTonalValues.tsx:125
+#: src/components/ImageTonalValues.tsx:128
+msgid "Color map"
+msgstr "Färgkarta"
 
 #: src/components/messages.ts:36
 msgid "Color mixer"
@@ -810,7 +815,8 @@ msgstr "Mindre"
 msgid "Light box"
 msgstr "Ljuslåda"
 
-#: src/components/ImageTonalValues.tsx:86
+#: src/components/ImageTonalValues.tsx:95
+#: src/components/ImageTonalValues.tsx:98
 msgid "Light tone"
 msgstr "Ljus ton"
 
@@ -901,7 +907,8 @@ msgstr "Sammanslagning"
 msgid "Merge color sets"
 msgstr "Sammanslagning av färguppsättningar"
 
-#: src/components/ImageTonalValues.tsx:87
+#: src/components/ImageTonalValues.tsx:105
+#: src/components/ImageTonalValues.tsx:108
 msgid "Mid tone"
 msgstr "Mellanton"
 
@@ -1193,8 +1200,8 @@ msgstr "Förhandsvisning"
 #: src/components/ImageOutline.tsx:255
 #: src/components/ImageOutline.tsx:309
 #: src/components/ImagesCompare.tsx:172
-#: src/components/ImageTonalValues.tsx:104
-#: src/components/ImageTonalValues.tsx:122
+#: src/components/ImageTonalValues.tsx:146
+#: src/components/ImageTonalValues.tsx:164
 #: src/components/palette/PaletteGrid.tsx:107
 #: src/components/print/PrintImageDrawer.tsx:135
 msgid "Print"
@@ -1216,7 +1223,7 @@ msgstr "Integritetspolicy"
 msgid "Processing..."
 msgstr "Bearbetar..."
 
-#: src/components/auth/LoginQRButton.tsx:82
+#: src/components/auth/LoginQRButton.tsx:84
 msgid "QR code expired."
 msgstr "QR-koden har gått ut."
 
@@ -1349,8 +1356,8 @@ msgstr "Mättnad (%)"
 #: src/components/ImagePerspectiveCorrection.tsx:300
 #: src/components/ImagePerspectiveCorrection.tsx:332
 #: src/components/ImageStyleTransfer.tsx:200
-#: src/components/ImageTonalValues.tsx:112
-#: src/components/ImageTonalValues.tsx:128
+#: src/components/ImageTonalValues.tsx:154
+#: src/components/ImageTonalValues.tsx:170
 msgid "Save"
 msgstr "Spara"
 
@@ -1555,7 +1562,8 @@ msgstr "Ställ in som underlag för glasering."
 msgid "Set as unifying color"
 msgstr "Sätts som enhetlig färg"
 
-#: src/components/ImageTonalValues.tsx:88
+#: src/components/ImageTonalValues.tsx:115
+#: src/components/ImageTonalValues.tsx:118
 msgid "Shadow"
 msgstr "Skugga"
 
@@ -1584,7 +1592,7 @@ msgstr "Visa områden på fotot som matchar denna färg."
 msgid "Show grid"
 msgstr "Visa rutnät"
 
-#: src/components/auth/LoginQRButton.tsx:115
+#: src/components/auth/LoginQRButton.tsx:117
 msgid "Show login QR code"
 msgstr "Visa inloggning QR-kod"
 

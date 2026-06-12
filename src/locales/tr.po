@@ -36,7 +36,7 @@ msgstr "{colorCount, plural, one {# renk} other {# renk}}"
 msgid "{expiresIn, plural, one {Code expires in # second} other {Code expires in # seconds}}"
 msgstr "{expiresIn, plural, one {Kod # saniyede sona erer} other {Kod # saniye içinde geçer}}"
 
-#: src/components/auth/LoginQRButton.tsx:73
+#: src/components/auth/LoginQRButton.tsx:74
 msgid "{expiresIn, plural, one {QR code expires in # second} other {QR code expires in # seconds}}"
 msgstr "{expiresIn, plural, one {QR kod # saniyede geçer} other {QR kod # saniye içinde geçer}}"
 
@@ -400,6 +400,11 @@ msgstr "Renk markaları"
 #: src/components/ImageColorPicker.tsx:410
 msgid "Color count"
 msgstr "Renk sayımı"
+
+#: src/components/ImageTonalValues.tsx:125
+#: src/components/ImageTonalValues.tsx:128
+msgid "Color map"
+msgstr "Renk haritası"
 
 #: src/components/messages.ts:36
 msgid "Color mixer"
@@ -810,7 +815,8 @@ msgstr "Daha Az"
 msgid "Light box"
 msgstr "Işık kutusu"
 
-#: src/components/ImageTonalValues.tsx:86
+#: src/components/ImageTonalValues.tsx:95
+#: src/components/ImageTonalValues.tsx:98
 msgid "Light tone"
 msgstr "Hafif ton"
 
@@ -901,7 +907,8 @@ msgstr "Birleşme"
 msgid "Merge color sets"
 msgstr "Renk setlerini birleştir"
 
-#: src/components/ImageTonalValues.tsx:87
+#: src/components/ImageTonalValues.tsx:105
+#: src/components/ImageTonalValues.tsx:108
 msgid "Mid tone"
 msgstr "Orta ton"
 
@@ -1193,8 +1200,8 @@ msgstr "Önizleme"
 #: src/components/ImageOutline.tsx:255
 #: src/components/ImageOutline.tsx:309
 #: src/components/ImagesCompare.tsx:172
-#: src/components/ImageTonalValues.tsx:104
-#: src/components/ImageTonalValues.tsx:122
+#: src/components/ImageTonalValues.tsx:146
+#: src/components/ImageTonalValues.tsx:164
 #: src/components/palette/PaletteGrid.tsx:107
 #: src/components/print/PrintImageDrawer.tsx:135
 msgid "Print"
@@ -1216,7 +1223,7 @@ msgstr "Gizlilik Politikası"
 msgid "Processing..."
 msgstr "İşleme..."
 
-#: src/components/auth/LoginQRButton.tsx:82
+#: src/components/auth/LoginQRButton.tsx:84
 msgid "QR code expired."
 msgstr "QR kod süresi dolmuş."
 
@@ -1349,8 +1356,8 @@ msgstr "Doygunluk (%)"
 #: src/components/ImagePerspectiveCorrection.tsx:300
 #: src/components/ImagePerspectiveCorrection.tsx:332
 #: src/components/ImageStyleTransfer.tsx:200
-#: src/components/ImageTonalValues.tsx:112
-#: src/components/ImageTonalValues.tsx:128
+#: src/components/ImageTonalValues.tsx:154
+#: src/components/ImageTonalValues.tsx:170
 msgid "Save"
 msgstr "Kurtarmak"
 
@@ -1555,7 +1562,8 @@ msgstr "Cam için alt katman olarak ayarlanmış."
 msgid "Set as unifying color"
 msgstr "Birleştirici renk olarak ayarlanır"
 
-#: src/components/ImageTonalValues.tsx:88
+#: src/components/ImageTonalValues.tsx:115
+#: src/components/ImageTonalValues.tsx:118
 msgid "Shadow"
 msgstr "Gölge"
 
@@ -1584,7 +1592,7 @@ msgstr "Fotoğrafta bu renkle eşleşen alanları gösterin."
 msgid "Show grid"
 msgstr "Izgarayı göster"
 
-#: src/components/auth/LoginQRButton.tsx:115
+#: src/components/auth/LoginQRButton.tsx:117
 msgid "Show login QR code"
 msgstr "Giriş QR kodunu göster"
 

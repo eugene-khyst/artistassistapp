@@ -36,7 +36,7 @@ msgstr "{colorCount, plural, one {# farve} other {# farver}}"
 msgid "{expiresIn, plural, one {Code expires in # second} other {Code expires in # seconds}}"
 msgstr "{expiresIn, plural, one {Koden udløber om # sekund} other {Koden udløber om # sekunder}}"
 
-#: src/components/auth/LoginQRButton.tsx:73
+#: src/components/auth/LoginQRButton.tsx:74
 msgid "{expiresIn, plural, one {QR code expires in # second} other {QR code expires in # seconds}}"
 msgstr "{expiresIn, plural, one {QR-koden udløber om # sekund} other {QR-koden udløber om # sekunder}}"
 
@@ -400,6 +400,11 @@ msgstr "Farve mærker"
 #: src/components/ImageColorPicker.tsx:410
 msgid "Color count"
 msgstr "Antal farver"
+
+#: src/components/ImageTonalValues.tsx:125
+#: src/components/ImageTonalValues.tsx:128
+msgid "Color map"
+msgstr "Farvekort"
 
 #: src/components/messages.ts:36
 msgid "Color mixer"
@@ -810,7 +815,8 @@ msgstr "Mindre"
 msgid "Light box"
 msgstr "Lyskasse"
 
-#: src/components/ImageTonalValues.tsx:86
+#: src/components/ImageTonalValues.tsx:95
+#: src/components/ImageTonalValues.tsx:98
 msgid "Light tone"
 msgstr "Lys tone"
 
@@ -901,7 +907,8 @@ msgstr "Sammenlægning"
 msgid "Merge color sets"
 msgstr "Sammenflet farvesæt"
 
-#: src/components/ImageTonalValues.tsx:87
+#: src/components/ImageTonalValues.tsx:105
+#: src/components/ImageTonalValues.tsx:108
 msgid "Mid tone"
 msgstr "Mellemtone"
 
@@ -1193,8 +1200,8 @@ msgstr "Preview"
 #: src/components/ImageOutline.tsx:255
 #: src/components/ImageOutline.tsx:309
 #: src/components/ImagesCompare.tsx:172
-#: src/components/ImageTonalValues.tsx:104
-#: src/components/ImageTonalValues.tsx:122
+#: src/components/ImageTonalValues.tsx:146
+#: src/components/ImageTonalValues.tsx:164
 #: src/components/palette/PaletteGrid.tsx:107
 #: src/components/print/PrintImageDrawer.tsx:135
 msgid "Print"
@@ -1216,7 +1223,7 @@ msgstr "Politik om beskyttelse af personlige oplysninger"
 msgid "Processing..."
 msgstr "Behandler..."
 
-#: src/components/auth/LoginQRButton.tsx:82
+#: src/components/auth/LoginQRButton.tsx:84
 msgid "QR code expired."
 msgstr "QR-koden er udløbet."
 
@@ -1349,8 +1356,8 @@ msgstr "Mætning (%)"
 #: src/components/ImagePerspectiveCorrection.tsx:300
 #: src/components/ImagePerspectiveCorrection.tsx:332
 #: src/components/ImageStyleTransfer.tsx:200
-#: src/components/ImageTonalValues.tsx:112
-#: src/components/ImageTonalValues.tsx:128
+#: src/components/ImageTonalValues.tsx:154
+#: src/components/ImageTonalValues.tsx:170
 msgid "Save"
 msgstr "Spare"
 
@@ -1555,7 +1562,8 @@ msgstr "Sæt som underlag til glasering."
 msgid "Set as unifying color"
 msgstr "Sæt som forenende farve"
 
-#: src/components/ImageTonalValues.tsx:88
+#: src/components/ImageTonalValues.tsx:115
+#: src/components/ImageTonalValues.tsx:118
 msgid "Shadow"
 msgstr "Skygge"
 
@@ -1584,7 +1592,7 @@ msgstr "Vis områder på billedet, der matcher denne farve."
 msgid "Show grid"
 msgstr "Vis gitter"
 
-#: src/components/auth/LoginQRButton.tsx:115
+#: src/components/auth/LoginQRButton.tsx:117
 msgid "Show login QR code"
 msgstr "Vis login QR-kode"
 

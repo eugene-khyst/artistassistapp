@@ -19,13 +19,17 @@
 import {DownloadOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {CheckboxOptionType, RadioChangeEvent} from 'antd';
-import {Button, Col, Dropdown, Grid, Radio, Row, Space} from 'antd';
+import {Button, Col, Dropdown, Flex, Grid, Radio, Row, Space} from 'antd';
 import {saveAs} from 'file-saver';
 import {useEffect, useState} from 'react';
 
+import {ColorSquare} from '@/components/color/ColorSquare';
+import {GradientRect} from '@/components/color/GradientRect';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '@/hooks/useZoomableImageCanvas';
 import type {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
+import {COLOR_MAP_STOP_HEXES} from '@/services/image/filter/color-map-webgl';
+import {TONAL_VALUE_HEXES} from '@/services/image/tonal-values';
 import {printImages} from '@/services/print/print';
 import {useAppStore} from '@/stores/app-store';
 import {getFilename} from '@/utils/filename';
@@ -83,9 +87,46 @@ export function ImageTonalValues() {
   }
 
   const toneOptions: CheckboxOptionType[] = [
-    {value: 0, label: t`Light tone`},
-    {value: 1, label: t`Mid tone`},
-    {value: 2, label: t`Shadow`},
+    {
+      value: 0,
+      label: (
+        <Flex align="center" gap="small">
+          <ColorSquare size="small" hex={TONAL_VALUE_HEXES[0]!} />
+          {screens.sm && <Trans>Light tone</Trans>}
+        </Flex>
+      ),
+      title: screens.sm ? undefined : t`Light tone`,
+    },
+    {
+      value: 1,
+      label: (
+        <Flex align="center" gap="small">
+          <ColorSquare size="small" hex={TONAL_VALUE_HEXES[1]!} />
+          {screens.sm && <Trans>Mid tone</Trans>}
+        </Flex>
+      ),
+      title: screens.sm ? undefined : t`Mid tone`,
+    },
+    {
+      value: 2,
+      label: (
+        <Flex align="center" gap="small">
+          <ColorSquare size="small" hex={TONAL_VALUE_HEXES[2]!} />
+          {screens.sm && <Trans>Shadow</Trans>}
+        </Flex>
+      ),
+      title: screens.sm ? undefined : t`Shadow`,
+    },
+    {
+      value: 3,
+      label: (
+        <Flex align="center" gap="small">
+          <GradientRect hexes={COLOR_MAP_STOP_HEXES} />
+          {screens.sm && <Trans>Color map</Trans>}
+        </Flex>
+      ),
+      title: screens.sm ? undefined : t`Color map`,
+    },
   ];
 
   return (
@@ -97,6 +138,7 @@ export function ImageTonalValues() {
           onChange={handleTonalValueChange}
           optionType="button"
           buttonStyle="solid"
+          className={screens.sm ? undefined : styles['toneRadioGroupCompact']}
         />
         {screens.sm ? (
           <>

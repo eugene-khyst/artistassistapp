@@ -3,6 +3,15 @@
   height: calc((100dvh - 115px) / 2);
 }
 
+.toneRadioGroupCompact {
+  display: flex !important;
+}
+
+.toneRadioGroupCompact :global(.ant-radio-button-wrapper) {
+  display: inline-flex;
+  align-items: center;
+}
+
 @media (min-width: 576px) {
   .previewCanvas {
     height: calc(100dvh - 115px);
