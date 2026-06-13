@@ -32,7 +32,7 @@ ArtistAssistApp offers the following features:
 - Save & access your favorite color mixes instantly
 - Convert your photos into clean outlines, then trace them your way: print at any size on your home printer, turn your tablet or laptop into a light box (no printer needed), or overlay directly onto canvas, walls, or any surface with AR.
 - Add a grid over your reference photo for accurate, proportional drawing.
-- Analyze tonal values to improve contrast
+- Analyze tonal values to improve contrast, including a color map view
 - Simplify photos by smoothing details
 - Mix harmonious colors with limited palettes
 - Get inspired by applying artistic styles to your photos
@@ -49,7 +49,7 @@ Try it now at [ArtistAssistApp.com](https://artistassistapp.com)
 
 - Go to [ArtistAssistApp.com](https://artistassistapp.com/).
 - [Watch the video tutorials](https://artistassistapp.com/en/tutorials/).
-- Join on [Patreon](https://www.patreon.com/ArtistAssistApp)
+- Join on [Patreon](https://www.patreon.com/ArtistAssistApp), then log in with Patreon, an email code, or a QR code.
 - Want to contact us? [Find our contacts](https://artistassistapp.com/contact/).
 
 ## <a id="3"></a>Implementation details
@@ -74,6 +74,7 @@ following:
 - Sobel operator for edge detection (WebGL)
 - separable grayscale dilation (max morphology) for edge thickening (WebGL)
 - threshold filter based on perceived lightness (WebGL)
+- tonal color map (WebGL)
 - Otsu's method for automatic threshold selection in Oklab lightness (CPU)
 - Kuwahara blur filter (WebGL)
 - color match filter using Oklab Euclidean distance (WebGL)
