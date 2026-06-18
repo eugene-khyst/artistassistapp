@@ -31,7 +31,7 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {App, Button, Dropdown, Flex, Grid, Space, Tooltip, Typography} from 'antd';
 import type {MenuProps} from 'antd/lib';
 import {saveAs} from 'file-saver';
-import {useEffect} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
 import {FileSelect} from '@/components/file/FileSelect';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
@@ -39,7 +39,7 @@ import {useOnnxModel} from '@/hooks/useOnnxModel';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
 import {ImageCroppingCanvas} from '@/services/canvas/image/image-cropping-canvas';
 import {ImagePerspectiveCorrectionCanvas} from '@/services/canvas/image/image-perspective-correction-canvas';
-import type {Vector} from '@/services/math/geometry';
+import type {Rectangle, Vector} from '@/services/math/geometry';
 import {OnnxModelType} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
 import {TabKey} from '@/tabs';
@@ -55,10 +55,6 @@ const imagePerspectiveCorrectionCanvasSupplier = (
   canvas: HTMLCanvasElement
 ): ImagePerspectiveCorrectionCanvas => {
   return new ImagePerspectiveCorrectionCanvas(canvas, {lineWidth: 3});
-};
-
-const imageCroppingCanvasSupplier = (canvas: HTMLCanvasElement): ImageCroppingCanvas => {
-  return new ImageCroppingCanvas(canvas);
 };
 
 export function ImagePerspectiveCorrection() {
@@ -92,6 +88,15 @@ export function ImagePerspectiveCorrection() {
   const {notification} = App.useApp();
 
   const {t} = useLingui();
+
+  const [cropRectangle, setCropRectangle] = useState<Rectangle | null>(null);
+
+  const imageCroppingCanvasSupplier = useCallback(
+    (canvas: HTMLCanvasElement): ImageCroppingCanvas => {
+      return new ImageCroppingCanvas(canvas, {onCropChange: setCropRectangle});
+    },
+    []
+  );
 
   const {
     model,
@@ -220,23 +225,33 @@ export function ImagePerspectiveCorrection() {
     abortPerspectiveAutoDetect();
   };
 
+  const aspectRatio = cropRectangle ? cropRectangle.width / cropRectangle.height : Number.NaN;
+
   const saveItems: MenuProps['items'] = [
-    {
-      key: 'save-4:5',
-      label: t`Save expanded to 4:5`,
-      icon: <DownloadOutlined />,
-      onClick: () => {
-        void handleSaveClick(4 / 5);
-      },
-    },
-    {
-      key: 'save-1.91:1',
-      label: t`Save expanded to 1.91:1`,
-      icon: <DownloadOutlined />,
-      onClick: () => {
-        void handleSaveClick(1.91 / 1);
-      },
-    },
+    ...(aspectRatio < 4 / 5
+      ? [
+          {
+            key: 'save-4:5',
+            label: t`Save expanded to 4:5`,
+            icon: <DownloadOutlined />,
+            onClick: () => {
+              void handleSaveClick(4 / 5);
+            },
+          },
+        ]
+      : []),
+    ...(aspectRatio > 1.91
+      ? [
+          {
+            key: 'save-1.91:1',
+            label: t`Save expanded to 1.91:1`,
+            icon: <DownloadOutlined />,
+            onClick: () => {
+              void handleSaveClick(1.91 / 1);
+            },
+          },
+        ]
+      : []),
   ];
 
   return (
@@ -299,9 +314,11 @@ export function ImagePerspectiveCorrection() {
                         >
                           <Trans>Save</Trans>
                         </Button>
-                        <Dropdown menu={{items: saveItems}} trigger={['click']}>
-                          <Button icon={<DownOutlined />} />
-                        </Dropdown>
+                        {saveItems.length > 0 && (
+                          <Dropdown menu={{items: saveItems}} trigger={['click']}>
+                            <Button icon={<DownOutlined />} />
+                          </Dropdown>
+                        )}
                       </Space.Compact>
                       <Button
                         icon={<BarChartOutlined />}

@@ -37,10 +37,12 @@ enum HitBox {
 
 export interface ImageCroppingCanvasProps extends ZoomableImageCanvasProps {
   hitBoxSize?: number;
+  onCropChange?: (cropRectangle: Rectangle) => void;
 }
 
 export class ImageCroppingCanvas extends ZoomableImageCanvas {
   private readonly hitBoxSize: number;
+  private readonly onCropChange?: (cropRectangle: Rectangle) => void;
   private margins: Margins = {top: 0, bottom: 0, left: 0, right: 0};
   private hitBox?: HitBox | null = null;
   private lastMargins?: Margins | null = null;
@@ -48,7 +50,8 @@ export class ImageCroppingCanvas extends ZoomableImageCanvas {
   constructor(canvas: HTMLCanvasElement, props: ImageCroppingCanvasProps = {}) {
     super(canvas, props);
 
-    ({hitBoxSize: this.hitBoxSize = 30} = props);
+    this.hitBoxSize = props.hitBoxSize ?? 30;
+    this.onCropChange = props.onCropChange;
   }
 
   protected override onImagesLoaded(): void {
@@ -106,8 +109,19 @@ export class ImageCroppingCanvas extends ZoomableImageCanvas {
     return {...this.margins};
   }
 
+  private getCropRectangle(): Rectangle {
+    const {top, bottom, left, right} = this.margins;
+    const {width, height} = this.getImageDimension();
+    return new Rectangle(new Vector(width - right, height - bottom), new Vector(left, top));
+  }
+
+  private notifyCropChange(): void {
+    this.onCropChange?.(this.getCropRectangle());
+  }
+
   resetMargins(): void {
     this.margins = {top: 0, bottom: 0, left: 0, right: 0};
+    this.notifyCropChange();
     this.requestRedraw();
   }
 
@@ -184,7 +198,11 @@ export class ImageCroppingCanvas extends ZoomableImageCanvas {
   }
 
   protected override onDragEnd(): void {
+    const cropChanged = !!this.hitBox;
     this.hitBox = null;
     this.lastMargins = null;
+    if (cropChanged) {
+      this.notifyCropChange();
+    }
   }
 }

@@ -276,23 +276,35 @@ export function ImageColorAdjustment() {
     setMethod(value);
   };
 
+  const aspectRatio = colorAdjustedImage
+    ? colorAdjustedImage.width / colorAdjustedImage.height
+    : Number.NaN;
+
   const saveItems: MenuProps['items'] = [
-    {
-      key: 'save-4:5',
-      label: t`Save expanded to 4:5`,
-      icon: <DownloadOutlined />,
-      onClick: () => {
-        void handleSaveClick(4 / 5);
-      },
-    },
-    {
-      key: 'save-1.91:1',
-      label: t`Save expanded to 1.91:1`,
-      icon: <DownloadOutlined />,
-      onClick: () => {
-        void handleSaveClick(1.91 / 1);
-      },
-    },
+    ...(aspectRatio < 4 / 5
+      ? [
+          {
+            key: 'save-4:5',
+            label: t`Save expanded to 4:5`,
+            icon: <DownloadOutlined />,
+            onClick: () => {
+              void handleSaveClick(4 / 5);
+            },
+          },
+        ]
+      : []),
+    ...(aspectRatio > 1.91
+      ? [
+          {
+            key: 'save-1.91:1',
+            label: t`Save expanded to 1.91:1`,
+            icon: <DownloadOutlined />,
+            onClick: () => {
+              void handleSaveClick(1.91 / 1);
+            },
+          },
+        ]
+      : []),
   ];
 
   const modeOptions: CheckboxOptionType<number>[] = [
@@ -334,9 +346,11 @@ export function ImageColorAdjustment() {
                   >
                     <Trans>Save</Trans>
                   </Button>
-                  <Dropdown menu={{items: saveItems}} trigger={['click']}>
-                    <Button icon={<DownOutlined />} />
-                  </Dropdown>
+                  {saveItems.length > 0 && (
+                    <Dropdown menu={{items: saveItems}} trigger={['click']}>
+                      <Button icon={<DownOutlined />} />
+                    </Dropdown>
+                  )}
                 </Space.Compact>
               )}
             </Space>
