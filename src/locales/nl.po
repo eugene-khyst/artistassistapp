@@ -17,7 +17,7 @@ msgstr ""
 msgid "({colorCount} colors)"
 msgstr "({colorCount} kleuren)"
 
-#: src/components/ColorSetChooser.tsx:643
+#: src/components/ColorSetChooser.tsx:639
 msgid "{brandName} colors"
 msgstr "{brandName} kleuren"
 
@@ -36,18 +36,18 @@ msgstr "{colorCount, plural, one {# kleur} other {# kleuren}}"
 msgid "{expiresIn, plural, one {Code expires in # second} other {Code expires in # seconds}}"
 msgstr "{expiresIn, plural, one {Code verloopt over # seconde} other {De code verloopt over # seconden}}"
 
-#: src/components/auth/LoginQRButton.tsx:74
+#: src/components/auth/ShowLoginQRButton.tsx:74
 msgid "{expiresIn, plural, one {QR code expires in # second} other {QR code expires in # seconds}}"
 msgstr "{expiresIn, plural, one {QR-code verloopt over # seconde} other {QR-code verloopt over # seconden}}"
 
-#: src/components/ColorSetChooser.tsx:596
-#: src/components/ColorSetChooser.tsx:644
+#: src/components/ColorSetChooser.tsx:592
+#: src/components/ColorSetChooser.tsx:640
 msgid "{FIELD} are required"
 msgstr "{FIELD} zijn verplicht"
 
-#: src/components/ColorSetChooser.tsx:563
-#: src/components/ColorSetChooser.tsx:572
-#: src/components/ColorSetChooser.tsx:625
+#: src/components/ColorSetChooser.tsx:559
+#: src/components/ColorSetChooser.tsx:568
+#: src/components/ColorSetChooser.tsx:621
 #: src/components/CustomColorBrandCreator.tsx:436
 #: src/components/CustomColorBrandCreator.tsx:447
 #: src/components/CustomColorBrandCreator.tsx:455
@@ -87,17 +87,21 @@ msgstr "<0/> Windows en <1/> Linux"
 msgid "<0>{similarityText}%</0> similarity"
 msgstr "<0>{similarityText}%</0> gelijkenis"
 
-#: src/components/ColorSetChooser.tsx:479
-msgid "<0>ArtistAssistApp</0> is a web app that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more."
-msgstr "<0>ArtistAssistApp</0> is een web-app die kunstenaars helpt om kleuren uit foto's te mengen, toonwaarden te analyseren, foto's te schetsen, te tekenen met rasters, te schilderen met beperkte paletten en meer."
+#: src/components/ColorSetChooser.tsx:503
+msgid "<0>Already a paid member?</0> Log in to unlock your paid features."
+msgstr "<0>Al betaald lid?</0> Log in om je betaalde functies te ontgrendelen."
+
+#: src/components/ColorSetChooser.tsx:461
+msgid "<0>ArtistAssistApp</0> is a web app that helps artists mix colors from reference photos, make tonal value studies, outline photos, draw with grids, paint with limited palettes, and more."
+msgstr "<0>ArtistAssistApp</0> is een webapp die kunstenaars helpt kleuren te mengen uit referentiefoto's, toonale waardestudies te maken, foto's te omlijnen, te tekenen met rasters, te schilderen met beperkte paletten, en meer."
 
 #: src/components/error/AuthFeedbackHandler.tsx:77
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Controleer je Patreon-account</0>: Zorg ervoor dat je bent ingelogd bij <1>Patreon.com</1> in je webbrowser met hetzelfde e-mailadres dat je gebruikte om je lidmaatschap te kopen. Als je meerdere accounts hebt, log dan uit en log weer in met het juiste account."
 
-#: src/components/ColorSetChooser.tsx:500
-msgid "<0>Join ArtistAssistApp on Patreon as a paid member</0>, or <1>log in with Patreon</1> if you've already joined, to get access to more than 250 color brands and all image processing modes without ads."
-msgstr "<0>Word lid van ArtistAssistApp op Patreon als betaald lid</0>, of <1>log in bij Patreon</1> als je al lid bent, om toegang te krijgen tot meer dan 250 kleurmerken en alle beeldverwerkingsmodi zonder advertenties."
+#: src/components/ColorSetChooser.tsx:491
+msgid "<0>Not a paid member yet?</0> Become a paid ArtistAssistApp member on Patreon to unlock all paid features, including more than 250 color brands and ad-free access.<1/>You can continue exploring the free version before deciding to upgrade."
+msgstr "<0>Nog geen betaald lid?</0> Word een betaald lid van ArtistAssistApp op Patreon om alle betaalde functies te ontgrendelen, waaronder meer dan 250 kleurmerken en advertentievrije toegang.<1/>Je kunt de gratis versie blijven verkennen voordat je besluit te upgraden."
 
 #: src/components/error/AuthFeedbackHandler.tsx:95
 msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
@@ -123,7 +127,7 @@ msgstr "Er is een nieuwe versie van de app beschikbaar en zal automatisch worden
 msgid "A new version of the application is available."
 msgstr "Een nieuwe versie van de applicatie is beschikbaar."
 
-#: src/components/ImageColorAdjustment.tsx:439
+#: src/components/ImageColorAdjustment.tsx:453
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Een waarde van minder dan 100% zorgt ervoor dat de afbeelding er minder kleurrijk uitziet en een waarde van meer dan 100% zorgt ervoor dat deze er te kleurrijk uitziet"
 
@@ -151,7 +155,7 @@ msgstr "Kleur toevoegen"
 msgid "Add color mixtures to the palette."
 msgstr "Voeg kleurmengsels toe aan het palet."
 
-#: src/components/ColorSetChooser.tsx:646
+#: src/components/ColorSetChooser.tsx:642
 msgid "Add or remove colors to match your actual color set."
 msgstr "Voeg kleuren toe of verwijder ze zodat ze overeenkomen met uw werkelijke kleurenset."
 
@@ -167,13 +171,13 @@ msgstr "Toevoegen aan palet"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Voeg wit toe in een <0>{whiteRatioText} verhouding</0>"
 
-#: src/components/ImagePerspectiveCorrection.tsx:312
-#: src/components/ImagePerspectiveCorrection.tsx:341
+#: src/components/ImagePerspectiveCorrection.tsx:329
+#: src/components/ImagePerspectiveCorrection.tsx:358
 #: src/components/messages.ts:41
 msgid "Adjust colors"
 msgstr "Kleuren aanpassen"
 
-#: src/components/ImagePerspectiveCorrection.tsx:168
+#: src/components/ImagePerspectiveCorrection.tsx:173
 msgid "Adjust the 4 points manually."
 msgstr "Stel de 4 punten handmatig aan."
 
@@ -195,7 +199,7 @@ msgstr "Applicatie-build ID"
 
 #: src/components/ColorMixingChart.tsx:190
 #: src/components/ImageLimitedPalette.tsx:122
-#: src/components/ImagePerspectiveCorrection.tsx:277
+#: src/components/ImagePerspectiveCorrection.tsx:292
 msgid "Apply"
 msgstr "Toepassen"
 
@@ -228,7 +232,7 @@ msgstr "Weet je zeker dat je de cache wilt wissen?"
 msgid "Are you sure you want to delete all app data?"
 msgstr "Weet u zeker dat u alle app-gegevens wilt verwijderen?"
 
-#: src/components/ColorSetChooser.tsx:735
+#: src/components/ColorSetChooser.tsx:736
 msgid "Are you sure you want to delete this color set?"
 msgstr "Weet je zeker dat je deze kleurenset wilt verwijderen?"
 
@@ -249,7 +253,7 @@ msgstr "Weet je zeker dat je alle kleurmengsels wilt verwijderen?"
 msgid "Are you sure you want to remove this color mixture?"
 msgstr "Weet je zeker dat je dit kleurenmengsel wilt verwijderen?"
 
-#: src/components/ColorSetChooser.tsx:562
+#: src/components/ColorSetChooser.tsx:558
 #: src/components/CustomColorBrandCreator.tsx:446
 msgid "Art medium"
 msgstr "Kunst medium"
@@ -274,8 +278,8 @@ msgstr "Authenticatiefout"
 msgid "Auto palette"
 msgstr "Auto palet"
 
-#: src/components/ImagePerspectiveCorrection.tsx:274
-#: src/components/ImagePerspectiveCorrection.tsx:351
+#: src/components/ImagePerspectiveCorrection.tsx:289
+#: src/components/ImagePerspectiveCorrection.tsx:368
 msgid "Auto-detect"
 msgstr "Automatische detectie"
 
@@ -287,7 +291,7 @@ msgstr "Automatische back-up van kleurensets"
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Vind automatisch de beste kleurmengsels voor deze foto."
 
-#: src/components/ImageColorAdjustment.tsx:413
+#: src/components/ImageColorAdjustment.tsx:427
 msgid "Average color of the white point area"
 msgstr "Gemiddelde kleur van het witpuntgebied"
 
@@ -295,6 +299,10 @@ msgstr "Gemiddelde kleur van het witpuntgebied"
 #: src/components/ImageBackgroundRemoval.tsx:112
 msgid "Background"
 msgstr "Achtergrond"
+
+#: src/components/auth/JoinButton.tsx:27
+msgid "Become a paid member"
+msgstr "Word betaald lid"
 
 #: src/components/ImageColorPicker.tsx:317
 msgid "Blending"
@@ -364,7 +372,7 @@ msgstr "Transparante onderlaag"
 msgid "Clear unifying color"
 msgstr "Heldere, verenigende kleur"
 
-#: src/components/ImageColorAdjustment.tsx:405
+#: src/components/ImageColorAdjustment.tsx:419
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Klik 🖱️ of tik 👆 ergens in de foto om een witpunt te kiezen."
 
@@ -393,7 +401,7 @@ msgstr "Kleur"
 msgid "Color brand"
 msgstr "Kleur merk"
 
-#: src/components/ColorSetChooser.tsx:594
+#: src/components/ColorSetChooser.tsx:590
 msgid "Color brands"
 msgstr "Kleur merken"
 
@@ -422,7 +430,7 @@ msgstr "Kleurenmengsel"
 msgid "Color picker"
 msgstr "Kleurkiezer"
 
-#: src/components/ColorSetChooser.tsx:570
+#: src/components/ColorSetChooser.tsx:566
 #: src/components/ImageColorPicker.tsx:241
 #: src/components/messages.ts:28
 msgid "Color set"
@@ -443,8 +451,8 @@ msgid "Colors"
 msgstr "Kleuren"
 
 #: src/components/messages.ts:43
-msgid "Compare"
-msgstr "Vergelijken"
+msgid "Compare photos"
+msgstr "Vergelijk foto's"
 
 #: src/components/Help.tsx:132
 msgid "Contact"
@@ -470,19 +478,19 @@ msgstr "Kopieer een ondersteund image naar het klembord en probeer het dan opnie
 msgid "Copy and share this link"
 msgstr "Kopieer en deel deze link"
 
-#: src/components/ImageColorAdjustment.tsx:563
+#: src/components/ImageColorAdjustment.tsx:577
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Gecorrigeerde schatting van de temperatuur van de lichtbron in Kelvin"
 
-#: src/components/ImagePerspectiveCorrection.tsx:167
+#: src/components/ImagePerspectiveCorrection.tsx:172
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Kon het papier of canvas niet automatisch detecteren"
 
-#: src/components/ColorSetChooser.tsx:713
+#: src/components/ColorSetChooser.tsx:709
 msgid "Create a duplicate of this color set for further modification"
 msgstr "Maak een duplicaat van deze kleurenset voor verdere wijziging"
 
-#: src/components/ColorSetChooser.tsx:722
+#: src/components/ColorSetChooser.tsx:718
 msgid "Create a new color set by merging existing ones"
 msgstr "Maak een nieuwe kleurset aan door bestaande te combineren"
 
@@ -499,7 +507,7 @@ msgstr "Aangepaste kleurenset"
 msgid "Custom colors"
 msgstr "Aangepaste kleuren"
 
-#: src/components/ColorSetChooser.tsx:749
+#: src/components/ColorSetChooser.tsx:750
 #: src/components/CustomColorBrandCreator.tsx:482
 #: src/components/image/RecentImageCard.tsx:83
 msgid "Delete"
@@ -510,7 +518,7 @@ msgstr "Verwijderen"
 msgid "Delete all app data"
 msgstr "Alle app-gegevens verwijderen"
 
-#: src/components/ColorSetChooser.tsx:734
+#: src/components/ColorSetChooser.tsx:735
 msgid "Delete the color set"
 msgstr "De kleurenset verwijderen"
 
@@ -524,7 +532,7 @@ msgstr "De aangepaste huisstijl verwijderen"
 msgid "Delete the recent photo"
 msgstr "De recente foto verwijderen"
 
-#: src/components/ColorSetChooser.tsx:744
+#: src/components/ColorSetChooser.tsx:745
 msgid "Delete this color set"
 msgstr "Deze kleurenset verwijderen"
 
@@ -556,7 +564,7 @@ msgstr "Middellijn"
 msgid "Dilute the paint with water in a <0>{ratioText} ratio</0>"
 msgstr "Verdun de verf met water in een <0>{ratioText} verhouding</0>"
 
-#: src/components/ColorSetChooser.tsx:627
+#: src/components/ColorSetChooser.tsx:623
 msgid "Do you have a store-bought or custom color set?"
 msgstr "Heb je een in de winkel gekochte of op maat gemaakte kleurenset?"
 
@@ -580,7 +588,7 @@ msgstr "Laat de bestanden hier vallen..."
 msgid "Dry Pastel"
 msgstr "Droog Pastel"
 
-#: src/components/ColorSetChooser.tsx:716
+#: src/components/ColorSetChooser.tsx:712
 msgid "Duplicate"
 msgstr "Duplicaat"
 
@@ -625,24 +633,24 @@ msgstr "Foutbeschrijving"
 msgid "Error loading sample photos"
 msgstr "Foutlaadvoorbeeldfoto's"
 
-#: src/components/ColorSetChooser.tsx:226
+#: src/components/ColorSetChooser.tsx:219
 msgid "Error while fetching color brand data"
 msgstr "Fout bij het ophalen van kleurmerkgegevens"
 
-#: src/components/ColorSetChooser.tsx:248
+#: src/components/ColorSetChooser.tsx:241
 msgid "Error while fetching color data"
 msgstr "Fout bij het ophalen van kleurgegevens"
 
-#: src/components/ImagePerspectiveCorrection.tsx:120
+#: src/components/ImagePerspectiveCorrection.tsx:125
 #: src/hooks/useSelectedOnnxModel.ts:95
 msgid "Error while fetching ML model data"
 msgstr "Fout bij het ophalen van ML-modelgegevens"
 
-#: src/components/ColorSetChooser.tsx:237
+#: src/components/ColorSetChooser.tsx:230
 msgid "Error while fetching standard color set data"
 msgstr "Fout bij het ophalen van gegevens van de standaardkleurenset"
 
-#: src/components/ImageColorAdjustment.tsx:533
+#: src/components/ImageColorAdjustment.tsx:547
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Geschatte temperatuur van de lichtbron in Kelvin waarmee de foto is gemaakt"
 
@@ -651,11 +659,7 @@ msgstr "Geschatte temperatuur van de lichtbron in Kelvin waarmee de foto is gema
 msgid "Exit AR"
 msgstr "Exit AR"
 
-#: src/components/ColorSetChooser.tsx:510
-msgid "Explore the free version before deciding to purchase a paid membership."
-msgstr "Verken de gratis versie voordat u besluit een betaald lidmaatschap aan te schaffen."
-
-#: src/components/ColorSetChooser.tsx:414
+#: src/components/ColorSetChooser.tsx:396
 #: src/components/CustomColorBrandCreator.tsx:350
 msgid "Fill in the required fields"
 msgstr "Vul de verplichte velden in"
@@ -672,7 +676,7 @@ msgstr "Volle druk"
 msgid "Full strength"
 msgstr "Volle sterkte"
 
-#: src/components/ImageColorAdjustment.tsx:484
+#: src/components/ImageColorAdjustment.tsx:498
 msgid "Gamma"
 msgstr "Gamma"
 
@@ -680,7 +684,7 @@ msgstr "Gamma"
 msgid "Get a code"
 msgstr "Haal een code"
 
-#: src/components/auth/LoginQRButton.tsx:58
+#: src/components/auth/ShowLoginQRButton.tsx:58
 msgid "Get a new QR code"
 msgstr "Krijg een nieuwe QR-code"
 
@@ -688,7 +692,7 @@ msgstr "Krijg een nieuwe QR-code"
 msgid "Gifted membership"
 msgstr "Begaafd lidmaatschap"
 
-#: src/components/ColorSetChooser.tsx:587
+#: src/components/ColorSetChooser.tsx:583
 msgid "Give your color set a name for easy access."
 msgstr "Geef je kleurenset een naam voor gemakkelijke toegang."
 
@@ -725,12 +729,15 @@ msgstr "Rooster"
 msgid "Height"
 msgstr "Hoogte"
 
-#: src/components/ColorSetChooser.tsx:532
 #: src/components/messages.ts:45
 msgid "Help"
 msgstr "Help"
 
-#: src/components/ColorSetChooser.tsx:273
+#: src/components/ColorSetChooser.tsx:524
+msgid "Help & tutorials"
+msgstr "Hulp & tutorials"
+
+#: src/components/ColorSetChooser.tsx:266
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Als u niet opslaat, gaan wijzigingen in de kleurenset mogelijk verloren."
 
@@ -743,13 +750,16 @@ msgid "Include transparent layers over the surface or underlayer when finding ma
 msgstr "Voeg transparante lagen toe over het oppervlak of de onderlaag bij het zoeken naar matches."
 
 #: src/components/messages.ts:39
-msgid "Inspire"
-msgstr "Inspireren"
+msgid "Inspiration"
+msgstr "Inspiratie"
 
-#: src/components/install/InstallButton.tsx:37
 #: src/hooks/usePersistentStorage.tsx:60
 msgid "Install"
 msgstr "Installeren"
+
+#: src/components/install/InstallButton.tsx:37
+msgid "Install app"
+msgstr "Installeer app"
 
 #: src/components/install/InstallDrawer.tsx:196
 msgid "Install ArtistAssistApp"
@@ -759,7 +769,7 @@ msgstr "Installeer ArtistAssistApp"
 msgid "Install update"
 msgstr "Installatie-update"
 
-#: src/components/ImageColorAdjustment.tsx:561
+#: src/components/ImageColorAdjustment.tsx:575
 msgid "Intended color temperature (K)"
 msgstr "Beoogde kleurtemperatuur (K)"
 
@@ -778,10 +788,6 @@ msgstr "Ongeldige QR-code"
 #: src/components/ImagesCompare.tsx:99
 msgid "It can be difficult to choose between multiple photos. Comparing each photo with others in pairs simplifies the choice and helps to identify the most preferred one."
 msgstr "Het kan moeilijk zijn om te kiezen tussen meerdere foto's. Door elke foto in paren met andere te vergelijken, wordt de keuze vereenvoudigd en kan de foto worden geïdentificeerd die de meeste voorkeur geniet."
-
-#: src/components/auth/JoinButton.tsx:27
-msgid "Join on Patreon"
-msgstr "Doe mee op Patreon"
 
 #: src/components/ImageChooser.tsx:83
 msgid "Keep all"
@@ -840,7 +846,7 @@ msgstr "Link gekopieerd naar klembord"
 msgid "Load color brand file"
 msgstr "Laad het kleurmerkbestand"
 
-#: src/components/ColorSetChooser.tsx:767
+#: src/components/ColorSetChooser.tsx:768
 msgid "Load color sets file"
 msgstr "Bestand met kleursets laden"
 
@@ -857,7 +863,7 @@ msgstr "Log in met e-mail"
 msgid "Log in with Patreon"
 msgstr "Inloggen met Patreon"
 
-#: src/components/ColorSetChooser.tsx:113
+#: src/components/auth/LoginWithQRButton.tsx:49
 msgid "Log in with QR code"
 msgstr "Log in met QR-code"
 
@@ -869,7 +875,7 @@ msgstr "Uitloggen"
 msgid "Login failed"
 msgstr "Inloggen mislukt"
 
-#: src/components/auth/LoginQRButton.tsx:51
+#: src/components/auth/ShowLoginQRButton.tsx:51
 msgid "Login QR code"
 msgstr "Login QR-code"
 
@@ -877,11 +883,11 @@ msgstr "Login QR-code"
 msgid "Login result not received"
 msgstr "Inlogresultaat niet ontvangen"
 
-#: src/components/ImageColorAdjustment.tsx:457
+#: src/components/ImageColorAdjustment.tsx:471
 msgid "Low input and high input"
 msgstr "Lage input en hoge input"
 
-#: src/components/ImageColorAdjustment.tsx:506
+#: src/components/ImageColorAdjustment.tsx:520
 msgid "Low output and high output"
 msgstr "Lage output en hoge output"
 
@@ -899,7 +905,7 @@ msgid "Medium"
 msgstr "Gemiddeld"
 
 #: src/components/color-set/MergeColorSetsDrawer.tsx:94
-#: src/components/ColorSetChooser.tsx:725
+#: src/components/ColorSetChooser.tsx:721
 msgid "Merge"
 msgstr "Fuseren"
 
@@ -912,7 +918,7 @@ msgstr "Kleursets samenvoegen"
 msgid "Mid tone"
 msgstr "Middentoon"
 
-#: src/components/ImageColorAdjustment.tsx:482
+#: src/components/ImageColorAdjustment.tsx:496
 msgid "Midtones"
 msgstr "Middentonen"
 
@@ -943,7 +949,7 @@ msgstr "Wijze"
 msgid "More"
 msgstr "Meer"
 
-#: src/components/ColorSetChooser.tsx:586
+#: src/components/ColorSetChooser.tsx:582
 #: src/components/CustomColorBrandCreator.tsx:182
 #: src/components/CustomColorBrandCreator.tsx:454
 msgid "Name"
@@ -953,7 +959,7 @@ msgstr "Naam"
 msgid "Name a brand"
 msgstr "Noem een merk"
 
-#: src/components/ColorSetChooser.tsx:590
+#: src/components/ColorSetChooser.tsx:586
 msgid "Name a color set"
 msgstr "Geef een kleurenset een naam"
 
@@ -983,8 +989,8 @@ msgstr "Volgende aanklachtdatum"
 
 #: src/components/color/AddToPaletteButton.tsx:52
 #: src/components/color/PaletteColorMixtureCard.tsx:119
-#: src/components/ColorSetChooser.tsx:275
-#: src/components/ColorSetChooser.tsx:740
+#: src/components/ColorSetChooser.tsx:268
+#: src/components/ColorSetChooser.tsx:741
 #: src/components/CustomColorBrandCreator.tsx:473
 #: src/components/image/RecentImageCard.tsx:74
 #: src/components/palette/PaletteGrid.tsx:114
@@ -1034,7 +1040,7 @@ msgstr "Olieverf"
 msgid "Oil Pastel"
 msgstr "Olie pastel"
 
-#: src/components/ColorSetChooser.tsx:609
+#: src/components/ColorSetChooser.tsx:605
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "In de gratis versie is slechts een beperkt aantal kleurmerken beschikbaar"
 
@@ -1060,7 +1066,7 @@ msgstr "Ondoorzichtig"
 msgid "Open in Safari browser"
 msgstr "Openen in Safari-browser"
 
-#: src/components/ColorSetChooser.tsx:99
+#: src/components/auth/LoginWithQRButton.tsx:35
 msgid "Open the app on a device where you are logged in"
 msgstr "Open de app op een apparaat waarop je bent ingelogd"
 
@@ -1084,7 +1090,7 @@ msgstr "Of maak een keuze uit voorbeeldfoto's"
 msgid "Or select from your recent photos"
 msgstr "Of maak een keuze uit uw recente foto's"
 
-#: src/components/ImageColorAdjustment.tsx:531
+#: src/components/ImageColorAdjustment.tsx:545
 msgid "Original color temperature (K)"
 msgstr "Originele kleurtemperatuur (K)"
 
@@ -1096,7 +1102,7 @@ msgstr "Originele foto"
 msgid "Outline"
 msgstr "Omtrek"
 
-#: src/components/ImageColorAdjustment.tsx:504
+#: src/components/ImageColorAdjustment.tsx:518
 msgid "Output levels"
 msgstr "Output niveaus"
 
@@ -1124,12 +1130,12 @@ msgstr "Patreon-lidmaatschapsverificatie mislukt"
 msgid "Patron status"
 msgstr "Beschermheerstatus"
 
-#: src/components/ImageColorAdjustment.tsx:301
-#: src/components/ImageColorAdjustment.tsx:385
+#: src/components/ImageColorAdjustment.tsx:313
+#: src/components/ImageColorAdjustment.tsx:399
 msgid "Percentile"
 msgstr "Percentiel"
 
-#: src/components/ImageColorAdjustment.tsx:370
+#: src/components/ImageColorAdjustment.tsx:384
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Percentiel: Automatische witbalans van de helderste gebieden, goed voor de meeste foto's. Referentie: Handmatige witbalans met behulp van het geselecteerde witte gebied."
 
@@ -1165,7 +1171,7 @@ msgstr "Positie: {position}<0/>Beoordeling: {ratingText}"
 msgid "Postpone"
 msgstr "Uitstel"
 
-#: src/components/ColorSetChooser.tsx:102
+#: src/components/auth/LoginWithQRButton.tsx:38
 msgid "Press <0>Show login QR code</0>"
 msgstr "Druk <0>op Toon inlogen QR-code</0>"
 
@@ -1190,7 +1196,7 @@ msgstr "Druk op Delen in navigatiebalk"
 msgid "Press the <0>Add to palette</0> button next to the color mixture you like."
 msgstr "Druk op de knop <0>Toevoegen aan palet</0> naast de kleurenmix die je leuk vindt."
 
-#: src/components/ImageColorAdjustment.tsx:363
+#: src/components/ImageColorAdjustment.tsx:377
 msgid "Preview"
 msgstr "Voorbeeld"
 
@@ -1223,7 +1229,7 @@ msgstr "Privacybeleid"
 msgid "Processing..."
 msgstr "Verwerken..."
 
-#: src/components/auth/LoginQRButton.tsx:84
+#: src/components/auth/ShowLoginQRButton.tsx:84
 msgid "QR code expired."
 msgstr "QR-code verlopen."
 
@@ -1256,7 +1262,7 @@ msgid "Reduce the number of colors in the photo."
 msgstr "Verminder het aantal kleuren op de foto."
 
 #: src/components/color/ColorSwatchDrawer.tsx:70
-#: src/components/ImageColorAdjustment.tsx:305
+#: src/components/ImageColorAdjustment.tsx:317
 msgid "Reference"
 msgstr "Referentie"
 
@@ -1277,7 +1283,7 @@ msgstr "Alles verwijderen"
 msgid "Remove all color mixtures"
 msgstr "Verwijder alle kleurmengsels"
 
-#: src/components/ImageColorAdjustment.tsx:359
+#: src/components/ImageColorAdjustment.tsx:373
 #: src/components/messages.ts:42
 msgid "Remove background"
 msgstr "Achtergrond verwijderen"
@@ -1314,8 +1320,8 @@ msgstr "Vereist macOS Sonoma of hoger."
 msgid "Resend code"
 msgstr "Code opnieuw verzenden"
 
-#: src/components/ImagePerspectiveCorrection.tsx:284
-#: src/components/ImagePerspectiveCorrection.tsx:324
+#: src/components/ImagePerspectiveCorrection.tsx:299
+#: src/components/ImagePerspectiveCorrection.tsx:341
 msgid "Reset"
 msgstr "Terugstellen"
 
@@ -1328,8 +1334,8 @@ msgstr "Keer terug naar het tabblad <0>{paletteLabel}</0> ."
 msgid "Return to the <0>{tabLabel}</0> tab."
 msgstr "Ga terug naar het tabblad <0>{tabLabel}</0> ."
 
-#: src/components/ImagePerspectiveCorrection.tsx:288
-#: src/components/ImagePerspectiveCorrection.tsx:359
+#: src/components/ImagePerspectiveCorrection.tsx:303
+#: src/components/ImagePerspectiveCorrection.tsx:376
 msgid "Rotate"
 msgstr "Draaien"
 
@@ -1337,7 +1343,7 @@ msgstr "Draaien"
 msgid "Sample size"
 msgstr "Steekproefgrootte"
 
-#: src/components/ImageColorAdjustment.tsx:437
+#: src/components/ImageColorAdjustment.tsx:451
 msgid "Saturation (%)"
 msgstr "Verzadiging (%)"
 
@@ -1347,39 +1353,39 @@ msgstr "Verzadiging (%)"
 #: src/components/ImageBackgroundRemoval.tsx:218
 #: src/components/ImageBlurred.tsx:148
 #: src/components/ImageBlurred.tsx:161
-#: src/components/ImageColorAdjustment.tsx:335
+#: src/components/ImageColorAdjustment.tsx:347
 #: src/components/ImageGrid.tsx:75
 #: src/components/ImageGrid.tsx:91
 #: src/components/ImageLimitedPalette.tsx:130
 #: src/components/ImageOutline.tsx:263
 #: src/components/ImageOutline.tsx:315
-#: src/components/ImagePerspectiveCorrection.tsx:300
-#: src/components/ImagePerspectiveCorrection.tsx:332
+#: src/components/ImagePerspectiveCorrection.tsx:315
+#: src/components/ImagePerspectiveCorrection.tsx:349
 #: src/components/ImageStyleTransfer.tsx:200
 #: src/components/ImageTonalValues.tsx:154
 #: src/components/ImageTonalValues.tsx:170
 msgid "Save"
 msgstr "Redden"
 
-#: src/components/ColorSetChooser.tsx:708
+#: src/components/ColorSetChooser.tsx:704
 msgid "Save & continue"
 msgstr "Opslaan en doorgaan"
 
-#: src/components/ColorSetChooser.tsx:272
+#: src/components/ColorSetChooser.tsx:265
 msgid "Save changes to the color set?"
 msgstr "Wijzigingen in de kleurenset opslaan?"
 
-#: src/components/ImageColorAdjustment.tsx:290
-#: src/components/ImagePerspectiveCorrection.tsx:234
+#: src/components/ImageColorAdjustment.tsx:300
+#: src/components/ImagePerspectiveCorrection.tsx:247
 msgid "Save expanded to 1.91:1"
 msgstr "Opslaan uitgebreid naar 1.91:1"
 
-#: src/components/ImageColorAdjustment.tsx:282
-#: src/components/ImagePerspectiveCorrection.tsx:226
+#: src/components/ImageColorAdjustment.tsx:288
+#: src/components/ImagePerspectiveCorrection.tsx:235
 msgid "Save expanded to 4:5"
 msgstr "Opslaan uitgebreid naar 4:5"
 
-#: src/components/ColorSetChooser.tsx:704
+#: src/components/ColorSetChooser.tsx:700
 msgid "Save the changes to this color set"
 msgstr "Sla de wijzigingen in deze kleurenset op"
 
@@ -1387,23 +1393,23 @@ msgstr "Sla de wijzigingen in deze kleurenset op"
 msgid "Scan a QR code"
 msgstr "Scan een QR-code"
 
-#: src/components/ColorSetChooser.tsx:107
+#: src/components/auth/LoginWithQRButton.tsx:43
 msgid "Scan its QR code here"
 msgstr "Scan hier de QR-code"
 
-#: src/components/auth/LoginQRButton.tsx:69
+#: src/components/auth/ShowLoginQRButton.tsx:69
 msgid "Scan this code on the device you want to log in."
 msgstr "Scan deze code op het apparaat waar je wilt inloggen."
 
-#: src/components/ImagePerspectiveCorrection.tsx:142
+#: src/components/ImagePerspectiveCorrection.tsx:147
 msgid "Select 4 points to correct perspective distortion"
 msgstr "Selecteer 4 punten om perspectiefvervorming te corrigeren"
 
-#: src/components/ImageColorAdjustment.tsx:320
+#: src/components/ImageColorAdjustment.tsx:332
 msgid "Select a photo to adjust white balance and colors"
 msgstr "Selecteer een foto om de witbalans en kleuren aan te passen"
 
-#: src/components/ImagePerspectiveCorrection.tsx:251
+#: src/components/ImagePerspectiveCorrection.tsx:266
 msgid "Select a photo to correct the perspective"
 msgstr "Selecteer een foto om het perspectief te corrigeren"
 
@@ -1431,8 +1437,7 @@ msgstr "Selecteer een willekeurig aantal kleuren om te mengen en specificeer het
 msgid "Select art medium"
 msgstr "Selecteer kunstmedium"
 
-#: src/components/ColorSetChooser.tsx:284
-#: src/components/ColorSetChooser.tsx:402
+#: src/components/ColorSetChooser.tsx:384
 msgid "Select at least one color before saving the color set."
 msgstr "Selecteer minstens één kleur voordat je de kleurenset opslaat."
 
@@ -1440,7 +1445,7 @@ msgstr "Selecteer minstens één kleur voordat je de kleurenset opslaat."
 msgid "Select brands"
 msgstr "Selecteer merken"
 
-#: src/components/ColorSetChooser.tsx:595
+#: src/components/ColorSetChooser.tsx:591
 msgid "Select brands that you use."
 msgstr "Selecteer merken die u gebruikt."
 
@@ -1469,7 +1474,7 @@ msgstr "Maak een keuze uit uw recente merken"
 msgid "Select from your recent color sets"
 msgstr "Maak een keuze uit uw recente kleurensets"
 
-#: src/components/ColorSetChooser.tsx:571
+#: src/components/ColorSetChooser.tsx:567
 msgid "Select from your recent color sets or create a new one."
 msgstr "Maak een keuze uit uw recente kleurensets of maak een nieuwe."
 
@@ -1487,8 +1492,8 @@ msgstr "Selecteer onderdeel"
 
 #: src/components/ImageBackgroundRemoval.tsx:185
 #: src/components/ImageChooser.tsx:114
-#: src/components/ImageColorAdjustment.tsx:325
-#: src/components/ImagePerspectiveCorrection.tsx:261
+#: src/components/ImageColorAdjustment.tsx:337
+#: src/components/ImagePerspectiveCorrection.tsx:276
 msgid "Select photo"
 msgstr "Selecteer foto"
 
@@ -1512,7 +1517,7 @@ msgstr "Selecteer stijlafbeelding"
 msgid "Select the color sets you want to merge. A new color set will be created that includes all the colors from the selected sets."
 msgstr "Selecteer de kleursets die je wilt samenvoegen. Er wordt een nieuwe kleurenset aangemaakt die alle kleuren uit de geselecteerde sets bevat."
 
-#: src/components/ColorSetChooser.tsx:539
+#: src/components/ColorSetChooser.tsx:531
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>."
 msgstr "Selecteer je kunstmedium, kleurmerken en de kleuren waarmee je gaat schilderen, en druk dan <0>op Opslaan en doorgaan</0>."
@@ -1538,7 +1543,7 @@ msgid "Set as main color set"
 msgstr "Instellen als hoofdkleurenset"
 
 #: src/components/ImageBlurred.tsx:103
-#: src/components/ImageColorAdjustment.tsx:352
+#: src/components/ImageColorAdjustment.tsx:366
 msgid "Set as reference"
 msgstr "Instellen als referentie"
 
@@ -1567,16 +1572,16 @@ msgstr "Ingesteld als unificerende kleur"
 msgid "Shadow"
 msgstr "Schaduw"
 
-#: src/components/ImageColorAdjustment.tsx:455
+#: src/components/ImageColorAdjustment.tsx:469
 msgid "Shadows and highlights"
 msgstr "Schaduwen en hooglichten"
 
-#: src/components/ColorSetChooser.tsx:759
+#: src/components/ColorSetChooser.tsx:760
 #: src/components/share/ShareModal.tsx:83
 msgid "Share"
 msgstr "Delen"
 
-#: src/components/ColorSetChooser.tsx:756
+#: src/components/ColorSetChooser.tsx:757
 msgid "Share this color set"
 msgstr "Deel deze kleurenset"
 
@@ -1592,7 +1597,7 @@ msgstr "Laat op de foto gebieden zien die bij deze kleur passen."
 msgid "Show grid"
 msgstr "Toon raster"
 
-#: src/components/auth/LoginQRButton.tsx:117
+#: src/components/auth/ShowLoginQRButton.tsx:117
 msgid "Show login QR code"
 msgstr "Toon inlog QR-code"
 
@@ -1682,7 +1687,7 @@ msgstr "Spectrale reflectiecurve"
 msgid "Square cells"
 msgstr "Vierkante cellen"
 
-#: src/components/ColorSetChooser.tsx:624
+#: src/components/ColorSetChooser.tsx:620
 msgid "Standard color set"
 msgstr "Standaard kleurenset"
 
@@ -1702,7 +1707,7 @@ msgstr "Gebruik van opslag"
 msgid "Straighten"
 msgstr "Steil op"
 
-#: src/components/ImagePerspectiveCorrection.tsx:254
+#: src/components/ImagePerspectiveCorrection.tsx:269
 msgid "Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "Maakt scheve foto's recht en verwijdert ongewenste randen. Gebruik auto-detect of selecteer 4 punten om perspectiefvervorming te corrigeren, en sleep eventueel de marges om het beeld bij te snijden."
 
@@ -1761,7 +1766,8 @@ msgstr "De code die je invoerde is onjuist of verlopen. Controleer de nieuwste e
 msgid "The color of your paper, canvas, or painting surface."
 msgstr "De kleur van je papier, doek of schilderoppervlak."
 
-#: src/components/ColorSetChooser.tsx:266
+#: src/components/ColorSetChooser.tsx:259
+#: src/components/ColorSetChooser.tsx:278
 msgid "The color set can't be saved because not all required fields are filled."
 msgstr "De kleurenset kan niet worden opgeslagen omdat niet alle vereiste velden worden ingevuld."
 
@@ -1797,7 +1803,7 @@ msgstr "Verdun de verf tot <0>{fractionText} dikte</0>"
 msgid "This backup file lets you restore your color sets later, so keep it. You can delete any older backup files."
 msgstr "Met dit back-upbestand kunt u uw kleursets later herstellen, dus bewaar het. U kunt oudere back-upbestanden verwijderen."
 
-#: src/components/ColorSetChooser.tsx:650
+#: src/components/ColorSetChooser.tsx:646
 msgid "This color brand is available to paid Patreon members only"
 msgstr "Dit kleurmerk is alleen beschikbaar voor betaalde Patreon-leden"
 
@@ -1978,20 +1984,20 @@ msgstr "We konden je sessie niet verifiëren. Log opnieuw in om verder te gaan m
 msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
 msgstr "We zijn een probleem tegengekomen bij het verifiëren van uw inloggegevens. Dit probleem kan meestal worden opgelost door opnieuw in te loggen."
 
-#: src/components/ColorSetChooser.tsx:680
+#: src/components/ColorSetChooser.tsx:676
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "Bij het selecteren van meer dan {maxColorsFor2} kleuren in totaal, worden geen mengsels van twee kleuren gebruikt."
 
-#: src/components/ColorSetChooser.tsx:688
+#: src/components/ColorSetChooser.tsx:684
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Bij het selecteren van meer dan {maxColorsFor3} kleuren in totaal, worden geen mengsels van drie kleuren gebruikt."
 
 #: src/components/ImageBackgroundRemoval.tsx:115
-#: src/components/ImageColorAdjustment.tsx:421
+#: src/components/ImageColorAdjustment.tsx:435
 msgid "White"
 msgstr "Wit"
 
-#: src/components/ImageColorAdjustment.tsx:368
+#: src/components/ImageColorAdjustment.tsx:382
 msgid "White balance"
 msgstr "Witbalans"
 
@@ -1999,8 +2005,8 @@ msgstr "Witbalans"
 msgid "White paper or canvas"
 msgstr "Wit papier of canvas"
 
-#: src/components/ImageColorAdjustment.tsx:411
-#: src/components/ImageColorAdjustment.tsx:417
+#: src/components/ImageColorAdjustment.tsx:425
+#: src/components/ImageColorAdjustment.tsx:431
 msgid "White point"
 msgstr "Witpunt"
 
@@ -2010,8 +2016,8 @@ msgstr "Breedte"
 
 #: src/components/color/AddToPaletteButton.tsx:51
 #: src/components/color/PaletteColorMixtureCard.tsx:118
-#: src/components/ColorSetChooser.tsx:274
-#: src/components/ColorSetChooser.tsx:739
+#: src/components/ColorSetChooser.tsx:267
+#: src/components/ColorSetChooser.tsx:740
 #: src/components/CustomColorBrandCreator.tsx:472
 #: src/components/image/RecentImageCard.tsx:73
 #: src/components/palette/PaletteGrid.tsx:113
@@ -2024,13 +2030,13 @@ msgstr "Ja"
 msgid "You already have many recent photos saved. Remove the oldest one to free up space? The new photo will still be added."
 msgstr "Je hebt al veel recente foto's opgeslagen. De oudste verwijderen om ruimte vrij te maken? De nieuwe foto zal nog steeds worden toegevoegd."
 
-#: src/components/ColorSetChooser.tsx:489
+#: src/components/ColorSetChooser.tsx:472
 msgid "You are logged in and have access to all app features."
 msgstr "Je bent ingelogd en hebt toegang tot alle functies van de app."
 
-#: src/components/ColorSetChooser.tsx:494
-msgid "You are using the <0>free version</0> with a limited number of color brands and image processing modes."
-msgstr "U gebruikt de <0>gratis versie</0> met een beperkt aantal kleurmerken en beeldverwerkingsmodi."
+#: src/components/ColorSetChooser.tsx:483
+msgid "You are using the <0>free version</0> of ArtistAssistApp. It includes a limited number of color brands and image processing modes."
+msgstr "Je gebruikt de <0>gratis versie</0> van ArtistAssistApp. Het bevat een beperkt aantal kleurmerken en beeldverwerkingsmodi."
 
 #: src/components/error/AuthFeedbackHandler.tsx:223
 msgid "You can keep working in this browser tab, or switch back to the installed ArtistAssistApp — you're logged in there too."
@@ -2045,11 +2051,11 @@ msgstr "Je bent ingelogd"
 msgid "You've selected a mode that is available to paid Patreon members only"
 msgstr "Je hebt een modus gekozen die alleen beschikbaar is voor betalende Patreon-leden"
 
-#: src/components/ColorSetChooser.tsx:602
+#: src/components/ColorSetChooser.tsx:598
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Je hebt kleurmerken geselecteerd die alleen beschikbaar zijn voor betalende Patreon-leden"
 
-#: src/components/ColorSetChooser.tsx:671
+#: src/components/ColorSetChooser.tsx:667
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Je hebt kleurmerken geselecteerd die alleen beschikbaar zijn voor betalende Patreon-leden. Word lid van ArtistAssistApp op Patreon als betaald lid of log in met Patreon als je al lid bent geworden."
 

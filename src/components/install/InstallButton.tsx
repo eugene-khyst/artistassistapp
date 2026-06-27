@@ -34,7 +34,7 @@ export function InstallButton() {
   return (
     <>
       <Button icon={<AppstoreAddOutlined />} onClick={install}>
-        <Trans>Install</Trans>
+        <Trans>Install app</Trans>
       </Button>
       {installDrawer}
     </>

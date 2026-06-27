@@ -90,7 +90,7 @@ function LoginQRModal({loading, open, onClose, onRefresh}: Readonly<LoginQRModal
   );
 }
 
-export function LoginQRButton() {
+export function ShowLoginQRButton() {
   const loadLoginLink = useAppStore(state => state.loadLoginLink);
   const isLoginLinkLoading = useAppStore(state => state.isLoginLinkLoading);
   const isLoginQRModalOpen = useAppStore(state => state.isLoginQRModalOpen);

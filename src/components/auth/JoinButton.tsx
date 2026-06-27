@@ -24,7 +24,7 @@ import {PATREON_URL} from '@/config';
 export function JoinButton() {
   return (
     <Button type="primary" href={PATREON_URL} target="_blank" rel="noopener">
-      <Trans>Join on Patreon</Trans>
+      <Trans>Become a paid member</Trans>
     </Button>
   );
 }

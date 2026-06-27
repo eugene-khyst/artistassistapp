@@ -218,7 +218,7 @@ export function ImagePerspectiveCorrection() {
         lastModified: Date.now(),
       })
     );
-    void setActiveTabKey(TabKey.ColorAdjustment);
+    void setActiveTabKey(TabKey.ColorCorrection);
   };
 
   const handleCancelClick = () => {

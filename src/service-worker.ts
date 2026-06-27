@@ -55,6 +55,10 @@ const SPA_PATHNAMES = new Set<string>([
   '/install',
 ]);
 
+function normalizeSpaPathname(pathname: string): string {
+  return pathname.replace(/\/+$/, '') || '/';
+}
+
 function isCloudflareBeacon(url: URL): boolean {
   return (
     url.origin === 'https://static.cloudflareinsights.com' && url.pathname === '/beacon.min.js'
@@ -101,7 +105,7 @@ self.addEventListener('fetch', (event: FetchEvent) => {
     if (request.method === 'GET') {
       let response: Promise<Response>;
       if (url.origin === self.location.origin) {
-        if (request.mode === 'navigate' && SPA_PATHNAMES.has(url.pathname)) {
+        if (request.mode === 'navigate' && SPA_PATHNAMES.has(normalizeSpaPathname(url.pathname))) {
           response = fetchCacheFirst(new Request('/'));
         } else if (request.mode === 'navigate') {
           response = fetch(request);

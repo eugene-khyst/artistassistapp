@@ -25,7 +25,6 @@ import {
   ShareAltOutlined,
 } from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {useDevices} from '@yudiel/react-qr-scanner';
 import {
   App,
   Button,
@@ -45,14 +44,14 @@ import {AdCard} from '@/components/ad/AdCard';
 import {JoinButton} from '@/components/auth/JoinButton';
 import {LoginEmailOtpButton} from '@/components/auth/LoginEmailOtpButton';
 import {LoginOAuthButton} from '@/components/auth/LoginOAuthButton';
-import {LoginQRButton} from '@/components/auth/LoginQRButton';
+import {LoginWithQRButton} from '@/components/auth/LoginWithQRButton';
 import {LogoutButton} from '@/components/auth/LogoutButton';
+import {ShowLoginQRButton} from '@/components/auth/ShowLoginQRButton';
 import {ColorSetSelect} from '@/components/color-set/ColorSetSelect';
 import {FileSelect} from '@/components/file/FileSelect';
 import {LocaleSelect} from '@/components/i18n/LocaleSelect';
 import {InstallButton} from '@/components/install/InstallButton';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
-import {QRScannerButton} from '@/components/qr/QRScannerButton';
 import {UnsavedChangesContext} from '@/contexts/UnsavedChangesContext';
 import {useColorBrands} from '@/hooks/useColorBrands';
 import {useColors} from '@/hooks/useColors';
@@ -82,40 +81,11 @@ import {MergeColorSetsDrawer} from './color-set/MergeColorSetsDrawer';
 import {StandardColorSetCascader} from './color-set/StandardColorSetCascader';
 import {ShareModal} from './share/ShareModal';
 
-function JoinOrLoginButtons() {
-  const mediaDevices: MediaDeviceInfo[] = useDevices();
-  return (
-    <>
-      <JoinButton />
-      <LoginOAuthButton />
-      <LoginEmailOtpButton />
-      {!!mediaDevices.length && (
-        <QRScannerButton
-          type="primary"
-          modalContent={
-            <Typography.Paragraph className="u-m-0">
-              <ol className="u-m-0">
-                <li>
-                  <Trans>Open the app on a device where you are logged in</Trans>
-                </li>
-                <li>
-                  <Trans>
-                    Press <Typography.Text strong>Show login QR code</Typography.Text>
-                  </Trans>
-                </li>
-                <li>
-                  <Trans>Scan its QR code here</Trans>
-                </li>
-              </ol>
-            </Typography.Paragraph>
-          }
-        >
-          <Trans>Log in with QR code</Trans>
-        </QRScannerButton>
-      )}
-    </>
-  );
+interface CheckUnsavedOptions {
+  updateForm?: boolean;
 }
+
+type CheckUnsavedColorSet = (options?: CheckUnsavedOptions) => Promise<void>;
 
 const FIELD = '${label}';
 
@@ -134,6 +104,28 @@ function getEmptyColors(values: ColorSetDefinition): Record<number, number[]> {
     : {};
 }
 
+function getEmptyColorSet(
+  values: ColorSetDefinition
+): Pick<ColorSetDefinition, 'id' | 'name' | 'brands' | 'standardColorSet' | 'colors'> {
+  return {
+    id: NEW_COLOR_SET,
+    name: undefined,
+    brands: [],
+    standardColorSet: undefined,
+    colors: getEmptyColors(values),
+  };
+}
+
+function isCompleteColorSet(values?: ColorSetDefinition): boolean {
+  return (
+    values?.type !== undefined &&
+    values.id !== undefined &&
+    !!values.brands?.length &&
+    !!values.standardColorSet &&
+    values.brands.every((brand: number) => (values.colors?.[brand]?.length ?? 0) > 0)
+  );
+}
+
 export function ColorSetChooser() {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
@@ -146,7 +138,7 @@ export function ColorSetChooser() {
   const loadColorSetsFromJson = useAppStore(state => state.loadColorSetsFromJson);
   const deleteColorSet = useAppStore(state => state.deleteColorSet);
 
-  const {registerChecker, checkUnsaved} = useContext(UnsavedChangesContext);
+  const {registerChecker} = useContext(UnsavedChangesContext);
 
   const {message, notification, modal} = App.useApp();
 
@@ -164,6 +156,7 @@ export function ColorSetChooser() {
     'colors',
     form
   );
+  const renderedColorSet = Form.useWatch<ColorSetDefinition>([], form);
 
   const saveButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -253,15 +246,15 @@ export function ColorSetChooser() {
     }
   }, [isColorsError, notification, t]);
 
-  const onCheckUnsavedRef = useRef<() => Promise<void>>(asyncNoop);
+  const onCheckUnsavedRef = useRef<CheckUnsavedColorSet>(asyncNoop);
   useEffect(() => {
-    onCheckUnsavedRef.current = async (): Promise<void> => {
+    onCheckUnsavedRef.current = async ({
+      updateForm = true,
+    }: CheckUnsavedOptions = {}): Promise<void> => {
       if (!hasUnsavedChangesRef.current) {
         return;
       }
-      try {
-        await form.validateFields();
-      } catch {
+      if (!isCompleteColorSet(renderedColorSet)) {
         void message.warning(
           t`The color set can't be saved because not all required fields are filled.`
         );
@@ -277,14 +270,18 @@ export function ColorSetChooser() {
       });
       if (confirmed) {
         const granted = await requestPersistentStorage();
-        const saved = await saveColorSet(form.getFieldsValue(), brands, colors, {
+        const saved = await saveColorSet(renderedColorSet, brands, colors, {
           setActiveTabKey: false,
         });
         if (!saved) {
-          void message.warning(t`Select at least one color before saving the color set.`);
+          void message.warning(
+            t`The color set can't be saved because not all required fields are filled.`
+          );
           return;
         }
-        form.setFieldsValue(saved);
+        if (updateForm) {
+          form.setFieldsValue(saved);
+        }
         await saveColorSetsAsJsonAndNotify();
         if (!granted) {
           showPersistentStorageWarning();
@@ -298,37 +295,25 @@ export function ColorSetChooser() {
 
   useEffect(() => registerChecker(onCheckUnsaved), [registerChecker, onCheckUnsaved]);
 
-  const handleFormValuesChange = (
+  const handleFormValuesChange = async (
     changedValues: Partial<ColorSetDefinition>,
     values: ColorSetDefinition
   ) => {
-    hasUnsavedChangesRef.current = true;
-
-    const emptyColors: Partial<Record<number, number[]>> = getEmptyColors(values);
-
-    if (changedValues.type) {
-      form.setFieldsValue({
-        id: 0,
-        name: undefined,
-        brands: [],
-        standardColorSet: undefined,
-        colors: emptyColors,
-      });
+    if (changedValues.type !== undefined) {
+      await onCheckUnsavedRef.current({updateForm: false});
+      form.setFieldsValue(getEmptyColorSet(values));
 
       const [latestColorSetByType]: ColorSetDefinition[] = colorSets.get(changedValues.type) ?? [];
       if (latestColorSetByType) {
         form.setFieldsValue(latestColorSetByType);
       }
+      hasUnsavedChangesRef.current = false;
+      return;
     }
 
     if (changedValues.id !== undefined) {
-      form.setFieldsValue({
-        id: 0,
-        name: undefined,
-        brands: [],
-        standardColorSet: undefined,
-        colors: emptyColors,
-      });
+      await onCheckUnsavedRef.current({updateForm: false});
+      form.setFieldsValue(getEmptyColorSet(values));
 
       if (changedValues.id > 0 && values.type) {
         const colorSet: ColorSetDefinition | undefined = colorSets
@@ -338,7 +323,12 @@ export function ColorSetChooser() {
           form.setFieldsValue(colorSet);
         }
       }
+      hasUnsavedChangesRef.current = false;
+      return;
     }
+
+    hasUnsavedChangesRef.current = true;
+    const emptyColors: Partial<Record<number, number[]>> = getEmptyColors(values);
 
     if (changedValues.brands) {
       const [standardColorSetBrand] = values.standardColorSet ?? [];
@@ -383,16 +373,8 @@ export function ColorSetChooser() {
   };
 
   const handleCreateNewClick = async () => {
-    await checkUnsaved();
-    const emptyColors: Record<number, number[]> = getEmptyColors(form.getFieldsValue());
-    const newColorSet: ColorSetDefinition = {
-      id: NEW_COLOR_SET,
-      name: undefined,
-      brands: [],
-      standardColorSet: undefined,
-      colors: emptyColors,
-    };
-    form.setFieldsValue(newColorSet);
+    await onCheckUnsavedRef.current({updateForm: false});
+    form.setFieldsValue(getEmptyColorSet(form.getFieldsValue()));
   };
 
   const handleFinish = async (colorSet: ColorSetDefinition) => {
@@ -426,7 +408,7 @@ export function ColorSetChooser() {
   };
 
   const handleMergeClick = async () => {
-    await checkUnsaved();
+    await onCheckUnsavedRef.current({updateForm: true});
     setIsMergeDrawerOpen(true);
   };
 
@@ -478,58 +460,68 @@ export function ColorSetChooser() {
         <Typography.Text>
           <Trans>
             <Typography.Text strong>ArtistAssistApp</Typography.Text> is a web app that helps
-            artists to mix colors from photos, analyze tonal values, outline photos, draw with
-            grids, paint with limited palettes, and more.
+            artists mix colors from reference photos, make tonal value studies, outline photos, draw
+            with grids, paint with limited palettes, and more.
           </Trans>
         </Typography.Text>
 
-        <Space orientation="vertical" size={0}>
+        <Space orientation="vertical" size="small">
           {user ? (
-            <Typography.Text strong>
-              <Trans>You are logged in and have access to all app features.</Trans>
-            </Typography.Text>
+            <>
+              <Typography.Text strong>
+                <Trans>You are logged in and have access to all app features.</Trans>
+              </Typography.Text>
+
+              <Flex gap="small" wrap>
+                <ShowLoginQRButton />
+                <LogoutButton />
+              </Flex>
+            </>
           ) : (
             <>
               <Typography.Text>
                 <Trans>
-                  You are using the <Typography.Text strong>free version</Typography.Text> with a
-                  limited number of color brands and image processing modes.
+                  You are using the <Typography.Text strong>free version</Typography.Text> of
+                  ArtistAssistApp. It includes a limited number of color brands and image processing
+                  modes.
                 </Trans>
               </Typography.Text>
+
               <Typography.Text>
                 <Trans>
-                  <Typography.Text strong>
-                    Join ArtistAssistApp on Patreon as a paid member
-                  </Typography.Text>
-                  , or <Typography.Text strong>log in with Patreon</Typography.Text> if you&apos;ve
-                  already joined, to get access to more than 250 color brands and all image
-                  processing modes without ads.
+                  <Typography.Text strong>Not a paid member yet?</Typography.Text> Become a paid
+                  ArtistAssistApp member on Patreon to unlock all paid features, including more than
+                  250 color brands and ad-free access.
+                  <br />
+                  You can continue exploring the free version before deciding to upgrade.
                 </Trans>
               </Typography.Text>
+
+              <JoinButton />
+
               <Typography.Text>
                 <Trans>
-                  Explore the free version before deciding to purchase a paid membership.
+                  <Typography.Text strong>Already a paid member?</Typography.Text> Log in to unlock
+                  your paid features.
                 </Trans>
               </Typography.Text>
+
+              <Flex gap="small" wrap>
+                <LoginOAuthButton />
+                <LoginEmailOtpButton />
+                <LoginWithQRButton />
+              </Flex>
             </>
           )}
         </Space>
 
         <Flex gap="small" wrap>
-          {user ? (
-            <>
-              <LoginQRButton />
-              <LogoutButton />
-            </>
-          ) : (
-            <JoinOrLoginButtons />
-          )}
           <InstallButton />
           <Button
             icon={<QuestionCircleOutlined />}
             onClick={() => void setActiveTabKey(TabKey.Help)}
           >
-            <Trans>Help</Trans>
+            <Trans>Help & tutorials</Trans>
           </Button>
         </Flex>
 
@@ -550,8 +542,12 @@ export function ColorSetChooser() {
             name="colorSet"
             form={form}
             initialValues={formInitialValues}
-            onValuesChange={handleFormValuesChange}
-            onFinish={values => void handleFinish(values)}
+            onValuesChange={(changedValues, values) => {
+              void handleFormValuesChange(changedValues, values);
+            }}
+            onFinish={values => {
+              void handleFinish(values);
+            }}
             onFinishFailed={handleFinishFailed}
             layout="vertical"
             requiredMark="optional"
@@ -727,7 +723,12 @@ export function ColorSetChooser() {
                     )}
                   </>
                 ) : (
-                  <JoinOrLoginButtons />
+                  <>
+                    <JoinButton />
+                    <LoginOAuthButton />
+                    <LoginEmailOtpButton />
+                    <LoginWithQRButton />
+                  </>
                 )}
                 {!!selectedColorSetId && (
                   <Popconfirm

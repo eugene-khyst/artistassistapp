@@ -143,7 +143,7 @@ export function ArtistAssistApp() {
       children: <ImageTonalValues />,
     },
     {
-      key: TabKey.SimplifiedPhoto,
+      key: TabKey.Simplified,
       children: <ImageBlurred />,
     },
     {
@@ -159,7 +159,7 @@ export function ArtistAssistApp() {
       children: <ImagePerspectiveCorrection />,
     },
     {
-      key: TabKey.ColorAdjustment,
+      key: TabKey.ColorCorrection,
       children: <ImageColorAdjustment />,
     },
     {

@@ -59,7 +59,7 @@ export const createTabSlice: StateCreator<
     });
     if (activeTabKey === TabKey.TonalValues) {
       get().loadTonalImages();
-    } else if (activeTabKey === TabKey.SimplifiedPhoto) {
+    } else if (activeTabKey === TabKey.Simplified) {
       void get().loadBlurredImages();
     } else if (activeTabKey === TabKey.Outline) {
       void get().loadOutlineImage();

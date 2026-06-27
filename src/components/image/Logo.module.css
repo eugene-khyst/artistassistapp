@@ -16,28 +16,10 @@
 
 .tagline {
   text-align: center;
-  font-family: Kalam, cursive;
-  font-size: var(--ant-font-size-heading-2);
+  font-family: 'Noto Sans', Arial, sans-serif;
+  font-size: var(--ant-font-size-heading-4);
   line-height: 1em;
-  color: white;
-}
-
-.dropShadow {
-  filter: drop-shadow(1px 1px 5px var(--shadow-color));
-}
-
-.dropShadowLarge {
-  filter: drop-shadow(2px 2px 10px var(--shadow-color));
-}
-
-.textOutline {
-  --stroke-color: white;
-  -webkit-text-stroke: 4px var(--stroke-color);
-  paint-order: stroke fill;
-}
-
-.textOutlineBlack {
-  --stroke-color: black;
+  color: #945382;
 }
 
 .artist {
@@ -50,8 +32,4 @@
 
 .app {
   color: #895983;
-}
-
-.dotCom {
-  color: #945382;
 }

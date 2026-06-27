@@ -33,30 +33,18 @@ export function Logo({name = false, tagline = false, size}: Readonly<Props>) {
       <img
         src="/assets/favicon/favicon.svg"
         alt="ArtistAssistApp logo"
-        className={clsx(styles['image'], styles['dropShadowLarge'])}
+        className={clsx(styles['image'])}
         width={size ?? 150}
       />
 
       {name && (
-        <div className={clsx(styles['name'], styles['dropShadow'])}>
-          <span className={clsx(styles['textOutline'], styles['artist'])}>Artist</span>
-          <span className={clsx(styles['textOutline'], styles['assist'])}>Assist</span>
-          <span className={clsx(styles['textOutline'], styles['app'])}>App</span>
-          <span className={clsx(styles['textOutline'], styles['dotCom'])}>.com</span>
+        <div className={clsx(styles['name'])}>
+          <span className={clsx(styles['artist'])}>Artist</span>
+          <span className={clsx(styles['assist'])}>Assist</span>
+          <span className={clsx(styles['app'])}>App</span>
         </div>
       )}
-      {tagline && (
-        <div
-          className={clsx(
-            styles['tagline'],
-            styles['textOutline'],
-            styles['textOutlineBlack'],
-            styles['dropShadow']
-          )}
-        >
-          Paint better with ease
-        </div>
-      )}
+      {tagline && <div className={clsx(styles['tagline'])}>Paint better with ease</div>}
     </Space>
   );
 }

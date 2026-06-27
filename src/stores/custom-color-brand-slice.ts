@@ -108,15 +108,9 @@ export const createCustomColorBrandSlice: StateCreator<
   loadCustomColorBrandFromJson: async (
     file: File
   ): Promise<CustomColorBrandDefinition | undefined> => {
-    try {
-      const json: string = await file.text();
-      let brand = JSON.parse(json) as CustomColorBrandDefinition;
-      brand = await get().saveCustomColorBrand(brand);
-      return brand;
-    } catch (e) {
-      console.error(e);
-      return;
-    }
+    const json: string = await file.text();
+    const brand = JSON.parse(json) as CustomColorBrandDefinition;
+    return await get().saveCustomColorBrand(brand);
   },
 
   saveCustomColorBrandAsJson: (brand: CustomColorBrandDefinition): void => {
