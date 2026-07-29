@@ -16,7 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {type Authentication, ForceLogoutError} from '@/services/auth/types';
+import {ForceLogoutError} from '@/services/auth/errors';
+import type {Authentication} from '@/services/auth/types';
 import {correctPerspectiveWebGL} from '@/services/image/filter/perspective-correction-webgl';
 import {detectDocumentCornersHeatmap} from '@/services/image/heatmap-corner-detection';
 import {detectDocumentCornersSobel} from '@/services/image/sobel-corner-detection';

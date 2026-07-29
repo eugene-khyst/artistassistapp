@@ -16,17 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Trans, useLingui} from '@lingui/react/macro';
+import {Trans} from '@lingui/react/macro';
 import {App, Col, Flex, Row, Typography} from 'antd';
-import {useEffect, useMemo} from 'react';
+import {useMemo} from 'react';
 
 import {AdCard} from '@/components/ad/AdCard';
+import {LoadingButton} from '@/components/button/LoadingButton';
 import {FileSelect} from '@/components/file/FileSelect';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {useErrorNotification} from '@/hooks/useErrorNotification';
+import {useFileReadErrorNotification} from '@/hooks/useFileReadErrorNotification';
 import {usePersistentStorage} from '@/hooks/usePersistentStorage';
 import {useSampleImages} from '@/hooks/useSampleImages';
-import type {ImageFile} from '@/services/image/image-file';
-import {fileToImageFile} from '@/services/image/image-file';
+import {countImageFiles, getOldestImageFile} from '@/services/db/image-file-db';
+import {fileToImageFile, type ImageFile} from '@/services/image/image-file';
 import type {SampleImageDefinition} from '@/services/image/sample-images';
 import {useAppStore} from '@/stores/app-store';
 import {byNumber, reverseOrder} from '@/utils/comparator';
@@ -38,13 +41,16 @@ const MAX_IMAGE_FILES = 20;
 
 export function ImageChooser() {
   const recentImageFiles = useAppStore(state => state.recentImageFiles);
+  const hasMoreRecentImageFiles = useAppStore(state => state.hasMoreRecentImageFiles);
+  const loadMoreRecentImageFiles = useAppStore(state => state.loadMoreRecentImageFiles);
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
   const deleteRecentImageFile = useAppStore(state => state.deleteRecentImageFile);
+  const isRecentImagesLoading = useAppStore(state => state.isRecentImagesLoading);
   const isSampleImageLoading = useAppStore(state => state.isSampleImageLoading);
 
-  const {notification, modal} = App.useApp();
+  const {modal} = App.useApp();
 
-  const {t} = useLingui();
+  const showFileReadErrorNotification = useFileReadErrorNotification();
 
   const {
     sampleImages,
@@ -57,43 +63,48 @@ export function ImageChooser() {
     [sampleImages]
   );
 
-  const {requestPersistentStorage, showPersistentStorageWarning, installDrawer} =
-    usePersistentStorage();
+  const {requestPersistentStorage, showStorageNotification, installDrawer} = usePersistentStorage();
 
-  const isLoading: boolean = isSampleImagesLoading || isSampleImageLoading;
+  const isLoading: boolean = isRecentImagesLoading || isSampleImagesLoading || isSampleImageLoading;
 
-  useEffect(() => {
-    if (isSampleImagesError) {
-      notification.error({
-        title: t`Error loading sample photos`,
-        placement: 'top',
-        duration: 10,
-        showProgress: true,
-      });
-    }
-  }, [isSampleImagesError, notification, t]);
+  useErrorNotification(isSampleImagesError, <Trans>Error loading sample photos</Trans>);
 
   const handleFileChange = async ([file]: File[]) => {
-    if (file) {
-      if (recentImageFiles.length >= MAX_IMAGE_FILES) {
-        const confirmed: boolean = await modal.confirm({
-          title: t`Storage may fill up`,
-          content: t`You already have many recent photos saved. Remove the oldest one to free up space? The new photo will still be added.`,
-          okText: t`Remove oldest`,
-          cancelText: t`Keep all`,
-          focusTriggerAfterClose: false,
-        });
-        if (confirmed) {
-          const oldestImageFile: ImageFile = recentImageFiles[recentImageFiles.length - 1]!;
+    if (!file) {
+      return;
+    }
+    let imageFile: ImageFile;
+    try {
+      imageFile = await fileToImageFile(file);
+    } catch (error) {
+      console.error(error);
+      showFileReadErrorNotification();
+      return;
+    }
+    const imageFileCount = await countImageFiles();
+    if (imageFileCount >= MAX_IMAGE_FILES) {
+      const confirmed: boolean = await modal.confirm({
+        title: <Trans>Storage may fill up</Trans>,
+        content: (
+          <Trans>
+            You already have many recent photos saved. Delete the oldest one to free up space? The
+            new photo will still be added.
+          </Trans>
+        ),
+        okText: <Trans>Delete oldest</Trans>,
+        cancelText: <Trans>Keep all</Trans>,
+        focusTriggerAfterClose: false,
+      });
+      if (confirmed) {
+        const oldestImageFile = await getOldestImageFile();
+        if (oldestImageFile) {
           await deleteRecentImageFile(oldestImageFile);
         }
       }
-      const granted = await requestPersistentStorage();
-      void saveRecentImageFile(await fileToImageFile(file));
-      if (!granted) {
-        showPersistentStorageWarning();
-      }
     }
+    const granted = await requestPersistentStorage();
+    void saveRecentImageFile(imageFile);
+    showStorageNotification(granted);
   };
 
   return (
@@ -105,12 +116,7 @@ export function ImageChooser() {
           </Typography.Text>
 
           <div>
-            <FileSelect
-              showUseCopiedImage
-              onChange={(files: File[]) => {
-                void handleFileChange(files);
-              }}
-            >
+            <FileSelect showUseCopiedImage onChange={handleFileChange}>
               <Trans>Select photo</Trans>
             </FileSelect>
           </div>
@@ -131,6 +137,14 @@ export function ImageChooser() {
               <AdCard vertical />
             </Col>
           </Row>
+
+          {hasMoreRecentImageFiles && (
+            <div>
+              <LoadingButton run={loadMoreRecentImageFiles}>
+                <Trans>Show older photos</Trans>
+              </LoadingButton>
+            </div>
+          )}
 
           {!!sortedSampleImages?.length && (
             <>

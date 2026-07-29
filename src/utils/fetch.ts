@@ -19,6 +19,7 @@
 import {BUILD_ID} from '@/config';
 import {type Authentication} from '@/services/auth/types';
 import {decryptDataIfNeeded} from '@/services/auth/utils';
+import {mapConcurrent} from '@/utils/concurrency';
 import {checkMimeType} from '@/utils/mime';
 import {getFileExtension, getUrlString, splitUrl} from '@/utils/url';
 
@@ -204,10 +205,7 @@ async function downloadChunks(
   {filename, size, chunks}: ChunkedFile,
   {concurrency = 3, progressCallback, signal}: FetchChunkedOptions
 ): Promise<Response> {
-  const downloadedChunks: Blob[] = [];
   let completedCount = 0;
-
-  const queue = chunks.map((_, i) => i);
   let progress = 0;
 
   progressCallback?.(filename, progress);
@@ -217,11 +215,9 @@ async function downloadChunks(
     abortController.abort(signal.reason);
   });
 
-  async function worker(): Promise<void> {
-    while (queue.length > 0) {
-      const i = queue.shift()!;
-      const chunk: Chunk = chunks[i]!;
-
+  const downloadedChunks = await mapConcurrent(
+    chunks,
+    async (chunk): Promise<Blob> => {
       const response = await fetch(new URL(chunk.filename, baseUrl), {
         signal: abortController.signal,
       });
@@ -231,17 +227,18 @@ async function downloadChunks(
       }
 
       const blob = await response.blob();
-      downloadedChunks[i] = blob;
       completedCount++;
 
       progress = (completedCount / chunks.length) * 100;
       progressCallback?.(filename, progress);
-    }
+      return blob;
+    },
+    {concurrency}
+  );
+
+  if (signal?.aborted) {
+    throw signal.reason;
   }
-
-  const workers = Array.from({length: Math.min(concurrency, chunks.length)}, () => worker());
-
-  await Promise.all(workers);
 
   progressCallback?.(null);
 
@@ -253,8 +250,4 @@ async function downloadChunks(
       'Content-Length': size.toString(),
     },
   });
-}
-
-export function formatFetchProgress(key: string | null, progress?: number): string | null {
-  return key ? `${progress?.toFixed(0) ?? 0}% (${key})` : null;
 }

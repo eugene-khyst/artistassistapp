@@ -27,12 +27,10 @@ const OPACITY_OPTIONS: SelectOptionType[] = [
   ColorOpacity.SemiTransparent,
   ColorOpacity.SemiOpaque,
   ColorOpacity.Opaque,
-].map(
-  (opacity): SelectOptionType => ({
-    label: <OpacityIcon key={opacity} opacity={opacity} />,
-    value: opacity,
-  })
-);
+].map((opacity): SelectOptionType => ({
+  label: <OpacityIcon key={opacity} opacity={opacity} />,
+  value: opacity,
+}));
 
 type Props = Omit<SelectProps, 'options' | 'placeholder' | 'allowClear'>;
 

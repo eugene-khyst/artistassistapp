@@ -16,7 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DeleteOutlined, DownOutlined, MinusOutlined, SaveOutlined} from '@ant-design/icons';
+import {
+  DeleteOutlined,
+  DownloadOutlined,
+  DownOutlined,
+  MinusOutlined,
+  SaveOutlined,
+} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {useQueryClient} from '@tanstack/react-query';
 import type {FormInstance} from 'antd';
@@ -38,7 +44,7 @@ import {
 } from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import type {SliderMarks} from 'antd/es/slider';
-import {memo, useCallback, useEffect, useRef, useState} from 'react';
+import {memo, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 
 import {ColorPicker} from '@/components/color/ColorPicker';
 import {ColorSquare} from '@/components/color/ColorSquare';
@@ -55,14 +61,18 @@ import {
   ImageColorPickerCanvas,
   MIN_COLOR_PICKER_DIAMETER,
 } from '@/services/canvas/image/image-color-picker-canvas';
+import {toCustomColorBrandSource} from '@/services/cloud/cloud-state';
+import {FileExtension} from '@/services/cloud/types';
 import {rgbToHex, WHITE_HEX} from '@/services/color/space/rgb';
 import {
   type ColorDefinition,
   type CustomColorBrandDefinition,
-  FileExtension,
+  type CustomColorBrandSource,
+  NEW_CUSTOM_COLOR_BRAND,
 } from '@/services/color/types';
 import {useAppStore} from '@/stores/app-store';
-import {removeRho} from '@/stores/custom-color-brand-slice';
+import {maxOf} from '@/utils/array';
+import {byDate, byNumber, compare} from '@/utils/comparator';
 import {noop} from '@/utils/function';
 
 import styles from './CustomColorBrandCreator.module.css';
@@ -75,9 +85,7 @@ const SAMPLE_DIAMETER_SLIDER_MARKS: SliderMarks = Object.fromEntries(
   [1, 10, 20, 30, 40, 50].map((i: number) => [i, i])
 );
 
-const NEW_CUSTOM_COLOR_BRAND = 0;
-
-const formInitialValues: CustomColorBrandDefinition = {
+const formInitialValues: CustomColorBrandSource = {
   id: NEW_CUSTOM_COLOR_BRAND,
   type: undefined,
   name: undefined,
@@ -85,7 +93,7 @@ const formInitialValues: CustomColorBrandDefinition = {
 };
 
 function applyColor(
-  form: FormInstance<CustomColorBrandDefinition>,
+  form: FormInstance<CustomColorBrandSource>,
   editFromIndex: number | null,
   setEditFromIndex: (value: number | null) => void,
   scrollToColor: (index: number) => void,
@@ -209,13 +217,13 @@ const ColorListItem = memo(function ColorListItem({
 
 export function CustomColorBrandCreator() {
   const customColorBrands = useAppStore(state => state.customColorBrands);
-  const latestCustomColorBrand = useAppStore(state => state.latestCustomColorBrand);
+  const customColorBrandsReloadCount = useAppStore(state => state.customColorBrandsReloadCount);
   const isCustomColorBrandsLoading = useAppStore(state => state.isCustomColorBrandsLoading);
 
   const loadCustomColorBrands = useAppStore(state => state.loadCustomColorBrands);
   const saveCustomColorBrand = useAppStore(state => state.saveCustomColorBrand);
-  const loadCustomColorBrandFromJson = useAppStore(state => state.loadCustomColorBrandFromJson);
-  const saveCustomColorBrandAsJson = useAppStore(state => state.saveCustomColorBrandAsJson);
+  const importCustomColorBrandFromJson = useAppStore(state => state.importCustomColorBrandFromJson);
+  const exportCustomColorBrandToJson = useAppStore(state => state.exportCustomColorBrandToJson);
   const deleteCustomColorBrand = useAppStore(state => state.deleteCustomColorBrand);
 
   const {message} = App.useApp();
@@ -224,7 +232,7 @@ export function CustomColorBrandCreator() {
 
   const queryClient = useQueryClient();
 
-  const [form] = Form.useForm<CustomColorBrandDefinition>();
+  const [form] = Form.useForm<CustomColorBrandSource>();
 
   const selectedCustomColorBrandId = Form.useWatch<number | undefined>('id', form);
 
@@ -277,12 +285,31 @@ export function CustomColorBrandCreator() {
     void loadCustomColorBrands();
   }, [loadCustomColorBrands]);
 
+  const latestCustomColorBrand: CustomColorBrandDefinition | undefined = useMemo(
+    () =>
+      maxOf(
+        customColorBrands,
+        compare(
+          byDate(({date}) => date),
+          byNumber(({id}) => id)
+        )
+      ),
+    [customColorBrands]
+  );
+
+  // Re-prefill on every external reload (cloud download, cross-tab wake), not on in-form saves.
+  const prefilledReloadCountRef = useRef(0);
   useEffect(() => {
-    if (latestCustomColorBrand) {
-      form.resetFields();
-      form.setFieldsValue(removeRho(latestCustomColorBrand));
+    if (prefilledReloadCountRef.current === customColorBrandsReloadCount) {
+      return;
     }
-  }, [latestCustomColorBrand, form]);
+    prefilledReloadCountRef.current = customColorBrandsReloadCount;
+    form.resetFields();
+    if (latestCustomColorBrand) {
+      form.setFieldsValue(toCustomColorBrandSource(latestCustomColorBrand));
+    }
+    setEditFromIndex(null);
+  }, [form, latestCustomColorBrand, customColorBrandsReloadCount]);
 
   const isLoading: boolean = isImageLoading || isCustomColorBrandsLoading;
 
@@ -300,13 +327,16 @@ export function CustomColorBrandCreator() {
     if (!file) {
       return;
     }
-    const brand: CustomColorBrandDefinition | undefined = await loadCustomColorBrandFromJson(file);
-    if (brand) {
-      invalidateQueries();
-      form.resetFields();
-      form.setFieldsValue(removeRho(brand));
-      setEditFromIndex(null);
+    const brand: CustomColorBrandDefinition | undefined =
+      await importCustomColorBrandFromJson(file);
+    if (!brand) {
+      void message.error(t`Invalid custom color brand file`);
+      return;
     }
+    invalidateQueries();
+    form.resetFields();
+    form.setFieldsValue(toCustomColorBrandSource(brand));
+    setEditFromIndex(null);
   };
 
   const handleSampleDiameterChange = (pipetDiameter: number) => {
@@ -320,7 +350,7 @@ export function CustomColorBrandCreator() {
     applyColor(form, editFromIndex, setEditFromIndex, scrollToColor, hex);
   };
 
-  const handleFormValuesChange = (changedValues: Partial<CustomColorBrandDefinition>) => {
+  const handleFormValuesChange = (changedValues: Partial<CustomColorBrandSource>) => {
     if (changedValues.id !== undefined) {
       form.resetFields();
       setEditFromIndex(null);
@@ -329,7 +359,7 @@ export function CustomColorBrandCreator() {
           ({id}: CustomColorBrandDefinition) => id === changedValues.id
         );
         if (brand) {
-          form.setFieldsValue(removeRho(brand));
+          form.setFieldsValue(toCustomColorBrandSource(brand));
         }
       }
     }
@@ -339,15 +369,14 @@ export function CustomColorBrandCreator() {
     form.resetFields();
   };
 
-  const handleSubmit = async (brand: CustomColorBrandDefinition) => {
+  const handleSubmit = async (brand: CustomColorBrandSource) => {
     brand = await saveCustomColorBrand(brand);
-    saveCustomColorBrandAsJson(brand);
     invalidateQueries();
     form.setFieldsValue(brand);
   };
 
   const handleSubmitFailed = () => {
-    void message.error(t`Fill in the required fields`);
+    void message.error(<Trans>Fill in the required fields</Trans>);
   };
 
   const handleDeleteButtonClick = async () => {
@@ -358,6 +387,10 @@ export function CustomColorBrandCreator() {
       form.resetFields();
       setEditFromIndex(null);
     }
+  };
+
+  const handleExportClick = () => {
+    exportCustomColorBrandToJson(form.getFieldsValue());
   };
 
   const handleRemoveColor = useCallback((index: number) => {
@@ -397,15 +430,20 @@ export function CustomColorBrandCreator() {
                     <FileSelect
                       type="default"
                       accept={{'application/json': [FileExtension.CustomColorBrand, '.json']}}
-                      onChange={(files: File[]) => void handleJsonFileChange(files)}
+                      onChange={handleJsonFileChange}
                     >
-                      <Trans>Load color brand file</Trans>
+                      <Trans>Import from file</Trans>
                     </FileSelect>
                   </Space>
 
                   <Form.Item
-                    label={t`Diameter`}
-                    tooltip={t`The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area.`}
+                    label={<Trans>Diameter</Trans>}
+                    tooltip={
+                      <Trans>
+                        The diameter of the circular area around the cursor, used to calculate the
+                        average color of the pixels within the area.
+                      </Trans>
+                    }
                     className="u-mb-0"
                   >
                     <Slider
@@ -417,7 +455,7 @@ export function CustomColorBrandCreator() {
                     />
                   </Form.Item>
 
-                  <Form.Item label={t`Color`} className="u-mb-0">
+                  <Form.Item label={<Trans>Color</Trans>} className="u-mb-0">
                     <ColorPicker
                       value={currentColor}
                       onChangeComplete={(color: AggregationColor) => {
@@ -432,7 +470,7 @@ export function CustomColorBrandCreator() {
 
                   <Form.Item
                     name="id"
-                    label={t`Color brand`}
+                    label={<Trans>Color brand</Trans>}
                     rules={[{required: true, message: t`${FIELD} is required`}]}
                   >
                     <CustomColorBrandSelect
@@ -443,7 +481,7 @@ export function CustomColorBrandCreator() {
 
                   <Form.Item
                     name="type"
-                    label={t`Art medium`}
+                    label={<Trans>Art medium</Trans>}
                     rules={[{required: true, message: t`${FIELD} is required`}]}
                   >
                     <ColorTypeSelect />
@@ -451,7 +489,7 @@ export function CustomColorBrandCreator() {
 
                   <Form.Item
                     name="name"
-                    label={t`Name`}
+                    label={<Trans>Name</Trans>}
                     rules={[{required: true, message: t`${FIELD} is required`}]}
                   >
                     <Input placeholder={t`Name a brand`} />
@@ -463,25 +501,32 @@ export function CustomColorBrandCreator() {
                     </Button>
 
                     {!!selectedCustomColorBrandId && (
-                      <Popconfirm
-                        title={t`Delete the custom brand`}
-                        description={t`Are you sure you want to delete this custom brand?`}
-                        onConfirm={() => {
-                          void handleDeleteButtonClick();
-                        }}
-                        okText={t`Yes`}
-                        cancelText={t`No`}
-                      >
-                        <Button
-                          icon={<DeleteOutlined />}
-                          title={t`Delete the custom brand`}
-                          onClick={e => {
-                            e.stopPropagation();
+                      <>
+                        <Popconfirm
+                          title={<Trans>Delete the custom brand</Trans>}
+                          description={
+                            <Trans>Are you sure you want to delete this custom brand?</Trans>
+                          }
+                          onConfirm={() => {
+                            void handleDeleteButtonClick();
                           }}
+                          okText={<Trans>Delete</Trans>}
+                          cancelText={<Trans>Keep</Trans>}
                         >
-                          <Trans>Delete</Trans>
+                          <Button
+                            icon={<DeleteOutlined />}
+                            title={t`Delete the custom brand`}
+                            onClick={e => {
+                              e.stopPropagation();
+                            }}
+                          >
+                            <Trans>Delete</Trans>
+                          </Button>
+                        </Popconfirm>
+                        <Button icon={<DownloadOutlined />} onClick={handleExportClick}>
+                          <Trans>Export to file</Trans>
                         </Button>
-                      </Popconfirm>
+                      </>
                     )}
                   </Space>
                 </Space>

@@ -18,6 +18,7 @@
 
 import type {StateCreator} from 'zustand';
 
+import {formatFetchProgress} from '@/i18n';
 import {hasAccessTo} from '@/services/auth/utils';
 import {
   detectDocumentCorners,
@@ -26,7 +27,7 @@ import {
 import type {Vector} from '@/services/math/geometry';
 import type {OnnxModel} from '@/services/ml/types';
 import type {AuthSlice} from '@/stores/auth-slice';
-import {formatFetchProgress} from '@/utils/fetch';
+import {createAbortableOperation} from '@/utils/abortable-operation';
 import {
   createImageBitmapAndResize,
   ResizeImage,
@@ -42,14 +43,13 @@ export interface PerspectiveCorrectionSlice {
   perspectiveCorrectionModel?: OnnxModel;
   isPerspectiveAutoDetectLoading: boolean;
   perspectiveAutoDetectDownloadTip: string | null;
-  perspectiveAutoDetectAbortController: AbortController | null;
 
   setImageFileToCorrectPerspective: (imageFileToCorrectPerspective: File | null) => Promise<void>;
   correctImagePerspective: (vertices: Vector[]) => void;
   resetPerspectiveCorrection: () => void;
   rotatePerspectiveUncorrectedImage: () => void;
   setPerspectiveCorrectionModel: (perspectiveCorrectionModel: OnnxModel | undefined) => void;
-  autoDetectPerspectiveVertices: () => Promise<Vector[] | null>;
+  autoDetectPerspectiveVertices: () => Promise<Vector[] | null | undefined>;
   abortPerspectiveAutoDetect: () => void;
 }
 
@@ -58,132 +58,138 @@ export const createPerspectiveCorrectionSlice: StateCreator<
   [],
   [],
   PerspectiveCorrectionSlice
-> = (set, get) => ({
-  imageFileToCorrectPerspective: null,
-  perspectiveUncorrectedImage: null,
-  perspectiveCorrectedImage: null,
-  isPerspectiveCorrectedImageLoading: false,
+> = (set, get) => {
+  const perspectiveAutoDetectOperation = createAbortableOperation({
+    onStart: () => {
+      set({
+        isPerspectiveAutoDetectLoading: true,
+        perspectiveAutoDetectDownloadTip: null,
+      });
+    },
+    onFinish: () => {
+      set({
+        isPerspectiveAutoDetectLoading: false,
+        perspectiveAutoDetectDownloadTip: null,
+      });
+    },
+  });
 
-  isPerspectiveAutoDetectLoading: false,
-  perspectiveAutoDetectDownloadTip: null,
-  perspectiveAutoDetectAbortController: null,
+  return {
+    imageFileToCorrectPerspective: null,
+    perspectiveUncorrectedImage: null,
+    perspectiveCorrectedImage: null,
+    isPerspectiveCorrectedImageLoading: false,
 
-  setImageFileToCorrectPerspective: async (
-    imageFileToCorrectPerspective: File | null
-  ): Promise<void> => {
-    get().abortPerspectiveAutoDetect();
-    const {
-      perspectiveUncorrectedImage: prevPerspectiveUncorrectedImage,
-      perspectiveCorrectedImage: prevPerspectiveCorrectedImage,
-    } = get();
-    let perspectiveUncorrectedImage: ImageBitmap | null = null;
-    if (imageFileToCorrectPerspective) {
+    isPerspectiveAutoDetectLoading: false,
+    perspectiveAutoDetectDownloadTip: null,
+
+    setImageFileToCorrectPerspective: async (
+      imageFileToCorrectPerspective: File | null
+    ): Promise<void> => {
+      get().abortPerspectiveAutoDetect();
+      const {
+        perspectiveUncorrectedImage: prevPerspectiveUncorrectedImage,
+        perspectiveCorrectedImage: prevPerspectiveCorrectedImage,
+      } = get();
+      let perspectiveUncorrectedImage: ImageBitmap | null = null;
+      if (imageFileToCorrectPerspective) {
+        set({
+          isPerspectiveCorrectedImageLoading: true,
+        });
+        perspectiveUncorrectedImage = await createImageBitmapAndResize(
+          imageFileToCorrectPerspective,
+          ResizeImage.resizeToPixelCount(10e6)
+        );
+      }
+      set({
+        imageFileToCorrectPerspective,
+        perspectiveUncorrectedImage,
+        perspectiveCorrectedImage: null,
+        isPerspectiveCorrectedImageLoading: false,
+      });
+      [prevPerspectiveUncorrectedImage, prevPerspectiveCorrectedImage].forEach(prev =>
+        prev?.close()
+      );
+    },
+
+    correctImagePerspective: (vertices: Vector[]): void => {
+      const {perspectiveUncorrectedImage, perspectiveCorrectedImage: prev} = get();
+      if (!perspectiveUncorrectedImage) {
+        return;
+      }
       set({
         isPerspectiveCorrectedImageLoading: true,
       });
-      perspectiveUncorrectedImage = await createImageBitmapAndResize(
-        imageFileToCorrectPerspective,
-        ResizeImage.resizeToPixelCount(10e6)
-      );
-    }
-    set({
-      imageFileToCorrectPerspective,
-      perspectiveUncorrectedImage,
-      perspectiveCorrectedImage: null,
-      isPerspectiveCorrectedImageLoading: false,
-    });
-    [prevPerspectiveUncorrectedImage, prevPerspectiveCorrectedImage].forEach(prev => prev?.close());
-  },
-
-  correctImagePerspective: (vertices: Vector[]): void => {
-    const {perspectiveUncorrectedImage, perspectiveCorrectedImage: prev} = get();
-    if (!perspectiveUncorrectedImage) {
-      return;
-    }
-    set({
-      isPerspectiveCorrectedImageLoading: true,
-    });
-    const perspectiveCorrectedImage = getPerspectiveCorrectionImage(
-      perspectiveUncorrectedImage,
-      vertices
-    );
-    set({
-      perspectiveCorrectedImage,
-      isPerspectiveCorrectedImageLoading: false,
-    });
-    prev?.close();
-  },
-
-  resetPerspectiveCorrection: (): void => {
-    const {perspectiveCorrectedImage: prev} = get();
-    set({
-      perspectiveCorrectedImage: null,
-    });
-    prev?.close();
-  },
-
-  rotatePerspectiveUncorrectedImage: (): void => {
-    get().abortPerspectiveAutoDetect();
-    const {perspectiveUncorrectedImage, perspectiveCorrectedImage} = get();
-    if (!perspectiveUncorrectedImage) {
-      return;
-    }
-    set({
-      perspectiveUncorrectedImage: rotateImageBitmapClockwise(perspectiveUncorrectedImage),
-      perspectiveCorrectedImage: null,
-    });
-    [perspectiveUncorrectedImage, perspectiveCorrectedImage].forEach(prev => prev?.close());
-  },
-
-  setPerspectiveCorrectionModel: (perspectiveCorrectionModel: OnnxModel | undefined): void => {
-    if (get().perspectiveCorrectionModel === perspectiveCorrectionModel) {
-      return;
-    }
-    set({
-      perspectiveCorrectionModel,
-    });
-  },
-
-  autoDetectPerspectiveVertices: async (): Promise<Vector[] | null> => {
-    get().abortPerspectiveAutoDetect();
-    const {perspectiveUncorrectedImage, perspectiveCorrectionModel, auth} = get();
-    if (
-      !perspectiveUncorrectedImage ||
-      !perspectiveCorrectionModel ||
-      !hasAccessTo(auth?.user, perspectiveCorrectionModel)
-    ) {
-      return null;
-    }
-    const perspectiveAutoDetectAbortController = new AbortController();
-    set({
-      isPerspectiveAutoDetectLoading: true,
-      perspectiveAutoDetectDownloadTip: null,
-      perspectiveAutoDetectAbortController,
-    });
-    try {
-      return await detectDocumentCorners(
+      const perspectiveCorrectedImage = getPerspectiveCorrectionImage(
         perspectiveUncorrectedImage,
-        perspectiveCorrectionModel,
-        auth,
-        (key, progress) => {
-          set({
-            perspectiveAutoDetectDownloadTip: formatFetchProgress(key, progress),
-          });
-        },
-        perspectiveAutoDetectAbortController.signal
+        vertices
       );
-    } finally {
-      if (get().perspectiveAutoDetectAbortController === perspectiveAutoDetectAbortController) {
-        set({
-          isPerspectiveAutoDetectLoading: false,
-          perspectiveAutoDetectDownloadTip: null,
-          perspectiveAutoDetectAbortController: null,
-        });
-      }
-    }
-  },
+      set({
+        perspectiveCorrectedImage,
+        isPerspectiveCorrectedImageLoading: false,
+      });
+      prev?.close();
+    },
 
-  abortPerspectiveAutoDetect: (): void => {
-    get().perspectiveAutoDetectAbortController?.abort();
-  },
-});
+    resetPerspectiveCorrection: (): void => {
+      const {perspectiveCorrectedImage: prev} = get();
+      set({
+        perspectiveCorrectedImage: null,
+      });
+      prev?.close();
+    },
+
+    rotatePerspectiveUncorrectedImage: (): void => {
+      get().abortPerspectiveAutoDetect();
+      const {perspectiveUncorrectedImage, perspectiveCorrectedImage} = get();
+      if (!perspectiveUncorrectedImage) {
+        return;
+      }
+      set({
+        perspectiveUncorrectedImage: rotateImageBitmapClockwise(perspectiveUncorrectedImage),
+        perspectiveCorrectedImage: null,
+      });
+      [perspectiveUncorrectedImage, perspectiveCorrectedImage].forEach(prev => prev?.close());
+    },
+
+    setPerspectiveCorrectionModel: (perspectiveCorrectionModel: OnnxModel | undefined): void => {
+      if (get().perspectiveCorrectionModel === perspectiveCorrectionModel) {
+        return;
+      }
+      set({
+        perspectiveCorrectionModel,
+      });
+    },
+
+    autoDetectPerspectiveVertices: async (): Promise<Vector[] | null | undefined> => {
+      get().abortPerspectiveAutoDetect();
+      const {perspectiveUncorrectedImage, perspectiveCorrectionModel, auth} = get();
+      if (
+        !perspectiveUncorrectedImage ||
+        !perspectiveCorrectionModel ||
+        !hasAccessTo(auth?.user, perspectiveCorrectionModel)
+      ) {
+        return null;
+      }
+      return await perspectiveAutoDetectOperation.run(
+        async signal =>
+          await detectDocumentCorners(
+            perspectiveUncorrectedImage,
+            perspectiveCorrectionModel,
+            auth,
+            (key, progress) => {
+              signal.throwIfAborted();
+              set({
+                perspectiveAutoDetectDownloadTip: formatFetchProgress(key, progress),
+              });
+            },
+            signal
+          )
+      );
+    },
+
+    abortPerspectiveAutoDetect: (): void => {
+      perspectiveAutoDetectOperation.abort();
+    },
+  };
+};

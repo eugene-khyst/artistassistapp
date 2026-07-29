@@ -19,42 +19,44 @@
 import {LoadingOutlined, StopOutlined} from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
 import {Button, Space, Spin, Typography} from 'antd';
+import {clsx} from 'clsx';
 import type {PropsWithChildren, ReactNode} from 'react';
+
+import styles from './LoadingIndicator.module.css';
 
 interface Props extends PropsWithChildren {
   loading?: boolean;
-  downloadTip?: ReactNode;
-  onCancel?: (() => void) | false;
+  tip?: ReactNode;
+  onCancel?: (() => void) | false | null;
 }
 
-export function LoadingIndicator({loading, downloadTip, onCancel, children}: Readonly<Props>) {
+export function LoadingIndicator({loading = false, tip, onCancel, children}: Readonly<Props>) {
   return (
-    <Spin
-      spinning={loading}
-      size="large"
-      indicator={<LoadingOutlined spin />}
-      description={
-        <Space orientation="vertical" align="center">
-          {
-            <Typography.Text className="u-text-primary">
-              {downloadTip ? (
-                <>
-                  <Trans>Downloading...</Trans> {downloadTip}
-                </>
-              ) : (
-                <Trans>Processing...</Trans>
-              )}
-            </Typography.Text>
-          }
-          {onCancel && (
-            <Button icon={<StopOutlined />} onClick={onCancel}>
-              <Trans>Cancel</Trans>
-            </Button>
-          )}
-        </Space>
-      }
-    >
-      {children}
-    </Spin>
+    <div className={styles['root']} aria-busy={loading}>
+      <div className={clsx(styles['content'], loading && styles['dimmed'])} inert={loading}>
+        {children}
+      </div>
+      {loading && (
+        <div className={styles['overlay']}>
+          <Spin
+            size="large"
+            indicator={<LoadingOutlined spin />}
+            className={styles['indicator']}
+            description={
+              <Space orientation="vertical" align="center">
+                <Typography.Text className="u-text-primary">
+                  {tip ?? <Trans>Processing...</Trans>}
+                </Typography.Text>
+                {onCancel && (
+                  <Button icon={<StopOutlined />} onClick={onCancel}>
+                    <Trans>Cancel</Trans>
+                  </Button>
+                )}
+              </Space>
+            }
+          />
+        </div>
+      )}
+    </div>
   );
 }

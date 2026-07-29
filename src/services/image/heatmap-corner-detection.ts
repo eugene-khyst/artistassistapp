@@ -64,7 +64,19 @@ export async function detectDocumentCornersHeatmap(
     (corner): corner is Vector => !!corner
   );
   console.timeEnd('detect-document-corners');
-  if (corners.length !== 4) {
+  if (
+    corners.length !== 4 ||
+    corners.some(({x, y}) => {
+      return (
+        !Number.isFinite(x) ||
+        !Number.isFinite(y) ||
+        x < 0 ||
+        x > image.width ||
+        y < 0 ||
+        y > image.height
+      );
+    })
+  ) {
     return null;
   }
   return orderCornersClockwise(corners);

@@ -45,7 +45,6 @@ const compareImageStyle: CSSProperties = {objectFit: 'contain'};
 
 export function ImageBackgroundRemoval() {
   const user = useAppStore(state => state.auth?.user);
-  const isAuthLoading = useAppStore(state => state.isAuthLoading);
   const imageFileToRemoveBackground = useAppStore(state => state.imageFileToRemoveBackground);
   const backgroundRemovalColor = useAppStore(state => state.backgroundRemovalColor);
   const isBackgroundRemovalLoading = useAppStore(state => state.isBackgroundRemovalLoading);
@@ -75,7 +74,9 @@ export function ImageBackgroundRemoval() {
     setModel: setBackgroundRemovalModel,
   });
 
-  const isLoading: boolean = isModelsLoading || isBackgroundRemovalLoading || isAuthLoading;
+  const isLoading: boolean = isModelsLoading || isBackgroundRemovalLoading;
+
+  const isCancelable: boolean = isBackgroundRemovalLoading;
 
   const imageUrl: string | undefined = useCreateObjectUrl(imageFileToRemoveBackground);
   const imageWithoutBackgroundUrl: string | undefined = useCreateObjectUrl(
@@ -106,13 +107,13 @@ export function ImageBackgroundRemoval() {
 
   const colorPicker = useMemo(
     () => (
-      <Form.Item label={t`Background`} className="u-mb-0">
+      <Form.Item label={<Trans>Background</Trans>} className="u-mb-0">
         <Space.Compact>
           <ColorPicker
             title={t`Background`}
             presets={[
               {
-                label: t`White`,
+                label: <Trans>White</Trans>,
                 colors: [WHITE_HEX],
               },
             ]}
@@ -155,8 +156,8 @@ export function ImageBackgroundRemoval() {
   return (
     <LoadingIndicator
       loading={isLoading}
-      downloadTip={backgroundRemovalDownloadTip}
-      onCancel={handleCancelClick}
+      tip={backgroundRemovalDownloadTip}
+      onCancel={isCancelable && handleCancelClick}
     >
       <Flex vertical gap="small" className="u-tab-toolbar">
         <Typography.Text strong>
@@ -186,7 +187,7 @@ export function ImageBackgroundRemoval() {
               </FileSelect>
             )}
             <Form.Item
-              label={screens.sm ? t`Mode` : null}
+              label={screens.sm ? <Trans>Mode</Trans> : null}
               className="u-mb-0"
               validateStatus={!isAccessAllowed ? 'warning' : undefined}
             >
@@ -215,7 +216,7 @@ export function ImageBackgroundRemoval() {
                       ? [
                           {
                             key: 'save',
-                            label: t`Save`,
+                            label: <Trans>Save</Trans>,
                             icon: <DownloadOutlined />,
                             onClick: handleSaveClick,
                           },

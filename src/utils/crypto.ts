@@ -16,7 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {fromBase64, toBase64Url} from '@/utils/base64';
+
 const NONCE_LEN = 12;
+
+const encoder = new TextEncoder();
+const decoder = new TextDecoder();
 
 export enum EncryptionAlgorithm {
   A256GCM = 'A256GCM',
@@ -40,20 +45,11 @@ export function isEncrypted(value: unknown): value is EncryptedEnvelope {
   );
 }
 
-function base64ToBytes(base64: string): Uint8Array<ArrayBuffer> {
-  const binary = atob(base64);
-  const bytes = new Uint8Array(new ArrayBuffer(binary.length));
-  for (let i = 0; i < binary.length; i++) {
-    bytes[i] = binary.charCodeAt(i);
-  }
-  return bytes;
-}
-
 export function base64To256BitKey(keyBase64?: string): Uint8Array<ArrayBuffer> {
   if (!keyBase64) {
     throw new Error('Cipher key is required');
   }
-  const key = base64ToBytes(keyBase64);
+  const key = fromBase64(keyBase64);
   if (key.length !== 32) {
     throw new Error(`Cipher key must decode to 32 bytes, got ${key.length}`);
   }
@@ -67,12 +63,12 @@ export async function decrypt(
   if (alg !== (EncryptionAlgorithm.A256GCM as string)) {
     throw new Error(`Unsupported algorithm: ${alg}`);
   }
-  const ivBytes = base64ToBytes(iv);
+  const ivBytes = fromBase64(iv);
   if (ivBytes.length !== NONCE_LEN) {
     throw new Error(`IV must be ${NONCE_LEN} bytes, got ${ivBytes.length}`);
   }
-  const ciphertextBytes = base64ToBytes(ciphertext);
-  const tagBytes = base64ToBytes(tag);
+  const ciphertextBytes = fromBase64(ciphertext);
+  const tagBytes = fromBase64(tag);
 
   const combined = new Uint8Array(new ArrayBuffer(ciphertextBytes.length + tagBytes.length));
   combined.set(ciphertextBytes, 0);
@@ -84,5 +80,13 @@ export async function decrypt(
     cryptoKey,
     combined
   );
-  return new TextDecoder().decode(plaintext);
+  return decoder.decode(plaintext);
+}
+
+export function randomBase64Url(bytes: number): string {
+  return toBase64Url(crypto.getRandomValues(new Uint8Array(bytes)));
+}
+
+export async function createSha256Base64Url(value: string): Promise<string> {
+  return toBase64Url(new Uint8Array(await crypto.subtle.digest('SHA-256', encoder.encode(value))));
 }

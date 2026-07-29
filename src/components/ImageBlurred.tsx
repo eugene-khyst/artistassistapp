@@ -23,7 +23,7 @@ import {
   PictureOutlined,
   StopOutlined,
 } from '@ant-design/icons';
-import {Trans, useLingui} from '@lingui/react/macro';
+import {Trans} from '@lingui/react/macro';
 import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
 import {Button, Dropdown, Form, Grid, Radio, Space} from 'antd';
 import {saveAs} from 'file-saver';
@@ -53,7 +53,7 @@ const blurStrengthShortOptions: CheckboxOptionType<number>[] = [
 ];
 
 export function ImageBlurred() {
-  const imageFile = useAppStore(state => state.imageFile);
+  const selectedImageFile = useAppStore(state => state.selectedImageFile);
   const originalImage = useAppStore(state => state.originalImage);
   const blurredImages = useAppStore(state => state.blurredImages);
 
@@ -62,8 +62,6 @@ export function ImageBlurred() {
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
 
   const screens = Grid.useBreakpoint();
-
-  const {t} = useLingui();
 
   const {ref: canvasRef, zoomableImageCanvas} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
@@ -85,7 +83,7 @@ export function ImageBlurred() {
     if (!image) {
       return;
     }
-    saveAs(await imageBitmapToBlob(image), getFilename(imageFile, FILENAME_SUFFIX));
+    saveAs(await imageBitmapToBlob(image), getFilename(selectedImageFile, FILENAME_SUFFIX));
   };
 
   const handleSetAsReferenceClick = async () => {
@@ -94,13 +92,15 @@ export function ImageBlurred() {
       return;
     }
     const blob: Blob = await imageBitmapToBlob(image);
-    void saveRecentImageFile(await blobToImageFile(blob, getFilename(imageFile, FILENAME_SUFFIX)));
+    void saveRecentImageFile(
+      await blobToImageFile(blob, getFilename(selectedImageFile, FILENAME_SUFFIX))
+    );
   };
 
   const imageItems: MenuProps['items'] = [
     {
       key: 'set-as-reference',
-      label: t`Set as reference`,
+      label: <Trans>Set as reference</Trans>,
       icon: <PictureOutlined />,
       onClick: () => {
         void handleSetAsReferenceClick();
@@ -113,20 +113,20 @@ export function ImageBlurred() {
   }
 
   const blurStrengthOptions: CheckboxOptionType<number>[] = [
-    {value: 0, label: t`None`},
-    {value: 1, label: t`Small`},
-    {value: 2, label: t`Medium`},
-    {value: 3, label: t`Large`},
-    {value: 4, label: t`Max`},
+    {value: 0, label: <Trans>None</Trans>},
+    {value: 1, label: <Trans>Small</Trans>},
+    {value: 2, label: <Trans>Medium</Trans>},
+    {value: 3, label: <Trans>Large</Trans>},
+    {value: 4, label: <Trans>Max</Trans>},
   ];
 
   return (
     <LoadingIndicator loading={isBlurredImagesLoading}>
       <Space className="u-tab-toolbar">
         <Form.Item
-          label={screens.sm ? t`Strength` : null}
+          label={screens.sm ? <Trans>Strength</Trans> : null}
           labelCol={{className: 'u-pb-0'}}
-          tooltip={t`Adjusts the strength of image smoothing.`}
+          tooltip={<Trans>Adjusts the strength of image smoothing.</Trans>}
           className="u-mb-0"
         >
           <Radio.Group
@@ -158,7 +158,7 @@ export function ImageBlurred() {
               items: [
                 {
                   key: 'save',
-                  label: t`Save`,
+                  label: <Trans>Save</Trans>,
                   icon: <DownloadOutlined />,
                   onClick: () => {
                     void handleSaveClick();

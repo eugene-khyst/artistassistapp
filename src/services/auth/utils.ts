@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {AuthErrorType, ForceLogoutError} from '@/services/auth/errors';
 import type {Authentication, User} from '@/services/auth/types';
-import {AuthErrorType, ForceLogoutError} from '@/services/auth/types';
 import {decrypt, isEncrypted} from '@/utils/crypto';
 
 export interface TieredResource {
@@ -49,10 +49,4 @@ export async function decryptDataIfNeeded<T>(
   } else {
     return data as T;
   }
-}
-
-export function toAuthErrorType(value: string | null | undefined): AuthErrorType {
-  return Object.values(AuthErrorType).includes(value as AuthErrorType)
-    ? (value as AuthErrorType)
-    : AuthErrorType.Unknown;
 }

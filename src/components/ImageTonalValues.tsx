@@ -39,7 +39,7 @@ import {EmptyImage} from './empty/EmptyImage';
 import styles from './ImageTonalValues.module.css';
 
 export function ImageTonalValues() {
-  const imageFile = useAppStore(state => state.imageFile);
+  const selectedImageFile = useAppStore(state => state.selectedImageFile);
   const originalImage = useAppStore(state => state.originalImage);
   const tonalImages = useAppStore(state => state.tonalImages);
 
@@ -79,7 +79,7 @@ export function ImageTonalValues() {
     if (!image) {
       return;
     }
-    saveAs(await imageBitmapToBlob(image), getFilename(imageFile, 'tonal-values'));
+    saveAs(await imageBitmapToBlob(image), getFilename(selectedImageFile, 'tonal-values'));
   };
 
   if (!originalImage) {
@@ -161,13 +161,13 @@ export function ImageTonalValues() {
               items: [
                 {
                   key: 'print',
-                  label: t`Print`,
+                  label: <Trans>Print</Trans>,
                   icon: <PrinterOutlined />,
                   onClick: handlePrintClick,
                 },
                 {
                   key: 'save',
-                  label: t`Save`,
+                  label: <Trans>Save</Trans>,
                   icon: <DownloadOutlined />,
                   onClick: () => {
                     void handleSaveClick();

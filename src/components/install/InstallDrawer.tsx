@@ -23,7 +23,7 @@ import {
   LinuxOutlined,
   WindowsOutlined,
 } from '@ant-design/icons';
-import {Trans, useLingui} from '@lingui/react/macro';
+import {Trans} from '@lingui/react/macro';
 import {Drawer, Space, theme, Typography} from 'antd';
 
 import {getOS, OS} from '@/utils/environment';
@@ -185,15 +185,18 @@ function MacOSInstructions() {
 }
 
 export function InstallDrawer({open, onClose}: Readonly<Props>) {
-  const {t} = useLingui();
-
   const showChromium =
     !os || os === OS.ANDROID || os === OS.WINDOWS || os === OS.LINUX || os === OS.CHROME_OS;
   const showIOS = !os || os === OS.I_OS || os === OS.I_PAD_OS;
   const showMacOS = !os || os === OS.MAC_OS;
 
   return (
-    <Drawer title={t`Install ArtistAssistApp`} size="large" open={open} onClose={onClose}>
+    <Drawer
+      title={<Trans>Install ArtistAssistApp</Trans>}
+      size="large"
+      open={open}
+      onClose={onClose}
+    >
       <Space orientation="vertical" size="large">
         {showChromium && <ChromiumInstructions />}
         {showIOS && <IOSInstructions />}

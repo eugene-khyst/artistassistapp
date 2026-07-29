@@ -16,14 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {useMemo} from 'react';
-
 import type {ImageFile} from '@/services/image/image-file';
-import {arrayBufferToBlob} from '@/utils/blob';
 
 export function useImageFileToBlob(imageFile?: ImageFile | null): Blob | undefined {
-  return useMemo(
-    () => (imageFile ? arrayBufferToBlob(imageFile.buffer, imageFile.type) : undefined),
-    [imageFile]
-  );
+  return imageFile?.blob;
 }

@@ -107,14 +107,14 @@ export function PaletteGrid({colorType, showColorSwatch}: Readonly<Props>) {
           <Trans>Print</Trans>
         </Button>
         <Popconfirm
-          title={t`Remove all color mixtures`}
-          description={t`Are you sure you want to remove all color mixtures?`}
+          title={<Trans>Delete all color mixtures</Trans>}
+          description={<Trans>Are you sure you want to delete all color mixtures?</Trans>}
           onConfirm={() => void deleteAllFromPalette(colorType)}
-          okText={t`Yes`}
-          cancelText={t`No`}
+          okText={<Trans>Delete all</Trans>}
+          cancelText={<Trans>Keep</Trans>}
         >
           <Button icon={<DeleteOutlined />}>
-            <Trans>Remove all</Trans>
+            <Trans>Delete all</Trans>
           </Button>
         </Popconfirm>
 

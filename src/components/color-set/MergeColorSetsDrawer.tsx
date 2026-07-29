@@ -17,7 +17,7 @@
  */
 
 import {MergeCellsOutlined} from '@ant-design/icons';
-import {Trans, useLingui} from '@lingui/react/macro';
+import {Trans} from '@lingui/react/macro';
 import {Button, Checkbox, Drawer, Flex, Space, Typography} from 'antd';
 import {useState} from 'react';
 
@@ -35,8 +35,6 @@ interface Props {
 }
 
 export function MergeColorSetsDrawer({open, onClose, colorSets, brands, onMerge}: Readonly<Props>) {
-  const {t} = useLingui();
-
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
   const sortedColorSets = colorSets
@@ -57,7 +55,7 @@ export function MergeColorSetsDrawer({open, onClose, colorSets, brands, onMerge}
 
   return (
     <Drawer
-      title={t`Merge color sets`}
+      title={<Trans>Merge color sets</Trans>}
       placement="right"
       size="default"
       open={open}

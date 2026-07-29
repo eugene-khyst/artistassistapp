@@ -44,21 +44,24 @@ import {AdCard} from '@/components/ad/AdCard';
 import {JoinButton} from '@/components/auth/JoinButton';
 import {LoginEmailOtpButton} from '@/components/auth/LoginEmailOtpButton';
 import {LoginOAuthButton} from '@/components/auth/LoginOAuthButton';
-import {LoginWithQRButton} from '@/components/auth/LoginWithQRButton';
 import {LogoutButton} from '@/components/auth/LogoutButton';
-import {ShowLoginQRButton} from '@/components/auth/ShowLoginQRButton';
+import {ConnectCloudButton} from '@/components/cloud/ConnectCloudButton';
+import {DisconnectCloudButton} from '@/components/cloud/DisconnectCloudButton';
+import {ExportToZipButton} from '@/components/cloud/ExportToZipButton';
+import {ImportFromZipFileSelect} from '@/components/cloud/ImportFromZipFileSelect';
+import {SyncCloudButton} from '@/components/cloud/SyncCloudButton';
 import {ColorSetSelect} from '@/components/color-set/ColorSetSelect';
-import {FileSelect} from '@/components/file/FileSelect';
 import {LocaleSelect} from '@/components/i18n/LocaleSelect';
 import {InstallButton} from '@/components/install/InstallButton';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {UnsavedChangesContext} from '@/contexts/UnsavedChangesContext';
 import {useColorBrands} from '@/hooks/useColorBrands';
 import {useColors} from '@/hooks/useColors';
-import {useColorSetBackup} from '@/hooks/useColorSetBackup';
+import {useErrorNotification} from '@/hooks/useErrorNotification';
 import {usePersistentStorage} from '@/hooks/usePersistentStorage';
 import {useStandardColorSets} from '@/hooks/useStandardColorSets';
 import {hasAccessTo} from '@/services/auth/utils';
+import {CloudProvider} from '@/services/cloud/types';
 import {COLOR_MIXING, MAX_COLORS_IN_MIXTURE} from '@/services/color/color-mixer';
 import {mergeColorSets} from '@/services/color/colors';
 import {
@@ -66,12 +69,13 @@ import {
   type ColorSetDefinition,
   type ColorType,
   CUSTOM_COLOR_SET,
-  FileExtension,
   NEW_COLOR_SET,
 } from '@/services/color/types';
 import {colorSetToUrl} from '@/services/url/url-parser';
 import {useAppStore} from '@/stores/app-store';
 import {TabKey} from '@/tabs';
+import {maxOf} from '@/utils/array';
+import {byDate, byNumber, compare} from '@/utils/comparator';
 import {asyncNoop} from '@/utils/function';
 
 import {ColorBrandSelect} from './color-set/ColorBrandSelect';
@@ -79,6 +83,7 @@ import {ColorSelect} from './color-set/ColorSelect';
 import {ColorTypeSelect} from './color-set/ColorTypeSelect';
 import {MergeColorSetsDrawer} from './color-set/MergeColorSetsDrawer';
 import {StandardColorSetCascader} from './color-set/StandardColorSetCascader';
+import styles from './ColorSetChooser.module.css';
 import {ShareModal} from './share/ShareModal';
 
 interface CheckUnsavedOptions {
@@ -97,6 +102,11 @@ const formInitialValues: ColorSetDefinition = {
   brands: [],
   colors: {},
 };
+
+const compareColorSetsByDate = compare<ColorSetDefinition>(
+  byDate(({date}) => date),
+  byNumber(({id}) => id)
+);
 
 function getEmptyColors(values: ColorSetDefinition): Record<number, number[]> {
   return values.colors
@@ -128,25 +138,23 @@ function isCompleteColorSet(values?: ColorSetDefinition): boolean {
 
 export function ColorSetChooser() {
   const user = useAppStore(state => state.auth?.user);
+  const isCloudConnected = useAppStore(state => !!state.cloudConnection);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
-  const latestColorSet = useAppStore(state => state.latestColorSet);
   const colorSets = useAppStore(state => state.colorSets);
+  const colorSetsReloadCount = useAppStore(state => state.colorSetsReloadCount);
   const isColorSetsLoading = useAppStore(state => state.isColorSetsLoading);
 
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
   const saveColorSet = useAppStore(state => state.saveColorSet);
-  const loadColorSetsFromJson = useAppStore(state => state.loadColorSetsFromJson);
   const deleteColorSet = useAppStore(state => state.deleteColorSet);
 
   const {registerChecker} = useContext(UnsavedChangesContext);
 
-  const {message, notification, modal} = App.useApp();
+  const {message, modal} = App.useApp();
 
   const {t} = useLingui();
 
-  const saveColorSetsAsJsonAndNotify = useColorSetBackup();
-  const {requestPersistentStorage, showPersistentStorageWarning, installDrawer} =
-    usePersistentStorage();
+  const {requestPersistentStorage, showStorageNotification, installDrawer} = usePersistentStorage();
 
   const [form] = Form.useForm<ColorSetDefinition>();
   const selectedType = Form.useWatch<ColorType | undefined>('type', form);
@@ -174,13 +182,6 @@ export function ColorSetChooser() {
 
   const hasUnsavedChangesRef = useRef<boolean>(false);
 
-  useEffect(() => {
-    if (latestColorSet) {
-      form.resetFields();
-      form.setFieldsValue(latestColorSet);
-    }
-  }, [form, latestColorSet]);
-
   const {brands, isLoading: isBrandsLoading, isError: isBrandsError} = useColorBrands(selectedType);
 
   const selectedBrands: ColorBrandDefinition[] | undefined = useMemo(
@@ -207,44 +208,14 @@ export function ColorSetChooser() {
   } = useColors(selectedType, selectedBrands);
 
   const isLoading: boolean =
-    isColorSetsLoading ||
-    isBrandsLoading ||
-    isStandardColorSetsLoading ||
-    isColorsLoading ||
-    isAuthLoading;
+    isColorSetsLoading || isBrandsLoading || isStandardColorSetsLoading || isColorsLoading;
 
-  useEffect(() => {
-    if (isBrandsError) {
-      notification.error({
-        title: t`Error while fetching color brand data`,
-        placement: 'top',
-        duration: 10,
-        showProgress: true,
-      });
-    }
-  }, [isBrandsError, notification, t]);
-
-  useEffect(() => {
-    if (isStandardColorSetsError) {
-      notification.error({
-        title: t`Error while fetching standard color set data`,
-        placement: 'top',
-        duration: 10,
-        showProgress: true,
-      });
-    }
-  }, [isStandardColorSetsError, notification, t]);
-
-  useEffect(() => {
-    if (isColorsError) {
-      notification.error({
-        title: t`Error while fetching color data`,
-        placement: 'top',
-        duration: 10,
-        showProgress: true,
-      });
-    }
-  }, [isColorsError, notification, t]);
+  useErrorNotification(isBrandsError, <Trans>Error while fetching color brand data</Trans>);
+  useErrorNotification(
+    isStandardColorSetsError,
+    <Trans>Error while fetching standard color set data</Trans>
+  );
+  useErrorNotification(isColorsError, <Trans>Error while fetching color data</Trans>);
 
   const onCheckUnsavedRef = useRef<CheckUnsavedColorSet>(asyncNoop);
   useEffect(() => {
@@ -256,16 +227,18 @@ export function ColorSetChooser() {
       }
       if (!isCompleteColorSet(renderedColorSet)) {
         void message.warning(
-          t`The color set can't be saved because not all required fields are filled.`
+          <Trans>
+            The color set can&apos;t be saved because not all required fields are filled.
+          </Trans>
         );
         hasUnsavedChangesRef.current = false;
         return;
       }
       const confirmed: boolean = await modal.confirm({
-        title: t`Save changes to the color set?`,
-        content: t`If you don't save, changes to the color set may be lost.`,
-        okText: t`Yes`,
-        cancelText: t`No`,
+        title: <Trans>Save changes to the color set?</Trans>,
+        content: <Trans>If you don&apos;t save, changes to the color set may be lost.</Trans>,
+        okText: <Trans>Save</Trans>,
+        cancelText: <Trans>Don&apos;t save</Trans>,
         focusTriggerAfterClose: false,
       });
       if (confirmed) {
@@ -275,17 +248,16 @@ export function ColorSetChooser() {
         });
         if (!saved) {
           void message.warning(
-            t`The color set can't be saved because not all required fields are filled.`
+            <Trans>
+              The color set can&apos;t be saved because not all required fields are filled.
+            </Trans>
           );
           return;
         }
         if (updateForm) {
           form.setFieldsValue(saved);
         }
-        await saveColorSetsAsJsonAndNotify();
-        if (!granted) {
-          showPersistentStorageWarning();
-        }
+        showStorageNotification(granted);
       }
       hasUnsavedChangesRef.current = false;
     };
@@ -294,6 +266,27 @@ export function ColorSetChooser() {
   const onCheckUnsaved = useCallback(() => onCheckUnsavedRef.current(), []);
 
   useEffect(() => registerChecker(onCheckUnsaved), [registerChecker, onCheckUnsaved]);
+
+  // Re-prefill on every external reload (cloud download, cross-tab wake), not on in-form saves.
+  // Unsaved edits go through the usual save prompt before the form is replaced.
+  const prefilledReloadCountRef = useRef(0);
+  useEffect(() => {
+    if (prefilledReloadCountRef.current === colorSetsReloadCount) {
+      return;
+    }
+    prefilledReloadCountRef.current = colorSetsReloadCount;
+    void (async () => {
+      await onCheckUnsavedRef.current({updateForm: false});
+      const latestColorSet = maxOf(
+        [...useAppStore.getState().colorSets.values()].flat(),
+        compareColorSetsByDate
+      );
+      form.resetFields();
+      if (latestColorSet) {
+        form.setFieldsValue(latestColorSet);
+      }
+    })();
+  }, [form, colorSetsReloadCount]);
 
   const handleFormValuesChange = async (
     changedValues: Partial<ColorSetDefinition>,
@@ -381,19 +374,16 @@ export function ColorSetChooser() {
     const granted = await requestPersistentStorage();
     const saved = await saveColorSet(colorSet, brands, colors);
     if (!saved) {
-      void message.warning(t`Select at least one color before saving the color set.`);
+      void message.warning(<Trans>Select at least one color before saving the color set.</Trans>);
       return;
     }
     form.setFieldsValue(saved);
-    await saveColorSetsAsJsonAndNotify();
-    if (!granted) {
-      showPersistentStorageWarning();
-    }
+    showStorageNotification(granted);
     hasUnsavedChangesRef.current = false;
   };
 
   const handleFinishFailed = () => {
-    void message.error(t`Fill in the required fields`);
+    void message.error(<Trans>Fill in the required fields</Trans>);
   };
 
   const handleDuplicateClick = () => {
@@ -431,18 +421,6 @@ export function ColorSetChooser() {
     hasUnsavedChangesRef.current = false;
   };
 
-  const handleJsonFileChange = async ([file]: File[]) => {
-    if (!file) {
-      return;
-    }
-    const colorSet: ColorSetDefinition | undefined = await loadColorSetsFromJson(file);
-    if (colorSet) {
-      hasUnsavedChangesRef.current = true;
-      form.resetFields();
-      form.setFieldsValue(colorSet);
-    }
-  };
-
   const showShareModal = () => {
     setShareColorSetUrl(colorSetToUrl(form.getFieldsValue()));
     setIsShareModalOpen(true);
@@ -455,15 +433,26 @@ export function ColorSetChooser() {
   return (
     <>
       <Flex vertical gap="small" className="u-tab-content">
-        <LocaleSelect />
+        <Flex gap="small" wrap>
+          <LocaleSelect />
+          <InstallButton />
+          <Button
+            icon={<QuestionCircleOutlined />}
+            onClick={() => void setActiveTabKey(TabKey.Help)}
+          >
+            <Trans>Help</Trans>
+          </Button>
+        </Flex>
 
-        <Typography.Text>
+        <Typography.Paragraph className="u-m-0">
           <Trans>
-            <Typography.Text strong>ArtistAssistApp</Typography.Text> is a web app that helps
-            artists mix colors from reference photos, make tonal value studies, outline photos, draw
-            with grids, paint with limited palettes, and more.
+            <Typography.Text strong>ArtistAssistApp</Typography.Text> helps artists mix colors to
+            match reference photos using their own art supplies, create palettes and mixing charts,
+            study tonal values, make outlines, draw with grids, explore limited palettes and
+            artist-inspired versions of photos, straighten photos, adjust their colors, remove
+            backgrounds, and compare photos side by side.
           </Trans>
-        </Typography.Text>
+        </Typography.Paragraph>
 
         <Space orientation="vertical" size="small">
           {user ? (
@@ -473,8 +462,9 @@ export function ColorSetChooser() {
               </Typography.Text>
 
               <Flex gap="small" wrap>
-                <ShowLoginQRButton />
                 <LogoutButton />
+                <SyncCloudButton />
+                <DisconnectCloudButton />
               </Flex>
             </>
           ) : (
@@ -487,15 +477,34 @@ export function ColorSetChooser() {
                 </Trans>
               </Typography.Text>
 
-              <Typography.Text>
-                <Trans>
-                  <Typography.Text strong>Not a paid member yet?</Typography.Text> Become a paid
-                  ArtistAssistApp member on Patreon to unlock all paid features, including more than
-                  250 color brands and ad-free access.
-                  <br />
-                  You can continue exploring the free version before deciding to upgrade.
-                </Trans>
-              </Typography.Text>
+              <Typography component="div" className="u-m-0">
+                <Typography.Text>
+                  <Trans>
+                    <Typography.Text strong>Not a paid member yet?</Typography.Text> Become a paid
+                    ArtistAssistApp member to unlock:
+                  </Trans>
+                </Typography.Text>
+                <ul className={styles['memberBenefits']}>
+                  <li>
+                    <Trans>🎨 250+ color brands</Trans>
+                  </li>
+                  <li>
+                    <Trans>✏️ High-quality outlines and background removal</Trans>
+                  </li>
+                  <li>
+                    <Trans>🧑‍🎨 Artist-inspired and custom-reference styles</Trans>
+                  </li>
+                  <li>
+                    <Trans>
+                      ☁️ Cloud sync to store your color sets, photos, and mixtures in your own cloud
+                      storage, so you can use them across devices
+                    </Trans>
+                  </li>
+                  <li>
+                    <Trans>📢 No ads</Trans>
+                  </li>
+                </ul>
+              </Typography>
 
               <JoinButton />
 
@@ -509,21 +518,30 @@ export function ColorSetChooser() {
               <Flex gap="small" wrap>
                 <LoginOAuthButton />
                 <LoginEmailOtpButton />
-                <LoginWithQRButton />
               </Flex>
             </>
           )}
         </Space>
 
-        <Flex gap="small" wrap>
-          <InstallButton />
-          <Button
-            icon={<QuestionCircleOutlined />}
-            onClick={() => void setActiveTabKey(TabKey.Help)}
-          >
-            <Trans>Help & tutorials</Trans>
-          </Button>
-        </Flex>
+        {user && !isCloudConnected && (
+          <Space orientation="vertical" size="small">
+            <Typography.Text>
+              <Trans>Connect cloud storage to synchronize your data across devices.</Trans>
+            </Typography.Text>
+            <Flex gap="small" wrap>
+              <ConnectCloudButton provider={CloudProvider.Google} />
+              <ConnectCloudButton provider={CloudProvider.Microsoft} />
+              <ConnectCloudButton provider={CloudProvider.Dropbox} />
+            </Flex>
+            <Typography.Text>
+              <Trans>Or save a backup file on this device.</Trans>
+            </Typography.Text>
+            <Flex gap="small" wrap>
+              <ExportToZipButton />
+              <ImportFromZipFileSelect />
+            </Flex>
+          </Space>
+        )}
 
         <Divider className="u-divider-compact" />
 
@@ -555,7 +573,7 @@ export function ColorSetChooser() {
           >
             <Form.Item
               name="type"
-              label={t`Art medium`}
+              label={<Trans>Art medium</Trans>}
               rules={[{required: true, message: t`${FIELD} is required`}]}
             >
               <ColorTypeSelect />
@@ -563,8 +581,8 @@ export function ColorSetChooser() {
             {!!selectedType && (
               <Form.Item
                 name="id"
-                label={t`Color set`}
-                tooltip={t`Select from your recent color sets or create a new one.`}
+                label={<Trans>Color set</Trans>}
+                tooltip={<Trans>Select from your recent color sets or create a new one.</Trans>}
                 rules={[{required: true, message: t`${FIELD} is required`}]}
                 dependencies={['type']}
               >
@@ -579,16 +597,16 @@ export function ColorSetChooser() {
               <>
                 <Form.Item
                   name="name"
-                  label={t`Name`}
-                  tooltip={t`Give your color set a name for easy access.`}
+                  label={<Trans>Name</Trans>}
+                  tooltip={<Trans>Give your color set a name for easy access.</Trans>}
                   dependencies={['type']}
                 >
                   <Input placeholder={t`Name a color set`} />
                 </Form.Item>
                 <Form.Item
                   name="brands"
-                  label={t`Color brands`}
-                  tooltip={t`Select brands that you use.`}
+                  label={<Trans>Color brands</Trans>}
+                  tooltip={<Trans>Select brands that you use.</Trans>}
                   rules={[{required: true, message: t`${FIELD} are required`}]}
                   dependencies={['type']}
                   extra={
@@ -617,10 +635,10 @@ export function ColorSetChooser() {
             {!!selectedBrandIds?.length && (
               <Form.Item
                 name="standardColorSet"
-                label={t`Standard color set`}
+                label={<Trans>Standard color set</Trans>}
                 rules={[{required: true, message: t`${FIELD} is required`}]}
                 dependencies={['type', 'brands']}
-                tooltip={t`Do you have a store-bought or custom color set?`}
+                tooltip={<Trans>Do you have a store-bought or custom color set?</Trans>}
               >
                 <StandardColorSetCascader
                   brands={selectedBrands}
@@ -636,10 +654,10 @@ export function ColorSetChooser() {
                   <Form.Item
                     key={brand.id}
                     name={['colors', brand.id.toString()]}
-                    label={t`${brandName} colors`}
+                    label={<Trans>{brandName} colors</Trans>}
                     rules={[{required: true, message: t`${FIELD} are required`}]}
                     dependencies={['type', 'brands', 'standardColorSet']}
-                    tooltip={t`Add or remove colors to match your actual color set.`}
+                    tooltip={<Trans>Add or remove colors to match your actual color set.</Trans>}
                     extra={
                       !hasAccess && (
                         <Typography.Text type="warning">
@@ -727,18 +745,17 @@ export function ColorSetChooser() {
                     <JoinButton />
                     <LoginOAuthButton />
                     <LoginEmailOtpButton />
-                    <LoginWithQRButton />
                   </>
                 )}
                 {!!selectedColorSetId && (
                   <Popconfirm
-                    title={t`Delete the color set`}
-                    description={t`Are you sure you want to delete this color set?`}
+                    title={<Trans>Delete the color set</Trans>}
+                    description={<Trans>Are you sure you want to delete this color set?</Trans>}
                     onConfirm={() => {
                       void handleDeleteClick();
                     }}
-                    okText={t`Yes`}
-                    cancelText={t`No`}
+                    okText={<Trans>Delete</Trans>}
+                    cancelText={<Trans>Keep</Trans>}
                   >
                     <Button
                       icon={<DeleteOutlined />}
@@ -760,13 +777,6 @@ export function ColorSetChooser() {
                     <Trans>Share</Trans>
                   </Button>
                 )}
-                <FileSelect
-                  type="default"
-                  accept={{'application/json': [FileExtension.ColorSet, '.json']}}
-                  onChange={(files: File[]) => void handleJsonFileChange(files)}
-                >
-                  <Trans>Load color sets file</Trans>
-                </FileSelect>
               </Flex>
             </Form.Item>
           </Form>

@@ -22,7 +22,7 @@ import {useState} from 'react';
 
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {useCountdownUntil} from '@/hooks/useCountdownUntil';
-import {AuthErrorType} from '@/services/auth/types';
+import {AuthErrorType} from '@/services/auth/errors';
 import {useAppStore} from '@/stores/app-store';
 
 interface EmailForm {
@@ -46,8 +46,6 @@ interface LoginEmailOtpFormProps {
   email?: string;
   expiresIn: number;
 }
-
-const AUTH_MODAL_Z_INDEX = 1100;
 
 function LoginEmailForm({onRequestCode}: Readonly<LoginEmailFormProps>) {
   const isRequestLoginEmailOtpLoading = useAppStore(state => state.isRequestLoginEmailOtpLoading);
@@ -169,18 +167,22 @@ function LoginEmailOtpForm({email, expiresIn}: Readonly<LoginEmailOtpFormProps>)
               message: t`Code is required`,
             },
           ]}
+          extra={
+            expiresIn < 60 && (
+              <Flex justify="center">
+                <Typography.Text type="secondary">
+                  <Plural
+                    value={expiresIn}
+                    one="Code expires in # second"
+                    other="Code expires in # seconds"
+                  />
+                </Typography.Text>
+              </Flex>
+            )
+          }
         >
           <Input.OTP autoFocus inputMode="numeric" length={6} size="large" />
         </Form.Item>
-        {expiresIn < 60 && (
-          <Typography.Text type="secondary">
-            <Plural
-              value={expiresIn}
-              one="Code expires in # second"
-              other="Code expires in # seconds"
-            />
-          </Typography.Text>
-        )}
         <div className="u-w-100 u-text-right">
           <Space>
             <Button
@@ -243,7 +245,9 @@ function LoginEmailOtpModal({open, onClose}: Readonly<LoginEmailModalProps>) {
       centered
       open={open}
       footer={null}
-      zIndex={AUTH_MODAL_Z_INDEX}
+      mask={{closable: false}}
+      keyboard={false}
+      zIndex={1100}
       onCancel={onClose}
     >
       <LoadingIndicator loading={isLoading}>

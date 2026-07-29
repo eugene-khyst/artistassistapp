@@ -17,15 +17,13 @@
  */
 
 import {DeleteOutlined} from '@ant-design/icons';
-import {Trans, useLingui} from '@lingui/react/macro';
+import {Trans} from '@lingui/react/macro';
 import {Button, Popconfirm} from 'antd';
 import {useState} from 'react';
 
 import {deleteAppData} from '@/utils/storage';
 
 export function DeleteAppDataButton() {
-  const {t} = useLingui();
-
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
   const handleDeleteData = async () => {
@@ -39,16 +37,21 @@ export function DeleteAppDataButton() {
 
   return (
     <Popconfirm
-      title={t`Delete all app data`}
-      description={t`Are you sure you want to delete all app data?`}
-      onConfirm={() => {
-        void handleDeleteData();
-      }}
-      okText={t`Yes`}
-      cancelText={t`No`}
+      title={<Trans>Delete data on this device</Trans>}
+      description={
+        <Trans>
+          ArtistAssistApp will permanently delete your saved work and settings from this device and
+          log you out.
+          <br />
+          Data already synchronized to cloud storage will not be deleted.
+        </Trans>
+      }
+      onConfirm={() => void handleDeleteData()}
+      okText={<Trans>Delete</Trans>}
+      cancelText={<Trans>Cancel</Trans>}
     >
       <Button icon={<DeleteOutlined />} danger loading={isDeleting}>
-        <Trans>Delete all app data</Trans>
+        <Trans>Delete data on this device</Trans>
       </Button>
     </Popconfirm>
   );

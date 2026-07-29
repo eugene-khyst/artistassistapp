@@ -19,6 +19,7 @@
 import type {MessageDescriptor} from '@lingui/core';
 import {defineMessage} from '@lingui/core/macro';
 
+import {CloudProvider} from '@/services/cloud/types';
 import {ColorMixtureSort} from '@/services/color/color-mixer';
 import {ColorSort} from '@/services/color/colors';
 import {ColorType} from '@/services/color/types';
@@ -70,8 +71,14 @@ export const COLOR_SORT_LABELS: Record<ColorSort, MessageDescriptor> = {
 };
 
 export const COLOR_MIXTURE_SORT_LABELS: Record<ColorMixtureSort, MessageDescriptor> = {
-  [ColorMixtureSort.ByDate]: defineMessage`By date added`,
+  [ColorMixtureSort.ByDate]: defineMessage`By date`,
   [ColorMixtureSort.ByName]: defineMessage`By name`,
   [ColorMixtureSort.ByHue]: defineMessage`By hue`,
   [ColorMixtureSort.ByLightness]: defineMessage`By lightness`,
+};
+
+export const CLOUD_PROVIDER_LABELS: Record<CloudProvider, string> = {
+  [CloudProvider.Google]: 'Google Drive',
+  [CloudProvider.Microsoft]: 'OneDrive',
+  [CloudProvider.Dropbox]: 'Dropbox',
 };

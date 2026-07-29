@@ -16,35 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {getAuthSession} from '@/services/db/auth-db';
 import {useAppStore} from '@/stores/app-store';
 
-const TIMEOUT = 10 * 60 * 1000;
-
 let initialized = false;
-
-async function syncAuthAttempt(): Promise<void> {
-  const {auth, clearPendingAuthAttempt, failPendingAuthAttempt, loadAuthAttempt} =
-    useAppStore.getState();
-  const session = await getAuthSession();
-  const authAttempt = await loadAuthAttempt();
-  if (session) {
-    try {
-      if (authAttempt) {
-        await clearPendingAuthAttempt(authAttempt.pendingSince);
-      }
-    } catch {
-      // ignore
-    }
-    if (!auth) {
-      window.location.reload();
-    }
-    return;
-  }
-  if (authAttempt && Date.now() - authAttempt.pendingSince > TIMEOUT) {
-    await failPendingAuthAttempt(authAttempt.pendingSince);
-  }
-}
 
 function runSyncWhenVisible(): void {
   if (document.visibilityState !== 'hidden') {
@@ -52,7 +26,7 @@ function runSyncWhenVisible(): void {
     if (auth && !authAttempt) {
       return;
     }
-    void syncAuthAttempt();
+    void useAppStore.getState().reconcileAuthAttempt();
   }
 }
 
@@ -65,5 +39,4 @@ export function initAuthAttemptWatcher(): void {
   initialized = true;
   document.addEventListener('visibilitychange', runSyncWhenVisible);
   window.addEventListener('pageshow', runSyncWhenVisible);
-  runSyncWhenVisible();
 }

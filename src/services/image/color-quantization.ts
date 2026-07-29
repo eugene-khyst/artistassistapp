@@ -79,13 +79,12 @@ export class ColorQuantization {
       imageData,
       MAX_COLORS,
       true,
-      rgbTransformInOklab(
-        (color: RgbTuple): RgbTuple =>
-          computeIfAbsentInMap(
-            similarColors,
-            packRgb(...color),
-            () => colorMixer.findSimilarColor(color, true)?.colorMixture.layerRgb ?? WHITE
-          )
+      rgbTransformInOklab((color: RgbTuple): RgbTuple =>
+        computeIfAbsentInMap(
+          similarColors,
+          packRgb(...color),
+          () => colorMixer.findSimilarColor(color, true)?.colorMixture.layerRgb ?? WHITE
+        )
       )
     );
     const quantizedImage: ImageBitmap = await createImageBitmap(imageData);

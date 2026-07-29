@@ -27,9 +27,11 @@ import {EmptyImage} from '@/components/empty/EmptyImage';
 import {FileSelect} from '@/components/file/FileSelect';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {useCreateObjectUrl} from '@/hooks/useCreateObjectUrl';
+import {useFileReadErrorNotification} from '@/hooks/useFileReadErrorNotification';
 import {useImageFileToBlob} from '@/hooks/useImageFileToBlob';
 import {useSelectedOnnxModel} from '@/hooks/useSelectedOnnxModel';
 import {hasAccessTo} from '@/services/auth/utils';
+import {fileToImageFile, type ImageFile} from '@/services/image/image-file';
 import type {OnnxModel} from '@/services/ml/types';
 import {OnnxModelType} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
@@ -39,16 +41,19 @@ import styles from './ImageStyleTransfer.module.css';
 
 export function ImageStyleTransfer() {
   const user = useAppStore(state => state.auth?.user);
-  const isAuthLoading = useAppStore(state => state.isAuthLoading);
-  const styleTransferImage = useAppStore(state => state.appSettings.styleTransferImage);
-  const imageFile = useAppStore(state => state.imageFile);
+  const styleTransferImageDigest = useAppStore(state => state.appSettings.styleTransferImageDigest);
+  const styleTransferImage = useAppStore(state => state.styleTransferImage);
+  const selectedImageFile = useAppStore(state => state.selectedImageFile);
   const isStyleTransferLoading = useAppStore(state => state.isStyleTransferLoading);
   const styleTransferDownloadTip = useAppStore(state => state.styleTransferDownloadTip);
   const styledImageBlob = useAppStore(state => state.styledImageBlob);
 
   const setStyleTransferModel = useAppStore(state => state.setStyleTransferModel);
   const setStyleImageFile = useAppStore(state => state.setStyleImageFile);
+  const loadStyleImage = useAppStore(state => state.loadStyleImage);
   const abortStyleTransfer = useAppStore(state => state.abortStyleTransfer);
+
+  const showFileReadErrorNotification = useFileReadErrorNotification();
 
   const {t} = useLingui();
 
@@ -64,16 +69,22 @@ export function ImageStyleTransfer() {
     type: OnnxModelType.StyleTransfer,
     settingsKey: 'styleTransferModel',
     setModel: setStyleTransferModel,
-    defaultPredicate: ({numInputs = 1}) => numInputs === 1 || !!styleTransferImage,
+    defaultPredicate: ({numInputs = 1}) => numInputs === 1 || !!styleTransferImageDigest,
   });
+
+  useEffect(() => {
+    void loadStyleImage();
+  }, [loadStyleImage]);
 
   const radioGroupRef = useRef<HTMLDivElement>(null);
   const hasScrolledToDefaultRef = useRef(false);
 
-  const isLoading: boolean = isModelsLoading || isStyleTransferLoading || isAuthLoading;
+  const isLoading: boolean = isModelsLoading || isStyleTransferLoading;
+
+  const isCancelable: boolean = isStyleTransferLoading;
 
   const styleImageBlob: Blob | undefined = useImageFileToBlob(styleTransferImage);
-  const originalImageBlob: Blob | undefined = useImageFileToBlob(imageFile);
+  const originalImageBlob: Blob | undefined = useImageFileToBlob(selectedImageFile);
   const originalImageUrl: string | undefined = useCreateObjectUrl(originalImageBlob);
   const styleImageUrl: string | undefined = useCreateObjectUrl(styleImageBlob);
   const styledImageUrl: string | undefined = useCreateObjectUrl(styledImageBlob);
@@ -95,7 +106,7 @@ export function ImageStyleTransfer() {
 
   const handleSaveClick = () => {
     if (styledImageUrl) {
-      saveAs(styledImageUrl, getFilename(imageFile, 'styled'));
+      saveAs(styledImageUrl, getFilename(selectedImageFile, 'styled'));
     }
   };
 
@@ -133,9 +144,22 @@ export function ImageStyleTransfer() {
                       <div key={id} className="u-px">
                         <FileSelect
                           showUseCopiedImage
-                          onChange={([file]: File[]) => {
-                            void setStyleImageFile(file);
+                          onChange={async ([file]: File[]) => {
+                            if (!file) {
+                              return;
+                            }
+                            let styleImageFile: ImageFile;
+                            try {
+                              styleImageFile = await fileToImageFile(file);
+                            } catch (error) {
+                              console.error(error);
+                              showFileReadErrorNotification();
+                              return;
+                            }
+                            // Aborts the running transfer synchronously, so call it before selecting the model.
+                            const promise = setStyleImageFile(styleImageFile);
                             setSelectedModelId(id);
+                            await promise;
                           }}
                           disabled={!hasAccess}
                         >
@@ -168,18 +192,25 @@ export function ImageStyleTransfer() {
           disabled: !hasAccess,
         };
       }),
-    [sortedModels, user, styleImageUrl, setStyleImageFile, setSelectedModelId]
+    [
+      sortedModels,
+      user,
+      styleImageUrl,
+      setStyleImageFile,
+      setSelectedModelId,
+      showFileReadErrorNotification,
+    ]
   );
 
-  if (!imageFile) {
+  if (!selectedImageFile) {
     return <EmptyImage />;
   }
 
   return (
     <LoadingIndicator
       loading={isLoading}
-      downloadTip={styleTransferDownloadTip}
-      onCancel={handleCancelClick}
+      tip={styleTransferDownloadTip}
+      onCancel={isCancelable && handleCancelClick}
     >
       <Row>
         <Col xs={24} sm={12} lg={16} className={styles['imageColumn']}>

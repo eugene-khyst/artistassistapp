@@ -17,15 +17,13 @@
  */
 
 import {ClearOutlined} from '@ant-design/icons';
-import {Trans, useLingui} from '@lingui/react/macro';
+import {Trans} from '@lingui/react/macro';
 import {Button, Popconfirm} from 'antd';
 import {useState} from 'react';
 
 import {clearCache} from '@/utils/storage';
 
 export function ClearCacheButton() {
-  const {t} = useLingui();
-
   const [isClearing, setIsClearing] = useState<boolean>(false);
 
   const handleClearCache = async () => {
@@ -39,13 +37,17 @@ export function ClearCacheButton() {
 
   return (
     <Popconfirm
-      title={t`Clear cache`}
-      description={t`Are you sure you want to clear the cache?`}
-      onConfirm={() => {
-        void handleClearCache();
-      }}
-      okText={t`Yes`}
-      cancelText={t`No`}
+      title={<Trans>Clear cache</Trans>}
+      description={
+        <Trans>
+          ArtistAssistApp will reload after removing temporary app files.
+          <br />
+          Your saved work and cloud data will not be deleted.
+        </Trans>
+      }
+      onConfirm={() => void handleClearCache()}
+      okText={<Trans>Clear cache</Trans>}
+      cancelText={<Trans>Cancel</Trans>}
     >
       <Button icon={<ClearOutlined />} loading={isClearing}>
         <Trans>Clear cache</Trans>

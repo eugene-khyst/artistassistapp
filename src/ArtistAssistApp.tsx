@@ -17,7 +17,7 @@
  */
 
 import {FullscreenExitOutlined, FullscreenOutlined} from '@ant-design/icons';
-import {useLingui} from '@lingui/react/macro';
+import {Trans, useLingui} from '@lingui/react/macro';
 import type {TabsProps} from 'antd';
 import {Col, FloatButton, Row, Tabs} from 'antd';
 import {useContext, useEffect} from 'react';
@@ -36,7 +36,6 @@ import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {TAB_LABELS} from '@/components/messages';
 import {TabContext} from '@/contexts/TabContext';
 import {UnsavedChangesContext} from '@/contexts/UnsavedChangesContext';
-import {useColorSetBackup} from '@/hooks/useColorSetBackup';
 import {useDoubleBackPressToExit} from '@/hooks/useDoubleBackPressToExit';
 import {useFullScreen} from '@/hooks/useFullscreen';
 import {useInstall} from '@/hooks/useInstall';
@@ -65,6 +64,9 @@ export function ArtistAssistApp() {
   const isAppInitializing = useAppStore(state => state.isAppInitializing);
   const isLocaleLoading = useAppStore(state => state.isLocaleLoading);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
+  const isCloudLoading = useAppStore(state => !!state.cloudOperation);
+  const cloudSyncTip = useAppStore(state => state.cloudSyncTip);
+  const abortCloudSync = useAppStore(state => state.abortCloudSync);
 
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
 
@@ -74,20 +76,16 @@ export function ArtistAssistApp() {
 
   const {isFullscreen, toggleFullScreen, isSupported: isFullScreenSupported} = useFullScreen();
 
-  const isLoading: boolean = isAppInitializing || isLocaleLoading || isAuthLoading;
+  const isLoading: boolean =
+    isAppInitializing || isLocaleLoading || isAuthLoading || isCloudLoading;
 
-  const appInitialized = useAppStore(state => state.appInitialized);
+  const isCancelable: boolean = isCloudLoading;
+
   const installRequested = useAppStore(state => state.installRequested);
-  const saveColorSetsAsJsonAndNotify = useColorSetBackup();
+
   const {install, installDrawer} = useInstall();
 
-  useDoubleBackPressToExit();
-
-  useEffect(() => {
-    if (appInitialized) {
-      void saveColorSetsAsJsonAndNotify();
-    }
-  }, [appInitialized, saveColorSetsAsJsonAndNotify]);
+  useDoubleBackPressToExit(<Trans>Press Back again to exit</Trans>);
 
   const resetInstallRequested = useAppStore(state => state.resetInstallRequested);
 
@@ -195,7 +193,11 @@ export function ArtistAssistApp() {
   );
 
   return (
-    <LoadingIndicator loading={isLoading}>
+    <LoadingIndicator
+      loading={isLoading}
+      tip={cloudSyncTip}
+      onCancel={isCancelable && abortCloudSync}
+    >
       <div className={styles['watermark']}>{WATERMARK_TEXT}</div>
       <Row justify="center">
         <Col xs={24} xxl={18}>

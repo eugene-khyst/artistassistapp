@@ -17,7 +17,7 @@
  */
 
 import {CopyOutlined, ShareAltOutlined} from '@ant-design/icons';
-import {Trans, useLingui} from '@lingui/react/macro';
+import {Trans} from '@lingui/react/macro';
 import {App, Button, Input, Modal, Space, Typography} from 'antd';
 
 import {QRCode} from '@/components/qr/QRCode';
@@ -33,12 +33,10 @@ interface Props {
 export function ShareModal({open, setOpen, url}: Readonly<Props>) {
   const {message} = App.useApp();
 
-  const {t} = useLingui();
-
   const handleCopyToClipboardClick = () => {
     if ('clipboard' in navigator && url) {
       void navigator.clipboard.writeText(url);
-      void message.info(t`Link copied to clipboard`);
+      void message.info(<Trans>Link copied to clipboard</Trans>);
     }
   };
 
@@ -59,7 +57,7 @@ export function ShareModal({open, setOpen, url}: Readonly<Props>) {
 
   return (
     <Modal
-      title={t`Share your color set`}
+      title={<Trans>Share your color set</Trans>}
       centered
       open={open}
       footer={null}
@@ -72,7 +70,7 @@ export function ShareModal({open, setOpen, url}: Readonly<Props>) {
           <Typography.Text>
             <Trans>Copy and share this link</Trans>
           </Typography.Text>
-          <Space.Compact className="u-w-100">
+          <Space.Compact block>
             <Input value={url} />
             {SHARE_AVAILABLE ? (
               <Button

@@ -17,12 +17,13 @@
  */
 
 import {transfer} from 'comlink';
-import {env, InferenceSession, Tensor} from 'onnxruntime-web';
+import ortWasmUrl from 'onnxruntime-web/ort-wasm-simd-threaded.wasm?url';
+import {env, InferenceSession, Tensor} from 'onnxruntime-web/wasm';
 
 import {type Float32Tensor, getFloat32TensorTransferables} from '@/services/ml/tensor';
 
 env.wasm.proxy = false;
-env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.24.3/dist/';
+env.wasm.wasmPaths = {wasm: new URL(ortWasmUrl, self.location.href).href};
 
 interface Result {
   outputTensors: Float32Tensor[];

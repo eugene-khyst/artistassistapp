@@ -183,7 +183,12 @@ export function ColorMixer() {
                     <Trans>Color</Trans>
                   </Typography.Text>
                   <Tooltip
-                    title={t`Select any number of colors to mix and specify the part of each color in the resulting mix.`}
+                    title={
+                      <Trans>
+                        Select any number of colors to mix and specify the part of each color in the
+                        resulting mix.
+                      </Trans>
+                    }
                   >
                     <QuestionCircleOutlined className="u-help-icon" />
                   </Tooltip>
@@ -197,7 +202,7 @@ export function ColorMixer() {
                         <Form.Item {...restField} name={[name, 'part']} className="u-mb-0">
                           <Select
                             options={ratioOptions}
-                            placeholder={t`Select part`}
+                            placeholder={<Trans>Select part</Trans>}
                             className={styles['ratioSelect']}
                           />
                         </Form.Item>

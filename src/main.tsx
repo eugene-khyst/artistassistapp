@@ -26,7 +26,9 @@ import {createRoot} from 'react-dom/client';
 import {ErrorBoundary} from 'react-error-boundary';
 
 import {ArtistAssistApp} from '@/ArtistAssistApp';
-import {AuthFeedbackHandler} from '@/components/error/AuthFeedbackHandler';
+import {AuthFeedbackHandler} from '@/components/auth/AuthFeedbackHandler';
+import {CloudFeedbackHandler} from '@/components/cloud/CloudFeedbackHandler';
+import {CloudSyncUpdateNotification} from '@/components/cloud/CloudSyncUpdateNotification';
 import {BrowserSupport} from '@/components/error/BrowserSupport';
 import {ErrorFallback} from '@/components/error/ErrorFallback';
 import {UnhandledRejectionHandler} from '@/components/error/UnhandledRejectionHandler';
@@ -34,7 +36,7 @@ import {ServiceWorkerUpdateNotification} from '@/components/pwa/ServiceWorkerUpd
 import {InternationalizationProvider} from '@/contexts/InternationalizationProvider';
 import {UnsavedChangesProvider} from '@/contexts/UnsavedChangesContext';
 import type {BeforeInstallPromptEvent} from '@/pwa';
-import {ForceLogoutError} from '@/services/auth/types';
+import {ForceLogoutError} from '@/services/auth/errors';
 import {useAppStore} from '@/stores/app-store';
 import {registerServiceWorker} from '@/utils/service-worker';
 import {disableScreenLock} from '@/wake-lock';
@@ -75,16 +77,19 @@ async function renderApp(): Promise<void> {
       <InternationalizationProvider>
         <App>
           <ServiceWorkerUpdateNotification />
+          <CloudSyncUpdateNotification />
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             <UnhandledRejectionHandler>
               <AuthFeedbackHandler>
-                <BrowserSupport>
-                  <QueryClientProvider client={queryClient}>
-                    <UnsavedChangesProvider>
-                      <ArtistAssistApp />
-                    </UnsavedChangesProvider>
-                  </QueryClientProvider>
-                </BrowserSupport>
+                <CloudFeedbackHandler>
+                  <BrowserSupport>
+                    <QueryClientProvider client={queryClient}>
+                      <UnsavedChangesProvider>
+                        <ArtistAssistApp />
+                      </UnsavedChangesProvider>
+                    </QueryClientProvider>
+                  </BrowserSupport>
+                </CloudFeedbackHandler>
               </AuthFeedbackHandler>
             </UnhandledRejectionHandler>
           </ErrorBoundary>

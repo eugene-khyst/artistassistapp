@@ -19,9 +19,10 @@
 import {useQueries} from '@tanstack/react-query';
 import {useCallback, useMemo} from 'react';
 
-import {fetchColors, indexColors} from '@/services/color/colors';
+import {fetchColors} from '@/services/color/colors';
 import type {ColorBrandDefinition, ColorDefinition, ColorType} from '@/services/color/types';
 import {useAppStore} from '@/stores/app-store';
+import {indexById} from '@/utils/map';
 
 interface Result {
   isLoading: boolean;
@@ -34,6 +35,8 @@ interface QueryResult {
   isError: boolean;
   data?: Map<number, ColorDefinition>;
 }
+
+const indexColors = (colors: ColorDefinition[]): Map<number, ColorDefinition> => indexById(colors);
 
 export function useColors(type?: ColorType, brands?: ColorBrandDefinition[]): Result {
   const auth = useAppStore(state => state.auth);

@@ -17,14 +17,14 @@
  */
 
 import type {IDBPDatabase, IDBPTransaction} from 'idb';
-import {decodeJwt} from 'jose';
 
 import type {RgbTuple} from '@/services/color/space/rgb';
 import type {ColorMixture} from '@/services/color/types';
 import {EMPTY_DIGEST} from '@/services/db/color-mixture-db';
 import {type ArtistAssistAppDB, OBJECT_STORE_NAMES, type StoreName} from '@/services/db/schema';
 import type {ImageFile} from '@/services/image/image-file';
-import {fromEpochSeconds} from '@/utils/date';
+import {toImageMetadata} from '@/services/image/image-file';
+import type {AppSettings} from '@/services/settings/types';
 import {digestArrayBuffer} from '@/utils/digest';
 
 export interface AppliedMigration {
@@ -50,23 +50,23 @@ function defineMigration<T = unknown>({name, prepare, migrate}: Migration<T>): M
   };
 }
 
-const ACCESS_TOKEN_TTL = 30 * 24 * 60 * 60;
-
 const MIGRATIONS: Migration[] = [
   defineMigration<Map<number, string>>({
     name: '001-image-file-digest',
     prepare: async db => {
-      const imageFiles = (await db.getAll('images')) as (Omit<ImageFile, 'digest'> & {
+      const imageFiles = (await db.getAll('images')) as unknown as (Omit<
+        ImageFile,
+        'blob' | 'digest'
+      > & {
+        buffer: ArrayBuffer;
         digest?: string;
       })[];
       return new Map<number, string>(
         await Promise.all(
-          imageFiles.map(
-            async ({id, buffer, digest}): Promise<[number, string]> => [
-              id!,
-              digest ?? (await digestArrayBuffer(buffer)),
-            ]
-          )
+          imageFiles.map(async ({id, buffer, digest}): Promise<[number, string]> => [
+            id!,
+            digest ?? (await digestArrayBuffer(buffer)),
+          ])
         )
       );
     },
@@ -103,32 +103,52 @@ const MIGRATIONS: Migration[] = [
       }
     },
   }),
+  // Migration '003-auth-session' has been removed as it is no longer needed
   defineMigration({
-    name: '003-auth-session',
+    name: '004-image-metadata',
     migrate: async (tx): Promise<void> => {
-      const key = 0;
-      const idTokenStore = tx.objectStore('id-token');
-      const idToken = await idTokenStore.get(key);
-      if (!idToken) {
+      const imageMetadataStore = tx.objectStore('image-metadata');
+      for await (const cursor of tx.objectStore('images')) {
+        const {buffer, ...data} = cursor.value as unknown as Omit<ImageFile, 'blob'> & {
+          buffer: ArrayBuffer;
+        };
+        if (await imageMetadataStore.getKey(data.digest)) {
+          await cursor.delete();
+          continue;
+        }
+        const imageFile: ImageFile = {
+          ...data,
+          blob: new Blob([buffer], {type: data.type}),
+        };
+        await cursor.update(imageFile);
+        await imageMetadataStore.put(toImageMetadata(imageFile));
+      }
+    },
+  }),
+  defineMigration({
+    name: '005-style-image',
+    migrate: async (tx): Promise<void> => {
+      const settingsStore = tx.objectStore('app-settings');
+      const settings = await settingsStore.get(0);
+      if (!settings) {
         return;
       }
-      try {
-        const {iat} = decodeJwt(idToken);
-        if (!iat) {
-          return;
-        }
-        await tx.objectStore('auth-session').put(
-          {
-            idToken,
-            refreshExpiresAt: fromEpochSeconds(iat + ACCESS_TOKEN_TTL),
-          },
-          key
-        );
-      } catch {
-        // Skip malformed token.
-      } finally {
-        await idTokenStore.delete(key);
+      const {
+        styleTransferImage,
+        ...rest
+      }: AppSettings & {
+        styleTransferImage?: Omit<ImageFile, 'blob'> & {buffer: ArrayBuffer};
+      } = settings;
+      if (!styleTransferImage) {
+        return;
       }
+      const {buffer, ...data} = styleTransferImage;
+      const styleImage: ImageFile = {
+        ...data,
+        blob: new Blob([buffer], {type: data.type}),
+      };
+      await tx.objectStore('style-image').put(styleImage, 0);
+      await settingsStore.put({...rest, styleTransferImageDigest: styleImage.digest}, 0);
     },
   }),
 ];

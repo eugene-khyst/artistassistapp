@@ -59,7 +59,7 @@ interface Props {
 export function OpacityIcon({opacity}: Readonly<Props>) {
   const {t} = useLingui();
   if (!opacity) {
-    return <></>;
+    return null;
   }
   const {tooltip, icon} = OPACITIES[opacity];
   return <Tooltip title={t(tooltip)}>{icon}</Tooltip>;

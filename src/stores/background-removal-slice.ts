@@ -18,13 +18,13 @@
 
 import type {StateCreator} from 'zustand';
 
+import {formatFetchProgress} from '@/i18n';
 import {hasAccessTo} from '@/services/auth/utils';
 import {fillBackgroundWithColor, removeBackground} from '@/services/image/background-removal';
 import type {OnnxModel} from '@/services/ml/types';
 import type {AuthSlice} from '@/stores/auth-slice';
-import {formatFetchProgress} from '@/utils/fetch';
+import {createAbortableOperation} from '@/utils/abortable-operation';
 import {copyOffscreenCanvas, offscreenCanvasToBlob} from '@/utils/graphics';
-import {isAbortError} from '@/utils/promise';
 
 export interface BackgroundRemovalSlice {
   imageFileToRemoveBackground: File | null;
@@ -34,7 +34,6 @@ export interface BackgroundRemovalSlice {
   imageWithoutBackgroundBlob: Blob | null;
   isBackgroundRemovalLoading: boolean;
   backgroundRemovalDownloadTip: string | null;
-  backgroundRemovalAbortController: AbortController | null;
 
   setImageFileToRemoveBackground: (imageFileToRemoveBackground: File | null) => void;
   setBackgroundRemovalColor: (backgroundRemovalColor: string | null) => void;
@@ -48,113 +47,113 @@ export const createBackgroundRemovalSlice: StateCreator<
   [],
   [],
   BackgroundRemovalSlice
-> = (set, get) => ({
-  imageFileToRemoveBackground: null,
-  backgroundRemovalColor: null,
-  imageWithoutBackgroundCanvas: null,
-  imageWithoutBackgroundBlob: null,
-  isBackgroundRemovalLoading: false,
-  backgroundRemovalDownloadTip: null,
-  backgroundRemovalAbortController: null,
-
-  setImageFileToRemoveBackground: (imageFileToRemoveBackground: File | null): void => {
-    set({
-      imageFileToRemoveBackground,
-      imageWithoutBackgroundCanvas: null,
-      imageWithoutBackgroundBlob: null,
-    });
-    void get().removeBackground();
-  },
-
-  setBackgroundRemovalColor: (backgroundRemovalColor: string | null): void => {
-    set({
-      backgroundRemovalColor,
-      imageWithoutBackgroundBlob: null,
-    });
-    void get().removeBackground();
-  },
-
-  setBackgroundRemovalModel: (backgroundRemovalModel: OnnxModel | undefined): void => {
-    if (get().backgroundRemovalModel === backgroundRemovalModel) {
-      return;
-    }
-    set({
-      backgroundRemovalModel,
-      imageWithoutBackgroundCanvas: null,
-      imageWithoutBackgroundBlob: null,
-    });
-    void get().removeBackground();
-  },
-
-  removeBackground: async (): Promise<void> => {
-    get().abortBackgroundRemoval();
-    const {
-      imageFileToRemoveBackground,
-      backgroundRemovalColor,
-      backgroundRemovalModel,
-      imageWithoutBackgroundBlob,
-      auth,
-    } = get();
-    let {imageWithoutBackgroundCanvas} = get();
-    if (
-      imageWithoutBackgroundBlob ||
-      !imageFileToRemoveBackground ||
-      !backgroundRemovalModel ||
-      !hasAccessTo(auth?.user, backgroundRemovalModel)
-    ) {
-      return;
-    }
-    const backgroundRemovalAbortController = new AbortController();
-    set({
-      isBackgroundRemovalLoading: true,
-      backgroundRemovalDownloadTip: null,
-      backgroundRemovalAbortController,
-    });
-    try {
-      if (!imageWithoutBackgroundCanvas) {
-        imageWithoutBackgroundCanvas = await removeBackground(
-          imageFileToRemoveBackground,
-          backgroundRemovalModel,
-          auth,
-          (key, progress) => {
-            set({
-              backgroundRemovalDownloadTip: formatFetchProgress(key, progress),
-            });
-          },
-          backgroundRemovalAbortController.signal
-        );
-        set({
-          imageWithoutBackgroundCanvas,
-        });
-      }
-      if (backgroundRemovalColor) {
-        imageWithoutBackgroundCanvas = copyOffscreenCanvas(imageWithoutBackgroundCanvas);
-        fillBackgroundWithColor(imageWithoutBackgroundCanvas, backgroundRemovalColor);
-      }
-      const imageWithoutBackgroundBlob: Blob = await offscreenCanvasToBlob(
-        imageWithoutBackgroundCanvas,
-        {type: 'image/png'}
-      );
+> = (set, get) => {
+  const backgroundRemovalOperation = createAbortableOperation({
+    onStart: () => {
       set({
-        imageWithoutBackgroundBlob,
+        isBackgroundRemovalLoading: true,
+        backgroundRemovalDownloadTip: null,
       });
-    } catch (error) {
-      if (isAbortError(error)) {
+    },
+    onFinish: () => {
+      set({
+        isBackgroundRemovalLoading: false,
+        backgroundRemovalDownloadTip: null,
+      });
+    },
+  });
+
+  return {
+    imageFileToRemoveBackground: null,
+    backgroundRemovalColor: null,
+    imageWithoutBackgroundCanvas: null,
+    imageWithoutBackgroundBlob: null,
+    isBackgroundRemovalLoading: false,
+    backgroundRemovalDownloadTip: null,
+
+    setImageFileToRemoveBackground: (imageFileToRemoveBackground: File | null): void => {
+      set({
+        imageFileToRemoveBackground,
+        imageWithoutBackgroundCanvas: null,
+        imageWithoutBackgroundBlob: null,
+      });
+      void get().removeBackground();
+    },
+
+    setBackgroundRemovalColor: (backgroundRemovalColor: string | null): void => {
+      set({
+        backgroundRemovalColor,
+        imageWithoutBackgroundBlob: null,
+      });
+      void get().removeBackground();
+    },
+
+    setBackgroundRemovalModel: (backgroundRemovalModel: OnnxModel | undefined): void => {
+      if (get().backgroundRemovalModel === backgroundRemovalModel) {
         return;
       }
-      throw error;
-    } finally {
-      if (get().backgroundRemovalAbortController === backgroundRemovalAbortController) {
-        set({
-          isBackgroundRemovalLoading: false,
-          backgroundRemovalDownloadTip: null,
-          backgroundRemovalAbortController: null,
-        });
-      }
-    }
-  },
+      set({
+        backgroundRemovalModel,
+        imageWithoutBackgroundCanvas: null,
+        imageWithoutBackgroundBlob: null,
+      });
+      void get().removeBackground();
+    },
 
-  abortBackgroundRemoval: (): void => {
-    get().backgroundRemovalAbortController?.abort();
-  },
-});
+    removeBackground: async (): Promise<void> => {
+      get().abortBackgroundRemoval();
+      const {
+        imageFileToRemoveBackground,
+        backgroundRemovalColor,
+        backgroundRemovalModel,
+        imageWithoutBackgroundBlob,
+        auth,
+      } = get();
+      let {imageWithoutBackgroundCanvas} = get();
+      if (
+        imageWithoutBackgroundBlob ||
+        !imageFileToRemoveBackground ||
+        !backgroundRemovalModel ||
+        !hasAccessTo(auth?.user, backgroundRemovalModel)
+      ) {
+        return;
+      }
+      await backgroundRemovalOperation.run(async signal => {
+        if (!imageWithoutBackgroundCanvas) {
+          imageWithoutBackgroundCanvas = await removeBackground(
+            imageFileToRemoveBackground,
+            backgroundRemovalModel,
+            auth,
+            (key, progress) => {
+              signal.throwIfAborted();
+              set({
+                backgroundRemovalDownloadTip: formatFetchProgress(key, progress),
+              });
+            },
+            signal
+          );
+          signal.throwIfAborted();
+          set({
+            imageWithoutBackgroundCanvas,
+          });
+        }
+        if (backgroundRemovalColor) {
+          imageWithoutBackgroundCanvas = copyOffscreenCanvas(imageWithoutBackgroundCanvas);
+          fillBackgroundWithColor(imageWithoutBackgroundCanvas, backgroundRemovalColor);
+        }
+        const imageWithoutBackgroundBlob: Blob = await offscreenCanvasToBlob(
+          imageWithoutBackgroundCanvas,
+          {type: 'image/png'}
+        );
+        signal.throwIfAborted();
+        set({
+          imageWithoutBackgroundBlob,
+        });
+      });
+    },
+
+    abortBackgroundRemoval: (): void => {
+      backgroundRemovalOperation.abort();
+    },
+  };
+};

@@ -22,46 +22,56 @@ import {App, Button} from 'antd';
 import type {ReactNode} from 'react';
 import {useCallback} from 'react';
 
+import {STORAGE_NOTIFICATION_KEY, useCloudSyncNotification} from '@/hooks/useCloudSyncNotification';
+import {useDisplayMode} from '@/hooks/useDisplayMode';
 import {useInstall} from '@/hooks/useInstall';
+import {DisplayMode} from '@/utils/environment';
 import {requestPersistentStorage} from '@/utils/storage';
-
-const NOTIFICATION_KEY = 'persistent-storage';
 
 interface Result {
   requestPersistentStorage: () => Promise<boolean>;
-  showPersistentStorageWarning: () => void;
+  showStorageNotification: (persistentStorageGranted: boolean) => void;
   installDrawer: ReactNode;
 }
 
 export function usePersistentStorage(): Result {
   const {notification} = App.useApp();
   const {install, installDrawer} = useInstall();
+  const displayMode = useDisplayMode();
+  const showCloudSyncNotification = useCloudSyncNotification();
 
-  const showPersistentStorageWarning = useCallback(() => {
-    const handleInstallClick = () => {
-      notification.destroy(NOTIFICATION_KEY);
-      install();
-    };
+  const showStorageNotification = useCallback(
+    (persistentStorageGranted: boolean) => {
+      if (!persistentStorageGranted && displayMode === DisplayMode.BROWSER) {
+        const handleInstallClick = () => {
+          notification.destroy(STORAGE_NOTIFICATION_KEY);
+          install();
+        };
 
-    notification.warning({
-      key: NOTIFICATION_KEY,
-      title: <Trans>Persistent storage is not enabled</Trans>,
-      description: (
-        <Trans>
-          Your data may not be saved reliably if the browser is closed. To fix this, install the
-          app.
-        </Trans>
-      ),
-      placement: 'top',
-      duration: 10,
-      showProgress: true,
-      actions: (
-        <Button type="primary" icon={<AppstoreAddOutlined />} onClick={handleInstallClick}>
-          <Trans>Install</Trans>
-        </Button>
-      ),
-    });
-  }, [notification, install]);
+        notification.warning({
+          key: STORAGE_NOTIFICATION_KEY,
+          title: <Trans>Persistent storage is not enabled</Trans>,
+          description: (
+            <Trans>
+              Your data may not be saved reliably if the browser is closed. To fix this, install the
+              app.
+            </Trans>
+          ),
+          placement: 'top',
+          duration: 10,
+          showProgress: true,
+          actions: (
+            <Button type="primary" icon={<AppstoreAddOutlined />} onClick={handleInstallClick}>
+              <Trans>Install</Trans>
+            </Button>
+          ),
+        });
+        return;
+      }
+      showCloudSyncNotification();
+    },
+    [displayMode, install, notification, showCloudSyncNotification]
+  );
 
-  return {requestPersistentStorage, showPersistentStorageWarning, installDrawer};
+  return {requestPersistentStorage, showStorageNotification, installDrawer};
 }

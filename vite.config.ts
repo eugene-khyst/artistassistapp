@@ -16,20 +16,6 @@ const glslPlugin: PluginOption = glsl({
   minify: true,
 });
 
-const excludeWasmPlugin: PluginOption = {
-  name: 'exclude-wasm',
-  generateBundle(_, bundle) {
-    for (const filename of Object.keys(bundle)) {
-      if (filename.endsWith('.wasm')) {
-        // You can prevent files from being emitted by deleting them from the bundle object
-        // https://rollupjs.org/plugin-development/#generatebundle
-        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-        delete bundle[filename];
-      }
-    }
-  },
-};
-
 function parseHeaders(): Record<string, string> {
   const content = fs.readFileSync(path.resolve(__dirname, 'public/_headers'), 'utf-8');
   const headers: Record<string, string> = {};
@@ -68,10 +54,9 @@ export default defineConfig({
       injectRegister: false,
       injectManifest: {
         maximumFileSizeToCacheInBytes: maxFileSize,
-        globIgnores: ['**/node_modules/**/*', '**/404.html', '**/cleanup.html'],
+        globIgnores: ['**/node_modules/**/*', '**/404.html', '**/cleanup.html', '**/*.wasm'],
         buildPlugins: {
           vite: [glslPlugin],
-          rollup: [excludeWasmPlugin],
         },
       },
     }),
@@ -96,7 +81,7 @@ export default defineConfig({
   },
 
   build: {
-    target: ['chrome98', 'edge98', 'firefox105', 'safari16.4', 'ios16.4'],
+    target: ['chrome124', 'edge124', 'firefox105', 'safari16.4', 'ios16.4'],
     sourcemap: true,
     chunkSizeWarningLimit: maxFileSize,
     rollupOptions: {
@@ -111,7 +96,6 @@ export default defineConfig({
         },
       },
       plugins: [
-        excludeWasmPlugin,
         visualizer({
           template: 'treemap',
         }),

@@ -16,13 +16,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {PAPER_WHITE_HEX} from '@/services/color/color-mixer';
-import type {AppSettings} from '@/services/settings/types';
-import {ColorPickerSort} from '@/services/settings/types';
+import {App} from 'antd';
+import type {ReactNode} from 'react';
+import {useEffect, useEffectEvent} from 'react';
 
-export const DEFAULT_APP_SETTINGS: AppSettings = {
-  colorPickerSurfaceHex: PAPER_WHITE_HEX,
-  colorPickerLayeringEnabled: true,
-  colorPickerSort: ColorPickerSort.BySimilarity,
-  autoSavingColorSetsJson: true,
-};
+export function useErrorNotification(active: boolean, title: ReactNode): void {
+  const {notification} = App.useApp();
+
+  const showNotification = useEffectEvent(() => {
+    notification.error({
+      title,
+      placement: 'top',
+      duration: 10,
+      showProgress: true,
+    });
+  });
+
+  useEffect(() => {
+    if (active) {
+      showNotification();
+    }
+  }, [active]);
+}

@@ -18,20 +18,19 @@
 
 import type {StateCreator} from 'zustand';
 
+import {formatFetchProgress} from '@/i18n';
 import {hasAccessTo} from '@/services/auth/utils';
 import {getOutline} from '@/services/image/outline';
 import type {OnnxModel} from '@/services/ml/types';
 import type {AuthSlice} from '@/stores/auth-slice';
-import {formatFetchProgress} from '@/utils/fetch';
-import {isAbortError} from '@/utils/promise';
+import {createAbortableOperation} from '@/utils/abortable-operation';
 
-import type {OriginalImageSlice} from './original-image-slice';
+import {type OriginalImageSlice, registerProcessedImage} from './original-image-slice';
 
 export interface OutlineImageSlice {
   outlineModel?: OnnxModel | null;
   isOutlineImageLoading: boolean;
   outlineDownloadTip: string | null;
-  outlineAbortController: AbortController | null;
   outlineImage: ImageBitmap | null;
 
   setOutlineModel: (outlineModel?: OnnxModel | null) => void;
@@ -44,86 +43,89 @@ export const createOutlineImageSlice: StateCreator<
   [],
   [],
   OutlineImageSlice
-> = (set, get) => ({
-  isOutlineImageLoading: false,
-  outlineDownloadTip: null,
-  outlineAbortController: null,
-  outlineImage: null,
-
-  setOutlineModel: (outlineModel?: OnnxModel | null): void => {
-    if (get().outlineModel === outlineModel) {
-      return;
-    }
-    get().abortOutline();
-    set({
-      outlineModel,
-      outlineImage: null,
-    });
-    void get().loadOutlineImage();
-  },
-
-  loadOutlineImage: async (): Promise<void> => {
-    const {originalImage, outlineModel, outlineImage, isOutlineImageLoading, auth} = get();
-    if (
-      outlineImage ||
-      isOutlineImageLoading ||
-      !originalImage ||
-      !outlineModel ||
-      !hasAccessTo(auth?.user, outlineModel)
-    ) {
-      return;
-    }
-    const outlineAbortController = new AbortController();
-    set({
-      outlineImage: null,
-      isOutlineImageLoading: true,
-      outlineDownloadTip: null,
-      outlineAbortController,
-    });
-    try {
-      const outlineImage = await getOutline(
-        originalImage,
-        outlineModel,
-        auth,
-        (key, progress) => {
-          set({
-            outlineDownloadTip: formatFetchProgress(key, progress),
-          });
-        },
-        outlineAbortController.signal
-      );
-      if (get().outlineAbortController === outlineAbortController) {
-        set({
-          outlineImage,
-        });
-      } else {
-        outlineImage.close();
-      }
-    } catch (error) {
-      if (isAbortError(error)) {
-        return;
-      }
-      throw error;
-    } finally {
-      if (get().outlineAbortController === outlineAbortController) {
-        set({
-          isOutlineImageLoading: false,
-          outlineDownloadTip: null,
-          outlineAbortController: null,
-        });
-      }
-    }
-  },
-
-  abortOutline: (): void => {
-    const {outlineAbortController} = get();
-    if (outlineAbortController) {
-      outlineAbortController.abort();
+> = (set, get) => {
+  const outlineOperation = createAbortableOperation({
+    onStart: () => {
+      set({
+        outlineImage: null,
+        isOutlineImageLoading: true,
+        outlineDownloadTip: null,
+      });
+    },
+    onFinish: () => {
       set({
         isOutlineImageLoading: false,
         outlineDownloadTip: null,
-        outlineAbortController: null,
       });
-    }
-  },
-});
+    },
+  });
+
+  registerProcessedImage({
+    abort: () => {
+      outlineOperation.abort();
+    },
+    clear: () => {
+      const {outlineImage} = get();
+      set({outlineImage: null});
+      outlineImage?.close();
+    },
+  });
+
+  return {
+    isOutlineImageLoading: false,
+    outlineDownloadTip: null,
+    outlineImage: null,
+
+    setOutlineModel: (outlineModel?: OnnxModel | null): void => {
+      if (get().outlineModel === outlineModel) {
+        return;
+      }
+      get().abortOutline();
+      const {outlineImage: prev} = get();
+      set({
+        outlineModel,
+        outlineImage: null,
+      });
+      prev?.close();
+      void get().loadOutlineImage();
+    },
+
+    loadOutlineImage: async (): Promise<void> => {
+      const {originalImage, outlineModel, outlineImage, isOutlineImageLoading, auth} = get();
+      if (
+        outlineImage ||
+        isOutlineImageLoading ||
+        !originalImage ||
+        !outlineModel ||
+        !hasAccessTo(auth?.user, outlineModel)
+      ) {
+        return;
+      }
+      await outlineOperation.run(async signal => {
+        const outlineImage = await getOutline(
+          originalImage,
+          outlineModel,
+          auth,
+          (key, progress) => {
+            signal.throwIfAborted();
+            set({
+              outlineDownloadTip: formatFetchProgress(key, progress),
+            });
+          },
+          signal
+        );
+        if (signal.aborted) {
+          outlineImage.close();
+        }
+        signal.throwIfAborted();
+        set({
+          outlineImage,
+        });
+      });
+    },
+
+    abortOutline: (): void => {
+      outlineOperation.abort();
+    },
+  };
+};

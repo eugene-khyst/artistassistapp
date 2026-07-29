@@ -18,7 +18,7 @@
 
 import {DeleteOutlined, PictureOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Button, Card, Col, Popconfirm, Row, Space, Typography} from 'antd';
+import {Button, Card, Col, Flex, Popconfirm, Row, Typography} from 'antd';
 import type {CardProps} from 'antd/lib';
 import {memo} from 'react';
 
@@ -54,7 +54,13 @@ export const PaletteColorMixtureCard = memo(function PaletteColorMixtureCard({
   const pastel: boolean = isPastel(type);
 
   const handleTitleEdited = (value: string) => {
-    void saveToPalette({...colorMixture, name: value});
+    void saveToPalette({
+      colorMixture: {
+        ...colorMixture,
+        name: value,
+      },
+      preserveDate: true,
+    });
   };
 
   const handleShowOnPhotoClick = () => {
@@ -77,7 +83,7 @@ export const PaletteColorMixtureCard = memo(function PaletteColorMixtureCard({
 
   return (
     <Card size="small" {...props}>
-      <Space orientation="vertical" className="u-w-100">
+      <Flex vertical gap="small" className="u-w-100">
         <Typography.Text
           editable={{
             text: colorMixture.name ?? '',
@@ -86,7 +92,7 @@ export const PaletteColorMixtureCard = memo(function PaletteColorMixtureCard({
           }}
           className="u-w-100 u-font-bold"
         >
-          {colorMixture.name || t`Untitled mixture`}
+          {colorMixture.name || <Trans>Untitled mixture</Trans>}
         </Typography.Text>
 
         <ColorMixtureDescription colorMixture={colorMixture} />
@@ -112,14 +118,14 @@ export const PaletteColorMixtureCard = memo(function PaletteColorMixtureCard({
           )}
           <Col xs={12}>
             <Popconfirm
-              title={t`Remove the color mixture`}
-              description={t`Are you sure you want to remove this color mixture?`}
+              title={<Trans>Delete the color mixture</Trans>}
+              description={<Trans>Are you sure you want to delete this color mixture?</Trans>}
               onConfirm={() => void deleteFromPalette(colorMixture)}
-              okText={t`Yes`}
-              cancelText={t`No`}
+              okText={<Trans>Delete</Trans>}
+              cancelText={<Trans>Keep</Trans>}
             >
               <Button block size="small" icon={<DeleteOutlined />}>
-                <Trans>Remove from palette</Trans>
+                <Trans>Delete from palette</Trans>
               </Button>
             </Popconfirm>
           </Col>
@@ -153,7 +159,7 @@ export const PaletteColorMixtureCard = memo(function PaletteColorMixtureCard({
             </Col>
           )}
         </Row>
-      </Space>
+      </Flex>
     </Card>
   );
 });

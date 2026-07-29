@@ -34,7 +34,7 @@ export function ErrorFallback({error}: Readonly<FallbackProps>) {
   return (
     <Alert
       type="error"
-      title={t`Something went wrong`}
+      title={<Trans>Something went wrong</Trans>}
       description={
         <Typography>
           <Typography.Paragraph>

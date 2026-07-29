@@ -20,7 +20,7 @@ import type {StateCreator} from 'zustand';
 
 import {getTonalValues} from '@/services/image/tonal-values';
 
-import type {OriginalImageSlice} from './original-image-slice';
+import {type OriginalImageSlice, registerProcessedImage} from './original-image-slice';
 
 export interface TonalImagesSlice {
   tonalImages: ImageBitmap[];
@@ -34,22 +34,34 @@ export const createTonalImagesSlice: StateCreator<
   [],
   [],
   TonalImagesSlice
-> = (set, get) => ({
-  tonalImages: [],
-  isTonalImagesLoading: false,
+> = (set, get) => {
+  registerProcessedImage({
+    clear: () => {
+      const {tonalImages} = get();
+      set({tonalImages: []});
+      tonalImages.forEach(image => {
+        image.close();
+      });
+    },
+  });
 
-  loadTonalImages: (): void => {
-    const {originalImage, tonalImages} = get();
-    if (tonalImages.length || !originalImage) {
-      return;
-    }
-    set({
-      isTonalImagesLoading: true,
-    });
-    const newTonalImages = getTonalValues(originalImage);
-    set({
-      tonalImages: newTonalImages,
-      isTonalImagesLoading: false,
-    });
-  },
-});
+  return {
+    tonalImages: [],
+    isTonalImagesLoading: false,
+
+    loadTonalImages: (): void => {
+      const {originalImage, tonalImages} = get();
+      if (tonalImages.length || !originalImage) {
+        return;
+      }
+      set({
+        isTonalImagesLoading: true,
+      });
+      const newTonalImages = getTonalValues(originalImage);
+      set({
+        tonalImages: newTonalImages,
+        isTonalImagesLoading: false,
+      });
+    },
+  };
+};

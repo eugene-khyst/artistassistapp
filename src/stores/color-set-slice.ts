@@ -16,8 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import dayjs from 'dayjs';
-import {saveAs} from 'file-saver';
 import type {StateCreator} from 'zustand';
 
 import {fetchColorBrands, fetchColorsBulk, toColorSet} from '@/services/color/colors';
@@ -27,55 +25,49 @@ import {
   type ColorSet,
   type ColorSetDefinition,
   type ColorType,
-  FileExtension,
 } from '@/services/color/types';
-import {
-  deleteColorSet,
-  getColorSets,
-  getLastColorSet,
-  saveColorSets,
-} from '@/services/db/color-set-db';
+import {deleteColorSet, getAllColorSets, saveColorSets} from '@/services/db/color-set-db';
 import type {AppSlice} from '@/stores/app-slice';
 import type {AuthSlice} from '@/stores/auth-slice';
-import {groupBy} from '@/utils/array';
-import {byDate, byNumber, reverseOrder} from '@/utils/comparator';
-import {digestMessage} from '@/utils/digest';
+import type {CloudSlice} from '@/stores/cloud-slice';
+import {persistChange} from '@/stores/sync/persist-change';
+import {groupBy, maxOf} from '@/utils/array';
+import {byDate, byNumber, compare, reverseOrder} from '@/utils/comparator';
 import {indexById} from '@/utils/map';
 
 import type {ColorMixerSlice} from './color-mixer-slice';
 
-const DATE_TIME_FORMAT = 'YYYYMMDD_HHmm';
-
-function removeDate(colorSets: ColorSetDefinition[]): ColorSetDefinition[] {
-  return colorSets.map(({date: _, ...colorSet}: ColorSetDefinition) => colorSet);
-}
+const compareColorSetsByDate = compare<ColorSetDefinition>(
+  byDate(({date}) => date),
+  byNumber(({id}) => id)
+);
 
 export interface ColorSetSlice {
-  latestColorSet: ColorSetDefinition | null;
   colorSets: Map<ColorType, ColorSetDefinition[]>;
+  // Bumped only when color sets are reloaded from IDB (init, cloud download, cross-tab wake).
+  colorSetsReloadCount: number;
 
   isColorSetsLoading: boolean;
 
   loadColorSets: () => Promise<void>;
+  activateLatestColorSet: () => Promise<void>;
   saveColorSet: (
     colorSet: ColorSetDefinition,
     brands?: Map<number, ColorBrandDefinition>,
     colors?: Map<string, Map<number, ColorDefinition>>,
     options?: {setActiveTabKey?: boolean}
   ) => Promise<ColorSetDefinition | undefined>;
-  loadColorSetsFromJson: (file: File) => Promise<ColorSetDefinition | undefined>;
-  saveColorSetsAsJson: () => Promise<string | undefined>;
   deleteColorSet: (type?: ColorType, idToDelete?: number) => Promise<void>;
 }
 
 export const createColorSetSlice: StateCreator<
-  ColorSetSlice & AppSlice & ColorMixerSlice & AuthSlice,
+  ColorSetSlice & AppSlice & ColorMixerSlice & AuthSlice & CloudSlice,
   [],
   [],
   ColorSetSlice
 > = (set, get) => ({
-  latestColorSet: null,
   colorSets: new Map(),
+  colorSetsReloadCount: 0,
 
   isColorSetsLoading: false,
 
@@ -84,42 +76,10 @@ export const createColorSetSlice: StateCreator<
       set({
         isColorSetsLoading: true,
       });
-
-      const colorSets: Map<ColorType, ColorSetDefinition[]> = groupBy(
-        await getColorSets(),
-        ({type}: ColorSetDefinition) => type
-      );
-      for (const colorSetsByType of colorSets.values()) {
-        colorSetsByType.sort(reverseOrder(byDate(({date}) => date)));
-      }
-
-      const latestColorSet: ColorSetDefinition | null = (await getLastColorSet()) ?? null;
-
-      if (latestColorSet) {
-        const {auth} = get();
-        const {type, brands: brandIds} = latestColorSet;
-        if (!type || !brandIds) {
-          return;
-        }
-
-        const brands = indexById(await fetchColorBrands(type));
-        const brandAliases = brandIds
-          .map((id: number): string | undefined => brands.get(id)?.alias)
-          .filter((alias): alias is string => !!alias);
-        const colors: Map<string, Map<number, ColorDefinition>> = await fetchColorsBulk(
-          type,
-          brandAliases,
-          auth
-        );
-        const colorSet = toColorSet(latestColorSet, brands, colors, auth?.user);
-        if (colorSet) {
-          void get().setColorSet(colorSet, {setActiveTabKey: false});
-        }
-      }
-
+      const colorSets = (await getAllColorSets()).sort(reverseOrder(compareColorSetsByDate));
       set({
-        colorSets,
-        latestColorSet,
+        colorSets: groupBy(colorSets, ({type}) => type),
+        colorSetsReloadCount: get().colorSetsReloadCount + 1,
       });
     } finally {
       set({
@@ -128,11 +88,36 @@ export const createColorSetSlice: StateCreator<
     }
   },
 
+  activateLatestColorSet: async (): Promise<void> => {
+    const {colorSets, auth} = get();
+    const latestColorSet = maxOf([...colorSets.values()].flat(), compareColorSetsByDate);
+    if (!latestColorSet) {
+      await get().setColorSet(null, {setActiveTabKey: false});
+      return;
+    }
+    const {type, brands: brandIds} = latestColorSet;
+    if (!type || !brandIds) {
+      await get().setColorSet(null, {setActiveTabKey: false});
+      return;
+    }
+    const brands = indexById(await fetchColorBrands(type));
+    const brandAliases = brandIds
+      .map((id: number): string | undefined => brands.get(id)?.alias)
+      .filter((alias): alias is string => !!alias);
+    const colors: Map<string, Map<number, ColorDefinition>> = await fetchColorsBulk(
+      type,
+      brandAliases,
+      auth
+    );
+    const colorSet = toColorSet(latestColorSet, brands, colors, auth?.user);
+    await get().setColorSet(colorSet, {setActiveTabKey: false});
+  },
+
   saveColorSet: async (
     colorSetDef: ColorSetDefinition,
     brands?: Map<number, ColorBrandDefinition>,
     colors?: Map<string, Map<number, ColorDefinition>>,
-    {setActiveTabKey}: {setActiveTabKey?: boolean} = {}
+    {setActiveTabKey} = {}
   ): Promise<ColorSetDefinition | undefined> => {
     if (
       !Object.values(colorSetDef.colors ?? {}).some(
@@ -147,7 +132,7 @@ export const createColorSetSlice: StateCreator<
       ...colorSetDefWithoutId,
       ...(id ? {id} : {}),
     };
-    await saveColorSets([colorSetDef]);
+    await persistChange(get, () => saveColorSets([colorSetDef]));
     const {type} = colorSetDef;
     const colorSets = new Map<ColorType, ColorSetDefinition[]>(prevColorSets);
     const colorSetsByType: ColorSetDefinition[] = [
@@ -158,58 +143,11 @@ export const createColorSetSlice: StateCreator<
     set({
       colorSets,
     });
-    const colorSet: ColorSet | undefined = toColorSet(colorSetDef, brands, colors, auth?.user);
+    const colorSet: ColorSet | null = toColorSet(colorSetDef, brands, colors, auth?.user);
     if (colorSet) {
       void get().setColorSet(colorSet, {setActiveTabKey});
     }
     return colorSetDef;
-  },
-
-  loadColorSetsFromJson: async (file: File): Promise<ColorSetDefinition | undefined> => {
-    try {
-      const json: string = await file.text();
-      const colorSets = JSON.parse(json) as ColorSetDefinition[];
-      await saveColorSets(colorSets);
-      colorSets.sort(reverseOrder(byDate(({date}) => date)));
-      set({
-        colorSets: groupBy(colorSets, ({type}: ColorSetDefinition) => type),
-      });
-      const hash: string = await digestMessage(json);
-      void get().saveAppSettings({
-        latestColorSetsJsonHash: hash,
-      });
-      const [latestColorSet] = colorSets;
-      return latestColorSet;
-    } catch (e) {
-      console.error(e);
-    }
-    return;
-  },
-
-  saveColorSetsAsJson: async (): Promise<string | undefined> => {
-    const {
-      appSettings: {autoSavingColorSetsJson},
-      colorSets,
-    } = get();
-    if (!autoSavingColorSetsJson || !colorSets.size) {
-      return;
-    }
-    const colorSetsArray: ColorSetDefinition[] = removeDate(
-      [...colorSets.values()].flat().sort(byNumber(({id}) => id))
-    );
-    const json: string = JSON.stringify(colorSetsArray, null, 2);
-    const hash: string = await digestMessage(json);
-    const {latestColorSetsJsonHash} = get().appSettings;
-    if (hash === latestColorSetsJsonHash) {
-      return;
-    }
-    const dateTime = dayjs().format(DATE_TIME_FORMAT);
-    const filename = `Color-Sets-${dateTime}${FileExtension.ColorSet}`;
-    saveAs(new Blob([json], {type: 'application/json'}), filename);
-    void get().saveAppSettings({
-      latestColorSetsJsonHash: hash,
-    });
-    return filename;
   },
 
   deleteColorSet: async (type?: ColorType, idToDelete?: number): Promise<void> => {
@@ -217,7 +155,7 @@ export const createColorSetSlice: StateCreator<
       return;
     }
     const {colorSets: prevColorSets} = get();
-    await deleteColorSet(idToDelete);
+    await persistChange(get, () => deleteColorSet(idToDelete));
     const colorSets = new Map<ColorType, ColorSetDefinition[]>(prevColorSets);
     const colorSetsByType: ColorSetDefinition[] =
       colorSets.get(type)?.filter(({id}: ColorSetDefinition) => id !== idToDelete) ?? [];

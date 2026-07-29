@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {AppSettings} from '@/services/settings/types';
+import {type AppSettings, DEFAULT_APP_SETTINGS} from '@/services/settings/types';
 
 import {dbPromise} from './db';
 
@@ -27,7 +27,21 @@ export async function getAppSettings(): Promise<AppSettings | undefined> {
   return await db.get('app-settings', KEY);
 }
 
-export async function saveAppSettings(appSettings: AppSettings): Promise<void> {
+export async function updateStoredAppSettings(
+  update: (prev: AppSettings) => AppSettings
+): Promise<AppSettings> {
   const db = await dbPromise;
-  await db.put('app-settings', appSettings, KEY);
+  const tx = db.transaction('app-settings', 'readwrite');
+  const store = tx.store;
+
+  const current: AppSettings = {
+    ...DEFAULT_APP_SETTINGS,
+    ...(await store.get(KEY)),
+  };
+  const updated = update(current);
+
+  await store.put(updated, KEY);
+  await tx.done;
+
+  return updated;
 }

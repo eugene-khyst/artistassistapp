@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DATA_URL} from '@/config';
+import {DATA_METADATA_TIMEOUT_MS, DATA_URL} from '@/config';
 import type {User} from '@/services/auth/types';
 import type {OnnxModel, OnnxModelType} from '@/services/ml/types';
 import {
@@ -30,7 +30,11 @@ import {
 import {fetchSWR} from '@/utils/fetch';
 
 export async function fetchOnnxModels(type: OnnxModelType): Promise<OnnxModel[]> {
-  const response = await fetchSWR(`${DATA_URL}/ml-models/${type}.json`);
+  const response = await fetchSWR(
+    new Request(`${DATA_URL}/ml-models/${type}.json`, {
+      signal: AbortSignal.timeout(DATA_METADATA_TIMEOUT_MS),
+    })
+  );
   return (await response.json()) as OnnxModel[];
 }
 

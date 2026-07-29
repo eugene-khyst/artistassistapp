@@ -160,7 +160,7 @@ export function PrintImageDrawer({image, open = false, onClose}: Readonly<Props>
 
           {printMode === PrintMode.Resize && (
             <>
-              <Form.Item label={t`Paper size`} className="u-mb-0">
+              <Form.Item label={<Trans>Paper size</Trans>} className="u-mb-0">
                 <Select
                   value={paperSize}
                   onChange={setPaperSize}
@@ -170,9 +170,11 @@ export function PrintImageDrawer({image, open = false, onClose}: Readonly<Props>
               </Form.Item>
 
               <Form.Item
-                label={t`Target print size`}
+                label={<Trans>Target print size</Trans>}
                 className="u-mb-0"
-                help={isTargetSizeError ? t`This print size is not supported` : null}
+                help={
+                  isTargetSizeError ? <Trans>This print size is not supported</Trans> : undefined
+                }
                 validateStatus={isTargetSizeError ? 'error' : undefined}
               >
                 <Space.Compact block>
@@ -205,10 +207,10 @@ export function PrintImageDrawer({image, open = false, onClose}: Readonly<Props>
               </Form.Item>
 
               <Form.Item
-                label={t`Margin`}
-                tooltip={t`Taped margin width around the painting area`}
+                label={<Trans>Margin</Trans>}
+                tooltip={<Trans>Taped margin width around the painting area</Trans>}
                 className="u-mb-0"
-                help={isMarginError ? t`The margin is too large` : null}
+                help={isMarginError ? <Trans>The margin is too large</Trans> : undefined}
                 validateStatus={isMarginError ? 'error' : undefined}
               >
                 <Space.Compact block>

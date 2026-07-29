@@ -16,12 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Trans, useLingui} from '@lingui/react/macro';
+import {Trans} from '@lingui/react/macro';
 import {App, Typography} from 'antd';
 import type {PropsWithChildren, ReactNode} from 'react';
 import {useEffect} from 'react';
 
-import {AuthErrorType, AuthNoticeType} from '@/services/auth/types';
+import {AuthErrorType, AuthNoticeType} from '@/services/auth/errors';
 import {useAppStore} from '@/stores/app-store';
 import {TabKey} from '@/tabs';
 
@@ -31,12 +31,6 @@ function formatContextValue(value: unknown): string {
   }
   return JSON.stringify(value);
 }
-
-const ERROR_TYPES_WITH_VISIBLE_CONTEXT: ReadonlySet<AuthErrorType> = new Set([
-  AuthErrorType.Inactive,
-  AuthErrorType.Unauthorized,
-  AuthErrorType.Unknown,
-]);
 
 const ERROR_CONTEXT_LABELS: Record<string, ReactNode> = {
   message: <Trans>Details</Trans>,
@@ -50,15 +44,15 @@ const ERROR_CONTEXT_LABELS: Record<string, ReactNode> = {
 };
 
 const AUTH_ERRORS: Record<
-  string,
+  AuthErrorType,
   {
     title: ReactNode;
-    content: ReactNode;
+    content: ReactNode | ((context: ReactNode) => ReactNode);
   }
 > = {
   [AuthErrorType.Inactive]: {
     title: <Trans>Patreon membership verification failed</Trans>,
-    content: (
+    content: context => (
       <Typography>
         <p>
           <Trans>
@@ -98,11 +92,16 @@ const AUTH_ERRORS: Record<
             </Trans>
           </li>
         </ol>
-        <p>
-          <Typography.Text strong>
-            <Trans>Your account details:</Trans>
-          </Typography.Text>
-        </p>
+        {context && (
+          <>
+            <p>
+              <Typography.Text strong>
+                <Trans>Your account details:</Trans>
+              </Typography.Text>
+            </p>
+            {context}
+          </>
+        )}
       </Typography>
     ),
   },
@@ -136,27 +135,11 @@ const AUTH_ERRORS: Record<
   },
   [AuthErrorType.Expired]: {
     title: <Trans>Session expired</Trans>,
-    content: (
-      <Trans>
-        Your login session has expired. Please sign in again to refresh your access and continue
-        using ArtistAssistApp.
-      </Trans>
-    ),
+    content: <Trans>Your session expired. Sign in again to continue.</Trans>,
   },
   [AuthErrorType.InvalidToken]: {
     title: <Trans>Authentication error</Trans>,
-    content: (
-      <Trans>
-        We encountered a problem verifying your login credentials. This issue can usually be
-        resolved by trying to log in again.
-      </Trans>
-    ),
-  },
-  [AuthErrorType.InvalidLoginLink]: {
-    title: <Trans>Invalid login link</Trans>,
-    content: (
-      <Trans>This login link is invalid or has expired. Please get a new one and try again.</Trans>
-    ),
+    content: <Trans>Your login credentials could not be verified. Sign in again.</Trans>,
   },
   [AuthErrorType.InvalidLoginOtp]: {
     title: <Trans>Invalid login code</Trans>,
@@ -175,11 +158,14 @@ const AUTH_ERRORS: Record<
   },
   [AuthErrorType.Unauthorized]: {
     title: <Trans>Sign in required</Trans>,
-    content: (
-      <Trans>
-        We couldn&apos;t verify your session. Please sign in again to continue using
-        ArtistAssistApp.
-      </Trans>
+    content: context => (
+      <>
+        <Trans>
+          We couldn&apos;t verify your session. Please sign in again to continue using
+          ArtistAssistApp.
+        </Trans>
+        {context}
+      </>
     ),
   },
   [AuthErrorType.LoginResultMissing]: {
@@ -192,26 +178,24 @@ const AUTH_ERRORS: Record<
     ),
   },
   [AuthErrorType.RateLimited]: {
-    title: <Trans>Try again in a minute</Trans>,
-    content: (
-      <Trans>
-        Too many login requests were made in a short time. Please wait a minute, then try again.
-      </Trans>
-    ),
+    title: <Trans>Too many requests</Trans>,
+    content: <Trans>Wait a minute and try again.</Trans>,
   },
   [AuthErrorType.Unknown]: {
-    title: <Trans>We couldn&apos;t verify your session</Trans>,
-    content: (
-      <Trans>
-        Something went wrong while logging you in. Please try again. If the problem persists, check
-        your internet connection.
-      </Trans>
+    title: <Trans>Authentication failed</Trans>,
+    content: context => (
+      <>
+        <Trans>
+          Update ArtistAssistApp to the latest version, check your connection, and try again.
+        </Trans>
+        {context}
+      </>
     ),
   },
 };
 
 const AUTH_NOTICES: Record<
-  string,
+  AuthNoticeType,
   {
     title: ReactNode;
     description: ReactNode;
@@ -238,39 +222,41 @@ export function AuthFeedbackHandler({children}: Readonly<PropsWithChildren>) {
 
   const {modal, notification} = App.useApp();
 
-  const {t} = useLingui();
-
   useEffect(() => {
     if (!authError) {
       return;
     }
-    const {title, content} = AUTH_ERRORS[authError.type] ?? {};
+    console.error(authError);
+    const {title, content} = AUTH_ERRORS[authError.type];
     const contextEntries = Object.entries(authError.context).filter(
-      ([key, value]) => key in ERROR_CONTEXT_LABELS && value != null && value !== ''
+      ([key, value]) => Object.hasOwn(ERROR_CONTEXT_LABELS, key) && value != null && value !== ''
     );
-    const ctrl = modal.warning({
-      title: title ?? t`Login failed`,
+    const ctrl = modal.error({
+      title,
       content: (
         <>
-          {content}
-          {ERROR_TYPES_WITH_VISIBLE_CONTEXT.has(authError.type) && contextEntries.length > 0 && (
-            <ul className="u-list-unstyled">
-              {contextEntries.map(([key, value]) => (
-                <li key={key}>
-                  <Typography.Text strong>{ERROR_CONTEXT_LABELS[key]}</Typography.Text>
-                  {': '}
-                  {formatContextValue(value)}
-                </li>
-              ))}
-            </ul>
-          )}
+          {typeof content === 'function'
+            ? content(
+                contextEntries.length > 0 && (
+                  <ul className="u-list-unstyled">
+                    {contextEntries.map(([key, value]) => (
+                      <li key={key}>
+                        <Typography.Text strong>{ERROR_CONTEXT_LABELS[key]}</Typography.Text>
+                        {': '}
+                        {formatContextValue(value)}
+                      </li>
+                    ))}
+                  </ul>
+                )
+              )
+            : content}
         </>
       ),
       width: '100%',
       footer: null,
       closable: true,
       zIndex: 1200,
-      afterClose: () => {
+      onCancel: () => {
         clearAuthError();
         void setActiveTabKey(TabKey.ColorSet);
       },
@@ -278,13 +264,13 @@ export function AuthFeedbackHandler({children}: Readonly<PropsWithChildren>) {
     return () => {
       ctrl.destroy();
     };
-  }, [modal, authError, clearAuthError, setActiveTabKey, t]);
+  }, [modal, authError, clearAuthError, setActiveTabKey]);
 
   useEffect(() => {
     if (!authNotice) {
       return;
     }
-    const {title, description} = AUTH_NOTICES[authNotice] ?? {};
+    const {title, description} = AUTH_NOTICES[authNotice];
     notification.info({
       title,
       description,

@@ -17,7 +17,7 @@
  */
 
 import {DownloadOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons';
-import {Trans, useLingui} from '@lingui/react/macro';
+import {Trans} from '@lingui/react/macro';
 import {Button, Dropdown, Grid, Space} from 'antd';
 
 import {GridControls} from '@/components/grid/GridControls';
@@ -36,14 +36,12 @@ const gridCanvasSupplier = (canvas: HTMLCanvasElement): GridCanvas => {
 };
 
 export function ImageGrid() {
-  const imageFile = useAppStore(state => state.imageFile);
+  const selectedImageFile = useAppStore(state => state.selectedImageFile);
   const originalImage = useAppStore(state => state.originalImage);
 
   const isOriginalImageLoading = useAppStore(state => state.isOriginalImageLoading);
 
   const screens = Grid.useBreakpoint();
-
-  const {t} = useLingui();
 
   const {ref: canvasRef, zoomableImageCanvas: gridCanvas} = useZoomableImageCanvas<GridCanvas>(
     gridCanvasSupplier,
@@ -55,7 +53,7 @@ export function ImageGrid() {
   };
 
   const handleSaveClick = () => {
-    void gridCanvas?.saveAsImage(getFilename(imageFile, 'grid'));
+    void gridCanvas?.saveAsImage(getFilename(selectedImageFile, 'grid'));
   };
 
   if (!originalImage) {
@@ -82,13 +80,13 @@ export function ImageGrid() {
               items: [
                 {
                   key: 'print',
-                  label: t`Print`,
+                  label: <Trans>Print</Trans>,
                   icon: <PrinterOutlined />,
                   onClick: handlePrintClick,
                 },
                 {
                   key: 'save',
-                  label: t`Save`,
+                  label: <Trans>Save</Trans>,
                   icon: <DownloadOutlined />,
                   onClick: handleSaveClick,
                 },

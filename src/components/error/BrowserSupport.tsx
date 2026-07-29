@@ -26,7 +26,7 @@ import {
   TabletOutlined,
   WindowsOutlined,
 } from '@ant-design/icons';
-import {Trans, useLingui} from '@lingui/react/macro';
+import {Trans} from '@lingui/react/macro';
 import {Alert, Col, Row, Typography} from 'antd';
 import type {PropsWithChildren} from 'react';
 
@@ -43,12 +43,10 @@ const BROWSER_FEATURES: Record<string, boolean> = {
 const IS_BROWSER_SUPPORTED = Object.values(BROWSER_FEATURES).every(Boolean);
 
 export function BrowserSupport({children}: Readonly<PropsWithChildren>) {
-  const {t} = useLingui();
-
   if (!IS_BROWSER_SUPPORTED) {
     return (
       <div className="u-p">
-        <Alert title={t`Your web browser is not supported.`} type="error" showIcon />
+        <Alert title={<Trans>Your web browser is not supported.</Trans>} type="error" showIcon />
         <Typography.Title level={2}>
           <Trans>Supported web browsers and operating systems</Trans>
         </Typography.Title>
@@ -71,10 +69,10 @@ export function BrowserSupport({children}: Readonly<PropsWithChildren>) {
                 <li>
                   <AndroidOutlined className="u-text-tertiary" /> Android
                   <ul>
-                    <li>Chrome 98+</li>
+                    <li>Chrome 124+</li>
                     <li>Firefox 105+</li>
-                    <li>Opera 84+</li>
-                    <li>Samsung Internet 18.0+</li>
+                    <li>Opera 110+</li>
+                    <li>Samsung Internet 27+</li>
                   </ul>
                 </li>
               </ul>
@@ -106,14 +104,14 @@ export function BrowserSupport({children}: Readonly<PropsWithChildren>) {
                     <LinuxOutlined className="u-text-tertiary" /> Linux
                   </Trans>
                   <ul>
-                    <li>Chrome 98+</li>
-                    <li>Edge 98+</li>
+                    <li>Chrome 124+</li>
+                    <li>Edge 124+</li>
                     <li>Firefox 105+</li>
-                    <li>Opera 84+</li>
+                    <li>Opera 110+</li>
                   </ul>
                 </li>
                 <li>
-                  <ChromeOutlined className="u-text-tertiary" /> ChromeOS 69+
+                  <ChromeOutlined className="u-text-tertiary" /> ChromeOS 124+
                 </li>
               </ul>
             </Typography.Paragraph>

@@ -17,12 +17,21 @@
  */
 
 import type {ColorMixture} from '@/services/color/types';
+import {markStoreChanged} from '@/services/db/store-changes-db';
+import type {StoreChangeTokens} from '@/services/db/types';
 
 import {dbPromise} from './db';
 
 export const EMPTY_DIGEST = '';
 
-export async function getColorMixtures(imageFileDigest?: string | null): Promise<ColorMixture[]> {
+export async function getAllColorMixtures(): Promise<ColorMixture[]> {
+  const db = await dbPromise;
+  return await db.getAll('color-mixtures');
+}
+
+export async function getColorMixturesByDigest(
+  imageFileDigest?: string | null
+): Promise<ColorMixture[]> {
   const db = await dbPromise;
   const index = db.transaction('color-mixtures').store.index('by-imageFileDigest');
   return (await index.getAll(EMPTY_DIGEST)).concat(
@@ -30,16 +39,31 @@ export async function getColorMixtures(imageFileDigest?: string | null): Promise
   );
 }
 
-export async function saveColorMixture(colorMixture: ColorMixture): Promise<void> {
+export async function saveColorMixture(
+  colorMixture: ColorMixture,
+  {preserveDate = false}: {preserveDate?: boolean} = {}
+): Promise<StoreChangeTokens> {
   const db = await dbPromise;
+  const tx = db.transaction(['color-mixtures', 'store-changes'], 'readwrite');
   colorMixture.imageFileDigest ??= EMPTY_DIGEST;
-  if (!colorMixture.id) {
-    colorMixture.date = new Date();
-  }
-  colorMixture.id = await db.put('color-mixtures', colorMixture);
+  const date = new Date();
+  colorMixture.date = preserveDate ? colorMixture.date : date;
+  colorMixture.date ??= date;
+  colorMixture.id = await tx.objectStore('color-mixtures').put(colorMixture);
+  const tokens: StoreChangeTokens = {
+    'color-mixtures': await markStoreChanged(tx, 'color-mixtures'),
+  };
+  await tx.done;
+  return tokens;
 }
 
-export async function deleteColorMixture(id: number): Promise<void> {
+export async function deleteColorMixture(id: number): Promise<StoreChangeTokens> {
   const db = await dbPromise;
-  await db.delete('color-mixtures', id);
+  const tx = db.transaction(['color-mixtures', 'store-changes'], 'readwrite');
+  await tx.objectStore('color-mixtures').delete(id);
+  const tokens: StoreChangeTokens = {
+    'color-mixtures': await markStoreChanged(tx, 'color-mixtures'),
+  };
+  await tx.done;
+  return tokens;
 }

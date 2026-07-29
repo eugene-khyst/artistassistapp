@@ -17,12 +17,15 @@
  */
 
 export const BUILD_ID: string = import.meta.env.VITE_BUILD_ID;
+export const APP_URL: string = import.meta.env.VITE_APP_URL;
 export const AUTH_URL: string = import.meta.env.VITE_AUTH_URL;
 export const DATA_URL: string = import.meta.env.VITE_DATA_URL;
 export const PUBLIC_JWK: string = import.meta.env.VITE_PUBLIC_JWK;
 
+export const DATA_METADATA_TIMEOUT_MS = 10 * 1000;
+export const DATA_COLORS_TIMEOUT_MS = 60 * 1000;
+
 export const WEBSITE_URL = 'https://artistassistapp.com';
-export const APP_URL = 'https://app.artistassistapp.com';
 export const PATREON_URL = 'https://www.patreon.com/artistassistapp';
 export const WATERMARK_TEXT = 'ArtistAssistApp.com';
 

@@ -82,13 +82,12 @@ export function imageBitmapToImageData(
         ? DrawImage.resizeAndCrop(width, height)
         : DrawImage.resizeToSize(width, height)
       : DrawImage.resizeToPixelCount(maxPixelCount, inputSizeMultiple);
-  return images.map(
-    (image: DrawImageSource): ImageData =>
-      offscreenCanvasToImageData(
-        ...drawImageToOffscreenCanvas(image, {
-          willReadFrequently: true,
-          drawImage,
-        })
-      )
+  return images.map((image: DrawImageSource): ImageData =>
+    offscreenCanvasToImageData(
+      ...drawImageToOffscreenCanvas(image, {
+        willReadFrequently: true,
+        drawImage,
+      })
+    )
   );
 }

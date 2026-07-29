@@ -28,6 +28,7 @@ import {Button, Checkbox, Col, Dropdown, Form, Grid, Row, Slider, Space} from 'a
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import type {SliderMarks} from 'antd/es/slider';
 import type {MenuProps} from 'antd/lib';
+import type {ReactNode} from 'react';
 import {useCallback, useEffect, useState} from 'react';
 
 import {AdCard} from '@/components/ad/AdCard';
@@ -62,7 +63,7 @@ import styles from './ImageColorPicker.module.css';
 
 interface SortOption {
   sort: ColorPickerSort;
-  label: string;
+  label: ReactNode;
   title: string;
 }
 
@@ -77,7 +78,7 @@ export function ImageColorPicker() {
   );
   const colorPickerSurfaceHex = useAppStore(state => state.appSettings.colorPickerSurfaceHex);
   const colorSet = useAppStore(state => state.colorSet);
-  const imageFile = useAppStore(state => state.imageFile);
+  const selectedImageFile = useAppStore(state => state.selectedImageFile);
   const originalImage = useAppStore(state => state.originalImage);
   const colorMatchImage = useAppStore(state => state.colorMatchImage);
   const underlayerHex = useAppStore(state => state.underlayerHex);
@@ -143,6 +144,8 @@ export function ImageColorPicker() {
     isBuildPaletteLoading ||
     isColorMatchImageLoading ||
     isSimilarColorsLoading;
+
+  const isCancelable: boolean = isPosterizedImageLoading || isBuildPaletteLoading;
 
   const sampleDiameterDebounced = useDebounce(sampleDiameter, 300);
 
@@ -236,24 +239,24 @@ export function ImageColorPicker() {
       : colorPickerSort;
 
   const colorSetName = (
-    <Space size="small" align="center">
-      <Form.Item
-        label={t`Color set`}
-        labelCol={{
-          className: styles['colorSetLabel'],
-        }}
-        className="u-mb-0"
-      >
-        {colorSet.name || <ColorSetName brandColorCounts={colorSetToBrandColorCounts(colorSet)} />}
-      </Form.Item>
-    </Space>
+    <Form.Item
+      label={<Trans>Color set</Trans>}
+      labelCol={{
+        className: styles['colorSetLabel'],
+      }}
+      className="u-mb-0"
+    >
+      {colorSet.name || <ColorSetName brandColorCounts={colorSetToBrandColorCounts(colorSet)} />}
+    </Form.Item>
   );
 
   const diameterSlider = (
     <Form.Item
-      label={t`Sample size`}
+      label={<Trans>Sample size</Trans>}
       labelCol={{className: 'u-pb-0'}}
-      tooltip={t`Controls how large an area is averaged when you pick a color from the photo.`}
+      tooltip={
+        <Trans>Controls how large an area is averaged when you pick a color from the photo.</Trans>
+      }
       className="u-mb-0"
     >
       <Slider
@@ -269,9 +272,14 @@ export function ImageColorPicker() {
 
   const targetColorPicker = (
     <Form.Item
-      label={t`Target color`}
+      label={<Trans>Target color</Trans>}
       labelCol={{className: 'u-pb-0'}}
-      tooltip={t`The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup.`}
+      tooltip={
+        <Trans>
+          The color to be mixed from your color set. Select a color by clicking a point on the
+          image, or use the color picker popup.
+        </Trans>
+      }
       className="u-mb-0"
     >
       <Space.Compact>
@@ -288,7 +296,7 @@ export function ImageColorPicker() {
             items: [
               {
                 key: 'color-match',
-                label: t`Show matching areas`,
+                label: <Trans>Show matching areas</Trans>,
                 title: t`Show areas on the photo that match this color.`,
                 onClick: handleColorMatchImageClick,
                 disabled: !targetColorHex,
@@ -314,9 +322,13 @@ export function ImageColorPicker() {
 
   const glazingCheckbox = (
     <Form.Item
-      label={pastel ? t`Blending` : t`Glazing`}
+      label={pastel ? <Trans>Blending</Trans> : <Trans>Glazing</Trans>}
       labelCol={{className: 'u-pb-0'}}
-      tooltip={t`Include transparent layers over the surface or underlayer when finding matches.`}
+      tooltip={
+        <Trans>
+          Include transparent layers over the surface or underlayer when finding matches.
+        </Trans>
+      }
       className="u-mb-0"
     >
       <Checkbox
@@ -330,12 +342,17 @@ export function ImageColorPicker() {
 
   const motherColorCascader = (
     <Form.Item
-      label={t`Unifying color`}
+      label={<Trans>Unifying color</Trans>}
       labelCol={{className: 'u-pb-0'}}
-      tooltip={t`A color mixed into every suggested mixture to help the palette feel more harmonious. Also known as a mother color.`}
+      tooltip={
+        <Trans>
+          A color mixed into every suggested mixture to help the palette feel more harmonious. Also
+          known as a mother color.
+        </Trans>
+      }
       className="u-mb-0"
     >
-      <Space.Compact className={styles['compactStretch']}>
+      <Space.Compact block>
         <ColorCascader
           value={motherColorId ?? undefined}
           onChange={color => {
@@ -355,7 +372,7 @@ export function ImageColorPicker() {
   );
 
   const availableMaxColors = [24, 36, 48].filter(
-    mc => !imageFile?.maxColors || mc < imageFile.maxColors
+    mc => !selectedImageFile?.maxColors || mc < selectedImageFile.maxColors
   );
 
   const posterizeItems: MenuProps['items'] =
@@ -363,7 +380,7 @@ export function ImageColorPicker() {
       ? [
           {
             type: 'group',
-            label: t`Reduce color palette to`,
+            label: <Trans>Reduce color palette to</Trans>,
             children: availableMaxColors.map(colorCount => ({
               key: String(colorCount),
               label: <Plural value={colorCount} one="# color" other="# colors" />,
@@ -402,18 +419,18 @@ export function ImageColorPicker() {
     [
       {
         sort: ColorPickerSort.BySimilarity,
-        label: t`Similarity`,
+        label: <Trans>Similarity</Trans>,
         title: t`Sort by the similarity of the mixture to the target color, from highest to lowest.`,
       },
       {
         sort: ColorPickerSort.ByNumberOfColors,
-        label: t`Color count`,
+        label: <Trans>Color count</Trans>,
         title: t`Sort by the number of colors in the mixture, from fewest to most.`,
       },
       layering && colorPickerLayeringEnabled
         ? {
             sort: ColorPickerSort.ByConsistency,
-            label: t`Opacity`,
+            label: <Trans>Opacity</Trans>,
             title: t`Sort by mixture opacity, from opaque to transparent.`,
           }
         : null,
@@ -447,7 +464,7 @@ export function ImageColorPicker() {
 
   return (
     <>
-      <LoadingIndicator loading={isLoading} onCancel={handleCancelLoading}>
+      <LoadingIndicator loading={isLoading} onCancel={isCancelable && handleCancelLoading}>
         <Row>
           <Col xs={24} sm={12} lg={16}>
             <canvas ref={canvasRef} className={styles['previewCanvas']} />

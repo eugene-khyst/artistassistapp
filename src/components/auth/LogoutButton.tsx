@@ -18,22 +18,19 @@
 
 import {Trans} from '@lingui/react/macro';
 import {Button} from 'antd';
-import {useState} from 'react';
 
 import {useAppStore} from '@/stores/app-store';
 
 export function LogoutButton() {
   const logout = useAppStore(state => state.logout);
-
-  const [clicked, setClicked] = useState<boolean>(false);
+  const isAuthLoading = useAppStore(state => state.isAuthLoading);
 
   return (
     <Button
       onClick={() => {
         void logout();
-        setClicked(true);
       }}
-      loading={clicked}
+      loading={isAuthLoading}
     >
       <Trans>Log out</Trans>
     </Button>

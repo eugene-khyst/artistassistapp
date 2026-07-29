@@ -23,13 +23,12 @@ import {filterColorSet, sortColorSet} from '@/services/color/colors';
 import type {ColorId, ColorMixture, ColorSet} from '@/services/color/types';
 import {colorMixingChartWorker} from '@/services/color/worker/color-mixing-chart-worker-manager';
 import type {ColorMixerSlice} from '@/stores/color-mixer-slice';
-import {isAbortError} from '@/utils/promise';
+import {createAbortableOperation} from '@/utils/abortable-operation';
 
 export interface ColorMixingChartSlice {
   colorMixingChartSet: ColorSet | null;
   colorMixingChartMixtures: ColorMixture[][];
   isColorMixingChartLoading: boolean;
-  colorMixingChartAbortController: AbortController | null;
 
   setColorMixingChartColors: (colorIds: ColorId[], sort?: ColorSort) => Promise<void>;
   abortColorMixingChart: () => void;
@@ -40,52 +39,50 @@ export const createColorMixingChartSlice: StateCreator<
   [],
   [],
   ColorMixingChartSlice
-> = (set, get) => ({
-  colorMixingChartSet: null,
-  colorMixingChartMixtures: [],
-  isColorMixingChartLoading: false,
-  colorMixingChartAbortController: null,
-
-  setColorMixingChartColors: async (colorIds: ColorId[], sort?: ColorSort): Promise<void> => {
-    get().abortColorMixingChart();
-    const {colorSet} = get();
-    const colorMixingChartAbortController = new AbortController();
-    set({
-      colorMixingChartSet: null,
-      colorMixingChartMixtures: [],
-      isColorMixingChartLoading: true,
-      colorMixingChartAbortController,
-    });
-    try {
-      const colorMixingChartSet: ColorSet | null = sortColorSet(
-        filterColorSet(colorSet, colorIds),
-        sort
-      );
-
-      const colorMixingChartMixtures: ColorMixture[][] = await colorMixingChartWorker.run(
-        worker => worker.makeColorMixingChart(colorMixingChartSet),
-        colorMixingChartAbortController.signal
-      );
+> = (set, get) => {
+  const colorMixingChartOperation = createAbortableOperation({
+    onStart: () => {
       set({
-        colorMixingChartSet,
-        colorMixingChartMixtures,
+        colorMixingChartSet: null,
+        colorMixingChartMixtures: [],
+        isColorMixingChartLoading: true,
       });
-    } catch (error) {
-      if (isAbortError(error)) {
-        return;
-      }
-      throw error;
-    } finally {
-      if (get().colorMixingChartAbortController === colorMixingChartAbortController) {
-        set({
-          isColorMixingChartLoading: false,
-          colorMixingChartAbortController: null,
-        });
-      }
-    }
-  },
+    },
+    onFinish: () => {
+      set({
+        isColorMixingChartLoading: false,
+      });
+    },
+  });
 
-  abortColorMixingChart: (): void => {
-    get().colorMixingChartAbortController?.abort();
-  },
-});
+  return {
+    colorMixingChartSet: null,
+    colorMixingChartMixtures: [],
+    isColorMixingChartLoading: false,
+
+    setColorMixingChartColors: async (colorIds: ColorId[], sort?: ColorSort): Promise<void> => {
+      get().abortColorMixingChart();
+      const {colorSet} = get();
+      await colorMixingChartOperation.run(async signal => {
+        const colorMixingChartSet: ColorSet | null = sortColorSet(
+          filterColorSet(colorSet, colorIds),
+          sort
+        );
+
+        const colorMixingChartMixtures: ColorMixture[][] = await colorMixingChartWorker.run(
+          worker => worker.makeColorMixingChart(colorMixingChartSet),
+          signal
+        );
+        signal.throwIfAborted();
+        set({
+          colorMixingChartSet,
+          colorMixingChartMixtures,
+        });
+      });
+    },
+
+    abortColorMixingChart: (): void => {
+      colorMixingChartOperation.abort();
+    },
+  };
+};

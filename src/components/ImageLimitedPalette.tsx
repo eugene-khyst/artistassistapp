@@ -17,7 +17,7 @@
  */
 
 import {DownloadOutlined, DownOutlined, SwapOutlined} from '@ant-design/icons';
-import {Trans, useLingui} from '@lingui/react/macro';
+import {Trans} from '@lingui/react/macro';
 import {Button, Col, Dropdown, Form, Row, Space, Typography} from 'antd';
 import {saveAs} from 'file-saver';
 import {useState} from 'react';
@@ -39,7 +39,7 @@ const MAX_COLORS = 7;
 
 export function ImageLimitedPalette() {
   const colorSet = useAppStore(state => state.colorSet);
-  const imageFile = useAppStore(state => state.imageFile);
+  const selectedImageFile = useAppStore(state => state.selectedImageFile);
   const originalImage = useAppStore(state => state.originalImage);
   const limitedPaletteImage = useAppStore(state => state.limitedPaletteImage);
 
@@ -49,8 +49,6 @@ export function ImageLimitedPalette() {
   const setLimitedColorSet = useAppStore(state => state.setLimitedColorSet);
   const setLimitedColorSetAsMain = useAppStore(state => state.setLimitedColorSetAsMain);
   const abortLimitedPalette = useAppStore(state => state.abortLimitedPalette);
-
-  const {t} = useLingui();
 
   const [colorIds, setColorIds] = useState<ColorId[]>([]);
 
@@ -65,6 +63,8 @@ export function ImageLimitedPalette() {
   );
 
   const isLoading: boolean = isOriginalImageLoading || isLimitedPaletteImageLoading;
+
+  const isCancelable: boolean = isLimitedPaletteImageLoading;
 
   const [prevColorSet, setPrevColorSet] = useState(colorSet);
   if (colorSet !== prevColorSet) {
@@ -84,7 +84,10 @@ export function ImageLimitedPalette() {
     if (!limitedPaletteImage) {
       return;
     }
-    saveAs(await imageBitmapToBlob(limitedPaletteImage), getFilename(imageFile, 'limited-palette'));
+    saveAs(
+      await imageBitmapToBlob(limitedPaletteImage),
+      getFilename(selectedImageFile, 'limited-palette')
+    );
   };
 
   if (!colorSet || !originalImage || !isMixable(colorSet.type)) {
@@ -92,12 +95,17 @@ export function ImageLimitedPalette() {
   }
 
   return (
-    <LoadingIndicator loading={isLoading} onCancel={abortLimitedPalette}>
+    <LoadingIndicator loading={isLoading} onCancel={isCancelable && abortLimitedPalette}>
       <div>
         <Form.Item
-          label={t`Colors`}
+          label={<Trans>Colors</Trans>}
           labelCol={{className: 'u-pb-0'}}
-          tooltip={t`Using a limited palette helps achieve color harmony. Select 1–${MAX_COLORS} primary colors.`}
+          tooltip={
+            <Trans>
+              Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary
+              colors.
+            </Trans>
+          }
           className={styles['colorsFormItem']}
           extra={
             <Typography.Text type={colorIds.length > MAX_COLORS ? 'danger' : 'secondary'}>
@@ -106,7 +114,7 @@ export function ImageLimitedPalette() {
           }
           validateStatus={colorIds.length > MAX_COLORS ? 'error' : undefined}
         >
-          <Space.Compact className="u-flex">
+          <Space.Compact block>
             <ColorCascader
               value={colorIds}
               onChange={setColorIds}
@@ -127,7 +135,7 @@ export function ImageLimitedPalette() {
                 items: [
                   {
                     key: 'save',
-                    label: t`Save`,
+                    label: <Trans>Save</Trans>,
                     icon: <DownloadOutlined />,
                     onClick: () => {
                       void handleSaveClick();
@@ -136,7 +144,7 @@ export function ImageLimitedPalette() {
                   },
                   {
                     key: 'set-as-main-color-set',
-                    label: t`Set as main color set`,
+                    label: <Trans>Set as main color set</Trans>,
                     icon: <SwapOutlined />,
                     onClick: handleSetAsMainClick,
                     disabled: !colorIds.length,

@@ -31,7 +31,7 @@
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#1890ff",
-  "description": "ArtistAssistApp is a web app that helps artists mix colors from reference photos, make tonal value studies, outline photos, draw with grids, paint with limited palettes, and more.",
+  "description": "ArtistAssistApp helps artists mix colors to match reference photos using their own art supplies, create palettes and mixing charts, study tonal values, make outlines, draw with grids, explore limited palettes and artist-inspired versions of photos, straighten photos, adjust their colors, remove backgrounds, and compare photos side by side.",
   "screenshots": [
     {
       "src": "/assets/screenshots/wide/color-picker.webp",
@@ -101,7 +101,7 @@
       "files": [
         {
           "name": "shared_files",
-          "accept": ["image/*", ".clrs", ".clrb", "application/json"]
+          "accept": ["image/*", ".clrb", "application/json", ".artistassist", "application/zip"]
         }
       ]
     }

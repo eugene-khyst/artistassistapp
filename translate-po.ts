@@ -4,6 +4,8 @@ import {MET} from 'bing-translate-api';
 import {po} from 'gettext-parser';
 
 const SOURCE_LANG = 'en' as const;
+const EDGE_USER_AGENT =
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.4078.83';
 
 const TARGET_LANGS = [
   'bg',
@@ -83,6 +85,7 @@ async function translateText(
     sourceLang,
     targetLang,
     {
+      userAgent: EDGE_USER_AGENT,
       translateOptions: {
         // @ts-expect-error -- textType is supported by MET API but missing from type definitions
         textType: 'html',

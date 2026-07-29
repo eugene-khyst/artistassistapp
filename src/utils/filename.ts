@@ -20,13 +20,26 @@ interface NamedFile {
   name?: string;
 }
 
+export function getFileExtension(fileName: string): string | undefined {
+  const lastDot = fileName.lastIndexOf('.');
+  if (lastDot <= 0 || lastDot === fileName.length - 1) {
+    return;
+  }
+  return fileName.slice(lastDot + 1).toLowerCase();
+}
+
+export function addExtensionIfMissing(fileName: string, extension: string): string {
+  return getFileExtension(fileName) ? fileName : `${fileName}.${extension}`;
+}
+
 export function getFilename(
   file: NamedFile | null | undefined,
-  suffix: string
+  suffix?: string
 ): string | undefined {
   if (!file?.name) {
     return;
   }
-  const [origName] = file.name.split('.');
-  return `${origName}-${suffix}`;
+  const lastDot = file.name.lastIndexOf('.');
+  const originalName = lastDot > 0 ? file.name.slice(0, lastDot) : file.name;
+  return suffix ? `${originalName}-${suffix}` : originalName;
 }

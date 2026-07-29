@@ -16,23 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {useLingui} from '@lingui/react/macro';
+import {Trans} from '@lingui/react/macro';
 import {App} from 'antd';
 import type {PropsWithChildren} from 'react';
 import {useEffect, useEffectEvent} from 'react';
 
-import {ForceLogoutError} from '@/services/auth/types';
+import {ForceLogoutError} from '@/services/auth/errors';
 import {useAppStore} from '@/stores/app-store';
 import {getErrorMessage} from '@/utils/error';
 
 export function UnhandledRejectionHandler({children}: Readonly<PropsWithChildren>) {
   const {notification} = App.useApp();
 
-  const {t} = useLingui();
-
   const showError = useEffectEvent((error: unknown) => {
     notification.error({
-      title: t`Unexpected error`,
+      title: <Trans>Unexpected error</Trans>,
       description: getErrorMessage(error),
       placement: 'top',
       duration: 10,

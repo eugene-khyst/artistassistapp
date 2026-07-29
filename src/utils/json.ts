@@ -23,3 +23,29 @@ export async function safeReadJson<T>(response: Response): Promise<T | undefined
     return undefined;
   }
 }
+
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
+export function safeParseJson<T>(json: string | null | undefined): T | undefined {
+  if (!json) {
+    return undefined;
+  }
+  try {
+    return JSON.parse(json) as T;
+  } catch {
+    return undefined;
+  }
+}
+
+export function canonicalize(value: unknown): unknown {
+  if (Array.isArray(value)) {
+    return value.map(canonicalize);
+  }
+  if (!value || typeof value !== 'object') {
+    return value;
+  }
+  return Object.fromEntries(
+    Object.entries(value as Record<string, unknown>)
+      .sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))
+      .map(([key, child]) => [key, canonicalize(child)])
+  );
+}

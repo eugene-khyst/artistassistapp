@@ -16,21 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {getAuthSession} from '@/services/db/auth-db';
 import {useAppStore} from '@/stores/app-store';
 
 const POLL_INTERVAL = 60 * 1000;
 
+let initialized = false;
 let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
 async function pollAuthExpiry(): Promise<void> {
-  const dbSession = await getAuthSession();
-  const {logout, resolveAuth} = useAppStore.getState();
-  if (!dbSession) {
-    // Another tab logged out; reload silently.
-    void logout();
-    return;
-  }
+  const {resolveAuth} = useAppStore.getState();
   await resolveAuth();
   // Skip scheduling if resolveAuth triggered a logout — page is reloading.
   if (useAppStore.getState().auth) {
@@ -48,7 +42,19 @@ function stop(): void {
   timeoutId = undefined;
 }
 
+function runPollWhenVisible(): void {
+  if (document.visibilityState !== 'hidden' && useAppStore.getState().auth) {
+    void pollAuthExpiry();
+  }
+}
+
 export function initAuthExpiryWatcher(): void {
+  if (initialized) {
+    return;
+  }
+  initialized = true;
+  document.addEventListener('visibilitychange', runPollWhenVisible);
+  window.addEventListener('pageshow', runPollWhenVisible);
   useAppStore.subscribe(
     state => state.auth,
     auth => {

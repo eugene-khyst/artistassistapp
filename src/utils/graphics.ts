@@ -196,10 +196,7 @@ export const DrawImage = {
 
 function chainDrawImageParamsSuppliers(
   suppliers:
-    | DrawImageParamsSupplier
-    | null
-    | undefined
-    | (DrawImageParamsSupplier | null | undefined)[]
+    DrawImageParamsSupplier | null | undefined | (DrawImageParamsSupplier | null | undefined)[]
 ): DrawImageParamsSupplier {
   if (!Array.isArray(suppliers)) {
     return suppliers ?? identity;
@@ -262,12 +259,11 @@ export async function createImageBitmapAndResize(
   resizeImageParamsSupplier?: ResizeImageParamsSupplier | null
 ): Promise<ImageBitmap> {
   const image: ImageBitmap = await createImageBitmap(blob);
-  const scaledImage: ImageBitmap = await createImageBitmap(
-    image,
-    resizeImageParamsSupplier?.(image)
-  );
-  image.close();
-  return scaledImage;
+  try {
+    return await createImageBitmap(image, resizeImageParamsSupplier?.(image));
+  } finally {
+    image.close();
+  }
 }
 
 export function rotateImageBitmapClockwise(image: ImageBitmap): ImageBitmap {

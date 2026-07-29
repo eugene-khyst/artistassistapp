@@ -83,7 +83,7 @@ export function ColorSelect({brand, colors, value, ...rest}: Readonly<Props>) {
   const items: MenuProps['items'] = [
     {
       key: 'no-sorting',
-      label: t`No sorting`,
+      label: <Trans>No sorting</Trans>,
       onClick: () => {
         setSort(undefined);
       },
@@ -102,7 +102,7 @@ export function ColorSelect({brand, colors, value, ...rest}: Readonly<Props>) {
       <Select
         value={selectedIds}
         options={options}
-        placeholder={t`Select colors`}
+        placeholder={<Trans>Select colors</Trans>}
         showSearch={showSearch}
         allowClear
         {...rest}

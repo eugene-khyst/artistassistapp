@@ -19,18 +19,23 @@
 import type {StateCreator} from 'zustand';
 
 import {getPreferredLocale} from '@/i18n';
-import {normalizeInjectedAuthCallback} from '@/services/auth/auth-callback-normalizer';
-import {ForceLogoutError} from '@/services/auth/types';
-import {getAppSettings, saveAppSettings} from '@/services/db/app-settings-db';
-import {DEFAULT_APP_SETTINGS} from '@/services/settings/app-settings';
+import {ForceLogoutError} from '@/services/auth/errors';
+import {getAppSettings, updateStoredAppSettings} from '@/services/db/app-settings-db';
+import {saveColorSets} from '@/services/db/color-set-db';
+import {getStoreChangeTokens} from '@/services/db/store-changes-db';
+import type {StoreChangeTokens} from '@/services/db/types';
+import {DEFAULT_APP_SETTINGS} from '@/services/settings/types';
 import {type AppSettings} from '@/services/settings/types';
 import {parseUrl} from '@/services/url/url-parser';
 import type {AuthSlice} from '@/stores/auth-slice';
+import type {CloudSlice} from '@/stores/cloud-slice';
+import type {CustomColorBrandSlice} from '@/stores/custom-color-brand-slice';
 import type {LocaleSlice} from '@/stores/locale-slice';
 import type {StyleTransferSlice} from '@/stores/style-transfer-slice';
+import {reloadStores} from '@/stores/sync/store-reloads';
 import {initAuthAttemptWatcher} from '@/stores/watchers/auth-attempt-watcher';
 import {initAuthExpiryWatcher} from '@/stores/watchers/auth-expiry-watcher';
-import {initPersistedStateSyncWatcher} from '@/stores/watchers/persisted-state-sync-watcher';
+import {initPersistedStateWatcher} from '@/stores/watchers/persisted-state-watcher';
 import {TabKey} from '@/tabs';
 import {getErrorMessage} from '@/utils/error';
 import {replaceHistory} from '@/utils/history';
@@ -41,11 +46,12 @@ import type {OriginalImageSlice} from './original-image-slice';
 import type {PaletteSlice} from './palette-slice';
 import type {TabSlice} from './tab-slice';
 
-export type AppSettingsUpdater = (prev?: AppSettings) => Partial<AppSettings>;
+type AppSettingsUpdater = (prev: AppSettings) => Partial<AppSettings>;
 
 export interface AppSlice {
   appInitialized: boolean;
   appSettings: AppSettings;
+  storeChangeTokens: StoreChangeTokens;
   installRequested: boolean;
 
   isAppInitializing: boolean;
@@ -55,7 +61,9 @@ export interface AppSlice {
   initApp: () => Promise<void>;
   resetInstallRequested: () => void;
   loadAppSettings: () => Promise<AppSettings>;
-  saveAppSettings: (appSettings: Partial<AppSettings> | AppSettingsUpdater) => Promise<void>;
+  saveAppSettings: (appSettings: Partial<AppSettings> | AppSettingsUpdater) => Promise<AppSettings>;
+  loadStoreChangeTokens: () => Promise<StoreChangeTokens>;
+  saveStoreChangeTokens: (tokens: StoreChangeTokens) => void;
   addInitError: (label: string, error: unknown) => void;
   clearInitErrors: () => void;
 }
@@ -64,6 +72,8 @@ export const createAppSlice: StateCreator<
   AppSlice &
     LocaleSlice &
     AuthSlice &
+    CloudSlice &
+    CustomColorBrandSlice &
     TabSlice &
     ColorSetSlice &
     ColorMixerSlice &
@@ -74,13 +84,12 @@ export const createAppSlice: StateCreator<
   [],
   AppSlice
 > = (set, get) => {
-  const tryStep = async (label: string, fn: () => unknown): Promise<void> => {
+  const runInitStepSafely = async (label: string, fn: () => unknown): Promise<void> => {
     try {
       await fn();
     } catch (error) {
       if (error instanceof ForceLogoutError) {
-        void get().logout(error.type);
-        return;
+        throw error;
       }
       get().addInitError(label, error);
     }
@@ -88,6 +97,7 @@ export const createAppSlice: StateCreator<
   return {
     appInitialized: false,
     appSettings: {...DEFAULT_APP_SETTINGS},
+    storeChangeTokens: {},
     installRequested: false,
 
     isAppInitializing: false,
@@ -104,36 +114,45 @@ export const createAppSlice: StateCreator<
         });
 
         let appSettings: AppSettings = {...DEFAULT_APP_SETTINGS};
-        await tryStep('load app settings', async () => {
+        await runInitStepSafely('load app settings', async () => {
           appSettings = await get().loadAppSettings();
         });
 
-        await tryStep('set locale', () =>
+        await runInitStepSafely('set locale', () =>
           get().setLocale(appSettings.locale ?? getPreferredLocale(), false)
         );
 
-        await tryStep('normalize injected auth callback', () => normalizeInjectedAuthCallback());
-        await tryStep('handle auth callback', () => get().handleAuthCallback());
-        set({
-          isAuthLoading: true,
-        });
-        try {
-          await tryStep('resolve auth', () => get().resolveAuth());
-        } finally {
-          set({
-            isAuthLoading: false,
-          });
+        const {
+          loginCallback,
+          loggedOut,
+          cloudCallback,
+          install,
+          tabKey: importedTabKey,
+          colorSet: importedColorSet,
+        } = parseUrl(window.location.toString());
+
+        if (loginCallback) {
+          await get().handleLoginCallback(loginCallback.completionToken);
         }
-        await tryStep('complete auth attempt', () => get().completeAuthAttempt());
+
+        if (loggedOut?.error) {
+          get().setAuthError(loggedOut.error);
+        }
+
+        await runInitStepSafely('resolve auth', () => get().resolveAuth({showLoading: true}));
+
+        await runInitStepSafely('reconcile auth attempt', () => get().reconcileAuthAttempt());
 
         initAuthAttemptWatcher();
 
-        const {
-          colorSet: importedColorSet,
-          tabKey: importedTabKey,
-          install,
-        } = parseUrl(window.location.toString());
+        await runInitStepSafely('load cloud connection', () => get().loadCloudConnection());
 
+        if (cloudCallback) {
+          const {completed, error} = cloudCallback;
+          await runInitStepSafely('handle cloud callback', () =>
+            get().handleCloudCallback(completed, error)
+          );
+        }
         if (install) {
           set({
             installRequested: true,
@@ -142,16 +161,35 @@ export const createAppSlice: StateCreator<
         let activeTabKey: TabKey | undefined = importedTabKey ?? appSettings.activeTabKey;
         if (importedColorSet) {
           activeTabKey = TabKey.ColorSet;
-          await tryStep('save imported color set', () => get().saveColorSet(importedColorSet));
+          await runInitStepSafely('save imported color set', () =>
+            saveColorSets([importedColorSet])
+          );
         }
-        if (importedColorSet || importedTabKey || install) {
+        if (
+          loginCallback ||
+          loggedOut ||
+          importedColorSet ||
+          importedTabKey ||
+          install ||
+          cloudCallback
+        ) {
           replaceHistory();
         }
 
-        await tryStep('load color sets', () => get().loadColorSets());
-        initPersistedStateSyncWatcher();
+        await runInitStepSafely('load store change tokens', () => get().loadStoreChangeTokens());
 
-        await tryStep('load recent image files', () => get().loadRecentImageFiles());
+        await reloadStores(get(), undefined, (label, error) => {
+          if (error instanceof ForceLogoutError) {
+            throw error;
+          }
+          get().addInitError(label, error);
+        });
+
+        await runInitStepSafely('select latest image file', () => get().selectLatestImageFile());
+
+        void get().syncCloudState();
+
+        initPersistedStateWatcher();
 
         if (activeTabKey) {
           void get().setActiveTabKey(activeTabKey);
@@ -162,6 +200,12 @@ export const createAppSlice: StateCreator<
         });
 
         initAuthExpiryWatcher();
+      } catch (error) {
+        if (error instanceof ForceLogoutError) {
+          void get().logout(error.type);
+          return;
+        }
+        throw error;
       } finally {
         set({
           isAppInitializing: false,
@@ -186,15 +230,34 @@ export const createAppSlice: StateCreator<
       return appSettings;
     },
 
-    saveAppSettings: async (update: Partial<AppSettings> | AppSettingsUpdater): Promise<void> => {
-      const {appSettings: prevAppSettings} = get();
-      const values: Partial<AppSettings> =
-        typeof update === 'function' ? update(prevAppSettings) : update;
-      const appSettings = {...prevAppSettings, ...values};
-      await saveAppSettings(appSettings);
+    saveAppSettings: async (
+      update: Partial<AppSettings> | AppSettingsUpdater
+    ): Promise<AppSettings> => {
+      const appSettings = await updateStoredAppSettings(prev => ({
+        ...prev,
+        ...(typeof update === 'function' ? update(prev) : update),
+      }));
       set({
         appSettings,
       });
+      return appSettings;
+    },
+
+    loadStoreChangeTokens: async (): Promise<StoreChangeTokens> => {
+      const storeChangeTokens = await getStoreChangeTokens();
+      set({
+        storeChangeTokens,
+      });
+      return storeChangeTokens;
+    },
+
+    saveStoreChangeTokens: (tokens: StoreChangeTokens): void => {
+      set(({storeChangeTokens}) => ({
+        storeChangeTokens: {
+          ...storeChangeTokens,
+          ...tokens,
+        },
+      }));
     },
 
     addInitError: (label: string, error: unknown): void => {

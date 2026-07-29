@@ -13,48 +13,44 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/color-set/ColorBrandSelect.tsx:75
+#: src/components/color-set/ColorBrandSelect.tsx:73
 msgid "({colorCount} colors)"
 msgstr "({colorCount} χρώματα)"
 
-#: src/components/ColorSetChooser.tsx:639
+#: src/components/ColorSetChooser.tsx:657
 msgid "{brandName} colors"
 msgstr "{brandName} χρώματα"
 
-#: src/components/ad/AdModal.tsx:66
+#: src/components/ad/AdModal.tsx:72
 msgid "{closeCounter, plural, one {Close in # second} other {Close in # seconds}}"
 msgstr "{closeCounter, plural, one {Κλείσιμο σε # δευτερόλεπτο} other {Κλείσιμο σε # δευτερόλεπτα}}"
 
 #: src/components/color-set/ColorSetName.tsx:34
 #: src/components/color-set/StandardColorSetCascader.tsx:59
-#: src/components/ImageColorPicker.tsx:369
+#: src/components/ImageColorPicker.tsx:386
 #: src/components/Palette.tsx:75
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# χρώμα} other {# χρώματα}}"
 
-#: src/components/auth/LoginEmailOtpButton.tsx:177
+#: src/components/auth/LoginEmailOtpButton.tsx:174
 msgid "{expiresIn, plural, one {Code expires in # second} other {Code expires in # seconds}}"
 msgstr "{expiresIn, plural, one {Ο κωδικός λήγει σε # δευτερόλεπτο} other {Ο κωδικός λήγει σε # δευτερόλεπτα}}"
 
-#: src/components/auth/ShowLoginQRButton.tsx:74
-msgid "{expiresIn, plural, one {QR code expires in # second} other {QR code expires in # seconds}}"
-msgstr "{expiresIn, plural, one {Ο κωδικός QR λήγει σε # δευτερόλεπτο} other {Ο κωδικός QR λήγει σε # δευτερόλεπτα}}"
-
-#: src/components/ColorSetChooser.tsx:592
-#: src/components/ColorSetChooser.tsx:640
+#: src/components/ColorSetChooser.tsx:610
+#: src/components/ColorSetChooser.tsx:658
 msgid "{FIELD} are required"
 msgstr "{FIELD} είναι υποχρεωτικά"
 
-#: src/components/ColorSetChooser.tsx:559
-#: src/components/ColorSetChooser.tsx:568
-#: src/components/ColorSetChooser.tsx:621
-#: src/components/CustomColorBrandCreator.tsx:436
-#: src/components/CustomColorBrandCreator.tsx:447
-#: src/components/CustomColorBrandCreator.tsx:455
+#: src/components/ColorSetChooser.tsx:577
+#: src/components/ColorSetChooser.tsx:586
+#: src/components/ColorSetChooser.tsx:639
+#: src/components/CustomColorBrandCreator.tsx:474
+#: src/components/CustomColorBrandCreator.tsx:485
+#: src/components/CustomColorBrandCreator.tsx:493
 msgid "{FIELD} is required"
 msgstr "Το {FIELD} είναι υποχρεωτικό"
 
-#: src/components/auth/LoginEmailOtpButton.tsx:194
+#: src/components/auth/LoginEmailOtpButton.tsx:196
 msgid "{retryIn, plural, one {Resend code in # second} other {Resend code in # seconds}}"
 msgstr "{retryIn, plural, one {Επανάληψη αποστολής κωδικού σε # δευτερόλεπτο} other {Επανάληψη αποστολής κωδικού σε # δευτερόλεπτα}}"
 
@@ -62,7 +58,7 @@ msgstr "{retryIn, plural, one {Επανάληψη αποστολής κωδικ�
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux και <3/> ChromeOS"
 
-#: src/components/error/BrowserSupport.tsx:86
+#: src/components/error/BrowserSupport.tsx:84
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> Επιτραπέζιος ή φορητός υπολογιστής"
 
@@ -70,48 +66,68 @@ msgstr "<0/> Επιτραπέζιος ή φορητός υπολογιστής"
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS και iPadOS"
 
-#: src/components/error/BrowserSupport.tsx:66
+#: src/components/error/BrowserSupport.tsx:64
 msgid "<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older versions of iPadOS and iOS)"
 msgstr "<0/> iPadOS 16.4+ ή iOS 16.4+ (δεν υποστηρίζεται σε κανένα πρόγραμμα περιήγησης σε παλαιότερες εκδόσεις iPadOS και iOS)"
 
-#: src/components/error/BrowserSupport.tsx:59
+#: src/components/error/BrowserSupport.tsx:57
 msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> Tablet και <1/> κινητό"
 
-#: src/components/error/BrowserSupport.tsx:104
+#: src/components/error/BrowserSupport.tsx:102
 #: src/components/install/InstallDrawer.tsx:61
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows και <1/> Linux"
 
-#: src/components/color/SimilarColorCard.tsx:80
+#: src/components/color/SimilarColorCard.tsx:86
 msgid "<0>{similarityText}%</0> similarity"
 msgstr "<0>{similarityText}%</0> ομοιότητα"
 
-#: src/components/ColorSetChooser.tsx:503
+#: src/components/ColorSetChooser.tsx:512
 msgid "<0>Already a paid member?</0> Log in to unlock your paid features."
 msgstr "<0>Είστε ήδη μέλος επί πληρωμή;</0> Συνδεθείτε για να ξεκλειδώσετε τις λειτουργίες επί πληρωμή."
 
-#: src/components/ColorSetChooser.tsx:461
-msgid "<0>ArtistAssistApp</0> is a web app that helps artists mix colors from reference photos, make tonal value studies, outline photos, draw with grids, paint with limited palettes, and more."
-msgstr "<0>Το ArtistAssistApp</0> είναι μια διαδικτυακή εφαρμογή που βοηθά τους καλλιτέχνες να αναμειγνύουν χρώματα από φωτογραφίες αναφοράς, να κάνουν μελέτες τονικής αξίας, να σκιαγραφούν φωτογραφίες, να σχεδιάζουν με πλέγματα, να ζωγραφίζουν με περιορισμένες παλέτες και πολλά άλλα."
+#: src/components/ColorSetChooser.tsx:448
+msgid "<0>ArtistAssistApp</0> helps artists mix colors to match reference photos using their own art supplies, create palettes and mixing charts, study tonal values, make outlines, draw with grids, explore limited palettes and artist-inspired versions of photos, straighten photos, adjust their colors, remove backgrounds, and compare photos side by side."
+msgstr "<0>Το ArtistAssistApp</0> βοηθά τους καλλιτέχνες να αναμειγνύουν χρώματα για να ταιριάζουν με φωτογραφίες αναφοράς χρησιμοποιώντας τα δικά τους είδη τέχνης, να δημιουργούν παλέτες και γραφήματα ανάμειξης, να μελετούν τονικές τιμές, να δημιουργούν περιγράμματα, να σχεδιάζουν με πλέγματα, να εξερευνούν περιορισμένες παλέτες και εκδόσεις φωτογραφιών εμπνευσμένες από καλλιτέχνες, να ισιώνουν φωτογραφίες, να προσαρμόζουν τα χρώματά τους, να αφαιρούν φόντο και να συγκρίνουν φωτογραφίες δίπλα-δίπλα."
 
-#: src/components/error/AuthFeedbackHandler.tsx:77
+#: src/components/auth/AuthFeedbackHandler.tsx:71
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Ελέγξτε τον λογαριασμό σας στο Patreon</0>: Βεβαιωθείτε ότι είστε συνδεδεμένοι στο <1>Patreon.com</1> στο πρόγραμμα περιήγησής σας χρησιμοποιώντας το ίδιο email που χρησιμοποιήσατε για να αγοράσετε τη συνδρομή σας. Εάν έχετε πολλούς λογαριασμούς, αποσυνδεθείτε και συνδεθείτε ξανά με τον σωστό."
 
-#: src/components/ColorSetChooser.tsx:491
-msgid "<0>Not a paid member yet?</0> Become a paid ArtistAssistApp member on Patreon to unlock all paid features, including more than 250 color brands and ad-free access.<1/>You can continue exploring the free version before deciding to upgrade."
-msgstr "<0>Δεν είστε ακόμη μέλος επί πληρωμή;</0> Γίνετε μέλος του ArtistAssistApp επί πληρωμή στο Patreon για να ξεκλειδώσετε όλες τις λειτουργίες επί πληρωμή, συμπεριλαμβανομένων περισσότερων από 250 επωνυμιών χρωμάτων και πρόσβασης χωρίς διαφημίσεις.<1/>Μπορείτε να συνεχίσετε να εξερευνάτε τη δωρεάν έκδοση πριν αποφασίσετε να κάνετε αναβάθμιση."
+#: src/components/ColorSetChooser.tsx:482
+msgid "<0>Not a paid member yet?</0> Become a paid ArtistAssistApp member to unlock:"
+msgstr "<0>Δεν είστε ακόμη μέλος επί πληρωμή;</0> Γίνετε μέλος του ArtistAssistApp επί πληρωμή για να ξεκλειδώσετε:"
 
-#: src/components/error/AuthFeedbackHandler.tsx:95
+#: src/components/auth/AuthFeedbackHandler.tsx:89
 msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
 msgstr "<0>Επανάληψη σύνδεσης</0>: Αφού επιβεβαιώσετε ότι ο σωστός λογαριασμός Patreon είναι ενεργός στο πρόγραμμα περιήγησής σας, συνδεθείτε ξανά στο ArtistAssistApp."
 
-#: src/components/error/AuthFeedbackHandler.tsx:88
+#: src/components/auth/AuthFeedbackHandler.tsx:82
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Χρησιμοποιήστε ένα πρόγραμμα περιήγησης ιστού</0>: Εάν χρησιμοποιείτε την εφαρμογή Patreon (iOS/Android), συνδεθείτε μέσω ενός προγράμματος περιήγησης ιστού (Chrome, Safari, Firefox), καθώς η εφαρμογή μπορεί μερικές φορές να επηρεάσει τη διαδικασία επαλήθευσης."
 
-#: src/components/ImageColorPicker.tsx:335
+#: src/components/ColorSetChooser.tsx:498
+msgid "☁️ Cloud sync to store your color sets, photos, and mixtures in your own cloud storage, so you can use them across devices"
+msgstr "☁️ Συγχρονισμός στο cloud για να αποθηκεύετε τα σύνολα χρωμάτων, τις φωτογραφίες και τις μίξεις σας στον δικό σας χώρο αποθήκευσης στο cloud, ώστε να μπορείτε να τα χρησιμοποιείτε σε όλες τις συσκευές"
+
+#: src/components/ColorSetChooser.tsx:492
+msgid "✏️ High-quality outlines and background removal"
+msgstr "✏️ Υψηλής ποιότητας περιγράμματα και αφαίρεση φόντου"
+
+#: src/components/ColorSetChooser.tsx:489
+msgid "🎨 250+ color brands"
+msgstr "🎨 250+ μάρκες χρωμάτων"
+
+#: src/components/ColorSetChooser.tsx:504
+msgid "📢 No ads"
+msgstr "📢 Χωρίς διαφημίσεις"
+
+#: src/components/ColorSetChooser.tsx:495
+msgid "🧑‍🎨 Artist-inspired and custom-reference styles"
+msgstr "🧑‍🎨 Στυλ εμπνευσμένα από καλλιτέχνες και προσαρμοσμένα στυλ αναφοράς"
+
+#: src/components/ImageColorPicker.tsx:348
 msgid "A color mixed into every suggested mixture to help the palette feel more harmonious. Also known as a mother color."
 msgstr "Ένα χρώμα που αναμειγνύεται σε κάθε προτεινόμενο μείγμα για να βοηθήσει την παλέτα να αισθάνεται πιο αρμονική. Γνωστό και ως μητρικό χρώμα."
 
@@ -123,31 +139,31 @@ msgstr "Ένα πλέγμα που δείχνει το αποτέλεσμα τη
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "Μια νέα έκδοση της εφαρμογής είναι διαθέσιμη και θα εγκατασταθεί αυτόματα."
 
-#: src/components/Help.tsx:166
+#: src/components/Help.tsx:146
 msgid "A new version of the application is available."
 msgstr "Μια νέα έκδοση της εφαρμογής είναι διαθέσιμη."
 
-#: src/components/ImageColorAdjustment.tsx:453
+#: src/components/ImageColorAdjustment.tsx:465
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Μια τιμή μικρότερη από 100% κάνει την εικόνα να φαίνεται λιγότερο πολύχρωμη και μια τιμή μεγαλύτερη από 100% την κάνει να φαίνεται πολύ πολύχρωμη"
 
-#: src/components/Help.tsx:108
+#: src/components/Help.tsx:97
 msgid "About ArtistAssistApp"
 msgstr "Σχετικά με το ArtistAssistApp"
 
-#: src/components/messages.ts:59
+#: src/components/messages.ts:60
 msgid "Acrylic Gouache"
 msgstr "Ακρυλική γκουάς"
 
-#: src/components/messages.ts:58
+#: src/components/messages.ts:59
 msgid "Acrylic Markers"
 msgstr "Ακρυλικοί Μαρκαδόροι"
 
-#: src/components/messages.ts:51
+#: src/components/messages.ts:52
 msgid "Acrylic Paint"
 msgstr "Ακρυλικό χρώμα"
 
-#: src/components/ColorMixer.tsx:232
+#: src/components/ColorMixer.tsx:237
 msgid "Add color"
 msgstr "Προσθήκη χρώματος"
 
@@ -155,15 +171,15 @@ msgstr "Προσθήκη χρώματος"
 msgid "Add color mixtures to the palette."
 msgstr "Προσθέστε μείγματα χρωμάτων στην παλέτα."
 
-#: src/components/ColorSetChooser.tsx:642
+#: src/components/ColorSetChooser.tsx:660
 msgid "Add or remove colors to match your actual color set."
 msgstr "Προσθέστε ή αφαιρέστε χρώματα που ταιριάζουν με το πραγματικό σύνολο χρωμάτων σας."
 
-#: src/components/ImagesCompare.tsx:112
+#: src/components/ImagesCompare.tsx:115
 msgid "Add photos"
 msgstr "Προσθήκη φωτογραφιών"
 
-#: src/components/color/AddToPaletteButton.tsx:64
+#: src/components/color/AddToPaletteButton.tsx:67
 msgid "Add to palette"
 msgstr "Προσθήκη στην παλέτα"
 
@@ -171,13 +187,13 @@ msgstr "Προσθήκη στην παλέτα"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Προσθήκη λευκού σε <0>αναλογία {whiteRatioText}</0>"
 
-#: src/components/ImagePerspectiveCorrection.tsx:329
-#: src/components/ImagePerspectiveCorrection.tsx:358
-#: src/components/messages.ts:41
+#: src/components/ImagePerspectiveCorrection.tsx:321
+#: src/components/ImagePerspectiveCorrection.tsx:368
+#: src/components/messages.ts:42
 msgid "Adjust colors"
 msgstr "Προσαρμογή χρωμάτων"
 
-#: src/components/ImagePerspectiveCorrection.tsx:173
+#: src/components/ImagePerspectiveCorrection.tsx:159
 msgid "Adjust the 4 points manually."
 msgstr "Ρυθμίστε τα 4 σημεία χειροκίνητα."
 
@@ -185,7 +201,11 @@ msgstr "Ρυθμίστε τα 4 σημεία χειροκίνητα."
 msgid "Adjusts the strength of image smoothing."
 msgstr "Προσαρμόζει την ένταση της εξομάλυνσης εικόνας."
 
-#: src/components/file/FileSelect.tsx:133
+#: src/components/Help.tsx:202
+msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
+msgstr "Όλα τα δεδομένα της εφαρμογής αποθηκεύονται στον χώρο αποθήκευσης του προγράμματος περιήγησης ιστού, ακόμη και μετά την εγκατάσταση. Η εκκαθάριση των δεδομένων του προγράμματος περιήγησης τα διαγράφει όλα."
+
+#: src/components/file/FileSelect.tsx:148
 msgid "Allow clipboard access, then try again."
 msgstr "Επιτρέψτε την πρόσβαση στο πρόχειρο και, στη συνέχεια, δοκιμάστε ξανά."
 
@@ -193,13 +213,13 @@ msgstr "Επιτρέψτε την πρόσβαση στο πρόχειρο κα�
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
 msgstr "Εναλλακτικά, εγκαταστήστε την πιο πρόσφατη έκδοση του προγράμματος περιήγησης ιστού Chrome, Edge ή Opera και κάντε κλικ στο κουμπί <0>Εγκατάσταση</0> . Σε παλαιότερες εκδόσεις του macOS, αυτή είναι η μόνη επιλογή."
 
-#: src/components/Help.tsx:254
+#: src/components/Help.tsx:247
 msgid "Application build ID"
 msgstr "Αναγνωριστικό δομής εφαρμογής"
 
 #: src/components/ColorMixingChart.tsx:190
-#: src/components/ImageLimitedPalette.tsx:122
-#: src/components/ImagePerspectiveCorrection.tsx:292
+#: src/components/ImageLimitedPalette.tsx:130
+#: src/components/ImagePerspectiveCorrection.tsx:274
 msgid "Apply"
 msgstr "Εφαρμόζω"
 
@@ -219,24 +239,25 @@ msgstr "Εφαρμόστε λιγότερη πίεση για να κάνετε 
 msgid "Apply strokes of each color in a <0>{ratioText} ratio</0>"
 msgstr "Εφαρμογή περιγραμμάτων κάθε χρώματος σε <0>αναλογία {ratioText}</0>"
 
-#: src/components/ImageOutline.tsx:283
-#: src/components/ImageOutline.tsx:332
+#: src/components/ImageOutline.tsx:286
+#: src/components/ImageOutline.tsx:335
 msgid "AR"
 msgstr "AR"
 
-#: src/components/storage/ClearCacheButton.tsx:43
-msgid "Are you sure you want to clear the cache?"
-msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε την προσωρινή μνήμη;"
+#: src/components/palette/PaletteGrid.tsx:111
+msgid "Are you sure you want to delete all color mixtures?"
+msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε όλα τα μείγματα χρωμάτων;"
 
-#: src/components/storage/DeleteAppDataButton.tsx:43
-msgid "Are you sure you want to delete all app data?"
-msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε όλα τα δεδομένα της εφαρμογής;"
+#: src/components/color/AddToPaletteButton.tsx:47
+#: src/components/color/PaletteColorMixtureCard.tsx:122
+msgid "Are you sure you want to delete this color mixture?"
+msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό το μείγμα χρωμάτων;"
 
-#: src/components/ColorSetChooser.tsx:736
+#: src/components/ColorSetChooser.tsx:753
 msgid "Are you sure you want to delete this color set?"
 msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό το σύνολο χρωμάτων;"
 
-#: src/components/CustomColorBrandCreator.tsx:468
+#: src/components/CustomColorBrandCreator.tsx:508
 msgid "Are you sure you want to delete this custom brand?"
 msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτήν την προσαρμοσμένη επωνυμία;"
 
@@ -244,135 +265,157 @@ msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε 
 msgid "Are you sure you want to delete this photo?"
 msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτήν τη φωτογραφία;"
 
-#: src/components/palette/PaletteGrid.tsx:111
-msgid "Are you sure you want to remove all color mixtures?"
-msgstr "Είστε σίγουροι ότι θέλετε να αφαιρέσετε όλα τα μείγματα χρωμάτων;"
-
-#: src/components/color/AddToPaletteButton.tsx:49
-#: src/components/color/PaletteColorMixtureCard.tsx:116
-msgid "Are you sure you want to remove this color mixture?"
-msgstr "Είστε σίγουροι ότι θέλετε να αφαιρέσετε αυτό το μείγμα χρωμάτων;"
-
-#: src/components/ColorSetChooser.tsx:558
-#: src/components/CustomColorBrandCreator.tsx:446
+#: src/components/ColorSetChooser.tsx:576
+#: src/components/CustomColorBrandCreator.tsx:484
 msgid "Art medium"
 msgstr "Καλλιτεχνικό μέσο"
 
-#: src/components/error/AuthFeedbackHandler.tsx:188
+#: src/components/cloud/CloudFeedbackHandler.tsx:93
+msgid "ArtistAssistApp can no longer access your cloud storage. Disconnect it, then connect again."
+msgstr "Το ArtistAssistApp δεν μπορεί πλέον να έχει πρόσβαση στον αποθηκευτικό χώρο σας στο cloud. Αποσυνδέστε το και, στη συνέχεια, συνδέστε το ξανά."
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:161
+msgid "ArtistAssistApp could not confirm that your cloud files were deleted. Remove any remaining ArtistAssistApp folder or files directly from your cloud provider."
+msgstr "Το ArtistAssistApp δεν μπόρεσε να επιβεβαιώσει ότι τα αρχεία σας στο cloud διαγράφηκαν. Καταργήστε τυχόν εναπομείναντες φάκελο ή αρχεία ArtistAssistApp απευθείας από τον πάροχο cloud."
+
+#: src/components/auth/AuthFeedbackHandler.tsx:174
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "Το ArtistAssistApp δεν έλαβε το αποτέλεσμα της σύνδεσής σας στο Patreon. Αυτό μπορεί να συμβεί όταν ανοίγει η σύνδεση σε άλλο πρόγραμμα περιήγησης ή εφαρμογή. Δοκιμάστε να συνδεθείτε ξανά."
 
-#: src/components/Help.tsx:245
+#: src/components/Help.tsx:238
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "Το ArtistAssistApp αναπτύχθηκε από τον <0>Eugene Khyst</0>"
 
-#: src/components/CustomColorBrandCreator.tsx:496
+#: src/components/Help.tsx:214
+msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
+msgstr "Το ArtistAssistApp δεν αποθηκεύει ποτέ τη διεύθυνση email σας, μόνο έναν ιδιωτικό κωδικό που προέρχεται από αυτήν που δεν μπορεί να αποκαλύψει τη διεύθυνση. Η σύνδεση με το Patreon ή η ανανέωση μέλους δημιουργεί ξανά αυτόν τον κωδικό."
+
+#: src/components/storage/DeleteAppDataButton.tsx:42
+msgid "ArtistAssistApp will permanently delete your saved work and settings from this device and log you out.<0/>Data already synchronized to cloud storage will not be deleted."
+msgstr "Το ArtistAssistApp θα διαγράψει οριστικά την αποθηκευμένη εργασία και τις ρυθμίσεις σας από αυτήν τη συσκευή και θα σας αποσυνδέσει.<0/>Τα δεδομένα που έχουν ήδη συγχρονιστεί με το χώρο αποθήκευσης στο cloud δεν θα διαγραφούν."
+
+#: src/components/storage/ClearCacheButton.tsx:42
+msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
+msgstr "Το ArtistAssistApp θα φορτωθεί ξανά μετά την κατάργηση των προσωρινών αρχείων εφαρμογών.<0/>Τα αποθηκευμένα δεδομένα εργασίας και cloud δεν θα διαγραφούν."
+
+#: src/components/CustomColorBrandCreator.tsx:541
 msgid "At least one color is required"
 msgstr "Απαιτείται τουλάχιστον ένα χρώμα"
 
-#: src/components/error/AuthFeedbackHandler.tsx:147
+#: src/components/auth/AuthFeedbackHandler.tsx:141
 msgid "Authentication error"
 msgstr "Σφάλμα ελέγχου ταυτότητας"
 
-#: src/components/ImageColorPicker.tsx:397
+#: src/components/auth/AuthFeedbackHandler.tsx:185
+msgid "Authentication failed"
+msgstr "Ο έλεγχος ταυτότητας απέτυχε"
+
+#: src/components/ImageColorPicker.tsx:414
 msgid "Auto palette"
 msgstr "Αυτόματη παλέτα"
 
-#: src/components/ImagePerspectiveCorrection.tsx:289
-#: src/components/ImagePerspectiveCorrection.tsx:368
+#: src/components/ImagePerspectiveCorrection.tsx:288
+#: src/components/ImagePerspectiveCorrection.tsx:335
 msgid "Auto-detect"
 msgstr "Αυτόματος εντοπισμός"
 
-#: src/components/Help.tsx:185
-msgid "Automatic backup of color sets"
-msgstr "Αυτόματη δημιουργία αντιγράφων ασφαλείας των συνόλων χρωμάτων"
-
-#: src/components/ImageColorPicker.tsx:392
+#: src/components/ImageColorPicker.tsx:409
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Βρείτε αυτόματα τα καλύτερα μείγματα χρωμάτων για αυτήν τη φωτογραφία."
 
-#: src/components/ImageColorAdjustment.tsx:427
+#: src/components/ImageColorAdjustment.tsx:438
 msgid "Average color of the white point area"
 msgstr "Μέσο χρώμα της περιοχής λευκού σημείου"
 
-#: src/components/ImageBackgroundRemoval.tsx:109
-#: src/components/ImageBackgroundRemoval.tsx:112
+#: src/components/ImageBackgroundRemoval.tsx:110
+#: src/components/ImageBackgroundRemoval.tsx:113
 msgid "Background"
 msgstr "Φόντο"
+
+#: src/components/cloud/ImportFromZipFileSelect.tsx:56
+msgid "Backup imported"
+msgstr "Εισαγωγή αντιγράφων ασφαλείας"
 
 #: src/components/auth/JoinButton.tsx:27
 msgid "Become a paid member"
 msgstr "Γίνετε μέλος επί πληρωμή"
 
-#: src/components/ImageColorPicker.tsx:317
+#: src/components/ImageColorPicker.tsx:325
 msgid "Blending"
 msgstr "Ανάμειξη"
 
-#: src/components/messages.ts:73
-msgid "By date added"
-msgstr "Κατά ημερομηνία προσθήκης"
-
-#: src/components/messages.ts:68
-#: src/components/messages.ts:75
-msgid "By hue"
-msgstr "Ανά απόχρωση"
-
-#: src/components/messages.ts:67
-msgid "By ID"
-msgstr "Με ID"
+#: src/components/messages.ts:74
+msgid "By date"
+msgstr "Κατά ημερομηνία"
 
 #: src/components/messages.ts:69
 #: src/components/messages.ts:76
+msgid "By hue"
+msgstr "Ανά απόχρωση"
+
+#: src/components/messages.ts:68
+msgid "By ID"
+msgstr "Με ID"
+
+#: src/components/messages.ts:70
+#: src/components/messages.ts:77
 msgid "By lightness"
 msgstr "Με ελαφρότητα"
 
-#: src/components/messages.ts:74
+#: src/components/messages.ts:75
 msgid "By name"
 msgstr "Με το όνομα"
 
-#: src/components/ImageOutline.tsx:119
+#: src/components/ImageOutline.tsx:118
 msgid "Camera access is required for AR tracing"
 msgstr "Απαιτείται πρόσβαση στην κάμερα για ανίχνευση AR"
 
-#: src/components/color-set/MergeColorSetsDrawer.tsx:97
-#: src/components/loading/LoadingIndicator.tsx:51
+#: src/components/auth/DeleteAccountButton.tsx:68
+#: src/components/cloud/ConnectCloudButton.tsx:71
+#: src/components/cloud/DisconnectCloudButton.tsx:65
+#: src/components/cloud/ImportFromZipFileSelect.tsx:47
+#: src/components/color-set/MergeColorSetsDrawer.tsx:95
+#: src/components/loading/LoadingIndicator.tsx:52
+#: src/components/storage/ClearCacheButton.tsx:50
+#: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: src/components/Help.tsx:118
+#: src/components/Help.tsx:107
 msgid "Cancel a paid membership"
 msgstr "Ακύρωση συνδρομής επί πληρωμή"
 
-#: src/components/file/FileSelect.tsx:140
+#: src/components/file/FileSelect.tsx:163
 msgid "Cannot use copied image"
 msgstr "Δεν είναι δυνατή η χρήση αντιγραμμένης εικόνας"
 
-#: src/components/grid/GridControls.tsx:194
+#: src/components/grid/GridControls.tsx:192
 msgid "Cells"
 msgstr "Κύτταρα"
 
-#: src/components/Help.tsx:177
+#: src/components/Help.tsx:153
 msgid "Check for updates"
 msgstr "Έλεγχος για ενημερώσεις"
 
-#: src/components/ImageBackgroundRemoval.tsx:128
+#: src/components/ImageBackgroundRemoval.tsx:129
 msgid "Clear background color"
 msgstr "Καθαρό χρώμα φόντου"
 
-#: src/components/storage/ClearCacheButton.tsx:42
-#: src/components/storage/ClearCacheButton.tsx:51
+#: src/components/storage/ClearCacheButton.tsx:40
+#: src/components/storage/ClearCacheButton.tsx:49
+#: src/components/storage/ClearCacheButton.tsx:53
 msgid "Clear cache"
 msgstr "Εκκαθάριση προσωρινής μνήμης"
 
-#: src/components/color/UnderlayerColorPicker.tsx:118
+#: src/components/color/UnderlayerColorPicker.tsx:120
 msgid "Clear underlayer"
 msgstr "Καθαρίστε το υπόστρωμα"
 
-#: src/components/ImageColorPicker.tsx:348
+#: src/components/ImageColorPicker.tsx:365
 msgid "Clear unifying color"
 msgstr "Καθαρό ενοποιητικό χρώμα"
 
-#: src/components/ImageColorAdjustment.tsx:419
+#: src/components/ImageColorAdjustment.tsx:430
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Κάντε κλικ 🖱️ ή πατήστε 👆 οπουδήποτε στη φωτογραφία για να επιλέξετε ένα λευκό σημείο."
 
@@ -384,28 +427,84 @@ msgstr "Κάντε κλικ 🖱️ ή πατήστε 👆 οπουδήποτε 
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "Κάντε κλικ 🖱️ ή πατήστε 👆 οπουδήποτε στη φωτογραφία ή χρησιμοποιήστε το αναδυόμενο παράθυρο επιλογέα χρώματος για να επιλέξετε ένα χρώμα προορισμού για ανάμειξη από τα χρώματά σας."
 
-#: src/components/ad/AdModal.tsx:75
+#: src/components/ad/AdModal.tsx:81
 msgid "Close"
 msgstr "Κλείνω"
 
-#: src/components/auth/LoginEmailOtpButton.tsx:169
+#: src/components/cloud/CloudFeedbackHandler.tsx:99
+msgid "Cloud access not granted"
+msgstr "Δεν παραχωρήθηκε πρόσβαση στο cloud"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:91
+msgid "Cloud authorization failed"
+msgstr "Η εξουσιοδότηση cloud απέτυχε"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:81
+msgid "Cloud connection failed"
+msgstr "Η σύνδεση στο cloud απέτυχε"
+
+#: src/components/cloud/CloudSyncUpdateNotification.tsx:41
+msgid "Cloud data changed"
+msgstr "Τα δεδομένα στο cloud άλλαξαν"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:149
+msgid "Cloud data not found"
+msgstr "Τα δεδομένα cloud δεν βρέθηκαν"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:168
+msgid "Cloud data unreadable"
+msgstr "Μη αναγνώσιμα δεδομένα cloud"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:159
+msgid "Cloud files may remain"
+msgstr "Τα αρχεία cloud ενδέχεται να παραμείνουν"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:87
+msgid "Cloud not connected"
+msgstr "Το cloud δεν είναι συνδεδεμένο"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:101
+msgid "Cloud storage was not connected because access was not granted. To connect it, try again and allow the requested access."
+msgstr "Ο χώρος αποθήκευσης στο cloud δεν ήταν συνδεδεμένος επειδή δεν παραχωρήθηκε πρόσβαση. Για να το συνδέσετε, δοκιμάστε ξανά και επιτρέψτε την πρόσβαση που ζητήσατε."
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:122
+msgid "Cloud sync conflict"
+msgstr "Διένεξη συγχρονισμού cloud"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:188
+msgid "Cloud sync failed"
+msgstr "Ο συγχρονισμός στο cloud απέτυχε"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:135
+msgid "Cloud sync history missing"
+msgstr "Λείπει το ιστορικό συγχρονισμού cloud"
+
+#: src/hooks/useCloudSyncNotification.ts:44
+msgid "Cloud sync is not enabled"
+msgstr "Ο συγχρονισμός cloud δεν είναι ενεργοποιημένος"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:175
+msgid "Cloud sync paused"
+msgstr "Ο συγχρονισμός cloud διακόπηκε"
+
+#: src/components/auth/LoginEmailOtpButton.tsx:167
 msgid "Code is required"
 msgstr "Απαιτείται κωδικός"
 
 #: src/components/ColorMixer.tsx:183
-#: src/components/CustomColorBrandCreator.tsx:420
+#: src/components/CustomColorBrandCreator.tsx:458
 msgid "Color"
 msgstr "Χρώμα"
 
-#: src/components/CustomColorBrandCreator.tsx:435
+#: src/components/CustomColorBrandCreator.tsx:473
 msgid "Color brand"
 msgstr "Μάρκα χρώματος"
 
-#: src/components/ColorSetChooser.tsx:590
+#: src/components/ColorSetChooser.tsx:608
 msgid "Color brands"
 msgstr "Μάρκες χρωμάτων"
 
-#: src/components/ImageColorPicker.tsx:410
+#: src/components/ImageColorPicker.tsx:427
 msgid "Color count"
 msgstr "Πλήθος χρωμάτων"
 
@@ -414,11 +513,11 @@ msgstr "Πλήθος χρωμάτων"
 msgid "Color map"
 msgstr "Έγχρωμος χάρτης"
 
-#: src/components/messages.ts:36
+#: src/components/messages.ts:37
 msgid "Color mixer"
 msgstr "Μίξερ χρωμάτων"
 
-#: src/components/messages.ts:37
+#: src/components/messages.ts:38
 msgid "Color mixing chart"
 msgstr "Διάγραμμα ανάμειξης χρωμάτων"
 
@@ -426,13 +525,13 @@ msgstr "Διάγραμμα ανάμειξης χρωμάτων"
 msgid "Color mixture"
 msgstr "Μείγμα χρωμάτων"
 
-#: src/components/messages.ts:30
+#: src/components/messages.ts:31
 msgid "Color picker"
 msgstr "Επιλογέας χρώματος"
 
-#: src/components/ColorSetChooser.tsx:566
-#: src/components/ImageColorPicker.tsx:241
-#: src/components/messages.ts:28
+#: src/components/ColorSetChooser.tsx:584
+#: src/components/ImageColorPicker.tsx:243
+#: src/components/messages.ts:29
 msgid "Color set"
 msgstr "Σετ χρωμάτων"
 
@@ -441,24 +540,48 @@ msgstr "Σετ χρωμάτων"
 msgid "Color swatch"
 msgstr "Δείγμα χρώματος"
 
-#: src/components/messages.ts:53
+#: src/components/messages.ts:54
 msgid "Colored Pencils"
 msgstr "Χρωματιστά μολύβια"
 
 #: src/components/ColorMixingChart.tsx:166
-#: src/components/ImageLimitedPalette.tsx:98
+#: src/components/ImageLimitedPalette.tsx:101
 msgid "Colors"
 msgstr "Χρώματα"
 
-#: src/components/messages.ts:43
+#: src/components/messages.ts:44
 msgid "Compare photos"
 msgstr "Σύγκριση φωτογραφιών"
 
-#: src/components/Help.tsx:132
+#: src/components/cloud/ConnectCloudButton.tsx:70
+msgid "Connect"
+msgstr "Σύνδεση"
+
+#: src/components/cloud/ConnectCloudButton.tsx:74
+msgid "Connect {label}"
+msgstr "Σύνδεση {label}"
+
+#: src/components/cloud/ConnectCloudButton.tsx:47
+msgid "Connect {label}?"
+msgstr "Σύνδεση {label};"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:88
+msgid "Connect cloud storage before syncing."
+msgstr "Συνδέστε το χώρο αποθήκευσης στο cloud πριν από το συγχρονισμό."
+
+#: src/hooks/useCloudSyncNotification.ts:45
+msgid "Connect cloud storage to keep a synchronized copy of your data in the cloud and use it across devices, or manually save and restore backup files."
+msgstr "Συνδέστε τον χώρο αποθήκευσης στο cloud για να διατηρήσετε ένα συγχρονισμένο αντίγραφο των δεδομένων σας στο cloud και να το χρησιμοποιήσετε σε όλες τις συσκευές ή να αποθηκεύσετε και να επαναφέρετε αρχεία αντιγράφων ασφαλείας με μη αυτόματο τρόπο."
+
+#: src/components/ColorSetChooser.tsx:529
+msgid "Connect cloud storage to synchronize your data across devices."
+msgstr "Συνδέστε το χώρο αποθήκευσης στο cloud για να συγχρονίσετε τα δεδομένα σας σε όλες τις συσκευές."
+
+#: src/components/Help.tsx:119
 msgid "Contact"
 msgstr "Επαφή"
 
-#: src/components/ImageColorPicker.tsx:256
+#: src/components/ImageColorPicker.tsx:258
 msgid "Controls how large an area is averaged when you pick a color from the photo."
 msgstr "Ελέγχει τον μέσο όρο μιας περιοχής όταν επιλέγετε ένα χρώμα από τη φωτογραφία."
 
@@ -466,36 +589,48 @@ msgstr "Ελέγχει τον μέσο όρο μιας περιοχής όταν
 msgid "Cool — Algorithmic estimate; artistic perception may vary."
 msgstr "Cool — Αλγοριθμική εκτίμηση. Η καλλιτεχνική αντίληψη μπορεί να διαφέρει."
 
-#: src/components/share/ShareModal.tsx:87
+#: src/components/share/ShareModal.tsx:85
 msgid "Copy"
 msgstr "Αντίγραφο"
 
-#: src/components/file/FileSelect.tsx:131
+#: src/components/file/FileSelect.tsx:125
 msgid "Copy a supported image to the clipboard, then try again."
 msgstr "Αντιγράψτε μια υποστηριζόμενη εικόνα στο πρόχειρο και, στη συνέχεια, δοκιμάστε ξανά."
 
-#: src/components/share/ShareModal.tsx:73
+#: src/components/share/ShareModal.tsx:71
 msgid "Copy and share this link"
 msgstr "Αντιγράψτε και μοιραστείτε αυτόν τον σύνδεσμο"
 
-#: src/components/ImageColorAdjustment.tsx:577
+#: src/components/ImageColorAdjustment.tsx:598
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Διορθωμένη εκτίμηση της θερμοκρασίας της φωτεινής πηγής στο Kelvin"
 
-#: src/components/ImagePerspectiveCorrection.tsx:172
+#: src/components/ImagePerspectiveCorrection.tsx:158
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Δεν ήταν δυνατός ο αυτόματος εντοπισμός του χαρτιού ή του καμβά"
 
-#: src/components/ColorSetChooser.tsx:709
+#: src/components/cloud/ExportToZipButton.tsx:40
+msgid "Could not export backup"
+msgstr "Δεν ήταν δυνατή η εξαγωγή αντιγράφων ασφαλείας"
+
+#: src/components/cloud/ImportFromZipFileSelect.tsx:59
+msgid "Could not import backup"
+msgstr "Δεν ήταν δυνατή η εισαγωγή αντιγράφων ασφαλείας"
+
+#: src/hooks/useFileReadErrorNotification.tsx:28
+msgid "Could not read the file"
+msgstr "Δεν ήταν δυνατή η ανάγνωση του αρχείου"
+
+#: src/components/ColorSetChooser.tsx:727
 msgid "Create a duplicate of this color set for further modification"
 msgstr "Δημιουργήστε ένα αντίγραφο αυτού του συνόλου χρωμάτων για περαιτέρω τροποποίηση"
 
-#: src/components/ColorSetChooser.tsx:718
+#: src/components/ColorSetChooser.tsx:736
 msgid "Create a new color set by merging existing ones"
 msgstr "Δημιουργήστε ένα νέο σύνολο χρωμάτων συγχωνεύοντας τα υπάρχοντα"
 
-#: src/components/color-set/ColorSetSelect.tsx:96
-#: src/components/color-set/CustomColorBrandSelect.tsx:87
+#: src/components/color-set/ColorSetSelect.tsx:94
+#: src/components/color-set/CustomColorBrandSelect.tsx:85
 msgid "Create new"
 msgstr "Δημιουργία νέου"
 
@@ -503,27 +638,62 @@ msgstr "Δημιουργία νέου"
 msgid "Custom color set"
 msgstr "Προσαρμοσμένο σύνολο χρωμάτων"
 
-#: src/components/messages.ts:44
+#: src/components/messages.ts:45
 msgid "Custom colors"
 msgstr "Προσαρμοσμένα χρώματα"
 
-#: src/components/ColorSetChooser.tsx:750
-#: src/components/CustomColorBrandCreator.tsx:482
+#: src/components/auth/DeleteAccountButton.tsx:67
+#: src/components/color/AddToPaletteButton.tsx:49
+#: src/components/color/PaletteColorMixtureCard.tsx:124
+#: src/components/ColorSetChooser.tsx:757
+#: src/components/ColorSetChooser.tsx:767
+#: src/components/CustomColorBrandCreator.tsx:513
+#: src/components/CustomColorBrandCreator.tsx:523
+#: src/components/image/RecentImageCard.tsx:73
 #: src/components/image/RecentImageCard.tsx:83
+#: src/components/storage/DeleteAppDataButton.tsx:50
 msgid "Delete"
 msgstr "Διαγράφω"
 
-#: src/components/storage/DeleteAppDataButton.tsx:42
-#: src/components/storage/DeleteAppDataButton.tsx:51
-msgid "Delete all app data"
-msgstr "Διαγραφή όλων των δεδομένων εφαρμογής"
+#: src/components/palette/PaletteGrid.tsx:113
+#: src/components/palette/PaletteGrid.tsx:117
+msgid "Delete all"
+msgstr "Διαγραφή όλων"
 
-#: src/components/ColorSetChooser.tsx:735
+#: src/components/palette/PaletteGrid.tsx:110
+msgid "Delete all color mixtures"
+msgstr "Διαγραφή όλων των μειγμάτων χρωμάτων"
+
+#: src/components/auth/DeleteAccountButton.tsx:59
+#: src/components/auth/DeleteAccountButton.tsx:71
+msgid "Delete data on servers"
+msgstr "Διαγραφή δεδομένων σε διακομιστές"
+
+#: src/components/storage/DeleteAppDataButton.tsx:40
+#: src/components/storage/DeleteAppDataButton.tsx:54
+msgid "Delete data on this device"
+msgstr "Διαγραφή δεδομένων σε αυτήν τη συσκευή"
+
+#: src/components/color/AddToPaletteButton.tsx:53
+#: src/components/color/PaletteColorMixtureCard.tsx:128
+msgid "Delete from palette"
+msgstr "Διαγραφή από την παλέτα"
+
+#: src/components/ImageChooser.tsx:94
+msgid "Delete oldest"
+msgstr "Διαγραφή παλαιότερων"
+
+#: src/components/color/AddToPaletteButton.tsx:46
+#: src/components/color/PaletteColorMixtureCard.tsx:121
+msgid "Delete the color mixture"
+msgstr "Διαγραφή του μείγματος χρωμάτων"
+
+#: src/components/ColorSetChooser.tsx:752
 msgid "Delete the color set"
 msgstr "Διαγραφή του συνόλου χρωμάτων"
 
-#: src/components/CustomColorBrandCreator.tsx:467
-#: src/components/CustomColorBrandCreator.tsx:477
+#: src/components/CustomColorBrandCreator.tsx:506
+#: src/components/CustomColorBrandCreator.tsx:518
 msgid "Delete the custom brand"
 msgstr "Διαγραφή της προσαρμοσμένης επωνυμίας"
 
@@ -532,7 +702,7 @@ msgstr "Διαγραφή της προσαρμοσμένης επωνυμίας"
 msgid "Delete the recent photo"
 msgstr "Διαγραφή της πρόσφατης φωτογραφίας"
 
-#: src/components/ColorSetChooser.tsx:745
+#: src/components/ColorSetChooser.tsx:762
 msgid "Delete this color set"
 msgstr "Διαγραφή αυτού του συνόλου χρωμάτων"
 
@@ -540,23 +710,23 @@ msgstr "Διαγραφή αυτού του συνόλου χρωμάτων"
 msgid "Dense layer"
 msgstr "Πυκνό στρώμα"
 
-#: src/components/error/AuthFeedbackHandler.tsx:42
+#: src/components/auth/AuthFeedbackHandler.tsx:36
 msgid "Details"
 msgstr "Λεπτομέριες"
 
-#: src/components/ImagesCompare.tsx:128
+#: src/components/ImagesCompare.tsx:131
 msgid "Determine the best photo by pairwise comparison"
 msgstr "Προσδιορίστε την καλύτερη φωτογραφία με σύγκριση κατά ζεύγη"
 
-#: src/components/error/BrowserSupport.tsx:123
+#: src/components/error/BrowserSupport.tsx:121
 msgid "Diagnostics"
 msgstr "Διαγνωστικός έλεγχος"
 
-#: src/components/grid/GridControls.tsx:202
+#: src/components/grid/GridControls.tsx:200
 msgid "Diagonals"
 msgstr "Διαγωνίων"
 
-#: src/components/CustomColorBrandCreator.tsx:407
+#: src/components/CustomColorBrandCreator.tsx:440
 msgid "Diameter"
 msgstr "Διάμετρος"
 
@@ -564,107 +734,135 @@ msgstr "Διάμετρος"
 msgid "Dilute the paint with water in a <0>{ratioText} ratio</0>"
 msgstr "Αραιώστε το χρώμα με νερό σε <0>αναλογία {ratioText}</0>"
 
-#: src/components/ColorSetChooser.tsx:623
+#: src/components/cloud/DisconnectCloudButton.tsx:64
+msgid "Disconnect"
+msgstr "Αποσυνδέω"
+
+#: src/components/cloud/DisconnectCloudButton.tsx:68
+msgid "Disconnect {label}"
+msgstr "Αποσύνδεση {label}"
+
+#: src/components/cloud/DisconnectCloudButton.tsx:41
+msgid "Disconnect {label}?"
+msgstr "Αποσύνδεση {label};"
+
+#: src/components/cloud/DisconnectCloudButton.tsx:44
+msgid "Disconnecting moves the ArtistAssistApp folder and everything still inside it to Google Drive Trash.<0/>Files you moved outside the folder are not deleted."
+msgstr "Η αποσύνδεση μετακινεί το φάκελο ArtistAssistApp και όλα όσα βρίσκονται ακόμα μέσα σε αυτόν στον Κάδο απορριμμάτων του Google Drive.<0/>Τα αρχεία που μετακινήσατε εκτός του φακέλου δεν διαγράφονται."
+
+#: src/components/cloud/DisconnectCloudButton.tsx:51
+msgid "Disconnecting will delete everything inside the ArtistAssistApp app folder, including files you added.<0/>Move anything you want to keep outside the folder first.<1/>Files outside the folder will not be deleted.<2/>Depending on the provider, deletion may be permanent."
+msgstr "Η αποσύνδεση θα διαγράψει τα πάντα μέσα στο φάκελο της εφαρμογής ArtistAssistApp, συμπεριλαμβανομένων των αρχείων που προσθέσατε.<0/>Μετακινήστε πρώτα οτιδήποτε θέλετε να κρατήσετε έξω από το φάκελο.<1/>Τα αρχεία εκτός του φακέλου δεν θα διαγραφούν.<2/>Ανάλογα με τον πάροχο, η διαγραφή μπορεί να είναι μόνιμη."
+
+#: src/components/ColorSetChooser.tsx:641
 msgid "Do you have a store-bought or custom color set?"
 msgstr "Έχετε αγοράσει από κατάστημα ή προσαρμοσμένο σετ χρωμάτων;"
 
-#: src/hooks/useColorSetBackup.ts:26
-msgid "Downloaded file {filename}"
-msgstr "Λήψη αρχείου {filename}"
+#: src/components/ColorSetChooser.tsx:241
+msgid "Don't save"
+msgstr "Μην αποθηκεύετε"
 
-#: src/components/loading/LoadingIndicator.tsx:42
-msgid "Downloading..."
-msgstr "Λήψη..."
+#: src/stores/cloud-slice.ts:136
+msgid "Downloading image {index} of {count}"
+msgstr "Λήψη εικόνας {index} του {count}"
 
-#: src/components/file/FileSelect.tsx:179
+#: src/i18n.ts:137
+msgid "Downloading... {percent}% ({key})"
+msgstr "Λήψη... {percent}% ({key})"
+
+#: src/components/file/FileSelect.tsx:201
 msgid "Drop the file here..."
 msgstr "Ρίξτε το αρχείο εδώ..."
 
-#: src/components/file/FileSelect.tsx:179
+#: src/components/file/FileSelect.tsx:201
 msgid "Drop the files here..."
 msgstr "Αφήστε τα αρχεία εδώ..."
 
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Dry Pastel"
 msgstr "Παστέλ Ξηρό"
 
-#: src/components/ColorSetChooser.tsx:712
+#: src/components/ColorSetChooser.tsx:730
 msgid "Duplicate"
 msgstr "Αντίγραφο"
 
-#: src/components/CustomColorBrandCreator.tsx:131
+#: src/components/CustomColorBrandCreator.tsx:139
 msgid "Edit from here on"
 msgstr "Επεξεργασία από εδώ και πέρα"
 
-#: src/components/error/AuthFeedbackHandler.tsx:45
+#: src/components/auth/AuthFeedbackHandler.tsx:39
 msgid "Email"
 msgstr "Ηλεκτρονικό ταχυδρομείο"
 
-#: src/components/auth/LoginEmailOtpButton.tsx:90
+#: src/components/auth/LoginEmailOtpButton.tsx:88
 msgid "Email is required"
 msgstr "Απαιτείται email"
 
-#: src/components/auth/LoginEmailOtpButton.tsx:94
+#: src/components/auth/LoginEmailOtpButton.tsx:92
 msgid "Enter a valid email"
 msgstr "Εισαγάγετε ένα έγκυρο email"
 
-#: src/components/ImageOutline.tsx:265
-#: src/components/ImageOutline.tsx:324
+#: src/components/ImageOutline.tsx:267
+#: src/components/ImageOutline.tsx:327
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Μπείτε στη λειτουργία lightbox για να εντοπίσετε το περίγραμμα στο χαρτί σας."
 
-#: src/components/auth/LoginEmailOtpButton.tsx:242
+#: src/components/auth/LoginEmailOtpButton.tsx:244
 msgid "Enter the code"
 msgstr "Εισάγετε τον κωδικό"
 
-#: src/components/auth/LoginEmailOtpButton.tsx:65
+#: src/components/auth/LoginEmailOtpButton.tsx:63
 msgid "Enter the email address for your Patreon account. We'll send a one-time login code if it has an active ArtistAssistApp membership."
 msgstr "Εισαγάγετε τη διεύθυνση email για τον λογαριασμό σας στο Patreon. Θα στείλουμε έναν κωδικό σύνδεσης μίας χρήσης εάν έχει ενεργή συνδρομή στο ArtistAssistApp."
 
-#: src/components/error/AuthFeedbackHandler.tsx:43
+#: src/components/auth/AuthFeedbackHandler.tsx:37
 msgid "Error"
 msgstr "Λάθος"
 
-#: src/components/error/AuthFeedbackHandler.tsx:44
+#: src/components/auth/AuthFeedbackHandler.tsx:38
 msgid "Error description"
 msgstr "Περιγραφή σφάλματος"
 
-#: src/components/ImageChooser.tsx:68
+#: src/components/ImageChooser.tsx:70
 msgid "Error loading sample photos"
 msgstr "Σφάλμα κατά τη φόρτωση δειγμάτων φωτογραφιών"
 
-#: src/components/ColorSetChooser.tsx:219
+#: src/components/ColorSetChooser.tsx:213
 msgid "Error while fetching color brand data"
 msgstr "Σφάλμα κατά τη λήψη δεδομένων επωνυμίας χρώματος"
 
-#: src/components/ColorSetChooser.tsx:241
+#: src/components/ColorSetChooser.tsx:218
 msgid "Error while fetching color data"
 msgstr "Σφάλμα κατά τη λήψη δεδομένων χρώματος"
 
-#: src/components/ImagePerspectiveCorrection.tsx:125
-#: src/hooks/useSelectedOnnxModel.ts:95
+#: src/components/ImagePerspectiveCorrection.tsx:122
+#: src/hooks/useSelectedOnnxModel.ts:91
 msgid "Error while fetching ML model data"
 msgstr "Σφάλμα κατά τη λήψη δεδομένων μοντέλου ML"
 
-#: src/components/ColorSetChooser.tsx:230
+#: src/components/ColorSetChooser.tsx:216
 msgid "Error while fetching standard color set data"
 msgstr "Σφάλμα κατά τη λήψη τυπικών δεδομένων συνόλου χρωμάτων"
 
-#: src/components/ImageColorAdjustment.tsx:547
+#: src/components/ImageColorAdjustment.tsx:564
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Εκτιμώμενη θερμοκρασία της πηγής φωτός στο Kelvin η εικόνα λήφθηκε με"
 
-#: src/components/ImageOutline.tsx:283
-#: src/components/ImageOutline.tsx:332
+#: src/components/ImageOutline.tsx:286
+#: src/components/ImageOutline.tsx:335
 msgid "Exit AR"
 msgstr "Έξοδος από το AR"
 
-#: src/components/ColorSetChooser.tsx:396
-#: src/components/CustomColorBrandCreator.tsx:350
+#: src/components/CustomColorBrandCreator.tsx:527
+msgid "Export to file"
+msgstr "Εξαγωγή σε αρχείο"
+
+#: src/components/ColorSetChooser.tsx:386
+#: src/components/CustomColorBrandCreator.tsx:379
 msgid "Fill in the required fields"
 msgstr "Συμπληρώστε τα απαιτούμενα πεδία"
 
-#: src/components/CustomColorBrandCreator.tsx:203
+#: src/components/CustomColorBrandCreator.tsx:211
 msgid "Finish editing"
 msgstr "Ολοκλήρωση επεξεργασίας"
 
@@ -676,27 +874,23 @@ msgstr "Πλήρης πίεση"
 msgid "Full strength"
 msgstr "Πλήρης δύναμη"
 
-#: src/components/ImageColorAdjustment.tsx:498
+#: src/components/ImageColorAdjustment.tsx:514
 msgid "Gamma"
 msgstr "Γάμμα"
 
-#: src/components/auth/LoginEmailOtpButton.tsx:109
+#: src/components/auth/LoginEmailOtpButton.tsx:107
 msgid "Get a code"
 msgstr "Λήψη κωδικού"
 
-#: src/components/auth/ShowLoginQRButton.tsx:58
-msgid "Get a new QR code"
-msgstr "Λάβετε έναν νέο κωδικό QR"
-
-#: src/components/error/AuthFeedbackHandler.tsx:49
+#: src/components/auth/AuthFeedbackHandler.tsx:43
 msgid "Gifted membership"
 msgstr "Χαρισματική συνδρομή"
 
-#: src/components/ColorSetChooser.tsx:583
+#: src/components/ColorSetChooser.tsx:601
 msgid "Give your color set a name for easy access."
 msgstr "Δώστε ένα όνομα στο σύνολο χρωμάτων σας για εύκολη πρόσβαση."
 
-#: src/components/ImageColorPicker.tsx:317
+#: src/components/ImageColorPicker.tsx:325
 msgid "Glazing"
 msgstr "Τζάμια"
 
@@ -716,44 +910,57 @@ msgstr "Μεταβείτε στην καρτέλα <0>{photoLabel}</0> και ε
 msgid "Go to the <0>{photoLabel}</0> tab and choose your reference photo."
 msgstr "Μεταβείτε στην καρτέλα <0>{photoLabel}</0> και επιλέξτε τη φωτογραφία αναφοράς σας."
 
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Gouache"
 msgstr "Γκουάς"
 
-#: src/components/grid/GridControls.tsx:184
-#: src/components/messages.ts:35
+#: src/components/grid/GridControls.tsx:182
+#: src/components/messages.ts:36
 msgid "Grid"
 msgstr "Πλέγμα"
 
-#: src/components/print/PrintImageDrawer.tsx:195
+#: src/components/print/PrintImageDrawer.tsx:197
 msgid "Height"
 msgstr "Ύψος"
 
-#: src/components/messages.ts:45
+#: src/components/ColorSetChooser.tsx:443
+#: src/components/messages.ts:46
 msgid "Help"
 msgstr "Βοήθεια"
 
-#: src/components/ColorSetChooser.tsx:524
-msgid "Help & tutorials"
-msgstr "Βοήθεια & σεμινάρια"
-
-#: src/components/ColorSetChooser.tsx:266
+#: src/components/ColorSetChooser.tsx:239
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Εάν δεν αποθηκεύσετε, οι αλλαγές στο σύνολο χρωμάτων ενδέχεται να χαθούν."
 
-#: src/components/ImageBackgroundRemoval.tsx:251
+#: src/components/ImageBackgroundRemoval.tsx:252
 msgid "Image without background"
 msgstr "Εικόνα χωρίς φόντο"
 
-#: src/components/ImageColorPicker.tsx:319
+#: src/components/cloud/ImportFromZipFileSelect.tsx:46
+msgid "Import backup"
+msgstr "Εισαγωγή αντιγράφων ασφαλείας"
+
+#: src/components/cloud/ImportFromZipFileSelect.tsx:39
+msgid "Import backup?"
+msgstr "Εισαγωγή αντιγράφου ασφαλείας;"
+
+#: src/components/CustomColorBrandCreator.tsx:435
+msgid "Import from file"
+msgstr "Εισαγωγή από αρχείο"
+
+#: src/components/cloud/ImportFromZipFileSelect.tsx:41
+msgid "Importing this backup will replace your local color sets, reference photos, saved color mixtures, and custom color brands."
+msgstr "Η εισαγωγή αυτού του αντιγράφου ασφαλείας θα αντικαταστήσει τα τοπικά σύνολα χρωμάτων, τις φωτογραφίες αναφοράς, τα αποθηκευμένα μείγματα χρωμάτων και τις προσαρμοσμένες μάρκες χρωμάτων."
+
+#: src/components/ImageColorPicker.tsx:328
 msgid "Include transparent layers over the surface or underlayer when finding matches."
 msgstr "Συμπεριλάβετε διαφανή στρώματα πάνω από την επιφάνεια ή το υπόστρωμα όταν βρίσκετε αντιστοιχίες."
 
-#: src/components/messages.ts:39
+#: src/components/messages.ts:40
 msgid "Inspiration"
 msgstr "Έμπνευση"
 
-#: src/hooks/usePersistentStorage.tsx:60
+#: src/hooks/usePersistentStorage.tsx:65
 msgid "Install"
 msgstr "Εγκαθιστώ"
 
@@ -761,39 +968,56 @@ msgstr "Εγκαθιστώ"
 msgid "Install app"
 msgstr "Εγκατάσταση εφαρμογής"
 
-#: src/components/install/InstallDrawer.tsx:196
+#: src/components/install/InstallDrawer.tsx:195
 msgid "Install ArtistAssistApp"
 msgstr "Εγκαταστήστε το ArtistAssistApp"
 
-#: src/components/Help.tsx:168
+#: src/components/Help.tsx:148
 msgid "Install update"
 msgstr "Εγκατάσταση ενημέρωσης"
 
-#: src/components/ImageColorAdjustment.tsx:575
+#: src/components/ImageColorAdjustment.tsx:595
 msgid "Intended color temperature (K)"
 msgstr "Προβλεπόμενη θερμοκρασία χρώματος (K)"
 
-#: src/components/error/AuthFeedbackHandler.tsx:162
+#: src/components/CustomColorBrandCreator.tsx:333
+msgid "Invalid custom color brand file"
+msgstr "Μη έγκυρο αρχείο επωνυμίας προσαρμοσμένου χρώματος"
+
+#: src/components/auth/AuthFeedbackHandler.tsx:145
 msgid "Invalid login code"
 msgstr "Μη έγκυρος κωδικός σύνδεσης"
 
-#: src/components/error/AuthFeedbackHandler.tsx:156
-msgid "Invalid login link"
-msgstr "Μη έγκυρος σύνδεσμος σύνδεσης"
+#: src/components/auth/DeleteAccountButton.tsx:49
+msgid "It also disconnects cloud storage, deletes your account and membership lookup records, and logs you out."
+msgstr "Επίσης, αποσυνδέει τον χώρο αποθήκευσης στο cloud, διαγράφει τις εγγραφές αναζήτησης του λογαριασμού και των μελών σας και σας αποσυνδέει."
 
-#: src/components/qr/QRScannerModal.tsx:89
-msgid "Invalid QR code"
-msgstr "Μη έγκυρος κωδικός QR"
-
-#: src/components/ImagesCompare.tsx:99
+#: src/components/ImagesCompare.tsx:98
 msgid "It can be difficult to choose between multiple photos. Comparing each photo with others in pairs simplifies the choice and helps to identify the most preferred one."
 msgstr "Μπορεί να είναι δύσκολο να επιλέξετε ανάμεσα σε πολλές φωτογραφίες. Η σύγκριση κάθε φωτογραφίας με άλλες σε ζεύγη απλοποιεί την επιλογή και βοηθά στον εντοπισμό της πιο προτιμώμενης."
 
-#: src/components/ImageChooser.tsx:83
+#: src/components/color/AddToPaletteButton.tsx:50
+#: src/components/color/PaletteColorMixtureCard.tsx:125
+#: src/components/ColorSetChooser.tsx:758
+#: src/components/CustomColorBrandCreator.tsx:514
+#: src/components/image/RecentImageCard.tsx:74
+#: src/components/palette/PaletteGrid.tsx:114
+msgid "Keep"
+msgstr "Διατήρηση"
+
+#: src/components/ImageChooser.tsx:95
 msgid "Keep all"
 msgstr "Κρατήστε όλα"
 
-#: src/components/i18n/LocaleSelect.tsx:66
+#: src/components/cloud/CloudFeedbackHandler.tsx:57
+msgid "Keep cloud data"
+msgstr "Διατήρηση δεδομένων cloud"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:40
+msgid "Keep this device"
+msgstr "Κρατήστε αυτήν τη συσκευή"
+
+#: src/components/i18n/LocaleSelect.tsx:64
 msgid "Language"
 msgstr "Γλώσσα"
 
@@ -801,7 +1025,7 @@ msgstr "Γλώσσα"
 msgid "Large"
 msgstr "Μεγάλος"
 
-#: src/components/error/AuthFeedbackHandler.tsx:47
+#: src/components/auth/AuthFeedbackHandler.tsx:41
 msgid "Last charge status"
 msgstr "Κατάσταση τελευταίας φόρτισης"
 
@@ -809,15 +1033,15 @@ msgstr "Κατάσταση τελευταίας φόρτισης"
 msgid "Last used {dateText}"
 msgstr "Τελευταία χρήση {dateText}"
 
-#: src/components/ImagesCompare.tsx:155
+#: src/components/ImagesCompare.tsx:158
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "Αριστερά για σύγκριση: {unfinishedGamesSize}"
 
-#: src/components/ImageColorPicker.tsx:487
+#: src/components/ImageColorPicker.tsx:504
 msgid "Less"
 msgstr "μείον"
 
-#: src/components/ImageOutline.tsx:323
+#: src/components/ImageOutline.tsx:326
 msgid "Light box"
 msgstr "Φωτιστικό κουτί"
 
@@ -826,7 +1050,7 @@ msgstr "Φωτιστικό κουτί"
 msgid "Light tone"
 msgstr "Ανοιχτός τόνος"
 
-#: src/components/ImageOutline.tsx:272
+#: src/components/ImageOutline.tsx:275
 msgid "Lightbox"
 msgstr "Lightbox"
 
@@ -834,65 +1058,45 @@ msgstr "Lightbox"
 msgid "Lighten the pressure to <0>{fractionText}</0>"
 msgstr "Μειώστε την πίεση σε <0>{fractionText}</0>"
 
-#: src/components/messages.ts:38
+#: src/components/messages.ts:39
 msgid "Limited palette"
 msgstr "Περιορισμένη παλέτα"
 
-#: src/components/share/ShareModal.tsx:41
+#: src/components/share/ShareModal.tsx:39
 msgid "Link copied to clipboard"
 msgstr "Ο σύνδεσμος αντιγράφηκε στο πρόχειρο"
 
-#: src/components/CustomColorBrandCreator.tsx:402
-msgid "Load color brand file"
-msgstr "Φόρτωση έγχρωμου αρχείου επωνυμίας"
-
-#: src/components/ColorSetChooser.tsx:768
-msgid "Load color sets file"
-msgstr "Φόρτωση αρχείου συνόλων χρωμάτων"
-
-#: src/components/auth/LoginEmailOtpButton.tsx:204
+#: src/components/auth/LoginEmailOtpButton.tsx:206
 msgid "Log in"
 msgstr "Σύνδεση"
 
-#: src/components/auth/LoginEmailOtpButton.tsx:242
-#: src/components/auth/LoginEmailOtpButton.tsx:272
+#: src/components/auth/LoginEmailOtpButton.tsx:244
+#: src/components/auth/LoginEmailOtpButton.tsx:276
 msgid "Log in with email"
 msgstr "Συνδεθείτε με email"
 
-#: src/components/auth/LoginOAuthButton.tsx:36
+#: src/components/auth/LoginOAuthButton.tsx:34
 msgid "Log in with Patreon"
 msgstr "Σύνδεση με Patreon"
 
-#: src/components/auth/LoginWithQRButton.tsx:49
-msgid "Log in with QR code"
-msgstr "Συνδεθείτε με κωδικό QR"
-
-#: src/components/auth/LogoutButton.tsx:38
+#: src/components/auth/LogoutButton.tsx:35
 msgid "Log out"
 msgstr "Αποσύνδεση"
 
-#: src/components/error/AuthFeedbackHandler.tsx:252
-msgid "Login failed"
-msgstr "Η σύνδεση απέτυχε"
-
-#: src/components/auth/ShowLoginQRButton.tsx:51
-msgid "Login QR code"
-msgstr "Κωδικός QR σύνδεσης"
-
-#: src/components/error/AuthFeedbackHandler.tsx:186
+#: src/components/auth/AuthFeedbackHandler.tsx:172
 msgid "Login result not received"
 msgstr "Το αποτέλεσμα σύνδεσης δεν ελήφθη"
 
-#: src/components/ImageColorAdjustment.tsx:471
+#: src/components/ImageColorAdjustment.tsx:487
 msgid "Low input and high input"
 msgstr "Χαμηλή είσοδος και υψηλή είσοδος"
 
-#: src/components/ImageColorAdjustment.tsx:520
+#: src/components/ImageColorAdjustment.tsx:536
 msgid "Low output and high output"
 msgstr "Χαμηλή απόδοση και υψηλή απόδοση"
 
-#: src/components/print/PrintImageDrawer.tsx:208
-#: src/components/print/PrintImageDrawer.tsx:223
+#: src/components/print/PrintImageDrawer.tsx:210
+#: src/components/print/PrintImageDrawer.tsx:225
 msgid "Margin"
 msgstr "Περιθώριο"
 
@@ -904,12 +1108,12 @@ msgstr "Μέγ"
 msgid "Medium"
 msgstr "Μέτριος"
 
-#: src/components/color-set/MergeColorSetsDrawer.tsx:94
-#: src/components/ColorSetChooser.tsx:721
+#: src/components/color-set/MergeColorSetsDrawer.tsx:92
+#: src/components/ColorSetChooser.tsx:739
 msgid "Merge"
 msgstr "Συγχώνευση"
 
-#: src/components/color-set/MergeColorSetsDrawer.tsx:60
+#: src/components/color-set/MergeColorSetsDrawer.tsx:58
 msgid "Merge color sets"
 msgstr "Συγχώνευση συνόλων χρωμάτων"
 
@@ -918,7 +1122,7 @@ msgstr "Συγχώνευση συνόλων χρωμάτων"
 msgid "Mid tone"
 msgstr "Μεσαίος τόνος"
 
-#: src/components/ImageColorAdjustment.tsx:496
+#: src/components/ImageColorAdjustment.tsx:512
 msgid "Midtones"
 msgstr "Μεσαίοι τόνοι"
 
@@ -926,8 +1130,8 @@ msgstr "Μεσαίοι τόνοι"
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Ανάμειξη χρωμάτων σε <0>αναλογία {partsRatioText}</0>"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:148
-#: src/components/color/SimilarColorCard.tsx:140
+#: src/components/color/PaletteColorMixtureCard.tsx:154
+#: src/components/color/SimilarColorCard.tsx:146
 msgid "Mix this color into every mixture."
 msgstr "Ανακατέψτε αυτό το χρώμα σε κάθε μείγμα."
 
@@ -940,30 +1144,30 @@ msgid "Mixture"
 msgstr "Μείγμα"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:98
-#: src/components/ImageBackgroundRemoval.tsx:189
-#: src/components/ImageOutline.tsx:240
+#: src/components/ImageBackgroundRemoval.tsx:190
+#: src/components/ImageOutline.tsx:241
 msgid "Mode"
 msgstr "Μόδα"
 
-#: src/components/ImageColorPicker.tsx:487
+#: src/components/ImageColorPicker.tsx:504
 msgid "More"
 msgstr "Περισσότερα"
 
-#: src/components/ColorSetChooser.tsx:582
-#: src/components/CustomColorBrandCreator.tsx:182
-#: src/components/CustomColorBrandCreator.tsx:454
+#: src/components/ColorSetChooser.tsx:600
+#: src/components/CustomColorBrandCreator.tsx:190
+#: src/components/CustomColorBrandCreator.tsx:492
 msgid "Name"
 msgstr "Όνομα"
 
-#: src/components/CustomColorBrandCreator.tsx:457
+#: src/components/CustomColorBrandCreator.tsx:495
 msgid "Name a brand"
 msgstr "Ονομάστε μια επωνυμία"
 
-#: src/components/ColorSetChooser.tsx:586
+#: src/components/ColorSetChooser.tsx:604
 msgid "Name a color set"
 msgstr "Ονομάστε ένα σύνολο χρωμάτων"
 
-#: src/components/auth/LoginEmailOtpButton.tsx:103
+#: src/components/auth/LoginEmailOtpButton.tsx:101
 msgid "name@example.com"
 msgstr "name@example.com"
 
@@ -979,25 +1183,13 @@ msgstr "Νέα μάρκα"
 msgid "New color set"
 msgstr "Νέο σετ χρωμάτων"
 
-#: src/components/ImagesCompare.tsx:120
+#: src/components/ImagesCompare.tsx:123
 msgid "New comparison"
 msgstr "Νέα σύγκριση"
 
-#: src/components/error/AuthFeedbackHandler.tsx:48
+#: src/components/auth/AuthFeedbackHandler.tsx:42
 msgid "Next charge date"
 msgstr "Επόμενη ημερομηνία χρέωσης"
-
-#: src/components/color/AddToPaletteButton.tsx:52
-#: src/components/color/PaletteColorMixtureCard.tsx:119
-#: src/components/ColorSetChooser.tsx:268
-#: src/components/ColorSetChooser.tsx:741
-#: src/components/CustomColorBrandCreator.tsx:473
-#: src/components/image/RecentImageCard.tsx:74
-#: src/components/palette/PaletteGrid.tsx:114
-#: src/components/storage/ClearCacheButton.tsx:48
-#: src/components/storage/DeleteAppDataButton.tsx:48
-msgid "No"
-msgstr "Όχι"
 
 #: src/components/empty/EmptyPalette.tsx:39
 msgid "No data"
@@ -1020,40 +1212,40 @@ msgstr "Δεν έχει επιλεγεί χρώμα στόχος."
 msgid "None"
 msgstr "Κανένας"
 
-#: src/components/auth/LoginEmailOtpButton.tsx:71
+#: src/components/auth/LoginEmailOtpButton.tsx:69
 msgid "Not sure which email Patreon uses? Check your <0>Patreon basic settings</0>."
 msgstr "Δεν είστε σίγουροι ποιο email χρησιμοποιεί το Patreon; Ελέγξτε <0>τις βασικές ρυθμίσεις του Patreon</0>."
 
-#: src/components/share/ShareModal.tsx:98
+#: src/components/share/ShareModal.tsx:96
 msgid "Nothing to share"
 msgstr "Τίποτα για κοινή χρήση"
 
-#: src/components/grid/GridControls.tsx:195
+#: src/components/grid/GridControls.tsx:193
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Αριθμός κελιών στη μικρότερη πλευρά (κατακόρυφη ή οριζόντια)"
 
-#: src/components/messages.ts:52
+#: src/components/messages.ts:53
 msgid "Oil Paint"
 msgstr "Λαδομπογιά"
 
-#: src/components/messages.ts:56
+#: src/components/messages.ts:57
 msgid "Oil Pastel"
 msgstr "Λάδι Παστέλ"
 
-#: src/components/ColorSetChooser.tsx:605
+#: src/components/ColorSetChooser.tsx:623
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Μόνο ένας περιορισμένος αριθμός εμπορικών σημάτων χρωμάτων είναι διαθέσιμος στη δωρεάν έκδοση"
 
-#: src/components/ImageBackgroundRemoval.tsx:171
-#: src/components/ImageOutline.tsx:227
+#: src/components/ImageBackgroundRemoval.tsx:172
+#: src/components/ImageOutline.tsx:228
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Μόνο ένας περιορισμένος αριθμός λειτουργιών είναι διαθέσιμος στη δωρεάν έκδοση"
 
-#: src/components/ImageStyleTransfer.tsx:206
+#: src/components/ImageStyleTransfer.tsx:237
 msgid "Only a limited number of styles are available in the free version"
 msgstr "Μόνο ένας περιορισμένος αριθμός στυλ είναι διαθέσιμος στη δωρεάν έκδοση"
 
-#: src/components/ImageColorPicker.tsx:416
+#: src/components/ImageColorPicker.tsx:433
 msgid "Opacity"
 msgstr "Αδιαφάνεια"
 
@@ -1066,43 +1258,43 @@ msgstr "Αδιαφανής"
 msgid "Open in Safari browser"
 msgstr "Άνοιγμα στο πρόγραμμα περιήγησης Safari"
 
-#: src/components/auth/LoginWithQRButton.tsx:35
-msgid "Open the app on a device where you are logged in"
-msgstr "Ανοίξτε την εφαρμογή σε μια συσκευή στην οποία είστε συνδεδεμένοι"
-
-#: src/components/error/AuthFeedbackHandler.tsx:121
+#: src/components/auth/AuthFeedbackHandler.tsx:120
 msgid "Open your <0>Patreon basic settings</0> and confirm that the listed email address is the same one you entered."
 msgstr "Ανοίξτε <0>τις βασικές ρυθμίσεις του Patreon</0> και επιβεβαιώστε ότι η αναγραφόμενη διεύθυνση email είναι η ίδια που εισαγάγατε."
 
-#: src/components/error/BrowserSupport.tsx:96
+#: src/components/error/BrowserSupport.tsx:94
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "ή εγκαταστήστε την πιο πρόσφατη έκδοση του προγράμματος περιήγησης ιστού Chrome, Edge, Firefox ή Opera"
 
-#: src/components/share/ShareModal.tsx:92
+#: src/components/ColorSetChooser.tsx:537
+msgid "Or save a backup file on this device."
+msgstr "Ή αποθηκεύστε ένα αρχείο αντιγράφου ασφαλείας σε αυτήν τη συσκευή."
+
+#: src/components/share/ShareModal.tsx:90
 msgid "Or scan the QR code"
 msgstr "Ή σαρώστε τον κωδικό QR"
 
-#: src/components/ImageChooser.tsx:138
+#: src/components/ImageChooser.tsx:152
 msgid "Or select from sample photos"
 msgstr "Εναλλακτικά, επιλέξτε από δείγματα φωτογραφιών"
 
-#: src/components/ImageChooser.tsx:120
+#: src/components/ImageChooser.tsx:126
 msgid "Or select from your recent photos"
 msgstr "Εναλλακτικά, επιλέξτε από τις πρόσφατες φωτογραφίες σας"
 
-#: src/components/ImageColorAdjustment.tsx:545
+#: src/components/ImageColorAdjustment.tsx:561
 msgid "Original color temperature (K)"
 msgstr "Αρχική θερμοκρασία χρώματος (K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:241
+#: src/components/ImageBackgroundRemoval.tsx:242
 msgid "Original photo"
 msgstr "Αρχική φωτογραφία"
 
-#: src/components/messages.ts:34
+#: src/components/messages.ts:35
 msgid "Outline"
 msgstr "Περιγραφή"
 
-#: src/components/ImageColorAdjustment.tsx:518
+#: src/components/ImageColorAdjustment.tsx:534
 msgid "Output levels"
 msgstr "Επίπεδα εξόδου"
 
@@ -1110,7 +1302,7 @@ msgstr "Επίπεδα εξόδου"
 msgid "over"
 msgstr "πέρα"
 
-#: src/components/messages.ts:31
+#: src/components/messages.ts:32
 msgid "Palette"
 msgstr "Παλέτα"
 
@@ -1118,40 +1310,40 @@ msgstr "Παλέτα"
 msgid "Paper size"
 msgstr "Μέγεθος χαρτιού"
 
-#: src/components/error/AuthFeedbackHandler.tsx:110
+#: src/components/auth/AuthFeedbackHandler.tsx:109
 msgid "Patreon member email address not found"
 msgstr "Η διεύθυνση email μέλους Patreon δεν βρέθηκε"
 
-#: src/components/error/AuthFeedbackHandler.tsx:60
+#: src/components/auth/AuthFeedbackHandler.tsx:54
 msgid "Patreon membership verification failed"
 msgstr "Η επαλήθευση μέλους Patreon απέτυχε"
 
-#: src/components/error/AuthFeedbackHandler.tsx:46
+#: src/components/auth/AuthFeedbackHandler.tsx:40
 msgid "Patron status"
 msgstr "Κατάσταση μέλους"
 
 #: src/components/ImageColorAdjustment.tsx:313
-#: src/components/ImageColorAdjustment.tsx:399
+#: src/components/ImageColorAdjustment.tsx:408
 msgid "Percentile"
 msgstr "Εκατοστημόριο"
 
-#: src/components/ImageColorAdjustment.tsx:384
+#: src/components/ImageColorAdjustment.tsx:389
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Εκατοστημόριο: Αυτόματη ισορροπία λευκού από τις πιο φωτεινές περιοχές, καλή για τις περισσότερες φωτογραφίες. Αναφορά: Χειροκίνητη ισορροπία λευκού χρησιμοποιώντας επιλεγμένη περιοχή λευκού."
 
-#: src/components/Help.tsx:194
+#: src/components/Help.tsx:160
 msgid "Persistent storage"
 msgstr "Μόνιμη αποθήκευση"
 
-#: src/hooks/usePersistentStorage.tsx:48
+#: src/hooks/usePersistentStorage.tsx:53
 msgid "Persistent storage is not enabled"
 msgstr "Ο μόνιμος χώρος αποθήκευσης δεν είναι ενεργοποιημένος"
 
-#: src/components/messages.ts:29
+#: src/components/messages.ts:30
 msgid "Photo"
 msgstr "Φωτογραφία"
 
-#: src/components/ImagesCompare.tsx:164
+#: src/components/ImagesCompare.tsx:167
 msgid "Photo ranking"
 msgstr "Κατάταξη φωτογραφιών"
 
@@ -1163,17 +1355,15 @@ msgstr "Τσιμπήστε ή κάντε κύλιση για μεγέθυνση,
 msgid "Please send us a screenshot of this error via our <0>contacts</0>. It will help us identify the cause."
 msgstr "Στείλτε μας ένα στιγμιότυπο οθόνης αυτού του σφάλματος μέσω των <0>επαφών</0> μας. Θα μας βοηθήσει να εντοπίσουμε την αιτία."
 
-#: src/components/ImagesCompare.tsx:184
+#: src/components/ImagesCompare.tsx:187
 msgid "Position: {position}<0/>Rating: {ratingText}"
 msgstr "Θέση: {position}<0/>Rating: {ratingText}"
 
+#: src/components/cloud/CloudFeedbackHandler.tsx:67
+#: src/components/cloud/CloudSyncUpdateNotification.tsx:56
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:63
 msgid "Postpone"
 msgstr "Αναβάλλω"
-
-#: src/components/auth/LoginWithQRButton.tsx:38
-msgid "Press <0>Show login QR code</0>"
-msgstr "Πατήστε <0>Εμφάνιση κωδικού QR σύνδεσης</0>"
 
 #: src/components/install/InstallDrawer.tsx:170
 msgid "Press Add to Dock"
@@ -1183,7 +1373,7 @@ msgstr "Πατήστε Προσθήκη στο Dock"
 msgid "Press Add to Home Screen"
 msgstr "Πατήστε Προσθήκη στην αρχική οθόνη"
 
-#: src/hooks/useDoubleBackPressToExit.ts:38
+#: src/ArtistAssistApp.tsx:88
 msgid "Press Back again to exit"
 msgstr "Πατήστε ξανά Back για έξοδο"
 
@@ -1196,16 +1386,16 @@ msgstr "Πατήστε Κοινή χρήση στη γραμμή περιήγη�
 msgid "Press the <0>Add to palette</0> button next to the color mixture you like."
 msgstr "Πατήστε το κουμπί <0>Προσθήκη στην παλέτα</0> δίπλα στο μείγμα χρωμάτων που σας αρέσει."
 
-#: src/components/ImageColorAdjustment.tsx:377
+#: src/components/ImageColorAdjustment.tsx:378
 msgid "Preview"
 msgstr "Προεπισκόπηση"
 
 #: src/components/ColorMixingChart.tsx:144
-#: src/components/ImageGrid.tsx:72
-#: src/components/ImageGrid.tsx:85
-#: src/components/ImageOutline.tsx:255
-#: src/components/ImageOutline.tsx:309
-#: src/components/ImagesCompare.tsx:172
+#: src/components/ImageGrid.tsx:70
+#: src/components/ImageGrid.tsx:83
+#: src/components/ImageOutline.tsx:256
+#: src/components/ImageOutline.tsx:312
+#: src/components/ImagesCompare.tsx:175
 #: src/components/ImageTonalValues.tsx:146
 #: src/components/ImageTonalValues.tsx:164
 #: src/components/palette/PaletteGrid.tsx:107
@@ -1217,31 +1407,27 @@ msgstr "Τυπώνω"
 msgid "Print a large image onto multiple pages"
 msgstr "Εκτύπωση μεγάλης εικόνας σε πολλές σελίδες"
 
-#: src/components/print/PrintImageDrawer.tsx:237
+#: src/components/print/PrintImageDrawer.tsx:239
 msgid "Print preview"
 msgstr "Προεπισκόπηση εκτύπωσης"
 
-#: src/components/Help.tsx:142
+#: src/components/Help.tsx:129
 msgid "Privacy policy"
 msgstr "Πολιτική απορρήτου"
 
-#: src/components/loading/LoadingIndicator.tsx:45
+#: src/components/loading/LoadingIndicator.tsx:48
 msgid "Processing..."
 msgstr "Επεξεργασία..."
 
-#: src/components/auth/ShowLoginQRButton.tsx:84
-msgid "QR code expired."
-msgstr "Ο κωδικός QR έληξε."
-
-#: src/components/Help.tsx:217
+#: src/components/Help.tsx:183
 msgid "Quota"
 msgstr "Αναλογία"
 
-#: src/components/ImagesCompare.tsx:135
+#: src/components/ImagesCompare.tsx:138
 msgid "Rating: {player1RatingText}"
 msgstr "Βαθμολογία: {player1RatingText}"
 
-#: src/components/ImagesCompare.tsx:146
+#: src/components/ImagesCompare.tsx:149
 msgid "Rating: {player2RatingText}"
 msgstr "Βαθμολογία: {player2RatingText}"
 
@@ -1249,15 +1435,15 @@ msgstr "Βαθμολογία: {player2RatingText}"
 msgid "Ratio"
 msgstr "Αναλογία"
 
-#: src/components/ImageColorPicker.tsx:366
+#: src/components/ImageColorPicker.tsx:383
 msgid "Reduce color palette to"
 msgstr "Μειώστε την παλέτα χρωμάτων σε"
 
-#: src/components/ImageColorPicker.tsx:385
+#: src/components/ImageColorPicker.tsx:402
 msgid "Reduce colors"
 msgstr "Μειώστε τα χρώματα"
 
-#: src/components/ImageColorPicker.tsx:383
+#: src/components/ImageColorPicker.tsx:400
 msgid "Reduce the number of colors in the photo."
 msgstr "Μειώστε τον αριθμό των χρωμάτων στη φωτογραφία."
 
@@ -1266,8 +1452,8 @@ msgstr "Μειώστε τον αριθμό των χρωμάτων στη φωτ
 msgid "Reference"
 msgstr "Αναφορά"
 
-#: src/components/color/SimilarColorCard.tsx:115
-#: src/components/ColorMixer.tsx:242
+#: src/components/color/SimilarColorCard.tsx:121
+#: src/components/ColorMixer.tsx:247
 msgid "Reflectance"
 msgstr "Ανάκλασης"
 
@@ -1275,36 +1461,14 @@ msgstr "Ανάκλασης"
 msgid "Reload"
 msgstr "Επαναφόρτωση"
 
-#: src/components/palette/PaletteGrid.tsx:117
-msgid "Remove all"
-msgstr "Κατάργηση όλων"
-
-#: src/components/palette/PaletteGrid.tsx:110
-msgid "Remove all color mixtures"
-msgstr "Αφαιρέστε όλα τα μείγματα χρωμάτων"
-
 #: src/components/ImageColorAdjustment.tsx:373
-#: src/components/messages.ts:42
+#: src/components/messages.ts:43
 msgid "Remove background"
 msgstr "Κατάργηση φόντου"
 
-#: src/components/color/AddToPaletteButton.tsx:55
-#: src/components/color/PaletteColorMixtureCard.tsx:122
-msgid "Remove from palette"
-msgstr "Αφαίρεση από την παλέτα"
-
-#: src/components/ImageChooser.tsx:82
-msgid "Remove oldest"
-msgstr "Αφαίρεση παλαιότερων"
-
-#: src/components/color/AddToPaletteButton.tsx:48
-#: src/components/color/PaletteColorMixtureCard.tsx:115
-msgid "Remove the color mixture"
-msgstr "Αφαιρέστε το μείγμα χρωμάτων"
-
-#: src/components/CustomColorBrandCreator.tsx:170
 #: src/components/CustomColorBrandCreator.tsx:178
-#: src/components/CustomColorBrandCreator.tsx:181
+#: src/components/CustomColorBrandCreator.tsx:186
+#: src/components/CustomColorBrandCreator.tsx:189
 msgid "Required"
 msgstr "Απαιτούμενο"
 
@@ -1316,14 +1480,18 @@ msgstr "Απαιτείται iOS 16.4+ ή iPadOS 16.4+."
 msgid "Requires macOS Sonoma or later."
 msgstr "Απαιτείται macOS Sonoma ή νεότερη έκδοση."
 
-#: src/components/auth/LoginEmailOtpButton.tsx:200
+#: src/components/auth/LoginEmailOtpButton.tsx:202
 msgid "Resend code"
 msgstr "Επανάληψη αποστολής κωδικού"
 
-#: src/components/ImagePerspectiveCorrection.tsx:299
-#: src/components/ImagePerspectiveCorrection.tsx:341
+#: src/components/ImagePerspectiveCorrection.tsx:296
+#: src/components/ImagePerspectiveCorrection.tsx:351
 msgid "Reset"
 msgstr "Επαναφορά"
+
+#: src/components/cloud/ImportFromZipFileSelect.tsx:78
+msgid "Restore backup"
+msgstr "Επαναφορά αντιγράφων ασφαλείας"
 
 #: src/components/empty/EmptyPalette.tsx:76
 msgid "Return to the <0>{paletteLabel}</0> tab."
@@ -1334,74 +1502,67 @@ msgstr "Επιστρέψτε στην καρτέλα <0>{paletteLabel}</0> ."
 msgid "Return to the <0>{tabLabel}</0> tab."
 msgstr "Επιστρέψτε στην καρτέλα <0>{tabLabel}</0> ."
 
-#: src/components/ImagePerspectiveCorrection.tsx:303
-#: src/components/ImagePerspectiveCorrection.tsx:376
+#: src/components/ImagePerspectiveCorrection.tsx:291
+#: src/components/ImagePerspectiveCorrection.tsx:343
 msgid "Rotate"
 msgstr "Περιστρέφομαι"
 
-#: src/components/ImageColorPicker.tsx:254
+#: src/components/ImageColorPicker.tsx:255
 msgid "Sample size"
 msgstr "Μέγεθος δείγματος"
 
-#: src/components/ImageColorAdjustment.tsx:451
+#: src/components/ImageColorAdjustment.tsx:462
 msgid "Saturation (%)"
 msgstr "Κορεσμός (%)"
 
 #: src/components/ColorMixingChart.tsx:153
-#: src/components/CustomColorBrandCreator.tsx:462
-#: src/components/ImageBackgroundRemoval.tsx:205
-#: src/components/ImageBackgroundRemoval.tsx:218
+#: src/components/ColorSetChooser.tsx:240
+#: src/components/CustomColorBrandCreator.tsx:500
+#: src/components/ImageBackgroundRemoval.tsx:206
+#: src/components/ImageBackgroundRemoval.tsx:219
 #: src/components/ImageBlurred.tsx:148
 #: src/components/ImageBlurred.tsx:161
 #: src/components/ImageColorAdjustment.tsx:347
-#: src/components/ImageGrid.tsx:75
-#: src/components/ImageGrid.tsx:91
-#: src/components/ImageLimitedPalette.tsx:130
-#: src/components/ImageOutline.tsx:263
-#: src/components/ImageOutline.tsx:315
-#: src/components/ImagePerspectiveCorrection.tsx:315
-#: src/components/ImagePerspectiveCorrection.tsx:349
-#: src/components/ImageStyleTransfer.tsx:200
+#: src/components/ImageGrid.tsx:73
+#: src/components/ImageGrid.tsx:89
+#: src/components/ImageLimitedPalette.tsx:138
+#: src/components/ImageOutline.tsx:264
+#: src/components/ImageOutline.tsx:318
+#: src/components/ImagePerspectiveCorrection.tsx:307
+#: src/components/ImagePerspectiveCorrection.tsx:359
+#: src/components/ImageStyleTransfer.tsx:231
 #: src/components/ImageTonalValues.tsx:154
 #: src/components/ImageTonalValues.tsx:170
 msgid "Save"
 msgstr "Σώζω"
 
-#: src/components/ColorSetChooser.tsx:704
+#: src/components/ColorSetChooser.tsx:722
 msgid "Save & continue"
 msgstr "Αποθήκευση & συνέχεια"
 
-#: src/components/ColorSetChooser.tsx:265
+#: src/components/cloud/ExportToZipButton.tsx:56
+msgid "Save backup"
+msgstr "Αποθήκευση αντιγράφων ασφαλείας"
+
+#: src/components/ColorSetChooser.tsx:238
 msgid "Save changes to the color set?"
 msgstr "Αποθήκευση αλλαγών στο σύνολο χρωμάτων;"
 
 #: src/components/ImageColorAdjustment.tsx:300
-#: src/components/ImagePerspectiveCorrection.tsx:247
+#: src/components/ImagePerspectiveCorrection.tsx:233
 msgid "Save expanded to 1.91:1"
 msgstr "Αποθήκευση αναπτυγμένη σε 1,91:1"
 
 #: src/components/ImageColorAdjustment.tsx:288
-#: src/components/ImagePerspectiveCorrection.tsx:235
+#: src/components/ImagePerspectiveCorrection.tsx:221
 msgid "Save expanded to 4:5"
 msgstr "Αποθήκευση αναπτυγμένη σε 4:5"
 
-#: src/components/ColorSetChooser.tsx:700
+#: src/components/ColorSetChooser.tsx:718
 msgid "Save the changes to this color set"
 msgstr "Αποθηκεύστε τις αλλαγές σε αυτό το σύνολο χρωμάτων"
 
-#: src/components/qr/QRScannerModal.tsx:58
-msgid "Scan a QR code"
-msgstr "Σάρωση κωδικού QR"
-
-#: src/components/auth/LoginWithQRButton.tsx:43
-msgid "Scan its QR code here"
-msgstr "Σαρώστε τον κωδικό QR του εδώ"
-
-#: src/components/auth/ShowLoginQRButton.tsx:69
-msgid "Scan this code on the device you want to log in."
-msgstr "Σαρώστε αυτόν τον κωδικό στη συσκευή που θέλετε να συνδεθείτε."
-
-#: src/components/ImagePerspectiveCorrection.tsx:147
+#: src/components/ImagePerspectiveCorrection.tsx:138
 msgid "Select 4 points to correct perspective distortion"
 msgstr "Επιλέξτε 4 σημεία για να διορθώσετε την παραμόρφωση προοπτικής"
 
@@ -1409,27 +1570,27 @@ msgstr "Επιλέξτε 4 σημεία για να διορθώσετε την 
 msgid "Select a photo to adjust white balance and colors"
 msgstr "Επιλέξτε μια φωτογραφία για να προσαρμόσετε την ισορροπία λευκού και τα χρώματα"
 
-#: src/components/ImagePerspectiveCorrection.tsx:266
+#: src/components/ImagePerspectiveCorrection.tsx:252
 msgid "Select a photo to correct the perspective"
 msgstr "Επιλέξτε μια φωτογραφία για να διορθώσετε την προοπτική"
 
-#: src/components/ImageBackgroundRemoval.tsx:163
+#: src/components/ImageBackgroundRemoval.tsx:164
 msgid "Select a photo to remove the background from"
 msgstr "Επιλέξτε μια φωτογραφία από την οποία θέλετε να αφαιρέσετε το φόντο"
 
-#: src/components/ImageChooser.tsx:104
+#: src/components/ImageChooser.tsx:115
 msgid "Select a reference photo from your device to paint from"
 msgstr "Επιλέξτε μια φωτογραφία αναφοράς από τη συσκευή σας από την οποία θα χρωματίσετε"
 
-#: src/components/ImageStyleTransfer.tsx:195
+#: src/components/ImageStyleTransfer.tsx:226
 msgid "Select a style to transfer to your reference photo"
 msgstr "Επιλέξτε ένα στυλ για μεταφορά στη φωτογραφία αναφοράς σας"
 
-#: src/components/CustomColorBrandCreator.tsx:390
+#: src/components/CustomColorBrandCreator.tsx:423
 msgid "Select an image that contains a color chart"
 msgstr "Επιλέξτε μια εικόνα που περιέχει ένα χρωματολόγιο"
 
-#: src/components/ColorMixer.tsx:186
+#: src/components/ColorMixer.tsx:187
 msgid "Select any number of colors to mix and specify the part of each color in the resulting mix."
 msgstr "Επιλέξτε οποιονδήποτε αριθμό χρωμάτων για ανάμειξη και καθορίστε το τμήμα κάθε χρώματος στο προκύπτον μείγμα."
 
@@ -1437,15 +1598,15 @@ msgstr "Επιλέξτε οποιονδήποτε αριθμό χρωμάτων 
 msgid "Select art medium"
 msgstr "Επιλέξτε μέσο τέχνης"
 
-#: src/components/ColorSetChooser.tsx:384
+#: src/components/ColorSetChooser.tsx:377
 msgid "Select at least one color before saving the color set."
 msgstr "Επιλέξτε τουλάχιστον ένα χρώμα πριν αποθηκεύσετε το σύνολο χρωμάτων."
 
-#: src/components/color-set/ColorBrandSelect.tsx:84
+#: src/components/color-set/ColorBrandSelect.tsx:82
 msgid "Select brands"
 msgstr "Επιλέξτε μάρκες"
 
-#: src/components/ColorSetChooser.tsx:591
+#: src/components/ColorSetChooser.tsx:609
 msgid "Select brands that you use."
 msgstr "Επιλέξτε τις επωνυμίες που χρησιμοποιείτε."
 
@@ -1462,46 +1623,46 @@ msgstr "Επιλογή χρωμάτων"
 msgid "Select colors to build a mixing chart"
 msgstr "Επιλέξτε χρώματα για να δημιουργήσετε ένα γράφημα ανάμειξης"
 
-#: src/components/ImageLimitedPalette.tsx:104
+#: src/components/ImageLimitedPalette.tsx:112
 msgid "Select from 1 to {MAX_COLORS} colors"
 msgstr "Επιλέξτε από 1 έως {MAX_COLORS} χρώματα"
 
-#: src/components/color-set/CustomColorBrandSelect.tsx:82
+#: src/components/color-set/CustomColorBrandSelect.tsx:80
 msgid "Select from your recent brands"
 msgstr "Επιλέξτε από τις πρόσφατες επωνυμίες σας"
 
-#: src/components/color-set/ColorSetSelect.tsx:91
+#: src/components/color-set/ColorSetSelect.tsx:89
 msgid "Select from your recent color sets"
 msgstr "Επιλέξτε από τα πρόσφατα σύνολα χρωμάτων"
 
-#: src/components/ColorSetChooser.tsx:567
+#: src/components/ColorSetChooser.tsx:585
 msgid "Select from your recent color sets or create a new one."
 msgstr "Επιλέξτε από τα πρόσφατα σύνολα χρωμάτων ή δημιουργήστε ένα νέο."
 
-#: src/components/CustomColorBrandCreator.tsx:395
+#: src/components/CustomColorBrandCreator.tsx:428
 msgid "Select image"
 msgstr "Επιλογή εικόνας"
 
-#: src/components/i18n/LocaleSelect.tsx:69
+#: src/components/i18n/LocaleSelect.tsx:67
 msgid "Select language"
 msgstr "Επιλέξτε γλώσσα"
 
-#: src/components/ColorMixer.tsx:200
+#: src/components/ColorMixer.tsx:205
 msgid "Select part"
 msgstr "Επιλέξτε μέρος"
 
-#: src/components/ImageBackgroundRemoval.tsx:185
-#: src/components/ImageChooser.tsx:114
+#: src/components/ImageBackgroundRemoval.tsx:186
+#: src/components/ImageChooser.tsx:120
 #: src/components/ImageColorAdjustment.tsx:337
-#: src/components/ImagePerspectiveCorrection.tsx:276
+#: src/components/ImagePerspectiveCorrection.tsx:268
 msgid "Select photo"
 msgstr "Επιλέξτε φωτογραφία"
 
-#: src/components/ImagesCompare.tsx:112
+#: src/components/ImagesCompare.tsx:115
 msgid "Select photos"
 msgstr "Επιλογή φωτογραφιών"
 
-#: src/components/ImagesCompare.tsx:96
+#: src/components/ImagesCompare.tsx:94
 msgid "Select photos to rank using pairwise comparison"
 msgstr "Επιλέξτε φωτογραφίες για κατάταξη χρησιμοποιώντας σύγκριση κατά ζεύγη"
 
@@ -1509,15 +1670,15 @@ msgstr "Επιλέξτε φωτογραφίες για κατάταξη χρησ
 msgid "Select set"
 msgstr "Επιλέξτε σύνολο"
 
-#: src/components/ImageStyleTransfer.tsx:142
+#: src/components/ImageStyleTransfer.tsx:166
 msgid "Select style image"
 msgstr "Επιλογή εικόνας στυλ"
 
-#: src/components/color-set/MergeColorSetsDrawer.tsx:68
+#: src/components/color-set/MergeColorSetsDrawer.tsx:66
 msgid "Select the color sets you want to merge. A new color set will be created that includes all the colors from the selected sets."
 msgstr "Επιλέξτε τα σύνολα χρωμάτων που θέλετε να συγχωνεύσετε. Θα δημιουργηθεί ένα νέο σύνολο χρωμάτων που περιλαμβάνει όλα τα χρώματα από τα επιλεγμένα σύνολα."
 
-#: src/components/ColorSetChooser.tsx:531
+#: src/components/ColorSetChooser.tsx:549
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>."
 msgstr "Επιλέξτε το μέσο τέχνης, τις επωνυμίες χρωμάτων και τα χρώματα με τα οποία θα ζωγραφίσετε και, στη συνέχεια, πατήστε <0>Αποθήκευση & συνέχεια</0>."
@@ -1530,15 +1691,15 @@ msgstr "Ημιαδιαφανές"
 msgid "Semi-transparent"
 msgstr "Ημιδιαφανές"
 
-#: src/components/auth/LoginEmailOtpButton.tsx:160
+#: src/components/auth/LoginEmailOtpButton.tsx:158
 msgid "Sent to <0>{email}</0>"
 msgstr "Στάλθηκε σε <0>{email}</0>"
 
-#: src/components/error/AuthFeedbackHandler.tsx:138
+#: src/components/auth/AuthFeedbackHandler.tsx:137
 msgid "Session expired"
 msgstr "Η συνεδρία έληξε"
 
-#: src/components/ImageLimitedPalette.tsx:139
+#: src/components/ImageLimitedPalette.tsx:147
 msgid "Set as main color set"
 msgstr "Ορισμός ως κύριο σύνολο χρωμάτων"
 
@@ -1547,23 +1708,23 @@ msgstr "Ορισμός ως κύριο σύνολο χρωμάτων"
 msgid "Set as reference"
 msgstr "Ορισμός ως αναφοράς"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:139
-#: src/components/color/SimilarColorCard.tsx:131
+#: src/components/color/PaletteColorMixtureCard.tsx:145
+#: src/components/color/SimilarColorCard.tsx:137
 msgid "Set as underlayer"
 msgstr "Ορισμός ως υποστρώματος"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:135
-#: src/components/color/SimilarColorCard.tsx:127
+#: src/components/color/PaletteColorMixtureCard.tsx:141
+#: src/components/color/SimilarColorCard.tsx:133
 msgid "Set as underlayer for blending."
 msgstr "Ορίστε ως υπόστρωμα για ανάμειξη."
 
-#: src/components/color/PaletteColorMixtureCard.tsx:135
-#: src/components/color/SimilarColorCard.tsx:127
+#: src/components/color/PaletteColorMixtureCard.tsx:141
+#: src/components/color/SimilarColorCard.tsx:133
 msgid "Set as underlayer for glazing."
 msgstr "Τοποθετήστε ως υπόστρωμα για τζάμια."
 
-#: src/components/color/PaletteColorMixtureCard.tsx:151
-#: src/components/color/SimilarColorCard.tsx:143
+#: src/components/color/PaletteColorMixtureCard.tsx:157
+#: src/components/color/SimilarColorCard.tsx:149
 msgid "Set as unifying color"
 msgstr "Ορισμός ως ενοποιητικό χρώμα"
 
@@ -1572,65 +1733,65 @@ msgstr "Ορισμός ως ενοποιητικό χρώμα"
 msgid "Shadow"
 msgstr "Σκιά"
 
-#: src/components/ImageColorAdjustment.tsx:469
+#: src/components/ImageColorAdjustment.tsx:485
 msgid "Shadows and highlights"
 msgstr "Σκιές και ανοικτοί τόνοι"
 
-#: src/components/ColorSetChooser.tsx:760
-#: src/components/share/ShareModal.tsx:83
+#: src/components/ColorSetChooser.tsx:777
+#: src/components/share/ShareModal.tsx:81
 msgid "Share"
 msgstr "Μετοχή"
 
-#: src/components/ColorSetChooser.tsx:757
+#: src/components/ColorSetChooser.tsx:774
 msgid "Share this color set"
 msgstr "Κοινή χρήση αυτού του σετ χρωμάτων"
 
-#: src/components/share/ShareModal.tsx:62
+#: src/components/share/ShareModal.tsx:60
 msgid "Share your color set"
 msgstr "Κοινή χρήση του σετ χρωμάτων σας"
 
-#: src/components/ImageColorPicker.tsx:292
+#: src/components/ImageColorPicker.tsx:300
 msgid "Show areas on the photo that match this color."
 msgstr "Εμφάνιση περιοχών στη φωτογραφία που ταιριάζουν με αυτό το χρώμα."
 
-#: src/components/grid/GridControls.tsx:177
+#: src/components/grid/GridControls.tsx:175
 msgid "Show grid"
 msgstr "Εμφάνιση πλέγματος"
 
-#: src/components/auth/ShowLoginQRButton.tsx:117
-msgid "Show login QR code"
-msgstr "Εμφάνιση κωδικού QR σύνδεσης"
-
-#: src/components/ImageColorPicker.tsx:291
+#: src/components/ImageColorPicker.tsx:299
 msgid "Show matching areas"
 msgstr "Εμφάνιση περιοχών που ταιριάζουν"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:109
+#: src/components/ImageChooser.tsx:144
+msgid "Show older photos"
+msgstr "Εμφάνιση παλαιότερων φωτογραφιών"
+
+#: src/components/color/PaletteColorMixtureCard.tsx:115
 msgid "Show on photo"
 msgstr "Εμφάνιση στη φωτογραφία"
 
-#: src/components/grid/GridControls.tsx:204
+#: src/components/grid/GridControls.tsx:202
 msgid "Show or hide diagonal lines"
 msgstr "Εμφάνιση ή απόκρυψη διαγώνιων γραμμών"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:103
+#: src/components/color/PaletteColorMixtureCard.tsx:109
 msgid "Show this color on the reference photo."
 msgstr "Δείξτε αυτό το χρώμα στη φωτογραφία αναφοράς."
 
-#: src/components/error/AuthFeedbackHandler.tsx:177
+#: src/components/auth/AuthFeedbackHandler.tsx:160
 msgid "Sign in required"
 msgstr "Απαιτείται είσοδος"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:83
-#: src/components/ImageColorPicker.tsx:405
+#: src/components/ImageColorPicker.tsx:422
 msgid "Similarity"
 msgstr "Ομοιότητα"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:99
+#: src/components/color/ReflectanceChartDrawer.tsx:100
 msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
 msgstr "Η λειτουργία ομοιότητας συγκρίνει τα χρώματα προορισμού και τα προτεινόμενα χρώματα. Στη λειτουργία ανάμειξης, εμφανίζονται τα μέρη του χρώματος που αποτελούν το μείγμα."
 
-#: src/components/messages.ts:33
+#: src/components/messages.ts:34
 msgid "Simplify"
 msgstr "Απλοποίηση"
 
@@ -1650,44 +1811,48 @@ msgstr "Επικαλύψτε ελαφρώς τις παστέλ περιοχές
 msgid "Small"
 msgstr "Μικρός"
 
+#: src/components/ImageColorAdjustment.tsx:411
+msgid "Smaller percentile values correspond to stronger whitening"
+msgstr "Μικρότερες εκατοστιαίες τιμές αντιστοιχούν σε ισχυρότερη λεύκανση"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:151
+msgid "Some synchronized cloud data was deleted or is unavailable. Keep this device to create it again, or postpone the decision. ArtistAssistApp will not recreate it automatically."
+msgstr "Ορισμένα συγχρονισμένα δεδομένα cloud διαγράφηκαν ή δεν είναι διαθέσιμα. Κρατήστε αυτήν τη συσκευή για να τη δημιουργήσετε ξανά ή αναβάλετε την απόφαση. Το ArtistAssistApp δεν θα το αναδημιουργήσει αυτόματα."
+
 #: src/components/error/ErrorFallback.tsx:37
 msgid "Something went wrong"
 msgstr "Κάτι πήγε στραβά"
 
-#: src/components/error/AuthFeedbackHandler.tsx:205
-msgid "Something went wrong while logging you in. Please try again. If the problem persists, check your internet connection."
-msgstr "Κάτι πήγε στραβά κατά τη σύνδεσή σας. Παρακαλώ προσπαθήστε ξανά. Εάν το πρόβλημα παραμένει, ελέγξτε τη σύνδεσή σας στο διαδίκτυο."
-
 #: src/components/color-set/ColorSelect.tsx:118
 #: src/components/ColorMixingChart.tsx:117
-#: src/components/ImageColorPicker.tsx:442
+#: src/components/ImageColorPicker.tsx:459
 #: src/components/palette/PaletteGrid.tsx:129
 msgid "Sort"
 msgstr "Είδος"
 
-#: src/components/ImageColorPicker.tsx:417
+#: src/components/ImageColorPicker.tsx:434
 msgid "Sort by mixture opacity, from opaque to transparent."
 msgstr "Ταξινόμηση κατά αδιαφάνεια μείγματος, από αδιαφανές σε διαφανές."
 
-#: src/components/ImageColorPicker.tsx:411
+#: src/components/ImageColorPicker.tsx:428
 msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "Ταξινόμηση με βάση τον αριθμό των χρωμάτων στο μείγμα, από τα λιγότερα στα περισσότερα."
 
-#: src/components/ImageColorPicker.tsx:406
+#: src/components/ImageColorPicker.tsx:423
 msgid "Sort by the similarity of the mixture to the target color, from highest to lowest."
 msgstr "Ταξινόμηση με βάση την ομοιότητα του μείγματος με το χρώμα-στόχο, από το υψηλότερο προς το χαμηλότερο."
 
 #: src/components/color/ReflectanceChartDrawer.tsx:89
-#: src/components/color/SimilarColorCard.tsx:110
-#: src/components/ColorMixer.tsx:236
+#: src/components/color/SimilarColorCard.tsx:116
+#: src/components/ColorMixer.tsx:241
 msgid "Spectral reflectance curve"
 msgstr "Καμπύλη φασματικής ανάκλασης"
 
-#: src/components/grid/GridControls.tsx:167
+#: src/components/grid/GridControls.tsx:165
 msgid "Square cells"
 msgstr "Τετράγωνα κελιά"
 
-#: src/components/ColorSetChooser.tsx:620
+#: src/components/ColorSetChooser.tsx:638
 msgid "Standard color set"
 msgstr "Τυπικό σετ χρωμάτων"
 
@@ -1695,19 +1860,19 @@ msgstr "Τυπικό σετ χρωμάτων"
 msgid "Standard print"
 msgstr "Τυπική εκτύπωση"
 
-#: src/components/ImageChooser.tsx:80
+#: src/components/ImageChooser.tsx:87
 msgid "Storage may fill up"
 msgstr "Ο αποθηκευτικός χώρος μπορεί να γεμίσει"
 
-#: src/components/Help.tsx:211
+#: src/components/Help.tsx:177
 msgid "Storage usage"
 msgstr "Χρήση αποθήκευσης"
 
-#: src/components/messages.ts:40
+#: src/components/messages.ts:41
 msgid "Straighten"
 msgstr "Ίσιωμα"
 
-#: src/components/ImagePerspectiveCorrection.tsx:269
+#: src/components/ImagePerspectiveCorrection.tsx:256
 msgid "Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "Ισιώνει τις λοξές φωτογραφίες και αφαιρεί τις ανεπιθύμητες άκρες. Χρησιμοποιήστε τον αυτόματο εντοπισμό ή επιλέξτε 4 σημεία για να διορθώσετε την παραμόρφωση της προοπτικής και, στη συνέχεια, σύρετε προαιρετικά τα περιθώρια για να περικόψετε την εικόνα."
 
@@ -1715,7 +1880,7 @@ msgstr "Ισιώνει τις λοξές φωτογραφίες και αφαι�
 msgid "Strength"
 msgstr "Δύναμη"
 
-#: src/components/ImageStyleTransfer.tsx:188
+#: src/components/ImageStyleTransfer.tsx:219
 msgid "Styled reference photo"
 msgstr "Στυλιζαρισμένη φωτογραφία αναφοράς"
 
@@ -1723,7 +1888,7 @@ msgstr "Στυλιζαρισμένη φωτογραφία αναφοράς"
 msgid "Supported art mediums:"
 msgstr "Υποστηριζόμενα μέσα τέχνης:"
 
-#: src/components/error/BrowserSupport.tsx:53
+#: src/components/error/BrowserSupport.tsx:51
 msgid "Supported web browsers and operating systems"
 msgstr "Υποστηριζόμενα προγράμματα περιήγησης ιστού και λειτουργικά συστήματα"
 
@@ -1737,12 +1902,16 @@ msgstr "Χρώμα επιφάνειας"
 msgid "Swipe to unlock"
 msgstr "Σύρετε για ξεκλείδωμα"
 
-#: src/components/print/PrintImageDrawer.tsx:209
+#: src/components/cloud/SyncCloudButton.tsx:46
+msgid "Sync with {label}"
+msgstr "Συγχρονισμός με {label}"
+
+#: src/components/print/PrintImageDrawer.tsx:211
 msgid "Taped margin width around the painting area"
 msgstr "Πλάτος περιθωρίου με ταινία γύρω από την περιοχή ζωγραφικής"
 
-#: src/components/ImageColorPicker.tsx:272
-#: src/components/ImageColorPicker.tsx:279
+#: src/components/ImageColorPicker.tsx:275
+#: src/components/ImageColorPicker.tsx:287
 msgid "Target color"
 msgstr "Χρώμα στόχου"
 
@@ -1750,15 +1919,19 @@ msgstr "Χρώμα στόχου"
 msgid "Target print size"
 msgstr "Μέγεθος εκτύπωσης προορισμού"
 
-#: src/components/Help.tsx:152
+#: src/components/Help.tsx:139
 msgid "Terms of use"
 msgstr "Όροι χρήσης"
 
-#: src/components/Help.tsx:236
-msgid "The app stores all data in the web browser storage even after installation. Clearing the web browser data results in the loss of all app data."
-msgstr "Η εφαρμογή αποθηκεύει όλα τα δεδομένα στον αποθηκευτικό χώρο του προγράμματος περιήγησης ιστού ακόμη και μετά την εγκατάσταση. Η εκκαθάριση των δεδομένων του προγράμματος περιήγησης ιστού έχει ως αποτέλεσμα την απώλεια όλων των δεδομένων της εφαρμογής."
+#: src/components/cloud/CloudFeedbackHandler.tsx:83
+msgid "The cloud connection could not be completed. Start again from ArtistAssistApp."
+msgstr "Δεν ήταν δυνατή η ολοκλήρωση της σύνδεσης στο cloud. Ξεκινήστε ξανά από το ArtistAssistApp."
 
-#: src/components/error/AuthFeedbackHandler.tsx:164
+#: src/components/cloud/CloudFeedbackHandler.tsx:170
+msgid "The cloud data file is damaged. Replace it with the data from this device."
+msgstr "Το αρχείο δεδομένων cloud είναι κατεστραμμένο. Αντικαταστήστε το με τα δεδομένα από αυτήν τη συσκευή."
+
+#: src/components/auth/AuthFeedbackHandler.tsx:147
 msgid "The code you entered is incorrect or expired. Check the latest email from ArtistAssistApp and try again, or request a new login code."
 msgstr "Ο κωδικός που εισαγάγατε είναι λανθασμένος ή έχει λήξει. Ελέγξτε το πιο πρόσφατο email από το ArtistAssistApp και δοκιμάστε ξανά ή ζητήστε νέο κωδικό σύνδεσης."
 
@@ -1766,20 +1939,20 @@ msgstr "Ο κωδικός που εισαγάγατε είναι λανθασμ�
 msgid "The color of your paper, canvas, or painting surface."
 msgstr "Το χρώμα του χαρτιού, του καμβά ή της επιφάνειας ζωγραφικής σας."
 
-#: src/components/ColorSetChooser.tsx:259
-#: src/components/ColorSetChooser.tsx:278
+#: src/components/ColorSetChooser.tsx:230
+#: src/components/ColorSetChooser.tsx:251
 msgid "The color set can't be saved because not all required fields are filled."
 msgstr "Το σύνολο χρωμάτων δεν μπορεί να αποθηκευτεί, επειδή δεν συμπληρώνονται όλα τα απαιτούμενα πεδία."
 
-#: src/components/ImageColorPicker.tsx:274
+#: src/components/ImageColorPicker.tsx:278
 msgid "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
 msgstr "Το χρώμα που θα αναμιχθεί από το σύνολο χρωμάτων σας. Επιλέξτε ένα χρώμα κάνοντας κλικ σε ένα σημείο στην εικόνα ή χρησιμοποιήστε το αναδυόμενο παράθυρο επιλογέα χρώματος."
 
-#: src/components/CustomColorBrandCreator.tsx:408
+#: src/components/CustomColorBrandCreator.tsx:442
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
 msgstr "Η διάμετρος της κυκλικής περιοχής γύρω από το δρομέα, που χρησιμοποιείται για τον υπολογισμό του μέσου χρώματος των pixel εντός της περιοχής."
 
-#: src/components/color/UnderlayerColorPicker.tsx:101
+#: src/components/color/UnderlayerColorPicker.tsx:102
 msgid "The dried layer you want to glaze over."
 msgstr "Η αποξηραμένη στρώση που θέλετε να γλασάρετε."
 
@@ -1787,7 +1960,11 @@ msgstr "Η αποξηραμένη στρώση που θέλετε να γλασ
 msgid "The existing pastel layer you want to blend over."
 msgstr "Το υπάρχον παστέλ στρώμα που θέλετε να αναμείξετε."
 
-#: src/components/print/PrintImageDrawer.tsx:211
+#: src/hooks/useFileReadErrorNotification.tsx:30
+msgid "The file might have been moved or deleted, or it could be stored in the cloud and not downloaded to this device. Download it to this device, then select it again."
+msgstr "Το αρχείο μπορεί να έχει μετακινηθεί ή διαγραφεί ή μπορεί να έχει αποθηκευτεί στο cloud και να μην έχει ληφθεί σε αυτήν τη συσκευή. Κατεβάστε το σε αυτήν τη συσκευή και, στη συνέχεια, επιλέξτε το ξανά."
+
+#: src/components/print/PrintImageDrawer.tsx:213
 msgid "The margin is too large"
 msgstr "Το περιθώριο είναι πολύ μεγάλο"
 
@@ -1799,27 +1976,43 @@ msgstr "Υπάρχει μια κοινή παλέτα και μια ξεχωρι
 msgid "Thin the paint to <0>{fractionText} thickness</0>"
 msgstr "Αραιώστε το χρώμα σε <0>πάχος {fractionText}</0>"
 
-#: src/hooks/useColorSetBackup.ts:27
-msgid "This backup file lets you restore your color sets later, so keep it. You can delete any older backup files."
-msgstr "Αυτό το αρχείο αντιγράφου ασφαλείας σάς επιτρέπει να επαναφέρετε τα σύνολα χρωμάτων σας αργότερα, επομένως κρατήστε το. Μπορείτε να διαγράψετε τυχόν παλαιότερα αρχεία αντιγράφων ασφαλείας."
-
-#: src/components/ColorSetChooser.tsx:646
+#: src/components/ColorSetChooser.tsx:664
 msgid "This color brand is available to paid Patreon members only"
 msgstr "Αυτή η μάρκα χρωμάτων είναι διαθέσιμη μόνο σε μέλη Patreon επί πληρωμή"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:104
+#: src/components/color/PaletteColorMixtureCard.tsx:110
 msgid "This color was not sampled from a photo."
 msgstr "Αυτό το χρώμα δεν ελήφθη από φωτογραφία."
 
-#: src/components/error/AuthFeedbackHandler.tsx:173
+#: src/components/auth/DeleteAccountButton.tsx:43
+msgid "This deletes everything inside the connected cloud app folder, including files you added."
+msgstr "Με αυτόν τον τρόπο διαγράφονται όλα όσα βρίσκονται μέσα στον συνδεδεμένο φάκελο της εφαρμογής cloud, συμπεριλαμβανομένων των αρχείων που προσθέσατε."
+
+#: src/components/auth/DeleteAccountButton.tsx:54
+msgid "This deletes your account and membership lookup records and logs you out."
+msgstr "Με αυτόν τον τρόπο, διαγράφονται οι εγγραφές αναζήτησης του λογαριασμού και των μελών σας και αποσυνδέεστε."
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:124
+msgid "This device and the synchronized cloud data both changed. Choose which one to keep."
+msgstr "Αυτή η συσκευή και τα συγχρονισμένα δεδομένα cloud άλλαξαν και τα δύο. Επιλέξτε ποιο θα κρατήσετε."
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:110
+msgid "This device has changes made while another account was active. Keep this device to upload them to the current account, keep the cloud data to discard them, or postpone the decision."
+msgstr "Σε αυτήν τη συσκευή έγιναν αλλαγές ενώ ένας άλλος λογαριασμός ήταν ενεργός. Κρατήστε αυτήν τη συσκευή για να τα ανεβάσετε στον τρέχοντα λογαριασμό, διατηρήστε τα δεδομένα cloud για να τα απορρίψετε ή αναβάλλετε την απόφαση."
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:137
+msgid "This device has local data and existing synchronized cloud data, but no sync history. Choose which one to keep."
+msgstr "Αυτή η συσκευή έχει τοπικά δεδομένα και υπάρχοντα συγχρονισμένα δεδομένα cloud, αλλά δεν έχει ιστορικό συγχρονισμού. Επιλέξτε ποιο θα κρατήσετε."
+
+#: src/components/auth/AuthFeedbackHandler.tsx:156
 msgid "This login code can't be used anymore. Request a new code to continue."
 msgstr "Αυτός ο κωδικός σύνδεσης δεν μπορεί πλέον να χρησιμοποιηθεί. Ζητήστε νέο κωδικό για να συνεχίσετε."
 
-#: src/components/error/AuthFeedbackHandler.tsx:158
-msgid "This login link is invalid or has expired. Please get a new one and try again."
-msgstr "Αυτός ο σύνδεσμος σύνδεσης δεν είναι έγκυρος ή έχει λήξει. Πάρτε ένα νέο και δοκιμάστε ξανά."
+#: src/components/auth/DeleteAccountButton.tsx:38
+msgid "This permanently deletes the ArtistAssistApp folder and all your files and folders still inside it. Files you moved outside the folder are not deleted."
+msgstr "Αυτό διαγράφει οριστικά το φάκελο ArtistAssistApp και όλα τα αρχεία και τους φακέλους σας που βρίσκονται ακόμα μέσα σε αυτόν. Τα αρχεία που μετακινήσατε εκτός του φακέλου δεν διαγράφονται."
 
-#: src/components/print/PrintImageDrawer.tsx:175
+#: src/components/print/PrintImageDrawer.tsx:176
 msgid "This print size is not supported"
 msgstr "Αυτό το μέγεθος εκτύπωσης δεν υποστηρίζεται"
 
@@ -1827,15 +2020,15 @@ msgstr "Αυτό το μέγεθος εκτύπωσης δεν υποστηρί�
 msgid "This step is optional."
 msgstr "Αυτό το βήμα είναι προαιρετικό."
 
-#: src/components/ImageStyleTransfer.tsx:159
+#: src/components/ImageStyleTransfer.tsx:183
 msgid "This style is available to paid Patreon members only"
 msgstr "Αυτό το στυλ είναι διαθέσιμο μόνο σε μέλη Patreon επί πληρωμή"
 
-#: src/components/error/AuthFeedbackHandler.tsx:64
+#: src/components/auth/AuthFeedbackHandler.tsx:58
 msgid "This usually happens when you're signed in to a <0>different</0> Patreon account than the one used for your ArtistAssistApp membership."
 msgstr "Αυτό συμβαίνει συνήθως όταν είστε συνδεδεμένοι σε <0>διαφορετικό</0> λογαριασμό Patreon από αυτόν που χρησιμοποιείται για τη συνδρομή σας στο ArtistAssistApp."
 
-#: src/components/error/AuthFeedbackHandler.tsx:72
+#: src/components/auth/AuthFeedbackHandler.tsx:66
 msgid "To fix this:"
 msgstr "Για να το διορθώσετε:"
 
@@ -1851,17 +2044,18 @@ msgstr "Για να χρησιμοποιήσετε τη λειτουργία {ta
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with."
 msgstr "Για να χρησιμοποιήσετε τη δυνατότητα {tabLabel}, επιλέξτε υποστηριζόμενο μέσο τέχνης και χρώματα για ζωγραφική."
 
-#: src/components/messages.ts:32
+#: src/components/messages.ts:33
 msgid "Tonal values"
 msgstr "Τονικές τιμές"
 
-#: src/components/error/AuthFeedbackHandler.tsx:171
+#: src/components/auth/AuthFeedbackHandler.tsx:154
 msgid "Too many incorrect codes"
 msgstr "Πάρα πολλοί λανθασμένοι κωδικοί"
 
-#: src/components/error/AuthFeedbackHandler.tsx:197
-msgid "Too many login requests were made in a short time. Please wait a minute, then try again."
-msgstr "Έγιναν πάρα πολλά αιτήματα σύνδεσης σε σύντομο χρονικό διάστημα. Περιμένετε ένα λεπτό και μετά δοκιμάστε ξανά."
+#: src/components/auth/AuthFeedbackHandler.tsx:181
+#: src/components/cloud/CloudFeedbackHandler.tsx:184
+msgid "Too many requests"
+msgstr "Πάρα πολλά αιτήματα"
 
 #: src/components/color/OpacityIcon.tsx:39
 msgid "Transparent"
@@ -1871,20 +2065,16 @@ msgstr "Διαφανής"
 msgid "Try adding some colors to your color set."
 msgstr "Δοκιμάστε να προσθέσετε μερικά χρώματα στο σετ χρωμάτων σας."
 
-#: src/components/error/AuthFeedbackHandler.tsx:195
-msgid "Try again in a minute"
-msgstr "Δοκιμάστε ξανά σε ένα λεπτό"
-
-#: src/components/Help.tsx:98
+#: src/components/Help.tsx:87
 msgid "Tutorials and videos"
 msgstr "Σεμινάρια και βίντεο"
 
 #: src/components/color/UnderlayerColorPicker.tsx:96
-#: src/components/color/UnderlayerColorPicker.tsx:107
+#: src/components/color/UnderlayerColorPicker.tsx:109
 msgid "Underlayer"
 msgstr "Υπόστρωμα"
 
-#: src/components/error/UnhandledRejectionHandler.tsx:35
+#: src/components/error/UnhandledRejectionHandler.tsx:33
 msgid "Unexpected error"
 msgstr "Απροσδόκητο σφάλμα"
 
@@ -1892,16 +2082,28 @@ msgstr "Απροσδόκητο σφάλμα"
 msgid "Unexpected error: {errorMessage}"
 msgstr "Μη αναμενόμενο σφάλμα: {errorMessage}"
 
-#: src/components/ImageColorPicker.tsx:333
+#: src/components/ImageColorPicker.tsx:345
 msgid "Unifying color"
 msgstr "Ενοποιητικό χρώμα"
 
+#: src/components/cloud/CloudFeedbackHandler.tsx:108
+msgid "Unsynced changes on this device"
+msgstr "Μη συγχρονισμένες αλλαγές σε αυτήν τη συσκευή"
+
 #: src/components/color/ColorSwatchDrawer.tsx:85
-#: src/components/color/PaletteColorMixtureCard.tsx:89
-#: src/components/color/SimilarColorCard.tsx:97
+#: src/components/color/PaletteColorMixtureCard.tsx:95
+#: src/components/color/SimilarColorCard.tsx:103
 #: src/components/palette/PaletteGrid.tsx:151
 msgid "Untitled mixture"
 msgstr "Άτιτλο μείγμα"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:189
+msgid "Update ArtistAssistApp to the latest version and try again."
+msgstr "Ενημερώστε το ArtistAssistApp στην πιο πρόσφατη έκδοση και δοκιμάστε ξανά."
+
+#: src/components/auth/AuthFeedbackHandler.tsx:188
+msgid "Update ArtistAssistApp to the latest version, check your connection, and try again."
+msgstr "Ενημερώστε το ArtistAssistApp στην πιο πρόσφατη έκδοση, ελέγξτε τη σύνδεσή σας και δοκιμάστε ξανά."
 
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:44
 msgid "Update available"
@@ -1911,11 +2113,15 @@ msgstr "Διαθέσιμη ενημέρωση"
 msgid "Update now"
 msgstr "Ενημέρωση τώρα"
 
+#: src/stores/cloud-slice.ts:135
+msgid "Uploading image {index} of {count}"
+msgstr "Μεταφόρτωση εικόνας {index} του {count}"
+
 #: src/components/color/ConsistencyDescription.tsx:44
 msgid "Use at full strength."
 msgstr "Χρησιμοποιήστε το σε πλήρη ισχύ."
 
-#: src/components/file/FileSelect.tsx:163
+#: src/components/file/FileSelect.tsx:186
 msgid "Use copied image"
 msgstr "Χρήση αντιγραμμένης εικόνας"
 
@@ -1931,22 +2137,27 @@ msgstr "Χρησιμοποιήστε μέσα υαλοπινάκων που σα
 msgid "Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original oil paint layer. You should be able to get the consistency of runny sour cream. Linseed oil is a popular glazing medium."
 msgstr "Χρησιμοποιήστε μέσα υαλοπινάκων που σας επιτρέπουν να πάρετε ένα λεπτό στρώμα, για παράδειγμα, το 1/10 του αρχικού στρώματος βαφής λαδιού. Θα πρέπει να είστε σε θέση να πάρετε τη συνοχή της καταρροής, ξινή κρέμα. Το λιναρόσπορο είναι ένα δημοφιλές μέσο υαλοπινάκων."
 
-#: src/components/file/FileSelect.tsx:152
+#: src/components/file/FileSelect.tsx:175
 msgid "Use reference photo"
 msgstr "Χρήση φωτογραφίας αναφοράς"
 
-#: src/components/Help.tsx:214
+#: src/components/Help.tsx:180
 msgid "Used"
 msgstr "Μεταχειρισμένος"
 
-#: src/components/ImageLimitedPalette.tsx:100
+#: src/components/ImageLimitedPalette.tsx:104
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Η χρήση περιορισμένης παλέτας βοηθά στην επίτευξη χρωματικής αρμονίας. Επιλέξτε 1–{MAX_COLORS} βασικά χρώματα."
 
-#: src/components/ImageOutline.tsx:275
-#: src/components/ImageOutline.tsx:333
+#: src/components/ImageOutline.tsx:278
+#: src/components/ImageOutline.tsx:336
 msgid "View the outline over the live camera to trace in AR."
 msgstr "Δείτε το περίγραμμα πάνω από τη ζωντανή κάμερα για ανίχνευση σε AR."
+
+#: src/components/auth/AuthFeedbackHandler.tsx:182
+#: src/components/cloud/CloudFeedbackHandler.tsx:185
+msgid "Wait a minute and try again."
+msgstr "Περιμένετε ένα λεπτό και δοκιμάστε ξανά."
 
 #: src/components/color/WarmthIcon.tsx:38
 msgid "Warm — Algorithmic estimate; artistic perception may vary."
@@ -1956,125 +2167,129 @@ msgstr "Θερμός — Αλγοριθμική εκτίμηση. Η καλλι�
 msgid "Watercolor can be diluted with water to make it more transparent."
 msgstr "Η ακουαρέλα μπορεί να αραιωθεί με νερό για να γίνει πιο διαφανής."
 
-#: src/components/messages.ts:49
+#: src/components/messages.ts:50
 msgid "Watercolor Paint"
 msgstr "Βαφή ακουαρέλας"
 
-#: src/components/messages.ts:54
+#: src/components/messages.ts:55
 msgid "Watercolor Pencils"
 msgstr "Μολύβια ακουαρέλας"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Wax Pastel"
 msgstr "Κερί Παστέλ"
 
-#: src/components/error/AuthFeedbackHandler.tsx:114
+#: src/components/auth/AuthFeedbackHandler.tsx:113
 msgid "We couldn't find an ArtistAssistApp Patreon membership for the email address you entered. Use the email address shown on your Patreon account for your ArtistAssistApp membership, then request a new login code."
 msgstr "Δεν μπορέσαμε να βρούμε μια συνδρομή ArtistAssistApp Patreon για τη διεύθυνση email που εισαγάγατε. Χρησιμοποιήστε τη διεύθυνση email που εμφανίζεται στον λογαριασμό σας στο Patreon για τη συνδρομή σας στο ArtistAssistApp και, στη συνέχεια, ζητήστε έναν νέο κωδικό σύνδεσης."
 
-#: src/components/error/AuthFeedbackHandler.tsx:203
-msgid "We couldn't verify your session"
-msgstr "Δεν ήταν δυνατή η επαλήθευση της περιόδου σύνδεσης"
-
-#: src/components/error/AuthFeedbackHandler.tsx:179
+#: src/components/auth/AuthFeedbackHandler.tsx:163
 msgid "We couldn't verify your session. Please sign in again to continue using ArtistAssistApp."
 msgstr "Δεν ήταν δυνατή η επαλήθευση της συνεδρίας σας. Συνδεθείτε ξανά για να συνεχίσετε να χρησιμοποιείτε το ArtistAssistApp."
 
-#: src/components/error/AuthFeedbackHandler.tsx:149
-msgid "We encountered a problem verifying your login credentials. This issue can usually be resolved by trying to log in again."
-msgstr "Αντιμετωπίσαμε πρόβλημα με την επαλήθευση των διαπιστευτηρίων σύνδεσής σας. Αυτό το ζήτημα μπορεί συνήθως να επιλυθεί προσπαθώντας να συνδεθείτε ξανά."
-
-#: src/components/ColorSetChooser.tsx:676
+#: src/components/ColorSetChooser.tsx:694
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "Όταν επιλέγετε περισσότερα από {maxColorsFor2} χρώματα συνολικά, δεν χρησιμοποιούνται μείγματα δύο χρωμάτων."
 
-#: src/components/ColorSetChooser.tsx:684
+#: src/components/ColorSetChooser.tsx:702
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Όταν επιλέγετε περισσότερα από {maxColorsFor3} χρώματα συνολικά, δεν χρησιμοποιούνται μείγματα τριών χρωμάτων."
 
-#: src/components/ImageBackgroundRemoval.tsx:115
-#: src/components/ImageColorAdjustment.tsx:435
+#: src/components/ImageBackgroundRemoval.tsx:116
+#: src/components/ImageColorAdjustment.tsx:446
 msgid "White"
 msgstr "Άσπρος"
 
-#: src/components/ImageColorAdjustment.tsx:382
+#: src/components/ImageColorAdjustment.tsx:386
 msgid "White balance"
 msgstr "Ισορροπία λευκού"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "White paper or canvas"
 msgstr "Λευκό χαρτί ή καμβάς"
 
-#: src/components/ImageColorAdjustment.tsx:425
-#: src/components/ImageColorAdjustment.tsx:431
+#: src/components/ImageColorAdjustment.tsx:436
+#: src/components/ImageColorAdjustment.tsx:442
 msgid "White point"
 msgstr "Λευκό σημείο"
 
-#: src/components/print/PrintImageDrawer.tsx:185
+#: src/components/print/PrintImageDrawer.tsx:187
 msgid "Width"
 msgstr "Πλάτος"
 
-#: src/components/color/AddToPaletteButton.tsx:51
-#: src/components/color/PaletteColorMixtureCard.tsx:118
-#: src/components/ColorSetChooser.tsx:267
-#: src/components/ColorSetChooser.tsx:740
-#: src/components/CustomColorBrandCreator.tsx:472
-#: src/components/image/RecentImageCard.tsx:73
-#: src/components/palette/PaletteGrid.tsx:113
-#: src/components/storage/ClearCacheButton.tsx:47
-#: src/components/storage/DeleteAppDataButton.tsx:47
-msgid "Yes"
-msgstr "Ναι"
+#: src/components/ImageChooser.tsx:89
+msgid "You already have many recent photos saved. Delete the oldest one to free up space? The new photo will still be added."
+msgstr "Έχετε ήδη αποθηκεύσει πολλές πρόσφατες φωτογραφίες. Να διαγράψω το παλαιότερο για να ελευθερώσω χώρο; Η νέα φωτογραφία θα προστεθεί ακόμα."
 
-#: src/components/ImageChooser.tsx:81
-msgid "You already have many recent photos saved. Remove the oldest one to free up space? The new photo will still be added."
-msgstr "Έχετε ήδη αποθηκεύσει πολλές πρόσφατες φωτογραφίες. Αφαιρέστε το παλαιότερο για να ελευθερώσετε χώρο; Η νέα φωτογραφία θα προστεθεί ακόμα."
-
-#: src/components/ColorSetChooser.tsx:472
+#: src/components/ColorSetChooser.tsx:461
 msgid "You are logged in and have access to all app features."
 msgstr "Είστε συνδεδεμένοι και έχετε πρόσβαση σε όλες τις λειτουργίες της εφαρμογής."
 
-#: src/components/ColorSetChooser.tsx:483
+#: src/components/ColorSetChooser.tsx:473
 msgid "You are using the <0>free version</0> of ArtistAssistApp. It includes a limited number of color brands and image processing modes."
 msgstr "Χρησιμοποιείτε τη <0>δωρεάν έκδοση</0> του ArtistAssistApp. Περιλαμβάνει περιορισμένο αριθμό επωνυμιών χρωμάτων και λειτουργίες επεξεργασίας εικόνας."
 
-#: src/components/error/AuthFeedbackHandler.tsx:223
+#: src/components/auth/AuthFeedbackHandler.tsx:207
 msgid "You can keep working in this browser tab, or switch back to the installed ArtistAssistApp — you're logged in there too."
 msgstr "Μπορείτε να συνεχίσετε να εργάζεστε σε αυτήν την καρτέλα του προγράμματος περιήγησης ή να επιστρέψετε στο εγκατεστημένο ArtistAssistApp — είστε συνδεδεμένοι και εκεί."
 
-#: src/components/error/AuthFeedbackHandler.tsx:221
+#: src/components/auth/AuthFeedbackHandler.tsx:205
 msgid "You're logged in"
 msgstr "Είστε συνδεδεμένοι"
 
-#: src/components/ImageBackgroundRemoval.tsx:175
-#: src/components/ImageOutline.tsx:231
+#: src/components/ImageBackgroundRemoval.tsx:176
+#: src/components/ImageOutline.tsx:232
 msgid "You've selected a mode that is available to paid Patreon members only"
 msgstr "Έχετε επιλέξει μια λειτουργία που είναι διαθέσιμη μόνο σε μέλη του Patreon επί πληρωμή"
 
-#: src/components/ColorSetChooser.tsx:598
+#: src/components/ColorSetChooser.tsx:616
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Έχετε επιλέξει επωνυμίες χρωμάτων που είναι διαθέσιμες μόνο σε μέλη Patreon επί πληρωμή"
 
-#: src/components/ColorSetChooser.tsx:667
+#: src/components/ColorSetChooser.tsx:685
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Έχετε επιλέξει επωνυμίες χρωμάτων που είναι διαθέσιμες μόνο σε μέλη Patreon επί πληρωμή. Εγγραφείτε στο ArtistAssistApp στο Patreon ως μέλος επί πληρωμή ή συνδεθείτε με το Patreon αν έχετε ήδη εγγραφεί."
 
-#: src/components/error/AuthFeedbackHandler.tsx:103
+#: src/components/auth/AuthFeedbackHandler.tsx:99
 msgid "Your account details:"
 msgstr "Τα στοιχεία του λογαριασμού σας:"
 
-#: src/components/file/FileSelect.tsx:136
+#: src/components/file/FileSelect.tsx:158
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "Το πρόγραμμα περιήγησής σας δεν υποστηρίζει την ανάγνωση εικόνων από το πρόχειρο."
 
-#: src/hooks/usePersistentStorage.tsx:50
+#: src/components/cloud/CloudSyncUpdateNotification.tsx:42
+msgid "Your cloud data changed and will be synchronized automatically."
+msgstr "Τα δεδομένα σας στο cloud άλλαξαν και θα συγχρονιστούν αυτόματα."
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:177
+msgid "Your cloud storage couldn't be reached. Your latest changes remain saved on this device and have not been uploaded. Check your internet connection, then try syncing again."
+msgstr "Δεν ήταν δυνατή η πρόσβαση στον αποθηκευτικό χώρο σας στο cloud. Οι πιο πρόσφατες αλλαγές σας παραμένουν αποθηκευμένες σε αυτήν τη συσκευή και δεν έχουν μεταφορτωθεί. Ελέγξτε τη σύνδεσή σας στο διαδίκτυο και, στη συνέχεια, δοκιμάστε να συγχρονίσετε ξανά."
+
+#: src/components/cloud/ConnectCloudButton.tsx:59
+msgid "Your color sets, reference photos, mixtures, and custom color brands will be saved in the ArtistAssistApp folder in {label} and kept synchronized across your devices.<0/>ArtistAssistApp can access that app folder, including files you put there, but cannot access files outside it."
+msgstr "Τα σύνολα χρωμάτων, οι φωτογραφίες αναφοράς, τα μείγματα και οι προσαρμοσμένες επωνυμίες χρωμάτων θα αποθηκευτούν στο φάκελο ArtistAssistApp στο {label} και θα διατηρηθούν συγχρονισμένα σε όλες τις συσκευές σας.<0/>Το ArtistAssistApp μπορεί να έχει πρόσβαση σε αυτόν τον φάκελο εφαρμογών, συμπεριλαμβανομένων των αρχείων που τοποθετείτε εκεί, αλλά δεν μπορεί να έχει πρόσβαση σε αρχεία εκτός αυτού."
+
+#: src/components/cloud/ConnectCloudButton.tsx:50
+msgid "Your color sets, reference photos, mixtures, and custom color brands will be saved in the ArtistAssistApp folder in My Drive and kept synchronized across your devices.<0/>ArtistAssistApp works only with this app-created folder and the files it creates there.<1/>It cannot access your other Drive files or shared drives."
+msgstr "Τα σύνολα χρωμάτων, οι φωτογραφίες αναφοράς, τα μείγματα και οι προσαρμοσμένες επωνυμίες χρωμάτων θα αποθηκευτούν στο φάκελο ArtistAssistApp στο My Drive και θα διατηρηθούν συγχρονισμένα σε όλες τις συσκευές σας.<0/>Το ArtistAssistApp λειτουργεί μόνο με αυτόν τον φάκελο που δημιουργήθηκε από την εφαρμογή και τα αρχεία που δημιουργεί εκεί.<1/>Δεν μπορεί να έχει πρόσβαση στα άλλα αρχεία Drive ή στις κοινόχρηστες μονάδες δίσκου."
+
+#: src/hooks/usePersistentStorage.tsx:55
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "Τα δεδομένα σας ενδέχεται να μην αποθηκευτούν αξιόπιστα εάν το πρόγραμμα περιήγησης είναι κλειστό. Για να το διορθώσετε, εγκαταστήστε την εφαρμογή."
 
-#: src/components/error/AuthFeedbackHandler.tsx:140
-msgid "Your login session has expired. Please sign in again to refresh your access and continue using ArtistAssistApp."
-msgstr "Η περίοδος σύνδεσης έχει λήξει. Συνδεθείτε ξανά για να ανανεώσετε την πρόσβασή σας και να συνεχίσετε να χρησιμοποιείτε το ArtistAssistApp."
+#: src/components/auth/AuthFeedbackHandler.tsx:142
+msgid "Your login credentials could not be verified. Sign in again."
+msgstr "Δεν ήταν δυνατή η επαλήθευση των διαπιστευτηρίων σύνδεσής σας. Συνδεθείτε ξανά."
 
-#: src/components/error/BrowserSupport.tsx:51
+#: src/components/Help.tsx:221
+msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
+msgstr "Η συνδρομή σας στο Patreon και τα δεδομένα σε αυτήν τη συσκευή δεν διαγράφονται. <0>Ακυρώστε τη συνδρομή σας στο Patreon</0> στο ίδιο το Patreon."
+
+#: src/components/auth/AuthFeedbackHandler.tsx:138
+msgid "Your session expired. Sign in again to continue."
+msgstr "Η συνεδρία σας έληξε. Συνδεθείτε ξανά για να συνεχίσετε."
+
+#: src/components/error/BrowserSupport.tsx:49
 msgid "Your web browser is not supported."
 msgstr "Το πρόγραμμα περιήγησής σας δεν υποστηρίζεται."

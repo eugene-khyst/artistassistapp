@@ -71,11 +71,11 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
   private lastPipetteDiameter: number;
   private offscreenCanvases: OffscreenCanvas[] = [];
   private samples: ColorPickerSample[] = [];
-  private indicatorVisible: boolean;
-  private lineWidth: number;
-  private indicatorDiameter: number;
-  private sampleRadius: number;
-  private colorPickerImageIndex: number;
+  private readonly indicatorVisible: boolean;
+  private readonly lineWidth: number;
+  private readonly indicatorDiameter: number;
+  private readonly sampleRadius: number;
+  private readonly colorPickerImageIndex: number;
   private overlayImage: ImageBitmap | null = null;
   private overlayImageDimension: Rectangle = Rectangle.ZERO;
 

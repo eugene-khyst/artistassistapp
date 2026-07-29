@@ -16,226 +16,279 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {JWTExpired} from 'jose/errors';
 import type {StateCreator} from 'zustand';
 
 import * as AuthClient from '@/services/auth/auth-client';
-import type {AuthAttempt, Authentication, Expirable, LoginLink} from '@/services/auth/types';
 import {
   AuthError,
   AuthErrorType,
   AuthNoticeType,
+  isJwtExpired,
   TERMINAL_AUTH_ERRORS,
-} from '@/services/auth/types';
+} from '@/services/auth/errors';
+import type {AuthAttempt, Authentication, AuthSession, Expirable} from '@/services/auth/types';
+import * as CloudConnectionClient from '@/services/cloud/cloud-connection-client';
 import {
-  deleteAuthAttemptIfPendingSince,
-  deleteAuthSession,
+  deleteAuthAttempt,
   getAuthAttempt,
   getAuthSession,
   saveAuthAttempt,
 } from '@/services/db/auth-db';
 import type {AppSlice} from '@/stores/app-slice';
+import type {CloudSlice} from '@/stores/cloud-slice';
+import {dedupeConcurrentCalls} from '@/utils/concurrency';
+import {createSha256Base64Url, randomBase64Url} from '@/utils/crypto';
 import {DisplayMode, getDisplayMode} from '@/utils/environment';
 
 // How long before expiry to refresh the ID token.
 export const AUTH_REFRESH_WINDOW_MS = 60 * 60 * 1000;
 
 const LOGIN_EMAIL_OTP_RETRY_MS = 60 * 1000;
-
-// Two logout calls at once share one run; the first caller's error type wins.
-let logoutPromise: Promise<void> | null = null;
-let requestLoginEmailOtpPromise: Promise<void> | null = null;
-let verifyLoginEmailOtpPromise: Promise<AuthErrorType | null> | null = null;
-let loginLinkPromise: Promise<boolean> | null = null;
+const AUTH_ATTEMPT_TIMEOUT_MS = 10 * 60 * 1000;
 
 export interface AuthSlice {
   auth: Authentication | null;
   authAttempt: AuthAttempt | null;
   isAuthLoading: boolean;
-  isLoginRedirecting: boolean;
   authError: AuthError | null;
   authNotice: AuthNoticeType | null;
   isLoginEmailOtpModalOpen: boolean;
-  isLoginQRModalOpen: boolean;
   loginEmailOtp: Expirable | null;
   loginEmailOtpRetryAt: Date | null;
   isRequestLoginEmailOtpLoading: boolean;
   isVerifyLoginEmailOtpLoading: boolean;
-  loginLink: LoginLink | null;
-  isLoginLinkLoading: boolean;
+  isAccountDeleting: boolean;
 
-  resolveAuth: () => Promise<void>;
-  handleAuthCallback: () => Promise<void>;
+  handleLoginCallback: (completionToken: string | null) => Promise<void>;
+  resolveAuth: (options?: {showLoading?: boolean}) => Promise<void>;
   loginWithRedirect: () => Promise<void>;
   logout: (error?: AuthErrorType) => Promise<void>;
   requestLoginEmailOtp: (email: string) => Promise<void>;
   verifyLoginEmailOtp: (email: string, otp: string) => Promise<AuthErrorType | null>;
-  loadLoginLink: () => Promise<boolean>;
   setLoginEmailOtpModalOpen: (open: boolean) => void;
-  setLoginQRModalOpen: (open: boolean) => void;
+  handleAuthError: (error: unknown, message: string) => Promise<void>;
+  setAuthError: (authError?: AuthError | null) => void;
   clearAuthError: () => void;
   clearAuthNotice: () => void;
-  completeAuthAttempt: () => Promise<void>;
-  loadAuthAttempt: () => Promise<AuthAttempt | null>;
-  clearPendingAuthAttempt: (pendingSince: number) => Promise<boolean>;
-  failPendingAuthAttempt: (pendingSince: number) => Promise<void>;
+  reconcileAuthAttempt: () => Promise<void>;
+  deleteAccount: () => Promise<void>;
 }
 
-export const createAuthSlice: StateCreator<AuthSlice & AppSlice, [], [], AuthSlice> = (
+let authAttemptTimeoutId: ReturnType<typeof setTimeout> | undefined;
+
+function clearAuthAttemptTimeout(): void {
+  clearTimeout(authAttemptTimeoutId);
+  authAttemptTimeoutId = undefined;
+}
+
+export const createAuthSlice: StateCreator<AuthSlice & AppSlice & CloudSlice, [], [], AuthSlice> = (
   set,
   get
-) => ({
-  auth: null,
-  authAttempt: null,
-  isAuthLoading: false,
-  isLoginRedirecting: false,
-  authError: null,
-  authNotice: null,
-  isLoginEmailOtpModalOpen: false,
-  isLoginQRModalOpen: false,
-  loginEmailOtp: null,
-  loginEmailOtpRetryAt: null,
-  isRequestLoginEmailOtpLoading: false,
-  isVerifyLoginEmailOtpLoading: false,
-  loginLink: null,
-  isLoginLinkLoading: false,
+) => {
+  const clearAuthAttempt = async (): Promise<void> => {
+    await deleteAuthAttempt();
+    clearAuthAttemptTimeout();
+    set({
+      authAttempt: null,
+    });
+  };
 
-  resolveAuth: async (): Promise<void> => {
-    const session = await getAuthSession();
-    const {auth: priorAuth} = get();
-    if (!session) {
-      if (priorAuth) {
-        // Another tab logged out - reload to clear cached data from memory.
-        await get().logout();
-      }
-      return;
-    }
-    // Refresh the session, then verify the new token. Returns null when another tab
-    // cleared the session (logout already triggered); throws on refresh/verify failure.
-    const refreshAndVerify = async (): Promise<Authentication | null> => {
-      const refreshed = await AuthClient.refreshSession(session);
-      if (refreshed === null) {
-        await get().logout();
-        return null;
-      }
-      return AuthClient.verifyIdToken(refreshed);
-    };
-    try {
-      let auth = await AuthClient.verifyIdToken(session);
-      if (AuthClient.isWithinRefreshWindow(auth, AUTH_REFRESH_WINDOW_MS)) {
-        try {
-          const refreshed = await refreshAndVerify();
-          if (refreshed === null) {
-            return;
-          }
-          auth = refreshed;
-        } catch (error) {
-          const authError = AuthError.fromError(error);
-          if (TERMINAL_AUTH_ERRORS.has(authError.type)) {
-            await get().logout(authError.type);
-            return;
-          }
-          // Couldn't reach the server, but the token is still valid; keep using it.
-        }
-      }
+  return {
+    auth: null,
+    authAttempt: null,
+    isAuthLoading: false,
+    authError: null,
+    authNotice: null,
+    isLoginEmailOtpModalOpen: false,
+    loginEmailOtp: null,
+    loginEmailOtpRetryAt: null,
+    isRequestLoginEmailOtpLoading: false,
+    isVerifyLoginEmailOtpLoading: false,
+    isAccountDeleting: false,
+
+    handleLoginCallback: async (completionToken: string | null): Promise<void> => {
       set({
-        auth,
+        isAuthLoading: true,
       });
-    } catch (error) {
-      if (error instanceof JWTExpired) {
-        try {
-          const auth = await refreshAndVerify();
-          if (auth === null) {
+      try {
+        if (!completionToken) {
+          throw new AuthError(AuthErrorType.LoginResultMissing, 'Login result missing');
+        }
+        const attempt = await getAuthAttempt();
+        if (!attempt) {
+          throw new AuthError(AuthErrorType.LoginResultMissing, 'Auth attempt not found');
+        }
+        await AuthClient.completeLogin(attempt.verifier, completionToken);
+      } catch (error) {
+        set({
+          authError: AuthError.fromError(error, 'Login failed'),
+        });
+      } finally {
+        set({
+          isAuthLoading: false,
+        });
+      }
+    },
+
+    resolveAuth: dedupeConcurrentCalls(async ({showLoading} = {}): Promise<void> => {
+      if (showLoading) {
+        set({
+          isAuthLoading: true,
+        });
+      }
+
+      const reloadIfAuthenticated = (): void => {
+        if (!get().auth) {
+          return;
+        }
+        set({
+          auth: null,
+        });
+        window.location.reload();
+      };
+
+      try {
+        let session = await getAuthSession();
+        while (session) {
+          let auth: Authentication | null = null;
+          try {
+            auth = await AuthClient.verifyIdToken(session);
+          } catch (error) {
+            if (!isJwtExpired(error)) {
+              const current = await getAuthSession();
+              if (!current) {
+                reloadIfAuthenticated();
+                return;
+              }
+              if (current.idToken !== session.idToken) {
+                session = current;
+                continue;
+              }
+              await get().logout(AuthErrorType.InvalidToken);
+              return;
+            }
+          }
+
+          let authenticatedSession = session;
+          if (!auth || AuthClient.isWithinRefreshWindow(auth, AUTH_REFRESH_WINDOW_MS)) {
+            let refreshed: AuthSession | null | undefined;
+            try {
+              refreshed = await AuthClient.refreshSession(session);
+            } catch (error) {
+              const current = await getAuthSession();
+              if (!current) {
+                reloadIfAuthenticated();
+                return;
+              }
+              if (current.idToken !== session.idToken) {
+                session = current;
+                continue;
+              }
+
+              const authError = AuthError.fromError(error);
+              if (
+                !auth ||
+                auth.idTokenExpiresAt.getTime() <= Date.now() ||
+                TERMINAL_AUTH_ERRORS.has(authError.type)
+              ) {
+                await get().logout(authError.type);
+                return;
+              }
+            }
+
+            if (refreshed === null) {
+              reloadIfAuthenticated();
+              return;
+            }
+            if (refreshed) {
+              authenticatedSession = refreshed;
+              try {
+                auth = await AuthClient.verifyIdToken(refreshed);
+              } catch {
+                const current = await getAuthSession();
+                if (!current) {
+                  reloadIfAuthenticated();
+                  return;
+                }
+                if (current.idToken !== refreshed.idToken) {
+                  session = current;
+                  continue;
+                }
+                await get().logout(AuthErrorType.InvalidToken);
+                return;
+              }
+            }
+          }
+
+          const current = await getAuthSession();
+          if (!current) {
+            reloadIfAuthenticated();
             return;
+          }
+          if (current.idToken !== authenticatedSession.idToken) {
+            session = current;
+            continue;
           }
           set({
-            auth,
+            auth: auth!,
           });
-        } catch (refreshError) {
-          // Token already strict-expired; any refresh failure is fatal.
-          const authError = AuthError.fromError(refreshError);
-          await get().logout(authError.type);
+          return;
         }
-      } else {
-        await get().logout(AuthErrorType.InvalidToken);
+        reloadIfAuthenticated();
+      } finally {
+        if (showLoading) {
+          set({
+            isAuthLoading: false,
+          });
+        }
       }
-    }
-  },
+    }),
 
-  handleAuthCallback: async (): Promise<void> => {
-    const authError = await AuthClient.readAuthCallbackError();
-    if (authError) {
-      set({
-        authError,
-      });
-    }
-  },
-
-  loginWithRedirect: async (): Promise<void> => {
-    if (get().isLoginRedirecting) {
-      return;
-    }
-    const attempt: AuthAttempt = {
-      pendingSince: Date.now(),
-      displayMode: getDisplayMode(),
-    };
-    set({
-      authError: null,
-      isLoginRedirecting: true,
-    });
-    try {
-      await saveAuthAttempt(attempt);
-      set({
-        authAttempt: attempt,
-        authError: null,
-      });
-      AuthClient.loginWithRedirect();
-    } catch (error) {
+    loginWithRedirect: dedupeConcurrentCalls(async (): Promise<void> => {
       try {
-        await get().clearPendingAuthAttempt(attempt.pendingSince);
-      } catch {
-        // ignore
+        const verifier = randomBase64Url(32);
+        const authAttempt: AuthAttempt = {
+          pendingSince: Date.now(),
+          displayMode: getDisplayMode(),
+          verifier,
+        };
+        set({
+          authError: null,
+          authAttempt,
+        });
+        const challenge = await createSha256Base64Url(verifier);
+        await saveAuthAttempt(authAttempt);
+        AuthClient.loginWithRedirect(challenge);
+      } catch (error) {
+        await clearAuthAttempt();
+        set({
+          authError: AuthError.fromError(error, 'Login failed'),
+        });
       }
-      set({
-        authError: AuthError.fromError(error),
-      });
-    } finally {
-      set({
-        isLoginRedirecting: false,
-      });
-    }
-  },
+    }),
 
-  logout: async (error?: AuthErrorType): Promise<void> => {
-    if (logoutPromise) {
-      return logoutPromise;
-    }
-    logoutPromise = (async () => {
+    logout: dedupeConcurrentCalls(async (error?: AuthErrorType): Promise<void> => {
+      set({
+        auth: null,
+        isAuthLoading: true,
+      });
       try {
         await AuthClient.requestLogout();
-      } catch {
-        // Offline or server down - local logout still proceeds.
+        await CloudConnectionClient.clearCloudConnection();
+        if (error) {
+          const url = new URL('/logged-out', window.location.origin);
+          url.searchParams.set('error', error);
+          window.history.replaceState({}, '', url);
+        }
+        window.location.reload();
+      } finally {
+        set({
+          isAuthLoading: false,
+        });
       }
-      try {
-        await deleteAuthSession();
-      } catch (deleteError) {
-        console.error('Failed to delete auth session', deleteError);
-      }
-      if (error) {
-        const url = new URL(window.location.href);
-        url.searchParams.set('error', error);
-        window.history.replaceState({}, '', url);
-      }
-      window.location.reload();
-    })();
-    return logoutPromise;
-  },
+    }),
 
-  requestLoginEmailOtp: async (email: string): Promise<void> => {
-    if (requestLoginEmailOtpPromise) {
-      return requestLoginEmailOtpPromise;
-    }
-    requestLoginEmailOtpPromise = (async () => {
+    requestLoginEmailOtp: dedupeConcurrentCalls(async (email: string): Promise<void> => {
       set({
         isRequestLoginEmailOtpLoading: true,
         loginEmailOtpRetryAt: new Date(Date.now() + LOGIN_EMAIL_OTP_RETRY_MS),
@@ -246,177 +299,158 @@ export const createAuthSlice: StateCreator<AuthSlice & AppSlice, [], [], AuthSli
           loginEmailOtp,
         });
       } catch (error) {
-        const authError = AuthError.fromError(error);
         set({
-          authError,
+          authError: AuthError.fromError(error, 'Could not request login code'),
         });
       } finally {
         set({
           isRequestLoginEmailOtpLoading: false,
         });
       }
-    })();
-    try {
-      await requestLoginEmailOtpPromise;
-    } finally {
-      requestLoginEmailOtpPromise = null;
-    }
-  },
+    }),
 
-  verifyLoginEmailOtp: async (email: string, otp: string): Promise<AuthErrorType | null> => {
-    if (verifyLoginEmailOtpPromise) {
-      return verifyLoginEmailOtpPromise;
-    }
-    verifyLoginEmailOtpPromise = (async () => {
+    verifyLoginEmailOtp: dedupeConcurrentCalls(
+      async (email: string, otp: string): Promise<AuthErrorType | null> => {
+        set({
+          isVerifyLoginEmailOtpLoading: true,
+        });
+        try {
+          await AuthClient.verifyLoginEmailOtp(email, otp);
+          window.location.reload();
+          return null;
+        } catch (error) {
+          const authError = AuthError.fromError(error);
+          const canRetryCurrentOtp =
+            authError.type === AuthErrorType.InvalidLoginOtp ||
+            authError.type === AuthErrorType.RateLimited;
+          set({
+            authError,
+            ...(!canRetryCurrentOtp
+              ? {
+                  loginEmailOtp: null,
+                  loginEmailOtpRetryAt: null,
+                }
+              : {}),
+          });
+          return authError.type;
+        } finally {
+          set({
+            isVerifyLoginEmailOtpLoading: false,
+          });
+        }
+      }
+    ),
+
+    setLoginEmailOtpModalOpen: (open: boolean): void => {
       set({
-        isVerifyLoginEmailOtpLoading: true,
+        isLoginEmailOtpModalOpen: open,
+      });
+    },
+
+    setAuthError: (authError?: AuthError | null): void => {
+      if (!authError) {
+        return;
+      }
+      set({
+        authError,
+      });
+    },
+
+    handleAuthError: async (error: unknown, message: string): Promise<void> => {
+      if (!error) {
+        return;
+      }
+      const authError = AuthError.fromError(error, message);
+      if (TERMINAL_AUTH_ERRORS.has(authError.type)) {
+        await get().logout(authError.type);
+        return;
+      }
+      set({
+        authError,
+      });
+    },
+
+    clearAuthError: (): void => {
+      set({
+        authError: null,
+      });
+    },
+
+    clearAuthNotice: (): void => {
+      set({
+        authNotice: null,
+      });
+    },
+
+    reconcileAuthAttempt: async (): Promise<void> => {
+      const session = await getAuthSession();
+      const authAttempt = (await getAuthAttempt()) ?? null;
+      set({
+        authAttempt,
+      });
+      const {auth, authError} = get();
+      if (session) {
+        if (
+          authAttempt &&
+          auth &&
+          authAttempt.displayMode !== DisplayMode.BROWSER &&
+          getDisplayMode() === DisplayMode.BROWSER
+        ) {
+          set({
+            authNotice: AuthNoticeType.LoginCompletedInBrowser,
+          });
+        }
+        if (authAttempt) {
+          await clearAuthAttempt();
+        } else {
+          clearAuthAttemptTimeout();
+        }
+        if (!auth) {
+          window.location.reload();
+        }
+        return;
+      }
+      if (!authAttempt) {
+        clearAuthAttemptTimeout();
+        return;
+      }
+      if (auth || authError) {
+        await clearAuthAttempt();
+        return;
+      }
+      if (Date.now() - authAttempt.pendingSince >= AUTH_ATTEMPT_TIMEOUT_MS) {
+        await clearAuthAttempt();
+        set({
+          authError: new AuthError(AuthErrorType.LoginResultMissing, 'Login result missing'),
+        });
+        return;
+      }
+      clearAuthAttemptTimeout();
+      const remaining = authAttempt.pendingSince + AUTH_ATTEMPT_TIMEOUT_MS - Date.now();
+      authAttemptTimeoutId = setTimeout(() => {
+        authAttemptTimeoutId = undefined;
+        void get().reconcileAuthAttempt();
+      }, remaining);
+    },
+
+    deleteAccount: dedupeConcurrentCalls(async (): Promise<void> => {
+      set({
+        isAccountDeleting: true,
       });
       try {
-        await AuthClient.verifyLoginEmailOtp(email, otp);
-        window.location.reload();
-        return null;
-      } catch (error) {
-        const authError = AuthError.fromError(error);
-        set({
-          authError,
-          ...(authError.type === AuthErrorType.LoginOtpMaxAttemptsExceeded
-            ? {
-                loginEmailOtp: null,
-                loginEmailOtpRetryAt: null,
-              }
-            : {}),
-        });
-        return authError.type;
+        await get().disconnectCloud(true);
+        try {
+          await AuthClient.deleteAccount();
+        } catch (error) {
+          await get().handleAuthError(error, 'Could not delete account');
+          return;
+        }
+        await get().logout();
       } finally {
         set({
-          isVerifyLoginEmailOtpLoading: false,
+          isAccountDeleting: false,
         });
       }
-    })();
-    try {
-      return await verifyLoginEmailOtpPromise;
-    } finally {
-      verifyLoginEmailOtpPromise = null;
-    }
-  },
-
-  loadLoginLink: async (): Promise<boolean> => {
-    if (loginLinkPromise) {
-      return loginLinkPromise;
-    }
-    const {loginLink} = get();
-    if (loginLink && new Date() < loginLink.expiresAt) {
-      return true;
-    }
-    loginLinkPromise = (async () => {
-      set({
-        isLoginLinkLoading: true,
-      });
-      try {
-        const newLoginLink = await AuthClient.requestLoginLink();
-        set({
-          loginLink: newLoginLink,
-        });
-        return true;
-      } catch (error) {
-        const authError = AuthError.fromError(error);
-        set({
-          authError,
-          loginLink: null,
-        });
-        return false;
-      } finally {
-        set({
-          isLoginLinkLoading: false,
-        });
-      }
-    })();
-    try {
-      return await loginLinkPromise;
-    } finally {
-      loginLinkPromise = null;
-    }
-  },
-
-  setLoginEmailOtpModalOpen: (open: boolean): void => {
-    set({
-      isLoginEmailOtpModalOpen: open,
-    });
-  },
-
-  setLoginQRModalOpen: (open: boolean): void => {
-    set({
-      isLoginQRModalOpen: open,
-    });
-  },
-
-  clearAuthError: (): void => {
-    set({
-      authError: null,
-    });
-  },
-
-  clearAuthNotice: (): void => {
-    set({
-      authNotice: null,
-    });
-  },
-
-  completeAuthAttempt: async (): Promise<void> => {
-    const authAttempt = await get().loadAuthAttempt();
-    const {auth, authError} = get();
-    if (authAttempt && (auth || authError)) {
-      if (
-        auth &&
-        authAttempt.displayMode !== DisplayMode.BROWSER &&
-        getDisplayMode() === DisplayMode.BROWSER
-      ) {
-        set({
-          authNotice: AuthNoticeType.LoginCompletedInBrowser,
-        });
-      }
-      await get().clearPendingAuthAttempt(authAttempt.pendingSince);
-    }
-  },
-
-  loadAuthAttempt: async (): Promise<AuthAttempt | null> => {
-    const authAttempt = (await getAuthAttempt()) ?? null;
-    set({
-      authAttempt,
-    });
-    return authAttempt;
-  },
-
-  clearPendingAuthAttempt: async (pendingSince: number): Promise<boolean> => {
-    const cleared = await deleteAuthAttemptIfPendingSince(pendingSince);
-    const storedAuthAttempt = (await getAuthAttempt()) ?? null;
-    set(state => {
-      const localAuthAttempt = state.authAttempt;
-      if (localAuthAttempt?.pendingSince !== pendingSince) {
-        return {};
-      }
-      return {
-        authAttempt: storedAuthAttempt,
-      };
-    });
-    return cleared;
-  },
-
-  failPendingAuthAttempt: async (pendingSince: number): Promise<void> => {
-    const cleared = await get().clearPendingAuthAttempt(pendingSince);
-    if (!cleared) {
-      return;
-    }
-    set(state => {
-      if (state.authAttempt) {
-        return {};
-      }
-      if (state.isLoginRedirecting) {
-        return {};
-      }
-      return {
-        authError: new AuthError(AuthErrorType.LoginResultMissing, 'Login result missing'),
-      };
-    });
-  },
-});
+    }),
+  };
+};

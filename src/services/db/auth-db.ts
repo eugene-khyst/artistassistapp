@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {AuthAttempt, AuthErrorData, AuthSession} from '@/services/auth/types';
+import type {AuthAttempt, AuthSession} from '@/services/auth/types';
 
 import {dbPromise} from './db';
 
@@ -32,38 +32,30 @@ export async function saveAuthAttempt(attempt: AuthAttempt): Promise<void> {
   await db.put('auth-attempt', attempt, KEY);
 }
 
-export async function deleteAuthAttemptIfPendingSince(pendingSince: number): Promise<boolean> {
+export async function deleteAuthAttempt(): Promise<void> {
   const db = await dbPromise;
-  const tx = db.transaction('auth-attempt', 'readwrite');
-  const attempt = await tx.store.get(KEY);
-  if (attempt?.pendingSince !== pendingSince) {
-    await tx.done;
-    return false;
-  }
-  await tx.store.delete(KEY);
-  await tx.done;
-  return true;
-}
-
-export async function saveAuthErrorData(data: AuthErrorData): Promise<void> {
-  const db = await dbPromise;
-  await db.put('auth-error', data, KEY);
-}
-
-export async function getAndDeleteAuthErrorData(): Promise<AuthErrorData | undefined> {
-  const db = await dbPromise;
-  const tx = db.transaction('auth-error', 'readwrite');
-  const data = await tx.store.get(KEY);
-  if (data) {
-    await tx.store.delete(KEY);
-  }
-  await tx.done;
-  return data;
+  await db.delete('auth-attempt', KEY);
 }
 
 export async function saveAuthSession(session: AuthSession): Promise<void> {
   const db = await dbPromise;
   await db.put('auth-session', session, KEY);
+}
+
+export async function saveAuthSessionIfUnchanged(
+  idToken: string,
+  session: AuthSession
+): Promise<AuthSession | undefined> {
+  const db = await dbPromise;
+  const tx = db.transaction('auth-session', 'readwrite');
+  const current = await tx.store.get(KEY);
+  if (current?.idToken !== idToken) {
+    await tx.done;
+    return current;
+  }
+  await tx.store.put(session, KEY);
+  await tx.done;
+  return session;
 }
 
 export async function getAuthSession(): Promise<AuthSession | undefined> {

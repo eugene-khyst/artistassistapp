@@ -17,7 +17,7 @@
  */
 
 import {PlusOutlined} from '@ant-design/icons';
-import {Trans, useLingui} from '@lingui/react/macro';
+import {Trans} from '@lingui/react/macro';
 import type {SelectProps} from 'antd';
 import {Button, Grid, Select, Space, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
@@ -71,20 +71,18 @@ export function CustomColorBrandSelect({
 }: Readonly<Props>) {
   const screens = Grid.useBreakpoint();
 
-  const {t} = useLingui();
-
   const options = useMemo(() => getCustomColorBrandOptions(customColorBrands), [customColorBrands]);
 
   return (
     <Space.Compact block>
       <Select
         options={options}
-        placeholder={t`Select from your recent brands`}
+        placeholder={<Trans>Select from your recent brands</Trans>}
         showSearch={showSearch}
         {...rest}
       />
       <Button icon={<PlusOutlined />} onClick={onCreateNewClick}>
-        {screens.sm && t`Create new`}
+        {screens.sm && <Trans>Create new</Trans>}
       </Button>
     </Space.Compact>
   );

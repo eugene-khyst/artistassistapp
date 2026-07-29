@@ -27,7 +27,7 @@ import {
   QuestionCircleOutlined,
   RotateRightOutlined,
 } from '@ant-design/icons';
-import {Trans, useLingui} from '@lingui/react/macro';
+import {Trans} from '@lingui/react/macro';
 import {App, Button, Dropdown, Flex, Grid, Space, Tooltip, Typography} from 'antd';
 import type {MenuProps} from 'antd/lib';
 import {saveAs} from 'file-saver';
@@ -35,17 +35,17 @@ import {useCallback, useEffect, useState} from 'react';
 
 import {FileSelect} from '@/components/file/FileSelect';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {useErrorNotification} from '@/hooks/useErrorNotification';
 import {useOnnxModel} from '@/hooks/useOnnxModel';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
 import {ImageCroppingCanvas} from '@/services/canvas/image/image-cropping-canvas';
 import {ImagePerspectiveCorrectionCanvas} from '@/services/canvas/image/image-perspective-correction-canvas';
-import type {Rectangle, Vector} from '@/services/math/geometry';
+import type {Rectangle} from '@/services/math/geometry';
 import {OnnxModelType} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
 import {TabKey} from '@/tabs';
 import {getFilename} from '@/utils/filename';
 import {DrawImage, imageBitmapToBlob} from '@/utils/graphics';
-import {isAbortError} from '@/utils/promise';
 
 import styles from './ImagePerspectiveCorrection.module.css';
 
@@ -87,8 +87,6 @@ export function ImagePerspectiveCorrection() {
 
   const {notification} = App.useApp();
 
-  const {t} = useLingui();
-
   const [cropRectangle, setCropRectangle] = useState<Rectangle | null>(null);
 
   const imageCroppingCanvasSupplier = useCallback(
@@ -119,16 +117,9 @@ export function ImagePerspectiveCorrection() {
   const isLoading: boolean =
     isModelLoading || isPerspectiveAutoDetectLoading || isPerspectiveCorrectedImageLoading;
 
-  useEffect(() => {
-    if (isModelError) {
-      notification.error({
-        title: t`Error while fetching ML model data`,
-        placement: 'top',
-        duration: 10,
-        showProgress: true,
-      });
-    }
-  }, [isModelError, notification, t]);
+  const isCancelable: boolean = isPerspectiveAutoDetectLoading;
+
+  useErrorNotification(isModelError, <Trans>Error while fetching ML model data</Trans>);
 
   useEffect(() => {
     setPerspectiveCorrectionModel(model);
@@ -144,7 +135,7 @@ export function ImagePerspectiveCorrection() {
       imagePerspectiveCorrectionCanvas.getVertices().length < 4
     ) {
       notification.error({
-        title: t`Select 4 points to correct perspective distortion`,
+        title: <Trans>Select 4 points to correct perspective distortion</Trans>,
         placement: 'top',
         duration: 10,
         showProgress: true,
@@ -158,19 +149,14 @@ export function ImagePerspectiveCorrection() {
     if (!imagePerspectiveCorrectionCanvas) {
       return;
     }
-    let vertices: Vector[] | null;
-    try {
-      vertices = await autoDetectPerspectiveVertices();
-    } catch (error) {
-      if (isAbortError(error)) {
-        return;
-      }
-      throw error;
+    const vertices = await autoDetectPerspectiveVertices();
+    if (vertices === undefined) {
+      return;
     }
     if (!vertices) {
       notification.error({
-        title: t`Could not detect the paper or canvas automatically`,
-        description: t`Adjust the 4 points manually.`,
+        title: <Trans>Could not detect the paper or canvas automatically</Trans>,
+        description: <Trans>Adjust the 4 points manually.</Trans>,
         placement: 'top',
         duration: 10,
         showProgress: true,
@@ -232,7 +218,7 @@ export function ImagePerspectiveCorrection() {
       ? [
           {
             key: 'save-4:5',
-            label: t`Save expanded to 4:5`,
+            label: <Trans>Save expanded to 4:5</Trans>,
             icon: <DownloadOutlined />,
             onClick: () => {
               void handleSaveClick(4 / 5);
@@ -244,7 +230,7 @@ export function ImagePerspectiveCorrection() {
       ? [
           {
             key: 'save-1.91:1',
-            label: t`Save expanded to 1.91:1`,
+            label: <Trans>Save expanded to 1.91:1</Trans>,
             icon: <DownloadOutlined />,
             onClick: () => {
               void handleSaveClick(1.91 / 1);
@@ -257,8 +243,8 @@ export function ImagePerspectiveCorrection() {
   return (
     <LoadingIndicator
       loading={isLoading}
-      downloadTip={perspectiveAutoDetectDownloadTip}
-      onCancel={handleCancelClick}
+      tip={perspectiveAutoDetectDownloadTip}
+      onCancel={isCancelable && handleCancelClick}
     >
       <Flex vertical gap="small" className="u-tab-toolbar">
         <Space align="center" size={4}>
@@ -266,7 +252,13 @@ export function ImagePerspectiveCorrection() {
             <Trans>Select a photo to correct the perspective</Trans>
           </Typography.Text>
           <Tooltip
-            title={t`Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image.`}
+            title={
+              <Trans>
+                Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4
+                points to correct perspective distortion, then optionally drag margins to crop the
+                image.
+              </Trans>
+            }
           >
             <QuestionCircleOutlined className="u-help-icon" />
           </Tooltip>
@@ -278,31 +270,31 @@ export function ImagePerspectiveCorrection() {
           {perspectiveUncorrectedImage && (
             <>
               {!perspectiveCorrectedImage && (
-                <>
-                  <Button
-                    icon={<AimOutlined />}
-                    loading={isPerspectiveAutoDetectLoading}
-                    onClick={() => {
-                      void handleAutoDetectClick();
-                    }}
-                  >
-                    <Trans>Auto-detect</Trans>
-                  </Button>
-                  <Button icon={<CheckOutlined />} onClick={handleApplyClick}>
-                    <Trans>Apply</Trans>
-                  </Button>
-                </>
+                <Button icon={<CheckOutlined />} onClick={handleApplyClick}>
+                  <Trans>Apply</Trans>
+                </Button>
               )}
               {screens.sm ? (
                 <>
+                  {!perspectiveCorrectedImage && (
+                    <>
+                      <Button
+                        icon={<AimOutlined />}
+                        loading={isPerspectiveAutoDetectLoading}
+                        onClick={() => {
+                          void handleAutoDetectClick();
+                        }}
+                      >
+                        <Trans>Auto-detect</Trans>
+                      </Button>
+                      <Button icon={<RotateRightOutlined />} onClick={handleRotateClick}>
+                        <Trans>Rotate</Trans>
+                      </Button>
+                    </>
+                  )}
                   <Button icon={<CloseOutlined />} onClick={handleResetClick}>
                     <Trans>Reset</Trans>
                   </Button>
-                  {!perspectiveCorrectedImage && (
-                    <Button icon={<RotateRightOutlined />} onClick={handleRotateClick}>
-                      <Trans>Rotate</Trans>
-                    </Button>
-                  )}
                   {perspectiveCorrectedImage && (
                     <>
                       <Space.Compact>
@@ -336,9 +328,27 @@ export function ImagePerspectiveCorrection() {
                   trigger={['click']}
                   menu={{
                     items: [
+                      ...(!perspectiveCorrectedImage
+                        ? [
+                            {
+                              key: 'auto-detect',
+                              label: <Trans>Auto-detect</Trans>,
+                              icon: <AimOutlined />,
+                              onClick: () => {
+                                void handleAutoDetectClick();
+                              },
+                            },
+                            {
+                              key: 'rotate',
+                              label: <Trans>Rotate</Trans>,
+                              icon: <RotateRightOutlined />,
+                              onClick: handleRotateClick,
+                            },
+                          ]
+                        : []),
                       {
                         key: 'reset',
-                        label: t`Reset`,
+                        label: <Trans>Reset</Trans>,
                         icon: <CloseOutlined />,
                         onClick: handleResetClick,
                       },
@@ -346,7 +356,7 @@ export function ImagePerspectiveCorrection() {
                         ? [
                             {
                               key: 'save',
-                              label: t`Save`,
+                              label: <Trans>Save</Trans>,
                               icon: <DownloadOutlined />,
                               onClick: () => {
                                 void handleSaveClick();
@@ -355,29 +365,14 @@ export function ImagePerspectiveCorrection() {
                             ...saveItems,
                             {
                               key: 'adjust-colors',
-                              label: t`Adjust colors`,
+                              label: <Trans>Adjust colors</Trans>,
                               icon: <BarChartOutlined />,
                               onClick: () => {
                                 void handleAdjustColorsClick();
                               },
                             },
                           ]
-                        : [
-                            {
-                              key: 'auto-detect',
-                              label: t`Auto-detect`,
-                              icon: <AimOutlined />,
-                              onClick: () => {
-                                void handleAutoDetectClick();
-                              },
-                            },
-                            {
-                              key: 'rotate',
-                              label: t`Rotate`,
-                              icon: <RotateRightOutlined />,
-                              onClick: handleRotateClick,
-                            },
-                          ]),
+                        : []),
                     ],
                   }}
                 >

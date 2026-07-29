@@ -17,7 +17,7 @@
  */
 
 import {PrinterOutlined, QuestionCircleOutlined} from '@ant-design/icons';
-import {Trans, useLingui} from '@lingui/react/macro';
+import {Trans} from '@lingui/react/macro';
 import {Button, Col, Flex, Row, Space, Tooltip, Typography} from 'antd';
 import type {RefObject} from 'react';
 import {useEffect, useRef} from 'react';
@@ -55,8 +55,6 @@ export function ImagesCompare() {
   const addPlayer = useAppStore(state => state.addPlayer);
   const setScore = useAppStore(state => state.setScore);
   const newTournament = useAppStore(state => state.newTournament);
-
-  const {t} = useLingui();
 
   const player1Ref = useRef<HTMLDivElement>(null);
   const player2Ref = useRef<HTMLDivElement>(null);
@@ -96,7 +94,12 @@ export function ImagesCompare() {
           <Trans>Select photos to rank using pairwise comparison</Trans>
         </Typography.Text>
         <Tooltip
-          title={t`It can be difficult to choose between multiple photos. Comparing each photo with others in pairs simplifies the choice and helps to identify the most preferred one.`}
+          title={
+            <Trans>
+              It can be difficult to choose between multiple photos. Comparing each photo with
+              others in pairs simplifies the choice and helps to identify the most preferred one.
+            </Trans>
+          }
         >
           <QuestionCircleOutlined className="u-help-icon" />
         </Tooltip>
@@ -109,7 +112,7 @@ export function ImagesCompare() {
           multiple
           onChange={handleFileChange}
         >
-          {isNew ? t`Select photos` : t`Add photos`}
+          {isNew ? <Trans>Select photos</Trans> : <Trans>Add photos</Trans>}
         </FileSelect>
         {!isNew && (
           <Button
@@ -132,7 +135,7 @@ export function ImagesCompare() {
               <ImageCard
                 ref={player1Ref}
                 file={nextGame.player1.data}
-                description={t`Rating: ${player1RatingText}`}
+                description={<Trans>Rating: {player1RatingText}</Trans>}
                 onClick={() => {
                   handlePlayerClick([1, 0]);
                 }}
@@ -143,7 +146,7 @@ export function ImagesCompare() {
               <ImageCard
                 ref={player2Ref}
                 file={nextGame.player2.data}
-                description={t`Rating: ${player2RatingText}`}
+                description={<Trans>Rating: {player2RatingText}</Trans>}
                 onClick={() => {
                   handlePlayerClick([0, 1]);
                 }}

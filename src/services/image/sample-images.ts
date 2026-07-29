@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DATA_URL} from '@/config';
+import {DATA_METADATA_TIMEOUT_MS, DATA_URL} from '@/config';
 import {fetchSWR} from '@/utils/fetch';
 
 export interface SampleImageDefinition {
@@ -26,6 +26,10 @@ export interface SampleImageDefinition {
 }
 
 export async function fetchSampleImages(): Promise<SampleImageDefinition[]> {
-  const response = await fetchSWR(`${DATA_URL}/reference-photos.json`);
+  const response = await fetchSWR(
+    new Request(`${DATA_URL}/reference-photos.json`, {
+      signal: AbortSignal.timeout(DATA_METADATA_TIMEOUT_MS),
+    })
+  );
   return (await response.json()) as SampleImageDefinition[];
 }

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Space} from 'antd';
+import {Flex} from 'antd';
 import {useMemo} from 'react';
 
 import {PaletteColorMixtureCard} from '@/components/color/PaletteColorMixtureCard';
@@ -66,7 +66,7 @@ export function SimilarColorsList({sort, onReflectanceChartClick}: Readonly<Prop
     return <EmptyTargetColor />;
   }
   return (
-    <Space orientation="vertical" className="u-w-100">
+    <Flex vertical gap="small" className="u-w-100">
       {[...selectedPaletteColorMixtures.values()].map(colorMixture => (
         <PaletteColorMixtureCard
           key={`selected-${colorMixture.key}`}
@@ -87,6 +87,6 @@ export function SimilarColorsList({sort, onReflectanceChartClick}: Readonly<Prop
           />
         ))
       )}
-    </Space>
+    </Flex>
   );
 }

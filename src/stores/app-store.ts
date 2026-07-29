@@ -21,6 +21,7 @@ import {subscribeWithSelector} from 'zustand/middleware';
 
 import type {AuthSlice} from '@/stores/auth-slice';
 import {createAuthSlice} from '@/stores/auth-slice';
+import {type CloudSlice, createCloudSlice} from '@/stores/cloud-slice';
 import {
   type ColorMatchImageSlice,
   createColorMatchImageSlice,
@@ -64,6 +65,7 @@ export const useAppStore = create<
   PwaSlice &
     LocaleSlice &
     AuthSlice &
+    CloudSlice &
     TabSlice &
     ColorSetSlice &
     ColorMixerSlice &
@@ -89,6 +91,7 @@ export const useAppStore = create<
     ...createPwaSlice(...a),
     ...createLocaleSlice(...a),
     ...createAuthSlice(...a),
+    ...createCloudSlice(...a),
     ...createTabSlice(...a),
     ...createColorSetSlice(...a),
     ...createColorMixerSlice(...a),

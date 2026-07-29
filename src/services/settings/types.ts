@@ -17,7 +17,7 @@
  */
 
 import type {Locale} from '@/i18n';
-import type {ImageFile} from '@/services/image/image-file';
+import {PAPER_WHITE_HEX} from '@/services/color/color-mixer';
 import type {TabKey} from '@/tabs';
 
 export enum ColorPickerSort {
@@ -51,7 +51,11 @@ export interface AppSettings {
   outlineModel?: string | null;
   backgroundRemovalModel?: string;
   styleTransferModel?: string;
-  styleTransferImage?: ImageFile;
-  autoSavingColorSetsJson: boolean;
-  latestColorSetsJsonHash?: string;
+  styleTransferImageDigest?: string;
 }
+
+export const DEFAULT_APP_SETTINGS: AppSettings = {
+  colorPickerSurfaceHex: PAPER_WHITE_HEX,
+  colorPickerLayeringEnabled: true,
+  colorPickerSort: ColorPickerSort.BySimilarity,
+};

@@ -87,19 +87,21 @@ export interface ColorDefinition {
   warmth?: number;
 }
 
-export type ColorDefinitionSource = Omit<ColorDefinition, 'rho'> &
-  Partial<Pick<ColorDefinition, 'rho'>>;
-
 export interface CustomColorBrandDefinition {
   id?: number;
   type?: ColorType;
   name?: string;
-  colors?: ColorDefinitionSource[];
+  colors?: ColorDefinition[];
   date?: Date;
 }
 
+export type CustomColorBrandSource = Omit<CustomColorBrandDefinition, 'date' | 'colors'> & {
+  colors?: Omit<ColorDefinition, 'rho'>[];
+};
+
 export const NEW_COLOR_SET = 0;
 export const CUSTOM_COLOR_SET = [0] as const;
+export const NEW_CUSTOM_COLOR_BRAND = 0;
 
 export interface ColorSetDefinition {
   id?: number;
@@ -147,20 +149,6 @@ export interface ColorMixingConfig {
   layering: Layering;
 }
 
-export interface ColorMixturePartDefinition {
-  brand: number;
-  id: number;
-  part: number;
-}
-
-export interface ColorMixtureDefinition {
-  type: ColorType;
-  name: string | null;
-  parts: ColorMixturePartDefinition[];
-  consistency: Fraction;
-  background: RgbTuple | null;
-}
-
 export interface ColorMixturePart {
   color: Color;
   part: number;
@@ -194,9 +182,4 @@ export interface ColorMixture {
 export interface SimilarColor {
   colorMixture: ColorMixture;
   similarity: number;
-}
-
-export enum FileExtension {
-  ColorSet = '.clrs',
-  CustomColorBrand = '.clrb',
 }

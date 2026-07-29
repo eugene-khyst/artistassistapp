@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {useLingui} from '@lingui/react/macro';
+import {Trans, useLingui} from '@lingui/react/macro';
 import type {SelectProps} from 'antd';
 import {Select} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
@@ -35,5 +35,5 @@ export function ColorTypeSelect(props: Readonly<Props>) {
     label: t(COLOR_TYPE_LABELS[colorType]),
   }));
 
-  return <Select options={options} placeholder={t`Select art medium`} {...props} />;
+  return <Select options={options} placeholder={<Trans>Select art medium</Trans>} {...props} />;
 }

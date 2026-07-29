@@ -54,7 +54,7 @@ interface Props {
 export function WarmthIcon({warmth}: Readonly<Props>) {
   const {t} = useLingui();
   if (!warmth) {
-    return <></>;
+    return null;
   }
   const {tooltip, icon} = WARMTH[warmth];
   return <Tooltip title={t(tooltip)}>{icon}</Tooltip>;

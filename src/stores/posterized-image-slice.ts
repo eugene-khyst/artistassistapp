@@ -21,13 +21,12 @@ import type {StateCreator} from 'zustand';
 
 import {blobToImageFile, type ImageFile} from '@/services/image/image-file';
 import {colorQuantizationWorker} from '@/services/image/worker/color-quantization-worker-manager';
-import type {OriginalImageSlice} from '@/stores/original-image-slice';
+import {type OriginalImageSlice, registerProcessedImage} from '@/stores/original-image-slice';
+import {createAbortableOperation} from '@/utils/abortable-operation';
 import {IMAGE_SIZE, imageBitmapToBlob, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
-import {isAbortError} from '@/utils/promise';
 
 export interface PosterizedImageSlice {
   isPosterizedImageLoading: boolean;
-  posterizeImageAbortController: AbortController | null;
 
   posterizeImage: (maxColors: number) => Promise<void>;
   abortPosterizeImage: () => void;
@@ -38,53 +37,57 @@ export const createPosterizedImageSlice: StateCreator<
   [],
   [],
   PosterizedImageSlice
-> = (set, get) => ({
-  isPosterizedImageLoading: false,
-  posterizeImageAbortController: null,
+> = (set, get) => {
+  const posterizeImageOperation = createAbortableOperation({
+    onStart: () => {
+      set({
+        isPosterizedImageLoading: true,
+      });
+    },
+    onFinish: () => {
+      set({
+        isPosterizedImageLoading: false,
+      });
+    },
+  });
 
-  posterizeImage: async (maxColors: number): Promise<void> => {
-    get().abortPosterizeImage();
-    const {imageFile, originalImage} = get();
-    if (!imageFile || !originalImage) {
-      return;
-    }
-    const posterizeImageAbortController = new AbortController();
-    set({
-      isPosterizedImageLoading: true,
-      posterizeImageAbortController,
-    });
-    try {
-      const resizedImage = await resizeImageBitmap(
-        originalImage,
-        ResizeImage.resizeToPixelCount(IMAGE_SIZE.SD)
-      );
-      const {quantizedImage} = await colorQuantizationWorker.run(
-        worker => worker.getPosterizedImage(transfer(resizedImage, [resizedImage]), maxColors),
-        posterizeImageAbortController.signal
-      );
-      const posterizedImageFile: ImageFile = await blobToImageFile(
-        await imageBitmapToBlob(quantizedImage, {encodeOptions: {type: 'image/png'}}),
-        `${imageFile.name ?? ''} ${maxColors} colors`.trim()
-      );
-      posterizedImageFile.maxColors = maxColors;
-      quantizedImage.close();
-      await get().saveRecentImageFile(posterizedImageFile);
-    } catch (error) {
-      if (isAbortError(error)) {
+  registerProcessedImage({
+    abort: () => {
+      posterizeImageOperation.abort();
+    },
+  });
+
+  return {
+    isPosterizedImageLoading: false,
+
+    posterizeImage: async (maxColors: number): Promise<void> => {
+      get().abortPosterizeImage();
+      const {selectedImageFile, originalImage} = get();
+      if (!selectedImageFile || !originalImage) {
         return;
       }
-      throw error;
-    } finally {
-      if (get().posterizeImageAbortController === posterizeImageAbortController) {
-        set({
-          isPosterizedImageLoading: false,
-          posterizeImageAbortController: null,
-        });
-      }
-    }
-  },
+      await posterizeImageOperation.run(async signal => {
+        const resizedImage = await resizeImageBitmap(
+          originalImage,
+          ResizeImage.resizeToPixelCount(IMAGE_SIZE.SD)
+        );
+        const {quantizedImage} = await colorQuantizationWorker.run(
+          worker => worker.getPosterizedImage(transfer(resizedImage, [resizedImage]), maxColors),
+          signal
+        );
+        const posterizedImageFile: ImageFile = await blobToImageFile(
+          await imageBitmapToBlob(quantizedImage, {encodeOptions: {type: 'image/png'}}),
+          `${selectedImageFile.name ?? ''} ${maxColors} colors`.trim()
+        );
+        posterizedImageFile.maxColors = maxColors;
+        quantizedImage.close();
+        signal.throwIfAborted();
+        await get().saveRecentImageFile(posterizedImageFile);
+      });
+    },
 
-  abortPosterizeImage: (): void => {
-    get().posterizeImageAbortController?.abort();
-  },
-});
+    abortPosterizeImage: (): void => {
+      posterizeImageOperation.abort();
+    },
+  };
+};

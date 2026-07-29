@@ -285,7 +285,7 @@ export function ImageColorAdjustment() {
       ? [
           {
             key: 'save-4:5',
-            label: t`Save expanded to 4:5`,
+            label: <Trans>Save expanded to 4:5</Trans>,
             icon: <DownloadOutlined />,
             onClick: () => {
               void handleSaveClick(4 / 5);
@@ -297,7 +297,7 @@ export function ImageColorAdjustment() {
       ? [
           {
             key: 'save-1.91:1',
-            label: t`Save expanded to 1.91:1`,
+            label: <Trans>Save expanded to 1.91:1</Trans>,
             icon: <DownloadOutlined />,
             onClick: () => {
               void handleSaveClick(1.91 / 1);
@@ -310,11 +310,11 @@ export function ImageColorAdjustment() {
   const modeOptions: CheckboxOptionType<number>[] = [
     {
       value: WhiteBalanceMethod.Percentile,
-      label: t`Percentile`,
+      label: <Trans>Percentile</Trans>,
     },
     {
       value: WhiteBalanceMethod.Reference,
-      label: t`Reference`,
+      label: <Trans>Reference</Trans>,
     },
   ];
 
@@ -374,14 +374,23 @@ export function ImageColorAdjustment() {
                   </Button>
                 </Space>
 
-                <Form.Item label={t`Preview`} labelCol={{className: 'u-pb-0'}} className="u-mb-0">
+                <Form.Item
+                  label={<Trans>Preview</Trans>}
+                  labelCol={{className: 'u-pb-0'}}
+                  className="u-mb-0"
+                >
                   <Checkbox checked={isPreview} onChange={handlePreviewChange} />
                 </Form.Item>
 
                 <Form.Item
-                  label={t`White balance`}
+                  label={<Trans>White balance</Trans>}
                   labelCol={{className: 'u-pb-0'}}
-                  tooltip={t`Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area.`}
+                  tooltip={
+                    <Trans>
+                      Percentile: Auto white balance from brightest areas, good for most photos.
+                      Reference: Manual white balance using selected white area.
+                    </Trans>
+                  }
                   className="u-mb-0"
                 >
                   <Radio.Group
@@ -396,9 +405,11 @@ export function ImageColorAdjustment() {
                 {method === WhiteBalanceMethod.Percentile && (
                   <Form.Item
                     layout="vertical"
-                    label={t`Percentile`}
+                    label={<Trans>Percentile</Trans>}
                     labelCol={{className: 'u-pb-0'}}
-                    tooltip={`Smaller percentile values correspond to stronger whitening`}
+                    tooltip={
+                      <Trans>Smaller percentile values correspond to stronger whitening</Trans>
+                    }
                     className="u-mb-0"
                   >
                     <Slider
@@ -422,9 +433,9 @@ export function ImageColorAdjustment() {
                     </Typography.Text>
 
                     <Form.Item
-                      label={t`White point`}
+                      label={<Trans>White point</Trans>}
                       labelCol={{className: 'u-pb-0'}}
-                      tooltip={t`Average color of the white point area`}
+                      tooltip={<Trans>Average color of the white point area</Trans>}
                       className="u-mb-0"
                     >
                       <ColorPicker
@@ -432,7 +443,7 @@ export function ImageColorAdjustment() {
                         value={whitePoint}
                         presets={[
                           {
-                            label: t`White`,
+                            label: <Trans>White</Trans>,
                             colors: ['#fff'],
                           },
                         ]}
@@ -448,9 +459,14 @@ export function ImageColorAdjustment() {
 
                 <Form.Item
                   layout="vertical"
-                  label={t`Saturation (%)`}
+                  label={<Trans>Saturation (%)</Trans>}
                   labelCol={{className: 'u-pb-0'}}
-                  tooltip={t`A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful`}
+                  tooltip={
+                    <Trans>
+                      A value less than 100% makes the image look less colorful, and a value greater
+                      than 100% makes it look too colorful
+                    </Trans>
+                  }
                   className="u-mb-0"
                 >
                   <Slider
@@ -466,9 +482,9 @@ export function ImageColorAdjustment() {
 
                 <Form.Item
                   layout="vertical"
-                  label={t`Shadows and highlights`}
+                  label={<Trans>Shadows and highlights</Trans>}
                   labelCol={{className: 'u-pb-0'}}
-                  tooltip={t`Low input and high input`}
+                  tooltip={<Trans>Low input and high input</Trans>}
                   className="u-mb-0"
                 >
                   <Slider
@@ -493,9 +509,9 @@ export function ImageColorAdjustment() {
 
                 <Form.Item
                   layout="vertical"
-                  label={t`Midtones`}
+                  label={<Trans>Midtones</Trans>}
                   labelCol={{className: 'u-pb-0'}}
-                  tooltip={t`Gamma`}
+                  tooltip={<Trans>Gamma</Trans>}
                   className="u-mb-0"
                 >
                   <Slider
@@ -515,9 +531,9 @@ export function ImageColorAdjustment() {
 
                 <Form.Item
                   layout="vertical"
-                  label={t`Output levels`}
+                  label={<Trans>Output levels</Trans>}
                   labelCol={{className: 'u-pb-0'}}
-                  tooltip={t`Low output and high output`}
+                  tooltip={<Trans>Low output and high output</Trans>}
                   className="u-mb-0"
                 >
                   <Slider
@@ -542,9 +558,13 @@ export function ImageColorAdjustment() {
 
                 <Form.Item
                   layout="vertical"
-                  label={t`Original color temperature (K)`}
+                  label={<Trans>Original color temperature (K)</Trans>}
                   labelCol={{className: 'u-pb-0'}}
-                  tooltip={t`Estimated temperature of the light source in Kelvin the image was taken with`}
+                  tooltip={
+                    <Trans>
+                      Estimated temperature of the light source in Kelvin the image was taken with
+                    </Trans>
+                  }
                   className="u-mb-0"
                 >
                   <Slider
@@ -572,9 +592,13 @@ export function ImageColorAdjustment() {
 
                 <Form.Item
                   layout="vertical"
-                  label={t`Intended color temperature (K)`}
+                  label={<Trans>Intended color temperature (K)</Trans>}
                   labelCol={{className: 'u-pb-0'}}
-                  tooltip={t`Corrected estimation of the temperature of the light source in Kelvin`}
+                  tooltip={
+                    <Trans>
+                      Corrected estimation of the temperature of the light source in Kelvin
+                    </Trans>
+                  }
                   className="u-mb-0"
                 >
                   <Slider

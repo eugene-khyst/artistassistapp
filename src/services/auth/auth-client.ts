@@ -17,32 +17,38 @@
  */
 
 import type {JWK, JWTVerifyGetKey} from 'jose';
-import {createLocalJWKSet, jwtVerify} from 'jose';
+import {createLocalJWKSet, decodeJwt, jwtVerify} from 'jose';
 
 import {APP_URL, AUTH_URL, PUBLIC_JWK} from '@/config';
 import type {
   Authentication,
-  AuthErrorData,
-  AuthErrorResponse,
   AuthSession,
   AuthTokenResponse,
   Expirable,
-  ExpirableResponse,
-  LoginLink,
-  LoginLinkResponse,
 } from '@/services/auth/types';
-import {AuthError, AuthErrorType} from '@/services/auth/types';
-import {toAuthErrorType} from '@/services/auth/utils';
-import {getAndDeleteAuthErrorData, getAuthSession, saveAuthSession} from '@/services/db/auth-db';
+import type {CloudConnection} from '@/services/cloud/types';
+import {
+  deleteAuthSession,
+  getAuthSession,
+  saveAuthSession,
+  saveAuthSessionIfUnchanged,
+} from '@/services/db/auth-db';
+import {saveCloudConnection} from '@/services/db/cloud-connection-db';
 import {base64To256BitKey} from '@/utils/crypto';
 import {fromEpochSeconds} from '@/utils/date';
-import {replaceHistory} from '@/utils/history';
+import type {ErrorWithContextResponse} from '@/utils/error';
 import {safeReadJson} from '@/utils/json';
 import {withWebLock} from '@/utils/web-lock';
 
+import {AuthError, AuthErrorType} from './errors';
+
+export type LoginResult = [AuthSession, CloudConnection?];
+
 const REDIRECT_URI = `${window.location.origin}/login/callback`;
-const AUTH_REFRESH_LOCK_NAME = 'artistassistapp:auth-refresh';
-const ERROR_PARAM = 'error';
+
+export function withAuthLock<T>(callback: () => Promise<T>): Promise<T> {
+  return withWebLock('artistassistapp:auth', callback);
+}
 
 let jwks: JWTVerifyGetKey | undefined;
 
@@ -76,20 +82,66 @@ export async function verifyIdToken({
   };
 }
 
-export function isWithinRefreshWindow(auth: Authentication, windowMs: number): boolean {
-  return auth.idTokenExpiresAt.getTime() - Date.now() <= windowMs;
+export async function completeLogin(
+  verifier: string,
+  completionToken: string
+): Promise<LoginResult> {
+  return await withAuthLock(async (): Promise<LoginResult> => {
+    const response = await fetch(new URL('/login/complete', AUTH_URL), {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        verifier,
+        completion_token: completionToken,
+      }),
+      signal: AbortSignal.timeout(5000),
+    });
+    return await handleLoginResponse(response);
+  });
 }
 
-// Returns null when another tab cleared the session while we waited for the lock;
-// caller treats null as a silent cross-tab logout.
+async function handleLoginResponse(response: Response): Promise<LoginResult> {
+  if (!response.ok) {
+    const {error, error_context} = (await safeReadJson<ErrorWithContextResponse>(response)) ?? {};
+    throw AuthError.fromErrorType(error, 'Login failed', error_context);
+  }
+  const {id_token, refresh_expires_at, cloud} = (await response.json()) as AuthTokenResponse;
+  const session: AuthSession = {
+    idToken: id_token,
+    refreshExpiresAt: fromEpochSeconds(refresh_expires_at),
+  };
+  await saveAuthSession(session);
+  let connection: CloudConnection | undefined;
+  if (cloud) {
+    const {id, provider} = cloud;
+    connection = {
+      id,
+      provider,
+    };
+    await saveCloudConnection(connection);
+  }
+  return [session, connection];
+}
+
+export function isWithinRefreshWindow(
+  {idTokenExpiresAt}: Authentication,
+  windowMs: number
+): boolean {
+  return idTokenExpiresAt.getTime() - Date.now() <= windowMs;
+}
+
+// Returns null if another tab cleared the session while waiting for the lock.
 export async function refreshSession(previous: AuthSession): Promise<AuthSession | null> {
-  return await withWebLock(AUTH_REFRESH_LOCK_NAME, async () => {
+  return await withAuthLock(async () => {
     const current = await getAuthSession();
     if (!current) {
       return null;
     }
     if (current.idToken !== previous.idToken) {
-      // Another tab already refreshed; use its result.
+      // Another refresh or login replaced the session; use its result.
       return current;
     }
     if (new Date() >= current.refreshExpiresAt) {
@@ -101,106 +153,98 @@ export async function refreshSession(previous: AuthSession): Promise<AuthSession
       signal: AbortSignal.timeout(15000),
     });
     if (!response.ok) {
-      const {error, error_context} = (await safeReadJson<AuthErrorResponse>(response)) ?? {};
-      throw new AuthError(toAuthErrorType(error), 'Could not refresh session', error_context);
+      const {error, error_context} = (await safeReadJson<ErrorWithContextResponse>(response)) ?? {};
+      throw AuthError.fromErrorType(error, 'Could not refresh session', error_context);
     }
     const {id_token, refresh_expires_at} = (await response.json()) as AuthTokenResponse;
+    if (decodeJwt(id_token).sub !== decodeJwt(current.idToken).sub) {
+      throw new AuthError(AuthErrorType.Unauthorized, 'Refreshed session subject mismatch');
+    }
     const refreshed: AuthSession = {
       idToken: id_token,
       refreshExpiresAt: fromEpochSeconds(refresh_expires_at),
     };
-    await saveAuthSession(refreshed);
-    return refreshed;
+    return (await saveAuthSessionIfUnchanged(current.idToken, refreshed)) ?? null;
   });
 }
 
 export async function requestLogout(): Promise<void> {
-  await fetch(new URL('/logout', AUTH_URL), {
-    method: 'POST',
-    credentials: 'include',
-    signal: AbortSignal.timeout(2000),
+  await withAuthLock(async () => {
+    try {
+      await fetch(new URL('/logout', AUTH_URL), {
+        method: 'POST',
+        credentials: 'include',
+        signal: AbortSignal.timeout(5000),
+      });
+    } catch (error) {
+      console.error('Logout failed', error);
+    }
+    await deleteAuthSession();
   });
-}
-
-export async function requestLoginLink(): Promise<LoginLink> {
-  const url = new URL('/login-link', AUTH_URL);
-  url.searchParams.set('redirect_uri', REDIRECT_URI);
-  const response = await fetch(url, {
-    method: 'POST',
-    credentials: 'include',
-    signal: AbortSignal.timeout(5000),
-  });
-  if (!response.ok) {
-    const {error, error_context} = (await safeReadJson<AuthErrorResponse>(response)) ?? {};
-    throw new AuthError(toAuthErrorType(error), 'Could not create login link', error_context);
-  }
-  const {link, expires_at} = (await response.json()) as LoginLinkResponse;
-  return {
-    link: new URL(link),
-    expiresAt: fromEpochSeconds(expires_at),
-  };
 }
 
 export async function requestLoginEmailOtp(email: string): Promise<Expirable> {
   const url = new URL('/login/email/otp', AUTH_URL);
   const response = await fetch(url, {
     method: 'POST',
-    body: JSON.stringify({email}),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email,
+    }),
     signal: AbortSignal.timeout(5000),
   });
   if (!response.ok) {
-    const {error, error_context} = (await safeReadJson<AuthErrorResponse>(response)) ?? {};
-    throw new AuthError(toAuthErrorType(error), 'Could not request login email OTP', error_context);
+    const {error, error_context} = (await safeReadJson<ErrorWithContextResponse>(response)) ?? {};
+    throw AuthError.fromErrorType(error, 'Could not request login email OTP', error_context);
   }
-  const {expires_at} = (await response.json()) as ExpirableResponse;
+  const {expires_at} = (await response.json()) as {
+    expires_at: number;
+  };
   return {
     expiresAt: fromEpochSeconds(expires_at),
   };
 }
 
-export async function verifyLoginEmailOtp(email: string, otp: string): Promise<AuthSession> {
-  const url = new URL('/login/email/otp/verify', AUTH_URL);
-  const response = await fetch(url, {
-    method: 'POST',
-    credentials: 'include',
-    body: JSON.stringify({
-      email,
-      otp,
-    }),
-    signal: AbortSignal.timeout(5000),
+export async function verifyLoginEmailOtp(email: string, otp: string): Promise<LoginResult> {
+  return await withAuthLock(async () => {
+    const url = new URL('/login/email/otp/verify', AUTH_URL);
+    const response = await fetch(url, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        otp,
+      }),
+      signal: AbortSignal.timeout(5000),
+    });
+    return await handleLoginResponse(response);
   });
-  if (!response.ok) {
-    const {error, error_context} = (await safeReadJson<AuthErrorResponse>(response)) ?? {};
-    throw new AuthError(toAuthErrorType(error), 'Could not verify login email OTP', error_context);
-  }
-  const {id_token, refresh_expires_at} = (await response.json()) as AuthTokenResponse;
-  const session: AuthSession = {
-    idToken: id_token,
-    refreshExpiresAt: fromEpochSeconds(refresh_expires_at),
-  };
-  await saveAuthSession(session);
-  return session;
 }
 
-export function loginWithRedirect(): void {
-  const url = new URL('/authorize', AUTH_URL);
-  url.searchParams.set('redirect_uri', REDIRECT_URI);
+export function loginWithRedirect(challenge: string): void {
+  const url = new URL('/login', AUTH_URL);
+  const {searchParams} = url;
+  searchParams.set('redirect_uri', REDIRECT_URI);
+  searchParams.set('challenge', challenge);
   window.location.assign(url);
 }
 
-export async function readAuthCallbackError(): Promise<AuthError | null> {
-  const errorParam = new URL(window.location.href).searchParams.get(ERROR_PARAM);
-  if (!errorParam) {
-    return null;
-  }
-  let context: AuthErrorData['context'] | undefined;
-  try {
-    const data = await getAndDeleteAuthErrorData();
-    context = data?.context;
-  } catch (err) {
-    console.error('Failed to read auth error context', err);
-  } finally {
-    replaceHistory();
-  }
-  return new AuthError(toAuthErrorType(errorParam), 'Login failed', context);
+export async function deleteAccount(): Promise<void> {
+  await withAuthLock(async () => {
+    const url = new URL('/account', AUTH_URL);
+    const response = await fetch(url, {
+      method: 'DELETE',
+      credentials: 'include',
+      signal: AbortSignal.timeout(15000),
+    });
+    if (!response.ok) {
+      const {error, error_context} = (await safeReadJson<ErrorWithContextResponse>(response)) ?? {};
+      throw AuthError.fromErrorType(error, 'Could not delete account data', error_context);
+    }
+  });
 }

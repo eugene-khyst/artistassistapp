@@ -16,11 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export async function withWebLock<T>(name: string, callback: () => Promise<T>): Promise<T> {
+export async function withWebLock<T>(
+  name: string,
+  callback: () => Promise<T>,
+  signal?: AbortSignal
+): Promise<T> {
   const lockManager: LockManager | undefined =
     typeof navigator !== 'undefined' && 'locks' in navigator ? navigator.locks : undefined;
   if (!lockManager) {
     return await callback();
   }
-  return await lockManager.request(name, callback);
+  return await lockManager.request(name, {signal}, () => callback());
 }

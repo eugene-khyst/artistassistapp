@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DATA_URL} from '@/config';
+import {DATA_COLORS_TIMEOUT_MS, DATA_METADATA_TIMEOUT_MS, DATA_URL} from '@/config';
 import {type Authentication, type User} from '@/services/auth/types';
 import {decryptDataIfNeeded, hasAccessTo} from '@/services/auth/utils';
 import {rgbToOklab} from '@/services/color/space/oklab';
@@ -210,7 +210,11 @@ function getDataUrl(
 
 export async function fetchColorBrands(type: ColorType): Promise<ColorBrandDefinition[]> {
   const url = getDataUrl('brands', type);
-  const response = await fetchSWR(url);
+  const response = await fetchSWR(
+    new Request(url, {
+      signal: AbortSignal.timeout(DATA_METADATA_TIMEOUT_MS),
+    })
+  );
   const brands = (await response.json()) as ColorBrandDefinition[];
   const customBrands = (await getCustomColorBrandsByType(type)).map(toColorBrandDefinition);
   return [...brands, ...customBrands];
@@ -224,7 +228,11 @@ export async function fetchStandardColorSets(
     return [];
   }
   const url = getDataUrl('sets', type, brandAlias);
-  const response = await fetchSWR(url);
+  const response = await fetchSWR(
+    new Request(url, {
+      signal: AbortSignal.timeout(DATA_METADATA_TIMEOUT_MS),
+    })
+  );
   return (await response.json()) as StandardColorSetDefinition[];
 }
 
@@ -238,17 +246,17 @@ export async function fetchColors(
   auth: Authentication | null
 ): Promise<ColorDefinition[]> {
   if (isCustomColorBrandAlias(brandAlias)) {
-    return ((await getCustomColorBrand(getCustomColorBrandIdFromAlias(brandAlias)))?.colors ??
-      []) as ColorDefinition[];
+    return (await getCustomColorBrand(getCustomColorBrandIdFromAlias(brandAlias)))?.colors ?? [];
   }
   const url = getDataUrl('colors', type, brandAlias);
-  const response = await fetchSWR(url);
+  const response = await fetchSWR(
+    new Request(url, {
+      signal: AbortSignal.timeout(DATA_COLORS_TIMEOUT_MS),
+    })
+  );
   const data: unknown = await response.json();
   return (await decryptDataIfNeeded(data, auth)) ?? [];
 }
-
-export const indexColors = (colors: ColorDefinition[]): Map<number, ColorDefinition> =>
-  indexById(colors);
 
 export async function fetchColorsBulk(
   type: ColorType,
@@ -339,16 +347,16 @@ export function toColorSet(
   brands?: Map<number, ColorBrandDefinition>,
   colors?: Map<string, Map<number, ColorDefinition>>,
   user?: User | null
-): ColorSet | undefined {
+): ColorSet | null {
   const selectedColorsArray: [string, number[]][] = Object.entries(selectedColors ?? {});
   if (!id || !type || !selectedColorsArray.length || !brands || !colors) {
-    return;
+    return null;
   }
   const selectedBrandsMap = new Map<number, ColorBrandDefinition>(
     [...brands].filter(([brandId]) => selectedBrands?.includes(brandId))
   );
   if (!hasAccessTo(user, [...selectedBrandsMap.values()])) {
-    return;
+    return null;
   }
   return {
     name,
@@ -363,17 +371,15 @@ export function toColorSet(
       return colorIds
         .map((colorId: number): ColorDefinition | undefined => colors.get(brandAlias)?.get(colorId))
         .filter((color): color is ColorDefinition => !!color)
-        .map(
-          ({id, name, hex, rho, opacity, warmth}: ColorDefinition): Color => ({
-            brand: brandId,
-            id,
-            name,
-            rgb: hexToRgb(hex),
-            rho,
-            opacity,
-            warmth,
-          })
-        );
+        .map(({id, name, hex, rho, opacity, warmth}: ColorDefinition): Color => ({
+          brand: brandId,
+          id,
+          name,
+          rgb: hexToRgb(hex),
+          rho,
+          opacity,
+          warmth,
+        }));
     }),
   };
 }

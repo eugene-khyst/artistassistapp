@@ -30,10 +30,10 @@ import {
 } from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
 import type {ProgressProps} from 'antd';
-import {Button, Col, Divider, Flex, Progress, Row, Space, Switch, Tag, Typography} from 'antd';
-import {useState} from 'react';
+import {Button, Flex, Grid, Progress, Space, Tag, Typography} from 'antd';
 
-import {AdCard} from '@/components/ad/AdCard';
+import {DeleteAccountButton} from '@/components/auth/DeleteAccountButton';
+import {LoadingButton} from '@/components/button/LoadingButton';
 import {ClearCacheButton} from '@/components/storage/ClearCacheButton';
 import {DeleteAppDataButton} from '@/components/storage/DeleteAppDataButton';
 import {BUILD_ID, WEBSITE_URL} from '@/config';
@@ -48,118 +48,98 @@ const THREE_COLORS: ProgressProps['strokeColor'] = {
   '100%': '#FF0000',
 };
 
+const handleUpdateClick = async () => {
+  if (!('serviceWorker' in navigator)) {
+    return;
+  }
+  const registration = await navigator.serviceWorker.getRegistration();
+  await registration?.update();
+};
+
 export function Help() {
+  const screens = Grid.useBreakpoint();
+
+  const user = useAppStore(state => state.auth?.user);
   const storagePersisted = useAppStore(state => state.storagePersisted);
   const storageUsage = useAppStore(state => state.storageUsage);
-  const autoSavingColorSetsJson = useAppStore(state => state.appSettings.autoSavingColorSetsJson);
   const serviceWorkerRegistration = useAppStore(state => state.serviceWorkerRegistration);
 
-  const saveAppSettings = useAppStore(state => state.saveAppSettings);
   const updateServiceWorker = useAppStore(state => state.updateServiceWorker);
 
-  const [isUpdating, setIsUpdating] = useState<boolean>(false);
-
-  const handleUpdateClick = async () => {
-    if (!('serviceWorker' in navigator)) {
-      return;
-    }
-    setIsUpdating(true);
-    try {
-      const registration = await navigator.serviceWorker.getRegistration();
-      await registration?.update();
-    } finally {
-      setIsUpdating(false);
-    }
-  };
-
-  const handleAutoBackupChange = (checked: boolean) => {
-    void saveAppSettings({
-      autoSavingColorSetsJson: checked,
-    });
-  };
-
   return (
-    <Flex vertical gap="small" align="center" className="u-tab-content">
+    <Flex vertical gap="medium" align="center" className="u-tab-content">
       <div className="u-text-center">
         <Logo name tagline />
       </div>
 
-      <Row gutter={24}>
-        <Col xs={24} md={12}>
-          <Space orientation="vertical" align="start" size={0} className="u-w-100">
-            <Button
-              type="link"
-              href={`${WEBSITE_URL}/tutorials/`}
-              target="_blank"
-              rel="noopener"
-              icon={<ReadOutlined />}
-              size="large"
-            >
-              <Trans>Tutorials and videos</Trans>
-            </Button>
-            <Button
-              type="link"
-              href={WEBSITE_URL}
-              target="_blank"
-              rel="noopener"
-              icon={<InfoCircleOutlined />}
-              size="large"
-            >
-              <Trans>About ArtistAssistApp</Trans>
-            </Button>
-            <Button
-              type="link"
-              href="https://support.patreon.com/hc/en-us/articles/360005502572-Canceling-a-paid-membership"
-              target="_blank"
-              rel="noopener noreferrer"
-              icon={<StopOutlined />}
-              size="large"
-            >
-              <Trans>Cancel a paid membership</Trans>
-            </Button>
-          </Space>
-        </Col>
-        <Col xs={24} md={12}>
-          <Space orientation="vertical" align="start" size={0} className="u-w-100">
-            <Button
-              type="link"
-              href={`${WEBSITE_URL}/contact/`}
-              target="_blank"
-              rel="noopener"
-              icon={<MailOutlined />}
-              size="large"
-            >
-              <Trans>Contact</Trans>
-            </Button>
-            <Button
-              type="link"
-              href={`${WEBSITE_URL}/privacy-policy/`}
-              target="_blank"
-              rel="noopener"
-              icon={<FileProtectOutlined />}
-              size="large"
-            >
-              <Trans>Privacy policy</Trans>
-            </Button>
-            <Button
-              type="link"
-              href={`${WEBSITE_URL}/terms-of-use/`}
-              target="_blank"
-              rel="noopener"
-              icon={<FileTextOutlined />}
-              size="large"
-            >
-              <Trans>Terms of use</Trans>
-            </Button>
-          </Space>
-        </Col>
-      </Row>
-
-      <Row justify="center">
-        <Col xs={24} md={12}>
-          <AdCard />
-        </Col>
-      </Row>
+      <Flex vertical={!screens.md} gap={screens.md ? 'large' : 0}>
+        <Flex vertical align="start">
+          <Button
+            type="link"
+            color="primary"
+            variant="dashed"
+            href={`${WEBSITE_URL}/tutorials/`}
+            target="_blank"
+            rel="noopener"
+            icon={<ReadOutlined />}
+            size="large"
+          >
+            <Trans>Tutorials and videos</Trans>
+          </Button>
+          <Button
+            type="link"
+            href={WEBSITE_URL}
+            target="_blank"
+            rel="noopener"
+            icon={<InfoCircleOutlined />}
+            size="large"
+          >
+            <Trans>About ArtistAssistApp</Trans>
+          </Button>
+          <Button
+            type="link"
+            href="https://support.patreon.com/hc/en-us/articles/360005502572-Canceling-a-paid-membership"
+            target="_blank"
+            rel="noopener noreferrer"
+            icon={<StopOutlined />}
+            size="large"
+          >
+            <Trans>Cancel a paid membership</Trans>
+          </Button>
+        </Flex>
+        <Flex vertical align="start">
+          <Button
+            type="link"
+            href={`${WEBSITE_URL}/contact/`}
+            target="_blank"
+            rel="noopener"
+            icon={<MailOutlined />}
+            size="large"
+          >
+            <Trans>Contact</Trans>
+          </Button>
+          <Button
+            type="link"
+            href={`${WEBSITE_URL}/privacy-policy/`}
+            target="_blank"
+            rel="noopener"
+            icon={<FileProtectOutlined />}
+            size="large"
+          >
+            <Trans>Privacy policy</Trans>
+          </Button>
+          <Button
+            type="link"
+            href={`${WEBSITE_URL}/terms-of-use/`}
+            target="_blank"
+            rel="noopener"
+            icon={<FileTextOutlined />}
+            size="large"
+          >
+            <Trans>Terms of use</Trans>
+          </Button>
+        </Flex>
+      </Flex>
 
       {serviceWorkerRegistration ? (
         <Space>
@@ -169,90 +149,104 @@ export function Help() {
           </Button>
         </Space>
       ) : (
-        <Button
-          icon={<CloudSyncOutlined />}
-          loading={isUpdating}
-          onClick={() => void handleUpdateClick()}
-        >
+        <LoadingButton icon={<CloudSyncOutlined />} run={handleUpdateClick}>
           <Trans>Check for updates</Trans>
-        </Button>
+        </LoadingButton>
       )}
 
-      <Divider size="small" />
-
-      <Space>
-        <Typography.Text>
-          <Trans>Automatic backup of color sets</Trans>
-        </Typography.Text>
-        <Switch value={autoSavingColorSetsJson} onChange={handleAutoBackupChange} />
-      </Space>
-
-      <Divider size="small" />
-
-      <Space>
-        <Typography.Text>
-          <Trans>Persistent storage</Trans>
-        </Typography.Text>
-        {storagePersisted ? (
-          <Tag icon={<CheckCircleOutlined />} color="success">
-            Enabled
-          </Tag>
-        ) : (
-          <Tag icon={<CloseCircleOutlined />} color="warning">
-            Disabled
-          </Tag>
-        )}
-      </Space>
-
-      {storageUsage?.usage && storageUsage.quota && (
-        <Space size="middle">
-          <Space orientation="vertical">
-            <Typography.Text>
-              <Trans>Storage usage</Trans>
-            </Typography.Text>
-            <Typography.Text>
-              <Trans>Used</Trans>: {formatBytes(storageUsage.usage)}
-            </Typography.Text>
-            <Typography.Text>
-              <Trans>Quota</Trans>: {formatBytes(storageUsage.quota)}
-            </Typography.Text>
-          </Space>
-          <Progress
-            type="circle"
-            percent={Math.round(100 * (storageUsage.usage / storageUsage.quota))}
-            size={80}
-            status="normal"
-            strokeColor={THREE_COLORS}
-          />
+      <Flex vertical gap="small" align="center">
+        <Space>
+          <Typography.Text>
+            <Trans>Persistent storage</Trans>
+          </Typography.Text>
+          {storagePersisted ? (
+            <Tag icon={<CheckCircleOutlined />} color="success">
+              Enabled
+            </Tag>
+          ) : (
+            <Tag icon={<CloseCircleOutlined />} color="warning">
+              Disabled
+            </Tag>
+          )}
         </Space>
+
+        {storageUsage?.usage && storageUsage.quota && (
+          <Space size="middle">
+            <Space orientation="vertical">
+              <Typography.Text>
+                <Trans>Storage usage</Trans>
+              </Typography.Text>
+              <Typography.Text>
+                <Trans>Used</Trans>: {formatBytes(storageUsage.usage)}
+              </Typography.Text>
+              <Typography.Text>
+                <Trans>Quota</Trans>: {formatBytes(storageUsage.quota)}
+              </Typography.Text>
+            </Space>
+            <Progress
+              type="circle"
+              percent={Math.round(100 * (storageUsage.usage / storageUsage.quota))}
+              size={80}
+              status="normal"
+              strokeColor={THREE_COLORS}
+            />
+          </Space>
+        )}
+      </Flex>
+
+      <ClearCacheButton />
+
+      <Flex vertical gap={0} align="center">
+        <DeleteAppDataButton />
+        <Typography.Text>
+          <Trans>
+            All app data is stored in the web browser storage, even after installation. Clearing the
+            browser data deletes it all.
+          </Trans>
+        </Typography.Text>
+      </Flex>
+
+      {user && (
+        <Flex vertical gap={0} align="center">
+          <DeleteAccountButton />
+
+          <Typography.Text>
+            <Trans>
+              ArtistAssistApp never stores your email address, only a private code derived from it
+              that cannot reveal the address. Logging in with Patreon or a membership renewal
+              creates that code again.
+            </Trans>
+          </Typography.Text>
+          <Typography.Text>
+            <Trans>
+              Your Patreon membership and the data on this device are not deleted.{' '}
+              <Typography.Link
+                href="https://support.patreon.com/hc/en-us/articles/360005502572-Canceling-a-paid-membership"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Cancel your Patreon membership
+              </Typography.Link>{' '}
+              on Patreon itself.
+            </Trans>
+          </Typography.Text>
+        </Flex>
       )}
 
-      <Space wrap>
-        <ClearCacheButton />
-        <DeleteAppDataButton />
-      </Space>
+      <Flex vertical gap="small" align="center">
+        <Typography.Text>
+          <Trans>
+            ArtistAssistApp is developed by{' '}
+            <Typography.Link href="https://github.com/eugene-khyst" target="_blank" rel="noopener">
+              Eugene Khyst
+            </Typography.Link>
+          </Trans>
+        </Typography.Text>
 
-      <Typography.Text type="secondary">
-        <Trans>
-          The app stores all data in the web browser storage even after installation. Clearing the
-          web browser data results in the loss of all app data.
-        </Trans>
-      </Typography.Text>
-
-      <Divider size="small" />
-
-      <Typography.Text>
-        <Trans>
-          ArtistAssistApp is developed by{' '}
-          <Typography.Link href="https://github.com/eugene-khyst" target="_blank" rel="noopener">
-            Eugene Khyst
-          </Typography.Link>
-        </Trans>
-      </Typography.Text>
-
-      <Typography.Text type="secondary" className="u-text-sm">
-        <Trans>Application build ID</Trans>: {BUILD_ID}
-      </Typography.Text>
+        <Typography.Text type="secondary" className="u-text-sm">
+          <Trans>Application build ID</Trans>: {BUILD_ID}
+        </Typography.Text>
+      </Flex>
     </Flex>
   );
 }

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {useLingui} from '@lingui/react/macro';
+import {Trans, useLingui} from '@lingui/react/macro';
 import type {CheckboxOptionType, RadioChangeEvent} from 'antd';
 import {Drawer, Form, Radio, Typography} from 'antd';
 import {useEffect, useState} from 'react';
@@ -80,13 +80,13 @@ export function ReflectanceChartDrawer({
   };
 
   const chartOptions: CheckboxOptionType<ChartMode>[] = [
-    {value: 'similarity', label: t`Similarity`},
-    {value: 'mixture', label: t`Mixture`},
+    {value: 'similarity', label: <Trans>Similarity</Trans>},
+    {value: 'mixture', label: <Trans>Mixture</Trans>},
   ];
 
   return (
     <Drawer
-      title={t`Spectral reflectance curve`}
+      title={<Trans>Spectral reflectance curve</Trans>}
       placement="right"
       size="large"
       open={open}
@@ -95,8 +95,13 @@ export function ReflectanceChartDrawer({
       <canvas ref={canvasRef} width="688" height="388" className="u-mb" />
       {targetColorHex && (
         <Form.Item
-          label={t`Mode`}
-          tooltip={t`Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed.`}
+          label={<Trans>Mode</Trans>}
+          tooltip={
+            <Trans>
+              Similarity mode compares the target and suggested colors. In Mixture mode, the parts
+              of the color that make up the mixture are displayed.
+            </Trans>
+          }
           className="u-mb-0"
         >
           <Radio.Group

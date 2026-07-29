@@ -16,12 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {arrayBufferToBlob} from '@/utils/blob';
 import {digestArrayBuffer} from '@/utils/digest';
 
 export interface ImageFile {
   id?: number;
-  buffer: ArrayBuffer;
+  blob: Blob;
   type: string;
   name?: string;
   digest: string;
@@ -29,25 +28,40 @@ export interface ImageFile {
   date?: Date;
 }
 
+export type ImageMetadata = Omit<ImageFile, 'id' | 'blob' | 'date'>;
+
+export function toImageMetadata({digest, type, name, maxColors}: ImageFile): ImageMetadata {
+  return {
+    digest,
+    type,
+    ...(name === undefined ? {} : {name}),
+    ...(maxColors === undefined ? {} : {maxColors}),
+  };
+}
+
+export function imageMetadataEquals(a: ImageMetadata, b: ImageMetadata): boolean {
+  return (
+    a.digest === b.digest && a.type === b.type && a.name === b.name && a.maxColors === b.maxColors
+  );
+}
+
 export async function fileToImageFile(file: File): Promise<ImageFile> {
   return blobToImageFile(file, file.name);
 }
 
 export async function blobToImageFile(blob: Blob, name?: string): Promise<ImageFile> {
-  const buffer: ArrayBuffer = await blob.arrayBuffer();
-  const digest: string = await digestArrayBuffer(buffer);
   return {
-    buffer,
+    blob,
     type: blob.type,
-    name,
-    digest,
+    name: name || undefined,
+    digest: await digestArrayBuffer(await blob.arrayBuffer()),
     date: new Date(),
   };
 }
 
 export function imageFileToFile(imageFile: ImageFile): File {
-  const {buffer, type, name, date} = imageFile;
-  return new File([arrayBufferToBlob(buffer, type)], name ?? '', {
+  const {blob, type, name, date} = imageFile;
+  return new File([blob], name ?? '', {
     type,
     lastModified: date?.getTime(),
   });

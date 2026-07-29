@@ -48,7 +48,7 @@ export function AdCard({vertical = false}: Readonly<Props>) {
     .filter((ad): ad is AdDefinition => !!ad);
 
   if (isAuthLoading || user || !ads.length) {
-    return <></>;
+    return null;
   }
   return (
     <Card hoverable className="u-bg-fill-secondary" classNames={{body: styles['body']}}>

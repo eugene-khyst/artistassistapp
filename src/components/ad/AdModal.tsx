@@ -37,13 +37,12 @@ export function AdModal() {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
   const isLoginEmailOtpModalOpen = useAppStore(state => state.isLoginEmailOtpModalOpen);
-  const isLoginQRModalOpen = useAppStore(state => state.isLoginQRModalOpen);
 
   const {ads: {ads: allAds, placements} = {ads: {}, placements: {}}} = useAds();
 
   const [open, setOpen] = useDelayedInterval(AD_POPUP_INITIAL_DELAY, AD_POPUP_INTERVAL);
 
-  const isOpen = open && !isLoginEmailOtpModalOpen && !isLoginQRModalOpen;
+  const isOpen = open && !isLoginEmailOtpModalOpen;
 
   const closeCounter = useCountdown(CLOSE_SECONDS, isOpen);
 
@@ -53,10 +52,17 @@ export function AdModal() {
     .filter((ad): ad is AdDefinition => !!ad);
 
   if (isAuthLoading || user || !ads.length) {
-    return <></>;
+    return null;
   }
   return (
-    <Modal centered open={isOpen} footer={null} closeIcon={null}>
+    <Modal
+      centered
+      open={isOpen}
+      footer={null}
+      closeIcon={null}
+      mask={{closable: false}}
+      keyboard={false}
+    >
       <Ad
         vertical
         ads={ads}

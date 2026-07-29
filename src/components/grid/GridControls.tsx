@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {useLingui} from '@lingui/react/macro';
+import {Trans} from '@lingui/react/macro';
 import {Checkbox, Form, Select, Space} from 'antd';
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
@@ -52,8 +52,6 @@ export function GridControls({
 }: Readonly<Props>) {
   const grids = useAppStore(state => state.appSettings.grids);
   const saveAppSettings = useAppStore(state => state.saveAppSettings);
-
-  const {t} = useLingui();
 
   const tab: TabKey = useContext(TabContext);
 
@@ -104,12 +102,12 @@ export function GridControls({
   const handleEnabledChange = (e: CheckboxChangeEvent) => {
     const value = e.target.checked;
     setGridEnabled(value);
-    void saveAppSettings((prev?: AppSettings): Partial<AppSettings> => {
+    void saveAppSettings((prev: AppSettings): Partial<AppSettings> => {
       return {
         grids: {
-          ...prev?.grids,
+          ...prev.grids,
           [tab]: {
-            ...prev?.grids?.[tab],
+            ...prev.grids?.[tab],
             enabled: value,
           },
         },
@@ -119,12 +117,12 @@ export function GridControls({
 
   const handleModeChange = (value: number) => {
     setGridMode(value);
-    void saveAppSettings((prev?: AppSettings): Partial<AppSettings> => {
+    void saveAppSettings((prev: AppSettings): Partial<AppSettings> => {
       return {
         grids: {
-          ...prev?.grids,
+          ...prev.grids,
           [tab]: {
-            ...prev?.grids?.[tab],
+            ...prev.grids?.[tab],
             mode: value,
           },
         },
@@ -134,12 +132,12 @@ export function GridControls({
 
   const handleSizeChange = (value: number) => {
     setGridSize(value);
-    void saveAppSettings((prev?: AppSettings): Partial<AppSettings> => {
+    void saveAppSettings((prev: AppSettings): Partial<AppSettings> => {
       return {
         grids: {
-          ...prev?.grids,
+          ...prev.grids,
           [tab]: {
-            ...prev?.grids?.[tab],
+            ...prev.grids?.[tab],
             size: value,
           },
         },
@@ -150,12 +148,12 @@ export function GridControls({
   const handleDiagonalsChange = (e: CheckboxChangeEvent) => {
     const value = e.target.checked;
     setGridDiagonals(value);
-    void saveAppSettings((prev?: AppSettings): Partial<AppSettings> => {
+    void saveAppSettings((prev: AppSettings): Partial<AppSettings> => {
       return {
         grids: {
-          ...prev?.grids,
+          ...prev.grids,
           [tab]: {
-            ...prev?.grids?.[tab],
+            ...prev.grids?.[tab],
             diagonals: value,
           },
         },
@@ -164,7 +162,7 @@ export function GridControls({
   };
 
   const gridOptions: SelectOptionType[] = [
-    {value: GridMode.Square, label: t`Square cells`},
+    {value: GridMode.Square, label: <Trans>Square cells</Trans>},
     {value: GridMode.Rectangular_4x4, label: '4×4'},
     {value: GridMode.Rectangular_3x3, label: '3×3'},
     {value: GridMode.Rectangular_2x2, label: '2×2'},
@@ -174,14 +172,14 @@ export function GridControls({
     <Space {...props}>
       {disableable && (
         <Form.Item
-          label={t`Show grid`}
+          label={<Trans>Show grid</Trans>}
           labelCol={{className: 'u-pb-0'}}
           className={styles['formItem']}
         >
           <Checkbox checked={gridEnabled} onChange={handleEnabledChange} />
         </Form.Item>
       )}
-      <Form.Item label={t`Grid`} className={styles['formItem']}>
+      <Form.Item label={<Trans>Grid</Trans>} className={styles['formItem']}>
         <Select
           value={gridMode}
           onChange={handleModeChange}
@@ -191,17 +189,17 @@ export function GridControls({
       </Form.Item>
       {gridMode === GridMode.Square ? (
         <Form.Item
-          label={t`Cells`}
-          tooltip={t`Number of cells on the smaller side (vertical or horizontal)`}
+          label={<Trans>Cells</Trans>}
+          tooltip={<Trans>Number of cells on the smaller side (vertical or horizontal)</Trans>}
           className={styles['formItem']}
         >
           <Select value={gridSize} onChange={handleSizeChange} options={SQUARE_GRID_SIZE_OPTIONS} />
         </Form.Item>
       ) : (
         <Form.Item
-          label={t`Diagonals`}
+          label={<Trans>Diagonals</Trans>}
           labelCol={{className: 'u-pb-0'}}
-          tooltip={t`Show or hide diagonal lines`}
+          tooltip={<Trans>Show or hide diagonal lines</Trans>}
           className={styles['formItem']}
         >
           <Checkbox checked={gridDiagonals} onChange={handleDiagonalsChange} />

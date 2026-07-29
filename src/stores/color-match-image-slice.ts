@@ -20,7 +20,7 @@ import type {StateCreator} from 'zustand';
 
 import type {RgbTuple} from '@/services/color/space/rgb';
 import {getColorMatchImage} from '@/services/image/color-match';
-import type {OriginalImageSlice} from '@/stores/original-image-slice';
+import {type OriginalImageSlice, registerProcessedImage} from '@/stores/original-image-slice';
 
 export interface ColorMatchImageSlice {
   colorMatchImage: ImageBitmap | null;
@@ -35,22 +35,32 @@ export const createColorMatchImageSlice: StateCreator<
   [],
   [],
   ColorMatchImageSlice
-> = (set, get) => ({
-  colorMatchImage: null,
+> = (set, get) => {
+  registerProcessedImage({
+    clear: () => {
+      const {colorMatchImage} = get();
+      set({colorMatchImage: null});
+      colorMatchImage?.close();
+    },
+  });
 
-  isColorMatchImageLoading: false,
+  return {
+    colorMatchImage: null,
 
-  setColorMatchImage: (color: RgbTuple | null): void => {
-    const {originalImage, colorMatchImage: prev} = get();
-    set({
-      isColorMatchImageLoading: true,
-    });
-    const colorMatchImage: ImageBitmap | null =
-      originalImage && color ? getColorMatchImage(originalImage, color) : null;
-    set({
-      colorMatchImage,
-      isColorMatchImageLoading: false,
-    });
-    prev?.close();
-  },
-});
+    isColorMatchImageLoading: false,
+
+    setColorMatchImage: (color: RgbTuple | null): void => {
+      const {originalImage, colorMatchImage: prev} = get();
+      set({
+        isColorMatchImageLoading: true,
+      });
+      const colorMatchImage: ImageBitmap | null =
+        originalImage && color ? getColorMatchImage(originalImage, color) : null;
+      set({
+        colorMatchImage,
+        isColorMatchImageLoading: false,
+      });
+      prev?.close();
+    },
+  };
+};

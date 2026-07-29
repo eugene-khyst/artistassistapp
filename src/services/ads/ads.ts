@@ -16,11 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DATA_URL} from '@/config';
+import {DATA_METADATA_TIMEOUT_MS, DATA_URL} from '@/config';
 import type {AdsDefinition} from '@/services/ads/types';
 import {fetchSWR} from '@/utils/fetch';
 
 export async function fetchAds(): Promise<AdsDefinition> {
-  const response = await fetchSWR(`${DATA_URL}/ads.json`);
+  const response = await fetchSWR(
+    new Request(`${DATA_URL}/ads.json`, {
+      signal: AbortSignal.timeout(DATA_METADATA_TIMEOUT_MS),
+    })
+  );
   return (await response.json()) as AdsDefinition;
 }

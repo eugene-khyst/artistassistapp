@@ -44,7 +44,7 @@ export const createLocaleSlice: StateCreator<LocaleSlice & AppSlice, [], [], Loc
     if (persist) {
       await get().saveAppSettings({locale});
     }
-    const antdLocale = await loadAntdLocale(locale);
+    const antdLocale: AntdLocale = await loadAntdLocale(locale);
     set({
       locale,
       antdLocale,

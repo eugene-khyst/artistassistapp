@@ -22,21 +22,17 @@ declare const self: ServiceWorkerGlobalScope & {
   __WB_MANIFEST: {url: string}[];
 };
 
-import {AuthErrorType} from '@/services/auth/types';
-import type {ColorSetDefinition, CustomColorBrandDefinition} from '@/services/color/types';
-import {FileExtension} from '@/services/color/types';
-import {getAppSettings, saveAppSettings} from '@/services/db/app-settings-db';
-import {saveAuthErrorData, saveAuthSession} from '@/services/db/auth-db';
-import {saveColorSets} from '@/services/db/color-set-db';
-import {saveCustomColorBrand} from '@/services/db/custom-brand-db';
-import {saveImageFile} from '@/services/db/image-file-db';
+import {AUTH_URL} from '@/config';
+import {fromCustomColorBrandSource, parseCustomColorBrandJson} from '@/services/cloud/cloud-state';
+import {replaceStateFromZip} from '@/services/cloud/state-zip';
+import {FileExtension} from '@/services/cloud/types';
+import {updateStoredAppSettings} from '@/services/db/app-settings-db';
+import {saveCustomColorBrands} from '@/services/db/custom-brand-db';
+import {saveNewImageFiles} from '@/services/db/image-file-db';
 import {fileToImageFile} from '@/services/image/image-file';
-import {DEFAULT_APP_SETTINGS} from '@/services/settings/app-settings';
-import type {AppSettings} from '@/services/settings/types';
+import {type AppSettings} from '@/services/settings/types';
 import type {ServiceWorkerMessage} from '@/sw-message';
 import {TabKey} from '@/tabs';
-import {fromEpochSeconds} from '@/utils/date';
-import {digestMessage} from '@/utils/digest';
 import {
   CACHE_NAME_DEFAULT,
   cachePutWithRetry,
@@ -47,16 +43,29 @@ import {
 
 const CACHE_NAME_LARGE_FILES = getCacheName('large-files');
 const CACHE_NAMES = new Set([CACHE_NAME_DEFAULT, CACHE_NAME_LARGE_FILES]);
+const AUTH_ORIGIN = new URL(AUTH_URL).origin;
 
 const CACHE_LARGE_FILE_EXTENSIONS: RegExp[] = [/\.onnx\.part\d+$/, /\.wasm$/];
+
 const SPA_PATHNAMES = new Set<string>([
   '/',
   ...Object.values(TabKey).map(tab => `/${tab}`),
+  '/cloud/callback',
   '/install',
+  '/login/callback',
+  '/logged-out',
 ]);
 
 function normalizeSpaPathname(pathname: string): string {
   return pathname.replace(/\/+$/, '') || '/';
+}
+
+function shouldBypassRuntimeCache(request: Request, url: URL): boolean {
+  return (
+    request.cache === 'no-store' ||
+    request.headers.has('Authorization') ||
+    url.origin === AUTH_ORIGIN
+  );
 }
 
 function isCloudflareBeacon(url: URL): boolean {
@@ -104,7 +113,11 @@ self.addEventListener('fetch', (event: FetchEvent) => {
     }
     if (request.method === 'GET') {
       let response: Promise<Response>;
-      if (url.origin === self.location.origin) {
+      if (shouldBypassRuntimeCache(request, url) || isCloudflareBeacon(url)) {
+        return;
+      } else if (CACHE_LARGE_FILE_EXTENSIONS.some(extension => extension.test(url.pathname))) {
+        response = fetchCacheFirst(request, CACHE_NAME_LARGE_FILES);
+      } else if (url.origin === self.location.origin) {
         if (request.mode === 'navigate' && SPA_PATHNAMES.has(normalizeSpaPathname(url.pathname))) {
           response = fetchCacheFirst(new Request('/'));
         } else if (request.mode === 'navigate') {
@@ -112,18 +125,12 @@ self.addEventListener('fetch', (event: FetchEvent) => {
         } else {
           response = fetchCacheFirst(request);
         }
-      } else if (CACHE_LARGE_FILE_EXTENSIONS.some(extension => extension.test(url.href))) {
-        response = fetchCacheFirst(request, CACHE_NAME_LARGE_FILES);
-      } else if (isCloudflareBeacon(url)) {
-        response = fetch(request);
       } else {
         response = fetchSWR(request);
       }
       event.respondWith(response);
     } else if (request.method === 'POST' && url.origin === self.location.origin) {
-      if (url.pathname === '/login/callback') {
-        event.respondWith(receiveAuthCallback(request));
-      } else if (url.pathname === '/share-target') {
+      if (url.pathname === '/share-target') {
         event.respondWith(receiveSharedData(request));
       }
     }
@@ -133,84 +140,46 @@ self.addEventListener('fetch', (event: FetchEvent) => {
   }
 });
 
-async function receiveAuthCallback(request: Request): Promise<Response> {
-  const redirectUrl = new URL('/', self.location.origin);
-  try {
-    const formData: FormData = await request.formData();
-    const idToken = formData.get('id_token') as string | null;
-    const refreshExpiresAt = formData.get('refresh_expires_at') as string | null;
-    const error = formData.get('error') as string | null;
-    const errorContext = formData.get('error_context') as string | null;
-
-    if (idToken && refreshExpiresAt) {
-      await saveAuthSession({
-        idToken,
-        refreshExpiresAt: fromEpochSeconds(refreshExpiresAt),
-      });
-    } else {
-      if (errorContext) {
-        try {
-          const parsedErrorContext = JSON.parse(errorContext) as Record<string, unknown>;
-          await saveAuthErrorData({context: parsedErrorContext});
-        } catch (e) {
-          console.error('Failed to parse error context', e);
-        }
-      }
-      redirectUrl.searchParams.set('error', error ?? AuthErrorType.LoginResultMissing);
-    }
-  } catch (e) {
-    console.error('Auth callback error', e);
-    redirectUrl.searchParams.set('error', AuthErrorType.Unknown);
-  }
-  return Response.redirect(redirectUrl.href, 303);
-}
-
 async function receiveSharedData(request: Request): Promise<Response> {
   const formData: FormData = await request.formData();
   // 'shared_files' = current; 'images' = legacy from older PWA installs
   const files = [...formData.getAll('shared_files'), ...formData.getAll('images')] as File[];
-  const prevAppSettings: AppSettings = (await getAppSettings()) ?? DEFAULT_APP_SETTINGS;
   let appSettings: Partial<AppSettings> | undefined;
   for (const file of files) {
     try {
       const {name, type} = file;
+      const normalizedName = name.toLowerCase();
       if (type.startsWith('image/')) {
-        await saveImageFile(await fileToImageFile(file));
+        await saveNewImageFiles([await fileToImageFile(file)]);
         appSettings = {
           activeTabKey: TabKey.Photo,
         };
       } else if (
-        name.endsWith(FileExtension.ColorSet) ||
-        name.endsWith(`${FileExtension.ColorSet}.json`)
+        normalizedName.endsWith(FileExtension.State) ||
+        normalizedName.endsWith(`${FileExtension.State}.zip`)
       ) {
-        const json: string = await file.text();
-        const colorSets = JSON.parse(json) as ColorSetDefinition[];
-        await saveColorSets(colorSets);
-        const hash: string = await digestMessage(json);
-        appSettings = {
-          latestColorSetsJsonHash: hash,
-          activeTabKey: TabKey.ColorSet,
-        };
+        await replaceStateFromZip(file);
       } else if (
-        name.endsWith(FileExtension.CustomColorBrand) ||
-        name.endsWith(`${FileExtension.CustomColorBrand}.json`)
+        normalizedName.endsWith(FileExtension.CustomColorBrand) ||
+        normalizedName.endsWith(`${FileExtension.CustomColorBrand}.json`)
       ) {
-        const json: string = await file.text();
-        const brand = JSON.parse(json) as CustomColorBrandDefinition;
-        await saveCustomColorBrand(brand);
-        appSettings = {
-          activeTabKey: TabKey.CustomColorBrand,
-        };
+        const brand = parseCustomColorBrandJson(await file.text());
+        if (brand) {
+          await saveCustomColorBrands([fromCustomColorBrandSource(brand)]);
+          appSettings = {
+            activeTabKey: TabKey.CustomColorBrand,
+          };
+        }
       }
     } catch (e) {
       console.error(e);
     }
   }
   if (appSettings) {
-    await saveAppSettings({
-      ...prevAppSettings,
+    await updateStoredAppSettings(prev => ({
+      ...prev,
       ...appSettings,
-    });
+    }));
   }
   return Response.redirect('/', 303);
 }

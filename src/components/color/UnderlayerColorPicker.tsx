@@ -17,7 +17,7 @@
  */
 
 import {CloseCircleOutlined, DownOutlined} from '@ant-design/icons';
-import {useLingui} from '@lingui/react/macro';
+import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Dropdown, Form, Space} from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import {useCallback, useMemo} from 'react';
@@ -52,9 +52,9 @@ export function UnderlayerColorPicker({
   const surfaceColorPicker = useMemo(
     () => (
       <Form.Item
-        label={t`Surface color`}
+        label={<Trans>Surface color</Trans>}
         labelCol={{className: 'u-pb-0'}}
-        tooltip={t`The color of your paper, canvas, or painting surface.`}
+        tooltip={<Trans>The color of your paper, canvas, or painting surface.</Trans>}
         className="u-mb-0"
       >
         <ColorPicker
@@ -93,12 +93,14 @@ export function UnderlayerColorPicker({
 
   return (
     <Form.Item
-      label={t`Underlayer`}
+      label={<Trans>Underlayer</Trans>}
       labelCol={{className: 'u-pb-0'}}
       tooltip={
-        pastel
-          ? t`The existing pastel layer you want to blend over.`
-          : t`The dried layer you want to glaze over.`
+        pastel ? (
+          <Trans>The existing pastel layer you want to blend over.</Trans>
+        ) : (
+          <Trans>The dried layer you want to glaze over.</Trans>
+        )
       }
       className="u-mb-0"
     >

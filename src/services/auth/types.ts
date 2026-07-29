@@ -16,27 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {JWTExpired} from 'jose/errors';
-
+import type {CloudProvider} from '@/services/cloud/types';
 import type {DisplayMode} from '@/utils/environment';
-import {getErrorMessage} from '@/utils/error';
 
 export interface AuthTokenResponse {
   id_token: string;
   refresh_expires_at: number;
-}
-
-export interface AuthErrorResponse {
-  error?: string;
-  error_context?: Record<string, unknown>;
-}
-
-export interface ExpirableResponse {
-  expires_at: number;
-}
-
-export interface LoginLinkResponse extends ExpirableResponse {
-  link: string;
+  cloud?: {
+    id: string;
+    provider: CloudProvider;
+  };
 }
 
 export interface User {
@@ -53,10 +42,7 @@ export interface Authentication {
 export interface AuthAttempt {
   pendingSince: number;
   displayMode: DisplayMode;
-}
-
-export interface AuthErrorData {
-  context?: Record<string, unknown>;
+  verifier: string;
 }
 
 export interface AuthSession {
@@ -66,72 +52,4 @@ export interface AuthSession {
 
 export interface Expirable {
   expiresAt: Date;
-}
-
-export interface LoginLink extends Expirable {
-  link: URL;
-}
-
-export enum AuthNoticeType {
-  LoginCompletedInBrowser = 'login_completed_in_browser',
-}
-
-export enum AuthErrorType {
-  Unauthorized = 'unauthorized',
-  MemberNotFound = 'member_not_found',
-  Inactive = 'inactive',
-  Expired = 'expired',
-  InvalidToken = 'invalid_token',
-  InvalidLoginLink = 'invalid_login_link',
-  InvalidLoginOtp = 'invalid_login_otp',
-  LoginOtpMaxAttemptsExceeded = 'login_otp_attempts_exceeded',
-  LoginResultMissing = 'login_result_missing',
-  RateLimited = 'rate_limited',
-  Unknown = 'unknown',
-}
-
-// Errors that mean the credential is rejected.
-export const TERMINAL_AUTH_ERRORS: ReadonlySet<AuthErrorType> = new Set([
-  AuthErrorType.Unauthorized,
-  AuthErrorType.MemberNotFound,
-  AuthErrorType.Inactive,
-  AuthErrorType.InvalidToken,
-  AuthErrorType.Expired,
-]);
-
-export class AuthError extends Error {
-  constructor(
-    public type: AuthErrorType,
-    message: string,
-    public context: Record<string, unknown> = {},
-    cause?: unknown
-  ) {
-    super(message, {cause});
-    this.name = 'AuthError';
-  }
-
-  static fromError(
-    error: unknown,
-    message?: string,
-    fallbackType: AuthErrorType = AuthErrorType.Unknown
-  ): AuthError {
-    if (error instanceof AuthError) {
-      return error;
-    }
-    if (error instanceof JWTExpired) {
-      return new AuthError(AuthErrorType.Expired, message ?? 'Session expired', {}, error);
-    }
-    message ??= getErrorMessage(error);
-    return new AuthError(fallbackType, message, {}, error);
-  }
-}
-
-export class ForceLogoutError extends Error {
-  constructor(
-    public type: AuthErrorType,
-    message?: string
-  ) {
-    super(message);
-    this.name = 'ForceLogoutError';
-  }
 }

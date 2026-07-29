@@ -16,11 +16,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {ColorSetDefinition} from '@/services/color/types';
-import type {TabKey} from '@/tabs';
+import {Trans} from '@lingui/react/macro';
+import {App} from 'antd';
+import {useCallback} from 'react';
 
-export interface UrlParsingResult {
-  colorSet?: ColorSetDefinition;
-  tabKey?: TabKey;
-  install?: boolean;
+export function useFileReadErrorNotification(): () => void {
+  const {notification} = App.useApp();
+
+  return useCallback(() => {
+    notification.error({
+      title: <Trans>Could not read the file</Trans>,
+      description: (
+        <Trans>
+          The file might have been moved or deleted, or it could be stored in the cloud and not
+          downloaded to this device. Download it to this device, then select it again.
+        </Trans>
+      ),
+      placement: 'top',
+      duration: 10,
+      showProgress: true,
+    });
+  }, [notification]);
 }

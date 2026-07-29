@@ -114,12 +114,12 @@ export function ColorMixingChart() {
   const items: MenuProps['items'] = [
     {
       key: 'sort',
-      label: t`Sort`,
+      label: <Trans>Sort</Trans>,
       icon: <SortAscendingOutlined />,
       children: [
         {
           key: 'no-sorting',
-          label: t`No sorting`,
+          label: <Trans>No sorting</Trans>,
           onClick: () => {
             if (sort) {
               setSort(undefined);
@@ -141,7 +141,7 @@ export function ColorMixingChart() {
     },
     {
       key: 'print',
-      label: t`Print`,
+      label: <Trans>Print</Trans>,
       icon: <PrinterOutlined />,
       onClick: () => {
         void handlePrintClick();
@@ -150,7 +150,7 @@ export function ColorMixingChart() {
     },
     {
       key: 'save',
-      label: t`Save`,
+      label: <Trans>Save</Trans>,
       icon: <DownloadOutlined />,
       onClick: () => {
         void handleSaveClick();
@@ -163,9 +163,9 @@ export function ColorMixingChart() {
     <LoadingIndicator loading={isLoading} onCancel={abortColorMixingChart}>
       <div className={styles['scroll']}>
         <Form.Item
-          label={t`Colors`}
+          label={<Trans>Colors</Trans>}
           labelCol={{className: 'u-pb-0'}}
-          tooltip={t`A grid showing the result of mixing each pair of selected colors`}
+          tooltip={<Trans>A grid showing the result of mixing each pair of selected colors</Trans>}
           className={styles['colorsFormItem']}
           extra={
             <Typography.Text type="secondary">
@@ -173,7 +173,7 @@ export function ColorMixingChart() {
             </Typography.Text>
           }
         >
-          <Space.Compact className="u-flex">
+          <Space.Compact block>
             <ColorCascader
               value={colorIds}
               onChange={setColorIds}

@@ -27,15 +27,14 @@ import type {ColorMixerSlice} from '@/stores/color-mixer-slice';
 import type {ColorSetSlice} from '@/stores/color-set-slice';
 import type {TabSlice} from '@/stores/tab-slice';
 import {TabKey} from '@/tabs';
+import {createAbortableOperation} from '@/utils/abortable-operation';
 import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
-import {isAbortError} from '@/utils/promise';
 
-import type {OriginalImageSlice} from './original-image-slice';
+import {type OriginalImageSlice, registerProcessedImage} from './original-image-slice';
 
 export interface LimitedPaletteImageSlice {
   limitedPaletteImage: ImageBitmap | null;
   isLimitedPaletteImageLoading: boolean;
-  limitedPaletteAbortController: AbortController | null;
 
   setLimitedColorSet: (colorIds: ColorId[]) => Promise<void>;
   setLimitedColorSetAsMain: (colorIds: ColorId[]) => Promise<void>;
@@ -47,82 +46,95 @@ export const createLimitedPaletteImageSlice: StateCreator<
   [],
   [],
   LimitedPaletteImageSlice
-> = (set, get) => ({
-  limitedPaletteImage: null,
-  isLimitedPaletteImageLoading: false,
-  limitedPaletteAbortController: null,
-
-  setLimitedColorSet: async (colorIds: ColorId[]): Promise<void> => {
-    get().abortLimitedPalette();
-    const {originalImage, colorSet, limitedPaletteImage: prev} = get();
-    if (!originalImage) {
-      return;
-    }
-    const limitedColorSet: ColorSet | null = filterColorSet(colorSet, colorIds);
-    if (!limitedColorSet) {
-      return;
-    }
-    const limitedPaletteAbortController = new AbortController();
-    set({
-      limitedPaletteImage: null,
-      isLimitedPaletteImageLoading: true,
-      limitedPaletteAbortController,
-    });
-    try {
-      prev?.close();
-      const resizedImage = await resizeImageBitmap(
-        originalImage,
-        ResizeImage.resizeToPixelCount(IMAGE_SIZE.SD)
-      );
-      const {quantizedImage} = await colorQuantizationWorker.run(
-        worker =>
-          worker.getLimitedPaletteImage(transfer(resizedImage, [resizedImage]), limitedColorSet),
-        limitedPaletteAbortController.signal
-      );
+> = (set, get) => {
+  const limitedPaletteOperation = createAbortableOperation({
+    onStart: () => {
       set({
-        limitedPaletteImage: quantizedImage,
+        limitedPaletteImage: null,
+        isLimitedPaletteImageLoading: true,
       });
-    } catch (error) {
-      if (isAbortError(error)) {
+    },
+    onFinish: () => {
+      set({
+        isLimitedPaletteImageLoading: false,
+      });
+    },
+  });
+
+  registerProcessedImage({
+    abort: () => {
+      limitedPaletteOperation.abort();
+    },
+    clear: () => {
+      const {limitedPaletteImage} = get();
+      set({limitedPaletteImage: null});
+      limitedPaletteImage?.close();
+    },
+  });
+
+  return {
+    limitedPaletteImage: null,
+    isLimitedPaletteImageLoading: false,
+
+    setLimitedColorSet: async (colorIds: ColorId[]): Promise<void> => {
+      get().abortLimitedPalette();
+      const {originalImage, colorSet, limitedPaletteImage: prev} = get();
+      if (!originalImage) {
         return;
       }
-      throw error;
-    } finally {
-      if (get().limitedPaletteAbortController === limitedPaletteAbortController) {
-        set({
-          isLimitedPaletteImageLoading: false,
-          limitedPaletteAbortController: null,
-        });
+      const limitedColorSet: ColorSet | null = filterColorSet(colorSet, colorIds);
+      if (!limitedColorSet) {
+        return;
       }
-    }
-  },
+      await limitedPaletteOperation.run(async signal => {
+        prev?.close();
+        const resizedImage = await resizeImageBitmap(
+          originalImage,
+          ResizeImage.resizeToPixelCount(IMAGE_SIZE.SD)
+        );
+        const {quantizedImage} = await colorQuantizationWorker.run(
+          worker =>
+            worker.getLimitedPaletteImage(transfer(resizedImage, [resizedImage]), limitedColorSet),
+          signal
+        );
+        if (signal.aborted) {
+          quantizedImage.close();
+        }
+        signal.throwIfAborted();
+        set({
+          limitedPaletteImage: quantizedImage,
+        });
+      });
+    },
 
-  setLimitedColorSetAsMain: async (colorIds: ColorId[]): Promise<void> => {
-    if (!colorIds.length) {
-      return;
-    }
-    const {colorSet} = get();
-    const limitedColorSet: ColorSet | null = filterColorSet(colorSet, colorIds);
-    if (!limitedColorSet) {
-      return;
-    }
-    const {type, brands, colors} = limitedColorSet;
-    const colorSetDefinition: ColorSetDefinition = {
-      id: NEW_COLOR_SET,
-      type,
-      brands: [...brands.keys()],
-      standardColorSet: CUSTOM_COLOR_SET,
-      colors: colors.reduce<Record<number, number[]>>((acc, {id, brand}) => {
-        (acc[brand] ??= []).push(id);
-        return acc;
-      }, {}),
-    };
-    await get().saveColorSet(colorSetDefinition);
-    await get().loadColorSets();
-    void get().setActiveTabKey(TabKey.ColorSet);
-  },
+    setLimitedColorSetAsMain: async (colorIds: ColorId[]): Promise<void> => {
+      if (!colorIds.length) {
+        return;
+      }
+      const {colorSet} = get();
+      const limitedColorSet: ColorSet | null = filterColorSet(colorSet, colorIds);
+      if (!limitedColorSet) {
+        return;
+      }
+      const {type, brands, colors} = limitedColorSet;
+      const colorSetDefinition: ColorSetDefinition = {
+        id: NEW_COLOR_SET,
+        type,
+        brands: [...brands.keys()],
+        standardColorSet: CUSTOM_COLOR_SET,
+        colors: colors.reduce<Record<number, number[]>>((acc, {id, brand}) => {
+          (acc[brand] ??= []).push(id);
+          return acc;
+        }, {}),
+      };
+      await get().saveColorSet(colorSetDefinition);
+      await get().loadColorSets();
+      await get().activateLatestColorSet();
+      void get().setActiveTabKey(TabKey.ColorSet);
+    },
 
-  abortLimitedPalette: (): void => {
-    get().limitedPaletteAbortController?.abort();
-  },
-});
+    abortLimitedPalette: (): void => {
+      limitedPaletteOperation.abort();
+    },
+  };
+};

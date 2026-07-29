@@ -17,33 +17,39 @@
  */
 
 import type {ColorSetDefinition} from '@/services/color/types';
+import {markStoreChanged} from '@/services/db/store-changes-db';
+import type {StoreChangeTokens} from '@/services/db/types';
 
 import {dbPromise} from './db';
 
-export async function getLastColorSet(): Promise<ColorSetDefinition | undefined> {
-  const db = await dbPromise;
-  const index = db.transaction('color-sets').store.index('by-date');
-  const cursor = await index.openCursor(null, 'prev');
-  return cursor?.value;
-}
-
-export async function getColorSets(): Promise<ColorSetDefinition[]> {
+export async function getAllColorSets(): Promise<ColorSetDefinition[]> {
   const db = await dbPromise;
   return await db.getAll('color-sets');
 }
 
-export async function saveColorSets(colorSets: ColorSetDefinition[]): Promise<void> {
+export async function saveColorSets(colorSets: ColorSetDefinition[]): Promise<StoreChangeTokens> {
   const db = await dbPromise;
-  const tx = db.transaction('color-sets', 'readwrite');
+  const tx = db.transaction(['color-sets', 'store-changes'], 'readwrite');
   const store = tx.objectStore('color-sets');
+  const date = new Date();
   for (const colorSet of colorSets) {
-    colorSet.date = new Date();
+    colorSet.date = date;
     colorSet.id = await store.put(colorSet);
   }
+  const tokens: StoreChangeTokens = {
+    'color-sets': await markStoreChanged(tx, 'color-sets'),
+  };
   await tx.done;
+  return tokens;
 }
 
-export async function deleteColorSet(id: number): Promise<void> {
+export async function deleteColorSet(id: number): Promise<StoreChangeTokens> {
   const db = await dbPromise;
-  await db.delete('color-sets', id);
+  const tx = db.transaction(['color-sets', 'store-changes'], 'readwrite');
+  await tx.objectStore('color-sets').delete(id);
+  const tokens: StoreChangeTokens = {
+    'color-sets': await markStoreChanged(tx, 'color-sets'),
+  };
+  await tx.done;
+  return tokens;
 }

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {useLingui} from '@lingui/react/macro';
+import {Trans} from '@lingui/react/macro';
 import type {FlattenOptionData} from '@rc-component/select/es/interface';
 import type {SelectProps} from 'antd';
 import {Select} from 'antd';
@@ -63,8 +63,6 @@ type Props = Omit<
 export function ColorBrandSelect({brands, ...rest}: Readonly<Props>) {
   const user = useAppStore(state => state.auth?.user);
 
-  const {t} = useLingui();
-
   const options = useMemo(() => getColorBrandOptions(user, brands), [user, brands]);
 
   const optionRender = useCallback(
@@ -72,16 +70,16 @@ export function ColorBrandSelect({brands, ...rest}: Readonly<Props>) {
       data: {fullName, colorCount},
     }: FlattenOptionData<SelectOptionType & {colorCount?: number}>) => (
       <>
-        {fullName} {!!colorCount && t`(${colorCount} colors)`}
+        {fullName} {!!colorCount && <Trans>({colorCount} colors)</Trans>}
       </>
     ),
-    [t]
+    []
   );
 
   return (
     <Select
       options={options}
-      placeholder={t`Select brands`}
+      placeholder={<Trans>Select brands</Trans>}
       showSearch={showSearch}
       optionRender={optionRender}
       allowClear

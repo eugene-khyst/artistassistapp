@@ -17,9 +17,9 @@
  */
 
 import {useLingui} from '@lingui/react/macro';
-import {App} from 'antd';
 import {useCallback, useEffect, useMemo, useState} from 'react';
 
+import {useErrorNotification} from '@/hooks/useErrorNotification';
 import {useOnnxModels} from '@/hooks/useOnnxModels';
 import {hasAccessTo} from '@/services/auth/utils';
 import {compareOnnxModelsByPriority, getDefaultModel} from '@/services/ml/models';
@@ -64,7 +64,6 @@ export function useSelectedOnnxModel({
   const persistedModelId = useAppStore(state => state.appSettings[settingsKey]);
   const saveAppSettings = useAppStore(state => state.saveAppSettings);
 
-  const {notification} = App.useApp();
   const {t} = useLingui();
 
   const {models, isLoading: isModelsLoading, isError: isModelsError} = useOnnxModels(type);
@@ -89,16 +88,7 @@ export function useSelectedOnnxModel({
   const model: OnnxModel | undefined = modelId ? models?.get(modelId) : undefined;
   const isAccessAllowed: boolean = !model || (!isAuthLoading && hasAccessTo(user, model));
 
-  useEffect(() => {
-    if (isModelsError) {
-      notification.error({
-        title: t`Error while fetching ML model data`,
-        placement: 'top',
-        duration: 10,
-        showProgress: true,
-      });
-    }
-  }, [isModelsError, notification, t]);
+  useErrorNotification(isModelsError, t`Error while fetching ML model data`);
 
   useEffect(() => {
     if (isAuthLoading || !models?.size) {

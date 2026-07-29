@@ -72,7 +72,7 @@ export function Ad({ads, vertical = false, footer, contentClassName}: Readonly<P
   }, []);
 
   if (!ads?.length) {
-    return <></>;
+    return null;
   }
   const ad: AdDefinition | null = ads[adIndex % ads.length]!;
   return (

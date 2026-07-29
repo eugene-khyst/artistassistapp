@@ -18,36 +18,29 @@
 
 import {Button} from 'antd';
 import type {ButtonProps} from 'antd/lib';
-import type {PropsWithChildren, ReactNode} from 'react';
-import {useState} from 'react';
+import {type PropsWithChildren, useState} from 'react';
 
-import {QRScannerModal} from '@/components/qr/QRScannerModal';
+type Props = PropsWithChildren<
+  {
+    run: () => void | Promise<void>;
+  } & Omit<ButtonProps, 'onClick' | 'loading'>
+>;
 
-type Props = ButtonProps & {
-  modalContent?: ReactNode;
-};
+export function LoadingButton({children, run, ...rest}: Readonly<Props>) {
+  const [clicked, setClicked] = useState<boolean>(false);
 
-export function QRScannerButton({
-  modalContent,
-  children,
-  onClick,
-  ...props
-}: Readonly<PropsWithChildren<Props>>) {
-  const [open, setOpen] = useState<boolean>(false);
+  const handleClick = async () => {
+    setClicked(true);
+    try {
+      await run();
+    } finally {
+      setClicked(false);
+    }
+  };
+
   return (
-    <>
-      <Button
-        onClick={e => {
-          onClick?.(e);
-          setOpen(true);
-        }}
-        {...props}
-      >
-        {children}
-      </Button>
-      <QRScannerModal open={open} setOpen={setOpen}>
-        {modalContent}
-      </QRScannerModal>
-    </>
+    <Button onClick={() => void handleClick()} loading={clicked} {...rest}>
+      {children}
+    </Button>
   );
 }

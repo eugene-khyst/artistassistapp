@@ -18,7 +18,13 @@
 
 import type {DBSchema, StoreNames} from 'idb';
 
-import type {AuthAttempt, AuthErrorData, AuthSession} from '@/services/auth/types';
+import type {AuthAttempt, AuthSession} from '@/services/auth/types';
+import type {
+  CloudConnection,
+  CloudConnectionAttempt,
+  CloudSync,
+  LocalStateConnection,
+} from '@/services/cloud/types';
 import type {
   ColorMixture,
   ColorSetDefinition,
@@ -26,7 +32,8 @@ import type {
   CustomColorBrandDefinition,
 } from '@/services/color/types';
 import type {AppliedMigration} from '@/services/db/migrations';
-import type {ImageFile} from '@/services/image/image-file';
+import type {StoreChangeName} from '@/services/db/types';
+import type {ImageFile, ImageMetadata} from '@/services/image/image-file';
 import type {AppSettings} from '@/services/settings/types';
 
 export interface ArtistAssistAppDB extends DBSchema {
@@ -37,6 +44,10 @@ export interface ArtistAssistAppDB extends DBSchema {
       'by-name': string;
     };
   };
+  'store-changes': {
+    value: string;
+    key: StoreChangeName;
+  };
   'app-settings': {
     value: AppSettings;
     key: number;
@@ -44,10 +55,6 @@ export interface ArtistAssistAppDB extends DBSchema {
   'color-sets': {
     value: ColorSetDefinition;
     key: number;
-    indexes: {
-      'by-date': Date;
-      'by-type': ColorType;
-    };
   };
   images: {
     value: ImageFile;
@@ -56,6 +63,14 @@ export interface ArtistAssistAppDB extends DBSchema {
       'by-date': Date;
       'by-digest': string;
     };
+  };
+  'image-metadata': {
+    value: ImageMetadata;
+    key: string;
+  };
+  'style-image': {
+    value: ImageFile;
+    key: number;
   };
   'color-mixtures': {
     value: ColorMixture;
@@ -68,7 +83,6 @@ export interface ArtistAssistAppDB extends DBSchema {
     value: CustomColorBrandDefinition;
     key: number;
     indexes: {
-      'by-date': Date;
       'by-type': ColorType;
     };
   };
@@ -80,29 +94,40 @@ export interface ArtistAssistAppDB extends DBSchema {
     value: AuthSession;
     key: number;
   };
-  'auth-error': {
-    value: AuthErrorData;
+  'cloud-connection-attempt': {
+    value: CloudConnectionAttempt;
     key: number;
   };
-  /** @deprecated */
-  'id-token': {
-    value: string;
+  'cloud-connection': {
+    value: CloudConnection;
+    key: number;
+  };
+  'cloud-sync': {
+    value: CloudSync;
+    key: string;
+  };
+  'local-state-connection': {
+    value: LocalStateConnection;
     key: number;
   };
 }
 
 const OBJECT_STORES = {
   migrations: true,
+  'store-changes': true,
   'app-settings': true,
   'color-sets': true,
   images: true,
+  'image-metadata': true,
+  'style-image': true,
   'color-mixtures': true,
   'custom-brands': true,
   'auth-attempt': true,
   'auth-session': true,
-  'auth-error': true,
-  /** @deprecated */
-  'id-token': true,
+  'cloud-connection-attempt': true,
+  'cloud-connection': true,
+  'cloud-sync': true,
+  'local-state-connection': true,
 } as const satisfies Record<StoreNames<ArtistAssistAppDB>, true>;
 
 export type StoreName = keyof typeof OBJECT_STORES;

@@ -5,18 +5,17 @@ This file provides guidance to AI coding agents when working with code in this r
 ## Commands
 
 ```bash
-npm run dev             # Start dev server with hot reload (no service worker)
-npm run cf-typegen      # Generate Cloudflare Pages Function types into functions/types.d.ts
-npm run build           # cf-typegen + type-check + Vite build (sets BUILD_ID=$(date +%s) so VITE_BUILD_ID is non-empty when CF_PAGES_COMMIT_SHA is unset)
-npm run build:local-dev # `build` in `local-dev` Vite mode (loads .env.local-dev — local auth + data servers)
-npm run preview         # Preview the already-built production bundle (with service worker)
-npm run clean           # Remove node_modules/.vite and dist
-npm run lint            # ESLint
-npm run lint:fix        # ESLint with auto-fix
-npm run format          # Prettier check
-npm run format:write    # Prettier auto-format
-npm run type-check      # TypeScript type-check only (no emit)
-npm run test            # Runs type-check + lint + format (no actual test runner)
+npm run dev          # Hot reload with .env.development (local services, no service worker)
+npm run build        # Type-check + production build; timestamp is VITE_BUILD_ID fallback
+npm run build:dev    # Production bundle with .env.development (local auth + data services)
+npm run preview      # Preview the already-built production bundle (with service worker)
+npm run clean        # Remove node_modules/.vite and dist
+npm run lint         # ESLint
+npm run lint:fix     # ESLint with auto-fix
+npm run format       # Prettier check
+npm run format:write # Prettier auto-format
+npm run type-check   # TypeScript type-check only (no emit)
+npm run test         # Runs type-check + lint + format (no actual test runner)
 
 # i18n workflow
 npm run lingui:extract  # Extract translatable strings from source to .po files
@@ -26,87 +25,70 @@ npm run translate       # Auto-translate .po files via Bing Translate API
 ### Development Workflow
 
 Both `dev` and `preview` serve on `localhost:5173` (same origin), so IndexedDB state (including auth
-state) persists between them. Log in once via `build` + `preview` to get the full service worker,
-then switch to `dev` for hot-reload development. Use `build:local-dev` when testing against local
-auth + data servers.
-
-Cloudflare Pages handles `_redirects` rewrites, `404.html`, and Pages Functions only in production;
-verify Pages Function behavior in the Cloudflare Pages environment.
+state) persists between them. `dev` and `build:dev` load `.env.development`; use `build:dev` +
+`preview` to exercise the production bundle and service worker against the same local services, then
+return to `dev` without logging in again. Plain `build` + `preview` uses the production settings in
+`.env`.
 
 ## Architecture
 
-React 19 PWA. Single `<Tabs>` UI in `ArtistAssistApp.tsx` — tab visibility is conditional on auth
-state and PWA display mode. Outline and BackgroundRemove use `OnnxModelSelect`; StyleTransfer
-renders model radio cards because some models require a separate style image. An `OnnxModel` with
-empty `url` means "run the local WebGL pipeline instead of ONNX" (used by the Outline "quick" mode,
-gated by `freeTier`).
+React 19 PWA with a single conditional `<Tabs>` UI in `ArtistAssistApp.tsx`. An `OnnxModel` with an
+empty `url` selects a local WebGL pipeline instead of ONNX (the free-tier Outline "quick" mode).
 
 ### State Management
 
 Single Zustand store (`src/stores/app-store.ts`) composed from per-feature slices in
 `src/stores/*-slice.ts`. `initApp()` loads persisted state from IndexedDB at startup. IDB-backed
-cross-tab sync is wake-based: `initAuthAttemptWatcher` and `initPersistedStateSyncWatcher` re-read
+cross-tab sync is wake-based: `initAuthAttemptWatcher` and `initPersistedStateWatcher` re-read
 durable stores on `visibilitychange`/`pageshow`; add persisted fields there only when another tab
-must react.
+must react. Token-backed reloads are centralized in `STORE_RELOADS`
+(`src/stores/sync/store-reloads.ts`) and shared by the watcher, cloud download, and `initApp`.
+Registry order encodes the custom-brands → color-sets dependency; tokens advance only after a
+successful reload, so failures retry on the next wake. Add new durable stores to that registry.
+Mutation sites use `persistChange`: db write → token merge → shared trailing-debounced cloud push
+(~5s). Image-derived slices register `{abort, clear}` with `registerProcessedImage`; image selection
+iterates those handles instead of enumerating slices.
 
-Bootstrap is fault-tolerant: side-effecting init steps run through `tryStep` and route failures to
-`addInitError(label, error)` instead of aborting; `main.tsx` wraps the pre-render block in a
-matching try/catch so render always runs. `addInitError` queues labeled cause-preserving Errors that
-`UnhandledRejectionHandler` drains once on mount as `notification.error` toasts — it is effectively
-pre-mount-only. `initApp`'s outer try/finally resets `isAppInitializing` even on failure, so the UI
-never gets stuck loading.
+Form-driven tabs (`ColorSetChooser`, `CustomColorBrandCreator`) re-prefill their AntD form from a
+`*ReloadCount` counter bumped only in the slice's IDB reload action — external replacements (cloud
+download, cross-tab wake) refresh the form, while in-form saves never clobber edits in progress.
 
-### Custom Hooks (`src/hooks/`)
-
-- **`useLightbox`** — wraps `requestFullscreen` + `screen.orientation.lock`. Has an in-flight guard
-  so double-clicks can't desync the fullscreen-entry flag and leave the app stuck in fullscreen on
-  close. If another element is already fullscreen, entry exits it first; failed fullscreen requests
-  close the lightbox.
-- **`useArMode`** — `getUserMedia` rear camera request (`facingMode: {ideal: 'environment'}`). Has
-  an unmount race guard (stops tracks that resolve after unmount), a tab-deactivation guard for
-  pending camera requests, and a concurrent-entry guard.
-
-The Outline tab orchestrates mutual exclusion between the two. The AR overlay itself is pure CSS:
-the outline `<canvas>` is rendered above the `<video>` with `filter: invert(1)` and
-`mix-blend-mode: difference`, so each stroke paints as the color complement of the live camera pixel
-underneath. Distinct from the grid/overlay pre-inversion (`invert-colors-webgl.ts` +
-`invert-colors.glsl`).
+Bootstrap side effects run through `tryStep`; failures are queued with `addInitError` rather than
+preventing render. `UnhandledRejectionHandler` drains that queue once on mount, so it is
+pre-mount-only. `initApp` must always reset `isAppInitializing`.
 
 ### Services Layer (`src/services/`)
 
 Pure business logic, no React. Notable non-obvious bits:
 
-- **`color/`** — color mixing via reflectance curves (`color-mixer.ts`); palette building selects a
-  minimal paint set (`palette-builder.ts`); color data fetched from
-  `https://data.artistassistapp.com`.
 - **`canvas/`** — base `Canvas` recovers from browser-discarded bitmaps via
   `visibilitychange`/`pageshow`/`focus` listeners.
-- **`image/`** — `outline.ts` dispatches on `OnnxModel.url` (ONNX vs. local Sobel pipeline);
-  `perspective-correction.ts` runs an ONNX heatmap-regression model and extracts corners via
-  `heatmap-corner-detection.ts` (CPU bilinear upscale + Otsu + Moore-Neighbor 8-conn contour trace +
-  Green's-theorem centroid on the largest blob per channel); `sampling-point.ts` picks deepest pixel
-  per region via Chamfer 3-4 distance transform; `color-match.ts` reuses the Sobel+Otsu+threshold
-  pipeline.
 - **`image/filter/`** — WebGL filters return `OffscreenCanvas` so callers chain them without
-  round-tripping to `ImageBitmap`, transferring to bitmap only at the boundary. Threshold and Otsu
-  both have a grayscale fast path that skips the Oklab L conversion. Color quantization is two-pass
-  over-quantize-then-merge-closest in Oklab, `MAX_COLORS=60`. `WebGLRenderer` reserves texture unit
-  0 for the source image; render-pass textures bind from unit 1. Blue noise dithering consumes a
-  precomputed threshold texture generated by `generate-blue-noise.mjs` at the repo root.
-- **`ml/`** — ONNX Runtime Web; WASM loaded from jsDelivr CDN. `OnnxModel` metadata in `ml/types.ts`
-  drives preprocessing and a `postProcessing` pipeline applied in order in `tensor.ts`.
-  `image-transformer.ts` upscales output up to `IMAGE_SIZE['2K']` via Lanczos.
-- **`db/`** — IndexedDB via `idb`; schema in `db.ts`. Auth session, attempt, and error data share
-  the `artistassistapp` database (`auth-db.ts`). Numbered migrations in `migrations.ts` run inside
-  `withWebLock` (`src/utils/web-lock.ts`) so concurrent tabs don't race.
-- **`auth/`** — Login completion paths (OAuth callback, QR, email OTP) must normalize into the same
-  durable IndexedDB session/error shape before the store resolves auth. Paid-tier server JSON is
-  decrypted through `decryptDataIfNeeded(data, auth)`; decrypt failures throw `ForceLogoutError`,
-  and React Query, app init, and the global unhandled-rejection handler all route it through
-  `logout(error.type)`. `resolveAuth()` is the store entry point for auth verification/refresh, with
-  refreshes serialized cross-tab via `withWebLock(AUTH_REFRESH_LOCK_NAME, …)`. The `auth-attempt`
-  IDB store is the only pending-login state; spinner and watcher both derive from it. QR login links
-  use the auth origin, so keep `QRScannerModal`'s origin allowlist in sync with `AUTH_URL`.
+  round-tripping to `ImageBitmap`; transfer to bitmap only at the boundary. `WebGLRenderer` reserves
+  texture unit 0 for the source image, so render-pass textures bind from unit 1.
+- **`ml/`** — `OnnxModel` metadata drives preprocessing and the ordered `postProcessing` pipeline.
+  ONNX Runtime WASM is bundled locally from `onnxruntime-web`; do not point it at a third-party CDN.
+- **`cloud/`** — `cloud-sync-client.ts` owns provider-neutral sync policy over `CloudClient<T>`;
+  cached remote IDs are hints and need lookup fallback. Provider revisions churn without content
+  changes, so use the canonical state hash to detect edits. State JSON includes custom brands, color
+  sets, mixtures, and photo references; photos transfer separately and are digest-checked. Google
+  keeps recognizable names with digests in `appProperties`; OneDrive/Dropbox use
+  `<digest>.<extension>`. Google read/delete paths never create the root; only upload may do so.
+  Blocking conflicts never offer disconnection: their in-memory Postpone suppresses background sync
+  for the tab session, while explicit sync clears it; update-notification dismissal is separate.
+  Google disconnect trashes the root and account deletion permanently deletes it, OneDrive recycles
+  its root, and Dropbox recursively deletes its root's immediate children. Moved-out items survive;
+  disconnect must work without cached sync state. ZIP import/export is local-only and must validate
+  entries and image digests before replacing local state.
+- **`validation.ts`** — keep Valibot confined to external JSON validation. Custom-brand JSON/cloud
+  shapes omit `rho`; `fromCustomColorBrandSource` reconstructs it at the persistence boundary.
+- **`db/`** — IndexedDB via `idb`; schema in `schema.ts`. Numbered migrations in `migrations.ts` run
+  inside `withWebLock` (`src/utils/web-lock.ts`) so concurrent tabs don't race.
+- **`auth/`** — the durable `auth-attempt` is the pending redirect state and supports standalone ↔
+  browser handoff. Redirect completion exchanges its token using the stored PKCE verifier; email OTP
+  and redirect completion persist the same IDB session shape. `resolveAuth()` owns verification and
+  refresh, with refreshes serialized by `withAuthLock`. Decryption failures throw `ForceLogoutError`
+  and must route through `logout(error.type)`.
 
 ### React Query data shape
 
@@ -164,12 +146,19 @@ Lingui-based. Source locale `src/locales/en.po`. After adding or changing source
 
 Service worker at `src/service-worker.ts`, registered from `src/utils/service-worker.ts` (wired in
 `main.tsx`). Cross-Origin headers (COEP/COOP) are required for SharedArrayBuffer support (ONNX WASM
-threading). The SW handles auth callbacks and file sharing. All persistence uses IndexedDB —
+threading). There are no Pages Functions: `public/_redirects` routes `/login/callback` to the SPA,
+where application code completes auth. The SW only serves the app shell for that navigation; its
+POST handling is limited to share-target imports. Requests with `Authorization`/`cache: no-store`,
+plus all requests to the auth origin, must bypass runtime caching. All persistence uses IndexedDB;
 `localStorage` is not used.
 
 ### Vite Configuration
 
 - Path alias: `@/` → `/src/` (use this prefix for all non-same-folder imports).
+- `.env` defines production settings; development mode overlays `.env.development`. Keep app, auth,
+  data, and JWK values aligned: `VITE_APP_URL` is also the ID-token audience.
+- `src/config.ts` centralizes environment values and shared data-request timeouts; do not duplicate
+  them at call sites.
 
 ### Styling
 

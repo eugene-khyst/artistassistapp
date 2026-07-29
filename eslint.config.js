@@ -34,7 +34,16 @@ const sharedTsRules = {
 export default defineConfig(
   // Global ignores
   {
-    ignores: ['dist', 'public', 'license-header.js'],
+    ignores: [
+      'license-header.js',
+      'public',
+      'dist',
+      '.agents/**',
+      '.codex/**',
+      '.claude/**',
+      '.semgrep/**',
+      '.remember/**',
+    ],
   },
 
   // App source files (src/**/*.{ts,tsx})

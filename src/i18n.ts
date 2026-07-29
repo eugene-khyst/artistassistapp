@@ -18,6 +18,7 @@
 
 import type {Messages} from '@lingui/core';
 import {i18n} from '@lingui/core';
+import {t} from '@lingui/core/macro';
 import type {Locale as AntdLocale} from 'antd/es/locale';
 
 import {mergeAlternating} from '@/utils/array';
@@ -126,4 +127,12 @@ export async function loadAntdLocale(locale: Locale): Promise<AntdLocale> {
     default:
       return (await import('antd/locale/en_US')).default;
   }
+}
+
+export function formatFetchProgress(key: string | null, progress?: number): string | null {
+  if (!key) {
+    return null;
+  }
+  const percent = (progress ?? 0).toFixed(0);
+  return t`Downloading... ${percent}% (${key})`;
 }

@@ -16,6 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export function arrayBufferToBlob(buffer: ArrayBuffer, type: string) {
-  return new Blob([buffer], {type});
+import type {ImageFile} from '@/services/image/image-file';
+
+import {dbPromise} from './db';
+
+const KEY = 0;
+
+export async function getStyleImage(): Promise<ImageFile | undefined> {
+  const db = await dbPromise;
+  return await db.get('style-image', KEY);
+}
+
+export async function saveStyleImage(styleImage: ImageFile): Promise<void> {
+  const db = await dbPromise;
+  await db.put('style-image', styleImage, KEY);
 }

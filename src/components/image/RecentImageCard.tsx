@@ -60,8 +60,8 @@ export function RecentImageCard({imageFile}: Readonly<Props>) {
         actions={[
           <Popconfirm
             key="delete"
-            title={t`Delete the recent photo`}
-            description={t`Are you sure you want to delete this photo?`}
+            title={<Trans>Delete the recent photo</Trans>}
+            description={<Trans>Are you sure you want to delete this photo?</Trans>}
             onPopupClick={e => {
               e.stopPropagation();
             }}
@@ -70,8 +70,8 @@ export function RecentImageCard({imageFile}: Readonly<Props>) {
               handleDeleteButtonClick();
             }}
             onCancel={e => e?.stopPropagation()}
-            okText={t`Yes`}
-            cancelText={t`No`}
+            okText={<Trans>Delete</Trans>}
+            cancelText={<Trans>Keep</Trans>}
           >
             <Button
               icon={<DeleteOutlined />}

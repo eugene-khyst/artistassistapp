@@ -16,6 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+export interface ErrorResponse {
+  error?: string;
+}
+
+export interface ErrorWithContextResponse extends ErrorResponse {
+  error_context?: Record<string, unknown>;
+}
+
 export function toError(error: unknown): Error {
   return error instanceof Error ? error : new Error(String(error));
 }
@@ -36,4 +44,17 @@ export function getErrorMessage(error: unknown): string {
       return String(error);
     }
   }
+}
+
+export function isNetworkError(error: unknown): boolean {
+  if (typeof navigator !== 'undefined' && !navigator.onLine) {
+    return true;
+  }
+  return (
+    error instanceof TypeError ||
+    (error instanceof DOMException &&
+      (error.name === 'AbortError' ||
+        error.name === 'NetworkError' ||
+        error.name === 'TimeoutError'))
+  );
 }

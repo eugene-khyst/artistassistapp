@@ -68,3 +68,7 @@ export function findAcceptedMimeType(
     });
   });
 }
+
+export function getExtensionForMimeType(type: string) {
+  return mime.getExtension(type);
+}

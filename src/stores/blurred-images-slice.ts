@@ -19,14 +19,16 @@
 import type {StateCreator} from 'zustand';
 
 import {getBlurred} from '@/services/image/blur';
+import {createAbortableOperation} from '@/utils/abortable-operation';
 
-import type {OriginalImageSlice} from './original-image-slice';
+import {type OriginalImageSlice, registerProcessedImage} from './original-image-slice';
 
 export interface BlurredImagesSlice {
   blurredImages: ImageBitmap[];
   isBlurredImagesLoading: boolean;
 
   loadBlurredImages: () => Promise<void>;
+  abortBlurredImages: () => void;
 }
 
 export const createBlurredImagesSlice: StateCreator<
@@ -34,22 +36,60 @@ export const createBlurredImagesSlice: StateCreator<
   [],
   [],
   BlurredImagesSlice
-> = (set, get) => ({
-  blurredImages: [],
-  isBlurredImagesLoading: false,
+> = (set, get) => {
+  const blurredImagesOperation = createAbortableOperation({
+    onStart: () => {
+      set({
+        isBlurredImagesLoading: true,
+      });
+    },
+    onFinish: () => {
+      set({
+        isBlurredImagesLoading: false,
+      });
+    },
+  });
 
-  loadBlurredImages: async (): Promise<void> => {
-    const {originalImage, blurredImages} = get();
-    if (blurredImages.length || !originalImage) {
-      return;
-    }
-    set({
-      isBlurredImagesLoading: true,
-    });
-    const newBlurredImages = await getBlurred(originalImage);
-    set({
-      blurredImages: newBlurredImages,
-      isBlurredImagesLoading: false,
-    });
-  },
-});
+  registerProcessedImage({
+    abort: () => {
+      blurredImagesOperation.abort();
+    },
+    clear: () => {
+      const {blurredImages} = get();
+      set({
+        blurredImages: [],
+      });
+      blurredImages.forEach(image => {
+        image.close();
+      });
+    },
+  });
+
+  return {
+    blurredImages: [],
+    isBlurredImagesLoading: false,
+
+    loadBlurredImages: async (): Promise<void> => {
+      const {originalImage, blurredImages} = get();
+      if (blurredImages.length || !originalImage) {
+        return;
+      }
+      await blurredImagesOperation.run(async signal => {
+        const newBlurredImages = await getBlurred(originalImage);
+        if (signal.aborted) {
+          newBlurredImages.forEach(image => {
+            image.close();
+          });
+        }
+        signal.throwIfAborted();
+        set({
+          blurredImages: newBlurredImages,
+        });
+      });
+    },
+
+    abortBlurredImages: (): void => {
+      blurredImagesOperation.abort();
+    },
+  };
+};

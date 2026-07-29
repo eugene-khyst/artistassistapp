@@ -19,61 +19,40 @@
 import {saveAs} from 'file-saver';
 import type {StateCreator} from 'zustand';
 
-import {Reflectance} from '@/services/color/space/reflectance';
-import {hexToRgb} from '@/services/color/space/rgb';
-import type {ColorDefinitionSource, CustomColorBrandDefinition} from '@/services/color/types';
-import {FileExtension} from '@/services/color/types';
+import {fromCustomColorBrandSource, parseCustomColorBrandJson} from '@/services/cloud/cloud-state';
+import {type CustomColorBrandJson, FileExtension} from '@/services/cloud/types';
+import type {CustomColorBrandDefinition, CustomColorBrandSource} from '@/services/color/types';
 import {
   deleteCustomColorBrand,
-  getCustomColorBrands,
-  getLastCustomColorBrand,
-  saveCustomColorBrand,
+  getAllCustomColorBrands,
+  saveCustomColorBrands,
 } from '@/services/db/custom-brand-db';
-
-function calculateRho(brand: CustomColorBrandDefinition): CustomColorBrandDefinition {
-  const {colors} = brand;
-  return {
-    ...brand,
-    colors: colors?.map(({hex, ...color}: ColorDefinitionSource): ColorDefinitionSource => {
-      return {
-        ...color,
-        hex,
-        rho: [...Reflectance.fromRgb(...hexToRgb(hex)).toArray()],
-      };
-    }),
-  };
-}
-
-export function removeRho(brand: CustomColorBrandDefinition): CustomColorBrandDefinition {
-  const {colors} = brand;
-  return {
-    ...brand,
-    colors: colors?.map(({rho: _, ...color}: ColorDefinitionSource): ColorDefinitionSource => {
-      return color;
-    }),
-  };
-}
+import type {AppSlice} from '@/stores/app-slice';
+import type {CloudSlice} from '@/stores/cloud-slice';
+import type {ColorSetSlice} from '@/stores/color-set-slice';
+import {persistChange} from '@/stores/sync/persist-change';
 
 export interface CustomColorBrandSlice {
   customColorBrands: CustomColorBrandDefinition[];
-  latestCustomColorBrand: CustomColorBrandDefinition | null;
+  // Bumped only when custom brands are reloaded from IDB (init, cloud download, cross-tab wake).
+  customColorBrandsReloadCount: number;
   isCustomColorBrandsLoading: boolean;
 
   loadCustomColorBrands: () => Promise<void>;
-  saveCustomColorBrand: (brand: CustomColorBrandDefinition) => Promise<CustomColorBrandDefinition>;
-  loadCustomColorBrandFromJson: (file: File) => Promise<CustomColorBrandDefinition | undefined>;
-  saveCustomColorBrandAsJson: (brand: CustomColorBrandDefinition) => void;
+  saveCustomColorBrand: (brand: CustomColorBrandSource) => Promise<CustomColorBrandDefinition>;
   deleteCustomColorBrand: (idToDelete?: number) => Promise<void>;
+  importCustomColorBrandFromJson: (file: File) => Promise<CustomColorBrandDefinition | undefined>;
+  exportCustomColorBrandToJson: (brand: CustomColorBrandSource) => void;
 }
 
 export const createCustomColorBrandSlice: StateCreator<
-  CustomColorBrandSlice,
+  CustomColorBrandSlice & CloudSlice & ColorSetSlice & AppSlice,
   [],
   [],
   CustomColorBrandSlice
 > = (set, get) => ({
   customColorBrands: [],
-  latestCustomColorBrand: null,
+  customColorBrandsReloadCount: 0,
   isCustomColorBrandsLoading: false,
 
   loadCustomColorBrands: async (): Promise<void> => {
@@ -81,21 +60,17 @@ export const createCustomColorBrandSlice: StateCreator<
       isCustomColorBrandsLoading: true,
     });
     set({
-      customColorBrands: await getCustomColorBrands(),
-      latestCustomColorBrand: await getLastCustomColorBrand(),
+      customColorBrands: await getAllCustomColorBrands(),
+      customColorBrandsReloadCount: get().customColorBrandsReloadCount + 1,
       isCustomColorBrandsLoading: false,
     });
   },
 
   saveCustomColorBrand: async (
-    brand: CustomColorBrandDefinition
+    source: CustomColorBrandSource
   ): Promise<CustomColorBrandDefinition> => {
-    const {id, ...brandWithoutId} = brand;
-    brand = {
-      ...calculateRho(brandWithoutId),
-      ...(id ? {id} : {}),
-    };
-    await saveCustomColorBrand(brand);
+    const brand = fromCustomColorBrandSource(source);
+    await persistChange(get, () => saveCustomColorBrands([brand]));
     set({
       customColorBrands: [
         brand,
@@ -105,30 +80,37 @@ export const createCustomColorBrandSlice: StateCreator<
     return brand;
   },
 
-  loadCustomColorBrandFromJson: async (
+  deleteCustomColorBrand: async (idToDelete?: number): Promise<void> => {
+    if (!idToDelete) {
+      return;
+    }
+    const tokens = await persistChange(get, () => deleteCustomColorBrand(idToDelete));
+    set({
+      customColorBrands: get().customColorBrands.filter(
+        ({id}: CustomColorBrandDefinition) => id !== idToDelete
+      ),
+    });
+    if (tokens['color-sets']) {
+      await get().loadColorSets();
+      await get().activateLatestColorSet();
+    }
+  },
+
+  importCustomColorBrandFromJson: async (
     file: File
   ): Promise<CustomColorBrandDefinition | undefined> => {
-    const json: string = await file.text();
-    const brand = JSON.parse(json) as CustomColorBrandDefinition;
+    const brand = parseCustomColorBrandJson(await file.text());
+    if (!brand) {
+      return;
+    }
     return await get().saveCustomColorBrand(brand);
   },
 
-  saveCustomColorBrandAsJson: (brand: CustomColorBrandDefinition): void => {
-    const json: string = JSON.stringify(brand, null, 2);
+  exportCustomColorBrandToJson: ({id: _, ...brand}: CustomColorBrandSource): void => {
+    const json: string = JSON.stringify(brand satisfies CustomColorBrandJson, null, 2);
     saveAs(
       new Blob([json], {type: 'application/json'}),
       `${brand.name}${FileExtension.CustomColorBrand}`
     );
-  },
-
-  deleteCustomColorBrand: async (idToDelete?: number): Promise<void> => {
-    if (idToDelete) {
-      await deleteCustomColorBrand(idToDelete);
-      set({
-        customColorBrands: get().customColorBrands.filter(
-          ({id}: CustomColorBrandDefinition) => id !== idToDelete
-        ),
-      });
-    }
   },
 });

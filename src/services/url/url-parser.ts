@@ -16,14 +16,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-  type ColorSetDefinition,
-  type ColorType,
-  CUSTOM_COLOR_SET,
-  NEW_COLOR_SET,
-} from '@/services/color/types';
-import type {UrlParsingResult} from '@/services/url/types';
+import {AuthError} from '@/services/auth/errors';
+import {CloudError} from '@/services/cloud/errors';
+import {type ColorSetDefinition, type ColorType, CUSTOM_COLOR_SET} from '@/services/color/types';
 import {TabKey} from '@/tabs';
+
+export interface UrlParsingResult {
+  loginCallback?: {
+    completionToken: string | null;
+  };
+  loggedOut?: {
+    error: AuthError | null;
+  };
+  cloudCallback?: {
+    completed: boolean;
+    error: CloudError | AuthError | null;
+  };
+  install?: boolean;
+  tabKey?: TabKey;
+  colorSet?: ColorSetDefinition;
+}
 
 const URL_PARAM_COLOR_TYPE = 't';
 const URL_PARAM_COLOR_BRANDS = 'b';
@@ -37,9 +49,8 @@ const SKU_BASE = new Map<number, number>([
   [44, 7000000], //golden-qor
   [45, 6000000], //golden-williamsburg
 ]);
-const URL_PARAM_TAB = 'tab';
+const URL_PARAM_ERROR = 'error';
 const TAB_KEY_VALUES = new Set<string>(Object.values(TabKey));
-const INSTALL_PATHNAME = '/install';
 
 export function colorSetToUrl({
   type,
@@ -79,17 +90,15 @@ function parseTabFromPathname(url: URL): TabKey | undefined {
   return undefined;
 }
 
-function parseTabFromSearchParams(searchParams: URLSearchParams): TabKey | undefined {
-  const tab: string | null = searchParams.get(URL_PARAM_TAB);
+function parseTab(searchParams: URLSearchParams): TabKey | undefined {
+  const tab: string | null = searchParams.get('tab');
   if (tab && TAB_KEY_VALUES.has(tab)) {
     return tab as TabKey;
   }
   return undefined;
 }
 
-function parseColorSetFromSearchParams(
-  searchParams: URLSearchParams
-): ColorSetDefinition | undefined {
+function parseColorSet(searchParams: URLSearchParams): ColorSetDefinition | undefined {
   if (!searchParams.has(URL_PARAM_COLOR_TYPE) || !searchParams.has(URL_PARAM_COLOR_BRANDS)) {
     return undefined;
   }
@@ -116,7 +125,6 @@ function parseColorSetFromSearchParams(
   }
   const name = searchParams.get(URL_PARAM_NAME);
   return {
-    id: NEW_COLOR_SET,
     type,
     brands,
     standardColorSet: CUSTOM_COLOR_SET,
@@ -125,17 +133,65 @@ function parseColorSetFromSearchParams(
   };
 }
 
+function parseLoginCallback(url: URL): UrlParsingResult['loginCallback'] | undefined {
+  if (url.pathname !== '/login/callback') {
+    return undefined;
+  }
+  return {
+    completionToken: url.searchParams.get('completion_token'),
+  };
+}
+
+function parseLoggedOut(url: URL): UrlParsingResult['loggedOut'] | undefined {
+  if (url.pathname !== '/logged-out') {
+    return undefined;
+  }
+  const {searchParams} = url;
+  return {
+    error: searchParams.has(URL_PARAM_ERROR)
+      ? AuthError.fromErrorType(
+          searchParams.get(URL_PARAM_ERROR),
+          'Logged out due to an authentication error'
+        )
+      : null,
+  };
+}
+
+function parseCloudCallback(url: URL): UrlParsingResult['cloudCallback'] | undefined {
+  if (url.pathname !== '/cloud/callback') {
+    return undefined;
+  }
+  const {searchParams} = url;
+  return {
+    completed: searchParams.get('completed')?.toLowerCase() === 'true',
+    error: searchParams.has(URL_PARAM_ERROR)
+      ? CloudError.fromErrorType(searchParams.get(URL_PARAM_ERROR), 'Cloud connection failed')
+      : null,
+  };
+}
+
 export function parseUrl(urlStr: string): UrlParsingResult {
   const url = new URL(urlStr);
-  if (url.pathname === INSTALL_PATHNAME) {
+  const loginCallback = parseLoginCallback(url);
+  if (loginCallback) {
+    return {loginCallback};
+  }
+  const loggedOut = parseLoggedOut(url);
+  if (loggedOut) {
+    return {loggedOut};
+  }
+  if (url.pathname === '/install') {
     return {install: true};
   }
-  const tabKey: TabKey | undefined =
-    parseTabFromPathname(url) ?? parseTabFromSearchParams(url.searchParams);
+  const cloudCallback = parseCloudCallback(url);
+  if (cloudCallback) {
+    return {cloudCallback};
+  }
+  const tabKey: TabKey | undefined = parseTabFromPathname(url) ?? parseTab(url.searchParams);
   if (tabKey) {
     return {tabKey};
   }
-  const colorSet: ColorSetDefinition | undefined = parseColorSetFromSearchParams(url.searchParams);
+  const colorSet: ColorSetDefinition | undefined = parseColorSet(url.searchParams);
   if (colorSet) {
     return {colorSet};
   }

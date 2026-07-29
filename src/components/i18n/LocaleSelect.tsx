@@ -17,7 +17,7 @@
  */
 
 import {GlobalOutlined} from '@ant-design/icons';
-import {useLingui} from '@lingui/react/macro';
+import {Trans} from '@lingui/react/macro';
 import {Form, Select} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 
@@ -60,13 +60,11 @@ export function LocaleSelect() {
 
   const setLocale = useAppStore(state => state.setLocale);
 
-  const {t} = useLingui();
-
   return (
-    <Form.Item label={t`Language`} className="u-mb-0">
+    <Form.Item label={<Trans>Language</Trans>} className="u-mb-0">
       <Select
         options={LOCALE_OPTIONS}
-        placeholder={t`Select language`}
+        placeholder={<Trans>Select language</Trans>}
         prefix={<GlobalOutlined />}
         value={locale}
         onChange={value => {

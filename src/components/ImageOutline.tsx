@@ -71,9 +71,8 @@ const gridCanvasSupplier = (canvas: HTMLCanvasElement): GridCanvas => {
 
 export function ImageOutline() {
   const user = useAppStore(state => state.auth?.user);
-  const isAuthLoading = useAppStore(state => state.isAuthLoading);
   const grids = useAppStore(state => state.appSettings.grids);
-  const imageFile = useAppStore(state => state.imageFile);
+  const selectedImageFile = useAppStore(state => state.selectedImageFile);
   const isOutlineImageLoading = useAppStore(state => state.isOutlineImageLoading);
   const outlineDownloadTip = useAppStore(state => state.outlineDownloadTip);
   const outlineImage = useAppStore(state => state.outlineImage);
@@ -116,12 +115,12 @@ export function ImageOutline() {
 
   const onArPermissionDenied = useCallback(() => {
     notification.error({
-      title: t`Camera access is required for AR tracing`,
+      title: <Trans>Camera access is required for AR tracing</Trans>,
       placement: 'top',
       duration: 10,
       showProgress: true,
     });
-  }, [notification, t]);
+  }, [notification]);
 
   const {
     isArMode,
@@ -133,7 +132,9 @@ export function ImageOutline() {
     onPermissionDenied: onArPermissionDenied,
   });
 
-  const isLoading: boolean = isModelsLoading || isOutlineImageLoading || isAuthLoading;
+  const isLoading: boolean = isModelsLoading || isOutlineImageLoading;
+
+  const isCancelable: boolean = isOutlineImageLoading;
 
   useEffect(() => {
     if (!gridCanvas) {
@@ -165,7 +166,7 @@ export function ImageOutline() {
     if (!outlineImage) {
       return;
     }
-    void gridCanvas?.saveAsImage(getFilename(imageFile, 'outline'));
+    void gridCanvas?.saveAsImage(getFilename(selectedImageFile, 'outline'));
   };
 
   const handleLightboxClick = async () => {
@@ -208,15 +209,15 @@ export function ImageOutline() {
     [gridCanvas]
   );
 
-  if (!imageFile) {
+  if (!selectedImageFile) {
     return <EmptyImage />;
   }
 
   return (
     <LoadingIndicator
       loading={isLoading}
-      downloadTip={!!modelId && outlineDownloadTip}
-      onCancel={!!modelId && handleCancelClick}
+      tip={modelId ? outlineDownloadTip : null}
+      onCancel={isCancelable && handleCancelClick}
     >
       <Form.Item
         className="u-tab-toolbar"
@@ -237,7 +238,7 @@ export function ImageOutline() {
       >
         <Space className={styles['actions']}>
           <Form.Item
-            label={screens.sm ? t`Mode` : null}
+            label={screens.sm ? <Trans>Mode</Trans> : null}
             labelCol={{className: 'u-pb-0'}}
             className="u-mb-0"
             validateStatus={!isAccessAllowed ? 'warning' : undefined}
@@ -262,7 +263,9 @@ export function ImageOutline() {
               >
                 <Trans>Save</Trans>
               </Button>
-              <Tooltip title={t`Enter lightbox mode to trace the outline through your paper.`}>
+              <Tooltip
+                title={<Trans>Enter lightbox mode to trace the outline through your paper.</Trans>}
+              >
                 <Button
                   icon={<BulbOutlined />}
                   onClick={() => {
@@ -272,7 +275,7 @@ export function ImageOutline() {
                   <Trans>Lightbox</Trans>
                 </Button>
               </Tooltip>
-              <Tooltip title={t`View the outline over the live camera to trace in AR.`}>
+              <Tooltip title={<Trans>View the outline over the live camera to trace in AR.</Trans>}>
                 <Button
                   type={isArMode ? 'primary' : 'default'}
                   icon={<VideoCameraOutlined />}
@@ -306,13 +309,13 @@ export function ImageOutline() {
                 items: [
                   {
                     key: 'print',
-                    label: t`Print`,
+                    label: <Trans>Print</Trans>,
                     icon: <PrinterOutlined />,
                     onClick: handlePrintClick,
                   },
                   {
                     key: 'save',
-                    label: t`Save`,
+                    label: <Trans>Save</Trans>,
                     icon: <DownloadOutlined />,
                     onClick: () => {
                       handleSaveClick();
@@ -320,7 +323,7 @@ export function ImageOutline() {
                   },
                   {
                     key: 'lightbox',
-                    label: t`Light box`,
+                    label: <Trans>Light box</Trans>,
                     title: t`Enter lightbox mode to trace the outline through your paper.`,
                     icon: <BulbOutlined />,
                     onClick: () => {

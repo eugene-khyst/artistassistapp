@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {useLingui} from '@lingui/react/macro';
+import {Trans, useLingui} from '@lingui/react/macro';
 import {Col, Drawer, Grid, Row} from 'antd';
 
 import {useCreateObjectUrl} from '@/hooks/useCreateObjectUrl';
@@ -37,13 +37,13 @@ interface Props {
 }
 
 export function ColorSwatchDrawer({colorMixtures, open = false, onClose}: Readonly<Props>) {
-  const imageFile = useAppStore(state => state.imageFile);
+  const selectedImageFile = useAppStore(state => state.selectedImageFile);
 
   const screens = Grid.useBreakpoint();
 
   const {t} = useLingui();
 
-  const imageBlob: Blob | undefined = useImageFileToBlob(imageFile);
+  const imageBlob: Blob | undefined = useImageFileToBlob(selectedImageFile);
   const imageUrl: string | undefined = useCreateObjectUrl(imageBlob);
 
   const isFullHeight: boolean = screens.sm || !imageUrl;
@@ -58,7 +58,7 @@ export function ColorSwatchDrawer({colorMixtures, open = false, onClose}: Readon
 
   return (
     <Drawer
-      title={t`Color swatch`}
+      title={<Trans>Color swatch</Trans>}
       placement="right"
       size="100%"
       open={open}
@@ -82,7 +82,7 @@ export function ColorSwatchDrawer({colorMixtures, open = false, onClose}: Readon
             };
             return (
               <div key={colorMixture.key} className={styles['stripe']} style={stripeStyle}>
-                {colorMixture.name || t`Untitled mixture`}
+                {colorMixture.name || <Trans>Untitled mixture</Trans>}
               </div>
             );
           })}

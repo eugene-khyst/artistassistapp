@@ -97,6 +97,16 @@ export function groupBy<T, Key>(
   }, new Map<Key, T[]>());
 }
 
+export function maxOf<T>(items: T[], comparator: Comparator<T>): T | undefined {
+  let max: T | undefined;
+  for (const item of items) {
+    if (max === undefined || comparator(item, max) > 0) {
+      max = item;
+    }
+  }
+  return max;
+}
+
 export type ExtractorComparator<T, P> = [
   comparator: Comparator<P>,
   extractor?: (item: T) => P | null | undefined,

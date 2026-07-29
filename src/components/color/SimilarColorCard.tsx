@@ -18,7 +18,7 @@
 
 import {LineChartOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Button, Card, Col, Row, Space, Typography} from 'antd';
+import {Button, Card, Col, Flex, Row, Space, Typography} from 'antd';
 import {memo} from 'react';
 
 import {AddToPaletteButton} from '@/components/color/AddToPaletteButton';
@@ -60,7 +60,13 @@ export const SimilarColorCard = memo(function SimilarColorCard({
 
   const handleTitleEdited = (value: string) => {
     if (paletteColorMixture) {
-      void saveToPalette({...paletteColorMixture, name: value});
+      void saveToPalette({
+        colorMixture: {
+          ...paletteColorMixture,
+          name: value,
+        },
+        preserveDate: true,
+      });
     }
   };
 
@@ -74,7 +80,7 @@ export const SimilarColorCard = memo(function SimilarColorCard({
 
   return (
     <Card size="small">
-      <Space orientation="vertical" className="u-w-100">
+      <Flex vertical gap="small" className="u-w-100">
         <Space>
           <Typography.Text>
             <Trans>
@@ -94,7 +100,7 @@ export const SimilarColorCard = memo(function SimilarColorCard({
             }}
             className="u-w-100 u-font-bold"
           >
-            {paletteColorMixture.name || t`Untitled mixture`}
+            {paletteColorMixture.name || <Trans>Untitled mixture</Trans>}
           </Typography.Text>
         )}
 
@@ -145,7 +151,7 @@ export const SimilarColorCard = memo(function SimilarColorCard({
             </Col>
           )}
         </Row>
-      </Space>
+      </Flex>
     </Card>
   );
 });
