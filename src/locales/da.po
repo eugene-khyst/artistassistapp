@@ -143,7 +143,7 @@ msgstr "En ny version af appen er tilgængelig og vil blive installeret automati
 msgid "A new version of the application is available."
 msgstr "En ny version af applikationen er tilgængelig."
 
-#: src/components/ImageColorAdjustment.tsx:465
+#: src/components/ImageColorAdjustment.tsx:477
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "En værdi på mindre end 100 % får billedet til at se mindre farverigt ud, og en værdi på mere end 100 % får det til at se for farverigt ud"
 
@@ -323,7 +323,7 @@ msgstr "Auto-detektering"
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Find automatisk de bedste farveblandinger til dette foto."
 
-#: src/components/ImageColorAdjustment.tsx:438
+#: src/components/ImageColorAdjustment.tsx:450
 msgid "Average color of the white point area"
 msgstr "Gennemsnitlig farve på hvidpunktsområdet"
 
@@ -415,7 +415,7 @@ msgstr "Klar underlag"
 msgid "Clear unifying color"
 msgstr "Klar forenende farve"
 
-#: src/components/ImageColorAdjustment.tsx:430
+#: src/components/ImageColorAdjustment.tsx:442
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Klik 🖱️ eller tryk 👆 et vilkårligt sted på fotoet for at vælge et hvidpunkt."
 
@@ -601,7 +601,7 @@ msgstr "Kopier et understøttet billede til udklipsholderen, og prøv igen."
 msgid "Copy and share this link"
 msgstr "Kopier og del dette link"
 
-#: src/components/ImageColorAdjustment.tsx:598
+#: src/components/ImageColorAdjustment.tsx:610
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Korrigeret estimering af lyskildens temperatur i Kelvin"
 
@@ -844,7 +844,7 @@ msgstr "Fejl under hentning af ML-modeldata"
 msgid "Error while fetching standard color set data"
 msgstr "Fejl under hentning af standardfarvesætdata"
 
-#: src/components/ImageColorAdjustment.tsx:564
+#: src/components/ImageColorAdjustment.tsx:576
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Estimeret temperatur af lyskilden i Kelvin, billedet blev taget med"
 
@@ -874,7 +874,7 @@ msgstr "Fuld tryk"
 msgid "Full strength"
 msgstr "Fuld styrke"
 
-#: src/components/ImageColorAdjustment.tsx:514
+#: src/components/ImageColorAdjustment.tsx:526
 msgid "Gamma"
 msgstr "Gamma"
 
@@ -976,7 +976,7 @@ msgstr "Installer ArtistAssistApp"
 msgid "Install update"
 msgstr "Installationsopdatering"
 
-#: src/components/ImageColorAdjustment.tsx:595
+#: src/components/ImageColorAdjustment.tsx:607
 msgid "Intended color temperature (K)"
 msgstr "Tilsigtet farvetemperatur (K)"
 
@@ -1087,11 +1087,11 @@ msgstr "Log ud"
 msgid "Login result not received"
 msgstr "Login-resultat ikke modtaget"
 
-#: src/components/ImageColorAdjustment.tsx:487
+#: src/components/ImageColorAdjustment.tsx:499
 msgid "Low input and high input"
 msgstr "Lavt input og højt input"
 
-#: src/components/ImageColorAdjustment.tsx:536
+#: src/components/ImageColorAdjustment.tsx:548
 msgid "Low output and high output"
 msgstr "Lavt output og højt output"
 
@@ -1122,7 +1122,7 @@ msgstr "Sammenflet farvesæt"
 msgid "Mid tone"
 msgstr "Mellemtone"
 
-#: src/components/ImageColorAdjustment.tsx:512
+#: src/components/ImageColorAdjustment.tsx:524
 msgid "Midtones"
 msgstr "Mellemtoner"
 
@@ -1224,6 +1224,10 @@ msgstr "Intet at dele"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Antal celler på den mindre side (lodret eller vandret)"
 
+#: src/components/ImageColorAdjustment.tsx:329
+msgid "Off"
+msgstr "Fra"
+
 #: src/components/messages.ts:53
 msgid "Oil Paint"
 msgstr "Oliemaling"
@@ -1282,7 +1286,7 @@ msgstr "Eller vælg mellem eksempler på fotos"
 msgid "Or select from your recent photos"
 msgstr "Eller vælg blandt dine seneste billeder"
 
-#: src/components/ImageColorAdjustment.tsx:561
+#: src/components/ImageColorAdjustment.tsx:573
 msgid "Original color temperature (K)"
 msgstr "Oprindelig farvetemperatur (K)"
 
@@ -1294,7 +1298,7 @@ msgstr "Originalt foto"
 msgid "Outline"
 msgstr "Skitsere"
 
-#: src/components/ImageColorAdjustment.tsx:534
+#: src/components/ImageColorAdjustment.tsx:546
 msgid "Output levels"
 msgstr "Udgangsniveauer"
 
@@ -1322,12 +1326,12 @@ msgstr "Patreon-medlemskabsverifikation mislykkedes"
 msgid "Patron status"
 msgstr "Beskytterstatus"
 
-#: src/components/ImageColorAdjustment.tsx:313
-#: src/components/ImageColorAdjustment.tsx:408
+#: src/components/ImageColorAdjustment.tsx:321
+#: src/components/ImageColorAdjustment.tsx:420
 msgid "Percentile"
 msgstr "Percentil"
 
-#: src/components/ImageColorAdjustment.tsx:389
+#: src/components/ImageColorAdjustment.tsx:401
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Percentil: Automatisk hvidbalance fra lyseste områder, godt til de fleste billeder. Reference: Manuel hvidbalance ved hjælp af det valgte hvide område."
 
@@ -1386,7 +1390,7 @@ msgstr "Tryk på Del på navigationslinjen"
 msgid "Press the <0>Add to palette</0> button next to the color mixture you like."
 msgstr "Tryk på <0>knappen Tilføj til palet</0> ved siden af den farveblanding, du kan lide."
 
-#: src/components/ImageColorAdjustment.tsx:378
+#: src/components/ImageColorAdjustment.tsx:390
 msgid "Preview"
 msgstr "Preview"
 
@@ -1448,7 +1452,7 @@ msgid "Reduce the number of colors in the photo."
 msgstr "Reducer antallet af farver på billedet."
 
 #: src/components/color/ColorSwatchDrawer.tsx:70
-#: src/components/ImageColorAdjustment.tsx:317
+#: src/components/ImageColorAdjustment.tsx:325
 msgid "Reference"
 msgstr "Henvisning"
 
@@ -1461,7 +1465,7 @@ msgstr "Reflektionsgrad"
 msgid "Reload"
 msgstr "Genindlæsning"
 
-#: src/components/ImageColorAdjustment.tsx:373
+#: src/components/ImageColorAdjustment.tsx:385
 #: src/components/messages.ts:43
 msgid "Remove background"
 msgstr "Fjern baggrund"
@@ -1511,7 +1515,7 @@ msgstr "Rotere"
 msgid "Sample size"
 msgstr "Stikprøvestørrelse"
 
-#: src/components/ImageColorAdjustment.tsx:462
+#: src/components/ImageColorAdjustment.tsx:474
 msgid "Saturation (%)"
 msgstr "Mætning (%)"
 
@@ -1522,7 +1526,7 @@ msgstr "Mætning (%)"
 #: src/components/ImageBackgroundRemoval.tsx:219
 #: src/components/ImageBlurred.tsx:148
 #: src/components/ImageBlurred.tsx:161
-#: src/components/ImageColorAdjustment.tsx:347
+#: src/components/ImageColorAdjustment.tsx:359
 #: src/components/ImageGrid.tsx:73
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:138
@@ -1548,12 +1552,12 @@ msgstr "Gem backup"
 msgid "Save changes to the color set?"
 msgstr "Gemme ændringer i farvesættet?"
 
-#: src/components/ImageColorAdjustment.tsx:300
+#: src/components/ImageColorAdjustment.tsx:308
 #: src/components/ImagePerspectiveCorrection.tsx:233
 msgid "Save expanded to 1.91:1"
 msgstr "Gem indhold udvidet til 1,91:1"
 
-#: src/components/ImageColorAdjustment.tsx:288
+#: src/components/ImageColorAdjustment.tsx:296
 #: src/components/ImagePerspectiveCorrection.tsx:221
 msgid "Save expanded to 4:5"
 msgstr "Gem udvidet til 4:5"
@@ -1566,7 +1570,7 @@ msgstr "Gem ændringerne i dette farvesæt"
 msgid "Select 4 points to correct perspective distortion"
 msgstr "Vælg 4 punkter for at korrigere perspektivforvrængning"
 
-#: src/components/ImageColorAdjustment.tsx:332
+#: src/components/ImageColorAdjustment.tsx:344
 msgid "Select a photo to adjust white balance and colors"
 msgstr "Vælg et foto for at justere hvidbalance og farver"
 
@@ -1653,7 +1657,7 @@ msgstr "Vælg del"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
 #: src/components/ImageChooser.tsx:120
-#: src/components/ImageColorAdjustment.tsx:337
+#: src/components/ImageColorAdjustment.tsx:349
 #: src/components/ImagePerspectiveCorrection.tsx:268
 msgid "Select photo"
 msgstr "Vælg foto"
@@ -1704,7 +1708,7 @@ msgid "Set as main color set"
 msgstr "Indstil som hovedfarvesæt"
 
 #: src/components/ImageBlurred.tsx:103
-#: src/components/ImageColorAdjustment.tsx:366
+#: src/components/ImageColorAdjustment.tsx:378
 msgid "Set as reference"
 msgstr "Indstil som reference"
 
@@ -1733,7 +1737,7 @@ msgstr "Sæt som forenende farve"
 msgid "Shadow"
 msgstr "Skygge"
 
-#: src/components/ImageColorAdjustment.tsx:485
+#: src/components/ImageColorAdjustment.tsx:497
 msgid "Shadows and highlights"
 msgstr "Skygger og højlys"
 
@@ -1811,7 +1815,7 @@ msgstr "Overlapp let vokspastelområder i forskellige farver og blend fast for a
 msgid "Small"
 msgstr "Lille"
 
-#: src/components/ImageColorAdjustment.tsx:411
+#: src/components/ImageColorAdjustment.tsx:423
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Lavere percentilværdier svarer til stærkere blegning"
 
@@ -2196,11 +2200,11 @@ msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of thr
 msgstr "Når du vælger mere end {maxColorsFor3} farver i alt, bruges blandinger af tre farver ikke."
 
 #: src/components/ImageBackgroundRemoval.tsx:116
-#: src/components/ImageColorAdjustment.tsx:446
+#: src/components/ImageColorAdjustment.tsx:458
 msgid "White"
 msgstr "Hvid"
 
-#: src/components/ImageColorAdjustment.tsx:386
+#: src/components/ImageColorAdjustment.tsx:398
 msgid "White balance"
 msgstr "Hvidbalance"
 
@@ -2208,8 +2212,8 @@ msgstr "Hvidbalance"
 msgid "White paper or canvas"
 msgstr "Hvidt papir eller lærred"
 
-#: src/components/ImageColorAdjustment.tsx:436
-#: src/components/ImageColorAdjustment.tsx:442
+#: src/components/ImageColorAdjustment.tsx:448
+#: src/components/ImageColorAdjustment.tsx:454
 msgid "White point"
 msgstr "Hvidt punkt"
 

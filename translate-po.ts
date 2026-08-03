@@ -1,13 +1,14 @@
-import {readFile, writeFile} from 'node:fs/promises';
+import {readdir, readFile, stat, writeFile} from 'node:fs/promises';
+import path from 'node:path';
 
-import {MET} from 'bing-translate-api';
+import {MET, translate} from 'bing-translate-api';
 import {po} from 'gettext-parser';
 
 const SOURCE_LANG = 'en' as const;
 const EDGE_USER_AGENT =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.4078.83';
 
-const TARGET_LANGS = [
+const AVAILABLE_TARGET_LANGS = [
   'bg',
   'cs',
   'da',
@@ -33,7 +34,7 @@ const TARGET_LANGS = [
 ] as const;
 
 type SourceLang = typeof SOURCE_LANG;
-type TargetLang = (typeof TARGET_LANGS)[number];
+type TargetLang = (typeof AVAILABLE_TARGET_LANGS)[number];
 
 type PluralForms = 'one' | 'few' | 'many' | 'other';
 
@@ -80,8 +81,24 @@ async function translateText(
   sourceLang: SourceLang,
   targetLang: TargetLang
 ): Promise<string | undefined> {
+  const protectedSourceText = protectLinguiTags(sourceText);
+  let translated: string | undefined;
+  try {
+    translated = await translateMet(protectedSourceText, sourceLang, targetLang);
+  } catch (error) {
+    console.warn(`MET failed, falling back to Bing Translator: ${String(error)}`);
+  }
+  translated ??= await translateBing(protectedSourceText, sourceLang, targetLang);
+  return translated ? restoreLinguiTags(sourceText, translated) : undefined;
+}
+
+async function translateMet(
+  text: string,
+  sourceLang: SourceLang,
+  targetLang: TargetLang
+): Promise<string | undefined> {
   const result: MET.MetTranslationResult[] | undefined = await MET.translate(
-    sourceText,
+    text,
     sourceLang,
     targetLang,
     {
@@ -93,6 +110,45 @@ async function translateText(
     }
   );
   return result?.[0]?.translations[0]?.text;
+}
+
+async function translateBing(
+  text: string,
+  sourceLang: SourceLang,
+  targetLang: TargetLang
+): Promise<string | undefined> {
+  const result = await translate(text, sourceLang, targetLang, false, false, EDGE_USER_AGENT);
+  return result?.translation;
+}
+
+function protectLinguiTags(text: string): string {
+  let index = 0;
+  return text.replace(
+    /<\/?\d+\s*\/?>/g,
+    () => `<span class="notranslate">__LINGUI_TAG_${index++}__</span>`
+  );
+}
+
+function restoreLinguiTags(original: string, translated: string): string {
+  const originalTags = original.match(/<\/?\d+\s*\/?>/g) ?? [];
+  let restored = translated.replace(/<span\b[^>]*>\s*(__LINGUI_TAG_\d+__)\s*<\/span>/gi, '$1');
+  originalTags.forEach((tag, index) => {
+    restored = restored.replace(`__LINGUI_TAG_${index}__`, tag);
+  });
+
+  const tagCounts = (text: string) => {
+    const counts = new Map<string, number>();
+    for (const tag of text.match(/<\/?\d+\s*\/?>/g) ?? []) {
+      const normalized = tag.replace(/\s+/g, '');
+      counts.set(normalized, (counts.get(normalized) ?? 0) + 1);
+    }
+    return [...counts.entries()].sort(([left], [right]) => left.localeCompare(right));
+  };
+
+  if (JSON.stringify(tagCounts(original)) !== JSON.stringify(tagCounts(restored))) {
+    throw new Error(`Mismatch in Lingui tags. Original: ${original}\nTranslation: ${restored}`);
+  }
+  return restored;
 }
 
 function parsePluralMessage(
@@ -162,10 +218,12 @@ async function translatePluralMessage(
   return `{${variable}, plural, ${translatedFormsStr}}`;
 }
 
-async function translatePoTo(sourceLang: SourceLang, targetLang: TargetLang): Promise<void> {
-  console.log(`Translating from ${sourceLang} to ${targetLang}`);
-
-  const targetFilePath = `src/locales/${targetLang}.po`;
+async function translatePoFile(
+  sourceLang: SourceLang,
+  targetLang: TargetLang,
+  targetFilePath: string
+): Promise<void> {
+  console.log(`Translating ${targetFilePath} from ${sourceLang} to ${targetLang}`);
   const targetFile = await readFile(targetFilePath);
   const targetPo = po.parse(targetFile);
   const entries = targetPo.translations[''] ?? [];
@@ -191,6 +249,45 @@ async function translatePoTo(sourceLang: SourceLang, targetLang: TargetLang): Pr
   }
 
   await writeFile(targetFilePath, po.compile(targetPo));
+}
+
+async function findPoFiles(directory: string): Promise<string[]> {
+  const entries = await readdir(directory, {withFileTypes: true});
+  const files = await Promise.all(
+    entries.map(entry => {
+      const entryPath = path.join(directory, entry.name);
+      return entry.isDirectory()
+        ? findPoFiles(entryPath)
+        : Promise.resolve(entry.name.endsWith('.po') ? [entryPath] : []);
+    })
+  );
+  return files.flat().sort();
+}
+
+async function findLocalePoFiles(targetLang: TargetLang): Promise<string[]> {
+  const nestedPath = path.join('src', 'locales', targetLang);
+  try {
+    if ((await stat(nestedPath)).isDirectory()) {
+      return await findPoFiles(nestedPath);
+    }
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
+      throw error;
+    }
+  }
+
+  const flatPath = path.join('src', 'locales', `${targetLang}.po`);
+  if (!(await stat(flatPath)).isFile()) {
+    throw new Error(`PO catalog not found: ${flatPath}`);
+  }
+  return [flatPath];
+}
+
+async function translatePoTo(sourceLang: SourceLang, targetLang: TargetLang): Promise<void> {
+  const files = await findLocalePoFiles(targetLang);
+  for (const file of files) {
+    await translatePoFile(sourceLang, targetLang, file);
+  }
 }
 
 function getPlaceholders(text: string): string[] {
@@ -219,7 +316,15 @@ function replacePlaceholders(original: string, translated: string): string {
 }
 
 void (async () => {
-  for (const targetLang of TARGET_LANGS) {
+  const requested = process.argv.slice(2);
+  const targetLangs = (requested.length ? requested : AVAILABLE_TARGET_LANGS).map(language => {
+    if (!AVAILABLE_TARGET_LANGS.includes(language as TargetLang)) {
+      throw new Error(`Unsupported target language: ${language}`);
+    }
+    return language as TargetLang;
+  });
+
+  for (const targetLang of targetLangs) {
     await translatePoTo(SOURCE_LANG, targetLang);
   }
 })();

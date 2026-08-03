@@ -143,7 +143,7 @@ msgstr "Μια νέα έκδοση της εφαρμογής είναι διαθ
 msgid "A new version of the application is available."
 msgstr "Μια νέα έκδοση της εφαρμογής είναι διαθέσιμη."
 
-#: src/components/ImageColorAdjustment.tsx:465
+#: src/components/ImageColorAdjustment.tsx:477
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Μια τιμή μικρότερη από 100% κάνει την εικόνα να φαίνεται λιγότερο πολύχρωμη και μια τιμή μεγαλύτερη από 100% την κάνει να φαίνεται πολύ πολύχρωμη"
 
@@ -323,7 +323,7 @@ msgstr "Αυτόματος εντοπισμός"
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Βρείτε αυτόματα τα καλύτερα μείγματα χρωμάτων για αυτήν τη φωτογραφία."
 
-#: src/components/ImageColorAdjustment.tsx:438
+#: src/components/ImageColorAdjustment.tsx:450
 msgid "Average color of the white point area"
 msgstr "Μέσο χρώμα της περιοχής λευκού σημείου"
 
@@ -415,7 +415,7 @@ msgstr "Καθαρίστε το υπόστρωμα"
 msgid "Clear unifying color"
 msgstr "Καθαρό ενοποιητικό χρώμα"
 
-#: src/components/ImageColorAdjustment.tsx:430
+#: src/components/ImageColorAdjustment.tsx:442
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Κάντε κλικ 🖱️ ή πατήστε 👆 οπουδήποτε στη φωτογραφία για να επιλέξετε ένα λευκό σημείο."
 
@@ -601,7 +601,7 @@ msgstr "Αντιγράψτε μια υποστηριζόμενη εικόνα σ
 msgid "Copy and share this link"
 msgstr "Αντιγράψτε και μοιραστείτε αυτόν τον σύνδεσμο"
 
-#: src/components/ImageColorAdjustment.tsx:598
+#: src/components/ImageColorAdjustment.tsx:610
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Διορθωμένη εκτίμηση της θερμοκρασίας της φωτεινής πηγής στο Kelvin"
 
@@ -844,7 +844,7 @@ msgstr "Σφάλμα κατά τη λήψη δεδομένων μοντέλου 
 msgid "Error while fetching standard color set data"
 msgstr "Σφάλμα κατά τη λήψη τυπικών δεδομένων συνόλου χρωμάτων"
 
-#: src/components/ImageColorAdjustment.tsx:564
+#: src/components/ImageColorAdjustment.tsx:576
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Εκτιμώμενη θερμοκρασία της πηγής φωτός στο Kelvin η εικόνα λήφθηκε με"
 
@@ -874,7 +874,7 @@ msgstr "Πλήρης πίεση"
 msgid "Full strength"
 msgstr "Πλήρης δύναμη"
 
-#: src/components/ImageColorAdjustment.tsx:514
+#: src/components/ImageColorAdjustment.tsx:526
 msgid "Gamma"
 msgstr "Γάμμα"
 
@@ -976,7 +976,7 @@ msgstr "Εγκαταστήστε το ArtistAssistApp"
 msgid "Install update"
 msgstr "Εγκατάσταση ενημέρωσης"
 
-#: src/components/ImageColorAdjustment.tsx:595
+#: src/components/ImageColorAdjustment.tsx:607
 msgid "Intended color temperature (K)"
 msgstr "Προβλεπόμενη θερμοκρασία χρώματος (K)"
 
@@ -1087,11 +1087,11 @@ msgstr "Αποσύνδεση"
 msgid "Login result not received"
 msgstr "Το αποτέλεσμα σύνδεσης δεν ελήφθη"
 
-#: src/components/ImageColorAdjustment.tsx:487
+#: src/components/ImageColorAdjustment.tsx:499
 msgid "Low input and high input"
 msgstr "Χαμηλή είσοδος και υψηλή είσοδος"
 
-#: src/components/ImageColorAdjustment.tsx:536
+#: src/components/ImageColorAdjustment.tsx:548
 msgid "Low output and high output"
 msgstr "Χαμηλή απόδοση και υψηλή απόδοση"
 
@@ -1122,7 +1122,7 @@ msgstr "Συγχώνευση συνόλων χρωμάτων"
 msgid "Mid tone"
 msgstr "Μεσαίος τόνος"
 
-#: src/components/ImageColorAdjustment.tsx:512
+#: src/components/ImageColorAdjustment.tsx:524
 msgid "Midtones"
 msgstr "Μεσαίοι τόνοι"
 
@@ -1224,6 +1224,10 @@ msgstr "Τίποτα για κοινή χρήση"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Αριθμός κελιών στη μικρότερη πλευρά (κατακόρυφη ή οριζόντια)"
 
+#: src/components/ImageColorAdjustment.tsx:329
+msgid "Off"
+msgstr "Απενεργοποιημένο"
+
 #: src/components/messages.ts:53
 msgid "Oil Paint"
 msgstr "Λαδομπογιά"
@@ -1282,7 +1286,7 @@ msgstr "Εναλλακτικά, επιλέξτε από δείγματα φωτ�
 msgid "Or select from your recent photos"
 msgstr "Εναλλακτικά, επιλέξτε από τις πρόσφατες φωτογραφίες σας"
 
-#: src/components/ImageColorAdjustment.tsx:561
+#: src/components/ImageColorAdjustment.tsx:573
 msgid "Original color temperature (K)"
 msgstr "Αρχική θερμοκρασία χρώματος (K)"
 
@@ -1294,7 +1298,7 @@ msgstr "Αρχική φωτογραφία"
 msgid "Outline"
 msgstr "Περιγραφή"
 
-#: src/components/ImageColorAdjustment.tsx:534
+#: src/components/ImageColorAdjustment.tsx:546
 msgid "Output levels"
 msgstr "Επίπεδα εξόδου"
 
@@ -1322,12 +1326,12 @@ msgstr "Η επαλήθευση μέλους Patreon απέτυχε"
 msgid "Patron status"
 msgstr "Κατάσταση μέλους"
 
-#: src/components/ImageColorAdjustment.tsx:313
-#: src/components/ImageColorAdjustment.tsx:408
+#: src/components/ImageColorAdjustment.tsx:321
+#: src/components/ImageColorAdjustment.tsx:420
 msgid "Percentile"
 msgstr "Εκατοστημόριο"
 
-#: src/components/ImageColorAdjustment.tsx:389
+#: src/components/ImageColorAdjustment.tsx:401
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Εκατοστημόριο: Αυτόματη ισορροπία λευκού από τις πιο φωτεινές περιοχές, καλή για τις περισσότερες φωτογραφίες. Αναφορά: Χειροκίνητη ισορροπία λευκού χρησιμοποιώντας επιλεγμένη περιοχή λευκού."
 
@@ -1386,7 +1390,7 @@ msgstr "Πατήστε Κοινή χρήση στη γραμμή περιήγη�
 msgid "Press the <0>Add to palette</0> button next to the color mixture you like."
 msgstr "Πατήστε το κουμπί <0>Προσθήκη στην παλέτα</0> δίπλα στο μείγμα χρωμάτων που σας αρέσει."
 
-#: src/components/ImageColorAdjustment.tsx:378
+#: src/components/ImageColorAdjustment.tsx:390
 msgid "Preview"
 msgstr "Προεπισκόπηση"
 
@@ -1448,7 +1452,7 @@ msgid "Reduce the number of colors in the photo."
 msgstr "Μειώστε τον αριθμό των χρωμάτων στη φωτογραφία."
 
 #: src/components/color/ColorSwatchDrawer.tsx:70
-#: src/components/ImageColorAdjustment.tsx:317
+#: src/components/ImageColorAdjustment.tsx:325
 msgid "Reference"
 msgstr "Αναφορά"
 
@@ -1461,7 +1465,7 @@ msgstr "Ανάκλασης"
 msgid "Reload"
 msgstr "Επαναφόρτωση"
 
-#: src/components/ImageColorAdjustment.tsx:373
+#: src/components/ImageColorAdjustment.tsx:385
 #: src/components/messages.ts:43
 msgid "Remove background"
 msgstr "Κατάργηση φόντου"
@@ -1511,7 +1515,7 @@ msgstr "Περιστρέφομαι"
 msgid "Sample size"
 msgstr "Μέγεθος δείγματος"
 
-#: src/components/ImageColorAdjustment.tsx:462
+#: src/components/ImageColorAdjustment.tsx:474
 msgid "Saturation (%)"
 msgstr "Κορεσμός (%)"
 
@@ -1522,7 +1526,7 @@ msgstr "Κορεσμός (%)"
 #: src/components/ImageBackgroundRemoval.tsx:219
 #: src/components/ImageBlurred.tsx:148
 #: src/components/ImageBlurred.tsx:161
-#: src/components/ImageColorAdjustment.tsx:347
+#: src/components/ImageColorAdjustment.tsx:359
 #: src/components/ImageGrid.tsx:73
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:138
@@ -1548,12 +1552,12 @@ msgstr "Αποθήκευση αντιγράφων ασφαλείας"
 msgid "Save changes to the color set?"
 msgstr "Αποθήκευση αλλαγών στο σύνολο χρωμάτων;"
 
-#: src/components/ImageColorAdjustment.tsx:300
+#: src/components/ImageColorAdjustment.tsx:308
 #: src/components/ImagePerspectiveCorrection.tsx:233
 msgid "Save expanded to 1.91:1"
 msgstr "Αποθήκευση αναπτυγμένη σε 1,91:1"
 
-#: src/components/ImageColorAdjustment.tsx:288
+#: src/components/ImageColorAdjustment.tsx:296
 #: src/components/ImagePerspectiveCorrection.tsx:221
 msgid "Save expanded to 4:5"
 msgstr "Αποθήκευση αναπτυγμένη σε 4:5"
@@ -1566,7 +1570,7 @@ msgstr "Αποθηκεύστε τις αλλαγές σε αυτό το σύνο
 msgid "Select 4 points to correct perspective distortion"
 msgstr "Επιλέξτε 4 σημεία για να διορθώσετε την παραμόρφωση προοπτικής"
 
-#: src/components/ImageColorAdjustment.tsx:332
+#: src/components/ImageColorAdjustment.tsx:344
 msgid "Select a photo to adjust white balance and colors"
 msgstr "Επιλέξτε μια φωτογραφία για να προσαρμόσετε την ισορροπία λευκού και τα χρώματα"
 
@@ -1653,7 +1657,7 @@ msgstr "Επιλέξτε μέρος"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
 #: src/components/ImageChooser.tsx:120
-#: src/components/ImageColorAdjustment.tsx:337
+#: src/components/ImageColorAdjustment.tsx:349
 #: src/components/ImagePerspectiveCorrection.tsx:268
 msgid "Select photo"
 msgstr "Επιλέξτε φωτογραφία"
@@ -1704,7 +1708,7 @@ msgid "Set as main color set"
 msgstr "Ορισμός ως κύριο σύνολο χρωμάτων"
 
 #: src/components/ImageBlurred.tsx:103
-#: src/components/ImageColorAdjustment.tsx:366
+#: src/components/ImageColorAdjustment.tsx:378
 msgid "Set as reference"
 msgstr "Ορισμός ως αναφοράς"
 
@@ -1733,7 +1737,7 @@ msgstr "Ορισμός ως ενοποιητικό χρώμα"
 msgid "Shadow"
 msgstr "Σκιά"
 
-#: src/components/ImageColorAdjustment.tsx:485
+#: src/components/ImageColorAdjustment.tsx:497
 msgid "Shadows and highlights"
 msgstr "Σκιές και ανοικτοί τόνοι"
 
@@ -1811,7 +1815,7 @@ msgstr "Επικαλύψτε ελαφρώς τις παστέλ περιοχές
 msgid "Small"
 msgstr "Μικρός"
 
-#: src/components/ImageColorAdjustment.tsx:411
+#: src/components/ImageColorAdjustment.tsx:423
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Μικρότερες εκατοστιαίες τιμές αντιστοιχούν σε ισχυρότερη λεύκανση"
 
@@ -2196,11 +2200,11 @@ msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of thr
 msgstr "Όταν επιλέγετε περισσότερα από {maxColorsFor3} χρώματα συνολικά, δεν χρησιμοποιούνται μείγματα τριών χρωμάτων."
 
 #: src/components/ImageBackgroundRemoval.tsx:116
-#: src/components/ImageColorAdjustment.tsx:446
+#: src/components/ImageColorAdjustment.tsx:458
 msgid "White"
 msgstr "Άσπρος"
 
-#: src/components/ImageColorAdjustment.tsx:386
+#: src/components/ImageColorAdjustment.tsx:398
 msgid "White balance"
 msgstr "Ισορροπία λευκού"
 
@@ -2208,8 +2212,8 @@ msgstr "Ισορροπία λευκού"
 msgid "White paper or canvas"
 msgstr "Λευκό χαρτί ή καμβάς"
 
-#: src/components/ImageColorAdjustment.tsx:436
-#: src/components/ImageColorAdjustment.tsx:442
+#: src/components/ImageColorAdjustment.tsx:448
+#: src/components/ImageColorAdjustment.tsx:454
 msgid "White point"
 msgstr "Λευκό σημείο"
 

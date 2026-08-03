@@ -143,7 +143,7 @@ msgstr "Dostępna jest nowa wersja aplikacji, która zostanie zainstalowana auto
 msgid "A new version of the application is available."
 msgstr "Dostępna jest nowa wersja aplikacji."
 
-#: src/components/ImageColorAdjustment.tsx:465
+#: src/components/ImageColorAdjustment.tsx:477
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Wartość mniejsza niż 100% sprawia, że obraz wygląda na mniej kolorowy, a wartość większa niż 100% sprawia, że wygląda on zbyt kolorowo"
 
@@ -323,7 +323,7 @@ msgstr "Automatyczne wykrywanie"
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Automatycznie znajdź najlepsze mieszanki kolorów do tego zdjęcia."
 
-#: src/components/ImageColorAdjustment.tsx:438
+#: src/components/ImageColorAdjustment.tsx:450
 msgid "Average color of the white point area"
 msgstr "Średni kolor obszaru punktu bieli"
 
@@ -415,7 +415,7 @@ msgstr "Przezroczysta warstwa podłoża"
 msgid "Clear unifying color"
 msgstr "Przezroczysty, jednoczący kolor"
 
-#: src/components/ImageColorAdjustment.tsx:430
+#: src/components/ImageColorAdjustment.tsx:442
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Kliknij 🖱️ lub naciśnij 👆 dowolne miejsce na zdjęciu, aby wybrać punkt bieli."
 
@@ -601,7 +601,7 @@ msgstr "Skopiuj wspierany obraz do schowka, a potem spróbuj ponownie."
 msgid "Copy and share this link"
 msgstr "Skopiuj i udostępnij ten link"
 
-#: src/components/ImageColorAdjustment.tsx:598
+#: src/components/ImageColorAdjustment.tsx:610
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Poprawiono oszacowanie temperatury źródła światła w stopniach Kelvina"
 
@@ -844,7 +844,7 @@ msgstr "Błąd podczas pobierania danych modelu uczenia maszynowego"
 msgid "Error while fetching standard color set data"
 msgstr "Błąd podczas pobierania danych standardowego zestawu kolorów"
 
-#: src/components/ImageColorAdjustment.tsx:564
+#: src/components/ImageColorAdjustment.tsx:576
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Szacowana temperatura źródła światła w kelwinach, za pomocą którego wykonano zdjęcie"
 
@@ -874,7 +874,7 @@ msgstr "Pełne ciśnienie"
 msgid "Full strength"
 msgstr "Pełna siła"
 
-#: src/components/ImageColorAdjustment.tsx:514
+#: src/components/ImageColorAdjustment.tsx:526
 msgid "Gamma"
 msgstr "Gamma"
 
@@ -976,7 +976,7 @@ msgstr "Zainstaluj ArtistAssist App"
 msgid "Install update"
 msgstr "Aktualizacja instalacji"
 
-#: src/components/ImageColorAdjustment.tsx:595
+#: src/components/ImageColorAdjustment.tsx:607
 msgid "Intended color temperature (K)"
 msgstr "Planowana temperatura barwowa (K)"
 
@@ -1087,11 +1087,11 @@ msgstr "Wyloguj się"
 msgid "Login result not received"
 msgstr "Wynik logowania nie otrzymał"
 
-#: src/components/ImageColorAdjustment.tsx:487
+#: src/components/ImageColorAdjustment.tsx:499
 msgid "Low input and high input"
 msgstr "Niski wkład wejściowy i wysoki sygnał wejściowy"
 
-#: src/components/ImageColorAdjustment.tsx:536
+#: src/components/ImageColorAdjustment.tsx:548
 msgid "Low output and high output"
 msgstr "Niska wydajność i wysoka wydajność"
 
@@ -1122,7 +1122,7 @@ msgstr "Zestawy kolorów do łączenia"
 msgid "Mid tone"
 msgstr "Średni ton"
 
-#: src/components/ImageColorAdjustment.tsx:512
+#: src/components/ImageColorAdjustment.tsx:524
 msgid "Midtones"
 msgstr "Półcienie"
 
@@ -1224,6 +1224,10 @@ msgstr "Nic do udostępnienia"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Liczba komórek po mniejszej stronie (pionowa lub pozioma)"
 
+#: src/components/ImageColorAdjustment.tsx:329
+msgid "Off"
+msgstr "Wyłączony"
+
 #: src/components/messages.ts:53
 msgid "Oil Paint"
 msgstr "Farba olejna"
@@ -1282,7 +1286,7 @@ msgstr "Lub wybierz jedno z przykładowych zdjęć"
 msgid "Or select from your recent photos"
 msgstr "Lub wybierz jedno z ostatnich zdjęć"
 
-#: src/components/ImageColorAdjustment.tsx:561
+#: src/components/ImageColorAdjustment.tsx:573
 msgid "Original color temperature (K)"
 msgstr "Pierwotna temperatura barwowa (K)"
 
@@ -1294,7 +1298,7 @@ msgstr "Oryginalne zdjęcie"
 msgid "Outline"
 msgstr "Zarys"
 
-#: src/components/ImageColorAdjustment.tsx:534
+#: src/components/ImageColorAdjustment.tsx:546
 msgid "Output levels"
 msgstr "Poziomy wyjściowe"
 
@@ -1322,12 +1326,12 @@ msgstr "Weryfikacja członkostwa w Patreonie nie powiodła się"
 msgid "Patron status"
 msgstr "Status patrona"
 
-#: src/components/ImageColorAdjustment.tsx:313
-#: src/components/ImageColorAdjustment.tsx:408
+#: src/components/ImageColorAdjustment.tsx:321
+#: src/components/ImageColorAdjustment.tsx:420
 msgid "Percentile"
 msgstr "Percentyl"
 
-#: src/components/ImageColorAdjustment.tsx:389
+#: src/components/ImageColorAdjustment.tsx:401
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Percentyl: Automatyczny balans bieli z najjaśniejszych obszarów, dobry dla większości zdjęć. Odniesienie: Ręczny balans bieli przy użyciu wybranego obszaru bieli."
 
@@ -1386,7 +1390,7 @@ msgstr "Naciśnij Udostępnij na pasku nawigacyjnym"
 msgid "Press the <0>Add to palette</0> button next to the color mixture you like."
 msgstr "Naciśnij przycisk <0>Dodaj do palety</0> obok mieszanki kolorów, którą lubisz."
 
-#: src/components/ImageColorAdjustment.tsx:378
+#: src/components/ImageColorAdjustment.tsx:390
 msgid "Preview"
 msgstr "Prapremiera"
 
@@ -1448,7 +1452,7 @@ msgid "Reduce the number of colors in the photo."
 msgstr "Zmniejsz liczbę kolorów na zdjęciu."
 
 #: src/components/color/ColorSwatchDrawer.tsx:70
-#: src/components/ImageColorAdjustment.tsx:317
+#: src/components/ImageColorAdjustment.tsx:325
 msgid "Reference"
 msgstr "Odniesienie"
 
@@ -1461,7 +1465,7 @@ msgstr "Odbicia"
 msgid "Reload"
 msgstr "Przeładowanie"
 
-#: src/components/ImageColorAdjustment.tsx:373
+#: src/components/ImageColorAdjustment.tsx:385
 #: src/components/messages.ts:43
 msgid "Remove background"
 msgstr "Usuń tło"
@@ -1511,7 +1515,7 @@ msgstr "Obracać"
 msgid "Sample size"
 msgstr "Wielkość próby"
 
-#: src/components/ImageColorAdjustment.tsx:462
+#: src/components/ImageColorAdjustment.tsx:474
 msgid "Saturation (%)"
 msgstr "Nasycenie (%)"
 
@@ -1522,7 +1526,7 @@ msgstr "Nasycenie (%)"
 #: src/components/ImageBackgroundRemoval.tsx:219
 #: src/components/ImageBlurred.tsx:148
 #: src/components/ImageBlurred.tsx:161
-#: src/components/ImageColorAdjustment.tsx:347
+#: src/components/ImageColorAdjustment.tsx:359
 #: src/components/ImageGrid.tsx:73
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:138
@@ -1548,12 +1552,12 @@ msgstr "Zapisz kopię zapasową"
 msgid "Save changes to the color set?"
 msgstr "Zapisać zmiany w zestawie kolorów?"
 
-#: src/components/ImageColorAdjustment.tsx:300
+#: src/components/ImageColorAdjustment.tsx:308
 #: src/components/ImagePerspectiveCorrection.tsx:233
 msgid "Save expanded to 1.91:1"
 msgstr "Zapis rozszerzony do 1,91:1"
 
-#: src/components/ImageColorAdjustment.tsx:288
+#: src/components/ImageColorAdjustment.tsx:296
 #: src/components/ImagePerspectiveCorrection.tsx:221
 msgid "Save expanded to 4:5"
 msgstr "Zapis rozszerzony do 4:5"
@@ -1566,7 +1570,7 @@ msgstr "Zapisz zmiany w tym zestawie kolorów"
 msgid "Select 4 points to correct perspective distortion"
 msgstr "Wybierz 4 punkty, aby skorygować zniekształcenie perspektywy"
 
-#: src/components/ImageColorAdjustment.tsx:332
+#: src/components/ImageColorAdjustment.tsx:344
 msgid "Select a photo to adjust white balance and colors"
 msgstr "Wybierz zdjęcie, aby dostosować balans bieli i kolory"
 
@@ -1653,7 +1657,7 @@ msgstr "Wybierz część"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
 #: src/components/ImageChooser.tsx:120
-#: src/components/ImageColorAdjustment.tsx:337
+#: src/components/ImageColorAdjustment.tsx:349
 #: src/components/ImagePerspectiveCorrection.tsx:268
 msgid "Select photo"
 msgstr "Wybierz zdjęcie"
@@ -1704,7 +1708,7 @@ msgid "Set as main color set"
 msgstr "Ustaw jako główny zestaw kolorów"
 
 #: src/components/ImageBlurred.tsx:103
-#: src/components/ImageColorAdjustment.tsx:366
+#: src/components/ImageColorAdjustment.tsx:378
 msgid "Set as reference"
 msgstr "Ustaw jako odniesienie"
 
@@ -1733,7 +1737,7 @@ msgstr "Ustaw jako jednolity kolor"
 msgid "Shadow"
 msgstr "Cień"
 
-#: src/components/ImageColorAdjustment.tsx:485
+#: src/components/ImageColorAdjustment.tsx:497
 msgid "Shadows and highlights"
 msgstr "Cienie i światła"
 
@@ -1811,7 +1815,7 @@ msgstr "Delikatnie nakładaj na siebie pastelowe obszary woskowe o różnych kol
 msgid "Small"
 msgstr "Mały"
 
-#: src/components/ImageColorAdjustment.tsx:411
+#: src/components/ImageColorAdjustment.tsx:423
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Mniejsze wartości percentylowe odpowiadają silniejszemu wybielaniu"
 
@@ -2196,11 +2200,11 @@ msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of thr
 msgstr "W przypadku wybrania łącznie więcej niż {maxColorsFor3} kolorów, nie są używane mieszanki trzech kolorów."
 
 #: src/components/ImageBackgroundRemoval.tsx:116
-#: src/components/ImageColorAdjustment.tsx:446
+#: src/components/ImageColorAdjustment.tsx:458
 msgid "White"
 msgstr "Biały"
 
-#: src/components/ImageColorAdjustment.tsx:386
+#: src/components/ImageColorAdjustment.tsx:398
 msgid "White balance"
 msgstr "Balans bieli"
 
@@ -2208,8 +2212,8 @@ msgstr "Balans bieli"
 msgid "White paper or canvas"
 msgstr "Biały papier lub płótno"
 
-#: src/components/ImageColorAdjustment.tsx:436
-#: src/components/ImageColorAdjustment.tsx:442
+#: src/components/ImageColorAdjustment.tsx:448
+#: src/components/ImageColorAdjustment.tsx:454
 msgid "White point"
 msgstr "Biały punkt"
 

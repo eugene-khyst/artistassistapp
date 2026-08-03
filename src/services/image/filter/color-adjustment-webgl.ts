@@ -26,7 +26,6 @@ import fragmentShaderSource from './glsl/color-adjustment.glsl';
 
 export function adjustColorsWebGL(
   image: DrawImageSource,
-  maxValues: number[] = [1, 1, 1],
   {
     saturation = 1,
     inputLow = 0,
@@ -36,7 +35,8 @@ export function adjustColorsWebGL(
     outputHigh = 1,
     origTemperature = 6500,
     targetTemperature = 6500,
-  }: AdjustmentParameters = {}
+  }: AdjustmentParameters = {},
+  maxValues: number[] = [1, 1, 1]
 ): OffscreenCanvas {
   const renderer = new WebGLRenderer(
     [fragmentShaderSource],

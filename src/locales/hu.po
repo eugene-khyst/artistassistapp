@@ -143,7 +143,7 @@ msgstr "Az alkalmazás új verziója is elérhető, és automatikusan telepíthe
 msgid "A new version of the application is available."
 msgstr "Az alkalmazás új verziója elérhető."
 
-#: src/components/ImageColorAdjustment.tsx:465
+#: src/components/ImageColorAdjustment.tsx:477
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "A 100%-nál kisebb érték kevésbé színes, a 100%-nál nagyobb érték pedig túl színesnek tűnik"
 
@@ -323,7 +323,7 @@ msgstr "Automatikus észlelés"
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Automatikusan találd meg a legjobb színkeverékeket ehhez a fotóhoz."
 
-#: src/components/ImageColorAdjustment.tsx:438
+#: src/components/ImageColorAdjustment.tsx:450
 msgid "Average color of the white point area"
 msgstr "A fehérpont-terület átlagos színe"
 
@@ -415,7 +415,7 @@ msgstr "Átlátszó aljnövény"
 msgid "Clear unifying color"
 msgstr "Tiszta, egységes szín"
 
-#: src/components/ImageColorAdjustment.tsx:430
+#: src/components/ImageColorAdjustment.tsx:442
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Kattintson 🖱️ vagy koppintson 👆 a fénykép tetszőleges pontjára a fehér pont kiválasztásához."
 
@@ -601,7 +601,7 @@ msgstr "Másolj egy támogatott képet a clipboardra, majd próbáld újra."
 msgid "Copy and share this link"
 msgstr "Másolja és ossza meg ezt a linket"
 
-#: src/components/ImageColorAdjustment.tsx:598
+#: src/components/ImageColorAdjustment.tsx:610
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "A fényforrás hőmérsékletének korrigált becslése Kelvinben"
 
@@ -844,7 +844,7 @@ msgstr "Hiba az ML-modell adatainak lekérése során"
 msgid "Error while fetching standard color set data"
 msgstr "Hiba a szabványos színkészlet adatainak beolvasásakor"
 
-#: src/components/ImageColorAdjustment.tsx:564
+#: src/components/ImageColorAdjustment.tsx:576
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "A fényforrás becsült hőmérséklete Kelvinben a kép a következőkkel készült:"
 
@@ -874,7 +874,7 @@ msgstr "Teljes nyomás"
 msgid "Full strength"
 msgstr "Teljes erővel"
 
-#: src/components/ImageColorAdjustment.tsx:514
+#: src/components/ImageColorAdjustment.tsx:526
 msgid "Gamma"
 msgstr "Gamma"
 
@@ -976,7 +976,7 @@ msgstr "Installáld az ArtistAssistApp alkalmazást"
 msgid "Install update"
 msgstr "Telepítési frissítés"
 
-#: src/components/ImageColorAdjustment.tsx:595
+#: src/components/ImageColorAdjustment.tsx:607
 msgid "Intended color temperature (K)"
 msgstr "Tervezett színhőmérséklet (K)"
 
@@ -1087,11 +1087,11 @@ msgstr "Kijelentkezik"
 msgid "Login result not received"
 msgstr "Bejelentkezési eredmény nem érkezett meg"
 
-#: src/components/ImageColorAdjustment.tsx:487
+#: src/components/ImageColorAdjustment.tsx:499
 msgid "Low input and high input"
 msgstr "Alacsony bemenet és magas bemenet"
 
-#: src/components/ImageColorAdjustment.tsx:536
+#: src/components/ImageColorAdjustment.tsx:548
 msgid "Low output and high output"
 msgstr "Alacsony teljesítmény és nagy teljesítmény"
 
@@ -1122,7 +1122,7 @@ msgstr "Színhalmazok egyesítése"
 msgid "Mid tone"
 msgstr "Középtónusú"
 
-#: src/components/ImageColorAdjustment.tsx:512
+#: src/components/ImageColorAdjustment.tsx:524
 msgid "Midtones"
 msgstr "Középtónusok"
 
@@ -1224,6 +1224,10 @@ msgstr "Nincs megosztani való"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "A kisebb oldalon lévő cellák száma (függőleges vagy vízszintes)"
 
+#: src/components/ImageColorAdjustment.tsx:329
+msgid "Off"
+msgstr "Ki"
+
 #: src/components/messages.ts:53
 msgid "Oil Paint"
 msgstr "Olajfesték"
@@ -1282,7 +1286,7 @@ msgstr "Vagy válasszon a mintafotók közül"
 msgid "Or select from your recent photos"
 msgstr "Vagy válasszon a legutóbbi fotói közül"
 
-#: src/components/ImageColorAdjustment.tsx:561
+#: src/components/ImageColorAdjustment.tsx:573
 msgid "Original color temperature (K)"
 msgstr "Eredeti színhőmérséklet (K)"
 
@@ -1294,7 +1298,7 @@ msgstr "Eredeti fotó"
 msgid "Outline"
 msgstr "Vázlat"
 
-#: src/components/ImageColorAdjustment.tsx:534
+#: src/components/ImageColorAdjustment.tsx:546
 msgid "Output levels"
 msgstr "Kimeneti szintek"
 
@@ -1322,12 +1326,12 @@ msgstr "A Patreon tagsági ellenőrzés sikertelen"
 msgid "Patron status"
 msgstr "Patrónus státusz"
 
-#: src/components/ImageColorAdjustment.tsx:313
-#: src/components/ImageColorAdjustment.tsx:408
+#: src/components/ImageColorAdjustment.tsx:321
+#: src/components/ImageColorAdjustment.tsx:420
 msgid "Percentile"
 msgstr "Percentilis"
 
-#: src/components/ImageColorAdjustment.tsx:389
+#: src/components/ImageColorAdjustment.tsx:401
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Percentilis: Automatikus fehéregyensúly a legvilágosabb területekről, a legtöbb fényképhez jó. Referencia: Kézi fehéregyensúly a kiválasztott fehér terület használatával."
 
@@ -1386,7 +1390,7 @@ msgstr "Nyomja meg a Megosztás gombot a navigációs sávon"
 msgid "Press the <0>Add to palette</0> button next to the color mixture you like."
 msgstr "Nyomja meg a <0>Hozzáadás a palettához</0> gombot a kívánt színkeverék mellett."
 
-#: src/components/ImageColorAdjustment.tsx:378
+#: src/components/ImageColorAdjustment.tsx:390
 msgid "Preview"
 msgstr "Előnézet"
 
@@ -1448,7 +1452,7 @@ msgid "Reduce the number of colors in the photo."
 msgstr "Csökkentsd a képen lévő színek számát."
 
 #: src/components/color/ColorSwatchDrawer.tsx:70
-#: src/components/ImageColorAdjustment.tsx:317
+#: src/components/ImageColorAdjustment.tsx:325
 msgid "Reference"
 msgstr "Utalás"
 
@@ -1461,7 +1465,7 @@ msgstr "Visszaverődés"
 msgid "Reload"
 msgstr "Újratöltés"
 
-#: src/components/ImageColorAdjustment.tsx:373
+#: src/components/ImageColorAdjustment.tsx:385
 #: src/components/messages.ts:43
 msgid "Remove background"
 msgstr "Háttér eltávolítása"
@@ -1511,7 +1515,7 @@ msgstr "Forog"
 msgid "Sample size"
 msgstr "Mintaméret"
 
-#: src/components/ImageColorAdjustment.tsx:462
+#: src/components/ImageColorAdjustment.tsx:474
 msgid "Saturation (%)"
 msgstr "Telítettség (%)"
 
@@ -1522,7 +1526,7 @@ msgstr "Telítettség (%)"
 #: src/components/ImageBackgroundRemoval.tsx:219
 #: src/components/ImageBlurred.tsx:148
 #: src/components/ImageBlurred.tsx:161
-#: src/components/ImageColorAdjustment.tsx:347
+#: src/components/ImageColorAdjustment.tsx:359
 #: src/components/ImageGrid.tsx:73
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:138
@@ -1548,12 +1552,12 @@ msgstr "Mentés mentése"
 msgid "Save changes to the color set?"
 msgstr "Menti a színkészlet módosításait?"
 
-#: src/components/ImageColorAdjustment.tsx:300
+#: src/components/ImageColorAdjustment.tsx:308
 #: src/components/ImagePerspectiveCorrection.tsx:233
 msgid "Save expanded to 1.91:1"
 msgstr "A mentés 1,91:1-re bővítve"
 
-#: src/components/ImageColorAdjustment.tsx:288
+#: src/components/ImageColorAdjustment.tsx:296
 #: src/components/ImagePerspectiveCorrection.tsx:221
 msgid "Save expanded to 4:5"
 msgstr "A mentés 4:5-re bővítve"
@@ -1566,7 +1570,7 @@ msgstr "A színkészlet módosításainak mentése"
 msgid "Select 4 points to correct perspective distortion"
 msgstr "Válasszon 4 pontot a perspektíva torzításának korrigálásához"
 
-#: src/components/ImageColorAdjustment.tsx:332
+#: src/components/ImageColorAdjustment.tsx:344
 msgid "Select a photo to adjust white balance and colors"
 msgstr "Válasszon ki egy fényképet a fehéregyensúly és a színek beállításához"
 
@@ -1653,7 +1657,7 @@ msgstr "Alkatrész kiválasztása"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
 #: src/components/ImageChooser.tsx:120
-#: src/components/ImageColorAdjustment.tsx:337
+#: src/components/ImageColorAdjustment.tsx:349
 #: src/components/ImagePerspectiveCorrection.tsx:268
 msgid "Select photo"
 msgstr "Fénykép kiválasztása"
@@ -1704,7 +1708,7 @@ msgid "Set as main color set"
 msgstr "Beállítás fő színkészletként"
 
 #: src/components/ImageBlurred.tsx:103
-#: src/components/ImageColorAdjustment.tsx:366
+#: src/components/ImageColorAdjustment.tsx:378
 msgid "Set as reference"
 msgstr "Beállítás referenciaként"
 
@@ -1733,7 +1737,7 @@ msgstr "Egységes színként állítva"
 msgid "Shadow"
 msgstr "Árnyék"
 
-#: src/components/ImageColorAdjustment.tsx:485
+#: src/components/ImageColorAdjustment.tsx:497
 msgid "Shadows and highlights"
 msgstr "Árnyékok és csúcsfények"
 
@@ -1811,7 +1815,7 @@ msgstr "Enyhén fedd át a viaszpasztell területeket különböző színekben, 
 msgid "Small"
 msgstr "Kicsi"
 
-#: src/components/ImageColorAdjustment.tsx:411
+#: src/components/ImageColorAdjustment.tsx:423
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "A kisebb percentilis értékek erősebb fehérítésnek felelnek meg"
 
@@ -2196,11 +2200,11 @@ msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of thr
 msgstr "Ha összesen több mint {maxColorsFor3} színt jelöl ki, a program nem használ három szín keverékét."
 
 #: src/components/ImageBackgroundRemoval.tsx:116
-#: src/components/ImageColorAdjustment.tsx:446
+#: src/components/ImageColorAdjustment.tsx:458
 msgid "White"
 msgstr "Fehér"
 
-#: src/components/ImageColorAdjustment.tsx:386
+#: src/components/ImageColorAdjustment.tsx:398
 msgid "White balance"
 msgstr "Fehéregyensúly"
 
@@ -2208,8 +2212,8 @@ msgstr "Fehéregyensúly"
 msgid "White paper or canvas"
 msgstr "Fehér papír vagy vászon"
 
-#: src/components/ImageColorAdjustment.tsx:436
-#: src/components/ImageColorAdjustment.tsx:442
+#: src/components/ImageColorAdjustment.tsx:448
+#: src/components/ImageColorAdjustment.tsx:454
 msgid "White point"
 msgstr "Fehér pont"
 

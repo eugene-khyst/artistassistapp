@@ -51,8 +51,9 @@ import {DrawImage, imageBitmapToBlob} from '@/utils/graphics';
 import styles from './ImageColorAdjustment.module.css';
 
 enum WhiteBalanceMethod {
-  Percentile = 0,
-  Reference = 1,
+  None = 0,
+  Percentile = 1,
+  WhitePoint = 2,
 }
 
 const FILENAME_SUFFIX = 'color-adjusted';
@@ -139,8 +140,9 @@ export function ImageColorAdjustment() {
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
   const setImageFileToAdjustColors = useAppStore(state => state.setImageFileToAdjustColors);
   const setImageFileToRemoveBackground = useAppStore(state => state.setImageFileToRemoveBackground);
+  const adjustImageColors = useAppStore(state => state.adjustImageColors);
   const adjustImageColorsPercentile = useAppStore(state => state.adjustImageColorsPercentile);
-  const adjustImageColorsReference = useAppStore(state => state.adjustImageColorsReference);
+  const adjustImageColorsWhitePoint = useAppStore(state => state.adjustImageColorsWhitePoint);
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
 
   const {t} = useLingui();
@@ -204,19 +206,25 @@ export function ImageColorAdjustment() {
         origTemperature: origTempDebounced,
         targetTemperature: targetTempDebounced,
       };
-      const isReferenceMode = method === WhiteBalanceMethod.Reference;
-      colorPickerCanvas?.setPipetteEnabled(isReferenceMode);
-      if (isReferenceMode) {
-        adjustImageColorsReference(whitePoint, params);
-      } else {
-        void adjustImageColorsPercentile(percentileDebounced / 100, params);
+      colorPickerCanvas?.setPipetteEnabled(method === WhiteBalanceMethod.WhitePoint);
+      switch (method) {
+        case WhiteBalanceMethod.None:
+          adjustImageColors(params);
+          break;
+        case WhiteBalanceMethod.Percentile:
+          void adjustImageColorsPercentile(percentileDebounced / 100, params);
+          break;
+        case WhiteBalanceMethod.WhitePoint:
+          adjustImageColorsWhitePoint(whitePoint, params);
+          break;
       }
     }
   }, [
     colorPickerCanvas,
     colorUnadjustedImage,
+    adjustImageColors,
     adjustImageColorsPercentile,
-    adjustImageColorsReference,
+    adjustImageColorsWhitePoint,
     method,
     whitePoint,
     percentileDebounced,
@@ -313,8 +321,12 @@ export function ImageColorAdjustment() {
       label: <Trans>Percentile</Trans>,
     },
     {
-      value: WhiteBalanceMethod.Reference,
+      value: WhiteBalanceMethod.WhitePoint,
       label: <Trans>Reference</Trans>,
+    },
+    {
+      value: WhiteBalanceMethod.None,
+      label: <Trans>Off</Trans>,
     },
   ];
 
@@ -424,7 +436,7 @@ export function ImageColorAdjustment() {
                   </Form.Item>
                 )}
 
-                {method === WhiteBalanceMethod.Reference && (
+                {method === WhiteBalanceMethod.WhitePoint && (
                   <>
                     <Typography.Text>
                       <Trans>

@@ -36,9 +36,9 @@ export interface ColorAdjustmentSlice {
   isColorAdjustedImageLoading: boolean;
 
   setImageFileToAdjustColors: (imageFileToAdjustColors: File | null) => Promise<void>;
-  adjustImageColors: (maxValues: number[], params: AdjustmentParameters) => void;
+  adjustImageColors: (params: AdjustmentParameters, maxValues?: number[]) => void;
   adjustImageColorsPercentile: (percentile: number, params: AdjustmentParameters) => Promise<void>;
-  adjustImageColorsReference: (whitePoint: string, params: AdjustmentParameters) => void;
+  adjustImageColorsWhitePoint: (whitePoint: string, params: AdjustmentParameters) => void;
 }
 
 export const createColorAdjustmentSlice: StateCreator<
@@ -81,7 +81,7 @@ export const createColorAdjustmentSlice: StateCreator<
     [prevColorUnadjustedImage, prevColorAdjustedImage].forEach(prev => prev?.close());
   },
 
-  adjustImageColors: (maxValues: number[], params: AdjustmentParameters): void => {
+  adjustImageColors: (params: AdjustmentParameters, maxValues?: number[]): void => {
     const {colorUnadjustedImage, colorAdjustedImage: prev} = get();
     if (!colorUnadjustedImage) {
       return;
@@ -89,7 +89,7 @@ export const createColorAdjustmentSlice: StateCreator<
     set({
       isColorAdjustedImageLoading: true,
     });
-    const colorAdjustedImage = getColorAdjustedImage(colorUnadjustedImage, maxValues, params);
+    const colorAdjustedImage = getColorAdjustedImage(colorUnadjustedImage, params, maxValues);
     set({
       colorAdjustedImage,
       isColorAdjustedImageLoading: false,
@@ -103,11 +103,11 @@ export const createColorAdjustmentSlice: StateCreator<
   ): Promise<void> => {
     const maxValues: number[] =
       await rgbChannelsPercentileCalculator.calculatePercentiles(percentile);
-    get().adjustImageColors(maxValues, params);
+    get().adjustImageColors(params, maxValues);
   },
 
-  adjustImageColorsReference: (whitePoint: string, params: AdjustmentParameters): void => {
+  adjustImageColorsWhitePoint: (whitePoint: string, params: AdjustmentParameters): void => {
     const maxValues: number[] = hexToRgb(whitePoint).map(v => linearizeRgbChannel(v));
-    get().adjustImageColors(maxValues, params);
+    get().adjustImageColors(params, maxValues);
   },
 });

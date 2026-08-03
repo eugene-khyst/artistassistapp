@@ -143,7 +143,7 @@ msgstr "Доступна нова версія додатку, яка буде �
 msgid "A new version of the application is available."
 msgstr "Доступна нова версія додатку."
 
-#: src/components/ImageColorAdjustment.tsx:465
+#: src/components/ImageColorAdjustment.tsx:477
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Значення менше 100% робить зображення менш кольоровим, а значення більше 100% робить його занадто кольоровим"
 
@@ -323,7 +323,7 @@ msgstr "Автоматичне виявлення"
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Автоматично знайдіть найкращі кольорові суміші для цього фото."
 
-#: src/components/ImageColorAdjustment.tsx:438
+#: src/components/ImageColorAdjustment.tsx:450
 msgid "Average color of the white point area"
 msgstr "Середній колір області білої точки"
 
@@ -415,7 +415,7 @@ msgstr "Прозорий підшар"
 msgid "Clear unifying color"
 msgstr "Чіткий об'єднуючий колір"
 
-#: src/components/ImageColorAdjustment.tsx:430
+#: src/components/ImageColorAdjustment.tsx:442
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Клацніть 🖱️ або торкніться 👆 будь-де на фотографії, щоб вибрати білу точку."
 
@@ -601,7 +601,7 @@ msgstr "Скопіюйте підтримуване зображення в бу
 msgid "Copy and share this link"
 msgstr "Скопіюйте та поділіться цим посиланням"
 
-#: src/components/ImageColorAdjustment.tsx:598
+#: src/components/ImageColorAdjustment.tsx:610
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Скоригована оцінка температури джерела світла в кельвінах"
 
@@ -844,7 +844,7 @@ msgstr "Помилка під час отримання даних моделі 
 msgid "Error while fetching standard color set data"
 msgstr "Помилка під час отримання даних стандартного набору кольорів"
 
-#: src/components/ImageColorAdjustment.tsx:564
+#: src/components/ImageColorAdjustment.tsx:576
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Орієнтовна температура джерела світла в кельвінах, при якій було зроблено зображення"
 
@@ -874,7 +874,7 @@ msgstr "Повний тиск"
 msgid "Full strength"
 msgstr "Повний склад"
 
-#: src/components/ImageColorAdjustment.tsx:514
+#: src/components/ImageColorAdjustment.tsx:526
 msgid "Gamma"
 msgstr "Гамма"
 
@@ -976,7 +976,7 @@ msgstr "Встановити ArtistAssistApp"
 msgid "Install update"
 msgstr "Оновлення встановлення"
 
-#: src/components/ImageColorAdjustment.tsx:595
+#: src/components/ImageColorAdjustment.tsx:607
 msgid "Intended color temperature (K)"
 msgstr "Передбачувана колірна температура (K)"
 
@@ -1087,11 +1087,11 @@ msgstr "Вийти"
 msgid "Login result not received"
 msgstr "Результат входу не отримано"
 
-#: src/components/ImageColorAdjustment.tsx:487
+#: src/components/ImageColorAdjustment.tsx:499
 msgid "Low input and high input"
 msgstr "Низький вхідний і високий вхідний сигнал"
 
-#: src/components/ImageColorAdjustment.tsx:536
+#: src/components/ImageColorAdjustment.tsx:548
 msgid "Low output and high output"
 msgstr "Низька продуктивність і висока продуктивність"
 
@@ -1122,7 +1122,7 @@ msgstr "Кольорові набори об'єднання"
 msgid "Mid tone"
 msgstr "Середній тон"
 
-#: src/components/ImageColorAdjustment.tsx:512
+#: src/components/ImageColorAdjustment.tsx:524
 msgid "Midtones"
 msgstr "Напівтони"
 
@@ -1224,6 +1224,10 @@ msgstr "Нема чим ділитися"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Кількість клітин на меншій стороні (вертикальна або горизонтальна)"
 
+#: src/components/ImageColorAdjustment.tsx:329
+msgid "Off"
+msgstr "Вимкнено"
+
 #: src/components/messages.ts:53
 msgid "Oil Paint"
 msgstr "Олійна фарба"
@@ -1282,7 +1286,7 @@ msgstr "Або виберіть із зразків фотографій"
 msgid "Or select from your recent photos"
 msgstr "Або виберіть одну зі своїх останніх фотографій"
 
-#: src/components/ImageColorAdjustment.tsx:561
+#: src/components/ImageColorAdjustment.tsx:573
 msgid "Original color temperature (K)"
 msgstr "Оригінальна колірна температура (K)"
 
@@ -1294,7 +1298,7 @@ msgstr "Оригінальне фото"
 msgid "Outline"
 msgstr "Контур"
 
-#: src/components/ImageColorAdjustment.tsx:534
+#: src/components/ImageColorAdjustment.tsx:546
 msgid "Output levels"
 msgstr "Вихідні рівні"
 
@@ -1322,12 +1326,12 @@ msgstr "Перевірка членства в Patreon не була успіш�
 msgid "Patron status"
 msgstr "Статус покровителя"
 
-#: src/components/ImageColorAdjustment.tsx:313
-#: src/components/ImageColorAdjustment.tsx:408
+#: src/components/ImageColorAdjustment.tsx:321
+#: src/components/ImageColorAdjustment.tsx:420
 msgid "Percentile"
 msgstr "Процентиль"
 
-#: src/components/ImageColorAdjustment.tsx:389
+#: src/components/ImageColorAdjustment.tsx:401
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Процентиль: автоматичний баланс білого від найяскравіших ділянок, добре підходить для більшості фотографій. Довідка: Ручний баланс білого з використанням вибраної білої області."
 
@@ -1386,7 +1390,7 @@ msgstr "Натисніть «Поділитися» на панелі навіг
 msgid "Press the <0>Add to palette</0> button next to the color mixture you like."
 msgstr "Натисніть кнопку <0>Додати до палітри</0> поруч із колірною сумішшю, яка вам подобається."
 
-#: src/components/ImageColorAdjustment.tsx:378
+#: src/components/ImageColorAdjustment.tsx:390
 msgid "Preview"
 msgstr "Попередній перегляд"
 
@@ -1448,7 +1452,7 @@ msgid "Reduce the number of colors in the photo."
 msgstr "Зменшити кількість кольорів на фото."
 
 #: src/components/color/ColorSwatchDrawer.tsx:70
-#: src/components/ImageColorAdjustment.tsx:317
+#: src/components/ImageColorAdjustment.tsx:325
 msgid "Reference"
 msgstr "Посилання"
 
@@ -1461,7 +1465,7 @@ msgstr "Відбивна здатність"
 msgid "Reload"
 msgstr "Перезарядка"
 
-#: src/components/ImageColorAdjustment.tsx:373
+#: src/components/ImageColorAdjustment.tsx:385
 #: src/components/messages.ts:43
 msgid "Remove background"
 msgstr "Видалити фон"
@@ -1511,7 +1515,7 @@ msgstr "Повернути"
 msgid "Sample size"
 msgstr "Розмір вибірки"
 
-#: src/components/ImageColorAdjustment.tsx:462
+#: src/components/ImageColorAdjustment.tsx:474
 msgid "Saturation (%)"
 msgstr "Насиченість (%)"
 
@@ -1522,7 +1526,7 @@ msgstr "Насиченість (%)"
 #: src/components/ImageBackgroundRemoval.tsx:219
 #: src/components/ImageBlurred.tsx:148
 #: src/components/ImageBlurred.tsx:161
-#: src/components/ImageColorAdjustment.tsx:347
+#: src/components/ImageColorAdjustment.tsx:359
 #: src/components/ImageGrid.tsx:73
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:138
@@ -1548,12 +1552,12 @@ msgstr "Збереження резервної копії"
 msgid "Save changes to the color set?"
 msgstr "Зберегти зміни в наборі кольорів?"
 
-#: src/components/ImageColorAdjustment.tsx:300
+#: src/components/ImageColorAdjustment.tsx:308
 #: src/components/ImagePerspectiveCorrection.tsx:233
 msgid "Save expanded to 1.91:1"
 msgstr "Зберегти розширено до 1,91:1"
 
-#: src/components/ImageColorAdjustment.tsx:288
+#: src/components/ImageColorAdjustment.tsx:296
 #: src/components/ImagePerspectiveCorrection.tsx:221
 msgid "Save expanded to 4:5"
 msgstr "Зберегти розширено до 4:5"
@@ -1566,7 +1570,7 @@ msgstr "Збережіть зміни в цьому наборі кольорі�
 msgid "Select 4 points to correct perspective distortion"
 msgstr "Виберіть 4 точки, щоб виправити спотворення перспективи"
 
-#: src/components/ImageColorAdjustment.tsx:332
+#: src/components/ImageColorAdjustment.tsx:344
 msgid "Select a photo to adjust white balance and colors"
 msgstr "Виберіть фотографію, щоб налаштувати баланс білого та кольори"
 
@@ -1653,7 +1657,7 @@ msgstr "Оберіть частину"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
 #: src/components/ImageChooser.tsx:120
-#: src/components/ImageColorAdjustment.tsx:337
+#: src/components/ImageColorAdjustment.tsx:349
 #: src/components/ImagePerspectiveCorrection.tsx:268
 msgid "Select photo"
 msgstr "Вибрати фото"
@@ -1704,7 +1708,7 @@ msgid "Set as main color set"
 msgstr "Набір як основний набір кольорів"
 
 #: src/components/ImageBlurred.tsx:103
-#: src/components/ImageColorAdjustment.tsx:366
+#: src/components/ImageColorAdjustment.tsx:378
 msgid "Set as reference"
 msgstr "Встановити як еталон"
 
@@ -1733,7 +1737,7 @@ msgstr "Встановіть як об'єднуючий колір"
 msgid "Shadow"
 msgstr "Тінь"
 
-#: src/components/ImageColorAdjustment.tsx:485
+#: src/components/ImageColorAdjustment.tsx:497
 msgid "Shadows and highlights"
 msgstr "Тіні та світлі тони"
 
@@ -1811,7 +1815,7 @@ msgstr "Трохи накладайте воскові пастельні діл
 msgid "Small"
 msgstr "Мале"
 
-#: src/components/ImageColorAdjustment.tsx:411
+#: src/components/ImageColorAdjustment.tsx:423
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Менші процентильні значення відповідають сильнішому відбілюванню"
 
@@ -2196,11 +2200,11 @@ msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of thr
 msgstr "При виборі більше ніж {maxColorsFor3} всього не використовуються суміші трьох кольорів."
 
 #: src/components/ImageBackgroundRemoval.tsx:116
-#: src/components/ImageColorAdjustment.tsx:446
+#: src/components/ImageColorAdjustment.tsx:458
 msgid "White"
 msgstr "Білий"
 
-#: src/components/ImageColorAdjustment.tsx:386
+#: src/components/ImageColorAdjustment.tsx:398
 msgid "White balance"
 msgstr "Баланс білого"
 
@@ -2208,8 +2212,8 @@ msgstr "Баланс білого"
 msgid "White paper or canvas"
 msgstr "Білий папір або полотно"
 
-#: src/components/ImageColorAdjustment.tsx:436
-#: src/components/ImageColorAdjustment.tsx:442
+#: src/components/ImageColorAdjustment.tsx:448
+#: src/components/ImageColorAdjustment.tsx:454
 msgid "White point"
 msgstr "Біла точка"
 
