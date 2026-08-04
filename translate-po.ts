@@ -1,12 +1,10 @@
 import {readdir, readFile, stat, writeFile} from 'node:fs/promises';
 import path from 'node:path';
 
-import {MET, translate} from 'bing-translate-api';
 import {po} from 'gettext-parser';
+import {translate} from 'google-translate-api-x';
 
 const SOURCE_LANG = 'en' as const;
-const EDGE_USER_AGENT =
-  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.4078.83';
 
 const AVAILABLE_TARGET_LANGS = [
   'bg',
@@ -82,43 +80,13 @@ async function translateText(
   targetLang: TargetLang
 ): Promise<string | undefined> {
   const protectedSourceText = protectLinguiTags(sourceText);
-  let translated: string | undefined;
-  try {
-    translated = await translateMet(protectedSourceText, sourceLang, targetLang);
-  } catch (error) {
-    console.warn(`MET failed, falling back to Bing Translator: ${String(error)}`);
-  }
-  translated ??= await translateBing(protectedSourceText, sourceLang, targetLang);
-  return translated ? restoreLinguiTags(sourceText, translated) : undefined;
-}
-
-async function translateMet(
-  text: string,
-  sourceLang: SourceLang,
-  targetLang: TargetLang
-): Promise<string | undefined> {
-  const result: MET.MetTranslationResult[] | undefined = await MET.translate(
-    text,
-    sourceLang,
-    targetLang,
-    {
-      userAgent: EDGE_USER_AGENT,
-      translateOptions: {
-        // @ts-expect-error -- textType is supported by MET API but missing from type definitions
-        textType: 'html',
-      },
-    }
-  );
-  return result?.[0]?.translations[0]?.text;
-}
-
-async function translateBing(
-  text: string,
-  sourceLang: SourceLang,
-  targetLang: TargetLang
-): Promise<string | undefined> {
-  const result = await translate(text, sourceLang, targetLang, false, false, EDGE_USER_AGENT);
-  return result?.translation;
+  const result = await translate(protectedSourceText, {
+    from: sourceLang,
+    to: targetLang,
+    forceBatch: true,
+    autoCorrect: false,
+  });
+  return result.text ? restoreLinguiTags(sourceText, result.text) : undefined;
 }
 
 function protectLinguiTags(text: string): string {
@@ -190,7 +158,7 @@ async function translatePluralMessage(
         : [...forms.keys()][0]!;
     const sourceText = forms.get(sourceCat)!;
     const sampleNum = CATEGORY_SAMPLE_NUMBER[category] ?? 2;
-    // Send a bare number so Bing uses it for grammatical context (e.g. "5"
+    // Send a bare number so Google uses it for grammatical context (e.g. "5"
     // triggers Ukrainian genitive plural "кольорів" vs nominative "кольори").
     const textToTranslate = sourceText.replace('#', String(sampleNum));
     const translation = await translateText(textToTranslate, sourceLang, targetLang);
@@ -202,7 +170,7 @@ async function translatePluralMessage(
       translatedForms.set(category, translation.replace(/\d+/, '#'));
     } else {
       // Some languages absorb the number into a compound word (e.g. Finnish
-      // "1 second" → "sekunnissa"). Retry with <ph> so Bing treats the number
+      // "1 second" → "sekunnissa"). Retry with <ph> so Google treats the number
       // as an opaque HTML element and keeps it in place for # substitution.
       const textToTranslateWithPh = sourceText.replace('#', `<ph>${sampleNum}</ph>`);
       const translationWithPh = await translateText(textToTranslateWithPh, sourceLang, targetLang);

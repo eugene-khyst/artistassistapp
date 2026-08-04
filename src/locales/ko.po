@@ -239,8 +239,8 @@ msgstr "수채화 연필 층을 더 투명하게 만들기 위해 힘을 덜 가
 msgid "Apply strokes of each color in a <0>{ratioText} ratio</0>"
 msgstr "각 색상의 획을 <0>{ratioText} 비율</0>로 적용"
 
-#: src/components/ImageOutline.tsx:286
-#: src/components/ImageOutline.tsx:335
+#: src/components/ImageOutline.tsx:294
+#: src/components/ImageOutline.tsx:352
 msgid "AR"
 msgstr "AR"
 
@@ -366,7 +366,7 @@ msgstr "가벼움에 의해"
 msgid "By name"
 msgstr "이름에 따라"
 
-#: src/components/ImageOutline.tsx:118
+#: src/components/ImageOutline.tsx:123
 msgid "Camera access is required for AR tracing"
 msgstr "AR 트레이싱을 위해서는 카메라 접근이 필요합니다"
 
@@ -389,7 +389,7 @@ msgstr "유료 멤버십 취소하기"
 msgid "Cannot use copied image"
 msgstr "복사된 이미지를 사용할 수 없습니다"
 
-#: src/components/grid/GridControls.tsx:192
+#: src/components/grid/GridControls.tsx:196
 msgid "Cells"
 msgstr "셀"
 
@@ -722,7 +722,7 @@ msgstr "쌍별 비교를 통해 최고의 사진 결정"
 msgid "Diagnostics"
 msgstr "진단"
 
-#: src/components/grid/GridControls.tsx:200
+#: src/components/grid/GridControls.tsx:205
 msgid "Diagonals"
 msgstr "대각선"
 
@@ -802,8 +802,8 @@ msgstr "이메일이 필요합니다"
 msgid "Enter a valid email"
 msgstr "유효한 이메일을 입력하세요"
 
-#: src/components/ImageOutline.tsx:267
-#: src/components/ImageOutline.tsx:327
+#: src/components/ImageOutline.tsx:275
+#: src/components/ImageOutline.tsx:344
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "라이트박스 모드에 들어가 종이 전체에 윤곽선을 따라 그려보세요."
 
@@ -848,8 +848,8 @@ msgstr "표준 색상 세트 데이터를 가져오는 중 오류가 발생했�
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "이미지를 촬영한 광원의 예상 온도(켈빈)"
 
-#: src/components/ImageOutline.tsx:286
-#: src/components/ImageOutline.tsx:335
+#: src/components/ImageOutline.tsx:294
+#: src/components/ImageOutline.tsx:352
 msgid "Exit AR"
 msgstr "퇴장 AR"
 
@@ -914,7 +914,8 @@ msgstr "<0>{photoLabel}</0> 탭으로 이동하여 참조 사진을 선택합니
 msgid "Gouache"
 msgstr "구아슈"
 
-#: src/components/grid/GridControls.tsx:182
+#: src/components/grid/GridControls.tsx:183
+#: src/components/ImageOutline.tsx:313
 #: src/components/messages.ts:36
 msgid "Grid"
 msgstr "그리드"
@@ -1041,7 +1042,7 @@ msgstr "왼쪽: {unfinishedGamesSize}"
 msgid "Less"
 msgstr "덜"
 
-#: src/components/ImageOutline.tsx:326
+#: src/components/ImageOutline.tsx:343
 msgid "Light box"
 msgstr "라이트박스"
 
@@ -1050,7 +1051,7 @@ msgstr "라이트박스"
 msgid "Light tone"
 msgstr "밝은 색조"
 
-#: src/components/ImageOutline.tsx:275
+#: src/components/ImageOutline.tsx:283
 msgid "Lightbox"
 msgstr "라이트박스"
 
@@ -1145,7 +1146,7 @@ msgstr "혼합"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:98
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:241
+#: src/components/ImageOutline.tsx:254
 msgid "Mode"
 msgstr "모드"
 
@@ -1220,7 +1221,7 @@ msgstr "Patreon에서 어떤 이메일을 사용하는지 잘 모르겠나요? <
 msgid "Nothing to share"
 msgstr "공유할 것이 없습니다."
 
-#: src/components/grid/GridControls.tsx:193
+#: src/components/grid/GridControls.tsx:198
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "더 작은 쪽의 셀 수(수직 또는 수평)"
 
@@ -1241,7 +1242,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "무료 버전에서는 제한된 수의 색상 브랜드만 사용할 수 있습니다"
 
 #: src/components/ImageBackgroundRemoval.tsx:172
-#: src/components/ImageOutline.tsx:228
+#: src/components/ImageOutline.tsx:241
 msgid "Only a limited number of modes are available in the free version"
 msgstr "무료 버전에서는 제한된 수의 모드만 사용할 수 있습니다"
 
@@ -1294,6 +1295,7 @@ msgstr "원래 색온도(K)"
 msgid "Original photo"
 msgstr "원본 사진"
 
+#: src/components/ImageOutline.tsx:270
 #: src/components/messages.ts:35
 msgid "Outline"
 msgstr "개요"
@@ -1343,6 +1345,7 @@ msgstr "영구 스토리지"
 msgid "Persistent storage is not enabled"
 msgstr "영구 스토리지가 활성화되지 않았습니다."
 
+#: src/components/ImageOutline.tsx:270
 #: src/components/messages.ts:30
 msgid "Photo"
 msgstr "사진"
@@ -1397,8 +1400,8 @@ msgstr "미리 보기"
 #: src/components/ColorMixingChart.tsx:144
 #: src/components/ImageGrid.tsx:70
 #: src/components/ImageGrid.tsx:83
-#: src/components/ImageOutline.tsx:256
-#: src/components/ImageOutline.tsx:312
+#: src/components/ImageOutline.tsx:321
+#: src/components/ImageOutline.tsx:363
 #: src/components/ImagesCompare.tsx:175
 #: src/components/ImageTonalValues.tsx:146
 #: src/components/ImageTonalValues.tsx:164
@@ -1530,8 +1533,8 @@ msgstr "채도(%)"
 #: src/components/ImageGrid.tsx:73
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:138
-#: src/components/ImageOutline.tsx:264
-#: src/components/ImageOutline.tsx:318
+#: src/components/ImageOutline.tsx:328
+#: src/components/ImageOutline.tsx:370
 #: src/components/ImagePerspectiveCorrection.tsx:307
 #: src/components/ImagePerspectiveCorrection.tsx:359
 #: src/components/ImageStyleTransfer.tsx:231
@@ -1774,7 +1777,7 @@ msgstr "이전 사진 보기"
 msgid "Show on photo"
 msgstr "사진에 보기"
 
-#: src/components/grid/GridControls.tsx:202
+#: src/components/grid/GridControls.tsx:207
 msgid "Show or hide diagonal lines"
 msgstr "대각선 표시 또는 숨기기"
 
@@ -2153,8 +2156,8 @@ msgstr "사용"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "제한된 팔레트를 사용하면 색상 조화를 이루는 데 도움이 됩니다. 1–{MAX_COLORS} 기본 색상을 선택하세요."
 
-#: src/components/ImageOutline.tsx:278
-#: src/components/ImageOutline.tsx:336
+#: src/components/ImageOutline.tsx:286
+#: src/components/ImageOutline.tsx:353
 msgid "View the outline over the live camera to trace in AR."
 msgstr "실시간 카메라 위에서 윤곽선을 보면 AR로 트레이싱할 수 있습니다."
 
@@ -2242,7 +2245,7 @@ msgid "You're logged in"
 msgstr "로그인 상태입니다"
 
 #: src/components/ImageBackgroundRemoval.tsx:176
-#: src/components/ImageOutline.tsx:232
+#: src/components/ImageOutline.tsx:245
 msgid "You've selected a mode that is available to paid Patreon members only"
 msgstr "유료 Patreon 회원만 사용할 수 있는 모드를 선택하셨습니다"
 

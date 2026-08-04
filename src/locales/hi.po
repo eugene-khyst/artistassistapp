@@ -239,8 +239,8 @@ msgstr "वॉटरकलर पेंसिल परत को अधिक �
 msgid "Apply strokes of each color in a <0>{ratioText} ratio</0>"
 msgstr "प्रत्येक रंग के स्ट्रोक को <0>{ratioText} अनुपात</0> में लागू करें"
 
-#: src/components/ImageOutline.tsx:286
-#: src/components/ImageOutline.tsx:335
+#: src/components/ImageOutline.tsx:294
+#: src/components/ImageOutline.tsx:352
 msgid "AR"
 msgstr "एआर"
 
@@ -366,7 +366,7 @@ msgstr "हल्केपन से"
 msgid "By name"
 msgstr "नाम से"
 
-#: src/components/ImageOutline.tsx:118
+#: src/components/ImageOutline.tsx:123
 msgid "Camera access is required for AR tracing"
 msgstr "एआर ट्रेसिंग के लिए कैमरा एक्सेस आवश्यक है"
 
@@ -389,7 +389,7 @@ msgstr "सशुल्क सदस्यता रद्द करना"
 msgid "Cannot use copied image"
 msgstr "कॉपी की गई छवि का उपयोग नहीं किया जा सकता"
 
-#: src/components/grid/GridControls.tsx:192
+#: src/components/grid/GridControls.tsx:196
 msgid "Cells"
 msgstr "कोशिकाएँ"
 
@@ -722,7 +722,7 @@ msgstr "जोड़ीवार तुलना द्वारा सर्व
 msgid "Diagnostics"
 msgstr "निदान-शास्त्र"
 
-#: src/components/grid/GridControls.tsx:200
+#: src/components/grid/GridControls.tsx:205
 msgid "Diagonals"
 msgstr "विकर्णों"
 
@@ -802,8 +802,8 @@ msgstr "ईमेल की आवश्यकता है"
 msgid "Enter a valid email"
 msgstr "एक मान्य ईमेल दर्ज करें"
 
-#: src/components/ImageOutline.tsx:267
-#: src/components/ImageOutline.tsx:327
+#: src/components/ImageOutline.tsx:275
+#: src/components/ImageOutline.tsx:344
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "अपने पेपर के माध्यम से रूपरेखा का पता लगाने के लिए लाइटबॉक्स मोड दर्ज करें।"
 
@@ -848,8 +848,8 @@ msgstr "मानक रंग सेट डेटा लाते समय त
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "केल्विन में प्रकाश स्रोत का अनुमानित तापमान छवि के साथ लिया गया था"
 
-#: src/components/ImageOutline.tsx:286
-#: src/components/ImageOutline.tsx:335
+#: src/components/ImageOutline.tsx:294
+#: src/components/ImageOutline.tsx:352
 msgid "Exit AR"
 msgstr "एआर से बाहर निकलें"
 
@@ -914,7 +914,8 @@ msgstr "<0>{photoLabel}</0> टैब पर जाएं और अपनी �
 msgid "Gouache"
 msgstr "गौचे"
 
-#: src/components/grid/GridControls.tsx:182
+#: src/components/grid/GridControls.tsx:183
+#: src/components/ImageOutline.tsx:313
 #: src/components/messages.ts:36
 msgid "Grid"
 msgstr "ग्रिड"
@@ -1041,7 +1042,7 @@ msgstr "तुलना करने के लिए बाएं: {unfinishedG
 msgid "Less"
 msgstr "कम"
 
-#: src/components/ImageOutline.tsx:326
+#: src/components/ImageOutline.tsx:343
 msgid "Light box"
 msgstr "लाइट बॉक्स"
 
@@ -1050,7 +1051,7 @@ msgstr "लाइट बॉक्स"
 msgid "Light tone"
 msgstr "हल्का स्वर"
 
-#: src/components/ImageOutline.tsx:275
+#: src/components/ImageOutline.tsx:283
 msgid "Lightbox"
 msgstr "लाइटबॉक्स"
 
@@ -1145,7 +1146,7 @@ msgstr "मिश्रण"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:98
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:241
+#: src/components/ImageOutline.tsx:254
 msgid "Mode"
 msgstr "मोड समूह"
 
@@ -1220,7 +1221,7 @@ msgstr "सुनिश्चित नहीं हैं कि Patreon कौ
 msgid "Nothing to share"
 msgstr "साझा करने के लिए कुछ भी नहीं"
 
-#: src/components/grid/GridControls.tsx:193
+#: src/components/grid/GridControls.tsx:198
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "छोटी भुजा पर कक्षों की संख्या (ऊर्ध्वाधर या क्षैतिज)"
 
@@ -1241,7 +1242,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "मुफ्त संस्करण में केवल सीमित संख्या में रंग ब्रांड उपलब्ध हैं"
 
 #: src/components/ImageBackgroundRemoval.tsx:172
-#: src/components/ImageOutline.tsx:228
+#: src/components/ImageOutline.tsx:241
 msgid "Only a limited number of modes are available in the free version"
 msgstr "मुफ्त संस्करण में केवल सीमित संख्या में मोड उपलब्ध हैं"
 
@@ -1294,6 +1295,7 @@ msgstr "मूल रंग तापमान (के)"
 msgid "Original photo"
 msgstr "मूल फोटो"
 
+#: src/components/ImageOutline.tsx:270
 #: src/components/messages.ts:35
 msgid "Outline"
 msgstr "रूपरेखा बनाना"
@@ -1343,6 +1345,7 @@ msgstr "लगातार भंडारण"
 msgid "Persistent storage is not enabled"
 msgstr "निर्बाध संग्रहण सक्षम नहीं है"
 
+#: src/components/ImageOutline.tsx:270
 #: src/components/messages.ts:30
 msgid "Photo"
 msgstr "फोटो"
@@ -1397,8 +1400,8 @@ msgstr "पूर्वसमीक्षा"
 #: src/components/ColorMixingChart.tsx:144
 #: src/components/ImageGrid.tsx:70
 #: src/components/ImageGrid.tsx:83
-#: src/components/ImageOutline.tsx:256
-#: src/components/ImageOutline.tsx:312
+#: src/components/ImageOutline.tsx:321
+#: src/components/ImageOutline.tsx:363
 #: src/components/ImagesCompare.tsx:175
 #: src/components/ImageTonalValues.tsx:146
 #: src/components/ImageTonalValues.tsx:164
@@ -1530,8 +1533,8 @@ msgstr "संतृप्ति (%)"
 #: src/components/ImageGrid.tsx:73
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:138
-#: src/components/ImageOutline.tsx:264
-#: src/components/ImageOutline.tsx:318
+#: src/components/ImageOutline.tsx:328
+#: src/components/ImageOutline.tsx:370
 #: src/components/ImagePerspectiveCorrection.tsx:307
 #: src/components/ImagePerspectiveCorrection.tsx:359
 #: src/components/ImageStyleTransfer.tsx:231
@@ -1774,7 +1777,7 @@ msgstr "पुरानी फ़ोटो दिखाएं"
 msgid "Show on photo"
 msgstr "फोटो पर दिखाएं"
 
-#: src/components/grid/GridControls.tsx:202
+#: src/components/grid/GridControls.tsx:207
 msgid "Show or hide diagonal lines"
 msgstr "विकर्ण रेखाएँ दिखाना या छुपाना"
 
@@ -2153,8 +2156,8 @@ msgstr "प्रयुक्त"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "सीमित पैलेट का उपयोग करने से रंग सामंजस्य प्राप्त करने में मदद मिलती है। 1–{MAX_COLORS} प्राथमिक रंगों का चयन करें."
 
-#: src/components/ImageOutline.tsx:278
-#: src/components/ImageOutline.tsx:336
+#: src/components/ImageOutline.tsx:286
+#: src/components/ImageOutline.tsx:353
 msgid "View the outline over the live camera to trace in AR."
 msgstr "एआर में ट्रेस करने के लिए लाइव कैमरे पर रूपरेखा देखें।"
 
@@ -2242,7 +2245,7 @@ msgid "You're logged in"
 msgstr "आप लॉग इन हैं"
 
 #: src/components/ImageBackgroundRemoval.tsx:176
-#: src/components/ImageOutline.tsx:232
+#: src/components/ImageOutline.tsx:245
 msgid "You've selected a mode that is available to paid Patreon members only"
 msgstr "आपने एक ऐसा मोड चुना है जो केवल भुगतान किए गए Patreon सदस्यों के लिए उपलब्ध है"
 

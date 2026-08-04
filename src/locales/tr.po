@@ -239,8 +239,8 @@ msgstr "Suluboya kalem katmanını daha şeffaf hale getirmek için daha az bask
 msgid "Apply strokes of each color in a <0>{ratioText} ratio</0>"
 msgstr "Her rengin konturlarını <0>{ratioText} oranında</0> uygulayın"
 
-#: src/components/ImageOutline.tsx:286
-#: src/components/ImageOutline.tsx:335
+#: src/components/ImageOutline.tsx:294
+#: src/components/ImageOutline.tsx:352
 msgid "AR"
 msgstr "AR"
 
@@ -366,7 +366,7 @@ msgstr "Hafiflikle"
 msgid "By name"
 msgstr "İsimle"
 
-#: src/components/ImageOutline.tsx:118
+#: src/components/ImageOutline.tsx:123
 msgid "Camera access is required for AR tracing"
 msgstr "AR izleme için kamera erişimi gereklidir"
 
@@ -389,7 +389,7 @@ msgstr "Ücretli üyeliği iptal etme"
 msgid "Cannot use copied image"
 msgstr "Kopyalanmış görüntü kullanılamıyor"
 
-#: src/components/grid/GridControls.tsx:192
+#: src/components/grid/GridControls.tsx:196
 msgid "Cells"
 msgstr "Hücre"
 
@@ -722,7 +722,7 @@ msgstr "İkili karşılaştırma ile en iyi fotoğrafı belirleyin"
 msgid "Diagnostics"
 msgstr "Tanılama"
 
-#: src/components/grid/GridControls.tsx:200
+#: src/components/grid/GridControls.tsx:205
 msgid "Diagonals"
 msgstr "Çapraz"
 
@@ -802,8 +802,8 @@ msgstr "E-posta zorunludur"
 msgid "Enter a valid email"
 msgstr "Geçerli bir e-posta gönderin"
 
-#: src/components/ImageOutline.tsx:267
-#: src/components/ImageOutline.tsx:327
+#: src/components/ImageOutline.tsx:275
+#: src/components/ImageOutline.tsx:344
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Makalenizde taslağı izlemek için ışık kutusu moduna geçin."
 
@@ -848,8 +848,8 @@ msgstr "Standart renk seti verileri getirilirken hata oluştu"
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Görüntünün çekildiği Kelvin cinsinden ışık kaynağının tahmini sıcaklığı ile çekilmiştir."
 
-#: src/components/ImageOutline.tsx:286
-#: src/components/ImageOutline.tsx:335
+#: src/components/ImageOutline.tsx:294
+#: src/components/ImageOutline.tsx:352
 msgid "Exit AR"
 msgstr "AR'den çıkış"
 
@@ -914,7 +914,8 @@ msgstr "<0>{photoLabel}</0> sekmesine gidin ve referans fotoğrafınızı seçin
 msgid "Gouache"
 msgstr "Guaj"
 
-#: src/components/grid/GridControls.tsx:182
+#: src/components/grid/GridControls.tsx:183
+#: src/components/ImageOutline.tsx:313
 #: src/components/messages.ts:36
 msgid "Grid"
 msgstr "Kılavuz"
@@ -1041,7 +1042,7 @@ msgstr "Karşılaştırmak için kaldı: {unfinishedGamesSize}"
 msgid "Less"
 msgstr "Daha Az"
 
-#: src/components/ImageOutline.tsx:326
+#: src/components/ImageOutline.tsx:343
 msgid "Light box"
 msgstr "Işık kutusu"
 
@@ -1050,7 +1051,7 @@ msgstr "Işık kutusu"
 msgid "Light tone"
 msgstr "Hafif ton"
 
-#: src/components/ImageOutline.tsx:275
+#: src/components/ImageOutline.tsx:283
 msgid "Lightbox"
 msgstr "Lightbox"
 
@@ -1145,7 +1146,7 @@ msgstr "Karışım"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:98
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:241
+#: src/components/ImageOutline.tsx:254
 msgid "Mode"
 msgstr "Mod"
 
@@ -1220,7 +1221,7 @@ msgstr "Patreon'un hangi e-postayı kullandığından emin değil misiniz? <0>Pa
 msgid "Nothing to share"
 msgstr "Paylaşacak bir şey yok"
 
-#: src/components/grid/GridControls.tsx:193
+#: src/components/grid/GridControls.tsx:198
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Küçük taraftaki hücre sayısı (dikey veya yatay)"
 
@@ -1241,7 +1242,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "Ücretsiz sürümde yalnızca sınırlı sayıda renk markası mevcuttur"
 
 #: src/components/ImageBackgroundRemoval.tsx:172
-#: src/components/ImageOutline.tsx:228
+#: src/components/ImageOutline.tsx:241
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Ücretsiz sürümde yalnızca sınırlı sayıda mod mevcuttur"
 
@@ -1294,6 +1295,7 @@ msgstr "Orijinal renk sıcaklığı (K)"
 msgid "Original photo"
 msgstr "Orijinal fotoğraf"
 
+#: src/components/ImageOutline.tsx:270
 #: src/components/messages.ts:35
 msgid "Outline"
 msgstr "Anahat"
@@ -1343,6 +1345,7 @@ msgstr "Kalıcı depolama"
 msgid "Persistent storage is not enabled"
 msgstr "Kalıcı depolama etkin değil"
 
+#: src/components/ImageOutline.tsx:270
 #: src/components/messages.ts:30
 msgid "Photo"
 msgstr "Fotoğraf"
@@ -1397,8 +1400,8 @@ msgstr "Önizleme"
 #: src/components/ColorMixingChart.tsx:144
 #: src/components/ImageGrid.tsx:70
 #: src/components/ImageGrid.tsx:83
-#: src/components/ImageOutline.tsx:256
-#: src/components/ImageOutline.tsx:312
+#: src/components/ImageOutline.tsx:321
+#: src/components/ImageOutline.tsx:363
 #: src/components/ImagesCompare.tsx:175
 #: src/components/ImageTonalValues.tsx:146
 #: src/components/ImageTonalValues.tsx:164
@@ -1530,8 +1533,8 @@ msgstr "Doygunluk (%)"
 #: src/components/ImageGrid.tsx:73
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:138
-#: src/components/ImageOutline.tsx:264
-#: src/components/ImageOutline.tsx:318
+#: src/components/ImageOutline.tsx:328
+#: src/components/ImageOutline.tsx:370
 #: src/components/ImagePerspectiveCorrection.tsx:307
 #: src/components/ImagePerspectiveCorrection.tsx:359
 #: src/components/ImageStyleTransfer.tsx:231
@@ -1774,7 +1777,7 @@ msgstr "Eski fotoğrafları göster"
 msgid "Show on photo"
 msgstr "Fotoğrafta göster"
 
-#: src/components/grid/GridControls.tsx:202
+#: src/components/grid/GridControls.tsx:207
 msgid "Show or hide diagonal lines"
 msgstr "Çapraz çizgileri gösterme veya gizleme"
 
@@ -2153,8 +2156,8 @@ msgstr "Kullanılmış"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Sınırlı bir palet kullanmak renk uyumu sağlanmasına yardımcı olur. 1–{MAX_COLORS} birincil renk seçin."
 
-#: src/components/ImageOutline.tsx:278
-#: src/components/ImageOutline.tsx:336
+#: src/components/ImageOutline.tsx:286
+#: src/components/ImageOutline.tsx:353
 msgid "View the outline over the live camera to trace in AR."
 msgstr "Canlı kameranın üzerinden taslağı AR ile izlemek için görüntüleyin."
 
@@ -2242,7 +2245,7 @@ msgid "You're logged in"
 msgstr "Giriş yaptın"
 
 #: src/components/ImageBackgroundRemoval.tsx:176
-#: src/components/ImageOutline.tsx:232
+#: src/components/ImageOutline.tsx:245
 msgid "You've selected a mode that is available to paid Patreon members only"
 msgstr "Sadece ücretli Patreon üyelerine açık bir mod seçtiniz"
 

@@ -179,7 +179,11 @@ export function GridControls({
           <Checkbox checked={gridEnabled} onChange={handleEnabledChange} />
         </Form.Item>
       )}
-      <Form.Item label={<Trans>Grid</Trans>} className={styles['formItem']}>
+      <Form.Item
+        label={<Trans>Grid</Trans>}
+        labelCol={{className: 'u-pb-0'}}
+        className={styles['formItem']}
+      >
         <Select
           value={gridMode}
           onChange={handleModeChange}
@@ -190,6 +194,7 @@ export function GridControls({
       {gridMode === GridMode.Square ? (
         <Form.Item
           label={<Trans>Cells</Trans>}
+          labelCol={{className: 'u-pb-0'}}
           tooltip={<Trans>Number of cells on the smaller side (vertical or horizontal)</Trans>}
           className={styles['formItem']}
         >

@@ -21,6 +21,7 @@ import {
   DownloadOutlined,
   MoreOutlined,
   PrinterOutlined,
+  TableOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
@@ -38,7 +39,7 @@ import {
 } from 'antd';
 import {clsx} from 'clsx';
 import type {CSSProperties, ReactElement, ReactNode} from 'react';
-import {cloneElement, useCallback, useEffect, useState} from 'react';
+import {cloneElement, useCallback, useEffect, useMemo, useState} from 'react';
 
 import {DEFAULT_GRID_SETTINGS, setGrid} from '@/components/grid/grid';
 import {GridControls} from '@/components/grid/GridControls';
@@ -76,6 +77,7 @@ export function ImageOutline() {
   const isOutlineImageLoading = useAppStore(state => state.isOutlineImageLoading);
   const outlineDownloadTip = useAppStore(state => state.outlineDownloadTip);
   const outlineImage = useAppStore(state => state.outlineImage);
+  const originalImage = useAppStore(state => state.originalImage);
 
   const activeTabKey = useAppStore(state => state.activeTabKey);
 
@@ -95,12 +97,15 @@ export function ImageOutline() {
       setModel: setOutlineModel,
     });
 
+  const images = useMemo(() => [outlineImage, originalImage], [outlineImage, originalImage]);
+
   const {ref: canvasRef, zoomableImageCanvas: gridCanvas} = useZoomableImageCanvas<GridCanvas>(
     gridCanvasSupplier,
-    outlineImage
+    images
   );
 
   const [isOpenPrintImage, setIsOpenPrintImage] = useState<boolean>(false);
+  const [isShowingOriginal, setIsShowingOriginal] = useState<boolean>(false);
 
   const onLightboxEnter = useCallback(() => {
     gridCanvas?.disableAutoFit();
@@ -147,6 +152,10 @@ export function ImageOutline() {
     });
   }, [grids, gridCanvas]);
 
+  useEffect(() => {
+    gridCanvas?.setImageIndex(isShowingOriginal && outlineImage ? 1 : 0);
+  }, [gridCanvas, isShowingOriginal, outlineImage]);
+
   const handleArToggle = async () => {
     if (isArMode) {
       exitArMode();
@@ -158,12 +167,16 @@ export function ImageOutline() {
     await enterArMode();
   };
 
+  const handleShowOriginalClick = () => {
+    setIsShowingOriginal(!isShowingOriginal);
+  };
+
   const handlePrintClick = () => {
     setIsOpenPrintImage(true);
   };
 
   const handleSaveClick = () => {
-    if (!outlineImage) {
+    if (!outlineImage || isShowingOriginal) {
       return;
     }
     void gridCanvas?.saveAsImage(getFilename(selectedImageFile, 'outline'));
@@ -178,12 +191,12 @@ export function ImageOutline() {
 
   const handleCancelClick = () => {
     abortOutline();
-    const quickModel = getDefaultModel(
+    const defaultModel = getDefaultModel(
       models,
       user,
       ({url, freeTier}: OnnxModel): boolean => !url && (!!user || !!freeTier)
     );
-    setSelectedModelId(quickModel?.id);
+    setSelectedModelId(defaultModel?.id);
   };
 
   const popupRender = useCallback(
@@ -250,19 +263,14 @@ export function ImageOutline() {
               className={styles['modelSelect']}
             />
           </Form.Item>
-          {screens.sm ? (
+          <Button
+            type={isShowingOriginal ? 'primary' : 'default'}
+            onClick={handleShowOriginalClick}
+          >
+            {isShowingOriginal ? <Trans>Outline</Trans> : <Trans>Photo</Trans>}
+          </Button>
+          {screens.sm && (
             <>
-              <Button icon={<PrinterOutlined />} onClick={handlePrintClick}>
-                <Trans>Print</Trans>
-              </Button>
-              <Button
-                icon={<DownloadOutlined />}
-                onClick={() => {
-                  handleSaveClick();
-                }}
-              >
-                <Trans>Save</Trans>
-              </Button>
               <Tooltip
                 title={<Trans>Enter lightbox mode to trace the outline through your paper.</Trans>}
               >
@@ -286,58 +294,83 @@ export function ImageOutline() {
                   {isArMode ? <Trans>Exit AR</Trans> : <Trans>AR</Trans>}
                 </Button>
               </Tooltip>
-              <Popover
-                trigger="click"
-                forceRender
-                content={
-                  <GridControls
-                    orientation="vertical"
-                    size="small"
-                    gridCanvas={gridCanvas}
-                    defaultGridSettings={defaultGridSettings}
-                    disableable
-                  />
-                }
-              >
-                <Button icon={<MoreOutlined />} />
-              </Popover>
+              {screens.md && (
+                <>
+                  <Popover
+                    trigger="click"
+                    forceRender
+                    content={
+                      <GridControls
+                        orientation="vertical"
+                        size="small"
+                        gridCanvas={gridCanvas}
+                        defaultGridSettings={defaultGridSettings}
+                        disableable
+                      />
+                    }
+                  >
+                    <Button icon={<TableOutlined />}>
+                      <Trans>Grid</Trans>
+                    </Button>
+                  </Popover>
+                  <Button
+                    icon={<PrinterOutlined />}
+                    onClick={handlePrintClick}
+                    disabled={isShowingOriginal}
+                  >
+                    <Trans>Print</Trans>
+                  </Button>
+                  <Button
+                    icon={<DownloadOutlined />}
+                    onClick={handleSaveClick}
+                    disabled={isShowingOriginal}
+                  >
+                    <Trans>Save</Trans>
+                  </Button>
+                </>
+              )}
             </>
-          ) : (
+          )}
+          {!screens.md && (
             <Dropdown
               trigger={['click']}
               menu={{
                 items: [
+                  ...(!screens.sm
+                    ? [
+                        {
+                          key: 'lightbox',
+                          label: <Trans>Light box</Trans>,
+                          title: t`Enter lightbox mode to trace the outline through your paper.`,
+                          icon: <BulbOutlined />,
+                          onClick: () => {
+                            void handleLightboxClick();
+                          },
+                        },
+                        {
+                          key: 'ar',
+                          label: isArMode ? t`Exit AR` : t`AR`,
+                          title: t`View the outline over the live camera to trace in AR.`,
+                          icon: <VideoCameraOutlined />,
+                          onClick: () => {
+                            void handleArToggle();
+                          },
+                        },
+                      ]
+                    : []),
                   {
                     key: 'print',
                     label: <Trans>Print</Trans>,
                     icon: <PrinterOutlined />,
                     onClick: handlePrintClick,
+                    disabled: isShowingOriginal,
                   },
                   {
                     key: 'save',
                     label: <Trans>Save</Trans>,
                     icon: <DownloadOutlined />,
-                    onClick: () => {
-                      handleSaveClick();
-                    },
-                  },
-                  {
-                    key: 'lightbox',
-                    label: <Trans>Light box</Trans>,
-                    title: t`Enter lightbox mode to trace the outline through your paper.`,
-                    icon: <BulbOutlined />,
-                    onClick: () => {
-                      void handleLightboxClick();
-                    },
-                  },
-                  {
-                    key: 'ar',
-                    label: isArMode ? t`Exit AR` : t`AR`,
-                    title: t`View the outline over the live camera to trace in AR.`,
-                    icon: <VideoCameraOutlined />,
-                    onClick: () => {
-                      void handleArToggle();
-                    },
+                    onClick: handleSaveClick,
+                    disabled: isShowingOriginal,
                   },
                 ],
               }}
@@ -360,7 +393,10 @@ export function ImageOutline() {
           className={clsx(
             styles['previewCanvas'],
             isLightbox ? styles['canvasLightbox'] : styles['canvasNormal'],
-            isArMode && styles['canvasAr']
+            isArMode &&
+              (isShowingOriginal || !outlineImage
+                ? styles['canvasArOriginal']
+                : styles['canvasArOutline'])
           )}
         />
         {isLightbox && (

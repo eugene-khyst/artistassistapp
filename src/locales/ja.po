@@ -239,8 +239,8 @@ msgstr "水彩鉛筆の層をより透けやすくするために、力を少し
 msgid "Apply strokes of each color in a <0>{ratioText} ratio</0>"
 msgstr "各色のストロークを <0>{ratioText} の比率</0>で適用します"
 
-#: src/components/ImageOutline.tsx:286
-#: src/components/ImageOutline.tsx:335
+#: src/components/ImageOutline.tsx:294
+#: src/components/ImageOutline.tsx:352
 msgid "AR"
 msgstr "AR"
 
@@ -366,7 +366,7 @@ msgstr "軽さによって"
 msgid "By name"
 msgstr "名前で"
 
-#: src/components/ImageOutline.tsx:118
+#: src/components/ImageOutline.tsx:123
 msgid "Camera access is required for AR tracing"
 msgstr "ARトレーシングにはカメラアクセスが必要です"
 
@@ -389,7 +389,7 @@ msgstr "有料メンバーシップの解約"
 msgid "Cannot use copied image"
 msgstr "コピー画像は使用できません"
 
-#: src/components/grid/GridControls.tsx:192
+#: src/components/grid/GridControls.tsx:196
 msgid "Cells"
 msgstr "細胞"
 
@@ -722,7 +722,7 @@ msgstr "ペアワイズ比較で最高の写真を決定する"
 msgid "Diagnostics"
 msgstr "診断"
 
-#: src/components/grid/GridControls.tsx:200
+#: src/components/grid/GridControls.tsx:205
 msgid "Diagonals"
 msgstr "対角線"
 
@@ -802,8 +802,8 @@ msgstr "メールが必要です"
 msgid "Enter a valid email"
 msgstr "有効なメールアドレスを入力してください"
 
-#: src/components/ImageOutline.tsx:267
-#: src/components/ImageOutline.tsx:327
+#: src/components/ImageOutline.tsx:275
+#: src/components/ImageOutline.tsx:344
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "ライトボックスモードに入って、紙のアウトラインをなぞります。"
 
@@ -848,8 +848,8 @@ msgstr "標準カラーセットデータの取得中にエラーが発生しま
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "ケルビン単位の光源の推定温度は、画像が"
 
-#: src/components/ImageOutline.tsx:286
-#: src/components/ImageOutline.tsx:335
+#: src/components/ImageOutline.tsx:294
+#: src/components/ImageOutline.tsx:352
 msgid "Exit AR"
 msgstr "退出AR"
 
@@ -914,7 +914,8 @@ msgstr "<0>{photoLabel}</0>タブに移動し、参照写真を選択します�
 msgid "Gouache"
 msgstr "ガッシュ"
 
-#: src/components/grid/GridControls.tsx:182
+#: src/components/grid/GridControls.tsx:183
+#: src/components/ImageOutline.tsx:313
 #: src/components/messages.ts:36
 msgid "Grid"
 msgstr "グリッド"
@@ -1041,7 +1042,7 @@ msgstr "比較する左: {unfinishedGamesSize}"
 msgid "Less"
 msgstr "それより少なく"
 
-#: src/components/ImageOutline.tsx:326
+#: src/components/ImageOutline.tsx:343
 msgid "Light box"
 msgstr "ライトボックス"
 
@@ -1050,7 +1051,7 @@ msgstr "ライトボックス"
 msgid "Light tone"
 msgstr "ライトトーン"
 
-#: src/components/ImageOutline.tsx:275
+#: src/components/ImageOutline.tsx:283
 msgid "Lightbox"
 msgstr "ライトボックス"
 
@@ -1145,7 +1146,7 @@ msgstr "混交"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:98
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:241
+#: src/components/ImageOutline.tsx:254
 msgid "Mode"
 msgstr "モード"
 
@@ -1220,7 +1221,7 @@ msgstr "Patreonがどのメールアドレスを使っているのか分から�
 msgid "Nothing to share"
 msgstr "共有するものはありません"
 
-#: src/components/grid/GridControls.tsx:193
+#: src/components/grid/GridControls.tsx:198
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "小さい方の辺のセルの数 (垂直または水平)"
 
@@ -1241,7 +1242,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "無料版では、限られた数のカラーブランドしか利用できません"
 
 #: src/components/ImageBackgroundRemoval.tsx:172
-#: src/components/ImageOutline.tsx:228
+#: src/components/ImageOutline.tsx:241
 msgid "Only a limited number of modes are available in the free version"
 msgstr "無料版で利用できるモードは限られています"
 
@@ -1294,6 +1295,7 @@ msgstr "オリジナル色温度(K)"
 msgid "Original photo"
 msgstr "元の写真"
 
+#: src/components/ImageOutline.tsx:270
 #: src/components/messages.ts:35
 msgid "Outline"
 msgstr "概要"
@@ -1343,6 +1345,7 @@ msgstr "永続ストレージ"
 msgid "Persistent storage is not enabled"
 msgstr "永続ストレージが有効になっていない"
 
+#: src/components/ImageOutline.tsx:270
 #: src/components/messages.ts:30
 msgid "Photo"
 msgstr "写真"
@@ -1397,8 +1400,8 @@ msgstr "プレビュー"
 #: src/components/ColorMixingChart.tsx:144
 #: src/components/ImageGrid.tsx:70
 #: src/components/ImageGrid.tsx:83
-#: src/components/ImageOutline.tsx:256
-#: src/components/ImageOutline.tsx:312
+#: src/components/ImageOutline.tsx:321
+#: src/components/ImageOutline.tsx:363
 #: src/components/ImagesCompare.tsx:175
 #: src/components/ImageTonalValues.tsx:146
 #: src/components/ImageTonalValues.tsx:164
@@ -1530,8 +1533,8 @@ msgstr "彩度(%)"
 #: src/components/ImageGrid.tsx:73
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:138
-#: src/components/ImageOutline.tsx:264
-#: src/components/ImageOutline.tsx:318
+#: src/components/ImageOutline.tsx:328
+#: src/components/ImageOutline.tsx:370
 #: src/components/ImagePerspectiveCorrection.tsx:307
 #: src/components/ImagePerspectiveCorrection.tsx:359
 #: src/components/ImageStyleTransfer.tsx:231
@@ -1774,7 +1777,7 @@ msgstr "古い写真を見せる"
 msgid "Show on photo"
 msgstr "写真に表示"
 
-#: src/components/grid/GridControls.tsx:202
+#: src/components/grid/GridControls.tsx:207
 msgid "Show or hide diagonal lines"
 msgstr "斜めの線を表示または非表示にする"
 
@@ -2153,8 +2156,8 @@ msgstr "中古"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "限られたパレットを使うことで色の調和を得られます。1〜{MAX_COLORS}の三色を選択します。"
 
-#: src/components/ImageOutline.tsx:278
-#: src/components/ImageOutline.tsx:336
+#: src/components/ImageOutline.tsx:286
+#: src/components/ImageOutline.tsx:353
 msgid "View the outline over the live camera to trace in AR."
 msgstr "ライブカメラで輪郭を見てARでトレースできます。"
 
@@ -2242,7 +2245,7 @@ msgid "You're logged in"
 msgstr "ログインしています"
 
 #: src/components/ImageBackgroundRemoval.tsx:176
-#: src/components/ImageOutline.tsx:232
+#: src/components/ImageOutline.tsx:245
 msgid "You've selected a mode that is available to paid Patreon members only"
 msgstr "有料Patreon会員限定のモードを選択しました"
 

@@ -239,8 +239,8 @@ msgstr "Käytä vähemmän painetta, jotta vesivärikynän kerros on läpinäkyv
 msgid "Apply strokes of each color in a <0>{ratioText} ratio</0>"
 msgstr "Käytä kunkin värin viivoja <0>{ratioText}-suhteessa</0>"
 
-#: src/components/ImageOutline.tsx:286
-#: src/components/ImageOutline.tsx:335
+#: src/components/ImageOutline.tsx:294
+#: src/components/ImageOutline.tsx:352
 msgid "AR"
 msgstr "AR"
 
@@ -366,7 +366,7 @@ msgstr "Keveyttä"
 msgid "By name"
 msgstr "Nimeltä"
 
-#: src/components/ImageOutline.tsx:118
+#: src/components/ImageOutline.tsx:123
 msgid "Camera access is required for AR tracing"
 msgstr "Kameran käyttö on pakollinen AR-jäljitykseen"
 
@@ -389,7 +389,7 @@ msgstr "Maksullisen jäsenyyden peruuttaminen"
 msgid "Cannot use copied image"
 msgstr "Ei voi käyttää kopioitua kuvaa"
 
-#: src/components/grid/GridControls.tsx:192
+#: src/components/grid/GridControls.tsx:196
 msgid "Cells"
 msgstr "Solut"
 
@@ -722,7 +722,7 @@ msgstr "Määritä paras valokuva pareittain vertaamalla"
 msgid "Diagnostics"
 msgstr "Diagnostiikka"
 
-#: src/components/grid/GridControls.tsx:200
+#: src/components/grid/GridControls.tsx:205
 msgid "Diagonals"
 msgstr "Lävistäjät"
 
@@ -802,8 +802,8 @@ msgstr "Sähköposti on pakollinen"
 msgid "Enter a valid email"
 msgstr "Syötä kelvollinen sähköposti"
 
-#: src/components/ImageOutline.tsx:267
-#: src/components/ImageOutline.tsx:327
+#: src/components/ImageOutline.tsx:275
+#: src/components/ImageOutline.tsx:344
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Siirry valolaatikkotilaan jäljittääksesi ääriviivat paperisi läpi."
 
@@ -848,8 +848,8 @@ msgstr "Virhe haettaessa vakiovärijoukkotietoja"
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Valonlähteen arvioitu lämpötila Kelvininä kuva on otettu"
 
-#: src/components/ImageOutline.tsx:286
-#: src/components/ImageOutline.tsx:335
+#: src/components/ImageOutline.tsx:294
+#: src/components/ImageOutline.tsx:352
 msgid "Exit AR"
 msgstr "Exit AR"
 
@@ -914,7 +914,8 @@ msgstr "Siirry <0>{photoLabel}</0> -välilehdelle ja valitse viitekuvasi."
 msgid "Gouache"
 msgstr "Guassi"
 
-#: src/components/grid/GridControls.tsx:182
+#: src/components/grid/GridControls.tsx:183
+#: src/components/ImageOutline.tsx:313
 #: src/components/messages.ts:36
 msgid "Grid"
 msgstr "Hila"
@@ -1041,7 +1042,7 @@ msgstr "Jäljellä vertailua varten: {unfinishedGamesSize}"
 msgid "Less"
 msgstr "Vähemmän"
 
-#: src/components/ImageOutline.tsx:326
+#: src/components/ImageOutline.tsx:343
 msgid "Light box"
 msgstr "Valolaatikko"
 
@@ -1050,7 +1051,7 @@ msgstr "Valolaatikko"
 msgid "Light tone"
 msgstr "Vaalea sävy"
 
-#: src/components/ImageOutline.tsx:275
+#: src/components/ImageOutline.tsx:283
 msgid "Lightbox"
 msgstr "Lightbox"
 
@@ -1145,7 +1146,7 @@ msgstr "Sekoitus"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:98
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:241
+#: src/components/ImageOutline.tsx:254
 msgid "Mode"
 msgstr "Moodi"
 
@@ -1220,7 +1221,7 @@ msgstr "En ole varma, mitä sähköpostia Patreon käyttää? Tarkista <0>Patreo
 msgid "Nothing to share"
 msgstr "Ei mitään jaettavaa"
 
-#: src/components/grid/GridControls.tsx:193
+#: src/components/grid/GridControls.tsx:198
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Solujen lukumäärä pienemmällä puolella (pysty- tai vaakasuora)"
 
@@ -1241,7 +1242,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "Ilmaisessa versiossa on saatavilla vain rajoitettu määrä värimerkkejä"
 
 #: src/components/ImageBackgroundRemoval.tsx:172
-#: src/components/ImageOutline.tsx:228
+#: src/components/ImageOutline.tsx:241
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Ilmaisessa versiossa on käytettävissä vain rajoitettu määrä tiloja"
 
@@ -1294,6 +1295,7 @@ msgstr "Alkuperäinen värilämpötila (K)"
 msgid "Original photo"
 msgstr "Alkuperäinen kuva"
 
+#: src/components/ImageOutline.tsx:270
 #: src/components/messages.ts:35
 msgid "Outline"
 msgstr "Hahmotella"
@@ -1343,6 +1345,7 @@ msgstr "Pysyvä tallennus"
 msgid "Persistent storage is not enabled"
 msgstr "Pysyvä tallennus ei ole käytössä"
 
+#: src/components/ImageOutline.tsx:270
 #: src/components/messages.ts:30
 msgid "Photo"
 msgstr "Valokuva"
@@ -1397,8 +1400,8 @@ msgstr "Ennakkoesitys"
 #: src/components/ColorMixingChart.tsx:144
 #: src/components/ImageGrid.tsx:70
 #: src/components/ImageGrid.tsx:83
-#: src/components/ImageOutline.tsx:256
-#: src/components/ImageOutline.tsx:312
+#: src/components/ImageOutline.tsx:321
+#: src/components/ImageOutline.tsx:363
 #: src/components/ImagesCompare.tsx:175
 #: src/components/ImageTonalValues.tsx:146
 #: src/components/ImageTonalValues.tsx:164
@@ -1530,8 +1533,8 @@ msgstr "Kylläisyys (%)"
 #: src/components/ImageGrid.tsx:73
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:138
-#: src/components/ImageOutline.tsx:264
-#: src/components/ImageOutline.tsx:318
+#: src/components/ImageOutline.tsx:328
+#: src/components/ImageOutline.tsx:370
 #: src/components/ImagePerspectiveCorrection.tsx:307
 #: src/components/ImagePerspectiveCorrection.tsx:359
 #: src/components/ImageStyleTransfer.tsx:231
@@ -1774,7 +1777,7 @@ msgstr "Näytä vanhempia valokuvia"
 msgid "Show on photo"
 msgstr "Näytä kuvassa"
 
-#: src/components/grid/GridControls.tsx:202
+#: src/components/grid/GridControls.tsx:207
 msgid "Show or hide diagonal lines"
 msgstr "Näytä tai piilota diagonaaliviivat"
 
@@ -2153,8 +2156,8 @@ msgstr "Käytetty"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Rajallisen paletin käyttäminen auttaa väriharmonian saavuttamisessa. Valitse 1–{MAX_COLORS} päävärit."
 
-#: src/components/ImageOutline.tsx:278
-#: src/components/ImageOutline.tsx:336
+#: src/components/ImageOutline.tsx:286
+#: src/components/ImageOutline.tsx:353
 msgid "View the outline over the live camera to trace in AR."
 msgstr "Katso ääriviivat live-kameran kautta ja seuraa AR-tilassa."
 
@@ -2242,7 +2245,7 @@ msgid "You're logged in"
 msgstr "Olet kirjautunut sisään"
 
 #: src/components/ImageBackgroundRemoval.tsx:176
-#: src/components/ImageOutline.tsx:232
+#: src/components/ImageOutline.tsx:245
 msgid "You've selected a mode that is available to paid Patreon members only"
 msgstr "Olet valinnut tilan, joka on saatavilla vain maksullisille Patreon-jäsenille"
 

@@ -30,6 +30,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Forces Firefox to paint the video into the content layer so mix-blend-mode can blend with it. */
+  filter: brightness(1.001);
 }
 
 .previewCanvas {
@@ -46,7 +48,11 @@
   height: 100dvh;
 }
 
-.canvasAr {
+.canvasArOutline {
   filter: invert(1);
   mix-blend-mode: difference;
+}
+
+.canvasArOriginal {
+  mix-blend-mode: multiply;
 }

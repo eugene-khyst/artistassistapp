@@ -239,8 +239,8 @@ msgstr "Aplique menos pressão para deixar a camada de lápis de aquarela mais t
 msgid "Apply strokes of each color in a <0>{ratioText} ratio</0>"
 msgstr "Aplique traços de cada cor em uma <0>proporção {ratioText}</0>"
 
-#: src/components/ImageOutline.tsx:286
-#: src/components/ImageOutline.tsx:335
+#: src/components/ImageOutline.tsx:294
+#: src/components/ImageOutline.tsx:352
 msgid "AR"
 msgstr "AR"
 
@@ -366,7 +366,7 @@ msgstr "Pela leveza"
 msgid "By name"
 msgstr "Por nome"
 
-#: src/components/ImageOutline.tsx:118
+#: src/components/ImageOutline.tsx:123
 msgid "Camera access is required for AR tracing"
 msgstr "O acesso à câmera é necessário para rastreamento em AR"
 
@@ -389,7 +389,7 @@ msgstr "Cancelar uma assinatura paga"
 msgid "Cannot use copied image"
 msgstr "Não é possível usar imagem copiada"
 
-#: src/components/grid/GridControls.tsx:192
+#: src/components/grid/GridControls.tsx:196
 msgid "Cells"
 msgstr "Células"
 
@@ -722,7 +722,7 @@ msgstr "Determine a melhor foto por comparação em pares"
 msgid "Diagnostics"
 msgstr "Diagnostics"
 
-#: src/components/grid/GridControls.tsx:200
+#: src/components/grid/GridControls.tsx:205
 msgid "Diagonals"
 msgstr "Diagonais"
 
@@ -802,8 +802,8 @@ msgstr "O e-mail é obrigatório"
 msgid "Enter a valid email"
 msgstr "Insira um e-mail válido"
 
-#: src/components/ImageOutline.tsx:267
-#: src/components/ImageOutline.tsx:327
+#: src/components/ImageOutline.tsx:275
+#: src/components/ImageOutline.tsx:344
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Entre no modo lightbox para traçar o contorno pelo seu papel."
 
@@ -848,8 +848,8 @@ msgstr "Erro ao buscar dados do conjunto de cores padrão"
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Temperatura estimada da fonte de luz em Kelvin com a qual a imagem foi tirada"
 
-#: src/components/ImageOutline.tsx:286
-#: src/components/ImageOutline.tsx:335
+#: src/components/ImageOutline.tsx:294
+#: src/components/ImageOutline.tsx:352
 msgid "Exit AR"
 msgstr "Saída AR"
 
@@ -914,7 +914,8 @@ msgstr "Vá para a guia <0>{photoLabel}</0> e escolha sua foto de referência."
 msgid "Gouache"
 msgstr "Guache"
 
-#: src/components/grid/GridControls.tsx:182
+#: src/components/grid/GridControls.tsx:183
+#: src/components/ImageOutline.tsx:313
 #: src/components/messages.ts:36
 msgid "Grid"
 msgstr "Grade"
@@ -1041,7 +1042,7 @@ msgstr "Resta para comparar: {unfinishedGamesSize}"
 msgid "Less"
 msgstr "Menos"
 
-#: src/components/ImageOutline.tsx:326
+#: src/components/ImageOutline.tsx:343
 msgid "Light box"
 msgstr "Caixa de luz"
 
@@ -1050,7 +1051,7 @@ msgstr "Caixa de luz"
 msgid "Light tone"
 msgstr "Tom claro"
 
-#: src/components/ImageOutline.tsx:275
+#: src/components/ImageOutline.tsx:283
 msgid "Lightbox"
 msgstr "Lightbox"
 
@@ -1145,7 +1146,7 @@ msgstr "Mistura"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:98
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:241
+#: src/components/ImageOutline.tsx:254
 msgid "Mode"
 msgstr "Modo"
 
@@ -1220,7 +1221,7 @@ msgstr "Não tem certeza de qual e-mail o Patreon usa? Verifique <0>as configura
 msgid "Nothing to share"
 msgstr "Nada para compartilhar"
 
-#: src/components/grid/GridControls.tsx:193
+#: src/components/grid/GridControls.tsx:198
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Número de células no lado menor (vertical ou horizontal)"
 
@@ -1241,7 +1242,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "Apenas um número limitado de marcas de cores está disponível na versão gratuita"
 
 #: src/components/ImageBackgroundRemoval.tsx:172
-#: src/components/ImageOutline.tsx:228
+#: src/components/ImageOutline.tsx:241
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Apenas um número limitado de modos está disponível na versão gratuita"
 
@@ -1294,6 +1295,7 @@ msgstr "Temperatura de cor original (K)"
 msgid "Original photo"
 msgstr "Foto original"
 
+#: src/components/ImageOutline.tsx:270
 #: src/components/messages.ts:35
 msgid "Outline"
 msgstr "Contorno"
@@ -1343,6 +1345,7 @@ msgstr "Armazenamento persistente"
 msgid "Persistent storage is not enabled"
 msgstr "O armazenamento persistente não está habilitado"
 
+#: src/components/ImageOutline.tsx:270
 #: src/components/messages.ts:30
 msgid "Photo"
 msgstr "Fotografia"
@@ -1397,8 +1400,8 @@ msgstr "Visualizar"
 #: src/components/ColorMixingChart.tsx:144
 #: src/components/ImageGrid.tsx:70
 #: src/components/ImageGrid.tsx:83
-#: src/components/ImageOutline.tsx:256
-#: src/components/ImageOutline.tsx:312
+#: src/components/ImageOutline.tsx:321
+#: src/components/ImageOutline.tsx:363
 #: src/components/ImagesCompare.tsx:175
 #: src/components/ImageTonalValues.tsx:146
 #: src/components/ImageTonalValues.tsx:164
@@ -1530,8 +1533,8 @@ msgstr "Saturação (%)"
 #: src/components/ImageGrid.tsx:73
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:138
-#: src/components/ImageOutline.tsx:264
-#: src/components/ImageOutline.tsx:318
+#: src/components/ImageOutline.tsx:328
+#: src/components/ImageOutline.tsx:370
 #: src/components/ImagePerspectiveCorrection.tsx:307
 #: src/components/ImagePerspectiveCorrection.tsx:359
 #: src/components/ImageStyleTransfer.tsx:231
@@ -1774,7 +1777,7 @@ msgstr "Mostrar fotos antigas"
 msgid "Show on photo"
 msgstr "Mostrar na foto"
 
-#: src/components/grid/GridControls.tsx:202
+#: src/components/grid/GridControls.tsx:207
 msgid "Show or hide diagonal lines"
 msgstr "Mostrar ou ocultar linhas diagonais"
 
@@ -2153,8 +2156,8 @@ msgstr "Usado"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Usar uma paleta limitada ajuda a alcançar a harmonia das cores. Selecione as cores primárias de 1–{MAX_COLORS}."
 
-#: src/components/ImageOutline.tsx:278
-#: src/components/ImageOutline.tsx:336
+#: src/components/ImageOutline.tsx:286
+#: src/components/ImageOutline.tsx:353
 msgid "View the outline over the live camera to trace in AR."
 msgstr "Veja o contorno sobre a câmera ao vivo para traçar em AR."
 
@@ -2242,7 +2245,7 @@ msgid "You're logged in"
 msgstr "Você está logado"
 
 #: src/components/ImageBackgroundRemoval.tsx:176
-#: src/components/ImageOutline.tsx:232
+#: src/components/ImageOutline.tsx:245
 msgid "You've selected a mode that is available to paid Patreon members only"
 msgstr "Você selecionou um modo disponível apenas para membros pagos do Patreon"
 

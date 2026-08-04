@@ -239,8 +239,8 @@ msgstr "Прилагайте по-малко натиск, за да напра�
 msgid "Apply strokes of each color in a <0>{ratioText} ratio</0>"
 msgstr "Прилагане на щрихи от всеки цвят в <0>съотношение {ratioText}</0>"
 
-#: src/components/ImageOutline.tsx:286
-#: src/components/ImageOutline.tsx:335
+#: src/components/ImageOutline.tsx:294
+#: src/components/ImageOutline.tsx:352
 msgid "AR"
 msgstr "AR"
 
@@ -366,7 +366,7 @@ msgstr "От лекотата"
 msgid "By name"
 msgstr "По име"
 
-#: src/components/ImageOutline.tsx:118
+#: src/components/ImageOutline.tsx:123
 msgid "Camera access is required for AR tracing"
 msgstr "За AR проследяване е необходим достъп до камера"
 
@@ -389,7 +389,7 @@ msgstr "Анулиране на платено членство"
 msgid "Cannot use copied image"
 msgstr "Не мога да използвам копирано изображение"
 
-#: src/components/grid/GridControls.tsx:192
+#: src/components/grid/GridControls.tsx:196
 msgid "Cells"
 msgstr "Клетки"
 
@@ -722,7 +722,7 @@ msgstr "Определете най-добрата снимка чрез сра�
 msgid "Diagnostics"
 msgstr "Диагностика"
 
-#: src/components/grid/GridControls.tsx:200
+#: src/components/grid/GridControls.tsx:205
 msgid "Diagonals"
 msgstr "Диагоналите"
 
@@ -802,8 +802,8 @@ msgstr "Имейл е задължителен"
 msgid "Enter a valid email"
 msgstr "Въведете валиден имейл"
 
-#: src/components/ImageOutline.tsx:267
-#: src/components/ImageOutline.tsx:327
+#: src/components/ImageOutline.tsx:275
+#: src/components/ImageOutline.tsx:344
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Влезте в режим lightbox, за да проследите контура през листа."
 
@@ -848,8 +848,8 @@ msgstr "Грешка при извличане на стандартни дан�
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Приблизителна температура на източника на светлина в Келвин изображението е направено с"
 
-#: src/components/ImageOutline.tsx:286
-#: src/components/ImageOutline.tsx:335
+#: src/components/ImageOutline.tsx:294
+#: src/components/ImageOutline.tsx:352
 msgid "Exit AR"
 msgstr "Изход от AR"
 
@@ -914,7 +914,8 @@ msgstr "Отидете в раздела <0>{photoLabel}</0> и изберете
 msgid "Gouache"
 msgstr "Гваш"
 
-#: src/components/grid/GridControls.tsx:182
+#: src/components/grid/GridControls.tsx:183
+#: src/components/ImageOutline.tsx:313
 #: src/components/messages.ts:36
 msgid "Grid"
 msgstr "Мрежа"
@@ -1041,7 +1042,7 @@ msgstr "Ляво за сравнение: {unfinishedGamesSize}"
 msgid "Less"
 msgstr "По-малко"
 
-#: src/components/ImageOutline.tsx:326
+#: src/components/ImageOutline.tsx:343
 msgid "Light box"
 msgstr "Светлинна кутия"
 
@@ -1050,7 +1051,7 @@ msgstr "Светлинна кутия"
 msgid "Light tone"
 msgstr "Светъл тон"
 
-#: src/components/ImageOutline.tsx:275
+#: src/components/ImageOutline.tsx:283
 msgid "Lightbox"
 msgstr "Лайтбокс"
 
@@ -1145,7 +1146,7 @@ msgstr "Смес"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:98
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:241
+#: src/components/ImageOutline.tsx:254
 msgid "Mode"
 msgstr "Режим"
 
@@ -1220,7 +1221,7 @@ msgstr "Не сте сигурни кой имейл използва Patreon? �
 msgid "Nothing to share"
 msgstr "Няма какво да споделим"
 
-#: src/components/grid/GridControls.tsx:193
+#: src/components/grid/GridControls.tsx:198
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Брой клетки от по-малката страна (вертикална или хоризонтална)"
 
@@ -1241,7 +1242,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "Само ограничен брой цветни марки са налични в безплатната версия"
 
 #: src/components/ImageBackgroundRemoval.tsx:172
-#: src/components/ImageOutline.tsx:228
+#: src/components/ImageOutline.tsx:241
 msgid "Only a limited number of modes are available in the free version"
 msgstr "В безплатната версия са налични само ограничен брой режими"
 
@@ -1294,6 +1295,7 @@ msgstr "Оригинална цветна температура (K)"
 msgid "Original photo"
 msgstr "Оригинална снимка"
 
+#: src/components/ImageOutline.tsx:270
 #: src/components/messages.ts:35
 msgid "Outline"
 msgstr "Очертание"
@@ -1343,6 +1345,7 @@ msgstr "Постоянно съхранение"
 msgid "Persistent storage is not enabled"
 msgstr "Постоянното съхранение не е разрешено"
 
+#: src/components/ImageOutline.tsx:270
 #: src/components/messages.ts:30
 msgid "Photo"
 msgstr "Снимка"
@@ -1397,8 +1400,8 @@ msgstr "Преглед"
 #: src/components/ColorMixingChart.tsx:144
 #: src/components/ImageGrid.tsx:70
 #: src/components/ImageGrid.tsx:83
-#: src/components/ImageOutline.tsx:256
-#: src/components/ImageOutline.tsx:312
+#: src/components/ImageOutline.tsx:321
+#: src/components/ImageOutline.tsx:363
 #: src/components/ImagesCompare.tsx:175
 #: src/components/ImageTonalValues.tsx:146
 #: src/components/ImageTonalValues.tsx:164
@@ -1530,8 +1533,8 @@ msgstr "Насищане (%)"
 #: src/components/ImageGrid.tsx:73
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:138
-#: src/components/ImageOutline.tsx:264
-#: src/components/ImageOutline.tsx:318
+#: src/components/ImageOutline.tsx:328
+#: src/components/ImageOutline.tsx:370
 #: src/components/ImagePerspectiveCorrection.tsx:307
 #: src/components/ImagePerspectiveCorrection.tsx:359
 #: src/components/ImageStyleTransfer.tsx:231
@@ -1774,7 +1777,7 @@ msgstr "Покажи по-стари снимки"
 msgid "Show on photo"
 msgstr "Покажи на снимка"
 
-#: src/components/grid/GridControls.tsx:202
+#: src/components/grid/GridControls.tsx:207
 msgid "Show or hide diagonal lines"
 msgstr "Показване или скриване на диагонални линии"
 
@@ -2153,8 +2156,8 @@ msgstr "Използва"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Използването на ограничена палитра помага за постигане на цветова хармония. Изберете 1–{MAX_COLORS} основни цветове."
 
-#: src/components/ImageOutline.tsx:278
-#: src/components/ImageOutline.tsx:336
+#: src/components/ImageOutline.tsx:286
+#: src/components/ImageOutline.tsx:353
 msgid "View the outline over the live camera to trace in AR."
 msgstr "Вижте контура над живата камера, за да проследявате в AR."
 
@@ -2242,7 +2245,7 @@ msgid "You're logged in"
 msgstr "Влязъл си в системата"
 
 #: src/components/ImageBackgroundRemoval.tsx:176
-#: src/components/ImageOutline.tsx:232
+#: src/components/ImageOutline.tsx:245
 msgid "You've selected a mode that is available to paid Patreon members only"
 msgstr "Избрахте режим, достъпен само за платени членове на Patreon"
 

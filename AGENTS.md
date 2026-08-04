@@ -19,7 +19,7 @@ npm run test         # Runs type-check + lint + format (no actual test runner)
 
 # i18n workflow
 npm run lingui:extract  # Extract translatable strings from source to .po files
-npm run translate       # Auto-translate .po files via Bing Translate API
+npm run translate       # Auto-translate .po files via Google Translate API
 ```
 
 ### Development Workflow

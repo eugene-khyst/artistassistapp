@@ -239,8 +239,8 @@ msgstr "Applicera mindre tryck för att göra akvarellpennlagret mer genomskinli
 msgid "Apply strokes of each color in a <0>{ratioText} ratio</0>"
 msgstr "Använda linjer av varje färg i förhållandet <0>{ratioText}</0>"
 
-#: src/components/ImageOutline.tsx:286
-#: src/components/ImageOutline.tsx:335
+#: src/components/ImageOutline.tsx:294
+#: src/components/ImageOutline.tsx:352
 msgid "AR"
 msgstr "AR"
 
@@ -366,7 +366,7 @@ msgstr "Genom lätthet"
 msgid "By name"
 msgstr "Till namn"
 
-#: src/components/ImageOutline.tsx:118
+#: src/components/ImageOutline.tsx:123
 msgid "Camera access is required for AR tracing"
 msgstr "Kameraåtkomst krävs för AR-spårning"
 
@@ -389,7 +389,7 @@ msgstr "Avsluta ett betalt medlemskap"
 msgid "Cannot use copied image"
 msgstr "Kan inte använda kopierad bild"
 
-#: src/components/grid/GridControls.tsx:192
+#: src/components/grid/GridControls.tsx:196
 msgid "Cells"
 msgstr "Celler"
 
@@ -722,7 +722,7 @@ msgstr "Bestäm det bästa fotot genom parvis jämförelse"
 msgid "Diagnostics"
 msgstr "Diagnostik"
 
-#: src/components/grid/GridControls.tsx:200
+#: src/components/grid/GridControls.tsx:205
 msgid "Diagonals"
 msgstr "Diagonaler"
 
@@ -802,8 +802,8 @@ msgstr "E-post krävs"
 msgid "Enter a valid email"
 msgstr "Ange en giltig e-postadress"
 
-#: src/components/ImageOutline.tsx:267
-#: src/components/ImageOutline.tsx:327
+#: src/components/ImageOutline.tsx:275
+#: src/components/ImageOutline.tsx:344
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Gå in i ljusboxsläge för att rita konturen genom ditt papper."
 
@@ -848,8 +848,8 @@ msgstr "Fel vid hämtning av standardfärguppsättningsdata"
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Uppskattad temperatur på ljuskällan i Kelvin som bilden togs med"
 
-#: src/components/ImageOutline.tsx:286
-#: src/components/ImageOutline.tsx:335
+#: src/components/ImageOutline.tsx:294
+#: src/components/ImageOutline.tsx:352
 msgid "Exit AR"
 msgstr "Utgång AR"
 
@@ -914,7 +914,8 @@ msgstr "Gå till fliken <0>{photoLabel}</0> och välj ditt referensfoto."
 msgid "Gouache"
 msgstr "Gouache"
 
-#: src/components/grid/GridControls.tsx:182
+#: src/components/grid/GridControls.tsx:183
+#: src/components/ImageOutline.tsx:313
 #: src/components/messages.ts:36
 msgid "Grid"
 msgstr "Gitter"
@@ -1041,7 +1042,7 @@ msgstr "Vänster för att jämföra: {unfinishedGamesSize}"
 msgid "Less"
 msgstr "Mindre"
 
-#: src/components/ImageOutline.tsx:326
+#: src/components/ImageOutline.tsx:343
 msgid "Light box"
 msgstr "Ljuslåda"
 
@@ -1050,7 +1051,7 @@ msgstr "Ljuslåda"
 msgid "Light tone"
 msgstr "Ljus ton"
 
-#: src/components/ImageOutline.tsx:275
+#: src/components/ImageOutline.tsx:283
 msgid "Lightbox"
 msgstr "Lightbox"
 
@@ -1145,7 +1146,7 @@ msgstr "Blandning"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:98
 #: src/components/ImageBackgroundRemoval.tsx:190
-#: src/components/ImageOutline.tsx:241
+#: src/components/ImageOutline.tsx:254
 msgid "Mode"
 msgstr "Läge"
 
@@ -1220,7 +1221,7 @@ msgstr "Osäker på vilken e-postadress Patreon använder? Kolla <0>dina grundl�
 msgid "Nothing to share"
 msgstr "Inget att dela med sig av"
 
-#: src/components/grid/GridControls.tsx:193
+#: src/components/grid/GridControls.tsx:198
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Antal celler på den mindre sidan (vertikal eller horisontell)"
 
@@ -1241,7 +1242,7 @@ msgid "Only a limited number of color brands are available in the free version"
 msgstr "Endast ett begränsat antal färgmärken finns tillgängliga i gratisversionen"
 
 #: src/components/ImageBackgroundRemoval.tsx:172
-#: src/components/ImageOutline.tsx:228
+#: src/components/ImageOutline.tsx:241
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Endast ett begränsat antal lägen är tillgängliga i gratisversionen"
 
@@ -1294,6 +1295,7 @@ msgstr "Ursprunglig färgtemperatur (K)"
 msgid "Original photo"
 msgstr "Ursprungligt foto"
 
+#: src/components/ImageOutline.tsx:270
 #: src/components/messages.ts:35
 msgid "Outline"
 msgstr "Kontur"
@@ -1343,6 +1345,7 @@ msgstr "Beständig lagring"
 msgid "Persistent storage is not enabled"
 msgstr "Beständig lagring är inte aktiverad"
 
+#: src/components/ImageOutline.tsx:270
 #: src/components/messages.ts:30
 msgid "Photo"
 msgstr "Foto"
@@ -1397,8 +1400,8 @@ msgstr "Förhandsvisning"
 #: src/components/ColorMixingChart.tsx:144
 #: src/components/ImageGrid.tsx:70
 #: src/components/ImageGrid.tsx:83
-#: src/components/ImageOutline.tsx:256
-#: src/components/ImageOutline.tsx:312
+#: src/components/ImageOutline.tsx:321
+#: src/components/ImageOutline.tsx:363
 #: src/components/ImagesCompare.tsx:175
 #: src/components/ImageTonalValues.tsx:146
 #: src/components/ImageTonalValues.tsx:164
@@ -1530,8 +1533,8 @@ msgstr "Mättnad (%)"
 #: src/components/ImageGrid.tsx:73
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:138
-#: src/components/ImageOutline.tsx:264
-#: src/components/ImageOutline.tsx:318
+#: src/components/ImageOutline.tsx:328
+#: src/components/ImageOutline.tsx:370
 #: src/components/ImagePerspectiveCorrection.tsx:307
 #: src/components/ImagePerspectiveCorrection.tsx:359
 #: src/components/ImageStyleTransfer.tsx:231
@@ -1774,7 +1777,7 @@ msgstr "Visa äldre bilder"
 msgid "Show on photo"
 msgstr "Visa på bild"
 
-#: src/components/grid/GridControls.tsx:202
+#: src/components/grid/GridControls.tsx:207
 msgid "Show or hide diagonal lines"
 msgstr "Visa eller dölja diagonala linjer"
 
@@ -2153,8 +2156,8 @@ msgstr "Begagnad"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Att använda en begränsad palett hjälper till att uppnå färgharmoni. Välj 1–{MAX_COLORS} primärfärger."
 
-#: src/components/ImageOutline.tsx:278
-#: src/components/ImageOutline.tsx:336
+#: src/components/ImageOutline.tsx:286
+#: src/components/ImageOutline.tsx:353
 msgid "View the outline over the live camera to trace in AR."
 msgstr "Se konturen över den levande kameran för att spåra i AR."
 
@@ -2242,7 +2245,7 @@ msgid "You're logged in"
 msgstr "Du är inloggad"
 
 #: src/components/ImageBackgroundRemoval.tsx:176
-#: src/components/ImageOutline.tsx:232
+#: src/components/ImageOutline.tsx:245
 msgid "You've selected a mode that is available to paid Patreon members only"
 msgstr "Du har valt ett läge som endast är tillgängligt för betalda Patreon-medlemmar"
 
