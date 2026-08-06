@@ -17,6 +17,7 @@
  */
 
 import type {Authentication} from '@/services/auth/types';
+import {getProcessedImage, saveProcessedImage} from '@/services/db/processed-image-db';
 import {Interpolation, interpolationWebGL} from '@/services/image/filter/interpolation-webgl';
 import {float32TensorToImageData, imageDataToFloat32Tensor} from '@/services/ml/tensor';
 import type {OnnxModel} from '@/services/ml/types';
@@ -28,6 +29,7 @@ import {
   drawImageToOffscreenCanvas,
   fitToAspectRatio,
   IMAGE_SIZE,
+  imageBitmapToBlob,
   offscreenCanvasToImageData,
 } from '@/utils/graphics';
 
@@ -64,6 +66,70 @@ export async function transformImage(
   ).transferToImageBitmap();
   outputImage.close();
   return resizedOutputImage;
+}
+
+export async function withProcessedImageCache(
+  model: OnnxModel,
+  digests: string[],
+  transform: () => Promise<ImageBitmap>,
+  encodeOptions?: ImageEncodeOptions
+): Promise<ImageBitmap> {
+  if (!model.url) {
+    return await transform();
+  }
+  try {
+    const cachedImage: Blob | undefined = await getProcessedImage(model, digests);
+    if (cachedImage) {
+      return await createImageBitmap(cachedImage);
+    }
+  } catch (error) {
+    console.warn('Failed to read or decode processed-image cache', error);
+  }
+  const image: ImageBitmap = await transform();
+  try {
+    await saveProcessedImage(model, digests, await imageBitmapToBlob(image, {encodeOptions}));
+  } catch (error) {
+    console.warn('Failed to save processed-image cache', error);
+  }
+  return image;
+}
+
+export async function withProcessedImageBlobCache(
+  model: OnnxModel,
+  digests: string[],
+  transform: () => Promise<ImageBitmap>,
+  encodeOptions?: ImageEncodeOptions
+): Promise<Blob> {
+  if (!model.url) {
+    return await transformToBlob(transform, encodeOptions);
+  }
+  try {
+    const cachedImage: Blob | undefined = await getProcessedImage(model, digests);
+    if (cachedImage) {
+      return cachedImage;
+    }
+  } catch (error) {
+    console.warn('Failed to read processed-image cache', error);
+  }
+  const blob: Blob = await transformToBlob(transform, encodeOptions);
+  try {
+    await saveProcessedImage(model, digests, blob);
+  } catch (error) {
+    console.warn('Failed to save processed-image cache', error);
+  }
+  return blob;
+}
+
+async function transformToBlob(
+  transform: () => Promise<ImageBitmap>,
+  encodeOptions?: ImageEncodeOptions
+): Promise<Blob> {
+  const image: ImageBitmap = await transform();
+  try {
+    return await imageBitmapToBlob(image, {encodeOptions});
+  } finally {
+    image.close();
+  }
 }
 
 export function imageBitmapToImageData(

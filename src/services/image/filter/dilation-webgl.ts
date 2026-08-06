@@ -28,33 +28,27 @@ import fragmentShaderSource from './glsl/dilation.glsl';
 export function dilationWebGL(image: DrawImageSource, kernelSize: KernelSize): OffscreenCanvas {
   const renderer = new WebGLRenderer(
     [fragmentShaderSource],
-    [['u_texelSize', 'u_kernelSize', 'u_direction']],
+    [['u_kernelSize', 'u_direction']],
     image
   );
-  const {width, height} = image;
-  const texelSize: Size = [1.0 / width, 1.0 / height];
-  renderer.render(dilationRenderPasses(texelSize, kernelSize));
+  renderer.render(dilationRenderPasses(kernelSize));
   const result = copyOffscreenCanvas(renderer.canvas);
   renderer.cleanUp();
   return result;
 }
 
-export function dilationRenderPasses(
-  texelSize: Size,
-  kernelSize: KernelSize,
-  programIndex = 0
-): RenderPass[] {
+export function dilationRenderPasses(kernelSize: KernelSize, programIndex = 0): RenderPass[] {
   return [
     {
       programIndex,
       setUniforms(gl, locations) {
-        setUniforms(gl, locations, texelSize, kernelSize, [1.0, 0.0]);
+        setUniforms(gl, locations, kernelSize, [1.0, 0.0]);
       },
     },
     {
       programIndex,
       setUniforms(gl, locations) {
-        setUniforms(gl, locations, texelSize, kernelSize, [0.0, 1.0]);
+        setUniforms(gl, locations, kernelSize, [0.0, 1.0]);
       },
     },
   ];
@@ -63,11 +57,9 @@ export function dilationRenderPasses(
 function setUniforms(
   gl: WebGL2RenderingContext,
   locations: Map<string, WebGLUniformLocation | null>,
-  texelSize: Size,
   kernelSize: KernelSize,
   direction: Size
 ) {
-  gl.uniform2f(locations.get('u_texelSize')!, ...texelSize);
   gl.uniform1i(locations.get('u_kernelSize')!, kernelSize);
   gl.uniform2f(locations.get('u_direction')!, ...direction);
 }

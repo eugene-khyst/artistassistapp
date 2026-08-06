@@ -24,7 +24,7 @@ export function createAbortableOperation({
 }: {onStart?: () => void; onFinish?: () => void} = {}) {
   let abortController: AbortController | null = null;
 
-  const run = async <T>(task: (signal: AbortSignal) => Promise<T>): Promise<T | undefined> => {
+  const run = async <T>(task: (signal: AbortSignal) => T | Promise<T>): Promise<T | undefined> => {
     abort();
     const controller = new AbortController();
     abortController = controller;

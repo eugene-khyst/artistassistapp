@@ -33,7 +33,7 @@ import {type ArtistAssistAppDB, OBJECT_STORE_NAMES, type StoreName} from '@/serv
 import {withWebLock} from '@/utils/web-lock';
 
 const DB_NAME = 'artistassistapp';
-const DB_VERSION = 9;
+const DB_VERSION = 10;
 const DB_MIGRATIONS_LOCK_NAME = 'artistassistapp:db-migrations';
 
 export type DBReadWriteTransaction = IDBPTransaction<ArtistAssistAppDB, StoreName[], 'readwrite'>;
@@ -79,6 +79,12 @@ const internalDbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artis
         keyPath: 'digest',
       });
       createStoreIfNotExists(db, tx, 'style-image');
+
+      const processedImagesStore = createStoreIfNotExists(db, tx, 'processed-images', {
+        keyPath: 'key',
+      });
+      createIndexIfNotExists(processedImagesStore, 'by-date', 'date');
+      createIndexIfNotExists(processedImagesStore, 'by-digest', 'digests', {multiEntry: true});
 
       const colorMixturesStore = createStoreIfNotExists(db, tx, 'color-mixtures', {
         keyPath: 'id',
@@ -140,7 +146,9 @@ type StoreIndexKeyPath<
 > = {
   [Key in Extract<keyof StoreValue<ArtistAssistAppDB, StoreName>, string>]: NonNullable<
     StoreValue<ArtistAssistAppDB, StoreName>[Key]
-  > extends IndexKey<ArtistAssistAppDB, StoreName, IndexName>
+  > extends
+    | IndexKey<ArtistAssistAppDB, StoreName, IndexName>
+    | IndexKey<ArtistAssistAppDB, StoreName, IndexName>[]
     ? Key
     : never;
 }[Extract<keyof StoreValue<ArtistAssistAppDB, StoreName>, string>];

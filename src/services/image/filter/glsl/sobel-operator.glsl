@@ -3,7 +3,6 @@
 precision highp float;
 
 uniform sampler2D u_texture;
-uniform vec2 u_texelSize;
 
 in vec2 v_texCoord;
 out vec4 fragColor;
@@ -15,11 +14,12 @@ const float G_X[9] = float[9](-1.0, 0.0, 1.0, -2.0, 0.0, 2.0, -1.0, 0.0, 1.0);
 const float G_Y[9] = float[9](-1.0, -2.0, -1.0, 0.0, 0.0, 0.0, 1.0, 2.0, 1.0);
 
 void main() {
+  vec2 texelSize = 1.0 / vec2(textureSize(u_texture, 0));
   vec3 samples[9];
   int i = 0;
   for (int y = -1; y <= 1; y++) {
     for (int x = -1; x <= 1; x++) {
-      vec2 offset = vec2(float(x), float(y)) * u_texelSize;
+      vec2 offset = vec2(float(x), float(y)) * texelSize;
       samples[i++] = texture(u_texture, v_texCoord + offset).rgb;
     }
   }

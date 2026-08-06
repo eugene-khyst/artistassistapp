@@ -57,8 +57,8 @@ import {useCreateImageBitmap} from '@/hooks/useCreateImageBitmap';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
 import type {PipettePointSetEvent} from '@/services/canvas/image/image-color-picker-canvas';
 import {
-  ColorPickerEventType,
   ImageColorPickerCanvas,
+  ImageColorPickerEventType,
   MIN_COLOR_PICKER_DIAMETER,
 } from '@/services/canvas/image/image-color-picker-canvas';
 import {toCustomColorBrandSource} from '@/services/cloud/cloud-state';
@@ -264,7 +264,11 @@ export function CustomColorBrandCreator() {
   const {imageBitmap, isLoading: isImageLoading} = useCreateImageBitmap(imageFile);
 
   const {ref: canvasRef, zoomableImageCanvas: colorPickerCanvas} =
-    useZoomableImageCanvas<ImageColorPickerCanvas>(imageColorPickerCanvasSupplier, imageBitmap);
+    useZoomableImageCanvas<ImageColorPickerCanvas>(
+      imageColorPickerCanvasSupplier,
+      imageBitmap,
+      imageFile
+    );
 
   useEffect(() => {
     if (!colorPickerCanvas) {
@@ -275,9 +279,9 @@ export function CustomColorBrandCreator() {
       setCurrentColor(hex);
       applyColor(form, editFromIndex, setEditFromIndex, scrollToColor, hex);
     };
-    colorPickerCanvas.events.subscribe(ColorPickerEventType.PipettePointSet, listener);
+    colorPickerCanvas.events.subscribe(ImageColorPickerEventType.PipettePointSet, listener);
     return () => {
-      colorPickerCanvas.events.unsubscribe(ColorPickerEventType.PipettePointSet, listener);
+      colorPickerCanvas.events.unsubscribe(ImageColorPickerEventType.PipettePointSet, listener);
     };
   }, [form, colorPickerCanvas, editFromIndex, scrollToColor]);
 

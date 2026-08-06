@@ -32,6 +32,7 @@ import type {
   CustomColorBrandDefinition,
 } from '@/services/color/types';
 import type {AppliedMigration} from '@/services/db/migrations';
+import type {ProcessedImage} from '@/services/db/processed-image-db';
 import type {StoreChangeName} from '@/services/db/types';
 import type {ImageFile, ImageMetadata} from '@/services/image/image-file';
 import type {AppSettings} from '@/services/settings/types';
@@ -71,6 +72,14 @@ export interface ArtistAssistAppDB extends DBSchema {
   'style-image': {
     value: ImageFile;
     key: number;
+  };
+  'processed-images': {
+    value: ProcessedImage;
+    key: string;
+    indexes: {
+      'by-date': Date;
+      'by-digest': string;
+    };
   };
   'color-mixtures': {
     value: ColorMixture;
@@ -120,6 +129,7 @@ const OBJECT_STORES = {
   images: true,
   'image-metadata': true,
   'style-image': true,
+  'processed-images': true,
   'color-mixtures': true,
   'custom-brands': true,
   'auth-attempt': true,

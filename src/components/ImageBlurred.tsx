@@ -19,19 +19,22 @@
 import {
   DownloadOutlined,
   DownOutlined,
-  MoreOutlined,
+  InfoCircleOutlined,
   PictureOutlined,
-  StopOutlined,
 } from '@ant-design/icons';
-import {Trans} from '@lingui/react/macro';
-import type {CheckboxOptionType, MenuProps, RadioChangeEvent} from 'antd';
-import {Button, Dropdown, Form, Grid, Radio, Space} from 'antd';
+import {Trans, useLingui} from '@lingui/react/macro';
+import {Button, Dropdown, Grid, Popover, Space, Typography} from 'antd';
 import {saveAs} from 'file-saver';
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 
+import {ImageViewSelector} from '@/components/image/ImageViewSelector';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
-import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '@/hooks/useZoomableImageCanvas';
-import type {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
+import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
+import type {ClickOrTapEvent} from '@/services/canvas/image/zoomable-image-canvas';
+import {
+  ZoomableImageCanvas,
+  ZoomableImageEventType,
+} from '@/services/canvas/image/zoomable-image-canvas';
 import {blobToImageFile} from '@/services/image/image-file';
 import {useAppStore} from '@/stores/app-store';
 import {getFilename} from '@/utils/filename';
@@ -40,139 +43,152 @@ import {imageBitmapToBlob} from '@/utils/graphics';
 import {EmptyImage} from './empty/EmptyImage';
 import styles from './ImageBlurred.module.css';
 
-const DEFAULT_IMAGE_INDEX = 1;
-
 const FILENAME_SUFFIX = 'simplified';
-
-const blurStrengthShortOptions: CheckboxOptionType<number>[] = [
-  {value: 0, label: <StopOutlined />},
-  {value: 1, label: 'S'},
-  {value: 2, label: 'M'},
-  {value: 3, label: 'L'},
-  {value: 4, label: 'XL'},
-];
 
 export function ImageBlurred() {
   const selectedImageFile = useAppStore(state => state.selectedImageFile);
   const originalImage = useAppStore(state => state.originalImage);
-  const blurredImages = useAppStore(state => state.blurredImages);
+  const blurFocalPoint = useAppStore(state => state.blurFocalPoint);
+  const blurredMaskedImage = useAppStore(state => state.blurredMaskedImage);
 
   const isBlurredImagesLoading = useAppStore(state => state.isBlurredImagesLoading);
 
+  const setBlurFocalPoint = useAppStore(state => state.setBlurFocalPoint);
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
 
   const screens = Grid.useBreakpoint();
+  const {t} = useLingui();
+
+  const [isShowingOriginal, setIsShowingOriginal] = useState<boolean>(false);
+  const isShowingOriginalRef = useRef<boolean>(false);
+
+  const zoomableImageCanvasSupplier = useCallback(
+    (canvas: HTMLCanvasElement): ZoomableImageCanvas => {
+      const zoomableImageCanvas = new ZoomableImageCanvas(canvas);
+      const listener = ({point}: ClickOrTapEvent) => {
+        if (!isShowingOriginalRef.current) {
+          void setBlurFocalPoint(point);
+        }
+      };
+      zoomableImageCanvas.events.subscribe(ZoomableImageEventType.ClickOrTap, listener);
+      return zoomableImageCanvas;
+    },
+    [setBlurFocalPoint]
+  );
+
+  const images = useMemo(
+    () => [blurredMaskedImage, originalImage],
+    [blurredMaskedImage, originalImage]
+  );
+  const displayDimension = useMemo(
+    () => (blurredMaskedImage ? ZoomableImageCanvas.imageDimension(blurredMaskedImage) : undefined),
+    [blurredMaskedImage]
+  );
 
   const {ref: canvasRef, zoomableImageCanvas} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
-    blurredImages
+    images,
+    selectedImageFile?.digest,
+    displayDimension
   );
 
-  const [blurredImageIndex, setBlurredImageIndex] = useState<number>(DEFAULT_IMAGE_INDEX);
-
   useEffect(() => {
-    zoomableImageCanvas?.setImageIndex(blurredImageIndex);
-  }, [zoomableImageCanvas, blurredImageIndex]);
+    zoomableImageCanvas?.setImageIndex(isShowingOriginal && blurredMaskedImage ? 1 : 0);
+    zoomableImageCanvas?.setCursor(isShowingOriginal ? 'grab' : 'crosshair');
+  }, [zoomableImageCanvas, isShowingOriginal, blurredMaskedImage]);
 
-  const handleBlurChange = (e: RadioChangeEvent) => {
-    setBlurredImageIndex(e.target.value as number);
+  const handleViewChange = (isOriginal: boolean) => {
+    isShowingOriginalRef.current = isOriginal;
+    setIsShowingOriginal(isOriginal);
   };
 
   const handleSaveClick = async () => {
-    const image: ImageBitmap | undefined = blurredImages[blurredImageIndex];
-    if (!image) {
+    if (!blurredMaskedImage) {
       return;
     }
-    saveAs(await imageBitmapToBlob(image), getFilename(selectedImageFile, FILENAME_SUFFIX));
+    saveAs(
+      await imageBitmapToBlob(blurredMaskedImage),
+      getFilename(selectedImageFile, FILENAME_SUFFIX)
+    );
   };
 
   const handleSetAsReferenceClick = async () => {
-    const image: ImageBitmap | undefined = blurredImages[blurredImageIndex];
-    if (!image) {
+    if (!blurredMaskedImage) {
       return;
     }
-    const blob: Blob = await imageBitmapToBlob(image);
+    const blob: Blob = await imageBitmapToBlob(blurredMaskedImage);
     void saveRecentImageFile(
       await blobToImageFile(blob, getFilename(selectedImageFile, FILENAME_SUFFIX))
     );
   };
 
-  const imageItems: MenuProps['items'] = [
-    {
-      key: 'set-as-reference',
-      label: <Trans>Set as reference</Trans>,
-      icon: <PictureOutlined />,
-      onClick: () => {
-        void handleSetAsReferenceClick();
-      },
-    },
-  ];
-
   if (!originalImage) {
     return <EmptyImage />;
   }
 
-  const blurStrengthOptions: CheckboxOptionType<number>[] = [
-    {value: 0, label: <Trans>None</Trans>},
-    {value: 1, label: <Trans>Small</Trans>},
-    {value: 2, label: <Trans>Medium</Trans>},
-    {value: 3, label: <Trans>Large</Trans>},
-    {value: 4, label: <Trans>Max</Trans>},
-  ];
+  const mobileFocalPointInstruction = t`Tap 👆 anywhere in the photo to choose a focal point.`;
 
   return (
     <LoadingIndicator loading={isBlurredImagesLoading}>
       <Space className="u-tab-toolbar">
-        <Form.Item
-          label={screens.sm ? <Trans>Strength</Trans> : null}
-          labelCol={{className: 'u-pb-0'}}
-          tooltip={<Trans>Adjusts the strength of image smoothing.</Trans>}
-          className="u-mb-0"
-        >
-          <Radio.Group
-            options={screens.sm ? blurStrengthOptions : blurStrengthShortOptions}
-            value={blurredImageIndex}
-            onChange={handleBlurChange}
-            optionType="button"
-            buttonStyle="solid"
-          />
-        </Form.Item>
-        {screens.sm ? (
-          <Space.Compact>
-            <Button
-              icon={<DownloadOutlined />}
-              onClick={() => {
-                void handleSaveClick();
-              }}
-            >
-              <Trans>Save</Trans>
-            </Button>
-            <Dropdown menu={{items: imageItems}} trigger={['click']}>
-              <Button icon={<DownOutlined />} />
-            </Dropdown>
-          </Space.Compact>
-        ) : (
+        <ImageViewSelector
+          isShowingOriginal={isShowingOriginal}
+          resultLabel={<Trans>Simplified</Trans>}
+          onChange={handleViewChange}
+          disabled={!blurredMaskedImage}
+        />
+
+        <Space.Compact>
+          <Button
+            icon={<DownloadOutlined />}
+            onClick={() => {
+              void handleSaveClick();
+            }}
+            disabled={isShowingOriginal}
+          >
+            <Trans>Save</Trans>
+          </Button>
           <Dropdown
-            trigger={['click']}
             menu={{
               items: [
                 {
-                  key: 'save',
-                  label: <Trans>Save</Trans>,
-                  icon: <DownloadOutlined />,
+                  key: 'set-as-reference',
+                  label: <Trans>Set as reference</Trans>,
+                  icon: <PictureOutlined />,
                   onClick: () => {
-                    void handleSaveClick();
+                    void handleSetAsReferenceClick();
                   },
+                  disabled: isShowingOriginal,
                 },
-                ...imageItems,
               ],
             }}
+            trigger={['click']}
           >
-            <Button icon={<MoreOutlined />} />
+            <Button icon={<DownOutlined />} />
           </Dropdown>
-        )}
+        </Space.Compact>
+
+        {!isShowingOriginal &&
+          (screens.md ? (
+            <Typography.Text>
+              <Trans>Click 🖱️ or tap 👆 anywhere in the photo to choose a focal point.</Trans>
+            </Typography.Text>
+          ) : (
+            <Popover content={mobileFocalPointInstruction} trigger="click">
+              <Button
+                type="text"
+                icon={<InfoCircleOutlined />}
+                aria-label={t`Focal point instructions`}
+              />
+            </Popover>
+          ))}
       </Space>
-      <div>
+      <div className={styles['canvasContainer']}>
+        {!screens.md && !isShowingOriginal && !blurFocalPoint && (
+          <Typography.Text className={styles['focalPointHint']}>
+            {mobileFocalPointInstruction}
+          </Typography.Text>
+        )}
         <canvas ref={canvasRef} className={styles['previewCanvas']} />
       </div>
     </LoadingIndicator>

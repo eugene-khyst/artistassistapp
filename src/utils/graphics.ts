@@ -18,6 +18,7 @@
 
 import {identity} from '@/utils/function';
 import {ceilToMultiple} from '@/utils/math-utils';
+import type {Size} from '@/utils/types';
 
 export type DrawImageSource = ImageBitmap | OffscreenCanvas;
 
@@ -389,6 +390,24 @@ export function fitToAspectRatio(
   return origWidth / origHeight > aspectRatio
     ? [Math.round(origHeight * aspectRatio), origHeight]
     : [origWidth, Math.round(origWidth / aspectRatio)];
+}
+
+export function getBoundingSize(images: DrawImageSource[]): Size | undefined {
+  if (!images.length) {
+    return;
+  }
+  const [image] = images;
+  let {width: maxWidth, height: maxHeight} = image!;
+  for (let i = 1; i < images.length; i++) {
+    const {width, height} = images[i]!;
+    if (width > maxWidth) {
+      maxWidth = width;
+    }
+    if (height > maxHeight) {
+      maxHeight = height;
+    }
+  }
+  return [maxWidth, maxHeight];
 }
 
 export function isWebGl2Supported(): boolean {

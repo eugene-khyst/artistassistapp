@@ -17,47 +17,35 @@
  */
 
 import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
-import {calculateDestSize, computeHomography} from '@/services/image/perspective-correction';
 import {Vector} from '@/services/math/geometry';
-import {orderCornersClockwise} from '@/services/math/geometry';
 import type {DrawImageSource} from '@/utils/graphics';
 import {copyOffscreenCanvas} from '@/utils/graphics';
-import type {Size} from '@/utils/types';
 
-import fragmentShaderSource from './glsl/perspective-correction.glsl';
+import fragmentShaderSource from './glsl/multi-layer-radial-mask.glsl';
 
-export function correctPerspectiveWebGL(
-  image: DrawImageSource,
-  vertices: Vector[]
+const MAX_LAYERS = 10;
+
+export function multiLayerRadialMaskWebGL(
+  images: DrawImageSource[],
+  radiuses: number[],
+  center?: Vector
 ): OffscreenCanvas {
-  const sortedVertices = orderCornersClockwise(vertices);
-  const size: Size = calculateDestSize(sortedVertices);
-  const [width, height] = size;
-  const destVertices = [
-    new Vector(0, 0),
-    new Vector(width, 0),
-    new Vector(width, height),
-    new Vector(0, height),
-  ];
-
-  const H = computeHomography(sortedVertices, destVertices);
-  if (!H) {
-    throw new Error('Could not compute transformation');
+  if (images.length > MAX_LAYERS) {
+    throw new Error(`Up to ${MAX_LAYERS} layers are supported`);
   }
-  const Hinv = H.inverse();
-
   const renderer = new WebGLRenderer(
     [fragmentShaderSource],
-    [['u_inverse_homography', 'u_src_dimensions', 'u_dest_dimensions']],
-    image,
-    {size}
+    [['u_layerCount', 'u_radiuses', 'u_center']],
+    images
   );
+  const {canvas} = renderer;
+  center = center ?? new Vector(canvas.width / 2, canvas.height / 2);
   renderer.render([
     {
       setUniforms(gl, locations) {
-        gl.uniformMatrix3fv(locations.get('u_inverse_homography')!, true, Hinv.elements);
-        gl.uniform2f(locations.get('u_src_dimensions')!, image.width, image.height);
-        gl.uniform2f(locations.get('u_dest_dimensions')!, width, height);
+        gl.uniform1i(locations.get('u_layerCount')!, images.length);
+        gl.uniform1fv(locations.get('u_radiuses')!, new Float32Array(radiuses));
+        gl.uniform2f(locations.get('u_center')!, center.x, center.y);
       },
     },
   ]);

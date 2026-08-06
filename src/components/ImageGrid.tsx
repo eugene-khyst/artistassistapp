@@ -45,7 +45,8 @@ export function ImageGrid() {
 
   const {ref: canvasRef, zoomableImageCanvas: gridCanvas} = useZoomableImageCanvas<GridCanvas>(
     gridCanvasSupplier,
-    originalImage
+    originalImage,
+    selectedImageFile?.digest
   );
 
   const handlePrintClick = () => {

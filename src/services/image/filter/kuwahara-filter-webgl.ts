@@ -19,20 +19,16 @@
 import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
 import type {DrawImageSource} from '@/utils/graphics';
 import {copyOffscreenCanvas} from '@/utils/graphics';
-import type {Size} from '@/utils/types';
 
 import fragmentShaderSource from './glsl/kuwahara-filter.glsl';
 
 export function kuwaharaFilterWebGL(image: DrawImageSource, radiuses: number[]): OffscreenCanvas[] {
-  const renderer = new WebGLRenderer([fragmentShaderSource], [['u_texelSize', 'u_radius']], image);
-  const {width, height} = image;
-  const texelSize: Size = [1.0 / width, 1.0 / height];
+  const renderer = new WebGLRenderer([fragmentShaderSource], [['u_radius']], image);
   const results: OffscreenCanvas[] = radiuses.map(radius => {
     renderer.clear();
     renderer.render([
       {
         setUniforms(gl, locations) {
-          gl.uniform2f(locations.get('u_texelSize')!, ...texelSize);
           gl.uniform1i(locations.get('u_radius')!, radius);
         },
       },

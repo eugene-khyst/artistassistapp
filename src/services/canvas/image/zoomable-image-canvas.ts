@@ -19,12 +19,21 @@
 import {saveAs} from 'file-saver';
 
 import {Canvas} from '@/services/canvas/canvas';
+import {EventManager} from '@/services/event/event-manager';
 import {Rectangle, Vector} from '@/services/math/geometry';
 import type {DrawImageSource} from '@/utils/graphics';
 import {offscreenCanvasToBlob} from '@/utils/graphics';
 import {clamp} from '@/utils/math-utils';
 
 const MIN_IMAGE_SIDE = 200;
+
+export enum ZoomableImageEventType {
+  ClickOrTap = 'ClickOrTap',
+}
+
+export interface ClickOrTapEvent {
+  point: Vector;
+}
 
 export interface ZoomableImageCanvasProps {
   allowZoomBelowFit?: boolean;
@@ -56,6 +65,8 @@ export class ZoomableImageCanvas extends Canvas {
   private readonly eventListeners: {
     [K in keyof HTMLElementEventMap]?: (event: HTMLElementEventMap[K]) => void;
   };
+  public readonly events = new EventManager();
+  private cursor = 'grab';
 
   constructor(canvas: HTMLCanvasElement, props: ZoomableImageCanvasProps = {}) {
     super(canvas);
@@ -110,20 +121,25 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   protected getCursor(): string {
-    return 'grab';
+    return this.cursor;
   }
 
-  setImages(images: ImageBitmap[]): void {
+  setCursor(cursor: string): void {
+    this.cursor = cursor;
+    this.canvas.style.cursor = this.getCursor();
+  }
+
+  setImages(images: ImageBitmap[], displayDimension?: Rectangle): void {
+    const prev = this.getImageDimension();
     this.images = images;
-    this.imageDimensions = this.images.map(image => ZoomableImageCanvas.imageDimension(image));
-    this.offset = Vector.ZERO;
+    this.imageDimensions = images.map(
+      image => displayDimension ?? ZoomableImageCanvas.imageDimension(image)
+    );
     this.dragStart = null;
     this.isDragging = false;
     this.initialPinchDistance = null;
-    this.zoom = this.getFitToCanvasZoom();
-    this.lastZoom = this.zoom;
-    this.autoFit = true;
     this.onImagesLoaded();
+    this.zoomToFitIfResized(prev);
     this.requestRedraw();
   }
 
@@ -132,24 +148,22 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   setImageIndex(imageIndex: number): void {
+    const prev = this.getImageDimension();
     this.imageIndex = imageIndex;
+    this.zoomToFitIfResized(prev);
     this.requestRedraw();
   }
 
-  protected getImage(images?: DrawImageSource[]): DrawImageSource | null {
-    images ??= this.images;
-    return images.length > this.imageIndex ? images[this.imageIndex]! : null;
+  protected getImage(): DrawImageSource | null {
+    return this.images[this.imageIndex] ?? null;
   }
 
   protected getImageDimension(): Rectangle {
-    return this.imageDimensions.length > this.imageIndex
-      ? this.imageDimensions[this.imageIndex]!
-      : Rectangle.ZERO;
+    return this.imageDimensions[this.imageIndex] ?? Rectangle.ZERO;
   }
 
   protected toImagePoint(point: Vector): Vector {
-    const {center} = this.getImageDimension();
-    return point.add(center);
+    return point.add(this.getImageDimension().center);
   }
 
   protected imageContains(point: Vector, shrinkBy?: number): boolean {
@@ -186,15 +200,13 @@ export class ZoomableImageCanvas extends Canvas {
     // noop
   }
 
-  protected drawImage(
-    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
-    images?: DrawImageSource[]
-  ): void {
-    const image: DrawImageSource | null = this.getImage(images);
-    if (image) {
-      const {center}: Rectangle = this.getImageDimension();
-      ctx.drawImage(image, -center.x, -center.y);
+  protected drawImage(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
+    const image: DrawImageSource | null = this.getImage();
+    if (!image) {
+      return;
     }
+    const {width, height, center} = this.getImageDimension();
+    ctx.drawImage(image, -center.x, -center.y, width, height);
   }
 
   protected onImageDrawn(_: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
@@ -222,13 +234,13 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   private getFitToCanvasZoom(): number {
-    const image: DrawImageSource | null = this.getImage();
-    return image ? Math.min(this.cssWidth / image.width, this.cssHeight / image.height) : 1;
+    const {width, height} = this.getImageDimension();
+    return width && height ? Math.min(this.cssWidth / width, this.cssHeight / height) : 1;
   }
 
   private getMinZoom(): number {
-    const image: DrawImageSource | null = this.getImage();
-    return image ? Math.min(MIN_IMAGE_SIDE / image.width, MIN_IMAGE_SIDE / image.height) : 1;
+    const {width, height} = this.getImageDimension();
+    return width && height ? Math.min(MIN_IMAGE_SIDE / width, MIN_IMAGE_SIDE / height) : 1;
   }
 
   private clampZoom(zoom: number): number {
@@ -288,8 +300,14 @@ export class ZoomableImageCanvas extends Canvas {
     this.requestRedraw();
   }
 
-  protected onClickOrTap(_: Vector): void {
-    // noop
+  protected onClickOrTap(point: Vector): void {
+    if (!this.imageContains(point)) {
+      return;
+    }
+    const event: ClickOrTapEvent = {
+      point: this.toImagePoint(point),
+    };
+    this.events.notify(ZoomableImageEventType.ClickOrTap, event);
   }
 
   protected onDragEnd(): void {
@@ -407,6 +425,13 @@ export class ZoomableImageCanvas extends Canvas {
     this.setZoom(this.getFitToCanvasZoom());
   }
 
+  private zoomToFitIfResized({width, height}: Rectangle): void {
+    const dimension: Rectangle = this.getImageDimension();
+    if (dimension.width !== width || dimension.height !== height) {
+      this.zoomToFit();
+    }
+  }
+
   disableAutoFit(): void {
     this.autoFit = false;
   }
@@ -427,7 +452,7 @@ export class ZoomableImageCanvas extends Canvas {
     if (!image) {
       return null;
     }
-    const {width, height} = image;
+    const {width, height} = this.getImageDimension();
     const {offset, zoom} = this;
     try {
       this.offset = Vector.ZERO;

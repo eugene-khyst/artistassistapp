@@ -3,13 +3,12 @@
 precision highp float;
 
 uniform sampler2D u_texture;
-uniform vec2 u_texelSize;
 uniform int u_radius;
 
 in vec2 v_texCoord;
 out vec4 fragColor;
 
-const int MAX_RADIUS = 5;
+const int MAX_RADIUS = 6;
 
 #include linear-rgb.glsl;
 #include luminance.glsl;
@@ -20,6 +19,7 @@ struct QuadrantStats {
 };
 
 QuadrantStats calculateQuadrantStats(int startX, int endX, int startY, int endY) {
+  vec2 texelSize = 1.0 / vec2(textureSize(u_texture, 0));
   vec3 colorSum = vec3(0.0);
   float valueSum = 0.0;
   float valueSquareSum = 0.0;
@@ -27,7 +27,7 @@ QuadrantStats calculateQuadrantStats(int startX, int endX, int startY, int endY)
 
   for (int x = startX; x <= endX; ++x) {
     for (int y = startY; y <= endY; ++y) {
-      vec2 offset = vec2(float(x), float(y)) * u_texelSize;
+      vec2 offset = vec2(float(x), float(y)) * texelSize;
       vec4 color = texture(u_texture, v_texCoord + offset);
       colorSum += color.rgb;
       float value = getLuminance(srgbToLinear(color.rgb));

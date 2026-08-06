@@ -165,7 +165,13 @@ export function ColorMixingChart() {
         <Form.Item
           label={<Trans>Colors</Trans>}
           labelCol={{className: 'u-pb-0'}}
-          tooltip={<Trans>A grid showing the result of mixing each pair of selected colors</Trans>}
+          tooltip={
+            <Trans>
+              A grid showing the result of mixing each pair of selected colors in a 1:1 ratio. Above
+              the diagonal are thick layers. Below the diagonal are thinned to 1/2 strength (e.g.,
+              diluted with water at a 1:1 ratio for watercolor).
+            </Trans>
+          }
           className={styles['colorsFormItem']}
           extra={
             <Typography.Text type="secondary">

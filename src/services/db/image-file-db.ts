@@ -125,7 +125,7 @@ export async function deleteImageFileAndColorMixturesByDigest(
 ): Promise<StoreChangeTokens> {
   const db = await dbPromise;
   const tx = db.transaction(
-    ['images', 'image-metadata', 'color-mixtures', 'store-changes'],
+    ['images', 'image-metadata', 'color-mixtures', 'processed-images', 'store-changes'],
     'readwrite'
   );
   const imagesStore = tx.objectStore('images');
@@ -138,6 +138,11 @@ export async function deleteImageFileAndColorMixturesByDigest(
   const colorMixtureIds = await colorMixturesStore.index('by-imageFileDigest').getAllKeys(digest);
   for (const id of colorMixtureIds) {
     await colorMixturesStore.delete(id);
+  }
+  const processedImagesStore = tx.objectStore('processed-images');
+  const processedImageKeys = await processedImagesStore.index('by-digest').getAllKeys(digest);
+  for (const key of processedImageKeys) {
+    await processedImagesStore.delete(key);
   }
   const imagesToken = await markStoreChanged(tx, 'images');
   const colorMixturesToken = await markStoreChanged(tx, 'color-mixtures');

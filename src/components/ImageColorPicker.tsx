@@ -46,8 +46,8 @@ import type {
   PipettePointSetEvent,
 } from '@/services/canvas/image/image-color-picker-canvas';
 import {
-  ColorPickerEventType,
   ImageColorPickerCanvas,
+  ImageColorPickerEventType,
   MIN_COLOR_PICKER_DIAMETER,
 } from '@/services/canvas/image/image-color-picker-canvas';
 import {COLOR_MIXING} from '@/services/color/color-mixer';
@@ -120,14 +120,18 @@ export function ImageColorPicker() {
         selectPaletteColorMixtures(colorPickerCanvas.getSamplesNearby(x, y).map(({key}) => key));
         setColorMatchImage(null);
       };
-      colorPickerCanvas.events.subscribe(ColorPickerEventType.PipettePointSet, listener);
+      colorPickerCanvas.events.subscribe(ImageColorPickerEventType.PipettePointSet, listener);
       return colorPickerCanvas;
     },
     [setTargetColor, selectPaletteColorMixtures, setColorMatchImage]
   );
 
   const {ref: canvasRef, zoomableImageCanvas: colorPickerCanvas} =
-    useZoomableImageCanvas<ImageColorPickerCanvas>(imageColorPickerCanvasSupplier, originalImage);
+    useZoomableImageCanvas<ImageColorPickerCanvas>(
+      imageColorPickerCanvasSupplier,
+      originalImage,
+      selectedImageFile?.digest
+    );
 
   const [sampleDiameter, setSampleDiameter] = useState<number>(
     () => useAppStore.getState().appSettings.colorPickerDiameter ?? 10

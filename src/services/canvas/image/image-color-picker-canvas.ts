@@ -24,13 +24,12 @@ import {
   unlinearizeRgbChannel,
   WHITE,
 } from '@/services/color/space/rgb';
-import {EventManager} from '@/services/event/event-manager';
 import {Rectangle, Vector} from '@/services/math/geometry';
 import type {DrawImageSource} from '@/utils/graphics';
 import {drawImageToOffscreenCanvas, getRgbaForCoord} from '@/utils/graphics';
 import {clamp} from '@/utils/math-utils';
 
-import type {ZoomableImageCanvasProps} from './zoomable-image-canvas';
+import type {ClickOrTapEvent, ZoomableImageCanvasProps} from './zoomable-image-canvas';
 import {ZoomableImageCanvas} from './zoomable-image-canvas';
 
 export const MIN_COLOR_PICKER_DIAMETER = 1;
@@ -38,12 +37,11 @@ export const MAX_COLOR_PICKER_DIAMETER = 100;
 const PIPETTE_OUTLINE_COUNT = 3;
 const PIPETTE_CENTER_DOT_THRESHOLD = 1;
 
-export enum ColorPickerEventType {
-  PipettePointSet = 'pipettepointset',
+export enum ImageColorPickerEventType {
+  PipettePointSet = 'PipettePointSet',
 }
 
-export interface PipettePointSetEvent {
-  point: Vector;
+export interface PipettePointSetEvent extends ClickOrTapEvent {
   diameter: number;
   rgb: RgbTuple;
 }
@@ -79,8 +77,6 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
   private overlayImage: ImageBitmap | null = null;
   private overlayImageDimension: Rectangle = Rectangle.ZERO;
 
-  public readonly events = new EventManager<ColorPickerEventType>();
-
   constructor(
     canvas: HTMLCanvasElement,
     {imageSmoothingEnabled = false, ...props}: ImageColorPickerCanvasProps = {}
@@ -103,14 +99,21 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
     return this.pipetteEnabled ? 'crosshair' : super.getCursor();
   }
 
+  override setImages(images: ImageBitmap[], displayDimension?: Rectangle): void {
+    if (displayDimension) {
+      throw new Error('ImageColorPickerCanvas does not support custom display dimensions');
+    }
+    super.setImages(images);
+  }
+
   setOverlayImage(image: ImageBitmap | null) {
     this.overlayImage = image;
     this.overlayImageDimension = ZoomableImageCanvas.imageDimension(image);
     this.requestRedraw();
   }
 
-  protected override getImage(images?: ImageBitmap[]): DrawImageSource | null {
-    return this.overlayImage ?? super.getImage(images);
+  protected override getImage(): DrawImageSource | null {
+    return this.overlayImage ?? super.getImage();
   }
 
   protected override getImageDimension(): Rectangle {
@@ -218,7 +221,7 @@ export class ImageColorPickerCanvas extends ZoomableImageCanvas {
       diameter: this.lastPipetteDiameter,
       rgb: this.pipetteRgb,
     };
-    this.events.notify(ColorPickerEventType.PipettePointSet, event);
+    this.events.notify(ImageColorPickerEventType.PipettePointSet, event);
     this.requestRedraw();
   }
 

@@ -62,12 +62,33 @@ pre-mount-only. `initApp` must always reset `isAppInitializing`.
 Pure business logic, no React. Notable non-obvious bits:
 
 - **`canvas/`** — base `Canvas` recovers from browser-discarded bitmaps via
-  `visibilitychange`/`pageshow`/`focus` listeners.
+  `visibilitychange`/`pageshow`/`focus` listeners. `ZoomableImageCanvas` notifies canvas events
+  (`ClickOrTap`) through a shared `EventManager` that subclasses reuse for their own event types.
+  `setImages`/`setImageIndex` re-fit zoom and pan only when the image dimensions change, so swapping
+  in a re-rendered same-size image keeps the view the user zoomed to. Every `useZoomableImageCanvas`
+  caller also passes a stable source key: change it when the underlying source changes to reset
+  same-size replacements, but keep it stable while regenerating derived images so their viewport is
+  preserved.
 - **`image/filter/`** — WebGL filters return `OffscreenCanvas` so callers chain them without
   round-tripping to `ImageBitmap`; transfer to bitmap only at the boundary. `WebGLRenderer` reserves
-  texture unit 0 for the source image, so render-pass textures bind from unit 1.
+  texture unit 0 for the source image, so render-pass textures bind from unit 1. One image binds as
+  `sampler2D u_texture`; several same-sized images upload as one `TEXTURE_2D_ARRAY` layer stack and
+  bind as `sampler2DArray u_textures` (GLSL ES 3.00 forbids dynamic indexing of sampler arrays, but
+  the layer coord takes any value).
 - **`ml/`** — `OnnxModel` metadata drives preprocessing and the ordered `postProcessing` pipeline.
   ONNX Runtime WASM is bundled locally from `onnxruntime-web`; do not point it at a third-party CDN.
+  Inference is slow, so slices wrap it in `withProcessedImageCache` (returns `ImageBitmap`) or
+  `withProcessedImageBlobCache` (returns `Blob`, and owns the transform's bitmap) — pick whichever
+  the slice already stores, so a cache hit never re-encodes. Entries live in `processed-images`,
+  keyed by `PROCESSED_IMAGE_CACHE_VERSION`, a digest of the model's inference-affecting metadata,
+  and every input image digest — the style image counts as an input, so it belongs in `digests`.
+  `processedImageKey` strips presentation-only fields (`name`, `description`, `image`, `priority`,
+  `freeTier`) by rest-destructuring, so a new field is part of the key by default: the worst case is
+  a needless re-run, never a stale image. Pre- and post-processing also live in code, which the
+  model JSON cannot express — bump `PROCESSED_IMAGE_CACHE_VERSION` when changing them. Callers pick
+  the encode format (PNG for line art, the JPEG default for photo-like output). Models without a
+  `url` run a local WebGL pipeline and are never cached. The cache is derived data: it stays out of
+  cloud sync, ZIP export, and `store-changes`.
 - **`cloud/`** — `cloud-sync-client.ts` owns provider-neutral sync policy over `CloudClient<T>`;
   cached remote IDs are hints and need lookup fallback. Provider revisions churn without content
   changes, so use the canonical state hash to detect edits. State JSON includes custom brands, color

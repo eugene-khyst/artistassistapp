@@ -18,16 +18,20 @@
 
 import type {StateCreator} from 'zustand';
 
-import {getBlurred} from '@/services/image/blur';
+import {getBlurred, getBlurredMasked} from '@/services/image/blur';
+import type {Vector} from '@/services/math/geometry';
 import {createAbortableOperation} from '@/utils/abortable-operation';
 
 import {type OriginalImageSlice, registerProcessedImage} from './original-image-slice';
 
 export interface BlurredImagesSlice {
   blurredImages: ImageBitmap[];
+  blurFocalPoint: Vector | null;
+  blurredMaskedImage: ImageBitmap | null;
   isBlurredImagesLoading: boolean;
 
   loadBlurredImages: () => Promise<void>;
+  setBlurFocalPoint: (blurFocalPoint?: Vector) => Promise<void>;
   abortBlurredImages: () => void;
 }
 
@@ -55,36 +59,63 @@ export const createBlurredImagesSlice: StateCreator<
       blurredImagesOperation.abort();
     },
     clear: () => {
-      const {blurredImages} = get();
+      const {blurredImages, blurredMaskedImage} = get();
       set({
         blurredImages: [],
+        blurFocalPoint: null,
+        blurredMaskedImage: null,
       });
       blurredImages.forEach(image => {
         image.close();
       });
+      blurredMaskedImage?.close();
     },
   });
 
   return {
     blurredImages: [],
+    blurFocalPoint: null,
+    blurredMaskedImage: null,
     isBlurredImagesLoading: false,
 
     loadBlurredImages: async (): Promise<void> => {
-      const {originalImage, blurredImages} = get();
-      if (blurredImages.length || !originalImage) {
+      const {originalImage, blurredImages: prev} = get();
+      if (!originalImage || prev.length) {
         return;
       }
       await blurredImagesOperation.run(async signal => {
-        const newBlurredImages = await getBlurred(originalImage);
+        const blurredImages = await getBlurred(originalImage);
+        const blurredMaskedImage = getBlurredMasked(blurredImages);
         if (signal.aborted) {
-          newBlurredImages.forEach(image => {
+          blurredImages.forEach(image => {
             image.close();
           });
+          blurredMaskedImage.close();
         }
         signal.throwIfAborted();
         set({
-          blurredImages: newBlurredImages,
+          blurredImages,
+          blurredMaskedImage,
         });
+      });
+    },
+
+    setBlurFocalPoint: async (blurFocalPoint?: Vector): Promise<void> => {
+      const {blurredImages, blurredMaskedImage: prev} = get();
+      if (!blurredImages.length) {
+        return;
+      }
+      await blurredImagesOperation.run(signal => {
+        const blurredMaskedImage = getBlurredMasked(blurredImages, blurFocalPoint);
+        if (signal.aborted) {
+          blurredMaskedImage.close();
+        }
+        signal.throwIfAborted();
+        set({
+          blurFocalPoint,
+          blurredMaskedImage,
+        });
+        prev?.close();
       });
     },
 

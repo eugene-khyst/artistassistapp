@@ -105,13 +105,15 @@ export function ImagePerspectiveCorrection() {
   const {ref: canvas1Ref, zoomableImageCanvas: imagePerspectiveCorrectionCanvas} =
     useZoomableImageCanvas<ImagePerspectiveCorrectionCanvas>(
       imagePerspectiveCorrectionCanvasSupplier,
+      perspectiveUncorrectedImage,
       perspectiveUncorrectedImage
     );
 
   const {ref: canvas2Ref, zoomableImageCanvas: imageCroppingCanvas} =
     useZoomableImageCanvas<ImageCroppingCanvas>(
       imageCroppingCanvasSupplier,
-      perspectiveCorrectedImage
+      perspectiveCorrectedImage,
+      perspectiveUncorrectedImage
     );
 
   const isLoading: boolean =

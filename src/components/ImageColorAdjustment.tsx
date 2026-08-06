@@ -19,24 +19,24 @@
 import {DownloadOutlined, DownOutlined, PictureOutlined, ScissorOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {CheckboxOptionType, RadioChangeEvent} from 'antd';
-import {Button, Checkbox, Col, Dropdown, Form, Radio, Row, Slider, Space, Typography} from 'antd';
-import type {CheckboxChangeEvent} from 'antd/es/checkbox';
+import {Button, Col, Dropdown, Form, Radio, Row, Slider, Space, Typography} from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import type {SliderMarks} from 'antd/es/slider';
 import type {MenuProps} from 'antd/lib';
 import {saveAs} from 'file-saver';
-import {useCallback, useEffect, useMemo, useState} from 'react';
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 
 import {AdCard} from '@/components/ad/AdCard';
 import {ColorPicker} from '@/components/color/ColorPicker';
 import {FileSelect} from '@/components/file/FileSelect';
+import {ImageViewSelector} from '@/components/image/ImageViewSelector';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {useDebounce} from '@/hooks/useDebounce';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
 import type {PipettePointSetEvent} from '@/services/canvas/image/image-color-picker-canvas';
 import {
-  ColorPickerEventType,
   ImageColorPickerCanvas,
+  ImageColorPickerEventType,
 } from '@/services/canvas/image/image-color-picker-canvas';
 import {kelvinToRgb} from '@/services/color/color-temperature';
 import {rgbToHex, WHITE_HEX} from '@/services/color/space/rgb';
@@ -156,10 +156,12 @@ export function ImageColorAdjustment() {
   const [outputLevels, setOutputLevels] = useState<number[]>([0, 255]);
   const [originalTemperature, setOriginalTemperature] = useState<number>(6500);
   const [targetTemperature, setTargetTemperature] = useState<number>(6500);
-  const [isPreview, setIsPreview] = useState<boolean>(true);
+
+  const [isShowingOriginal, setIsShowingOriginal] = useState<boolean>(false);
+  const isShowingOriginalRef = useRef<boolean>(false);
 
   const images = useMemo<(ImageBitmap | null)[]>(
-    () => [colorAdjustedImage, colorUnadjustedImage],
+    () => [colorAdjustedImage ?? colorUnadjustedImage, colorUnadjustedImage],
     [colorUnadjustedImage, colorAdjustedImage]
   );
 
@@ -171,16 +173,31 @@ export function ImageColorAdjustment() {
         colorPickerImageIndex: 1,
       });
       const listener = ({rgb}: PipettePointSetEvent) => {
-        setWhitePoint(rgbToHex(...rgb));
+        if (!isShowingOriginalRef.current) {
+          setWhitePoint(rgbToHex(...rgb));
+        }
       };
-      colorPickerCanvas.events.subscribe(ColorPickerEventType.PipettePointSet, listener);
+      colorPickerCanvas.events.subscribe(ImageColorPickerEventType.PipettePointSet, listener);
       return colorPickerCanvas;
     },
     []
   );
 
   const {ref: canvasRef, zoomableImageCanvas: colorPickerCanvas} =
-    useZoomableImageCanvas<ImageColorPickerCanvas>(imageColorPickerCanvasSupplier, images);
+    useZoomableImageCanvas<ImageColorPickerCanvas>(
+      imageColorPickerCanvasSupplier,
+      images,
+      imageFileToAdjustColors
+    );
+
+  useEffect(() => {
+    colorPickerCanvas?.setImageIndex(isShowingOriginal && colorAdjustedImage ? 1 : 0);
+  }, [colorPickerCanvas, isShowingOriginal, colorAdjustedImage]);
+
+  const handleViewChange = (isOriginal: boolean) => {
+    isShowingOriginalRef.current = isOriginal;
+    setIsShowingOriginal(isOriginal);
+  };
 
   const gamma = percentToGamma(gammaPercent);
 
@@ -238,11 +255,6 @@ export function ImageColorAdjustment() {
 
   const handleFileChange = ([file]: File[]) => {
     void setImageFileToAdjustColors(file ?? null);
-  };
-
-  const handlePreviewChange = ({target: {checked}}: CheckboxChangeEvent) => {
-    setIsPreview(checked);
-    colorPickerCanvas?.setImageIndex(checked ? 0 : 1);
   };
 
   const handleSaveClick = async (aspectRatio?: number) => {
@@ -386,17 +398,15 @@ export function ImageColorAdjustment() {
                   </Button>
                 </Space>
 
-                <Form.Item
-                  label={<Trans>Preview</Trans>}
-                  labelCol={{className: 'u-pb-0'}}
-                  className="u-mb-0"
-                >
-                  <Checkbox checked={isPreview} onChange={handlePreviewChange} />
-                </Form.Item>
+                <ImageViewSelector
+                  isShowingOriginal={isShowingOriginal}
+                  resultLabel={<Trans>Adjusted</Trans>}
+                  onChange={handleViewChange}
+                />
 
                 <Form.Item
+                  layout="vertical"
                   label={<Trans>White balance</Trans>}
-                  labelCol={{className: 'u-pb-0'}}
                   tooltip={
                     <Trans>
                       Percentile: Auto white balance from brightest areas, good for most photos.

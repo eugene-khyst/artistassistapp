@@ -43,6 +43,7 @@ import {cloneElement, useCallback, useEffect, useMemo, useState} from 'react';
 
 import {DEFAULT_GRID_SETTINGS, setGrid} from '@/components/grid/grid';
 import {GridControls} from '@/components/grid/GridControls';
+import {ImageViewSelector} from '@/components/image/ImageViewSelector';
 import {LightboxOverlay} from '@/components/lightbox/LightboxOverlay';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {OnnxModelSelect} from '@/components/ml-model/OnnxModelSelect';
@@ -98,10 +99,16 @@ export function ImageOutline() {
     });
 
   const images = useMemo(() => [outlineImage, originalImage], [outlineImage, originalImage]);
+  const displayDimension = useMemo(
+    () => (outlineImage ? GridCanvas.imageDimension(outlineImage) : undefined),
+    [outlineImage]
+  );
 
   const {ref: canvasRef, zoomableImageCanvas: gridCanvas} = useZoomableImageCanvas<GridCanvas>(
     gridCanvasSupplier,
-    images
+    images,
+    selectedImageFile?.digest,
+    displayDimension
   );
 
   const [isOpenPrintImage, setIsOpenPrintImage] = useState<boolean>(false);
@@ -165,10 +172,6 @@ export function ImageOutline() {
       await closeLightbox();
     }
     await enterArMode();
-  };
-
-  const handleShowOriginalClick = () => {
-    setIsShowingOriginal(!isShowingOriginal);
   };
 
   const handlePrintClick = () => {
@@ -263,12 +266,12 @@ export function ImageOutline() {
               className={styles['modelSelect']}
             />
           </Form.Item>
-          <Button
-            type={isShowingOriginal ? 'primary' : 'default'}
-            onClick={handleShowOriginalClick}
-          >
-            {isShowingOriginal ? <Trans>Outline</Trans> : <Trans>Photo</Trans>}
-          </Button>
+          <ImageViewSelector
+            isShowingOriginal={isShowingOriginal}
+            resultLabel={<Trans>Outline</Trans>}
+            onChange={setIsShowingOriginal}
+            disabled={!outlineImage}
+          />
           {screens.sm && (
             <>
               <Tooltip

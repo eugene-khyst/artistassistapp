@@ -21,6 +21,7 @@ import type {StateCreator} from 'zustand';
 import {formatFetchProgress} from '@/i18n';
 import {hasAccessTo} from '@/services/auth/utils';
 import {getOutline} from '@/services/image/outline';
+import {withProcessedImageCache} from '@/services/ml/image-transformer';
 import type {OnnxModel} from '@/services/ml/types';
 import type {AuthSlice} from '@/stores/auth-slice';
 import {createAbortableOperation} from '@/utils/abortable-operation';
@@ -91,10 +92,18 @@ export const createOutlineImageSlice: StateCreator<
     },
 
     loadOutlineImage: async (): Promise<void> => {
-      const {originalImage, outlineModel, outlineImage, isOutlineImageLoading, auth} = get();
+      const {
+        selectedImageFile,
+        originalImage,
+        outlineModel,
+        outlineImage,
+        isOutlineImageLoading,
+        auth,
+      } = get();
       if (
         outlineImage ||
         isOutlineImageLoading ||
+        !selectedImageFile ||
         !originalImage ||
         !outlineModel ||
         !hasAccessTo(auth?.user, outlineModel)
@@ -102,17 +111,23 @@ export const createOutlineImageSlice: StateCreator<
         return;
       }
       await outlineOperation.run(async signal => {
-        const outlineImage = await getOutline(
-          originalImage,
+        const outlineImage = await withProcessedImageCache(
           outlineModel,
-          auth,
-          (key, progress) => {
-            signal.throwIfAborted();
-            set({
-              outlineDownloadTip: formatFetchProgress(key, progress),
-            });
-          },
-          signal
+          [selectedImageFile.digest],
+          () =>
+            getOutline(
+              originalImage,
+              outlineModel,
+              auth,
+              (key, progress) => {
+                signal.throwIfAborted();
+                set({
+                  outlineDownloadTip: formatFetchProgress(key, progress),
+                });
+              },
+              signal
+            ),
+          {type: 'image/png'}
         );
         if (signal.aborted) {
           outlineImage.close();

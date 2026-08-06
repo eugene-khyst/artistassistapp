@@ -23,12 +23,12 @@ import {hasAccessTo} from '@/services/auth/utils';
 import {getStyleImage, saveStyleImage} from '@/services/db/style-image-db';
 import {type ImageFile, imageFileToFile} from '@/services/image/image-file';
 import {transferStyle} from '@/services/image/style-transfer';
+import {withProcessedImageBlobCache} from '@/services/ml/image-transformer';
 import type {OnnxModel} from '@/services/ml/types';
 import type {AppSlice} from '@/stores/app-slice';
 import type {AuthSlice} from '@/stores/auth-slice';
 import {type OriginalImageSlice, registerProcessedImage} from '@/stores/original-image-slice';
 import {createAbortableOperation} from '@/utils/abortable-operation';
-import {imageBitmapToBlob} from '@/utils/graphics';
 
 export interface StyleTransferSlice {
   styleTransferModel?: OnnxModel;
@@ -130,11 +130,18 @@ export const createStyleTransferSlice: StateCreator<
     },
 
     loadStyledImage: async (): Promise<void> => {
-      const {originalImage, styleTransferModel, styledImageBlob, isStyleTransferLoading, auth} =
-        get();
+      const {
+        selectedImageFile,
+        originalImage,
+        styleTransferModel,
+        styledImageBlob,
+        isStyleTransferLoading,
+        auth,
+      } = get();
       if (
         styledImageBlob ||
         isStyleTransferLoading ||
+        !selectedImageFile ||
         !originalImage ||
         !styleTransferModel ||
         !hasAccessTo(auth?.user, styleTransferModel)
@@ -147,35 +154,39 @@ export const createStyleTransferSlice: StateCreator<
         return;
       }
       await styleTransferOperation.run(async signal => {
-        let styleImage: ImageBitmap | null = null;
-        let styledImage: ImageBitmap | null = null;
-        try {
-          styleImage =
-            numInputs > 1 && styleTransferImage
+        const digests = [
+          selectedImageFile.digest,
+          ...(styleTransferImage ? [styleTransferImage.digest] : []),
+        ];
+        const styledImageBlob: Blob = await withProcessedImageBlobCache(
+          styleTransferModel,
+          digests,
+          async () => {
+            const styleImage: ImageBitmap | null = styleTransferImage
               ? await createImageBitmap(imageFileToFile(styleTransferImage))
               : null;
-          const images = styleImage ? [originalImage, styleImage] : [originalImage];
-          styledImage = await transferStyle(
-            images,
-            styleTransferModel,
-            auth,
-            (key, progress) => {
-              signal.throwIfAborted();
-              set({
-                styleTransferDownloadTip: formatFetchProgress(key, progress),
-              });
-            },
-            signal
-          );
-          const styledImageBlob: Blob = await imageBitmapToBlob(styledImage);
-          signal.throwIfAborted();
-          set({
-            styledImageBlob,
-          });
-        } finally {
-          styleImage?.close();
-          styledImage?.close();
-        }
+            try {
+              return await transferStyle(
+                styleImage ? [originalImage, styleImage] : [originalImage],
+                styleTransferModel,
+                auth,
+                (key, progress) => {
+                  signal.throwIfAborted();
+                  set({
+                    styleTransferDownloadTip: formatFetchProgress(key, progress),
+                  });
+                },
+                signal
+              );
+            } finally {
+              styleImage?.close();
+            }
+          }
+        );
+        signal.throwIfAborted();
+        set({
+          styledImageBlob,
+        });
       });
     },
 

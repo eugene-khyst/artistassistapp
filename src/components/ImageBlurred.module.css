@@ -1,4 +1,26 @@
+.canvasContainer {
+  position: relative;
+}
+
 .previewCanvas {
+  display: block;
   width: 100%;
   height: calc(100dvh - 115px);
+}
+
+.focalPointHint {
+  position: absolute;
+  top: var(--ant-margin-xs);
+  left: 50%;
+  z-index: 1;
+  max-width: calc(100% - 2 * var(--ant-margin));
+  padding: var(--ant-padding-xxs) var(--ant-padding-xs);
+  color: var(--ant-color-text) !important;
+  text-align: center;
+  pointer-events: none;
+  background-color: var(--ant-color-bg-elevated);
+  border: 1px solid var(--ant-color-border-secondary);
+  border-radius: var(--ant-border-radius-lg);
+  box-shadow: var(--ant-box-shadow-tertiary);
+  transform: translateX(-50%);
 }

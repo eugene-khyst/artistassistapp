@@ -79,7 +79,11 @@ export abstract class OverlayDrawingCanvas extends ZoomableImageCanvas {
   ): void {
     this.drawOverlay(ctx);
     ctx.globalCompositeOperation = 'source-in';
-    this.drawImage(ctx, this.invertedImages);
+    const invertedImage = this.invertedImages[this.imageIndex];
+    if (invertedImage) {
+      const {width, height, center} = this.getImageDimension();
+      ctx.drawImage(invertedImage, -center.x, -center.y, width, height);
+    }
     ctx.globalCompositeOperation = 'destination-over';
   }
 
@@ -95,7 +99,7 @@ export abstract class OverlayDrawingCanvas extends ZoomableImageCanvas {
     if (!image) {
       return null;
     }
-    const {width, height} = image;
+    const {width, height} = this.getImageDimension();
     const scaleFactor: number = Math.max(1, (width * height) / IMAGE_SIZE.HD);
     const {lineWidth} = this;
     try {

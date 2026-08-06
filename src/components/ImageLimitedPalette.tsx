@@ -54,12 +54,14 @@ export function ImageLimitedPalette() {
 
   const {ref: limitedPaletteCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
-    limitedPaletteImage
+    limitedPaletteImage,
+    selectedImageFile?.digest
   );
 
   const {ref: originalCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
-    originalImage
+    originalImage,
+    selectedImageFile?.digest
   );
 
   const isLoading: boolean = isOriginalImageLoading || isLimitedPaletteImageLoading;

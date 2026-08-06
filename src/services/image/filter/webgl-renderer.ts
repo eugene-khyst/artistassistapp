@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {DrawImageSource} from '@/utils/graphics';
+import {type DrawImageSource, getBoundingSize} from '@/utils/graphics';
 import type {Size} from '@/utils/types';
 
 import vertexShaderSource from './glsl/vertex.glsl';
@@ -36,6 +36,10 @@ export interface RenderPassTexture {
   unit?: number;
 }
 
+interface Options {
+  size?: Size;
+}
+
 export class WebGLRenderer {
   canvas: OffscreenCanvas;
   gl: WebGL2RenderingContext;
@@ -44,18 +48,21 @@ export class WebGLRenderer {
   programs: WebGLProgram[];
   vaos: WebGLVertexArrayObject[];
   buffers: (WebGLBuffer | null)[] = [];
-  imageTexture: WebGLTexture | null;
-  textures: (WebGLTexture | null)[] = [];
+  imageTexture: WebGLTexture;
+  imageTarget: GLenum;
+  textureUniformName: string;
+  textures: WebGLTexture[] = [];
   framebuffers: (WebGLFramebuffer | null)[] = [];
   uniformLocations: Map<string, WebGLUniformLocation | null>[];
 
   constructor(
     fragmentShaderSources: string[],
     uniformNames: string[][],
-    image: DrawImageSource,
-    size?: Size | null
+    images: DrawImageSource | DrawImageSource[],
+    {size}: Options = {}
   ) {
-    const [width, height] = size ?? [image.width, image.height];
+    const imagesArr = [images].flat();
+    const [width, height] = size ?? getBoundingSize(imagesArr) ?? [0, 0];
     this.canvas = new OffscreenCanvas(width, height);
     const gl: WebGL2RenderingContext | null = this.canvas.getContext('webgl2', {antialias: false});
     if (!gl) {
@@ -75,20 +82,26 @@ export class WebGLRenderer {
 
     this.vaos = this.programs.map(program => this.createVertexArray(program));
 
+    const isTextureArray = imagesArr.length > 1;
+    this.imageTarget = isTextureArray ? gl.TEXTURE_2D_ARRAY : gl.TEXTURE_2D;
+    this.textureUniformName = isTextureArray ? 'u_textures' : 'u_texture';
+
     this.uniformLocations = this.programs.map(
       (program, i) =>
         new Map(
-          ['u_flipY', 'u_texture', ...(uniformNames[i] ?? [])].map(name => [
+          ['u_flipY', this.textureUniformName, ...(uniformNames[i] ?? [])].map(name => [
             name,
             gl.getUniformLocation(program, name),
           ])
         )
     );
 
-    this.imageTexture = this.createTexture(image);
+    this.imageTexture = isTextureArray
+      ? this.createArrayTexture(imagesArr)
+      : this.createTexture(imagesArr[0]);
   }
 
-  private compileShader(type: GLenum, source: string) {
+  private compileShader(type: GLenum, source: string): WebGLShader {
     const {gl} = this;
     const shader = gl.createShader(type)!;
     gl.shaderSource(shader, source);
@@ -111,7 +124,7 @@ export class WebGLRenderer {
     return program;
   }
 
-  private createBuffer(data: number[]): WebGLBuffer | null {
+  private createBuffer(data: number[]): WebGLBuffer {
     const {gl} = this;
     const buffer = gl.createBuffer();
     this.buffers.push(buffer);
@@ -120,7 +133,11 @@ export class WebGLRenderer {
     return buffer;
   }
 
-  private setUpVertexAttributes(program: WebGLProgram, name: string, buffer: WebGLBuffer | null) {
+  private setUpVertexAttributes(
+    program: WebGLProgram,
+    name: string,
+    buffer: WebGLBuffer | null
+  ): void {
     const {gl} = this;
     const location = gl.getAttribLocation(program, name);
     gl.enableVertexAttribArray(location);
@@ -145,7 +162,7 @@ export class WebGLRenderer {
     return vao;
   }
 
-  private createTexture(source?: TexImageSource) {
+  private createTexture(source?: TexImageSource): WebGLTexture {
     const {
       canvas: {width, height},
       gl,
@@ -165,7 +182,36 @@ export class WebGLRenderer {
     return texture;
   }
 
-  private createFramebuffer(texture: WebGLTexture) {
+  private createArrayTexture(sources: DrawImageSource[]): WebGLTexture {
+    const {gl} = this;
+    const [width, height] = getBoundingSize(sources)!;
+    const texture = gl.createTexture();
+    this.textures.push(texture);
+    gl.bindTexture(gl.TEXTURE_2D_ARRAY, texture);
+    gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texStorage3D(gl.TEXTURE_2D_ARRAY, 1, gl.RGBA8, width, height, sources.length);
+    sources.forEach((source, layer) => {
+      gl.texSubImage3D(
+        gl.TEXTURE_2D_ARRAY,
+        0,
+        0,
+        0,
+        layer,
+        width,
+        height,
+        1,
+        gl.RGBA,
+        gl.UNSIGNED_BYTE,
+        source
+      );
+    });
+    return texture;
+  }
+
+  private createFramebuffer(texture: WebGLTexture): WebGLFramebuffer {
     const {gl} = this;
     const framebuffer = gl.createFramebuffer();
     this.framebuffers.push(framebuffer);
@@ -177,7 +223,7 @@ export class WebGLRenderer {
   private bindRenderPassTextures(
     renderPassTextures: RenderPassTexture[] | undefined,
     locations: Map<string, WebGLUniformLocation | null>
-  ) {
+  ): void {
     if (!renderPassTextures?.length) {
       return;
     }
@@ -185,8 +231,8 @@ export class WebGLRenderer {
     const {gl} = this;
     const maxTextureUnits = gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS) as number;
     renderPassTextures.forEach(({name, source, unit}, i) => {
-      const textureUnit = unit ?? i + 1;
-      if (textureUnit <= 0) {
+      const textureUnit = unit ?? 1 + i;
+      if (textureUnit < 1) {
         throw new Error('Texture unit 0 is reserved for the source image');
       }
       if (textureUnit >= maxTextureUnits) {
@@ -200,7 +246,7 @@ export class WebGLRenderer {
     gl.activeTexture(gl.TEXTURE0);
   }
 
-  clear() {
+  clear(): void {
     const {gl} = this;
     gl.clear(gl.COLOR_BUFFER_BIT);
   }
@@ -216,7 +262,7 @@ export class WebGLRenderer {
     const framebuffers = textures.map(texture => this.createFramebuffer(texture));
 
     gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, this.imageTexture);
+    gl.bindTexture(this.imageTarget, this.imageTexture);
 
     let i = 0;
     for (const {programIndex = 0, textures: renderPassTextures, setUniforms} of renderPasses) {
@@ -230,7 +276,7 @@ export class WebGLRenderer {
       gl.bindVertexArray(vao);
 
       gl.uniform1f(locations.get('u_flipY')!, isNotLast || rawOrientation ? 0.0 : 1.0);
-      gl.uniform1i(locations.get('u_texture')!, 0);
+      gl.uniform1i(locations.get(this.textureUniformName)!, 0);
       this.bindRenderPassTextures(renderPassTextures, locations);
       setUniforms?.(gl, locations);
 
@@ -256,7 +302,7 @@ export class WebGLRenderer {
     return pixels;
   }
 
-  cleanUp() {
+  cleanUp(): void {
     const {gl, canvas} = this;
     this.framebuffers.forEach(framebuffer => {
       gl.deleteFramebuffer(framebuffer);

@@ -17,9 +17,10 @@
  */
 
 import type {RefCallback} from 'react';
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 
 import {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
+import type {Rectangle} from '@/services/math/geometry';
 import {debounce} from '@/utils/debounce';
 
 export function zoomableImageCanvasSupplier(canvas: HTMLCanvasElement): ZoomableImageCanvas {
@@ -33,9 +34,12 @@ interface Result<T> {
 
 export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
   zoomableImageCanvasSupplier: (canvas: HTMLCanvasElement) => T,
-  image: (ImageBitmap | null | undefined) | (ImageBitmap | null | undefined)[]
+  images: (ImageBitmap | null | undefined) | (ImageBitmap | null | undefined)[],
+  sourceKey: unknown,
+  displayDimension?: Rectangle
 ): Result<T> {
   const [zoomableImageCanvas, setZoomableImageCanvas] = useState<T>();
+  const sourceKeyRef = useRef(sourceKey);
   const ref = useCallback(
     (node: HTMLCanvasElement | null) => {
       if (node) {
@@ -78,12 +82,16 @@ export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
     if (!zoomableImageCanvas) {
       return;
     }
-    zoomableImageCanvas.setImages(
-      [image]
-        .flat()
-        .filter((image: ImageBitmap | null | undefined): image is ImageBitmap => !!image)
-    );
-  }, [zoomableImageCanvas, image]);
+    const sourceChanged = !Object.is(sourceKeyRef.current, sourceKey);
+    const filteredImages = [images]
+      .flat()
+      .filter((image: ImageBitmap | null | undefined): image is ImageBitmap => !!image);
+    zoomableImageCanvas.setImages(filteredImages, displayDimension);
+    if (sourceChanged) {
+      zoomableImageCanvas.zoomToFit();
+    }
+    sourceKeyRef.current = sourceKey;
+  }, [zoomableImageCanvas, images, sourceKey, displayDimension]);
 
   return {
     ref,

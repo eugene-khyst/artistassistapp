@@ -51,11 +51,16 @@ export function ImageTonalValues() {
   const {t} = useLingui();
 
   const {ref: tonalValuesCanvasRef, zoomableImageCanvas: tonalValuesCanvas} =
-    useZoomableImageCanvas<ZoomableImageCanvas>(zoomableImageCanvasSupplier, tonalImages);
+    useZoomableImageCanvas<ZoomableImageCanvas>(
+      zoomableImageCanvasSupplier,
+      tonalImages,
+      selectedImageFile?.digest
+    );
 
   const {ref: originalCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
     zoomableImageCanvasSupplier,
-    originalImage
+    originalImage,
+    selectedImageFile?.digest
   );
 
   const [tonalImageIndex, setTonalImageIndex] = useState<number>(2);

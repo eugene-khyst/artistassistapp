@@ -45,10 +45,9 @@ export function interpolationWebGL(
   interpolation = Interpolation.Bilinear
 ): OffscreenCanvas {
   const fragmentShaderSource = FRAGMENT_SHADER_SOURCES[interpolation];
-  const renderer = new WebGLRenderer([fragmentShaderSource], [], image, [
-    targetWidth,
-    targetHeight,
-  ]);
+  const renderer = new WebGLRenderer([fragmentShaderSource], [], image, {
+    size: [targetWidth, targetHeight],
+  });
   renderer.render();
   const resultCanvas = copyOffscreenCanvas(renderer.canvas);
   renderer.cleanUp();

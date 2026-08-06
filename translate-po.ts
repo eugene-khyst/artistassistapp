@@ -34,6 +34,10 @@ const AVAILABLE_TARGET_LANGS = [
 type SourceLang = typeof SOURCE_LANG;
 type TargetLang = (typeof AVAILABLE_TARGET_LANGS)[number];
 
+const GOOGLE_TRANSLATE_LANGS: Partial<Record<TargetLang, string>> = {
+  nb: 'no',
+};
+
 type PluralForms = 'one' | 'few' | 'many' | 'other';
 
 // CLDR plural categories per language
@@ -82,7 +86,7 @@ async function translateText(
   const protectedSourceText = protectLinguiTags(sourceText);
   const result = await translate(protectedSourceText, {
     from: sourceLang,
-    to: targetLang,
+    to: GOOGLE_TRANSLATE_LANGS[targetLang] ?? targetLang,
     forceBatch: true,
     autoCorrect: false,
   });
