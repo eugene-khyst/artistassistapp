@@ -54,6 +54,10 @@ msgstr "{FIELD} este obligatoriu"
 msgid "{retryIn, plural, one {Resend code in # second} other {Resend code in # seconds}}"
 msgstr "{retryIn, plural, one {Retrimite codul în # secundă} few {Retrimite codul în # secunde} other {Retrimite codul în # de secunde}}"
 
+#: src/components/cloud/ExportToZipButton.tsx:46
+msgid "{unavailableImageCount, plural, one {Backup created without # unavailable photo. Select the original photo again, then save the backup again.} other {Backup created without # unavailable photos. Select the original photos again, then save the backup again.}}"
+msgstr "{unavailableImageCount, plural, one {Backup creat fără # fotografie indisponibilă. Selectați din nou fotografia originală, apoi salvați din nou copia de rezervă.} few {Backup creat fără # fotografii indisponibile. Selectați din nou fotografiile originale, apoi salvați din nou copia de rezervă.} other {Backup creat fără # de fotografii indisponibile. Selectați din nou fotografiile originale, apoi salvați din nou copia de rezervă.}}"
+
 #: src/components/install/InstallDrawer.tsx:42
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux și <3/> ChromeOS"
@@ -261,7 +265,7 @@ msgstr "Sigur doriți să ștergeți acest set de culori?"
 msgid "Are you sure you want to delete this custom brand?"
 msgstr "Sunteți sigur că doriți să ștergeți această marcă personalizată?"
 
-#: src/components/image/RecentImageCard.tsx:64
+#: src/components/image/RecentImageCard.tsx:115
 msgid "Are you sure you want to delete this photo?"
 msgstr "Sunteți sigur că doriți să ștergeți această fotografie?"
 
@@ -270,11 +274,11 @@ msgstr "Sunteți sigur că doriți să ștergeți această fotografie?"
 msgid "Art medium"
 msgstr "Mediu de artă"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:93
+#: src/components/cloud/CloudFeedbackHandler.tsx:117
 msgid "ArtistAssistApp can no longer access your cloud storage. Disconnect it, then connect again."
 msgstr "ArtistAssistApp nu mai poate accesa stocarea ta în cloud. Deconectează-l, apoi conectează-l din nou."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:161
+#: src/components/cloud/CloudFeedbackHandler.tsx:185
 msgid "ArtistAssistApp could not confirm that your cloud files were deleted. Remove any remaining ArtistAssistApp folder or files directly from your cloud provider."
 msgstr "ArtistAssistApp nu a putut confirma că fișierele tale din cloud au fost șterse. Șterge orice folder sau fișiere rămase ArtistAssistApp direct de la furnizorul tău cloud."
 
@@ -335,6 +339,10 @@ msgstr "Fond"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:56
 msgid "Backup imported"
 msgstr "Backup importat"
+
+#: src/components/cloud/ExportToZipButton.tsx:44
+msgid "Backup saved without some photos"
+msgstr "Backup salvat fără câteva fotografii"
 
 #: src/components/auth/JoinButton.tsx:27
 msgid "Become a paid member"
@@ -435,15 +443,15 @@ msgstr "Faceți clic 🖱️ sau atingeți 👆 oriunde în fotografie sau utili
 msgid "Close"
 msgstr "Închide"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:99
+#: src/components/cloud/CloudFeedbackHandler.tsx:123
 msgid "Cloud access not granted"
 msgstr "Accesul în cloud nu este acordat"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:91
+#: src/components/cloud/CloudFeedbackHandler.tsx:115
 msgid "Cloud authorization failed"
 msgstr "Autorizarea în cloud a eșuat"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:81
+#: src/components/cloud/CloudFeedbackHandler.tsx:105
 msgid "Cloud connection failed"
 msgstr "Conexiunea în cloud a eșuat"
 
@@ -451,35 +459,35 @@ msgstr "Conexiunea în cloud a eșuat"
 msgid "Cloud data changed"
 msgstr "Datele din cloud s-au schimbat"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:149
+#: src/components/cloud/CloudFeedbackHandler.tsx:173
 msgid "Cloud data not found"
 msgstr "Date din cloud negăsite"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:168
+#: src/components/cloud/CloudFeedbackHandler.tsx:192
 msgid "Cloud data unreadable"
 msgstr "Datele din cloud ilizibile"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:159
+#: src/components/cloud/CloudFeedbackHandler.tsx:183
 msgid "Cloud files may remain"
 msgstr "Fișierele cloud pot rămâne"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:87
+#: src/components/cloud/CloudFeedbackHandler.tsx:111
 msgid "Cloud not connected"
 msgstr "Cloud neconectat"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:101
+#: src/components/cloud/CloudFeedbackHandler.tsx:125
 msgid "Cloud storage was not connected because access was not granted. To connect it, try again and allow the requested access."
 msgstr "Stocarea în cloud nu era conectată pentru că accesul nu era acordat. Pentru a-l conecta, încearcă din nou și permite accesul cerut."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:122
+#: src/components/cloud/CloudFeedbackHandler.tsx:146
 msgid "Cloud sync conflict"
 msgstr "Conflict de sincronizare a cloud-ului"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:188
+#: src/components/cloud/CloudFeedbackHandler.tsx:222
 msgid "Cloud sync failed"
 msgstr "Cloud sync a eșuat"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:135
+#: src/components/cloud/CloudFeedbackHandler.tsx:159
 msgid "Cloud sync history missing"
 msgstr "Istoricul sincronizării cloud-ului lipsă"
 
@@ -487,7 +495,7 @@ msgstr "Istoricul sincronizării cloud-ului lipsă"
 msgid "Cloud sync is not enabled"
 msgstr "Cloud sync nu este activat"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:175
+#: src/components/cloud/CloudFeedbackHandler.tsx:209
 msgid "Cloud sync paused"
 msgstr "Sincronizarea cu norul a fost întreruptă"
 
@@ -569,7 +577,7 @@ msgstr "Conectează {label}"
 msgid "Connect {label}?"
 msgstr "Connect {label}?"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:88
+#: src/components/cloud/CloudFeedbackHandler.tsx:112
 msgid "Connect cloud storage before syncing."
 msgstr "Conectează stocarea în cloud înainte de sincronizare."
 
@@ -613,7 +621,7 @@ msgstr "Estimarea corectată a temperaturii sursei de lumină în Kelvin"
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Nu a putut detecta automat hârtia sau pânza"
 
-#: src/components/cloud/ExportToZipButton.tsx:40
+#: src/components/cloud/ExportToZipButton.tsx:59
 msgid "Could not export backup"
 msgstr "Nu s-a putut exporta backup-ul"
 
@@ -653,8 +661,8 @@ msgstr "Culori personalizate"
 #: src/components/ColorSetChooser.tsx:767
 #: src/components/CustomColorBrandCreator.tsx:517
 #: src/components/CustomColorBrandCreator.tsx:527
-#: src/components/image/RecentImageCard.tsx:73
-#: src/components/image/RecentImageCard.tsx:83
+#: src/components/image/RecentImageCard.tsx:124
+#: src/components/image/RecentImageCard.tsx:134
 #: src/components/storage/DeleteAppDataButton.tsx:50
 msgid "Delete"
 msgstr "Șterge"
@@ -683,7 +691,7 @@ msgstr "Șterge datele de pe acest dispozitiv"
 msgid "Delete from palette"
 msgstr "Șterge din paletă"
 
-#: src/components/ImageChooser.tsx:94
+#: src/components/ImageChooser.tsx:93
 msgid "Delete oldest"
 msgstr "Șterge cel mai vechi"
 
@@ -701,8 +709,8 @@ msgstr "Ștergeți setul de culori"
 msgid "Delete the custom brand"
 msgstr "Ștergeți marca personalizată"
 
-#: src/components/image/RecentImageCard.tsx:63
-#: src/components/image/RecentImageCard.tsx:78
+#: src/components/image/RecentImageCard.tsx:114
+#: src/components/image/RecentImageCard.tsx:129
 msgid "Delete the recent photo"
 msgstr "Ștergeți fotografia recentă"
 
@@ -766,7 +774,7 @@ msgstr "Aveți un set de culori cumpărat din magazin sau personalizat?"
 msgid "Don't save"
 msgstr "Nu salva"
 
-#: src/stores/cloud-slice.ts:136
+#: src/stores/cloud-slice.ts:143
 msgid "Downloading image {index} of {count}"
 msgstr "Descărcarea imaginii {index} a {count}"
 
@@ -1009,20 +1017,20 @@ msgstr "Poate fi dificil să alegi între mai multe fotografii. Compararea fiec�
 #: src/components/color/PaletteColorMixtureCard.tsx:125
 #: src/components/ColorSetChooser.tsx:758
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/RecentImageCard.tsx:74
+#: src/components/image/RecentImageCard.tsx:125
 #: src/components/palette/PaletteGrid.tsx:114
 msgid "Keep"
 msgstr "Păstrează"
 
-#: src/components/ImageChooser.tsx:95
+#: src/components/ImageChooser.tsx:94
 msgid "Keep all"
 msgstr "Păstrează totul"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:57
+#: src/components/cloud/CloudFeedbackHandler.tsx:59
 msgid "Keep cloud data"
 msgstr "Păstrează datele din cloud"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:40
+#: src/components/cloud/CloudFeedbackHandler.tsx:42
 msgid "Keep this device"
 msgstr "Păstrează acest dispozitiv"
 
@@ -1034,7 +1042,7 @@ msgstr "Limbă"
 msgid "Last charge status"
 msgstr "Starea ultimei încărcături"
 
-#: src/components/image/RecentImageCard.tsx:88
+#: src/components/image/RecentImageCard.tsx:139
 msgid "Last used {dateText}"
 msgstr "Ultima utilizare {dateText}"
 
@@ -1238,7 +1246,7 @@ msgstr "Doar un număr limitat de mărci de culori sunt disponibile în versiune
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Doar un număr limitat de moduri sunt disponibile în versiunea gratuită"
 
-#: src/components/ImageStyleTransfer.tsx:237
+#: src/components/ImageStyleTransfer.tsx:249
 msgid "Only a limited number of styles are available in the free version"
 msgstr "Doar un număr limitat de stiluri sunt disponibile în versiunea gratuită"
 
@@ -1271,11 +1279,11 @@ msgstr "Sau salvează un fișier de backup pe acest dispozitiv."
 msgid "Or scan the QR code"
 msgstr "Sau scanați codul QR"
 
-#: src/components/ImageChooser.tsx:152
+#: src/components/ImageChooser.tsx:151
 msgid "Or select from sample photos"
 msgstr "Sau selectați din poze eșantion"
 
-#: src/components/ImageChooser.tsx:126
+#: src/components/ImageChooser.tsx:125
 msgid "Or select from your recent photos"
 msgstr "Sau selectați din fotografiile recente"
 
@@ -1345,9 +1353,25 @@ msgstr "Stocarea persistentă nu este activată"
 msgid "Photo"
 msgstr "Fotografie"
 
+#: src/components/image/RecentImageCard.tsx:68
+msgid "Photo not restored"
+msgstr "Fotografia nu a fost restaurată"
+
 #: src/components/ImagesCompare.tsx:167
 msgid "Photo ranking"
 msgstr "Clasamentul fotografiilor"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:199
+msgid "Photo unavailable"
+msgstr "Fotografie indisponibilă"
+
+#: src/components/image/RecentImageCard.tsx:87
+msgid "Photo unavailable. Restore it from your cloud storage, or select the original again."
+msgstr "Fotografie indisponibilă. Restaurați-l din spațiul de stocare în cloud sau selectați din nou originalul."
+
+#: src/components/image/RecentImageCard.tsx:96
+msgid "Photo unavailable. Select the original again to repair it."
+msgstr "Fotografie indisponibilă. Selectați din nou originalul pentru a-l repara."
 
 #: src/components/empty/EmptyTargetColor.tsx:35
 msgid "Pinch or scroll to zoom, drag to pan."
@@ -1361,7 +1385,7 @@ msgstr "Vă rugăm să ne trimiteți o captură de ecran a acestei erori prin <0
 msgid "Position: {position}<0/>Rating: {ratingText}"
 msgstr "Poziție: {position}<0/>Evaluare: {ratingText}"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:67
+#: src/components/cloud/CloudFeedbackHandler.tsx:91
 #: src/components/cloud/CloudSyncUpdateNotification.tsx:56
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:63
 msgid "Postpone"
@@ -1459,6 +1483,10 @@ msgstr "Reflectanță"
 msgid "Reload"
 msgstr "Reîncărcare"
 
+#: src/components/cloud/CloudFeedbackHandler.tsx:81
+msgid "Remove and continue"
+msgstr "Scoateți și continuați"
+
 #: src/components/ImageColorAdjustment.tsx:397
 #: src/components/messages.ts:43
 msgid "Remove background"
@@ -1490,6 +1518,10 @@ msgstr "Reseta"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:78
 msgid "Restore backup"
 msgstr "Restaurarea backup-ului"
+
+#: src/components/image/RecentImageCard.tsx:92
+msgid "Restore from cloud"
+msgstr "Restaurați din cloud"
 
 #: src/components/empty/EmptyPalette.tsx:76
 msgid "Return to the <0>{paletteLabel}</0> tab."
@@ -1527,7 +1559,7 @@ msgstr "Saturație (%)"
 #: src/components/ImageOutline.tsx:373
 #: src/components/ImagePerspectiveCorrection.tsx:309
 #: src/components/ImagePerspectiveCorrection.tsx:361
-#: src/components/ImageStyleTransfer.tsx:231
+#: src/components/ImageStyleTransfer.tsx:243
 #: src/components/ImageTonalValues.tsx:159
 #: src/components/ImageTonalValues.tsx:175
 msgid "Save"
@@ -1537,7 +1569,7 @@ msgstr "Salva"
 msgid "Save & continue"
 msgstr "Salvează și continuă"
 
-#: src/components/cloud/ExportToZipButton.tsx:56
+#: src/components/cloud/ExportToZipButton.tsx:75
 msgid "Save backup"
 msgstr "Salvează backup-ul"
 
@@ -1575,11 +1607,15 @@ msgstr "Selectați o fotografie pentru a corecta perspectiva"
 msgid "Select a photo to remove the background from"
 msgstr "Selectați o fotografie din care să eliminați fundalul"
 
-#: src/components/ImageChooser.tsx:115
+#: src/components/ImageChooser.tsx:114
 msgid "Select a reference photo from your device to paint from"
 msgstr "Selectați o fotografie de referință de pe dispozitiv pentru a picta"
 
-#: src/components/ImageStyleTransfer.tsx:226
+#: src/components/ImageStyleTransfer.tsx:193
+msgid "Select a style image to use this style"
+msgstr "Selectați o imagine de stil pentru a utiliza acest stil"
+
+#: src/components/ImageStyleTransfer.tsx:238
 msgid "Select a style to transfer to your reference photo"
 msgstr "Selectează un stil pe care să-l transferi în fotografia de referință"
 
@@ -1649,7 +1685,7 @@ msgid "Select part"
 msgstr "Selectează piesa"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageChooser.tsx:120
+#: src/components/ImageChooser.tsx:119
 #: src/components/ImageColorAdjustment.tsx:361
 #: src/components/ImagePerspectiveCorrection.tsx:270
 msgid "Select photo"
@@ -1667,7 +1703,7 @@ msgstr "Selectați fotografiile de clasat folosind comparația în perechi"
 msgid "Select set"
 msgstr "Selectează setul"
 
-#: src/components/ImageStyleTransfer.tsx:166
+#: src/components/ImageStyleTransfer.tsx:171
 msgid "Select style image"
 msgstr "Selectați imaginea de stil"
 
@@ -1759,7 +1795,7 @@ msgstr "Afișați grila"
 msgid "Show matching areas"
 msgstr "Arată zonele de potrivire"
 
-#: src/components/ImageChooser.tsx:144
+#: src/components/ImageChooser.tsx:143
 msgid "Show older photos"
 msgstr "Arată fotografii mai vechi"
 
@@ -1812,7 +1848,7 @@ msgstr "Suprapune ușor zonele pastelate de ceară de diferite culori și ameste
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Valorile percentilelor mai mici corespund unei albiri mai puternice"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:151
+#: src/components/cloud/CloudFeedbackHandler.tsx:175
 msgid "Some synchronized cloud data was deleted or is unavailable. Keep this device to create it again, or postpone the decision. ArtistAssistApp will not recreate it automatically."
 msgstr "Unele date sincronizate din cloud au fost șterse sau nu sunt disponibile. Păstrează acest dispozitiv pentru a-l crea din nou sau amână decizia. ArtistAssistApp nu o va recrea automat."
 
@@ -1857,7 +1893,7 @@ msgstr "Set de culori standard"
 msgid "Standard print"
 msgstr "Imprimare standard"
 
-#: src/components/ImageChooser.tsx:87
+#: src/components/ImageChooser.tsx:86
 msgid "Storage may fill up"
 msgstr "Depozitul se poate umple"
 
@@ -1873,7 +1909,7 @@ msgstr "Îndreaptă"
 msgid "Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "Îndreptă fotografiile deformate și îndepărtează marginile nedorite. Folosește auto-detectarea sau selectează 4 puncte pentru a corecta distorsiunea perspectivei, apoi opțional trage marginile pentru a decupa imaginea."
 
-#: src/components/ImageStyleTransfer.tsx:219
+#: src/components/ImageStyleTransfer.tsx:231
 msgid "Styled reference photo"
 msgstr "Fotografie de referință stilizată"
 
@@ -1894,6 +1930,10 @@ msgstr "Culoarea suprafeței"
 #: src/components/lightbox/LightboxOverlay.tsx:118
 msgid "Swipe to unlock"
 msgstr "Glisează pentru a debloca"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:201
+msgid "Sync stopped because the photo {context} is unavailable and is not in your cloud storage. Remove it to continue syncing, or postpone the decision."
+msgstr "Sincronizarea s-a oprit deoarece fotografia {context} nu este disponibilă și nu se află în stocarea dvs. în cloud. Eliminați-l pentru a continua sincronizarea sau amânați decizia."
 
 #: src/components/cloud/SyncCloudButton.tsx:46
 msgid "Sync with {label}"
@@ -1920,11 +1960,11 @@ msgstr "Dimensiune țintă de imprimare"
 msgid "Terms of use"
 msgstr "Termeni de utilizare"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:83
+#: src/components/cloud/CloudFeedbackHandler.tsx:107
 msgid "The cloud connection could not be completed. Start again from ArtistAssistApp."
 msgstr "Conexiunea la cloud nu a putut fi finalizată. Începe din nou de la ArtistAssistApp."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:170
+#: src/components/cloud/CloudFeedbackHandler.tsx:194
 msgid "The cloud data file is damaged. Replace it with the data from this device."
 msgstr "Fișierul de date din cloud este deteriorat. Înlocuiește-l cu datele de pe acest dispozitiv."
 
@@ -1989,15 +2029,15 @@ msgstr "Aceasta șterge tot ce se află în folderul aplicației cloud conectate
 msgid "This deletes your account and membership lookup records and logs you out."
 msgstr "Acest lucru șterge înregistrările de căutare a contului și a membrilor și te deloghează."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:124
+#: src/components/cloud/CloudFeedbackHandler.tsx:148
 msgid "This device and the synchronized cloud data both changed. Choose which one to keep."
 msgstr "Acest dispozitiv și datele sincronizate din cloud s-au schimbat amândouă. Alege pe care să-l păstrezi."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:110
+#: src/components/cloud/CloudFeedbackHandler.tsx:134
 msgid "This device has changes made while another account was active. Keep this device to upload them to the current account, keep the cloud data to discard them, or postpone the decision."
 msgstr "Acest dispozitiv are modificări făcute în timp ce un alt cont era activ. Păstrează acest dispozitiv pentru a le încărca în contul curent, păstrează datele cloud pentru a le elimina sau amână decizia."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:137
+#: src/components/cloud/CloudFeedbackHandler.tsx:161
 msgid "This device has local data and existing synchronized cloud data, but no sync history. Choose which one to keep."
 msgstr "Acest dispozitiv are date locale și date cloud sincronizate existente, dar nu are istoric de sincronizare. Alege pe care să-l păstrezi."
 
@@ -2009,6 +2049,10 @@ msgstr "Acest cod de autentificare nu mai poate fi folosit. Solicită un nou cod
 msgid "This permanently deletes the ArtistAssistApp folder and all your files and folders still inside it. Files you moved outside the folder are not deleted."
 msgstr "Acest lucru șterge permanent folderul ArtistAssistApp și toate fișierele și folderele care rămân în el. Fișierele pe care le-ai mutat în afara folderului nu sunt șterse."
 
+#: src/components/image/RecentImageCard.tsx:69
+msgid "This photo could not be restored from your cloud storage."
+msgstr "Această fotografie nu a putut fi restabilită din spațiul de stocare în cloud."
+
 #: src/components/print/PrintImageDrawer.tsx:176
 msgid "This print size is not supported"
 msgstr "Această dimensiune de imprimare nu este acceptată"
@@ -2017,7 +2061,7 @@ msgstr "Această dimensiune de imprimare nu este acceptată"
 msgid "This step is optional."
 msgstr "Acest pas este opțional."
 
-#: src/components/ImageStyleTransfer.tsx:183
+#: src/components/ImageStyleTransfer.tsx:188
 msgid "This style is available to paid Patreon members only"
 msgstr "Acest stil este disponibil numai pentru membrii Patreon plătiți"
 
@@ -2050,7 +2094,7 @@ msgid "Too many incorrect codes"
 msgstr "Prea multe coduri incorecte"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:181
-#: src/components/cloud/CloudFeedbackHandler.tsx:184
+#: src/components/cloud/CloudFeedbackHandler.tsx:218
 msgid "Too many requests"
 msgstr "Prea multe cereri"
 
@@ -2083,7 +2127,7 @@ msgstr "Eroare neașteptată: {errorMessage}"
 msgid "Unifying color"
 msgstr "Culoarea unificatoare"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:108
+#: src/components/cloud/CloudFeedbackHandler.tsx:132
 msgid "Unsynced changes on this device"
 msgstr "Modificări nesincronizate pe acest dispozitiv"
 
@@ -2094,7 +2138,7 @@ msgstr "Modificări nesincronizate pe acest dispozitiv"
 msgid "Untitled mixture"
 msgstr "Amestec fără titlu"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:189
+#: src/components/cloud/CloudFeedbackHandler.tsx:223
 msgid "Update ArtistAssistApp to the latest version and try again."
 msgstr "Actualizează ArtistAssistApp la cea mai recentă versiune și încearcă din nou."
 
@@ -2110,7 +2154,7 @@ msgstr "Actualizare disponibilă"
 msgid "Update now"
 msgstr "Actualizare acum"
 
-#: src/stores/cloud-slice.ts:135
+#: src/stores/cloud-slice.ts:142
 msgid "Uploading image {index} of {count}"
 msgstr "Încărcarea imaginii {index} a {count}"
 
@@ -2152,7 +2196,7 @@ msgid "View the outline over the live camera to trace in AR."
 msgstr "Vezi conturul peste camera live pentru a urmări în AR."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:182
-#: src/components/cloud/CloudFeedbackHandler.tsx:185
+#: src/components/cloud/CloudFeedbackHandler.tsx:219
 msgid "Wait a minute and try again."
 msgstr "Așteaptă un minut și încearcă din nou."
 
@@ -2214,7 +2258,7 @@ msgstr "Punct alb"
 msgid "Width"
 msgstr "Lățime"
 
-#: src/components/ImageChooser.tsx:89
+#: src/components/ImageChooser.tsx:88
 msgid "You already have many recent photos saved. Delete the oldest one to free up space? The new photo will still be added."
 msgstr "Ai deja multe fotografii recente salvate. Să ștergi cel mai vechi ca să eliberezi spațiu? Noua fotografie va fi totuși adăugată."
 
@@ -2259,7 +2303,7 @@ msgstr "Browserul tău nu suportă citirea imaginilor din clipboard."
 msgid "Your cloud data changed and will be synchronized automatically."
 msgstr "Datele tale din cloud s-au schimbat și vor fi sincronizate automat."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:177
+#: src/components/cloud/CloudFeedbackHandler.tsx:211
 msgid "Your cloud storage couldn't be reached. Your latest changes remain saved on this device and have not been uploaded. Check your internet connection, then try syncing again."
 msgstr "Stocarea ta în cloud nu a putut fi accesată. Ultimele modificări ale tale rămân salvate pe acest dispozitiv și nu au fost încărcate. Verifică-ți conexiunea la internet, apoi încearcă din nou să sincronizezi."
 

@@ -18,7 +18,7 @@
 
 import {AuthError} from '@/services/auth/errors';
 import {CloudError} from '@/services/cloud/errors';
-import {type ColorSetDefinition, type ColorType, CUSTOM_COLOR_SET} from '@/services/color/types';
+import {type ColorSetDefinition, ColorType, CUSTOM_COLOR_SET} from '@/services/color/types';
 import {TabKey} from '@/tabs';
 
 export interface UrlParsingResult {
@@ -51,6 +51,9 @@ const SKU_BASE = new Map<number, number>([
 ]);
 const URL_PARAM_ERROR = 'error';
 const TAB_KEY_VALUES = new Set<string>(Object.values(TabKey));
+const COLOR_TYPE_VALUES = new Set<number>(
+  Object.values(ColorType).filter((value): value is number => typeof value === 'number')
+);
 
 export function colorSetToUrl({
   type,
@@ -102,22 +105,31 @@ function parseColorSet(searchParams: URLSearchParams): ColorSetDefinition | unde
   if (!searchParams.has(URL_PARAM_COLOR_TYPE) || !searchParams.has(URL_PARAM_COLOR_BRANDS)) {
     return undefined;
   }
-  const type: ColorType = Number.parseInt(searchParams.get(URL_PARAM_COLOR_TYPE)!, URL_PARAM_RADIX);
-  const brands: number[] = searchParams
+  const type = parseUrlInteger(searchParams.get(URL_PARAM_COLOR_TYPE));
+  if (type === undefined || !COLOR_TYPE_VALUES.has(type)) {
+    return undefined;
+  }
+  const parsedBrands = searchParams
     .get(URL_PARAM_COLOR_BRANDS)!
     .split(URL_PARAM_SEPARATOR)
-    .map((brand: string) => Number.parseInt(brand, URL_PARAM_RADIX));
+    .map(parseUrlInteger);
+  if (parsedBrands.some(brand => brand === undefined)) {
+    return undefined;
+  }
+  const brands = parsedBrands.filter((brand): brand is number => brand !== undefined);
   const colors: Record<number, number[]> = {};
   for (const brand of brands) {
     const paramColors = `${URL_PARAM_COLORS_PREFIX}${brand}`;
     if (searchParams.has(paramColors)) {
-      colors[brand] = searchParams
+      const parsedIds = searchParams
         .get(paramColors)!
         .split(URL_PARAM_SEPARATOR)
-        .map((idStr: string) => {
-          const id = Number.parseInt(idStr, URL_PARAM_RADIX);
-          return id + (SKU_BASE.get(brand) ?? 0);
-        });
+        .map(parseUrlInteger);
+      if (parsedIds.some(id => id === undefined)) {
+        return undefined;
+      }
+      const ids = parsedIds.filter((id): id is number => id !== undefined);
+      colors[brand] = ids.map(id => id + (SKU_BASE.get(brand) ?? 0));
     }
   }
   if (!Object.keys(colors).length) {
@@ -131,6 +143,14 @@ function parseColorSet(searchParams: URLSearchParams): ColorSetDefinition | unde
     colors,
     ...(name ? {name} : {}),
   };
+}
+
+function parseUrlInteger(value: string | null): number | undefined {
+  if (!value || !/^[\da-z]+$/i.test(value)) {
+    return undefined;
+  }
+  const parsed = Number.parseInt(value, URL_PARAM_RADIX);
+  return Number.isSafeInteger(parsed) ? parsed : undefined;
 }
 
 function parseLoginCallback(url: URL): UrlParsingResult['loginCallback'] | undefined {

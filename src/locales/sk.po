@@ -54,6 +54,10 @@ msgstr "{FIELD} je povinné"
 msgid "{retryIn, plural, one {Resend code in # second} other {Resend code in # seconds}}"
 msgstr "{retryIn, plural, one {Odošlite kód znova o # sekundu} few {Odošlite kód znova o # sekundy} many {Odošlite kód znova o # sekúnd} other {Odošlite kód znova o # sekúnd}}"
 
+#: src/components/cloud/ExportToZipButton.tsx:46
+msgid "{unavailableImageCount, plural, one {Backup created without # unavailable photo. Select the original photo again, then save the backup again.} other {Backup created without # unavailable photos. Select the original photos again, then save the backup again.}}"
+msgstr "{unavailableImageCount, plural, one {Záloha bola vytvorená bez # nedostupnej fotografie. Znova vyberte pôvodnú fotografiu a potom zálohu znova uložte.} few {Záloha bola vytvorená bez # nedostupných fotografií. Znova vyberte pôvodné fotografie a potom zálohu znova uložte.} many {Záloha bola vytvorená bez # nedostupných fotografií. Znova vyberte pôvodné fotografie a potom zálohu znova uložte.} other {Záloha bola vytvorená bez # nedostupných fotografií. Znova vyberte pôvodné fotografie a potom zálohu znova uložte.}}"
+
 #: src/components/install/InstallDrawer.tsx:42
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux a <3/> ChromeOS"
@@ -261,7 +265,7 @@ msgstr "Naozaj chcete odstrániť túto množinu farieb?"
 msgid "Are you sure you want to delete this custom brand?"
 msgstr "Naozaj chcete odstrániť túto vlastnú značku?"
 
-#: src/components/image/RecentImageCard.tsx:64
+#: src/components/image/RecentImageCard.tsx:115
 msgid "Are you sure you want to delete this photo?"
 msgstr "Naozaj chcete túto fotografiu odstrániť?"
 
@@ -270,11 +274,11 @@ msgstr "Naozaj chcete túto fotografiu odstrániť?"
 msgid "Art medium"
 msgstr "Umelecké médium"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:93
+#: src/components/cloud/CloudFeedbackHandler.tsx:117
 msgid "ArtistAssistApp can no longer access your cloud storage. Disconnect it, then connect again."
 msgstr "ArtistAssist App už nemá prístup k vášmu cloudovému úložisku. Odpoj ho a potom sa znova pripoj."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:161
+#: src/components/cloud/CloudFeedbackHandler.tsx:185
 msgid "ArtistAssistApp could not confirm that your cloud files were deleted. Remove any remaining ArtistAssistApp folder or files directly from your cloud provider."
 msgstr "ArtistAssistApp nedokázal potvrdiť, že vaše cloudové súbory boli vymazané. Odstráňte všetky zostávajúce priečinky alebo súbory ArtistAssistApp priamo z vášho cloudového poskytovateľa."
 
@@ -335,6 +339,10 @@ msgstr "Pozadie"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:56
 msgid "Backup imported"
 msgstr "Záloha importovaná"
+
+#: src/components/cloud/ExportToZipButton.tsx:44
+msgid "Backup saved without some photos"
+msgstr "Záloha bola uložená bez niektorých fotiek"
 
 #: src/components/auth/JoinButton.tsx:27
 msgid "Become a paid member"
@@ -435,15 +443,15 @@ msgstr "Kliknite alebo ťuknite 🖱️ 👆 na ľubovoľné miesto na fotke, pr
 msgid "Close"
 msgstr "Zavrieť"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:99
+#: src/components/cloud/CloudFeedbackHandler.tsx:123
 msgid "Cloud access not granted"
 msgstr "Prístup do cloudu nebol udelený"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:91
+#: src/components/cloud/CloudFeedbackHandler.tsx:115
 msgid "Cloud authorization failed"
 msgstr "Autorizácia cloudu zlyhala"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:81
+#: src/components/cloud/CloudFeedbackHandler.tsx:105
 msgid "Cloud connection failed"
 msgstr "Cloudové pripojenie zlyhalo"
 
@@ -451,35 +459,35 @@ msgstr "Cloudové pripojenie zlyhalo"
 msgid "Cloud data changed"
 msgstr "Zmena cloudových dát"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:149
+#: src/components/cloud/CloudFeedbackHandler.tsx:173
 msgid "Cloud data not found"
 msgstr "Cloudové dáta neboli nájdené"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:168
+#: src/components/cloud/CloudFeedbackHandler.tsx:192
 msgid "Cloud data unreadable"
 msgstr "Cloudové dáta nečitateľné"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:159
+#: src/components/cloud/CloudFeedbackHandler.tsx:183
 msgid "Cloud files may remain"
 msgstr "Cloudové súbory môžu zostať"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:87
+#: src/components/cloud/CloudFeedbackHandler.tsx:111
 msgid "Cloud not connected"
 msgstr "Cloud nie je pripojený"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:101
+#: src/components/cloud/CloudFeedbackHandler.tsx:125
 msgid "Cloud storage was not connected because access was not granted. To connect it, try again and allow the requested access."
 msgstr "Cloudové úložisko nebolo pripojené, pretože prístup nebol udelený. Na pripojenie skúste znova a povolte požadovaný prístup."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:122
+#: src/components/cloud/CloudFeedbackHandler.tsx:146
 msgid "Cloud sync conflict"
 msgstr "Konflikt synchronizácie cloudu"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:188
+#: src/components/cloud/CloudFeedbackHandler.tsx:222
 msgid "Cloud sync failed"
 msgstr "Cloud sync zlyhal"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:135
+#: src/components/cloud/CloudFeedbackHandler.tsx:159
 msgid "Cloud sync history missing"
 msgstr "Chýba história synchronizácie cloudu"
 
@@ -487,7 +495,7 @@ msgstr "Chýba história synchronizácie cloudu"
 msgid "Cloud sync is not enabled"
 msgstr "Cloud sync nie je zapnutý"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:175
+#: src/components/cloud/CloudFeedbackHandler.tsx:209
 msgid "Cloud sync paused"
 msgstr "Cloud sync pozastavený"
 
@@ -569,7 +577,7 @@ msgstr "Connect {label}"
 msgid "Connect {label}?"
 msgstr "Pripojiť {label}?"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:88
+#: src/components/cloud/CloudFeedbackHandler.tsx:112
 msgid "Connect cloud storage before syncing."
 msgstr "Pripojte cloudové úložisko pred synchronizáciou."
 
@@ -613,7 +621,7 @@ msgstr "Opravený odhad teploty svetelného zdroja v Kelvinoch"
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Nedokázal automaticky rozpoznať papier ani plátno"
 
-#: src/components/cloud/ExportToZipButton.tsx:40
+#: src/components/cloud/ExportToZipButton.tsx:59
 msgid "Could not export backup"
 msgstr "Záloha sa nepodarila exportovať"
 
@@ -653,8 +661,8 @@ msgstr "Vlastné farby"
 #: src/components/ColorSetChooser.tsx:767
 #: src/components/CustomColorBrandCreator.tsx:517
 #: src/components/CustomColorBrandCreator.tsx:527
-#: src/components/image/RecentImageCard.tsx:73
-#: src/components/image/RecentImageCard.tsx:83
+#: src/components/image/RecentImageCard.tsx:124
+#: src/components/image/RecentImageCard.tsx:134
 #: src/components/storage/DeleteAppDataButton.tsx:50
 msgid "Delete"
 msgstr "Odstrániť"
@@ -683,7 +691,7 @@ msgstr "Vymažte dáta na tomto zariadení"
 msgid "Delete from palette"
 msgstr "Vymazať z palety"
 
-#: src/components/ImageChooser.tsx:94
+#: src/components/ImageChooser.tsx:93
 msgid "Delete oldest"
 msgstr "Vymazať najstarší"
 
@@ -701,8 +709,8 @@ msgstr "Odstránenie množiny farieb"
 msgid "Delete the custom brand"
 msgstr "Odstránenie vlastnej značky"
 
-#: src/components/image/RecentImageCard.tsx:63
-#: src/components/image/RecentImageCard.tsx:78
+#: src/components/image/RecentImageCard.tsx:114
+#: src/components/image/RecentImageCard.tsx:129
 msgid "Delete the recent photo"
 msgstr "Odstránenie nedávnej fotky"
 
@@ -766,7 +774,7 @@ msgstr "Máte farebnú sadu zakúpenú v obchode alebo na mieru?"
 msgid "Don't save"
 msgstr "Neukladaj"
 
-#: src/stores/cloud-slice.ts:136
+#: src/stores/cloud-slice.ts:143
 msgid "Downloading image {index} of {count}"
 msgstr "Sťahovanie obrázka {index} z {count}"
 
@@ -1009,20 +1017,20 @@ msgstr "Môže byť ťažké vybrať si medzi viacerými fotografiami. Porovnani
 #: src/components/color/PaletteColorMixtureCard.tsx:125
 #: src/components/ColorSetChooser.tsx:758
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/RecentImageCard.tsx:74
+#: src/components/image/RecentImageCard.tsx:125
 #: src/components/palette/PaletteGrid.tsx:114
 msgid "Keep"
 msgstr "Nechať si"
 
-#: src/components/ImageChooser.tsx:95
+#: src/components/ImageChooser.tsx:94
 msgid "Keep all"
 msgstr "Nechajte si všetko"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:57
+#: src/components/cloud/CloudFeedbackHandler.tsx:59
 msgid "Keep cloud data"
 msgstr "Uchovávajte cloudové dáta"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:40
+#: src/components/cloud/CloudFeedbackHandler.tsx:42
 msgid "Keep this device"
 msgstr "Nechajte si toto zariadenie"
 
@@ -1034,7 +1042,7 @@ msgstr "Jazyk"
 msgid "Last charge status"
 msgstr "Stav posledného obvinenia"
 
-#: src/components/image/RecentImageCard.tsx:88
+#: src/components/image/RecentImageCard.tsx:139
 msgid "Last used {dateText}"
 msgstr "Naposledy použité {dateText}"
 
@@ -1238,7 +1246,7 @@ msgstr "V bezplatnej verzii je k dispozícii iba obmedzený počet farebných zn
 msgid "Only a limited number of modes are available in the free version"
 msgstr "V bezplatnej verzii je k dispozícii iba obmedzený počet režimov"
 
-#: src/components/ImageStyleTransfer.tsx:237
+#: src/components/ImageStyleTransfer.tsx:249
 msgid "Only a limited number of styles are available in the free version"
 msgstr "V bezplatnej verzii je k dispozícii len obmedzený počet štýlov"
 
@@ -1271,11 +1279,11 @@ msgstr "Alebo si uložte zálohovací súbor na toto zariadenie."
 msgid "Or scan the QR code"
 msgstr "Alebo naskenujte QR kód"
 
-#: src/components/ImageChooser.tsx:152
+#: src/components/ImageChooser.tsx:151
 msgid "Or select from sample photos"
 msgstr "Alebo si vyberte zo vzorových fotografií"
 
-#: src/components/ImageChooser.tsx:126
+#: src/components/ImageChooser.tsx:125
 msgid "Or select from your recent photos"
 msgstr "Alebo si vyberte zo svojich nedávnych fotiek"
 
@@ -1345,9 +1353,25 @@ msgstr "Trvalé úložisko nie je povolené"
 msgid "Photo"
 msgstr "Fotka"
 
+#: src/components/image/RecentImageCard.tsx:68
+msgid "Photo not restored"
+msgstr "Fotografia nebola obnovená"
+
 #: src/components/ImagesCompare.tsx:167
 msgid "Photo ranking"
 msgstr "Poradie fotografií"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:199
+msgid "Photo unavailable"
+msgstr "Fotografia nie je k dispozícii"
+
+#: src/components/image/RecentImageCard.tsx:87
+msgid "Photo unavailable. Restore it from your cloud storage, or select the original again."
+msgstr "Fotografia nie je k dispozícii. Obnovte ho z cloudového úložiska alebo znova vyberte originál."
+
+#: src/components/image/RecentImageCard.tsx:96
+msgid "Photo unavailable. Select the original again to repair it."
+msgstr "Fotografia nie je k dispozícii. Znova vyberte originál a opravte ho."
 
 #: src/components/empty/EmptyTargetColor.tsx:35
 msgid "Pinch or scroll to zoom, drag to pan."
@@ -1361,7 +1385,7 @@ msgstr "<0>Prosím, pošlite</0> nám screenshot tejto chyby cez naše kontakty.
 msgid "Position: {position}<0/>Rating: {ratingText}"
 msgstr "Pozícia: {position}<0/>Rating: {ratingText}"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:67
+#: src/components/cloud/CloudFeedbackHandler.tsx:91
 #: src/components/cloud/CloudSyncUpdateNotification.tsx:56
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:63
 msgid "Postpone"
@@ -1459,6 +1483,10 @@ msgstr "Odrazivosť"
 msgid "Reload"
 msgstr "Nabíjanie"
 
+#: src/components/cloud/CloudFeedbackHandler.tsx:81
+msgid "Remove and continue"
+msgstr "Odstráňte a pokračujte"
+
 #: src/components/ImageColorAdjustment.tsx:397
 #: src/components/messages.ts:43
 msgid "Remove background"
@@ -1490,6 +1518,10 @@ msgstr "Vynulovanie"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:78
 msgid "Restore backup"
 msgstr "Obnoviť zálohu"
+
+#: src/components/image/RecentImageCard.tsx:92
+msgid "Restore from cloud"
+msgstr "Obnoviť z cloudu"
 
 #: src/components/empty/EmptyPalette.tsx:76
 msgid "Return to the <0>{paletteLabel}</0> tab."
@@ -1527,7 +1559,7 @@ msgstr "Sýtosť (%)"
 #: src/components/ImageOutline.tsx:373
 #: src/components/ImagePerspectiveCorrection.tsx:309
 #: src/components/ImagePerspectiveCorrection.tsx:361
-#: src/components/ImageStyleTransfer.tsx:231
+#: src/components/ImageStyleTransfer.tsx:243
 #: src/components/ImageTonalValues.tsx:159
 #: src/components/ImageTonalValues.tsx:175
 msgid "Save"
@@ -1537,7 +1569,7 @@ msgstr "Zachrániť"
 msgid "Save & continue"
 msgstr "Uložiť a pokračovať"
 
-#: src/components/cloud/ExportToZipButton.tsx:56
+#: src/components/cloud/ExportToZipButton.tsx:75
 msgid "Save backup"
 msgstr "Záloha si ulož"
 
@@ -1575,11 +1607,15 @@ msgstr "Vyberte fotografiu na korekciu perspektívy"
 msgid "Select a photo to remove the background from"
 msgstr "Vyberte fotografiu, z ktorej chcete odstrániť pozadie"
 
-#: src/components/ImageChooser.tsx:115
+#: src/components/ImageChooser.tsx:114
 msgid "Select a reference photo from your device to paint from"
 msgstr "Vyberte referenčnú fotografiu zo zariadenia, z ktorej chcete maľovať"
 
-#: src/components/ImageStyleTransfer.tsx:226
+#: src/components/ImageStyleTransfer.tsx:193
+msgid "Select a style image to use this style"
+msgstr "Ak chcete použiť tento štýl, vyberte obrázok štýlu"
+
+#: src/components/ImageStyleTransfer.tsx:238
 msgid "Select a style to transfer to your reference photo"
 msgstr "Vyberte štýl, ktorý chcete preniesť na referenčnú fotografiu"
 
@@ -1649,7 +1685,7 @@ msgid "Select part"
 msgstr "Vybrať diel"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageChooser.tsx:120
+#: src/components/ImageChooser.tsx:119
 #: src/components/ImageColorAdjustment.tsx:361
 #: src/components/ImagePerspectiveCorrection.tsx:270
 msgid "Select photo"
@@ -1667,7 +1703,7 @@ msgstr "Vyberte fotografie, ktoré chcete zaradiť pomocou párového porovnania
 msgid "Select set"
 msgstr "Vyberte sadu"
 
-#: src/components/ImageStyleTransfer.tsx:166
+#: src/components/ImageStyleTransfer.tsx:171
 msgid "Select style image"
 msgstr "Výber štýlu obrázka"
 
@@ -1759,7 +1795,7 @@ msgstr "Zobraziť mriežku"
 msgid "Show matching areas"
 msgstr "Zobraziť zodpovedajúce oblasti"
 
-#: src/components/ImageChooser.tsx:144
+#: src/components/ImageChooser.tsx:143
 msgid "Show older photos"
 msgstr "Ukážte staršie fotografie"
 
@@ -1812,7 +1848,7 @@ msgstr "Jemne prekryjte voskové pastelové oblasti rôznych farieb a pevne prem
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Menšie percentilové hodnoty zodpovedajú silnejšiemu vybieleniu"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:151
+#: src/components/cloud/CloudFeedbackHandler.tsx:175
 msgid "Some synchronized cloud data was deleted or is unavailable. Keep this device to create it again, or postpone the decision. ArtistAssistApp will not recreate it automatically."
 msgstr "Niektoré synchronizované cloudové dáta boli vymazané alebo nie sú dostupné. Nechajte si toto zariadenie, aby ste ho mohli znovu vytvoriť, alebo rozhodnutie odložte. ArtistAssist App ho automaticky nevytvorí."
 
@@ -1857,7 +1893,7 @@ msgstr "Štandardná sada farieb"
 msgid "Standard print"
 msgstr "Štandardná tlač"
 
-#: src/components/ImageChooser.tsx:87
+#: src/components/ImageChooser.tsx:86
 msgid "Storage may fill up"
 msgstr "Sklad sa môže zaplniť"
 
@@ -1873,7 +1909,7 @@ msgstr "Narovnajte sa"
 msgid "Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "Vyrovnáva šikmé fotografie a odstraňuje nežiaduce okraje. Použite automatickú detekciu alebo vyberte 4 body na korekciu perspektívneho skreslenia, potom voliteľne potiahnite okraje na orezanie obrázka."
 
-#: src/components/ImageStyleTransfer.tsx:219
+#: src/components/ImageStyleTransfer.tsx:231
 msgid "Styled reference photo"
 msgstr "Štylizovaná referenčná fotografia"
 
@@ -1894,6 +1930,10 @@ msgstr "Povrchová farba"
 #: src/components/lightbox/LightboxOverlay.tsx:118
 msgid "Swipe to unlock"
 msgstr "Potiahnutím na odomknutie"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:201
+msgid "Sync stopped because the photo {context} is unavailable and is not in your cloud storage. Remove it to continue syncing, or postpone the decision."
+msgstr "Synchronizácia sa zastavila, pretože fotografia {context} nie je k dispozícii a nie je vo vašom cloudovom úložisku. Ak chcete pokračovať v synchronizácii, odstráňte ho alebo rozhodnutie odložte."
 
 #: src/components/cloud/SyncCloudButton.tsx:46
 msgid "Sync with {label}"
@@ -1920,11 +1960,11 @@ msgstr "Cieľová veľkosť tlače"
 msgid "Terms of use"
 msgstr "Podmienky používania"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:83
+#: src/components/cloud/CloudFeedbackHandler.tsx:107
 msgid "The cloud connection could not be completed. Start again from ArtistAssistApp."
 msgstr "Cloudové pripojenie sa nepodarilo dokončiť. Začnite znova od ArtistAssistApp."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:170
+#: src/components/cloud/CloudFeedbackHandler.tsx:194
 msgid "The cloud data file is damaged. Replace it with the data from this device."
 msgstr "Cloudový dátový súbor je poškodený. Nahraďte ho dátami z tohto zariadenia."
 
@@ -1989,15 +2029,15 @@ msgstr "Tým sa vymaže všetko v pripojenom priečinku cloudových aplikácií,
 msgid "This deletes your account and membership lookup records and logs you out."
 msgstr "Tým sa vymažú záznamy o vyhľadávaní vášho účtu a členstva a odhlásia vás."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:124
+#: src/components/cloud/CloudFeedbackHandler.tsx:148
 msgid "This device and the synchronized cloud data both changed. Choose which one to keep."
 msgstr "Toto zariadenie aj synchronizované cloudové dáta sa zmenili. Vyberte si, ktorú si ponecháte."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:110
+#: src/components/cloud/CloudFeedbackHandler.tsx:134
 msgid "This device has changes made while another account was active. Keep this device to upload them to the current account, keep the cloud data to discard them, or postpone the decision."
 msgstr "Toto zariadenie má zmeny, ktoré sa uskutočnili, keď bol aktívny iný účet. Nechajte si toto zariadenie na nahranie na aktuálny účet, uchovávajte cloudové dáta na ich likvidáciu alebo rozhodnutie odložte."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:137
+#: src/components/cloud/CloudFeedbackHandler.tsx:161
 msgid "This device has local data and existing synchronized cloud data, but no sync history. Choose which one to keep."
 msgstr "Toto zariadenie má lokálne dáta a existujúce synchronizované cloudové dáta, ale žiadnu históriu synchronizácie. Vyberte si, ktorú si ponecháte."
 
@@ -2009,6 +2049,10 @@ msgstr "Tento prihlasovací kód už nie je možné použiť. Požiadajte o nov�
 msgid "This permanently deletes the ArtistAssistApp folder and all your files and folders still inside it. Files you moved outside the folder are not deleted."
 msgstr "Tým sa trvalo vymaže priečinok ArtistAssistApp a všetky vaše súbory a priečinky, ktoré v ňom zostali. Súbory, ktoré ste presunuli mimo priečinka, sa nevymažú."
 
+#: src/components/image/RecentImageCard.tsx:69
+msgid "This photo could not be restored from your cloud storage."
+msgstr "Túto fotografiu nebolo možné obnoviť z vášho cloudového úložiska."
+
 #: src/components/print/PrintImageDrawer.tsx:176
 msgid "This print size is not supported"
 msgstr "Táto veľkosť tlače nie je podporovaná"
@@ -2017,7 +2061,7 @@ msgstr "Táto veľkosť tlače nie je podporovaná"
 msgid "This step is optional."
 msgstr "Tento krok je voliteľný."
 
-#: src/components/ImageStyleTransfer.tsx:183
+#: src/components/ImageStyleTransfer.tsx:188
 msgid "This style is available to paid Patreon members only"
 msgstr "Tento štýl je dostupný iba pre platených členov Patreonu"
 
@@ -2050,7 +2094,7 @@ msgid "Too many incorrect codes"
 msgstr "Príliš veľa nesprávnych kódov"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:181
-#: src/components/cloud/CloudFeedbackHandler.tsx:184
+#: src/components/cloud/CloudFeedbackHandler.tsx:218
 msgid "Too many requests"
 msgstr "Príliš veľa požiadaviek"
 
@@ -2083,7 +2127,7 @@ msgstr "Neočakávaná chyba: {errorMessage}"
 msgid "Unifying color"
 msgstr "Zjednocujúca farba"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:108
+#: src/components/cloud/CloudFeedbackHandler.tsx:132
 msgid "Unsynced changes on this device"
 msgstr "Nesynchronizované zmeny na tomto zariadení"
 
@@ -2094,7 +2138,7 @@ msgstr "Nesynchronizované zmeny na tomto zariadení"
 msgid "Untitled mixture"
 msgstr "Zmes bez názvu"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:189
+#: src/components/cloud/CloudFeedbackHandler.tsx:223
 msgid "Update ArtistAssistApp to the latest version and try again."
 msgstr "Aktualizujte ArtistAssist App na najnovšiu verziu a skúste to znova."
 
@@ -2110,7 +2154,7 @@ msgstr "Aktualizácia dostupná"
 msgid "Update now"
 msgstr "Aktualizácia teraz"
 
-#: src/stores/cloud-slice.ts:135
+#: src/stores/cloud-slice.ts:142
 msgid "Uploading image {index} of {count}"
 msgstr "Nahrávanie obrázka {index} z {count}"
 
@@ -2152,7 +2196,7 @@ msgid "View the outline over the live camera to trace in AR."
 msgstr "Pozrite si obrys cez živú kameru na obkreslenie v AR."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:182
-#: src/components/cloud/CloudFeedbackHandler.tsx:185
+#: src/components/cloud/CloudFeedbackHandler.tsx:219
 msgid "Wait a minute and try again."
 msgstr "Počkaj chvíľu a skús to znova."
 
@@ -2214,7 +2258,7 @@ msgstr "Biely bod"
 msgid "Width"
 msgstr "Šírka"
 
-#: src/components/ImageChooser.tsx:89
+#: src/components/ImageChooser.tsx:88
 msgid "You already have many recent photos saved. Delete the oldest one to free up space? The new photo will still be added."
 msgstr "Už máte uložených veľa nedávnych fotografií. Vymazať ten najstarší, aby sa uvoľnilo miesto? Nová fotografia bude stále pridaná."
 
@@ -2259,7 +2303,7 @@ msgstr "Váš prehliadač nepodporuje čítanie obrázkov zo schránky."
 msgid "Your cloud data changed and will be synchronized automatically."
 msgstr "Vaše cloudové dáta sa zmenili a budú automaticky synchronizované."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:177
+#: src/components/cloud/CloudFeedbackHandler.tsx:211
 msgid "Your cloud storage couldn't be reached. Your latest changes remain saved on this device and have not been uploaded. Check your internet connection, then try syncing again."
 msgstr "Vaše cloudové úložisko nebolo dostupné. Vaše najnovšie zmeny zostávajú uložené na tomto zariadení a neboli nahrané. Skontrolujte si internetové pripojenie a potom skúste znova synchronizovať."
 

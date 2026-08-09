@@ -52,7 +52,12 @@ import {
   replaceLocalStateFromCloud,
   saveCloudSync,
 } from '@/services/db/cloud-sync-db';
-import {getImageFileByDigest} from '@/services/db/image-file-db';
+import type {RepairedImage} from '@/services/db/image-file-db';
+import {
+  getReadableImageDigests,
+  readImageBytes,
+  saveRepairedImageBytes,
+} from '@/services/db/image-file-db';
 import type {StoreChangeTokens} from '@/services/db/types';
 import type {ImageFile} from '@/services/image/image-file';
 import {digestArrayBuffer} from '@/utils/digest';
@@ -91,12 +96,24 @@ type DownloadedSyncState =
       hash: string;
     };
 
-function createCloudSyncClient<T>(client: CloudClient<T>): CloudSyncClient {
+type RemoteImageDownload<T> =
+  | {status: 'verified'; file: CloudFile<T>; bytes: ArrayBuffer}
+  | {status: 'missing'}
+  | {status: 'invalid'};
+
+export type CloudImageRepairResult =
+  {status: 'deleted'} | {status: 'restored'; image: RepairedImage} | {status: 'unavailable'};
+
+function createCloudSyncClient<T>(
+  provider: CloudProvider,
+  client: CloudClient<T>
+): CloudSyncClient {
   return {
     sync: context => syncState(client, context),
     push: context => pushState(client, context),
     upload: context => uploadState(client, context),
     download: context => downloadState(client, context),
+    repairImage: (digest, cloudSync) => repairImage(client, provider, digest, cloudSync),
     hasCloudDataChanged: (cloudSync, localStateConnection) =>
       checkCloudDataChanged(client, cloudSync, localStateConnection),
     deleteCloudData: (cloudSync, permanent) => deleteCloudData(client, cloudSync, permanent),
@@ -180,7 +197,7 @@ async function uploadState<T>(
 
 async function downloadState<T>(
   client: CloudClient<T>,
-  {cloudConnection, connectionCloudSync, localState, signal, onProgress}: CloudSyncContext,
+  {cloudConnection, connectionCloudSync, signal, onProgress}: CloudSyncContext,
   remote?: RemoteSyncStateFile<T>,
   downloadedState?: DownloadedSyncState
 ): Promise<CloudSyncResult> {
@@ -194,7 +211,6 @@ async function downloadState<T>(
     client,
     cloudConnection.provider,
     remoteState.state.images,
-    localState.images,
     remoteInfo.rootFolder,
     {signal, onProgress}
   );
@@ -428,6 +444,20 @@ async function resolveRemoteSyncStateFile<T>(
       };
 }
 
+// Repair never creates the root: a missing root means there is nothing to restore from.
+async function resolveRootFolder<T>(
+  client: CloudClient<T>,
+  remoteItems?: CloudRemoteItems
+): Promise<CloudFolder<T> | null> {
+  if (remoteItems && client.getFolderById) {
+    const rootFolder = await client.getFolderById(remoteItems.rootFolderId);
+    if (rootFolder) {
+      return rootFolder;
+    }
+  }
+  return await client.findAppRoot();
+}
+
 async function uploadCloudData<T>(
   client: CloudClient<T>,
   provider: CloudProvider,
@@ -449,13 +479,13 @@ async function uploadCloudData<T>(
   const remoteImages = existingImagesFolder
     ? sortNewestFirst(await client.listFiles(existingImagesFolder, CloudItemPurpose.Image))
     : [];
-  const cloudImageDigests = new Set(cloudImages.map(({digest}) => digest));
   const remoteImageDigests = new Set(
     remoteImages
       .map(file => getRemoteImageDigest(provider, file))
       .filter((digest): digest is string => !!digest)
   );
 
+  const cloudImageDigests = new Set(cloudImages.map(({digest}) => digest));
   const missingCloudImages = cloudImages.filter(({digest}) => !remoteImageDigests.has(digest));
   const previouslySyncedImageDigests = new Set(
     previousState?.exists ? previousState.state.images.map(({digest}) => digest) : []
@@ -472,22 +502,20 @@ async function uploadCloudData<T>(
   const imagesFolder =
     existingImagesFolder ??
     (await client.createFolder(rootFolder, IMAGES_FOLDER_NAME, CloudItemPurpose.ImagesFolder));
-  const stateBlob = new Blob([cloudStateJson], {type: 'application/json'});
   for (const [i, cloudImage] of missingCloudImages.entries()) {
     signal?.throwIfAborted();
     onProgress?.({type: CloudSyncType.Upload, index: i + 1, count: missingCloudImages.length});
-    const image = await getImageFileByDigest(cloudImage.digest);
-    if (!image) {
-      throw new Error(`Local image is missing: ${cloudImage.digest}`);
-    }
+    const buffer = await readImageBytes(cloudImage);
+    signal?.throwIfAborted();
     await client.uploadFile({
       parent: imagesFolder,
-      name: cloudImageFileName(provider, image),
-      blob: image.blob,
+      name: cloudImageFileName(provider, cloudImage),
+      blob: new Blob([buffer], {type: cloudImage.type}),
       purpose: CloudItemPurpose.Image,
-      contentDigest: image.digest,
+      contentDigest: cloudImage.digest,
     });
   }
+  const stateBlob = new Blob([cloudStateJson], {type: 'application/json'});
 
   // Last cancel check: once the state file is uploaded, the sync must finish.
   signal?.throwIfAborted();
@@ -558,14 +586,13 @@ async function downloadImages<T>(
   client: CloudClient<T>,
   provider: CloudProvider,
   cloudImages: CloudImage[],
-  localImages: CloudImage[],
   rootFolder: CloudFolder<T>,
   {signal, onProgress}: CloudSyncOptions
 ): Promise<ImageFile[]> {
   const uniqueCloudImages = new Map(cloudImages.map(image => [image.digest, image]));
-  const localImageDigestSet = new Set(localImages.map(({digest}) => digest));
+  const readableImageDigests = await getReadableImageDigests([...uniqueCloudImages.keys()], signal);
   const missingCloudImages = [...uniqueCloudImages.values()].filter(
-    ({digest}) => !localImageDigestSet.has(digest)
+    ({digest}) => !readableImageDigests.has(digest)
   );
   if (missingCloudImages.length === 0) {
     return [];
@@ -580,38 +607,107 @@ async function downloadImages<T>(
     throw new CloudError(CloudErrorType.CloudDataNotFound, 'Cloud photos folder is missing');
   }
 
-  const imageFilesByDigest = new Map<string, CloudFile<T>>();
-  for (const imageFile of sortNewestFirst(
+  const candidatesByDigest = indexRemoteImagesByDigest(
+    provider,
     await client.listFiles(imagesFolder, CloudItemPurpose.Image)
-  )) {
-    const digest = getRemoteImageDigest(provider, imageFile);
-    if (digest && !imageFilesByDigest.has(digest)) {
-      imageFilesByDigest.set(digest, imageFile);
-    }
-  }
+  );
 
   const downloadedImages: ImageFile[] = [];
   for (const [i, cloudImage] of missingCloudImages.entries()) {
     signal?.throwIfAborted();
     onProgress?.({type: CloudSyncType.Download, index: i + 1, count: missingCloudImages.length});
-    const imageFile = imageFilesByDigest.get(cloudImage.digest);
-    if (!imageFile) {
+    const download = await downloadVerifiedRemoteImage(
+      client,
+      cloudImage.digest,
+      candidatesByDigest.get(cloudImage.digest),
+      signal
+    );
+    if (download.status === 'missing') {
       throw new CloudError(CloudErrorType.CloudDataNotFound, 'A synchronized photo is missing');
     }
-    const buffer = await client.downloadFile(imageFile);
-    if (!buffer) {
-      throw new CloudError(CloudErrorType.CloudDataNotFound, 'A synchronized photo is missing');
-    }
-    if ((await digestArrayBuffer(buffer)) !== cloudImage.digest) {
+    if (download.status === 'invalid') {
       throw new Error(`Cloud image digest mismatch: ${cloudImage.digest}`);
     }
+    signal?.throwIfAborted();
     downloadedImages.push({
       ...cloudImage,
-      blob: new Blob([buffer], {type: cloudImage.type}),
-      date: imageFile.modifiedAt,
+      blob: new Blob([download.bytes], {type: cloudImage.type}),
+      date: download.file.modifiedAt,
     });
   }
   return downloadedImages;
+}
+
+function indexRemoteImagesByDigest<T>(
+  provider: CloudProvider,
+  files: CloudFile<T>[]
+): Map<string, CloudFile<T>[]> {
+  const candidatesByDigest = new Map<string, CloudFile<T>[]>();
+  for (const file of sortNewestFirst(files)) {
+    const digest = getRemoteImageDigest(provider, file);
+    if (!digest) {
+      continue;
+    }
+    const candidates = candidatesByDigest.get(digest);
+    if (candidates) {
+      candidates.push(file);
+    } else {
+      candidatesByDigest.set(digest, [file]);
+    }
+  }
+  return candidatesByDigest;
+}
+
+async function downloadVerifiedRemoteImage<T>(
+  client: CloudClient<T>,
+  digest: string,
+  candidates: CloudFile<T>[] = [],
+  signal?: AbortSignal
+): Promise<RemoteImageDownload<T>> {
+  let downloaded = false;
+  for (const file of candidates) {
+    signal?.throwIfAborted();
+    const bytes = await client.downloadFile(file);
+    if (!bytes) {
+      continue;
+    }
+    downloaded = true;
+    signal?.throwIfAborted();
+    if ((await digestArrayBuffer(bytes)) === digest) {
+      return {status: 'verified', file, bytes};
+    }
+  }
+  return {status: downloaded ? 'invalid' : 'missing'};
+}
+
+async function repairImage<T>(
+  client: CloudClient<T>,
+  provider: CloudProvider,
+  digest: string,
+  cloudSync?: CloudSync
+): Promise<ArrayBuffer | null> {
+  const rootFolder = await resolveRootFolder(client, cloudSync?.remoteItems);
+  if (!rootFolder) {
+    return null;
+  }
+  const imagesFolder = await client.findFolder(
+    rootFolder,
+    IMAGES_FOLDER_NAME,
+    CloudItemPurpose.ImagesFolder
+  );
+  if (!imagesFolder) {
+    return null;
+  }
+  const candidatesByDigest = indexRemoteImagesByDigest(
+    provider,
+    await client.listFiles(imagesFolder, CloudItemPurpose.Image)
+  );
+  const download = await downloadVerifiedRemoteImage(
+    client,
+    digest,
+    candidatesByDigest.get(digest)
+  );
+  return download.status === 'verified' ? download.bytes : null;
 }
 
 function sortNewestFirst<T>(files: CloudFile<T>[]): CloudFile<T>[] {
@@ -632,7 +728,7 @@ function validContentDigest(value: string | undefined): string | undefined {
   return value && /^[\da-f]{64}$/.test(value) ? value : undefined;
 }
 
-function cloudImageFileName(provider: CloudProvider, {digest, name, type}: ImageFile): string {
+function cloudImageFileName(provider: CloudProvider, {digest, name, type}: CloudImage): string {
   const extension = getExtensionForMimeType(type) ?? 'bin';
   if (provider !== CloudProvider.Google) {
     return `${digest}.${extension}`;
@@ -734,7 +830,7 @@ function completeCloudSyncResult(
   };
 }
 
-type CloudSyncOperation = Exclude<keyof CloudSyncClient, 'deleteCloudData' | 'hasCloudDataChanged'>;
+type CloudSyncOperation = 'sync' | 'push' | 'upload' | 'download';
 
 async function saveCloudSyncResult(
   result: CloudSyncResult,
@@ -758,9 +854,12 @@ async function saveCloudSyncResult(
 }
 
 const CLOUD_SYNC_CLIENTS: Record<CloudProvider, CloudSyncClient> = {
-  [CloudProvider.Google]: createCloudSyncClient(new GoogleDriveClient()),
-  [CloudProvider.Microsoft]: createCloudSyncClient(new MicrosoftOneDriveClient()),
-  [CloudProvider.Dropbox]: createCloudSyncClient(new DropboxClient()),
+  [CloudProvider.Google]: createCloudSyncClient(CloudProvider.Google, new GoogleDriveClient()),
+  [CloudProvider.Microsoft]: createCloudSyncClient(
+    CloudProvider.Microsoft,
+    new MicrosoftOneDriveClient()
+  ),
+  [CloudProvider.Dropbox]: createCloudSyncClient(CloudProvider.Dropbox, new DropboxClient()),
 };
 
 function getCloudSyncClient(provider: CloudProvider): CloudSyncClient {
@@ -853,6 +952,27 @@ export async function downloadCloudState(
   options?: CloudSyncOptions
 ): Promise<CloudSyncResult | null> {
   return await runCloudSyncOperation(user, 'download', options);
+}
+
+export async function repairCloudImage(digest: string): Promise<CloudImageRepairResult> {
+  return await withCloudLock(async (): Promise<CloudImageRepairResult> => {
+    const cloudConnection = await getCloudConnection();
+    if (!cloudConnection) {
+      return {status: 'unavailable'};
+    }
+    const cloudSync = await getCloudSync(cloudConnection.id);
+    const bytes = await getCloudSyncClient(cloudConnection.provider).repairImage(digest, cloudSync);
+    if (!bytes) {
+      console.log(`[cloud-sync] no verified cloud copy of the photo ${digest.slice(0, 8)}`);
+      return {status: 'unavailable'};
+    }
+    const repaired = await saveRepairedImageBytes(digest, bytes);
+    console.log(
+      `[cloud-sync] photo ${digest.slice(0, 8)} ` +
+        (repaired ? 'restored from cloud storage' : 'no longer exists locally')
+    );
+    return repaired ? {status: 'restored', image: repaired} : {status: 'deleted'};
+  });
 }
 
 export async function hasCloudDataChanged(): Promise<boolean> {

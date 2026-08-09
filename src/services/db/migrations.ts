@@ -21,9 +21,9 @@ import type {IDBPDatabase, IDBPTransaction} from 'idb';
 import type {RgbTuple} from '@/services/color/space/rgb';
 import type {ColorMixture} from '@/services/color/types';
 import {EMPTY_DIGEST} from '@/services/db/color-mixture-db';
-import {type ArtistAssistAppDB, OBJECT_STORE_NAMES, type StoreName} from '@/services/db/schema';
-import type {ImageFile} from '@/services/image/image-file';
-import {toImageMetadata} from '@/services/image/image-file';
+import type {LegacyArtistAssistAppDB, LegacyStoreName} from '@/services/db/schema';
+import type {ImageFile, ImageMetadata} from '@/services/image/image-file';
+import {readStoredImageBytes, toImageMetadata} from '@/services/image/image-file';
 import type {AppSettings} from '@/services/settings/types';
 import {digestArrayBuffer} from '@/utils/digest';
 
@@ -35,9 +35,9 @@ export interface AppliedMigration {
 
 export interface Migration<T = unknown> {
   name: string;
-  prepare?: (db: IDBPDatabase<ArtistAssistAppDB>) => Promise<T>;
+  prepare?: (db: IDBPDatabase<LegacyArtistAssistAppDB>) => Promise<T>;
   migrate: (
-    tx: IDBPTransaction<ArtistAssistAppDB, StoreName[], 'readwrite'>,
+    tx: IDBPTransaction<LegacyArtistAssistAppDB, LegacyStoreName[], 'readwrite'>,
     data: T
   ) => Promise<void>;
 }
@@ -54,10 +54,14 @@ const MIGRATIONS: Migration[] = [
   defineMigration<Map<number, string>>({
     name: '001-image-file-digest',
     prepare: async db => {
+      if (!db.objectStoreNames.contains('images')) {
+        return new Map();
+      }
       const imageFiles = (await db.getAll('images')) as unknown as (Omit<
         ImageFile,
         'blob' | 'digest'
       > & {
+        id?: number;
         buffer: ArrayBuffer;
         digest?: string;
       })[];
@@ -71,13 +75,15 @@ const MIGRATIONS: Migration[] = [
       );
     },
     migrate: async (tx, digests): Promise<void> => {
-      for await (const cursor of tx.objectStore('images')) {
-        const data = cursor.value;
-        if (!data.digest) {
-          await cursor.update({
-            ...data,
-            digest: digests.get(data.id!)!,
-          });
+      if (tx.objectStoreNames.contains('images')) {
+        for await (const cursor of tx.objectStore('images')) {
+          const data = cursor.value;
+          if (!data.digest) {
+            await cursor.update({
+              ...data,
+              digest: digests.get(data.id!)!,
+            });
+          }
         }
       }
       for await (const cursor of tx.objectStore('color-mixtures')) {
@@ -107,9 +113,13 @@ const MIGRATIONS: Migration[] = [
   defineMigration({
     name: '004-image-metadata',
     migrate: async (tx): Promise<void> => {
+      if (!tx.objectStoreNames.contains('images')) {
+        return;
+      }
       const imageMetadataStore = tx.objectStore('image-metadata');
       for await (const cursor of tx.objectStore('images')) {
         const {buffer, ...data} = cursor.value as unknown as Omit<ImageFile, 'blob'> & {
+          id?: number;
           buffer: ArrayBuffer;
         };
         if (await imageMetadataStore.getKey(data.digest)) {
@@ -151,18 +161,57 @@ const MIGRATIONS: Migration[] = [
       await settingsStore.put({...rest, styleTransferImageDigest: styleImage.digest}, 0);
     },
   }),
+  defineMigration({
+    name: '006-image-blobs',
+    // Process one photo at a time so the migration can resume after a failure.
+    prepare: async (db): Promise<void> => {
+      if (!db.objectStoreNames.contains('images')) {
+        return;
+      }
+      for (const id of await db.getAllKeys('images')) {
+        const legacyImage = await db.get('images', id);
+        if (legacyImage) {
+          const {digest, date} = legacyImage;
+          const imageMetadata: (Omit<ImageMetadata, 'date'> & {date?: Date}) | undefined =
+            await db.get('image-metadata', digest);
+          if (imageMetadata) {
+            if (!imageMetadata.date) {
+              await db.put('image-metadata', {...imageMetadata, date: date ?? new Date()});
+            }
+            let buffer: ArrayBuffer | undefined;
+            try {
+              buffer = await readStoredImageBytes(imageMetadata, legacyImage);
+            } catch (error) {
+              console.error(`Stored photo could not be read: ${digest}`, error);
+            }
+            if (buffer) {
+              // Copy bytes because WebKit loses moved blobs (240216).
+              await db.put('image-blobs', {
+                digest,
+                blob: new Blob([buffer], {type: imageMetadata.type}),
+              });
+            }
+          }
+        }
+        await db.delete('images', id);
+      }
+    },
+    migrate: async (): Promise<void> => {
+      // prepare performs the migration.
+    },
+  }),
 ];
 
 export async function applyMigrations(
-  db: IDBPDatabase<ArtistAssistAppDB>
-): Promise<IDBPDatabase<ArtistAssistAppDB>> {
+  db: IDBPDatabase<LegacyArtistAssistAppDB>
+): Promise<IDBPDatabase<LegacyArtistAssistAppDB>> {
   const appliedMigrations: AppliedMigration[] = await db.getAll('migrations');
   const appliedMigrationsMap = new Map(appliedMigrations.map(h => [h.name, h]));
   const pendingMigrations = MIGRATIONS.filter(({name}) => !appliedMigrationsMap.has(name));
   for (const {name, prepare, migrate} of pendingMigrations) {
     console.log(`Applying DB migration: ${name}`);
     const data = prepare && (await prepare(db));
-    const tx = db.transaction(OBJECT_STORE_NAMES, 'readwrite');
+    const tx = db.transaction([...db.objectStoreNames] as LegacyStoreName[], 'readwrite');
     await migrate(tx, data);
     await tx.objectStore('migrations').add({
       name,

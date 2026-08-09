@@ -29,10 +29,13 @@ const schedulePush = debounce((pushCloudState: () => Promise<void>) => {
 
 export async function persistChange(
   get: () => Pick<CloudSlice & AppSlice, 'saveStoreChangeTokens' | 'pushCloudState'>,
-  write: () => Promise<StoreChangeTokens>
+  write: () => Promise<StoreChangeTokens>,
+  {schedulePush: shouldSchedulePush = true}: {schedulePush?: boolean} = {}
 ): Promise<StoreChangeTokens> {
   const tokens = await write();
   get().saveStoreChangeTokens(tokens);
-  schedulePush(get().pushCloudState);
+  if (shouldSchedulePush) {
+    schedulePush(get().pushCloudState);
+  }
   return tokens;
 }

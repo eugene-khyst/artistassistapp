@@ -73,8 +73,10 @@ export function ImageStyleTransfer() {
   });
 
   useEffect(() => {
-    void loadStyleImage();
-  }, [loadStyleImage]);
+    if (styleTransferImageDigest) {
+      void loadStyleImage();
+    }
+  }, [loadStyleImage, styleTransferImageDigest]);
 
   const radioGroupRef = useRef<HTMLDivElement>(null);
   const hasScrolledToDefaultRef = useRef(false);
@@ -121,6 +123,8 @@ export function ImageStyleTransfer() {
         const {id, name, description, image, numInputs = 1} = model;
         const hasAccess = hasAccessTo(user, model);
         const imageUrl = numInputs > 1 ? styleImageUrl : image;
+        const selectedStyleImageMissing =
+          numInputs > 1 && !styleTransferImageDigest && modelId === id;
         return {
           value: id,
           label: (
@@ -150,6 +154,7 @@ export function ImageStyleTransfer() {
                             }
                             let styleImageFile: ImageFile;
                             try {
+                              (await createImageBitmap(file)).close();
                               styleImageFile = await fileToImageFile(file);
                             } catch (error) {
                               console.error(error);
@@ -173,7 +178,7 @@ export function ImageStyleTransfer() {
               <Card.Meta
                 title={name}
                 description={
-                  (description || !hasAccess) && (
+                  (description || !hasAccess || selectedStyleImageMissing) && (
                     <Space orientation="vertical">
                       {description && (
                         <Typography.Text type="secondary">{description}</Typography.Text>
@@ -181,6 +186,11 @@ export function ImageStyleTransfer() {
                       {!hasAccess && (
                         <Typography.Text type="warning">
                           <Trans>This style is available to paid Patreon members only</Trans>
+                        </Typography.Text>
+                      )}
+                      {selectedStyleImageMissing && (
+                        <Typography.Text type="warning">
+                          <Trans>Select a style image to use this style</Trans>
                         </Typography.Text>
                       )}
                     </Space>
@@ -196,6 +206,8 @@ export function ImageStyleTransfer() {
       sortedModels,
       user,
       styleImageUrl,
+      styleTransferImageDigest,
+      modelId,
       setStyleImageFile,
       setSelectedModelId,
       showFileReadErrorNotification,

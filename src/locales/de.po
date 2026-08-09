@@ -54,6 +54,10 @@ msgstr "{FIELD} ist erforderlich"
 msgid "{retryIn, plural, one {Resend code in # second} other {Resend code in # seconds}}"
 msgstr "{retryIn, plural, one {Code in # Sekunde erneut senden} other {Code in # Sekunden erneut senden}}"
 
+#: src/components/cloud/ExportToZipButton.tsx:46
+msgid "{unavailableImageCount, plural, one {Backup created without # unavailable photo. Select the original photo again, then save the backup again.} other {Backup created without # unavailable photos. Select the original photos again, then save the backup again.}}"
+msgstr "{unavailableImageCount, plural, one {Backup ohne # nicht verfügbares Foto erstellt. Wählen Sie das Originalfoto erneut aus und speichern Sie das Backup erneut.} other {Backup ohne # nicht verfügbare Fotos erstellt. Wählen Sie die Originalfotos erneut aus und speichern Sie das Backup erneut.}}"
+
 #: src/components/install/InstallDrawer.tsx:42
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux und <3/> ChromeOS"
@@ -261,7 +265,7 @@ msgstr "Sind Sie sicher, dass Sie diese Farbpalette löschen möchten?"
 msgid "Are you sure you want to delete this custom brand?"
 msgstr "Sind Sie sicher, dass Sie diese benutzerdefinierte Marke löschen möchten?"
 
-#: src/components/image/RecentImageCard.tsx:64
+#: src/components/image/RecentImageCard.tsx:115
 msgid "Are you sure you want to delete this photo?"
 msgstr "Sind Sie sicher, dass Sie dieses Foto löschen möchten?"
 
@@ -270,11 +274,11 @@ msgstr "Sind Sie sicher, dass Sie dieses Foto löschen möchten?"
 msgid "Art medium"
 msgstr "Kunstmedium"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:93
+#: src/components/cloud/CloudFeedbackHandler.tsx:117
 msgid "ArtistAssistApp can no longer access your cloud storage. Disconnect it, then connect again."
 msgstr "ArtistAssistApp kann nicht mehr auf Ihren Cloud-Speicher zugreifen. Trennen Sie ihn und verbinden Sie sich dann erneut."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:161
+#: src/components/cloud/CloudFeedbackHandler.tsx:185
 msgid "ArtistAssistApp could not confirm that your cloud files were deleted. Remove any remaining ArtistAssistApp folder or files directly from your cloud provider."
 msgstr "ArtistAssistApp konnte nicht bestätigen, dass deine Cloud-Dateien gelöscht wurden. Entferne alle verbleibenden ArtistAssistApp-Ordner oder Dateien direkt von deinem Cloud-Anbieter."
 
@@ -335,6 +339,10 @@ msgstr "Hintergrund"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:56
 msgid "Backup imported"
 msgstr "Backup importiert"
+
+#: src/components/cloud/ExportToZipButton.tsx:44
+msgid "Backup saved without some photos"
+msgstr "Backup ohne einige Fotos gespeichert"
 
 #: src/components/auth/JoinButton.tsx:27
 msgid "Become a paid member"
@@ -435,15 +443,15 @@ msgstr "Klicken oder tippen Sie 🖱️ auf 👆 eine beliebige Stelle auf dem F
 msgid "Close"
 msgstr "Schließen"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:99
+#: src/components/cloud/CloudFeedbackHandler.tsx:123
 msgid "Cloud access not granted"
 msgstr "Cloud-Zugang nicht gewährt"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:91
+#: src/components/cloud/CloudFeedbackHandler.tsx:115
 msgid "Cloud authorization failed"
 msgstr "Cloud-Autorisierung fehlschlug"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:81
+#: src/components/cloud/CloudFeedbackHandler.tsx:105
 msgid "Cloud connection failed"
 msgstr "Die Cloud-Verbindung ist ausgefallen"
 
@@ -451,35 +459,35 @@ msgstr "Die Cloud-Verbindung ist ausgefallen"
 msgid "Cloud data changed"
 msgstr "Cloud-Daten veränderten sich"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:149
+#: src/components/cloud/CloudFeedbackHandler.tsx:173
 msgid "Cloud data not found"
 msgstr "Cloud-Daten nicht gefunden"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:168
+#: src/components/cloud/CloudFeedbackHandler.tsx:192
 msgid "Cloud data unreadable"
 msgstr "Cloud-Daten unlesbar"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:159
+#: src/components/cloud/CloudFeedbackHandler.tsx:183
 msgid "Cloud files may remain"
 msgstr "Cloud-Dateien können verbleiben"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:87
+#: src/components/cloud/CloudFeedbackHandler.tsx:111
 msgid "Cloud not connected"
 msgstr "Cloud nicht verbunden"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:101
+#: src/components/cloud/CloudFeedbackHandler.tsx:125
 msgid "Cloud storage was not connected because access was not granted. To connect it, try again and allow the requested access."
 msgstr "Cloud-Speicher war nicht verbunden, weil kein Zugriff gewährt wurde. Um sie zu verbinden, versuchen Sie es erneut und erlauben Sie den gewünschten Zugriff."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:122
+#: src/components/cloud/CloudFeedbackHandler.tsx:146
 msgid "Cloud sync conflict"
 msgstr "Cloud-Sync-Konflikt"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:188
+#: src/components/cloud/CloudFeedbackHandler.tsx:222
 msgid "Cloud sync failed"
 msgstr "Cloud-Synchronisation fehlschlug"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:135
+#: src/components/cloud/CloudFeedbackHandler.tsx:159
 msgid "Cloud sync history missing"
 msgstr "Cloud-Synchronisationshistorie fehlt"
 
@@ -487,7 +495,7 @@ msgstr "Cloud-Synchronisationshistorie fehlt"
 msgid "Cloud sync is not enabled"
 msgstr "Cloud-Synchronisation ist nicht aktiviert"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:175
+#: src/components/cloud/CloudFeedbackHandler.tsx:209
 msgid "Cloud sync paused"
 msgstr "Cloud-Synchronisation pausiert"
 
@@ -569,7 +577,7 @@ msgstr "Connect {label}"
 msgid "Connect {label}?"
 msgstr "Connect {label}?"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:88
+#: src/components/cloud/CloudFeedbackHandler.tsx:112
 msgid "Connect cloud storage before syncing."
 msgstr "Verbinde Cloud-Speicher vor der Synchronisierung."
 
@@ -613,7 +621,7 @@ msgstr "Korrigierte Schätzung der Temperatur der Lichtquelle in Kelvin"
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Konnte das Papier oder die Leinwand nicht automatisch erkennen"
 
-#: src/components/cloud/ExportToZipButton.tsx:40
+#: src/components/cloud/ExportToZipButton.tsx:59
 msgid "Could not export backup"
 msgstr "Konnte kein Backup exportieren"
 
@@ -653,8 +661,8 @@ msgstr "Benutzerdefinierte Farben"
 #: src/components/ColorSetChooser.tsx:767
 #: src/components/CustomColorBrandCreator.tsx:517
 #: src/components/CustomColorBrandCreator.tsx:527
-#: src/components/image/RecentImageCard.tsx:73
-#: src/components/image/RecentImageCard.tsx:83
+#: src/components/image/RecentImageCard.tsx:124
+#: src/components/image/RecentImageCard.tsx:134
 #: src/components/storage/DeleteAppDataButton.tsx:50
 msgid "Delete"
 msgstr "Löschen"
@@ -683,7 +691,7 @@ msgstr "Daten auf diesem Gerät löschen"
 msgid "Delete from palette"
 msgstr "Aus der Palette löschen"
 
-#: src/components/ImageChooser.tsx:94
+#: src/components/ImageChooser.tsx:93
 msgid "Delete oldest"
 msgstr "Oldest löschen"
 
@@ -701,8 +709,8 @@ msgstr "Löschen des Farbsatzes"
 msgid "Delete the custom brand"
 msgstr "Löschen der benutzerdefinierten Marke"
 
-#: src/components/image/RecentImageCard.tsx:63
-#: src/components/image/RecentImageCard.tsx:78
+#: src/components/image/RecentImageCard.tsx:114
+#: src/components/image/RecentImageCard.tsx:129
 msgid "Delete the recent photo"
 msgstr "Löschen des zuletzt verwendeten Fotos"
 
@@ -766,7 +774,7 @@ msgstr "Haben Sie ein gekauftes oder individuelles Farbset?"
 msgid "Don't save"
 msgstr "Nicht speichern"
 
-#: src/stores/cloud-slice.ts:136
+#: src/stores/cloud-slice.ts:143
 msgid "Downloading image {index} of {count}"
 msgstr "Bild {index} von {count} herunterladen"
 
@@ -1009,20 +1017,20 @@ msgstr "Es kann schwierig sein, zwischen mehreren Fotos zu wählen. Der Vergleic
 #: src/components/color/PaletteColorMixtureCard.tsx:125
 #: src/components/ColorSetChooser.tsx:758
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/RecentImageCard.tsx:74
+#: src/components/image/RecentImageCard.tsx:125
 #: src/components/palette/PaletteGrid.tsx:114
 msgid "Keep"
 msgstr "Keep"
 
-#: src/components/ImageChooser.tsx:95
+#: src/components/ImageChooser.tsx:94
 msgid "Keep all"
 msgstr "Behalten Sie alles"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:57
+#: src/components/cloud/CloudFeedbackHandler.tsx:59
 msgid "Keep cloud data"
 msgstr "Cloud-Daten bewahren"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:40
+#: src/components/cloud/CloudFeedbackHandler.tsx:42
 msgid "Keep this device"
 msgstr "Behalte dieses Gerät"
 
@@ -1034,7 +1042,7 @@ msgstr "Sprache"
 msgid "Last charge status"
 msgstr "Status der letzten Anklage"
 
-#: src/components/image/RecentImageCard.tsx:88
+#: src/components/image/RecentImageCard.tsx:139
 msgid "Last used {dateText}"
 msgstr "Zuletzt verwendet {dateText}"
 
@@ -1238,7 +1246,7 @@ msgstr "In der kostenlosen Version ist nur eine begrenzte Anzahl von Farbmarken 
 msgid "Only a limited number of modes are available in the free version"
 msgstr "In der kostenlosen Version ist nur eine begrenzte Anzahl von Modi verfügbar"
 
-#: src/components/ImageStyleTransfer.tsx:237
+#: src/components/ImageStyleTransfer.tsx:249
 msgid "Only a limited number of styles are available in the free version"
 msgstr "In der kostenlosen Version ist nur eine begrenzte Anzahl von Stilen verfügbar"
 
@@ -1271,11 +1279,11 @@ msgstr "Oder speichere eine Sicherungsdatei auf diesem Gerät."
 msgid "Or scan the QR code"
 msgstr "Oder scannen Sie den QR-Code"
 
-#: src/components/ImageChooser.tsx:152
+#: src/components/ImageChooser.tsx:151
 msgid "Or select from sample photos"
 msgstr "Oder wählen Sie aus Beispielfotos"
 
-#: src/components/ImageChooser.tsx:126
+#: src/components/ImageChooser.tsx:125
 msgid "Or select from your recent photos"
 msgstr "Oder wählen Sie aus Ihren letzten Fotos"
 
@@ -1345,9 +1353,25 @@ msgstr "Persistenter Speicher ist nicht aktiviert"
 msgid "Photo"
 msgstr "Foto"
 
+#: src/components/image/RecentImageCard.tsx:68
+msgid "Photo not restored"
+msgstr "Foto nicht wiederhergestellt"
+
 #: src/components/ImagesCompare.tsx:167
 msgid "Photo ranking"
 msgstr "Foto-Ranking"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:199
+msgid "Photo unavailable"
+msgstr "Foto nicht verfügbar"
+
+#: src/components/image/RecentImageCard.tsx:87
+msgid "Photo unavailable. Restore it from your cloud storage, or select the original again."
+msgstr "Foto nicht verfügbar. Stellen Sie es aus Ihrem Cloud-Speicher wieder her oder wählen Sie das Original erneut aus."
+
+#: src/components/image/RecentImageCard.tsx:96
+msgid "Photo unavailable. Select the original again to repair it."
+msgstr "Foto nicht verfügbar. Wählen Sie das Original erneut aus, um es zu reparieren."
 
 #: src/components/empty/EmptyTargetColor.tsx:35
 msgid "Pinch or scroll to zoom, drag to pan."
@@ -1361,7 +1385,7 @@ msgstr "Bitte senden Sie uns einen Screenshot dieses Fehlers über unsere <0>Kon
 msgid "Position: {position}<0/>Rating: {ratingText}"
 msgstr "Position: {position}<0/>Bewertung: {ratingText}"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:67
+#: src/components/cloud/CloudFeedbackHandler.tsx:91
 #: src/components/cloud/CloudSyncUpdateNotification.tsx:56
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:63
 msgid "Postpone"
@@ -1459,6 +1483,10 @@ msgstr "Reflexionsgrad"
 msgid "Reload"
 msgstr "Nachladen"
 
+#: src/components/cloud/CloudFeedbackHandler.tsx:81
+msgid "Remove and continue"
+msgstr "Entfernen und fortfahren"
+
 #: src/components/ImageColorAdjustment.tsx:397
 #: src/components/messages.ts:43
 msgid "Remove background"
@@ -1490,6 +1518,10 @@ msgstr "Zurücksetzen"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:78
 msgid "Restore backup"
 msgstr "Backup wiederherstellen"
+
+#: src/components/image/RecentImageCard.tsx:92
+msgid "Restore from cloud"
+msgstr "Aus der Cloud wiederherstellen"
 
 #: src/components/empty/EmptyPalette.tsx:76
 msgid "Return to the <0>{paletteLabel}</0> tab."
@@ -1527,7 +1559,7 @@ msgstr "Sättigung (%)"
 #: src/components/ImageOutline.tsx:373
 #: src/components/ImagePerspectiveCorrection.tsx:309
 #: src/components/ImagePerspectiveCorrection.tsx:361
-#: src/components/ImageStyleTransfer.tsx:231
+#: src/components/ImageStyleTransfer.tsx:243
 #: src/components/ImageTonalValues.tsx:159
 #: src/components/ImageTonalValues.tsx:175
 msgid "Save"
@@ -1537,7 +1569,7 @@ msgstr "Retten"
 msgid "Save & continue"
 msgstr "Speichern und fortfahren"
 
-#: src/components/cloud/ExportToZipButton.tsx:56
+#: src/components/cloud/ExportToZipButton.tsx:75
 msgid "Save backup"
 msgstr "Speicher-Backup"
 
@@ -1575,11 +1607,15 @@ msgstr "Wählen Sie ein Foto aus, um die Perspektive zu korrigieren"
 msgid "Select a photo to remove the background from"
 msgstr "Wählen Sie ein Foto aus, von dem der Hintergrund entfernt werden soll"
 
-#: src/components/ImageChooser.tsx:115
+#: src/components/ImageChooser.tsx:114
 msgid "Select a reference photo from your device to paint from"
 msgstr "Wählen Sie ein Referenzfoto von Ihrem Gerät aus, um zu malen"
 
-#: src/components/ImageStyleTransfer.tsx:226
+#: src/components/ImageStyleTransfer.tsx:193
+msgid "Select a style image to use this style"
+msgstr "Wählen Sie ein Stilbild aus, um diesen Stil zu verwenden"
+
+#: src/components/ImageStyleTransfer.tsx:238
 msgid "Select a style to transfer to your reference photo"
 msgstr "Wählen Sie einen Stil aus, den Sie auf Ihr Referenzfoto übertragen möchten"
 
@@ -1649,7 +1685,7 @@ msgid "Select part"
 msgstr "Teil auswählen"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageChooser.tsx:120
+#: src/components/ImageChooser.tsx:119
 #: src/components/ImageColorAdjustment.tsx:361
 #: src/components/ImagePerspectiveCorrection.tsx:270
 msgid "Select photo"
@@ -1667,7 +1703,7 @@ msgstr "Wählen Sie Fotos aus, die mithilfe des paarweisen Vergleichs eingestuft
 msgid "Select set"
 msgstr "Set auswählen"
 
-#: src/components/ImageStyleTransfer.tsx:166
+#: src/components/ImageStyleTransfer.tsx:171
 msgid "Select style image"
 msgstr "Stilbild auswählen"
 
@@ -1759,7 +1795,7 @@ msgstr "Raster anzeigen"
 msgid "Show matching areas"
 msgstr "Show-Matching-Bereiche"
 
-#: src/components/ImageChooser.tsx:144
+#: src/components/ImageChooser.tsx:143
 msgid "Show older photos"
 msgstr "Zeigen Sie ältere Fotos"
 
@@ -1812,7 +1848,7 @@ msgstr "Leicht überlappen, pastellfarbene Wachsbereiche in verschiedenen Farben
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Kleinere Perzentilwerte entsprechen einer stärkeren Aufhellung"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:151
+#: src/components/cloud/CloudFeedbackHandler.tsx:175
 msgid "Some synchronized cloud data was deleted or is unavailable. Keep this device to create it again, or postpone the decision. ArtistAssistApp will not recreate it automatically."
 msgstr "Einige synchronisierte Cloud-Daten wurden gelöscht oder sind nicht verfügbar. Behalte dieses Gerät, um es erneut herzustellen, oder verschiebe die Entscheidung. ArtistAssistApp wird es nicht automatisch neu erstellen."
 
@@ -1857,7 +1893,7 @@ msgstr "Standard-Farbsatz"
 msgid "Standard print"
 msgstr "Standarddruck"
 
-#: src/components/ImageChooser.tsx:87
+#: src/components/ImageChooser.tsx:86
 msgid "Storage may fill up"
 msgstr "Der Speicher kann sich füllen"
 
@@ -1873,7 +1909,7 @@ msgstr "Gerade machen"
 msgid "Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "Er richtet verzerrte Fotos und entfernt unerwünschte Kanten. Verwenden Sie Auto-Detect oder wählen Sie 4 Punkte aus, um die Perspektivverzerrung zu korrigieren, und ziehen Sie optional die Ränder, um das Bild zuzuschneiden."
 
-#: src/components/ImageStyleTransfer.tsx:219
+#: src/components/ImageStyleTransfer.tsx:231
 msgid "Styled reference photo"
 msgstr "Gestyltes Referenzfoto"
 
@@ -1894,6 +1930,10 @@ msgstr "Oberflächenfarbe"
 #: src/components/lightbox/LightboxOverlay.tsx:118
 msgid "Swipe to unlock"
 msgstr "Wischen zum Entsperren"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:201
+msgid "Sync stopped because the photo {context} is unavailable and is not in your cloud storage. Remove it to continue syncing, or postpone the decision."
+msgstr "Die Synchronisierung wurde gestoppt, da das Foto {context} nicht verfügbar ist und sich nicht in Ihrem Cloud-Speicher befindet. Entfernen Sie es, um mit der Synchronisierung fortzufahren, oder verschieben Sie die Entscheidung."
 
 #: src/components/cloud/SyncCloudButton.tsx:46
 msgid "Sync with {label}"
@@ -1920,11 +1960,11 @@ msgstr "Ziel-Druckgröße"
 msgid "Terms of use"
 msgstr "Nutzungsbedingungen"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:83
+#: src/components/cloud/CloudFeedbackHandler.tsx:107
 msgid "The cloud connection could not be completed. Start again from ArtistAssistApp."
 msgstr "Die Cloud-Verbindung konnte nicht abgeschlossen werden. Fang von vorne bei ArtistAssistApp an."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:170
+#: src/components/cloud/CloudFeedbackHandler.tsx:194
 msgid "The cloud data file is damaged. Replace it with the data from this device."
 msgstr "Die Cloud-Datendatei ist beschädigt. Ersetze sie durch die Daten dieses Geräts."
 
@@ -1989,15 +2029,15 @@ msgstr "Das löscht alles im Ordner der verbundenen Cloud-App, einschließlich d
 msgid "This deletes your account and membership lookup records and logs you out."
 msgstr "Dadurch werden Ihre Konto- und Mitgliedsnachschlagsdaten gelöscht und Sie werden abgemeldet."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:124
+#: src/components/cloud/CloudFeedbackHandler.tsx:148
 msgid "This device and the synchronized cloud data both changed. Choose which one to keep."
 msgstr "Dieses Gerät und die synchronisierten Cloud-Daten haben sich beide geändert. Wähle, welches du behältst."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:110
+#: src/components/cloud/CloudFeedbackHandler.tsx:134
 msgid "This device has changes made while another account was active. Keep this device to upload them to the current account, keep the cloud data to discard them, or postpone the decision."
 msgstr "Dieses Gerät hat Änderungen, die vorgenommen wurden, während ein anderes Konto aktiv war. Behalte dieses Gerät, um sie auf das aktuelle Konto hochzuladen, behalte die Cloud-Daten, um sie zu entsorgen, oder verschiebe die Entscheidung."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:137
+#: src/components/cloud/CloudFeedbackHandler.tsx:161
 msgid "This device has local data and existing synchronized cloud data, but no sync history. Choose which one to keep."
 msgstr "Dieses Gerät hat lokale Daten und vorhandene synchronisierte Cloud-Daten, aber keine Synchronisationshistorie. Wähle, welches du behältst."
 
@@ -2009,6 +2049,10 @@ msgstr "Dieser Login-Code kann nicht mehr verwendet werden. Fordere einen neuen 
 msgid "This permanently deletes the ArtistAssistApp folder and all your files and folders still inside it. Files you moved outside the folder are not deleted."
 msgstr "Dadurch wird der ArtistAssistApp-Ordner sowie alle deine Dateien und Ordner darin dauerhaft gelöscht. Dateien, die du außerhalb des Ordners verschoben hast, werden nicht gelöscht."
 
+#: src/components/image/RecentImageCard.tsx:69
+msgid "This photo could not be restored from your cloud storage."
+msgstr "Dieses Foto konnte nicht aus Ihrem Cloud-Speicher wiederhergestellt werden."
+
 #: src/components/print/PrintImageDrawer.tsx:176
 msgid "This print size is not supported"
 msgstr "Diese Druckgröße wird nicht unterstützt"
@@ -2017,7 +2061,7 @@ msgstr "Diese Druckgröße wird nicht unterstützt"
 msgid "This step is optional."
 msgstr "Dieser Schritt ist optional."
 
-#: src/components/ImageStyleTransfer.tsx:183
+#: src/components/ImageStyleTransfer.tsx:188
 msgid "This style is available to paid Patreon members only"
 msgstr "Dieser Stil ist nur für zahlende Patreon-Mitglieder verfügbar"
 
@@ -2050,7 +2094,7 @@ msgid "Too many incorrect codes"
 msgstr "Zu viele falsche Codes"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:181
-#: src/components/cloud/CloudFeedbackHandler.tsx:184
+#: src/components/cloud/CloudFeedbackHandler.tsx:218
 msgid "Too many requests"
 msgstr "Zu viele Anfragen"
 
@@ -2083,7 +2127,7 @@ msgstr "Unerwarteter Fehler: {errorMessage}"
 msgid "Unifying color"
 msgstr "Vereinheitlichende Farbe"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:108
+#: src/components/cloud/CloudFeedbackHandler.tsx:132
 msgid "Unsynced changes on this device"
 msgstr "Unsynchronisierte Änderungen auf diesem Gerät"
 
@@ -2094,7 +2138,7 @@ msgstr "Unsynchronisierte Änderungen auf diesem Gerät"
 msgid "Untitled mixture"
 msgstr "Unbenannte Mischung"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:189
+#: src/components/cloud/CloudFeedbackHandler.tsx:223
 msgid "Update ArtistAssistApp to the latest version and try again."
 msgstr "Aktualisieren Sie ArtistAssistApp auf die neueste Version und versuchen Sie es erneut."
 
@@ -2110,7 +2154,7 @@ msgstr "Update verfügbar"
 msgid "Update now"
 msgstr "Jetzt aktualisieren"
 
-#: src/stores/cloud-slice.ts:135
+#: src/stores/cloud-slice.ts:142
 msgid "Uploading image {index} of {count}"
 msgstr "Bild {index} von {count} hochladen"
 
@@ -2152,7 +2196,7 @@ msgid "View the outline over the live camera to trace in AR."
 msgstr "Sehen Sie sich die Umrisse über der Live-Kamera an, um sie in AR nachzuzeichnen."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:182
-#: src/components/cloud/CloudFeedbackHandler.tsx:185
+#: src/components/cloud/CloudFeedbackHandler.tsx:219
 msgid "Wait a minute and try again."
 msgstr "Warte eine Minute und versuche es erneut."
 
@@ -2214,7 +2258,7 @@ msgstr "Weißpunkt"
 msgid "Width"
 msgstr "Breite"
 
-#: src/components/ImageChooser.tsx:89
+#: src/components/ImageChooser.tsx:88
 msgid "You already have many recent photos saved. Delete the oldest one to free up space? The new photo will still be added."
 msgstr "Du hast bereits viele aktuelle Fotos gespeichert. Den ältesten löschen, um Platz freizumachen? Das neue Foto wird weiterhin hinzugefügt."
 
@@ -2259,7 +2303,7 @@ msgstr "Dein Browser unterstützt das Lesen von Bildern aus der Zwischenablage n
 msgid "Your cloud data changed and will be synchronized automatically."
 msgstr "Deine Cloud-Daten haben sich geändert und werden automatisch synchronisiert."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:177
+#: src/components/cloud/CloudFeedbackHandler.tsx:211
 msgid "Your cloud storage couldn't be reached. Your latest changes remain saved on this device and have not been uploaded. Check your internet connection, then try syncing again."
 msgstr "Dein Cloud-Speicher war nicht erreichbar. Ihre letzten Änderungen bleiben auf diesem Gerät gespeichert und wurden nicht hochgeladen. Überprüfe deine Internetverbindung und versuche dann erneut zu synchronisieren."
 

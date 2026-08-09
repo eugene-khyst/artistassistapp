@@ -21,7 +21,9 @@ import {App, Button, Flex} from 'antd';
 import type {PropsWithChildren, ReactNode} from 'react';
 import {useEffect} from 'react';
 
+import {LoadingButton} from '@/components/button/LoadingButton';
 import {CloudErrorType} from '@/services/cloud/errors';
+import {ImageUnreadableError} from '@/services/image/errors';
 import {useAppStore} from '@/stores/app-store';
 import {CloudOperationType} from '@/stores/cloud-slice';
 
@@ -59,6 +61,28 @@ function KeepCloudDataButton({children}: Readonly<PropsWithChildren>) {
   );
 }
 
+function RemoveUnreadableImageButton() {
+  const cloudError = useAppStore(state => state.cloudError);
+  const removeUnreadableImage = useAppStore(state => state.removeUnreadableImage);
+  const cloudOperation = useAppStore(state => state.cloudOperation);
+
+  const digest =
+    cloudError?.cause instanceof ImageUnreadableError ? cloudError.cause.digest : undefined;
+  if (!digest) {
+    return null;
+  }
+  return (
+    <LoadingButton
+      type="primary"
+      danger
+      disabled={!!cloudOperation}
+      run={() => removeUnreadableImage(digest)}
+    >
+      <Trans>Remove and continue</Trans>
+    </LoadingButton>
+  );
+}
+
 function PostponeButton() {
   const postponeCloudSync = useAppStore(state => state.postponeCloudSync);
   const cloudOperation = useAppStore(state => state.cloudOperation);
@@ -73,7 +97,7 @@ const CLOUD_ERRORS: Record<
   CloudErrorType,
   {
     title: ReactNode;
-    content: ReactNode;
+    content: ReactNode | ((context: ReactNode) => ReactNode);
     footer?: ReactNode;
   }
 > = {
@@ -171,6 +195,16 @@ const CLOUD_ERRORS: Record<
     ),
     footer: [<PostponeButton key="postpone" />, <KeepThisDeviceButton key="keep-local" />],
   },
+  [CloudErrorType.LocalImageUnreadable]: {
+    title: <Trans>Photo unavailable</Trans>,
+    content: context => (
+      <Trans>
+        Sync stopped because the photo {context} is unavailable and is not in your cloud storage.
+        Remove it to continue syncing, or postpone the decision.
+      </Trans>
+    ),
+    footer: [<PostponeButton key="postpone" />, <RemoveUnreadableImageButton key="remove" />],
+  },
   [CloudErrorType.Network]: {
     title: <Trans>Cloud sync paused</Trans>,
     content: (
@@ -203,13 +237,17 @@ export function CloudFeedbackHandler({children}: Readonly<PropsWithChildren>) {
     }
     console.error(cloudError);
     const {title, content, footer} = CLOUD_ERRORS[cloudError.type];
-    // A notification is fire-and-forget, so the error clears immediately;
-    // a modal represents an unresolved state and stays until a footer action resets cloudError.
+    const context =
+      cloudError.cause instanceof ImageUnreadableError
+        ? (cloudError.cause.imageName ?? cloudError.cause.digest)
+        : null;
+    const renderedContent = typeof content === 'function' ? content(context) : content;
+    // Notifications are transient; modal errors require a footer action.
     if (!footer) {
       notification.error({
         key: cloudError.type,
         title,
-        description: content,
+        description: renderedContent,
         placement: 'top',
         duration: 10,
         showProgress: true,
@@ -219,7 +257,7 @@ export function CloudFeedbackHandler({children}: Readonly<PropsWithChildren>) {
     }
     const ctrl = modal.error({
       title,
-      content,
+      content: renderedContent,
       width: '100%',
       footer: footer ? (
         <Flex gap="small" justify="flex-end" wrap>

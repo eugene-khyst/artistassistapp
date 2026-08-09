@@ -19,50 +19,86 @@
 import type {DBReadWriteTransaction} from '@/services/db/db';
 import {markStoreChanged} from '@/services/db/store-changes-db';
 import type {StoreChangeTokens} from '@/services/db/types';
-import type {ImageFile, ImageMetadata} from '@/services/image/image-file';
-import {toImageMetadata} from '@/services/image/image-file';
+import {ImageUnreadableError} from '@/services/image/errors';
+import type {ImageFile, ImageMetadata, RecentImage} from '@/services/image/image-file';
+import {readStoredImageBytes, toImageBlob, toImageMetadata} from '@/services/image/image-file';
 
 import {dbPromise} from './db';
 
-export async function getRecentImageFiles(offset: number, limit: number): Promise<ImageFile[]> {
+export interface RecentImagePage {
+  images: RecentImage[];
+  hasMore: boolean;
+}
+
+export async function getRecentImages(offset: number, limit: number): Promise<RecentImagePage> {
   const db = await dbPromise;
-  const index = db.transaction('images').store.index('by-date');
+  const tx = db.transaction(['image-blobs', 'image-metadata']);
+  const imageBlobsStore = tx.objectStore('image-blobs');
+  const index = tx.objectStore('image-metadata').index('by-date');
   let cursor = await index.openCursor(null, 'prev');
   if (cursor && offset > 0) {
     cursor = await cursor.advance(offset);
   }
-  const imageFiles: ImageFile[] = [];
-  while (cursor && imageFiles.length < limit) {
-    imageFiles.push(cursor.value);
+  const images: RecentImage[] = [];
+  while (cursor && images.length < limit) {
+    const imageBlob = await imageBlobsStore.get(cursor.value.digest);
+    images.push({...cursor.value, ...(imageBlob ? {blob: imageBlob.blob} : {})});
     cursor = await cursor.continue();
   }
-  return imageFiles;
+  await tx.done;
+  return {images, hasMore: !!cursor};
 }
 
-export async function getOldestImageFile(): Promise<ImageFile | undefined> {
+export async function getOldestImageDigest(): Promise<string | undefined> {
   const db = await dbPromise;
-  const index = db.transaction('images').store.index('by-date');
-  return (await index.openCursor())?.value;
+  const cursor = await db.transaction('image-metadata').store.index('by-date').openCursor();
+  return cursor?.value.digest;
 }
 
 export async function countImageFiles(): Promise<number> {
   const db = await dbPromise;
-  return await db.count('images');
+  return await db.count('image-metadata');
 }
 
-export async function getAllImageMetadata(): Promise<ImageMetadata[]> {
+export async function readImageBytes(
+  image: Pick<ImageMetadata, 'digest' | 'name'>
+): Promise<ArrayBuffer> {
   const db = await dbPromise;
-  return await db.getAll('image-metadata');
+  const imageBlob = await db.get('image-blobs', image.digest);
+  return await readStoredImageBytes(image, imageBlob);
 }
 
-export async function getImageFileByDigest(digest: string): Promise<ImageFile | undefined> {
+export async function getReadableImageDigests(
+  digests: string[],
+  signal?: AbortSignal
+): Promise<Set<string>> {
+  signal?.throwIfAborted();
   const db = await dbPromise;
-  return await db.getFromIndex('images', 'by-digest', digest);
+  signal?.throwIfAborted();
+  const tx = db.transaction('image-blobs');
+  const imageBlobs = await Promise.all(digests.map(digest => tx.store.get(digest)));
+  await tx.done;
+  signal?.throwIfAborted();
+  const readableDigests = new Set<string>();
+  for (const [index, digest] of digests.entries()) {
+    signal?.throwIfAborted();
+    try {
+      await readStoredImageBytes({digest}, imageBlobs[index]);
+      signal?.throwIfAborted();
+      readableDigests.add(digest);
+    } catch (error) {
+      signal?.throwIfAborted();
+      if (!(error instanceof ImageUnreadableError)) {
+        throw error;
+      }
+    }
+  }
+  return readableDigests;
 }
 
 export async function hasImageFile(digest: string): Promise<boolean> {
   const db = await dbPromise;
-  return (await db.countFromIndex('images', 'by-digest', digest)) > 0;
+  return (await db.count('image-metadata', digest)) > 0;
 }
 
 export async function saveNewImageFiles(
@@ -77,17 +113,14 @@ export async function saveNewImageFiles(
 ): Promise<StoreChangeTokens> {
   const tx =
     existingTx ??
-    (await dbPromise).transaction(['images', 'image-metadata', 'store-changes'], 'readwrite');
-  const imagesStore = tx.objectStore('images');
+    (await dbPromise).transaction(['image-blobs', 'image-metadata', 'store-changes'], 'readwrite');
+  const imageBlobsStore = tx.objectStore('image-blobs');
   const imageMetadataStore = tx.objectStore('image-metadata');
   for (const imageFile of imageFiles) {
-    const existing = await imagesStore.index('by-digest').get(imageFile.digest);
-    if (existing?.id !== undefined) {
-      imageFile.id = existing.id;
-    }
+    const existingImageMetadata = await imageMetadataStore.get(imageFile.digest);
     // A restore rewrites the photo but keeps the local "last used" date.
-    imageFile.date = preserveDate ? (existing?.date ?? imageFile.date) : new Date();
-    imageFile.id = await imagesStore.put(imageFile);
+    imageFile.date = preserveDate ? (existingImageMetadata?.date ?? imageFile.date) : new Date();
+    await imageBlobsStore.put(toImageBlob(imageFile));
     await imageMetadataStore.put(toImageMetadata(imageFile));
   }
   const tokens: StoreChangeTokens = {
@@ -99,20 +132,41 @@ export async function saveNewImageFiles(
   return tokens;
 }
 
-export async function updateImageFile(imageFile: ImageFile): Promise<StoreChangeTokens> {
-  const {id} = imageFile;
-  if (id === undefined) {
-    throw new Error(`Image does not exist: ${imageFile.name ?? imageFile.digest}`);
-  }
+export interface RepairedImage {
+  blob: Blob;
+  tokens: StoreChangeTokens;
+}
+
+// Metadata is only read: repair must not resurrect a photo deleted while it was downloading.
+export async function saveRepairedImageBytes(
+  digest: string,
+  bytes: ArrayBuffer
+): Promise<RepairedImage | null> {
   const db = await dbPromise;
-  const tx = db.transaction(['images', 'image-metadata', 'store-changes'], 'readwrite');
-  const imagesStore = tx.objectStore('images');
-  if ((await imagesStore.count(id)) === 0) {
-    throw new Error(`Image does not exist: ${imageFile.name ?? imageFile.digest}`);
+  const tx = db.transaction(['image-blobs', 'image-metadata', 'store-changes'], 'readwrite');
+  const imageMetadata = await tx.objectStore('image-metadata').get(digest);
+  if (!imageMetadata) {
+    await tx.done;
+    return null;
   }
-  imageFile.date = new Date();
-  await imagesStore.put(imageFile);
-  await tx.objectStore('image-metadata').put(toImageMetadata(imageFile));
+  const blob = new Blob([bytes], {type: imageMetadata.type});
+  await tx.objectStore('image-blobs').put({digest, blob});
+  const tokens: StoreChangeTokens = {
+    images: await markStoreChanged(tx, 'images'),
+  };
+  await tx.done;
+  return {blob, tokens};
+}
+
+export async function touchImage(digest: string, date: Date): Promise<StoreChangeTokens> {
+  const db = await dbPromise;
+  const tx = db.transaction(['image-metadata', 'store-changes'], 'readwrite');
+  const imageMetadataStore = tx.objectStore('image-metadata');
+  const imageMetadata = await imageMetadataStore.get(digest);
+  if (!imageMetadata) {
+    throw new Error(`Local image is missing: ${digest}`);
+  }
+  await imageMetadataStore.put({...imageMetadata, date});
   const tokens: StoreChangeTokens = {
     images: await markStoreChanged(tx, 'images'),
   };
@@ -120,19 +174,11 @@ export async function updateImageFile(imageFile: ImageFile): Promise<StoreChange
   return tokens;
 }
 
-export async function deleteImageFileAndColorMixturesByDigest(
+async function deleteImageFileAndColorMixtures(
+  tx: DBReadWriteTransaction,
   digest: string
 ): Promise<StoreChangeTokens> {
-  const db = await dbPromise;
-  const tx = db.transaction(
-    ['images', 'image-metadata', 'color-mixtures', 'processed-images', 'store-changes'],
-    'readwrite'
-  );
-  const imagesStore = tx.objectStore('images');
-  const imageFileId = await imagesStore.index('by-digest').getKey(digest);
-  if (imageFileId) {
-    await imagesStore.delete(imageFileId);
-  }
+  await tx.objectStore('image-blobs').delete(digest);
   await tx.objectStore('image-metadata').delete(digest);
   const colorMixturesStore = tx.objectStore('color-mixtures');
   const colorMixtureIds = await colorMixturesStore.index('by-imageFileDigest').getAllKeys(digest);
@@ -144,11 +190,21 @@ export async function deleteImageFileAndColorMixturesByDigest(
   for (const key of processedImageKeys) {
     await processedImagesStore.delete(key);
   }
-  const imagesToken = await markStoreChanged(tx, 'images');
-  const colorMixturesToken = await markStoreChanged(tx, 'color-mixtures');
-  await tx.done;
   return {
-    images: imagesToken,
-    'color-mixtures': colorMixturesToken,
+    images: await markStoreChanged(tx, 'images'),
+    'color-mixtures': await markStoreChanged(tx, 'color-mixtures'),
   };
+}
+
+export async function deleteImageFileAndColorMixturesByDigest(
+  digest: string
+): Promise<StoreChangeTokens> {
+  const db = await dbPromise;
+  const tx = db.transaction(
+    ['image-blobs', 'image-metadata', 'color-mixtures', 'processed-images', 'store-changes'],
+    'readwrite'
+  );
+  const tokens = await deleteImageFileAndColorMixtures(tx, digest);
+  await tx.done;
+  return tokens;
 }

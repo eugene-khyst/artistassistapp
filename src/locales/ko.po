@@ -54,6 +54,10 @@ msgstr "{FIELD}는 필수입니다."
 msgid "{retryIn, plural, one {Resend code in # second} other {Resend code in # seconds}}"
 msgstr "{retryIn, plural, other {코드 #초 후 재전송}}"
 
+#: src/components/cloud/ExportToZipButton.tsx:46
+msgid "{unavailableImageCount, plural, one {Backup created without # unavailable photo. Select the original photo again, then save the backup again.} other {Backup created without # unavailable photos. Select the original photos again, then save the backup again.}}"
+msgstr "{unavailableImageCount, plural, other {사용할 수 없는 사진 #장 없이 백업이 생성되었습니다. 원본 사진을 다시 선택한 다음 백업을 다시 저장하세요.}}"
+
 #: src/components/install/InstallDrawer.tsx:42
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux 및 <3/> ChromeOS"
@@ -261,7 +265,7 @@ msgstr "이 색상 세트를 삭제하시겠습니까?"
 msgid "Are you sure you want to delete this custom brand?"
 msgstr "이 사용자 지정 브랜드를 삭제하시겠습니까?"
 
-#: src/components/image/RecentImageCard.tsx:64
+#: src/components/image/RecentImageCard.tsx:115
 msgid "Are you sure you want to delete this photo?"
 msgstr "이 사진을 삭제하시겠습니까?"
 
@@ -270,11 +274,11 @@ msgstr "이 사진을 삭제하시겠습니까?"
 msgid "Art medium"
 msgstr "예술 매체"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:93
+#: src/components/cloud/CloudFeedbackHandler.tsx:117
 msgid "ArtistAssistApp can no longer access your cloud storage. Disconnect it, then connect again."
 msgstr "ArtistAssistApp은 더 이상 클라우드 저장소에 접근할 수 없습니다. 끊었다가 다시 연결하세요."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:161
+#: src/components/cloud/CloudFeedbackHandler.tsx:185
 msgid "ArtistAssistApp could not confirm that your cloud files were deleted. Remove any remaining ArtistAssistApp folder or files directly from your cloud provider."
 msgstr "ArtistAssistApp은 클라우드 파일이 삭제되었는지 확인하지 못했습니다. 남아 있는 ArtistAssistApp 폴더나 파일을 클라우드 제공업체에서 직접 제거하세요."
 
@@ -335,6 +339,10 @@ msgstr "배경"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:56
 msgid "Backup imported"
 msgstr "백업 임포트"
+
+#: src/components/cloud/ExportToZipButton.tsx:44
+msgid "Backup saved without some photos"
+msgstr "일부 사진 없이 백업이 저장되었습니다."
 
 #: src/components/auth/JoinButton.tsx:27
 msgid "Become a paid member"
@@ -435,15 +443,15 @@ msgstr "사진의 아무 곳이나 클릭 🖱️ 또는 탭👆하거나, 색�
 msgid "Close"
 msgstr "닫다"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:99
+#: src/components/cloud/CloudFeedbackHandler.tsx:123
 msgid "Cloud access not granted"
 msgstr "클라우드 접근 권한이 부여되지 않음"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:91
+#: src/components/cloud/CloudFeedbackHandler.tsx:115
 msgid "Cloud authorization failed"
 msgstr "클라우드 인증 실패"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:81
+#: src/components/cloud/CloudFeedbackHandler.tsx:105
 msgid "Cloud connection failed"
 msgstr "클라우드 연결 실패"
 
@@ -451,35 +459,35 @@ msgstr "클라우드 연결 실패"
 msgid "Cloud data changed"
 msgstr "클라우드 데이터가 변경되었습니다"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:149
+#: src/components/cloud/CloudFeedbackHandler.tsx:173
 msgid "Cloud data not found"
 msgstr "클라우드 데이터가 찾지 못했습니다"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:168
+#: src/components/cloud/CloudFeedbackHandler.tsx:192
 msgid "Cloud data unreadable"
 msgstr "클라우드 데이터 읽을 수 없음"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:159
+#: src/components/cloud/CloudFeedbackHandler.tsx:183
 msgid "Cloud files may remain"
 msgstr "클라우드 파일은 남아 있을 수 있습니다"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:87
+#: src/components/cloud/CloudFeedbackHandler.tsx:111
 msgid "Cloud not connected"
 msgstr "클라우드가 연결되지 않았다"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:101
+#: src/components/cloud/CloudFeedbackHandler.tsx:125
 msgid "Cloud storage was not connected because access was not granted. To connect it, try again and allow the requested access."
 msgstr "클라우드 저장소는 접근 권한이 부여되지 않아 연결되어 있지 않았습니다. 연결하려면 다시 시도해서 요청한 접근 권한을 허용하세요."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:122
+#: src/components/cloud/CloudFeedbackHandler.tsx:146
 msgid "Cloud sync conflict"
 msgstr "클라우드 싱크 충돌"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:188
+#: src/components/cloud/CloudFeedbackHandler.tsx:222
 msgid "Cloud sync failed"
 msgstr "클라우드 동기화 실패"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:135
+#: src/components/cloud/CloudFeedbackHandler.tsx:159
 msgid "Cloud sync history missing"
 msgstr "클라우드 동기화 기록이 누락되었습니다"
 
@@ -487,7 +495,7 @@ msgstr "클라우드 동기화 기록이 누락되었습니다"
 msgid "Cloud sync is not enabled"
 msgstr "클라우드 동기화는 활성화되어 있지 않습니다"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:175
+#: src/components/cloud/CloudFeedbackHandler.tsx:209
 msgid "Cloud sync paused"
 msgstr "클라우드 동기화가 일시 중지되었다"
 
@@ -569,7 +577,7 @@ msgstr "연결 {label}"
 msgid "Connect {label}?"
 msgstr "{label}을 연결하나요?"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:88
+#: src/components/cloud/CloudFeedbackHandler.tsx:112
 msgid "Connect cloud storage before syncing."
 msgstr "동기화하기 전에 클라우드 저장소를 연결하세요."
 
@@ -613,7 +621,7 @@ msgstr "광원의 온도 추정치를 켈빈(Kelvin)으로 수정했습니다."
 msgid "Could not detect the paper or canvas automatically"
 msgstr "종이나 캔버스를 자동으로 감지할 수 없었어요"
 
-#: src/components/cloud/ExportToZipButton.tsx:40
+#: src/components/cloud/ExportToZipButton.tsx:59
 msgid "Could not export backup"
 msgstr "백업을 내보낼 수 없었습니다"
 
@@ -653,8 +661,8 @@ msgstr "커스텀 색상"
 #: src/components/ColorSetChooser.tsx:767
 #: src/components/CustomColorBrandCreator.tsx:517
 #: src/components/CustomColorBrandCreator.tsx:527
-#: src/components/image/RecentImageCard.tsx:73
-#: src/components/image/RecentImageCard.tsx:83
+#: src/components/image/RecentImageCard.tsx:124
+#: src/components/image/RecentImageCard.tsx:134
 #: src/components/storage/DeleteAppDataButton.tsx:50
 msgid "Delete"
 msgstr "삭제하다"
@@ -683,7 +691,7 @@ msgstr "이 장치의 데이터를 삭제하세요"
 msgid "Delete from palette"
 msgstr "팔레트에서 삭제하기"
 
-#: src/components/ImageChooser.tsx:94
+#: src/components/ImageChooser.tsx:93
 msgid "Delete oldest"
 msgstr "가장 오래된 것을 삭제하세요"
 
@@ -701,8 +709,8 @@ msgstr "색상 세트 삭제"
 msgid "Delete the custom brand"
 msgstr "사용자 지정 브랜드 삭제"
 
-#: src/components/image/RecentImageCard.tsx:63
-#: src/components/image/RecentImageCard.tsx:78
+#: src/components/image/RecentImageCard.tsx:114
+#: src/components/image/RecentImageCard.tsx:129
 msgid "Delete the recent photo"
 msgstr "최근 사진 삭제"
 
@@ -766,7 +774,7 @@ msgstr "매장에서 구입한 색상 또는 사용자 정의 색상 세트가 �
 msgid "Don't save"
 msgstr "저장하지 마세요"
 
-#: src/stores/cloud-slice.ts:136
+#: src/stores/cloud-slice.ts:143
 msgid "Downloading image {index} of {count}"
 msgstr "{index}의 이미지 {count} 다운로드"
 
@@ -1009,20 +1017,20 @@ msgstr "여러 사진 중에서 선택하기 어려울 수 있습니다. 각 사
 #: src/components/color/PaletteColorMixtureCard.tsx:125
 #: src/components/ColorSetChooser.tsx:758
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/RecentImageCard.tsx:74
+#: src/components/image/RecentImageCard.tsx:125
 #: src/components/palette/PaletteGrid.tsx:114
 msgid "Keep"
 msgstr "지키세요"
 
-#: src/components/ImageChooser.tsx:95
+#: src/components/ImageChooser.tsx:94
 msgid "Keep all"
 msgstr "모두 가져가"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:57
+#: src/components/cloud/CloudFeedbackHandler.tsx:59
 msgid "Keep cloud data"
 msgstr "클라우드 데이터는 유지하세요"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:40
+#: src/components/cloud/CloudFeedbackHandler.tsx:42
 msgid "Keep this device"
 msgstr "이 기기를 보관하세요"
 
@@ -1034,7 +1042,7 @@ msgstr "언어"
 msgid "Last charge status"
 msgstr "마지막 충전 상태"
 
-#: src/components/image/RecentImageCard.tsx:88
+#: src/components/image/RecentImageCard.tsx:139
 msgid "Last used {dateText}"
 msgstr "마지막으로 사용한 {dateText}"
 
@@ -1238,7 +1246,7 @@ msgstr "무료 버전에서는 제한된 수의 색상 브랜드만 사용할 �
 msgid "Only a limited number of modes are available in the free version"
 msgstr "무료 버전에서는 제한된 수의 모드만 사용할 수 있습니다"
 
-#: src/components/ImageStyleTransfer.tsx:237
+#: src/components/ImageStyleTransfer.tsx:249
 msgid "Only a limited number of styles are available in the free version"
 msgstr "무료 버전에서는 제한된 수의 스타일만 사용할 수 있습니다"
 
@@ -1271,11 +1279,11 @@ msgstr "또는 이 기기에 백업 파일을 저장하세요."
 msgid "Or scan the QR code"
 msgstr "또는 QR 코드를 스캔합니다."
 
-#: src/components/ImageChooser.tsx:152
+#: src/components/ImageChooser.tsx:151
 msgid "Or select from sample photos"
 msgstr "또는 샘플 사진에서 선택"
 
-#: src/components/ImageChooser.tsx:126
+#: src/components/ImageChooser.tsx:125
 msgid "Or select from your recent photos"
 msgstr "또는 최근 사진에서 선택합니다."
 
@@ -1345,9 +1353,25 @@ msgstr "영구 스토리지가 활성화되지 않았습니다."
 msgid "Photo"
 msgstr "사진"
 
+#: src/components/image/RecentImageCard.tsx:68
+msgid "Photo not restored"
+msgstr "사진이 복원되지 않음"
+
 #: src/components/ImagesCompare.tsx:167
 msgid "Photo ranking"
 msgstr "사진 순위"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:199
+msgid "Photo unavailable"
+msgstr "사진을 볼 수 없습니다"
+
+#: src/components/image/RecentImageCard.tsx:87
+msgid "Photo unavailable. Restore it from your cloud storage, or select the original again."
+msgstr "사진을 볼 수 없습니다. 클라우드 저장소에서 복원하거나 원본을 다시 선택하세요."
+
+#: src/components/image/RecentImageCard.tsx:96
+msgid "Photo unavailable. Select the original again to repair it."
+msgstr "사진을 볼 수 없습니다. 복구하려면 원본을 다시 선택하세요."
 
 #: src/components/empty/EmptyTargetColor.tsx:35
 msgid "Pinch or scroll to zoom, drag to pan."
@@ -1361,7 +1385,7 @@ msgstr "이 오류 스크린샷을 연락처로 보내주시기 <0>바랍니다.
 msgid "Position: {position}<0/>Rating: {ratingText}"
 msgstr "위치: {position}<0/>등급: {ratingText}"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:67
+#: src/components/cloud/CloudFeedbackHandler.tsx:91
 #: src/components/cloud/CloudSyncUpdateNotification.tsx:56
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:63
 msgid "Postpone"
@@ -1459,6 +1483,10 @@ msgstr "반사율"
 msgid "Reload"
 msgstr "재장전"
 
+#: src/components/cloud/CloudFeedbackHandler.tsx:81
+msgid "Remove and continue"
+msgstr "제거하고 계속하기"
+
 #: src/components/ImageColorAdjustment.tsx:397
 #: src/components/messages.ts:43
 msgid "Remove background"
@@ -1490,6 +1518,10 @@ msgstr "재설정"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:78
 msgid "Restore backup"
 msgstr "백업 복원"
+
+#: src/components/image/RecentImageCard.tsx:92
+msgid "Restore from cloud"
+msgstr "클라우드에서 복원"
 
 #: src/components/empty/EmptyPalette.tsx:76
 msgid "Return to the <0>{paletteLabel}</0> tab."
@@ -1527,7 +1559,7 @@ msgstr "채도(%)"
 #: src/components/ImageOutline.tsx:373
 #: src/components/ImagePerspectiveCorrection.tsx:309
 #: src/components/ImagePerspectiveCorrection.tsx:361
-#: src/components/ImageStyleTransfer.tsx:231
+#: src/components/ImageStyleTransfer.tsx:243
 #: src/components/ImageTonalValues.tsx:159
 #: src/components/ImageTonalValues.tsx:175
 msgid "Save"
@@ -1537,7 +1569,7 @@ msgstr "구해내다"
 msgid "Save & continue"
 msgstr "저장 및 계속"
 
-#: src/components/cloud/ExportToZipButton.tsx:56
+#: src/components/cloud/ExportToZipButton.tsx:75
 msgid "Save backup"
 msgstr "저장 백업"
 
@@ -1575,11 +1607,15 @@ msgstr "원근을 교정할 사진을 선택합니다."
 msgid "Select a photo to remove the background from"
 msgstr "배경을 제거할 사진을 선택합니다."
 
-#: src/components/ImageChooser.tsx:115
+#: src/components/ImageChooser.tsx:114
 msgid "Select a reference photo from your device to paint from"
 msgstr "기기에서 페인팅할 참조 사진을 선택합니다."
 
-#: src/components/ImageStyleTransfer.tsx:226
+#: src/components/ImageStyleTransfer.tsx:193
+msgid "Select a style image to use this style"
+msgstr "이 스타일을 사용하려면 스타일 이미지를 선택하세요."
+
+#: src/components/ImageStyleTransfer.tsx:238
 msgid "Select a style to transfer to your reference photo"
 msgstr "참조 사진으로 전송할 스타일을 선택합니다."
 
@@ -1649,7 +1685,7 @@ msgid "Select part"
 msgstr "파트 선택"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageChooser.tsx:120
+#: src/components/ImageChooser.tsx:119
 #: src/components/ImageColorAdjustment.tsx:361
 #: src/components/ImagePerspectiveCorrection.tsx:270
 msgid "Select photo"
@@ -1667,7 +1703,7 @@ msgstr "쌍별 비교를 사용하여 순위를 매길 사진을 선택합니다
 msgid "Select set"
 msgstr "세트 선택"
 
-#: src/components/ImageStyleTransfer.tsx:166
+#: src/components/ImageStyleTransfer.tsx:171
 msgid "Select style image"
 msgstr "스타일 이미지 선택"
 
@@ -1759,7 +1795,7 @@ msgstr "그리드 표시"
 msgid "Show matching areas"
 msgstr "매칭 영역을 보여주세요"
 
-#: src/components/ImageChooser.tsx:144
+#: src/components/ImageChooser.tsx:143
 msgid "Show older photos"
 msgstr "이전 사진 보기"
 
@@ -1812,7 +1848,7 @@ msgstr "다양한 색상의 왁스 파스텔 영역을 약간 겹쳐서 단단�
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "백분위수 값이 작을수록 더 강한 백백이 나타납니다"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:151
+#: src/components/cloud/CloudFeedbackHandler.tsx:175
 msgid "Some synchronized cloud data was deleted or is unavailable. Keep this device to create it again, or postpone the decision. ArtistAssistApp will not recreate it automatically."
 msgstr "일부 동기화된 클라우드 데이터가 삭제되었거나 사용할 수 없습니다. 이 장치를 다시 만들거나 결정을 미루는 데 사용하세요. ArtistAssistApp은 자동으로 재생성하지 않습니다."
 
@@ -1857,7 +1893,7 @@ msgstr "표준 색상 세트"
 msgid "Standard print"
 msgstr "표준 인쇄"
 
-#: src/components/ImageChooser.tsx:87
+#: src/components/ImageChooser.tsx:86
 msgid "Storage may fill up"
 msgstr "저장 공간이 가득 찰 수 있습니다"
 
@@ -1873,7 +1909,7 @@ msgstr "곧게 펴"
 msgid "Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "비뚤어진 사진을 곧게 펴고 원치 않는 모서리를 제거합니다. 원근 왜곡을 보정하려면 자동 감지 또는 4개 지점을 선택하고, 선택적으로 여백을 드래그해서 이미지를 자르세요."
 
-#: src/components/ImageStyleTransfer.tsx:219
+#: src/components/ImageStyleTransfer.tsx:231
 msgid "Styled reference photo"
 msgstr "스타일이 지정된 참조 사진"
 
@@ -1894,6 +1930,10 @@ msgstr "표면 색상"
 #: src/components/lightbox/LightboxOverlay.tsx:118
 msgid "Swipe to unlock"
 msgstr "스와이프하면 잠금 해제"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:201
+msgid "Sync stopped because the photo {context} is unavailable and is not in your cloud storage. Remove it to continue syncing, or postpone the decision."
+msgstr "사진 {context}을(를) 사용할 수 없고 클라우드 저장소에 없기 때문에 동기화가 중지되었습니다. 동기화를 계속하려면 삭제하거나 결정을 연기하세요."
 
 #: src/components/cloud/SyncCloudButton.tsx:46
 msgid "Sync with {label}"
@@ -1920,11 +1960,11 @@ msgstr "대상 인쇄 크기"
 msgid "Terms of use"
 msgstr "이용 약관"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:83
+#: src/components/cloud/CloudFeedbackHandler.tsx:107
 msgid "The cloud connection could not be completed. Start again from ArtistAssistApp."
 msgstr "클라우드 연결이 완료되지 않았습니다. ArtistAssistApp에서 다시 시작하세요."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:170
+#: src/components/cloud/CloudFeedbackHandler.tsx:194
 msgid "The cloud data file is damaged. Replace it with the data from this device."
 msgstr "클라우드 데이터 파일이 손상되었습니다. 이 기기의 데이터로 교체하세요."
 
@@ -1989,15 +2029,15 @@ msgstr "이렇게 하면 연결된 클라우드 앱 폴더 내 모든 파일, �
 msgid "This deletes your account and membership lookup records and logs you out."
 msgstr "이 경우 계정과 회원 조회 기록이 삭제되고 로그아웃됩니다."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:124
+#: src/components/cloud/CloudFeedbackHandler.tsx:148
 msgid "This device and the synchronized cloud data both changed. Choose which one to keep."
 msgstr "이 기기와 동기화된 클라우드 데이터 모두 변경되었습니다. 어떤 것을 유지할지 선택하세요."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:110
+#: src/components/cloud/CloudFeedbackHandler.tsx:134
 msgid "This device has changes made while another account was active. Keep this device to upload them to the current account, keep the cloud data to discard them, or postpone the decision."
 msgstr "이 기기는 다른 계정이 활성화된 상태에서 변경이 이루어졌습니다. 이 기기를 현재 계정에 업로드할 수 있도록 유지하거나, 클라우드 데이터를 보관해 폐기하거나, 결정을 미루는 것도 방법입니다."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:137
+#: src/components/cloud/CloudFeedbackHandler.tsx:161
 msgid "This device has local data and existing synchronized cloud data, but no sync history. Choose which one to keep."
 msgstr "이 장치는 로컬 데이터와 기존 동기화된 클라우드 데이터는 있지만, 동기화 기록은 없습니다. 어떤 것을 유지할지 선택하세요."
 
@@ -2009,6 +2049,10 @@ msgstr "이 로그인 코드는 더 이상 사용할 수 없습니다. 계속하
 msgid "This permanently deletes the ArtistAssistApp folder and all your files and folders still inside it. Files you moved outside the folder are not deleted."
 msgstr "이 과정에서 ArtistAssistApp 폴더와 그 안에 남아 있는 모든 파일과 폴더가 영구적으로 삭제됩니다. 폴더 밖으로 옮긴 파일은 삭제되지 않습니다."
 
+#: src/components/image/RecentImageCard.tsx:69
+msgid "This photo could not be restored from your cloud storage."
+msgstr "이 사진은 클라우드 저장소에서 복원할 수 없습니다."
+
 #: src/components/print/PrintImageDrawer.tsx:176
 msgid "This print size is not supported"
 msgstr "이 인쇄 크기는 지원되지 않습니다."
@@ -2017,7 +2061,7 @@ msgstr "이 인쇄 크기는 지원되지 않습니다."
 msgid "This step is optional."
 msgstr "이 단계는 선택 사항입니다."
 
-#: src/components/ImageStyleTransfer.tsx:183
+#: src/components/ImageStyleTransfer.tsx:188
 msgid "This style is available to paid Patreon members only"
 msgstr "이 스타일은 Patreon 유료 회원만 사용할 수 있습니다"
 
@@ -2050,7 +2094,7 @@ msgid "Too many incorrect codes"
 msgstr "잘못된 코드가 너무 많아요"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:181
-#: src/components/cloud/CloudFeedbackHandler.tsx:184
+#: src/components/cloud/CloudFeedbackHandler.tsx:218
 msgid "Too many requests"
 msgstr "요청이 너무 많아"
 
@@ -2083,7 +2127,7 @@ msgstr "예상치 못한 오류: {errorMessage}"
 msgid "Unifying color"
 msgstr "통일성 색상"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:108
+#: src/components/cloud/CloudFeedbackHandler.tsx:132
 msgid "Unsynced changes on this device"
 msgstr "이 장치에서 동기화되지 않은 변경 사항"
 
@@ -2094,7 +2138,7 @@ msgstr "이 장치에서 동기화되지 않은 변경 사항"
 msgid "Untitled mixture"
 msgstr "제목 없는 혼합"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:189
+#: src/components/cloud/CloudFeedbackHandler.tsx:223
 msgid "Update ArtistAssistApp to the latest version and try again."
 msgstr "ArtistAssistApp을 최신 버전으로 업데이트하고 다시 시도하세요."
 
@@ -2110,7 +2154,7 @@ msgstr "업데이트 가능"
 msgid "Update now"
 msgstr "지금 업데이트"
 
-#: src/stores/cloud-slice.ts:135
+#: src/stores/cloud-slice.ts:142
 msgid "Uploading image {index} of {count}"
 msgstr "{index}의 이미지 {count} 업로드"
 
@@ -2152,7 +2196,7 @@ msgid "View the outline over the live camera to trace in AR."
 msgstr "실시간 카메라 위에서 윤곽선을 보면 AR로 트레이싱할 수 있습니다."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:182
-#: src/components/cloud/CloudFeedbackHandler.tsx:185
+#: src/components/cloud/CloudFeedbackHandler.tsx:219
 msgid "Wait a minute and try again."
 msgstr "잠깐만 기다렸다가 다시 시도해 보세요."
 
@@ -2214,7 +2258,7 @@ msgstr "화이트 포인트"
 msgid "Width"
 msgstr "너비"
 
-#: src/components/ImageChooser.tsx:89
+#: src/components/ImageChooser.tsx:88
 msgid "You already have many recent photos saved. Delete the oldest one to free up space? The new photo will still be added."
 msgstr "이미 최근 사진이 많이 저장되어 있어요. 가장 오래된 파일을 삭제해서 공간을 확보해야 할까요? 새 사진은 여전히 추가될 예정입니다."
 
@@ -2259,7 +2303,7 @@ msgstr "브라우저는 클립보드에서 이미지를 읽는 것을 지원하�
 msgid "Your cloud data changed and will be synchronized automatically."
 msgstr "클라우드 데이터가 변경되어 자동으로 동기화됩니다."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:177
+#: src/components/cloud/CloudFeedbackHandler.tsx:211
 msgid "Your cloud storage couldn't be reached. Your latest changes remain saved on this device and have not been uploaded. Check your internet connection, then try syncing again."
 msgstr "클라우드 저장소에 접근할 수 없었습니다. 최신 변경 사항은 이 장치에 저장되어 있으며 업로드되지 않았습니다. 인터넷 연결을 확인한 후 다시 동기화를 시도해 보세요."
 

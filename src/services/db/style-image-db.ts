@@ -17,6 +17,7 @@
  */
 
 import type {ImageFile} from '@/services/image/image-file';
+import {type AppSettings, DEFAULT_APP_SETTINGS} from '@/services/settings/types';
 
 import {dbPromise} from './db';
 
@@ -27,7 +28,39 @@ export async function getStyleImage(): Promise<ImageFile | undefined> {
   return await db.get('style-image', KEY);
 }
 
-export async function saveStyleImage(styleImage: ImageFile): Promise<void> {
+export async function saveStyleImage(styleImage: ImageFile): Promise<AppSettings> {
   const db = await dbPromise;
-  await db.put('style-image', styleImage, KEY);
+  const tx = db.transaction(['app-settings', 'style-image'], 'readwrite');
+  const settingsStore = tx.objectStore('app-settings');
+  const appSettings = {
+    ...DEFAULT_APP_SETTINGS,
+    ...(await settingsStore.get(KEY)),
+    styleTransferImageDigest: styleImage.digest,
+  };
+  await tx.objectStore('style-image').put(styleImage, KEY);
+  await settingsStore.put(appSettings, KEY);
+  await tx.done;
+  return appSettings;
+}
+
+export async function discardStyleImage(expectedDigest: string): Promise<{
+  appSettings: AppSettings;
+  discarded: boolean;
+}> {
+  const db = await dbPromise;
+  const tx = db.transaction(['app-settings', 'style-image'], 'readwrite');
+  const settingsStore = tx.objectStore('app-settings');
+  const currentSettings: AppSettings = {
+    ...DEFAULT_APP_SETTINGS,
+    ...(await settingsStore.get(KEY)),
+  };
+  if (currentSettings.styleTransferImageDigest !== expectedDigest) {
+    await tx.done;
+    return {appSettings: currentSettings, discarded: false};
+  }
+  const {styleTransferImageDigest: _styleTransferImageDigest, ...appSettings} = currentSettings;
+  await tx.objectStore('style-image').delete(KEY);
+  await settingsStore.put(appSettings, KEY);
+  await tx.done;
+  return {appSettings, discarded: true};
 }

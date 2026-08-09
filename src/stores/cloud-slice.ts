@@ -25,6 +25,7 @@ import type {User} from '@/services/auth/types';
 import * as CloudConnectionClient from '@/services/cloud/cloud-connection-client';
 import * as CloudSyncClient from '@/services/cloud/cloud-sync-client';
 import {CloudError, CloudErrorType} from '@/services/cloud/errors';
+import type {StateZip} from '@/services/cloud/state-zip';
 import {createStateZip, replaceStateFromZip} from '@/services/cloud/state-zip';
 import type {
   CloudConnection,
@@ -42,6 +43,8 @@ import {
   getCloudConnectionAttempt,
   saveCloudConnectionAttempt,
 } from '@/services/db/cloud-connection-db';
+import {readImageBytes} from '@/services/db/image-file-db';
+import {ImageUnreadableError} from '@/services/image/errors';
 import type {AppSlice} from '@/stores/app-slice';
 import type {AuthSlice} from '@/stores/auth-slice';
 import type {ColorSetSlice} from '@/stores/color-set-slice';
@@ -70,6 +73,8 @@ export type CloudOperation =
   | {type: CloudOperationType.Connect; provider?: CloudProvider}
   | {type: Exclude<CloudOperationType, CloudOperationType.Connect>};
 
+export type RepairImageResult = 'deleted' | 'restored' | 'unavailable' | 'failed';
+
 export interface CloudSlice {
   cloudConnection: CloudConnection | null;
   cloudError: CloudError | null;
@@ -93,7 +98,9 @@ export interface CloudSlice {
   disconnectCloud: (permanent?: boolean) => Promise<boolean>;
   handleCloudError: (error: unknown, message: string) => Promise<void>;
   clearCloudError: () => void;
-  exportToZip: () => Promise<Blob>;
+  repairImage: (digest: string) => Promise<RepairImageResult>;
+  removeUnreadableImage: (digest: string) => Promise<void>;
+  exportToZip: () => Promise<StateZip>;
   importFromZip: (file: File) => Promise<void>;
 }
 
@@ -399,7 +406,54 @@ export const createCloudSlice: StateCreator<
       });
     },
 
-    exportToZip: async (): Promise<Blob> => {
+    repairImage: async (digest: string): Promise<RepairImageResult> => {
+      try {
+        const result = await CloudSyncClient.repairCloudImage(digest);
+        if (result.status === 'unavailable') {
+          return 'unavailable';
+        }
+        if (result.status === 'deleted') {
+          set(({recentImages}) => ({
+            recentImages: recentImages.filter(image => image.digest !== digest),
+          }));
+          return 'deleted';
+        }
+        const {blob, tokens} = result.image;
+        set(({recentImages}) => ({
+          recentImages: recentImages.map(image =>
+            image.digest === digest ? {...image, blob} : image
+          ),
+        }));
+        get().saveStoreChangeTokens(tokens);
+        return 'restored';
+      } catch (error) {
+        if (error instanceof ForceLogoutError) {
+          void get().logout(error.type);
+          return 'failed';
+        }
+        await get().handleCloudError(error, 'Could not restore the photo from cloud storage');
+        return 'failed';
+      }
+    },
+
+    removeUnreadableImage: async (digest: string): Promise<void> => {
+      try {
+        try {
+          await readImageBytes({digest});
+        } catch (error) {
+          if (!(error instanceof ImageUnreadableError)) {
+            throw error;
+          }
+          await get().deleteRecentImage(digest, {scheduleCloudPush: false});
+        }
+      } catch (error) {
+        await get().handleCloudError(error, 'Could not delete the unavailable photo');
+        return;
+      }
+      await get().syncCloudState();
+    },
+
+    exportToZip: async (): Promise<StateZip> => {
       set({
         cloudOperation: {type: CloudOperationType.ExportZip},
       });

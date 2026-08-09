@@ -55,9 +55,9 @@ const ColorSetSchema = v.object({
 });
 
 const ImageMetadataSchema = v.object({
-  type: v.string(),
+  type: v.pipe(v.string(), v.minLength(1)),
   name: v.optional(v.string()),
-  digest: v.string(),
+  digest: v.pipe(v.string(), v.regex(/^[\da-f]{64}$/)),
   maxColors: v.optional(v.number()),
 });
 

@@ -28,8 +28,8 @@ import {useErrorNotification} from '@/hooks/useErrorNotification';
 import {useFileReadErrorNotification} from '@/hooks/useFileReadErrorNotification';
 import {usePersistentStorage} from '@/hooks/usePersistentStorage';
 import {useSampleImages} from '@/hooks/useSampleImages';
-import {countImageFiles, getOldestImageFile} from '@/services/db/image-file-db';
-import {fileToImageFile, type ImageFile} from '@/services/image/image-file';
+import {countImageFiles, getOldestImageDigest, hasImageFile} from '@/services/db/image-file-db';
+import {fileToImageFile, type ImageFile, type RecentImage} from '@/services/image/image-file';
 import type {SampleImageDefinition} from '@/services/image/sample-images';
 import {useAppStore} from '@/stores/app-store';
 import {byNumber, reverseOrder} from '@/utils/comparator';
@@ -40,11 +40,11 @@ import {SampleImageCard} from './image/SampleImageCard';
 const MAX_IMAGE_FILES = 20;
 
 export function ImageChooser() {
-  const recentImageFiles = useAppStore(state => state.recentImageFiles);
-  const hasMoreRecentImageFiles = useAppStore(state => state.hasMoreRecentImageFiles);
-  const loadMoreRecentImageFiles = useAppStore(state => state.loadMoreRecentImageFiles);
+  const recentImages = useAppStore(state => state.recentImages);
+  const hasMoreRecentImages = useAppStore(state => state.hasMoreRecentImages);
+  const loadMoreRecentImages = useAppStore(state => state.loadMoreRecentImages);
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
-  const deleteRecentImageFile = useAppStore(state => state.deleteRecentImageFile);
+  const deleteRecentImage = useAppStore(state => state.deleteRecentImage);
   const isRecentImagesLoading = useAppStore(state => state.isRecentImagesLoading);
   const isSampleImageLoading = useAppStore(state => state.isSampleImageLoading);
 
@@ -81,8 +81,7 @@ export function ImageChooser() {
       showFileReadErrorNotification();
       return;
     }
-    const imageFileCount = await countImageFiles();
-    if (imageFileCount >= MAX_IMAGE_FILES) {
+    if (!(await hasImageFile(imageFile.digest)) && (await countImageFiles()) >= MAX_IMAGE_FILES) {
       const confirmed: boolean = await modal.confirm({
         title: <Trans>Storage may fill up</Trans>,
         content: (
@@ -96,9 +95,9 @@ export function ImageChooser() {
         focusTriggerAfterClose: false,
       });
       if (confirmed) {
-        const oldestImageFile = await getOldestImageFile();
-        if (oldestImageFile) {
-          await deleteRecentImageFile(oldestImageFile);
+        const oldestImageDigest = await getOldestImageDigest();
+        if (oldestImageDigest) {
+          await deleteRecentImage(oldestImageDigest);
         }
       }
     }
@@ -121,16 +120,16 @@ export function ImageChooser() {
             </FileSelect>
           </div>
 
-          {recentImageFiles.length > 0 && (
+          {recentImages.length > 0 && (
             <Typography.Text strong>
               <Trans>Or select from your recent photos</Trans>
             </Typography.Text>
           )}
 
           <Row gutter={[16, 16]} align="top" justify="start" className="u-mb-em">
-            {recentImageFiles.map((imageFile: ImageFile) => (
-              <Col key={imageFile.digest} xs={24} sm={12} lg={6}>
-                <RecentImageCard imageFile={imageFile} />
+            {recentImages.map((image: RecentImage) => (
+              <Col key={image.digest} xs={24} sm={12} lg={6}>
+                <RecentImageCard image={image} />
               </Col>
             ))}
             <Col xs={24} md={12} lg={6}>
@@ -138,9 +137,9 @@ export function ImageChooser() {
             </Col>
           </Row>
 
-          {hasMoreRecentImageFiles && (
+          {hasMoreRecentImages && (
             <div>
-              <LoadingButton run={loadMoreRecentImageFiles}>
+              <LoadingButton run={loadMoreRecentImages}>
                 <Trans>Show older photos</Trans>
               </LoadingButton>
             </div>

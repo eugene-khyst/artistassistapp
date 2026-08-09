@@ -24,7 +24,7 @@ import {withCloudLock} from '@/services/cloud/cloud-lock';
 import {createCloudState, parseCloudState} from '@/services/cloud/cloud-state';
 import type {CloudImage, CloudState} from '@/services/cloud/types';
 import {FileExtension} from '@/services/cloud/types';
-import {getLocalStateWithImageFiles, replaceLocalStateFromZip} from '@/services/db/cloud-sync-db';
+import {getLocalStateWithImageBytes, replaceLocalStateFromZip} from '@/services/db/cloud-sync-db';
 import {getStoreChangeTokens} from '@/services/db/store-changes-db';
 import type {StoreChangeTokens} from '@/services/db/types';
 import type {ImageFile} from '@/services/image/image-file';
@@ -96,25 +96,38 @@ function validateImages(state: CloudState, entries: Unzipped): Promise<ImageFile
   );
 }
 
-export async function createStateZip(): Promise<Blob> {
-  const {customBrands, colorSets, images, imageFiles, colorMixtures} = await withCloudLock(() =>
-    getLocalStateWithImageFiles()
-  );
-  const state = createCloudState({
+export interface StateZip {
+  blob: Blob;
+  unavailableImageCount: number;
+}
+
+export async function createStateZip(): Promise<StateZip> {
+  const {
     customBrands,
     colorSets,
     images,
+    imageBytesByDigest,
+    unavailableImageDigests,
     colorMixtures,
+  } = await withCloudLock(() => getLocalStateWithImageBytes());
+  const state = createCloudState({
+    customBrands,
+    colorSets,
+    images: images.filter(({digest}) => !unavailableImageDigests.has(digest)),
+    colorMixtures: colorMixtures.filter(
+      ({imageFileDigest}) => !imageFileDigest || !unavailableImageDigests.has(imageFileDigest)
+    ),
   });
   const entries: AsyncZippable = {
     [ZIP_STATE_FILE_NAME]: strToU8(JSON.stringify(state, null, 2)),
   };
-  const imageFilesByDigest = new Map(imageFiles.map(image => [image.digest, image]));
   for (const image of state.images) {
-    const imageFile = imageFilesByDigest.get(image.digest)!;
-    entries[imagePath(image)] = new Uint8Array(await imageFile.blob.arrayBuffer());
+    entries[imagePath(image)] = new Uint8Array(imageBytesByDigest.get(image.digest)!);
   }
-  return new Blob([await createZip(entries)], {type: 'application/zip'});
+  return {
+    blob: new Blob([await createZip(entries)], {type: 'application/zip'}),
+    unavailableImageCount: unavailableImageDigests.size,
+  };
 }
 
 export async function replaceStateFromZip(file: File): Promise<StoreChangeTokens> {

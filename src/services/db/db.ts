@@ -29,11 +29,15 @@ import type {
 import {deleteDB, openDB} from 'idb';
 
 import {applyMigrations} from '@/services/db/migrations';
-import {type ArtistAssistAppDB, OBJECT_STORE_NAMES, type StoreName} from '@/services/db/schema';
+import {
+  type ArtistAssistAppDB,
+  type LegacyArtistAssistAppDB,
+  type StoreName,
+} from '@/services/db/schema';
 import {withWebLock} from '@/utils/web-lock';
 
 const DB_NAME = 'artistassistapp';
-const DB_VERSION = 10;
+const DB_VERSION = 11;
 const DB_MIGRATIONS_LOCK_NAME = 'artistassistapp:db-migrations';
 
 export type DBReadWriteTransaction = IDBPTransaction<ArtistAssistAppDB, StoreName[], 'readwrite'>;
@@ -43,15 +47,17 @@ export type DBReadTransaction = IDBPTransaction<
   'readonly' | 'readwrite'
 >;
 
-const internalDbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<ArtistAssistAppDB>(
-  DB_NAME,
-  DB_VERSION,
-  {
+const internalDbPromise: Promise<IDBPDatabase<LegacyArtistAssistAppDB>> =
+  openDB<LegacyArtistAssistAppDB>(DB_NAME, DB_VERSION, {
     upgrade(
-      db: IDBPDatabase<ArtistAssistAppDB>,
+      db: IDBPDatabase<LegacyArtistAssistAppDB>,
       _oldVersion: number,
       _newVersion: number | null,
-      tx: IDBPTransaction<ArtistAssistAppDB, StoreNames<ArtistAssistAppDB>[], 'versionchange'>
+      tx: IDBPTransaction<
+        LegacyArtistAssistAppDB,
+        StoreNames<LegacyArtistAssistAppDB>[],
+        'versionchange'
+      >
     ) {
       createStoreIfNotExists(db, tx, 'store-changes');
       const migrationsStore = createStoreIfNotExists(db, tx, 'migrations', {
@@ -69,15 +75,15 @@ const internalDbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artis
       deleteIndexIfExists(colorSetStore, 'by-date');
       deleteIndexIfExists(colorSetStore, 'by-type');
 
-      const imageFilesStore = createStoreIfNotExists(db, tx, 'images', {
-        keyPath: 'id',
-        autoIncrement: true,
-      });
-      createIndexIfNotExists(imageFilesStore, 'by-date', 'date');
-      createIndexIfNotExists(imageFilesStore, 'by-digest', 'digest');
-      createStoreIfNotExists(db, tx, 'image-metadata', {
+      createStoreIfNotExists(db, tx, 'image-blobs', {
         keyPath: 'digest',
       });
+
+      const imageMetadataStore = createStoreIfNotExists(db, tx, 'image-metadata', {
+        keyPath: 'digest',
+      });
+      createIndexIfNotExists(imageMetadataStore, 'by-date', 'date');
+
       createStoreIfNotExists(db, tx, 'style-image');
 
       const processedImagesStore = createStoreIfNotExists(db, tx, 'processed-images', {
@@ -106,19 +112,14 @@ const internalDbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = openDB<Artis
       createStoreIfNotExists(db, tx, 'cloud-connection');
       createStoreIfNotExists(db, tx, 'cloud-sync', {keyPath: 'connectionId'});
       createStoreIfNotExists(db, tx, 'local-state-connection');
-
-      for (const objectStoreName of db.objectStoreNames) {
-        if (!OBJECT_STORE_NAMES.includes(objectStoreName)) {
-          db.deleteObjectStore(objectStoreName);
-        }
-      }
     },
-  }
-);
+  });
 
 export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = internalDbPromise.then(
-  (db): Promise<IDBPDatabase<ArtistAssistAppDB>> =>
-    withWebLock(DB_MIGRATIONS_LOCK_NAME, () => applyMigrations(db))
+  async db => {
+    const migratedDb = await withWebLock(DB_MIGRATIONS_LOCK_NAME, () => applyMigrations(db));
+    return migratedDb as unknown as IDBPDatabase<ArtistAssistAppDB>;
+  }
 );
 
 export async function deleteDatabase(callbacks?: DeleteDBCallbacks): Promise<void> {
@@ -126,14 +127,14 @@ export async function deleteDatabase(callbacks?: DeleteDBCallbacks): Promise<voi
 }
 
 function createStoreIfNotExists<
-  TxStores extends ArrayLike<StoreNames<ArtistAssistAppDB>>,
+  TxStores extends ArrayLike<StoreNames<LegacyArtistAssistAppDB>>,
   StoreName extends TxStores[number],
 >(
-  db: IDBPDatabase<ArtistAssistAppDB>,
-  tx: IDBPTransaction<ArtistAssistAppDB, TxStores, 'versionchange'>,
+  db: IDBPDatabase<LegacyArtistAssistAppDB>,
+  tx: IDBPTransaction<LegacyArtistAssistAppDB, TxStores, 'versionchange'>,
   storeName: StoreName,
   params?: IDBObjectStoreParameters
-): IDBPObjectStore<ArtistAssistAppDB, TxStores, StoreName, 'versionchange'> {
+): IDBPObjectStore<LegacyArtistAssistAppDB, TxStores, StoreName, 'versionchange'> {
   if (!db.objectStoreNames.contains(storeName)) {
     db.createObjectStore(storeName, params);
   }
@@ -141,24 +142,24 @@ function createStoreIfNotExists<
 }
 
 type StoreIndexKeyPath<
-  StoreName extends StoreNames<ArtistAssistAppDB>,
-  IndexName extends IndexNames<ArtistAssistAppDB, StoreName>,
+  StoreName extends StoreNames<LegacyArtistAssistAppDB>,
+  IndexName extends IndexNames<LegacyArtistAssistAppDB, StoreName>,
 > = {
-  [Key in Extract<keyof StoreValue<ArtistAssistAppDB, StoreName>, string>]: NonNullable<
-    StoreValue<ArtistAssistAppDB, StoreName>[Key]
+  [Key in Extract<keyof StoreValue<LegacyArtistAssistAppDB, StoreName>, string>]: NonNullable<
+    StoreValue<LegacyArtistAssistAppDB, StoreName>[Key]
   > extends
-    | IndexKey<ArtistAssistAppDB, StoreName, IndexName>
-    | IndexKey<ArtistAssistAppDB, StoreName, IndexName>[]
+    | IndexKey<LegacyArtistAssistAppDB, StoreName, IndexName>
+    | IndexKey<LegacyArtistAssistAppDB, StoreName, IndexName>[]
     ? Key
     : never;
-}[Extract<keyof StoreValue<ArtistAssistAppDB, StoreName>, string>];
+}[Extract<keyof StoreValue<LegacyArtistAssistAppDB, StoreName>, string>];
 
 function createIndexIfNotExists<
-  TxStores extends ArrayLike<StoreNames<ArtistAssistAppDB>>,
-  StoreName extends StoreNames<ArtistAssistAppDB>,
-  IndexName extends IndexNames<ArtistAssistAppDB, StoreName>,
+  TxStores extends ArrayLike<StoreNames<LegacyArtistAssistAppDB>>,
+  StoreName extends StoreNames<LegacyArtistAssistAppDB>,
+  IndexName extends IndexNames<LegacyArtistAssistAppDB, StoreName>,
 >(
-  store: IDBPObjectStore<ArtistAssistAppDB, TxStores, StoreName, 'versionchange'>,
+  store: IDBPObjectStore<LegacyArtistAssistAppDB, TxStores, StoreName, 'versionchange'>,
   indexName: IndexName,
   fieldName: StoreIndexKeyPath<StoreName, IndexName>,
   params?: IDBIndexParameters
@@ -169,10 +170,10 @@ function createIndexIfNotExists<
 }
 
 function deleteIndexIfExists<
-  TxStores extends ArrayLike<StoreNames<ArtistAssistAppDB>>,
-  StoreName extends StoreNames<ArtistAssistAppDB>,
+  TxStores extends ArrayLike<StoreNames<LegacyArtistAssistAppDB>>,
+  StoreName extends StoreNames<LegacyArtistAssistAppDB>,
 >(
-  store: IDBPObjectStore<ArtistAssistAppDB, TxStores, StoreName, 'versionchange'>,
+  store: IDBPObjectStore<LegacyArtistAssistAppDB, TxStores, StoreName, 'versionchange'>,
   indexName: string
 ): void {
   // @ts-expect-error Legacy index removed from schema

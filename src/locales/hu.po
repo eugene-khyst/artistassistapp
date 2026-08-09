@@ -54,6 +54,10 @@ msgstr "{FIELD} kötelező"
 msgid "{retryIn, plural, one {Resend code in # second} other {Resend code in # seconds}}"
 msgstr "{retryIn, plural, one {Újraküldd a kódot # másodperc alatt} other {Újraküldd a kódot # másodperc múlva}}"
 
+#: src/components/cloud/ExportToZipButton.tsx:46
+msgid "{unavailableImageCount, plural, one {Backup created without # unavailable photo. Select the original photo again, then save the backup again.} other {Backup created without # unavailable photos. Select the original photos again, then save the backup again.}}"
+msgstr "{unavailableImageCount, plural, one {A biztonsági másolat # elérhetetlen fotó nélkül készült. Válassza ki újra az eredeti fényképet, majd mentse újra a biztonsági másolatot.} other {A biztonsági másolat # nem elérhető fénykép nélkül készült. Válassza ki újra az eredeti fényképeket, majd mentse újra a biztonsági másolatot.}}"
+
 #: src/components/install/InstallDrawer.tsx:42
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, Windows, <1/> <2/> Linux és <3/> ChromeOS"
@@ -261,7 +265,7 @@ msgstr "Biztosan törölni szeretné ezt a színkészletet?"
 msgid "Are you sure you want to delete this custom brand?"
 msgstr "Biztos benne, hogy törölni szeretné ezt az egyedi márkát?"
 
-#: src/components/image/RecentImageCard.tsx:64
+#: src/components/image/RecentImageCard.tsx:115
 msgid "Are you sure you want to delete this photo?"
 msgstr "Biztosan törölni akarja ezt a fényképet?"
 
@@ -270,11 +274,11 @@ msgstr "Biztosan törölni akarja ezt a fényképet?"
 msgid "Art medium"
 msgstr "Művészeti médium"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:93
+#: src/components/cloud/CloudFeedbackHandler.tsx:117
 msgid "ArtistAssistApp can no longer access your cloud storage. Disconnect it, then connect again."
 msgstr "Az ArtistAssistApp már nem fér hozzá a felhőalapú tárhelyedhez. Kapcsold le, majd újra csatlakoztasd."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:161
+#: src/components/cloud/CloudFeedbackHandler.tsx:185
 msgid "ArtistAssistApp could not confirm that your cloud files were deleted. Remove any remaining ArtistAssistApp folder or files directly from your cloud provider."
 msgstr "Az ArtistAssistApp nem tudta megerősíteni, hogy a felhőfájlok törlésre kerültek. Távolítsd el a maradék ArtistAssistApp mappákat vagy fájlokat közvetlenül a felhőszolgáltatódról."
 
@@ -335,6 +339,10 @@ msgstr "Háttér"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:56
 msgid "Backup imported"
 msgstr "Biztonsági mentés importált"
+
+#: src/components/cloud/ExportToZipButton.tsx:44
+msgid "Backup saved without some photos"
+msgstr "A biztonsági másolat néhány fénykép nélkül mentve"
 
 #: src/components/auth/JoinButton.tsx:27
 msgid "Become a paid member"
@@ -435,15 +443,15 @@ msgstr "Kattintson 🖱️ vagy koppintson 👆 a fénykép tetszőleges pontjá
 msgid "Close"
 msgstr "Bezár"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:99
+#: src/components/cloud/CloudFeedbackHandler.tsx:123
 msgid "Cloud access not granted"
 msgstr "Felhő hozzáférés nem engedélyezett"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:91
+#: src/components/cloud/CloudFeedbackHandler.tsx:115
 msgid "Cloud authorization failed"
 msgstr "Felhőalapú hitelesítés meghibásodott"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:81
+#: src/components/cloud/CloudFeedbackHandler.tsx:105
 msgid "Cloud connection failed"
 msgstr "A felhőkapcsolat meghibásodott"
 
@@ -451,35 +459,35 @@ msgstr "A felhőkapcsolat meghibásodott"
 msgid "Cloud data changed"
 msgstr "Felhőadatok változtak"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:149
+#: src/components/cloud/CloudFeedbackHandler.tsx:173
 msgid "Cloud data not found"
 msgstr "Felhőadatok nem találhatók meg"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:168
+#: src/components/cloud/CloudFeedbackHandler.tsx:192
 msgid "Cloud data unreadable"
 msgstr "Felhőadatok olvashatatlanok"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:159
+#: src/components/cloud/CloudFeedbackHandler.tsx:183
 msgid "Cloud files may remain"
 msgstr "A felhőfájlok maradhatnak"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:87
+#: src/components/cloud/CloudFeedbackHandler.tsx:111
 msgid "Cloud not connected"
 msgstr "Felhő nincs csatlakoztatva"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:101
+#: src/components/cloud/CloudFeedbackHandler.tsx:125
 msgid "Cloud storage was not connected because access was not granted. To connect it, try again and allow the requested access."
 msgstr "A felhőalapú tárhely nem volt csatlakoztatva, mert nem engedélyezték a hozzáférést. A csatlakoztatáshoz próbáld újra, és engedélyezd a kért hozzáférést."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:122
+#: src/components/cloud/CloudFeedbackHandler.tsx:146
 msgid "Cloud sync conflict"
 msgstr "Felhőszinkron konfliktus"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:188
+#: src/components/cloud/CloudFeedbackHandler.tsx:222
 msgid "Cloud sync failed"
 msgstr "Felhőszinkron sikertelen"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:135
+#: src/components/cloud/CloudFeedbackHandler.tsx:159
 msgid "Cloud sync history missing"
 msgstr "Felhőszinkron előzmény hiányzik"
 
@@ -487,7 +495,7 @@ msgstr "Felhőszinkron előzmény hiányzik"
 msgid "Cloud sync is not enabled"
 msgstr "A felhőszinkron nincs engedélyezve"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:175
+#: src/components/cloud/CloudFeedbackHandler.tsx:209
 msgid "Cloud sync paused"
 msgstr "Felhőszinkron szünetelt"
 
@@ -569,7 +577,7 @@ msgstr "Connect {label}"
 msgid "Connect {label}?"
 msgstr "Csatlakoztasd a {label}-hez?"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:88
+#: src/components/cloud/CloudFeedbackHandler.tsx:112
 msgid "Connect cloud storage before syncing."
 msgstr "Csatlakoztasd a felhőalapú tárhelyet a szinkronizálás előtt."
 
@@ -613,7 +621,7 @@ msgstr "A fényforrás hőmérsékletének korrigált becslése Kelvinben"
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Nem tudtam automatikusan érzékelni a papírt vagy vásznat"
 
-#: src/components/cloud/ExportToZipButton.tsx:40
+#: src/components/cloud/ExportToZipButton.tsx:59
 msgid "Could not export backup"
 msgstr "Nem tudtam mentést exportálni"
 
@@ -653,8 +661,8 @@ msgstr "Egyedi színek"
 #: src/components/ColorSetChooser.tsx:767
 #: src/components/CustomColorBrandCreator.tsx:517
 #: src/components/CustomColorBrandCreator.tsx:527
-#: src/components/image/RecentImageCard.tsx:73
-#: src/components/image/RecentImageCard.tsx:83
+#: src/components/image/RecentImageCard.tsx:124
+#: src/components/image/RecentImageCard.tsx:134
 #: src/components/storage/DeleteAppDataButton.tsx:50
 msgid "Delete"
 msgstr "Töröl"
@@ -683,7 +691,7 @@ msgstr "Töröld az adatokat ezen az eszközön"
 msgid "Delete from palette"
 msgstr "Törlés a palettából"
 
-#: src/components/ImageChooser.tsx:94
+#: src/components/ImageChooser.tsx:93
 msgid "Delete oldest"
 msgstr "Töröld a régebbi"
 
@@ -701,8 +709,8 @@ msgstr "A színkészlet törlése"
 msgid "Delete the custom brand"
 msgstr "Az egyéni márka törlése"
 
-#: src/components/image/RecentImageCard.tsx:63
-#: src/components/image/RecentImageCard.tsx:78
+#: src/components/image/RecentImageCard.tsx:114
+#: src/components/image/RecentImageCard.tsx:129
 msgid "Delete the recent photo"
 msgstr "A legutóbbi fotó törlése"
 
@@ -766,7 +774,7 @@ msgstr "Van bolti vagy egyedi színkészlete?"
 msgid "Don't save"
 msgstr "Ne mentsd meg"
 
-#: src/stores/cloud-slice.ts:136
+#: src/stores/cloud-slice.ts:143
 msgid "Downloading image {index} of {count}"
 msgstr "A {index} képének {count} letöltése"
 
@@ -1009,20 +1017,20 @@ msgstr "Nehéz lehet több fénykép közül választani. Az egyes fényképek p
 #: src/components/color/PaletteColorMixtureCard.tsx:125
 #: src/components/ColorSetChooser.tsx:758
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/RecentImageCard.tsx:74
+#: src/components/image/RecentImageCard.tsx:125
 #: src/components/palette/PaletteGrid.tsx:114
 msgid "Keep"
 msgstr "Tartsd meg"
 
-#: src/components/ImageChooser.tsx:95
+#: src/components/ImageChooser.tsx:94
 msgid "Keep all"
 msgstr "Tartsd meg az összes"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:57
+#: src/components/cloud/CloudFeedbackHandler.tsx:59
 msgid "Keep cloud data"
 msgstr "Felhőadatok megőrzése"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:40
+#: src/components/cloud/CloudFeedbackHandler.tsx:42
 msgid "Keep this device"
 msgstr "Tartsd meg ezt az eszközt"
 
@@ -1034,7 +1042,7 @@ msgstr "Nyelv"
 msgid "Last charge status"
 msgstr "Utolsó töltési állapot"
 
-#: src/components/image/RecentImageCard.tsx:88
+#: src/components/image/RecentImageCard.tsx:139
 msgid "Last used {dateText}"
 msgstr "Utoljára használt {dateText}"
 
@@ -1238,7 +1246,7 @@ msgstr "Csak korlátozott számú színmárka érhető el az ingyenes verzióban
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Az ingyenes verzióban csak korlátozott számú mód érhető el"
 
-#: src/components/ImageStyleTransfer.tsx:237
+#: src/components/ImageStyleTransfer.tsx:249
 msgid "Only a limited number of styles are available in the free version"
 msgstr "Az ingyenes verzióban csak korlátozott számú stílus érhető el"
 
@@ -1271,11 +1279,11 @@ msgstr "Vagy menthetsz biztonsági mentést erre az eszközre."
 msgid "Or scan the QR code"
 msgstr "Vagy olvassa be a QR-kódot"
 
-#: src/components/ImageChooser.tsx:152
+#: src/components/ImageChooser.tsx:151
 msgid "Or select from sample photos"
 msgstr "Vagy válasszon a mintafotók közül"
 
-#: src/components/ImageChooser.tsx:126
+#: src/components/ImageChooser.tsx:125
 msgid "Or select from your recent photos"
 msgstr "Vagy válasszon a legutóbbi fotói közül"
 
@@ -1345,9 +1353,25 @@ msgstr "Az állandó tárolás nincs engedélyezve"
 msgid "Photo"
 msgstr "Fénykép"
 
+#: src/components/image/RecentImageCard.tsx:68
+msgid "Photo not restored"
+msgstr "A fénykép nincs visszaállítva"
+
 #: src/components/ImagesCompare.tsx:167
 msgid "Photo ranking"
 msgstr "Fotók rangsorolása"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:199
+msgid "Photo unavailable"
+msgstr "A fénykép nem érhető el"
+
+#: src/components/image/RecentImageCard.tsx:87
+msgid "Photo unavailable. Restore it from your cloud storage, or select the original again."
+msgstr "A fénykép nem érhető el. Állítsa vissza felhőtárhelyéről, vagy válassza ki újra az eredetit."
+
+#: src/components/image/RecentImageCard.tsx:96
+msgid "Photo unavailable. Select the original again to repair it."
+msgstr "A fénykép nem érhető el. A javításhoz válassza ki újra az eredetit."
 
 #: src/components/empty/EmptyTargetColor.tsx:35
 msgid "Pinch or scroll to zoom, drag to pan."
@@ -1361,7 +1385,7 @@ msgstr "Kérjük, küldjön nekünk képernyőképet erről a <0>hibáról a kap
 msgid "Position: {position}<0/>Rating: {ratingText}"
 msgstr "Pozíció: {position}<0/>Értékelés: {ratingText}"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:67
+#: src/components/cloud/CloudFeedbackHandler.tsx:91
 #: src/components/cloud/CloudSyncUpdateNotification.tsx:56
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:63
 msgid "Postpone"
@@ -1459,6 +1483,10 @@ msgstr "Visszaverődés"
 msgid "Reload"
 msgstr "Újratöltés"
 
+#: src/components/cloud/CloudFeedbackHandler.tsx:81
+msgid "Remove and continue"
+msgstr "Távolítsa el és folytassa"
+
 #: src/components/ImageColorAdjustment.tsx:397
 #: src/components/messages.ts:43
 msgid "Remove background"
@@ -1490,6 +1518,10 @@ msgstr "Átszed"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:78
 msgid "Restore backup"
 msgstr "Mentés visszaállítása"
+
+#: src/components/image/RecentImageCard.tsx:92
+msgid "Restore from cloud"
+msgstr "Visszaállítás felhőből"
 
 #: src/components/empty/EmptyPalette.tsx:76
 msgid "Return to the <0>{paletteLabel}</0> tab."
@@ -1527,7 +1559,7 @@ msgstr "Telítettség (%)"
 #: src/components/ImageOutline.tsx:373
 #: src/components/ImagePerspectiveCorrection.tsx:309
 #: src/components/ImagePerspectiveCorrection.tsx:361
-#: src/components/ImageStyleTransfer.tsx:231
+#: src/components/ImageStyleTransfer.tsx:243
 #: src/components/ImageTonalValues.tsx:159
 #: src/components/ImageTonalValues.tsx:175
 msgid "Save"
@@ -1537,7 +1569,7 @@ msgstr "Megment"
 msgid "Save & continue"
 msgstr "Mentés és folytatás"
 
-#: src/components/cloud/ExportToZipButton.tsx:56
+#: src/components/cloud/ExportToZipButton.tsx:75
 msgid "Save backup"
 msgstr "Mentés mentése"
 
@@ -1575,11 +1607,15 @@ msgstr "Válasszon ki egy fényképet a perspektíva korrigálásához"
 msgid "Select a photo to remove the background from"
 msgstr "Válasszon ki egy fényképet, amelyről el szeretné távolítani a hátteret"
 
-#: src/components/ImageChooser.tsx:115
+#: src/components/ImageChooser.tsx:114
 msgid "Select a reference photo from your device to paint from"
 msgstr "Válasszon ki egy referenciafotót az eszközről a festéshez"
 
-#: src/components/ImageStyleTransfer.tsx:226
+#: src/components/ImageStyleTransfer.tsx:193
+msgid "Select a style image to use this style"
+msgstr "Válasszon ki egy stílusképet a stílus használatához"
+
+#: src/components/ImageStyleTransfer.tsx:238
 msgid "Select a style to transfer to your reference photo"
 msgstr "Válassza ki a referenciafotóra átvinni kívánt stílust"
 
@@ -1649,7 +1685,7 @@ msgid "Select part"
 msgstr "Alkatrész kiválasztása"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageChooser.tsx:120
+#: src/components/ImageChooser.tsx:119
 #: src/components/ImageColorAdjustment.tsx:361
 #: src/components/ImagePerspectiveCorrection.tsx:270
 msgid "Select photo"
@@ -1667,7 +1703,7 @@ msgstr "Válassza ki a rangsorolni kívánt fényképeket páronkénti összehas
 msgid "Select set"
 msgstr "Készlet kiválasztása"
 
-#: src/components/ImageStyleTransfer.tsx:166
+#: src/components/ImageStyleTransfer.tsx:171
 msgid "Select style image"
 msgstr "Stíluskép kiválasztása"
 
@@ -1759,7 +1795,7 @@ msgstr "Rács megjelenítése"
 msgid "Show matching areas"
 msgstr "Megjelenítési egyeztetési területek"
 
-#: src/components/ImageChooser.tsx:144
+#: src/components/ImageChooser.tsx:143
 msgid "Show older photos"
 msgstr "Régi fotók megjelenítése"
 
@@ -1812,7 +1848,7 @@ msgstr "Enyhén fedd át a viaszpasztell területeket különböző színekben, 
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "A kisebb percentilis értékek erősebb fehérítésnek felelnek meg"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:151
+#: src/components/cloud/CloudFeedbackHandler.tsx:175
 msgid "Some synchronized cloud data was deleted or is unavailable. Keep this device to create it again, or postpone the decision. ArtistAssistApp will not recreate it automatically."
 msgstr "Néhány szinkronizált felhő adat törölve lett vagy nem elérhető. Tartsd meg ezt az eszközt, hogy újra létrehozd, vagy halassd el a döntést. Az ArtistAssistApp nem hozza létre automatikusan újra."
 
@@ -1857,7 +1893,7 @@ msgstr "Szabványos színkészlet"
 msgid "Standard print"
 msgstr "Normál nyomtatás"
 
-#: src/components/ImageChooser.tsx:87
+#: src/components/ImageChooser.tsx:86
 msgid "Storage may fill up"
 msgstr "A tároló megtelhet"
 
@@ -1873,7 +1909,7 @@ msgstr "Egyenesítsd ki"
 msgid "Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "Kiegyenesíti a ferde fotókat, és eltávolítja a nem kívánt széleket. Használj automatikus detektálást vagy válassz 4 pontot a perspektíva torzításához, majd opcionálisan húzd a margókat a kép vágásához."
 
-#: src/components/ImageStyleTransfer.tsx:219
+#: src/components/ImageStyleTransfer.tsx:231
 msgid "Styled reference photo"
 msgstr "Stílusos referenciafotó"
 
@@ -1894,6 +1930,10 @@ msgstr "Felület színe"
 #: src/components/lightbox/LightboxOverlay.tsx:118
 msgid "Swipe to unlock"
 msgstr "Húzd fel a feloldáshoz"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:201
+msgid "Sync stopped because the photo {context} is unavailable and is not in your cloud storage. Remove it to continue syncing, or postpone the decision."
+msgstr "A szinkronizálás leállt, mert a(z) {context} fotó nem érhető el, és nincs a felhőtárhelyen. Távolítsa el a szinkronizálás folytatásához, vagy halassza el a döntést."
 
 #: src/components/cloud/SyncCloudButton.tsx:46
 msgid "Sync with {label}"
@@ -1920,11 +1960,11 @@ msgstr "Cél nyomtatási méret"
 msgid "Terms of use"
 msgstr "Felhasználási feltételek"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:83
+#: src/components/cloud/CloudFeedbackHandler.tsx:107
 msgid "The cloud connection could not be completed. Start again from ArtistAssistApp."
 msgstr "A felhőkapcsolat nem volt megvalósítható. Kezdd újra az ArtistAssistApp-ból."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:170
+#: src/components/cloud/CloudFeedbackHandler.tsx:194
 msgid "The cloud data file is damaged. Replace it with the data from this device."
 msgstr "A felhőalapú adatfájl sérült. Cseréld le az eszközről származó adatokkal."
 
@@ -1989,15 +2029,15 @@ msgstr "Ez mindent töröl a csatlakoztatott felhőalkalmazás mappájában, bel
 msgid "This deletes your account and membership lookup records and logs you out."
 msgstr "Ez törli a fiókodat és a tagsági kereső adatokat, és kijelentkezik."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:124
+#: src/components/cloud/CloudFeedbackHandler.tsx:148
 msgid "This device and the synchronized cloud data both changed. Choose which one to keep."
 msgstr "Ez az eszköz és a szinkronizált felhőadatok is megváltoztak. Válaszd el, melyiket tartod meg."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:110
+#: src/components/cloud/CloudFeedbackHandler.tsx:134
 msgid "This device has changes made while another account was active. Keep this device to upload them to the current account, keep the cloud data to discard them, or postpone the decision."
 msgstr "Ez az eszköz változtatásokat hajtott végre, miközben egy másik fiók aktív volt. Tartsd meg ezt az eszközt, hogy feltöltsd őket a jelenlegi fiókba, megőrizze a felhőadatokat, hogy eldobd őket, vagy halassd el a döntést."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:137
+#: src/components/cloud/CloudFeedbackHandler.tsx:161
 msgid "This device has local data and existing synchronized cloud data, but no sync history. Choose which one to keep."
 msgstr "Ez az eszköz helyi adatokat és meglévő szinkronizált felhőadatokat tartalmaz, de nincs szinkron előzmény. Válaszd el, melyiket tartod meg."
 
@@ -2009,6 +2049,10 @@ msgstr "Ezt a bejelentkezési kódot már nem lehet használni. Kérj új kódot
 msgid "This permanently deletes the ArtistAssistApp folder and all your files and folders still inside it. Files you moved outside the folder are not deleted."
 msgstr "Ez véglegesen törli az ArtistAssistApp mappát és az összes benne lévő fájlt és mappát. A mappán kívülre áthelyezett fájlok nem törülnek."
 
+#: src/components/image/RecentImageCard.tsx:69
+msgid "This photo could not be restored from your cloud storage."
+msgstr "Ezt a fotót nem lehetett visszaállítani a felhőtárhelyről."
+
 #: src/components/print/PrintImageDrawer.tsx:176
 msgid "This print size is not supported"
 msgstr "Ez a nyomtatási méret nem támogatott"
@@ -2017,7 +2061,7 @@ msgstr "Ez a nyomtatási méret nem támogatott"
 msgid "This step is optional."
 msgstr "Ez a lépés nem kötelező."
 
-#: src/components/ImageStyleTransfer.tsx:183
+#: src/components/ImageStyleTransfer.tsx:188
 msgid "This style is available to paid Patreon members only"
 msgstr "Ez a stílus csak fizetős Patreon-tagok számára érhető el."
 
@@ -2050,7 +2094,7 @@ msgid "Too many incorrect codes"
 msgstr "Túl sok hibás kód"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:181
-#: src/components/cloud/CloudFeedbackHandler.tsx:184
+#: src/components/cloud/CloudFeedbackHandler.tsx:218
 msgid "Too many requests"
 msgstr "Túl sok kérés"
 
@@ -2083,7 +2127,7 @@ msgstr "Váratlan hiba: {errorMessage}"
 msgid "Unifying color"
 msgstr "Egységes szín"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:108
+#: src/components/cloud/CloudFeedbackHandler.tsx:132
 msgid "Unsynced changes on this device"
 msgstr "Szinkronizálatlan változások ezen az eszközön"
 
@@ -2094,7 +2138,7 @@ msgstr "Szinkronizálatlan változások ezen az eszközön"
 msgid "Untitled mixture"
 msgstr "Cím nélküli keverék"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:189
+#: src/components/cloud/CloudFeedbackHandler.tsx:223
 msgid "Update ArtistAssistApp to the latest version and try again."
 msgstr "Frissítsd az ArtistAssistApp-ot a legfrissebb verzióra, és próbáld újra."
 
@@ -2110,7 +2154,7 @@ msgstr "Frissítés elérhető"
 msgid "Update now"
 msgstr "Frissítés most"
 
-#: src/stores/cloud-slice.ts:135
+#: src/stores/cloud-slice.ts:142
 msgid "Uploading image {index} of {count}"
 msgstr "Kép {index} feltöltése {count}"
 
@@ -2152,7 +2196,7 @@ msgid "View the outline over the live camera to trace in AR."
 msgstr "Nézd meg a körvonalat az élő kamerán keresztül, hogy AR-ben követhesd a nyomot."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:182
-#: src/components/cloud/CloudFeedbackHandler.tsx:185
+#: src/components/cloud/CloudFeedbackHandler.tsx:219
 msgid "Wait a minute and try again."
 msgstr "Várj egy percet, és próbáld újra."
 
@@ -2214,7 +2258,7 @@ msgstr "Fehér pont"
 msgid "Width"
 msgstr "Szélesség"
 
-#: src/components/ImageChooser.tsx:89
+#: src/components/ImageChooser.tsx:88
 msgid "You already have many recent photos saved. Delete the oldest one to free up space? The new photo will still be added."
 msgstr "Már sok friss fotót mentettél el. Törölni a legrégebbit, hogy helyet szabadítsunk? Az új fotót továbbra is hozzáadjuk."
 
@@ -2259,7 +2303,7 @@ msgstr "A böngésződ nem támogatja a képek olvasását a clipboardról."
 msgid "Your cloud data changed and will be synchronized automatically."
 msgstr "A felhőadatok megváltoztak, és automatikusan szinkronizálódnak."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:177
+#: src/components/cloud/CloudFeedbackHandler.tsx:211
 msgid "Your cloud storage couldn't be reached. Your latest changes remain saved on this device and have not been uploaded. Check your internet connection, then try syncing again."
 msgstr "A felhőalapú tárhelyed nem volt elérhető. A legutóbbi módosításaid ezen az eszközön vannak elmentve, és nem kerültek fel. Ellenőrizd az internetkapcsolatodat, majd próbáld meg újra szinkronizálni."
 

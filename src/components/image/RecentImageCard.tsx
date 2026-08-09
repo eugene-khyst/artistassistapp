@@ -16,77 +16,127 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DeleteOutlined} from '@ant-design/icons';
+import {CloudDownloadOutlined, DeleteOutlined, FileImageOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Button, Card, Popconfirm} from 'antd';
+import {App, Button, Card, Popconfirm} from 'antd';
 import dayjs from 'dayjs';
+import {useState} from 'react';
 
+import {LoadingButton} from '@/components/button/LoadingButton';
 import {DATE_TIME_FORMAT} from '@/config';
 import {useCreateObjectUrl} from '@/hooks/useCreateObjectUrl';
-import {useImageFileToBlob} from '@/hooks/useImageFileToBlob';
-import type {ImageFile} from '@/services/image/image-file';
+import type {RecentImage} from '@/services/image/image-file';
 import {useAppStore} from '@/stores/app-store';
 
+import styles from './RecentImageCard.module.css';
+
+const RESTORE_NOTIFICATION_KEY = 'restore-recent-image';
+
 interface Props {
-  imageFile: ImageFile;
+  image: RecentImage;
 }
 
-export function RecentImageCard({imageFile}: Readonly<Props>) {
-  const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
-  const deleteRecentImageFile = useAppStore(state => state.deleteRecentImageFile);
+export function RecentImageCard({image}: Readonly<Props>) {
+  const selectRecentImage = useAppStore(state => state.selectRecentImage);
+  const deleteRecentImage = useAppStore(state => state.deleteRecentImage);
+  const repairImage = useAppStore(state => state.repairImage);
+  const cloudConnection = useAppStore(state => state.cloudConnection);
+
+  const [failedImageUrl, setFailedImageUrl] = useState<string>();
 
   const {t} = useLingui();
+  const {notification} = App.useApp();
 
-  const blob = useImageFileToBlob(imageFile);
-  const imageUrl: string | undefined = useCreateObjectUrl(blob);
+  const imageUrl: string | undefined = useCreateObjectUrl(image.blob);
 
-  const {name, date} = imageFile;
+  const {name, date, digest} = image;
   const dateText: string = dayjs(date).format(DATE_TIME_FORMAT);
+  const unavailable = !image.blob || (imageUrl !== undefined && failedImageUrl === imageUrl);
 
   const handleCardClick = () => {
-    void saveRecentImageFile(imageFile);
+    void selectRecentImage(image);
   };
 
   const handleDeleteButtonClick = () => {
-    void deleteRecentImageFile(imageFile);
+    void deleteRecentImage(digest);
+  };
+
+  const handleRestore = async () => {
+    if ((await repairImage(digest)) === 'unavailable') {
+      notification.warning({
+        key: RESTORE_NOTIFICATION_KEY,
+        title: <Trans>Photo not restored</Trans>,
+        description: <Trans>This photo could not be restored from your cloud storage.</Trans>,
+        placement: 'top',
+        duration: 10,
+        showProgress: true,
+      });
+    }
   };
 
   return (
-    imageUrl && (
-      <Card
-        hoverable
-        onClick={handleCardClick}
-        cover={<img src={imageUrl} alt={name} />}
-        actions={[
-          <Popconfirm
-            key="delete"
-            title={<Trans>Delete the recent photo</Trans>}
-            description={<Trans>Are you sure you want to delete this photo?</Trans>}
-            onPopupClick={e => {
+    <Card
+      hoverable={!unavailable}
+      onClick={unavailable ? undefined : handleCardClick}
+      cover={
+        unavailable ? (
+          <div className={styles['unavailableCover']}>
+            <FileImageOutlined aria-hidden />
+            {cloudConnection ? (
+              <>
+                <Trans>
+                  Photo unavailable. Restore it from your cloud storage, or select the original
+                  again.
+                </Trans>
+                <LoadingButton icon={<CloudDownloadOutlined />} type="primary" run={handleRestore}>
+                  <Trans>Restore from cloud</Trans>
+                </LoadingButton>
+              </>
+            ) : (
+              <Trans>Photo unavailable. Select the original again to repair it.</Trans>
+            )}
+          </div>
+        ) : !imageUrl ? (
+          <div className={styles['loadingCover']} />
+        ) : (
+          <img
+            src={imageUrl}
+            alt={name}
+            onError={() => {
+              setFailedImageUrl(imageUrl);
+            }}
+          />
+        )
+      }
+      actions={[
+        <Popconfirm
+          key="delete"
+          title={<Trans>Delete the recent photo</Trans>}
+          description={<Trans>Are you sure you want to delete this photo?</Trans>}
+          onPopupClick={e => {
+            e.stopPropagation();
+          }}
+          onConfirm={e => {
+            e?.stopPropagation();
+            handleDeleteButtonClick();
+          }}
+          onCancel={e => e?.stopPropagation()}
+          okText={<Trans>Delete</Trans>}
+          cancelText={<Trans>Keep</Trans>}
+        >
+          <Button
+            icon={<DeleteOutlined />}
+            title={t`Delete the recent photo`}
+            onClick={e => {
               e.stopPropagation();
             }}
-            onConfirm={e => {
-              e?.stopPropagation();
-              handleDeleteButtonClick();
-            }}
-            onCancel={e => e?.stopPropagation()}
-            okText={<Trans>Delete</Trans>}
-            cancelText={<Trans>Keep</Trans>}
           >
-            <Button
-              icon={<DeleteOutlined />}
-              title={t`Delete the recent photo`}
-              onClick={e => {
-                e.stopPropagation();
-              }}
-            >
-              <Trans>Delete</Trans>
-            </Button>
-          </Popconfirm>,
-        ]}
-      >
-        <Card.Meta title={name} description={date && t`Last used ${dateText}`} />
-      </Card>
-    )
+            <Trans>Delete</Trans>
+          </Button>
+        </Popconfirm>,
+      ]}
+    >
+      <Card.Meta title={name} description={t`Last used ${dateText}`} />
+    </Card>
   );
 }

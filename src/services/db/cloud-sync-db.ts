@@ -30,8 +30,9 @@ import {dbPromise, type DBReadWriteTransaction} from '@/services/db/db';
 import {saveNewImageFiles} from '@/services/db/image-file-db';
 import {getStoreChangeTokens, markStoreChanged} from '@/services/db/store-changes-db';
 import {areStoreChangeTokensEqual, type StoreChangeTokens} from '@/services/db/types';
-import {type ImageFile, imageMetadataEquals} from '@/services/image/image-file';
-import {indexBy} from '@/utils/map';
+import {ImageUnreadableError} from '@/services/image/errors';
+import type {ImageFile} from '@/services/image/image-file';
+import {readStoredImageBytes} from '@/services/image/image-file';
 
 const KEY = 0;
 
@@ -55,33 +56,49 @@ export async function getLocalState() {
   return {customBrands, colorSets, images, colorMixtures, storeChangeTokens};
 }
 
-export async function getLocalStateWithImageFiles() {
+export async function getLocalStateWithImageBytes() {
   const db = await dbPromise;
   const tx = db.transaction([
     'custom-brands',
     'color-sets',
-    'images',
+    'image-blobs',
     'image-metadata',
     'color-mixtures',
   ]);
-  const [customBrands, colorSets, images, colorMixtures] = await Promise.all([
-    tx.objectStore('custom-brands').getAll(),
-    tx.objectStore('color-sets').getAll(),
-    tx.objectStore('image-metadata').getAll(),
-    tx.objectStore('color-mixtures').getAll(),
-  ]);
-  const imagesStore = tx.objectStore('images');
-  const imageFiles = await Promise.all(
-    images.map(async ({digest}): Promise<ImageFile> => {
-      const imageFile = await imagesStore.index('by-digest').get(digest);
-      if (!imageFile) {
-        throw new Error(`Local image is missing: ${digest}`);
-      }
-      return imageFile;
-    })
+  const customBrandsPromise = tx.objectStore('custom-brands').getAll();
+  const colorSetsPromise = tx.objectStore('color-sets').getAll();
+  const colorMixturesPromise = tx.objectStore('color-mixtures').getAll();
+  const images = await tx.objectStore('image-metadata').getAll();
+  const imageBlobsPromise = Promise.all(
+    images.map(({digest}) => tx.objectStore('image-blobs').get(digest))
   );
+  const [customBrands, colorSets, colorMixtures, imageBlobs] = await Promise.all([
+    customBrandsPromise,
+    colorSetsPromise,
+    colorMixturesPromise,
+    imageBlobsPromise,
+  ]);
   await tx.done;
-  return {customBrands, colorSets, images, imageFiles, colorMixtures};
+  const imageBytesByDigest = new Map<string, ArrayBuffer>();
+  const unavailableImageDigests = new Set<string>();
+  for (const [index, image] of images.entries()) {
+    try {
+      imageBytesByDigest.set(image.digest, await readStoredImageBytes(image, imageBlobs[index]));
+    } catch (error) {
+      if (!(error instanceof ImageUnreadableError)) {
+        throw error;
+      }
+      unavailableImageDigests.add(image.digest);
+    }
+  }
+  return {
+    customBrands,
+    colorSets,
+    images,
+    imageBytesByDigest,
+    unavailableImageDigests,
+    colorMixtures,
+  };
 }
 
 export async function getCloudSync(connectionId: string): Promise<CloudSync | undefined> {
@@ -140,39 +157,28 @@ async function writeLocalState(
       date: colorSetDates.get(colorSet.id!) ?? date,
     });
   }
-  const remoteImageMetadataByDigest = indexBy(remoteState.images, ({digest}) => digest);
-  const incomingDigests = new Set(remoteImages.map(({digest}) => digest));
+  const remoteImageDigests = new Set(remoteState.images.map(({digest}) => digest));
   const imageMetadataStore = tx.objectStore('image-metadata');
-  const imagesStore = tx.objectStore('images');
-  // Reconcile before inserting the new images: WebKit corrupts a blob that is read back and
-  // rewritten within the transaction that wrote it. Images being inserted are already up to date.
-  for await (const cursor of imagesStore) {
-    const imageFile = cursor.value;
-    const remoteImageMetadata = remoteImageMetadataByDigest.get(imageFile.digest);
-    if (!remoteImageMetadata) {
-      await cursor.delete();
-    } else if (
-      !incomingDigests.has(imageFile.digest) &&
-      !imageMetadataEquals(imageFile, remoteImageMetadata)
-    ) {
-      await cursor.update({
-        ...remoteImageMetadata,
-        id: imageFile.id,
-        blob: imageFile.blob,
-        date: imageFile.date,
-      });
+  const imageBlobsStore = tx.objectStore('image-blobs');
+  // Delete only; WebKit corrupts rewritten blobs (240216).
+  for (const digest of await imageBlobsStore.getAllKeys()) {
+    if (!remoteImageDigests.has(digest)) {
+      await imageBlobsStore.delete(digest);
     }
   }
   const imageTokens = await saveNewImageFiles(remoteImages, {
     tx,
     preserveDate: true,
   });
+  const imageDatesByDigest = new Map(
+    (await imageMetadataStore.getAll()).map(({digest, date}) => [digest, date] as const)
+  );
   await imageMetadataStore.clear();
   for (const imageMetadata of remoteState.images) {
-    if (!(await imagesStore.index('by-digest').getKey(imageMetadata.digest))) {
-      throw new Error(`Local image is missing: ${imageMetadata.digest}`);
-    }
-    await imageMetadataStore.put(imageMetadata);
+    await imageMetadataStore.put({
+      ...imageMetadata,
+      date: imageDatesByDigest.get(imageMetadata.digest) ?? date,
+    });
   }
   const colorMixturesStore = tx.objectStore('color-mixtures');
   const colorMixtureDates = datesById(await colorMixturesStore.getAll());
@@ -208,7 +214,7 @@ export async function replaceLocalStateFromCloud(
     [
       'custom-brands',
       'color-sets',
-      'images',
+      'image-blobs',
       'image-metadata',
       'color-mixtures',
       'cloud-sync',
@@ -248,7 +254,7 @@ export async function replaceLocalStateFromZip(
     [
       'custom-brands',
       'color-sets',
-      'images',
+      'image-blobs',
       'image-metadata',
       'color-mixtures',
       'local-state-connection',

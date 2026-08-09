@@ -54,6 +54,10 @@ msgstr "{FIELD} є обов'язковим"
 msgid "{retryIn, plural, one {Resend code in # second} other {Resend code in # seconds}}"
 msgstr "{retryIn, plural, one {Повторна відправка коду за # секунду} few {Перенадіслати код через # секунди} many {Перенадіслати код через # секунд} other {Повторна відправка коду через # секунд}}"
 
+#: src/components/cloud/ExportToZipButton.tsx:46
+msgid "{unavailableImageCount, plural, one {Backup created without # unavailable photo. Select the original photo again, then save the backup again.} other {Backup created without # unavailable photos. Select the original photos again, then save the backup again.}}"
+msgstr "{unavailableImageCount, plural, one {Резервну копію створено без # недоступної фотографії. Знову виберіть оригінальну фотографію, а потім знову збережіть резервну копію.} few {Резервну копію створено без # недоступних фотографій. Знову виберіть оригінальні фотографії, а потім знову збережіть резервну копію.} many {Резервну копію створено без # недоступних фотографій. Знову виберіть оригінальні фотографії, а потім знову збережіть резервну копію.} other {Створено резервну копію без # недоступних фотографій. Знову виберіть оригінальні фотографії, а потім знову збережіть резервну копію.}}"
+
 #: src/components/install/InstallDrawer.tsx:42
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux та <3/> ChromeOS"
@@ -261,7 +265,7 @@ msgstr "Ви впевнені, що хочете видалити цей наб�
 msgid "Are you sure you want to delete this custom brand?"
 msgstr "Ви впевнені, що хочете видалити цей кастомний бренд?"
 
-#: src/components/image/RecentImageCard.tsx:64
+#: src/components/image/RecentImageCard.tsx:115
 msgid "Are you sure you want to delete this photo?"
 msgstr "Ви впевнені, що хочете видалити це фото?"
 
@@ -270,11 +274,11 @@ msgstr "Ви впевнені, що хочете видалити це фото?
 msgid "Art medium"
 msgstr "Художній засіб"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:93
+#: src/components/cloud/CloudFeedbackHandler.tsx:117
 msgid "ArtistAssistApp can no longer access your cloud storage. Disconnect it, then connect again."
 msgstr "ArtistAssistApp більше не може отримати доступ до вашого хмарного сховища. Від'єднайте його, потім підключіть знову."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:161
+#: src/components/cloud/CloudFeedbackHandler.tsx:185
 msgid "ArtistAssistApp could not confirm that your cloud files were deleted. Remove any remaining ArtistAssistApp folder or files directly from your cloud provider."
 msgstr "ArtistAssistApp не зміг підтвердити, що ваші хмарні файли були видалені. Видаліть будь-яку залишкову папку або файли ArtistAssistApp безпосередньо з вашого хмарного провайдера."
 
@@ -335,6 +339,10 @@ msgstr "Фон"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:56
 msgid "Backup imported"
 msgstr "Імпортовано резервне копіювання"
+
+#: src/components/cloud/ExportToZipButton.tsx:44
+msgid "Backup saved without some photos"
+msgstr "Резервну копію збережено без фотографій"
 
 #: src/components/auth/JoinButton.tsx:27
 msgid "Become a paid member"
@@ -435,15 +443,15 @@ msgstr "Клацніть 🖱️ або торкніться 👆 будь-де 
 msgid "Close"
 msgstr "Закрити"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:99
+#: src/components/cloud/CloudFeedbackHandler.tsx:123
 msgid "Cloud access not granted"
 msgstr "Доступ до хмари не надано"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:91
+#: src/components/cloud/CloudFeedbackHandler.tsx:115
 msgid "Cloud authorization failed"
 msgstr "Авторизація хмари не вдалася"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:81
+#: src/components/cloud/CloudFeedbackHandler.tsx:105
 msgid "Cloud connection failed"
 msgstr "Хмарне з'єднання не вдалося"
 
@@ -451,35 +459,35 @@ msgstr "Хмарне з'єднання не вдалося"
 msgid "Cloud data changed"
 msgstr "Дані хмари змінені"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:149
+#: src/components/cloud/CloudFeedbackHandler.tsx:173
 msgid "Cloud data not found"
 msgstr "Дані хмари не знайдені"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:168
+#: src/components/cloud/CloudFeedbackHandler.tsx:192
 msgid "Cloud data unreadable"
 msgstr "Дані хмари нечитабельні"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:159
+#: src/components/cloud/CloudFeedbackHandler.tsx:183
 msgid "Cloud files may remain"
 msgstr "Хмарні файли можуть залишатися"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:87
+#: src/components/cloud/CloudFeedbackHandler.tsx:111
 msgid "Cloud not connected"
 msgstr "Хмара не підключена"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:101
+#: src/components/cloud/CloudFeedbackHandler.tsx:125
 msgid "Cloud storage was not connected because access was not granted. To connect it, try again and allow the requested access."
 msgstr "Хмарне сховище не було підключене, оскільки доступ не надавали. Щоб підключити його, спробуйте ще раз і дозвольте запитаний доступ."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:122
+#: src/components/cloud/CloudFeedbackHandler.tsx:146
 msgid "Cloud sync conflict"
 msgstr "Конфлікт синхронізації хмари"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:188
+#: src/components/cloud/CloudFeedbackHandler.tsx:222
 msgid "Cloud sync failed"
 msgstr "Синхронізація хмари не вдалася"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:135
+#: src/components/cloud/CloudFeedbackHandler.tsx:159
 msgid "Cloud sync history missing"
 msgstr "Відсутня історія синхронізації з хмарою"
 
@@ -487,7 +495,7 @@ msgstr "Відсутня історія синхронізації з хмаро
 msgid "Cloud sync is not enabled"
 msgstr "Синхронізація з хмарою не увімкнена"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:175
+#: src/components/cloud/CloudFeedbackHandler.tsx:209
 msgid "Cloud sync paused"
 msgstr "Синхронізація хмари призупинена"
 
@@ -569,7 +577,7 @@ msgstr "Connect {label}"
 msgid "Connect {label}?"
 msgstr "Connect {label}?"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:88
+#: src/components/cloud/CloudFeedbackHandler.tsx:112
 msgid "Connect cloud storage before syncing."
 msgstr "Підключіть хмарне сховище перед синхронізацією."
 
@@ -613,7 +621,7 @@ msgstr "Скоригована оцінка температури джерел�
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Не вдалося автоматично виявити папір чи полотно"
 
-#: src/components/cloud/ExportToZipButton.tsx:40
+#: src/components/cloud/ExportToZipButton.tsx:59
 msgid "Could not export backup"
 msgstr "Не вдалося експортувати резервну копію"
 
@@ -653,8 +661,8 @@ msgstr "Індивідуальні кольори"
 #: src/components/ColorSetChooser.tsx:767
 #: src/components/CustomColorBrandCreator.tsx:517
 #: src/components/CustomColorBrandCreator.tsx:527
-#: src/components/image/RecentImageCard.tsx:73
-#: src/components/image/RecentImageCard.tsx:83
+#: src/components/image/RecentImageCard.tsx:124
+#: src/components/image/RecentImageCard.tsx:134
 #: src/components/storage/DeleteAppDataButton.tsx:50
 msgid "Delete"
 msgstr "Видалити"
@@ -683,7 +691,7 @@ msgstr "Видалити дані на цьому пристрої"
 msgid "Delete from palette"
 msgstr "Видалити з палітри"
 
-#: src/components/ImageChooser.tsx:94
+#: src/components/ImageChooser.tsx:93
 msgid "Delete oldest"
 msgstr "Видалити найстарший"
 
@@ -701,8 +709,8 @@ msgstr "Видалити набір кольорів"
 msgid "Delete the custom brand"
 msgstr "Видалити власний бренд"
 
-#: src/components/image/RecentImageCard.tsx:63
-#: src/components/image/RecentImageCard.tsx:78
+#: src/components/image/RecentImageCard.tsx:114
+#: src/components/image/RecentImageCard.tsx:129
 msgid "Delete the recent photo"
 msgstr "Видалити нещодавнє фото"
 
@@ -766,7 +774,7 @@ msgstr "У вас є куплений у магазині або на замов
 msgid "Don't save"
 msgstr "Не зберігайте"
 
-#: src/stores/cloud-slice.ts:136
+#: src/stores/cloud-slice.ts:143
 msgid "Downloading image {index} of {count}"
 msgstr "Завантаження зображення {index} {count}"
 
@@ -1009,20 +1017,20 @@ msgstr "Може бути важко вибрати між кількома фо
 #: src/components/color/PaletteColorMixtureCard.tsx:125
 #: src/components/ColorSetChooser.tsx:758
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/RecentImageCard.tsx:74
+#: src/components/image/RecentImageCard.tsx:125
 #: src/components/palette/PaletteGrid.tsx:114
 msgid "Keep"
 msgstr "Тримай"
 
-#: src/components/ImageChooser.tsx:95
+#: src/components/ImageChooser.tsx:94
 msgid "Keep all"
 msgstr "Залиште все"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:57
+#: src/components/cloud/CloudFeedbackHandler.tsx:59
 msgid "Keep cloud data"
 msgstr "Зберігайте хмарні дані"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:40
+#: src/components/cloud/CloudFeedbackHandler.tsx:42
 msgid "Keep this device"
 msgstr "Залиш цей пристрій"
 
@@ -1034,7 +1042,7 @@ msgstr "Мова"
 msgid "Last charge status"
 msgstr "Статус останнього заряду"
 
-#: src/components/image/RecentImageCard.tsx:88
+#: src/components/image/RecentImageCard.tsx:139
 msgid "Last used {dateText}"
 msgstr "Останнє використання {dateText}"
 
@@ -1238,7 +1246,7 @@ msgstr "У безкоштовній версії доступна лише об�
 msgid "Only a limited number of modes are available in the free version"
 msgstr "У безкоштовній версії доступна лише обмежена кількість режимів"
 
-#: src/components/ImageStyleTransfer.tsx:237
+#: src/components/ImageStyleTransfer.tsx:249
 msgid "Only a limited number of styles are available in the free version"
 msgstr "У безкоштовній версії доступна лише обмежена кількість стилів"
 
@@ -1271,11 +1279,11 @@ msgstr "Або збережіть резервну копію на цьому п
 msgid "Or scan the QR code"
 msgstr "Або відскануйте QR-код"
 
-#: src/components/ImageChooser.tsx:152
+#: src/components/ImageChooser.tsx:151
 msgid "Or select from sample photos"
 msgstr "Або виберіть із зразків фотографій"
 
-#: src/components/ImageChooser.tsx:126
+#: src/components/ImageChooser.tsx:125
 msgid "Or select from your recent photos"
 msgstr "Або виберіть одну зі своїх останніх фотографій"
 
@@ -1345,9 +1353,25 @@ msgstr "Постійне сховище не ввімкнено"
 msgid "Photo"
 msgstr "Фото"
 
+#: src/components/image/RecentImageCard.tsx:68
+msgid "Photo not restored"
+msgstr "Фото не відновлено"
+
 #: src/components/ImagesCompare.tsx:167
 msgid "Photo ranking"
 msgstr "Рейтинг фотографій"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:199
+msgid "Photo unavailable"
+msgstr "Фото недоступне"
+
+#: src/components/image/RecentImageCard.tsx:87
+msgid "Photo unavailable. Restore it from your cloud storage, or select the original again."
+msgstr "Фото недоступне. Відновіть його зі свого хмарного сховища або знову виберіть оригінал."
+
+#: src/components/image/RecentImageCard.tsx:96
+msgid "Photo unavailable. Select the original again to repair it."
+msgstr "Фото недоступне. Знову виберіть оригінал, щоб відремонтувати його."
 
 #: src/components/empty/EmptyTargetColor.tsx:35
 msgid "Pinch or scroll to zoom, drag to pan."
@@ -1361,7 +1385,7 @@ msgstr "Будь ласка, надішліть нам скріншот цієї
 msgid "Position: {position}<0/>Rating: {ratingText}"
 msgstr "Позиція: {position}<0/>Рейтинг: {ratingText}"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:67
+#: src/components/cloud/CloudFeedbackHandler.tsx:91
 #: src/components/cloud/CloudSyncUpdateNotification.tsx:56
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:63
 msgid "Postpone"
@@ -1459,6 +1483,10 @@ msgstr "Відбивна здатність"
 msgid "Reload"
 msgstr "Перезарядка"
 
+#: src/components/cloud/CloudFeedbackHandler.tsx:81
+msgid "Remove and continue"
+msgstr "Видалити та продовжити"
+
 #: src/components/ImageColorAdjustment.tsx:397
 #: src/components/messages.ts:43
 msgid "Remove background"
@@ -1490,6 +1518,10 @@ msgstr "Скинути"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:78
 msgid "Restore backup"
 msgstr "Відновлення резервної копії"
+
+#: src/components/image/RecentImageCard.tsx:92
+msgid "Restore from cloud"
+msgstr "Відновити з хмари"
 
 #: src/components/empty/EmptyPalette.tsx:76
 msgid "Return to the <0>{paletteLabel}</0> tab."
@@ -1527,7 +1559,7 @@ msgstr "Насиченість (%)"
 #: src/components/ImageOutline.tsx:373
 #: src/components/ImagePerspectiveCorrection.tsx:309
 #: src/components/ImagePerspectiveCorrection.tsx:361
-#: src/components/ImageStyleTransfer.tsx:231
+#: src/components/ImageStyleTransfer.tsx:243
 #: src/components/ImageTonalValues.tsx:159
 #: src/components/ImageTonalValues.tsx:175
 msgid "Save"
@@ -1537,7 +1569,7 @@ msgstr "Зберегти"
 msgid "Save & continue"
 msgstr "Зберегти і продовжити"
 
-#: src/components/cloud/ExportToZipButton.tsx:56
+#: src/components/cloud/ExportToZipButton.tsx:75
 msgid "Save backup"
 msgstr "Збереження резервної копії"
 
@@ -1575,11 +1607,15 @@ msgstr "Виберіть фотографію, щоб виправити пер�
 msgid "Select a photo to remove the background from"
 msgstr "Виберіть фотографію, з якої потрібно видалити фон"
 
-#: src/components/ImageChooser.tsx:115
+#: src/components/ImageChooser.tsx:114
 msgid "Select a reference photo from your device to paint from"
 msgstr "Виберіть еталонну фотографію з вашого пристрою для малювання"
 
-#: src/components/ImageStyleTransfer.tsx:226
+#: src/components/ImageStyleTransfer.tsx:193
+msgid "Select a style image to use this style"
+msgstr "Виберіть зображення стилю, щоб використовувати цей стиль"
+
+#: src/components/ImageStyleTransfer.tsx:238
 msgid "Select a style to transfer to your reference photo"
 msgstr "Виберіть стиль, який потрібно перенести на еталонне фото"
 
@@ -1649,7 +1685,7 @@ msgid "Select part"
 msgstr "Оберіть частину"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageChooser.tsx:120
+#: src/components/ImageChooser.tsx:119
 #: src/components/ImageColorAdjustment.tsx:361
 #: src/components/ImagePerspectiveCorrection.tsx:270
 msgid "Select photo"
@@ -1667,7 +1703,7 @@ msgstr "Виберіть фотографії для ранжування за �
 msgid "Select set"
 msgstr "Вибрати комплект"
 
-#: src/components/ImageStyleTransfer.tsx:166
+#: src/components/ImageStyleTransfer.tsx:171
 msgid "Select style image"
 msgstr "Виберіть стиль зображення"
 
@@ -1759,7 +1795,7 @@ msgstr "Показати сітку"
 msgid "Show matching areas"
 msgstr "Зони підбору шоу"
 
-#: src/components/ImageChooser.tsx:144
+#: src/components/ImageChooser.tsx:143
 msgid "Show older photos"
 msgstr "Показати старі фото"
 
@@ -1812,7 +1848,7 @@ msgstr "Трохи накладайте воскові пастельні діл
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Менші процентильні значення відповідають сильнішому відбілюванню"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:151
+#: src/components/cloud/CloudFeedbackHandler.tsx:175
 msgid "Some synchronized cloud data was deleted or is unavailable. Keep this device to create it again, or postpone the decision. ArtistAssistApp will not recreate it automatically."
 msgstr "Деякі синхронізовані хмарні дані були видалені або недоступні. Залиште цей пристрій, щоб створити його знову, або відкладіть рішення. ArtistAssistApp не відтворює його автоматично."
 
@@ -1857,7 +1893,7 @@ msgstr "Стандартний набір кольорів"
 msgid "Standard print"
 msgstr "Стандартний друк"
 
-#: src/components/ImageChooser.tsx:87
+#: src/components/ImageChooser.tsx:86
 msgid "Storage may fill up"
 msgstr "Сховище може заповнитися"
 
@@ -1873,7 +1909,7 @@ msgstr "Випрями"
 msgid "Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "Випрямляє викривлені фотографії та усуває небажані краї. Використовуйте автовизначення або виберіть 4 точки для корекції перспективних спотворень, а потім за бажанням перетягніть поля для обрізки зображення."
 
-#: src/components/ImageStyleTransfer.tsx:219
+#: src/components/ImageStyleTransfer.tsx:231
 msgid "Styled reference photo"
 msgstr "Стилізоване еталонне фото"
 
@@ -1894,6 +1930,10 @@ msgstr "Колір поверхні"
 #: src/components/lightbox/LightboxOverlay.tsx:118
 msgid "Swipe to unlock"
 msgstr "Проведіть пальцем для розблокування"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:201
+msgid "Sync stopped because the photo {context} is unavailable and is not in your cloud storage. Remove it to continue syncing, or postpone the decision."
+msgstr "Синхронізацію зупинено, оскільки фотографія {context} недоступна та не знаходиться у вашому хмарному сховищі. Видаліть його, щоб продовжити синхронізацію, або відкладіть рішення."
 
 #: src/components/cloud/SyncCloudButton.tsx:46
 msgid "Sync with {label}"
@@ -1920,11 +1960,11 @@ msgstr "Цільовий розмір друку"
 msgid "Terms of use"
 msgstr "Умови використання"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:83
+#: src/components/cloud/CloudFeedbackHandler.tsx:107
 msgid "The cloud connection could not be completed. Start again from ArtistAssistApp."
 msgstr "Хмарне з'єднання не вдалося завершити. Почніть спочатку з ArtistAssistApp."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:170
+#: src/components/cloud/CloudFeedbackHandler.tsx:194
 msgid "The cloud data file is damaged. Replace it with the data from this device."
 msgstr "Файл даних хмари пошкоджений. Замініть його на дані з цього пристрою."
 
@@ -1989,15 +2029,15 @@ msgstr "Це видаляє все всередині папки підключ�
 msgid "This deletes your account and membership lookup records and logs you out."
 msgstr "Це видаляє записи вашого акаунта та пошуку членства і виводить вас з акаунта."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:124
+#: src/components/cloud/CloudFeedbackHandler.tsx:148
 msgid "This device and the synchronized cloud data both changed. Choose which one to keep."
 msgstr "Цей пристрій і синхронізовані дані хмари обидва змінилися. Виберіть, який залишити собі."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:110
+#: src/components/cloud/CloudFeedbackHandler.tsx:134
 msgid "This device has changes made while another account was active. Keep this device to upload them to the current account, keep the cloud data to discard them, or postpone the decision."
 msgstr "На цьому пристрої внесені зміни, поки інший акаунт був активним. Залиште цей пристрій, щоб завантажити їх на поточний рахунок, збережіть хмарні дані для їх відкидання або відкладіть рішення."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:137
+#: src/components/cloud/CloudFeedbackHandler.tsx:161
 msgid "This device has local data and existing synchronized cloud data, but no sync history. Choose which one to keep."
 msgstr "Цей пристрій має локальні дані та існуючі синхронізовані хмарні дані, але немає історії синхронізації. Виберіть, який залишити собі."
 
@@ -2009,6 +2049,10 @@ msgstr "Цей код входу більше не можна використо
 msgid "This permanently deletes the ArtistAssistApp folder and all your files and folders still inside it. Files you moved outside the folder are not deleted."
 msgstr "Це назавжди видаляє папку ArtistAssistApp і всі ваші файли та папки, що залишаються в ній. Файли, які ви перемістили за межі папки, не видаляються."
 
+#: src/components/image/RecentImageCard.tsx:69
+msgid "This photo could not be restored from your cloud storage."
+msgstr "Не вдалося відновити цю фотографію з вашого хмарного сховища."
+
 #: src/components/print/PrintImageDrawer.tsx:176
 msgid "This print size is not supported"
 msgstr "Цей розмір друку не підтримується"
@@ -2017,7 +2061,7 @@ msgstr "Цей розмір друку не підтримується"
 msgid "This step is optional."
 msgstr "Цей крок не є обов'язковим."
 
-#: src/components/ImageStyleTransfer.tsx:183
+#: src/components/ImageStyleTransfer.tsx:188
 msgid "This style is available to paid Patreon members only"
 msgstr "Цей стиль доступний лише для платних учасників Patreon"
 
@@ -2050,7 +2094,7 @@ msgid "Too many incorrect codes"
 msgstr "Занадто багато неправильних кодів"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:181
-#: src/components/cloud/CloudFeedbackHandler.tsx:184
+#: src/components/cloud/CloudFeedbackHandler.tsx:218
 msgid "Too many requests"
 msgstr "Занадто багато запитів"
 
@@ -2083,7 +2127,7 @@ msgstr "Несподівана помилка: {errorMessage}"
 msgid "Unifying color"
 msgstr "Об'єднуючий колір"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:108
+#: src/components/cloud/CloudFeedbackHandler.tsx:132
 msgid "Unsynced changes on this device"
 msgstr "Несинхронізовані зміни на цьому пристрої"
 
@@ -2094,7 +2138,7 @@ msgstr "Несинхронізовані зміни на цьому пристр
 msgid "Untitled mixture"
 msgstr "Суміш без назви"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:189
+#: src/components/cloud/CloudFeedbackHandler.tsx:223
 msgid "Update ArtistAssistApp to the latest version and try again."
 msgstr "Оновіть ArtistAssistApp до останньої версії і спробуйте знову."
 
@@ -2110,7 +2154,7 @@ msgstr "Оновлення доступне"
 msgid "Update now"
 msgstr "Оновлення зараз"
 
-#: src/stores/cloud-slice.ts:135
+#: src/stores/cloud-slice.ts:142
 msgid "Uploading image {index} of {count}"
 msgstr "Завантаження зображення {index} {count}"
 
@@ -2152,7 +2196,7 @@ msgid "View the outline over the live camera to trace in AR."
 msgstr "Перегляньте контур через живу камеру, щоб обвести в AR."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:182
-#: src/components/cloud/CloudFeedbackHandler.tsx:185
+#: src/components/cloud/CloudFeedbackHandler.tsx:219
 msgid "Wait a minute and try again."
 msgstr "Почекай хвилинку і спробуй ще раз."
 
@@ -2214,7 +2258,7 @@ msgstr "Біла точка"
 msgid "Width"
 msgstr "Ширина"
 
-#: src/components/ImageChooser.tsx:89
+#: src/components/ImageChooser.tsx:88
 msgid "You already have many recent photos saved. Delete the oldest one to free up space? The new photo will still be added."
 msgstr "У тебе вже збережено багато свіжих фотографій. Видалити найстаріший, щоб звільнити місце? Нове фото все одно буде додано."
 
@@ -2259,7 +2303,7 @@ msgstr "Ваш браузер не підтримує читання зобра�
 msgid "Your cloud data changed and will be synchronized automatically."
 msgstr "Ваші хмарні дані змінилися і синхронізувалися автоматично."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:177
+#: src/components/cloud/CloudFeedbackHandler.tsx:211
 msgid "Your cloud storage couldn't be reached. Your latest changes remain saved on this device and have not been uploaded. Check your internet connection, then try syncing again."
 msgstr "До вашого хмарного сховища неможливо дістатися. Ваші останні зміни залишаються збереженими на цьому пристрої і не були завантажені. Перевірте інтернет-з'єднання, потім спробуйте синхронізувати знову."
 

@@ -15,12 +15,15 @@ npm run lint:fix     # ESLint with auto-fix
 npm run format       # Prettier check
 npm run format:write # Prettier auto-format
 npm run type-check   # TypeScript type-check only (no emit)
-npm run test         # Runs type-check + lint + format (no actual test runner)
+npm run test         # Runs type-check + lint + format + Vitest
+npm run test:unit    # Vitest service-layer tests only
 
-# i18n workflow
+# i18n workflow — run by the maintainer only, never by an agent
 npm run lingui:extract  # Extract translatable strings from source to .po files
 npm run translate       # Auto-translate .po files via Google Translate API
 ```
+
+Tests live in the root `test/` directory, mirroring `src/`; never place tests under `src/`.
 
 ### Development Workflow
 
@@ -29,6 +32,18 @@ state) persists between them. `dev` and `build:dev` load `.env.development`; use
 `preview` to exercise the production bundle and service worker against the same local services, then
 return to `dev` without logging in again. Plain `build` + `preview` uses the production settings in
 `.env`.
+
+### Change Discipline
+
+Never fix a reported symptom in isolation. First trace the affected flow end to end, identify its
+ownership boundaries and invariants, and check how the proposed fix interacts with every caller and
+with the rest of the current diff. Then make the smallest coherent change that fits the existing
+design. Do not propose or perform broad rewrites, architecture changes, or data-model changes unless
+the current design demonstrably cannot satisfy the requirement and the maintainer approves that
+scope.
+
+Do not inspect, assess, or report the Git index or staging status unless the maintainer explicitly
+asks. The index is intentionally stale during iterative work; review the working tree instead.
 
 ## Architecture
 
@@ -45,9 +60,9 @@ must react. Token-backed reloads are centralized in `STORE_RELOADS`
 (`src/stores/sync/store-reloads.ts`) and shared by the watcher, cloud download, and `initApp`.
 Registry order encodes the custom-brands → color-sets dependency; tokens advance only after a
 successful reload, so failures retry on the next wake. Add new durable stores to that registry.
-Mutation sites use `persistChange`: db write → token merge → shared trailing-debounced cloud push
-(~5s). Image-derived slices register `{abort, clear}` with `registerProcessedImage`; image selection
-iterates those handles instead of enumerating slices.
+Local changes to serialized state use `persistChange`: db write → token merge → shared
+trailing-debounced cloud push (~5s). Image-derived slices register `{abort, clear}` with
+`registerProcessedImage`; image selection iterates those handles instead of enumerating slices.
 
 Form-driven tabs (`ColorSetChooser`, `CustomColorBrandCreator`) re-prefill their AntD form from a
 `*ReloadCount` counter bumped only in the slice's IDB reload action — external replacements (cloud
@@ -99,12 +114,41 @@ Pure business logic, no React. Notable non-obvious bits:
   for the tab session, while explicit sync clears it; update-notification dismissal is separate.
   Google disconnect trashes the root and account deletion permanently deletes it, OneDrive recycles
   its root, and Dropbox recursively deletes its root's immediate children. Moved-out items survive;
-  disconnect must work without cached sync state. ZIP import/export is local-only and must validate
-  entries and image digests before replacing local state.
+  disconnect must work without cached sync state. Cloud state is serialized from the complete
+  `image-metadata` set and is never filtered by local blob health: a photo that must be uploaded and
+  cannot be materialized aborts the sync, while a locally unreadable photo already present remotely
+  stays repairable from the cloud copy; the state file — uploaded last, as the commit point — always
+  matches what was hashed. Downloads do not trust local metadata: a photo is fetched unless its blob
+  reads completely and matches its digest. Image blobs are content-addressed staging and are safe to
+  re-upload after a failed attempt. Manual repair never calls provider create APIs; it tries
+  matching files newest-first, verifies the digest, and changes only the local blob cache, so the
+  state hash stays unchanged. Normal downloads distinguish a vanished remote file from invalid
+  bytes; manual repair reports both as unavailable. `ImageUnreadableError` maps to
+  `LocalImageUnreadable` at the cloud boundary. ZIP import/export is local-only and validates
+  entries and image digests before replacing local state; export fails open, omitting unreadable
+  photos and their color mixtures.
 - **`validation.ts`** — keep Valibot confined to external JSON validation. Custom-brand JSON/cloud
   shapes omit `rho`; `fromCustomColorBrandSource` reconstructs it at the persistence boundary.
 - **`db/`** — IndexedDB via `idb`; schema in `schema.ts`. Numbered migrations in `migrations.ts` run
-  inside `withWebLock` (`src/utils/web-lock.ts`) so concurrent tabs don't race.
+  inside `withWebLock` (`src/utils/web-lock.ts`) so concurrent tabs don't race; a migration needing
+  non-IndexedDB awaits does its work in `prepare`, outside any transaction. Retired stores remain in
+  `LegacyArtistAssistAppDB`; never recreate or delete them automatically. Their migrations empty
+  them. **`image-metadata` decides which photos exist; `image-blobs` is best-effort byte storage.**
+  Both are keyed by digest, so blob records are read by primary key, never through an index —
+  `index.get()`/`getAll()` return an unreadable blob on iOS 18.4.x
+  ([292142](https://bugs.webkit.org/show_bug.cgi?id=292142)). Re-storing a blob read back from
+  IndexedDB loses its file ([240216](https://bugs.webkit.org/show_bug.cgi?id=240216)), so only fresh
+  bytes are written and `touchImage` updates metadata alone. Integrity-sensitive reads fully read
+  and hash the bytes; `readImageBytes` reports missing, unreadable, or mismatched bytes as
+  `ImageUnreadableError`. Recent Photos does not hash or filter blobs, so photos are never hidden or
+  auto-deleted; missing or undecodable blobs surface through the card's unavailable state. There is
+  no availability cache or background scan. Manual repair checks metadata and writes only a fresh
+  blob in one transaction, so it cannot resurrect a concurrently deleted photo. Migration 006 may
+  leave metadata without a blob when legacy bytes cannot be copied. ZIP export captures state, blob
+  references, and validated bytes through `getLocalStateWithImageBytes`, so compression operates on
+  one IndexedDB snapshot. A configured style image is materialized before use; if its record, bytes,
+  digest, or decoding is invalid, the record and setting are removed atomically while the model
+  remains available for choosing a replacement.
 - **`auth/`** — the durable `auth-attempt` is the pending redirect state and supports standalone ↔
   browser handoff. Redirect completion exchanges its token using the stored PKCE verifier; email OTP
   and redirect completion persist the same IDB session shape. `resolveAuth()` owns verification and
@@ -159,9 +203,10 @@ drawn the bitmap onto its own canvas.
 
 ### Internationalization
 
-Lingui-based. Source locale `src/locales/en.po`. After adding or changing source strings:
-`npm run lingui:extract` then `npm run translate`. All user-facing strings must use Lingui macros
-(`t`, `msg`, `<Trans>`).
+Lingui-based. Source locale `src/locales/en.po`. All user-facing strings must use Lingui macros
+(`t`, `msg`, `<Trans>`). **Never run `lingui:extract` or `translate`** — the maintainer runs both
+once before committing. Change the source strings and stop there; leave the `.po` files alone. Never
+inspect catalogs for missing translations or report missing catalog entries during review.
 
 ### PWA
 
@@ -205,6 +250,15 @@ CSS Modules use bracket access (`styles['fooBar']`) — the generated `.d.ts` ex
 signature, so `styles.fooBar` errors with TS4111.
 
 ## Code Conventions
+
+### Comments
+
+Write none by default. A comment is only for a WHY the code cannot show: a browser bug, a
+workaround, an invariant that breaks if reordered, an error ignored on purpose.
+
+- One line. If it needs two, fix the name or the code instead.
+- Short, simple English. No slang, no idioms, no metaphors, no rhetorical dashes.
+- Never restate what the code or an identifier already says, and never narrate a change.
 
 ### License Header
 

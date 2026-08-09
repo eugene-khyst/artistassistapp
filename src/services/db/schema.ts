@@ -34,7 +34,7 @@ import type {
 import type {AppliedMigration} from '@/services/db/migrations';
 import type {ProcessedImage} from '@/services/db/processed-image-db';
 import type {StoreChangeName} from '@/services/db/types';
-import type {ImageFile, ImageMetadata} from '@/services/image/image-file';
+import type {ImageBlob, ImageFile, ImageMetadata} from '@/services/image/image-file';
 import type {AppSettings} from '@/services/settings/types';
 
 export interface ArtistAssistAppDB extends DBSchema {
@@ -57,17 +57,16 @@ export interface ArtistAssistAppDB extends DBSchema {
     value: ColorSetDefinition;
     key: number;
   };
-  images: {
-    value: ImageFile;
-    key: number;
-    indexes: {
-      'by-date': Date;
-      'by-digest': string;
-    };
+  'image-blobs': {
+    value: ImageBlob;
+    key: string;
   };
   'image-metadata': {
     value: ImageMetadata;
     key: string;
+    indexes: {
+      'by-date': Date;
+    };
   };
   'style-image': {
     value: ImageFile;
@@ -121,25 +120,12 @@ export interface ArtistAssistAppDB extends DBSchema {
   };
 }
 
-const OBJECT_STORES = {
-  migrations: true,
-  'store-changes': true,
-  'app-settings': true,
-  'color-sets': true,
-  images: true,
-  'image-metadata': true,
-  'style-image': true,
-  'processed-images': true,
-  'color-mixtures': true,
-  'custom-brands': true,
-  'auth-attempt': true,
-  'auth-session': true,
-  'cloud-connection-attempt': true,
-  'cloud-connection': true,
-  'cloud-sync': true,
-  'local-state-connection': true,
-} as const satisfies Record<StoreNames<ArtistAssistAppDB>, true>;
+export interface LegacyArtistAssistAppDB extends ArtistAssistAppDB {
+  images: {
+    value: ImageBlob & {id?: number; date?: Date};
+    key: number;
+  };
+}
 
-export type StoreName = keyof typeof OBJECT_STORES;
-
-export const OBJECT_STORE_NAMES = Object.keys(OBJECT_STORES) as StoreName[];
+export type StoreName = StoreNames<ArtistAssistAppDB>;
+export type LegacyStoreName = StoreNames<LegacyArtistAssistAppDB>;

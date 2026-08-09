@@ -95,7 +95,7 @@ export default defineConfig(
       ...tseslint.configs.strictTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
     ],
-    files: ['vite.config.ts', 'lingui.config.ts', 'translate-po.ts'],
+    files: ['vite.config.ts', 'vitest.config.ts', 'lingui.config.ts', 'translate-po.ts'],
     languageOptions: {
       globals: globals.node,
       parserOptions: {

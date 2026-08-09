@@ -17,6 +17,7 @@
  */
 
 import {AuthError, AuthErrorType} from '@/services/auth/errors';
+import {ImageUnreadableError} from '@/services/image/errors';
 import {toEnumValue} from '@/utils/enum';
 import {getErrorMessage, isNetworkError} from '@/utils/error';
 
@@ -31,6 +32,7 @@ export enum CloudErrorType {
   CloudDataNotFound = 'cloud_data_not_found',
   CloudDataDeletionFailed = 'cloud_data_deletion_failed',
   CorruptedCloudData = 'corrupted_cloud_data',
+  LocalImageUnreadable = 'local_image_unreadable',
   Network = 'network',
   RateLimited = 'rate_limited',
   Unknown = 'unknown',
@@ -61,6 +63,9 @@ export class CloudError extends Error {
     }
     if (error instanceof AuthError) {
       return error;
+    }
+    if (error instanceof ImageUnreadableError) {
+      return new CloudError(CloudErrorType.LocalImageUnreadable, error.message, error);
     }
     message ??= getErrorMessage(error);
     return new CloudError(fallbackType, message, error);

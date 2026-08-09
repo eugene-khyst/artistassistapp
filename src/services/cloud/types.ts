@@ -65,7 +65,7 @@ export interface LocalStateConnection {
 
 export type CloudCustomBrand = CustomColorBrandSource;
 export type CloudColorSet = Omit<ColorSetDefinition, 'date'>;
-export type CloudImage = ImageMetadata;
+export type CloudImage = Omit<ImageMetadata, 'date'>;
 export type CloudColorMixture = Omit<ColorMixture, 'date' | 'layerRho'> & {
   layerRho: number[];
 };
@@ -135,6 +135,7 @@ export interface CloudSyncClient {
   push(context: CloudSyncContext): Promise<CloudSyncResult>;
   upload(context: CloudSyncContext): Promise<CloudSyncResult>;
   download(context: CloudSyncContext): Promise<CloudSyncResult>;
+  repairImage(digest: string, cloudSync?: CloudSync): Promise<ArrayBuffer | null>;
   hasCloudDataChanged(
     cloudSync: CloudSync,
     localStateConnection: LocalStateConnection

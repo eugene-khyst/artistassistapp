@@ -17,7 +17,7 @@
  */
 
 import {DownloadOutlined} from '@ant-design/icons';
-import {Trans} from '@lingui/react/macro';
+import {Plural, Trans} from '@lingui/react/macro';
 import {App, Button} from 'antd';
 import {saveAs} from 'file-saver';
 
@@ -25,6 +25,8 @@ import {getStateZipFilename} from '@/services/cloud/state-zip';
 import {useAppStore} from '@/stores/app-store';
 import {CloudOperationType} from '@/stores/cloud-slice';
 import {getErrorMessage} from '@/utils/error';
+
+const UNAVAILABLE_PHOTOS_NOTIFICATION_KEY = 'backup-unavailable-photos';
 
 export function ExportToZipButton() {
   const cloudOperation = useAppStore(state => state.cloudOperation);
@@ -34,7 +36,24 @@ export function ExportToZipButton() {
 
   const handleExport = async () => {
     try {
-      saveAs(await exportToZip(), getStateZipFilename());
+      const {blob, unavailableImageCount} = await exportToZip();
+      saveAs(blob, getStateZipFilename());
+      if (unavailableImageCount > 0) {
+        notification.warning({
+          key: UNAVAILABLE_PHOTOS_NOTIFICATION_KEY,
+          title: <Trans>Backup saved without some photos</Trans>,
+          description: (
+            <Plural
+              value={unavailableImageCount}
+              one="Backup created without # unavailable photo. Select the original photo again, then save the backup again."
+              other="Backup created without # unavailable photos. Select the original photos again, then save the backup again."
+            />
+          ),
+          placement: 'top',
+          duration: 10,
+          showProgress: true,
+        });
+      }
     } catch (error) {
       notification.error({
         title: <Trans>Could not export backup</Trans>,

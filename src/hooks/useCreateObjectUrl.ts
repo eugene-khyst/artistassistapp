@@ -19,25 +19,20 @@
 import {useEffect, useState} from 'react';
 
 export function useCreateObjectUrl(blob?: Blob | null): string | undefined {
-  const [url, setUrl] = useState<string>();
+  const [entry, setEntry] = useState<{blob: Blob; url: string}>();
 
   useEffect(() => {
     if (!blob) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setUrl(undefined);
+      setEntry(undefined);
       return;
     }
-    const objectUrl: string = URL.createObjectURL(blob);
-    setUrl(prev => {
-      if (prev) {
-        URL.revokeObjectURL(prev);
-      }
-      return objectUrl;
-    });
+    const url: string = URL.createObjectURL(blob);
+    setEntry({blob, url});
     return () => {
-      URL.revokeObjectURL(objectUrl);
+      URL.revokeObjectURL(url);
     };
   }, [blob]);
 
-  return url;
+  return entry?.blob === blob ? entry?.url : undefined;
 }

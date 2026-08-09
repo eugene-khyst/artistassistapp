@@ -64,7 +64,7 @@ const STORE_RELOADS: StoreReload[] = [
   {
     tokens: ['images'],
     label: 'load recent image files',
-    reload: state => state.loadRecentImageFiles(),
+    reload: state => state.loadRecentImages(),
   },
   {
     tokens: ['color-mixtures'],

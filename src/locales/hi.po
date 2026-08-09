@@ -54,6 +54,10 @@ msgstr "{FIELD} आवश्यक है"
 msgid "{retryIn, plural, one {Resend code in # second} other {Resend code in # seconds}}"
 msgstr "{retryIn, plural, one {# सेकंड में कोड फिर से भेजें} other {# सेकंड में कोड फिर से भेजें}}"
 
+#: src/components/cloud/ExportToZipButton.tsx:46
+msgid "{unavailableImageCount, plural, one {Backup created without # unavailable photo. Select the original photo again, then save the backup again.} other {Backup created without # unavailable photos. Select the original photos again, then save the backup again.}}"
+msgstr "{unavailableImageCount, plural, one {# अनुपलब्ध फोटो के बिना बैकअप बनाया गया। मूल फ़ोटो को दोबारा चुनें, फिर बैकअप दोबारा सेव करें।} other {# अनुपलब्ध फ़ोटो के बिना बैकअप बनाया गया। मूल फ़ोटो को दोबारा चुनें, फिर बैकअप दोबारा सेव करें।}}"
+
 #: src/components/install/InstallDrawer.tsx:42
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> एंड्रॉइड, <1/> विंडोज, <2/> लिनक्स और <3/> क्रोमओएस"
@@ -261,7 +265,7 @@ msgstr "क्या आप वाकई यह रंग सेट हटान
 msgid "Are you sure you want to delete this custom brand?"
 msgstr "क्या आप वाकई इस कस्टम ब्रांड को हटाना चाहते हैं?"
 
-#: src/components/image/RecentImageCard.tsx:64
+#: src/components/image/RecentImageCard.tsx:115
 msgid "Are you sure you want to delete this photo?"
 msgstr "क्या आप वाकई यह फ़ोटो हटाना चाहते हैं?"
 
@@ -270,11 +274,11 @@ msgstr "क्या आप वाकई यह फ़ोटो हटाना 
 msgid "Art medium"
 msgstr "कला माध्यम"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:93
+#: src/components/cloud/CloudFeedbackHandler.tsx:117
 msgid "ArtistAssistApp can no longer access your cloud storage. Disconnect it, then connect again."
 msgstr "ArtistAssistApp अब आपके क्लाउड स्टोरेज तक नहीं पहुंच सकता है। इसे डिस्कनेक्ट करें, फिर फिर से कनेक्ट करें।"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:161
+#: src/components/cloud/CloudFeedbackHandler.tsx:185
 msgid "ArtistAssistApp could not confirm that your cloud files were deleted. Remove any remaining ArtistAssistApp folder or files directly from your cloud provider."
 msgstr "ArtistAssistApp यह पुष्टि नहीं कर सका कि आपकी क्लाउड फ़ाइलें हटा दी गई थीं. किसी भी शेष ArtistAssistApp फ़ोल्डर या फ़ाइलों को सीधे अपने क्लाउड प्रदाता से हटा दें।"
 
@@ -335,6 +339,10 @@ msgstr "पृष्ठभूमि"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:56
 msgid "Backup imported"
 msgstr "बैकअप आयात किया गया"
+
+#: src/components/cloud/ExportToZipButton.tsx:44
+msgid "Backup saved without some photos"
+msgstr "कुछ फ़ोटो के बिना बैकअप सहेजा गया"
 
 #: src/components/auth/JoinButton.tsx:27
 msgid "Become a paid member"
@@ -435,15 +443,15 @@ msgstr "फ़ोटो में कहीं भी क्लिक 🖱️ �
 msgid "Close"
 msgstr "बंद करना"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:99
+#: src/components/cloud/CloudFeedbackHandler.tsx:123
 msgid "Cloud access not granted"
 msgstr "क्लाउड एक्सेस प्रदान नहीं किया गया"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:91
+#: src/components/cloud/CloudFeedbackHandler.tsx:115
 msgid "Cloud authorization failed"
 msgstr "क्लाउड प्राधिकरण विफल रहा"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:81
+#: src/components/cloud/CloudFeedbackHandler.tsx:105
 msgid "Cloud connection failed"
 msgstr "क्लाउड कनेक्शन विफल रहा"
 
@@ -451,35 +459,35 @@ msgstr "क्लाउड कनेक्शन विफल रहा"
 msgid "Cloud data changed"
 msgstr "क्लाउड डेटा बदल गया"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:149
+#: src/components/cloud/CloudFeedbackHandler.tsx:173
 msgid "Cloud data not found"
 msgstr "क्लाउड डेटा नहीं मिला"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:168
+#: src/components/cloud/CloudFeedbackHandler.tsx:192
 msgid "Cloud data unreadable"
 msgstr "क्लाउड डेटा अपठनीय"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:159
+#: src/components/cloud/CloudFeedbackHandler.tsx:183
 msgid "Cloud files may remain"
 msgstr "क्लाउड फ़ाइलें रह सकती हैं"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:87
+#: src/components/cloud/CloudFeedbackHandler.tsx:111
 msgid "Cloud not connected"
 msgstr "क्लाउड कनेक्ट नहीं है"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:101
+#: src/components/cloud/CloudFeedbackHandler.tsx:125
 msgid "Cloud storage was not connected because access was not granted. To connect it, try again and allow the requested access."
 msgstr "क्लाउड संग्रहण कनेक्ट नहीं किया गया था क्योंकि पहुँच प्रदान नहीं की गई थी. इसे कनेक्ट करने के लिए, पुन: प्रयास करें और अनुरोधित पहुँच की अनुमति दें."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:122
+#: src/components/cloud/CloudFeedbackHandler.tsx:146
 msgid "Cloud sync conflict"
 msgstr "क्लाउड सिंक संघर्ष"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:188
+#: src/components/cloud/CloudFeedbackHandler.tsx:222
 msgid "Cloud sync failed"
 msgstr "क्लाउड सिंक्रनाइज़ेशन विफल रहा"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:135
+#: src/components/cloud/CloudFeedbackHandler.tsx:159
 msgid "Cloud sync history missing"
 msgstr "क्लाउड सिंक इतिहास अनुपलब्ध है"
 
@@ -487,7 +495,7 @@ msgstr "क्लाउड सिंक इतिहास अनुपलब्
 msgid "Cloud sync is not enabled"
 msgstr "क्लाउड सिंक्रनाइज़ेशन सक्षम नहीं है"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:175
+#: src/components/cloud/CloudFeedbackHandler.tsx:209
 msgid "Cloud sync paused"
 msgstr "क्लाउड सिंक रोक दिया गया"
 
@@ -569,7 +577,7 @@ msgstr "{label} कनेक्ट करें"
 msgid "Connect {label}?"
 msgstr "{label} कनेक्ट करें?"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:88
+#: src/components/cloud/CloudFeedbackHandler.tsx:112
 msgid "Connect cloud storage before syncing."
 msgstr "सिंक करने से पहले क्लाउड स्टोरेज कनेक्ट करें।"
 
@@ -613,7 +621,7 @@ msgstr "केल्विन में प्रकाश स्रोत क�
 msgid "Could not detect the paper or canvas automatically"
 msgstr "स्वचालित रूप से कागज या कैनवास का पता नहीं लगा सका"
 
-#: src/components/cloud/ExportToZipButton.tsx:40
+#: src/components/cloud/ExportToZipButton.tsx:59
 msgid "Could not export backup"
 msgstr "बैकअप निर्यात नहीं किया जा सका"
 
@@ -653,8 +661,8 @@ msgstr "कस्टम रंग"
 #: src/components/ColorSetChooser.tsx:767
 #: src/components/CustomColorBrandCreator.tsx:517
 #: src/components/CustomColorBrandCreator.tsx:527
-#: src/components/image/RecentImageCard.tsx:73
-#: src/components/image/RecentImageCard.tsx:83
+#: src/components/image/RecentImageCard.tsx:124
+#: src/components/image/RecentImageCard.tsx:134
 #: src/components/storage/DeleteAppDataButton.tsx:50
 msgid "Delete"
 msgstr "मिटाना"
@@ -683,7 +691,7 @@ msgstr "इस डिवाइस पर डेटा हटाएं"
 msgid "Delete from palette"
 msgstr "पैलेट से हटाएं"
 
-#: src/components/ImageChooser.tsx:94
+#: src/components/ImageChooser.tsx:93
 msgid "Delete oldest"
 msgstr "सबसे पुराना मिटाना"
 
@@ -701,8 +709,8 @@ msgstr "रंग सेट हटाएं"
 msgid "Delete the custom brand"
 msgstr "कस्टम ब्रांड हटाएं"
 
-#: src/components/image/RecentImageCard.tsx:63
-#: src/components/image/RecentImageCard.tsx:78
+#: src/components/image/RecentImageCard.tsx:114
+#: src/components/image/RecentImageCard.tsx:129
 msgid "Delete the recent photo"
 msgstr "हाल ही की फ़ोटो हटाएं"
 
@@ -766,7 +774,7 @@ msgstr "क्या आपके पास स्टोर से खरीद�
 msgid "Don't save"
 msgstr "बचाओ मत"
 
-#: src/stores/cloud-slice.ts:136
+#: src/stores/cloud-slice.ts:143
 msgid "Downloading image {index} of {count}"
 msgstr "{index} की छवि {count} डाउनलोड करना"
 
@@ -1009,20 +1017,20 @@ msgstr "एकाधिक फ़ोटो के बीच चयन करन�
 #: src/components/color/PaletteColorMixtureCard.tsx:125
 #: src/components/ColorSetChooser.tsx:758
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/RecentImageCard.tsx:74
+#: src/components/image/RecentImageCard.tsx:125
 #: src/components/palette/PaletteGrid.tsx:114
 msgid "Keep"
 msgstr "रखना"
 
-#: src/components/ImageChooser.tsx:95
+#: src/components/ImageChooser.tsx:94
 msgid "Keep all"
 msgstr "सभी रखें"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:57
+#: src/components/cloud/CloudFeedbackHandler.tsx:59
 msgid "Keep cloud data"
 msgstr "क्लाउड डेटा रखें"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:40
+#: src/components/cloud/CloudFeedbackHandler.tsx:42
 msgid "Keep this device"
 msgstr "इस उपकरण को रखें"
 
@@ -1034,7 +1042,7 @@ msgstr "भाषा"
 msgid "Last charge status"
 msgstr "अंतिम शुल्क की स्थिति"
 
-#: src/components/image/RecentImageCard.tsx:88
+#: src/components/image/RecentImageCard.tsx:139
 msgid "Last used {dateText}"
 msgstr "पिछली बार {dateText} का उपयोग किया गया था"
 
@@ -1238,7 +1246,7 @@ msgstr "मुफ्त संस्करण में केवल सीम�
 msgid "Only a limited number of modes are available in the free version"
 msgstr "मुफ्त संस्करण में केवल सीमित संख्या में मोड उपलब्ध हैं"
 
-#: src/components/ImageStyleTransfer.tsx:237
+#: src/components/ImageStyleTransfer.tsx:249
 msgid "Only a limited number of styles are available in the free version"
 msgstr "मुफ्त संस्करण में केवल सीमित संख्या में शैलियाँ उपलब्ध हैं"
 
@@ -1271,11 +1279,11 @@ msgstr "या इस डिवाइस पर बैकअप फ़ाइल 
 msgid "Or scan the QR code"
 msgstr "या क्यूआर कोड को स्कैन करें"
 
-#: src/components/ImageChooser.tsx:152
+#: src/components/ImageChooser.tsx:151
 msgid "Or select from sample photos"
 msgstr "या नमूना फ़ोटो से चुनें"
 
-#: src/components/ImageChooser.tsx:126
+#: src/components/ImageChooser.tsx:125
 msgid "Or select from your recent photos"
 msgstr "या अपनी हाल की फ़ोटो में से चुनें"
 
@@ -1345,9 +1353,25 @@ msgstr "निर्बाध संग्रहण सक्षम नहीं
 msgid "Photo"
 msgstr "फोटो"
 
+#: src/components/image/RecentImageCard.tsx:68
+msgid "Photo not restored"
+msgstr "फ़ोटो पुनर्स्थापित नहीं की गई"
+
 #: src/components/ImagesCompare.tsx:167
 msgid "Photo ranking"
 msgstr "फोटो रैंकिंग"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:199
+msgid "Photo unavailable"
+msgstr "फ़ोटो अनुपलब्ध"
+
+#: src/components/image/RecentImageCard.tsx:87
+msgid "Photo unavailable. Restore it from your cloud storage, or select the original again."
+msgstr "फ़ोटो अनुपलब्ध. इसे अपने क्लाउड स्टोरेज से पुनर्स्थापित करें, या मूल को फिर से चुनें।"
+
+#: src/components/image/RecentImageCard.tsx:96
+msgid "Photo unavailable. Select the original again to repair it."
+msgstr "फ़ोटो अनुपलब्ध. इसे सुधारने के लिए मूल को फिर से चुनें।"
 
 #: src/components/empty/EmptyTargetColor.tsx:35
 msgid "Pinch or scroll to zoom, drag to pan."
@@ -1361,7 +1385,7 @@ msgstr "कृपया हमें हमारे <0>संपर्कों
 msgid "Position: {position}<0/>Rating: {ratingText}"
 msgstr "क्रम संख्या: {position}<0/>रेटिंग: {ratingText}"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:67
+#: src/components/cloud/CloudFeedbackHandler.tsx:91
 #: src/components/cloud/CloudSyncUpdateNotification.tsx:56
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:63
 msgid "Postpone"
@@ -1459,6 +1483,10 @@ msgstr "परावर्तन"
 msgid "Reload"
 msgstr "पुनः लोड करें"
 
+#: src/components/cloud/CloudFeedbackHandler.tsx:81
+msgid "Remove and continue"
+msgstr "हटाएँ और जारी रखें"
+
 #: src/components/ImageColorAdjustment.tsx:397
 #: src/components/messages.ts:43
 msgid "Remove background"
@@ -1490,6 +1518,10 @@ msgstr "रीसेट"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:78
 msgid "Restore backup"
 msgstr "बैकअप पुनर्स्थापित करें"
+
+#: src/components/image/RecentImageCard.tsx:92
+msgid "Restore from cloud"
+msgstr "बादल से पुनर्स्थापित करें"
 
 #: src/components/empty/EmptyPalette.tsx:76
 msgid "Return to the <0>{paletteLabel}</0> tab."
@@ -1527,7 +1559,7 @@ msgstr "संतृप्ति (%)"
 #: src/components/ImageOutline.tsx:373
 #: src/components/ImagePerspectiveCorrection.tsx:309
 #: src/components/ImagePerspectiveCorrection.tsx:361
-#: src/components/ImageStyleTransfer.tsx:231
+#: src/components/ImageStyleTransfer.tsx:243
 #: src/components/ImageTonalValues.tsx:159
 #: src/components/ImageTonalValues.tsx:175
 msgid "Save"
@@ -1537,7 +1569,7 @@ msgstr "रक्षा कर"
 msgid "Save & continue"
 msgstr "सहेजें और जारी रखें"
 
-#: src/components/cloud/ExportToZipButton.tsx:56
+#: src/components/cloud/ExportToZipButton.tsx:75
 msgid "Save backup"
 msgstr "बैकअप सहेजें"
 
@@ -1575,11 +1607,15 @@ msgstr "परिप्रेक्ष्य को सही करने क�
 msgid "Select a photo to remove the background from"
 msgstr "पृष्ठभूमि से हटाने के लिए एक तस्वीर का चयन करें"
 
-#: src/components/ImageChooser.tsx:115
+#: src/components/ImageChooser.tsx:114
 msgid "Select a reference photo from your device to paint from"
 msgstr "पेंट करने के लिए अपने डिवाइस से एक संदर्भ फ़ोटो चुनें"
 
-#: src/components/ImageStyleTransfer.tsx:226
+#: src/components/ImageStyleTransfer.tsx:193
+msgid "Select a style image to use this style"
+msgstr "इस शैली का उपयोग करने के लिए एक शैली छवि का चयन करें"
+
+#: src/components/ImageStyleTransfer.tsx:238
 msgid "Select a style to transfer to your reference photo"
 msgstr "अपनी संदर्भ फ़ोटो में स्थानांतरित करने के लिए एक शैली का चयन करें"
 
@@ -1649,7 +1685,7 @@ msgid "Select part"
 msgstr "भाग का चयन करें"
 
 #: src/components/ImageBackgroundRemoval.tsx:186
-#: src/components/ImageChooser.tsx:120
+#: src/components/ImageChooser.tsx:119
 #: src/components/ImageColorAdjustment.tsx:361
 #: src/components/ImagePerspectiveCorrection.tsx:270
 msgid "Select photo"
@@ -1667,7 +1703,7 @@ msgstr "जोड़ीवार तुलना का उपयोग कर�
 msgid "Select set"
 msgstr "सेट का चयन करें"
 
-#: src/components/ImageStyleTransfer.tsx:166
+#: src/components/ImageStyleTransfer.tsx:171
 msgid "Select style image"
 msgstr "शैली छवि का चयन करें"
 
@@ -1759,7 +1795,7 @@ msgstr "ग्रिड दिखाएं"
 msgid "Show matching areas"
 msgstr "मिलान क्षेत्र दिखाएं"
 
-#: src/components/ImageChooser.tsx:144
+#: src/components/ImageChooser.tsx:143
 msgid "Show older photos"
 msgstr "पुरानी फ़ोटो दिखाएं"
 
@@ -1812,7 +1848,7 @@ msgstr "विभिन्न रंगों के मोम पेस्ट�
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "छोटे प्रतिशत मान मजबूत सफेदी के अनुरूप होते हैं"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:151
+#: src/components/cloud/CloudFeedbackHandler.tsx:175
 msgid "Some synchronized cloud data was deleted or is unavailable. Keep this device to create it again, or postpone the decision. ArtistAssistApp will not recreate it automatically."
 msgstr "कुछ सिंक्रनाइज़ किए गए क्लाउड डेटा को हटा दिया गया था या अनुपलब्ध है. इसे फिर से बनाने के लिए इस डिवाइस को रखें, या निर्णय को स्थगित करें। ArtistAssistApp इसे स्वचालित रूप से फिर से नहीं बनाएगा।"
 
@@ -1857,7 +1893,7 @@ msgstr "मानक रंग सेट"
 msgid "Standard print"
 msgstr "मानक प्रिंट"
 
-#: src/components/ImageChooser.tsx:87
+#: src/components/ImageChooser.tsx:86
 msgid "Storage may fill up"
 msgstr "भंडारण भर सकता है"
 
@@ -1873,7 +1909,7 @@ msgstr "सीधा करें"
 msgid "Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "तिरछी तस्वीरों को सीधा करता है और अवांछित किनारों को हटाता है। परिप्रेक्ष्य विरूपण को सही करने के लिए ऑटो-डिटेक्ट का उपयोग करें या 4 बिंदुओं का चयन करें, फिर छवि को क्रॉप करने के लिए वैकल्पिक रूप से मार्जिन खींचें।"
 
-#: src/components/ImageStyleTransfer.tsx:219
+#: src/components/ImageStyleTransfer.tsx:231
 msgid "Styled reference photo"
 msgstr "स्टाइल संदर्भ फोटो"
 
@@ -1894,6 +1930,10 @@ msgstr "सतह का रंग"
 #: src/components/lightbox/LightboxOverlay.tsx:118
 msgid "Swipe to unlock"
 msgstr "अनलॉक करने के लिए स्वाइप करें"
+
+#: src/components/cloud/CloudFeedbackHandler.tsx:201
+msgid "Sync stopped because the photo {context} is unavailable and is not in your cloud storage. Remove it to continue syncing, or postpone the decision."
+msgstr "सिंक रुक गया क्योंकि फोटो {context} अनुपलब्ध है और आपके क्लाउड स्टोरेज में नहीं है। समन्वयन जारी रखने के लिए इसे हटा दें, या निर्णय स्थगित कर दें।"
 
 #: src/components/cloud/SyncCloudButton.tsx:46
 msgid "Sync with {label}"
@@ -1920,11 +1960,11 @@ msgstr "लक्ष्य प्रिंट आकार"
 msgid "Terms of use"
 msgstr "उपयोग की शर्तें"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:83
+#: src/components/cloud/CloudFeedbackHandler.tsx:107
 msgid "The cloud connection could not be completed. Start again from ArtistAssistApp."
 msgstr "क्लाउड कनेक्शन पूरा नहीं किया जा सका. ArtistAssistApp से फिर से शुरू करें।"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:170
+#: src/components/cloud/CloudFeedbackHandler.tsx:194
 msgid "The cloud data file is damaged. Replace it with the data from this device."
 msgstr "क्लाउड डेटा फ़ाइल क्षतिग्रस्त है। इसे इस डिवाइस के डेटा से बदलें।"
 
@@ -1989,15 +2029,15 @@ msgstr "यह आपके द्वारा जोड़ी गई फ़ा�
 msgid "This deletes your account and membership lookup records and logs you out."
 msgstr "यह आपके खाते और सदस्यता लुकअप रिकॉर्ड को हटा देता है और आपको लॉग आउट करता है।"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:124
+#: src/components/cloud/CloudFeedbackHandler.tsx:148
 msgid "This device and the synchronized cloud data both changed. Choose which one to keep."
 msgstr "यह डिवाइस और सिंक्रनाइज़ क्लाउड डेटा दोनों बदल गए। चुनें कि किसे रखना है।"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:110
+#: src/components/cloud/CloudFeedbackHandler.tsx:134
 msgid "This device has changes made while another account was active. Keep this device to upload them to the current account, keep the cloud data to discard them, or postpone the decision."
 msgstr "इस डिवाइस में किसी अन्य खाते के सक्रिय होने के दौरान किए गए परिवर्तन हैं. उन्हें चालू खाते में अपलोड करने के लिए इस डिवाइस को रखें, उन्हें त्यागने के लिए क्लाउड डेटा रखें, या निर्णय को स्थगित करें।"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:137
+#: src/components/cloud/CloudFeedbackHandler.tsx:161
 msgid "This device has local data and existing synchronized cloud data, but no sync history. Choose which one to keep."
 msgstr "इस डिवाइस में स्थानीय डेटा और मौजूदा सिंक्रनाइज़ क्लाउड डेटा है, लेकिन कोई सिंक्रनाइज़ इतिहास नहीं है। चुनें कि किसे रखना है।"
 
@@ -2009,6 +2049,10 @@ msgstr "इस लॉगिन कोड का उपयोग अब नही
 msgid "This permanently deletes the ArtistAssistApp folder and all your files and folders still inside it. Files you moved outside the folder are not deleted."
 msgstr "यह ArtistAssistApp फ़ोल्डर और उसके अंदर मौजूद आपकी सभी फ़ाइलों और फ़ोल्डरों को स्थायी रूप से हटा देता है। आपके द्वारा फ़ोल्डर के बाहर ले जाने वाली फ़ाइलें हटाई नहीं जाती हैं."
 
+#: src/components/image/RecentImageCard.tsx:69
+msgid "This photo could not be restored from your cloud storage."
+msgstr "यह फ़ोटो आपके क्लाउड स्टोरेज से पुनर्स्थापित नहीं किया जा सका."
+
 #: src/components/print/PrintImageDrawer.tsx:176
 msgid "This print size is not supported"
 msgstr "यह मुद्रण आकार समर्थित नहीं है"
@@ -2017,7 +2061,7 @@ msgstr "यह मुद्रण आकार समर्थित नही�
 msgid "This step is optional."
 msgstr "यह चरण वैकल्पिक है."
 
-#: src/components/ImageStyleTransfer.tsx:183
+#: src/components/ImageStyleTransfer.tsx:188
 msgid "This style is available to paid Patreon members only"
 msgstr "यह शैली केवल भुगतान किए गए Patreon सदस्यों के लिए उपलब्ध है"
 
@@ -2050,7 +2094,7 @@ msgid "Too many incorrect codes"
 msgstr "बहुत सारे गलत कोड"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:181
-#: src/components/cloud/CloudFeedbackHandler.tsx:184
+#: src/components/cloud/CloudFeedbackHandler.tsx:218
 msgid "Too many requests"
 msgstr "बहुत सारे अनुरोध"
 
@@ -2083,7 +2127,7 @@ msgstr "अनपेक्षित त्रुटि: {errorMessage}"
 msgid "Unifying color"
 msgstr "एकीकृत रंग"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:108
+#: src/components/cloud/CloudFeedbackHandler.tsx:132
 msgid "Unsynced changes on this device"
 msgstr "इस डिवाइस पर सिंक नहीं किए गए परिवर्तन"
 
@@ -2094,7 +2138,7 @@ msgstr "इस डिवाइस पर सिंक नहीं किए ग
 msgid "Untitled mixture"
 msgstr "शीर्षकहीन मिश्रण"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:189
+#: src/components/cloud/CloudFeedbackHandler.tsx:223
 msgid "Update ArtistAssistApp to the latest version and try again."
 msgstr "ArtistAssistApp को नवीनतम संस्करण में अपडेट करें और पुन: प्रयास करें।"
 
@@ -2110,7 +2154,7 @@ msgstr "अपडेट उपलब्ध है"
 msgid "Update now"
 msgstr "अभी अपडेट करें"
 
-#: src/stores/cloud-slice.ts:135
+#: src/stores/cloud-slice.ts:142
 msgid "Uploading image {index} of {count}"
 msgstr "{index} की छवि {count} अपलोड करना"
 
@@ -2152,7 +2196,7 @@ msgid "View the outline over the live camera to trace in AR."
 msgstr "एआर में ट्रेस करने के लिए लाइव कैमरे पर रूपरेखा देखें।"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:182
-#: src/components/cloud/CloudFeedbackHandler.tsx:185
+#: src/components/cloud/CloudFeedbackHandler.tsx:219
 msgid "Wait a minute and try again."
 msgstr "एक मिनट प्रतीक्षा करें और पुनः प्रयास करें।"
 
@@ -2214,7 +2258,7 @@ msgstr "सफेद बिंदु"
 msgid "Width"
 msgstr "चौड़ाई"
 
-#: src/components/ImageChooser.tsx:89
+#: src/components/ImageChooser.tsx:88
 msgid "You already have many recent photos saved. Delete the oldest one to free up space? The new photo will still be added."
 msgstr "आपके पास पहले से ही कई हालिया तस्वीरें सहेजी हुई हैं। जगह खाली करने के लिए सबसे पुराने को हटा दें? नई तस्वीर अभी भी जोड़ी जाएगी।"
 
@@ -2259,7 +2303,7 @@ msgstr "आपका ब्राउज़र क्लिपबोर्ड स
 msgid "Your cloud data changed and will be synchronized automatically."
 msgstr "आपका क्लाउड डेटा बदल गया है और स्वचालित रूप से सिंक्रनाइज़ हो जाएगा।"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:177
+#: src/components/cloud/CloudFeedbackHandler.tsx:211
 msgid "Your cloud storage couldn't be reached. Your latest changes remain saved on this device and have not been uploaded. Check your internet connection, then try syncing again."
 msgstr "आपके क्लाउड स्टोरेज तक नहीं पहुंचा जा सका. आपके नवीनतम परिवर्तन इस डिवाइस पर सहेजे गए हैं और अपलोड नहीं किए गए हैं। अपने इंटरनेट कनेक्शन की जाँच करें, फिर फिर सिंक्रनाइज़ करने का प्रयास करें."
 

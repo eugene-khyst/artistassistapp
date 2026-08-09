@@ -86,7 +86,7 @@ export const createCloudState = ({
     .map(brand => toCustomColorBrandSource(brand))
     .sort(byNumber(({id}) => id)),
   colorSets: removeDate(colorSets.slice().sort(byNumber(({id}) => id))),
-  images: images.slice().sort(byString(({digest}) => digest)),
+  images: removeDate(images.slice().sort(byString(({digest}) => digest))),
   colorMixtures: removeDate(
     colorMixtures.slice().sort(
       compare(

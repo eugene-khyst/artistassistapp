@@ -1,0 +1,21 @@
+.loadingCover {
+  aspect-ratio: 4 / 3;
+  background-color: var(--ant-color-fill-secondary);
+}
+
+.unavailableCover {
+  display: grid !important;
+  aspect-ratio: 4 / 3;
+  place-content: center;
+  place-items: center;
+  gap: var(--ant-padding-xs);
+  padding: var(--ant-padding-sm);
+  color: var(--ant-color-text-secondary);
+  background-color: var(--ant-color-fill-secondary);
+  text-align: center;
+}
+
+.unavailableCover :global(.anticon) {
+  color: var(--ant-color-text-tertiary) !important;
+  font-size: 2rem;
+}
