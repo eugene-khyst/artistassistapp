@@ -30,8 +30,10 @@ export interface ColorMatchImageSlice {
   setColorMatchImage: (color: RgbTuple | null) => void;
 }
 
+type ColorMatchImageSliceDependencies = Pick<OriginalImageSlice, 'originalImage'>;
+
 export const createColorMatchImageSlice: StateCreator<
-  ColorMatchImageSlice & OriginalImageSlice,
+  ColorMatchImageSlice & ColorMatchImageSliceDependencies,
   [],
   [],
   ColorMatchImageSlice

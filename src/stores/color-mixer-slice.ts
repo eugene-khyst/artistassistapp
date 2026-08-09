@@ -88,8 +88,13 @@ export interface ColorMixerSlice {
   abortBuildPalette: () => void;
 }
 
+type ColorMixerSliceDependencies = Pick<AppSlice, 'appSettings' | 'saveAppSettings'> &
+  Pick<TabSlice, 'setActiveTabKey'> &
+  Pick<OriginalImageSlice, 'selectedImageFile' | 'originalImage'> &
+  Pick<PaletteSlice, 'selectedPaletteColorMixtures' | 'saveToPaletteBulk'>;
+
 export const createColorMixerSlice: StateCreator<
-  ColorMixerSlice & AppSlice & TabSlice & OriginalImageSlice & PaletteSlice,
+  ColorMixerSlice & ColorMixerSliceDependencies,
   [],
   [],
   ColorMixerSlice
@@ -140,7 +145,7 @@ export const createColorMixerSlice: StateCreator<
       } = get();
       if (colorSet && setActiveTabKey) {
         const activeTabKey = selectedImageFile ? TabKey.ColorPicker : TabKey.Photo;
-        await get().setActiveTabKey(activeTabKey);
+        await get().setActiveTabKey(activeTabKey, {skipUnsavedChangesCheck: true});
       }
       set({
         isColorMixerLoading: true,

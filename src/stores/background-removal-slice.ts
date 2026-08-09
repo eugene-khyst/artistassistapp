@@ -42,8 +42,10 @@ export interface BackgroundRemovalSlice {
   abortBackgroundRemoval: () => void;
 }
 
+type BackgroundRemovalSliceDependencies = Pick<AuthSlice, 'auth'>;
+
 export const createBackgroundRemovalSlice: StateCreator<
-  BackgroundRemovalSlice & AuthSlice,
+  BackgroundRemovalSlice & BackgroundRemovalSliceDependencies,
   [],
   [],
   BackgroundRemovalSlice

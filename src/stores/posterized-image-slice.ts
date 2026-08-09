@@ -32,8 +32,13 @@ export interface PosterizedImageSlice {
   abortPosterizeImage: () => void;
 }
 
+type PosterizedImageSliceDependencies = Pick<
+  OriginalImageSlice,
+  'selectedImageFile' | 'originalImage' | 'saveRecentImageFile'
+>;
+
 export const createPosterizedImageSlice: StateCreator<
-  PosterizedImageSlice & OriginalImageSlice,
+  PosterizedImageSlice & PosterizedImageSliceDependencies,
   [],
   [],
   PosterizedImageSlice

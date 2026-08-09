@@ -104,14 +104,15 @@ export interface CloudSlice {
   importFromZip: (file: File) => Promise<void>;
 }
 
+type CloudSliceDependencies = Pick<AuthSlice, 'auth' | 'logout' | 'handleAuthError'> &
+  Pick<AppSlice, 'storeChangeTokens' | 'saveStoreChangeTokens'> &
+  Pick<CustomColorBrandSlice, 'loadCustomColorBrands'> &
+  Pick<ColorSetSlice, 'loadColorSets' | 'activateLatestColorSet'> &
+  Pick<OriginalImageSlice, 'recentImages' | 'loadRecentImages' | 'deleteRecentImage'> &
+  Pick<PaletteSlice, 'loadPaletteColorMixtures'>;
+
 export const createCloudSlice: StateCreator<
-  CloudSlice &
-    AuthSlice &
-    CustomColorBrandSlice &
-    ColorSetSlice &
-    OriginalImageSlice &
-    PaletteSlice &
-    AppSlice,
+  CloudSlice & CloudSliceDependencies,
   [],
   [],
   CloudSlice

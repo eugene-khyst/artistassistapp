@@ -38,7 +38,7 @@ import {
   Space,
   Typography,
 } from 'antd';
-import {useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react';
+import {useEffect, useMemo, useRef, useState} from 'react';
 
 import {AdCard} from '@/components/ad/AdCard';
 import {JoinButton} from '@/components/auth/JoinButton';
@@ -54,7 +54,6 @@ import {ColorSetSelect} from '@/components/color-set/ColorSetSelect';
 import {LocaleSelect} from '@/components/i18n/LocaleSelect';
 import {InstallButton} from '@/components/install/InstallButton';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
-import {UnsavedChangesContext} from '@/contexts/UnsavedChangesContext';
 import {useColorBrands} from '@/hooks/useColorBrands';
 import {useColors} from '@/hooks/useColors';
 import {useErrorNotification} from '@/hooks/useErrorNotification';
@@ -76,7 +75,6 @@ import {useAppStore} from '@/stores/app-store';
 import {TabKey} from '@/tabs';
 import {maxOf} from '@/utils/array';
 import {byDate, byNumber, compare} from '@/utils/comparator';
-import {asyncNoop} from '@/utils/function';
 
 import {ColorBrandSelect} from './color-set/ColorBrandSelect';
 import {ColorSelect} from './color-set/ColorSelect';
@@ -90,9 +88,7 @@ interface CheckUnsavedOptions {
   updateForm?: boolean;
 }
 
-type CheckUnsavedColorSet = (options?: CheckUnsavedOptions) => Promise<void>;
-
-const FIELD = '${label}';
+type CheckUnsavedColorSet = (options?: CheckUnsavedOptions) => Promise<boolean>;
 
 const maxColorsFor2: number = MAX_COLORS_IN_MIXTURE[2];
 const maxColorsFor3: number = MAX_COLORS_IN_MIXTURE[3];
@@ -145,10 +141,9 @@ export function ColorSetChooser() {
   const isColorSetsLoading = useAppStore(state => state.isColorSetsLoading);
 
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
+  const registerUnsavedChangesChecker = useAppStore(state => state.registerUnsavedChangesChecker);
   const saveColorSet = useAppStore(state => state.saveColorSet);
   const deleteColorSet = useAppStore(state => state.deleteColorSet);
-
-  const {registerChecker} = useContext(UnsavedChangesContext);
 
   const {message, modal} = App.useApp();
 
@@ -217,22 +212,32 @@ export function ColorSetChooser() {
   );
   useErrorNotification(isColorsError, <Trans>Error while fetching color data</Trans>);
 
-  const onCheckUnsavedRef = useRef<CheckUnsavedColorSet>(asyncNoop);
+  const onCheckUnsavedRef = useRef<CheckUnsavedColorSet>(() => Promise.resolve(true));
   useEffect(() => {
     onCheckUnsavedRef.current = async ({
       updateForm = true,
-    }: CheckUnsavedOptions = {}): Promise<void> => {
+    }: CheckUnsavedOptions = {}): Promise<boolean> => {
       if (!hasUnsavedChangesRef.current) {
-        return;
+        return true;
       }
       if (!isCompleteColorSet(renderedColorSet)) {
-        void message.warning(
-          <Trans>
-            The color set can&apos;t be saved because not all required fields are filled.
-          </Trans>
-        );
+        const confirmed: boolean = await modal.confirm({
+          title: <Trans>Discard changes to the color set?</Trans>,
+          content: (
+            <Trans>
+              The color set can&apos;t be saved because not all required fields are filled.
+            </Trans>
+          ),
+          okText: <Trans>Discard changes</Trans>,
+          cancelText: <Trans>Keep editing</Trans>,
+          okButtonProps: {danger: true},
+          focusTriggerAfterClose: false,
+        });
+        if (!confirmed) {
+          return false;
+        }
         hasUnsavedChangesRef.current = false;
-        return;
+        return true;
       }
       const confirmed: boolean = await modal.confirm({
         title: <Trans>Save changes to the color set?</Trans>,
@@ -252,7 +257,7 @@ export function ColorSetChooser() {
               The color set can&apos;t be saved because not all required fields are filled.
             </Trans>
           );
-          return;
+          return false;
         }
         if (updateForm) {
           form.setFieldsValue(saved);
@@ -260,12 +265,14 @@ export function ColorSetChooser() {
         showStorageNotification(granted);
       }
       hasUnsavedChangesRef.current = false;
+      return true;
     };
   });
 
-  const onCheckUnsaved = useCallback(() => onCheckUnsavedRef.current(), []);
-
-  useEffect(() => registerChecker(onCheckUnsaved), [registerChecker, onCheckUnsaved]);
+  useEffect(
+    () => registerUnsavedChangesChecker(TabKey.ColorSet, () => onCheckUnsavedRef.current()),
+    [registerUnsavedChangesChecker]
+  );
 
   // Re-prefill on every external reload (cloud download, cross-tab wake), not on in-form saves.
   // Unsaved edits go through the usual save prompt before the form is replaced.
@@ -276,7 +283,9 @@ export function ColorSetChooser() {
     }
     prefilledReloadCountRef.current = colorSetsReloadCount;
     void (async () => {
-      await onCheckUnsavedRef.current({updateForm: false});
+      if (!(await onCheckUnsavedRef.current({updateForm: false}))) {
+        return;
+      }
       const latestColorSet = maxOf(
         [...useAppStore.getState().colorSets.values()].flat(),
         compareColorSetsByDate
@@ -292,8 +301,12 @@ export function ColorSetChooser() {
     changedValues: Partial<ColorSetDefinition>,
     values: ColorSetDefinition
   ) => {
+    const previousColorSet = renderedColorSet;
     if (changedValues.type !== undefined) {
-      await onCheckUnsavedRef.current({updateForm: false});
+      if (!(await onCheckUnsavedRef.current({updateForm: false}))) {
+        form.setFieldsValue(previousColorSet);
+        return;
+      }
       form.setFieldsValue(getEmptyColorSet(values));
 
       const [latestColorSetByType]: ColorSetDefinition[] = colorSets.get(changedValues.type) ?? [];
@@ -305,7 +318,10 @@ export function ColorSetChooser() {
     }
 
     if (changedValues.id !== undefined) {
-      await onCheckUnsavedRef.current({updateForm: false});
+      if (!(await onCheckUnsavedRef.current({updateForm: false}))) {
+        form.setFieldsValue(previousColorSet);
+        return;
+      }
       form.setFieldsValue(getEmptyColorSet(values));
 
       if (changedValues.id > 0 && values.type) {
@@ -366,7 +382,9 @@ export function ColorSetChooser() {
   };
 
   const handleCreateNewClick = async () => {
-    await onCheckUnsavedRef.current({updateForm: false});
+    if (!(await onCheckUnsavedRef.current({updateForm: false}))) {
+      return;
+    }
     form.setFieldsValue(getEmptyColorSet(form.getFieldsValue()));
   };
 
@@ -398,7 +416,9 @@ export function ColorSetChooser() {
   };
 
   const handleMergeClick = async () => {
-    await onCheckUnsavedRef.current({updateForm: true});
+    if (!(await onCheckUnsavedRef.current({updateForm: true}))) {
+      return;
+    }
     setIsMergeDrawerOpen(true);
   };
 
@@ -574,7 +594,7 @@ export function ColorSetChooser() {
             <Form.Item
               name="type"
               label={<Trans>Art medium</Trans>}
-              rules={[{required: true, message: t`${FIELD} is required`}]}
+              rules={[{required: true, message: t`Select an art medium`}]}
             >
               <ColorTypeSelect />
             </Form.Item>
@@ -583,7 +603,7 @@ export function ColorSetChooser() {
                 name="id"
                 label={<Trans>Color set</Trans>}
                 tooltip={<Trans>Select from your recent color sets or create a new one.</Trans>}
-                rules={[{required: true, message: t`${FIELD} is required`}]}
+                rules={[{required: true, message: t`Select a color set`}]}
                 dependencies={['type']}
               >
                 <ColorSetSelect
@@ -607,7 +627,7 @@ export function ColorSetChooser() {
                   name="brands"
                   label={<Trans>Color brands</Trans>}
                   tooltip={<Trans>Select brands that you use.</Trans>}
-                  rules={[{required: true, message: t`${FIELD} are required`}]}
+                  rules={[{required: true, message: t`Select at least one color brand`}]}
                   dependencies={['type']}
                   extra={
                     !user &&
@@ -636,7 +656,7 @@ export function ColorSetChooser() {
               <Form.Item
                 name="standardColorSet"
                 label={<Trans>Standard color set</Trans>}
-                rules={[{required: true, message: t`${FIELD} is required`}]}
+                rules={[{required: true, message: t`Select a standard or custom color set`}]}
                 dependencies={['type', 'brands']}
                 tooltip={<Trans>Do you have a store-bought or custom color set?</Trans>}
               >
@@ -655,7 +675,7 @@ export function ColorSetChooser() {
                     key={brand.id}
                     name={['colors', brand.id.toString()]}
                     label={<Trans>{brandName} colors</Trans>}
-                    rules={[{required: true, message: t`${FIELD} are required`}]}
+                    rules={[{required: true, message: t`Select at least one color`}]}
                     dependencies={['type', 'brands', 'standardColorSet']}
                     tooltip={<Trans>Add or remove colors to match your actual color set.</Trans>}
                     extra={

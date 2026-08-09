@@ -50,8 +50,12 @@ export interface StyleTransferSlice {
   abortStyleTransfer: () => void;
 }
 
+type StyleTransferSliceDependencies = Pick<AppSlice, 'appSettings'> &
+  Pick<OriginalImageSlice, 'selectedImageFile' | 'originalImage'> &
+  Pick<AuthSlice, 'auth'>;
+
 export const createStyleTransferSlice: StateCreator<
-  StyleTransferSlice & AppSlice & OriginalImageSlice & AuthSlice,
+  StyleTransferSlice & StyleTransferSliceDependencies,
   [],
   [],
   StyleTransferSlice

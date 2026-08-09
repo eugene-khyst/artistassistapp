@@ -31,7 +31,6 @@ import type {AuthSlice} from '@/stores/auth-slice';
 import type {CloudSlice} from '@/stores/cloud-slice';
 import type {CustomColorBrandSlice} from '@/stores/custom-color-brand-slice';
 import type {LocaleSlice} from '@/stores/locale-slice';
-import type {StyleTransferSlice} from '@/stores/style-transfer-slice';
 import {reloadStores} from '@/stores/sync/store-reloads';
 import {initAuthAttemptWatcher} from '@/stores/watchers/auth-attempt-watcher';
 import {initAuthExpiryWatcher} from '@/stores/watchers/auth-expiry-watcher';
@@ -40,7 +39,6 @@ import {TabKey} from '@/tabs';
 import {getErrorMessage} from '@/utils/error';
 import {replaceHistory} from '@/utils/history';
 
-import type {ColorMixerSlice} from './color-mixer-slice';
 import type {ColorSetSlice} from './color-set-slice';
 import type {OriginalImageSlice} from './original-image-slice';
 import type {PaletteSlice} from './palette-slice';
@@ -68,22 +66,22 @@ export interface AppSlice {
   clearInitErrors: () => void;
 }
 
-export const createAppSlice: StateCreator<
-  AppSlice &
-    LocaleSlice &
-    AuthSlice &
-    CloudSlice &
-    CustomColorBrandSlice &
-    TabSlice &
-    ColorSetSlice &
-    ColorMixerSlice &
-    OriginalImageSlice &
-    PaletteSlice &
-    StyleTransferSlice,
-  [],
-  [],
-  AppSlice
-> = (set, get) => {
+type AppSliceDependencies = Pick<LocaleSlice, 'setLocale'> &
+  Pick<
+    AuthSlice,
+    'handleLoginCallback' | 'setAuthError' | 'resolveAuth' | 'reconcileAuthAttempt' | 'logout'
+  > &
+  Pick<CloudSlice, 'loadCloudConnection' | 'handleCloudCallback' | 'syncCloudState'> &
+  Pick<CustomColorBrandSlice, 'loadCustomColorBrands'> &
+  Pick<TabSlice, 'setActiveTabKey'> &
+  Pick<ColorSetSlice, 'loadColorSets' | 'activateLatestColorSet'> &
+  Pick<OriginalImageSlice, 'loadRecentImages' | 'selectLatestImageFile'> &
+  Pick<PaletteSlice, 'loadPaletteColorMixtures'>;
+
+export const createAppSlice: StateCreator<AppSlice & AppSliceDependencies, [], [], AppSlice> = (
+  set,
+  get
+) => {
   const runInitStepSafely = async (label: string, fn: () => unknown): Promise<void> => {
     try {
       await fn();
@@ -192,7 +190,7 @@ export const createAppSlice: StateCreator<
         initPersistedStateWatcher();
 
         if (activeTabKey) {
-          void get().setActiveTabKey(activeTabKey);
+          void get().setActiveTabKey(activeTabKey, {skipUnsavedChangesCheck: true});
         }
 
         set({

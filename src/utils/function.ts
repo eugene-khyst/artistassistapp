@@ -23,7 +23,3 @@ export function identity<T>(arg: T): T {
 export function noop(): void {
   // noop
 }
-
-export async function asyncNoop(): Promise<void> {
-  // noop
-}

@@ -35,8 +35,10 @@ export interface BlurredImagesSlice {
   abortBlurredImages: () => void;
 }
 
+type BlurredImagesSliceDependencies = Pick<OriginalImageSlice, 'originalImage'>;
+
 export const createBlurredImagesSlice: StateCreator<
-  BlurredImagesSlice & OriginalImageSlice,
+  BlurredImagesSlice & BlurredImagesSliceDependencies,
   [],
   [],
   BlurredImagesSlice

@@ -34,7 +34,6 @@ import {ErrorFallback} from '@/components/error/ErrorFallback';
 import {UnhandledRejectionHandler} from '@/components/error/UnhandledRejectionHandler';
 import {ServiceWorkerUpdateNotification} from '@/components/pwa/ServiceWorkerUpdateNotification';
 import {InternationalizationProvider} from '@/contexts/InternationalizationProvider';
-import {UnsavedChangesProvider} from '@/contexts/UnsavedChangesContext';
 import type {BeforeInstallPromptEvent} from '@/pwa';
 import {ForceLogoutError} from '@/services/auth/errors';
 import {useAppStore} from '@/stores/app-store';
@@ -84,9 +83,7 @@ async function renderApp(): Promise<void> {
                 <CloudFeedbackHandler>
                   <BrowserSupport>
                     <QueryClientProvider client={queryClient}>
-                      <UnsavedChangesProvider>
-                        <ArtistAssistApp />
-                      </UnsavedChangesProvider>
+                      <ArtistAssistApp />
                     </QueryClientProvider>
                   </BrowserSupport>
                 </CloudFeedbackHandler>

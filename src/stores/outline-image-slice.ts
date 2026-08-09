@@ -39,8 +39,14 @@ export interface OutlineImageSlice {
   abortOutline: () => void;
 }
 
+type OutlineImageSliceDependencies = Pick<
+  OriginalImageSlice,
+  'selectedImageFile' | 'originalImage'
+> &
+  Pick<AuthSlice, 'auth'>;
+
 export const createOutlineImageSlice: StateCreator<
-  OutlineImageSlice & OriginalImageSlice & AuthSlice,
+  OutlineImageSlice & OutlineImageSliceDependencies,
   [],
   [],
   OutlineImageSlice

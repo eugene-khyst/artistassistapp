@@ -45,8 +45,12 @@ export interface CustomColorBrandSlice {
   exportCustomColorBrandToJson: (brand: CustomColorBrandSource) => void;
 }
 
+type CustomColorBrandSliceDependencies = Pick<AppSlice, 'saveStoreChangeTokens'> &
+  Pick<CloudSlice, 'pushCloudState'> &
+  Pick<ColorSetSlice, 'loadColorSets' | 'activateLatestColorSet'>;
+
 export const createCustomColorBrandSlice: StateCreator<
-  CustomColorBrandSlice & CloudSlice & ColorSetSlice & AppSlice,
+  CustomColorBrandSlice & CustomColorBrandSliceDependencies,
   [],
   [],
   CustomColorBrandSlice

@@ -41,8 +41,13 @@ export interface LimitedPaletteImageSlice {
   abortLimitedPalette: () => void;
 }
 
+type LimitedPaletteImageSliceDependencies = Pick<OriginalImageSlice, 'originalImage'> &
+  Pick<ColorMixerSlice, 'colorSet'> &
+  Pick<ColorSetSlice, 'saveColorSet' | 'loadColorSets' | 'activateLatestColorSet'> &
+  Pick<TabSlice, 'setActiveTabKey'>;
+
 export const createLimitedPaletteImageSlice: StateCreator<
-  LimitedPaletteImageSlice & OriginalImageSlice & ColorSetSlice & ColorMixerSlice & TabSlice,
+  LimitedPaletteImageSlice & LimitedPaletteImageSliceDependencies,
   [],
   [],
   LimitedPaletteImageSlice

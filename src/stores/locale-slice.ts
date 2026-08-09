@@ -30,10 +30,14 @@ export interface LocaleSlice {
   setLocale: (locale: Locale, persist?: boolean) => Promise<void>;
 }
 
-export const createLocaleSlice: StateCreator<LocaleSlice & AppSlice, [], [], LocaleSlice> = (
-  set,
-  get
-) => ({
+type LocaleSliceDependencies = Pick<AppSlice, 'saveAppSettings'>;
+
+export const createLocaleSlice: StateCreator<
+  LocaleSlice & LocaleSliceDependencies,
+  [],
+  [],
+  LocaleSlice
+> = (set, get) => ({
   isLocaleLoading: false,
 
   setLocale: async (locale: Locale, persist = true): Promise<void> => {

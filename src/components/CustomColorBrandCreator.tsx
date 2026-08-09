@@ -77,8 +77,6 @@ import {noop} from '@/utils/function';
 
 import styles from './CustomColorBrandCreator.module.css';
 
-const FIELD = '${label}';
-
 const DEFAULT_SAMPLE_DIAMETER = 10;
 const MAX_SAMPLE_DIAMETER = 50;
 const SAMPLE_DIAMETER_SLIDER_MARKS: SliderMarks = Object.fromEntries(
@@ -475,7 +473,7 @@ export function CustomColorBrandCreator() {
                   <Form.Item
                     name="id"
                     label={<Trans>Color brand</Trans>}
-                    rules={[{required: true, message: t`${FIELD} is required`}]}
+                    rules={[{required: true, message: t`Select a color brand`}]}
                   >
                     <CustomColorBrandSelect
                       customColorBrands={customColorBrands}
@@ -486,7 +484,7 @@ export function CustomColorBrandCreator() {
                   <Form.Item
                     name="type"
                     label={<Trans>Art medium</Trans>}
-                    rules={[{required: true, message: t`${FIELD} is required`}]}
+                    rules={[{required: true, message: t`Select an art medium`}]}
                   >
                     <ColorTypeSelect />
                   </Form.Item>
@@ -494,7 +492,7 @@ export function CustomColorBrandCreator() {
                   <Form.Item
                     name="name"
                     label={<Trans>Name</Trans>}
-                    rules={[{required: true, message: t`${FIELD} is required`}]}
+                    rules={[{required: true, message: t`Enter a name`}]}
                   >
                     <Input placeholder={t`Name a brand`} />
                   </Form.Item>

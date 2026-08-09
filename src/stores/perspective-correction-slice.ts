@@ -53,8 +53,10 @@ export interface PerspectiveCorrectionSlice {
   abortPerspectiveAutoDetect: () => void;
 }
 
+type PerspectiveCorrectionSliceDependencies = Pick<AuthSlice, 'auth'>;
+
 export const createPerspectiveCorrectionSlice: StateCreator<
-  PerspectiveCorrectionSlice & AuthSlice,
+  PerspectiveCorrectionSlice & PerspectiveCorrectionSliceDependencies,
   [],
   [],
   PerspectiveCorrectionSlice

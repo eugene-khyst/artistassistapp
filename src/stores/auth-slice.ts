@@ -34,7 +34,6 @@ import {
   getAuthSession,
   saveAuthAttempt,
 } from '@/services/db/auth-db';
-import type {AppSlice} from '@/stores/app-slice';
 import type {CloudSlice} from '@/stores/cloud-slice';
 import {dedupeConcurrentCalls} from '@/utils/concurrency';
 import {createSha256Base64Url, randomBase64Url} from '@/utils/crypto';
@@ -81,7 +80,9 @@ function clearAuthAttemptTimeout(): void {
   authAttemptTimeoutId = undefined;
 }
 
-export const createAuthSlice: StateCreator<AuthSlice & AppSlice & CloudSlice, [], [], AuthSlice> = (
+type AuthSliceDependencies = Pick<CloudSlice, 'disconnectCloud'>;
+
+export const createAuthSlice: StateCreator<AuthSlice & AuthSliceDependencies, [], [], AuthSlice> = (
   set,
   get
 ) => {

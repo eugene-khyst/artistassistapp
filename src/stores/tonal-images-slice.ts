@@ -29,8 +29,10 @@ export interface TonalImagesSlice {
   loadTonalImages: () => void;
 }
 
+type TonalImagesSliceDependencies = Pick<OriginalImageSlice, 'originalImage'>;
+
 export const createTonalImagesSlice: StateCreator<
-  TonalImagesSlice & OriginalImageSlice,
+  TonalImagesSlice & TonalImagesSliceDependencies,
   [],
   [],
   TonalImagesSlice

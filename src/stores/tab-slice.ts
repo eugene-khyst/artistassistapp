@@ -28,29 +28,58 @@ import type {StorageSlice} from './storage-slice';
 import type {StyleTransferSlice} from './style-transfer-slice';
 import type {TonalImagesSlice} from './tonal-images-slice';
 
+export type UnsavedChangesChecker = () => Promise<boolean>;
+
+const unsavedChangesCheckers = new Map<TabKey, Set<UnsavedChangesChecker>>();
+
+type TabSliceDependencies = Pick<AppSlice, 'saveAppSettings'> &
+  Pick<TonalImagesSlice, 'loadTonalImages'> &
+  Pick<BlurredImagesSlice, 'loadBlurredImages'> &
+  Pick<OutlineImageSlice, 'loadOutlineImage'> &
+  Pick<StyleTransferSlice, 'loadStyledImage'> &
+  Pick<StorageSlice, 'loadStorageUsage'>;
+
 export interface TabSlice {
   activeTabKey: TabKey;
 
-  setActiveTabKey: (activeTabKey: TabKey) => Promise<void>;
+  registerUnsavedChangesChecker: (tabKey: TabKey, checker: UnsavedChangesChecker) => () => void;
+  setActiveTabKey: (
+    activeTabKey: TabKey,
+    options?: {skipUnsavedChangesCheck?: boolean}
+  ) => Promise<boolean>;
 }
 
-export const createTabSlice: StateCreator<
-  TabSlice &
-    AppSlice &
-    TonalImagesSlice &
-    BlurredImagesSlice &
-    OutlineImageSlice &
-    StyleTransferSlice &
-    StorageSlice,
-  [],
-  [],
-  TabSlice
-> = (set, get) => ({
+export const createTabSlice: StateCreator<TabSlice & TabSliceDependencies, [], [], TabSlice> = (
+  set,
+  get
+) => ({
   activeTabKey: TabKey.ColorSet,
 
-  setActiveTabKey: async (activeTabKey: TabKey): Promise<void> => {
-    if (activeTabKey === get().activeTabKey) {
-      return;
+  registerUnsavedChangesChecker: (tabKey: TabKey, checker: UnsavedChangesChecker): (() => void) => {
+    const checkers = unsavedChangesCheckers.get(tabKey) ?? new Set<UnsavedChangesChecker>();
+    checkers.add(checker);
+    unsavedChangesCheckers.set(tabKey, checkers);
+    return () => {
+      checkers.delete(checker);
+      if (checkers.size === 0) {
+        unsavedChangesCheckers.delete(tabKey);
+      }
+    };
+  },
+  setActiveTabKey: async (
+    activeTabKey: TabKey,
+    {skipUnsavedChangesCheck = false} = {}
+  ): Promise<boolean> => {
+    const currentTabKey = get().activeTabKey;
+    if (activeTabKey === currentTabKey) {
+      return true;
+    }
+    if (!skipUnsavedChangesCheck) {
+      for (const checker of unsavedChangesCheckers.get(currentTabKey) ?? []) {
+        if (!(await checker())) {
+          return false;
+        }
+      }
     }
     await get().saveAppSettings({activeTabKey});
     blurFocusedElementIn('[role="tabpanel"]');
@@ -68,5 +97,6 @@ export const createTabSlice: StateCreator<
     } else if (activeTabKey === TabKey.Help) {
       void get().loadStorageUsage();
     }
+    return true;
   },
 });

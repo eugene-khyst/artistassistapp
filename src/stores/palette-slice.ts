@@ -66,8 +66,13 @@ export interface PaletteSlice {
   selectPaletteColorMixtures: (keys: string[]) => void;
 }
 
+type PaletteSliceDependencies = Pick<ColorMixerSlice, 'colorSet' | 'samplingArea'> &
+  Pick<OriginalImageSlice, 'selectedImageFile'> &
+  Pick<AppSlice, 'saveStoreChangeTokens'> &
+  Pick<CloudSlice, 'pushCloudState'>;
+
 export const createPaletteSlice: StateCreator<
-  PaletteSlice & ColorMixerSlice & OriginalImageSlice & CloudSlice & AppSlice,
+  PaletteSlice & PaletteSliceDependencies,
   [],
   [],
   PaletteSlice

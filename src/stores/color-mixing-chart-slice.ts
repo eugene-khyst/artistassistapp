@@ -34,8 +34,10 @@ export interface ColorMixingChartSlice {
   abortColorMixingChart: () => void;
 }
 
+type ColorMixingChartSliceDependencies = Pick<ColorMixerSlice, 'colorSet'>;
+
 export const createColorMixingChartSlice: StateCreator<
-  ColorMixingChartSlice & ColorMixerSlice,
+  ColorMixingChartSlice & ColorMixingChartSliceDependencies,
   [],
   [],
   ColorMixingChartSlice

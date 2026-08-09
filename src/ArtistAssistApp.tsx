@@ -20,7 +20,7 @@ import {FullscreenExitOutlined, FullscreenOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import type {TabsProps} from 'antd';
 import {Col, FloatButton, Row, Tabs} from 'antd';
-import {useContext, useEffect} from 'react';
+import {useEffect} from 'react';
 import StickyBox from 'react-sticky-box';
 
 import {AdModal} from '@/components/ad/AdModal';
@@ -35,7 +35,6 @@ import {ImageStyleTransfer} from '@/components/ImageStyleTransfer';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {TAB_LABELS} from '@/components/messages';
 import {TabContext} from '@/contexts/TabContext';
-import {UnsavedChangesContext} from '@/contexts/UnsavedChangesContext';
 import {useDoubleBackPressToExit} from '@/hooks/useDoubleBackPressToExit';
 import {useFullScreen} from '@/hooks/useFullscreen';
 import {useInstall} from '@/hooks/useInstall';
@@ -70,8 +69,6 @@ export function ArtistAssistApp() {
 
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
 
-  const {checkUnsaved} = useContext(UnsavedChangesContext);
-
   const {t} = useLingui();
 
   const {isFullscreen, toggleFullScreen, isSupported: isFullScreenSupported} = useFullScreen();
@@ -97,10 +94,7 @@ export function ArtistAssistApp() {
   }, [installRequested, install, resetInstallRequested]);
 
   const handleTabChange = (activeKey: string) => {
-    void (async () => {
-      await checkUnsaved();
-      void setActiveTabKey(activeKey as TabKey);
-    })();
+    void setActiveTabKey(activeKey as TabKey);
   };
 
   const items: TabsProps['items'] = [

@@ -60,8 +60,13 @@ export interface ColorSetSlice {
   deleteColorSet: (type?: ColorType, idToDelete?: number) => Promise<void>;
 }
 
+type ColorSetSliceDependencies = Pick<AppSlice, 'saveStoreChangeTokens'> &
+  Pick<CloudSlice, 'pushCloudState'> &
+  Pick<ColorMixerSlice, 'setColorSet'> &
+  Pick<AuthSlice, 'auth'>;
+
 export const createColorSetSlice: StateCreator<
-  ColorSetSlice & AppSlice & ColorMixerSlice & AuthSlice & CloudSlice,
+  ColorSetSlice & ColorSetSliceDependencies,
   [],
   [],
   ColorSetSlice

@@ -26,12 +26,12 @@ import type {CustomColorBrandSlice} from '@/stores/custom-color-brand-slice';
 import type {OriginalImageSlice} from '@/stores/original-image-slice';
 import type {PaletteSlice} from '@/stores/palette-slice';
 
-type ReloadableState = AppSlice &
-  CloudSlice &
-  CustomColorBrandSlice &
-  ColorSetSlice &
-  OriginalImageSlice &
-  PaletteSlice;
+type ReloadableState = Pick<AppSlice, 'storeChangeTokens' | 'saveStoreChangeTokens'> &
+  Pick<CloudSlice, 'loadCloudConnection'> &
+  Pick<CustomColorBrandSlice, 'loadCustomColorBrands'> &
+  Pick<ColorSetSlice, 'loadColorSets' | 'activateLatestColorSet'> &
+  Pick<OriginalImageSlice, 'loadRecentImages'> &
+  Pick<PaletteSlice, 'loadPaletteColorMixtures'>;
 
 interface StoreReload {
   tokens: StoreChangeName[];

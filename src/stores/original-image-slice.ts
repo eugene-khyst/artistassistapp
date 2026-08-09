@@ -95,6 +95,15 @@ export interface OriginalImageSlice {
   loadSampleImage: (sampleImage: SampleImageDefinition) => Promise<void>;
 }
 
+type OriginalImageSliceDependencies = Pick<TabSlice, 'setActiveTabKey'> &
+  Pick<ColorMixerSlice, 'colorSet' | 'setTargetColor' | 'setUnderlayer'> &
+  Pick<
+    PaletteSlice,
+    'paletteColorMixtures' | 'selectedPaletteColorMixtures' | 'loadPaletteColorMixtures'
+  > &
+  Pick<AppSlice, 'saveStoreChangeTokens'> &
+  Pick<CloudSlice, 'pushCloudState'>;
+
 function toImageFile(image: RecentImage): ImageFile | null {
   const {blob} = image;
   return blob ? {...image, blob} : null;
@@ -107,7 +116,7 @@ function hasDigestSequence(images: RecentImage[], digests: string[]): boolean {
 }
 
 export const createOriginalImageSlice: StateCreator<
-  OriginalImageSlice & TabSlice & ColorMixerSlice & PaletteSlice & CloudSlice & AppSlice,
+  OriginalImageSlice & OriginalImageSliceDependencies,
   [],
   [],
   OriginalImageSlice
