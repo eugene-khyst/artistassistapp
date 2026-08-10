@@ -86,12 +86,10 @@ export function splitImageIntoPagesPreview(
 
   const imageRatio = imageWidth / imageHeight;
   const imageTargetRatio = imageTargetWidth / imageTargetHeight;
-  let px2mm = 1;
-  if (imageTargetRatio <= imageRatio) {
-    px2mm = imageWidth / imageTargetWidth;
-  } else {
-    px2mm = imageHeight / imageTargetHeight;
-  }
+  const px2mm =
+    imageTargetRatio <= imageRatio
+      ? imageWidth / imageTargetWidth
+      : imageHeight / imageTargetHeight;
 
   const pageWidthPx = px2mm * pageWidth;
   const pageHeightPx = px2mm * pageHeight;

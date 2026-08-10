@@ -1,9 +1,8 @@
 import {defineConfig} from '@eslint/config-helpers';
 import js from '@eslint/js';
+import eslintReact from '@eslint-react/eslint-plugin';
 import pluginLingui from 'eslint-plugin-lingui';
 import licenseHeader from 'eslint-plugin-license-header';
-import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
-import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
@@ -52,8 +51,7 @@ export default defineConfig(
       js.configs.recommended,
       ...tseslint.configs.strictTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
-      react.configs.flat.recommended,
-      react.configs.flat['jsx-runtime'],
+      eslintReact.configs['recommended-typescript'],
       reactHooks.configs.flat['recommended-latest'],
       pluginLingui.configs['flat/recommended'],
     ],
@@ -65,21 +63,25 @@ export default defineConfig(
         tsconfigRootDir: import.meta.dirname,
       },
     },
-    settings: {react: {version: '19'}},
     plugins: {
       'react-refresh': reactRefresh,
       'license-header': licenseHeader,
-      'no-relative-import-paths': noRelativeImportPaths,
       'simple-import-sort': simpleImportSort,
       'unused-imports': unusedImports,
     },
     rules: {
       ...sharedTsRules,
-      'react/prop-types': 'off',
       'license-header/header': ['error', './license-header.js'],
-      'no-relative-import-paths/no-relative-import-paths': [
+      'no-restricted-imports': [
         'error',
-        {allowSameFolder: true, prefix: '@', rootDir: 'src'},
+        {
+          patterns: [
+            {
+              regex: '^\\.\\./',
+              message: 'Use an @/ import for files outside the current folder.',
+            },
+          ],
+        },
       ],
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',

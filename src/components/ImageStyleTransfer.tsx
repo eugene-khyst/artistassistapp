@@ -28,7 +28,6 @@ import {FileSelect} from '@/components/file/FileSelect';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {useCreateObjectUrl} from '@/hooks/useCreateObjectUrl';
 import {useFileReadErrorNotification} from '@/hooks/useFileReadErrorNotification';
-import {useImageFileToBlob} from '@/hooks/useImageFileToBlob';
 import {useSelectedOnnxModel} from '@/hooks/useSelectedOnnxModel';
 import {hasAccessTo} from '@/services/auth/utils';
 import {fileToImageFile, type ImageFile} from '@/services/image/image-file';
@@ -85,8 +84,8 @@ export function ImageStyleTransfer() {
 
   const isCancelable: boolean = isStyleTransferLoading;
 
-  const styleImageBlob: Blob | undefined = useImageFileToBlob(styleTransferImage);
-  const originalImageBlob: Blob | undefined = useImageFileToBlob(selectedImageFile);
+  const styleImageBlob: Blob | undefined = styleTransferImage?.blob;
+  const originalImageBlob: Blob | undefined = selectedImageFile?.blob;
   const originalImageUrl: string | undefined = useCreateObjectUrl(originalImageBlob);
   const styleImageUrl: string | undefined = useCreateObjectUrl(styleImageBlob);
   const styledImageUrl: string | undefined = useCreateObjectUrl(styledImageBlob);

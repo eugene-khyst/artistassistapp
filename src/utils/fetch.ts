@@ -120,7 +120,7 @@ export async function cachePutWithRetry(
       await clearCache(cache);
       await cachePutWithRetry(cache, request, response, {allowOpaqueResponses, strict});
     } else if (strict) {
-      throw new Error(`Failed to cache ${url}`);
+      throw new Error(`Failed to cache ${url}`, {cause: error});
     }
   }
 }

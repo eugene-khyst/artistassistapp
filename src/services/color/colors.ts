@@ -324,6 +324,7 @@ export function colorSetDefinitionToBrandColorCounts(
     const {shortName, fullName} = brands.get(brandId) ?? {};
     const colorCount = colors[brandId]?.length ?? 0;
     return {
+      brandId,
       brandName: `${shortName || fullName}`,
       colorCount,
     };
@@ -335,6 +336,7 @@ export function colorSetToBrandColorCounts({brands, colors}: ColorSet): BrandCol
     ({id, shortName, fullName}: ColorBrandDefinition): BrandColorCount => {
       const colorCount = colors.filter(({brand}: Color): boolean => brand === id).length;
       return {
+        brandId: id,
         brandName: shortName || fullName,
         colorCount,
       };

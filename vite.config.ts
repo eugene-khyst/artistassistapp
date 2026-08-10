@@ -3,7 +3,6 @@ import path from 'node:path';
 
 import {lingui} from '@lingui/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
-import {visualizer} from 'rollup-plugin-visualizer';
 import type {PluginOption} from 'vite';
 import {defineConfig} from 'vite';
 import glsl from 'vite-plugin-glsl';
@@ -17,7 +16,7 @@ const glslPlugin: PluginOption = glsl({
 });
 
 function parseHeaders(): Record<string, string> {
-  const content = fs.readFileSync(path.resolve(__dirname, 'public/_headers'), 'utf-8');
+  const content = fs.readFileSync(path.resolve(import.meta.dirname, 'public/_headers'), 'utf-8');
   const headers: Record<string, string> = {};
   let isGlobal = false;
   for (const line of content.split('\n')) {
@@ -84,22 +83,23 @@ export default defineConfig({
     target: ['chrome124', 'edge124', 'firefox105', 'safari16.4', 'ios16.4'],
     sourcemap: true,
     chunkSizeWarningLimit: maxFileSize,
-    rollupOptions: {
+    rolldownOptions: {
       output: {
-        manualChunks(id) {
-          if (id.includes('onnxruntime')) {
-            return 'onnx';
-          } else if (id.includes('node_modules')) {
-            return 'vendor';
-          }
-          return;
+        codeSplitting: {
+          groups: [
+            {
+              name: 'onnx',
+              test: /node_modules[\\/]onnxruntime/,
+              priority: 20,
+            },
+            {
+              name: 'vendor',
+              test: /node_modules/,
+              priority: 10,
+            },
+          ],
         },
       },
-      plugins: [
-        visualizer({
-          template: 'treemap',
-        }),
-      ],
     },
   },
 });

@@ -40,15 +40,16 @@ export const GradientRect = memo(function GradientRect({hexes}: Readonly<Props>)
     return null;
   }
 
+  const stops = hexes.map((hex, index) => ({
+    hex,
+    offset: `${((100 * index) / (hexes.length - 1)).toFixed(2)}%`,
+  }));
+
   return (
     <svg width={width} height={height} className={styles['icon']}>
       <linearGradient id={id}>
-        {hexes.map((hex, index) => (
-          <stop
-            key={index}
-            offset={`${((100 * index) / (hexes.length - 1)).toFixed(2)}%`}
-            stopColor={hex}
-          />
+        {stops.map(({hex, offset}) => (
+          <stop key={offset} offset={offset} stopColor={hex} />
         ))}
       </linearGradient>
 

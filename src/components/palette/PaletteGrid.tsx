@@ -50,23 +50,32 @@ export function PaletteGrid({colorType, showColorSwatch}: Readonly<Props>) {
   const {t} = useLingui();
 
   const [sort, setSort] = useState<ColorMixtureSort>(ColorMixtureSort.ByDate);
-  const [isPrintContentVisible, setIsPrintContentVisible] = useState<boolean>(false);
+  const [isPrintContentVisible, setIsPrintContentVisible] = useState(false);
 
   const printRef = useRef<HTMLDivElement>(null);
+  const resolvePrintRef = useRef<(() => void) | null>(null);
 
   const handlePrint = useReactToPrint({
     contentRef: printRef,
     documentTitle: 'ArtistAssistApp',
+    onBeforePrint: () =>
+      new Promise<void>(resolve => {
+        resolvePrintRef.current = resolve;
+        setIsPrintContentVisible(true);
+      }),
     onAfterPrint: () => {
+      resolvePrintRef.current = null;
       setIsPrintContentVisible(false);
     },
   });
 
   useEffect(() => {
-    if (isPrintContentVisible) {
-      handlePrint();
+    if (isPrintContentVisible && resolvePrintRef.current) {
+      const resolvePrint = resolvePrintRef.current;
+      resolvePrintRef.current = null;
+      resolvePrint();
     }
-  }, [isPrintContentVisible, handlePrint]);
+  }, [isPrintContentVisible]);
 
   const sortItems: MenuProps['items'] = [
     ColorMixtureSort.ByDate,
@@ -98,12 +107,7 @@ export function PaletteGrid({colorType, showColorSwatch}: Readonly<Props>) {
         >
           <Trans>Color swatch</Trans>
         </Button>
-        <Button
-          icon={<PrinterOutlined />}
-          onClick={() => {
-            setIsPrintContentVisible(true);
-          }}
-        >
+        <Button icon={<PrinterOutlined />} disabled={isPrintContentVisible} onClick={handlePrint}>
           <Trans>Print</Trans>
         </Button>
         <Popconfirm

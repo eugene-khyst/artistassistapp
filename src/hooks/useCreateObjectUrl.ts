@@ -16,23 +16,39 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {useEffect, useState} from 'react';
+import {useMemo, useSyncExternalStore} from 'react';
+
+interface ObjectUrlStore {
+  subscribe: (onStoreChange: () => void) => () => void;
+  getSnapshot: () => string | undefined;
+  getServerSnapshot: () => undefined;
+}
+
+function createObjectUrlStore(blob?: Blob | null): ObjectUrlStore {
+  let url: string | undefined;
+  let subscriberCount = 0;
+
+  return {
+    subscribe: onStoreChange => {
+      subscriberCount++;
+      if (blob && !url) {
+        url = URL.createObjectURL(blob);
+      }
+      onStoreChange();
+      return () => {
+        subscriberCount--;
+        if (url && subscriberCount === 0) {
+          URL.revokeObjectURL(url);
+          url = undefined;
+        }
+      };
+    },
+    getSnapshot: () => url,
+    getServerSnapshot: () => undefined,
+  };
+}
 
 export function useCreateObjectUrl(blob?: Blob | null): string | undefined {
-  const [entry, setEntry] = useState<{blob: Blob; url: string}>();
-
-  useEffect(() => {
-    if (!blob) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setEntry(undefined);
-      return;
-    }
-    const url: string = URL.createObjectURL(blob);
-    setEntry({blob, url});
-    return () => {
-      URL.revokeObjectURL(url);
-    };
-  }, [blob]);
-
-  return entry?.blob === blob ? entry?.url : undefined;
+  const store = useMemo(() => createObjectUrlStore(blob), [blob]);
+  return useSyncExternalStore(store.subscribe, store.getSnapshot, store.getServerSnapshot);
 }

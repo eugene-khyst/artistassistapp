@@ -23,21 +23,21 @@ import {useEffect, useEffectEvent, useRef} from 'react';
 export function useDoubleBackPressToExit(content: ReactNode): void {
   const {message} = App.useApp();
 
-  const backPressedOnce = useRef<boolean>(false);
+  const backPressedOnceRef = useRef<boolean>(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const onPopState = useEffectEvent(() => {
-    if (backPressedOnce.current) {
+    if (backPressedOnceRef.current) {
       return;
     }
 
     window.history.pushState({}, '');
 
     message.info(content, 3);
-    backPressedOnce.current = true;
+    backPressedOnceRef.current = true;
 
     timeoutRef.current = setTimeout(() => {
-      backPressedOnce.current = false;
+      backPressedOnceRef.current = false;
     }, 3000);
   });
 

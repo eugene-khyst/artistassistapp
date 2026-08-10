@@ -161,6 +161,11 @@ interface ColorListItemProps {
   onRemove: (index: number) => void;
 }
 
+interface EditState {
+  reloadCount: number;
+  index: number | null;
+}
+
 const ColorListItem = memo(function ColorListItem({
   name,
   isEditTarget,
@@ -237,7 +242,18 @@ export function CustomColorBrandCreator() {
   const [imageFile, setImageFile] = useState<File | null>();
   const [sampleDiameter, setSampleDiameter] = useState<number>(DEFAULT_SAMPLE_DIAMETER);
   const [currentColor, setCurrentColor] = useState<string>(WHITE_HEX);
-  const [editFromIndex, setEditFromIndex] = useState<number | null>(null);
+  const [editState, setEditState] = useState<EditState>(() => ({
+    reloadCount: customColorBrandsReloadCount,
+    index: null,
+  }));
+  const editFromIndex =
+    editState.reloadCount === customColorBrandsReloadCount ? editState.index : null;
+  const setEditFromIndex = useCallback(
+    (index: number | null) => {
+      setEditState({reloadCount: customColorBrandsReloadCount, index});
+    },
+    [customColorBrandsReloadCount]
+  );
 
   const removeColorRef = useRef<(index: number) => void>(noop);
 
@@ -281,7 +297,7 @@ export function CustomColorBrandCreator() {
     return () => {
       colorPickerCanvas.events.unsubscribe(ImageColorPickerEventType.PipettePointSet, listener);
     };
-  }, [form, colorPickerCanvas, editFromIndex, scrollToColor]);
+  }, [form, colorPickerCanvas, editFromIndex, setEditFromIndex, scrollToColor]);
 
   useEffect(() => {
     void loadCustomColorBrands();
@@ -310,7 +326,6 @@ export function CustomColorBrandCreator() {
     if (latestCustomColorBrand) {
       form.setFieldsValue(toCustomColorBrandSource(latestCustomColorBrand));
     }
-    setEditFromIndex(null);
   }, [form, latestCustomColorBrand, customColorBrandsReloadCount]);
 
   const isLoading: boolean = isImageLoading || isCustomColorBrandsLoading;
@@ -395,10 +410,13 @@ export function CustomColorBrandCreator() {
     exportCustomColorBrandToJson(form.getFieldsValue());
   };
 
-  const handleRemoveColor = useCallback((index: number) => {
-    removeColorRef.current(index);
-    setEditFromIndex(null);
-  }, []);
+  const handleRemoveColor = useCallback(
+    (index: number) => {
+      removeColorRef.current(index);
+      setEditFromIndex(null);
+    },
+    [setEditFromIndex]
+  );
 
   return (
     <LoadingIndicator loading={isLoading}>

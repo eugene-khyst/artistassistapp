@@ -16,18 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {useEffect, useState} from 'react';
+import {useEffect, useReducer} from 'react';
 
 function getRemainingSeconds(targetDate?: Date | null): number {
   return targetDate ? Math.max(0, Math.round((targetDate.getTime() - Date.now()) / 1000)) : 0;
 }
 
 export function useCountdownUntil(targetDate?: Date | null, active = true): number {
-  const [, tick] = useState(0);
+  const [, rerender] = useReducer((count: number): number => count + 1, 0);
   useEffect(() => {
     if (!active || !targetDate) return;
     const id = setInterval(() => {
-      tick(t => t + 1);
+      rerender();
     }, 1000);
     return () => {
       clearInterval(id);

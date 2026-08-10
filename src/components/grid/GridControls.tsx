@@ -21,7 +21,7 @@ import {Checkbox, Form, Select, Space} from 'antd';
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import type {SpaceProps} from 'antd/lib';
-import {useContext, useEffect, useState} from 'react';
+import {startTransition, use, useEffect, useMemo, useOptimistic} from 'react';
 
 import {DEFAULT_GRID_SETTINGS, setGrid} from '@/components/grid/grid';
 import {TabContext} from '@/contexts/TabContext';
@@ -53,39 +53,21 @@ export function GridControls({
   const grids = useAppStore(state => state.appSettings.grids);
   const saveAppSettings = useAppStore(state => state.saveAppSettings);
 
-  const tab: TabKey = useContext(TabContext);
+  const tab: TabKey = use(TabContext);
 
-  const {
-    enabled: defaultEnabled,
-    mode: defaultMode,
-    size: defaultSize,
-    diagonals: defaultDiagonals,
-  } = {
-    ...DEFAULT_GRID_SETTINGS,
-    ...defaultGridSettings,
-  };
+  const savedSettings = useMemo<GridSettings>(
+    () => ({...DEFAULT_GRID_SETTINGS, ...defaultGridSettings, ...grids?.[tab]}),
+    [defaultGridSettings, grids, tab]
+  );
+  const [settings, setOptimisticSettings] = useOptimistic(
+    savedSettings,
+    (current: GridSettings, update: Partial<GridSettings>): GridSettings => ({
+      ...current,
+      ...update,
+    })
+  );
 
-  const [gridEnabled, setGridEnabled] = useState<boolean>(!disableable || defaultEnabled);
-  const [gridMode, setGridMode] = useState<GridMode>(defaultMode);
-  const [gridSize, setGridSize] = useState<number>(defaultSize);
-  const [gridDiagonals, setGridDiagonals] = useState<boolean>(defaultDiagonals);
-
-  useEffect(() => {
-    const {enabled, mode, size, diagonals} = grids?.[tab] ?? {};
-    if (enabled) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setGridEnabled(enabled);
-    }
-    if (mode) {
-      setGridMode(mode);
-    }
-    if (size) {
-      setGridSize(size);
-    }
-    if (diagonals) {
-      setGridDiagonals(diagonals);
-    }
-  }, [grids, tab]);
+  const {enabled: gridEnabled, mode: gridMode, size: gridSize, diagonals: gridDiagonals} = settings;
 
   useEffect(() => {
     if (!gridCanvas) {
@@ -99,66 +81,32 @@ export function GridControls({
     });
   }, [gridCanvas, disableable, gridEnabled, gridMode, gridSize, gridDiagonals]);
 
-  const handleEnabledChange = (e: CheckboxChangeEvent) => {
-    const value = e.target.checked;
-    setGridEnabled(value);
-    void saveAppSettings((prev: AppSettings): Partial<AppSettings> => {
-      return {
+  const updateSettings = (update: Partial<GridSettings>) => {
+    startTransition(async () => {
+      setOptimisticSettings(update);
+      await saveAppSettings((prev: AppSettings): Partial<AppSettings> => ({
         grids: {
           ...prev.grids,
-          [tab]: {
-            ...prev.grids?.[tab],
-            enabled: value,
-          },
+          [tab]: {...prev.grids?.[tab], ...update},
         },
-      };
+      }));
     });
+  };
+
+  const handleEnabledChange = (e: CheckboxChangeEvent) => {
+    updateSettings({enabled: e.target.checked});
   };
 
   const handleModeChange = (value: number) => {
-    setGridMode(value);
-    void saveAppSettings((prev: AppSettings): Partial<AppSettings> => {
-      return {
-        grids: {
-          ...prev.grids,
-          [tab]: {
-            ...prev.grids?.[tab],
-            mode: value,
-          },
-        },
-      };
-    });
+    updateSettings({mode: value});
   };
 
   const handleSizeChange = (value: number) => {
-    setGridSize(value);
-    void saveAppSettings((prev: AppSettings): Partial<AppSettings> => {
-      return {
-        grids: {
-          ...prev.grids,
-          [tab]: {
-            ...prev.grids?.[tab],
-            size: value,
-          },
-        },
-      };
-    });
+    updateSettings({size: value});
   };
 
   const handleDiagonalsChange = (e: CheckboxChangeEvent) => {
-    const value = e.target.checked;
-    setGridDiagonals(value);
-    void saveAppSettings((prev: AppSettings): Partial<AppSettings> => {
-      return {
-        grids: {
-          ...prev.grids,
-          [tab]: {
-            ...prev.grids?.[tab],
-            diagonals: value,
-          },
-        },
-      };
-    });
+    updateSettings({diagonals: e.target.checked});
   };
 
   const gridOptions: SelectOptionType[] = [

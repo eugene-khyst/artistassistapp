@@ -19,7 +19,7 @@
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Drawer, Form, Input, InputNumber, Radio, Select, Space} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
-import {useEffect, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {useCreateObjectUrl} from '@/hooks/useCreateObjectUrl';
@@ -57,6 +57,64 @@ interface Props {
   onClose?: () => void;
 }
 
+interface PrintPreviewResult {
+  preview?: ImagePagesPreview;
+  error?: unknown;
+}
+
+interface PrintPreviewBlobEntry {
+  preview: ImagePagesPreview;
+  blob?: Blob;
+}
+
+interface PrintPreviewImageProps {
+  preview: ImagePagesPreview;
+}
+
+function PrintPreviewImage({preview}: Readonly<PrintPreviewImageProps>) {
+  const {t} = useLingui();
+
+  const [entry, setEntry] = useState<PrintPreviewBlobEntry>();
+
+  useEffect(() => {
+    const controller = new AbortController();
+    void (async () => {
+      try {
+        const blob = await preview.canvas.convertToBlob();
+        if (!controller.signal.aborted) {
+          setEntry({preview, blob});
+        }
+      } catch (error) {
+        console.error(error);
+        if (!controller.signal.aborted) {
+          setEntry({preview});
+        }
+      }
+    })();
+    return () => {
+      controller.abort();
+    };
+  }, [preview]);
+
+  const blob = entry?.preview === preview ? entry.blob : undefined;
+  const imageUrl = useCreateObjectUrl(blob);
+  const isLoading = entry?.preview !== preview;
+
+  if (!isLoading && !imageUrl) {
+    return null;
+  }
+
+  return (
+    <LoadingIndicator loading={isLoading}>
+      {imageUrl ? (
+        <img src={imageUrl} alt={t`Print preview`} className={styles['previewImage']} />
+      ) : (
+        <div className={styles['previewPlaceholder']} />
+      )}
+    </LoadingIndicator>
+  );
+}
+
 export function PrintImageDrawer({image, open = false, onClose}: Readonly<Props>) {
   const {t} = useLingui();
 
@@ -66,55 +124,39 @@ export function PrintImageDrawer({image, open = false, onClose}: Readonly<Props>
   const [targetUnit, setTargetUnit] = useState<LengthUnit>(LengthUnit.Centimeter);
   const [paperSize, setPaperSize] = useState<PaperSize>(PaperSize.A4);
   const [margin, setMargin] = useState<number>(0);
-  const [printPreview, setPrintPreview] = useState<ImagePagesPreview>();
-  const [printPreviewBlob, setPrintPreviewBlob] = useState<Blob>();
-  const [isTargetSizeError, setIsTargetSizeError] = useState<boolean>(false);
-  const [isMarginError, setIsMarginError] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const debouncedTargetWidth = useDebounce(targetWidth, 500);
   const debouncedTargetHeight = useDebounce(targetHeight, 500);
   const debouncedMargin = useDebounce(margin, 500);
 
-  const previewImageUrl = useCreateObjectUrl(printPreviewBlob);
-
-  const isPrintDisabled: boolean = printMode === PrintMode.Resize && !printPreview;
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsTargetSizeError(false);
-    setIsMarginError(false);
+  const {preview: printPreview, error: printPreviewError} = useMemo<PrintPreviewResult>(() => {
     if (!image || !debouncedTargetWidth || !debouncedTargetHeight) {
-      return;
+      return {};
     }
-    setIsLoading(true);
     try {
       const {toMillimeters} = LENGTH_UNITS.get(targetUnit)!;
-      const preview: ImagePagesPreview = splitImageIntoPagesPreview(
-        image,
-        [toMillimeters(debouncedTargetWidth), toMillimeters(debouncedTargetHeight)],
-        paperSize,
-        toMillimeters(debouncedMargin)
-      );
-      setPrintPreview(preview);
-    } catch (e) {
-      console.error(e);
-      setPrintPreview(undefined);
-      if (e instanceof TargetSizeError) {
-        setIsTargetSizeError(true);
-      } else if (e instanceof MarginError) {
-        setIsMarginError(true);
-      }
-    } finally {
-      setIsLoading(false);
+      return {
+        preview: splitImageIntoPagesPreview(
+          image,
+          [toMillimeters(debouncedTargetWidth), toMillimeters(debouncedTargetHeight)],
+          paperSize,
+          toMillimeters(debouncedMargin)
+        ),
+      };
+    } catch (error) {
+      return {error};
     }
   }, [image, targetUnit, debouncedTargetWidth, debouncedTargetHeight, paperSize, debouncedMargin]);
 
   useEffect(() => {
-    void (async () => {
-      setPrintPreviewBlob(printPreview ? await printPreview.canvas.convertToBlob() : undefined);
-    })();
-  }, [printPreview]);
+    if (printPreviewError) {
+      console.error(printPreviewError);
+    }
+  }, [printPreviewError]);
+
+  const isTargetSizeError = printPreviewError instanceof TargetSizeError;
+  const isMarginError = printPreviewError instanceof MarginError;
+  const isPrintDisabled: boolean = printMode === PrintMode.Resize && !printPreview;
 
   const handlePrint = async () => {
     if (printMode === PrintMode.Resize && printPreview) {
@@ -140,110 +182,100 @@ export function PrintImageDrawer({image, open = false, onClose}: Readonly<Props>
       open={open}
       onClose={onClose}
     >
-      <LoadingIndicator loading={isLoading}>
-        <Space orientation="vertical">
-          <Radio.Group
-            value={printMode}
-            onChange={e => {
-              setPrintMode(e.target.value as PrintMode);
-            }}
-          >
-            <Space orientation="vertical">
-              <Radio value={PrintMode.Resize}>
-                <Trans>Print a large image onto multiple pages</Trans>
-              </Radio>
-              <Radio value={PrintMode.Standard}>
-                <Trans>Standard print</Trans>
-              </Radio>
-            </Space>
-          </Radio.Group>
+      <Space orientation="vertical">
+        <Radio.Group
+          value={printMode}
+          onChange={e => {
+            setPrintMode(e.target.value as PrintMode);
+          }}
+        >
+          <Space orientation="vertical">
+            <Radio value={PrintMode.Resize}>
+              <Trans>Print a large image onto multiple pages</Trans>
+            </Radio>
+            <Radio value={PrintMode.Standard}>
+              <Trans>Standard print</Trans>
+            </Radio>
+          </Space>
+        </Radio.Group>
 
-          {printMode === PrintMode.Resize && (
-            <>
-              <Form.Item label={<Trans>Paper size</Trans>} className="u-mb-0">
+        {printMode === PrintMode.Resize && (
+          <>
+            <Form.Item label={<Trans>Paper size</Trans>} className="u-mb-0">
+              <Select
+                value={paperSize}
+                onChange={setPaperSize}
+                options={PAPER_SIZE_OPTIONS}
+                className={styles['paperSizeSelect']}
+              />
+            </Form.Item>
+
+            <Form.Item
+              label={<Trans>Target print size</Trans>}
+              className="u-mb-0"
+              help={isTargetSizeError ? <Trans>This print size is not supported</Trans> : undefined}
+              validateStatus={isTargetSizeError ? 'error' : undefined}
+            >
+              <Space.Compact block>
+                <InputNumber
+                  value={targetWidth}
+                  onChange={setTargetWidth}
+                  min={1}
+                  max={1000}
+                  step={0.1}
+                  placeholder={t`Width`}
+                  className={styles['numberInput']}
+                />
+                <Input placeholder="×" className={styles['separatorInput']} disabled />
+                <InputNumber
+                  value={targetHeight}
+                  onChange={setTargetHeight}
+                  min={1}
+                  max={1000}
+                  step={0.1}
+                  placeholder={t`Height`}
+                  className={styles['numberInput']}
+                />
                 <Select
-                  value={paperSize}
-                  onChange={setPaperSize}
-                  options={PAPER_SIZE_OPTIONS}
-                  className={styles['paperSizeSelect']}
+                  value={targetUnit}
+                  onChange={setTargetUnit}
+                  options={LENGTH_UNIT_OPTIONS}
+                  className={styles['numberInput']}
                 />
-              </Form.Item>
+              </Space.Compact>
+            </Form.Item>
 
-              <Form.Item
-                label={<Trans>Target print size</Trans>}
-                className="u-mb-0"
-                help={
-                  isTargetSizeError ? <Trans>This print size is not supported</Trans> : undefined
-                }
-                validateStatus={isTargetSizeError ? 'error' : undefined}
-              >
-                <Space.Compact block>
-                  <InputNumber
-                    value={targetWidth}
-                    onChange={setTargetWidth}
-                    min={1}
-                    max={1000}
-                    step={0.1}
-                    placeholder={t`Width`}
-                    className={styles['numberInput']}
-                  />
-                  <Input placeholder="×" className={styles['separatorInput']} disabled />
-                  <InputNumber
-                    value={targetHeight}
-                    onChange={setTargetHeight}
-                    min={1}
-                    max={1000}
-                    step={0.1}
-                    placeholder={t`Height`}
-                    className={styles['numberInput']}
-                  />
-                  <Select
-                    value={targetUnit}
-                    onChange={setTargetUnit}
-                    options={LENGTH_UNIT_OPTIONS}
-                    className={styles['numberInput']}
-                  />
-                </Space.Compact>
-              </Form.Item>
-
-              <Form.Item
-                label={<Trans>Margin</Trans>}
-                tooltip={<Trans>Taped margin width around the painting area</Trans>}
-                className="u-mb-0"
-                help={isMarginError ? <Trans>The margin is too large</Trans> : undefined}
-                validateStatus={isMarginError ? 'error' : undefined}
-              >
-                <Space.Compact block>
-                  <InputNumber
-                    value={margin}
-                    onChange={value => {
-                      setMargin(value ?? 0);
-                    }}
-                    min={0}
-                    max={10}
-                    step={0.1}
-                    placeholder={t`Margin`}
-                    className={styles['numberInput']}
-                  />
-                  <Input
-                    placeholder={LENGTH_UNITS.get(targetUnit)?.abbreviation}
-                    className={styles['unitInput']}
-                    disabled
-                  />
-                </Space.Compact>
-              </Form.Item>
-
-              {previewImageUrl && (
-                <img
-                  src={previewImageUrl}
-                  alt={t`Print preview`}
-                  className={styles['previewImage']}
+            <Form.Item
+              label={<Trans>Margin</Trans>}
+              tooltip={<Trans>Taped margin width around the painting area</Trans>}
+              className="u-mb-0"
+              help={isMarginError ? <Trans>The margin is too large</Trans> : undefined}
+              validateStatus={isMarginError ? 'error' : undefined}
+            >
+              <Space.Compact block>
+                <InputNumber
+                  value={margin}
+                  onChange={value => {
+                    setMargin(value ?? 0);
+                  }}
+                  min={0}
+                  max={10}
+                  step={0.1}
+                  placeholder={t`Margin`}
+                  className={styles['numberInput']}
                 />
-              )}
-            </>
-          )}
-        </Space>
-      </LoadingIndicator>
+                <Input
+                  placeholder={LENGTH_UNITS.get(targetUnit)?.abbreviation}
+                  className={styles['unitInput']}
+                  disabled
+                />
+              </Space.Compact>
+            </Form.Item>
+
+            {printPreview && <PrintPreviewImage preview={printPreview} />}
+          </>
+        )}
+      </Space>
     </Drawer>
   );
 }

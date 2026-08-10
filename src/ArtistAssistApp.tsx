@@ -177,7 +177,7 @@ export function ArtistAssistApp() {
   ].map(({key, children}) => ({
     key,
     label: t(TAB_LABELS[key]),
-    children: <TabContext.Provider value={key}>{children}</TabContext.Provider>,
+    children: <TabContext value={key}>{children}</TabContext>,
   }));
 
   const renderTabBar: TabsProps['renderTabBar'] = ({mobile: _, ...props}, DefaultTabBar) => (

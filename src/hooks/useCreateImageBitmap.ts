@@ -23,33 +23,45 @@ interface Result {
   imageBitmap?: ImageBitmap;
 }
 
+interface ImageBitmapEntry {
+  blob: Blob;
+  imageBitmap?: ImageBitmap;
+}
+
 export function useCreateImageBitmap(blob?: Blob | null): Result {
-  const [imageBitmap, setImageBitmap] = useState<ImageBitmap>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [entry, setEntry] = useState<ImageBitmapEntry>();
 
   useEffect(() => {
     if (!blob) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setImageBitmap(undefined);
       return;
     }
-    setIsLoading(true);
-    let imageBitmap: ImageBitmap | undefined;
+    const controller = new AbortController();
+    let createdImageBitmap: ImageBitmap | undefined;
     void (async () => {
       try {
-        imageBitmap = await createImageBitmap(blob);
-        setImageBitmap(prev => {
-          prev?.close();
-          return imageBitmap;
-        });
-      } finally {
-        setIsLoading(false);
+        const imageBitmap = await createImageBitmap(blob);
+        createdImageBitmap = imageBitmap;
+        if (!controller.signal.aborted) {
+          setEntry({blob, imageBitmap});
+        } else {
+          imageBitmap.close();
+        }
+      } catch (error) {
+        console.error(error);
+        if (!controller.signal.aborted) {
+          setEntry({blob});
+        }
       }
     })();
     return () => {
-      imageBitmap?.close();
+      controller.abort();
+      createdImageBitmap?.close();
+      setEntry(current => (current?.blob === blob ? undefined : current));
     };
   }, [blob]);
+
+  const imageBitmap = entry?.blob === blob ? entry?.imageBitmap : undefined;
+  const isLoading = !!blob && entry?.blob !== blob;
 
   return {
     isLoading,

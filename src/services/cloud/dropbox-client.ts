@@ -21,9 +21,10 @@ import type {
   CloudFile,
   CloudFolder,
   CloudItem,
+  CloudItemPurpose,
   UploadCloudFileRequest,
 } from '@/services/cloud/cloud-client';
-import {CloudItemKind, type CloudItemPurpose} from '@/services/cloud/cloud-client';
+import {CloudItemKind} from '@/services/cloud/cloud-client';
 import {
   clearCloudAccessToken,
   getCloudAccessToken,
@@ -197,7 +198,7 @@ function dropboxAppRoot(): CloudFolder<DropboxItemData> {
 async function listFolder(path: string): Promise<DropboxItemData[]> {
   const files: DropboxItemData[] = [];
   let cursor: string | undefined;
-  let hasMore = false;
+  let hasMore: boolean;
 
   do {
     const response = cursor

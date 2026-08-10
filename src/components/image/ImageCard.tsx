@@ -18,21 +18,18 @@
 
 import {Card} from 'antd';
 import type {CardMetaProps, CardProps} from 'antd/es/card';
-import type {ForwardedRef, HTMLAttributes} from 'react';
-import {forwardRef} from 'react';
+import type {HTMLAttributes, Ref} from 'react';
 
 import {useCreateObjectUrl} from '@/hooks/useCreateObjectUrl';
 
 type Props = {
   file: File;
+  ref?: Ref<HTMLDivElement>;
 } & Pick<CardMetaProps, 'description'> &
   Pick<CardProps, 'hoverable'> &
   Pick<HTMLAttributes<HTMLDivElement>, 'onClick'>;
 
-export const ImageCard = forwardRef<HTMLDivElement, Props>(function ImageCard(
-  {file, description, hoverable, onClick}: Readonly<Props>,
-  ref: ForwardedRef<HTMLDivElement>
-) {
+export function ImageCard({file, description, hoverable, onClick, ref}: Readonly<Props>) {
   const imageUrl: string | undefined = useCreateObjectUrl(file);
   return (
     imageUrl && (
@@ -46,4 +43,4 @@ export const ImageCard = forwardRef<HTMLDivElement, Props>(function ImageCard(
       </Card>
     )
   );
-});
+}

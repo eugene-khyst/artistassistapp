@@ -115,12 +115,11 @@ const internalDbPromise: Promise<IDBPDatabase<LegacyArtistAssistAppDB>> =
     },
   });
 
-export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = internalDbPromise.then(
-  async db => {
-    const migratedDb = await withWebLock(DB_MIGRATIONS_LOCK_NAME, () => applyMigrations(db));
-    return migratedDb as unknown as IDBPDatabase<ArtistAssistAppDB>;
-  }
-);
+export const dbPromise: Promise<IDBPDatabase<ArtistAssistAppDB>> = (async () => {
+  const db = await internalDbPromise;
+  const migratedDb = await withWebLock(DB_MIGRATIONS_LOCK_NAME, () => applyMigrations(db));
+  return migratedDb as unknown as IDBPDatabase<ArtistAssistAppDB>;
+})();
 
 export async function deleteDatabase(callbacks?: DeleteDBCallbacks): Promise<void> {
   await deleteDB(DB_NAME, callbacks);

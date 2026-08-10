@@ -133,6 +133,7 @@ export interface ColorSet {
 }
 
 export interface BrandColorCount {
+  brandId: number;
   brandName: string;
   colorCount: number;
 }

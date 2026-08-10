@@ -39,7 +39,7 @@ import {
   PAPER_WHITE_HEX,
 } from '@/services/color/color-mixer';
 import {hexToRgb} from '@/services/color/space/rgb';
-import type {Color, ColorMixture} from '@/services/color/types';
+import type {Color, ColorMixture, ColorSet} from '@/services/color/types';
 import {gcd} from '@/services/math/gcd';
 import {useAppStore} from '@/stores/app-store';
 import {range} from '@/utils/array';
@@ -58,7 +58,15 @@ interface ColorMixerForm {
   }[];
 }
 
+interface ColorMixerSelection {
+  colorSet: ColorSet;
+  colors: Color[];
+  ratio: number[];
+}
+
 const MAX_COLORS = 4;
+const EMPTY_COLORS: Color[] = [];
+const EMPTY_RATIO: number[] = [];
 
 const ratioOptions: SelectOptionType[] = range(1, 9).map((part: number) => ({
   value: part,
@@ -86,17 +94,15 @@ export function ColorMixer() {
 
   const [underlayerHex, setUnderlayerHex] = useState<string | null>(null);
   const [surfaceHex, setSurfaceHex] = useState<string>(PAPER_WHITE_HEX);
-  const [colors, setColors] = useState<Color[]>([]);
-  const [ratio, setRatio] = useState<number[]>([]);
+  const [selection, setSelection] = useState<ColorMixerSelection>();
   const [isOpenReflectanceChart, setIsOpenReflectanceChart] = useState<boolean>(false);
+
+  const colors = selection?.colorSet === colorSet ? selection.colors : EMPTY_COLORS;
+  const ratio = selection?.colorSet === colorSet ? selection.ratio : EMPTY_RATIO;
 
   useEffect(() => {
     if (colorSet && isMixable(colorSet.type)) {
       form.setFieldsValue(formInitialValues);
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setColors([]);
-
-      setRatio([]);
     }
   }, [colorSet, form]);
 
@@ -121,8 +127,8 @@ export function ColorMixer() {
     if (!colorSet || !selectedColors.length) {
       return;
     }
-    const colors: Color[] = [];
-    let ratio: number[] = [];
+    const selectedColorsForMixing: Color[] = [];
+    let selectedRatio: number[] = [];
     selectedColors.forEach(({color: selectedColor, part}) => {
       if (!selectedColor || !part) {
         return;
@@ -134,16 +140,15 @@ export function ColorMixer() {
       if (!color) {
         return;
       }
-      colors.push(color);
-      ratio.push(part);
+      selectedColorsForMixing.push(color);
+      selectedRatio.push(part);
     });
-    setColors(colors);
-    if (ratio.length >= 2) {
-      const [part1, part2, ...otherParts] = ratio;
+    if (selectedRatio.length >= 2) {
+      const [part1, part2, ...otherParts] = selectedRatio;
       const divisor = gcd(part1!, part2!, ...otherParts);
-      ratio = ratio.map((part: number): number => part / divisor);
+      selectedRatio = selectedRatio.map((part: number): number => part / divisor);
     }
-    setRatio(ratio);
+    setSelection({colorSet, colors: selectedColorsForMixing, ratio: selectedRatio});
   };
 
   if (!colorSet || !isMixable(colorSet.type)) {

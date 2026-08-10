@@ -20,7 +20,6 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {Col, Drawer, Grid, Row} from 'antd';
 
 import {useCreateObjectUrl} from '@/hooks/useCreateObjectUrl';
-import {useImageFileToBlob} from '@/hooks/useImageFileToBlob';
 import {COLOR_MIXTURES_COMPARATORS, ColorMixtureSort} from '@/services/color/color-mixer';
 import {isRgbDark, rgbToHex} from '@/services/color/space/rgb';
 import type {ColorMixture} from '@/services/color/types';
@@ -43,7 +42,7 @@ export function ColorSwatchDrawer({colorMixtures, open = false, onClose}: Readon
 
   const {t} = useLingui();
 
-  const imageBlob: Blob | undefined = useImageFileToBlob(selectedImageFile);
+  const imageBlob: Blob | undefined = selectedImageFile?.blob;
   const imageUrl: string | undefined = useCreateObjectUrl(imageBlob);
 
   const isFullHeight: boolean = screens.sm || !imageUrl;

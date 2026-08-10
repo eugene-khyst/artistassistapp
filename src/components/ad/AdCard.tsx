@@ -17,7 +17,7 @@
  */
 
 import {Card} from 'antd';
-import {useContext} from 'react';
+import {use} from 'react';
 
 import {Ad} from '@/components/ad/Ad';
 import {TabContext} from '@/contexts/TabContext';
@@ -38,7 +38,7 @@ export function AdCard({vertical = false}: Readonly<Props>) {
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
 
-  const tab: TabKey = useContext(TabContext);
+  const tab: TabKey = use(TabContext);
 
   const {ads: {ads: allAds, placements} = {ads: {}, placements: {}}} = useAds();
 

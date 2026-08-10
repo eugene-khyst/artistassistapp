@@ -190,16 +190,14 @@ function fitBoundaryLine(samples: WeightedPoint[]): Line | null {
   }
 
   let activeSamples = samples;
-  let fittedLine: Line | null = null;
 
   for (let i = 0; i < LINE_FIT_ITERATIONS; i++) {
-    fittedLine = fitWeightedLine(activeSamples);
+    const fittedLine = fitWeightedLine(activeSamples);
     if (!fittedLine) {
       return null;
     }
 
-    const line = fittedLine;
-    const distances = activeSamples.map(({point}) => distanceToLine(point, line));
+    const distances = activeSamples.map(({point}) => distanceToLine(point, fittedLine));
     const distanceThreshold = Math.max(
       AUTO_DETECT_OUTLIER_DISTANCE_PX,
       2.5 * percentile(distances, 0.5)

@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* eslint-disable @eslint-react/no-array-index-key -- This display-only list has stateless children. */
+
 import {Trans} from '@lingui/react/macro';
 import {Space, Typography} from 'antd';
 import {memo} from 'react';

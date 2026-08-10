@@ -49,6 +49,10 @@ function getChartStyle(colorCount: number): CssVariables {
   return {'--chart-color-count': colorCount};
 }
 
+function colorKey({brand, id}: {brand: number; id: number}): string {
+  return `${brand}-${id}`;
+}
+
 export function ColorMixingChart() {
   const colorSet = useAppStore(state => state.colorSet);
   const colorMixingChartSet = useAppStore(state => state.colorMixingChartSet);
@@ -215,8 +219,8 @@ export function ColorMixingChart() {
           >
             {/* Header row */}
             <div className={styles['stickyCorner']} />
-            {colorMixingChartSet.colors.map((color, i) => (
-              <div key={`header-${i}`} className={styles['stickyHeader']}>
+            {colorMixingChartSet.colors.map(color => (
+              <div key={`header-${colorKey(color)}`} className={styles['stickyHeader']}>
                 <span className={styles['verticalLabel']}>
                   <ColorLabel
                     color={color}
@@ -234,7 +238,7 @@ export function ColorMixingChart() {
             {colorMixingChartMixtures.map((colorMixtures, i) => {
               const color = colorMixingChartSet.colors[i]!;
               return (
-                <Fragment key={`row-${i}`}>
+                <Fragment key={`row-${colorKey(color)}`}>
                   <div className={styles['stickyRowHeader']}>
                     <ColorLabel
                       color={color}
@@ -246,9 +250,16 @@ export function ColorMixingChart() {
                     />
                     <ColorSquare hex={rgbToHex(...color.rgb)} size="large" />
                   </div>
-                  {colorMixtures.map(({layerRgb}, j) => (
-                    <ColorSquare key={`cell-${i}-${j}`} hex={rgbToHex(...layerRgb)} size="large" />
-                  ))}
+                  {colorMixtures.map(({layerRgb}, j) => {
+                    const mixedWithColor = colorMixingChartSet.colors[j]!;
+                    return (
+                      <ColorSquare
+                        key={`cell-${colorKey(color)}-${colorKey(mixedWithColor)}`}
+                        hex={rgbToHex(...layerRgb)}
+                        size="large"
+                      />
+                    );
+                  })}
                 </Fragment>
               );
             })}

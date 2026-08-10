@@ -18,7 +18,7 @@
 
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Col, Row, Typography} from 'antd';
-import {useContext} from 'react';
+import {use} from 'react';
 
 import {AdCard} from '@/components/ad/AdCard';
 import {COLOR_TYPE_LABELS, TAB_LABELS} from '@/components/messages';
@@ -38,7 +38,7 @@ export function EmptyColorSet({
   imageMandatory = false,
   supportedColorTypes,
 }: Readonly<Props>) {
-  const tab: TabKey = useContext(TabContext);
+  const tab: TabKey = use(TabContext);
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
 
   const {t} = useLingui();

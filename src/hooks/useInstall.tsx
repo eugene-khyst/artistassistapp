@@ -35,9 +35,10 @@ export function useInstall(): Result {
   const install = useCallback(() => {
     if (beforeInstallPromptEvent) {
       void beforeInstallPromptEvent.prompt();
-      void beforeInstallPromptEvent.userChoice.then(() => {
+      void (async () => {
+        await beforeInstallPromptEvent.userChoice;
         setBeforeInstallPromptEvent(null);
-      });
+      })();
     } else {
       setIsDrawerOpen(true);
     }

@@ -28,8 +28,8 @@ interface Props {
 export function ColorSetName({brandColorCounts}: Readonly<Props>) {
   return (
     <>
-      {brandColorCounts.map(({brandName, colorCount}, index) => (
-        <Fragment key={index}>
+      {brandColorCounts.map(({brandId, brandName, colorCount}, index) => (
+        <Fragment key={brandId}>
           {index > 0 && ', '}
           {brandName} <Plural value={colorCount} one="# color" other="# colors" />
         </Fragment>

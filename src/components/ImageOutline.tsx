@@ -38,8 +38,8 @@ import {
   Typography,
 } from 'antd';
 import {clsx} from 'clsx';
-import type {CSSProperties, ReactElement, ReactNode} from 'react';
-import {cloneElement, useCallback, useEffect, useMemo, useState} from 'react';
+import type {ReactNode} from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 
 import {DEFAULT_GRID_SETTINGS, setGrid} from '@/components/grid/grid';
 import {GridControls} from '@/components/grid/GridControls';
@@ -64,8 +64,6 @@ import {EmptyImage} from './empty/EmptyImage';
 import styles from './ImageOutline.module.css';
 
 const defaultGridSettings = {enabled: false};
-
-const menuStyle: CSSProperties = {boxShadow: 'none'};
 
 const gridCanvasSupplier = (canvas: HTMLCanvasElement): GridCanvas => {
   return new GridCanvas(canvas, {allowZoomBelowFit: true});
@@ -204,13 +202,8 @@ export function ImageOutline() {
 
   const popupRender = useCallback(
     (menu: ReactNode) => (
-      <div className={styles['popup']}>
-        {cloneElement(
-          menu as ReactElement<{
-            style: CSSProperties;
-          }>,
-          {style: menuStyle}
-        )}
+      <div className="u-popup-panel">
+        {menu}
         <Divider className="u-m-0" />
         <GridControls
           orientation="vertical"

@@ -60,7 +60,7 @@ export function Ad({ads, vertical = false, footer, contentClassName}: Readonly<P
 
   const screens = Grid.useBreakpoint();
 
-  const [adIndex, setAdIndex] = useState<number>(randomInt(0, 9));
+  const [adIndex, setAdIndex] = useState<number>(() => randomInt(0, 9));
 
   useEffect(() => {
     const intervalId = setInterval(() => {

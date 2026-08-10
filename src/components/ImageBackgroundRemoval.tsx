@@ -22,8 +22,8 @@ import {Button, Divider, Dropdown, Flex, Form, Grid, Space, Typography} from 'an
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import {clsx} from 'clsx';
 import {saveAs} from 'file-saver';
-import type {CSSProperties, ReactElement, ReactNode} from 'react';
-import {cloneElement, useCallback, useMemo} from 'react';
+import type {CSSProperties, ReactNode} from 'react';
+import {useCallback, useMemo} from 'react';
 import {ReactCompareSlider, ReactCompareSliderImage} from 'react-compare-slider';
 
 import {ColorPicker} from '@/components/color/ColorPicker';
@@ -40,7 +40,6 @@ import {getFilename} from '@/utils/filename';
 
 import styles from './ImageBackgroundRemoval.module.css';
 
-const menuStyle: CSSProperties = {boxShadow: 'none'};
 const compareImageStyle: CSSProperties = {objectFit: 'contain'};
 
 export function ImageBackgroundRemoval() {
@@ -142,12 +141,7 @@ export function ImageBackgroundRemoval() {
       <div className="u-popup-panel">
         <div className="u-popup-content">{colorPicker}</div>
         <Divider className="u-m-0" />
-        {cloneElement(
-          menu as ReactElement<{
-            style: CSSProperties;
-          }>,
-          {style: menuStyle}
-        )}
+        {menu}
       </div>
     ),
     [colorPicker]
@@ -234,7 +228,9 @@ export function ImageBackgroundRemoval() {
       </Flex>
 
       <ReactCompareSlider
-        position={position}
+        key={position}
+        defaultPosition={position}
+        className={styles['compareSlider']}
         itemOne={
           imageUrl && (
             <ReactCompareSliderImage

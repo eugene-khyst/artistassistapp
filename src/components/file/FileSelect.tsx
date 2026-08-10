@@ -88,8 +88,8 @@ export function FileSelect({
           title: file.name,
           description: (
             <>
-              {errors.map(({message}, index) => (
-                <div key={index}>{message}</div>
+              {errors.map(({code, message}) => (
+                <div key={code}>{message}</div>
               ))}
             </>
           ),
