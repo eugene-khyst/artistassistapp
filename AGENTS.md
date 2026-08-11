@@ -65,8 +65,14 @@ trailing-debounced cloud push (~5s). Image-derived slices register `{abort, clea
 `registerProcessedImage`; image selection iterates those handles instead of enumerating slices.
 
 Form-driven tabs (`ColorSetChooser`, `CustomColorBrandCreator`) re-prefill their AntD form from a
-`*ReloadCount` counter bumped only in the slice's IDB reload action — external replacements (cloud
-download, cross-tab wake) refresh the form, while in-form saves never clobber edits in progress.
+`*ReloadRevision` counter bumped only in the slice's IDB reload action — external replacements
+(cloud download, cross-tab wake) refresh the form, while in-form saves never clobber edits in
+progress. `loadColorSets` ends with an unawaited `activateLatestColorSet`, so every reload path
+activates the saved set without `initApp` or a store reload blocking on color data. Activation runs
+in a `createAbortableOperation`, so a new run supersedes the one in flight and reports through
+`isColorSetActivationLoading` / `colorSetActivationError`; `ColorSetActivationNotification` only
+renders the failure notice. An in-form save changes the latest color set without bumping the
+revision, so activation re-checks its identity before committing.
 
 Bootstrap side effects run through `tryStep`; failures are queued with `addInitError` rather than
 preventing render. `UnhandledRejectionHandler` drains that queue once on mount, so it is
@@ -276,6 +282,9 @@ Every `.ts`/`.tsx` file (except config files and generated files with `/* eslint
 ### TypeScript
 
 - Strict mode enabled (`tseslint.configs.strictTypeChecked` + `stylisticTypeChecked`).
+- Do not use Promise `.then()` chains. Use `async`/`await`; when the surrounding function cannot be
+  async, `void` the call for a single fire-and-forget promise, and invoke a `void` async IIFE only
+  when several awaited steps or local error handling are needed.
 - Unused vars are errors (prefix with `_` to suppress).
 - Unused imports are errors (`eslint-plugin-unused-imports`).
 - Non-null assertions (`!`) are allowed (rule turned off).

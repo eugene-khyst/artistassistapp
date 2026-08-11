@@ -19,8 +19,9 @@
 import type {UseQueryResult} from '@tanstack/react-query';
 import {useQuery} from '@tanstack/react-query';
 
-import {fetchColorBrands} from '@/services/color/colors';
+import {colorBrandsQueryOptions} from '@/services/color/color-queries';
 import type {ColorBrandDefinition, ColorType} from '@/services/color/types';
+import {useAppStore} from '@/stores/app-store';
 import {indexById} from '@/utils/map';
 
 interface Result {
@@ -31,10 +32,12 @@ interface Result {
 }
 
 export function useColorBrands(type?: ColorType): Result {
+  const customColorBrandsReloadRevision = useAppStore(
+    state => state.customColorBrandsReloadRevision
+  );
   const {isLoading, isError, error, data}: UseQueryResult<Map<number, ColorBrandDefinition>> =
     useQuery({
-      queryKey: ['brands', type],
-      queryFn: () => fetchColorBrands(type!),
+      ...colorBrandsQueryOptions(type!, customColorBrandsReloadRevision),
       enabled: !!type,
       select: indexById,
     });

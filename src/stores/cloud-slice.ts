@@ -107,7 +107,7 @@ export interface CloudSlice {
 type CloudSliceDependencies = Pick<AuthSlice, 'auth' | 'logout' | 'handleAuthError'> &
   Pick<AppSlice, 'storeChangeTokens' | 'saveStoreChangeTokens'> &
   Pick<CustomColorBrandSlice, 'loadCustomColorBrands'> &
-  Pick<ColorSetSlice, 'loadColorSets' | 'activateLatestColorSet'> &
+  Pick<ColorSetSlice, 'loadColorSets'> &
   Pick<OriginalImageSlice, 'recentImages' | 'loadRecentImages' | 'deleteRecentImage'> &
   Pick<PaletteSlice, 'loadPaletteColorMixtures'>;
 

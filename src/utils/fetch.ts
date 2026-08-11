@@ -21,6 +21,7 @@ import {type Authentication} from '@/services/auth/types';
 import {decryptDataIfNeeded} from '@/services/auth/utils';
 import {mapConcurrent} from '@/utils/concurrency';
 import {checkMimeType} from '@/utils/mime';
+import {anySignal} from '@/utils/promise';
 import {getFileExtension, getUrlString, splitUrl} from '@/utils/url';
 
 interface CachePutOptions {
@@ -46,6 +47,11 @@ interface FetchChunkedOptions {
   concurrency?: number;
   progressCallback?: FetchProgressCallback;
   signal?: AbortSignal | null;
+}
+
+interface FetchJsonOptions {
+  timeoutMs: number;
+  signal?: AbortSignal;
 }
 
 export function getCacheName(cacheSuffix?: string): string {
@@ -170,6 +176,22 @@ export async function fetchSWR(
   } catch (error) {
     return errorResponse(error);
   }
+}
+
+export async function fetchJson<T>(url: string, {timeoutMs, signal}: FetchJsonOptions): Promise<T> {
+  const timeoutSignal = AbortSignal.timeout(timeoutMs);
+  const request = new Request(url, {
+    signal: signal ? anySignal([signal, timeoutSignal]) : timeoutSignal,
+  });
+  const response = await fetchSWR(request);
+  // fetchSWR represents network failures as error responses, including aborted requests.
+  request.signal.throwIfAborted();
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status} while fetching ${url}`);
+  }
+  const data = (await response.json()) as T;
+  request.signal.throwIfAborted();
+  return data;
 }
 
 export async function fetchChunked(

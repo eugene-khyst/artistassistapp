@@ -17,7 +17,7 @@
  */
 
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Col, Row, Typography} from 'antd';
+import {Button, Col, Result, Row, Spin, Typography} from 'antd';
 import {use} from 'react';
 
 import {AdCard} from '@/components/ad/AdCard';
@@ -38,14 +38,46 @@ export function EmptyColorSet({
   imageMandatory = false,
   supportedColorTypes,
 }: Readonly<Props>) {
-  const tab: TabKey = use(TabContext);
+  const isColorSetActivationLoading = useAppStore(state => state.isColorSetActivationLoading);
+  const colorSetActivationError = useAppStore(state => state.colorSetActivationError);
+
+  const activateLatestColorSet = useAppStore(state => state.activateLatestColorSet);
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
+
+  const tab: TabKey = use(TabContext);
 
   const {t} = useLingui();
 
   const tabLabel: string = t(TAB_LABELS[tab]);
   const colorSetLabel: string = t(TAB_LABELS[TabKey.ColorSet]);
   const photoLabel: string = t(TAB_LABELS[TabKey.Photo]);
+
+  if (isColorSetActivationLoading) {
+    return (
+      <div className="u-tab-content">
+        <Result icon={<Spin size="large" />} title={<Trans>Restoring the saved color set</Trans>} />
+      </div>
+    );
+  }
+
+  if (colorSetActivationError) {
+    return (
+      <div className="u-tab-content">
+        <Result
+          status="warning"
+          title={<Trans>Unable to restore the saved color set</Trans>}
+          subTitle={
+            <Trans>Color data is currently unavailable. Check your connection and try again.</Trans>
+          }
+          extra={
+            <Button type="primary" onClick={() => void activateLatestColorSet()}>
+              <Trans>Retry</Trans>
+            </Button>
+          }
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="u-tab-content">

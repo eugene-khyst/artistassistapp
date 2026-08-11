@@ -35,7 +35,7 @@ import {persistChange} from '@/stores/sync/persist-change';
 export interface CustomColorBrandSlice {
   customColorBrands: CustomColorBrandDefinition[];
   // Bumped only when custom brands are reloaded from IDB (init, cloud download, cross-tab wake).
-  customColorBrandsReloadCount: number;
+  customColorBrandsReloadRevision: number;
   isCustomColorBrandsLoading: boolean;
 
   loadCustomColorBrands: () => Promise<void>;
@@ -47,7 +47,7 @@ export interface CustomColorBrandSlice {
 
 type CustomColorBrandSliceDependencies = Pick<AppSlice, 'saveStoreChangeTokens'> &
   Pick<CloudSlice, 'pushCloudState'> &
-  Pick<ColorSetSlice, 'loadColorSets' | 'activateLatestColorSet'>;
+  Pick<ColorSetSlice, 'loadColorSets'>;
 
 export const createCustomColorBrandSlice: StateCreator<
   CustomColorBrandSlice & CustomColorBrandSliceDependencies,
@@ -56,18 +56,24 @@ export const createCustomColorBrandSlice: StateCreator<
   CustomColorBrandSlice
 > = (set, get) => ({
   customColorBrands: [],
-  customColorBrandsReloadCount: 0,
+  customColorBrandsReloadRevision: 0,
   isCustomColorBrandsLoading: false,
 
   loadCustomColorBrands: async (): Promise<void> => {
     set({
       isCustomColorBrandsLoading: true,
     });
-    set({
-      customColorBrands: await getAllCustomColorBrands(),
-      customColorBrandsReloadCount: get().customColorBrandsReloadCount + 1,
-      isCustomColorBrandsLoading: false,
-    });
+    try {
+      const customColorBrands = await getAllCustomColorBrands();
+      set(prev => ({
+        customColorBrands,
+        customColorBrandsReloadRevision: prev.customColorBrandsReloadRevision + 1,
+      }));
+    } finally {
+      set({
+        isCustomColorBrandsLoading: false,
+      });
+    }
   },
 
   saveCustomColorBrand: async (
@@ -96,7 +102,6 @@ export const createCustomColorBrandSlice: StateCreator<
     });
     if (tokens['color-sets']) {
       await get().loadColorSets();
-      await get().activateLatestColorSet();
     }
   },
 

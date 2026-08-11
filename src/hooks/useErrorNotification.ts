@@ -20,12 +20,19 @@ import {App} from 'antd';
 import type {ReactNode} from 'react';
 import {useEffect, useEffectEvent} from 'react';
 
-export function useErrorNotification(active: boolean, title: ReactNode): void {
+export function useErrorNotification(
+  active: boolean,
+  title: ReactNode,
+  description?: ReactNode,
+  actions?: ReactNode
+): void {
   const {notification} = App.useApp();
 
   const showNotification = useEffectEvent(() => {
     notification.error({
       title,
+      description,
+      actions,
       placement: 'top',
       duration: 10,
       showProgress: true,

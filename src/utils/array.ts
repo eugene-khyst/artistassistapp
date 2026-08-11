@@ -134,7 +134,7 @@ export function decorateSortUndecorate<T, P>(
   [comparator, extractor]: ExtractorComparator<T, P>
 ): T[] | undefined {
   if (!iterable) {
-    return undefined;
+    return;
   }
   if (extractor) {
     return [...iterable]

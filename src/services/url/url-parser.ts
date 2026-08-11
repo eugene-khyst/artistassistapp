@@ -90,7 +90,7 @@ function parseTabFromPathname(url: URL): TabKey | undefined {
   if (slug && TAB_KEY_VALUES.has(slug)) {
     return slug as TabKey;
   }
-  return undefined;
+  return;
 }
 
 function parseTab(searchParams: URLSearchParams): TabKey | undefined {
@@ -98,23 +98,23 @@ function parseTab(searchParams: URLSearchParams): TabKey | undefined {
   if (tab && TAB_KEY_VALUES.has(tab)) {
     return tab as TabKey;
   }
-  return undefined;
+  return;
 }
 
 function parseColorSet(searchParams: URLSearchParams): ColorSetDefinition | undefined {
   if (!searchParams.has(URL_PARAM_COLOR_TYPE) || !searchParams.has(URL_PARAM_COLOR_BRANDS)) {
-    return undefined;
+    return;
   }
   const type = parseUrlInteger(searchParams.get(URL_PARAM_COLOR_TYPE));
   if (type === undefined || !COLOR_TYPE_VALUES.has(type)) {
-    return undefined;
+    return;
   }
   const parsedBrands = searchParams
     .get(URL_PARAM_COLOR_BRANDS)!
     .split(URL_PARAM_SEPARATOR)
     .map(parseUrlInteger);
   if (parsedBrands.some(brand => brand === undefined)) {
-    return undefined;
+    return;
   }
   const brands = parsedBrands.filter((brand): brand is number => brand !== undefined);
   const colors: Record<number, number[]> = {};
@@ -126,14 +126,14 @@ function parseColorSet(searchParams: URLSearchParams): ColorSetDefinition | unde
         .split(URL_PARAM_SEPARATOR)
         .map(parseUrlInteger);
       if (parsedIds.some(id => id === undefined)) {
-        return undefined;
+        return;
       }
       const ids = parsedIds.filter((id): id is number => id !== undefined);
       colors[brand] = ids.map(id => id + (SKU_BASE.get(brand) ?? 0));
     }
   }
   if (!Object.keys(colors).length) {
-    return undefined;
+    return;
   }
   const name = searchParams.get(URL_PARAM_NAME);
   return {
@@ -147,7 +147,7 @@ function parseColorSet(searchParams: URLSearchParams): ColorSetDefinition | unde
 
 function parseUrlInteger(value: string | null): number | undefined {
   if (!value || !/^[\da-z]+$/i.test(value)) {
-    return undefined;
+    return;
   }
   const parsed = Number.parseInt(value, URL_PARAM_RADIX);
   return Number.isSafeInteger(parsed) ? parsed : undefined;
@@ -155,7 +155,7 @@ function parseUrlInteger(value: string | null): number | undefined {
 
 function parseLoginCallback(url: URL): UrlParsingResult['loginCallback'] | undefined {
   if (url.pathname !== '/login/callback') {
-    return undefined;
+    return;
   }
   return {
     completionToken: url.searchParams.get('completion_token'),
@@ -164,7 +164,7 @@ function parseLoginCallback(url: URL): UrlParsingResult['loginCallback'] | undef
 
 function parseLoggedOut(url: URL): UrlParsingResult['loggedOut'] | undefined {
   if (url.pathname !== '/logged-out') {
-    return undefined;
+    return;
   }
   const {searchParams} = url;
   return {
@@ -179,7 +179,7 @@ function parseLoggedOut(url: URL): UrlParsingResult['loggedOut'] | undefined {
 
 function parseCloudCallback(url: URL): UrlParsingResult['cloudCallback'] | undefined {
   if (url.pathname !== '/cloud/callback') {
-    return undefined;
+    return;
   }
   const {searchParams} = url;
   return {

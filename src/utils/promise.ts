@@ -28,6 +28,28 @@ export function isAbortError(error: unknown): boolean {
   return error instanceof DOMException && error.name === ABORT_ERROR_NAME;
 }
 
+export function anySignal(signals: AbortSignal[]): AbortSignal {
+  // AbortSignal.any is unavailable before Safari 17.4 and Firefox 124.
+  if (typeof AbortSignal.any === 'function') {
+    return AbortSignal.any(signals);
+  }
+  const controller = new AbortController();
+  for (const signal of signals) {
+    if (signal.aborted) {
+      controller.abort(signal.reason);
+      break;
+    }
+    signal.addEventListener(
+      'abort',
+      () => {
+        controller.abort(signal.reason);
+      },
+      {once: true}
+    );
+  }
+  return controller.signal;
+}
+
 export function abortablePromise<T>(promise: Promise<T>, signal?: AbortSignal): Promise<T> {
   if (!signal) {
     return promise;

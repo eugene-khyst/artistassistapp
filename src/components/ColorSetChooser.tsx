@@ -73,8 +73,6 @@ import {
 import {colorSetToUrl} from '@/services/url/url-parser';
 import {useAppStore} from '@/stores/app-store';
 import {TabKey} from '@/tabs';
-import {maxOf} from '@/utils/array';
-import {byDate, byNumber, compare} from '@/utils/comparator';
 
 import {ColorBrandSelect} from './color-set/ColorBrandSelect';
 import {ColorSelect} from './color-set/ColorSelect';
@@ -98,11 +96,6 @@ const formInitialValues: ColorSetDefinition = {
   brands: [],
   colors: {},
 };
-
-const compareColorSetsByDate = compare<ColorSetDefinition>(
-  byDate(({date}) => date),
-  byNumber(({id}) => id)
-);
 
 function getEmptyColors(values: ColorSetDefinition): Record<number, number[]> {
   return values.colors
@@ -137,9 +130,10 @@ export function ColorSetChooser() {
   const isCloudConnected = useAppStore(state => !!state.cloudConnection);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
   const colorSets = useAppStore(state => state.colorSets);
-  const colorSetsReloadCount = useAppStore(state => state.colorSetsReloadCount);
+  const colorSetsReloadRevision = useAppStore(state => state.colorSetsReloadRevision);
   const isColorSetsLoading = useAppStore(state => state.isColorSetsLoading);
 
+  const getLatestColorSet = useAppStore(state => state.getLatestColorSet);
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
   const registerUnsavedChangesChecker = useAppStore(state => state.registerUnsavedChangesChecker);
   const saveColorSet = useAppStore(state => state.saveColorSet);
@@ -202,8 +196,19 @@ export function ColorSetChooser() {
     isError: isColorsError,
   } = useColors(selectedType, selectedBrands);
 
-  const isLoading: boolean =
-    isColorSetsLoading || isBrandsLoading || isStandardColorSetsLoading || isColorsLoading;
+  const isLoading: boolean = isColorSetsLoading || isBrandsLoading;
+
+  // Without the brand and color data, saving drops colors silently or skips activation entirely.
+  const isColorDataUnavailable: boolean = isColorsLoading || isColorsError || isBrandsError;
+  const warnColorDataUnavailable = () => {
+    if (isColorsLoading) {
+      void message.warning(<Trans>Wait for the color data to finish loading.</Trans>);
+    } else {
+      void message.error(
+        <Trans>The color set can&apos;t be saved because the color data failed to load.</Trans>
+      );
+    }
+  };
 
   useErrorNotification(isBrandsError, <Trans>Error while fetching color brand data</Trans>);
   useErrorNotification(
@@ -247,6 +252,10 @@ export function ColorSetChooser() {
         focusTriggerAfterClose: false,
       });
       if (confirmed) {
+        if (isColorDataUnavailable) {
+          warnColorDataUnavailable();
+          return false;
+        }
         const granted = await requestPersistentStorage();
         const saved = await saveColorSet(renderedColorSet, brands, colors, {
           setActiveTabKey: false,
@@ -274,28 +283,24 @@ export function ColorSetChooser() {
     [registerUnsavedChangesChecker]
   );
 
-  // Re-prefill on every external reload (cloud download, cross-tab wake), not on in-form saves.
-  // Unsaved edits go through the usual save prompt before the form is replaced.
-  const prefilledReloadCountRef = useRef(0);
+  // External reloads may replace the form, while in-form saves must preserve current edits.
+  const prefilledReloadRevisionRef = useRef(0);
   useEffect(() => {
-    if (prefilledReloadCountRef.current === colorSetsReloadCount) {
+    if (prefilledReloadRevisionRef.current === colorSetsReloadRevision) {
       return;
     }
-    prefilledReloadCountRef.current = colorSetsReloadCount;
+    prefilledReloadRevisionRef.current = colorSetsReloadRevision;
     void (async () => {
       if (!(await onCheckUnsavedRef.current({updateForm: false}))) {
         return;
       }
-      const latestColorSet = maxOf(
-        [...useAppStore.getState().colorSets.values()].flat(),
-        compareColorSetsByDate
-      );
+      const latestColorSet = getLatestColorSet();
       form.resetFields();
       if (latestColorSet) {
         form.setFieldsValue(latestColorSet);
       }
     })();
-  }, [form, colorSetsReloadCount]);
+  }, [form, getLatestColorSet, colorSetsReloadRevision]);
 
   const handleFormValuesChange = async (
     changedValues: Partial<ColorSetDefinition>,
@@ -389,6 +394,10 @@ export function ColorSetChooser() {
   };
 
   const handleFinish = async (colorSet: ColorSetDefinition) => {
+    if (isColorDataUnavailable) {
+      warnColorDataUnavailable();
+      return;
+    }
     const granted = await requestPersistentStorage();
     const saved = await saveColorSet(colorSet, brands, colors);
     if (!saved) {
@@ -663,6 +672,7 @@ export function ColorSetChooser() {
                 <StandardColorSetCascader
                   brands={selectedBrands}
                   standardColorSets={standardColorSets}
+                  loading={isStandardColorSetsLoading}
                 />
               </Form.Item>
             )}
@@ -692,6 +702,7 @@ export function ColorSetChooser() {
                       colors={colors.get(brand.alias)}
                       brand={brand}
                       disabled={!hasAccess}
+                      loading={isColorsLoading}
                     />
                   </Form.Item>
                 );
@@ -738,6 +749,7 @@ export function ColorSetChooser() {
                       title={t`Save the changes to this color set`}
                       type="primary"
                       htmlType="submit"
+                      disabled={isColorDataUnavailable}
                     >
                       <Trans>Save & continue</Trans>
                     </Button>

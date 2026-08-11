@@ -29,6 +29,7 @@ import {ArtistAssistApp} from '@/ArtistAssistApp';
 import {AuthFeedbackHandler} from '@/components/auth/AuthFeedbackHandler';
 import {CloudFeedbackHandler} from '@/components/cloud/CloudFeedbackHandler';
 import {CloudSyncUpdateNotification} from '@/components/cloud/CloudSyncUpdateNotification';
+import {ColorSetActivationNotification} from '@/components/color-set/ColorSetActivationNotification';
 import {BrowserSupport} from '@/components/error/BrowserSupport';
 import {ErrorFallback} from '@/components/error/ErrorFallback';
 import {UnhandledRejectionHandler} from '@/components/error/UnhandledRejectionHandler';
@@ -77,6 +78,7 @@ async function renderApp(): Promise<void> {
         <App>
           <ServiceWorkerUpdateNotification />
           <CloudSyncUpdateNotification />
+          <ColorSetActivationNotification />
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             <UnhandledRejectionHandler>
               <AuthFeedbackHandler>

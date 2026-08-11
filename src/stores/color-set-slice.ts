@@ -18,7 +18,9 @@
 
 import type {StateCreator} from 'zustand';
 
-import {fetchColorBrands, fetchColorsBulk, toColorSet} from '@/services/color/colors';
+import {ForceLogoutError} from '@/services/auth/errors';
+import {fetchColorBrands, fetchColorsBulk} from '@/services/color/color-queries';
+import {toColorSet} from '@/services/color/colors';
 import {
   type ColorBrandDefinition,
   type ColorDefinition,
@@ -31,6 +33,7 @@ import type {AppSlice} from '@/stores/app-slice';
 import type {AuthSlice} from '@/stores/auth-slice';
 import type {CloudSlice} from '@/stores/cloud-slice';
 import {persistChange} from '@/stores/sync/persist-change';
+import {createAbortableOperation} from '@/utils/abortable-operation';
 import {groupBy, maxOf} from '@/utils/array';
 import {byDate, byNumber, compare, reverseOrder} from '@/utils/comparator';
 import {indexById} from '@/utils/map';
@@ -45,10 +48,13 @@ const compareColorSetsByDate = compare<ColorSetDefinition>(
 export interface ColorSetSlice {
   colorSets: Map<ColorType, ColorSetDefinition[]>;
   // Bumped only when color sets are reloaded from IDB (init, cloud download, cross-tab wake).
-  colorSetsReloadCount: number;
+  colorSetsReloadRevision: number;
 
   isColorSetsLoading: boolean;
+  isColorSetActivationLoading: boolean;
+  colorSetActivationError: unknown;
 
+  getLatestColorSet: () => ColorSetDefinition | undefined;
   loadColorSets: () => Promise<void>;
   activateLatestColorSet: () => Promise<void>;
   saveColorSet: (
@@ -63,110 +69,142 @@ export interface ColorSetSlice {
 type ColorSetSliceDependencies = Pick<AppSlice, 'saveStoreChangeTokens'> &
   Pick<CloudSlice, 'pushCloudState'> &
   Pick<ColorMixerSlice, 'setColorSet'> &
-  Pick<AuthSlice, 'auth'>;
+  Pick<AuthSlice, 'auth' | 'logout'>;
 
 export const createColorSetSlice: StateCreator<
   ColorSetSlice & ColorSetSliceDependencies,
   [],
   [],
   ColorSetSlice
-> = (set, get) => ({
-  colorSets: new Map(),
-  colorSetsReloadCount: 0,
-
-  isColorSetsLoading: false,
-
-  loadColorSets: async (): Promise<void> => {
-    try {
+> = (set, get) => {
+  const activateColorSetOperation = createAbortableOperation({
+    onStart: () => {
       set({
-        isColorSetsLoading: true,
+        isColorSetActivationLoading: true,
+        colorSetActivationError: null,
       });
-      const colorSets = (await getAllColorSets()).sort(reverseOrder(compareColorSetsByDate));
+    },
+    onFinish: () => {
       set({
-        colorSets: groupBy(colorSets, ({type}) => type),
-        colorSetsReloadCount: get().colorSetsReloadCount + 1,
+        isColorSetActivationLoading: false,
       });
-    } finally {
+    },
+  });
+
+  return {
+    colorSets: new Map(),
+    colorSetsReloadRevision: 0,
+
+    isColorSetsLoading: false,
+    isColorSetActivationLoading: false,
+    colorSetActivationError: null,
+
+    getLatestColorSet: (): ColorSetDefinition | undefined =>
+      maxOf([...get().colorSets.values()].flat(), compareColorSetsByDate),
+
+    loadColorSets: async (): Promise<void> => {
+      try {
+        set({
+          isColorSetsLoading: true,
+        });
+        const colorSets = (await getAllColorSets()).sort(reverseOrder(compareColorSetsByDate));
+        set(prev => ({
+          colorSets: groupBy(colorSets, ({type}) => type),
+          colorSetsReloadRevision: prev.colorSetsReloadRevision + 1,
+        }));
+      } finally {
+        set({
+          isColorSetsLoading: false,
+        });
+      }
+      // Not awaited: activation fetches color data and must not block startup or a store reload.
+      void get().activateLatestColorSet();
+    },
+
+    activateLatestColorSet: async (): Promise<void> => {
+      try {
+        await activateColorSetOperation.run(async (signal: AbortSignal) => {
+          const latestColorSet = get().getLatestColorSet();
+          if (!latestColorSet?.type || !latestColorSet.brands) {
+            await get().setColorSet(null, {setActiveTabKey: false});
+            return;
+          }
+          const {type, brands: brandIds} = latestColorSet;
+          const {auth} = get();
+          const brands = indexById(await fetchColorBrands(type, signal));
+          const brandAliases = brandIds
+            .map(id => brands.get(id)?.alias)
+            .filter((alias): alias is string => !!alias);
+          const colors = await fetchColorsBulk(type, brandAliases, auth, signal);
+          // An in-form save replaces the latest color set without bumping the reload revision.
+          if (signal.aborted || get().getLatestColorSet() !== latestColorSet) {
+            return;
+          }
+          const colorSet = toColorSet(latestColorSet, brands, colors, auth?.user);
+          await get().setColorSet(colorSet, {setActiveTabKey: false});
+        });
+      } catch (error) {
+        if (error instanceof ForceLogoutError) {
+          void get().logout(error.type);
+          return;
+        }
+        set({
+          colorSetActivationError: error,
+        });
+      }
+    },
+
+    saveColorSet: async (
+      colorSetDef: ColorSetDefinition,
+      brands?: Map<number, ColorBrandDefinition>,
+      colors?: Map<string, Map<number, ColorDefinition>>,
+      {setActiveTabKey} = {}
+    ): Promise<ColorSetDefinition | undefined> => {
+      if (
+        !Object.values(colorSetDef.colors ?? {}).some(
+          (ids: number[] | undefined) => (ids?.length ?? 0) > 0
+        )
+      ) {
+        return;
+      }
+      const {colorSets: prevColorSets, auth} = get();
+      const {id, ...colorSetDefWithoutId} = colorSetDef;
+      colorSetDef = {
+        ...colorSetDefWithoutId,
+        ...(id ? {id} : {}),
+      };
+      await persistChange(get, () => saveColorSets([colorSetDef]));
+      const {type} = colorSetDef;
+      const colorSets = new Map<ColorType, ColorSetDefinition[]>(prevColorSets);
+      const colorSetsByType: ColorSetDefinition[] = [
+        colorSetDef,
+        ...(colorSets.get(type!)?.filter(({id}: ColorSetDefinition) => id !== colorSetDef.id) ??
+          []),
+      ];
+      colorSets.set(type!, colorSetsByType);
       set({
-        isColorSetsLoading: false,
+        colorSets,
       });
-    }
-  },
+      const colorSet: ColorSet | null = toColorSet(colorSetDef, brands, colors, auth?.user);
+      if (colorSet) {
+        void get().setColorSet(colorSet, {setActiveTabKey});
+      }
+      return colorSetDef;
+    },
 
-  activateLatestColorSet: async (): Promise<void> => {
-    const {colorSets, auth} = get();
-    const latestColorSet = maxOf([...colorSets.values()].flat(), compareColorSetsByDate);
-    if (!latestColorSet) {
-      await get().setColorSet(null, {setActiveTabKey: false});
-      return;
-    }
-    const {type, brands: brandIds} = latestColorSet;
-    if (!type || !brandIds) {
-      await get().setColorSet(null, {setActiveTabKey: false});
-      return;
-    }
-    const brands = indexById(await fetchColorBrands(type));
-    const brandAliases = brandIds
-      .map((id: number): string | undefined => brands.get(id)?.alias)
-      .filter((alias): alias is string => !!alias);
-    const colors: Map<string, Map<number, ColorDefinition>> = await fetchColorsBulk(
-      type,
-      brandAliases,
-      auth
-    );
-    const colorSet = toColorSet(latestColorSet, brands, colors, auth?.user);
-    await get().setColorSet(colorSet, {setActiveTabKey: false});
-  },
-
-  saveColorSet: async (
-    colorSetDef: ColorSetDefinition,
-    brands?: Map<number, ColorBrandDefinition>,
-    colors?: Map<string, Map<number, ColorDefinition>>,
-    {setActiveTabKey} = {}
-  ): Promise<ColorSetDefinition | undefined> => {
-    if (
-      !Object.values(colorSetDef.colors ?? {}).some(
-        (ids: number[] | undefined) => (ids?.length ?? 0) > 0
-      )
-    ) {
-      return undefined;
-    }
-    const {colorSets: prevColorSets, auth} = get();
-    const {id, ...colorSetDefWithoutId} = colorSetDef;
-    colorSetDef = {
-      ...colorSetDefWithoutId,
-      ...(id ? {id} : {}),
-    };
-    await persistChange(get, () => saveColorSets([colorSetDef]));
-    const {type} = colorSetDef;
-    const colorSets = new Map<ColorType, ColorSetDefinition[]>(prevColorSets);
-    const colorSetsByType: ColorSetDefinition[] = [
-      colorSetDef,
-      ...(colorSets.get(type!)?.filter(({id}: ColorSetDefinition) => id !== colorSetDef.id) ?? []),
-    ];
-    colorSets.set(type!, colorSetsByType);
-    set({
-      colorSets,
-    });
-    const colorSet: ColorSet | null = toColorSet(colorSetDef, brands, colors, auth?.user);
-    if (colorSet) {
-      void get().setColorSet(colorSet, {setActiveTabKey});
-    }
-    return colorSetDef;
-  },
-
-  deleteColorSet: async (type?: ColorType, idToDelete?: number): Promise<void> => {
-    if (!type || !idToDelete) {
-      return;
-    }
-    const {colorSets: prevColorSets} = get();
-    await persistChange(get, () => deleteColorSet(idToDelete));
-    const colorSets = new Map<ColorType, ColorSetDefinition[]>(prevColorSets);
-    const colorSetsByType: ColorSetDefinition[] =
-      colorSets.get(type)?.filter(({id}: ColorSetDefinition) => id !== idToDelete) ?? [];
-    colorSets.set(type, colorSetsByType);
-    set({
-      colorSets,
-    });
-  },
-});
+    deleteColorSet: async (type?: ColorType, idToDelete?: number): Promise<void> => {
+      if (!type || !idToDelete) {
+        return;
+      }
+      const {colorSets: prevColorSets} = get();
+      await persistChange(get, () => deleteColorSet(idToDelete));
+      const colorSets = new Map<ColorType, ColorSetDefinition[]>(prevColorSets);
+      const colorSetsByType: ColorSetDefinition[] =
+        colorSets.get(type)?.filter(({id}: ColorSetDefinition) => id !== idToDelete) ?? [];
+      colorSets.set(type, colorSetsByType);
+      set({
+        colorSets,
+      });
+    },
+  };
+};

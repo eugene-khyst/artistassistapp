@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {ForceLogoutError} from '@/services/auth/errors';
 import {isAbortError} from '@/utils/promise';
 
 export function createAbortableOperation({
@@ -35,10 +36,14 @@ export function createAbortableOperation({
       controller.signal.throwIfAborted();
       return result;
     } catch (error) {
-      if (!isAbortError(error)) {
+      // A superseded run stays silent, but a broken session must still reach the logout handler.
+      if (
+        !isAbortError(error) &&
+        (!controller.signal.aborted || error instanceof ForceLogoutError)
+      ) {
         throw error;
       }
-      return undefined;
+      return;
     } finally {
       if (abortController === controller) {
         abortController = null;

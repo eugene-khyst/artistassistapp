@@ -30,17 +30,19 @@ ArtistAssistApp offers the following features:
 - Generate a color mixing chart from any subset of your colors to plan mixes without wasting paint
 - Automatically build a palette from a photo with the best matching color mixtures
 - Save & access your favorite color mixes instantly
+- Share color sets through links and QR codes
 - Convert your photos into clean outlines, then trace them your way: print at any size on your home printer, turn your tablet or laptop into a light box (no printer needed), or overlay directly onto canvas, walls, or any surface with AR.
 - Add a grid over your reference photo for accurate, proportional drawing.
 - Analyze tonal values to improve contrast, including a color map view
-- Simplify photos by smoothing details
+- Simplify photos by smoothing distracting details while keeping a selected focal point clearer
 - Mix harmonious colors with limited palettes
-- Get inspired by applying artistic styles to your photos
+- Get inspired by applying built-in or user-supplied artistic styles to your photos
 - Adjust white balance and colors of photos of your paintings
 - Adjust perspective and geometry of photos of your paintings, with automatic detection of the painting's corners
 - Easily remove backgrounds from photos of your paintings
 - Rank your photos using a pairwise comparison
-- Sync your color sets across devices
+- Sync color sets, reference photos, saved color mixtures, and custom color brands across devices using Google Drive, OneDrive, or Dropbox
+- Back up and restore the same data locally with ZIP files
 - Install the app on your device for offline access
 
 Try it now at [ArtistAssistApp.com](https://artistassistapp.com)
@@ -49,7 +51,7 @@ Try it now at [ArtistAssistApp.com](https://artistassistapp.com)
 
 - Go to [ArtistAssistApp.com](https://artistassistapp.com/).
 - [Watch the video tutorials](https://artistassistapp.com/en/tutorials/).
-- Join on [Patreon](https://www.patreon.com/ArtistAssistApp), then log in with Patreon, an email code, or a QR code.
+- Join on [Patreon](https://www.patreon.com/ArtistAssistApp), then log in with Patreon or an email code.
 - Want to contact us? [Find our contacts](https://artistassistapp.com/contact/).
 
 ## <a id="3"></a>Implementation details
@@ -77,6 +79,7 @@ following:
 - tonal color map (WebGL)
 - Otsu's method for automatic threshold selection in Oklab lightness (CPU)
 - Kuwahara blur filter (WebGL)
+- multi-layer radial masking for focal-point-aware image simplification (WebGL)
 - color match filter using Oklab Euclidean distance (WebGL)
 - color quantization (over-quantize by recursive bucket splitting, then merge closest in Oklab)
 - blue noise ordered dithering with a precomputed threshold texture

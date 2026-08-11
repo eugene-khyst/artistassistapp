@@ -29,7 +29,7 @@ import type {PaletteSlice} from '@/stores/palette-slice';
 type ReloadableState = Pick<AppSlice, 'storeChangeTokens' | 'saveStoreChangeTokens'> &
   Pick<CloudSlice, 'loadCloudConnection'> &
   Pick<CustomColorBrandSlice, 'loadCustomColorBrands'> &
-  Pick<ColorSetSlice, 'loadColorSets' | 'activateLatestColorSet'> &
+  Pick<ColorSetSlice, 'loadColorSets'> &
   Pick<OriginalImageSlice, 'loadRecentImages'> &
   Pick<PaletteSlice, 'loadPaletteColorMixtures'>;
 
@@ -56,10 +56,7 @@ const STORE_RELOADS: StoreReload[] = [
   {
     tokens: ['custom-brands', 'color-sets'],
     label: 'load color sets',
-    reload: async state => {
-      await state.loadColorSets();
-      await state.activateLatestColorSet();
-    },
+    reload: state => state.loadColorSets(),
   },
   {
     tokens: ['images'],

@@ -78,7 +78,7 @@ export function useSelectedOnnxModel({
 
   const defaultModel = useMemo<OnnxModel | undefined>(() => {
     if (isAuthLoading || !models?.size) {
-      return undefined;
+      return;
     }
     const persisted = persistedModelId ? models.get(persistedModelId) : undefined;
     return persisted ?? getDefaultModel(models, user, defaultPredicate);

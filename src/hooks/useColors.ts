@@ -19,7 +19,7 @@
 import {useQueries} from '@tanstack/react-query';
 import {useCallback, useMemo} from 'react';
 
-import {fetchColors} from '@/services/color/colors';
+import {colorsQueryOptions} from '@/services/color/color-queries';
 import type {ColorBrandDefinition, ColorDefinition, ColorType} from '@/services/color/types';
 import {useAppStore} from '@/stores/app-store';
 import {indexById} from '@/utils/map';
@@ -40,6 +40,9 @@ const indexColors = (colors: ColorDefinition[]): Map<number, ColorDefinition> =>
 
 export function useColors(type?: ColorType, brands?: ColorBrandDefinition[]): Result {
   const auth = useAppStore(state => state.auth);
+  const customColorBrandsReloadRevision = useAppStore(
+    state => state.customColorBrandsReloadRevision
+  );
 
   const brandAliases: string[] | undefined = useMemo(
     () => brands?.map(({alias}) => alias),
@@ -50,12 +53,11 @@ export function useColors(type?: ColorType, brands?: ColorBrandDefinition[]): Re
     () =>
       type && brandAliases
         ? brandAliases.map((brandAlias: string) => ({
-            queryKey: ['colors', type, brandAlias, auth?.user.id ?? null],
-            queryFn: () => fetchColors(type, brandAlias, auth),
+            ...colorsQueryOptions(type, brandAlias, auth, customColorBrandsReloadRevision),
             select: indexColors,
           }))
         : [],
-    [type, brandAliases, auth]
+    [type, brandAliases, auth, customColorBrandsReloadRevision]
   );
 
   const combine = useCallback(

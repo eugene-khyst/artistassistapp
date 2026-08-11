@@ -74,7 +74,7 @@ type AppSliceDependencies = Pick<LocaleSlice, 'setLocale'> &
   Pick<CloudSlice, 'loadCloudConnection' | 'handleCloudCallback' | 'syncCloudState'> &
   Pick<CustomColorBrandSlice, 'loadCustomColorBrands'> &
   Pick<TabSlice, 'setActiveTabKey'> &
-  Pick<ColorSetSlice, 'loadColorSets' | 'activateLatestColorSet'> &
+  Pick<ColorSetSlice, 'loadColorSets'> &
   Pick<OriginalImageSlice, 'loadRecentImages' | 'selectLatestImageFile'> &
   Pick<PaletteSlice, 'loadPaletteColorMixtures'>;
 

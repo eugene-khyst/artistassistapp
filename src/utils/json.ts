@@ -20,19 +20,19 @@ export async function safeReadJson<T>(response: Response): Promise<T | undefined
   try {
     return (await response.json()) as T;
   } catch {
-    return undefined;
+    return;
   }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
 export function safeParseJson<T>(json: string | null | undefined): T | undefined {
   if (!json) {
-    return undefined;
+    return;
   }
   try {
     return JSON.parse(json) as T;
   } catch {
-    return undefined;
+    return;
   }
 }
 

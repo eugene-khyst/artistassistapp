@@ -19,7 +19,8 @@
 import {useQueries} from '@tanstack/react-query';
 import {useCallback, useMemo} from 'react';
 
-import {fetchStandardColorSets, indexStandardColorSets} from '@/services/color/colors';
+import {standardColorSetsQueryOptions} from '@/services/color/color-queries';
+import {indexStandardColorSets} from '@/services/color/colors';
 import type {
   ColorBrandDefinition,
   ColorType,
@@ -47,8 +48,7 @@ export function useStandardColorSets(type?: ColorType, brands?: ColorBrandDefini
     () =>
       type && brandAliases
         ? brandAliases.map((brandAlias: string) => ({
-            queryKey: ['standardColorSets', type, brandAlias],
-            queryFn: () => fetchStandardColorSets(type, brandAlias),
+            ...standardColorSetsQueryOptions(type, brandAlias),
             select: indexStandardColorSets,
           }))
         : [],

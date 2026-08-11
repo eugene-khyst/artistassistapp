@@ -43,7 +43,7 @@ export interface LimitedPaletteImageSlice {
 
 type LimitedPaletteImageSliceDependencies = Pick<OriginalImageSlice, 'originalImage'> &
   Pick<ColorMixerSlice, 'colorSet'> &
-  Pick<ColorSetSlice, 'saveColorSet' | 'loadColorSets' | 'activateLatestColorSet'> &
+  Pick<ColorSetSlice, 'saveColorSet' | 'loadColorSets'> &
   Pick<TabSlice, 'setActiveTabKey'>;
 
 export const createLimitedPaletteImageSlice: StateCreator<
@@ -134,7 +134,6 @@ export const createLimitedPaletteImageSlice: StateCreator<
       };
       await get().saveColorSet(colorSetDefinition);
       await get().loadColorSets();
-      await get().activateLatestColorSet();
       void get().setActiveTabKey(TabKey.ColorSet);
     },
 

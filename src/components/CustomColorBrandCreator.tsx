@@ -162,7 +162,7 @@ interface ColorListItemProps {
 }
 
 interface EditState {
-  reloadCount: number;
+  reloadRevision: number;
   index: number | null;
 }
 
@@ -220,10 +220,11 @@ const ColorListItem = memo(function ColorListItem({
 
 export function CustomColorBrandCreator() {
   const customColorBrands = useAppStore(state => state.customColorBrands);
-  const customColorBrandsReloadCount = useAppStore(state => state.customColorBrandsReloadCount);
+  const customColorBrandsReloadRevision = useAppStore(
+    state => state.customColorBrandsReloadRevision
+  );
   const isCustomColorBrandsLoading = useAppStore(state => state.isCustomColorBrandsLoading);
 
-  const loadCustomColorBrands = useAppStore(state => state.loadCustomColorBrands);
   const saveCustomColorBrand = useAppStore(state => state.saveCustomColorBrand);
   const importCustomColorBrandFromJson = useAppStore(state => state.importCustomColorBrandFromJson);
   const exportCustomColorBrandToJson = useAppStore(state => state.exportCustomColorBrandToJson);
@@ -243,16 +244,16 @@ export function CustomColorBrandCreator() {
   const [sampleDiameter, setSampleDiameter] = useState<number>(DEFAULT_SAMPLE_DIAMETER);
   const [currentColor, setCurrentColor] = useState<string>(WHITE_HEX);
   const [editState, setEditState] = useState<EditState>(() => ({
-    reloadCount: customColorBrandsReloadCount,
+    reloadRevision: customColorBrandsReloadRevision,
     index: null,
   }));
   const editFromIndex =
-    editState.reloadCount === customColorBrandsReloadCount ? editState.index : null;
+    editState.reloadRevision === customColorBrandsReloadRevision ? editState.index : null;
   const setEditFromIndex = useCallback(
     (index: number | null) => {
-      setEditState({reloadCount: customColorBrandsReloadCount, index});
+      setEditState({reloadRevision: customColorBrandsReloadRevision, index});
     },
-    [customColorBrandsReloadCount]
+    [customColorBrandsReloadRevision]
   );
 
   const removeColorRef = useRef<(index: number) => void>(noop);
@@ -299,10 +300,6 @@ export function CustomColorBrandCreator() {
     };
   }, [form, colorPickerCanvas, editFromIndex, setEditFromIndex, scrollToColor]);
 
-  useEffect(() => {
-    void loadCustomColorBrands();
-  }, [loadCustomColorBrands]);
-
   const latestCustomColorBrand: CustomColorBrandDefinition | undefined = useMemo(
     () =>
       maxOf(
@@ -315,18 +312,18 @@ export function CustomColorBrandCreator() {
     [customColorBrands]
   );
 
-  // Re-prefill on every external reload (cloud download, cross-tab wake), not on in-form saves.
-  const prefilledReloadCountRef = useRef(0);
+  // External reloads may replace the form, while in-form saves must preserve current edits.
+  const prefilledReloadRevisionRef = useRef(0);
   useEffect(() => {
-    if (prefilledReloadCountRef.current === customColorBrandsReloadCount) {
+    if (prefilledReloadRevisionRef.current === customColorBrandsReloadRevision) {
       return;
     }
-    prefilledReloadCountRef.current = customColorBrandsReloadCount;
+    prefilledReloadRevisionRef.current = customColorBrandsReloadRevision;
     form.resetFields();
     if (latestCustomColorBrand) {
       form.setFieldsValue(toCustomColorBrandSource(latestCustomColorBrand));
     }
-  }, [form, latestCustomColorBrand, customColorBrandsReloadCount]);
+  }, [form, latestCustomColorBrand, customColorBrandsReloadRevision]);
 
   const isLoading: boolean = isImageLoading || isCustomColorBrandsLoading;
 

@@ -23,7 +23,7 @@ export const DATA_URL: string = import.meta.env.VITE_DATA_URL;
 export const PUBLIC_JWK: string = import.meta.env.VITE_PUBLIC_JWK;
 
 export const DATA_METADATA_TIMEOUT_MS = 10 * 1000;
-export const DATA_COLORS_TIMEOUT_MS = 60 * 1000;
+export const DATA_COLORS_TIMEOUT_MS = 30 * 1000;
 
 export const WEBSITE_URL = 'https://artistassistapp.com';
 export const PATREON_URL = 'https://www.patreon.com/artistassistapp';
