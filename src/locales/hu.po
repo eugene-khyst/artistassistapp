@@ -153,11 +153,15 @@ msgstr "Akril jelölők"
 msgid "Acrylic Paint"
 msgstr "Akril festék"
 
+#: src/components/empty/EmptyPalette.tsx:53
+msgid "Add a color mixture to the palette"
+msgstr "Adjon hozzá színkeveréket a palettához"
+
 #: src/components/ColorMixer.tsx:242
 msgid "Add color"
 msgstr "Szín hozzáadása"
 
-#: src/components/empty/EmptyPalette.tsx:49
+#: src/components/empty/EmptyPalette.tsx:35
 msgid "Add color mixtures to the palette."
 msgstr "Adjon hozzá színkeverékeket a palettához."
 
@@ -391,6 +395,11 @@ msgstr "Sejtek"
 msgid "Check for updates"
 msgstr "Frissítések keresése"
 
+#: src/components/empty/EmptyColorSet.tsx:122
+#: src/components/empty/EmptyImage.tsx:47
+msgid "Choose a reference photo"
+msgstr "Válasszon referenciafotót"
+
 #: src/components/ImageBackgroundRemoval.tsx:128
 msgid "Clear background color"
 msgstr "Tiszta háttérszín"
@@ -417,11 +426,11 @@ msgstr "A fókuszpont kiválasztásához kattintson a 🖱️ elemre, vagy koppi
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Kattintson 🖱️ vagy koppintson 👆 a fénykép tetszőleges pontjára a fehér pont kiválasztásához."
 
-#: src/components/empty/EmptyTargetColor.tsx:29
+#: src/components/empty/EmptyTargetColor.tsx:33
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color for mixing from your colors."
 msgstr "Kattints 🖱️ vagy koppints 👆 bárhol a képen, vagy használd a színválasztó felugró ablakot, hogy kiválasszd a célszínt a színek közül."
 
-#: src/components/empty/EmptyPalette.tsx:64
+#: src/components/empty/EmptyPalette.tsx:46
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "Kattintson 🖱️ vagy koppintson 👆 a fénykép tetszőleges pontjára, vagy a színválasztó előugró ablakában válassza ki a színek közül keverni kívánt célszínt."
 
@@ -506,7 +515,7 @@ msgstr "Színes márkák"
 msgid "Color count"
 msgstr "Színszám"
 
-#: src/components/empty/EmptyColorSet.tsx:70
+#: src/components/empty/EmptyColorSet.tsx:73
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "A színadatok jelenleg nem érhetők el. Ellenőrizze a kapcsolatot, és próbálja újra."
 
@@ -912,21 +921,9 @@ msgstr "Adjon nevet a színkészletnek a könnyű hozzáférés érdekében."
 msgid "Glazing"
 msgstr "Üvegezés"
 
-#: src/components/empty/EmptyPalette.tsx:55
-msgid "Go to the <0>{colorPickerLabel}</0> tab."
-msgstr "Lépjen a <0>{colorPickerLabel}</0> fülre."
-
-#: src/components/empty/EmptyColorSet.tsx:94
-msgid "Go to the <0>{colorSetLabel}</0> tab."
-msgstr "Lépjen a <0>{colorSetLabel}</0> fülre."
-
-#: src/components/empty/EmptyColorSet.tsx:121
-msgid "Go to the <0>{photoLabel}</0> tab and choose a reference photo."
-msgstr "Menj a <0>{photoLabel}</0> fülre, és válassz egy referencia fotót."
-
-#: src/components/empty/EmptyImage.tsx:48
-msgid "Go to the <0>{photoLabel}</0> tab and choose your reference photo."
-msgstr "Lépjen a <0>{photoLabel}</0> fülre, és válassza ki a referenciafotót."
+#: src/components/button/GoToTabButton.tsx:38
+msgid "Go to the {label} tab"
+msgstr "Lépjen a {label} lapra"
 
 #: src/components/messages.ts:51
 msgid "Gouache"
@@ -1202,10 +1199,6 @@ msgstr "Új összehasonlítás"
 msgid "Next charge date"
 msgstr "Következő töltési dátum"
 
-#: src/components/empty/EmptyPalette.tsx:39
-msgid "No data"
-msgstr "Nincs adat"
-
 #: src/components/empty/EmptySimilarColors.tsx:26
 msgid "No matching color mixtures were found."
 msgstr "Nem találtak megfelelő színkeveréket."
@@ -1215,7 +1208,7 @@ msgstr "Nem találtak megfelelő színkeveréket."
 msgid "No sorting"
 msgstr "Nincs besorolás"
 
-#: src/components/empty/EmptyTargetColor.tsx:26
+#: src/components/empty/EmptyTargetColor.tsx:28
 msgid "No target color is selected."
 msgstr "Nincs kiválasztva célszín."
 
@@ -1379,7 +1372,11 @@ msgstr "A fénykép nem érhető el. Állítsa vissza felhőtárhelyéről, vagy
 msgid "Photo unavailable. Select the original again to repair it."
 msgstr "A fénykép nem érhető el. A javításhoz válassza ki újra az eredetit."
 
-#: src/components/empty/EmptyTargetColor.tsx:35
+#: src/components/empty/EmptyPalette.tsx:44
+msgid "Pick a target color"
+msgstr "Válasszon egy célszínt"
+
+#: src/components/empty/EmptyTargetColor.tsx:39
 msgid "Pinch or scroll to zoom, drag to pan."
 msgstr "Csípd vagy görgess nagyításhoz, húzd a pásztázáshoz."
 
@@ -1396,6 +1393,10 @@ msgstr "Pozíció: {position}<0/>Értékelés: {ratingText}"
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:63
 msgid "Postpone"
 msgstr "Halasztás"
+
+#: src/components/empty/EmptyColorSet.tsx:113
+msgid "Press <0>Save & continue</0> when done."
+msgstr "Ha elkészült, nyomja meg a <0>Mentés és folytatás</0> gombot."
 
 #: src/components/install/InstallDrawer.tsx:170
 msgid "Press Add to Dock"
@@ -1414,7 +1415,7 @@ msgstr "Nyomja meg ismét a Vissza gombot a kilépéshez"
 msgid "Press Share in Navigation bar"
 msgstr "Nyomja meg a Megosztás gombot a navigációs sávon"
 
-#: src/components/empty/EmptyPalette.tsx:70
+#: src/components/empty/EmptyPalette.tsx:55
 msgid "Press the <0>Add to palette</0> button next to the color mixture you like."
 msgstr "Nyomja meg a <0>Hozzáadás a palettához</0> gombot a kívánt színkeverék mellett."
 
@@ -1529,23 +1530,20 @@ msgstr "Mentés visszaállítása"
 msgid "Restore from cloud"
 msgstr "Visszaállítás felhőből"
 
-#: src/components/empty/EmptyColorSet.tsx:58
+#: src/components/empty/EmptyColorSet.tsx:60
 msgid "Restoring the saved color set"
 msgstr "Az elmentett színkészlet visszaállítása"
 
 #: src/components/color-set/ColorSetActivationNotification.tsx:36
-#: src/components/empty/EmptyColorSet.tsx:74
+#: src/components/empty/EmptyColorSet.tsx:77
 msgid "Retry"
 msgstr "Próbálja újra"
 
-#: src/components/empty/EmptyPalette.tsx:76
-msgid "Return to the <0>{paletteLabel}</0> tab."
-msgstr "Térjen vissza a <0>{paletteLabel}</0> lapra."
-
-#: src/components/empty/EmptyColorSet.tsx:132
-#: src/components/empty/EmptyImage.tsx:57
-msgid "Return to the <0>{tabLabel}</0> tab."
-msgstr "Térjen vissza a <0>{tabLabel}</0> lapra."
+#: src/components/empty/EmptyColorSet.tsx:128
+#: src/components/empty/EmptyImage.tsx:48
+#: src/components/empty/EmptyPalette.tsx:61
+msgid "Return to the {tabLabel} tab"
+msgstr "Térjen vissza a {tabLabel} lapra"
 
 #: src/components/ImagePerspectiveCorrection.tsx:293
 #: src/components/ImagePerspectiveCorrection.tsx:345
@@ -1751,8 +1749,11 @@ msgstr "Stíluskép kiválasztása"
 msgid "Select the color sets you want to merge. A new color set will be created that includes all the colors from the selected sets."
 msgstr "Válaszd ki azokat a színkészleteket, amelyeket össze akarsz vonni. Egy új színkészlet készül, amely tartalmazza a kiválasztott halmazok összes színét."
 
+#: src/components/empty/EmptyColorSet.tsx:99
+msgid "Select your art medium, color brands, and colors"
+msgstr "Válassza ki a művészeti médiát, a színmárkákat és a színeket"
+
 #: src/components/ColorSetChooser.tsx:578
-#: src/components/empty/EmptyColorSet.tsx:103
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>."
 msgstr "Válaszd ki a művészeti médiumodat, a színmárkákat és a festeni kívánt színeket, majd nyomd <0>meg a Mentés és a folytatás</0> gombot."
 
@@ -1953,7 +1954,7 @@ msgstr "Kiegyenesíti a ferde fotókat, és eltávolítja a nem kívánt szélek
 msgid "Styled reference photo"
 msgstr "Stílusos referenciafotó"
 
-#: src/components/empty/EmptyColorSet.tsx:110
+#: src/components/empty/EmptyColorSet.tsx:104
 msgid "Supported art mediums:"
 msgstr "Támogatott művészeti médiumok:"
 
@@ -2049,7 +2050,7 @@ msgstr "Lehet, hogy a fájlt áthelyezték vagy törölték, vagy a felhőben t�
 msgid "The margin is too large"
 msgstr "A mozgástér túl nagy"
 
-#: src/components/empty/EmptyPalette.tsx:44
+#: src/components/empty/EmptyPalette.tsx:70
 msgid "There is one common palette and a separate palette for each photo."
 msgstr "Minden fényképhez egy közös paletta és külön paletta tartozik."
 
@@ -2101,7 +2102,7 @@ msgstr "Ezt a fotót nem lehetett visszaállítani a felhőtárhelyről."
 msgid "This print size is not supported"
 msgstr "Ez a nyomtatási méret nem támogatott"
 
-#: src/components/empty/EmptyColorSet.tsx:128
+#: src/components/empty/EmptyColorSet.tsx:123
 msgid "This step is optional."
 msgstr "Ez a lépés nem kötelező."
 
@@ -2121,11 +2122,11 @@ msgstr "Ennek javítására:"
 msgid "To install ArtistAssistApp, use one of the supported web browsers:"
 msgstr "Az ArtistAssistApp telepítéséhez használd az egyik támogatott böngészőt:"
 
-#: src/components/empty/EmptyImage.tsx:42
+#: src/components/empty/EmptyImage.tsx:39
 msgid "To use the {tabLabel} feature, select a reference photo."
 msgstr "A {tabLabel} funkció használatához válasszon ki egy referenciafotót."
 
-#: src/components/empty/EmptyColorSet.tsx:86
+#: src/components/empty/EmptyColorSet.tsx:88
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with."
 msgstr "A {tabLabel} funkció használatához válaszd ki a támogatott művészeti médiumot és a színeket, amelyekkel festhetsz."
 
@@ -2155,7 +2156,7 @@ msgid "Tutorials and videos"
 msgstr "Oktatóanyagok és videók"
 
 #: src/components/color-set/ColorSetActivationNotification.tsx:33
-#: src/components/empty/EmptyColorSet.tsx:68
+#: src/components/empty/EmptyColorSet.tsx:71
 msgid "Unable to restore the saved color set"
 msgstr "Nem lehet visszaállítani a mentett színkészletet"
 

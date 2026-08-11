@@ -153,11 +153,15 @@ msgstr "Markere acrilice"
 msgid "Acrylic Paint"
 msgstr "Acril"
 
+#: src/components/empty/EmptyPalette.tsx:53
+msgid "Add a color mixture to the palette"
+msgstr "Adăugați un amestec de culori în paletă"
+
 #: src/components/ColorMixer.tsx:242
 msgid "Add color"
 msgstr "Adăugați culoare"
 
-#: src/components/empty/EmptyPalette.tsx:49
+#: src/components/empty/EmptyPalette.tsx:35
 msgid "Add color mixtures to the palette."
 msgstr "Adăugați amestecuri de culori în paletă."
 
@@ -391,6 +395,11 @@ msgstr "Celule"
 msgid "Check for updates"
 msgstr "Verificați dacă există actualizări"
 
+#: src/components/empty/EmptyColorSet.tsx:122
+#: src/components/empty/EmptyImage.tsx:47
+msgid "Choose a reference photo"
+msgstr "Alegeți o fotografie de referință"
+
 #: src/components/ImageBackgroundRemoval.tsx:128
 msgid "Clear background color"
 msgstr "Culoare de fundal clară"
@@ -417,11 +426,11 @@ msgstr "Faceți clic pe 🖱️ sau atingeți 👆 oriunde în fotografie pentru
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Faceți clic 🖱️ sau atingeți 👆 oriunde în fotografie pentru a alege un punct alb."
 
-#: src/components/empty/EmptyTargetColor.tsx:29
+#: src/components/empty/EmptyTargetColor.tsx:33
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color for mixing from your colors."
 msgstr "Click 🖱️ sau atinge 👆 oriunde în fotografie sau folosește pop-up-ul selectorului de culori pentru a alege o culoare țintă pentru a o amesteca din culorile tale."
 
-#: src/components/empty/EmptyPalette.tsx:64
+#: src/components/empty/EmptyPalette.tsx:46
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "Faceți clic 🖱️ sau atingeți 👆 oriunde în fotografie sau utilizați fereastra pop-up selector de culori pentru a alege o culoare țintă pe care să o amestecați din culorile dvs."
 
@@ -506,7 +515,7 @@ msgstr "Mărci de culori"
 msgid "Color count"
 msgstr "Număr de culori"
 
-#: src/components/empty/EmptyColorSet.tsx:70
+#: src/components/empty/EmptyColorSet.tsx:73
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "Datele de culoare sunt momentan indisponibile. Verificați conexiunea și încercați din nou."
 
@@ -912,21 +921,9 @@ msgstr "Dați un nume setului de culori pentru un acces ușor."
 msgid "Glazing"
 msgstr "Glazurare"
 
-#: src/components/empty/EmptyPalette.tsx:55
-msgid "Go to the <0>{colorPickerLabel}</0> tab."
-msgstr "Accesați fila <0>{colorPickerLabel}</0> ."
-
-#: src/components/empty/EmptyColorSet.tsx:94
-msgid "Go to the <0>{colorSetLabel}</0> tab."
-msgstr "Accesați fila <0>{colorSetLabel}</0> ."
-
-#: src/components/empty/EmptyColorSet.tsx:121
-msgid "Go to the <0>{photoLabel}</0> tab and choose a reference photo."
-msgstr "Mergi la <0>fila {photoLabel}</0> și alege o fotografie de referință."
-
-#: src/components/empty/EmptyImage.tsx:48
-msgid "Go to the <0>{photoLabel}</0> tab and choose your reference photo."
-msgstr "Accesați fila <0>{photoLabel}</0> și alegeți fotografia de referință."
+#: src/components/button/GoToTabButton.tsx:38
+msgid "Go to the {label} tab"
+msgstr "Accesați fila {label}"
 
 #: src/components/messages.ts:51
 msgid "Gouache"
@@ -1202,10 +1199,6 @@ msgstr "Comparație nouă"
 msgid "Next charge date"
 msgstr "Următoarea dată de încărcare"
 
-#: src/components/empty/EmptyPalette.tsx:39
-msgid "No data"
-msgstr "Fără date"
-
 #: src/components/empty/EmptySimilarColors.tsx:26
 msgid "No matching color mixtures were found."
 msgstr "Nu s-au găsit amestecuri de culori potrivite."
@@ -1215,7 +1208,7 @@ msgstr "Nu s-au găsit amestecuri de culori potrivite."
 msgid "No sorting"
 msgstr "Fără repartizare"
 
-#: src/components/empty/EmptyTargetColor.tsx:26
+#: src/components/empty/EmptyTargetColor.tsx:28
 msgid "No target color is selected."
 msgstr "Nu este selectată nicio culoare țintă."
 
@@ -1379,7 +1372,11 @@ msgstr "Fotografie indisponibilă. Restaurați-l din spațiul de stocare în clo
 msgid "Photo unavailable. Select the original again to repair it."
 msgstr "Fotografie indisponibilă. Selectați din nou originalul pentru a-l repara."
 
-#: src/components/empty/EmptyTargetColor.tsx:35
+#: src/components/empty/EmptyPalette.tsx:44
+msgid "Pick a target color"
+msgstr "Alegeți o culoare țintă"
+
+#: src/components/empty/EmptyTargetColor.tsx:39
 msgid "Pinch or scroll to zoom, drag to pan."
 msgstr "Ciupește sau derulează pentru a mări, trage la panoramare."
 
@@ -1396,6 +1393,10 @@ msgstr "Poziție: {position}<0/>Evaluare: {ratingText}"
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:63
 msgid "Postpone"
 msgstr "Amânare"
+
+#: src/components/empty/EmptyColorSet.tsx:113
+msgid "Press <0>Save & continue</0> when done."
+msgstr "Apăsați pe <0>Salvați și continuați</0> când ați terminat."
 
 #: src/components/install/InstallDrawer.tsx:170
 msgid "Press Add to Dock"
@@ -1414,7 +1415,7 @@ msgstr "Apăsați din nou Înapoi pentru a ieși"
 msgid "Press Share in Navigation bar"
 msgstr "Apăsați Partajare în bara de navigare"
 
-#: src/components/empty/EmptyPalette.tsx:70
+#: src/components/empty/EmptyPalette.tsx:55
 msgid "Press the <0>Add to palette</0> button next to the color mixture you like."
 msgstr "Apăsați butonul <0>Adăugați la paletă</0> de lângă amestecul de culori care vă place."
 
@@ -1529,23 +1530,20 @@ msgstr "Restaurarea backup-ului"
 msgid "Restore from cloud"
 msgstr "Restaurați din cloud"
 
-#: src/components/empty/EmptyColorSet.tsx:58
+#: src/components/empty/EmptyColorSet.tsx:60
 msgid "Restoring the saved color set"
 msgstr "Restabilirea setului de culori salvat"
 
 #: src/components/color-set/ColorSetActivationNotification.tsx:36
-#: src/components/empty/EmptyColorSet.tsx:74
+#: src/components/empty/EmptyColorSet.tsx:77
 msgid "Retry"
 msgstr "Reîncercați"
 
-#: src/components/empty/EmptyPalette.tsx:76
-msgid "Return to the <0>{paletteLabel}</0> tab."
-msgstr "Reveniți la fila <0>{paletteLabel}</0> ."
-
-#: src/components/empty/EmptyColorSet.tsx:132
-#: src/components/empty/EmptyImage.tsx:57
-msgid "Return to the <0>{tabLabel}</0> tab."
-msgstr "Reveniți la fila <0>{tabLabel}</0> ."
+#: src/components/empty/EmptyColorSet.tsx:128
+#: src/components/empty/EmptyImage.tsx:48
+#: src/components/empty/EmptyPalette.tsx:61
+msgid "Return to the {tabLabel} tab"
+msgstr "Reveniți la fila {tabLabel}"
 
 #: src/components/ImagePerspectiveCorrection.tsx:293
 #: src/components/ImagePerspectiveCorrection.tsx:345
@@ -1751,8 +1749,11 @@ msgstr "Selectați imaginea de stil"
 msgid "Select the color sets you want to merge. A new color set will be created that includes all the colors from the selected sets."
 msgstr "Selectează seturile de culori pe care vrei să le combini. Va fi creat un nou set de culori care să includă toate culorile din seturile selectate."
 
+#: src/components/empty/EmptyColorSet.tsx:99
+msgid "Select your art medium, color brands, and colors"
+msgstr "Selectați mediul dvs. de artă, mărcile de culoare și culorile"
+
 #: src/components/ColorSetChooser.tsx:578
-#: src/components/empty/EmptyColorSet.tsx:103
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>."
 msgstr "Selectează-ți mediul artistic, colorează brandurile și culorile cu care vei picta, apoi apasă <0>Salvează și continuă</0>."
 
@@ -1953,7 +1954,7 @@ msgstr "Îndreptă fotografiile deformate și îndepărtează marginile nedorite
 msgid "Styled reference photo"
 msgstr "Fotografie de referință stilizată"
 
-#: src/components/empty/EmptyColorSet.tsx:110
+#: src/components/empty/EmptyColorSet.tsx:104
 msgid "Supported art mediums:"
 msgstr "Medii artistice suportate:"
 
@@ -2049,7 +2050,7 @@ msgstr "Fișierul ar fi putut fi mutat sau șters, sau ar putea fi stocat în cl
 msgid "The margin is too large"
 msgstr "Marja este prea mare"
 
-#: src/components/empty/EmptyPalette.tsx:44
+#: src/components/empty/EmptyPalette.tsx:70
 msgid "There is one common palette and a separate palette for each photo."
 msgstr "Există o paletă comună și o paletă separată pentru fiecare fotografie."
 
@@ -2101,7 +2102,7 @@ msgstr "Această fotografie nu a putut fi restabilită din spațiul de stocare �
 msgid "This print size is not supported"
 msgstr "Această dimensiune de imprimare nu este acceptată"
 
-#: src/components/empty/EmptyColorSet.tsx:128
+#: src/components/empty/EmptyColorSet.tsx:123
 msgid "This step is optional."
 msgstr "Acest pas este opțional."
 
@@ -2121,11 +2122,11 @@ msgstr "Pentru a rezolva asta:"
 msgid "To install ArtistAssistApp, use one of the supported web browsers:"
 msgstr "Pentru a instala ArtistAssistApp, folosiți unul dintre browserele web suportate:"
 
-#: src/components/empty/EmptyImage.tsx:42
+#: src/components/empty/EmptyImage.tsx:39
 msgid "To use the {tabLabel} feature, select a reference photo."
 msgstr "Pentru a utiliza caracteristica {tabLabel}, selectați o fotografie de referință."
 
-#: src/components/empty/EmptyColorSet.tsx:86
+#: src/components/empty/EmptyColorSet.tsx:88
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with."
 msgstr "Pentru a folosi funcția {tabLabel}, selectați mediul artistic suportat și culorile cu care să pictați."
 
@@ -2155,7 +2156,7 @@ msgid "Tutorials and videos"
 msgstr "Tutoriale și videoclipuri"
 
 #: src/components/color-set/ColorSetActivationNotification.tsx:33
-#: src/components/empty/EmptyColorSet.tsx:68
+#: src/components/empty/EmptyColorSet.tsx:71
 msgid "Unable to restore the saved color set"
 msgstr "Nu se poate restabili setul de culori salvat"
 

@@ -153,11 +153,15 @@ msgstr "Ακρυλικοί Μαρκαδόροι"
 msgid "Acrylic Paint"
 msgstr "Ακρυλικό χρώμα"
 
+#: src/components/empty/EmptyPalette.tsx:53
+msgid "Add a color mixture to the palette"
+msgstr "Προσθέστε ένα μείγμα χρωμάτων στην παλέτα"
+
 #: src/components/ColorMixer.tsx:242
 msgid "Add color"
 msgstr "Προσθήκη χρώματος"
 
-#: src/components/empty/EmptyPalette.tsx:49
+#: src/components/empty/EmptyPalette.tsx:35
 msgid "Add color mixtures to the palette."
 msgstr "Προσθέστε μείγματα χρωμάτων στην παλέτα."
 
@@ -391,6 +395,11 @@ msgstr "Κύτταρα"
 msgid "Check for updates"
 msgstr "Έλεγχος για ενημερώσεις"
 
+#: src/components/empty/EmptyColorSet.tsx:122
+#: src/components/empty/EmptyImage.tsx:47
+msgid "Choose a reference photo"
+msgstr "Επιλέξτε μια φωτογραφία αναφοράς"
+
 #: src/components/ImageBackgroundRemoval.tsx:128
 msgid "Clear background color"
 msgstr "Καθαρό χρώμα φόντου"
@@ -417,11 +426,11 @@ msgstr "Κάντε κλικ στο 🖱️ ή πατήστε 👆 οπουδήπ
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Κάντε κλικ 🖱️ ή πατήστε 👆 οπουδήποτε στη φωτογραφία για να επιλέξετε ένα λευκό σημείο."
 
-#: src/components/empty/EmptyTargetColor.tsx:29
+#: src/components/empty/EmptyTargetColor.tsx:33
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color for mixing from your colors."
 msgstr "Κάντε κλικ 🖱️ ή πατήστε 👆 οπουδήποτε στη φωτογραφία ή χρησιμοποιήστε το αναδυόμενο παράθυρο επιλογής χρώματος για να επιλέξετε ένα χρώμα-στόχο για ανάμειξη από τα χρώματά σας."
 
-#: src/components/empty/EmptyPalette.tsx:64
+#: src/components/empty/EmptyPalette.tsx:46
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "Κάντε κλικ 🖱️ ή πατήστε 👆 οπουδήποτε στη φωτογραφία ή χρησιμοποιήστε το αναδυόμενο παράθυρο επιλογέα χρώματος για να επιλέξετε ένα χρώμα προορισμού για ανάμειξη από τα χρώματά σας."
 
@@ -506,7 +515,7 @@ msgstr "Μάρκες χρωμάτων"
 msgid "Color count"
 msgstr "Πλήθος χρωμάτων"
 
-#: src/components/empty/EmptyColorSet.tsx:70
+#: src/components/empty/EmptyColorSet.tsx:73
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "Τα δεδομένα χρώματος δεν είναι διαθέσιμα αυτήν τη στιγμή. Ελέγξτε τη σύνδεσή σας και δοκιμάστε ξανά."
 
@@ -912,21 +921,9 @@ msgstr "Δώστε ένα όνομα στο σύνολο χρωμάτων σας
 msgid "Glazing"
 msgstr "Τζάμια"
 
-#: src/components/empty/EmptyPalette.tsx:55
-msgid "Go to the <0>{colorPickerLabel}</0> tab."
-msgstr "Μεταβείτε στην καρτέλα <0>{colorPickerLabel}</0> ."
-
-#: src/components/empty/EmptyColorSet.tsx:94
-msgid "Go to the <0>{colorSetLabel}</0> tab."
-msgstr "Μεταβείτε στην καρτέλα <0>{colorSetLabel}</0> ."
-
-#: src/components/empty/EmptyColorSet.tsx:121
-msgid "Go to the <0>{photoLabel}</0> tab and choose a reference photo."
-msgstr "Μεταβείτε στην καρτέλα <0>{photoLabel}</0> και επιλέξτε μια φωτογραφία αναφοράς."
-
-#: src/components/empty/EmptyImage.tsx:48
-msgid "Go to the <0>{photoLabel}</0> tab and choose your reference photo."
-msgstr "Μεταβείτε στην καρτέλα <0>{photoLabel}</0> και επιλέξτε τη φωτογραφία αναφοράς σας."
+#: src/components/button/GoToTabButton.tsx:38
+msgid "Go to the {label} tab"
+msgstr "Μεταβείτε στην καρτέλα {label}"
 
 #: src/components/messages.ts:51
 msgid "Gouache"
@@ -1202,10 +1199,6 @@ msgstr "Νέα σύγκριση"
 msgid "Next charge date"
 msgstr "Επόμενη ημερομηνία χρέωσης"
 
-#: src/components/empty/EmptyPalette.tsx:39
-msgid "No data"
-msgstr "Δεν υπάρχουν δεδομένα"
-
 #: src/components/empty/EmptySimilarColors.tsx:26
 msgid "No matching color mixtures were found."
 msgstr "Δεν βρέθηκαν ταιριαστά μείγματα χρωμάτων."
@@ -1215,7 +1208,7 @@ msgstr "Δεν βρέθηκαν ταιριαστά μείγματα χρωμάτ
 msgid "No sorting"
 msgstr "Χωρίς διαλογή"
 
-#: src/components/empty/EmptyTargetColor.tsx:26
+#: src/components/empty/EmptyTargetColor.tsx:28
 msgid "No target color is selected."
 msgstr "Δεν έχει επιλεγεί χρώμα στόχος."
 
@@ -1379,7 +1372,11 @@ msgstr "Η φωτογραφία δεν είναι διαθέσιμη. Επανα
 msgid "Photo unavailable. Select the original again to repair it."
 msgstr "Η φωτογραφία δεν είναι διαθέσιμη. Επιλέξτε ξανά το πρωτότυπο για να το επισκευάσετε."
 
-#: src/components/empty/EmptyTargetColor.tsx:35
+#: src/components/empty/EmptyPalette.tsx:44
+msgid "Pick a target color"
+msgstr "Επιλέξτε ένα χρώμα-στόχο"
+
+#: src/components/empty/EmptyTargetColor.tsx:39
 msgid "Pinch or scroll to zoom, drag to pan."
 msgstr "Τσιμπήστε ή κάντε κύλιση για μεγέθυνση, σύρετε για μετατόπιση."
 
@@ -1396,6 +1393,10 @@ msgstr "Θέση: {position}<0/>Rating: {ratingText}"
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:63
 msgid "Postpone"
 msgstr "Αναβάλλω"
+
+#: src/components/empty/EmptyColorSet.tsx:113
+msgid "Press <0>Save & continue</0> when done."
+msgstr "Πατήστε <0>Αποθήκευση και συνέχεια</0> όταν τελειώσετε."
 
 #: src/components/install/InstallDrawer.tsx:170
 msgid "Press Add to Dock"
@@ -1414,7 +1415,7 @@ msgstr "Πατήστε ξανά Back για έξοδο"
 msgid "Press Share in Navigation bar"
 msgstr "Πατήστε Κοινή χρήση στη γραμμή περιήγησης"
 
-#: src/components/empty/EmptyPalette.tsx:70
+#: src/components/empty/EmptyPalette.tsx:55
 msgid "Press the <0>Add to palette</0> button next to the color mixture you like."
 msgstr "Πατήστε το κουμπί <0>Προσθήκη στην παλέτα</0> δίπλα στο μείγμα χρωμάτων που σας αρέσει."
 
@@ -1529,23 +1530,20 @@ msgstr "Επαναφορά αντιγράφων ασφαλείας"
 msgid "Restore from cloud"
 msgstr "Επαναφορά από το σύννεφο"
 
-#: src/components/empty/EmptyColorSet.tsx:58
+#: src/components/empty/EmptyColorSet.tsx:60
 msgid "Restoring the saved color set"
 msgstr "Επαναφορά του αποθηκευμένου συνόλου χρωμάτων"
 
 #: src/components/color-set/ColorSetActivationNotification.tsx:36
-#: src/components/empty/EmptyColorSet.tsx:74
+#: src/components/empty/EmptyColorSet.tsx:77
 msgid "Retry"
 msgstr "Δοκιμάζω πάλι"
 
-#: src/components/empty/EmptyPalette.tsx:76
-msgid "Return to the <0>{paletteLabel}</0> tab."
-msgstr "Επιστρέψτε στην καρτέλα <0>{paletteLabel}</0> ."
-
-#: src/components/empty/EmptyColorSet.tsx:132
-#: src/components/empty/EmptyImage.tsx:57
-msgid "Return to the <0>{tabLabel}</0> tab."
-msgstr "Επιστρέψτε στην καρτέλα <0>{tabLabel}</0> ."
+#: src/components/empty/EmptyColorSet.tsx:128
+#: src/components/empty/EmptyImage.tsx:48
+#: src/components/empty/EmptyPalette.tsx:61
+msgid "Return to the {tabLabel} tab"
+msgstr "Επιστρέψτε στην καρτέλα {tabLabel}"
 
 #: src/components/ImagePerspectiveCorrection.tsx:293
 #: src/components/ImagePerspectiveCorrection.tsx:345
@@ -1751,8 +1749,11 @@ msgstr "Επιλογή εικόνας στυλ"
 msgid "Select the color sets you want to merge. A new color set will be created that includes all the colors from the selected sets."
 msgstr "Επιλέξτε τα σύνολα χρωμάτων που θέλετε να συγχωνεύσετε. Θα δημιουργηθεί ένα νέο σύνολο χρωμάτων που περιλαμβάνει όλα τα χρώματα από τα επιλεγμένα σύνολα."
 
+#: src/components/empty/EmptyColorSet.tsx:99
+msgid "Select your art medium, color brands, and colors"
+msgstr "Επιλέξτε το μέσο τέχνης, τις επωνυμίες χρωμάτων και τα χρώματά σας"
+
 #: src/components/ColorSetChooser.tsx:578
-#: src/components/empty/EmptyColorSet.tsx:103
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>."
 msgstr "Επιλέξτε το μέσο τέχνης, τις επωνυμίες χρωμάτων και τα χρώματα με τα οποία θα ζωγραφίσετε και, στη συνέχεια, πατήστε <0>Αποθήκευση & συνέχεια</0>."
 
@@ -1953,7 +1954,7 @@ msgstr "Ισιώνει τις λοξές φωτογραφίες και αφαι�
 msgid "Styled reference photo"
 msgstr "Στυλιζαρισμένη φωτογραφία αναφοράς"
 
-#: src/components/empty/EmptyColorSet.tsx:110
+#: src/components/empty/EmptyColorSet.tsx:104
 msgid "Supported art mediums:"
 msgstr "Υποστηριζόμενα μέσα τέχνης:"
 
@@ -2049,7 +2050,7 @@ msgstr "Το αρχείο μπορεί να έχει μετακινηθεί ή �
 msgid "The margin is too large"
 msgstr "Το περιθώριο είναι πολύ μεγάλο"
 
-#: src/components/empty/EmptyPalette.tsx:44
+#: src/components/empty/EmptyPalette.tsx:70
 msgid "There is one common palette and a separate palette for each photo."
 msgstr "Υπάρχει μια κοινή παλέτα και μια ξεχωριστή παλέτα για κάθε φωτογραφία."
 
@@ -2101,7 +2102,7 @@ msgstr "Δεν ήταν δυνατή η επαναφορά αυτής της φ�
 msgid "This print size is not supported"
 msgstr "Αυτό το μέγεθος εκτύπωσης δεν υποστηρίζεται"
 
-#: src/components/empty/EmptyColorSet.tsx:128
+#: src/components/empty/EmptyColorSet.tsx:123
 msgid "This step is optional."
 msgstr "Αυτό το βήμα είναι προαιρετικό."
 
@@ -2121,11 +2122,11 @@ msgstr "Για να το διορθώσετε:"
 msgid "To install ArtistAssistApp, use one of the supported web browsers:"
 msgstr "Για να εγκαταστήσετε το ArtistAssistApp, χρησιμοποιήστε ένα από τα υποστηριζόμενα προγράμματα περιήγησης ιστού:"
 
-#: src/components/empty/EmptyImage.tsx:42
+#: src/components/empty/EmptyImage.tsx:39
 msgid "To use the {tabLabel} feature, select a reference photo."
 msgstr "Για να χρησιμοποιήσετε τη λειτουργία {tabLabel}, επιλέξτε μια φωτογραφία αναφοράς."
 
-#: src/components/empty/EmptyColorSet.tsx:86
+#: src/components/empty/EmptyColorSet.tsx:88
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with."
 msgstr "Για να χρησιμοποιήσετε τη δυνατότητα {tabLabel}, επιλέξτε υποστηριζόμενο μέσο τέχνης και χρώματα για ζωγραφική."
 
@@ -2155,7 +2156,7 @@ msgid "Tutorials and videos"
 msgstr "Σεμινάρια και βίντεο"
 
 #: src/components/color-set/ColorSetActivationNotification.tsx:33
-#: src/components/empty/EmptyColorSet.tsx:68
+#: src/components/empty/EmptyColorSet.tsx:71
 msgid "Unable to restore the saved color set"
 msgstr "Δεν είναι δυνατή η επαναφορά του αποθηκευμένου συνόλου χρωμάτων"
 

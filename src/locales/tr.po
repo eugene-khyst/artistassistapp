@@ -153,11 +153,15 @@ msgstr "Akrilik İşaretleyiciler"
 msgid "Acrylic Paint"
 msgstr "Akrilik Boya"
 
+#: src/components/empty/EmptyPalette.tsx:53
+msgid "Add a color mixture to the palette"
+msgstr "Palete bir renk karışımı ekleyin"
+
 #: src/components/ColorMixer.tsx:242
 msgid "Add color"
 msgstr "Renk ekleme"
 
-#: src/components/empty/EmptyPalette.tsx:49
+#: src/components/empty/EmptyPalette.tsx:35
 msgid "Add color mixtures to the palette."
 msgstr "Palete renk karışımları ekleyin."
 
@@ -391,6 +395,11 @@ msgstr "Hücre"
 msgid "Check for updates"
 msgstr "Güncellemeleri kontrol et"
 
+#: src/components/empty/EmptyColorSet.tsx:122
+#: src/components/empty/EmptyImage.tsx:47
+msgid "Choose a reference photo"
+msgstr "Bir referans fotoğrafı seçin"
+
 #: src/components/ImageBackgroundRemoval.tsx:128
 msgid "Clear background color"
 msgstr "Açık arka plan rengi"
@@ -417,11 +426,11 @@ msgstr "Bir odak noktası seçmek için fotoğrafın herhangi bir yerinde 🖱�
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Beyaz bir nokta seçmek için fotoğrafta herhangi bir yeri tıklayın 🖱️ veya dokunun 👆."
 
-#: src/components/empty/EmptyTargetColor.tsx:29
+#: src/components/empty/EmptyTargetColor.tsx:33
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color for mixing from your colors."
 msgstr "Fotoğrafta herhangi bir yere tıklayabilir 🖱️ veya 👆 dokunabilir ya da renk seçici açılır penceresini kullanarak renklerinizden karıştırmak için hedef renk seçebilirsiniz."
 
-#: src/components/empty/EmptyPalette.tsx:64
+#: src/components/empty/EmptyPalette.tsx:46
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
 msgstr "Fotoğrafta herhangi bir yere tıklayın 🖱️ veya dokunun 👆 ya da renklerinizden karıştırmak üzere bir hedef renk seçmek için renk seçici açılır penceresini kullanın."
 
@@ -506,7 +515,7 @@ msgstr "Renk markaları"
 msgid "Color count"
 msgstr "Renk sayımı"
 
-#: src/components/empty/EmptyColorSet.tsx:70
+#: src/components/empty/EmptyColorSet.tsx:73
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "Renk verileri şu anda kullanılamıyor. Bağlantınızı kontrol edip tekrar deneyin."
 
@@ -912,21 +921,9 @@ msgstr "Kolay erişim için renk setinize bir ad verin."
 msgid "Glazing"
 msgstr "Cam"
 
-#: src/components/empty/EmptyPalette.tsx:55
-msgid "Go to the <0>{colorPickerLabel}</0> tab."
-msgstr "<0>{colorPickerLabel}</0> sekmesine gidin."
-
-#: src/components/empty/EmptyColorSet.tsx:94
-msgid "Go to the <0>{colorSetLabel}</0> tab."
-msgstr "<0>{colorSetLabel}</0> sekmesine gidin."
-
-#: src/components/empty/EmptyColorSet.tsx:121
-msgid "Go to the <0>{photoLabel}</0> tab and choose a reference photo."
-msgstr "<0>{photoLabel}</0> sekmesine gidin ve bir referans fotoğraf seçin."
-
-#: src/components/empty/EmptyImage.tsx:48
-msgid "Go to the <0>{photoLabel}</0> tab and choose your reference photo."
-msgstr "<0>{photoLabel}</0> sekmesine gidin ve referans fotoğrafınızı seçin."
+#: src/components/button/GoToTabButton.tsx:38
+msgid "Go to the {label} tab"
+msgstr "{label} sekmesine gidin"
 
 #: src/components/messages.ts:51
 msgid "Gouache"
@@ -1202,10 +1199,6 @@ msgstr "Yeni karşılaştırma"
 msgid "Next charge date"
 msgstr "Sonraki şarj tarihi"
 
-#: src/components/empty/EmptyPalette.tsx:39
-msgid "No data"
-msgstr "Veri yok"
-
 #: src/components/empty/EmptySimilarColors.tsx:26
 msgid "No matching color mixtures were found."
 msgstr "Eşleşen renk karışımı bulunamadı."
@@ -1215,7 +1208,7 @@ msgstr "Eşleşen renk karışımı bulunamadı."
 msgid "No sorting"
 msgstr "Sıralama yok"
 
-#: src/components/empty/EmptyTargetColor.tsx:26
+#: src/components/empty/EmptyTargetColor.tsx:28
 msgid "No target color is selected."
 msgstr "Hedef renk seçilmez."
 
@@ -1379,7 +1372,11 @@ msgstr "Fotoğraf kullanılamıyor. Bulut depolama alanınızdan geri yükleyin 
 msgid "Photo unavailable. Select the original again to repair it."
 msgstr "Fotoğraf kullanılamıyor. Onarmak için orijinali tekrar seçin."
 
-#: src/components/empty/EmptyTargetColor.tsx:35
+#: src/components/empty/EmptyPalette.tsx:44
+msgid "Pick a target color"
+msgstr "Bir hedef renk seçin"
+
+#: src/components/empty/EmptyTargetColor.tsx:39
 msgid "Pinch or scroll to zoom, drag to pan."
 msgstr "Yakınlaştırmak için sıkıştırmak veya kaydırmak, kaydırmak için sürüklemek için kullan."
 
@@ -1396,6 +1393,10 @@ msgstr "Pozisyon: {position}<0/>Değerlendirme: {ratingText}"
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:63
 msgid "Postpone"
 msgstr "Erteleme"
+
+#: src/components/empty/EmptyColorSet.tsx:113
+msgid "Press <0>Save & continue</0> when done."
+msgstr "İşiniz bittiğinde <0>Kaydet ve devam et</0> tuşuna basın."
 
 #: src/components/install/InstallDrawer.tsx:170
 msgid "Press Add to Dock"
@@ -1414,7 +1415,7 @@ msgstr "Çıkmak için tekrar Geri tuşuna basın"
 msgid "Press Share in Navigation bar"
 msgstr "Gezinti çubuğunda Paylaş'a basın"
 
-#: src/components/empty/EmptyPalette.tsx:70
+#: src/components/empty/EmptyPalette.tsx:55
 msgid "Press the <0>Add to palette</0> button next to the color mixture you like."
 msgstr "Beğendiğiniz renk karışımının yanındaki <0>Palete ekle</0> düğmesine basın."
 
@@ -1529,23 +1530,20 @@ msgstr "Yedeklemeyi geri getir"
 msgid "Restore from cloud"
 msgstr "Buluttan geri yükle"
 
-#: src/components/empty/EmptyColorSet.tsx:58
+#: src/components/empty/EmptyColorSet.tsx:60
 msgid "Restoring the saved color set"
 msgstr "Kaydedilen renk kümesini geri yükleme"
 
 #: src/components/color-set/ColorSetActivationNotification.tsx:36
-#: src/components/empty/EmptyColorSet.tsx:74
+#: src/components/empty/EmptyColorSet.tsx:77
 msgid "Retry"
 msgstr "Yeniden dene"
 
-#: src/components/empty/EmptyPalette.tsx:76
-msgid "Return to the <0>{paletteLabel}</0> tab."
-msgstr "<0>{paletteLabel}</0> sekmesine geri dönün."
-
-#: src/components/empty/EmptyColorSet.tsx:132
-#: src/components/empty/EmptyImage.tsx:57
-msgid "Return to the <0>{tabLabel}</0> tab."
-msgstr "<0>{tabLabel}</0> sekmesine geri dönün."
+#: src/components/empty/EmptyColorSet.tsx:128
+#: src/components/empty/EmptyImage.tsx:48
+#: src/components/empty/EmptyPalette.tsx:61
+msgid "Return to the {tabLabel} tab"
+msgstr "{tabLabel} sekmesine dönün"
 
 #: src/components/ImagePerspectiveCorrection.tsx:293
 #: src/components/ImagePerspectiveCorrection.tsx:345
@@ -1751,8 +1749,11 @@ msgstr "Stil görüntüsü seç"
 msgid "Select the color sets you want to merge. A new color set will be created that includes all the colors from the selected sets."
 msgstr "Birleştirmek istediğiniz renk setlerini seçin. Seçilen setlerden tüm renkleri içeren yeni bir renk seti oluşturulur."
 
+#: src/components/empty/EmptyColorSet.tsx:99
+msgid "Select your art medium, color brands, and colors"
+msgstr "Sanat ortamınızı, renk markalarınızı ve renklerinizi seçin"
+
 #: src/components/ColorSetChooser.tsx:578
-#: src/components/empty/EmptyColorSet.tsx:103
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>."
 msgstr "Sanat ortamınızı, renk markalarınızı ve boyayacağınız renkleri seçin, sonra <0>Kaydet ve Devam</0> et'e basın."
 
@@ -1953,7 +1954,7 @@ msgstr "Çarpık fotoğrafları düzeltir ve istenmeyen kenarları kaldırır. P
 msgid "Styled reference photo"
 msgstr "Tarz referans fotoğraf"
 
-#: src/components/empty/EmptyColorSet.tsx:110
+#: src/components/empty/EmptyColorSet.tsx:104
 msgid "Supported art mediums:"
 msgstr "Desteklenen sanat ortamları:"
 
@@ -2049,7 +2050,7 @@ msgstr "Dosya taşınmış veya silinmiş olabilir, ya da bulutta saklanıp bu c
 msgid "The margin is too large"
 msgstr "Marj çok büyük"
 
-#: src/components/empty/EmptyPalette.tsx:44
+#: src/components/empty/EmptyPalette.tsx:70
 msgid "There is one common palette and a separate palette for each photo."
 msgstr "Her fotoğraf için ortak bir palet ve ayrı bir palet vardır."
 
@@ -2101,7 +2102,7 @@ msgstr "Bu fotoğraf bulut depolama alanınızdan geri yüklenemedi."
 msgid "This print size is not supported"
 msgstr "Bu yazdırma boyutu desteklenmiyor"
 
-#: src/components/empty/EmptyColorSet.tsx:128
+#: src/components/empty/EmptyColorSet.tsx:123
 msgid "This step is optional."
 msgstr "Bu adım isteğe bağlıdır."
 
@@ -2121,11 +2122,11 @@ msgstr "Bunu düzeltmek için:"
 msgid "To install ArtistAssistApp, use one of the supported web browsers:"
 msgstr "ArtistAssistApp'i kurmak için desteklenen web tarayıcılarından birini kullanın:"
 
-#: src/components/empty/EmptyImage.tsx:42
+#: src/components/empty/EmptyImage.tsx:39
 msgid "To use the {tabLabel} feature, select a reference photo."
 msgstr "{tabLabel} özelliğini kullanmak için bir referans fotoğraf seçin."
 
-#: src/components/empty/EmptyColorSet.tsx:86
+#: src/components/empty/EmptyColorSet.tsx:88
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with."
 msgstr "{tabLabel} özelliğini kullanmak için, desteklenen sanat ortamı ve boyamak için renkleri seçin."
 
@@ -2155,7 +2156,7 @@ msgid "Tutorials and videos"
 msgstr "Öğreticiler ve videolar"
 
 #: src/components/color-set/ColorSetActivationNotification.tsx:33
-#: src/components/empty/EmptyColorSet.tsx:68
+#: src/components/empty/EmptyColorSet.tsx:71
 msgid "Unable to restore the saved color set"
 msgstr "Kaydedilen renk seti geri yüklenemiyor"
 

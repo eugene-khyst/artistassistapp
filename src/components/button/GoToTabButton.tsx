@@ -16,18 +16,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Trans} from '@lingui/react/macro';
-import {Empty, Typography} from 'antd';
+import {Trans, useLingui} from '@lingui/react/macro';
+import {Button} from 'antd';
+import type {ButtonProps} from 'antd/lib';
 
-export function EmptySimilarColors() {
+import {TAB_LABELS} from '@/components/messages';
+import {useAppStore} from '@/stores/app-store';
+import type {TabKey} from '@/tabs';
+
+type Props = {tab: TabKey} & Omit<ButtonProps, 'onClick' | 'children'>;
+
+export function GoToTabButton({tab, ...rest}: Readonly<Props>) {
+  const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
+
+  const {t} = useLingui();
+
+  const label: string = t(TAB_LABELS[tab]);
+
   return (
-    <Empty
-      image={Empty.PRESENTED_IMAGE_SIMPLE}
-      description={<Trans>No matching color mixtures were found.</Trans>}
-    >
-      <Typography.Text type="secondary">
-        <Trans>Try adding some colors to your color set.</Trans>
-      </Typography.Text>
-    </Empty>
+    <Button onClick={() => void setActiveTabKey(tab)} {...rest}>
+      <Trans>Go to the {label} tab</Trans>
+    </Button>
   );
 }

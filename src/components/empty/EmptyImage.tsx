@@ -17,49 +17,39 @@
  */
 
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Col, Row, Typography} from 'antd';
+import {Col, Row, Steps, Typography} from 'antd';
 import {use} from 'react';
 
 import {AdCard} from '@/components/ad/AdCard';
+import {GoToTabButton} from '@/components/button/GoToTabButton';
 import {TAB_LABELS} from '@/components/messages';
 import {TabContext} from '@/contexts/TabContext';
-import {useAppStore} from '@/stores/app-store';
 import {TabKey} from '@/tabs';
 
 export function EmptyImage() {
   const tab: TabKey = use(TabContext);
-  const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
 
   const {t} = useLingui();
 
   const tabLabel: string = t(TAB_LABELS[tab]);
-  const photoLabel: string = t(TAB_LABELS[TabKey.Photo]);
 
   return (
     <div className="u-tab-content">
-      <Typography.Paragraph>
-        <Typography.Text strong>
-          <Trans>To use the {tabLabel} feature, select a reference photo.</Trans>
-        </Typography.Text>
-        <br />
-
-        <ol>
-          <li>
-            <Trans>
-              Go to the{' '}
-              <Typography.Link strong onClick={() => void setActiveTabKey(TabKey.Photo)}>
-                {photoLabel}
-              </Typography.Link>{' '}
-              tab and choose your reference photo.
-            </Trans>
-          </li>
-          <li>
-            <Trans>
-              Return to the <Typography.Text strong>{tabLabel}</Typography.Text> tab.
-            </Trans>
-          </li>
-        </ol>
+      <Typography.Paragraph strong>
+        <Trans>To use the {tabLabel} feature, select a reference photo.</Trans>
       </Typography.Paragraph>
+
+      <Steps
+        orientation="vertical"
+        size="small"
+        className="u-mb"
+        items={[
+          {title: <Trans>Choose a reference photo</Trans>},
+          {title: <Trans>Return to the {tabLabel} tab</Trans>},
+        ]}
+      />
+
+      <GoToTabButton tab={TabKey.Photo} type="primary" className="u-mb" />
 
       <Row justify="start">
         <Col xs={24} md={12}>

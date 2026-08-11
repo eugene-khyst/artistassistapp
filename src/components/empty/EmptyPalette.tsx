@@ -17,68 +17,59 @@
  */
 
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Col, Row, Typography} from 'antd';
+import {Alert, Col, Row, Steps, Typography} from 'antd';
 
 import {AdCard} from '@/components/ad/AdCard';
+import {GoToTabButton} from '@/components/button/GoToTabButton';
 import {TAB_LABELS} from '@/components/messages';
-import {useAppStore} from '@/stores/app-store';
 import {TabKey} from '@/tabs';
 
 export function EmptyPalette() {
-  const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
-
   const {t} = useLingui();
 
-  const colorPickerLabel: string = t(TAB_LABELS[TabKey.ColorPicker]);
-  const paletteLabel: string = t(TAB_LABELS[TabKey.Palette]);
+  const tabLabel: string = t(TAB_LABELS[TabKey.Palette]);
 
   return (
     <div className="u-tab-content">
-      <Typography.Paragraph>
-        <Typography.Text strong>
-          ⁉️ <Trans>No data</Trans>
-        </Typography.Text>
-        <br />
-
-        <Typography.Text strong>
-          <Trans>There is one common palette and a separate palette for each photo.</Trans>
-        </Typography.Text>
-        <br />
-
-        <Typography.Text strong>
-          <Trans>Add color mixtures to the palette.</Trans>
-        </Typography.Text>
-        <br />
-
-        <ol>
-          <li>
-            <Trans>
-              Go to the{' '}
-              <Typography.Link strong onClick={() => void setActiveTabKey(TabKey.ColorPicker)}>
-                {colorPickerLabel}
-              </Typography.Link>{' '}
-              tab.
-            </Trans>
-          </li>
-          <li>
-            <Trans>
-              Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a
-              target color to mix from your colors.
-            </Trans>
-          </li>
-          <li>
-            <Trans>
-              Press the <Typography.Text strong>Add to palette</Typography.Text> button next to the
-              color mixture you like.
-            </Trans>
-          </li>
-          <li>
-            <Trans>
-              Return to the <Typography.Text strong>{paletteLabel}</Typography.Text> tab.
-            </Trans>
-          </li>
-        </ol>
+      <Typography.Paragraph strong>
+        <Trans>Add color mixtures to the palette.</Trans>
       </Typography.Paragraph>
+
+      <Steps
+        orientation="vertical"
+        size="small"
+        className="u-mb"
+        items={[
+          {
+            title: <Trans>Pick a target color</Trans>,
+            content: (
+              <Trans>
+                Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a
+                target color to mix from your colors.
+              </Trans>
+            ),
+          },
+          {
+            title: <Trans>Add a color mixture to the palette</Trans>,
+            content: (
+              <Trans>
+                Press the <Typography.Text strong>Add to palette</Typography.Text> button next to
+                the color mixture you like.
+              </Trans>
+            ),
+          },
+          {title: <Trans>Return to the {tabLabel} tab</Trans>},
+        ]}
+      />
+
+      <GoToTabButton tab={TabKey.ColorPicker} type="primary" className="u-mb" />
+
+      <Alert
+        type="info"
+        showIcon
+        title={<Trans>There is one common palette and a separate palette for each photo.</Trans>}
+        className="u-w-fit u-mb"
+      />
 
       <Row justify="start">
         <Col xs={24} md={12}>

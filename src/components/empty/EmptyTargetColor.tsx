@@ -17,23 +17,28 @@
  */
 
 import {Trans} from '@lingui/react/macro';
-import {Space, Typography} from 'antd';
+import {Empty, Space, Typography} from 'antd';
+
+import styles from './EmptyTargetColor.module.css';
 
 export function EmptyTargetColor() {
   return (
-    <Space orientation="vertical">
-      <Typography.Text strong>
-        <Trans>No target color is selected.</Trans>
-      </Typography.Text>
-      <Typography.Text>
-        <Trans>
-          Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a
-          target color for mixing from your colors.
-        </Trans>
-      </Typography.Text>
-      <Typography.Text>
-        🔎 <Trans>Pinch or scroll to zoom, drag to pan.</Trans>
-      </Typography.Text>
-    </Space>
+    <Empty
+      image={Empty.PRESENTED_IMAGE_SIMPLE}
+      description={<Trans>No target color is selected.</Trans>}
+      classNames={{footer: styles['footer']}}
+    >
+      <Space orientation="vertical" size="small">
+        <Typography.Text type="secondary">
+          <Trans>
+            Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a
+            target color for mixing from your colors.
+          </Trans>
+        </Typography.Text>
+        <Typography.Text type="secondary">
+          🔎 <Trans>Pinch or scroll to zoom, drag to pan.</Trans>
+        </Typography.Text>
+      </Space>
+    </Empty>
   );
 }
