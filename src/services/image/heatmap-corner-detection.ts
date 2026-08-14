@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {clamp} from '@eugene-khyst/artistassistapp-color-mixer';
+
 import type {Authentication} from '@/services/auth/types';
 import {bilinearInterpolation} from '@/services/image/filter/interpolation';
 import {computeOtsuThresholdFromHistogram} from '@/services/image/filter/otsu-threshold';
@@ -25,7 +27,6 @@ import {type Float32Tensor, imageDataToFloat32Tensor} from '@/services/ml/tensor
 import type {OnnxModel} from '@/services/ml/types';
 import {runInferenceWorker} from '@/services/ml/worker/inference-worker-manager';
 import type {FetchProgressCallback} from '@/utils/fetch';
-import {clamp} from '@/utils/math-utils';
 
 const HEATMAP_THRESHOLD = 0.3;
 const MIN_VERTEX_COUNT = 3;

@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {ColorWarmth} from '@eugene-khyst/artistassistapp-color-mixer';
 import type {MessageDescriptor} from '@lingui/core';
 import {defineMessage} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
@@ -25,7 +26,6 @@ import type {ReactNode} from 'react';
 import Cool from '@/icons/warmth/cool.svg?react';
 import Neutral from '@/icons/warmth/neutral.svg?react';
 import Warm from '@/icons/warmth/warm.svg?react';
-import {ColorWarmth} from '@/services/color/types';
 
 interface WarmthDescription {
   icon: ReactNode;

@@ -16,16 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  ColorMixer,
+  type ColorSet,
+  computeIfAbsentInMap,
+  packRgb,
+  type RgbTuple,
+  WHITE,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {transfer} from 'comlink';
 
-import {ColorMixer, PAPER_WHITE} from '@/services/color/color-mixer';
-import type {RgbTuple} from '@/services/color/space/rgb';
-import {packRgb, WHITE} from '@/services/color/space/rgb';
-import type {ColorSet} from '@/services/color/types';
-import type {SamplingPoint} from '@/services/image/sampling-point';
-import {computeSamplingPoints} from '@/services/image/sampling-point';
+import {computeSamplingPoints, type SamplingPoint} from '@/services/image/sampling-point';
 import {drawImageToOffscreenCanvas, offscreenCanvasToImageData} from '@/utils/graphics';
-import {computeIfAbsentInMap} from '@/utils/map';
 
 import {quantizeColors, rgbTransformInOklab} from './filter/color-quantize';
 
@@ -67,23 +69,23 @@ export class ColorQuantization {
   async getLimitedPaletteImage(image: ImageBitmap, colorSet: ColorSet): Promise<Result> {
     console.time('limited-palette');
     const colorMixer = new ColorMixer();
-    colorMixer.setColorSet(colorSet, null, PAPER_WHITE);
+    colorMixer.setColorSet({colorSet});
     const imageData: ImageData = offscreenCanvasToImageData(
       ...drawImageToOffscreenCanvas(image, {
         willReadFrequently: true,
       })
     );
     image.close();
-    const similarColors = new Map<number, RgbTuple>();
+    const matchedColors = new Map<number, RgbTuple>();
     quantizeColors(
       imageData,
       MAX_COLORS,
       true,
       rgbTransformInOklab((color: RgbTuple): RgbTuple =>
         computeIfAbsentInMap(
-          similarColors,
+          matchedColors,
           packRgb(...color),
-          () => colorMixer.findSimilarColor(color, true)?.colorMixture.layerRgb ?? WHITE
+          () => colorMixer.findBestAvailableColorMatch(color, true)?.colorMixture.layerRgb ?? WHITE
         )
       )
     );

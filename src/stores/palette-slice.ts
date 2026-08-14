@@ -16,9 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  type ColorMixture,
+  type ColorType,
+  computeIfAbsentInMap,
+  type SamplingArea,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import type {StateCreator} from 'zustand';
 
-import type {ColorMixture, ColorType, SamplingArea} from '@/services/color/types';
 import {
   deleteColorMixture,
   getColorMixturesByDigest,
@@ -27,7 +32,6 @@ import {
 import type {AppSlice} from '@/stores/app-slice';
 import type {CloudSlice} from '@/stores/cloud-slice';
 import {persistChange} from '@/stores/sync/persist-change';
-import {computeIfAbsentInMap} from '@/utils/map';
 import {createAbortError} from '@/utils/promise';
 
 import type {ColorMixerSlice} from './color-mixer-slice';

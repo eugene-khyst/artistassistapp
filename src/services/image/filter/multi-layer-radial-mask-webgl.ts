@@ -18,8 +18,7 @@
 
 import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
 import {Vector} from '@/services/math/geometry';
-import type {DrawImageSource} from '@/utils/graphics';
-import {copyOffscreenCanvas} from '@/utils/graphics';
+import {copyOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
 
 import fragmentShaderSource from './glsl/multi-layer-radial-mask.glsl';
 

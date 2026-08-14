@@ -16,18 +16,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  type ColorMixture,
+  type ColorMixturePart,
+  hexToRgb,
+  Reflectance,
+  type RgbTuple,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans, useLingui} from '@lingui/react/macro';
-import type {CheckboxOptionType, RadioChangeEvent} from 'antd';
-import {Drawer, Form, Radio, Typography} from 'antd';
+import {
+  type CheckboxOptionType,
+  Drawer,
+  Form,
+  Radio,
+  type RadioChangeEvent,
+  Typography,
+} from 'antd';
 import {useEffect, useState} from 'react';
 
 import {ColorMixtureDescription} from '@/components/color/ColorMixtureDescription';
 import {COLOR_TYPE_LABELS} from '@/components/messages';
 import {useReflectanceChart} from '@/hooks/useReflectanceChart';
-import {Reflectance} from '@/services/color/space/reflectance';
-import type {RgbTuple} from '@/services/color/space/rgb';
-import {hexToRgb} from '@/services/color/space/rgb';
-import type {ColorMixture, ColorMixturePart} from '@/services/color/types';
 
 type ChartMode = 'similarity' | 'mixture';
 

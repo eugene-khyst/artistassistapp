@@ -16,16 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  type ColorBrandDefinition,
+  type ColorType,
+  indexStandardColorSets,
+  type StandardColorSetDefinition,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {useQueries} from '@tanstack/react-query';
 import {useCallback, useMemo} from 'react';
 
 import {standardColorSetsQueryOptions} from '@/services/color/color-queries';
-import {indexStandardColorSets} from '@/services/color/colors';
-import type {
-  ColorBrandDefinition,
-  ColorType,
-  StandardColorSetDefinition,
-} from '@/services/color/types';
 
 interface Result {
   isLoading: boolean;

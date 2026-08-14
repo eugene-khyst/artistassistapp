@@ -32,7 +32,7 @@ export function EmptyPalette() {
   return (
     <div className="u-tab-content">
       <Typography.Paragraph strong>
-        <Trans>Add color mixtures to the palette.</Trans>
+        <Trans>Add color mixtures to the palette</Trans>
       </Typography.Paragraph>
 
       <Steps
@@ -45,7 +45,7 @@ export function EmptyPalette() {
             content: (
               <Trans>
                 Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a
-                target color to mix from your colors.
+                target color to mix from your colors
               </Trans>
             ),
           },
@@ -54,7 +54,7 @@ export function EmptyPalette() {
             content: (
               <Trans>
                 Press the <Typography.Text strong>Add to palette</Typography.Text> button next to
-                the color mixture you like.
+                the color mixture you like
               </Trans>
             ),
           },
@@ -67,7 +67,7 @@ export function EmptyPalette() {
       <Alert
         type="info"
         showIcon
-        title={<Trans>There is one common palette and a separate palette for each photo.</Trans>}
+        title={<Trans>There is one common palette and a separate palette for each photo</Trans>}
         className="u-w-fit u-mb"
       />
 

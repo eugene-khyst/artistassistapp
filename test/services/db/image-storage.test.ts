@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {type ColorMixture, ColorType} from '@eugene-khyst/artistassistapp-color-mixer';
 import {strFromU8, strToU8, unzipSync, zipSync} from 'fflate';
-import type {IDBPDatabase} from 'idb';
-import {deleteDB, openDB} from 'idb';
+import {deleteDB, type IDBPDatabase, openDB} from 'idb';
 import {afterAll, beforeEach, describe, expect, it, vi} from 'vitest';
 
 import {
@@ -28,7 +28,6 @@ import {
 } from '@/services/cloud/cloud-state';
 import {createStateZip, replaceStateFromZip} from '@/services/cloud/state-zip';
 import type {CloudState} from '@/services/cloud/types';
-import {ColorType, type ColorMixture} from '@/services/color/types';
 import {getLocalState, replaceLocalStateFromZip} from '@/services/db/cloud-sync-db';
 import {dbPromise, deleteDatabase} from '@/services/db/db';
 import {
@@ -41,8 +40,7 @@ import {
 import {applyMigrations} from '@/services/db/migrations';
 import type {ArtistAssistAppDB, LegacyArtistAssistAppDB, StoreName} from '@/services/db/schema';
 import {getStoreChangeTokens} from '@/services/db/store-changes-db';
-import type {ImageFile, ImageMetadata} from '@/services/image/image-file';
-import {toImageMetadata} from '@/services/image/image-file';
+import {type ImageFile, type ImageMetadata, toImageMetadata} from '@/services/image/image-file';
 import {digestArrayBuffer} from '@/utils/digest';
 
 const STATE_FILE_NAME = 'artistassistapp-data.json';
@@ -153,6 +151,7 @@ async function openLegacyMigrationDatabase(): Promise<{
     '002-color-mixture-underlayer-rgb',
     '004-image-metadata',
     '005-style-image',
+    '007-custom-brands-is-white',
   ]) {
     await db.add('migrations', {name: migrationName, appliedAt: new Date()});
   }
@@ -480,10 +479,17 @@ describe('ZIP backup', () => {
     expect(await db.get('local-state-connection', 0)).toBeUndefined();
   });
 
+  it('rejects a missing state file without changing local data', async () => {
+    await expectRejectedImportToPreserve(
+      stateZip({unrelated: strToU8('{}')}),
+      `Backup file is missing: ${STATE_FILE_NAME}`
+    );
+  });
+
   it('rejects invalid state JSON without changing local data', async () => {
     await expectRejectedImportToPreserve(
       stateZip({[STATE_FILE_NAME]: strToU8('{')}),
-      `Backup file is missing or invalid: ${STATE_FILE_NAME}`
+      `Backup file is invalid: ${STATE_FILE_NAME}`
     );
   });
 
@@ -494,7 +500,7 @@ describe('ZIP backup', () => {
           JSON.stringify({...cloudState(), images: [{digest: 'invalid', type: 'image/png'}]})
         ),
       }),
-      `Backup file is missing or invalid: ${STATE_FILE_NAME}`
+      `Backup file is invalid: ${STATE_FILE_NAME}`
     );
   });
 

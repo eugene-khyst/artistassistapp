@@ -17,16 +17,20 @@
  */
 
 import {DeleteOutlined, PictureOutlined} from '@ant-design/icons';
+import {
+  COLOR_MIXING,
+  type ColorMixture,
+  getColorId,
+  isPastel,
+  Layering,
+  rgbToHex,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Card, Col, Flex, Popconfirm, Row, Typography} from 'antd';
 import type {CardProps} from 'antd/lib';
 import {memo} from 'react';
 
 import {ColorMixtureDescription} from '@/components/color/ColorMixtureDescription';
-import {COLOR_MIXING} from '@/services/color/color-mixer';
-import {getColorId, isPastel} from '@/services/color/colors';
-import {rgbToHex} from '@/services/color/space/rgb';
-import {type ColorMixture, Layering} from '@/services/color/types';
 import {useAppStore} from '@/stores/app-store';
 import {TabKey} from '@/tabs';
 

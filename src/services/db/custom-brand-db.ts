@@ -20,7 +20,8 @@ import type {
   ColorSetDefinition,
   ColorType,
   CustomColorBrandDefinition,
-} from '@/services/color/types';
+} from '@eugene-khyst/artistassistapp-color-mixer';
+
 import {markStoreChanged} from '@/services/db/store-changes-db';
 import type {StoreChangeTokens} from '@/services/db/types';
 

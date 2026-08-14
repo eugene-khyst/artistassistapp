@@ -16,43 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {by, type Comparator} from '@/utils/comparator';
-
-export type TypedArray =
-  | Int8Array
-  | Uint8Array
-  | Uint8ClampedArray
-  | Int16Array
-  | Uint16Array
-  | Int32Array
-  | Uint32Array
-  | Float32Array
-  | Float64Array;
+import type {Comparator} from '@eugene-khyst/artistassistapp-color-mixer';
 
 export type ArrayElement<ArrayType extends readonly unknown[] | undefined> =
   ArrayType extends readonly (infer ElementType)[] ? ElementType : never;
 
-export function range(min: number, max: number, step = 1): number[] {
-  const length = Math.floor((max - min) / step) + 1;
-  return Array.from({length}, (_, i) => min + i * step);
-}
-
-export function unique<T>(array: T[], identityFn: (element: T) => string | number) {
-  if (!array.length) {
-    return [];
-  }
-  const identities = new Set<string | number>();
-  return array.filter((element: T) => {
-    const identity: string | number = identityFn(element);
-    if (identities.has(identity)) {
-      return false;
-    }
-    identities.add(identity);
-    return true;
-  });
-}
-
-export function arrayEquals<T>(a: T[] | null, b: T[] | null): boolean {
+export function isArrayEqual<T>(a: T[] | null, b: T[] | null): boolean {
   if (a === null || b === null) {
     return a === null && b === null;
   }
@@ -105,46 +74,4 @@ export function maxOf<T>(items: T[], comparator: Comparator<T>): T | undefined {
     }
   }
   return max;
-}
-
-export type ExtractorComparator<T, P> = [
-  comparator: Comparator<P>,
-  extractor?: (item: T) => P | null | undefined,
-];
-
-export function createExtractorComparator<T, P = T>(
-  comparator: Comparator<P>,
-  extractor?: (item: T) => P | null | undefined
-): ExtractorComparator<T, P> {
-  return [comparator, extractor];
-}
-
-export function decorateSortUndecorate<T, P>(
-  iterable: Iterable<T>,
-  [comparator, extractor]: ExtractorComparator<T, P>
-): T[];
-
-export function decorateSortUndecorate<T, P>(
-  iterable: Iterable<T> | undefined,
-  [comparator, extractor]: ExtractorComparator<T, P>
-): T[] | undefined;
-
-export function decorateSortUndecorate<T, P>(
-  iterable: Iterable<T> | undefined,
-  [comparator, extractor]: ExtractorComparator<T, P>
-): T[] | undefined {
-  if (!iterable) {
-    return;
-  }
-  if (extractor) {
-    return [...iterable]
-      .map(item => ({
-        item,
-        value: extractor(item),
-      }))
-      .sort(by(({value}) => value, comparator))
-      .map(({item}) => item);
-  } else {
-    return [...iterable].sort(comparator as unknown as Comparator<T>);
-  }
 }

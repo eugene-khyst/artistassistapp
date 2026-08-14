@@ -81,9 +81,15 @@ describe('fetchJson', () => {
               reject(request.signal.reason);
               return;
             }
-            request.signal.addEventListener('abort', () => reject(request.signal.reason), {
-              once: true,
-            });
+            request.signal.addEventListener(
+              'abort',
+              () => {
+                reject(request.signal.reason);
+              },
+              {
+                once: true,
+              }
+            );
           })
       )
     );

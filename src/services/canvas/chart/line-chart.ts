@@ -16,17 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {rgbToHex, type RgbTuple, type TypedArray} from '@eugene-khyst/artistassistapp-color-mixer';
+
 import {Canvas} from '@/services/canvas/canvas';
-import {rgbToHex, type RgbTuple} from '@/services/color/space/rgb';
 import {Vector} from '@/services/math/geometry';
-import type {TypedArray} from '@/utils/array';
 import {countFractionDigits} from '@/utils/format';
 
 const SPACING = 3;
 
 export interface Series {
-  xValues: number[] | TypedArray;
-  yValues: number[] | TypedArray;
+  xValues: readonly number[] | TypedArray;
+  yValues: readonly number[] | TypedArray;
   color: RgbTuple;
   lineWidth?: number;
 }
@@ -228,8 +228,8 @@ export class LineChart extends Canvas {
 
   private drawSeries(
     ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
-    xValues: number[] | TypedArray,
-    yValues: number[] | TypedArray,
+    xValues: readonly number[] | TypedArray,
+    yValues: readonly number[] | TypedArray,
     color: RgbTuple,
     lineWidth: number
   ): void {

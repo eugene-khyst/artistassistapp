@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {ColorBrandDefinition} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans} from '@lingui/react/macro';
 import type {FlattenOptionData} from '@rc-component/select/es/interface';
-import type {SelectProps} from 'antd';
-import {Select} from 'antd';
+import {Select, type SelectProps} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useCallback, useMemo} from 'react';
 
@@ -27,7 +27,6 @@ import {filterSelectOptions} from '@/components/utils';
 import type {User} from '@/services/auth/types';
 import {hasAccessTo} from '@/services/auth/utils';
 import {compareColorBrandsByName} from '@/services/color/colors';
-import type {ColorBrandDefinition} from '@/services/color/types';
 import {useAppStore} from '@/stores/app-store';
 
 const showSearch = {filterOption: filterSelectOptions};

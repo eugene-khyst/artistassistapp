@@ -20,8 +20,14 @@ import type {DBReadWriteTransaction} from '@/services/db/db';
 import {markStoreChanged} from '@/services/db/store-changes-db';
 import type {StoreChangeTokens} from '@/services/db/types';
 import {ImageUnreadableError} from '@/services/image/errors';
-import type {ImageFile, ImageMetadata, RecentImage} from '@/services/image/image-file';
-import {readStoredImageBytes, toImageBlob, toImageMetadata} from '@/services/image/image-file';
+import {
+  type ImageFile,
+  type ImageMetadata,
+  readStoredImageBytes,
+  type RecentImage,
+  toImageBlob,
+  toImageMetadata,
+} from '@/services/image/image-file';
 
 import {dbPromise} from './db';
 

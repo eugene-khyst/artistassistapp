@@ -17,14 +17,18 @@
  */
 
 import {MergeCellsOutlined} from '@ant-design/icons';
+import {
+  byDate,
+  type ColorBrandDefinition,
+  type ColorSetDefinition,
+  colorSetDefinitionToBrandColorCounts,
+  reverseOrder,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans} from '@lingui/react/macro';
 import {Button, Checkbox, Drawer, Flex, Space, Typography} from 'antd';
 import {useState} from 'react';
 
 import {ColorSetName} from '@/components/color-set/ColorSetName';
-import {colorSetDefinitionToBrandColorCounts} from '@/services/color/colors';
-import type {ColorBrandDefinition, ColorSetDefinition} from '@/services/color/types';
-import {byDate, reverseOrder} from '@/utils/comparator';
 
 interface Props {
   open: boolean;

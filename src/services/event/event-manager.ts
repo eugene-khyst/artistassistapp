@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {computeIfAbsentInMap} from '@/utils/map';
+import {computeIfAbsentInMap} from '@eugene-khyst/artistassistapp-color-mixer';
 
 export type EventListener<S> = (data: S) => void | Promise<void>;
 

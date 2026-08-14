@@ -16,14 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {ColorType} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans, useLingui} from '@lingui/react/macro';
-import type {SelectProps} from 'antd';
-import {Select} from 'antd';
+import {Select, type SelectProps} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 
 import {COLOR_TYPE_LABELS} from '@/components/messages';
 import {COLOR_TYPES} from '@/services/color/colors';
-import type {ColorType} from '@/services/color/types';
 
 type Props = Omit<SelectProps, 'options' | 'placeholder'>;
 

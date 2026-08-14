@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {type ColorMixture, ColorType} from '@eugene-khyst/artistassistapp-color-mixer';
 import {describe, expect, it} from 'vitest';
 
 import {
@@ -27,7 +28,6 @@ import {
   toCustomColorBrandSource,
 } from '@/services/cloud/cloud-state';
 import {EMPTY_CLOUD_STATE} from '@/services/cloud/types';
-import {ColorType, type ColorMixture} from '@/services/color/types';
 import type {ImageMetadata} from '@/services/image/image-file';
 import {validateCloudState, validateCustomColorBrandJson} from '@/services/validation';
 

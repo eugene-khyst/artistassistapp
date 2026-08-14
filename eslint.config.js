@@ -1,5 +1,6 @@
 import {defineConfig} from '@eslint/config-helpers';
 import js from '@eslint/js';
+import importX from 'eslint-plugin-import-x';
 import eslintReact from '@eslint-react/eslint-plugin';
 import pluginLingui from 'eslint-plugin-lingui';
 import licenseHeader from 'eslint-plugin-license-header';
@@ -10,9 +11,21 @@ import unusedImports from 'eslint-plugin-unused-imports';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
+const sharedPlugins = {
+  'import-x': importX,
+  'simple-import-sort': simpleImportSort,
+  'unused-imports': unusedImports,
+};
+
 const sharedTsRules = {
   '@typescript-eslint/consistent-type-exports': 'error',
-  '@typescript-eslint/consistent-type-imports': 'error',
+  '@typescript-eslint/consistent-type-imports': [
+    'error',
+    {
+      prefer: 'type-imports',
+      fixStyle: 'inline-type-imports',
+    },
+  ],
   '@typescript-eslint/no-non-null-assertion': 'off',
   '@typescript-eslint/no-unused-vars': [
     'error',
@@ -28,24 +41,18 @@ const sharedTsRules = {
   ],
   '@typescript-eslint/restrict-template-expressions': ['error', {allowNumber: true}],
   '@typescript-eslint/prefer-nullish-coalescing': ['error', {ignorePrimitives: true}],
+  'import-x/no-duplicates': ['error', {'prefer-inline': true}],
+  'simple-import-sort/imports': 'error',
+  'simple-import-sort/exports': 'error',
+  'unused-imports/no-unused-imports': 'error',
+  'unused-imports/no-unused-vars': 'off',
 };
 
 export default defineConfig(
-  // Global ignores
   {
-    ignores: [
-      'license-header.js',
-      'public',
-      'dist',
-      '.agents/**',
-      '.codex/**',
-      '.claude/**',
-      '.semgrep/**',
-      '.remember/**',
-    ],
+    ignores: ['dist', '.*/**', 'license-header.js', 'public'],
   },
 
-  // App source files (src/**/*.{ts,tsx})
   {
     extends: [
       js.configs.recommended,
@@ -55,7 +62,7 @@ export default defineConfig(
       reactHooks.configs.flat['recommended-latest'],
       pluginLingui.configs['flat/recommended'],
     ],
-    files: ['src/**/*.{ts,tsx}'],
+    files: ['src/**/*.{ts,tsx}', 'test/**/*.ts'],
     languageOptions: {
       globals: globals.browser,
       parserOptions: {
@@ -64,10 +71,9 @@ export default defineConfig(
       },
     },
     plugins: {
-      'react-refresh': reactRefresh,
+      ...sharedPlugins,
       'license-header': licenseHeader,
-      'simple-import-sort': simpleImportSort,
-      'unused-imports': unusedImports,
+      'react-refresh': reactRefresh,
     },
     rules: {
       ...sharedTsRules,
@@ -83,21 +89,33 @@ export default defineConfig(
           ],
         },
       ],
-      'simple-import-sort/imports': 'error',
-      'simple-import-sort/exports': 'error',
-      'unused-imports/no-unused-imports': 'error',
-      'unused-imports/no-unused-vars': 'off',
+      'react-refresh/only-export-components': ['warn', {allowConstantExport: true}],
     },
   },
 
-  // Node config/script files
+  {
+    files: ['test/**/*.ts'],
+    rules: {
+      '@typescript-eslint/require-await': 'off',
+      '@typescript-eslint/unbound-method': 'off',
+      '@typescript-eslint/prefer-promise-reject-errors': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+    },
+  },
+
   {
     extends: [
       js.configs.recommended,
       ...tseslint.configs.strictTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
     ],
-    files: ['vite.config.ts', 'vitest.config.ts', 'lingui.config.ts', 'translate-po.ts'],
+    files: [
+      'vite.config.ts',
+      'vitest.config.ts',
+      'lingui.config.ts',
+      'translate-po.ts',
+      'scripts/**/*.ts',
+    ],
     languageOptions: {
       globals: globals.node,
       parserOptions: {
@@ -105,16 +123,9 @@ export default defineConfig(
         tsconfigRootDir: import.meta.dirname,
       },
     },
-    plugins: {
-      'simple-import-sort': simpleImportSort,
-      'unused-imports': unusedImports,
-    },
+    plugins: sharedPlugins,
     rules: {
       ...sharedTsRules,
-      'simple-import-sort/imports': 'error',
-      'simple-import-sort/exports': 'error',
-      'unused-imports/no-unused-imports': 'error',
-      'unused-imports/no-unused-vars': 'off',
     },
   }
 );

@@ -19,8 +19,8 @@
 import {afterAll, beforeEach, describe, expect, it} from 'vitest';
 
 import type {AuthSession} from '@/services/auth/types';
-import {getAuthSession, saveAuthSession, saveAuthSessionIfUnchanged} from '@/services/db/auth-db';
 import {getAppSettings} from '@/services/db/app-settings-db';
+import {getAuthSession, saveAuthSession, saveAuthSessionIfUnchanged} from '@/services/db/auth-db';
 import {dbPromise, deleteDatabase} from '@/services/db/db';
 import {getProcessedImage, saveProcessedImage} from '@/services/db/processed-image-db';
 import type {StoreName} from '@/services/db/schema';

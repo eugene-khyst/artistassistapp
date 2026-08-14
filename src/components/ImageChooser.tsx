@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {byNumber, reverseOrder} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans} from '@lingui/react/macro';
 import {App, Col, Flex, Row, Typography} from 'antd';
 import {useMemo} from 'react';
@@ -32,7 +33,6 @@ import {countImageFiles, getOldestImageDigest, hasImageFile} from '@/services/db
 import {fileToImageFile, type ImageFile, type RecentImage} from '@/services/image/image-file';
 import type {SampleImageDefinition} from '@/services/image/sample-images';
 import {useAppStore} from '@/stores/app-store';
-import {byNumber, reverseOrder} from '@/utils/comparator';
 
 import {RecentImageCard} from './image/RecentImageCard';
 import {SampleImageCard} from './image/SampleImageCard';

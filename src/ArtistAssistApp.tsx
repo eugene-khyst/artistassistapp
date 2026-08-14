@@ -18,8 +18,7 @@
 
 import {FullscreenExitOutlined, FullscreenOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import type {TabsProps} from 'antd';
-import {Col, FloatButton, Row, Tabs} from 'antd';
+import {Col, FloatButton, Row, Tabs, type TabsProps} from 'antd';
 import {useEffect} from 'react';
 import StickyBox from 'react-sticky-box';
 
@@ -34,6 +33,7 @@ import {ImagesCompare} from '@/components/ImagesCompare';
 import {ImageStyleTransfer} from '@/components/ImageStyleTransfer';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {TAB_LABELS} from '@/components/messages';
+import {TwoColorGradient} from '@/components/TwoColorGradient';
 import {TabContext} from '@/contexts/TabContext';
 import {useDoubleBackPressToExit} from '@/hooks/useDoubleBackPressToExit';
 import {useFullScreen} from '@/hooks/useFullscreen';
@@ -123,6 +123,10 @@ export function ArtistAssistApp() {
       children: <ColorMixingChart />,
     },
     {
+      key: TabKey.TwoColorGradient,
+      children: <TwoColorGradient />,
+    },
+    {
       key: TabKey.Outline,
       children: <ImageOutline />,
     },
@@ -196,14 +200,13 @@ export function ArtistAssistApp() {
       <Row justify="center">
         <Col xs={24} xxl={18}>
           <Tabs
-            className={styles['tabs']}
+            type="card"
+            size="small"
             renderTabBar={renderTabBar}
             items={items}
             activeKey={activeTabKey}
             onChange={handleTabChange}
             more={tabMore}
-            size="large"
-            tabBarGutter={0}
           />
         </Col>
       </Row>

@@ -16,8 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Remote} from 'comlink';
-import {wrap} from 'comlink';
+import {type Remote, wrap} from 'comlink';
 
 import {abortablePromise, isAbortError} from '@/utils/promise';
 

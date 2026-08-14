@@ -18,8 +18,7 @@
 
 import {Button, Flex, Grid, Space, Typography} from 'antd';
 import {clsx} from 'clsx';
-import type {ReactNode} from 'react';
-import {useEffect, useState} from 'react';
+import {type ReactNode, useEffect, useState} from 'react';
 import reactStringReplace from 'react-string-replace';
 
 import type {AdDefinition} from '@/services/ads/types';

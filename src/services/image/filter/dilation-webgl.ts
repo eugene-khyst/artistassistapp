@@ -17,10 +17,8 @@
  */
 
 import type {KernelSize} from '@/services/image/filter/types';
-import type {RenderPass} from '@/services/image/filter/webgl-renderer';
-import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
-import type {DrawImageSource} from '@/utils/graphics';
-import {copyOffscreenCanvas} from '@/utils/graphics';
+import {type RenderPass, WebGLRenderer} from '@/services/image/filter/webgl-renderer';
+import {copyOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
 import type {Size} from '@/utils/types';
 
 import fragmentShaderSource from './glsl/dilation.glsl';

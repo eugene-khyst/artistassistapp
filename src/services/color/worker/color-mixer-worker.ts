@@ -18,8 +18,7 @@
 
 /// <reference lib="WebWorker" />
 
+import {ColorMixer} from '@eugene-khyst/artistassistapp-color-mixer';
 import * as Comlink from 'comlink';
-
-import {ColorMixer} from '@/services/color/color-mixer';
 
 Comlink.expose(new ColorMixer());

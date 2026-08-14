@@ -17,9 +17,21 @@
  */
 
 import {DownloadOutlined, DownOutlined, PictureOutlined, ScissorOutlined} from '@ant-design/icons';
+import {kelvinToRgb, range, rgbToHex, WHITE_HEX} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans, useLingui} from '@lingui/react/macro';
-import type {CheckboxOptionType, RadioChangeEvent} from 'antd';
-import {Button, Col, Dropdown, Form, Radio, Row, Slider, Space, Typography} from 'antd';
+import {
+  Button,
+  type CheckboxOptionType,
+  Col,
+  Dropdown,
+  Form,
+  Radio,
+  type RadioChangeEvent,
+  Row,
+  Slider,
+  Space,
+  Typography,
+} from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import type {SliderMarks} from 'antd/es/slider';
 import type {MenuProps} from 'antd/lib';
@@ -33,18 +45,15 @@ import {ImageViewSelector} from '@/components/image/ImageViewSelector';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {useDebounce} from '@/hooks/useDebounce';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
-import type {PipettePointSetEvent} from '@/services/canvas/image/image-color-picker-canvas';
 import {
   ImageColorPickerCanvas,
   ImageColorPickerEventType,
+  type PipettePointSetEvent,
 } from '@/services/canvas/image/image-color-picker-canvas';
-import {kelvinToRgb} from '@/services/color/color-temperature';
-import {rgbToHex, WHITE_HEX} from '@/services/color/space/rgb';
 import type {AdjustmentParameters} from '@/services/image/color-adjustment';
 import {blobToImageFile} from '@/services/image/image-file';
 import {useAppStore} from '@/stores/app-store';
 import {TabKey} from '@/tabs';
-import {range} from '@/utils/array';
 import {getFilename} from '@/utils/filename';
 import {DrawImage, imageBitmapToBlob} from '@/utils/graphics';
 

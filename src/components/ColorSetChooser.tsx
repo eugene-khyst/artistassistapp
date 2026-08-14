@@ -24,6 +24,16 @@ import {
   SaveOutlined,
   ShareAltOutlined,
 } from '@ant-design/icons';
+import {
+  COLOR_MIXING,
+  type ColorBrandDefinition,
+  type ColorSetDefinition,
+  type ColorType,
+  CUSTOM_COLOR_SET,
+  MAX_COLORS_IN_MIXTURE,
+  mergeColorSets,
+  NEW_COLOR_SET,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {
   App,
@@ -61,15 +71,6 @@ import {usePersistentStorage} from '@/hooks/usePersistentStorage';
 import {useStandardColorSets} from '@/hooks/useStandardColorSets';
 import {hasAccessTo} from '@/services/auth/utils';
 import {CloudProvider} from '@/services/cloud/types';
-import {COLOR_MIXING, MAX_COLORS_IN_MIXTURE} from '@/services/color/color-mixer';
-import {mergeColorSets} from '@/services/color/colors';
-import {
-  type ColorBrandDefinition,
-  type ColorSetDefinition,
-  type ColorType,
-  CUSTOM_COLOR_SET,
-  NEW_COLOR_SET,
-} from '@/services/color/types';
 import {colorSetToUrl} from '@/services/url/url-parser';
 import {useAppStore} from '@/stores/app-store';
 import {TabKey} from '@/tabs';
@@ -487,7 +488,7 @@ export function ColorSetChooser() {
           {user ? (
             <>
               <Typography.Text strong>
-                <Trans>You are logged in and have access to all app features.</Trans>
+                <Trans>You are logged in and have access to all app features</Trans>
               </Typography.Text>
 
               <Flex gap="small" wrap>
@@ -555,7 +556,7 @@ export function ColorSetChooser() {
         {user && !isCloudConnected && (
           <Space orientation="vertical" size="small">
             <Typography.Text>
-              <Trans>Connect cloud storage to synchronize your data across devices.</Trans>
+              <Trans>Connect cloud storage to sync your data across devices</Trans>
             </Typography.Text>
             <Flex gap="small" wrap>
               <ConnectCloudButton provider={CloudProvider.Google} />
@@ -563,7 +564,7 @@ export function ColorSetChooser() {
               <ConnectCloudButton provider={CloudProvider.Dropbox} />
             </Flex>
             <Typography.Text>
-              <Trans>Or save a backup file on this device.</Trans>
+              <Trans>Or save a backup file on this device</Trans>
             </Typography.Text>
             <Flex gap="small" wrap>
               <ExportToZipButton />
@@ -580,7 +581,6 @@ export function ColorSetChooser() {
             <Typography.Link onClick={() => saveButtonRef.current?.focus()}>
               Save & continue
             </Typography.Link>
-            .
           </Trans>
         </Typography.Text>
 

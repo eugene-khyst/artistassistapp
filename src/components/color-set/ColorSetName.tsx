@@ -16,10 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {BrandColorCount} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Plural} from '@lingui/react/macro';
 import {Fragment} from 'react';
-
-import type {BrandColorCount} from '@/services/color/types';
 
 interface Props {
   brandColorCounts: BrandColorCount[];

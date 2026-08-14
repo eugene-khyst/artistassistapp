@@ -19,23 +19,21 @@
 import {t} from '@lingui/core/macro';
 import type {StateCreator} from 'zustand';
 
-import {AuthError} from '@/services/auth/errors';
-import {ForceLogoutError} from '@/services/auth/errors';
+import {AuthError, ForceLogoutError} from '@/services/auth/errors';
 import type {User} from '@/services/auth/types';
 import * as CloudConnectionClient from '@/services/cloud/cloud-connection-client';
 import * as CloudSyncClient from '@/services/cloud/cloud-sync-client';
 import {CloudError, CloudErrorType} from '@/services/cloud/errors';
-import type {StateZip} from '@/services/cloud/state-zip';
-import {createStateZip, replaceStateFromZip} from '@/services/cloud/state-zip';
-import type {
-  CloudConnection,
-  CloudConnectionAttempt,
-  CloudProvider,
-  CloudSyncOptions,
-  CloudSyncProgress,
-  CloudSyncResult,
+import {createStateZip, replaceStateFromZip, type StateZip} from '@/services/cloud/state-zip';
+import {
+  type CloudConnection,
+  type CloudConnectionAttempt,
+  type CloudProvider,
+  type CloudSyncOptions,
+  type CloudSyncProgress,
+  type CloudSyncResult,
+  CloudSyncType,
 } from '@/services/cloud/types';
-import {CloudSyncType} from '@/services/cloud/types';
 import {
   deleteCloudConnectionAttempt,
   deleteCloudConnectionAttemptIfVerifier,
@@ -140,8 +138,8 @@ export const createCloudSlice: StateCreator<
     set({
       cloudSyncTip:
         type === CloudSyncType.Upload
-          ? t`Uploading image ${index} of ${count}`
-          : t`Downloading image ${index} of ${count}`,
+          ? t`Uploading image ${index} / ${count}`
+          : t`Downloading image ${index} / ${count}`,
     });
   };
 

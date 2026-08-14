@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {kelvinToRgb} from '@/services/color/color-temperature';
+import {kelvinToRgb} from '@eugene-khyst/artistassistapp-color-mixer';
+
 import type {AdjustmentParameters} from '@/services/image/color-adjustment';
 import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
-import type {DrawImageSource} from '@/utils/graphics';
-import {copyOffscreenCanvas} from '@/utils/graphics';
+import {copyOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
 
 import fragmentShaderSource from './glsl/color-adjustment.glsl';
 

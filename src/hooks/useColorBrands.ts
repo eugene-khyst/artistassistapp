@@ -16,13 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {UseQueryResult} from '@tanstack/react-query';
-import {useQuery} from '@tanstack/react-query';
+import {
+  type ColorBrandDefinition,
+  type ColorType,
+  indexById,
+} from '@eugene-khyst/artistassistapp-color-mixer';
+import {useQuery, type UseQueryResult} from '@tanstack/react-query';
 
 import {colorBrandsQueryOptions} from '@/services/color/color-queries';
-import type {ColorBrandDefinition, ColorType} from '@/services/color/types';
 import {useAppStore} from '@/stores/app-store';
-import {indexById} from '@/utils/map';
 
 interface Result {
   isLoading: boolean;

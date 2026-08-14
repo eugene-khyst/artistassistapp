@@ -46,7 +46,7 @@ export function BrowserSupport({children}: Readonly<PropsWithChildren>) {
   if (!IS_BROWSER_SUPPORTED) {
     return (
       <div className="u-p">
-        <Alert title={<Trans>Your web browser is not supported.</Trans>} type="error" showIcon />
+        <Alert title={<Trans>Your web browser is not supported</Trans>} type="error" showIcon />
         <Typography.Title level={2}>
           <Trans>Supported web browsers and operating systems</Trans>
         </Typography.Title>

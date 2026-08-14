@@ -17,13 +17,13 @@
  */
 
 import {CloseCircleOutlined, DownloadOutlined, MoreOutlined} from '@ant-design/icons';
+import {WHITE_HEX} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Divider, Dropdown, Flex, Form, Grid, Space, Typography} from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import {clsx} from 'clsx';
 import {saveAs} from 'file-saver';
-import type {CSSProperties, ReactNode} from 'react';
-import {useCallback, useMemo} from 'react';
+import {type CSSProperties, type ReactNode, useCallback, useMemo} from 'react';
 import {ReactCompareSlider, ReactCompareSliderImage} from 'react-compare-slider';
 
 import {ColorPicker} from '@/components/color/ColorPicker';
@@ -33,7 +33,6 @@ import {OnnxModelSelect} from '@/components/ml-model/OnnxModelSelect';
 import {useCreateObjectUrl} from '@/hooks/useCreateObjectUrl';
 import {useDebounce} from '@/hooks/useDebounce';
 import {useSelectedOnnxModel} from '@/hooks/useSelectedOnnxModel';
-import {WHITE_HEX} from '@/services/color/space/rgb';
 import {OnnxModelType} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
 import {getFilename} from '@/utils/filename';

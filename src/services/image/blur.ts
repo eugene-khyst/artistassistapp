@@ -19,8 +19,7 @@
 import {kuwaharaFilterWebGL} from '@/services/image/filter/kuwahara-filter-webgl';
 import {multiLayerRadialMaskWebGL} from '@/services/image/filter/multi-layer-radial-mask-webgl';
 import type {Vector} from '@/services/math/geometry';
-import type {DrawImageSource} from '@/utils/graphics';
-import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
+import {type DrawImageSource, IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
 
 export async function getBlurred(image: DrawImageSource): Promise<ImageBitmap[]> {
   console.time('blur');
@@ -42,7 +41,7 @@ export function getBlurredMasked(blurred: ImageBitmap[], focalPoint?: Vector): I
   console.time('blur-mask');
   const blurredMasked = multiLayerRadialMaskWebGL(
     blurred,
-    [0.2, 0.5, 1],
+    [0.3, 0.6, 1],
     focalPoint
   ).transferToImageBitmap();
   console.timeEnd('blur-mask');

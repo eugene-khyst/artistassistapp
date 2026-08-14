@@ -19,15 +19,30 @@
 import {Trans} from '@lingui/react/macro';
 import {Empty, Typography} from 'antd';
 
-export function EmptySimilarColors() {
+interface Props {
+  hasUnderlayer: boolean;
+  hasUnifyingColor: boolean;
+}
+
+export function EmptyColorMatches({hasUnderlayer, hasUnifyingColor}: Readonly<Props>) {
+  const hint = hasUnderlayer ? (
+    hasUnifyingColor ? (
+      <Trans>Try adding colors or changing the surface, underlayer, or unifying color</Trans>
+    ) : (
+      <Trans>Try adding colors or changing the surface or the underlayer</Trans>
+    )
+  ) : hasUnifyingColor ? (
+    <Trans>Try adding colors or changing the surface or the unifying color</Trans>
+  ) : (
+    <Trans>Try adding colors or changing the surface</Trans>
+  );
+
   return (
     <Empty
       image={Empty.PRESENTED_IMAGE_SIMPLE}
-      description={<Trans>No matching color mixtures were found.</Trans>}
+      description={<Trans>No matching color mixtures were found</Trans>}
     >
-      <Typography.Text type="secondary">
-        <Trans>Try adding some colors to your color set.</Trans>
-      </Typography.Text>
+      <Typography.Text type="secondary">{hint}</Typography.Text>
     </Empty>
   );
 }

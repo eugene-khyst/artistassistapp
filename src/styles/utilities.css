@@ -50,12 +50,24 @@
   width: fit-content !important;
 }
 
+.u-max-w-100 {
+  max-width: 100%;
+}
+
 .u-h-auto {
   height: auto;
 }
 
 .u-flex {
   display: flex !important;
+}
+
+.u-color-grid {
+  display: grid;
+  grid-template-columns: auto repeat(var(--column-count), auto);
+  gap: var(--ant-margin-xs);
+  align-items: center;
+  width: max-content;
 }
 
 .u-font-bold {

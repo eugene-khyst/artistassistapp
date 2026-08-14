@@ -16,8 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {RefCallback} from 'react';
-import {useCallback, useEffect, useRef, useState} from 'react';
+import {type RefCallback, useCallback, useEffect, useRef, useState} from 'react';
 
 import {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
 import type {Rectangle} from '@/services/math/geometry';

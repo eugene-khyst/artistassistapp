@@ -16,21 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {RgbTuple} from '@/services/color/space/rgb';
 import {
+  clamp,
   isRgbDark,
   linearizeRgbChannel,
   rgbToHex,
+  type RgbTuple,
   unlinearizeRgbChannel,
   WHITE,
-} from '@/services/color/space/rgb';
-import {Rectangle, Vector} from '@/services/math/geometry';
-import type {DrawImageSource} from '@/utils/graphics';
-import {drawImageToOffscreenCanvas, getRgbaForCoord} from '@/utils/graphics';
-import {clamp} from '@/utils/math-utils';
+} from '@eugene-khyst/artistassistapp-color-mixer';
 
-import type {ClickOrTapEvent, ZoomableImageCanvasProps} from './zoomable-image-canvas';
-import {ZoomableImageCanvas} from './zoomable-image-canvas';
+import {Rectangle, Vector} from '@/services/math/geometry';
+import {type DrawImageSource, drawImageToOffscreenCanvas, getRgbaForCoord} from '@/utils/graphics';
+
+import {
+  type ClickOrTapEvent,
+  ZoomableImageCanvas,
+  type ZoomableImageCanvasProps,
+} from './zoomable-image-canvas';
 
 export const MIN_COLOR_PICKER_DIAMETER = 1;
 export const MAX_COLOR_PICKER_DIAMETER = 100;

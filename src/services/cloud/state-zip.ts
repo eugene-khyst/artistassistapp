@@ -17,13 +17,11 @@
  */
 
 import dayjs from 'dayjs';
-import type {AsyncZippable, Unzipped} from 'fflate';
-import {strFromU8, strToU8, unzip, zip} from 'fflate';
+import {type AsyncZippable, strFromU8, strToU8, unzip, type Unzipped, zip} from 'fflate';
 
 import {withCloudLock} from '@/services/cloud/cloud-lock';
 import {createCloudState, parseCloudState} from '@/services/cloud/cloud-state';
-import type {CloudImage, CloudState} from '@/services/cloud/types';
-import {FileExtension} from '@/services/cloud/types';
+import {type CloudImage, type CloudState, FileExtension} from '@/services/cloud/types';
 import {getLocalStateWithImageBytes, replaceLocalStateFromZip} from '@/services/db/cloud-sync-db';
 import {getStoreChangeTokens} from '@/services/db/store-changes-db';
 import type {StoreChangeTokens} from '@/services/db/types';
@@ -134,9 +132,12 @@ export async function replaceStateFromZip(file: File): Promise<StoreChangeTokens
   const expectedTokens = await getStoreChangeTokens();
   const entries = await readZip(new Uint8Array(await file.arrayBuffer()));
   const stateFile = entries[ZIP_STATE_FILE_NAME];
-  const state = stateFile ? parseCloudState(strFromU8(stateFile)) : undefined;
+  if (!stateFile) {
+    throw new Error(`Backup file is missing: ${ZIP_STATE_FILE_NAME}`);
+  }
+  const state = parseCloudState(strFromU8(stateFile));
   if (!state) {
-    throw new Error(`Backup file is missing or invalid: ${ZIP_STATE_FILE_NAME}`);
+    throw new Error(`Backup file is invalid: ${ZIP_STATE_FILE_NAME}`);
   }
   const images = await validateImages(state, entries);
   return await withCloudLock(() => replaceLocalStateFromZip(state, images, expectedTokens));

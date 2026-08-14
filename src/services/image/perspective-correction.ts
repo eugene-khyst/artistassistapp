@@ -16,13 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Matrix} from '@eugene-khyst/artistassistapp-color-mixer';
+
 import {ForceLogoutError} from '@/services/auth/errors';
 import type {Authentication} from '@/services/auth/types';
 import {correctPerspectiveWebGL} from '@/services/image/filter/perspective-correction-webgl';
 import {detectDocumentCornersHeatmap} from '@/services/image/heatmap-corner-detection';
 import {detectDocumentCornersSobel} from '@/services/image/sobel-corner-detection';
 import type {Vector} from '@/services/math/geometry';
-import {Matrix} from '@/services/math/matrix';
 import type {OnnxModel} from '@/services/ml/types';
 import type {FetchProgressCallback} from '@/utils/fetch';
 import {type DrawImageSource} from '@/utils/graphics';

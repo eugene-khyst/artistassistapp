@@ -17,21 +17,28 @@
  */
 
 import {
+  byNumber,
+  byString,
+  type ColorMixture,
+  type ColorSetDefinition,
+  compare,
+  type CustomColorBrandDefinition,
+  type CustomColorBrandSource,
+  evaluateColorWarmth,
+  hasWhiteName,
+  hexToRgb,
+  oklabToOklch,
+  Reflectance,
+  rgbToOklab,
+} from '@eugene-khyst/artistassistapp-color-mixer';
+
+import {
   type CloudColorMixture,
   type CloudState,
   type CustomColorBrandJson,
 } from '@/services/cloud/types';
-import {Reflectance} from '@/services/color/space/reflectance';
-import {hexToRgb} from '@/services/color/space/rgb';
-import type {
-  ColorMixture,
-  ColorSetDefinition,
-  CustomColorBrandDefinition,
-  CustomColorBrandSource,
-} from '@/services/color/types';
 import type {ImageMetadata} from '@/services/image/image-file';
 import {validateCloudState, validateCustomColorBrandJson} from '@/services/validation';
-import {byNumber, byString, compare} from '@/utils/comparator';
 import {digestMessage} from '@/utils/digest';
 import {canonicalize, safeParseJson} from '@/utils/json';
 
@@ -57,11 +64,18 @@ export const fromCustomColorBrandSource = ({
   ...(id ? {id} : {}),
   type,
   name,
-  colors: colors?.map(({hex, ...color}) => ({
-    ...color,
-    hex,
-    rho: [...Reflectance.fromRgb(...hexToRgb(hex)).toArray()],
-  })),
+  colors: colors?.map(({id, name, hex, opacity}) => {
+    const rgb = hexToRgb(hex);
+    return {
+      id,
+      name,
+      hex,
+      rho: [...Reflectance.fromRgb(...rgb).toArray()],
+      opacity,
+      warmth: evaluateColorWarmth(oklabToOklch(...rgbToOklab(...rgb))),
+      isWhite: hasWhiteName(name) || undefined,
+    };
+  }),
 });
 
 export const toCustomColorBrandSource = ({
@@ -73,7 +87,7 @@ export const toCustomColorBrandSource = ({
   id,
   type,
   name,
-  colors: colors?.map(({rho: _, ...color}) => ({...color})),
+  colors: colors?.map(({id, name, hex, opacity}) => ({id, name, hex, opacity})),
 });
 
 export const createCloudState = ({

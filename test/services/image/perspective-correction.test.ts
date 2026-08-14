@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {Matrix} from '@eugene-khyst/artistassistapp-color-mixer';
 import {describe, expect, it, vi} from 'vitest';
 
 import {calculateDestSize, computeHomography} from '@/services/image/perspective-correction';
 import {Vector} from '@/services/math/geometry';
-import {Matrix} from '@/services/math/matrix';
 
 vi.mock('@/services/image/filter/perspective-correction-webgl', () => ({
   correctPerspectiveWebGL: vi.fn(),
@@ -34,15 +34,6 @@ vi.mock('@/services/image/sobel-corner-detection', () => ({
   detectDocumentCornersSobel: vi.fn(),
 }));
 
-function expectMatrixClose(matrix: Matrix, expected: number[][]): void {
-  expect(matrix.getDimension()).toEqual([expected.length, expected[0]!.length]);
-  for (const [row, values] of expected.entries()) {
-    for (const [column, value] of values.entries()) {
-      expect(matrix.get(row, column)).toBeCloseTo(value, 10);
-    }
-  }
-}
-
 function transform(matrix: Matrix, {x, y}: Vector): Vector {
   const scale = matrix.get(2, 0) * x + matrix.get(2, 1) * y + matrix.get(2, 2);
   return new Vector(
@@ -50,33 +41,6 @@ function transform(matrix: Matrix, {x, y}: Vector): Vector {
     (matrix.get(1, 0) * x + matrix.get(1, 1) * y + matrix.get(1, 2)) / scale
   );
 }
-
-describe('Matrix', () => {
-  it('inverts a matrix that requires elimination', () => {
-    const matrix = Matrix.fromRows([
-      [4, 7],
-      [2, 6],
-    ]);
-
-    expectMatrixClose(matrix.inverse(), [
-      [0.6, -0.7],
-      [-0.2, 0.4],
-    ]);
-    expectMatrixClose(matrix.multiply(matrix.inverse()), [
-      [1, 0],
-      [0, 1],
-    ]);
-  });
-
-  it('rejects singular matrices', () => {
-    expect(() =>
-      Matrix.fromRows([
-        [1, 2],
-        [2, 4],
-      ]).inverse()
-    ).toThrow('The matrix is singular');
-  });
-});
 
 describe('perspective geometry', () => {
   it('calculates the averaged destination dimensions', () => {

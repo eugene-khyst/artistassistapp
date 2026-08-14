@@ -23,9 +23,9 @@ import {float32TensorToImageData, imageDataToFloat32Tensor} from '@/services/ml/
 import type {OnnxModel} from '@/services/ml/types';
 import {runInferenceWorker} from '@/services/ml/worker/inference-worker-manager';
 import type {FetchProgressCallback} from '@/utils/fetch';
-import type {DrawImageSource} from '@/utils/graphics';
 import {
   DrawImage,
+  type DrawImageSource,
   drawImageToOffscreenCanvas,
   fitToAspectRatio,
   IMAGE_SIZE,

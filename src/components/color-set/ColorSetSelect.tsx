@@ -17,17 +17,20 @@
  */
 
 import {PlusOutlined} from '@ant-design/icons';
+import {
+  byDate,
+  type ColorBrandDefinition,
+  type ColorSetDefinition,
+  colorSetDefinitionToBrandColorCounts,
+  reverseOrder,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans} from '@lingui/react/macro';
-import type {SelectProps} from 'antd';
-import {Button, Grid, Select, Space, Typography} from 'antd';
+import {Button, Grid, Select, type SelectProps, Space, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useMemo} from 'react';
 
 import {ColorSetName} from '@/components/color-set/ColorSetName';
 import {filterSelectOptions} from '@/components/utils';
-import {colorSetDefinitionToBrandColorCounts} from '@/services/color/colors';
-import type {ColorBrandDefinition, ColorSetDefinition} from '@/services/color/types';
-import {byDate, reverseOrder} from '@/utils/comparator';
 
 const showSearch = {filterOption: filterSelectOptions};
 

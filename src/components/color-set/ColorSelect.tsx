@@ -17,9 +17,15 @@
  */
 
 import {SortAscendingOutlined} from '@ant-design/icons';
+import {
+  COLOR_DEFINITION_COMPARATORS,
+  type ColorBrandDefinition,
+  type ColorDefinition,
+  ColorSort,
+  decorateSortUndecorate,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans, useLingui} from '@lingui/react/macro';
-import type {SelectProps} from 'antd';
-import {Button, Dropdown, Grid, Select, Space} from 'antd';
+import {Button, Dropdown, Grid, Select, type SelectProps, Space} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import type {MenuProps} from 'antd/lib';
 import {useMemo, useState} from 'react';
@@ -27,9 +33,7 @@ import {useMemo, useState} from 'react';
 import {ColorLabel} from '@/components/color/ColorLabel';
 import {COLOR_SORT_LABELS} from '@/components/messages';
 import {filterSelectOptions} from '@/components/utils';
-import {COLOR_DEFINITION_COMPARATORS, ColorSort, formatColorLabel} from '@/services/color/colors';
-import type {ColorBrandDefinition, ColorDefinition} from '@/services/color/types';
-import {decorateSortUndecorate} from '@/utils/array';
+import {formatColorLabel} from '@/services/color/colors';
 
 const showSearch = {filterOption: filterSelectOptions};
 

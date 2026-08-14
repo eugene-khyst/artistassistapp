@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {ColorType, CUSTOM_COLOR_SET} from '@eugene-khyst/artistassistapp-color-mixer';
 import {afterAll, beforeAll, describe, expect, it, vi} from 'vitest';
 
-import {ColorType, CUSTOM_COLOR_SET} from '@/services/color/types';
 import {colorSetToUrl, parseUrl} from '@/services/url/url-parser';
 import {TabKey} from '@/tabs';
 

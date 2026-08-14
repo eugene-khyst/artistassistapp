@@ -16,15 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {OklabTuple} from '@/services/color/space/oklab';
 import {
   deltaEOk,
   oklabToRgb,
+  type OklabTuple,
   rgbToOklab,
+  type RgbTuple,
   writeOklabToRgb,
   writeRgbToOklab,
-} from '@/services/color/space/oklab';
-import type {RgbTuple} from '@/services/color/space/rgb';
+} from '@eugene-khyst/artistassistapp-color-mixer';
+
 import {ditherOrdered} from '@/services/image/filter/dither';
 import {quickselect} from '@/utils/quickselect';
 

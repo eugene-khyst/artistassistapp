@@ -17,6 +17,7 @@
  */
 
 import {LoadingOutlined} from '@ant-design/icons';
+import type {ColorType} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Col, Result, Row, Space, Spin, Steps, Tag, Typography} from 'antd';
 import {use} from 'react';
@@ -25,14 +26,13 @@ import {AdCard} from '@/components/ad/AdCard';
 import {GoToTabButton} from '@/components/button/GoToTabButton';
 import {COLOR_TYPE_LABELS, TAB_LABELS} from '@/components/messages';
 import {TabContext} from '@/contexts/TabContext';
-import type {ColorType} from '@/services/color/types';
 import {useAppStore} from '@/stores/app-store';
 import {TabKey} from '@/tabs';
 
 interface Props {
   imageSupported?: boolean;
   imageMandatory?: boolean;
-  supportedColorTypes?: ColorType[];
+  supportedColorTypes?: readonly ColorType[];
 }
 
 export function EmptyColorSet({
@@ -86,7 +86,7 @@ export function EmptyColorSet({
     <div className="u-tab-content">
       <Typography.Paragraph strong>
         <Trans>
-          To use the {tabLabel} feature, select supported art medium and colors to paint with.
+          To use the {tabLabel} feature, select supported art medium and colors to paint with
         </Trans>
       </Typography.Paragraph>
 
@@ -120,7 +120,7 @@ export function EmptyColorSet({
             ? [
                 {
                   title: <Trans>Choose a reference photo</Trans>,
-                  content: imageMandatory ? undefined : <Trans>This step is optional.</Trans>,
+                  content: imageMandatory ? undefined : <Trans>This step is optional</Trans>,
                 },
               ]
             : []),

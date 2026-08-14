@@ -16,30 +16,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  COLOR_MIXING,
+  type ColorMatch,
+  type ColorMixture,
+  type Comparator,
+  compareColorMatchesByColorMixturePartLength,
+  compareColorMatchesByConsistency,
+  compareColorMatchesByMatchScore,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Flex} from 'antd';
 import {useMemo} from 'react';
 
+import {ColorMatchCard} from '@/components/color/ColorMatchCard';
 import {PaletteColorMixtureCard} from '@/components/color/PaletteColorMixtureCard';
-import {SimilarColorCard} from '@/components/color/SimilarColorCard';
-import {EmptySimilarColors} from '@/components/empty/EmptySimilarColors';
+import {EmptyColorMatches} from '@/components/empty/EmptyColorMatches';
 import {EmptyTargetColor} from '@/components/empty/EmptyTargetColor';
-import {
-  COLOR_MIXING,
-  compareSimilarColorsByColorMixturePartLength,
-  compareSimilarColorsByConsistency,
-  compareSimilarColorsBySimilarity,
-} from '@/services/color/color-mixer';
-import type {ColorMixture, SimilarColor} from '@/services/color/types';
 import {ColorPickerSort} from '@/services/settings/types';
 import {useAppStore} from '@/stores/app-store';
-import type {Comparator} from '@/utils/comparator';
 
-import styles from './SimilarColorsList.module.css';
+import styles from './ColorMatchesList.module.css';
 
-const SIMILAR_COLORS_COMPARATORS: Record<ColorPickerSort, Comparator<SimilarColor>> = {
-  [ColorPickerSort.BySimilarity]: compareSimilarColorsBySimilarity,
-  [ColorPickerSort.ByNumberOfColors]: compareSimilarColorsByColorMixturePartLength,
-  [ColorPickerSort.ByConsistency]: compareSimilarColorsByConsistency,
+const COLOR_MATCH_COMPARATORS: Record<ColorPickerSort, Comparator<ColorMatch>> = {
+  [ColorPickerSort.ByMatchScore]: compareColorMatchesByMatchScore,
+  [ColorPickerSort.ByNumberOfColors]: compareColorMatchesByColorMixturePartLength,
+  [ColorPickerSort.ByConsistency]: compareColorMatchesByConsistency,
 };
 
 interface Props {
@@ -47,20 +48,22 @@ interface Props {
   onReflectanceChartClick: (colorMixture?: ColorMixture) => void;
 }
 
-export function SimilarColorsList({sort, onReflectanceChartClick}: Readonly<Props>) {
+export function ColorMatchesList({sort, onReflectanceChartClick}: Readonly<Props>) {
   const colorType = useAppStore(state => state.colorSet?.type);
   const targetColorHex = useAppStore(state => state.targetColorHex);
-  const similarColors = useAppStore(state => state.similarColors);
-  const isSimilarColorsLoading = useAppStore(state => state.isSimilarColorsLoading);
+  const underlayerHex = useAppStore(state => state.underlayerHex);
+  const motherColorId = useAppStore(state => state.motherColorId);
+  const colorMatches = useAppStore(state => state.colorMatches);
+  const isColorMatchesLoading = useAppStore(state => state.isColorMatchesLoading);
   const selectedPaletteColorMixtures = useAppStore(state => state.selectedPaletteColorMixtures);
 
   const {mixing = false} = colorType ? COLOR_MIXING[colorType] : {};
 
-  const sortedSimilarColors = useMemo(() => {
-    return similarColors
+  const sortedColorMatches = useMemo(() => {
+    return colorMatches
       .slice()
-      .sort(SIMILAR_COLORS_COMPARATORS[mixing ? sort : ColorPickerSort.BySimilarity]);
-  }, [similarColors, sort, mixing]);
+      .sort(COLOR_MATCH_COMPARATORS[mixing ? sort : ColorPickerSort.ByMatchScore]);
+  }, [colorMatches, sort, mixing]);
 
   if (!targetColorHex) {
     return <EmptyTargetColor />;
@@ -75,14 +78,14 @@ export function SimilarColorsList({sort, onReflectanceChartClick}: Readonly<Prop
           className={styles['selectedPaletteCard']}
         />
       ))}
-      {!isSimilarColorsLoading && !similarColors.length ? (
-        <EmptySimilarColors />
+      {!isColorMatchesLoading && !colorMatches.length ? (
+        <EmptyColorMatches hasUnderlayer={!!underlayerHex} hasUnifyingColor={!!motherColorId} />
       ) : (
-        sortedSimilarColors.map((similarColor: SimilarColor) => (
-          <SimilarColorCard
-            key={similarColor.colorMixture.key}
+        sortedColorMatches.map((colorMatch: ColorMatch) => (
+          <ColorMatchCard
+            key={colorMatch.colorMixture.key}
             targetColor={targetColorHex}
-            similarColor={similarColor}
+            colorMatch={colorMatch}
             onReflectanceChartClick={onReflectanceChartClick}
           />
         ))

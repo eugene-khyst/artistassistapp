@@ -16,9 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DATA_METADATA_TIMEOUT_MS, DATA_URL} from '@/config';
-import type {User} from '@/services/auth/types';
-import type {OnnxModel, OnnxModelType} from '@/services/ml/types';
 import {
   byBoolean,
   byNumber,
@@ -26,7 +23,11 @@ import {
   type Comparator,
   compare,
   reverseOrder,
-} from '@/utils/comparator';
+} from '@eugene-khyst/artistassistapp-color-mixer';
+
+import {DATA_METADATA_TIMEOUT_MS, DATA_URL} from '@/config';
+import type {User} from '@/services/auth/types';
+import type {OnnxModel, OnnxModelType} from '@/services/ml/types';
 import {fetchSWR} from '@/utils/fetch';
 
 export async function fetchOnnxModels(type: OnnxModelType): Promise<OnnxModel[]> {

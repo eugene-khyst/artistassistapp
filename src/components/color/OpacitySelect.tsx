@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {ColorOpacity} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Select} from 'antd';
 import type {DefaultOptionType as SelectOptionType, SelectProps} from 'antd/es/select';
 
 import {OpacityIcon} from '@/components/color/OpacityIcon';
-import {ColorOpacity} from '@/services/color/types';
 
 const OPACITY_OPTIONS: SelectOptionType[] = [
   ColorOpacity.Transparent,

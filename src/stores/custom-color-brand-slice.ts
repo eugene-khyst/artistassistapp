@@ -16,12 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {
+  CustomColorBrandDefinition,
+  CustomColorBrandSource,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {saveAs} from 'file-saver';
 import type {StateCreator} from 'zustand';
 
 import {fromCustomColorBrandSource, parseCustomColorBrandJson} from '@/services/cloud/cloud-state';
 import {type CustomColorBrandJson, FileExtension} from '@/services/cloud/types';
-import type {CustomColorBrandDefinition, CustomColorBrandSource} from '@/services/color/types';
 import {
   deleteCustomColorBrand,
   getAllCustomColorBrands,

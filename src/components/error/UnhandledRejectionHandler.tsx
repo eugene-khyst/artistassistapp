@@ -18,8 +18,7 @@
 
 import {Trans} from '@lingui/react/macro';
 import {App} from 'antd';
-import type {PropsWithChildren} from 'react';
-import {useEffect, useEffectEvent} from 'react';
+import {type PropsWithChildren, useEffect, useEffectEvent} from 'react';
 
 import {ForceLogoutError} from '@/services/auth/errors';
 import {useAppStore} from '@/stores/app-store';

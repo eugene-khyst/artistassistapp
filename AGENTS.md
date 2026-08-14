@@ -21,6 +21,9 @@ npm run test:unit    # Vitest service-layer tests only
 # i18n workflow — run by the maintainer only, never by an agent
 npm run lingui:extract  # Extract translatable strings from source to .po files
 npm run translate       # Auto-translate .po files via Google Translate API
+
+# Code generators — run by the maintainer only
+npm run generate:blue-noise  # Regenerate src/services/image/filter/blue-noise.ts
 ```
 
 Tests live in the root `test/` directory, mirroring `src/`; never place tests under `src/`.
@@ -213,6 +216,10 @@ Lingui-based. Source locale `src/locales/en.po`. All user-facing strings must us
 (`t`, `msg`, `<Trans>`). **Never run `lingui:extract` or `translate`** — the maintainer runs both
 once before committing. Change the source strings and stop there; leave the `.po` files alone. Never
 inspect catalogs for missing translations or report missing catalog entries during review.
+
+User-facing text is punctuated per block, not per string: a block of a single sentence — a heading,
+an `Empty` description, a one-line caption or label — ends without a period, while a block of two or
+more sentences is punctuated normally. A colon is kept when the line introduces a list.
 
 ### PWA
 

@@ -19,8 +19,7 @@
 import type {Authentication} from '@/services/auth/types';
 import {Interpolation, interpolationWebGL} from '@/services/image/filter/interpolation-webgl';
 import {imageBitmapToImageData} from '@/services/ml/image-transformer';
-import type {Float32Tensor} from '@/services/ml/tensor';
-import {imageDataToFloat32Tensor} from '@/services/ml/tensor';
+import {type Float32Tensor, imageDataToFloat32Tensor} from '@/services/ml/tensor';
 import type {OnnxModel} from '@/services/ml/types';
 import {runInferenceWorker} from '@/services/ml/worker/inference-worker-manager';
 import type {FetchProgressCallback} from '@/utils/fetch';

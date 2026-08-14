@@ -22,6 +22,21 @@ import {
   PlusOutlined,
   QuestionCircleOutlined,
 } from '@ant-design/icons';
+import {
+  type ColorId,
+  type ColorMixture,
+  filterColors,
+  type Fraction,
+  gcd,
+  hexToRgb,
+  isFullStrength,
+  isMixable,
+  isTransparentLayeringSupported,
+  makeColorMixtures,
+  MIXABLE_COLOR_TYPES,
+  PAPER_WHITE_HEX,
+  range,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Col, Flex, Form, Row, Select, Space, Tooltip, Typography} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
@@ -29,20 +44,8 @@ import {Fragment, useEffect, useMemo, useState} from 'react';
 
 import {AdCard} from '@/components/ad/AdCard';
 import {UnderlayerColorPicker} from '@/components/color/UnderlayerColorPicker';
-import {
-  compareColorMixturesByConsistency,
-  FRACTIONS,
-  isFullStrength,
-  isMixable,
-  makeColorMixture,
-  MIXABLE_COLOR_TYPES,
-  PAPER_WHITE_HEX,
-} from '@/services/color/color-mixer';
-import {hexToRgb} from '@/services/color/space/rgb';
-import type {Color, ColorMixture, ColorSet} from '@/services/color/types';
-import {gcd} from '@/services/math/gcd';
+import {useColorSetReset} from '@/hooks/useColorSetReset';
 import {useAppStore} from '@/stores/app-store';
-import {range} from '@/utils/array';
 
 import {AddToPaletteButton} from './color/AddToPaletteButton';
 import {ColorMixtureDescription} from './color/ColorMixtureDescription';
@@ -58,15 +61,12 @@ interface ColorMixerForm {
   }[];
 }
 
-interface ColorMixerSelection {
-  colorSet: ColorSet;
-  colors: Color[];
-  ratio: number[];
-}
-
 const MAX_COLORS = 4;
-const EMPTY_COLORS: Color[] = [];
-const EMPTY_RATIO: number[] = [];
+
+const THICKNESSES = [
+  [1, 2],
+  [1, 4],
+] as const satisfies readonly Fraction[];
 
 const ratioOptions: SelectOptionType[] = range(1, 9).map((part: number) => ({
   value: part,
@@ -94,30 +94,38 @@ export function ColorMixer() {
 
   const [underlayerHex, setUnderlayerHex] = useState<string | null>(null);
   const [surfaceHex, setSurfaceHex] = useState<string>(PAPER_WHITE_HEX);
-  const [selection, setSelection] = useState<ColorMixerSelection>();
+  const [colorIds, setColorIds] = useState<ColorId[]>([]);
+  const [ratio, setRatio] = useState<number[]>([]);
   const [isOpenReflectanceChart, setIsOpenReflectanceChart] = useState<boolean>(false);
 
-  const colors = selection?.colorSet === colorSet ? selection.colors : EMPTY_COLORS;
-  const ratio = selection?.colorSet === colorSet ? selection.ratio : EMPTY_RATIO;
+  const colorSetRevision = useColorSetReset(colorIds, () => {
+    setColorIds([]);
+    setRatio([]);
+  });
+
+  const colors = useMemo(() => filterColors(colorSet?.colors, colorIds), [colorSet, colorIds]);
+
+  const isMixableColorSet: boolean = !!colorSet && isMixable(colorSet.type);
 
   useEffect(() => {
-    if (colorSet && isMixable(colorSet.type)) {
+    if (isMixableColorSet) {
       form.setFieldsValue(formInitialValues);
     }
-  }, [colorSet, form]);
+  }, [colorSetRevision, isMixableColorSet, form]);
 
   const colorMixtures = useMemo<ColorMixture[]>(() => {
     if (!colorSet || !colors.length || colors.length !== ratio.length) {
       return [];
     }
-    return makeColorMixture(
-      colorSet.type,
+    const [mixtures] = makeColorMixtures({
+      type: colorSet.type,
       colors,
-      ratio,
-      underlayerHex ? hexToRgb(underlayerHex) : null,
-      hexToRgb(surfaceHex),
-      FRACTIONS
-    ).sort(compareColorMixturesByConsistency);
+      ratios: [ratio],
+      underlayerRgb: underlayerHex ? hexToRgb(underlayerHex) : null,
+      surfaceRgb: hexToRgb(surfaceHex),
+      consistencies: THICKNESSES,
+    });
+    return mixtures;
   }, [colorSet, colors, ratio, underlayerHex, surfaceHex]);
 
   const handleFormValuesChange = (
@@ -127,20 +135,13 @@ export function ColorMixer() {
     if (!colorSet || !selectedColors.length) {
       return;
     }
-    const selectedColorsForMixing: Color[] = [];
+    const selectedColorIds: ColorId[] = [];
     let selectedRatio: number[] = [];
     selectedColors.forEach(({color: selectedColor, part}) => {
       if (!selectedColor || !part) {
         return;
       }
-      const [selectedBrandId, selectedColorId] = selectedColor;
-      const color: Color | undefined = colorSet.colors.find(
-        ({brand, id}: Color) => brand === selectedBrandId && id === selectedColorId
-      );
-      if (!color) {
-        return;
-      }
-      selectedColorsForMixing.push(color);
+      selectedColorIds.push(selectedColor);
       selectedRatio.push(part);
     });
     if (selectedRatio.length >= 2) {
@@ -148,7 +149,8 @@ export function ColorMixer() {
       const divisor = gcd(part1!, part2!, ...otherParts);
       selectedRatio = selectedRatio.map((part: number): number => part / divisor);
     }
-    setSelection({colorSet, colors: selectedColorsForMixing, ratio: selectedRatio});
+    setColorIds(selectedColorIds);
+    setRatio(selectedRatio);
   };
 
   if (!colorSet || !isMixable(colorSet.type)) {
@@ -159,17 +161,19 @@ export function ColorMixer() {
     <>
       <Flex vertical gap="middle" className="u-tab-content">
         <Typography.Text strong>
-          <Trans>Mix your colors in any proportions so you don&apos;t waste real paints.</Trans>
+          <Trans>Mix your colors in any proportions so you don&apos;t waste real paints</Trans>
         </Typography.Text>
 
         <Space size="middle" align="start" wrap>
           <Space orientation="vertical" size="small" className={styles['inputColumn']}>
-            <UnderlayerColorPicker
-              underlayerHex={underlayerHex}
-              setUnderlayerHex={setUnderlayerHex}
-              surfaceHex={surfaceHex}
-              setSurfaceHex={setSurfaceHex}
-            />
+            {isTransparentLayeringSupported(colorSet.type, true) && (
+              <UnderlayerColorPicker
+                underlayerHex={underlayerHex}
+                setUnderlayerHex={setUnderlayerHex}
+                surfaceHex={surfaceHex}
+                setSurfaceHex={setSurfaceHex}
+              />
+            )}
             <Form
               name="colorMixture"
               form={form}
@@ -190,8 +194,8 @@ export function ColorMixer() {
                   <Tooltip
                     title={
                       <Trans>
-                        Select any number of colors to mix and specify the part of each color in the
-                        resulting mix.
+                        Select up to {MAX_COLORS} colors to mix and specify the part of each color
+                        in the resulting mix
                       </Trans>
                     }
                   >
@@ -217,7 +221,7 @@ export function ColorMixer() {
                           name={[name, 'color']}
                           className={styles['colorFormItem']}
                         >
-                          <ColorCascader />
+                          <ColorCascader disabledColorIds={colorIds} />
                         </Form.Item>
                         {fields.length > 1 && (
                           <Button

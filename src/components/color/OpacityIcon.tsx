@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {ColorOpacity} from '@eugene-khyst/artistassistapp-color-mixer';
 import type {MessageDescriptor} from '@lingui/core';
 import {defineMessage} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
@@ -26,7 +27,6 @@ import Opaque from '@/icons/opacity/opaque.svg?react';
 import SemiOpaque from '@/icons/opacity/semi-opaque.svg?react';
 import SemiTransparent from '@/icons/opacity/semi-transparent.svg?react';
 import Transparent from '@/icons/opacity/transparent.svg?react';
-import {ColorOpacity} from '@/services/color/types';
 
 interface OpacityDescription {
   icon: ReactNode;

@@ -16,13 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {
+  ColorBrandDefinition,
+  StandardColorSetDefinition,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Plural, Trans, useLingui} from '@lingui/react/macro';
 import {Cascader} from 'antd';
 import type {CascaderAutoProps, DefaultOptionType as CascaderOptionType} from 'antd/es/cascader';
 import {Fragment, useMemo} from 'react';
 
 import {filterCascaderOptions} from '@/components/utils';
-import type {ColorBrandDefinition, StandardColorSetDefinition} from '@/services/color/types';
 
 const showSearch = {filter: filterCascaderOptions};
 

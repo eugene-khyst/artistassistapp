@@ -49,7 +49,7 @@ export function ConnectCloudButton({provider}: Readonly<ConnectCloudButtonProps>
         provider === CloudProvider.Google ? (
           <Trans>
             Your color sets, reference photos, mixtures, and custom color brands will be saved in
-            the ArtistAssistApp folder in My Drive and kept synchronized across your devices.
+            the ArtistAssistApp folder in My Drive and kept synced across your devices.
             <br />
             ArtistAssistApp works only with this app-created folder and the files it creates there.
             <br />
@@ -58,7 +58,7 @@ export function ConnectCloudButton({provider}: Readonly<ConnectCloudButtonProps>
         ) : (
           <Trans>
             Your color sets, reference photos, mixtures, and custom color brands will be saved in
-            the ArtistAssistApp folder in {label} and kept synchronized across your devices.
+            the ArtistAssistApp folder in {label} and kept synced across your devices.
             <br />
             ArtistAssistApp can access that app folder, including files you put there, but cannot
             access files outside it.

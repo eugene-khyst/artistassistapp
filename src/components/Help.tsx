@@ -29,8 +29,7 @@ import {
   StopOutlined,
 } from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
-import type {ProgressProps} from 'antd';
-import {Button, Flex, Grid, Progress, Space, Tag, Typography} from 'antd';
+import {Button, Flex, Grid, Progress, type ProgressProps, Space, Tag, Typography} from 'antd';
 
 import {DeleteAccountButton} from '@/components/auth/DeleteAccountButton';
 import {LoadingButton} from '@/components/button/LoadingButton';

@@ -17,8 +17,7 @@
  */
 
 import {App} from 'antd';
-import type {ReactNode} from 'react';
-import {useEffect, useEffectEvent, useRef} from 'react';
+import {type ReactNode, useEffect, useEffectEvent, useRef} from 'react';
 
 export function useDoubleBackPressToExit(content: ReactNode): void {
   const {message} = App.useApp();

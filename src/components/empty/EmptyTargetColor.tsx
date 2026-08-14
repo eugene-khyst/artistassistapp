@@ -25,7 +25,7 @@ export function EmptyTargetColor() {
   return (
     <Empty
       image={Empty.PRESENTED_IMAGE_SIMPLE}
-      description={<Trans>No target color is selected.</Trans>}
+      description={<Trans>No target color is selected</Trans>}
       classNames={{footer: styles['footer']}}
     >
       <Space orientation="vertical" size="small">

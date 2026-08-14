@@ -17,16 +17,21 @@
  */
 
 import {DownloadOutlined, DownOutlined, SwapOutlined} from '@ant-design/icons';
+import {
+  type ColorId,
+  isMixable,
+  MIXABLE_COLOR_TYPES,
+  toColorIds,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans} from '@lingui/react/macro';
 import {Button, Col, Dropdown, Form, Row, Space, Typography} from 'antd';
 import {saveAs} from 'file-saver';
 import {useState} from 'react';
 
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {useColorSetReset} from '@/hooks/useColorSetReset';
 import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '@/hooks/useZoomableImageCanvas';
 import type {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
-import {isMixable, MIXABLE_COLOR_TYPES} from '@/services/color/color-mixer';
-import type {ColorId} from '@/services/color/types';
 import {useAppStore} from '@/stores/app-store';
 import {getFilename} from '@/utils/filename';
 import {imageBitmapToBlob} from '@/utils/graphics';
@@ -41,6 +46,7 @@ export function ImageLimitedPalette() {
   const colorSet = useAppStore(state => state.colorSet);
   const selectedImageFile = useAppStore(state => state.selectedImageFile);
   const originalImage = useAppStore(state => state.originalImage);
+  const limitedColorSet = useAppStore(state => state.limitedColorSet);
   const limitedPaletteImage = useAppStore(state => state.limitedPaletteImage);
 
   const isOriginalImageLoading = useAppStore(state => state.isOriginalImageLoading);
@@ -68,18 +74,13 @@ export function ImageLimitedPalette() {
 
   const isCancelable: boolean = isLimitedPaletteImageLoading;
 
-  const [prevColorSet, setPrevColorSet] = useState(colorSet);
-  if (colorSet !== prevColorSet) {
-    setPrevColorSet(colorSet);
-    setColorIds([]);
-  }
+  // The selection follows the applied palette, which survives promotion to the main color set.
+  useColorSetReset(colorIds, () => {
+    setColorIds(toColorIds(limitedColorSet?.colors));
+  });
 
   const handleApplyClick = () => {
     void setLimitedColorSet(colorIds);
-  };
-
-  const handleSetAsMainClick = () => {
-    void setLimitedColorSetAsMain(colorIds);
   };
 
   const handleSaveClick = async () => {
@@ -148,8 +149,10 @@ export function ImageLimitedPalette() {
                     key: 'set-as-main-color-set',
                     label: <Trans>Set as main color set</Trans>,
                     icon: <SwapOutlined />,
-                    onClick: handleSetAsMainClick,
-                    disabled: !colorIds.length,
+                    onClick: () => {
+                      void setLimitedColorSetAsMain();
+                    },
+                    disabled: !limitedColorSet,
                   },
                 ],
               }}

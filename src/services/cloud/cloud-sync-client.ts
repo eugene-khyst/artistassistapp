@@ -17,8 +17,12 @@
  */
 
 import type {User} from '@/services/auth/types';
-import type {CloudClient, CloudFile, CloudFolder} from '@/services/cloud/cloud-client';
-import {CloudItemPurpose} from '@/services/cloud/cloud-client';
+import {
+  type CloudClient,
+  type CloudFile,
+  type CloudFolder,
+  CloudItemPurpose,
+} from '@/services/cloud/cloud-client';
 import {disconnectCloudConnection} from '@/services/cloud/cloud-connection-client';
 import {withCloudLock} from '@/services/cloud/cloud-lock';
 import {
@@ -31,19 +35,21 @@ import {DropboxClient} from '@/services/cloud/dropbox-client';
 import {CloudError, CloudErrorType} from '@/services/cloud/errors';
 import {GoogleDriveClient} from '@/services/cloud/google-drive-client';
 import {MicrosoftOneDriveClient} from '@/services/cloud/microsoft-one-drive-client';
-import type {
-  CloudConnection,
-  CloudImage,
-  CloudRemoteItems,
-  CloudState,
-  CloudSync,
-  CloudSyncClient,
-  CloudSyncContext,
-  CloudSyncOptions,
-  CloudSyncResult,
-  LocalStateConnection,
+import {
+  type CloudConnection,
+  type CloudImage,
+  CloudProvider,
+  type CloudRemoteItems,
+  type CloudState,
+  type CloudSync,
+  type CloudSyncClient,
+  type CloudSyncContext,
+  type CloudSyncOptions,
+  type CloudSyncResult,
+  CloudSyncType,
+  EMPTY_CLOUD_STATE,
+  type LocalStateConnection,
 } from '@/services/cloud/types';
-import {CloudProvider, CloudSyncType, EMPTY_CLOUD_STATE} from '@/services/cloud/types';
 import {getCloudConnection} from '@/services/db/cloud-connection-db';
 import {
   getCloudSync,
@@ -52,10 +58,10 @@ import {
   replaceLocalStateFromCloud,
   saveCloudSync,
 } from '@/services/db/cloud-sync-db';
-import type {RepairedImage} from '@/services/db/image-file-db';
 import {
   getReadableImageDigests,
   readImageBytes,
+  type RepairedImage,
   saveRepairedImageBytes,
 } from '@/services/db/image-file-db';
 import type {StoreChangeTokens} from '@/services/db/types';
@@ -496,7 +502,7 @@ async function uploadCloudData<T>(
   if (deletedRemoteImages.length > 0 && !recreateDeletedRemoteItems) {
     throw new CloudError(
       CloudErrorType.CloudDataNotFound,
-      'One or more synchronized photos were deleted from cloud storage'
+      'One or more synced photos were deleted from cloud storage'
     );
   }
   const imagesFolder =
@@ -623,7 +629,7 @@ async function downloadImages<T>(
       signal
     );
     if (download.status === 'missing') {
-      throw new CloudError(CloudErrorType.CloudDataNotFound, 'A synchronized photo is missing');
+      throw new CloudError(CloudErrorType.CloudDataNotFound, 'A synced photo is missing');
     }
     if (download.status === 'invalid') {
       throw new Error(`Cloud image digest mismatch: ${cloudImage.digest}`);

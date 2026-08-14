@@ -16,6 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {
+  ColorMixture,
+  ColorSetDefinition,
+  ColorType,
+  CustomColorBrandDefinition,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import type {DBSchema, StoreNames} from 'idb';
 
 import type {AuthAttempt, AuthSession} from '@/services/auth/types';
@@ -25,12 +31,6 @@ import type {
   CloudSync,
   LocalStateConnection,
 } from '@/services/cloud/types';
-import type {
-  ColorMixture,
-  ColorSetDefinition,
-  ColorType,
-  CustomColorBrandDefinition,
-} from '@/services/color/types';
 import type {AppliedMigration} from '@/services/db/migrations';
 import type {ProcessedImage} from '@/services/db/processed-image-db';
 import type {StoreChangeName} from '@/services/db/types';

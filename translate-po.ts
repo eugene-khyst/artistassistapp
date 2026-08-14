@@ -42,7 +42,7 @@ type PluralForms = 'one' | 'few' | 'many' | 'other';
 
 // CLDR plural categories per language
 // Reference: https://www.unicode.org/cldr/charts/43/supplemental/language_plural_rules.html
-const PLURAL_CATEGORIES: Record<string, PluralForms[]> = {
+const PLURAL_CATEGORIES: Record<TargetLang, PluralForms[]> = {
   bg: ['one', 'other'],
   cs: ['one', 'few', 'many', 'other'],
   da: ['one', 'other'],
@@ -67,10 +67,8 @@ const PLURAL_CATEGORIES: Record<string, PluralForms[]> = {
   uk: ['one', 'few', 'many', 'other'],
 };
 
-const CATEGORY_SAMPLE_NUMBER: Record<string, number> = {
-  zero: 0,
+const CATEGORY_SAMPLE_NUMBER: Record<PluralForms, number> = {
   one: 1,
-  two: 2,
   few: 3,
   many: 5,
   other: 20,
@@ -78,13 +76,16 @@ const CATEGORY_SAMPLE_NUMBER: Record<string, number> = {
 
 const PLURAL_MSGID_RE = /^\{\w+,\s*plural,/;
 
+const LINGUI_TAG_RE = /<\/?\d+\s*\/?>/g;
+const SPACED_LINGUI_TAG_RE = /\s*<\s*\/?\s*\d+\s*\/?\s*>\s*/g;
+const PH_RE = /<ph>[^<]*<\/ph>/i;
+
 async function translateText(
   sourceText: string,
   sourceLang: SourceLang,
   targetLang: TargetLang
 ): Promise<string | undefined> {
-  const protectedSourceText = protectLinguiTags(sourceText);
-  const result = await translate(protectedSourceText, {
+  const result = await translate(padLinguiTags(sourceText), {
     from: sourceLang,
     to: GOOGLE_TRANSLATE_LANGS[targetLang] ?? targetLang,
     forceBatch: true,
@@ -93,25 +94,26 @@ async function translateText(
   return result.text ? restoreLinguiTags(sourceText, result.text) : undefined;
 }
 
-function protectLinguiTags(text: string): string {
-  let index = 0;
-  return text.replace(
-    /<\/?\d+\s*\/?>/g,
-    () => `<span class="notranslate">__LINGUI_TAG_${index++}__</span>`
-  );
+const canonicalLinguiTag = (tag: string) => tag.replace(/\s+/g, '');
+
+// Google drops trailing sentences when a tag glues two of them together.
+function padLinguiTags(text: string): string {
+  return text.replace(SPACED_LINGUI_TAG_RE, tag => ` ${canonicalLinguiTag(tag)} `);
 }
 
 function restoreLinguiTags(original: string, translated: string): string {
-  const originalTags = original.match(/<\/?\d+\s*\/?>/g) ?? [];
-  let restored = translated.replace(/<span\b[^>]*>\s*(__LINGUI_TAG_\d+__)\s*<\/span>/gi, '$1');
-  originalTags.forEach((tag, index) => {
-    restored = restored.replace(`__LINGUI_TAG_${index}__`, tag);
-  });
+  const spacing = new Map(
+    (original.match(SPACED_LINGUI_TAG_RE) ?? []).map(tag => [canonicalLinguiTag(tag), tag])
+  );
+  const restored = translated.replace(
+    SPACED_LINGUI_TAG_RE,
+    tag => spacing.get(canonicalLinguiTag(tag)) ?? canonicalLinguiTag(tag)
+  );
 
   const tagCounts = (text: string) => {
     const counts = new Map<string, number>();
-    for (const tag of text.match(/<\/?\d+\s*\/?>/g) ?? []) {
-      const normalized = tag.replace(/\s+/g, '');
+    for (const tag of text.match(LINGUI_TAG_RE) ?? []) {
+      const normalized = canonicalLinguiTag(tag);
       counts.set(normalized, (counts.get(normalized) ?? 0) + 1);
     }
     return [...counts.entries()].sort(([left], [right]) => left.localeCompare(right));
@@ -137,6 +139,10 @@ function parsePluralMessage(
   const formPattern = /(\w+)\s*\{([^}]*)\}/g;
   let match: RegExpExecArray | null;
   while ((match = formPattern.exec(entireMatch[2]!)) !== null) {
+    // A nested placeholder would be cut off by this flat pattern.
+    if (match[2]!.includes('{')) {
+      throw new Error(`Nested placeholder in plural message: ${ICUpluralsText}`);
+    }
     forms.set(match[1]!, match[2]!);
   }
   return forms.size > 0 ? {variable, forms} : undefined;
@@ -152,7 +158,7 @@ async function translatePluralMessage(
     return undefined;
   }
   const {variable, forms} = parsed;
-  const categories: PluralForms[] = PLURAL_CATEGORIES[targetLang] ?? ['one', 'other'];
+  const categories: PluralForms[] = PLURAL_CATEGORIES[targetLang];
   const translatedForms = new Map<string, string>();
   for (const category of categories) {
     const sourceCat = forms.has(category)
@@ -161,7 +167,7 @@ async function translatePluralMessage(
         ? 'other'
         : [...forms.keys()][0]!;
     const sourceText = forms.get(sourceCat)!;
-    const sampleNum = CATEGORY_SAMPLE_NUMBER[category] ?? 2;
+    const sampleNum = CATEGORY_SAMPLE_NUMBER[category];
     // Send a bare number so Google uses it for grammatical context (e.g. "5"
     // triggers Ukrainian genitive plural "кольорів" vs nominative "кольори").
     const textToTranslate = sourceText.replace('#', String(sampleNum));
@@ -169,19 +175,24 @@ async function translatePluralMessage(
     if (!translation) {
       return undefined;
     }
-    if (/\d/.test(translation)) {
-      // Digit survived → replace it with #.
-      translatedForms.set(category, translation.replace(/\d+/, '#'));
+    if (!sourceText.includes('#')) {
+      translatedForms.set(category, translation);
+      continue;
+    }
+    const samplePattern = new RegExp(`(?<!\\d)${sampleNum}(?!\\d)`);
+    if (samplePattern.test(translation)) {
+      translatedForms.set(category, translation.replace(samplePattern, '#'));
     } else {
       // Some languages absorb the number into a compound word (e.g. Finnish
       // "1 second" → "sekunnissa"). Retry with <ph> so Google treats the number
       // as an opaque HTML element and keeps it in place for # substitution.
       const textToTranslateWithPh = sourceText.replace('#', `<ph>${sampleNum}</ph>`);
       const translationWithPh = await translateText(textToTranslateWithPh, sourceLang, targetLang);
-      if (!translationWithPh) {
+      // Google can break the <ph> tag, which would drop the number.
+      if (!translationWithPh || !PH_RE.test(translationWithPh)) {
         return undefined;
       }
-      translatedForms.set(category, translationWithPh.replace(/<ph>[^<]*<\/ph>/i, '#'));
+      translatedForms.set(category, translationWithPh.replace(PH_RE, '#'));
     }
   }
   const translatedFormsStr = [...translatedForms.entries()]
@@ -199,6 +210,7 @@ async function translatePoFile(
   const targetFile = await readFile(targetFilePath);
   const targetPo = po.parse(targetFile);
   const entries = targetPo.translations[''] ?? [];
+  let failed = 0;
 
   for (const [msgid, entry] of Object.entries(entries)) {
     // skip header
@@ -209,18 +221,30 @@ async function translatePoFile(
     if (entry.msgstr[0]) {
       continue;
     }
-    if (PLURAL_MSGID_RE.test(msgid)) {
-      console.log(`Translating plural ${msgid} from ${sourceLang} to ${targetLang}`);
-      const translated = await translatePluralMessage(msgid, sourceLang, targetLang);
-      entry.msgstr[0] = translated ?? '';
-    } else {
-      console.log(`Translating ${msgid} from ${sourceLang} to ${targetLang}`);
-      const translated = await translateText(msgid, sourceLang, targetLang);
-      entry.msgstr[0] = translated ? replacePlaceholders(msgid, translated) : '';
+    // Keep a failed entry empty and move on, so one bad string cannot discard the catalog.
+    try {
+      if (PLURAL_MSGID_RE.test(msgid)) {
+        console.log(`Translating plural ${msgid} from ${sourceLang} to ${targetLang}`);
+        const translated = await translatePluralMessage(msgid, sourceLang, targetLang);
+        entry.msgstr[0] = translated ?? '';
+      } else {
+        console.log(`Translating ${msgid} from ${sourceLang} to ${targetLang}`);
+        const translated = await translateText(msgid, sourceLang, targetLang);
+        entry.msgstr[0] = translated ? replacePlaceholders(msgid, translated) : '';
+      }
+    } catch (error) {
+      failed++;
+      console.error(`Failed to translate ${msgid} to ${targetLang}`, error);
     }
   }
 
-  await writeFile(targetFilePath, po.compile(targetPo));
+  // Lingui writes unfolded lines, so folding here would rewrite untouched entries.
+  await writeFile(targetFilePath, po.compile(targetPo, {foldLength: 0}));
+
+  if (failed) {
+    process.exitCode = 1;
+    console.error(`${failed} entries failed in ${targetFilePath}, rerun to retry them`);
+  }
 }
 
 async function findPoFiles(directory: string): Promise<string[]> {
@@ -238,18 +262,12 @@ async function findPoFiles(directory: string): Promise<string[]> {
 
 async function findLocalePoFiles(targetLang: TargetLang): Promise<string[]> {
   const nestedPath = path.join('src', 'locales', targetLang);
-  try {
-    if ((await stat(nestedPath)).isDirectory()) {
-      return await findPoFiles(nestedPath);
-    }
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
-      throw error;
-    }
+  if ((await stat(nestedPath).catch(() => undefined))?.isDirectory()) {
+    return findPoFiles(nestedPath);
   }
 
   const flatPath = path.join('src', 'locales', `${targetLang}.po`);
-  if (!(await stat(flatPath)).isFile()) {
+  if (!(await stat(flatPath).catch(() => undefined))?.isFile()) {
     throw new Error(`PO catalog not found: ${flatPath}`);
   }
   return [flatPath];
@@ -287,7 +305,7 @@ function replacePlaceholders(original: string, translated: string): string {
   return translated.replaceAll(/\{([^}]+)\}/g, () => `{${originalPlaceholders[i++]}}`);
 }
 
-void (async () => {
+(async () => {
   const requested = process.argv.slice(2);
   const targetLangs = (requested.length ? requested : AVAILABLE_TARGET_LANGS).map(language => {
     if (!AVAILABLE_TARGET_LANGS.includes(language as TargetLang)) {
@@ -299,4 +317,7 @@ void (async () => {
   for (const targetLang of targetLangs) {
     await translatePoTo(SOURCE_LANG, targetLang);
   }
-})();
+})().catch((error: unknown) => {
+  console.error(error instanceof Error ? error.message : error);
+  process.exitCode = 1;
+});

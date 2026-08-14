@@ -56,16 +56,16 @@ Try it now at [ArtistAssistApp.com](https://artistassistapp.com)
 
 ## <a id="3"></a>Implementation details
 
-ArtistAssistApp doesn't depend on any math or color library and includes the implementation of the
-following:
+ArtistAssistApp doesn't depend on any third-party math or color library and includes the
+implementation of the following:
 
 - sRGB to Oklab (WebGL)
 - sRGB to spectral reflectance
 - subtractive color mixing using empirical model based on the Kubelka-Munk theory
-- color temperature estimation: warm and cool colors
-- matrix operations
-- matrix inversion using LU decomposition
-- solving a system of linear algebraic equations using forward and backward substitution
+- warm and cool color classification from the way a pigment leans off its primary in Oklch
+- sRGB colors of monochromatic light, from the CIE 1931 2° color matching functions
+- sRGB colors of black-body radiators, from Planck's law, interpolated in mireds
+- solving a bordered tridiagonal system using the Thomas algorithm and a 3×3 Schur complement
 - the average color of the circular area of the image
 - calculation of color similarity by comparing spectral reflections (weighted geometric mean of angular similarity (cosine) and Euclidean distance)
 - sampling point detection via Chamfer 3-4 distance transform (finds the optimal point per color region)
@@ -96,11 +96,26 @@ following:
 - ranking images using pairwise comparison and Elo rating system
 - and more
 
-ArtistAssistApp uses Web Workers for parallel processing and Service Workers for offline access.
+Reflectance reconstruction uses an independent implementation of the LHTSS formulation described
+by Scott Allen Burns in [Generating Reflectance Curves from sRGB
+Triplets](https://arxiv.org/abs/1710.05732). The reflectance-to-linear-sRGB matrix and luminance
+weights are generated from the CIE 1931 2° observer, D65 illuminant, and sRGB primaries. The solver
+uses a tridiagonal factorization and a 3×3 Schur complement. No code or constants from Burns's
+implementation are used.
+
+The colors of the visible spectrum and of black-body radiators are derived from the same CIE data.
+Monochromatic colors come from the CIE 1931 2° color matching functions, black-body colors from
+Planck's law weighted by them, and both are converted to sRGB through the same matrix and gamut
+mapping. They are generated tables rather than curve fits, and use no third-party code or constants.
 
 ArtistAssistApp uses an empirical model based on the Kubelka-Munk theory to simulate real color mixing, focusing on spectral reflectances instead of RGB or other color models. It calculates color similarity by comparing spectral reflectance curves and presents the similarity as a percentage.
 
 For mediums that support physical mixing, such as watercolor, oil paint, acrylic or gouache, ArtistAssistApp will suggest the matching color mixture for any target color. For pastels and pencils, the app will suggest the closest matching color from your set. Watercolor, acrylic, oil paint, colored pencils and watercolor pencils also support optical mixing.
+
+Warm and cool follow the painter's rule: a pigment is warm or cool by the way it leans off its own
+primary, so a blue leaning red is warm while a red leaning blue is cool.
+
+ArtistAssistApp uses Web Workers for parallel processing and Service Workers for offline access.
 
 ## <a id="4"></a>Screenshots
 

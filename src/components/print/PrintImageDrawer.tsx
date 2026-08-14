@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {PrinterOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Drawer, Form, Input, InputNumber, Radio, Select, Space} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
@@ -173,7 +174,12 @@ export function PrintImageDrawer({image, open = false, onClose}: Readonly<Props>
   return (
     <Drawer
       title={
-        <Button type="primary" onClick={() => void handlePrint()} disabled={isPrintDisabled}>
+        <Button
+          type="primary"
+          icon={<PrinterOutlined />}
+          onClick={() => void handlePrint()}
+          disabled={isPrintDisabled}
+        >
           <Trans>Print</Trans>
         </Button>
       }

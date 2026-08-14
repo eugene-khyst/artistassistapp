@@ -38,8 +38,7 @@ import {
   Typography,
 } from 'antd';
 import {clsx} from 'clsx';
-import type {ReactNode} from 'react';
-import {useCallback, useEffect, useMemo, useState} from 'react';
+import {type ReactNode, useCallback, useEffect, useMemo, useState} from 'react';
 
 import {DEFAULT_GRID_SETTINGS, setGrid} from '@/components/grid/grid';
 import {GridControls} from '@/components/grid/GridControls';
@@ -54,8 +53,7 @@ import {useSelectedOnnxModel} from '@/hooks/useSelectedOnnxModel';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
 import {GridCanvas} from '@/services/canvas/image/grid-canvas';
 import {getDefaultModel} from '@/services/ml/models';
-import type {OnnxModel} from '@/services/ml/types';
-import {OnnxModelType} from '@/services/ml/types';
+import {type OnnxModel, OnnxModelType} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
 import {TabKey} from '@/tabs';
 import {getFilename} from '@/utils/filename';
@@ -268,7 +266,7 @@ export function ImageOutline() {
           {screens.sm && (
             <>
               <Tooltip
-                title={<Trans>Enter lightbox mode to trace the outline through your paper.</Trans>}
+                title={<Trans>Enter lightbox mode to trace the outline through your paper</Trans>}
               >
                 <Button
                   icon={<BulbOutlined />}
@@ -279,7 +277,7 @@ export function ImageOutline() {
                   <Trans>Lightbox</Trans>
                 </Button>
               </Tooltip>
-              <Tooltip title={<Trans>View the outline over the live camera to trace in AR.</Trans>}>
+              <Tooltip title={<Trans>View the outline over the live camera to trace in AR</Trans>}>
                 <Button
                   type={isArMode ? 'primary' : 'default'}
                   icon={<VideoCameraOutlined />}

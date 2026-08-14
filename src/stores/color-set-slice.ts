@@ -16,18 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {StateCreator} from 'zustand';
-
-import {ForceLogoutError} from '@/services/auth/errors';
-import {fetchColorBrands, fetchColorsBulk} from '@/services/color/color-queries';
-import {toColorSet} from '@/services/color/colors';
 import {
   type ColorBrandDefinition,
   type ColorDefinition,
   type ColorSet,
   type ColorSetDefinition,
   type ColorType,
-} from '@/services/color/types';
+  compareColorSetsByDate,
+  indexById,
+  reverseOrder,
+} from '@eugene-khyst/artistassistapp-color-mixer';
+import type {StateCreator} from 'zustand';
+
+import {ForceLogoutError} from '@/services/auth/errors';
+import {fetchColorBrands, fetchColorsBulk} from '@/services/color/color-queries';
+import {toColorSet} from '@/services/color/colors';
 import {deleteColorSet, getAllColorSets, saveColorSets} from '@/services/db/color-set-db';
 import type {AppSlice} from '@/stores/app-slice';
 import type {AuthSlice} from '@/stores/auth-slice';
@@ -35,15 +38,8 @@ import type {CloudSlice} from '@/stores/cloud-slice';
 import {persistChange} from '@/stores/sync/persist-change';
 import {createAbortableOperation} from '@/utils/abortable-operation';
 import {groupBy, maxOf} from '@/utils/array';
-import {byDate, byNumber, compare, reverseOrder} from '@/utils/comparator';
-import {indexById} from '@/utils/map';
 
 import type {ColorMixerSlice} from './color-mixer-slice';
-
-const compareColorSetsByDate = compare<ColorSetDefinition>(
-  byDate(({date}) => date),
-  byNumber(({id}) => id)
-);
 
 export interface ColorSetSlice {
   colorSets: Map<ColorType, ColorSetDefinition[]>;
@@ -125,22 +121,21 @@ export const createColorSetSlice: StateCreator<
       try {
         await activateColorSetOperation.run(async (signal: AbortSignal) => {
           const latestColorSet = get().getLatestColorSet();
-          if (!latestColorSet?.type || !latestColorSet.brands) {
-            await get().setColorSet(null, {setActiveTabKey: false});
-            return;
+          let colorSet: ColorSet | null = null;
+          if (latestColorSet?.type && latestColorSet.brands) {
+            const {type, brands: brandIds} = latestColorSet;
+            const {auth} = get();
+            const brands = indexById(await fetchColorBrands(type, signal));
+            const brandAliases = brandIds
+              .map(id => brands.get(id)?.alias)
+              .filter((alias): alias is string => !!alias);
+            const colors = await fetchColorsBulk(type, brandAliases, auth, signal);
+            // An in-form save replaces the latest color set without bumping the reload revision.
+            if (signal.aborted || get().getLatestColorSet() !== latestColorSet) {
+              return;
+            }
+            colorSet = toColorSet(latestColorSet, brands, colors, auth?.user);
           }
-          const {type, brands: brandIds} = latestColorSet;
-          const {auth} = get();
-          const brands = indexById(await fetchColorBrands(type, signal));
-          const brandAliases = brandIds
-            .map(id => brands.get(id)?.alias)
-            .filter((alias): alias is string => !!alias);
-          const colors = await fetchColorsBulk(type, brandAliases, auth, signal);
-          // An in-form save replaces the latest color set without bumping the reload revision.
-          if (signal.aborted || get().getLatestColorSet() !== latestColorSet) {
-            return;
-          }
-          const colorSet = toColorSet(latestColorSet, brands, colors, auth?.user);
           await get().setColorSet(colorSet, {setActiveTabKey: false});
         });
       } catch (error) {

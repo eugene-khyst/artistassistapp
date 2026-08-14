@@ -22,38 +22,51 @@ import {
   SortAscendingOutlined,
   UpOutlined,
 } from '@ant-design/icons';
+import {
+  COLOR_MIXING,
+  type ColorMixture,
+  colorSetToBrandColorCounts,
+  hexToRgb,
+  isPastel,
+  Layering,
+  rgbToHex,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Plural, Trans, useLingui} from '@lingui/react/macro';
-import type {CheckboxChangeEvent} from 'antd';
-import {Button, Checkbox, Col, Dropdown, Form, Grid, Row, Slider, Space} from 'antd';
+import {
+  App,
+  Button,
+  Checkbox,
+  type CheckboxChangeEvent,
+  Col,
+  Dropdown,
+  Form,
+  Grid,
+  Row,
+  Slider,
+  Space,
+} from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import type {SliderMarks} from 'antd/es/slider';
 import type {MenuProps} from 'antd/lib';
-import type {ReactNode} from 'react';
-import {useCallback, useEffect, useState} from 'react';
+import {type ReactNode, useCallback, useEffect, useState} from 'react';
 
 import {AdCard} from '@/components/ad/AdCard';
+import {ColorMatchesList} from '@/components/color/ColorMatchesList';
 import {ColorPicker} from '@/components/color/ColorPicker';
 import {ReflectanceChartDrawer} from '@/components/color/ReflectanceChartDrawer';
-import {SimilarColorsList} from '@/components/color/SimilarColorsList';
 import {UnderlayerColorPicker} from '@/components/color/UnderlayerColorPicker';
 import {ColorCascader} from '@/components/color-set/ColorCascader';
 import {ColorSetName} from '@/components/color-set/ColorSetName';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {useDebounce} from '@/hooks/useDebounce';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
-import type {
-  ColorPickerSample,
-  PipettePointSetEvent,
-} from '@/services/canvas/image/image-color-picker-canvas';
 import {
+  type ColorPickerSample,
   ImageColorPickerCanvas,
   ImageColorPickerEventType,
   MIN_COLOR_PICKER_DIAMETER,
+  type PipettePointSetEvent,
 } from '@/services/canvas/image/image-color-picker-canvas';
-import {COLOR_MIXING} from '@/services/color/color-mixer';
-import {colorSetToBrandColorCounts, isPastel} from '@/services/color/colors';
-import {hexToRgb, rgbToHex} from '@/services/color/space/rgb';
-import {type ColorMixture, Layering} from '@/services/color/types';
 import {Vector} from '@/services/math/geometry';
 import {ColorPickerSort} from '@/services/settings/types';
 import {useAppStore} from '@/stores/app-store';
@@ -93,7 +106,7 @@ export function ImageColorPicker() {
   const isPosterizedImageLoading = useAppStore(state => state.isPosterizedImageLoading);
   const isBuildPaletteLoading = useAppStore(state => state.isBuildPaletteLoading);
   const isColorMatchImageLoading = useAppStore(state => state.isColorMatchImageLoading);
-  const isSimilarColorsLoading = useAppStore(state => state.isSimilarColorsLoading);
+  const isColorMatchesLoading = useAppStore(state => state.isColorMatchesLoading);
 
   const setTargetColor = useAppStore(state => state.setTargetColor);
   const setUnderlayer = useAppStore(state => state.setUnderlayer);
@@ -109,6 +122,7 @@ export function ImageColorPicker() {
   const abortBuildPalette = useAppStore(state => state.abortBuildPalette);
 
   const screens = Grid.useBreakpoint();
+  const {message, modal} = App.useApp();
 
   const {t} = useLingui();
 
@@ -147,7 +161,7 @@ export function ImageColorPicker() {
     isPosterizedImageLoading ||
     isBuildPaletteLoading ||
     isColorMatchImageLoading ||
-    isSimilarColorsLoading;
+    isColorMatchesLoading;
 
   const isCancelable: boolean = isPosterizedImageLoading || isBuildPaletteLoading;
 
@@ -231,6 +245,32 @@ export function ImageColorPicker() {
     abortBuildPalette();
   };
 
+  const handleAutoPaletteClick = async () => {
+    if (underlayerHex || motherColorId) {
+      const confirmed: boolean = await modal.confirm({
+        title: <Trans>Continue with Auto palette?</Trans>,
+        content: (
+          <Trans>
+            An underlayer or unifying color is set. Auto palette will apply these settings to the
+            whole photo, not just the area they were chosen for.
+          </Trans>
+        ),
+        okText: <Trans>Continue</Trans>,
+        cancelText: <Trans>Cancel</Trans>,
+        focusTriggerAfterClose: false,
+      });
+      if (!confirmed) {
+        return;
+      }
+    }
+    const paletteEntryCount = await buildPalette();
+    if (paletteEntryCount === 0) {
+      void message.info(
+        <Trans>No palette colors matched the current color set and settings</Trans>
+      );
+    }
+  };
+
   if (!colorSet) {
     return <EmptyColorSet imageSupported />;
   }
@@ -239,7 +279,7 @@ export function ImageColorPicker() {
   const {mixing, layering} = COLOR_MIXING[colorSet.type];
   const sort =
     colorPickerSort === ColorPickerSort.ByConsistency && !(layering && colorPickerLayeringEnabled)
-      ? ColorPickerSort.BySimilarity
+      ? ColorPickerSort.ByMatchScore
       : colorPickerSort;
 
   const colorSetName = (
@@ -329,9 +369,17 @@ export function ImageColorPicker() {
       label={pastel ? <Trans>Blending</Trans> : <Trans>Glazing</Trans>}
       labelCol={{className: 'u-pb-0'}}
       tooltip={
-        <Trans>
-          Include transparent layers over the surface or underlayer when finding matches.
-        </Trans>
+        pastel ? (
+          <Trans>
+            Consider colors blended over the underlayer when they match the target better than
+            unblended colors
+          </Trans>
+        ) : (
+          <Trans>
+            Consider transparent layers over the surface or underlayer when they match the target
+            better than opaque mixtures
+          </Trans>
+        )
       }
       className="u-mb-0"
     >
@@ -412,7 +460,7 @@ export function ImageColorPicker() {
     <Button
       title={t`Automatically find the best color mixtures for this photo.`}
       onClick={() => {
-        void buildPalette();
+        void handleAutoPaletteClick();
       }}
     >
       <Trans>Auto palette</Trans>
@@ -422,9 +470,9 @@ export function ImageColorPicker() {
   const sortItems: MenuProps['items'] = (
     [
       {
-        sort: ColorPickerSort.BySimilarity,
-        label: <Trans>Similarity</Trans>,
-        title: t`Sort by the similarity of the mixture to the target color, from highest to lowest.`,
+        sort: ColorPickerSort.ByMatchScore,
+        label: <Trans>Match score</Trans>,
+        title: t`Sort by match score, from highest to lowest.`,
       },
       {
         sort: ColorPickerSort.ByNumberOfColors,
@@ -526,10 +574,7 @@ export function ImageColorPicker() {
                 )}
               </Space>
 
-              <SimilarColorsList
-                sort={sort}
-                onReflectanceChartClick={handleReflectanceChartClick}
-              />
+              <ColorMatchesList sort={sort} onReflectanceChartClick={handleReflectanceChartClick} />
 
               <AdCard vertical />
             </Space>

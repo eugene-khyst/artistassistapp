@@ -21,8 +21,7 @@ import './index.css';
 import {QueryCache, QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {App} from 'antd';
 import {StrictMode} from 'react';
-import type {Root} from 'react-dom/client';
-import {createRoot} from 'react-dom/client';
+import {createRoot, type Root} from 'react-dom/client';
 import {ErrorBoundary} from 'react-error-boundary';
 
 import {ArtistAssistApp} from '@/ArtistAssistApp';

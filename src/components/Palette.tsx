@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {ColorMixture, ColorType} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Plural, useLingui} from '@lingui/react/macro';
 import {Tabs, Typography} from 'antd';
 import type {TabsProps} from 'antd/lib';
@@ -24,7 +25,6 @@ import {useCallback, useState} from 'react';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {COLOR_TYPE_LABELS} from '@/components/messages';
 import {COLOR_TYPES} from '@/services/color/colors';
-import type {ColorMixture, ColorType} from '@/services/color/types';
 import {useAppStore} from '@/stores/app-store';
 import type {ArrayElement} from '@/utils/array';
 
@@ -98,17 +98,20 @@ export function Palette() {
     return <EmptyPalette />;
   }
 
+  const renderTabBar: TabsProps['renderTabBar'] = ({mobile: _, ...props}, DefaultTabBar) => (
+    <DefaultTabBar mobile={false} {...props} />
+  );
+
   return (
     <LoadingIndicator loading={isLoading}>
-      <div className="u-tab-content">
-        <Tabs
-          items={items}
-          activeKey={activePaletteKey}
-          onChange={handleTabChange}
-          size="small"
-          tabBarGutter={0}
-        />
-      </div>
+      <Tabs
+        type="card"
+        size="small"
+        renderTabBar={renderTabBar}
+        items={items}
+        activeKey={activePaletteKey}
+        onChange={handleTabChange}
+      />
       <ColorSwatchDrawer
         colorMixtures={colorSwatchColorMixtures}
         open={isOpenColorSwatch}

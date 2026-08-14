@@ -18,8 +18,7 @@
 
 import printJS from 'print-js';
 
-import type {PageOrientation, PaperSizeDefinition} from '@/services/print/types';
-import {PaperSize} from '@/services/print/types';
+import {type PageOrientation, PaperSize, type PaperSizeDefinition} from '@/services/print/types';
 import {imageBitmapToBlob, offscreenCanvasToBlob} from '@/utils/graphics';
 
 export const PAPER_SIZES = new Map<PaperSize, PaperSizeDefinition>([

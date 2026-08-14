@@ -19,10 +19,8 @@
 import {dilationRenderPasses} from '@/services/image/filter/dilation-webgl';
 import {gaussianBlurRenderPasses} from '@/services/image/filter/gaussian-blur-webgl';
 import type {KernelSize} from '@/services/image/filter/types';
-import type {RenderPass} from '@/services/image/filter/webgl-renderer';
-import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
-import type {DrawImageSource} from '@/utils/graphics';
-import {copyOffscreenCanvas} from '@/utils/graphics';
+import {type RenderPass, WebGLRenderer} from '@/services/image/filter/webgl-renderer';
+import {copyOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
 
 import dilationFragmentShaderSource from './glsl/dilation.glsl';
 import gaussianBlurFragmentShaderSource from './glsl/gaussian-blur.glsl';

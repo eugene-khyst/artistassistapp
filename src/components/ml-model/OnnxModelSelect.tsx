@@ -17,8 +17,7 @@
  */
 
 import type {FlattenOptionData} from '@rc-component/select/es/interface';
-import type {SelectProps} from 'antd';
-import {Flex, Select, Typography} from 'antd';
+import {Flex, Select, type SelectProps, Typography} from 'antd';
 import type {DefaultOptionType} from 'antd/es/select';
 import {type ReactNode, useMemo} from 'react';
 

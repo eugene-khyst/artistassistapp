@@ -17,8 +17,7 @@
  */
 
 import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
-import type {DrawImageSource} from '@/utils/graphics';
-import {copyOffscreenCanvas} from '@/utils/graphics';
+import {copyOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
 
 import fragmentShaderSource from './glsl/kuwahara-filter.glsl';
 

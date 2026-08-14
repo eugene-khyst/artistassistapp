@@ -17,8 +17,7 @@
  */
 
 import {type Grid, type GridCanvas, GridType} from '@/services/canvas/image/grid-canvas';
-import type {GridSettings} from '@/services/settings/types';
-import {GridMode} from '@/services/settings/types';
+import {GridMode, type GridSettings} from '@/services/settings/types';
 
 export const DEFAULT_GRID_SETTINGS: GridSettings = {
   enabled: true,

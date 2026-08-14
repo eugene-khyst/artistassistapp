@@ -17,6 +17,12 @@
  */
 
 import {CloseCircleOutlined, DownOutlined} from '@ant-design/icons';
+import {
+  COLOR_MIXING,
+  isPastel,
+  Layering,
+  PAPER_WHITE_HEX,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Dropdown, Form, Space} from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
@@ -24,9 +30,6 @@ import {useCallback, useMemo} from 'react';
 
 import {ColorPicker} from '@/components/color/ColorPicker';
 import {COLOR_PICKER_PRESET_LABELS} from '@/components/messages';
-import {COLOR_MIXING, PAPER_WHITE_HEX} from '@/services/color/color-mixer';
-import {isPastel} from '@/services/color/colors';
-import {Layering} from '@/services/color/types';
 import {useAppStore} from '@/stores/app-store';
 
 interface Props {

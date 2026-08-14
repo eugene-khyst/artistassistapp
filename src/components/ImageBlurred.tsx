@@ -30,8 +30,8 @@ import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {ImageViewSelector} from '@/components/image/ImageViewSelector';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
-import type {ClickOrTapEvent} from '@/services/canvas/image/zoomable-image-canvas';
 import {
+  type ClickOrTapEvent,
   ZoomableImageCanvas,
   ZoomableImageEventType,
 } from '@/services/canvas/image/zoomable-image-canvas';

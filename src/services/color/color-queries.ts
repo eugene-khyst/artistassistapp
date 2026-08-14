@@ -16,21 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  type ColorBrandDefinition,
+  type ColorDefinition,
+  ColorType,
+  type CustomColorBrandDefinition,
+  indexById,
+  type StandardColorSetDefinition,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {queryOptions} from '@tanstack/react-query';
 
 import {DATA_COLORS_TIMEOUT_MS, DATA_METADATA_TIMEOUT_MS, DATA_URL} from '@/config';
 import type {Authentication} from '@/services/auth/types';
 import {decryptDataIfNeeded} from '@/services/auth/utils';
-import type {
-  ColorBrandDefinition,
-  ColorDefinition,
-  CustomColorBrandDefinition,
-  StandardColorSetDefinition,
-} from '@/services/color/types';
-import {ColorType} from '@/services/color/types';
 import {getCustomColorBrand, getCustomColorBrandsByType} from '@/services/db/custom-brand-db';
 import {fetchJson} from '@/utils/fetch';
-import {indexById} from '@/utils/map';
 
 const COLOR_TYPE_ALIASES: Record<ColorType, string> = {
   [ColorType.WatercolorPaint]: 'watercolor-paint',

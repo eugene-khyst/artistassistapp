@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {clamp} from '@/utils/math-utils';
+import {clamp} from '@eugene-khyst/artistassistapp-color-mixer';
 
 interface ConcurrentMapOptions {
   concurrency?: number;

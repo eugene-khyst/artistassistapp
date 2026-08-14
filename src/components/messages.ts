@@ -16,13 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {ColorMixtureSort, ColorSort, ColorType} from '@eugene-khyst/artistassistapp-color-mixer';
 import type {MessageDescriptor} from '@lingui/core';
 import {defineMessage} from '@lingui/core/macro';
 
 import {CloudProvider} from '@/services/cloud/types';
-import {ColorMixtureSort} from '@/services/color/color-mixer';
-import {ColorSort} from '@/services/color/colors';
-import {ColorType} from '@/services/color/types';
 import {TabKey} from '@/tabs';
 
 export const TAB_LABELS: Record<TabKey, MessageDescriptor> = {
@@ -36,6 +34,7 @@ export const TAB_LABELS: Record<TabKey, MessageDescriptor> = {
   [TabKey.Grid]: defineMessage`Grid`,
   [TabKey.ColorMixing]: defineMessage`Color mixer`,
   [TabKey.ColorMixingChart]: defineMessage`Color mixing chart`,
+  [TabKey.TwoColorGradient]: defineMessage`2-color gradient`,
   [TabKey.LimitedPalette]: defineMessage`Limited palette`,
   [TabKey.StyleTransfer]: defineMessage`Inspiration`,
   [TabKey.PerspectiveCorrection]: defineMessage`Straighten`,

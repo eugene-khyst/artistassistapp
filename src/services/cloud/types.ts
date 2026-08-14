@@ -20,7 +20,8 @@ import type {
   ColorMixture,
   ColorSetDefinition,
   CustomColorBrandSource,
-} from '@/services/color/types';
+} from '@eugene-khyst/artistassistapp-color-mixer';
+
 import type {StoreChangeTokens} from '@/services/db/types';
 import type {ImageFile, ImageMetadata} from '@/services/image/image-file';
 

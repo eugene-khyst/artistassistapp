@@ -22,6 +22,16 @@ import {
   PrinterOutlined,
   SortAscendingOutlined,
 } from '@ant-design/icons';
+import {
+  type ColorId,
+  ColorSort,
+  isMixable,
+  isTransparentLayeringSupported,
+  MIXABLE_COLOR_TYPES,
+  rgbToHex,
+  toColorIds,
+  WHITE_HEX,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Dropdown, Form, Grid, Space, Typography} from 'antd';
 import type {MenuProps} from 'antd/lib';
@@ -33,21 +43,14 @@ import {ColorLabel} from '@/components/color/ColorLabel';
 import {ColorSquare} from '@/components/color/ColorSquare';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {COLOR_SORT_LABELS} from '@/components/messages';
-import {isMixable, MIXABLE_COLOR_TYPES} from '@/services/color/color-mixer';
-import {ColorSort} from '@/services/color/colors';
-import {rgbToHex, WHITE_HEX} from '@/services/color/space/rgb';
-import type {ColorId} from '@/services/color/types';
+import {columnCountStyle} from '@/components/utils';
+import {useColorSetReset} from '@/hooks/useColorSetReset';
 import {printImages} from '@/services/print/print';
 import {useAppStore} from '@/stores/app-store';
-import type {CssVariables} from '@/utils/types';
 
 import {ColorCascader} from './color-set/ColorCascader';
 import styles from './ColorMixingChart.module.css';
 import {EmptyColorSet} from './empty/EmptyColorSet';
-
-function getChartStyle(colorCount: number): CssVariables {
-  return {'--chart-color-count': colorCount};
-}
 
 function colorKey({brand, id}: {brand: number; id: number}): string {
   return `${brand}-${id}`;
@@ -74,11 +77,9 @@ export function ColorMixingChart() {
 
   const isLoading: boolean = isColorMixingChartLoading;
 
-  const [prevColorSet, setPrevColorSet] = useState(colorSet);
-  if (colorSet !== prevColorSet) {
-    setPrevColorSet(colorSet);
-    setColorIds([]);
-  }
+  useColorSetReset(colorIds, () => {
+    setColorIds(toColorIds(colorMixingChartSet?.colors));
+  });
 
   if (!colorSet || !isMixable(colorSet.type)) {
     return <EmptyColorSet supportedColorTypes={MIXABLE_COLOR_TYPES} />;
@@ -170,11 +171,18 @@ export function ColorMixingChart() {
           label={<Trans>Colors</Trans>}
           labelCol={{className: 'u-pb-0'}}
           tooltip={
-            <Trans>
-              A grid showing the result of mixing each pair of selected colors in a 1:1 ratio. Above
-              the diagonal are thick layers. Below the diagonal are thinned to 1/2 strength (e.g.,
-              diluted with water at a 1:1 ratio for watercolor).
-            </Trans>
+            isTransparentLayeringSupported(colorSet.type) ? (
+              <Trans>
+                On the diagonal are the pure colors at full strength. Above the diagonal are thick
+                layers of each pair mixed in a 1:1 ratio. Below the diagonal are the same mixtures
+                thinned to 1/2 strength.
+              </Trans>
+            ) : (
+              <Trans>
+                On the diagonal are the pure colors at full strength. Off the diagonal is each pair
+                mixed in a 1:1 ratio.
+              </Trans>
+            )
           }
           className={styles['colorsFormItem']}
           extra={
@@ -214,8 +222,8 @@ export function ColorMixingChart() {
         {colorMixingChartSet?.colors && colorMixingChartMixtures.length > 0 && (
           <div
             ref={chartRef}
-            className={styles['chart']}
-            style={getChartStyle(colorMixingChartSet.colors.length)}
+            className={`u-color-grid ${styles['chart']}`}
+            style={columnCountStyle(colorMixingChartSet.colors.length)}
           >
             {/* Header row */}
             <div className={styles['stickyCorner']} />
@@ -250,16 +258,9 @@ export function ColorMixingChart() {
                     />
                     <ColorSquare hex={rgbToHex(...color.rgb)} size="large" />
                   </div>
-                  {colorMixtures.map(({layerRgb}, j) => {
-                    const mixedWithColor = colorMixingChartSet.colors[j]!;
-                    return (
-                      <ColorSquare
-                        key={`cell-${colorKey(color)}-${colorKey(mixedWithColor)}`}
-                        hex={rgbToHex(...layerRgb)}
-                        size="large"
-                      />
-                    );
-                  })}
+                  {colorMixtures.map(({layerRgb, key}) => (
+                    <ColorSquare key={key} hex={rgbToHex(...layerRgb)} size="large" />
+                  ))}
                 </Fragment>
               );
             })}

@@ -17,8 +17,7 @@
  */
 
 import {PAPER_SIZES} from '@/services/print/print';
-import type {PaperSize} from '@/services/print/types';
-import {PageOrientation} from '@/services/print/types';
+import {PageOrientation, type PaperSize} from '@/services/print/types';
 import {IMAGE_SIZE} from '@/utils/graphics';
 import type {Size} from '@/utils/types';
 

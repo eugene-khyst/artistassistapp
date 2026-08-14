@@ -23,6 +23,7 @@ export enum TabKey {
   Palette = 'palette',
   ColorMixing = 'color-mixing',
   ColorMixingChart = 'color-mixing-chart',
+  TwoColorGradient = '2-color-gradient',
   Outline = 'outline',
   Grid = 'grid',
   TonalValues = 'tonal-values',

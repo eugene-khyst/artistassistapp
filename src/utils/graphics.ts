@@ -17,7 +17,6 @@
  */
 
 import {identity} from '@/utils/function';
-import {ceilToMultiple} from '@/utils/math-utils';
 import type {Size} from '@/utils/types';
 
 export type DrawImageSource = ImageBitmap | OffscreenCanvas;
@@ -418,4 +417,8 @@ export function isWebGl2Supported(): boolean {
   } catch {
     return false;
   }
+}
+
+export function ceilToMultiple(value: number, multiple: number): number {
+  return value % multiple === 0 ? value : (Math.floor(value / multiple) + 1) * multiple;
 }

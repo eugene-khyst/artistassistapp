@@ -17,8 +17,13 @@
  */
 
 import {CloseOutlined} from '@ant-design/icons';
-import type {ColorPickerProps} from 'antd';
-import {Button, ColorPicker as AntdColorPicker, Grid, Typography} from 'antd';
+import {
+  Button,
+  ColorPicker as AntdColorPicker,
+  type ColorPickerProps,
+  Grid,
+  Typography,
+} from 'antd';
 import {type PropsWithChildren, useState} from 'react';
 
 import styles from './ColorPicker.module.css';

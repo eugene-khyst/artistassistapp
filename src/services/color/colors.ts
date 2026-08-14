@@ -16,36 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {type User} from '@/services/auth/types';
-import {hasAccessTo} from '@/services/auth/utils';
-import {rgbToOklab} from '@/services/color/space/oklab';
-import {oklabToOklch} from '@/services/color/space/oklch';
-import type {
-  BrandColorCount,
-  Color,
-  ColorBrandDefinition,
-  ColorDefinition,
-  ColorId,
-  ColorIdFormat,
-  ColorMixture,
-  ColorSet,
-  ColorSetDefinition,
-  StandardColorSetDefinition,
-} from '@/services/color/types';
-import {ColorType, CUSTOM_COLOR_SET, NEW_COLOR_SET} from '@/services/color/types';
-import type {ExtractorComparator} from '@/utils/array';
-import {createExtractorComparator, decorateSortUndecorate} from '@/utils/array';
 import {
   byBoolean,
-  byNumber,
   byString,
+  type Color,
+  type ColorBrandDefinition,
+  type ColorDefinition,
+  type ColorIdFormat,
+  type ColorSet,
+  type ColorSetDefinition,
+  ColorType,
   type Comparator,
   compare,
+  hexToRgb,
   reverseOrder,
-} from '@/utils/comparator';
-import {computeIfAbsentInMap, indexBy} from '@/utils/map';
+} from '@eugene-khyst/artistassistapp-color-mixer';
 
-import {hexToRgb} from './space/rgb';
+import {type User} from '@/services/auth/types';
+import {hasAccessTo} from '@/services/auth/utils';
 
 export const COLOR_TYPES: ColorType[] = [
   ColorType.WatercolorPaint,
@@ -61,20 +49,6 @@ export const COLOR_TYPES: ColorType[] = [
   ColorType.AcrylicMarkers,
 ];
 
-export const PASTEL_COLOR_TYPES = new Set<ColorType>([
-  ColorType.DryPastel,
-  ColorType.OilPastel,
-  ColorType.WaxPastel,
-]);
-
-export function isPastel(type: ColorType): boolean {
-  return PASTEL_COLOR_TYPES.has(type);
-}
-
-export function computeStandardColorSetDefinitionId({name, colors}: StandardColorSetDefinition) {
-  return `${colors.length} ${name ?? ''}`.trim();
-}
-
 export const compareColorBrandsByName = ({
   prioritizeFreeTier,
 }: {
@@ -84,79 +58,6 @@ export const compareColorBrandsByName = ({
     prioritizeFreeTier && reverseOrder(byBoolean(({freeTier}) => freeTier)),
     byString(({fullName}) => fullName)
   );
-
-export enum ColorSort {
-  ById = 1,
-  ByHue = 2,
-  ByLightness = 3,
-}
-
-const NEUTRAL_CHROMA_THRESHOLD = 0.03;
-const EARTH_CHROMA_THRESHOLD = 0.1;
-const WARM_HUE_MIN = 20;
-const WARM_HUE_MAX = 110;
-
-export function getSortHueKey(rgb: [number, number, number]): [number, number, number] {
-  const [l, c, h] = oklabToOklch(...rgbToOklab(...rgb));
-  if (c < NEUTRAL_CHROMA_THRESHOLD) {
-    return [2, -l, c];
-  }
-  if (h >= WARM_HUE_MIN && h <= WARM_HUE_MAX && c < EARTH_CHROMA_THRESHOLD) {
-    return [1, h, -l];
-  }
-  return [0, h, -l];
-}
-
-export function getSortLightness(rgb: [number, number, number]): [number, number, number] {
-  return oklabToOklch(...rgbToOklab(...rgb));
-}
-
-const byHueKey = compare(
-  byNumber(([group]: [number, number, number]) => group),
-  byNumber(([, secondary]: [number, number, number]) => secondary),
-  byNumber(([, , tertiary]: [number, number, number]) => tertiary)
-);
-
-const byLightnessKey = compare(
-  reverseOrder(byNumber(([l]: [number, number, number]) => l)),
-  reverseOrder(byNumber(([, c]: [number, number, number]) => c)),
-  byNumber(([, , h]: [number, number, number]) => h)
-);
-
-export const COLOR_DEFINITION_COMPARATORS: Record<
-  ColorSort,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ExtractorComparator<ColorDefinition, any>
-> = {
-  [ColorSort.ById]: createExtractorComparator<ColorDefinition>(byNumber(({id}) => id)),
-  [ColorSort.ByHue]: createExtractorComparator<ColorDefinition, [number, number, number]>(
-    byHueKey,
-    ({hex}) => getSortHueKey(hexToRgb(hex))
-  ),
-  [ColorSort.ByLightness]: createExtractorComparator<ColorDefinition, [number, number, number]>(
-    byLightnessKey,
-    ({hex}) => getSortLightness(hexToRgb(hex))
-  ),
-};
-
-export const COLOR_COMPARATORS: Record<
-  ColorSort,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ExtractorComparator<Color, any>
-> = {
-  [ColorSort.ById]: createExtractorComparator<Color>(byNumber(({id}) => id)),
-  [ColorSort.ByHue]: createExtractorComparator<Color, [number, number, number]>(byHueKey, ({rgb}) =>
-    getSortHueKey(rgb)
-  ),
-  [ColorSort.ByLightness]: createExtractorComparator<Color, [number, number, number]>(
-    byLightnessKey,
-    ({rgb}) => getSortLightness(rgb)
-  ),
-};
-
-export const indexStandardColorSets = (
-  sets: StandardColorSetDefinition[]
-): Map<string, StandardColorSetDefinition> => indexBy(sets, computeStandardColorSetDefinitionId);
 
 export function formatColorLabel(
   {id, name}: ColorDefinition | Color,
@@ -196,37 +97,6 @@ export function formatColorLabel(
   }
 }
 
-export function colorSetDefinitionToBrandColorCounts(
-  {brands: brandIds, colors}: ColorSetDefinition,
-  brands?: Map<number, ColorBrandDefinition>
-): BrandColorCount[] {
-  if (!brandIds || !colors || !brands) {
-    return [];
-  }
-  return brandIds.map((brandId: number): BrandColorCount => {
-    const {shortName, fullName} = brands.get(brandId) ?? {};
-    const colorCount = colors[brandId]?.length ?? 0;
-    return {
-      brandId,
-      brandName: `${shortName || fullName}`,
-      colorCount,
-    };
-  });
-}
-
-export function colorSetToBrandColorCounts({brands, colors}: ColorSet): BrandColorCount[] {
-  return [...brands.values()].map(
-    ({id, shortName, fullName}: ColorBrandDefinition): BrandColorCount => {
-      const colorCount = colors.filter(({brand}: Color): boolean => brand === id).length;
-      return {
-        brandId: id,
-        brandName: shortName || fullName,
-        colorCount,
-      };
-    }
-  );
-}
-
 export function toColorSet(
   {id, name, type, brands: selectedBrands, colors: selectedColors}: ColorSetDefinition,
   brands?: Map<number, ColorBrandDefinition>,
@@ -256,7 +126,7 @@ export function toColorSet(
       return colorIds
         .map((colorId: number): ColorDefinition | undefined => colors.get(brandAlias)?.get(colorId))
         .filter((color): color is ColorDefinition => !!color)
-        .map(({id, name, hex, rho, opacity, warmth}: ColorDefinition): Color => ({
+        .map(({id, name, hex, rho, opacity, warmth, isWhite}: ColorDefinition): Color => ({
           brand: brandId,
           id,
           name,
@@ -264,79 +134,8 @@ export function toColorSet(
           rho,
           opacity,
           warmth,
+          isWhite,
         }));
     }),
   };
-}
-
-export function filterColorSet(colorSet: ColorSet | null, colorIds: ColorId[]): ColorSet | null {
-  if (!colorSet) {
-    return null;
-  }
-  const {type, brands} = colorSet;
-  return {
-    type,
-    brands,
-    colors: colorIds
-      .map(([brandId, colorId]): Color | undefined =>
-        colorSet.colors.find(({brand, id}: Color) => brandId === brand && colorId === id)
-      )
-      .filter((color): color is Color => !!color),
-  };
-}
-
-export function sortColorSet(colorSet: ColorSet | null, sort?: ColorSort): ColorSet | null {
-  if (!colorSet) {
-    return null;
-  }
-  if (!sort) {
-    return colorSet;
-  }
-  const {type, brands} = colorSet;
-  return {
-    type,
-    brands,
-    colors: decorateSortUndecorate(colorSet.colors, COLOR_COMPARATORS[sort]),
-  };
-}
-
-export function mergeColorSets(colorSets: ColorSetDefinition[]): ColorSetDefinition {
-  const [colorSet] = colorSets;
-  const type = colorSet?.type;
-  const brandSet = new Set<number>();
-  const colorsByBrand = new Map<number, Set<number>>();
-  for (const {brands, colors} of colorSets) {
-    brands?.forEach((brandId: number) => brandSet.add(brandId));
-    for (const [brandIdStr, ids] of Object.entries(colors ?? {})) {
-      const bucket = computeIfAbsentInMap(
-        colorsByBrand,
-        Number(brandIdStr),
-        () => new Set<number>()
-      );
-      ids.forEach((id: number) => bucket.add(id));
-    }
-  }
-  const colors: Record<number, number[]> = {};
-  for (const [brandId, ids] of colorsByBrand) {
-    colors[brandId] = [...ids];
-  }
-  return {
-    id: NEW_COLOR_SET,
-    type,
-    name: undefined,
-    brands: [...brandSet],
-    standardColorSet: CUSTOM_COLOR_SET,
-    colors,
-  };
-}
-
-export function getColorId({parts}: ColorMixture): ColorId | null {
-  if (parts.length > 1) {
-    return null;
-  }
-  const [part] = parts;
-  const {
-    color: {brand, id},
-  } = part!;
-  return [brand, id];
 }

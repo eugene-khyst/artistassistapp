@@ -18,11 +18,9 @@
 
 import {invertColorsWebGL} from '@/services/image/filter/invert-colors-webgl';
 import type {Vector} from '@/services/math/geometry';
-import type {DrawImageSource} from '@/utils/graphics';
-import {IMAGE_SIZE} from '@/utils/graphics';
+import {type DrawImageSource, IMAGE_SIZE} from '@/utils/graphics';
 
-import type {ZoomableImageCanvasProps} from './zoomable-image-canvas';
-import {ZoomableImageCanvas} from './zoomable-image-canvas';
+import {ZoomableImageCanvas, type ZoomableImageCanvasProps} from './zoomable-image-canvas';
 
 export interface OverlayDrawingCanvasProps extends ZoomableImageCanvasProps {
   lineWidth?: number;

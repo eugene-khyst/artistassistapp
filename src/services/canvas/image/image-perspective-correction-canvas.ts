@@ -16,10 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {OverlayDrawingCanvasProps} from '@/services/canvas/image/overlay-drawing-canvas';
-import {OverlayDrawingCanvas} from '@/services/canvas/image/overlay-drawing-canvas';
-import type {Rectangle, Vector} from '@/services/math/geometry';
-import {orderCornersClockwise} from '@/services/math/geometry';
+import {
+  OverlayDrawingCanvas,
+  type OverlayDrawingCanvasProps,
+} from '@/services/canvas/image/overlay-drawing-canvas';
+import {orderCornersClockwise, type Rectangle, type Vector} from '@/services/math/geometry';
 
 export interface ImagePerspectiveCorrectionCanvasProps extends OverlayDrawingCanvasProps {
   vertexRadius?: number;

@@ -16,22 +16,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {useLingui} from '@lingui/react/macro';
+import {
+  type Color,
+  COLOR_COMPARATORS,
+  type ColorId,
+  type ColorSet,
+  ColorSort,
+  computeIfAbsentInMap,
+  decorateSortUndecorate,
+  includesColorId,
+} from '@eugene-khyst/artistassistapp-color-mixer';
+import {Trans} from '@lingui/react/macro';
 import {Cascader} from 'antd';
 import type {CascaderProps, DefaultOptionType} from 'antd/es/cascader';
 import {useMemo} from 'react';
 
 import {ColorLabel} from '@/components/color/ColorLabel';
 import {filterCascaderOptions} from '@/components/utils';
-import {COLOR_COMPARATORS, ColorSort, formatColorLabel} from '@/services/color/colors';
-import type {Color, ColorId, ColorSet} from '@/services/color/types';
+import {formatColorLabel} from '@/services/color/colors';
 import {useAppStore} from '@/stores/app-store';
-import {decorateSortUndecorate} from '@/utils/array';
-import {computeIfAbsentInMap} from '@/utils/map';
 
 import styles from './ColorCascader.module.css';
 
-type OptionType = Omit<DefaultOptionType, 'value'> & {value?: number | null};
+type OptionType = Omit<DefaultOptionType, 'value' | 'children'> & {
+  value?: number | null;
+  children?: OptionType[];
+};
 
 const displayRender = (labels: string[]) => labels[labels.length - 1];
 const showSearch = {filter: filterCascaderOptions};
@@ -69,10 +79,30 @@ function getColorOptions(colorSet: ColorSet | null): OptionType[] {
     .filter((option): option is OptionType => !!option);
 }
 
+function disableColors(
+  options: OptionType[],
+  disabledColorIds: readonly ColorId[],
+  currentColorIds?: readonly ColorId[]
+): OptionType[] {
+  const brandOptions = options.map((brandOption: OptionType): OptionType => {
+    const children = brandOption.children?.map((colorOption: OptionType): OptionType => {
+      const colorId: ColorId = [brandOption.value!, colorOption.value!];
+      const disabled =
+        includesColorId(disabledColorIds, colorId) && !includesColorId(currentColorIds, colorId);
+      return disabled === !!colorOption['disabled'] ? colorOption : {...colorOption, disabled};
+    });
+    const disabled = !!children?.length && children.every(child => !!child['disabled']);
+    return children?.some((child, i) => child !== brandOption.children?.[i]) ||
+      disabled !== !!brandOption['disabled']
+      ? {...brandOption, children, disabled}
+      : brandOption;
+  });
+  return brandOptions.some((brandOption, i) => brandOption !== options[i]) ? brandOptions : options;
+}
+
 type ColorCascaderBaseProps = Omit<
   CascaderProps<OptionType, 'value', false>,
   | 'options'
-  | 'placeholder'
   | 'showSearch'
   | 'expandTrigger'
   | 'showCheckedStrategy'
@@ -82,6 +112,7 @@ type ColorCascaderBaseProps = Omit<
   | 'onChange'
 > & {
   multiple?: boolean;
+  disabledColorIds?: readonly ColorId[];
 };
 
 type ColorCascaderSingleProps = ColorCascaderBaseProps & {
@@ -98,24 +129,36 @@ type ColorCascaderMultipleProps = ColorCascaderBaseProps & {
 
 type ColorCascaderProps = ColorCascaderSingleProps | ColorCascaderMultipleProps;
 
+const EMPTY_COLOR_IDS: readonly ColorId[] = [];
+
 export function ColorCascader({
   multiple,
   allowClear,
   value,
   onChange,
+  disabledColorIds = EMPTY_COLOR_IDS,
+  placeholder,
   ...rest
 }: Readonly<ColorCascaderProps>) {
   const colorSet = useAppStore(state => state.colorSet);
 
-  const {t} = useLingui();
-
   const options = useMemo(() => getColorOptions(colorSet), [colorSet]);
+
+  const cascaderOptions = useMemo(
+    () =>
+      disabledColorIds.length
+        ? disableColors(options, disabledColorIds, multiple ? value : value ? [value] : undefined)
+        : options,
+    [options, disabledColorIds, multiple, value]
+  );
 
   return (
     // @ts-expect-error Cascader prop drilling
     <Cascader<OptionType>
-      options={options}
-      placeholder={multiple ? t`Select colors` : t`Select color`}
+      options={cascaderOptions}
+      placeholder={
+        placeholder ?? (multiple ? <Trans>Select colors</Trans> : <Trans>Select color</Trans>)
+      }
       showSearch={showSearch}
       expandTrigger="hover"
       showCheckedStrategy={Cascader.SHOW_CHILD}

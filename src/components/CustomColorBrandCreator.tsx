@@ -23,9 +23,19 @@ import {
   MinusOutlined,
   SaveOutlined,
 } from '@ant-design/icons';
+import {
+  byDate,
+  byNumber,
+  type ColorDefinition,
+  compare,
+  type CustomColorBrandDefinition,
+  type CustomColorBrandSource,
+  NEW_CUSTOM_COLOR_BRAND,
+  rgbToHex,
+  WHITE_HEX,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {useQueryClient} from '@tanstack/react-query';
-import type {FormInstance} from 'antd';
 import {
   App,
   Button,
@@ -34,6 +44,7 @@ import {
   Dropdown,
   Flex,
   Form,
+  type FormInstance,
   Input,
   InputNumber,
   Popconfirm,
@@ -55,24 +66,16 @@ import {FileSelect} from '@/components/file/FileSelect';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {useCreateImageBitmap} from '@/hooks/useCreateImageBitmap';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
-import type {PipettePointSetEvent} from '@/services/canvas/image/image-color-picker-canvas';
 import {
   ImageColorPickerCanvas,
   ImageColorPickerEventType,
   MIN_COLOR_PICKER_DIAMETER,
+  type PipettePointSetEvent,
 } from '@/services/canvas/image/image-color-picker-canvas';
 import {toCustomColorBrandSource} from '@/services/cloud/cloud-state';
 import {FileExtension} from '@/services/cloud/types';
-import {rgbToHex, WHITE_HEX} from '@/services/color/space/rgb';
-import {
-  type ColorDefinition,
-  type CustomColorBrandDefinition,
-  type CustomColorBrandSource,
-  NEW_CUSTOM_COLOR_BRAND,
-} from '@/services/color/types';
 import {useAppStore} from '@/stores/app-store';
 import {maxOf} from '@/utils/array';
-import {byDate, byNumber, compare} from '@/utils/comparator';
 import {noop} from '@/utils/function';
 
 import styles from './CustomColorBrandCreator.module.css';

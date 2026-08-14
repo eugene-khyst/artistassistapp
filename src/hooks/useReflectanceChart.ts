@@ -16,8 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {RefCallback} from 'react';
-import {useCallback, useState} from 'react';
+import {type RefCallback, useCallback, useState} from 'react';
 
 import {ReflectanceChart} from '@/services/canvas/chart/reflectance-chart';
 

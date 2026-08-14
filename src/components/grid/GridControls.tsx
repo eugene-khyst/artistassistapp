@@ -26,8 +26,7 @@ import {startTransition, use, useEffect, useMemo, useOptimistic} from 'react';
 import {DEFAULT_GRID_SETTINGS, setGrid} from '@/components/grid/grid';
 import {TabContext} from '@/contexts/TabContext';
 import {type GridCanvas} from '@/services/canvas/image/grid-canvas';
-import type {AppSettings, GridSettings} from '@/services/settings/types';
-import {GridMode} from '@/services/settings/types';
+import {type AppSettings, GridMode, type GridSettings} from '@/services/settings/types';
 import {useAppStore} from '@/stores/app-store';
 import type {TabKey} from '@/tabs';
 

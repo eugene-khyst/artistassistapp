@@ -19,8 +19,13 @@
 import {RightOutlined} from '@ant-design/icons';
 import {useLingui} from '@lingui/react/macro';
 import {clsx} from 'clsx';
-import type {PointerEvent as ReactPointerEvent} from 'react';
-import {useEffect, useEffectEvent, useRef, useState} from 'react';
+import {
+  type PointerEvent as ReactPointerEvent,
+  useEffect,
+  useEffectEvent,
+  useRef,
+  useState,
+} from 'react';
 
 import type {CssVariables} from '@/utils/types';
 

@@ -19,8 +19,7 @@
 import {AppstoreAddOutlined} from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
 import {App, Button} from 'antd';
-import type {ReactNode} from 'react';
-import {useCallback} from 'react';
+import {type ReactNode, useCallback} from 'react';
 
 import {STORAGE_NOTIFICATION_KEY, useCloudSyncNotification} from '@/hooks/useCloudSyncNotification';
 import {useDisplayMode} from '@/hooks/useDisplayMode';

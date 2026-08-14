@@ -16,14 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  type ColorMixture,
+  hasWhiteName,
+  type RgbTuple,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import type {IDBPDatabase, IDBPTransaction} from 'idb';
 
-import type {RgbTuple} from '@/services/color/space/rgb';
-import type {ColorMixture} from '@/services/color/types';
 import {EMPTY_DIGEST} from '@/services/db/color-mixture-db';
 import type {LegacyArtistAssistAppDB, LegacyStoreName} from '@/services/db/schema';
-import type {ImageFile, ImageMetadata} from '@/services/image/image-file';
-import {readStoredImageBytes, toImageMetadata} from '@/services/image/image-file';
+import {
+  type ImageFile,
+  type ImageMetadata,
+  readStoredImageBytes,
+  toImageMetadata,
+} from '@/services/image/image-file';
 import type {AppSettings} from '@/services/settings/types';
 import {digestArrayBuffer} from '@/utils/digest';
 
@@ -198,6 +205,21 @@ const MIGRATIONS: Migration[] = [
     },
     migrate: async (): Promise<void> => {
       // prepare performs the migration.
+    },
+  }),
+  defineMigration({
+    name: '007-custom-brands-is-white',
+    migrate: async (tx): Promise<void> => {
+      for await (const cursor of tx.objectStore('custom-brands')) {
+        const customBrand = cursor.value;
+        await cursor.update({
+          ...customBrand,
+          colors: customBrand.colors?.map(color => ({
+            ...color,
+            isWhite: (!!color.name && hasWhiteName(color.name)) || undefined,
+          })),
+        });
+      }
     },
   }),
 ];

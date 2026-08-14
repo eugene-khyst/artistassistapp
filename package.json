@@ -1,10 +1,11 @@
 {
   "name": "artistassistapp",
-  "version": "3.0.0",
+  "version": "2026.8.18",
   "type": "module",
   "scripts": {
     "lingui:extract": "lingui extract --clean",
     "translate": "tsx translate-po.ts",
+    "generate:blue-noise": "tsx scripts/generate-blue-noise.ts",
     "dev": "BUILD_ID=$(date +%s) vite",
     "build": "tsc -b && BUILD_ID=$(date +%s) vite build",
     "build:dev": "npm run build -- --mode development",
@@ -21,6 +22,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^6.3.2",
+    "@eugene-khyst/artistassistapp-color-mixer": "^1.0.0",
     "@fontsource/kalam": "^5.3.0",
     "@lingui/core": "^6.6.0",
     "@lingui/react": "^6.6.0",
@@ -64,6 +66,7 @@
     "@types/whatwg-mimetype": "^5.0.0",
     "@vitejs/plugin-react-swc": "^4.3.3",
     "eslint": "^10.8.1",
+    "eslint-plugin-import-x": "^4.17.1",
     "eslint-plugin-license-header": "^0.9.0",
     "eslint-plugin-lingui": "^0.14.0",
     "eslint-plugin-react-hooks": "^7.1.1",
@@ -75,9 +78,7 @@
     "globals": "^17.9.0",
     "google-translate-api-x": "^10.7.3",
     "husky": "^9.1.7",
-    "lint-staged": "^17.3.0",
     "prettier": "^3.9.6",
-    "tsc-files": "^1.1.4",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.23.11",
     "typescript": "^5.9.3",
@@ -87,18 +88,6 @@
     "vite-plugin-pwa": "^1.3.0",
     "vite-plugin-svgr": "^5.2.0",
     "vitest": "^4.1.10"
-  },
-  "lint-staged": {
-    "**/*.{js,jsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "**/*.{ts,tsx}": [
-      "sh -c 'tsc-files --noEmit $(ls -d ./**/* | grep .d.ts) $0 $@'",
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "**/*.{css,html}": "prettier --write"
   },
   "license": "AGPL-3.0-only",
   "allowScripts": {

@@ -17,29 +17,34 @@
  */
 
 import {LineChartOutlined} from '@ant-design/icons';
+import {
+  COLOR_MIXING,
+  type ColorMatch,
+  type ColorMixture,
+  getColorId,
+  isPastel,
+  Layering,
+  rgbToHex,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Card, Col, Flex, Row, Space, Typography} from 'antd';
 import {memo} from 'react';
 
 import {AddToPaletteButton} from '@/components/color/AddToPaletteButton';
 import {ColorSquare} from '@/components/color/ColorSquare';
-import {COLOR_MIXING} from '@/services/color/color-mixer';
-import {getColorId, isPastel} from '@/services/color/colors';
-import {rgbToHex} from '@/services/color/space/rgb';
-import {type ColorMixture, Layering, type SimilarColor} from '@/services/color/types';
 import {useAppStore} from '@/stores/app-store';
 
 import {ColorMixtureDescription} from './ColorMixtureDescription';
 
 interface Props {
   targetColor: string;
-  similarColor: SimilarColor;
+  colorMatch: ColorMatch;
   onReflectanceChartClick: (colorMixture?: ColorMixture) => void;
 }
 
-export const SimilarColorCard = memo(function SimilarColorCard({
+export const ColorMatchCard = memo(function ColorMatchCard({
   targetColor,
-  similarColor: {colorMixture, similarity},
+  colorMatch: {colorMixture, matchScore, deltaEOk},
   onReflectanceChartClick,
 }: Readonly<Props>) {
   const paletteColorMixture = useAppStore(state =>
@@ -56,7 +61,8 @@ export const SimilarColorCard = memo(function SimilarColorCard({
   const {mixing, layering} = COLOR_MIXING[type];
   const pastel: boolean = isPastel(type);
 
-  const similarityText: string = similarity.toFixed(1);
+  const matchScoreText = matchScore.toFixed(1);
+  const deltaEOkText = deltaEOk.toFixed(3);
 
   const handleTitleEdited = (value: string) => {
     if (paletteColorMixture) {
@@ -81,15 +87,20 @@ export const SimilarColorCard = memo(function SimilarColorCard({
   return (
     <Card size="small">
       <Flex vertical gap="small" className="u-w-100">
-        <Space>
+        <Flex gap="small">
+          <Space size={4}>
+            <ColorSquare size="small" hex={targetColor} />
+            <ColorSquare size="small" hex={rgbToHex(...colorMixture.layerRgb)} />
+          </Space>
           <Typography.Text>
             <Trans>
-              <Typography.Text strong>{similarityText}%</Typography.Text> similarity
+              <Typography.Text strong>{matchScoreText}%</Typography.Text> match score
             </Trans>
           </Typography.Text>
-          <ColorSquare size="small" hex={targetColor} />
-          <ColorSquare size="small" hex={rgbToHex(...colorMixture.layerRgb)} />
-        </Space>
+          <Typography.Text type="secondary">
+            ΔE<sub>OK</sub>: {deltaEOkText}
+          </Typography.Text>
+        </Flex>
         <ColorMixtureDescription colorMixture={colorMixture} />
         {paletteColorMixture && (
           <Typography.Text

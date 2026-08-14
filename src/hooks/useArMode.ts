@@ -16,8 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {RefObject} from 'react';
-import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
+import {type RefObject, useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
 
 interface UseArModeOptions {
   isActive: boolean;

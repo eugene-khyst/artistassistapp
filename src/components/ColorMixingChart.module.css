@@ -11,11 +11,6 @@
 }
 
 .chart {
-  display: grid;
-  grid-template-columns: auto repeat(var(--chart-color-count), auto);
-  gap: var(--ant-margin-xs);
-  align-items: center;
-  width: max-content;
   padding: var(--ant-padding-xs);
   box-sizing: content-box;
 }

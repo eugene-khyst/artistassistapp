@@ -16,13 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  type ColorBrandDefinition,
+  type ColorDefinition,
+  type ColorType,
+  indexById,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {useQueries} from '@tanstack/react-query';
 import {useCallback, useMemo} from 'react';
 
 import {colorsQueryOptions} from '@/services/color/color-queries';
-import type {ColorBrandDefinition, ColorDefinition, ColorType} from '@/services/color/types';
 import {useAppStore} from '@/stores/app-store';
-import {indexById} from '@/utils/map';
 
 interface Result {
   isLoading: boolean;

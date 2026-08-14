@@ -16,12 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {PAPER_WHITE_HEX} from '@eugene-khyst/artistassistapp-color-mixer';
+
 import type {Locale} from '@/i18n';
-import {PAPER_WHITE_HEX} from '@/services/color/color-mixer';
 import type {TabKey} from '@/tabs';
 
 export enum ColorPickerSort {
-  BySimilarity = 1,
+  ByMatchScore = 1,
   ByNumberOfColors = 2,
   ByConsistency = 3,
 }
@@ -57,5 +58,5 @@ export interface AppSettings {
 export const DEFAULT_APP_SETTINGS: AppSettings = {
   colorPickerSurfaceHex: PAPER_WHITE_HEX,
   colorPickerLayeringEnabled: true,
-  colorPickerSort: ColorPickerSort.BySimilarity,
+  colorPickerSort: ColorPickerSort.ByMatchScore,
 };

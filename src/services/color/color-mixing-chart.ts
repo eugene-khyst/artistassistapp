@@ -16,8 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {makeColorMixture, makeSingleColorMixture, PAPER_WHITE} from '@/services/color/color-mixer';
-import type {ColorMixture, ColorSet} from '@/services/color/types';
+import {
+  type ColorMixture,
+  type ColorSet,
+  makeColorMixtures,
+  makeSingleColorMixture,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 
 export class ColorMixingChart {
   makeColorMixingChart(colorSet: ColorSet | null): ColorMixture[][] {
@@ -35,16 +39,14 @@ export class ColorMixingChart {
     }
     for (let i = 0; i < length - 1; i++) {
       for (let j = i + 1; j < length; j++) {
-        const [thick, thinned] = makeColorMixture(
+        const [[thick, thinned]] = makeColorMixtures({
           type,
-          [colors[i]!, colors[j]!],
-          [1, 1],
-          null,
-          PAPER_WHITE,
-          [[1, 2]]
-        );
-        colorMixtures[i]![j] = thick!;
-        colorMixtures[j]![i] = thinned ?? thick!;
+          colors: [colors[i]!, colors[j]!],
+          ratios: [[1, 1]],
+          consistencies: [[1, 2]],
+        });
+        colorMixtures[i]![j] = thick;
+        colorMixtures[j]![i] = thinned ?? thick;
       }
     }
     return colorMixtures;

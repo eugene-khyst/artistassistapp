@@ -23,8 +23,7 @@ import {thresholdFilterWebGL} from '@/services/image/filter/threshold-webgl';
 import {transformImage} from '@/services/ml/image-transformer';
 import {type OnnxModel} from '@/services/ml/types';
 import type {FetchProgressCallback} from '@/utils/fetch';
-import type {DrawImageSource} from '@/utils/graphics';
-import {offscreenCanvasToImageData} from '@/utils/graphics';
+import {type DrawImageSource, offscreenCanvasToImageData} from '@/utils/graphics';
 
 export async function getOutline(
   image: DrawImageSource,

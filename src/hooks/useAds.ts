@@ -16,8 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {UseQueryResult} from '@tanstack/react-query';
-import {useQuery} from '@tanstack/react-query';
+import {useQuery, type UseQueryResult} from '@tanstack/react-query';
 
 import {fetchAds} from '@/services/ads/ads';
 import type {AdsDefinition} from '@/services/ads/types';

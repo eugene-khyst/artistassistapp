@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/color-set/ColorBrandSelect.tsx:73
+#: src/components/color-set/ColorBrandSelect.tsx:72
 msgid "({colorCount} colors)"
 msgstr "({colorCount} färger)"
 
@@ -25,9 +25,9 @@ msgstr "{brandName} färger"
 msgid "{closeCounter, plural, one {Close in # second} other {Close in # seconds}}"
 msgstr "{closeCounter, plural, one {Stäng om # sekund} other {Stäng om # sekunder}}"
 
-#: src/components/color-set/ColorSetName.tsx:34
-#: src/components/color-set/StandardColorSetCascader.tsx:59
-#: src/components/ImageColorPicker.tsx:390
+#: src/components/color-set/ColorSetName.tsx:33
+#: src/components/color-set/StandardColorSetCascader.tsx:62
+#: src/components/ImageColorPicker.tsx:438
 #: src/components/Palette.tsx:75
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# färg} other {# färger}}"
@@ -69,87 +69,87 @@ msgstr "<0/> Surfplatta och <1/> mobil"
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows och <1/> Linux"
 
-#: src/components/color/SimilarColorCard.tsx:86
-msgid "<0>{similarityText}%</0> similarity"
-msgstr "<0>{similarityText}%</0> likhet"
+#: src/components/color/ColorMatchCard.tsx:96
+msgid "<0>{matchScoreText}%</0> match score"
+msgstr "<0>{matchScoreText} %</0> matchresultat"
 
-#: src/components/ColorSetChooser.tsx:541
+#: src/components/ColorSetChooser.tsx:542
 msgid "<0>Already a paid member?</0> Log in to unlock your paid features."
 msgstr "<0>Redan betalande medlem?</0> Logga in för att låsa upp dina betalfunktioner."
 
-#: src/components/ColorSetChooser.tsx:477
+#: src/components/ColorSetChooser.tsx:478
 msgid "<0>ArtistAssistApp</0> helps artists mix colors to match reference photos using their own art supplies, create palettes and mixing charts, study tonal values, make outlines, draw with grids, explore limited palettes and artist-inspired versions of photos, straighten photos, adjust their colors, remove backgrounds, and compare photos side by side."
 msgstr "<0>ArtistAssistApp</0> hjälper konstnärer att blanda färger för att matcha referensfoton med hjälp av sina egna konstmaterial, skapa paletter och blandningsdiagram, studera tonvärden, göra konturer, rita med rutnät, utforska begränsade paletter och konstnärsinspirerade versioner av foton, räta ut bilder, justera sina färger, ta bort bakgrunder och jämföra foton sida vid sida."
 
-#: src/components/auth/AuthFeedbackHandler.tsx:71
+#: src/components/auth/AuthFeedbackHandler.tsx:70
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Kontrollera ditt Patreon-konto</0>: Se till att du är inloggad för <1>att Patreon.com</1> i din webbläsare med samma e-postadress som du använde för att köpa ditt medlemskap. Om du har flera konton, logga ut och logga in igen med rätt konto."
 
-#: src/components/ColorSetChooser.tsx:511
+#: src/components/ColorSetChooser.tsx:512
 msgid "<0>Not a paid member yet?</0> Become a paid ArtistAssistApp member to unlock:"
 msgstr "<0>Inte betalande medlem än?</0> Bli betald medlem i ArtistAssistApp för att låsa upp:"
 
-#: src/components/auth/AuthFeedbackHandler.tsx:89
+#: src/components/auth/AuthFeedbackHandler.tsx:88
 msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
 msgstr "<0>Försök logga in igen</0>: När du har bekräftat att rätt Patreon-konto är aktivt i din webbläsare, logga in på ArtistAssistApp igen."
 
-#: src/components/auth/AuthFeedbackHandler.tsx:82
+#: src/components/auth/AuthFeedbackHandler.tsx:81
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Använd en webbläsare</0>: Om du använder Patreon-appen (iOS/Android), logga in via en webbläsare (Chrome, Safari, Firefox) istället, eftersom appen ibland kan störa verifieringsprocessen."
 
-#: src/components/ColorSetChooser.tsx:527
+#: src/components/ColorSetChooser.tsx:528
 msgid "☁️ Cloud sync to store your color sets, photos, and mixtures in your own cloud storage, so you can use them across devices"
 msgstr "☁️ Cloud Sync för att lagra dina färguppsättningar, foton och blandningar i din egen molnlagring, så att du kan använda dem över olika enheter"
 
-#: src/components/ColorSetChooser.tsx:521
+#: src/components/ColorSetChooser.tsx:522
 msgid "✏️ High-quality outlines and background removal"
 msgstr "✏️ Högkvalitativa dispositioner och bakgrundsborttagning"
 
-#: src/components/ColorSetChooser.tsx:518
+#: src/components/ColorSetChooser.tsx:519
 msgid "🎨 250+ color brands"
 msgstr "🎨 250+ färgmärken"
 
-#: src/components/ColorSetChooser.tsx:533
+#: src/components/ColorSetChooser.tsx:534
 msgid "📢 No ads"
 msgstr "📢 Inga annonser"
 
-#: src/components/ColorSetChooser.tsx:524
+#: src/components/ColorSetChooser.tsx:525
 msgid "🧑‍🎨 Artist-inspired and custom-reference styles"
 msgstr "🧑‍🎨 Konstnärsinspirerade och anpassade referensstilar"
 
-#: src/components/ImageColorPicker.tsx:352
+#: src/components/messages.ts:37
+msgid "2-color gradient"
+msgstr "2-färgs gradient"
+
+#: src/components/ImageColorPicker.tsx:400
 msgid "A color mixed into every suggested mixture to help the palette feel more harmonious. Also known as a mother color."
 msgstr "En färg blandad i varje föreslagen blandning för att hjälpa paletten att kännas mer harmonisk. Kallas även moderfärg."
-
-#: src/components/ColorMixingChart.tsx:173
-msgid "A grid showing the result of mixing each pair of selected colors in a 1:1 ratio. Above the diagonal are thick layers. Below the diagonal are thinned to 1/2 strength (e.g., diluted with water at a 1:1 ratio for watercolor)."
-msgstr "Ett rutnät som visar resultatet av att blanda varje par utvalda färger i förhållandet 1:1. Ovanför diagonalen finns tjocka lager. Under diagonalen tunnas till 1/2 styrka (t.ex. späds ut med vatten i förhållandet 1:1 för akvarell)."
 
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:46
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "En ny version av appen finns tillgänglig och kommer att installeras automatiskt."
 
-#: src/components/Help.tsx:146
+#: src/components/Help.tsx:145
 msgid "A new version of the application is available."
 msgstr "En ny version av applikationen finns tillgänglig."
 
-#: src/components/ImageColorAdjustment.tsx:487
+#: src/components/ImageColorAdjustment.tsx:496
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Ett värde som är mindre än 100 % gör att bilden ser mindre färgglad ut, och ett värde som är större än 100 % gör att den ser för färgglad ut"
 
-#: src/components/Help.tsx:97
+#: src/components/Help.tsx:96
 msgid "About ArtistAssistApp"
 msgstr "Om ArtistAssistApp"
 
-#: src/components/messages.ts:60
+#: src/components/messages.ts:59
 msgid "Acrylic Gouache"
 msgstr "Akryl gouache"
 
-#: src/components/messages.ts:59
+#: src/components/messages.ts:58
 msgid "Acrylic Markers"
 msgstr "Akryl markörer"
 
-#: src/components/messages.ts:52
+#: src/components/messages.ts:51
 msgid "Acrylic Paint"
 msgstr "Akrylfärg"
 
@@ -157,33 +157,37 @@ msgstr "Akrylfärg"
 msgid "Add a color mixture to the palette"
 msgstr "Lägg till en färgblandning till paletten"
 
-#: src/components/ColorMixer.tsx:242
+#: src/components/ColorMixer.tsx:246
 msgid "Add color"
 msgstr "Lägg till färg"
 
 #: src/components/empty/EmptyPalette.tsx:35
-msgid "Add color mixtures to the palette."
-msgstr "Lägg till färgblandningar i paletten."
+msgid "Add color mixtures to the palette"
+msgstr "Lägg till färgblandningar i paletten"
+
+#: src/components/TwoColorGradient.tsx:213
+msgid "Add color pair"
+msgstr "Lägg till färgpar"
 
 #: src/components/ColorSetChooser.tsx:690
 msgid "Add or remove colors to match your actual color set."
 msgstr "Lägg till eller ta bort färger så att de matchar den faktiska färguppsättningen."
 
-#: src/components/ImagesCompare.tsx:115
+#: src/components/ImagesCompare.tsx:113
 msgid "Add photos"
 msgstr "Lägg till foton"
 
-#: src/components/color/AddToPaletteButton.tsx:67
+#: src/components/color/AddToPaletteButton.tsx:66
 msgid "Add to palette"
 msgstr "Lägg till i paletten"
 
-#: src/components/color/ColorMixtureDescription.tsx:91
+#: src/components/color/ColorMixtureDescription.tsx:94
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Lägg till vitt i ett <0>{whiteRatioText}-förhållande</0>"
 
 #: src/components/ImagePerspectiveCorrection.tsx:323
 #: src/components/ImagePerspectiveCorrection.tsx:370
-#: src/components/messages.ts:42
+#: src/components/messages.ts:41
 msgid "Adjust colors"
 msgstr "Justera färger"
 
@@ -191,15 +195,15 @@ msgstr "Justera färger"
 msgid "Adjust the 4 points manually."
 msgstr "Justera de fyra punkterna manuellt."
 
-#: src/components/ImageColorAdjustment.tsx:403
+#: src/components/ImageColorAdjustment.tsx:412
 msgid "Adjusted"
 msgstr "Justerad"
 
-#: src/components/Help.tsx:202
+#: src/components/Help.tsx:201
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "All appdata lagras i webbläsarens lagring, även efter installation. Att rensa webbläsardata raderar allt."
 
-#: src/components/file/FileSelect.tsx:148
+#: src/components/file/FileSelect.tsx:152
 msgid "Allow clipboard access, then try again."
 msgstr "Tillåt åtkomst till urklippet och försök igen."
 
@@ -207,43 +211,51 @@ msgstr "Tillåt åtkomst till urklippet och försök igen."
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
 msgstr "Alternativt kan du installera den senaste versionen av webbläsaren Chrome, Edge eller Opera och klicka på knappen <0>Installera</0> . I äldre versioner av macOS är detta det enda alternativet."
 
-#: src/components/Help.tsx:247
+#: src/components/ImageColorPicker.tsx:253
+msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
+msgstr "Ett underskikt eller en sammanhållande färg ställs in. Automatisk palett kommer att tillämpa dessa inställningar på hela fotot, inte bara det område de valdes för."
+
+#: src/components/Help.tsx:246
 msgid "Application build ID"
 msgstr "Applikationsbygg-ID"
 
-#: src/components/ColorMixingChart.tsx:200
-#: src/components/ImageLimitedPalette.tsx:132
+#: src/components/ColorMixingChart.tsx:208
+#: src/components/ImageLimitedPalette.tsx:133
 #: src/components/ImagePerspectiveCorrection.tsx:276
 msgid "Apply"
 msgstr "Använda"
 
-#: src/components/color/ConsistencyDescription.tsx:54
-msgid "Apply densely."
-msgstr "Applicera tätt."
+#: src/components/color/ConsistencyDescription.tsx:70
+msgid "Apply a layer at <0>{fractionText} of full thickness</0>"
+msgstr "Applicera ett lager med <0>{fractionText} av full tjocklek</0>"
 
-#: src/components/color/ConsistencyDescription.tsx:127
-msgid "Apply less pressure to make the colored pencil layer more transparent."
-msgstr "Applicera mindre tryck för att göra färgpennlagret mer genomskinligt."
+#: src/components/color/ConsistencyDescription.tsx:52
+msgid "Apply densely"
+msgstr "Applicera tätt"
 
-#: src/components/color/ConsistencyDescription.tsx:134
-msgid "Apply less pressure to make the watercolor pencil layer more transparent."
-msgstr "Applicera mindre tryck för att göra akvarellpennlagret mer genomskinligt."
+#: src/components/color/ConsistencyDescription.tsx:126
+msgid "Apply less pressure to make the colored pencil layer more transparent"
+msgstr "Applicera mindre tryck för att göra färgpennslagret mer transparent"
 
-#: src/components/color/ConsistencyDescription.tsx:94
-msgid "Apply strokes of each color in a <0>{ratioText} ratio</0>"
-msgstr "Använda linjer av varje färg i förhållandet <0>{ratioText}</0>"
+#: src/components/color/ConsistencyDescription.tsx:133
+msgid "Apply less pressure to make the watercolor pencil layer more transparent"
+msgstr "Applicera mindre tryck för att göra akvarellpennslagret mer transparent"
 
-#: src/components/ImageOutline.tsx:290
-#: src/components/ImageOutline.tsx:348
+#: src/components/color/ConsistencyDescription.tsx:92
+msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
+msgstr "Applicera streck av denna färg och underskiktsfärgen i ett <0>{ratioText}-förhållande</0>"
+
+#: src/components/ImageOutline.tsx:288
+#: src/components/ImageOutline.tsx:346
 msgid "AR"
 msgstr "AR"
 
-#: src/components/palette/PaletteGrid.tsx:115
+#: src/components/palette/PaletteGrid.tsx:119
 msgid "Are you sure you want to delete all color mixtures?"
 msgstr "Är du säker på att du vill ta bort alla färgblandningar?"
 
-#: src/components/color/AddToPaletteButton.tsx:47
-#: src/components/color/PaletteColorMixtureCard.tsx:122
+#: src/components/color/AddToPaletteButton.tsx:46
+#: src/components/color/PaletteColorMixtureCard.tsx:126
 msgid "Are you sure you want to delete this color mixture?"
 msgstr "Är du säker på att du vill ta bort den här färgblandningen?"
 
@@ -251,7 +263,7 @@ msgstr "Är du säker på att du vill ta bort den här färgblandningen?"
 msgid "Are you sure you want to delete this color set?"
 msgstr "Är du säker på att du vill ta bort den här färguppsättningen?"
 
-#: src/components/CustomColorBrandCreator.tsx:525
+#: src/components/CustomColorBrandCreator.tsx:528
 msgid "Are you sure you want to delete this custom brand?"
 msgstr "Är du säker på att du vill ta bort det här anpassade varumärket?"
 
@@ -260,51 +272,51 @@ msgid "Are you sure you want to delete this photo?"
 msgstr "Är du säker på att du vill ta bort det här fotot?"
 
 #: src/components/ColorSetChooser.tsx:605
-#: src/components/CustomColorBrandCreator.tsx:501
+#: src/components/CustomColorBrandCreator.tsx:504
 msgid "Art medium"
 msgstr "Konst medium"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:117
+#: src/components/cloud/CloudFeedbackHandler.tsx:116
 msgid "ArtistAssistApp can no longer access your cloud storage. Disconnect it, then connect again."
 msgstr "ArtistAssistApp kan inte längre komma åt din molnlagring. Koppla bort den, och koppla sedan in igen."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:185
+#: src/components/cloud/CloudFeedbackHandler.tsx:182
 msgid "ArtistAssistApp could not confirm that your cloud files were deleted. Remove any remaining ArtistAssistApp folder or files directly from your cloud provider."
 msgstr "ArtistAssistApp kunde inte bekräfta att dina molnfiler hade raderats. Ta bort alla kvarvarande ArtistAssistApp-mappar eller filer direkt från din molnleverantör."
 
-#: src/components/auth/AuthFeedbackHandler.tsx:174
+#: src/components/auth/AuthFeedbackHandler.tsx:173
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistApp fick inte resultatet av din Patreon-inloggning. Detta kan hända när inloggning öppnas i en annan webbläsare eller app. Försök logga in igen."
 
-#: src/components/Help.tsx:238
+#: src/components/Help.tsx:237
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp är utvecklat av <0>Eugene Khyst</0>"
 
-#: src/components/Help.tsx:214
+#: src/components/Help.tsx:213
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "ArtistAssistApp lagrar aldrig din e-postadress, bara en privat kod härledd från den som inte kan avslöja adressen. Att logga in med Patreon eller en medlemsförnyelse skapar den koden igen."
 
 #: src/components/storage/DeleteAppDataButton.tsx:42
-msgid "ArtistAssistApp will permanently delete your saved work and settings from this device and log you out.<0/>Data already synchronized to cloud storage will not be deleted."
-msgstr "ArtistAssistApp kommer permanent att radera ditt sparade verk och inställningar från denna enhet och logga ut dig.<0/>Data som redan är synkroniserad med molnlagring kommer inte att raderas."
+msgid "ArtistAssistApp will permanently delete your saved work and settings from this device and log you out.<0/>Data already synced to cloud storage will not be deleted."
+msgstr "ArtistAssistApp tar permanent bort ditt sparade arbete och dina sparade inställningar från den här enheten och loggar ut dig.<0/>Data som redan synkroniserats till molnlagring kommer inte att raderas."
 
 #: src/components/storage/ClearCacheButton.tsx:42
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "ArtistAssistApp laddas om efter att temporära appfiler tagits bort.<0/>Ditt sparade arbete och molndata kommer inte att raderas."
 
-#: src/components/CustomColorBrandCreator.tsx:558
+#: src/components/CustomColorBrandCreator.tsx:561
 msgid "At least one color is required"
 msgstr "Minst en färg krävs"
 
-#: src/components/auth/AuthFeedbackHandler.tsx:141
+#: src/components/auth/AuthFeedbackHandler.tsx:140
 msgid "Authentication error"
 msgstr "Autentiseringsfel"
 
-#: src/components/auth/AuthFeedbackHandler.tsx:185
+#: src/components/auth/AuthFeedbackHandler.tsx:184
 msgid "Authentication failed"
 msgstr "Autentiseringen misslyckades"
 
-#: src/components/ImageColorPicker.tsx:418
+#: src/components/ImageColorPicker.tsx:466
 msgid "Auto palette"
 msgstr "Autopalett"
 
@@ -313,16 +325,16 @@ msgstr "Autopalett"
 msgid "Auto-detect"
 msgstr "Auto-detektering"
 
-#: src/components/ImageColorPicker.tsx:413
+#: src/components/ImageColorPicker.tsx:461
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Hitta automatiskt de bästa färgblandningarna för detta foto."
 
-#: src/components/ImageColorAdjustment.tsx:460
+#: src/components/ImageColorAdjustment.tsx:469
 msgid "Average color of the white point area"
 msgstr "Genomsnittlig färg på vitpunktsområdet"
 
-#: src/components/ImageBackgroundRemoval.tsx:109
-#: src/components/ImageBackgroundRemoval.tsx:112
+#: src/components/ImageBackgroundRemoval.tsx:108
+#: src/components/ImageBackgroundRemoval.tsx:111
 msgid "Background"
 msgstr "Bakgrund"
 
@@ -338,33 +350,33 @@ msgstr "Säkerhetskopieringen har sparats utan några foton"
 msgid "Become a paid member"
 msgstr "Bli betald medlem"
 
-#: src/components/ImageColorPicker.tsx:329
+#: src/components/ImageColorPicker.tsx:369
 msgid "Blending"
 msgstr "Blandning"
 
-#: src/components/messages.ts:74
+#: src/components/messages.ts:73
 msgid "By date"
 msgstr "Efter datum"
 
-#: src/components/messages.ts:69
-#: src/components/messages.ts:76
+#: src/components/messages.ts:68
+#: src/components/messages.ts:75
 msgid "By hue"
 msgstr "Efter färg"
 
-#: src/components/messages.ts:68
+#: src/components/messages.ts:67
 msgid "By ID"
 msgstr "Efter ID"
 
-#: src/components/messages.ts:70
-#: src/components/messages.ts:77
+#: src/components/messages.ts:69
+#: src/components/messages.ts:76
 msgid "By lightness"
 msgstr "Genom lätthet"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:74
 msgid "By name"
 msgstr "Till namn"
 
-#: src/components/ImageOutline.tsx:128
+#: src/components/ImageOutline.tsx:126
 msgid "Camera access is required for AR tracing"
 msgstr "Kameraåtkomst krävs för AR-spårning"
 
@@ -372,26 +384,27 @@ msgstr "Kameraåtkomst krävs för AR-spårning"
 #: src/components/cloud/ConnectCloudButton.tsx:71
 #: src/components/cloud/DisconnectCloudButton.tsx:65
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
-#: src/components/color-set/MergeColorSetsDrawer.tsx:95
+#: src/components/color-set/MergeColorSetsDrawer.tsx:99
+#: src/components/ImageColorPicker.tsx:259
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:50
 #: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: src/components/Help.tsx:107
+#: src/components/Help.tsx:106
 msgid "Cancel a paid membership"
 msgstr "Avsluta ett betalt medlemskap"
 
-#: src/components/file/FileSelect.tsx:163
+#: src/components/file/FileSelect.tsx:167
 msgid "Cannot use copied image"
 msgstr "Kan inte använda kopierad bild"
 
-#: src/components/grid/GridControls.tsx:144
+#: src/components/grid/GridControls.tsx:143
 msgid "Cells"
 msgstr "Celler"
 
-#: src/components/Help.tsx:153
+#: src/components/Help.tsx:152
 msgid "Check for updates"
 msgstr "Sök efter uppdateringar"
 
@@ -400,7 +413,7 @@ msgstr "Sök efter uppdateringar"
 msgid "Choose a reference photo"
 msgstr "Välj ett referensfoto"
 
-#: src/components/ImageBackgroundRemoval.tsx:128
+#: src/components/ImageBackgroundRemoval.tsx:127
 msgid "Clear background color"
 msgstr "Klar bakgrundsfärg"
 
@@ -410,11 +423,11 @@ msgstr "Klar bakgrundsfärg"
 msgid "Clear cache"
 msgstr "Rensa cache"
 
-#: src/components/color/UnderlayerColorPicker.tsx:120
+#: src/components/color/UnderlayerColorPicker.tsx:123
 msgid "Clear underlayer"
 msgstr "Genomskinlig underskikt."
 
-#: src/components/ImageColorPicker.tsx:369
+#: src/components/ImageColorPicker.tsx:417
 msgid "Clear unifying color"
 msgstr "Klar enhetlig färg"
 
@@ -422,7 +435,7 @@ msgstr "Klar enhetlig färg"
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a focal point."
 msgstr "Klicka på 🖱️ eller tryck 👆 var som helst i bilden för att välja en kontaktpunkt."
 
-#: src/components/ImageColorAdjustment.tsx:452
+#: src/components/ImageColorAdjustment.tsx:461
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a white point."
 msgstr "Klicka 🖱️ eller tryck 👆 var som helst i fotot för att välja en vit punkt."
 
@@ -431,22 +444,22 @@ msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker 
 msgstr "Klicka 🖱️ eller tryck 👆 var som helst i bilden, eller använd färgväljarens popup för att välja en målfärg att blanda bland dina färger."
 
 #: src/components/empty/EmptyPalette.tsx:46
-msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors."
-msgstr "Klicka 🖱️ eller tryck 👆 var som helst i fotot, eller använd popup-fönstret för färgväljaren för att välja en målfärg att blanda från dina färger."
+msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors"
+msgstr "Klicka på 🖱️ eller tryck på 👆 var som helst i bilden, eller använd popup-fönstret för färgväljare för att välja en målfärg att blanda bland dina färger"
 
 #: src/components/ad/AdModal.tsx:81
 msgid "Close"
 msgstr "Stänga"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:123
+#: src/components/cloud/CloudFeedbackHandler.tsx:122
 msgid "Cloud access not granted"
 msgstr "Molnåtkomst beviljas inte"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:115
+#: src/components/cloud/CloudFeedbackHandler.tsx:114
 msgid "Cloud authorization failed"
 msgstr "Molnauktorisationen misslyckades"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:105
+#: src/components/cloud/CloudFeedbackHandler.tsx:104
 msgid "Cloud connection failed"
 msgstr "Molnanslutningen misslyckades"
 
@@ -454,35 +467,35 @@ msgstr "Molnanslutningen misslyckades"
 msgid "Cloud data changed"
 msgstr "Molndata förändrades"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:173
+#: src/components/cloud/CloudFeedbackHandler.tsx:170
 msgid "Cloud data not found"
 msgstr "Molndata hittades inte"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:192
+#: src/components/cloud/CloudFeedbackHandler.tsx:189
 msgid "Cloud data unreadable"
 msgstr "Molndata är oläsliga"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:183
+#: src/components/cloud/CloudFeedbackHandler.tsx:180
 msgid "Cloud files may remain"
 msgstr "Molnfiler kan finnas kvar"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:111
+#: src/components/cloud/CloudFeedbackHandler.tsx:110
 msgid "Cloud not connected"
 msgstr "Cloud ej ansluten"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:125
+#: src/components/cloud/CloudFeedbackHandler.tsx:124
 msgid "Cloud storage was not connected because access was not granted. To connect it, try again and allow the requested access."
 msgstr "Molnlagring var inte ansluten eftersom åtkomst inte beviljades. För att ansluta den, försök igen och tillåt den begärda åtkomsten."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:146
+#: src/components/cloud/CloudFeedbackHandler.tsx:145
 msgid "Cloud sync conflict"
 msgstr "Molnsynkroniseringskonflikt"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:222
+#: src/components/cloud/CloudFeedbackHandler.tsx:219
 msgid "Cloud sync failed"
 msgstr "Cloud sync misslyckades"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:159
+#: src/components/cloud/CloudFeedbackHandler.tsx:156
 msgid "Cloud sync history missing"
 msgstr "Molnsynkroniseringshistorik saknas"
 
@@ -490,7 +503,7 @@ msgstr "Molnsynkroniseringshistorik saknas"
 msgid "Cloud sync is not enabled"
 msgstr "Molnsynkronisering är inte aktiverad"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:209
+#: src/components/cloud/CloudFeedbackHandler.tsx:206
 msgid "Cloud sync paused"
 msgstr "Cloud sync pausad"
 
@@ -498,12 +511,12 @@ msgstr "Cloud sync pausad"
 msgid "Code is required"
 msgstr "Kod krävs"
 
-#: src/components/ColorMixer.tsx:188
-#: src/components/CustomColorBrandCreator.tsx:475
+#: src/components/ColorMixer.tsx:192
+#: src/components/CustomColorBrandCreator.tsx:478
 msgid "Color"
 msgstr "Färg"
 
-#: src/components/CustomColorBrandCreator.tsx:490
+#: src/components/CustomColorBrandCreator.tsx:493
 msgid "Color brand"
 msgstr "Färg varumärke"
 
@@ -511,7 +524,7 @@ msgstr "Färg varumärke"
 msgid "Color brands"
 msgstr "Färgmärken"
 
-#: src/components/ImageColorPicker.tsx:431
+#: src/components/ImageColorPicker.tsx:479
 msgid "Color count"
 msgstr "Antal färger"
 
@@ -519,48 +532,47 @@ msgstr "Antal färger"
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "Färgdata är för närvarande inte tillgänglig. Kontrollera din anslutning och försök igen."
 
-#: src/components/ImageTonalValues.tsx:130
-#: src/components/ImageTonalValues.tsx:133
+#: src/components/ImageTonalValues.tsx:140
+#: src/components/ImageTonalValues.tsx:143
 msgid "Color map"
 msgstr "Färgkarta"
 
-#: src/components/messages.ts:37
+#: src/components/messages.ts:35
 msgid "Color mixer"
 msgstr "Färgblandare"
 
-#: src/components/messages.ts:38
+#: src/components/messages.ts:36
 msgid "Color mixing chart"
 msgstr "Färgblandningsdiagram"
 
-#: src/components/color/ColorMixtureDescription.tsx:104
+#: src/components/color/ColorMixtureDescription.tsx:107
 msgid "Color mixture"
 msgstr "Färgblandning"
 
-#: src/components/messages.ts:31
+#: src/components/messages.ts:29
 msgid "Color picker"
 msgstr "Färgväljaren"
 
 #: src/components/ColorSetChooser.tsx:613
-#: src/components/ImageColorPicker.tsx:247
-#: src/components/messages.ts:29
+#: src/components/ImageColorPicker.tsx:287
+#: src/components/messages.ts:27
 msgid "Color set"
 msgstr "Färgsättning"
 
-#: src/components/color/ColorSwatchDrawer.tsx:60
-#: src/components/palette/PaletteGrid.tsx:108
+#: src/components/palette/PaletteGrid.tsx:112
 msgid "Color swatch"
 msgstr "Färgrutan"
 
-#: src/components/messages.ts:54
+#: src/components/messages.ts:53
 msgid "Colored Pencils"
 msgstr "Färgpennor"
 
-#: src/components/ColorMixingChart.tsx:170
-#: src/components/ImageLimitedPalette.tsx:103
+#: src/components/ColorMixingChart.tsx:171
+#: src/components/ImageLimitedPalette.tsx:104
 msgid "Colors"
 msgstr "Färger"
 
-#: src/components/messages.ts:44
+#: src/components/messages.ts:43
 msgid "Compare photos"
 msgstr "Jämför bilder"
 
@@ -576,23 +588,39 @@ msgstr "Connect {label}"
 msgid "Connect {label}?"
 msgstr "Connect {label}?"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:112
+#: src/components/cloud/CloudFeedbackHandler.tsx:111
 msgid "Connect cloud storage before syncing."
 msgstr "Koppla in molnlagring innan synkronisering."
 
 #: src/hooks/useCloudSyncNotification.ts:45
-msgid "Connect cloud storage to keep a synchronized copy of your data in the cloud and use it across devices, or manually save and restore backup files."
-msgstr "Anslut molnlagring för att behålla en synkroniserad kopia av din data i molnet och använd den över enheter, eller spara och återställa säkerhetskopieringsfiler manuellt."
+msgid "Connect cloud storage to keep a synced copy of your data in the cloud and use it across devices, or manually save and restore backup files"
+msgstr "Anslut molnlagring för att behålla en synkroniserad kopia av din data i molnet och använda den på flera enheter, eller manuellt spara och återställa säkerhetskopior"
 
-#: src/components/ColorSetChooser.tsx:558
-msgid "Connect cloud storage to synchronize your data across devices."
-msgstr "Anslut molnlagring för att synkronisera dina data mellan enheter."
+#: src/components/ColorSetChooser.tsx:559
+msgid "Connect cloud storage to sync your data across devices"
+msgstr "Anslut molnlagring för att synkronisera din data mellan enheter"
 
-#: src/components/Help.tsx:119
+#: src/components/ImageColorPicker.tsx:373
+msgid "Consider colors blended over the underlayer when they match the target better than unblended colors"
+msgstr "Tänk på färger som blandas över underskiktet när de matchar målet bättre än oblandade färger"
+
+#: src/components/ImageColorPicker.tsx:378
+msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
+msgstr "Överväg genomskinliga lager över ytan eller underskiktet när de matchar målet bättre än ogenomskinliga blandningar"
+
+#: src/components/Help.tsx:118
 msgid "Contact"
 msgstr "Kontakt"
 
-#: src/components/ImageColorPicker.tsx:262
+#: src/components/ImageColorPicker.tsx:258
+msgid "Continue"
+msgstr "Fortsätta"
+
+#: src/components/ImageColorPicker.tsx:251
+msgid "Continue with Auto palette?"
+msgstr "Fortsätt med automatisk palett?"
+
+#: src/components/ImageColorPicker.tsx:302
 msgid "Controls how large an area is averaged when you pick a color from the photo."
 msgstr "Styr hur stort ett område medelvärdes när du väljer en färg från fotot."
 
@@ -604,7 +632,7 @@ msgstr "Cool — Algoritmisk uppskattning; Konstnärlig uppfattning kan variera.
 msgid "Copy"
 msgstr "Kopia"
 
-#: src/components/file/FileSelect.tsx:125
+#: src/components/file/FileSelect.tsx:129
 msgid "Copy a supported image to the clipboard, then try again."
 msgstr "Kopiera en stödd bild till urklippet och försök igen."
 
@@ -612,7 +640,7 @@ msgstr "Kopiera en stödd bild till urklippet och försök igen."
 msgid "Copy and share this link"
 msgstr "Kopiera och dela denna länk"
 
-#: src/components/ImageColorAdjustment.tsx:620
+#: src/components/ImageColorAdjustment.tsx:629
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Korrigerad uppskattning av ljuskällans temperatur i Kelvin"
 
@@ -640,38 +668,38 @@ msgstr "Skapa en dubblett av den här färguppsättningen för ytterligare ändr
 msgid "Create a new color set by merging existing ones"
 msgstr "Skapa en ny färguppsättning genom att slå ihop befintliga"
 
-#: src/components/color-set/ColorSetSelect.tsx:94
-#: src/components/color-set/CustomColorBrandSelect.tsx:85
+#: src/components/color-set/ColorSetSelect.tsx:97
+#: src/components/color-set/CustomColorBrandSelect.tsx:87
 msgid "Create new"
 msgstr "Skapa ny"
 
-#: src/components/color-set/StandardColorSetCascader.tsx:31
+#: src/components/color-set/StandardColorSetCascader.tsx:34
 msgid "Custom color set"
 msgstr "Anpassad färguppsättning"
 
-#: src/components/messages.ts:45
+#: src/components/messages.ts:44
 msgid "Custom colors"
 msgstr "Specialfärger"
 
 #: src/components/auth/DeleteAccountButton.tsx:67
-#: src/components/color/AddToPaletteButton.tsx:49
-#: src/components/color/PaletteColorMixtureCard.tsx:124
+#: src/components/color/AddToPaletteButton.tsx:48
+#: src/components/color/PaletteColorMixtureCard.tsx:128
 #: src/components/ColorSetChooser.tsx:789
 #: src/components/ColorSetChooser.tsx:799
-#: src/components/CustomColorBrandCreator.tsx:530
-#: src/components/CustomColorBrandCreator.tsx:540
+#: src/components/CustomColorBrandCreator.tsx:533
+#: src/components/CustomColorBrandCreator.tsx:543
 #: src/components/image/RecentImageCard.tsx:124
 #: src/components/image/RecentImageCard.tsx:134
 #: src/components/storage/DeleteAppDataButton.tsx:50
 msgid "Delete"
 msgstr "Ta bort"
 
-#: src/components/palette/PaletteGrid.tsx:117
 #: src/components/palette/PaletteGrid.tsx:121
+#: src/components/palette/PaletteGrid.tsx:125
 msgid "Delete all"
 msgstr "Radera alla"
 
-#: src/components/palette/PaletteGrid.tsx:114
+#: src/components/palette/PaletteGrid.tsx:118
 msgid "Delete all color mixtures"
 msgstr "Ta bort alla färgblandningar"
 
@@ -685,8 +713,8 @@ msgstr "Radera data på servrar"
 msgid "Delete data on this device"
 msgstr "Radera data på denna enhet"
 
-#: src/components/color/AddToPaletteButton.tsx:53
-#: src/components/color/PaletteColorMixtureCard.tsx:128
+#: src/components/color/AddToPaletteButton.tsx:52
+#: src/components/color/PaletteColorMixtureCard.tsx:132
 msgid "Delete from palette"
 msgstr "Ta bort från paletten"
 
@@ -694,8 +722,8 @@ msgstr "Ta bort från paletten"
 msgid "Delete oldest"
 msgstr "Ta bort äldsta"
 
-#: src/components/color/AddToPaletteButton.tsx:46
-#: src/components/color/PaletteColorMixtureCard.tsx:121
+#: src/components/color/AddToPaletteButton.tsx:45
+#: src/components/color/PaletteColorMixtureCard.tsx:125
 msgid "Delete the color mixture"
 msgstr "Ta bort färgblandningen"
 
@@ -703,8 +731,8 @@ msgstr "Ta bort färgblandningen"
 msgid "Delete the color set"
 msgstr "Ta bort färguppsättningen"
 
-#: src/components/CustomColorBrandCreator.tsx:523
-#: src/components/CustomColorBrandCreator.tsx:535
+#: src/components/CustomColorBrandCreator.tsx:526
+#: src/components/CustomColorBrandCreator.tsx:538
 msgid "Delete the custom brand"
 msgstr "Ta bort det anpassade varumärket"
 
@@ -717,15 +745,15 @@ msgstr "Ta bort det senaste fotot"
 msgid "Delete this color set"
 msgstr "Ta bort den här färguppsättningen"
 
-#: src/components/color/ConsistencyDescription.tsx:53
+#: src/components/color/ConsistencyDescription.tsx:51
 msgid "Dense layer"
 msgstr "Tätt lager"
 
-#: src/components/auth/AuthFeedbackHandler.tsx:36
+#: src/components/auth/AuthFeedbackHandler.tsx:35
 msgid "Details"
 msgstr "Detaljer"
 
-#: src/components/ImagesCompare.tsx:131
+#: src/components/ImagesCompare.tsx:129
 msgid "Determine the best photo by pairwise comparison"
 msgstr "Bestäm det bästa fotot genom parvis jämförelse"
 
@@ -733,23 +761,19 @@ msgstr "Bestäm det bästa fotot genom parvis jämförelse"
 msgid "Diagnostics"
 msgstr "Diagnostik"
 
-#: src/components/grid/GridControls.tsx:153
+#: src/components/grid/GridControls.tsx:152
 msgid "Diagonals"
 msgstr "Diagonaler"
 
-#: src/components/CustomColorBrandCreator.tsx:457
+#: src/components/CustomColorBrandCreator.tsx:460
 msgid "Diameter"
 msgstr "Diameter"
 
-#: src/components/color/ConsistencyDescription.tsx:61
-msgid "Dilute the paint with water in a <0>{ratioText} ratio</0>"
-msgstr "Späd ut färgen med vatten i förhållandet <0>{ratioText}</0>"
-
-#: src/components/ColorSetChooser.tsx:236
+#: src/components/ColorSetChooser.tsx:237
 msgid "Discard changes"
 msgstr "Släng ändringar"
 
-#: src/components/ColorSetChooser.tsx:230
+#: src/components/ColorSetChooser.tsx:231
 msgid "Discard changes to the color set?"
 msgstr "Vill du ignorera ändringar i färguppsättningen?"
 
@@ -777,27 +801,27 @@ msgstr "Att koppla bort kommer att radera allt i ArtistAssistApp-mappen, inklusi
 msgid "Do you have a store-bought or custom color set?"
 msgstr "Har du en köpt eller anpassad färguppsättning?"
 
-#: src/components/ColorSetChooser.tsx:251
+#: src/components/ColorSetChooser.tsx:252
 msgid "Don't save"
 msgstr "Spara inte"
 
-#: src/stores/cloud-slice.ts:144
-msgid "Downloading image {index} of {count}"
-msgstr "Nedladdning av bild {index} av {count}"
+#: src/stores/cloud-slice.ts:142
+msgid "Downloading image {index} / {count}"
+msgstr "Laddar ned bild {index} / {count}"
 
-#: src/i18n.ts:137
+#: src/i18n.ts:136
 msgid "Downloading... {percent}% ({key})"
 msgstr "Laddar ner... {percent}% ({key})"
 
-#: src/components/file/FileSelect.tsx:201
+#: src/components/file/FileSelect.tsx:205
 msgid "Drop the file here..."
 msgstr "Släpp filen här..."
 
-#: src/components/file/FileSelect.tsx:201
+#: src/components/file/FileSelect.tsx:205
 msgid "Drop the files here..."
 msgstr "Släpp filerna här..."
 
-#: src/components/messages.ts:56
+#: src/components/messages.ts:55
 msgid "Dry Pastel"
 msgstr "Torr Pastel"
 
@@ -805,11 +829,19 @@ msgstr "Torr Pastel"
 msgid "Duplicate"
 msgstr "Duplicera"
 
-#: src/components/CustomColorBrandCreator.tsx:137
+#: src/components/TwoColorGradient.tsx:200
+msgid "Each column is a mixing ratio"
+msgstr "Varje kolumn är ett blandningsförhållande"
+
+#: src/components/TwoColorGradient.tsx:198
+msgid "Each column is a mixing ratio, each row a consistency"
+msgstr "Varje kolumn är ett blandningsförhållande, varje rad en konsistens"
+
+#: src/components/CustomColorBrandCreator.tsx:140
 msgid "Edit from here on"
 msgstr "Redigering härifrån"
 
-#: src/components/auth/AuthFeedbackHandler.tsx:39
+#: src/components/auth/AuthFeedbackHandler.tsx:38
 msgid "Email"
 msgstr "E-post"
 
@@ -817,7 +849,7 @@ msgstr "E-post"
 msgid "Email is required"
 msgstr "E-post krävs"
 
-#: src/components/CustomColorBrandCreator.tsx:510
+#: src/components/CustomColorBrandCreator.tsx:513
 msgid "Enter a name"
 msgstr "Ange ett namn"
 
@@ -825,8 +857,11 @@ msgstr "Ange ett namn"
 msgid "Enter a valid email"
 msgstr "Ange en giltig e-postadress"
 
-#: src/components/ImageOutline.tsx:271
-#: src/components/ImageOutline.tsx:340
+#: src/components/ImageOutline.tsx:269
+msgid "Enter lightbox mode to trace the outline through your paper"
+msgstr "Gå in i ljusbordsläge för att spåra konturen genom ditt papper"
+
+#: src/components/ImageOutline.tsx:338
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Gå in i ljusboxsläge för att rita konturen genom ditt papper."
 
@@ -838,11 +873,11 @@ msgstr "Ange koden"
 msgid "Enter the email address for your Patreon account. We'll send a one-time login code if it has an active ArtistAssistApp membership."
 msgstr "Ange e-postadressen för ditt Patreon-konto. Vi skickar en engångskod om den har ett aktivt ArtistAssistApp-medlemskap."
 
-#: src/components/auth/AuthFeedbackHandler.tsx:37
+#: src/components/auth/AuthFeedbackHandler.tsx:36
 msgid "Error"
 msgstr "Fel"
 
-#: src/components/auth/AuthFeedbackHandler.tsx:38
+#: src/components/auth/AuthFeedbackHandler.tsx:37
 msgid "Error description"
 msgstr "Felbeskrivning"
 
@@ -850,11 +885,11 @@ msgstr "Felbeskrivning"
 msgid "Error loading sample photos"
 msgstr "Felladdning exempelfoton"
 
-#: src/components/ColorSetChooser.tsx:213
+#: src/components/ColorSetChooser.tsx:214
 msgid "Error while fetching color brand data"
 msgstr "Fel vid hämtning av färgmärkesdata"
 
-#: src/components/ColorSetChooser.tsx:218
+#: src/components/ColorSetChooser.tsx:219
 msgid "Error while fetching color data"
 msgstr "Fel vid hämtning av färgdata"
 
@@ -863,29 +898,29 @@ msgstr "Fel vid hämtning av färgdata"
 msgid "Error while fetching ML model data"
 msgstr "Fel vid hämtning av ML-modelldata"
 
-#: src/components/ColorSetChooser.tsx:216
+#: src/components/ColorSetChooser.tsx:217
 msgid "Error while fetching standard color set data"
 msgstr "Fel vid hämtning av standardfärguppsättningsdata"
 
-#: src/components/ImageColorAdjustment.tsx:586
+#: src/components/ImageColorAdjustment.tsx:595
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Uppskattad temperatur på ljuskällan i Kelvin som bilden togs med"
 
-#: src/components/ImageOutline.tsx:290
-#: src/components/ImageOutline.tsx:348
+#: src/components/ImageOutline.tsx:288
+#: src/components/ImageOutline.tsx:346
 msgid "Exit AR"
 msgstr "Utgång AR"
 
-#: src/components/CustomColorBrandCreator.tsx:544
+#: src/components/CustomColorBrandCreator.tsx:547
 msgid "Export to file"
 msgstr "Exportera till fil"
 
-#: src/components/ColorSetChooser.tsx:413
-#: src/components/CustomColorBrandCreator.tsx:393
+#: src/components/ColorSetChooser.tsx:414
+#: src/components/CustomColorBrandCreator.tsx:396
 msgid "Fill in the required fields"
 msgstr "Fyll i de obligatoriska fälten"
 
-#: src/components/CustomColorBrandCreator.tsx:214
+#: src/components/CustomColorBrandCreator.tsx:217
 msgid "Finish editing"
 msgstr "Färdig redigering"
 
@@ -893,15 +928,15 @@ msgstr "Färdig redigering"
 msgid "Focal point instructions"
 msgstr "Instruktioner för kontaktpunkt"
 
-#: src/components/color/ConsistencyDescription.tsx:48
+#: src/components/color/ConsistencyDescription.tsx:46
 msgid "Full pressure"
 msgstr "Fullt tryck"
 
-#: src/components/color/ConsistencyDescription.tsx:43
+#: src/components/color/ConsistencyDescription.tsx:41
 msgid "Full strength"
 msgstr "Full styrka"
 
-#: src/components/ImageColorAdjustment.tsx:536
+#: src/components/ImageColorAdjustment.tsx:545
 msgid "Gamma"
 msgstr "Gamma"
 
@@ -909,7 +944,7 @@ msgstr "Gamma"
 msgid "Get a code"
 msgstr "Få en kod"
 
-#: src/components/auth/AuthFeedbackHandler.tsx:43
+#: src/components/auth/AuthFeedbackHandler.tsx:42
 msgid "Gifted membership"
 msgstr "Medlemskap för begåvade medlemmar"
 
@@ -917,7 +952,7 @@ msgstr "Medlemskap för begåvade medlemmar"
 msgid "Give your color set a name for easy access."
 msgstr "Ge din färguppsättning ett namn så att den är lätt att komma åt."
 
-#: src/components/ImageColorPicker.tsx:329
+#: src/components/ImageColorPicker.tsx:369
 msgid "Glazing"
 msgstr "Glasering"
 
@@ -925,30 +960,30 @@ msgstr "Glasering"
 msgid "Go to the {label} tab"
 msgstr "Gå till fliken {label}"
 
-#: src/components/messages.ts:51
+#: src/components/messages.ts:50
 msgid "Gouache"
 msgstr "Gouache"
 
-#: src/components/grid/GridControls.tsx:131
-#: src/components/ImageOutline.tsx:309
-#: src/components/messages.ts:36
+#: src/components/grid/GridControls.tsx:130
+#: src/components/ImageOutline.tsx:307
+#: src/components/messages.ts:34
 msgid "Grid"
 msgstr "Gitter"
 
-#: src/components/print/PrintImageDrawer.tsx:236
+#: src/components/print/PrintImageDrawer.tsx:242
 msgid "Height"
 msgstr "Höjd"
 
-#: src/components/ColorSetChooser.tsx:472
-#: src/components/messages.ts:46
+#: src/components/ColorSetChooser.tsx:473
+#: src/components/messages.ts:45
 msgid "Help"
 msgstr "Hjälp"
 
-#: src/components/ColorSetChooser.tsx:249
+#: src/components/ColorSetChooser.tsx:250
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Om du inte sparar kan ändringar i färguppsättningen gå förlorade."
 
-#: src/components/ImageBackgroundRemoval.tsx:248
+#: src/components/ImageBackgroundRemoval.tsx:247
 msgid "Image without background"
 msgstr "Bild utan bakgrund"
 
@@ -960,7 +995,7 @@ msgstr "Importera backup"
 msgid "Import backup?"
 msgstr "Importera backup?"
 
-#: src/components/CustomColorBrandCreator.tsx:452
+#: src/components/CustomColorBrandCreator.tsx:455
 msgid "Import from file"
 msgstr "Importera från fil"
 
@@ -968,15 +1003,11 @@ msgstr "Importera från fil"
 msgid "Importing this backup will replace your local color sets, reference photos, saved color mixtures, and custom color brands."
 msgstr "Att importera denna backup ersätter dina lokala färguppsättningar, referensfoton, sparade färgblandningar och anpassade färgmärken."
 
-#: src/components/ImageColorPicker.tsx:332
-msgid "Include transparent layers over the surface or underlayer when finding matches."
-msgstr "Inkludera transparenta lager över ytan eller underlaget när du hittar träffar."
-
-#: src/components/messages.ts:40
+#: src/components/messages.ts:39
 msgid "Inspiration"
 msgstr "Inspiration"
 
-#: src/hooks/usePersistentStorage.tsx:65
+#: src/hooks/usePersistentStorage.tsx:64
 msgid "Install"
 msgstr "Installera"
 
@@ -988,19 +1019,19 @@ msgstr "Installera app"
 msgid "Install ArtistAssistApp"
 msgstr "Installera ArtistAssistApp"
 
-#: src/components/Help.tsx:148
+#: src/components/Help.tsx:147
 msgid "Install update"
 msgstr "Installationsuppdatering"
 
-#: src/components/ImageColorAdjustment.tsx:617
+#: src/components/ImageColorAdjustment.tsx:626
 msgid "Intended color temperature (K)"
 msgstr "Avsedd färgtemperatur (K)"
 
-#: src/components/CustomColorBrandCreator.tsx:347
+#: src/components/CustomColorBrandCreator.tsx:350
 msgid "Invalid custom color brand file"
 msgstr "Ogiltig anpassad färgmärkningsfil"
 
-#: src/components/auth/AuthFeedbackHandler.tsx:145
+#: src/components/auth/AuthFeedbackHandler.tsx:144
 msgid "Invalid login code"
 msgstr "Ogiltig inloggningskod"
 
@@ -1008,16 +1039,16 @@ msgstr "Ogiltig inloggningskod"
 msgid "It also disconnects cloud storage, deletes your account and membership lookup records, and logs you out."
 msgstr "Den kopplar också bort molnlagring, raderar dina konto- och medlemsuppslagsposter och loggar ut dig."
 
-#: src/components/ImagesCompare.tsx:98
+#: src/components/ImagesCompare.tsx:96
 msgid "It can be difficult to choose between multiple photos. Comparing each photo with others in pairs simplifies the choice and helps to identify the most preferred one."
 msgstr "Det kan vara svårt att välja mellan flera foton. Att jämföra varje foto med andra i par förenklar valet och hjälper till att identifiera det mest föredragna."
 
-#: src/components/color/AddToPaletteButton.tsx:50
-#: src/components/color/PaletteColorMixtureCard.tsx:125
+#: src/components/color/AddToPaletteButton.tsx:49
+#: src/components/color/PaletteColorMixtureCard.tsx:129
 #: src/components/ColorSetChooser.tsx:790
-#: src/components/CustomColorBrandCreator.tsx:531
+#: src/components/CustomColorBrandCreator.tsx:534
 #: src/components/image/RecentImageCard.tsx:125
-#: src/components/palette/PaletteGrid.tsx:118
+#: src/components/palette/PaletteGrid.tsx:122
 msgid "Keep"
 msgstr "Keep"
 
@@ -1025,15 +1056,15 @@ msgstr "Keep"
 msgid "Keep all"
 msgstr "Behåll alla"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:59
+#: src/components/cloud/CloudFeedbackHandler.tsx:58
 msgid "Keep cloud data"
 msgstr "Behåll molndata"
 
-#: src/components/ColorSetChooser.tsx:237
+#: src/components/ColorSetChooser.tsx:238
 msgid "Keep editing"
 msgstr "Fortsätt redigera"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:42
+#: src/components/cloud/CloudFeedbackHandler.tsx:41
 msgid "Keep this device"
 msgstr "Behåll den här apparaten"
 
@@ -1041,7 +1072,7 @@ msgstr "Behåll den här apparaten"
 msgid "Language"
 msgstr "Språk"
 
-#: src/components/auth/AuthFeedbackHandler.tsx:41
+#: src/components/auth/AuthFeedbackHandler.tsx:40
 msgid "Last charge status"
 msgstr "Senaste laddningens status"
 
@@ -1049,32 +1080,28 @@ msgstr "Senaste laddningens status"
 msgid "Last used {dateText}"
 msgstr "Senast använd {dateText}"
 
-#: src/components/ImagesCompare.tsx:158
+#: src/components/ImagesCompare.tsx:156
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "Vänster för att jämföra: {unfinishedGamesSize}"
 
-#: src/components/ImageColorPicker.tsx:508
+#: src/components/ImageColorPicker.tsx:556
 msgid "Less"
 msgstr "Mindre"
 
-#: src/components/ImageOutline.tsx:339
+#: src/components/ImageOutline.tsx:337
 msgid "Light box"
 msgstr "Ljuslåda"
 
-#: src/components/ImageTonalValues.tsx:100
-#: src/components/ImageTonalValues.tsx:103
+#: src/components/ImageTonalValues.tsx:110
+#: src/components/ImageTonalValues.tsx:113
 msgid "Light tone"
 msgstr "Ljus ton"
 
-#: src/components/ImageOutline.tsx:279
+#: src/components/ImageOutline.tsx:277
 msgid "Lightbox"
 msgstr "Lightbox"
 
-#: src/components/color/ConsistencyDescription.tsx:83
-msgid "Lighten the pressure to <0>{fractionText}</0>"
-msgstr "Lätta på trycket till <0>{fractionText}</0>"
-
-#: src/components/messages.ts:39
+#: src/components/messages.ts:38
 msgid "Limited palette"
 msgstr "Begränsad palett"
 
@@ -1099,75 +1126,91 @@ msgstr "Logga in med Patreon"
 msgid "Log out"
 msgstr "Logga ut"
 
-#: src/components/auth/AuthFeedbackHandler.tsx:172
+#: src/components/auth/AuthFeedbackHandler.tsx:171
 msgid "Login result not received"
 msgstr "Inloggningsresultat ej mottaget"
 
-#: src/components/ImageColorAdjustment.tsx:509
+#: src/components/ImageColorAdjustment.tsx:518
 msgid "Low input and high input"
 msgstr "Låg input och hög input"
 
-#: src/components/ImageColorAdjustment.tsx:558
+#: src/components/ImageColorAdjustment.tsx:567
 msgid "Low output and high output"
 msgstr "Låg effekt och hög produktion"
 
-#: src/components/print/PrintImageDrawer.tsx:249
-#: src/components/print/PrintImageDrawer.tsx:264
+#: src/components/print/PrintImageDrawer.tsx:255
+#: src/components/print/PrintImageDrawer.tsx:270
 msgid "Margin"
 msgstr "Marginal"
 
-#: src/components/color-set/MergeColorSetsDrawer.tsx:92
+#: src/components/ImageColorPicker.tsx:474
+msgid "Match score"
+msgstr "Matchresultat"
+
+#: src/components/color-set/MergeColorSetsDrawer.tsx:96
 #: src/components/ColorSetChooser.tsx:771
 msgid "Merge"
 msgstr "Sammanslagning"
 
-#: src/components/color-set/MergeColorSetsDrawer.tsx:58
+#: src/components/color-set/MergeColorSetsDrawer.tsx:62
 msgid "Merge color sets"
 msgstr "Sammanslagning av färguppsättningar"
 
-#: src/components/ImageTonalValues.tsx:110
-#: src/components/ImageTonalValues.tsx:113
+#: src/components/ImageTonalValues.tsx:120
+#: src/components/ImageTonalValues.tsx:123
 msgid "Mid tone"
 msgstr "Mellanton"
 
-#: src/components/ImageColorAdjustment.tsx:534
+#: src/components/ImageColorAdjustment.tsx:543
 msgid "Midtones"
 msgstr "Mellantoner"
 
-#: src/components/color/ColorMixtureDescription.tsx:66
+#: src/components/color/ColorMixtureDescription.tsx:69
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Blanda färger i ett <0>{partsRatioText}-förhållande</0>"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:154
-#: src/components/color/SimilarColorCard.tsx:146
+#: src/components/color/ConsistencyDescription.tsx:59
+msgid "Mix paint and water in a <0>{ratioText} ratio</0>"
+msgstr "Blanda färg och vatten i ett <0>{ratioText}-förhållande</0>"
+
+#: src/components/color/ConsistencyDescription.tsx:112
+msgid "Mix the paint with a glazing medium, such as linseed oil, to apply a thinner, more transparent layer"
+msgstr "Blanda färgen med ett glaseringsmedium, såsom linolja, för att applicera ett tunnare, mer transparent lager"
+
+#: src/components/color/ConsistencyDescription.tsx:119
+msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
+msgstr "Blanda färgen med ett akrylglasmedium för att applicera ett tunnare, mer transparent lager"
+
+#: src/components/color/ColorMatchCard.tsx:157
+#: src/components/color/PaletteColorMixtureCard.tsx:158
 msgid "Mix this color into every mixture."
 msgstr "Blanda denna färg i varje blandning."
 
-#: src/components/ColorMixer.tsx:162
-msgid "Mix your colors in any proportions so you don't waste real paints."
-msgstr "Blanda dina färger i vilka proportioner som helst så att du inte slösar bort riktiga färger."
+#: src/components/ColorMixer.tsx:164
+msgid "Mix your colors in any proportions so you don't waste real paints"
+msgstr "Blanda dina färger i valfria proportioner så att du inte slösar riktiga färger"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:84
+#: src/components/color/ReflectanceChartDrawer.tsx:93
 msgid "Mixture"
 msgstr "Blandning"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:98
-#: src/components/ImageBackgroundRemoval.tsx:184
-#: src/components/ImageOutline.tsx:250
+#: src/components/color/ReflectanceChartDrawer.tsx:107
+#: src/components/ImageBackgroundRemoval.tsx:183
+#: src/components/ImageOutline.tsx:248
 msgid "Mode"
 msgstr "Läge"
 
-#: src/components/ImageColorPicker.tsx:508
+#: src/components/ImageColorPicker.tsx:556
 msgid "More"
 msgstr "Mer"
 
 #: src/components/ColorSetChooser.tsx:629
-#: src/components/CustomColorBrandCreator.tsx:193
-#: src/components/CustomColorBrandCreator.tsx:509
+#: src/components/CustomColorBrandCreator.tsx:196
+#: src/components/CustomColorBrandCreator.tsx:512
 msgid "Name"
 msgstr "Namn"
 
-#: src/components/CustomColorBrandCreator.tsx:512
+#: src/components/CustomColorBrandCreator.tsx:515
 msgid "Name a brand"
 msgstr "Namnge ett varumärke"
 
@@ -1183,34 +1226,38 @@ msgstr "name@example.com"
 msgid "Neutral — Algorithmic estimate; artistic perception may vary."
 msgstr "Neutral – Algoritmisk skattning. Konstnärlig uppfattning kan variera."
 
-#: src/components/color-set/CustomColorBrandSelect.tsx:38
+#: src/components/color-set/CustomColorBrandSelect.tsx:40
 msgid "New brand"
 msgstr "Nytt varumärke"
 
-#: src/components/color-set/ColorSetSelect.tsx:40
+#: src/components/color-set/ColorSetSelect.tsx:43
 msgid "New color set"
 msgstr "Ny färguppsättning"
 
-#: src/components/ImagesCompare.tsx:123
+#: src/components/ImagesCompare.tsx:121
 msgid "New comparison"
 msgstr "Ny jämförelse"
 
-#: src/components/auth/AuthFeedbackHandler.tsx:42
+#: src/components/auth/AuthFeedbackHandler.tsx:41
 msgid "Next charge date"
 msgstr "Nästa laddningsdatum"
 
-#: src/components/empty/EmptySimilarColors.tsx:26
-msgid "No matching color mixtures were found."
-msgstr "Inga matchande färgblandningar hittades."
+#: src/components/empty/EmptyColorMatches.tsx:43
+msgid "No matching color mixtures were found"
+msgstr "Inga matchande färgblandningar hittades"
 
-#: src/components/color-set/ColorSelect.tsx:86
-#: src/components/ColorMixingChart.tsx:126
+#: src/components/ImageColorPicker.tsx:269
+msgid "No palette colors matched the current color set and settings"
+msgstr "Inga palettfärger matchade den aktuella färguppsättningen och inställningarna"
+
+#: src/components/color-set/ColorSelect.tsx:90
+#: src/components/ColorMixingChart.tsx:127
 msgid "No sorting"
 msgstr "Ingen sortering"
 
 #: src/components/empty/EmptyTargetColor.tsx:28
-msgid "No target color is selected."
-msgstr "Ingen målfärg är vald."
+msgid "No target color is selected"
+msgstr "Ingen målfärg har valts"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:69
 msgid "Not sure which email Patreon uses? Check your <0>Patreon basic settings</0>."
@@ -1220,36 +1267,44 @@ msgstr "Osäker på vilken e-postadress Patreon använder? Kolla <0>dina grundl�
 msgid "Nothing to share"
 msgstr "Inget att dela med sig av"
 
-#: src/components/grid/GridControls.tsx:146
+#: src/components/grid/GridControls.tsx:145
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Antal celler på den mindre sidan (vertikal eller horisontell)"
 
-#: src/components/ImageColorAdjustment.tsx:341
+#: src/components/ImageColorAdjustment.tsx:350
 msgid "Off"
 msgstr "Av"
 
-#: src/components/messages.ts:53
+#: src/components/messages.ts:52
 msgid "Oil Paint"
 msgstr "Oljemålning"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:56
 msgid "Oil Pastel"
 msgstr "Oljepastell"
+
+#: src/components/ColorMixingChart.tsx:175
+msgid "On the diagonal are the pure colors at full strength. Above the diagonal are thick layers of each pair mixed in a 1:1 ratio. Below the diagonal are the same mixtures thinned to 1/2 strength."
+msgstr "På diagonalen finns de rena färgerna med full styrka. Ovanför diagonalen finns tjocka lager av varje par blandade i förhållandet 1:1. Under diagonalen finns samma blandningar förtunnade till 1/2 styrka."
+
+#: src/components/ColorMixingChart.tsx:181
+msgid "On the diagonal are the pure colors at full strength. Off the diagonal is each pair mixed in a 1:1 ratio."
+msgstr "På diagonalen finns de rena färgerna med full styrka. Utanför diagonalen blandas varje par i förhållandet 1:1."
 
 #: src/components/ColorSetChooser.tsx:652
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Endast ett begränsat antal färgmärken finns tillgängliga i gratisversionen"
 
-#: src/components/ImageBackgroundRemoval.tsx:166
-#: src/components/ImageOutline.tsx:237
+#: src/components/ImageBackgroundRemoval.tsx:165
+#: src/components/ImageOutline.tsx:235
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Endast ett begränsat antal lägen är tillgängliga i gratisversionen"
 
-#: src/components/ImageStyleTransfer.tsx:248
+#: src/components/ImageStyleTransfer.tsx:246
 msgid "Only a limited number of styles are available in the free version"
 msgstr "Endast ett begränsat antal stilar är tillgängliga i gratisversionen"
 
-#: src/components/ImageColorPicker.tsx:437
+#: src/components/ImageColorPicker.tsx:485
 msgid "Opacity"
 msgstr "Opacitet"
 
@@ -1262,7 +1317,7 @@ msgstr "Ogenomskinlig"
 msgid "Open in Safari browser"
 msgstr "Öppna i webbläsaren Safari"
 
-#: src/components/auth/AuthFeedbackHandler.tsx:120
+#: src/components/auth/AuthFeedbackHandler.tsx:119
 msgid "Open your <0>Patreon basic settings</0> and confirm that the listed email address is the same one you entered."
 msgstr "Öppna dina <0>grundläggande Patreon-inställningar</0> och bekräfta att den angivna e-postadressen är samma som du angav."
 
@@ -1270,9 +1325,9 @@ msgstr "Öppna dina <0>grundläggande Patreon-inställningar</0> och bekräfta a
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "eller installera den senaste versionen av webbläsaren Chrome, Edge, Firefox eller Opera"
 
-#: src/components/ColorSetChooser.tsx:566
-msgid "Or save a backup file on this device."
-msgstr "Eller spara en säkerhetskopia på den här enheten."
+#: src/components/ColorSetChooser.tsx:567
+msgid "Or save a backup file on this device"
+msgstr "Eller spara en säkerhetskopia på den här enheten"
 
 #: src/components/share/ShareModal.tsx:90
 msgid "Or scan the QR code"
@@ -1290,65 +1345,65 @@ msgstr "Du kan också välja bland dina senaste foton"
 msgid "Original"
 msgstr "Original"
 
-#: src/components/ImageColorAdjustment.tsx:583
+#: src/components/ImageColorAdjustment.tsx:592
 msgid "Original color temperature (K)"
 msgstr "Ursprunglig färgtemperatur (K)"
 
-#: src/components/ImageBackgroundRemoval.tsx:238
+#: src/components/ImageBackgroundRemoval.tsx:237
 msgid "Original photo"
 msgstr "Ursprungligt foto"
 
-#: src/components/ImageOutline.tsx:264
-#: src/components/messages.ts:35
+#: src/components/ImageOutline.tsx:262
+#: src/components/messages.ts:33
 msgid "Outline"
 msgstr "Kontur"
 
-#: src/components/ImageColorAdjustment.tsx:556
+#: src/components/ImageColorAdjustment.tsx:565
 msgid "Output levels"
 msgstr "Utgångsnivåer"
 
-#: src/components/color/ColorMixtureDescription.tsx:129
+#: src/components/color/ColorMixtureDescription.tsx:132
 msgid "over"
 msgstr "över"
 
-#: src/components/messages.ts:32
+#: src/components/messages.ts:30
 msgid "Palette"
 msgstr "Palett"
 
-#: src/components/print/PrintImageDrawer.tsx:204
+#: src/components/print/PrintImageDrawer.tsx:210
 msgid "Paper size"
 msgstr "Pappersstorlek"
 
-#: src/components/auth/AuthFeedbackHandler.tsx:109
+#: src/components/auth/AuthFeedbackHandler.tsx:108
 msgid "Patreon member email address not found"
 msgstr "Patreon-medlems e-postadress hittades ej"
 
-#: src/components/auth/AuthFeedbackHandler.tsx:54
+#: src/components/auth/AuthFeedbackHandler.tsx:53
 msgid "Patreon membership verification failed"
 msgstr "Patreon-medlemskapsverifieringen misslyckades"
 
-#: src/components/auth/AuthFeedbackHandler.tsx:40
+#: src/components/auth/AuthFeedbackHandler.tsx:39
 msgid "Patron status"
 msgstr "Beskyddarstatus"
 
-#: src/components/ImageColorAdjustment.tsx:333
-#: src/components/ImageColorAdjustment.tsx:430
+#: src/components/ImageColorAdjustment.tsx:342
+#: src/components/ImageColorAdjustment.tsx:439
 msgid "Percentile"
 msgstr "Percentil"
 
-#: src/components/ImageColorAdjustment.tsx:411
+#: src/components/ImageColorAdjustment.tsx:420
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Percentil: Automatisk vitbalans från de ljusaste områdena, bra för de flesta foton. Referens: Manuell vitbalans med valt vitt område."
 
-#: src/components/Help.tsx:160
+#: src/components/Help.tsx:159
 msgid "Persistent storage"
 msgstr "Beständig lagring"
 
-#: src/hooks/usePersistentStorage.tsx:53
+#: src/hooks/usePersistentStorage.tsx:52
 msgid "Persistent storage is not enabled"
 msgstr "Beständig lagring är inte aktiverad"
 
-#: src/components/messages.ts:30
+#: src/components/messages.ts:28
 msgid "Photo"
 msgstr "Foto"
 
@@ -1356,11 +1411,11 @@ msgstr "Foto"
 msgid "Photo not restored"
 msgstr "Bilden har inte återställts"
 
-#: src/components/ImagesCompare.tsx:167
+#: src/components/ImagesCompare.tsx:165
 msgid "Photo ranking"
 msgstr "Rankning av foton"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:199
+#: src/components/cloud/CloudFeedbackHandler.tsx:196
 msgid "Photo unavailable"
 msgstr "Fotot är inte tillgängligt"
 
@@ -1384,11 +1439,11 @@ msgstr "Nyp eller scrolla för att zooma, dra för att panorera."
 msgid "Please send us a screenshot of this error via our <0>contacts</0>. It will help us identify the cause."
 msgstr "Vänligen skicka oss en skärmdump av detta fel via våra <0>kontakter</0>. Det hjälper oss att identifiera orsaken."
 
-#: src/components/ImagesCompare.tsx:187
+#: src/components/ImagesCompare.tsx:185
 msgid "Position: {position}<0/>Rating: {ratingText}"
 msgstr "Position: {position}<0/>Betyg: {ratingText}"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:91
+#: src/components/cloud/CloudFeedbackHandler.tsx:90
 #: src/components/cloud/CloudSyncUpdateNotification.tsx:56
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:63
 msgid "Postpone"
@@ -1416,31 +1471,32 @@ msgid "Press Share in Navigation bar"
 msgstr "Tryck på Dela i navigeringsfältet"
 
 #: src/components/empty/EmptyPalette.tsx:55
-msgid "Press the <0>Add to palette</0> button next to the color mixture you like."
-msgstr "Tryck på knappen <0>Lägg till i paletten</0> bredvid den färgblandning du gillar."
+msgid "Press the <0>Add to palette</0> button next to the color mixture you like"
+msgstr "Tryck på knappen <0>Lägg till i palett</0> bredvid den färgblandning du gillar"
 
-#: src/components/ColorMixingChart.tsx:148
+#: src/components/color/ColorSwatchDrawer.tsx:83
+#: src/components/ColorMixingChart.tsx:149
 #: src/components/ImageGrid.tsx:71
 #: src/components/ImageGrid.tsx:84
-#: src/components/ImageOutline.tsx:317
-#: src/components/ImageOutline.tsx:359
-#: src/components/ImagesCompare.tsx:175
-#: src/components/ImageTonalValues.tsx:151
-#: src/components/ImageTonalValues.tsx:169
-#: src/components/palette/PaletteGrid.tsx:111
-#: src/components/print/PrintImageDrawer.tsx:177
+#: src/components/ImageOutline.tsx:315
+#: src/components/ImageOutline.tsx:357
+#: src/components/ImagesCompare.tsx:173
+#: src/components/ImageTonalValues.tsx:161
+#: src/components/ImageTonalValues.tsx:179
+#: src/components/palette/PaletteGrid.tsx:115
+#: src/components/print/PrintImageDrawer.tsx:183
 msgid "Print"
 msgstr "Trycka"
 
-#: src/components/print/PrintImageDrawer.tsx:194
+#: src/components/print/PrintImageDrawer.tsx:200
 msgid "Print a large image onto multiple pages"
 msgstr "Skriva ut en stor bild på flera sidor"
 
-#: src/components/print/PrintImageDrawer.tsx:110
+#: src/components/print/PrintImageDrawer.tsx:111
 msgid "Print preview"
 msgstr "Förhandsgranska"
 
-#: src/components/Help.tsx:129
+#: src/components/Help.tsx:128
 msgid "Privacy policy"
 msgstr "Integritetspolicy"
 
@@ -1448,41 +1504,41 @@ msgstr "Integritetspolicy"
 msgid "Processing..."
 msgstr "Bearbetar..."
 
-#: src/components/Help.tsx:183
+#: src/components/Help.tsx:182
 msgid "Quota"
 msgstr "Kvot"
 
-#: src/components/ImagesCompare.tsx:138
+#: src/components/ImagesCompare.tsx:136
 msgid "Rating: {player1RatingText}"
 msgstr "Betyg: {player1RatingText}"
 
-#: src/components/ImagesCompare.tsx:149
+#: src/components/ImagesCompare.tsx:147
 msgid "Rating: {player2RatingText}"
 msgstr "Betyg: {player2RatingText}"
 
-#: src/components/ColorMixer.tsx:184
+#: src/components/ColorMixer.tsx:188
 msgid "Ratio"
 msgstr "Förhållande"
 
-#: src/components/ImageColorPicker.tsx:387
+#: src/components/ImageColorPicker.tsx:435
 msgid "Reduce color palette to"
 msgstr "Reducera färgpaletten till"
 
-#: src/components/ImageColorPicker.tsx:406
+#: src/components/ImageColorPicker.tsx:454
 msgid "Reduce colors"
 msgstr "Minska färger"
 
-#: src/components/ImageColorPicker.tsx:404
+#: src/components/ImageColorPicker.tsx:452
 msgid "Reduce the number of colors in the photo."
 msgstr "Minska antalet färger i fotot."
 
-#: src/components/color/ColorSwatchDrawer.tsx:69
-#: src/components/ImageColorAdjustment.tsx:337
+#: src/components/color/ColorSwatchDrawer.tsx:95
+#: src/components/ImageColorAdjustment.tsx:346
 msgid "Reference"
 msgstr "Hänvisning"
 
-#: src/components/color/SimilarColorCard.tsx:121
-#: src/components/ColorMixer.tsx:252
+#: src/components/color/ColorMatchCard.tsx:132
+#: src/components/ColorMixer.tsx:256
 msgid "Reflectance"
 msgstr "Reflektans"
 
@@ -1490,18 +1546,18 @@ msgstr "Reflektans"
 msgid "Reload"
 msgstr "Ladda om"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:81
+#: src/components/cloud/CloudFeedbackHandler.tsx:80
 msgid "Remove and continue"
 msgstr "Ta bort och fortsätt"
 
-#: src/components/ImageColorAdjustment.tsx:397
-#: src/components/messages.ts:43
+#: src/components/ImageColorAdjustment.tsx:406
+#: src/components/messages.ts:42
 msgid "Remove background"
 msgstr "Ta bort bakgrund"
 
-#: src/components/CustomColorBrandCreator.tsx:181
-#: src/components/CustomColorBrandCreator.tsx:189
+#: src/components/CustomColorBrandCreator.tsx:184
 #: src/components/CustomColorBrandCreator.tsx:192
+#: src/components/CustomColorBrandCreator.tsx:195
 msgid "Required"
 msgstr "Krävs"
 
@@ -1550,31 +1606,31 @@ msgstr "Återgå till fliken {tabLabel}"
 msgid "Rotate"
 msgstr "Rotera"
 
-#: src/components/ImageColorPicker.tsx:259
+#: src/components/ImageColorPicker.tsx:299
 msgid "Sample size"
 msgstr "Urvalsstorlek"
 
-#: src/components/ImageColorAdjustment.tsx:484
+#: src/components/ImageColorAdjustment.tsx:493
 msgid "Saturation (%)"
 msgstr "Mättnad (%)"
 
-#: src/components/ColorMixingChart.tsx:157
-#: src/components/ColorSetChooser.tsx:250
-#: src/components/CustomColorBrandCreator.tsx:517
-#: src/components/ImageBackgroundRemoval.tsx:200
-#: src/components/ImageBackgroundRemoval.tsx:213
+#: src/components/ColorMixingChart.tsx:158
+#: src/components/ColorSetChooser.tsx:251
+#: src/components/CustomColorBrandCreator.tsx:520
+#: src/components/ImageBackgroundRemoval.tsx:199
+#: src/components/ImageBackgroundRemoval.tsx:212
 #: src/components/ImageBlurred.tsx:149
-#: src/components/ImageColorAdjustment.tsx:371
+#: src/components/ImageColorAdjustment.tsx:380
 #: src/components/ImageGrid.tsx:74
 #: src/components/ImageGrid.tsx:90
-#: src/components/ImageLimitedPalette.tsx:140
-#: src/components/ImageOutline.tsx:324
-#: src/components/ImageOutline.tsx:366
+#: src/components/ImageLimitedPalette.tsx:141
+#: src/components/ImageOutline.tsx:322
+#: src/components/ImageOutline.tsx:364
 #: src/components/ImagePerspectiveCorrection.tsx:309
 #: src/components/ImagePerspectiveCorrection.tsx:361
-#: src/components/ImageStyleTransfer.tsx:242
-#: src/components/ImageTonalValues.tsx:159
-#: src/components/ImageTonalValues.tsx:175
+#: src/components/ImageStyleTransfer.tsx:240
+#: src/components/ImageTonalValues.tsx:169
+#: src/components/ImageTonalValues.tsx:185
 msgid "Save"
 msgstr "Spara"
 
@@ -1586,16 +1642,16 @@ msgstr "Spara och fortsätt"
 msgid "Save backup"
 msgstr "Spar-backup"
 
-#: src/components/ColorSetChooser.tsx:248
+#: src/components/ColorSetChooser.tsx:249
 msgid "Save changes to the color set?"
 msgstr "Vill du spara ändringar i färguppsättningen?"
 
-#: src/components/ImageColorAdjustment.tsx:320
+#: src/components/ImageColorAdjustment.tsx:329
 #: src/components/ImagePerspectiveCorrection.tsx:235
 msgid "Save expanded to 1.91:1"
 msgstr "Spara utökad till 1,91:1"
 
-#: src/components/ImageColorAdjustment.tsx:308
+#: src/components/ImageColorAdjustment.tsx:317
 #: src/components/ImagePerspectiveCorrection.tsx:223
 msgid "Save expanded to 4:5"
 msgstr "Spara utökad till 4:5"
@@ -1608,7 +1664,7 @@ msgstr "Spara ändringarna i den här färguppsättningen"
 msgid "Select 4 points to correct perspective distortion"
 msgstr "Välj 4 punkter för att korrigera perspektivförvrängning"
 
-#: src/components/CustomColorBrandCreator.tsx:491
+#: src/components/CustomColorBrandCreator.tsx:494
 msgid "Select a color brand"
 msgstr "Välj ett färgmärke"
 
@@ -1616,7 +1672,7 @@ msgstr "Välj ett färgmärke"
 msgid "Select a color set"
 msgstr "Välj en färguppsättning"
 
-#: src/components/ImageColorAdjustment.tsx:356
+#: src/components/ImageColorAdjustment.tsx:365
 msgid "Select a photo to adjust white balance and colors"
 msgstr "Välj ett foto för att justera vitbalans och färger"
 
@@ -1624,7 +1680,7 @@ msgstr "Välj ett foto för att justera vitbalans och färger"
 msgid "Select a photo to correct the perspective"
 msgstr "Välj ett foto för att korrigera perspektivet"
 
-#: src/components/ImageBackgroundRemoval.tsx:158
+#: src/components/ImageBackgroundRemoval.tsx:157
 msgid "Select a photo to remove the background from"
 msgstr "Välj ett foto som du vill ta bort bakgrunden från"
 
@@ -1636,28 +1692,24 @@ msgstr "Välj ett referensfoto från din enhet att måla från"
 msgid "Select a standard or custom color set"
 msgstr "Välj en standard eller anpassad färguppsättning"
 
-#: src/components/ImageStyleTransfer.tsx:192
+#: src/components/ImageStyleTransfer.tsx:190
 msgid "Select a style image to use this style"
 msgstr "Välj en stilbild för att använda denna stil"
 
-#: src/components/ImageStyleTransfer.tsx:237
+#: src/components/ImageStyleTransfer.tsx:235
 msgid "Select a style to transfer to your reference photo"
 msgstr "Välj en stil som ska överföras till referensfotot"
 
 #: src/components/ColorSetChooser.tsx:606
-#: src/components/CustomColorBrandCreator.tsx:502
+#: src/components/CustomColorBrandCreator.tsx:505
 msgid "Select an art medium"
 msgstr "Välj ett konstmedium"
 
-#: src/components/CustomColorBrandCreator.tsx:440
+#: src/components/CustomColorBrandCreator.tsx:443
 msgid "Select an image that contains a color chart"
 msgstr "Markera en bild som innehåller en färgkarta"
 
-#: src/components/ColorMixer.tsx:192
-msgid "Select any number of colors to mix and specify the part of each color in the resulting mix."
-msgstr "Välj valfritt antal färger som ska blandas och ange delen av varje färg i den resulterande blandningen."
-
-#: src/components/color-set/ColorTypeSelect.tsx:38
+#: src/components/color-set/ColorTypeSelect.tsx:37
 msgid "Select art medium"
 msgstr "Välj konstmedium"
 
@@ -1665,7 +1717,7 @@ msgstr "Välj konstmedium"
 msgid "Select at least one color"
 msgstr "Välj minst en färg"
 
-#: src/components/ColorSetChooser.tsx:404
+#: src/components/ColorSetChooser.tsx:405
 msgid "Select at least one color before saving the color set."
 msgstr "Välj minst en färg innan du sparar färguppsättningen."
 
@@ -1673,7 +1725,7 @@ msgstr "Välj minst en färg innan du sparar färguppsättningen."
 msgid "Select at least one color brand"
 msgstr "Välj minst ett färgmärke"
 
-#: src/components/color-set/ColorBrandSelect.tsx:82
+#: src/components/color-set/ColorBrandSelect.tsx:81
 msgid "Select brands"
 msgstr "Välj varumärken"
 
@@ -1681,28 +1733,32 @@ msgstr "Välj varumärken"
 msgid "Select brands that you use."
 msgstr "Välj märken som du använder."
 
-#: src/components/color-set/ColorCascader.tsx:118
+#: src/components/color-set/ColorCascader.tsx:160
 msgid "Select color"
 msgstr "Välj färg"
 
-#: src/components/color-set/ColorCascader.tsx:118
-#: src/components/color-set/ColorSelect.tsx:105
+#: src/components/TwoColorGradient.tsx:149
+msgid "Select color pairs to chart every mixing ratio and consistency"
+msgstr "Välj färgpar för att kartlägga varje blandningsförhållande och konsistens"
+
+#: src/components/color-set/ColorCascader.tsx:160
+#: src/components/color-set/ColorSelect.tsx:109
 msgid "Select colors"
 msgstr "Välj färger"
 
-#: src/components/ColorMixingChart.tsx:182
+#: src/components/ColorMixingChart.tsx:190
 msgid "Select colors to build a mixing chart"
 msgstr "Välj färger för att skapa ett blandningsdiagram"
 
-#: src/components/ImageLimitedPalette.tsx:114
+#: src/components/ImageLimitedPalette.tsx:115
 msgid "Select from 1 to {MAX_COLORS} colors"
 msgstr "Välj mellan 1 och {MAX_COLORS} färger"
 
-#: src/components/color-set/CustomColorBrandSelect.tsx:80
+#: src/components/color-set/CustomColorBrandSelect.tsx:82
 msgid "Select from your recent brands"
 msgstr "Välj bland dina senaste varumärken"
 
-#: src/components/color-set/ColorSetSelect.tsx:89
+#: src/components/color-set/ColorSetSelect.tsx:92
 msgid "Select from your recent color sets"
 msgstr "Välj bland dina senaste färguppsättningar"
 
@@ -1710,7 +1766,7 @@ msgstr "Välj bland dina senaste färguppsättningar"
 msgid "Select from your recent color sets or create a new one."
 msgstr "Välj bland dina senaste färguppsättningar eller skapa en ny."
 
-#: src/components/CustomColorBrandCreator.tsx:445
+#: src/components/CustomColorBrandCreator.tsx:448
 msgid "Select image"
 msgstr "Välj bild"
 
@@ -1718,44 +1774,56 @@ msgstr "Välj bild"
 msgid "Select language"
 msgstr "Välj språk"
 
-#: src/components/ColorMixer.tsx:210
+#: src/components/ColorMixer.tsx:214
 msgid "Select part"
 msgstr "Välj variabler"
 
-#: src/components/ImageBackgroundRemoval.tsx:180
+#: src/components/ImageBackgroundRemoval.tsx:179
 #: src/components/ImageChooser.tsx:119
-#: src/components/ImageColorAdjustment.tsx:361
+#: src/components/ImageColorAdjustment.tsx:370
 #: src/components/ImagePerspectiveCorrection.tsx:270
 msgid "Select photo"
 msgstr "Välj foto"
 
-#: src/components/ImagesCompare.tsx:115
+#: src/components/ImagesCompare.tsx:113
 msgid "Select photos"
 msgstr "Välj foton"
 
-#: src/components/ImagesCompare.tsx:94
+#: src/components/ImagesCompare.tsx:92
 msgid "Select photos to rank using pairwise comparison"
 msgstr "Välj foton som ska rankas med hjälp av parvis jämförelse"
 
-#: src/components/color-set/StandardColorSetCascader.tsx:88
+#: src/components/color-set/StandardColorSetCascader.tsx:91
 msgid "Select set"
 msgstr "Välj uppsättning"
 
-#: src/components/ImageStyleTransfer.tsx:170
+#: src/components/ImageStyleTransfer.tsx:168
 msgid "Select style image"
 msgstr "Välj stilbild"
 
-#: src/components/color-set/MergeColorSetsDrawer.tsx:66
+#: src/components/color-set/MergeColorSetsDrawer.tsx:70
 msgid "Select the color sets you want to merge. A new color set will be created that includes all the colors from the selected sets."
 msgstr "Välj de färguppsättningar du vill slå ihop. En ny färguppsättning skapas som inkluderar alla färger från de valda uppsättningarna."
+
+#: src/components/TwoColorGradient.tsx:162
+msgid "Select the first color"
+msgstr "Välj den första färgen"
+
+#: src/components/TwoColorGradient.tsx:171
+msgid "Select the second color"
+msgstr "Välj den andra färgen"
+
+#: src/components/ColorMixer.tsx:196
+msgid "Select up to {MAX_COLORS} colors to mix and specify the part of each color in the resulting mix"
+msgstr "Välj upp till {MAX_COLORS} färger att blanda och ange delen av varje färg i den resulterande blandningen"
 
 #: src/components/empty/EmptyColorSet.tsx:99
 msgid "Select your art medium, color brands, and colors"
 msgstr "Välj ditt konstmedium, färgmärken och färger"
 
-#: src/components/ColorSetChooser.tsx:578
-msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>."
-msgstr "Välj ditt konstmedium, färgmärken och färgerna du ska måla med, tryck sedan <0>på Spara och fortsätt</0>."
+#: src/components/ColorSetChooser.tsx:579
+msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
+msgstr "Välj ditt konstmedium, färgmärken och färgerna du ska måla med och tryck sedan på <0>Spara och fortsätt</0>"
 
 #: src/components/color/OpacityIcon.tsx:47
 msgid "Semi-opaque"
@@ -1769,45 +1837,45 @@ msgstr "Halvgenomskinlig"
 msgid "Sent to <0>{email}</0>"
 msgstr "Skickat till <0>{email}</0>"
 
-#: src/components/auth/AuthFeedbackHandler.tsx:137
+#: src/components/auth/AuthFeedbackHandler.tsx:136
 msgid "Session expired"
 msgstr "Sessionen har upphört"
 
-#: src/components/ImageLimitedPalette.tsx:149
+#: src/components/ImageLimitedPalette.tsx:150
 msgid "Set as main color set"
 msgstr "Ställ in som huvudfärguppsättning"
 
 #: src/components/ImageBlurred.tsx:156
-#: src/components/ImageColorAdjustment.tsx:390
+#: src/components/ImageColorAdjustment.tsx:399
 msgid "Set as reference"
 msgstr "Ange som referens"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:145
-#: src/components/color/SimilarColorCard.tsx:137
+#: src/components/color/ColorMatchCard.tsx:148
+#: src/components/color/PaletteColorMixtureCard.tsx:149
 msgid "Set as underlayer"
 msgstr "Ställd som underlager"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:141
-#: src/components/color/SimilarColorCard.tsx:133
+#: src/components/color/ColorMatchCard.tsx:144
+#: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for blending."
 msgstr "Ställ in som underlager för att blanda."
 
-#: src/components/color/PaletteColorMixtureCard.tsx:141
-#: src/components/color/SimilarColorCard.tsx:133
+#: src/components/color/ColorMatchCard.tsx:144
+#: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for glazing."
 msgstr "Ställ in som underlag för glasering."
 
-#: src/components/color/PaletteColorMixtureCard.tsx:157
-#: src/components/color/SimilarColorCard.tsx:149
+#: src/components/color/ColorMatchCard.tsx:160
+#: src/components/color/PaletteColorMixtureCard.tsx:161
 msgid "Set as unifying color"
 msgstr "Sätts som enhetlig färg"
 
-#: src/components/ImageTonalValues.tsx:120
-#: src/components/ImageTonalValues.tsx:123
+#: src/components/ImageTonalValues.tsx:130
+#: src/components/ImageTonalValues.tsx:133
 msgid "Shadow"
 msgstr "Skugga"
 
-#: src/components/ImageColorAdjustment.tsx:507
+#: src/components/ImageColorAdjustment.tsx:516
 msgid "Shadows and highlights"
 msgstr "Skuggor och högdagrar"
 
@@ -1824,15 +1892,15 @@ msgstr "Dela den här färguppsättningen"
 msgid "Share your color set"
 msgstr "Dela din färguppsättning"
 
-#: src/components/ImageColorPicker.tsx:304
+#: src/components/ImageColorPicker.tsx:344
 msgid "Show areas on the photo that match this color."
 msgstr "Visa områden på fotot som matchar denna färg."
 
-#: src/components/grid/GridControls.tsx:123
+#: src/components/grid/GridControls.tsx:122
 msgid "Show grid"
 msgstr "Visa rutnät"
 
-#: src/components/ImageColorPicker.tsx:303
+#: src/components/ImageColorPicker.tsx:343
 msgid "Show matching areas"
 msgstr "Visa matchningsområden"
 
@@ -1840,28 +1908,27 @@ msgstr "Visa matchningsområden"
 msgid "Show older photos"
 msgstr "Visa äldre bilder"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:115
+#: src/components/color/PaletteColorMixtureCard.tsx:119
 msgid "Show on photo"
 msgstr "Visa på bild"
 
-#: src/components/grid/GridControls.tsx:155
+#: src/components/grid/GridControls.tsx:154
 msgid "Show or hide diagonal lines"
 msgstr "Visa eller dölja diagonala linjer"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:109
+#: src/components/color/PaletteColorMixtureCard.tsx:113
 msgid "Show this color on the reference photo."
 msgstr "Visa denna färg på referensbilden."
 
-#: src/components/auth/AuthFeedbackHandler.tsx:160
+#: src/components/auth/AuthFeedbackHandler.tsx:159
 msgid "Sign in required"
 msgstr "Inloggning krävs"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:83
-#: src/components/ImageColorPicker.tsx:426
+#: src/components/color/ReflectanceChartDrawer.tsx:92
 msgid "Similarity"
 msgstr "Likhet"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:100
+#: src/components/color/ReflectanceChartDrawer.tsx:109
 msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
 msgstr "Likhetsläget jämför målfärgerna och de föreslagna färgerna. I blandningsläge visas de delar av färgen som utgör blandningen."
 
@@ -1869,60 +1936,60 @@ msgstr "Likhetsläget jämför målfärgerna och de föreslagna färgerna. I bla
 msgid "Simplified"
 msgstr "Förenklat"
 
-#: src/components/messages.ts:34
+#: src/components/messages.ts:32
 msgid "Simplify"
 msgstr "Förenkla"
 
-#: src/components/color/ConsistencyDescription.tsx:148
-msgid "Slightly overlap oil pastel areas of different colors and blend gently to create a smooth transition."
-msgstr "Överlappa oljepastellområden i olika färger något och blanda försiktigt för att skapa en mjuk övergång."
+#: src/components/color/ConsistencyDescription.tsx:147
+msgid "Slightly overlap oil pastel areas of different colors and blend gently to create a smooth transition"
+msgstr "Överlappa lite oljepastellområden i olika färger och blanda försiktigt för att skapa en mjuk övergång"
 
-#: src/components/color/ConsistencyDescription.tsx:141
-msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition."
-msgstr "Överlappa pastellområden i olika färger något och blanda försiktigt för att skapa en mjuk övergång."
+#: src/components/color/ConsistencyDescription.tsx:140
+msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition"
+msgstr "Lite överlappande pastellområden i olika färger och blanda försiktigt för att skapa en mjuk övergång"
 
-#: src/components/color/ConsistencyDescription.tsx:155
-msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition."
-msgstr "Överlappa vaxpastellområden i olika färger lite och blanda ordentligt för att skapa en smidig övergång."
+#: src/components/color/ConsistencyDescription.tsx:154
+msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
+msgstr "Lite överlappande vaxpastellområden i olika färger och blanda ordentligt för att skapa en mjuk övergång"
 
-#: src/components/ImageColorAdjustment.tsx:433
+#: src/components/ImageColorAdjustment.tsx:442
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Lägre percentilvärden motsvarar starkare blekning"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:175
-msgid "Some synchronized cloud data was deleted or is unavailable. Keep this device to create it again, or postpone the decision. ArtistAssistApp will not recreate it automatically."
-msgstr "Viss synkroniserad molndata raderades eller är otillgänglig. Behåll den här enheten för att skapa den igen, eller skjut upp beslutet. ArtistAssistApp kommer inte att återskapa det automatiskt."
+#: src/components/cloud/CloudFeedbackHandler.tsx:172
+msgid "Some synced cloud data was deleted or is unavailable. Keep this device to create it again, or postpone the decision. ArtistAssistApp will not recreate it automatically."
+msgstr "Vissa synkroniserade molndata raderades eller är inte tillgängliga. Behåll den här enheten för att skapa den igen, eller skjut upp beslutet. ArtistAssistApp kommer inte att återskapa den automatiskt."
 
 #: src/components/error/ErrorFallback.tsx:37
 msgid "Something went wrong"
 msgstr "Något gick fel"
 
-#: src/components/color-set/ColorSelect.tsx:118
-#: src/components/ColorMixingChart.tsx:121
-#: src/components/ImageColorPicker.tsx:463
-#: src/components/palette/PaletteGrid.tsx:133
+#: src/components/color-set/ColorSelect.tsx:122
+#: src/components/ColorMixingChart.tsx:122
+#: src/components/ImageColorPicker.tsx:511
+#: src/components/palette/PaletteGrid.tsx:137
 msgid "Sort"
 msgstr "Sort"
 
-#: src/components/ImageColorPicker.tsx:438
+#: src/components/ImageColorPicker.tsx:475
+msgid "Sort by match score, from highest to lowest."
+msgstr "Sortera efter matchpoäng, från högsta till lägsta."
+
+#: src/components/ImageColorPicker.tsx:486
 msgid "Sort by mixture opacity, from opaque to transparent."
 msgstr "Sortera efter blandningens opacitet, från ogenomskinlig till genomskinlig."
 
-#: src/components/ImageColorPicker.tsx:432
+#: src/components/ImageColorPicker.tsx:480
 msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "Sortera efter antalet färger i blandningen, från minst till flest."
 
-#: src/components/ImageColorPicker.tsx:427
-msgid "Sort by the similarity of the mixture to the target color, from highest to lowest."
-msgstr "Sortera efter likheten mellan blandningen och målfärgen, från högst till lägst."
-
-#: src/components/color/ReflectanceChartDrawer.tsx:89
-#: src/components/color/SimilarColorCard.tsx:116
-#: src/components/ColorMixer.tsx:246
+#: src/components/color/ColorMatchCard.tsx:127
+#: src/components/color/ReflectanceChartDrawer.tsx:98
+#: src/components/ColorMixer.tsx:250
 msgid "Spectral reflectance curve"
 msgstr "Spektral reflektanskurva"
 
-#: src/components/grid/GridControls.tsx:113
+#: src/components/grid/GridControls.tsx:112
 msgid "Square cells"
 msgstr "Fyrkantiga celler"
 
@@ -1930,7 +1997,7 @@ msgstr "Fyrkantiga celler"
 msgid "Standard color set"
 msgstr "Standardfärguppsättning"
 
-#: src/components/print/PrintImageDrawer.tsx:197
+#: src/components/print/PrintImageDrawer.tsx:203
 msgid "Standard print"
 msgstr "Standard-tryck"
 
@@ -1938,11 +2005,11 @@ msgstr "Standard-tryck"
 msgid "Storage may fill up"
 msgstr "Förrådet kan fyllas upp"
 
-#: src/components/Help.tsx:177
+#: src/components/Help.tsx:176
 msgid "Storage usage"
 msgstr "Användning av lagringsutrymme"
 
-#: src/components/messages.ts:41
+#: src/components/messages.ts:40
 msgid "Straighten"
 msgstr "Räta ut"
 
@@ -1950,7 +2017,7 @@ msgstr "Räta ut"
 msgid "Straightens skewed photos and removes unwanted edges. Use auto-detect or select 4 points to correct perspective distortion, then optionally drag margins to crop the image."
 msgstr "Rätar ut sneda bilder och tar bort oönskade kanter. Använd auto-detektering eller välj 4 punkter för att korrigera perspektivförvrängning, och dra sedan eventuellt marginaler för att beskära bilden."
 
-#: src/components/ImageStyleTransfer.tsx:230
+#: src/components/ImageStyleTransfer.tsx:228
 msgid "Styled reference photo"
 msgstr "Formaterat referensfoto"
 
@@ -1962,17 +2029,17 @@ msgstr "Stödda konstmedier:"
 msgid "Supported web browsers and operating systems"
 msgstr "Webbläsare och operativsystem som stöds"
 
-#: src/components/color/UnderlayerColorPicker.tsx:55
-#: src/components/color/UnderlayerColorPicker.tsx:61
+#: src/components/color/UnderlayerColorPicker.tsx:58
+#: src/components/color/UnderlayerColorPicker.tsx:64
 msgid "Surface color"
 msgstr "Ytfärg"
 
-#: src/components/lightbox/LightboxOverlay.tsx:114
-#: src/components/lightbox/LightboxOverlay.tsx:118
+#: src/components/lightbox/LightboxOverlay.tsx:119
+#: src/components/lightbox/LightboxOverlay.tsx:123
 msgid "Swipe to unlock"
 msgstr "Svep för att låsa upp"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:201
+#: src/components/cloud/CloudFeedbackHandler.tsx:198
 msgid "Sync stopped because the photo {context} is unavailable and is not in your cloud storage. Remove it to continue syncing, or postpone the decision."
 msgstr "Synkroniseringen avbröts eftersom fotot {context} inte är tillgängligt och inte finns i din molnlagring. Ta bort den för att fortsätta synkronisera eller skjuta upp beslutet."
 
@@ -1984,61 +2051,61 @@ msgstr "Synka med {label}"
 msgid "Tap 👆 anywhere in the photo to choose a focal point."
 msgstr "Tryck på 👆 var som helst på bilden för att välja en brännpunkt."
 
-#: src/components/print/PrintImageDrawer.tsx:250
+#: src/components/print/PrintImageDrawer.tsx:256
 msgid "Taped margin width around the painting area"
 msgstr "Tejpad marginalbredd runt målningsytan"
 
-#: src/components/ImageColorPicker.tsx:279
-#: src/components/ImageColorPicker.tsx:291
+#: src/components/ImageColorPicker.tsx:319
+#: src/components/ImageColorPicker.tsx:331
 msgid "Target color"
 msgstr "Målfärg"
 
-#: src/components/print/PrintImageDrawer.tsx:214
+#: src/components/print/PrintImageDrawer.tsx:220
 msgid "Target print size"
 msgstr "Målstorlek för utskrift"
 
-#: src/components/Help.tsx:139
+#: src/components/Help.tsx:138
 msgid "Terms of use"
 msgstr "Villkor för användning"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:107
+#: src/components/cloud/CloudFeedbackHandler.tsx:106
 msgid "The cloud connection could not be completed. Start again from ArtistAssistApp."
 msgstr "Molnanslutningen kunde inte slutföras. Börja om från ArtistAssistApp."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:194
+#: src/components/cloud/CloudFeedbackHandler.tsx:191
 msgid "The cloud data file is damaged. Replace it with the data from this device."
 msgstr "Molndatafilen är skadad. Ersätt den med data från denna enhet."
 
-#: src/components/auth/AuthFeedbackHandler.tsx:147
+#: src/components/auth/AuthFeedbackHandler.tsx:146
 msgid "The code you entered is incorrect or expired. Check the latest email from ArtistAssistApp and try again, or request a new login code."
 msgstr "Koden du angav är felaktig eller utgången. Kolla det senaste mejlet från ArtistAssistApp och försök igen, eller begär en ny inloggningskod."
 
-#: src/components/color/UnderlayerColorPicker.tsx:57
+#: src/components/color/UnderlayerColorPicker.tsx:60
 msgid "The color of your paper, canvas, or painting surface."
 msgstr "Färgen på ditt papper, duk eller måleriyta."
 
-#: src/components/ColorSetChooser.tsx:232
-#: src/components/ColorSetChooser.tsx:265
+#: src/components/ColorSetChooser.tsx:233
+#: src/components/ColorSetChooser.tsx:266
 msgid "The color set can't be saved because not all required fields are filled."
 msgstr "Färguppsättningen kan inte sparas eftersom inte alla obligatoriska fält är fyllda."
 
-#: src/components/ColorSetChooser.tsx:208
+#: src/components/ColorSetChooser.tsx:209
 msgid "The color set can't be saved because the color data failed to load."
 msgstr "Färguppsättningen kan inte sparas eftersom färgdata inte kunde laddas."
 
-#: src/components/ImageColorPicker.tsx:282
+#: src/components/ImageColorPicker.tsx:322
 msgid "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
 msgstr "Färgen som ska blandas från din färguppsättning. Välj en färg genom att klicka på en punkt på bilden, eller använd popup-fönstret för färgväljaren."
 
-#: src/components/CustomColorBrandCreator.tsx:459
+#: src/components/CustomColorBrandCreator.tsx:462
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
 msgstr "Diametern på det cirkulära området runt markören, som används för att beräkna den genomsnittliga färgen på pixlarna inom området."
 
-#: src/components/color/UnderlayerColorPicker.tsx:102
+#: src/components/color/UnderlayerColorPicker.tsx:105
 msgid "The dried layer you want to glaze over."
 msgstr "Det torkade lagret du vill glasera över."
 
-#: src/components/color/UnderlayerColorPicker.tsx:100
+#: src/components/color/UnderlayerColorPicker.tsx:103
 msgid "The existing pastel layer you want to blend over."
 msgstr "Det befintliga pastelllagret vill du blanda över."
 
@@ -2046,23 +2113,19 @@ msgstr "Det befintliga pastelllagret vill du blanda över."
 msgid "The file might have been moved or deleted, or it could be stored in the cloud and not downloaded to this device. Download it to this device, then select it again."
 msgstr "Filen kan ha flyttats eller raderats, eller så kan den lagras i molnet och inte laddas ner till denna enhet. Ladda ner den till den här enheten, välj sedan igen."
 
-#: src/components/print/PrintImageDrawer.tsx:252
+#: src/components/print/PrintImageDrawer.tsx:258
 msgid "The margin is too large"
 msgstr "Marginalen är för stor"
 
 #: src/components/empty/EmptyPalette.tsx:70
-msgid "There is one common palette and a separate palette for each photo."
-msgstr "Det finns en gemensam palett och en separat palett för varje foto."
-
-#: src/components/color/ConsistencyDescription.tsx:72
-msgid "Thin the paint to <0>{fractionText} thickness</0>"
-msgstr "Tunna ut färgen till <0>{fractionText} tjocklek</0>"
+msgid "There is one common palette and a separate palette for each photo"
+msgstr "Det finns en gemensam palett och en separat palett för varje foto"
 
 #: src/components/ColorSetChooser.tsx:694
 msgid "This color brand is available to paid Patreon members only"
 msgstr "Detta färgmärke är endast tillgängligt för betalda Patreon-medlemmar"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:110
+#: src/components/color/PaletteColorMixtureCard.tsx:114
 msgid "This color was not sampled from a photo."
 msgstr "Denna färg togs inte från ett foto."
 
@@ -2074,19 +2137,19 @@ msgstr "Detta raderar allt i den anslutna molnappen-mappen, inklusive filer du l
 msgid "This deletes your account and membership lookup records and logs you out."
 msgstr "Detta raderar dina konto- och medlemsuppslagsuppgifter och loggar ut dig."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:148
-msgid "This device and the synchronized cloud data both changed. Choose which one to keep."
-msgstr "Denna enhet och den synkroniserade molndatan ändrades båda. Välj vilken du vill behålla."
+#: src/components/cloud/CloudFeedbackHandler.tsx:147
+msgid "This device and the synced cloud data both changed. Choose which one to keep."
+msgstr "Den här enheten och den synkroniserade molndatan har båda ändrats. Välj vilken du vill behålla."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:134
+#: src/components/cloud/CloudFeedbackHandler.tsx:133
 msgid "This device has changes made while another account was active. Keep this device to upload them to the current account, keep the cloud data to discard them, or postpone the decision."
 msgstr "Den här enheten har ändringar gjorda medan ett annat konto var aktivt. Behåll denna enhet för att ladda upp dem till ditt nuvarande konto, behåll molndata för att kassera dem, eller skjut upp beslutet."
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:161
-msgid "This device has local data and existing synchronized cloud data, but no sync history. Choose which one to keep."
-msgstr "Denna enhet har lokal data och befintlig synkroniserad molndata, men ingen synkhistorik. Välj vilken du vill behålla."
+#: src/components/cloud/CloudFeedbackHandler.tsx:158
+msgid "This device has local data and existing synced cloud data, but no sync history. Choose which one to keep."
+msgstr "Den här enheten har lokal data och befintliga synkroniserade molndata, men ingen synkroniseringshistorik. Välj vilken du vill behålla."
 
-#: src/components/auth/AuthFeedbackHandler.tsx:156
+#: src/components/auth/AuthFeedbackHandler.tsx:155
 msgid "This login code can't be used anymore. Request a new code to continue."
 msgstr "Denna inloggningskod kan inte användas längre. Begär en ny kod för att fortsätta."
 
@@ -2098,23 +2161,23 @@ msgstr "Detta raderar permanent ArtistAssistApp-mappen och alla dina filer och m
 msgid "This photo could not be restored from your cloud storage."
 msgstr "Det här fotot kunde inte återställas från din molnlagring."
 
-#: src/components/print/PrintImageDrawer.tsx:216
+#: src/components/print/PrintImageDrawer.tsx:222
 msgid "This print size is not supported"
 msgstr "Den här utskriftsstorleken stöds inte"
 
 #: src/components/empty/EmptyColorSet.tsx:123
-msgid "This step is optional."
-msgstr "Det här steget är valfritt."
+msgid "This step is optional"
+msgstr "Detta steg är valfritt"
 
-#: src/components/ImageStyleTransfer.tsx:187
+#: src/components/ImageStyleTransfer.tsx:185
 msgid "This style is available to paid Patreon members only"
 msgstr "Den här stilen är endast tillgänglig för betalda Patreon-medlemmar"
 
-#: src/components/auth/AuthFeedbackHandler.tsx:58
+#: src/components/auth/AuthFeedbackHandler.tsx:57
 msgid "This usually happens when you're signed in to a <0>different</0> Patreon account than the one used for your ArtistAssistApp membership."
 msgstr "Detta händer oftast när du är inloggad på ett <0>annat</0> Patreon-konto än det som användes för ditt ArtistAssistApp-medlemskap."
 
-#: src/components/auth/AuthFeedbackHandler.tsx:66
+#: src/components/auth/AuthFeedbackHandler.tsx:65
 msgid "To fix this:"
 msgstr "För att åtgärda detta:"
 
@@ -2123,23 +2186,23 @@ msgid "To install ArtistAssistApp, use one of the supported web browsers:"
 msgstr "För att installera ArtistAssistApp, använd en av de stödda webbläsarna:"
 
 #: src/components/empty/EmptyImage.tsx:39
-msgid "To use the {tabLabel} feature, select a reference photo."
-msgstr "Om du vill använda funktionen {tabLabel} väljer du ett referensfoto."
+msgid "To use the {tabLabel} feature, select a reference photo"
+msgstr "Om du vill använda funktionen {tabLabel} väljer du ett referensfoto"
 
 #: src/components/empty/EmptyColorSet.tsx:88
-msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with."
-msgstr "För att använda funktionen {tabLabel}, välj stödd konstmedium och färger att måla med."
+msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
+msgstr "Om du vill använda {tabLabel}-funktionen väljer du konstmedium och färger som stöds att måla med"
 
-#: src/components/messages.ts:33
+#: src/components/messages.ts:31
 msgid "Tonal values"
 msgstr "Tonala värden"
 
-#: src/components/auth/AuthFeedbackHandler.tsx:154
+#: src/components/auth/AuthFeedbackHandler.tsx:153
 msgid "Too many incorrect codes"
 msgstr "För många felaktiga koder"
 
-#: src/components/auth/AuthFeedbackHandler.tsx:181
-#: src/components/cloud/CloudFeedbackHandler.tsx:218
+#: src/components/auth/AuthFeedbackHandler.tsx:180
+#: src/components/cloud/CloudFeedbackHandler.tsx:215
 msgid "Too many requests"
 msgstr "För många förfrågningar"
 
@@ -2147,11 +2210,23 @@ msgstr "För många förfrågningar"
 msgid "Transparent"
 msgstr "Genomskinlig"
 
-#: src/components/empty/EmptySimilarColors.tsx:29
-msgid "Try adding some colors to your color set."
-msgstr "Försök lägga till några färger i din färguppsättning."
+#: src/components/empty/EmptyColorMatches.tsx:37
+msgid "Try adding colors or changing the surface"
+msgstr "Prova att lägga till färger eller ändra ytan"
 
-#: src/components/Help.tsx:87
+#: src/components/empty/EmptyColorMatches.tsx:32
+msgid "Try adding colors or changing the surface or the underlayer"
+msgstr "Prova att lägga till färger eller ändra ytan eller underlaget"
+
+#: src/components/empty/EmptyColorMatches.tsx:35
+msgid "Try adding colors or changing the surface or the unifying color"
+msgstr "Prova att lägga till färger eller ändra ytan eller den sammanhållande färgen"
+
+#: src/components/empty/EmptyColorMatches.tsx:30
+msgid "Try adding colors or changing the surface, underlayer, or unifying color"
+msgstr "Prova att lägga till färger eller ändra ytan, underskiktet eller förenande färg"
+
+#: src/components/Help.tsx:86
 msgid "Tutorials and videos"
 msgstr "Handledningar och videor"
 
@@ -2160,12 +2235,12 @@ msgstr "Handledningar och videor"
 msgid "Unable to restore the saved color set"
 msgstr "Det gick inte att återställa den sparade färguppsättningen"
 
-#: src/components/color/UnderlayerColorPicker.tsx:96
-#: src/components/color/UnderlayerColorPicker.tsx:109
+#: src/components/color/UnderlayerColorPicker.tsx:99
+#: src/components/color/UnderlayerColorPicker.tsx:112
 msgid "Underlayer"
 msgstr "Underlager"
 
-#: src/components/error/UnhandledRejectionHandler.tsx:33
+#: src/components/error/UnhandledRejectionHandler.tsx:32
 msgid "Unexpected error"
 msgstr "Oväntat fel"
 
@@ -2173,26 +2248,26 @@ msgstr "Oväntat fel"
 msgid "Unexpected error: {errorMessage}"
 msgstr "Oväntat fel: {errorMessage}"
 
-#: src/components/ImageColorPicker.tsx:349
+#: src/components/ImageColorPicker.tsx:397
 msgid "Unifying color"
 msgstr "Förenande färg"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:132
+#: src/components/cloud/CloudFeedbackHandler.tsx:131
 msgid "Unsynced changes on this device"
 msgstr "Osynkade ändringar på denna enhet"
 
-#: src/components/color/ColorSwatchDrawer.tsx:84
-#: src/components/color/PaletteColorMixtureCard.tsx:95
-#: src/components/color/SimilarColorCard.tsx:103
-#: src/components/palette/PaletteGrid.tsx:155
+#: src/components/color/ColorMatchCard.tsx:114
+#: src/components/color/ColorSwatchDrawer.tsx:116
+#: src/components/color/PaletteColorMixtureCard.tsx:99
+#: src/components/palette/PaletteGrid.tsx:159
 msgid "Untitled mixture"
 msgstr "Namnlös blandning"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:223
+#: src/components/cloud/CloudFeedbackHandler.tsx:220
 msgid "Update ArtistAssistApp to the latest version and try again."
 msgstr "Uppdatera ArtistAssistApp till den senaste versionen och försök igen."
 
-#: src/components/auth/AuthFeedbackHandler.tsx:188
+#: src/components/auth/AuthFeedbackHandler.tsx:187
 msgid "Update ArtistAssistApp to the latest version, check your connection, and try again."
 msgstr "Uppdatera ArtistAssistApp till senaste versionen, kontrollera din anslutning och försök igen."
 
@@ -2204,53 +2279,52 @@ msgstr "Uppdatering tillgänglig"
 msgid "Update now"
 msgstr "Uppdatera nu"
 
-#: src/stores/cloud-slice.ts:143
-msgid "Uploading image {index} of {count}"
-msgstr "Uppladdning av bild {index} av {count}"
+#: src/stores/cloud-slice.ts:141
+msgid "Uploading image {index} / {count}"
+msgstr "Laddar upp bild {index}/{count}"
 
-#: src/components/color/ConsistencyDescription.tsx:44
-msgid "Use at full strength."
-msgstr "Använd på full styrka."
+#: src/components/color/ConsistencyDescription.tsx:81
+msgid "Use <0>{fractionText} of full pressure</0>"
+msgstr "Använd <0>{fractionText} av fullt tryck</0>"
 
-#: src/components/file/FileSelect.tsx:186
+#: src/components/color/ConsistencyDescription.tsx:42
+msgid "Use at full strength"
+msgstr "Använd med full styrka"
+
+#: src/components/file/FileSelect.tsx:190
 msgid "Use copied image"
 msgstr "Använd kopierad bild"
 
-#: src/components/color/ConsistencyDescription.tsx:49
-msgid "Use full pressure."
-msgstr "Använd fullt tryck."
+#: src/components/color/ConsistencyDescription.tsx:47
+msgid "Use full pressure"
+msgstr "Använd fullt tryck"
 
-#: src/components/color/ConsistencyDescription.tsx:120
-msgid "Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original acrylic paint layer."
-msgstr "Använd glasmedier som gör att du kan få ett tunt lager, till exempel 1/10 av det ursprungliga akrylfärgskiktet."
-
-#: src/components/color/ConsistencyDescription.tsx:113
-msgid "Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original oil paint layer. You should be able to get the consistency of runny sour cream. Linseed oil is a popular glazing medium."
-msgstr "Använd glaseringsmedier som gör att du kan få ett tunt lager, till exempel 1/10 av det ursprungliga oljefärgskiktet. Du ska kunna få konsistensen av rinnande gräddfil. Linolja är ett populärt ytbehandlingsmedium."
-
-#: src/components/file/FileSelect.tsx:175
+#: src/components/file/FileSelect.tsx:179
 msgid "Use reference photo"
 msgstr "Använd referensfoto"
 
-#: src/components/Help.tsx:180
+#: src/components/Help.tsx:179
 msgid "Used"
 msgstr "Begagnad"
 
-#: src/components/ImageLimitedPalette.tsx:106
+#: src/components/ImageLimitedPalette.tsx:107
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Att använda en begränsad palett hjälper till att uppnå färgharmoni. Välj 1–{MAX_COLORS} primärfärger."
 
-#: src/components/ImageOutline.tsx:282
-#: src/components/ImageOutline.tsx:349
+#: src/components/ImageOutline.tsx:280
+msgid "View the outline over the live camera to trace in AR"
+msgstr "Se konturerna över livekameran för att spåra i AR"
+
+#: src/components/ImageOutline.tsx:347
 msgid "View the outline over the live camera to trace in AR."
 msgstr "Se konturen över den levande kameran för att spåra i AR."
 
-#: src/components/auth/AuthFeedbackHandler.tsx:182
-#: src/components/cloud/CloudFeedbackHandler.tsx:219
+#: src/components/auth/AuthFeedbackHandler.tsx:181
+#: src/components/cloud/CloudFeedbackHandler.tsx:216
 msgid "Wait a minute and try again."
 msgstr "Vänta lite och försök igen."
 
-#: src/components/ColorSetChooser.tsx:205
+#: src/components/ColorSetChooser.tsx:206
 msgid "Wait for the color data to finish loading."
 msgstr "Vänta tills färgdatan har laddats klart."
 
@@ -2258,27 +2332,27 @@ msgstr "Vänta tills färgdatan har laddats klart."
 msgid "Warm — Algorithmic estimate; artistic perception may vary."
 msgstr "Varm — Algoritmisk uppskattning; Konstnärlig uppfattning kan variera."
 
-#: src/components/color/ConsistencyDescription.tsx:106
-msgid "Watercolor can be diluted with water to make it more transparent."
-msgstr "Akvarell kan spädas ut med vatten för att göra den mer transparent."
+#: src/components/color/ConsistencyDescription.tsx:105
+msgid "Watercolor can be diluted with water to make it more transparent"
+msgstr "Akvarell kan spädas ut med vatten för att göra den mer transparent"
 
-#: src/components/messages.ts:50
+#: src/components/messages.ts:49
 msgid "Watercolor Paint"
 msgstr "Akvarellfärg"
 
-#: src/components/messages.ts:55
+#: src/components/messages.ts:54
 msgid "Watercolor Pencils"
 msgstr "Akvarellpennor"
 
-#: src/components/messages.ts:58
+#: src/components/messages.ts:57
 msgid "Wax Pastel"
 msgstr "Vaxpastell"
 
-#: src/components/auth/AuthFeedbackHandler.tsx:113
+#: src/components/auth/AuthFeedbackHandler.tsx:112
 msgid "We couldn't find an ArtistAssistApp Patreon membership for the email address you entered. Use the email address shown on your Patreon account for your ArtistAssistApp membership, then request a new login code."
 msgstr "Vi kunde inte hitta ett Patreon-medlemskap på ArtistAssistApp för den e-postadress du angav. Använd e-postadressen som visas på ditt Patreon-konto för ditt ArtistAssistApp-medlemskap och begär sedan en ny inloggningskod."
 
-#: src/components/auth/AuthFeedbackHandler.tsx:163
+#: src/components/auth/AuthFeedbackHandler.tsx:162
 msgid "We couldn't verify your session. Please sign in again to continue using ArtistAssistApp."
 msgstr "Vi kunde inte verifiera din session. Vänligen logga in igen för att fortsätta använda ArtistAssistApp."
 
@@ -2290,25 +2364,25 @@ msgstr "När du väljer fler än {maxColorsFor2} färger totalt används inte bl
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "När du väljer fler än {maxColorsFor3} färger totalt används inte blandningar av tre färger."
 
-#: src/components/ImageBackgroundRemoval.tsx:115
-#: src/components/ImageColorAdjustment.tsx:468
+#: src/components/ImageBackgroundRemoval.tsx:114
+#: src/components/ImageColorAdjustment.tsx:477
 msgid "White"
 msgstr "Vit"
 
-#: src/components/ImageColorAdjustment.tsx:409
+#: src/components/ImageColorAdjustment.tsx:418
 msgid "White balance"
 msgstr "Vitbalans"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:63
 msgid "White paper or canvas"
 msgstr "Vitt papper eller duk"
 
-#: src/components/ImageColorAdjustment.tsx:458
-#: src/components/ImageColorAdjustment.tsx:464
+#: src/components/ImageColorAdjustment.tsx:467
+#: src/components/ImageColorAdjustment.tsx:473
 msgid "White point"
 msgstr "Vit punkt"
 
-#: src/components/print/PrintImageDrawer.tsx:226
+#: src/components/print/PrintImageDrawer.tsx:232
 msgid "Width"
 msgstr "Bredd"
 
@@ -2316,24 +2390,24 @@ msgstr "Bredd"
 msgid "You already have many recent photos saved. Delete the oldest one to free up space? The new photo will still be added."
 msgstr "Du har redan många nyliga foton sparade. Ta bort den äldsta för att frigöra plats? Det nya fotot kommer fortfarande att läggas till."
 
-#: src/components/ColorSetChooser.tsx:490
-msgid "You are logged in and have access to all app features."
-msgstr "Du är inloggad och har tillgång till alla appfunktioner."
+#: src/components/ColorSetChooser.tsx:491
+msgid "You are logged in and have access to all app features"
+msgstr "Du är inloggad och har tillgång till alla appfunktioner"
 
-#: src/components/ColorSetChooser.tsx:502
+#: src/components/ColorSetChooser.tsx:503
 msgid "You are using the <0>free version</0> of ArtistAssistApp. It includes a limited number of color brands and image processing modes."
 msgstr "Du använder <0>gratisversionen</0> av ArtistAssistApp. Den inkluderar ett begränsat antal färgmärken och bildbehandlingsmod."
 
-#: src/components/auth/AuthFeedbackHandler.tsx:207
+#: src/components/auth/AuthFeedbackHandler.tsx:206
 msgid "You can keep working in this browser tab, or switch back to the installed ArtistAssistApp — you're logged in there too."
 msgstr "Du kan fortsätta arbeta i denna webbläsarflik, eller byta tillbaka till den installerade ArtistAssistApp – där är du också inloggad."
 
-#: src/components/auth/AuthFeedbackHandler.tsx:205
+#: src/components/auth/AuthFeedbackHandler.tsx:204
 msgid "You're logged in"
 msgstr "Du är inloggad"
 
-#: src/components/ImageBackgroundRemoval.tsx:170
-#: src/components/ImageOutline.tsx:241
+#: src/components/ImageBackgroundRemoval.tsx:169
+#: src/components/ImageOutline.tsx:239
 msgid "You've selected a mode that is available to paid Patreon members only"
 msgstr "Du har valt ett läge som endast är tillgängligt för betalda Patreon-medlemmar"
 
@@ -2345,46 +2419,46 @@ msgstr "Du har valt färgmärken som endast är tillgängliga för betalda Patre
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Du har valt färgmärken som endast är tillgängliga för betalande Patreon-medlemmar. Gå med i ArtistAssistApp på Patreon som betalande medlem eller logga in med Patreon om du redan har gått med."
 
-#: src/components/auth/AuthFeedbackHandler.tsx:99
+#: src/components/auth/AuthFeedbackHandler.tsx:98
 msgid "Your account details:"
 msgstr "Dina kontouppgifter:"
 
-#: src/components/file/FileSelect.tsx:158
+#: src/components/file/FileSelect.tsx:162
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "Din webbläsare stödjer inte att läsa bilder från urklippet."
 
 #: src/components/cloud/CloudSyncUpdateNotification.tsx:42
-msgid "Your cloud data changed and will be synchronized automatically."
-msgstr "Din molndata har ändrats och kommer att synkroniseras automatiskt."
+msgid "Your cloud data changed and will be synced automatically"
+msgstr "Din molndata har ändrats och kommer att synkroniseras automatiskt"
 
-#: src/components/cloud/CloudFeedbackHandler.tsx:211
+#: src/components/cloud/CloudFeedbackHandler.tsx:208
 msgid "Your cloud storage couldn't be reached. Your latest changes remain saved on this device and have not been uploaded. Check your internet connection, then try syncing again."
 msgstr "Din molnlagring kunde inte nås. Dina senaste ändringar finns kvar på denna enhet och har inte laddats upp. Kolla din internetanslutning och försök sedan synka igen."
 
 #: src/components/cloud/ConnectCloudButton.tsx:59
-msgid "Your color sets, reference photos, mixtures, and custom color brands will be saved in the ArtistAssistApp folder in {label} and kept synchronized across your devices.<0/>ArtistAssistApp can access that app folder, including files you put there, but cannot access files outside it."
-msgstr "Dina färguppsättningar, referensfoton, blandningar och anpassade färgmärken sparas i mappen ArtistAssistApp i {label} och synkroniseras över dina enheter.<0/>ArtistAssistApp kan komma åt den appmappen, inklusive filer du lagt där, men kan inte komma åt filer utanför den."
+msgid "Your color sets, reference photos, mixtures, and custom color brands will be saved in the ArtistAssistApp folder in {label} and kept synced across your devices.<0/>ArtistAssistApp can access that app folder, including files you put there, but cannot access files outside it."
+msgstr "Dina färguppsättningar, referensfoton, blandningar och anpassade färgmärken kommer att sparas i mappen ArtistAssistApp i {label} och synkroniseras mellan dina enheter.<0/>ArtistAssistApp kan komma åt den appmappen, inklusive filer du lägger där, men kan inte komma åt filer utanför den."
 
 #: src/components/cloud/ConnectCloudButton.tsx:50
-msgid "Your color sets, reference photos, mixtures, and custom color brands will be saved in the ArtistAssistApp folder in My Drive and kept synchronized across your devices.<0/>ArtistAssistApp works only with this app-created folder and the files it creates there.<1/>It cannot access your other Drive files or shared drives."
-msgstr "Dina färguppsättningar, referensfoton, blandningar och egna färgmärken sparas i mappen ArtistAssistApp i My Drive och synkroniseras mellan dina enheter.<0/>ArtistAssistApp fungerar bara med denna mapp som skapats av appen och de filer den skapar där.<1/>Den kan inte komma åt dina andra Drive-filer eller delade enheter."
+msgid "Your color sets, reference photos, mixtures, and custom color brands will be saved in the ArtistAssistApp folder in My Drive and kept synced across your devices.<0/>ArtistAssistApp works only with this app-created folder and the files it creates there.<1/>It cannot access your other Drive files or shared drives."
+msgstr "Dina färguppsättningar, referensfoton, blandningar och anpassade färgmärken sparas i mappen ArtistAssistApp i Min enhet och synkroniseras mellan dina enheter.<0/>ArtistAssistApp fungerar bara med den här app-skapade mappen och filerna som den skapar där.<1/>Den kan inte komma åt dina andra Drive-filer eller delade enheter."
 
-#: src/hooks/usePersistentStorage.tsx:55
+#: src/hooks/usePersistentStorage.tsx:54
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "Dina data kanske inte sparas pålitligt om webbläsaren är stängd. För att lösa detta, installera appen."
 
-#: src/components/auth/AuthFeedbackHandler.tsx:142
+#: src/components/auth/AuthFeedbackHandler.tsx:141
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Dina inloggningsuppgifter kunde inte verifieras. Logga in igen."
 
-#: src/components/Help.tsx:221
+#: src/components/Help.tsx:220
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "Ditt Patreon-medlemskap och data på denna enhet raderas inte. <0>Avsluta ditt Patreon-medlemskap</0> på Patreon själv."
 
-#: src/components/auth/AuthFeedbackHandler.tsx:138
+#: src/components/auth/AuthFeedbackHandler.tsx:137
 msgid "Your session expired. Sign in again to continue."
 msgstr "Din session är slut. Logga in igen för att fortsätta."
 
 #: src/components/error/BrowserSupport.tsx:49
-msgid "Your web browser is not supported."
-msgstr "Din webbläsare stöds inte."
+msgid "Your web browser is not supported"
+msgstr "Din webbläsare stöds inte"

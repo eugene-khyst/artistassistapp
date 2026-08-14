@@ -16,7 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {linearizeRgbChannel} from '@/services/color/space/rgb';
+import {linearizeRgbChannel} from '@eugene-khyst/artistassistapp-color-mixer';
+
 import {drawImageToOffscreenCanvas, offscreenCanvasToImageData} from '@/utils/graphics';
 
 function buildCumulativeHistograms(imageData: ImageData): Uint32Array[] {

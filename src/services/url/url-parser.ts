@@ -16,9 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  type ColorSetDefinition,
+  ColorType,
+  CUSTOM_COLOR_SET,
+} from '@eugene-khyst/artistassistapp-color-mixer';
+
 import {AuthError} from '@/services/auth/errors';
 import {CloudError} from '@/services/cloud/errors';
-import {type ColorSetDefinition, ColorType, CUSTOM_COLOR_SET} from '@/services/color/types';
 import {TabKey} from '@/tabs';
 
 export interface UrlParsingResult {

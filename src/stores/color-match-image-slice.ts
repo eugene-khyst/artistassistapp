@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {RgbTuple} from '@eugene-khyst/artistassistapp-color-mixer';
 import type {StateCreator} from 'zustand';
 
-import type {RgbTuple} from '@/services/color/space/rgb';
 import {getColorMatchImage} from '@/services/image/color-match';
 import {type OriginalImageSlice, registerProcessedImage} from '@/stores/original-image-slice';
 

@@ -18,8 +18,7 @@
 
 import {DownloadOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import type {RadioChangeEvent} from 'antd';
-import {Button, Card, Col, Radio, Row, Space, Typography} from 'antd';
+import {Button, Card, Col, Radio, type RadioChangeEvent, Row, Space, Typography} from 'antd';
 import {saveAs} from 'file-saver';
 import {useEffect, useMemo, useRef} from 'react';
 
@@ -31,8 +30,7 @@ import {useFileReadErrorNotification} from '@/hooks/useFileReadErrorNotification
 import {useSelectedOnnxModel} from '@/hooks/useSelectedOnnxModel';
 import {hasAccessTo} from '@/services/auth/utils';
 import {fileToImageFile, type ImageFile} from '@/services/image/image-file';
-import type {OnnxModel} from '@/services/ml/types';
-import {OnnxModelType} from '@/services/ml/types';
+import {type OnnxModel, OnnxModelType} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
 import {getFilename} from '@/utils/filename';
 

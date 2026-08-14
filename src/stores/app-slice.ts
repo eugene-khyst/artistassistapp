@@ -24,8 +24,7 @@ import {getAppSettings, updateStoredAppSettings} from '@/services/db/app-setting
 import {saveColorSets} from '@/services/db/color-set-db';
 import {getStoreChangeTokens} from '@/services/db/store-changes-db';
 import type {StoreChangeTokens} from '@/services/db/types';
-import {DEFAULT_APP_SETTINGS} from '@/services/settings/types';
-import {type AppSettings} from '@/services/settings/types';
+import {type AppSettings, DEFAULT_APP_SETTINGS} from '@/services/settings/types';
 import {parseUrl} from '@/services/url/url-parser';
 import type {AuthSlice} from '@/stores/auth-slice';
 import type {CloudSlice} from '@/stores/cloud-slice';

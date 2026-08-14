@@ -18,8 +18,18 @@
 
 import {DownloadOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import type {CheckboxOptionType, RadioChangeEvent} from 'antd';
-import {Button, Col, Dropdown, Flex, Grid, Radio, Row, Space} from 'antd';
+import {
+  Button,
+  type CheckboxOptionType,
+  Col,
+  Dropdown,
+  Flex,
+  Grid,
+  Radio,
+  type RadioChangeEvent,
+  Row,
+  Space,
+} from 'antd';
 import {saveAs} from 'file-saver';
 import {useEffect, useState} from 'react';
 

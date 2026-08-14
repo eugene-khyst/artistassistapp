@@ -16,14 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  type Color,
+  type ColorBrandDefinition,
+  type ColorType,
+  rgbToHex,
+  WHITE_HEX,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Space, Tooltip, Typography} from 'antd';
 
 import {OpacityIcon} from '@/components/color/OpacityIcon';
 import {WarmthIcon} from '@/components/color/WarmthIcon';
 import {useColorBrands} from '@/hooks/useColorBrands';
 import {formatColorLabel} from '@/services/color/colors';
-import {rgbToHex, WHITE_HEX} from '@/services/color/space/rgb';
-import type {Color, ColorBrandDefinition, ColorType} from '@/services/color/types';
 
 import {ColorSquare} from './ColorSquare';
 

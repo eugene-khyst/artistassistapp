@@ -15,20 +15,35 @@
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  vertical-align: middle;
 }
 
 .swatchColumn {
-  max-height: var(--swatch-height);
+  display: flex !important;
+  flex-direction: column;
+  justify-content: safe center;
+  height: var(--swatch-height);
   overflow-y: auto;
 }
 
 .stripe {
-  height: var(--stripe-height);
-  line-height: var(--stripe-height);
+  flex: none;
+  height: var(--ant-control-height);
+  line-height: var(--ant-control-height);
   color: var(--stripe-color);
   font-size: var(--ant-font-size);
   font-weight: bold;
   text-align: center;
   background-color: var(--stripe-bg);
+}
+
+@media print {
+  .swatchColumn {
+    height: auto;
+    min-height: var(--swatch-height);
+    overflow-y: visible;
+  }
+
+  .stripe {
+    break-inside: avoid;
+  }
 }

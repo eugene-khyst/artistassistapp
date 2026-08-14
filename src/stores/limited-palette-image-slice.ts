@@ -16,12 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  type ColorId,
+  type ColorSet,
+  type ColorSetDefinition,
+  CUSTOM_COLOR_SET,
+  filterColorSet,
+  NEW_COLOR_SET,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {transfer} from 'comlink';
 import type {StateCreator} from 'zustand';
 
-import {filterColorSet} from '@/services/color/colors';
-import type {ColorId, ColorSet, ColorSetDefinition} from '@/services/color/types';
-import {CUSTOM_COLOR_SET, NEW_COLOR_SET} from '@/services/color/types';
 import {colorQuantizationWorker} from '@/services/image/worker/color-quantization-worker-manager';
 import type {ColorMixerSlice} from '@/stores/color-mixer-slice';
 import type {ColorSetSlice} from '@/stores/color-set-slice';
@@ -33,12 +38,15 @@ import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
 import {type OriginalImageSlice, registerProcessedImage} from './original-image-slice';
 
 export interface LimitedPaletteImageSlice {
+  limitedColorSet: ColorSet | null;
   limitedPaletteImage: ImageBitmap | null;
   isLimitedPaletteImageLoading: boolean;
 
   setLimitedColorSet: (colorIds: ColorId[]) => Promise<void>;
-  setLimitedColorSetAsMain: (colorIds: ColorId[]) => Promise<void>;
+  setLimitedColorSetAsMain: () => Promise<void>;
+  clearLimitedPalette: () => void;
   abortLimitedPalette: () => void;
+  clearLimitedPaletteImage: () => void;
 }
 
 type LimitedPaletteImageSliceDependencies = Pick<OriginalImageSlice, 'originalImage'> &
@@ -55,6 +63,7 @@ export const createLimitedPaletteImageSlice: StateCreator<
   const limitedPaletteOperation = createAbortableOperation({
     onStart: () => {
       set({
+        limitedColorSet: null,
         limitedPaletteImage: null,
         isLimitedPaletteImageLoading: true,
       });
@@ -71,13 +80,12 @@ export const createLimitedPaletteImageSlice: StateCreator<
       limitedPaletteOperation.abort();
     },
     clear: () => {
-      const {limitedPaletteImage} = get();
-      set({limitedPaletteImage: null});
-      limitedPaletteImage?.close();
+      get().clearLimitedPalette();
     },
   });
 
   return {
+    limitedColorSet: null,
     limitedPaletteImage: null,
     isLimitedPaletteImageLoading: false,
 
@@ -88,7 +96,7 @@ export const createLimitedPaletteImageSlice: StateCreator<
         return;
       }
       const limitedColorSet: ColorSet | null = filterColorSet(colorSet, colorIds);
-      if (!limitedColorSet) {
+      if (!limitedColorSet?.colors.length) {
         return;
       }
       await limitedPaletteOperation.run(async signal => {
@@ -107,17 +115,14 @@ export const createLimitedPaletteImageSlice: StateCreator<
         }
         signal.throwIfAborted();
         set({
+          limitedColorSet,
           limitedPaletteImage: quantizedImage,
         });
       });
     },
 
-    setLimitedColorSetAsMain: async (colorIds: ColorId[]): Promise<void> => {
-      if (!colorIds.length) {
-        return;
-      }
-      const {colorSet} = get();
-      const limitedColorSet: ColorSet | null = filterColorSet(colorSet, colorIds);
+    setLimitedColorSetAsMain: async (): Promise<void> => {
+      const {limitedColorSet} = get();
       if (!limitedColorSet) {
         return;
       }
@@ -137,8 +142,30 @@ export const createLimitedPaletteImageSlice: StateCreator<
       void get().setActiveTabKey(TabKey.ColorSet);
     },
 
+    clearLimitedPalette: (): void => {
+      get().abortLimitedPalette();
+      get().clearLimitedPaletteImage();
+      if (!get().limitedColorSet) {
+        return;
+      }
+      set({
+        limitedColorSet: null,
+      });
+    },
+
     abortLimitedPalette: (): void => {
       limitedPaletteOperation.abort();
+    },
+
+    clearLimitedPaletteImage: (): void => {
+      const {limitedPaletteImage} = get();
+      if (!limitedPaletteImage) {
+        return;
+      }
+      set({
+        limitedPaletteImage: null,
+      });
+      limitedPaletteImage.close();
     },
   };
 };

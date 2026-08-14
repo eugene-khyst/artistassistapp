@@ -22,6 +22,13 @@ import {
   PrinterOutlined,
   SortAscendingOutlined,
 } from '@ant-design/icons';
+import {
+  COLOR_MIXTURES_COMPARATORS,
+  type ColorMixture,
+  ColorMixtureSort,
+  type ColorType,
+  decorateSortUndecorate,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Card, Col, Dropdown, Popconfirm, Row, Space, Typography} from 'antd';
 import type {MenuProps} from 'antd/lib';
@@ -32,10 +39,7 @@ import {AdCard} from '@/components/ad/AdCard';
 import {ColorMixtureDescription} from '@/components/color/ColorMixtureDescription';
 import {PaletteColorMixtureCard} from '@/components/color/PaletteColorMixtureCard';
 import {COLOR_MIXTURE_SORT_LABELS} from '@/components/messages';
-import {COLOR_MIXTURES_COMPARATORS, ColorMixtureSort} from '@/services/color/color-mixer';
-import type {ColorMixture, ColorType} from '@/services/color/types';
 import {useAppStore} from '@/stores/app-store';
-import {decorateSortUndecorate} from '@/utils/array';
 
 interface Props {
   colorType: ColorType;
@@ -96,7 +100,7 @@ export function PaletteGrid({colorType, showColorSwatch}: Readonly<Props>) {
   );
 
   return sortedColorMixtures ? (
-    <>
+    <div className="u-tab-content">
       <Space align="center" wrap className="u-mb">
         <Button
           type="primary"
@@ -162,6 +166,6 @@ export function PaletteGrid({colorType, showColorSwatch}: Readonly<Props>) {
           </Row>
         </div>
       )}
-    </>
+    </div>
   ) : null;
 }

@@ -42,7 +42,7 @@ export function useCloudSyncNotification(): () => void {
     notification.info({
       key: STORAGE_NOTIFICATION_KEY,
       title: t`Cloud sync is not enabled`,
-      description: t`Connect cloud storage to keep a synchronized copy of your data in the cloud and use it across devices, or manually save and restore backup files.`,
+      description: t`Connect cloud storage to keep a synced copy of your data in the cloud and use it across devices, or manually save and restore backup files`,
       placement: 'top',
       duration: 10,
       showProgress: true,

@@ -16,14 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {clamp} from '@eugene-khyst/artistassistapp-color-mixer';
 import {saveAs} from 'file-saver';
 
 import {Canvas} from '@/services/canvas/canvas';
 import {EventManager} from '@/services/event/event-manager';
 import {Rectangle, Vector} from '@/services/math/geometry';
-import type {DrawImageSource} from '@/utils/graphics';
-import {offscreenCanvasToBlob} from '@/utils/graphics';
-import {clamp} from '@/utils/math-utils';
+import {type DrawImageSource, offscreenCanvasToBlob} from '@/utils/graphics';
 
 const MIN_IMAGE_SIDE = 200;
 

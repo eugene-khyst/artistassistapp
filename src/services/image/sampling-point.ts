@@ -16,10 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {deltaEOk, rgbToOklab} from '@/services/color/space/oklab';
-import type {RgbTuple} from '@/services/color/space/rgb';
-import {packRgb, unpackRgb} from '@/services/color/space/rgb';
-import {byNumber, reverseOrder} from '@/utils/comparator';
+import {
+  byNumber,
+  deltaEOk,
+  packRgb,
+  reverseOrder,
+  rgbToOklab,
+  type RgbTuple,
+  unpackRgb,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 
 const MERGE_DELTA_E_OK = 0.05;
 

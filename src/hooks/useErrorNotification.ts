@@ -17,8 +17,7 @@
  */
 
 import {App} from 'antd';
-import type {ReactNode} from 'react';
-import {useEffect, useEffectEvent} from 'react';
+import {type ReactNode, useEffect, useEffectEvent} from 'react';
 
 export function useErrorNotification(
   active: boolean,

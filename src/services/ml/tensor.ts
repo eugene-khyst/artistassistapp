@@ -16,8 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {clamp} from '@eugene-khyst/artistassistapp-color-mixer';
+
 import {type ColorChannelOrdering, type OnnxModel, PostProcessing} from '@/services/ml/types';
-import {clamp} from '@/utils/math-utils';
 
 export interface Float32Tensor {
   data: Float32Array;

@@ -17,12 +17,11 @@
  */
 
 import {DeleteOutlined, PlusOutlined} from '@ant-design/icons';
+import type {ColorMixture} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans} from '@lingui/react/macro';
-import type {ButtonProps} from 'antd';
-import {Button, Popconfirm} from 'antd';
+import {Button, type ButtonProps, Popconfirm} from 'antd';
 import {memo} from 'react';
 
-import type {ColorMixture} from '@/services/color/types';
 import {useAppStore} from '@/stores/app-store';
 
 type Props = {

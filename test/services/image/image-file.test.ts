@@ -19,8 +19,7 @@
 import {describe, expect, it} from 'vitest';
 
 import {ImageUnreadableError} from '@/services/image/errors';
-import type {ImageBlob} from '@/services/image/image-file';
-import {readStoredImageBytes} from '@/services/image/image-file';
+import {type ImageBlob, readStoredImageBytes} from '@/services/image/image-file';
 import {digestArrayBuffer} from '@/utils/digest';
 
 function bytes(value: string): ArrayBuffer {

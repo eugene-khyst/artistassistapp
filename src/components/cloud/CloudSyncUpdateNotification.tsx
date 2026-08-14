@@ -39,7 +39,7 @@ export function CloudSyncUpdateNotification() {
     notification.open({
       key: NOTIFICATION_KEY,
       title: <Trans>Cloud data changed</Trans>,
-      description: <Trans>Your cloud data changed and will be synchronized automatically.</Trans>,
+      description: <Trans>Your cloud data changed and will be synced automatically</Trans>,
       placement: 'top',
       duration: 10,
       showProgress: true,

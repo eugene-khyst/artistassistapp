@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {ColorOpacity, ColorType, ColorWarmth} from '@eugene-khyst/artistassistapp-color-mixer';
 import * as v from 'valibot';
 
 import type {CloudState, CustomColorBrandJson} from '@/services/cloud/types';
-import {ColorOpacity, ColorType, ColorWarmth} from '@/services/color/types';
 
 const RgbTupleSchema = v.tuple([v.number(), v.number(), v.number()]);
 

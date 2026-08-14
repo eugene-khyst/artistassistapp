@@ -16,47 +16,46 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  clamp,
+  type ColorId,
+  type ColorMatch,
+  type ColorSet,
+  hexToRgb,
+  includesAllColors,
+  isColorSetEqual,
+  type RgbTuple,
+  type SamplingArea,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {transfer} from 'comlink';
 import type {StateCreator} from 'zustand';
 
 import {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
-import {hexToRgb, type RgbTuple} from '@/services/color/space/rgb';
-import type {ColorId, ColorSet, SamplingArea, SimilarColor} from '@/services/color/types';
 import {colorMixer} from '@/services/color/worker/color-mixer-worker-manager';
 import {mergeSimilarSamplingPoints, type SamplingPoint} from '@/services/image/sampling-point';
 import {colorQuantizationWorker} from '@/services/image/worker/color-quantization-worker-manager';
 import type {AppSlice} from '@/stores/app-slice';
+import type {ColorMixingChartSlice} from '@/stores/color-mixing-chart-slice';
+import type {LimitedPaletteImageSlice} from '@/stores/limited-palette-image-slice';
 import type {PaletteSlice, SaveToPaletteEntry} from '@/stores/palette-slice';
 import {TabKey} from '@/tabs';
 import {createAbortableOperation} from '@/utils/abortable-operation';
 import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
-import {clamp} from '@/utils/math-utils';
 import {abortablePromise} from '@/utils/promise';
 
 import {type OriginalImageSlice, registerProcessedImage} from './original-image-slice';
 import type {TabSlice} from './tab-slice';
 
-interface SamplingPointWithSimilarColor extends SamplingPoint {
-  similarColor: SimilarColor;
-}
-
 interface ColorMixerUpdateOptions {
   persist?: boolean;
 }
 
-async function findSimilarColors(
-  targetColorHex: string | null,
-  includeTransparentLayers: boolean,
-  motherColorId?: ColorId | null
-): Promise<SimilarColor[]> {
-  if (!targetColorHex) {
-    return [];
-  }
-  return colorMixer.findSimilarColors(
-    hexToRgb(targetColorHex),
-    includeTransparentLayers,
-    motherColorId
-  );
+export interface SetColorSetOptions {
+  setActiveTabKey?: boolean;
+}
+
+interface SamplingPointWithColorMatch extends SamplingPoint {
+  colorMatch: ColorMatch;
 }
 
 export interface ColorMixerSlice {
@@ -67,11 +66,11 @@ export interface ColorMixerSlice {
   targetColorHex: string | null;
   samplingArea: SamplingArea | null;
   colorPickerPipette: SamplingArea | null;
-  similarColors: SimilarColor[];
-  isSimilarColorsLoading: boolean;
+  colorMatches: ColorMatch[];
+  isColorMatchesLoading: boolean;
   isBuildPaletteLoading: boolean;
 
-  setColorSet: (colorSet: ColorSet | null, options?: {setActiveTabKey?: boolean}) => Promise<void>;
+  setColorSet: (colorSet: ColorSet | null, options?: SetColorSetOptions) => Promise<void>;
   setUnderlayer: (underlayerHex: string | null) => Promise<void>;
   setSurface: (surfaceHex: string, options?: ColorMixerUpdateOptions) => Promise<void>;
   setLayeringEnabled: (
@@ -84,14 +83,16 @@ export interface ColorMixerSlice {
     samplingArea: SamplingArea | null
   ) => Promise<void>;
   setColorPickerPipette: (colorPickerPipette: SamplingArea | null) => void;
-  buildPalette: () => Promise<void>;
+  buildPalette: () => Promise<number | undefined>;
   abortBuildPalette: () => void;
 }
 
 type ColorMixerSliceDependencies = Pick<AppSlice, 'appSettings' | 'saveAppSettings'> &
   Pick<TabSlice, 'setActiveTabKey'> &
   Pick<OriginalImageSlice, 'selectedImageFile' | 'originalImage'> &
-  Pick<PaletteSlice, 'selectedPaletteColorMixtures' | 'saveToPaletteBulk'>;
+  Pick<PaletteSlice, 'selectedPaletteColorMixtures' | 'saveToPaletteBulk'> &
+  Pick<ColorMixingChartSlice, 'colorMixingChartSet' | 'clearColorMixingChart'> &
+  Pick<LimitedPaletteImageSlice, 'limitedColorSet' | 'clearLimitedPalette'>;
 
 export const createColorMixerSlice: StateCreator<
   ColorMixerSlice & ColorMixerSliceDependencies,
@@ -117,7 +118,7 @@ export const createColorMixerSlice: StateCreator<
       buildPaletteOperation.abort();
     },
     clear: () => {
-      set({similarColors: []});
+      set({colorMatches: []});
     },
   });
 
@@ -129,8 +130,8 @@ export const createColorMixerSlice: StateCreator<
     targetColorHex: null,
     samplingArea: null,
     colorPickerPipette: null,
-    similarColors: [],
-    isSimilarColorsLoading: false,
+    colorMatches: [],
+    isColorMatchesLoading: false,
     isBuildPaletteLoading: false,
 
     setColorSet: async (
@@ -147,15 +148,28 @@ export const createColorMixerSlice: StateCreator<
         const activeTabKey = selectedImageFile ? TabKey.ColorPicker : TabKey.Photo;
         await get().setActiveTabKey(activeTabKey, {skipUnsavedChangesCheck: true});
       }
+      const {colorSet: prevColorSet, colorMixingChartSet, limitedColorSet} = get();
+      if (!isColorSetEqual(prevColorSet, colorSet)) {
+        // Derived colors stay valid while the new color set still contains them.
+        if (!includesAllColors(colorSet, colorMixingChartSet)) {
+          get().clearColorMixingChart();
+        }
+        if (!includesAllColors(colorSet, limitedColorSet)) {
+          get().clearLimitedPalette();
+        }
+      }
       set({
         isColorMixerLoading: true,
         colorSet,
         underlayerHex: null,
         motherColorId: null,
-        similarColors: [],
+        colorMatches: [],
       });
       try {
-        await colorMixer.setColorSet(colorSet, null, hexToRgb(colorPickerSurfaceHex));
+        await colorMixer.setColorSet({
+          colorSet,
+          surfaceRgb: hexToRgb(colorPickerSurfaceHex),
+        });
       } finally {
         set({
           isColorMixerLoading: false,
@@ -173,23 +187,23 @@ export const createColorMixerSlice: StateCreator<
       set({
         isColorMixerLoading: true,
         underlayerHex,
-        similarColors: [],
-        isSimilarColorsLoading: true,
+        colorMatches: [],
+        isColorMatchesLoading: true,
       });
       try {
         await colorMixer.setUnderlayer(underlayerHex ? hexToRgb(underlayerHex) : null);
-        const similarColors: SimilarColor[] = await findSimilarColors(
+        const colorMatches = await findColorMatches(
           targetColorHex,
           colorPickerLayeringEnabled,
           motherColorId
         );
         set({
-          similarColors,
+          colorMatches,
         });
       } finally {
         set({
           isColorMixerLoading: false,
-          isSimilarColorsLoading: false,
+          isColorMatchesLoading: false,
         });
       }
     },
@@ -208,23 +222,23 @@ export const createColorMixerSlice: StateCreator<
       } = get();
       set({
         isColorMixerLoading: true,
-        similarColors: [],
-        isSimilarColorsLoading: true,
+        colorMatches: [],
+        isColorMatchesLoading: true,
       });
       try {
         await colorMixer.setSurface(hexToRgb(surfaceHex));
-        const similarColors: SimilarColor[] = await findSimilarColors(
+        const colorMatches = await findColorMatches(
           targetColorHex,
           colorPickerLayeringEnabled,
           motherColorId
         );
         set({
-          similarColors,
+          colorMatches,
         });
       } finally {
         set({
           isColorMixerLoading: false,
-          isSimilarColorsLoading: false,
+          isColorMatchesLoading: false,
         });
       }
     },
@@ -238,21 +252,17 @@ export const createColorMixerSlice: StateCreator<
       }
       const {targetColorHex, motherColorId} = get();
       set({
-        similarColors: [],
-        isSimilarColorsLoading: true,
+        colorMatches: [],
+        isColorMatchesLoading: true,
       });
       try {
-        const similarColors: SimilarColor[] = await findSimilarColors(
-          targetColorHex,
-          layeringEnabled,
-          motherColorId
-        );
+        const colorMatches = await findColorMatches(targetColorHex, layeringEnabled, motherColorId);
         set({
-          similarColors,
+          colorMatches,
         });
       } finally {
         set({
-          isSimilarColorsLoading: false,
+          isColorMatchesLoading: false,
         });
       }
     },
@@ -264,21 +274,21 @@ export const createColorMixerSlice: StateCreator<
       } = get();
       set({
         motherColorId,
-        similarColors: [],
-        isSimilarColorsLoading: true,
+        colorMatches: [],
+        isColorMatchesLoading: true,
       });
       try {
-        const similarColors: SimilarColor[] = await findSimilarColors(
+        const colorMatches = await findColorMatches(
           targetColorHex,
           colorPickerLayeringEnabled,
           motherColorId
         );
         set({
-          similarColors,
+          colorMatches,
         });
       } finally {
         set({
-          isSimilarColorsLoading: false,
+          isColorMatchesLoading: false,
         });
       }
     },
@@ -295,22 +305,22 @@ export const createColorMixerSlice: StateCreator<
         targetColorHex,
         samplingArea,
         colorPickerPipette: null,
-        similarColors: [],
+        colorMatches: [],
         selectedPaletteColorMixtures: new Map(),
-        isSimilarColorsLoading: true,
+        isColorMatchesLoading: true,
       });
       try {
-        const similarColors: SimilarColor[] = await findSimilarColors(
+        const colorMatches = await findColorMatches(
           targetColorHex,
           colorPickerLayeringEnabled,
           motherColorId
         );
         set({
-          similarColors,
+          colorMatches,
         });
       } finally {
         set({
-          isSimilarColorsLoading: false,
+          isColorMatchesLoading: false,
         });
       }
     },
@@ -321,7 +331,7 @@ export const createColorMixerSlice: StateCreator<
       });
     },
 
-    buildPalette: async (): Promise<void> => {
+    buildPalette: async (): Promise<number | undefined> => {
       get().abortBuildPalette();
       const {
         originalImage,
@@ -331,7 +341,7 @@ export const createColorMixerSlice: StateCreator<
       if (!originalImage) {
         return;
       }
-      await buildPaletteOperation.run(async signal => {
+      return buildPaletteOperation.run(async signal => {
         const resizedImage = await resizeImageBitmap(
           originalImage,
           ResizeImage.resizeToPixelCount(IMAGE_SIZE.SD)
@@ -350,35 +360,34 @@ export const createColorMixerSlice: StateCreator<
         }));
 
         const targetColors: RgbTuple[] = rawPoints.map(({rgb}) => rgb);
-        const similarColors: (SimilarColor | undefined)[] = await abortablePromise(
-          colorMixer.findSimilarColorBulk(targetColors, colorPickerLayeringEnabled, motherColorId),
+        const colorMatches: (ColorMatch | undefined)[] = await abortablePromise(
+          colorMixer.findBestColorMatches(targetColors, colorPickerLayeringEnabled, motherColorId),
           signal
         );
 
         // Replace image RGB with matched paint RGB for perceptual merging.
-        const paintPoints: SamplingPointWithSimilarColor[] = [];
+        const paintPoints: SamplingPointWithColorMatch[] = [];
         for (const [index, samplingPoint] of rawPoints.entries()) {
-          const similarColor = similarColors[index];
-          if (!similarColor) {
+          const colorMatch = colorMatches[index];
+          if (!colorMatch) {
             continue;
           }
-          const paintPoint: SamplingPointWithSimilarColor = {
+          const paintPoint: SamplingPointWithColorMatch = {
             ...samplingPoint,
-            rgb: similarColor.colorMixture.layerRgb,
-            similarColor,
+            rgb: colorMatch.colorMixture.layerRgb,
+            colorMatch,
           };
           paintPoints.push(paintPoint);
         }
 
-        const mergedPoints: SamplingPointWithSimilarColor[] =
-          mergeSimilarSamplingPoints(paintPoints);
+        const mergedPoints: SamplingPointWithColorMatch[] = mergeSimilarSamplingPoints(paintPoints);
 
         const {center} = ZoomableImageCanvas.imageDimension(originalImage);
         const paletteEntries: SaveToPaletteEntry[] = [];
         for (const {
           x,
           y,
-          similarColor: {colorMixture},
+          colorMatch: {colorMixture},
         } of mergedPoints) {
           signal.throwIfAborted();
           paletteEntries.push({
@@ -390,7 +399,10 @@ export const createColorMixerSlice: StateCreator<
             },
           });
         }
-        await get().saveToPaletteBulk(paletteEntries, signal);
+        if (paletteEntries.length) {
+          await get().saveToPaletteBulk(paletteEntries, signal);
+        }
+        return paletteEntries.length;
       });
     },
 
@@ -399,3 +411,18 @@ export const createColorMixerSlice: StateCreator<
     },
   };
 };
+
+async function findColorMatches(
+  targetColorHex: string | null,
+  considerTransparentLayers: boolean,
+  motherColorId?: ColorId | null
+): Promise<ColorMatch[]> {
+  if (!targetColorHex) {
+    return [];
+  }
+  return colorMixer.findColorMatches(
+    hexToRgb(targetColorHex),
+    considerTransparentLayers,
+    motherColorId
+  );
+}

@@ -36,7 +36,7 @@ export function EmptyImage() {
   return (
     <div className="u-tab-content">
       <Typography.Paragraph strong>
-        <Trans>To use the {tabLabel} feature, select a reference photo.</Trans>
+        <Trans>To use the {tabLabel} feature, select a reference photo</Trans>
       </Typography.Paragraph>
 
       <Steps

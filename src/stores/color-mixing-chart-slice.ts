@@ -16,11 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  type ColorId,
+  type ColorMixture,
+  type ColorSet,
+  type ColorSort,
+  filterColorSet,
+  sortColorSet,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import type {StateCreator} from 'zustand';
 
-import type {ColorSort} from '@/services/color/colors';
-import {filterColorSet, sortColorSet} from '@/services/color/colors';
-import type {ColorId, ColorMixture, ColorSet} from '@/services/color/types';
 import {colorMixingChartWorker} from '@/services/color/worker/color-mixing-chart-worker-manager';
 import type {ColorMixerSlice} from '@/stores/color-mixer-slice';
 import {createAbortableOperation} from '@/utils/abortable-operation';
@@ -31,6 +36,7 @@ export interface ColorMixingChartSlice {
   isColorMixingChartLoading: boolean;
 
   setColorMixingChartColors: (colorIds: ColorId[], sort?: ColorSort) => Promise<void>;
+  clearColorMixingChart: () => void;
   abortColorMixingChart: () => void;
 }
 
@@ -80,6 +86,18 @@ export const createColorMixingChartSlice: StateCreator<
           colorMixingChartSet,
           colorMixingChartMixtures,
         });
+      });
+    },
+
+    clearColorMixingChart: (): void => {
+      get().abortColorMixingChart();
+      const {colorMixingChartSet, colorMixingChartMixtures} = get();
+      if (!colorMixingChartSet && !colorMixingChartMixtures.length) {
+        return;
+      }
+      set({
+        colorMixingChartSet: null,
+        colorMixingChartMixtures: [],
       });
     },
 

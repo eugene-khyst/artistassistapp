@@ -16,8 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Messages} from '@lingui/core';
-import {i18n} from '@lingui/core';
+import {i18n, type Messages} from '@lingui/core';
 import {t} from '@lingui/core/macro';
 import type {Locale as AntdLocale} from 'antd/es/locale';
 

@@ -16,19 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  type ColorSet,
+  type ColorSetDefinition,
+  ColorType,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {beforeEach, describe, expect, it, vi} from 'vitest';
 import {createStore} from 'zustand/vanilla';
 
 import {AuthErrorType, ForceLogoutError} from '@/services/auth/errors';
 import {fetchColorBrands, fetchColorsBulk} from '@/services/color/color-queries';
+import type * as ColorsType from '@/services/color/colors';
 import {toColorSet} from '@/services/color/colors';
-import {ColorType, type ColorSetDefinition} from '@/services/color/types';
 import {getAllColorSets} from '@/services/db/color-set-db';
 import type {AppSlice} from '@/stores/app-slice';
 import type {AuthSlice} from '@/stores/auth-slice';
 import type {CloudSlice} from '@/stores/cloud-slice';
 import type {ColorMixerSlice} from '@/stores/color-mixer-slice';
-import {createColorSetSlice, type ColorSetSlice} from '@/stores/color-set-slice';
+import {type ColorSetSlice, createColorSetSlice} from '@/stores/color-set-slice';
 import {createAbortError} from '@/utils/promise';
 
 vi.mock('@/services/db/color-set-db', () => ({
@@ -42,7 +47,8 @@ vi.mock('@/services/color/color-queries', () => ({
   fetchColorsBulk: vi.fn(),
 }));
 
-vi.mock('@/services/color/colors', () => ({
+vi.mock('@/services/color/colors', async importOriginal => ({
+  ...(await importOriginal<typeof ColorsType>()),
   toColorSet: vi.fn(),
 }));
 
@@ -126,6 +132,17 @@ describe('color set slice', () => {
     expect(store.getState().colorSetsReloadRevision).toBe(2);
   });
 
+  it('activates the latest color set after loading color sets', async () => {
+    vi.mocked(getAllColorSets).mockResolvedValue([]);
+    const activateLatestColorSet = vi.fn(async (): Promise<void> => undefined);
+    const store = createTestStore();
+    store.setState({activateLatestColorSet});
+
+    await store.getState().loadColorSets();
+
+    expect(activateLatestColorSet).toHaveBeenCalledOnce();
+  });
+
   it('does not increment the reload revision after a failed load', async () => {
     const error = new Error('load failed');
     vi.mocked(getAllColorSets).mockRejectedValue(error);
@@ -146,6 +163,26 @@ describe('color set slice', () => {
 
     expect(store.getState().colorSetActivationError).toEqual(new Error('data unavailable'));
     expect(store.getState().isColorSetActivationLoading).toBe(false);
+  });
+
+  it('activates the color set built from the latest definition', async () => {
+    const colorSet: ColorSet = {
+      type: ColorType.WatercolorPaint,
+      brands: new Map(),
+      colors: [],
+    };
+    vi.mocked(fetchColorBrands).mockResolvedValue([{id: 1, alias: 'test', fullName: 'Test'}]);
+    vi.mocked(toColorSet).mockReturnValue(colorSet);
+    const setColorSet = vi.fn(async (): Promise<void> => undefined);
+    const store = createTestStore();
+    store.setState({
+      colorSets: new Map([[ColorType.WatercolorPaint, [savedColorSet]]]),
+      setColorSet,
+    });
+
+    await store.getState().activateLatestColorSet();
+
+    expect(setColorSet).toHaveBeenCalledWith(colorSet, {setActiveTabKey: false});
   });
 
   it('aborts the in-flight fetch when a newer activation supersedes it', async () => {

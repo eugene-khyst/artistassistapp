@@ -17,16 +17,14 @@
  */
 
 import {QuestionCircleOutlined} from '@ant-design/icons';
+import {ColorType, type Fraction, isFullStrength} from '@eugene-khyst/artistassistapp-color-mixer';
 import type {MessageDescriptor} from '@lingui/core';
 import {defineMessage} from '@lingui/core/macro';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Space, Tooltip, Typography} from 'antd';
 import type {ReactNode} from 'react';
 
-import {isFullStrength} from '@/services/color/color-mixer';
-import {ColorType} from '@/services/color/types';
 import {formatFraction, formatRatio} from '@/utils/format';
-import type {Fraction} from '@/utils/fraction';
 
 interface ConsistencyDescriptionConfig {
   fullStrength: {
@@ -41,17 +39,17 @@ interface ConsistencyDescriptionConfig {
 
 const fullStrength: ConsistencyDescriptionConfig['fullStrength'] = {
   label: defineMessage`Full strength`,
-  tooltip: defineMessage`Use at full strength.`,
+  tooltip: defineMessage`Use at full strength`,
 };
 
 const fullPressure: ConsistencyDescriptionConfig['fullStrength'] = {
   label: defineMessage`Full pressure`,
-  tooltip: defineMessage`Use full pressure.`,
+  tooltip: defineMessage`Use full pressure`,
 };
 
 const denseLayer: ConsistencyDescriptionConfig['fullStrength'] = {
   label: defineMessage`Dense layer`,
-  tooltip: defineMessage`Apply densely.`,
+  tooltip: defineMessage`Apply densely`,
 };
 
 const dilutedInWater = (fraction: Fraction) => {
@@ -59,7 +57,7 @@ const dilutedInWater = (fraction: Fraction) => {
   return (
     <Typography.Text>
       <Trans>
-        Dilute the paint with water in a <Typography.Text strong>{ratioText} ratio</Typography.Text>
+        Mix paint and water in a <Typography.Text strong>{ratioText} ratio</Typography.Text>
       </Trans>
     </Typography.Text>
   );
@@ -70,7 +68,7 @@ const layerThickness = (fraction: Fraction) => {
   return (
     <Typography.Text>
       <Trans>
-        Thin the paint to <Typography.Text strong>{fractionText} thickness</Typography.Text>
+        Apply a layer at <Typography.Text strong>{fractionText} of full thickness</Typography.Text>
       </Trans>
     </Typography.Text>
   );
@@ -81,7 +79,7 @@ const pressure = (fraction: Fraction) => {
   return (
     <Typography.Text>
       <Trans>
-        Lighten the pressure to <Typography.Text strong>{fractionText}</Typography.Text>
+        Use <Typography.Text strong>{fractionText} of full pressure</Typography.Text>
       </Trans>
     </Typography.Text>
   );
@@ -92,7 +90,8 @@ const strokes = (fraction: Fraction) => {
   return (
     <Typography.Text>
       <Trans>
-        Apply strokes of each color in a <Typography.Text strong>{ratioText} ratio</Typography.Text>
+        Apply strokes of this color and the underlayer color in a{' '}
+        <Typography.Text strong>{ratioText} ratio</Typography.Text>
       </Trans>
     </Typography.Text>
   );
@@ -103,56 +102,56 @@ const DESCRIPTIONS: Partial<Record<ColorType, ConsistencyDescriptionConfig>> = {
     fullStrength: fullStrength,
     transparent: {
       labelRender: dilutedInWater,
-      tooltip: defineMessage`Watercolor can be diluted with water to make it more transparent.`,
+      tooltip: defineMessage`Watercolor can be diluted with water to make it more transparent`,
     },
   },
   [ColorType.OilPaint]: {
     fullStrength: fullStrength,
     transparent: {
       labelRender: layerThickness,
-      tooltip: defineMessage`Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original oil paint layer. You should be able to get the consistency of runny sour cream. Linseed oil is a popular glazing medium.`,
+      tooltip: defineMessage`Mix the paint with a glazing medium, such as linseed oil, to apply a thinner, more transparent layer`,
     },
   },
   [ColorType.AcrylicPaint]: {
     fullStrength: fullStrength,
     transparent: {
       labelRender: layerThickness,
-      tooltip: defineMessage`Use glazing mediums that allow you to get a thin layer, for example, 1/10 of the original acrylic paint layer.`,
+      tooltip: defineMessage`Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer`,
     },
   },
   [ColorType.ColoredPencils]: {
     fullStrength: fullPressure,
     transparent: {
       labelRender: pressure,
-      tooltip: defineMessage`Apply less pressure to make the colored pencil layer more transparent.`,
+      tooltip: defineMessage`Apply less pressure to make the colored pencil layer more transparent`,
     },
   },
   [ColorType.WatercolorPencils]: {
     fullStrength: fullPressure,
     transparent: {
       labelRender: pressure,
-      tooltip: defineMessage`Apply less pressure to make the watercolor pencil layer more transparent.`,
+      tooltip: defineMessage`Apply less pressure to make the watercolor pencil layer more transparent`,
     },
   },
   [ColorType.DryPastel]: {
     fullStrength: denseLayer,
     transparent: {
       labelRender: strokes,
-      tooltip: defineMessage`Slightly overlap pastel areas of different colors and blend gently to create a smooth transition.`,
+      tooltip: defineMessage`Slightly overlap pastel areas of different colors and blend gently to create a smooth transition`,
     },
   },
   [ColorType.OilPastel]: {
     fullStrength: denseLayer,
     transparent: {
       labelRender: strokes,
-      tooltip: defineMessage`Slightly overlap oil pastel areas of different colors and blend gently to create a smooth transition.`,
+      tooltip: defineMessage`Slightly overlap oil pastel areas of different colors and blend gently to create a smooth transition`,
     },
   },
   [ColorType.WaxPastel]: {
     fullStrength: denseLayer,
     transparent: {
       labelRender: strokes,
-      tooltip: defineMessage`Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition.`,
+      tooltip: defineMessage`Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition`,
     },
   },
 };

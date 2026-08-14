@@ -16,8 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {JWK, JWTVerifyGetKey} from 'jose';
-import {createLocalJWKSet, decodeJwt, jwtVerify} from 'jose';
+import {createLocalJWKSet, decodeJwt, type JWK, jwtVerify, type JWTVerifyGetKey} from 'jose';
 
 import {APP_URL, AUTH_URL, PUBLIC_JWK} from '@/config';
 import type {

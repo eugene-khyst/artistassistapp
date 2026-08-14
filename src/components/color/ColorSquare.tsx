@@ -16,11 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  hexToRgb,
+  isRgbDark,
+  type RgbTuple,
+  toHexString,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {theme} from 'antd';
 import {memo} from 'react';
-
-import type {RgbTuple} from '@/services/color/space/rgb';
-import {hexToRgb, isRgbDark, toHexString} from '@/services/color/space/rgb';
 
 import styles from './ColorSquare.module.css';
 

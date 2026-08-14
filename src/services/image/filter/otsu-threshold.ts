@@ -16,8 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {rgbToOklab} from '@/services/color/space/oklab';
-import {clamp} from '@/utils/math-utils';
+import {clamp, rgbToOklab} from '@eugene-khyst/artistassistapp-color-mixer';
 
 export function computeOtsuThreshold({data}: ImageData, grayscaleInput = false): number {
   console.time('compute-otsu-threshold');

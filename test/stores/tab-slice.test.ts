@@ -54,7 +54,7 @@ function createTestStore() {
   return {saveAppSettings, store};
 }
 
-const unregisterCallbacks: Array<() => void> = [];
+const unregisterCallbacks: (() => void)[] = [];
 
 function registerChecker(
   store: ReturnType<typeof createTestStore>['store'],

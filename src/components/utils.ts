@@ -20,6 +20,12 @@ import type {DefaultOptionType as CascaderOptionType} from 'antd/es/cascader';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import type {ReactElement} from 'react';
 
+import type {CssVariables} from '@/utils/types';
+
+export function columnCountStyle(count: number): CssVariables {
+  return {'--column-count': count};
+}
+
 function tokenize(str: string): string[] {
   return str.trim().toLowerCase().split(/\s+/);
 }

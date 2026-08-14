@@ -31,8 +31,7 @@ import {saveNewImageFiles} from '@/services/db/image-file-db';
 import {getStoreChangeTokens, markStoreChanged} from '@/services/db/store-changes-db';
 import {areStoreChangeTokensEqual, type StoreChangeTokens} from '@/services/db/types';
 import {ImageUnreadableError} from '@/services/image/errors';
-import type {ImageFile} from '@/services/image/image-file';
-import {readStoredImageBytes} from '@/services/image/image-file';
+import {type ImageFile, readStoredImageBytes} from '@/services/image/image-file';
 
 const KEY = 0;
 

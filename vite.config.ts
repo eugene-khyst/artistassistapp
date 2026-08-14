@@ -3,8 +3,7 @@ import path from 'node:path';
 
 import {lingui} from '@lingui/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
-import type {PluginOption} from 'vite';
-import {defineConfig} from 'vite';
+import {defineConfig, type PluginOption} from 'vite';
 import glsl from 'vite-plugin-glsl';
 import {VitePWA} from 'vite-plugin-pwa';
 import svgr from 'vite-plugin-svgr';
@@ -37,7 +36,7 @@ function parseHeaders(): Record<string, string> {
 
 const globalHeaders = parseHeaders();
 
-export default defineConfig({
+export default defineConfig(({mode}) => ({
   plugins: [
     glslPlugin,
     react({
@@ -81,7 +80,7 @@ export default defineConfig({
 
   build: {
     target: ['chrome124', 'edge124', 'firefox105', 'safari16.4', 'ios16.4'],
-    sourcemap: true,
+    sourcemap: mode === 'development',
     chunkSizeWarningLimit: maxFileSize,
     rolldownOptions: {
       output: {
@@ -102,4 +101,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));

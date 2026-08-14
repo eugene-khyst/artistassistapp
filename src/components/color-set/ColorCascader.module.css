@@ -3,3 +3,7 @@
     min-width: 100vw !important;
   }
 }
+
+.popup :global(.ant-cascader-menu-item-disabled .ant-typography) {
+  color: var(--ant-color-text-disabled) !important;
+}

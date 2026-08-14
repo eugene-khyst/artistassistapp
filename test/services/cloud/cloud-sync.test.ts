@@ -18,8 +18,13 @@
 
 import {afterAll, beforeEach, describe, expect, it, vi} from 'vitest';
 
-import type {CloudClient, CloudFile, CloudFolder} from '@/services/cloud/cloud-client';
-import {CloudItemKind, CloudItemPurpose} from '@/services/cloud/cloud-client';
+import {
+  type CloudClient,
+  type CloudFile,
+  type CloudFolder,
+  CloudItemKind,
+  CloudItemPurpose,
+} from '@/services/cloud/cloud-client';
 import {
   createCloudState,
   parseCloudState,
@@ -35,8 +40,7 @@ import {
   uploadCloudState,
 } from '@/services/cloud/cloud-sync-client';
 import {CloudError, CloudErrorType} from '@/services/cloud/errors';
-import type {CloudState} from '@/services/cloud/types';
-import {CloudProvider, CloudSyncType} from '@/services/cloud/types';
+import {CloudProvider, type CloudState, CloudSyncType} from '@/services/cloud/types';
 import {saveCloudConnection} from '@/services/db/cloud-connection-db';
 import {
   getCloudSync,
@@ -53,8 +57,7 @@ import {
 } from '@/services/db/image-file-db';
 import type {StoreName} from '@/services/db/schema';
 import {ImageUnreadableError} from '@/services/image/errors';
-import type {ImageFile} from '@/services/image/image-file';
-import {toImageMetadata} from '@/services/image/image-file';
+import {type ImageFile, toImageMetadata} from '@/services/image/image-file';
 import {digestArrayBuffer} from '@/utils/digest';
 
 type RemoteData = Record<string, never>;
@@ -337,7 +340,7 @@ describe('cloud sync', () => {
     try {
       error = await syncCloudState(USER).then(
         () => undefined,
-        reason => reason
+        (reason: unknown) => reason
       );
     } finally {
       errorSpy.mockRestore();

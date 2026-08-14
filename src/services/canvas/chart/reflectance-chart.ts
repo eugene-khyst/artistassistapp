@@ -16,9 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {WAVELENGTH_RANGE, wavelengthToColor} from '@/services/color/light-spectrum';
-import {rgbToHex, WHITE} from '@/services/color/space/rgb';
-import type {TypedArray} from '@/utils/array';
+import {
+  rgbToHex,
+  type TypedArray,
+  WAVELENGTH_RANGE,
+  wavelengthToColor,
+  WHITE,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 
 import {LineChart} from './line-chart';
 

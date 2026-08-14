@@ -18,8 +18,7 @@
 
 import {Trans} from '@lingui/react/macro';
 import {App, Button, Flex} from 'antd';
-import type {PropsWithChildren, ReactNode} from 'react';
-import {useEffect} from 'react';
+import {type PropsWithChildren, type ReactNode, useEffect} from 'react';
 
 import {LoadingButton} from '@/components/button/LoadingButton';
 import {CloudErrorType} from '@/services/cloud/errors';
@@ -145,9 +144,7 @@ const CLOUD_ERRORS: Record<
   [CloudErrorType.SyncConflict]: {
     title: <Trans>Cloud sync conflict</Trans>,
     content: (
-      <Trans>
-        This device and the synchronized cloud data both changed. Choose which one to keep.
-      </Trans>
+      <Trans>This device and the synced cloud data both changed. Choose which one to keep.</Trans>
     ),
     footer: [
       <PostponeButton key="postpone" />,
@@ -159,8 +156,8 @@ const CLOUD_ERRORS: Record<
     title: <Trans>Cloud sync history missing</Trans>,
     content: (
       <Trans>
-        This device has local data and existing synchronized cloud data, but no sync history. Choose
-        which one to keep.
+        This device has local data and existing synced cloud data, but no sync history. Choose which
+        one to keep.
       </Trans>
     ),
     footer: [
@@ -173,8 +170,8 @@ const CLOUD_ERRORS: Record<
     title: <Trans>Cloud data not found</Trans>,
     content: (
       <Trans>
-        Some synchronized cloud data was deleted or is unavailable. Keep this device to create it
-        again, or postpone the decision. ArtistAssistApp will not recreate it automatically.
+        Some synced cloud data was deleted or is unavailable. Keep this device to create it again,
+        or postpone the decision. ArtistAssistApp will not recreate it automatically.
       </Trans>
     ),
     footer: [<PostponeButton key="postpone" />, <KeepThisDeviceButton key="keep-local" />],

@@ -16,17 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {
-  DeleteDBCallbacks,
-  IDBPDatabase,
-  IDBPObjectStore,
-  IDBPTransaction,
-  IndexKey,
-  IndexNames,
-  StoreNames,
-  StoreValue,
+import {
+  deleteDB,
+  type DeleteDBCallbacks,
+  type IDBPDatabase,
+  type IDBPObjectStore,
+  type IDBPTransaction,
+  type IndexKey,
+  type IndexNames,
+  openDB,
+  type StoreNames,
+  type StoreValue,
 } from 'idb';
-import {deleteDB, openDB} from 'idb';
 
 import {applyMigrations} from '@/services/db/migrations';
 import {

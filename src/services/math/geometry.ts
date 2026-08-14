@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {LengthUnitDefinition} from '@/services/math/types';
-import {LengthUnit} from '@/services/math/types';
-import type {Comparator} from '@/utils/comparator';
+import type {Comparator} from '@eugene-khyst/artistassistapp-color-mixer';
+
+import {LengthUnit, type LengthUnitDefinition} from '@/services/math/types';
 
 export const LENGTH_UNITS = new Map<LengthUnit, LengthUnitDefinition>([
   [LengthUnit.Millimeter, {abbreviation: 'mm', toMillimeters: number => number}],
@@ -79,15 +79,6 @@ export class Rectangle {
       y <= this.bottomRight.y - shrinkBy
     );
   }
-}
-
-export function radians(degrees: number): number {
-  return degrees * (Math.PI / 180);
-}
-
-export function degrees(radians: number): number {
-  const degrees = radians * (180 / Math.PI);
-  return ((degrees % 360) + 360) % 360;
 }
 
 export const compareByX: Comparator<Vector> = (a: Vector, b: Vector) => a.x - b.x;

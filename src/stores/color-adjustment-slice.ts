@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {hexToRgb, linearizeRgbChannel} from '@eugene-khyst/artistassistapp-color-mixer';
 import {transfer} from 'comlink';
 import type {StateCreator} from 'zustand';
 
-import {hexToRgb, linearizeRgbChannel} from '@/services/color/space/rgb';
 import {type AdjustmentParameters, getColorAdjustedImage} from '@/services/image/color-adjustment';
 import {rgbChannelsPercentileCalculator} from '@/services/image/worker/rgb-channels-percentile-worker-manager';
 import {

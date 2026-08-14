@@ -18,8 +18,7 @@
 
 import {Trans} from '@lingui/react/macro';
 import {App, Typography} from 'antd';
-import type {PropsWithChildren, ReactNode} from 'react';
-import {useEffect} from 'react';
+import {type PropsWithChildren, type ReactNode, useEffect} from 'react';
 
 import {AuthErrorType, AuthNoticeType} from '@/services/auth/errors';
 import {useAppStore} from '@/stores/app-store';

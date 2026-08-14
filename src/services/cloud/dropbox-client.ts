@@ -16,15 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {
-  CloudClient,
-  CloudFile,
-  CloudFolder,
-  CloudItem,
-  CloudItemPurpose,
-  UploadCloudFileRequest,
+import {
+  type CloudClient,
+  type CloudFile,
+  type CloudFolder,
+  type CloudItem,
+  CloudItemKind,
+  type CloudItemPurpose,
+  type UploadCloudFileRequest,
 } from '@/services/cloud/cloud-client';
-import {CloudItemKind} from '@/services/cloud/cloud-client';
 import {
   clearCloudAccessToken,
   getCloudAccessToken,

@@ -27,10 +27,14 @@ import {Trans} from '@lingui/react/macro';
 import {App, Button, Dropdown, Grid, Space} from 'antd';
 import type {BaseButtonProps} from 'antd/es/button/Button';
 import type {MenuProps} from 'antd/lib';
-import type {InputHTMLAttributes, PropsWithChildren, ReactNode} from 'react';
-import {useCallback, useState} from 'react';
-import type {Accept, FileRejection} from 'react-dropzone';
-import {useDropzone} from 'react-dropzone';
+import {
+  type InputHTMLAttributes,
+  type PropsWithChildren,
+  type ReactNode,
+  useCallback,
+  useState,
+} from 'react';
+import {type Accept, type FileRejection, useDropzone} from 'react-dropzone';
 
 import {imageFileToFile} from '@/services/image/image-file';
 import {useAppStore} from '@/stores/app-store';

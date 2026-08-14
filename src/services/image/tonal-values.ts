@@ -16,13 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {rgbToHex} from '@/services/color/space/rgb';
+import {clamp, rgbToHex} from '@eugene-khyst/artistassistapp-color-mixer';
+
 import {colorMapFilterWebGL} from '@/services/image/filter/color-map-webgl';
 import {Interpolation, interpolationWebGL} from '@/services/image/filter/interpolation-webgl';
 import {thresholdFilterWebGL} from '@/services/image/filter/threshold-webgl';
-import type {DrawImageSource} from '@/utils/graphics';
-import {imageDataToOffscreenCanvas} from '@/utils/graphics';
-import {clamp} from '@/utils/math-utils';
+import {type DrawImageSource, imageDataToOffscreenCanvas} from '@/utils/graphics';
 
 const THRESHOLDS = [0.825, 0.6, 0.35];
 const TONAL_VALUES: number[] = [2 / 3, 1 / 3, 0];

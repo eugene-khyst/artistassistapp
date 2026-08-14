@@ -43,7 +43,7 @@ export function DeleteAppDataButton() {
           ArtistAssistApp will permanently delete your saved work and settings from this device and
           log you out.
           <br />
-          Data already synchronized to cloud storage will not be deleted.
+          Data already synced to cloud storage will not be deleted.
         </Trans>
       }
       onConfirm={() => void handleDeleteData()}

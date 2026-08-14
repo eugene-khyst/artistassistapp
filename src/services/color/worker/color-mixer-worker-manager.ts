@@ -16,9 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {ColorMixer} from '@eugene-khyst/artistassistapp-color-mixer';
 import {type Remote, wrap} from 'comlink';
-
-import type {ColorMixer} from '@/services/color/color-mixer';
 
 export const colorMixer: Remote<ColorMixer> = wrap(
   new Worker(new URL('./color-mixer-worker.ts', import.meta.url), {
