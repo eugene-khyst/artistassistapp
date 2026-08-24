@@ -35,7 +35,7 @@ import {TabKey} from '@/tabs';
 import {createAbortableOperation} from '@/utils/abortable-operation';
 import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
 
-import {type OriginalImageSlice, registerProcessedImage} from './original-image-slice';
+import {type OriginalImageSlice, registerOriginalImageDependency} from './original-image-slice';
 
 export interface LimitedPaletteImageSlice {
   limitedColorSet: ColorSet | null;
@@ -75,7 +75,7 @@ export const createLimitedPaletteImageSlice: StateCreator<
     },
   });
 
-  registerProcessedImage({
+  registerOriginalImageDependency({
     abort: () => {
       limitedPaletteOperation.abort();
     },
@@ -100,7 +100,6 @@ export const createLimitedPaletteImageSlice: StateCreator<
         return;
       }
       await limitedPaletteOperation.run(async signal => {
-        prev?.close();
         const resizedImage = await resizeImageBitmap(
           originalImage,
           ResizeImage.resizeToPixelCount(IMAGE_SIZE.SD)
@@ -118,6 +117,7 @@ export const createLimitedPaletteImageSlice: StateCreator<
           limitedColorSet,
           limitedPaletteImage: quantizedImage,
         });
+        prev?.close();
       });
     },
 

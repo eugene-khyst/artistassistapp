@@ -27,12 +27,15 @@ import {
 } from '@/services/db/style-image-db';
 import {ImageUnreadableError} from '@/services/image/errors';
 import {type ImageFile, imageFileToFile, materializeImageFile} from '@/services/image/image-file';
-import {transferStyle} from '@/services/image/style-transfer';
+import {transferStyle} from '@/services/image/transfer-style';
 import {withProcessedImageBlobCache} from '@/services/ml/image-transformer';
 import type {OnnxModel} from '@/services/ml/types';
 import type {AppSlice} from '@/stores/app-slice';
 import type {AuthSlice} from '@/stores/auth-slice';
-import {type OriginalImageSlice, registerProcessedImage} from '@/stores/original-image-slice';
+import {
+  type OriginalImageSlice,
+  registerOriginalImageDependency,
+} from '@/stores/original-image-slice';
 import {createAbortableOperation} from '@/utils/abortable-operation';
 
 export interface StyleTransferSlice {
@@ -76,7 +79,7 @@ export const createStyleTransferSlice: StateCreator<
     },
   });
 
-  registerProcessedImage({
+  registerOriginalImageDependency({
     abort: () => {
       styleTransferOperation.abort();
     },

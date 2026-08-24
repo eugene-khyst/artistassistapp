@@ -21,9 +21,10 @@ import {Trans} from '@lingui/react/macro';
 import {Button, Dropdown, Grid, Space} from 'antd';
 
 import {GridControls} from '@/components/grid/GridControls';
+import {ImageSaveButton} from '@/components/image/ImageSaveButton';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
-import {GridCanvas} from '@/services/canvas/image/grid-canvas';
+import {GridCanvasMode} from '@/services/canvas/mode/grid-canvas-mode';
 import {printImages} from '@/services/print/print';
 import {useAppStore} from '@/stores/app-store';
 import {getFilename} from '@/utils/filename';
@@ -31,8 +32,8 @@ import {getFilename} from '@/utils/filename';
 import {EmptyImage} from './empty/EmptyImage';
 import styles from './ImageGrid.module.css';
 
-const gridCanvasSupplier = (canvas: HTMLCanvasElement): GridCanvas => {
-  return new GridCanvas(canvas);
+const gridDrawingModeSupplier = (): GridCanvasMode => {
+  return new GridCanvasMode();
 };
 
 export function ImageGrid() {
@@ -43,18 +44,18 @@ export function ImageGrid() {
 
   const screens = Grid.useBreakpoint();
 
-  const {ref: canvasRef, zoomableImageCanvas: gridCanvas} = useZoomableImageCanvas<GridCanvas>(
-    gridCanvasSupplier,
-    originalImage,
-    selectedImageFile?.digest
-  );
+  const {
+    ref: canvasRef,
+    zoomableImageCanvas,
+    canvasMode: gridDrawingMode,
+  } = useZoomableImageCanvas(gridDrawingModeSupplier, originalImage, selectedImageFile?.digest);
 
   const handlePrintClick = () => {
-    void printImages(gridCanvas?.convertToOffscreenCanvas());
+    void printImages(zoomableImageCanvas?.convertToOffscreenCanvas());
   };
 
   const handleSaveClick = () => {
-    void gridCanvas?.saveAsImage(getFilename(selectedImageFile, 'grid'));
+    void zoomableImageCanvas?.saveAsImage(getFilename(selectedImageFile, 'grid'));
   };
 
   if (!originalImage) {
@@ -64,15 +65,13 @@ export function ImageGrid() {
   return (
     <LoadingIndicator loading={isOriginalImageLoading}>
       <Space className="u-tab-toolbar">
-        <GridControls gridCanvas={gridCanvas} />
+        <GridControls gridDrawingMode={gridDrawingMode} />
         {screens.sm ? (
           <>
             <Button icon={<PrinterOutlined />} onClick={handlePrintClick}>
               <Trans>Print</Trans>
             </Button>
-            <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
-              <Trans>Save</Trans>
-            </Button>
+            <ImageSaveButton onSave={handleSaveClick} />
           </>
         ) : (
           <Dropdown

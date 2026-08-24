@@ -17,10 +17,17 @@
  */
 
 export function debounce<T extends (...args: never[]) => void>(func: T, delay = 300): T {
-  let timeoutId: ReturnType<typeof setTimeout>;
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  const cancel = (): void => {
+    if (timeoutId !== undefined) {
+      clearTimeout(timeoutId);
+      timeoutId = undefined;
+    }
+  };
   return ((...args: Parameters<T>) => {
-    clearTimeout(timeoutId);
+    cancel();
     timeoutId = setTimeout(() => {
+      timeoutId = undefined;
       func(...args);
     }, delay);
   }) as T;

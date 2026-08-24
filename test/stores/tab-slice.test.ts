@@ -21,18 +21,18 @@ import {createStore} from 'zustand/vanilla';
 
 import {type AppSettings, DEFAULT_APP_SETTINGS} from '@/services/settings/types';
 import type {AppSlice} from '@/stores/app-slice';
-import type {BlurredImagesSlice} from '@/stores/blurred-images-slice';
 import type {OutlineImageSlice} from '@/stores/outline-image-slice';
+import type {SimplifyImageSlice} from '@/stores/simplify-image-slice';
 import type {StorageSlice} from '@/stores/storage-slice';
 import type {StyleTransferSlice} from '@/stores/style-transfer-slice';
 import {createTabSlice, type TabSlice, type UnsavedChangesChecker} from '@/stores/tab-slice';
-import type {TonalImagesSlice} from '@/stores/tonal-images-slice';
+import type {TonalValuesSlice} from '@/stores/tonal-values-slice';
 import {TabKey} from '@/tabs';
 
 type TestStore = TabSlice &
   Pick<AppSlice, 'saveAppSettings'> &
-  Pick<TonalImagesSlice, 'loadTonalImages'> &
-  Pick<BlurredImagesSlice, 'loadBlurredImages'> &
+  Pick<TonalValuesSlice, 'loadTonalImages'> &
+  Pick<SimplifyImageSlice, 'loadSimplifiedImages'> &
   Pick<OutlineImageSlice, 'loadOutlineImage'> &
   Pick<StyleTransferSlice, 'loadStyledImage'> &
   Pick<StorageSlice, 'loadStorageUsage'>;
@@ -45,7 +45,7 @@ function createTestStore() {
   const store = createStore<TestStore>()((...args) => ({
     saveAppSettings,
     loadTonalImages: vi.fn(),
-    loadBlurredImages: vi.fn(async (): Promise<void> => undefined),
+    loadSimplifiedImages: vi.fn(async (): Promise<void> => undefined),
     loadOutlineImage: vi.fn(async (): Promise<void> => undefined),
     loadStyledImage: vi.fn(async (): Promise<void> => undefined),
     loadStorageUsage: vi.fn(async (): Promise<void> => undefined),

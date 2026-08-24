@@ -37,45 +37,39 @@ interface Result {
   quantizedImage: ImageBitmap;
 }
 
-export class ColorQuantization {
-  async getPosterizedImage(image: ImageBitmap, maxColors: number): Promise<Result> {
-    console.time('posterize');
-    const imageData: ImageData = offscreenCanvasToImageData(
+// The worker owns the transferred bitmap, so it is released even when reading it fails.
+function readImageData(image: ImageBitmap): ImageData {
+  try {
+    return offscreenCanvasToImageData(
       ...drawImageToOffscreenCanvas(image, {
         willReadFrequently: true,
+        fillStyle: '#fff',
       })
     );
+  } finally {
     image.close();
+  }
+}
+
+export class ColorQuantization {
+  async getPosterizedImage(image: ImageBitmap, maxColors: number): Promise<Result> {
+    const imageData: ImageData = readImageData(image);
     quantizeColors(imageData, maxColors);
     const quantizedImage: ImageBitmap = await createImageBitmap(imageData);
-    console.timeEnd('posterize');
     return transfer({quantizedImage}, [quantizedImage]);
   }
 
   getSamplingPoints(image: ImageBitmap): SamplingPoint[] {
-    console.time('sampling-points');
-    const imageData: ImageData = offscreenCanvasToImageData(
-      ...drawImageToOffscreenCanvas(image, {
-        willReadFrequently: true,
-      })
-    );
-    image.close();
+    const imageData: ImageData = readImageData(image);
     quantizeColors(imageData, MAX_COLORS);
     const samplingPoints: SamplingPoint[] = computeSamplingPoints(imageData);
-    console.timeEnd('sampling-points');
     return samplingPoints;
   }
 
   async getLimitedPaletteImage(image: ImageBitmap, colorSet: ColorSet): Promise<Result> {
-    console.time('limited-palette');
     const colorMixer = new ColorMixer();
     colorMixer.setColorSet({colorSet});
-    const imageData: ImageData = offscreenCanvasToImageData(
-      ...drawImageToOffscreenCanvas(image, {
-        willReadFrequently: true,
-      })
-    );
-    image.close();
+    const imageData: ImageData = readImageData(image);
     const matchedColors = new Map<number, RgbTuple>();
     quantizeColors(
       imageData,
@@ -90,7 +84,6 @@ export class ColorQuantization {
       )
     );
     const quantizedImage: ImageBitmap = await createImageBitmap(imageData);
-    console.timeEnd('limited-palette');
     return transfer({quantizedImage}, [quantizedImage]);
   }
 }

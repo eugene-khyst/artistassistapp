@@ -35,9 +35,10 @@ import {useEffect, useState} from 'react';
 
 import {ColorSquare} from '@/components/color/ColorSquare';
 import {GradientRect} from '@/components/color/GradientRect';
+import {ImageSaveButton} from '@/components/image/ImageSaveButton';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
-import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '@/hooks/useZoomableImageCanvas';
-import type {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
+import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
+import {NOOP_CANVAS_MODE_SUPPLIER} from '@/services/canvas/mode/canvas-mode';
 import {COLOR_MAP_STOP_HEXES} from '@/services/image/filter/color-map-webgl';
 import {TONAL_VALUE_HEXES} from '@/services/image/tonal-values';
 import {printImages} from '@/services/print/print';
@@ -61,14 +62,10 @@ export function ImageTonalValues() {
   const {t} = useLingui();
 
   const {ref: tonalValuesCanvasRef, zoomableImageCanvas: tonalValuesCanvas} =
-    useZoomableImageCanvas<ZoomableImageCanvas>(
-      zoomableImageCanvasSupplier,
-      tonalImages,
-      selectedImageFile?.digest
-    );
+    useZoomableImageCanvas(NOOP_CANVAS_MODE_SUPPLIER, tonalImages, selectedImageFile?.digest);
 
-  const {ref: originalCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
-    zoomableImageCanvasSupplier,
+  const {ref: originalCanvasRef} = useZoomableImageCanvas(
+    NOOP_CANVAS_MODE_SUPPLIER,
     originalImage,
     selectedImageFile?.digest
   );
@@ -160,14 +157,7 @@ export function ImageTonalValues() {
             <Button icon={<PrinterOutlined />} onClick={handlePrintClick}>
               <Trans>Print</Trans>
             </Button>
-            <Button
-              icon={<DownloadOutlined />}
-              onClick={() => {
-                void handleSaveClick();
-              }}
-            >
-              <Trans>Save</Trans>
-            </Button>
+            <ImageSaveButton onSave={handleSaveClick} />
           </>
         ) : (
           <Dropdown

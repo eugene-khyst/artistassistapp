@@ -17,9 +17,13 @@
  */
 
 import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
-import {calculateDestSize, computeHomography} from '@/services/image/perspective-correction';
-import {orderCornersClockwise, Vector} from '@/services/math/geometry';
-import {copyOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
+import {
+  calculateDestSize,
+  computeHomography,
+  orderCornersClockwise,
+  Vector,
+} from '@/services/math/geometry';
+import {copyToOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
 import type {Size} from '@/utils/types';
 
 import fragmentShaderSource from './glsl/perspective-correction.glsl';
@@ -59,7 +63,7 @@ export function correctPerspectiveWebGL(
       },
     },
   ]);
-  const result = copyOffscreenCanvas(renderer.canvas);
+  const result = copyToOffscreenCanvas(renderer.canvas);
   renderer.cleanUp();
   return result;
 }

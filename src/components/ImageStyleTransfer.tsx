@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Button, Card, Col, Radio, type RadioChangeEvent, Row, Space, Typography} from 'antd';
+import {Card, Col, Radio, type RadioChangeEvent, Row, Space, Typography} from 'antd';
 import {saveAs} from 'file-saver';
 import {useEffect, useMemo, useRef} from 'react';
 
 import {EmptyImage} from '@/components/empty/EmptyImage';
 import {FileSelect} from '@/components/file/FileSelect';
+import {ImageSaveButton} from '@/components/image/ImageSaveButton';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {useCreateObjectUrl} from '@/hooks/useCreateObjectUrl';
 import {useFileReadErrorNotification} from '@/hooks/useFileReadErrorNotification';
@@ -235,11 +235,7 @@ export function ImageStyleTransfer() {
               <Trans>Select a style to transfer to your reference photo</Trans>
             </Typography.Text>
 
-            {styledImageUrl && (
-              <Button icon={<DownloadOutlined />} onClick={handleSaveClick}>
-                <Trans>Save</Trans>
-              </Button>
-            )}
+            <ImageSaveButton onSave={handleSaveClick} disabled={!styledImageUrl} />
 
             {!user && (
               <Typography.Text type="secondary">

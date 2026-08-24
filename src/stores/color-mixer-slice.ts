@@ -34,6 +34,7 @@ import {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas
 import {colorMixer} from '@/services/color/worker/color-mixer-worker-manager';
 import {mergeSimilarSamplingPoints, type SamplingPoint} from '@/services/image/sampling-point';
 import {colorQuantizationWorker} from '@/services/image/worker/color-quantization-worker-manager';
+import {Vector} from '@/services/math/geometry';
 import type {AppSlice} from '@/stores/app-slice';
 import type {ColorMixingChartSlice} from '@/stores/color-mixing-chart-slice';
 import type {LimitedPaletteImageSlice} from '@/stores/limited-palette-image-slice';
@@ -43,7 +44,7 @@ import {createAbortableOperation} from '@/utils/abortable-operation';
 import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
 import {abortablePromise} from '@/utils/promise';
 
-import {type OriginalImageSlice, registerProcessedImage} from './original-image-slice';
+import {type OriginalImageSlice, registerOriginalImageDependency} from './original-image-slice';
 import type {TabSlice} from './tab-slice';
 
 interface ColorMixerUpdateOptions {
@@ -113,7 +114,7 @@ export const createColorMixerSlice: StateCreator<
     },
   });
 
-  registerProcessedImage({
+  registerOriginalImageDependency({
     abort: () => {
       buildPaletteOperation.abort();
     },
@@ -348,7 +349,7 @@ export const createColorMixerSlice: StateCreator<
         );
         const {width: resizeWidth, height: resizeHeight} = resizedImage;
         const {width: origWidth, height: origHeight} = originalImage;
-        const rawPoints: SamplingPoint[] = (
+        const originalImageSamplingPoints: SamplingPoint[] = (
           await colorQuantizationWorker.run(
             worker => worker.getSamplingPoints(transfer(resizedImage, [resizedImage])),
             signal
@@ -359,7 +360,7 @@ export const createColorMixerSlice: StateCreator<
           ...rest,
         }));
 
-        const targetColors: RgbTuple[] = rawPoints.map(({rgb}) => rgb);
+        const targetColors: RgbTuple[] = originalImageSamplingPoints.map(({rgb}) => rgb);
         const colorMatches: (ColorMatch | undefined)[] = await abortablePromise(
           colorMixer.findBestColorMatches(targetColors, colorPickerLayeringEnabled, motherColorId),
           signal
@@ -367,7 +368,7 @@ export const createColorMixerSlice: StateCreator<
 
         // Replace image RGB with matched paint RGB for perceptual merging.
         const paintPoints: SamplingPointWithColorMatch[] = [];
-        for (const [index, samplingPoint] of rawPoints.entries()) {
+        for (const [index, samplingPoint] of originalImageSamplingPoints.entries()) {
           const colorMatch = colorMatches[index];
           if (!colorMatch) {
             continue;
@@ -382,7 +383,7 @@ export const createColorMixerSlice: StateCreator<
 
         const mergedPoints: SamplingPointWithColorMatch[] = mergeSimilarSamplingPoints(paintPoints);
 
-        const {center} = ZoomableImageCanvas.imageDimension(originalImage);
+        const imageDimension = ZoomableImageCanvas.imageDimension(originalImage);
         const paletteEntries: SaveToPaletteEntry[] = [];
         for (const {
           x,
@@ -390,11 +391,13 @@ export const createColorMixerSlice: StateCreator<
           colorMatch: {colorMixture},
         } of mergedPoints) {
           signal.throwIfAborted();
+          const imagePoint = new Vector(x, y);
+          const imageCenteredPoint = imagePoint.subtract(imageDimension.center);
           paletteEntries.push({
             colorMixture,
             samplingArea: {
-              x: x - center.x,
-              y: y - center.y,
+              x: imageCenteredPoint.x,
+              y: imageCenteredPoint.y,
               diameter: 1,
             },
           });

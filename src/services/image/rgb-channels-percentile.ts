@@ -20,10 +20,20 @@ import {linearizeRgbChannel} from '@eugene-khyst/artistassistapp-color-mixer';
 
 import {drawImageToOffscreenCanvas, offscreenCanvasToImageData} from '@/utils/graphics';
 
-function buildCumulativeHistograms(imageData: ImageData): Uint32Array[] {
+interface HistogramResult {
+  cumulativeHistograms: Uint32Array[];
+  pixelCount: number;
+}
+
+function buildCumulativeHistograms(imageData: ImageData): HistogramResult {
   const {data} = imageData;
   const histograms = Array.from({length: 3}, () => new Uint32Array(256));
+  let pixelCount = 0;
   for (let i = 0; i < data.length; i += 4) {
+    if (data[i + 3] === 0) {
+      continue;
+    }
+    pixelCount++;
     for (let channel = 0; channel < 3; channel++) {
       const value = data[i + channel]!;
       histograms[channel]![value]!++;
@@ -34,7 +44,7 @@ function buildCumulativeHistograms(imageData: ImageData): Uint32Array[] {
       histogram[i]! += histogram[i - 1]!;
     }
   }
-  return histograms;
+  return {cumulativeHistograms: histograms, pixelCount};
 }
 
 export class RgbChannelsPercentileCalculator {
@@ -42,16 +52,21 @@ export class RgbChannelsPercentileCalculator {
   private pixelCount = 0;
 
   setImage(image: ImageBitmap): void {
-    console.time('build-rgb-histograms');
-    const imageData: ImageData = offscreenCanvasToImageData(
-      ...drawImageToOffscreenCanvas(image, {
-        willReadFrequently: true,
-      })
-    );
-    image.close();
-    this.pixelCount = Math.floor(imageData.data.length / 4);
-    this.cumulativeHistograms = buildCumulativeHistograms(imageData);
-    console.timeEnd('build-rgb-histograms');
+    let imageData: ImageData;
+    // The worker owns the transferred bitmap, so it is released even when reading it fails.
+    try {
+      imageData = offscreenCanvasToImageData(
+        ...drawImageToOffscreenCanvas(image, {
+          willReadFrequently: true,
+          fillStyle: 'transparent',
+        })
+      );
+    } finally {
+      image.close();
+    }
+    const {cumulativeHistograms, pixelCount} = buildCumulativeHistograms(imageData);
+    this.pixelCount = pixelCount;
+    this.cumulativeHistograms = cumulativeHistograms;
   }
 
   calculatePercentiles(percentile: number): number[] {

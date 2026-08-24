@@ -25,7 +25,7 @@ import {startTransition, use, useEffect, useMemo, useOptimistic} from 'react';
 
 import {DEFAULT_GRID_SETTINGS, setGrid} from '@/components/grid/grid';
 import {TabContext} from '@/contexts/TabContext';
-import {type GridCanvas} from '@/services/canvas/image/grid-canvas';
+import {type GridCanvasMode} from '@/services/canvas/mode/grid-canvas-mode';
 import {type AppSettings, GridMode, type GridSettings} from '@/services/settings/types';
 import {useAppStore} from '@/stores/app-store';
 import type {TabKey} from '@/tabs';
@@ -38,13 +38,13 @@ const SQUARE_GRID_SIZE_OPTIONS: SelectOptionType[] = [4, 6, 8, 10, 12].map((size
 }));
 
 type Props = {
-  gridCanvas?: GridCanvas;
+  gridDrawingMode?: GridCanvasMode;
   disableable?: boolean;
   defaultGridSettings?: Partial<GridSettings>;
 } & Pick<SpaceProps, 'className' | 'orientation' | 'size' | 'style'>;
 
 export function GridControls({
-  gridCanvas,
+  gridDrawingMode,
   disableable = false,
   defaultGridSettings,
   ...props
@@ -69,16 +69,16 @@ export function GridControls({
   const {enabled: gridEnabled, mode: gridMode, size: gridSize, diagonals: gridDiagonals} = settings;
 
   useEffect(() => {
-    if (!gridCanvas) {
+    if (!gridDrawingMode) {
       return;
     }
-    setGrid(gridCanvas, {
+    setGrid(gridDrawingMode, {
       enabled: !disableable || gridEnabled,
       mode: gridMode,
       size: gridSize,
       diagonals: gridDiagonals,
     });
-  }, [gridCanvas, disableable, gridEnabled, gridMode, gridSize, gridDiagonals]);
+  }, [gridDrawingMode, disableable, gridEnabled, gridMode, gridSize, gridDiagonals]);
 
   const updateSettings = (update: Partial<GridSettings>) => {
     startTransition(async () => {

@@ -20,7 +20,7 @@ import {dilationRenderPasses} from '@/services/image/filter/dilation-webgl';
 import {gaussianBlurRenderPasses} from '@/services/image/filter/gaussian-blur-webgl';
 import type {KernelSize} from '@/services/image/filter/types';
 import {type RenderPass, WebGLRenderer} from '@/services/image/filter/webgl-renderer';
-import {copyOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
+import {copyToOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
 
 import dilationFragmentShaderSource from './glsl/dilation.glsl';
 import gaussianBlurFragmentShaderSource from './glsl/gaussian-blur.glsl';
@@ -50,7 +50,7 @@ export function sobelEdgeDetectionWebGL(
     ...dilationRenderPasses(dilationKernelSize, 2),
   ];
   renderer.render(renderPasses);
-  const result = copyOffscreenCanvas(renderer.canvas);
+  const result = copyToOffscreenCanvas(renderer.canvas);
   renderer.cleanUp();
   return result;
 }

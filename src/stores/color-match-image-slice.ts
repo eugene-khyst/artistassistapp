@@ -19,8 +19,11 @@
 import type {RgbTuple} from '@eugene-khyst/artistassistapp-color-mixer';
 import type {StateCreator} from 'zustand';
 
-import {getColorMatchImage} from '@/services/image/color-match';
-import {type OriginalImageSlice, registerProcessedImage} from '@/stores/original-image-slice';
+import {matchColor} from '@/services/image/match-color';
+import {
+  type OriginalImageSlice,
+  registerOriginalImageDependency,
+} from '@/stores/original-image-slice';
 
 export interface ColorMatchImageSlice {
   colorMatchImage: ImageBitmap | null;
@@ -38,7 +41,7 @@ export const createColorMatchImageSlice: StateCreator<
   [],
   ColorMatchImageSlice
 > = (set, get) => {
-  registerProcessedImage({
+  registerOriginalImageDependency({
     clear: () => {
       const {colorMatchImage} = get();
       set({colorMatchImage: null});
@@ -57,7 +60,7 @@ export const createColorMatchImageSlice: StateCreator<
         isColorMatchImageLoading: true,
       });
       const colorMatchImage: ImageBitmap | null =
-        originalImage && color ? getColorMatchImage(originalImage, color) : null;
+        originalImage && color ? matchColor(originalImage, color) : null;
       set({
         colorMatchImage,
         isColorMatchImageLoading: false,

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {type Grid, type GridCanvas, GridType} from '@/services/canvas/image/grid-canvas';
+import {type Grid, type GridCanvasMode, GridType} from '@/services/canvas/mode/grid-canvas-mode';
 import {GridMode, type GridSettings} from '@/services/settings/types';
 
 export const DEFAULT_GRID_SETTINGS: GridSettings = {
@@ -27,7 +27,7 @@ export const DEFAULT_GRID_SETTINGS: GridSettings = {
 };
 
 export function setGrid(
-  gridCanvas: GridCanvas,
+  gridDrawingMode: GridCanvasMode,
   {enabled, mode, size, diagonals}: GridSettings
 ): void {
   let grid: Grid | null = null;
@@ -48,5 +48,5 @@ export function setGrid(
         break;
     }
   }
-  gridCanvas.setGrid(grid);
+  gridDrawingMode.setGrid(grid);
 }

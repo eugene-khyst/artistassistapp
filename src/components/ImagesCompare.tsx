@@ -56,12 +56,12 @@ export function ImagesCompare() {
 
   const player1Ref = useRef<HTMLDivElement>(null);
   const player2Ref = useRef<HTMLDivElement>(null);
-  const photoRankingRef = useRef<HTMLButtonElement>(null);
+  const imageRankingRef = useRef<HTMLButtonElement>(null);
   const printRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (unfinishedGamesSize === 0) {
-      photoRankingRef.current?.scrollIntoView();
+      imageRankingRef.current?.scrollIntoView();
     }
   }, [unfinishedGamesSize]);
 
@@ -89,12 +89,12 @@ export function ImagesCompare() {
     <Flex vertical gap="small" className="u-tab-content">
       <Space align="center" size={4}>
         <Typography.Text strong>
-          <Trans>Select photos to rank using pairwise comparison</Trans>
+          <Trans>Select images to rank using pairwise comparison</Trans>
         </Typography.Text>
         <Tooltip
           title={
             <Trans>
-              It can be difficult to choose between multiple photos. Comparing each photo with
+              It can be difficult to choose between multiple images. Comparing each image with
               others in pairs simplifies the choice and helps to identify the most preferred one.
             </Trans>
           }
@@ -110,7 +110,7 @@ export function ImagesCompare() {
           multiple
           onChange={handleFileChange}
         >
-          {isNew ? <Trans>Select photos</Trans> : <Trans>Add photos</Trans>}
+          {isNew ? <Trans>Select images</Trans> : <Trans>Add images</Trans>}
         </FileSelect>
         {!isNew && (
           <Button
@@ -126,7 +126,7 @@ export function ImagesCompare() {
       {nextGame && (
         <>
           <Typography.Text strong>
-            <Trans>Determine the best photo by pairwise comparison</Trans>
+            <Trans>Determine the best image by pairwise comparison</Trans>
           </Typography.Text>
           <Row gutter={16} align="middle" justify="space-evenly">
             <Col xs={12} lg={8} xl={6}>
@@ -161,8 +161,8 @@ export function ImagesCompare() {
       {playersByRating.length > 0 && (
         <>
           <Space>
-            <Typography.Text ref={photoRankingRef} strong>
-              <Trans>Photo ranking</Trans>
+            <Typography.Text ref={imageRankingRef} strong>
+              <Trans>Image ranking</Trans>
             </Typography.Text>
             <Button
               icon={<PrinterOutlined />}

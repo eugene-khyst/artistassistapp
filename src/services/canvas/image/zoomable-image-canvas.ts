@@ -20,9 +20,19 @@ import {clamp} from '@eugene-khyst/artistassistapp-color-mixer';
 import {saveAs} from 'file-saver';
 
 import {Canvas} from '@/services/canvas/canvas';
+import type {
+  CanvasDrag,
+  CanvasMode,
+  CanvasModeContext,
+  CanvasPointer,
+} from '@/services/canvas/mode/canvas-mode';
 import {EventManager} from '@/services/event/event-manager';
 import {Rectangle, Vector} from '@/services/math/geometry';
-import {type DrawImageSource, offscreenCanvasToBlob} from '@/utils/graphics';
+import {
+  type DrawImageSource,
+  fillOffscreenCanvasBackground,
+  offscreenCanvasToBlob,
+} from '@/utils/graphics';
 
 const MIN_IMAGE_SIDE = 200;
 
@@ -30,9 +40,7 @@ export enum ZoomableImageEventType {
   ClickOrTap = 'ClickOrTap',
 }
 
-export interface ClickOrTapEvent {
-  point: Vector;
-}
+export type ClickOrTapEvent = CanvasPointer;
 
 export interface ZoomableImageCanvasProps {
   allowZoomBelowFit?: boolean;
@@ -53,7 +61,7 @@ export class ZoomableImageCanvas extends Canvas {
   private readonly imageSmoothingEnabled: boolean;
   private dragDelayTimerId: ReturnType<typeof setTimeout> | null = null;
   private readonly longPressDurationMs = 250;
-  private dragStart: Vector | null = null;
+  private dragStart: CanvasPointer | null = null;
   private isDragging = false;
   private lastZoom = this.zoom;
   private initialPinchDistance: number | null = null;
@@ -61,11 +69,28 @@ export class ZoomableImageCanvas extends Canvas {
   private initialOffset: Vector | null = null;
   private lastPointerDown: Vector | null = null;
   private autoFit = true;
+  private exporting = false;
+  private mode: CanvasMode | null = null;
+  private modeDrag?: CanvasDrag;
   private readonly eventListeners: {
     [K in keyof HTMLElementEventMap]?: (event: HTMLElementEventMap[K]) => void;
   };
   public readonly events = new EventManager();
   private cursor = 'grab';
+  private readonly modeContext: CanvasModeContext = {
+    getCanvas: () => this.canvas,
+    getImages: () => this.images,
+    getImageIndex: () => this.imageIndex,
+    getImageDimension: () => this.getImageDimension(),
+    getZoom: () => this.zoom,
+    isExporting: () => this.exporting,
+    requestRedraw: () => {
+      this.requestRedraw();
+    },
+    refreshCursor: () => {
+      this.refreshCursor();
+    },
+  };
 
   constructor(canvas: HTMLCanvasElement, props: ZoomableImageCanvasProps = {}) {
     super(canvas);
@@ -120,12 +145,30 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   protected getCursor(): string {
-    return this.cursor;
+    return this.mode?.getCursor?.() ?? this.cursor;
   }
 
   setCursor(cursor: string): void {
     this.cursor = cursor;
+    this.refreshCursor();
+  }
+
+  private refreshCursor(): void {
     this.canvas.style.cursor = this.getCursor();
+  }
+
+  setMode(mode: CanvasMode | null): void {
+    if (mode === this.mode) {
+      return;
+    }
+    this.modeDrag?.cancel();
+    this.modeDrag = undefined;
+    this.mode?.deactivate();
+    this.mode = mode;
+    this.mode?.activate(this.modeContext);
+    this.mode?.onImagesLoaded?.();
+    this.refreshCursor();
+    this.requestRedraw();
   }
 
   setImages(images: ImageBitmap[], displayDimension?: Rectangle): void {
@@ -143,7 +186,7 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   protected onImagesLoaded(): void {
-    // noop
+    this.mode?.onImagesLoaded?.();
   }
 
   setImageIndex(imageIndex: number): void {
@@ -153,21 +196,27 @@ export class ZoomableImageCanvas extends Canvas {
     this.requestRedraw();
   }
 
-  protected getImage(): DrawImageSource | null {
+  private getSourceImage(): DrawImageSource | null {
     return this.images[this.imageIndex] ?? null;
   }
 
-  protected getImageDimension(): Rectangle {
+  protected getImage(): DrawImageSource | null {
+    const image = this.getSourceImage();
+    return this.mode?.getImage ? this.mode.getImage(image) : image;
+  }
+
+  private getSourceImageDimension(): Rectangle {
     return this.imageDimensions[this.imageIndex] ?? Rectangle.ZERO;
   }
 
-  protected toImagePoint(point: Vector): Vector {
-    return point.add(this.getImageDimension().center);
+  protected getImageDimension(): Rectangle {
+    const dimension = this.getSourceImageDimension();
+    return this.mode?.getImageDimension?.(dimension) ?? dimension;
   }
 
-  protected imageContains(point: Vector, shrinkBy?: number): boolean {
+  protected imageContains(imageCenteredPoint: Vector, shrinkBy?: number): boolean {
     const imageDimension = this.getImageDimension();
-    return imageDimension.contains(point.add(imageDimension.center), shrinkBy);
+    return imageDimension.contains(this.imageCenteredToImagePoint(imageCenteredPoint), shrinkBy);
   }
 
   protected override draw(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
@@ -194,22 +243,23 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   protected onBeforeImageDrawn(
-    _ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
   ): void {
-    // noop
+    this.mode?.onBeforeImageDrawn?.(ctx);
   }
 
   protected drawImage(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
     const image: DrawImageSource | null = this.getImage();
-    if (!image) {
+    // A closed ImageBitmap reports no size, and the store can close one before React re-renders.
+    if (!image?.width || !image.height) {
       return;
     }
     const {width, height, center} = this.getImageDimension();
     ctx.drawImage(image, -center.x, -center.y, width, height);
   }
 
-  protected onImageDrawn(_: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
-    // noop
+  protected onImageDrawn(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
+    this.mode?.onImageDrawn?.(ctx);
   }
 
   private getMouseEventCoordinates({offsetX, offsetY}: MouseEvent): Vector {
@@ -223,6 +273,37 @@ export class ZoomableImageCanvas extends Canvas {
 
   private canvasToWorld({x, y}: Vector): Vector {
     return new Vector((x - this.cssWidth / 2) / this.zoom, (y - this.cssHeight / 2) / this.zoom);
+  }
+
+  private worldToImageCenteredPoint(worldPoint: Vector): Vector {
+    return worldPoint.subtract(this.offset);
+  }
+
+  private imageCenteredToImagePoint(imageCenteredPoint: Vector): Vector {
+    return imageCenteredPoint.add(this.getImageDimension().center);
+  }
+
+  private canvasPointerFromCanvasPoint(canvasPoint: Vector): CanvasPointer {
+    const worldPoint = this.canvasToWorld(canvasPoint);
+    const imageCenteredPoint = this.worldToImageCenteredPoint(worldPoint);
+    const imagePoint = this.imageCenteredToImagePoint(imageCenteredPoint);
+    return {
+      canvasPoint,
+      worldPoint,
+      imageCenteredPoint,
+      imagePoint,
+    };
+  }
+
+  canvasPointerFromImageCenteredPoint(imageCenteredPoint: Vector): CanvasPointer {
+    const worldPoint = imageCenteredPoint.add(this.offset);
+    const canvasPoint = worldPoint.multiply(this.zoom).add(this.getCanvasCenter());
+    return {
+      canvasPoint,
+      worldPoint,
+      imageCenteredPoint,
+      imagePoint: this.imageCenteredToImagePoint(imageCenteredPoint),
+    };
   }
 
   private getMaxOffset(): Vector {
@@ -252,8 +333,8 @@ export class ZoomableImageCanvas extends Canvas {
     return new Vector(clamp(x, -maxOffset.x, maxOffset.x), clamp(y, -maxOffset.y, maxOffset.y));
   }
 
-  protected onDragStart(_: Vector): void {
-    // noop
+  private startDrag(pointer: CanvasPointer): void {
+    this.modeDrag = this.mode?.startDrag?.(pointer);
   }
 
   private handlePointerDown(point: Vector): void {
@@ -263,20 +344,24 @@ export class ZoomableImageCanvas extends Canvas {
 
     this.lastPointerDown = point;
     this.isDragging = false;
-    this.dragStart = this.canvasToWorld(point).subtract(this.offset);
+    this.dragStart = this.canvasPointerFromCanvasPoint(point);
 
     this.dragDelayTimerId = setTimeout(() => {
       this.isDragging = true;
       this.canvas.style.cursor = 'grabbing';
-      this.onDragStart(this.dragStart!);
+      this.startDrag(this.dragStart!);
     }, this.longPressDurationMs);
 
     this.requestRedraw();
   }
 
-  protected onDrag(point: Vector, dragStart: Vector): void {
+  protected onDrag(pointer: CanvasPointer, dragStart: CanvasPointer): void {
+    if (this.modeDrag) {
+      this.modeDrag.move(pointer);
+      return;
+    }
     this.autoFit = false;
-    this.setOffset(point.subtract(dragStart));
+    this.setOffset(pointer.worldPoint.subtract(dragStart.imageCenteredPoint));
   }
 
   private handlePointerMove(point: Vector): void {
@@ -290,27 +375,28 @@ export class ZoomableImageCanvas extends Canvas {
         }
         this.isDragging = true;
         this.canvas.style.cursor = 'grabbing';
-        this.onDragStart(this.dragStart);
+        this.startDrag(this.dragStart);
       }
     }
     if (this.isDragging) {
-      this.onDrag(this.canvasToWorld(point), this.dragStart);
+      this.onDrag(this.canvasPointerFromCanvasPoint(point), this.dragStart);
     }
     this.requestRedraw();
   }
 
-  protected onClickOrTap(point: Vector): void {
-    if (!this.imageContains(point)) {
+  protected onClickOrTap(pointer: CanvasPointer): void {
+    if (this.mode?.onClickOrTap?.(pointer)) {
       return;
     }
-    const event: ClickOrTapEvent = {
-      point: this.toImagePoint(point),
-    };
-    this.events.notify(ZoomableImageEventType.ClickOrTap, event);
+    if (!this.imageContains(pointer.imageCenteredPoint)) {
+      return;
+    }
+    this.events.notify(ZoomableImageEventType.ClickOrTap, pointer);
   }
 
   protected onDragEnd(): void {
-    // noop
+    this.modeDrag?.end();
+    this.modeDrag = undefined;
   }
 
   private handlePointerUp(): void {
@@ -344,6 +430,8 @@ export class ZoomableImageCanvas extends Canvas {
     if (e.touches.length <= 1) {
       singleTouchHandler();
     } else if (e.type == 'touchmove' && e.touches.length == 2) {
+      this.modeDrag?.cancel();
+      this.modeDrag = undefined;
       this.dragStart = null;
       this.isDragging = false;
       this.handlePinch(e);
@@ -446,14 +534,15 @@ export class ZoomableImageCanvas extends Canvas {
     }
   }
 
-  protected convertToOffscreenCanvas(): OffscreenCanvas | null {
+  convertToOffscreenCanvas(): OffscreenCanvas | null {
     const image: DrawImageSource | null = this.getImage();
     if (!image) {
       return null;
     }
     const {width, height} = this.getImageDimension();
-    const {offset, zoom} = this;
+    const {offset, zoom, exporting} = this;
     try {
+      this.exporting = true;
       this.offset = Vector.ZERO;
       this.zoom = 1;
       const offscreenCanvas = new OffscreenCanvas(width, height);
@@ -463,6 +552,7 @@ export class ZoomableImageCanvas extends Canvas {
     } finally {
       this.offset = offset;
       this.zoom = zoom;
+      this.exporting = exporting;
     }
   }
 
@@ -470,6 +560,9 @@ export class ZoomableImageCanvas extends Canvas {
     const canvas: OffscreenCanvas | null = this.convertToOffscreenCanvas();
     if (!canvas) {
       return;
+    }
+    if ((options?.type ?? 'image/jpeg') === 'image/jpeg') {
+      fillOffscreenCanvasBackground(canvas, '#fff');
     }
     return await offscreenCanvasToBlob(canvas, options);
   }
@@ -482,9 +575,14 @@ export class ZoomableImageCanvas extends Canvas {
   }
 
   override destroy(): void {
+    this.modeDrag?.cancel();
+    this.modeDrag = undefined;
+    this.mode?.deactivate();
+    this.mode = null;
     super.destroy();
     Object.entries(this.eventListeners).forEach(([type, listener]) => {
       this.canvas.removeEventListener(type, listener as EventListener);
     });
+    this.events.destroy();
   }
 }

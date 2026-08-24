@@ -50,7 +50,6 @@ export async function detectDocumentCornersHeatmap(
   progressCallback?: FetchProgressCallback,
   signal?: AbortSignal
 ): Promise<Vector[] | null> {
-  console.time('detect-document-corners');
   const [imageData] = imageBitmapToImageData([image], model);
   const inputTensor = imageDataToFloat32Tensor(imageData!, model);
   const [outputTensor] = await runInferenceWorker(
@@ -64,7 +63,6 @@ export async function detectDocumentCornersHeatmap(
   const corners: Vector[] = heatmapTensorToCorners(outputTensor!, image.width, image.height).filter(
     (corner): corner is Vector => !!corner
   );
-  console.timeEnd('detect-document-corners');
   if (
     corners.length !== 4 ||
     corners.some(({x, y}) => {

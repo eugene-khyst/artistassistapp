@@ -64,15 +64,25 @@ describe('color-set URLs', () => {
 });
 
 describe('application URLs', () => {
-  it('gives callback routes precedence over unrelated query parameters', () => {
-    expect(
-      parseUrl(
-        `https://app.example/login/callback?completion_token=token&tab=${TabKey.ColorPicker}`
-      )
-    ).toEqual({loginCallback: {completionToken: 'token'}});
+  it('recognizes the install route', () => {
+    expect(parseUrl('https://app.example/install')).toEqual({install: true});
   });
 
-  it('prefers a tab pathname over the tab query parameter', () => {
+  it('recognizes tab routes', () => {
+    expect(parseUrl(`https://app.example/${TabKey.EditImage}`)).toEqual({
+      tabKey: TabKey.EditImage,
+    });
+  });
+
+  it('does not recognize image editor routes', () => {
+    expect(parseUrl('https://app.example/crop')).toEqual({});
+  });
+
+  it('does not recognize tab query parameters', () => {
+    expect(parseUrl(`https://app.example/?tab=${TabKey.ColorPicker}`)).toEqual({});
+  });
+
+  it('uses the tab pathname when a tab query parameter is present', () => {
     expect(parseUrl(`https://app.example/${TabKey.Photo}?tab=${TabKey.ColorPicker}`)).toEqual({
       tabKey: TabKey.Photo,
     });

@@ -17,14 +17,14 @@
  */
 
 import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
-import {copyOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
+import {copyToOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
 
 import fragmentShaderSource from './glsl/invert-colors.glsl';
 
 export function invertColorsWebGL(image: DrawImageSource): OffscreenCanvas {
   const renderer = new WebGLRenderer([fragmentShaderSource], [], image);
   renderer.render();
-  const result = copyOffscreenCanvas(renderer.canvas);
+  const result = copyToOffscreenCanvas(renderer.canvas);
   renderer.cleanUp();
   return result;
 }

@@ -18,54 +18,71 @@
 
 import {type RefCallback, useCallback, useEffect, useRef, useState} from 'react';
 
-import {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
+import {
+  ZoomableImageCanvas,
+  type ZoomableImageCanvasProps,
+} from '@/services/canvas/image/zoomable-image-canvas';
+import type {CanvasMode} from '@/services/canvas/mode/canvas-mode';
 import type {Rectangle} from '@/services/math/geometry';
 import {debounce} from '@/utils/debounce';
 
-export function zoomableImageCanvasSupplier(canvas: HTMLCanvasElement): ZoomableImageCanvas {
-  return new ZoomableImageCanvas(canvas);
+interface CanvasInstance<T extends CanvasMode | null> {
+  zoomableImageCanvas: ZoomableImageCanvas;
+  canvasMode: T;
 }
 
-interface Result<T> {
+interface Result<T extends CanvasMode | null> {
   ref: RefCallback<HTMLCanvasElement>;
-  zoomableImageCanvas?: T;
+  zoomableImageCanvas?: ZoomableImageCanvas;
+  canvasMode?: T;
 }
 
-export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
-  zoomableImageCanvasSupplier: (canvas: HTMLCanvasElement) => T,
+export function useZoomableImageCanvas<T extends CanvasMode | null>(
+  canvasModeSupplier: () => T,
   images: (ImageBitmap | null | undefined) | (ImageBitmap | null | undefined)[],
   sourceKey: unknown,
-  displayDimension?: Rectangle
+  displayDimension?: Rectangle,
+  {allowZoomBelowFit, maxZoom, zoomFactor, imageSmoothingEnabled}: ZoomableImageCanvasProps = {}
 ): Result<T> {
-  const [zoomableImageCanvas, setZoomableImageCanvas] = useState<T>();
+  const [instance, setInstance] = useState<CanvasInstance<T>>();
   const sourceKeyRef = useRef(sourceKey);
   const ref = useCallback(
     (node: HTMLCanvasElement | null) => {
-      if (node) {
-        setZoomableImageCanvas(prev => {
-          prev?.destroy();
-          return zoomableImageCanvasSupplier(node);
-        });
+      if (!node) {
+        setInstance(undefined);
+        return;
       }
+      const zoomableImageCanvas = new ZoomableImageCanvas(node, {
+        allowZoomBelowFit,
+        maxZoom,
+        zoomFactor,
+        imageSmoothingEnabled,
+      });
+      const canvasMode = canvasModeSupplier();
+      zoomableImageCanvas.setMode(canvasMode);
+      setInstance({zoomableImageCanvas, canvasMode});
     },
-    [zoomableImageCanvasSupplier]
+    [allowZoomBelowFit, canvasModeSupplier, imageSmoothingEnabled, maxZoom, zoomFactor]
   );
 
   useEffect(() => {
-    const listener = debounce(() => zoomableImageCanvas?.resize());
+    const listener = debounce(() => instance?.zoomableImageCanvas.resize());
     window.addEventListener('resize', listener);
     return () => {
-      zoomableImageCanvas?.destroy();
+      instance?.zoomableImageCanvas.destroy();
+      const canvasMode: CanvasMode | null = instance?.canvasMode ?? null;
+      canvasMode?.destroy();
       window.removeEventListener('resize', listener);
     };
-  }, [zoomableImageCanvas]);
+  }, [instance]);
 
   useEffect(() => {
-    if (!('IntersectionObserver' in window) || !zoomableImageCanvas?.canvas) {
+    const zoomableImageCanvas = instance?.zoomableImageCanvas;
+    if (!('IntersectionObserver' in window) || !zoomableImageCanvas) {
       return;
     }
-    const observer = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry: IntersectionObserverEntry) => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
           zoomableImageCanvas.resize();
         }
@@ -75,9 +92,10 @@ export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
     return () => {
       observer.disconnect();
     };
-  }, [zoomableImageCanvas]);
+  }, [instance]);
 
   useEffect(() => {
+    const zoomableImageCanvas = instance?.zoomableImageCanvas;
     if (!zoomableImageCanvas) {
       return;
     }
@@ -90,10 +108,11 @@ export function useZoomableImageCanvas<T extends ZoomableImageCanvas>(
       zoomableImageCanvas.zoomToFit();
     }
     sourceKeyRef.current = sourceKey;
-  }, [zoomableImageCanvas, images, sourceKey, displayDimension]);
+  }, [instance, images, sourceKey, displayDimension]);
 
   return {
     ref,
-    zoomableImageCanvas,
+    zoomableImageCanvas: instance?.zoomableImageCanvas,
+    canvasMode: instance?.canvasMode,
   };
 }

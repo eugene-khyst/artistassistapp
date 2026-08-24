@@ -21,7 +21,7 @@ import type {MessageDescriptor} from '@lingui/core';
 import {defineMessage} from '@lingui/core/macro';
 
 import {CloudProvider} from '@/services/cloud/types';
-import {TabKey} from '@/tabs';
+import {ImageEditorKey, TabKey} from '@/tabs';
 
 export const TAB_LABELS: Record<TabKey, MessageDescriptor> = {
   [TabKey.ColorSet]: defineMessage`Color set`,
@@ -29,7 +29,7 @@ export const TAB_LABELS: Record<TabKey, MessageDescriptor> = {
   [TabKey.ColorPicker]: defineMessage`Color picker`,
   [TabKey.Palette]: defineMessage`Palette`,
   [TabKey.TonalValues]: defineMessage`Tonal values`,
-  [TabKey.Simplified]: defineMessage`Simplify`,
+  [TabKey.Simplify]: defineMessage`Simplify`,
   [TabKey.Outline]: defineMessage`Outline`,
   [TabKey.Grid]: defineMessage`Grid`,
   [TabKey.ColorMixing]: defineMessage`Color mixer`,
@@ -37,12 +37,17 @@ export const TAB_LABELS: Record<TabKey, MessageDescriptor> = {
   [TabKey.TwoColorGradient]: defineMessage`2-color gradient`,
   [TabKey.LimitedPalette]: defineMessage`Limited palette`,
   [TabKey.StyleTransfer]: defineMessage`Inspiration`,
-  [TabKey.PerspectiveCorrection]: defineMessage`Straighten`,
-  [TabKey.ColorCorrection]: defineMessage`Adjust colors`,
-  [TabKey.BackgroundRemove]: defineMessage`Remove background`,
-  [TabKey.Compare]: defineMessage`Compare photos`,
-  [TabKey.CustomColorBrand]: defineMessage`Custom colors`,
+  [TabKey.EditImage]: defineMessage`Edit image`,
+  [TabKey.CompareImages]: defineMessage`Compare images`,
+  [TabKey.CustomColors]: defineMessage`Custom colors`,
   [TabKey.Help]: defineMessage`Help`,
+};
+
+export const EDIT_IMAGE_LABELS: Record<ImageEditorKey, MessageDescriptor> = {
+  [ImageEditorKey.Straighten]: defineMessage`Straighten`,
+  [ImageEditorKey.Crop]: defineMessage`Crop`,
+  [ImageEditorKey.AdjustColors]: defineMessage`Adjust colors`,
+  [ImageEditorKey.RemoveBackground]: defineMessage`Remove background`,
 };
 
 export const COLOR_TYPE_LABELS: Record<ColorType, MessageDescriptor> = {

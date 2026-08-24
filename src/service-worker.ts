@@ -167,7 +167,7 @@ async function receiveSharedData(request: Request): Promise<Response> {
         if (brand) {
           await saveCustomColorBrands([fromCustomColorBrandSource(brand)]);
           appSettings = {
-            activeTabKey: TabKey.CustomColorBrand,
+            activeTabKey: TabKey.CustomColors,
           };
         }
       }

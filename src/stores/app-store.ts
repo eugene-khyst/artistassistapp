@@ -29,26 +29,19 @@ import {
   type ColorMixingChartSlice,
   createColorMixingChartSlice,
 } from '@/stores/color-mixing-chart-slice';
+import {createEditImageSlice, type EditImageSlice} from '@/stores/edit-image-slice';
 import {createLocaleSlice, type LocaleSlice} from '@/stores/locale-slice';
-import {
-  createPerspectiveCorrectionSlice,
-  type PerspectiveCorrectionSlice,
-} from '@/stores/perspective-correction-slice';
 import {
   createPosterizedImageSlice,
   type PosterizedImageSlice,
 } from '@/stores/posterized-image-slice';
 import {createPwaSlice, type PwaSlice} from '@/stores/pwa-slice';
 
+import {type AdjustColorsSlice, createAdjustColorsSlice} from './adjust-colors-slice';
 import {type AppSlice, createAppSlice} from './app-slice';
-import {
-  type BackgroundRemovalSlice,
-  createBackgroundRemovalSlice,
-} from './background-removal-slice';
-import {type BlurredImagesSlice, createBlurredImagesSlice} from './blurred-images-slice';
-import {type ColorAdjustmentSlice, createColorAdjustmentSlice} from './color-adjustment-slice';
 import {type ColorMixerSlice, createColorMixerSlice} from './color-mixer-slice';
 import {type ColorSetSlice, createColorSetSlice} from './color-set-slice';
+import {createCropSlice, type CropSlice} from './crop-slice';
 import {createCustomColorBrandSlice, type CustomColorBrandSlice} from './custom-color-brand-slice';
 import {
   createLimitedPaletteImageSlice,
@@ -57,10 +50,13 @@ import {
 import {createOriginalImageSlice, type OriginalImageSlice} from './original-image-slice';
 import {createOutlineImageSlice, type OutlineImageSlice} from './outline-image-slice';
 import {createPaletteSlice, type PaletteSlice} from './palette-slice';
+import {createRemoveBackgroundSlice, type RemoveBackgroundSlice} from './remove-background-slice';
+import {createSimplifyImageSlice, type SimplifyImageSlice} from './simplify-image-slice';
 import {createStorageSlice, type StorageSlice} from './storage-slice';
+import {createStraightenSlice, type StraightenSlice} from './straighten-slice';
 import {createStyleTransferSlice, type StyleTransferSlice} from './style-transfer-slice';
 import {createTabSlice, type TabSlice} from './tab-slice';
-import {createTonalImagesSlice, type TonalImagesSlice} from './tonal-images-slice';
+import {createTonalValuesSlice, type TonalValuesSlice} from './tonal-values-slice';
 import {createTournamentSlice, type TournamentSlice} from './tournament-slice';
 
 export const useAppStore = create<
@@ -76,14 +72,16 @@ export const useAppStore = create<
     PosterizedImageSlice &
     ColorMatchImageSlice &
     PaletteSlice &
-    TonalImagesSlice &
-    BlurredImagesSlice &
+    TonalValuesSlice &
+    SimplifyImageSlice &
     OutlineImageSlice &
     LimitedPaletteImageSlice &
     StyleTransferSlice &
-    PerspectiveCorrectionSlice &
-    ColorAdjustmentSlice &
-    BackgroundRemovalSlice &
+    StraightenSlice &
+    CropSlice &
+    AdjustColorsSlice &
+    RemoveBackgroundSlice &
+    EditImageSlice &
     TournamentSlice &
     CustomColorBrandSlice &
     StorageSlice &
@@ -102,14 +100,16 @@ export const useAppStore = create<
     ...createPosterizedImageSlice(...a),
     ...createColorMatchImageSlice(...a),
     ...createPaletteSlice(...a),
-    ...createTonalImagesSlice(...a),
-    ...createBlurredImagesSlice(...a),
+    ...createTonalValuesSlice(...a),
+    ...createSimplifyImageSlice(...a),
     ...createOutlineImageSlice(...a),
     ...createLimitedPaletteImageSlice(...a),
     ...createStyleTransferSlice(...a),
-    ...createPerspectiveCorrectionSlice(...a),
-    ...createColorAdjustmentSlice(...a),
-    ...createBackgroundRemovalSlice(...a),
+    ...createStraightenSlice(...a),
+    ...createCropSlice(...a),
+    ...createAdjustColorsSlice(...a),
+    ...createRemoveBackgroundSlice(...a),
+    ...createEditImageSlice(...a),
     ...createTournamentSlice(...a),
     ...createCustomColorBrandSlice(...a),
     ...createStorageSlice(...a),

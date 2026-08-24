@@ -25,7 +25,11 @@ export function createAbortableOperation({
 }: {onStart?: () => void; onFinish?: () => void} = {}) {
   let abortController: AbortController | null = null;
 
-  const run = async <T>(task: (signal: AbortSignal) => T | Promise<T>): Promise<T | undefined> => {
+  const execute = async <T, R>(
+    task: (signal: AbortSignal) => T | Promise<T>,
+    commit: (result: T) => R,
+    discard?: (result: T) => void
+  ): Promise<R | undefined> => {
     abort();
     const controller = new AbortController();
     abortController = controller;
@@ -33,8 +37,11 @@ export function createAbortableOperation({
     try {
       onStart?.();
       const result = await task(controller.signal);
-      controller.signal.throwIfAborted();
-      return result;
+      if (controller.signal.aborted) {
+        discard?.(result);
+        controller.signal.throwIfAborted();
+      }
+      return commit(result);
     } catch (error) {
       // A superseded run stays silent, but a broken session must still reach the logout handler.
       if (
@@ -52,6 +59,15 @@ export function createAbortableOperation({
     }
   };
 
+  const run = async <T>(task: (signal: AbortSignal) => T | Promise<T>): Promise<T | undefined> =>
+    await execute(task, result => result);
+
+  const runAndCommit = async <T, R>(
+    task: (signal: AbortSignal) => T | Promise<T>,
+    commit: (result: T) => R,
+    discard?: (result: T) => void
+  ): Promise<R | undefined> => await execute(task, commit, discard);
+
   const abort = (): void => {
     const controller = abortController;
     if (!controller) {
@@ -64,6 +80,7 @@ export function createAbortableOperation({
 
   return {
     run,
+    runAndCommit,
     abort,
   };
 }

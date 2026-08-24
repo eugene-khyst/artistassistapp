@@ -21,7 +21,10 @@ import type {StateCreator} from 'zustand';
 
 import {blobToImageFile, type ImageFile} from '@/services/image/image-file';
 import {colorQuantizationWorker} from '@/services/image/worker/color-quantization-worker-manager';
-import {type OriginalImageSlice, registerProcessedImage} from '@/stores/original-image-slice';
+import {
+  type OriginalImageSlice,
+  registerOriginalImageDependency,
+} from '@/stores/original-image-slice';
 import {createAbortableOperation} from '@/utils/abortable-operation';
 import {IMAGE_SIZE, imageBitmapToBlob, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
 
@@ -56,7 +59,7 @@ export const createPosterizedImageSlice: StateCreator<
     },
   });
 
-  registerProcessedImage({
+  registerOriginalImageDependency({
     abort: () => {
       posterizeImageOperation.abort();
     },
@@ -80,12 +83,16 @@ export const createPosterizedImageSlice: StateCreator<
           worker => worker.getPosterizedImage(transfer(resizedImage, [resizedImage]), maxColors),
           signal
         );
-        const posterizedImageFile: ImageFile = await blobToImageFile(
-          await imageBitmapToBlob(quantizedImage, {encodeOptions: {type: 'image/png'}}),
-          `${selectedImageFile.name ?? ''} ${maxColors} colors`.trim()
-        );
+        let posterizedImageFile: ImageFile;
+        try {
+          posterizedImageFile = await blobToImageFile(
+            await imageBitmapToBlob(quantizedImage, {encodeOptions: {type: 'image/png'}}),
+            `${selectedImageFile.name ?? ''} ${maxColors} colors`.trim()
+          );
+        } finally {
+          quantizedImage.close();
+        }
         posterizedImageFile.maxColors = maxColors;
-        quantizedImage.close();
         signal.throwIfAborted();
         await get().saveRecentImageFile(posterizedImageFile);
       });

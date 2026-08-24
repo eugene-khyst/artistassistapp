@@ -18,9 +18,9 @@
 
 import {kelvinToRgb} from '@eugene-khyst/artistassistapp-color-mixer';
 
-import type {AdjustmentParameters} from '@/services/image/color-adjustment';
+import type {AdjustmentParameters} from '@/services/image/adjust-colors';
 import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
-import {copyOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
+import {copyToOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
 
 import fragmentShaderSource from './glsl/color-adjustment.glsl';
 
@@ -77,7 +77,7 @@ export function adjustColorsWebGL(
       },
     },
   ]);
-  const result = copyOffscreenCanvas(renderer.canvas);
+  const result = copyToOffscreenCanvas(renderer.canvas);
   renderer.cleanUp();
   return result;
 }

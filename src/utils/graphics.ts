@@ -16,17 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {Rectangle} from '@/services/math/geometry';
 import {identity} from '@/utils/function';
 import type {Size} from '@/utils/types';
 
 export type DrawImageSource = ImageBitmap | OffscreenCanvas;
-
-export interface Margins {
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
-}
 
 export interface DrawImageParams {
   width: number;
@@ -44,19 +38,22 @@ export interface DrawImageParams {
 export type DrawImageParamsSupplier = (params: DrawImageParams) => DrawImageParams;
 
 export const DrawImage = {
-  cropMargins: (margins?: Margins): DrawImageParamsSupplier => {
-    const {top = 0, bottom = 0, left = 0, right = 0} = margins ?? {};
+  cropRectangle: (rectangle: Rectangle): DrawImageParamsSupplier => {
     return ({width: origWidth, height: origHeight}: DrawImageParams): DrawImageParams => {
-      const targetWidth = origWidth - left - right;
-      const targetHeight = origHeight - top - bottom;
+      const sx = Math.max(0, Math.round(rectangle.topLeft.x));
+      const sy = Math.max(0, Math.round(rectangle.topLeft.y));
+      const right = Math.min(origWidth, Math.round(rectangle.bottomRight.x));
+      const bottom = Math.min(origHeight, Math.round(rectangle.bottomRight.y));
+      const targetWidth = right - sx;
+      const targetHeight = bottom - sy;
       if (targetWidth <= 0 || targetHeight <= 0) {
         throw new Error('Incorrect image crop area');
       }
       return {
         width: targetWidth,
         height: targetHeight,
-        sx: left,
-        sy: top,
+        sx,
+        sy,
         sw: targetWidth,
         sh: targetHeight,
         dx: 0,
@@ -266,6 +263,28 @@ export async function createImageBitmapAndResize(
   }
 }
 
+export async function createImageBitmapWithBackground(
+  image: DrawImageSource,
+  backgroundColor: string | null
+): Promise<ImageBitmap> {
+  if (!backgroundColor) {
+    return await createImageBitmap(image);
+  }
+  const canvas = copyToOffscreenCanvas(image);
+  fillOffscreenCanvasBackground(canvas, backgroundColor);
+  return canvas.transferToImageBitmap();
+}
+
+export function fillOffscreenCanvasBackground(
+  canvas: OffscreenCanvas,
+  backgroundColor: string
+): void {
+  const ctx = canvas.getContext('2d')!;
+  ctx.globalCompositeOperation = 'destination-over';
+  ctx.fillStyle = backgroundColor;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
 export function rotateImageBitmapClockwise(image: ImageBitmap): ImageBitmap {
   const {width, height} = image;
   const canvas = new OffscreenCanvas(height, width);
@@ -287,7 +306,7 @@ export function drawImageToOffscreenCanvas(
   {
     willReadFrequently = false,
     drawImage: drawImageParamsSuppliers,
-    fillStyle = '#fff',
+    fillStyle = 'transparent',
   }: DrawImageOptions = {}
 ): [OffscreenCanvas, OffscreenCanvasRenderingContext2D] {
   const drawImageParamsSupplier: DrawImageParamsSupplier =
@@ -334,19 +353,23 @@ export async function imageBitmapToBlob(
     ...drawImageOptions
   }: Omit<DrawImageOptions, 'willReadFrequently'> & {encodeOptions?: ImageEncodeOptions} = {}
 ): Promise<Blob> {
-  const [canvas] = drawImageToOffscreenCanvas(image, drawImageOptions);
+  const type = encodeOptions?.type ?? 'image/jpeg';
+  const [canvas] = drawImageToOffscreenCanvas(image, {
+    ...drawImageOptions,
+    fillStyle: drawImageOptions.fillStyle ?? (type === 'image/jpeg' ? '#fff' : 'transparent'),
+  });
   return await offscreenCanvasToBlob(canvas, encodeOptions);
 }
 
-export function copyOffscreenCanvas(canvas: OffscreenCanvas): OffscreenCanvas {
-  const {width, height} = canvas;
+export function copyToOffscreenCanvas(image: DrawImageSource): OffscreenCanvas {
+  const {width, height} = image;
   const canvasCopy = new OffscreenCanvas(width, height);
-  canvasCopy.getContext('2d')!.drawImage(canvas, 0, 0);
+  canvasCopy.getContext('2d')!.drawImage(image, 0, 0);
   return canvasCopy;
 }
 
 export function applyMask(image: DrawImageSource, mask: DrawImageSource): OffscreenCanvas {
-  const [canvas, ctx] = drawImageToOffscreenCanvas(image);
+  const [canvas, ctx] = drawImageToOffscreenCanvas(image, {fillStyle: 'transparent'});
   ctx.globalCompositeOperation = 'destination-in';
   ctx.drawImage(mask, 0, 0);
   return canvas;

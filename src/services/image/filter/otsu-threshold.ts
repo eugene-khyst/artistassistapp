@@ -19,7 +19,6 @@
 import {clamp, rgbToOklab} from '@eugene-khyst/artistassistapp-color-mixer';
 
 export function computeOtsuThreshold({data}: ImageData, grayscaleInput = false): number {
-  console.time('compute-otsu-threshold');
   if (!data.length) {
     return 0.5;
   }
@@ -36,7 +35,6 @@ export function computeOtsuThreshold({data}: ImageData, grayscaleInput = false):
     hist[bin]!++;
   }
   const bestThreshold = computeOtsuThresholdFromHistogram(hist, total);
-  console.timeEnd('compute-otsu-threshold');
   return bestThreshold / 255;
 }
 

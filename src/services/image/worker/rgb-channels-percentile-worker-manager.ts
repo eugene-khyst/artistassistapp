@@ -20,6 +20,11 @@ import {type Remote, wrap} from 'comlink';
 
 import type {RgbChannelsPercentileCalculator} from '@/services/image/rgb-channels-percentile';
 
-export const rgbChannelsPercentileCalculator: Remote<RgbChannelsPercentileCalculator> = wrap(
-  new Worker(new URL('./rgb-channels-percentile-worker.ts', import.meta.url), {type: 'module'})
-);
+let calculator: Remote<RgbChannelsPercentileCalculator> | null = null;
+
+export function getRgbChannelsPercentileCalculator(): Remote<RgbChannelsPercentileCalculator> {
+  calculator ??= wrap(
+    new Worker(new URL('./rgb-channels-percentile-worker.ts', import.meta.url), {type: 'module'})
+  );
+  return calculator;
+}

@@ -17,7 +17,7 @@
  */
 
 import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
-import {copyOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
+import {copyToOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
 
 import fragmentShaderSource from './glsl/kuwahara-filter.glsl';
 
@@ -32,7 +32,7 @@ export function kuwaharaFilterWebGL(image: DrawImageSource, radiuses: number[]):
         },
       },
     ]);
-    return copyOffscreenCanvas(renderer.canvas);
+    return copyToOffscreenCanvas(renderer.canvas);
   });
   renderer.cleanUp();
   return results;

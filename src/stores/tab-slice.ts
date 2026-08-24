@@ -19,22 +19,22 @@
 import type {StateCreator} from 'zustand';
 
 import type {AppSlice} from '@/stores/app-slice';
-import {TabKey} from '@/tabs';
+import {DEFAULT_TAB_KEY, TabKey} from '@/tabs';
 import {blurFocusedElementIn} from '@/utils/focus';
 
-import type {BlurredImagesSlice} from './blurred-images-slice';
 import type {OutlineImageSlice} from './outline-image-slice';
+import type {SimplifyImageSlice} from './simplify-image-slice';
 import type {StorageSlice} from './storage-slice';
 import type {StyleTransferSlice} from './style-transfer-slice';
-import type {TonalImagesSlice} from './tonal-images-slice';
+import type {TonalValuesSlice} from './tonal-values-slice';
 
 export type UnsavedChangesChecker = () => Promise<boolean>;
 
 const unsavedChangesCheckers = new Map<TabKey, Set<UnsavedChangesChecker>>();
 
 type TabSliceDependencies = Pick<AppSlice, 'saveAppSettings'> &
-  Pick<TonalImagesSlice, 'loadTonalImages'> &
-  Pick<BlurredImagesSlice, 'loadBlurredImages'> &
+  Pick<TonalValuesSlice, 'loadTonalImages'> &
+  Pick<SimplifyImageSlice, 'loadSimplifiedImages'> &
   Pick<OutlineImageSlice, 'loadOutlineImage'> &
   Pick<StyleTransferSlice, 'loadStyledImage'> &
   Pick<StorageSlice, 'loadStorageUsage'>;
@@ -53,7 +53,7 @@ export const createTabSlice: StateCreator<TabSlice & TabSliceDependencies, [], [
   set,
   get
 ) => ({
-  activeTabKey: TabKey.ColorSet,
+  activeTabKey: DEFAULT_TAB_KEY,
 
   registerUnsavedChangesChecker: (tabKey: TabKey, checker: UnsavedChangesChecker): (() => void) => {
     const checkers = unsavedChangesCheckers.get(tabKey) ?? new Set<UnsavedChangesChecker>();
@@ -88,8 +88,8 @@ export const createTabSlice: StateCreator<TabSlice & TabSliceDependencies, [], [
     });
     if (activeTabKey === TabKey.TonalValues) {
       get().loadTonalImages();
-    } else if (activeTabKey === TabKey.Simplified) {
-      void get().loadBlurredImages();
+    } else if (activeTabKey === TabKey.Simplify) {
+      void get().loadSimplifiedImages();
     } else if (activeTabKey === TabKey.Outline) {
       void get().loadOutlineImage();
     } else if (activeTabKey === TabKey.StyleTransfer) {

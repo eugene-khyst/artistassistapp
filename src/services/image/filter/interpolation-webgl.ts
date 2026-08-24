@@ -17,7 +17,7 @@
  */
 
 import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
-import {copyOffscreenCanvas} from '@/utils/graphics';
+import {copyToOffscreenCanvas} from '@/utils/graphics';
 
 import bicubicFragmentShaderSource from './glsl/bicubic-interpolation.glsl';
 import bilinearFragmentShaderSource from './glsl/bilinear-interpolation.glsl';
@@ -49,7 +49,7 @@ export function interpolationWebGL(
     size: [targetWidth, targetHeight],
   });
   renderer.render();
-  const resultCanvas = copyOffscreenCanvas(renderer.canvas);
+  const resultCanvas = copyToOffscreenCanvas(renderer.canvas);
   renderer.cleanUp();
   return resultCanvas;
 }

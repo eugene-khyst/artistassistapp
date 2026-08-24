@@ -62,11 +62,11 @@ import {useDebounce} from '@/hooks/useDebounce';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
 import {
   type ColorPickerSample,
-  ImageColorPickerCanvas,
   ImageColorPickerEventType,
+  ImageColorPickerMode,
   MIN_COLOR_PICKER_DIAMETER,
   type PipettePointSetEvent,
-} from '@/services/canvas/image/image-color-picker-canvas';
+} from '@/services/canvas/mode/image-color-picker-mode';
 import {Vector} from '@/services/math/geometry';
 import {ColorPickerSort} from '@/services/settings/types';
 import {useAppStore} from '@/stores/app-store';
@@ -126,26 +126,31 @@ export function ImageColorPicker() {
 
   const {t} = useLingui();
 
-  const imageColorPickerCanvasSupplier = useCallback(
-    (canvas: HTMLCanvasElement): ImageColorPickerCanvas => {
-      const colorPickerCanvas = new ImageColorPickerCanvas(canvas);
-      const listener = ({rgb, point: {x, y}, diameter}: PipettePointSetEvent) => {
-        void setTargetColor(rgbToHex(...rgb), {x, y, diameter});
-        selectPaletteColorMixtures(colorPickerCanvas.getSamplesNearby(x, y).map(({key}) => key));
-        setColorMatchImage(null);
-      };
-      colorPickerCanvas.events.subscribe(ImageColorPickerEventType.PipettePointSet, listener);
-      return colorPickerCanvas;
-    },
-    [setTargetColor, selectPaletteColorMixtures, setColorMatchImage]
-  );
+  const imageColorPickerModeSupplier = useCallback((): ImageColorPickerMode => {
+    const colorPickerMode = new ImageColorPickerMode();
+    const listener = ({rgb, imageCenteredPoint, diameter}: PipettePointSetEvent) => {
+      const {x, y} = imageCenteredPoint;
+      void setTargetColor(rgbToHex(...rgb), {x, y, diameter});
+      selectPaletteColorMixtures(
+        colorPickerMode.getSamplesNearby(imageCenteredPoint).map(({key}) => key)
+      );
+      setColorMatchImage(null);
+    };
+    colorPickerMode.events.subscribe(ImageColorPickerEventType.PipettePointSet, listener);
+    return colorPickerMode;
+  }, [setTargetColor, selectPaletteColorMixtures, setColorMatchImage]);
 
-  const {ref: canvasRef, zoomableImageCanvas: colorPickerCanvas} =
-    useZoomableImageCanvas<ImageColorPickerCanvas>(
-      imageColorPickerCanvasSupplier,
-      originalImage,
-      selectedImageFile?.digest
-    );
+  const {
+    ref: canvasRef,
+    zoomableImageCanvas,
+    canvasMode: colorPickerMode,
+  } = useZoomableImageCanvas(
+    imageColorPickerModeSupplier,
+    originalImage,
+    selectedImageFile?.digest,
+    undefined,
+    {imageSmoothingEnabled: false}
+  );
 
   const [sampleDiameter, setSampleDiameter] = useState<number>(
     () => useAppStore.getState().appSettings.colorPickerDiameter ?? 10
@@ -168,11 +173,11 @@ export function ImageColorPicker() {
   const sampleDiameterDebounced = useDebounce(sampleDiameter, 300);
 
   useEffect(() => {
-    colorPickerCanvas?.setPipetteDiameter(sampleDiameterDebounced);
+    colorPickerMode?.setPipetteDiameter(sampleDiameterDebounced);
     if (sampleDiameterDebounced !== useAppStore.getState().appSettings.colorPickerDiameter) {
       void saveAppSettings({colorPickerDiameter: sampleDiameterDebounced});
     }
-  }, [colorPickerCanvas, sampleDiameterDebounced, saveAppSettings]);
+  }, [colorPickerMode, sampleDiameterDebounced, saveAppSettings]);
 
   const [prevPipette, setPrevPipette] = useState(colorPickerPipette);
   if (colorPickerPipette !== prevPipette) {
@@ -183,37 +188,38 @@ export function ImageColorPicker() {
   }
 
   useEffect(() => {
-    if (!colorPickerCanvas || !colorPickerPipette) {
+    if (!colorPickerMode || !colorPickerPipette || !zoomableImageCanvas) {
       return;
     }
     const {x, y, diameter} = colorPickerPipette;
-    colorPickerCanvas.setPipetteDiameter(diameter);
-    colorPickerCanvas.setPipettePoint(new Vector(x, y));
-    colorPickerCanvas.zoomToFit();
-  }, [colorPickerCanvas, colorPickerPipette]);
+    colorPickerMode.setPipetteDiameter(diameter);
+    colorPickerMode.setPipettePoint(
+      zoomableImageCanvas.canvasPointerFromImageCenteredPoint(new Vector(x, y))
+    );
+    zoomableImageCanvas.zoomToFit();
+  }, [colorPickerMode, colorPickerPipette, zoomableImageCanvas]);
 
   useEffect(() => {
     if (!colorSet) {
       return;
     }
-    colorPickerCanvas?.setSamples(
+    colorPickerMode?.setSamples(
       [...(paletteColorMixtures.get(colorSet.type)?.values() ?? [])].flatMap(
         ({key, samplingArea, layerRgb}): ColorPickerSample | ColorPickerSample[] =>
           samplingArea
             ? {
                 key,
-                x: samplingArea.x,
-                y: samplingArea.y,
+                imageCenteredPoint: new Vector(samplingArea.x, samplingArea.y),
                 rgb: layerRgb,
               }
             : []
       )
     );
-  }, [colorPickerCanvas, paletteColorMixtures, colorSet]);
+  }, [colorPickerMode, paletteColorMixtures, colorSet]);
 
   useEffect(() => {
-    colorPickerCanvas?.setOverlayImage(colorMatchImage);
-  }, [colorPickerCanvas, colorMatchImage]);
+    colorPickerMode?.setOverlayImage(colorMatchImage);
+  }, [colorPickerMode, colorMatchImage]);
 
   const handleReflectanceChartClick = useCallback((colorMixture?: ColorMixture) => {
     setReflectanceChartColorMixture(colorMixture);
@@ -229,7 +235,7 @@ export function ImageColorPicker() {
   };
 
   const handleTargetColorChange = (color: AggregationColor) => {
-    colorPickerCanvas?.setPipettePoint(null);
+    colorPickerMode?.setPipettePoint(null);
     void setTargetColor(color.toHexString(), null);
     setColorMatchImage(null);
   };

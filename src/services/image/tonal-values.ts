@@ -33,14 +33,12 @@ const COLOR_MAP_LEGEND_HEIGHT_RATIO = 0.015;
 const COLOR_MAP_LEGEND_MIN_HEIGHT = 12;
 const COLOR_MAP_LEGEND_MAX_HEIGHT = 40;
 
-export function getTonalValues(image: DrawImageSource): ImageBitmap[] {
-  console.time('tonal-values');
+export function extractTonalValues(image: DrawImageSource): ImageBitmap[] {
   const tonalValues: ImageBitmap[] = thresholdFilterWebGL(image, THRESHOLDS, TONAL_VALUES).map(
     canvas => canvas.transferToImageBitmap()
   );
   const [colorMap, colorMapLegend] = colorMapFilterWebGL(image);
   addColorMapLegend(colorMap, colorMapLegend);
-  console.timeEnd('tonal-values');
   return [...tonalValues, colorMap.transferToImageBitmap()];
 }
 

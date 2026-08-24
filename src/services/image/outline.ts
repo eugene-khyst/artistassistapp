@@ -25,21 +25,19 @@ import {type OnnxModel} from '@/services/ml/types';
 import type {FetchProgressCallback} from '@/utils/fetch';
 import {type DrawImageSource, offscreenCanvasToImageData} from '@/utils/graphics';
 
-export async function getOutline(
+export async function extractOutline(
   image: DrawImageSource,
   model: OnnxModel,
   auth: Authentication | null,
   progressCallback?: FetchProgressCallback,
   signal?: AbortSignal
 ): Promise<ImageBitmap> {
-  console.time('outline');
   let outlineImage: ImageBitmap;
   if (model.url) {
     outlineImage = await transformImage([image], model, auth, progressCallback, signal);
   } else {
     outlineImage = sobelEdgeDetection(image);
   }
-  console.timeEnd('outline');
   return outlineImage;
 }
 

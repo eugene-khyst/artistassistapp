@@ -75,3 +75,20 @@ export function maxOf<T>(items: T[], comparator: Comparator<T>): T | undefined {
   }
   return max;
 }
+
+export function containsSequence<T>(actual: readonly T[], expected: readonly T[]): boolean;
+export function containsSequence<A, E>(
+  actual: readonly A[],
+  expected: readonly E[],
+  mapper: (a: A) => E
+): boolean;
+export function containsSequence<A, E>(
+  actual: readonly A[],
+  expected: readonly E[],
+  mapper?: (a: A) => E
+): boolean {
+  return (
+    actual.length === expected.length &&
+    actual.every((item, index) => (mapper ? mapper(item) : item) === expected[index])
+  );
+}

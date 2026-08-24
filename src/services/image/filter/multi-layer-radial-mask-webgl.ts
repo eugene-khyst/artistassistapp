@@ -18,7 +18,7 @@
 
 import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
 import {Vector} from '@/services/math/geometry';
-import {copyOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
+import {copyToOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
 
 import fragmentShaderSource from './glsl/multi-layer-radial-mask.glsl';
 
@@ -48,7 +48,7 @@ export function multiLayerRadialMaskWebGL(
       },
     },
   ]);
-  const result = copyOffscreenCanvas(renderer.canvas);
+  const result = copyToOffscreenCanvas(renderer.canvas);
   renderer.cleanUp();
   return result;
 }

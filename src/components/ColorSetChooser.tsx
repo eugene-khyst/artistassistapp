@@ -480,7 +480,7 @@ export function ColorSetChooser() {
             match reference photos using their own art supplies, create palettes and mixing charts,
             study tonal values, make outlines, draw with grids, explore limited palettes and
             artist-inspired versions of photos, straighten photos, adjust their colors, remove
-            backgrounds, and compare photos side by side.
+            backgrounds, and compare images side by side.
           </Trans>
         </Typography.Paragraph>
 

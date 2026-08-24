@@ -58,14 +58,16 @@ export async function transformImage(
     signal
   );
   const outputImage = await createImageBitmap(float32TensorToImageData(outputTensor!, model));
-  const resizedOutputImage = interpolationWebGL(
-    outputImage,
-    resizeWidth,
-    resizeHeight,
-    Interpolation.Lanczos
-  ).transferToImageBitmap();
-  outputImage.close();
-  return resizedOutputImage;
+  try {
+    return interpolationWebGL(
+      outputImage,
+      resizeWidth,
+      resizeHeight,
+      Interpolation.Lanczos
+    ).transferToImageBitmap();
+  } finally {
+    outputImage.close();
+  }
 }
 
 export async function withProcessedImageCache(
@@ -153,6 +155,7 @@ export function imageBitmapToImageData(
       ...drawImageToOffscreenCanvas(image, {
         willReadFrequently: true,
         drawImage,
+        fillStyle: '#fff',
       })
     )
   );

@@ -34,9 +34,14 @@ import {
 import type {SampleImageDefinition} from '@/services/image/sample-images';
 import type {AppSlice} from '@/stores/app-slice';
 import type {CloudSlice} from '@/stores/cloud-slice';
+import {
+  type ImageDependency,
+  ImageDependencyRegistry,
+} from '@/stores/registry/image-dependency-registry';
 import {persistChange} from '@/stores/sync/persist-change';
 import {TabKey} from '@/tabs';
 import {createAbortableOperation} from '@/utils/abortable-operation';
+import {containsSequence} from '@/utils/array';
 import {createImageBitmapAndResize, IMAGE_SIZE, ResizeImage} from '@/utils/graphics';
 import {isAbortError} from '@/utils/promise';
 
@@ -47,26 +52,21 @@ import type {TabSlice} from './tab-slice';
 const REFERENCE_IMAGE_TIMEOUT_MS = 120_000;
 const RECENT_IMAGES_PAGE_SIZE = 12;
 
-type SelectImageResult = 'selected' | 'unreadable' | 'aborted';
-
-export interface ProcessedImageHandle {
-  abort?: () => void;
-  clear?: () => void;
+enum SelectImageResult {
+  Selected = 'selected',
+  Unreadable = 'unreadable',
+  Aborted = 'aborted',
 }
 
-const processedImageHandles: ProcessedImageHandle[] = [];
+const originalImageDependencies = new ImageDependencyRegistry();
 
-export function registerProcessedImage(handle: ProcessedImageHandle): void {
-  processedImageHandles.push(handle);
+export function registerOriginalImageDependency(dependency: ImageDependency): void {
+  originalImageDependencies.register(dependency);
 }
 
-function abortAndClearProcessedImages(): void {
-  for (const {abort} of processedImageHandles) {
-    abort?.();
-  }
-  for (const {clear} of processedImageHandles) {
-    clear?.();
-  }
+function toImageFile(image: RecentImage): ImageFile | null {
+  const {blob} = image;
+  return blob ? {...image, blob} : null;
 }
 
 export interface OriginalImageSlice {
@@ -103,17 +103,6 @@ type OriginalImageSliceDependencies = Pick<TabSlice, 'setActiveTabKey'> &
   > &
   Pick<AppSlice, 'saveStoreChangeTokens'> &
   Pick<CloudSlice, 'pushCloudState'>;
-
-function toImageFile(image: RecentImage): ImageFile | null {
-  const {blob} = image;
-  return blob ? {...image, blob} : null;
-}
-
-function hasDigestSequence(images: RecentImage[], digests: string[]): boolean {
-  return (
-    images.length === digests.length && images.every(({digest}, index) => digest === digests[index])
-  );
-}
 
 export const createOriginalImageSlice: StateCreator<
   OriginalImageSlice & OriginalImageSliceDependencies,
@@ -206,7 +195,7 @@ export const createOriginalImageSlice: StateCreator<
           RECENT_IMAGES_PAGE_SIZE
         );
         set(({recentImages}) => {
-          if (!hasDigestSequence(recentImages, baseDigests)) {
+          if (!containsSequence(recentImages, baseDigests, ({digest}) => digest)) {
             return {};
           }
           const loadedDigests = new Set(baseDigests);
@@ -233,7 +222,7 @@ export const createOriginalImageSlice: StateCreator<
           setActiveTabKey: false,
           suppressReadError: true,
         });
-        if (selected !== 'unreadable') {
+        if (selected !== SelectImageResult.Unreadable) {
           return;
         }
       }
@@ -248,7 +237,7 @@ export const createOriginalImageSlice: StateCreator<
       const selected = await get().selectImageFile(imageFile, {
         suppressReadError: true,
       });
-      if (selected !== 'selected') {
+      if (selected !== SelectImageResult.Selected) {
         return;
       }
       const date = new Date();
@@ -290,7 +279,7 @@ export const createOriginalImageSlice: StateCreator<
               throw error;
             }
             console.error('Could not read saved photo', error);
-            return 'unreadable';
+            return SelectImageResult.Unreadable;
           }
           try {
             signal.throwIfAborted();
@@ -300,7 +289,7 @@ export const createOriginalImageSlice: StateCreator<
               signal.throwIfAborted();
             }
             const prevImage = get().originalImage;
-            abortAndClearProcessedImages();
+            originalImageDependencies.abortAndClear();
             set({
               selectedImageFile: imageFile,
               originalImage,
@@ -317,10 +306,10 @@ export const createOriginalImageSlice: StateCreator<
           await get().setUnderlayer(null);
           signal.throwIfAborted();
           await get().loadPaletteColorMixtures({signal});
-          return 'selected';
+          return SelectImageResult.Selected;
         }
       );
-      return selected ?? 'aborted';
+      return selected ?? SelectImageResult.Aborted;
     },
 
     saveRecentImageFile: async (imageFile: ImageFile): Promise<void> => {

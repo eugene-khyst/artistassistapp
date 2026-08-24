@@ -40,6 +40,7 @@ export function ImageViewSelector({
 }: ImageViewSelectorProps) {
   return (
     <Segmented<ImageView>
+      className="u-w-fit"
       options={[
         {value: ImageView.Original, label: <Trans>Original</Trans>},
         {value: ImageView.Result, label: resultLabel},

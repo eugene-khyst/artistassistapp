@@ -20,13 +20,13 @@ import type {StateCreator} from 'zustand';
 
 import {formatFetchProgress} from '@/i18n';
 import {hasAccessTo} from '@/services/auth/utils';
-import {getOutline} from '@/services/image/outline';
+import {extractOutline} from '@/services/image/outline';
 import {withProcessedImageCache} from '@/services/ml/image-transformer';
 import type {OnnxModel} from '@/services/ml/types';
 import type {AuthSlice} from '@/stores/auth-slice';
 import {createAbortableOperation} from '@/utils/abortable-operation';
 
-import {type OriginalImageSlice, registerProcessedImage} from './original-image-slice';
+import {type OriginalImageSlice, registerOriginalImageDependency} from './original-image-slice';
 
 export interface OutlineImageSlice {
   outlineModel?: OnnxModel | null;
@@ -67,7 +67,7 @@ export const createOutlineImageSlice: StateCreator<
     },
   });
 
-  registerProcessedImage({
+  registerOriginalImageDependency({
     abort: () => {
       outlineOperation.abort();
     },
@@ -121,7 +121,7 @@ export const createOutlineImageSlice: StateCreator<
           outlineModel,
           [selectedImageFile.digest],
           () =>
-            getOutline(
+            extractOutline(
               originalImage,
               outlineModel,
               auth,

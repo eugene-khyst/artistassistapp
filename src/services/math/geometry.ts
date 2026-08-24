@@ -16,9 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Comparator} from '@eugene-khyst/artistassistapp-color-mixer';
+import {type Comparator, Matrix} from '@eugene-khyst/artistassistapp-color-mixer';
 
 import {LengthUnit, type LengthUnitDefinition} from '@/services/math/types';
+import type {Size} from '@/utils/types';
 
 export const LENGTH_UNITS = new Map<LengthUnit, LengthUnitDefinition>([
   [LengthUnit.Millimeter, {abbreviation: 'mm', toMillimeters: number => number}],
@@ -53,6 +54,10 @@ export class Vector {
   length(): number {
     return Math.hypot(this.x, this.y);
   }
+
+  angle(): number {
+    return Math.atan2(this.y, this.x);
+  }
 }
 
 export class Rectangle {
@@ -71,12 +76,33 @@ export class Rectangle {
     this.center = new Vector((topLeft.x + bottomRight.x) / 2, (topLeft.y + bottomRight.y) / 2);
   }
 
+  static fromTopLeft(topLeft: Vector, width: number, height: number): Rectangle {
+    return new Rectangle(topLeft.add(new Vector(width, height)), topLeft);
+  }
+
   contains({x, y}: Vector, shrinkBy = 0): boolean {
     return (
       x >= this.topLeft.x + shrinkBy &&
       y >= this.topLeft.y + shrinkBy &&
       x <= this.bottomRight.x - shrinkBy &&
       y <= this.bottomRight.y - shrinkBy
+    );
+  }
+}
+
+export class Polygon {
+  readonly vertices: readonly Vector[];
+
+  constructor(vertices: readonly Vector[]) {
+    if (vertices.length < 2) {
+      this.vertices = [...vertices];
+      return;
+    }
+    const center = vertices
+      .reduce((sum, vertex) => sum.add(vertex), Vector.ZERO)
+      .divide(vertices.length);
+    this.vertices = [...vertices].sort(
+      (a, b) => a.subtract(center).angle() - b.subtract(center).angle()
     );
   }
 }
@@ -89,4 +115,53 @@ export function orderCornersClockwise(vertices: Vector[]): Vector[] {
   const [topLeft, topRight] = sortedByY.slice(0, 2).sort(compareByX);
   const [bottomLeft, bottomRight] = sortedByY.slice(2, 4).sort(compareByX);
   return [topLeft, topRight, bottomRight, bottomLeft].filter((value): value is Vector => !!value);
+}
+
+export function calculateDestSize(vertices: Vector[]): Size {
+  if (vertices.length !== 4) {
+    throw new Error('Incorrect number of vertices');
+  }
+  const [topLeft, topRight, bottomRight, bottomLeft] = vertices;
+  const topWidth = topLeft!.subtract(topRight!).length();
+  const bottomWidth = bottomLeft!.subtract(bottomRight!).length();
+  const leftHeight = topLeft!.subtract(bottomLeft!).length();
+  const rightHeight = topRight!.subtract(bottomRight!).length();
+  const width = Math.round((topWidth + bottomWidth) / 2);
+  const height = Math.round((leftHeight + rightHeight) / 2);
+  if (width <= 0 || height <= 0) {
+    throw new Error('Invalid vertices');
+  }
+  return [width, height];
+}
+
+export function computeHomography(src: Vector[], dest: Vector[]): Matrix | null {
+  const A = Matrix.zeros(8, 8);
+  const b = Matrix.zeros(8, 1);
+  for (let i = 0; i < 4; i++) {
+    const {x: srcX, y: srcY} = src[i]!;
+    const {x: destX, y: destY} = dest[i]!;
+    A.set(2 * i, 0, srcX);
+    A.set(2 * i, 1, srcY);
+    A.set(2 * i, 2, 1);
+    A.set(2 * i, 6, -srcX * destX);
+    A.set(2 * i, 7, -srcY * destX);
+    b.set(2 * i, 0, destX);
+    A.set(2 * i + 1, 3, srcX);
+    A.set(2 * i + 1, 4, srcY);
+    A.set(2 * i + 1, 5, 1);
+    A.set(2 * i + 1, 6, -srcX * destY);
+    A.set(2 * i + 1, 7, -srcY * destY);
+    b.set(2 * i + 1, 0, destY);
+  }
+  try {
+    const h = A.inverse().multiply(b);
+    return Matrix.fromRows([
+      [h.get(0, 0), h.get(1, 0), h.get(2, 0)],
+      [h.get(3, 0), h.get(4, 0), h.get(5, 0)],
+      [h.get(6, 0), h.get(7, 0), 1],
+    ]);
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
 }

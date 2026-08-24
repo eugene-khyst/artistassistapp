@@ -30,8 +30,8 @@ import {useState} from 'react';
 
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {useColorSetReset} from '@/hooks/useColorSetReset';
-import {useZoomableImageCanvas, zoomableImageCanvasSupplier} from '@/hooks/useZoomableImageCanvas';
-import type {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
+import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
+import {NOOP_CANVAS_MODE_SUPPLIER} from '@/services/canvas/mode/canvas-mode';
 import {useAppStore} from '@/stores/app-store';
 import {getFilename} from '@/utils/filename';
 import {imageBitmapToBlob} from '@/utils/graphics';
@@ -58,14 +58,14 @@ export function ImageLimitedPalette() {
 
   const [colorIds, setColorIds] = useState<ColorId[]>([]);
 
-  const {ref: limitedPaletteCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
-    zoomableImageCanvasSupplier,
+  const {ref: limitedPaletteCanvasRef} = useZoomableImageCanvas(
+    NOOP_CANVAS_MODE_SUPPLIER,
     limitedPaletteImage,
     selectedImageFile?.digest
   );
 
-  const {ref: originalCanvasRef} = useZoomableImageCanvas<ZoomableImageCanvas>(
-    zoomableImageCanvasSupplier,
+  const {ref: originalCanvasRef} = useZoomableImageCanvas(
+    NOOP_CANVAS_MODE_SUPPLIER,
     originalImage,
     selectedImageFile?.digest
   );

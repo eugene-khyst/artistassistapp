@@ -45,6 +45,7 @@ interface Line {
 export function detectDocumentCornersSobel(image: ImageBitmap): Vector[] | null {
   const [canvas] = drawImageToOffscreenCanvas(image, {
     drawImage: DrawImage.resizeToLongestSide(AUTO_DETECT_MAX_SIDE),
+    fillStyle: '#fff',
   });
   const {width, height} = canvas;
   if (width < 32 || height < 32) {

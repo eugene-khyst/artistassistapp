@@ -25,10 +25,8 @@ import StickyBox from 'react-sticky-box';
 import {AdModal} from '@/components/ad/AdModal';
 import {ColorMixingChart} from '@/components/ColorMixingChart';
 import {CustomColorBrandCreator} from '@/components/CustomColorBrandCreator';
-import {ImageBackgroundRemoval} from '@/components/ImageBackgroundRemoval';
-import {ImageColorAdjustment} from '@/components/ImageColorAdjustment';
+import {ImageEditor} from '@/components/ImageEditor';
 import {ImageOutline} from '@/components/ImageOutline';
-import {ImagePerspectiveCorrection} from '@/components/ImagePerspectiveCorrection';
 import {ImagesCompare} from '@/components/ImagesCompare';
 import {ImageStyleTransfer} from '@/components/ImageStyleTransfer';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
@@ -44,11 +42,11 @@ import styles from './ArtistAssistApp.module.css';
 import {ColorMixer} from './components/ColorMixer';
 import {ColorSetChooser} from './components/ColorSetChooser';
 import {Help} from './components/Help';
-import {ImageBlurred} from './components/ImageBlurred';
 import {ImageChooser} from './components/ImageChooser';
 import {ImageColorPicker} from './components/ImageColorPicker';
 import {ImageGrid} from './components/ImageGrid';
 import {ImageLimitedPalette} from './components/ImageLimitedPalette';
+import {ImageSimplifier} from './components/ImageSimplifier';
 import {ImageTonalValues} from './components/ImageTonalValues';
 import {Palette} from './components/Palette';
 import {WATERMARK_TEXT} from './config';
@@ -139,8 +137,8 @@ export function ArtistAssistApp() {
       children: <ImageTonalValues />,
     },
     {
-      key: TabKey.Simplified,
-      children: <ImageBlurred />,
+      key: TabKey.Simplify,
+      children: <ImageSimplifier />,
     },
     {
       key: TabKey.LimitedPalette,
@@ -151,25 +149,17 @@ export function ArtistAssistApp() {
       children: <ImageStyleTransfer />,
     },
     {
-      key: TabKey.PerspectiveCorrection,
-      children: <ImagePerspectiveCorrection />,
+      key: TabKey.EditImage,
+      children: <ImageEditor />,
     },
     {
-      key: TabKey.ColorCorrection,
-      children: <ImageColorAdjustment />,
-    },
-    {
-      key: TabKey.BackgroundRemove,
-      children: <ImageBackgroundRemoval />,
-    },
-    {
-      key: TabKey.Compare,
+      key: TabKey.CompareImages,
       children: <ImagesCompare />,
     },
     ...(user
       ? [
           {
-            key: TabKey.CustomColorBrand,
+            key: TabKey.CustomColors,
             children: <CustomColorBrandCreator />,
           },
         ]

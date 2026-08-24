@@ -24,7 +24,7 @@ import {
 
 import {AuthError} from '@/services/auth/errors';
 import {CloudError} from '@/services/cloud/errors';
-import {TabKey} from '@/tabs';
+import {isTabKey, type TabKey} from '@/tabs';
 
 export interface UrlParsingResult {
   loginCallback?: {
@@ -55,7 +55,6 @@ const SKU_BASE = new Map<number, number>([
   [45, 6000000], //golden-williamsburg
 ]);
 const URL_PARAM_ERROR = 'error';
-const TAB_KEY_VALUES = new Set<string>(Object.values(TabKey));
 const COLOR_TYPE_VALUES = new Set<number>(
   Object.values(ColorType).filter((value): value is number => typeof value === 'number')
 );
@@ -90,23 +89,22 @@ export function colorSetToUrl({
   return url.toString();
 }
 
-function parseTabFromPathname(url: URL): TabKey | undefined {
+function parseTab(url: URL): UrlParsingResult | undefined {
   const slug: string = url.pathname.replaceAll(/^\/|\/$/g, '');
-  if (slug && TAB_KEY_VALUES.has(slug)) {
-    return slug as TabKey;
+  if (slug === 'install') {
+    return {
+      install: true,
+    };
+  }
+  if (isTabKey(slug)) {
+    return {
+      tabKey: slug,
+    };
   }
   return;
 }
 
-function parseTab(searchParams: URLSearchParams): TabKey | undefined {
-  const tab: string | null = searchParams.get('tab');
-  if (tab && TAB_KEY_VALUES.has(tab)) {
-    return tab as TabKey;
-  }
-  return;
-}
-
-function parseColorSet(searchParams: URLSearchParams): ColorSetDefinition | undefined {
+function parseColorSet(searchParams: URLSearchParams): UrlParsingResult | undefined {
   if (!searchParams.has(URL_PARAM_COLOR_TYPE) || !searchParams.has(URL_PARAM_COLOR_BRANDS)) {
     return;
   }
@@ -118,7 +116,7 @@ function parseColorSet(searchParams: URLSearchParams): ColorSetDefinition | unde
     .get(URL_PARAM_COLOR_BRANDS)!
     .split(URL_PARAM_SEPARATOR)
     .map(parseUrlInteger);
-  if (parsedBrands.some(brand => brand === undefined)) {
+  if (parsedBrands.includes(undefined)) {
     return;
   }
   const brands = parsedBrands.filter((brand): brand is number => brand !== undefined);
@@ -130,7 +128,7 @@ function parseColorSet(searchParams: URLSearchParams): ColorSetDefinition | unde
         .get(paramColors)!
         .split(URL_PARAM_SEPARATOR)
         .map(parseUrlInteger);
-      if (parsedIds.some(id => id === undefined)) {
+      if (parsedIds.includes(undefined)) {
         return;
       }
       const ids = parsedIds.filter((id): id is number => id !== undefined);
@@ -142,11 +140,13 @@ function parseColorSet(searchParams: URLSearchParams): ColorSetDefinition | unde
   }
   const name = searchParams.get(URL_PARAM_NAME);
   return {
-    type,
-    brands,
-    standardColorSet: CUSTOM_COLOR_SET,
-    colors,
-    ...(name ? {name} : {}),
+    colorSet: {
+      type,
+      brands,
+      standardColorSet: CUSTOM_COLOR_SET,
+      colors,
+      ...(name ? {name} : {}),
+    },
   };
 }
 
@@ -158,67 +158,57 @@ function parseUrlInteger(value: string | null): number | undefined {
   return Number.isSafeInteger(parsed) ? parsed : undefined;
 }
 
-function parseLoginCallback(url: URL): UrlParsingResult['loginCallback'] | undefined {
+function parseLoginCallback(url: URL): UrlParsingResult | undefined {
   if (url.pathname !== '/login/callback') {
     return;
   }
   return {
-    completionToken: url.searchParams.get('completion_token'),
+    loginCallback: {
+      completionToken: url.searchParams.get('completion_token'),
+    },
   };
 }
 
-function parseLoggedOut(url: URL): UrlParsingResult['loggedOut'] | undefined {
+function parseLoggedOut(url: URL): UrlParsingResult | undefined {
   if (url.pathname !== '/logged-out') {
     return;
   }
   const {searchParams} = url;
   return {
-    error: searchParams.has(URL_PARAM_ERROR)
-      ? AuthError.fromErrorType(
-          searchParams.get(URL_PARAM_ERROR),
-          'Logged out due to an authentication error'
-        )
-      : null,
+    loggedOut: {
+      error: searchParams.has(URL_PARAM_ERROR)
+        ? AuthError.fromErrorType(
+            searchParams.get(URL_PARAM_ERROR),
+            'Logged out due to an authentication error'
+          )
+        : null,
+    },
   };
 }
 
-function parseCloudCallback(url: URL): UrlParsingResult['cloudCallback'] | undefined {
+function parseCloudCallback(url: URL): UrlParsingResult | undefined {
   if (url.pathname !== '/cloud/callback') {
     return;
   }
   const {searchParams} = url;
   return {
-    completed: searchParams.get('completed')?.toLowerCase() === 'true',
-    error: searchParams.has(URL_PARAM_ERROR)
-      ? CloudError.fromErrorType(searchParams.get(URL_PARAM_ERROR), 'Cloud connection failed')
-      : null,
+    cloudCallback: {
+      completed: searchParams.get('completed')?.toLowerCase() === 'true',
+      error: searchParams.has(URL_PARAM_ERROR)
+        ? CloudError.fromErrorType(searchParams.get(URL_PARAM_ERROR), 'Cloud connection failed')
+        : null,
+    },
   };
 }
 
 export function parseUrl(urlStr: string): UrlParsingResult {
   const url = new URL(urlStr);
-  const loginCallback = parseLoginCallback(url);
-  if (loginCallback) {
-    return {loginCallback};
-  }
-  const loggedOut = parseLoggedOut(url);
-  if (loggedOut) {
-    return {loggedOut};
-  }
-  if (url.pathname === '/install') {
-    return {install: true};
-  }
-  const cloudCallback = parseCloudCallback(url);
-  if (cloudCallback) {
-    return {cloudCallback};
-  }
-  const tabKey: TabKey | undefined = parseTabFromPathname(url) ?? parseTab(url.searchParams);
-  if (tabKey) {
-    return {tabKey};
-  }
-  const colorSet: ColorSetDefinition | undefined = parseColorSet(url.searchParams);
-  if (colorSet) {
-    return {colorSet};
-  }
-  return {};
+  return (
+    parseLoginCallback(url) ??
+    parseLoggedOut(url) ??
+    parseCloudCallback(url) ??
+    parseTab(url) ??
+    parseColorSet(url.searchParams) ??
+    {}
+  );
 }

@@ -67,11 +67,11 @@ import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {useCreateImageBitmap} from '@/hooks/useCreateImageBitmap';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
 import {
-  ImageColorPickerCanvas,
   ImageColorPickerEventType,
+  ImageColorPickerMode,
   MIN_COLOR_PICKER_DIAMETER,
   type PipettePointSetEvent,
-} from '@/services/canvas/image/image-color-picker-canvas';
+} from '@/services/canvas/mode/image-color-picker-mode';
 import {toCustomColorBrandSource} from '@/services/cloud/cloud-state';
 import {FileExtension} from '@/services/cloud/types';
 import {useAppStore} from '@/stores/app-store';
@@ -270,26 +270,24 @@ export function CustomColorBrandCreator() {
     [form]
   );
 
-  const imageColorPickerCanvasSupplier = useCallback(
-    (canvas: HTMLCanvasElement): ImageColorPickerCanvas => {
-      const colorPickerCanvas = new ImageColorPickerCanvas(canvas);
-      colorPickerCanvas.setPipetteDiameter(DEFAULT_SAMPLE_DIAMETER);
-      return colorPickerCanvas;
-    },
-    []
-  );
+  const imageColorPickerModeSupplier = useCallback((): ImageColorPickerMode => {
+    const colorPickerMode = new ImageColorPickerMode();
+    colorPickerMode.setPipetteDiameter(DEFAULT_SAMPLE_DIAMETER);
+    return colorPickerMode;
+  }, []);
 
   const {imageBitmap, isLoading: isImageLoading} = useCreateImageBitmap(imageFile);
 
-  const {ref: canvasRef, zoomableImageCanvas: colorPickerCanvas} =
-    useZoomableImageCanvas<ImageColorPickerCanvas>(
-      imageColorPickerCanvasSupplier,
-      imageBitmap,
-      imageFile
-    );
+  const {ref: canvasRef, canvasMode: colorPickerMode} = useZoomableImageCanvas(
+    imageColorPickerModeSupplier,
+    imageBitmap,
+    imageFile,
+    undefined,
+    {imageSmoothingEnabled: false}
+  );
 
   useEffect(() => {
-    if (!colorPickerCanvas) {
+    if (!colorPickerMode) {
       return;
     }
     const listener = ({rgb}: PipettePointSetEvent) => {
@@ -297,11 +295,11 @@ export function CustomColorBrandCreator() {
       setCurrentColor(hex);
       applyColor(form, editFromIndex, setEditFromIndex, scrollToColor, hex);
     };
-    colorPickerCanvas.events.subscribe(ImageColorPickerEventType.PipettePointSet, listener);
+    colorPickerMode.events.subscribe(ImageColorPickerEventType.PipettePointSet, listener);
     return () => {
-      colorPickerCanvas.events.unsubscribe(ImageColorPickerEventType.PipettePointSet, listener);
+      colorPickerMode.events.unsubscribe(ImageColorPickerEventType.PipettePointSet, listener);
     };
-  }, [form, colorPickerCanvas, editFromIndex, setEditFromIndex, scrollToColor]);
+  }, [form, colorPickerMode, editFromIndex, setEditFromIndex, scrollToColor]);
 
   const latestCustomColorBrand: CustomColorBrandDefinition | undefined = useMemo(
     () =>
@@ -357,12 +355,12 @@ export function CustomColorBrandCreator() {
   };
 
   const handleSampleDiameterChange = (pipetDiameter: number) => {
-    colorPickerCanvas?.setPipetteDiameter(pipetDiameter);
+    colorPickerMode?.setPipetteDiameter(pipetDiameter);
     setSampleDiameter(pipetDiameter);
   };
 
   const handleCurrentColorChange = (hex: string) => {
-    colorPickerCanvas?.setPipettePoint(null);
+    colorPickerMode?.setPipettePoint(null);
     setCurrentColor(hex);
     applyColor(form, editFromIndex, setEditFromIndex, scrollToColor, hex);
   };

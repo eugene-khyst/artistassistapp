@@ -65,7 +65,45 @@ Registry order encodes the custom-brands → color-sets dependency; tokens advan
 successful reload, so failures retry on the next wake. Add new durable stores to that registry.
 Local changes to serialized state use `persistChange`: db write → token merge → shared
 trailing-debounced cloud push (~5s). Image-derived slices register `{abort, clear}` with
-`registerProcessedImage`; image selection iterates those handles instead of enumerating slices.
+`registerOriginalImageDependency`; image selection iterates those dependencies instead of
+enumerating slices.
+
+An `EditImageCommand` carries the editor controls that produced it, never values derived from them:
+`applyEditImageCommand` recomputes the adjustment parameters and the white-balance max values from
+`AdjustColorsControls` at apply time, so a preview, an undo entry, and a replayed history step all
+restore the same controls from the command alone. The exception is the percentile max values, which
+cost a worker round trip and are cached on the command. `edit-image-command.ts` holds only the
+command model, so an editor slice never pulls the WebGL applier in `edit-image.ts` into its module
+graph.
+
+`edit-image-slice` knows no editor slice. Each editor registers its controls with
+`imageEditorControls` (`src/stores/registry/image-editor-registry.ts`), the same inversion as
+`registerOriginalImageDependency`: `reset` when that editor is closed or its command is undone,
+`clear` additionally for state that survives an editor switch (the crop aspect ratio shapes the crop
+rectangle, so only the whole editor resets it), and `restore` to put back the controls that produced
+a command. `showAppliedImageEditorControls` restores from the last history entry when it belongs to
+the active editor; it resets only when the history changed, because a canceled edit must not clear a
+value the user just set.
+
+Adjust Colors previews on slider release (`onChangeComplete`), not while dragging, so there is no
+debounce anywhere: `onChange` only updates the controls, which keeps the controlled sliders and the
+levels gradient live. One release is one history entry. `openAdjustColors` runs on panel open and
+`previewAdjustColors` on every control commit. Opening skips the controls it just restored, and does
+nothing when the history already holds an Adjust Colors edit. `resetAdjustColors` turns white
+balance off in that case, so the automatic white balance belongs to the first adjustment however the
+controls were reset — reopening the editor or undoing under an open one.
+
+Editing is one `editImageHistory` of `{command, replaceable}` — no separate live-preview slot and no
+per-entry `ImageBitmap`. Undo pops an entry, redo pushes it back, and both re-render. Consecutive
+edits from the same editor do not compose (saturation 120 then 130 would replay as 1.56), so
+`appliedCommands` drops a `replaceable` entry when the next entry is a replaceable edit from the
+same editor: the superseded command stays in the history for undo but is never applied. Crop and
+Straighten are not replaceable, because two crops do compose. Two renders are cached — `editedImage`
+for the whole history and `imageBeforeLastEdit` for everything but its last applied command — so
+retuning an editor re-applies one command instead of replaying, and `imageBeforeLastEdit` keeps its
+identity across successive edits from one editor, which is what keeps the percentile worker cache
+warm. It is also the image the Adjust Colors white-point picker samples. A render falls back to
+replaying from `imageToEdit` only when neither cache matches.
 
 Form-driven tabs (`ColorSetChooser`, `CustomColorBrandCreator`) re-prefill their AntD form from a
 `*ReloadRevision` counter bumped only in the slice's IDB reload action — external replacements
@@ -92,7 +130,13 @@ Pure business logic, no React. Notable non-obvious bits:
   in a re-rendered same-size image keeps the view the user zoomed to. Every `useZoomableImageCanvas`
   caller also passes a stable source key: change it when the underlying source changes to reset
   same-size replacements, but keep it stable while regenerating derived images so their viewport is
-  preserved.
+  preserved. Selection state owned by a `CanvasMode` (polygon vertices, crop rectangle) resets only
+  in `onImagesLoaded`, which `CompositeCanvasMode` replays for an inactive delegate when it next
+  activates, so the delegate always has a context and the reset never sees a zero image dimension.
+  Store-side editor controls reset instead when the editor is switched, except the crop aspect
+  ratio, which shapes that rectangle and so resets only with the whole editor. Do not bridge a store
+  revision into a mode to reset it, and do not reset in `activate`/`deactivate` — toggling
+  "Original" deactivates the mode and must not discard the user's selection.
 - **`image/filter/`** — WebGL filters return `OffscreenCanvas` so callers chain them without
   round-tripping to `ImageBitmap`; transfer to bitmap only at the boundary. `WebGLRenderer` reserves
   texture unit 0 for the source image, so render-pass textures bind from unit 1. One image binds as

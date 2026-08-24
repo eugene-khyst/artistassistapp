@@ -13,5 +13,9 @@ export default defineConfig({
     fileParallelism: false,
     include: ['./test/**/*.test.ts'],
     setupFiles: ['./test/setup.ts'],
+    coverage: {
+      include: ['src/services/**', 'src/stores/**', 'src/utils/**'],
+      reporter: ['text', 'html'],
+    },
   },
 });

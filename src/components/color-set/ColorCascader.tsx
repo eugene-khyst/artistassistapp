@@ -43,7 +43,7 @@ type OptionType = Omit<DefaultOptionType, 'value' | 'children'> & {
   children?: OptionType[];
 };
 
-const displayRender = (labels: string[]) => labels[labels.length - 1];
+const displayRender = (labels: string[]) => labels.at(-1);
 const showSearch = {filter: filterCascaderOptions};
 const classNames = {popup: {root: styles['popup']}};
 

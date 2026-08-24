@@ -42,6 +42,7 @@ import {type ReactNode, useCallback, useEffect, useMemo, useState} from 'react';
 
 import {DEFAULT_GRID_SETTINGS, setGrid} from '@/components/grid/grid';
 import {GridControls} from '@/components/grid/GridControls';
+import {ImageSaveButton} from '@/components/image/ImageSaveButton';
 import {ImageViewSelector} from '@/components/image/ImageViewSelector';
 import {LightboxOverlay} from '@/components/lightbox/LightboxOverlay';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
@@ -51,7 +52,8 @@ import {useArMode} from '@/hooks/useArMode';
 import {useLightbox} from '@/hooks/useLightbox';
 import {useSelectedOnnxModel} from '@/hooks/useSelectedOnnxModel';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
-import {GridCanvas} from '@/services/canvas/image/grid-canvas';
+import {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
+import {GridCanvasMode} from '@/services/canvas/mode/grid-canvas-mode';
 import {getDefaultModel} from '@/services/ml/models';
 import {type OnnxModel, OnnxModelType} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
@@ -63,8 +65,8 @@ import styles from './ImageOutline.module.css';
 
 const defaultGridSettings = {enabled: false};
 
-const gridCanvasSupplier = (canvas: HTMLCanvasElement): GridCanvas => {
-  return new GridCanvas(canvas, {allowZoomBelowFit: true});
+const gridDrawingModeSupplier = (): GridCanvasMode => {
+  return new GridCanvasMode();
 };
 
 export function ImageOutline() {
@@ -96,23 +98,28 @@ export function ImageOutline() {
 
   const images = useMemo(() => [outlineImage, originalImage], [outlineImage, originalImage]);
   const displayDimension = useMemo(
-    () => (outlineImage ? GridCanvas.imageDimension(outlineImage) : undefined),
+    () => (outlineImage ? ZoomableImageCanvas.imageDimension(outlineImage) : undefined),
     [outlineImage]
   );
 
-  const {ref: canvasRef, zoomableImageCanvas: gridCanvas} = useZoomableImageCanvas<GridCanvas>(
-    gridCanvasSupplier,
+  const {
+    ref: canvasRef,
+    zoomableImageCanvas,
+    canvasMode: gridDrawingMode,
+  } = useZoomableImageCanvas(
+    gridDrawingModeSupplier,
     images,
     selectedImageFile?.digest,
-    displayDimension
+    displayDimension,
+    {allowZoomBelowFit: true}
   );
 
   const [isOpenPrintImage, setIsOpenPrintImage] = useState<boolean>(false);
   const [isShowingOriginal, setIsShowingOriginal] = useState<boolean>(false);
 
   const onLightboxEnter = useCallback(() => {
-    gridCanvas?.disableAutoFit();
-  }, [gridCanvas]);
+    zoomableImageCanvas?.disableAutoFit();
+  }, [zoomableImageCanvas]);
 
   const {
     isLightbox,
@@ -145,19 +152,19 @@ export function ImageOutline() {
   const isCancelable: boolean = isOutlineImageLoading;
 
   useEffect(() => {
-    if (!gridCanvas) {
+    if (!gridDrawingMode) {
       return;
     }
-    setGrid(gridCanvas, {
+    setGrid(gridDrawingMode, {
       ...DEFAULT_GRID_SETTINGS,
       ...defaultGridSettings,
       ...grids?.[TabKey.Outline],
     });
-  }, [grids, gridCanvas]);
+  }, [grids, gridDrawingMode]);
 
   useEffect(() => {
-    gridCanvas?.setImageIndex(isShowingOriginal && outlineImage ? 1 : 0);
-  }, [gridCanvas, isShowingOriginal, outlineImage]);
+    zoomableImageCanvas?.setImageIndex(isShowingOriginal && outlineImage ? 1 : 0);
+  }, [zoomableImageCanvas, isShowingOriginal, outlineImage]);
 
   const handleArToggle = async () => {
     if (isArMode) {
@@ -178,7 +185,7 @@ export function ImageOutline() {
     if (!outlineImage || isShowingOriginal) {
       return;
     }
-    void gridCanvas?.saveAsImage(getFilename(selectedImageFile, 'outline'));
+    void zoomableImageCanvas?.saveAsImage(getFilename(selectedImageFile, 'outline'));
   };
 
   const handleLightboxClick = async () => {
@@ -207,13 +214,13 @@ export function ImageOutline() {
           orientation="vertical"
           size={0}
           className={styles['dropdownGridControls']}
-          gridCanvas={gridCanvas}
+          gridDrawingMode={gridDrawingMode}
           defaultGridSettings={defaultGridSettings}
           disableable
         />
       </div>
     ),
-    [gridCanvas]
+    [gridDrawingMode]
   );
 
   if (!selectedImageFile) {
@@ -297,7 +304,7 @@ export function ImageOutline() {
                       <GridControls
                         orientation="vertical"
                         size="small"
-                        gridCanvas={gridCanvas}
+                        gridDrawingMode={gridDrawingMode}
                         defaultGridSettings={defaultGridSettings}
                         disableable
                       />
@@ -314,13 +321,7 @@ export function ImageOutline() {
                   >
                     <Trans>Print</Trans>
                   </Button>
-                  <Button
-                    icon={<DownloadOutlined />}
-                    onClick={handleSaveClick}
-                    disabled={isShowingOriginal}
-                  >
-                    <Trans>Save</Trans>
-                  </Button>
+                  <ImageSaveButton onSave={handleSaveClick} disabled={isShowingOriginal} />
                 </>
               )}
             </>

@@ -19,7 +19,7 @@
 import {rgbToHex, type RgbTuple} from '@eugene-khyst/artistassistapp-color-mixer';
 
 import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
-import {copyOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
+import {copyToOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
 
 import fragmentShaderSource from './glsl/color-map.glsl';
 
@@ -51,7 +51,7 @@ export function colorMapFilterWebGL(
       textures: [{name: 'u_colorMap', source: colorMap}],
     },
   ]);
-  const result = copyOffscreenCanvas(renderer.canvas);
+  const result = copyToOffscreenCanvas(renderer.canvas);
   renderer.cleanUp();
   return [result, colorMap];
 }

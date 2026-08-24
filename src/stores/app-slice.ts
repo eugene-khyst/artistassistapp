@@ -34,7 +34,7 @@ import {reloadStores} from '@/stores/sync/store-reloads';
 import {initAuthAttemptWatcher} from '@/stores/watchers/auth-attempt-watcher';
 import {initAuthExpiryWatcher} from '@/stores/watchers/auth-expiry-watcher';
 import {initPersistedStateWatcher} from '@/stores/watchers/persisted-state-watcher';
-import {TabKey} from '@/tabs';
+import {DEFAULT_TAB_KEY, isTabKey, TabKey} from '@/tabs';
 import {getErrorMessage} from '@/utils/error';
 import {replaceHistory} from '@/utils/history';
 
@@ -124,7 +124,7 @@ export const createAppSlice: StateCreator<AppSlice & AppSliceDependencies, [], [
           loggedOut,
           cloudCallback,
           install,
-          tabKey: importedTabKey,
+          tabKey,
           colorSet: importedColorSet,
         } = parseUrl(window.location.toString());
 
@@ -155,21 +155,16 @@ export const createAppSlice: StateCreator<AppSlice & AppSliceDependencies, [], [
             installRequested: true,
           });
         }
-        let activeTabKey: TabKey | undefined = importedTabKey ?? appSettings.activeTabKey;
+        let activeTabKey: TabKey =
+          tabKey ??
+          (isTabKey(appSettings.activeTabKey) ? appSettings.activeTabKey : DEFAULT_TAB_KEY);
         if (importedColorSet) {
           activeTabKey = TabKey.ColorSet;
           await runInitStepSafely('save imported color set', () =>
             saveColorSets([importedColorSet])
           );
         }
-        if (
-          loginCallback ||
-          loggedOut ||
-          importedColorSet ||
-          importedTabKey ||
-          install ||
-          cloudCallback
-        ) {
+        if (loginCallback || loggedOut || importedColorSet || tabKey || install || cloudCallback) {
           replaceHistory();
         }
 
@@ -188,9 +183,7 @@ export const createAppSlice: StateCreator<AppSlice & AppSliceDependencies, [], [
 
         initPersistedStateWatcher();
 
-        if (activeTabKey) {
-          void get().setActiveTabKey(activeTabKey, {skipUnsavedChangesCheck: true});
-        }
+        void get().setActiveTabKey(activeTabKey, {skipUnsavedChangesCheck: true});
 
         set({
           appInitialized: true,
