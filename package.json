@@ -1,6 +1,6 @@
 {
   "name": "artistassistapp",
-  "version": "2026.8.24",
+  "version": "2026.8.29",
   "type": "module",
   "scripts": {
     "lingui:extract": "lingui extract --clean",
@@ -95,6 +95,7 @@
     "@swc/core@1.15.47": true,
     "esbuild@0.25.12": true,
     "esbuild@0.28.2": true,
-    "protobufjs": false
+    "protobufjs": false,
+    "unrs-resolver": false
   }
 }

@@ -18,6 +18,7 @@
 
 import {Card} from 'antd';
 
+import {DATA_URL} from '@/config';
 import type {SampleImageDefinition} from '@/services/image/sample-images';
 import {useAppStore} from '@/stores/app-store';
 import {splitUrl} from '@/utils/url';
@@ -29,7 +30,7 @@ interface Props {
 export function SampleImageCard({sampleImage}: Readonly<Props>) {
   const loadSampleImage = useAppStore(state => state.loadSampleImage);
 
-  const [baseUrl, filename] = splitUrl(new URL(sampleImage.image));
+  const [baseUrl, filename] = splitUrl(new URL(sampleImage.image, DATA_URL));
   const thumbnail = `${baseUrl}thumbnails/${filename}`;
 
   return (

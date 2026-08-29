@@ -33,14 +33,7 @@ export interface ProcessedImage {
 }
 
 async function processedImageKey(model: OnnxModel, digests: string[]): Promise<string> {
-  const {
-    name: _name,
-    description: _description,
-    image: _image,
-    priority: _priority,
-    freeTier: _freeTier,
-    ...rest
-  } = model;
+  const {priority: _priority, freeTier: _freeTier, ...rest} = model;
   const modelDigest = await digestMessage(JSON.stringify(canonicalize(rest)));
   return [PROCESSED_IMAGE_CACHE_VERSION, modelDigest, ...digests].join('|');
 }

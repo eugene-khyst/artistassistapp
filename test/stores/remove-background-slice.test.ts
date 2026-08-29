@@ -117,7 +117,6 @@ describe('RemoveBackgroundSlice', () => {
     const {store, preview, getPreviewCommand} = createTestStore(image);
     const model: OnnxModel = {
       id: 'background-removal',
-      name: 'Background removal',
       url: 'model.onnx',
       freeTier: true,
     };

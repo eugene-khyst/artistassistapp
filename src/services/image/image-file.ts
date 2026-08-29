@@ -58,17 +58,6 @@ export async function readStoredImageBytes(
   }
 }
 
-export async function materializeImageFile(imageFile: ImageFile): Promise<ImageFile> {
-  const bytes = await readStoredImageBytes(imageFile, {
-    digest: imageFile.digest,
-    blob: imageFile.blob,
-  });
-  return {
-    ...imageFile,
-    blob: new Blob([bytes], {type: imageFile.type}),
-  };
-}
-
 export function toImageMetadata({digest, type, name, maxColors, date}: ImageFile): ImageMetadata {
   return {
     digest,

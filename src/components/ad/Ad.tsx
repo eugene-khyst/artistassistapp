@@ -21,6 +21,7 @@ import {clsx} from 'clsx';
 import {type ReactNode, useEffect, useState} from 'react';
 import reactStringReplace from 'react-string-replace';
 
+import {DATA_URL} from '@/config';
 import type {AdDefinition} from '@/services/ads/types';
 import {useAppStore} from '@/stores/app-store';
 import {TabKey} from '@/tabs';
@@ -77,7 +78,12 @@ export function Ad({ads, vertical = false, footer, contentClassName}: Readonly<P
   return (
     <Flex vertical={vertical || !screens.md} align="center">
       {ad.image && (
-        <img src={ad.image} alt="Ad" crossOrigin="anonymous" className={styles['image']} />
+        <img
+          src={new URL(ad.image, DATA_URL).toString()}
+          alt="Ad"
+          crossOrigin="anonymous"
+          className={styles['image']}
+        />
       )}
       <Flex vertical align="flex-start" className={clsx(styles['content'], contentClassName)}>
         <div className={styles['text']}>{formatRichText(ad.text)}</div>

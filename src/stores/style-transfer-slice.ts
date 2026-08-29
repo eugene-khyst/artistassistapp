@@ -22,13 +22,17 @@ import {formatFetchProgress} from '@/i18n';
 import {hasAccessTo} from '@/services/auth/utils';
 import {
   discardStyleImage as discardStoredStyleImage,
-  getStyleImage,
+  readStyleImage,
   saveStyleImage,
 } from '@/services/db/style-image-db';
 import {ImageUnreadableError} from '@/services/image/errors';
-import {type ImageFile, imageFileToFile, materializeImageFile} from '@/services/image/image-file';
-import {transferStyle} from '@/services/image/transfer-style';
-import {withProcessedImageBlobCache} from '@/services/ml/image-transformer';
+import {type ImageFile} from '@/services/image/image-file';
+import {
+  CUSTOM_STYLE_IMAGE_ID,
+  fetchStyleImageFile,
+  type StyleImageDefinition,
+} from '@/services/image/style-images';
+import {transformImage, withProcessedImageBlobCache} from '@/services/ml/image-transformer';
 import type {OnnxModel} from '@/services/ml/types';
 import type {AppSlice} from '@/stores/app-slice';
 import type {AuthSlice} from '@/stores/auth-slice';
@@ -40,16 +44,18 @@ import {createAbortableOperation} from '@/utils/abortable-operation';
 
 export interface StyleTransferSlice {
   styleTransferModel?: OnnxModel;
-  styleTransferImage: ImageFile | null;
+  styleTransferImage?: StyleImageDefinition;
+  customStyleImage: ImageFile | null;
   isStyleTransferLoading: boolean;
   styleTransferDownloadTip: string | null;
-  styledImageBlob: Blob | null;
+  styleTransferResultBlob: Blob | null;
 
   setStyleTransferModel: (styleTransferModel?: OnnxModel) => void;
-  setStyleImageFile: (styleImageFile?: ImageFile) => Promise<void>;
-  loadStyleImage: () => Promise<ImageFile | null>;
-  refreshStyledImage: () => Promise<void>;
-  loadStyledImage: () => Promise<void>;
+  setStyleTransferImage: (styleTransferImage?: StyleImageDefinition) => void;
+  saveCustomStyleImage: (customStyleImage: ImageFile | null) => Promise<void>;
+  loadCustomStyleImage: () => Promise<ImageFile | null>;
+  refreshStyleTransfer: () => Promise<void>;
+  transferStyle: () => Promise<void>;
   abortStyleTransfer: () => void;
 }
 
@@ -66,7 +72,7 @@ export const createStyleTransferSlice: StateCreator<
   const styleTransferOperation = createAbortableOperation({
     onStart: () => {
       set({
-        styledImageBlob: null,
+        styleTransferResultBlob: null,
         isStyleTransferLoading: true,
         styleTransferDownloadTip: null,
       });
@@ -84,11 +90,13 @@ export const createStyleTransferSlice: StateCreator<
       styleTransferOperation.abort();
     },
     clear: () => {
-      set({styledImageBlob: null});
+      set({
+        styleTransferResultBlob: null,
+      });
     },
   });
 
-  const discardStyleImage = async (expectedDigest: string): Promise<void> => {
+  const discardCustomStyleImage = async (expectedDigest: string): Promise<void> => {
     const {appSettings, discarded} = await discardStoredStyleImage(expectedDigest);
     if (!discarded) {
       return;
@@ -96,174 +104,163 @@ export const createStyleTransferSlice: StateCreator<
     styleTransferOperation.abort();
     set({
       appSettings,
-      styleTransferImage: null,
-      styledImageBlob: null,
+      customStyleImage: null,
+      styleTransferResultBlob: null,
+    });
+  };
+
+  const runStyleTransfer = async (): Promise<void> => {
+    const {selectedImageFile, originalImage, styleTransferModel, styleTransferImage, auth} = get();
+    if (
+      !selectedImageFile ||
+      !originalImage ||
+      !styleTransferModel ||
+      !styleTransferImage ||
+      !hasAccessTo(auth?.user, styleTransferModel)
+    ) {
+      styleTransferOperation.abort();
+      set({
+        styleTransferResultBlob: null,
+      });
+      return;
+    }
+    await styleTransferOperation.run(async signal => {
+      const {id, image} = styleTransferImage;
+      const styleImageFile =
+        id === CUSTOM_STYLE_IMAGE_ID
+          ? await get().loadCustomStyleImage()
+          : await fetchStyleImageFile(image, signal);
+      signal.throwIfAborted();
+      if (!styleImageFile) {
+        return;
+      }
+      try {
+        const styleTransferResultBlob = await withProcessedImageBlobCache(
+          styleTransferModel,
+          [selectedImageFile.digest, styleImageFile.digest],
+          async () => {
+            let styleImage: ImageBitmap;
+            try {
+              styleImage = await createImageBitmap(styleImageFile.blob);
+            } catch (error) {
+              throw new ImageUnreadableError(styleImageFile.digest, styleImageFile.name, error);
+            }
+            try {
+              return await transformImage(
+                [originalImage, styleImage],
+                styleTransferModel,
+                auth,
+                (key, progress) => {
+                  signal.throwIfAborted();
+                  set({
+                    styleTransferDownloadTip: formatFetchProgress(key, progress),
+                  });
+                },
+                signal
+              );
+            } finally {
+              styleImage.close();
+            }
+          }
+        );
+        signal.throwIfAborted();
+        set({
+          styleTransferResultBlob,
+        });
+      } catch (error) {
+        signal.throwIfAborted();
+        if (!(error instanceof ImageUnreadableError) || id !== CUSTOM_STYLE_IMAGE_ID) {
+          throw error;
+        }
+        console.error(error);
+        await discardCustomStyleImage(error.digest);
+      }
     });
   };
 
   return {
-    styleTransferImage: null,
+    customStyleImage: null,
     isStyleTransferLoading: false,
     styleTransferDownloadTip: null,
-    styledImageBlob: null,
+    styleTransferResultBlob: null,
 
     setStyleTransferModel: (styleTransferModel?: OnnxModel): void => {
       if (get().styleTransferModel === styleTransferModel) {
         return;
       }
-      get().abortStyleTransfer();
       set({
         styleTransferModel,
-        styledImageBlob: null,
       });
-      void get().loadStyledImage();
+      void runStyleTransfer();
     },
 
-    setStyleImageFile: async (styleImageFile?: ImageFile): Promise<void> => {
-      if (!styleImageFile) {
+    setStyleTransferImage: (styleTransferImage?: StyleImageDefinition): void => {
+      if (get().styleTransferImage?.id === styleTransferImage?.id) {
         return;
       }
-      get().abortStyleTransfer();
-      const appSettings = await saveStyleImage(styleImageFile);
-      // A transfer started during the save used the previous style image.
-      get().abortStyleTransfer();
       set({
-        appSettings,
-        styleTransferImage: styleImageFile,
-        styledImageBlob: null,
+        styleTransferImage,
       });
-      void get().loadStyledImage();
+      void runStyleTransfer();
     },
 
-    loadStyleImage: async (): Promise<ImageFile | null> => {
-      const {styleTransferImage, appSettings} = get();
-      const storedStyleImageDigest = appSettings.styleTransferImageDigest;
-      if (!storedStyleImageDigest) {
-        if (styleTransferImage) {
-          set({styleTransferImage: null});
+    saveCustomStyleImage: async (customStyleImage: ImageFile | null): Promise<void> => {
+      const appSettings = await saveStyleImage(customStyleImage);
+      set({
+        appSettings,
+        customStyleImage,
+      });
+      if (get().styleTransferImage?.id === CUSTOM_STYLE_IMAGE_ID) {
+        await runStyleTransfer();
+      }
+    },
+
+    loadCustomStyleImage: async (): Promise<ImageFile | null> => {
+      const {customStyleImage, appSettings} = get();
+      const storedDigest = appSettings.styleTransferImageDigest;
+      if (!storedDigest) {
+        if (customStyleImage) {
+          set({
+            customStyleImage: null,
+          });
         }
         return null;
       }
-      if (styleTransferImage?.digest === storedStyleImageDigest) {
-        return styleTransferImage;
+      if (customStyleImage?.digest === storedDigest) {
+        return customStyleImage;
       }
       try {
-        const storedStyleImage = await getStyleImage();
-        if (storedStyleImage?.digest !== storedStyleImageDigest) {
-          throw new ImageUnreadableError(storedStyleImageDigest, storedStyleImage?.name);
-        }
-        const materializedStyleImage = await materializeImageFile(storedStyleImage);
-        try {
-          (await createImageBitmap(materializedStyleImage.blob)).close();
-        } catch (error) {
-          throw new ImageUnreadableError(storedStyleImageDigest, storedStyleImage.name, error);
-        }
-        if (get().appSettings.styleTransferImageDigest !== storedStyleImageDigest) {
-          return await get().loadStyleImage();
+        const styleImage = await readStyleImage(storedDigest);
+        if (get().appSettings.styleTransferImageDigest !== storedDigest) {
+          return null;
         }
         set({
-          styleTransferImage: materializedStyleImage,
+          customStyleImage: styleImage,
         });
-        return materializedStyleImage;
+        return styleImage;
       } catch (error) {
         if (!(error instanceof ImageUnreadableError)) {
           throw error;
         }
         console.error(error);
-        await discardStyleImage(storedStyleImageDigest);
+        await discardCustomStyleImage(storedDigest);
         return null;
       }
     },
 
-    refreshStyledImage: async (): Promise<void> => {
-      get().abortStyleTransfer();
+    refreshStyleTransfer: async (): Promise<void> => {
       set({
-        styledImageBlob: null,
-        styleTransferImage: null,
+        customStyleImage: null,
       });
-      await get().loadStyledImage();
+      await runStyleTransfer();
     },
 
-    loadStyledImage: async (): Promise<void> => {
-      const {
-        selectedImageFile,
-        originalImage,
-        styleTransferModel,
-        styledImageBlob,
-        isStyleTransferLoading,
-        auth,
-      } = get();
-      if (
-        styledImageBlob ||
-        isStyleTransferLoading ||
-        !selectedImageFile ||
-        !originalImage ||
-        !styleTransferModel ||
-        !hasAccessTo(auth?.user, styleTransferModel)
-      ) {
+    transferStyle: async (): Promise<void> => {
+      const {styleTransferResultBlob, isStyleTransferLoading} = get();
+      if (styleTransferResultBlob || isStyleTransferLoading) {
         return;
       }
-      const {numInputs = 1} = styleTransferModel;
-      await styleTransferOperation.run(async signal => {
-        const styleTransferImage = numInputs > 1 ? await get().loadStyleImage() : null;
-        signal.throwIfAborted();
-        if (numInputs > 1 && !styleTransferImage) {
-          return;
-        }
-        const digests = [
-          selectedImageFile.digest,
-          ...(styleTransferImage ? [styleTransferImage.digest] : []),
-        ];
-        let styledImageBlob: Blob;
-        try {
-          styledImageBlob = await withProcessedImageBlobCache(
-            styleTransferModel,
-            digests,
-            async () => {
-              let styleImage: ImageBitmap | null = null;
-              if (styleTransferImage) {
-                try {
-                  styleImage = await createImageBitmap(imageFileToFile(styleTransferImage));
-                } catch (error) {
-                  throw new ImageUnreadableError(
-                    styleTransferImage.digest,
-                    styleTransferImage.name,
-                    error
-                  );
-                }
-              }
-              try {
-                return await transferStyle(
-                  styleImage ? [originalImage, styleImage] : [originalImage],
-                  styleTransferModel,
-                  auth,
-                  (key, progress) => {
-                    signal.throwIfAborted();
-                    set({
-                      styleTransferDownloadTip: formatFetchProgress(key, progress),
-                    });
-                  },
-                  signal
-                );
-              } finally {
-                styleImage?.close();
-              }
-            }
-          );
-        } catch (error) {
-          signal.throwIfAborted();
-          if (!(error instanceof ImageUnreadableError)) {
-            throw error;
-          }
-          console.error(error);
-          await discardStyleImage(error.digest);
-          return;
-        }
-        signal.throwIfAborted();
-        set({
-          styledImageBlob,
-        });
-      });
+      await runStyleTransfer();
     },
 
     abortStyleTransfer: (): void => {

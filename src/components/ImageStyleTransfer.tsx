@@ -17,111 +17,226 @@
  */
 
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Card, Col, Radio, type RadioChangeEvent, Row, Space, Typography} from 'antd';
+import {
+  Card,
+  Col,
+  Flex,
+  Radio,
+  type RadioChangeEvent,
+  Row,
+  Select,
+  Space,
+  Tag,
+  Typography,
+} from 'antd';
 import {saveAs} from 'file-saver';
-import {useEffect, useMemo, useRef} from 'react';
+import {type ReactNode, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 
 import {EmptyImage} from '@/components/empty/EmptyImage';
 import {FileSelect} from '@/components/file/FileSelect';
 import {ImageSaveButton} from '@/components/image/ImageSaveButton';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {filterSelectOptions} from '@/components/utils';
+import {DATA_URL} from '@/config';
 import {useCreateObjectUrl} from '@/hooks/useCreateObjectUrl';
+import {useErrorNotification} from '@/hooks/useErrorNotification';
 import {useFileReadErrorNotification} from '@/hooks/useFileReadErrorNotification';
-import {useSelectedOnnxModel} from '@/hooks/useSelectedOnnxModel';
+import {useOnnxModel} from '@/hooks/useOnnxModel';
+import {useSelectedCatalogItem} from '@/hooks/useSelectedCatalogItem';
+import {useStyleImages} from '@/hooks/useStyleImages';
 import {hasAccessTo} from '@/services/auth/utils';
-import {fileToImageFile, type ImageFile} from '@/services/image/image-file';
-import {type OnnxModel, OnnxModelType} from '@/services/ml/types';
+import {fileToImageFile} from '@/services/image/image-file';
+import {CUSTOM_STYLE_IMAGE_ID, type StyleImageDefinition} from '@/services/image/style-images';
+import {OnnxModelType} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
 import {getFilename} from '@/utils/filename';
+import {splitUrl} from '@/utils/url';
 
 import styles from './ImageStyleTransfer.module.css';
 
+const TAGS: Record<string, ReactNode> = {
+  portrait: <Trans>Portrait</Trans>,
+  landscape: <Trans>Landscape</Trans>,
+  cityscape: <Trans>Cityscape</Trans>,
+  seascape: <Trans>Seascape</Trans>,
+  'still-life': <Trans>Still Life</Trans>,
+  'northern-renaissance': <Trans>Northern Renaissance</Trans>,
+  'dutch-baroque': <Trans>Dutch Baroque</Trans>,
+  realism: <Trans>Realism</Trans>,
+  'barbizon-school': <Trans>Barbizon School</Trans>,
+  impressionism: <Trans>Impressionism</Trans>,
+  'post-impressionism': <Trans>Post-Impressionism</Trans>,
+  'neo-impressionism': <Trans>Neo-Impressionism</Trans>,
+  pointillism: <Trans>Pointillism</Trans>,
+  divisionism: <Trans>Divisionism</Trans>,
+  expressionism: <Trans>Expressionism</Trans>,
+  'vienna-secession': <Trans>Vienna Secession</Trans>,
+  fauvism: <Trans>Fauvism</Trans>,
+  cubism: <Trans>Cubism</Trans>,
+  watercolor: <Trans>Watercolor</Trans>,
+  pastel: <Trans>Pastel</Trans>,
+  engraving: <Trans>Engraving</Trans>,
+  etching: <Trans>Etching</Trans>,
+  mosaic: <Trans>Mosaic</Trans>,
+  'ukiyo-e': <Trans>Ukiyo-e</Trans>,
+};
+
+const showSearch = {filterOption: filterSelectOptions};
+
 export function ImageStyleTransfer() {
   const user = useAppStore(state => state.auth?.user);
-  const styleTransferImageDigest = useAppStore(state => state.appSettings.styleTransferImageDigest);
-  const styleTransferImage = useAppStore(state => state.styleTransferImage);
-  const selectedImageFile = useAppStore(state => state.selectedImageFile);
+  const originalImageFile = useAppStore(state => state.selectedImageFile);
+  const customStyleTransferImageDigest = useAppStore(
+    state => state.appSettings.styleTransferImageDigest
+  );
+  const customStyleImage = useAppStore(state => state.customStyleImage);
   const isStyleTransferLoading = useAppStore(state => state.isStyleTransferLoading);
   const styleTransferDownloadTip = useAppStore(state => state.styleTransferDownloadTip);
-  const styledImageBlob = useAppStore(state => state.styledImageBlob);
+  const styleTransferResultBlob = useAppStore(state => state.styleTransferResultBlob);
 
   const setStyleTransferModel = useAppStore(state => state.setStyleTransferModel);
-  const setStyleImageFile = useAppStore(state => state.setStyleImageFile);
-  const loadStyleImage = useAppStore(state => state.loadStyleImage);
+  const setStyleTransferImage = useAppStore(state => state.setStyleTransferImage);
+  const saveCustomStyleImage = useAppStore(state => state.saveCustomStyleImage);
+  const loadCustomStyleImage = useAppStore(state => state.loadCustomStyleImage);
   const abortStyleTransfer = useAppStore(state => state.abortStyleTransfer);
-
-  const showFileReadErrorNotification = useFileReadErrorNotification();
 
   const {t} = useLingui();
 
+  const showFileReadErrorNotification = useFileReadErrorNotification();
+
   const {
-    sortedModels,
-    defaultModel,
-    modelId,
-    selectedModelId,
-    isModelsLoading,
-    selectModel,
-    setSelectedModelId,
-  } = useSelectedOnnxModel({
-    type: OnnxModelType.StyleTransfer,
-    settingsKey: 'styleTransferModel',
-    setModel: setStyleTransferModel,
-    defaultPredicate: ({numInputs = 1}) => numInputs === 1 || !!styleTransferImageDigest,
+    model,
+    isLoading: isModelLoading,
+    isError: isModelError,
+  } = useOnnxModel(OnnxModelType.StyleTransfer, 'cast');
+
+  const isModelAccessAllowed = hasAccessTo(user, model);
+
+  const {
+    styleImages,
+    isLoading: isStyleImagesLoading,
+    isError: isStyleImagesError,
+  } = useStyleImages();
+
+  useErrorNotification(
+    isModelError || isStyleImagesError,
+    <Trans>Unable to load the styles</Trans>,
+    <Trans>Check your connection and try again.</Trans>
+  );
+
+  const defaultPredicate = useCallback(
+    ({id}: StyleImageDefinition) =>
+      id !== CUSTOM_STYLE_IMAGE_ID || !!customStyleTransferImageDigest,
+    [customStyleTransferImageDigest]
+  );
+
+  const {
+    sortedItems: sortedStyleImages,
+    defaultItem: defaultStyleImage,
+    itemId: styleImageId,
+    selectedItemId: selectedStyleImageId,
+    selectItem: selectStyleImage,
+    setSelectedItemId: setSelectedStyleImageId,
+  } = useSelectedCatalogItem({
+    items: styleImages,
+    settingsKey: 'styleTransferImageId',
+    setItem: setStyleTransferImage,
+    defaultPredicate,
   });
 
   useEffect(() => {
-    if (styleTransferImageDigest) {
-      void loadStyleImage();
+    setStyleTransferModel(model);
+  }, [model, setStyleTransferModel]);
+
+  useEffect(() => {
+    if (customStyleTransferImageDigest) {
+      void loadCustomStyleImage();
     }
-  }, [loadStyleImage, styleTransferImageDigest]);
+  }, [loadCustomStyleImage, customStyleTransferImageDigest]);
 
   const radioGroupRef = useRef<HTMLDivElement>(null);
   const hasScrolledToDefaultRef = useRef(false);
 
-  const isLoading: boolean = isModelsLoading || isStyleTransferLoading;
+  const [selectedArtists, setSelectedArtists] = useState<string[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
+  const isLoading: boolean = isModelLoading || isStyleImagesLoading || isStyleTransferLoading;
   const isCancelable: boolean = isStyleTransferLoading;
 
-  const styleImageBlob: Blob | undefined = styleTransferImage?.blob;
-  const originalImageBlob: Blob | undefined = selectedImageFile?.blob;
-  const originalImageUrl: string | undefined = useCreateObjectUrl(originalImageBlob);
-  const styleImageUrl: string | undefined = useCreateObjectUrl(styleImageBlob);
-  const styledImageUrl: string | undefined = useCreateObjectUrl(styledImageBlob);
+  const originalImageUrl: string | undefined = useCreateObjectUrl(originalImageFile?.blob);
+  const customStyleImageUrl: string | undefined = useCreateObjectUrl(customStyleImage?.blob);
+  const styleTransferResultUrl: string | undefined = useCreateObjectUrl(styleTransferResultBlob);
 
   useEffect(() => {
-    if (hasScrolledToDefaultRef.current || selectedModelId !== undefined || !defaultModel?.id) {
+    if (
+      hasScrolledToDefaultRef.current ||
+      selectedStyleImageId !== undefined ||
+      !defaultStyleImage?.id
+    ) {
       return;
     }
     hasScrolledToDefaultRef.current = true;
     radioGroupRef.current
-      ?.querySelector(`input[value="${defaultModel.id}"]`)
+      ?.querySelector(`input[value="${defaultStyleImage.id}"]`)
       ?.closest('.ant-radio-wrapper')
       ?.scrollIntoView({behavior: 'smooth', block: 'start'});
-  }, [selectedModelId, defaultModel?.id]);
+  }, [selectedStyleImageId, defaultStyleImage?.id]);
 
-  const handleModelChange = (e: RadioChangeEvent) => {
-    selectModel(e.target.value as string);
+  const handleStyleImageChange = (e: RadioChangeEvent) => {
+    selectStyleImage(e.target.value as string);
   };
 
   const handleSaveClick = () => {
-    if (styledImageUrl) {
-      saveAs(styledImageUrl, getFilename(selectedImageFile, 'styled'));
+    if (styleTransferResultUrl) {
+      saveAs(styleTransferResultUrl, getFilename(originalImageFile, 'styled'));
     }
   };
 
   const handleCancelClick = () => {
     abortStyleTransfer();
-    setSelectedModelId(null);
+    setSelectedStyleImageId(null);
   };
+
+  const artistOptions = useMemo(
+    () =>
+      [...new Set(sortedStyleImages.flatMap(({artist}) => artist || []))]
+        .sort()
+        .map(artist => ({value: artist, label: artist})),
+    [sortedStyleImages]
+  );
+
+  const tagOptions = useMemo(
+    () =>
+      [...new Set(sortedStyleImages.flatMap(({tags}) => tags ?? []))]
+        .sort()
+        .map(tag => ({value: tag, label: TAGS[tag] ?? tag})),
+    [sortedStyleImages]
+  );
+
+  const filteredStyleImages = useMemo(
+    () =>
+      sortedStyleImages.filter(
+        ({id, artist, tags}) =>
+          id === CUSTOM_STYLE_IMAGE_ID ||
+          ((!selectedArtists.length || (!!artist && selectedArtists.includes(artist))) &&
+            (!selectedTags.length || !!tags?.some(tag => selectedTags.includes(tag))))
+      ),
+    [sortedStyleImages, selectedArtists, selectedTags]
+  );
 
   const radioOptions = useMemo(
     () =>
-      sortedModels.map((model: OnnxModel) => {
-        const {id, name, description, image, numInputs = 1} = model;
-        const hasAccess = hasAccessTo(user, model);
-        const imageUrl = numInputs > 1 ? styleImageUrl : image;
-        const selectedStyleImageMissing =
-          numInputs > 1 && !styleTransferImageDigest && modelId === id;
+      (isModelAccessAllowed ? filteredStyleImages : []).map((styleImage: StyleImageDefinition) => {
+        const hasAccess = hasAccessTo(user, styleImage);
+        const {id, image, artist, title, tags} = styleImage;
+        const isCustomStyleTransferImage = id === CUSTOM_STYLE_IMAGE_ID;
+        let thumbnail: string | undefined;
+        if (isCustomStyleTransferImage) {
+          thumbnail = customStyleImageUrl;
+        } else {
+          const [baseUrl, filename] = splitUrl(new URL(image, DATA_URL));
+          thumbnail = `${baseUrl}thumbnails/${filename}`;
+        }
         return {
           value: id,
           label: (
@@ -129,10 +244,10 @@ export function ImageStyleTransfer() {
               key={id}
               hoverable
               cover={
-                imageUrl && (
+                thumbnail && (
                   <img
-                    src={imageUrl}
-                    alt={name}
+                    src={thumbnail}
+                    alt={isCustomStyleTransferImage ? t`Your style image` : `${artist}, ${title}`}
                     crossOrigin="anonymous"
                     loading="lazy"
                     className={styles['coverImage']}
@@ -140,7 +255,7 @@ export function ImageStyleTransfer() {
                 )
               }
               actions={
-                numInputs > 1
+                isCustomStyleTransferImage
                   ? [
                       <div key={id} className="u-px">
                         <FileSelect
@@ -149,19 +264,17 @@ export function ImageStyleTransfer() {
                             if (!file) {
                               return;
                             }
-                            let styleImageFile: ImageFile;
                             try {
-                              (await createImageBitmap(file)).close();
-                              styleImageFile = await fileToImageFile(file);
+                              await saveCustomStyleImage(await fileToImageFile(file));
                             } catch (error) {
                               console.error(error);
                               showFileReadErrorNotification();
                               return;
                             }
-                            // Aborts the running transfer synchronously, so call it before selecting the model.
-                            const promise = setStyleImageFile(styleImageFile);
-                            setSelectedModelId(id);
-                            await promise;
+                            selectStyleImage(CUSTOM_STYLE_IMAGE_ID);
+                          }}
+                          onClear={() => {
+                            void saveCustomStyleImage(null);
                           }}
                           disabled={!hasAccess}
                         >
@@ -173,25 +286,36 @@ export function ImageStyleTransfer() {
               }
             >
               <Card.Meta
-                title={name}
+                title={isCustomStyleTransferImage ? <Trans>Your image</Trans> : artist}
                 description={
-                  (description || !hasAccess || selectedStyleImageMissing) && (
-                    <Space orientation="vertical">
-                      {description && (
-                        <Typography.Text type="secondary">{description}</Typography.Text>
+                  <Flex vertical gap="small">
+                    <Typography.Text>
+                      {isCustomStyleTransferImage ? (
+                        <Trans>Transfer the artistic style from your own image</Trans>
+                      ) : (
+                        title
                       )}
-                      {!hasAccess && (
-                        <Typography.Text type="warning">
+                    </Typography.Text>
+                    {!hasAccess && (
+                      <Typography.Text type="warning">
+                        {isCustomStyleTransferImage ? (
+                          <Trans>
+                            Transferring the style from your own image is available to paid Patreon
+                            members only
+                          </Trans>
+                        ) : (
                           <Trans>This style is available to paid Patreon members only</Trans>
-                        </Typography.Text>
-                      )}
-                      {selectedStyleImageMissing && (
-                        <Typography.Text type="warning">
-                          <Trans>Select a style image to use this style</Trans>
-                        </Typography.Text>
-                      )}
-                    </Space>
-                  )
+                        )}
+                      </Typography.Text>
+                    )}
+                    {!!tags?.length && (
+                      <Flex gap="small" align="center" wrap>
+                        {tags.map(tag => (
+                          <Tag key={tag}>{TAGS[tag] ?? tag}</Tag>
+                        ))}
+                      </Flex>
+                    )}
+                  </Flex>
                 }
               />
             </Card>
@@ -200,18 +324,18 @@ export function ImageStyleTransfer() {
         };
       }),
     [
-      sortedModels,
+      isModelAccessAllowed,
+      filteredStyleImages,
       user,
-      styleImageUrl,
-      styleTransferImageDigest,
-      modelId,
-      setStyleImageFile,
-      setSelectedModelId,
+      customStyleImageUrl,
+      saveCustomStyleImage,
+      selectStyleImage,
       showFileReadErrorNotification,
+      t,
     ]
   );
 
-  if (!selectedImageFile) {
+  if (!originalImageFile) {
     return <EmptyImage />;
   }
 
@@ -224,8 +348,8 @@ export function ImageStyleTransfer() {
       <Row>
         <Col xs={24} sm={12} lg={16} className={styles['imageColumn']}>
           <img
-            src={styledImageUrl ?? originalImageUrl}
-            alt={t`Styled reference photo`}
+            src={styleTransferResultUrl ?? originalImageUrl}
+            alt={styleTransferResultUrl ? t`Styled reference photo` : t`Reference photo`}
             className={styles['previewImage']}
           />
         </Col>
@@ -235,11 +359,38 @@ export function ImageStyleTransfer() {
               <Trans>Select a style to transfer to your reference photo</Trans>
             </Typography.Text>
 
-            <ImageSaveButton onSave={handleSaveClick} disabled={!styledImageUrl} />
+            <Flex gap="small" className="u-w-100">
+              <ImageSaveButton onSave={handleSaveClick} disabled={!styleTransferResultUrl} />
 
-            {!user && (
-              <Typography.Text type="secondary">
-                <Trans>Only a limited number of styles are available in the free version</Trans>
+              <Select
+                mode="multiple"
+                options={artistOptions}
+                value={selectedArtists}
+                onChange={setSelectedArtists}
+                placeholder={t`Filter by artist`}
+                showSearch={showSearch}
+                allowClear
+                maxTagCount="responsive"
+                popupMatchSelectWidth={false}
+                className={styles['filterSelect']}
+              />
+
+              <Select
+                mode="multiple"
+                options={tagOptions}
+                value={selectedTags}
+                onChange={setSelectedTags}
+                placeholder={t`Filter by tag`}
+                allowClear
+                maxTagCount="responsive"
+                popupMatchSelectWidth={false}
+                className={styles['filterSelect']}
+              />
+            </Flex>
+
+            {!isModelAccessAllowed && (
+              <Typography.Text type="warning">
+                <Trans>Style transfer is available to paid Patreon members only</Trans>
               </Typography.Text>
             )}
           </Space>
@@ -247,8 +398,8 @@ export function ImageStyleTransfer() {
           <div className={styles['optionsScroll']}>
             <Radio.Group
               ref={radioGroupRef}
-              value={modelId}
-              onChange={handleModelChange}
+              value={styleImageId}
+              onChange={handleStyleImageChange}
               options={radioOptions}
               className={styles['radioGroup']}
             />

@@ -51,7 +51,7 @@ export interface AppSettings {
   grids?: Partial<Record<TabKey, Partial<GridSettings>>>;
   outlineModel?: string | null;
   backgroundRemovalModel?: string;
-  styleTransferModel?: string;
+  styleTransferImageId?: string;
   styleTransferImageDigest?: string;
 }
 

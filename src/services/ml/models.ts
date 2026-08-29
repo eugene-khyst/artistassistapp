@@ -16,17 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-  byBoolean,
-  byNumber,
-  byString,
-  type Comparator,
-  compare,
-  reverseOrder,
-} from '@eugene-khyst/artistassistapp-color-mixer';
-
 import {DATA_METADATA_TIMEOUT_MS, DATA_URL} from '@/config';
-import type {User} from '@/services/auth/types';
 import type {OnnxModel, OnnxModelType} from '@/services/ml/types';
 import {fetchSWR} from '@/utils/fetch';
 
@@ -38,28 +28,3 @@ export async function fetchOnnxModels(type: OnnxModelType): Promise<OnnxModel[]>
   );
   return (await response.json()) as OnnxModel[];
 }
-
-export function getDefaultModel(
-  models?: Map<string, OnnxModel>,
-  user?: User,
-  predicate: (model: OnnxModel) => boolean = () => true
-): OnnxModel | undefined {
-  if (!models) {
-    return;
-  }
-  const [model] = [...models.values()]
-    .filter(model => predicate(model))
-    .sort(compareOnnxModelsByPriority({prioritizeFreeTier: !user}));
-  return model;
-}
-
-export const compareOnnxModelsByPriority = ({
-  prioritizeFreeTier,
-}: {
-  prioritizeFreeTier: boolean;
-}): Comparator<OnnxModel> =>
-  compare(
-    prioritizeFreeTier && reverseOrder(byBoolean(({freeTier}) => freeTier)),
-    reverseOrder(byNumber(({priority}) => priority)),
-    byString(({name}) => name)
-  );

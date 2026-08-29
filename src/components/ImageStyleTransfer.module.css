@@ -36,11 +36,25 @@
   overflow-y: auto;
 }
 
+.filterSelect {
+  flex: 1;
+  min-width: 0;
+}
+
 .radioGroup {
   display: flex !important;
   flex-direction: column;
   gap: var(--ant-margin-xs);
   margin-bottom: var(--ant-margin);
+}
+
+.radioGroup :global(.ant-radio-wrapper) {
+  margin-inline-end: 0 !important;
+}
+
+.radioGroup :global(.ant-radio-wrapper) > span:last-child {
+  flex: 1;
+  min-width: 0;
 }
 
 @media (max-width: 575px) {

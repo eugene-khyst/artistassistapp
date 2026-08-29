@@ -16,25 +16,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Authentication} from '@/services/auth/types';
-import {transformImage} from '@/services/ml/image-transformer';
-import type {OnnxModel} from '@/services/ml/types';
-import type {FetchProgressCallback} from '@/utils/fetch';
-import type {DrawImageSource} from '@/utils/graphics';
+import {indexById} from '@eugene-khyst/artistassistapp-color-mixer';
+import {useQuery, type UseQueryResult} from '@tanstack/react-query';
 
-export async function transferStyle(
-  images: DrawImageSource[],
-  model: OnnxModel,
-  auth: Authentication | null,
-  progressCallback?: FetchProgressCallback,
-  signal?: AbortSignal
-): Promise<ImageBitmap> {
-  const transformedImage: ImageBitmap = await transformImage(
-    images,
-    model,
-    auth,
-    progressCallback,
-    signal
-  );
-  return transformedImage;
+import {fetchStyleImages, type StyleImageDefinition} from '@/services/image/style-images';
+
+interface Result {
+  isLoading: boolean;
+  isError: boolean;
+  error: Error | null;
+  styleImages?: Map<string, StyleImageDefinition>;
+}
+
+export function useStyleImages(): Result {
+  const {isLoading, isError, error, data}: UseQueryResult<Map<string, StyleImageDefinition>> =
+    useQuery({
+      queryKey: ['style-images'],
+      queryFn: fetchStyleImages,
+      select: indexById,
+    });
+  return {
+    isLoading,
+    isError,
+    error,
+    styleImages: data,
+  };
 }

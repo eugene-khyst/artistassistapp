@@ -17,6 +17,7 @@
  */
 
 import {
+  CloseCircleOutlined,
   DownOutlined,
   FileImageOutlined,
   InboxOutlined,
@@ -46,6 +47,7 @@ type Props = PropsWithChildren<
     showUseReferencePhoto?: boolean;
     showUseCopiedImage?: boolean;
     onChange: (files: File[]) => void | Promise<void>;
+    onClear?: () => void;
   } & Pick<BaseButtonProps, 'loading' | 'type'> &
     Pick<InputHTMLAttributes<HTMLInputElement>, 'multiple' | 'disabled'>
 >;
@@ -60,6 +62,7 @@ export function FileSelect({
   disabled,
   loading,
   multiple,
+  onClear,
 }: Readonly<Props>) {
   const selectedImageFile = useAppStore(state => state.selectedImageFile);
 
@@ -192,6 +195,14 @@ export function FileSelect({
           onClick: () => {
             void handleClipboardImageClick();
           },
+        }
+      : null,
+    onClear
+      ? {
+          key: 'clear',
+          label: <Trans>Clear</Trans>,
+          icon: <CloseCircleOutlined />,
+          onClick: onClear,
         }
       : null,
   ];

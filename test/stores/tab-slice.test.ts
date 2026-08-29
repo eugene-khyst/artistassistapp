@@ -34,7 +34,7 @@ type TestStore = TabSlice &
   Pick<TonalValuesSlice, 'loadTonalImages'> &
   Pick<SimplifyImageSlice, 'loadSimplifiedImages'> &
   Pick<OutlineImageSlice, 'loadOutlineImage'> &
-  Pick<StyleTransferSlice, 'loadStyledImage'> &
+  Pick<StyleTransferSlice, 'transferStyle'> &
   Pick<StorageSlice, 'loadStorageUsage'>;
 
 function createTestStore() {
@@ -47,7 +47,7 @@ function createTestStore() {
     loadTonalImages: vi.fn(),
     loadSimplifiedImages: vi.fn(async (): Promise<void> => undefined),
     loadOutlineImage: vi.fn(async (): Promise<void> => undefined),
-    loadStyledImage: vi.fn(async (): Promise<void> => undefined),
+    transferStyle: vi.fn(async (): Promise<void> => undefined),
     loadStorageUsage: vi.fn(async (): Promise<void> => undefined),
     ...createTabSlice(...args),
   }));

@@ -21,7 +21,7 @@ import {computeOtsuThreshold} from '@/services/image/filter/otsu-threshold';
 import {sobelEdgeDetectionWebGL} from '@/services/image/filter/sobel-edge-detection-webgl';
 import {thresholdFilterWebGL} from '@/services/image/filter/threshold-webgl';
 import {transformImage} from '@/services/ml/image-transformer';
-import {type OnnxModel} from '@/services/ml/types';
+import {type OnnxModel, SOBEL_EDGE_DETECTION_MODEL_ID} from '@/services/ml/types';
 import type {FetchProgressCallback} from '@/utils/fetch';
 import {type DrawImageSource, offscreenCanvasToImageData} from '@/utils/graphics';
 
@@ -33,10 +33,10 @@ export async function extractOutline(
   signal?: AbortSignal
 ): Promise<ImageBitmap> {
   let outlineImage: ImageBitmap;
-  if (model.url) {
-    outlineImage = await transformImage([image], model, auth, progressCallback, signal);
-  } else {
+  if (model.id === SOBEL_EDGE_DETECTION_MODEL_ID) {
     outlineImage = sobelEdgeDetection(image);
+  } else {
+    outlineImage = await transformImage([image], model, auth, progressCallback, signal);
   }
   return outlineImage;
 }

@@ -25,13 +25,8 @@ import {
   saveNewImageFiles,
   touchImage,
 } from '@/services/db/image-file-db';
-import {
-  blobToImageFile,
-  type ImageFile,
-  imageFileToFile,
-  type RecentImage,
-} from '@/services/image/image-file';
-import type {SampleImageDefinition} from '@/services/image/sample-images';
+import {type ImageFile, imageFileToFile, type RecentImage} from '@/services/image/image-file';
+import {fetchSampleImageFile, type SampleImageDefinition} from '@/services/image/sample-images';
 import type {AppSlice} from '@/stores/app-slice';
 import type {CloudSlice} from '@/stores/cloud-slice';
 import {
@@ -49,7 +44,6 @@ import type {ColorMixerSlice} from './color-mixer-slice';
 import type {PaletteSlice} from './palette-slice';
 import type {TabSlice} from './tab-slice';
 
-const REFERENCE_IMAGE_TIMEOUT_MS = 120_000;
 const RECENT_IMAGES_PAGE_SIZE = 12;
 
 enum SelectImageResult {
@@ -359,21 +353,12 @@ export const createOriginalImageSlice: StateCreator<
       await clearDeletedSelection(digestToDelete, selectedImageFileToDelete);
     },
 
-    loadSampleImage: async ({image, name}: SampleImageDefinition): Promise<void> => {
+    loadSampleImage: async (sampleImage: SampleImageDefinition): Promise<void> => {
       set({
         isSampleImageLoading: true,
       });
       try {
-        const response: Response = await fetch(image, {
-          mode: 'cors',
-          signal: AbortSignal.timeout(REFERENCE_IMAGE_TIMEOUT_MS),
-        });
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status} for ${image}`);
-        }
-        const blob: Blob = await response.blob();
-        const imageFile: ImageFile = await blobToImageFile(blob, name);
-        await get().saveRecentImageFile(imageFile);
+        await get().saveRecentImageFile(await fetchSampleImageFile(sampleImage));
       } finally {
         set({
           isSampleImageLoading: false,

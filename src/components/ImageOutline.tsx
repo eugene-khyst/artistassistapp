@@ -49,13 +49,14 @@ import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {OnnxModelSelect} from '@/components/ml-model/OnnxModelSelect';
 import {PrintImageDrawer} from '@/components/print/PrintImageDrawer';
 import {useArMode} from '@/hooks/useArMode';
+import {useErrorNotification} from '@/hooks/useErrorNotification';
 import {useLightbox} from '@/hooks/useLightbox';
-import {useSelectedOnnxModel} from '@/hooks/useSelectedOnnxModel';
+import {useOnnxModels} from '@/hooks/useOnnxModels';
+import {useSelectedCatalogItem} from '@/hooks/useSelectedCatalogItem';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
 import {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
 import {GridCanvasMode} from '@/services/canvas/mode/grid-canvas-mode';
-import {getDefaultModel} from '@/services/ml/models';
-import {type OnnxModel, OnnxModelType} from '@/services/ml/types';
+import {OnnxModelType, SOBEL_EDGE_DETECTION_MODEL_ID} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
 import {TabKey} from '@/tabs';
 import {getFilename} from '@/utils/filename';
@@ -89,12 +90,28 @@ export function ImageOutline() {
 
   const {t} = useLingui();
 
-  const {models, modelId, isAccessAllowed, isModelsLoading, selectModel, setSelectedModelId} =
-    useSelectedOnnxModel({
-      type: OnnxModelType.LineDrawing,
-      settingsKey: 'outlineModel',
-      setModel: setOutlineModel,
-    });
+  const {
+    models,
+    isLoading: isModelsLoading,
+    isError: isModelsError,
+  } = useOnnxModels(OnnxModelType.LineDrawing);
+
+  useErrorNotification(
+    isModelsError,
+    t`Unable to load the outline modes`,
+    t`Check your connection and try again.`
+  );
+
+  const {
+    itemId: modelId,
+    isAccessAllowed,
+    selectItem: selectModel,
+    setSelectedItemId: setSelectedModelId,
+  } = useSelectedCatalogItem({
+    items: models,
+    settingsKey: 'outlineModel',
+    setItem: setOutlineModel,
+  });
 
   const images = useMemo(() => [outlineImage, originalImage], [outlineImage, originalImage]);
   const displayDimension = useMemo(
@@ -197,12 +214,7 @@ export function ImageOutline() {
 
   const handleCancelClick = () => {
     abortOutline();
-    const defaultModel = getDefaultModel(
-      models,
-      user,
-      ({url, freeTier}: OnnxModel): boolean => !url && (!!user || !!freeTier)
-    );
-    setSelectedModelId(defaultModel?.id);
+    setSelectedModelId(SOBEL_EDGE_DETECTION_MODEL_ID);
   };
 
   const popupRender = useCallback(

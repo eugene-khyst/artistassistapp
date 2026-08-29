@@ -50,7 +50,6 @@ describe('ML tensor conversion', () => {
       } as ImageData,
       {
         id: 'model',
-        name: 'Model',
         url: 'model.onnx',
         colorChannelOrdering: 'BGR',
         mean: [1, 2, 3],
@@ -69,7 +68,6 @@ describe('ML tensor conversion', () => {
       {data: new Float32Array([1, 0.5, 0]), dims: [1, 3, 1, 1]},
       {
         id: 'model',
-        name: 'Model',
         url: 'model.onnx',
         colorChannelOrdering: 'BGR',
         postProcessing: [PostProcessing.Invert, PostProcessing.ScaleTo255],
@@ -84,7 +82,6 @@ describe('ML tensor conversion', () => {
       {data: new Float32Array([0.25]), dims: [1, 1, 1, 1]},
       {
         id: 'model',
-        name: 'Model',
         url: 'model.onnx',
         postProcessing: [PostProcessing.ScaleTo255],
       }

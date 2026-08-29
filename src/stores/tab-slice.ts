@@ -36,7 +36,7 @@ type TabSliceDependencies = Pick<AppSlice, 'saveAppSettings'> &
   Pick<TonalValuesSlice, 'loadTonalImages'> &
   Pick<SimplifyImageSlice, 'loadSimplifiedImages'> &
   Pick<OutlineImageSlice, 'loadOutlineImage'> &
-  Pick<StyleTransferSlice, 'loadStyledImage'> &
+  Pick<StyleTransferSlice, 'transferStyle'> &
   Pick<StorageSlice, 'loadStorageUsage'>;
 
 export interface TabSlice {
@@ -93,7 +93,7 @@ export const createTabSlice: StateCreator<TabSlice & TabSliceDependencies, [], [
     } else if (activeTabKey === TabKey.Outline) {
       void get().loadOutlineImage();
     } else if (activeTabKey === TabKey.StyleTransfer) {
-      void get().loadStyledImage();
+      void get().transferStyle();
     } else if (activeTabKey === TabKey.Help) {
       void get().loadStorageUsage();
     }

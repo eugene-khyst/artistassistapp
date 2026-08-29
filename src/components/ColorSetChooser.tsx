@@ -211,12 +211,11 @@ export function ColorSetChooser() {
     }
   };
 
-  useErrorNotification(isBrandsError, <Trans>Error while fetching color brand data</Trans>);
   useErrorNotification(
-    isStandardColorSetsError,
-    <Trans>Error while fetching standard color set data</Trans>
+    isBrandsError || isStandardColorSetsError || isColorsError,
+    <Trans>Unable to load the color data</Trans>,
+    <Trans>Check your connection and try again.</Trans>
   );
-  useErrorNotification(isColorsError, <Trans>Error while fetching color data</Trans>);
 
   const onCheckUnsavedRef = useRef<CheckUnsavedColorSet>(() => Promise.resolve(true));
   useEffect(() => {
@@ -522,7 +521,7 @@ export function ColorSetChooser() {
                     <Trans>✏️ High-quality outlines and background removal</Trans>
                   </li>
                   <li>
-                    <Trans>🧑‍🎨 Artist-inspired and custom-reference styles</Trans>
+                    <Trans>🧑‍🎨 Artistic style transfer from your images</Trans>
                   </li>
                   <li>
                     <Trans>

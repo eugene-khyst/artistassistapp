@@ -24,16 +24,14 @@ import {getAuthSession, saveAuthSession, saveAuthSessionIfUnchanged} from '@/ser
 import {dbPromise, deleteDatabase} from '@/services/db/db';
 import {getProcessedImage, saveProcessedImage} from '@/services/db/processed-image-db';
 import type {StoreName} from '@/services/db/schema';
-import {discardStyleImage, getStyleImage, saveStyleImage} from '@/services/db/style-image-db';
+import {discardStyleImage, readStyleImage, saveStyleImage} from '@/services/db/style-image-db';
+import {ImageUnreadableError} from '@/services/image/errors';
 import type {ImageFile} from '@/services/image/image-file';
 import type {OnnxModel} from '@/services/ml/types';
 import {digestArrayBuffer} from '@/utils/digest';
 
 const MODEL: OnnxModel = {
   id: 'model',
-  name: 'Model',
-  description: 'Description',
-  image: 'model.png',
   url: 'model.onnx',
   resolution: 512,
   priority: 1,
@@ -87,8 +85,9 @@ describe('style image storage', () => {
 
     expect(settings.styleTransferImageDigest).toBe(image.digest);
     expect((await getAppSettings())?.styleTransferImageDigest).toBe(image.digest);
-    expect((await getStyleImage())?.digest).toBe(image.digest);
-    expect(await (await getStyleImage())?.blob.text()).toBe('style image');
+    const storedStyleImage = await readStyleImage(image.digest);
+    expect(storedStyleImage.digest).toBe(image.digest);
+    expect(await storedStyleImage.blob.text()).toBe('style image');
   });
 
   it('does not discard a newer style image for a stale digest', async () => {
@@ -99,7 +98,7 @@ describe('style image storage', () => {
 
     expect(result.discarded).toBe(false);
     expect(result.appSettings.styleTransferImageDigest).toBe(image.digest);
-    expect((await getStyleImage())?.digest).toBe(image.digest);
+    expect((await readStyleImage(image.digest)).digest).toBe(image.digest);
   });
 
   it('removes the image and configured digest together', async () => {
@@ -110,7 +109,7 @@ describe('style image storage', () => {
 
     expect(result.discarded).toBe(true);
     expect(result.appSettings.styleTransferImageDigest).toBeUndefined();
-    expect(await getStyleImage()).toBeUndefined();
+    await expect(readStyleImage(image.digest)).rejects.toThrow(ImageUnreadableError);
     expect((await getAppSettings())?.styleTransferImageDigest).toBeUndefined();
   });
 });
@@ -146,9 +145,6 @@ describe('processed image cache', () => {
     const cached = await getProcessedImage(
       {
         ...MODEL,
-        name: 'Renamed',
-        description: 'Changed description',
-        image: 'changed.png',
         priority: 99,
         freeTier: false,
       },

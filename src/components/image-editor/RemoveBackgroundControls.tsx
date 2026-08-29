@@ -24,7 +24,9 @@ import type {AggregationColor} from 'antd/es/color-picker/color';
 
 import {ColorPicker} from '@/components/color/ColorPicker';
 import {OnnxModelSelect} from '@/components/ml-model/OnnxModelSelect';
-import {useSelectedOnnxModel} from '@/hooks/useSelectedOnnxModel';
+import {useErrorNotification} from '@/hooks/useErrorNotification';
+import {useOnnxModels} from '@/hooks/useOnnxModels';
+import {useSelectedCatalogItem} from '@/hooks/useSelectedCatalogItem';
 import {OnnxModelType} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
 import {editableBackgroundCommand} from '@/stores/remove-background-slice';
@@ -42,10 +44,26 @@ export function RemoveBackgroundControls() {
 
   const isBackgroundColorEditable = !!editableBackgroundCommand(editImageHistory);
 
-  const {models, modelId, isAccessAllowed, isModelsLoading, selectModel} = useSelectedOnnxModel({
-    type: OnnxModelType.BackgroundRemoval,
+  const {
+    models,
+    isLoading: isModelsLoading,
+    isError: isModelsError,
+  } = useOnnxModels(OnnxModelType.BackgroundRemoval);
+
+  useErrorNotification(
+    isModelsError,
+    t`Unable to load the background removal modes`,
+    t`Check your connection and try again.`
+  );
+
+  const {
+    itemId: modelId,
+    isAccessAllowed,
+    selectItem: selectModel,
+  } = useSelectedCatalogItem({
+    items: models,
     settingsKey: 'backgroundRemovalModel',
-    setModel: setRemoveBackgroundModel,
+    setItem: setRemoveBackgroundModel,
   });
 
   return (

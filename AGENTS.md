@@ -50,8 +50,10 @@ asks. The index is intentionally stale during iterative work; review the working
 
 ## Architecture
 
-React 19 PWA with a single conditional `<Tabs>` UI in `ArtistAssistApp.tsx`. An `OnnxModel` with an
-empty `url` selects a local WebGL pipeline instead of ONNX (the free-tier Outline "quick" mode).
+React 19 PWA with a single conditional `<Tabs>` UI in `ArtistAssistApp.tsx`. Catalog JSON (ML
+models, style images) carries identity and inference metadata only — labels and scores live in the
+app, keyed by id, so they can be translated. `extractOutline` dispatches on
+`SOBEL_EDGE_DETECTION_MODEL_ID` to run a local WebGL pipeline instead of ONNX.
 
 ### State Management
 
@@ -150,13 +152,13 @@ Pure business logic, no React. Notable non-obvious bits:
   the slice already stores, so a cache hit never re-encodes. Entries live in `processed-images`,
   keyed by `PROCESSED_IMAGE_CACHE_VERSION`, a digest of the model's inference-affecting metadata,
   and every input image digest — the style image counts as an input, so it belongs in `digests`.
-  `processedImageKey` strips presentation-only fields (`name`, `description`, `image`, `priority`,
-  `freeTier`) by rest-destructuring, so a new field is part of the key by default: the worst case is
-  a needless re-run, never a stale image. Pre- and post-processing also live in code, which the
-  model JSON cannot express — bump `PROCESSED_IMAGE_CACHE_VERSION` when changing them. Callers pick
-  the encode format (PNG for line art, the JPEG default for photo-like output). Models without a
-  `url` run a local WebGL pipeline and are never cached. The cache is derived data: it stays out of
-  cloud sync, ZIP export, and `store-changes`.
+  `processedImageKey` strips `priority` and `freeTier` by rest-destructuring, so every other field —
+  a new one included — is part of the key: the worst case is a needless re-run, never a stale image.
+  Keep presentation fields out of the model JSON; renaming one there would invalidate every cached
+  image. Pre- and post-processing also live in code, which the model JSON cannot express — bump
+  `PROCESSED_IMAGE_CACHE_VERSION` when changing them. Callers pick the encode format (PNG for line
+  art, the JPEG default for photo-like output). Models without a `url` are never cached. The cache
+  is derived data: it stays out of cloud sync, ZIP export, and `store-changes`.
 - **`cloud/`** — `cloud-sync-client.ts` owns provider-neutral sync policy over `CloudClient<T>`;
   cached remote IDs are hints and need lookup fallback. Provider revisions churn without content
   changes, so use the canonical state hash to detect edits. State JSON includes custom brands, color
@@ -199,9 +201,9 @@ Pure business logic, no React. Notable non-obvious bits:
   blob in one transaction, so it cannot resurrect a concurrently deleted photo. Migration 006 may
   leave metadata without a blob when legacy bytes cannot be copied. ZIP export captures state, blob
   references, and validated bytes through `getLocalStateWithImageBytes`, so compression operates on
-  one IndexedDB snapshot. A configured style image is materialized before use; if its record, bytes,
-  digest, or decoding is invalid, the record and setting are removed atomically while the model
-  remains available for choosing a replacement.
+  one IndexedDB snapshot. A configured style image is checked against the digest in app settings
+  rather than hashed; if its record, digest, or decoding is invalid, the record and setting are
+  removed atomically while the model remains available for choosing a replacement.
 - **`auth/`** — the durable `auth-attempt` is the pending redirect state and supports standalone ↔
   browser handoff. Redirect completion exchanges its token using the stored PKCE verifier; email OTP
   and redirect completion persist the same IDB session shape. `resolveAuth()` owns verification and
@@ -210,7 +212,7 @@ Pure business logic, no React. Notable non-obvious bits:
 
 ### React Query data shape
 
-Service-layer fetchers consumed by hooks (`fetchOnnxModels`, `fetchColorBrands`,
+Service-layer fetchers consumed by hooks (`fetchOnnxModels`, `fetchStyleImages`, `fetchColorBrands`,
 `fetchStandardColorSets`, `fetchColors`) return plain arrays — not Maps — so RQ's
 `structuralSharing` (which only walks plain objects/arrays) preserves data refs across refetches.
 Hooks rebuild Maps via `select` using `indexById` / `indexBy` (`src/utils/map.ts`). `select`
@@ -221,6 +223,11 @@ type to the per-query `select` generic. `combine` must be `useCallback`'d.
 Store slices that cache an `OnnxModel` should guard redundant setter calls by object identity, not
 by `id`, so React Query refetches can propagate same-id metadata changes (`url`, access tier,
 pre/post-processing) into the active pipeline.
+
+`useSelectedCatalogItem` owns the selection for a catalog tab from an items Map, an `AppSettings`
+key, and a `setItem` action: `selectedItemId` is `null` for an explicit cancel and `undefined` for
+"use the default", and `defaultPredicate` keeps an item selectable without letting it become the
+default — the custom style image needs a stored image first.
 
 Callers must pass _stable_ collection props — see `selectedBrands` in `ColorSetChooser.tsx`. Antd's
 `Form.useWatch` already returns reference-stable values.

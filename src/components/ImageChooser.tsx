@@ -67,7 +67,11 @@ export function ImageChooser() {
 
   const isLoading: boolean = isRecentImagesLoading || isSampleImagesLoading || isSampleImageLoading;
 
-  useErrorNotification(isSampleImagesError, <Trans>Error loading sample photos</Trans>);
+  useErrorNotification(
+    isSampleImagesError,
+    <Trans>Unable to load the sample photos</Trans>,
+    <Trans>Check your connection and try again.</Trans>
+  );
 
   const handleFileChange = async ([file]: File[]) => {
     if (!file) {

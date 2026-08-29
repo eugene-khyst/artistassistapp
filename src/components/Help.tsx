@@ -20,10 +20,10 @@ import {
   CheckCircleOutlined,
   CloseCircleOutlined,
   CloudSyncOutlined,
+  CopyrightOutlined,
   DownloadOutlined,
   FileProtectOutlined,
   FileTextOutlined,
-  InfoCircleOutlined,
   MailOutlined,
   ReadOutlined,
   StopOutlined,
@@ -87,13 +87,13 @@ export function Help() {
           </Button>
           <Button
             type="link"
-            href={WEBSITE_URL}
+            href={`${WEBSITE_URL}/contact/`}
             target="_blank"
             rel="noopener"
-            icon={<InfoCircleOutlined />}
+            icon={<MailOutlined />}
             size="large"
           >
-            <Trans>About ArtistAssistApp</Trans>
+            <Trans>Contact</Trans>
           </Button>
           <Button
             type="link"
@@ -107,16 +107,6 @@ export function Help() {
           </Button>
         </Flex>
         <Flex vertical align="start">
-          <Button
-            type="link"
-            href={`${WEBSITE_URL}/contact/`}
-            target="_blank"
-            rel="noopener"
-            icon={<MailOutlined />}
-            size="large"
-          >
-            <Trans>Contact</Trans>
-          </Button>
           <Button
             type="link"
             href={`${WEBSITE_URL}/privacy-policy/`}
@@ -136,6 +126,16 @@ export function Help() {
             size="large"
           >
             <Trans>Terms of use</Trans>
+          </Button>
+          <Button
+            type="link"
+            href="/THIRD-PARTY-NOTICES.txt"
+            target="_blank"
+            rel="noopener"
+            icon={<CopyrightOutlined />}
+            size="large"
+          >
+            <Trans>Third-party notices</Trans>
           </Button>
         </Flex>
       </Flex>

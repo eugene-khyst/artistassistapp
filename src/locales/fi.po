@@ -17,7 +17,7 @@ msgstr ""
 msgid "({colorCount} colors)"
 msgstr "({colorCount} värit)"
 
-#: src/components/ColorSetChooser.tsx:687
+#: src/components/ColorSetChooser.tsx:686
 msgid "{brandName} colors"
 msgstr "{brandName} värit"
 
@@ -73,11 +73,11 @@ msgstr "<0/> Windows ja <1/> Linux"
 msgid "<0>{matchScoreText}%</0> match score"
 msgstr "<0>{matchScoreText} %</0> ottelutulos"
 
-#: src/components/ColorSetChooser.tsx:542
+#: src/components/ColorSetChooser.tsx:541
 msgid "<0>Already a paid member?</0> Log in to unlock your paid features."
 msgstr "<0>Oletko jo maksullinen jäsen?</0> Kirjaudu sisään avataksesi maksulliset ominaisuutesi."
 
-#: src/components/ColorSetChooser.tsx:478
+#: src/components/ColorSetChooser.tsx:477
 msgid "<0>ArtistAssistApp</0> helps artists mix colors to match reference photos using their own art supplies, create palettes and mixing charts, study tonal values, make outlines, draw with grids, explore limited palettes and artist-inspired versions of photos, straighten photos, adjust their colors, remove backgrounds, and compare images side by side."
 msgstr "<0>ArtistAssistApp</0> auttaa taiteilijoita yhdistämään värejä vertailukuviin sopiviksi omilla taidetarvikkeillaan, luomaan paletteja ja sekoituskaavioita, tutkimaan sävyarvoja, tekemään ääriviivoja, piirtämään ruudukoilla, tutkimaan rajattuja paletteja ja taiteilijan inspiroimia valokuvien versioita, suoristamaan valokuvia, säätämään niiden värejä, poistamaan taustoja ja vertailemaan kuvia vierekkäin."
 
@@ -85,7 +85,7 @@ msgstr "<0>ArtistAssistApp</0> auttaa taiteilijoita yhdistämään värejä vert
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Tarkista Patreon-tilisi</0>: Varmista, että olet kirjautuneena <1>Patreon.com</1> selaimessasi samalla sähköpostilla, jolla ostit jäsenyytesi. Jos sinulla on useita tilejä, kirjaudu ulos ja kirjaudu takaisin oikealla tilillä."
 
-#: src/components/ColorSetChooser.tsx:512
+#: src/components/ColorSetChooser.tsx:511
 msgid "<0>Not a paid member yet?</0> Become a paid ArtistAssistApp member to unlock:"
 msgstr "<0>Et ole vielä maksullinen jäsen?</0> Liity maksulliseksi ArtistAssistApp-jäseneksi avaaksesi:"
 
@@ -97,25 +97,25 @@ msgstr "<0>Yritä kirjautua uudelleen</0>: Kun olet varmistanut, että oikea Pat
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Käytä verkkoselainta</0>: Jos käytät Patreon-sovellusta (iOS/Android), kirjaudu sisään verkkoselaimella (Chrome, Safari, Firefox), sillä sovellus voi joskus häiritä varmennusprosessia."
 
-#: src/components/ColorSetChooser.tsx:528
+#: src/components/ColorSetChooser.tsx:527
 msgid "☁️ Cloud sync to store your color sets, photos, and mixtures in your own cloud storage, so you can use them across devices"
 msgstr "☁️ Pilvisynkronointi tallentaa värisetit, valokuvat ja sekoitukset omaan pilvitallennustilaan, jotta voit käyttää niitä eri laitteilla"
 
-#: src/components/ColorSetChooser.tsx:522
+#: src/components/ColorSetChooser.tsx:521
 msgid "✏️ High-quality outlines and background removal"
 msgstr "✏️ Korkealaatuiset hahmotelmat ja taustan poisto"
 
-#: src/components/ColorSetChooser.tsx:519
+#: src/components/ColorSetChooser.tsx:518
 msgid "🎨 250+ color brands"
 msgstr "🎨 250+ väribrändiä"
 
-#: src/components/ColorSetChooser.tsx:534
+#: src/components/ColorSetChooser.tsx:533
 msgid "📢 No ads"
 msgstr "📢 Ei mainoksia"
 
-#: src/components/ColorSetChooser.tsx:525
-msgid "🧑‍🎨 Artist-inspired and custom-reference styles"
-msgstr "🧑‍🎨 Taiteilijan inspiroimat ja räätälöidyt viittaustyylit"
+#: src/components/ColorSetChooser.tsx:524
+msgid "🧑‍🎨 Artistic style transfer from your images"
+msgstr "🧑‍🎨 Taiteellisen tyylin siirto kuvistasi"
 
 #: src/components/messages.ts:37
 msgid "2-color gradient"
@@ -137,9 +137,9 @@ msgstr "Sovelluksesta on saatavilla uusi versio."
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Alle 100 %:n arvo saa kuvan näyttämään vähemmän värikkäältä ja yli 100 %:n arvo saa sen näyttämään liian värikkäältä"
 
-#: src/components/Help.tsx:96
-msgid "About ArtistAssistApp"
-msgstr "Tietoja ArtistAssistAppista"
+#: src/components/ml-model/OnnxModelSelect.tsx:92
+msgid "Accurate"
+msgstr "Tarkka"
 
 #: src/components/messages.ts:64
 msgid "Acrylic Gouache"
@@ -173,7 +173,7 @@ msgstr "Lisää väripari"
 msgid "Add images"
 msgstr "Lisää kuvia"
 
-#: src/components/ColorSetChooser.tsx:690
+#: src/components/ColorSetChooser.tsx:689
 msgid "Add or remove colors to match your actual color set."
 msgstr "Lisää tai poista värejä todellisen värijoukon mukaan."
 
@@ -189,9 +189,9 @@ msgstr "Lisää valkoista <0>{whiteRatioText}-suhteessa</0>"
 msgid "Adjust colors"
 msgstr "Säädä värejä"
 
-#: src/components/image-editor/StraightenControls.tsx:83
-msgid "Adjust the 4 points manually."
-msgstr "Säädä neljää pistettä manuaalisesti."
+#: src/components/image-editor/StraightenControls.tsx:87
+msgid "Adjust the 4 corners manually."
+msgstr "Säädä 4 kulmaa käsin."
 
 #: src/components/Help.tsx:201
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
@@ -201,7 +201,7 @@ msgstr "Kaikki sovelluksen tiedot tallennetaan verkkoselaimen tallennustilaan, j
 msgid "All edits will be lost"
 msgstr "Kaikki muokkaukset menetetään"
 
-#: src/components/file/FileSelect.tsx:152
+#: src/components/file/FileSelect.tsx:155
 msgid "Allow clipboard access, then try again."
 msgstr "Salli lehtiön käyttö ja yritä uudelleen."
 
@@ -242,8 +242,8 @@ msgstr "Käytä vähemmän painetta tehdäksesi akvarellikynäkerroksesta läpin
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
 msgstr "Käytä tätä väriä ja alakerroksen väriä suhteessa <0>{ratioText}</0>"
 
-#: src/components/ImageOutline.tsx:295
-#: src/components/ImageOutline.tsx:347
+#: src/components/ImageOutline.tsx:307
+#: src/components/ImageOutline.tsx:359
 msgid "AR"
 msgstr "AR"
 
@@ -256,7 +256,7 @@ msgstr "Oletko varma, että haluat poistaa kaikki väriseokset?"
 msgid "Are you sure you want to delete this color mixture?"
 msgstr "Oletko varma, että haluat poistaa tämän väriseoksen?"
 
-#: src/components/ColorSetChooser.tsx:785
+#: src/components/ColorSetChooser.tsx:784
 msgid "Are you sure you want to delete this color set?"
 msgstr "Haluatko varmasti poistaa tämän värisarjan?"
 
@@ -268,7 +268,7 @@ msgstr "Oletko varma, että haluat poistaa tämän mukautetun tuotemerkin?"
 msgid "Are you sure you want to delete this photo?"
 msgstr "Oletko varma, että haluat poistaa tämän kuvan?"
 
-#: src/components/ColorSetChooser.tsx:605
+#: src/components/ColorSetChooser.tsx:604
 #: src/components/CustomColorBrandCreator.tsx:502
 msgid "Art medium"
 msgstr "Taiteen väline"
@@ -321,13 +321,17 @@ msgstr "Todennus epäonnistui"
 msgid "Auto palette"
 msgstr "Auto-paletti"
 
-#: src/components/image-editor/StraightenControls.tsx:111
+#: src/components/image-editor/StraightenControls.tsx:115
 msgid "Auto-detect"
 msgstr "Automaattinen tunnistus"
 
-#: src/components/image-editor/StraightenControls.tsx:119
+#: src/components/image-editor/StraightenControls.tsx:123
 msgid "Auto-detect is available to paid Patreon members only"
 msgstr "Automaattinen tunnistus on vain maksettujen Patreon-jäsenten käytettävissä"
+
+#: src/components/image-editor/StraightenControls.tsx:52
+msgid "Auto-detect is unavailable"
+msgstr "Automaattinen tunnistus ei ole käytettävissä"
 
 #: src/components/ImageColorPicker.tsx:467
 msgid "Automatically find the best color mixtures for this photo."
@@ -337,8 +341,8 @@ msgstr "Löydä automaattisesti parhaat väriseokset tähän kuvaan."
 msgid "Average color of the white point area"
 msgstr "Valkoisen pistealueen keskimääräinen väri"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:81
-#: src/components/image-editor/RemoveBackgroundControls.tsx:84
+#: src/components/image-editor/RemoveBackgroundControls.tsx:99
+#: src/components/image-editor/RemoveBackgroundControls.tsx:102
 msgid "Background"
 msgstr "Tausta"
 
@@ -349,6 +353,10 @@ msgstr "Varmuuskopio tuotiin"
 #: src/components/cloud/ExportToZipButton.tsx:44
 msgid "Backup saved without some photos"
 msgstr "Varmuuskopio tallennettu ilman kuvia"
+
+#: src/components/ImageStyleTransfer.tsx:66
+msgid "Barbizon School"
+msgstr "Barbizonin koulu"
 
 #: src/components/auth/JoinButton.tsx:27
 msgid "Become a paid member"
@@ -380,7 +388,7 @@ msgstr "Keveyttä"
 msgid "By name"
 msgstr "Nimeltä"
 
-#: src/components/ImageOutline.tsx:133
+#: src/components/ImageOutline.tsx:150
 msgid "Camera access is required for AR tracing"
 msgstr "Kameran käyttö on pakollinen AR-jäljitykseen"
 
@@ -401,7 +409,7 @@ msgstr "Peruuta"
 msgid "Cancel a paid membership"
 msgstr "Maksullisen jäsenyyden peruuttaminen"
 
-#: src/components/file/FileSelect.tsx:167
+#: src/components/file/FileSelect.tsx:170
 msgid "Cannot use copied image"
 msgstr "Ei voi käyttää kopioitua kuvaa"
 
@@ -413,12 +421,32 @@ msgstr "Solut"
 msgid "Check for updates"
 msgstr "Tarkista päivitykset"
 
+#: src/components/ColorSetChooser.tsx:217
+#: src/components/image-editor/RemoveBackgroundControls.tsx:56
+#: src/components/ImageChooser.tsx:73
+#: src/components/ImageOutline.tsx:102
+#: src/components/ImageStyleTransfer.tsx:124
+msgid "Check your connection and try again."
+msgstr "Tarkista yhteys ja yritä uudelleen."
+
+#: src/components/image-editor/StraightenControls.tsx:53
+msgid "Check your connection and try again. You can still adjust the 4 corners manually."
+msgstr "Tarkista yhteys ja yritä uudelleen. Voit silti säätää neljää kulmaa manuaalisesti."
+
 #: src/components/empty/EmptyColorSet.tsx:122
 #: src/components/empty/EmptyImage.tsx:47
 msgid "Choose a reference photo"
 msgstr "Valitse viitekuva"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:101
+#: src/components/ImageStyleTransfer.tsx:60
+msgid "Cityscape"
+msgstr "Kaupunkikuva"
+
+#: src/components/file/FileSelect.tsx:203
+msgid "Clear"
+msgstr "Selkeä"
+
+#: src/components/image-editor/RemoveBackgroundControls.tsx:119
 msgid "Clear background color"
 msgstr "Selkeä taustaväri"
 
@@ -525,7 +553,7 @@ msgstr "Väri"
 msgid "Color brand"
 msgstr "Väri merkki"
 
-#: src/components/ColorSetChooser.tsx:637
+#: src/components/ColorSetChooser.tsx:636
 msgid "Color brands"
 msgstr "Värimerkit"
 
@@ -558,7 +586,7 @@ msgstr "Värisekoitus"
 msgid "Color picker"
 msgstr "Värinvalitsin"
 
-#: src/components/ColorSetChooser.tsx:613
+#: src/components/ColorSetChooser.tsx:612
 #: src/components/ImageColorPicker.tsx:293
 #: src/components/messages.ts:27
 msgid "Color set"
@@ -601,7 +629,7 @@ msgstr "Yhdistä pilvitallennus ennen synkronointia."
 msgid "Connect cloud storage to keep a synced copy of your data in the cloud and use it across devices, or manually save and restore backup files"
 msgstr "Yhdistä pilvitallennus säilyttääksesi synkronoidun kopion tiedoistasi pilvessä ja käyttääksesi niitä eri laitteissa tai tallenna ja palauta varmuuskopiotiedostot manuaalisesti"
 
-#: src/components/ColorSetChooser.tsx:559
+#: src/components/ColorSetChooser.tsx:558
 msgid "Connect cloud storage to sync your data across devices"
 msgstr "Yhdistä pilvitallennus synkronoidaksesi tietosi eri laitteiden välillä"
 
@@ -613,7 +641,7 @@ msgstr "Harkitse aluskerroksen päälle sekoitettuja värejä, kun ne vastaavat 
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "Harkitse läpinäkyviä kerroksia pinnan tai aluskerroksen päälle, kun ne sopivat paremmin kohteeseen kuin läpinäkymättömät seokset"
 
-#: src/components/Help.tsx:118
+#: src/components/Help.tsx:96
 msgid "Contact"
 msgstr "Kontakti"
 
@@ -637,7 +665,7 @@ msgstr "Cool – Algoritminen arvio; taiteellinen käsitys voi vaihdella."
 msgid "Copy"
 msgstr "Kopioida"
 
-#: src/components/file/FileSelect.tsx:129
+#: src/components/file/FileSelect.tsx:132
 msgid "Copy a supported image to the clipboard, then try again."
 msgstr "Kopioi tuettu kuva lehtiölle ja yritä uudelleen."
 
@@ -649,7 +677,7 @@ msgstr "Kopioi ja jaa tämä linkki"
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Korjattu arvio valonlähteen lämpötilasta kelvineinä"
 
-#: src/components/image-editor/StraightenControls.tsx:82
+#: src/components/image-editor/StraightenControls.tsx:86
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Paperia tai kangasta ei havaittu automaattisesti"
 
@@ -665,11 +693,11 @@ msgstr "Ei voinut tuoda varmuuskopioita"
 msgid "Could not read the file"
 msgstr "Tiedostoa ei voinut lukea"
 
-#: src/components/ColorSetChooser.tsx:759
+#: src/components/ColorSetChooser.tsx:758
 msgid "Create a duplicate of this color set for further modification"
 msgstr "Luo kopio tästä värijoukosta lisämuokkausta varten"
 
-#: src/components/ColorSetChooser.tsx:768
+#: src/components/ColorSetChooser.tsx:767
 msgid "Create a new color set by merging existing ones"
 msgstr "Luo uusi värijoukko yhdistämällä olemassa olevat"
 
@@ -683,6 +711,10 @@ msgstr "Luo uusi"
 msgid "Crop"
 msgstr "Rajaa"
 
+#: src/components/ImageStyleTransfer.tsx:75
+msgid "Cubism"
+msgstr "Kubismi"
+
 #: src/components/color-set/StandardColorSetCascader.tsx:34
 msgid "Custom color set"
 msgstr "Mukautettu värisarja"
@@ -694,8 +726,8 @@ msgstr "Mukautetut värit"
 #: src/components/auth/DeleteAccountButton.tsx:67
 #: src/components/color/AddToPaletteButton.tsx:48
 #: src/components/color/PaletteColorMixtureCard.tsx:128
-#: src/components/ColorSetChooser.tsx:789
-#: src/components/ColorSetChooser.tsx:799
+#: src/components/ColorSetChooser.tsx:788
+#: src/components/ColorSetChooser.tsx:798
 #: src/components/CustomColorBrandCreator.tsx:531
 #: src/components/CustomColorBrandCreator.tsx:541
 #: src/components/image/RecentImageCard.tsx:124
@@ -728,7 +760,7 @@ msgstr "Poista tiedot tästä laitteesta"
 msgid "Delete from palette"
 msgstr "Poista paletista"
 
-#: src/components/ImageChooser.tsx:93
+#: src/components/ImageChooser.tsx:97
 msgid "Delete oldest"
 msgstr "Poista vanhin"
 
@@ -737,7 +769,7 @@ msgstr "Poista vanhin"
 msgid "Delete the color mixture"
 msgstr "Poista väriseos"
 
-#: src/components/ColorSetChooser.tsx:784
+#: src/components/ColorSetChooser.tsx:783
 msgid "Delete the color set"
 msgstr "Värijoukon poistaminen"
 
@@ -751,13 +783,17 @@ msgstr "Poista mukautettu tuotemerkki"
 msgid "Delete the recent photo"
 msgstr "Viimeisimmän kuvan poistaminen"
 
-#: src/components/ColorSetChooser.tsx:794
+#: src/components/ColorSetChooser.tsx:793
 msgid "Delete this color set"
 msgstr "Poista tämä värijoukko"
 
 #: src/components/color/ConsistencyDescription.tsx:51
 msgid "Dense layer"
 msgstr "Tiheä kerros"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:40
+msgid "Detail"
+msgstr "Yksityiskohta"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:35
 msgid "Details"
@@ -779,11 +815,11 @@ msgstr "Lävistäjät"
 msgid "Diameter"
 msgstr "Halkaisija"
 
-#: src/components/ColorSetChooser.tsx:237
+#: src/components/ColorSetChooser.tsx:236
 msgid "Discard changes"
 msgstr "Hylkää muutokset"
 
-#: src/components/ColorSetChooser.tsx:231
+#: src/components/ColorSetChooser.tsx:230
 msgid "Discard changes to the color set?"
 msgstr "Hylätäänkö värisarjan muutokset?"
 
@@ -807,11 +843,15 @@ msgstr "Yhteyden katkaiseminen siirtää ArtistAssistApp-kansion ja kaiken sen s
 msgid "Disconnecting will delete everything inside the ArtistAssistApp app folder, including files you added.<0/>Move anything you want to keep outside the folder first.<1/>Files outside the folder will not be deleted.<2/>Depending on the provider, deletion may be permanent."
 msgstr "Yhteyden katkaiseminen poistaa kaiken ArtistAssistApp-sovelluskansiosta, mukaan lukien lisäämäsi tiedostot.<0/>Siirrä ensin kaikki haluamasi kansion ulkopuolelle.<1/>Kansion ulkopuolisia tiedostoja ei poisteta.<2/>Palveluntarjoajasta riippuen poisto voi olla pysyvää."
 
-#: src/components/ColorSetChooser.tsx:670
+#: src/components/ImageStyleTransfer.tsx:71
+msgid "Divisionism"
+msgstr "Divisionismi"
+
+#: src/components/ColorSetChooser.tsx:669
 msgid "Do you have a store-bought or custom color set?"
 msgstr "Onko sinulla kaupasta ostettu tai mukautettu värisarja?"
 
-#: src/components/ColorSetChooser.tsx:252
+#: src/components/ColorSetChooser.tsx:251
 msgid "Don't save"
 msgstr "Älä tallenna"
 
@@ -823,11 +863,11 @@ msgstr "Ladataan kuvaa {index} / {count}"
 msgid "Downloading... {percent}% ({key})"
 msgstr "Ladataan... {percent}% ({key})"
 
-#: src/components/file/FileSelect.tsx:205
+#: src/components/file/FileSelect.tsx:216
 msgid "Drop the file here..."
 msgstr "Pudota tiedosto tähän..."
 
-#: src/components/file/FileSelect.tsx:205
+#: src/components/file/FileSelect.tsx:216
 msgid "Drop the files here..."
 msgstr "Pudota tiedostot tänne..."
 
@@ -835,9 +875,13 @@ msgstr "Pudota tiedostot tänne..."
 msgid "Dry Pastel"
 msgstr "Kuiva pastelli"
 
-#: src/components/ColorSetChooser.tsx:762
+#: src/components/ColorSetChooser.tsx:761
 msgid "Duplicate"
 msgstr "Kaksoiskappale"
+
+#: src/components/ImageStyleTransfer.tsx:64
+msgid "Dutch Baroque"
+msgstr "hollantilainen barokki"
 
 #: src/components/TwoColorGradient.tsx:200
 msgid "Each column is a mixing ratio"
@@ -867,6 +911,10 @@ msgstr "Sähköposti"
 msgid "Email is required"
 msgstr "Sähköposti on pakollinen"
 
+#: src/components/ImageStyleTransfer.tsx:78
+msgid "Engraving"
+msgstr "Kaiverrus"
+
 #: src/components/CustomColorBrandCreator.tsx:511
 msgid "Enter a name"
 msgstr "Kirjoita nimi"
@@ -875,11 +923,11 @@ msgstr "Kirjoita nimi"
 msgid "Enter a valid email"
 msgstr "Syötä kelvollinen sähköposti"
 
-#: src/components/ImageOutline.tsx:276
+#: src/components/ImageOutline.tsx:288
 msgid "Enter lightbox mode to trace the outline through your paper"
 msgstr "Siirry lightbox-tilaan jäljittääksesi ääriviivat paperin läpi"
 
-#: src/components/ImageOutline.tsx:339
+#: src/components/ImageOutline.tsx:351
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Siirry valolaatikkotilaan jäljittääksesi ääriviivat paperisi läpi."
 
@@ -899,33 +947,16 @@ msgstr "Virhe"
 msgid "Error description"
 msgstr "Virhekuvaus"
 
-#: src/components/ImageChooser.tsx:70
-msgid "Error loading sample photos"
-msgstr "Virhe ladataan esimerkkikuvia"
-
-#: src/components/ColorSetChooser.tsx:214
-msgid "Error while fetching color brand data"
-msgstr "Virhe haettaessa väribränditietoja"
-
-#: src/components/ColorSetChooser.tsx:219
-msgid "Error while fetching color data"
-msgstr "Virhe haettaessa väritietoja"
-
-#: src/components/image-editor/StraightenControls.tsx:50
-#: src/hooks/useSelectedOnnxModel.ts:91
-msgid "Error while fetching ML model data"
-msgstr "Virhe koneoppimismallin tietoja haettaessa"
-
-#: src/components/ColorSetChooser.tsx:217
-msgid "Error while fetching standard color set data"
-msgstr "Virhe haettaessa vakiovärijoukkotietoja"
-
 #: src/components/image-editor/AdjustColorsControls.tsx:349
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Valonlähteen arvioitu lämpötila Kelvininä kuva on otettu"
 
-#: src/components/ImageOutline.tsx:295
-#: src/components/ImageOutline.tsx:347
+#: src/components/ImageStyleTransfer.tsx:79
+msgid "Etching"
+msgstr "Etsaus"
+
+#: src/components/ImageOutline.tsx:307
+#: src/components/ImageOutline.tsx:359
 msgid "Exit AR"
 msgstr "Exit AR"
 
@@ -933,10 +964,43 @@ msgstr "Exit AR"
 msgid "Export to file"
 msgstr "Vienti tiedostoksi"
 
-#: src/components/ColorSetChooser.tsx:414
+#: src/components/ImageStyleTransfer.tsx:72
+msgid "Expressionism"
+msgstr "Ekspressionismi"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:100
+msgid "Fast"
+msgstr "Nopeasti"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:108
+msgid "Fastest"
+msgstr "Nopein"
+
+#: src/components/ImageStyleTransfer.tsx:74
+msgid "Fauvism"
+msgstr "fauvismi"
+
+#: src/components/ColorSetChooser.tsx:413
 #: src/components/CustomColorBrandCreator.tsx:394
 msgid "Fill in the required fields"
 msgstr "Täytä vaaditut kentät"
+
+#: src/components/ImageStyleTransfer.tsx:370
+msgid "Filter by artist"
+msgstr "Suodata artistin mukaan"
+
+#: src/components/ImageStyleTransfer.tsx:383
+msgid "Filter by tag"
+msgstr "Suodata tunnisteen mukaan"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:43
+msgid "Fine detail"
+msgstr "Hieno yksityiskohta"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:56
+#: src/components/ml-model/OnnxModelSelect.tsx:84
+msgid "Finest"
+msgstr "Hienoin"
 
 #: src/components/CustomColorBrandCreator.tsx:217
 msgid "Finish editing"
@@ -970,7 +1034,7 @@ msgstr "Hanki koodi"
 msgid "Gifted membership"
 msgstr "Lahjakas jäsenyys"
 
-#: src/components/ColorSetChooser.tsx:630
+#: src/components/ColorSetChooser.tsx:629
 msgid "Give your color set a name for easy access."
 msgstr "Anna värisarjallesi nimi, jotta sitä on helppo käyttää."
 
@@ -987,7 +1051,7 @@ msgid "Gouache"
 msgstr "Guassi"
 
 #: src/components/grid/GridControls.tsx:130
-#: src/components/ImageOutline.tsx:314
+#: src/components/ImageOutline.tsx:326
 #: src/components/messages.ts:34
 msgid "Grid"
 msgstr "Hila"
@@ -996,12 +1060,12 @@ msgstr "Hila"
 msgid "Height"
 msgstr "Korkeus"
 
-#: src/components/ColorSetChooser.tsx:473
+#: src/components/ColorSetChooser.tsx:472
 #: src/components/messages.ts:43
 msgid "Help"
 msgstr "Apua"
 
-#: src/components/ColorSetChooser.tsx:250
+#: src/components/ColorSetChooser.tsx:249
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Jos et tallenna, värijoukkoon tehdyt muutokset saattavat kadota."
 
@@ -1025,6 +1089,10 @@ msgstr "Tuonti tiedostosta"
 msgid "Importing this backup will replace your local color sets, reference photos, saved color mixtures, and custom color brands."
 msgstr "Tämän varmuuskopion tuonti korvaa paikalliset väriset, viitekuvat, tallennetut väriseokset ja räätälöidyt värimerkit."
 
+#: src/components/ImageStyleTransfer.tsx:67
+msgid "Impressionism"
+msgstr "Impressionismi"
+
 #: src/components/messages.ts:39
 msgid "Inspiration"
 msgstr "Inspiraatio"
@@ -1044,6 +1112,10 @@ msgstr "Asenna ArtistAssistApp"
 #: src/components/Help.tsx:147
 msgid "Install update"
 msgstr "Asennuspäivitys"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:77
+msgid "Instant"
+msgstr "Välitön"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:375
 msgid "Intended color temperature (K)"
@@ -1067,14 +1139,14 @@ msgstr "Useiden kuvien välillä voi olla vaikea valita. Kunkin kuvan vertaamine
 
 #: src/components/color/AddToPaletteButton.tsx:49
 #: src/components/color/PaletteColorMixtureCard.tsx:129
-#: src/components/ColorSetChooser.tsx:790
+#: src/components/ColorSetChooser.tsx:789
 #: src/components/CustomColorBrandCreator.tsx:532
 #: src/components/image/RecentImageCard.tsx:125
 #: src/components/palette/PaletteGrid.tsx:122
 msgid "Keep"
 msgstr "Pidä"
 
-#: src/components/ImageChooser.tsx:94
+#: src/components/ImageChooser.tsx:98
 msgid "Keep all"
 msgstr "Pidä kaikki"
 
@@ -1082,13 +1154,17 @@ msgstr "Pidä kaikki"
 msgid "Keep cloud data"
 msgstr "Pidä pilvidataa"
 
-#: src/components/ColorSetChooser.tsx:238
+#: src/components/ColorSetChooser.tsx:237
 msgid "Keep editing"
 msgstr "Jatka muokkaamista"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:41
 msgid "Keep this device"
 msgstr "Pidä tämä laite"
+
+#: src/components/ImageStyleTransfer.tsx:59
+msgid "Landscape"
+msgstr "Maisema"
 
 #: src/components/i18n/LocaleSelect.tsx:64
 msgid "Language"
@@ -1110,7 +1186,7 @@ msgstr "Jäljellä vertailua varten: {unfinishedGamesSize}"
 msgid "Less"
 msgstr "Vähemmän"
 
-#: src/components/ImageOutline.tsx:338
+#: src/components/ImageOutline.tsx:350
 msgid "Light box"
 msgstr "Valolaatikko"
 
@@ -1119,7 +1195,7 @@ msgstr "Valolaatikko"
 msgid "Light tone"
 msgstr "Vaalea sävy"
 
-#: src/components/ImageOutline.tsx:284
+#: src/components/ImageOutline.tsx:296
 msgid "Lightbox"
 msgstr "Lightbox"
 
@@ -1165,12 +1241,16 @@ msgstr "Matala teho ja korkea teho"
 msgid "Margin"
 msgstr "Marginaali"
 
+#: src/components/image-editor/StraightenControls.tsx:66
+msgid "Mark the 4 corners of your paper or canvas"
+msgstr "Merkitse paperin tai kankaan 4 kulmaa"
+
 #: src/components/ImageColorPicker.tsx:480
 msgid "Match score"
 msgstr "Ottelun tulos"
 
 #: src/components/color-set/MergeColorSetsDrawer.tsx:96
-#: src/components/ColorSetChooser.tsx:771
+#: src/components/ColorSetChooser.tsx:770
 msgid "Merge"
 msgstr "Yhdistyminen"
 
@@ -1217,8 +1297,8 @@ msgid "Mixture"
 msgstr "Sekoitus"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:107
-#: src/components/image-editor/RemoveBackgroundControls.tsx:54
-#: src/components/ImageOutline.tsx:255
+#: src/components/image-editor/RemoveBackgroundControls.tsx:72
+#: src/components/ImageOutline.tsx:267
 msgid "Mode"
 msgstr "Moodi"
 
@@ -1226,7 +1306,11 @@ msgstr "Moodi"
 msgid "More"
 msgstr "Lisää"
 
-#: src/components/ColorSetChooser.tsx:629
+#: src/components/ImageStyleTransfer.tsx:80
+msgid "Mosaic"
+msgstr "Mosaiikki"
+
+#: src/components/ColorSetChooser.tsx:628
 #: src/components/CustomColorBrandCreator.tsx:196
 #: src/components/CustomColorBrandCreator.tsx:510
 msgid "Name"
@@ -1236,13 +1320,17 @@ msgstr "Nimi"
 msgid "Name a brand"
 msgstr "Nimeä brändi"
 
-#: src/components/ColorSetChooser.tsx:633
+#: src/components/ColorSetChooser.tsx:632
 msgid "Name a color set"
 msgstr "Värijoukon nimeäminen"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:101
 msgid "name@example.com"
 msgstr "name@example.com"
+
+#: src/components/ImageStyleTransfer.tsx:69
+msgid "Neo-Impressionism"
+msgstr "Uusimpressionismia"
 
 #: src/components/color/WarmthIcon.tsx:46
 msgid "Neutral — Algorithmic estimate; artistic perception may vary."
@@ -1281,6 +1369,10 @@ msgstr "Ei lajittelua"
 msgid "No target color is selected"
 msgstr "Kohdeväriä ei ole valittu"
 
+#: src/components/ImageStyleTransfer.tsx:63
+msgid "Northern Renaissance"
+msgstr "Pohjoinen renessanssi"
+
 #: src/components/auth/LoginEmailOtpButton.tsx:69
 msgid "Not sure which email Patreon uses? Check your <0>Patreon basic settings</0>."
 msgstr "En ole varma, mitä sähköpostia Patreon käyttää? Tarkista <0>Patreonin perusasetukset</0>."
@@ -1313,18 +1405,14 @@ msgstr "Diagonaalissa ovat puhtaat värit täydellä teholla. Diagonaalin yläpu
 msgid "On the diagonal are the pure colors at full strength. Off the diagonal is each pair mixed in a 1:1 ratio."
 msgstr "Diagonaalissa ovat puhtaat värit täydellä teholla. Diagonaalin ulkopuolella jokainen pari sekoitetaan suhteessa 1:1."
 
-#: src/components/ColorSetChooser.tsx:652
+#: src/components/ColorSetChooser.tsx:651
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Ilmaisessa versiossa on saatavilla vain rajoitettu määrä värimerkkejä"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:60
-#: src/components/ImageOutline.tsx:242
+#: src/components/image-editor/RemoveBackgroundControls.tsx:78
+#: src/components/ImageOutline.tsx:254
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Ilmaisessa versiossa on käytettävissä vain rajoitettu määrä tiloja"
-
-#: src/components/ImageStyleTransfer.tsx:242
-msgid "Only a limited number of styles are available in the free version"
-msgstr "Ilmaisessa versiossa on saatavilla vain rajoitettu määrä tyylejä"
 
 #: src/components/ImageColorPicker.tsx:491
 msgid "Opacity"
@@ -1347,7 +1435,7 @@ msgstr "Avaa <0>Patreonin perusasetukset</0> ja varmista, että ilmoitettu sähk
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "tai asenna Chrome-, Edge-, Firefox- tai Opera-selaimen uusin versio"
 
-#: src/components/ColorSetChooser.tsx:567
+#: src/components/ColorSetChooser.tsx:566
 msgid "Or save a backup file on this device"
 msgstr "Tai tallenna varmuuskopiotiedosto tälle laitteelle"
 
@@ -1355,11 +1443,11 @@ msgstr "Tai tallenna varmuuskopiotiedosto tälle laitteelle"
 msgid "Or scan the QR code"
 msgstr "Tai skannaa QR-koodi"
 
-#: src/components/ImageChooser.tsx:151
+#: src/components/ImageChooser.tsx:155
 msgid "Or select from sample photos"
 msgstr "Voit myös valita esimerkkikuvista"
 
-#: src/components/ImageChooser.tsx:125
+#: src/components/ImageChooser.tsx:129
 msgid "Or select from your recent photos"
 msgstr "Voit myös valita viimeisimmistä kuvistasi"
 
@@ -1372,7 +1460,7 @@ msgstr "Alkuperäinen"
 msgid "Original color temperature (K)"
 msgstr "Alkuperäinen värilämpötila (K)"
 
-#: src/components/ImageOutline.tsx:269
+#: src/components/ImageOutline.tsx:281
 #: src/components/messages.ts:33
 msgid "Outline"
 msgstr "Hahmotella"
@@ -1392,6 +1480,10 @@ msgstr "Paletti"
 #: src/components/print/PrintImageDrawer.tsx:210
 msgid "Paper size"
 msgstr "Paperikoko"
+
+#: src/components/ImageStyleTransfer.tsx:77
+msgid "Pastel"
+msgstr "Pastelli"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:108
 msgid "Patreon member email address not found"
@@ -1454,9 +1546,21 @@ msgstr "Nipistä tai selaa zoomataksesi, vedä panoroimaan."
 msgid "Please send us a screenshot of this error via our <0>contacts</0>. It will help us identify the cause."
 msgstr "Lähetäthän meille kuvakaappauksen tästä virheestä <0>yhteystietojemme</0> kautta. Se auttaa meitä tunnistamaan syyn."
 
+#: src/components/ImageStyleTransfer.tsx:70
+msgid "Pointillism"
+msgstr "Pointillismia"
+
+#: src/components/ImageStyleTransfer.tsx:58
+msgid "Portrait"
+msgstr "Muotokuva"
+
 #: src/components/ImagesCompare.tsx:185
 msgid "Position: {position}<0/>Rating: {ratingText}"
 msgstr "Sijainti: {position}<0/>Luokitus: {ratingText}"
+
+#: src/components/ImageStyleTransfer.tsx:68
+msgid "Post-Impressionism"
+msgstr "Post-impressionismi"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:90
 #: src/components/cloud/CloudSyncUpdateNotification.tsx:56
@@ -1493,8 +1597,8 @@ msgstr "Paina <0>Lisää palettiin</0> -painiketta haluamasi väriyhdistelmän v
 #: src/components/ColorMixingChart.tsx:149
 #: src/components/ImageGrid.tsx:72
 #: src/components/ImageGrid.tsx:83
-#: src/components/ImageOutline.tsx:322
-#: src/components/ImageOutline.tsx:358
+#: src/components/ImageOutline.tsx:334
+#: src/components/ImageOutline.tsx:370
 #: src/components/ImagesCompare.tsx:173
 #: src/components/ImageTonalValues.tsx:158
 #: src/components/ImageTonalValues.tsx:169
@@ -1511,7 +1615,7 @@ msgstr "Suuren kuvan tulostaminen useille sivuille"
 msgid "Print preview"
 msgstr "Esikatselu"
 
-#: src/components/Help.tsx:128
+#: src/components/Help.tsx:118
 msgid "Privacy policy"
 msgstr "Tietosuojakäytäntö"
 
@@ -1535,6 +1639,10 @@ msgstr "Arvosana: {player2RatingText}"
 msgid "Ratio"
 msgstr "Suhde"
 
+#: src/components/ImageStyleTransfer.tsx:65
+msgid "Realism"
+msgstr "Realismi"
+
 #: src/components/ImageEditor.tsx:264
 msgid "Redo"
 msgstr "Toista"
@@ -1556,6 +1664,10 @@ msgstr "Vähennä kuvan värien määrää."
 msgid "Reference"
 msgstr "Viittaus"
 
+#: src/components/ImageStyleTransfer.tsx:352
+msgid "Reference photo"
+msgstr "Viitekuva"
+
 #: src/components/color/ColorMatchCard.tsx:132
 #: src/components/ColorMixer.tsx:256
 msgid "Reflectance"
@@ -1569,7 +1681,7 @@ msgstr "Lataa uudelleen"
 msgid "Remove and continue"
 msgstr "Poista ja jatka"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:118
+#: src/components/image-editor/RemoveBackgroundControls.tsx:136
 #: src/components/messages.ts:50
 msgid "Remove background"
 msgstr "Poista tausta"
@@ -1620,7 +1732,7 @@ msgstr "Yritä uudelleen"
 msgid "Return to the {tabLabel} tab"
 msgstr "Palaa {tabLabel}-välilehteen"
 
-#: src/components/image-editor/StraightenControls.tsx:114
+#: src/components/image-editor/StraightenControls.tsx:118
 msgid "Rotate"
 msgstr "Kiertää"
 
@@ -1633,17 +1745,17 @@ msgid "Saturation (%)"
 msgstr "Kylläisyys (%)"
 
 #: src/components/ColorMixingChart.tsx:158
-#: src/components/ColorSetChooser.tsx:251
+#: src/components/ColorSetChooser.tsx:250
 #: src/components/CustomColorBrandCreator.tsx:518
 #: src/components/image/ImageSaveButton.tsx:38
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:141
-#: src/components/ImageOutline.tsx:365
+#: src/components/ImageOutline.tsx:377
 #: src/components/ImageTonalValues.tsx:175
 msgid "Save"
 msgstr "Säästää"
 
-#: src/components/ColorSetChooser.tsx:754
+#: src/components/ColorSetChooser.tsx:753
 msgid "Save & continue"
 msgstr "Tallenna ja jatka"
 
@@ -1651,43 +1763,39 @@ msgstr "Tallenna ja jatka"
 msgid "Save backup"
 msgstr "Tallenna varmuuskopio"
 
-#: src/components/ColorSetChooser.tsx:249
+#: src/components/ColorSetChooser.tsx:248
 msgid "Save changes to the color set?"
 msgstr "Tallennatko muutokset värijoukkoon?"
 
-#: src/components/ColorSetChooser.tsx:749
+#: src/components/ColorSetChooser.tsx:748
 msgid "Save the changes to this color set"
 msgstr "Tallenna tähän värijoukkoon tehdyt muutokset"
 
-#: src/components/image-editor/StraightenControls.tsx:62
-msgid "Select 4 points to correct perspective distortion"
-msgstr "Valitse 4 pistettä korjataksesi perspektiivin vääristymän"
+#: src/components/ImageStyleTransfer.tsx:61
+msgid "Seascape"
+msgstr "Merimaisema"
 
 #: src/components/CustomColorBrandCreator.tsx:492
 msgid "Select a color brand"
 msgstr "Valitse värimerkki"
 
-#: src/components/ColorSetChooser.tsx:615
+#: src/components/ColorSetChooser.tsx:614
 msgid "Select a color set"
 msgstr "Valitse värisarja"
 
-#: src/components/ImageChooser.tsx:114
+#: src/components/ImageChooser.tsx:118
 msgid "Select a reference photo from your device to paint from"
 msgstr "Valitse laitteestasi viitekuva, josta maalaat"
 
-#: src/components/ColorSetChooser.tsx:668
+#: src/components/ColorSetChooser.tsx:667
 msgid "Select a standard or custom color set"
 msgstr "Valitse vakio tai mukautettu värisarja"
 
-#: src/components/ImageStyleTransfer.tsx:190
-msgid "Select a style image to use this style"
-msgstr "Valitse tyylikuva käyttääksesi tätä tyyliä"
-
-#: src/components/ImageStyleTransfer.tsx:235
+#: src/components/ImageStyleTransfer.tsx:359
 msgid "Select a style to transfer to your reference photo"
 msgstr "Valitse tyyli, jonka haluat siirtää viitekuvaasi"
 
-#: src/components/ColorSetChooser.tsx:606
+#: src/components/ColorSetChooser.tsx:605
 #: src/components/CustomColorBrandCreator.tsx:503
 msgid "Select an art medium"
 msgstr "Valitse taidemedia"
@@ -1700,15 +1808,15 @@ msgstr "Valitse kuva, joka sisältää värikartan"
 msgid "Select art medium"
 msgstr "Valitse taideväline"
 
-#: src/components/ColorSetChooser.tsx:688
+#: src/components/ColorSetChooser.tsx:687
 msgid "Select at least one color"
 msgstr "Valitse vähintään yksi väri"
 
-#: src/components/ColorSetChooser.tsx:405
+#: src/components/ColorSetChooser.tsx:404
 msgid "Select at least one color before saving the color set."
 msgstr "Valitse vähintään yksi väri ennen kuin tallennat värisetin."
 
-#: src/components/ColorSetChooser.tsx:639
+#: src/components/ColorSetChooser.tsx:638
 msgid "Select at least one color brand"
 msgstr "Valitse vähintään yksi värimerkki"
 
@@ -1716,7 +1824,7 @@ msgstr "Valitse vähintään yksi värimerkki"
 msgid "Select brands"
 msgstr "Valitse tuotemerkit"
 
-#: src/components/ColorSetChooser.tsx:638
+#: src/components/ColorSetChooser.tsx:637
 msgid "Select brands that you use."
 msgstr "Valitse käyttämäsi tuotemerkit."
 
@@ -1749,7 +1857,7 @@ msgstr "Valitse viimeisimmistä brändeistäsi"
 msgid "Select from your recent color sets"
 msgstr "Valitse viimeisimmistä värisarjoistasi"
 
-#: src/components/ColorSetChooser.tsx:614
+#: src/components/ColorSetChooser.tsx:613
 msgid "Select from your recent color sets or create a new one."
 msgstr "Valitse viimeisimmistä värijoukoistasi tai luo uusi."
 
@@ -1774,7 +1882,7 @@ msgstr "Valitse kieli"
 msgid "Select part"
 msgstr "Valitse osa"
 
-#: src/components/ImageChooser.tsx:119
+#: src/components/ImageChooser.tsx:123
 msgid "Select photo"
 msgstr "Valitse kuva"
 
@@ -1782,7 +1890,7 @@ msgstr "Valitse kuva"
 msgid "Select set"
 msgstr "Valitse joukko"
 
-#: src/components/ImageStyleTransfer.tsx:168
+#: src/components/ImageStyleTransfer.tsx:281
 msgid "Select style image"
 msgstr "Valitse tyylikuva"
 
@@ -1806,7 +1914,7 @@ msgstr "Valitse enintään {MAX_COLORS} väriä sekoitettavaksi ja määritä ku
 msgid "Select your art medium, color brands, and colors"
 msgstr "Valitse taidevälineesi, värimerkit ja värit"
 
-#: src/components/ColorSetChooser.tsx:579
+#: src/components/ColorSetChooser.tsx:578
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
 msgstr "Valitse taidevälineesi, värimerkit ja värit, joilla maalaat, ja paina sitten <0>Tallenna ja jatka</0>"
 
@@ -1863,18 +1971,22 @@ msgstr "Varjo"
 msgid "Shadows and highlights"
 msgstr "Varjot ja valot"
 
-#: src/components/ColorSetChooser.tsx:809
+#: src/components/ColorSetChooser.tsx:808
 #: src/components/share/ShareModal.tsx:81
 msgid "Share"
 msgstr "Jakaa"
 
-#: src/components/ColorSetChooser.tsx:806
+#: src/components/ColorSetChooser.tsx:805
 msgid "Share this color set"
 msgstr "Jaa tämä värisarja"
 
 #: src/components/share/ShareModal.tsx:60
 msgid "Share your color set"
 msgstr "Värisarjan jakaminen"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:63
+msgid "Sharp"
+msgstr "Terävä"
 
 #: src/components/ImageColorPicker.tsx:350
 msgid "Show areas on the photo that match this color."
@@ -1888,7 +2000,7 @@ msgstr "Näytä ruudukko"
 msgid "Show matching areas"
 msgstr "Näytä yhteensopivat alueet"
 
-#: src/components/ImageChooser.tsx:143
+#: src/components/ImageChooser.tsx:147
 msgid "Show older photos"
 msgstr "Näytä vanhempia valokuvia"
 
@@ -1973,11 +2085,15 @@ msgstr "Lajittele seoksen värien määrän mukaan, vähimmästä useimpiin."
 msgid "Spectral reflectance curve"
 msgstr "Spektrin heijastuskäyrä"
 
+#: src/components/ml-model/OnnxModelSelect.tsx:41
+msgid "Speed"
+msgstr "Nopeus"
+
 #: src/components/grid/GridControls.tsx:112
 msgid "Square cells"
 msgstr "Neliönmuotoiset solut"
 
-#: src/components/ColorSetChooser.tsx:667
+#: src/components/ColorSetChooser.tsx:666
 msgid "Standard color set"
 msgstr "Vakiovärisarja"
 
@@ -1985,7 +2101,11 @@ msgstr "Vakiovärisarja"
 msgid "Standard print"
 msgstr "Vakiopainatus"
 
-#: src/components/ImageChooser.tsx:86
+#: src/components/ImageStyleTransfer.tsx:62
+msgid "Still Life"
+msgstr "Asetelma"
+
+#: src/components/ImageChooser.tsx:90
 msgid "Storage may fill up"
 msgstr "Varasto voi täyttyä"
 
@@ -1993,14 +2113,22 @@ msgstr "Varasto voi täyttyä"
 msgid "Storage usage"
 msgstr "Tallennustilan käyttö"
 
-#: src/components/image-editor/StraightenControls.tsx:101
+#: src/components/image-editor/StraightenControls.tsx:105
 #: src/components/messages.ts:47
 msgid "Straighten"
 msgstr "Suorista"
 
-#: src/components/ImageStyleTransfer.tsx:228
+#: src/components/ImageStyleTransfer.tsx:393
+msgid "Style transfer is available to paid Patreon members only"
+msgstr "Tyylin siirto on saatavilla vain maksullisille Patreon-jäsenille"
+
+#: src/components/ImageStyleTransfer.tsx:352
 msgid "Styled reference photo"
 msgstr "Tyylitelty viitekuva"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:42
+msgid "Subject detection"
+msgstr "Kohteen tunnistus"
 
 #: src/components/empty/EmptyColorSet.tsx:104
 msgid "Supported art mediums:"
@@ -2045,7 +2173,7 @@ msgstr "Kohdeväri"
 msgid "Target print size"
 msgstr "Tavoitetulostuskoko"
 
-#: src/components/Help.tsx:138
+#: src/components/Help.tsx:128
 msgid "Terms of use"
 msgstr "Käyttöehdot"
 
@@ -2065,8 +2193,8 @@ msgstr "Syöttämäsi koodi on väärä tai vanhentunut. Tarkista ArtistAssistAp
 msgid "The color of your paper, canvas, or painting surface."
 msgstr "Paperin, kankaan tai maalauspinnan väri."
 
-#: src/components/ColorSetChooser.tsx:233
-#: src/components/ColorSetChooser.tsx:266
+#: src/components/ColorSetChooser.tsx:232
+#: src/components/ColorSetChooser.tsx:265
 msgid "The color set can't be saved because not all required fields are filled."
 msgstr "Värijoukkoa ei voi tallentaa, koska kaikkia vaadittuja kenttiä ei ole täytetty."
 
@@ -2102,7 +2230,15 @@ msgstr "Marginaali on liian suuri"
 msgid "There is one common palette and a separate palette for each photo"
 msgstr "Jokaiselle valokuvalle on yksi yhteinen paletti ja erillinen paletti"
 
-#: src/components/ColorSetChooser.tsx:694
+#: src/components/ml-model/OnnxModelSelect.tsx:70
+msgid "Thick"
+msgstr "Paksu"
+
+#: src/components/Help.tsx:138
+msgid "Third-party notices"
+msgstr "Kolmannen osapuolen ilmoitukset"
+
+#: src/components/ColorSetChooser.tsx:693
 msgid "This color brand is available to paid Patreon members only"
 msgstr "Tämä värimerkki on saatavilla vain maksullisille Patreon-jäsenille"
 
@@ -2150,7 +2286,7 @@ msgstr "Tätä tulostuskokoa ei tueta"
 msgid "This step is optional"
 msgstr "Tämä vaihe on valinnainen"
 
-#: src/components/ImageStyleTransfer.tsx:185
+#: src/components/ImageStyleTransfer.tsx:307
 msgid "This style is available to paid Patreon members only"
 msgstr "Tämä tyyli on saatavilla vain maksullisille Patreon-jäsenille"
 
@@ -2187,6 +2323,14 @@ msgstr "Liikaa virheellisiä koodeja"
 msgid "Too many requests"
 msgstr "Liikaa pyyntöjä"
 
+#: src/components/ImageStyleTransfer.tsx:294
+msgid "Transfer the artistic style from your own image"
+msgstr "Siirrä taiteellista tyyliä omasta kuvastasi"
+
+#: src/components/ImageStyleTransfer.tsx:302
+msgid "Transferring the style from your own image is available to paid Patreon members only"
+msgstr "Tyylin siirtäminen omasta kuvastasi on vain maksullisten Patreon-jäsenten käytettävissä"
+
 #: src/components/color/OpacityIcon.tsx:39
 msgid "Transparent"
 msgstr "Läpinäkyvä"
@@ -2210,6 +2354,30 @@ msgstr "Kokeile lisätä värejä tai muuttaa pintaa, aluskerrosta tai yhdistäv
 #: src/components/Help.tsx:86
 msgid "Tutorials and videos"
 msgstr "Opetusohjelmat ja videot"
+
+#: src/components/ImageStyleTransfer.tsx:81
+msgid "Ukiyo-e"
+msgstr "Ukiyo-e"
+
+#: src/components/image-editor/RemoveBackgroundControls.tsx:55
+msgid "Unable to load the background removal modes"
+msgstr "Taustapoistotiloja ei voi ladata"
+
+#: src/components/ColorSetChooser.tsx:216
+msgid "Unable to load the color data"
+msgstr "Väritietoja ei voi ladata"
+
+#: src/components/ImageOutline.tsx:101
+msgid "Unable to load the outline modes"
+msgstr "Jäsennystiloja ei voi ladata"
+
+#: src/components/ImageChooser.tsx:72
+msgid "Unable to load the sample photos"
+msgstr "Esimerkkikuvia ei voi ladata"
+
+#: src/components/ImageStyleTransfer.tsx:123
+msgid "Unable to load the styles"
+msgstr "Tyylien lataaminen epäonnistui"
 
 #: src/components/color-set/ColorSetActivationNotification.tsx:33
 #: src/components/empty/EmptyColorSet.tsx:71
@@ -2276,7 +2444,7 @@ msgstr "Käytä <0>{fractionText} täydestä paineesta</0>"
 msgid "Use at full strength"
 msgstr "Käytä täydellä teholla"
 
-#: src/components/file/FileSelect.tsx:190
+#: src/components/file/FileSelect.tsx:193
 msgid "Use copied image"
 msgstr "Käytä kopioitua kuvaa"
 
@@ -2284,7 +2452,7 @@ msgstr "Käytä kopioitua kuvaa"
 msgid "Use full pressure"
 msgstr "Käytä täyttä painetta"
 
-#: src/components/file/FileSelect.tsx:179
+#: src/components/file/FileSelect.tsx:182
 msgid "Use reference photo"
 msgstr "Käytä viitekuvaa"
 
@@ -2296,11 +2464,15 @@ msgstr "Käytetty"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Rajallisen paletin käyttäminen auttaa väriharmonian saavuttamisessa. Valitse 1–{MAX_COLORS} päävärit."
 
-#: src/components/ImageOutline.tsx:287
+#: src/components/ImageStyleTransfer.tsx:73
+msgid "Vienna Secession"
+msgstr "Wienin Secession"
+
+#: src/components/ImageOutline.tsx:299
 msgid "View the outline over the live camera to trace in AR"
 msgstr "Katso ääriviivat live-kameran yli jäljittääksesi AR:ssä"
 
-#: src/components/ImageOutline.tsx:348
+#: src/components/ImageOutline.tsx:360
 msgid "View the outline over the live camera to trace in AR."
 msgstr "Katso ääriviivat live-kameran kautta ja seuraa AR-tilassa."
 
@@ -2316,6 +2488,10 @@ msgstr "Odota, että väritiedot on ladattu loppuun."
 #: src/components/color/WarmthIcon.tsx:38
 msgid "Warm — Algorithmic estimate; artistic perception may vary."
 msgstr "Lämmin – algoritminen arvio; taiteellinen käsitys voi vaihdella."
+
+#: src/components/ImageStyleTransfer.tsx:76
+msgid "Watercolor"
+msgstr "Akvarelli"
 
 #: src/components/color/ConsistencyDescription.tsx:105
 msgid "Watercolor can be diluted with water to make it more transparent"
@@ -2341,16 +2517,16 @@ msgstr "Emme löytäneet ArtistAssistApp Patreon -jäsenyyttä syöttämällesi 
 msgid "We couldn't verify your session. Please sign in again to continue using ArtistAssistApp."
 msgstr "Emme voineet vahvistaa istuntoasi. Kirjaudu uudelleen jatkaaksesi ArtistAssistAppin käyttöä."
 
-#: src/components/ColorSetChooser.tsx:725
+#: src/components/ColorSetChooser.tsx:724
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "Kun valitset yhteensä enemmän kuin {maxColorsFor2} väriä, kahden värin sekoituksia ei käytetä."
 
-#: src/components/ColorSetChooser.tsx:733
+#: src/components/ColorSetChooser.tsx:732
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Kun valitset yhteensä enemmän kuin {maxColorsFor3} väriä, kolmen värin sekoituksia ei käytetä."
 
 #: src/components/image-editor/AdjustColorsControls.tsx:240
-#: src/components/image-editor/RemoveBackgroundControls.tsx:87
+#: src/components/image-editor/RemoveBackgroundControls.tsx:105
 msgid "White"
 msgstr "Valkoinen"
 
@@ -2371,15 +2547,15 @@ msgstr "Valkoinen piste"
 msgid "Width"
 msgstr "Leveys"
 
-#: src/components/ImageChooser.tsx:88
+#: src/components/ImageChooser.tsx:92
 msgid "You already have many recent photos saved. Delete the oldest one to free up space? The new photo will still be added."
 msgstr "Sinulla on jo monta tuoretta valokuvaa tallennettuna. Poistatko vanhin, jotta tilaa saadaan? Uusi kuva lisätään edelleen."
 
-#: src/components/ColorSetChooser.tsx:491
+#: src/components/ColorSetChooser.tsx:490
 msgid "You are logged in and have access to all app features"
 msgstr "Olet kirjautunut sisään ja pääset käyttämään kaikkia sovelluksen ominaisuuksia"
 
-#: src/components/ColorSetChooser.tsx:503
+#: src/components/ColorSetChooser.tsx:502
 msgid "You are using the <0>free version</0> of ArtistAssistApp. It includes a limited number of color brands and image processing modes."
 msgstr "Käytät ilmaista <0>ArtistAssistApp-versiota</0> . Se sisältää rajallisen määrän värimerkkejä ja kuvankäsittelytiloja."
 
@@ -2391,16 +2567,16 @@ msgstr "Voit jatkaa työskentelyä tällä selaimen välilehdellä tai vaihtaa t
 msgid "You're logged in"
 msgstr "Olet kirjautunut sisään"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:64
-#: src/components/ImageOutline.tsx:246
+#: src/components/image-editor/RemoveBackgroundControls.tsx:82
+#: src/components/ImageOutline.tsx:258
 msgid "You've selected a mode that is available to paid Patreon members only"
 msgstr "Olet valinnut tilan, joka on saatavilla vain maksullisille Patreon-jäsenille"
 
-#: src/components/ColorSetChooser.tsx:645
+#: src/components/ColorSetChooser.tsx:644
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Olet valinnut värimerkkejä, jotka ovat vain maksullisten Patreon-jäsenten saatavilla"
 
-#: src/components/ColorSetChooser.tsx:716
+#: src/components/ColorSetChooser.tsx:715
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Olet valinnut värimerkkejä, jotka ovat vain maksullisten Patreon-jäsenten käytettävissä. Liity ArtistAssistAppiin Patreonissa maksullisena jäsenenä tai kirjaudu sisään Patreonilla, jos olet jo liittynyt."
 
@@ -2408,7 +2584,7 @@ msgstr "Olet valinnut värimerkkejä, jotka ovat vain maksullisten Patreon-jäse
 msgid "Your account details:"
 msgstr "Tilisi tiedot:"
 
-#: src/components/file/FileSelect.tsx:162
+#: src/components/file/FileSelect.tsx:165
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "Selaimesi ei tue kuvien lukemista leikepöydältä."
 
@@ -2432,6 +2608,10 @@ msgstr "Värisarjasi, viitekuvasi, sekoituksesi ja mukautetut värimerkit tallen
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "Tietojasi ei välttämättä tallenneta luotettavasti, jos selain on suljettu. Tämän korjaamiseksi asenna sovellus."
 
+#: src/components/ImageStyleTransfer.tsx:289
+msgid "Your image"
+msgstr "Sinun kuvasi"
+
 #: src/components/auth/AuthFeedbackHandler.tsx:141
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Kirjautumistietojasi ei voitu vahvistaa. Kirjaudu uudelleen sisään."
@@ -2443,6 +2623,10 @@ msgstr "Patreon-jäsenyytesi ja tämän laitteen tiedot eivät ole poistettuja. 
 #: src/components/auth/AuthFeedbackHandler.tsx:137
 msgid "Your session expired. Sign in again to continue."
 msgstr "Istuntosi päättyi. Kirjaudu uudelleen jatkaaksesi."
+
+#: src/components/ImageStyleTransfer.tsx:250
+msgid "Your style image"
+msgstr "Tyylikuvasi"
 
 #: src/components/error/BrowserSupport.tsx:49
 msgid "Your web browser is not supported"

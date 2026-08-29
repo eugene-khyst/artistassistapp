@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {ImageUnreadableError} from '@/services/image/errors';
 import type {ImageFile} from '@/services/image/image-file';
 import {type AppSettings, DEFAULT_APP_SETTINGS} from '@/services/settings/types';
 
@@ -23,21 +24,30 @@ import {dbPromise} from './db';
 
 const KEY = 0;
 
-export async function getStyleImage(): Promise<ImageFile | undefined> {
+export async function readStyleImage(expectedDigest: string): Promise<ImageFile> {
   const db = await dbPromise;
-  return await db.get('style-image', KEY);
+  const styleImage = await db.get('style-image', KEY);
+  if (styleImage?.digest !== expectedDigest) {
+    throw new ImageUnreadableError(expectedDigest, styleImage?.name);
+  }
+  return styleImage;
 }
 
-export async function saveStyleImage(styleImage: ImageFile): Promise<AppSettings> {
+export async function saveStyleImage(styleImage: ImageFile | null): Promise<AppSettings> {
   const db = await dbPromise;
   const tx = db.transaction(['app-settings', 'style-image'], 'readwrite');
   const settingsStore = tx.objectStore('app-settings');
   const appSettings = {
     ...DEFAULT_APP_SETTINGS,
     ...(await settingsStore.get(KEY)),
-    styleTransferImageDigest: styleImage.digest,
+    styleTransferImageDigest: styleImage?.digest,
   };
-  await tx.objectStore('style-image').put(styleImage, KEY);
+  const styleImageStore = tx.objectStore('style-image');
+  if (styleImage) {
+    await styleImageStore.put(styleImage, KEY);
+  } else {
+    await styleImageStore.delete(KEY);
+  }
   await settingsStore.put(appSettings, KEY);
   await tx.done;
   return appSettings;

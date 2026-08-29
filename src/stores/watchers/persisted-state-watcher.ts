@@ -28,7 +28,7 @@ const reloadPersistedState = dedupeConcurrentCalls(async (): Promise<void> => {
   const {
     appSettings: staleSettings,
     loadAppSettings,
-    refreshStyledImage,
+    refreshStyleTransfer,
     setLayeringEnabled,
     setSurface,
   } = state;
@@ -46,7 +46,7 @@ const reloadPersistedState = dedupeConcurrentCalls(async (): Promise<void> => {
     await setLayeringEnabled(storedSettings.colorPickerLayeringEnabled, {persist: false});
   }
   if (storedSettings.styleTransferImageDigest !== staleSettings.styleTransferImageDigest) {
-    await refreshStyledImage();
+    await refreshStyleTransfer();
   }
   await useAppStore.getState().checkCloudSyncUpdate();
 });

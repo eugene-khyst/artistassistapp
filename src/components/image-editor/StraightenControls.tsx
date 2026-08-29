@@ -47,7 +47,11 @@ export function StraightenControls({polygonDrawingMode}: Readonly<Props>) {
     isError: isModelError,
   } = useOnnxModel(OnnxModelType.PerspectiveCorrection, 'docaligner-fastvit-t8');
 
-  useErrorNotification(isModelError, <Trans>Error while fetching ML model data</Trans>);
+  useErrorNotification(
+    isModelError,
+    <Trans>Auto-detect is unavailable</Trans>,
+    <Trans>Check your connection and try again. You can still adjust the 4 corners manually.</Trans>
+  );
 
   const isAccessAllowed = hasAccessTo(user, model);
 
@@ -59,7 +63,7 @@ export function StraightenControls({polygonDrawingMode}: Readonly<Props>) {
     const vertices = polygonDrawingMode?.getVertices() ?? [];
     if (vertices.length < 4) {
       notification.error({
-        title: <Trans>Select 4 points to correct perspective distortion</Trans>,
+        title: <Trans>Mark the 4 corners of your paper or canvas</Trans>,
         placement: 'top',
         duration: 10,
         showProgress: true,
@@ -80,7 +84,7 @@ export function StraightenControls({polygonDrawingMode}: Readonly<Props>) {
     if (!vertices) {
       notification.error({
         title: <Trans>Could not detect the paper or canvas automatically</Trans>,
-        description: <Trans>Adjust the 4 points manually.</Trans>,
+        description: <Trans>Adjust the 4 corners manually.</Trans>,
         placement: 'top',
         duration: 10,
         showProgress: true,

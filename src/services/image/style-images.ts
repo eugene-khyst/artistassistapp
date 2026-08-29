@@ -17,37 +17,40 @@
  */
 
 import {DATA_METADATA_TIMEOUT_MS, DATA_URL} from '@/config';
+import {type CatalogItem} from '@/services/catalog';
 import {fetchSWR} from '@/utils/fetch';
+import {anySignal} from '@/utils/promise';
 
 import {blobToImageFile, type ImageFile} from './image-file';
 
-const SAMPLE_IMAGE_TIMEOUT_MS = 120 * 1000;
+const STYLE_IMAGE_TIMEOUT_MS = 60 * 1000;
 
-export interface SampleImageDefinition {
+export const CUSTOM_STYLE_IMAGE_ID = 'custom-style-image';
+
+export interface StyleImageDefinition extends CatalogItem {
   image: string;
-  name: string;
-  priority?: number;
+  artist: string;
+  title: string;
+  tags?: string[];
 }
 
-export async function fetchSampleImages(): Promise<SampleImageDefinition[]> {
+export async function fetchStyleImages(): Promise<StyleImageDefinition[]> {
   const response = await fetchSWR(
-    new Request(`${DATA_URL}/reference-photos.json`, {
+    new Request(`${DATA_URL}/style-images.json`, {
       signal: AbortSignal.timeout(DATA_METADATA_TIMEOUT_MS),
     })
   );
-  return (await response.json()) as SampleImageDefinition[];
+  return (await response.json()) as StyleImageDefinition[];
 }
 
-export async function fetchSampleImageFile({
-  image,
-  name,
-}: SampleImageDefinition): Promise<ImageFile> {
-  const response = await fetch(new URL(image, DATA_URL), {
+export async function fetchStyleImageFile(url: string, signal?: AbortSignal): Promise<ImageFile> {
+  const timeoutSignal = AbortSignal.timeout(STYLE_IMAGE_TIMEOUT_MS);
+  const response = await fetch(new URL(url, DATA_URL), {
     mode: 'cors',
-    signal: AbortSignal.timeout(SAMPLE_IMAGE_TIMEOUT_MS),
+    signal: signal ? anySignal([signal, timeoutSignal]) : timeoutSignal,
   });
   if (!response.ok) {
-    throw new Error(`HTTP ${response.status} for ${image}`);
+    throw new Error(`HTTP ${response.status} for ${url}`);
   }
-  return await blobToImageFile(await response.blob(), name);
+  return await blobToImageFile(await response.blob());
 }

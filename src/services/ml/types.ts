@@ -16,12 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {type CatalogItem} from '@/services/catalog';
+
 export enum OnnxModelType {
   LineDrawing = 'line-drawing',
   BackgroundRemoval = 'background-removal',
   StyleTransfer = 'style-transfer',
   PerspectiveCorrection = 'perspective-correction',
 }
+
+export const SOBEL_EDGE_DETECTION_MODEL_ID = 'sobel-edge-detection';
 
 export type ColorChannelOrdering = 'RGB' | 'BGR';
 
@@ -31,11 +35,7 @@ export enum PostProcessing {
   ScaleTo255 = 'scale-to-255',
 }
 
-export interface OnnxModel {
-  id: string;
-  name: string;
-  description?: string;
-  image?: string;
+export interface OnnxModel extends CatalogItem {
   url: string;
   numInputs?: 1 | 2;
   resolution?: number | [number, number];
@@ -47,6 +47,4 @@ export interface OnnxModel {
   mean?: [number, number, number];
   outputName?: string;
   postProcessing?: PostProcessing[];
-  priority?: number;
-  freeTier?: boolean;
 }

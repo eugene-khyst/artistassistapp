@@ -16,6 +16,7 @@
 - [Getting Started](#2)
 - [Implementation details](#3)
 - [Screenshots](#4)
+- [License](#5)
 
 <!-- Table of contents is made with https://github.com/eugene-khyst/md-toc-cli -->
 
@@ -138,3 +139,12 @@ ArtistAssistApp uses Web Workers for parallel processing and Service Workers for
 ![ArtistAssistApp Spectral reflectance curve](https://github.com/user-attachments/assets/abd233bf-c04d-4e01-8f93-64e5d2be264b)
 
 ![ArtistAssistApp Spectral reflectance curve](https://github.com/user-attachments/assets/ce08c975-cbc3-4ced-aa70-680eb8a45db0)
+
+## <a id="5"></a>License
+
+ArtistAssistApp is licensed under the GNU Affero General Public License v3.0. See
+[LICENSE](LICENSE).
+
+The machine-learning models the app downloads and runs are separate works, each under its own
+license. See [THIRD-PARTY-NOTICES.txt](public/THIRD-PARTY-NOTICES.txt), also served at
+[artistassistapp.com/THIRD-PARTY-NOTICES.txt](https://artistassistapp.com/THIRD-PARTY-NOTICES.txt).
