@@ -68,7 +68,7 @@ export function RemoveBackgroundControls() {
   });
 
   return (
-    <Space orientation="vertical" size="small">
+    <Space orientation="vertical">
       <Form.Item
         label={<Trans>Mode</Trans>}
         validateStatus={access === Access.Denied ? 'warning' : undefined}

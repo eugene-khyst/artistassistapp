@@ -37,7 +37,7 @@ interface Props {
 
 function ChromiumInstructions() {
   return (
-    <Space orientation="vertical" size="small">
+    <Space orientation="vertical">
       <Typography.Title level={4} className="u-m-0">
         <Trans>
           <AndroidOutlined /> Android, <WindowsOutlined /> Windows, <LinuxOutlined /> Linux and{' '}
@@ -82,7 +82,7 @@ function IOSInstructions() {
   } = theme.useToken();
 
   return (
-    <Space orientation="vertical" size="small">
+    <Space orientation="vertical">
       <Typography.Title level={4} className="u-m-0">
         <Trans>
           <AppleOutlined /> iOS and iPadOS
@@ -133,7 +133,7 @@ function MacOSInstructions() {
   } = theme.useToken();
 
   return (
-    <Space orientation="vertical" size="small">
+    <Space orientation="vertical">
       <Typography.Title level={4} className="u-m-0">
         <AppleOutlined /> macOS
       </Typography.Title>

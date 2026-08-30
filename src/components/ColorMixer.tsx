@@ -165,7 +165,7 @@ export function ColorMixer() {
         </Typography.Text>
 
         <Space size="middle" align="start" wrap>
-          <Space orientation="vertical" size="small" className={styles['inputColumn']}>
+          <Space orientation="vertical" className={styles['inputColumn']}>
             {isTransparentLayeringSupported(colorSet.type, true) && (
               <UnderlayerColorPicker
                 underlayerHex={underlayerHex}

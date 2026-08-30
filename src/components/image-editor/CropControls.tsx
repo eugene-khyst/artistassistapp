@@ -84,7 +84,7 @@ export function CropControls({croppingMode}: Readonly<Props>) {
   };
 
   return (
-    <Space orientation="vertical" size="small">
+    <Space orientation="vertical">
       <Form.Item label={<Trans>Aspect ratio</Trans>} className="u-mb-0">
         <Select
           className="u-w-100"

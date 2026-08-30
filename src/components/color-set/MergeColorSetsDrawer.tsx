@@ -74,7 +74,7 @@ export function MergeColorSetsDrawer({open, onClose, colorSets, brands, onMerge}
         </Typography.Text>
 
         <Checkbox.Group value={selectedIds} onChange={setSelectedIds} className="u-w-100">
-          <Space orientation="vertical" size="small" className="u-w-100">
+          <Space orientation="vertical" className="u-w-100">
             {sortedColorSets.map(colorSet => {
               const brandColorCounts = colorSetDefinitionToBrandColorCounts(colorSet, brands);
               return (

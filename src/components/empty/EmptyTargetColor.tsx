@@ -28,7 +28,7 @@ export function EmptyTargetColor() {
       description={<Trans>No target color is selected</Trans>}
       classNames={{footer: styles['footer']}}
     >
-      <Space orientation="vertical" size="small">
+      <Space orientation="vertical">
         <Typography.Text type="secondary">
           <Trans>
             Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a

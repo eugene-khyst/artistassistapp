@@ -102,7 +102,7 @@ export function EmptyColorSet({
                 {supportedColorTypes && (
                   <>
                     <Trans>Supported art mediums:</Trans>{' '}
-                    <Space size="small" wrap>
+                    <Space wrap>
                       {supportedColorTypes.map((colorType: ColorType) => (
                         <Tag key={colorType}>{t(COLOR_TYPE_LABELS[colorType])}</Tag>
                       ))}

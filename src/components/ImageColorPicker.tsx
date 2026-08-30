@@ -528,8 +528,8 @@ export function ImageColorPicker() {
             <canvas ref={canvasRef} className={styles['previewCanvas']} />
           </Col>
           <Col xs={24} sm={12} lg={8} className={styles['sidePanel']}>
-            <Space orientation="vertical" size="small" className={styles['controls']}>
-              <Space orientation="vertical" size="small" className="u-w-100">
+            <Space orientation="vertical" className={styles['controls']}>
+              <Space orientation="vertical" className="u-w-100">
                 {screens.md ? (
                   <>
                     {colorSetName}
@@ -540,7 +540,7 @@ export function ImageColorPicker() {
                       {layering !== Layering.None && glazingCheckbox}
                     </Space>
                     {mixing && motherColorCascader}
-                    <Space size="small">
+                    <Space>
                       {originalImage && availableMaxColors.length > 0 && reduceColorsDropdown}
                       {originalImage && autoPaletteButton}
                       {sortButton}
@@ -563,14 +563,14 @@ export function ImageColorPicker() {
                       </Button>
                     </Space>
                     {isExpandedControls && (
-                      <Space orientation="vertical" size="small" className="u-w-100">
+                      <Space orientation="vertical" className="u-w-100">
                         {colorSetName}
                         <Space size="middle">
                           {underlayerColorPicker}
                           {layering !== Layering.None && glazingCheckbox}
                         </Space>
                         {mixing && motherColorCascader}
-                        <Space size="small">
+                        <Space>
                           {originalImage && availableMaxColors.length > 0 && reduceColorsDropdown}
                           {originalImage && autoPaletteButton}
                         </Space>

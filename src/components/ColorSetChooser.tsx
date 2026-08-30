@@ -483,7 +483,7 @@ export function ColorSetChooser() {
           </Trans>
         </Typography.Paragraph>
 
-        <Space orientation="vertical" size="small">
+        <Space orientation="vertical">
           {user ? (
             <>
               <Typography.Text strong>
@@ -553,7 +553,7 @@ export function ColorSetChooser() {
         </Space>
 
         {user && !isCloudConnected && (
-          <Space orientation="vertical" size="small">
+          <Space orientation="vertical">
             <Typography.Text>
               <Trans>Connect cloud storage to sync your data across devices</Trans>
             </Typography.Text>
