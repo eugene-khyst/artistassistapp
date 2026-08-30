@@ -69,9 +69,9 @@ msgstr "<0/> Tablet a <1/> mobilní zařízení"
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows a <1/> Linux"
 
-#: src/components/color/ColorMatchCard.tsx:96
-msgid "<0>{matchScoreText}%</0> match score"
-msgstr "<0>{matchScoreText} %</0> skóre shody"
+#: src/components/color/ColorMatchCard.tsx:95
+msgid "<0>{matchScoreText}%</0> match"
+msgstr "<0>{matchScoreText} %</0> shoda"
 
 #: src/components/ColorSetChooser.tsx:541
 msgid "<0>Already a paid member?</0> Log in to unlock your paid features."
@@ -1297,7 +1297,7 @@ msgstr "Smíchejte barvu s lazurovacím médiem, jako je lněný olej, abyste na
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
 msgstr "Smíchejte barvu s akrylovým lazurovacím médiem, aby se nanesla tenčí, průhlednější vrstva"
 
-#: src/components/color/ColorMatchCard.tsx:157
+#: src/components/color/ColorMatchCard.tsx:153
 #: src/components/color/PaletteColorMixtureCard.tsx:158
 msgid "Mix this color into every mixture."
 msgstr "Tuto barvu smíchejte do každé směsi."
@@ -1682,7 +1682,7 @@ msgstr "Odkaz"
 msgid "Reference photo"
 msgstr "Referenční foto"
 
-#: src/components/color/ColorMatchCard.tsx:132
+#: src/components/color/ColorMatchCard.tsx:128
 #: src/components/ColorMixer.tsx:256
 msgid "Reflectance"
 msgstr "Odrazivost"
@@ -1741,8 +1741,8 @@ msgid "Restore from cloud"
 msgstr "Obnovení z cloudu"
 
 #: src/components/empty/EmptyColorSet.tsx:60
-msgid "Restoring the saved color set"
-msgstr "Obnovení uložené sady barev"
+msgid "Restoring the saved color set..."
+msgstr "Obnovování uložené sady barev..."
 
 #: src/components/color-set/ColorSetActivationNotification.tsx:36
 #: src/components/empty/EmptyColorSet.tsx:77
@@ -1970,22 +1970,22 @@ msgstr "Nastavit jako hlavní sadu barev"
 msgid "Set as reference"
 msgstr "Nastavit jako referenci"
 
-#: src/components/color/ColorMatchCard.tsx:148
+#: src/components/color/ColorMatchCard.tsx:144
 #: src/components/color/PaletteColorMixtureCard.tsx:149
 msgid "Set as underlayer"
 msgstr "Nastaveno jako podkladová vrstva"
 
-#: src/components/color/ColorMatchCard.tsx:144
+#: src/components/color/ColorMatchCard.tsx:140
 #: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for blending."
 msgstr "Nastavte jako podkladovou vrstvu pro prolínání."
 
-#: src/components/color/ColorMatchCard.tsx:144
+#: src/components/color/ColorMatchCard.tsx:140
 #: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for glazing."
 msgstr "Nastavte jako podkladovou vrstvu pro glazuru."
 
-#: src/components/color/ColorMatchCard.tsx:160
+#: src/components/color/ColorMatchCard.tsx:156
 #: src/components/color/PaletteColorMixtureCard.tsx:161
 msgid "Set as unifying color"
 msgstr "Nastaveno jako sjednocující barva"
@@ -2107,7 +2107,7 @@ msgstr "Seřaďte podle neprůhlednosti směsi, od neprůhledné po průhlednou.
 msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "Seřaďte podle počtu barev v směsi, od nejmenšího po nejmenší."
 
-#: src/components/color/ColorMatchCard.tsx:127
+#: src/components/color/ColorMatchCard.tsx:123
 #: src/components/color/ReflectanceChartDrawer.tsx:98
 #: src/components/ColorMixer.tsx:250
 msgid "Spectral reflectance curve"
@@ -2441,7 +2441,7 @@ msgstr "Sjednocující barva"
 msgid "Unsynced changes on this device"
 msgstr "Nesynchronizované změny na tomto zařízení"
 
-#: src/components/color/ColorMatchCard.tsx:114
+#: src/components/color/ColorMatchCard.tsx:110
 #: src/components/color/ColorSwatchDrawer.tsx:112
 #: src/components/color/PaletteColorMixtureCard.tsx:99
 #: src/components/palette/PaletteGrid.tsx:159

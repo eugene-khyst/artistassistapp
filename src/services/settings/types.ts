@@ -22,7 +22,7 @@ import type {Locale} from '@/i18n';
 import type {TabKey} from '@/tabs';
 
 export enum ColorPickerSort {
-  ByMatchScore = 1,
+  ByDeltaEOKr2 = 1,
   ByNumberOfColors = 2,
   ByConsistency = 3,
 }
@@ -58,5 +58,5 @@ export interface AppSettings {
 export const DEFAULT_APP_SETTINGS: AppSettings = {
   colorPickerSurfaceHex: PAPER_WHITE_HEX,
   colorPickerLayeringEnabled: true,
-  colorPickerSort: ColorPickerSort.ByMatchScore,
+  colorPickerSort: ColorPickerSort.ByDeltaEOKr2,
 };

@@ -18,7 +18,6 @@
 
 import {
   rgbToHex,
-  type TypedArray,
   WAVELENGTH_RANGE,
   wavelengthToColor,
   WHITE,
@@ -48,7 +47,7 @@ export class ReflectanceChart extends LineChart {
     }
   }
 
-  addReflectance(rho: number[] | TypedArray, color = WHITE, lineWidth = 2): void {
+  addReflectance(rho: Readonly<ArrayLike<number>>, color = WHITE, lineWidth = 2): void {
     this.addSeries({
       xValues: WAVELENGTH_RANGE,
       yValues: rho,

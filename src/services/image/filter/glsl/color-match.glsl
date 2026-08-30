@@ -11,9 +11,10 @@ out vec4 fragColor;
 
 #include linear-rgb.glsl;
 #include oklab.glsl;
+#include deltaeokr2.glsl;
 
 void main() {
   vec4 color = texture(u_texture, v_texCoord);
-  float deltaEOk = length(rgbToOklab(color.rgb) - u_oklab);
-  fragColor = (deltaEOk <= u_threshold) ? color : vec4(0.0);
+  float deltaE = deltaEOKr2(rgbToOklab(color.rgb), u_oklab);
+  fragColor = deltaE <= u_threshold ? color : vec4(0.0);
 }

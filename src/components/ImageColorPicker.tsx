@@ -285,7 +285,7 @@ export function ImageColorPicker() {
   const {mixing, layering} = COLOR_MIXING[colorSet.type];
   const sort =
     colorPickerSort === ColorPickerSort.ByConsistency && !(layering && colorPickerLayeringEnabled)
-      ? ColorPickerSort.ByMatchScore
+      ? ColorPickerSort.ByDeltaEOKr2
       : colorPickerSort;
 
   const colorSetName = (
@@ -476,7 +476,7 @@ export function ImageColorPicker() {
   const sortItems: MenuProps['items'] = (
     [
       {
-        sort: ColorPickerSort.ByMatchScore,
+        sort: ColorPickerSort.ByDeltaEOKr2,
         label: <Trans>Match score</Trans>,
         title: t`Sort by match score, from highest to lowest.`,
       },

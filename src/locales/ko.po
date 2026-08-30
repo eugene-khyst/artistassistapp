@@ -69,9 +69,9 @@ msgstr "<0/> 태블릿 및 <1/> 모바일"
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows 및 <1/> Linux"
 
-#: src/components/color/ColorMatchCard.tsx:96
-msgid "<0>{matchScoreText}%</0> match score"
-msgstr "<0>{matchScoreText}%</0> 일치 점수"
+#: src/components/color/ColorMatchCard.tsx:95
+msgid "<0>{matchScoreText}%</0> match"
+msgstr "<0>{matchScoreText}%</0> 일치"
 
 #: src/components/ColorSetChooser.tsx:541
 msgid "<0>Already a paid member?</0> Log in to unlock your paid features."
@@ -1297,7 +1297,7 @@ msgstr "페인트를 아마씨유와 같은 글레이징 매체와 혼합하여 
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
 msgstr "페인트를 아크릴 글레이징 매체와 혼합하여 더 얇고 투명한 층을 적용합니다."
 
-#: src/components/color/ColorMatchCard.tsx:157
+#: src/components/color/ColorMatchCard.tsx:153
 #: src/components/color/PaletteColorMixtureCard.tsx:158
 msgid "Mix this color into every mixture."
 msgstr "이 색을 모든 혼합물에 섞으세요."
@@ -1682,7 +1682,7 @@ msgstr "참조"
 msgid "Reference photo"
 msgstr "참고 사진"
 
-#: src/components/color/ColorMatchCard.tsx:132
+#: src/components/color/ColorMatchCard.tsx:128
 #: src/components/ColorMixer.tsx:256
 msgid "Reflectance"
 msgstr "반사율"
@@ -1741,8 +1741,8 @@ msgid "Restore from cloud"
 msgstr "클라우드에서 복원"
 
 #: src/components/empty/EmptyColorSet.tsx:60
-msgid "Restoring the saved color set"
-msgstr "저장된 색상 세트 복원"
+msgid "Restoring the saved color set..."
+msgstr "저장된 색상 세트를 복원하는 중..."
 
 #: src/components/color-set/ColorSetActivationNotification.tsx:36
 #: src/components/empty/EmptyColorSet.tsx:77
@@ -1970,22 +1970,22 @@ msgstr "메인 컬러 세트로 설정"
 msgid "Set as reference"
 msgstr "참조로 설정"
 
-#: src/components/color/ColorMatchCard.tsx:148
+#: src/components/color/ColorMatchCard.tsx:144
 #: src/components/color/PaletteColorMixtureCard.tsx:149
 msgid "Set as underlayer"
 msgstr "하부 계층으로 설정됨"
 
-#: src/components/color/ColorMatchCard.tsx:144
+#: src/components/color/ColorMatchCard.tsx:140
 #: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for blending."
 msgstr "블렌딩을 위해 언더레이어로 설정하세요."
 
-#: src/components/color/ColorMatchCard.tsx:144
+#: src/components/color/ColorMatchCard.tsx:140
 #: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for glazing."
 msgstr "유약 덮개용 하부 레이어로 설정하세요."
 
-#: src/components/color/ColorMatchCard.tsx:160
+#: src/components/color/ColorMatchCard.tsx:156
 #: src/components/color/PaletteColorMixtureCard.tsx:161
 msgid "Set as unifying color"
 msgstr "통합 색상으로 설정됨"
@@ -2107,7 +2107,7 @@ msgstr "혼합물별 불투명도, 불투명함부터 정렬하세요."
 msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "혼합물 내 색상 수순으로 적은 것부터 많은 것까지 정렬하세요."
 
-#: src/components/color/ColorMatchCard.tsx:127
+#: src/components/color/ColorMatchCard.tsx:123
 #: src/components/color/ReflectanceChartDrawer.tsx:98
 #: src/components/ColorMixer.tsx:250
 msgid "Spectral reflectance curve"
@@ -2441,7 +2441,7 @@ msgstr "통일성 색상"
 msgid "Unsynced changes on this device"
 msgstr "이 장치에서 동기화되지 않은 변경 사항"
 
-#: src/components/color/ColorMatchCard.tsx:114
+#: src/components/color/ColorMatchCard.tsx:110
 #: src/components/color/ColorSwatchDrawer.tsx:112
 #: src/components/color/PaletteColorMixtureCard.tsx:99
 #: src/components/palette/PaletteGrid.tsx:159

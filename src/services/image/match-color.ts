@@ -24,13 +24,13 @@ import {sobelEdgeDetectionWebGL} from '@/services/image/filter/sobel-edge-detect
 import {thresholdFilterWebGL} from '@/services/image/filter/threshold-webgl';
 import {type DrawImageSource, mergeImages, offscreenCanvasToImageData} from '@/utils/graphics';
 
-const COLOR_MATCH_DELTA_E_OK_THRESHOLD = 0.05;
+const COLOR_MATCH_DELTA_E_OKR2_THRESHOLD = 0.08;
 
 export function matchColor(image: DrawImageSource, color: RgbTuple): ImageBitmap {
   const colorMatchImage: OffscreenCanvas = colorMatchFilterWebGL(
     image,
     color,
-    COLOR_MATCH_DELTA_E_OK_THRESHOLD
+    COLOR_MATCH_DELTA_E_OKR2_THRESHOLD
   );
   const sobelImage: OffscreenCanvas = sobelEdgeDetectionWebGL(image);
   const threshold = computeOtsuThreshold(offscreenCanvasToImageData(sobelImage), true);

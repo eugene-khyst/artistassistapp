@@ -258,7 +258,7 @@ export class ImageColorPickerMode extends BaseCanvasMode {
     const diameter = Math.trunc(Math.min(width, height));
     const radius = Math.trunc(diameter / 2);
     const radiusSquare = radius ** 2;
-    const total: RgbTuple = [0, 0, 0];
+    const total = [0, 0, 0];
     let count = 0;
     for (let y = 0; y < diameter; y++) {
       for (let x = 0; x < diameter; x++) {
@@ -276,9 +276,9 @@ export class ImageColorPickerMode extends BaseCanvasMode {
     }
     const [totalR, totalG, totalB] = total;
     return [
-      unlinearizeRgbChannel(totalR / count),
-      unlinearizeRgbChannel(totalG / count),
-      unlinearizeRgbChannel(totalB / count),
+      unlinearizeRgbChannel(totalR! / count),
+      unlinearizeRgbChannel(totalG! / count),
+      unlinearizeRgbChannel(totalB! / count),
     ];
   }
 

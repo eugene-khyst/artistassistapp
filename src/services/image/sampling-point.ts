@@ -18,7 +18,7 @@
 
 import {
   byNumber,
-  deltaEOk,
+  deltaEOKr2,
   packRgb,
   reverseOrder,
   rgbToOklab,
@@ -26,7 +26,7 @@ import {
   unpackRgb,
 } from '@eugene-khyst/artistassistapp-color-mixer';
 
-const MERGE_DELTA_E_OK = 0.05;
+const MERGE_DELTA_E_OKR2 = 0.08;
 
 export interface SamplingPoint {
   rgb: RgbTuple;
@@ -145,7 +145,7 @@ export function computeSamplingPoints(imageData: ImageData): SamplingPoint[] {
 
 export function mergeSimilarSamplingPoints<T extends SamplingPoint>(
   points: T[],
-  threshold = MERGE_DELTA_E_OK
+  threshold = MERGE_DELTA_E_OKR2
 ): T[] {
   if (points.length <= 1) {
     return points;
@@ -168,7 +168,7 @@ export function mergeSimilarSamplingPoints<T extends SamplingPoint>(
 
   for (const point of pointsWithOklab) {
     const isSimilar: boolean = result.some(
-      ({l, a, b}) => deltaEOk(point.l, point.a, point.b, l, a, b) <= threshold
+      ({l, a, b}) => deltaEOKr2(point.l, point.a, point.b, l, a, b) <= threshold
     );
     if (!isSimilar) {
       result.push(point);

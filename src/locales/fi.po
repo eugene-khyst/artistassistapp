@@ -69,9 +69,9 @@ msgstr "<0/> Tabletti ja <1/> mobiili"
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows ja <1/> Linux"
 
-#: src/components/color/ColorMatchCard.tsx:96
-msgid "<0>{matchScoreText}%</0> match score"
-msgstr "<0>{matchScoreText} %</0> ottelutulos"
+#: src/components/color/ColorMatchCard.tsx:95
+msgid "<0>{matchScoreText}%</0> match"
+msgstr "<0>{matchScoreText} %</0> osuma"
 
 #: src/components/ColorSetChooser.tsx:541
 msgid "<0>Already a paid member?</0> Log in to unlock your paid features."
@@ -1297,7 +1297,7 @@ msgstr "Sekoita maali lasitusaineeseen, kuten pellavaöljyyn, levittääksesi oh
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
 msgstr "Sekoita maali akryylilasitusaineeseen ohuemman, läpinäkyvämmän kerroksen levittämiseksi"
 
-#: src/components/color/ColorMatchCard.tsx:157
+#: src/components/color/ColorMatchCard.tsx:153
 #: src/components/color/PaletteColorMixtureCard.tsx:158
 msgid "Mix this color into every mixture."
 msgstr "Sekoita tämä väri jokaiseen seokseen."
@@ -1682,7 +1682,7 @@ msgstr "Viittaus"
 msgid "Reference photo"
 msgstr "Viitekuva"
 
-#: src/components/color/ColorMatchCard.tsx:132
+#: src/components/color/ColorMatchCard.tsx:128
 #: src/components/ColorMixer.tsx:256
 msgid "Reflectance"
 msgstr "Heijastussuhde"
@@ -1741,8 +1741,8 @@ msgid "Restore from cloud"
 msgstr "Palauta pilvestä"
 
 #: src/components/empty/EmptyColorSet.tsx:60
-msgid "Restoring the saved color set"
-msgstr "Tallennetun värisarjan palauttaminen"
+msgid "Restoring the saved color set..."
+msgstr "Palautetaan tallennettua värisarjaa..."
 
 #: src/components/color-set/ColorSetActivationNotification.tsx:36
 #: src/components/empty/EmptyColorSet.tsx:77
@@ -1970,22 +1970,22 @@ msgstr "Aseta päävärisarjaksi"
 msgid "Set as reference"
 msgstr "Aseta viitteeksi"
 
-#: src/components/color/ColorMatchCard.tsx:148
+#: src/components/color/ColorMatchCard.tsx:144
 #: src/components/color/PaletteColorMixtureCard.tsx:149
 msgid "Set as underlayer"
 msgstr "Asetetaan aluskerrokseksi"
 
-#: src/components/color/ColorMatchCard.tsx:144
+#: src/components/color/ColorMatchCard.tsx:140
 #: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for blending."
 msgstr "Aseta aluskerrokseksi sekoittamista varten."
 
-#: src/components/color/ColorMatchCard.tsx:144
+#: src/components/color/ColorMatchCard.tsx:140
 #: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for glazing."
 msgstr "Aseta aluskerrokseksi lasitusta varten."
 
-#: src/components/color/ColorMatchCard.tsx:160
+#: src/components/color/ColorMatchCard.tsx:156
 #: src/components/color/PaletteColorMixtureCard.tsx:161
 msgid "Set as unifying color"
 msgstr "Asetettu yhtenäiseksi väriksi"
@@ -2107,7 +2107,7 @@ msgstr "Lajittele seoksen läpinäkyvyyden mukaan, läpinäkymättömästä läp
 msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "Lajittele seoksen värien määrän mukaan, vähimmästä useimpiin."
 
-#: src/components/color/ColorMatchCard.tsx:127
+#: src/components/color/ColorMatchCard.tsx:123
 #: src/components/color/ReflectanceChartDrawer.tsx:98
 #: src/components/ColorMixer.tsx:250
 msgid "Spectral reflectance curve"
@@ -2441,7 +2441,7 @@ msgstr "Yhdistävä väri"
 msgid "Unsynced changes on this device"
 msgstr "Synkronoimattomat muutokset tällä laitteella"
 
-#: src/components/color/ColorMatchCard.tsx:114
+#: src/components/color/ColorMatchCard.tsx:110
 #: src/components/color/ColorSwatchDrawer.tsx:112
 #: src/components/color/PaletteColorMixtureCard.tsx:99
 #: src/components/palette/PaletteGrid.tsx:159

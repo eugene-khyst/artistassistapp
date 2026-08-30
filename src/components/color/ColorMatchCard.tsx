@@ -44,7 +44,7 @@ interface Props {
 
 export const ColorMatchCard = memo(function ColorMatchCard({
   targetColor,
-  colorMatch: {colorMixture, matchScore, deltaEOk},
+  colorMatch: {colorMixture, matchScore},
   onReflectanceChartClick,
 }: Readonly<Props>) {
   const paletteColorMixture = useAppStore(state =>
@@ -62,7 +62,6 @@ export const ColorMatchCard = memo(function ColorMatchCard({
   const pastel: boolean = isPastel(type);
 
   const matchScoreText = matchScore.toFixed(1);
-  const deltaEOkText = deltaEOk.toFixed(3);
 
   const handleTitleEdited = (value: string) => {
     if (paletteColorMixture) {
@@ -94,11 +93,8 @@ export const ColorMatchCard = memo(function ColorMatchCard({
           </Space>
           <Typography.Text>
             <Trans>
-              <Typography.Text strong>{matchScoreText}%</Typography.Text> match score
+              <Typography.Text strong>{matchScoreText}%</Typography.Text> match
             </Trans>
-          </Typography.Text>
-          <Typography.Text type="secondary">
-            ΔE<sub>OK</sub>: {deltaEOkText}
           </Typography.Text>
         </Flex>
         <ColorMixtureDescription colorMixture={colorMixture} />

@@ -21,9 +21,9 @@ import {
   type ColorMatch,
   type ColorMixture,
   type Comparator,
+  compareByDeltaEOKr2,
   compareColorMatchesByColorMixturePartLength,
   compareColorMatchesByConsistency,
-  compareColorMatchesByMatchScore,
 } from '@eugene-khyst/artistassistapp-color-mixer';
 import {Flex} from 'antd';
 import {useMemo} from 'react';
@@ -38,7 +38,7 @@ import {useAppStore} from '@/stores/app-store';
 import styles from './ColorMatchesList.module.css';
 
 const COLOR_MATCH_COMPARATORS: Record<ColorPickerSort, Comparator<ColorMatch>> = {
-  [ColorPickerSort.ByMatchScore]: compareColorMatchesByMatchScore,
+  [ColorPickerSort.ByDeltaEOKr2]: compareByDeltaEOKr2,
   [ColorPickerSort.ByNumberOfColors]: compareColorMatchesByColorMixturePartLength,
   [ColorPickerSort.ByConsistency]: compareColorMatchesByConsistency,
 };
@@ -62,7 +62,7 @@ export function ColorMatchesList({sort, onReflectanceChartClick}: Readonly<Props
   const sortedColorMatches = useMemo(() => {
     return colorMatches
       .slice()
-      .sort(COLOR_MATCH_COMPARATORS[mixing ? sort : ColorPickerSort.ByMatchScore]);
+      .sort(COLOR_MATCH_COMPARATORS[mixing ? sort : ColorPickerSort.ByDeltaEOKr2]);
   }, [colorMatches, sort, mixing]);
 
   if (!targetColorHex) {

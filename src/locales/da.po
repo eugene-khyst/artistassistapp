@@ -69,9 +69,9 @@ msgstr "<0/> Tablet og <1/> mobil"
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows og <1/> Linux"
 
-#: src/components/color/ColorMatchCard.tsx:96
-msgid "<0>{matchScoreText}%</0> match score"
-msgstr "<0>{matchScoreText} %</0> matchscore"
+#: src/components/color/ColorMatchCard.tsx:95
+msgid "<0>{matchScoreText}%</0> match"
+msgstr "<0>{matchScoreText} %</0> match"
 
 #: src/components/ColorSetChooser.tsx:541
 msgid "<0>Already a paid member?</0> Log in to unlock your paid features."
@@ -327,7 +327,7 @@ msgstr "Auto-detektering"
 
 #: src/components/image-editor/StraightenControls.tsx:126
 msgid "Auto-detect is available only to paid Patreon members"
-msgstr ""
+msgstr "Automatisk registrering er kun tilgængelig for betalte Patreon-medlemmer"
 
 #: src/components/image-editor/StraightenControls.tsx:52
 msgid "Auto-detect is unavailable"
@@ -1297,7 +1297,7 @@ msgstr "Bland malingen med et glaseringsmiddel, såsom linolie, for at påføre 
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
 msgstr "Bland malingen med et akrylglasmiddel for at påføre et tyndere, mere gennemsigtigt lag"
 
-#: src/components/color/ColorMatchCard.tsx:157
+#: src/components/color/ColorMatchCard.tsx:153
 #: src/components/color/PaletteColorMixtureCard.tsx:158
 msgid "Mix this color into every mixture."
 msgstr "Bland denne farve i hver blanding."
@@ -1682,7 +1682,7 @@ msgstr "Henvisning"
 msgid "Reference photo"
 msgstr "Referencefoto"
 
-#: src/components/color/ColorMatchCard.tsx:132
+#: src/components/color/ColorMatchCard.tsx:128
 #: src/components/ColorMixer.tsx:256
 msgid "Reflectance"
 msgstr "Reflektionsgrad"
@@ -1741,8 +1741,8 @@ msgid "Restore from cloud"
 msgstr "Gendan fra skyen"
 
 #: src/components/empty/EmptyColorSet.tsx:60
-msgid "Restoring the saved color set"
-msgstr "Gendannelse af det gemte farvesæt"
+msgid "Restoring the saved color set..."
+msgstr "Gendanner det gemte farvesæt..."
 
 #: src/components/color-set/ColorSetActivationNotification.tsx:36
 #: src/components/empty/EmptyColorSet.tsx:77
@@ -1970,22 +1970,22 @@ msgstr "Indstil som hovedfarvesæt"
 msgid "Set as reference"
 msgstr "Indstil som reference"
 
-#: src/components/color/ColorMatchCard.tsx:148
+#: src/components/color/ColorMatchCard.tsx:144
 #: src/components/color/PaletteColorMixtureCard.tsx:149
 msgid "Set as underlayer"
 msgstr "Sat som underlag"
 
-#: src/components/color/ColorMatchCard.tsx:144
+#: src/components/color/ColorMatchCard.tsx:140
 #: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for blending."
 msgstr "Sæt som underlag til overgang."
 
-#: src/components/color/ColorMatchCard.tsx:144
+#: src/components/color/ColorMatchCard.tsx:140
 #: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for glazing."
 msgstr "Sæt som underlag til glasering."
 
-#: src/components/color/ColorMatchCard.tsx:160
+#: src/components/color/ColorMatchCard.tsx:156
 #: src/components/color/PaletteColorMixtureCard.tsx:161
 msgid "Set as unifying color"
 msgstr "Sæt som forenende farve"
@@ -2107,7 +2107,7 @@ msgstr "Sorter efter blandingens opacitet, fra uigennemsigtig til gennemsigtig."
 msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "Sorter efter antallet af farver i blandingen, fra færrest til flest."
 
-#: src/components/color/ColorMatchCard.tsx:127
+#: src/components/color/ColorMatchCard.tsx:123
 #: src/components/color/ReflectanceChartDrawer.tsx:98
 #: src/components/ColorMixer.tsx:250
 msgid "Spectral reflectance curve"
@@ -2441,7 +2441,7 @@ msgstr "Forenende farve"
 msgid "Unsynced changes on this device"
 msgstr "Usynkroniserede ændringer på denne enhed"
 
-#: src/components/color/ColorMatchCard.tsx:114
+#: src/components/color/ColorMatchCard.tsx:110
 #: src/components/color/ColorSwatchDrawer.tsx:112
 #: src/components/color/PaletteColorMixtureCard.tsx:99
 #: src/components/palette/PaletteGrid.tsx:159

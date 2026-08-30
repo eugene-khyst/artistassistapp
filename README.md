@@ -68,9 +68,8 @@ implementation of the following:
 - sRGB colors of black-body radiators, from Planck's law, interpolated in mireds
 - solving a bordered tridiagonal system using the Thomas algorithm and a 3×3 Schur complement
 - the average color of the circular area of the image
-- calculation of color similarity by comparing spectral reflections (weighted geometric mean of angular similarity (cosine) and Euclidean distance)
 - sampling point detection via Chamfer 3-4 distance transform (finds the optimal point per color region)
-- greedy merging of sampling points by Oklab chroma and ΔE to select minimal, perceptually distinct palette entries
+- greedy merging of sampling points by chroma and perceptual color distance to select minimal, distinct palette entries
 - vector operations
 - WebGL multi-pass rendering
 - two-pass one-dimensional Gaussian blur (WebGL)
@@ -81,7 +80,7 @@ implementation of the following:
 - Otsu's method for automatic threshold selection in Oklab lightness (CPU)
 - Kuwahara blur filter (WebGL)
 - multi-layer radial masking for focal-point-aware image simplification (WebGL)
-- color match filter using Oklab Euclidean distance (WebGL)
+- perceptual color match filter (WebGL)
 - color quantization (over-quantize by recursive bucket splitting, then merge closest in Oklab)
 - blue noise ordered dithering with a precomputed threshold texture
 - image resampling via bilinear, bicubic and Lanczos interpolation (WebGL)
@@ -109,7 +108,9 @@ Monochromatic colors come from the CIE 1931 2° color matching functions, black-
 Planck's law weighted by them, and both are converted to sRGB through the same matrix and gamut
 mapping. They are generated tables rather than curve fits, and use no third-party code or constants.
 
-ArtistAssistApp uses an empirical model based on the Kubelka-Munk theory to simulate real color mixing, focusing on spectral reflectances instead of RGB or other color models. It calculates color similarity by comparing spectral reflectance curves and presents the similarity as a percentage.
+ArtistAssistApp uses an empirical model based on the Kubelka-Munk theory to simulate real color
+mixing with spectral reflectances instead of RGB or other color models. It ranks candidate mixtures
+by perceptual similarity and presents the result as a simple match percentage.
 
 For mediums that support physical mixing, such as watercolor, oil paint, acrylic or gouache, ArtistAssistApp will suggest the matching color mixture for any target color. For pastels and pencils, the app will suggest the closest matching color from your set. Watercolor, acrylic, oil paint, colored pencils and watercolor pencils also support optical mixing.
 

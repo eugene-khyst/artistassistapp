@@ -69,9 +69,9 @@ msgstr "<0/> Tablet i <1/> telefon komórkowy"
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows i <1/> Linux"
 
-#: src/components/color/ColorMatchCard.tsx:96
-msgid "<0>{matchScoreText}%</0> match score"
-msgstr "Wynik dopasowania<0>{matchScoreText}%</0> "
+#: src/components/color/ColorMatchCard.tsx:95
+msgid "<0>{matchScoreText}%</0> match"
+msgstr "Dopasowanie<0>{matchScoreText}%</0> "
 
 #: src/components/ColorSetChooser.tsx:541
 msgid "<0>Already a paid member?</0> Log in to unlock your paid features."
@@ -1297,7 +1297,7 @@ msgstr "Zmieszaj farbę ze środkiem glazurującym, takim jak olej lniany, aby n
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
 msgstr "Zmieszaj farbę z akrylowym środkiem glazurującym, aby nałożyć cieńszą, bardziej przezroczystą warstwę"
 
-#: src/components/color/ColorMatchCard.tsx:157
+#: src/components/color/ColorMatchCard.tsx:153
 #: src/components/color/PaletteColorMixtureCard.tsx:158
 msgid "Mix this color into every mixture."
 msgstr "Wymieszaj ten kolor z każdą mieszanką."
@@ -1682,7 +1682,7 @@ msgstr "Odniesienie"
 msgid "Reference photo"
 msgstr "Zdjęcie referencyjne"
 
-#: src/components/color/ColorMatchCard.tsx:132
+#: src/components/color/ColorMatchCard.tsx:128
 #: src/components/ColorMixer.tsx:256
 msgid "Reflectance"
 msgstr "Odbicia"
@@ -1741,8 +1741,8 @@ msgid "Restore from cloud"
 msgstr "Przywróć z chmury"
 
 #: src/components/empty/EmptyColorSet.tsx:60
-msgid "Restoring the saved color set"
-msgstr "Przywracanie zapisanego zestawu kolorów"
+msgid "Restoring the saved color set..."
+msgstr "Przywracanie zapisanego zestawu kolorów..."
 
 #: src/components/color-set/ColorSetActivationNotification.tsx:36
 #: src/components/empty/EmptyColorSet.tsx:77
@@ -1970,22 +1970,22 @@ msgstr "Ustaw jako główny zestaw kolorów"
 msgid "Set as reference"
 msgstr "Ustaw jako odniesienie"
 
-#: src/components/color/ColorMatchCard.tsx:148
+#: src/components/color/ColorMatchCard.tsx:144
 #: src/components/color/PaletteColorMixtureCard.tsx:149
 msgid "Set as underlayer"
 msgstr "Osadzony jako warstwa podkładowa"
 
-#: src/components/color/ColorMatchCard.tsx:144
+#: src/components/color/ColorMatchCard.tsx:140
 #: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for blending."
 msgstr "Ustaw jako warstwę podkładową do blendowania."
 
-#: src/components/color/ColorMatchCard.tsx:144
+#: src/components/color/ColorMatchCard.tsx:140
 #: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for glazing."
 msgstr "Ostaw jako warstwę podkładową do szkliwa."
 
-#: src/components/color/ColorMatchCard.tsx:160
+#: src/components/color/ColorMatchCard.tsx:156
 #: src/components/color/PaletteColorMixtureCard.tsx:161
 msgid "Set as unifying color"
 msgstr "Ustaw jako jednolity kolor"
@@ -2107,7 +2107,7 @@ msgstr "Sortuj według mieszanki, przezroczystości, od nieprzezroczystej po prz
 msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "Sortuj według liczby kolorów w mieszance, od najmniejszej do najmniej."
 
-#: src/components/color/ColorMatchCard.tsx:127
+#: src/components/color/ColorMatchCard.tsx:123
 #: src/components/color/ReflectanceChartDrawer.tsx:98
 #: src/components/ColorMixer.tsx:250
 msgid "Spectral reflectance curve"
@@ -2441,7 +2441,7 @@ msgstr "Jednolity kolor"
 msgid "Unsynced changes on this device"
 msgstr "Niesynchronizowane zmiany na tym urządzeniu"
 
-#: src/components/color/ColorMatchCard.tsx:114
+#: src/components/color/ColorMatchCard.tsx:110
 #: src/components/color/ColorSwatchDrawer.tsx:112
 #: src/components/color/PaletteColorMixtureCard.tsx:99
 #: src/components/palette/PaletteGrid.tsx:159

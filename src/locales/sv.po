@@ -69,9 +69,9 @@ msgstr "<0/> Surfplatta och <1/> mobil"
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows och <1/> Linux"
 
-#: src/components/color/ColorMatchCard.tsx:96
-msgid "<0>{matchScoreText}%</0> match score"
-msgstr "<0>{matchScoreText} %</0> matchresultat"
+#: src/components/color/ColorMatchCard.tsx:95
+msgid "<0>{matchScoreText}%</0> match"
+msgstr "<0>{matchScoreText} %</0> matchning"
 
 #: src/components/ColorSetChooser.tsx:541
 msgid "<0>Already a paid member?</0> Log in to unlock your paid features."
@@ -1297,7 +1297,7 @@ msgstr "Blanda färgen med ett glaseringsmedium, såsom linolja, för att applic
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
 msgstr "Blanda färgen med ett akrylglasmedium för att applicera ett tunnare, mer transparent lager"
 
-#: src/components/color/ColorMatchCard.tsx:157
+#: src/components/color/ColorMatchCard.tsx:153
 #: src/components/color/PaletteColorMixtureCard.tsx:158
 msgid "Mix this color into every mixture."
 msgstr "Blanda denna färg i varje blandning."
@@ -1682,7 +1682,7 @@ msgstr "Hänvisning"
 msgid "Reference photo"
 msgstr "Referensfoto"
 
-#: src/components/color/ColorMatchCard.tsx:132
+#: src/components/color/ColorMatchCard.tsx:128
 #: src/components/ColorMixer.tsx:256
 msgid "Reflectance"
 msgstr "Reflektans"
@@ -1741,8 +1741,8 @@ msgid "Restore from cloud"
 msgstr "Återställ från molnet"
 
 #: src/components/empty/EmptyColorSet.tsx:60
-msgid "Restoring the saved color set"
-msgstr "Återställer den sparade färguppsättningen"
+msgid "Restoring the saved color set..."
+msgstr "Återställer den sparade färguppsättningen..."
 
 #: src/components/color-set/ColorSetActivationNotification.tsx:36
 #: src/components/empty/EmptyColorSet.tsx:77
@@ -1970,22 +1970,22 @@ msgstr "Ställ in som huvudfärguppsättning"
 msgid "Set as reference"
 msgstr "Ange som referens"
 
-#: src/components/color/ColorMatchCard.tsx:148
+#: src/components/color/ColorMatchCard.tsx:144
 #: src/components/color/PaletteColorMixtureCard.tsx:149
 msgid "Set as underlayer"
 msgstr "Ställd som underlager"
 
-#: src/components/color/ColorMatchCard.tsx:144
+#: src/components/color/ColorMatchCard.tsx:140
 #: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for blending."
 msgstr "Ställ in som underlager för att blanda."
 
-#: src/components/color/ColorMatchCard.tsx:144
+#: src/components/color/ColorMatchCard.tsx:140
 #: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for glazing."
 msgstr "Ställ in som underlag för glasering."
 
-#: src/components/color/ColorMatchCard.tsx:160
+#: src/components/color/ColorMatchCard.tsx:156
 #: src/components/color/PaletteColorMixtureCard.tsx:161
 msgid "Set as unifying color"
 msgstr "Sätts som enhetlig färg"
@@ -2107,7 +2107,7 @@ msgstr "Sortera efter blandningens opacitet, från ogenomskinlig till genomskinl
 msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "Sortera efter antalet färger i blandningen, från minst till flest."
 
-#: src/components/color/ColorMatchCard.tsx:127
+#: src/components/color/ColorMatchCard.tsx:123
 #: src/components/color/ReflectanceChartDrawer.tsx:98
 #: src/components/ColorMixer.tsx:250
 msgid "Spectral reflectance curve"
@@ -2441,7 +2441,7 @@ msgstr "Förenande färg"
 msgid "Unsynced changes on this device"
 msgstr "Osynkade ändringar på denna enhet"
 
-#: src/components/color/ColorMatchCard.tsx:114
+#: src/components/color/ColorMatchCard.tsx:110
 #: src/components/color/ColorSwatchDrawer.tsx:112
 #: src/components/color/PaletteColorMixtureCard.tsx:99
 #: src/components/palette/PaletteGrid.tsx:159

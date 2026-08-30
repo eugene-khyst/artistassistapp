@@ -17,7 +17,7 @@
  */
 
 import {
-  deltaEOk,
+  deltaEOK,
   oklabToRgb,
   type OklabTuple,
   rgbToOklab,
@@ -125,7 +125,7 @@ function mergeClusters(clusters: Cluster[], maxColors: number): void {
     let mergeJ = 1;
     for (let i = 0; i < clusters.length; i++) {
       for (let j = i + 1; j < clusters.length; j++) {
-        const dist = deltaEOk(...clusters[i]!.oklab, ...clusters[j]!.oklab);
+        const dist = deltaEOK(...clusters[i]!.oklab, ...clusters[j]!.oklab);
         if (dist < minDist) {
           minDist = dist;
           mergeI = i;

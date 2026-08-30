@@ -57,7 +57,7 @@ export function EmptyColorSet({
       <div className="u-tab-content">
         <Result
           icon={<Spin size="large" indicator={<LoadingOutlined spin />} />}
-          title={<Trans>Restoring the saved color set</Trans>}
+          subTitle={<Trans>Restoring the saved color set...</Trans>}
         />
       </div>
     );

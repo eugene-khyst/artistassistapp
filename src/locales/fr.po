@@ -69,9 +69,9 @@ msgstr "<0/> Tablette et <1/> mobile"
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows et <1/> Linux"
 
-#: src/components/color/ColorMatchCard.tsx:96
-msgid "<0>{matchScoreText}%</0> match score"
-msgstr "<0>{matchScoreText} %</0> score de correspondance"
+#: src/components/color/ColorMatchCard.tsx:95
+msgid "<0>{matchScoreText}%</0> match"
+msgstr "<0>{matchScoreText}%</0> correspondance"
 
 #: src/components/ColorSetChooser.tsx:541
 msgid "<0>Already a paid member?</0> Log in to unlock your paid features."
@@ -1297,7 +1297,7 @@ msgstr "Mélangez la peinture avec un médium de vitrage, tel que l'huile de lin
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
 msgstr "Mélangez la peinture avec un médium à vitrage acrylique pour appliquer une couche plus fine et plus transparente."
 
-#: src/components/color/ColorMatchCard.tsx:157
+#: src/components/color/ColorMatchCard.tsx:153
 #: src/components/color/PaletteColorMixtureCard.tsx:158
 msgid "Mix this color into every mixture."
 msgstr "Mélangez cette couleur à chaque mélange."
@@ -1682,7 +1682,7 @@ msgstr "Référence"
 msgid "Reference photo"
 msgstr "Photo de référence"
 
-#: src/components/color/ColorMatchCard.tsx:132
+#: src/components/color/ColorMatchCard.tsx:128
 #: src/components/ColorMixer.tsx:256
 msgid "Reflectance"
 msgstr "Réflectance"
@@ -1741,8 +1741,8 @@ msgid "Restore from cloud"
 msgstr "Restaurer depuis le cloud"
 
 #: src/components/empty/EmptyColorSet.tsx:60
-msgid "Restoring the saved color set"
-msgstr "Restauration du jeu de couleurs enregistré"
+msgid "Restoring the saved color set..."
+msgstr "Restauration du jeu de couleurs enregistré..."
 
 #: src/components/color-set/ColorSetActivationNotification.tsx:36
 #: src/components/empty/EmptyColorSet.tsx:77
@@ -1970,22 +1970,22 @@ msgstr "Définir comme jeu de couleurs principal"
 msgid "Set as reference"
 msgstr "Définir comme référence"
 
-#: src/components/color/ColorMatchCard.tsx:148
+#: src/components/color/ColorMatchCard.tsx:144
 #: src/components/color/PaletteColorMixtureCard.tsx:149
 msgid "Set as underlayer"
 msgstr "Défini comme sous-couche"
 
-#: src/components/color/ColorMatchCard.tsx:144
+#: src/components/color/ColorMatchCard.tsx:140
 #: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for blending."
 msgstr "Réglez comme sous-couche pour le fond."
 
-#: src/components/color/ColorMatchCard.tsx:144
+#: src/components/color/ColorMatchCard.tsx:140
 #: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for glazing."
 msgstr "Posez comme sous-couche pour le glaçure."
 
-#: src/components/color/ColorMatchCard.tsx:160
+#: src/components/color/ColorMatchCard.tsx:156
 #: src/components/color/PaletteColorMixtureCard.tsx:161
 msgid "Set as unifying color"
 msgstr "Défini comme couleur unificatrice"
@@ -2107,7 +2107,7 @@ msgstr "Triez par opacité du mélange, de l’opaque au transparent."
 msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "Triez par nombre de couleurs dans le mélange, du moins au plus grand."
 
-#: src/components/color/ColorMatchCard.tsx:127
+#: src/components/color/ColorMatchCard.tsx:123
 #: src/components/color/ReflectanceChartDrawer.tsx:98
 #: src/components/ColorMixer.tsx:250
 msgid "Spectral reflectance curve"
@@ -2441,7 +2441,7 @@ msgstr "Couleur unificatrice"
 msgid "Unsynced changes on this device"
 msgstr "Modifications non synchronisées sur cet appareil"
 
-#: src/components/color/ColorMatchCard.tsx:114
+#: src/components/color/ColorMatchCard.tsx:110
 #: src/components/color/ColorSwatchDrawer.tsx:112
 #: src/components/color/PaletteColorMixtureCard.tsx:99
 #: src/components/palette/PaletteGrid.tsx:159
