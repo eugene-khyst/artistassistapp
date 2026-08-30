@@ -18,7 +18,7 @@
 
 import {CheckOutlined} from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
-import {Button, Flex, Form, Select} from 'antd';
+import {Button, Form, Select, Space} from 'antd';
 import {useEffect} from 'react';
 
 import {
@@ -84,7 +84,7 @@ export function CropControls({croppingMode}: Readonly<Props>) {
   };
 
   return (
-    <Flex vertical gap="small">
+    <Space orientation="vertical" size="small">
       <Form.Item label={<Trans>Aspect ratio</Trans>} className="u-mb-0">
         <Select
           className="u-w-100"
@@ -103,6 +103,7 @@ export function CropControls({croppingMode}: Readonly<Props>) {
             {value: CropAspectRatioOption.Ratio16To9, label: '16:9'},
           ]}
           onChange={handleAspectRatioChange}
+          popupMatchSelectWidth={false}
         />
       </Form.Item>
       <Button
@@ -118,6 +119,6 @@ export function CropControls({croppingMode}: Readonly<Props>) {
       >
         <Trans>Crop</Trans>
       </Button>
-    </Flex>
+    </Space>
   );
 }

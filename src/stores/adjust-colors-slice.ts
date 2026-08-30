@@ -19,6 +19,7 @@
 import {transfer} from 'comlink';
 import type {StateCreator} from 'zustand';
 
+import {ImageEditorKey} from '@/image-editor';
 import {
   type AdjustColorsControls,
   AdjustColorsWhiteBalanceMethod,
@@ -29,7 +30,6 @@ import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit
 import {getRgbChannelsPercentileCalculator} from '@/services/image/worker/rgb-channels-percentile-worker-manager';
 import type {EditImageCommandSupplier, EditImageSlice} from '@/stores/edit-image-slice';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
-import {ImageEditorKey} from '@/tabs';
 import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
 
 export interface AdjustColorsSlice {
@@ -103,14 +103,18 @@ export const createAdjustColorsSlice: StateCreator<
     if (hasAdjustColorsEdit()) {
       adjustColorsControls.whiteBalanceMethod = AdjustColorsWhiteBalanceMethod.None;
     }
-    set({adjustColorsControls});
+    set({
+      adjustColorsControls,
+    });
   };
 
   imageEditorControls.register(ImageEditorKey.AdjustColors, {
     reset: resetAdjustColors,
     restore: command => {
       if (command.type === EditImageCommandType.AdjustColors) {
-        set({adjustColorsControls: copyAdjustColorsControls(command.controls)});
+        set({
+          adjustColorsControls: copyAdjustColorsControls(command.controls),
+        });
       }
     },
   });
@@ -119,7 +123,9 @@ export const createAdjustColorsSlice: StateCreator<
     adjustColorsControls: defaultAdjustColorsControls(),
 
     setAdjustColorsControls: (controls: Partial<AdjustColorsControls>): void => {
-      set({adjustColorsControls: {...get().adjustColorsControls, ...controls}});
+      set({
+        adjustColorsControls: {...get().adjustColorsControls, ...controls},
+      });
     },
 
     resetAdjustColors,

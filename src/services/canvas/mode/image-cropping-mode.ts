@@ -144,7 +144,17 @@ export class ImageCroppingMode extends BaseCanvasMode {
     this.onCropChange?.(this.getCropRectangle());
   }
 
-  resetCropRectangle(): void {
+  setCropRectangle(cropRectangle: Rectangle | null): void {
+    if (!cropRectangle) {
+      this.resetCropRectangle();
+      return;
+    }
+    this.cropRectangle = cropRectangle;
+    this.notifyCropChange();
+    this.context?.requestRedraw();
+  }
+
+  private resetCropRectangle(): void {
     const {width, height} = this.imageDimension();
     this.cropRectangle = Rectangle.fromTopLeft(Vector.ZERO, width, height);
     const ratio = this.getEffectiveAspectRatio();

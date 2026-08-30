@@ -43,10 +43,3 @@ const TAB_KEYS = new Set<string>(Object.values(TabKey));
 export function isTabKey(value: unknown): value is TabKey {
   return typeof value === 'string' && TAB_KEYS.has(value);
 }
-
-export enum ImageEditorKey {
-  Straighten = 'straighten',
-  Crop = 'crop',
-  AdjustColors = 'adjust-colors',
-  RemoveBackground = 'remove-background',
-}

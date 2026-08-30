@@ -54,6 +54,7 @@ import {useLightbox} from '@/hooks/useLightbox';
 import {useOnnxModels} from '@/hooks/useOnnxModels';
 import {useSelectedCatalogItem} from '@/hooks/useSelectedCatalogItem';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
+import {Access} from '@/services/auth/types';
 import {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
 import {GridCanvasMode} from '@/services/canvas/mode/grid-canvas-mode';
 import {OnnxModelType, SOBEL_EDGE_DETECTION_MODEL_ID} from '@/services/ml/types';
@@ -104,7 +105,7 @@ export function ImageOutline() {
 
   const {
     itemId: modelId,
-    isAccessAllowed,
+    access,
     selectItem: selectModel,
     setSelectedItemId: setSelectedModelId,
   } = useSelectedCatalogItem({
@@ -248,18 +249,18 @@ export function ImageOutline() {
       <Form.Item
         className="u-tab-toolbar"
         extra={
-          !user &&
-          (isAccessAllowed ? (
-            <Typography.Text type="secondary">
-              <Trans>Only a limited number of modes are available in the free version</Trans>
+          access === Access.Denied ? (
+            <Typography.Text type="warning">
+              <Trans>Selected mode is available only to paid Patreon members</Trans>
             </Typography.Text>
           ) : (
-            <Typography.Text type="warning">
-              <Trans>
-                You&apos;ve selected a mode that is available to paid Patreon members only
-              </Trans>
-            </Typography.Text>
-          ))
+            !user &&
+            access === Access.Allowed && (
+              <Typography.Text type="secondary">
+                <Trans>Only a limited number of modes are available in the free version</Trans>
+              </Typography.Text>
+            )
+          )
         }
       >
         <Space className={styles['actions']}>
@@ -267,7 +268,7 @@ export function ImageOutline() {
             label={screens.sm ? <Trans>Mode</Trans> : null}
             labelCol={{className: 'u-pb-0'}}
             className="u-mb-0"
-            validateStatus={!isAccessAllowed ? 'warning' : undefined}
+            validateStatus={access === Access.Denied ? 'warning' : undefined}
           >
             <OnnxModelSelect
               models={models}

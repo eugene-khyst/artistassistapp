@@ -17,16 +17,12 @@
  */
 
 import {AuthErrorType, ForceLogoutError} from '@/services/auth/errors';
-import type {Authentication, User} from '@/services/auth/types';
+import type {Authentication, TieredItem, User} from '@/services/auth/types';
 import {decrypt, isEncrypted} from '@/utils/crypto';
-
-export interface TieredResource {
-  freeTier?: boolean;
-}
 
 export function hasAccessTo(
   user: User | null | undefined,
-  value: TieredResource | TieredResource[] | null | undefined
+  value: TieredItem | TieredItem[] | null | undefined
 ): boolean {
   return !value || ![value].flat().some(({freeTier}) => !freeTier) || !!user;
 }

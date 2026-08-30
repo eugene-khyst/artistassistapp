@@ -20,6 +20,7 @@ import {WHITE_HEX} from '@eugene-khyst/artistassistapp-color-mixer';
 import {afterEach, describe, expect, it, vi} from 'vitest';
 import {createStore} from 'zustand/vanilla';
 
+import {ImageEditorKey} from '@/image-editor';
 import {
   type AdjustColorsControls,
   AdjustColorsWhiteBalanceMethod,
@@ -33,7 +34,6 @@ import type {
   EditImageSlice,
 } from '@/stores/edit-image-slice';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
-import {ImageEditorKey} from '@/tabs';
 
 const imageOperations = vi.hoisted(() => ({
   calculatePercentiles: vi.fn(),

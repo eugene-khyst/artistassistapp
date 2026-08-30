@@ -28,7 +28,9 @@ export interface CanvasPolygonDrawingModeProps extends CanvasOverlayDrawingModeP
   maxVertexCount?: number;
   vertexRadius?: number;
   vertexDragRadius?: number;
+  shouldSortVertices?: boolean;
   shouldConnectVertices?: (vertices: readonly Vector[]) => boolean;
+  canRemoveVertices?: boolean;
   onVerticesChange?: (vertices: readonly Vector[]) => void;
 }
 
@@ -36,7 +38,9 @@ export class CanvasPolygonDrawingMode extends CanvasOverlayDrawingMode {
   private readonly maxVertexCount: number;
   private readonly vertexRadius: number;
   private readonly vertexDragRadius: number;
+  private readonly shouldSortVertices: boolean;
   private readonly shouldConnectVertices: (vertices: readonly Vector[]) => boolean;
+  private readonly canRemoveVertices: boolean;
   private readonly onVerticesChange?: (vertices: readonly Vector[]) => void;
   private polygon = new Polygon([]);
 
@@ -44,7 +48,9 @@ export class CanvasPolygonDrawingMode extends CanvasOverlayDrawingMode {
     maxVertexCount = Number.POSITIVE_INFINITY,
     vertexRadius = 10,
     vertexDragRadius = 20,
+    shouldSortVertices = false,
     shouldConnectVertices = vertices => vertices.length >= 2,
+    canRemoveVertices = false,
     onVerticesChange,
     ...props
   }: CanvasPolygonDrawingModeProps = {}) {
@@ -52,7 +58,9 @@ export class CanvasPolygonDrawingMode extends CanvasOverlayDrawingMode {
     this.maxVertexCount = maxVertexCount;
     this.vertexRadius = vertexRadius;
     this.vertexDragRadius = vertexDragRadius;
+    this.shouldSortVertices = shouldSortVertices;
     this.shouldConnectVertices = shouldConnectVertices;
+    this.canRemoveVertices = canRemoveVertices;
     this.onVerticesChange = onVerticesChange;
   }
 
@@ -94,7 +102,8 @@ export class CanvasPolygonDrawingMode extends CanvasOverlayDrawingMode {
   }
 
   private updateVertices(vertices: readonly Vector[]): void {
-    this.polygon = new Polygon(vertices);
+    const polygon = new Polygon(vertices);
+    this.polygon = this.shouldSortVertices ? polygon.sortVertices() : polygon;
     this.notifyVerticesChange();
     this.context?.requestRedraw();
   }
@@ -120,11 +129,15 @@ export class CanvasPolygonDrawingMode extends CanvasOverlayDrawingMode {
     return this.polygon.vertices.map(({x, y}) => new Vector(x, y));
   }
 
-  startDrag(pointer: CanvasPointer): CanvasDrag | undefined {
+  private vertexIndexAt(imagePoint: Vector, radius: number) {
     const zoom = this.context?.getZoom() ?? 1;
-    const index = this.polygon.vertices.findIndex(
-      vertex => vertex.subtract(pointer.imagePoint).length() < this.vertexDragRadius / zoom
+    return this.polygon.vertices.findIndex(
+      vertex => vertex.subtract(imagePoint).length() < radius / zoom
     );
+  }
+
+  startDrag({imagePoint}: CanvasPointer): CanvasDrag | undefined {
+    const index = this.vertexIndexAt(imagePoint, this.vertexDragRadius);
     if (index < 0) {
       return;
     }
@@ -135,7 +148,11 @@ export class CanvasPolygonDrawingMode extends CanvasOverlayDrawingMode {
     return {
       move: ({imagePoint}: CanvasPointer) => {
         if (this.imageDimension().contains(imagePoint)) {
-          this.updateVertices([...inactiveVertices, imagePoint]);
+          this.updateVertices([
+            ...inactiveVertices.slice(0, index),
+            imagePoint,
+            ...inactiveVertices.slice(index),
+          ]);
         }
       },
       end: () => undefined,
@@ -146,6 +163,14 @@ export class CanvasPolygonDrawingMode extends CanvasOverlayDrawingMode {
   }
 
   onClickOrTap({imagePoint}: CanvasPointer): boolean {
+    if (this.canRemoveVertices) {
+      const index = this.vertexIndexAt(imagePoint, this.vertexRadius);
+      if (index >= 0) {
+        this.updateVertices(this.polygon.vertices.filter((_, i) => i !== index));
+        this.context?.refreshCursor();
+        return true;
+      }
+    }
     if (this.imageDimension().contains(imagePoint)) {
       this.addVertex(imagePoint);
     }

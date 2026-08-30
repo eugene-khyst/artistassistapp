@@ -31,8 +31,8 @@ export class Vector {
   static readonly ZERO = new Vector(0, 0);
 
   constructor(
-    public x: number,
-    public y: number
+    public readonly x: number,
+    public readonly y: number
   ) {}
 
   add({x, y}: Vector): Vector {
@@ -68,8 +68,8 @@ export class Rectangle {
   readonly center: Vector;
 
   constructor(
-    public bottomRight: Vector,
-    public topLeft = Vector.ZERO
+    public readonly bottomRight: Vector,
+    public readonly topLeft = Vector.ZERO
   ) {
     this.width = bottomRight.x - topLeft.x;
     this.height = bottomRight.y - topLeft.y;
@@ -88,21 +88,31 @@ export class Rectangle {
       y <= this.bottomRight.y - shrinkBy
     );
   }
+
+  grow(padding: number): Rectangle {
+    const offset = new Vector(padding, padding);
+    return new Rectangle(this.bottomRight.add(offset), this.topLeft.subtract(offset));
+  }
 }
 
 export class Polygon {
-  readonly vertices: readonly Vector[];
+  constructor(readonly vertices: readonly Vector[]) {}
 
-  constructor(vertices: readonly Vector[]) {
-    if (vertices.length < 2) {
-      this.vertices = [...vertices];
-      return;
-    }
-    const center = vertices
+  sortVertices(): Polygon {
+    const center = this.vertices
       .reduce((sum, vertex) => sum.add(vertex), Vector.ZERO)
-      .divide(vertices.length);
-    this.vertices = [...vertices].sort(
-      (a, b) => a.subtract(center).angle() - b.subtract(center).angle()
+      .divide(this.vertices.length);
+    return new Polygon(
+      [...this.vertices].sort((a, b) => a.subtract(center).angle() - b.subtract(center).angle())
+    );
+  }
+
+  getBoundingBox(): Rectangle {
+    const xs = this.vertices.map(({x}) => x);
+    const ys = this.vertices.map(({y}) => y);
+    return new Rectangle(
+      new Vector(Math.max(...xs), Math.max(...ys)),
+      new Vector(Math.min(...xs), Math.min(...ys))
     );
   }
 }

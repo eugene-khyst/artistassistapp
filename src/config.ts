@@ -20,6 +20,7 @@ export const BUILD_ID: string = import.meta.env.VITE_BUILD_ID;
 export const APP_URL: string = import.meta.env.VITE_APP_URL;
 export const AUTH_URL: string = import.meta.env.VITE_AUTH_URL;
 export const DATA_URL: string = import.meta.env.VITE_DATA_URL;
+export const FILES_URL: string = import.meta.env.VITE_FILES_URL;
 export const PUBLIC_JWK: string = import.meta.env.VITE_PUBLIC_JWK;
 
 export const DATA_METADATA_TIMEOUT_MS = 10 * 1000;

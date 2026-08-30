@@ -18,6 +18,7 @@
 
 import {transfer} from 'comlink';
 
+import {FILES_URL} from '@/config';
 import type {Authentication} from '@/services/auth/types';
 import type {InferenceRunner} from '@/services/ml/inference';
 import {type Float32Tensor, getFloat32TensorTransferables} from '@/services/ml/tensor';
@@ -36,7 +37,7 @@ export async function runInferenceWorker(
   progressCallback?: FetchProgressCallback,
   signal?: AbortSignal
 ): Promise<Float32Tensor[]> {
-  const modelResponse: Response = await fetchChunked(new URL(modelUrl), auth, {
+  const modelResponse: Response = await fetchChunked(new URL(modelUrl, FILES_URL), auth, {
     progressCallback,
     signal,
   });

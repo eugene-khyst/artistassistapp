@@ -27,6 +27,7 @@ import {OnnxModelSelect} from '@/components/ml-model/OnnxModelSelect';
 import {useErrorNotification} from '@/hooks/useErrorNotification';
 import {useOnnxModels} from '@/hooks/useOnnxModels';
 import {useSelectedCatalogItem} from '@/hooks/useSelectedCatalogItem';
+import {Access} from '@/services/auth/types';
 import {OnnxModelType} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
 import {editableBackgroundCommand} from '@/stores/remove-background-slice';
@@ -58,7 +59,7 @@ export function RemoveBackgroundControls() {
 
   const {
     itemId: modelId,
-    isAccessAllowed,
+    access,
     selectItem: selectModel,
   } = useSelectedCatalogItem({
     items: models,
@@ -67,23 +68,23 @@ export function RemoveBackgroundControls() {
   });
 
   return (
-    <Space orientation="vertical" className="u-w-100">
+    <Space orientation="vertical" size="small">
       <Form.Item
         label={<Trans>Mode</Trans>}
-        validateStatus={!isAccessAllowed ? 'warning' : undefined}
+        validateStatus={access === Access.Denied ? 'warning' : undefined}
         extra={
-          !user &&
-          (isAccessAllowed ? (
-            <Typography.Text type="secondary">
-              <Trans>Only a limited number of modes are available in the free version</Trans>
+          access === Access.Denied ? (
+            <Typography.Text type="warning">
+              <Trans>Selected mode is available only to paid Patreon members</Trans>
             </Typography.Text>
           ) : (
-            <Typography.Text type="warning">
-              <Trans>
-                You&apos;ve selected a mode that is available to paid Patreon members only
-              </Trans>
-            </Typography.Text>
-          ))
+            !user &&
+            access === Access.Allowed && (
+              <Typography.Text type="secondary">
+                <Trans>Only a limited number of modes are available in the free version</Trans>
+              </Typography.Text>
+            )
+          )
         }
         className="u-mb-0"
       >
@@ -128,7 +129,7 @@ export function RemoveBackgroundControls() {
       <Button
         type="primary"
         icon={<ScissorOutlined />}
-        disabled={!editedImage || !modelId || !isAccessAllowed}
+        disabled={!editedImage || !modelId || access !== Access.Allowed}
         onClick={() => {
           void removeBackground();
         }}

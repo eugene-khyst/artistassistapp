@@ -47,7 +47,7 @@ function onnxModel(freeTier: boolean): OnnxModel {
 type TestStore = CropSlice &
   StraightenSlice &
   Pick<AuthSlice, 'auth'> &
-  Pick<EditImageSlice, 'editImageOperation'>;
+  Pick<EditImageSlice, 'editImageOperation' | 'undoneEditImageHistory'>;
 
 function createTestStore(image: ImageBitmap | null = null) {
   const execute = vi.fn().mockResolvedValue(true);
@@ -63,6 +63,7 @@ function createTestStore(image: ImageBitmap | null = null) {
   const store = createStore<TestStore>()((...args) => ({
     auth: null,
     editImageOperation,
+    undoneEditImageHistory: [],
     ...createCropSlice(...args),
     ...createStraightenSlice(...args),
   }));

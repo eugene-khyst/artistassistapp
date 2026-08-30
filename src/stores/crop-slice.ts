@@ -18,22 +18,24 @@
 
 import type {StateCreator} from 'zustand';
 
+import {ImageEditorKey} from '@/image-editor';
 import type {CropAspectRatio} from '@/services/canvas/mode/image-cropping-mode';
 import {EditImageCommandType} from '@/services/image/edit-image-command';
-import type {Rectangle} from '@/services/math/geometry';
+import {Rectangle, Vector} from '@/services/math/geometry';
 import type {EditImageSlice} from '@/stores/edit-image-slice';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
-import {ImageEditorKey} from '@/tabs';
 
 export interface CropSlice {
   cropAspectRatio: CropAspectRatio;
+  // null clears the crop rectangle, undefined leaves it alone.
+  cropRectangle?: Rectangle | null;
 
   setCropAspectRatio: (aspectRatio: CropAspectRatio) => void;
   resetCrop: () => void;
   cropImage: (rectangle: Rectangle) => void;
 }
 
-type CropSliceDependencies = Pick<EditImageSlice, 'editImageOperation'>;
+type CropSliceDependencies = Pick<EditImageSlice, 'editImageOperation' | 'undoneEditImageHistory'>;
 
 export const createCropSlice: StateCreator<CropSlice & CropSliceDependencies, [], [], CropSlice> = (
   set,
@@ -43,8 +45,30 @@ export const createCropSlice: StateCreator<CropSlice & CropSliceDependencies, []
     set({cropAspectRatio: null});
   };
 
-  // The crop rectangle survives an editor switch, so the aspect ratio that shapes it must too.
-  imageEditorControls.register(ImageEditorKey.Crop, {clear: resetCrop});
+  // Applying clears the crop rectangle, so only an undone edit can bring it back.
+  const undoneCropRectangle = (): Rectangle | undefined => {
+    const undone = get().undoneEditImageHistory.at(-1)?.command;
+    if (undone?.type !== EditImageCommandType.Crop) {
+      return undefined;
+    }
+    const {x, y, width, height} = undone.rectangle;
+    return Rectangle.fromTopLeft(new Vector(x, y), width, height);
+  };
+
+  imageEditorControls.register(ImageEditorKey.Crop, {
+    reset: () => {
+      set({
+        cropRectangle: undoneCropRectangle(),
+      });
+    },
+    restore: () => {
+      set({
+        cropRectangle: undoneCropRectangle() ?? null,
+      });
+    },
+    // Switching editors keeps the crop rectangle, so it must keep the ratio too.
+    clear: resetCrop,
+  });
 
   return {
     cropAspectRatio: null,

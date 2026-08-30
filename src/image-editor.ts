@@ -16,15 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-interface ImportMetaEnv {
-  readonly VITE_BUILD_ID: string;
-  readonly VITE_APP_URL: string;
-  readonly VITE_AUTH_URL: string;
-  readonly VITE_DATA_URL: string;
-  readonly VITE_FILES_URL: string;
-  readonly VITE_PUBLIC_JWK: string;
-}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv;
+export enum ImageEditorKey {
+  Straighten = 'straighten',
+  Crop = 'crop',
+  AdjustColors = 'adjust-colors',
+  RemoveBackground = 'remove-background',
+  RemoveObjects = 'remove-objects',
 }

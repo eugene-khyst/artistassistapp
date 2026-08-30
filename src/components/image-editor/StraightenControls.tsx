@@ -21,9 +21,10 @@ import {Trans} from '@lingui/react/macro';
 import {App, Button, Space, Typography} from 'antd';
 import {useEffect} from 'react';
 
+import {useAccessTo} from '@/hooks/useAccessTo';
 import {useErrorNotification} from '@/hooks/useErrorNotification';
 import {useOnnxModel} from '@/hooks/useOnnxModel';
-import {hasAccessTo} from '@/services/auth/utils';
+import {Access} from '@/services/auth/types';
 import type {CanvasPolygonDrawingMode} from '@/services/canvas/mode/canvas-polygon-drawing-mode';
 import {OnnxModelType} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
@@ -33,7 +34,6 @@ interface Props {
 }
 
 export function StraightenControls({polygonDrawingMode}: Readonly<Props>) {
-  const user = useAppStore(state => state.auth?.user);
   const setStraightenModel = useAppStore(state => state.setStraightenModel);
   const autoDetectStraightenVertices = useAppStore(state => state.autoDetectStraightenVertices);
   const straightenImage = useAppStore(state => state.straightenImage);
@@ -53,7 +53,7 @@ export function StraightenControls({polygonDrawingMode}: Readonly<Props>) {
     <Trans>Check your connection and try again. You can still adjust the 4 corners manually.</Trans>
   );
 
-  const isAccessAllowed = hasAccessTo(user, model);
+  const access = useAccessTo(model);
 
   useEffect(() => {
     setStraightenModel(model);
@@ -99,7 +99,7 @@ export function StraightenControls({polygonDrawingMode}: Readonly<Props>) {
   };
 
   return (
-    <Space orientation="vertical" className="u-w-100">
+    <Space orientation="vertical">
       <Space wrap>
         <Button type="primary" icon={<CheckOutlined />} onClick={handleApplyClick}>
           <Trans>Straighten</Trans>
@@ -107,7 +107,7 @@ export function StraightenControls({polygonDrawingMode}: Readonly<Props>) {
         <Button
           icon={<AimOutlined />}
           loading={isModelLoading}
-          disabled={!model || !isAccessAllowed}
+          disabled={!model || access !== Access.Allowed}
           onClick={() => {
             void handleAutoDetectClick();
           }}
@@ -118,9 +118,12 @@ export function StraightenControls({polygonDrawingMode}: Readonly<Props>) {
           <Trans>Rotate</Trans>
         </Button>
       </Space>
-      {!isAccessAllowed && (
+      <Typography.Text type="secondary">
+        <Trans>Mark the 4 corners of your paper or canvas, then drag them to adjust</Trans>
+      </Typography.Text>
+      {access === Access.Denied && (
         <Typography.Text type="warning">
-          <Trans>Auto-detect is available to paid Patreon members only</Trans>
+          <Trans>Auto-detect is available only to paid Patreon members</Trans>
         </Typography.Text>
       )}
     </Space>

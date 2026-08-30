@@ -19,6 +19,7 @@
 import {afterEach, beforeEach, describe, expect, it, type Mock, vi} from 'vitest';
 import {createStore} from 'zustand/vanilla';
 
+import {ImageEditorKey} from '@/image-editor';
 import {
   type AdjustColorsControls,
   AdjustColorsWhiteBalanceMethod,
@@ -32,7 +33,6 @@ import {
   createRemoveBackgroundSlice,
   type RemoveBackgroundSlice,
 } from '@/stores/remove-background-slice';
-import {ImageEditorKey} from '@/tabs';
 
 const commandService = vi.hoisted(() => ({
   apply: vi.fn(),

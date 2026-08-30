@@ -23,11 +23,17 @@ export enum OnnxModelType {
   BackgroundRemoval = 'background-removal',
   StyleTransfer = 'style-transfer',
   PerspectiveCorrection = 'perspective-correction',
+  Inpainting = 'inpainting',
 }
 
 export const SOBEL_EDGE_DETECTION_MODEL_ID = 'sobel-edge-detection';
 
-export type ColorChannelOrdering = 'RGB' | 'BGR';
+export type ColorChannelOrdering = 'RGB' | 'BGR' | 'R' | 'A';
+
+export enum PreProcessing {
+  MeanStdNormalization = 'mean-std-normalization',
+  Binarize = 'binarize',
+}
 
 export enum PostProcessing {
   MeanStdNormalization = 'mean-std-normalization',
@@ -41,8 +47,13 @@ export interface OnnxModel extends CatalogItem {
   resolution?: number | [number, number];
   maxPixelCount?: number;
   inputSizeMultiple?: number;
-  preserveAspectRatio?: boolean;
-  colorChannelOrdering?: ColorChannelOrdering;
+  colorChannelOrdering?:
+    | ColorChannelOrdering
+    | {
+        input: ColorChannelOrdering[];
+        output: ColorChannelOrdering;
+      };
+  preProcessing?: PreProcessing[] | PreProcessing[][];
   standardDeviation?: [number, number, number];
   mean?: [number, number, number];
   outputName?: string;

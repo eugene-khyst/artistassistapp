@@ -36,7 +36,13 @@ export async function extractOutline(
   if (model.id === SOBEL_EDGE_DETECTION_MODEL_ID) {
     outlineImage = sobelEdgeDetection(image);
   } else {
-    outlineImage = await transformImage([image], model, auth, progressCallback, signal);
+    outlineImage = await transformImage({
+      images: [image],
+      model,
+      auth,
+      progressCallback,
+      signal,
+    });
   }
   return outlineImage;
 }

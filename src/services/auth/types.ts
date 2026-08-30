@@ -53,3 +53,13 @@ export interface AuthSession {
 export interface Expirable {
   expiresAt: Date;
 }
+
+export interface TieredItem {
+  freeTier?: boolean;
+}
+
+export enum Access {
+  Allowed = 'allowed',
+  Denied = 'denied',
+  Loading = 'loading',
+}

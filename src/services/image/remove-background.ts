@@ -17,11 +17,10 @@
  */
 
 import type {Authentication} from '@/services/auth/types';
-import {Interpolation, interpolationWebGL} from '@/services/image/filter/interpolation-webgl';
-import {imageBitmapToImageData} from '@/services/ml/image-transformer';
-import {type Float32Tensor, imageDataToFloat32Tensor} from '@/services/ml/tensor';
+import {Interpolation} from '@/services/image/filter/interpolation';
+import {interpolationWebGL} from '@/services/image/filter/interpolation-webgl';
+import {transformImage} from '@/services/ml/image-transformer';
 import type {OnnxModel} from '@/services/ml/types';
-import {runInferenceWorker} from '@/services/ml/worker/inference-worker-manager';
 import type {FetchProgressCallback} from '@/utils/fetch';
 import {applyMask, type DrawImageSource} from '@/utils/graphics';
 
@@ -32,34 +31,14 @@ export async function createBackgroundMask(
   progressCallback?: FetchProgressCallback,
   signal?: AbortSignal
 ): Promise<ImageBitmap> {
-  const {url: modelUrl, outputName} = model;
-  const [imageData] = imageBitmapToImageData([image], model);
-  const inputTensor = imageDataToFloat32Tensor(imageData!, model);
-  const [outputTensor] = await runInferenceWorker(
-    modelUrl,
+  return transformImage({
+    images: [image],
+    model,
     auth,
-    [[inputTensor]],
-    outputName,
     progressCallback,
-    signal
-  );
-  const mask = await float32TensorToMask(outputTensor!, imageData!.width, imageData!.height);
-  return mask;
-}
-
-async function float32TensorToMask(
-  {data: maskData}: Float32Tensor,
-  origWidth: number,
-  origHeight: number
-): Promise<ImageBitmap> {
-  const pixelCount = origWidth * origHeight;
-  const data = new Uint8ClampedArray(4 * pixelCount).fill(255);
-  for (let i = 0; i < pixelCount; i++) {
-    const j = 4 * i;
-    const alpha = maskData[i]! * 255;
-    data[j + 3] = alpha;
-  }
-  return await createImageBitmap(new ImageData(data, origWidth, origHeight));
+    signal,
+    interpolation: null,
+  });
 }
 
 export function removeBackground(image: DrawImageSource, mask: DrawImageSource): OffscreenCanvas {

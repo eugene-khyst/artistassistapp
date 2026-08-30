@@ -28,10 +28,12 @@ import {ImageViewSelector} from '@/components/image/ImageViewSelector';
 import {AdjustColorsControls} from '@/components/image-editor/AdjustColorsControls';
 import {CropControls} from '@/components/image-editor/CropControls';
 import {RemoveBackgroundControls} from '@/components/image-editor/RemoveBackgroundControls';
+import {RemoveObjectsControls} from '@/components/image-editor/RemoveObjectsControls';
 import {StraightenControls} from '@/components/image-editor/StraightenControls';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {EDIT_IMAGE_LABELS} from '@/components/messages';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
+import {ImageEditorKey} from '@/image-editor';
 import {CanvasPolygonDrawingMode} from '@/services/canvas/mode/canvas-polygon-drawing-mode';
 import {ImageColorPickerMode} from '@/services/canvas/mode/image-color-picker-mode';
 import {ImageCroppingMode} from '@/services/canvas/mode/image-cropping-mode';
@@ -39,7 +41,6 @@ import {ImageEditorMode, ImageEditorModeType} from '@/services/canvas/mode/image
 import {EditImageCommandType} from '@/services/image/edit-image-command';
 import {blobToImageFile} from '@/services/image/image-file';
 import {useAppStore} from '@/stores/app-store';
-import {ImageEditorKey} from '@/tabs';
 import {getFilename} from '@/utils/filename';
 import {imageBitmapToBlob} from '@/utils/graphics';
 
@@ -48,17 +49,19 @@ import styles from './ImageEditor.module.css';
 const FILENAME_SUFFIX = 'edited';
 
 const IMAGE_EDITOR_MODE_TYPES: Record<ImageEditorKey, ImageEditorModeType> = {
-  [ImageEditorKey.Straighten]: ImageEditorModeType.Polygon,
+  [ImageEditorKey.Straighten]: ImageEditorModeType.Quadrilateral,
   [ImageEditorKey.Crop]: ImageEditorModeType.Crop,
   [ImageEditorKey.AdjustColors]: ImageEditorModeType.ColorPicker,
   [ImageEditorKey.RemoveBackground]: ImageEditorModeType.RemoveBackground,
+  [ImageEditorKey.RemoveObjects]: ImageEditorModeType.Polygon,
 };
 
 function imageEditorModeSupplier() {
   return new ImageEditorMode({
-    [ImageEditorModeType.Polygon]: new CanvasPolygonDrawingMode({
+    [ImageEditorModeType.Quadrilateral]: new CanvasPolygonDrawingMode({
       lineWidth: 3,
       maxVertexCount: 4,
+      shouldSortVertices: true,
       shouldConnectVertices: vertices => vertices.length === 4,
     }),
     [ImageEditorModeType.Crop]: new ImageCroppingMode(),
@@ -68,6 +71,10 @@ function imageEditorModeSupplier() {
       colorPickerImageIndex: 1,
     }),
     [ImageEditorModeType.RemoveBackground]: null,
+    [ImageEditorModeType.Polygon]: new CanvasPolygonDrawingMode({
+      lineWidth: 3,
+      canRemoveVertices: true,
+    }),
   });
 }
 
@@ -96,12 +103,13 @@ interface ImageEditorControlsContext {
   onColorPickerEnabledChange: (enabled: boolean) => void;
 }
 
-const IMAGE_EDITOR_CONTROLS: Partial<
-  Record<ImageEditorKey, (context: ImageEditorControlsContext) => ReactNode>
+const IMAGE_EDITOR_CONTROLS: Record<
+  ImageEditorKey,
+  (context: ImageEditorControlsContext) => ReactNode
 > = {
   [ImageEditorKey.Straighten]: ({imageEditorMode}) => (
     <StraightenControls
-      polygonDrawingMode={imageEditorMode?.delegates[ImageEditorModeType.Polygon] ?? null}
+      polygonDrawingMode={imageEditorMode?.delegates[ImageEditorModeType.Quadrilateral] ?? null}
     />
   ),
   [ImageEditorKey.Crop]: ({imageEditorMode}) => (
@@ -114,6 +122,11 @@ const IMAGE_EDITOR_CONTROLS: Partial<
     />
   ),
   [ImageEditorKey.RemoveBackground]: () => <RemoveBackgroundControls />,
+  [ImageEditorKey.RemoveObjects]: ({imageEditorMode}) => (
+    <RemoveObjectsControls
+      polygonDrawingMode={imageEditorMode?.delegates[ImageEditorModeType.Polygon] ?? null}
+    />
+  ),
 };
 
 export function ImageEditor() {
@@ -126,6 +139,9 @@ export function ImageEditor() {
   const isEditedImageLoading = useAppStore(state => state.isEditedImageLoading);
   const editImageDownloadTip = useAppStore(state => state.editImageDownloadTip);
   const activeImageEditorKey = useAppStore(state => state.activeImageEditorKey);
+  const straightenVertices = useAppStore(state => state.straightenVertices);
+  const removeObjectsVertices = useAppStore(state => state.removeObjectsVertices);
+  const cropRectangle = useAppStore(state => state.cropRectangle);
   const editImageOperation = useAppStore(state => state.editImageOperation);
   const setImageFileToEdit = useAppStore(state => state.setImageFileToEdit);
   const setActiveImageEditorKey = useAppStore(state => state.setActiveImageEditorKey);
@@ -163,6 +179,27 @@ export function ImageEditor() {
   useEffect(() => {
     zoomableImageCanvas?.setImageIndex(isShowingOriginal ? 2 : 0);
   }, [isShowingOriginal, zoomableImageCanvas]);
+
+  // Loading images and activating a mode both clear the selection, so restore it last.
+  useEffect(() => {
+    if (straightenVertices) {
+      imageEditorMode?.delegates[ImageEditorModeType.Quadrilateral]?.setVertices(
+        straightenVertices
+      );
+    }
+  }, [imageEditorMode, straightenVertices]);
+
+  useEffect(() => {
+    if (removeObjectsVertices) {
+      imageEditorMode?.delegates[ImageEditorModeType.Polygon]?.setVertices(removeObjectsVertices);
+    }
+  }, [imageEditorMode, removeObjectsVertices]);
+
+  useEffect(() => {
+    if (cropRectangle !== undefined) {
+      imageEditorMode?.delegates[ImageEditorModeType.Crop]?.setCropRectangle(cropRectangle);
+    }
+  }, [cropRectangle, imageEditorMode]);
 
   const handleFileChange = ([file]: File[]) => {
     void setImageFileToEdit(file ?? null);
@@ -202,7 +239,7 @@ export function ImageEditor() {
   const collapseItems: CollapseProps['items'] = Object.values(ImageEditorKey).map(key => ({
     key,
     label: t(EDIT_IMAGE_LABELS[key]),
-    children: IMAGE_EDITOR_CONTROLS[key]?.({
+    children: IMAGE_EDITOR_CONTROLS[key]({
       imageEditorMode,
       onColorPickerEnabledChange: setIsColorPickerEnabled,
     }),

@@ -17,6 +17,7 @@
  */
 
 import type {AdjustColorsControls} from '@/services/image/adjust-colors-controls';
+import {Vector} from '@/services/math/geometry';
 
 interface EditImagePoint {
   x: number;
@@ -34,6 +35,7 @@ export enum EditImageCommandType {
   Crop = 'crop',
   AdjustColors = 'adjust-colors',
   RemoveBackground = 'remove-background',
+  RemoveObjects = 'remove-objects',
 }
 
 export type EditImageCommand =
@@ -49,4 +51,19 @@ export type EditImageCommand =
       type: EditImageCommandType.RemoveBackground;
       mask: Blob;
       backgroundColor: string | null;
+    }
+  | {
+      type: EditImageCommandType.RemoveObjects;
+      vertices: EditImagePoint[];
+      boundingBox: EditImageRectangle;
+      result: Blob;
     };
+
+export function commandVertices(
+  command: EditImageCommand | undefined,
+  type: EditImageCommandType
+): Vector[] | undefined {
+  return command?.type === type && 'vertices' in command
+    ? command.vertices.map(({x, y}) => new Vector(x, y))
+    : undefined;
+}

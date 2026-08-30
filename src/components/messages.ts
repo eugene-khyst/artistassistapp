@@ -20,8 +20,9 @@ import {ColorMixtureSort, ColorSort, ColorType} from '@eugene-khyst/artistassist
 import type {MessageDescriptor} from '@lingui/core';
 import {defineMessage} from '@lingui/core/macro';
 
+import {ImageEditorKey} from '@/image-editor';
 import {CloudProvider} from '@/services/cloud/types';
-import {ImageEditorKey, TabKey} from '@/tabs';
+import {TabKey} from '@/tabs';
 
 export const TAB_LABELS: Record<TabKey, MessageDescriptor> = {
   [TabKey.ColorSet]: defineMessage`Color set`,
@@ -48,6 +49,7 @@ export const EDIT_IMAGE_LABELS: Record<ImageEditorKey, MessageDescriptor> = {
   [ImageEditorKey.Crop]: defineMessage`Crop`,
   [ImageEditorKey.AdjustColors]: defineMessage`Adjust colors`,
   [ImageEditorKey.RemoveBackground]: defineMessage`Remove background`,
+  [ImageEditorKey.RemoveObjects]: defineMessage`Remove objects`,
 };
 
 export const COLOR_TYPE_LABELS: Record<ColorType, MessageDescriptor> = {

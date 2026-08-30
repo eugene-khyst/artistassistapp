@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Interpolation} from '@/services/image/filter/interpolation';
 import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
 import {copyToOffscreenCanvas} from '@/utils/graphics';
 
@@ -23,13 +24,6 @@ import bicubicFragmentShaderSource from './glsl/bicubic-interpolation.glsl';
 import bilinearFragmentShaderSource from './glsl/bilinear-interpolation.glsl';
 import lanczosFragmentShaderSource from './glsl/lanczos-interpolation.glsl';
 import linearFragmentShaderSource from './glsl/linear-interpolation.glsl';
-
-export enum Interpolation {
-  Linear = 'linear',
-  Bilinear = 'bilinear',
-  Bicubic = 'bicubic',
-  Lanczos = 'lanczos',
-}
 
 const FRAGMENT_SHADER_SOURCES: Record<Interpolation, string> = {
   [Interpolation.Linear]: linearFragmentShaderSource,

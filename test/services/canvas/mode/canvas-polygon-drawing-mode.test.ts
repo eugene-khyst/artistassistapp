@@ -20,6 +20,7 @@ import {describe, expect, it, vi} from 'vitest';
 
 import type {
   CanvasModeContext,
+  CanvasPointer,
   ImageCanvasRenderingContext,
 } from '@/services/canvas/mode/canvas-mode';
 import {CanvasPolygonDrawingMode} from '@/services/canvas/mode/canvas-polygon-drawing-mode';
@@ -56,6 +57,16 @@ function createRenderingContext() {
     strokeStyle: '#000',
   } as unknown as ImageCanvasRenderingContext;
   return {ctx, closePath};
+}
+
+function createPointer(x: number, y: number): CanvasPointer {
+  const point = new Vector(x, y);
+  return {
+    canvasPoint: point,
+    worldPoint: point,
+    imageCenteredPoint: point,
+    imagePoint: point,
+  };
 }
 
 describe('CanvasPolygonDrawingMode', () => {
@@ -97,5 +108,59 @@ describe('CanvasPolygonDrawingMode', () => {
     mode.onImageDrawn(ctx);
 
     expect(closePath).toHaveBeenCalledOnce();
+  });
+
+  it('keeps the vertex order when dragging a vertex', () => {
+    const mode = new CanvasPolygonDrawingMode();
+    mode.activate(createContext());
+    mode.setVertices([
+      new Vector(10, 10),
+      new Vector(90, 10),
+      new Vector(90, 90),
+      new Vector(10, 90),
+    ]);
+
+    const drag = mode.startDrag(createPointer(90, 10));
+    drag?.move(createPointer(80, 20));
+
+    expect(mode.getVertices()).toEqual([
+      new Vector(10, 10),
+      new Vector(80, 20),
+      new Vector(90, 90),
+      new Vector(10, 90),
+    ]);
+  });
+
+  it('removes a tapped vertex when removal is enabled', () => {
+    const mode = new CanvasPolygonDrawingMode({canRemoveVertices: true});
+    mode.activate(createContext());
+    mode.setVertices([new Vector(10, 10), new Vector(90, 10), new Vector(90, 90)]);
+
+    mode.onClickOrTap(createPointer(90, 10));
+
+    expect(mode.getVertices()).toEqual([new Vector(10, 10), new Vector(90, 90)]);
+    mode.onClickOrTap(createPointer(50, 50));
+
+    expect(mode.getVertices()).toEqual([
+      new Vector(10, 10),
+      new Vector(90, 90),
+      new Vector(50, 50),
+    ]);
+  });
+
+  it('keeps a tapped vertex when removal is disabled', () => {
+    const mode = new CanvasPolygonDrawingMode({maxVertexCount: 4});
+    mode.activate(createContext());
+    const vertices = [
+      new Vector(10, 10),
+      new Vector(90, 10),
+      new Vector(90, 90),
+      new Vector(10, 90),
+    ];
+    mode.setVertices(vertices);
+
+    mode.onClickOrTap(createPointer(90, 10));
+
+    expect(mode.getVertices()).toEqual(vertices);
   });
 });

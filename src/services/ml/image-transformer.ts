@@ -18,7 +18,8 @@
 
 import type {Authentication} from '@/services/auth/types';
 import {getProcessedImage, saveProcessedImage} from '@/services/db/processed-image-db';
-import {Interpolation, interpolationWebGL} from '@/services/image/filter/interpolation-webgl';
+import {Interpolation} from '@/services/image/filter/interpolation';
+import {interpolationWebGL} from '@/services/image/filter/interpolation-webgl';
 import {float32TensorToImageData, imageDataToFloat32Tensor} from '@/services/ml/tensor';
 import type {OnnxModel} from '@/services/ml/types';
 import {runInferenceWorker} from '@/services/ml/worker/inference-worker-manager';
@@ -27,28 +28,33 @@ import {
   DrawImage,
   type DrawImageSource,
   drawImageToOffscreenCanvas,
-  fitToAspectRatio,
   IMAGE_SIZE,
   imageBitmapToBlob,
   offscreenCanvasToImageData,
 } from '@/utils/graphics';
 
-export async function transformImage(
-  images: DrawImageSource[],
-  model: OnnxModel,
-  auth: Authentication | null,
-  progressCallback?: FetchProgressCallback,
-  signal?: AbortSignal
-): Promise<ImageBitmap> {
-  const {url: modelUrl, resolution, preserveAspectRatio, outputName} = model;
+export async function transformImage({
+  images,
+  model,
+  auth,
+  progressCallback,
+  signal,
+  interpolation = Interpolation.Lanczos,
+}: {
+  images: DrawImageSource[];
+  model: OnnxModel;
+  auth: Authentication | null;
+  progressCallback?: FetchProgressCallback;
+  signal?: AbortSignal;
+  interpolation?: Interpolation | null;
+}): Promise<ImageBitmap> {
+  const {url: modelUrl, outputName} = model;
   const [image] = images;
   const {width, height} = image!;
-  const [resizeWidth, resizeHeight] =
-    preserveAspectRatio && resolution
-      ? fitToAspectRatio(width, height, resolution)
-      : [width, height];
   const imageDataArray: ImageData[] = imageBitmapToImageData(images, model);
-  const inputTensors = imageDataArray.map(imageData => imageDataToFloat32Tensor(imageData, model));
+  const inputTensors = imageDataArray.map((imageData, index) =>
+    imageDataToFloat32Tensor(imageData, model, index)
+  );
   const [outputTensor] = await runInferenceWorker(
     modelUrl,
     auth,
@@ -58,13 +64,11 @@ export async function transformImage(
     signal
   );
   const outputImage = await createImageBitmap(float32TensorToImageData(outputTensor!, model));
+  if (!interpolation) {
+    return outputImage;
+  }
   try {
-    return interpolationWebGL(
-      outputImage,
-      resizeWidth,
-      resizeHeight,
-      Interpolation.Lanczos
-    ).transferToImageBitmap();
+    return interpolationWebGL(outputImage, width, height, interpolation).transferToImageBitmap();
   } finally {
     outputImage.close();
   }
@@ -136,19 +140,12 @@ async function transformToBlob(
 
 export function imageBitmapToImageData(
   images: DrawImageSource[],
-  {
-    resolution,
-    maxPixelCount = IMAGE_SIZE.SD,
-    inputSizeMultiple,
-    preserveAspectRatio = false,
-  }: OnnxModel
+  {resolution, maxPixelCount = IMAGE_SIZE.SD, inputSizeMultiple}: OnnxModel
 ): ImageData[] {
   const [width, height] = Array.isArray(resolution) ? resolution : [resolution, resolution];
   const drawImage =
     width && height
-      ? preserveAspectRatio
-        ? DrawImage.resizeAndCrop(width, height)
-        : DrawImage.resizeToSize(width, height)
+      ? DrawImage.resizeToSize(width, height)
       : DrawImage.resizeToPixelCount(maxPixelCount, inputSizeMultiple);
   return images.map((image: DrawImageSource): ImageData =>
     offscreenCanvasToImageData(

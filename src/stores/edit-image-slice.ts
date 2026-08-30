@@ -18,10 +18,10 @@
 
 import type {StateCreator} from 'zustand';
 
+import {ImageEditorKey} from '@/image-editor';
 import {applyEditImageCommand} from '@/services/image/edit-image';
 import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit-image-command';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
-import {ImageEditorKey} from '@/tabs';
 import {createAbortableOperation} from '@/utils/abortable-operation';
 
 export interface EditImageContext<T extends ImageBitmap | null = ImageBitmap | null> {
@@ -37,7 +37,7 @@ export type EditImageCommandSupplier = (
 export interface EditImageOperation {
   run: <T>(task: (context: EditImageContext) => T | Promise<T>) => Promise<T | undefined>;
   preview: (commandOrSupplier: EditImageCommand | EditImageCommandSupplier) => Promise<boolean>;
-  execute: (command: EditImageCommand) => Promise<boolean>;
+  execute: (commandOrSupplier: EditImageCommand | EditImageCommandSupplier) => Promise<boolean>;
   abort: () => void;
 }
 
@@ -52,6 +52,7 @@ const EDITOR_KEY_BY_COMMAND_TYPE: Record<EditImageCommandType, ImageEditorKey> =
   [EditImageCommandType.Crop]: ImageEditorKey.Crop,
   [EditImageCommandType.AdjustColors]: ImageEditorKey.AdjustColors,
   [EditImageCommandType.RemoveBackground]: ImageEditorKey.RemoveBackground,
+  [EditImageCommandType.RemoveObjects]: ImageEditorKey.RemoveObjects,
 };
 
 function imageEditorKey(command: EditImageCommand): ImageEditorKey {
@@ -342,8 +343,9 @@ export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImag
       commandOrSupplier: EditImageCommand | EditImageCommandSupplier
     ): Promise<boolean> => await addEditImageCommand(commandOrSupplier, true),
 
-    execute: async (command: EditImageCommand): Promise<boolean> =>
-      await addEditImageCommand(command, false),
+    execute: async (
+      commandOrSupplier: EditImageCommand | EditImageCommandSupplier
+    ): Promise<boolean> => await addEditImageCommand(commandOrSupplier, false),
 
     abort: (): void => {
       const wasLoading = get().isEditedImageLoading;

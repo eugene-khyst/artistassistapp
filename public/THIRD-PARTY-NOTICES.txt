@@ -7,10 +7,10 @@ The machine-learning models the application downloads and runs are separate
 works, each under its own license. They are not part of the ArtistAssistApp
 source code. This file lists them and reproduces their licenses.
 
-The models are served split into chunks. Where ArtistAssistApp converted a
-checkpoint to the ONNX format itself, the entry below says so; the other
-models are the ONNX files published by their projects. The model weights
-were not otherwise changed.
+The models are served split into chunks. Each entry below says where its ONNX
+file comes from: an export ArtistAssistApp made itself, a file published by
+the project, or a third-party conversion. The model weights were not changed
+beyond what the entry describes.
 
 
 Background removal
@@ -30,6 +30,21 @@ Source checkpoint: BiRefNet-general-bb_swin_v1_tiny-epoch_232.pth
 https://github.com/ZhengPeng7/BiRefNet/releases/tag/v1
 ArtistAssistApp exported the checkpoint with a fixed 512 x 512 input and an
 embedded sigmoid output.
+
+
+Inpainting
+----------
+
+LaMa - model inpainting_lama_2025jan
+Apache License 2.0
+https://github.com/advimman/lama
+Source checkpoint: big-lama
+https://huggingface.co/smartywu/big-lama
+Carve exported that checkpoint to ONNX with a fixed 512 x 512 input, and
+OpenCV published the quantized ONNX file used here. Both redistributions are
+also under the Apache License 2.0.
+https://huggingface.co/Carve/LaMa-ONNX
+https://huggingface.co/opencv/inpainting_lama
 
 
 Line drawing
@@ -179,7 +194,7 @@ copyright notices and license terms - please see the file ACKNOWLEDGEMENTS.
 Apache License 2.0
 ------------------
 
-Applies to U-2-Net, DocAligner and CAST.
+Applies to U-2-Net, LaMa, DocAligner and CAST.
 
 
                                  Apache License

@@ -19,7 +19,13 @@
 import {type Matrix} from '@eugene-khyst/artistassistapp-color-mixer';
 import {describe, expect, it, vi} from 'vitest';
 
-import {calculateDestSize, computeHomography, Polygon, Vector} from '@/services/math/geometry';
+import {
+  calculateDestSize,
+  computeHomography,
+  Polygon,
+  Rectangle,
+  Vector,
+} from '@/services/math/geometry';
 
 function transform(matrix: Matrix, {x, y}: Vector): Vector {
   const scale = matrix.get(2, 0) * x + matrix.get(2, 1) * y + matrix.get(2, 2);
@@ -38,9 +44,9 @@ describe('geometry', () => {
   it('orders polygon vertices clockwise in canvas coordinates', () => {
     const vertices = [new Vector(0, 1), new Vector(1, 2), new Vector(1, 0), new Vector(2, 1)];
 
-    const polygon = new Polygon(vertices);
+    const sorted = new Polygon(vertices).sortVertices();
 
-    expect(polygon.vertices).toEqual([
+    expect(sorted.vertices).toEqual([
       new Vector(1, 0),
       new Vector(2, 1),
       new Vector(1, 2),
@@ -52,6 +58,20 @@ describe('geometry', () => {
       new Vector(1, 0),
       new Vector(2, 1),
     ]);
+  });
+
+  it('bounds the polygon vertices', () => {
+    const polygon = new Polygon([new Vector(30, 10), new Vector(10, 40), new Vector(50, 20)]);
+
+    expect(polygon.getBoundingBox()).toEqual(new Rectangle(new Vector(50, 40), new Vector(10, 10)));
+  });
+
+  it('grows the rectangle in every direction', () => {
+    const grown = new Rectangle(new Vector(50, 40), new Vector(10, 10)).grow(5);
+
+    expect(grown).toEqual(new Rectangle(new Vector(55, 45), new Vector(5, 5)));
+    expect(grown.width).toBe(50);
+    expect(grown.height).toBe(40);
   });
 
   it('calculates the averaged destination dimensions', () => {

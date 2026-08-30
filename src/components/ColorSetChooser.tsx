@@ -64,11 +64,13 @@ import {ColorSetSelect} from '@/components/color-set/ColorSetSelect';
 import {LocaleSelect} from '@/components/i18n/LocaleSelect';
 import {InstallButton} from '@/components/install/InstallButton';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {useAccessTo} from '@/hooks/useAccessTo';
 import {useColorBrands} from '@/hooks/useColorBrands';
 import {useColors} from '@/hooks/useColors';
 import {useErrorNotification} from '@/hooks/useErrorNotification';
 import {usePersistentStorage} from '@/hooks/usePersistentStorage';
 import {useStandardColorSets} from '@/hooks/useStandardColorSets';
+import {Access} from '@/services/auth/types';
 import {hasAccessTo} from '@/services/auth/utils';
 import {CloudProvider} from '@/services/cloud/types';
 import {colorSetToUrl} from '@/services/url/url-parser';
@@ -129,7 +131,6 @@ function isCompleteColorSet(values?: ColorSetDefinition): boolean {
 export function ColorSetChooser() {
   const user = useAppStore(state => state.auth?.user);
   const isCloudConnected = useAppStore(state => !!state.cloudConnection);
-  const isAuthLoading = useAppStore(state => state.isAuthLoading);
   const colorSets = useAppStore(state => state.colorSets);
   const colorSetsReloadRevision = useAppStore(state => state.colorSetsReloadRevision);
   const isColorSetsLoading = useAppStore(state => state.isColorSetsLoading);
@@ -182,8 +183,7 @@ export function ColorSetChooser() {
     [selectedBrandIds, brands]
   );
 
-  const isAccessAllowed: boolean =
-    !selectedBrands || (!isAuthLoading && hasAccessTo(user, selectedBrands));
+  const access = useAccessTo(selectedBrands);
 
   const {
     standardColorSets,
@@ -638,8 +638,7 @@ export function ColorSetChooser() {
                   rules={[{required: true, message: t`Select at least one color brand`}]}
                   dependencies={['type']}
                   extra={
-                    !user &&
-                    (!isAccessAllowed ? (
+                    access === Access.Denied ? (
                       <Typography.Text type="warning">
                         <Trans>
                           You&apos;ve selected color brands that are available to paid Patreon
@@ -647,14 +646,17 @@ export function ColorSetChooser() {
                         </Trans>
                       </Typography.Text>
                     ) : (
-                      <Typography.Text type="secondary">
-                        <Trans>
-                          Only a limited number of color brands are available in the free version
-                        </Trans>
-                      </Typography.Text>
-                    ))
+                      !user &&
+                      access === Access.Allowed && (
+                        <Typography.Text type="secondary">
+                          <Trans>
+                            Only a limited number of color brands are available in the free version
+                          </Trans>
+                        </Typography.Text>
+                      )
+                    )
                   }
-                  validateStatus={!isAccessAllowed ? 'warning' : undefined}
+                  validateStatus={access === Access.Denied ? 'warning' : undefined}
                 >
                   <ColorBrandSelect mode="multiple" brands={brands} />
                 </Form.Item>
@@ -679,6 +681,7 @@ export function ColorSetChooser() {
               selectedBrands?.map((brand: ColorBrandDefinition) => {
                 const brandName: string = brand.shortName || brand.fullName;
                 const hasAccess: boolean = hasAccessTo(user, brand);
+                const isBrandDenied = access !== Access.Loading && !hasAccess;
                 return (
                   <Form.Item
                     key={brand.id}
@@ -688,13 +691,13 @@ export function ColorSetChooser() {
                     dependencies={['type', 'brands', 'standardColorSet']}
                     tooltip={<Trans>Add or remove colors to match your actual color set.</Trans>}
                     extra={
-                      !hasAccess && (
+                      isBrandDenied && (
                         <Typography.Text type="warning">
-                          <Trans>This color brand is available to paid Patreon members only</Trans>
+                          <Trans>This color brand is available only to paid Patreon members</Trans>
                         </Typography.Text>
                       )
                     }
-                    validateStatus={!hasAccess ? 'warning' : undefined}
+                    validateStatus={isBrandDenied ? 'warning' : undefined}
                   >
                     <ColorSelect
                       mode="multiple"
@@ -710,7 +713,7 @@ export function ColorSetChooser() {
             <Form.Item
               extra={
                 <Space orientation="vertical">
-                  {!isAccessAllowed && (
+                  {access === Access.Denied && (
                     <Typography.Text type="warning">
                       <Trans>
                         You&apos;ve selected color brands that are available to paid Patreon members
@@ -740,7 +743,7 @@ export function ColorSetChooser() {
               className="u-mb-0"
             >
               <Flex gap="small" wrap>
-                {isAccessAllowed ? (
+                {access === Access.Allowed ? (
                   <>
                     <Button
                       ref={saveButtonRef}

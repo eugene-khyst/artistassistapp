@@ -18,9 +18,9 @@
 
 import {describe, expect, it, vi} from 'vitest';
 
+import {ImageEditorKey} from '@/image-editor';
 import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit-image-command';
 import {ImageEditorRegistry} from '@/stores/registry/image-editor-registry';
-import {ImageEditorKey} from '@/tabs';
 
 describe('ImageEditorRegistry', () => {
   it('resets only the given editor', () => {

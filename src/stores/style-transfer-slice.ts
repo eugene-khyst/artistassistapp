@@ -146,18 +146,18 @@ export const createStyleTransferSlice: StateCreator<
               throw new ImageUnreadableError(styleImageFile.digest, styleImageFile.name, error);
             }
             try {
-              return await transformImage(
-                [originalImage, styleImage],
-                styleTransferModel,
+              return await transformImage({
+                images: [originalImage, styleImage],
+                model: styleTransferModel,
                 auth,
-                (key, progress) => {
+                progressCallback: (key, progress) => {
                   signal.throwIfAborted();
                   set({
                     styleTransferDownloadTip: formatFetchProgress(key, progress),
                   });
                 },
-                signal
-              );
+                signal,
+              });
             } finally {
               styleImage.close();
             }

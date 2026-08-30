@@ -19,16 +19,20 @@
 import type {StateCreator} from 'zustand';
 
 import {formatFetchProgress} from '@/i18n';
+import {ImageEditorKey} from '@/image-editor';
 import {hasAccessTo} from '@/services/auth/utils';
-import {EditImageCommandType} from '@/services/image/edit-image-command';
+import {commandVertices, EditImageCommandType} from '@/services/image/edit-image-command';
 import {detectDocumentCorners} from '@/services/image/straighten';
 import type {Vector} from '@/services/math/geometry';
 import type {OnnxModel} from '@/services/ml/types';
 import type {AuthSlice} from '@/stores/auth-slice';
 import type {EditImageSlice} from '@/stores/edit-image-slice';
+import {imageEditorControls} from '@/stores/registry/image-editor-registry';
 
 export interface StraightenSlice {
   perspectiveCorrectionModel?: OnnxModel;
+  // [] clears the corners, undefined leaves them alone.
+  straightenVertices?: Vector[];
 
   straightenImage: (vertices: Vector[]) => void;
   rotateImageClockwise: () => Promise<void>;
@@ -37,7 +41,7 @@ export interface StraightenSlice {
 }
 
 type StraightenSliceDependencies = Pick<AuthSlice, 'auth'> &
-  Pick<EditImageSlice, 'editImageOperation'>;
+  Pick<EditImageSlice, 'editImageOperation' | 'undoneEditImageHistory'>;
 
 export const createStraightenSlice: StateCreator<
   StraightenSlice & StraightenSliceDependencies,
@@ -45,6 +49,23 @@ export const createStraightenSlice: StateCreator<
   [],
   StraightenSlice
 > = (set, get) => {
+  // Applying clears the corners, so only an undone edit can bring them back.
+  const undoneStraightenVertices = (): Vector[] | undefined =>
+    commandVertices(get().undoneEditImageHistory.at(-1)?.command, EditImageCommandType.Straighten);
+
+  imageEditorControls.register(ImageEditorKey.Straighten, {
+    reset: () => {
+      set({
+        straightenVertices: undoneStraightenVertices(),
+      });
+    },
+    restore: () => {
+      set({
+        straightenVertices: undoneStraightenVertices() ?? [],
+      });
+    },
+  });
+
   return {
     straightenImage: (vertices: Vector[]): void => {
       void get().editImageOperation.execute({

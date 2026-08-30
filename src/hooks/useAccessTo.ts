@@ -16,15 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-interface ImportMetaEnv {
-  readonly VITE_BUILD_ID: string;
-  readonly VITE_APP_URL: string;
-  readonly VITE_AUTH_URL: string;
-  readonly VITE_DATA_URL: string;
-  readonly VITE_FILES_URL: string;
-  readonly VITE_PUBLIC_JWK: string;
-}
+import {Access, type TieredItem} from '@/services/auth/types';
+import {hasAccessTo} from '@/services/auth/utils';
+import {useAppStore} from '@/stores/app-store';
 
-interface ImportMeta {
-  readonly env: ImportMetaEnv;
+export function useAccessTo(value: TieredItem | TieredItem[] | null | undefined): Access {
+  const user = useAppStore(state => state.auth?.user);
+  const isAuthLoading = useAppStore(state => state.isAuthLoading);
+  // Only a paid item waits for auth; a free one is allowed right away.
+  if (isAuthLoading && !hasAccessTo(null, value)) {
+    return Access.Loading;
+  }
+  return hasAccessTo(user, value) ? Access.Allowed : Access.Denied;
 }

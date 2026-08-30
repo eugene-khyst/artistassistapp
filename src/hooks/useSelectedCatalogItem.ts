@@ -18,7 +18,8 @@
 
 import {useCallback, useEffect, useMemo, useState} from 'react';
 
-import {hasAccessTo} from '@/services/auth/utils';
+import {useAccessTo} from '@/hooks/useAccessTo';
+import {type Access} from '@/services/auth/types';
 import {type CatalogItem, compareByPriority, getDefaultItem} from '@/services/catalog';
 import type {AppSettings} from '@/services/settings/types';
 import {useAppStore} from '@/stores/app-store';
@@ -40,7 +41,7 @@ interface SelectedItem<T> {
   defaultItem?: T;
   itemId?: string;
   item?: T;
-  isAccessAllowed: boolean;
+  access: Access;
   // null = explicit cancel; undefined = use default.
   selectedItemId: string | null | undefined;
   selectItem: (id: string) => void;
@@ -75,7 +76,7 @@ export function useSelectedCatalogItem<T extends CatalogItem>({
 
   const itemId = selectedItemId === null ? undefined : (selectedItemId ?? defaultItem?.id);
   const item: T | undefined = itemId ? items?.get(itemId) : undefined;
-  const isAccessAllowed: boolean = !item || (!isAuthLoading && hasAccessTo(user, item));
+  const access = useAccessTo(item);
 
   useEffect(() => {
     if (isAuthLoading || !items?.size) {
@@ -97,7 +98,7 @@ export function useSelectedCatalogItem<T extends CatalogItem>({
     defaultItem,
     itemId,
     item,
-    isAccessAllowed,
+    access,
     selectedItemId,
     selectItem,
     setSelectedItemId,

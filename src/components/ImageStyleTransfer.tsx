@@ -38,12 +38,14 @@ import {ImageSaveButton} from '@/components/image/ImageSaveButton';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {filterSelectOptions} from '@/components/utils';
 import {DATA_URL} from '@/config';
+import {useAccessTo} from '@/hooks/useAccessTo';
 import {useCreateObjectUrl} from '@/hooks/useCreateObjectUrl';
 import {useErrorNotification} from '@/hooks/useErrorNotification';
 import {useFileReadErrorNotification} from '@/hooks/useFileReadErrorNotification';
 import {useOnnxModel} from '@/hooks/useOnnxModel';
 import {useSelectedCatalogItem} from '@/hooks/useSelectedCatalogItem';
 import {useStyleImages} from '@/hooks/useStyleImages';
+import {Access} from '@/services/auth/types';
 import {hasAccessTo} from '@/services/auth/utils';
 import {fileToImageFile} from '@/services/image/image-file';
 import {CUSTOM_STYLE_IMAGE_ID, type StyleImageDefinition} from '@/services/image/style-images';
@@ -110,7 +112,7 @@ export function ImageStyleTransfer() {
     isError: isModelError,
   } = useOnnxModel(OnnxModelType.StyleTransfer, 'cast');
 
-  const isModelAccessAllowed = hasAccessTo(user, model);
+  const access = useAccessTo(model);
 
   const {
     styleImages,
@@ -226,7 +228,7 @@ export function ImageStyleTransfer() {
 
   const radioOptions = useMemo(
     () =>
-      (isModelAccessAllowed ? filteredStyleImages : []).map((styleImage: StyleImageDefinition) => {
+      (access === Access.Allowed ? filteredStyleImages : []).map(styleImage => {
         const hasAccess = hasAccessTo(user, styleImage);
         const {id, image, artist, title, tags} = styleImage;
         const isCustomStyleTransferImage = id === CUSTOM_STYLE_IMAGE_ID;
@@ -304,7 +306,7 @@ export function ImageStyleTransfer() {
                             members only
                           </Trans>
                         ) : (
-                          <Trans>This style is available to paid Patreon members only</Trans>
+                          <Trans>This style is available only to paid Patreon members</Trans>
                         )}
                       </Typography.Text>
                     )}
@@ -324,7 +326,7 @@ export function ImageStyleTransfer() {
         };
       }),
     [
-      isModelAccessAllowed,
+      access,
       filteredStyleImages,
       user,
       customStyleImageUrl,
@@ -388,9 +390,9 @@ export function ImageStyleTransfer() {
               />
             </Flex>
 
-            {!isModelAccessAllowed && (
+            {access === Access.Denied && (
               <Typography.Text type="warning">
-                <Trans>Style transfer is available to paid Patreon members only</Trans>
+                <Trans>Style transfer is available only to paid Patreon members</Trans>
               </Typography.Text>
             )}
           </Space>

@@ -24,10 +24,9 @@ import {
   reverseOrder,
 } from '@eugene-khyst/artistassistapp-color-mixer';
 
-import {type User} from '@/services/auth/types';
-import {type TieredResource} from '@/services/auth/utils';
+import {type TieredItem, type User} from '@/services/auth/types';
 
-export interface CatalogItem extends TieredResource {
+export interface CatalogItem extends TieredItem {
   id: string;
   priority?: number;
 }

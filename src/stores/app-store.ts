@@ -36,6 +36,7 @@ import {
   type PosterizedImageSlice,
 } from '@/stores/posterized-image-slice';
 import {createPwaSlice, type PwaSlice} from '@/stores/pwa-slice';
+import {createRemoveObjectsSlice, type RemoveObjectsSlice} from '@/stores/remove-objects-slice';
 
 import {type AdjustColorsSlice, createAdjustColorsSlice} from './adjust-colors-slice';
 import {type AppSlice, createAppSlice} from './app-slice';
@@ -81,6 +82,7 @@ export const useAppStore = create<
     CropSlice &
     AdjustColorsSlice &
     RemoveBackgroundSlice &
+    RemoveObjectsSlice &
     EditImageSlice &
     TournamentSlice &
     CustomColorBrandSlice &
@@ -109,6 +111,7 @@ export const useAppStore = create<
     ...createCropSlice(...a),
     ...createAdjustColorsSlice(...a),
     ...createRemoveBackgroundSlice(...a),
+    ...createRemoveObjectsSlice(...a),
     ...createEditImageSlice(...a),
     ...createTournamentSlice(...a),
     ...createCustomColorBrandSlice(...a),

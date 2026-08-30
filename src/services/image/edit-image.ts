@@ -66,6 +66,9 @@ export async function applyEditImageCommand(
     case EditImageCommandType.RemoveBackground:
       result = await applyRemoveBackgroundCommand(image, command, signal);
       break;
+    case EditImageCommandType.RemoveObjects:
+      result = await applyRemoveObjectsCommand(image, command, signal);
+      break;
   }
   try {
     signal.throwIfAborted();
@@ -90,5 +93,21 @@ async function applyRemoveBackgroundCommand(
     return await createImageBitmapWithBackground(removeBackground(image, mask), backgroundColor);
   } finally {
     mask.close();
+  }
+}
+
+async function applyRemoveObjectsCommand(
+  image: ImageBitmap,
+  {boundingBox, result}: Extract<EditImageCommand, {type: EditImageCommandType.RemoveObjects}>,
+  signal: AbortSignal
+): Promise<ImageBitmap> {
+  const patch = await createImageBitmap(result);
+  try {
+    signal.throwIfAborted();
+    const [canvas, ctx] = drawImageToOffscreenCanvas(image);
+    ctx.drawImage(patch, boundingBox.x, boundingBox.y);
+    return canvas.transferToImageBitmap();
+  } finally {
+    patch.close();
   }
 }

@@ -20,10 +20,11 @@ import type {CanvasMode} from './canvas-mode';
 import {CompositeCanvasMode} from './composite-canvas-mode';
 
 export enum ImageEditorModeType {
-  Polygon = 'polygon',
+  Quadrilateral = 'quadrilateral',
   Crop = 'crop',
   ColorPicker = 'color-picker',
   RemoveBackground = 'remove-background',
+  Polygon = 'polygon',
 }
 
 type ImageEditorModes = Readonly<Record<ImageEditorModeType, CanvasMode | null>>;

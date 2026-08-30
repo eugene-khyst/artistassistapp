@@ -19,6 +19,7 @@
 import type {StateCreator} from 'zustand';
 
 import {formatFetchProgress} from '@/i18n';
+import {ImageEditorKey} from '@/image-editor';
 import {hasAccessTo} from '@/services/auth/utils';
 import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit-image-command';
 import {createBackgroundMask} from '@/services/image/remove-background';
@@ -26,7 +27,6 @@ import type {OnnxModel} from '@/services/ml/types';
 import type {AuthSlice} from '@/stores/auth-slice';
 import type {EditImageHistoryEntry, EditImageSlice} from '@/stores/edit-image-slice';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
-import {ImageEditorKey} from '@/tabs';
 import {imageBitmapToBlob} from '@/utils/graphics';
 import {createAbortError} from '@/utils/promise';
 
@@ -42,6 +42,12 @@ export interface RemoveBackgroundSlice {
 
 type RemoveBackgroundSliceDependencies = Pick<AuthSlice, 'auth'> &
   Pick<EditImageSlice, 'editImageOperation' | 'editImageHistory'>;
+
+type RemoveBackgroundCommand = Extract<
+  EditImageCommand,
+  {type: EditImageCommandType.RemoveBackground}
+>;
+
 // The mask lives in the command, so the color can only be changed while that edit is still last.
 export function editableBackgroundCommand(
   editImageHistory: readonly EditImageHistoryEntry[]
@@ -51,11 +57,6 @@ export function editableBackgroundCommand(
     ? last.command
     : undefined;
 }
-
-type RemoveBackgroundCommand = Extract<
-  EditImageCommand,
-  {type: EditImageCommandType.RemoveBackground}
->;
 
 export const createRemoveBackgroundSlice: StateCreator<
   RemoveBackgroundSlice & RemoveBackgroundSliceDependencies,
@@ -73,7 +74,9 @@ export const createRemoveBackgroundSlice: StateCreator<
     reset: resetRemoveBackground,
     restore: command => {
       if (command.type === EditImageCommandType.RemoveBackground) {
-        set({removeBackgroundColor: command.backgroundColor});
+        set({
+          removeBackgroundColor: command.backgroundColor,
+        });
       }
     },
   });
@@ -84,7 +87,9 @@ export const createRemoveBackgroundSlice: StateCreator<
     resetRemoveBackground,
 
     setRemoveBackgroundColor: (backgroundRemovalColor: string | null): void => {
-      set({removeBackgroundColor: backgroundRemovalColor});
+      set({
+        removeBackgroundColor: backgroundRemovalColor,
+      });
       const command = editableBackgroundCommand(get().editImageHistory);
       if (!command) {
         return;
