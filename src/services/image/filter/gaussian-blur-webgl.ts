@@ -18,19 +18,20 @@
 
 import type {KernelSize} from '@/services/image/filter/types';
 import {type RenderPass, WebGLRenderer} from '@/services/image/filter/webgl-renderer';
-import {copyToOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
+import {copyOffscreenCanvas} from '@/utils/graphics';
 import type {Size} from '@/utils/types';
 
 import fragmentShaderSource from './glsl/gaussian-blur.glsl';
 
-export function gaussianBlurWebGL(image: DrawImageSource, kernelSize: KernelSize): OffscreenCanvas {
+export function gaussianBlurWebGL(image: OffscreenCanvas, kernelSize: KernelSize): OffscreenCanvas {
   const renderer = new WebGLRenderer(
     [fragmentShaderSource],
     [['u_kernel', 'u_kernelSize', 'u_direction']],
-    image
+    image,
+    {premultiplyAlpha: true}
   );
   renderer.render(gaussianBlurRenderPasses(kernelSize));
-  const result = copyToOffscreenCanvas(renderer.canvas);
+  const result = copyOffscreenCanvas(renderer.canvas);
   renderer.cleanUp();
   return result;
 }

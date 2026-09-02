@@ -24,7 +24,7 @@ export function useAccessTo(value: TieredItem | TieredItem[] | null | undefined)
   const user = useAppStore(state => state.auth?.user);
   const isAuthLoading = useAppStore(state => state.isAuthLoading);
   // Only a paid item waits for auth; a free one is allowed right away.
-  if (isAuthLoading && !hasAccessTo(null, value)) {
+  if (!value || (isAuthLoading && !hasAccessTo(null, value))) {
     return Access.Loading;
   }
   return hasAccessTo(user, value) ? Access.Allowed : Access.Denied;

@@ -193,7 +193,9 @@ export const createCloudSlice: StateCreator<
       });
       // Resolve on cancel so a new sync can start; the old run finishes in the background.
       await cloudSyncOperation.run(signal => {
-        set({cloudOperation: {type}});
+        set({
+          cloudOperation: {type},
+        });
         return abortablePromise(runCloudSync(operation, {signal, onProgress}), signal);
       });
     };

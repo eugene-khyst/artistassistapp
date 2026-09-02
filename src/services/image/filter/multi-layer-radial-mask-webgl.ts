@@ -18,14 +18,14 @@
 
 import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
 import {Vector} from '@/services/math/geometry';
-import {copyToOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
+import {copyOffscreenCanvas} from '@/utils/graphics';
 
 import fragmentShaderSource from './glsl/multi-layer-radial-mask.glsl';
 
 const MAX_LAYERS = 10;
 
 export function multiLayerRadialMaskWebGL(
-  images: DrawImageSource[],
+  images: OffscreenCanvas[],
   radiuses: number[],
   center?: Vector
 ): OffscreenCanvas {
@@ -35,7 +35,8 @@ export function multiLayerRadialMaskWebGL(
   const renderer = new WebGLRenderer(
     [fragmentShaderSource],
     [['u_layerCount', 'u_radiuses', 'u_center']],
-    images
+    images,
+    {premultiplyAlpha: true}
   );
   const {canvas} = renderer;
   center = center ?? new Vector(canvas.width / 2, canvas.height / 2);
@@ -48,7 +49,7 @@ export function multiLayerRadialMaskWebGL(
       },
     },
   ]);
-  const result = copyToOffscreenCanvas(renderer.canvas);
+  const result = copyOffscreenCanvas(renderer.canvas);
   renderer.cleanUp();
   return result;
 }

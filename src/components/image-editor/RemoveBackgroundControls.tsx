@@ -30,20 +30,16 @@ import {useSelectedCatalogItem} from '@/hooks/useSelectedCatalogItem';
 import {Access} from '@/services/auth/types';
 import {OnnxModelType} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
-import {editableBackgroundCommand} from '@/stores/remove-background-slice';
 
 export function RemoveBackgroundControls() {
   const user = useAppStore(state => state.auth?.user);
   const editedImage = useAppStore(state => state.editedImage);
   const removeBackgroundColor = useAppStore(state => state.removeBackgroundColor);
-  const editImageHistory = useAppStore(state => state.editImageHistory);
   const setRemoveBackgroundModel = useAppStore(state => state.setRemoveBackgroundModel);
   const setRemoveBackgroundColor = useAppStore(state => state.setRemoveBackgroundColor);
   const removeBackground = useAppStore(state => state.removeBackground);
 
   const {t} = useLingui();
-
-  const isBackgroundColorEditable = !!editableBackgroundCommand(editImageHistory);
 
   const {
     models,
@@ -71,6 +67,7 @@ export function RemoveBackgroundControls() {
     <Space orientation="vertical">
       <Form.Item
         label={<Trans>Mode</Trans>}
+        labelCol={{className: 'u-pb-0'}}
         validateStatus={access === Access.Denied ? 'warning' : undefined}
         extra={
           access === Access.Denied ? (
@@ -78,8 +75,7 @@ export function RemoveBackgroundControls() {
               <Trans>Selected mode is available only to paid Patreon members</Trans>
             </Typography.Text>
           ) : (
-            !user &&
-            access === Access.Allowed && (
+            !user && (
               <Typography.Text type="secondary">
                 <Trans>Only a limited number of modes are available in the free version</Trans>
               </Typography.Text>
@@ -93,11 +89,15 @@ export function RemoveBackgroundControls() {
           value={modelId}
           loading={isModelsLoading}
           onChange={selectModel}
-          className="u-w-100"
+          className="u-narrow-select"
         />
       </Form.Item>
 
-      <Form.Item label={<Trans>Background</Trans>} className="u-mb-0">
+      <Form.Item
+        label={<Trans>Background</Trans>}
+        labelCol={{className: 'u-pb-0'}}
+        className="u-mb-0"
+      >
         <Space.Compact>
           <ColorPicker
             title={t`Background`}
@@ -107,7 +107,6 @@ export function RemoveBackgroundControls() {
                 colors: [WHITE_HEX],
               },
             ]}
-            disabled={!isBackgroundColorEditable}
             disabledAlpha
             value={removeBackgroundColor ?? undefined}
             onChangeComplete={(color: AggregationColor) => {
@@ -118,7 +117,7 @@ export function RemoveBackgroundControls() {
           <Button
             icon={<CloseCircleOutlined />}
             title={t`Clear background color`}
-            disabled={!isBackgroundColorEditable}
+            disabled={removeBackgroundColor === null}
             onClick={() => {
               setRemoveBackgroundColor(null);
             }}
@@ -129,7 +128,7 @@ export function RemoveBackgroundControls() {
       <Button
         type="primary"
         icon={<ScissorOutlined />}
-        disabled={!editedImage || !modelId || access !== Access.Allowed}
+        disabled={!editedImage || access !== Access.Allowed}
         onClick={() => {
           void removeBackground();
         }}

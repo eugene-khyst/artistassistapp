@@ -20,23 +20,127 @@ import type {StateCreator} from 'zustand';
 
 import {formatFetchProgress} from '@/i18n';
 import {ImageEditorKey} from '@/image-editor';
+import type {Authentication} from '@/services/auth/types';
 import {hasAccessTo} from '@/services/auth/utils';
 import {commandVertices, EditImageCommandType} from '@/services/image/edit-image-command';
-import {createObjectsMask, inpaint, objectsBoundingBox} from '@/services/image/inpainting';
-import type {Vector} from '@/services/math/geometry';
+import {fitInpaintedImage} from '@/services/image/inpainting-fit';
+import {inpaintingWindowSquare, polygonPatchRectangle} from '@/services/image/inpainting-patch';
+import {Rectangle, Vector} from '@/services/math/geometry';
+import {transformImage} from '@/services/ml/image-transformer';
 import type {OnnxModel} from '@/services/ml/types';
 import type {AuthSlice} from '@/stores/auth-slice';
 import type {EditImageSlice} from '@/stores/edit-image-slice';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
-import {DrawImage, imageBitmapToBlob} from '@/utils/graphics';
+import type {FetchProgressCallback} from '@/utils/fetch';
+import {
+  createPolygonMask,
+  DrawImage,
+  drawImageToOffscreenCanvas,
+  imageToBlob,
+} from '@/utils/graphics';
 import {createAbortError} from '@/utils/promise';
+
+const INPAINTING_WINDOW_PATCH_SCALE = 2;
+
+interface RemoveObjectsWindow {
+  patchRectangle: Rectangle;
+  windowRectangle: Rectangle;
+  windowImage: OffscreenCanvas;
+  windowMask: OffscreenCanvas;
+}
+
+async function prepareRemoveObjectsWindow({
+  image,
+  vertices,
+  model,
+  signal,
+}: {
+  image: ImageBitmap;
+  vertices: readonly Vector[];
+  model: OnnxModel;
+  signal: AbortSignal;
+}): Promise<RemoveObjectsWindow> {
+  const inputImage = await createImageBitmap(image);
+  try {
+    signal.throwIfAborted();
+    const patchRectangle = polygonPatchRectangle(vertices, inputImage);
+    const bounds = new Rectangle(new Vector(inputImage.width, inputImage.height));
+    const {resolution} = model;
+    const modelResolution = Array.isArray(resolution) ? Math.max(...resolution) : (resolution ?? 0);
+    const windowSide = Math.max(
+      INPAINTING_WINDOW_PATCH_SCALE * Math.max(patchRectangle.width, patchRectangle.height),
+      modelResolution
+    );
+    const windowRectangle = inpaintingWindowSquare(patchRectangle, bounds, windowSide) ?? bounds;
+    const mask = createPolygonMask(vertices, inputImage);
+    const [windowImage] = drawImageToOffscreenCanvas(inputImage, {
+      drawImage: DrawImage.cropRectangle(windowRectangle),
+    });
+    const [windowMask] = drawImageToOffscreenCanvas(mask, {
+      drawImage: DrawImage.cropRectangle(windowRectangle),
+    });
+    return {patchRectangle, windowRectangle, windowImage, windowMask};
+  } finally {
+    inputImage.close();
+  }
+}
+
+async function createRemoveObjectsPatch({
+  image,
+  vertices,
+  model,
+  upscaleModel,
+  auth,
+  progressCallback,
+  signal,
+}: {
+  image: ImageBitmap;
+  vertices: readonly Vector[];
+  model: OnnxModel;
+  upscaleModel: OnnxModel;
+  auth: Authentication | null;
+  progressCallback: FetchProgressCallback;
+  signal: AbortSignal;
+}): Promise<{patchRectangle: Rectangle; result: Blob}> {
+  const {patchRectangle, windowRectangle, windowImage, windowMask} =
+    await prepareRemoveObjectsWindow({image, vertices, model, signal});
+  const inpaintedImage = await transformImage({
+    images: [windowImage, windowMask],
+    model,
+    auth,
+    progressCallback,
+    signal,
+    interpolation: null,
+  });
+  signal.throwIfAborted();
+  const fittedImage = await fitInpaintedImage({
+    image: inpaintedImage,
+    target: windowRectangle,
+    upscaleModel,
+    auth,
+    progressCallback,
+    signal,
+  });
+  const windowPatchRectangle = Rectangle.fromTopLeft(
+    patchRectangle.topLeft.subtract(windowRectangle.topLeft),
+    patchRectangle.width,
+    patchRectangle.height
+  );
+  const result = await imageToBlob(fittedImage, {
+    drawImage: DrawImage.cropRectangle(windowPatchRectangle),
+  });
+  signal.throwIfAborted();
+  return {patchRectangle, result};
+}
 
 export interface RemoveObjectsSlice {
   removeObjectsModel?: OnnxModel;
+  removeObjectsUpscaleModel?: OnnxModel;
   // [] clears the polygon, undefined leaves it alone.
   removeObjectsVertices?: Vector[];
 
   setRemoveObjectsModel: (removeObjectsModel: OnnxModel | undefined) => void;
+  setRemoveObjectsUpscaleModel: (removeObjectsUpscaleModel: OnnxModel | undefined) => void;
   removeObjects: (vertices: Vector[]) => Promise<boolean>;
 }
 
@@ -79,53 +183,51 @@ export const createRemoveObjectsSlice: StateCreator<
       });
     },
 
+    setRemoveObjectsUpscaleModel: (removeObjectsUpscaleModel: OnnxModel | undefined): void => {
+      if (get().removeObjectsUpscaleModel === removeObjectsUpscaleModel) {
+        return;
+      }
+      set({
+        removeObjectsUpscaleModel,
+      });
+    },
+
     removeObjects: async (vertices: Vector[]): Promise<boolean> => {
-      const {removeObjectsModel, auth} = get();
+      const {removeObjectsModel, removeObjectsUpscaleModel, auth} = get();
       if (
         vertices.length < 3 ||
         !removeObjectsModel ||
-        !hasAccessTo(auth?.user, removeObjectsModel)
+        !hasAccessTo(auth?.user, removeObjectsModel) ||
+        !removeObjectsUpscaleModel ||
+        !hasAccessTo(auth?.user, removeObjectsUpscaleModel)
       ) {
         return false;
       }
       return await get().editImageOperation.execute(async ({image, setDownloadTip, signal}) => {
-        // A superseding edit can close the store's image while inference still reads it.
-        const inputImage = await createImageBitmap(image);
-        try {
-          signal.throwIfAborted();
-          const boundingBox = objectsBoundingBox(vertices, inputImage);
-          const inpaintedImage = await inpaint(
-            inputImage,
-            createObjectsMask(vertices, inputImage),
-            removeObjectsModel,
-            auth,
-            (key, progress) => {
-              setDownloadTip(formatFetchProgress(key, progress));
-            },
-            signal
-          );
-          try {
-            signal.throwIfAborted();
-            const result = await imageBitmapToBlob(inpaintedImage, {
-              drawImage: DrawImage.cropRectangle(boundingBox),
-            });
-            signal.throwIfAborted();
-            if (get().removeObjectsModel !== removeObjectsModel) {
-              throw createAbortError();
-            }
-            const {topLeft, width, height} = boundingBox;
-            return {
-              type: EditImageCommandType.RemoveObjects,
-              vertices: vertices.map(({x, y}) => ({x, y})),
-              boundingBox: {x: topLeft.x, y: topLeft.y, width, height},
-              result,
-            };
-          } finally {
-            inpaintedImage.close();
-          }
-        } finally {
-          inputImage.close();
+        const {patchRectangle, result} = await createRemoveObjectsPatch({
+          image,
+          vertices,
+          model: removeObjectsModel,
+          upscaleModel: removeObjectsUpscaleModel,
+          auth,
+          progressCallback: (key, progress) => {
+            setDownloadTip(formatFetchProgress(key, progress));
+          },
+          signal,
+        });
+        if (
+          get().removeObjectsModel !== removeObjectsModel ||
+          get().removeObjectsUpscaleModel !== removeObjectsUpscaleModel
+        ) {
+          throw createAbortError();
         }
+        const {topLeft, width, height} = patchRectangle;
+        return {
+          type: EditImageCommandType.RemoveObjects,
+          vertices: vertices.map(({x, y}) => ({x, y})),
+          patchRectangle: {x: topLeft.x, y: topLeft.y, width, height},
+          result,
+        };
       });
     },
   };

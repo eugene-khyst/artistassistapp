@@ -93,6 +93,43 @@ export class Rectangle {
     const offset = new Vector(padding, padding);
     return new Rectangle(this.bottomRight.add(offset), this.topLeft.subtract(offset));
   }
+
+  growToIntegers(): Rectangle {
+    return new Rectangle(
+      new Vector(Math.ceil(this.bottomRight.x), Math.ceil(this.bottomRight.y)),
+      new Vector(Math.floor(this.topLeft.x), Math.floor(this.topLeft.y))
+    );
+  }
+
+  sameSize({width, height}: Rectangle): boolean {
+    return this.width === width && this.height === height;
+  }
+
+  intersect(other: Rectangle): Rectangle | null {
+    const topLeft = new Vector(
+      Math.max(this.topLeft.x, other.topLeft.x),
+      Math.max(this.topLeft.y, other.topLeft.y)
+    );
+    const bottomRight = new Vector(
+      Math.min(this.bottomRight.x, other.bottomRight.x),
+      Math.min(this.bottomRight.y, other.bottomRight.y)
+    );
+    return bottomRight.x > topLeft.x && bottomRight.y > topLeft.y
+      ? new Rectangle(bottomRight, topLeft)
+      : null;
+  }
+
+  translateInside(bounds: Rectangle): Rectangle | null {
+    if (this.width > bounds.width || this.height > bounds.height) {
+      return null;
+    }
+    const maxTopLeft = bounds.bottomRight.subtract(new Vector(this.width, this.height));
+    const topLeft = new Vector(
+      Math.max(bounds.topLeft.x, Math.min(this.topLeft.x, maxTopLeft.x)),
+      Math.max(bounds.topLeft.y, Math.min(this.topLeft.y, maxTopLeft.y))
+    );
+    return new Rectangle(this.bottomRight.add(topLeft.subtract(this.topLeft)), topLeft);
+  }
 }
 
 export class Polygon {

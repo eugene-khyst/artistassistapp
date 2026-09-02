@@ -24,9 +24,12 @@ export enum OnnxModelType {
   StyleTransfer = 'style-transfer',
   PerspectiveCorrection = 'perspective-correction',
   Inpainting = 'inpainting',
+  Upscale = 'upscale',
 }
 
 export const SOBEL_EDGE_DETECTION_MODEL_ID = 'sobel-edge-detection';
+export const INPAINTING_MODEL_ID = 'inpainting_lama_2025jan';
+export const INPAINTING_UPSCALE_MODEL_ID = 'real-esrgan-general-x4v3';
 
 export type ColorChannelOrdering = 'RGB' | 'BGR' | 'R' | 'A';
 

@@ -139,11 +139,9 @@ export class GridCanvasMode extends CanvasOverlayDrawingMode {
   }
 
   protected override drawOverlay(ctx: ImageCanvasRenderingContext): void {
-    const {center} = this.imageDimension();
-    ctx.save();
-    ctx.translate(-center.x, -center.y);
-    this.drawGrid(ctx);
-    ctx.restore();
+    this.inImageCoordinates(ctx, () => {
+      this.drawGrid(ctx);
+    });
   }
 
   setGrid(grid: Grid | null): void {

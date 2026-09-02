@@ -24,11 +24,14 @@ import {detectDocumentCornersSobel} from '@/services/image/sobel-corner-detectio
 import type {Vector} from '@/services/math/geometry';
 import type {OnnxModel} from '@/services/ml/types';
 import type {FetchProgressCallback} from '@/utils/fetch';
-import {type DrawImageSource} from '@/utils/graphics';
+import {type DrawImageSource, toOffscreenCanvas} from '@/utils/graphics';
 import {isAbortError} from '@/utils/promise';
 
 export function straightenImage(image: DrawImageSource, vertices: Vector[]): ImageBitmap {
-  const perspectiveCorrectedImage: OffscreenCanvas = correctPerspectiveWebGL(image, vertices);
+  const perspectiveCorrectedImage: OffscreenCanvas = correctPerspectiveWebGL(
+    toOffscreenCanvas(image),
+    vertices
+  );
   return perspectiveCorrectedImage.transferToImageBitmap();
 }
 

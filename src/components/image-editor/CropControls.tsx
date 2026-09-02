@@ -21,48 +21,35 @@ import {Trans} from '@lingui/react/macro';
 import {Button, Form, Select, Space} from 'antd';
 import {useEffect} from 'react';
 
+import {type ImageCroppingMode} from '@/services/canvas/mode/image-cropping-mode';
 import {
   type CropAspectRatio,
-  type ImageCroppingMode,
+  IMAGE_ASPECT_RATIO_OPTIONS,
+  imageAspectRatio,
+  imageAspectRatioLabel,
   ORIGINAL_CROP_ASPECT_RATIO,
-} from '@/services/canvas/mode/image-cropping-mode';
+} from '@/services/image/aspect-ratio';
 import {useAppStore} from '@/stores/app-store';
 
-enum CropAspectRatioOption {
-  Free = 'free',
-  Original = 'original',
-  Ratio1To1 = '1:1',
-  Ratio4To5 = '4:5',
-  Ratio5To4 = '5:4',
-  Ratio3To4 = '3:4',
-  Ratio4To3 = '4:3',
-  Ratio2To3 = '2:3',
-  Ratio3To2 = '3:2',
-  Ratio9To16 = '9:16',
-  Ratio16To9 = '16:9',
+const FREE_CROP_ASPECT_RATIO_OPTION = 'free';
+
+const CROP_ASPECT_RATIO_OPTIONS = [
+  {value: FREE_CROP_ASPECT_RATIO_OPTION, label: <Trans>Free</Trans>},
+  {value: ORIGINAL_CROP_ASPECT_RATIO, label: <Trans>Original</Trans>},
+  ...IMAGE_ASPECT_RATIO_OPTIONS,
+];
+
+function cropAspectRatioOption(aspectRatio: CropAspectRatio): string {
+  if (!aspectRatio) {
+    return FREE_CROP_ASPECT_RATIO_OPTION;
+  }
+  return typeof aspectRatio === 'string' ? aspectRatio : imageAspectRatioLabel(aspectRatio);
 }
 
-const CROP_ASPECT_RATIOS: Record<CropAspectRatioOption, CropAspectRatio> = {
-  [CropAspectRatioOption.Free]: null,
-  [CropAspectRatioOption.Original]: ORIGINAL_CROP_ASPECT_RATIO,
-  [CropAspectRatioOption.Ratio1To1]: [1, 1],
-  [CropAspectRatioOption.Ratio4To5]: [4, 5],
-  [CropAspectRatioOption.Ratio5To4]: [5, 4],
-  [CropAspectRatioOption.Ratio3To4]: [3, 4],
-  [CropAspectRatioOption.Ratio4To3]: [4, 3],
-  [CropAspectRatioOption.Ratio2To3]: [2, 3],
-  [CropAspectRatioOption.Ratio3To2]: [3, 2],
-  [CropAspectRatioOption.Ratio9To16]: [9, 16],
-  [CropAspectRatioOption.Ratio16To9]: [16, 9],
-};
-
-function cropAspectRatioOption(aspectRatio: CropAspectRatio): CropAspectRatioOption {
-  if (!aspectRatio) {
-    return CropAspectRatioOption.Free;
-  }
-  return aspectRatio === ORIGINAL_CROP_ASPECT_RATIO
-    ? CropAspectRatioOption.Original
-    : (aspectRatio.join(':') as CropAspectRatioOption);
+function cropAspectRatioFromOption(option: string): CropAspectRatio {
+  return option === ORIGINAL_CROP_ASPECT_RATIO
+    ? ORIGINAL_CROP_ASPECT_RATIO
+    : (imageAspectRatio(option) ?? null);
 }
 
 interface Props {
@@ -79,29 +66,21 @@ export function CropControls({croppingMode}: Readonly<Props>) {
     croppingMode?.setAspectRatio(cropAspectRatio);
   }, [cropAspectRatio, croppingMode]);
 
-  const handleAspectRatioChange = (option: CropAspectRatioOption) => {
-    setCropAspectRatio(CROP_ASPECT_RATIOS[option]);
+  const handleAspectRatioChange = (option: string) => {
+    setCropAspectRatio(cropAspectRatioFromOption(option));
   };
 
   return (
     <Space orientation="vertical">
-      <Form.Item label={<Trans>Aspect ratio</Trans>} className="u-mb-0">
+      <Form.Item
+        label={<Trans>Aspect ratio</Trans>}
+        labelCol={{className: 'u-pb-0'}}
+        className="u-mb-0"
+      >
         <Select
-          className="u-w-100"
+          className="u-narrow-select"
           value={cropAspectRatioOption(cropAspectRatio)}
-          options={[
-            {value: CropAspectRatioOption.Free, label: <Trans>Free</Trans>},
-            {value: CropAspectRatioOption.Original, label: <Trans>Original</Trans>},
-            {value: CropAspectRatioOption.Ratio1To1, label: '1:1'},
-            {value: CropAspectRatioOption.Ratio4To5, label: '4:5'},
-            {value: CropAspectRatioOption.Ratio5To4, label: '5:4'},
-            {value: CropAspectRatioOption.Ratio3To4, label: '3:4'},
-            {value: CropAspectRatioOption.Ratio4To3, label: '4:3'},
-            {value: CropAspectRatioOption.Ratio2To3, label: '2:3'},
-            {value: CropAspectRatioOption.Ratio3To2, label: '3:2'},
-            {value: CropAspectRatioOption.Ratio9To16, label: '9:16'},
-            {value: CropAspectRatioOption.Ratio16To9, label: '16:9'},
-          ]}
+          options={CROP_ASPECT_RATIO_OPTIONS}
           onChange={handleAspectRatioChange}
           popupMatchSelectWidth={false}
         />
@@ -109,7 +88,6 @@ export function CropControls({croppingMode}: Readonly<Props>) {
       <Button
         type="primary"
         icon={<CheckOutlined />}
-        className="u-w-fit"
         disabled={!editedImage || !croppingMode}
         onClick={() => {
           if (croppingMode) {

@@ -1,317 +1,297 @@
 # AGENTS.md
 
-This file provides guidance to AI coding agents when working with code in this repository.
+Rules for AI coding agents working in this repository. Read the code for how things work; read this
+for what you must not break.
 
 ## Commands
 
 ```bash
-npm run dev          # Hot reload with .env.development (local services, no service worker)
-npm run build        # Type-check + production build; timestamp is VITE_BUILD_ID fallback
-npm run build:dev    # Production bundle with .env.development (local auth + data services)
-npm run preview      # Preview the already-built production bundle (with service worker)
-npm run clean        # Remove node_modules/.vite and dist
-npm run lint         # ESLint
-npm run lint:fix     # ESLint with auto-fix
-npm run format       # Prettier check
-npm run format:write # Prettier auto-format
-npm run type-check   # TypeScript type-check only (no emit)
-npm run test         # Runs type-check + lint + format + Vitest
-npm run test:unit    # Vitest service-layer tests only
+npm run dev          # hot reload against .env.development (local services, no service worker)
+npm run build:dev    # production bundle against .env.development
+npm run preview      # serve the built bundle, with the service worker
+npm run test         # type-check, lint, format, unit tests; no browser
+npm run test:browser # WebGL tests (Playwright Chromium + SwiftShader)
 
-# i18n workflow — run by the maintainer only, never by an agent
-npm run lingui:extract  # Extract translatable strings from source to .po files
-npm run translate       # Auto-translate .po files via Google Translate API
-
-# Code generators — run by the maintainer only
-npm run generate:blue-noise  # Regenerate src/services/image/filter/blue-noise.ts
+# Maintainer only. Never run these.
+npm run lingui:extract
+npm run translate
+npm run generate:blue-noise
 ```
 
-Tests live in the root `test/` directory, mirroring `src/`; never place tests under `src/`.
+Fix lint and formatting with `npm run lint:fix` and `npm run format:write` rather than by hand.
 
-### Development Workflow
+`dev` and `preview` both serve `localhost:5173`, so IndexedDB — auth included — survives between
+them: use `build:dev` + `preview` to exercise the production bundle and service worker against local
+services, then return to `dev` without logging in again.
 
-Both `dev` and `preview` serve on `localhost:5173` (same origin), so IndexedDB state (including auth
-state) persists between them. `dev` and `build:dev` load `.env.development`; use `build:dev` +
-`preview` to exercise the production bundle and service worker against the same local services, then
-return to `dev` without logging in again. Plain `build` + `preview` uses the production settings in
-`.env`.
+Put tests in the root `test/` directory, mirroring `src/`; never under `src/`. Name a test
+`*.browser.test.ts` to run it against real WebGL2. `npm run test` deliberately omits the browser
+project, because the deploy environment cannot install Chromium; the pre-commit hook runs both.
+Shaders can only be tested there — the node project mocks every `.glsl` import, and a shader does
+not exist until the Vite GLSL plugin has resolved its `#include`s and minified it. Test a shader by
+its properties (an identity resample, a flat color, a preserved symmetry, a suppressed frequency),
+never against a second implementation of the same math in the test.
 
-### Change Discipline
+## Change Discipline
 
-Never fix a reported symptom in isolation. First trace the affected flow end to end, identify its
-ownership boundaries and invariants, and check how the proposed fix interacts with every caller and
-with the rest of the current diff. Then make the smallest coherent change that fits the existing
-design. Do not propose or perform broad rewrites, architecture changes, or data-model changes unless
-the current design demonstrably cannot satisfy the requirement and the maintainer approves that
-scope.
+Never fix a reported symptom in isolation. Trace the affected flow end to end, identify its
+ownership boundaries and invariants, and check how the fix interacts with every caller and with the
+rest of the current diff. Then make the smallest coherent change that fits the existing design. Do
+not propose or perform broad rewrites, architecture changes, or data-model changes unless the
+current design demonstrably cannot satisfy the requirement and the maintainer approves that scope.
 
-Do not inspect, assess, or report the Git index or staging status unless the maintainer explicitly
-asks. The index is intentionally stale during iterative work; review the working tree instead.
+Do not inspect, assess, or report the Git index or staging status unless asked. The index is
+intentionally stale during iterative work; review the working tree.
 
-## Architecture
+## Stores
 
-React 19 PWA with a single conditional `<Tabs>` UI in `ArtistAssistApp.tsx`. Catalog JSON (ML
-models, style images) carries identity and inference metadata only — labels and scores live in the
-app, keyed by id, so they can be translated. `extractOutline` dispatches on
-`SOBEL_EDGE_DETECTION_MODEL_ID` to run a local WebGL pipeline instead of ONNX.
+Slices compose into one Zustand store. Rules that are not visible from a slice on its own:
 
-### State Management
+- Register every new durable store in `STORE_RELOADS` (`src/stores/sync/store-reloads.ts`). Its
+  order encodes the custom-brands → color-sets dependency, and tokens advance only after a
+  successful reload so failures retry on the next wake.
+- Cross-tab sync is wake-based (`visibilitychange`/`pageshow`), not broadcast. Persist a field for
+  another tab to read only when another tab must react to it.
+- Route local changes to serialized state through `persistChange`, never a direct db write.
+- Image-derived slices register `{abort, clear}` with `registerOriginalImageDependency` instead of
+  being enumerated by image selection. Editors register `{reset, clear, restore}` with
+  `imageEditorControls`. Keep both inversions: `edit-image-slice` must not know an editor slice.
+  `reset` runs when the editor closes or its command is undone; `clear` additionally for state that
+  survives an editor switch; `restore` puts back the controls that produced a command.
+- Guard `OnnxModel` setters by object identity, not `id`, so a React Query refetch can propagate
+  changed metadata for the same id into the active pipeline.
+- Leave `activateLatestColorSet` unawaited at the end of `loadColorSets`, so no reload path makes
+  `initApp` block on color data, and keep the identity re-check before it commits: an in-form save
+  changes the latest color set without bumping the reload revision.
+- Bump a `*ReloadRevision` counter only inside the slice's IDB reload action, so external
+  replacements re-prefill the form while in-form saves never clobber edits in progress.
+- `initApp` must always reset `isAppInitializing`. Bootstrap side effects go through `tryStep` and
+  queue failures with `addInitError` rather than blocking render; `UnhandledRejectionHandler` drains
+  that queue once on mount, so it is pre-mount-only.
 
-Single Zustand store (`src/stores/app-store.ts`) composed from per-feature slices in
-`src/stores/*-slice.ts`. `initApp()` loads persisted state from IndexedDB at startup. IDB-backed
-cross-tab sync is wake-based: `initAuthAttemptWatcher` and `initPersistedStateWatcher` re-read
-durable stores on `visibilitychange`/`pageshow`; add persisted fields there only when another tab
-must react. Token-backed reloads are centralized in `STORE_RELOADS`
-(`src/stores/sync/store-reloads.ts`) and shared by the watcher, cloud download, and `initApp`.
-Registry order encodes the custom-brands → color-sets dependency; tokens advance only after a
-successful reload, so failures retry on the next wake. Add new durable stores to that registry.
-Local changes to serialized state use `persistChange`: db write → token merge → shared
-trailing-debounced cloud push (~5s). Image-derived slices register `{abort, clear}` with
-`registerOriginalImageDependency`; image selection iterates those dependencies instead of
-enumerating slices.
+### Image editing
 
-An `EditImageCommand` carries the editor controls that produced it, never values derived from them:
-`applyEditImageCommand` recomputes the adjustment parameters and the white-balance max values from
-`AdjustColorsControls` at apply time, so a preview, an undo entry, and a replayed history step all
-restore the same controls from the command alone. The exception is the percentile max values, which
-cost a worker round trip and are cached on the command. `edit-image-command.ts` holds only the
-command model, so an editor slice never pulls the WebGL applier in `edit-image.ts` into its module
-graph.
+- An `EditImageCommand` carries the editor controls that produced it, never values derived from
+  them, so a preview, an undo entry and a replayed step all restore the same controls. The one
+  exception is the percentile max values, which cost a worker round trip and are cached on the
+  command.
+- Keep `edit-image-command.ts` free of the WebGL applier in `edit-image.ts`, or every editor slice
+  pulls it into its module graph.
+- Consecutive edits from one editor must not compose (saturation 120 then 130 would replay as 1.56).
+  That is what `replaceable` is for: the superseded command stays in the history for undo but is
+  never applied. Crop and Straighten are not replaceable, because two crops do compose.
+- Preserve the identity of `imageBeforeLastEdit` across successive edits from one editor — it keeps
+  the percentile worker cache warm and is what the Adjust Colors white-point picker samples.
+- Adjust Colors previews on slider release (`onChangeComplete`), never while dragging, so nothing
+  anywhere is debounced. One release is one history entry. Reopening the editor or undoing under an
+  open one turns white balance off, so the automatic white balance always belongs to the first
+  adjustment.
+- `showAppliedImageEditorControls` resets only when the history changed: a canceled edit must not
+  clear a value the user just set.
 
-`edit-image-slice` knows no editor slice. Each editor registers its controls with
-`imageEditorControls` (`src/stores/registry/image-editor-registry.ts`), the same inversion as
-`registerOriginalImageDependency`: `reset` when that editor is closed or its command is undone,
-`clear` additionally for state that survives an editor switch (the crop aspect ratio shapes the crop
-rectangle, so only the whole editor resets it), and `restore` to put back the controls that produced
-a command. `showAppliedImageEditorControls` restores from the last history entry when it belongs to
-the active editor; it resets only when the history changed, because a canceled edit must not clear a
-value the user just set.
+## Services (`src/services/`)
 
-Adjust Colors previews on slider release (`onChangeComplete`), not while dragging, so there is no
-debounce anywhere: `onChange` only updates the controls, which keeps the controlled sliders and the
-levels gradient live. One release is one history entry. `openAdjustColors` runs on panel open and
-`previewAdjustColors` on every control commit. Opening skips the controls it just restored, and does
-nothing when the history already holds an Adjust Colors edit. `resetAdjustColors` turns white
-balance off in that case, so the automatic white balance belongs to the first adjustment however the
-controls were reset — reopening the editor or undoing under an open one.
+Pure business logic, no React.
 
-Editing is one `editImageHistory` of `{command, replaceable}` — no separate live-preview slot and no
-per-entry `ImageBitmap`. Undo pops an entry, redo pushes it back, and both re-render. Consecutive
-edits from the same editor do not compose (saturation 120 then 130 would replay as 1.56), so
-`appliedCommands` drops a `replaceable` entry when the next entry is a replaceable edit from the
-same editor: the superseded command stays in the history for undo but is never applied. Crop and
-Straighten are not replaceable, because two crops do compose. Two renders are cached — `editedImage`
-for the whole history and `imageBeforeLastEdit` for everything but its last applied command — so
-retuning an editor re-applies one command instead of replaying, and `imageBeforeLastEdit` keeps its
-identity across successive edits from one editor, which is what keeps the percentile worker cache
-warm. It is also the image the Adjust Colors white-point picker samples. A render falls back to
-replaying from `imageToEdit` only when neither cache matches.
+### `canvas/`
 
-Form-driven tabs (`ColorSetChooser`, `CustomColorBrandCreator`) re-prefill their AntD form from a
-`*ReloadRevision` counter bumped only in the slice's IDB reload action — external replacements
-(cloud download, cross-tab wake) refresh the form, while in-form saves never clobber edits in
-progress. `loadColorSets` ends with an unawaited `activateLatestColorSet`, so every reload path
-activates the saved set without `initApp` or a store reload blocking on color data. Activation runs
-in a `createAbortableOperation`, so a new run supersedes the one in flight and reports through
-`isColorSetActivationLoading` / `colorSetActivationError`; `ColorSetActivationNotification` only
-renders the failure notice. An in-form save changes the latest color set without bumping the
-revision, so activation re-checks its identity before committing.
-
-Bootstrap side effects run through `tryStep`; failures are queued with `addInitError` rather than
-preventing render. `UnhandledRejectionHandler` drains that queue once on mount, so it is
-pre-mount-only. `initApp` must always reset `isAppInitializing`.
-
-### Services Layer (`src/services/`)
-
-Pure business logic, no React. Notable non-obvious bits:
-
-- **`canvas/`** — base `Canvas` recovers from browser-discarded bitmaps via
-  `visibilitychange`/`pageshow`/`focus` listeners. `ZoomableImageCanvas` notifies canvas events
-  (`ClickOrTap`) through a shared `EventManager` that subclasses reuse for their own event types.
-  `setImages`/`setImageIndex` re-fit zoom and pan only when the image dimensions change, so swapping
-  in a re-rendered same-size image keeps the view the user zoomed to. Every `useZoomableImageCanvas`
-  caller also passes a stable source key: change it when the underlying source changes to reset
-  same-size replacements, but keep it stable while regenerating derived images so their viewport is
-  preserved. Selection state owned by a `CanvasMode` (polygon vertices, crop rectangle) resets only
-  in `onImagesLoaded`, which `CompositeCanvasMode` replays for an inactive delegate when it next
+- Keep the `visibilitychange`/`pageshow`/`focus` listeners in the base `Canvas`: they recover from
+  bitmaps the browser discarded while the tab was hidden.
+- Reset selection state owned by a `CanvasMode` (polygon vertices, crop rectangle) only in
+  `onImagesLoaded`. Never reset in `activate`/`deactivate` — toggling "Original" deactivates the
+  mode and must not discard the user's selection — and never bridge a store revision into a mode to
+  reset it. `CompositeCanvasMode` replays `onImagesLoaded` for an inactive delegate when it next
   activates, so the delegate always has a context and the reset never sees a zero image dimension.
-  Store-side editor controls reset instead when the editor is switched, except the crop aspect
-  ratio, which shapes that rectangle and so resets only with the whole editor. Do not bridge a store
-  revision into a mode to reset it, and do not reset in `activate`/`deactivate` — toggling
-  "Original" deactivates the mode and must not discard the user's selection.
-- **`image/filter/`** — WebGL filters return `OffscreenCanvas` so callers chain them without
-  round-tripping to `ImageBitmap`; transfer to bitmap only at the boundary. `WebGLRenderer` reserves
-  texture unit 0 for the source image, so render-pass textures bind from unit 1. One image binds as
-  `sampler2D u_texture`; several same-sized images upload as one `TEXTURE_2D_ARRAY` layer stack and
-  bind as `sampler2DArray u_textures` (GLSL ES 3.00 forbids dynamic indexing of sampler arrays, but
-  the layer coord takes any value).
-- **`ml/`** — `OnnxModel` metadata drives preprocessing and the ordered `postProcessing` pipeline.
-  ONNX Runtime WASM is bundled locally from `onnxruntime-web`; do not point it at a third-party CDN.
-  Inference is slow, so slices wrap it in `withProcessedImageCache` (returns `ImageBitmap`) or
-  `withProcessedImageBlobCache` (returns `Blob`, and owns the transform's bitmap) — pick whichever
-  the slice already stores, so a cache hit never re-encodes. Entries live in `processed-images`,
-  keyed by `PROCESSED_IMAGE_CACHE_VERSION`, a digest of the model's inference-affecting metadata,
-  and every input image digest — the style image counts as an input, so it belongs in `digests`.
-  `processedImageKey` strips `priority` and `freeTier` by rest-destructuring, so every other field —
-  a new one included — is part of the key: the worst case is a needless re-run, never a stale image.
-  Keep presentation fields out of the model JSON; renaming one there would invalidate every cached
-  image. Pre- and post-processing also live in code, which the model JSON cannot express — bump
-  `PROCESSED_IMAGE_CACHE_VERSION` when changing them. Callers pick the encode format (PNG for line
-  art, the JPEG default for photo-like output). Models without a `url` are never cached. The cache
-  is derived data: it stays out of cloud sync, ZIP export, and `store-changes`.
-- **`cloud/`** — `cloud-sync-client.ts` owns provider-neutral sync policy over `CloudClient<T>`;
-  cached remote IDs are hints and need lookup fallback. Provider revisions churn without content
-  changes, so use the canonical state hash to detect edits. State JSON includes custom brands, color
-  sets, mixtures, and photo references; photos transfer separately and are digest-checked. Google
-  keeps recognizable names with digests in `appProperties`; OneDrive/Dropbox use
-  `<digest>.<extension>`. Google read/delete paths never create the root; only upload may do so.
-  Blocking conflicts never offer disconnection: their in-memory Postpone suppresses background sync
-  for the tab session, while explicit sync clears it; update-notification dismissal is separate.
-  Google disconnect trashes the root and account deletion permanently deletes it, OneDrive recycles
-  its root, and Dropbox recursively deletes its root's immediate children. Moved-out items survive;
-  disconnect must work without cached sync state. Cloud state is serialized from the complete
-  `image-metadata` set and is never filtered by local blob health: a photo that must be uploaded and
-  cannot be materialized aborts the sync, while a locally unreadable photo already present remotely
-  stays repairable from the cloud copy; the state file — uploaded last, as the commit point — always
-  matches what was hashed. Downloads do not trust local metadata: a photo is fetched unless its blob
-  reads completely and matches its digest. Image blobs are content-addressed staging and are safe to
-  re-upload after a failed attempt. Manual repair never calls provider create APIs; it tries
-  matching files newest-first, verifies the digest, and changes only the local blob cache, so the
-  state hash stays unchanged. Normal downloads distinguish a vanished remote file from invalid
-  bytes; manual repair reports both as unavailable. `ImageUnreadableError` maps to
-  `LocalImageUnreadable` at the cloud boundary. ZIP import/export is local-only and validates
-  entries and image digests before replacing local state; export fails open, omitting unreadable
-  photos and their color mixtures.
-- **`validation.ts`** — keep Valibot confined to external JSON validation. Custom-brand JSON/cloud
-  shapes omit `rho`; `fromCustomColorBrandSource` reconstructs it at the persistence boundary.
-- **`db/`** — IndexedDB via `idb`; schema in `schema.ts`. Numbered migrations in `migrations.ts` run
-  inside `withWebLock` (`src/utils/web-lock.ts`) so concurrent tabs don't race; a migration needing
-  non-IndexedDB awaits does its work in `prepare`, outside any transaction. Retired stores remain in
-  `LegacyArtistAssistAppDB`; never recreate or delete them automatically. Their migrations empty
-  them. **`image-metadata` decides which photos exist; `image-blobs` is best-effort byte storage.**
-  Both are keyed by digest, so blob records are read by primary key, never through an index —
-  `index.get()`/`getAll()` return an unreadable blob on iOS 18.4.x
-  ([292142](https://bugs.webkit.org/show_bug.cgi?id=292142)). Re-storing a blob read back from
-  IndexedDB loses its file ([240216](https://bugs.webkit.org/show_bug.cgi?id=240216)), so only fresh
-  bytes are written and `touchImage` updates metadata alone. Integrity-sensitive reads fully read
-  and hash the bytes; `readImageBytes` reports missing, unreadable, or mismatched bytes as
-  `ImageUnreadableError`. Recent Photos does not hash or filter blobs, so photos are never hidden or
-  auto-deleted; missing or undecodable blobs surface through the card's unavailable state. There is
-  no availability cache or background scan. Manual repair checks metadata and writes only a fresh
-  blob in one transaction, so it cannot resurrect a concurrently deleted photo. Migration 006 may
-  leave metadata without a blob when legacy bytes cannot be copied. ZIP export captures state, blob
-  references, and validated bytes through `getLocalStateWithImageBytes`, so compression operates on
-  one IndexedDB snapshot. A configured style image is checked against the digest in app settings
-  rather than hashed; if its record, digest, or decoding is invalid, the record and setting are
-  removed atomically while the model remains available for choosing a replacement.
-- **`auth/`** — the durable `auth-attempt` is the pending redirect state and supports standalone ↔
-  browser handoff. Redirect completion exchanges its token using the stored PKCE verifier; email OTP
-  and redirect completion persist the same IDB session shape. `resolveAuth()` owns verification and
-  refresh, with refreshes serialized by `withAuthLock`. Decryption failures throw `ForceLogoutError`
-  and must route through `logout(error.type)`.
+  Store-side editor controls reset on editor switch instead, except the crop aspect ratio, which
+  shapes the rectangle and so resets only with the whole editor.
+- `setImages`/`setImageIndex` re-fit zoom and pan only when the image dimensions change. Pass a
+  stable source key to `useZoomableImageCanvas`: change it when the underlying source changes, keep
+  it stable while regenerating derived images so the user's viewport survives.
 
-### React Query data shape
+### `image/filter/`
 
-Service-layer fetchers consumed by hooks (`fetchOnnxModels`, `fetchStyleImages`, `fetchColorBrands`,
-`fetchStandardColorSets`, `fetchColors`) return plain arrays — not Maps — so RQ's
-`structuralSharing` (which only walks plain objects/arrays) preserves data refs across refetches.
-Hooks rebuild Maps via `select` using `indexById` / `indexBy` (`src/utils/map.ts`). `select`
-identity must be stable: pass the helper directly under `useQuery`; for `useQueries`, define a
-module-scope adapter (e.g. `indexColors` in `useColors.ts`) since TS can't propagate the queryFn
-type to the per-query `select` generic. `combine` must be `useCallback`'d.
+- Filters take an `OffscreenCanvas` and return one. Convert to `ImageBitmap` only where something
+  takes ownership: slice state that later closes it, or a Comlink call (an `OffscreenCanvas` cannot
+  cross a worker boundary). Convert with `transferToImageBitmap()`, never
+  `createImageBitmap(canvas)`, which copies. A caller holding a bitmap converts it in with
+  `toOffscreenCanvas`, which passes a canvas straight through; a filter's own
+  `copyOffscreenCanvas(renderer.canvas)` must stay a real copy, because `cleanUp()` destroys the
+  drawing buffer right after.
+- The input is a canvas because `UNPACK_PREMULTIPLY_ALPHA_WEBGL` is ignored for `ImageBitmap`
+  sources, whose own creation-time alpha wins. Only a canvas source lets a filter declare the alpha
+  its math needs. `WebGLRenderer`'s `premultiplyAlpha` sets that declaration at both ends of the
+  pass, the upload flag and the context's `premultipliedAlpha`. Pass `true` from a filter that is
+  linear in the pixels — resample, blur, layer mix, perspective warp — and leave it off wherever the
+  shader does non-linear color work (levels, gamma, saturation, Oklab, ΔE, threshold, variance),
+  which is only correct on straight alpha. Getting this backwards is invisible on opaque images and
+  darkens the soft fringe of a cut-out subject.
+- Texture unit 0 is reserved for the source image; bind render-pass textures from unit 1. One image
+  binds as `sampler2D u_texture`; several same-sized images upload as one `TEXTURE_2D_ARRAY` and
+  bind as `sampler2DArray u_textures`, because GLSL ES 3.00 forbids dynamic indexing of sampler
+  arrays but allows any layer coord.
 
-Store slices that cache an `OnnxModel` should guard redundant setter calls by object identity, not
-by `id`, so React Query refetches can propagate same-id metadata changes (`url`, access tier,
-pre/post-processing) into the active pipeline.
+### `ml/`
 
-`useSelectedCatalogItem` owns the selection for a catalog tab from an items Map, an `AppSettings`
-key, and a `setItem` action: `selectedItemId` is `null` for an explicit cancel and `undefined` for
-"use the default", and `defaultPredicate` keeps an item selectable without letting it become the
-default — the custom style image needs a stored image first.
+- Catalog JSON carries identity and inference metadata only. Labels and scores live in the app,
+  keyed by id, so they can be translated.
+- Keep ONNX Runtime WASM bundled locally from `onnxruntime-web`; never point it at a third-party
+  CDN.
+- Wrap inference in `withProcessedImageCache` (returns `ImageBitmap`) or
+  `withProcessedImageBlobCache` (returns `Blob`) — pick whichever the slice already stores, so a
+  cache hit never re-encodes. `transformImage` returns an `OffscreenCanvas`, so resizing and
+  encoding never copy it first.
+- The cache key covers `PROCESSED_IMAGE_CACHE_VERSION`, a digest of the model's inference-affecting
+  metadata, and every input image digest — the style image is an input, so it belongs in `digests`.
+  `processedImageKey` strips only `priority` and `freeTier` by rest-destructuring, so a new field is
+  part of the key by default: the worst case is a needless re-run, never a stale image.
+- Keep presentation fields out of the model JSON; renaming one there invalidates every cached image.
+  Pre- and post-processing live in code, which the JSON cannot express, so bump
+  `PROCESSED_IMAGE_CACHE_VERSION` when changing them.
+- The cache is derived data: keep it out of cloud sync, ZIP export and `store-changes`. Models
+  without a `url` are never cached. Callers pick the encode format (PNG for line art, the JPEG
+  default for photo-like output).
 
-Callers must pass _stable_ collection props — see `selectedBrands` in `ColorSetChooser.tsx`. Antd's
-`Form.useWatch` already returns reference-stable values.
+### `cloud/`
 
-Exception: `fetchColorsBulk` is store-only (no React Query) and keeps its `Map<string, Map<…>>`
-shape.
+- Detect edits with the canonical state hash, never a provider revision — revisions churn without
+  content changes. Treat cached remote IDs as hints and fall back to lookup.
+- Upload the state file last, as the commit point, so it always matches what was hashed. Serialize
+  cloud state from the complete `image-metadata` set, never filtered by local blob health: a photo
+  that must be uploaded and cannot be materialized aborts the sync, while a locally unreadable photo
+  already present remotely stays repairable from the cloud copy.
+- Downloads do not trust local metadata: fetch a photo unless its blob reads completely and matches
+  its digest. Image blobs are content-addressed staging, so re-uploading after a failure is safe.
+- Manual repair never calls provider create APIs. It tries matching files newest-first, verifies the
+  digest, and changes only the local blob cache, so the state hash stays unchanged. Normal downloads
+  distinguish a vanished remote file from invalid bytes; manual repair reports both as unavailable.
+- Blocking conflicts never offer disconnection. Their in-memory Postpone suppresses background sync
+  for the tab session and explicit sync clears it; update-notification dismissal is separate.
+- Disconnect must work without cached sync state, and moved-out items must survive it. Google
+  read/delete paths never create the root; only upload may.
+- `ImageUnreadableError` maps to `LocalImageUnreadable` at the cloud boundary. ZIP import/export is
+  local-only, validates entries and image digests before replacing local state, and export fails
+  open, omitting unreadable photos and their color mixtures.
 
-### Image Pipeline Helpers
+### `db/`
 
-`src/utils/graphics.ts` is the shared surface: use `DrawImageSource` (=
-`ImageBitmap | OffscreenCanvas`) everywhere; chain `DrawImage.*` supplier functions via the
-`drawImage` option of `drawImageToOffscreenCanvas` / `imageBitmapToBlob`. `IMAGE_SIZE.SD/HD/2K` are
-standard target pixel counts — `original-image-slice` downscales the source to 2K once at load;
-downstream slices resize to SD locally before invoking workers.
+- **`image-metadata` decides which photos exist; `image-blobs` is best-effort byte storage.**
+- Read blob records by primary key, never through an index: `index.get()`/`getAll()` return an
+  unreadable blob on iOS 18.4.x ([292142](https://bugs.webkit.org/show_bug.cgi?id=292142)).
+- Write only fresh bytes. Re-storing a blob read back from IndexedDB loses its file
+  ([240216](https://bugs.webkit.org/show_bug.cgi?id=240216)), which is why `touchImage` updates
+  metadata alone.
+- Migrations run inside `withWebLock` so concurrent tabs cannot race. A migration needing
+  non-IndexedDB awaits does that work in `prepare`, outside any transaction.
+- Never recreate or delete a retired store in `LegacyArtistAssistAppDB` automatically; migrations
+  empty them. Migration 006 may leave metadata without a blob when legacy bytes cannot be copied.
+- Recent Photos does not hash or filter blobs, so photos are never hidden or auto-deleted; a missing
+  or undecodable blob surfaces through the card's unavailable state. Do not add an availability
+  cache or a background scan.
+- Integrity-sensitive reads fully read and hash the bytes; `readImageBytes` reports missing,
+  unreadable or mismatched bytes as `ImageUnreadableError`. Manual repair checks metadata and writes
+  a fresh blob in one transaction, so it cannot resurrect a concurrently deleted photo.
+- A configured style image is checked against the digest in app settings rather than hashed; if its
+  record, digest or decoding is invalid, remove the record and the setting atomically while leaving
+  the model available for choosing a replacement.
 
-ONNX-derived image slices use setter-driven invalidation: changing model/style/input aborts and
-clears derived output; loaders no-op while already loading, commit results only if their
-`AbortController` is still current, and close stale `ImageBitmap`s.
+### `auth/`
 
-### Web Workers
+- The durable `auth-attempt` is the pending redirect state and supports standalone ↔ browser
+  handoff. Redirect completion exchanges its token using the stored PKCE verifier; email OTP and
+  redirect completion persist the same IDB session shape.
+- `resolveAuth()` owns verification and refresh, with refreshes serialized by `withAuthLock`.
+- Decryption failures throw `ForceLogoutError` and must route through `logout(error.type)`.
 
-Heavy computation runs off the main thread via Web Workers + Comlink. Worker managers in
-`src/services/*/worker/*-worker-manager.ts` handle creation/communication. The shared
-`WorkerManager` (`src/utils/worker-manager.ts`) lazily instantiates the worker on first use and
-exposes `.run(operation, signal?)`: when `signal` aborts, the worker is `terminate()`d so the next
-call creates a fresh instance. **State-holding workers must not pass a signal** that could cut them
-off mid-session.
+### `validation.ts`
 
-`ImageBitmap` into workers: wrap with Comlink's `transfer(image, [image])` so the bitmap moves
-instead of being structured-cloned. The main-thread reference is neutered after transfer — do not
-call `.close()` on it. The worker takes ownership and is responsible for `image.close()` once it has
-drawn the bitmap onto its own canvas.
+Keep Valibot confined to external JSON validation. Custom-brand JSON and cloud shapes omit `rho`;
+`fromCustomColorBrandSource` reconstructs it at the persistence boundary.
 
-### Internationalization
+## React Query data shape
 
-Lingui-based. Source locale `src/locales/en.po`. All user-facing strings must use Lingui macros
-(`t`, `msg`, `<Trans>`). **Never run `lingui:extract` or `translate`** — the maintainer runs both
-once before committing. Change the source strings and stop there; leave the `.po` files alone. Never
-inspect catalogs for missing translations or report missing catalog entries during review.
+- Fetchers consumed by hooks return plain arrays, never Maps, so RQ's `structuralSharing` (which
+  only walks plain objects and arrays) preserves data refs across refetches. Rebuild Maps in
+  `select` with `indexById` / `indexBy`.
+- `select` identity must be stable: pass the helper directly under `useQuery`; for `useQueries`,
+  define a module-scope adapter (e.g. `indexColors` in `useColors.ts`), since TS cannot propagate
+  the queryFn type to the per-query `select` generic. `combine` must be `useCallback`'d.
+- Pass _stable_ collection props — see `selectedBrands` in `ColorSetChooser.tsx`. Antd's
+  `Form.useWatch` already returns reference-stable values.
+- In `useSelectedCatalogItem`, `selectedItemId` is `null` for an explicit cancel and `undefined` for
+  "use the default"; `defaultPredicate` keeps an item selectable without letting it become the
+  default.
+- `fetchColorsBulk` is store-only, with no React Query, and keeps its `Map<string, Map<…>>` shape.
 
-User-facing text is punctuated per block, not per string: a block of a single sentence — a heading,
-an `Empty` description, a one-line caption or label — ends without a period, while a block of two or
-more sentences is punctuated normally. A colon is kept when the line introduces a list.
+## Image pipeline
 
-### PWA
+- `src/utils/graphics.ts` is the shared surface: use `DrawImageSource` everywhere, and chain
+  `DrawImage.*` suppliers through the `drawImage` option of `drawImageToOffscreenCanvas` and
+  `imageToBlob` rather than computing crops at call sites.
+- `IMAGE_SIZE.SD/HD/2K` are the standard target pixel counts. `original-image-slice` downscales to
+  2K once at load; downstream slices resize to SD locally before invoking workers.
+- Only `Interpolation.Lanczos` scales its kernel with the reduction factor, so linear and bilinear
+  alias when minifying and are upscale-only. `removeBackground` resamples its mask with
+  `Interpolation.Bilinear`: a soft matte must not ring, and the mask is normally upscaled. That is
+  settled — never propose Lanczos there.
+- ONNX-derived image slices invalidate through their setters: changing model, style or input aborts
+  and clears derived output; loaders no-op while already loading, commit only if their
+  `AbortController` is still current, and close stale `ImageBitmap`s.
 
-Service worker at `src/service-worker.ts`, registered from `src/utils/service-worker.ts` (wired in
-`main.tsx`). Cross-Origin headers (COEP/COOP) are required for SharedArrayBuffer support (ONNX WASM
-threading). There are no Pages Functions: `public/_redirects` routes `/login/callback` to the SPA,
-where application code completes auth. The SW only serves the app shell for that navigation; its
-POST handling is limited to share-target imports. Requests with `Authorization`/`cache: no-store`,
-plus all requests to the auth origin, must bypass runtime caching. All persistence uses IndexedDB;
-`localStorage` is not used.
+## Web Workers
 
-### Vite Configuration
+- Worker managers live in `src/services/*/worker/*-worker-manager.ts` over the shared
+  `WorkerManager`. When the signal passed to `.run(operation, signal?)` aborts, the worker is
+  terminated and the next call creates a fresh one — so **a state-holding worker must not be passed
+  a signal** that could cut it off mid-session.
+- Pass an `ImageBitmap` in with Comlink's `transfer(image, [image])` so it moves instead of being
+  cloned. The main-thread reference is neutered afterwards: do not `close()` it. The worker owns the
+  bitmap and closes it once drawn.
 
-- Path alias: `@/` → `/src/` (use this prefix for all non-same-folder imports).
-- `.env` defines production settings; development mode overlays `.env.development`. Keep app, auth,
-  data, and JWK values aligned: `VITE_APP_URL` is also the ID-token audience.
+## Internationalization
+
+- All user-facing strings use Lingui macros (`t`, `msg`, `<Trans>`). Source locale is
+  `src/locales/en.po`.
+- **Never run `lingui:extract` or `translate`.** Change the source strings and stop; leave the `.po`
+  files alone. Never inspect catalogs for missing translations or report missing entries in a
+  review.
+- Punctuate per block, not per string: a block of one sentence — a heading, an `Empty` description,
+  a one-line caption or label — takes no period; two or more sentences are punctuated normally. Keep
+  a colon when the line introduces a list.
+
+## PWA
+
+- COEP/COOP headers are required for SharedArrayBuffer, which ONNX WASM threading needs.
+- There are no Pages Functions: `public/_redirects` routes `/login/callback` to the SPA, where
+  application code completes auth. The service worker only serves the app shell for that navigation,
+  and its POST handling is limited to share-target imports.
+- Requests carrying `Authorization` or `cache: no-store`, and all requests to the auth origin, must
+  bypass runtime caching.
+- All persistence uses IndexedDB. `localStorage` is not used.
+
+## Vite
+
+- Use the `@/` alias for every non-same-folder import.
+- `.env` holds production settings and `.env.development` overlays them in development. Keep app,
+  auth, data and JWK values aligned: `VITE_APP_URL` is also the ID-token audience.
 - `src/config.ts` centralizes environment values and shared data-request timeouts; do not duplicate
   them at call sites.
 
-### Styling
+## Styling
 
-Three-layer system loaded from `src/index.css`: `styles/base.css` (resets),
-`styles/antd-overrides.css` (`.ant-*` selectors), `styles/utilities.css` (global `u-*` classes —
-utilities and shared semantic patterns like `u-tab-content`, `u-popup-panel`). Per-component styles
-live in co-located `*.module.css`. AntD 6 has `cssVar: true` by default, so AntD design tokens are
-available everywhere as CSS variables (`--ant-padding`, `--ant-color-bg-elevated`, etc.) — prefer
-them over hardcoded values or `theme.useToken()`.
-
-**Critical:** AntD 6's CSS-in-JS injects rules into `<head>` at runtime, _after_ bundled CSS. So
-overrides on AntD components at equal class specificity lose by source order. Any utility or module
-class that overrides a property AntD touches (`width` on Select/Input/Cascader; `margin` on
-Form.Item, Divider, Slider; `padding` on Modal/Drawer/Card body slots; `color` on Typography and
-`.anticon` icons; `background-color` on Card/Tabs nav) **needs `!important`**. Inline `style` never
-hit this because spec 1000 always wins — class-based replacements do.
-
-Dynamic values pass through CSS custom properties on `style`, typed via `CssVariables` in
-`src/utils/types.ts` (e.g. LightboxOverlay swipe progress, ColorMixingChart column count). Reach for
-this pattern instead of computing pixel values in JS when the CSS can consume a variable.
-
-CSS Modules use bracket access (`styles['fooBar']`) — the generated `.d.ts` exposes an index
-signature, so `styles.fooBar` errors with TS4111.
+- Three layers load from `src/index.css`: `styles/base.css` (resets), `styles/antd-overrides.css`
+  (`.ant-*` selectors), `styles/utilities.css` (global `u-*` classes). Per-component styles live in
+  co-located `*.module.css`.
+- Prefer AntD design tokens as CSS variables (`--ant-padding`, `--ant-color-bg-elevated`) over
+  hardcoded values or `theme.useToken()`.
+- **AntD 6 injects its CSS-in-JS into `<head>` at runtime, after bundled CSS, so an override at
+  equal specificity loses by source order.** Any utility or module class overriding a property AntD
+  touches needs `!important`: `width` on Select/Input/Cascader, `margin` on
+  Form.Item/Divider/Slider, `padding` on Modal/Drawer/Card body slots, `color` on Typography and
+  `.anticon`, `background-color` on Card/Tabs nav. Inline `style` is exempt, since specificity 1000
+  always wins.
+- Pass dynamic values as CSS custom properties on `style`, typed via `CssVariables`, instead of
+  computing pixel values in JS when the CSS can consume a variable.
+- CSS Modules use bracket access (`styles['fooBar']`); `styles.fooBar` errors with TS4111.
 
 ## Code Conventions
 
@@ -324,25 +304,14 @@ workaround, an invariant that breaks if reordered, an error ignored on purpose.
 - Short, simple English. No slang, no idioms, no metaphors, no rhetorical dashes.
 - Never restate what the code or an identifier already says, and never narrate a change.
 
-### License Header
-
-Every `.ts`/`.tsx` file (except config files and generated files with `/* eslint-disable */`)
-**must** start with the AGPL-3.0 license header. ESLint enforces this via
-`eslint-plugin-license-header`. Copy the header from any existing source file.
-
-### Imports
-
-- Use the `@/` alias for cross-folder imports (enforced by ESLint — no relative `../` paths except
-  within the same folder).
-- Imports must be sorted (`simple-import-sort`).
-- Use `import type` for type-only imports (`@typescript-eslint/consistent-type-imports`).
-
 ### TypeScript
 
-- Strict mode enabled (`tseslint.configs.strictTypeChecked` + `stylisticTypeChecked`).
-- Do not use Promise `.then()` chains. Use `async`/`await`; when the surrounding function cannot be
-  async, `void` the call for a single fire-and-forget promise, and invoke a `void` async IIFE only
-  when several awaited steps or local error handling are needed.
-- Unused vars are errors (prefix with `_` to suppress).
-- Unused imports are errors (`eslint-plugin-unused-imports`).
-- Non-null assertions (`!`) are allowed (rule turned off).
+- Every `.ts`/`.tsx` file except config and generated files must start with the AGPL-3.0 license
+  header; copy it from any existing source file.
+- `[]` explicitly clears an array and `null` explicitly clears a non-array value. `undefined` never
+  means clear: it leaves the value unchanged in an update, or selects the default otherwise.
+- No `.then()` chains. Use `async`/`await`; where the surrounding function cannot be async, `void` a
+  single fire-and-forget promise, and use a `void` async IIFE only for several awaited steps or
+  local error handling.
+- Use `import type` for type-only imports. Non-null assertions are allowed. Unused vars and imports
+  are errors; prefix a deliberately unused binding with `_`.

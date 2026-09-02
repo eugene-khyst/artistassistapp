@@ -64,7 +64,7 @@ vi.mock('@/services/image/worker/rgb-channels-percentile-worker-manager', () => 
 vi.mock('@/utils/graphics', () => ({
   IMAGE_SIZE: {'2K': 2_000_000},
   ResizeImage: {resizeToPixelCount: vi.fn()},
-  imageBitmapToBlob: vi.fn(),
+  imageToBlob: vi.fn(),
   resizeImageBitmap: vi.fn(),
 }));
 
@@ -613,7 +613,7 @@ describe('EditImageSlice', () => {
     store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
     const appliedControls: AdjustColorsControls = {
       ...defaultTestAdjustColorsControls(),
-      whiteBalanceMethod: AdjustColorsWhiteBalanceMethod.None,
+      whiteBalanceMethod: AdjustColorsWhiteBalanceMethod.WhitePoint,
       saturation: 110,
       inputLevels: [10, 240],
     };
@@ -627,7 +627,10 @@ describe('EditImageSlice', () => {
     expect(store.getState().undoneEditImageHistory).toEqual([
       {command: appliedCommand, replaceable: true},
     ]);
-    expect(store.getState().adjustColorsControls).toEqual(defaultTestAdjustColorsControls());
+    expect(store.getState().adjustColorsControls).toEqual({
+      ...defaultTestAdjustColorsControls(),
+      whiteBalanceMethod: AdjustColorsWhiteBalanceMethod.None,
+    });
     commandService.apply.mockClear();
     commandService.apply.mockResolvedValueOnce(createImage());
 

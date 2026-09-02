@@ -181,7 +181,9 @@ export const createOriginalImageSlice: StateCreator<
       if (!hasMoreRecentImages || isRecentImagesLoading) {
         return;
       }
-      set({isRecentImagesLoading: true});
+      set({
+        isRecentImagesLoading: true,
+      });
       try {
         const baseDigests = get().recentImages.map(({digest}) => digest);
         const {images, hasMore} = await getRecentImages(
@@ -202,7 +204,9 @@ export const createOriginalImageSlice: StateCreator<
           };
         });
       } finally {
-        set({isRecentImagesLoading: false});
+        set({
+          isRecentImagesLoading: false,
+        });
       }
     },
 

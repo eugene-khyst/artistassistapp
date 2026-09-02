@@ -21,9 +21,12 @@ import {clamp, rgbToHex} from '@eugene-khyst/artistassistapp-color-mixer';
 import {colorMapFilterWebGL} from '@/services/image/filter/color-map-webgl';
 import {interpolationWebGL} from '@/services/image/filter/interpolation-webgl';
 import {thresholdFilterWebGL} from '@/services/image/filter/threshold-webgl';
-import {type DrawImageSource, imageDataToOffscreenCanvas} from '@/utils/graphics';
-
-import {Interpolation} from './filter/interpolation';
+import {Interpolation} from '@/services/image/filter/types';
+import {
+  type DrawImageSource,
+  imageDataToOffscreenCanvas,
+  toOffscreenCanvas,
+} from '@/utils/graphics';
 
 const THRESHOLDS = [0.825, 0.6, 0.35];
 const TONAL_VALUES: number[] = [2 / 3, 1 / 3, 0];
@@ -36,10 +39,11 @@ const COLOR_MAP_LEGEND_MIN_HEIGHT = 12;
 const COLOR_MAP_LEGEND_MAX_HEIGHT = 40;
 
 export function extractTonalValues(image: DrawImageSource): ImageBitmap[] {
-  const tonalValues: ImageBitmap[] = thresholdFilterWebGL(image, THRESHOLDS, TONAL_VALUES).map(
-    canvas => canvas.transferToImageBitmap()
+  const canvas = toOffscreenCanvas(image);
+  const tonalValues: ImageBitmap[] = thresholdFilterWebGL(canvas, THRESHOLDS, TONAL_VALUES).map(
+    tonalValue => tonalValue.transferToImageBitmap()
   );
-  const [colorMap, colorMapLegend] = colorMapFilterWebGL(image);
+  const [colorMap, colorMapLegend] = colorMapFilterWebGL(canvas);
   addColorMapLegend(colorMap, colorMapLegend);
   return [...tonalValues, colorMap.transferToImageBitmap()];
 }

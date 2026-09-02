@@ -18,6 +18,6 @@
 
 import type {CSSProperties} from 'react';
 
-export type Size = [width: number, height: number];
+export type Size = readonly [width: number, height: number];
 
 export type CssVariables = CSSProperties & Record<`--${string}`, string | number>;

@@ -121,6 +121,7 @@ export function UnderlayerColorPicker({
         <Button
           icon={<CloseCircleOutlined />}
           title={t`Clear underlayer`}
+          disabled={underlayerHex === null}
           onClick={() => {
             void setUnderlayerHex(null);
           }}

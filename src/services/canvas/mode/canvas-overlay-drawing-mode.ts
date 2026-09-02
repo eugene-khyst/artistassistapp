@@ -18,7 +18,7 @@
 
 import {invertColorsWebGL} from '@/services/image/filter/invert-colors-webgl';
 import type {Vector} from '@/services/math/geometry';
-import {IMAGE_SIZE} from '@/utils/graphics';
+import {IMAGE_SIZE, toOffscreenCanvas} from '@/utils/graphics';
 
 import {BaseCanvasMode, type ImageCanvasRenderingContext} from './canvas-mode';
 
@@ -36,7 +36,8 @@ export abstract class CanvasOverlayDrawingMode extends BaseCanvasMode {
   }
 
   onImagesLoaded(): void {
-    this.invertedImages = this.context?.getImages().map(image => invertColorsWebGL(image)) ?? [];
+    this.invertedImages =
+      this.context?.getImages().map(image => invertColorsWebGL(toOffscreenCanvas(image))) ?? [];
   }
 
   protected drawCircle(ctx: ImageCanvasRenderingContext, center: Vector, radius: number): void {
@@ -64,6 +65,10 @@ export abstract class CanvasOverlayDrawingMode extends BaseCanvasMode {
 
   protected abstract drawOverlay(ctx: ImageCanvasRenderingContext): void;
 
+  protected drawOverImage(_ctx: ImageCanvasRenderingContext): void {
+    // noop
+  }
+
   onBeforeImageDrawn(ctx: ImageCanvasRenderingContext): void {
     this.drawOverlay(ctx);
     ctx.globalCompositeOperation = 'source-in';
@@ -79,6 +84,7 @@ export abstract class CanvasOverlayDrawingMode extends BaseCanvasMode {
   onImageDrawn(ctx: ImageCanvasRenderingContext): void {
     this.drawOverlay(ctx);
     ctx.globalCompositeOperation = 'source-over';
+    this.drawOverImage(ctx);
   }
 
   override destroy(): void {

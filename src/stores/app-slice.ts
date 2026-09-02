@@ -28,7 +28,9 @@ import {type AppSettings, DEFAULT_APP_SETTINGS} from '@/services/settings/types'
 import {parseUrl} from '@/services/url/url-parser';
 import type {AuthSlice} from '@/stores/auth-slice';
 import type {CloudSlice} from '@/stores/cloud-slice';
+import type {CropSlice} from '@/stores/crop-slice';
 import type {CustomColorBrandSlice} from '@/stores/custom-color-brand-slice';
+import type {ExpandImageSlice} from '@/stores/expand-image-slice';
 import type {LocaleSlice} from '@/stores/locale-slice';
 import {reloadStores} from '@/stores/sync/store-reloads';
 import {initAuthAttemptWatcher} from '@/stores/watchers/auth-attempt-watcher';
@@ -72,6 +74,8 @@ type AppSliceDependencies = Pick<LocaleSlice, 'setLocale'> &
   > &
   Pick<CloudSlice, 'loadCloudConnection' | 'handleCloudCallback' | 'syncCloudState'> &
   Pick<CustomColorBrandSlice, 'loadCustomColorBrands'> &
+  Pick<CropSlice, 'loadCropSettings'> &
+  Pick<ExpandImageSlice, 'loadExpandImageSettings'> &
   Pick<TabSlice, 'setActiveTabKey'> &
   Pick<ColorSetSlice, 'loadColorSets'> &
   Pick<OriginalImageSlice, 'loadRecentImages' | 'selectLatestImageFile'> &
@@ -217,6 +221,8 @@ export const createAppSlice: StateCreator<AppSlice & AppSliceDependencies, [], [
       set({
         appSettings,
       });
+      get().loadCropSettings(appSettings);
+      get().loadExpandImageSettings(appSettings);
       return appSettings;
     },
 

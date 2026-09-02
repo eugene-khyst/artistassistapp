@@ -16,18 +16,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {clamp, type Fraction} from '@eugene-khyst/artistassistapp-color-mixer';
+import {clamp} from '@eugene-khyst/artistassistapp-color-mixer';
 
+import {type CropAspectRatio, ORIGINAL_CROP_ASPECT_RATIO} from '@/services/image/aspect-ratio';
 import {Rectangle, Vector} from '@/services/math/geometry';
 
+export {type CropAspectRatio, ORIGINAL_CROP_ASPECT_RATIO} from '@/services/image/aspect-ratio';
+
 import {
-  BaseCanvasMode,
   type CanvasDrag,
   type CanvasPointer,
+  DARKENED_AREA_COLOR,
   type ImageCanvasRenderingContext,
 } from './canvas-mode';
-
-const LINE_WIDTH = 1.5;
+import {
+  CanvasOverlayDrawingMode,
+  type CanvasOverlayDrawingModeProps,
+} from './canvas-overlay-drawing-mode';
 
 enum CropHandle {
   Top = 1,
@@ -41,35 +46,33 @@ enum CropHandle {
   Center,
 }
 
-export const ORIGINAL_CROP_ASPECT_RATIO = 'original';
-
-export type CropAspectRatio = Fraction | typeof ORIGINAL_CROP_ASPECT_RATIO | null;
-
-export interface ImageCroppingModeProps {
+export interface ImageCroppingModeProps extends CanvasOverlayDrawingModeProps {
   hitBoxSize?: number;
   onCropChange?: (cropRectangle: Rectangle) => void;
 }
 
-export class ImageCroppingMode extends BaseCanvasMode {
+export class ImageCroppingMode extends CanvasOverlayDrawingMode {
   private readonly hitBoxSize: number;
   private readonly onCropChange?: (cropRectangle: Rectangle) => void;
   private cropRectangle = Rectangle.ZERO;
   private aspectRatio: CropAspectRatio = null;
 
-  constructor({hitBoxSize = 30, onCropChange}: ImageCroppingModeProps = {}) {
-    super();
+  constructor({hitBoxSize = 30, onCropChange, ...props}: ImageCroppingModeProps = {}) {
+    super(props);
     this.hitBoxSize = hitBoxSize;
     this.onCropChange = onCropChange;
   }
 
-  onImagesLoaded(): void {
+  override onImagesLoaded(): void {
+    super.onImagesLoaded();
     this.resetCropRectangle();
   }
 
-  private drawRectangle(ctx: ImageCanvasRenderingContext): void {
+  private darkenOutsideCrop(ctx: ImageCanvasRenderingContext): void {
     const {width, height} = this.imageDimension();
-    const {topLeft, bottomRight, center} = this.cropRectangle;
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    // The outline straddles the crop edge, so the hole spares its outer half.
+    const {topLeft, bottomRight} = this.cropRectangle.grow(this.strokeWidth() / 2);
+    ctx.fillStyle = DARKENED_AREA_COLOR;
     ctx.beginPath();
     ctx.rect(0, 0, width, height);
     ctx.moveTo(topLeft.x, topLeft.y);
@@ -78,9 +81,15 @@ export class ImageCroppingMode extends BaseCanvasMode {
     ctx.lineTo(bottomRight.x, topLeft.y);
     ctx.closePath();
     ctx.fill('evenodd');
+  }
 
-    const zoom = this.context?.getZoom() ?? 1;
-    const size = this.hitBoxSize / zoom;
+  private strokeWidth(): number {
+    return this.getLineWidth() / (this.context?.getZoom() ?? 1);
+  }
+
+  private drawHandles(ctx: ImageCanvasRenderingContext): void {
+    const {topLeft, bottomRight, center} = this.cropRectangle;
+    const size = this.hitBoxSize / (this.context?.getZoom() ?? 1);
     const halfSize = size / 2;
     const diagonal = new Vector(size, size);
     const diagonalX = new Vector(size, 0);
@@ -94,15 +103,18 @@ export class ImageCroppingMode extends BaseCanvasMode {
       new Rectangle(bottomLeft.add(diagonalX), bottomLeft.subtract(diagonalY)),
       new Rectangle(bottomRight, bottomRight.subtract(diagonal)),
     ];
-    rectangles.forEach(({topLeft: {x, y}, width, height}) => {
-      ctx.lineWidth = LINE_WIDTH / zoom;
-      ctx.strokeStyle = '#fff';
-      ctx.beginPath();
+    ctx.lineWidth = this.strokeWidth();
+    ctx.strokeStyle = '#000';
+    ctx.beginPath();
+    for (const {
+      topLeft: {x, y},
+      width,
+      height,
+    } of rectangles) {
       ctx.rect(x, y, width, height);
-      ctx.stroke();
-    });
+    }
+    ctx.stroke();
 
-    ctx.strokeStyle = '#fff';
     ctx.beginPath();
     ctx.save();
     ctx.translate(center.x, center.y);
@@ -113,12 +125,16 @@ export class ImageCroppingMode extends BaseCanvasMode {
     ctx.stroke();
   }
 
-  onImageDrawn(ctx: ImageCanvasRenderingContext): void {
-    const {center} = this.imageDimension();
-    ctx.save();
-    ctx.translate(-center.x, -center.y);
-    this.drawRectangle(ctx);
-    ctx.restore();
+  protected override drawOverlay(ctx: ImageCanvasRenderingContext): void {
+    this.inImageCoordinates(ctx, () => {
+      this.drawHandles(ctx);
+    });
+  }
+
+  protected override drawOverImage(ctx: ImageCanvasRenderingContext): void {
+    this.inImageCoordinates(ctx, () => {
+      this.darkenOutsideCrop(ctx);
+    });
   }
 
   getCropRectangle(): Rectangle {

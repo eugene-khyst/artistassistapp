@@ -17,7 +17,7 @@ msgstr ""
 msgid "({colorCount} colors)"
 msgstr "({colorCount} farger)"
 
-#: src/components/ColorSetChooser.tsx:689
+#: src/components/ColorSetChooser.tsx:688
 msgid "{brandName} colors"
 msgstr "{brandName} farger"
 
@@ -27,7 +27,7 @@ msgstr "{closeCounter, plural, one {Lukk på # sekund} other {Lukk om # sekunder
 
 #: src/components/color-set/ColorSetName.tsx:33
 #: src/components/color-set/StandardColorSetCascader.tsx:62
-#: src/components/ImageColorPicker.tsx:444
+#: src/components/ImageColorPicker.tsx:445
 #: src/components/Palette.tsx:75
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# farge} other {# farger}}"
@@ -141,15 +141,15 @@ msgstr "En verdi som er mindre enn 100 % får bildet til å se mindre fargerikt 
 msgid "Accurate"
 msgstr "Korrekt"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Acrylic Gouache"
 msgstr "Akryl gouache"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Acrylic Markers"
 msgstr "Akryl markører"
 
-#: src/components/messages.ts:58
+#: src/components/messages.ts:59
 msgid "Acrylic Paint"
 msgstr "Akryl maling"
 
@@ -173,7 +173,7 @@ msgstr "Legg til fargepar"
 msgid "Add images"
 msgstr "Legg til bilder"
 
-#: src/components/ColorSetChooser.tsx:692
+#: src/components/ColorSetChooser.tsx:691
 msgid "Add or remove colors to match your actual color set."
 msgstr "Legg til eller fjern farger for å matche det faktiske fargesettet."
 
@@ -185,7 +185,7 @@ msgstr "Legg til i paletten"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Legg til hvitt i <0>et {whiteRatioText}-forhold</0>"
 
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Adjust colors"
 msgstr "Juster farger"
 
@@ -197,7 +197,7 @@ msgstr "Juster de 4 hjørnene manuelt."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "All appdata lagres i nettleserens lagring, selv etter installasjon. Å slette nettleserdataene sletter alt."
 
-#: src/components/ImageEditor.tsx:304
+#: src/components/ImageEditor.tsx:313
 msgid "All edits will be lost"
 msgstr "Alle redigeringer vil gå tapt"
 
@@ -242,8 +242,8 @@ msgstr "Bruk mindre trykk for å gjøre akvarellblyantlaget mer gjennomsiktig"
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
 msgstr "Påfør strøk av denne fargen og underlagsfargen i et <0>{ratioText}-forhold</0>"
 
-#: src/components/ImageOutline.tsx:308
-#: src/components/ImageOutline.tsx:360
+#: src/components/ImageOutline.tsx:307
+#: src/components/ImageOutline.tsx:359
 msgid "AR"
 msgstr "AR"
 
@@ -301,7 +301,9 @@ msgstr "ArtistAssistApp vil permanent slette ditt lagrede arbeid og innstillinge
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "ArtistAssistApp laster inn igjen etter at du har fjernet midlertidige appfiler.<0/>Ditt lagrede arbeid og skydata vil ikke bli slettet."
 
-#: src/components/image-editor/CropControls.tsx:88
+#: src/components/image-editor/CropControls.tsx:76
+#: src/components/image-editor/ExpandControls.tsx:101
+#: src/components/image-editor/ExpandControls.tsx:138
 msgid "Aspect ratio"
 msgstr "Sideforhold"
 
@@ -317,7 +319,7 @@ msgstr "Autentiseringsfeil"
 msgid "Authentication failed"
 msgstr "Autentiseringen feilet"
 
-#: src/components/ImageColorPicker.tsx:472
+#: src/components/ImageColorPicker.tsx:473
 msgid "Auto palette"
 msgstr "Autopalett"
 
@@ -333,7 +335,7 @@ msgstr "Auto-detect er kun tilgjengelig for betalte Patreon-medlemmer"
 msgid "Auto-detect is unavailable"
 msgstr "Automatisk gjenkjenning er utilgjengelig"
 
-#: src/components/ImageColorPicker.tsx:467
+#: src/components/ImageColorPicker.tsx:468
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Finn automatisk de beste fargeblandingene for dette bildet."
 
@@ -341,7 +343,7 @@ msgstr "Finn automatisk de beste fargeblandingene for dette bildet."
 msgid "Average color of the white point area"
 msgstr "Gjennomsnittlig farge på hvitpunktområdet"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:100
+#: src/components/image-editor/RemoveBackgroundControls.tsx:97
 #: src/components/image-editor/RemoveBackgroundControls.tsx:103
 msgid "Background"
 msgstr "Bakgrunn"
@@ -366,25 +368,25 @@ msgstr "Bli betalt medlem"
 msgid "Blending"
 msgstr "Blanding"
 
-#: src/components/messages.ts:80
+#: src/components/messages.ts:81
 msgid "By date"
 msgstr "Etter dato"
 
-#: src/components/messages.ts:75
-#: src/components/messages.ts:82
+#: src/components/messages.ts:76
+#: src/components/messages.ts:83
 msgid "By hue"
 msgstr "Etter farge"
 
-#: src/components/messages.ts:74
+#: src/components/messages.ts:75
 msgid "By ID"
 msgstr "Etter ID"
 
-#: src/components/messages.ts:76
-#: src/components/messages.ts:83
+#: src/components/messages.ts:77
+#: src/components/messages.ts:84
 msgid "By lightness"
 msgstr "Ved letthet"
 
-#: src/components/messages.ts:81
+#: src/components/messages.ts:82
 msgid "By name"
 msgstr "Etter navn"
 
@@ -398,7 +400,7 @@ msgstr "Kameratilgang er nødvendig for AR-sporing"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:306
+#: src/components/ImageEditor.tsx:315
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:50
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -422,8 +424,9 @@ msgid "Check for updates"
 msgstr "Se etter oppdateringer"
 
 #: src/components/ColorSetChooser.tsx:217
-#: src/components/image-editor/RemoveBackgroundControls.tsx:57
-#: src/components/image-editor/RemoveObjectsControls.tsx:53
+#: src/components/image-editor/ExpandControls.tsx:85
+#: src/components/image-editor/RemoveBackgroundControls.tsx:53
+#: src/components/image-editor/RemoveObjectsControls.tsx:60
 #: src/components/ImageChooser.tsx:73
 #: src/components/ImageOutline.tsx:103
 #: src/components/ImageStyleTransfer.tsx:126
@@ -444,11 +447,11 @@ msgid "Cityscape"
 msgstr "Bybilde"
 
 #: src/components/file/FileSelect.tsx:203
-#: src/components/image-editor/RemoveObjectsControls.tsx:97
+#: src/components/image-editor/RemoveObjectsControls.tsx:109
 msgid "Clear"
 msgstr "Klar"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:120
+#: src/components/image-editor/RemoveBackgroundControls.tsx:119
 msgid "Clear background color"
 msgstr "Klar bakgrunnsfarge"
 
@@ -548,6 +551,9 @@ msgstr "Kode er påkrevd"
 
 #: src/components/ColorMixer.tsx:192
 #: src/components/CustomColorBrandCreator.tsx:476
+#: src/components/image-editor/ExpandControls.tsx:105
+#: src/components/image-editor/ExpandControls.tsx:212
+#: src/components/image-editor/ExpandControls.tsx:214
 msgid "Color"
 msgstr "Farge"
 
@@ -559,7 +565,7 @@ msgstr "Farge merke"
 msgid "Color brands"
 msgstr "Fargemerker"
 
-#: src/components/ImageColorPicker.tsx:485
+#: src/components/ImageColorPicker.tsx:486
 msgid "Color count"
 msgstr "Antall farger"
 
@@ -598,7 +604,7 @@ msgstr "Farge sett"
 msgid "Color swatch"
 msgstr "Fargeprøve"
 
-#: src/components/messages.ts:60
+#: src/components/messages.ts:61
 msgid "Colored Pencils"
 msgstr "Fargeblyanter"
 
@@ -695,11 +701,11 @@ msgstr "Kunne ikke importere sikkerhetskopi"
 msgid "Could not read the file"
 msgstr "Kunne ikke lese filen"
 
-#: src/components/ColorSetChooser.tsx:761
+#: src/components/ColorSetChooser.tsx:760
 msgid "Create a duplicate of this color set for further modification"
 msgstr "Lag et duplikat av dette fargesettet for ytterligere endring"
 
-#: src/components/ColorSetChooser.tsx:770
+#: src/components/ColorSetChooser.tsx:769
 msgid "Create a new color set by merging existing ones"
 msgstr "Lag et nytt fargesett ved å slå sammen eksisterende"
 
@@ -708,7 +714,7 @@ msgstr "Lag et nytt fargesett ved å slå sammen eksisterende"
 msgid "Create new"
 msgstr "Opprett ny"
 
-#: src/components/image-editor/CropControls.tsx:120
+#: src/components/image-editor/CropControls.tsx:98
 #: src/components/messages.ts:49
 msgid "Crop"
 msgstr "Avling"
@@ -849,7 +855,7 @@ msgstr "Å koble fra vil slette alt i ArtistAssistApp-appen, inkludert filene du
 msgid "Divisionism"
 msgstr "Divisjonisme"
 
-#: src/components/ColorSetChooser.tsx:671
+#: src/components/ColorSetChooser.tsx:670
 msgid "Do you have a store-bought or custom color set?"
 msgstr "Har du et butikkkjøpt eller tilpasset fargesett?"
 
@@ -873,11 +879,11 @@ msgstr "Legg filen her..."
 msgid "Drop the files here..."
 msgstr "Legg filene her..."
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Dry Pastel"
 msgstr "Tørr Pastel"
 
-#: src/components/ColorSetChooser.tsx:764
+#: src/components/ColorSetChooser.tsx:763
 msgid "Duplicate"
 msgstr "Duplikat"
 
@@ -901,7 +907,7 @@ msgstr "Redigering herfra"
 msgid "Edit image"
 msgstr "Rediger bilde"
 
-#: src/components/ImageEditor.tsx:316
+#: src/components/ImageEditor.tsx:325
 msgid "Edited"
 msgstr "Redigert"
 
@@ -925,11 +931,11 @@ msgstr "Skriv inn et navn"
 msgid "Enter a valid email"
 msgstr "Skriv inn en gyldig e-post"
 
-#: src/components/ImageOutline.tsx:289
+#: src/components/ImageOutline.tsx:288
 msgid "Enter lightbox mode to trace the outline through your paper"
 msgstr "Gå inn i lysboksmodus for å spore omrisset gjennom papiret"
 
-#: src/components/ImageOutline.tsx:352
+#: src/components/ImageOutline.tsx:351
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Gå inn i lysboksmodus for å tegne omrisset gjennom papiret ditt."
 
@@ -957,10 +963,19 @@ msgstr "Estimert temperatur på lyskilden i Kelvin bildet ble tatt med"
 msgid "Etching"
 msgstr "Etsing"
 
-#: src/components/ImageOutline.tsx:308
-#: src/components/ImageOutline.tsx:360
+#: src/components/ImageOutline.tsx:307
+#: src/components/ImageOutline.tsx:359
 msgid "Exit AR"
 msgstr "Utgang AR"
+
+#: src/components/image-editor/ExpandControls.tsx:253
+#: src/components/messages.ts:50
+msgid "Expand"
+msgstr "Utvide"
+
+#: src/components/image-editor/ExpandControls.tsx:118
+msgid "Expand by"
+msgstr "Utvid med"
 
 #: src/components/CustomColorBrandCreator.tsx:545
 msgid "Export to file"
@@ -981,6 +996,10 @@ msgstr "Raskest"
 #: src/components/ImageStyleTransfer.tsx:76
 msgid "Fauvism"
 msgstr "Fauvisme"
+
+#: src/components/image-editor/ExpandControls.tsx:196
+msgid "Fill"
+msgstr "Fylle"
 
 #: src/components/ColorSetChooser.tsx:413
 #: src/components/CustomColorBrandCreator.tsx:394
@@ -1012,7 +1031,7 @@ msgstr "Ferdig redigering"
 msgid "Focal point instructions"
 msgstr "Instruksjoner for fokuspunkt"
 
-#: src/components/image-editor/CropControls.tsx:93
+#: src/components/image-editor/CropControls.tsx:37
 msgid "Free"
 msgstr "Gratis"
 
@@ -1048,12 +1067,12 @@ msgstr "Glasering"
 msgid "Go to the {label} tab"
 msgstr "Gå til {label}-fanen"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Gouache"
 msgstr "Gouache"
 
 #: src/components/grid/GridControls.tsx:130
-#: src/components/ImageOutline.tsx:327
+#: src/components/ImageOutline.tsx:326
 #: src/components/messages.ts:35
 msgid "Grid"
 msgstr "Rutenett"
@@ -1066,6 +1085,10 @@ msgstr "Høyde"
 #: src/components/messages.ts:44
 msgid "Help"
 msgstr "Hjelp"
+
+#: src/components/image-editor/ExpandControls.tsx:158
+msgid "Horizontal"
+msgstr "Horisontal"
 
 #: src/components/ColorSetChooser.tsx:249
 msgid "If you don't save, changes to the color set may be lost."
@@ -1184,11 +1207,11 @@ msgstr "Sist brukt {dateText}"
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "Igjen å sammenligne: {unfinishedGamesSize}"
 
-#: src/components/ImageColorPicker.tsx:562
+#: src/components/ImageColorPicker.tsx:563
 msgid "Less"
 msgstr "Mindre"
 
-#: src/components/ImageOutline.tsx:351
+#: src/components/ImageOutline.tsx:350
 msgid "Light box"
 msgstr "Lysboks"
 
@@ -1197,7 +1220,7 @@ msgstr "Lysboks"
 msgid "Light tone"
 msgstr "Lys tone"
 
-#: src/components/ImageOutline.tsx:297
+#: src/components/ImageOutline.tsx:296
 msgid "Lightbox"
 msgstr "Lysboks"
 
@@ -1243,11 +1266,15 @@ msgstr "Lav effekt og høy effekt"
 msgid "Margin"
 msgstr "Marg"
 
-#: src/components/image-editor/RemoveObjectsControls.tsx:101
-msgid "Mark around the object you want to remove, then drag them to adjust"
-msgstr "Merk rundt objektet du vil fjerne, og dra dem for å justere"
+#: src/components/image-editor/ExpandControls.tsx:102
+msgid "Margins"
+msgstr "Marginer"
 
-#: src/components/image-editor/RemoveObjectsControls.tsx:66
+#: src/components/image-editor/RemoveObjectsControls.tsx:113
+msgid "Mark around the object you want to remove, then drag the vertices to adjust or tap to remove"
+msgstr "Merk rundt objektet du vil fjerne, og dra deretter hjørnene for å justere eller trykk for å fjerne"
+
+#: src/components/image-editor/RemoveObjectsControls.tsx:78
 msgid "Mark at least 3 points around the object you want to remove"
 msgstr "Merk minst 3 punkter rundt objektet du vil fjerne"
 
@@ -1256,10 +1283,10 @@ msgid "Mark the 4 corners of your paper or canvas"
 msgstr "Merk de 4 hjørnene på papiret eller lerretet"
 
 #: src/components/image-editor/StraightenControls.tsx:122
-msgid "Mark the 4 corners of your paper or canvas, then drag them to adjust"
-msgstr "Merk de fire hjørnene på papiret eller lerretet, og dra dem for å justere"
+msgid "Mark the 4 corners of your paper or canvas, then drag the vertices to adjust"
+msgstr "Merk de fire hjørnene på papiret eller lerretet, og dra deretter hjørnene for å justere"
 
-#: src/components/ImageColorPicker.tsx:480
+#: src/components/ImageColorPicker.tsx:481
 msgid "Match score"
 msgstr "Kampscore"
 
@@ -1311,12 +1338,12 @@ msgid "Mixture"
 msgstr "Blanding"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:107
-#: src/components/image-editor/RemoveBackgroundControls.tsx:73
-#: src/components/ImageOutline.tsx:268
+#: src/components/image-editor/RemoveBackgroundControls.tsx:69
+#: src/components/ImageOutline.tsx:267
 msgid "Mode"
 msgstr "Modus"
 
-#: src/components/ImageColorPicker.tsx:562
+#: src/components/ImageColorPicker.tsx:563
 msgid "More"
 msgstr "Mer"
 
@@ -1403,11 +1430,11 @@ msgstr "Antall celler på den mindre siden (loddrett eller vannrett)"
 msgid "Off"
 msgstr "Av"
 
-#: src/components/messages.ts:59
+#: src/components/messages.ts:60
 msgid "Oil Paint"
 msgstr "Oljemaling"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Oil Pastel"
 msgstr "Olje Pastell"
 
@@ -1419,16 +1446,16 @@ msgstr "På diagonalen er de rene fargene på full styrke. Over diagonalen er ty
 msgid "On the diagonal are the pure colors at full strength. Off the diagonal is each pair mixed in a 1:1 ratio."
 msgstr "På diagonalen er de rene fargene på full styrke. Utenfor diagonalen blandes hvert par i forholdet 1:1."
 
-#: src/components/ColorSetChooser.tsx:652
+#: src/components/ColorSetChooser.tsx:651
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Bare et begrenset antall fargemerker er tilgjengelige i gratisversjonen"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:84
-#: src/components/ImageOutline.tsx:260
+#: src/components/image-editor/RemoveBackgroundControls.tsx:80
+#: src/components/ImageOutline.tsx:259
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Bare et begrenset antall moduser er tilgjengelige i gratisversjonen"
 
-#: src/components/ImageColorPicker.tsx:491
+#: src/components/ImageColorPicker.tsx:492
 msgid "Opacity"
 msgstr "Opasitet"
 
@@ -1465,7 +1492,7 @@ msgstr "Eller velg fra eksempelbilder"
 msgid "Or select from your recent photos"
 msgstr "Eller velg blant de siste bildene dine"
 
-#: src/components/image-editor/CropControls.tsx:94
+#: src/components/image-editor/CropControls.tsx:38
 #: src/components/image/ImageViewSelector.tsx:45
 msgid "Original"
 msgstr "Original"
@@ -1474,7 +1501,7 @@ msgstr "Original"
 msgid "Original color temperature (K)"
 msgstr "Original fargetemperatur (K)"
 
-#: src/components/ImageOutline.tsx:282
+#: src/components/ImageOutline.tsx:281
 #: src/components/messages.ts:34
 msgid "Outline"
 msgstr "Omriss"
@@ -1482,6 +1509,10 @@ msgstr "Omriss"
 #: src/components/image-editor/AdjustColorsControls.tsx:322
 msgid "Output levels"
 msgstr "Utgangsnivåer"
+
+#: src/components/image-editor/ExpandControls.tsx:228
+msgid "Output: {outputWidth} × {outputHeight}"
+msgstr "Utdata: {outputWidth} × {outputHeight}"
 
 #: src/components/color/ColorMixtureDescription.tsx:132
 msgid "over"
@@ -1611,8 +1642,8 @@ msgstr "Trykk på <0>Legg til i palett</0> -knappen ved siden av fargeblandingen
 #: src/components/ColorMixingChart.tsx:149
 #: src/components/ImageGrid.tsx:72
 #: src/components/ImageGrid.tsx:83
-#: src/components/ImageOutline.tsx:335
-#: src/components/ImageOutline.tsx:371
+#: src/components/ImageOutline.tsx:334
+#: src/components/ImageOutline.tsx:370
 #: src/components/ImagesCompare.tsx:173
 #: src/components/ImageTonalValues.tsx:158
 #: src/components/ImageTonalValues.tsx:169
@@ -1657,19 +1688,19 @@ msgstr "Forhold"
 msgid "Realism"
 msgstr "Realisme"
 
-#: src/components/ImageEditor.tsx:301
+#: src/components/ImageEditor.tsx:310
 msgid "Redo"
 msgstr "Gjenta"
 
-#: src/components/ImageColorPicker.tsx:441
+#: src/components/ImageColorPicker.tsx:442
 msgid "Reduce color palette to"
 msgstr "Reduser fargepaletten til"
 
-#: src/components/ImageColorPicker.tsx:460
+#: src/components/ImageColorPicker.tsx:461
 msgid "Reduce colors"
 msgstr "Reduser farger"
 
-#: src/components/ImageColorPicker.tsx:458
+#: src/components/ImageColorPicker.tsx:459
 msgid "Reduce the number of colors in the photo."
 msgstr "Reduser antall farger på bildet."
 
@@ -1695,17 +1726,17 @@ msgstr "Omlading"
 msgid "Remove and continue"
 msgstr "Fjern og fortsett"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:137
-#: src/components/messages.ts:51
+#: src/components/image-editor/RemoveBackgroundControls.tsx:136
+#: src/components/messages.ts:52
 msgid "Remove background"
 msgstr "Fjern bakgrunn"
 
-#: src/components/image-editor/RemoveObjectsControls.tsx:94
-#: src/components/messages.ts:52
+#: src/components/image-editor/RemoveObjectsControls.tsx:106
+#: src/components/messages.ts:53
 msgid "Remove objects"
 msgstr "Fjern gjenstander"
 
-#: src/components/image-editor/RemoveObjectsControls.tsx:105
+#: src/components/image-editor/RemoveObjectsControls.tsx:120
 msgid "Removing objects is available only to paid Patreon members"
 msgstr "Fjerning av objekter er kun tilgjengelig for betalte Patreon-medlemmer"
 
@@ -1727,8 +1758,8 @@ msgstr "Krever macOS Sonoma eller nyere."
 msgid "Resend code"
 msgstr "Send koden på nytt"
 
-#: src/components/ImageEditor.tsx:305
-#: src/components/ImageEditor.tsx:310
+#: src/components/ImageEditor.tsx:314
+#: src/components/ImageEditor.tsx:319
 msgid "Reset"
 msgstr "Nullstille"
 
@@ -1773,12 +1804,12 @@ msgstr "Metning (%)"
 #: src/components/image/ImageSaveButton.tsx:38
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:141
-#: src/components/ImageOutline.tsx:378
+#: src/components/ImageOutline.tsx:377
 #: src/components/ImageTonalValues.tsx:175
 msgid "Save"
 msgstr "Lagre"
 
-#: src/components/ColorSetChooser.tsx:756
+#: src/components/ColorSetChooser.tsx:755
 msgid "Save & continue"
 msgstr "Lagre og fortsett"
 
@@ -1790,7 +1821,7 @@ msgstr "Sikkerhetskopiering av lagring"
 msgid "Save changes to the color set?"
 msgstr "Lagre endringer i fargesettet?"
 
-#: src/components/ColorSetChooser.tsx:751
+#: src/components/ColorSetChooser.tsx:750
 msgid "Save the changes to this color set"
 msgstr "Lagre endringene i dette fargesettet"
 
@@ -1810,7 +1841,7 @@ msgstr "Velg et fargesett"
 msgid "Select a reference photo from your device to paint from"
 msgstr "Velg et referansebilde fra enheten du vil male fra"
 
-#: src/components/ColorSetChooser.tsx:669
+#: src/components/ColorSetChooser.tsx:668
 msgid "Select a standard or custom color set"
 msgstr "Velg et standard eller tilpasset fargesett"
 
@@ -1831,7 +1862,7 @@ msgstr "Velg et bilde som inneholder et fargekart"
 msgid "Select art medium"
 msgstr "Velg kunstmedium"
 
-#: src/components/ColorSetChooser.tsx:690
+#: src/components/ColorSetChooser.tsx:689
 msgid "Select at least one color"
 msgstr "Velg minst én farge"
 
@@ -1885,7 +1916,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Velg blant de siste fargesettene dine, eller opprett et nytt."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:276
+#: src/components/ImageEditor.tsx:285
 msgid "Select image"
 msgstr "Velg bilde"
 
@@ -1941,7 +1972,7 @@ msgstr "Velg ditt kunstmedium, fargemerker og farger"
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
 msgstr "Velg kunstmediet ditt, fargemerkene og fargene du vil male med, og trykk deretter <0>Lagre og fortsett</0>"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:78
+#: src/components/image-editor/RemoveBackgroundControls.tsx:75
 #: src/components/ImageOutline.tsx:254
 msgid "Selected mode is available only to paid Patreon members"
 msgstr "Valgt modus er kun tilgjengelig for betalte Patreon-medlemmer"
@@ -2080,6 +2111,14 @@ msgstr "Litt overlappende vokspastellområder i forskjellige farger og bland god
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Lavere prosentverdier tilsvarer sterkere bleking"
 
+#: src/components/image-editor/ExpandControls.tsx:106
+msgid "Smart"
+msgstr "Smart"
+
+#: src/components/image-editor/ExpandControls.tsx:236
+msgid "Smart expansion is available only to paid Patreon members"
+msgstr "Smart utvidelse er kun tilgjengelig for betalte Patreon-medlemmer"
+
 #: src/components/cloud/CloudFeedbackHandler.tsx:172
 msgid "Some synced cloud data was deleted or is unavailable. Keep this device to create it again, or postpone the decision. ArtistAssistApp will not recreate it automatically."
 msgstr "Noen synkroniserte skydata ble slettet eller er utilgjengelige. Behold denne enheten for å lage den på nytt, eller utsett avgjørelsen. ArtistAssistApp vil ikke gjenskape den automatisk."
@@ -2090,20 +2129,20 @@ msgstr "Noe gikk galt"
 
 #: src/components/color-set/ColorSelect.tsx:122
 #: src/components/ColorMixingChart.tsx:122
-#: src/components/ImageColorPicker.tsx:517
+#: src/components/ImageColorPicker.tsx:518
 #: src/components/palette/PaletteGrid.tsx:137
 msgid "Sort"
 msgstr "Sortere"
 
-#: src/components/ImageColorPicker.tsx:481
+#: src/components/ImageColorPicker.tsx:482
 msgid "Sort by match score, from highest to lowest."
 msgstr "Sorter etter kampscore, fra høyeste til laveste."
 
-#: src/components/ImageColorPicker.tsx:492
+#: src/components/ImageColorPicker.tsx:493
 msgid "Sort by mixture opacity, from opaque to transparent."
 msgstr "Sorter etter blandingens opasitet, fra ugjennomsiktig til gjennomsiktig."
 
-#: src/components/ImageColorPicker.tsx:486
+#: src/components/ImageColorPicker.tsx:487
 msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "Sorter etter antall farger i blandingen, fra færrest til flest."
 
@@ -2121,7 +2160,7 @@ msgstr "Fart"
 msgid "Square cells"
 msgstr "Firkantede celler"
 
-#: src/components/ColorSetChooser.tsx:668
+#: src/components/ColorSetChooser.tsx:667
 msgid "Standard color set"
 msgstr "Standard fargesett"
 
@@ -2266,7 +2305,7 @@ msgstr "Tykk"
 msgid "Third-party notices"
 msgstr "Varsler fra tredjeparter"
 
-#: src/components/ColorSetChooser.tsx:696
+#: src/components/ColorSetChooser.tsx:695
 msgid "This color brand is available only to paid Patreon members"
 msgstr "Dette fargemerket er kun tilgjengelig for betalte Patreon-medlemmer"
 
@@ -2387,7 +2426,7 @@ msgstr "Veiledninger og videoer"
 msgid "Ukiyo-e"
 msgstr "Ukiyo-e"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:56
+#: src/components/image-editor/RemoveBackgroundControls.tsx:52
 msgid "Unable to load the background removal modes"
 msgstr "Kan ikke laste inn bakgrunnsfjerningsmodusene"
 
@@ -2395,7 +2434,7 @@ msgstr "Kan ikke laste inn bakgrunnsfjerningsmodusene"
 msgid "Unable to load the color data"
 msgstr "Kan ikke laste inn fargedataene"
 
-#: src/components/image-editor/RemoveObjectsControls.tsx:52
+#: src/components/image-editor/RemoveObjectsControls.tsx:59
 msgid "Unable to load the object removal model"
 msgstr "Kan ikke laste inn objektfjerningsmodellen"
 
@@ -2406,6 +2445,10 @@ msgstr "Kan ikke laste konturmodusene"
 #: src/components/ImageChooser.tsx:72
 msgid "Unable to load the sample photos"
 msgstr "Kan ikke laste inn eksempelbildene"
+
+#: src/components/image-editor/ExpandControls.tsx:84
+msgid "Unable to load the smart expansion model"
+msgstr "Kan ikke laste den smarte utvidelsesmodellen"
 
 #: src/components/ImageStyleTransfer.tsx:125
 msgid "Unable to load the styles"
@@ -2421,7 +2464,7 @@ msgstr "Kan ikke gjenopprette det lagrede fargesettet"
 msgid "Underlayer"
 msgstr "Underlag"
 
-#: src/components/ImageEditor.tsx:294
+#: src/components/ImageEditor.tsx:303
 msgid "Undo"
 msgstr "Angre"
 
@@ -2496,15 +2539,19 @@ msgstr "Brukt"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Å bruke en begrenset palett bidrar til å oppnå fargeharmoni. Velg 1–{MAX_COLORS} primærfarger."
 
+#: src/components/image-editor/ExpandControls.tsx:176
+msgid "Vertical"
+msgstr "Vertikal"
+
 #: src/components/ImageStyleTransfer.tsx:75
 msgid "Vienna Secession"
 msgstr "Wien løsrivelse"
 
-#: src/components/ImageOutline.tsx:300
+#: src/components/ImageOutline.tsx:299
 msgid "View the outline over the live camera to trace in AR"
 msgstr "Se omrisset over live-kameraet for å spore i AR"
 
-#: src/components/ImageOutline.tsx:361
+#: src/components/ImageOutline.tsx:360
 msgid "View the outline over the live camera to trace in AR."
 msgstr "Se omrisset over det levende kameraet for å spore i AR."
 
@@ -2529,15 +2576,15 @@ msgstr "Akvarell"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Akvarell kan fortynnes med vann for å gjøre den mer gjennomsiktig"
 
-#: src/components/messages.ts:56
+#: src/components/messages.ts:57
 msgid "Watercolor Paint"
 msgstr "Akvarell maling"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Watercolor Pencils"
 msgstr "Akvarellblyanter"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Wax Pastel"
 msgstr "Vokspastell"
 
@@ -2549,15 +2596,16 @@ msgstr "Vi kunne ikke finne et ArtistAssistApp Patreon-medlemskap for e-postadre
 msgid "We couldn't verify your session. Please sign in again to continue using ArtistAssistApp."
 msgstr "Vi kunne ikke verifisere økten din. Vennligst logg inn igjen for å fortsette å bruke ArtistAssistApp."
 
-#: src/components/ColorSetChooser.tsx:727
+#: src/components/ColorSetChooser.tsx:726
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "Når du velger mer enn {maxColorsFor2} farger totalt, brukes ikke blandinger av to farger."
 
-#: src/components/ColorSetChooser.tsx:735
+#: src/components/ColorSetChooser.tsx:734
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Når du velger mer enn {maxColorsFor3} farger totalt, brukes ikke blandinger av tre farger."
 
 #: src/components/image-editor/AdjustColorsControls.tsx:240
+#: src/components/image-editor/ExpandControls.tsx:215
 #: src/components/image-editor/RemoveBackgroundControls.tsx:106
 msgid "White"
 msgstr "Hvit"
@@ -2566,7 +2614,7 @@ msgstr "Hvit"
 msgid "White balance"
 msgstr "Hvitbalanse"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:71
 msgid "White paper or canvas"
 msgstr "Hvitt papir eller lerret"
 
@@ -2603,7 +2651,7 @@ msgstr "Du er logget inn"
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Du har valgt fargemerker som kun er tilgjengelige for betalende Patreon-medlemmer"
 
-#: src/components/ColorSetChooser.tsx:718
+#: src/components/ColorSetChooser.tsx:717
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Du har valgt fargemerker som kun er tilgjengelige for betalende Patreon-medlemmer. Bli med i ArtistAssistApp på Patreon som betalt medlem eller logg inn med Patreon hvis du allerede har blitt medlem."
 

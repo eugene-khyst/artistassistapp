@@ -34,7 +34,7 @@ import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
 import {NOOP_CANVAS_MODE_SUPPLIER} from '@/services/canvas/mode/canvas-mode';
 import {useAppStore} from '@/stores/app-store';
 import {getFilename} from '@/utils/filename';
-import {imageBitmapToBlob} from '@/utils/graphics';
+import {imageToBlob} from '@/utils/graphics';
 
 import {ColorCascader} from './color-set/ColorCascader';
 import {EmptyColorSet} from './empty/EmptyColorSet';
@@ -88,7 +88,7 @@ export function ImageLimitedPalette() {
       return;
     }
     saveAs(
-      await imageBitmapToBlob(limitedPaletteImage),
+      await imageToBlob(limitedPaletteImage),
       getFilename(selectedImageFile, 'limited-palette')
     );
   };

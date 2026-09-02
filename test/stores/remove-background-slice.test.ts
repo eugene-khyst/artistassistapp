@@ -35,7 +35,7 @@ import {
 
 const imageOperations = vi.hoisted(() => ({
   createBackgroundMask: vi.fn(),
-  imageBitmapToBlob: vi.fn(),
+  imageToBlob: vi.fn(),
 }));
 
 vi.mock('@/i18n', () => ({
@@ -47,11 +47,15 @@ vi.mock('@/services/image/remove-background', () => ({
 }));
 
 vi.mock('@/utils/graphics', () => ({
-  imageBitmapToBlob: imageOperations.imageBitmapToBlob,
+  imageToBlob: imageOperations.imageToBlob,
 }));
 
 function createImage(width = 100, height = 100): ImageBitmap {
   return {width, height, close: vi.fn()};
+}
+
+function createMask(width = 100, height = 100): OffscreenCanvas {
+  return {width, height} as OffscreenCanvas;
 }
 
 type TestStore = RemoveBackgroundSlice &
@@ -109,11 +113,11 @@ describe('RemoveBackgroundSlice', () => {
   it('stores one PNG mask and reuses it when the background color changes', async () => {
     const image = createImage();
     const inputImage = createImage();
-    const maskImage = createImage(20, 20);
+    const maskImage = createMask(20, 20);
     const maskBlob = new Blob();
     vi.stubGlobal('createImageBitmap', vi.fn().mockResolvedValueOnce(inputImage));
     imageOperations.createBackgroundMask.mockResolvedValueOnce(maskImage);
-    imageOperations.imageBitmapToBlob.mockResolvedValueOnce(maskBlob);
+    imageOperations.imageToBlob.mockResolvedValueOnce(maskBlob);
     const {store, preview, getPreviewCommand} = createTestStore(image);
     const model: OnnxModel = {
       id: 'background-removal',
@@ -130,7 +134,6 @@ describe('RemoveBackgroundSlice', () => {
       backgroundColor: null,
     });
     expect(inputImage.close).toHaveBeenCalledOnce();
-    expect(maskImage.close).toHaveBeenCalledOnce();
 
     store.getState().setRemoveBackgroundColor('#ffffff');
 
@@ -142,7 +145,7 @@ describe('RemoveBackgroundSlice', () => {
       });
     });
     expect(imageOperations.createBackgroundMask).toHaveBeenCalledOnce();
-    expect(imageOperations.imageBitmapToBlob).toHaveBeenCalledOnce();
+    expect(imageOperations.imageToBlob).toHaveBeenCalledOnce();
 
     store.getState().resetRemoveBackground();
 
@@ -186,7 +189,7 @@ describe('RemoveBackgroundSlice', () => {
     const {store, getPreviewCommand} = createTestStore(image);
     const model = {id: 'rmbg', freeTier: true} as OnnxModel;
     store.getState().setRemoveBackgroundModel(model);
-    const maskImage = createImage();
+    const maskImage = createMask();
     imageOperations.createBackgroundMask.mockImplementationOnce(() => {
       store.getState().setRemoveBackgroundModel({id: 'other', freeTier: true} as OnnxModel);
       return Promise.resolve(maskImage);
@@ -195,6 +198,5 @@ describe('RemoveBackgroundSlice', () => {
 
     await expect(store.getState().removeBackground()).rejects.toThrow();
     expect(getPreviewCommand()).toBeNull();
-    expect(maskImage.close).toHaveBeenCalledOnce();
   });
 });

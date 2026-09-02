@@ -17,7 +17,7 @@ msgstr ""
 msgid "({colorCount} colors)"
 msgstr "({colorCount} 색상)"
 
-#: src/components/ColorSetChooser.tsx:689
+#: src/components/ColorSetChooser.tsx:688
 msgid "{brandName} colors"
 msgstr "{brandName} 색상"
 
@@ -27,7 +27,7 @@ msgstr "{closeCounter, plural, other {#초 후 닫힘}}"
 
 #: src/components/color-set/ColorSetName.tsx:33
 #: src/components/color-set/StandardColorSetCascader.tsx:62
-#: src/components/ImageColorPicker.tsx:444
+#: src/components/ImageColorPicker.tsx:445
 #: src/components/Palette.tsx:75
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, other {#가지 색상}}"
@@ -141,15 +141,15 @@ msgstr "값이 100%보다 작으면 이미지가 덜 화려하게 보이고 100%
 msgid "Accurate"
 msgstr "정확한"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Acrylic Gouache"
 msgstr "아크릴 구아슈"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Acrylic Markers"
 msgstr "아크릴 마커"
 
-#: src/components/messages.ts:58
+#: src/components/messages.ts:59
 msgid "Acrylic Paint"
 msgstr "아크릴 페인트"
 
@@ -173,7 +173,7 @@ msgstr "색상 쌍 추가"
 msgid "Add images"
 msgstr "이미지 추가"
 
-#: src/components/ColorSetChooser.tsx:692
+#: src/components/ColorSetChooser.tsx:691
 msgid "Add or remove colors to match your actual color set."
 msgstr "실제 색상 세트와 일치하도록 색상을 추가하거나 제거합니다."
 
@@ -185,7 +185,7 @@ msgstr "팔레트에 추가"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "<0>{whiteRatioText} 비율</0>로 흰색 추가"
 
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Adjust colors"
 msgstr "색상 조정"
 
@@ -197,7 +197,7 @@ msgstr "4개의 모서리를 수동으로 조정합니다."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "모든 앱 데이터는 설치 후에도 웹 브라우저 저장소에 저장됩니다. 브라우저 데이터를 지우면 모든 데이터가 삭제됩니다."
 
-#: src/components/ImageEditor.tsx:304
+#: src/components/ImageEditor.tsx:313
 msgid "All edits will be lost"
 msgstr "모든 수정사항이 손실됩니다."
 
@@ -242,8 +242,8 @@ msgstr "수채색연필 레이어를 더 투명하게 만들려면 압력을 덜
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
 msgstr "이 색상의 획과 언더레이어 색상을 <0>{ratioText} 비율</0>로 적용합니다."
 
-#: src/components/ImageOutline.tsx:308
-#: src/components/ImageOutline.tsx:360
+#: src/components/ImageOutline.tsx:307
+#: src/components/ImageOutline.tsx:359
 msgid "AR"
 msgstr "AR"
 
@@ -301,7 +301,9 @@ msgstr "ArtistAssistApp은 이 장치에서 저장된 작업과 설정을 영구
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "ArtistAssistApp은 임시 앱 파일을 제거하면 다시 로드됩니다.<0/>저장된 작업물과 클라우드 데이터는 삭제되지 않습니다."
 
-#: src/components/image-editor/CropControls.tsx:88
+#: src/components/image-editor/CropControls.tsx:76
+#: src/components/image-editor/ExpandControls.tsx:101
+#: src/components/image-editor/ExpandControls.tsx:138
 msgid "Aspect ratio"
 msgstr "종횡비"
 
@@ -317,7 +319,7 @@ msgstr "인증 오류"
 msgid "Authentication failed"
 msgstr "인증 실패"
 
-#: src/components/ImageColorPicker.tsx:472
+#: src/components/ImageColorPicker.tsx:473
 msgid "Auto palette"
 msgstr "오토 팔레트"
 
@@ -333,7 +335,7 @@ msgstr "자동 감지는 유료 Patreon 회원만 사용할 수 있습니다."
 msgid "Auto-detect is unavailable"
 msgstr "자동 감지를 사용할 수 없습니다."
 
-#: src/components/ImageColorPicker.tsx:467
+#: src/components/ImageColorPicker.tsx:468
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "이 사진에 가장 적합한 색상 조합을 자동으로 찾아보세요."
 
@@ -341,7 +343,7 @@ msgstr "이 사진에 가장 적합한 색상 조합을 자동으로 찾아보�
 msgid "Average color of the white point area"
 msgstr "화이트 포인트 영역의 평균 색상"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:100
+#: src/components/image-editor/RemoveBackgroundControls.tsx:97
 #: src/components/image-editor/RemoveBackgroundControls.tsx:103
 msgid "Background"
 msgstr "배경"
@@ -366,25 +368,25 @@ msgstr "유료 회원이 되세요"
 msgid "Blending"
 msgstr "블렌딩"
 
-#: src/components/messages.ts:80
+#: src/components/messages.ts:81
 msgid "By date"
 msgstr "날짜별"
 
-#: src/components/messages.ts:75
-#: src/components/messages.ts:82
+#: src/components/messages.ts:76
+#: src/components/messages.ts:83
 msgid "By hue"
 msgstr "색조별"
 
-#: src/components/messages.ts:74
+#: src/components/messages.ts:75
 msgid "By ID"
 msgstr "ID별"
 
-#: src/components/messages.ts:76
-#: src/components/messages.ts:83
+#: src/components/messages.ts:77
+#: src/components/messages.ts:84
 msgid "By lightness"
 msgstr "가벼움에 의해"
 
-#: src/components/messages.ts:81
+#: src/components/messages.ts:82
 msgid "By name"
 msgstr "이름에 따라"
 
@@ -398,7 +400,7 @@ msgstr "AR 트레이싱을 위해서는 카메라 접근이 필요합니다"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:306
+#: src/components/ImageEditor.tsx:315
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:50
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -422,8 +424,9 @@ msgid "Check for updates"
 msgstr "업데이트 확인"
 
 #: src/components/ColorSetChooser.tsx:217
-#: src/components/image-editor/RemoveBackgroundControls.tsx:57
-#: src/components/image-editor/RemoveObjectsControls.tsx:53
+#: src/components/image-editor/ExpandControls.tsx:85
+#: src/components/image-editor/RemoveBackgroundControls.tsx:53
+#: src/components/image-editor/RemoveObjectsControls.tsx:60
 #: src/components/ImageChooser.tsx:73
 #: src/components/ImageOutline.tsx:103
 #: src/components/ImageStyleTransfer.tsx:126
@@ -444,11 +447,11 @@ msgid "Cityscape"
 msgstr "도시 풍경"
 
 #: src/components/file/FileSelect.tsx:203
-#: src/components/image-editor/RemoveObjectsControls.tsx:97
+#: src/components/image-editor/RemoveObjectsControls.tsx:109
 msgid "Clear"
 msgstr "분명한"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:120
+#: src/components/image-editor/RemoveBackgroundControls.tsx:119
 msgid "Clear background color"
 msgstr "선명한 배경색"
 
@@ -548,6 +551,9 @@ msgstr "코드 필요"
 
 #: src/components/ColorMixer.tsx:192
 #: src/components/CustomColorBrandCreator.tsx:476
+#: src/components/image-editor/ExpandControls.tsx:105
+#: src/components/image-editor/ExpandControls.tsx:212
+#: src/components/image-editor/ExpandControls.tsx:214
 msgid "Color"
 msgstr "색"
 
@@ -559,7 +565,7 @@ msgstr "색상 브랜드"
 msgid "Color brands"
 msgstr "색상 브랜드"
 
-#: src/components/ImageColorPicker.tsx:485
+#: src/components/ImageColorPicker.tsx:486
 msgid "Color count"
 msgstr "색상 개수"
 
@@ -598,7 +604,7 @@ msgstr "색상 세트"
 msgid "Color swatch"
 msgstr "색상 견본"
 
-#: src/components/messages.ts:60
+#: src/components/messages.ts:61
 msgid "Colored Pencils"
 msgstr "색연필"
 
@@ -695,11 +701,11 @@ msgstr "백업을 가져올 수 없었습니다"
 msgid "Could not read the file"
 msgstr "파일을 읽을 수 없었어요"
 
-#: src/components/ColorSetChooser.tsx:761
+#: src/components/ColorSetChooser.tsx:760
 msgid "Create a duplicate of this color set for further modification"
 msgstr "추가 수정을 위해 이 색상 세트의 복제본을 만듭니다."
 
-#: src/components/ColorSetChooser.tsx:770
+#: src/components/ColorSetChooser.tsx:769
 msgid "Create a new color set by merging existing ones"
 msgstr "기존 색상 세트를 합쳐서 새로운 색상 세트를 만듭니다"
 
@@ -708,7 +714,7 @@ msgstr "기존 색상 세트를 합쳐서 새로운 색상 세트를 만듭니�
 msgid "Create new"
 msgstr "새로 만들기"
 
-#: src/components/image-editor/CropControls.tsx:120
+#: src/components/image-editor/CropControls.tsx:98
 #: src/components/messages.ts:49
 msgid "Crop"
 msgstr "수확고"
@@ -849,7 +855,7 @@ msgstr "연결을 끊으면 ArtistAssistApp 앱 폴더 내 모든 파일, 추가
 msgid "Divisionism"
 msgstr "분열주의"
 
-#: src/components/ColorSetChooser.tsx:671
+#: src/components/ColorSetChooser.tsx:670
 msgid "Do you have a store-bought or custom color set?"
 msgstr "매장에서 구입한 색상 또는 사용자 정의 색상 세트가 있습니까?"
 
@@ -873,11 +879,11 @@ msgstr "파일을 여기 내려놓아..."
 msgid "Drop the files here..."
 msgstr "파일을 여기 내려놔..."
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Dry Pastel"
 msgstr "드라이 파스텔"
 
-#: src/components/ColorSetChooser.tsx:764
+#: src/components/ColorSetChooser.tsx:763
 msgid "Duplicate"
 msgstr "복사하다"
 
@@ -901,7 +907,7 @@ msgstr "여기서부터는 수정"
 msgid "Edit image"
 msgstr "이미지 편집"
 
-#: src/components/ImageEditor.tsx:316
+#: src/components/ImageEditor.tsx:325
 msgid "Edited"
 msgstr "편집됨"
 
@@ -925,11 +931,11 @@ msgstr "이름을 입력하세요"
 msgid "Enter a valid email"
 msgstr "유효한 이메일을 입력하세요"
 
-#: src/components/ImageOutline.tsx:289
+#: src/components/ImageOutline.tsx:288
 msgid "Enter lightbox mode to trace the outline through your paper"
 msgstr "라이트박스 모드로 들어가 종이 전체에 윤곽선을 그리세요."
 
-#: src/components/ImageOutline.tsx:352
+#: src/components/ImageOutline.tsx:351
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "라이트박스 모드에 들어가 종이 전체에 윤곽선을 따라 그려보세요."
 
@@ -957,10 +963,19 @@ msgstr "이미지를 촬영한 광원의 예상 온도(켈빈)"
 msgid "Etching"
 msgstr "에칭"
 
-#: src/components/ImageOutline.tsx:308
-#: src/components/ImageOutline.tsx:360
+#: src/components/ImageOutline.tsx:307
+#: src/components/ImageOutline.tsx:359
 msgid "Exit AR"
 msgstr "퇴장 AR"
+
+#: src/components/image-editor/ExpandControls.tsx:253
+#: src/components/messages.ts:50
+msgid "Expand"
+msgstr "확장하다"
+
+#: src/components/image-editor/ExpandControls.tsx:118
+msgid "Expand by"
+msgstr "확장 기준"
 
 #: src/components/CustomColorBrandCreator.tsx:545
 msgid "Export to file"
@@ -981,6 +996,10 @@ msgstr "가장 빠른"
 #: src/components/ImageStyleTransfer.tsx:76
 msgid "Fauvism"
 msgstr "야수파"
+
+#: src/components/image-editor/ExpandControls.tsx:196
+msgid "Fill"
+msgstr "채우다"
 
 #: src/components/ColorSetChooser.tsx:413
 #: src/components/CustomColorBrandCreator.tsx:394
@@ -1012,7 +1031,7 @@ msgstr "편집 완료"
 msgid "Focal point instructions"
 msgstr "초점 지침"
 
-#: src/components/image-editor/CropControls.tsx:93
+#: src/components/image-editor/CropControls.tsx:37
 msgid "Free"
 msgstr "무료"
 
@@ -1048,12 +1067,12 @@ msgstr "유리"
 msgid "Go to the {label} tab"
 msgstr "{label} 탭으로 이동"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Gouache"
 msgstr "구아슈"
 
 #: src/components/grid/GridControls.tsx:130
-#: src/components/ImageOutline.tsx:327
+#: src/components/ImageOutline.tsx:326
 #: src/components/messages.ts:35
 msgid "Grid"
 msgstr "그리드"
@@ -1066,6 +1085,10 @@ msgstr "높이"
 #: src/components/messages.ts:44
 msgid "Help"
 msgstr "도움말"
+
+#: src/components/image-editor/ExpandControls.tsx:158
+msgid "Horizontal"
+msgstr "수평의"
 
 #: src/components/ColorSetChooser.tsx:249
 msgid "If you don't save, changes to the color set may be lost."
@@ -1184,11 +1207,11 @@ msgstr "마지막으로 사용한 {dateText}"
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "왼쪽: {unfinishedGamesSize}"
 
-#: src/components/ImageColorPicker.tsx:562
+#: src/components/ImageColorPicker.tsx:563
 msgid "Less"
 msgstr "덜"
 
-#: src/components/ImageOutline.tsx:351
+#: src/components/ImageOutline.tsx:350
 msgid "Light box"
 msgstr "라이트박스"
 
@@ -1197,7 +1220,7 @@ msgstr "라이트박스"
 msgid "Light tone"
 msgstr "밝은 색조"
 
-#: src/components/ImageOutline.tsx:297
+#: src/components/ImageOutline.tsx:296
 msgid "Lightbox"
 msgstr "라이트박스"
 
@@ -1243,11 +1266,15 @@ msgstr "낮은 출력 및 높은 출력"
 msgid "Margin"
 msgstr "여백"
 
-#: src/components/image-editor/RemoveObjectsControls.tsx:101
-msgid "Mark around the object you want to remove, then drag them to adjust"
-msgstr "제거하려는 개체 주변을 표시한 다음 끌어서 조정하세요."
+#: src/components/image-editor/ExpandControls.tsx:102
+msgid "Margins"
+msgstr "여백"
 
-#: src/components/image-editor/RemoveObjectsControls.tsx:66
+#: src/components/image-editor/RemoveObjectsControls.tsx:113
+msgid "Mark around the object you want to remove, then drag the vertices to adjust or tap to remove"
+msgstr "제거하려는 개체 주위를 표시한 다음 정점을 드래그하여 조정하거나 탭하여 제거합니다."
+
+#: src/components/image-editor/RemoveObjectsControls.tsx:78
 msgid "Mark at least 3 points around the object you want to remove"
 msgstr "제거하려는 개체 주위에 3개 이상의 점을 표시하십시오."
 
@@ -1256,10 +1283,10 @@ msgid "Mark the 4 corners of your paper or canvas"
 msgstr "종이나 캔버스의 네 모서리를 표시하세요."
 
 #: src/components/image-editor/StraightenControls.tsx:122
-msgid "Mark the 4 corners of your paper or canvas, then drag them to adjust"
-msgstr "종이나 캔버스의 네 모서리를 표시한 다음 끌어서 조정하세요."
+msgid "Mark the 4 corners of your paper or canvas, then drag the vertices to adjust"
+msgstr "종이나 캔버스의 네 모서리를 표시한 다음 정점을 끌어 조정합니다."
 
-#: src/components/ImageColorPicker.tsx:480
+#: src/components/ImageColorPicker.tsx:481
 msgid "Match score"
 msgstr "경기 점수"
 
@@ -1311,12 +1338,12 @@ msgid "Mixture"
 msgstr "혼합"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:107
-#: src/components/image-editor/RemoveBackgroundControls.tsx:73
-#: src/components/ImageOutline.tsx:268
+#: src/components/image-editor/RemoveBackgroundControls.tsx:69
+#: src/components/ImageOutline.tsx:267
 msgid "Mode"
 msgstr "모드"
 
-#: src/components/ImageColorPicker.tsx:562
+#: src/components/ImageColorPicker.tsx:563
 msgid "More"
 msgstr "더 보기"
 
@@ -1403,11 +1430,11 @@ msgstr "더 작은 쪽의 셀 수(수직 또는 수평)"
 msgid "Off"
 msgstr "꺼짐"
 
-#: src/components/messages.ts:59
+#: src/components/messages.ts:60
 msgid "Oil Paint"
 msgstr "유성 페인트"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Oil Pastel"
 msgstr "오일 파스텔"
 
@@ -1419,16 +1446,16 @@ msgstr "대각선에는 순수한 색상이 최대 강도로 표시됩니다. �
 msgid "On the diagonal are the pure colors at full strength. Off the diagonal is each pair mixed in a 1:1 ratio."
 msgstr "대각선에는 순수한 색상이 최대 강도로 표시됩니다. 대각선 바깥쪽에는 각 쌍이 1:1 비율로 혼합되어 있습니다."
 
-#: src/components/ColorSetChooser.tsx:652
+#: src/components/ColorSetChooser.tsx:651
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "무료 버전에서는 제한된 수의 색상 브랜드만 사용할 수 있습니다"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:84
-#: src/components/ImageOutline.tsx:260
+#: src/components/image-editor/RemoveBackgroundControls.tsx:80
+#: src/components/ImageOutline.tsx:259
 msgid "Only a limited number of modes are available in the free version"
 msgstr "무료 버전에서는 제한된 수의 모드만 사용할 수 있습니다"
 
-#: src/components/ImageColorPicker.tsx:491
+#: src/components/ImageColorPicker.tsx:492
 msgid "Opacity"
 msgstr "불투명도"
 
@@ -1465,7 +1492,7 @@ msgstr "또는 샘플 사진에서 선택"
 msgid "Or select from your recent photos"
 msgstr "또는 최근 사진에서 선택합니다."
 
-#: src/components/image-editor/CropControls.tsx:94
+#: src/components/image-editor/CropControls.tsx:38
 #: src/components/image/ImageViewSelector.tsx:45
 msgid "Original"
 msgstr "원래의"
@@ -1474,7 +1501,7 @@ msgstr "원래의"
 msgid "Original color temperature (K)"
 msgstr "원래 색온도(K)"
 
-#: src/components/ImageOutline.tsx:282
+#: src/components/ImageOutline.tsx:281
 #: src/components/messages.ts:34
 msgid "Outline"
 msgstr "개요"
@@ -1482,6 +1509,10 @@ msgstr "개요"
 #: src/components/image-editor/AdjustColorsControls.tsx:322
 msgid "Output levels"
 msgstr "출력 수준"
+
+#: src/components/image-editor/ExpandControls.tsx:228
+msgid "Output: {outputWidth} × {outputHeight}"
+msgstr "출력: {outputWidth} × {outputHeight}"
 
 #: src/components/color/ColorMixtureDescription.tsx:132
 msgid "over"
@@ -1611,8 +1642,8 @@ msgstr "원하는 색상 혼합 옆에 있는 <0>팔레트에 추가</0> 버튼�
 #: src/components/ColorMixingChart.tsx:149
 #: src/components/ImageGrid.tsx:72
 #: src/components/ImageGrid.tsx:83
-#: src/components/ImageOutline.tsx:335
-#: src/components/ImageOutline.tsx:371
+#: src/components/ImageOutline.tsx:334
+#: src/components/ImageOutline.tsx:370
 #: src/components/ImagesCompare.tsx:173
 #: src/components/ImageTonalValues.tsx:158
 #: src/components/ImageTonalValues.tsx:169
@@ -1657,19 +1688,19 @@ msgstr "비율"
 msgid "Realism"
 msgstr "실재론"
 
-#: src/components/ImageEditor.tsx:301
+#: src/components/ImageEditor.tsx:310
 msgid "Redo"
 msgstr "다시 하다"
 
-#: src/components/ImageColorPicker.tsx:441
+#: src/components/ImageColorPicker.tsx:442
 msgid "Reduce color palette to"
 msgstr "색상 팔레트를 다음과 같이 줄이세요"
 
-#: src/components/ImageColorPicker.tsx:460
+#: src/components/ImageColorPicker.tsx:461
 msgid "Reduce colors"
 msgstr "색상 감소"
 
-#: src/components/ImageColorPicker.tsx:458
+#: src/components/ImageColorPicker.tsx:459
 msgid "Reduce the number of colors in the photo."
 msgstr "사진 속 색상 수를 줄이세요."
 
@@ -1695,17 +1726,17 @@ msgstr "재장전"
 msgid "Remove and continue"
 msgstr "제거하고 계속하기"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:137
-#: src/components/messages.ts:51
+#: src/components/image-editor/RemoveBackgroundControls.tsx:136
+#: src/components/messages.ts:52
 msgid "Remove background"
 msgstr "배경 제거"
 
-#: src/components/image-editor/RemoveObjectsControls.tsx:94
-#: src/components/messages.ts:52
+#: src/components/image-editor/RemoveObjectsControls.tsx:106
+#: src/components/messages.ts:53
 msgid "Remove objects"
 msgstr "개체 제거"
 
-#: src/components/image-editor/RemoveObjectsControls.tsx:105
+#: src/components/image-editor/RemoveObjectsControls.tsx:120
 msgid "Removing objects is available only to paid Patreon members"
 msgstr "개체 제거는 유료 Patreon 회원만 가능합니다."
 
@@ -1727,8 +1758,8 @@ msgstr "macOS Sonoma 및 이후 버전이 필요합니다."
 msgid "Resend code"
 msgstr "코드 재전송"
 
-#: src/components/ImageEditor.tsx:305
-#: src/components/ImageEditor.tsx:310
+#: src/components/ImageEditor.tsx:314
+#: src/components/ImageEditor.tsx:319
 msgid "Reset"
 msgstr "재설정"
 
@@ -1773,12 +1804,12 @@ msgstr "채도(%)"
 #: src/components/image/ImageSaveButton.tsx:38
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:141
-#: src/components/ImageOutline.tsx:378
+#: src/components/ImageOutline.tsx:377
 #: src/components/ImageTonalValues.tsx:175
 msgid "Save"
 msgstr "구해내다"
 
-#: src/components/ColorSetChooser.tsx:756
+#: src/components/ColorSetChooser.tsx:755
 msgid "Save & continue"
 msgstr "저장 및 계속"
 
@@ -1790,7 +1821,7 @@ msgstr "저장 백업"
 msgid "Save changes to the color set?"
 msgstr "색상 세트에 대한 변경 사항을 저장하시겠습니까?"
 
-#: src/components/ColorSetChooser.tsx:751
+#: src/components/ColorSetChooser.tsx:750
 msgid "Save the changes to this color set"
 msgstr "이 색상 세트에 대한 변경 사항을 저장합니다"
 
@@ -1810,7 +1841,7 @@ msgstr "색상 세트 선택"
 msgid "Select a reference photo from your device to paint from"
 msgstr "기기에서 페인팅할 참조 사진을 선택합니다."
 
-#: src/components/ColorSetChooser.tsx:669
+#: src/components/ColorSetChooser.tsx:668
 msgid "Select a standard or custom color set"
 msgstr "표준 또는 사용자 정의 색상 세트 선택"
 
@@ -1831,7 +1862,7 @@ msgstr "색상 차트가 포함된 이미지를 선택합니다"
 msgid "Select art medium"
 msgstr "예술 매체 선택"
 
-#: src/components/ColorSetChooser.tsx:690
+#: src/components/ColorSetChooser.tsx:689
 msgid "Select at least one color"
 msgstr "색상을 하나 이상 선택하세요."
 
@@ -1885,7 +1916,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "최근 색상 세트에서 선택하거나 새 색상 세트를 만듭니다."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:276
+#: src/components/ImageEditor.tsx:285
 msgid "Select image"
 msgstr "이미지 선택"
 
@@ -1941,7 +1972,7 @@ msgstr "미술 매체, 색상 브랜드, 색상을 선택하세요."
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
 msgstr "미술 매체, 색상 브랜드, 페인팅에 사용할 색상을 선택한 다음 <0>저장하고 계속하기</0>를 누르세요."
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:78
+#: src/components/image-editor/RemoveBackgroundControls.tsx:75
 #: src/components/ImageOutline.tsx:254
 msgid "Selected mode is available only to paid Patreon members"
 msgstr "선택한 모드는 유료 Patreon 회원만 사용할 수 있습니다."
@@ -2080,6 +2111,14 @@ msgstr "다양한 색상의 왁스 파스텔 영역을 살짝 겹쳐서 단단�
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "백분위수 값이 작을수록 더 강한 백백이 나타납니다"
 
+#: src/components/image-editor/ExpandControls.tsx:106
+msgid "Smart"
+msgstr "똑똑한"
+
+#: src/components/image-editor/ExpandControls.tsx:236
+msgid "Smart expansion is available only to paid Patreon members"
+msgstr "스마트 확장은 유료 Patreon 회원만 사용할 수 있습니다."
+
 #: src/components/cloud/CloudFeedbackHandler.tsx:172
 msgid "Some synced cloud data was deleted or is unavailable. Keep this device to create it again, or postpone the decision. ArtistAssistApp will not recreate it automatically."
 msgstr "일부 동기화된 클라우드 데이터가 삭제되었거나 사용할 수 없습니다. 이 장치를 다시 만들려면 보관하거나 결정을 연기하세요. ArtistAssistApp은 자동으로 다시 생성하지 않습니다."
@@ -2090,20 +2129,20 @@ msgstr "뭔가 잘못됐어"
 
 #: src/components/color-set/ColorSelect.tsx:122
 #: src/components/ColorMixingChart.tsx:122
-#: src/components/ImageColorPicker.tsx:517
+#: src/components/ImageColorPicker.tsx:518
 #: src/components/palette/PaletteGrid.tsx:137
 msgid "Sort"
 msgstr "종류"
 
-#: src/components/ImageColorPicker.tsx:481
+#: src/components/ImageColorPicker.tsx:482
 msgid "Sort by match score, from highest to lowest."
 msgstr "일치 점수를 기준으로 가장 높은 것부터 가장 낮은 것까지 정렬합니다."
 
-#: src/components/ImageColorPicker.tsx:492
+#: src/components/ImageColorPicker.tsx:493
 msgid "Sort by mixture opacity, from opaque to transparent."
 msgstr "혼합물별 불투명도, 불투명함부터 정렬하세요."
 
-#: src/components/ImageColorPicker.tsx:486
+#: src/components/ImageColorPicker.tsx:487
 msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "혼합물 내 색상 수순으로 적은 것부터 많은 것까지 정렬하세요."
 
@@ -2121,7 +2160,7 @@ msgstr "속도"
 msgid "Square cells"
 msgstr "제곱 셀"
 
-#: src/components/ColorSetChooser.tsx:668
+#: src/components/ColorSetChooser.tsx:667
 msgid "Standard color set"
 msgstr "표준 색상 세트"
 
@@ -2266,7 +2305,7 @@ msgstr "두꺼운"
 msgid "Third-party notices"
 msgstr "제3자 고지사항"
 
-#: src/components/ColorSetChooser.tsx:696
+#: src/components/ColorSetChooser.tsx:695
 msgid "This color brand is available only to paid Patreon members"
 msgstr "이 컬러 브랜드는 Patreon 유료 회원만 사용할 수 있습니다."
 
@@ -2387,7 +2426,7 @@ msgstr "자습서 및 비디오"
 msgid "Ukiyo-e"
 msgstr "우키요에"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:56
+#: src/components/image-editor/RemoveBackgroundControls.tsx:52
 msgid "Unable to load the background removal modes"
 msgstr "배경 제거 모드를 로드할 수 없습니다."
 
@@ -2395,7 +2434,7 @@ msgstr "배경 제거 모드를 로드할 수 없습니다."
 msgid "Unable to load the color data"
 msgstr "색상 데이터를 로드할 수 없습니다."
 
-#: src/components/image-editor/RemoveObjectsControls.tsx:52
+#: src/components/image-editor/RemoveObjectsControls.tsx:59
 msgid "Unable to load the object removal model"
 msgstr "개체 제거 모델을 로드할 수 없습니다."
 
@@ -2406,6 +2445,10 @@ msgstr "개요 모드를 로드할 수 없습니다."
 #: src/components/ImageChooser.tsx:72
 msgid "Unable to load the sample photos"
 msgstr "샘플 사진을 로드할 수 없습니다."
+
+#: src/components/image-editor/ExpandControls.tsx:84
+msgid "Unable to load the smart expansion model"
+msgstr "스마트 확장 모델을 로드할 수 없습니다."
 
 #: src/components/ImageStyleTransfer.tsx:125
 msgid "Unable to load the styles"
@@ -2421,7 +2464,7 @@ msgstr "저장된 색상 세트를 복원할 수 없습니다."
 msgid "Underlayer"
 msgstr "하부 계층"
 
-#: src/components/ImageEditor.tsx:294
+#: src/components/ImageEditor.tsx:303
 msgid "Undo"
 msgstr "끄르다"
 
@@ -2496,15 +2539,19 @@ msgstr "사용"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "제한된 팔레트를 사용하면 색상 조화를 이루는 데 도움이 됩니다. 1–{MAX_COLORS} 기본 색상을 선택하세요."
 
+#: src/components/image-editor/ExpandControls.tsx:176
+msgid "Vertical"
+msgstr "수직의"
+
 #: src/components/ImageStyleTransfer.tsx:75
 msgid "Vienna Secession"
 msgstr "비엔나 탈퇴"
 
-#: src/components/ImageOutline.tsx:300
+#: src/components/ImageOutline.tsx:299
 msgid "View the outline over the live camera to trace in AR"
 msgstr "AR에서 추적하려면 라이브 카메라를 통해 윤곽선을 확인하세요."
 
-#: src/components/ImageOutline.tsx:361
+#: src/components/ImageOutline.tsx:360
 msgid "View the outline over the live camera to trace in AR."
 msgstr "실시간 카메라 위에서 윤곽선을 보면 AR로 트레이싱할 수 있습니다."
 
@@ -2529,15 +2576,15 @@ msgstr "수채화"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "수채화는 물에 희석해서 더 투명하게 만들 수 있어요"
 
-#: src/components/messages.ts:56
+#: src/components/messages.ts:57
 msgid "Watercolor Paint"
 msgstr "수채화 물감"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Watercolor Pencils"
 msgstr "수채화 연필"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Wax Pastel"
 msgstr "왁스 파스텔"
 
@@ -2549,15 +2596,16 @@ msgstr "입력하신 이메일 주소로 ArtistAssistApp Patreon 멤버십을 �
 msgid "We couldn't verify your session. Please sign in again to continue using ArtistAssistApp."
 msgstr "세션을 확인할 수 없었습니다. ArtistAssistApp 계속 사용하시려면 다시 로그인해 주세요."
 
-#: src/components/ColorSetChooser.tsx:727
+#: src/components/ColorSetChooser.tsx:726
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "총 {maxColorsFor2}개 이상의 색상을 선택하는 경우 두 색상의 혼합은 사용되지 않습니다."
 
-#: src/components/ColorSetChooser.tsx:735
+#: src/components/ColorSetChooser.tsx:734
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "총 {maxColorsFor3}개 이상의 색상을 선택하는 경우 세 가지 색상의 혼합은 사용되지 않습니다."
 
 #: src/components/image-editor/AdjustColorsControls.tsx:240
+#: src/components/image-editor/ExpandControls.tsx:215
 #: src/components/image-editor/RemoveBackgroundControls.tsx:106
 msgid "White"
 msgstr "하얀"
@@ -2566,7 +2614,7 @@ msgstr "하얀"
 msgid "White balance"
 msgstr "화이트 밸런스"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:71
 msgid "White paper or canvas"
 msgstr "화이트 페이퍼 또는 캔버스"
 
@@ -2603,7 +2651,7 @@ msgstr "로그인 상태입니다"
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Patreon 유료 회원만 사용할 수 있는 색상 브랜드를 선택했습니다."
 
-#: src/components/ColorSetChooser.tsx:718
+#: src/components/ColorSetChooser.tsx:717
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Patreon 유료 회원만 사용할 수 있는 색상 브랜드를 선택했습니다. Patreon의 ArtistAssistApp에 유료 회원으로 가입하거나 이미 가입한 경우 Patreon으로 로그인하세요."
 

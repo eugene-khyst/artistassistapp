@@ -17,6 +17,7 @@
  */
 
 import type {AdjustColorsControls} from '@/services/image/adjust-colors-controls';
+import type {ExpandImageControls} from '@/services/image/expand-image-controls';
 import {Vector} from '@/services/math/geometry';
 
 interface EditImagePoint {
@@ -33,6 +34,7 @@ export enum EditImageCommandType {
   RotateClockwise = 'rotate-clockwise',
   Straighten = 'straighten',
   Crop = 'crop',
+  Expand = 'expand',
   AdjustColors = 'adjust-colors',
   RemoveBackground = 'remove-background',
   RemoveObjects = 'remove-objects',
@@ -42,6 +44,11 @@ export type EditImageCommand =
   | {type: EditImageCommandType.RotateClockwise}
   | {type: EditImageCommandType.Straighten; vertices: EditImagePoint[]}
   | {type: EditImageCommandType.Crop; rectangle: EditImageRectangle}
+  | {
+      type: EditImageCommandType.Expand;
+      controls: ExpandImageControls;
+      marginPatches?: Blob[];
+    }
   | {
       type: EditImageCommandType.AdjustColors;
       controls: AdjustColorsControls;
@@ -55,7 +62,7 @@ export type EditImageCommand =
   | {
       type: EditImageCommandType.RemoveObjects;
       vertices: EditImagePoint[];
-      boundingBox: EditImageRectangle;
+      patchRectangle: EditImageRectangle;
       result: Blob;
     };
 

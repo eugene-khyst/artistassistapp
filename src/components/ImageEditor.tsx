@@ -27,6 +27,7 @@ import {ImageSaveButton} from '@/components/image/ImageSaveButton';
 import {ImageViewSelector} from '@/components/image/ImageViewSelector';
 import {AdjustColorsControls} from '@/components/image-editor/AdjustColorsControls';
 import {CropControls} from '@/components/image-editor/CropControls';
+import {ExpandControls} from '@/components/image-editor/ExpandControls';
 import {RemoveBackgroundControls} from '@/components/image-editor/RemoveBackgroundControls';
 import {RemoveObjectsControls} from '@/components/image-editor/RemoveObjectsControls';
 import {StraightenControls} from '@/components/image-editor/StraightenControls';
@@ -38,11 +39,12 @@ import {CanvasPolygonDrawingMode} from '@/services/canvas/mode/canvas-polygon-dr
 import {ImageColorPickerMode} from '@/services/canvas/mode/image-color-picker-mode';
 import {ImageCroppingMode} from '@/services/canvas/mode/image-cropping-mode';
 import {ImageEditorMode, ImageEditorModeType} from '@/services/canvas/mode/image-editor-mode';
+import {ImageExpandingMode} from '@/services/canvas/mode/image-expanding-mode';
 import {EditImageCommandType} from '@/services/image/edit-image-command';
 import {blobToImageFile} from '@/services/image/image-file';
 import {useAppStore} from '@/stores/app-store';
 import {getFilename} from '@/utils/filename';
-import {imageBitmapToBlob} from '@/utils/graphics';
+import {imageToBlob} from '@/utils/graphics';
 
 import styles from './ImageEditor.module.css';
 
@@ -51,6 +53,7 @@ const FILENAME_SUFFIX = 'edited';
 const IMAGE_EDITOR_MODE_TYPES: Record<ImageEditorKey, ImageEditorModeType> = {
   [ImageEditorKey.Straighten]: ImageEditorModeType.Quadrilateral,
   [ImageEditorKey.Crop]: ImageEditorModeType.Crop,
+  [ImageEditorKey.Expand]: ImageEditorModeType.Expand,
   [ImageEditorKey.AdjustColors]: ImageEditorModeType.ColorPicker,
   [ImageEditorKey.RemoveBackground]: ImageEditorModeType.RemoveBackground,
   [ImageEditorKey.RemoveObjects]: ImageEditorModeType.Polygon,
@@ -65,6 +68,7 @@ function imageEditorModeSupplier() {
       shouldConnectVertices: vertices => vertices.length === 4,
     }),
     [ImageEditorModeType.Crop]: new ImageCroppingMode(),
+    [ImageEditorModeType.Expand]: new ImageExpandingMode(),
     [ImageEditorModeType.ColorPicker]: new ImageColorPickerMode({
       indicatorVisible: false,
       sampleRadius: 10,
@@ -93,7 +97,7 @@ async function editedImageBlob(): Promise<{blob: Blob; filename?: string} | unde
       : imageFileToEdit?.type || 'image/jpeg',
   };
   return {
-    blob: await imageBitmapToBlob(editedImage, {encodeOptions}),
+    blob: await imageToBlob(editedImage, {encodeOptions}),
     filename: getFilename(imageFileToEdit, FILENAME_SUFFIX),
   };
 }
@@ -114,6 +118,11 @@ const IMAGE_EDITOR_CONTROLS: Record<
   ),
   [ImageEditorKey.Crop]: ({imageEditorMode}) => (
     <CropControls croppingMode={imageEditorMode?.delegates[ImageEditorModeType.Crop] ?? null} />
+  ),
+  [ImageEditorKey.Expand]: ({imageEditorMode}) => (
+    <ExpandControls
+      expandingMode={imageEditorMode?.delegates[ImageEditorModeType.Expand] ?? null}
+    />
   ),
   [ImageEditorKey.AdjustColors]: ({imageEditorMode, onColorPickerEnabledChange}) => (
     <AdjustColorsControls

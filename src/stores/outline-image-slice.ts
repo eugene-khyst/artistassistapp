@@ -73,7 +73,9 @@ export const createOutlineImageSlice: StateCreator<
     },
     clear: () => {
       const {outlineImage} = get();
-      set({outlineImage: null});
+      set({
+        outlineImage: null,
+      });
       outlineImage?.close();
     },
   });

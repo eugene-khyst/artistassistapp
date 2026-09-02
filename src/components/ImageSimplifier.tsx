@@ -35,7 +35,7 @@ import {NOOP_CANVAS_MODE_SUPPLIER} from '@/services/canvas/mode/canvas-mode';
 import {blobToImageFile} from '@/services/image/image-file';
 import {useAppStore} from '@/stores/app-store';
 import {getFilename} from '@/utils/filename';
-import {imageBitmapToBlob} from '@/utils/graphics';
+import {imageToBlob} from '@/utils/graphics';
 
 import {EmptyImage} from './empty/EmptyImage';
 import styles from './ImageSimplifier.module.css';
@@ -105,7 +105,7 @@ export function ImageSimplifier() {
       return;
     }
     saveAs(
-      await imageBitmapToBlob(simplifiedMaskedImage),
+      await imageToBlob(simplifiedMaskedImage),
       getFilename(selectedImageFile, FILENAME_SUFFIX)
     );
   };
@@ -114,7 +114,7 @@ export function ImageSimplifier() {
     if (!simplifiedMaskedImage) {
       return;
     }
-    const blob: Blob = await imageBitmapToBlob(simplifiedMaskedImage);
+    const blob: Blob = await imageToBlob(simplifiedMaskedImage);
     void saveRecentImageFile(
       await blobToImageFile(blob, getFilename(selectedImageFile, FILENAME_SUFFIX))
     );

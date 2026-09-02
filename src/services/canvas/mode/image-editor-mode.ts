@@ -22,6 +22,7 @@ import {CompositeCanvasMode} from './composite-canvas-mode';
 export enum ImageEditorModeType {
   Quadrilateral = 'quadrilateral',
   Crop = 'crop',
+  Expand = 'expand',
   ColorPicker = 'color-picker',
   RemoveBackground = 'remove-background',
   Polygon = 'polygon',

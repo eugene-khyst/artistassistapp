@@ -40,7 +40,9 @@ export const createTonalValuesSlice: StateCreator<
   registerOriginalImageDependency({
     clear: () => {
       const {tonalImages} = get();
-      set({tonalImages: []});
+      set({
+        tonalImages: [],
+      });
       tonalImages.forEach(image => {
         image.close();
       });

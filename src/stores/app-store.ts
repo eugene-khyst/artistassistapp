@@ -30,6 +30,7 @@ import {
   createColorMixingChartSlice,
 } from '@/stores/color-mixing-chart-slice';
 import {createEditImageSlice, type EditImageSlice} from '@/stores/edit-image-slice';
+import {createExpandImageSlice, type ExpandImageSlice} from '@/stores/expand-image-slice';
 import {createLocaleSlice, type LocaleSlice} from '@/stores/locale-slice';
 import {
   createPosterizedImageSlice,
@@ -80,6 +81,7 @@ export const useAppStore = create<
     StyleTransferSlice &
     StraightenSlice &
     CropSlice &
+    ExpandImageSlice &
     AdjustColorsSlice &
     RemoveBackgroundSlice &
     RemoveObjectsSlice &
@@ -109,6 +111,7 @@ export const useAppStore = create<
     ...createStyleTransferSlice(...a),
     ...createStraightenSlice(...a),
     ...createCropSlice(...a),
+    ...createExpandImageSlice(...a),
     ...createAdjustColorsSlice(...a),
     ...createRemoveBackgroundSlice(...a),
     ...createRemoveObjectsSlice(...a),

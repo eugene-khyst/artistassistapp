@@ -19,30 +19,66 @@
 import type {StateCreator} from 'zustand';
 
 import {ImageEditorKey} from '@/image-editor';
-import type {CropAspectRatio} from '@/services/canvas/mode/image-cropping-mode';
+import {
+  type CropAspectRatio,
+  imageAspectRatio,
+  imageAspectRatioLabel,
+  ORIGINAL_CROP_ASPECT_RATIO,
+} from '@/services/image/aspect-ratio';
 import {EditImageCommandType} from '@/services/image/edit-image-command';
 import {Rectangle, Vector} from '@/services/math/geometry';
+import type {AppSettings} from '@/services/settings/types';
+import type {AppSlice} from '@/stores/app-slice';
 import type {EditImageSlice} from '@/stores/edit-image-slice';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
+
+const FREE_CROP_ASPECT_RATIO = 'free';
+
+function cropAspectRatioFromSettings(value: string | undefined): CropAspectRatio {
+  if (value === ORIGINAL_CROP_ASPECT_RATIO) {
+    return ORIGINAL_CROP_ASPECT_RATIO;
+  }
+  return imageAspectRatio(value ?? '') ?? null;
+}
+
+function cropAspectRatioSetting(aspectRatio: CropAspectRatio): string {
+  if (!aspectRatio) {
+    return FREE_CROP_ASPECT_RATIO;
+  }
+  return typeof aspectRatio === 'string' ? aspectRatio : imageAspectRatioLabel(aspectRatio);
+}
 
 export interface CropSlice {
   cropAspectRatio: CropAspectRatio;
   // null clears the crop rectangle, undefined leaves it alone.
   cropRectangle?: Rectangle | null;
 
+  loadCropSettings: (appSettings: AppSettings) => void;
   setCropAspectRatio: (aspectRatio: CropAspectRatio) => void;
   resetCrop: () => void;
   cropImage: (rectangle: Rectangle) => void;
 }
 
-type CropSliceDependencies = Pick<EditImageSlice, 'editImageOperation' | 'undoneEditImageHistory'>;
+type CropSliceDependencies = Pick<AppSlice, 'saveAppSettings'> &
+  Pick<EditImageSlice, 'editImageOperation' | 'undoneEditImageHistory'>;
 
 export const createCropSlice: StateCreator<CropSlice & CropSliceDependencies, [], [], CropSlice> = (
   set,
   get
 ) => {
+  let preferredCropAspectRatio: CropAspectRatio = null;
+
   const resetCrop = (): void => {
-    set({cropAspectRatio: null});
+    set({
+      cropAspectRatio: preferredCropAspectRatio,
+    });
+  };
+
+  const loadCropSettings = (appSettings: AppSettings): void => {
+    preferredCropAspectRatio = cropAspectRatioFromSettings(appSettings.cropAspectRatio);
+    set({
+      cropAspectRatio: preferredCropAspectRatio,
+    });
   };
 
   // Applying clears the crop rectangle, so only an undone edit can bring it back.
@@ -66,15 +102,24 @@ export const createCropSlice: StateCreator<CropSlice & CropSliceDependencies, []
         cropRectangle: undoneCropRectangle() ?? null,
       });
     },
-    // Switching editors keeps the crop rectangle, so it must keep the ratio too.
     clear: resetCrop,
   });
 
   return {
     cropAspectRatio: null,
 
+    loadCropSettings,
+
     setCropAspectRatio: (cropAspectRatio: CropAspectRatio): void => {
-      set({cropAspectRatio});
+      const setting = cropAspectRatioSetting(cropAspectRatio);
+      if (cropAspectRatioSetting(preferredCropAspectRatio) === setting) {
+        return;
+      }
+      preferredCropAspectRatio = cropAspectRatio;
+      set({
+        cropAspectRatio,
+      });
+      void get().saveAppSettings({cropAspectRatio: setting});
     },
 
     resetCrop,

@@ -18,19 +18,20 @@
 
 import type {KernelSize} from '@/services/image/filter/types';
 import {type RenderPass, WebGLRenderer} from '@/services/image/filter/webgl-renderer';
-import {copyToOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
+import {copyOffscreenCanvas} from '@/utils/graphics';
 import type {Size} from '@/utils/types';
 
 import fragmentShaderSource from './glsl/dilation.glsl';
 
-export function dilationWebGL(image: DrawImageSource, kernelSize: KernelSize): OffscreenCanvas {
+export function dilationWebGL(image: OffscreenCanvas, kernelSize: KernelSize): OffscreenCanvas {
   const renderer = new WebGLRenderer(
     [fragmentShaderSource],
     [['u_kernelSize', 'u_direction']],
-    image
+    image,
+    {premultiplyAlpha: true}
   );
   renderer.render(dilationRenderPasses(kernelSize));
-  const result = copyToOffscreenCanvas(renderer.canvas);
+  const result = copyOffscreenCanvas(renderer.canvas);
   renderer.cleanUp();
   return result;
 }

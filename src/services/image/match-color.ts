@@ -22,17 +22,23 @@ import {colorMatchFilterWebGL} from '@/services/image/filter/color-match-webgl';
 import {computeOtsuThreshold} from '@/services/image/filter/otsu-threshold';
 import {sobelEdgeDetectionWebGL} from '@/services/image/filter/sobel-edge-detection-webgl';
 import {thresholdFilterWebGL} from '@/services/image/filter/threshold-webgl';
-import {type DrawImageSource, mergeImages, offscreenCanvasToImageData} from '@/utils/graphics';
+import {
+  type DrawImageSource,
+  mergeImages,
+  offscreenCanvasToImageData,
+  toOffscreenCanvas,
+} from '@/utils/graphics';
 
 const COLOR_MATCH_DELTA_E_OKR2_THRESHOLD = 0.08;
 
 export function matchColor(image: DrawImageSource, color: RgbTuple): ImageBitmap {
+  const canvas = toOffscreenCanvas(image);
   const colorMatchImage: OffscreenCanvas = colorMatchFilterWebGL(
-    image,
+    canvas,
     color,
     COLOR_MATCH_DELTA_E_OKR2_THRESHOLD
   );
-  const sobelImage: OffscreenCanvas = sobelEdgeDetectionWebGL(image);
+  const sobelImage: OffscreenCanvas = sobelEdgeDetectionWebGL(canvas);
   const threshold = computeOtsuThreshold(offscreenCanvasToImageData(sobelImage), true);
   const [thresholdImage] = thresholdFilterWebGL(sobelImage, [threshold], [0.5], true);
   mergeImages(thresholdImage!, colorMatchImage);

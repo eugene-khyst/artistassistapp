@@ -25,6 +25,10 @@ import {
 } from '@/services/canvas/mode/image-cropping-mode';
 import {Rectangle, Vector} from '@/services/math/geometry';
 
+vi.mock('@/services/image/filter/invert-colors-webgl', () => ({
+  invertColorsWebGL: vi.fn(),
+}));
+
 function pointer(x: number, y: number): CanvasPointer {
   const point = new Vector(x, y);
   return {
@@ -41,8 +45,10 @@ function createMode(width = 200, height = 100): ImageCroppingMode {
     getImages: () => [],
     getImageIndex: () => 0,
     getImageDimension: () => new Rectangle(new Vector(width, height)),
+    getSourceImageDimension: () => new Rectangle(new Vector(width, height)),
     getZoom: () => 1,
     isExporting: () => false,
+    zoomToFit: vi.fn(),
     requestRedraw: vi.fn(),
     refreshCursor: vi.fn(),
   };

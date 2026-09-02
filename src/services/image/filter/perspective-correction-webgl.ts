@@ -23,13 +23,13 @@ import {
   orderCornersClockwise,
   Vector,
 } from '@/services/math/geometry';
-import {copyToOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
+import {copyOffscreenCanvas} from '@/utils/graphics';
 import type {Size} from '@/utils/types';
 
 import fragmentShaderSource from './glsl/perspective-correction.glsl';
 
 export function correctPerspectiveWebGL(
-  image: DrawImageSource,
+  image: OffscreenCanvas,
   vertices: Vector[]
 ): OffscreenCanvas {
   const sortedVertices = orderCornersClockwise(vertices);
@@ -52,7 +52,7 @@ export function correctPerspectiveWebGL(
     [fragmentShaderSource],
     [['u_inverse_homography', 'u_src_dimensions', 'u_dest_dimensions']],
     image,
-    {size}
+    {premultiplyAlpha: true, size}
   );
   renderer.render([
     {
@@ -63,7 +63,7 @@ export function correctPerspectiveWebGL(
       },
     },
   ]);
-  const result = copyToOffscreenCanvas(renderer.canvas);
+  const result = copyOffscreenCanvas(renderer.canvas);
   renderer.cleanUp();
   return result;
 }

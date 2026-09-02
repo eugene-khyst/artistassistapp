@@ -44,7 +44,9 @@ export const createColorMatchImageSlice: StateCreator<
   registerOriginalImageDependency({
     clear: () => {
       const {colorMatchImage} = get();
-      set({colorMatchImage: null});
+      set({
+        colorMatchImage: null,
+      });
       colorMatchImage?.close();
     },
   });

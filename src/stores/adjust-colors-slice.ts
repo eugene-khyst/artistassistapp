@@ -55,6 +55,7 @@ export const createAdjustColorsSlice: StateCreator<
   let percentileImage: ImageBitmap | null = null;
   let calculatedPercentile: number | undefined;
   let calculatedMaxValues: number[] | undefined;
+  let shouldPreviewInitialWhiteBalance = true;
 
   const adjustColorsPreview = (
     controls: AdjustColorsControls
@@ -97,10 +98,9 @@ export const createAdjustColorsSlice: StateCreator<
   const hasAdjustColorsEdit = (): boolean =>
     get().editImageHistory.some(({command}) => command.type === EditImageCommandType.AdjustColors);
 
-  // The automatic white balance belongs to the first adjustment, not to every later one.
   const resetAdjustColors = (): void => {
     const adjustColorsControls = defaultAdjustColorsControls();
-    if (hasAdjustColorsEdit()) {
+    if (!shouldPreviewInitialWhiteBalance || hasAdjustColorsEdit()) {
       adjustColorsControls.whiteBalanceMethod = AdjustColorsWhiteBalanceMethod.None;
     }
     set({
@@ -108,10 +108,19 @@ export const createAdjustColorsSlice: StateCreator<
     });
   };
 
+  const clearAdjustColors = (): void => {
+    shouldPreviewInitialWhiteBalance = true;
+    set({
+      adjustColorsControls: defaultAdjustColorsControls(),
+    });
+  };
+
   imageEditorControls.register(ImageEditorKey.AdjustColors, {
     reset: resetAdjustColors,
+    clear: clearAdjustColors,
     restore: command => {
       if (command.type === EditImageCommandType.AdjustColors) {
+        shouldPreviewInitialWhiteBalance = false;
         set({
           adjustColorsControls: copyAdjustColorsControls(command.controls),
         });
@@ -131,14 +140,15 @@ export const createAdjustColorsSlice: StateCreator<
     resetAdjustColors,
 
     openAdjustColors: async (): Promise<void> => {
-      // Nothing to apply on top of an adjustment that is already in the history.
-      if (hasAdjustColorsEdit()) {
+      if (!shouldPreviewInitialWhiteBalance || hasAdjustColorsEdit()) {
         return;
       }
+      shouldPreviewInitialWhiteBalance = false;
       await get().editImageOperation.preview(adjustColorsPreview(get().adjustColorsControls));
     },
 
     previewAdjustColors: async (): Promise<void> => {
+      shouldPreviewInitialWhiteBalance = false;
       await get().editImageOperation.preview(adjustColorsPreview(get().adjustColorsControls));
     },
   };

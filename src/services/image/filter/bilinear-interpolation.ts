@@ -18,13 +18,6 @@
 
 import {clamp} from '@eugene-khyst/artistassistapp-color-mixer';
 
-export enum Interpolation {
-  Linear = 'linear',
-  Bilinear = 'bilinear',
-  Bicubic = 'bicubic',
-  Lanczos = 'lanczos',
-}
-
 // Pixel-center mapping `srcCoord = (dstCoord + 0.5) * scale - 0.5` with replicate-edge clamping.
 export function bilinearInterpolation(
   src: Float32Array,

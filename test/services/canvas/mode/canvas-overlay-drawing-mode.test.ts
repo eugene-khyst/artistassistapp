@@ -48,8 +48,10 @@ describe('CanvasOverlayDrawingMode', () => {
       getImages: () => [],
       getImageIndex: () => 0,
       getImageDimension: () => new Rectangle(new Vector(2 * IMAGE_SIZE.HD, 1)),
+      getSourceImageDimension: () => new Rectangle(new Vector(2 * IMAGE_SIZE.HD, 1)),
       getZoom: () => 1,
       isExporting: () => exporting,
+      zoomToFit: vi.fn(),
       requestRedraw: vi.fn(),
       refreshCursor: vi.fn(),
     };

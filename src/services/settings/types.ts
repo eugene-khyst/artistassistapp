@@ -50,9 +50,13 @@ export interface AppSettings {
   colorPickerSort: ColorPickerSort;
   grids?: Partial<Record<TabKey, Partial<GridSettings>>>;
   outlineModel?: string | null;
-  backgroundRemovalModel?: string;
   styleTransferImageId?: string;
   styleTransferImageDigest?: string;
+  backgroundRemovalModel?: string;
+  cropAspectRatio?: string;
+  expandAspectRatio?: string;
+  expandSizeMode?: string;
+  expandFillMode?: string;
 }
 
 export const DEFAULT_APP_SETTINGS: AppSettings = {

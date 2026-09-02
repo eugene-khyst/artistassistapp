@@ -18,8 +18,8 @@
 
 import type {Authentication} from '@/services/auth/types';
 import {getProcessedImage, saveProcessedImage} from '@/services/db/processed-image-db';
-import {Interpolation} from '@/services/image/filter/interpolation';
 import {interpolationWebGL} from '@/services/image/filter/interpolation-webgl';
+import {Interpolation} from '@/services/image/filter/types';
 import {float32TensorToImageData, imageDataToFloat32Tensor} from '@/services/ml/tensor';
 import type {OnnxModel} from '@/services/ml/types';
 import {runInferenceWorker} from '@/services/ml/worker/inference-worker-manager';
@@ -29,7 +29,8 @@ import {
   type DrawImageSource,
   drawImageToOffscreenCanvas,
   IMAGE_SIZE,
-  imageBitmapToBlob,
+  imageDataToOffscreenCanvas,
+  imageToBlob,
   offscreenCanvasToImageData,
 } from '@/utils/graphics';
 
@@ -47,12 +48,11 @@ export async function transformImage({
   progressCallback?: FetchProgressCallback;
   signal?: AbortSignal;
   interpolation?: Interpolation | null;
-}): Promise<ImageBitmap> {
+}): Promise<OffscreenCanvas> {
   const {url: modelUrl, outputName} = model;
   const [image] = images;
   const {width, height} = image!;
-  const imageDataArray: ImageData[] = imageBitmapToImageData(images, model);
-  const inputTensors = imageDataArray.map((imageData, index) =>
+  const inputTensors = imageBitmapToImageData(images, model).map((imageData, index) =>
     imageDataToFloat32Tensor(imageData, model, index)
   );
   const [outputTensor] = await runInferenceWorker(
@@ -63,25 +63,20 @@ export async function transformImage({
     progressCallback,
     signal
   );
-  const outputImage = await createImageBitmap(float32TensorToImageData(outputTensor!, model));
-  if (!interpolation) {
-    return outputImage;
-  }
-  try {
-    return interpolationWebGL(outputImage, width, height, interpolation).transferToImageBitmap();
-  } finally {
-    outputImage.close();
-  }
+  const outputCanvas = imageDataToOffscreenCanvas(float32TensorToImageData(outputTensor!, model));
+  return interpolation
+    ? interpolationWebGL(outputCanvas, width, height, interpolation)
+    : outputCanvas;
 }
 
 export async function withProcessedImageCache(
   model: OnnxModel,
   digests: string[],
-  transform: () => Promise<ImageBitmap>,
+  transform: () => Promise<OffscreenCanvas>,
   encodeOptions?: ImageEncodeOptions
 ): Promise<ImageBitmap> {
   if (!model.url) {
-    return await transform();
+    return (await transform()).transferToImageBitmap();
   }
   try {
     const cachedImage: Blob | undefined = await getProcessedImage(model, digests);
@@ -91,19 +86,19 @@ export async function withProcessedImageCache(
   } catch (error) {
     console.warn('Failed to read or decode processed-image cache', error);
   }
-  const image: ImageBitmap = await transform();
+  const canvas: OffscreenCanvas = await transform();
   try {
-    await saveProcessedImage(model, digests, await imageBitmapToBlob(image, {encodeOptions}));
+    await saveProcessedImage(model, digests, await imageToBlob(canvas, {encodeOptions}));
   } catch (error) {
     console.warn('Failed to save processed-image cache', error);
   }
-  return image;
+  return canvas.transferToImageBitmap();
 }
 
 export async function withProcessedImageBlobCache(
   model: OnnxModel,
   digests: string[],
-  transform: () => Promise<ImageBitmap>,
+  transform: () => Promise<OffscreenCanvas>,
   encodeOptions?: ImageEncodeOptions
 ): Promise<Blob> {
   if (!model.url) {
@@ -127,15 +122,10 @@ export async function withProcessedImageBlobCache(
 }
 
 async function transformToBlob(
-  transform: () => Promise<ImageBitmap>,
+  transform: () => Promise<OffscreenCanvas>,
   encodeOptions?: ImageEncodeOptions
 ): Promise<Blob> {
-  const image: ImageBitmap = await transform();
-  try {
-    return await imageBitmapToBlob(image, {encodeOptions});
-  } finally {
-    image.close();
-  }
+  return await imageToBlob(await transform(), {encodeOptions});
 }
 
 export function imageBitmapToImageData(

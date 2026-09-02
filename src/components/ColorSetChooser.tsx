@@ -646,8 +646,7 @@ export function ColorSetChooser() {
                         </Trans>
                       </Typography.Text>
                     ) : (
-                      !user &&
-                      access === Access.Allowed && (
+                      !user && (
                         <Typography.Text type="secondary">
                           <Trans>
                             Only a limited number of color brands are available in the free version
@@ -743,7 +742,7 @@ export function ColorSetChooser() {
               className="u-mb-0"
             >
               <Flex gap="small" wrap>
-                {access === Access.Allowed ? (
+                {access !== Access.Denied ? (
                   <>
                     <Button
                       ref={saveButtonRef}
@@ -751,7 +750,7 @@ export function ColorSetChooser() {
                       title={t`Save the changes to this color set`}
                       type="primary"
                       htmlType="submit"
-                      disabled={isColorDataUnavailable}
+                      disabled={isColorDataUnavailable || access !== Access.Allowed}
                     >
                       <Trans>Save & continue</Trans>
                     </Button>
@@ -768,6 +767,7 @@ export function ColorSetChooser() {
                       <Button
                         icon={<MergeCellsOutlined />}
                         title={t`Create a new color set by merging existing ones`}
+                        disabled={access !== Access.Allowed}
                         onClick={() => void handleMergeClick()}
                       >
                         <Trans>Merge</Trans>

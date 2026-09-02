@@ -16,7 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Rectangle} from '@/services/math/geometry';
+import type {Fraction} from '@eugene-khyst/artistassistapp-color-mixer';
+
+import type {Rectangle, Vector} from '@/services/math/geometry';
 import {identity} from '@/utils/function';
 import type {Size} from '@/utils/types';
 
@@ -64,76 +66,6 @@ export const DrawImage = {
     };
   },
 
-  expandToAspectRatio: (targetAspectRatio?: number): DrawImageParamsSupplier => {
-    return ({
-      width: origWidth,
-      height: origHeight,
-      sx,
-      sy,
-      sw,
-      sh,
-      dw,
-      dh,
-    }: DrawImageParams): DrawImageParams => {
-      let targetWidth = origWidth;
-      let targetHeight = origHeight;
-      let dx = 0;
-      let dy = 0;
-      if (targetAspectRatio) {
-        const origAspectRatio = origWidth / origHeight;
-        if (targetAspectRatio > origAspectRatio) {
-          targetWidth = origHeight * targetAspectRatio;
-          dx = (targetWidth - origWidth) / 2;
-        } else {
-          targetHeight = origWidth / targetAspectRatio;
-          dy = (targetHeight - origHeight) / 2;
-        }
-      }
-      return {
-        width: targetWidth,
-        height: targetHeight,
-        sx,
-        sy,
-        sw,
-        sh,
-        dx,
-        dy,
-        dw,
-        dh,
-      };
-    };
-  },
-
-  resizeAndCrop: (targetWidth: number, targetHeight: number): DrawImageParamsSupplier => {
-    const targetAspectRatio = targetWidth / targetHeight;
-    return ({width: origWidth, height: origHeight}: DrawImageParams): DrawImageParams => {
-      const origAspectRatio = origWidth / origHeight;
-      let sw = origWidth;
-      let sh = origHeight;
-      let sx = 0;
-      let sy = 0;
-      if (origAspectRatio > targetAspectRatio) {
-        sw = origHeight * targetAspectRatio;
-        sx = (origWidth - sw) / 2;
-      } else {
-        sh = origWidth / targetAspectRatio;
-        sy = (origHeight - sh) / 2;
-      }
-      return {
-        width: targetWidth,
-        height: targetHeight,
-        sx,
-        sy,
-        sw,
-        sh,
-        dx: 0,
-        dy: 0,
-        dw: targetWidth,
-        dh: targetHeight,
-      };
-    };
-  },
-
   scale: (scale: number, sizeMultiple?: number): DrawImageParamsSupplier => {
     return ({width: origWidth, height: origHeight}: DrawImageParams): DrawImageParams => {
       let targetWidth = Math.max(1, Math.round(origWidth * scale));
@@ -160,8 +92,7 @@ export const DrawImage = {
   resizeToPixelCount: (pixelCount: number, sizeMultiple?: number): DrawImageParamsSupplier => {
     return (params: DrawImageParams): DrawImageParams => {
       const {width, height} = params;
-      const scale: number = Math.min(1, Math.sqrt(pixelCount / (width * height)));
-      return DrawImage.scale(scale, sizeMultiple)(params);
+      return DrawImage.scale(scaleToPixelCount(width, height, pixelCount), sizeMultiple)(params);
     };
   },
 
@@ -222,9 +153,13 @@ function imageToDrawImageParams({width, height}: DrawImageSource): DrawImagePara
 export type ResizeImageParamsSupplier = (image: DrawImageSource) => ImageBitmapOptions;
 
 export const ResizeImage = {
+  resizeToSize: (resizeWidth: number, resizeHeight: number): ResizeImageParamsSupplier => {
+    return (): ImageBitmapOptions => ({resizeWidth, resizeHeight});
+  },
+
   resizeToPixelCount: (pixelCount: number): ResizeImageParamsSupplier => {
     return ({width, height}: DrawImageSource): ImageBitmapOptions => {
-      const scale: number = Math.min(1, Math.sqrt(pixelCount / (width * height)));
+      const scale: number = scaleToPixelCount(width, height, pixelCount);
       const resizeWidth = Math.max(1, Math.round(width * scale));
       return {
         resizeWidth,
@@ -232,6 +167,10 @@ export const ResizeImage = {
     };
   },
 };
+
+export function scaleToPixelCount(width: number, height: number, pixelCount: number): number {
+  return Math.min(1, Math.sqrt(pixelCount / (width * height)));
+}
 
 export const IMAGE_SIZE = {
   SD: 720 * 480,
@@ -261,18 +200,6 @@ export async function createImageBitmapAndResize(
   } finally {
     image.close();
   }
-}
-
-export async function createImageBitmapWithBackground(
-  image: DrawImageSource,
-  backgroundColor: string | null
-): Promise<ImageBitmap> {
-  if (!backgroundColor) {
-    return await createImageBitmap(image);
-  }
-  const canvas = copyToOffscreenCanvas(image);
-  fillOffscreenCanvasBackground(canvas, backgroundColor);
-  return canvas.transferToImageBitmap();
 }
 
 export function fillOffscreenCanvasBackground(
@@ -346,8 +273,8 @@ export async function offscreenCanvasToBlob(
   return await offscreenCanvas.convertToBlob({type, quality});
 }
 
-export async function imageBitmapToBlob(
-  image: ImageBitmap,
+export async function imageToBlob(
+  image: DrawImageSource,
   {
     encodeOptions,
     ...drawImageOptions
@@ -361,17 +288,57 @@ export async function imageBitmapToBlob(
   return await offscreenCanvasToBlob(canvas, encodeOptions);
 }
 
-export function copyToOffscreenCanvas(image: DrawImageSource): OffscreenCanvas {
-  const {width, height} = image;
-  const canvasCopy = new OffscreenCanvas(width, height);
-  canvasCopy.getContext('2d')!.drawImage(image, 0, 0);
+export function toOffscreenCanvas(image: DrawImageSource): OffscreenCanvas {
+  if (image instanceof OffscreenCanvas) {
+    return image;
+  }
+  const [canvas] = drawImageToOffscreenCanvas(image);
+  return canvas;
+}
+
+export function copyOffscreenCanvas(canvas: OffscreenCanvas): OffscreenCanvas {
+  const [canvasCopy] = drawImageToOffscreenCanvas(canvas);
   return canvasCopy;
+}
+
+export function createPolygonMask(
+  vertices: readonly Vector[],
+  {width, height}: Pick<DrawImageSource, 'width' | 'height'>
+): OffscreenCanvas {
+  const canvas = new OffscreenCanvas(width, height);
+  const ctx = canvas.getContext('2d')!;
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0, 0, width, height);
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.moveTo(vertices[0]!.x, vertices[0]!.y);
+  for (const {x, y} of vertices.slice(1)) {
+    ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+  ctx.fill();
+  return canvas;
 }
 
 export function applyMask(image: DrawImageSource, mask: DrawImageSource): OffscreenCanvas {
   const [canvas, ctx] = drawImageToOffscreenCanvas(image, {fillStyle: 'transparent'});
   ctx.globalCompositeOperation = 'destination-in';
   ctx.drawImage(mask, 0, 0);
+  return canvas;
+}
+
+export function fadeImage(
+  image: DrawImageSource,
+  opaque: Vector,
+  transparent: Vector
+): OffscreenCanvas {
+  const [canvas, ctx] = drawImageToOffscreenCanvas(image);
+  const gradient = ctx.createLinearGradient(opaque.x, opaque.y, transparent.x, transparent.y);
+  gradient.addColorStop(0, '#000');
+  gradient.addColorStop(1, '#0000');
+  ctx.globalCompositeOperation = 'destination-in';
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
   return canvas;
 }
 
@@ -402,16 +369,25 @@ export function getRgbaForCoord(
   return data.subarray(i, i + 4);
 }
 
-export function fitToAspectRatio(
+export function aspectRatioSize(
   origWidth: number,
   origHeight: number,
-  resolution: number | [number, number]
-): [number, number] {
-  const [width, height] = Array.isArray(resolution) ? resolution : [resolution, resolution];
-  const aspectRatio = width / height;
-  return origWidth / origHeight > aspectRatio
-    ? [Math.round(origHeight * aspectRatio), origHeight]
-    : [origWidth, Math.round(origWidth / aspectRatio)];
+  aspectRatio?: Fraction
+): Size {
+  const [ratioWidth, ratioHeight]: Fraction = aspectRatio ?? [0, 0];
+  if (ratioWidth <= 0 || ratioHeight <= 0) {
+    return [origWidth, origHeight];
+  }
+  const aspectRatioDelta = origWidth * ratioHeight - origHeight * ratioWidth;
+  const onePixelAspectRatioDelta = Math.max(ratioWidth, ratioHeight);
+  if (Math.abs(aspectRatioDelta) <= onePixelAspectRatioDelta) {
+    return [origWidth, origHeight];
+  }
+  const targetAspectRatio = ratioWidth / ratioHeight;
+  if (aspectRatioDelta < 0) {
+    return [Math.ceil(origHeight * targetAspectRatio), origHeight];
+  }
+  return [origWidth, Math.ceil(origWidth / targetAspectRatio)];
 }
 
 export function getBoundingSize(images: DrawImageSource[]): Size | undefined {

@@ -85,8 +85,8 @@ export const createSimplifyImageSlice: StateCreator<
       if (!originalImage || prev.length) {
         return;
       }
-      await simplifyImageOperation.run(async signal => {
-        const simplifiedImages = await simplifyImage(originalImage);
+      await simplifyImageOperation.run(signal => {
+        const simplifiedImages = simplifyImage(originalImage);
         const simplifiedMaskedImage = applyFocalPointToSimplifiedImage(simplifiedImages);
         if (signal.aborted) {
           simplifiedImages.forEach(image => {

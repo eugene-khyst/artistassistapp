@@ -17,14 +17,14 @@
  */
 
 import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
-import {copyToOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
+import {copyOffscreenCanvas} from '@/utils/graphics';
 
 import fragmentShaderSource from './glsl/threshold.glsl';
 
 const desc = (a: number, b: number) => b - a;
 
 export function thresholdFilterWebGL(
-  image: DrawImageSource,
+  image: OffscreenCanvas,
   thresholds: number[],
   values: number[],
   grayscaleInput = false
@@ -48,7 +48,7 @@ export function thresholdFilterWebGL(
         },
       },
     ]);
-    return copyToOffscreenCanvas(renderer.canvas);
+    return copyOffscreenCanvas(renderer.canvas);
   });
   renderer.cleanUp();
   return results;

@@ -107,6 +107,23 @@ CC0.
 https://commons.wikimedia.org
 
 
+Upscale
+-------
+
+Real-ESRGAN - model real-esrgan-general-x4v3.onnx
+Copyright (c) 2021, Xintao Wang
+BSD 3-Clause License
+https://github.com/xinntao/Real-ESRGAN
+Source checkpoints: realesr-general-x4v3.pth and realesr-general-wdn-x4v3.pth
+https://github.com/xinntao/Real-ESRGAN/releases/tag/v0.2.5.0
+ArtistAssistApp blended the two checkpoints by deep network interpolation with
+equal weights and exported the blend with dynamic input sizes.
+
+The model uses the SRVGGNetCompact architecture from BasicSR.
+Apache License 2.0
+https://github.com/XPixelGroup/BasicSR
+
+
 =====================================
 License texts
 =====================================
@@ -191,10 +208,45 @@ The ML-FastViT software includes a number of subcomponents with separate
 copyright notices and license terms - please see the file ACKNOWLEDGEMENTS.
 -------------------------------------------------------------------------------
 
+BSD 3-Clause License
+--------------------
+
+Applies to Real-ESRGAN.
+
+BSD 3-Clause License
+
+Copyright (c) 2021, Xintao Wang
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 Apache License 2.0
 ------------------
 
-Applies to U-2-Net, LaMa, DocAligner and CAST.
+Applies to U-2-Net, LaMa, DocAligner, CAST and BasicSR.
 
 
                                  Apache License

@@ -24,7 +24,9 @@ import {type AppSlice, createAppSlice} from '@/stores/app-slice';
 import type {AuthSlice} from '@/stores/auth-slice';
 import type {CloudSlice} from '@/stores/cloud-slice';
 import type {ColorSetSlice} from '@/stores/color-set-slice';
+import type {CropSlice} from '@/stores/crop-slice';
 import type {CustomColorBrandSlice} from '@/stores/custom-color-brand-slice';
+import type {ExpandImageSlice} from '@/stores/expand-image-slice';
 import type {LocaleSlice} from '@/stores/locale-slice';
 import type {OriginalImageSlice} from '@/stores/original-image-slice';
 import type {PaletteSlice} from '@/stores/palette-slice';
@@ -34,6 +36,13 @@ import {DEFAULT_TAB_KEY, TabKey} from '@/tabs';
 vi.mock('@/i18n', () => ({
   getPreferredLocale: vi.fn(() => 'en'),
 }));
+
+const appSettingsDb = vi.hoisted(() => ({
+  getAppSettings: vi.fn(),
+  updateStoredAppSettings: vi.fn(),
+}));
+
+vi.mock('@/services/db/app-settings-db', () => appSettingsDb);
 
 vi.mock('@/stores/sync/store-reloads', () => ({
   reloadStores: vi.fn(async (): Promise<void> => undefined),
@@ -59,12 +68,16 @@ type TestStore = AppSlice &
   > &
   Pick<CloudSlice, 'loadCloudConnection' | 'handleCloudCallback' | 'syncCloudState'> &
   Pick<CustomColorBrandSlice, 'loadCustomColorBrands'> &
+  Pick<CropSlice, 'loadCropSettings'> &
+  Pick<ExpandImageSlice, 'loadExpandImageSettings'> &
   Pick<TabSlice, 'setActiveTabKey'> &
   Pick<ColorSetSlice, 'loadColorSets'> &
   Pick<OriginalImageSlice, 'loadRecentImages' | 'selectLatestImageFile'> &
   Pick<PaletteSlice, 'loadPaletteColorMixtures'>;
 
 function createTestStore(appSettings: AppSettings) {
+  const loadCropSettings = vi.fn();
+  const loadExpandImageSettings = vi.fn();
   const setActiveTabKey = vi.fn(
     async (
       _activeTabKey: TabKey,
@@ -82,6 +95,8 @@ function createTestStore(appSettings: AppSettings) {
     handleCloudCallback: vi.fn(async (): Promise<void> => undefined),
     syncCloudState: vi.fn(async (): Promise<void> => undefined),
     loadCustomColorBrands: vi.fn(async (): Promise<void> => undefined),
+    loadCropSettings,
+    loadExpandImageSettings,
     setActiveTabKey,
     loadColorSets: vi.fn(async (): Promise<void> => undefined),
     loadRecentImages: vi.fn(async (): Promise<void> => undefined),
@@ -89,20 +104,48 @@ function createTestStore(appSettings: AppSettings) {
     loadPaletteColorMixtures: vi.fn(async (): Promise<void> => undefined),
     ...createAppSlice(...args),
   }));
+  const loadStoredAppSettings = store.getState().loadAppSettings;
   store.setState({
     loadAppSettings: vi.fn(async (): Promise<AppSettings> => appSettings),
     loadStoreChangeTokens: vi.fn(async () => ({})),
   });
-  return {setActiveTabKey, store};
+  return {
+    loadCropSettings,
+    loadExpandImageSettings,
+    loadStoredAppSettings,
+    setActiveTabKey,
+    store,
+  };
 }
 
 describe('app slice', () => {
   beforeEach(() => {
+    vi.clearAllMocks();
     vi.stubGlobal('window', {location: new URL('https://app.example/')});
   });
 
   afterEach(() => {
+    vi.restoreAllMocks();
     vi.unstubAllGlobals();
+  });
+
+  it('loads stored image editor preferences', async () => {
+    const storedSettings: AppSettings = {
+      ...DEFAULT_APP_SETTINGS,
+      cropAspectRatio: '4:5',
+      expandAspectRatio: '16:9',
+      expandSizeMode: 'margins',
+      expandFillMode: 'smart',
+    };
+    appSettingsDb.getAppSettings.mockResolvedValueOnce(storedSettings);
+    const {loadCropSettings, loadExpandImageSettings, loadStoredAppSettings, store} =
+      createTestStore(DEFAULT_APP_SETTINGS);
+
+    await expect(loadStoredAppSettings()).resolves.toEqual(storedSettings);
+
+    expect(store.getState().appSettings).toEqual(storedSettings);
+    expect(loadCropSettings).toHaveBeenCalledExactlyOnceWith(storedSettings);
+    expect(loadExpandImageSettings).toHaveBeenCalledExactlyOnceWith(storedSettings);
   });
 
   it('falls back to the default tab when the stored tab key is invalid', async () => {

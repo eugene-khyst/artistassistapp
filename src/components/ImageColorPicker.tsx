@@ -421,6 +421,7 @@ export function ImageColorPicker() {
         <Button
           icon={<CloseCircleOutlined />}
           title={t`Clear unifying color`}
+          disabled={motherColorId === null}
           onClick={() => {
             void setMotherColor(null);
           }}

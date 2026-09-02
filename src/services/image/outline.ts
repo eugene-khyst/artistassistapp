@@ -23,7 +23,11 @@ import {thresholdFilterWebGL} from '@/services/image/filter/threshold-webgl';
 import {transformImage} from '@/services/ml/image-transformer';
 import {type OnnxModel, SOBEL_EDGE_DETECTION_MODEL_ID} from '@/services/ml/types';
 import type {FetchProgressCallback} from '@/utils/fetch';
-import {type DrawImageSource, offscreenCanvasToImageData} from '@/utils/graphics';
+import {
+  type DrawImageSource,
+  offscreenCanvasToImageData,
+  toOffscreenCanvas,
+} from '@/utils/graphics';
 
 export async function extractOutline(
   image: DrawImageSource,
@@ -31,25 +35,22 @@ export async function extractOutline(
   auth: Authentication | null,
   progressCallback?: FetchProgressCallback,
   signal?: AbortSignal
-): Promise<ImageBitmap> {
-  let outlineImage: ImageBitmap;
+): Promise<OffscreenCanvas> {
   if (model.id === SOBEL_EDGE_DETECTION_MODEL_ID) {
-    outlineImage = sobelEdgeDetection(image);
-  } else {
-    outlineImage = await transformImage({
-      images: [image],
-      model,
-      auth,
-      progressCallback,
-      signal,
-    });
+    return sobelEdgeDetection(image);
   }
-  return outlineImage;
+  return await transformImage({
+    images: [image],
+    model,
+    auth,
+    progressCallback,
+    signal,
+  });
 }
 
 function sobelEdgeDetection(image: DrawImageSource) {
-  const sobelImage: OffscreenCanvas = sobelEdgeDetectionWebGL(image);
+  const sobelImage: OffscreenCanvas = sobelEdgeDetectionWebGL(toOffscreenCanvas(image));
   const threshold = computeOtsuThreshold(offscreenCanvasToImageData(sobelImage), true);
   const [thresholdImage] = thresholdFilterWebGL(sobelImage, [threshold], [0], true);
-  return thresholdImage!.transferToImageBitmap();
+  return thresholdImage!;
 }

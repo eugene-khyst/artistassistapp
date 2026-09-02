@@ -22,7 +22,7 @@ import {canonicalize} from '@/utils/json';
 
 import {dbPromise} from './db';
 
-const PROCESSED_IMAGE_CACHE_VERSION = 1;
+const PROCESSED_IMAGE_CACHE_VERSION = 2;
 const MAX_PROCESSED_IMAGES = 20;
 
 export interface ProcessedImage {

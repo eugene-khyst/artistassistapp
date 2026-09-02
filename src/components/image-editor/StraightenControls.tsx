@@ -107,7 +107,7 @@ export function StraightenControls({polygonDrawingMode}: Readonly<Props>) {
         <Button
           icon={<AimOutlined />}
           loading={isModelLoading}
-          disabled={!model || access !== Access.Allowed}
+          disabled={access !== Access.Allowed}
           onClick={() => {
             void handleAutoDetectClick();
           }}
@@ -119,7 +119,7 @@ export function StraightenControls({polygonDrawingMode}: Readonly<Props>) {
         </Button>
       </Space>
       <Typography.Text type="secondary">
-        <Trans>Mark the 4 corners of your paper or canvas, then drag them to adjust</Trans>
+        <Trans>Mark the 4 corners of your paper or canvas, then drag the vertices to adjust</Trans>
       </Typography.Text>
       {access === Access.Denied && (
         <Typography.Text type="warning">

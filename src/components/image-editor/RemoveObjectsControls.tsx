@@ -26,7 +26,7 @@ import {useErrorNotification} from '@/hooks/useErrorNotification';
 import {useOnnxModel} from '@/hooks/useOnnxModel';
 import {Access} from '@/services/auth/types';
 import type {CanvasPolygonDrawingMode} from '@/services/canvas/mode/canvas-polygon-drawing-mode';
-import {OnnxModelType} from '@/services/ml/types';
+import {INPAINTING_MODEL_ID, INPAINTING_UPSCALE_MODEL_ID, OnnxModelType} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
 
 interface Props {
@@ -36,6 +36,7 @@ interface Props {
 export function RemoveObjectsControls({polygonDrawingMode}: Readonly<Props>) {
   const editedImage = useAppStore(state => state.editedImage);
   const setRemoveObjectsModel = useAppStore(state => state.setRemoveObjectsModel);
+  const setRemoveObjectsUpscaleModel = useAppStore(state => state.setRemoveObjectsUpscaleModel);
   const removeObjects = useAppStore(state => state.removeObjects);
 
   const {t} = useLingui();
@@ -45,19 +46,30 @@ export function RemoveObjectsControls({polygonDrawingMode}: Readonly<Props>) {
     model,
     isLoading: isModelLoading,
     isError: isModelError,
-  } = useOnnxModel(OnnxModelType.Inpainting, 'inpainting_lama_2025jan');
+  } = useOnnxModel(OnnxModelType.Inpainting, INPAINTING_MODEL_ID);
+
+  const {
+    model: upscaleModel,
+    isLoading: isUpscaleModelLoading,
+    isError: isUpscaleModelError,
+  } = useOnnxModel(OnnxModelType.Upscale, INPAINTING_UPSCALE_MODEL_ID);
 
   useErrorNotification(
-    isModelError,
+    isModelError || isUpscaleModelError,
     t`Unable to load the object removal model`,
     t`Check your connection and try again.`
   );
 
   const access = useAccessTo(model);
+  const upscaleAccess = useAccessTo(upscaleModel);
 
   useEffect(() => {
     setRemoveObjectsModel(model);
   }, [model, setRemoveObjectsModel]);
+
+  useEffect(() => {
+    setRemoveObjectsUpscaleModel(upscaleModel);
+  }, [upscaleModel, setRemoveObjectsUpscaleModel]);
 
   const handleRemoveClick = async () => {
     const vertices = polygonDrawingMode?.getVertices() ?? [];
@@ -85,8 +97,8 @@ export function RemoveObjectsControls({polygonDrawingMode}: Readonly<Props>) {
         <Button
           type="primary"
           icon={<HighlightOutlined />}
-          loading={isModelLoading}
-          disabled={!editedImage || !model || access !== Access.Allowed}
+          loading={isModelLoading || isUpscaleModelLoading}
+          disabled={!editedImage || access !== Access.Allowed || upscaleAccess !== Access.Allowed}
           onClick={() => {
             void handleRemoveClick();
           }}
@@ -98,9 +110,12 @@ export function RemoveObjectsControls({polygonDrawingMode}: Readonly<Props>) {
         </Button>
       </Space>
       <Typography.Text type="secondary">
-        <Trans>Mark around the object you want to remove, then drag them to adjust</Trans>
+        <Trans>
+          Mark around the object you want to remove, then drag the vertices to adjust or tap to
+          remove
+        </Trans>
       </Typography.Text>
-      {access === Access.Denied && (
+      {(access === Access.Denied || upscaleAccess === Access.Denied) && (
         <Typography.Text type="warning">
           <Trans>Removing objects is available only to paid Patreon members</Trans>
         </Typography.Text>

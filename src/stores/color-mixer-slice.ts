@@ -119,7 +119,9 @@ export const createColorMixerSlice: StateCreator<
       buildPaletteOperation.abort();
     },
     clear: () => {
-      set({colorMatches: []});
+      set({
+        colorMatches: [],
+      });
     },
   });
 

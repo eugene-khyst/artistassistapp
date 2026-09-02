@@ -19,9 +19,12 @@
 import {afterEach, describe, expect, it, vi} from 'vitest';
 import {createStore} from 'zustand/vanilla';
 
+import {ORIGINAL_CROP_ASPECT_RATIO} from '@/services/image/aspect-ratio';
 import {EditImageCommandType} from '@/services/image/edit-image-command';
 import {Rectangle, Vector} from '@/services/math/geometry';
 import type {OnnxModel} from '@/services/ml/types';
+import {DEFAULT_APP_SETTINGS} from '@/services/settings/types';
+import type {AppSlice} from '@/stores/app-slice';
 import type {AuthSlice} from '@/stores/auth-slice';
 import {createCropSlice, type CropSlice} from '@/stores/crop-slice';
 import type {EditImageContext, EditImageOperation, EditImageSlice} from '@/stores/edit-image-slice';
@@ -46,10 +49,12 @@ function onnxModel(freeTier: boolean): OnnxModel {
 
 type TestStore = CropSlice &
   StraightenSlice &
+  Pick<AppSlice, 'saveAppSettings'> &
   Pick<AuthSlice, 'auth'> &
   Pick<EditImageSlice, 'editImageOperation' | 'undoneEditImageHistory'>;
 
 function createTestStore(image: ImageBitmap | null = null) {
+  const saveAppSettings = vi.fn(async () => DEFAULT_APP_SETTINGS);
   const execute = vi.fn().mockResolvedValue(true);
   const run = vi.fn(async (task: (context: EditImageContext) => unknown) =>
     task({image, signal: new AbortController().signal, setDownloadTip: vi.fn()})
@@ -62,12 +67,13 @@ function createTestStore(image: ImageBitmap | null = null) {
   };
   const store = createStore<TestStore>()((...args) => ({
     auth: null,
+    saveAppSettings,
     editImageOperation,
     undoneEditImageHistory: [],
     ...createCropSlice(...args),
     ...createStraightenSlice(...args),
   }));
-  return {store, execute, run};
+  return {store, execute, run, saveAppSettings};
 }
 
 afterEach(() => {
@@ -75,13 +81,26 @@ afterEach(() => {
 });
 
 describe('discrete image-editing slices', () => {
-  it('resets Crop controls explicitly', () => {
-    const {store} = createTestStore();
+  it('persists and resets to the preferred Crop aspect ratio', () => {
+    const {store, saveAppSettings} = createTestStore();
     store.getState().setCropAspectRatio([4, 5]);
 
     store.getState().resetCrop();
 
-    expect(store.getState()).toMatchObject({cropAspectRatio: null});
+    expect(store.getState()).toMatchObject({cropAspectRatio: [4, 5]});
+    expect(saveAppSettings).toHaveBeenCalledExactlyOnceWith({cropAspectRatio: '4:5'});
+  });
+
+  it('loads the preferred Crop aspect ratio from settings', () => {
+    const {store, saveAppSettings} = createTestStore();
+
+    store.getState().loadCropSettings({
+      ...DEFAULT_APP_SETTINGS,
+      cropAspectRatio: ORIGINAL_CROP_ASPECT_RATIO,
+    });
+
+    expect(store.getState().cropAspectRatio).toBe(ORIGINAL_CROP_ASPECT_RATIO);
+    expect(saveAppSettings).not.toHaveBeenCalled();
   });
 
   it('executes Crop as a cumulative command', () => {

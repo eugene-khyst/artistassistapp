@@ -19,12 +19,12 @@
 import {rgbToOklab, type RgbTuple} from '@eugene-khyst/artistassistapp-color-mixer';
 
 import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
-import {copyToOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
+import {copyOffscreenCanvas} from '@/utils/graphics';
 
 import fragmentShaderSource from './glsl/color-match.glsl';
 
 export function colorMatchFilterWebGL(
-  image: DrawImageSource,
+  image: OffscreenCanvas,
   color: RgbTuple,
   threshold: number
 ): OffscreenCanvas {
@@ -37,7 +37,7 @@ export function colorMatchFilterWebGL(
       },
     },
   ]);
-  const result = copyToOffscreenCanvas(renderer.canvas);
+  const result = copyOffscreenCanvas(renderer.canvas);
   renderer.cleanUp();
   return result;
 }

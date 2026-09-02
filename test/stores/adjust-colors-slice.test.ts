@@ -206,6 +206,41 @@ describe('AdjustColorsSlice', () => {
     expect(preview).toHaveBeenCalledOnce();
   });
 
+  it('offers the initial white balance once and leaves it off after reset', async () => {
+    const resizedImage = createImage();
+    imageOperations.resizeImageBitmap.mockResolvedValue(resizedImage);
+    imageOperations.calculatePercentiles.mockResolvedValue([0.9, 0.8, 0.7]);
+    const {store, preview} = createTestStore(createImage());
+
+    await store.getState().openAdjustColors();
+
+    expect(preview).toHaveBeenCalledOnce();
+    expect(store.getState().adjustColorsControls.whiteBalanceMethod).toBe(
+      AdjustColorsWhiteBalanceMethod.Percentile
+    );
+
+    imageEditorControls.reset(ImageEditorKey.AdjustColors);
+    await store.getState().openAdjustColors();
+
+    expect(store.getState().adjustColorsControls.whiteBalanceMethod).toBe(
+      AdjustColorsWhiteBalanceMethod.None
+    );
+    expect(preview).toHaveBeenCalledOnce();
+
+    store.getState().setAdjustColorsControls({
+      whiteBalanceMethod: AdjustColorsWhiteBalanceMethod.WhitePoint,
+    });
+    await store.getState().previewAdjustColors();
+
+    expect(preview).toHaveBeenCalledTimes(2);
+
+    imageEditorControls.resetAll();
+
+    expect(store.getState().adjustColorsControls.whiteBalanceMethod).toBe(
+      AdjustColorsWhiteBalanceMethod.Percentile
+    );
+  });
+
   it('waits for non-percentile previews', async () => {
     const {store, preview} = createTestStore(createImage());
     preview.mockRejectedValueOnce(new Error('Preview failed'));

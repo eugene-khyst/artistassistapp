@@ -17,11 +17,11 @@
  */
 
 import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
-import {copyToOffscreenCanvas, type DrawImageSource} from '@/utils/graphics';
+import {copyOffscreenCanvas} from '@/utils/graphics';
 
 import fragmentShaderSource from './glsl/kuwahara-filter.glsl';
 
-export function kuwaharaFilterWebGL(image: DrawImageSource, radiuses: number[]): OffscreenCanvas[] {
+export function kuwaharaFilterWebGL(image: OffscreenCanvas, radiuses: number[]): OffscreenCanvas[] {
   const renderer = new WebGLRenderer([fragmentShaderSource], [['u_radius']], image);
   const results: OffscreenCanvas[] = radiuses.map(radius => {
     renderer.clear();
@@ -32,7 +32,7 @@ export function kuwaharaFilterWebGL(image: DrawImageSource, radiuses: number[]):
         },
       },
     ]);
-    return copyToOffscreenCanvas(renderer.canvas);
+    return copyOffscreenCanvas(renderer.canvas);
   });
   renderer.cleanUp();
   return results;

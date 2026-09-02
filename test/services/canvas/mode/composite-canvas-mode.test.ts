@@ -36,8 +36,10 @@ const context: CanvasModeContext = {
   getImages: () => [],
   getImageIndex: () => 0,
   getImageDimension: () => new Rectangle(new Vector(100, 100)),
+  getSourceImageDimension: () => new Rectangle(new Vector(100, 100)),
   getZoom: () => 1,
   isExporting: () => false,
+  zoomToFit: vi.fn(),
   requestRedraw: vi.fn(),
   refreshCursor: vi.fn(),
 };

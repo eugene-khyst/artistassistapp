@@ -228,7 +228,7 @@ export function ImageStyleTransfer() {
 
   const radioOptions = useMemo(
     () =>
-      (access === Access.Allowed ? filteredStyleImages : []).map(styleImage => {
+      (access !== Access.Denied ? filteredStyleImages : []).map(styleImage => {
         const hasAccess = hasAccessTo(user, styleImage);
         const {id, image, artist, title, tags} = styleImage;
         const isCustomStyleTransferImage = id === CUSTOM_STYLE_IMAGE_ID;

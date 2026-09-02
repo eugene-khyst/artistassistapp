@@ -22,6 +22,8 @@ import type {DrawImageSource} from '@/utils/graphics';
 export type ImageCanvasRenderingContext =
   CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
 
+export const DARKENED_AREA_COLOR = 'rgba(0, 0, 0, 0.5)';
+
 export interface CanvasPointer {
   canvasPoint: Vector;
   worldPoint: Vector;
@@ -40,8 +42,10 @@ export interface CanvasModeContext {
   getImages: () => readonly DrawImageSource[];
   getImageIndex: () => number;
   getImageDimension: () => Rectangle;
+  getSourceImageDimension: () => Rectangle;
   getZoom: () => number;
   isExporting: () => boolean;
+  zoomToFit: () => void;
   requestRedraw: () => void;
   refreshCursor: () => void;
 }
@@ -54,6 +58,7 @@ export interface CanvasMode {
   getCursor?: () => string | undefined;
   getImage?: (image: DrawImageSource | null) => DrawImageSource | null;
   getImageDimension?: (dimension: Rectangle) => Rectangle;
+  getSourceImageRectangle?: (dimension: Rectangle) => Rectangle;
   onBeforeImageDrawn?: (ctx: ImageCanvasRenderingContext) => void;
   onImageDrawn?: (ctx: ImageCanvasRenderingContext) => void;
   startDrag?: (pointer: CanvasPointer) => CanvasDrag | undefined;
@@ -67,6 +72,14 @@ export abstract class BaseCanvasMode implements CanvasMode {
 
   protected imageDimension(): Rectangle {
     return this.context?.getImageDimension() ?? Rectangle.ZERO;
+  }
+
+  protected inImageCoordinates(ctx: ImageCanvasRenderingContext, draw: () => void): void {
+    const {center} = this.imageDimension();
+    ctx.save();
+    ctx.translate(-center.x, -center.y);
+    draw();
+    ctx.restore();
   }
 
   activate(context: CanvasModeContext): void {

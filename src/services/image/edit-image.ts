@@ -19,13 +19,17 @@
 import {adjustColors} from '@/services/image/adjust-colors';
 import {adjustmentParameters, whiteBalanceMaxValues} from '@/services/image/adjust-colors-controls';
 import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit-image-command';
+import {drawExpandedImage, getImageExpansion} from '@/services/image/expand-image';
+import {ExpandImageFillMode} from '@/services/image/expand-image-controls';
+import {inpaintingPatchRectangle} from '@/services/image/inpainting-patch';
 import {removeBackground} from '@/services/image/remove-background';
 import {straightenImage} from '@/services/image/straighten';
 import {Rectangle, Vector} from '@/services/math/geometry';
 import {
-  createImageBitmapWithBackground,
   DrawImage,
   drawImageToOffscreenCanvas,
+  fadeImage,
+  fillOffscreenCanvasBackground,
   rotateImageBitmapClockwise,
 } from '@/utils/graphics';
 
@@ -56,6 +60,9 @@ export async function applyEditImageCommand(
       result = canvas.transferToImageBitmap();
       break;
     }
+    case EditImageCommandType.Expand:
+      result = await applyExpandImageCommand(image, command, signal);
+      break;
     case EditImageCommandType.AdjustColors:
       result = adjustColors(
         image,
@@ -79,6 +86,61 @@ export async function applyEditImageCommand(
   }
 }
 
+async function applyExpandImageCommand(
+  image: ImageBitmap,
+  command: Extract<EditImageCommand, {type: EditImageCommandType.Expand}>,
+  signal: AbortSignal
+): Promise<ImageBitmap> {
+  const expansion = getImageExpansion(image, command.controls);
+  const [canvas, ctx] = drawExpandedImage(
+    image,
+    expansion,
+    command.controls.fillMode === ExpandImageFillMode.Color ? command.controls.color : '#fff'
+  );
+  for (const [index, blob] of (command.marginPatches ?? []).entries()) {
+    const margin = expansion.margins[index]!;
+    const patchRectangle = inpaintingPatchRectangle(margin, expansion.bounds);
+    const {topLeft} = patchRectangle;
+    const patch = await createImageBitmap(blob);
+    try {
+      signal.throwIfAborted();
+      ctx.drawImage(
+        fadeMarginPatch(patch, patchRectangle, margin, expansion.sourceRectangle),
+        topLeft.x,
+        topLeft.y
+      );
+    } finally {
+      patch.close();
+    }
+  }
+  return canvas.transferToImageBitmap();
+}
+
+// The patch is generated at model resolution, so a hard edge over real pixels shows as a seam.
+function fadeMarginPatch(
+  patch: ImageBitmap,
+  patchRectangle: Rectangle,
+  margin: Rectangle,
+  sourceRectangle: Rectangle
+): OffscreenCanvas {
+  const {marginSide, imageSide} = fadeEnds(patchRectangle.intersect(sourceRectangle)!, margin);
+  const {topLeft} = patchRectangle;
+  return fadeImage(patch, marginSide.subtract(topLeft), imageSide.subtract(topLeft));
+}
+
+function fadeEnds(overlap: Rectangle, margin: Rectangle): {marginSide: Vector; imageSide: Vector} {
+  const {topLeft, bottomRight, center} = overlap;
+  const towardsImage = center.subtract(margin.center);
+  if (Math.abs(towardsImage.x) > Math.abs(towardsImage.y)) {
+    return towardsImage.x > 0
+      ? {marginSide: topLeft, imageSide: new Vector(bottomRight.x, topLeft.y)}
+      : {marginSide: bottomRight, imageSide: new Vector(topLeft.x, bottomRight.y)};
+  }
+  return towardsImage.y > 0
+    ? {marginSide: topLeft, imageSide: new Vector(topLeft.x, bottomRight.y)}
+    : {marginSide: bottomRight, imageSide: new Vector(bottomRight.x, topLeft.y)};
+}
+
 async function applyRemoveBackgroundCommand(
   image: ImageBitmap,
   {
@@ -90,7 +152,11 @@ async function applyRemoveBackgroundCommand(
   const mask = await createImageBitmap(maskBlob);
   try {
     signal.throwIfAborted();
-    return await createImageBitmapWithBackground(removeBackground(image, mask), backgroundColor);
+    const canvas = removeBackground(image, mask);
+    if (backgroundColor) {
+      fillOffscreenCanvasBackground(canvas, backgroundColor);
+    }
+    return canvas.transferToImageBitmap();
   } finally {
     mask.close();
   }
@@ -98,14 +164,14 @@ async function applyRemoveBackgroundCommand(
 
 async function applyRemoveObjectsCommand(
   image: ImageBitmap,
-  {boundingBox, result}: Extract<EditImageCommand, {type: EditImageCommandType.RemoveObjects}>,
+  {patchRectangle, result}: Extract<EditImageCommand, {type: EditImageCommandType.RemoveObjects}>,
   signal: AbortSignal
 ): Promise<ImageBitmap> {
   const patch = await createImageBitmap(result);
   try {
     signal.throwIfAborted();
     const [canvas, ctx] = drawImageToOffscreenCanvas(image);
-    ctx.drawImage(patch, boundingBox.x, boundingBox.y);
+    ctx.drawImage(patch, patchRectangle.x, patchRectangle.y);
     return canvas.transferToImageBitmap();
   } finally {
     patch.close();

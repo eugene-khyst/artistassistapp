@@ -27,7 +27,7 @@ import type {OnnxModel} from '@/services/ml/types';
 import type {AuthSlice} from '@/stores/auth-slice';
 import type {EditImageHistoryEntry, EditImageSlice} from '@/stores/edit-image-slice';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
-import {imageBitmapToBlob} from '@/utils/graphics';
+import {imageToBlob} from '@/utils/graphics';
 import {createAbortError} from '@/utils/promise';
 
 export interface RemoveBackgroundSlice {
@@ -129,23 +129,19 @@ export const createRemoveBackgroundSlice: StateCreator<
             },
             signal
           );
-          try {
-            signal.throwIfAborted();
-            const maskBlob = await imageBitmapToBlob(mask, {
-              encodeOptions: {type: 'image/png'},
-            });
-            signal.throwIfAborted();
-            if (get().removeBackgroundModel !== backgroundRemovalModel) {
-              throw createAbortError();
-            }
-            return {
-              type: EditImageCommandType.RemoveBackground,
-              mask: maskBlob,
-              backgroundColor: get().removeBackgroundColor,
-            };
-          } finally {
-            mask.close();
+          signal.throwIfAborted();
+          const maskBlob = await imageToBlob(mask, {
+            encodeOptions: {type: 'image/png'},
+          });
+          signal.throwIfAborted();
+          if (get().removeBackgroundModel !== backgroundRemovalModel) {
+            throw createAbortError();
           }
+          return {
+            type: EditImageCommandType.RemoveBackground,
+            mask: maskBlob,
+            backgroundColor: get().removeBackgroundColor,
+          };
         } finally {
           inputImage.close();
         }

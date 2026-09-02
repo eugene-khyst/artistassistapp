@@ -17,12 +17,12 @@
  */
 
 import type {Authentication} from '@/services/auth/types';
-import {Interpolation} from '@/services/image/filter/interpolation';
 import {interpolationWebGL} from '@/services/image/filter/interpolation-webgl';
+import {Interpolation} from '@/services/image/filter/types';
 import {transformImage} from '@/services/ml/image-transformer';
 import type {OnnxModel} from '@/services/ml/types';
 import type {FetchProgressCallback} from '@/utils/fetch';
-import {applyMask, type DrawImageSource} from '@/utils/graphics';
+import {applyMask, type DrawImageSource, toOffscreenCanvas} from '@/utils/graphics';
 
 export async function createBackgroundMask(
   image: ImageBitmap,
@@ -30,7 +30,7 @@ export async function createBackgroundMask(
   auth: Authentication | null,
   progressCallback?: FetchProgressCallback,
   signal?: AbortSignal
-): Promise<ImageBitmap> {
+): Promise<OffscreenCanvas> {
   return transformImage({
     images: [image],
     model,
@@ -41,9 +41,9 @@ export async function createBackgroundMask(
   });
 }
 
-export function removeBackground(image: DrawImageSource, mask: DrawImageSource): OffscreenCanvas {
+export function removeBackground(image: DrawImageSource, mask: ImageBitmap): OffscreenCanvas {
   return applyMask(
     image,
-    interpolationWebGL(mask, image.width, image.height, Interpolation.Bilinear)
+    interpolationWebGL(toOffscreenCanvas(mask), image.width, image.height, Interpolation.Bilinear)
   );
 }

@@ -19,7 +19,7 @@
 import {clamp} from '@eugene-khyst/artistassistapp-color-mixer';
 
 import type {Authentication} from '@/services/auth/types';
-import {bilinearInterpolation} from '@/services/image/filter/interpolation';
+import {bilinearInterpolation} from '@/services/image/filter/bilinear-interpolation';
 import {computeOtsuThresholdFromHistogram} from '@/services/image/filter/otsu-threshold';
 import {orderCornersClockwise, Vector} from '@/services/math/geometry';
 import {imageBitmapToImageData} from '@/services/ml/image-transformer';

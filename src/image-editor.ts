@@ -19,6 +19,7 @@
 export enum ImageEditorKey {
   Straighten = 'straighten',
   Crop = 'crop',
+  Expand = 'expand',
   AdjustColors = 'adjust-colors',
   RemoveBackground = 'remove-background',
   RemoveObjects = 'remove-objects',

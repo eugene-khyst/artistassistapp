@@ -19,20 +19,19 @@
 import {kuwaharaFilterWebGL} from '@/services/image/filter/kuwahara-filter-webgl';
 import {multiLayerRadialMaskWebGL} from '@/services/image/filter/multi-layer-radial-mask-webgl';
 import type {Vector} from '@/services/math/geometry';
-import {type DrawImageSource, IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
+import {
+  DrawImage,
+  type DrawImageSource,
+  drawImageToOffscreenCanvas,
+  IMAGE_SIZE,
+  toOffscreenCanvas,
+} from '@/utils/graphics';
 
-export async function simplifyImage(image: DrawImageSource): Promise<ImageBitmap[]> {
-  const resizedImage = await resizeImageBitmap(
-    image,
-    ResizeImage.resizeToPixelCount(IMAGE_SIZE.HD)
-  );
-  try {
-    return kuwaharaFilterWebGL(resizedImage, [2, 4, 6]).map(canvas =>
-      canvas.transferToImageBitmap()
-    );
-  } finally {
-    resizedImage.close();
-  }
+export function simplifyImage(image: DrawImageSource): ImageBitmap[] {
+  const [resizedImage] = drawImageToOffscreenCanvas(image, {
+    drawImage: DrawImage.resizeToPixelCount(IMAGE_SIZE.HD),
+  });
+  return kuwaharaFilterWebGL(resizedImage, [2, 4, 6]).map(canvas => canvas.transferToImageBitmap());
 }
 
 export function applyFocalPointToSimplifiedImage(
@@ -40,7 +39,7 @@ export function applyFocalPointToSimplifiedImage(
   focalPoint?: Vector
 ): ImageBitmap {
   const simplifiedMaskedImage = multiLayerRadialMaskWebGL(
-    simplifiedImages,
+    simplifiedImages.map(image => toOffscreenCanvas(image)),
     [0.3, 0.6, 1],
     focalPoint
   ).transferToImageBitmap();

@@ -50,6 +50,7 @@ const EDITOR_KEY_BY_COMMAND_TYPE: Record<EditImageCommandType, ImageEditorKey> =
   [EditImageCommandType.RotateClockwise]: ImageEditorKey.Straighten,
   [EditImageCommandType.Straighten]: ImageEditorKey.Straighten,
   [EditImageCommandType.Crop]: ImageEditorKey.Crop,
+  [EditImageCommandType.Expand]: ImageEditorKey.Expand,
   [EditImageCommandType.AdjustColors]: ImageEditorKey.AdjustColors,
   [EditImageCommandType.RemoveBackground]: ImageEditorKey.RemoveBackground,
   [EditImageCommandType.RemoveObjects]: ImageEditorKey.RemoveObjects,
@@ -131,7 +132,9 @@ export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImag
     const {activeImageEditorKey: prevActiveImageEditorKey} = get();
     if (prevActiveImageEditorKey !== activeImageEditorKey) {
       imageEditorControls.reset(prevActiveImageEditorKey);
-      set({activeImageEditorKey});
+      set({
+        activeImageEditorKey,
+      });
     }
   };
 
@@ -457,7 +460,9 @@ export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImag
 
     resetEditImage: async (): Promise<void> => {
       if (await applyEditImageHistory([], [])) {
-        set({activeImageEditorKey: undefined});
+        set({
+          activeImageEditorKey: undefined,
+        });
         imageEditorControls.resetAll();
       }
     },

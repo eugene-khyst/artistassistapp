@@ -17,7 +17,7 @@
  */
 
 import {adjustColorsWebGL} from '@/services/image/filter/color-adjustment-webgl';
-import type {DrawImageSource} from '@/utils/graphics';
+import {type DrawImageSource, toOffscreenCanvas} from '@/utils/graphics';
 
 export interface AdjustmentParameters {
   saturation?: number;
@@ -36,7 +36,7 @@ export function adjustColors(
   maxValues?: number[]
 ): ImageBitmap {
   const colorAdjustedImage: ImageBitmap = adjustColorsWebGL(
-    image,
+    toOffscreenCanvas(image),
     params,
     maxValues
   ).transferToImageBitmap();

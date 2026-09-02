@@ -69,17 +69,25 @@ export class CompositeCanvasMode<K extends PropertyKey> implements CanvasMode {
     if (activeModeKey === this.activeModeKey) {
       return;
     }
-    if (this.context) {
-      this.activeMode?.deactivate();
+    const {context} = this;
+    if (!context) {
+      this.activeModeKey = activeModeKey;
+      return;
     }
+    const prevDimension = context.getImageDimension();
+    this.activeMode?.deactivate();
     this.activeModeKey = activeModeKey;
     const mode = this.activeMode;
-    if (mode && this.context) {
-      mode.activate(this.context);
+    if (mode) {
+      mode.activate(context);
       this.loadImagesIfNeeded(mode);
     }
-    this.context?.refreshCursor();
-    this.context?.requestRedraw();
+    // A mode can resize the image it shows, leaving the zoom of the previous one out of range.
+    if (!context.getImageDimension().sameSize(prevDimension)) {
+      context.zoomToFit();
+    }
+    context.refreshCursor();
+    context.requestRedraw();
   }
 
   getActiveMode(): CanvasMode | null {
@@ -105,6 +113,12 @@ export class CompositeCanvasMode<K extends PropertyKey> implements CanvasMode {
 
   getImageDimension(dimension: Rectangle): Rectangle {
     return this.activeMode?.getImageDimension?.(dimension) ?? dimension;
+  }
+
+  getSourceImageRectangle(dimension: Rectangle): Rectangle {
+    return (
+      this.activeMode?.getSourceImageRectangle?.(dimension) ?? this.getImageDimension(dimension)
+    );
   }
 
   onBeforeImageDrawn(ctx: ImageCanvasRenderingContext): void {

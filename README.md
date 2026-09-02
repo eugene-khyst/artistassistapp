@@ -83,7 +83,7 @@ implementation of the following:
 - perceptual color match filter (WebGL)
 - color quantization (over-quantize by recursive bucket splitting, then merge closest in Oklab)
 - blue noise ordered dithering with a precomputed threshold texture
-- image resampling via bilinear, bicubic and Lanczos interpolation (WebGL)
+- image resampling via bilinear and Lanczos interpolation (WebGL)
 - bilinear interpolation (CPU)
 - adjusting white balance using the percentile and reference methods (WebGL)
 - adjusting saturation (WebGL)

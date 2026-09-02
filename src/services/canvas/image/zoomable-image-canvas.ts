@@ -82,8 +82,12 @@ export class ZoomableImageCanvas extends Canvas {
     getImages: () => this.images,
     getImageIndex: () => this.imageIndex,
     getImageDimension: () => this.getImageDimension(),
+    getSourceImageDimension: () => this.getSourceImageDimension(),
     getZoom: () => this.zoom,
     isExporting: () => this.exporting,
+    zoomToFit: () => {
+      this.zoomToFit();
+    },
     requestRedraw: () => {
       this.requestRedraw();
     },
@@ -254,8 +258,17 @@ export class ZoomableImageCanvas extends Canvas {
     if (!image?.width || !image.height) {
       return;
     }
-    const {width, height, center} = this.getImageDimension();
-    ctx.drawImage(image, -center.x, -center.y, width, height);
+    const imageDimension = this.getImageDimension();
+    const rectangle =
+      this.mode?.getSourceImageRectangle?.(this.getSourceImageDimension()) ?? imageDimension;
+    const {topLeft, width, height} = rectangle;
+    ctx.drawImage(
+      image,
+      topLeft.x - imageDimension.center.x,
+      topLeft.y - imageDimension.center.y,
+      width,
+      height
+    );
   }
 
   protected onImageDrawn(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
@@ -512,9 +525,8 @@ export class ZoomableImageCanvas extends Canvas {
     this.setZoom(this.getFitToCanvasZoom());
   }
 
-  private zoomToFitIfResized({width, height}: Rectangle): void {
-    const dimension: Rectangle = this.getImageDimension();
-    if (dimension.width !== width || dimension.height !== height) {
+  private zoomToFitIfResized(prev: Rectangle): void {
+    if (!this.getImageDimension().sameSize(prev)) {
       this.zoomToFit();
     }
   }

@@ -19,7 +19,7 @@
 import printJS from 'print-js';
 
 import {type PageOrientation, PaperSize, type PaperSizeDefinition} from '@/services/print/types';
-import {imageBitmapToBlob, offscreenCanvasToBlob} from '@/utils/graphics';
+import {imageToBlob, offscreenCanvasToBlob} from '@/utils/graphics';
 
 export const PAPER_SIZES = new Map<PaperSize, PaperSizeDefinition>([
   [
@@ -63,7 +63,7 @@ export async function printImages(
         } else if (image instanceof OffscreenCanvas) {
           return offscreenCanvasToBlob(image);
         } else if (image instanceof ImageBitmap) {
-          return imageBitmapToBlob(image);
+          return imageToBlob(image);
         }
         return;
       })

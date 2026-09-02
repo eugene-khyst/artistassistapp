@@ -44,7 +44,7 @@ import {TONAL_VALUE_HEXES} from '@/services/image/tonal-values';
 import {printImages} from '@/services/print/print';
 import {useAppStore} from '@/stores/app-store';
 import {getFilename} from '@/utils/filename';
-import {imageBitmapToBlob} from '@/utils/graphics';
+import {imageToBlob} from '@/utils/graphics';
 
 import {EmptyImage} from './empty/EmptyImage';
 import styles from './ImageTonalValues.module.css';
@@ -91,7 +91,7 @@ export function ImageTonalValues() {
     if (!image) {
       return;
     }
-    saveAs(await imageBitmapToBlob(image), getFilename(selectedImageFile, 'tonal-values'));
+    saveAs(await imageToBlob(image), getFilename(selectedImageFile, 'tonal-values'));
   };
 
   if (!originalImage) {

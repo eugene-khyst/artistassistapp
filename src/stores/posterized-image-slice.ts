@@ -26,7 +26,7 @@ import {
   registerOriginalImageDependency,
 } from '@/stores/original-image-slice';
 import {createAbortableOperation} from '@/utils/abortable-operation';
-import {IMAGE_SIZE, imageBitmapToBlob, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
+import {IMAGE_SIZE, imageToBlob, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
 
 export interface PosterizedImageSlice {
   isPosterizedImageLoading: boolean;
@@ -86,7 +86,7 @@ export const createPosterizedImageSlice: StateCreator<
         let posterizedImageFile: ImageFile;
         try {
           posterizedImageFile = await blobToImageFile(
-            await imageBitmapToBlob(quantizedImage, {encodeOptions: {type: 'image/png'}}),
+            await imageToBlob(quantizedImage, {encodeOptions: {type: 'image/png'}}),
             `${selectedImageFile.name ?? ''} ${maxColors} colors`.trim()
           );
         } finally {

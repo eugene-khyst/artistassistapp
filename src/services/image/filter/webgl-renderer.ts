@@ -16,13 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {type DrawImageSource, getBoundingSize} from '@/utils/graphics';
+import {getBoundingSize} from '@/utils/graphics';
 import type {Size} from '@/utils/types';
 
 import vertexShaderSource from './glsl/vertex.glsl';
 
 export interface RenderPass {
   programIndex?: number;
+  outputSize?: Size;
   textures?: RenderPassTexture[];
   setUniforms?: (
     gl: WebGL2RenderingContext,
@@ -36,9 +37,19 @@ export interface RenderPassTexture {
   unit?: number;
 }
 
+interface RenderTarget {
+  texture: WebGLTexture;
+  framebuffer: WebGLFramebuffer;
+  size: Size;
+}
+
 interface Options {
+  floatRenderTargets?: boolean;
+  premultiplyAlpha?: boolean;
   size?: Size;
 }
+
+const PING_PONG_RENDER_TARGET_COUNT = 2;
 
 export class WebGLRenderer {
   canvas: OffscreenCanvas;
@@ -53,22 +64,54 @@ export class WebGLRenderer {
   textureUniformName: string;
   textures: WebGLTexture[] = [];
   framebuffers: (WebGLFramebuffer | null)[] = [];
+  texturesByUnit = new Map<number, WebGLTexture>();
+  renderTargets: RenderTarget[] = [];
   uniformLocations: Map<string, WebGLUniformLocation | null>[];
+  readonly floatRenderTargets: boolean;
+  readonly maxTextureSize: number;
+  readonly maxViewportSize: Size;
 
   constructor(
     fragmentShaderSources: string[],
     uniformNames: string[][],
-    images: DrawImageSource | DrawImageSource[],
-    {size}: Options = {}
+    images: OffscreenCanvas | OffscreenCanvas[],
+    {floatRenderTargets = false, premultiplyAlpha = false, size}: Options = {}
   ) {
     const imagesArr = [images].flat();
     const [width, height] = size ?? getBoundingSize(imagesArr) ?? [0, 0];
+    validateSize([width, height], 'renderer output');
     this.canvas = new OffscreenCanvas(width, height);
-    const gl: WebGL2RenderingContext | null = this.canvas.getContext('webgl2', {antialias: false});
+    const gl: WebGL2RenderingContext | null = this.canvas.getContext('webgl2', {
+      antialias: false,
+      premultipliedAlpha: premultiplyAlpha,
+    });
     if (!gl) {
       throw new Error('WebGL2 not supported');
     }
     this.gl = gl;
+    // Either extension renders RGBA16F.
+    this.floatRenderTargets =
+      floatRenderTargets &&
+      (!!gl.getExtension('EXT_color_buffer_float') ||
+        !!gl.getExtension('EXT_color_buffer_half_float'));
+    if (floatRenderTargets && !this.floatRenderTargets) {
+      console.warn('Floating-point render targets are not supported; using 8-bit render targets');
+    }
+    this.maxTextureSize = gl.getParameter(gl.MAX_TEXTURE_SIZE) as number;
+    const maxViewportSize = gl.getParameter(gl.MAX_VIEWPORT_DIMS) as Int32Array;
+    this.maxViewportSize = [maxViewportSize[0]!, maxViewportSize[1]!];
+    this.validateViewportSize([width, height]);
+    if (gl.drawingBufferWidth !== width || gl.drawingBufferHeight !== height) {
+      throw new Error(
+        `WebGL drawing buffer size ${gl.drawingBufferWidth} x ${gl.drawingBufferHeight} does not match ${width} x ${height}`
+      );
+    }
+    imagesArr.forEach(image => {
+      this.validateTextureSize([image.width, image.height]);
+    });
+    if (premultiplyAlpha) {
+      gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+    }
 
     this.vertexShader = this.compileShader(gl.VERTEX_SHADER, vertexShaderSource);
 
@@ -150,12 +193,8 @@ export class WebGLRenderer {
     const vao = gl.createVertexArray();
     gl.bindVertexArray(vao);
 
-    const positionBuffer = this.createBuffer([
-      -1.0, -1.0, 1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0,
-    ]);
-    const texcoordBuffer = this.createBuffer([
-      0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0,
-    ]);
+    const positionBuffer = this.createBuffer([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]);
+    const texcoordBuffer = this.createBuffer([0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1]);
 
     this.setUpVertexAttributes(program, 'a_position', positionBuffer);
     this.setUpVertexAttributes(program, 'a_texCoord', texcoordBuffer);
@@ -163,10 +202,7 @@ export class WebGLRenderer {
   }
 
   private createTexture(source?: TexImageSource): WebGLTexture {
-    const {
-      canvas: {width, height},
-      gl,
-    } = this;
+    const {gl} = this;
     const texture = gl.createTexture();
     this.textures.push(texture);
     gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -176,13 +212,11 @@ export class WebGLRenderer {
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     if (source) {
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
-    } else {
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, width, height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
     }
     return texture;
   }
 
-  private createArrayTexture(sources: DrawImageSource[]): WebGLTexture {
+  private createArrayTexture(sources: OffscreenCanvas[]): WebGLTexture {
     const {gl} = this;
     const [width, height] = getBoundingSize(sources)!;
     const texture = gl.createTexture();
@@ -217,7 +251,58 @@ export class WebGLRenderer {
     this.framebuffers.push(framebuffer);
     gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
     gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
+    this.validateFramebuffer();
     return framebuffer;
+  }
+
+  private validateFramebuffer(): void {
+    const {gl} = this;
+    const status = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
+    if (status !== gl.FRAMEBUFFER_COMPLETE) {
+      throw new Error(`WebGL framebuffer is incomplete: 0x${status.toString(16)}`);
+    }
+  }
+
+  private validateTextureSize(size: Size): void {
+    validateSizeWithinLimit(size, [this.maxTextureSize, this.maxTextureSize], 'texture');
+  }
+
+  private validateViewportSize(size: Size): void {
+    validateSizeWithinLimit(size, this.maxViewportSize, 'viewport');
+  }
+
+  private createRenderTarget(size: Size): RenderTarget {
+    const texture = this.createTexture();
+    this.setRenderTargetTextureSize(texture, size);
+    return {
+      texture,
+      framebuffer: this.createFramebuffer(texture),
+      size,
+    };
+  }
+
+  private setRenderTargetTextureSize(texture: WebGLTexture, [width, height]: Size): void {
+    const {gl} = this;
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    if (this.floatRenderTargets) {
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA16F, width, height, 0, gl.RGBA, gl.HALF_FLOAT, null);
+      return;
+    }
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, width, height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+  }
+
+  private setRenderTargetSize(renderTarget: RenderTarget, size: Size): void {
+    const [currentWidth, currentHeight] = renderTarget.size;
+    const [width, height] = size;
+    if (currentWidth === width && currentHeight === height) {
+      return;
+    }
+    this.setRenderTargetTextureSize(renderTarget.texture, size);
+    this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, renderTarget.framebuffer);
+    this.validateFramebuffer();
+    renderTarget.size = size;
   }
 
   private bindRenderPassTextures(
@@ -240,7 +325,13 @@ export class WebGLRenderer {
       }
 
       gl.activeTexture(gl.TEXTURE0 + textureUnit);
-      this.createTexture(source);
+      const texture = this.texturesByUnit.get(textureUnit);
+      if (texture) {
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
+      } else {
+        this.texturesByUnit.set(textureUnit, this.createTexture(source));
+      }
       gl.uniform1i(locations.get(name)!, textureUnit);
     });
     gl.activeTexture(gl.TEXTURE0);
@@ -253,20 +344,48 @@ export class WebGLRenderer {
 
   render(renderPasses: RenderPass[] = [{}], rawOrientation = false) {
     const {gl} = this;
+    if (!renderPasses.length) {
+      throw new Error('At least one render pass is required');
+    }
+    if (this.imageTarget === gl.TEXTURE_2D_ARRAY && renderPasses.length > 1) {
+      throw new Error('Multiple input images do not support multiple render passes');
+    }
+
     const {width, height} = this.canvas;
+    const canvasSize: Size = [width, height];
+    const outputSizes = renderPasses.map(({outputSize}) => outputSize ?? canvasSize);
+    const finalOutputSize = outputSizes.at(-1)!;
+    if (finalOutputSize[0] !== width || finalOutputSize[1] !== height) {
+      throw new Error('The final render pass size must match the renderer output size');
+    }
+    outputSizes.forEach((outputSize, index) => {
+      this.validateViewportSize(outputSize);
+      if (index < outputSizes.length - 1) {
+        this.validateTextureSize(outputSize);
+      }
+    });
 
-    const textures =
+    const renderTargetCount =
       renderPasses.length > 1
-        ? Array.from({length: Math.min(renderPasses.length - 1, 2)}, () => this.createTexture())
-        : [];
-    const framebuffers = textures.map(texture => this.createFramebuffer(texture));
+        ? Math.min(renderPasses.length - 1, PING_PONG_RENDER_TARGET_COUNT)
+        : 0;
+    while (this.renderTargets.length < renderTargetCount) {
+      this.renderTargets.push(this.createRenderTarget(outputSizes[this.renderTargets.length]!));
+    }
 
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(this.imageTarget, this.imageTexture);
+    let sourceTextureTarget = this.imageTarget;
+    let sourceTexture = this.imageTexture;
 
-    let i = 0;
-    for (const {programIndex = 0, textures: renderPassTextures, setUniforms} of renderPasses) {
-      const isNotLast = i < renderPasses.length - 1;
+    for (const [index, renderPass] of renderPasses.entries()) {
+      const {programIndex = 0, textures: renderPassTextures, setUniforms} = renderPass;
+      const isLast = index === renderPasses.length - 1;
+      const outputSize = outputSizes[index]!;
+      const [passWidth, passHeight] = outputSize;
+
+      const renderTarget = isLast ? undefined : this.renderTargets[index % renderTargetCount]!;
+      if (renderTarget) {
+        this.setRenderTargetSize(renderTarget, outputSize);
+      }
 
       const program = this.programs[programIndex]!;
       const vao = this.vaos[programIndex]!;
@@ -275,19 +394,22 @@ export class WebGLRenderer {
       gl.useProgram(program);
       gl.bindVertexArray(vao);
 
-      gl.uniform1f(locations.get('u_flipY')!, isNotLast || rawOrientation ? 0.0 : 1.0);
+      gl.activeTexture(gl.TEXTURE0);
+      gl.bindTexture(sourceTextureTarget, sourceTexture);
+      gl.uniform1f(locations.get('u_flipY')!, !isLast || rawOrientation ? 0 : 1);
       gl.uniform1i(locations.get(this.textureUniformName)!, 0);
       this.bindRenderPassTextures(renderPassTextures, locations);
       setUniforms?.(gl, locations);
 
-      gl.bindFramebuffer(gl.FRAMEBUFFER, isNotLast ? framebuffers[i % 2]! : null);
-      gl.viewport(0, 0, width, height);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, renderTarget?.framebuffer ?? null);
+      gl.viewport(0, 0, passWidth, passHeight);
 
       gl.drawArrays(gl.TRIANGLES, 0, 6);
 
-      gl.bindTexture(gl.TEXTURE_2D, isNotLast ? textures[i % 2]! : null);
-
-      i++;
+      if (renderTarget) {
+        sourceTextureTarget = gl.TEXTURE_2D;
+        sourceTexture = renderTarget.texture;
+      }
     }
     this.checkErrors();
   }
@@ -339,5 +461,22 @@ export class WebGLRenderer {
     if (this.gl.isContextLost()) {
       throw new Error('WebGL context was lost');
     }
+  }
+}
+
+function validateSize([width, height]: Size, name: string): void {
+  if (!Number.isSafeInteger(width) || !Number.isSafeInteger(height) || width <= 0 || height <= 0) {
+    throw new Error(`Invalid ${name} size: ${width} x ${height}`);
+  }
+}
+
+function validateSizeWithinLimit(size: Size, limit: Size, name: string): void {
+  validateSize(size, name);
+  const [width, height] = size;
+  const [maxWidth, maxHeight] = limit;
+  if (width > maxWidth || height > maxHeight) {
+    throw new Error(
+      `WebGL ${name} size ${width} x ${height} exceeds the limit ${maxWidth} x ${maxHeight}`
+    );
   }
 }

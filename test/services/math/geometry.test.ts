@@ -74,6 +74,59 @@ describe('geometry', () => {
     expect(grown.height).toBe(40);
   });
 
+  it('grows a fractional rectangle to integers', () => {
+    const rectangle = new Rectangle(new Vector(50.1, 40.9), new Vector(10.9, 10.1));
+
+    expect(rectangle.growToIntegers()).toEqual(
+      new Rectangle(new Vector(51, 41), new Vector(10, 10))
+    );
+  });
+
+  it('compares rectangles by size only', () => {
+    const rectangle = new Rectangle(new Vector(30, 25), new Vector(10, 5));
+
+    expect(rectangle.sameSize(new Rectangle(new Vector(20, 20)))).toBe(true);
+    expect(rectangle.sameSize(new Rectangle(new Vector(20, 21)))).toBe(false);
+  });
+
+  it('intersects overlapping rectangles', () => {
+    const first = new Rectangle(new Vector(50, 40), new Vector(10, 10));
+    const second = new Rectangle(new Vector(60, 50), new Vector(30, 20));
+
+    expect(first.intersect(second)).toEqual(new Rectangle(new Vector(50, 40), new Vector(30, 20)));
+    expect(first.intersect(new Rectangle(new Vector(40, 30), new Vector(20, 15)))).toEqual(
+      new Rectangle(new Vector(40, 30), new Vector(20, 15))
+    );
+  });
+
+  it('returns null when rectangles do not overlap with positive area', () => {
+    const rectangle = new Rectangle(new Vector(20, 20), new Vector(10, 10));
+
+    expect(rectangle.intersect(new Rectangle(new Vector(40, 40), new Vector(30, 30)))).toBeNull();
+    expect(rectangle.intersect(new Rectangle(new Vector(30, 20), new Vector(20, 10)))).toBeNull();
+  });
+
+  it('translates a rectangle inside the bounds without changing its size', () => {
+    const bounds = new Rectangle(new Vector(110, 100), new Vector(10, 20));
+
+    expect(new Rectangle(new Vector(80, 70), new Vector(30, 40)).translateInside(bounds)).toEqual(
+      new Rectangle(new Vector(80, 70), new Vector(30, 40))
+    );
+    expect(new Rectangle(new Vector(40, 50), Vector.ZERO).translateInside(bounds)).toEqual(
+      new Rectangle(new Vector(50, 70), new Vector(10, 20))
+    );
+    expect(new Rectangle(new Vector(130, 120), new Vector(90, 90)).translateInside(bounds)).toEqual(
+      new Rectangle(new Vector(110, 100), new Vector(70, 70))
+    );
+  });
+
+  it('returns null when a rectangle is too large to translate inside the bounds', () => {
+    const bounds = new Rectangle(new Vector(100, 80));
+
+    expect(new Rectangle(new Vector(101, 40)).translateInside(bounds)).toBeNull();
+    expect(new Rectangle(new Vector(40, 81)).translateInside(bounds)).toBeNull();
+  });
+
   it('calculates the averaged destination dimensions', () => {
     expect(
       calculateDestSize([new Vector(0, 0), new Vector(10, 0), new Vector(12, 6), new Vector(0, 4)])
