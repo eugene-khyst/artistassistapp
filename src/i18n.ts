@@ -135,3 +135,8 @@ export function formatFetchProgress(key: string | null, progress?: number): stri
   const percent = (progress ?? 0).toFixed(0);
   return t`Downloading... ${percent}% (${key})`;
 }
+
+export function formatProcessProgress(progress: number): string {
+  const percent = progress.toFixed(0);
+  return t`Processing... ${percent}%`;
+}

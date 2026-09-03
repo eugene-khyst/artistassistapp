@@ -141,15 +141,15 @@ msgstr "값이 100%보다 작으면 이미지가 덜 화려하게 보이고 100%
 msgid "Accurate"
 msgstr "정확한"
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Acrylic Gouache"
 msgstr "아크릴 구아슈"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Acrylic Markers"
 msgstr "아크릴 마커"
 
-#: src/components/messages.ts:59
+#: src/components/messages.ts:60
 msgid "Acrylic Paint"
 msgstr "아크릴 페인트"
 
@@ -197,7 +197,7 @@ msgstr "4개의 모서리를 수동으로 조정합니다."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "모든 앱 데이터는 설치 후에도 웹 브라우저 저장소에 저장됩니다. 브라우저 데이터를 지우면 모든 데이터가 삭제됩니다."
 
-#: src/components/ImageEditor.tsx:313
+#: src/components/ImageEditor.tsx:306
 msgid "All edits will be lost"
 msgstr "모든 수정사항이 손실됩니다."
 
@@ -368,25 +368,25 @@ msgstr "유료 회원이 되세요"
 msgid "Blending"
 msgstr "블렌딩"
 
-#: src/components/messages.ts:81
+#: src/components/messages.ts:82
 msgid "By date"
 msgstr "날짜별"
 
-#: src/components/messages.ts:76
-#: src/components/messages.ts:83
+#: src/components/messages.ts:77
+#: src/components/messages.ts:84
 msgid "By hue"
 msgstr "색조별"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "By ID"
 msgstr "ID별"
 
-#: src/components/messages.ts:77
-#: src/components/messages.ts:84
+#: src/components/messages.ts:78
+#: src/components/messages.ts:85
 msgid "By lightness"
 msgstr "가벼움에 의해"
 
-#: src/components/messages.ts:82
+#: src/components/messages.ts:83
 msgid "By name"
 msgstr "이름에 따라"
 
@@ -400,7 +400,7 @@ msgstr "AR 트레이싱을 위해서는 카메라 접근이 필요합니다"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:315
+#: src/components/ImageEditor.tsx:308
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:50
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -427,6 +427,7 @@ msgstr "업데이트 확인"
 #: src/components/image-editor/ExpandControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:53
 #: src/components/image-editor/RemoveObjectsControls.tsx:60
+#: src/components/image-editor/UpscaleControls.tsx:48
 #: src/components/ImageChooser.tsx:73
 #: src/components/ImageOutline.tsx:103
 #: src/components/ImageStyleTransfer.tsx:126
@@ -604,7 +605,7 @@ msgstr "색상 세트"
 msgid "Color swatch"
 msgstr "색상 견본"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Colored Pencils"
 msgstr "색연필"
 
@@ -879,7 +880,7 @@ msgstr "파일을 여기 내려놓아..."
 msgid "Drop the files here..."
 msgstr "파일을 여기 내려놔..."
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Dry Pastel"
 msgstr "드라이 파스텔"
 
@@ -907,7 +908,7 @@ msgstr "여기서부터는 수정"
 msgid "Edit image"
 msgstr "이미지 편집"
 
-#: src/components/ImageEditor.tsx:325
+#: src/components/ImageEditor.tsx:318
 msgid "Edited"
 msgstr "편집됨"
 
@@ -1067,7 +1068,7 @@ msgstr "유리"
 msgid "Go to the {label} tab"
 msgstr "{label} 탭으로 이동"
 
-#: src/components/messages.ts:58
+#: src/components/messages.ts:59
 msgid "Gouache"
 msgstr "구아슈"
 
@@ -1389,6 +1390,11 @@ msgstr "새로운 색상 세트"
 msgid "New comparison"
 msgstr "새로운 비교"
 
+#: src/components/image-editor/ExpandControls.tsx:228
+#: src/components/image-editor/UpscaleControls.tsx:66
+msgid "New size: {outputWidth} × {outputHeight}"
+msgstr "새로운 크기: {outputWidth} × {outputHeight}"
+
 #: src/components/auth/AuthFeedbackHandler.tsx:41
 msgid "Next charge date"
 msgstr "다음 청구일"
@@ -1430,11 +1436,11 @@ msgstr "더 작은 쪽의 셀 수(수직 또는 수평)"
 msgid "Off"
 msgstr "꺼짐"
 
-#: src/components/messages.ts:60
+#: src/components/messages.ts:61
 msgid "Oil Paint"
 msgstr "유성 페인트"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Oil Pastel"
 msgstr "오일 파스텔"
 
@@ -1509,10 +1515,6 @@ msgstr "개요"
 #: src/components/image-editor/AdjustColorsControls.tsx:322
 msgid "Output levels"
 msgstr "출력 수준"
-
-#: src/components/image-editor/ExpandControls.tsx:228
-msgid "Output: {outputWidth} × {outputHeight}"
-msgstr "출력: {outputWidth} × {outputHeight}"
 
 #: src/components/color/ColorMixtureDescription.tsx:132
 msgid "over"
@@ -1668,6 +1670,10 @@ msgstr "개인정보처리방침"
 msgid "Processing..."
 msgstr "처리 중..."
 
+#: src/i18n.ts:141
+msgid "Processing... {percent}%"
+msgstr "처리 중... {percent}%"
+
 #: src/components/Help.tsx:182
 msgid "Quota"
 msgstr "할당량"
@@ -1688,7 +1694,7 @@ msgstr "비율"
 msgid "Realism"
 msgstr "실재론"
 
-#: src/components/ImageEditor.tsx:310
+#: src/components/ImageEditor.tsx:303
 msgid "Redo"
 msgstr "다시 하다"
 
@@ -1758,8 +1764,8 @@ msgstr "macOS Sonoma 및 이후 버전이 필요합니다."
 msgid "Resend code"
 msgstr "코드 재전송"
 
-#: src/components/ImageEditor.tsx:314
-#: src/components/ImageEditor.tsx:319
+#: src/components/ImageEditor.tsx:307
+#: src/components/ImageEditor.tsx:312
 msgid "Reset"
 msgstr "재설정"
 
@@ -1916,7 +1922,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "최근 색상 세트에서 선택하거나 새 색상 세트를 만듭니다."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:285
+#: src/components/ImageEditor.tsx:278
 msgid "Select image"
 msgstr "이미지 선택"
 
@@ -2333,6 +2339,10 @@ msgstr "이 기기는 다른 계정이 활성화된 상태에서 변경이 이�
 msgid "This device has local data and existing synced cloud data, but no sync history. Choose which one to keep."
 msgstr "이 기기에는 로컬 데이터와 기존에 동기화된 클라우드 데이터가 있지만 동기화 기록은 없습니다. 유지할 것을 선택하세요."
 
+#: src/components/image-editor/UpscaleControls.tsx:72
+msgid "This image is already too large to upscale"
+msgstr "이미지가 이미 너무 커서 확대할 수 없습니다."
+
 #: src/components/auth/AuthFeedbackHandler.tsx:155
 msgid "This login code can't be used anymore. Request a new code to continue."
 msgstr "이 로그인 코드는 더 이상 사용할 수 없습니다. 계속하려면 새 코드를 요청하세요."
@@ -2454,6 +2464,10 @@ msgstr "스마트 확장 모델을 로드할 수 없습니다."
 msgid "Unable to load the styles"
 msgstr "스타일을 로드할 수 없습니다."
 
+#: src/components/image-editor/UpscaleControls.tsx:47
+msgid "Unable to load the upscale model"
+msgstr "고급 모델을 로드할 수 없습니다."
+
 #: src/components/color-set/ColorSetActivationNotification.tsx:33
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Unable to restore the saved color set"
@@ -2464,7 +2478,7 @@ msgstr "저장된 색상 세트를 복원할 수 없습니다."
 msgid "Underlayer"
 msgstr "하부 계층"
 
-#: src/components/ImageEditor.tsx:303
+#: src/components/ImageEditor.tsx:296
 msgid "Undo"
 msgstr "끄르다"
 
@@ -2510,6 +2524,11 @@ msgstr "지금 업데이트"
 #: src/stores/cloud-slice.ts:141
 msgid "Uploading image {index} / {count}"
 msgstr "이미지 업로드 중 {index} / {count}"
+
+#: src/components/image-editor/UpscaleControls.tsx:85
+#: src/components/messages.ts:54
+msgid "Upscale"
+msgstr "고급"
 
 #: src/components/color/ConsistencyDescription.tsx:81
 msgid "Use <0>{fractionText} of full pressure</0>"
@@ -2576,15 +2595,15 @@ msgstr "수채화"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "수채화는 물에 희석해서 더 투명하게 만들 수 있어요"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Watercolor Paint"
 msgstr "수채화 물감"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Watercolor Pencils"
 msgstr "수채화 연필"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Wax Pastel"
 msgstr "왁스 파스텔"
 
@@ -2614,7 +2633,7 @@ msgstr "하얀"
 msgid "White balance"
 msgstr "화이트 밸런스"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "White paper or canvas"
 msgstr "화이트 페이퍼 또는 캔버스"
 
@@ -2686,6 +2705,10 @@ msgstr "브라우저가 닫혀 있으면 데이터가 안정적으로 저장되�
 #: src/components/ImageStyleTransfer.tsx:291
 msgid "Your image"
 msgstr "귀하의 이미지"
+
+#: src/components/ImageEditor.tsx:329
+msgid "Your images are processed locally on your device and are never uploaded to any server"
+msgstr "귀하의 이미지는 귀하의 장치에서 로컬로 처리되며 어떠한 서버에도 업로드되지 않습니다."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:141
 msgid "Your login credentials could not be verified. Sign in again."

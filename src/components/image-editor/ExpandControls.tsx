@@ -47,7 +47,7 @@ import {
 } from '@/services/image/aspect-ratio';
 import {getImageExpansion} from '@/services/image/expand-image';
 import {ExpandImageFillMode, ExpandImageSizeMode} from '@/services/image/expand-image-controls';
-import {INPAINTING_MODEL_ID, INPAINTING_UPSCALE_MODEL_ID, OnnxModelType} from '@/services/ml/types';
+import {INPAINTING_MODEL_ID, OnnxModelType, UPSCALING_MODEL_ID} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
 
 import styles from './ExpandControls.module.css';
@@ -76,7 +76,7 @@ export function ExpandControls({expandingMode}: Readonly<Props>) {
     model: upscaleModel,
     isLoading: isUpscaleModelLoading,
     isError: isUpscaleModelError,
-  } = useOnnxModel(OnnxModelType.Upscale, INPAINTING_UPSCALE_MODEL_ID);
+  } = useOnnxModel(OnnxModelType.Upscaling, UPSCALING_MODEL_ID);
   const upscaleAccess = useAccessTo(upscaleModel);
 
   useErrorNotification(
@@ -226,7 +226,7 @@ export function ExpandControls({expandingMode}: Readonly<Props>) {
       {expansion && (
         <Typography.Text type="secondary">
           <Trans>
-            Output: {outputWidth} × {outputHeight}
+            New size: {outputWidth} × {outputHeight}
           </Trans>
         </Typography.Text>
       )}

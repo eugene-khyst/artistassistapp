@@ -141,15 +141,15 @@ msgstr "Hodnota menšia ako 100 % spôsobí, že obrázok bude vyzerať menej fa
 msgid "Accurate"
 msgstr "Presné"
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Acrylic Gouache"
 msgstr "Akrylový kvaš"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Acrylic Markers"
 msgstr "Akrylové fixky"
 
-#: src/components/messages.ts:59
+#: src/components/messages.ts:60
 msgid "Acrylic Paint"
 msgstr "Akrylová farba"
 
@@ -197,7 +197,7 @@ msgstr "Ručne nastavte 4 rohy."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Všetky dáta aplikácií sú uložené v úložisku webového prehliadača, aj po inštalácii. Vymazanie dát prehliadača všetko vymaže."
 
-#: src/components/ImageEditor.tsx:313
+#: src/components/ImageEditor.tsx:306
 msgid "All edits will be lost"
 msgstr "Všetky úpravy sa stratia"
 
@@ -368,25 +368,25 @@ msgstr "Staňte sa plateným členom"
 msgid "Blending"
 msgstr "Miešanie"
 
-#: src/components/messages.ts:81
+#: src/components/messages.ts:82
 msgid "By date"
 msgstr "Podľa dátumu"
 
-#: src/components/messages.ts:76
-#: src/components/messages.ts:83
+#: src/components/messages.ts:77
+#: src/components/messages.ts:84
 msgid "By hue"
 msgstr "Podľa farby"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "By ID"
 msgstr "Podľa ID"
 
-#: src/components/messages.ts:77
-#: src/components/messages.ts:84
+#: src/components/messages.ts:78
+#: src/components/messages.ts:85
 msgid "By lightness"
 msgstr "Ľahkosťou"
 
-#: src/components/messages.ts:82
+#: src/components/messages.ts:83
 msgid "By name"
 msgstr "Názov"
 
@@ -400,7 +400,7 @@ msgstr "Pre AR trasing je potrebný prístup do kamery"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:315
+#: src/components/ImageEditor.tsx:308
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:50
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -427,6 +427,7 @@ msgstr "Skontrolujte aktualizácie"
 #: src/components/image-editor/ExpandControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:53
 #: src/components/image-editor/RemoveObjectsControls.tsx:60
+#: src/components/image-editor/UpscaleControls.tsx:48
 #: src/components/ImageChooser.tsx:73
 #: src/components/ImageOutline.tsx:103
 #: src/components/ImageStyleTransfer.tsx:126
@@ -604,7 +605,7 @@ msgstr "Farebná sada"
 msgid "Color swatch"
 msgstr "Vzorkovník farieb"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Colored Pencils"
 msgstr "Farebné ceruzky"
 
@@ -879,7 +880,7 @@ msgstr "Polož spis sem..."
 msgid "Drop the files here..."
 msgstr "Polož súbory sem..."
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Dry Pastel"
 msgstr "Suché pastelové"
 
@@ -907,7 +908,7 @@ msgstr "Edit odtiaľ ďalej"
 msgid "Edit image"
 msgstr "Upraviť obrázok"
 
-#: src/components/ImageEditor.tsx:325
+#: src/components/ImageEditor.tsx:318
 msgid "Edited"
 msgstr "Upravené"
 
@@ -1067,7 +1068,7 @@ msgstr "Glazovanie"
 msgid "Go to the {label} tab"
 msgstr "Prejdite na kartu {label}"
 
-#: src/components/messages.ts:58
+#: src/components/messages.ts:59
 msgid "Gouache"
 msgstr "Gvaše"
 
@@ -1389,6 +1390,11 @@ msgstr "Nová farebná sada"
 msgid "New comparison"
 msgstr "Nové porovnanie"
 
+#: src/components/image-editor/ExpandControls.tsx:228
+#: src/components/image-editor/UpscaleControls.tsx:66
+msgid "New size: {outputWidth} × {outputHeight}"
+msgstr "Nová veľkosť: {outputWidth} × {outputHeight}"
+
 #: src/components/auth/AuthFeedbackHandler.tsx:41
 msgid "Next charge date"
 msgstr "Dátum ďalšieho nabíjania"
@@ -1430,11 +1436,11 @@ msgstr "Počet buniek na menšej strane (vertikálne alebo horizontálne)"
 msgid "Off"
 msgstr "Vypnuté"
 
-#: src/components/messages.ts:60
+#: src/components/messages.ts:61
 msgid "Oil Paint"
 msgstr "Olejová farba"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Oil Pastel"
 msgstr "Olejový pastel"
 
@@ -1509,10 +1515,6 @@ msgstr "Obrys"
 #: src/components/image-editor/AdjustColorsControls.tsx:322
 msgid "Output levels"
 msgstr "Výstupné úrovne"
-
-#: src/components/image-editor/ExpandControls.tsx:228
-msgid "Output: {outputWidth} × {outputHeight}"
-msgstr "Výstup: {outputWidth} × {outputHeight}"
 
 #: src/components/color/ColorMixtureDescription.tsx:132
 msgid "over"
@@ -1668,6 +1670,10 @@ msgstr "Zásady ochrany osobných údajov"
 msgid "Processing..."
 msgstr "Spracovávam..."
 
+#: src/i18n.ts:141
+msgid "Processing... {percent}%"
+msgstr "Spracováva sa... {percent} %"
+
 #: src/components/Help.tsx:182
 msgid "Quota"
 msgstr "Kvóta"
@@ -1688,7 +1694,7 @@ msgstr "Pomer"
 msgid "Realism"
 msgstr "Realizmus"
 
-#: src/components/ImageEditor.tsx:310
+#: src/components/ImageEditor.tsx:303
 msgid "Redo"
 msgstr "Znovu"
 
@@ -1758,8 +1764,8 @@ msgstr "Vyžaduje sa systém macOS Sonoma alebo novší."
 msgid "Resend code"
 msgstr "Opätovné odoslanie kódu"
 
-#: src/components/ImageEditor.tsx:314
-#: src/components/ImageEditor.tsx:319
+#: src/components/ImageEditor.tsx:307
+#: src/components/ImageEditor.tsx:312
 msgid "Reset"
 msgstr "Vynulovanie"
 
@@ -1916,7 +1922,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Vyberte si zo svojich nedávnych farebných sád alebo vytvorte novú."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:285
+#: src/components/ImageEditor.tsx:278
 msgid "Select image"
 msgstr "Vybrať obrázok"
 
@@ -2333,6 +2339,10 @@ msgstr "Toto zariadenie má zmeny, ktoré sa uskutočnili, keď bol aktívny in�
 msgid "This device has local data and existing synced cloud data, but no sync history. Choose which one to keep."
 msgstr "Toto zariadenie má miestne údaje a existujúce synchronizované cloudové údaje, ale nemá žiadnu históriu synchronizácie. Vyberte si, ktorý si ponecháte."
 
+#: src/components/image-editor/UpscaleControls.tsx:72
+msgid "This image is already too large to upscale"
+msgstr "Tento obrázok je už príliš veľký na zmenu veľkosti"
+
 #: src/components/auth/AuthFeedbackHandler.tsx:155
 msgid "This login code can't be used anymore. Request a new code to continue."
 msgstr "Tento prihlasovací kód už nie je možné použiť. Požiadajte o nový kód na pokračovanie."
@@ -2454,6 +2464,10 @@ msgstr "Nie je možné načítať model inteligentného rozšírenia"
 msgid "Unable to load the styles"
 msgstr "Nie je možné načítať štýly"
 
+#: src/components/image-editor/UpscaleControls.tsx:47
+msgid "Unable to load the upscale model"
+msgstr "Nepodarilo sa načítať upscale model"
+
 #: src/components/color-set/ColorSetActivationNotification.tsx:33
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Unable to restore the saved color set"
@@ -2464,7 +2478,7 @@ msgstr "Nie je možné obnoviť uloženú sadu farieb"
 msgid "Underlayer"
 msgstr "Podkladová vrstva"
 
-#: src/components/ImageEditor.tsx:303
+#: src/components/ImageEditor.tsx:296
 msgid "Undo"
 msgstr "Vrátiť späť"
 
@@ -2510,6 +2524,11 @@ msgstr "Aktualizácia teraz"
 #: src/stores/cloud-slice.ts:141
 msgid "Uploading image {index} / {count}"
 msgstr "Nahráva sa obrázok {index} / {count}"
+
+#: src/components/image-editor/UpscaleControls.tsx:85
+#: src/components/messages.ts:54
+msgid "Upscale"
+msgstr "Upscale"
 
 #: src/components/color/ConsistencyDescription.tsx:81
 msgid "Use <0>{fractionText} of full pressure</0>"
@@ -2576,15 +2595,15 @@ msgstr "Akvarel"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Akvarel je možné riediť vodou, aby bol transparentnejší"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Watercolor Paint"
 msgstr "Akvarelová farba"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Watercolor Pencils"
 msgstr "Akvarelové ceruzky"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Wax Pastel"
 msgstr "Wax Pastel"
 
@@ -2614,7 +2633,7 @@ msgstr "Biely"
 msgid "White balance"
 msgstr "Vyváženie bielej"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "White paper or canvas"
 msgstr "Biely papier alebo plátno"
 
@@ -2686,6 +2705,10 @@ msgstr "Vaše dáta nemusia byť spoľahlivo uložené, ak je prehliadač zatvor
 #: src/components/ImageStyleTransfer.tsx:291
 msgid "Your image"
 msgstr "Váš obraz"
+
+#: src/components/ImageEditor.tsx:329
+msgid "Your images are processed locally on your device and are never uploaded to any server"
+msgstr "Vaše obrázky sa spracúvajú lokálne vo vašom zariadení a nikdy sa neodovzdávajú na žiadny server"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:141
 msgid "Your login credentials could not be verified. Sign in again."

@@ -60,6 +60,7 @@ import {createStyleTransferSlice, type StyleTransferSlice} from './style-transfe
 import {createTabSlice, type TabSlice} from './tab-slice';
 import {createTonalValuesSlice, type TonalValuesSlice} from './tonal-values-slice';
 import {createTournamentSlice, type TournamentSlice} from './tournament-slice';
+import {createUpscaleSlice, type UpscaleSlice} from './upscale-slice';
 
 export const useAppStore = create<
   PwaSlice &
@@ -85,6 +86,7 @@ export const useAppStore = create<
     AdjustColorsSlice &
     RemoveBackgroundSlice &
     RemoveObjectsSlice &
+    UpscaleSlice &
     EditImageSlice &
     TournamentSlice &
     CustomColorBrandSlice &
@@ -115,6 +117,7 @@ export const useAppStore = create<
     ...createAdjustColorsSlice(...a),
     ...createRemoveBackgroundSlice(...a),
     ...createRemoveObjectsSlice(...a),
+    ...createUpscaleSlice(...a),
     ...createEditImageSlice(...a),
     ...createTournamentSlice(...a),
     ...createCustomColorBrandSlice(...a),

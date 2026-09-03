@@ -88,6 +88,10 @@ Slices compose into one Zustand store. Rules that are not visible from a slice o
   adjustment.
 - `showAppliedImageEditorControls` resets only when the history changed: a canceled edit must not
   clear a value the user just set.
+- `hasEditedImageAlpha` and `exportEditedImage` answer different questions and must not be merged:
+  save preserves the source format, alpha detection covers every alpha-capable type.
+- A command's result blob is internal transport — `applyEditImageCommand` decodes it straight back
+  and save re-encodes from the bitmap — so keep it lossless.
 
 ## Services (`src/services/`)
 
@@ -150,6 +154,9 @@ Pure business logic, no React.
 - The cache is derived data: keep it out of cloud sync, ZIP export and `store-changes`. Models
   without a `url` are never cached. Callers pick the encode format (PNG for line art, the JPEG
   default for photo-like output).
+- One ONNX session exists at a time: `withInferenceSession` cancels the one in flight, so a nested
+  call kills its own parent. Inside the callback use `transformImageInSession` with the supplied
+  `run`, never `transformImage`.
 
 ### `cloud/`
 
@@ -236,13 +243,17 @@ Keep Valibot confined to external JSON validation. Custom-brand JSON and cloud s
 - ONNX-derived image slices invalidate through their setters: changing model, style or input aborts
   and clears derived output; loaders no-op while already loading, commit only if their
   `AbortController` is still current, and close stale `ImageBitmap`s.
+- Upscale tiles carry a 48px halo, wider than the model's 34px receptive field, so a tiled result
+  matches an untiled one and needs no feathering. Keep the factors integer divisors of the model's
+  4x, or core boundaries stop landing on whole output pixels and seams return. A model with a wider
+  receptive field cannot be tiled at all.
 
 ## Web Workers
 
 - Worker managers live in `src/services/*/worker/*-worker-manager.ts` over the shared
   `WorkerManager`. When the signal passed to `.run(operation, signal?)` aborts, the worker is
   terminated and the next call creates a fresh one — so **a state-holding worker must not be passed
-  a signal** that could cut it off mid-session.
+  a signal** unless losing that state is the right answer to the abort, as it is for inference.
 - Pass an `ImageBitmap` in with Comlink's `transfer(image, [image])` so it moves instead of being
   cloned. The main-thread reference is neutered afterwards: do not `close()` it. The worker owns the
   bitmap and closes it once drawn.

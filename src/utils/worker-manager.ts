@@ -43,6 +43,8 @@ export class WorkerManager<T> {
   }
 
   async run<R>(operation: (remote: Remote<T>) => Promise<R>, signal?: AbortSignal): Promise<R> {
+    // An already aborted run must not touch a worker that another caller now owns.
+    signal?.throwIfAborted();
     const workerPromise = operation(this.getRemote());
     try {
       return await abortablePromise(workerPromise, signal);

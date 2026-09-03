@@ -45,7 +45,7 @@ const CACHE_NAME_LARGE_FILES = getCacheName('large-files');
 const CACHE_NAMES = new Set([CACHE_NAME_DEFAULT, CACHE_NAME_LARGE_FILES]);
 const AUTH_ORIGIN = new URL(AUTH_URL).origin;
 
-const CACHE_LARGE_FILE_EXTENSIONS: RegExp[] = [/\.onnx\.part\d+$/, /\.wasm$/];
+const CACHE_LARGE_FILE_EXTENSIONS: RegExp[] = [/\.wasm$/, /\.bin$/];
 
 const SPA_PATHNAMES = new Set<string>([
   '/',

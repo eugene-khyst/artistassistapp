@@ -57,7 +57,12 @@ function createTestStore(image: ImageBitmap | null = null) {
   const saveAppSettings = vi.fn(async () => DEFAULT_APP_SETTINGS);
   const execute = vi.fn().mockResolvedValue(true);
   const run = vi.fn(async (task: (context: EditImageContext) => unknown) =>
-    task({image, signal: new AbortController().signal, setDownloadTip: vi.fn()})
+    task({
+      image,
+      signal: new AbortController().signal,
+      setDownloadTip: vi.fn(),
+      setProcessTip: vi.fn(),
+    })
   );
   const editImageOperation: EditImageOperation = {
     run: run as EditImageOperation['run'],

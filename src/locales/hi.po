@@ -141,15 +141,15 @@ msgstr "100% से कम मान छवि को कम रंगीन ब
 msgid "Accurate"
 msgstr "शुद्ध"
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Acrylic Gouache"
 msgstr "ऐक्रेलिक गौचे"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Acrylic Markers"
 msgstr "ऐक्रेलिक मार्कर"
 
-#: src/components/messages.ts:59
+#: src/components/messages.ts:60
 msgid "Acrylic Paint"
 msgstr "ऐक्रेलिक पेंट"
 
@@ -197,7 +197,7 @@ msgstr "चारों कोनों को मैन्युअल रू�
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "सभी ऐप डेटा इंस्टॉल करने के बाद भी वेब ब्राउज़र स्टोरेज में संग्रहीत किया जाता है। ब्राउज़र डेटा साफ़ करने से यह सब मिट जाता है।"
 
-#: src/components/ImageEditor.tsx:313
+#: src/components/ImageEditor.tsx:306
 msgid "All edits will be lost"
 msgstr "सभी संपादन नष्ट हो जायेंगे"
 
@@ -368,25 +368,25 @@ msgstr "एक सशुल्क सदस्य बनें"
 msgid "Blending"
 msgstr "सम्मिश्रण"
 
-#: src/components/messages.ts:81
+#: src/components/messages.ts:82
 msgid "By date"
 msgstr "तिथि के अनुसार"
 
-#: src/components/messages.ts:76
-#: src/components/messages.ts:83
+#: src/components/messages.ts:77
+#: src/components/messages.ts:84
 msgid "By hue"
 msgstr "रंग से"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "By ID"
 msgstr "आईडी द्वारा"
 
-#: src/components/messages.ts:77
-#: src/components/messages.ts:84
+#: src/components/messages.ts:78
+#: src/components/messages.ts:85
 msgid "By lightness"
 msgstr "हल्केपन से"
 
-#: src/components/messages.ts:82
+#: src/components/messages.ts:83
 msgid "By name"
 msgstr "नाम से"
 
@@ -400,7 +400,7 @@ msgstr "एआर ट्रेसिंग के लिए कैमरा ए�
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:315
+#: src/components/ImageEditor.tsx:308
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:50
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -427,6 +427,7 @@ msgstr "अपडेट के लिए जाँच करें"
 #: src/components/image-editor/ExpandControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:53
 #: src/components/image-editor/RemoveObjectsControls.tsx:60
+#: src/components/image-editor/UpscaleControls.tsx:48
 #: src/components/ImageChooser.tsx:73
 #: src/components/ImageOutline.tsx:103
 #: src/components/ImageStyleTransfer.tsx:126
@@ -604,7 +605,7 @@ msgstr "रंग सेट"
 msgid "Color swatch"
 msgstr "रंग नमूना"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Colored Pencils"
 msgstr "रंगीन पेंसिल"
 
@@ -879,7 +880,7 @@ msgstr "फ़ाइल को यहाँ छोड़ दें..."
 msgid "Drop the files here..."
 msgstr "फाइलों को यहां छोड़ दें..."
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Dry Pastel"
 msgstr "सूखा पेस्टल"
 
@@ -907,7 +908,7 @@ msgstr "यहां से संपादित करें"
 msgid "Edit image"
 msgstr "संपादित छवि"
 
-#: src/components/ImageEditor.tsx:325
+#: src/components/ImageEditor.tsx:318
 msgid "Edited"
 msgstr "संपादित"
 
@@ -1067,7 +1068,7 @@ msgstr "ग्लेज़िंग"
 msgid "Go to the {label} tab"
 msgstr "{label} टैब पर जाएं"
 
-#: src/components/messages.ts:58
+#: src/components/messages.ts:59
 msgid "Gouache"
 msgstr "गौचे"
 
@@ -1389,6 +1390,11 @@ msgstr "नया रंग सेट"
 msgid "New comparison"
 msgstr "नई तुलना"
 
+#: src/components/image-editor/ExpandControls.tsx:228
+#: src/components/image-editor/UpscaleControls.tsx:66
+msgid "New size: {outputWidth} × {outputHeight}"
+msgstr "नया आकार: {outputWidth} × {outputHeight}"
+
 #: src/components/auth/AuthFeedbackHandler.tsx:41
 msgid "Next charge date"
 msgstr "अगली शुल्क तिथि"
@@ -1430,11 +1436,11 @@ msgstr "छोटी भुजा पर कक्षों की संख्�
 msgid "Off"
 msgstr "बंद"
 
-#: src/components/messages.ts:60
+#: src/components/messages.ts:61
 msgid "Oil Paint"
 msgstr "तेल पेंट"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Oil Pastel"
 msgstr "तेल पेस्टल"
 
@@ -1509,10 +1515,6 @@ msgstr "रूपरेखा बनाना"
 #: src/components/image-editor/AdjustColorsControls.tsx:322
 msgid "Output levels"
 msgstr "आउटपुट स्तर"
-
-#: src/components/image-editor/ExpandControls.tsx:228
-msgid "Output: {outputWidth} × {outputHeight}"
-msgstr "आउटपुट: {outputWidth} × {outputHeight}"
 
 #: src/components/color/ColorMixtureDescription.tsx:132
 msgid "over"
@@ -1668,6 +1670,10 @@ msgstr "गोपनीयता नीति"
 msgid "Processing..."
 msgstr "प्रसंस्करण..."
 
+#: src/i18n.ts:141
+msgid "Processing... {percent}%"
+msgstr "प्रसंस्करण... {percent}%"
+
 #: src/components/Help.tsx:182
 msgid "Quota"
 msgstr "कोटा"
@@ -1688,7 +1694,7 @@ msgstr "अनुपात"
 msgid "Realism"
 msgstr "यथार्थवाद"
 
-#: src/components/ImageEditor.tsx:310
+#: src/components/ImageEditor.tsx:303
 msgid "Redo"
 msgstr "फिर से करना"
 
@@ -1758,8 +1764,8 @@ msgstr "macOS सोनोमा या बाद के संस्करण �
 msgid "Resend code"
 msgstr "कोड फिर से भेजें"
 
-#: src/components/ImageEditor.tsx:314
-#: src/components/ImageEditor.tsx:319
+#: src/components/ImageEditor.tsx:307
+#: src/components/ImageEditor.tsx:312
 msgid "Reset"
 msgstr "रीसेट"
 
@@ -1916,7 +1922,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "अपने हाल के रंग सेट में से चुनें या एक नया बनाएं।"
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:285
+#: src/components/ImageEditor.tsx:278
 msgid "Select image"
 msgstr "छवि का चयन करें"
 
@@ -2333,6 +2339,10 @@ msgstr "इस डिवाइस में किसी अन्य खात�
 msgid "This device has local data and existing synced cloud data, but no sync history. Choose which one to keep."
 msgstr "इस डिवाइस में स्थानीय डेटा और मौजूदा सिंक किया हुआ क्लाउड डेटा है, लेकिन कोई सिंक इतिहास नहीं है। चुनें कि किसे रखना है."
 
+#: src/components/image-editor/UpscaleControls.tsx:72
+msgid "This image is already too large to upscale"
+msgstr "यह छवि पहले से ही अपग्रेड करने के लिए बहुत बड़ी है"
+
 #: src/components/auth/AuthFeedbackHandler.tsx:155
 msgid "This login code can't be used anymore. Request a new code to continue."
 msgstr "इस लॉगिन कोड का उपयोग अब नहीं किया जा सकता है। जारी रखने के लिए एक नए कोड का अनुरोध करें।"
@@ -2454,6 +2464,10 @@ msgstr "स्मार्ट विस्तार मॉडल लोड क�
 msgid "Unable to load the styles"
 msgstr "शैलियाँ लोड करने में असमर्थ"
 
+#: src/components/image-editor/UpscaleControls.tsx:47
+msgid "Unable to load the upscale model"
+msgstr "अपस्केल मॉडल लोड करने में असमर्थ"
+
 #: src/components/color-set/ColorSetActivationNotification.tsx:33
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Unable to restore the saved color set"
@@ -2464,7 +2478,7 @@ msgstr "सहेजे गए रंग सेट को पुनर्स्�
 msgid "Underlayer"
 msgstr "अंडरलेयर"
 
-#: src/components/ImageEditor.tsx:303
+#: src/components/ImageEditor.tsx:296
 msgid "Undo"
 msgstr "पूर्ववत"
 
@@ -2510,6 +2524,11 @@ msgstr "अभी अपडेट करें"
 #: src/stores/cloud-slice.ts:141
 msgid "Uploading image {index} / {count}"
 msgstr "छवि अपलोड हो रही है {index} / {count}"
+
+#: src/components/image-editor/UpscaleControls.tsx:85
+#: src/components/messages.ts:54
+msgid "Upscale"
+msgstr "एक उच्च स्तरीय"
 
 #: src/components/color/ConsistencyDescription.tsx:81
 msgid "Use <0>{fractionText} of full pressure</0>"
@@ -2576,15 +2595,15 @@ msgstr "आबरंग"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "इसे अधिक पारदर्शी बनाने के लिए जल रंग को पानी से पतला किया जा सकता है"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Watercolor Paint"
 msgstr "वॉटरकलर पेंट"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Watercolor Pencils"
 msgstr "वॉटरकलर पेंसिल"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Wax Pastel"
 msgstr "वैक्स पेस्टल"
 
@@ -2614,7 +2633,7 @@ msgstr "सफेद"
 msgid "White balance"
 msgstr "श्वेत संतुलन"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "White paper or canvas"
 msgstr "श्वेत पत्र या कैनवास"
 
@@ -2686,6 +2705,10 @@ msgstr "यदि ब्राउज़र बंद है तो आपका 
 #: src/components/ImageStyleTransfer.tsx:291
 msgid "Your image"
 msgstr "आपकी छवि"
+
+#: src/components/ImageEditor.tsx:329
+msgid "Your images are processed locally on your device and are never uploaded to any server"
+msgstr "आपकी छवियां आपके डिवाइस पर स्थानीय रूप से संसाधित की जाती हैं और कभी भी किसी सर्वर पर अपलोड नहीं की जाती हैं"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:141
 msgid "Your login credentials could not be verified. Sign in again."

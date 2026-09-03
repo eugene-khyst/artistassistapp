@@ -92,6 +92,7 @@ function createTestStore(initialImage: ImageBitmap) {
             image,
             signal: new AbortController().signal,
             setDownloadTip: vi.fn(),
+            setProcessTip: vi.fn(),
           } satisfies EditImageContext<ImageBitmap>)
         : commandOrSupplier;
     return previewCommand !== null;

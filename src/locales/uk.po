@@ -141,15 +141,15 @@ msgstr "Значення менше 100% робить зображення ме�
 msgid "Accurate"
 msgstr "Точний"
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Acrylic Gouache"
 msgstr "Акрилова гуаш"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Acrylic Markers"
 msgstr "Акрилові маркери"
 
-#: src/components/messages.ts:59
+#: src/components/messages.ts:60
 msgid "Acrylic Paint"
 msgstr "Акрилова фарба"
 
@@ -197,7 +197,7 @@ msgstr "Відрегулюйте 4 кути вручну."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Усі дані додатку зберігаються у сховищі веб-браузера, навіть після встановлення. Очищення даних браузера видаляє все."
 
-#: src/components/ImageEditor.tsx:313
+#: src/components/ImageEditor.tsx:306
 msgid "All edits will be lost"
 msgstr "Усі зміни буде втрачено"
 
@@ -368,25 +368,25 @@ msgstr "Станьте платним членом"
 msgid "Blending"
 msgstr "Змішування"
 
-#: src/components/messages.ts:81
+#: src/components/messages.ts:82
 msgid "By date"
 msgstr "За датами"
 
-#: src/components/messages.ts:76
-#: src/components/messages.ts:83
+#: src/components/messages.ts:77
+#: src/components/messages.ts:84
 msgid "By hue"
 msgstr "За відтінком"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "By ID"
 msgstr "За ID"
 
-#: src/components/messages.ts:77
-#: src/components/messages.ts:84
+#: src/components/messages.ts:78
+#: src/components/messages.ts:85
 msgid "By lightness"
 msgstr "Легкістю"
 
-#: src/components/messages.ts:82
+#: src/components/messages.ts:83
 msgid "By name"
 msgstr "За іменем"
 
@@ -400,7 +400,7 @@ msgstr "Доступ до камери потрібен для AR-трасува
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:315
+#: src/components/ImageEditor.tsx:308
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:50
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -427,6 +427,7 @@ msgstr "Перевірте наявність оновлень"
 #: src/components/image-editor/ExpandControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:53
 #: src/components/image-editor/RemoveObjectsControls.tsx:60
+#: src/components/image-editor/UpscaleControls.tsx:48
 #: src/components/ImageChooser.tsx:73
 #: src/components/ImageOutline.tsx:103
 #: src/components/ImageStyleTransfer.tsx:126
@@ -604,7 +605,7 @@ msgstr "Набір кольорів"
 msgid "Color swatch"
 msgstr "Зразок кольорів"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Colored Pencils"
 msgstr "Кольорові олівці"
 
@@ -879,7 +880,7 @@ msgstr "Залиш справу тут..."
 msgid "Drop the files here..."
 msgstr "Залиш файли сюди..."
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Dry Pastel"
 msgstr "Суха пастель"
 
@@ -907,7 +908,7 @@ msgstr "Редагування далі"
 msgid "Edit image"
 msgstr "Редагувати зображення"
 
-#: src/components/ImageEditor.tsx:325
+#: src/components/ImageEditor.tsx:318
 msgid "Edited"
 msgstr "Відредаговано"
 
@@ -1067,7 +1068,7 @@ msgstr "Скління"
 msgid "Go to the {label} tab"
 msgstr "Перейдіть на вкладку {label}"
 
-#: src/components/messages.ts:58
+#: src/components/messages.ts:59
 msgid "Gouache"
 msgstr "Гуаш"
 
@@ -1389,6 +1390,11 @@ msgstr "Новий набір кольорів"
 msgid "New comparison"
 msgstr "Нове порівняння"
 
+#: src/components/image-editor/ExpandControls.tsx:228
+#: src/components/image-editor/UpscaleControls.tsx:66
+msgid "New size: {outputWidth} × {outputHeight}"
+msgstr "Новий розмір: {outputWidth} × {outputHeight}"
+
 #: src/components/auth/AuthFeedbackHandler.tsx:41
 msgid "Next charge date"
 msgstr "Наступна дата звинувачення"
@@ -1430,11 +1436,11 @@ msgstr "Кількість клітин на меншій стороні (вер
 msgid "Off"
 msgstr "Вимкнено"
 
-#: src/components/messages.ts:60
+#: src/components/messages.ts:61
 msgid "Oil Paint"
 msgstr "Олійна фарба"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Oil Pastel"
 msgstr "Олійна пастель"
 
@@ -1509,10 +1515,6 @@ msgstr "Контур"
 #: src/components/image-editor/AdjustColorsControls.tsx:322
 msgid "Output levels"
 msgstr "Вихідні рівні"
-
-#: src/components/image-editor/ExpandControls.tsx:228
-msgid "Output: {outputWidth} × {outputHeight}"
-msgstr "Вихід: {outputWidth} × {outputHeight}"
 
 #: src/components/color/ColorMixtureDescription.tsx:132
 msgid "over"
@@ -1668,6 +1670,10 @@ msgstr "Політика конфіденційності"
 msgid "Processing..."
 msgstr "Обробка..."
 
+#: src/i18n.ts:141
+msgid "Processing... {percent}%"
+msgstr "Обробка... {percent}%"
+
 #: src/components/Help.tsx:182
 msgid "Quota"
 msgstr "Квота"
@@ -1688,7 +1694,7 @@ msgstr "Коефіцієнт"
 msgid "Realism"
 msgstr "Реалізм"
 
-#: src/components/ImageEditor.tsx:310
+#: src/components/ImageEditor.tsx:303
 msgid "Redo"
 msgstr "Повторити"
 
@@ -1758,8 +1764,8 @@ msgstr "Потрібна macOS Sonoma або новішої версії."
 msgid "Resend code"
 msgstr "Перенадіслати код"
 
-#: src/components/ImageEditor.tsx:314
-#: src/components/ImageEditor.tsx:319
+#: src/components/ImageEditor.tsx:307
+#: src/components/ImageEditor.tsx:312
 msgid "Reset"
 msgstr "Скинути"
 
@@ -1916,7 +1922,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Виберіть один із останніх наборів кольорів або створіть новий."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:285
+#: src/components/ImageEditor.tsx:278
 msgid "Select image"
 msgstr "Вибрати зображення"
 
@@ -2333,6 +2339,10 @@ msgstr "На цьому пристрої внесені зміни, поки і�
 msgid "This device has local data and existing synced cloud data, but no sync history. Choose which one to keep."
 msgstr "На цьому пристрої є локальні дані та наявні синхронізовані хмарні дані, але немає історії синхронізації. Виберіть, який зберегти."
 
+#: src/components/image-editor/UpscaleControls.tsx:72
+msgid "This image is already too large to upscale"
+msgstr "Це зображення вже завелике для масштабування"
+
 #: src/components/auth/AuthFeedbackHandler.tsx:155
 msgid "This login code can't be used anymore. Request a new code to continue."
 msgstr "Цей код входу більше не можна використовувати. Запросити новий код для продовження."
@@ -2454,6 +2464,10 @@ msgstr "Не вдалося завантажити модель інтелект
 msgid "Unable to load the styles"
 msgstr "Не вдалося завантажити стилі"
 
+#: src/components/image-editor/UpscaleControls.tsx:47
+msgid "Unable to load the upscale model"
+msgstr "Неможливо завантажити висококласну модель"
+
 #: src/components/color-set/ColorSetActivationNotification.tsx:33
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Unable to restore the saved color set"
@@ -2464,7 +2478,7 @@ msgstr "Не вдалося відновити збережений набір �
 msgid "Underlayer"
 msgstr "Підшар"
 
-#: src/components/ImageEditor.tsx:303
+#: src/components/ImageEditor.tsx:296
 msgid "Undo"
 msgstr "Скасувати"
 
@@ -2510,6 +2524,11 @@ msgstr "Оновлення зараз"
 #: src/stores/cloud-slice.ts:141
 msgid "Uploading image {index} / {count}"
 msgstr "Завантаження зображення {index} / {count}"
+
+#: src/components/image-editor/UpscaleControls.tsx:85
+#: src/components/messages.ts:54
+msgid "Upscale"
+msgstr "Висококласний"
 
 #: src/components/color/ConsistencyDescription.tsx:81
 msgid "Use <0>{fractionText} of full pressure</0>"
@@ -2576,15 +2595,15 @@ msgstr "Акварель"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Акварель можна розбавити водою, щоб зробити її більш прозорою"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Watercolor Paint"
 msgstr "Акварельні фарби"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Watercolor Pencils"
 msgstr "Акварельні олівці"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Wax Pastel"
 msgstr "Воскова пастель"
 
@@ -2614,7 +2633,7 @@ msgstr "Білий"
 msgid "White balance"
 msgstr "Баланс білого"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "White paper or canvas"
 msgstr "Білий папір або полотно"
 
@@ -2686,6 +2705,10 @@ msgstr "Ваші дані можуть бути ненадійно збереж�
 #: src/components/ImageStyleTransfer.tsx:291
 msgid "Your image"
 msgstr "Ваш образ"
+
+#: src/components/ImageEditor.tsx:329
+msgid "Your images are processed locally on your device and are never uploaded to any server"
+msgstr "Ваші зображення обробляються локально на вашому пристрої та ніколи не завантажуються на сервер"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:141
 msgid "Your login credentials could not be verified. Sign in again."

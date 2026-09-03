@@ -43,6 +43,8 @@ interface ChunkedFile {
 
 export type FetchProgressCallback = (key: string | null, progress?: number) => void;
 
+export const PROCESSING_PROGRESS_KEY = 'processing';
+
 interface FetchChunkedOptions {
   concurrency?: number;
   progressCallback?: FetchProgressCallback;
@@ -181,7 +183,7 @@ export async function fetchSWR(
 export async function fetchJson<T>(url: string, {timeoutMs, signal}: FetchJsonOptions): Promise<T> {
   const timeoutSignal = AbortSignal.timeout(timeoutMs);
   const request = new Request(url, {
-    signal: signal ? anySignal([signal, timeoutSignal]) : timeoutSignal,
+    signal: anySignal([signal, timeoutSignal]),
   });
   const response = await fetchSWR(request);
   // fetchSWR represents network failures as error responses, including aborted requests.

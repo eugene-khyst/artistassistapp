@@ -38,6 +38,7 @@ export enum EditImageCommandType {
   AdjustColors = 'adjust-colors',
   RemoveBackground = 'remove-background',
   RemoveObjects = 'remove-objects',
+  Upscale = 'upscale',
 }
 
 export type EditImageCommand =
@@ -63,6 +64,10 @@ export type EditImageCommand =
       type: EditImageCommandType.RemoveObjects;
       vertices: EditImagePoint[];
       patchRectangle: EditImageRectangle;
+      result: Blob;
+    }
+  | {
+      type: EditImageCommandType.Upscale;
       result: Blob;
     };
 

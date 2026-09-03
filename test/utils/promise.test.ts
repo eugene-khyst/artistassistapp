@@ -63,4 +63,23 @@ describe.each([
     expect(combined.aborted).toBe(true);
     expect(combined.reason).toEqual(new Error('already'));
   });
+
+  it('ignores missing signals', () => {
+    prepare();
+    const controller = new AbortController();
+
+    const combined = anySignal([undefined, controller.signal, null]);
+    expect(combined.aborted).toBe(false);
+
+    controller.abort(new Error('only'));
+
+    expect(combined.aborted).toBe(true);
+    expect(combined.reason).toEqual(new Error('only'));
+  });
+
+  it('never aborts without any signal', () => {
+    prepare();
+
+    expect(anySignal([undefined, null]).aborted).toBe(false);
+  });
 });

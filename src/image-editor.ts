@@ -23,4 +23,5 @@ export enum ImageEditorKey {
   AdjustColors = 'adjust-colors',
   RemoveBackground = 'remove-background',
   RemoveObjects = 'remove-objects',
+  Upscale = 'upscale',
 }

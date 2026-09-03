@@ -30,13 +30,10 @@ interface Result {
 }
 
 export class InferenceRunner {
-  async runInference(
-    modelData: Uint8Array,
-    inputTensors: Float32Tensor[][],
-    outputName?: string
-  ): Promise<Result> {
-    const outputTensors: Float32Tensor[] = [];
-    const session = await InferenceSession.create(modelData, {
+  private session: InferenceSession | null = null;
+
+  async createInferenceSession(modelBuffer: Uint8Array): Promise<void> {
+    this.session = await InferenceSession.create(modelBuffer, {
       executionProviders: ['wasm'],
       graphOptimizationLevel: 'all',
       executionMode: 'parallel',
@@ -49,6 +46,14 @@ export class InferenceRunner {
         },
       },
     });
+  }
+
+  async runInference(inputTensors: Float32Tensor[][], outputName?: string): Promise<Result> {
+    const {session} = this;
+    if (!session) {
+      throw new Error('Inference session is not created');
+    }
+    const outputTensors: Float32Tensor[] = [];
     for (const inputTensor of inputTensors) {
       const feeds: InferenceSession.FeedsType = Object.fromEntries(
         inputTensor.map(({data, dims}, index) => [
@@ -70,7 +75,12 @@ export class InferenceRunner {
         dims,
       });
     }
-    await session.release();
     return transfer({outputTensors}, getFloat32TensorTransferables([outputTensors]));
+  }
+
+  async releaseInferenceSession(): Promise<void> {
+    const {session} = this;
+    this.session = null;
+    await session?.release();
   }
 }

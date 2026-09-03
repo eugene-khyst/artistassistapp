@@ -18,16 +18,67 @@
 
 import {transfer} from 'comlink';
 
-import {FILES_URL} from '@/config';
 import type {Authentication} from '@/services/auth/types';
-import type {InferenceRunner} from '@/services/ml/inference';
+import {type InferenceRunner} from '@/services/ml/inference';
+import {fetchOnnxModelBuffer} from '@/services/ml/models';
 import {type Float32Tensor, getFloat32TensorTransferables} from '@/services/ml/tensor';
-import {fetchChunked, type FetchProgressCallback} from '@/utils/fetch';
+import {type FetchProgressCallback} from '@/utils/fetch';
+import {anySignal} from '@/utils/promise';
 import {WorkerManager} from '@/utils/worker-manager';
 
 const inferenceWorker = new WorkerManager<InferenceRunner>(
   () => new Worker(new URL('./inference-worker.ts', import.meta.url), {type: 'module'})
 );
+
+export type InferenceRun = (
+  inputTensors: Float32Tensor[][],
+  outputName?: string
+) => Promise<Float32Tensor[]>;
+
+let abortController: AbortController | null = null;
+
+// The shared worker holds one session, so a new call cancels the inference in flight.
+// A nested call cancels the outer session, so the callback must use its run.
+export async function withInferenceSession<T>(
+  modelUrl: string,
+  auth: Authentication | null,
+  callback: (run: InferenceRun) => Promise<T>,
+  progressCallback?: FetchProgressCallback,
+  signal?: AbortSignal
+): Promise<T> {
+  if (abortController) {
+    abortController.abort();
+    inferenceWorker.terminate();
+  }
+  const controller = new AbortController();
+  abortController = controller;
+  const sessionSignal = anySignal([signal, controller.signal]);
+  try {
+    const modelBuffer = new Uint8Array(
+      await fetchOnnxModelBuffer(modelUrl, auth, progressCallback, sessionSignal)
+    );
+    await inferenceWorker.run(
+      worker => worker.createInferenceSession(transfer(modelBuffer, [modelBuffer.buffer])),
+      sessionSignal
+    );
+    return await callback(async (inputTensors, outputName) => {
+      const {outputTensors} = await inferenceWorker.run(
+        worker =>
+          worker.runInference(
+            transfer(inputTensors, getFloat32TensorTransferables(inputTensors)),
+            outputName
+          ),
+        sessionSignal
+      );
+      return outputTensors;
+    });
+  } finally {
+    if (abortController === controller) {
+      abortController = null;
+      await inferenceWorker.run(worker => worker.releaseInferenceSession());
+    }
+  }
+}
 
 export async function runInferenceWorker(
   modelUrl: string,
@@ -37,19 +88,11 @@ export async function runInferenceWorker(
   progressCallback?: FetchProgressCallback,
   signal?: AbortSignal
 ): Promise<Float32Tensor[]> {
-  const modelResponse: Response = await fetchChunked(new URL(modelUrl, FILES_URL), auth, {
+  return await withInferenceSession(
+    modelUrl,
+    auth,
+    run => run(inputTensors, outputName),
     progressCallback,
-    signal,
-  });
-  const modelData = new Uint8Array(await modelResponse.arrayBuffer());
-  const {outputTensors} = await inferenceWorker.run(
-    worker =>
-      worker.runInference(
-        transfer(modelData, [modelData.buffer]),
-        transfer(inputTensors, getFloat32TensorTransferables(inputTensors)),
-        outputName
-      ),
     signal
   );
-  return outputTensors;
 }

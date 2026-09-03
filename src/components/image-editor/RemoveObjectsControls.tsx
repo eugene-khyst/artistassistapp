@@ -26,7 +26,7 @@ import {useErrorNotification} from '@/hooks/useErrorNotification';
 import {useOnnxModel} from '@/hooks/useOnnxModel';
 import {Access} from '@/services/auth/types';
 import type {CanvasPolygonDrawingMode} from '@/services/canvas/mode/canvas-polygon-drawing-mode';
-import {INPAINTING_MODEL_ID, INPAINTING_UPSCALE_MODEL_ID, OnnxModelType} from '@/services/ml/types';
+import {INPAINTING_MODEL_ID, OnnxModelType, UPSCALING_MODEL_ID} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
 
 interface Props {
@@ -52,7 +52,7 @@ export function RemoveObjectsControls({polygonDrawingMode}: Readonly<Props>) {
     model: upscaleModel,
     isLoading: isUpscaleModelLoading,
     isError: isUpscaleModelError,
-  } = useOnnxModel(OnnxModelType.Upscale, INPAINTING_UPSCALE_MODEL_ID);
+  } = useOnnxModel(OnnxModelType.Upscaling, UPSCALING_MODEL_ID);
 
   useErrorNotification(
     isModelError || isUpscaleModelError,

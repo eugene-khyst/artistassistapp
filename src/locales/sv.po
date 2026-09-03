@@ -141,15 +141,15 @@ msgstr "Ett värde som är mindre än 100 % gör att bilden ser mindre färgglad
 msgid "Accurate"
 msgstr "Exakt"
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Acrylic Gouache"
 msgstr "Akryl gouache"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Acrylic Markers"
 msgstr "Akryl markörer"
 
-#: src/components/messages.ts:59
+#: src/components/messages.ts:60
 msgid "Acrylic Paint"
 msgstr "Akrylfärg"
 
@@ -197,7 +197,7 @@ msgstr "Justera de 4 hörnen manuellt."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "All appdata lagras i webbläsarens lagring, även efter installation. Att rensa webbläsardata raderar allt."
 
-#: src/components/ImageEditor.tsx:313
+#: src/components/ImageEditor.tsx:306
 msgid "All edits will be lost"
 msgstr "Alla redigeringar kommer att gå förlorade"
 
@@ -368,25 +368,25 @@ msgstr "Bli betald medlem"
 msgid "Blending"
 msgstr "Blandning"
 
-#: src/components/messages.ts:81
+#: src/components/messages.ts:82
 msgid "By date"
 msgstr "Efter datum"
 
-#: src/components/messages.ts:76
-#: src/components/messages.ts:83
+#: src/components/messages.ts:77
+#: src/components/messages.ts:84
 msgid "By hue"
 msgstr "Efter färg"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "By ID"
 msgstr "Efter ID"
 
-#: src/components/messages.ts:77
-#: src/components/messages.ts:84
+#: src/components/messages.ts:78
+#: src/components/messages.ts:85
 msgid "By lightness"
 msgstr "Genom lätthet"
 
-#: src/components/messages.ts:82
+#: src/components/messages.ts:83
 msgid "By name"
 msgstr "Till namn"
 
@@ -400,7 +400,7 @@ msgstr "Kameraåtkomst krävs för AR-spårning"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:315
+#: src/components/ImageEditor.tsx:308
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:50
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -427,6 +427,7 @@ msgstr "Sök efter uppdateringar"
 #: src/components/image-editor/ExpandControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:53
 #: src/components/image-editor/RemoveObjectsControls.tsx:60
+#: src/components/image-editor/UpscaleControls.tsx:48
 #: src/components/ImageChooser.tsx:73
 #: src/components/ImageOutline.tsx:103
 #: src/components/ImageStyleTransfer.tsx:126
@@ -604,7 +605,7 @@ msgstr "Färgsättning"
 msgid "Color swatch"
 msgstr "Färgrutan"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Colored Pencils"
 msgstr "Färgpennor"
 
@@ -879,7 +880,7 @@ msgstr "Släpp filen här..."
 msgid "Drop the files here..."
 msgstr "Släpp filerna här..."
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Dry Pastel"
 msgstr "Torr Pastel"
 
@@ -907,7 +908,7 @@ msgstr "Redigering härifrån"
 msgid "Edit image"
 msgstr "Redigera bild"
 
-#: src/components/ImageEditor.tsx:325
+#: src/components/ImageEditor.tsx:318
 msgid "Edited"
 msgstr "Redigerat"
 
@@ -1067,7 +1068,7 @@ msgstr "Glasering"
 msgid "Go to the {label} tab"
 msgstr "Gå till fliken {label}"
 
-#: src/components/messages.ts:58
+#: src/components/messages.ts:59
 msgid "Gouache"
 msgstr "Gouache"
 
@@ -1389,6 +1390,11 @@ msgstr "Ny färguppsättning"
 msgid "New comparison"
 msgstr "Ny jämförelse"
 
+#: src/components/image-editor/ExpandControls.tsx:228
+#: src/components/image-editor/UpscaleControls.tsx:66
+msgid "New size: {outputWidth} × {outputHeight}"
+msgstr "Ny storlek: {outputWidth} × {outputHeight}"
+
 #: src/components/auth/AuthFeedbackHandler.tsx:41
 msgid "Next charge date"
 msgstr "Nästa laddningsdatum"
@@ -1430,11 +1436,11 @@ msgstr "Antal celler på den mindre sidan (vertikal eller horisontell)"
 msgid "Off"
 msgstr "Av"
 
-#: src/components/messages.ts:60
+#: src/components/messages.ts:61
 msgid "Oil Paint"
 msgstr "Oljemålning"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Oil Pastel"
 msgstr "Oljepastell"
 
@@ -1509,10 +1515,6 @@ msgstr "Kontur"
 #: src/components/image-editor/AdjustColorsControls.tsx:322
 msgid "Output levels"
 msgstr "Utgångsnivåer"
-
-#: src/components/image-editor/ExpandControls.tsx:228
-msgid "Output: {outputWidth} × {outputHeight}"
-msgstr "Utdata: {outputWidth} × {outputHeight}"
 
 #: src/components/color/ColorMixtureDescription.tsx:132
 msgid "over"
@@ -1668,6 +1670,10 @@ msgstr "Integritetspolicy"
 msgid "Processing..."
 msgstr "Bearbetar..."
 
+#: src/i18n.ts:141
+msgid "Processing... {percent}%"
+msgstr "Bearbetar... {percent} %"
+
 #: src/components/Help.tsx:182
 msgid "Quota"
 msgstr "Kvot"
@@ -1688,7 +1694,7 @@ msgstr "Förhållande"
 msgid "Realism"
 msgstr "Realism"
 
-#: src/components/ImageEditor.tsx:310
+#: src/components/ImageEditor.tsx:303
 msgid "Redo"
 msgstr "Göra om"
 
@@ -1758,8 +1764,8 @@ msgstr "Kräver macOS Sonoma eller senare."
 msgid "Resend code"
 msgstr "Skicka om kod"
 
-#: src/components/ImageEditor.tsx:314
-#: src/components/ImageEditor.tsx:319
+#: src/components/ImageEditor.tsx:307
+#: src/components/ImageEditor.tsx:312
 msgid "Reset"
 msgstr "Nollställa"
 
@@ -1916,7 +1922,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Välj bland dina senaste färguppsättningar eller skapa en ny."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:285
+#: src/components/ImageEditor.tsx:278
 msgid "Select image"
 msgstr "Välj bild"
 
@@ -2333,6 +2339,10 @@ msgstr "Den här enheten har ändringar gjorda medan ett annat konto var aktivt.
 msgid "This device has local data and existing synced cloud data, but no sync history. Choose which one to keep."
 msgstr "Den här enheten har lokal data och befintliga synkroniserade molndata, men ingen synkroniseringshistorik. Välj vilken du vill behålla."
 
+#: src/components/image-editor/UpscaleControls.tsx:72
+msgid "This image is already too large to upscale"
+msgstr "Den här bilden är redan för stor för att skala upp"
+
 #: src/components/auth/AuthFeedbackHandler.tsx:155
 msgid "This login code can't be used anymore. Request a new code to continue."
 msgstr "Denna inloggningskod kan inte användas längre. Begär en ny kod för att fortsätta."
@@ -2454,6 +2464,10 @@ msgstr "Det gick inte att ladda den smarta expansionsmodellen"
 msgid "Unable to load the styles"
 msgstr "Det gick inte att ladda stilarna"
 
+#: src/components/image-editor/UpscaleControls.tsx:47
+msgid "Unable to load the upscale model"
+msgstr "Det gick inte att ladda den exklusiva modellen"
+
 #: src/components/color-set/ColorSetActivationNotification.tsx:33
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Unable to restore the saved color set"
@@ -2464,7 +2478,7 @@ msgstr "Det gick inte att återställa den sparade färguppsättningen"
 msgid "Underlayer"
 msgstr "Underlager"
 
-#: src/components/ImageEditor.tsx:303
+#: src/components/ImageEditor.tsx:296
 msgid "Undo"
 msgstr "Ångra"
 
@@ -2510,6 +2524,11 @@ msgstr "Uppdatera nu"
 #: src/stores/cloud-slice.ts:141
 msgid "Uploading image {index} / {count}"
 msgstr "Laddar upp bild {index}/{count}"
+
+#: src/components/image-editor/UpscaleControls.tsx:85
+#: src/components/messages.ts:54
+msgid "Upscale"
+msgstr "Exklusivt"
 
 #: src/components/color/ConsistencyDescription.tsx:81
 msgid "Use <0>{fractionText} of full pressure</0>"
@@ -2576,15 +2595,15 @@ msgstr "Vattenfärg"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Akvarell kan spädas ut med vatten för att göra den mer transparent"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Watercolor Paint"
 msgstr "Akvarellfärg"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Watercolor Pencils"
 msgstr "Akvarellpennor"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Wax Pastel"
 msgstr "Vaxpastell"
 
@@ -2614,7 +2633,7 @@ msgstr "Vit"
 msgid "White balance"
 msgstr "Vitbalans"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "White paper or canvas"
 msgstr "Vitt papper eller duk"
 
@@ -2686,6 +2705,10 @@ msgstr "Dina data kanske inte sparas pålitligt om webbläsaren är stängd. Fö
 #: src/components/ImageStyleTransfer.tsx:291
 msgid "Your image"
 msgstr "Din bild"
+
+#: src/components/ImageEditor.tsx:329
+msgid "Your images are processed locally on your device and are never uploaded to any server"
+msgstr "Dina bilder bearbetas lokalt på din enhet och laddas aldrig upp till någon server"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:141
 msgid "Your login credentials could not be verified. Sign in again."

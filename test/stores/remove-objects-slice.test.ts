@@ -62,6 +62,7 @@ function createTestStore() {
             image,
             signal: new AbortController().signal,
             setDownloadTip: vi.fn(),
+            setProcessTip: vi.fn(),
           })
         : commandOrSupplier;
     return !!suppliedCommand;

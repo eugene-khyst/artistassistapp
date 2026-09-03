@@ -18,7 +18,17 @@
 
 import {CloseOutlined, RedoOutlined, UndoOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Button, Col, Collapse, type CollapseProps, Flex, Popconfirm, Row, Space} from 'antd';
+import {
+  Button,
+  Col,
+  Collapse,
+  type CollapseProps,
+  Flex,
+  Popconfirm,
+  Row,
+  Space,
+  Typography,
+} from 'antd';
 import {saveAs} from 'file-saver';
 import {type ReactNode, useEffect, useMemo, useState} from 'react';
 
@@ -31,6 +41,7 @@ import {ExpandControls} from '@/components/image-editor/ExpandControls';
 import {RemoveBackgroundControls} from '@/components/image-editor/RemoveBackgroundControls';
 import {RemoveObjectsControls} from '@/components/image-editor/RemoveObjectsControls';
 import {StraightenControls} from '@/components/image-editor/StraightenControls';
+import {UpscaleControls} from '@/components/image-editor/UpscaleControls';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {EDIT_IMAGE_LABELS} from '@/components/messages';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
@@ -40,15 +51,10 @@ import {ImageColorPickerMode} from '@/services/canvas/mode/image-color-picker-mo
 import {ImageCroppingMode} from '@/services/canvas/mode/image-cropping-mode';
 import {ImageEditorMode, ImageEditorModeType} from '@/services/canvas/mode/image-editor-mode';
 import {ImageExpandingMode} from '@/services/canvas/mode/image-expanding-mode';
-import {EditImageCommandType} from '@/services/image/edit-image-command';
 import {blobToImageFile} from '@/services/image/image-file';
 import {useAppStore} from '@/stores/app-store';
-import {getFilename} from '@/utils/filename';
-import {imageToBlob} from '@/utils/graphics';
 
 import styles from './ImageEditor.module.css';
-
-const FILENAME_SUFFIX = 'edited';
 
 const IMAGE_EDITOR_MODE_TYPES: Record<ImageEditorKey, ImageEditorModeType> = {
   [ImageEditorKey.Straighten]: ImageEditorModeType.Quadrilateral,
@@ -57,6 +63,7 @@ const IMAGE_EDITOR_MODE_TYPES: Record<ImageEditorKey, ImageEditorModeType> = {
   [ImageEditorKey.AdjustColors]: ImageEditorModeType.ColorPicker,
   [ImageEditorKey.RemoveBackground]: ImageEditorModeType.RemoveBackground,
   [ImageEditorKey.RemoveObjects]: ImageEditorModeType.Polygon,
+  [ImageEditorKey.Upscale]: ImageEditorModeType.Upscale,
 };
 
 function imageEditorModeSupplier() {
@@ -79,28 +86,11 @@ function imageEditorModeSupplier() {
       lineWidth: 3,
       canRemoveVertices: true,
     }),
+    [ImageEditorModeType.Upscale]: null,
   });
 }
 
 type ImageEditorModeInstance = ReturnType<typeof imageEditorModeSupplier>;
-
-async function editedImageBlob(): Promise<{blob: Blob; filename?: string} | undefined> {
-  const {editedImage, imageFileToEdit, editImageHistory} = useAppStore.getState();
-  if (!editedImage) {
-    return;
-  }
-  const encodeOptions: ImageEncodeOptions = {
-    type: editImageHistory.some(
-      ({command}) => command.type === EditImageCommandType.RemoveBackground
-    )
-      ? 'image/png'
-      : imageFileToEdit?.type || 'image/jpeg',
-  };
-  return {
-    blob: await imageToBlob(editedImage, {encodeOptions}),
-    filename: getFilename(imageFileToEdit, FILENAME_SUFFIX),
-  };
-}
 
 interface ImageEditorControlsContext {
   imageEditorMode?: ImageEditorModeInstance;
@@ -136,6 +126,7 @@ const IMAGE_EDITOR_CONTROLS: Record<
       polygonDrawingMode={imageEditorMode?.delegates[ImageEditorModeType.Polygon] ?? null}
     />
   ),
+  [ImageEditorKey.Upscale]: () => <UpscaleControls />,
 };
 
 export function ImageEditor() {
@@ -147,6 +138,7 @@ export function ImageEditor() {
   const undoneEditImageHistory = useAppStore(state => state.undoneEditImageHistory);
   const isEditedImageLoading = useAppStore(state => state.isEditedImageLoading);
   const editImageDownloadTip = useAppStore(state => state.editImageDownloadTip);
+  const editImageProcessTip = useAppStore(state => state.editImageProcessTip);
   const activeImageEditorKey = useAppStore(state => state.activeImageEditorKey);
   const straightenVertices = useAppStore(state => state.straightenVertices);
   const removeObjectsVertices = useAppStore(state => state.removeObjectsVertices);
@@ -158,6 +150,7 @@ export function ImageEditor() {
   const undoEditImage = useAppStore(state => state.undoEditImage);
   const redoEditImage = useAppStore(state => state.redoEditImage);
   const resetEditImage = useAppStore(state => state.resetEditImage);
+  const exportEditedImage = useAppStore(state => state.exportEditedImage);
   const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
 
   const {t} = useLingui();
@@ -215,7 +208,7 @@ export function ImageEditor() {
   };
 
   const handleSaveClick = async () => {
-    const result = await editedImageBlob();
+    const result = await exportEditedImage();
     if (!result) {
       return;
     }
@@ -223,7 +216,7 @@ export function ImageEditor() {
   };
 
   const handleSetAsReferenceClick = async () => {
-    const result = await editedImageBlob();
+    const result = await exportEditedImage();
     if (!result) {
       return;
     }
@@ -269,7 +262,7 @@ export function ImageEditor() {
   return (
     <LoadingIndicator
       loading={isEditedImageLoading}
-      tip={editImageDownloadTip}
+      tip={editImageProcessTip ?? editImageDownloadTip}
       onCancel={editImageOperation.abort}
     >
       <Row>
@@ -332,6 +325,12 @@ export function ImageEditor() {
                   items={collapseItems}
                   onChange={handleCollapseChange}
                 />
+                <Typography.Text type="secondary">
+                  <Trans>
+                    Your images are processed locally on your device and are never uploaded to any
+                    server
+                  </Trans>
+                </Typography.Text>
               </>
             )}
           </Flex>

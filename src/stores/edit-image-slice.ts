@@ -23,11 +23,17 @@ import {applyEditImageCommand} from '@/services/image/edit-image';
 import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit-image-command';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
 import {createAbortableOperation} from '@/utils/abortable-operation';
+import {getFilename} from '@/utils/filename';
+import {imageToBlob} from '@/utils/graphics';
+import {isAlphaMimeType} from '@/utils/mime';
+
+const FILENAME_SUFFIX = 'edited';
 
 export interface EditImageContext<T extends ImageBitmap | null = ImageBitmap | null> {
   image: T;
   signal: AbortSignal;
   setDownloadTip: (tip: string | null) => void;
+  setProcessTip: (tip: string | null) => void;
 }
 
 export type EditImageCommandSupplier = (
@@ -54,6 +60,7 @@ const EDITOR_KEY_BY_COMMAND_TYPE: Record<EditImageCommandType, ImageEditorKey> =
   [EditImageCommandType.AdjustColors]: ImageEditorKey.AdjustColors,
   [EditImageCommandType.RemoveBackground]: ImageEditorKey.RemoveBackground,
   [EditImageCommandType.RemoveObjects]: ImageEditorKey.RemoveObjects,
+  [EditImageCommandType.Upscale]: ImageEditorKey.Upscale,
 };
 
 function imageEditorKey(command: EditImageCommand): ImageEditorKey {
@@ -82,6 +89,15 @@ function sameCommands(a: readonly EditImageCommand[], b: readonly EditImageComma
   return a.length === b.length && a.every((command, index) => command === b[index]);
 }
 
+function hasBackgroundRemoved(history: readonly EditImageHistoryEntry[]): boolean {
+  return history.some(({command}) => command.type === EditImageCommandType.RemoveBackground);
+}
+
+export interface EditedImageFile {
+  blob: Blob;
+  filename?: string;
+}
+
 export interface EditImageSlice {
   imageFileToEdit: File | null;
   imageToEdit: ImageBitmap | null;
@@ -91,11 +107,14 @@ export interface EditImageSlice {
   undoneEditImageHistory: readonly EditImageHistoryEntry[];
   isEditedImageLoading: boolean;
   editImageDownloadTip: string | null;
+  editImageProcessTip: string | null;
   activeImageEditorKey?: ImageEditorKey;
   editImageOperation: EditImageOperation;
 
   setActiveImageEditorKey: (imageEditorKey: ImageEditorKey | undefined) => void;
   setImageFileToEdit: (imageFileToEdit: File | null) => Promise<void>;
+  hasEditedImageAlpha: () => boolean;
+  exportEditedImage: () => Promise<EditedImageFile | undefined>;
   undoEditImage: () => Promise<void>;
   redoEditImage: () => Promise<void>;
   resetEditImage: () => Promise<void>;
@@ -143,12 +162,14 @@ export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImag
       set({
         isEditedImageLoading: true,
         editImageDownloadTip: null,
+        editImageProcessTip: null,
       });
     },
     onFinish: () => {
       set({
         isEditedImageLoading: false,
         editImageDownloadTip: null,
+        editImageProcessTip: null,
       });
     },
   });
@@ -163,6 +184,13 @@ export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImag
       if (!signal.aborted) {
         set({
           editImageDownloadTip,
+        });
+      }
+    },
+    setProcessTip: (editImageProcessTip: string | null): void => {
+      if (!signal.aborted) {
+        set({
+          editImageProcessTip,
         });
       }
     },
@@ -368,6 +396,7 @@ export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImag
     undoneEditImageHistory: [],
     isEditedImageLoading: false,
     editImageDownloadTip: null,
+    editImageProcessTip: null,
     activeImageEditorKey: undefined,
     editImageOperation,
 
@@ -412,6 +441,7 @@ export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImag
             editImageHistory: [],
             undoneEditImageHistory: [],
             editImageDownloadTip: null,
+            editImageProcessTip: null,
             activeImageEditorKey: undefined,
           });
           imageEditorControls.resetAll();
@@ -424,6 +454,27 @@ export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImag
           editedImage?.close();
         }
       );
+    },
+
+    hasEditedImageAlpha: (): boolean => {
+      const {imageFileToEdit, editImageHistory} = get();
+      return hasBackgroundRemoved(editImageHistory) || isAlphaMimeType(imageFileToEdit?.type);
+    },
+
+    exportEditedImage: async (): Promise<EditedImageFile | undefined> => {
+      const {imageFileToEdit, editedImage, editImageHistory} = get();
+      if (!editedImage) {
+        return;
+      }
+      const encodeOptions: ImageEncodeOptions = {
+        type: hasBackgroundRemoved(editImageHistory)
+          ? 'image/png'
+          : imageFileToEdit?.type || 'image/jpeg',
+      };
+      return {
+        blob: await imageToBlob(editedImage, {encodeOptions}),
+        filename: getFilename(imageFileToEdit, FILENAME_SUFFIX),
+      };
     },
 
     undoEditImage: async (): Promise<void> => {

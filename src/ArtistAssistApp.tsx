@@ -148,14 +148,6 @@ export function ArtistAssistApp() {
       key: TabKey.StyleTransfer,
       children: <ImageStyleTransfer />,
     },
-    {
-      key: TabKey.EditImage,
-      children: <ImageEditor />,
-    },
-    {
-      key: TabKey.CompareImages,
-      children: <ImagesCompare />,
-    },
     ...(user
       ? [
           {
@@ -164,6 +156,14 @@ export function ArtistAssistApp() {
           },
         ]
       : []),
+    {
+      key: TabKey.CompareImages,
+      children: <ImagesCompare />,
+    },
+    {
+      key: TabKey.EditImage,
+      children: <ImageEditor />,
+    },
     {
       key: TabKey.Help,
       children: <Help />,

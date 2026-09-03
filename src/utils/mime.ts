@@ -24,6 +24,8 @@ const customTypes = {
   'application/octet-stream': ['onnx'],
 };
 
+const ALPHA_IMAGE_TYPES = ['image/png', 'image/webp', 'image/avif', 'image/gif'];
+
 const mime = new Mime(standardTypes).define(customTypes, true);
 
 type Result = {ok: true; expected: string | null} | {ok: false; expected: string};
@@ -71,4 +73,8 @@ export function findAcceptedMimeType(
 
 export function getExtensionForMimeType(type: string) {
   return mime.getExtension(type);
+}
+
+export function isAlphaMimeType(type: string | null | undefined): boolean {
+  return !!type && ALPHA_IMAGE_TYPES.includes(type);
 }

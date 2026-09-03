@@ -28,13 +28,14 @@ export function isAbortError(error: unknown): boolean {
   return error instanceof DOMException && error.name === ABORT_ERROR_NAME;
 }
 
-export function anySignal(signals: AbortSignal[]): AbortSignal {
+export function anySignal(signals: (AbortSignal | null | undefined)[]): AbortSignal {
+  const filteredSignals = signals.filter((signal): signal is AbortSignal => !!signal);
   // AbortSignal.any is unavailable before Safari 17.4 and Firefox 124.
   if (typeof AbortSignal.any === 'function') {
-    return AbortSignal.any(signals);
+    return AbortSignal.any(filteredSignals);
   }
   const controller = new AbortController();
-  for (const signal of signals) {
+  for (const signal of filteredSignals) {
     if (signal.aborted) {
       controller.abort(signal.reason);
       break;

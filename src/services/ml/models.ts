@@ -16,9 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DATA_METADATA_TIMEOUT_MS, DATA_URL} from '@/config';
+import {DATA_METADATA_TIMEOUT_MS, DATA_URL, FILES_URL} from '@/config';
+import type {Authentication} from '@/services/auth/types';
 import type {OnnxModel, OnnxModelType} from '@/services/ml/types';
-import {fetchSWR} from '@/utils/fetch';
+import {fetchChunked, type FetchProgressCallback, fetchSWR} from '@/utils/fetch';
 
 export async function fetchOnnxModels(type: OnnxModelType): Promise<OnnxModel[]> {
   const response = await fetchSWR(
@@ -27,4 +28,17 @@ export async function fetchOnnxModels(type: OnnxModelType): Promise<OnnxModel[]>
     })
   );
   return (await response.json()) as OnnxModel[];
+}
+
+export async function fetchOnnxModelBuffer(
+  modelUrl: string,
+  auth: Authentication | null,
+  progressCallback?: FetchProgressCallback,
+  signal?: AbortSignal
+): Promise<ArrayBuffer> {
+  const modelResponse: Response = await fetchChunked(new URL(modelUrl, FILES_URL), auth, {
+    progressCallback,
+    signal,
+  });
+  return await modelResponse.arrayBuffer();
 }

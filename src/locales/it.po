@@ -141,15 +141,15 @@ msgstr "Un valore inferiore al 100% rende l'immagine meno colorata e un valore s
 msgid "Accurate"
 msgstr "Preciso"
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Acrylic Gouache"
 msgstr "Guazzo acrilico"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Acrylic Markers"
 msgstr "Pennarelli acrilici"
 
-#: src/components/messages.ts:59
+#: src/components/messages.ts:60
 msgid "Acrylic Paint"
 msgstr "Acrilica"
 
@@ -197,7 +197,7 @@ msgstr "Regolare manualmente i 4 angoli."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Tutti i dati dell'app sono memorizzati nello storage del browser web, anche dopo l'installazione. Cancellare i dati del browser cancella tutto."
 
-#: src/components/ImageEditor.tsx:313
+#: src/components/ImageEditor.tsx:306
 msgid "All edits will be lost"
 msgstr "Tutte le modifiche andranno perse"
 
@@ -368,25 +368,25 @@ msgstr "Diventa un membro a pagamento"
 msgid "Blending"
 msgstr "Fusione"
 
-#: src/components/messages.ts:81
+#: src/components/messages.ts:82
 msgid "By date"
 msgstr "Per data"
 
-#: src/components/messages.ts:76
-#: src/components/messages.ts:83
+#: src/components/messages.ts:77
+#: src/components/messages.ts:84
 msgid "By hue"
 msgstr "Per tonalità"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "By ID"
 msgstr "Per ID"
 
-#: src/components/messages.ts:77
-#: src/components/messages.ts:84
+#: src/components/messages.ts:78
+#: src/components/messages.ts:85
 msgid "By lightness"
 msgstr "Per leggerezza"
 
-#: src/components/messages.ts:82
+#: src/components/messages.ts:83
 msgid "By name"
 msgstr "Per nome"
 
@@ -400,7 +400,7 @@ msgstr "L'accesso alla telecamera è necessario per il tracciamento AR"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:315
+#: src/components/ImageEditor.tsx:308
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:50
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -427,6 +427,7 @@ msgstr "Controlla gli aggiornamenti"
 #: src/components/image-editor/ExpandControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:53
 #: src/components/image-editor/RemoveObjectsControls.tsx:60
+#: src/components/image-editor/UpscaleControls.tsx:48
 #: src/components/ImageChooser.tsx:73
 #: src/components/ImageOutline.tsx:103
 #: src/components/ImageStyleTransfer.tsx:126
@@ -604,7 +605,7 @@ msgstr "Set di colori"
 msgid "Color swatch"
 msgstr "Campione di colore"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Colored Pencils"
 msgstr "Matite colorate"
 
@@ -879,7 +880,7 @@ msgstr "Lascia il file qui..."
 msgid "Drop the files here..."
 msgstr "Lascia i file qui..."
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Dry Pastel"
 msgstr "Pastello secco"
 
@@ -907,7 +908,7 @@ msgstr "Modifica da qui in poi"
 msgid "Edit image"
 msgstr "Modifica immagine"
 
-#: src/components/ImageEditor.tsx:325
+#: src/components/ImageEditor.tsx:318
 msgid "Edited"
 msgstr "Modificato"
 
@@ -1067,7 +1068,7 @@ msgstr "Smaltatura"
 msgid "Go to the {label} tab"
 msgstr "Vai alla scheda {label}"
 
-#: src/components/messages.ts:58
+#: src/components/messages.ts:59
 msgid "Gouache"
 msgstr "Guazzo"
 
@@ -1389,6 +1390,11 @@ msgstr "Nuovo set di colori"
 msgid "New comparison"
 msgstr "Nuovo confronto"
 
+#: src/components/image-editor/ExpandControls.tsx:228
+#: src/components/image-editor/UpscaleControls.tsx:66
+msgid "New size: {outputWidth} × {outputHeight}"
+msgstr "Nuova dimensione: {outputWidth} × {outputHeight}"
+
 #: src/components/auth/AuthFeedbackHandler.tsx:41
 msgid "Next charge date"
 msgstr "Prossima data di carica"
@@ -1430,11 +1436,11 @@ msgstr "Numero di celle sul lato più piccolo (verticale o orizzontale)"
 msgid "Off"
 msgstr "Spento"
 
-#: src/components/messages.ts:60
+#: src/components/messages.ts:61
 msgid "Oil Paint"
 msgstr "Pittura ad olio"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Oil Pastel"
 msgstr "Olio Pastello"
 
@@ -1509,10 +1515,6 @@ msgstr "Contorno"
 #: src/components/image-editor/AdjustColorsControls.tsx:322
 msgid "Output levels"
 msgstr "Livelli di uscita"
-
-#: src/components/image-editor/ExpandControls.tsx:228
-msgid "Output: {outputWidth} × {outputHeight}"
-msgstr "Risultato: {outputWidth} × {outputHeight}"
 
 #: src/components/color/ColorMixtureDescription.tsx:132
 msgid "over"
@@ -1668,6 +1670,10 @@ msgstr "Informativa sulla privacy"
 msgid "Processing..."
 msgstr "Elaborazione..."
 
+#: src/i18n.ts:141
+msgid "Processing... {percent}%"
+msgstr "Elaborazione in corso... {percent}%"
+
 #: src/components/Help.tsx:182
 msgid "Quota"
 msgstr "Quota"
@@ -1688,7 +1694,7 @@ msgstr "Rapporto"
 msgid "Realism"
 msgstr "Realismo"
 
-#: src/components/ImageEditor.tsx:310
+#: src/components/ImageEditor.tsx:303
 msgid "Redo"
 msgstr "Rifare"
 
@@ -1758,8 +1764,8 @@ msgstr "Richiede macOS Sonoma o versioni successive."
 msgid "Resend code"
 msgstr "Riinvio codice"
 
-#: src/components/ImageEditor.tsx:314
-#: src/components/ImageEditor.tsx:319
+#: src/components/ImageEditor.tsx:307
+#: src/components/ImageEditor.tsx:312
 msgid "Reset"
 msgstr "Resettare"
 
@@ -1916,7 +1922,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Seleziona dai tuoi set di colori recenti o creane uno nuovo."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:285
+#: src/components/ImageEditor.tsx:278
 msgid "Select image"
 msgstr "Seleziona immagine"
 
@@ -2333,6 +2339,10 @@ msgstr "Questo dispositivo ha cambiato mentre un altro account era attivo. Tieni
 msgid "This device has local data and existing synced cloud data, but no sync history. Choose which one to keep."
 msgstr "Questo dispositivo dispone di dati locali e dati cloud sincronizzati esistenti, ma nessuna cronologia di sincronizzazione. Scegli quale tenere."
 
+#: src/components/image-editor/UpscaleControls.tsx:72
+msgid "This image is already too large to upscale"
+msgstr "Questa immagine è già troppo grande per essere ingrandita"
+
 #: src/components/auth/AuthFeedbackHandler.tsx:155
 msgid "This login code can't be used anymore. Request a new code to continue."
 msgstr "Questo codice di accesso non può più essere usato. Richiedi un nuovo codice per continuare."
@@ -2454,6 +2464,10 @@ msgstr "Impossibile caricare il modello di espansione intelligente"
 msgid "Unable to load the styles"
 msgstr "Impossibile caricare gli stili"
 
+#: src/components/image-editor/UpscaleControls.tsx:47
+msgid "Unable to load the upscale model"
+msgstr "Impossibile caricare il modello di alto livello"
+
 #: src/components/color-set/ColorSetActivationNotification.tsx:33
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Unable to restore the saved color set"
@@ -2464,7 +2478,7 @@ msgstr "Impossibile ripristinare il set di colori salvato"
 msgid "Underlayer"
 msgstr "Strato sottostante"
 
-#: src/components/ImageEditor.tsx:303
+#: src/components/ImageEditor.tsx:296
 msgid "Undo"
 msgstr "Disfare"
 
@@ -2510,6 +2524,11 @@ msgstr "Aggiorna ora"
 #: src/stores/cloud-slice.ts:141
 msgid "Uploading image {index} / {count}"
 msgstr "Caricamento immagine {index}/{count}"
+
+#: src/components/image-editor/UpscaleControls.tsx:85
+#: src/components/messages.ts:54
+msgid "Upscale"
+msgstr "Di lusso"
 
 #: src/components/color/ConsistencyDescription.tsx:81
 msgid "Use <0>{fractionText} of full pressure</0>"
@@ -2576,15 +2595,15 @@ msgstr "Acquerello"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "L'acquerello può essere diluito con acqua per renderlo più trasparente"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Watercolor Paint"
 msgstr "Pittura ad acquerello"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Watercolor Pencils"
 msgstr "Matite acquerellabili"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Wax Pastel"
 msgstr "Pastello di cera"
 
@@ -2614,7 +2633,7 @@ msgstr "Bianco"
 msgid "White balance"
 msgstr "Bilanciamento del bianco"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "White paper or canvas"
 msgstr "White paper o tela"
 
@@ -2686,6 +2705,10 @@ msgstr "I tuoi dati potrebbero non essere salvati in modo affidabile se il brows
 #: src/components/ImageStyleTransfer.tsx:291
 msgid "Your image"
 msgstr "La tua immagine"
+
+#: src/components/ImageEditor.tsx:329
+msgid "Your images are processed locally on your device and are never uploaded to any server"
+msgstr "Le tue immagini vengono elaborate localmente sul tuo dispositivo e non vengono mai caricate su nessun server"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:141
 msgid "Your login credentials could not be verified. Sign in again."

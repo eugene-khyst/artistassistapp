@@ -141,15 +141,15 @@ msgstr "Een waarde van minder dan 100% zorgt ervoor dat de afbeelding er minder 
 msgid "Accurate"
 msgstr "Nauwkeurig"
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Acrylic Gouache"
 msgstr "Acryl gouache"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Acrylic Markers"
 msgstr "Acryl markers"
 
-#: src/components/messages.ts:59
+#: src/components/messages.ts:60
 msgid "Acrylic Paint"
 msgstr "Acrylverf"
 
@@ -197,7 +197,7 @@ msgstr "Pas de 4 hoeken handmatig aan."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Alle appgegevens worden opgeslagen in de opslag van de webbrowser, zelfs na installatie. Het wissen van de browsergegevens verwijdert alles."
 
-#: src/components/ImageEditor.tsx:313
+#: src/components/ImageEditor.tsx:306
 msgid "All edits will be lost"
 msgstr "Alle bewerkingen gaan verloren"
 
@@ -368,25 +368,25 @@ msgstr "Word betaald lid"
 msgid "Blending"
 msgstr "Blending"
 
-#: src/components/messages.ts:81
+#: src/components/messages.ts:82
 msgid "By date"
 msgstr "Op datum"
 
-#: src/components/messages.ts:76
-#: src/components/messages.ts:83
+#: src/components/messages.ts:77
+#: src/components/messages.ts:84
 msgid "By hue"
 msgstr "Per kleur"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "By ID"
 msgstr "Op ID"
 
-#: src/components/messages.ts:77
-#: src/components/messages.ts:84
+#: src/components/messages.ts:78
+#: src/components/messages.ts:85
 msgid "By lightness"
 msgstr "Door lichtheid"
 
-#: src/components/messages.ts:82
+#: src/components/messages.ts:83
 msgid "By name"
 msgstr "Op naam"
 
@@ -400,7 +400,7 @@ msgstr "Camera-toegang is vereist voor AR-tracering"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:315
+#: src/components/ImageEditor.tsx:308
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:50
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -427,6 +427,7 @@ msgstr "Controleren op updates"
 #: src/components/image-editor/ExpandControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:53
 #: src/components/image-editor/RemoveObjectsControls.tsx:60
+#: src/components/image-editor/UpscaleControls.tsx:48
 #: src/components/ImageChooser.tsx:73
 #: src/components/ImageOutline.tsx:103
 #: src/components/ImageStyleTransfer.tsx:126
@@ -604,7 +605,7 @@ msgstr "Kleur set"
 msgid "Color swatch"
 msgstr "Kleurstaal"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Colored Pencils"
 msgstr "Kleurpotloden"
 
@@ -879,7 +880,7 @@ msgstr "Laat het dossier hier vallen..."
 msgid "Drop the files here..."
 msgstr "Laat de bestanden hier vallen..."
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Dry Pastel"
 msgstr "Droog Pastel"
 
@@ -907,7 +908,7 @@ msgstr "Bewerking vanaf hier"
 msgid "Edit image"
 msgstr "Afbeelding bewerken"
 
-#: src/components/ImageEditor.tsx:325
+#: src/components/ImageEditor.tsx:318
 msgid "Edited"
 msgstr "Bewerkt"
 
@@ -1067,7 +1068,7 @@ msgstr "Beglazing"
 msgid "Go to the {label} tab"
 msgstr "Ga naar het tabblad {label}"
 
-#: src/components/messages.ts:58
+#: src/components/messages.ts:59
 msgid "Gouache"
 msgstr "Gouache"
 
@@ -1389,6 +1390,11 @@ msgstr "Nieuwe kleurenset"
 msgid "New comparison"
 msgstr "Nieuwe vergelijking"
 
+#: src/components/image-editor/ExpandControls.tsx:228
+#: src/components/image-editor/UpscaleControls.tsx:66
+msgid "New size: {outputWidth} × {outputHeight}"
+msgstr "Nieuw formaat: {outputWidth} × {outputHeight}"
+
 #: src/components/auth/AuthFeedbackHandler.tsx:41
 msgid "Next charge date"
 msgstr "Volgende aanklachtdatum"
@@ -1430,11 +1436,11 @@ msgstr "Aantal cellen aan de kleinere kant (verticaal of horizontaal)"
 msgid "Off"
 msgstr "Uit"
 
-#: src/components/messages.ts:60
+#: src/components/messages.ts:61
 msgid "Oil Paint"
 msgstr "Olieverf"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Oil Pastel"
 msgstr "Olie pastel"
 
@@ -1509,10 +1515,6 @@ msgstr "Omtrek"
 #: src/components/image-editor/AdjustColorsControls.tsx:322
 msgid "Output levels"
 msgstr "Output niveaus"
-
-#: src/components/image-editor/ExpandControls.tsx:228
-msgid "Output: {outputWidth} × {outputHeight}"
-msgstr "Uitvoer: {outputWidth} × {outputHeight}"
 
 #: src/components/color/ColorMixtureDescription.tsx:132
 msgid "over"
@@ -1668,6 +1670,10 @@ msgstr "Privacybeleid"
 msgid "Processing..."
 msgstr "Verwerken..."
 
+#: src/i18n.ts:141
+msgid "Processing... {percent}%"
+msgstr "Verwerken... {percent}%"
+
 #: src/components/Help.tsx:182
 msgid "Quota"
 msgstr "Quotum"
@@ -1688,7 +1694,7 @@ msgstr "Verhouding"
 msgid "Realism"
 msgstr "Realisme"
 
-#: src/components/ImageEditor.tsx:310
+#: src/components/ImageEditor.tsx:303
 msgid "Redo"
 msgstr "Opnieuw uitvoeren"
 
@@ -1758,8 +1764,8 @@ msgstr "Vereist macOS Sonoma of hoger."
 msgid "Resend code"
 msgstr "Code opnieuw verzenden"
 
-#: src/components/ImageEditor.tsx:314
-#: src/components/ImageEditor.tsx:319
+#: src/components/ImageEditor.tsx:307
+#: src/components/ImageEditor.tsx:312
 msgid "Reset"
 msgstr "Terugstellen"
 
@@ -1916,7 +1922,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Maak een keuze uit uw recente kleurensets of maak een nieuwe."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:285
+#: src/components/ImageEditor.tsx:278
 msgid "Select image"
 msgstr "Selecteer afbeelding"
 
@@ -2333,6 +2339,10 @@ msgstr "Dit apparaat heeft wijzigingen aangebracht terwijl een ander account act
 msgid "This device has local data and existing synced cloud data, but no sync history. Choose which one to keep."
 msgstr "Dit apparaat heeft lokale gegevens en bestaande gesynchroniseerde cloudgegevens, maar geen synchronisatiegeschiedenis. Kies welke je wilt behouden."
 
+#: src/components/image-editor/UpscaleControls.tsx:72
+msgid "This image is already too large to upscale"
+msgstr "Deze afbeelding is al te groot om op te schalen"
+
 #: src/components/auth/AuthFeedbackHandler.tsx:155
 msgid "This login code can't be used anymore. Request a new code to continue."
 msgstr "Deze inlogcode kan niet meer worden gebruikt. Vraag een nieuwe code aan om door te gaan."
@@ -2454,6 +2464,10 @@ msgstr "Kan het slimme uitbreidingsmodel niet laden"
 msgid "Unable to load the styles"
 msgstr "Kan de stijlen niet laden"
 
+#: src/components/image-editor/UpscaleControls.tsx:47
+msgid "Unable to load the upscale model"
+msgstr "Kan het luxe model niet laden"
+
 #: src/components/color-set/ColorSetActivationNotification.tsx:33
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Unable to restore the saved color set"
@@ -2464,7 +2478,7 @@ msgstr "Kan de opgeslagen kleurenset niet herstellen"
 msgid "Underlayer"
 msgstr "Onderlaag"
 
-#: src/components/ImageEditor.tsx:303
+#: src/components/ImageEditor.tsx:296
 msgid "Undo"
 msgstr "Ongedaan maken"
 
@@ -2510,6 +2524,11 @@ msgstr "Update nu"
 #: src/stores/cloud-slice.ts:141
 msgid "Uploading image {index} / {count}"
 msgstr "Afbeelding uploaden {index} / {count}"
+
+#: src/components/image-editor/UpscaleControls.tsx:85
+#: src/components/messages.ts:54
+msgid "Upscale"
+msgstr "Luxe"
 
 #: src/components/color/ConsistencyDescription.tsx:81
 msgid "Use <0>{fractionText} of full pressure</0>"
@@ -2576,15 +2595,15 @@ msgstr "Waterverf"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Waterverf kan worden verdund met water om het transparanter te maken"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Watercolor Paint"
 msgstr "Aquarel Verf"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Watercolor Pencils"
 msgstr "Aquarel potloden"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Wax Pastel"
 msgstr "Waspastel"
 
@@ -2614,7 +2633,7 @@ msgstr "Wit"
 msgid "White balance"
 msgstr "Witbalans"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "White paper or canvas"
 msgstr "Wit papier of canvas"
 
@@ -2686,6 +2705,10 @@ msgstr "Je gegevens worden mogelijk niet betrouwbaar opgeslagen als de browser g
 #: src/components/ImageStyleTransfer.tsx:291
 msgid "Your image"
 msgstr "Jouw afbeelding"
+
+#: src/components/ImageEditor.tsx:329
+msgid "Your images are processed locally on your device and are never uploaded to any server"
+msgstr "Uw afbeeldingen worden lokaal op uw apparaat verwerkt en worden nooit naar een server geüpload"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:141
 msgid "Your login credentials could not be verified. Sign in again."

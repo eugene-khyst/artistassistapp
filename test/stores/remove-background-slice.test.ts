@@ -73,6 +73,7 @@ function createTestStore(image: ImageBitmap) {
               image,
               signal: new AbortController().signal,
               setDownloadTip: vi.fn(),
+              setProcessTip: vi.fn(),
             } satisfies EditImageContext<ImageBitmap>)
           : commandOrSupplier;
       if (!command) {

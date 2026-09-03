@@ -22,7 +22,7 @@ import {interpolationWebGL} from '@/services/image/filter/interpolation-webgl';
 import {Interpolation} from '@/services/image/filter/types';
 import {float32TensorToImageData, imageDataToFloat32Tensor} from '@/services/ml/tensor';
 import type {OnnxModel} from '@/services/ml/types';
-import {runInferenceWorker} from '@/services/ml/worker/inference-worker-manager';
+import {type InferenceRun, runInferenceWorker} from '@/services/ml/worker/inference-worker-manager';
 import type {FetchProgressCallback} from '@/utils/fetch';
 import {
   DrawImage,
@@ -49,20 +49,31 @@ export async function transformImage({
   signal?: AbortSignal;
   interpolation?: Interpolation | null;
 }): Promise<OffscreenCanvas> {
-  const {url: modelUrl, outputName} = model;
-  const [image] = images;
-  const {width, height} = image!;
+  return await transformImageInSession({
+    images,
+    model,
+    interpolation,
+    run: (inputTensors, outputName) =>
+      runInferenceWorker(model.url, auth, inputTensors, outputName, progressCallback, signal),
+  });
+}
+
+export async function transformImageInSession({
+  images,
+  model,
+  run,
+  interpolation = Interpolation.Lanczos,
+}: {
+  images: DrawImageSource[];
+  model: OnnxModel;
+  run: InferenceRun;
+  interpolation?: Interpolation | null;
+}): Promise<OffscreenCanvas> {
+  const {width, height} = images[0]!;
   const inputTensors = imageBitmapToImageData(images, model).map((imageData, index) =>
     imageDataToFloat32Tensor(imageData, model, index)
   );
-  const [outputTensor] = await runInferenceWorker(
-    modelUrl,
-    auth,
-    [inputTensors],
-    outputName,
-    progressCallback,
-    signal
-  );
+  const [outputTensor] = await run([inputTensors], model.outputName);
   const outputCanvas = imageDataToOffscreenCanvas(float32TensorToImageData(outputTensor!, model));
   return interpolation
     ? interpolationWebGL(outputCanvas, width, height, interpolation)

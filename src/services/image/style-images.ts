@@ -47,7 +47,7 @@ export async function fetchStyleImageFile(url: string, signal?: AbortSignal): Pr
   const timeoutSignal = AbortSignal.timeout(STYLE_IMAGE_TIMEOUT_MS);
   const response = await fetch(new URL(url, DATA_URL), {
     mode: 'cors',
-    signal: signal ? anySignal([signal, timeoutSignal]) : timeoutSignal,
+    signal: anySignal([signal, timeoutSignal]),
   });
   if (!response.ok) {
     throw new Error(`HTTP ${response.status} for ${url}`);
