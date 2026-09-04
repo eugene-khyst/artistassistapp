@@ -35,8 +35,8 @@ export interface RemoveBackgroundSlice {
   removeBackgroundModel?: OnnxModel;
 
   resetRemoveBackground: () => void;
-  setRemoveBackgroundColor: (backgroundRemovalColor: string | null) => void;
-  setRemoveBackgroundModel: (backgroundRemovalModel: OnnxModel | undefined) => void;
+  setRemoveBackgroundColor: (removeBackgroundColor: string | null) => void;
+  setRemoveBackgroundModel: (removeBackgroundModel: OnnxModel | undefined) => void;
   removeBackground: () => Promise<void>;
 }
 
@@ -86,9 +86,9 @@ export const createRemoveBackgroundSlice: StateCreator<
 
     resetRemoveBackground,
 
-    setRemoveBackgroundColor: (backgroundRemovalColor: string | null): void => {
+    setRemoveBackgroundColor: (removeBackgroundColor: string | null): void => {
       set({
-        removeBackgroundColor: backgroundRemovalColor,
+        removeBackgroundColor,
       });
       const command = editableBackgroundCommand(get().editImageHistory);
       if (!command) {
@@ -96,17 +96,17 @@ export const createRemoveBackgroundSlice: StateCreator<
       }
       const updatedCommand: RemoveBackgroundCommand = {
         ...command,
-        backgroundColor: backgroundRemovalColor,
+        backgroundColor: removeBackgroundColor,
       };
       void get().editImageOperation.preview(updatedCommand);
     },
 
-    setRemoveBackgroundModel: (backgroundRemovalModel: OnnxModel | undefined): void => {
-      if (get().removeBackgroundModel === backgroundRemovalModel) {
+    setRemoveBackgroundModel: (removeBackgroundModel: OnnxModel | undefined): void => {
+      if (get().removeBackgroundModel === removeBackgroundModel) {
         return;
       }
       set({
-        removeBackgroundModel: backgroundRemovalModel,
+        removeBackgroundModel,
       });
     },
 

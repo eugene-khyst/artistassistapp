@@ -69,7 +69,7 @@ describe('interpolationWebGL', () => {
     expect(mocks.constructor).toHaveBeenCalledExactlyOnceWith([expect.any(String)], [[]], image, {
       floatRenderTargets: false,
       premultiplyAlpha: true,
-      size: [600, 400],
+      size: {width: 600, height: 400},
     });
     expect(mocks.render).toHaveBeenCalledExactlyOnceWith(undefined);
     expect(mocks.copyOffscreenCanvas).toHaveBeenCalledExactlyOnceWith(mocks.canvas);
@@ -85,12 +85,12 @@ describe('interpolationWebGL', () => {
       [expect.any(String)],
       [['u_direction', 'u_sourceScale', 'u_clampPremultipliedAlpha']],
       image,
-      {floatRenderTargets: true, premultiplyAlpha: true, size: [600, 400]}
+      {floatRenderTargets: true, premultiplyAlpha: true, size: {width: 600, height: 400}}
     );
     const renderPasses = mocks.render.mock.calls[0]![0] as RenderPass[];
     expect(renderPasses).toHaveLength(2);
-    expect(renderPasses[0]!.outputSize).toEqual([512, 400]);
-    expect(renderPasses[1]!.outputSize).toEqual([600, 400]);
+    expect(renderPasses[0]!.outputSize).toEqual({width: 512, height: 400});
+    expect(renderPasses[1]!.outputSize).toEqual({width: 600, height: 400});
 
     const directionLocation = {} as WebGLUniformLocation;
     const sourceScaleLocation = {} as WebGLUniformLocation;
@@ -124,8 +124,8 @@ describe('interpolationWebGL', () => {
 
     const renderPasses = mocks.render.mock.calls[0]![0] as RenderPass[];
     expect(renderPasses.map(({outputSize}) => outputSize)).toEqual([
-      [400, 512],
-      [400, 600],
+      {width: 400, height: 512},
+      {width: 400, height: 600},
     ]);
   });
 
@@ -140,7 +140,7 @@ describe('interpolationWebGL', () => {
 
     const renderPasses = mocks.render.mock.calls[0]![0] as RenderPass[];
     expect(renderPasses).toHaveLength(1);
-    expect(renderPasses[0]!.outputSize).toEqual([targetWidth, targetHeight]);
+    expect(renderPasses[0]!.outputSize).toEqual({width: targetWidth, height: targetHeight});
   });
 
   it('cleans up the renderer when rendering fails', () => {

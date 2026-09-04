@@ -23,10 +23,9 @@ import {ImageEditorKey} from '@/image-editor';
 import type {Authentication} from '@/services/auth/types';
 import {hasAccessTo} from '@/services/auth/utils';
 import {commandVertices, EditImageCommandType} from '@/services/image/edit-image-command';
-import {fitInpaintedImage} from '@/services/image/inpainting-fit';
+import {inpaintImage} from '@/services/image/inpaint';
 import {inpaintingWindowSquare, polygonPatchRectangle} from '@/services/image/inpainting-patch';
 import {Rectangle, Vector} from '@/services/math/geometry';
-import {transformImage} from '@/services/ml/image-transformer';
 import type {OnnxModel} from '@/services/ml/types';
 import type {AuthSlice} from '@/stores/auth-slice';
 import type {EditImageSlice} from '@/stores/edit-image-slice';
@@ -88,7 +87,7 @@ async function prepareRemoveObjectsWindow({
 async function createRemoveObjectsPatch({
   image,
   vertices,
-  model,
+  inpaintModel,
   upscaleModel,
   auth,
   progressCallback,
@@ -96,26 +95,23 @@ async function createRemoveObjectsPatch({
 }: {
   image: ImageBitmap;
   vertices: readonly Vector[];
-  model: OnnxModel;
+  inpaintModel: OnnxModel;
   upscaleModel: OnnxModel;
   auth: Authentication | null;
   progressCallback: FetchProgressCallback;
   signal: AbortSignal;
 }): Promise<{patchRectangle: Rectangle; result: Blob}> {
   const {patchRectangle, windowRectangle, windowImage, windowMask} =
-    await prepareRemoveObjectsWindow({image, vertices, model, signal});
-  const inpaintedImage = await transformImage({
+    await prepareRemoveObjectsWindow({
+      image,
+      vertices,
+      model: inpaintModel,
+      signal,
+    });
+  const inpaintedImage = await inpaintImage({
     images: [windowImage, windowMask],
-    model,
-    auth,
-    progressCallback,
-    signal,
-    interpolation: null,
-  });
-  signal.throwIfAborted();
-  const fittedImage = await fitInpaintedImage({
-    image: inpaintedImage,
     target: windowRectangle,
+    inpaintModel,
     upscaleModel,
     auth,
     progressCallback,
@@ -126,7 +122,7 @@ async function createRemoveObjectsPatch({
     patchRectangle.width,
     patchRectangle.height
   );
-  const result = await imageToBlob(fittedImage, {
+  const result = await imageToBlob(inpaintedImage, {
     drawImage: DrawImage.cropRectangle(windowPatchRectangle),
   });
   signal.throwIfAborted();
@@ -197,9 +193,8 @@ export const createRemoveObjectsSlice: StateCreator<
       if (
         vertices.length < 3 ||
         !removeObjectsModel ||
-        !hasAccessTo(auth?.user, removeObjectsModel) ||
         !removeObjectsUpscaleModel ||
-        !hasAccessTo(auth?.user, removeObjectsUpscaleModel)
+        !hasAccessTo(auth?.user, [removeObjectsModel, removeObjectsUpscaleModel])
       ) {
         return false;
       }
@@ -207,7 +202,7 @@ export const createRemoveObjectsSlice: StateCreator<
         const {patchRectangle, result} = await createRemoveObjectsPatch({
           image,
           vertices,
-          model: removeObjectsModel,
+          inpaintModel: removeObjectsModel,
           upscaleModel: removeObjectsUpscaleModel,
           auth,
           progressCallback: (key, progress) => {

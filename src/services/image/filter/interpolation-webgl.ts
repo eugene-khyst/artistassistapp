@@ -18,8 +18,7 @@
 
 import {Interpolation} from '@/services/image/filter/types';
 import {type RenderPass, WebGLRenderer} from '@/services/image/filter/webgl-renderer';
-import {copyOffscreenCanvas} from '@/utils/graphics';
-import type {Size} from '@/utils/types';
+import {copyOffscreenCanvas, type ImageDimension} from '@/utils/graphics';
 
 import bilinearFragmentShaderSource from './glsl/bilinear-interpolation.glsl';
 import lanczosFragmentShaderSource from './glsl/lanczos-interpolation.glsl';
@@ -67,7 +66,7 @@ export function interpolationWebGL(
   const renderer = new WebGLRenderer([fragmentShaderSource], [uniformNames], image, {
     floatRenderTargets,
     premultiplyAlpha: true,
-    size: [targetWidth, targetHeight],
+    size: {width: targetWidth, height: targetHeight},
   });
   try {
     renderer.render(renderPasses?.(image, targetWidth, targetHeight));
@@ -83,9 +82,9 @@ function lanczosRenderPasses(
   targetHeight: number
 ): RenderPass[] {
   const horizontalPass = (height: number, isLast = false) =>
-    lanczosRenderPass(HORIZONTAL, image.width / targetWidth, [targetWidth, height], isLast);
+    lanczosRenderPass(HORIZONTAL, image.width / targetWidth, {width: targetWidth, height}, isLast);
   const verticalPass = (width: number, isLast = false) =>
-    lanczosRenderPass(VERTICAL, image.height / targetHeight, [width, targetHeight], isLast);
+    lanczosRenderPass(VERTICAL, image.height / targetHeight, {width, height: targetHeight}, isLast);
 
   if (targetWidth === image.width) {
     return [verticalPass(targetWidth, true)];
@@ -104,7 +103,7 @@ function lanczosRenderPasses(
 function lanczosRenderPass(
   direction: Direction,
   sourceScale: number,
-  outputSize: Size,
+  outputSize: ImageDimension,
   clampPremultipliedAlpha: boolean
 ): RenderPass {
   return {

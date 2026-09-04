@@ -41,7 +41,9 @@ export type EditImageCommandSupplier = (
 ) => EditImageCommand | null | Promise<EditImageCommand | null>;
 
 export interface EditImageOperation {
-  run: <T>(task: (context: EditImageContext) => T | Promise<T>) => Promise<T | undefined>;
+  withEditedImage: <T>(
+    task: (context: EditImageContext) => T | Promise<T>
+  ) => Promise<T | undefined>;
   preview: (commandOrSupplier: EditImageCommand | EditImageCommandSupplier) => Promise<boolean>;
   execute: (commandOrSupplier: EditImageCommand | EditImageCommandSupplier) => Promise<boolean>;
   abort: () => void;
@@ -61,6 +63,7 @@ const EDITOR_KEY_BY_COMMAND_TYPE: Record<EditImageCommandType, ImageEditorKey> =
   [EditImageCommandType.RemoveBackground]: ImageEditorKey.RemoveBackground,
   [EditImageCommandType.RemoveObjects]: ImageEditorKey.RemoveObjects,
   [EditImageCommandType.Upscale]: ImageEditorKey.Upscale,
+  [EditImageCommandType.Colorize]: ImageEditorKey.Colorize,
 };
 
 function imageEditorKey(command: EditImageCommand): ImageEditorKey {
@@ -123,7 +126,7 @@ export interface EditImageSlice {
 interface RenderedHistory {
   editedImage: ImageBitmap;
   imageBeforeLastEdit: ImageBitmap | null;
-  owned: readonly ImageBitmap[];
+  closeOnDiscard: readonly ImageBitmap[];
 }
 
 interface AppliedEditImageHistory {
@@ -240,15 +243,23 @@ export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImag
       const cached = commands.length ? renderedImage(commandsBeforeLastEdit) : null;
       // Only a replaceable last edit starts from the prefix, so only then is it worth rendering.
       if (cached || !history.at(-1)?.replaceable) {
-        return {editedImage: alreadyRendered, imageBeforeLastEdit: cached, owned: []};
+        return {
+          editedImage: alreadyRendered,
+          imageBeforeLastEdit: cached,
+          closeOnDiscard: [],
+        };
       }
       const replayed = await replayCommands(imageToEdit, commandsBeforeLastEdit, signal);
-      return {editedImage: alreadyRendered, imageBeforeLastEdit: replayed, owned: [replayed]};
+      return {
+        editedImage: alreadyRendered,
+        imageBeforeLastEdit: replayed,
+        closeOnDiscard: [replayed],
+      };
     }
     const lastCommand = commands.at(-1);
     if (!lastCommand) {
       const replayed = await replayCommands(imageToEdit, commands, signal);
-      return {editedImage: replayed, imageBeforeLastEdit: null, owned: [replayed]};
+      return {editedImage: replayed, imageBeforeLastEdit: null, closeOnDiscard: [replayed]};
     }
     const cached = renderedImage(commandsBeforeLastEdit);
     const imageBeforeLastEdit =
@@ -258,7 +269,7 @@ export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImag
       return {
         editedImage,
         imageBeforeLastEdit,
-        owned: cached ? [editedImage] : [imageBeforeLastEdit, editedImage],
+        closeOnDiscard: cached ? [editedImage] : [imageBeforeLastEdit, editedImage],
       };
     } catch (error) {
       if (!cached) {
@@ -300,7 +311,7 @@ export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImag
         return true;
       },
       result => {
-        result?.rendered.owned.forEach(image => {
+        result?.rendered.closeOnDiscard.forEach(image => {
           image.close();
         });
       }
@@ -365,7 +376,9 @@ export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImag
   };
 
   const editImageOperation: EditImageOperation = {
-    run: async <T>(task: (context: EditImageContext) => T | Promise<T>): Promise<T | undefined> =>
+    withEditedImage: async <T>(
+      task: (context: EditImageContext) => T | Promise<T>
+    ): Promise<T | undefined> =>
       await abortableOperation.run(
         async signal => await task(createEditImageContext(signal, get().editedImage))
       ),

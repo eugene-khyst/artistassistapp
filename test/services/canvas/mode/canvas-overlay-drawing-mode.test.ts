@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {describe, expect, it, vi} from 'vitest';
+import {beforeEach, describe, expect, it, vi} from 'vitest';
 
 import type {
   CanvasModeContext,
@@ -24,10 +24,17 @@ import type {
 } from '@/services/canvas/mode/canvas-mode';
 import {CanvasOverlayDrawingMode} from '@/services/canvas/mode/canvas-overlay-drawing-mode';
 import {Rectangle, Vector} from '@/services/math/geometry';
+import type * as graphics from '@/utils/graphics';
 import {IMAGE_SIZE} from '@/utils/graphics';
 
-vi.mock('@/services/image/filter/invert-colors-webgl', () => ({
-  invertColorsWebGL: vi.fn(),
+const invertMocks = vi.hoisted(() => ({invertColorsWebGL: vi.fn()}));
+
+vi.mock('@/services/image/filter/invert-colors-webgl', () => invertMocks);
+
+// The production helper returns a canvas unchanged, which is all these images need to be.
+vi.mock('@/utils/graphics', async importOriginal => ({
+  ...(await importOriginal<typeof graphics>()),
+  toOffscreenCanvas: (image: unknown) => image,
 }));
 
 class TestOverlayDrawingMode extends CanvasOverlayDrawingMode {
@@ -63,5 +70,97 @@ describe('CanvasOverlayDrawingMode', () => {
     expect(mode.getEffectiveLineWidth()).toBe(4);
     exporting = false;
     expect(mode.getEffectiveLineWidth()).toBe(2);
+  });
+
+  /**
+   * The editor passes three images and displays one. Inverting all of them costs three WebGL
+   * contexts and three shader compiles on the main thread every time Straighten or Crop opens.
+   */
+  describe('inverted image used to tint the overlay', () => {
+    const images = ['edited', 'beforeLastEdit', 'original'];
+
+    function createMode(): {
+      mode: TestOverlayDrawingMode;
+      draw: () => void;
+      setIndex: (i: number) => void;
+    } {
+      let imageIndex = 0;
+      const context = {
+        getCanvas: () => ({}) as HTMLCanvasElement,
+        getImages: () => images as unknown as ImageBitmap[],
+        getImageIndex: () => imageIndex,
+        getImageDimension: () => new Rectangle(new Vector(4, 2)),
+        getSourceImageDimension: () => new Rectangle(new Vector(4, 2)),
+        getZoom: () => 1,
+        isExporting: () => false,
+        zoomToFit: vi.fn(),
+        requestRedraw: vi.fn(),
+        refreshCursor: vi.fn(),
+      } satisfies CanvasModeContext;
+      const mode = new TestOverlayDrawingMode();
+      mode.activate(context);
+      const ctx = {
+        globalCompositeOperation: 'source-over',
+        drawImage: vi.fn(),
+      } as unknown as ImageCanvasRenderingContext;
+      return {
+        mode,
+        draw: () => {
+          mode.onBeforeImageDrawn(ctx);
+        },
+        setIndex: (index: number) => {
+          imageIndex = index;
+        },
+      };
+    }
+
+    const invertedImages = (): unknown[] =>
+      invertMocks.invertColorsWebGL.mock.calls.map(([image]: unknown[]) => image);
+
+    beforeEach(() => {
+      invertMocks.invertColorsWebGL.mockReset();
+      invertMocks.invertColorsWebGL.mockImplementation((image: string) => `inverted ${image}`);
+    });
+
+    it('inverts nothing until something is drawn', () => {
+      const {mode} = createMode();
+
+      mode.onImagesLoaded();
+
+      expect(invertMocks.invertColorsWebGL).not.toHaveBeenCalled();
+    });
+
+    it('inverts only the image being drawn, and only once', () => {
+      const {draw} = createMode();
+
+      draw();
+      draw();
+
+      expect(invertMocks.invertColorsWebGL).toHaveBeenCalledExactlyOnceWith(
+        'edited',
+        IMAGE_SIZE.HD
+      );
+    });
+
+    it('inverts another image only when it becomes the one on screen', () => {
+      const {draw, setIndex} = createMode();
+
+      draw();
+      setIndex(2);
+      draw();
+      draw();
+
+      expect(invertedImages()).toEqual(['edited', 'original']);
+    });
+
+    it('inverts again after the images change', () => {
+      const {mode, draw} = createMode();
+
+      draw();
+      mode.onImagesLoaded();
+      draw();
+
+      expect(invertedImages()).toEqual(['edited', 'edited']);
+    });
   });
 });

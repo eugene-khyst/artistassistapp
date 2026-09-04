@@ -18,8 +18,8 @@
 
 import type {KernelSize} from '@/services/image/filter/types';
 import {type RenderPass, WebGLRenderer} from '@/services/image/filter/webgl-renderer';
+import {Vector} from '@/services/math/geometry';
 import {copyOffscreenCanvas} from '@/utils/graphics';
-import type {Size} from '@/utils/types';
 
 import fragmentShaderSource from './glsl/dilation.glsl';
 
@@ -41,13 +41,13 @@ export function dilationRenderPasses(kernelSize: KernelSize, programIndex = 0): 
     {
       programIndex,
       setUniforms(gl, locations) {
-        setUniforms(gl, locations, kernelSize, [1.0, 0.0]);
+        setUniforms(gl, locations, kernelSize, new Vector(1, 0));
       },
     },
     {
       programIndex,
       setUniforms(gl, locations) {
-        setUniforms(gl, locations, kernelSize, [0.0, 1.0]);
+        setUniforms(gl, locations, kernelSize, new Vector(0, 1));
       },
     },
   ];
@@ -57,8 +57,8 @@ function setUniforms(
   gl: WebGL2RenderingContext,
   locations: Map<string, WebGLUniformLocation | null>,
   kernelSize: KernelSize,
-  direction: Size
+  direction: Vector
 ) {
   gl.uniform1i(locations.get('u_kernelSize')!, kernelSize);
-  gl.uniform2f(locations.get('u_direction')!, ...direction);
+  gl.uniform2f(locations.get('u_direction')!, direction.x, direction.y);
 }

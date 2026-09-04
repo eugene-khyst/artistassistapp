@@ -9,9 +9,10 @@ uniform float u_threshold;
 in vec2 v_texCoord;
 out vec4 fragColor;
 
-#include linear-rgb.glsl;
-#include oklab.glsl;
-#include deltaeokr2.glsl;
+#include color-constants.glsl
+#include linear-rgb.glsl
+#include oklab.glsl
+#include deltaeokr2.glsl
 
 void main() {
   vec4 color = texture(u_texture, v_texCoord);

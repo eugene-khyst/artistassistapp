@@ -40,12 +40,12 @@ interface Result<T extends CanvasMode | null> {
 export function useZoomableImageCanvas<T extends CanvasMode | null>(
   canvasModeSupplier: () => T,
   images: (ImageBitmap | null | undefined) | (ImageBitmap | null | undefined)[],
-  sourceKey: unknown,
+  sourceImageKey: unknown,
   displayDimension?: Rectangle,
   {allowZoomBelowFit, maxZoom, zoomFactor, imageSmoothingEnabled}: ZoomableImageCanvasProps = {}
 ): Result<T> {
   const [instance, setInstance] = useState<CanvasInstance<T>>();
-  const sourceKeyRef = useRef(sourceKey);
+  const sourceImageKeyRef = useRef(sourceImageKey);
   const ref = useCallback(
     (node: HTMLCanvasElement | null) => {
       if (!node) {
@@ -99,7 +99,7 @@ export function useZoomableImageCanvas<T extends CanvasMode | null>(
     if (!zoomableImageCanvas) {
       return;
     }
-    const sourceChanged = !Object.is(sourceKeyRef.current, sourceKey);
+    const sourceChanged = !Object.is(sourceImageKeyRef.current, sourceImageKey);
     const filteredImages = [images]
       .flat()
       .filter((image: ImageBitmap | null | undefined): image is ImageBitmap => !!image);
@@ -107,8 +107,8 @@ export function useZoomableImageCanvas<T extends CanvasMode | null>(
     if (sourceChanged) {
       zoomableImageCanvas.zoomToFit();
     }
-    sourceKeyRef.current = sourceKey;
-  }, [instance, images, sourceKey, displayDimension]);
+    sourceImageKeyRef.current = sourceImageKey;
+  }, [instance, images, sourceImageKey, displayDimension]);
 
   return {
     ref,

@@ -19,7 +19,7 @@
 import {afterEach, describe, expect, it, vi} from 'vitest';
 
 import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
-import type {Size} from '@/utils/types';
+import type {ImageDimension} from '@/utils/graphics';
 
 vi.mock('@/services/image/filter/glsl/vertex.glsl', () => ({default: 'vertex'}));
 
@@ -86,7 +86,7 @@ function mockRenderer({
     imageTexture: {},
     renderTargets: [],
     maxTextureSize: 4096,
-    maxViewportSize: [4096, 4096],
+    maxViewportSize: {width: 4096, height: 4096},
     programs: [{}],
     textureUniformName: 'u_texture',
     textures: [],
@@ -103,22 +103,22 @@ function mockRenderer({
 }
 
 function mockRendererConstruction({
-  drawingBufferSize = [10, 10],
+  drawingBufferSize = {width: 10, height: 10},
   extensions = ['EXT_color_buffer_float'],
   maxTextureSize = 4096,
-  maxViewportSize = [4096, 4096],
+  maxViewportSize = {width: 4096, height: 4096},
 }: {
-  drawingBufferSize?: Size;
+  drawingBufferSize?: ImageDimension;
   extensions?: string[];
   maxTextureSize?: number;
-  maxViewportSize?: Size;
+  maxViewportSize?: ImageDimension;
 } = {}) {
   const getExtension = vi.fn((name: string) => (extensions.includes(name) ? {} : null));
   const pixelStorei = vi.fn();
   const getContext = vi.fn((_type: string, _options: object) => {
     return {
-      drawingBufferHeight: drawingBufferSize[1],
-      drawingBufferWidth: drawingBufferSize[0],
+      drawingBufferHeight: drawingBufferSize.height,
+      drawingBufferWidth: drawingBufferSize.width,
       FRAGMENT_SHADER: 0x8b30,
       MAX_TEXTURE_SIZE: 0x0d33,
       MAX_VIEWPORT_DIMS: 0x0d3a,
@@ -126,7 +126,9 @@ function mockRendererConstruction({
       UNPACK_PREMULTIPLY_ALPHA_WEBGL: 0x9241,
       VERTEX_SHADER: 0x8b31,
       getParameter: vi.fn((parameter: GLenum) =>
-        parameter === 0x0d33 ? maxTextureSize : new Int32Array(maxViewportSize)
+        parameter === 0x0d33
+          ? maxTextureSize
+          : new Int32Array([maxViewportSize.width, maxViewportSize.height])
       ),
       getExtension,
       getUniformLocation: vi.fn(() => null),
@@ -184,7 +186,7 @@ describe('WebGLRenderer', () => {
   });
 
   it('rejects a drawing buffer smaller than the requested output', () => {
-    mockRendererConstruction({drawingBufferSize: [9, 10]});
+    mockRendererConstruction({drawingBufferSize: {width: 9, height: 10}});
 
     expect(() => {
       new WebGLRenderer(['fragment'], [[]], {width: 10, height: 10} as OffscreenCanvas);
@@ -196,7 +198,7 @@ describe('WebGLRenderer', () => {
 
     expect(() => {
       new WebGLRenderer(['fragment'], [[]], {width: 17, height: 10} as OffscreenCanvas, {
-        size: [10, 10],
+        size: {width: 10, height: 10},
       });
     }).toThrow('WebGL texture size 17 x 10 exceeds the limit 16 x 16');
   });
@@ -215,7 +217,7 @@ describe('WebGLRenderer', () => {
 
   it('allocates a floating-point render target directly at the first pass size', () => {
     const {gl, renderer, texImage2D} = mockRenderer();
-    const intermediateSize: Size = [512, 400];
+    const intermediateSize: ImageDimension = {width: 512, height: 400};
 
     renderer.render([{outputSize: intermediateSize}, {}]);
 
@@ -223,7 +225,8 @@ describe('WebGLRenderer', () => {
       gl.TEXTURE_2D,
       0,
       gl.RGBA16F,
-      ...intermediateSize,
+      intermediateSize.width,
+      intermediateSize.height,
       0,
       gl.RGBA,
       gl.HALF_FLOAT,
@@ -234,7 +237,7 @@ describe('WebGLRenderer', () => {
   it('keeps byte render targets for filters that do not request floating point', () => {
     const {gl, renderer, texImage2D} = mockRenderer({floatRenderTargets: false});
 
-    renderer.render([{outputSize: [512, 400]}, {}]);
+    renderer.render([{outputSize: {width: 512, height: 400}}, {}]);
 
     expect(texImage2D).toHaveBeenCalledExactlyOnceWith(
       gl.TEXTURE_2D,
@@ -267,8 +270,8 @@ describe('WebGLRenderer', () => {
   it('reuses the render targets across renders', () => {
     const {gl, renderer} = mockRenderer();
 
-    renderer.render([{outputSize: [512, 400]}, {}]);
-    renderer.render([{outputSize: [512, 400]}, {}]);
+    renderer.render([{outputSize: {width: 512, height: 400}}, {}]);
+    renderer.render([{outputSize: {width: 512, height: 400}}, {}]);
 
     expect(gl.createFramebuffer).toHaveBeenCalledOnce();
   });
@@ -297,14 +300,14 @@ describe('WebGLRenderer', () => {
     renderer.maxTextureSize = 511;
 
     expect(() => {
-      renderer.render([{outputSize: [512, 400]}, {}]);
+      renderer.render([{outputSize: {width: 512, height: 400}}, {}]);
     }).toThrow('WebGL texture size 512 x 400 exceeds the limit 511 x 511');
     expect(texImage2D).not.toHaveBeenCalled();
   });
 
   it('rejects render passes that exceed the viewport size limit', () => {
     const {renderer} = mockRenderer();
-    renderer.maxViewportSize = [599, 400];
+    renderer.maxViewportSize = {width: 599, height: 400};
 
     expect(() => {
       renderer.render();
@@ -315,7 +318,7 @@ describe('WebGLRenderer', () => {
     const {renderer} = mockRenderer({framebufferStatus: 0x8cd6});
 
     expect(() => {
-      renderer.render([{outputSize: [512, 400]}, {}]);
+      renderer.render([{outputSize: {width: 512, height: 400}}, {}]);
     }).toThrow('WebGL framebuffer is incomplete: 0x8cd6');
   });
 
@@ -323,9 +326,9 @@ describe('WebGLRenderer', () => {
     const {gl, renderer} = mockRenderer();
 
     renderer.render([
-      {outputSize: [500, 400]},
-      {outputSize: [400, 300]},
-      {outputSize: [300, 200]},
+      {outputSize: {width: 500, height: 400}},
+      {outputSize: {width: 400, height: 300}},
+      {outputSize: {width: 300, height: 200}},
       {},
     ]);
 

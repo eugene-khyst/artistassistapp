@@ -47,6 +47,18 @@ https://huggingface.co/Carve/LaMa-ONNX
 https://huggingface.co/opencv/inpainting_lama
 
 
+Colorization
+------------
+
+DDColor - model ddcolor-tiny-fp32
+Apache License 2.0
+https://github.com/piddnad/DDColor
+Source checkpoint: ddcolor_paper_tiny.pth
+https://huggingface.co/piddnad/DDColor-models/blob/8c3ddc6d98edc4aad9adc978e44d4fc428e2113d/ddcolor_paper_tiny.pth
+ArtistAssistApp exported the checkpoint to ONNX in FP32 with a fixed 512 x 512
+input using DDColor source revision 2adb63f2656ac41cbdf7b894cddd94121a3faf13.
+
+
 Line drawing
 ------------
 
@@ -246,7 +258,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 Apache License 2.0
 ------------------
 
-Applies to U-2-Net, LaMa, DocAligner, CAST and BasicSR.
+Applies to U-2-Net, LaMa, DDColor, DocAligner, CAST and BasicSR.
 
 
                                  Apache License

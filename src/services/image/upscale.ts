@@ -26,8 +26,8 @@ import {withInferenceSession} from '@/services/ml/worker/inference-worker-manage
 import {type FetchProgressCallback, PROCESSING_PROGRESS_KEY} from '@/utils/fetch';
 import {
   DrawImage,
-  type DrawImageSource,
   drawImageToOffscreenCanvas,
+  type ImageDimension,
   offscreenCanvasToBlob,
 } from '@/utils/graphics';
 
@@ -41,9 +41,7 @@ const UPSCALE_FACTORS = [4, 2];
 export const MAX_UPSCALE_OUTPUT_PIXELS = 4000 * 4000;
 export const MAX_UPSCALE_OUTPUT_SIDE = 8192;
 
-export type ImageSize = Pick<DrawImageSource, 'width' | 'height'>;
-
-export function upscaleFactor({width, height}: ImageSize): number | null {
+export function upscaleFactor({width, height}: ImageDimension): number | null {
   return (
     UPSCALE_FACTORS.find(
       factor =>
@@ -53,7 +51,7 @@ export function upscaleFactor({width, height}: ImageSize): number | null {
   );
 }
 
-export function upscaledSize(size: ImageSize): ImageSize | null {
+export function upscaledSize(size: ImageDimension): ImageDimension | null {
   const factor = upscaleFactor(size);
   return factor ? {width: factor * size.width, height: factor * size.height} : null;
 }
@@ -171,5 +169,8 @@ export async function createUpscaledImage({
     ctx.globalCompositeOperation = 'destination-in';
     ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
   }
-  return await offscreenCanvasToBlob(canvas, {type: 'image/webp', quality: 1});
+  return await offscreenCanvasToBlob(canvas, {
+    type: 'image/webp',
+    quality: 1,
+  });
 }

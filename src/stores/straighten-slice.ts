@@ -92,7 +92,7 @@ export const createStraightenSlice: StateCreator<
       if (!perspectiveCorrectionModel || !hasAccessTo(auth?.user, perspectiveCorrectionModel)) {
         return null;
       }
-      const vertices = await get().editImageOperation.run(
+      const vertices = await get().editImageOperation.withEditedImage(
         async ({image, setDownloadTip, signal}) =>
           image
             ? await detectDocumentCorners(

@@ -16,14 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {getBoundingSize} from '@/utils/graphics';
-import type {Size} from '@/utils/types';
+import {getBoundingSize, type ImageDimension} from '@/utils/graphics';
 
 import vertexShaderSource from './glsl/vertex.glsl';
 
 export interface RenderPass {
   programIndex?: number;
-  outputSize?: Size;
+  outputSize?: ImageDimension;
   textures?: RenderPassTexture[];
   setUniforms?: (
     gl: WebGL2RenderingContext,
@@ -33,20 +32,31 @@ export interface RenderPass {
 
 export interface RenderPassTexture {
   name: string;
-  source: TexImageSource;
+  source: TexImageSource | FloatChannel;
   unit?: number;
+}
+
+/** A single-channel float plane, uploaded as R32F and read with texelFetch. */
+export interface FloatChannel {
+  data: Float32Array;
+  width: number;
+  height: number;
+}
+
+function isFloatChannel(source: TexImageSource | FloatChannel | undefined): source is FloatChannel {
+  return !!source && 'data' in source && source.data instanceof Float32Array;
 }
 
 interface RenderTarget {
   texture: WebGLTexture;
   framebuffer: WebGLFramebuffer;
-  size: Size;
+  size: ImageDimension;
 }
 
 interface Options {
   floatRenderTargets?: boolean;
   premultiplyAlpha?: boolean;
-  size?: Size;
+  size?: ImageDimension;
 }
 
 const PING_PONG_RENDER_TARGET_COUNT = 2;
@@ -69,7 +79,7 @@ export class WebGLRenderer {
   uniformLocations: Map<string, WebGLUniformLocation | null>[];
   readonly floatRenderTargets: boolean;
   readonly maxTextureSize: number;
-  readonly maxViewportSize: Size;
+  readonly maxViewportSize: ImageDimension;
 
   constructor(
     fragmentShaderSources: string[],
@@ -78,8 +88,8 @@ export class WebGLRenderer {
     {floatRenderTargets = false, premultiplyAlpha = false, size}: Options = {}
   ) {
     const imagesArr = [images].flat();
-    const [width, height] = size ?? getBoundingSize(imagesArr) ?? [0, 0];
-    validateSize([width, height], 'renderer output');
+    const {width = 0, height = 0} = size ?? getBoundingSize(imagesArr) ?? {};
+    validateSize({width, height}, 'renderer output');
     this.canvas = new OffscreenCanvas(width, height);
     const gl: WebGL2RenderingContext | null = this.canvas.getContext('webgl2', {
       antialias: false,
@@ -99,15 +109,15 @@ export class WebGLRenderer {
     }
     this.maxTextureSize = gl.getParameter(gl.MAX_TEXTURE_SIZE) as number;
     const maxViewportSize = gl.getParameter(gl.MAX_VIEWPORT_DIMS) as Int32Array;
-    this.maxViewportSize = [maxViewportSize[0]!, maxViewportSize[1]!];
-    this.validateViewportSize([width, height]);
+    this.maxViewportSize = {width: maxViewportSize[0]!, height: maxViewportSize[1]!};
+    this.validateViewportSize({width, height});
     if (gl.drawingBufferWidth !== width || gl.drawingBufferHeight !== height) {
       throw new Error(
         `WebGL drawing buffer size ${gl.drawingBufferWidth} x ${gl.drawingBufferHeight} does not match ${width} x ${height}`
       );
     }
     imagesArr.forEach(image => {
-      this.validateTextureSize([image.width, image.height]);
+      this.validateTextureSize(image);
     });
     if (premultiplyAlpha) {
       gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
@@ -201,24 +211,43 @@ export class WebGLRenderer {
     return vao;
   }
 
-  private createTexture(source?: TexImageSource): WebGLTexture {
+  private createTexture(source?: TexImageSource | FloatChannel): WebGLTexture {
     const {gl} = this;
     const texture = gl.createTexture();
     this.textures.push(texture);
     gl.bindTexture(gl.TEXTURE_2D, texture);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    // R32F is not filterable without OES_texture_float_linear, so it must be NEAREST to be
+    // complete. Shaders read it with texelFetch, which ignores filtering anyway.
+    const filter = isFloatChannel(source) ? gl.NEAREST : gl.LINEAR;
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, filter);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, filter);
     if (source) {
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
+      this.uploadTexture(source);
     }
     return texture;
   }
 
+  private uploadTexture(source: TexImageSource | FloatChannel): void {
+    const {gl} = this;
+    if (isFloatChannel(source)) {
+      const {data, width, height} = source;
+      if (data.length !== width * height) {
+        throw new Error(
+          `Float channel ${width} x ${height} needs ${width * height} values, got ${data.length}`
+        );
+      }
+      this.validateTextureSize({width, height});
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.R32F, width, height, 0, gl.RED, gl.FLOAT, data);
+    } else {
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
+    }
+  }
+
   private createArrayTexture(sources: OffscreenCanvas[]): WebGLTexture {
     const {gl} = this;
-    const [width, height] = getBoundingSize(sources)!;
+    const {width, height} = getBoundingSize(sources)!;
     const texture = gl.createTexture();
     this.textures.push(texture);
     gl.bindTexture(gl.TEXTURE_2D_ARRAY, texture);
@@ -263,15 +292,19 @@ export class WebGLRenderer {
     }
   }
 
-  private validateTextureSize(size: Size): void {
-    validateSizeWithinLimit(size, [this.maxTextureSize, this.maxTextureSize], 'texture');
+  private validateTextureSize(size: ImageDimension): void {
+    validateSizeWithinLimit(
+      size,
+      {width: this.maxTextureSize, height: this.maxTextureSize},
+      'texture'
+    );
   }
 
-  private validateViewportSize(size: Size): void {
+  private validateViewportSize(size: ImageDimension): void {
     validateSizeWithinLimit(size, this.maxViewportSize, 'viewport');
   }
 
-  private createRenderTarget(size: Size): RenderTarget {
+  private createRenderTarget(size: ImageDimension): RenderTarget {
     const texture = this.createTexture();
     this.setRenderTargetTextureSize(texture, size);
     return {
@@ -281,7 +314,7 @@ export class WebGLRenderer {
     };
   }
 
-  private setRenderTargetTextureSize(texture: WebGLTexture, [width, height]: Size): void {
+  private setRenderTargetTextureSize(texture: WebGLTexture, {width, height}: ImageDimension): void {
     const {gl} = this;
     gl.bindTexture(gl.TEXTURE_2D, texture);
     if (this.floatRenderTargets) {
@@ -293,9 +326,9 @@ export class WebGLRenderer {
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, width, height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
   }
 
-  private setRenderTargetSize(renderTarget: RenderTarget, size: Size): void {
-    const [currentWidth, currentHeight] = renderTarget.size;
-    const [width, height] = size;
+  private setRenderTargetSize(renderTarget: RenderTarget, size: ImageDimension): void {
+    const {width: currentWidth, height: currentHeight} = renderTarget.size;
+    const {width, height} = size;
     if (currentWidth === width && currentHeight === height) {
       return;
     }
@@ -328,7 +361,7 @@ export class WebGLRenderer {
       const texture = this.texturesByUnit.get(textureUnit);
       if (texture) {
         gl.bindTexture(gl.TEXTURE_2D, texture);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
+        this.uploadTexture(source);
       } else {
         this.texturesByUnit.set(textureUnit, this.createTexture(source));
       }
@@ -352,10 +385,10 @@ export class WebGLRenderer {
     }
 
     const {width, height} = this.canvas;
-    const canvasSize: Size = [width, height];
+    const canvasSize: ImageDimension = {width, height};
     const outputSizes = renderPasses.map(({outputSize}) => outputSize ?? canvasSize);
     const finalOutputSize = outputSizes.at(-1)!;
-    if (finalOutputSize[0] !== width || finalOutputSize[1] !== height) {
+    if (finalOutputSize.width !== width || finalOutputSize.height !== height) {
       throw new Error('The final render pass size must match the renderer output size');
     }
     outputSizes.forEach((outputSize, index) => {
@@ -380,7 +413,7 @@ export class WebGLRenderer {
       const {programIndex = 0, textures: renderPassTextures, setUniforms} = renderPass;
       const isLast = index === renderPasses.length - 1;
       const outputSize = outputSizes[index]!;
-      const [passWidth, passHeight] = outputSize;
+      const {width: passWidth, height: passHeight} = outputSize;
 
       const renderTarget = isLast ? undefined : this.renderTargets[index % renderTargetCount]!;
       if (renderTarget) {
@@ -464,16 +497,16 @@ export class WebGLRenderer {
   }
 }
 
-function validateSize([width, height]: Size, name: string): void {
+function validateSize({width, height}: ImageDimension, name: string): void {
   if (!Number.isSafeInteger(width) || !Number.isSafeInteger(height) || width <= 0 || height <= 0) {
     throw new Error(`Invalid ${name} size: ${width} x ${height}`);
   }
 }
 
-function validateSizeWithinLimit(size: Size, limit: Size, name: string): void {
+function validateSizeWithinLimit(size: ImageDimension, limit: ImageDimension, name: string): void {
   validateSize(size, name);
-  const [width, height] = size;
-  const [maxWidth, maxHeight] = limit;
+  const {width, height} = size;
+  const {width: maxWidth, height: maxHeight} = limit;
   if (width > maxWidth || height > maxHeight) {
     throw new Error(
       `WebGL ${name} size ${width} x ${height} exceeds the limit ${maxWidth} x ${maxHeight}`

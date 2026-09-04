@@ -39,6 +39,7 @@ export enum EditImageCommandType {
   RemoveBackground = 'remove-background',
   RemoveObjects = 'remove-objects',
   Upscale = 'upscale',
+  Colorize = 'colorize',
 }
 
 export type EditImageCommand =
@@ -68,6 +69,10 @@ export type EditImageCommand =
     }
   | {
       type: EditImageCommandType.Upscale;
+      result: Blob;
+    }
+  | {
+      type: EditImageCommandType.Colorize;
       result: Blob;
     };
 

@@ -24,7 +24,6 @@ import {
   Vector,
 } from '@/services/math/geometry';
 import {copyOffscreenCanvas} from '@/utils/graphics';
-import type {Size} from '@/utils/types';
 
 import fragmentShaderSource from './glsl/perspective-correction.glsl';
 
@@ -33,8 +32,8 @@ export function correctPerspectiveWebGL(
   vertices: Vector[]
 ): OffscreenCanvas {
   const sortedVertices = orderCornersClockwise(vertices);
-  const size: Size = calculateDestSize(sortedVertices);
-  const [width, height] = size;
+  const destDimension = calculateDestSize(sortedVertices);
+  const {width, height} = destDimension;
   const destVertices = [
     new Vector(0, 0),
     new Vector(width, 0),
@@ -52,7 +51,7 @@ export function correctPerspectiveWebGL(
     [fragmentShaderSource],
     [['u_inverse_homography', 'u_src_dimensions', 'u_dest_dimensions']],
     image,
-    {premultiplyAlpha: true, size}
+    {premultiplyAlpha: true, size: destDimension}
   );
   renderer.render([
     {

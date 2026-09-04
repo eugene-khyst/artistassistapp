@@ -17,9 +17,8 @@
  */
 
 import {PAPER_SIZES} from '@/services/print/print';
-import {PageOrientation, type PaperSize} from '@/services/print/types';
+import {PageOrientation, type PaperDimension, type PaperSize} from '@/services/print/types';
 import {IMAGE_SIZE} from '@/utils/graphics';
-import type {Size} from '@/utils/types';
 
 const MAX_CANVAS_SIZE = 8192;
 
@@ -46,14 +45,14 @@ const LINE_WIDTH = 5;
 
 export function splitImageIntoPagesPreview(
   image: ImageBitmap,
-  targetSize: Size,
+  targetSize: PaperDimension,
   paperSize: PaperSize,
   margin: number
 ): ImagePagesPreview {
   const {width: imageWidth, height: imageHeight} = image;
   const [targetWidth, targetHeight] = targetSize;
   const [paperWidth, paperHeight] = PAPER_SIZES.get(paperSize)!.size;
-  const paperSizes: Size[] = [
+  const paperSizes: PaperDimension[] = [
     [paperWidth, paperHeight],
     [paperHeight, paperWidth],
   ];

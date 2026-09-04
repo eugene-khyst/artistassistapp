@@ -478,18 +478,18 @@ export function ImageColorPicker() {
     [
       {
         sort: ColorPickerSort.ByDeltaEOKr2,
-        label: <Trans>Match score</Trans>,
-        title: t`Sort by match score, from highest to lowest.`,
+        label: <Trans>By match</Trans>,
+        title: t`Sort by match, from highest to lowest.`,
       },
       {
         sort: ColorPickerSort.ByNumberOfColors,
-        label: <Trans>Color count</Trans>,
+        label: <Trans>By color count</Trans>,
         title: t`Sort by the number of colors in the mixture, from fewest to most.`,
       },
       layering && colorPickerLayeringEnabled
         ? {
             sort: ColorPickerSort.ByConsistency,
-            label: <Trans>Opacity</Trans>,
+            label: <Trans>By opacity</Trans>,
             title: t`Sort by mixture opacity, from opaque to transparent.`,
           }
         : null,

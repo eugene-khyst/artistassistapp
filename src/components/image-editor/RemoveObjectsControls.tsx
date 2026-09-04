@@ -34,7 +34,6 @@ interface Props {
 }
 
 export function RemoveObjectsControls({polygonDrawingMode}: Readonly<Props>) {
-  const editedImage = useAppStore(state => state.editedImage);
   const setRemoveObjectsModel = useAppStore(state => state.setRemoveObjectsModel);
   const setRemoveObjectsUpscaleModel = useAppStore(state => state.setRemoveObjectsUpscaleModel);
   const removeObjects = useAppStore(state => state.removeObjects);
@@ -43,9 +42,9 @@ export function RemoveObjectsControls({polygonDrawingMode}: Readonly<Props>) {
   const {notification} = App.useApp();
 
   const {
-    model,
-    isLoading: isModelLoading,
-    isError: isModelError,
+    model: inpaintModel,
+    isLoading: isInpaintModelLoading,
+    isError: isInpaintModelError,
   } = useOnnxModel(OnnxModelType.Inpainting, INPAINTING_MODEL_ID);
 
   const {
@@ -55,17 +54,17 @@ export function RemoveObjectsControls({polygonDrawingMode}: Readonly<Props>) {
   } = useOnnxModel(OnnxModelType.Upscaling, UPSCALING_MODEL_ID);
 
   useErrorNotification(
-    isModelError || isUpscaleModelError,
+    isInpaintModelError || isUpscaleModelError,
     t`Unable to load the object removal model`,
     t`Check your connection and try again.`
   );
 
-  const access = useAccessTo(model);
+  const inpaintAccess = useAccessTo(inpaintModel);
   const upscaleAccess = useAccessTo(upscaleModel);
 
   useEffect(() => {
-    setRemoveObjectsModel(model);
-  }, [model, setRemoveObjectsModel]);
+    setRemoveObjectsModel(inpaintModel);
+  }, [inpaintModel, setRemoveObjectsModel]);
 
   useEffect(() => {
     setRemoveObjectsUpscaleModel(upscaleModel);
@@ -97,8 +96,8 @@ export function RemoveObjectsControls({polygonDrawingMode}: Readonly<Props>) {
         <Button
           type="primary"
           icon={<HighlightOutlined />}
-          loading={isModelLoading || isUpscaleModelLoading}
-          disabled={!editedImage || access !== Access.Allowed || upscaleAccess !== Access.Allowed}
+          loading={isInpaintModelLoading || isUpscaleModelLoading}
+          disabled={inpaintAccess !== Access.Allowed || upscaleAccess !== Access.Allowed}
           onClick={() => {
             void handleRemoveClick();
           }}
@@ -115,7 +114,7 @@ export function RemoveObjectsControls({polygonDrawingMode}: Readonly<Props>) {
           remove
         </Trans>
       </Typography.Text>
-      {(access === Access.Denied || upscaleAccess === Access.Denied) && (
+      {(inpaintAccess === Access.Denied || upscaleAccess === Access.Denied) && (
         <Typography.Text type="warning">
           <Trans>Removing objects is available only to paid Patreon members</Trans>
         </Typography.Text>

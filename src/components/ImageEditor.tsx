@@ -36,6 +36,7 @@ import {FileSelect} from '@/components/file/FileSelect';
 import {ImageSaveButton} from '@/components/image/ImageSaveButton';
 import {ImageViewSelector} from '@/components/image/ImageViewSelector';
 import {AdjustColorsControls} from '@/components/image-editor/AdjustColorsControls';
+import {ColorizeControls} from '@/components/image-editor/ColorizeControls';
 import {CropControls} from '@/components/image-editor/CropControls';
 import {ExpandControls} from '@/components/image-editor/ExpandControls';
 import {RemoveBackgroundControls} from '@/components/image-editor/RemoveBackgroundControls';
@@ -63,7 +64,8 @@ const IMAGE_EDITOR_MODE_TYPES: Record<ImageEditorKey, ImageEditorModeType> = {
   [ImageEditorKey.AdjustColors]: ImageEditorModeType.ColorPicker,
   [ImageEditorKey.RemoveBackground]: ImageEditorModeType.RemoveBackground,
   [ImageEditorKey.RemoveObjects]: ImageEditorModeType.Polygon,
-  [ImageEditorKey.Upscale]: ImageEditorModeType.Upscale,
+  [ImageEditorKey.Upscale]: ImageEditorModeType.Noop,
+  [ImageEditorKey.Colorize]: ImageEditorModeType.Noop,
 };
 
 function imageEditorModeSupplier() {
@@ -86,7 +88,7 @@ function imageEditorModeSupplier() {
       lineWidth: 3,
       canRemoveVertices: true,
     }),
-    [ImageEditorModeType.Upscale]: null,
+    [ImageEditorModeType.Noop]: null,
   });
 }
 
@@ -127,6 +129,7 @@ const IMAGE_EDITOR_CONTROLS: Record<
     />
   ),
   [ImageEditorKey.Upscale]: () => <UpscaleControls />,
+  [ImageEditorKey.Colorize]: () => <ColorizeControls />,
 };
 
 export function ImageEditor() {

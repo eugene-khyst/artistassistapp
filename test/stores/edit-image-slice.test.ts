@@ -168,10 +168,12 @@ describe('EditImageSlice', () => {
       finish = resolve;
     });
 
-    const operation = store.getState().editImageOperation.run(async ({setDownloadTip}) => {
-      setDownloadTip('Downloading');
-      await pending;
-    });
+    const operation = store
+      .getState()
+      .editImageOperation.withEditedImage(async ({setDownloadTip}) => {
+        setDownloadTip('Downloading');
+        await pending;
+      });
 
     expect(store.getState()).toMatchObject({
       isEditedImageLoading: true,

@@ -50,12 +50,13 @@ export async function detectDocumentCornersHeatmap(
   progressCallback?: FetchProgressCallback,
   signal?: AbortSignal
 ): Promise<Vector[] | null> {
-  const [imageData] = imageBitmapToImageData([image], model);
-  const inputTensor = imageDataToFloat32Tensor(imageData!, model);
+  const inputTensors = imageBitmapToImageData([image], model).map(imageData =>
+    imageDataToFloat32Tensor(imageData, model)
+  );
   const [outputTensor] = await runInferenceWorker(
     model.url,
     auth,
-    [[inputTensor]],
+    [inputTensors],
     model.outputName,
     progressCallback,
     signal

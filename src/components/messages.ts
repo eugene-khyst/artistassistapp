@@ -52,6 +52,7 @@ export const EDIT_IMAGE_LABELS: Record<ImageEditorKey, MessageDescriptor> = {
   [ImageEditorKey.RemoveBackground]: defineMessage`Remove background`,
   [ImageEditorKey.RemoveObjects]: defineMessage`Remove objects`,
   [ImageEditorKey.Upscale]: defineMessage`Upscale`,
+  [ImageEditorKey.Colorize]: defineMessage`Colorize black-and-white`,
 };
 
 export const COLOR_TYPE_LABELS: Record<ColorType, MessageDescriptor> = {

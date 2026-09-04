@@ -9,7 +9,7 @@ for what you must not break.
 npm run dev          # hot reload against .env.development (local services, no service worker)
 npm run build:dev    # production bundle against .env.development
 npm run preview      # serve the built bundle, with the service worker
-npm run test         # type-check, lint, format, unit tests; no browser
+npm run test         # generated GLSL constants, type-check, lint, format, unit tests; no browser
 npm run test:browser # WebGL tests (Playwright Chromium + SwiftShader)
 
 # Maintainer only. Never run these.
@@ -31,6 +31,10 @@ Shaders can only be tested there — the node project mocks every `.glsl` import
 not exist until the Vite GLSL plugin has resolved its `#include`s and minified it. Test a shader by
 its properties (an identity resample, a flat color, a preserved symmetry, a suppressed frequency),
 never against a second implementation of the same math in the test.
+
+Never assert on console output; silence it with a spy where a test exercises a logged failure. Mock
+at the boundary a unit talks to, and assert the value a mock was called with rather than only that
+it was called.
 
 ## Change Discipline
 
@@ -109,8 +113,8 @@ Pure business logic, no React.
   Store-side editor controls reset on editor switch instead, except the crop aspect ratio, which
   shapes the rectangle and so resets only with the whole editor.
 - `setImages`/`setImageIndex` re-fit zoom and pan only when the image dimensions change. Pass a
-  stable source key to `useZoomableImageCanvas`: change it when the underlying source changes, keep
-  it stable while regenerating derived images so the user's viewport survives.
+  stable `sourceImageKey` to `useZoomableImageCanvas`: change it when the underlying source image
+  changes, keep it stable while regenerating derived images so the user's viewport survives.
 
 ### `image/filter/`
 
@@ -129,6 +133,12 @@ Pure business logic, no React.
   shader does non-linear color work (levels, gamma, saturation, Oklab, ΔE, threshold, variance),
   which is only correct on straight alpha. Getting this backwards is invisible on opaque images and
   darkens the soft fringe of a cut-out subject.
+- `glsl/color-constants.glsl` is **generated** from `@eugene-khyst/artistassistapp-color-mixer` by
+  `npm run generate:glsl-constants`, and `npm run test` fails when it is stale. Never edit it, and
+  never write a color matrix, white point or luminance triple into a shader: take it from there, so
+  the GPU and the TypeScript conversions cannot disagree. Any entry shader including `oklab.glsl`,
+  `xyz.glsl`, `lab.glsl` or `luminance.glsl` must include `color-constants.glsl` ahead of it —
+  includes are flat and the plugin does not dedupe them, so a fragment cannot include it itself.
 - Texture unit 0 is reserved for the source image; bind render-pass textures from unit 1. One image
   binds as `sampler2D u_texture`; several same-sized images upload as one `TEXTURE_2D_ARRAY` and
   bind as `sampler2DArray u_textures`, because GLSL ES 3.00 forbids dynamic indexing of sampler
@@ -143,7 +153,9 @@ Pure business logic, no React.
 - Wrap inference in `withProcessedImageCache` (returns `ImageBitmap`) or
   `withProcessedImageBlobCache` (returns `Blob`) — pick whichever the slice already stores, so a
   cache hit never re-encodes. `transformImage` returns an `OffscreenCanvas`, so resizing and
-  encoding never copy it first.
+  encoding never copy it first. Skip the cache for an image-editor command: its result blob already
+  lives in the undo history and `edit-image-slice` caches what it renders, which is why Colorize,
+  Upscale, Remove background and Remove objects are all uncached.
 - The cache key covers `PROCESSED_IMAGE_CACHE_VERSION`, a digest of the model's inference-affecting
   metadata, and every input image digest — the style image is an input, so it belongs in `digests`.
   `processedImageKey` strips only `priority` and `freeTier` by rest-destructuring, so a new field is

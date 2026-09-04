@@ -1,5 +1,6 @@
-const vec3 LUMINANCE_COEFFS = vec3(0.2126, 0.7152, 0.0722);
+// The coefficients come from color-constants.glsl, generated from the color mixer.
 
-float getLuminance(vec3 rgb) {
-  return dot(LUMINANCE_COEFFS, rgb);
+/** Takes linear RGB, so the answer is the Y of `rgbToXyz`. */
+float getLuminance(vec3 linear) {
+  return dot(LINEAR_RGB_TO_LUMINANCE, linear);
 }

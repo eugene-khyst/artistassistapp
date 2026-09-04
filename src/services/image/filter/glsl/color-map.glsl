@@ -7,6 +7,7 @@ uniform sampler2D u_colorMap;
 in vec2 v_texCoord;
 out vec4 fragColor;
 
+#include color-constants.glsl
 #include linear-rgb.glsl
 #include oklab.glsl
 

@@ -1,6 +1,6 @@
 {
   "name": "artistassistapp",
-  "version": "2026.9.3",
+  "version": "2026.9.4",
   "type": "module",
   "scripts": {
     "lingui:extract": "lingui extract --clean",
@@ -16,11 +16,13 @@
     "format": "prettier . --check",
     "format:write": "prettier . --write",
     "type-check": "tsc --noEmit",
-    "test": "npm run type-check && npm run lint && npm run format && npm run test:unit",
+    "test": "npm run generate:glsl-constants:check && npm run type-check && npm run lint && npm run format && npm run test:unit",
     "test:unit": "vitest run --project unit",
     "test:browser": "vitest run --project browser",
     "coverage": "vitest run --coverage",
-    "prepare": "husky"
+    "prepare": "husky",
+    "generate:glsl-constants": "tsx scripts/generate-glsl-constants.ts",
+    "generate:glsl-constants:check": "tsx scripts/generate-glsl-constants.ts --check"
   },
   "dependencies": {
     "@ant-design/icons": "^6.3.2",

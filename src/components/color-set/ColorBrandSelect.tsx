@@ -17,7 +17,7 @@
  */
 
 import type {ColorBrandDefinition} from '@eugene-khyst/artistassistapp-color-mixer';
-import {Trans} from '@lingui/react/macro';
+import {Plural, Trans} from '@lingui/react/macro';
 import type {FlattenOptionData} from '@rc-component/select/es/interface';
 import {Select, type SelectProps} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
@@ -69,7 +69,7 @@ export function ColorBrandSelect({brands, ...rest}: Readonly<Props>) {
       data: {fullName, colorCount},
     }: FlattenOptionData<SelectOptionType & {colorCount?: number}>) => (
       <>
-        {fullName} {!!colorCount && <Trans>({colorCount} colors)</Trans>}
+        {fullName} {!!colorCount && <Plural value={colorCount} one="# color" other="# colors" />}
       </>
     ),
     []

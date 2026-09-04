@@ -28,7 +28,7 @@ export interface CanvasOverlayDrawingModeProps {
 
 export abstract class CanvasOverlayDrawingMode extends BaseCanvasMode {
   protected readonly lineWidth: number;
-  private invertedImages: OffscreenCanvas[] = [];
+  private readonly invertedImages = new Map<number, OffscreenCanvas>();
 
   constructor({lineWidth = 1.5}: CanvasOverlayDrawingModeProps = {}) {
     super();
@@ -36,8 +36,26 @@ export abstract class CanvasOverlayDrawingMode extends BaseCanvasMode {
   }
 
   onImagesLoaded(): void {
-    this.invertedImages =
-      this.context?.getImages().map(image => invertColorsWebGL(toOffscreenCanvas(image))) ?? [];
+    this.invertedImages.clear();
+  }
+
+  /**
+   * Only the image being drawn is inverted, and only the first time it is. Inverting all of them
+   * costs a WebGL context, a shader compile and a full-size copy each, and the editor passes three.
+   */
+  private invertedImage(index: number): OffscreenCanvas | undefined {
+    const cached = this.invertedImages.get(index);
+    if (cached) {
+      return cached;
+    }
+    const image = this.context?.getImages()[index];
+    if (!image) {
+      return undefined;
+    }
+    // Only thin overlay strokes are tinted with this, so HD is indistinguishable from full size.
+    const inverted = invertColorsWebGL(toOffscreenCanvas(image), IMAGE_SIZE.HD);
+    this.invertedImages.set(index, inverted);
+    return inverted;
   }
 
   protected drawCircle(ctx: ImageCanvasRenderingContext, center: Vector, radius: number): void {
@@ -72,8 +90,7 @@ export abstract class CanvasOverlayDrawingMode extends BaseCanvasMode {
   onBeforeImageDrawn(ctx: ImageCanvasRenderingContext): void {
     this.drawOverlay(ctx);
     ctx.globalCompositeOperation = 'source-in';
-    const imageIndex = this.context?.getImageIndex() ?? 0;
-    const invertedImage = this.invertedImages[imageIndex];
+    const invertedImage = this.invertedImage(this.context?.getImageIndex() ?? 0);
     if (invertedImage) {
       const {width, height, center} = this.imageDimension();
       ctx.drawImage(invertedImage, -center.x, -center.y, width, height);
@@ -88,7 +105,7 @@ export abstract class CanvasOverlayDrawingMode extends BaseCanvasMode {
   }
 
   override destroy(): void {
-    this.invertedImages = [];
+    this.invertedImages.clear();
     super.destroy();
   }
 }

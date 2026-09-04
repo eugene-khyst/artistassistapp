@@ -130,7 +130,7 @@ describe('geometry', () => {
   it('calculates the averaged destination dimensions', () => {
     expect(
       calculateDestSize([new Vector(0, 0), new Vector(10, 0), new Vector(12, 6), new Vector(0, 4)])
-    ).toEqual([11, 5]);
+    ).toEqual(new Rectangle(new Vector(11, 5)));
   });
 
   it('computes a homography that maps all four source corners', () => {

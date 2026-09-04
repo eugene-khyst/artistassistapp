@@ -26,7 +26,7 @@ export enum ImageEditorModeType {
   ColorPicker = 'color-picker',
   RemoveBackground = 'remove-background',
   Polygon = 'polygon',
-  Upscale = 'upscale',
+  Noop = 'noop',
 }
 
 type ImageEditorModes = Readonly<Record<ImageEditorModeType, CanvasMode | null>>;

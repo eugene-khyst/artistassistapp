@@ -68,7 +68,7 @@ function createTestStore() {
     return !!suppliedCommand;
   });
   const editImageOperation: EditImageOperation = {
-    run: vi.fn() as EditImageOperation['run'],
+    withEditedImage: vi.fn() as EditImageOperation['withEditedImage'],
     preview: vi.fn(),
     execute,
     abort: vi.fn(),

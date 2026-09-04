@@ -33,7 +33,6 @@ import {useAppStore} from '@/stores/app-store';
 
 export function RemoveBackgroundControls() {
   const user = useAppStore(state => state.auth?.user);
-  const editedImage = useAppStore(state => state.editedImage);
   const removeBackgroundColor = useAppStore(state => state.removeBackgroundColor);
   const setRemoveBackgroundModel = useAppStore(state => state.setRemoveBackgroundModel);
   const setRemoveBackgroundColor = useAppStore(state => state.setRemoveBackgroundColor);
@@ -128,7 +127,7 @@ export function RemoveBackgroundControls() {
       <Button
         type="primary"
         icon={<ScissorOutlined />}
-        disabled={!editedImage || access !== Access.Allowed}
+        disabled={access !== Access.Allowed}
         onClick={() => {
           void removeBackground();
         }}

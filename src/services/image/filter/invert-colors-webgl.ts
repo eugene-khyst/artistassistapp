@@ -17,12 +17,24 @@
  */
 
 import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
-import {copyOffscreenCanvas} from '@/utils/graphics';
+import {copyOffscreenCanvas, type ImageDimension, scaleToPixelCount} from '@/utils/graphics';
 
 import fragmentShaderSource from './glsl/invert-colors.glsl';
 
-export function invertColorsWebGL(image: OffscreenCanvas): OffscreenCanvas {
-  const renderer = new WebGLRenderer([fragmentShaderSource], [], image);
+/**
+ * With `maxPixelCount` the pass renders into a smaller target, so the sampler minifies during the
+ * draw that already happens. A separate resize would cost more than the inversion.
+ */
+export function invertColorsWebGL(image: OffscreenCanvas, maxPixelCount?: number): OffscreenCanvas {
+  const scale = maxPixelCount ? scaleToPixelCount(image.width, image.height, maxPixelCount) : 1;
+  const size: ImageDimension | undefined =
+    scale < 1
+      ? {
+          width: Math.max(1, Math.floor(image.width * scale)),
+          height: Math.max(1, Math.floor(image.height * scale)),
+        }
+      : undefined;
+  const renderer = new WebGLRenderer([fragmentShaderSource], [], image, {size});
   renderer.render();
   const result = copyOffscreenCanvas(renderer.canvas);
   renderer.cleanUp();

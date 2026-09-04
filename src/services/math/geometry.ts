@@ -19,7 +19,6 @@
 import {type Comparator, Matrix} from '@eugene-khyst/artistassistapp-color-mixer';
 
 import {LengthUnit, type LengthUnitDefinition} from '@/services/math/types';
-import type {Size} from '@/utils/types';
 
 export const LENGTH_UNITS = new Map<LengthUnit, LengthUnitDefinition>([
   [LengthUnit.Millimeter, {abbreviation: 'mm', toMillimeters: number => number}],
@@ -164,7 +163,7 @@ export function orderCornersClockwise(vertices: Vector[]): Vector[] {
   return [topLeft, topRight, bottomRight, bottomLeft].filter((value): value is Vector => !!value);
 }
 
-export function calculateDestSize(vertices: Vector[]): Size {
+export function calculateDestSize(vertices: Vector[]): Rectangle {
   if (vertices.length !== 4) {
     throw new Error('Incorrect number of vertices');
   }
@@ -178,7 +177,7 @@ export function calculateDestSize(vertices: Vector[]): Size {
   if (width <= 0 || height <= 0) {
     throw new Error('Invalid vertices');
   }
-  return [width, height];
+  return new Rectangle(new Vector(width, height));
 }
 
 export function computeHomography(src: Vector[], dest: Vector[]): Matrix | null {

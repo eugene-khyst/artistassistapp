@@ -16,8 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Size} from '@/utils/types';
-
 export enum PageOrientation {
   Portrait = 'portrait',
   Landscape = 'landscape',
@@ -29,7 +27,9 @@ export enum PaperSize {
   Legal = 'legal',
 }
 
+export type PaperDimension = readonly [widthMm: number, heightMm: number];
+
 export interface PaperSizeDefinition {
   label: string;
-  size: Size;
+  size: PaperDimension;
 }

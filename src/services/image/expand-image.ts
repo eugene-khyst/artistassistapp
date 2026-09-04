@@ -23,8 +23,12 @@ import {
   ExpandImageSizeMode,
 } from '@/services/image/expand-image-controls';
 import {Rectangle, Vector} from '@/services/math/geometry';
-import {aspectRatioSize, type DrawImageSource, scaleToPixelCount} from '@/utils/graphics';
-import type {Size} from '@/utils/types';
+import {
+  aspectRatioSize,
+  type DrawImageSource,
+  type ImageDimension,
+  scaleToPixelCount,
+} from '@/utils/graphics';
 
 export interface ImageExpansion {
   bounds: Rectangle;
@@ -34,13 +38,17 @@ export interface ImageExpansion {
 
 const MAX_EXPANDED_IMAGE_PIXELS = 4000 * 4000;
 
-function expandedSize(width: number, height: number, controls: ExpandImageControls): Size {
+function expandedSize(
+  width: number,
+  height: number,
+  controls: ExpandImageControls
+): ImageDimension {
   if (controls.sizeMode === ExpandImageSizeMode.AspectRatio) {
     return aspectRatioSize(width, height, controls.aspectRatio);
   }
   const marginX = Math.round((width * clamp(controls.marginX, 0, 100)) / 100);
   const marginY = Math.round((height * clamp(controls.marginY, 0, 100)) / 100);
-  return [width + 2 * marginX, height + 2 * marginY];
+  return {width: width + 2 * marginX, height: height + 2 * marginY};
 }
 
 function shrinkDimension(size: number, scale: number): number {
@@ -51,18 +59,26 @@ export function getImageExpansion(
   {width, height}: Pick<DrawImageSource, 'width' | 'height'>,
   controls: ExpandImageControls
 ): ImageExpansion {
-  const [expandedWidth, expandedHeight] = expandedSize(width, height, controls);
+  const {width: expandedWidth, height: expandedHeight} = expandedSize(width, height, controls);
 
   const scale = scaleToPixelCount(expandedWidth, expandedHeight, MAX_EXPANDED_IMAGE_PIXELS);
   let sourceWidth = Math.max(1, Math.round(scale * width));
   let sourceHeight = Math.max(1, Math.round(scale * height));
   // Expand the scaled size so that expanding it again has no effect.
-  let [targetWidth, targetHeight] = expandedSize(sourceWidth, sourceHeight, controls);
+  let {width: targetWidth, height: targetHeight} = expandedSize(
+    sourceWidth,
+    sourceHeight,
+    controls
+  );
   while (targetWidth * targetHeight > MAX_EXPANDED_IMAGE_PIXELS) {
     const shrink = scaleToPixelCount(targetWidth, targetHeight, MAX_EXPANDED_IMAGE_PIXELS);
     sourceWidth = shrinkDimension(sourceWidth, shrink);
     sourceHeight = shrinkDimension(sourceHeight, shrink);
-    [targetWidth, targetHeight] = expandedSize(sourceWidth, sourceHeight, controls);
+    ({width: targetWidth, height: targetHeight} = expandedSize(
+      sourceWidth,
+      sourceHeight,
+      controls
+    ));
   }
 
   const left = Math.floor((targetWidth - sourceWidth) / 2);

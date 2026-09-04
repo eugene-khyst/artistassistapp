@@ -56,7 +56,7 @@ type TestStore = CropSlice &
 function createTestStore(image: ImageBitmap | null = null) {
   const saveAppSettings = vi.fn(async () => DEFAULT_APP_SETTINGS);
   const execute = vi.fn().mockResolvedValue(true);
-  const run = vi.fn(async (task: (context: EditImageContext) => unknown) =>
+  const withEditedImage = vi.fn(async (task: (context: EditImageContext) => unknown) =>
     task({
       image,
       signal: new AbortController().signal,
@@ -65,7 +65,7 @@ function createTestStore(image: ImageBitmap | null = null) {
     })
   );
   const editImageOperation: EditImageOperation = {
-    run: run as EditImageOperation['run'],
+    withEditedImage: withEditedImage as EditImageOperation['withEditedImage'],
     preview: vi.fn(),
     execute,
     abort: vi.fn(),
@@ -78,7 +78,7 @@ function createTestStore(image: ImageBitmap | null = null) {
     ...createCropSlice(...args),
     ...createStraightenSlice(...args),
   }));
-  return {store, execute, run, saveAppSettings};
+  return {store, execute, withEditedImage, saveAppSettings};
 }
 
 afterEach(() => {
@@ -137,18 +137,18 @@ describe('discrete image-editing slices', () => {
   });
 
   it('does not auto-detect without a model', async () => {
-    const {store, run} = createTestStore(createImage());
+    const {store, withEditedImage} = createTestStore(createImage());
 
     await expect(store.getState().autoDetectStraightenVertices()).resolves.toBeNull();
-    expect(run).not.toHaveBeenCalled();
+    expect(withEditedImage).not.toHaveBeenCalled();
   });
 
   it('does not auto-detect without access to the model', async () => {
-    const {store, run} = createTestStore(createImage());
+    const {store, withEditedImage} = createTestStore(createImage());
     store.getState().setStraightenModel(onnxModel(false));
 
     await expect(store.getState().autoDetectStraightenVertices()).resolves.toBeNull();
-    expect(run).not.toHaveBeenCalled();
+    expect(withEditedImage).not.toHaveBeenCalled();
     expect(imageOperations.detectDocumentCorners).not.toHaveBeenCalled();
   });
 

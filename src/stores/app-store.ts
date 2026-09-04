@@ -29,6 +29,7 @@ import {
   type ColorMixingChartSlice,
   createColorMixingChartSlice,
 } from '@/stores/color-mixing-chart-slice';
+import {type ColorizeSlice, createColorizeSlice} from '@/stores/colorize-slice';
 import {createEditImageSlice, type EditImageSlice} from '@/stores/edit-image-slice';
 import {createExpandImageSlice, type ExpandImageSlice} from '@/stores/expand-image-slice';
 import {createLocaleSlice, type LocaleSlice} from '@/stores/locale-slice';
@@ -87,6 +88,7 @@ export const useAppStore = create<
     RemoveBackgroundSlice &
     RemoveObjectsSlice &
     UpscaleSlice &
+    ColorizeSlice &
     EditImageSlice &
     TournamentSlice &
     CustomColorBrandSlice &
@@ -118,6 +120,7 @@ export const useAppStore = create<
     ...createRemoveBackgroundSlice(...a),
     ...createRemoveObjectsSlice(...a),
     ...createUpscaleSlice(...a),
+    ...createColorizeSlice(...a),
     ...createEditImageSlice(...a),
     ...createTournamentSlice(...a),
     ...createCustomColorBrandSlice(...a),

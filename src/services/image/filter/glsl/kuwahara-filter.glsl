@@ -10,8 +10,9 @@ out vec4 fragColor;
 
 const int MAX_RADIUS = 6;
 
-#include linear-rgb.glsl;
-#include luminance.glsl;
+#include color-constants.glsl
+#include linear-rgb.glsl
+#include luminance.glsl
 
 struct QuadrantStats {
   vec3 mean;

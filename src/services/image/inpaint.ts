@@ -22,11 +22,9 @@ import {Interpolation} from '@/services/image/filter/types';
 import {transformImage} from '@/services/ml/image-transformer';
 import type {OnnxModel} from '@/services/ml/types';
 import type {FetchProgressCallback} from '@/utils/fetch';
-import type {DrawImageSource} from '@/utils/graphics';
+import type {ImageDimension} from '@/utils/graphics';
 
 export const INPAINTING_UPSCALE_MIN_SCALE_FACTOR = 1.5;
-
-type ImageDimension = Pick<DrawImageSource, 'width' | 'height'>;
 
 export function shouldUpscaleInpaintedImage(
   source: ImageDimension,
@@ -36,25 +34,36 @@ export function shouldUpscaleInpaintedImage(
   return scaleFactor >= INPAINTING_UPSCALE_MIN_SCALE_FACTOR;
 }
 
-export async function fitInpaintedImage({
-  image,
+export async function inpaintImage({
+  images,
   target,
+  inpaintModel,
   upscaleModel,
   auth,
   progressCallback,
   signal,
 }: {
-  image: OffscreenCanvas;
+  images: [OffscreenCanvas, OffscreenCanvas];
   target: ImageDimension;
+  inpaintModel: OnnxModel;
   upscaleModel: OnnxModel;
   auth: Authentication | null;
   progressCallback: FetchProgressCallback;
   signal: AbortSignal;
 }): Promise<OffscreenCanvas> {
+  const inpaintedImage = await transformImage({
+    images,
+    model: inpaintModel,
+    auth,
+    progressCallback,
+    signal,
+    interpolation: null,
+  });
+  signal.throwIfAborted();
   let upscaledImage: OffscreenCanvas | undefined;
-  if (shouldUpscaleInpaintedImage(image, target)) {
+  if (shouldUpscaleInpaintedImage(inpaintedImage, target)) {
     upscaledImage = await transformImage({
-      images: [image],
+      images: [inpaintedImage],
       model: upscaleModel,
       auth,
       progressCallback,
@@ -64,7 +73,7 @@ export async function fitInpaintedImage({
     signal.throwIfAborted();
   }
   return interpolationWebGL(
-    upscaledImage ?? image,
+    upscaledImage ?? inpaintedImage,
     target.width,
     target.height,
     Interpolation.Lanczos

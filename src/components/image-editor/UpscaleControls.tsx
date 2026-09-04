@@ -44,7 +44,7 @@ export function UpscaleControls() {
 
   useErrorNotification(
     isModelError,
-    t`Unable to load the upscale model`,
+    t`Unable to load the upscaling model`,
     t`Check your connection and try again.`
   );
 

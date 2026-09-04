@@ -57,7 +57,6 @@ interface Props {
 }
 
 export function CropControls({croppingMode}: Readonly<Props>) {
-  const editedImage = useAppStore(state => state.editedImage);
   const cropAspectRatio = useAppStore(state => state.cropAspectRatio);
   const setCropAspectRatio = useAppStore(state => state.setCropAspectRatio);
   const cropImage = useAppStore(state => state.cropImage);
@@ -88,7 +87,7 @@ export function CropControls({croppingMode}: Readonly<Props>) {
       <Button
         type="primary"
         icon={<CheckOutlined />}
-        disabled={!editedImage || !croppingMode}
+        disabled={!croppingMode}
         onClick={() => {
           if (croppingMode) {
             cropImage(croppingMode.getCropRectangle());

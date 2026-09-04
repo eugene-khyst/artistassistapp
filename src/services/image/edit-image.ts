@@ -76,8 +76,9 @@ export async function applyEditImageCommand(
     case EditImageCommandType.RemoveObjects:
       result = await applyRemoveObjectsCommand(image, command, signal);
       break;
-    // The upscaled image replaces the input instead of compositing onto it.
+    // These replace the input instead of compositing onto it
     case EditImageCommandType.Upscale:
+    case EditImageCommandType.Colorize:
       result = await createImageBitmap(command.result);
       break;
   }

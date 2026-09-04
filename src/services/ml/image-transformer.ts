@@ -26,6 +26,7 @@ import {type InferenceRun, runInferenceWorker} from '@/services/ml/worker/infere
 import type {FetchProgressCallback} from '@/utils/fetch';
 import {
   DrawImage,
+  type DrawImageParamsSupplier,
   type DrawImageSource,
   drawImageToOffscreenCanvas,
   IMAGE_SIZE,
@@ -139,15 +140,19 @@ async function transformToBlob(
   return await imageToBlob(await transform(), {encodeOptions});
 }
 
-export function imageBitmapToImageData(
-  images: DrawImageSource[],
-  {resolution, maxPixelCount = IMAGE_SIZE.SD, inputSizeMultiple}: OnnxModel
-): ImageData[] {
+export function getModelInputDrawImageParamsSupplier({
+  resolution,
+  maxPixelCount = IMAGE_SIZE.SD,
+  inputSizeMultiple,
+}: OnnxModel): DrawImageParamsSupplier {
   const [width, height] = Array.isArray(resolution) ? resolution : [resolution, resolution];
-  const drawImage =
-    width && height
-      ? DrawImage.resizeToSize(width, height)
-      : DrawImage.resizeToPixelCount(maxPixelCount, inputSizeMultiple);
+  return width && height
+    ? DrawImage.resizeToSize(width, height)
+    : DrawImage.resizeToPixelCount(maxPixelCount, inputSizeMultiple);
+}
+
+export function imageBitmapToImageData(images: DrawImageSource[], model: OnnxModel): ImageData[] {
+  const drawImage = getModelInputDrawImageParamsSupplier(model);
   return images.map((image: DrawImageSource): ImageData =>
     offscreenCanvasToImageData(
       ...drawImageToOffscreenCanvas(image, {

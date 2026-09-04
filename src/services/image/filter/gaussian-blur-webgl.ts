@@ -18,8 +18,8 @@
 
 import type {KernelSize} from '@/services/image/filter/types';
 import {type RenderPass, WebGLRenderer} from '@/services/image/filter/webgl-renderer';
+import {Vector} from '@/services/math/geometry';
 import {copyOffscreenCanvas} from '@/utils/graphics';
-import type {Size} from '@/utils/types';
 
 import fragmentShaderSource from './glsl/gaussian-blur.glsl';
 
@@ -42,13 +42,13 @@ export function gaussianBlurRenderPasses(kernelSize: KernelSize, programIndex = 
     {
       programIndex,
       setUniforms(gl, locations) {
-        setUniforms(gl, locations, kernel, [1.0, 0.0]);
+        setUniforms(gl, locations, kernel, new Vector(1, 0));
       },
     },
     {
       programIndex,
       setUniforms(gl, locations) {
-        setUniforms(gl, locations, kernel, [0.0, 1.0]);
+        setUniforms(gl, locations, kernel, new Vector(0, 1));
       },
     },
   ];
@@ -58,11 +58,11 @@ function setUniforms(
   gl: WebGL2RenderingContext,
   locations: Map<string, WebGLUniformLocation | null>,
   kernel: Float32Array,
-  direction: Size
+  direction: Vector
 ) {
   gl.uniform1fv(locations.get('u_kernel')!, kernel);
   gl.uniform1i(locations.get('u_kernelSize')!, kernel.length);
-  gl.uniform2f(locations.get('u_direction')!, ...direction);
+  gl.uniform2f(locations.get('u_direction')!, direction.x, direction.y);
 }
 
 function createGaussianKernel(size: KernelSize): Float32Array {

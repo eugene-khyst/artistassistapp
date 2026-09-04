@@ -85,7 +85,7 @@ function createTestStore(image: ImageBitmap) {
     }
   );
   const editImageOperation: EditImageOperation = {
-    run: vi.fn(),
+    withEditedImage: vi.fn(),
     preview,
     execute: vi.fn(),
     abort: vi.fn(),

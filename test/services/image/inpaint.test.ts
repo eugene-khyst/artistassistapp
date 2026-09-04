@@ -20,10 +20,10 @@ import {afterEach, describe, expect, it, vi} from 'vitest';
 
 import {Interpolation} from '@/services/image/filter/types';
 import {
-  fitInpaintedImage,
+  inpaintImage,
   INPAINTING_UPSCALE_MIN_SCALE_FACTOR,
   shouldUpscaleInpaintedImage,
-} from '@/services/image/inpainting-fit';
+} from '@/services/image/inpaint';
 import type {OnnxModel} from '@/services/ml/types';
 
 const interpolationMocks = vi.hoisted(() => ({interpolationWebGL: vi.fn()}));
@@ -48,13 +48,17 @@ describe('inpainting upscale', () => {
 
   it('fits the inpainted window without upscaling below the minimum scale factor', async () => {
     const image = {width: 512, height: 512} as OffscreenCanvas;
+    const mask = {width: 512, height: 512} as OffscreenCanvas;
+    const inpaintedImage = {width: 512, height: 512} as OffscreenCanvas;
     const fittedImage = {width: 600, height: 600} as OffscreenCanvas;
+    transformerMocks.transformImage.mockResolvedValue(inpaintedImage);
     interpolationMocks.interpolationWebGL.mockReturnValue(fittedImage);
 
     await expect(
-      fitInpaintedImage({
-        image,
+      inpaintImage({
+        images: [image, mask],
         target: {width: 600, height: 600},
+        inpaintModel: {id: 'inpaint'} as OnnxModel,
         upscaleModel: {id: 'upscale'} as OnnxModel,
         auth: null,
         progressCallback: vi.fn(),
@@ -62,9 +66,12 @@ describe('inpainting upscale', () => {
       })
     ).resolves.toBe(fittedImage);
 
-    expect(transformerMocks.transformImage).not.toHaveBeenCalled();
+    // 600 of 512 is below the 1.5 minimum, so the upscale model never runs.
+    expect(transformerMocks.transformImage).toHaveBeenCalledExactlyOnceWith(
+      expect.objectContaining({images: [image, mask], model: {id: 'inpaint'}})
+    );
     expect(interpolationMocks.interpolationWebGL).toHaveBeenCalledExactlyOnceWith(
-      image,
+      inpaintedImage,
       600,
       600,
       Interpolation.Lanczos

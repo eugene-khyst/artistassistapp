@@ -242,7 +242,6 @@ export function ExpandControls({expandingMode}: Readonly<Props>) {
         icon={<CheckOutlined />}
         loading={isSmart && (isInpaintingModelLoading || isUpscaleModelLoading)}
         disabled={
-          !editedImage ||
           !canExpand ||
           (isSmart && (inpaintingAccess !== Access.Allowed || upscaleAccess !== Access.Allowed))
         }

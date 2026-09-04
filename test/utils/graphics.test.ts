@@ -33,12 +33,12 @@ const ASPECT_RATIOS: Fraction[] = [
 
 describe('aspectRatioSize', () => {
   it('keeps the size when no aspect ratio is given', () => {
-    expect(aspectRatioSize(180, 100)).toEqual([180, 100]);
+    expect(aspectRatioSize(180, 100)).toEqual({width: 180, height: 100});
   });
 
   it('grows the axis that is short of the aspect ratio', () => {
-    expect(aspectRatioSize(180, 100, [16, 9])).toEqual([180, 102]);
-    expect(aspectRatioSize(100, 180, [9, 16])).toEqual([102, 180]);
+    expect(aspectRatioSize(180, 100, [16, 9])).toEqual({width: 180, height: 102});
+    expect(aspectRatioSize(100, 180, [9, 16])).toEqual({width: 102, height: 180});
   });
 
   it('settles after one expansion, so expanding again adds nothing', () => {
@@ -46,7 +46,7 @@ describe('aspectRatioSize', () => {
       for (let width = 50; width <= 400; width += 7) {
         for (let height = 50; height <= 400; height += 11) {
           const size = aspectRatioSize(width, height, aspectRatio);
-          expect(aspectRatioSize(...size, aspectRatio)).toEqual(size);
+          expect(aspectRatioSize(size.width, size.height, aspectRatio)).toEqual(size);
         }
       }
     }

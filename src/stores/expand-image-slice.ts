@@ -36,9 +36,8 @@ import {
   ExpandImageFillMode,
   ExpandImageSizeMode,
 } from '@/services/image/expand-image-controls';
-import {fitInpaintedImage} from '@/services/image/inpainting-fit';
+import {inpaintImage} from '@/services/image/inpaint';
 import {inpaintingPatchRectangle} from '@/services/image/inpainting-patch';
-import {transformImage} from '@/services/ml/image-transformer';
 import type {OnnxModel} from '@/services/ml/types';
 import type {AppSettings} from '@/services/settings/types';
 import type {AppSlice} from '@/stores/app-slice';
@@ -106,7 +105,7 @@ async function prepareExpansionModelInput({
 async function createExpansionMarginPatches({
   image,
   expansion,
-  model,
+  inpaintModel,
   upscaleModel,
   auth,
   progressCallback,
@@ -114,25 +113,18 @@ async function createExpansionMarginPatches({
 }: {
   image: ImageBitmap;
   expansion: ImageExpansion;
-  model: OnnxModel;
+  inpaintModel: OnnxModel;
   upscaleModel: OnnxModel;
   auth: Authentication | null;
   progressCallback: FetchProgressCallback;
   signal: AbortSignal;
 }): Promise<Blob[]> {
   const expandedCanvas = await prepareExpansionModelInput({image, expansion, signal});
-  const modelImage = await transformImage({
-    images: [expandedCanvas, createExpansionMask(expansion)],
-    model,
-    auth,
-    progressCallback,
-    signal,
-    interpolation: null,
-  });
   signal.throwIfAborted();
-  const expandedImage = await fitInpaintedImage({
-    image: modelImage,
+  const expandedImage = await inpaintImage({
+    images: [expandedCanvas, createExpansionMask(expansion)],
     target: expansion.bounds,
+    inpaintModel,
     upscaleModel,
     auth,
     progressCallback,
@@ -269,9 +261,8 @@ export const createExpandImageSlice: StateCreator<
       if (
         expandImageControls.fillMode === ExpandImageFillMode.Smart &&
         (!expandImageModel ||
-          !hasAccessTo(auth?.user, expandImageModel) ||
           !expandImageUpscaleModel ||
-          !hasAccessTo(auth?.user, expandImageUpscaleModel))
+          !hasAccessTo(auth?.user, [expandImageModel, expandImageUpscaleModel]))
       ) {
         return false;
       }
@@ -291,7 +282,7 @@ export const createExpandImageSlice: StateCreator<
           const marginPatches = await createExpansionMarginPatches({
             image,
             expansion,
-            model: expandImageModel!,
+            inpaintModel: expandImageModel!,
             upscaleModel: expandImageUpscaleModel!,
             auth,
             progressCallback: (key, progress) => {

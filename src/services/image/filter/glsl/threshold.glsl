@@ -10,6 +10,7 @@ uniform bool u_grayscale;
 in vec2 v_texCoord;
 out vec4 fragColor;
 
+#include color-constants.glsl
 #include linear-rgb.glsl
 #include oklab.glsl
 

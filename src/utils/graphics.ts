@@ -20,9 +20,10 @@ import type {Fraction} from '@eugene-khyst/artistassistapp-color-mixer';
 
 import type {Rectangle, Vector} from '@/services/math/geometry';
 import {identity} from '@/utils/function';
-import type {Size} from '@/utils/types';
 
 export type DrawImageSource = ImageBitmap | OffscreenCanvas;
+
+export type ImageDimension = Pick<DrawImageSource, 'width' | 'height'>;
 
 export interface DrawImageParams {
   width: number;
@@ -373,24 +374,24 @@ export function aspectRatioSize(
   origWidth: number,
   origHeight: number,
   aspectRatio?: Fraction
-): Size {
+): ImageDimension {
   const [ratioWidth, ratioHeight]: Fraction = aspectRatio ?? [0, 0];
   if (ratioWidth <= 0 || ratioHeight <= 0) {
-    return [origWidth, origHeight];
+    return {width: origWidth, height: origHeight};
   }
   const aspectRatioDelta = origWidth * ratioHeight - origHeight * ratioWidth;
   const onePixelAspectRatioDelta = Math.max(ratioWidth, ratioHeight);
   if (Math.abs(aspectRatioDelta) <= onePixelAspectRatioDelta) {
-    return [origWidth, origHeight];
+    return {width: origWidth, height: origHeight};
   }
   const targetAspectRatio = ratioWidth / ratioHeight;
   if (aspectRatioDelta < 0) {
-    return [Math.ceil(origHeight * targetAspectRatio), origHeight];
+    return {width: Math.ceil(origHeight * targetAspectRatio), height: origHeight};
   }
-  return [origWidth, Math.ceil(origWidth / targetAspectRatio)];
+  return {width: origWidth, height: Math.ceil(origWidth / targetAspectRatio)};
 }
 
-export function getBoundingSize(images: DrawImageSource[]): Size | undefined {
+export function getBoundingSize(images: DrawImageSource[]): ImageDimension | undefined {
   if (!images.length) {
     return;
   }
@@ -405,7 +406,7 @@ export function getBoundingSize(images: DrawImageSource[]): Size | undefined {
       maxHeight = height;
     }
   }
-  return [maxWidth, maxHeight];
+  return {width: maxWidth, height: maxHeight};
 }
 
 export function isWebGl2Supported(): boolean {
@@ -418,6 +419,9 @@ export function isWebGl2Supported(): boolean {
   }
 }
 
-export function ceilToMultiple(value: number, multiple: number): number {
+export function ceilToMultiple(value: number, multiple?: number): number {
+  if (!multiple || multiple === 1) {
+    return value;
+  }
   return value % multiple === 0 ? value : (Math.floor(value / multiple) + 1) * multiple;
 }

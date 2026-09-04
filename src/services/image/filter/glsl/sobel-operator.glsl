@@ -7,8 +7,9 @@ uniform sampler2D u_texture;
 in vec2 v_texCoord;
 out vec4 fragColor;
 
-#include linear-rgb.glsl;
-#include oklab.glsl;
+#include color-constants.glsl
+#include linear-rgb.glsl
+#include oklab.glsl
 
 const float G_X[9] = float[9](-1.0, 0.0, 1.0, -2.0, 0.0, 2.0, -1.0, 0.0, 1.0);
 const float G_Y[9] = float[9](-1.0, -2.0, -1.0, 0.0, 0.0, 0.0, 1.0, 2.0, 1.0);

@@ -33,8 +33,9 @@ import {sobelGradientsXyWebGL} from '@/services/image/filter/sobel-gradients-xy-
 import {thresholdFilterWebGL} from '@/services/image/filter/threshold-webgl';
 import {Interpolation} from '@/services/image/filter/types';
 import {Vector} from '@/services/math/geometry';
+import {IMAGE_SIZE} from '@/utils/graphics';
 
-import {createImage, readImage} from './fixtures';
+import {createImage, pixelAt, readImage} from './fixtures';
 
 const WIDTH = 24;
 const HEIGHT = 16;
@@ -108,5 +109,26 @@ describe('WebGL filters', () => {
     expect([width, height]).toEqual([WIDTH, HEIGHT]);
     expect(gradientX.some(value => value !== 0)).toBe(true);
     expect(gradientY.some(value => value !== 0)).toBe(true);
+  });
+
+  /** The overlay modes tint thin strokes with this, so it renders straight into a smaller target. */
+  it('renders invert-colors into a pixel-capped target without a resize pass', () => {
+    const width = 800;
+    const height = 600;
+    const flatRed = createImage(width, height, () => [255, 0, 0, 255]);
+
+    const capped = invertColorsWebGL(flatRed, IMAGE_SIZE.SD);
+
+    expect(capped.width * capped.height).toBeLessThanOrEqual(IMAGE_SIZE.SD);
+    expect(capped.width / capped.height).toBeCloseTo(width / height, 2);
+    expect(pixelAt(readImage(capped), capped.width >> 1, capped.height >> 1)).toEqual([
+      0, 255, 255, 255,
+    ]);
+  });
+
+  it('leaves invert-colors at full size when no cap is given', () => {
+    const result = invertColorsWebGL(createImage(WIDTH, HEIGHT, () => [255, 0, 0, 255]));
+
+    expect([result.width, result.height]).toEqual([WIDTH, HEIGHT]);
   });
 });

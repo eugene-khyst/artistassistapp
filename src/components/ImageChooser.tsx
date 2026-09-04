@@ -90,8 +90,8 @@ export function ImageChooser() {
         title: <Trans>Storage may fill up</Trans>,
         content: (
           <Trans>
-            You already have many recent photos saved. Delete the oldest one to free up space? The
-            new photo will still be added.
+            You already have many photos saved. Delete the oldest one to free up space? The new
+            photo will still be added.
           </Trans>
         ),
         okText: <Trans>Delete oldest</Trans>,
