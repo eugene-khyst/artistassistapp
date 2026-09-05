@@ -123,6 +123,14 @@ export function ImagesCompare() {
         )}
       </Space>
 
+      {isNew && (
+        <Typography.Text type="secondary">
+          <Trans>
+            Your images are processed locally on your device and are never uploaded to any server
+          </Trans>
+        </Typography.Text>
+      )}
+
       {nextGame && (
         <>
           <Typography.Text strong>

@@ -478,8 +478,9 @@ export function ColorSetChooser() {
             <Typography.Text strong>ArtistAssistApp</Typography.Text> helps artists mix colors to
             match reference photos using their own art supplies, create palettes and mixing charts,
             study tonal values, make outlines, draw with grids, explore limited palettes and
-            artist-inspired versions of photos, straighten photos, adjust their colors, remove
-            backgrounds, and compare images side by side.
+            artist-inspired versions of photos, and compare images side by side. It also edits your
+            photos: straighten, crop, expand, adjust colors, remove backgrounds and objects,
+            upscale, and colorize black-and-white.
           </Trans>
         </Typography.Paragraph>
 
@@ -510,7 +511,7 @@ export function ColorSetChooser() {
                 <Typography.Text>
                   <Trans>
                     <Typography.Text strong>Not a paid member yet?</Typography.Text> Become a paid
-                    ArtistAssistApp member to unlock:
+                    ArtistAssistApp member and get:
                   </Trans>
                 </Typography.Text>
                 <ul className={styles['memberBenefits']}>
@@ -521,7 +522,7 @@ export function ColorSetChooser() {
                     <Trans>✏️ High-quality outlines and background removal</Trans>
                   </li>
                   <li>
-                    <Trans>🧑‍🎨 Artistic style transfer from your images</Trans>
+                    <Trans>🧑‍🎨 Artistic styles from your own images</Trans>
                   </li>
                   <li>
                     <Trans>
@@ -539,7 +540,7 @@ export function ColorSetChooser() {
 
               <Typography.Text>
                 <Trans>
-                  <Typography.Text strong>Already a paid member?</Typography.Text> Log in to unlock
+                  <Typography.Text strong>Already a paid member?</Typography.Text> Log in to use
                   your paid features.
                 </Trans>
               </Typography.Text>

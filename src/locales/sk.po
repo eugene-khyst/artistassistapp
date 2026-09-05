@@ -13,13 +13,13 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/ColorSetChooser.tsx:688
+#: src/components/ColorSetChooser.tsx:689
 msgid "{brandName} colors"
 msgstr "Farby {brandName}"
 
 #: src/components/ad/AdModal.tsx:72
 msgid "{closeCounter, plural, one {Close in # second} other {Close in # seconds}}"
-msgstr "{closeCounter, plural, one {Zatvor za # sekundu} few {Zatvorené za # sekundy} many {Zatvoríme o # sekúnd} other {Zatvoríme za # sekúnd}}"
+msgstr "{closeCounter, plural, one {Zatvorí sa o # sekundu} few {Zatvorí sa o # sekundy} many {Zatvorí sa o # sekúnd} other {Zatvorí sa o # sekúnd}}"
 
 #: src/components/color-set/ColorBrandSelect.tsx:72
 #: src/components/color-set/ColorSetName.tsx:33
@@ -35,7 +35,7 @@ msgstr "{expiresIn, plural, one {Kód vyprší o # sekundu} few {Kód vyprší o
 
 #: src/components/auth/LoginEmailOtpButton.tsx:196
 msgid "{retryIn, plural, one {Resend code in # second} other {Resend code in # seconds}}"
-msgstr "{retryIn, plural, one {Odošlite kód znova o # sekundu} few {Odošlite kód znova o # sekundy} many {Odošlite kód znova o # sekúnd} other {Odošlite kód znova o # sekúnd}}"
+msgstr "{retryIn, plural, one {Znova odoslať o # sekundu} few {Znova odoslať o # sekundy} many {Znova odoslať o # sekúnd} other {Znova odoslať o # sekúnd}}"
 
 #: src/components/cloud/ExportToZipButton.tsx:46
 msgid "{unavailableImageCount, plural, one {Backup created without # unavailable photo. Select the original photo again, then save the backup again.} other {Backup created without # unavailable photos. Select the original photos again, then save the backup again.}}"
@@ -68,23 +68,23 @@ msgstr "<0/> Windows a <1/> Linux"
 
 #: src/components/color/ColorMatchCard.tsx:95
 msgid "<0>{matchScoreText}%</0> match"
-msgstr "<0>zhoda {matchScoreText} %</0> "
+msgstr "<0>{matchScoreText} %</0> zhoda"
 
-#: src/components/ColorSetChooser.tsx:541
-msgid "<0>Already a paid member?</0> Log in to unlock your paid features."
-msgstr "<0>Už ste plateným členom?</0> Prihláste sa, aby ste odomkli svoje platené funkcie."
+#: src/components/ColorSetChooser.tsx:542
+msgid "<0>Already a paid member?</0> Log in to use your paid features."
+msgstr "<0>Už ste plateným členom?</0> Prihláste sa a používajte svoje platené funkcie."
 
 #: src/components/ColorSetChooser.tsx:477
-msgid "<0>ArtistAssistApp</0> helps artists mix colors to match reference photos using their own art supplies, create palettes and mixing charts, study tonal values, make outlines, draw with grids, explore limited palettes and artist-inspired versions of photos, straighten photos, adjust their colors, remove backgrounds, and compare images side by side."
-msgstr "<0>ArtistAssistApp</0> pomáha umelcom miešať farby tak, aby zodpovedali referenčným fotografiám pomocou ich vlastných umeleckých potrieb, vytvárať palety a miešacie tabuľky, študovať tonálne hodnoty, vytvárať obrysy, kresliť pomocou mriežok, skúmať obmedzené palety a verzie fotografií inšpirované umelcami, vyrovnávať fotografie, upravovať ich farby, odstraňovať pozadia a porovnávať obrázky vedľa seba."
+msgid "<0>ArtistAssistApp</0> helps artists mix colors to match reference photos using their own art supplies, create palettes and mixing charts, study tonal values, make outlines, draw with grids, explore limited palettes and artist-inspired versions of photos, and compare images side by side. It also edits your photos: straighten, crop, expand, adjust colors, remove backgrounds and objects, upscale, and colorize black-and-white."
+msgstr "<0>ArtistAssistApp</0> pomáha výtvarníkom miešať farby tak, aby zodpovedali referenčným fotografiám, a to z ich vlastných výtvarných potrieb, vytvárať palety a tabuľky miešania, študovať tonálne hodnoty, vytvárať obrysy, kresliť podľa mriežky, skúšať obmedzené palety a verzie fotografií inšpirované umelcami a porovnávať obrázky vedľa seba. Upravuje aj vaše fotografie: narovnanie, orezanie, rozšírenie, úprava farieb, odstránenie pozadia a objektov, zväčšenie a vyfarbenie čiernobielych fotografií."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:70
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Skontrolujte svoj Patreon účet</0>: Uistite sa, že ste prihlásení do <1>Patreon.com</1> vo svojom webovom prehliadači s rovnakým e-mailom, aký ste použili pri kúpe členstva. Ak máte viacero účtov, odhláste sa a znovu sa prihláste správnym účtom."
 
-#: src/components/ColorSetChooser.tsx:511
-msgid "<0>Not a paid member yet?</0> Become a paid ArtistAssistApp member to unlock:"
-msgstr "<0>Ešte nie ste plateným členom?</0> Staňte sa plateným členom ArtistAssist App a odomknite:"
+#: src/components/ColorSetChooser.tsx:512
+msgid "<0>Not a paid member yet?</0> Become a paid ArtistAssistApp member and get:"
+msgstr "<0>Ešte nie ste plateným členom?</0> Staňte sa plateným členom ArtistAssistApp a získajte:"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:88
 msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
@@ -92,27 +92,27 @@ msgstr "<0>Skúste sa znova prihlásiť</0>: Keď potvrdíte, že správny Patre
 
 #: src/components/auth/AuthFeedbackHandler.tsx:81
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
-msgstr "<0>Používajte webový prehliadač:</0> Ak používate aplikáciu Patreon (iOS/Android), prihláste sa cez webový prehliadač (Chrome, Safari, Firefox), pretože aplikácia môže niekedy zasahovať do overovacieho procesu."
+msgstr "<0>Používajte webový prehliadač</0>: Ak používate aplikáciu Patreon (iOS/Android), prihláste sa radšej cez webový prehliadač (Chrome, Safari, Firefox), pretože aplikácia môže niekedy zasahovať do overovacieho procesu."
 
-#: src/components/ColorSetChooser.tsx:527
+#: src/components/ColorSetChooser.tsx:528
 msgid "☁️ Cloud sync to store your color sets, photos, and mixtures in your own cloud storage, so you can use them across devices"
 msgstr "☁️ Cloudová synchronizácia na uloženie farebných sad, fotografií a zmesí vo vašom vlastnom cloudovom úložisku, takže ich môžete používať naprieč zariadeniami"
 
-#: src/components/ColorSetChooser.tsx:521
+#: src/components/ColorSetChooser.tsx:522
 msgid "✏️ High-quality outlines and background removal"
 msgstr "✏️ Kvalitné obrysy a odstránenie pozadia"
 
-#: src/components/ColorSetChooser.tsx:518
+#: src/components/ColorSetChooser.tsx:519
 msgid "🎨 250+ color brands"
 msgstr "🎨 250+ farebných značiek"
 
-#: src/components/ColorSetChooser.tsx:533
+#: src/components/ColorSetChooser.tsx:534
 msgid "📢 No ads"
 msgstr "📢 Žiadne reklamy"
 
-#: src/components/ColorSetChooser.tsx:524
-msgid "🧑‍🎨 Artistic style transfer from your images"
-msgstr "🧑‍🎨 Prenos umeleckého štýlu z vašich obrázkov"
+#: src/components/ColorSetChooser.tsx:525
+msgid "🧑‍🎨 Artistic styles from your own images"
+msgstr "🧑‍🎨 Umelecké štýly z vašich vlastných obrázkov"
 
 #: src/components/messages.ts:38
 msgid "2-color gradient"
@@ -152,27 +152,27 @@ msgstr "Akrylová farba"
 
 #: src/components/empty/EmptyPalette.tsx:53
 msgid "Add a color mixture to the palette"
-msgstr "Pridajte farebnú zmes do palety"
+msgstr "Pridať farebnú zmes do palety"
 
 #: src/components/ColorMixer.tsx:246
 msgid "Add color"
-msgstr "Pridanie farby"
+msgstr "Pridať farbu"
 
 #: src/components/empty/EmptyPalette.tsx:35
 msgid "Add color mixtures to the palette"
-msgstr "Pridajte farebné zmesi do palety"
+msgstr "Pridať farebné zmesi do palety"
 
 #: src/components/TwoColorGradient.tsx:213
 msgid "Add color pair"
-msgstr "Pridajte farebný pár"
+msgstr "Pridať farebný pár"
 
 #: src/components/ImagesCompare.tsx:113
 msgid "Add images"
-msgstr "Pridajte obrázky"
+msgstr "Pridať obrázky"
 
-#: src/components/ColorSetChooser.tsx:691
+#: src/components/ColorSetChooser.tsx:692
 msgid "Add or remove colors to match your actual color set."
-msgstr "Pridajte alebo odstráňte farby tak, aby zodpovedali vašej skutočnej množine farieb."
+msgstr "Pridajte alebo odstráňte farby tak, aby zodpovedali vašej skutočnej farebnej sade."
 
 #: src/components/color/AddToPaletteButton.tsx:66
 msgid "Add to palette"
@@ -180,7 +180,7 @@ msgstr "Pridať do palety"
 
 #: src/components/color/ColorMixtureDescription.tsx:94
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
-msgstr "Pridanie bielej farby v <0>pomere {whiteRatioText}</0>"
+msgstr "Pridajte bielu v <0>pomere {whiteRatioText}</0>"
 
 #: src/components/messages.ts:51
 msgid "Adjust colors"
@@ -192,7 +192,7 @@ msgstr "Ručne nastavte 4 rohy."
 
 #: src/components/Help.tsx:201
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
-msgstr "Všetky dáta aplikácií sú uložené v úložisku webového prehliadača, aj po inštalácii. Vymazanie dát prehliadača všetko vymaže."
+msgstr "Všetky údaje aplikácie sú uložené v úložisku webového prehliadača, aj po inštalácii. Vymazanie údajov prehliadača ich všetky odstráni."
 
 #: src/components/ImageEditor.tsx:309
 msgid "All edits will be lost"
@@ -204,7 +204,7 @@ msgstr "Povoľte prístup do schránky a skúste to znova."
 
 #: src/components/install/InstallDrawer.tsx:177
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
-msgstr "Prípadne si nainštalujte najnovšiu verziu prehliadača Chrome, Edge alebo Opera a kliknite na tlačidlo <0>Inštalovať</0> . V starších verziách systému macOS je to jediná možnosť."
+msgstr "Prípadne si nainštalujte najnovšiu verziu prehliadača Chrome, Edge alebo Opera a kliknite na tlačidlo <0>Inštalovať</0>. V starších verziách systému macOS je to jediná možnosť."
 
 #: src/components/ImageColorPicker.tsx:259
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
@@ -229,11 +229,11 @@ msgstr "Naneste husto"
 
 #: src/components/color/ConsistencyDescription.tsx:126
 msgid "Apply less pressure to make the colored pencil layer more transparent"
-msgstr "Použite menší tlak, aby bola vrstva farebnej ceruzky priehľadnejšia"
+msgstr "Použite menší prítlak, aby bola vrstva farebnej ceruzky priehľadnejšia"
 
 #: src/components/color/ConsistencyDescription.tsx:133
 msgid "Apply less pressure to make the watercolor pencil layer more transparent"
-msgstr "Použite menší tlak, aby bola vrstva akvarelovej ceruzky priehľadnejšia"
+msgstr "Použite menší prítlak, aby bola vrstva akvarelovej ceruzky priehľadnejšia"
 
 #: src/components/color/ConsistencyDescription.tsx:92
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
@@ -246,16 +246,16 @@ msgstr "AR"
 
 #: src/components/palette/PaletteGrid.tsx:119
 msgid "Are you sure you want to delete all color mixtures?"
-msgstr "Si si istý, že chceš vymazať všetky farebné zmesi?"
+msgstr "Naozaj chcete odstrániť všetky farebné zmesi?"
 
 #: src/components/color/AddToPaletteButton.tsx:46
 #: src/components/color/PaletteColorMixtureCard.tsx:126
 msgid "Are you sure you want to delete this color mixture?"
-msgstr "Si si istý, že chceš túto farebnú zmes vymazať?"
+msgstr "Naozaj chcete odstrániť túto farebnú zmes?"
 
-#: src/components/ColorSetChooser.tsx:787
+#: src/components/ColorSetChooser.tsx:788
 msgid "Are you sure you want to delete this color set?"
-msgstr "Naozaj chcete odstrániť túto množinu farieb?"
+msgstr "Naozaj chcete odstrániť túto farebnú sadu?"
 
 #: src/components/CustomColorBrandCreator.tsx:526
 msgid "Are you sure you want to delete this custom brand?"
@@ -265,14 +265,14 @@ msgstr "Naozaj chcete odstrániť túto vlastnú značku?"
 msgid "Are you sure you want to delete this photo?"
 msgstr "Naozaj chcete túto fotografiu odstrániť?"
 
-#: src/components/ColorSetChooser.tsx:604
+#: src/components/ColorSetChooser.tsx:605
 #: src/components/CustomColorBrandCreator.tsx:502
 msgid "Art medium"
-msgstr "Umelecké médium"
+msgstr "Výtvarná technika"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:116
 msgid "ArtistAssistApp can no longer access your cloud storage. Disconnect it, then connect again."
-msgstr "ArtistAssist App už nemá prístup k vášmu cloudovému úložisku. Odpoj ho a potom sa znova pripoj."
+msgstr "ArtistAssistApp už nemá prístup k vášmu cloudovému úložisku. Odpojte ho a potom sa znova pripojte."
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:182
 msgid "ArtistAssistApp could not confirm that your cloud files were deleted. Remove any remaining ArtistAssistApp folder or files directly from your cloud provider."
@@ -280,7 +280,7 @@ msgstr "ArtistAssistApp nedokázal potvrdiť, že vaše cloudové súbory boli v
 
 #: src/components/auth/AuthFeedbackHandler.tsx:173
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
-msgstr "ArtistAssist App nedostal výsledok vášho prihlásenia na Patreon. Toto sa môže stať, keď sa prihlásiť otvorí v inom prehliadači alebo aplikácii. Prosím, skúste sa znova prihlásiť."
+msgstr "ArtistAssistApp nedostal výsledok vášho prihlásenia na Patreon. Môže sa to stať, keď sa prihlasovanie otvorí v inom prehliadači alebo aplikácii. Skúste sa, prosím, prihlásiť znova."
 
 #: src/components/Help.tsx:237
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
@@ -288,7 +288,7 @@ msgstr "ArtistAssistApp vyvinul <0>Eugene Khyst</0>"
 
 #: src/components/Help.tsx:213
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
-msgstr "ArtistAssist App nikdy neukladá vašu e-mailovú adresu, iba súkromný kód odvodený od nej, ktorý nemôže odhaliť adresu. Prihlásenie cez Patreon alebo obnovenie členstva tento kód opäť vytvorí."
+msgstr "ArtistAssistApp nikdy neukladá vašu e-mailovú adresu, iba súkromný kód z nej odvodený, ktorý adresu nedokáže odhaliť. Prihlásenie cez Patreon alebo obnovenie členstva tento kód vytvorí znova."
 
 #: src/components/storage/DeleteAppDataButton.tsx:42
 msgid "ArtistAssistApp will permanently delete your saved work and settings from this device and log you out.<0/>Data already synced to cloud storage will not be deleted."
@@ -296,7 +296,7 @@ msgstr "ArtistAssistApp natrvalo odstráni vašu uloženú prácu a nastavenia z
 
 #: src/components/storage/ClearCacheButton.tsx:42
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
-msgstr "ArtistAssistApp sa po odstránení dočasných aplikačných súborov<0/> znovu načíta.Vaša uložená práca a cloudové dáta nebudú vymazané."
+msgstr "ArtistAssistApp sa po odstránení dočasných súborov aplikácie znova načíta.<0/>Vaša uložená práca a cloudové údaje nebudú odstránené."
 
 #: src/components/image-editor/CropControls.tsx:75
 #: src/components/image-editor/ExpandControls.tsx:101
@@ -351,7 +351,7 @@ msgstr "Záloha importovaná"
 
 #: src/components/cloud/ExportToZipButton.tsx:44
 msgid "Backup saved without some photos"
-msgstr "Záloha bola uložená bez niektorých fotiek"
+msgstr "Záloha bola uložená bez niektorých fotografií"
 
 #: src/components/ImageStyleTransfer.tsx:68
 msgid "Barbizon School"
@@ -363,11 +363,15 @@ msgstr "Staňte sa plateným členom"
 
 #: src/components/ImageColorPicker.tsx:375
 msgid "Blending"
-msgstr "Miešanie"
+msgstr "Rozotieranie"
 
 #: src/components/ImageColorPicker.tsx:486
 msgid "By color count"
 msgstr "Podľa počtu farieb"
+
+#: src/components/ImageColorPicker.tsx:492
+msgid "By consistency"
+msgstr "Podľa konzistencie"
 
 #: src/components/messages.ts:83
 msgid "By date"
@@ -376,7 +380,7 @@ msgstr "Podľa dátumu"
 #: src/components/messages.ts:78
 #: src/components/messages.ts:85
 msgid "By hue"
-msgstr "Podľa farby"
+msgstr "Podľa odtieňa"
 
 #: src/components/messages.ts:77
 msgid "By ID"
@@ -385,23 +389,19 @@ msgstr "Podľa ID"
 #: src/components/messages.ts:79
 #: src/components/messages.ts:86
 msgid "By lightness"
-msgstr "Ľahkosťou"
+msgstr "Podľa svetlosti"
 
 #: src/components/ImageColorPicker.tsx:481
 msgid "By match"
-msgstr "Podľa zápasu"
+msgstr "Podľa zhody"
 
 #: src/components/messages.ts:84
 msgid "By name"
-msgstr "Názov"
-
-#: src/components/ImageColorPicker.tsx:492
-msgid "By opacity"
-msgstr "Podľa nepriehľadnosti"
+msgstr "Podľa názvu"
 
 #: src/components/ImageOutline.tsx:151
 msgid "Camera access is required for AR tracing"
-msgstr "Pre AR trasing je potrebný prístup do kamery"
+msgstr "Na obkresľovanie v AR je potrebný prístup ku kamere"
 
 #: src/components/auth/DeleteAccountButton.tsx:68
 #: src/components/cloud/ConnectCloudButton.tsx:71
@@ -418,7 +418,7 @@ msgstr "Zrušiť"
 
 #: src/components/Help.tsx:106
 msgid "Cancel a paid membership"
-msgstr "Zrušenie plateného členstva"
+msgstr "Zrušiť platené členstvo"
 
 #: src/components/file/FileSelect.tsx:170
 msgid "Cannot use copied image"
@@ -430,7 +430,7 @@ msgstr "Bunky"
 
 #: src/components/Help.tsx:152
 msgid "Check for updates"
-msgstr "Skontrolujte aktualizácie"
+msgstr "Skontrolovať aktualizácie"
 
 #: src/components/ColorSetChooser.tsx:217
 #: src/components/image-editor/ColorizeControls.tsx:53
@@ -455,16 +455,16 @@ msgstr "Vyberte referenčnú fotografiu"
 
 #: src/components/ImageStyleTransfer.tsx:62
 msgid "Cityscape"
-msgstr "Panoráma mesta"
+msgstr "Mestská krajina"
 
 #: src/components/file/FileSelect.tsx:203
 #: src/components/image-editor/RemoveObjectsControls.tsx:108
 msgid "Clear"
-msgstr "Jasné"
+msgstr "Vymazať"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:118
 msgid "Clear background color"
-msgstr "Čistá farba pozadia"
+msgstr "Vymazať farbu pozadia"
 
 #: src/components/storage/ClearCacheButton.tsx:40
 #: src/components/storage/ClearCacheButton.tsx:49
@@ -474,11 +474,11 @@ msgstr "Vymazať vyrovnávaciu pamäť"
 
 #: src/components/color/UnderlayerColorPicker.tsx:123
 msgid "Clear underlayer"
-msgstr "Priehľadná spodná vrstva"
+msgstr "Vymazať podkladovú vrstvu"
 
 #: src/components/ImageColorPicker.tsx:423
 msgid "Clear unifying color"
-msgstr "Jasná zjednocujúca farba"
+msgstr "Vymazať zjednocujúcu farbu"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:229
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
@@ -486,15 +486,15 @@ msgstr "Kliknutím na 🖱️ alebo klepnutím na 👆 kdekoľvek na obrázku vy
 
 #: src/components/ImageSimplifier.tsx:148
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a focal point."
-msgstr "Kliknite na 🖱️ alebo klepnite na 👆 kdekoľvek na fotke a vyberte ohnisko."
+msgstr "Kliknite na 🖱️ alebo klepnite na 👆 kdekoľvek na fotografii a vyberte ohnisko."
 
 #: src/components/empty/EmptyTargetColor.tsx:33
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color for mixing from your colors."
-msgstr "🖱️ Kliknite alebo ťuknite 👆 kdekoľvek na fotografii, alebo použite vyskakovacie okno výberu farieb na výber cieľovej farby na miešanie z vašich farieb."
+msgstr "Kliknite na 🖱️ alebo klepnite na 👆 kdekoľvek na fotografii, prípadne použite vyskakovacie okno výberu farieb a vyberte cieľovú farbu, ktorú budete miešať zo svojich farieb."
 
 #: src/components/empty/EmptyPalette.tsx:46
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors"
-msgstr "Kliknite na 🖱️ alebo ťuknite na 👆 kdekoľvek na fotke alebo použite vyskakovacie okno na výber farieb a vyberte si cieľovú farbu, ktorú chcete namiešať z vašich farieb"
+msgstr "Kliknite na 🖱️ alebo klepnite na 👆 kdekoľvek na fotografii, prípadne použite vyskakovacie okno výberu farieb a vyberte cieľovú farbu, ktorú budete miešať zo svojich farieb"
 
 #: src/components/ad/AdModal.tsx:81
 msgid "Close"
@@ -514,15 +514,15 @@ msgstr "Cloudové pripojenie zlyhalo"
 
 #: src/components/cloud/CloudSyncUpdateNotification.tsx:41
 msgid "Cloud data changed"
-msgstr "Zmena cloudových dát"
+msgstr "Cloudové údaje sa zmenili"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:170
 msgid "Cloud data not found"
-msgstr "Cloudové dáta neboli nájdené"
+msgstr "Cloudové údaje sa nenašli"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:189
 msgid "Cloud data unreadable"
-msgstr "Cloudové dáta nečitateľné"
+msgstr "Cloudové údaje sú nečitateľné"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:180
 msgid "Cloud files may remain"
@@ -542,7 +542,7 @@ msgstr "Konflikt synchronizácie cloudu"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:219
 msgid "Cloud sync failed"
-msgstr "Cloud sync zlyhal"
+msgstr "Synchronizácia cloudu zlyhala"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:156
 msgid "Cloud sync history missing"
@@ -550,11 +550,11 @@ msgstr "Chýba história synchronizácie cloudu"
 
 #: src/hooks/useCloudSyncNotification.ts:44
 msgid "Cloud sync is not enabled"
-msgstr "Cloud sync nie je zapnutý"
+msgstr "Synchronizácia cloudu nie je zapnutá"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:206
 msgid "Cloud sync paused"
-msgstr "Cloud sync pozastavený"
+msgstr "Synchronizácia cloudu je pozastavená"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:167
 msgid "Code is required"
@@ -572,7 +572,7 @@ msgstr "Farba"
 msgid "Color brand"
 msgstr "Farebná značka"
 
-#: src/components/ColorSetChooser.tsx:636
+#: src/components/ColorSetChooser.tsx:637
 msgid "Color brands"
 msgstr "Farebné značky"
 
@@ -591,7 +591,7 @@ msgstr "Farebný mixér"
 
 #: src/components/messages.ts:37
 msgid "Color mixing chart"
-msgstr "Farebná miešacia tabuľka"
+msgstr "Tabuľka miešania farieb"
 
 #: src/components/color/ColorMixtureDescription.tsx:107
 msgid "Color mixture"
@@ -601,7 +601,7 @@ msgstr "Farebná zmes"
 msgid "Color picker"
 msgstr "Výber farieb"
 
-#: src/components/ColorSetChooser.tsx:612
+#: src/components/ColorSetChooser.tsx:613
 #: src/components/ImageColorPicker.tsx:293
 #: src/components/messages.ts:28
 msgid "Color set"
@@ -609,7 +609,7 @@ msgstr "Farebná sada"
 
 #: src/components/palette/PaletteGrid.tsx:112
 msgid "Color swatch"
-msgstr "Vzorkovník farieb"
+msgstr "Vzorka farby"
 
 #: src/components/messages.ts:63
 msgid "Colored Pencils"
@@ -621,7 +621,7 @@ msgstr "Zafarbiť"
 
 #: src/components/messages.ts:55
 msgid "Colorize black-and-white"
-msgstr "Vyfarbite čiernobielo"
+msgstr "Vyfarbiť čiernobielu fotografiu"
 
 #: src/components/ColorMixingChart.tsx:171
 #: src/components/ImageLimitedPalette.tsx:104
@@ -630,15 +630,15 @@ msgstr "Farby"
 
 #: src/components/messages.ts:42
 msgid "Compare images"
-msgstr "Porovnajte obrázky"
+msgstr "Porovnať obrázky"
 
 #: src/components/cloud/ConnectCloudButton.tsx:70
 msgid "Connect"
-msgstr "Pripojiť sa"
+msgstr "Pripojiť"
 
 #: src/components/cloud/ConnectCloudButton.tsx:74
 msgid "Connect {label}"
-msgstr "Connect {label}"
+msgstr "Pripojiť {label}"
 
 #: src/components/cloud/ConnectCloudButton.tsx:47
 msgid "Connect {label}?"
@@ -652,17 +652,17 @@ msgstr "Pripojte cloudové úložisko pred synchronizáciou."
 msgid "Connect cloud storage to keep a synced copy of your data in the cloud and use it across devices, or manually save and restore backup files"
 msgstr "Pripojte cloudové úložisko, aby ste si uchovali synchronizovanú kópiu svojich údajov v cloude a používali ich naprieč zariadeniami, alebo manuálne ukladajte a obnovujte záložné súbory"
 
-#: src/components/ColorSetChooser.tsx:558
+#: src/components/ColorSetChooser.tsx:559
 msgid "Connect cloud storage to sync your data across devices"
 msgstr "Pripojte cloudové úložisko na synchronizáciu údajov medzi zariadeniami"
 
 #: src/components/ImageColorPicker.tsx:379
 msgid "Consider colors blended over the underlayer when they match the target better than unblended colors"
-msgstr "Zvážte farby zmiešané cez podkladovú vrstvu, keď sa lepšie zhodujú s cieľom ako nezmiešané farby"
+msgstr "Zvážiť farby rozotreté na podkladovej vrstve, keď sa s cieľom zhodujú lepšie ako nerozotreté farby"
 
 #: src/components/ImageColorPicker.tsx:384
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
-msgstr "Zvážte priehľadné vrstvy na povrchu alebo podkladovej vrstve, ak lepšie zodpovedajú cieľu ako nepriehľadné zmesi"
+msgstr "Zvážiť priehľadné vrstvy na povrchu alebo podkladovej vrstve, keď sa s cieľom zhodujú lepšie ako nepriehľadné zmesi"
 
 #: src/components/Help.tsx:96
 msgid "Contact"
@@ -678,11 +678,11 @@ msgstr "Chcete pokračovať s automatickou paletou?"
 
 #: src/components/ImageColorPicker.tsx:308
 msgid "Controls how large an area is averaged when you pick a color from the photo."
-msgstr "Kontroluje, ako veľká plocha sa spriemeruje, keď vyberiete farbu z fotografie."
+msgstr "Ovláda, aká veľká plocha sa spriemeruje, keď vyberiete farbu z fotografie."
 
 #: src/components/color/WarmthIcon.tsx:42
 msgid "Cool — Algorithmic estimate; artistic perception may vary."
-msgstr "Cool — algoritmický odhad; Umelecké vnímanie sa môže líšiť."
+msgstr "Studená — algoritmický odhad; umelecké vnímanie sa môže líšiť."
 
 #: src/components/share/ShareModal.tsx:85
 msgid "Copy"
@@ -702,25 +702,25 @@ msgstr "Opravený odhad teploty svetelného zdroja v Kelvinoch"
 
 #: src/components/image-editor/StraightenControls.tsx:86
 msgid "Could not detect the paper or canvas automatically"
-msgstr "Nedokázal automaticky rozpoznať papier ani plátno"
+msgstr "Papier ani plátno sa nepodarilo automaticky rozpoznať"
 
 #: src/components/cloud/ExportToZipButton.tsx:59
 msgid "Could not export backup"
-msgstr "Záloha sa nepodarila exportovať"
+msgstr "Zálohu sa nepodarilo exportovať"
 
 #: src/components/cloud/ImportFromZipFileSelect.tsx:59
 msgid "Could not import backup"
-msgstr "Zálohovanie sa nepodarilo importovať"
+msgstr "Zálohu sa nepodarilo importovať"
 
 #: src/hooks/useFileReadErrorNotification.tsx:28
 msgid "Could not read the file"
 msgstr "Súbor sa nepodarilo prečítať"
 
-#: src/components/ColorSetChooser.tsx:760
+#: src/components/ColorSetChooser.tsx:761
 msgid "Create a duplicate of this color set for further modification"
-msgstr "Vytvorte duplikát tejto sady farieb na ďalšie úpravy"
+msgstr "Vytvoriť duplikát tejto farebnej sady na ďalšie úpravy"
 
-#: src/components/ColorSetChooser.tsx:769
+#: src/components/ColorSetChooser.tsx:770
 msgid "Create a new color set by merging existing ones"
 msgstr "Vytvorte novú farebnú sadu zlúčením existujúcich"
 
@@ -736,7 +736,7 @@ msgstr "Orezať"
 
 #: src/components/ImageStyleTransfer.tsx:77
 msgid "Cubism"
-msgstr "kubizmus"
+msgstr "Kubizmus"
 
 #: src/components/color-set/StandardColorSetCascader.tsx:34
 msgid "Custom color set"
@@ -749,8 +749,8 @@ msgstr "Vlastné farby"
 #: src/components/auth/DeleteAccountButton.tsx:67
 #: src/components/color/AddToPaletteButton.tsx:48
 #: src/components/color/PaletteColorMixtureCard.tsx:128
-#: src/components/ColorSetChooser.tsx:791
-#: src/components/ColorSetChooser.tsx:801
+#: src/components/ColorSetChooser.tsx:792
+#: src/components/ColorSetChooser.tsx:802
 #: src/components/CustomColorBrandCreator.tsx:531
 #: src/components/CustomColorBrandCreator.tsx:541
 #: src/components/image/RecentImageCard.tsx:124
@@ -762,53 +762,53 @@ msgstr "Odstrániť"
 #: src/components/palette/PaletteGrid.tsx:121
 #: src/components/palette/PaletteGrid.tsx:125
 msgid "Delete all"
-msgstr "Vymazať všetko"
+msgstr "Odstrániť všetko"
 
 #: src/components/palette/PaletteGrid.tsx:118
 msgid "Delete all color mixtures"
-msgstr "Vymažte všetky farebné zmesi"
+msgstr "Odstrániť všetky farebné zmesi"
 
 #: src/components/auth/DeleteAccountButton.tsx:59
 #: src/components/auth/DeleteAccountButton.tsx:71
 msgid "Delete data on servers"
-msgstr "Vymazanie dát na serveroch"
+msgstr "Odstrániť údaje na serveroch"
 
 #: src/components/storage/DeleteAppDataButton.tsx:40
 #: src/components/storage/DeleteAppDataButton.tsx:54
 msgid "Delete data on this device"
-msgstr "Vymažte dáta na tomto zariadení"
+msgstr "Odstrániť údaje na tomto zariadení"
 
 #: src/components/color/AddToPaletteButton.tsx:52
 #: src/components/color/PaletteColorMixtureCard.tsx:132
 msgid "Delete from palette"
-msgstr "Vymazať z palety"
+msgstr "Odstrániť z palety"
 
 #: src/components/ImageChooser.tsx:97
 msgid "Delete oldest"
-msgstr "Vymazať najstarší"
+msgstr "Odstrániť najstaršiu"
 
 #: src/components/color/AddToPaletteButton.tsx:45
 #: src/components/color/PaletteColorMixtureCard.tsx:125
 msgid "Delete the color mixture"
-msgstr "Vymaž farebnú zmes"
+msgstr "Odstrániť farebnú zmes"
 
-#: src/components/ColorSetChooser.tsx:786
+#: src/components/ColorSetChooser.tsx:787
 msgid "Delete the color set"
-msgstr "Odstránenie množiny farieb"
+msgstr "Odstrániť farebnú sadu"
 
 #: src/components/CustomColorBrandCreator.tsx:524
 #: src/components/CustomColorBrandCreator.tsx:536
 msgid "Delete the custom brand"
-msgstr "Odstránenie vlastnej značky"
+msgstr "Odstrániť vlastnú značku"
 
 #: src/components/image/RecentImageCard.tsx:114
 #: src/components/image/RecentImageCard.tsx:129
 msgid "Delete the recent photo"
-msgstr "Odstránenie nedávnej fotky"
+msgstr "Odstrániť nedávnu fotografiu"
 
-#: src/components/ColorSetChooser.tsx:796
+#: src/components/ColorSetChooser.tsx:797
 msgid "Delete this color set"
-msgstr "Odstránenie tejto množiny farieb"
+msgstr "Odstrániť túto farebnú sadu"
 
 #: src/components/color/ConsistencyDescription.tsx:51
 msgid "Dense layer"
@@ -822,7 +822,7 @@ msgstr "Detail"
 msgid "Details"
 msgstr "Podrobnosti"
 
-#: src/components/ImagesCompare.tsx:129
+#: src/components/ImagesCompare.tsx:137
 msgid "Determine the best image by pairwise comparison"
 msgstr "Určte najlepší obrázok párovým porovnaním"
 
@@ -840,19 +840,19 @@ msgstr "Priemer"
 
 #: src/components/ColorSetChooser.tsx:236
 msgid "Discard changes"
-msgstr "Zahoďte zmeny"
+msgstr "Zahodiť zmeny"
 
 #: src/components/ColorSetChooser.tsx:230
 msgid "Discard changes to the color set?"
-msgstr "Zahodiť zmeny v sade farieb?"
+msgstr "Zahodiť zmeny vo farebnej sade?"
 
 #: src/components/cloud/DisconnectCloudButton.tsx:64
 msgid "Disconnect"
-msgstr "Odpojenie"
+msgstr "Odpojiť"
 
 #: src/components/cloud/DisconnectCloudButton.tsx:68
 msgid "Disconnect {label}"
-msgstr "Odpojte {label}"
+msgstr "Odpojiť {label}"
 
 #: src/components/cloud/DisconnectCloudButton.tsx:41
 msgid "Disconnect {label}?"
@@ -860,7 +860,7 @@ msgstr "Odpojiť {label}?"
 
 #: src/components/cloud/DisconnectCloudButton.tsx:44
 msgid "Disconnecting moves the ArtistAssistApp folder and everything still inside it to Google Drive Trash.<0/>Files you moved outside the folder are not deleted."
-msgstr "Odpojenie presunie priečinok ArtistAssistApp a všetko, čo v ňom zostalo, do Google Drive Koša.<0/>Súbory, ktoré ste presunuli mimo priečinka, sa nevymažú."
+msgstr "Odpojenie presunie priečinok ArtistAssistApp a všetko, čo v ňom zostalo, do Koša na Google Drive.<0/>Súbory, ktoré ste presunuli mimo priečinka, sa neodstránia."
 
 #: src/components/cloud/DisconnectCloudButton.tsx:51
 msgid "Disconnecting will delete everything inside the ArtistAssistApp app folder, including files you added.<0/>Move anything you want to keep outside the folder first.<1/>Files outside the folder will not be deleted.<2/>Depending on the provider, deletion may be permanent."
@@ -870,13 +870,13 @@ msgstr "Odpojenie vymaže všetko v priečinku aplikácie ArtistAssistApp, vrát
 msgid "Divisionism"
 msgstr "Divizionizmus"
 
-#: src/components/ColorSetChooser.tsx:670
+#: src/components/ColorSetChooser.tsx:671
 msgid "Do you have a store-bought or custom color set?"
 msgstr "Máte farebnú sadu zakúpenú v obchode alebo na mieru?"
 
 #: src/components/ColorSetChooser.tsx:251
 msgid "Don't save"
-msgstr "Neukladaj"
+msgstr "Neukladať"
 
 #: src/stores/cloud-slice.ts:142
 msgid "Downloading image {index} / {count}"
@@ -888,27 +888,27 @@ msgstr "Sťahovanie... {percent}% ({key})"
 
 #: src/components/file/FileSelect.tsx:216
 msgid "Drop the file here..."
-msgstr "Polož spis sem..."
+msgstr "Sem presuňte súbor..."
 
 #: src/components/file/FileSelect.tsx:216
 msgid "Drop the files here..."
-msgstr "Polož súbory sem..."
+msgstr "Sem presuňte súbory..."
 
 #: src/components/messages.ts:65
 msgid "Dry Pastel"
-msgstr "Suché pastelové"
+msgstr "Suchý pastel"
 
-#: src/components/ColorSetChooser.tsx:763
+#: src/components/ColorSetChooser.tsx:764
 msgid "Duplicate"
 msgstr "Duplikát"
 
 #: src/components/ImageStyleTransfer.tsx:66
 msgid "Dutch Baroque"
-msgstr "holandský barok"
+msgstr "Holandský barok"
 
 #: src/components/TwoColorGradient.tsx:200
 msgid "Each column is a mixing ratio"
-msgstr "Každý stĺpec je zmiešavací pomer"
+msgstr "Každý stĺpec je pomer miešania"
 
 #: src/components/TwoColorGradient.tsx:198
 msgid "Each column is a mixing ratio, each row a consistency"
@@ -916,7 +916,7 @@ msgstr "Každý stĺpec je pomer miešania, každý riadok konzistencia"
 
 #: src/components/CustomColorBrandCreator.tsx:140
 msgid "Edit from here on"
-msgstr "Edit odtiaľ ďalej"
+msgstr "Upraviť odtiaľto ďalej"
 
 #: src/components/messages.ts:41
 msgid "Edit image"
@@ -928,7 +928,7 @@ msgstr "Upravené"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:38
 msgid "Email"
-msgstr "Email"
+msgstr "E-mail"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:88
 msgid "Email is required"
@@ -936,11 +936,11 @@ msgstr "E-mail je potrebný"
 
 #: src/components/ImageStyleTransfer.tsx:80
 msgid "Engraving"
-msgstr "Gravírovanie"
+msgstr "Rytina"
 
 #: src/components/CustomColorBrandCreator.tsx:511
 msgid "Enter a name"
-msgstr "Zadajte meno"
+msgstr "Zadajte názov"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:92
 msgid "Enter a valid email"
@@ -948,11 +948,11 @@ msgstr "Zadajte platný e-mail"
 
 #: src/components/ImageOutline.tsx:288
 msgid "Enter lightbox mode to trace the outline through your paper"
-msgstr "Vstúpte do režimu lightbox a obkreslite obrys cez papier"
+msgstr "Prejdite do režimu lightboxu a obkreslite obrys cez papier"
 
 #: src/components/ImageOutline.tsx:351
 msgid "Enter lightbox mode to trace the outline through your paper."
-msgstr "Vstúpte do režimu lightbox, aby ste obkresili obrys cez papier."
+msgstr "Prejdite do režimu lightboxu a obkreslite obrys cez papier."
 
 #: src/components/auth/LoginEmailOtpButton.tsx:244
 msgid "Enter the code"
@@ -972,7 +972,7 @@ msgstr "Popis chyby"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:349
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
-msgstr "Odhadovaná teplota svetelného zdroja v Kelvinoch, snímka bola urobená"
+msgstr "Odhadovaná teplota svetelného zdroja v kelvinoch, pri ktorom bola snímka urobená"
 
 #: src/components/ImageStyleTransfer.tsx:81
 msgid "Etching"
@@ -981,16 +981,16 @@ msgstr "Leptanie"
 #: src/components/ImageOutline.tsx:307
 #: src/components/ImageOutline.tsx:359
 msgid "Exit AR"
-msgstr "Exit AR"
+msgstr "Ukončiť AR"
 
 #: src/components/image-editor/ExpandControls.tsx:252
 #: src/components/messages.ts:50
 msgid "Expand"
-msgstr "Rozbaliť"
+msgstr "Rozšíriť"
 
 #: src/components/image-editor/ExpandControls.tsx:118
 msgid "Expand by"
-msgstr "Rozbaliť o"
+msgstr "Rozšíriť o"
 
 #: src/components/CustomColorBrandCreator.tsx:545
 msgid "Export to file"
@@ -998,11 +998,11 @@ msgstr "Export do súboru"
 
 #: src/components/ImageStyleTransfer.tsx:74
 msgid "Expressionism"
-msgstr "expresionizmus"
+msgstr "Expresionizmus"
 
 #: src/components/ml-model/OnnxModelSelect.tsx:100
 msgid "Fast"
-msgstr "Rýchlo"
+msgstr "Rýchle"
 
 #: src/components/ml-model/OnnxModelSelect.tsx:108
 msgid "Fastest"
@@ -1010,22 +1010,22 @@ msgstr "Najrýchlejšie"
 
 #: src/components/ImageStyleTransfer.tsx:76
 msgid "Fauvism"
-msgstr "fauvizmus"
+msgstr "Fauvizmus"
 
 #: src/components/image-editor/ExpandControls.tsx:196
 msgid "Fill"
-msgstr "Vyplňte"
+msgstr "Výplň"
 
 #: src/components/ColorSetChooser.tsx:413
 #: src/components/CustomColorBrandCreator.tsx:394
 msgid "Fill in the required fields"
 msgstr "Vyplňte povinné polia"
 
-#: src/components/ImageStyleTransfer.tsx:372
+#: src/components/ImageStyleTransfer.tsx:380
 msgid "Filter by artist"
-msgstr "Filtrovať podľa interpreta"
+msgstr "Filtrovať podľa umelca"
 
-#: src/components/ImageStyleTransfer.tsx:385
+#: src/components/ImageStyleTransfer.tsx:393
 msgid "Filter by tag"
 msgstr "Filtrovať podľa značky"
 
@@ -1036,7 +1036,7 @@ msgstr "Jemný detail"
 #: src/components/ml-model/OnnxModelSelect.tsx:56
 #: src/components/ml-model/OnnxModelSelect.tsx:84
 msgid "Finest"
-msgstr "Najlepšie"
+msgstr "Najjemnejšie"
 
 #: src/components/CustomColorBrandCreator.tsx:217
 msgid "Finish editing"
@@ -1044,19 +1044,19 @@ msgstr "Dokončiť úpravu"
 
 #: src/components/ImageSimplifier.tsx:155
 msgid "Focal point instructions"
-msgstr "Pokyny pre kontaktné miesto"
+msgstr "Pokyny k ohnisku"
 
 #: src/components/image-editor/CropControls.tsx:37
 msgid "Free"
-msgstr "Zadarmo"
+msgstr "Voľný"
 
 #: src/components/color/ConsistencyDescription.tsx:46
 msgid "Full pressure"
-msgstr "Plný tlak"
+msgstr "Plný prítlak"
 
 #: src/components/color/ConsistencyDescription.tsx:41
 msgid "Full strength"
-msgstr "Plná sila"
+msgstr "Neriedená"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:303
 msgid "Gamma"
@@ -1064,19 +1064,19 @@ msgstr "Gama"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:107
 msgid "Get a code"
-msgstr "Získaj kód"
+msgstr "Získať kód"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:42
 msgid "Gifted membership"
-msgstr "Nadané členstvo"
+msgstr "Darované členstvo"
 
-#: src/components/ColorSetChooser.tsx:629
+#: src/components/ColorSetChooser.tsx:630
 msgid "Give your color set a name for easy access."
 msgstr "Pomenujte svoju farebnú sadu, aby ste k nej mali jednoduchý prístup."
 
 #: src/components/ImageColorPicker.tsx:375
 msgid "Glazing"
-msgstr "Glazovanie"
+msgstr "Lazúrovanie"
 
 #: src/components/button/GoToTabButton.tsx:38
 msgid "Go to the {label} tab"
@@ -1084,7 +1084,7 @@ msgstr "Prejdite na kartu {label}"
 
 #: src/components/messages.ts:60
 msgid "Gouache"
-msgstr "Gvaše"
+msgstr "Gvaš"
 
 #: src/components/grid/GridControls.tsx:130
 #: src/components/ImageOutline.tsx:326
@@ -1099,7 +1099,7 @@ msgstr "Výška"
 #: src/components/ColorSetChooser.tsx:472
 #: src/components/messages.ts:44
 msgid "Help"
-msgstr "Pomoc"
+msgstr "Pomocník"
 
 #: src/components/image-editor/ExpandControls.tsx:158
 msgid "Horizontal"
@@ -1107,15 +1107,15 @@ msgstr "Horizontálne"
 
 #: src/components/ColorSetChooser.tsx:249
 msgid "If you don't save, changes to the color set may be lost."
-msgstr "Ak ich neuložíte, zmeny v množine farieb sa môžu stratiť."
+msgstr "Ak ich neuložíte, zmeny vo farebnej sade sa môžu stratiť."
 
-#: src/components/ImagesCompare.tsx:165
+#: src/components/ImagesCompare.tsx:173
 msgid "Image ranking"
 msgstr "Hodnotenie obrázkov"
 
 #: src/components/cloud/ImportFromZipFileSelect.tsx:46
 msgid "Import backup"
-msgstr "Import zálohy"
+msgstr "Importovať zálohu"
 
 #: src/components/cloud/ImportFromZipFileSelect.tsx:39
 msgid "Import backup?"
@@ -1131,7 +1131,7 @@ msgstr "Importovanie tejto zálohy nahradí vaše lokálne farebné sady, refere
 
 #: src/components/ImageStyleTransfer.tsx:69
 msgid "Impressionism"
-msgstr "impresionizmus"
+msgstr "Impresionizmus"
 
 #: src/components/messages.ts:40
 msgid "Inspiration"
@@ -1147,11 +1147,11 @@ msgstr "Inštalovať aplikáciu"
 
 #: src/components/install/InstallDrawer.tsx:195
 msgid "Install ArtistAssistApp"
-msgstr "Nainštalujte ArtistAssist App"
+msgstr "Nainštalovať ArtistAssistApp"
 
 #: src/components/Help.tsx:147
 msgid "Install update"
-msgstr "Aktualizácia inštalácie"
+msgstr "Inštalovať aktualizáciu"
 
 #: src/components/ml-model/OnnxModelSelect.tsx:77
 msgid "Instant"
@@ -1159,11 +1159,11 @@ msgstr "Okamžité"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:375
 msgid "Intended color temperature (K)"
-msgstr "Zamýšľaná teplota farieb (K)"
+msgstr "Zamýšľaná teplota farby (K)"
 
 #: src/components/CustomColorBrandCreator.tsx:348
 msgid "Invalid custom color brand file"
-msgstr "Neplatný vlastný farebný súbor značky"
+msgstr "Neplatný súbor vlastnej farebnej značky"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:144
 msgid "Invalid login code"
@@ -1171,7 +1171,7 @@ msgstr "Neplatný prihlasovací kód"
 
 #: src/components/auth/DeleteAccountButton.tsx:49
 msgid "It also disconnects cloud storage, deletes your account and membership lookup records, and logs you out."
-msgstr "Tiež odpojí cloudové úložisko, vymaže záznamy o vyhľadávaní účtu a členstva a odhlási vás."
+msgstr "Odpojí aj cloudové úložisko, odstráni váš účet a záznamy o vyhľadávaní členstva a odhlási vás."
 
 #: src/components/ImagesCompare.tsx:96
 msgid "It can be difficult to choose between multiple images. Comparing each image with others in pairs simplifies the choice and helps to identify the most preferred one."
@@ -1179,28 +1179,28 @@ msgstr "Môže byť ťažké vybrať si medzi viacerými obrázkami. Porovnanie 
 
 #: src/components/color/AddToPaletteButton.tsx:49
 #: src/components/color/PaletteColorMixtureCard.tsx:129
-#: src/components/ColorSetChooser.tsx:792
+#: src/components/ColorSetChooser.tsx:793
 #: src/components/CustomColorBrandCreator.tsx:532
 #: src/components/image/RecentImageCard.tsx:125
 #: src/components/palette/PaletteGrid.tsx:122
 msgid "Keep"
-msgstr "Nechať si"
+msgstr "Ponechať"
 
 #: src/components/ImageChooser.tsx:98
 msgid "Keep all"
-msgstr "Nechajte si všetko"
+msgstr "Ponechať všetko"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:58
 msgid "Keep cloud data"
-msgstr "Uchovávajte cloudové dáta"
+msgstr "Ponechať cloudové údaje"
 
 #: src/components/ColorSetChooser.tsx:237
 msgid "Keep editing"
-msgstr "Pokračujte v úpravách"
+msgstr "Pokračovať v úpravách"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:41
 msgid "Keep this device"
-msgstr "Nechajte si toto zariadenie"
+msgstr "Ponechať toto zariadenie"
 
 #: src/components/ImageStyleTransfer.tsx:61
 msgid "Landscape"
@@ -1212,15 +1212,15 @@ msgstr "Jazyk"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:40
 msgid "Last charge status"
-msgstr "Stav posledného obvinenia"
+msgstr "Stav poslednej platby"
 
 #: src/components/image/RecentImageCard.tsx:139
 msgid "Last used {dateText}"
-msgstr "Naposledy použité {dateText}"
+msgstr "Naposledy použité: {dateText}"
 
-#: src/components/ImagesCompare.tsx:156
+#: src/components/ImagesCompare.tsx:164
 msgid "Left to compare: {unfinishedGamesSize}"
-msgstr "Na porovnanie: {unfinishedGamesSize}"
+msgstr "Zostáva porovnať: {unfinishedGamesSize}"
 
 #: src/components/ImageColorPicker.tsx:563
 msgid "Less"
@@ -1228,7 +1228,7 @@ msgstr "Menej"
 
 #: src/components/ImageOutline.tsx:350
 msgid "Light box"
-msgstr "Svetelná skrinka"
+msgstr "Lightbox"
 
 #: src/components/ImageTonalValues.tsx:107
 #: src/components/ImageTonalValues.tsx:110
@@ -1254,11 +1254,11 @@ msgstr "Prihlásiť sa"
 #: src/components/auth/LoginEmailOtpButton.tsx:244
 #: src/components/auth/LoginEmailOtpButton.tsx:276
 msgid "Log in with email"
-msgstr "Prihláste sa e-mailom"
+msgstr "Prihlásiť sa e-mailom"
 
 #: src/components/auth/LoginOAuthButton.tsx:34
 msgid "Log in with Patreon"
-msgstr "Prihláste sa pomocou Patreonu"
+msgstr "Prihlásiť sa cez Patreon"
 
 #: src/components/auth/LogoutButton.tsx:35
 msgid "Log out"
@@ -1274,7 +1274,7 @@ msgstr "Nízky vstup a vysoký vstup"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:324
 msgid "Low output and high output"
-msgstr "Nízky výkon a vysoký výkon"
+msgstr "Nízky výstup a vysoký výstup"
 
 #: src/components/print/PrintImageDrawer.tsx:255
 #: src/components/print/PrintImageDrawer.tsx:270
@@ -1287,7 +1287,7 @@ msgstr "Okraje"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:112
 msgid "Mark around the object you want to remove, then drag the vertices to adjust or tap to remove"
-msgstr "Označte okolo objektu, ktorý chcete odstrániť, a potom potiahnutím vrcholov upravte alebo klepnutím odstráňte"
+msgstr "Označte oblasť okolo objektu, ktorý chcete odstrániť, potom potiahnutím vrcholov upravte alebo klepnutím odstráňte"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:77
 msgid "Mark at least 3 points around the object you want to remove"
@@ -1302,13 +1302,13 @@ msgid "Mark the 4 corners of your paper or canvas, then drag the vertices to adj
 msgstr "Označte 4 rohy papiera alebo plátna a upravte ich ťahaním"
 
 #: src/components/color-set/MergeColorSetsDrawer.tsx:96
-#: src/components/ColorSetChooser.tsx:773
+#: src/components/ColorSetChooser.tsx:774
 msgid "Merge"
-msgstr "Zlúčenie"
+msgstr "Zlúčiť"
 
 #: src/components/color-set/MergeColorSetsDrawer.tsx:62
 msgid "Merge color sets"
-msgstr "Zlúčenie farebných sád"
+msgstr "Zlúčiť farebné sady"
 
 #: src/components/ImageTonalValues.tsx:117
 #: src/components/ImageTonalValues.tsx:120
@@ -1321,7 +1321,7 @@ msgstr "Stredné tóny"
 
 #: src/components/color/ColorMixtureDescription.tsx:69
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
-msgstr "Zmiešanie farieb v <0>pomere {partsRatioText}</0>"
+msgstr "Zmiešajte farby v <0>pomere {partsRatioText}</0>"
 
 #: src/components/color/ConsistencyDescription.tsx:59
 msgid "Mix paint and water in a <0>{ratioText} ratio</0>"
@@ -1362,19 +1362,19 @@ msgstr "Viac"
 msgid "Mosaic"
 msgstr "Mozaika"
 
-#: src/components/ColorSetChooser.tsx:628
+#: src/components/ColorSetChooser.tsx:629
 #: src/components/CustomColorBrandCreator.tsx:196
 #: src/components/CustomColorBrandCreator.tsx:510
 msgid "Name"
-msgstr "Meno"
+msgstr "Názov"
 
 #: src/components/CustomColorBrandCreator.tsx:513
 msgid "Name a brand"
 msgstr "Pomenujte značku"
 
-#: src/components/ColorSetChooser.tsx:632
+#: src/components/ColorSetChooser.tsx:633
 msgid "Name a color set"
-msgstr "Pomenovanie množiny farieb"
+msgstr "Pomenujte farebnú sadu"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:101
 msgid "name@example.com"
@@ -1386,7 +1386,7 @@ msgstr "Neoimpresionizmus"
 
 #: src/components/color/WarmthIcon.tsx:46
 msgid "Neutral — Algorithmic estimate; artistic perception may vary."
-msgstr "Neutrálny – algoritmický odhad; Umelecké vnímanie sa môže líšiť."
+msgstr "Neutrálna — algoritmický odhad; umelecké vnímanie sa môže líšiť."
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:40
 msgid "New brand"
@@ -1407,7 +1407,7 @@ msgstr "Nová veľkosť: {outputWidth} × {outputHeight}"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:41
 msgid "Next charge date"
-msgstr "Dátum ďalšieho nabíjania"
+msgstr "Dátum ďalšej platby"
 
 #: src/components/empty/EmptyColorMatches.tsx:43
 msgid "No matching color mixtures were found"
@@ -1415,12 +1415,12 @@ msgstr "Nenašli sa žiadne zodpovedajúce farebné zmesi"
 
 #: src/components/ImageColorPicker.tsx:275
 msgid "No palette colors matched the current color set and settings"
-msgstr "Žiadne farby palety nezodpovedajú aktuálnej sade farieb a nastaveniam"
+msgstr "Žiadne farby palety nezodpovedajú aktuálnej farebnej sade a nastaveniam"
 
 #: src/components/color-set/ColorSelect.tsx:90
 #: src/components/ColorMixingChart.tsx:127
 msgid "No sorting"
-msgstr "Žiadne triedenie"
+msgstr "Bez zoradenia"
 
 #: src/components/empty/EmptyTargetColor.tsx:28
 msgid "No target color is selected"
@@ -1456,13 +1456,13 @@ msgstr "Olejový pastel"
 
 #: src/components/ColorMixingChart.tsx:175
 msgid "On the diagonal are the pure colors at full strength. Above the diagonal are thick layers of each pair mixed in a 1:1 ratio. Below the diagonal are the same mixtures thinned to 1/2 strength."
-msgstr "Na diagonále sú čisté farby v plnej sile. Nad uhlopriečkou sú hrubé vrstvy každého páru zmiešané v pomere 1:1. Pod uhlopriečkou sú rovnaké zmesi riedené na 1/2 pevnosti."
+msgstr "Na uhlopriečke sú čisté neriedené farby. Nad uhlopriečkou sú hrubé vrstvy každého páru zmiešané v pomere 1:1. Pod uhlopriečkou sú tie isté zmesi zriedené na polovičnú sýtosť."
 
 #: src/components/ColorMixingChart.tsx:181
 msgid "On the diagonal are the pure colors at full strength. Off the diagonal is each pair mixed in a 1:1 ratio."
-msgstr "Na diagonále sú čisté farby v plnej sile. Mimo uhlopriečky je každý pár zmiešaný v pomere 1:1."
+msgstr "Na uhlopriečke sú čisté neriedené farby. Mimo uhlopriečky je každý pár zmiešaný v pomere 1:1."
 
-#: src/components/ColorSetChooser.tsx:651
+#: src/components/ColorSetChooser.tsx:652
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "V bezplatnej verzii je k dispozícii iba obmedzený počet farebných značiek"
 
@@ -1473,7 +1473,7 @@ msgstr "V bezplatnej verzii je k dispozícii iba obmedzený počet režimov"
 
 #: src/components/color/OpacityIcon.tsx:51
 msgid "Opaque"
-msgstr "Nepriehľadný"
+msgstr "Nepriehľadné"
 
 #: src/components/install/InstallDrawer.tsx:99
 #: src/components/install/InstallDrawer.tsx:148
@@ -1488,7 +1488,7 @@ msgstr "Otvorte <0>základné nastavenia Patreonu</0> a overte, že uvedená e-m
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "alebo si nainštalujte najnovšiu verziu webového prehliadača Chrome, Edge, Firefox alebo Opera"
 
-#: src/components/ColorSetChooser.tsx:566
+#: src/components/ColorSetChooser.tsx:567
 msgid "Or save a backup file on this device"
 msgstr "Alebo si na tomto zariadení uložte záložný súbor"
 
@@ -1496,22 +1496,22 @@ msgstr "Alebo si na tomto zariadení uložte záložný súbor"
 msgid "Or scan the QR code"
 msgstr "Alebo naskenujte QR kód"
 
-#: src/components/ImageChooser.tsx:155
+#: src/components/ImageChooser.tsx:161
 msgid "Or select from sample photos"
 msgstr "Alebo si vyberte zo vzorových fotografií"
 
-#: src/components/ImageChooser.tsx:129
+#: src/components/ImageChooser.tsx:135
 msgid "Or select from your recent photos"
-msgstr "Alebo si vyberte zo svojich nedávnych fotiek"
+msgstr "Alebo si vyberte zo svojich nedávnych fotografií"
 
 #: src/components/image-editor/CropControls.tsx:38
 #: src/components/image/ImageViewSelector.tsx:45
 msgid "Original"
-msgstr "Originál"
+msgstr "Pôvodný"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:346
 msgid "Original color temperature (K)"
-msgstr "Pôvodná teplota farieb (K)"
+msgstr "Pôvodná teplota farby (K)"
 
 #: src/components/ImageOutline.tsx:281
 #: src/components/messages.ts:34
@@ -1548,7 +1548,7 @@ msgstr "Overenie členstva na Patreone zlyhalo"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:39
 msgid "Patron status"
-msgstr "Patrónsky status"
+msgstr "Stav podporovateľa"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:174
 #: src/components/image-editor/AdjustColorsControls.tsx:208
@@ -1557,7 +1557,7 @@ msgstr "Percentil"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:185
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
-msgstr "Percentil: Automatické vyváženie bielej z najjasnejších oblastí, dobré pre väčšinu fotografií. Referencie: Manuálne vyváženie bielej farby s použitím zvolenej bielej oblasti."
+msgstr "Percentil: automatické vyváženie bielej z najjasnejších oblastí, vhodné pre väčšinu fotografií. Referencia: manuálne vyváženie bielej pomocou zvolenej bielej oblasti."
 
 #: src/components/Help.tsx:159
 msgid "Persistent storage"
@@ -1569,7 +1569,7 @@ msgstr "Trvalé úložisko nie je povolené"
 
 #: src/components/messages.ts:29
 msgid "Photo"
-msgstr "Fotka"
+msgstr "Fotografia"
 
 #: src/components/image/RecentImageCard.tsx:68
 msgid "Photo not restored"
@@ -1581,11 +1581,11 @@ msgstr "Fotografia nie je k dispozícii"
 
 #: src/components/image/RecentImageCard.tsx:87
 msgid "Photo unavailable. Restore it from your cloud storage, or select the original again."
-msgstr "Fotografia nie je k dispozícii. Obnovte ho z cloudového úložiska alebo znova vyberte originál."
+msgstr "Fotografia nie je k dispozícii. Obnovte ju z cloudového úložiska alebo znova vyberte originál."
 
 #: src/components/image/RecentImageCard.tsx:96
 msgid "Photo unavailable. Select the original again to repair it."
-msgstr "Fotografia nie je k dispozícii. Znova vyberte originál a opravte ho."
+msgstr "Fotografia nie je k dispozícii. Znova vyberte originál, aby ste ju opravili."
 
 #: src/components/empty/EmptyPalette.tsx:44
 msgid "Pick a target color"
@@ -1593,11 +1593,11 @@ msgstr "Vyberte cieľovú farbu"
 
 #: src/components/empty/EmptyTargetColor.tsx:39
 msgid "Pinch or scroll to zoom, drag to pan."
-msgstr "Štipnutím alebo rolovaním na priblíženie, potiahnutím na panorámovanie."
+msgstr "Priblížte štipnutím alebo rolovaním, posúvajte ťahaním."
 
 #: src/components/error/ErrorFallback.tsx:41
 msgid "Please send us a screenshot of this error via our <0>contacts</0>. It will help us identify the cause."
-msgstr "<0>Prosím, pošlite</0> nám screenshot tejto chyby cez naše kontakty. Pomôže nám to identifikovať príčinu."
+msgstr "Pošlite nám, prosím, snímku obrazovky tejto chyby cez naše <0>kontakty</0>. Pomôže nám to identifikovať príčinu."
 
 #: src/components/ImageStyleTransfer.tsx:72
 msgid "Pointillism"
@@ -1607,9 +1607,9 @@ msgstr "Pointilizmus"
 msgid "Portrait"
 msgstr "Portrét"
 
-#: src/components/ImagesCompare.tsx:185
+#: src/components/ImagesCompare.tsx:193
 msgid "Position: {position}<0/>Rating: {ratingText}"
-msgstr "Pozícia: {position}<0/>Rating: {ratingText}"
+msgstr "Pozícia: {position}<0/>Hodnotenie: {ratingText}"
 
 #: src/components/ImageStyleTransfer.tsx:70
 msgid "Post-Impressionism"
@@ -1619,7 +1619,7 @@ msgstr "Postimpresionizmus"
 #: src/components/cloud/CloudSyncUpdateNotification.tsx:56
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:63
 msgid "Postpone"
-msgstr "Odloženie"
+msgstr "Odložiť"
 
 #: src/components/empty/EmptyColorSet.tsx:113
 msgid "Press <0>Save & continue</0> when done."
@@ -1652,7 +1652,7 @@ msgstr "Stlačte tlačidlo <0>Pridať do palety</0> vedľa farebnej zmesi, ktor�
 #: src/components/ImageGrid.tsx:83
 #: src/components/ImageOutline.tsx:334
 #: src/components/ImageOutline.tsx:370
-#: src/components/ImagesCompare.tsx:173
+#: src/components/ImagesCompare.tsx:181
 #: src/components/ImageTonalValues.tsx:158
 #: src/components/ImageTonalValues.tsx:169
 #: src/components/palette/PaletteGrid.tsx:115
@@ -1674,21 +1674,21 @@ msgstr "Zásady ochrany osobných údajov"
 
 #: src/components/loading/LoadingIndicator.tsx:48
 msgid "Processing..."
-msgstr "Spracovávam..."
+msgstr "Spracúva sa..."
 
 #: src/i18n.ts:141
 msgid "Processing... {percent}%"
-msgstr "Spracováva sa... {percent} %"
+msgstr "Spracúva sa... {percent} %"
 
 #: src/components/Help.tsx:182
 msgid "Quota"
 msgstr "Kvóta"
 
-#: src/components/ImagesCompare.tsx:136
+#: src/components/ImagesCompare.tsx:144
 msgid "Rating: {player1RatingText}"
 msgstr "Hodnotenie: {player1RatingText}"
 
-#: src/components/ImagesCompare.tsx:147
+#: src/components/ImagesCompare.tsx:155
 msgid "Rating: {player2RatingText}"
 msgstr "Hodnotenie: {player2RatingText}"
 
@@ -1706,11 +1706,11 @@ msgstr "Znovu"
 
 #: src/components/ImageColorPicker.tsx:442
 msgid "Reduce color palette to"
-msgstr "Zredukujte farebnú paletu na"
+msgstr "Zredukovať farebnú paletu na"
 
 #: src/components/ImageColorPicker.tsx:461
 msgid "Reduce colors"
-msgstr "Zmenšiť farby"
+msgstr "Zredukovať farby"
 
 #: src/components/ImageColorPicker.tsx:459
 msgid "Reduce the number of colors in the photo."
@@ -1721,7 +1721,7 @@ msgstr "Znížte počet farieb na fotografii."
 msgid "Reference"
 msgstr "Referencia"
 
-#: src/components/ImageStyleTransfer.tsx:354
+#: src/components/ImageStyleTransfer.tsx:362
 msgid "Reference photo"
 msgstr "Referenčná fotografia"
 
@@ -1732,21 +1732,21 @@ msgstr "Odrazivosť"
 
 #: src/components/error/ErrorFallback.tsx:67
 msgid "Reload"
-msgstr "Nabíjanie"
+msgstr "Znova načítať"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:80
 msgid "Remove and continue"
-msgstr "Odstráňte a pokračujte"
+msgstr "Odstrániť a pokračovať"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:135
 #: src/components/messages.ts:52
 msgid "Remove background"
-msgstr "Odstránenie pozadia"
+msgstr "Odstrániť pozadie"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:105
 #: src/components/messages.ts:53
 msgid "Remove objects"
-msgstr "Odstráňte predmety"
+msgstr "Odstrániť objekty"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:119
 msgid "Removing objects is available only to paid Patreon members"
@@ -1756,7 +1756,7 @@ msgstr "Odstraňovanie objektov je dostupné len pre platených členov Patreonu
 #: src/components/CustomColorBrandCreator.tsx:192
 #: src/components/CustomColorBrandCreator.tsx:195
 msgid "Required"
-msgstr "Požadovaný"
+msgstr "Povinné"
 
 #: src/components/install/InstallDrawer.tsx:124
 msgid "Requires iOS 16.4+ or iPadOS 16.4+."
@@ -1768,12 +1768,12 @@ msgstr "Vyžaduje sa systém macOS Sonoma alebo novší."
 
 #: src/components/auth/LoginEmailOtpButton.tsx:202
 msgid "Resend code"
-msgstr "Opätovné odoslanie kódu"
+msgstr "Znova odoslať kód"
 
 #: src/components/ImageEditor.tsx:310
 #: src/components/ImageEditor.tsx:315
 msgid "Reset"
-msgstr "Vynulovanie"
+msgstr "Resetovať"
 
 #: src/components/cloud/ImportFromZipFileSelect.tsx:78
 msgid "Restore backup"
@@ -1785,22 +1785,22 @@ msgstr "Obnoviť z cloudu"
 
 #: src/components/empty/EmptyColorSet.tsx:60
 msgid "Restoring the saved color set..."
-msgstr "Obnovuje sa uložená sada farieb..."
+msgstr "Obnovuje sa uložená farebná sada..."
 
 #: src/components/color-set/ColorSetActivationNotification.tsx:36
 #: src/components/empty/EmptyColorSet.tsx:77
 msgid "Retry"
-msgstr "Skúste to znova"
+msgstr "Skúsiť znova"
 
 #: src/components/empty/EmptyColorSet.tsx:128
 #: src/components/empty/EmptyImage.tsx:48
 #: src/components/empty/EmptyPalette.tsx:61
 msgid "Return to the {tabLabel} tab"
-msgstr "Vráťte sa na kartu {tabLabel}"
+msgstr "Vrátiť sa na kartu {tabLabel}"
 
 #: src/components/image-editor/StraightenControls.tsx:118
 msgid "Rotate"
-msgstr "Rotovať"
+msgstr "Otočiť"
 
 #: src/components/ImageColorPicker.tsx:305
 msgid "Sample size"
@@ -1819,62 +1819,62 @@ msgstr "Sýtosť (%)"
 #: src/components/ImageOutline.tsx:377
 #: src/components/ImageTonalValues.tsx:175
 msgid "Save"
-msgstr "Zachrániť"
+msgstr "Uložiť"
 
-#: src/components/ColorSetChooser.tsx:755
+#: src/components/ColorSetChooser.tsx:756
 msgid "Save & continue"
 msgstr "Uložiť a pokračovať"
 
 #: src/components/cloud/ExportToZipButton.tsx:75
 msgid "Save backup"
-msgstr "Záloha si ulož"
+msgstr "Uložiť zálohu"
 
 #: src/components/ColorSetChooser.tsx:248
 msgid "Save changes to the color set?"
-msgstr "Uložiť zmeny v množine farieb?"
+msgstr "Uložiť zmeny vo farebnej sade?"
 
-#: src/components/ColorSetChooser.tsx:750
+#: src/components/ColorSetChooser.tsx:751
 msgid "Save the changes to this color set"
-msgstr "Uložte zmeny do tejto množiny farieb"
+msgstr "Uložiť zmeny v tejto farebnej sade"
 
 #: src/components/ImageStyleTransfer.tsx:63
 msgid "Seascape"
-msgstr "Prímorská krajina"
+msgstr "Morská krajina"
 
 #: src/components/CustomColorBrandCreator.tsx:492
 msgid "Select a color brand"
-msgstr "Vyberte značku farby"
+msgstr "Vyberte farebnú značku"
 
-#: src/components/ColorSetChooser.tsx:614
+#: src/components/ColorSetChooser.tsx:615
 msgid "Select a color set"
-msgstr "Vyberte sadu farieb"
+msgstr "Vyberte farebnú sadu"
 
 #: src/components/ImageChooser.tsx:118
 msgid "Select a reference photo from your device to paint from"
 msgstr "Vyberte referenčnú fotografiu zo zariadenia, z ktorej chcete maľovať"
 
-#: src/components/ColorSetChooser.tsx:668
+#: src/components/ColorSetChooser.tsx:669
 msgid "Select a standard or custom color set"
-msgstr "Vyberte štandardnú alebo vlastnú sadu farieb"
+msgstr "Vyberte štandardnú alebo vlastnú farebnú sadu"
 
-#: src/components/ImageStyleTransfer.tsx:361
+#: src/components/ImageStyleTransfer.tsx:369
 msgid "Select a style to transfer to your reference photo"
 msgstr "Vyberte štýl, ktorý chcete preniesť na referenčnú fotografiu"
 
-#: src/components/ColorSetChooser.tsx:605
+#: src/components/ColorSetChooser.tsx:606
 #: src/components/CustomColorBrandCreator.tsx:503
 msgid "Select an art medium"
-msgstr "Vyberte umelecké médium"
+msgstr "Vyberte výtvarnú techniku"
 
 #: src/components/CustomColorBrandCreator.tsx:441
 msgid "Select an image that contains a color chart"
-msgstr "Výber obrázka, ktorý obsahuje farebnú tabuľku"
+msgstr "Vyberte obrázok, ktorý obsahuje farebnú tabuľku"
 
 #: src/components/color-set/ColorTypeSelect.tsx:37
 msgid "Select art medium"
-msgstr "Vyberte umelecké médium"
+msgstr "Vybrať výtvarnú techniku"
 
-#: src/components/ColorSetChooser.tsx:689
+#: src/components/ColorSetChooser.tsx:690
 msgid "Select at least one color"
 msgstr "Vyberte aspoň jednu farbu"
 
@@ -1882,15 +1882,15 @@ msgstr "Vyberte aspoň jednu farbu"
 msgid "Select at least one color before saving the color set."
 msgstr "Vyberte aspoň jednu farbu pred uložením farebnej sady."
 
-#: src/components/ColorSetChooser.tsx:638
+#: src/components/ColorSetChooser.tsx:639
 msgid "Select at least one color brand"
-msgstr "Vyberte aspoň jednu značku farby"
+msgstr "Vyberte aspoň jednu farebnú značku"
 
 #: src/components/color-set/ColorBrandSelect.tsx:81
 msgid "Select brands"
 msgstr "Vyberte značky"
 
-#: src/components/ColorSetChooser.tsx:637
+#: src/components/ColorSetChooser.tsx:638
 msgid "Select brands that you use."
 msgstr "Vyberte značky, ktoré používate."
 
@@ -1909,7 +1909,7 @@ msgstr "Vyberte farby"
 
 #: src/components/ColorMixingChart.tsx:190
 msgid "Select colors to build a mixing chart"
-msgstr "Vyberte farby na vytvorenie mixovacieho schémy"
+msgstr "Vyberte farby na vytvorenie tabuľky miešania"
 
 #: src/components/ImageLimitedPalette.tsx:115
 msgid "Select from 1 to {MAX_COLORS} colors"
@@ -1917,13 +1917,13 @@ msgstr "Vyberte si od 1 do {MAX_COLORS} farieb"
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:82
 msgid "Select from your recent brands"
-msgstr "Vyberte si zo svojich najnovších značiek"
+msgstr "Vyberte si zo svojich nedávnych značiek"
 
 #: src/components/color-set/ColorSetSelect.tsx:92
 msgid "Select from your recent color sets"
 msgstr "Vyberte si z nedávnych farebných sád"
 
-#: src/components/ColorSetChooser.tsx:613
+#: src/components/ColorSetChooser.tsx:614
 msgid "Select from your recent color sets or create a new one."
 msgstr "Vyberte si zo svojich nedávnych farebných sád alebo vytvorte novú."
 
@@ -1946,7 +1946,7 @@ msgstr "Vyberte jazyk"
 
 #: src/components/ColorMixer.tsx:214
 msgid "Select part"
-msgstr "Vybrať diel"
+msgstr "Vybrať podiel"
 
 #: src/components/ImageChooser.tsx:123
 msgid "Select photo"
@@ -1958,7 +1958,7 @@ msgstr "Vyberte sadu"
 
 #: src/components/ImageStyleTransfer.tsx:283
 msgid "Select style image"
-msgstr "Výber štýlu obrázka"
+msgstr "Vybrať obrázok štýlu"
 
 #: src/components/color-set/MergeColorSetsDrawer.tsx:70
 msgid "Select the color sets you want to merge. A new color set will be created that includes all the colors from the selected sets."
@@ -1974,15 +1974,15 @@ msgstr "Vyberte druhú farbu"
 
 #: src/components/ColorMixer.tsx:196
 msgid "Select up to {MAX_COLORS} colors to mix and specify the part of each color in the resulting mix"
-msgstr "Vyberte až {MAX_COLORS} farieb na zmiešanie a určite časť každej farby vo výslednom mixe"
+msgstr "Vyberte až {MAX_COLORS} farieb na zmiešanie a určte podiel každej farby vo výslednej zmesi"
 
 #: src/components/empty/EmptyColorSet.tsx:99
 msgid "Select your art medium, color brands, and colors"
-msgstr "Vyberte svoje umelecké médium, značky farieb a farby"
+msgstr "Vyberte svoju výtvarnú techniku, farebné značky a farby"
 
-#: src/components/ColorSetChooser.tsx:578
+#: src/components/ColorSetChooser.tsx:579
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
-msgstr "Vyberte svoje umelecké médium, značky farieb a farby, ktorými budete maľovať, a potom stlačte tlačidlo <0>Uložiť a pokračovať</0>"
+msgstr "Vyberte svoju výtvarnú techniku, farebné značky a farby, ktorými budete maľovať, a potom stlačte tlačidlo <0>Uložiť a pokračovať</0>"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:74
 #: src/components/ImageOutline.tsx:254
@@ -2003,11 +2003,11 @@ msgstr "Odoslané na <0>{email}</0>"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:136
 msgid "Session expired"
-msgstr "Zasadnutie skončilo"
+msgstr "Relácia vypršala"
 
 #: src/components/ImageLimitedPalette.tsx:150
 msgid "Set as main color set"
-msgstr "Nastaviť ako hlavnú sadu farieb"
+msgstr "Nastaviť ako hlavnú farebnú sadu"
 
 #: src/components/image/ImageSaveButton.tsx:54
 msgid "Set as reference"
@@ -2016,22 +2016,22 @@ msgstr "Nastaviť ako referenciu"
 #: src/components/color/ColorMatchCard.tsx:144
 #: src/components/color/PaletteColorMixtureCard.tsx:149
 msgid "Set as underlayer"
-msgstr "Nastavené ako podkladová vrstva"
+msgstr "Nastaviť ako podkladovú vrstvu"
 
 #: src/components/color/ColorMatchCard.tsx:140
 #: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for blending."
-msgstr "Nastavte ako podkladovú vrstvu na miešanie."
+msgstr "Nastaviť ako podkladovú vrstvu na rozotieranie."
 
 #: src/components/color/ColorMatchCard.tsx:140
 #: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for glazing."
-msgstr "Nastavte ako podkladovú vrstvu na glazúrovanie."
+msgstr "Nastaviť ako podkladovú vrstvu na lazúrovanie."
 
 #: src/components/color/ColorMatchCard.tsx:156
 #: src/components/color/PaletteColorMixtureCard.tsx:161
 msgid "Set as unifying color"
-msgstr "Nastavené ako jednotná farba"
+msgstr "Nastaviť ako zjednocujúcu farbu"
 
 #: src/components/ImageTonalValues.tsx:127
 #: src/components/ImageTonalValues.tsx:130
@@ -2042,18 +2042,18 @@ msgstr "Tieň"
 msgid "Shadows and highlights"
 msgstr "Tiene a svetlá"
 
-#: src/components/ColorSetChooser.tsx:811
+#: src/components/ColorSetChooser.tsx:812
 #: src/components/share/ShareModal.tsx:81
 msgid "Share"
-msgstr "Akcia"
+msgstr "Zdieľať"
 
-#: src/components/ColorSetChooser.tsx:808
+#: src/components/ColorSetChooser.tsx:809
 msgid "Share this color set"
-msgstr "Zdieľajte túto farebnú sadu"
+msgstr "Zdieľať túto farebnú sadu"
 
 #: src/components/share/ShareModal.tsx:60
 msgid "Share your color set"
-msgstr "Zdieľanie sady farieb"
+msgstr "Zdieľať farebnú sadu"
 
 #: src/components/ml-model/OnnxModelSelect.tsx:63
 msgid "Sharp"
@@ -2061,7 +2061,7 @@ msgstr "Ostrý"
 
 #: src/components/ImageColorPicker.tsx:350
 msgid "Show areas on the photo that match this color."
-msgstr "Ukážte miesta na fotografii, ktoré zodpovedajú tejto farbe."
+msgstr "Zobraziť oblasti na fotografii, ktoré zodpovedajú tejto farbe."
 
 #: src/components/grid/GridControls.tsx:122
 msgid "Show grid"
@@ -2071,17 +2071,17 @@ msgstr "Zobraziť mriežku"
 msgid "Show matching areas"
 msgstr "Zobraziť zodpovedajúce oblasti"
 
-#: src/components/ImageChooser.tsx:147
+#: src/components/ImageChooser.tsx:153
 msgid "Show older photos"
-msgstr "Ukážte staršie fotografie"
+msgstr "Zobraziť staršie fotografie"
 
 #: src/components/color/PaletteColorMixtureCard.tsx:119
 msgid "Show on photo"
-msgstr "Ukáž na fotografii"
+msgstr "Zobraziť na fotografii"
 
 #: src/components/grid/GridControls.tsx:154
 msgid "Show or hide diagonal lines"
-msgstr "Zobrazenie alebo skrytie diagonálnych čiar"
+msgstr "Zobraziť alebo skryť uhlopriečky"
 
 #: src/components/color/PaletteColorMixtureCard.tsx:113
 msgid "Show this color on the reference photo."
@@ -2109,15 +2109,15 @@ msgstr "Zjednodušiť"
 
 #: src/components/color/ConsistencyDescription.tsx:147
 msgid "Slightly overlap oil pastel areas of different colors and blend gently to create a smooth transition"
-msgstr "Mierne prekrývajte olejové pastelové oblasti rôznych farieb a jemne premiešajte, aby ste vytvorili hladký prechod"
+msgstr "Mierne prekryte oblasti olejového pastelu rôznych farieb a jemne ich rozotrite, aby vznikol plynulý prechod"
 
 #: src/components/color/ConsistencyDescription.tsx:140
 msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition"
-msgstr "Mierne prekrývajte pastelové oblasti rôznych farieb a jemne premiešajte, aby ste vytvorili hladký prechod"
+msgstr "Mierne prekryte oblasti pastelu rôznych farieb a jemne ich rozotrite, aby vznikol plynulý prechod"
 
 #: src/components/color/ConsistencyDescription.tsx:154
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
-msgstr "Mierne prekrývajte voskové pastelové oblasti rôznych farieb a pevne ich premiešajte, aby ste vytvorili hladký prechod"
+msgstr "Mierne prekryte oblasti voskového pastelu rôznych farieb a pevne ich rozotrite, aby vznikol plynulý prechod"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:210
 msgid "Smaller percentile values correspond to stronger whitening"
@@ -2125,7 +2125,7 @@ msgstr "Menšie percentilové hodnoty zodpovedajú silnejšiemu vybieleniu"
 
 #: src/components/image-editor/ExpandControls.tsx:106
 msgid "Smart"
-msgstr "Inteligentný"
+msgstr "Inteligentné"
 
 #: src/components/image-editor/ExpandControls.tsx:236
 msgid "Smart expansion is available only to paid Patreon members"
@@ -2133,7 +2133,7 @@ msgstr "Inteligentné rozšírenie je dostupné len pre platených členov Patre
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:172
 msgid "Some synced cloud data was deleted or is unavailable. Keep this device to create it again, or postpone the decision. ArtistAssistApp will not recreate it automatically."
-msgstr "Niektoré synchronizované údaje cloudu boli odstránené alebo nie sú k dispozícii. Ponechajte si toto zariadenie, aby ste ho mohli znova vytvoriť, alebo odložte rozhodnutie. ArtistAssistApp ho nevytvorí automaticky."
+msgstr "Niektoré synchronizované cloudové údaje boli odstránené alebo nie sú k dispozícii. Ponechajte toto zariadenie, aby ste ich mohli znova vytvoriť, alebo rozhodnutie odložte. ArtistAssistApp ich nevytvorí automaticky."
 
 #: src/components/error/ErrorFallback.tsx:37
 msgid "Something went wrong"
@@ -2144,19 +2144,19 @@ msgstr "Niečo sa pokazilo"
 #: src/components/ImageColorPicker.tsx:518
 #: src/components/palette/PaletteGrid.tsx:137
 msgid "Sort"
-msgstr "Triediť"
+msgstr "Zoradiť"
 
 #: src/components/ImageColorPicker.tsx:482
 msgid "Sort by match, from highest to lowest."
 msgstr "Zoradiť podľa zhody, od najvyššej po najnižšiu."
 
 #: src/components/ImageColorPicker.tsx:493
-msgid "Sort by mixture opacity, from opaque to transparent."
-msgstr "Zoradiť podľa nepriehľadnosti zmesi, od nepriehľadnej po priehľadnú."
+msgid "Sort by paint consistency, from full strength to most thinned."
+msgstr "Zoradiť podľa konzistencie farby, od neriedenej po najviac zriedenú."
 
 #: src/components/ImageColorPicker.tsx:487
 msgid "Sort by the number of colors in the mixture, from fewest to most."
-msgstr "Zoradite podľa počtu farieb v zmesi, od najmenšieho po najväčší."
+msgstr "Zoradiť podľa počtu farieb v zmesi, od najmenšieho po najväčší."
 
 #: src/components/color/ColorMatchCard.tsx:123
 #: src/components/color/ReflectanceChartDrawer.tsx:98
@@ -2172,9 +2172,9 @@ msgstr "Rýchlosť"
 msgid "Square cells"
 msgstr "Štvorcové bunky"
 
-#: src/components/ColorSetChooser.tsx:667
+#: src/components/ColorSetChooser.tsx:668
 msgid "Standard color set"
-msgstr "Štandardná sada farieb"
+msgstr "Štandardná farebná sada"
 
 #: src/components/print/PrintImageDrawer.tsx:203
 msgid "Standard print"
@@ -2186,7 +2186,7 @@ msgstr "Zátišie"
 
 #: src/components/ImageChooser.tsx:90
 msgid "Storage may fill up"
-msgstr "Sklad sa môže zaplniť"
+msgstr "Úložisko sa môže zaplniť"
 
 #: src/components/Help.tsx:176
 msgid "Storage usage"
@@ -2195,23 +2195,23 @@ msgstr "Využitie úložiska"
 #: src/components/image-editor/StraightenControls.tsx:105
 #: src/components/messages.ts:48
 msgid "Straighten"
-msgstr "Narovnajte sa"
+msgstr "Narovnať"
 
-#: src/components/ImageStyleTransfer.tsx:395
+#: src/components/ImageStyleTransfer.tsx:403
 msgid "Style transfer is available only to paid Patreon members"
 msgstr "Prenos štýlu je dostupný len pre platených členov Patreonu"
 
-#: src/components/ImageStyleTransfer.tsx:354
+#: src/components/ImageStyleTransfer.tsx:362
 msgid "Styled reference photo"
 msgstr "Štylizovaná referenčná fotografia"
 
 #: src/components/ml-model/OnnxModelSelect.tsx:42
 msgid "Subject detection"
-msgstr "Detekcia predmetu"
+msgstr "Detekcia objektu"
 
 #: src/components/empty/EmptyColorSet.tsx:104
 msgid "Supported art mediums:"
-msgstr "Podporované umelecké médiá:"
+msgstr "Podporované výtvarné techniky:"
 
 #: src/components/error/BrowserSupport.tsx:51
 msgid "Supported web browsers and operating systems"
@@ -2229,7 +2229,7 @@ msgstr "Potiahnutím na odomknutie"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:198
 msgid "Sync stopped because the photo {context} is unavailable and is not in your cloud storage. Remove it to continue syncing, or postpone the decision."
-msgstr "Synchronizácia sa zastavila, pretože fotografia {context} nie je k dispozícii a nie je vo vašom cloudovom úložisku. Ak chcete pokračovať v synchronizácii, odstráňte ho alebo rozhodnutie odložte."
+msgstr "Synchronizácia sa zastavila, pretože fotografia {context} nie je k dispozícii a nie je vo vašom cloudovom úložisku. Ak chcete pokračovať v synchronizácii, odstráňte ju alebo rozhodnutie odložte."
 
 #: src/components/cloud/SyncCloudButton.tsx:46
 msgid "Sync with {label}"
@@ -2241,7 +2241,7 @@ msgstr "Klepnutím na 👆 kdekoľvek na fotografii vyberte ohnisko."
 
 #: src/components/print/PrintImageDrawer.tsx:256
 msgid "Taped margin width around the painting area"
-msgstr "Šírka okraja okolo oblasti maľovania"
+msgstr "Šírka olepeného okraja okolo oblasti maľby"
 
 #: src/components/ImageColorPicker.tsx:325
 #: src/components/ImageColorPicker.tsx:337
@@ -2262,11 +2262,11 @@ msgstr "Cloudové pripojenie sa nepodarilo dokončiť. Začnite znova od ArtistA
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:191
 msgid "The cloud data file is damaged. Replace it with the data from this device."
-msgstr "Cloudový dátový súbor je poškodený. Nahraďte ho dátami z tohto zariadenia."
+msgstr "Cloudový dátový súbor je poškodený. Nahraďte ho údajmi z tohto zariadenia."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:146
 msgid "The code you entered is incorrect or expired. Check the latest email from ArtistAssistApp and try again, or request a new login code."
-msgstr "Kód, ktorý ste zadali, je nesprávny alebo expirovaný. Skontrolujte najnovší e-mail z ArtistAssist App a skúste to znova, alebo požiadajte o nový prihlasovací kód."
+msgstr "Kód, ktorý ste zadali, je nesprávny alebo mu vypršala platnosť. Skontrolujte najnovší e-mail od ArtistAssistApp a skúste to znova, prípadne požiadajte o nový prihlasovací kód."
 
 #: src/components/color/UnderlayerColorPicker.tsx:60
 msgid "The color of your paper, canvas, or painting surface."
@@ -2275,15 +2275,15 @@ msgstr "Farba vášho papiera, plátna alebo povrchu na maľovanie."
 #: src/components/ColorSetChooser.tsx:232
 #: src/components/ColorSetChooser.tsx:265
 msgid "The color set can't be saved because not all required fields are filled."
-msgstr "Farebná sada sa nedá uložiť, pretože nie všetky požadované polia sú vyplnené."
+msgstr "Farebnú sadu nie je možné uložiť, pretože nie sú vyplnené všetky povinné polia."
 
 #: src/components/ColorSetChooser.tsx:209
 msgid "The color set can't be saved because the color data failed to load."
-msgstr "Sadu farieb nie je možné uložiť, pretože sa nepodarilo načítať údaje o farbách."
+msgstr "Farebnú sadu nie je možné uložiť, pretože sa nepodarilo načítať údaje o farbách."
 
 #: src/components/ImageColorPicker.tsx:328
 msgid "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
-msgstr "Farba, ktorá sa má zmiešať z vašej sady farieb. Vyberte farbu kliknutím na bod na obrázku alebo použite kontextové okno výberu farby."
+msgstr "Farba, ktorú budete miešať zo svojej farebnej sady. Vyberte farbu kliknutím na bod na obrázku alebo použite vyskakovacie okno výberu farieb."
 
 #: src/components/CustomColorBrandCreator.tsx:460
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
@@ -2291,33 +2291,33 @@ msgstr "Priemer kruhovej oblasti okolo kurzora, ktorý sa používa na výpočet
 
 #: src/components/color/UnderlayerColorPicker.tsx:105
 msgid "The dried layer you want to glaze over."
-msgstr "Zaschnutá vrstva, ktorú chcete prestriekať."
+msgstr "Zaschnutá vrstva, cez ktorú chcete lazúrovať."
 
 #: src/components/color/UnderlayerColorPicker.tsx:103
 msgid "The existing pastel layer you want to blend over."
-msgstr "Existujúca pastelová vrstva, ktorú chcete prelietať."
+msgstr "Existujúca pastelová vrstva, na ktorej chcete rozotierať."
 
 #: src/hooks/useFileReadErrorNotification.tsx:30
 msgid "The file might have been moved or deleted, or it could be stored in the cloud and not downloaded to this device. Download it to this device, then select it again."
-msgstr "Súbor mohol byť presunutý alebo vymazaný, alebo mohol byť uložený v cloude a nestiahol sa na toto zariadenie. Stiahni si to na toto zariadenie a potom ho znova vyber."
+msgstr "Súbor mohol byť presunutý alebo odstránený, prípadne je uložený v cloude a nebol stiahnutý do tohto zariadenia. Stiahnite ho do tohto zariadenia a potom ho znova vyberte."
 
 #: src/components/print/PrintImageDrawer.tsx:258
 msgid "The margin is too large"
-msgstr "Rezerva je príliš veľká"
+msgstr "Okraj je príliš veľký"
 
 #: src/components/empty/EmptyPalette.tsx:70
 msgid "There is one common palette and a separate palette for each photo"
-msgstr "Pre každú fotografiu existuje jedna spoločná paleta a samostatná paleta"
+msgstr "Existuje jedna spoločná paleta a samostatná paleta pre každú fotografiu"
 
 #: src/components/ml-model/OnnxModelSelect.tsx:70
 msgid "Thick"
-msgstr "Hustý"
+msgstr "Hrubý"
 
 #: src/components/Help.tsx:138
 msgid "Third-party notices"
 msgstr "Oznámenia tretích strán"
 
-#: src/components/ColorSetChooser.tsx:695
+#: src/components/ColorSetChooser.tsx:696
 msgid "This color brand is available only to paid Patreon members"
 msgstr "Táto farebná značka je dostupná len pre platených členov Patreonu"
 
@@ -2327,27 +2327,27 @@ msgstr "Táto farba nebola vzorkovaná z fotografie."
 
 #: src/components/auth/DeleteAccountButton.tsx:43
 msgid "This deletes everything inside the connected cloud app folder, including files you added."
-msgstr "Tým sa vymaže všetko v pripojenom priečinku cloudových aplikácií, vrátane súborov, ktoré ste pridali."
+msgstr "Tým sa odstráni všetko v priečinku pripojenej cloudovej aplikácie vrátane súborov, ktoré ste pridali."
 
 #: src/components/auth/DeleteAccountButton.tsx:54
 msgid "This deletes your account and membership lookup records and logs you out."
-msgstr "Tým sa vymažú záznamy o vyhľadávaní vášho účtu a členstva a odhlásia vás."
+msgstr "Tým sa odstráni váš účet a záznamy o vyhľadávaní členstva a budete odhlásení."
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:147
 msgid "This device and the synced cloud data both changed. Choose which one to keep."
-msgstr "Toto zariadenie a synchronizované údaje cloudu sa zmenili. Vyberte si, ktorý si ponecháte."
+msgstr "Toto zariadenie aj synchronizované cloudové údaje sa zmenili. Vyberte si, ktoré chcete ponechať."
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:133
 msgid "This device has changes made while another account was active. Keep this device to upload them to the current account, keep the cloud data to discard them, or postpone the decision."
-msgstr "Toto zariadenie má zmeny, ktoré sa uskutočnili, keď bol aktívny iný účet. Nechajte si toto zariadenie na nahranie na aktuálny účet, uchovávajte cloudové dáta na ich likvidáciu alebo rozhodnutie odložte."
+msgstr "Toto zariadenie obsahuje zmeny vykonané, keď bol aktívny iný účet. Ponechajte toto zariadenie, aby sa nahrali do aktuálneho účtu, ponechajte cloudové údaje, aby sa zahodili, alebo rozhodnutie odložte."
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:158
 msgid "This device has local data and existing synced cloud data, but no sync history. Choose which one to keep."
-msgstr "Toto zariadenie má miestne údaje a existujúce synchronizované cloudové údaje, ale nemá žiadnu históriu synchronizácie. Vyberte si, ktorý si ponecháte."
+msgstr "Toto zariadenie obsahuje miestne údaje aj existujúce synchronizované cloudové údaje, ale žiadnu históriu synchronizácie. Vyberte si, ktoré chcete ponechať."
 
 #: src/components/image-editor/UpscaleControls.tsx:72
 msgid "This image is already too large to upscale"
-msgstr "Tento obrázok je už príliš veľký na zmenu veľkosti"
+msgstr "Tento obrázok je už príliš veľký na zväčšenie"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:155
 msgid "This login code can't be used anymore. Request a new code to continue."
@@ -2369,7 +2369,7 @@ msgstr "Táto veľkosť tlače nie je podporovaná"
 msgid "This step is optional"
 msgstr "Tento krok je voliteľný"
 
-#: src/components/ImageStyleTransfer.tsx:309
+#: src/components/ImageStyleTransfer.tsx:317
 msgid "This style is available only to paid Patreon members"
 msgstr "Tento štýl je dostupný len pre platených členov Patreonu"
 
@@ -2379,7 +2379,7 @@ msgstr "Toto sa zvyčajne stáva, keď ste prihlásený na <0>inom</0> Patreon �
 
 #: src/components/auth/AuthFeedbackHandler.tsx:65
 msgid "To fix this:"
-msgstr "Aby som to napravil:"
+msgstr "Ako to opraviť:"
 
 #: src/components/install/InstallDrawer.tsx:48
 msgid "To install ArtistAssistApp, use one of the supported web browsers:"
@@ -2391,7 +2391,7 @@ msgstr "Ak chcete použiť funkciu {tabLabel}, vyberte referenčnú fotografiu"
 
 #: src/components/empty/EmptyColorSet.tsx:88
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
-msgstr "Ak chcete použiť funkciu {tabLabel}, vyberte podporované umelecké médium a farby na maľovanie"
+msgstr "Ak chcete použiť funkciu {tabLabel}, vyberte podporovanú výtvarnú techniku a farby na maľovanie"
 
 #: src/components/messages.ts:32
 msgid "Tonal values"
@@ -2408,15 +2408,15 @@ msgstr "Príliš veľa požiadaviek"
 
 #: src/components/ImageStyleTransfer.tsx:296
 msgid "Transfer the artistic style from your own image"
-msgstr "Preneste umelecký štýl z vlastného obrazu"
+msgstr "Preniesť umelecký štýl z vlastného obrázka"
 
-#: src/components/ImageStyleTransfer.tsx:304
+#: src/components/ImageStyleTransfer.tsx:312
 msgid "Transferring the style from your own image is available to paid Patreon members only"
 msgstr "Prenos štýlu z vlastného obrázka je dostupný len pre platených členov Patreonu"
 
 #: src/components/color/OpacityIcon.tsx:39
 msgid "Transparent"
-msgstr "Priehľadný"
+msgstr "Priehľadné"
 
 #: src/components/empty/EmptyColorMatches.tsx:37
 msgid "Try adding colors or changing the surface"
@@ -2432,7 +2432,7 @@ msgstr "Skúste pridať farby alebo zmeniť povrch či zjednocujúcu farbu"
 
 #: src/components/empty/EmptyColorMatches.tsx:30
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
-msgstr "Skúste pridať farby alebo zmeniť povrch, podkladovú vrstvu alebo zjednotiť farbu"
+msgstr "Skúste pridať farby alebo zmeniť povrch, podkladovú vrstvu či zjednocujúcu farbu"
 
 #: src/components/Help.tsx:86
 msgid "Tutorials and videos"
@@ -2452,7 +2452,7 @@ msgstr "Nie je možné načítať údaje o farbách"
 
 #: src/components/image-editor/ColorizeControls.tsx:52
 msgid "Unable to load the colorization model"
-msgstr "Nie je možné načítať model farbenia"
+msgstr "Nie je možné načítať model vyfarbovania"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:58
 msgid "Unable to load the object removal model"
@@ -2460,11 +2460,11 @@ msgstr "Nie je možné načítať model odstraňovania objektov"
 
 #: src/components/ImageOutline.tsx:102
 msgid "Unable to load the outline modes"
-msgstr "Nie je možné načítať režimy prehľadu"
+msgstr "Nie je možné načítať režimy obrysu"
 
 #: src/components/ImageChooser.tsx:72
 msgid "Unable to load the sample photos"
-msgstr "Nepodarilo sa načítať ukážkové fotografie"
+msgstr "Nie je možné načítať ukážkové fotografie"
 
 #: src/components/image-editor/ExpandControls.tsx:84
 msgid "Unable to load the smart expansion model"
@@ -2476,12 +2476,12 @@ msgstr "Nie je možné načítať štýly"
 
 #: src/components/image-editor/UpscaleControls.tsx:47
 msgid "Unable to load the upscaling model"
-msgstr "Nie je možné načítať model zvýšenia veľkosti"
+msgstr "Nie je možné načítať model zväčšenia"
 
 #: src/components/color-set/ColorSetActivationNotification.tsx:33
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Unable to restore the saved color set"
-msgstr "Nie je možné obnoviť uloženú sadu farieb"
+msgstr "Nie je možné obnoviť uloženú farebnú sadu"
 
 #: src/components/color/UnderlayerColorPicker.tsx:99
 #: src/components/color/UnderlayerColorPicker.tsx:112
@@ -2517,11 +2517,11 @@ msgstr "Zmes bez názvu"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:220
 msgid "Update ArtistAssistApp to the latest version and try again."
-msgstr "Aktualizujte ArtistAssist App na najnovšiu verziu a skúste to znova."
+msgstr "Aktualizujte ArtistAssistApp na najnovšiu verziu a skúste to znova."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:187
 msgid "Update ArtistAssistApp to the latest version, check your connection, and try again."
-msgstr "Aktualizujte ArtistAssist App na najnovšiu verziu, skontrolujte pripojenie a skúste to znova."
+msgstr "Aktualizujte ArtistAssistApp na najnovšiu verziu, skontrolujte pripojenie a skúste to znova."
 
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:44
 msgid "Update available"
@@ -2529,7 +2529,7 @@ msgstr "Aktualizácia dostupná"
 
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:60
 msgid "Update now"
-msgstr "Aktualizácia teraz"
+msgstr "Aktualizovať teraz"
 
 #: src/stores/cloud-slice.ts:141
 msgid "Uploading image {index} / {count}"
@@ -2538,23 +2538,23 @@ msgstr "Nahráva sa obrázok {index} / {count}"
 #: src/components/image-editor/UpscaleControls.tsx:85
 #: src/components/messages.ts:54
 msgid "Upscale"
-msgstr "Upscale"
+msgstr "Zväčšiť"
 
 #: src/components/color/ConsistencyDescription.tsx:81
 msgid "Use <0>{fractionText} of full pressure</0>"
-msgstr "Použite <0>{fractionText} plného tlaku</0>"
+msgstr "Použite <0>{fractionText} plného prítlaku</0>"
 
 #: src/components/color/ConsistencyDescription.tsx:42
 msgid "Use at full strength"
-msgstr "Používajte v plnej sile"
+msgstr "Použiť neriedenú"
 
 #: src/components/file/FileSelect.tsx:193
 msgid "Use copied image"
-msgstr "Použite skopírovaný obrázok"
+msgstr "Použiť skopírovaný obrázok"
 
 #: src/components/color/ConsistencyDescription.tsx:47
 msgid "Use full pressure"
-msgstr "Použite plný tlak"
+msgstr "Použiť plný prítlak"
 
 #: src/components/file/FileSelect.tsx:182
 msgid "Use reference photo"
@@ -2562,11 +2562,11 @@ msgstr "Použiť referenčnú fotografiu"
 
 #: src/components/Help.tsx:179
 msgid "Used"
-msgstr "Používaný"
+msgstr "Použité"
 
 #: src/components/ImageLimitedPalette.tsx:107
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
-msgstr "Použitie obmedzenej palety pomáha dosiahnuť farebnú harmóniu. Vyberte 1–{MAX_COLORS} základné farby."
+msgstr "Použitie obmedzenej palety pomáha dosiahnuť farebnú harmóniu. Vyberte 1 – {MAX_COLORS} základných farieb."
 
 #: src/components/image-editor/ExpandControls.tsx:176
 msgid "Vertical"
@@ -2578,16 +2578,16 @@ msgstr "Viedenská secesia"
 
 #: src/components/ImageOutline.tsx:299
 msgid "View the outline over the live camera to trace in AR"
-msgstr "Prezrite si obrys cez živú kameru, aby ste ho mohli sledovať v AR"
+msgstr "Zobraziť obrys cez živú kameru a obkresliť ho v AR"
 
 #: src/components/ImageOutline.tsx:360
 msgid "View the outline over the live camera to trace in AR."
-msgstr "Pozrite si obrys cez živú kameru na obkreslenie v AR."
+msgstr "Zobrazte obrys cez živú kameru a obkreslite ho v AR."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:181
 #: src/components/cloud/CloudFeedbackHandler.tsx:216
 msgid "Wait a minute and try again."
-msgstr "Počkaj chvíľu a skús to znova."
+msgstr "Počkajte chvíľu a skúste to znova."
 
 #: src/components/ColorSetChooser.tsx:206
 msgid "Wait for the color data to finish loading."
@@ -2595,7 +2595,7 @@ msgstr "Počkajte, kým sa dokončí načítanie údajov o farbách."
 
 #: src/components/color/WarmthIcon.tsx:38
 msgid "Warm — Algorithmic estimate; artistic perception may vary."
-msgstr "Warm — algoritmický odhad; Umelecké vnímanie sa môže líšiť."
+msgstr "Teplá — algoritmický odhad; umelecké vnímanie sa môže líšiť."
 
 #: src/components/ImageStyleTransfer.tsx:78
 msgid "Watercolor"
@@ -2603,7 +2603,7 @@ msgstr "Akvarel"
 
 #: src/components/color/ConsistencyDescription.tsx:105
 msgid "Watercolor can be diluted with water to make it more transparent"
-msgstr "Akvarel je možné riediť vodou, aby bol transparentnejší"
+msgstr "Akvarel je možné riediť vodou, aby bol priehľadnejší"
 
 #: src/components/messages.ts:59
 msgid "Watercolor Paint"
@@ -2615,29 +2615,29 @@ msgstr "Akvarelové ceruzky"
 
 #: src/components/messages.ts:67
 msgid "Wax Pastel"
-msgstr "Wax Pastel"
+msgstr "Voskový pastel"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:112
 msgid "We couldn't find an ArtistAssistApp Patreon membership for the email address you entered. Use the email address shown on your Patreon account for your ArtistAssistApp membership, then request a new login code."
-msgstr "Nepodarilo sa nám nájsť Patreon členstvo v ArtistAssist App pre e-mailovú adresu, ktorú ste zadali. Použite e-mailovú adresu uvedenú na vašom Patreon účte pre členstvo v ArtistAssistApp a potom požiadajte o nový prihlasovací kód."
+msgstr "Pre e-mailovú adresu, ktorú ste zadali, sa nepodarilo nájsť členstvo ArtistAssistApp na Patreone. Použite e-mailovú adresu uvedenú na vašom Patreon účte pre členstvo v ArtistAssistApp a potom požiadajte o nový prihlasovací kód."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:162
 msgid "We couldn't verify your session. Please sign in again to continue using ArtistAssistApp."
-msgstr "Nemohli sme overiť tvoju reláciu. Prosím, prihláste sa znova, aby ste mohli pokračovať v používaní aplikácie ArtistAssist."
+msgstr "Nepodarilo sa nám overiť vašu reláciu. Prihláste sa, prosím, znova, aby ste mohli pokračovať v používaní ArtistAssistApp."
 
-#: src/components/ColorSetChooser.tsx:726
+#: src/components/ColorSetChooser.tsx:727
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "Pri výbere celkovo viac ako {maxColorsFor2} farieb sa nepoužívajú zmesi dvoch farieb."
 
-#: src/components/ColorSetChooser.tsx:734
+#: src/components/ColorSetChooser.tsx:735
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
-msgstr "Pri výbere viac ako {maxColorsFor3} farieb sa nepoužívajú zmesi troch farieb."
+msgstr "Pri výbere celkovo viac ako {maxColorsFor3} farieb sa nepoužívajú zmesi troch farieb."
 
 #: src/components/image-editor/AdjustColorsControls.tsx:240
 #: src/components/image-editor/ExpandControls.tsx:215
 #: src/components/image-editor/RemoveBackgroundControls.tsx:105
 msgid "White"
-msgstr "Biely"
+msgstr "Biela"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:183
 msgid "White balance"
@@ -2658,29 +2658,29 @@ msgstr "Šírka"
 
 #: src/components/ImageChooser.tsx:92
 msgid "You already have many photos saved. Delete the oldest one to free up space? The new photo will still be added."
-msgstr "Už máte uložených veľa fotiek. Chcete odstrániť najstaršiu, aby ste uvoľnili miesto? Nová fotografia bude ešte pridaná."
+msgstr "Už máte uložených veľa fotografií. Chcete odstrániť najstaršiu, aby ste uvoľnili miesto? Nová fotografia sa aj tak pridá."
 
-#: src/components/ColorSetChooser.tsx:490
+#: src/components/ColorSetChooser.tsx:491
 msgid "You are logged in and have access to all app features"
 msgstr "Ste prihlásený a máte prístup ku všetkým funkciám aplikácie"
 
-#: src/components/ColorSetChooser.tsx:502
+#: src/components/ColorSetChooser.tsx:503
 msgid "You are using the <0>free version</0> of ArtistAssistApp. It includes a limited number of color brands and image processing modes."
-msgstr "Používate <0>bezplatnú verziu</0> aplikácie ArtistAssist. Zahŕňa obmedzený počet farebných značiek a režimov spracovania obrazu."
+msgstr "Používate <0>bezplatnú verziu</0> aplikácie ArtistAssistApp. Zahŕňa obmedzený počet farebných značiek a režimov spracovania obrazu."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:206
 msgid "You can keep working in this browser tab, or switch back to the installed ArtistAssistApp — you're logged in there too."
-msgstr "Môžete pokračovať v práci v tejto karte prehliadača alebo sa vrátiť k nainštalovanej aplikácii ArtistAssist — ste tam tiež prihlásení."
+msgstr "Môžete pokračovať v práci v tejto karte prehliadača alebo sa vrátiť k nainštalovanej aplikácii ArtistAssistApp — ste prihlásení aj tam."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:204
 msgid "You're logged in"
 msgstr "Ste prihlásený"
 
-#: src/components/ColorSetChooser.tsx:643
+#: src/components/ColorSetChooser.tsx:644
 msgid "You've selected color brands that are available to paid Patreon members only"
 msgstr "Vybrali ste farebné značky, ktoré sú dostupné iba plateným členom Patreonu"
 
-#: src/components/ColorSetChooser.tsx:717
+#: src/components/ColorSetChooser.tsx:718
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
 msgstr "Vybrali ste farebné značky, ktoré sú dostupné iba plateným členom Patreonu. Pripojte sa k ArtistAssistApp na Patreone ako platený člen alebo sa prihláste pomocou Patreonu, ak ste sa už pripojili."
 
@@ -2702,21 +2702,24 @@ msgstr "Vaše cloudové úložisko nebolo dostupné. Vaše najnovšie zmeny zost
 
 #: src/components/cloud/ConnectCloudButton.tsx:59
 msgid "Your color sets, reference photos, mixtures, and custom color brands will be saved in the ArtistAssistApp folder in {label} and kept synced across your devices.<0/>ArtistAssistApp can access that app folder, including files you put there, but cannot access files outside it."
-msgstr "Vaše sady farieb, referenčné fotografie, zmesi a vlastné značky farieb sa uložia do priečinka ArtistAssistApp v {label} a budú sa synchronizovať medzi vašimi zariadeniami.<0/>ArtistAssistApp má prístup k tomuto priečinku aplikácie vrátane súborov, ktoré ste tam umiestnili, ale nemá prístup k súborom mimo neho."
+msgstr "Vaše farebné sady, referenčné fotografie, zmesi a vlastné farebné značky sa uložia do priečinka ArtistAssistApp v {label} a budú sa synchronizovať medzi vašimi zariadeniami.<0/>ArtistAssistApp má prístup k tomuto priečinku aplikácie vrátane súborov, ktoré ste tam umiestnili, ale nemá prístup k súborom mimo neho."
 
 #: src/components/cloud/ConnectCloudButton.tsx:50
 msgid "Your color sets, reference photos, mixtures, and custom color brands will be saved in the ArtistAssistApp folder in My Drive and kept synced across your devices.<0/>ArtistAssistApp works only with this app-created folder and the files it creates there.<1/>It cannot access your other Drive files or shared drives."
-msgstr "Vaše sady farieb, referenčné fotografie, zmesi a vlastné značky farieb sa uložia do priečinka ArtistAssistApp na Mojom disku a budú sa synchronizovať medzi vašimi zariadeniami.<0/>ArtistAssistApp funguje iba s týmto priečinkom vytvoreným aplikáciou a súbormi, ktoré v ňom vytvorí.<1/>Nemá prístup k vašim ďalším súborom alebo spoločným diskom na Disku."
+msgstr "Vaše farebné sady, referenčné fotografie, zmesi a vlastné farebné značky sa uložia do priečinka ArtistAssistApp na Mojom disku a budú sa synchronizovať medzi vašimi zariadeniami.<0/>ArtistAssistApp funguje iba s týmto priečinkom vytvoreným aplikáciou a so súbormi, ktoré v ňom vytvorí.<1/>Nemá prístup k vašim ostatným súborom na Disku ani k zdieľaným diskom."
 
 #: src/hooks/usePersistentStorage.tsx:54
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
-msgstr "Vaše dáta nemusia byť spoľahlivo uložené, ak je prehliadač zatvorený. Aby ste to opravili, nainštalujte aplikáciu."
+msgstr "Vaše údaje nemusia byť spoľahlivo uložené, ak je prehliadač zatvorený. Ak to chcete opraviť, nainštalujte aplikáciu."
 
 #: src/components/ImageStyleTransfer.tsx:291
 msgid "Your image"
-msgstr "Váš obraz"
+msgstr "Váš obrázok"
 
+#: src/components/ImageChooser.tsx:128
 #: src/components/ImageEditor.tsx:332
+#: src/components/ImagesCompare.tsx:128
+#: src/components/ImageStyleTransfer.tsx:303
 msgid "Your images are processed locally on your device and are never uploaded to any server"
 msgstr "Vaše obrázky sa spracúvajú lokálne vo vašom zariadení a nikdy sa neodovzdávajú na žiadny server"
 
@@ -2726,15 +2729,15 @@ msgstr "Vaše prihlasovacie údaje sa nepodarilo overiť. Prihláste sa znova."
 
 #: src/components/Help.tsx:220
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
-msgstr "Vaše členstvo na Patreone a údaje na tomto zariadení nie sú vymazané. <0>Zrušte svoje členstvo na Patreone priamo na Patreone</0> ."
+msgstr "Vaše členstvo na Patreone a údaje na tomto zariadení sa neodstránia. <0>Zrušte svoje členstvo na Patreone</0> priamo na Patreone."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:137
 msgid "Your session expired. Sign in again to continue."
-msgstr "Tvoja relácia vypršala. Prihláste sa znova a pokračujte."
+msgstr "Vaša relácia vypršala. Prihláste sa znova a pokračujte."
 
 #: src/components/ImageStyleTransfer.tsx:252
 msgid "Your style image"
-msgstr "Obrázok vášho štýlu"
+msgstr "Váš obrázok štýlu"
 
 #: src/components/error/BrowserSupport.tsx:49
 msgid "Your web browser is not supported"

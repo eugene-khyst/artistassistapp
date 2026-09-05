@@ -489,8 +489,8 @@ export function ImageColorPicker() {
       layering && colorPickerLayeringEnabled
         ? {
             sort: ColorPickerSort.ByConsistency,
-            label: <Trans>By opacity</Trans>,
-            title: t`Sort by mixture opacity, from opaque to transparent.`,
+            label: <Trans>By consistency</Trans>,
+            title: t`Sort by paint consistency, from full strength to most thinned.`,
           }
         : null,
     ] as (SortOption | null)[]

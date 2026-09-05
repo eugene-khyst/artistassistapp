@@ -1,15 +1,7 @@
 # <a id="0"></a>ArtistAssistApp
 
 <p align="center">
-  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/React-087ea4?style=for-the-badge&logo=react&logoColor=white" alt="React" />
-  <img src="https://img.shields.io/badge/Ant_Design-1677FF?style=for-the-badge&logo=antdesign&logoColor=white" alt="Ant Design" />
-  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
-  <img src="https://img.shields.io/badge/npm-F2F4F9?style=for-the-badge&logo=npm&logoColor=CC3534" alt="npm" />
-</p>
-
-<p align="center">
-  <img src="https://github.com/eugene-khyst/artistassistapp/assets/1311126/de2c1ee3-fba2-4d94-b25a-dea7180fdb2a" width="150" alt="ArtistAssistApp logo" />
+  <img src="https://raw.githubusercontent.com/eugene-khyst/artistassistapp/main/public/assets/favicon/pwa-512x512.png" width="150" alt="ArtistAssistApp logo" />
 </p>
 
 - [Overview](#1)
@@ -22,7 +14,7 @@
 
 ## <a id="1"></a>Overview
 
-**ArtistAssistApp**, also known as **Artist Assist App**, is a Progressive Web App (PWA) that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, and more.
+**ArtistAssistApp**, also known as **Artist Assist App**, is a Progressive Web App (PWA) that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, edit reference photos, prepare photos of finished paintings for publishing, and more.
 
 ArtistAssistApp offers the following features:
 
@@ -35,12 +27,16 @@ ArtistAssistApp offers the following features:
 - Convert your photos into clean outlines, then trace them your way: print at any size on your home printer, turn your tablet or laptop into a light box (no printer needed), or overlay directly onto canvas, walls, or any surface with AR.
 - Add a grid over your reference photo for accurate, proportional drawing.
 - Analyze tonal values to improve contrast, including a color map view
-- Simplify photos by smoothing distracting details while keeping a selected focal point clearer
+- Simplify a photo into a painting reference with fewer small details, so the main shapes, proportions and color areas are easier to see; the whole image is simplified, gently near the focal point you choose and more strongly away from it
 - Mix harmonious colors with limited palettes
 - Get inspired by applying built-in or user-supplied artistic styles to your photos
-- Adjust white balance and colors of photos of your paintings
-- Adjust perspective and geometry of photos of your paintings, with automatic detection of the painting's corners
+- Straighten a photo of your painting and correct its perspective, with automatic detection of the painting's corners, so it is ready to publish
+- Adjust white balance, levels, saturation, and color temperature to make a photo of a painting match the original
+- Crop a photo, or expand the canvas beyond the original frame and let the app fill the new area
 - Easily remove backgrounds from photos of your paintings
+- Remove unwanted objects from a reference photo
+- Upscale a photo to a higher resolution
+- Colorize black-and-white photos
 - Rank your photos using a pairwise comparison
 - Sync color sets, reference photos, saved color mixtures, and custom color brands across devices using Google Drive, OneDrive, or Dropbox
 - Back up and restore the same data locally with ZIP files
@@ -57,65 +53,15 @@ Try it now at [ArtistAssistApp.com](https://artistassistapp.com)
 
 ## <a id="3"></a>Implementation details
 
-ArtistAssistApp doesn't depend on any third-party math or color library and includes the
-implementation of the following:
+ArtistAssistApp does not depend on any third-party math or color library. Conversions between sRGB, linear RGB, CIE XYZ, CIE Lab and Oklab/Oklch, the reflectance-to-sRGB matrix and the luminance weights are all generated from the CIE 1931 2° observer, the D65 illuminant and the sRGB primaries, so the GPU and the TypeScript paths cannot disagree. Color mixing is subtractive and spectral: sRGB is reconstructed into a reflectance curve, mixed with an empirical model based on the Kubelka-Munk theory, and candidate mixtures are ranked by perceptual similarity and shown as a match percentage. Warm and cool follow the painter's rule - a pigment is warm or cool by the way it leans off its own primary in Oklch, so a blue leaning red is warm while a red leaning blue is cool. The colors of the visible spectrum and of black-body radiators come from the same CIE data, as generated tables rather than curve fits.
 
-- sRGB to Oklab (WebGL)
-- sRGB to spectral reflectance
-- subtractive color mixing using empirical model based on the Kubelka-Munk theory
-- warm and cool color classification from the way a pigment leans off its primary in Oklch
-- sRGB colors of monochromatic light, from the CIE 1931 2° color matching functions
-- sRGB colors of black-body radiators, from Planck's law, interpolated in mireds
-- solving a bordered tridiagonal system using the Thomas algorithm and a 3×3 Schur complement
-- the average color of the circular area of the image
-- sampling point detection via Chamfer 3-4 distance transform (finds the optimal point per color region)
-- greedy merging of sampling points by chroma and perceptual color distance to select minimal, distinct palette entries
-- vector operations
-- WebGL multi-pass rendering
-- two-pass one-dimensional Gaussian blur (WebGL)
-- Sobel operator for edge detection (WebGL)
-- separable grayscale dilation (max morphology) for edge thickening (WebGL)
-- threshold filter based on perceived lightness (WebGL)
-- tonal color map (WebGL)
-- Otsu's method for automatic threshold selection in Oklab lightness (CPU)
-- Kuwahara blur filter (WebGL)
-- multi-layer radial masking for focal-point-aware image simplification (WebGL)
-- perceptual color match filter (WebGL)
-- color quantization (over-quantize by recursive bucket splitting, then merge closest in Oklab)
-- blue noise ordered dithering with a precomputed threshold texture
-- image resampling via bilinear and Lanczos interpolation (WebGL)
-- bilinear interpolation (CPU)
-- adjusting white balance using the percentile and reference methods (WebGL)
-- adjusting saturation (WebGL)
-- adjusting color levels (WebGL)
-- adjusting color temperature (WebGL)
-- invert colors filter with gamma correction (WebGL)
-- homography, perspective transform from quadrilateral to rectangle (WebGL)
-- automatic detection of painting corners via a neural network that regresses a 4-channel corner heatmap
-- corner localization from heatmaps: Otsu thresholding, Moore-Neighbor 8-connectivity contour tracing, and polygon area and centroid via Green's theorem (shoelace formula) on the largest blob per channel
-- ranking images using pairwise comparison and Elo rating system
-- and more
+Reflectance reconstruction uses an independent implementation of the LHTSS formulation described by Scott Allen Burns in [Generating Reflectance Curves from sRGB Triplets](https://arxiv.org/abs/1710.05732), solved as a bordered tridiagonal system with the Thomas algorithm and a 3×3 Schur complement. No code or constants from Burns's implementation are used.
 
-Reflectance reconstruction uses an independent implementation of the LHTSS formulation described
-by Scott Allen Burns in [Generating Reflectance Curves from sRGB
-Triplets](https://arxiv.org/abs/1710.05732). The reflectance-to-linear-sRGB matrix and luminance
-weights are generated from the CIE 1931 2° observer, D65 illuminant, and sRGB primaries. The solver
-uses a tridiagonal factorization and a 3×3 Schur complement. No code or constants from Burns's
-implementation are used.
+For mediums that support physical mixing, such as watercolor, oil paint, acrylic or gouache, ArtistAssistApp suggests a matching color mixture for any target color. For pastels and pencils it suggests the closest matching color from your set. Watercolor, acrylic, oil paint, colored pencils and watercolor pencils also support optical mixing.
 
-The colors of the visible spectrum and of black-body radiators are derived from the same CIE data.
-Monochromatic colors come from the CIE 1931 2° color matching functions, black-body colors from
-Planck's law weighted by them, and both are converted to sRGB through the same matrix and gamut
-mapping. They are generated tables rather than curve fits, and use no third-party code or constants.
+Image processing is a multi-pass WebGL pipeline: Lanczos and bilinear resampling, Gaussian blur, Kuwahara and radial-mask simplification, Sobel edge detection with dilation and a perceived-lightness threshold, tonal color maps, perceptual color matching, white balance, levels, saturation, temperature, and homography for perspective correction. Otsu thresholding, color quantization with blue-noise ordered dithering, distance-transform sampling-point detection for automatic palettes and Elo ranking from pairwise comparisons run on the CPU.
 
-ArtistAssistApp uses an empirical model based on the Kubelka-Munk theory to simulate real color
-mixing with spectral reflectances instead of RGB or other color models. It ranks candidate mixtures
-by perceptual similarity and presents the result as a simple match percentage.
-
-For mediums that support physical mixing, such as watercolor, oil paint, acrylic or gouache, ArtistAssistApp will suggest the matching color mixture for any target color. For pastels and pencils, the app will suggest the closest matching color from your set. Watercolor, acrylic, oil paint, colored pencils and watercolor pencils also support optical mixing.
-
-Warm and cool follow the painter's rule: a pigment is warm or cool by the way it leans off its own
-primary, so a blue leaning red is warm while a red leaning blue is cool.
+Neural models for background removal, line drawing, corner detection, style transfer, inpainting, colorization and super-resolution run locally with ONNX Runtime Web on WebAssembly, downloaded on demand and cached; images are never uploaded to a server. Each model is a separate work under its own license; see [THIRD-PARTY-NOTICES.txt](public/THIRD-PARTY-NOTICES.txt).
 
 ArtistAssistApp uses Web Workers for parallel processing and Service Workers for offline access.
 

@@ -13,13 +13,13 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/ColorSetChooser.tsx:688
+#: src/components/ColorSetChooser.tsx:689
 msgid "{brandName} colors"
-msgstr "{brandName} цветове"
+msgstr "Цветове {brandName}"
 
 #: src/components/ad/AdModal.tsx:72
 msgid "{closeCounter, plural, one {Close in # second} other {Close in # seconds}}"
-msgstr "{closeCounter, plural, one {Затвори се за # секунда} other {Затваряне за # секунди}}"
+msgstr "{closeCounter, plural, one {Затваряне след # секунда} other {Затваряне след # секунди}}"
 
 #: src/components/color-set/ColorBrandSelect.tsx:72
 #: src/components/color-set/ColorSetName.tsx:33
@@ -35,11 +35,11 @@ msgstr "{expiresIn, plural, one {Кодът изтича след # секунд
 
 #: src/components/auth/LoginEmailOtpButton.tsx:196
 msgid "{retryIn, plural, one {Resend code in # second} other {Resend code in # seconds}}"
-msgstr "{retryIn, plural, one {Изпрати кода отново след # секунда} other {Изпрати кода отново след # секунди}}"
+msgstr "{retryIn, plural, one {Повторно изпращане на кода след # секунда} other {Повторно изпращане на кода след # секунди}}"
 
 #: src/components/cloud/ExportToZipButton.tsx:46
 msgid "{unavailableImageCount, plural, one {Backup created without # unavailable photo. Select the original photo again, then save the backup again.} other {Backup created without # unavailable photos. Select the original photos again, then save the backup again.}}"
-msgstr "{unavailableImageCount, plural, one {Резервно копие е създадено без # недостъпна снимка. Изберете отново оригиналната снимка, след което отново запазете резервното копие.} other {Резервно копие е създадено без # неналични снимки. Изберете отново оригиналните снимки, след което отново запазете резервното копие.}}"
+msgstr "{unavailableImageCount, plural, one {Резервното копие е създадено без # неналична снимка. Изберете отново оригиналната снимка, след което запазете резервното копие отново.} other {Резервното копие е създадено без # неналични снимки. Изберете отново оригиналните снимки, след което запазете резервното копие отново.}}"
 
 #: src/components/install/InstallDrawer.tsx:42
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
@@ -70,21 +70,21 @@ msgstr "<0/> Windows и <1/> Linux"
 msgid "<0>{matchScoreText}%</0> match"
 msgstr "<0>{matchScoreText}%</0> съвпадение"
 
-#: src/components/ColorSetChooser.tsx:541
-msgid "<0>Already a paid member?</0> Log in to unlock your paid features."
-msgstr "<0>Вече сте платен член?</0> Влезте, за да отключите платените си функции."
+#: src/components/ColorSetChooser.tsx:542
+msgid "<0>Already a paid member?</0> Log in to use your paid features."
+msgstr "<0>Вече сте платещ член?</0> Влезте, за да използвате платените си функции."
 
 #: src/components/ColorSetChooser.tsx:477
-msgid "<0>ArtistAssistApp</0> helps artists mix colors to match reference photos using their own art supplies, create palettes and mixing charts, study tonal values, make outlines, draw with grids, explore limited palettes and artist-inspired versions of photos, straighten photos, adjust their colors, remove backgrounds, and compare images side by side."
-msgstr "<0>ArtistAssistApp</0> помага на художниците да смесват цветове, за да съответстват на референтни снимки, като използват свои собствени артикули, създават палитри и диаграми за смесване, изучават тонални стойности, правят контури, рисуват с решетки, изследват ограничени палитри и вдъхновени от художник версии на снимки, изправят снимки, коригират цветовете им, премахват фонове и сравняват изображения едно до друго."
+msgid "<0>ArtistAssistApp</0> helps artists mix colors to match reference photos using their own art supplies, create palettes and mixing charts, study tonal values, make outlines, draw with grids, explore limited palettes and artist-inspired versions of photos, and compare images side by side. It also edits your photos: straighten, crop, expand, adjust colors, remove backgrounds and objects, upscale, and colorize black-and-white."
+msgstr "<0>ArtistAssistApp</0> помага на художниците да смесват цветове, които съвпадат с референтни снимки, използвайки собствените си материали, да създават палитри и таблици за смесване, да изучават тоналните стойности, да правят контури, да рисуват по мрежа, да изследват ограничени палитри и вдъхновени от художници версии на снимките, както и да сравняват изображения едно до друго. Освен това редактира снимките ви: изправяне, изрязване, разширяване, коригиране на цветовете, премахване на фон и обекти, увеличаване и оцветяване на черно-бели снимки."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:70
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
 msgstr "<0>Проверете своя Patreon акаунт</0>: Уверете се, че сте влезли в <1>Patreon.com</1> в браузъра си чрез същия имейл, с който сте закупили членството си. Ако имате няколко акаунта, излезте и влезте отново с правилния."
 
-#: src/components/ColorSetChooser.tsx:511
-msgid "<0>Not a paid member yet?</0> Become a paid ArtistAssistApp member to unlock:"
-msgstr "<0>Все още не сте платен член?</0> Станете платен член на ArtistAssistApp, за да отключите:"
+#: src/components/ColorSetChooser.tsx:512
+msgid "<0>Not a paid member yet?</0> Become a paid ArtistAssistApp member and get:"
+msgstr "<0>Все още не сте платещ член?</0> Станете платещ член на ArtistAssistApp и получете:"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:88
 msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
@@ -94,25 +94,25 @@ msgstr "<0>Опитайте да влезете отново</0>: След ка�
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
 msgstr "<0>Използвайте уеб браузър</0>: Ако използвате приложението Patreon (iOS/Android), влезте през уеб браузър (Chrome, Safari, Firefox), тъй като приложението понякога може да пречи на процеса на верификация."
 
-#: src/components/ColorSetChooser.tsx:527
+#: src/components/ColorSetChooser.tsx:528
 msgid "☁️ Cloud sync to store your color sets, photos, and mixtures in your own cloud storage, so you can use them across devices"
-msgstr "☁️ Cloud sync, за да съхранявате цветовите си набори, снимки и смеси в собственото си облачно хранилище, така че да можете да ги използвате на различни устройства"
+msgstr "☁️ Синхронизация с облака, за да съхранявате наборите си от цветове, снимките и смесите в собственото си облачно хранилище и да ги използвате на различни устройства"
 
-#: src/components/ColorSetChooser.tsx:521
+#: src/components/ColorSetChooser.tsx:522
 msgid "✏️ High-quality outlines and background removal"
 msgstr "✏️ Висококачествени контури и премахване на фон"
 
-#: src/components/ColorSetChooser.tsx:518
+#: src/components/ColorSetChooser.tsx:519
 msgid "🎨 250+ color brands"
-msgstr "🎨 250+ цветни марки"
+msgstr "🎨 250+ марки цветове"
 
-#: src/components/ColorSetChooser.tsx:533
+#: src/components/ColorSetChooser.tsx:534
 msgid "📢 No ads"
 msgstr "📢 Без реклами"
 
-#: src/components/ColorSetChooser.tsx:524
-msgid "🧑‍🎨 Artistic style transfer from your images"
-msgstr "🧑‍🎨 Трансфер на артистичен стил от вашите изображения"
+#: src/components/ColorSetChooser.tsx:525
+msgid "🧑‍🎨 Artistic styles from your own images"
+msgstr "🧑‍🎨 Артистични стилове от вашите собствени изображения"
 
 #: src/components/messages.ts:38
 msgid "2-color gradient"
@@ -152,11 +152,11 @@ msgstr "Акрилна боя"
 
 #: src/components/empty/EmptyPalette.tsx:53
 msgid "Add a color mixture to the palette"
-msgstr "Добавете смес от цветове към палитрата"
+msgstr "Добавете цветова смес към палитрата"
 
 #: src/components/ColorMixer.tsx:246
 msgid "Add color"
-msgstr "Добавете цвят"
+msgstr "Добавяне на цвят"
 
 #: src/components/empty/EmptyPalette.tsx:35
 msgid "Add color mixtures to the palette"
@@ -168,15 +168,15 @@ msgstr "Добавяне на двойка цветове"
 
 #: src/components/ImagesCompare.tsx:113
 msgid "Add images"
-msgstr "Добавете изображения"
+msgstr "Добавяне на изображения"
 
-#: src/components/ColorSetChooser.tsx:691
+#: src/components/ColorSetChooser.tsx:692
 msgid "Add or remove colors to match your actual color set."
 msgstr "Добавете или премахнете цветове, за да съответстват на действителния ви набор от цветове."
 
 #: src/components/color/AddToPaletteButton.tsx:66
 msgid "Add to palette"
-msgstr "Добави в палитрата"
+msgstr "Добавяне към палитрата"
 
 #: src/components/color/ColorMixtureDescription.tsx:94
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
@@ -184,7 +184,7 @@ msgstr "Добавете бяло в <0>съотношение {whiteRatioText}<
 
 #: src/components/messages.ts:51
 msgid "Adjust colors"
-msgstr "Коригирай цветовете"
+msgstr "Коригиране на цветовете"
 
 #: src/components/image-editor/StraightenControls.tsx:87
 msgid "Adjust the 4 corners manually."
@@ -204,24 +204,24 @@ msgstr "Позволете достъп до клипборда, после оп
 
 #: src/components/install/InstallDrawer.tsx:177
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
-msgstr "Друга възможност е да инсталирате най-новата версия на уеб браузъра Chrome, Edge или Opera и да щракнете върху <0>бутона Инсталиране</0> . В по-старите версии на macOS това е единствената опция."
+msgstr "Друга възможност е да инсталирате най-новата версия на уеб браузъра Chrome, Edge или Opera и да щракнете върху бутона <0>Инсталиране</0>. В по-старите версии на macOS това е единствената опция."
 
 #: src/components/ImageColorPicker.tsx:259
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
-msgstr "Задава се подслой или обединяващ цвят. Автоматичната палитра ще приложи тези настройки към цялата снимка, а не само към областта, за която са избрани."
+msgstr "Зададен е подслой или обединяващ цвят. Автоматичната палитра ще приложи тези настройки към цялата снимка, а не само към областта, за която са избрани."
 
 #: src/components/Help.tsx:246
 msgid "Application build ID"
-msgstr "ID на конфигурацията на приложението"
+msgstr "ID на компилацията на приложението"
 
 #: src/components/ColorMixingChart.tsx:208
 #: src/components/ImageLimitedPalette.tsx:133
 msgid "Apply"
-msgstr "Прилагам"
+msgstr "Прилагане"
 
 #: src/components/color/ConsistencyDescription.tsx:70
 msgid "Apply a layer at <0>{fractionText} of full thickness</0>"
-msgstr "Нанесете слой на <0>{fractionText} с пълна дебелина</0>"
+msgstr "Нанесете слой с <0>{fractionText} от пълната дебелина</0>"
 
 #: src/components/color/ConsistencyDescription.tsx:52
 msgid "Apply densely"
@@ -233,11 +233,11 @@ msgstr "Прилагайте по-малко натиск, за да напра�
 
 #: src/components/color/ConsistencyDescription.tsx:133
 msgid "Apply less pressure to make the watercolor pencil layer more transparent"
-msgstr "Приложете по-малко натиск, за да направите слоя с акварелния молив по-прозрачен"
+msgstr "Прилагайте по-малко натиск, за да направите слоя с акварелния молив по-прозрачен"
 
 #: src/components/color/ConsistencyDescription.tsx:92
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
-msgstr "Приложете щрихи от този цвят и цвета на долния слой в съотношение <0>{ratioText}</0>"
+msgstr "Приложете щрихи от този цвят и цвета на подслоя в <0>съотношение {ratioText}</0>"
 
 #: src/components/ImageOutline.tsx:307
 #: src/components/ImageOutline.tsx:359
@@ -246,14 +246,14 @@ msgstr "AR"
 
 #: src/components/palette/PaletteGrid.tsx:119
 msgid "Are you sure you want to delete all color mixtures?"
-msgstr "Сигурен ли си, че искаш да изтриеш всички цветови смеси?"
+msgstr "Сигурни ли сте, че искате да изтриете всички цветови смеси?"
 
 #: src/components/color/AddToPaletteButton.tsx:46
 #: src/components/color/PaletteColorMixtureCard.tsx:126
 msgid "Are you sure you want to delete this color mixture?"
-msgstr "Сигурен ли си, че искаш да изтриеш тази цветова смес?"
+msgstr "Сигурни ли сте, че искате да изтриете тази цветова смес?"
 
-#: src/components/ColorSetChooser.tsx:787
+#: src/components/ColorSetChooser.tsx:788
 msgid "Are you sure you want to delete this color set?"
 msgstr "Сигурни ли сте, че искате да изтриете този набор от цветове?"
 
@@ -265,14 +265,14 @@ msgstr "Сигурни ли сте, че искате да изтриете та
 msgid "Are you sure you want to delete this photo?"
 msgstr "Сигурни ли сте, че искате да изтриете тази снимка?"
 
-#: src/components/ColorSetChooser.tsx:604
+#: src/components/ColorSetChooser.tsx:605
 #: src/components/CustomColorBrandCreator.tsx:502
 msgid "Art medium"
-msgstr "Художествена среда"
+msgstr "Художествен материал"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:116
 msgid "ArtistAssistApp can no longer access your cloud storage. Disconnect it, then connect again."
-msgstr "ArtistAssistApp вече не може да достъпва вашето облачно съхранение. Изключи го, после го свържи отново."
+msgstr "ArtistAssistApp вече няма достъп до вашето облачно хранилище. Прекъснете връзката с него, след което го свържете отново."
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:182
 msgid "ArtistAssistApp could not confirm that your cloud files were deleted. Remove any remaining ArtistAssistApp folder or files directly from your cloud provider."
@@ -284,7 +284,7 @@ msgstr "ArtistAssistApp не получи резултата от вашия Pat
 
 #: src/components/Help.tsx:237
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
-msgstr "ArtistAssistApp е разработено от <0>Юджийн Хист</0>"
+msgstr "ArtistAssistApp е разработено от <0>Eugene Khyst</0>"
 
 #: src/components/Help.tsx:213
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
@@ -296,7 +296,7 @@ msgstr "ArtistAssistApp ще изтрие за постоянно вашата �
 
 #: src/components/storage/ClearCacheButton.tsx:42
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
-msgstr "ArtistAssistApp ще се презареди след премахване на временни файлове на приложението.<0/>Вашите запазени данни от работата и облачните ви данни няма да бъдат изтрити."
+msgstr "ArtistAssistApp ще се презареди след премахване на временните файлове на приложението.<0/>Вашата запазена работа и облачните ви данни няма да бъдат изтрити."
 
 #: src/components/image-editor/CropControls.tsx:75
 #: src/components/image-editor/ExpandControls.tsx:101
@@ -326,7 +326,7 @@ msgstr "Автоматично откриване"
 
 #: src/components/image-editor/StraightenControls.tsx:126
 msgid "Auto-detect is available only to paid Patreon members"
-msgstr "Автоматичното откриване е достъпно само за платени членове на Patreon"
+msgstr "Автоматичното откриване е достъпно само за платещи членове на Patreon"
 
 #: src/components/image-editor/StraightenControls.tsx:52
 msgid "Auto-detect is unavailable"
@@ -355,19 +355,23 @@ msgstr "Резервното копие е запазено без някои с
 
 #: src/components/ImageStyleTransfer.tsx:68
 msgid "Barbizon School"
-msgstr "Училище Барбизон"
+msgstr "Барбизонска школа"
 
 #: src/components/auth/JoinButton.tsx:27
 msgid "Become a paid member"
-msgstr "Станете платен член"
+msgstr "Станете платещ член"
 
 #: src/components/ImageColorPicker.tsx:375
 msgid "Blending"
-msgstr "Смесване"
+msgstr "Разтриване"
 
 #: src/components/ImageColorPicker.tsx:486
 msgid "By color count"
 msgstr "По брой цветове"
+
+#: src/components/ImageColorPicker.tsx:492
+msgid "By consistency"
+msgstr "По консистенция"
 
 #: src/components/messages.ts:83
 msgid "By date"
@@ -376,7 +380,7 @@ msgstr "По дата"
 #: src/components/messages.ts:78
 #: src/components/messages.ts:85
 msgid "By hue"
-msgstr "По цвят"
+msgstr "По оттенък"
 
 #: src/components/messages.ts:77
 msgid "By ID"
@@ -385,23 +389,19 @@ msgstr "По ID"
 #: src/components/messages.ts:79
 #: src/components/messages.ts:86
 msgid "By lightness"
-msgstr "От лекотата"
+msgstr "По светлота"
 
 #: src/components/ImageColorPicker.tsx:481
 msgid "By match"
-msgstr "По мач"
+msgstr "По съвпадение"
 
 #: src/components/messages.ts:84
 msgid "By name"
 msgstr "По име"
 
-#: src/components/ImageColorPicker.tsx:492
-msgid "By opacity"
-msgstr "По непрозрачност"
-
 #: src/components/ImageOutline.tsx:151
 msgid "Camera access is required for AR tracing"
-msgstr "За AR проследяване е необходим достъп до камера"
+msgstr "За прекопиране в AR е необходим достъп до камерата"
 
 #: src/components/auth/DeleteAccountButton.tsx:68
 #: src/components/cloud/ConnectCloudButton.tsx:71
@@ -414,7 +414,7 @@ msgstr "За AR проследяване е необходим достъп до
 #: src/components/storage/ClearCacheButton.tsx:50
 #: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
-msgstr "Отмени"
+msgstr "Отказ"
 
 #: src/components/Help.tsx:106
 msgid "Cancel a paid membership"
@@ -422,7 +422,7 @@ msgstr "Анулиране на платено членство"
 
 #: src/components/file/FileSelect.tsx:170
 msgid "Cannot use copied image"
-msgstr "Не мога да използвам копирано изображение"
+msgstr "Копираното изображение не може да бъде използвано"
 
 #: src/components/grid/GridControls.tsx:143
 msgid "Cells"
@@ -460,11 +460,11 @@ msgstr "Градски пейзаж"
 #: src/components/file/FileSelect.tsx:203
 #: src/components/image-editor/RemoveObjectsControls.tsx:108
 msgid "Clear"
-msgstr "ясно"
+msgstr "Изчистване"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:118
 msgid "Clear background color"
-msgstr "Ясен фонов цвят"
+msgstr "Изчистване на фоновия цвят"
 
 #: src/components/storage/ClearCacheButton.tsx:40
 #: src/components/storage/ClearCacheButton.tsx:49
@@ -474,31 +474,31 @@ msgstr "Изчистване на кеша"
 
 #: src/components/color/UnderlayerColorPicker.tsx:123
 msgid "Clear underlayer"
-msgstr "Прозрачен подслой"
+msgstr "Изчистване на подслоя"
 
 #: src/components/ImageColorPicker.tsx:423
 msgid "Clear unifying color"
-msgstr "Ясен обединяващ цвят"
+msgstr "Изчистване на обединяващия цвят"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:229
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
-msgstr "Щракнете върху 🖱️ или докоснете 👆 навсякъде в изображението, за да изберете бяла точка."
+msgstr "Щракнете 🖱️ или докоснете 👆 навсякъде в изображението, за да изберете бяла точка."
 
 #: src/components/ImageSimplifier.tsx:148
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a focal point."
-msgstr "Щракнете върху 🖱️ или докоснете 👆 навсякъде в снимката, за да изберете фокусна точка."
+msgstr "Щракнете 🖱️ или докоснете 👆 навсякъде в снимката, за да изберете фокусна точка."
 
 #: src/components/empty/EmptyTargetColor.tsx:33
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color for mixing from your colors."
-msgstr "Кликнете 🖱️ или докоснете 👆 някъде на снимката, или използвайте изскачащия прозорец за избор на цветове, за да изберете целеви цвят за смесване от вашите цветове."
+msgstr "Щракнете 🖱️ или докоснете 👆 навсякъде в снимката или използвайте изскачащия инструмент за избор на цвят, за да изберете целеви цвят, който да смесите от вашите цветове."
 
 #: src/components/empty/EmptyPalette.tsx:46
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors"
-msgstr "Щракнете върху 🖱️ или докоснете 👆 навсякъде в снимката или използвайте изскачащия инструмент за избор на цвят, за да изберете целеви цвят, който да смесите от вашите цветове"
+msgstr "Щракнете 🖱️ или докоснете 👆 навсякъде в снимката или използвайте изскачащия инструмент за избор на цвят, за да изберете целеви цвят, който да смесите от вашите цветове"
 
 #: src/components/ad/AdModal.tsx:81
 msgid "Close"
-msgstr "Затварям"
+msgstr "Затваряне"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:122
 msgid "Cloud access not granted"
@@ -510,11 +510,11 @@ msgstr "Неуспешна облачна авторизация"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:104
 msgid "Cloud connection failed"
-msgstr "Облачната връзка се повреди"
+msgstr "Неуспешна връзка с облака"
 
 #: src/components/cloud/CloudSyncUpdateNotification.tsx:41
 msgid "Cloud data changed"
-msgstr "Промяна в облачните данни"
+msgstr "Облачните данни са променени"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:170
 msgid "Cloud data not found"
@@ -534,11 +534,11 @@ msgstr "Облакът не е свързан"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:124
 msgid "Cloud storage was not connected because access was not granted. To connect it, try again and allow the requested access."
-msgstr "Облачното съхранение не беше свързано, защото достъпът не беше предоставен. За да го свържете, опитайте отново и позволете искания достъп."
+msgstr "Облачното хранилище не беше свързано, защото достъпът не беше предоставен. За да го свържете, опитайте отново и позволете искания достъп."
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:145
 msgid "Cloud sync conflict"
-msgstr "Конфликт на синхронизация в облака"
+msgstr "Конфликт при синхронизацията с облака"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:219
 msgid "Cloud sync failed"
@@ -550,11 +550,11 @@ msgstr "Липсва история на синхронизацията с об�
 
 #: src/hooks/useCloudSyncNotification.ts:44
 msgid "Cloud sync is not enabled"
-msgstr "Синхронизацията в облака не е активирана"
+msgstr "Синхронизацията с облака не е активирана"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:206
 msgid "Cloud sync paused"
-msgstr "Синхронизацията с облака беше пауза"
+msgstr "Синхронизацията с облака е поставена на пауза"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:167
 msgid "Code is required"
@@ -570,11 +570,11 @@ msgstr "Цвят"
 
 #: src/components/CustomColorBrandCreator.tsx:491
 msgid "Color brand"
-msgstr "Цветна марка"
+msgstr "Марка цветове"
 
-#: src/components/ColorSetChooser.tsx:636
+#: src/components/ColorSetChooser.tsx:637
 msgid "Color brands"
-msgstr "Цветни марки"
+msgstr "Марки цветове"
 
 #: src/components/empty/EmptyColorSet.tsx:73
 msgid "Color data is currently unavailable. Check your connection and try again."
@@ -587,7 +587,7 @@ msgstr "Цветова карта"
 
 #: src/components/messages.ts:36
 msgid "Color mixer"
-msgstr "Цветен миксер"
+msgstr "Смесител на цветове"
 
 #: src/components/messages.ts:37
 msgid "Color mixing chart"
@@ -595,21 +595,21 @@ msgstr "Таблица за смесване на цветове"
 
 #: src/components/color/ColorMixtureDescription.tsx:107
 msgid "Color mixture"
-msgstr "Цветна смес"
+msgstr "Цветова смес"
 
 #: src/components/messages.ts:30
 msgid "Color picker"
 msgstr "Избор на цвят"
 
-#: src/components/ColorSetChooser.tsx:612
+#: src/components/ColorSetChooser.tsx:613
 #: src/components/ImageColorPicker.tsx:293
 #: src/components/messages.ts:28
 msgid "Color set"
-msgstr "Цветови комплект"
+msgstr "Набор от цветове"
 
 #: src/components/palette/PaletteGrid.tsx:112
 msgid "Color swatch"
-msgstr "Цветна мостра"
+msgstr "Цветова мостра"
 
 #: src/components/messages.ts:63
 msgid "Colored Pencils"
@@ -617,11 +617,11 @@ msgstr "Цветни моливи"
 
 #: src/components/image-editor/ColorizeControls.tsx:78
 msgid "Colorize"
-msgstr "Оцветете"
+msgstr "Оцветяване"
 
 #: src/components/messages.ts:55
 msgid "Colorize black-and-white"
-msgstr "Оцветете черно-бяло"
+msgstr "Оцветяване на черно-бели снимки"
 
 #: src/components/ColorMixingChart.tsx:171
 #: src/components/ImageLimitedPalette.tsx:104
@@ -630,39 +630,39 @@ msgstr "Цветове"
 
 #: src/components/messages.ts:42
 msgid "Compare images"
-msgstr "Сравнете изображения"
+msgstr "Сравняване на изображения"
 
 #: src/components/cloud/ConnectCloudButton.tsx:70
 msgid "Connect"
-msgstr "Свържете се"
+msgstr "Свързване"
 
 #: src/components/cloud/ConnectCloudButton.tsx:74
 msgid "Connect {label}"
-msgstr "Свържи {label}"
+msgstr "Свързване с {label}"
 
 #: src/components/cloud/ConnectCloudButton.tsx:47
 msgid "Connect {label}?"
-msgstr "Свързване {label}?"
+msgstr "Свързване с {label}?"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:111
 msgid "Connect cloud storage before syncing."
-msgstr "Свържете облачното съхранение преди синхронизация."
+msgstr "Свържете облачното хранилище, преди да синхронизирате."
 
 #: src/hooks/useCloudSyncNotification.ts:45
 msgid "Connect cloud storage to keep a synced copy of your data in the cloud and use it across devices, or manually save and restore backup files"
 msgstr "Свържете облачно хранилище, за да запазите синхронизирано копие на вашите данни в облака и да го използвате на различни устройства, или ръчно запазвайте и възстановявайте архивни файлове"
 
-#: src/components/ColorSetChooser.tsx:558
+#: src/components/ColorSetChooser.tsx:559
 msgid "Connect cloud storage to sync your data across devices"
 msgstr "Свържете облачно хранилище, за да синхронизирате данните си между устройства"
 
 #: src/components/ImageColorPicker.tsx:379
 msgid "Consider colors blended over the underlayer when they match the target better than unblended colors"
-msgstr "Имайте предвид цветовете, смесени върху долния слой, когато съвпадат с целта по-добре от несмесените цветове"
+msgstr "Вземайте предвид цветовете, разтрити върху подслоя, когато съвпадат с целевия цвят по-добре от неразтритите цветове"
 
 #: src/components/ImageColorPicker.tsx:384
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
-msgstr "Помислете за прозрачни слоеве върху повърхността или подслоя, когато отговарят на целта по-добре от непрозрачните смеси"
+msgstr "Вземайте предвид прозрачните слоеве върху повърхността или подслоя, когато съвпадат с целевия цвят по-добре от непрозрачните смеси"
 
 #: src/components/Help.tsx:96
 msgid "Contact"
@@ -670,7 +670,7 @@ msgstr "Контакт"
 
 #: src/components/ImageColorPicker.tsx:264
 msgid "Continue"
-msgstr "Продължи"
+msgstr "Продължаване"
 
 #: src/components/ImageColorPicker.tsx:257
 msgid "Continue with Auto palette?"
@@ -678,19 +678,19 @@ msgstr "Продължаване с автоматичната палитра?"
 
 #: src/components/ImageColorPicker.tsx:308
 msgid "Controls how large an area is averaged when you pick a color from the photo."
-msgstr "Контролира колко голяма площ се осреднява, когато избираш цвят от снимката."
+msgstr "Определя колко голяма област се осреднява, когато избирате цвят от снимката."
 
 #: src/components/color/WarmthIcon.tsx:42
 msgid "Cool — Algorithmic estimate; artistic perception may vary."
-msgstr "Cool — Алгоритмична оценка; Художественото възприятие може да варира."
+msgstr "Студена — алгоритмична оценка; художественото възприятие може да варира."
 
 #: src/components/share/ShareModal.tsx:85
 msgid "Copy"
-msgstr "Копирам"
+msgstr "Копиране"
 
 #: src/components/file/FileSelect.tsx:132
 msgid "Copy a supported image to the clipboard, then try again."
-msgstr "Копирай поддържано изображение в клипборда, после опитай отново."
+msgstr "Копирайте поддържано изображение в клипборда и опитайте отново."
 
 #: src/components/share/ShareModal.tsx:71
 msgid "Copy and share this link"
@@ -698,36 +698,36 @@ msgstr "Копирайте и споделете тази връзка"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:378
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
-msgstr "Коригирана оценка на температурата на източника на светлина в Келвин"
+msgstr "Коригирана оценка на температурата на светлинния източник в келвини"
 
 #: src/components/image-editor/StraightenControls.tsx:86
 msgid "Could not detect the paper or canvas automatically"
-msgstr "Не можех автоматично да засечем хартията или платното"
+msgstr "Хартията или платното не бяха разпознати автоматично"
 
 #: src/components/cloud/ExportToZipButton.tsx:59
 msgid "Could not export backup"
-msgstr "Не можех да експортирам резервни копия"
+msgstr "Резервното копие не можа да бъде експортирано"
 
 #: src/components/cloud/ImportFromZipFileSelect.tsx:59
 msgid "Could not import backup"
-msgstr "Не можех да импортирам резервно копие"
+msgstr "Резервното копие не можа да бъде импортирано"
 
 #: src/hooks/useFileReadErrorNotification.tsx:28
 msgid "Could not read the file"
-msgstr "Не можах да прочета файла"
+msgstr "Файлът не можа да бъде прочетен"
 
-#: src/components/ColorSetChooser.tsx:760
+#: src/components/ColorSetChooser.tsx:761
 msgid "Create a duplicate of this color set for further modification"
-msgstr "Създайте дубликат на този набор от цветове за по-нататъшна модификация"
+msgstr "Създайте дубликат на този набор от цветове за по-нататъшна промяна"
 
-#: src/components/ColorSetChooser.tsx:769
+#: src/components/ColorSetChooser.tsx:770
 msgid "Create a new color set by merging existing ones"
-msgstr "Създайте нов цветови набор чрез сливане на съществуващи"
+msgstr "Създайте нов набор от цветове чрез сливане на съществуващи"
 
 #: src/components/color-set/ColorSetSelect.tsx:97
 #: src/components/color-set/CustomColorBrandSelect.tsx:87
 msgid "Create new"
-msgstr "Създайте нов"
+msgstr "Създаване на нов"
 
 #: src/components/image-editor/CropControls.tsx:97
 #: src/components/messages.ts:49
@@ -749,24 +749,24 @@ msgstr "Персонализирани цветове"
 #: src/components/auth/DeleteAccountButton.tsx:67
 #: src/components/color/AddToPaletteButton.tsx:48
 #: src/components/color/PaletteColorMixtureCard.tsx:128
-#: src/components/ColorSetChooser.tsx:791
-#: src/components/ColorSetChooser.tsx:801
+#: src/components/ColorSetChooser.tsx:792
+#: src/components/ColorSetChooser.tsx:802
 #: src/components/CustomColorBrandCreator.tsx:531
 #: src/components/CustomColorBrandCreator.tsx:541
 #: src/components/image/RecentImageCard.tsx:124
 #: src/components/image/RecentImageCard.tsx:134
 #: src/components/storage/DeleteAppDataButton.tsx:50
 msgid "Delete"
-msgstr "Изтривам"
+msgstr "Изтриване"
 
 #: src/components/palette/PaletteGrid.tsx:121
 #: src/components/palette/PaletteGrid.tsx:125
 msgid "Delete all"
-msgstr "Изтрий всичко"
+msgstr "Изтриване на всичко"
 
 #: src/components/palette/PaletteGrid.tsx:118
 msgid "Delete all color mixtures"
-msgstr "Изтрийте всички цветови смеси"
+msgstr "Изтриване на всички цветови смеси"
 
 #: src/components/auth/DeleteAccountButton.tsx:59
 #: src/components/auth/DeleteAccountButton.tsx:71
@@ -776,23 +776,23 @@ msgstr "Изтриване на данни от сървъри"
 #: src/components/storage/DeleteAppDataButton.tsx:40
 #: src/components/storage/DeleteAppDataButton.tsx:54
 msgid "Delete data on this device"
-msgstr "Изтрийте данни от това устройство"
+msgstr "Изтриване на данните от това устройство"
 
 #: src/components/color/AddToPaletteButton.tsx:52
 #: src/components/color/PaletteColorMixtureCard.tsx:132
 msgid "Delete from palette"
-msgstr "Изтрий от палитрата"
+msgstr "Изтриване от палитрата"
 
 #: src/components/ImageChooser.tsx:97
 msgid "Delete oldest"
-msgstr "Изтрий най-старото"
+msgstr "Изтриване на най-старата"
 
 #: src/components/color/AddToPaletteButton.tsx:45
 #: src/components/color/PaletteColorMixtureCard.tsx:125
 msgid "Delete the color mixture"
-msgstr "Изтрийте цветовата смес"
+msgstr "Изтриване на цветовата смес"
 
-#: src/components/ColorSetChooser.tsx:786
+#: src/components/ColorSetChooser.tsx:787
 msgid "Delete the color set"
 msgstr "Изтриване на набора от цветове"
 
@@ -806,7 +806,7 @@ msgstr "Изтриване на персонализираната марка"
 msgid "Delete the recent photo"
 msgstr "Изтриване на скорошната снимка"
 
-#: src/components/ColorSetChooser.tsx:796
+#: src/components/ColorSetChooser.tsx:797
 msgid "Delete this color set"
 msgstr "Изтриване на този набор от цветове"
 
@@ -816,13 +816,13 @@ msgstr "Плътен слой"
 
 #: src/components/ml-model/OnnxModelSelect.tsx:40
 msgid "Detail"
-msgstr "детайл"
+msgstr "Детайл"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:35
 msgid "Details"
 msgstr "Подробности"
 
-#: src/components/ImagesCompare.tsx:129
+#: src/components/ImagesCompare.tsx:137
 msgid "Determine the best image by pairwise comparison"
 msgstr "Определете най-доброто изображение чрез сравнение по двойки"
 
@@ -832,7 +832,7 @@ msgstr "Диагностика"
 
 #: src/components/grid/GridControls.tsx:152
 msgid "Diagonals"
-msgstr "Диагоналите"
+msgstr "Диагонали"
 
 #: src/components/CustomColorBrandCreator.tsx:458
 msgid "Diameter"
@@ -844,67 +844,67 @@ msgstr "Отхвърляне на промените"
 
 #: src/components/ColorSetChooser.tsx:230
 msgid "Discard changes to the color set?"
-msgstr "Да се ​​отхвърлят промените в цветовия набор?"
+msgstr "Да се отхвърлят ли промените в набора от цветове?"
 
 #: src/components/cloud/DisconnectCloudButton.tsx:64
 msgid "Disconnect"
-msgstr "Прекъсване"
+msgstr "Прекъсване на връзката"
 
 #: src/components/cloud/DisconnectCloudButton.tsx:68
 msgid "Disconnect {label}"
-msgstr "Disconnect {label}"
+msgstr "Прекъсване на връзката с {label}"
 
 #: src/components/cloud/DisconnectCloudButton.tsx:41
 msgid "Disconnect {label}?"
-msgstr "Прекъсване {label}?"
+msgstr "Прекъсване на връзката с {label}?"
 
 #: src/components/cloud/DisconnectCloudButton.tsx:44
 msgid "Disconnecting moves the ArtistAssistApp folder and everything still inside it to Google Drive Trash.<0/>Files you moved outside the folder are not deleted."
-msgstr "Прекъсването премества папката ArtistAssistApp и всичко вътре в Google Drive Trash.<0/>Файловете, които сте преместили извън папката, не се изтриват."
+msgstr "Прекъсването на връзката премества папката ArtistAssistApp и всичко, което все още е в нея, в кошчето на Google Диск.<0/>Файловете, които сте преместили извън папката, няма да бъдат изтрити."
 
 #: src/components/cloud/DisconnectCloudButton.tsx:51
 msgid "Disconnecting will delete everything inside the ArtistAssistApp app folder, including files you added.<0/>Move anything you want to keep outside the folder first.<1/>Files outside the folder will not be deleted.<2/>Depending on the provider, deletion may be permanent."
-msgstr "Прекъсването ще изтрие всичко в папката на приложението ArtistAssistApp, включително файловете, които сте добавили.<0/>Първо премести всичко, което искаш да запазиш извън папката.<1/>Файловете извън папката няма да бъдат изтривани.<2/>В зависимост от доставчика, изтриването може да бъде постоянно."
+msgstr "Прекъсването на връзката ще изтрие всичко в папката на приложението ArtistAssistApp, включително файловете, които сте добавили.<0/>Първо преместете извън папката всичко, което искате да запазите.<1/>Файловете извън папката няма да бъдат изтрити.<2/>В зависимост от доставчика изтриването може да е необратимо."
 
 #: src/components/ImageStyleTransfer.tsx:73
 msgid "Divisionism"
 msgstr "Дивизионизъм"
 
-#: src/components/ColorSetChooser.tsx:670
+#: src/components/ColorSetChooser.tsx:671
 msgid "Do you have a store-bought or custom color set?"
-msgstr "Имате ли закупен от магазина или персонализиран цветови набор?"
+msgstr "Имате ли закупен от магазина или персонализиран набор от цветове?"
 
 #: src/components/ColorSetChooser.tsx:251
 msgid "Don't save"
-msgstr "Не пести"
+msgstr "Без запазване"
 
 #: src/stores/cloud-slice.ts:142
 msgid "Downloading image {index} / {count}"
-msgstr "Изтегля се изображение {index} / {count}"
+msgstr "Изтегляне на изображение {index} / {count}"
 
 #: src/i18n.ts:136
 msgid "Downloading... {percent}% ({key})"
-msgstr "Изтеглям... {percent}% ({key})"
+msgstr "Изтегляне... {percent}% ({key})"
 
 #: src/components/file/FileSelect.tsx:216
 msgid "Drop the file here..."
-msgstr "Остави досието тук..."
+msgstr "Пуснете файла тук..."
 
 #: src/components/file/FileSelect.tsx:216
 msgid "Drop the files here..."
-msgstr "Остави файловете тук..."
+msgstr "Пуснете файловете тук..."
 
 #: src/components/messages.ts:65
 msgid "Dry Pastel"
 msgstr "Сух пастел"
 
-#: src/components/ColorSetChooser.tsx:763
+#: src/components/ColorSetChooser.tsx:764
 msgid "Duplicate"
-msgstr "Дубликат"
+msgstr "Дублиране"
 
 #: src/components/ImageStyleTransfer.tsx:66
 msgid "Dutch Baroque"
-msgstr "холандски барок"
+msgstr "Холандски барок"
 
 #: src/components/TwoColorGradient.tsx:200
 msgid "Each column is a mixing ratio"
@@ -948,11 +948,11 @@ msgstr "Въведете валиден имейл"
 
 #: src/components/ImageOutline.tsx:288
 msgid "Enter lightbox mode to trace the outline through your paper"
-msgstr "Влезте в режим на лайтбокс, за да проследите контура през хартията си"
+msgstr "Влезте в режим Лайтбокс, за да прекопирате контура през хартията"
 
 #: src/components/ImageOutline.tsx:351
 msgid "Enter lightbox mode to trace the outline through your paper."
-msgstr "Влезте в режим lightbox, за да проследите контура през листа."
+msgstr "Влезте в режим Лайтбокс, за да прекопирате контура през хартията."
 
 #: src/components/auth/LoginEmailOtpButton.tsx:244
 msgid "Enter the code"
@@ -960,7 +960,7 @@ msgstr "Въведете кода"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:63
 msgid "Enter the email address for your Patreon account. We'll send a one-time login code if it has an active ArtistAssistApp membership."
-msgstr "Въведете имейл адреса на вашия Patreon акаунт. Ще изпратим еднократен код за вход, ако има активен член на ArtistAssistApp."
+msgstr "Въведете имейл адреса на своя Patreon акаунт. Ще изпратим еднократен код за вход, ако той има активно членство в ArtistAssistApp."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:36
 msgid "Error"
@@ -972,7 +972,7 @@ msgstr "Описание на грешката"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:349
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
-msgstr "Приблизителна температура на източника на светлина в Келвин изображението е направено с"
+msgstr "Приблизителна температура в келвини на светлинния източник, с който е направено изображението"
 
 #: src/components/ImageStyleTransfer.tsx:81
 msgid "Etching"
@@ -990,7 +990,7 @@ msgstr "Разширяване"
 
 #: src/components/image-editor/ExpandControls.tsx:118
 msgid "Expand by"
-msgstr "Разширете с"
+msgstr "Разширяване с"
 
 #: src/components/CustomColorBrandCreator.tsx:545
 msgid "Export to file"
@@ -1002,30 +1002,30 @@ msgstr "Експресионизъм"
 
 #: src/components/ml-model/OnnxModelSelect.tsx:100
 msgid "Fast"
-msgstr "бързо"
+msgstr "Бърз"
 
 #: src/components/ml-model/OnnxModelSelect.tsx:108
 msgid "Fastest"
-msgstr "Най-бързо"
+msgstr "Най-бърз"
 
 #: src/components/ImageStyleTransfer.tsx:76
 msgid "Fauvism"
-msgstr "фовизъм"
+msgstr "Фовизъм"
 
 #: src/components/image-editor/ExpandControls.tsx:196
 msgid "Fill"
-msgstr "Напълнете"
+msgstr "Запълване"
 
 #: src/components/ColorSetChooser.tsx:413
 #: src/components/CustomColorBrandCreator.tsx:394
 msgid "Fill in the required fields"
 msgstr "Попълнете задължителните полета"
 
-#: src/components/ImageStyleTransfer.tsx:372
+#: src/components/ImageStyleTransfer.tsx:380
 msgid "Filter by artist"
-msgstr "Филтриране по изпълнител"
+msgstr "Филтриране по художник"
 
-#: src/components/ImageStyleTransfer.tsx:385
+#: src/components/ImageStyleTransfer.tsx:393
 msgid "Filter by tag"
 msgstr "Филтриране по етикет"
 
@@ -1036,11 +1036,11 @@ msgstr "Фин детайл"
 #: src/components/ml-model/OnnxModelSelect.tsx:56
 #: src/components/ml-model/OnnxModelSelect.tsx:84
 msgid "Finest"
-msgstr "Най-доброто"
+msgstr "Най-фин"
 
 #: src/components/CustomColorBrandCreator.tsx:217
 msgid "Finish editing"
-msgstr "Завършено редактиране"
+msgstr "Завършване на редактирането"
 
 #: src/components/ImageSimplifier.tsx:155
 msgid "Focal point instructions"
@@ -1048,7 +1048,7 @@ msgstr "Инструкции за фокусна точка"
 
 #: src/components/image-editor/CropControls.tsx:37
 msgid "Free"
-msgstr "безплатно"
+msgstr "Свободно"
 
 #: src/components/color/ConsistencyDescription.tsx:46
 msgid "Full pressure"
@@ -1064,23 +1064,23 @@ msgstr "Гама"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:107
 msgid "Get a code"
-msgstr "Вземи код"
+msgstr "Получаване на код"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:42
 msgid "Gifted membership"
-msgstr "Надарено членство"
+msgstr "Подарено членство"
 
-#: src/components/ColorSetChooser.tsx:629
+#: src/components/ColorSetChooser.tsx:630
 msgid "Give your color set a name for easy access."
-msgstr "Дайте име на вашия цветови набор за лесен достъп."
+msgstr "Дайте име на своя набор от цветове за лесен достъп."
 
 #: src/components/ImageColorPicker.tsx:375
 msgid "Glazing"
-msgstr "Глазиране"
+msgstr "Лесиране"
 
 #: src/components/button/GoToTabButton.tsx:38
 msgid "Go to the {label} tab"
-msgstr "Отидете в раздела {label}"
+msgstr "Отиване към раздела {label}"
 
 #: src/components/messages.ts:60
 msgid "Gouache"
@@ -1103,19 +1103,19 @@ msgstr "Помощ"
 
 #: src/components/image-editor/ExpandControls.tsx:158
 msgid "Horizontal"
-msgstr "Хоризонтална"
+msgstr "Хоризонтално"
 
 #: src/components/ColorSetChooser.tsx:249
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Ако не запишете, промените в набора от цветове може да бъдат загубени."
 
-#: src/components/ImagesCompare.tsx:165
+#: src/components/ImagesCompare.tsx:173
 msgid "Image ranking"
 msgstr "Класиране на изображения"
 
 #: src/components/cloud/ImportFromZipFileSelect.tsx:46
 msgid "Import backup"
-msgstr "Импортно архивиране"
+msgstr "Импортиране на резервно копие"
 
 #: src/components/cloud/ImportFromZipFileSelect.tsx:39
 msgid "Import backup?"
@@ -1127,7 +1127,7 @@ msgstr "Импортиране от файл"
 
 #: src/components/cloud/ImportFromZipFileSelect.tsx:41
 msgid "Importing this backup will replace your local color sets, reference photos, saved color mixtures, and custom color brands."
-msgstr "Импортирането на тази резервна копия ще замени вашите местни цветови комплекти, референтни снимки, запазени цветови смеси и персонализирани цветови марки."
+msgstr "Импортирането на това резервно копие ще замени локалните ви набори от цветове, референтни снимки, запазени цветови смеси и персонализирани марки цветове."
 
 #: src/components/ImageStyleTransfer.tsx:69
 msgid "Impressionism"
@@ -1139,7 +1139,7 @@ msgstr "Вдъхновение"
 
 #: src/hooks/usePersistentStorage.tsx:64
 msgid "Install"
-msgstr "Инсталирам"
+msgstr "Инсталиране"
 
 #: src/components/install/InstallButton.tsx:37
 msgid "Install app"
@@ -1147,15 +1147,15 @@ msgstr "Инсталиране на приложение"
 
 #: src/components/install/InstallDrawer.tsx:195
 msgid "Install ArtistAssistApp"
-msgstr "Инсталирай ArtistAssistApp"
+msgstr "Инсталиране на ArtistAssistApp"
 
 #: src/components/Help.tsx:147
 msgid "Install update"
-msgstr "Актуализация на инсталацията"
+msgstr "Инсталиране на актуализацията"
 
 #: src/components/ml-model/OnnxModelSelect.tsx:77
 msgid "Instant"
-msgstr "Моментално"
+msgstr "Моментален"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:375
 msgid "Intended color temperature (K)"
@@ -1163,7 +1163,7 @@ msgstr "Предвидена цветова температура (K)"
 
 #: src/components/CustomColorBrandCreator.tsx:348
 msgid "Invalid custom color brand file"
-msgstr "Невалиден персонализиран цветен бранд файл"
+msgstr "Невалиден файл с персонализирана марка цветове"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:144
 msgid "Invalid login code"
@@ -1171,7 +1171,7 @@ msgstr "Невалиден код за вход"
 
 #: src/components/auth/DeleteAccountButton.tsx:49
 msgid "It also disconnects cloud storage, deletes your account and membership lookup records, and logs you out."
-msgstr "Той също така изключва облачното съхранение, изтрива записите за търсене на акаунта и членството и те излиза."
+msgstr "Той също така прекъсва връзката с облачното хранилище, изтрива вашия акаунт и записите за търсене на членство и ви извежда от системата."
 
 #: src/components/ImagesCompare.tsx:96
 msgid "It can be difficult to choose between multiple images. Comparing each image with others in pairs simplifies the choice and helps to identify the most preferred one."
@@ -1179,28 +1179,28 @@ msgstr "Може да е трудно да избирате между множ�
 
 #: src/components/color/AddToPaletteButton.tsx:49
 #: src/components/color/PaletteColorMixtureCard.tsx:129
-#: src/components/ColorSetChooser.tsx:792
+#: src/components/ColorSetChooser.tsx:793
 #: src/components/CustomColorBrandCreator.tsx:532
 #: src/components/image/RecentImageCard.tsx:125
 #: src/components/palette/PaletteGrid.tsx:122
 msgid "Keep"
-msgstr "Дръж"
+msgstr "Запазване"
 
 #: src/components/ImageChooser.tsx:98
 msgid "Keep all"
-msgstr "Задръж всичко"
+msgstr "Запазване на всичко"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:58
 msgid "Keep cloud data"
-msgstr "Пазете облачните данни"
+msgstr "Запазване на облачните данни"
 
 #: src/components/ColorSetChooser.tsx:237
 msgid "Keep editing"
-msgstr "Продължете да редактирате"
+msgstr "Продължаване на редактирането"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:41
 msgid "Keep this device"
-msgstr "Дръж това устройство"
+msgstr "Запазване на това устройство"
 
 #: src/components/ImageStyleTransfer.tsx:61
 msgid "Landscape"
@@ -1212,15 +1212,15 @@ msgstr "Език"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:40
 msgid "Last charge status"
-msgstr "Статус на последно обвинение"
+msgstr "Статус на последното плащане"
 
 #: src/components/image/RecentImageCard.tsx:139
 msgid "Last used {dateText}"
 msgstr "Последно използван {dateText}"
 
-#: src/components/ImagesCompare.tsx:156
+#: src/components/ImagesCompare.tsx:164
 msgid "Left to compare: {unfinishedGamesSize}"
-msgstr "Ляво за сравнение: {unfinishedGamesSize}"
+msgstr "Остават за сравнение: {unfinishedGamesSize}"
 
 #: src/components/ImageColorPicker.tsx:563
 msgid "Less"
@@ -1228,7 +1228,7 @@ msgstr "По-малко"
 
 #: src/components/ImageOutline.tsx:350
 msgid "Light box"
-msgstr "Светлинна кутия"
+msgstr "Лайтбокс"
 
 #: src/components/ImageTonalValues.tsx:107
 #: src/components/ImageTonalValues.tsx:110
@@ -1245,24 +1245,24 @@ msgstr "Ограничена палитра"
 
 #: src/components/share/ShareModal.tsx:39
 msgid "Link copied to clipboard"
-msgstr "Връзката, копирана в клипборда"
+msgstr "Връзката е копирана в клипборда"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:206
 msgid "Log in"
-msgstr "Влез"
+msgstr "Вход"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:244
 #: src/components/auth/LoginEmailOtpButton.tsx:276
 msgid "Log in with email"
-msgstr "Влезте с имейл"
+msgstr "Вход с имейл"
 
 #: src/components/auth/LoginOAuthButton.tsx:34
 msgid "Log in with Patreon"
-msgstr "Влезте с Patreon"
+msgstr "Вход с Patreon"
 
 #: src/components/auth/LogoutButton.tsx:35
 msgid "Log out"
-msgstr "Излезте"
+msgstr "Изход"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:171
 msgid "Login result not received"
@@ -1270,11 +1270,11 @@ msgstr "Резултатът от входа не е получен"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:279
 msgid "Low input and high input"
-msgstr "Нисък вход и висок вход"
+msgstr "Нисък и висок вход"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:324
 msgid "Low output and high output"
-msgstr "Ниска мощност и висока производителност"
+msgstr "Нисък и висок изход"
 
 #: src/components/print/PrintImageDrawer.tsx:255
 #: src/components/print/PrintImageDrawer.tsx:270
@@ -1283,7 +1283,7 @@ msgstr "Поле"
 
 #: src/components/image-editor/ExpandControls.tsx:102
 msgid "Margins"
-msgstr "Маржове"
+msgstr "Полета"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:112
 msgid "Mark around the object you want to remove, then drag the vertices to adjust or tap to remove"
@@ -1302,13 +1302,13 @@ msgid "Mark the 4 corners of your paper or canvas, then drag the vertices to adj
 msgstr "Маркирайте 4-те ъгъла на вашата хартия или платно, след което плъзнете върховете, за да коригирате"
 
 #: src/components/color-set/MergeColorSetsDrawer.tsx:96
-#: src/components/ColorSetChooser.tsx:773
+#: src/components/ColorSetChooser.tsx:774
 msgid "Merge"
 msgstr "Сливане"
 
 #: src/components/color-set/MergeColorSetsDrawer.tsx:62
 msgid "Merge color sets"
-msgstr "Комбиниране на цветови набори"
+msgstr "Сливане на набори от цветове"
 
 #: src/components/ImageTonalValues.tsx:117
 #: src/components/ImageTonalValues.tsx:120
@@ -1321,24 +1321,24 @@ msgstr "Средни тонове"
 
 #: src/components/color/ColorMixtureDescription.tsx:69
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
-msgstr "Смесване на цветове в <0>съотношение {partsRatioText}</0>"
+msgstr "Смесете цветовете в <0>съотношение {partsRatioText}</0>"
 
 #: src/components/color/ConsistencyDescription.tsx:59
 msgid "Mix paint and water in a <0>{ratioText} ratio</0>"
-msgstr "Смесете боя и вода в съотношение <0>{ratioText}</0>"
+msgstr "Смесете боя и вода в <0>съотношение {ratioText}</0>"
 
 #: src/components/color/ConsistencyDescription.tsx:112
 msgid "Mix the paint with a glazing medium, such as linseed oil, to apply a thinner, more transparent layer"
-msgstr "Смесете боята със средство за остъкляване, като ленено масло, за да нанесете по-тънък, по-прозрачен слой"
+msgstr "Смесете боята със средство за лесиране, например ленено масло, за да нанесете по-тънък, по-прозрачен слой"
 
 #: src/components/color/ConsistencyDescription.tsx:119
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
-msgstr "Смесете боята с акрилна среда за остъкляване, за да нанесете по-тънък, по-прозрачен слой"
+msgstr "Смесете боята с акрилно средство за лесиране, за да нанесете по-тънък, по-прозрачен слой"
 
 #: src/components/color/ColorMatchCard.tsx:153
 #: src/components/color/PaletteColorMixtureCard.tsx:158
 msgid "Mix this color into every mixture."
-msgstr "Смесете този цвят във всяка сместа."
+msgstr "Смесвайте този цвят във всяка смес."
 
 #: src/components/ColorMixer.tsx:164
 msgid "Mix your colors in any proportions so you don't waste real paints"
@@ -1362,7 +1362,7 @@ msgstr "Още"
 msgid "Mosaic"
 msgstr "Мозайка"
 
-#: src/components/ColorSetChooser.tsx:628
+#: src/components/ColorSetChooser.tsx:629
 #: src/components/CustomColorBrandCreator.tsx:196
 #: src/components/CustomColorBrandCreator.tsx:510
 msgid "Name"
@@ -1370,11 +1370,11 @@ msgstr "Име"
 
 #: src/components/CustomColorBrandCreator.tsx:513
 msgid "Name a brand"
-msgstr "Назовете марка"
+msgstr "Наименувайте марката"
 
-#: src/components/ColorSetChooser.tsx:632
+#: src/components/ColorSetChooser.tsx:633
 msgid "Name a color set"
-msgstr "Наименуване на набор от цветове"
+msgstr "Наименувайте набора от цветове"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:101
 msgid "name@example.com"
@@ -1386,7 +1386,7 @@ msgstr "Неоимпресионизъм"
 
 #: src/components/color/WarmthIcon.tsx:46
 msgid "Neutral — Algorithmic estimate; artistic perception may vary."
-msgstr "Неутрален — алгоритмична оценка; Художественото възприятие може да варира."
+msgstr "Неутрална — алгоритмична оценка; художественото възприятие може да варира."
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:40
 msgid "New brand"
@@ -1394,7 +1394,7 @@ msgstr "Нова марка"
 
 #: src/components/color-set/ColorSetSelect.tsx:43
 msgid "New color set"
-msgstr "Нов цветови комплект"
+msgstr "Нов набор от цветове"
 
 #: src/components/ImagesCompare.tsx:121
 msgid "New comparison"
@@ -1407,7 +1407,7 @@ msgstr "Нов размер: {outputWidth} × {outputHeight}"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:41
 msgid "Next charge date"
-msgstr "Следваща дата на таксуване"
+msgstr "Дата на следващото плащане"
 
 #: src/components/empty/EmptyColorMatches.tsx:43
 msgid "No matching color mixtures were found"
@@ -1428,7 +1428,7 @@ msgstr "Не е избран целеви цвят"
 
 #: src/components/ImageStyleTransfer.tsx:65
 msgid "Northern Renaissance"
-msgstr "Северен Ренесанс"
+msgstr "Северен ренесанс"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:69
 msgid "Not sure which email Patreon uses? Check your <0>Patreon basic settings</0>."
@@ -1436,7 +1436,7 @@ msgstr "Не сте сигурни кой имейл използва Patreon? �
 
 #: src/components/share/ShareModal.tsx:96
 msgid "Nothing to share"
-msgstr "Няма какво да споделим"
+msgstr "Няма какво да се сподели"
 
 #: src/components/grid/GridControls.tsx:145
 msgid "Number of cells on the smaller side (vertical or horizontal)"
@@ -1462,9 +1462,9 @@ msgstr "По диагонала са чистите цветове в пълна
 msgid "On the diagonal are the pure colors at full strength. Off the diagonal is each pair mixed in a 1:1 ratio."
 msgstr "По диагонала са чистите цветове в пълна сила. Извън диагонала всяка двойка се смесва в съотношение 1:1."
 
-#: src/components/ColorSetChooser.tsx:651
+#: src/components/ColorSetChooser.tsx:652
 msgid "Only a limited number of color brands are available in the free version"
-msgstr "Само ограничен брой цветни марки са налични в безплатната версия"
+msgstr "В безплатната версия е налична само ограничен брой марки цветове"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:79
 #: src/components/ImageOutline.tsx:259
@@ -1473,7 +1473,7 @@ msgstr "В безплатната версия са налични само ог
 
 #: src/components/color/OpacityIcon.tsx:51
 msgid "Opaque"
-msgstr "Непрозрачни"
+msgstr "Непрозрачен"
 
 #: src/components/install/InstallDrawer.tsx:99
 #: src/components/install/InstallDrawer.tsx:148
@@ -1488,7 +1488,7 @@ msgstr "Отворете <0>основните настройки на Patreon</
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "или инсталирайте най-новата версия на уеб браузъра Chrome, Edge, Firefox или Opera"
 
-#: src/components/ColorSetChooser.tsx:566
+#: src/components/ColorSetChooser.tsx:567
 msgid "Or save a backup file on this device"
 msgstr "Или запазете архивен файл на това устройство"
 
@@ -1496,27 +1496,27 @@ msgstr "Или запазете архивен файл на това устро
 msgid "Or scan the QR code"
 msgstr "Или сканирайте QR кода"
 
-#: src/components/ImageChooser.tsx:155
+#: src/components/ImageChooser.tsx:161
 msgid "Or select from sample photos"
 msgstr "Или изберете от примерни снимки"
 
-#: src/components/ImageChooser.tsx:129
+#: src/components/ImageChooser.tsx:135
 msgid "Or select from your recent photos"
 msgstr "Или изберете от скорошните си снимки"
 
 #: src/components/image-editor/CropControls.tsx:38
 #: src/components/image/ImageViewSelector.tsx:45
 msgid "Original"
-msgstr "Оригинален"
+msgstr "Оригинал"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:346
 msgid "Original color temperature (K)"
-msgstr "Оригинална цветна температура (K)"
+msgstr "Оригинална цветова температура (K)"
 
 #: src/components/ImageOutline.tsx:281
 #: src/components/messages.ts:34
 msgid "Outline"
-msgstr "Очертание"
+msgstr "Контур"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:322
 msgid "Output levels"
@@ -1548,7 +1548,7 @@ msgstr "Проверката на членството в Patreon не успя"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:39
 msgid "Patron status"
-msgstr "Статут на покровител"
+msgstr "Статут на поддръжник"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:174
 #: src/components/image-editor/AdjustColorsControls.tsx:208
@@ -1557,7 +1557,7 @@ msgstr "Процентил"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:185
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
-msgstr "Процентил: Автоматичен баланс на бялото от най-ярките зони, добър за повечето снимки. Справка: Ръчен баланс на бялото с помощта на избрана бяла област."
+msgstr "Процентил: автоматичен баланс на бялото по най-ярките зони, подходящ за повечето снимки. Референция: ръчен баланс на бялото по избрана бяла област."
 
 #: src/components/Help.tsx:159
 msgid "Persistent storage"
@@ -1577,15 +1577,15 @@ msgstr "Снимката не е възстановена"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:196
 msgid "Photo unavailable"
-msgstr "Няма налична снимка"
+msgstr "Снимката не е налична"
 
 #: src/components/image/RecentImageCard.tsx:87
 msgid "Photo unavailable. Restore it from your cloud storage, or select the original again."
-msgstr "Няма налична снимка. Възстановете го от вашето облачно хранилище или изберете оригинала отново."
+msgstr "Снимката не е налична. Възстановете я от облачното си хранилище или изберете отново оригинала."
 
 #: src/components/image/RecentImageCard.tsx:96
 msgid "Photo unavailable. Select the original again to repair it."
-msgstr "Няма налична снимка. Изберете отново оригинала, за да го поправите."
+msgstr "Снимката не е налична. Изберете отново оригинала, за да я поправите."
 
 #: src/components/empty/EmptyPalette.tsx:44
 msgid "Pick a target color"
@@ -1597,7 +1597,7 @@ msgstr "Стиснете или превъртете за мащабиране, 
 
 #: src/components/error/ErrorFallback.tsx:41
 msgid "Please send us a screenshot of this error via our <0>contacts</0>. It will help us identify the cause."
-msgstr "Моля, изпратете ни скрийншот на тази грешка чрез <0>нашите контакти</0>. Това ще ни помогне да идентифицираме причината."
+msgstr "Моля, изпратете ни екранна снимка на тази грешка чрез нашите <0>контакти</0>. Това ще ни помогне да установим причината."
 
 #: src/components/ImageStyleTransfer.tsx:72
 msgid "Pointillism"
@@ -1607,7 +1607,7 @@ msgstr "Пуантилизъм"
 msgid "Portrait"
 msgstr "Портрет"
 
-#: src/components/ImagesCompare.tsx:185
+#: src/components/ImagesCompare.tsx:193
 msgid "Position: {position}<0/>Rating: {ratingText}"
 msgstr "Позиция: {position}<0/>Оценка: {ratingText}"
 
@@ -1623,7 +1623,7 @@ msgstr "Отлагане"
 
 #: src/components/empty/EmptyColorSet.tsx:113
 msgid "Press <0>Save & continue</0> when done."
-msgstr "Натиснете <0>Запазване и продължи</0>, когато сте готови."
+msgstr "Натиснете <0>Запазване и продължаване</0>, когато сте готови."
 
 #: src/components/install/InstallDrawer.tsx:170
 msgid "Press Add to Dock"
@@ -1644,7 +1644,7 @@ msgstr "Натиснете Споделяне в лентата за навиг�
 
 #: src/components/empty/EmptyPalette.tsx:55
 msgid "Press the <0>Add to palette</0> button next to the color mixture you like"
-msgstr "Натиснете бутона <0>Добавяне към палитрата</0> до цветната смес, която харесвате"
+msgstr "Натиснете бутона <0>Добавяне към палитрата</0> до цветовата смес, която харесвате"
 
 #: src/components/color/ColorSwatchDrawer.tsx:80
 #: src/components/ColorMixingChart.tsx:149
@@ -1652,13 +1652,13 @@ msgstr "Натиснете бутона <0>Добавяне към палитр�
 #: src/components/ImageGrid.tsx:83
 #: src/components/ImageOutline.tsx:334
 #: src/components/ImageOutline.tsx:370
-#: src/components/ImagesCompare.tsx:173
+#: src/components/ImagesCompare.tsx:181
 #: src/components/ImageTonalValues.tsx:158
 #: src/components/ImageTonalValues.tsx:169
 #: src/components/palette/PaletteGrid.tsx:115
 #: src/components/print/PrintImageDrawer.tsx:183
 msgid "Print"
-msgstr "Печатам"
+msgstr "Печат"
 
 #: src/components/print/PrintImageDrawer.tsx:200
 msgid "Print a large image onto multiple pages"
@@ -1674,7 +1674,7 @@ msgstr "Политика за поверителност"
 
 #: src/components/loading/LoadingIndicator.tsx:48
 msgid "Processing..."
-msgstr "Обработвам..."
+msgstr "Обработва се..."
 
 #: src/i18n.ts:141
 msgid "Processing... {percent}%"
@@ -1684,13 +1684,13 @@ msgstr "Обработва се... {percent}%"
 msgid "Quota"
 msgstr "Квота"
 
-#: src/components/ImagesCompare.tsx:136
+#: src/components/ImagesCompare.tsx:144
 msgid "Rating: {player1RatingText}"
-msgstr "Рейтинг: {player1RatingText}"
+msgstr "Оценка: {player1RatingText}"
 
-#: src/components/ImagesCompare.tsx:147
+#: src/components/ImagesCompare.tsx:155
 msgid "Rating: {player2RatingText}"
-msgstr "Рейтинг: {player2RatingText}"
+msgstr "Оценка: {player2RatingText}"
 
 #: src/components/ColorMixer.tsx:188
 msgid "Ratio"
@@ -1702,11 +1702,11 @@ msgstr "Реализъм"
 
 #: src/components/ImageEditor.tsx:306
 msgid "Redo"
-msgstr "Повторете"
+msgstr "Повтаряне"
 
 #: src/components/ImageColorPicker.tsx:442
 msgid "Reduce color palette to"
-msgstr "Намалете цветовата палитра до"
+msgstr "Намаляване на цветовата палитра до"
 
 #: src/components/ImageColorPicker.tsx:461
 msgid "Reduce colors"
@@ -1714,21 +1714,21 @@ msgstr "Намаляване на цветовете"
 
 #: src/components/ImageColorPicker.tsx:459
 msgid "Reduce the number of colors in the photo."
-msgstr "Намалете броя на цветовете на снимката."
+msgstr "Намалете броя на цветовете в снимката."
 
 #: src/components/color/ColorSwatchDrawer.tsx:92
 #: src/components/image-editor/AdjustColorsControls.tsx:175
 msgid "Reference"
-msgstr "Препратка"
+msgstr "Референция"
 
-#: src/components/ImageStyleTransfer.tsx:354
+#: src/components/ImageStyleTransfer.tsx:362
 msgid "Reference photo"
 msgstr "Референтна снимка"
 
 #: src/components/color/ColorMatchCard.tsx:128
 #: src/components/ColorMixer.tsx:256
 msgid "Reflectance"
-msgstr "Отражение"
+msgstr "Отражателна способност"
 
 #: src/components/error/ErrorFallback.tsx:67
 msgid "Reload"
@@ -1736,7 +1736,7 @@ msgstr "Презареждане"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:80
 msgid "Remove and continue"
-msgstr "Премахнете и продължете"
+msgstr "Премахване и продължаване"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:135
 #: src/components/messages.ts:52
@@ -1750,13 +1750,13 @@ msgstr "Премахване на обекти"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:119
 msgid "Removing objects is available only to paid Patreon members"
-msgstr "Премахването на обекти е достъпно само за платени членове на Patreon"
+msgstr "Премахването на обекти е достъпно само за платещи членове на Patreon"
 
 #: src/components/CustomColorBrandCreator.tsx:184
 #: src/components/CustomColorBrandCreator.tsx:192
 #: src/components/CustomColorBrandCreator.tsx:195
 msgid "Required"
-msgstr "Изисква"
+msgstr "Задължително"
 
 #: src/components/install/InstallDrawer.tsx:124
 msgid "Requires iOS 16.4+ or iPadOS 16.4+."
@@ -1768,12 +1768,12 @@ msgstr "Изисква macOS Sonoma или по-нова версия."
 
 #: src/components/auth/LoginEmailOtpButton.tsx:202
 msgid "Resend code"
-msgstr "Преизпрати кода"
+msgstr "Повторно изпращане на кода"
 
 #: src/components/ImageEditor.tsx:310
 #: src/components/ImageEditor.tsx:315
 msgid "Reset"
-msgstr "Проучване"
+msgstr "Нулиране"
 
 #: src/components/cloud/ImportFromZipFileSelect.tsx:78
 msgid "Restore backup"
@@ -1781,7 +1781,7 @@ msgstr "Възстановяване на резервното копие"
 
 #: src/components/image/RecentImageCard.tsx:92
 msgid "Restore from cloud"
-msgstr "Възстановяване от облак"
+msgstr "Възстановяване от облака"
 
 #: src/components/empty/EmptyColorSet.tsx:60
 msgid "Restoring the saved color set..."
@@ -1790,17 +1790,17 @@ msgstr "Възстановява се запазеният набор от цв�
 #: src/components/color-set/ColorSetActivationNotification.tsx:36
 #: src/components/empty/EmptyColorSet.tsx:77
 msgid "Retry"
-msgstr "Опитайте отново"
+msgstr "Нов опит"
 
 #: src/components/empty/EmptyColorSet.tsx:128
 #: src/components/empty/EmptyImage.tsx:48
 #: src/components/empty/EmptyPalette.tsx:61
 msgid "Return to the {tabLabel} tab"
-msgstr "Върнете се към раздела {tabLabel}"
+msgstr "Връщане към раздела {tabLabel}"
 
 #: src/components/image-editor/StraightenControls.tsx:118
 msgid "Rotate"
-msgstr "Въртя"
+msgstr "Завъртане"
 
 #: src/components/ImageColorPicker.tsx:305
 msgid "Sample size"
@@ -1819,21 +1819,21 @@ msgstr "Насищане (%)"
 #: src/components/ImageOutline.tsx:377
 #: src/components/ImageTonalValues.tsx:175
 msgid "Save"
-msgstr "Спасявам"
+msgstr "Запазване"
 
-#: src/components/ColorSetChooser.tsx:755
+#: src/components/ColorSetChooser.tsx:756
 msgid "Save & continue"
-msgstr "Запази и продължи"
+msgstr "Запазване и продължаване"
 
 #: src/components/cloud/ExportToZipButton.tsx:75
 msgid "Save backup"
-msgstr "Запазете резервно копие"
+msgstr "Запазване на резервно копие"
 
 #: src/components/ColorSetChooser.tsx:248
 msgid "Save changes to the color set?"
 msgstr "Запазване на промените в набора от цветове?"
 
-#: src/components/ColorSetChooser.tsx:750
+#: src/components/ColorSetChooser.tsx:751
 msgid "Save the changes to this color set"
 msgstr "Запазване на промените в този набор от цветове"
 
@@ -1843,9 +1843,9 @@ msgstr "Морски пейзаж"
 
 #: src/components/CustomColorBrandCreator.tsx:492
 msgid "Select a color brand"
-msgstr "Изберете марка цвят"
+msgstr "Изберете марка цветове"
 
-#: src/components/ColorSetChooser.tsx:614
+#: src/components/ColorSetChooser.tsx:615
 msgid "Select a color set"
 msgstr "Изберете набор от цветове"
 
@@ -1853,28 +1853,28 @@ msgstr "Изберете набор от цветове"
 msgid "Select a reference photo from your device to paint from"
 msgstr "Изберете референтна снимка от вашето устройство, от която да рисувате"
 
-#: src/components/ColorSetChooser.tsx:668
+#: src/components/ColorSetChooser.tsx:669
 msgid "Select a standard or custom color set"
 msgstr "Изберете стандартен или персонализиран набор от цветове"
 
-#: src/components/ImageStyleTransfer.tsx:361
+#: src/components/ImageStyleTransfer.tsx:369
 msgid "Select a style to transfer to your reference photo"
 msgstr "Изберете стил, който да прехвърлите към референтната снимка"
 
-#: src/components/ColorSetChooser.tsx:605
+#: src/components/ColorSetChooser.tsx:606
 #: src/components/CustomColorBrandCreator.tsx:503
 msgid "Select an art medium"
-msgstr "Изберете художествена среда"
+msgstr "Изберете художествен материал"
 
 #: src/components/CustomColorBrandCreator.tsx:441
 msgid "Select an image that contains a color chart"
-msgstr "Изберете изображение, което съдържа цветна диаграма"
+msgstr "Изберете изображение, което съдържа таблица с цветове"
 
 #: src/components/color-set/ColorTypeSelect.tsx:37
 msgid "Select art medium"
-msgstr "Изберете художествен носител"
+msgstr "Изберете художествен материал"
 
-#: src/components/ColorSetChooser.tsx:689
+#: src/components/ColorSetChooser.tsx:690
 msgid "Select at least one color"
 msgstr "Изберете поне един цвят"
 
@@ -1882,15 +1882,15 @@ msgstr "Изберете поне един цвят"
 msgid "Select at least one color before saving the color set."
 msgstr "Изберете поне един цвят, преди да запазите набора от цветове."
 
-#: src/components/ColorSetChooser.tsx:638
+#: src/components/ColorSetChooser.tsx:639
 msgid "Select at least one color brand"
-msgstr "Изберете поне една цветова марка"
+msgstr "Изберете поне една марка цветове"
 
 #: src/components/color-set/ColorBrandSelect.tsx:81
 msgid "Select brands"
 msgstr "Изберете марки"
 
-#: src/components/ColorSetChooser.tsx:637
+#: src/components/ColorSetChooser.tsx:638
 msgid "Select brands that you use."
 msgstr "Изберете марки, които използвате."
 
@@ -1909,7 +1909,7 @@ msgstr "Изберете цветове"
 
 #: src/components/ColorMixingChart.tsx:190
 msgid "Select colors to build a mixing chart"
-msgstr "Изберете цветове, за да изградите миксираща таблица"
+msgstr "Изберете цветове, за да изградите таблица за смесване"
 
 #: src/components/ImageLimitedPalette.tsx:115
 msgid "Select from 1 to {MAX_COLORS} colors"
@@ -1917,15 +1917,15 @@ msgstr "Изберете от 1 до {MAX_COLORS} цвята"
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:82
 msgid "Select from your recent brands"
-msgstr "Изберете от последните си марки"
+msgstr "Изберете от скорошните си марки"
 
 #: src/components/color-set/ColorSetSelect.tsx:92
 msgid "Select from your recent color sets"
-msgstr "Изберете от последните си цветови набори"
+msgstr "Изберете от скорошните си набори от цветове"
 
-#: src/components/ColorSetChooser.tsx:613
+#: src/components/ColorSetChooser.tsx:614
 msgid "Select from your recent color sets or create a new one."
-msgstr "Изберете от последните си цветови набори или създайте нов."
+msgstr "Изберете от скорошните си набори от цветове или създайте нов."
 
 #: src/components/CustomColorBrandCreator.tsx:446
 #: src/components/ImageEditor.tsx:281
@@ -1946,7 +1946,7 @@ msgstr "Изберете език"
 
 #: src/components/ColorMixer.tsx:214
 msgid "Select part"
-msgstr "Изберете част"
+msgstr "Изберете брой части"
 
 #: src/components/ImageChooser.tsx:123
 msgid "Select photo"
@@ -1958,11 +1958,11 @@ msgstr "Изберете набор"
 
 #: src/components/ImageStyleTransfer.tsx:283
 msgid "Select style image"
-msgstr "Изберете стилово изображение"
+msgstr "Изберете изображение за стил"
 
 #: src/components/color-set/MergeColorSetsDrawer.tsx:70
 msgid "Select the color sets you want to merge. A new color set will be created that includes all the colors from the selected sets."
-msgstr "Изберете цветовите набори, които искате да обедините. Ще бъде създаден нов цветови набор, който включва всички цветове от избраните комплекти."
+msgstr "Изберете наборите от цветове, които искате да обедините. Ще бъде създаден нов набор от цветове, който включва всички цветове от избраните набори."
 
 #: src/components/TwoColorGradient.tsx:162
 msgid "Select the first color"
@@ -1974,20 +1974,20 @@ msgstr "Изберете втория цвят"
 
 #: src/components/ColorMixer.tsx:196
 msgid "Select up to {MAX_COLORS} colors to mix and specify the part of each color in the resulting mix"
-msgstr "Изберете до {MAX_COLORS} цвята за смесване и посочете частта от всеки цвят в получения микс"
+msgstr "Изберете до {MAX_COLORS} цвята за смесване и посочете броя части от всеки цвят в получената смес"
 
 #: src/components/empty/EmptyColorSet.tsx:99
 msgid "Select your art medium, color brands, and colors"
-msgstr "Изберете своя художествен носител, цветови марки и цветове"
+msgstr "Изберете своя художествен материал, марки цветове и цветове"
 
-#: src/components/ColorSetChooser.tsx:578
+#: src/components/ColorSetChooser.tsx:579
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
-msgstr "Изберете своя художествен носител, цветови марки и цветовете, с които ще рисувате, след което натиснете <0>Запазване и продължаване</0>"
+msgstr "Изберете своя художествен материал, марки цветове и цветовете, с които ще рисувате, след което натиснете <0>Запазване и продължаване</0>"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:74
 #: src/components/ImageOutline.tsx:254
 msgid "Selected mode is available only to paid Patreon members"
-msgstr "Избраният режим е достъпен само за платени членове на Patreon"
+msgstr "Избраният режим е достъпен само за платещи членове на Patreon"
 
 #: src/components/color/OpacityIcon.tsx:47
 msgid "Semi-opaque"
@@ -2011,27 +2011,27 @@ msgstr "Задаване като основен набор от цветове"
 
 #: src/components/image/ImageSaveButton.tsx:54
 msgid "Set as reference"
-msgstr "Задайте като референтен"
+msgstr "Задаване като референция"
 
 #: src/components/color/ColorMatchCard.tsx:144
 #: src/components/color/PaletteColorMixtureCard.tsx:149
 msgid "Set as underlayer"
-msgstr "Зададени като подслой"
+msgstr "Задаване като подслой"
 
 #: src/components/color/ColorMatchCard.tsx:140
 #: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for blending."
-msgstr "Задайте се като подслой за смесване."
+msgstr "Задайте като подслой за разтриване."
 
 #: src/components/color/ColorMatchCard.tsx:140
 #: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for glazing."
-msgstr "Поставете го като подслой за глазиране."
+msgstr "Задайте като подслой за лесиране."
 
 #: src/components/color/ColorMatchCard.tsx:156
 #: src/components/color/PaletteColorMixtureCard.tsx:161
 msgid "Set as unifying color"
-msgstr "Зададени като обединяващ цвят"
+msgstr "Задаване като обединяващ цвят"
 
 #: src/components/ImageTonalValues.tsx:127
 #: src/components/ImageTonalValues.tsx:130
@@ -2042,12 +2042,12 @@ msgstr "Сянка"
 msgid "Shadows and highlights"
 msgstr "Сенки и акценти"
 
-#: src/components/ColorSetChooser.tsx:811
+#: src/components/ColorSetChooser.tsx:812
 #: src/components/share/ShareModal.tsx:81
 msgid "Share"
-msgstr "Дял"
+msgstr "Споделяне"
 
-#: src/components/ColorSetChooser.tsx:808
+#: src/components/ColorSetChooser.tsx:809
 msgid "Share this color set"
 msgstr "Споделете този набор от цветове"
 
@@ -2061,23 +2061,23 @@ msgstr "Остър"
 
 #: src/components/ImageColorPicker.tsx:350
 msgid "Show areas on the photo that match this color."
-msgstr "Покажете зони на снимката, които съвпадат с този цвят."
+msgstr "Покажете зоните на снимката, които съвпадат с този цвят."
 
 #: src/components/grid/GridControls.tsx:122
 msgid "Show grid"
-msgstr "Покажи мрежата"
+msgstr "Показване на мрежата"
 
 #: src/components/ImageColorPicker.tsx:349
 msgid "Show matching areas"
-msgstr "Зони за съвпадение на шоута"
+msgstr "Показване на съвпадащите зони"
 
-#: src/components/ImageChooser.tsx:147
+#: src/components/ImageChooser.tsx:153
 msgid "Show older photos"
-msgstr "Покажи по-стари снимки"
+msgstr "Показване на по-стари снимки"
 
 #: src/components/color/PaletteColorMixtureCard.tsx:119
 msgid "Show on photo"
-msgstr "Покажи на снимка"
+msgstr "Показване върху снимката"
 
 #: src/components/grid/GridControls.tsx:154
 msgid "Show or hide diagonal lines"
@@ -2085,7 +2085,7 @@ msgstr "Показване или скриване на диагонални л�
 
 #: src/components/color/PaletteColorMixtureCard.tsx:113
 msgid "Show this color on the reference photo."
-msgstr "Покажете този цвят на референтната снимка."
+msgstr "Покажете този цвят върху референтната снимка."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:159
 msgid "Sign in required"
@@ -2097,7 +2097,7 @@ msgstr "Прилика"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:109
 msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
-msgstr "Режимът на сходство сравнява целевия и предложения цвят. В режим на смесване се показват частите на цвета, които съставляват сместа."
+msgstr "Режимът Прилика сравнява целевия и предложения цвят. В режим Смес се показват частите на цвета, които съставляват сместа."
 
 #: src/components/ImageSimplifier.tsx:134
 msgid "Simplified"
@@ -2105,35 +2105,35 @@ msgstr "Опростено"
 
 #: src/components/messages.ts:33
 msgid "Simplify"
-msgstr "Опростете"
+msgstr "Опростяване"
 
 #: src/components/color/ConsistencyDescription.tsx:147
 msgid "Slightly overlap oil pastel areas of different colors and blend gently to create a smooth transition"
-msgstr "Леко припокривайте маслени пастелни зони с различни цветове и ги преливайте внимателно, за да създадете плавен преход"
+msgstr "Леко припокривайте зоните от маслен пастел с различни цветове и ги разтривайте внимателно, за да създадете плавен преход"
 
 #: src/components/color/ConsistencyDescription.tsx:140
 msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition"
-msgstr "Леко припокривайте пастелни зони с различни цветове и ги преливайте внимателно, за да създадете плавен преход"
+msgstr "Леко припокривайте зоните от пастел с различни цветове и ги разтривайте внимателно, за да създадете плавен преход"
 
 #: src/components/color/ConsistencyDescription.tsx:154
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
-msgstr "Леко припокривайте восъчни пастелни зони с различни цветове и ги преливайте плътно, за да създадете плавен преход"
+msgstr "Леко припокривайте зоните от восъчен пастел с различни цветове и ги разтривайте силно, за да създадете плавен преход"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:210
 msgid "Smaller percentile values correspond to stronger whitening"
-msgstr "По-малките процентни стойности съответстват на по-силно избелване"
+msgstr "По-малките стойности на процентила съответстват на по-силно избелване"
 
 #: src/components/image-editor/ExpandControls.tsx:106
 msgid "Smart"
-msgstr "Умен"
+msgstr "Интелигентен"
 
 #: src/components/image-editor/ExpandControls.tsx:236
 msgid "Smart expansion is available only to paid Patreon members"
-msgstr "Интелигентното разширяване е достъпно само за платени членове на Patreon"
+msgstr "Интелигентното разширяване е достъпно само за платещи членове на Patreon"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:172
 msgid "Some synced cloud data was deleted or is unavailable. Keep this device to create it again, or postpone the decision. ArtistAssistApp will not recreate it automatically."
-msgstr "Някои синхронизирани облачни данни бяха изтрити или не са достъпни. Запазете това устройство, за да го създадете отново, или отложете решението. ArtistAssistApp няма да го пресъздаде автоматично."
+msgstr "Някои синхронизирани облачни данни бяха изтрити или не са налични. Запазете това устройство, за да ги създадете отново, или отложете решението. ArtistAssistApp няма да ги пресъздаде автоматично."
 
 #: src/components/error/ErrorFallback.tsx:37
 msgid "Something went wrong"
@@ -2144,25 +2144,25 @@ msgstr "Нещо се обърка"
 #: src/components/ImageColorPicker.tsx:518
 #: src/components/palette/PaletteGrid.tsx:137
 msgid "Sort"
-msgstr "Сорт"
+msgstr "Сортиране"
 
 #: src/components/ImageColorPicker.tsx:482
 msgid "Sort by match, from highest to lowest."
 msgstr "Сортиране по съвпадение, от най-високото към най-ниското."
 
 #: src/components/ImageColorPicker.tsx:493
-msgid "Sort by mixture opacity, from opaque to transparent."
-msgstr "Сортирайте по непрозрачност на смесите, от непрозрачна към прозрачна."
+msgid "Sort by paint consistency, from full strength to most thinned."
+msgstr "Сортиране по консистенция на боята, от пълна сила до най-разредена."
 
 #: src/components/ImageColorPicker.tsx:487
 msgid "Sort by the number of colors in the mixture, from fewest to most."
-msgstr "Сортирайте по броя на цветовете в сместа – от най-малко до най-много."
+msgstr "Сортиране по броя на цветовете в сместа, от най-малко до най-много."
 
 #: src/components/color/ColorMatchCard.tsx:123
 #: src/components/color/ReflectanceChartDrawer.tsx:98
 #: src/components/ColorMixer.tsx:250
 msgid "Spectral reflectance curve"
-msgstr "Крива на спектрално отражение"
+msgstr "Крива на спектралното отражение"
 
 #: src/components/ml-model/OnnxModelSelect.tsx:41
 msgid "Speed"
@@ -2172,9 +2172,9 @@ msgstr "Скорост"
 msgid "Square cells"
 msgstr "Квадратни клетки"
 
-#: src/components/ColorSetChooser.tsx:667
+#: src/components/ColorSetChooser.tsx:668
 msgid "Standard color set"
-msgstr "Стандартен цветови комплект"
+msgstr "Стандартен набор от цветове"
 
 #: src/components/print/PrintImageDrawer.tsx:203
 msgid "Standard print"
@@ -2186,32 +2186,32 @@ msgstr "Натюрморт"
 
 #: src/components/ImageChooser.tsx:90
 msgid "Storage may fill up"
-msgstr "Съхранението може да се напълни"
+msgstr "Хранилището може да се напълни"
 
 #: src/components/Help.tsx:176
 msgid "Storage usage"
-msgstr "Използване на съхранение"
+msgstr "Използване на хранилището"
 
 #: src/components/image-editor/StraightenControls.tsx:105
 #: src/components/messages.ts:48
 msgid "Straighten"
-msgstr "Изправи се"
+msgstr "Изправяне"
 
-#: src/components/ImageStyleTransfer.tsx:395
+#: src/components/ImageStyleTransfer.tsx:403
 msgid "Style transfer is available only to paid Patreon members"
-msgstr "Прехвърлянето на стил е достъпно само за платени членове на Patreon"
+msgstr "Прехвърлянето на стил е достъпно само за платещи членове на Patreon"
 
-#: src/components/ImageStyleTransfer.tsx:354
+#: src/components/ImageStyleTransfer.tsx:362
 msgid "Styled reference photo"
 msgstr "Стилизирана референтна снимка"
 
 #: src/components/ml-model/OnnxModelSelect.tsx:42
 msgid "Subject detection"
-msgstr "Откриване на обект"
+msgstr "Разпознаване на мотива"
 
 #: src/components/empty/EmptyColorSet.tsx:104
 msgid "Supported art mediums:"
-msgstr "Поддържани арт медии:"
+msgstr "Поддържани художествени материали:"
 
 #: src/components/error/BrowserSupport.tsx:51
 msgid "Supported web browsers and operating systems"
@@ -2220,7 +2220,7 @@ msgstr "Поддържани уеб браузъри и операционни �
 #: src/components/color/UnderlayerColorPicker.tsx:58
 #: src/components/color/UnderlayerColorPicker.tsx:64
 msgid "Surface color"
-msgstr "Цвет на повърхността"
+msgstr "Цвят на повърхността"
 
 #: src/components/lightbox/LightboxOverlay.tsx:119
 #: src/components/lightbox/LightboxOverlay.tsx:123
@@ -2229,7 +2229,7 @@ msgstr "Плъзнете за отключване"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:198
 msgid "Sync stopped because the photo {context} is unavailable and is not in your cloud storage. Remove it to continue syncing, or postpone the decision."
-msgstr "Синхронизирането е спряно, защото снимката {context} не е налична и не е във вашето облачно хранилище. Премахнете го, за да продължите синхронизирането, или отложете решението."
+msgstr "Синхронизирането е спряно, защото снимката {context} не е налична и не е в облачното ви хранилище. Премахнете я, за да продължите синхронизирането, или отложете решението."
 
 #: src/components/cloud/SyncCloudButton.tsx:46
 msgid "Sync with {label}"
@@ -2241,7 +2241,7 @@ msgstr "Докоснете 👆 навсякъде в снимката, за д�
 
 #: src/components/print/PrintImageDrawer.tsx:256
 msgid "Taped margin width around the painting area"
-msgstr "Залепена ширина на полето около зоната за боядисване"
+msgstr "Ширина на залепеното с тиксо поле около зоната за рисуване"
 
 #: src/components/ImageColorPicker.tsx:325
 #: src/components/ImageColorPicker.tsx:337
@@ -2258,7 +2258,7 @@ msgstr "Условия за ползване"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:106
 msgid "The cloud connection could not be completed. Start again from ArtistAssistApp."
-msgstr "Облачната връзка не можеше да бъде завършена. Започнете отначало от ArtistAssistApp."
+msgstr "Връзката с облака не можа да бъде завършена. Започнете отначало от ArtistAssistApp."
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:191
 msgid "The cloud data file is damaged. Replace it with the data from this device."
@@ -2270,7 +2270,7 @@ msgstr "Кодът, който сте въвели, е грешен или е и
 
 #: src/components/color/UnderlayerColorPicker.tsx:60
 msgid "The color of your paper, canvas, or painting surface."
-msgstr "Цветът на хартията, платната или повърхността за рисуване."
+msgstr "Цветът на вашата хартия, платно или повърхност за рисуване."
 
 #: src/components/ColorSetChooser.tsx:232
 #: src/components/ColorSetChooser.tsx:265
@@ -2279,11 +2279,11 @@ msgstr "Наборът от цветове не може да се запази,
 
 #: src/components/ColorSetChooser.tsx:209
 msgid "The color set can't be saved because the color data failed to load."
-msgstr "Наборът от цветове не може да бъде запазен, тъй като цветните данни не успяха да се заредят."
+msgstr "Наборът от цветове не може да бъде запазен, защото данните за цветовете не успяха да се заредят."
 
 #: src/components/ImageColorPicker.tsx:328
 msgid "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
-msgstr "Цветът, който трябва да се смеси от вашия цветови набор. Изберете цвят, като щракнете върху точка на изображението, или използвайте изскачащия прозорец за избор на цвят."
+msgstr "Цветът, който трябва да се смеси от вашия набор от цветове. Изберете цвят, като щракнете върху точка от изображението, или използвайте изскачащия инструмент за избор на цвят."
 
 #: src/components/CustomColorBrandCreator.tsx:460
 msgid "The diameter of the circular area around the cursor, used to calculate the average color of the pixels within the area."
@@ -2291,11 +2291,11 @@ msgstr "Диаметърът на кръглата област около ку�
 
 #: src/components/color/UnderlayerColorPicker.tsx:105
 msgid "The dried layer you want to glaze over."
-msgstr "Изсъхналият слой, който искаш да покриеш с глазура."
+msgstr "Изсъхналият слой, който искате да лесирате."
 
 #: src/components/color/UnderlayerColorPicker.tsx:103
 msgid "The existing pastel layer you want to blend over."
-msgstr "Съществуващият пастелен слой, върху който искате да се смесите."
+msgstr "Съществуващият пастелен слой, върху който искате да разтривате."
 
 #: src/hooks/useFileReadErrorNotification.tsx:30
 msgid "The file might have been moved or deleted, or it could be stored in the cloud and not downloaded to this device. Download it to this device, then select it again."
@@ -2303,7 +2303,7 @@ msgstr "Файлът може да е бил преместен или изтр�
 
 #: src/components/print/PrintImageDrawer.tsx:258
 msgid "The margin is too large"
-msgstr "Маржът е твърде голям"
+msgstr "Полето е твърде голямо"
 
 #: src/components/empty/EmptyPalette.tsx:70
 msgid "There is one common palette and a separate palette for each photo"
@@ -2311,15 +2311,15 @@ msgstr "Има една обща палитра и отделна палитра
 
 #: src/components/ml-model/OnnxModelSelect.tsx:70
 msgid "Thick"
-msgstr "Дебела"
+msgstr "Дебел"
 
 #: src/components/Help.tsx:138
 msgid "Third-party notices"
-msgstr "Бележки на трети страни"
+msgstr "Бележки за трети страни"
 
-#: src/components/ColorSetChooser.tsx:695
+#: src/components/ColorSetChooser.tsx:696
 msgid "This color brand is available only to paid Patreon members"
-msgstr "Тази цветова марка е достъпна само за платени членове на Patreon"
+msgstr "Тази марка цветове е достъпна само за платещи членове на Patreon"
 
 #: src/components/color/PaletteColorMixtureCard.tsx:114
 msgid "This color was not sampled from a photo."
@@ -2327,27 +2327,27 @@ msgstr "Този цвят не е взет от снимка."
 
 #: src/components/auth/DeleteAccountButton.tsx:43
 msgid "This deletes everything inside the connected cloud app folder, including files you added."
-msgstr "Това изтрива всичко в свързаната облачна папка, включително файловете, които сте добавили."
+msgstr "Това изтрива всичко в свързаната папка на приложението в облака, включително файловете, които сте добавили."
 
 #: src/components/auth/DeleteAccountButton.tsx:54
 msgid "This deletes your account and membership lookup records and logs you out."
-msgstr "Това изтрива записите за търсене на акаунта и членството и ви излиза."
+msgstr "Това изтрива вашия акаунт и записите за търсене на членство и ви извежда от системата."
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:147
 msgid "This device and the synced cloud data both changed. Choose which one to keep."
-msgstr "Това устройство и синхронизираните облачни данни са променени. Изберете кой да запазите."
+msgstr "Това устройство и синхронизираните облачни данни са променени. Изберете кои от тях да запазите."
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:133
 msgid "This device has changes made while another account was active. Keep this device to upload them to the current account, keep the cloud data to discard them, or postpone the decision."
-msgstr "Това устройство е направено промени, докато друг акаунт е бил активен. Запази това устройство, за да ги качиш в текущия акаунт, запази облачните данни, за да ги изхвърлиш, или отложи решението."
+msgstr "Това устройство съдържа промени, направени докато е бил активен друг акаунт. Запазете това устройство, за да ги качите в текущия акаунт, запазете облачните данни, за да ги отхвърлите, или отложете решението."
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:158
 msgid "This device has local data and existing synced cloud data, but no sync history. Choose which one to keep."
-msgstr "Това устройство има локални данни и съществуващи синхронизирани облачни данни, но няма хронология на синхронизирането. Изберете кой да запазите."
+msgstr "Това устройство има локални данни и съществуващи синхронизирани облачни данни, но няма хронология на синхронизирането. Изберете кои от тях да запазите."
 
 #: src/components/image-editor/UpscaleControls.tsx:72
 msgid "This image is already too large to upscale"
-msgstr "Това изображение вече е твърде голямо за мащабиране"
+msgstr "Това изображение вече е твърде голямо за увеличаване"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:155
 msgid "This login code can't be used anymore. Request a new code to continue."
@@ -2355,11 +2355,11 @@ msgstr "Този код за вход вече не може да се изпо�
 
 #: src/components/auth/DeleteAccountButton.tsx:38
 msgid "This permanently deletes the ArtistAssistApp folder and all your files and folders still inside it. Files you moved outside the folder are not deleted."
-msgstr "Това завинаги изтрива папката ArtistAssistApp и всички ваши файлове и папки, които остават вътре. Файловете, които сте преместили извън папката, не се изтриват."
+msgstr "Това изтрива завинаги папката ArtistAssistApp и всички ваши файлове и папки, които все още са в нея. Файловете, които сте преместили извън папката, няма да бъдат изтрити."
 
 #: src/components/image/RecentImageCard.tsx:69
 msgid "This photo could not be restored from your cloud storage."
-msgstr "Тази снимка не можа да бъде възстановена от хранилището ви в облак."
+msgstr "Тази снимка не можа да бъде възстановена от облачното ви хранилище."
 
 #: src/components/print/PrintImageDrawer.tsx:222
 msgid "This print size is not supported"
@@ -2369,9 +2369,9 @@ msgstr "Този размер за печат не се поддържа"
 msgid "This step is optional"
 msgstr "Тази стъпка не е задължителна"
 
-#: src/components/ImageStyleTransfer.tsx:309
+#: src/components/ImageStyleTransfer.tsx:317
 msgid "This style is available only to paid Patreon members"
-msgstr "Този стил е достъпен само за платени членове на Patreon"
+msgstr "Този стил е достъпен само за платещи членове на Patreon"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:57
 msgid "This usually happens when you're signed in to a <0>different</0> Patreon account than the one used for your ArtistAssistApp membership."
@@ -2379,7 +2379,7 @@ msgstr "Това обикновено се случва, когато сте в�
 
 #: src/components/auth/AuthFeedbackHandler.tsx:65
 msgid "To fix this:"
-msgstr "За да поправя това:"
+msgstr "Как да го поправите:"
 
 #: src/components/install/InstallDrawer.tsx:48
 msgid "To install ArtistAssistApp, use one of the supported web browsers:"
@@ -2391,7 +2391,7 @@ msgstr "За да използвате функцията {tabLabel}, избер
 
 #: src/components/empty/EmptyColorSet.tsx:88
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
-msgstr "За да използвате функцията {tabLabel}, изберете поддържан носител и цветове, с които да рисувате"
+msgstr "За да използвате функцията {tabLabel}, изберете поддържан художествен материал и цветове, с които да рисувате"
 
 #: src/components/messages.ts:32
 msgid "Tonal values"
@@ -2408,11 +2408,11 @@ msgstr "Твърде много заявки"
 
 #: src/components/ImageStyleTransfer.tsx:296
 msgid "Transfer the artistic style from your own image"
-msgstr "Пренесете артистичния стил от собствения си образ"
+msgstr "Пренесете артистичния стил от собственото си изображение"
 
-#: src/components/ImageStyleTransfer.tsx:304
+#: src/components/ImageStyleTransfer.tsx:312
 msgid "Transferring the style from your own image is available to paid Patreon members only"
-msgstr "Прехвърлянето на стила от вашето собствено изображение е достъпно само за платени членове на Patreon"
+msgstr "Прехвърлянето на стила от собственото ви изображение е достъпно само за платещи членове на Patreon"
 
 #: src/components/color/OpacityIcon.tsx:39
 msgid "Transparent"
@@ -2440,15 +2440,15 @@ msgstr "Уроци и видеоклипове"
 
 #: src/components/ImageStyleTransfer.tsx:83
 msgid "Ukiyo-e"
-msgstr "укийо-е"
+msgstr "Укийо-е"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:51
 msgid "Unable to load the background removal modes"
-msgstr "Не може да се заредят режимите за премахване на фона"
+msgstr "Не могат да се заредят режимите за премахване на фона"
 
 #: src/components/ColorSetChooser.tsx:216
 msgid "Unable to load the color data"
-msgstr "Цветните данни не могат да се заредят"
+msgstr "Данните за цветовете не могат да се заредят"
 
 #: src/components/image-editor/ColorizeControls.tsx:52
 msgid "Unable to load the colorization model"
@@ -2460,15 +2460,15 @@ msgstr "Не може да се зареди моделът за премахв�
 
 #: src/components/ImageOutline.tsx:102
 msgid "Unable to load the outline modes"
-msgstr "Не могат да се заредят режимите на контура"
+msgstr "Не могат да се заредят режимите за контур"
 
 #: src/components/ImageChooser.tsx:72
 msgid "Unable to load the sample photos"
-msgstr "Не може да се заредят примерните снимки"
+msgstr "Не могат да се заредят примерните снимки"
 
 #: src/components/image-editor/ExpandControls.tsx:84
 msgid "Unable to load the smart expansion model"
-msgstr "Не може да се зареди интелигентният модел за разширение"
+msgstr "Не може да се зареди моделът за интелигентно разширяване"
 
 #: src/components/ImageStyleTransfer.tsx:125
 msgid "Unable to load the styles"
@@ -2476,7 +2476,7 @@ msgstr "Не могат да се заредят стиловете"
 
 #: src/components/image-editor/UpscaleControls.tsx:47
 msgid "Unable to load the upscaling model"
-msgstr "Не може да се зареди моделът за мащабиране"
+msgstr "Моделът за увеличаване не може да се зареди"
 
 #: src/components/color-set/ColorSetActivationNotification.tsx:33
 #: src/components/empty/EmptyColorSet.tsx:71
@@ -2513,11 +2513,11 @@ msgstr "Несинхронизирани промени на това устро
 #: src/components/color/PaletteColorMixtureCard.tsx:99
 #: src/components/palette/PaletteGrid.tsx:159
 msgid "Untitled mixture"
-msgstr "Смес без заглавие"
+msgstr "Смес без име"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:220
 msgid "Update ArtistAssistApp to the latest version and try again."
-msgstr "Актуализирай ArtistAssistApp до най-новата версия и опитай отново."
+msgstr "Актуализирайте ArtistAssistApp до най-новата версия и опитайте отново."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:187
 msgid "Update ArtistAssistApp to the latest version, check your connection, and try again."
@@ -2529,7 +2529,7 @@ msgstr "Актуализация е налична"
 
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:60
 msgid "Update now"
-msgstr "Актуализация сега"
+msgstr "Актуализиране сега"
 
 #: src/stores/cloud-slice.ts:141
 msgid "Uploading image {index} / {count}"
@@ -2538,7 +2538,7 @@ msgstr "Качване на изображение {index} / {count}"
 #: src/components/image-editor/UpscaleControls.tsx:85
 #: src/components/messages.ts:54
 msgid "Upscale"
-msgstr "Превъзходен клас"
+msgstr "Увеличаване"
 
 #: src/components/color/ConsistencyDescription.tsx:81
 msgid "Use <0>{fractionText} of full pressure</0>"
@@ -2550,7 +2550,7 @@ msgstr "Използвайте с пълна сила"
 
 #: src/components/file/FileSelect.tsx:193
 msgid "Use copied image"
-msgstr "Използвайте копирано изображение"
+msgstr "Използване на копираното изображение"
 
 #: src/components/color/ConsistencyDescription.tsx:47
 msgid "Use full pressure"
@@ -2558,11 +2558,11 @@ msgstr "Използвайте пълно налягане"
 
 #: src/components/file/FileSelect.tsx:182
 msgid "Use reference photo"
-msgstr "Използвайте референтна снимка"
+msgstr "Използване на референтната снимка"
 
 #: src/components/Help.tsx:179
 msgid "Used"
-msgstr "Използва"
+msgstr "Използвано"
 
 #: src/components/ImageLimitedPalette.tsx:107
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
@@ -2570,7 +2570,7 @@ msgstr "Използването на ограничена палитра пом
 
 #: src/components/image-editor/ExpandControls.tsx:176
 msgid "Vertical"
-msgstr "Вертикална"
+msgstr "Вертикално"
 
 #: src/components/ImageStyleTransfer.tsx:75
 msgid "Vienna Secession"
@@ -2578,24 +2578,24 @@ msgstr "Виенски сецесион"
 
 #: src/components/ImageOutline.tsx:299
 msgid "View the outline over the live camera to trace in AR"
-msgstr "Вижте очертанията върху камерата на живо, за да проследите в AR"
+msgstr "Вижте контура върху живия образ от камерата, за да прекопирате в AR"
 
 #: src/components/ImageOutline.tsx:360
 msgid "View the outline over the live camera to trace in AR."
-msgstr "Вижте контура над живата камера, за да проследявате в AR."
+msgstr "Вижте контура върху живия образ от камерата, за да прекопирате в AR."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:181
 #: src/components/cloud/CloudFeedbackHandler.tsx:216
 msgid "Wait a minute and try again."
-msgstr "Изчакай малко и опитай пак."
+msgstr "Изчакайте малко и опитайте отново."
 
 #: src/components/ColorSetChooser.tsx:206
 msgid "Wait for the color data to finish loading."
-msgstr "Изчакайте цветните данни да завършат зареждането."
+msgstr "Изчакайте данните за цветовете да се заредят."
 
 #: src/components/color/WarmthIcon.tsx:38
 msgid "Warm — Algorithmic estimate; artistic perception may vary."
-msgstr "Топло — алгоритмична оценка; Художественото възприятие може да варира."
+msgstr "Топла — алгоритмична оценка; художественото възприятие може да варира."
 
 #: src/components/ImageStyleTransfer.tsx:78
 msgid "Watercolor"
@@ -2623,13 +2623,13 @@ msgstr "Не успяхме да намерим членство в ArtistAssist
 
 #: src/components/auth/AuthFeedbackHandler.tsx:162
 msgid "We couldn't verify your session. Please sign in again to continue using ArtistAssistApp."
-msgstr "Не можахме да потвърдим сесията ти. Моля, влезте отново, за да продължите да използвате ArtistAssistApp."
+msgstr "Не успяхме да потвърдим сесията ви. Моля, влезте отново, за да продължите да използвате ArtistAssistApp."
 
-#: src/components/ColorSetChooser.tsx:726
+#: src/components/ColorSetChooser.tsx:727
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "При избиране на повече от {maxColorsFor2} цветове общо не се използват смеси от два цвята."
 
-#: src/components/ColorSetChooser.tsx:734
+#: src/components/ColorSetChooser.tsx:735
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "При избор на повече от {maxColorsFor3} цветове общо не се използват смеси от три цвята."
 
@@ -2637,7 +2637,7 @@ msgstr "При избор на повече от {maxColorsFor3} цветове 
 #: src/components/image-editor/ExpandControls.tsx:215
 #: src/components/image-editor/RemoveBackgroundControls.tsx:105
 msgid "White"
-msgstr "Бял"
+msgstr "Бяло"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:183
 msgid "White balance"
@@ -2654,35 +2654,35 @@ msgstr "Бяла точка"
 
 #: src/components/print/PrintImageDrawer.tsx:232
 msgid "Width"
-msgstr "Широчина"
+msgstr "Ширина"
 
 #: src/components/ImageChooser.tsx:92
 msgid "You already have many photos saved. Delete the oldest one to free up space? The new photo will still be added."
-msgstr "Вече имате много запазени снимки. Да се ​​изтрие ли най-старото, за да се освободи място? Новата снимка все пак ще бъде добавена."
+msgstr "Вече имате много запазени снимки. Да се изтрие ли най-старата, за да се освободи място? Новата снимка все пак ще бъде добавена."
 
-#: src/components/ColorSetChooser.tsx:490
+#: src/components/ColorSetChooser.tsx:491
 msgid "You are logged in and have access to all app features"
 msgstr "Вие сте влезли и имате достъп до всички функции на приложението"
 
-#: src/components/ColorSetChooser.tsx:502
+#: src/components/ColorSetChooser.tsx:503
 msgid "You are using the <0>free version</0> of ArtistAssistApp. It includes a limited number of color brands and image processing modes."
-msgstr "Използвате <0>безплатната версия</0> на ArtistAssistApp. Включва ограничен брой цветни марки и режими за обработка на изображения."
+msgstr "Използвате <0>безплатната версия</0> на ArtistAssistApp. Тя включва ограничен брой марки цветове и режими за обработка на изображения."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:206
 msgid "You can keep working in this browser tab, or switch back to the installed ArtistAssistApp — you're logged in there too."
-msgstr "Можете да продължите да работите в този раздел за браузър или да се върнете към инсталираното ArtistAssistApp — и там сте влезли."
+msgstr "Можете да продължите да работите в този раздел на браузъра или да се върнете към инсталираното ArtistAssistApp — и там сте влезли."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:204
 msgid "You're logged in"
-msgstr "Влязъл си в системата"
+msgstr "Влезли сте в системата"
 
-#: src/components/ColorSetChooser.tsx:643
+#: src/components/ColorSetChooser.tsx:644
 msgid "You've selected color brands that are available to paid Patreon members only"
-msgstr "Избрали сте цветни марки, които са достъпни само за платени членове на Patreon"
+msgstr "Избрали сте марки цветове, които са достъпни само за платещи членове на Patreon"
 
-#: src/components/ColorSetChooser.tsx:717
+#: src/components/ColorSetChooser.tsx:718
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
-msgstr "Избрали сте цветни марки, които са достъпни само за платени членове на Patreon. Присъединете се към ArtistAssistApp в Patreon като платен член или влезте с Patreon, ако вече сте се присъединили."
+msgstr "Избрали сте марки цветове, които са достъпни само за платещи членове на Patreon. Присъединете се към ArtistAssistApp в Patreon като платещ член или влезте с Patreon, ако вече сте се присъединили."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:98
 msgid "Your account details:"
@@ -2698,15 +2698,15 @@ msgstr "Вашите облачни данни са променени и ще �
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:208
 msgid "Your cloud storage couldn't be reached. Your latest changes remain saved on this device and have not been uploaded. Check your internet connection, then try syncing again."
-msgstr "Облачното ви съхранение не можеше да бъде достигнато. Последните ви промени остават запазени на това устройство и не са качени. Провери интернет връзката си, после опитай да синхронизираш отново."
+msgstr "Облачното ви хранилище не можа да бъде достигнато. Последните ви промени остават запазени на това устройство и не са качени. Проверете интернет връзката си и опитайте да синхронизирате отново."
 
 #: src/components/cloud/ConnectCloudButton.tsx:59
 msgid "Your color sets, reference photos, mixtures, and custom color brands will be saved in the ArtistAssistApp folder in {label} and kept synced across your devices.<0/>ArtistAssistApp can access that app folder, including files you put there, but cannot access files outside it."
-msgstr "Вашите набори от цветове, референтни снимки, смеси и персонализирани цветови марки ще бъдат запазени в папката ArtistAssistApp в {label} и ще бъдат синхронизирани на вашите устройства.<0/>ArtistAssistApp има достъп до тази папка на приложението, включително файловете, които поставяте там, но няма достъп до файлове извън нея."
+msgstr "Вашите набори от цветове, референтни снимки, смеси и персонализирани марки цветове ще бъдат запазени в папката ArtistAssistApp в {label} и ще се синхронизират между устройствата ви.<0/>ArtistAssistApp има достъп до тази папка на приложението, включително до файловете, които поставяте там, но няма достъп до файлове извън нея."
 
 #: src/components/cloud/ConnectCloudButton.tsx:50
 msgid "Your color sets, reference photos, mixtures, and custom color brands will be saved in the ArtistAssistApp folder in My Drive and kept synced across your devices.<0/>ArtistAssistApp works only with this app-created folder and the files it creates there.<1/>It cannot access your other Drive files or shared drives."
-msgstr "Вашите набори от цветове, референтни снимки, смеси и персонализирани цветови марки ще бъдат запазени в папката ArtistAssistApp в Моят диск и ще бъдат синхронизирани на вашите устройства.<0/>ArtistAssistApp работи само с тази създадена от приложението папка и файловете, които създава там.<1/>Няма достъп вашите други файлове в Диск или споделени дискове."
+msgstr "Вашите набори от цветове, референтни снимки, смеси и персонализирани марки цветове ще бъдат запазени в папката ArtistAssistApp в „Моят диск“ и ще се синхронизират между устройствата ви.<0/>ArtistAssistApp работи само с тази създадена от приложението папка и с файловете, които създава в нея.<1/>Няма достъп до другите ви файлове в Диск или до споделени дискове."
 
 #: src/hooks/usePersistentStorage.tsx:54
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
@@ -2714,9 +2714,12 @@ msgstr "Данните ви може да не се запазват надеж�
 
 #: src/components/ImageStyleTransfer.tsx:291
 msgid "Your image"
-msgstr "Вашият образ"
+msgstr "Вашето изображение"
 
+#: src/components/ImageChooser.tsx:128
 #: src/components/ImageEditor.tsx:332
+#: src/components/ImagesCompare.tsx:128
+#: src/components/ImageStyleTransfer.tsx:303
 msgid "Your images are processed locally on your device and are never uploaded to any server"
 msgstr "Вашите изображения се обработват локално на вашето устройство и никога не се качват на сървър"
 
@@ -2726,15 +2729,15 @@ msgstr "Вашите данни за вход не могат да бъдат п
 
 #: src/components/Help.tsx:220
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
-msgstr "Вашето членство в Patreon и данните на това устройство не се изтриват. <0>Отмени членството си в Patreon</0> самия Patreon."
+msgstr "Вашето членство в Patreon и данните на това устройство не се изтриват. <0>Отменете членството си в Patreon</0> в самия Patreon."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:137
 msgid "Your session expired. Sign in again to continue."
-msgstr "Сесията ти изтече. Влезте отново, за да продължите."
+msgstr "Сесията ви изтече. Влезте отново, за да продължите."
 
 #: src/components/ImageStyleTransfer.tsx:252
 msgid "Your style image"
-msgstr "Вашият стилен образ"
+msgstr "Вашето изображение за стил"
 
 #: src/components/error/BrowserSupport.tsx:49
 msgid "Your web browser is not supported"

@@ -13,13 +13,13 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/ColorSetChooser.tsx:688
+#: src/components/ColorSetChooser.tsx:689
 msgid "{brandName} colors"
 msgstr "{brandName} színek"
 
 #: src/components/ad/AdModal.tsx:72
 msgid "{closeCounter, plural, one {Close in # second} other {Close in # seconds}}"
-msgstr "{closeCounter, plural, one {Zárás # másodperc alatt} other {Zárás # másodperc múlva}}"
+msgstr "{closeCounter, plural, one {Bezárás # másodperc múlva} other {Bezárás # másodperc múlva}}"
 
 #: src/components/color-set/ColorBrandSelect.tsx:72
 #: src/components/color-set/ColorSetName.tsx:33
@@ -31,19 +31,19 @@ msgstr "{colorCount, plural, one {# szín} other {# szín}}"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:174
 msgid "{expiresIn, plural, one {Code expires in # second} other {Code expires in # seconds}}"
-msgstr "{expiresIn, plural, one {A kód # másodperc alatt lejár} other {A kód # másodperc múlva lejár}}"
+msgstr "{expiresIn, plural, one {A kód # másodperc múlva lejár} other {A kód # másodperc múlva lejár}}"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:196
 msgid "{retryIn, plural, one {Resend code in # second} other {Resend code in # seconds}}"
-msgstr "{retryIn, plural, one {Újraküldd a kódot # másodperc alatt} other {Újraküldd a kódot # másodperc múlva}}"
+msgstr "{retryIn, plural, one {Kód újraküldése # másodperc múlva} other {Kód újraküldése # másodperc múlva}}"
 
 #: src/components/cloud/ExportToZipButton.tsx:46
 msgid "{unavailableImageCount, plural, one {Backup created without # unavailable photo. Select the original photo again, then save the backup again.} other {Backup created without # unavailable photos. Select the original photos again, then save the backup again.}}"
-msgstr "{unavailableImageCount, plural, one {A biztonsági másolat # elérhetetlen fotó nélkül készült. Válassza ki újra az eredeti fényképet, majd mentse újra a biztonsági másolatot.} other {A biztonsági másolat # nem elérhető fénykép nélkül készült. Válassza ki újra az eredeti fényképeket, majd mentse újra a biztonsági másolatot.}}"
+msgstr "{unavailableImageCount, plural, one {A biztonsági másolat # nem elérhető fénykép nélkül készült. Válassza ki újra az eredeti fényképet, majd mentse újra a biztonsági másolatot.} other {A biztonsági másolat # nem elérhető fénykép nélkül készült. Válassza ki újra az eredeti fényképeket, majd mentse újra a biztonsági másolatot.}}"
 
 #: src/components/install/InstallDrawer.tsx:42
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
-msgstr "<0/> Android, Windows, <1/> <2/> Linux és <3/> ChromeOS"
+msgstr "<0/> Android, <1/> Windows, <2/> Linux és <3/> ChromeOS"
 
 #: src/components/error/BrowserSupport.tsx:84
 msgid "<0/> Desktop or laptop"
@@ -70,61 +70,61 @@ msgstr "<0/> Windows és <1/> Linux"
 msgid "<0>{matchScoreText}%</0> match"
 msgstr "<0>{matchScoreText}%</0> egyezés"
 
-#: src/components/ColorSetChooser.tsx:541
-msgid "<0>Already a paid member?</0> Log in to unlock your paid features."
-msgstr "<0>Már fizetett tag vagy?</0> Jelentkezz be, hogy feloldd a fizetős funkcióidat."
+#: src/components/ColorSetChooser.tsx:542
+msgid "<0>Already a paid member?</0> Log in to use your paid features."
+msgstr "<0>Már fizetős tag?</0> Jelentkezzen be a fizetős funkciók használatához."
 
 #: src/components/ColorSetChooser.tsx:477
-msgid "<0>ArtistAssistApp</0> helps artists mix colors to match reference photos using their own art supplies, create palettes and mixing charts, study tonal values, make outlines, draw with grids, explore limited palettes and artist-inspired versions of photos, straighten photos, adjust their colors, remove backgrounds, and compare images side by side."
-msgstr "Az<0>ArtistAssistApp</0> segítségével a művészek saját művészeti kellékeik segítségével összekeverhetik a színeket a referenciafotókhoz, palettákat és keverési diagramokat hozhatnak létre, tanulmányozhatják a tónusértékeket, körvonalakat készíthetnek, rácsokkal rajzolhatnak, felfedezhetik a korlátozott palettákat és a művészek által ihletett verziókat, kiegyenesíthetik a fényképeket, beállíthatják színeiket, eltávolíthatják a háttereket és összehasonlíthatják a képeket egymás mellett."
+msgid "<0>ArtistAssistApp</0> helps artists mix colors to match reference photos using their own art supplies, create palettes and mixing charts, study tonal values, make outlines, draw with grids, explore limited palettes and artist-inspired versions of photos, and compare images side by side. It also edits your photos: straighten, crop, expand, adjust colors, remove backgrounds and objects, upscale, and colorize black-and-white."
+msgstr "Az <0>ArtistAssistApp</0> segít a művészeknek saját festékeikkel a referenciafotókhoz illő színeket kikeverni, palettákat és keverési táblázatokat készíteni, tónusértékeket tanulmányozni, körvonalakat rajzolni, ráccsal dolgozni, korlátozott palettákat és a fotók művészek ihlette változatait kipróbálni, valamint képeket egymás mellett összehasonlítani. A fényképeket is szerkeszti: kiegyenesítés, vágás, kiterjesztés, színek beállítása, háttér és objektumok eltávolítása, felskálázás és fekete-fehér képek színezése."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:70
 msgid "<0>Check your Patreon account</0>: Ensure you are signed in to <1>Patreon.com</1> in your web browser using the same email you used to purchase your membership. If you have multiple accounts, sign out and sign back in with the correct one."
-msgstr "<0>Ellenőrizd a Patreon fiókodat</0>: Győződj meg róla, hogy bejelentkezve <1>vagy Patreon.com</1> böngésződben ugyanazzal az e-mail címmel, amellyel a tagságod megvásárlásához használtad. Ha több fiókod van, jelentkezz ki és jelentkezz vissza a megfelelővel."
+msgstr "<0>Ellenőrizze a Patreon fiókját</0>: Győződjön meg róla, hogy a böngészőjében be van jelentkezve a <1>Patreon.com</1> oldalra ugyanazzal az e-mail címmel, amellyel a tagságát megvásárolta. Ha több fiókja van, jelentkezzen ki, majd jelentkezzen be a megfelelővel."
 
-#: src/components/ColorSetChooser.tsx:511
-msgid "<0>Not a paid member yet?</0> Become a paid ArtistAssistApp member to unlock:"
-msgstr "<0>Még nem vagy fizetős tag?</0> Válj fizetős ArtistAssistApp taggá, hogy feloldd:"
+#: src/components/ColorSetChooser.tsx:512
+msgid "<0>Not a paid member yet?</0> Become a paid ArtistAssistApp member and get:"
+msgstr "<0>Még nem fizetős tag?</0> Váljon fizetős ArtistAssistApp-taggá, és a következőket kapja:"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:88
 msgid "<0>Retry login</0>: Once you have confirmed the correct Patreon account is active in your browser, log in to ArtistAssistApp again."
-msgstr "<0>Próbáld újra a bejelentkezést</0>: Miután megerősítetted, hogy a megfelelő Patreon fiók aktív a böngésződben, jelentkezz be újra az ArtistAssistApp-ba."
+msgstr "<0>Próbálja újra a bejelentkezést</0>: Miután megerősítette, hogy a megfelelő Patreon fiók aktív a böngészőjében, jelentkezzen be újra az ArtistAssistApp-ba."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:81
 msgid "<0>Use a web browser</0>: If you are using the Patreon app (iOS/Android), log in via a web browser (Chrome, Safari, Firefox) instead, as the app can sometimes interfere with the verification process."
-msgstr "<0>Webböngészőt használj</0>: Ha a Patreon alkalmazást használod (iOS/Android), jelentkezz be böngészőn keresztül (Chrome, Safari, Firefox), mert az alkalmazás néha zavarhatja az ellenőrzési folyamatot."
+msgstr "<0>Használjon webböngészőt</0>: Ha a Patreon alkalmazást használja (iOS/Android), inkább webböngészőn keresztül jelentkezzen be (Chrome, Safari, Firefox), mert az alkalmazás néha zavarhatja az ellenőrzési folyamatot."
 
-#: src/components/ColorSetChooser.tsx:527
+#: src/components/ColorSetChooser.tsx:528
 msgid "☁️ Cloud sync to store your color sets, photos, and mixtures in your own cloud storage, so you can use them across devices"
-msgstr "☁️ Felhőszinkronizációval a színkészleteket, fotókat és keverékeket a saját felhőtáradatban tárolhatod, így ezeket különböző eszközökön használhatod"
+msgstr "☁️ Felhőszinkronizálás, amellyel a színkészleteit, fényképeit és keverékeit a saját felhőtárhelyén tárolhatja, így több eszközön is használhatja őket"
 
-#: src/components/ColorSetChooser.tsx:521
+#: src/components/ColorSetChooser.tsx:522
 msgid "✏️ High-quality outlines and background removal"
-msgstr "✏️ Magas minőségű vázlatok és háttéreltávolítás"
+msgstr "✏️ Kiváló minőségű körvonalak és háttéreltávolítás"
 
-#: src/components/ColorSetChooser.tsx:518
+#: src/components/ColorSetChooser.tsx:519
 msgid "🎨 250+ color brands"
-msgstr "🎨 250+ színes márka"
+msgstr "🎨 250+ színmárka"
 
-#: src/components/ColorSetChooser.tsx:533
+#: src/components/ColorSetChooser.tsx:534
 msgid "📢 No ads"
 msgstr "📢 Nincsenek reklámok"
 
-#: src/components/ColorSetChooser.tsx:524
-msgid "🧑‍🎨 Artistic style transfer from your images"
-msgstr "🧑‍🎨 Művészi stílus átvitel a képeiből"
+#: src/components/ColorSetChooser.tsx:525
+msgid "🧑‍🎨 Artistic styles from your own images"
+msgstr "🧑‍🎨 Művészi stílusok a saját képeiből"
 
 #: src/components/messages.ts:38
 msgid "2-color gradient"
-msgstr "2-szín gradiens"
+msgstr "2 színű színátmenet"
 
 #: src/components/ImageColorPicker.tsx:406
 msgid "A color mixed into every suggested mixture to help the palette feel more harmonious. Also known as a mother color."
-msgstr "Egy szín, amit minden javasolt keverékbe kevertek, hogy a paletta harmonikusabbnak tűnjön. Más néven anyaszín."
+msgstr "Egy szín, amelyet minden javasolt keverékhez hozzákeverünk, hogy a paletta harmonikusabb legyen. Más néven anyaszín."
 
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:46
 msgid "A new version of the app is available and will be installed automatically."
-msgstr "Az alkalmazás új verziója is elérhető, és automatikusan telepíthető."
+msgstr "Az alkalmazás új verziója elérhető, és automatikusan telepítésre kerül."
 
 #: src/components/Help.tsx:145
 msgid "A new version of the application is available."
@@ -132,7 +132,7 @@ msgstr "Az alkalmazás új verziója elérhető."
 
 #: src/components/image-editor/AdjustColorsControls.tsx:256
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
-msgstr "A 100%-nál kisebb érték kevésbé színes, a 100%-nál nagyobb érték pedig túl színesnek tűnik"
+msgstr "A 100%-nál kisebb érték kevésbé színessé teszi a képet, a 100%-nál nagyobb érték pedig túl színessé"
 
 #: src/components/ml-model/OnnxModelSelect.tsx:92
 msgid "Accurate"
@@ -144,7 +144,7 @@ msgstr "Akril gouache"
 
 #: src/components/messages.ts:68
 msgid "Acrylic Markers"
-msgstr "Akril jelölők"
+msgstr "Akril markerek"
 
 #: src/components/messages.ts:61
 msgid "Acrylic Paint"
@@ -170,7 +170,7 @@ msgstr "Színpár hozzáadása"
 msgid "Add images"
 msgstr "Képek hozzáadása"
 
-#: src/components/ColorSetChooser.tsx:691
+#: src/components/ColorSetChooser.tsx:692
 msgid "Add or remove colors to match your actual color set."
 msgstr "Adjon hozzá vagy távolítson el színeket a tényleges színkészletnek megfelelően."
 
@@ -200,7 +200,7 @@ msgstr "Minden szerkesztés elvész"
 
 #: src/components/file/FileSelect.tsx:155
 msgid "Allow clipboard access, then try again."
-msgstr "Engedélyezd a lepitőasztalhoz való hozzáférést, majd próbáld újra."
+msgstr "Engedélyezze a vágólap elérését, majd próbálja újra."
 
 #: src/components/install/InstallDrawer.tsx:177
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
@@ -208,16 +208,16 @@ msgstr "Alternatív megoldásként telepítse a Chrome, az Edge vagy az Opera we
 
 #: src/components/ImageColorPicker.tsx:259
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
-msgstr "Alulréteg vagy egyesítő szín van beállítva. Az Automatikus paletta ezeket a beállításokat a teljes fényképre alkalmazza, nem csak arra a területre, amelyre kiválasztották."
+msgstr "Alapréteg vagy egyesítő szín van beállítva. Az Automatikus paletta ezeket a beállításokat a teljes fényképre alkalmazza, nem csak arra a területre, amelyre kiválasztották."
 
 #: src/components/Help.tsx:246
 msgid "Application build ID"
-msgstr "Application build ID"
+msgstr "Alkalmazás build azonosítója"
 
 #: src/components/ColorMixingChart.tsx:208
 #: src/components/ImageLimitedPalette.tsx:133
 msgid "Apply"
-msgstr "Alkalmaz"
+msgstr "Alkalmazás"
 
 #: src/components/color/ConsistencyDescription.tsx:70
 msgid "Apply a layer at <0>{fractionText} of full thickness</0>"
@@ -225,11 +225,11 @@ msgstr "Vigyen fel egy réteget <0>{fractionText} teljes vastagságban</0>"
 
 #: src/components/color/ConsistencyDescription.tsx:52
 msgid "Apply densely"
-msgstr "Alkalmazza sűrűn"
+msgstr "Vigye fel sűrűn"
 
 #: src/components/color/ConsistencyDescription.tsx:126
 msgid "Apply less pressure to make the colored pencil layer more transparent"
-msgstr "Kevesebb nyomást kell alkalmazni, hogy a színes ceruzaréteg átlátszóbb legyen"
+msgstr "Alkalmazzon kisebb nyomást, hogy a színes ceruzaréteg átlátszóbb legyen"
 
 #: src/components/color/ConsistencyDescription.tsx:133
 msgid "Apply less pressure to make the watercolor pencil layer more transparent"
@@ -237,7 +237,7 @@ msgstr "Alkalmazzon kisebb nyomást, hogy átlátszóbb legyen az akvarell ceruz
 
 #: src/components/color/ConsistencyDescription.tsx:92
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
-msgstr "Alkalmazza ezt a színt és az alsó réteg színét <0>{ratioText} arányban</0>"
+msgstr "Vigye fel ennek a színnek és az alapréteg színének ecsetvonásait <0>{ratioText} arányban</0>"
 
 #: src/components/ImageOutline.tsx:307
 #: src/components/ImageOutline.tsx:359
@@ -246,41 +246,41 @@ msgstr "AR"
 
 #: src/components/palette/PaletteGrid.tsx:119
 msgid "Are you sure you want to delete all color mixtures?"
-msgstr "Biztos vagy benne, hogy minden színkeveréket törölni akarsz?"
+msgstr "Biztosan törölni szeretné az összes színkeveréket?"
 
 #: src/components/color/AddToPaletteButton.tsx:46
 #: src/components/color/PaletteColorMixtureCard.tsx:126
 msgid "Are you sure you want to delete this color mixture?"
-msgstr "Biztos vagy benne, hogy törölni akarod ezt a színkeveréket?"
+msgstr "Biztosan törölni szeretné ezt a színkeveréket?"
 
-#: src/components/ColorSetChooser.tsx:787
+#: src/components/ColorSetChooser.tsx:788
 msgid "Are you sure you want to delete this color set?"
 msgstr "Biztosan törölni szeretné ezt a színkészletet?"
 
 #: src/components/CustomColorBrandCreator.tsx:526
 msgid "Are you sure you want to delete this custom brand?"
-msgstr "Biztos benne, hogy törölni szeretné ezt az egyedi márkát?"
+msgstr "Biztosan törölni szeretné ezt az egyéni márkát?"
 
 #: src/components/image/RecentImageCard.tsx:115
 msgid "Are you sure you want to delete this photo?"
-msgstr "Biztosan törölni akarja ezt a fényképet?"
+msgstr "Biztosan törölni szeretné ezt a fényképet?"
 
-#: src/components/ColorSetChooser.tsx:604
+#: src/components/ColorSetChooser.tsx:605
 #: src/components/CustomColorBrandCreator.tsx:502
 msgid "Art medium"
-msgstr "Művészeti médium"
+msgstr "Képzőművészeti technika"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:116
 msgid "ArtistAssistApp can no longer access your cloud storage. Disconnect it, then connect again."
-msgstr "Az ArtistAssistApp már nem fér hozzá a felhőalapú tárhelyedhez. Kapcsold le, majd újra csatlakoztasd."
+msgstr "Az ArtistAssistApp már nem fér hozzá a felhőtárhelyéhez. Bontsa a kapcsolatot, majd csatlakoztassa újra."
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:182
 msgid "ArtistAssistApp could not confirm that your cloud files were deleted. Remove any remaining ArtistAssistApp folder or files directly from your cloud provider."
-msgstr "Az ArtistAssistApp nem tudta megerősíteni, hogy a felhőfájlok törlésre kerültek. Távolítsd el a maradék ArtistAssistApp mappákat vagy fájlokat közvetlenül a felhőszolgáltatódról."
+msgstr "Az ArtistAssistApp nem tudta megerősíteni, hogy a felhőben lévő fájljai törlődtek. Távolítsa el a megmaradt ArtistAssistApp mappákat vagy fájlokat közvetlenül a felhőszolgáltatójánál."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:173
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
-msgstr "Az ArtistAssistApp nem kapta meg a Patreon-bejelentkezésed eredményét. Ez akkor fordulhat elő, amikor a bejelentkezés egy másik böngészőben vagy alkalmazásban nyílik meg. Kérlek, próbálj újra bejelentkezni."
+msgstr "Az ArtistAssistApp nem kapta meg a Patreon-bejelentkezés eredményét. Ez akkor fordulhat elő, ha a bejelentkezés másik böngészőben vagy alkalmazásban nyílik meg. Kérjük, próbáljon meg újra bejelentkezni."
 
 #: src/components/Help.tsx:237
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
@@ -288,7 +288,7 @@ msgstr "Az ArtistAssistApp-ot <0>Eugene Khyst</0> fejlesztette"
 
 #: src/components/Help.tsx:213
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
-msgstr "Az ArtistAssistApp soha nem tárolja az e-mail címedet, csak egy privát kódot tartalmaz, amely nem tudja felfedni a címet. A Patreonnal való bejelentkezés vagy tagságmegújítás újra létrehozza azt a kódot."
+msgstr "Az ArtistAssistApp soha nem tárolja az e-mail címét, csak egy abból származtatott privát kódot, amely nem tudja felfedni a címet. A Patreonnal való bejelentkezés vagy a tagság megújítása újra létrehozza ezt a kódot."
 
 #: src/components/storage/DeleteAppDataButton.tsx:42
 msgid "ArtistAssistApp will permanently delete your saved work and settings from this device and log you out.<0/>Data already synced to cloud storage will not be deleted."
@@ -296,7 +296,7 @@ msgstr "Az ArtistAssistApp véglegesen törli a mentett műveit és beállítás
 
 #: src/components/storage/ClearCacheButton.tsx:42
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
-msgstr "Az ArtistAssistApp újratöltődik az ideiglenes alkalmazásfájlok eltávolítása után.<0/>A mentett munkáid és a felhőadataid nem kerülnek törlésre."
+msgstr "Az ArtistAssistApp az ideiglenes alkalmazásfájlok eltávolítása után újratöltődik.<0/>A mentett munkái és a felhőadatai nem törlődnek."
 
 #: src/components/image-editor/CropControls.tsx:75
 #: src/components/image-editor/ExpandControls.tsx:101
@@ -318,11 +318,11 @@ msgstr "Hitelesítés sikertelen"
 
 #: src/components/ImageColorPicker.tsx:473
 msgid "Auto palette"
-msgstr "Autó paletta"
+msgstr "Automatikus paletta"
 
 #: src/components/image-editor/StraightenControls.tsx:115
 msgid "Auto-detect"
-msgstr "Automatikus észlelés"
+msgstr "Automatikus felismerés"
 
 #: src/components/image-editor/StraightenControls.tsx:126
 msgid "Auto-detect is available only to paid Patreon members"
@@ -334,7 +334,7 @@ msgstr "Az automatikus felismerés nem érhető el"
 
 #: src/components/ImageColorPicker.tsx:468
 msgid "Automatically find the best color mixtures for this photo."
-msgstr "Automatikusan találd meg a legjobb színkeverékeket ehhez a fotóhoz."
+msgstr "Automatikusan megkeresi a legjobb színkeverékeket ehhez a fényképhez."
 
 #: src/components/image-editor/AdjustColorsControls.tsx:234
 msgid "Average color of the white point area"
@@ -347,7 +347,7 @@ msgstr "Háttér"
 
 #: src/components/cloud/ImportFromZipFileSelect.tsx:56
 msgid "Backup imported"
-msgstr "Biztonsági mentés importált"
+msgstr "Biztonsági másolat importálva"
 
 #: src/components/cloud/ExportToZipButton.tsx:44
 msgid "Backup saved without some photos"
@@ -355,19 +355,23 @@ msgstr "A biztonsági másolat néhány fénykép nélkül mentve"
 
 #: src/components/ImageStyleTransfer.tsx:68
 msgid "Barbizon School"
-msgstr "Barbizon iskola"
+msgstr "Barbizoni iskola"
 
 #: src/components/auth/JoinButton.tsx:27
 msgid "Become a paid member"
-msgstr "Válj fizetős taggá"
+msgstr "Váljon fizetős taggá"
 
 #: src/components/ImageColorPicker.tsx:375
 msgid "Blending"
-msgstr "Keverés"
+msgstr "Elmosás"
 
 #: src/components/ImageColorPicker.tsx:486
 msgid "By color count"
 msgstr "Színszám szerint"
+
+#: src/components/ImageColorPicker.tsx:492
+msgid "By consistency"
+msgstr "Sűrűség szerint"
 
 #: src/components/messages.ts:83
 msgid "By date"
@@ -376,7 +380,7 @@ msgstr "Dátum szerint"
 #: src/components/messages.ts:78
 #: src/components/messages.ts:85
 msgid "By hue"
-msgstr "Szín szerint"
+msgstr "Színárnyalat szerint"
 
 #: src/components/messages.ts:77
 msgid "By ID"
@@ -385,23 +389,19 @@ msgstr "Azonosító szerint"
 #: src/components/messages.ts:79
 #: src/components/messages.ts:86
 msgid "By lightness"
-msgstr "A könnyedség által"
+msgstr "Világosság szerint"
 
 #: src/components/ImageColorPicker.tsx:481
 msgid "By match"
-msgstr "Gyufa szerint"
+msgstr "Egyezés szerint"
 
 #: src/components/messages.ts:84
 msgid "By name"
 msgstr "Név szerint"
 
-#: src/components/ImageColorPicker.tsx:492
-msgid "By opacity"
-msgstr "Az átlátszatlanság szerint"
-
 #: src/components/ImageOutline.tsx:151
 msgid "Camera access is required for AR tracing"
-msgstr "Az AR követéshez kamerahozzáférés szükséges"
+msgstr "Az AR-ban való átrajzoláshoz kamerahozzáférés szükséges"
 
 #: src/components/auth/DeleteAccountButton.tsx:68
 #: src/components/cloud/ConnectCloudButton.tsx:71
@@ -414,7 +414,7 @@ msgstr "Az AR követéshez kamerahozzáférés szükséges"
 #: src/components/storage/ClearCacheButton.tsx:50
 #: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
-msgstr "Törlés"
+msgstr "Mégse"
 
 #: src/components/Help.tsx:106
 msgid "Cancel a paid membership"
@@ -426,7 +426,7 @@ msgstr "Nem lehet másolt képet használni"
 
 #: src/components/grid/GridControls.tsx:143
 msgid "Cells"
-msgstr "Sejtek"
+msgstr "Cellák"
 
 #: src/components/Help.tsx:152
 msgid "Check for updates"
@@ -460,11 +460,11 @@ msgstr "Városkép"
 #: src/components/file/FileSelect.tsx:203
 #: src/components/image-editor/RemoveObjectsControls.tsx:108
 msgid "Clear"
-msgstr "Világos"
+msgstr "Törlés"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:118
 msgid "Clear background color"
-msgstr "Tiszta háttérszín"
+msgstr "Háttérszín törlése"
 
 #: src/components/storage/ClearCacheButton.tsx:40
 #: src/components/storage/ClearCacheButton.tsx:49
@@ -474,11 +474,11 @@ msgstr "Gyorsítótár törlése"
 
 #: src/components/color/UnderlayerColorPicker.tsx:123
 msgid "Clear underlayer"
-msgstr "Átlátszó aljnövény"
+msgstr "Alapréteg törlése"
 
 #: src/components/ImageColorPicker.tsx:423
 msgid "Clear unifying color"
-msgstr "Tiszta, egységes szín"
+msgstr "Egyesítő szín törlése"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:229
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
@@ -490,15 +490,15 @@ msgstr "A fókuszpont kiválasztásához kattintson a 🖱️ elemre, vagy koppi
 
 #: src/components/empty/EmptyTargetColor.tsx:33
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color for mixing from your colors."
-msgstr "Kattints 🖱️ vagy koppints 👆 bárhol a képen, vagy használd a színválasztó felugró ablakot, hogy kiválasszd a célszínt a színek közül."
+msgstr "Kattintson a 🖱️ elemre, vagy koppintson a 👆 elemre a fényképen bárhol, illetve használja a színválasztó felugró ablakot, hogy kiválassza a keveréshez a célszínt a színei közül."
 
 #: src/components/empty/EmptyPalette.tsx:46
 msgid "Click 🖱️ or tap 👆 anywhere in the photo, or use the color picker pop-up to choose a target color to mix from your colors"
-msgstr "Kattints a 🖱️ vagy koppints a 👆 elemre bárhol a fotón, vagy a színválasztó előugró ablak segítségével válassz egy célszínt a színekből keverni"
+msgstr "Kattintson a 🖱️ elemre, vagy koppintson a 👆 elemre a fényképen bárhol, illetve használja a színválasztó felugró ablakot, hogy kiválassza a keveréshez a célszínt a színei közül"
 
 #: src/components/ad/AdModal.tsx:81
 msgid "Close"
-msgstr "Bezár"
+msgstr "Bezárás"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:122
 msgid "Cloud access not granted"
@@ -506,23 +506,23 @@ msgstr "Felhő hozzáférés nem engedélyezett"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:114
 msgid "Cloud authorization failed"
-msgstr "Felhőalapú hitelesítés meghibásodott"
+msgstr "A felhőalapú hitelesítés sikertelen"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:104
 msgid "Cloud connection failed"
-msgstr "A felhőkapcsolat meghibásodott"
+msgstr "A felhőkapcsolat sikertelen"
 
 #: src/components/cloud/CloudSyncUpdateNotification.tsx:41
 msgid "Cloud data changed"
-msgstr "Felhőadatok változtak"
+msgstr "A felhőadatok megváltoztak"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:170
 msgid "Cloud data not found"
-msgstr "Felhőadatok nem találhatók meg"
+msgstr "A felhőadatok nem találhatók"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:189
 msgid "Cloud data unreadable"
-msgstr "Felhőadatok olvashatatlanok"
+msgstr "A felhőadatok olvashatatlanok"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:180
 msgid "Cloud files may remain"
@@ -530,31 +530,31 @@ msgstr "A felhőfájlok maradhatnak"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:110
 msgid "Cloud not connected"
-msgstr "Felhő nincs csatlakoztatva"
+msgstr "A felhő nincs csatlakoztatva"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:124
 msgid "Cloud storage was not connected because access was not granted. To connect it, try again and allow the requested access."
-msgstr "A felhőalapú tárhely nem volt csatlakoztatva, mert nem engedélyezték a hozzáférést. A csatlakoztatáshoz próbáld újra, és engedélyezd a kért hozzáférést."
+msgstr "A felhőtárhely nem lett csatlakoztatva, mert a hozzáférés nem lett engedélyezve. A csatlakoztatáshoz próbálja újra, és engedélyezze a kért hozzáférést."
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:145
 msgid "Cloud sync conflict"
-msgstr "Felhőszinkron konfliktus"
+msgstr "Felhőszinkronizálási ütközés"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:219
 msgid "Cloud sync failed"
-msgstr "Felhőszinkron sikertelen"
+msgstr "A felhőszinkronizálás sikertelen"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:156
 msgid "Cloud sync history missing"
-msgstr "Felhőszinkron előzmény hiányzik"
+msgstr "Hiányzik a felhőszinkronizálási előzmény"
 
 #: src/hooks/useCloudSyncNotification.ts:44
 msgid "Cloud sync is not enabled"
-msgstr "A felhőszinkron nincs engedélyezve"
+msgstr "A felhőszinkronizálás nincs engedélyezve"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:206
 msgid "Cloud sync paused"
-msgstr "Felhőszinkron szünetelt"
+msgstr "A felhőszinkronizálás szüneteltetve"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:167
 msgid "Code is required"
@@ -570,11 +570,11 @@ msgstr "Szín"
 
 #: src/components/CustomColorBrandCreator.tsx:491
 msgid "Color brand"
-msgstr "Szín márka"
+msgstr "Színmárka"
 
-#: src/components/ColorSetChooser.tsx:636
+#: src/components/ColorSetChooser.tsx:637
 msgid "Color brands"
-msgstr "Színes márkák"
+msgstr "Színmárkák"
 
 #: src/components/empty/EmptyColorSet.tsx:73
 msgid "Color data is currently unavailable. Check your connection and try again."
@@ -601,7 +601,7 @@ msgstr "Színkeverék"
 msgid "Color picker"
 msgstr "Színválasztó"
 
-#: src/components/ColorSetChooser.tsx:612
+#: src/components/ColorSetChooser.tsx:613
 #: src/components/ImageColorPicker.tsx:293
 #: src/components/messages.ts:28
 msgid "Color set"
@@ -609,7 +609,7 @@ msgstr "Színkészlet"
 
 #: src/components/palette/PaletteGrid.tsx:112
 msgid "Color swatch"
-msgstr "Színmintát"
+msgstr "Színminta"
 
 #: src/components/messages.ts:63
 msgid "Colored Pencils"
@@ -617,11 +617,11 @@ msgstr "Színes ceruzák"
 
 #: src/components/image-editor/ColorizeControls.tsx:78
 msgid "Colorize"
-msgstr "Színezd ki"
+msgstr "Színezés"
 
 #: src/components/messages.ts:55
 msgid "Colorize black-and-white"
-msgstr "Színezd fekete-fehérre"
+msgstr "Fekete-fehér kép színezése"
 
 #: src/components/ColorMixingChart.tsx:171
 #: src/components/ImageLimitedPalette.tsx:104
@@ -630,43 +630,43 @@ msgstr "Színek"
 
 #: src/components/messages.ts:42
 msgid "Compare images"
-msgstr "Hasonlítsa össze a képeket"
+msgstr "Képek összehasonlítása"
 
 #: src/components/cloud/ConnectCloudButton.tsx:70
 msgid "Connect"
-msgstr "Kapcsolódj"
+msgstr "Csatlakoztatás"
 
 #: src/components/cloud/ConnectCloudButton.tsx:74
 msgid "Connect {label}"
-msgstr "Connect {label}"
+msgstr "{label} csatlakoztatása"
 
 #: src/components/cloud/ConnectCloudButton.tsx:47
 msgid "Connect {label}?"
-msgstr "Csatlakoztasd a {label}-hez?"
+msgstr "Csatlakoztatja a következőt: {label}?"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:111
 msgid "Connect cloud storage before syncing."
-msgstr "Csatlakoztasd a felhőalapú tárhelyet a szinkronizálás előtt."
+msgstr "Csatlakoztassa a felhőtárhelyet a szinkronizálás előtt."
 
 #: src/hooks/useCloudSyncNotification.ts:45
 msgid "Connect cloud storage to keep a synced copy of your data in the cloud and use it across devices, or manually save and restore backup files"
 msgstr "Csatlakoztassa a felhőtárhelyet, hogy adatai szinkronizált másolatát a felhőben tartsa, és több eszközön is felhasználhassa, vagy manuálisan mentse és állítsa vissza a biztonsági mentési fájlokat"
 
-#: src/components/ColorSetChooser.tsx:558
+#: src/components/ColorSetChooser.tsx:559
 msgid "Connect cloud storage to sync your data across devices"
 msgstr "Csatlakoztassa a felhőtárhelyet az adatok szinkronizálásához az eszközök között"
 
 #: src/components/ImageColorPicker.tsx:379
 msgid "Consider colors blended over the underlayer when they match the target better than unblended colors"
-msgstr "Vegye figyelembe az alsó rétegre kevert színeket, ha azok jobban illeszkednek a célhoz, mint a nem kevert színek"
+msgstr "Vegye figyelembe az alaprétegre elmosott színeket, ha azok jobban illeszkednek a célhoz, mint az el nem mosott színek"
 
 #: src/components/ImageColorPicker.tsx:384
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
-msgstr "Vegye figyelembe az átlátszó rétegeket a felületen vagy az alsó rétegen, ha azok jobban illeszkednek a célhoz, mint az átlátszatlan keverékek"
+msgstr "Vegye figyelembe a felületen vagy az alaprétegen lévő átlátszó rétegeket, ha azok jobban illeszkednek a célhoz, mint az átlátszatlan keverékek"
 
 #: src/components/Help.tsx:96
 msgid "Contact"
-msgstr "Érintkezés"
+msgstr "Kapcsolat"
 
 #: src/components/ImageColorPicker.tsx:264
 msgid "Continue"
@@ -678,19 +678,19 @@ msgstr "Folytatja az Automatikus palettával?"
 
 #: src/components/ImageColorPicker.tsx:308
 msgid "Controls how large an area is averaged when you pick a color from the photo."
-msgstr "Szabályozza, hogy egy terület átlagosan méretezik, amikor színt választasz a fotóból."
+msgstr "Szabályozza, mekkora területről történik az átlagolás, amikor színt választ a fényképről."
 
 #: src/components/color/WarmthIcon.tsx:42
 msgid "Cool — Algorithmic estimate; artistic perception may vary."
-msgstr "Cool – Algoritmikus becslés; A művészi felfogás változhat."
+msgstr "Hideg — algoritmikus becslés; a művészi felfogás eltérhet."
 
 #: src/components/share/ShareModal.tsx:85
 msgid "Copy"
-msgstr "Másolat"
+msgstr "Másolás"
 
 #: src/components/file/FileSelect.tsx:132
 msgid "Copy a supported image to the clipboard, then try again."
-msgstr "Másolj egy támogatott képet a clipboardra, majd próbáld újra."
+msgstr "Másoljon egy támogatott képet a vágólapra, majd próbálja újra."
 
 #: src/components/share/ShareModal.tsx:71
 msgid "Copy and share this link"
@@ -702,27 +702,27 @@ msgstr "A fényforrás hőmérsékletének korrigált becslése Kelvinben"
 
 #: src/components/image-editor/StraightenControls.tsx:86
 msgid "Could not detect the paper or canvas automatically"
-msgstr "Nem tudtam automatikusan érzékelni a papírt vagy vásznat"
+msgstr "Nem sikerült automatikusan felismerni a papírt vagy a vásznat"
 
 #: src/components/cloud/ExportToZipButton.tsx:59
 msgid "Could not export backup"
-msgstr "Nem tudtam mentést exportálni"
+msgstr "A biztonsági másolat exportálása nem sikerült"
 
 #: src/components/cloud/ImportFromZipFileSelect.tsx:59
 msgid "Could not import backup"
-msgstr "Nem tudtam importálni a biztonsági mentést"
+msgstr "A biztonsági másolat importálása nem sikerült"
 
 #: src/hooks/useFileReadErrorNotification.tsx:28
 msgid "Could not read the file"
-msgstr "Nem tudtam olvasni a fájlt"
+msgstr "A fájl nem olvasható"
 
-#: src/components/ColorSetChooser.tsx:760
+#: src/components/ColorSetChooser.tsx:761
 msgid "Create a duplicate of this color set for further modification"
-msgstr "Hozzon létre egy másolatot ebből a színkészletből további módosításhoz"
+msgstr "Hozzon létre másolatot erről a színkészletről a további módosításokhoz"
 
-#: src/components/ColorSetChooser.tsx:769
+#: src/components/ColorSetChooser.tsx:770
 msgid "Create a new color set by merging existing ones"
-msgstr "Hozz létre egy új színkészletet a meglévő színek összevonásával"
+msgstr "Hozzon létre új színkészletet a meglévő színkészletek összevonásával"
 
 #: src/components/color-set/ColorSetSelect.tsx:97
 #: src/components/color-set/CustomColorBrandSelect.tsx:87
@@ -732,7 +732,7 @@ msgstr "Új létrehozása"
 #: src/components/image-editor/CropControls.tsx:97
 #: src/components/messages.ts:49
 msgid "Crop"
-msgstr "Termés"
+msgstr "Vágás"
 
 #: src/components/ImageStyleTransfer.tsx:77
 msgid "Cubism"
@@ -749,24 +749,24 @@ msgstr "Egyedi színek"
 #: src/components/auth/DeleteAccountButton.tsx:67
 #: src/components/color/AddToPaletteButton.tsx:48
 #: src/components/color/PaletteColorMixtureCard.tsx:128
-#: src/components/ColorSetChooser.tsx:791
-#: src/components/ColorSetChooser.tsx:801
+#: src/components/ColorSetChooser.tsx:792
+#: src/components/ColorSetChooser.tsx:802
 #: src/components/CustomColorBrandCreator.tsx:531
 #: src/components/CustomColorBrandCreator.tsx:541
 #: src/components/image/RecentImageCard.tsx:124
 #: src/components/image/RecentImageCard.tsx:134
 #: src/components/storage/DeleteAppDataButton.tsx:50
 msgid "Delete"
-msgstr "Töröl"
+msgstr "Törlés"
 
 #: src/components/palette/PaletteGrid.tsx:121
 #: src/components/palette/PaletteGrid.tsx:125
 msgid "Delete all"
-msgstr "Töröld mindet"
+msgstr "Összes törlése"
 
 #: src/components/palette/PaletteGrid.tsx:118
 msgid "Delete all color mixtures"
-msgstr "Töröld az összes színkeveréket"
+msgstr "Összes színkeverék törlése"
 
 #: src/components/auth/DeleteAccountButton.tsx:59
 #: src/components/auth/DeleteAccountButton.tsx:71
@@ -776,7 +776,7 @@ msgstr "Adatok törlése szerverekről"
 #: src/components/storage/DeleteAppDataButton.tsx:40
 #: src/components/storage/DeleteAppDataButton.tsx:54
 msgid "Delete data on this device"
-msgstr "Töröld az adatokat ezen az eszközön"
+msgstr "Adatok törlése ezen az eszközön"
 
 #: src/components/color/AddToPaletteButton.tsx:52
 #: src/components/color/PaletteColorMixtureCard.tsx:132
@@ -785,14 +785,14 @@ msgstr "Törlés a palettából"
 
 #: src/components/ImageChooser.tsx:97
 msgid "Delete oldest"
-msgstr "Töröld a régebbi"
+msgstr "Legrégebbi törlése"
 
 #: src/components/color/AddToPaletteButton.tsx:45
 #: src/components/color/PaletteColorMixtureCard.tsx:125
 msgid "Delete the color mixture"
-msgstr "Töröld a színkeveréket"
+msgstr "Színkeverék törlése"
 
-#: src/components/ColorSetChooser.tsx:786
+#: src/components/ColorSetChooser.tsx:787
 msgid "Delete the color set"
 msgstr "A színkészlet törlése"
 
@@ -806,9 +806,9 @@ msgstr "Az egyéni márka törlése"
 msgid "Delete the recent photo"
 msgstr "A legutóbbi fotó törlése"
 
-#: src/components/ColorSetChooser.tsx:796
+#: src/components/ColorSetChooser.tsx:797
 msgid "Delete this color set"
-msgstr "Törölje ezt a színkészletet"
+msgstr "Ennek a színkészletnek a törlése"
 
 #: src/components/color/ConsistencyDescription.tsx:51
 msgid "Dense layer"
@@ -822,7 +822,7 @@ msgstr "Részlet"
 msgid "Details"
 msgstr "Részletek"
 
-#: src/components/ImagesCompare.tsx:129
+#: src/components/ImagesCompare.tsx:137
 msgid "Determine the best image by pairwise comparison"
 msgstr "Határozza meg a legjobb képet páronkénti összehasonlítással"
 
@@ -840,7 +840,7 @@ msgstr "Átmérő"
 
 #: src/components/ColorSetChooser.tsx:236
 msgid "Discard changes"
-msgstr "A változtatások elvetése"
+msgstr "Változtatások elvetése"
 
 #: src/components/ColorSetChooser.tsx:230
 msgid "Discard changes to the color set?"
@@ -848,35 +848,35 @@ msgstr "Elveti a színkészlet módosításait?"
 
 #: src/components/cloud/DisconnectCloudButton.tsx:64
 msgid "Disconnect"
-msgstr "Megszakítás"
+msgstr "Leválasztás"
 
 #: src/components/cloud/DisconnectCloudButton.tsx:68
 msgid "Disconnect {label}"
-msgstr "Disconnect {label}"
+msgstr "{label} leválasztása"
 
 #: src/components/cloud/DisconnectCloudButton.tsx:41
 msgid "Disconnect {label}?"
-msgstr "Lekapcsolni {label}?"
+msgstr "Leválasztja a következőt: {label}?"
 
 #: src/components/cloud/DisconnectCloudButton.tsx:44
 msgid "Disconnecting moves the ArtistAssistApp folder and everything still inside it to Google Drive Trash.<0/>Files you moved outside the folder are not deleted."
-msgstr "A lekapcsolás az ArtistAssistApp mappát és mindent, ami még benne van, áthelyezi a Google Drive Trash-ba.<0/>A mappán kívülre áthelyezett fájlok nem törülnek."
+msgstr "A leválasztás az ArtistAssistApp mappát és mindent, ami még benne van, áthelyezi a Google Drive Kukájába.<0/>A mappán kívülre áthelyezett fájlok nem törlődnek."
 
 #: src/components/cloud/DisconnectCloudButton.tsx:51
 msgid "Disconnecting will delete everything inside the ArtistAssistApp app folder, including files you added.<0/>Move anything you want to keep outside the folder first.<1/>Files outside the folder will not be deleted.<2/>Depending on the provider, deletion may be permanent."
-msgstr "A megszakítás mindent töröl az ArtistAssistApp alkalmazás mappájában, beleértve a hozzáadott fájlokat is.<0/>Először helyezd el a mappán kívüli dolgokat, amiket szeretnél.<1/>A mappán kívüli fájlok nem törülnek.<2/>Szolgáltatótól függően a törlés lehet végleges."
+msgstr "A leválasztás mindent töröl az ArtistAssistApp alkalmazásmappájában, beleértve a hozzáadott fájlokat is.<0/>Először helyezze a mappán kívülre mindazt, amit meg szeretne tartani.<1/>A mappán kívüli fájlok nem törlődnek.<2/>A szolgáltatótól függően a törlés végleges lehet."
 
 #: src/components/ImageStyleTransfer.tsx:73
 msgid "Divisionism"
 msgstr "Divisionizmus"
 
-#: src/components/ColorSetChooser.tsx:670
+#: src/components/ColorSetChooser.tsx:671
 msgid "Do you have a store-bought or custom color set?"
 msgstr "Van bolti vagy egyedi színkészlete?"
 
 #: src/components/ColorSetChooser.tsx:251
 msgid "Don't save"
-msgstr "Ne mentsd meg"
+msgstr "Ne mentse"
 
 #: src/stores/cloud-slice.ts:142
 msgid "Downloading image {index} / {count}"
@@ -888,23 +888,23 @@ msgstr "Letöltés... {percent}% ({key})"
 
 #: src/components/file/FileSelect.tsx:216
 msgid "Drop the file here..."
-msgstr "Dobd ide az aktát..."
+msgstr "Húzza ide a fájlt..."
 
 #: src/components/file/FileSelect.tsx:216
 msgid "Drop the files here..."
-msgstr "Dobd ide a fájlokat..."
+msgstr "Húzza ide a fájlokat..."
 
 #: src/components/messages.ts:65
 msgid "Dry Pastel"
 msgstr "Száraz pasztell"
 
-#: src/components/ColorSetChooser.tsx:763
+#: src/components/ColorSetChooser.tsx:764
 msgid "Duplicate"
-msgstr "Ismétlődő"
+msgstr "Duplikálás"
 
 #: src/components/ImageStyleTransfer.tsx:66
 msgid "Dutch Baroque"
-msgstr "holland barokk"
+msgstr "Holland barokk"
 
 #: src/components/TwoColorGradient.tsx:200
 msgid "Each column is a mixing ratio"
@@ -912,11 +912,11 @@ msgstr "Minden oszlop egy keverési arány"
 
 #: src/components/TwoColorGradient.tsx:198
 msgid "Each column is a mixing ratio, each row a consistency"
-msgstr "Minden oszlop egy keverési arány, minden sor egy konzisztencia"
+msgstr "Minden oszlop egy keverési arány, minden sor egy sűrűség"
 
 #: src/components/CustomColorBrandCreator.tsx:140
 msgid "Edit from here on"
-msgstr "Innen szerkesztés"
+msgstr "Szerkesztés innentől"
 
 #: src/components/messages.ts:41
 msgid "Edit image"
@@ -924,7 +924,7 @@ msgstr "Kép szerkesztése"
 
 #: src/components/ImageEditor.tsx:321
 msgid "Edited"
-msgstr "Szerkesztette"
+msgstr "Szerkesztve"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:38
 msgid "Email"
@@ -936,7 +936,7 @@ msgstr "E-mail szükséges"
 
 #: src/components/ImageStyleTransfer.tsx:80
 msgid "Engraving"
-msgstr "Metszés"
+msgstr "Metszet"
 
 #: src/components/CustomColorBrandCreator.tsx:511
 msgid "Enter a name"
@@ -944,23 +944,23 @@ msgstr "Adjon meg egy nevet"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:92
 msgid "Enter a valid email"
-msgstr "Írj be érvényes e-mail címet"
+msgstr "Adjon meg érvényes e-mail címet"
 
 #: src/components/ImageOutline.tsx:288
 msgid "Enter lightbox mode to trace the outline through your paper"
-msgstr "Lépjen át világítódoboz módba a körvonalak nyomon követéséhez a papíron"
+msgstr "Lépjen világítódoboz módba, hogy a papíron át átrajzolhassa a körvonalat"
 
 #: src/components/ImageOutline.tsx:351
 msgid "Enter lightbox mode to trace the outline through your paper."
-msgstr "Lépj be lightbox módba, hogy végigkövesd a körvonalat a dolgozatodon."
+msgstr "Lépjen világítódoboz módba, hogy a papíron át átrajzolhassa a körvonalat."
 
 #: src/components/auth/LoginEmailOtpButton.tsx:244
 msgid "Enter the code"
-msgstr "Adja be a kódot"
+msgstr "Adja meg a kódot"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:63
 msgid "Enter the email address for your Patreon account. We'll send a one-time login code if it has an active ArtistAssistApp membership."
-msgstr "Adja meg a Patreon fiókod e-mail címét. Egyszeri bejelentkezési kódot küldünk, ha aktív az ArtistAssistApp tagsága."
+msgstr "Adja meg a Patreon fiókja e-mail címét. Egyszeri bejelentkezési kódot küldünk, ha aktív ArtistAssistApp-tagsággal rendelkezik."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:36
 msgid "Error"
@@ -972,7 +972,7 @@ msgstr "Hibaleírás"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:349
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
-msgstr "A fényforrás becsült hőmérséklete Kelvinben a kép a következőkkel készült:"
+msgstr "Annak a fényforrásnak a becsült hőmérséklete kelvinben, amellyel a kép készült"
 
 #: src/components/ImageStyleTransfer.tsx:81
 msgid "Etching"
@@ -981,16 +981,16 @@ msgstr "Rézkarc"
 #: src/components/ImageOutline.tsx:307
 #: src/components/ImageOutline.tsx:359
 msgid "Exit AR"
-msgstr "Exit AR"
+msgstr "Kilépés az AR-ból"
 
 #: src/components/image-editor/ExpandControls.tsx:252
 #: src/components/messages.ts:50
 msgid "Expand"
-msgstr "Bontsa ki"
+msgstr "Kiterjesztés"
 
 #: src/components/image-editor/ExpandControls.tsx:118
 msgid "Expand by"
-msgstr "Kibontás:"
+msgstr "Kiterjesztés mértéke"
 
 #: src/components/CustomColorBrandCreator.tsx:545
 msgid "Export to file"
@@ -1010,22 +1010,22 @@ msgstr "Leggyorsabb"
 
 #: src/components/ImageStyleTransfer.tsx:76
 msgid "Fauvism"
-msgstr "fauvizmus"
+msgstr "Fauvizmus"
 
 #: src/components/image-editor/ExpandControls.tsx:196
 msgid "Fill"
-msgstr "Töltse ki"
+msgstr "Kitöltés"
 
 #: src/components/ColorSetChooser.tsx:413
 #: src/components/CustomColorBrandCreator.tsx:394
 msgid "Fill in the required fields"
 msgstr "Töltse ki a szükséges mezőket"
 
-#: src/components/ImageStyleTransfer.tsx:372
+#: src/components/ImageStyleTransfer.tsx:380
 msgid "Filter by artist"
-msgstr "Szűrés előadó szerint"
+msgstr "Szűrés művész szerint"
 
-#: src/components/ImageStyleTransfer.tsx:385
+#: src/components/ImageStyleTransfer.tsx:393
 msgid "Filter by tag"
 msgstr "Szűrés címke szerint"
 
@@ -1040,15 +1040,15 @@ msgstr "Legfinomabb"
 
 #: src/components/CustomColorBrandCreator.tsx:217
 msgid "Finish editing"
-msgstr "Vágás befejezése"
+msgstr "Szerkesztés befejezése"
 
 #: src/components/ImageSimplifier.tsx:155
 msgid "Focal point instructions"
-msgstr "A fókuszpont utasításai"
+msgstr "Útmutató a fókuszponthoz"
 
 #: src/components/image-editor/CropControls.tsx:37
 msgid "Free"
-msgstr "Ingyenes"
+msgstr "Szabad"
 
 #: src/components/color/ConsistencyDescription.tsx:46
 msgid "Full pressure"
@@ -1056,7 +1056,7 @@ msgstr "Teljes nyomás"
 
 #: src/components/color/ConsistencyDescription.tsx:41
 msgid "Full strength"
-msgstr "Teljes erővel"
+msgstr "Hígítás nélkül"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:303
 msgid "Gamma"
@@ -1064,19 +1064,19 @@ msgstr "Gamma"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:107
 msgid "Get a code"
-msgstr "Szerezz kódot"
+msgstr "Kód kérése"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:42
 msgid "Gifted membership"
-msgstr "Tehetséges tagság"
+msgstr "Ajándékba kapott tagság"
 
-#: src/components/ColorSetChooser.tsx:629
+#: src/components/ColorSetChooser.tsx:630
 msgid "Give your color set a name for easy access."
 msgstr "Adjon nevet a színkészletnek a könnyű hozzáférés érdekében."
 
 #: src/components/ImageColorPicker.tsx:375
 msgid "Glazing"
-msgstr "Üvegezés"
+msgstr "Lazúrozás"
 
 #: src/components/button/GoToTabButton.tsx:38
 msgid "Go to the {label} tab"
@@ -1099,7 +1099,7 @@ msgstr "Magasság"
 #: src/components/ColorSetChooser.tsx:472
 #: src/components/messages.ts:44
 msgid "Help"
-msgstr "Segítség"
+msgstr "Súgó"
 
 #: src/components/image-editor/ExpandControls.tsx:158
 msgid "Horizontal"
@@ -1107,19 +1107,19 @@ msgstr "Vízszintes"
 
 #: src/components/ColorSetChooser.tsx:249
 msgid "If you don't save, changes to the color set may be lost."
-msgstr "Ha nem menti a műveletet, előfordulhat, hogy a színkészlet módosításai elvesznek."
+msgstr "Ha nem menti, a színkészlet módosításai elveszhetnek."
 
-#: src/components/ImagesCompare.tsx:165
+#: src/components/ImagesCompare.tsx:173
 msgid "Image ranking"
-msgstr "Kép rangsorolása"
+msgstr "Képek rangsorolása"
 
 #: src/components/cloud/ImportFromZipFileSelect.tsx:46
 msgid "Import backup"
-msgstr "Importmentés"
+msgstr "Biztonsági másolat importálása"
 
 #: src/components/cloud/ImportFromZipFileSelect.tsx:39
 msgid "Import backup?"
-msgstr "Biztonsági mentést lehet importálni?"
+msgstr "Importálja a biztonsági másolatot?"
 
 #: src/components/CustomColorBrandCreator.tsx:453
 msgid "Import from file"
@@ -1127,7 +1127,7 @@ msgstr "Fájlból történő importálás"
 
 #: src/components/cloud/ImportFromZipFileSelect.tsx:41
 msgid "Importing this backup will replace your local color sets, reference photos, saved color mixtures, and custom color brands."
-msgstr "A biztonsági mentés importálása lecseréli a helyi színkészleteket, referenciafotókat, mentett színkeverékeket és egyedi színmárkákat."
+msgstr "Ennek a biztonsági másolatnak az importálása lecseréli a helyi színkészleteket, referenciafotókat, mentett színkeverékeket és egyéni színmárkákat."
 
 #: src/components/ImageStyleTransfer.tsx:69
 msgid "Impressionism"
@@ -1139,7 +1139,7 @@ msgstr "Inspiráció"
 
 #: src/hooks/usePersistentStorage.tsx:64
 msgid "Install"
-msgstr "Felszerel"
+msgstr "Telepítés"
 
 #: src/components/install/InstallButton.tsx:37
 msgid "Install app"
@@ -1147,11 +1147,11 @@ msgstr "Alkalmazás telepítése"
 
 #: src/components/install/InstallDrawer.tsx:195
 msgid "Install ArtistAssistApp"
-msgstr "Installáld az ArtistAssistApp alkalmazást"
+msgstr "Az ArtistAssistApp telepítése"
 
 #: src/components/Help.tsx:147
 msgid "Install update"
-msgstr "Telepítési frissítés"
+msgstr "Frissítés telepítése"
 
 #: src/components/ml-model/OnnxModelSelect.tsx:77
 msgid "Instant"
@@ -1163,7 +1163,7 @@ msgstr "Tervezett színhőmérséklet (K)"
 
 #: src/components/CustomColorBrandCreator.tsx:348
 msgid "Invalid custom color brand file"
-msgstr "Érvénytelen egyedi színű márkafájl"
+msgstr "Érvénytelen egyéni színmárkafájl"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:144
 msgid "Invalid login code"
@@ -1171,7 +1171,7 @@ msgstr "Érvénytelen bejelentkezési kód"
 
 #: src/components/auth/DeleteAccountButton.tsx:49
 msgid "It also disconnects cloud storage, deletes your account and membership lookup records, and logs you out."
-msgstr "Emellett lekapcsolja a felhőalapú tárhelyet, törli a fiókodat és a tagsági lekérdezésedet, és kijelentkezik."
+msgstr "Emellett leválasztja a felhőtárhelyet, törli a fiókját és a tagsági lekérdezési rekordokat, majd kijelentkezteti Önt."
 
 #: src/components/ImagesCompare.tsx:96
 msgid "It can be difficult to choose between multiple images. Comparing each image with others in pairs simplifies the choice and helps to identify the most preferred one."
@@ -1179,28 +1179,28 @@ msgstr "Nehéz lehet több kép közül választani. Az egyes képek páros öss
 
 #: src/components/color/AddToPaletteButton.tsx:49
 #: src/components/color/PaletteColorMixtureCard.tsx:129
-#: src/components/ColorSetChooser.tsx:792
+#: src/components/ColorSetChooser.tsx:793
 #: src/components/CustomColorBrandCreator.tsx:532
 #: src/components/image/RecentImageCard.tsx:125
 #: src/components/palette/PaletteGrid.tsx:122
 msgid "Keep"
-msgstr "Tartsd meg"
+msgstr "Megtartás"
 
 #: src/components/ImageChooser.tsx:98
 msgid "Keep all"
-msgstr "Tartsd meg az összes"
+msgstr "Összes megtartása"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:58
 msgid "Keep cloud data"
-msgstr "Felhőadatok megőrzése"
+msgstr "Felhőadatok megtartása"
 
 #: src/components/ColorSetChooser.tsx:237
 msgid "Keep editing"
-msgstr "Folytasd a szerkesztést"
+msgstr "Szerkesztés folytatása"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:41
 msgid "Keep this device"
-msgstr "Tartsd meg ezt az eszközt"
+msgstr "Eszköz megtartása"
 
 #: src/components/ImageStyleTransfer.tsx:61
 msgid "Landscape"
@@ -1212,15 +1212,15 @@ msgstr "Nyelv"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:40
 msgid "Last charge status"
-msgstr "Utolsó töltési állapot"
+msgstr "Utolsó fizetés állapota"
 
 #: src/components/image/RecentImageCard.tsx:139
 msgid "Last used {dateText}"
-msgstr "Utoljára használt {dateText}"
+msgstr "Utoljára használva: {dateText}"
 
-#: src/components/ImagesCompare.tsx:156
+#: src/components/ImagesCompare.tsx:164
 msgid "Left to compare: {unfinishedGamesSize}"
-msgstr "Maradt az összehasonlításhoz: {unfinishedGamesSize}"
+msgstr "Hátralévő összehasonlítás: {unfinishedGamesSize}"
 
 #: src/components/ImageColorPicker.tsx:563
 msgid "Less"
@@ -1237,7 +1237,7 @@ msgstr "Világos tónus"
 
 #: src/components/ImageOutline.tsx:296
 msgid "Lightbox"
-msgstr "Lightbox"
+msgstr "Világítódoboz"
 
 #: src/components/messages.ts:39
 msgid "Limited palette"
@@ -1254,7 +1254,7 @@ msgstr "Bejelentkezés"
 #: src/components/auth/LoginEmailOtpButton.tsx:244
 #: src/components/auth/LoginEmailOtpButton.tsx:276
 msgid "Log in with email"
-msgstr "Jelentkezz be e-mailben"
+msgstr "Bejelentkezés e-maillel"
 
 #: src/components/auth/LoginOAuthButton.tsx:34
 msgid "Log in with Patreon"
@@ -1262,7 +1262,7 @@ msgstr "Bejelentkezés a Patreonnal"
 
 #: src/components/auth/LogoutButton.tsx:35
 msgid "Log out"
-msgstr "Kijelentkezik"
+msgstr "Kijelentkezés"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:171
 msgid "Login result not received"
@@ -1274,7 +1274,7 @@ msgstr "Alacsony bemenet és magas bemenet"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:324
 msgid "Low output and high output"
-msgstr "Alacsony teljesítmény és nagy teljesítmény"
+msgstr "Alacsony kimenet és magas kimenet"
 
 #: src/components/print/PrintImageDrawer.tsx:255
 #: src/components/print/PrintImageDrawer.tsx:270
@@ -1287,7 +1287,7 @@ msgstr "Margók"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:112
 msgid "Mark around the object you want to remove, then drag the vertices to adjust or tap to remove"
-msgstr "Jelölje meg az eltávolítani kívánt objektumot, majd húzza a csúcsokat a beállításhoz, vagy koppintson az eltávolításhoz"
+msgstr "Jelölje körbe az eltávolítani kívánt objektumot, majd húzza a csúcsokat a beállításhoz, vagy koppintson az eltávolításhoz"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:77
 msgid "Mark at least 3 points around the object you want to remove"
@@ -1302,18 +1302,18 @@ msgid "Mark the 4 corners of your paper or canvas, then drag the vertices to adj
 msgstr "Jelölje meg a papír vagy a vászon 4 sarkát, majd húzza a csúcsokat a beállításhoz"
 
 #: src/components/color-set/MergeColorSetsDrawer.tsx:96
-#: src/components/ColorSetChooser.tsx:773
+#: src/components/ColorSetChooser.tsx:774
 msgid "Merge"
-msgstr "Egyesülés"
+msgstr "Egyesítés"
 
 #: src/components/color-set/MergeColorSetsDrawer.tsx:62
 msgid "Merge color sets"
-msgstr "Színhalmazok egyesítése"
+msgstr "Színkészletek egyesítése"
 
 #: src/components/ImageTonalValues.tsx:117
 #: src/components/ImageTonalValues.tsx:120
 msgid "Mid tone"
-msgstr "Középtónusú"
+msgstr "Középtónus"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:301
 msgid "Midtones"
@@ -1329,16 +1329,16 @@ msgstr "Keverje össze a festéket és a vizet <0>{ratioText} arányban</0>"
 
 #: src/components/color/ConsistencyDescription.tsx:112
 msgid "Mix the paint with a glazing medium, such as linseed oil, to apply a thinner, more transparent layer"
-msgstr "Keverje össze a festéket fényezőanyaggal, például lenolajjal, hogy vékonyabb, átlátszóbb réteget vigyen fel."
+msgstr "Keverje össze a festéket lazúrozó médiummal, például lenolajjal, hogy vékonyabb, átlátszóbb réteget vigyen fel"
 
 #: src/components/color/ConsistencyDescription.tsx:119
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
-msgstr "Keverje össze a festéket akrilüveges közeggel, hogy vékonyabb, átlátszóbb réteget vigyen fel"
+msgstr "Keverje össze a festéket akril lazúrozó médiummal, hogy vékonyabb, átlátszóbb réteget vigyen fel"
 
 #: src/components/color/ColorMatchCard.tsx:153
 #: src/components/color/PaletteColorMixtureCard.tsx:158
 msgid "Mix this color into every mixture."
-msgstr "Ezt a színt keverd minden keverékbe."
+msgstr "Ezt a színt minden keverékhez hozzákeveri."
 
 #: src/components/ColorMixer.tsx:164
 msgid "Mix your colors in any proportions so you don't waste real paints"
@@ -1356,13 +1356,13 @@ msgstr "Üzemmód"
 
 #: src/components/ImageColorPicker.tsx:563
 msgid "More"
-msgstr "További"
+msgstr "Több"
 
 #: src/components/ImageStyleTransfer.tsx:82
 msgid "Mosaic"
 msgstr "Mozaik"
 
-#: src/components/ColorSetChooser.tsx:628
+#: src/components/ColorSetChooser.tsx:629
 #: src/components/CustomColorBrandCreator.tsx:196
 #: src/components/CustomColorBrandCreator.tsx:510
 msgid "Name"
@@ -1372,7 +1372,7 @@ msgstr "Név"
 msgid "Name a brand"
 msgstr "Márka elnevezése"
 
-#: src/components/ColorSetChooser.tsx:632
+#: src/components/ColorSetChooser.tsx:633
 msgid "Name a color set"
 msgstr "Színkészlet elnevezése"
 
@@ -1386,7 +1386,7 @@ msgstr "Neoimpresszionizmus"
 
 #: src/components/color/WarmthIcon.tsx:46
 msgid "Neutral — Algorithmic estimate; artistic perception may vary."
-msgstr "Semleges – Algoritmikus becslés; A művészi felfogás változhat."
+msgstr "Semleges — algoritmikus becslés; a művészi felfogás eltérhet."
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:40
 msgid "New brand"
@@ -1407,7 +1407,7 @@ msgstr "Új méret: {outputWidth} × {outputHeight}"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:41
 msgid "Next charge date"
-msgstr "Következő töltési dátum"
+msgstr "Következő fizetés dátuma"
 
 #: src/components/empty/EmptyColorMatches.tsx:43
 msgid "No matching color mixtures were found"
@@ -1415,12 +1415,12 @@ msgstr "Nem található megfelelő színkeverék"
 
 #: src/components/ImageColorPicker.tsx:275
 msgid "No palette colors matched the current color set and settings"
-msgstr "A paletta színei nem feleltek meg az aktuális színkészletnek és beállításoknak"
+msgstr "Egyetlen palettaszín sem felelt meg az aktuális színkészletnek és beállításoknak"
 
 #: src/components/color-set/ColorSelect.tsx:90
 #: src/components/ColorMixingChart.tsx:127
 msgid "No sorting"
-msgstr "Nincs besorolás"
+msgstr "Nincs rendezés"
 
 #: src/components/empty/EmptyTargetColor.tsx:28
 msgid "No target color is selected"
@@ -1432,7 +1432,7 @@ msgstr "Északi reneszánsz"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:69
 msgid "Not sure which email Patreon uses? Check your <0>Patreon basic settings</0>."
-msgstr "Nem tudom, melyik e-mail a Patreon? Nézd meg a <0>Patreon alapbeállításokat</0>."
+msgstr "Nem biztos benne, melyik e-mail címet használja a Patreon? Nézze meg a <0>Patreon alapbeállításokat</0>."
 
 #: src/components/share/ShareModal.tsx:96
 msgid "Nothing to share"
@@ -1452,17 +1452,17 @@ msgstr "Olajfesték"
 
 #: src/components/messages.ts:66
 msgid "Oil Pastel"
-msgstr "Olaj pasztell"
+msgstr "Olajpasztell"
 
 #: src/components/ColorMixingChart.tsx:175
 msgid "On the diagonal are the pure colors at full strength. Above the diagonal are thick layers of each pair mixed in a 1:1 ratio. Below the diagonal are the same mixtures thinned to 1/2 strength."
-msgstr "Az átlón a tiszta színek teljes erővel. Az átló felett minden pár vastag rétegei vannak 1:1 arányban keverve. Az átló alatt ugyanazok a keverékek vannak 1/2 erősségűre hígítva."
+msgstr "Az átlón a tiszta színek hígítás nélkül láthatók. Az átló felett az egyes párok 1:1 arányban kevert vastag rétegei találhatók. Az átló alatt ugyanezek a keverékek 1/2 sűrűségűre hígítva láthatók."
 
 #: src/components/ColorMixingChart.tsx:181
 msgid "On the diagonal are the pure colors at full strength. Off the diagonal is each pair mixed in a 1:1 ratio."
-msgstr "Az átlón a tiszta színek teljes erővel. Az átlón kívül minden pár 1:1 arányban keveredik."
+msgstr "Az átlón a tiszta színek hígítás nélkül láthatók. Az átlón kívül az egyes párok 1:1 arányban keverve láthatók."
 
-#: src/components/ColorSetChooser.tsx:651
+#: src/components/ColorSetChooser.tsx:652
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Csak korlátozott számú színmárka érhető el az ingyenes verzióban"
 
@@ -1482,13 +1482,13 @@ msgstr "Megnyitás a Safari böngészőben"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:119
 msgid "Open your <0>Patreon basic settings</0> and confirm that the listed email address is the same one you entered."
-msgstr "Nyisd meg a <0>Patreon alapbeállításokat</0> , és győződj meg róla, hogy a megadott e-mail cím ugyanaz, amit te adtál."
+msgstr "Nyissa meg a <0>Patreon alapbeállításokat</0>, és győződjön meg róla, hogy a megadott e-mail cím ugyanaz, amelyet Ön megadott."
 
 #: src/components/error/BrowserSupport.tsx:94
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "vagy telepítse a Chrome, Edge, Firefox vagy Opera webböngésző legújabb verzióját"
 
-#: src/components/ColorSetChooser.tsx:566
+#: src/components/ColorSetChooser.tsx:567
 msgid "Or save a backup file on this device"
 msgstr "Vagy mentsen biztonsági másolatot erre az eszközre"
 
@@ -1496,11 +1496,11 @@ msgstr "Vagy mentsen biztonsági másolatot erre az eszközre"
 msgid "Or scan the QR code"
 msgstr "Vagy olvassa be a QR-kódot"
 
-#: src/components/ImageChooser.tsx:155
+#: src/components/ImageChooser.tsx:161
 msgid "Or select from sample photos"
 msgstr "Vagy válasszon a mintafotók közül"
 
-#: src/components/ImageChooser.tsx:129
+#: src/components/ImageChooser.tsx:135
 msgid "Or select from your recent photos"
 msgstr "Vagy válasszon a legutóbbi fotói közül"
 
@@ -1516,7 +1516,7 @@ msgstr "Eredeti színhőmérséklet (K)"
 #: src/components/ImageOutline.tsx:281
 #: src/components/messages.ts:34
 msgid "Outline"
-msgstr "Vázlat"
+msgstr "Körvonal"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:322
 msgid "Output levels"
@@ -1540,7 +1540,7 @@ msgstr "Pasztell"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:108
 msgid "Patreon member email address not found"
-msgstr "Patreon tag e-mail címe nem található meg"
+msgstr "A Patreon-tag e-mail címe nem található"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:53
 msgid "Patreon membership verification failed"
@@ -1548,7 +1548,7 @@ msgstr "A Patreon tagsági ellenőrzés sikertelen"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:39
 msgid "Patron status"
-msgstr "Patrónus státusz"
+msgstr "Támogatói állapot"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:174
 #: src/components/image-editor/AdjustColorsControls.tsx:208
@@ -1561,11 +1561,11 @@ msgstr "Percentilis: Automatikus fehéregyensúly a legvilágosabb területekrő
 
 #: src/components/Help.tsx:159
 msgid "Persistent storage"
-msgstr "Állandó tárolás"
+msgstr "Állandó tárhely"
 
 #: src/hooks/usePersistentStorage.tsx:52
 msgid "Persistent storage is not enabled"
-msgstr "Az állandó tárolás nincs engedélyezve"
+msgstr "Az állandó tárhely nincs engedélyezve"
 
 #: src/components/messages.ts:29
 msgid "Photo"
@@ -1573,7 +1573,7 @@ msgstr "Fénykép"
 
 #: src/components/image/RecentImageCard.tsx:68
 msgid "Photo not restored"
-msgstr "A fénykép nincs visszaállítva"
+msgstr "A fénykép nem lett visszaállítva"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:196
 msgid "Photo unavailable"
@@ -1593,11 +1593,11 @@ msgstr "Válasszon egy célszínt"
 
 #: src/components/empty/EmptyTargetColor.tsx:39
 msgid "Pinch or scroll to zoom, drag to pan."
-msgstr "Csípd vagy görgess nagyításhoz, húzd a pásztázáshoz."
+msgstr "Csippentsen vagy görgessen a nagyításhoz, húzza a mozgatáshoz."
 
 #: src/components/error/ErrorFallback.tsx:41
 msgid "Please send us a screenshot of this error via our <0>contacts</0>. It will help us identify the cause."
-msgstr "Kérjük, küldjön nekünk képernyőképet erről a <0>hibáról a kapcsolatainkon</0> keresztül. Segít azonosítani az okát."
+msgstr "Kérjük, küldjön nekünk képernyőképet erről a hibáról a <0>kapcsolatainkon</0> keresztül. Ez segít azonosítani az okát."
 
 #: src/components/ImageStyleTransfer.tsx:72
 msgid "Pointillism"
@@ -1607,7 +1607,7 @@ msgstr "Pointillizmus"
 msgid "Portrait"
 msgstr "Portré"
 
-#: src/components/ImagesCompare.tsx:185
+#: src/components/ImagesCompare.tsx:193
 msgid "Position: {position}<0/>Rating: {ratingText}"
 msgstr "Pozíció: {position}<0/>Értékelés: {ratingText}"
 
@@ -1652,13 +1652,13 @@ msgstr "Nyomja meg a <0>Hozzáadás a palettához</0> gombot a kívánt színkev
 #: src/components/ImageGrid.tsx:83
 #: src/components/ImageOutline.tsx:334
 #: src/components/ImageOutline.tsx:370
-#: src/components/ImagesCompare.tsx:173
+#: src/components/ImagesCompare.tsx:181
 #: src/components/ImageTonalValues.tsx:158
 #: src/components/ImageTonalValues.tsx:169
 #: src/components/palette/PaletteGrid.tsx:115
 #: src/components/print/PrintImageDrawer.tsx:183
 msgid "Print"
-msgstr "Nyomtat"
+msgstr "Nyomtatás"
 
 #: src/components/print/PrintImageDrawer.tsx:200
 msgid "Print a large image onto multiple pages"
@@ -1670,7 +1670,7 @@ msgstr "Nyomtatási kép"
 
 #: src/components/Help.tsx:118
 msgid "Privacy policy"
-msgstr "Adatvédelem"
+msgstr "Adatvédelmi irányelvek"
 
 #: src/components/loading/LoadingIndicator.tsx:48
 msgid "Processing..."
@@ -1684,11 +1684,11 @@ msgstr "Feldolgozás... {percent}%"
 msgid "Quota"
 msgstr "Kvóta"
 
-#: src/components/ImagesCompare.tsx:136
+#: src/components/ImagesCompare.tsx:144
 msgid "Rating: {player1RatingText}"
 msgstr "Értékelés: {player1RatingText}"
 
-#: src/components/ImagesCompare.tsx:147
+#: src/components/ImagesCompare.tsx:155
 msgid "Rating: {player2RatingText}"
 msgstr "Értékelés: {player2RatingText}"
 
@@ -1706,7 +1706,7 @@ msgstr "Újra"
 
 #: src/components/ImageColorPicker.tsx:442
 msgid "Reduce color palette to"
-msgstr "A színpalettát a"
+msgstr "Színpaletta csökkentése erre"
 
 #: src/components/ImageColorPicker.tsx:461
 msgid "Reduce colors"
@@ -1714,21 +1714,21 @@ msgstr "Színek csökkentése"
 
 #: src/components/ImageColorPicker.tsx:459
 msgid "Reduce the number of colors in the photo."
-msgstr "Csökkentsd a képen lévő színek számát."
+msgstr "Csökkenti a fényképen lévő színek számát."
 
 #: src/components/color/ColorSwatchDrawer.tsx:92
 #: src/components/image-editor/AdjustColorsControls.tsx:175
 msgid "Reference"
-msgstr "Utalás"
+msgstr "Referencia"
 
-#: src/components/ImageStyleTransfer.tsx:354
+#: src/components/ImageStyleTransfer.tsx:362
 msgid "Reference photo"
-msgstr "Referencia fotó"
+msgstr "Referenciafotó"
 
 #: src/components/color/ColorMatchCard.tsx:128
 #: src/components/ColorMixer.tsx:256
 msgid "Reflectance"
-msgstr "Visszaverődés"
+msgstr "Reflektancia"
 
 #: src/components/error/ErrorFallback.tsx:67
 msgid "Reload"
@@ -1736,7 +1736,7 @@ msgstr "Újratöltés"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:80
 msgid "Remove and continue"
-msgstr "Távolítsa el és folytassa"
+msgstr "Eltávolítás és folytatás"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:135
 #: src/components/messages.ts:52
@@ -1746,7 +1746,7 @@ msgstr "Háttér eltávolítása"
 #: src/components/image-editor/RemoveObjectsControls.tsx:105
 #: src/components/messages.ts:53
 msgid "Remove objects"
-msgstr "Távolítsa el az objektumokat"
+msgstr "Objektumok eltávolítása"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:119
 msgid "Removing objects is available only to paid Patreon members"
@@ -1756,7 +1756,7 @@ msgstr "Az objektumok eltávolítása csak fizetős Patreon-tagok számára lehe
 #: src/components/CustomColorBrandCreator.tsx:192
 #: src/components/CustomColorBrandCreator.tsx:195
 msgid "Required"
-msgstr "Szükséges"
+msgstr "Kötelező"
 
 #: src/components/install/InstallDrawer.tsx:124
 msgid "Requires iOS 16.4+ or iPadOS 16.4+."
@@ -1768,20 +1768,20 @@ msgstr "macOS Sonoma vagy újabb rendszer szükséges hozzá."
 
 #: src/components/auth/LoginEmailOtpButton.tsx:202
 msgid "Resend code"
-msgstr "Újraküldési kód"
+msgstr "Kód újraküldése"
 
 #: src/components/ImageEditor.tsx:310
 #: src/components/ImageEditor.tsx:315
 msgid "Reset"
-msgstr "Átszed"
+msgstr "Visszaállítás"
 
 #: src/components/cloud/ImportFromZipFileSelect.tsx:78
 msgid "Restore backup"
-msgstr "Mentés visszaállítása"
+msgstr "Biztonsági másolat visszaállítása"
 
 #: src/components/image/RecentImageCard.tsx:92
 msgid "Restore from cloud"
-msgstr "Visszaállítás felhőből"
+msgstr "Visszaállítás a felhőből"
 
 #: src/components/empty/EmptyColorSet.tsx:60
 msgid "Restoring the saved color set..."
@@ -1790,17 +1790,17 @@ msgstr "A mentett színkészlet visszaállítása..."
 #: src/components/color-set/ColorSetActivationNotification.tsx:36
 #: src/components/empty/EmptyColorSet.tsx:77
 msgid "Retry"
-msgstr "Próbálja újra"
+msgstr "Újrapróbálkozás"
 
 #: src/components/empty/EmptyColorSet.tsx:128
 #: src/components/empty/EmptyImage.tsx:48
 #: src/components/empty/EmptyPalette.tsx:61
 msgid "Return to the {tabLabel} tab"
-msgstr "Térjen vissza a {tabLabel} lapra"
+msgstr "Vissza a(z) {tabLabel} lapra"
 
 #: src/components/image-editor/StraightenControls.tsx:118
 msgid "Rotate"
-msgstr "Forog"
+msgstr "Forgatás"
 
 #: src/components/ImageColorPicker.tsx:305
 msgid "Sample size"
@@ -1819,21 +1819,21 @@ msgstr "Telítettség (%)"
 #: src/components/ImageOutline.tsx:377
 #: src/components/ImageTonalValues.tsx:175
 msgid "Save"
-msgstr "Megment"
+msgstr "Mentés"
 
-#: src/components/ColorSetChooser.tsx:755
+#: src/components/ColorSetChooser.tsx:756
 msgid "Save & continue"
 msgstr "Mentés és folytatás"
 
 #: src/components/cloud/ExportToZipButton.tsx:75
 msgid "Save backup"
-msgstr "Mentés mentése"
+msgstr "Biztonsági másolat mentése"
 
 #: src/components/ColorSetChooser.tsx:248
 msgid "Save changes to the color set?"
 msgstr "Menti a színkészlet módosításait?"
 
-#: src/components/ColorSetChooser.tsx:750
+#: src/components/ColorSetChooser.tsx:751
 msgid "Save the changes to this color set"
 msgstr "A színkészlet módosításainak mentése"
 
@@ -1845,7 +1845,7 @@ msgstr "Tengeri tájkép"
 msgid "Select a color brand"
 msgstr "Válasszon színmárkát"
 
-#: src/components/ColorSetChooser.tsx:614
+#: src/components/ColorSetChooser.tsx:615
 msgid "Select a color set"
 msgstr "Válasszon ki egy színkészletet"
 
@@ -1853,18 +1853,18 @@ msgstr "Válasszon ki egy színkészletet"
 msgid "Select a reference photo from your device to paint from"
 msgstr "Válasszon ki egy referenciafotót az eszközről a festéshez"
 
-#: src/components/ColorSetChooser.tsx:668
+#: src/components/ColorSetChooser.tsx:669
 msgid "Select a standard or custom color set"
 msgstr "Válasszon szabványos vagy egyedi színkészletet"
 
-#: src/components/ImageStyleTransfer.tsx:361
+#: src/components/ImageStyleTransfer.tsx:369
 msgid "Select a style to transfer to your reference photo"
 msgstr "Válassza ki a referenciafotóra átvinni kívánt stílust"
 
-#: src/components/ColorSetChooser.tsx:605
+#: src/components/ColorSetChooser.tsx:606
 #: src/components/CustomColorBrandCreator.tsx:503
 msgid "Select an art medium"
-msgstr "Válasszon ki egy művészeti médiumot"
+msgstr "Válasszon képzőművészeti technikát"
 
 #: src/components/CustomColorBrandCreator.tsx:441
 msgid "Select an image that contains a color chart"
@@ -1872,17 +1872,17 @@ msgstr "Színdiagramot tartalmazó kép kiválasztása"
 
 #: src/components/color-set/ColorTypeSelect.tsx:37
 msgid "Select art medium"
-msgstr "Művészeti médium kiválasztása"
+msgstr "Képzőművészeti technika kiválasztása"
 
-#: src/components/ColorSetChooser.tsx:689
+#: src/components/ColorSetChooser.tsx:690
 msgid "Select at least one color"
 msgstr "Válasszon ki legalább egy színt"
 
 #: src/components/ColorSetChooser.tsx:404
 msgid "Select at least one color before saving the color set."
-msgstr "Válassz legalább egy színt, mielőtt elmented a színkészletet."
+msgstr "Válasszon ki legalább egy színt a színkészlet mentése előtt."
 
-#: src/components/ColorSetChooser.tsx:638
+#: src/components/ColorSetChooser.tsx:639
 msgid "Select at least one color brand"
 msgstr "Válasszon ki legalább egy színmárkát"
 
@@ -1890,7 +1890,7 @@ msgstr "Válasszon ki legalább egy színmárkát"
 msgid "Select brands"
 msgstr "Márkák kiválasztása"
 
-#: src/components/ColorSetChooser.tsx:637
+#: src/components/ColorSetChooser.tsx:638
 msgid "Select brands that you use."
 msgstr "Válassza ki az Ön által használt márkákat."
 
@@ -1900,7 +1900,7 @@ msgstr "Szín kiválasztása"
 
 #: src/components/TwoColorGradient.tsx:149
 msgid "Select color pairs to chart every mixing ratio and consistency"
-msgstr "Válasszon színpárokat az egyes keverési arányok és konzisztenciák feltérképezéséhez"
+msgstr "Válasszon színpárokat az egyes keverési arányok és sűrűségek feltérképezéséhez"
 
 #: src/components/color-set/ColorCascader.tsx:160
 #: src/components/color-set/ColorSelect.tsx:109
@@ -1909,7 +1909,7 @@ msgstr "Válasszon színeket"
 
 #: src/components/ColorMixingChart.tsx:190
 msgid "Select colors to build a mixing chart"
-msgstr "Válassz színeket keverési táblázat elkészítéséhez"
+msgstr "Válasszon színeket a keverési táblázat elkészítéséhez"
 
 #: src/components/ImageLimitedPalette.tsx:115
 msgid "Select from 1 to {MAX_COLORS} colors"
@@ -1923,7 +1923,7 @@ msgstr "Válasszon a legutóbbi márkák közül"
 msgid "Select from your recent color sets"
 msgstr "Válasszon a legutóbbi színkészletek közül"
 
-#: src/components/ColorSetChooser.tsx:613
+#: src/components/ColorSetChooser.tsx:614
 msgid "Select from your recent color sets or create a new one."
 msgstr "Válasszon a legutóbbi színkészletek közül, vagy hozzon létre egy újat."
 
@@ -1934,7 +1934,7 @@ msgstr "Kép kiválasztása"
 
 #: src/components/ImagesCompare.tsx:113
 msgid "Select images"
-msgstr "Válasszon képeket"
+msgstr "Képek kiválasztása"
 
 #: src/components/ImagesCompare.tsx:92
 msgid "Select images to rank using pairwise comparison"
@@ -1946,7 +1946,7 @@ msgstr "Nyelv kiválasztása"
 
 #: src/components/ColorMixer.tsx:214
 msgid "Select part"
-msgstr "Alkatrész kiválasztása"
+msgstr "Arány kiválasztása"
 
 #: src/components/ImageChooser.tsx:123
 msgid "Select photo"
@@ -1962,7 +1962,7 @@ msgstr "Stíluskép kiválasztása"
 
 #: src/components/color-set/MergeColorSetsDrawer.tsx:70
 msgid "Select the color sets you want to merge. A new color set will be created that includes all the colors from the selected sets."
-msgstr "Válaszd ki azokat a színkészleteket, amelyeket össze akarsz vonni. Egy új színkészlet készül, amely tartalmazza a kiválasztott halmazok összes színét."
+msgstr "Válassza ki az összevonni kívánt színkészleteket. Új színkészlet jön létre, amely tartalmazza a kiválasztott készletek összes színét."
 
 #: src/components/TwoColorGradient.tsx:162
 msgid "Select the first color"
@@ -1974,15 +1974,15 @@ msgstr "Válassza ki a második színt"
 
 #: src/components/ColorMixer.tsx:196
 msgid "Select up to {MAX_COLORS} colors to mix and specify the part of each color in the resulting mix"
-msgstr "Válasszon ki legfeljebb {MAX_COLORS} színt a keveréshez, és adja meg az egyes színek részét a kapott keverékben"
+msgstr "Válasszon ki legfeljebb {MAX_COLORS} színt a keveréshez, és adja meg az egyes színek arányát a kapott keverékben"
 
 #: src/components/empty/EmptyColorSet.tsx:99
 msgid "Select your art medium, color brands, and colors"
-msgstr "Válassza ki a művészeti médiát, a színmárkákat és a színeket"
+msgstr "Válassza ki a képzőművészeti technikát, a színmárkákat és a színeket"
 
-#: src/components/ColorSetChooser.tsx:578
+#: src/components/ColorSetChooser.tsx:579
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
-msgstr "Válassza ki a művészi médiát, a színmárkákat és a színeket, amelyekkel festeni fog, majd nyomja meg a <0>Mentés és folytatás</0>gombot."
+msgstr "Válassza ki a képzőművészeti technikát, a színmárkákat és a színeket, amelyekkel festeni fog, majd nyomja meg a <0>Mentés és folytatás</0> gombot"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:74
 #: src/components/ImageOutline.tsx:254
@@ -1999,11 +1999,11 @@ msgstr "Félig átlátszó"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:158
 msgid "Sent to <0>{email}</0>"
-msgstr "Elküldve <0>a {email}</0> címre"
+msgstr "Elküldve a következő címre: <0>{email}</0>"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:136
 msgid "Session expired"
-msgstr "A szekció lejárt"
+msgstr "A munkamenet lejárt"
 
 #: src/components/ImageLimitedPalette.tsx:150
 msgid "Set as main color set"
@@ -2016,22 +2016,22 @@ msgstr "Beállítás referenciaként"
 #: src/components/color/ColorMatchCard.tsx:144
 #: src/components/color/PaletteColorMixtureCard.tsx:149
 msgid "Set as underlayer"
-msgstr "Alsó rétegként beállítva"
+msgstr "Beállítás alaprétegként"
 
 #: src/components/color/ColorMatchCard.tsx:140
 #: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for blending."
-msgstr "Állítsd be aljául a keveréshez."
+msgstr "Beállítás alaprétegként az elmosáshoz."
 
 #: src/components/color/ColorMatchCard.tsx:140
 #: src/components/color/PaletteColorMixtureCard.tsx:145
 msgid "Set as underlayer for glazing."
-msgstr "Alaprétegként állítsd be az üvegezéshez."
+msgstr "Beállítás alaprétegként a lazúrozáshoz."
 
 #: src/components/color/ColorMatchCard.tsx:156
 #: src/components/color/PaletteColorMixtureCard.tsx:161
 msgid "Set as unifying color"
-msgstr "Egységes színként állítva"
+msgstr "Beállítás egyesítő színként"
 
 #: src/components/ImageTonalValues.tsx:127
 #: src/components/ImageTonalValues.tsx:130
@@ -2042,18 +2042,18 @@ msgstr "Árnyék"
 msgid "Shadows and highlights"
 msgstr "Árnyékok és csúcsfények"
 
-#: src/components/ColorSetChooser.tsx:811
+#: src/components/ColorSetChooser.tsx:812
 #: src/components/share/ShareModal.tsx:81
 msgid "Share"
-msgstr "Részvény"
+msgstr "Megosztás"
 
-#: src/components/ColorSetChooser.tsx:808
+#: src/components/ColorSetChooser.tsx:809
 msgid "Share this color set"
-msgstr "Ossza meg ezt a színkészletet"
+msgstr "Ennek a színkészletnek a megosztása"
 
 #: src/components/share/ShareModal.tsx:60
 msgid "Share your color set"
-msgstr "Ossza meg színkészletét"
+msgstr "Színkészlet megosztása"
 
 #: src/components/ml-model/OnnxModelSelect.tsx:63
 msgid "Sharp"
@@ -2061,7 +2061,7 @@ msgstr "Éles"
 
 #: src/components/ImageColorPicker.tsx:350
 msgid "Show areas on the photo that match this color."
-msgstr "Mutassuk meg a képen olyan területeket, amelyek megfelelnek ennek a színnek."
+msgstr "Megjeleníti a fényképen azokat a területeket, amelyek megfelelnek ennek a színnek."
 
 #: src/components/grid/GridControls.tsx:122
 msgid "Show grid"
@@ -2069,15 +2069,15 @@ msgstr "Rács megjelenítése"
 
 #: src/components/ImageColorPicker.tsx:349
 msgid "Show matching areas"
-msgstr "Megjelenítési egyeztetési területek"
+msgstr "Egyező területek megjelenítése"
 
-#: src/components/ImageChooser.tsx:147
+#: src/components/ImageChooser.tsx:153
 msgid "Show older photos"
-msgstr "Régi fotók megjelenítése"
+msgstr "Régebbi fotók megjelenítése"
 
 #: src/components/color/PaletteColorMixtureCard.tsx:119
 msgid "Show on photo"
-msgstr "Mutasd a képen"
+msgstr "Megjelenítés a fényképen"
 
 #: src/components/grid/GridControls.tsx:154
 msgid "Show or hide diagonal lines"
@@ -2085,7 +2085,7 @@ msgstr "Átlós vonalak megjelenítése vagy elrejtése"
 
 #: src/components/color/PaletteColorMixtureCard.tsx:113
 msgid "Show this color on the reference photo."
-msgstr "Mutassuk meg ezt a színt a referencia fotón."
+msgstr "Megjeleníti ezt a színt a referenciafotón."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:159
 msgid "Sign in required"
@@ -2097,7 +2097,7 @@ msgstr "Hasonlóság"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:109
 msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
-msgstr "A hasonlósági mód összehasonlítja a cél és a javasolt színeket. Keverés módban a szín azon részei jelennek meg, amelyek a keveréket alkotják."
+msgstr "A hasonlósági mód összehasonlítja a cél- és a javasolt színeket. Keverék módban a szín azon részei jelennek meg, amelyek a keveréket alkotják."
 
 #: src/components/ImageSimplifier.tsx:134
 msgid "Simplified"
@@ -2105,19 +2105,19 @@ msgstr "Egyszerűsített"
 
 #: src/components/messages.ts:33
 msgid "Simplify"
-msgstr "Egyszerűsítse"
+msgstr "Egyszerűsítés"
 
 #: src/components/color/ConsistencyDescription.tsx:147
 msgid "Slightly overlap oil pastel areas of different colors and blend gently to create a smooth transition"
-msgstr "Kissé fedje át a különböző színű olajpasztell területeket, és finoman keverje össze, hogy sima átmenetet hozzon létre"
+msgstr "Kissé fedje át az eltérő színű olajpasztell területeket, és finoman mossa el őket, hogy sima átmenetet hozzon létre"
 
 #: src/components/color/ConsistencyDescription.tsx:140
 msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition"
-msgstr "Enyhén fedje át a különböző színű pasztell területeket, és finoman keverje össze, hogy egyenletes átmenetet hozzon létre"
+msgstr "Kissé fedje át az eltérő színű pasztell területeket, és finoman mossa el őket, hogy sima átmenetet hozzon létre"
 
 #: src/components/color/ConsistencyDescription.tsx:154
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
-msgstr "Enyhén fedje át a különböző színű viaszpasztell területeket, és erősen keverje össze, hogy egyenletes átmenetet hozzon létre"
+msgstr "Kissé fedje át az eltérő színű viaszpasztell területeket, és erősen mossa el őket, hogy sima átmenetet hozzon létre"
 
 #: src/components/image-editor/AdjustColorsControls.tsx:210
 msgid "Smaller percentile values correspond to stronger whitening"
@@ -2125,7 +2125,7 @@ msgstr "A kisebb percentilis értékek erősebb fehérítésnek felelnek meg"
 
 #: src/components/image-editor/ExpandControls.tsx:106
 msgid "Smart"
-msgstr "Okos"
+msgstr "Intelligens"
 
 #: src/components/image-editor/ExpandControls.tsx:236
 msgid "Smart expansion is available only to paid Patreon members"
@@ -2133,36 +2133,36 @@ msgstr "Az intelligens bővítés csak fizetős Patreon-tagok számára érhető
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:172
 msgid "Some synced cloud data was deleted or is unavailable. Keep this device to create it again, or postpone the decision. ArtistAssistApp will not recreate it automatically."
-msgstr "Néhány szinkronizált felhőadat törölve lett, vagy nem érhető el. Tartsa meg ezt az eszközt az újbóli létrehozásához, vagy halassza el a döntést. Az ArtistAssistApp nem hozza létre automatikusan újra."
+msgstr "Néhány szinkronizált felhőadat törlődött, vagy nem érhető el. Az újbóli létrehozásukhoz tartsa meg ezt az eszközt, vagy halassza el a döntést. Az ArtistAssistApp nem hozza létre őket automatikusan újra."
 
 #: src/components/error/ErrorFallback.tsx:37
 msgid "Something went wrong"
-msgstr "Valami rosszul ment"
+msgstr "Valami hiba történt"
 
 #: src/components/color-set/ColorSelect.tsx:122
 #: src/components/ColorMixingChart.tsx:122
 #: src/components/ImageColorPicker.tsx:518
 #: src/components/palette/PaletteGrid.tsx:137
 msgid "Sort"
-msgstr "Fajta"
+msgstr "Rendezés"
 
 #: src/components/ImageColorPicker.tsx:482
 msgid "Sort by match, from highest to lowest."
 msgstr "Rendezés egyezés szerint, a legmagasabbtól a legalacsonyabbig."
 
 #: src/components/ImageColorPicker.tsx:493
-msgid "Sort by mixture opacity, from opaque to transparent."
-msgstr "Sortong a keverék átlátszatlansága szerint, átlátszatlantól átlátszóig."
+msgid "Sort by paint consistency, from full strength to most thinned."
+msgstr "Rendezés a festék sűrűsége szerint, a hígítatlantól a legjobban hígítottig."
 
 #: src/components/ImageColorPicker.tsx:487
 msgid "Sort by the number of colors in the mixture, from fewest to most."
-msgstr "Sortong a keverék színeinek száma szerint, a legkevesebbtől a legtöbbig."
+msgstr "Rendezés a keverékben lévő színek száma szerint, a legkevesebbtől a legtöbbig."
 
 #: src/components/color/ColorMatchCard.tsx:123
 #: src/components/color/ReflectanceChartDrawer.tsx:98
 #: src/components/ColorMixer.tsx:250
 msgid "Spectral reflectance curve"
-msgstr "Spektrális visszaverődési görbe"
+msgstr "Spektrális reflektanciagörbe"
 
 #: src/components/ml-model/OnnxModelSelect.tsx:41
 msgid "Speed"
@@ -2172,7 +2172,7 @@ msgstr "Sebesség"
 msgid "Square cells"
 msgstr "Négyzet alakú cellák"
 
-#: src/components/ColorSetChooser.tsx:667
+#: src/components/ColorSetChooser.tsx:668
 msgid "Standard color set"
 msgstr "Szabványos színkészlet"
 
@@ -2186,24 +2186,24 @@ msgstr "Csendélet"
 
 #: src/components/ImageChooser.tsx:90
 msgid "Storage may fill up"
-msgstr "A tároló megtelhet"
+msgstr "A tárhely megtelhet"
 
 #: src/components/Help.tsx:176
 msgid "Storage usage"
-msgstr "Tárhely használat"
+msgstr "Tárhelyhasználat"
 
 #: src/components/image-editor/StraightenControls.tsx:105
 #: src/components/messages.ts:48
 msgid "Straighten"
-msgstr "Egyenesítsd ki"
+msgstr "Kiegyenesítés"
 
-#: src/components/ImageStyleTransfer.tsx:395
+#: src/components/ImageStyleTransfer.tsx:403
 msgid "Style transfer is available only to paid Patreon members"
 msgstr "A stílusátvitel csak a fizetős Patreon-tagok számára érhető el"
 
-#: src/components/ImageStyleTransfer.tsx:354
+#: src/components/ImageStyleTransfer.tsx:362
 msgid "Styled reference photo"
-msgstr "Stílusos referenciafotó"
+msgstr "Stílussal ellátott referenciafotó"
 
 #: src/components/ml-model/OnnxModelSelect.tsx:42
 msgid "Subject detection"
@@ -2211,7 +2211,7 @@ msgstr "Témafelismerés"
 
 #: src/components/empty/EmptyColorSet.tsx:104
 msgid "Supported art mediums:"
-msgstr "Támogatott művészeti médiumok:"
+msgstr "Támogatott képzőművészeti technikák:"
 
 #: src/components/error/BrowserSupport.tsx:51
 msgid "Supported web browsers and operating systems"
@@ -2225,7 +2225,7 @@ msgstr "Felület színe"
 #: src/components/lightbox/LightboxOverlay.tsx:119
 #: src/components/lightbox/LightboxOverlay.tsx:123
 msgid "Swipe to unlock"
-msgstr "Húzd fel a feloldáshoz"
+msgstr "Húzza el a feloldáshoz"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:198
 msgid "Sync stopped because the photo {context} is unavailable and is not in your cloud storage. Remove it to continue syncing, or postpone the decision."
@@ -2233,7 +2233,7 @@ msgstr "A szinkronizálás leállt, mert a(z) {context} fotó nem érhető el, �
 
 #: src/components/cloud/SyncCloudButton.tsx:46
 msgid "Sync with {label}"
-msgstr "Szinkronizálás {label}-szel"
+msgstr "Szinkronizálás ezzel: {label}"
 
 #: src/components/ImageSimplifier.tsx:127
 msgid "Tap 👆 anywhere in the photo to choose a focal point."
@@ -2241,7 +2241,7 @@ msgstr "A fókuszpont kiválasztásához koppintson a 👆 elemre a fényképen 
 
 #: src/components/print/PrintImageDrawer.tsx:256
 msgid "Taped margin width around the painting area"
-msgstr "Ragasztott margószélesség a festési terület körül"
+msgstr "A festési terület körüli leragasztott margó szélessége"
 
 #: src/components/ImageColorPicker.tsx:325
 #: src/components/ImageColorPicker.tsx:337
@@ -2250,7 +2250,7 @@ msgstr "Célszín"
 
 #: src/components/print/PrintImageDrawer.tsx:220
 msgid "Target print size"
-msgstr "Cél nyomtatási méret"
+msgstr "Célzott nyomtatási méret"
 
 #: src/components/Help.tsx:128
 msgid "Terms of use"
@@ -2258,15 +2258,15 @@ msgstr "Felhasználási feltételek"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:106
 msgid "The cloud connection could not be completed. Start again from ArtistAssistApp."
-msgstr "A felhőkapcsolat nem volt megvalósítható. Kezdd újra az ArtistAssistApp-ból."
+msgstr "A felhőkapcsolatot nem sikerült létrehozni. Kezdje újra az ArtistAssistApp-ból."
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:191
 msgid "The cloud data file is damaged. Replace it with the data from this device."
-msgstr "A felhőalapú adatfájl sérült. Cseréld le az eszközről származó adatokkal."
+msgstr "A felhőalapú adatfájl sérült. Cserélje le az eszközről származó adatokra."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:146
 msgid "The code you entered is incorrect or expired. Check the latest email from ArtistAssistApp and try again, or request a new login code."
-msgstr "A megadott kód hibás vagy lejárt. Nézd meg a legfrissebb ArtistAssistApp e-mailt, próbáld újra, vagy kérj új bejelentkezési kódot."
+msgstr "A megadott kód hibás vagy lejárt. Nézze meg a legfrissebb ArtistAssistApp e-mailt, és próbálja újra, vagy kérjen új bejelentkezési kódot."
 
 #: src/components/color/UnderlayerColorPicker.tsx:60
 msgid "The color of your paper, canvas, or painting surface."
@@ -2291,11 +2291,11 @@ msgstr "A kurzor körüli kör alakú terület átmérője, amely a területen b
 
 #: src/components/color/UnderlayerColorPicker.tsx:105
 msgid "The dried layer you want to glaze over."
-msgstr "Az a szárított réteg, amit mázázni szeretnél."
+msgstr "A megszáradt réteg, amelyre lazúrozni szeretne."
 
 #: src/components/color/UnderlayerColorPicker.tsx:103
 msgid "The existing pastel layer you want to blend over."
-msgstr "A meglévő pasztell réteget szeretnéd bekeverni."
+msgstr "A meglévő pasztellréteg, amelyre elmosni szeretne."
 
 #: src/hooks/useFileReadErrorNotification.tsx:30
 msgid "The file might have been moved or deleted, or it could be stored in the cloud and not downloaded to this device. Download it to this device, then select it again."
@@ -2303,11 +2303,11 @@ msgstr "Lehet, hogy a fájlt áthelyezték vagy törölték, vagy a felhőben t�
 
 #: src/components/print/PrintImageDrawer.tsx:258
 msgid "The margin is too large"
-msgstr "A mozgástér túl nagy"
+msgstr "A margó túl nagy"
 
 #: src/components/empty/EmptyPalette.tsx:70
 msgid "There is one common palette and a separate palette for each photo"
-msgstr "Minden fotóhoz egy közös paletta és egy külön paletta tartozik"
+msgstr "Van egy közös paletta, és minden fotóhoz egy külön paletta"
 
 #: src/components/ml-model/OnnxModelSelect.tsx:70
 msgid "Thick"
@@ -2317,9 +2317,9 @@ msgstr "Vastag"
 msgid "Third-party notices"
 msgstr "Harmadik felek értesítései"
 
-#: src/components/ColorSetChooser.tsx:695
+#: src/components/ColorSetChooser.tsx:696
 msgid "This color brand is available only to paid Patreon members"
-msgstr "Ez a szín márka csak fizetős Patreon tagok számára érhető el"
+msgstr "Ez a színmárka csak fizetős Patreon-tagok számára érhető el"
 
 #: src/components/color/PaletteColorMixtureCard.tsx:114
 msgid "This color was not sampled from a photo."
@@ -2331,7 +2331,7 @@ msgstr "Ez mindent töröl a csatlakoztatott felhőalkalmazás mappájában, bel
 
 #: src/components/auth/DeleteAccountButton.tsx:54
 msgid "This deletes your account and membership lookup records and logs you out."
-msgstr "Ez törli a fiókodat és a tagsági kereső adatokat, és kijelentkezik."
+msgstr "Ez törli a fiókját és a tagsági lekérdezési rekordokat, majd kijelentkezteti Önt."
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:147
 msgid "This device and the synced cloud data both changed. Choose which one to keep."
@@ -2339,7 +2339,7 @@ msgstr "Ez az eszköz és a szinkronizált felhőadatok egyaránt megváltoztak.
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:133
 msgid "This device has changes made while another account was active. Keep this device to upload them to the current account, keep the cloud data to discard them, or postpone the decision."
-msgstr "Ez az eszköz változtatásokat hajtott végre, miközben egy másik fiók aktív volt. Tartsd meg ezt az eszközt, hogy feltöltsd őket a jelenlegi fiókba, megőrizze a felhőadatokat, hogy eldobd őket, vagy halassd el a döntést."
+msgstr "Ezen az eszközön olyan változtatások történtek, amíg egy másik fiók volt aktív. Tartsa meg ezt az eszközt, hogy feltöltse őket a jelenlegi fiókba, tartsa meg a felhőadatokat, hogy elvesse őket, vagy halassza el a döntést."
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:158
 msgid "This device has local data and existing synced cloud data, but no sync history. Choose which one to keep."
@@ -2347,15 +2347,15 @@ msgstr "Ez az eszköz rendelkezik helyi adatokkal és meglévő szinkronizált f
 
 #: src/components/image-editor/UpscaleControls.tsx:72
 msgid "This image is already too large to upscale"
-msgstr "Ez a kép már túl nagy ahhoz, hogy felnagyítsa"
+msgstr "Ez a kép már túl nagy a felnagyításhoz"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:155
 msgid "This login code can't be used anymore. Request a new code to continue."
-msgstr "Ezt a bejelentkezési kódot már nem lehet használni. Kérj új kódot a folytatáshoz."
+msgstr "Ezt a bejelentkezési kódot már nem lehet használni. Kérjen új kódot a folytatáshoz."
 
 #: src/components/auth/DeleteAccountButton.tsx:38
 msgid "This permanently deletes the ArtistAssistApp folder and all your files and folders still inside it. Files you moved outside the folder are not deleted."
-msgstr "Ez véglegesen törli az ArtistAssistApp mappát és az összes benne lévő fájlt és mappát. A mappán kívülre áthelyezett fájlok nem törülnek."
+msgstr "Ez véglegesen törli az ArtistAssistApp mappát és az összes benne lévő fájlt és mappát. A mappán kívülre áthelyezett fájlok nem törlődnek."
 
 #: src/components/image/RecentImageCard.tsx:69
 msgid "This photo could not be restored from your cloud storage."
@@ -2369,21 +2369,21 @@ msgstr "Ez a nyomtatási méret nem támogatott"
 msgid "This step is optional"
 msgstr "Ez a lépés nem kötelező"
 
-#: src/components/ImageStyleTransfer.tsx:309
+#: src/components/ImageStyleTransfer.tsx:317
 msgid "This style is available only to paid Patreon members"
 msgstr "Ez a stílus csak fizetős Patreon-tagok számára érhető el"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:57
 msgid "This usually happens when you're signed in to a <0>different</0> Patreon account than the one used for your ArtistAssistApp membership."
-msgstr "Ez általában akkor történik, amikor <0>egy másik</0> Patreon fiókba vagy bejelentkezve, mint amit az ArtistAssistApp tagságnál használsz."
+msgstr "Ez általában akkor fordul elő, ha <0>más</0> Patreon fiókba van bejelentkezve, mint amelyet az ArtistAssistApp tagságához használ."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:65
 msgid "To fix this:"
-msgstr "Ennek javítására:"
+msgstr "A hiba elhárításához:"
 
 #: src/components/install/InstallDrawer.tsx:48
 msgid "To install ArtistAssistApp, use one of the supported web browsers:"
-msgstr "Az ArtistAssistApp telepítéséhez használd az egyik támogatott böngészőt:"
+msgstr "Az ArtistAssistApp telepítéséhez használja az egyik támogatott webböngészőt:"
 
 #: src/components/empty/EmptyImage.tsx:39
 msgid "To use the {tabLabel} feature, select a reference photo"
@@ -2391,7 +2391,7 @@ msgstr "A {tabLabel} funkció használatához válasszon referenciafotót"
 
 #: src/components/empty/EmptyColorSet.tsx:88
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
-msgstr "A {tabLabel} funkció használatához válassza ki a támogatott rajzhordozót és színeket a festéshez"
+msgstr "A {tabLabel} funkció használatához válassza ki a támogatott képzőművészeti technikát és a festéshez használt színeket"
 
 #: src/components/messages.ts:32
 msgid "Tonal values"
@@ -2408,11 +2408,11 @@ msgstr "Túl sok kérés"
 
 #: src/components/ImageStyleTransfer.tsx:296
 msgid "Transfer the artistic style from your own image"
-msgstr "Vigye át a művészi stílust saját képéből"
+msgstr "Művészi stílus átvitele saját képéről"
 
-#: src/components/ImageStyleTransfer.tsx:304
+#: src/components/ImageStyleTransfer.tsx:312
 msgid "Transferring the style from your own image is available to paid Patreon members only"
-msgstr "A stílus átvitele saját képedről csak fizetős Patreon-tagok számára érhető el"
+msgstr "A stílus átvitele saját képéről csak fizetős Patreon-tagok számára érhető el"
 
 #: src/components/color/OpacityIcon.tsx:39
 msgid "Transparent"
@@ -2420,19 +2420,19 @@ msgstr "Átlátszó"
 
 #: src/components/empty/EmptyColorMatches.tsx:37
 msgid "Try adding colors or changing the surface"
-msgstr "Próbáljon színeket hozzáadni vagy módosítani a felületet"
+msgstr "Próbáljon színeket hozzáadni, vagy módosítsa a felületet"
 
 #: src/components/empty/EmptyColorMatches.tsx:32
 msgid "Try adding colors or changing the surface or the underlayer"
-msgstr "Próbáljon színeket hozzáadni, vagy módosítani a felületet vagy az alátétet"
+msgstr "Próbáljon színeket hozzáadni, vagy módosítsa a felületet vagy az alapréteget"
 
 #: src/components/empty/EmptyColorMatches.tsx:35
 msgid "Try adding colors or changing the surface or the unifying color"
-msgstr "Próbáljon színeket hozzáadni, vagy módosítani a felületet vagy az egyesítő színt"
+msgstr "Próbáljon színeket hozzáadni, vagy módosítsa a felületet vagy az egyesítő színt"
 
 #: src/components/empty/EmptyColorMatches.tsx:30
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
-msgstr "Próbáljon színeket hozzáadni, vagy módosítani a felületet, az alsó réteget vagy az egységesítő színt"
+msgstr "Próbáljon színeket hozzáadni, vagy módosítsa a felületet, az alapréteget vagy az egyesítő színt"
 
 #: src/components/Help.tsx:86
 msgid "Tutorials and videos"
@@ -2460,7 +2460,7 @@ msgstr "Nem sikerült betölteni az objektumeltávolítási modellt"
 
 #: src/components/ImageOutline.tsx:102
 msgid "Unable to load the outline modes"
-msgstr "Nem lehet betölteni a vázlatmódokat"
+msgstr "Nem sikerült betölteni a körvonalmódokat"
 
 #: src/components/ImageChooser.tsx:72
 msgid "Unable to load the sample photos"
@@ -2481,12 +2481,12 @@ msgstr "Nem sikerült betölteni a felskálázó modellt"
 #: src/components/color-set/ColorSetActivationNotification.tsx:33
 #: src/components/empty/EmptyColorSet.tsx:71
 msgid "Unable to restore the saved color set"
-msgstr "Nem lehet visszaállítani a mentett színkészletet"
+msgstr "Nem sikerült visszaállítani a mentett színkészletet"
 
 #: src/components/color/UnderlayerColorPicker.tsx:99
 #: src/components/color/UnderlayerColorPicker.tsx:112
 msgid "Underlayer"
-msgstr "Alsó réteg"
+msgstr "Alapréteg"
 
 #: src/components/ImageEditor.tsx:299
 msgid "Undo"
@@ -2502,7 +2502,7 @@ msgstr "Váratlan hiba: {errorMessage}"
 
 #: src/components/ImageColorPicker.tsx:403
 msgid "Unifying color"
-msgstr "Egységes szín"
+msgstr "Egyesítő szín"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:131
 msgid "Unsynced changes on this device"
@@ -2517,11 +2517,11 @@ msgstr "Cím nélküli keverék"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:220
 msgid "Update ArtistAssistApp to the latest version and try again."
-msgstr "Frissítsd az ArtistAssistApp-ot a legfrissebb verzióra, és próbáld újra."
+msgstr "Frissítse az ArtistAssistApp-ot a legújabb verzióra, és próbálja újra."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:187
 msgid "Update ArtistAssistApp to the latest version, check your connection, and try again."
-msgstr "Frissítsd az ArtistAssistApp-ot a legfrissebb verzióra, ellenőrizd a kapcsolatodat, és próbáld újra."
+msgstr "Frissítse az ArtistAssistApp-ot a legújabb verzióra, ellenőrizze a kapcsolatot, és próbálja újra."
 
 #: src/components/pwa/ServiceWorkerUpdateNotification.tsx:44
 msgid "Update available"
@@ -2538,23 +2538,23 @@ msgstr "Kép feltöltése: {index} / {count}"
 #: src/components/image-editor/UpscaleControls.tsx:85
 #: src/components/messages.ts:54
 msgid "Upscale"
-msgstr "Előkelő"
+msgstr "Felskálázás"
 
 #: src/components/color/ConsistencyDescription.tsx:81
 msgid "Use <0>{fractionText} of full pressure</0>"
-msgstr "Használjon <0>{fractionText} teljes nyomást</0>"
+msgstr "Használja a <0>teljes nyomás {fractionText} részét</0>"
 
 #: src/components/color/ConsistencyDescription.tsx:42
 msgid "Use at full strength"
-msgstr "Használja teljes erővel"
+msgstr "Használja hígítás nélkül"
 
 #: src/components/file/FileSelect.tsx:193
 msgid "Use copied image"
-msgstr "Másolt képet használj"
+msgstr "Másolt kép használata"
 
 #: src/components/color/ConsistencyDescription.tsx:47
 msgid "Use full pressure"
-msgstr "Használjon teljes nyomást"
+msgstr "Teljes nyomás használata"
 
 #: src/components/file/FileSelect.tsx:182
 msgid "Use reference photo"
@@ -2562,11 +2562,11 @@ msgstr "Referenciafotó használata"
 
 #: src/components/Help.tsx:179
 msgid "Used"
-msgstr "Használt"
+msgstr "Felhasznált"
 
 #: src/components/ImageLimitedPalette.tsx:107
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
-msgstr "A korlátozott paletta használata segít színharmonia elérésében. Válassz 1–{MAX_COLORS} alapszíneket."
+msgstr "A korlátozott paletta használata segít a színharmónia elérésében. Válasszon 1–{MAX_COLORS} alapszínt."
 
 #: src/components/image-editor/ExpandControls.tsx:176
 msgid "Vertical"
@@ -2578,16 +2578,16 @@ msgstr "Bécsi szecesszió"
 
 #: src/components/ImageOutline.tsx:299
 msgid "View the outline over the live camera to trace in AR"
-msgstr "Tekintse meg a körvonalat az élő kamera felett, hogy követhesse az AR-ben"
+msgstr "Tekintse meg a körvonalat az élő kamera képén, hogy átrajzolhassa AR-ben"
 
 #: src/components/ImageOutline.tsx:360
 msgid "View the outline over the live camera to trace in AR."
-msgstr "Nézd meg a körvonalat az élő kamerán keresztül, hogy AR-ben követhesd a nyomot."
+msgstr "Tekintse meg a körvonalat az élő kamera képén, hogy átrajzolhassa AR-ben."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:181
 #: src/components/cloud/CloudFeedbackHandler.tsx:216
 msgid "Wait a minute and try again."
-msgstr "Várj egy percet, és próbáld újra."
+msgstr "Várjon egy percet, és próbálja újra."
 
 #: src/components/ColorSetChooser.tsx:206
 msgid "Wait for the color data to finish loading."
@@ -2595,11 +2595,11 @@ msgstr "Várja meg, amíg a színadatok betöltése befejeződik."
 
 #: src/components/color/WarmthIcon.tsx:38
 msgid "Warm — Algorithmic estimate; artistic perception may vary."
-msgstr "Meleg – Algoritmikus becslés; A művészi felfogás változhat."
+msgstr "Meleg — algoritmikus becslés; a művészi felfogás eltérhet."
 
 #: src/components/ImageStyleTransfer.tsx:78
 msgid "Watercolor"
-msgstr "Vízfestmény"
+msgstr "Akvarell"
 
 #: src/components/color/ConsistencyDescription.tsx:105
 msgid "Watercolor can be diluted with water to make it more transparent"
@@ -2607,11 +2607,11 @@ msgstr "Az akvarell vízzel hígítható, hogy átlátszóbb legyen"
 
 #: src/components/messages.ts:59
 msgid "Watercolor Paint"
-msgstr "Akvarell festék"
+msgstr "Akvarellfesték"
 
 #: src/components/messages.ts:64
 msgid "Watercolor Pencils"
-msgstr "Akvarell ceruzák"
+msgstr "Akvarellceruzák"
 
 #: src/components/messages.ts:67
 msgid "Wax Pastel"
@@ -2619,17 +2619,17 @@ msgstr "Viaszpasztell"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:112
 msgid "We couldn't find an ArtistAssistApp Patreon membership for the email address you entered. Use the email address shown on your Patreon account for your ArtistAssistApp membership, then request a new login code."
-msgstr "Nem találtunk ArtistAssistApp Patreon tagságot az általad megadott e-mail címre. Használd az ArtistAssistApp tagsághoz a Patreon fiókodon megjelenő e-mail címet, majd kérj új bejelentkezési kódot."
+msgstr "Nem találtunk ArtistAssistApp Patreon-tagságot a megadott e-mail címhez. Használja az ArtistAssistApp-tagságához a Patreon fiókjában megjelenő e-mail címet, majd kérjen új bejelentkezési kódot."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:162
 msgid "We couldn't verify your session. Please sign in again to continue using ArtistAssistApp."
-msgstr "Nem tudtuk ellenőrizni a foglalkozásodat. Kérjük, jelentkezzen be újra, hogy továbbra is az ArtistAssistApp használatát."
+msgstr "Nem sikerült ellenőrizni a munkamenetét. Jelentkezzen be újra az ArtistAssistApp további használatához."
 
-#: src/components/ColorSetChooser.tsx:726
+#: src/components/ColorSetChooser.tsx:727
 msgid "When selecting more than {maxColorsFor2} colors in total, mixtures of two colors are not used."
 msgstr "Ha összesen több mint {maxColorsFor2} színt jelöl ki, a program nem használ két szín keverékét."
 
-#: src/components/ColorSetChooser.tsx:734
+#: src/components/ColorSetChooser.tsx:735
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Ha összesen több mint {maxColorsFor3} színt jelöl ki, a program nem használ három szín keverékét."
 
@@ -2650,7 +2650,7 @@ msgstr "Fehér papír vagy vászon"
 #: src/components/image-editor/AdjustColorsControls.tsx:232
 #: src/components/image-editor/AdjustColorsControls.tsx:238
 msgid "White point"
-msgstr "Fehér pont"
+msgstr "Fehérpont"
 
 #: src/components/print/PrintImageDrawer.tsx:232
 msgid "Width"
@@ -2660,29 +2660,29 @@ msgstr "Szélesség"
 msgid "You already have many photos saved. Delete the oldest one to free up space? The new photo will still be added."
 msgstr "Már sok fényképet mentett. Törli a legrégebbit, hogy helyet szabadítson fel? Az új fotó továbbra is hozzáadásra kerül."
 
-#: src/components/ColorSetChooser.tsx:490
+#: src/components/ColorSetChooser.tsx:491
 msgid "You are logged in and have access to all app features"
 msgstr "Be van jelentkezve, és hozzáférhet az alkalmazás összes funkciójához"
 
-#: src/components/ColorSetChooser.tsx:502
+#: src/components/ColorSetChooser.tsx:503
 msgid "You are using the <0>free version</0> of ArtistAssistApp. It includes a limited number of color brands and image processing modes."
-msgstr "Az ArtistAssistApp <0>ingyenes változatát</0> használod. Korlátozott számú színmárkát és képfeldolgozási módot tartalmaz."
+msgstr "Az ArtistAssistApp <0>ingyenes változatát</0> használja. Korlátozott számú színmárkát és képfeldolgozási módot tartalmaz."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:206
 msgid "You can keep working in this browser tab, or switch back to the installed ArtistAssistApp — you're logged in there too."
-msgstr "Folytathatod a munkát ezen a böngészőfülön, vagy visszaválthatsz a telepített ArtistAssistApp-ra — ott is be vagy jelentkezve."
+msgstr "Folytathatja a munkát ezen a böngészőfülön, vagy visszaválthat a telepített ArtistAssistApp-ra — ott is be van jelentkezve."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:204
 msgid "You're logged in"
-msgstr "Bejelentkeztél"
+msgstr "Be van jelentkezve"
 
-#: src/components/ColorSetChooser.tsx:643
+#: src/components/ColorSetChooser.tsx:644
 msgid "You've selected color brands that are available to paid Patreon members only"
-msgstr "Olyan színmárkákat választottál, amelyek csak fizetős Patreon-tagok számára érhetők el"
+msgstr "Olyan színmárkákat választott, amelyek csak fizetős Patreon-tagok számára érhetők el"
 
-#: src/components/ColorSetChooser.tsx:717
+#: src/components/ColorSetChooser.tsx:718
 msgid "You've selected color brands that are available to paid Patreon members only. Join ArtistAssistApp on Patreon as a paid member or log in with Patreon if you've already joined."
-msgstr "Olyan színmárkákat választottál, amelyek csak a fizetős Patreon-tagok számára érhetők el. Csatlakozz az ArtistAssistApp-hoz a Patreonon fizetős tagként, vagy jelentkezz be a Patreonnal, ha már csatlakoztál."
+msgstr "Olyan színmárkákat választott, amelyek csak fizetős Patreon-tagok számára érhetők el. Csatlakozzon az ArtistAssistApp-hoz a Patreonon fizetős tagként, vagy jelentkezzen be a Patreonnal, ha már csatlakozott."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:98
 msgid "Your account details:"
@@ -2690,7 +2690,7 @@ msgstr "Fiókadatai:"
 
 #: src/components/file/FileSelect.tsx:165
 msgid "Your browser does not support reading images from the clipboard."
-msgstr "A böngésződ nem támogatja a képek olvasását a clipboardról."
+msgstr "A böngészője nem támogatja a képek olvasását a vágólapról."
 
 #: src/components/cloud/CloudSyncUpdateNotification.tsx:42
 msgid "Your cloud data changed and will be synced automatically"
@@ -2698,7 +2698,7 @@ msgstr "Felhőadatai megváltoztak, és automatikusan szinkronizálódnak"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:208
 msgid "Your cloud storage couldn't be reached. Your latest changes remain saved on this device and have not been uploaded. Check your internet connection, then try syncing again."
-msgstr "A felhőalapú tárhelyed nem volt elérhető. A legutóbbi módosításaid ezen az eszközön vannak elmentve, és nem kerültek fel. Ellenőrizd az internetkapcsolatodat, majd próbáld meg újra szinkronizálni."
+msgstr "A felhőtárhelye nem volt elérhető. A legutóbbi módosításai ezen az eszközön maradtak elmentve, és nem lettek feltöltve. Ellenőrizze az internetkapcsolatát, majd próbálja meg újra a szinkronizálást."
 
 #: src/components/cloud/ConnectCloudButton.tsx:59
 msgid "Your color sets, reference photos, mixtures, and custom color brands will be saved in the ArtistAssistApp folder in {label} and kept synced across your devices.<0/>ArtistAssistApp can access that app folder, including files you put there, but cannot access files outside it."
@@ -2710,31 +2710,34 @@ msgstr "Színkészleteit, referenciafotóit, keverékeit és egyéni színmárk�
 
 #: src/hooks/usePersistentStorage.tsx:54
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
-msgstr "Az adataid nem biztos, hogy megbízhatóan mentődnek el, ha a böngésző zárva van. Ennek megoldásához telepítsd az alkalmazást."
+msgstr "Az adatai nem biztos, hogy megbízhatóan mentődnek, ha a böngésző be van zárva. Ennek elhárításához telepítse az alkalmazást."
 
 #: src/components/ImageStyleTransfer.tsx:291
 msgid "Your image"
-msgstr "A képed"
+msgstr "Az Ön képe"
 
+#: src/components/ImageChooser.tsx:128
 #: src/components/ImageEditor.tsx:332
+#: src/components/ImagesCompare.tsx:128
+#: src/components/ImageStyleTransfer.tsx:303
 msgid "Your images are processed locally on your device and are never uploaded to any server"
-msgstr "A képeket helyileg dolgozzák fel az eszközön, és soha nem töltik fel egyetlen szerverre sem"
+msgstr "A képeket helyben, az eszközén dolgozzuk fel, és soha nem töltjük fel egyetlen szerverre sem"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:141
 msgid "Your login credentials could not be verified. Sign in again."
-msgstr "A bejelentkezési adataid nem voltak ellenőrizve. Jelentkezz be újra."
+msgstr "A bejelentkezési adatait nem sikerült ellenőrizni. Jelentkezzen be újra."
 
 #: src/components/Help.tsx:220
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
-msgstr "A Patreon-tagságod és az ezen az eszközön lévő adatok nem törlődnek. <0>Töröld a Patreon-tagságodat</0> magán a Patreonon."
+msgstr "A Patreon-tagsága és az ezen az eszközön lévő adatok nem törlődnek. <0>Mondja le a Patreon-tagságát</0> magán a Patreonon."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:137
 msgid "Your session expired. Sign in again to continue."
-msgstr "A ülésed lejárt. Jelentkezz be újra, hogy folytasd."
+msgstr "A munkamenete lejárt. Jelentkezzen be újra a folytatáshoz."
 
 #: src/components/ImageStyleTransfer.tsx:252
 msgid "Your style image"
-msgstr "A stílusképed"
+msgstr "Az Ön stílusképe"
 
 #: src/components/error/BrowserSupport.tsx:49
 msgid "Your web browser is not supported"

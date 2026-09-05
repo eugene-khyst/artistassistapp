@@ -298,6 +298,14 @@ export function ImageStyleTransfer() {
                         title
                       )}
                     </Typography.Text>
+                    {isCustomStyleTransferImage && (
+                      <Typography.Text type="secondary">
+                        <Trans>
+                          Your images are processed locally on your device and are never uploaded to
+                          any server
+                        </Trans>
+                      </Typography.Text>
+                    )}
                     {!hasAccess && (
                       <Typography.Text type="warning">
                         {isCustomStyleTransferImage ? (

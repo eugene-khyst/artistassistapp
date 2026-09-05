@@ -124,6 +124,12 @@ export function ImageChooser() {
             </FileSelect>
           </div>
 
+          <Typography.Text type="secondary">
+            <Trans>
+              Your images are processed locally on your device and are never uploaded to any server
+            </Trans>
+          </Typography.Text>
+
           {recentImages.length > 0 && (
             <Typography.Text strong>
               <Trans>Or select from your recent photos</Trans>
