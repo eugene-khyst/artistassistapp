@@ -99,8 +99,8 @@ msgid "☁️ Cloud sync to store your color sets, photos, and mixtures in your 
 msgstr "☁️ 클라우드 동기화로 색상 세트, 사진, 혼합을 내 클라우드 저장소에 저장해 여러 기기에서 사용"
 
 #: src/components/ColorSetChooser.tsx:522
-msgid "✏️ High-quality outlines and background removal"
-msgstr "✏️ 고품질 윤곽선 및 배경 제거"
+msgid "✏️ High-quality outlines, background removal, and colorization"
+msgstr "✏️ 고품질 윤곽선, 배경 제거 및 색 입히기"
 
 #: src/components/ColorSetChooser.tsx:519
 msgid "🎨 250+ color brands"
@@ -134,7 +134,7 @@ msgstr "애플리케이션의 새로운 버전이 제공됩니다."
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "값이 100%보다 작으면 이미지가 덜 화려하게 보이고 100%보다 크면 이미지가 너무 화려하게 보입니다"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:92
+#: src/components/ml-model/OnnxModelSelect.tsx:93
 msgid "Accurate"
 msgstr "정확"
 
@@ -433,7 +433,7 @@ msgid "Check for updates"
 msgstr "업데이트 확인"
 
 #: src/components/ColorSetChooser.tsx:217
-#: src/components/image-editor/ColorizeControls.tsx:53
+#: src/components/image-editor/ColorizeControls.tsx:57
 #: src/components/image-editor/ExpandControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:52
 #: src/components/image-editor/RemoveObjectsControls.tsx:59
@@ -601,6 +601,10 @@ msgstr "색상 혼합"
 msgid "Color picker"
 msgstr "색상 선택기"
 
+#: src/components/ml-model/OnnxModelSelect.tsx:44
+msgid "Color realism"
+msgstr "색상 사실감"
+
 #: src/components/ColorSetChooser.tsx:613
 #: src/components/ImageColorPicker.tsx:293
 #: src/components/messages.ts:28
@@ -615,7 +619,7 @@ msgstr "색상 견본"
 msgid "Colored Pencils"
 msgstr "색연필"
 
-#: src/components/image-editor/ColorizeControls.tsx:78
+#: src/components/image-editor/ColorizeControls.tsx:115
 msgid "Colorize"
 msgstr "색 입히기"
 
@@ -1000,11 +1004,11 @@ msgstr "파일로 내보내기"
 msgid "Expressionism"
 msgstr "표현주의"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:100
+#: src/components/ml-model/OnnxModelSelect.tsx:101
 msgid "Fast"
 msgstr "빠름"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:108
+#: src/components/ml-model/OnnxModelSelect.tsx:109
 msgid "Fastest"
 msgstr "가장 빠름"
 
@@ -1033,8 +1037,9 @@ msgstr "태그로 필터링"
 msgid "Fine detail"
 msgstr "미세 디테일"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:56
-#: src/components/ml-model/OnnxModelSelect.tsx:84
+#: src/components/ml-model/OnnxModelSelect.tsx:57
+#: src/components/ml-model/OnnxModelSelect.tsx:85
+#: src/components/ml-model/OnnxModelSelect.tsx:117
 msgid "Finest"
 msgstr "최정밀"
 
@@ -1153,7 +1158,7 @@ msgstr "ArtistAssistApp 설치"
 msgid "Install update"
 msgstr "업데이트 설치"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:77
+#: src/components/ml-model/OnnxModelSelect.tsx:78
 msgid "Instant"
 msgstr "즉시"
 
@@ -1225,6 +1230,10 @@ msgstr "비교 남은 개수: {unfinishedGamesSize}"
 #: src/components/ImageColorPicker.tsx:563
 msgid "Less"
 msgstr "간략히"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:124
+msgid "Light"
+msgstr "경량"
 
 #: src/components/ImageOutline.tsx:350
 msgid "Light box"
@@ -1349,6 +1358,7 @@ msgid "Mixture"
 msgstr "혼합"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:107
+#: src/components/image-editor/ColorizeControls.tsx:79
 #: src/components/image-editor/RemoveBackgroundControls.tsx:68
 #: src/components/ImageOutline.tsx:267
 msgid "Mode"
@@ -1466,6 +1476,7 @@ msgstr "대각선에는 희석하지 않은 순색이 있습니다. 대각선 �
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "무료 버전에서는 제한된 수의 색상 브랜드만 사용할 수 있습니다"
 
+#: src/components/image-editor/ColorizeControls.tsx:90
 #: src/components/image-editor/RemoveBackgroundControls.tsx:79
 #: src/components/ImageOutline.tsx:259
 msgid "Only a limited number of modes are available in the free version"
@@ -1984,6 +1995,7 @@ msgstr "미술 재료, 색상 브랜드, 색상을 선택하세요"
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
 msgstr "미술 재료, 색상 브랜드, 그림에 사용할 색상을 선택한 다음 <0>저장 및 계속</0>을 누르세요"
 
+#: src/components/image-editor/ColorizeControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:74
 #: src/components/ImageOutline.tsx:254
 msgid "Selected mode is available only to paid Patreon members"
@@ -2055,7 +2067,7 @@ msgstr "이 색상 세트 공유"
 msgid "Share your color set"
 msgstr "색상 세트 공유"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:63
+#: src/components/ml-model/OnnxModelSelect.tsx:64
 msgid "Sharp"
 msgstr "선명"
 
@@ -2309,7 +2321,7 @@ msgstr "여백이 너무 큽니다"
 msgid "There is one common palette and a separate palette for each photo"
 msgstr "공통 팔레트 하나와 사진마다 별도의 팔레트가 있습니다"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:70
+#: src/components/ml-model/OnnxModelSelect.tsx:71
 msgid "Thick"
 msgstr "굵음"
 
@@ -2450,9 +2462,9 @@ msgstr "배경 제거 모드를 로드할 수 없습니다"
 msgid "Unable to load the color data"
 msgstr "색상 데이터를 로드할 수 없습니다"
 
-#: src/components/image-editor/ColorizeControls.tsx:52
-msgid "Unable to load the colorization model"
-msgstr "색 입히기 모델을 로드할 수 없습니다"
+#: src/components/image-editor/ColorizeControls.tsx:56
+msgid "Unable to load the colorization modes"
+msgstr "색 입히기 모드를 로드할 수 없습니다"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:58
 msgid "Unable to load the object removal model"

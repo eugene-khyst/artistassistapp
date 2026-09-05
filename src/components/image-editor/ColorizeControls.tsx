@@ -18,17 +18,21 @@
 
 import {BgColorsOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Button, Space} from 'antd';
+import {Button, Form, Space, Typography} from 'antd';
 import {useEffect} from 'react';
 
+import {OnnxModelSelect} from '@/components/ml-model/OnnxModelSelect';
 import {useAccessTo} from '@/hooks/useAccessTo';
 import {useErrorNotification} from '@/hooks/useErrorNotification';
 import {useOnnxModel} from '@/hooks/useOnnxModel';
+import {useOnnxModels} from '@/hooks/useOnnxModels';
+import {useSelectedCatalogItem} from '@/hooks/useSelectedCatalogItem';
 import {Access} from '@/services/auth/types';
-import {COLORIZATION_MODEL_ID, OnnxModelType, UPSCALING_MODEL_ID} from '@/services/ml/types';
+import {OnnxModelType, UPSCALING_MODEL_ID} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
 
 export function ColorizeControls() {
+  const user = useAppStore(state => state.auth?.user);
   const setColorizeModel = useAppStore(state => state.setColorizeModel);
   const setColorizeUpscaleModel = useAppStore(state => state.setColorizeUpscaleModel);
   const colorizeImage = useAppStore(state => state.colorizeImage);
@@ -36,10 +40,10 @@ export function ColorizeControls() {
   const {t} = useLingui();
 
   const {
-    model: colorizeModel,
-    isLoading: isColorizeModelLoading,
-    isError: isColorizeModelError,
-  } = useOnnxModel(OnnxModelType.Colorization, COLORIZATION_MODEL_ID);
+    models: colorizeModels,
+    isLoading: isColorizeModelsLoading,
+    isError: isColorizeModelsError,
+  } = useOnnxModels(OnnxModelType.Colorization);
 
   const {
     model: upscaleModel,
@@ -48,17 +52,22 @@ export function ColorizeControls() {
   } = useOnnxModel(OnnxModelType.Upscaling, UPSCALING_MODEL_ID);
 
   useErrorNotification(
-    isColorizeModelError || isUpscaleModelError,
-    t`Unable to load the colorization model`,
+    isColorizeModelsError || isUpscaleModelError,
+    t`Unable to load the colorization modes`,
     t`Check your connection and try again.`
   );
 
-  const colorizeAccess = useAccessTo(colorizeModel);
-  const upscaleAccess = useAccessTo(upscaleModel);
+  const {
+    itemId: colorizeModelId,
+    access: colorizeAccess,
+    selectItem: selectColorizeModel,
+  } = useSelectedCatalogItem({
+    items: colorizeModels,
+    settingsKey: 'colorizeModel',
+    setItem: setColorizeModel,
+  });
 
-  useEffect(() => {
-    setColorizeModel(colorizeModel);
-  }, [colorizeModel, setColorizeModel]);
+  const upscaleAccess = useAccessTo(upscaleModel);
 
   useEffect(() => {
     setColorizeUpscaleModel(upscaleModel);
@@ -66,10 +75,38 @@ export function ColorizeControls() {
 
   return (
     <Space orientation="vertical">
+      <Form.Item
+        label={<Trans>Mode</Trans>}
+        labelCol={{className: 'u-pb-0'}}
+        validateStatus={colorizeAccess === Access.Denied ? 'warning' : undefined}
+        extra={
+          colorizeAccess === Access.Denied ? (
+            <Typography.Text type="warning">
+              <Trans>Selected mode is available only to paid Patreon members</Trans>
+            </Typography.Text>
+          ) : (
+            !user && (
+              <Typography.Text type="secondary">
+                <Trans>Only a limited number of modes are available in the free version</Trans>
+              </Typography.Text>
+            )
+          )
+        }
+        className="u-mb-0"
+      >
+        <OnnxModelSelect
+          models={colorizeModels}
+          value={colorizeModelId}
+          loading={isColorizeModelsLoading}
+          onChange={selectColorizeModel}
+          className="u-narrow-select"
+        />
+      </Form.Item>
+
       <Button
         type="primary"
         icon={<BgColorsOutlined />}
-        loading={isColorizeModelLoading || isUpscaleModelLoading}
+        loading={isColorizeModelsLoading || isUpscaleModelLoading}
         disabled={colorizeAccess !== Access.Allowed || upscaleAccess !== Access.Allowed}
         onClick={() => {
           void colorizeImage();

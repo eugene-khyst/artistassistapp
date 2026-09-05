@@ -31,7 +31,6 @@ export enum OnnxModelType {
 export const SOBEL_EDGE_DETECTION_MODEL_ID = 'sobel-edge-detection';
 export const INPAINTING_MODEL_ID = 'inpainting_lama_2025jan';
 export const UPSCALING_MODEL_ID = 'real-esrgan-general-x4v3';
-export const COLORIZATION_MODEL_ID = 'ddcolor-tiny-fp32';
 
 export type ColorChannelOrdering = 'RGB' | 'BGR' | 'R' | 'A';
 

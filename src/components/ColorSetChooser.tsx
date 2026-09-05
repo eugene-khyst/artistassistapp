@@ -519,7 +519,7 @@ export function ColorSetChooser() {
                     <Trans>🎨 250+ color brands</Trans>
                   </li>
                   <li>
-                    <Trans>✏️ High-quality outlines and background removal</Trans>
+                    <Trans>✏️ High-quality outlines, background removal, and colorization</Trans>
                   </li>
                   <li>
                     <Trans>🧑‍🎨 Artistic styles from your own images</Trans>

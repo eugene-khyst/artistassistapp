@@ -99,8 +99,8 @@ msgid "☁️ Cloud sync to store your color sets, photos, and mixtures in your 
 msgstr "☁️ Cloudová synchronizácia na uloženie farebných sad, fotografií a zmesí vo vašom vlastnom cloudovom úložisku, takže ich môžete používať naprieč zariadeniami"
 
 #: src/components/ColorSetChooser.tsx:522
-msgid "✏️ High-quality outlines and background removal"
-msgstr "✏️ Kvalitné obrysy a odstránenie pozadia"
+msgid "✏️ High-quality outlines, background removal, and colorization"
+msgstr "✏️ Kvalitné obrysy, odstránenie pozadia a vyfarbovanie"
 
 #: src/components/ColorSetChooser.tsx:519
 msgid "🎨 250+ color brands"
@@ -134,7 +134,7 @@ msgstr "Nová verzia aplikácie je dostupná."
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Hodnota menšia ako 100 % spôsobí, že obrázok bude vyzerať menej farebne a hodnota vyššia ako 100 % spôsobí, že bude vyzerať príliš farebne"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:92
+#: src/components/ml-model/OnnxModelSelect.tsx:93
 msgid "Accurate"
 msgstr "Presné"
 
@@ -433,7 +433,7 @@ msgid "Check for updates"
 msgstr "Skontrolovať aktualizácie"
 
 #: src/components/ColorSetChooser.tsx:217
-#: src/components/image-editor/ColorizeControls.tsx:53
+#: src/components/image-editor/ColorizeControls.tsx:57
 #: src/components/image-editor/ExpandControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:52
 #: src/components/image-editor/RemoveObjectsControls.tsx:59
@@ -601,6 +601,10 @@ msgstr "Farebná zmes"
 msgid "Color picker"
 msgstr "Výber farieb"
 
+#: src/components/ml-model/OnnxModelSelect.tsx:44
+msgid "Color realism"
+msgstr "Realistickosť farieb"
+
 #: src/components/ColorSetChooser.tsx:613
 #: src/components/ImageColorPicker.tsx:293
 #: src/components/messages.ts:28
@@ -615,7 +619,7 @@ msgstr "Vzorka farby"
 msgid "Colored Pencils"
 msgstr "Farebné ceruzky"
 
-#: src/components/image-editor/ColorizeControls.tsx:78
+#: src/components/image-editor/ColorizeControls.tsx:115
 msgid "Colorize"
 msgstr "Zafarbiť"
 
@@ -1000,11 +1004,11 @@ msgstr "Export do súboru"
 msgid "Expressionism"
 msgstr "Expresionizmus"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:100
+#: src/components/ml-model/OnnxModelSelect.tsx:101
 msgid "Fast"
 msgstr "Rýchle"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:108
+#: src/components/ml-model/OnnxModelSelect.tsx:109
 msgid "Fastest"
 msgstr "Najrýchlejšie"
 
@@ -1033,8 +1037,9 @@ msgstr "Filtrovať podľa značky"
 msgid "Fine detail"
 msgstr "Jemný detail"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:56
-#: src/components/ml-model/OnnxModelSelect.tsx:84
+#: src/components/ml-model/OnnxModelSelect.tsx:57
+#: src/components/ml-model/OnnxModelSelect.tsx:85
+#: src/components/ml-model/OnnxModelSelect.tsx:117
 msgid "Finest"
 msgstr "Najjemnejšie"
 
@@ -1153,7 +1158,7 @@ msgstr "Nainštalovať ArtistAssistApp"
 msgid "Install update"
 msgstr "Inštalovať aktualizáciu"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:77
+#: src/components/ml-model/OnnxModelSelect.tsx:78
 msgid "Instant"
 msgstr "Okamžité"
 
@@ -1225,6 +1230,10 @@ msgstr "Zostáva porovnať: {unfinishedGamesSize}"
 #: src/components/ImageColorPicker.tsx:563
 msgid "Less"
 msgstr "Menej"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:124
+msgid "Light"
+msgstr "Ľahký"
 
 #: src/components/ImageOutline.tsx:350
 msgid "Light box"
@@ -1349,6 +1358,7 @@ msgid "Mixture"
 msgstr "Zmes"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:107
+#: src/components/image-editor/ColorizeControls.tsx:79
 #: src/components/image-editor/RemoveBackgroundControls.tsx:68
 #: src/components/ImageOutline.tsx:267
 msgid "Mode"
@@ -1466,6 +1476,7 @@ msgstr "Na uhlopriečke sú čisté neriedené farby. Mimo uhlopriečky je každ
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "V bezplatnej verzii je k dispozícii iba obmedzený počet farebných značiek"
 
+#: src/components/image-editor/ColorizeControls.tsx:90
 #: src/components/image-editor/RemoveBackgroundControls.tsx:79
 #: src/components/ImageOutline.tsx:259
 msgid "Only a limited number of modes are available in the free version"
@@ -1984,6 +1995,7 @@ msgstr "Vyberte svoju výtvarnú techniku, farebné značky a farby"
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
 msgstr "Vyberte svoju výtvarnú techniku, farebné značky a farby, ktorými budete maľovať, a potom stlačte tlačidlo <0>Uložiť a pokračovať</0>"
 
+#: src/components/image-editor/ColorizeControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:74
 #: src/components/ImageOutline.tsx:254
 msgid "Selected mode is available only to paid Patreon members"
@@ -2055,7 +2067,7 @@ msgstr "Zdieľať túto farebnú sadu"
 msgid "Share your color set"
 msgstr "Zdieľať farebnú sadu"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:63
+#: src/components/ml-model/OnnxModelSelect.tsx:64
 msgid "Sharp"
 msgstr "Ostrý"
 
@@ -2309,7 +2321,7 @@ msgstr "Okraj je príliš veľký"
 msgid "There is one common palette and a separate palette for each photo"
 msgstr "Existuje jedna spoločná paleta a samostatná paleta pre každú fotografiu"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:70
+#: src/components/ml-model/OnnxModelSelect.tsx:71
 msgid "Thick"
 msgstr "Hrubý"
 
@@ -2450,9 +2462,9 @@ msgstr "Nie je možné načítať režimy odstránenia pozadia"
 msgid "Unable to load the color data"
 msgstr "Nie je možné načítať údaje o farbách"
 
-#: src/components/image-editor/ColorizeControls.tsx:52
-msgid "Unable to load the colorization model"
-msgstr "Nie je možné načítať model vyfarbovania"
+#: src/components/image-editor/ColorizeControls.tsx:56
+msgid "Unable to load the colorization modes"
+msgstr "Nie je možné načítať režimy vyfarbovania"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:58
 msgid "Unable to load the object removal model"

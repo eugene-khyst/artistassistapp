@@ -50,13 +50,25 @@ https://huggingface.co/opencv/inpainting_lama
 Colorization
 ------------
 
-DDColor - model ddcolor-tiny-fp32
+DDColor - model ddcolor-artistic-int8
+Apache License 2.0
+https://github.com/piddnad/DDColor
+Source checkpoint: ddcolor_artistic.pth
+https://huggingface.co/piddnad/DDColor-models/blob/8c3ddc6d98edc4aad9adc978e44d4fc428e2113d/ddcolor_artistic.pth
+ArtistAssistApp exported the checkpoint to ONNX with a fixed 512 x 512 input
+using DDColor source revision 2adb63f2656ac41cbdf7b894cddd94121a3faf13, then
+quantized the MatMul and Gemm weights to int8 with ONNX Runtime dynamic
+quantization, leaving the convolutions in FP32.
+
+DDColor - model ddcolor-tiny-int8
 Apache License 2.0
 https://github.com/piddnad/DDColor
 Source checkpoint: ddcolor_paper_tiny.pth
 https://huggingface.co/piddnad/DDColor-models/blob/8c3ddc6d98edc4aad9adc978e44d4fc428e2113d/ddcolor_paper_tiny.pth
-ArtistAssistApp exported the checkpoint to ONNX in FP32 with a fixed 512 x 512
-input using DDColor source revision 2adb63f2656ac41cbdf7b894cddd94121a3faf13.
+ArtistAssistApp exported the checkpoint to ONNX with a fixed 512 x 512 input
+using DDColor source revision 2adb63f2656ac41cbdf7b894cddd94121a3faf13, then
+quantized the MatMul and Gemm weights to int8 with ONNX Runtime dynamic
+quantization, leaving the convolutions in FP32.
 
 
 Line drawing

@@ -99,8 +99,8 @@ msgid "☁️ Cloud sync to store your color sets, photos, and mixtures in your 
 msgstr "☁️ Συγχρονισμός στο cloud για να αποθηκεύετε τα σετ χρωμάτων, τις φωτογραφίες και τα μείγματά σας στον δικό σας χώρο αποθήκευσης στο cloud, ώστε να μπορείτε να τα χρησιμοποιείτε σε όλες τις συσκευές"
 
 #: src/components/ColorSetChooser.tsx:522
-msgid "✏️ High-quality outlines and background removal"
-msgstr "✏️ Υψηλής ποιότητας περιγράμματα και αφαίρεση φόντου"
+msgid "✏️ High-quality outlines, background removal, and colorization"
+msgstr "✏️ Υψηλής ποιότητας περιγράμματα, αφαίρεση φόντου και χρωματισμός"
 
 #: src/components/ColorSetChooser.tsx:519
 msgid "🎨 250+ color brands"
@@ -134,7 +134,7 @@ msgstr "Μια νέα έκδοση της εφαρμογής είναι διαθ
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Μια τιμή μικρότερη από 100% κάνει την εικόνα να φαίνεται λιγότερο πολύχρωμη και μια τιμή μεγαλύτερη από 100% την κάνει να φαίνεται πολύ πολύχρωμη"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:92
+#: src/components/ml-model/OnnxModelSelect.tsx:93
 msgid "Accurate"
 msgstr "Ακριβές"
 
@@ -433,7 +433,7 @@ msgid "Check for updates"
 msgstr "Έλεγχος για ενημερώσεις"
 
 #: src/components/ColorSetChooser.tsx:217
-#: src/components/image-editor/ColorizeControls.tsx:53
+#: src/components/image-editor/ColorizeControls.tsx:57
 #: src/components/image-editor/ExpandControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:52
 #: src/components/image-editor/RemoveObjectsControls.tsx:59
@@ -601,6 +601,10 @@ msgstr "Μείγμα χρωμάτων"
 msgid "Color picker"
 msgstr "Επιλογέας χρώματος"
 
+#: src/components/ml-model/OnnxModelSelect.tsx:44
+msgid "Color realism"
+msgstr "Ρεαλισμός χρωμάτων"
+
 #: src/components/ColorSetChooser.tsx:613
 #: src/components/ImageColorPicker.tsx:293
 #: src/components/messages.ts:28
@@ -615,7 +619,7 @@ msgstr "Δείγμα χρώματος"
 msgid "Colored Pencils"
 msgstr "Χρωματιστά μολύβια"
 
-#: src/components/image-editor/ColorizeControls.tsx:78
+#: src/components/image-editor/ColorizeControls.tsx:115
 msgid "Colorize"
 msgstr "Χρωματισμός"
 
@@ -1000,11 +1004,11 @@ msgstr "Εξαγωγή σε αρχείο"
 msgid "Expressionism"
 msgstr "Εξπρεσιονισμός"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:100
+#: src/components/ml-model/OnnxModelSelect.tsx:101
 msgid "Fast"
 msgstr "Γρήγορο"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:108
+#: src/components/ml-model/OnnxModelSelect.tsx:109
 msgid "Fastest"
 msgstr "Ταχύτατο"
 
@@ -1033,8 +1037,9 @@ msgstr "Φιλτράρισμα ανά ετικέτα"
 msgid "Fine detail"
 msgstr "Λεπτή λεπτομέρεια"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:56
-#: src/components/ml-model/OnnxModelSelect.tsx:84
+#: src/components/ml-model/OnnxModelSelect.tsx:57
+#: src/components/ml-model/OnnxModelSelect.tsx:85
+#: src/components/ml-model/OnnxModelSelect.tsx:117
 msgid "Finest"
 msgstr "Λεπτομερέστατο"
 
@@ -1153,7 +1158,7 @@ msgstr "Εγκατάσταση του ArtistAssistApp"
 msgid "Install update"
 msgstr "Εγκατάσταση ενημέρωσης"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:77
+#: src/components/ml-model/OnnxModelSelect.tsx:78
 msgid "Instant"
 msgstr "Άμεσο"
 
@@ -1225,6 +1230,10 @@ msgstr "Απομένουν για σύγκριση: {unfinishedGamesSize}"
 #: src/components/ImageColorPicker.tsx:563
 msgid "Less"
 msgstr "Λιγότερα"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:124
+msgid "Light"
+msgstr "Ελαφρύ"
 
 #: src/components/ImageOutline.tsx:350
 msgid "Light box"
@@ -1349,6 +1358,7 @@ msgid "Mixture"
 msgstr "Μείγμα"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:107
+#: src/components/image-editor/ColorizeControls.tsx:79
 #: src/components/image-editor/RemoveBackgroundControls.tsx:68
 #: src/components/ImageOutline.tsx:267
 msgid "Mode"
@@ -1466,6 +1476,7 @@ msgstr "Στη διαγώνιο βρίσκονται τα καθαρά χρώμ�
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Μόνο ένας περιορισμένος αριθμός μαρκών χρωμάτων είναι διαθέσιμος στη δωρεάν έκδοση"
 
+#: src/components/image-editor/ColorizeControls.tsx:90
 #: src/components/image-editor/RemoveBackgroundControls.tsx:79
 #: src/components/ImageOutline.tsx:259
 msgid "Only a limited number of modes are available in the free version"
@@ -1984,6 +1995,7 @@ msgstr "Επιλέξτε το εικαστικό μέσο, τις μάρκες �
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
 msgstr "Επιλέξτε το εικαστικό μέσο, τις μάρκες χρωμάτων και τα χρώματα με τα οποία θα ζωγραφίσετε και, στη συνέχεια, πατήστε <0>Αποθήκευση και συνέχεια</0>"
 
+#: src/components/image-editor/ColorizeControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:74
 #: src/components/ImageOutline.tsx:254
 msgid "Selected mode is available only to paid Patreon members"
@@ -2055,7 +2067,7 @@ msgstr "Κοινή χρήση αυτού του σετ χρωμάτων"
 msgid "Share your color set"
 msgstr "Κοινή χρήση του σετ χρωμάτων σας"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:63
+#: src/components/ml-model/OnnxModelSelect.tsx:64
 msgid "Sharp"
 msgstr "Ευκρινές"
 
@@ -2309,7 +2321,7 @@ msgstr "Το περιθώριο είναι πολύ μεγάλο"
 msgid "There is one common palette and a separate palette for each photo"
 msgstr "Υπάρχει μια κοινή παλέτα και μια ξεχωριστή παλέτα για κάθε φωτογραφία"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:70
+#: src/components/ml-model/OnnxModelSelect.tsx:71
 msgid "Thick"
 msgstr "Χοντρό"
 
@@ -2450,9 +2462,9 @@ msgstr "Δεν είναι δυνατή η φόρτωση των λειτουργ
 msgid "Unable to load the color data"
 msgstr "Δεν είναι δυνατή η φόρτωση των δεδομένων χρώματος"
 
-#: src/components/image-editor/ColorizeControls.tsx:52
-msgid "Unable to load the colorization model"
-msgstr "Δεν είναι δυνατή η φόρτωση του μοντέλου χρωματισμού"
+#: src/components/image-editor/ColorizeControls.tsx:56
+msgid "Unable to load the colorization modes"
+msgstr "Δεν είναι δυνατή η φόρτωση των λειτουργιών χρωματισμού"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:58
 msgid "Unable to load the object removal model"

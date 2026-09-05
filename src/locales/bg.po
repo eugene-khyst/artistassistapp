@@ -99,8 +99,8 @@ msgid "☁️ Cloud sync to store your color sets, photos, and mixtures in your 
 msgstr "☁️ Синхронизация с облака, за да съхранявате наборите си от цветове, снимките и смесите в собственото си облачно хранилище и да ги използвате на различни устройства"
 
 #: src/components/ColorSetChooser.tsx:522
-msgid "✏️ High-quality outlines and background removal"
-msgstr "✏️ Висококачествени контури и премахване на фон"
+msgid "✏️ High-quality outlines, background removal, and colorization"
+msgstr "✏️ Висококачествени контури, премахване на фон и оцветяване"
 
 #: src/components/ColorSetChooser.tsx:519
 msgid "🎨 250+ color brands"
@@ -134,7 +134,7 @@ msgstr "Налична е нова версия на приложението."
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Стойност, по-малка от 100%, прави изображението да изглежда по-малко цветно, а стойност, по-голяма от 100%, го прави да изглежда твърде цветно"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:92
+#: src/components/ml-model/OnnxModelSelect.tsx:93
 msgid "Accurate"
 msgstr "Точен"
 
@@ -433,7 +433,7 @@ msgid "Check for updates"
 msgstr "Проверка за актуализации"
 
 #: src/components/ColorSetChooser.tsx:217
-#: src/components/image-editor/ColorizeControls.tsx:53
+#: src/components/image-editor/ColorizeControls.tsx:57
 #: src/components/image-editor/ExpandControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:52
 #: src/components/image-editor/RemoveObjectsControls.tsx:59
@@ -601,6 +601,10 @@ msgstr "Цветова смес"
 msgid "Color picker"
 msgstr "Избор на цвят"
 
+#: src/components/ml-model/OnnxModelSelect.tsx:44
+msgid "Color realism"
+msgstr "Реалистичност на цвета"
+
 #: src/components/ColorSetChooser.tsx:613
 #: src/components/ImageColorPicker.tsx:293
 #: src/components/messages.ts:28
@@ -615,7 +619,7 @@ msgstr "Цветова мостра"
 msgid "Colored Pencils"
 msgstr "Цветни моливи"
 
-#: src/components/image-editor/ColorizeControls.tsx:78
+#: src/components/image-editor/ColorizeControls.tsx:115
 msgid "Colorize"
 msgstr "Оцветяване"
 
@@ -1000,11 +1004,11 @@ msgstr "Експортиране във файл"
 msgid "Expressionism"
 msgstr "Експресионизъм"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:100
+#: src/components/ml-model/OnnxModelSelect.tsx:101
 msgid "Fast"
 msgstr "Бърз"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:108
+#: src/components/ml-model/OnnxModelSelect.tsx:109
 msgid "Fastest"
 msgstr "Най-бърз"
 
@@ -1033,8 +1037,9 @@ msgstr "Филтриране по етикет"
 msgid "Fine detail"
 msgstr "Фин детайл"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:56
-#: src/components/ml-model/OnnxModelSelect.tsx:84
+#: src/components/ml-model/OnnxModelSelect.tsx:57
+#: src/components/ml-model/OnnxModelSelect.tsx:85
+#: src/components/ml-model/OnnxModelSelect.tsx:117
 msgid "Finest"
 msgstr "Най-фин"
 
@@ -1153,7 +1158,7 @@ msgstr "Инсталиране на ArtistAssistApp"
 msgid "Install update"
 msgstr "Инсталиране на актуализацията"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:77
+#: src/components/ml-model/OnnxModelSelect.tsx:78
 msgid "Instant"
 msgstr "Моментален"
 
@@ -1225,6 +1230,10 @@ msgstr "Остават за сравнение: {unfinishedGamesSize}"
 #: src/components/ImageColorPicker.tsx:563
 msgid "Less"
 msgstr "По-малко"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:124
+msgid "Light"
+msgstr "Лек"
 
 #: src/components/ImageOutline.tsx:350
 msgid "Light box"
@@ -1349,6 +1358,7 @@ msgid "Mixture"
 msgstr "Смес"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:107
+#: src/components/image-editor/ColorizeControls.tsx:79
 #: src/components/image-editor/RemoveBackgroundControls.tsx:68
 #: src/components/ImageOutline.tsx:267
 msgid "Mode"
@@ -1466,6 +1476,7 @@ msgstr "По диагонала са чистите цветове в пълна
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "В безплатната версия е налична само ограничен брой марки цветове"
 
+#: src/components/image-editor/ColorizeControls.tsx:90
 #: src/components/image-editor/RemoveBackgroundControls.tsx:79
 #: src/components/ImageOutline.tsx:259
 msgid "Only a limited number of modes are available in the free version"
@@ -1984,6 +1995,7 @@ msgstr "Изберете своя художествен материал, ма�
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
 msgstr "Изберете своя художествен материал, марки цветове и цветовете, с които ще рисувате, след което натиснете <0>Запазване и продължаване</0>"
 
+#: src/components/image-editor/ColorizeControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:74
 #: src/components/ImageOutline.tsx:254
 msgid "Selected mode is available only to paid Patreon members"
@@ -2055,7 +2067,7 @@ msgstr "Споделете този набор от цветове"
 msgid "Share your color set"
 msgstr "Споделяне на вашия набор от цветове"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:63
+#: src/components/ml-model/OnnxModelSelect.tsx:64
 msgid "Sharp"
 msgstr "Остър"
 
@@ -2309,7 +2321,7 @@ msgstr "Полето е твърде голямо"
 msgid "There is one common palette and a separate palette for each photo"
 msgstr "Има една обща палитра и отделна палитра за всяка снимка"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:70
+#: src/components/ml-model/OnnxModelSelect.tsx:71
 msgid "Thick"
 msgstr "Дебел"
 
@@ -2450,9 +2462,9 @@ msgstr "Не могат да се заредят режимите за прем�
 msgid "Unable to load the color data"
 msgstr "Данните за цветовете не могат да се заредят"
 
-#: src/components/image-editor/ColorizeControls.tsx:52
-msgid "Unable to load the colorization model"
-msgstr "Не може да се зареди моделът за оцветяване"
+#: src/components/image-editor/ColorizeControls.tsx:56
+msgid "Unable to load the colorization modes"
+msgstr "Не могат да се заредят режимите за оцветяване"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:58
 msgid "Unable to load the object removal model"

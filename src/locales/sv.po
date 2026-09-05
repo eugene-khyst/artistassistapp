@@ -99,8 +99,8 @@ msgid "☁️ Cloud sync to store your color sets, photos, and mixtures in your 
 msgstr "☁️ Molnsynkronisering för att lagra dina färguppsättningar, foton och blandningar i din egen molnlagring, så att du kan använda dem på flera enheter"
 
 #: src/components/ColorSetChooser.tsx:522
-msgid "✏️ High-quality outlines and background removal"
-msgstr "✏️ Högkvalitativa konturer och bakgrundsborttagning"
+msgid "✏️ High-quality outlines, background removal, and colorization"
+msgstr "✏️ Högkvalitativa konturer, bakgrundsborttagning och färgsättning"
 
 #: src/components/ColorSetChooser.tsx:519
 msgid "🎨 250+ color brands"
@@ -134,7 +134,7 @@ msgstr "En ny version av applikationen finns tillgänglig."
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Ett värde som är mindre än 100 % gör att bilden ser mindre färgglad ut, och ett värde som är större än 100 % gör att den ser för färgglad ut"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:92
+#: src/components/ml-model/OnnxModelSelect.tsx:93
 msgid "Accurate"
 msgstr "Exakt"
 
@@ -433,7 +433,7 @@ msgid "Check for updates"
 msgstr "Sök efter uppdateringar"
 
 #: src/components/ColorSetChooser.tsx:217
-#: src/components/image-editor/ColorizeControls.tsx:53
+#: src/components/image-editor/ColorizeControls.tsx:57
 #: src/components/image-editor/ExpandControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:52
 #: src/components/image-editor/RemoveObjectsControls.tsx:59
@@ -601,6 +601,10 @@ msgstr "Färgblandning"
 msgid "Color picker"
 msgstr "Färgväljare"
 
+#: src/components/ml-model/OnnxModelSelect.tsx:44
+msgid "Color realism"
+msgstr "Färgrealism"
+
 #: src/components/ColorSetChooser.tsx:613
 #: src/components/ImageColorPicker.tsx:293
 #: src/components/messages.ts:28
@@ -615,7 +619,7 @@ msgstr "Färgruta"
 msgid "Colored Pencils"
 msgstr "Färgpennor"
 
-#: src/components/image-editor/ColorizeControls.tsx:78
+#: src/components/image-editor/ColorizeControls.tsx:115
 msgid "Colorize"
 msgstr "Färglägg"
 
@@ -1000,11 +1004,11 @@ msgstr "Exportera till fil"
 msgid "Expressionism"
 msgstr "Expressionism"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:100
+#: src/components/ml-model/OnnxModelSelect.tsx:101
 msgid "Fast"
 msgstr "Snabb"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:108
+#: src/components/ml-model/OnnxModelSelect.tsx:109
 msgid "Fastest"
 msgstr "Snabbast"
 
@@ -1033,8 +1037,9 @@ msgstr "Filtrera efter tagg"
 msgid "Fine detail"
 msgstr "Fina detaljer"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:56
-#: src/components/ml-model/OnnxModelSelect.tsx:84
+#: src/components/ml-model/OnnxModelSelect.tsx:57
+#: src/components/ml-model/OnnxModelSelect.tsx:85
+#: src/components/ml-model/OnnxModelSelect.tsx:117
 msgid "Finest"
 msgstr "Finast"
 
@@ -1153,7 +1158,7 @@ msgstr "Installera ArtistAssistApp"
 msgid "Install update"
 msgstr "Installera uppdatering"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:77
+#: src/components/ml-model/OnnxModelSelect.tsx:78
 msgid "Instant"
 msgstr "Omedelbar"
 
@@ -1225,6 +1230,10 @@ msgstr "Kvar att jämföra: {unfinishedGamesSize}"
 #: src/components/ImageColorPicker.tsx:563
 msgid "Less"
 msgstr "Mindre"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:124
+msgid "Light"
+msgstr "Lätt"
 
 #: src/components/ImageOutline.tsx:350
 msgid "Light box"
@@ -1349,6 +1358,7 @@ msgid "Mixture"
 msgstr "Blandning"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:107
+#: src/components/image-editor/ColorizeControls.tsx:79
 #: src/components/image-editor/RemoveBackgroundControls.tsx:68
 #: src/components/ImageOutline.tsx:267
 msgid "Mode"
@@ -1466,6 +1476,7 @@ msgstr "På diagonalen finns de rena färgerna med full styrka. Utanför diagona
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Endast ett begränsat antal färgmärken finns tillgängliga i gratisversionen"
 
+#: src/components/image-editor/ColorizeControls.tsx:90
 #: src/components/image-editor/RemoveBackgroundControls.tsx:79
 #: src/components/ImageOutline.tsx:259
 msgid "Only a limited number of modes are available in the free version"
@@ -1984,6 +1995,7 @@ msgstr "Välj din konstnärliga teknik, färgmärken och färger"
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
 msgstr "Välj din konstnärliga teknik, färgmärken och färgerna du ska måla med och tryck sedan på <0>Spara och fortsätt</0>"
 
+#: src/components/image-editor/ColorizeControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:74
 #: src/components/ImageOutline.tsx:254
 msgid "Selected mode is available only to paid Patreon members"
@@ -2055,7 +2067,7 @@ msgstr "Dela den här färguppsättningen"
 msgid "Share your color set"
 msgstr "Dela din färguppsättning"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:63
+#: src/components/ml-model/OnnxModelSelect.tsx:64
 msgid "Sharp"
 msgstr "Skarp"
 
@@ -2309,7 +2321,7 @@ msgstr "Marginalen är för stor"
 msgid "There is one common palette and a separate palette for each photo"
 msgstr "Det finns en gemensam palett och en separat palett för varje foto"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:70
+#: src/components/ml-model/OnnxModelSelect.tsx:71
 msgid "Thick"
 msgstr "Tjock"
 
@@ -2450,9 +2462,9 @@ msgstr "Det gick inte att läsa in lägen för borttagning av bakgrunden"
 msgid "Unable to load the color data"
 msgstr "Det gick inte att ladda färgdata"
 
-#: src/components/image-editor/ColorizeControls.tsx:52
-msgid "Unable to load the colorization model"
-msgstr "Det gick inte att ladda färgsättningsmodellen"
+#: src/components/image-editor/ColorizeControls.tsx:56
+msgid "Unable to load the colorization modes"
+msgstr "Det gick inte att läsa in färgsättningslägena"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:58
 msgid "Unable to load the object removal model"

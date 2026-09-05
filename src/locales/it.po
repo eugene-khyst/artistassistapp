@@ -99,8 +99,8 @@ msgid "☁️ Cloud sync to store your color sets, photos, and mixtures in your 
 msgstr "☁️ Sincronizzazione cloud per conservare i tuoi set di colori, foto e miscele nella tua archiviazione cloud, così puoi usarli su più dispositivi"
 
 #: src/components/ColorSetChooser.tsx:522
-msgid "✏️ High-quality outlines and background removal"
-msgstr "✏️ Contorni di alta qualità e rimozione dello sfondo"
+msgid "✏️ High-quality outlines, background removal, and colorization"
+msgstr "✏️ Contorni di alta qualità, rimozione dello sfondo e colorazione"
 
 #: src/components/ColorSetChooser.tsx:519
 msgid "🎨 250+ color brands"
@@ -134,7 +134,7 @@ msgstr "È disponibile una nuova versione dell'applicazione."
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Un valore inferiore al 100% rende l'immagine meno colorata e un valore superiore al 100% la rende troppo colorata"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:92
+#: src/components/ml-model/OnnxModelSelect.tsx:93
 msgid "Accurate"
 msgstr "Preciso"
 
@@ -433,7 +433,7 @@ msgid "Check for updates"
 msgstr "Controlla gli aggiornamenti"
 
 #: src/components/ColorSetChooser.tsx:217
-#: src/components/image-editor/ColorizeControls.tsx:53
+#: src/components/image-editor/ColorizeControls.tsx:57
 #: src/components/image-editor/ExpandControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:52
 #: src/components/image-editor/RemoveObjectsControls.tsx:59
@@ -601,6 +601,10 @@ msgstr "Miscela di colori"
 msgid "Color picker"
 msgstr "Selettore colore"
 
+#: src/components/ml-model/OnnxModelSelect.tsx:44
+msgid "Color realism"
+msgstr "Realismo del colore"
+
 #: src/components/ColorSetChooser.tsx:613
 #: src/components/ImageColorPicker.tsx:293
 #: src/components/messages.ts:28
@@ -615,7 +619,7 @@ msgstr "Campione di colore"
 msgid "Colored Pencils"
 msgstr "Matite colorate"
 
-#: src/components/image-editor/ColorizeControls.tsx:78
+#: src/components/image-editor/ColorizeControls.tsx:115
 msgid "Colorize"
 msgstr "Colorizza"
 
@@ -1000,11 +1004,11 @@ msgstr "Esporta su file"
 msgid "Expressionism"
 msgstr "Espressionismo"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:100
+#: src/components/ml-model/OnnxModelSelect.tsx:101
 msgid "Fast"
 msgstr "Veloce"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:108
+#: src/components/ml-model/OnnxModelSelect.tsx:109
 msgid "Fastest"
 msgstr "Il più veloce"
 
@@ -1033,8 +1037,9 @@ msgstr "Filtra per tag"
 msgid "Fine detail"
 msgstr "Dettagli fini"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:56
-#: src/components/ml-model/OnnxModelSelect.tsx:84
+#: src/components/ml-model/OnnxModelSelect.tsx:57
+#: src/components/ml-model/OnnxModelSelect.tsx:85
+#: src/components/ml-model/OnnxModelSelect.tsx:117
 msgid "Finest"
 msgstr "Il più fine"
 
@@ -1153,7 +1158,7 @@ msgstr "Installa ArtistAssistApp"
 msgid "Install update"
 msgstr "Installa l'aggiornamento"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:77
+#: src/components/ml-model/OnnxModelSelect.tsx:78
 msgid "Instant"
 msgstr "Istantaneo"
 
@@ -1225,6 +1230,10 @@ msgstr "Resta da confrontare: {unfinishedGamesSize}"
 #: src/components/ImageColorPicker.tsx:563
 msgid "Less"
 msgstr "Meno"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:124
+msgid "Light"
+msgstr "Leggero"
 
 #: src/components/ImageOutline.tsx:350
 msgid "Light box"
@@ -1349,6 +1358,7 @@ msgid "Mixture"
 msgstr "Miscela"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:107
+#: src/components/image-editor/ColorizeControls.tsx:79
 #: src/components/image-editor/RemoveBackgroundControls.tsx:68
 #: src/components/ImageOutline.tsx:267
 msgid "Mode"
@@ -1466,6 +1476,7 @@ msgstr "Sulla diagonale ci sono i colori puri a piena intensità. Fuori dalla di
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Nella versione gratuita è disponibile solo un numero limitato di marche di colori"
 
+#: src/components/image-editor/ColorizeControls.tsx:90
 #: src/components/image-editor/RemoveBackgroundControls.tsx:79
 #: src/components/ImageOutline.tsx:259
 msgid "Only a limited number of modes are available in the free version"
@@ -1984,6 +1995,7 @@ msgstr "Seleziona la tecnica artistica, le marche di colori e i colori"
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
 msgstr "Seleziona la tecnica artistica, le marche di colori e i colori con cui dipingerai, quindi premi <0>Salva e continua</0>"
 
+#: src/components/image-editor/ColorizeControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:74
 #: src/components/ImageOutline.tsx:254
 msgid "Selected mode is available only to paid Patreon members"
@@ -2055,7 +2067,7 @@ msgstr "Condividi questo set di colori"
 msgid "Share your color set"
 msgstr "Condividi il tuo set di colori"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:63
+#: src/components/ml-model/OnnxModelSelect.tsx:64
 msgid "Sharp"
 msgstr "Netto"
 
@@ -2309,7 +2321,7 @@ msgstr "Il margine è troppo ampio"
 msgid "There is one common palette and a separate palette for each photo"
 msgstr "Esiste una tavolozza comune e una tavolozza separata per ogni foto"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:70
+#: src/components/ml-model/OnnxModelSelect.tsx:71
 msgid "Thick"
 msgstr "Spesso"
 
@@ -2450,9 +2462,9 @@ msgstr "Impossibile caricare le modalità di rimozione dello sfondo"
 msgid "Unable to load the color data"
 msgstr "Impossibile caricare i dati del colore"
 
-#: src/components/image-editor/ColorizeControls.tsx:52
-msgid "Unable to load the colorization model"
-msgstr "Impossibile caricare il modello di colorazione"
+#: src/components/image-editor/ColorizeControls.tsx:56
+msgid "Unable to load the colorization modes"
+msgstr "Impossibile caricare le modalità di colorazione"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:58
 msgid "Unable to load the object removal model"

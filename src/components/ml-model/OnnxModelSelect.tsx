@@ -34,13 +34,14 @@ function formatScore(score: number): string {
   return '★'.repeat(score) + '☆'.repeat(MAX_SCORE - score);
 }
 
-type Feature = 'detail' | 'speed' | 'subject-detection' | 'fine-detail';
+type Feature = 'detail' | 'speed' | 'subject-detection' | 'fine-detail' | 'color-realism';
 
 const FEATURES: Record<Feature, ReactNode> = {
   detail: <Trans>Detail</Trans>,
   speed: <Trans>Speed</Trans>,
   'subject-detection': <Trans>Subject detection</Trans>,
   'fine-detail': <Trans>Fine detail</Trans>,
+  'color-realism': <Trans>Color realism</Trans>,
 };
 
 type Scores = Partial<Record<Feature, number>>;
@@ -110,6 +111,20 @@ const OPTIONS: Record<
       'subject-detection': 3,
       'fine-detail': 2,
       speed: 5,
+    },
+  },
+  'ddcolor-artistic-int8': {
+    label: <Trans>Finest</Trans>,
+    scores: {
+      'color-realism': 5,
+      speed: 1,
+    },
+  },
+  'ddcolor-tiny-int8': {
+    label: <Trans>Light</Trans>,
+    scores: {
+      'color-realism': 3,
+      speed: 3,
     },
   },
 };

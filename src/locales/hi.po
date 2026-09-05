@@ -99,8 +99,8 @@ msgid "☁️ Cloud sync to store your color sets, photos, and mixtures in your 
 msgstr "☁️ क्लाउड सिंक, ताकि आप अपने रंग सेट, फ़ोटो और मिश्रण अपने स्वयं के क्लाउड स्टोरेज में संग्रहीत करके सभी डिवाइस पर उपयोग कर सकें"
 
 #: src/components/ColorSetChooser.tsx:522
-msgid "✏️ High-quality outlines and background removal"
-msgstr "✏️ उच्च गुणवत्ता वाली रूपरेखा और पृष्ठभूमि हटाना"
+msgid "✏️ High-quality outlines, background removal, and colorization"
+msgstr "✏️ उच्च गुणवत्ता वाली रूपरेखा, पृष्ठभूमि हटाना और रंगीन करना"
 
 #: src/components/ColorSetChooser.tsx:519
 msgid "🎨 250+ color brands"
@@ -134,7 +134,7 @@ msgstr "एप्लिकेशन का एक नया संस्कर�
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "100% से कम मान छवि को कम रंगीन बनाता है, और 100% से अधिक मान इसे बहुत रंगीन बनाता है"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:92
+#: src/components/ml-model/OnnxModelSelect.tsx:93
 msgid "Accurate"
 msgstr "सटीक"
 
@@ -433,7 +433,7 @@ msgid "Check for updates"
 msgstr "अपडेट के लिए जाँच करें"
 
 #: src/components/ColorSetChooser.tsx:217
-#: src/components/image-editor/ColorizeControls.tsx:53
+#: src/components/image-editor/ColorizeControls.tsx:57
 #: src/components/image-editor/ExpandControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:52
 #: src/components/image-editor/RemoveObjectsControls.tsx:59
@@ -601,6 +601,10 @@ msgstr "रंग मिश्रण"
 msgid "Color picker"
 msgstr "रंग पिकर"
 
+#: src/components/ml-model/OnnxModelSelect.tsx:44
+msgid "Color realism"
+msgstr "रंग यथार्थता"
+
 #: src/components/ColorSetChooser.tsx:613
 #: src/components/ImageColorPicker.tsx:293
 #: src/components/messages.ts:28
@@ -615,7 +619,7 @@ msgstr "रंग नमूना"
 msgid "Colored Pencils"
 msgstr "रंगीन पेंसिल"
 
-#: src/components/image-editor/ColorizeControls.tsx:78
+#: src/components/image-editor/ColorizeControls.tsx:115
 msgid "Colorize"
 msgstr "रंगीन करें"
 
@@ -1000,11 +1004,11 @@ msgstr "फ़ाइल में निर्यात करें"
 msgid "Expressionism"
 msgstr "अभिव्यंजनावाद"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:100
+#: src/components/ml-model/OnnxModelSelect.tsx:101
 msgid "Fast"
 msgstr "तेज़"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:108
+#: src/components/ml-model/OnnxModelSelect.tsx:109
 msgid "Fastest"
 msgstr "सबसे तेज़"
 
@@ -1033,8 +1037,9 @@ msgstr "टैग द्वारा फ़िल्टर करें"
 msgid "Fine detail"
 msgstr "महीन बारीकी"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:56
-#: src/components/ml-model/OnnxModelSelect.tsx:84
+#: src/components/ml-model/OnnxModelSelect.tsx:57
+#: src/components/ml-model/OnnxModelSelect.tsx:85
+#: src/components/ml-model/OnnxModelSelect.tsx:117
 msgid "Finest"
 msgstr "बेहतरीन"
 
@@ -1153,7 +1158,7 @@ msgstr "ArtistAssistApp इंस्टॉल करें"
 msgid "Install update"
 msgstr "अपडेट इंस्टॉल करें"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:77
+#: src/components/ml-model/OnnxModelSelect.tsx:78
 msgid "Instant"
 msgstr "तुरंत"
 
@@ -1225,6 +1230,10 @@ msgstr "तुलना के लिए शेष: {unfinishedGamesSize}"
 #: src/components/ImageColorPicker.tsx:563
 msgid "Less"
 msgstr "कम"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:124
+msgid "Light"
+msgstr "हल्का"
 
 #: src/components/ImageOutline.tsx:350
 msgid "Light box"
@@ -1349,6 +1358,7 @@ msgid "Mixture"
 msgstr "मिश्रण"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:107
+#: src/components/image-editor/ColorizeControls.tsx:79
 #: src/components/image-editor/RemoveBackgroundControls.tsx:68
 #: src/components/ImageOutline.tsx:267
 msgid "Mode"
@@ -1466,6 +1476,7 @@ msgstr "विकर्ण पर शुद्ध रंग पूरी ता�
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "मुफ्त संस्करण में केवल सीमित संख्या में रंग ब्रांड उपलब्ध हैं"
 
+#: src/components/image-editor/ColorizeControls.tsx:90
 #: src/components/image-editor/RemoveBackgroundControls.tsx:79
 #: src/components/ImageOutline.tsx:259
 msgid "Only a limited number of modes are available in the free version"
@@ -1984,6 +1995,7 @@ msgstr "अपना कला माध्यम, रंग ब्रांड 
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
 msgstr "अपना कला माध्यम, रंग ब्रांड और वे रंग चुनें जिनसे आप पेंटिंग करेंगे, फिर <0>सहेजें और जारी रखें</0> दबाएं"
 
+#: src/components/image-editor/ColorizeControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:74
 #: src/components/ImageOutline.tsx:254
 msgid "Selected mode is available only to paid Patreon members"
@@ -2055,7 +2067,7 @@ msgstr "इस रंग सेट को साझा करें"
 msgid "Share your color set"
 msgstr "अपना रंग सेट साझा करें"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:63
+#: src/components/ml-model/OnnxModelSelect.tsx:64
 msgid "Sharp"
 msgstr "तीक्ष्ण"
 
@@ -2309,7 +2321,7 @@ msgstr "मार्जिन बहुत बड़ा है"
 msgid "There is one common palette and a separate palette for each photo"
 msgstr "एक सामान्य पैलेट है और प्रत्येक फ़ोटो के लिए एक अलग पैलेट"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:70
+#: src/components/ml-model/OnnxModelSelect.tsx:71
 msgid "Thick"
 msgstr "मोटा"
 
@@ -2450,9 +2462,9 @@ msgstr "पृष्ठभूमि हटाने के मोड लोड �
 msgid "Unable to load the color data"
 msgstr "रंग डेटा लोड करने में असमर्थ"
 
-#: src/components/image-editor/ColorizeControls.tsx:52
-msgid "Unable to load the colorization model"
-msgstr "रंगीन करने का मॉडल लोड करने में असमर्थ"
+#: src/components/image-editor/ColorizeControls.tsx:56
+msgid "Unable to load the colorization modes"
+msgstr "रंगीन करने के मोड लोड करने में असमर्थ"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:58
 msgid "Unable to load the object removal model"

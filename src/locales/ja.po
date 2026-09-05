@@ -99,8 +99,8 @@ msgid "☁️ Cloud sync to store your color sets, photos, and mixtures in your 
 msgstr "☁️ クラウド同期でカラーセット、写真、混色を自分のクラウドストレージに保存し、デバイス間で使えます"
 
 #: src/components/ColorSetChooser.tsx:522
-msgid "✏️ High-quality outlines and background removal"
-msgstr "✏️ 高品質な輪郭と背景除去"
+msgid "✏️ High-quality outlines, background removal, and colorization"
+msgstr "✏️ 高品質な輪郭、背景除去、カラー化"
 
 #: src/components/ColorSetChooser.tsx:519
 msgid "🎨 250+ color brands"
@@ -134,7 +134,7 @@ msgstr "新しいバージョンのアプリケーションが利用可能です
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "100%未満の値では、画像のカラフルさが損なわれ、100%を超えると、カラフルに見えすぎます"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:92
+#: src/components/ml-model/OnnxModelSelect.tsx:93
 msgid "Accurate"
 msgstr "正確"
 
@@ -433,7 +433,7 @@ msgid "Check for updates"
 msgstr "アップデートの確認"
 
 #: src/components/ColorSetChooser.tsx:217
-#: src/components/image-editor/ColorizeControls.tsx:53
+#: src/components/image-editor/ColorizeControls.tsx:57
 #: src/components/image-editor/ExpandControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:52
 #: src/components/image-editor/RemoveObjectsControls.tsx:59
@@ -601,6 +601,10 @@ msgstr "混色"
 msgid "Color picker"
 msgstr "カラーピッカー"
 
+#: src/components/ml-model/OnnxModelSelect.tsx:44
+msgid "Color realism"
+msgstr "色のリアルさ"
+
 #: src/components/ColorSetChooser.tsx:613
 #: src/components/ImageColorPicker.tsx:293
 #: src/components/messages.ts:28
@@ -615,7 +619,7 @@ msgstr "色見本"
 msgid "Colored Pencils"
 msgstr "色鉛筆"
 
-#: src/components/image-editor/ColorizeControls.tsx:78
+#: src/components/image-editor/ColorizeControls.tsx:115
 msgid "Colorize"
 msgstr "色付け"
 
@@ -1000,11 +1004,11 @@ msgstr "ファイルにエクスポート"
 msgid "Expressionism"
 msgstr "表現主義"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:100
+#: src/components/ml-model/OnnxModelSelect.tsx:101
 msgid "Fast"
 msgstr "高速"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:108
+#: src/components/ml-model/OnnxModelSelect.tsx:109
 msgid "Fastest"
 msgstr "最速"
 
@@ -1033,8 +1037,9 @@ msgstr "タグで絞り込む"
 msgid "Fine detail"
 msgstr "細かいディテール"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:56
-#: src/components/ml-model/OnnxModelSelect.tsx:84
+#: src/components/ml-model/OnnxModelSelect.tsx:57
+#: src/components/ml-model/OnnxModelSelect.tsx:85
+#: src/components/ml-model/OnnxModelSelect.tsx:117
 msgid "Finest"
 msgstr "最も精細"
 
@@ -1153,7 +1158,7 @@ msgstr "ArtistAssistAppをインストールする"
 msgid "Install update"
 msgstr "アップデートをインストール"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:77
+#: src/components/ml-model/OnnxModelSelect.tsx:78
 msgid "Instant"
 msgstr "インスタント"
 
@@ -1225,6 +1230,10 @@ msgstr "残りの比較: {unfinishedGamesSize}"
 #: src/components/ImageColorPicker.tsx:563
 msgid "Less"
 msgstr "折りたたむ"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:124
+msgid "Light"
+msgstr "軽量"
 
 #: src/components/ImageOutline.tsx:350
 msgid "Light box"
@@ -1349,6 +1358,7 @@ msgid "Mixture"
 msgstr "混色"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:107
+#: src/components/image-editor/ColorizeControls.tsx:79
 #: src/components/image-editor/RemoveBackgroundControls.tsx:68
 #: src/components/ImageOutline.tsx:267
 msgid "Mode"
@@ -1466,6 +1476,7 @@ msgstr "対角線上には希釈していない純色があります。対角線
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "無料版では、限られた数のカラーブランドしか利用できません"
 
+#: src/components/image-editor/ColorizeControls.tsx:90
 #: src/components/image-editor/RemoveBackgroundControls.tsx:79
 #: src/components/ImageOutline.tsx:259
 msgid "Only a limited number of modes are available in the free version"
@@ -1984,6 +1995,7 @@ msgstr "画材、カラーブランド、色を選択してください"
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
 msgstr "画材、カラーブランド、描画に使う色を選び、<0>保存して続行</0> を押します"
 
+#: src/components/image-editor/ColorizeControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:74
 #: src/components/ImageOutline.tsx:254
 msgid "Selected mode is available only to paid Patreon members"
@@ -2055,7 +2067,7 @@ msgstr "このカラーセットを共有する"
 msgid "Share your color set"
 msgstr "カラーセットを共有する"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:63
+#: src/components/ml-model/OnnxModelSelect.tsx:64
 msgid "Sharp"
 msgstr "シャープ"
 
@@ -2309,7 +2321,7 @@ msgstr "余白が大きすぎます"
 msgid "There is one common palette and a separate palette for each photo"
 msgstr "共通のパレットが 1 つと、写真ごとに個別のパレットがあります"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:70
+#: src/components/ml-model/OnnxModelSelect.tsx:71
 msgid "Thick"
 msgstr "太い"
 
@@ -2450,9 +2462,9 @@ msgstr "背景の削除モードを読み込めません"
 msgid "Unable to load the color data"
 msgstr "カラーデータを読み込めません"
 
-#: src/components/image-editor/ColorizeControls.tsx:52
-msgid "Unable to load the colorization model"
-msgstr "カラー化モデルを読み込めません"
+#: src/components/image-editor/ColorizeControls.tsx:56
+msgid "Unable to load the colorization modes"
+msgstr "カラー化モードを読み込めません"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:58
 msgid "Unable to load the object removal model"

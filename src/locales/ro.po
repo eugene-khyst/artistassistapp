@@ -99,8 +99,8 @@ msgid "☁️ Cloud sync to store your color sets, photos, and mixtures in your 
 msgstr "☁️ Sincronizare în cloud, pentru a stoca seturile de culori, fotografiile și amestecurile în propriul spațiu de stocare în cloud și a le folosi pe toate dispozitivele"
 
 #: src/components/ColorSetChooser.tsx:522
-msgid "✏️ High-quality outlines and background removal"
-msgstr "✏️ Contururi de înaltă calitate și îndepărtarea fundalului"
+msgid "✏️ High-quality outlines, background removal, and colorization"
+msgstr "✏️ Contururi de înaltă calitate, îndepărtarea fundalului și colorare"
 
 #: src/components/ColorSetChooser.tsx:519
 msgid "🎨 250+ color brands"
@@ -134,7 +134,7 @@ msgstr "O versiune nouă a aplicației este disponibilă."
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "O valoare mai mică de 100% face ca imaginea să pară mai puțin colorată, iar o valoare mai mare de 100% o face să pară prea colorată"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:92
+#: src/components/ml-model/OnnxModelSelect.tsx:93
 msgid "Accurate"
 msgstr "Precis"
 
@@ -433,7 +433,7 @@ msgid "Check for updates"
 msgstr "Verificați dacă există actualizări"
 
 #: src/components/ColorSetChooser.tsx:217
-#: src/components/image-editor/ColorizeControls.tsx:53
+#: src/components/image-editor/ColorizeControls.tsx:57
 #: src/components/image-editor/ExpandControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:52
 #: src/components/image-editor/RemoveObjectsControls.tsx:59
@@ -601,6 +601,10 @@ msgstr "Amestec de culori"
 msgid "Color picker"
 msgstr "Selector de culori"
 
+#: src/components/ml-model/OnnxModelSelect.tsx:44
+msgid "Color realism"
+msgstr "Realismul culorilor"
+
 #: src/components/ColorSetChooser.tsx:613
 #: src/components/ImageColorPicker.tsx:293
 #: src/components/messages.ts:28
@@ -615,7 +619,7 @@ msgstr "Mostră de culoare"
 msgid "Colored Pencils"
 msgstr "Creioane colorate"
 
-#: src/components/image-editor/ColorizeControls.tsx:78
+#: src/components/image-editor/ColorizeControls.tsx:115
 msgid "Colorize"
 msgstr "Colorare"
 
@@ -1000,11 +1004,11 @@ msgstr "Export în fișier"
 msgid "Expressionism"
 msgstr "Expresionism"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:100
+#: src/components/ml-model/OnnxModelSelect.tsx:101
 msgid "Fast"
 msgstr "Rapid"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:108
+#: src/components/ml-model/OnnxModelSelect.tsx:109
 msgid "Fastest"
 msgstr "Cel mai rapid"
 
@@ -1033,8 +1037,9 @@ msgstr "Filtrați după etichetă"
 msgid "Fine detail"
 msgstr "Detaliu fin"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:56
-#: src/components/ml-model/OnnxModelSelect.tsx:84
+#: src/components/ml-model/OnnxModelSelect.tsx:57
+#: src/components/ml-model/OnnxModelSelect.tsx:85
+#: src/components/ml-model/OnnxModelSelect.tsx:117
 msgid "Finest"
 msgstr "Cel mai fin"
 
@@ -1153,7 +1158,7 @@ msgstr "Instalați ArtistAssistApp"
 msgid "Install update"
 msgstr "Instalați actualizarea"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:77
+#: src/components/ml-model/OnnxModelSelect.tsx:78
 msgid "Instant"
 msgstr "Instantaneu"
 
@@ -1225,6 +1230,10 @@ msgstr "Rămase de comparat: {unfinishedGamesSize}"
 #: src/components/ImageColorPicker.tsx:563
 msgid "Less"
 msgstr "Mai puțin"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:124
+msgid "Light"
+msgstr "Ușor"
 
 #: src/components/ImageOutline.tsx:350
 msgid "Light box"
@@ -1349,6 +1358,7 @@ msgid "Mixture"
 msgstr "Amestec"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:107
+#: src/components/image-editor/ColorizeControls.tsx:79
 #: src/components/image-editor/RemoveBackgroundControls.tsx:68
 #: src/components/ImageOutline.tsx:267
 msgid "Mode"
@@ -1466,6 +1476,7 @@ msgstr "Pe diagonală se află culorile pure, nediluate. În afara diagonalei, f
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Doar un număr limitat de mărci de culori sunt disponibile în versiunea gratuită"
 
+#: src/components/image-editor/ColorizeControls.tsx:90
 #: src/components/image-editor/RemoveBackgroundControls.tsx:79
 #: src/components/ImageOutline.tsx:259
 msgid "Only a limited number of modes are available in the free version"
@@ -1984,6 +1995,7 @@ msgstr "Selectați tehnica artistică, mărcile de culori și culorile"
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
 msgstr "Selectați tehnica artistică, mărcile de culori și culorile cu care veți picta, apoi apăsați pe <0>Salvați și continuați</0>"
 
+#: src/components/image-editor/ColorizeControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:74
 #: src/components/ImageOutline.tsx:254
 msgid "Selected mode is available only to paid Patreon members"
@@ -2055,7 +2067,7 @@ msgstr "Partajați acest set de culori"
 msgid "Share your color set"
 msgstr "Partajați setul de culori"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:63
+#: src/components/ml-model/OnnxModelSelect.tsx:64
 msgid "Sharp"
 msgstr "Clar"
 
@@ -2309,7 +2321,7 @@ msgstr "Marginea este prea mare"
 msgid "There is one common palette and a separate palette for each photo"
 msgstr "Există o paletă comună și o paletă separată pentru fiecare fotografie"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:70
+#: src/components/ml-model/OnnxModelSelect.tsx:71
 msgid "Thick"
 msgstr "Gros"
 
@@ -2450,9 +2462,9 @@ msgstr "Nu se pot încărca modurile de eliminare a fundalului"
 msgid "Unable to load the color data"
 msgstr "Nu se pot încărca datele de culoare"
 
-#: src/components/image-editor/ColorizeControls.tsx:52
-msgid "Unable to load the colorization model"
-msgstr "Nu se poate încărca modelul de colorare"
+#: src/components/image-editor/ColorizeControls.tsx:56
+msgid "Unable to load the colorization modes"
+msgstr "Nu se pot încărca modurile de colorare"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:58
 msgid "Unable to load the object removal model"

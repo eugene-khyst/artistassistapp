@@ -99,8 +99,8 @@ msgid "☁️ Cloud sync to store your color sets, photos, and mixtures in your 
 msgstr "☁️ Renk setlerinizi, fotoğraflarınızı ve karışımlarınızı kendi bulut depolamanızda saklamak için bulut senkronizasyonu; böylece bunları cihazlarınız arasında kullanabilirsiniz"
 
 #: src/components/ColorSetChooser.tsx:522
-msgid "✏️ High-quality outlines and background removal"
-msgstr "✏️ Yüksek kaliteli anahatlar ve arka plan kaldırma"
+msgid "✏️ High-quality outlines, background removal, and colorization"
+msgstr "✏️ Yüksek kaliteli anahatlar, arka plan kaldırma ve renklendirme"
 
 #: src/components/ColorSetChooser.tsx:519
 msgid "🎨 250+ color brands"
@@ -134,7 +134,7 @@ msgstr "Uygulamanın yeni bir sürümü mevcuttur."
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "%100'den küçük bir değer görüntünün daha az renkli görünmesine neden olur ve %100'den büyük bir değer görüntünün çok renkli görünmesine neden olur"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:92
+#: src/components/ml-model/OnnxModelSelect.tsx:93
 msgid "Accurate"
 msgstr "Hassas"
 
@@ -433,7 +433,7 @@ msgid "Check for updates"
 msgstr "Güncellemeleri kontrol et"
 
 #: src/components/ColorSetChooser.tsx:217
-#: src/components/image-editor/ColorizeControls.tsx:53
+#: src/components/image-editor/ColorizeControls.tsx:57
 #: src/components/image-editor/ExpandControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:52
 #: src/components/image-editor/RemoveObjectsControls.tsx:59
@@ -601,6 +601,10 @@ msgstr "Renk karışımı"
 msgid "Color picker"
 msgstr "Renk seçici"
 
+#: src/components/ml-model/OnnxModelSelect.tsx:44
+msgid "Color realism"
+msgstr "Renk gerçekçiliği"
+
 #: src/components/ColorSetChooser.tsx:613
 #: src/components/ImageColorPicker.tsx:293
 #: src/components/messages.ts:28
@@ -615,7 +619,7 @@ msgstr "Renk örneği"
 msgid "Colored Pencils"
 msgstr "Renkli Kalemler"
 
-#: src/components/image-editor/ColorizeControls.tsx:78
+#: src/components/image-editor/ColorizeControls.tsx:115
 msgid "Colorize"
 msgstr "Renklendir"
 
@@ -1000,11 +1004,11 @@ msgstr "Dosyaya aktar"
 msgid "Expressionism"
 msgstr "Ekspresyonizm"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:100
+#: src/components/ml-model/OnnxModelSelect.tsx:101
 msgid "Fast"
 msgstr "Hızlı"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:108
+#: src/components/ml-model/OnnxModelSelect.tsx:109
 msgid "Fastest"
 msgstr "En hızlı"
 
@@ -1033,8 +1037,9 @@ msgstr "Etikete göre filtrele"
 msgid "Fine detail"
 msgstr "İnce detay"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:56
-#: src/components/ml-model/OnnxModelSelect.tsx:84
+#: src/components/ml-model/OnnxModelSelect.tsx:57
+#: src/components/ml-model/OnnxModelSelect.tsx:85
+#: src/components/ml-model/OnnxModelSelect.tsx:117
 msgid "Finest"
 msgstr "En ince"
 
@@ -1153,7 +1158,7 @@ msgstr "ArtistAssistApp'i yükle"
 msgid "Install update"
 msgstr "Güncellemeyi yükle"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:77
+#: src/components/ml-model/OnnxModelSelect.tsx:78
 msgid "Instant"
 msgstr "Anında"
 
@@ -1225,6 +1230,10 @@ msgstr "Karşılaştırılacak: {unfinishedGamesSize}"
 #: src/components/ImageColorPicker.tsx:563
 msgid "Less"
 msgstr "Daha Az"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:124
+msgid "Light"
+msgstr "Hafif"
 
 #: src/components/ImageOutline.tsx:350
 msgid "Light box"
@@ -1349,6 +1358,7 @@ msgid "Mixture"
 msgstr "Karışım"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:107
+#: src/components/image-editor/ColorizeControls.tsx:79
 #: src/components/image-editor/RemoveBackgroundControls.tsx:68
 #: src/components/ImageOutline.tsx:267
 msgid "Mode"
@@ -1466,6 +1476,7 @@ msgstr "Köşegende saf renkler tam güçtedir. Köşegenin dışında her çift
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Ücretsiz sürümde yalnızca sınırlı sayıda renk markası mevcuttur"
 
+#: src/components/image-editor/ColorizeControls.tsx:90
 #: src/components/image-editor/RemoveBackgroundControls.tsx:79
 #: src/components/ImageOutline.tsx:259
 msgid "Only a limited number of modes are available in the free version"
@@ -1984,6 +1995,7 @@ msgstr "Sanat tekniğinizi, renk markalarınızı ve renklerinizi seçin"
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
 msgstr "Sanat tekniğinizi, renk markalarınızı ve boyama yapacağınız renkleri seçin, ardından <0>Kaydet ve devam et</0> düğmesine basın"
 
+#: src/components/image-editor/ColorizeControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:74
 #: src/components/ImageOutline.tsx:254
 msgid "Selected mode is available only to paid Patreon members"
@@ -2055,7 +2067,7 @@ msgstr "Bu renk setini paylaş"
 msgid "Share your color set"
 msgstr "Renk setinizi paylaşın"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:63
+#: src/components/ml-model/OnnxModelSelect.tsx:64
 msgid "Sharp"
 msgstr "Keskin"
 
@@ -2309,7 +2321,7 @@ msgstr "Kenar boşluğu çok büyük"
 msgid "There is one common palette and a separate palette for each photo"
 msgstr "Her fotoğraf için ortak bir palet ve ayrı bir palet vardır"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:70
+#: src/components/ml-model/OnnxModelSelect.tsx:71
 msgid "Thick"
 msgstr "Kalın"
 
@@ -2450,9 +2462,9 @@ msgstr "Arka plan kaldırma modları yüklenemiyor"
 msgid "Unable to load the color data"
 msgstr "Renk verileri yüklenemiyor"
 
-#: src/components/image-editor/ColorizeControls.tsx:52
-msgid "Unable to load the colorization model"
-msgstr "Renklendirme modeli yüklenemiyor"
+#: src/components/image-editor/ColorizeControls.tsx:56
+msgid "Unable to load the colorization modes"
+msgstr "Renklendirme modları yüklenemiyor"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:58
 msgid "Unable to load the object removal model"

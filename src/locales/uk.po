@@ -99,8 +99,8 @@ msgid "☁️ Cloud sync to store your color sets, photos, and mixtures in your 
 msgstr "☁️ Хмарна синхронізація для зберігання наборів кольорів, фото та сумішей у власному хмарному сховищі, щоб ви могли використовувати їх на різних пристроях"
 
 #: src/components/ColorSetChooser.tsx:522
-msgid "✏️ High-quality outlines and background removal"
-msgstr "✏️ Якісні контури та видалення фону"
+msgid "✏️ High-quality outlines, background removal, and colorization"
+msgstr "✏️ Якісні контури, видалення фону та розфарбовування"
 
 #: src/components/ColorSetChooser.tsx:519
 msgid "🎨 250+ color brands"
@@ -134,7 +134,7 @@ msgstr "Доступна нова версія додатку."
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Значення менше 100% робить зображення менш кольоровим, а значення більше 100% робить його занадто кольоровим"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:92
+#: src/components/ml-model/OnnxModelSelect.tsx:93
 msgid "Accurate"
 msgstr "Точний"
 
@@ -433,7 +433,7 @@ msgid "Check for updates"
 msgstr "Перевірити наявність оновлень"
 
 #: src/components/ColorSetChooser.tsx:217
-#: src/components/image-editor/ColorizeControls.tsx:53
+#: src/components/image-editor/ColorizeControls.tsx:57
 #: src/components/image-editor/ExpandControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:52
 #: src/components/image-editor/RemoveObjectsControls.tsx:59
@@ -601,6 +601,10 @@ msgstr "Кольорова суміш"
 msgid "Color picker"
 msgstr "Підбір кольорів"
 
+#: src/components/ml-model/OnnxModelSelect.tsx:44
+msgid "Color realism"
+msgstr "Реалістичність кольору"
+
 #: src/components/ColorSetChooser.tsx:613
 #: src/components/ImageColorPicker.tsx:293
 #: src/components/messages.ts:28
@@ -615,7 +619,7 @@ msgstr "Зразок кольору"
 msgid "Colored Pencils"
 msgstr "Кольорові олівці"
 
-#: src/components/image-editor/ColorizeControls.tsx:78
+#: src/components/image-editor/ColorizeControls.tsx:115
 msgid "Colorize"
 msgstr "Розфарбувати"
 
@@ -1000,11 +1004,11 @@ msgstr "Експорт у файл"
 msgid "Expressionism"
 msgstr "Експресіонізм"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:100
+#: src/components/ml-model/OnnxModelSelect.tsx:101
 msgid "Fast"
 msgstr "Швидкий"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:108
+#: src/components/ml-model/OnnxModelSelect.tsx:109
 msgid "Fastest"
 msgstr "Найшвидший"
 
@@ -1033,8 +1037,9 @@ msgstr "Фільтрувати за тегом"
 msgid "Fine detail"
 msgstr "Дрібні деталі"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:56
-#: src/components/ml-model/OnnxModelSelect.tsx:84
+#: src/components/ml-model/OnnxModelSelect.tsx:57
+#: src/components/ml-model/OnnxModelSelect.tsx:85
+#: src/components/ml-model/OnnxModelSelect.tsx:117
 msgid "Finest"
 msgstr "Найдетальніший"
 
@@ -1153,7 +1158,7 @@ msgstr "Встановити ArtistAssistApp"
 msgid "Install update"
 msgstr "Встановити оновлення"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:77
+#: src/components/ml-model/OnnxModelSelect.tsx:78
 msgid "Instant"
 msgstr "Миттєвий"
 
@@ -1225,6 +1230,10 @@ msgstr "Залишилося для порівняння: {unfinishedGamesSize}"
 #: src/components/ImageColorPicker.tsx:563
 msgid "Less"
 msgstr "Менше"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:124
+msgid "Light"
+msgstr "Легкий"
 
 #: src/components/ImageOutline.tsx:350
 msgid "Light box"
@@ -1349,6 +1358,7 @@ msgid "Mixture"
 msgstr "Суміш"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:107
+#: src/components/image-editor/ColorizeControls.tsx:79
 #: src/components/image-editor/RemoveBackgroundControls.tsx:68
 #: src/components/ImageOutline.tsx:267
 msgid "Mode"
@@ -1466,6 +1476,7 @@ msgstr "По діагоналі — чисті кольори на повну с
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "У безкоштовній версії доступна лише обмежена кількість колірних брендів"
 
+#: src/components/image-editor/ColorizeControls.tsx:90
 #: src/components/image-editor/RemoveBackgroundControls.tsx:79
 #: src/components/ImageOutline.tsx:259
 msgid "Only a limited number of modes are available in the free version"
@@ -1984,6 +1995,7 @@ msgstr "Виберіть художній засіб, колірні бренд�
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
 msgstr "Виберіть художній засіб, колірні бренди та кольори, якими ви будете малювати, а потім натисніть <0>Зберегти та продовжити</0>"
 
+#: src/components/image-editor/ColorizeControls.tsx:85
 #: src/components/image-editor/RemoveBackgroundControls.tsx:74
 #: src/components/ImageOutline.tsx:254
 msgid "Selected mode is available only to paid Patreon members"
@@ -2055,7 +2067,7 @@ msgstr "Поділитися цим набором кольорів"
 msgid "Share your color set"
 msgstr "Поділіться своїм набором кольорів"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:63
+#: src/components/ml-model/OnnxModelSelect.tsx:64
 msgid "Sharp"
 msgstr "Чіткий"
 
@@ -2309,7 +2321,7 @@ msgstr "Поле занадто велике"
 msgid "There is one common palette and a separate palette for each photo"
 msgstr "Є одна спільна палітра та окрема палітра для кожної фотографії"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:70
+#: src/components/ml-model/OnnxModelSelect.tsx:71
 msgid "Thick"
 msgstr "Товстий"
 
@@ -2450,9 +2462,9 @@ msgstr "Не вдалося завантажити режими видаленн
 msgid "Unable to load the color data"
 msgstr "Не вдалося завантажити дані кольору"
 
-#: src/components/image-editor/ColorizeControls.tsx:52
-msgid "Unable to load the colorization model"
-msgstr "Не вдалося завантажити модель розфарбовування"
+#: src/components/image-editor/ColorizeControls.tsx:56
+msgid "Unable to load the colorization modes"
+msgstr "Не вдалося завантажити режими розфарбовування"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:58
 msgid "Unable to load the object removal model"

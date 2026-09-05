@@ -26,7 +26,7 @@ import {useAppStore} from '@/stores/app-store';
 
 type SettingsKey = keyof Pick<
   AppSettings,
-  'outlineModel' | 'backgroundRemovalModel' | 'styleTransferImageId'
+  'outlineModel' | 'styleTransferImageId' | 'backgroundRemovalModel' | 'colorizeModel'
 >;
 
 interface Options<T> {

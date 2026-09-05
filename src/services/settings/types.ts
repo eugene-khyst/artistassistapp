@@ -52,11 +52,12 @@ export interface AppSettings {
   outlineModel?: string | null;
   styleTransferImageId?: string;
   styleTransferImageDigest?: string;
-  backgroundRemovalModel?: string;
   cropAspectRatio?: string;
   expandAspectRatio?: string;
   expandSizeMode?: string;
   expandFillMode?: string;
+  backgroundRemovalModel?: string;
+  colorizeModel?: string;
 }
 
 export const DEFAULT_APP_SETTINGS: AppSettings = {
