@@ -10,26 +10,31 @@
   text-align: center;
   font-family: Kalam, cursive;
   font-size: var(--ant-font-size-heading-1);
-  font-weight: bold;
+  font-weight: 700;
   line-height: 1em;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 1px rgba(70, 40, 100, 0.14);
+  white-space: nowrap;
 }
 
 .tagline {
   text-align: center;
   font-family: 'Noto Sans', Arial, sans-serif;
   font-size: var(--ant-font-size-heading-4);
+  font-weight: 600;
   line-height: 1em;
-  color: #945382;
+  color: #6a4490;
+  white-space: nowrap;
 }
 
 .artist {
-  color: #656b89;
+  color: #51618f;
 }
 
 .assist {
-  color: #7b6085;
+  color: #7a4690;
 }
 
 .app {
-  color: #895983;
+  color: #ab3d80;
 }
