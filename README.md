@@ -1,8 +1,6 @@
 # <a id="0"></a>ArtistAssistApp
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/eugene-khyst/artistassistapp/main/public/assets/favicon/pwa-512x512.png" width="150" alt="ArtistAssistApp logo" />
-</p>
+![ArtistAssistApp color matching, virtual color mixer, color library, tonal values, outlines, and grids](public/assets/images/open-graph-1800x945.webp)
 
 - [Overview](#1)
 - [Getting Started](#2)
@@ -14,33 +12,41 @@
 
 ## <a id="1"></a>Overview
 
-**ArtistAssistApp**, also known as **Artist Assist App**, is a Progressive Web App (PWA) that helps artists to mix colors from photos, analyze tonal values, outline photos, draw with grids, paint with limited palettes, edit reference photos, prepare photos of finished paintings for publishing, and more.
+**ArtistAssistApp**, also known as **Artist Assist App**, is a Progressive Web App (PWA) that helps artists mix colors to match reference photos using their own art supplies. Create palettes and mixing charts, study tonal values, simplify photos into painting references, make outlines to trace, draw with grids, and work in limited palettes. Apply artistic styles, compare photos side by side, and edit reference photos or photos of finished paintings.
 
 ArtistAssistApp offers the following features:
 
-- Match any color from your photo or learn how to accurately mix it
-- Mix any colors of any brands in any proportions
-- Generate a color mixing chart from any subset of your colors to plan mixes without wasting paint
+- Pick a color in your reference photo and find a matching color or paint mixture from your own set, with a match percentage
+- Mix colors from different brands in any proportions and preview the result before using real paint
+- Preview glazing over a dried layer or blending over an existing pastel layer
+- Add a unifying color to suggested mixtures for a more harmonious palette
+- Generate, save, and print a color mixing chart from any subset of your colors to plan mixes without wasting paint
+- Create two-color gradient charts to compare mixing ratios and consistencies for selected color pairs
+- Choose your colors from a library of 250+ watercolor, oil, acrylic, gouache, pastel, pencil, and marker brands
+- Create a custom color brand by sampling a photo of a hand-painted color chart
 - Automatically build a palette from a photo with the best matching color mixtures
-- Save & access your favorite color mixes instantly
+- Save favorite mixtures in a common palette or a separate palette for each photo
 - Share color sets through links and QR codes
-- Convert your photos into clean outlines, then trace them your way: print at any size on your home printer, turn your tablet or laptop into a light box (no printer needed), or overlay directly onto canvas, walls, or any surface with AR.
-- Add a grid over your reference photo for accurate, proportional drawing.
-- Analyze tonal values to improve contrast, including a color map view
-- Simplify a photo into a painting reference with fewer small details, so the main shapes, proportions and color areas are easier to see; the whole image is simplified, gently near the focal point you choose and more strongly away from it
-- Mix harmonious colors with limited palettes
-- Get inspired by applying built-in or user-supplied artistic styles to your photos
-- Straighten a photo of your painting and correct its perspective, with automatic detection of the painting's corners, so it is ready to publish
-- Adjust white balance, levels, saturation, and color temperature to make a photo of a painting match the original
-- Crop a photo, or expand the canvas beyond the original frame and let the app fill the new area
-- Easily remove backgrounds from photos of your paintings
+- Convert a photo into a clean outline to trace: print at any size on your home printer, use a tablet or laptop as a light box, or overlay it on your drawing surface with AR
+- Add a square or rectangular grid, with optional diagonals, to your reference photo for accurate proportions
+- Study light, mid, and shadow tones, or use a color map, to check contrast
+- Simplify a photo into a painting reference with fewer small details, gently near the focal point you choose and more strongly away from it
+- Preview a photo with a limited palette to check color harmony, then use that palette as your main color set
+- Apply built-in artistic styles or a style from your own image to a photo
+- Compare photos side by side and rank them in pairs to pick the best reference
+- Straighten a photo of your painting and correct its perspective, with automatic detection of the painting's corners
+- Adjust white balance, levels, gamma, saturation, and color temperature to make a photo of a painting match the original
+- Crop a photo freely or to a fixed aspect ratio
+- Expand the canvas beyond the original frame and fill the new area with a color or generated content
+- Remove backgrounds from reference photos or photos of your paintings
 - Remove unwanted objects from a reference photo
-- Upscale a photo to a higher resolution
+- Upscale a photo to two or four times its width and height, depending on its size
 - Colorize black-and-white photos
-- Rank your photos using a pairwise comparison
-- Sync color sets, reference photos, saved color mixtures, and custom color brands across devices using Google Drive, OneDrive, or Dropbox
+- Sync color sets, reference photos, saved color mixtures, and custom color brands across devices using your own Google Drive, OneDrive, or Dropbox
 - Back up and restore the same data locally with ZIP files
-- Install the app on your device for offline access
+- Install the app on your phone, tablet, or computer for offline access
+
+All image processing runs in your browser. Photos stay on your device unless you choose to use cloud sync.
 
 Try it now at [ArtistAssistApp.com](https://artistassistapp.com)
 
@@ -67,25 +73,21 @@ ArtistAssistApp uses Web Workers for parallel processing and Service Workers for
 
 ## <a id="4"></a>Screenshots
 
-![ArtistAssistApp Color picker](https://github.com/user-attachments/assets/56b697a0-b41c-4781-b4e7-82508cc02c4b)
+**Color matching**
 
-![ArtistAssistApp Color picker](https://github.com/user-attachments/assets/d9c3abe5-cdbb-458e-82bc-ccdadb21dd65)
+![Mix any color from a reference photo with the paints you own](public/assets/screenshots/wide/color-picker.webp)
 
-![ArtistAssistApp Color mixing](https://github.com/user-attachments/assets/321df950-bf1a-4893-9bb8-cea252cfdce3)
+**Two-color gradients**
 
-![ArtistAssistApp Color mixing](https://github.com/user-attachments/assets/790d013a-e8d1-454c-929b-f6ba9c4ea59b)
+![Compare mixing ratios and consistencies with two-color gradients](public/assets/screenshots/wide/2-color-gradient.webp)
 
-![ArtistAssistApp Outline](https://github.com/user-attachments/assets/b2a8d6ef-e0bb-4b63-bd10-06814b661edc)
+**Tonal values**
 
-![ArtistAssistApp Grid](https://github.com/user-attachments/assets/a4fcd136-bcfd-4522-ac66-a4729f6a890c)
+![Study tonal values to check contrast in your photo](public/assets/screenshots/wide/tonal-values.webp)
 
-![ArtistAssistApp Tonal values](https://github.com/user-attachments/assets/e8493f20-2c1c-4017-a77d-45bfd8b1f341)
+**Outlines**
 
-![ArtistAssistApp Background removal](https://github.com/user-attachments/assets/56cfe774-7251-4b46-b020-0b12a78f731f)
-
-![ArtistAssistApp Spectral reflectance curve](https://github.com/user-attachments/assets/abd233bf-c04d-4e01-8f93-64e5d2be264b)
-
-![ArtistAssistApp Spectral reflectance curve](https://github.com/user-attachments/assets/ce08c975-cbc3-4ced-aa70-680eb8a45db0)
+![Turn a photo into a clean outline to trace](public/assets/screenshots/wide/outline.webp)
 
 ## <a id="5"></a>License
 
@@ -94,4 +96,4 @@ ArtistAssistApp is licensed under the GNU Affero General Public License v3.0. Se
 
 The machine-learning models the app downloads and runs are separate works, each under its own
 license. See [THIRD-PARTY-NOTICES.txt](public/THIRD-PARTY-NOTICES.txt), also served at
-[artistassistapp.com/THIRD-PARTY-NOTICES.txt](https://artistassistapp.com/THIRD-PARTY-NOTICES.txt).
+[app.artistassistapp.com/THIRD-PARTY-NOTICES.txt](https://app.artistassistapp.com/THIRD-PARTY-NOTICES.txt).
