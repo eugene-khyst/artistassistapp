@@ -13,7 +13,7 @@
 .previewImage {
   display: block;
   max-width: 100%;
-  max-height: calc(100dvh - 75px);
+  max-height: calc(100dvh - var(--app-tab-bar-offset));
   margin-bottom: 0;
   object-fit: contain;
 }
@@ -21,7 +21,7 @@
 .sidePanel {
   display: flex;
   flex-direction: column;
-  max-height: calc(100dvh - 75px);
+  max-height: calc(100dvh - var(--app-tab-bar-offset));
   margin-top: 0;
   padding: 0 var(--ant-padding);
 }
@@ -59,11 +59,11 @@
 
 @media (max-width: 575px) {
   .previewImage {
-    max-height: calc((100dvh - 75px) / 2 - var(--ant-margin-xs));
+    max-height: calc((100dvh - var(--app-tab-bar-offset)) / 2 - var(--ant-margin-xs));
     margin-bottom: var(--ant-margin-xs);
   }
 
   .sidePanel {
-    max-height: calc((100dvh - 75px) / 2 - var(--ant-margin-xs));
+    max-height: calc((100dvh - var(--app-tab-bar-offset)) / 2 - var(--ant-margin-xs));
   }
 }

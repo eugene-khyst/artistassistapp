@@ -5,7 +5,9 @@
 .previewCanvas {
   display: block;
   width: 100%;
-  height: calc(100dvh - 115px);
+  height: calc(
+    100dvh - var(--app-tab-bar-offset) - var(--ant-control-height) - var(--ant-margin-xs)
+  );
 }
 
 .focalPointHint {

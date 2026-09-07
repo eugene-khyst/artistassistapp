@@ -1,6 +1,8 @@
 .previewCanvas {
   width: 100%;
-  height: calc((100dvh - 115px) / 2);
+  height: calc(
+    (100dvh - var(--app-tab-bar-offset) - var(--ant-control-height) - var(--ant-margin-xs)) / 2
+  );
 }
 
 .toneRadioGroupCompact {
@@ -14,6 +16,8 @@
 
 @media (min-width: 576px) {
   .previewCanvas {
-    height: calc(100dvh - 115px);
+    height: calc(
+      100dvh - var(--app-tab-bar-offset) - var(--ant-control-height) - var(--ant-margin-xs)
+    );
   }
 }

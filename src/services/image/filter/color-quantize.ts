@@ -78,7 +78,7 @@ export function quantizeColors(
   // Extract palette
   const palette: OklabTuple[] = clusters.map(({oklab}) => oklab);
 
-  if (dither) {
+  if (dither && palette.length > 1) {
     // Blue noise ordered dithering on original pixel data
     ditherOrdered(dataOklab, width, height, palette);
   } else {

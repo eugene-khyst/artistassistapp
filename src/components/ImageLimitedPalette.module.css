@@ -9,11 +9,19 @@
 
 .previewCanvas {
   width: 100%;
-  height: calc((100dvh - 130px) / 2);
+  height: calc(
+    (
+        100dvh - var(--app-tab-bar-offset) - var(--ant-control-height) -
+          var(--ant-control-height-sm)
+      ) /
+      2
+  );
 }
 
 @media (min-width: 576px) {
   .previewCanvas {
-    height: calc(100dvh - 130px);
+    height: calc(
+      100dvh - var(--app-tab-bar-offset) - var(--ant-control-height) - var(--ant-control-height-sm)
+    );
   }
 }

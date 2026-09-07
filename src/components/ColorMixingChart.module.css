@@ -1,7 +1,7 @@
 .scroll {
   overflow: auto;
   min-height: 250px;
-  max-height: calc(100dvh - 60px);
+  max-height: calc(100dvh - var(--app-tab-bar-offset));
 }
 
 .colorsFormItem {

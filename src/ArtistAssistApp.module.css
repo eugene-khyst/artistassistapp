@@ -1,3 +1,7 @@
+.tabs {
+  --app-tab-bar-offset: calc(var(--ant-tabs-card-height) + var(--ant-margin));
+}
+
 .watermark {
   position: fixed;
   top: 40px;

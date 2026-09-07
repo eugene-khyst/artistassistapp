@@ -192,6 +192,7 @@ export function ArtistAssistApp() {
           <Tabs
             type="card"
             size="small"
+            className={styles['tabs']}
             renderTabBar={renderTabBar}
             items={items}
             activeKey={activeTabKey}
