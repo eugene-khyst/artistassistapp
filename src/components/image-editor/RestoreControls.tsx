@@ -16,13 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {CloseCircleOutlined, ScissorOutlined} from '@ant-design/icons';
-import {WHITE_HEX} from '@eugene-khyst/artistassistapp-color-mixer';
+import {ThunderboltOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Form, Space, Typography} from 'antd';
-import type {AggregationColor} from 'antd/es/color-picker/color';
 
-import {ColorPicker} from '@/components/color/ColorPicker';
 import {OnnxModelSelect} from '@/components/ml-model/OnnxModelSelect';
 import {useErrorNotification} from '@/hooks/useErrorNotification';
 import {useOnnxModels} from '@/hooks/useOnnxModels';
@@ -31,12 +28,10 @@ import {Access} from '@/services/auth/types';
 import {OnnxModelType} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
 
-export function RemoveBackgroundControls() {
+export function RestoreControls() {
   const user = useAppStore(state => state.auth?.user);
-  const removeBackgroundColor = useAppStore(state => state.removeBackgroundColor);
-  const setRemoveBackgroundModel = useAppStore(state => state.setRemoveBackgroundModel);
-  const setRemoveBackgroundColor = useAppStore(state => state.setRemoveBackgroundColor);
-  const removeBackground = useAppStore(state => state.removeBackground);
+  const setRestoreModel = useAppStore(state => state.setRestoreModel);
+  const restoreImage = useAppStore(state => state.restoreImage);
 
   const {t} = useLingui();
 
@@ -44,11 +39,11 @@ export function RemoveBackgroundControls() {
     models,
     isLoading: isModelsLoading,
     isError: isModelsError,
-  } = useOnnxModels(OnnxModelType.BackgroundRemoval);
+  } = useOnnxModels(OnnxModelType.Restoration);
 
   useErrorNotification(
     isModelsError,
-    t`Unable to load the background removal modes`,
+    t`Unable to load the restoration modes`,
     t`Check your connection and try again.`
   );
 
@@ -59,8 +54,8 @@ export function RemoveBackgroundControls() {
     selectItem: selectModel,
   } = useSelectedCatalogItem({
     items: models,
-    settingsKey: 'backgroundRemovalModel',
-    setItem: setRemoveBackgroundModel,
+    settingsKey: 'restoreModel',
+    setItem: setRestoreModel,
   });
 
   return (
@@ -94,47 +89,16 @@ export function RemoveBackgroundControls() {
         />
       </Form.Item>
 
-      <Form.Item
-        label={<Trans>Background</Trans>}
-        labelCol={{className: 'u-pb-0'}}
-        className="u-mb-0"
-      >
-        <Space.Compact>
-          <ColorPicker
-            title={t`Background`}
-            presets={[
-              {
-                label: <Trans>White</Trans>,
-                colors: [WHITE_HEX],
-              },
-            ]}
-            disabledAlpha
-            value={removeBackgroundColor ?? undefined}
-            onChangeComplete={(color: AggregationColor) => {
-              setRemoveBackgroundColor(color.toHexString());
-            }}
-            classNames={{popup: {root: 'color-picker-high-z-index'}}}
-          />
-          <Button
-            icon={<CloseCircleOutlined />}
-            title={t`Clear background color`}
-            disabled={removeBackgroundColor === null}
-            onClick={() => {
-              setRemoveBackgroundColor(null);
-            }}
-          />
-        </Space.Compact>
-      </Form.Item>
-
       <Button
         type="primary"
-        icon={<ScissorOutlined />}
+        icon={<ThunderboltOutlined />}
+        loading={isModelsLoading}
         disabled={access !== Access.Allowed}
         onClick={() => {
-          void removeBackground();
+          void restoreImage();
         }}
       >
-        <Trans>Remove background</Trans>
+        <Trans>Restore</Trans>
       </Button>
     </Space>
   );

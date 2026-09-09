@@ -58,6 +58,7 @@ export function ColorizeControls() {
   );
 
   const {
+    hasPaidItems,
     itemId: colorizeModelId,
     access: colorizeAccess,
     selectItem: selectColorizeModel,
@@ -85,7 +86,8 @@ export function ColorizeControls() {
               <Trans>Selected mode is available only to paid Patreon members</Trans>
             </Typography.Text>
           ) : (
-            !user && (
+            !user &&
+            hasPaidItems && (
               <Typography.Text type="secondary">
                 <Trans>Only a limited number of modes are available in the free version</Trans>
               </Typography.Text>

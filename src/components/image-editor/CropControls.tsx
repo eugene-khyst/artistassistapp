@@ -24,12 +24,13 @@ import {useEffect} from 'react';
 import {type ImageCroppingMode} from '@/services/canvas/mode/image-cropping-mode';
 import {
   type CropAspectRatio,
-  IMAGE_ASPECT_RATIO_OPTIONS,
   imageAspectRatio,
   imageAspectRatioLabel,
   ORIGINAL_CROP_ASPECT_RATIO,
 } from '@/services/image/aspect-ratio';
 import {useAppStore} from '@/stores/app-store';
+
+import {IMAGE_ASPECT_RATIO_OPTIONS} from './image-aspect-ratio-options';
 
 const FREE_CROP_ASPECT_RATIO_OPTION = 'free';
 
@@ -77,7 +78,7 @@ export function CropControls({croppingMode}: Readonly<Props>) {
         className="u-mb-0"
       >
         <Select
-          className="u-narrow-select"
+          className="u-w-auto"
           value={cropAspectRatioOption(cropAspectRatio)}
           options={CROP_ASPECT_RATIO_OPTIONS}
           onChange={handleAspectRatioChange}

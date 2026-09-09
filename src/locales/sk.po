@@ -114,6 +114,14 @@ msgstr "📢 Žiadne reklamy"
 msgid "🧑‍🎨 Artistic styles from your own images"
 msgstr "🧑‍🎨 Umelecké štýly z vašich vlastných obrázkov"
 
+#: src/components/image-editor/image-aspect-ratio-options.tsx:28
+msgid "100×148 mm photo paper"
+msgstr "Fotopapier 100×148 mm"
+
+#: src/components/image-editor/image-aspect-ratio-options.tsx:30
+msgid "148×100 mm photo paper"
+msgstr "Fotopapier 148×100 mm"
+
 #: src/components/messages.ts:38
 msgid "2-color gradient"
 msgstr "2-farebný gradient"
@@ -134,19 +142,19 @@ msgstr "Nová verzia aplikácie je dostupná."
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Hodnota menšia ako 100 % spôsobí, že obrázok bude vyzerať menej farebne a hodnota vyššia ako 100 % spôsobí, že bude vyzerať príliš farebne"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:93
+#: src/components/ml-model/OnnxModelSelect.tsx:94
 msgid "Accurate"
 msgstr "Presné"
 
-#: src/components/messages.ts:69
+#: src/components/messages.ts:70
 msgid "Acrylic Gouache"
 msgstr "Akrylový kvaš"
 
-#: src/components/messages.ts:68
+#: src/components/messages.ts:69
 msgid "Acrylic Markers"
 msgstr "Akrylové fixky"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Acrylic Paint"
 msgstr "Akrylová farba"
 
@@ -194,7 +202,7 @@ msgstr "Ručne nastavte 4 rohy."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Všetky údaje aplikácie sú uložené v úložisku webového prehliadača, aj po inštalácii. Vymazanie údajov prehliadača ich všetky odstráni."
 
-#: src/components/ImageEditor.tsx:309
+#: src/components/ImageEditor.tsx:312
 msgid "All edits will be lost"
 msgstr "Všetky úpravy sa stratia"
 
@@ -239,8 +247,8 @@ msgstr "Použite menší prítlak, aby bola vrstva akvarelovej ceruzky priehľad
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
 msgstr "Aplikujte ťahy tejto farby a podkladovej farby v pomere <0>{ratioText}</0>"
 
-#: src/components/ImageOutline.tsx:307
-#: src/components/ImageOutline.tsx:359
+#: src/components/ImageOutline.tsx:309
+#: src/components/ImageOutline.tsx:361
 msgid "AR"
 msgstr "AR"
 
@@ -298,9 +306,9 @@ msgstr "ArtistAssistApp natrvalo odstráni vašu uloženú prácu a nastavenia z
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "ArtistAssistApp sa po odstránení dočasných súborov aplikácie znova načíta.<0/>Vaša uložená práca a cloudové údaje nebudú odstránené."
 
-#: src/components/image-editor/CropControls.tsx:75
-#: src/components/image-editor/ExpandControls.tsx:101
-#: src/components/image-editor/ExpandControls.tsx:138
+#: src/components/image-editor/CropControls.tsx:76
+#: src/components/image-editor/ExpandControls.tsx:98
+#: src/components/image-editor/ExpandControls.tsx:135
 msgid "Aspect ratio"
 msgstr "Pomer strán"
 
@@ -340,8 +348,8 @@ msgstr "Automaticky nájdite najlepšie farebné zmesi pre túto fotografiu."
 msgid "Average color of the white point area"
 msgstr "Priemerná farba oblasti bieleho bodu"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:96
-#: src/components/image-editor/RemoveBackgroundControls.tsx:102
+#: src/components/image-editor/RemoveBackgroundControls.tsx:98
+#: src/components/image-editor/RemoveBackgroundControls.tsx:104
 msgid "Background"
 msgstr "Pozadie"
 
@@ -373,21 +381,21 @@ msgstr "Podľa počtu farieb"
 msgid "By consistency"
 msgstr "Podľa konzistencie"
 
-#: src/components/messages.ts:83
+#: src/components/messages.ts:84
 msgid "By date"
 msgstr "Podľa dátumu"
 
-#: src/components/messages.ts:78
-#: src/components/messages.ts:85
+#: src/components/messages.ts:79
+#: src/components/messages.ts:86
 msgid "By hue"
 msgstr "Podľa odtieňa"
 
-#: src/components/messages.ts:77
+#: src/components/messages.ts:78
 msgid "By ID"
 msgstr "Podľa ID"
 
-#: src/components/messages.ts:79
-#: src/components/messages.ts:86
+#: src/components/messages.ts:80
+#: src/components/messages.ts:87
 msgid "By lightness"
 msgstr "Podľa svetlosti"
 
@@ -395,11 +403,11 @@ msgstr "Podľa svetlosti"
 msgid "By match"
 msgstr "Podľa zhody"
 
-#: src/components/messages.ts:84
+#: src/components/messages.ts:85
 msgid "By name"
 msgstr "Podľa názvu"
 
-#: src/components/ImageOutline.tsx:151
+#: src/components/ImageOutline.tsx:152
 msgid "Camera access is required for AR tracing"
 msgstr "Na obkresľovanie v AR je potrebný prístup ku kamere"
 
@@ -409,7 +417,7 @@ msgstr "Na obkresľovanie v AR je potrebný prístup ku kamere"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:311
+#: src/components/ImageEditor.tsx:314
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:50
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -434,9 +442,10 @@ msgstr "Skontrolovať aktualizácie"
 
 #: src/components/ColorSetChooser.tsx:217
 #: src/components/image-editor/ColorizeControls.tsx:57
-#: src/components/image-editor/ExpandControls.tsx:85
+#: src/components/image-editor/ExpandControls.tsx:82
 #: src/components/image-editor/RemoveBackgroundControls.tsx:52
 #: src/components/image-editor/RemoveObjectsControls.tsx:59
+#: src/components/image-editor/RestoreControls.tsx:47
 #: src/components/image-editor/UpscaleControls.tsx:48
 #: src/components/ImageChooser.tsx:73
 #: src/components/ImageOutline.tsx:103
@@ -462,7 +471,7 @@ msgstr "Mestská krajina"
 msgid "Clear"
 msgstr "Vymazať"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:118
+#: src/components/image-editor/RemoveBackgroundControls.tsx:120
 msgid "Clear background color"
 msgstr "Vymazať farbu pozadia"
 
@@ -562,9 +571,9 @@ msgstr "Vyžaduje sa kód"
 
 #: src/components/ColorMixer.tsx:192
 #: src/components/CustomColorBrandCreator.tsx:476
-#: src/components/image-editor/ExpandControls.tsx:105
-#: src/components/image-editor/ExpandControls.tsx:212
-#: src/components/image-editor/ExpandControls.tsx:214
+#: src/components/image-editor/ExpandControls.tsx:102
+#: src/components/image-editor/ExpandControls.tsx:209
+#: src/components/image-editor/ExpandControls.tsx:211
 msgid "Color"
 msgstr "Farba"
 
@@ -615,15 +624,15 @@ msgstr "Farebná sada"
 msgid "Color swatch"
 msgstr "Vzorka farby"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Colored Pencils"
 msgstr "Farebné ceruzky"
 
-#: src/components/image-editor/ColorizeControls.tsx:115
+#: src/components/image-editor/ColorizeControls.tsx:117
 msgid "Colorize"
 msgstr "Zafarbiť"
 
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Colorize black-and-white"
 msgstr "Vyfarbiť čiernobielu fotografiu"
 
@@ -733,7 +742,7 @@ msgstr "Vytvorte novú farebnú sadu zlúčením existujúcich"
 msgid "Create new"
 msgstr "Vytvoriť nové"
 
-#: src/components/image-editor/CropControls.tsx:97
+#: src/components/image-editor/CropControls.tsx:98
 #: src/components/messages.ts:49
 msgid "Crop"
 msgstr "Orezať"
@@ -749,6 +758,10 @@ msgstr "Vlastná sada farieb"
 #: src/components/messages.ts:43
 msgid "Custom colors"
 msgstr "Vlastné farby"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:140
+msgid "Deblur"
+msgstr "Odstrániť rozmazanie"
 
 #: src/components/auth/DeleteAccountButton.tsx:67
 #: src/components/color/AddToPaletteButton.tsx:48
@@ -813,6 +826,10 @@ msgstr "Odstrániť nedávnu fotografiu"
 #: src/components/ColorSetChooser.tsx:797
 msgid "Delete this color set"
 msgstr "Odstrániť túto farebnú sadu"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:132
+msgid "Denoise"
+msgstr "Odstrániť šum"
 
 #: src/components/color/ConsistencyDescription.tsx:51
 msgid "Dense layer"
@@ -898,7 +915,7 @@ msgstr "Sem presuňte súbor..."
 msgid "Drop the files here..."
 msgstr "Sem presuňte súbory..."
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Dry Pastel"
 msgstr "Suchý pastel"
 
@@ -926,7 +943,7 @@ msgstr "Upraviť odtiaľto ďalej"
 msgid "Edit image"
 msgstr "Upraviť obrázok"
 
-#: src/components/ImageEditor.tsx:321
+#: src/components/ImageEditor.tsx:324
 msgid "Edited"
 msgstr "Upravené"
 
@@ -950,11 +967,11 @@ msgstr "Zadajte názov"
 msgid "Enter a valid email"
 msgstr "Zadajte platný e-mail"
 
-#: src/components/ImageOutline.tsx:288
+#: src/components/ImageOutline.tsx:290
 msgid "Enter lightbox mode to trace the outline through your paper"
 msgstr "Prejdite do režimu lightboxu a obkreslite obrys cez papier"
 
-#: src/components/ImageOutline.tsx:351
+#: src/components/ImageOutline.tsx:353
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Prejdite do režimu lightboxu a obkreslite obrys cez papier."
 
@@ -982,17 +999,17 @@ msgstr "Odhadovaná teplota svetelného zdroja v kelvinoch, pri ktorom bola sní
 msgid "Etching"
 msgstr "Leptanie"
 
-#: src/components/ImageOutline.tsx:307
-#: src/components/ImageOutline.tsx:359
+#: src/components/ImageOutline.tsx:309
+#: src/components/ImageOutline.tsx:361
 msgid "Exit AR"
 msgstr "Ukončiť AR"
 
-#: src/components/image-editor/ExpandControls.tsx:252
+#: src/components/image-editor/ExpandControls.tsx:249
 #: src/components/messages.ts:50
 msgid "Expand"
 msgstr "Rozšíriť"
 
-#: src/components/image-editor/ExpandControls.tsx:118
+#: src/components/image-editor/ExpandControls.tsx:115
 msgid "Expand by"
 msgstr "Rozšíriť o"
 
@@ -1004,11 +1021,11 @@ msgstr "Export do súboru"
 msgid "Expressionism"
 msgstr "Expresionizmus"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:101
+#: src/components/ml-model/OnnxModelSelect.tsx:102
 msgid "Fast"
 msgstr "Rýchle"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:109
+#: src/components/ml-model/OnnxModelSelect.tsx:110
 msgid "Fastest"
 msgstr "Najrýchlejšie"
 
@@ -1016,7 +1033,7 @@ msgstr "Najrýchlejšie"
 msgid "Fauvism"
 msgstr "Fauvizmus"
 
-#: src/components/image-editor/ExpandControls.tsx:196
+#: src/components/image-editor/ExpandControls.tsx:193
 msgid "Fill"
 msgstr "Výplň"
 
@@ -1037,9 +1054,9 @@ msgstr "Filtrovať podľa značky"
 msgid "Fine detail"
 msgstr "Jemný detail"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:57
-#: src/components/ml-model/OnnxModelSelect.tsx:85
-#: src/components/ml-model/OnnxModelSelect.tsx:117
+#: src/components/ml-model/OnnxModelSelect.tsx:58
+#: src/components/ml-model/OnnxModelSelect.tsx:86
+#: src/components/ml-model/OnnxModelSelect.tsx:118
 msgid "Finest"
 msgstr "Najjemnejšie"
 
@@ -1051,7 +1068,7 @@ msgstr "Dokončiť úpravu"
 msgid "Focal point instructions"
 msgstr "Pokyny k ohnisku"
 
-#: src/components/image-editor/CropControls.tsx:37
+#: src/components/image-editor/CropControls.tsx:38
 msgid "Free"
 msgstr "Voľný"
 
@@ -1087,12 +1104,12 @@ msgstr "Lazúrovanie"
 msgid "Go to the {label} tab"
 msgstr "Prejdite na kartu {label}"
 
-#: src/components/messages.ts:60
+#: src/components/messages.ts:61
 msgid "Gouache"
 msgstr "Gvaš"
 
 #: src/components/grid/GridControls.tsx:130
-#: src/components/ImageOutline.tsx:326
+#: src/components/ImageOutline.tsx:328
 #: src/components/messages.ts:35
 msgid "Grid"
 msgstr "Mriežka"
@@ -1106,7 +1123,7 @@ msgstr "Výška"
 msgid "Help"
 msgstr "Pomocník"
 
-#: src/components/image-editor/ExpandControls.tsx:158
+#: src/components/image-editor/ExpandControls.tsx:155
 msgid "Horizontal"
 msgstr "Horizontálne"
 
@@ -1158,7 +1175,7 @@ msgstr "Nainštalovať ArtistAssistApp"
 msgid "Install update"
 msgstr "Inštalovať aktualizáciu"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:78
+#: src/components/ml-model/OnnxModelSelect.tsx:79
 msgid "Instant"
 msgstr "Okamžité"
 
@@ -1231,11 +1248,11 @@ msgstr "Zostáva porovnať: {unfinishedGamesSize}"
 msgid "Less"
 msgstr "Menej"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:124
+#: src/components/ml-model/OnnxModelSelect.tsx:125
 msgid "Light"
 msgstr "Ľahký"
 
-#: src/components/ImageOutline.tsx:350
+#: src/components/ImageOutline.tsx:352
 msgid "Light box"
 msgstr "Lightbox"
 
@@ -1244,7 +1261,7 @@ msgstr "Lightbox"
 msgid "Light tone"
 msgstr "Svetlý tón"
 
-#: src/components/ImageOutline.tsx:296
+#: src/components/ImageOutline.tsx:298
 msgid "Lightbox"
 msgstr "Lightbox"
 
@@ -1290,7 +1307,7 @@ msgstr "Nízky výstup a vysoký výstup"
 msgid "Margin"
 msgstr "Okraj"
 
-#: src/components/image-editor/ExpandControls.tsx:102
+#: src/components/image-editor/ExpandControls.tsx:99
 msgid "Margins"
 msgstr "Okraje"
 
@@ -1358,9 +1375,10 @@ msgid "Mixture"
 msgstr "Zmes"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:107
-#: src/components/image-editor/ColorizeControls.tsx:79
-#: src/components/image-editor/RemoveBackgroundControls.tsx:68
-#: src/components/ImageOutline.tsx:267
+#: src/components/image-editor/ColorizeControls.tsx:80
+#: src/components/image-editor/RemoveBackgroundControls.tsx:69
+#: src/components/image-editor/RestoreControls.tsx:64
+#: src/components/ImageOutline.tsx:269
 msgid "Mode"
 msgstr "Režim"
 
@@ -1410,7 +1428,7 @@ msgstr "Nová farebná sada"
 msgid "New comparison"
 msgstr "Nové porovnanie"
 
-#: src/components/image-editor/ExpandControls.tsx:228
+#: src/components/image-editor/ExpandControls.tsx:225
 #: src/components/image-editor/UpscaleControls.tsx:66
 msgid "New size: {outputWidth} × {outputHeight}"
 msgstr "Nová veľkosť: {outputWidth} × {outputHeight}"
@@ -1456,11 +1474,11 @@ msgstr "Počet buniek na menšej strane (vertikálne alebo horizontálne)"
 msgid "Off"
 msgstr "Vypnuté"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Oil Paint"
 msgstr "Olejová farba"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Oil Pastel"
 msgstr "Olejový pastel"
 
@@ -1476,9 +1494,10 @@ msgstr "Na uhlopriečke sú čisté neriedené farby. Mimo uhlopriečky je každ
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "V bezplatnej verzii je k dispozícii iba obmedzený počet farebných značiek"
 
-#: src/components/image-editor/ColorizeControls.tsx:90
-#: src/components/image-editor/RemoveBackgroundControls.tsx:79
-#: src/components/ImageOutline.tsx:259
+#: src/components/image-editor/ColorizeControls.tsx:92
+#: src/components/image-editor/RemoveBackgroundControls.tsx:81
+#: src/components/image-editor/RestoreControls.tsx:76
+#: src/components/ImageOutline.tsx:261
 msgid "Only a limited number of modes are available in the free version"
 msgstr "V bezplatnej verzii je k dispozícii iba obmedzený počet režimov"
 
@@ -1515,7 +1534,7 @@ msgstr "Alebo si vyberte zo vzorových fotografií"
 msgid "Or select from your recent photos"
 msgstr "Alebo si vyberte zo svojich nedávnych fotografií"
 
-#: src/components/image-editor/CropControls.tsx:38
+#: src/components/image-editor/CropControls.tsx:39
 #: src/components/image/ImageViewSelector.tsx:45
 msgid "Original"
 msgstr "Pôvodný"
@@ -1524,7 +1543,7 @@ msgstr "Pôvodný"
 msgid "Original color temperature (K)"
 msgstr "Pôvodná teplota farby (K)"
 
-#: src/components/ImageOutline.tsx:281
+#: src/components/ImageOutline.tsx:283
 #: src/components/messages.ts:34
 msgid "Outline"
 msgstr "Obrys"
@@ -1661,8 +1680,8 @@ msgstr "Stlačte tlačidlo <0>Pridať do palety</0> vedľa farebnej zmesi, ktor�
 #: src/components/ColorMixingChart.tsx:149
 #: src/components/ImageGrid.tsx:72
 #: src/components/ImageGrid.tsx:83
-#: src/components/ImageOutline.tsx:334
-#: src/components/ImageOutline.tsx:370
+#: src/components/ImageOutline.tsx:336
+#: src/components/ImageOutline.tsx:372
 #: src/components/ImagesCompare.tsx:181
 #: src/components/ImageTonalValues.tsx:158
 #: src/components/ImageTonalValues.tsx:169
@@ -1711,7 +1730,11 @@ msgstr "Pomer"
 msgid "Realism"
 msgstr "Realizmus"
 
-#: src/components/ImageEditor.tsx:306
+#: src/components/ml-model/OnnxModelSelect.tsx:143
+msgid "Recovers detail lost to camera shake or motion blur"
+msgstr "Obnovuje detaily stratené v dôsledku chvenia fotoaparátu alebo rozmazania pohybom"
+
+#: src/components/ImageEditor.tsx:309
 msgid "Redo"
 msgstr "Znovu"
 
@@ -1749,7 +1772,7 @@ msgstr "Znova načítať"
 msgid "Remove and continue"
 msgstr "Odstrániť a pokračovať"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:135
+#: src/components/image-editor/RemoveBackgroundControls.tsx:137
 #: src/components/messages.ts:52
 msgid "Remove background"
 msgstr "Odstrániť pozadie"
@@ -1758,6 +1781,10 @@ msgstr "Odstrániť pozadie"
 #: src/components/messages.ts:53
 msgid "Remove objects"
 msgstr "Odstrániť objekty"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:135
+msgid "Removes noise and grain from a scanned or high-ISO photo"
+msgstr "Odstraňuje šum a zrnitosť z naskenovanej fotografie alebo fotografie nasnímanej s vysokým ISO"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:119
 msgid "Removing objects is available only to paid Patreon members"
@@ -1781,10 +1808,15 @@ msgstr "Vyžaduje sa systém macOS Sonoma alebo novší."
 msgid "Resend code"
 msgstr "Znova odoslať kód"
 
-#: src/components/ImageEditor.tsx:310
-#: src/components/ImageEditor.tsx:315
+#: src/components/ImageEditor.tsx:313
+#: src/components/ImageEditor.tsx:318
 msgid "Reset"
 msgstr "Resetovať"
+
+#: src/components/image-editor/RestoreControls.tsx:101
+#: src/components/messages.ts:55
+msgid "Restore"
+msgstr "Reštaurovať"
 
 #: src/components/cloud/ImportFromZipFileSelect.tsx:78
 msgid "Restore backup"
@@ -1827,7 +1859,7 @@ msgstr "Sýtosť (%)"
 #: src/components/image/ImageSaveButton.tsx:38
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:141
-#: src/components/ImageOutline.tsx:377
+#: src/components/ImageOutline.tsx:379
 #: src/components/ImageTonalValues.tsx:175
 msgid "Save"
 msgstr "Uložiť"
@@ -1939,7 +1971,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Vyberte si zo svojich nedávnych farebných sád alebo vytvorte novú."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:281
+#: src/components/ImageEditor.tsx:284
 msgid "Select image"
 msgstr "Vybrať obrázok"
 
@@ -1995,9 +2027,10 @@ msgstr "Vyberte svoju výtvarnú techniku, farebné značky a farby"
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
 msgstr "Vyberte svoju výtvarnú techniku, farebné značky a farby, ktorými budete maľovať, a potom stlačte tlačidlo <0>Uložiť a pokračovať</0>"
 
-#: src/components/image-editor/ColorizeControls.tsx:85
-#: src/components/image-editor/RemoveBackgroundControls.tsx:74
-#: src/components/ImageOutline.tsx:254
+#: src/components/image-editor/ColorizeControls.tsx:86
+#: src/components/image-editor/RemoveBackgroundControls.tsx:75
+#: src/components/image-editor/RestoreControls.tsx:70
+#: src/components/ImageOutline.tsx:255
 msgid "Selected mode is available only to paid Patreon members"
 msgstr "Vybraný režim je dostupný len pre platených členov Patreonu"
 
@@ -2067,7 +2100,7 @@ msgstr "Zdieľať túto farebnú sadu"
 msgid "Share your color set"
 msgstr "Zdieľať farebnú sadu"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:64
+#: src/components/ml-model/OnnxModelSelect.tsx:65
 msgid "Sharp"
 msgstr "Ostrý"
 
@@ -2135,11 +2168,11 @@ msgstr "Mierne prekryte oblasti voskového pastelu rôznych farieb a pevne ich r
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Menšie percentilové hodnoty zodpovedajú silnejšiemu vybieleniu"
 
-#: src/components/image-editor/ExpandControls.tsx:106
+#: src/components/image-editor/ExpandControls.tsx:103
 msgid "Smart"
 msgstr "Inteligentné"
 
-#: src/components/image-editor/ExpandControls.tsx:236
+#: src/components/image-editor/ExpandControls.tsx:233
 msgid "Smart expansion is available only to paid Patreon members"
 msgstr "Inteligentné rozšírenie je dostupné len pre platených členov Patreonu"
 
@@ -2321,7 +2354,7 @@ msgstr "Okraj je príliš veľký"
 msgid "There is one common palette and a separate palette for each photo"
 msgstr "Existuje jedna spoločná paleta a samostatná paleta pre každú fotografiu"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:71
+#: src/components/ml-model/OnnxModelSelect.tsx:72
 msgid "Thick"
 msgstr "Hrubý"
 
@@ -2474,11 +2507,15 @@ msgstr "Nie je možné načítať model odstraňovania objektov"
 msgid "Unable to load the outline modes"
 msgstr "Nie je možné načítať režimy obrysu"
 
+#: src/components/image-editor/RestoreControls.tsx:46
+msgid "Unable to load the restoration modes"
+msgstr "Nie je možné načítať režimy reštaurovania"
+
 #: src/components/ImageChooser.tsx:72
 msgid "Unable to load the sample photos"
 msgstr "Nie je možné načítať ukážkové fotografie"
 
-#: src/components/image-editor/ExpandControls.tsx:84
+#: src/components/image-editor/ExpandControls.tsx:81
 msgid "Unable to load the smart expansion model"
 msgstr "Nie je možné načítať model inteligentného rozšírenia"
 
@@ -2500,7 +2537,7 @@ msgstr "Nie je možné obnoviť uloženú farebnú sadu"
 msgid "Underlayer"
 msgstr "Podkladová vrstva"
 
-#: src/components/ImageEditor.tsx:299
+#: src/components/ImageEditor.tsx:302
 msgid "Undo"
 msgstr "Vrátiť späť"
 
@@ -2580,7 +2617,7 @@ msgstr "Použité"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Použitie obmedzenej palety pomáha dosiahnuť farebnú harmóniu. Vyberte 1 – {MAX_COLORS} základných farieb."
 
-#: src/components/image-editor/ExpandControls.tsx:176
+#: src/components/image-editor/ExpandControls.tsx:173
 msgid "Vertical"
 msgstr "Vertikálne"
 
@@ -2588,11 +2625,11 @@ msgstr "Vertikálne"
 msgid "Vienna Secession"
 msgstr "Viedenská secesia"
 
-#: src/components/ImageOutline.tsx:299
+#: src/components/ImageOutline.tsx:301
 msgid "View the outline over the live camera to trace in AR"
 msgstr "Zobraziť obrys cez živú kameru a obkresliť ho v AR"
 
-#: src/components/ImageOutline.tsx:360
+#: src/components/ImageOutline.tsx:362
 msgid "View the outline over the live camera to trace in AR."
 msgstr "Zobrazte obrys cez živú kameru a obkreslite ho v AR."
 
@@ -2617,15 +2654,15 @@ msgstr "Akvarel"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Akvarel je možné riediť vodou, aby bol priehľadnejší"
 
-#: src/components/messages.ts:59
+#: src/components/messages.ts:60
 msgid "Watercolor Paint"
 msgstr "Akvarelová farba"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Watercolor Pencils"
 msgstr "Akvarelové ceruzky"
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Wax Pastel"
 msgstr "Voskový pastel"
 
@@ -2646,8 +2683,8 @@ msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of thr
 msgstr "Pri výbere celkovo viac ako {maxColorsFor3} farieb sa nepoužívajú zmesi troch farieb."
 
 #: src/components/image-editor/AdjustColorsControls.tsx:240
-#: src/components/image-editor/ExpandControls.tsx:215
-#: src/components/image-editor/RemoveBackgroundControls.tsx:105
+#: src/components/image-editor/ExpandControls.tsx:212
+#: src/components/image-editor/RemoveBackgroundControls.tsx:107
 msgid "White"
 msgstr "Biela"
 
@@ -2655,7 +2692,7 @@ msgstr "Biela"
 msgid "White balance"
 msgstr "Vyváženie bielej"
 
-#: src/components/messages.ts:73
+#: src/components/messages.ts:74
 msgid "White paper or canvas"
 msgstr "Biely papier alebo plátno"
 
@@ -2729,7 +2766,7 @@ msgid "Your image"
 msgstr "Váš obrázok"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:335
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:303
 msgid "Your images are processed locally on your device and are never uploaded to any server"

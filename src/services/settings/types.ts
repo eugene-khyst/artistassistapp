@@ -58,6 +58,7 @@ export interface AppSettings {
   expandFillMode?: string;
   backgroundRemovalModel?: string;
   colorizeModel?: string;
+  restoreModel?: string;
 }
 
 export const DEFAULT_APP_SETTINGS: AppSettings = {

@@ -16,14 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export enum ImageEditorKey {
-  Straighten = 'straighten',
-  Crop = 'crop',
-  Expand = 'expand',
-  AdjustColors = 'adjust-colors',
-  RemoveBackground = 'remove-background',
-  RemoveObjects = 'remove-objects',
-  Upscale = 'upscale',
-  Restore = 'restore',
-  Colorize = 'colorize',
-}
+import {Trans} from '@lingui/react/macro';
+
+import {IMAGE_ASPECT_RATIOS, imageAspectRatioLabel} from '@/services/image/aspect-ratio';
+
+export const IMAGE_ASPECT_RATIO_OPTIONS = IMAGE_ASPECT_RATIOS.map(aspectRatio => {
+  const value = imageAspectRatioLabel(aspectRatio);
+  switch (value) {
+    // 100x148 mm is Canon Selphy Postcard and Xiaomi 6-inch photo paper.
+    case '100:148':
+      return {value, label: <Trans>100×148 mm photo paper</Trans>};
+    case '148:100':
+      return {value, label: <Trans>148×100 mm photo paper</Trans>};
+    default:
+      return {value, label: value};
+  }
+});

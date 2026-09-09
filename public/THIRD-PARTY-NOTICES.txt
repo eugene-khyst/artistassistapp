@@ -108,6 +108,25 @@ Copyright (C) 2023 Apple Inc. All Rights Reserved.
 https://github.com/apple/ml-fastvit
 
 
+Restoration
+-----------
+
+NAFNet - models nafnet-sidd-width32 and nafnet-gopro-width64
+Copyright (c) 2022 megvii-model
+MIT License
+https://github.com/megvii-research/NAFNet
+Source checkpoints: NAFNet-SIDD-width32.pth and NAFNet-GoPro-width64.pth
+https://drive.google.com/file/d/1lsByk21Xw-6aW7epCwOQxvm6HYCQZPHZ/view
+https://drive.google.com/file/d/1S0PVRbyTakYY9a82kujgZLbMihfNBLfC/view
+ArtistAssistApp exported both checkpoints with dynamic input sizes, removing the
+input size check and the matching output crop from the forward pass. The
+application resizes every input to a multiple of 16 instead.
+
+The model is built on BasicSR.
+Apache License 2.0
+https://github.com/XPixelGroup/BasicSR
+
+
 Style transfer
 --------------
 
@@ -157,8 +176,9 @@ MIT License
 -----------
 
 Applies to BiRefNet (Copyright (c) 2024 ZhengPeng), DexiNed (Copyright (c) 2019
-Xavier Soria Poma), Informative Drawings (Copyright (c) 2022 Caroline Chan) and
-TEED (Copyright (c) 2022 Xavier Soria Poma).
+Xavier Soria Poma), Informative Drawings (Copyright (c) 2022 Caroline Chan),
+NAFNet (Copyright (c) 2022 megvii-model) and TEED (Copyright (c) 2022 Xavier
+Soria Poma).
 
 Copyright (c) 2022 Caroline Chan
 

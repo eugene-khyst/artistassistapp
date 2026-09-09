@@ -114,6 +114,14 @@ msgstr "📢 Ei mainoksia"
 msgid "🧑‍🎨 Artistic styles from your own images"
 msgstr "🧑‍🎨 Taiteelliset tyylit omista kuvistasi"
 
+#: src/components/image-editor/image-aspect-ratio-options.tsx:28
+msgid "100×148 mm photo paper"
+msgstr "Valokuvapaperi 100×148 mm"
+
+#: src/components/image-editor/image-aspect-ratio-options.tsx:30
+msgid "148×100 mm photo paper"
+msgstr "Valokuvapaperi 148×100 mm"
+
 #: src/components/messages.ts:38
 msgid "2-color gradient"
 msgstr "2-värinen gradientti"
@@ -134,19 +142,19 @@ msgstr "Sovelluksesta on saatavilla uusi versio."
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Alle 100 %:n arvo saa kuvan näyttämään vähemmän värikkäältä ja yli 100 %:n arvo saa sen näyttämään liian värikkäältä"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:93
+#: src/components/ml-model/OnnxModelSelect.tsx:94
 msgid "Accurate"
 msgstr "Tarkka"
 
-#: src/components/messages.ts:69
+#: src/components/messages.ts:70
 msgid "Acrylic Gouache"
 msgstr "Akryyliguassi"
 
-#: src/components/messages.ts:68
+#: src/components/messages.ts:69
 msgid "Acrylic Markers"
 msgstr "Akryylitussit"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Acrylic Paint"
 msgstr "Akryyliväri"
 
@@ -194,7 +202,7 @@ msgstr "Säädä 4 kulmaa käsin."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Kaikki sovelluksen tiedot tallennetaan verkkoselaimen tallennustilaan, jopa asennuksen jälkeen. Selaimen tietojen tyhjentäminen poistaa kaiken."
 
-#: src/components/ImageEditor.tsx:309
+#: src/components/ImageEditor.tsx:312
 msgid "All edits will be lost"
 msgstr "Kaikki muokkaukset menetetään"
 
@@ -239,8 +247,8 @@ msgstr "Käytä vähemmän painetta, jotta akvarellikynäkerroksesta tulee läpi
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
 msgstr "Levitä tämän värin ja aluskerroksen värin vetoja <0>suhteessa {ratioText}</0>"
 
-#: src/components/ImageOutline.tsx:307
-#: src/components/ImageOutline.tsx:359
+#: src/components/ImageOutline.tsx:309
+#: src/components/ImageOutline.tsx:361
 msgid "AR"
 msgstr "AR"
 
@@ -298,9 +306,9 @@ msgstr "ArtistAssistApp poistaa tallennetut työsi ja asetuksesi pysyvästi täl
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "ArtistAssistApp latautuu uudelleen väliaikaisten sovellustiedostojen poistamisen jälkeen.<0/>Tallennettuja töitäsi ja pilvitietojasi ei poisteta."
 
-#: src/components/image-editor/CropControls.tsx:75
-#: src/components/image-editor/ExpandControls.tsx:101
-#: src/components/image-editor/ExpandControls.tsx:138
+#: src/components/image-editor/CropControls.tsx:76
+#: src/components/image-editor/ExpandControls.tsx:98
+#: src/components/image-editor/ExpandControls.tsx:135
 msgid "Aspect ratio"
 msgstr "Kuvasuhde"
 
@@ -340,8 +348,8 @@ msgstr "Löydä automaattisesti parhaat väriseokset tähän kuvaan."
 msgid "Average color of the white point area"
 msgstr "Valkopistealueen keskimääräinen väri"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:96
-#: src/components/image-editor/RemoveBackgroundControls.tsx:102
+#: src/components/image-editor/RemoveBackgroundControls.tsx:98
+#: src/components/image-editor/RemoveBackgroundControls.tsx:104
 msgid "Background"
 msgstr "Tausta"
 
@@ -373,21 +381,21 @@ msgstr "Värien määrän mukaan"
 msgid "By consistency"
 msgstr "Sakeuden mukaan"
 
-#: src/components/messages.ts:83
+#: src/components/messages.ts:84
 msgid "By date"
 msgstr "Päivämäärän mukaan"
 
-#: src/components/messages.ts:78
-#: src/components/messages.ts:85
+#: src/components/messages.ts:79
+#: src/components/messages.ts:86
 msgid "By hue"
 msgstr "Sävyn mukaan"
 
-#: src/components/messages.ts:77
+#: src/components/messages.ts:78
 msgid "By ID"
 msgstr "ID:n mukaan"
 
-#: src/components/messages.ts:79
-#: src/components/messages.ts:86
+#: src/components/messages.ts:80
+#: src/components/messages.ts:87
 msgid "By lightness"
 msgstr "Vaaleuden mukaan"
 
@@ -395,11 +403,11 @@ msgstr "Vaaleuden mukaan"
 msgid "By match"
 msgstr "Osuvuuden mukaan"
 
-#: src/components/messages.ts:84
+#: src/components/messages.ts:85
 msgid "By name"
 msgstr "Nimen mukaan"
 
-#: src/components/ImageOutline.tsx:151
+#: src/components/ImageOutline.tsx:152
 msgid "Camera access is required for AR tracing"
 msgstr "AR-jäljentäminen vaatii kameran käyttöoikeuden"
 
@@ -409,7 +417,7 @@ msgstr "AR-jäljentäminen vaatii kameran käyttöoikeuden"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:311
+#: src/components/ImageEditor.tsx:314
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:50
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -434,9 +442,10 @@ msgstr "Tarkista päivitykset"
 
 #: src/components/ColorSetChooser.tsx:217
 #: src/components/image-editor/ColorizeControls.tsx:57
-#: src/components/image-editor/ExpandControls.tsx:85
+#: src/components/image-editor/ExpandControls.tsx:82
 #: src/components/image-editor/RemoveBackgroundControls.tsx:52
 #: src/components/image-editor/RemoveObjectsControls.tsx:59
+#: src/components/image-editor/RestoreControls.tsx:47
 #: src/components/image-editor/UpscaleControls.tsx:48
 #: src/components/ImageChooser.tsx:73
 #: src/components/ImageOutline.tsx:103
@@ -462,7 +471,7 @@ msgstr "Kaupunkikuva"
 msgid "Clear"
 msgstr "Tyhjennä"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:118
+#: src/components/image-editor/RemoveBackgroundControls.tsx:120
 msgid "Clear background color"
 msgstr "Tyhjennä taustaväri"
 
@@ -562,9 +571,9 @@ msgstr "Koodi vaaditaan"
 
 #: src/components/ColorMixer.tsx:192
 #: src/components/CustomColorBrandCreator.tsx:476
-#: src/components/image-editor/ExpandControls.tsx:105
-#: src/components/image-editor/ExpandControls.tsx:212
-#: src/components/image-editor/ExpandControls.tsx:214
+#: src/components/image-editor/ExpandControls.tsx:102
+#: src/components/image-editor/ExpandControls.tsx:209
+#: src/components/image-editor/ExpandControls.tsx:211
 msgid "Color"
 msgstr "Väri"
 
@@ -615,15 +624,15 @@ msgstr "Värisarja"
 msgid "Color swatch"
 msgstr "Värimalli"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Colored Pencils"
 msgstr "Värikynät"
 
-#: src/components/image-editor/ColorizeControls.tsx:115
+#: src/components/image-editor/ColorizeControls.tsx:117
 msgid "Colorize"
 msgstr "Väritä"
 
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Colorize black-and-white"
 msgstr "Väritä mustavalkokuva"
 
@@ -733,7 +742,7 @@ msgstr "Luo uusi värisarja yhdistämällä olemassa olevia"
 msgid "Create new"
 msgstr "Luo uusi"
 
-#: src/components/image-editor/CropControls.tsx:97
+#: src/components/image-editor/CropControls.tsx:98
 #: src/components/messages.ts:49
 msgid "Crop"
 msgstr "Rajaa"
@@ -749,6 +758,10 @@ msgstr "Mukautettu värisarja"
 #: src/components/messages.ts:43
 msgid "Custom colors"
 msgstr "Mukautetut värit"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:140
+msgid "Deblur"
+msgstr "Poista epäterävyys"
 
 #: src/components/auth/DeleteAccountButton.tsx:67
 #: src/components/color/AddToPaletteButton.tsx:48
@@ -813,6 +826,10 @@ msgstr "Poista viimeisin kuva"
 #: src/components/ColorSetChooser.tsx:797
 msgid "Delete this color set"
 msgstr "Poista tämä värisarja"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:132
+msgid "Denoise"
+msgstr "Poista kohina"
 
 #: src/components/color/ConsistencyDescription.tsx:51
 msgid "Dense layer"
@@ -898,7 +915,7 @@ msgstr "Pudota tiedosto tähän..."
 msgid "Drop the files here..."
 msgstr "Pudota tiedostot tähän..."
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Dry Pastel"
 msgstr "Kuiva pastelli"
 
@@ -926,7 +943,7 @@ msgstr "Muokkaa tästä eteenpäin"
 msgid "Edit image"
 msgstr "Muokkaa kuvaa"
 
-#: src/components/ImageEditor.tsx:321
+#: src/components/ImageEditor.tsx:324
 msgid "Edited"
 msgstr "Muokattu"
 
@@ -950,11 +967,11 @@ msgstr "Kirjoita nimi"
 msgid "Enter a valid email"
 msgstr "Syötä kelvollinen sähköposti"
 
-#: src/components/ImageOutline.tsx:288
+#: src/components/ImageOutline.tsx:290
 msgid "Enter lightbox mode to trace the outline through your paper"
 msgstr "Siirry valopöytätilaan jäljentääksesi ääriviivat paperin läpi"
 
-#: src/components/ImageOutline.tsx:351
+#: src/components/ImageOutline.tsx:353
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Siirry valopöytätilaan jäljentääksesi ääriviivat paperin läpi."
 
@@ -982,17 +999,17 @@ msgstr "Sen valonlähteen arvioitu lämpötila kelvineinä, jossa kuva on otettu
 msgid "Etching"
 msgstr "Etsaus"
 
-#: src/components/ImageOutline.tsx:307
-#: src/components/ImageOutline.tsx:359
+#: src/components/ImageOutline.tsx:309
+#: src/components/ImageOutline.tsx:361
 msgid "Exit AR"
 msgstr "Poistu AR:stä"
 
-#: src/components/image-editor/ExpandControls.tsx:252
+#: src/components/image-editor/ExpandControls.tsx:249
 #: src/components/messages.ts:50
 msgid "Expand"
 msgstr "Laajenna"
 
-#: src/components/image-editor/ExpandControls.tsx:118
+#: src/components/image-editor/ExpandControls.tsx:115
 msgid "Expand by"
 msgstr "Laajennuksen määrä"
 
@@ -1004,11 +1021,11 @@ msgstr "Vie tiedostoon"
 msgid "Expressionism"
 msgstr "Ekspressionismi"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:101
+#: src/components/ml-model/OnnxModelSelect.tsx:102
 msgid "Fast"
 msgstr "Nopea"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:109
+#: src/components/ml-model/OnnxModelSelect.tsx:110
 msgid "Fastest"
 msgstr "Nopein"
 
@@ -1016,7 +1033,7 @@ msgstr "Nopein"
 msgid "Fauvism"
 msgstr "Fauvismi"
 
-#: src/components/image-editor/ExpandControls.tsx:196
+#: src/components/image-editor/ExpandControls.tsx:193
 msgid "Fill"
 msgstr "Täyttö"
 
@@ -1037,9 +1054,9 @@ msgstr "Suodata tunnisteen mukaan"
 msgid "Fine detail"
 msgstr "Hienot yksityiskohdat"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:57
-#: src/components/ml-model/OnnxModelSelect.tsx:85
-#: src/components/ml-model/OnnxModelSelect.tsx:117
+#: src/components/ml-model/OnnxModelSelect.tsx:58
+#: src/components/ml-model/OnnxModelSelect.tsx:86
+#: src/components/ml-model/OnnxModelSelect.tsx:118
 msgid "Finest"
 msgstr "Hienoin"
 
@@ -1051,7 +1068,7 @@ msgstr "Lopeta muokkaus"
 msgid "Focal point instructions"
 msgstr "Polttopisteen ohjeet"
 
-#: src/components/image-editor/CropControls.tsx:37
+#: src/components/image-editor/CropControls.tsx:38
 msgid "Free"
 msgstr "Vapaa"
 
@@ -1087,12 +1104,12 @@ msgstr "Lasyyri"
 msgid "Go to the {label} tab"
 msgstr "Siirry {label}-välilehdelle"
 
-#: src/components/messages.ts:60
+#: src/components/messages.ts:61
 msgid "Gouache"
 msgstr "Guassi"
 
 #: src/components/grid/GridControls.tsx:130
-#: src/components/ImageOutline.tsx:326
+#: src/components/ImageOutline.tsx:328
 #: src/components/messages.ts:35
 msgid "Grid"
 msgstr "Ruudukko"
@@ -1106,7 +1123,7 @@ msgstr "Korkeus"
 msgid "Help"
 msgstr "Ohje"
 
-#: src/components/image-editor/ExpandControls.tsx:158
+#: src/components/image-editor/ExpandControls.tsx:155
 msgid "Horizontal"
 msgstr "Vaakasuora"
 
@@ -1158,7 +1175,7 @@ msgstr "Asenna ArtistAssistApp"
 msgid "Install update"
 msgstr "Asenna päivitys"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:78
+#: src/components/ml-model/OnnxModelSelect.tsx:79
 msgid "Instant"
 msgstr "Välitön"
 
@@ -1231,11 +1248,11 @@ msgstr "Vertailtavia jäljellä: {unfinishedGamesSize}"
 msgid "Less"
 msgstr "Vähemmän"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:124
+#: src/components/ml-model/OnnxModelSelect.tsx:125
 msgid "Light"
 msgstr "Kevyt"
 
-#: src/components/ImageOutline.tsx:350
+#: src/components/ImageOutline.tsx:352
 msgid "Light box"
 msgstr "Valopöytä"
 
@@ -1244,7 +1261,7 @@ msgstr "Valopöytä"
 msgid "Light tone"
 msgstr "Vaalea sävy"
 
-#: src/components/ImageOutline.tsx:296
+#: src/components/ImageOutline.tsx:298
 msgid "Lightbox"
 msgstr "Valopöytä"
 
@@ -1290,7 +1307,7 @@ msgstr "Matala lähtö ja korkea lähtö"
 msgid "Margin"
 msgstr "Marginaali"
 
-#: src/components/image-editor/ExpandControls.tsx:102
+#: src/components/image-editor/ExpandControls.tsx:99
 msgid "Margins"
 msgstr "Marginaalit"
 
@@ -1358,9 +1375,10 @@ msgid "Mixture"
 msgstr "Seos"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:107
-#: src/components/image-editor/ColorizeControls.tsx:79
-#: src/components/image-editor/RemoveBackgroundControls.tsx:68
-#: src/components/ImageOutline.tsx:267
+#: src/components/image-editor/ColorizeControls.tsx:80
+#: src/components/image-editor/RemoveBackgroundControls.tsx:69
+#: src/components/image-editor/RestoreControls.tsx:64
+#: src/components/ImageOutline.tsx:269
 msgid "Mode"
 msgstr "Tila"
 
@@ -1410,7 +1428,7 @@ msgstr "Uusi värisarja"
 msgid "New comparison"
 msgstr "Uusi vertailu"
 
-#: src/components/image-editor/ExpandControls.tsx:228
+#: src/components/image-editor/ExpandControls.tsx:225
 #: src/components/image-editor/UpscaleControls.tsx:66
 msgid "New size: {outputWidth} × {outputHeight}"
 msgstr "Uusi koko: {outputWidth} × {outputHeight}"
@@ -1456,11 +1474,11 @@ msgstr "Ruutujen lukumäärä pienemmällä sivulla (pysty- tai vaakasuunnassa)"
 msgid "Off"
 msgstr "Pois"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Oil Paint"
 msgstr "Öljymaali"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Oil Pastel"
 msgstr "Öljypastelli"
 
@@ -1476,9 +1494,10 @@ msgstr "Lävistäjällä ovat puhtaat värit täydellä vahvuudella. Lävistäj�
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Ilmaisessa versiossa on saatavilla vain rajoitettu määrä värimerkkejä"
 
-#: src/components/image-editor/ColorizeControls.tsx:90
-#: src/components/image-editor/RemoveBackgroundControls.tsx:79
-#: src/components/ImageOutline.tsx:259
+#: src/components/image-editor/ColorizeControls.tsx:92
+#: src/components/image-editor/RemoveBackgroundControls.tsx:81
+#: src/components/image-editor/RestoreControls.tsx:76
+#: src/components/ImageOutline.tsx:261
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Ilmaisessa versiossa on käytettävissä vain rajoitettu määrä tiloja"
 
@@ -1515,7 +1534,7 @@ msgstr "Tai valitse esimerkkikuvista"
 msgid "Or select from your recent photos"
 msgstr "Tai valitse viimeisimmistä kuvistasi"
 
-#: src/components/image-editor/CropControls.tsx:38
+#: src/components/image-editor/CropControls.tsx:39
 #: src/components/image/ImageViewSelector.tsx:45
 msgid "Original"
 msgstr "Alkuperäinen"
@@ -1524,7 +1543,7 @@ msgstr "Alkuperäinen"
 msgid "Original color temperature (K)"
 msgstr "Alkuperäinen värilämpötila (K)"
 
-#: src/components/ImageOutline.tsx:281
+#: src/components/ImageOutline.tsx:283
 #: src/components/messages.ts:34
 msgid "Outline"
 msgstr "Ääriviivat"
@@ -1661,8 +1680,8 @@ msgstr "Paina <0>Lisää palettiin</0> -painiketta haluamasi väriseoksen vieres
 #: src/components/ColorMixingChart.tsx:149
 #: src/components/ImageGrid.tsx:72
 #: src/components/ImageGrid.tsx:83
-#: src/components/ImageOutline.tsx:334
-#: src/components/ImageOutline.tsx:370
+#: src/components/ImageOutline.tsx:336
+#: src/components/ImageOutline.tsx:372
 #: src/components/ImagesCompare.tsx:181
 #: src/components/ImageTonalValues.tsx:158
 #: src/components/ImageTonalValues.tsx:169
@@ -1711,7 +1730,11 @@ msgstr "Suhde"
 msgid "Realism"
 msgstr "Realismi"
 
-#: src/components/ImageEditor.tsx:306
+#: src/components/ml-model/OnnxModelSelect.tsx:143
+msgid "Recovers detail lost to camera shake or motion blur"
+msgstr "Palauttaa kameran tärähdyksen tai liike-epäterävyyden vuoksi kadonneita yksityiskohtia"
+
+#: src/components/ImageEditor.tsx:309
 msgid "Redo"
 msgstr "Tee uudelleen"
 
@@ -1749,7 +1772,7 @@ msgstr "Lataa uudelleen"
 msgid "Remove and continue"
 msgstr "Poista ja jatka"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:135
+#: src/components/image-editor/RemoveBackgroundControls.tsx:137
 #: src/components/messages.ts:52
 msgid "Remove background"
 msgstr "Poista tausta"
@@ -1758,6 +1781,10 @@ msgstr "Poista tausta"
 #: src/components/messages.ts:53
 msgid "Remove objects"
 msgstr "Poista kohteet"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:135
+msgid "Removes noise and grain from a scanned or high-ISO photo"
+msgstr "Poistaa kohinaa ja rakeisuutta skannatusta tai suurella ISO-arvolla otetusta valokuvasta"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:119
 msgid "Removing objects is available only to paid Patreon members"
@@ -1781,10 +1808,15 @@ msgstr "Vaatii macOS Sonoman tai uudemman."
 msgid "Resend code"
 msgstr "Lähetä koodi uudelleen"
 
-#: src/components/ImageEditor.tsx:310
-#: src/components/ImageEditor.tsx:315
+#: src/components/ImageEditor.tsx:313
+#: src/components/ImageEditor.tsx:318
 msgid "Reset"
 msgstr "Nollaa"
+
+#: src/components/image-editor/RestoreControls.tsx:101
+#: src/components/messages.ts:55
+msgid "Restore"
+msgstr "Entisöi"
 
 #: src/components/cloud/ImportFromZipFileSelect.tsx:78
 msgid "Restore backup"
@@ -1827,7 +1859,7 @@ msgstr "Kylläisyys (%)"
 #: src/components/image/ImageSaveButton.tsx:38
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:141
-#: src/components/ImageOutline.tsx:377
+#: src/components/ImageOutline.tsx:379
 #: src/components/ImageTonalValues.tsx:175
 msgid "Save"
 msgstr "Tallenna"
@@ -1939,7 +1971,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Valitse viimeisimmistä värisarjoistasi tai luo uusi."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:281
+#: src/components/ImageEditor.tsx:284
 msgid "Select image"
 msgstr "Valitse kuva"
 
@@ -1995,9 +2027,10 @@ msgstr "Valitse taidemateriaalisi, värimerkit ja värit"
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
 msgstr "Valitse taidemateriaalisi, värimerkit ja värit, joilla maalaat, ja paina sitten <0>Tallenna ja jatka</0>"
 
-#: src/components/image-editor/ColorizeControls.tsx:85
-#: src/components/image-editor/RemoveBackgroundControls.tsx:74
-#: src/components/ImageOutline.tsx:254
+#: src/components/image-editor/ColorizeControls.tsx:86
+#: src/components/image-editor/RemoveBackgroundControls.tsx:75
+#: src/components/image-editor/RestoreControls.tsx:70
+#: src/components/ImageOutline.tsx:255
 msgid "Selected mode is available only to paid Patreon members"
 msgstr "Valittu tila on käytettävissä vain maksaville Patreon-jäsenille"
 
@@ -2067,7 +2100,7 @@ msgstr "Jaa tämä värisarja"
 msgid "Share your color set"
 msgstr "Jaa värisarja"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:64
+#: src/components/ml-model/OnnxModelSelect.tsx:65
 msgid "Sharp"
 msgstr "Terävä"
 
@@ -2135,11 +2168,11 @@ msgstr "Aseta erivärisiä vahapastellialueita hieman päällekkäin ja häivyt�
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Pienemmät prosenttipistearvot vastaavat vahvempaa valkaisua"
 
-#: src/components/image-editor/ExpandControls.tsx:106
+#: src/components/image-editor/ExpandControls.tsx:103
 msgid "Smart"
 msgstr "Älykäs"
 
-#: src/components/image-editor/ExpandControls.tsx:236
+#: src/components/image-editor/ExpandControls.tsx:233
 msgid "Smart expansion is available only to paid Patreon members"
 msgstr "Älykäs laajennus on käytettävissä vain maksaville Patreon-jäsenille"
 
@@ -2321,7 +2354,7 @@ msgstr "Marginaali on liian suuri"
 msgid "There is one common palette and a separate palette for each photo"
 msgstr "On yksi yhteinen paletti ja lisäksi erillinen paletti jokaiselle valokuvalle"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:71
+#: src/components/ml-model/OnnxModelSelect.tsx:72
 msgid "Thick"
 msgstr "Paksu"
 
@@ -2474,11 +2507,15 @@ msgstr "Kohteiden poistomallia ei voi ladata"
 msgid "Unable to load the outline modes"
 msgstr "Ääriviivatiloja ei voi ladata"
 
+#: src/components/image-editor/RestoreControls.tsx:46
+msgid "Unable to load the restoration modes"
+msgstr "Entisöintitiloja ei voi ladata"
+
 #: src/components/ImageChooser.tsx:72
 msgid "Unable to load the sample photos"
 msgstr "Esimerkkikuvia ei voi ladata"
 
-#: src/components/image-editor/ExpandControls.tsx:84
+#: src/components/image-editor/ExpandControls.tsx:81
 msgid "Unable to load the smart expansion model"
 msgstr "Älykästä laajennusmallia ei voi ladata"
 
@@ -2500,7 +2537,7 @@ msgstr "Tallennettua värisarjaa ei voi palauttaa"
 msgid "Underlayer"
 msgstr "Aluskerros"
 
-#: src/components/ImageEditor.tsx:299
+#: src/components/ImageEditor.tsx:302
 msgid "Undo"
 msgstr "Kumoa"
 
@@ -2580,7 +2617,7 @@ msgstr "Käytetty"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Rajoitetun paletin käyttäminen auttaa väriharmonian saavuttamisessa. Valitse 1–{MAX_COLORS} pääväriä."
 
-#: src/components/image-editor/ExpandControls.tsx:176
+#: src/components/image-editor/ExpandControls.tsx:173
 msgid "Vertical"
 msgstr "Pystysuora"
 
@@ -2588,11 +2625,11 @@ msgstr "Pystysuora"
 msgid "Vienna Secession"
 msgstr "Wienin secessio"
 
-#: src/components/ImageOutline.tsx:299
+#: src/components/ImageOutline.tsx:301
 msgid "View the outline over the live camera to trace in AR"
 msgstr "Näytä ääriviivat live-kameran päällä ja jäljennä ne AR:ssä"
 
-#: src/components/ImageOutline.tsx:360
+#: src/components/ImageOutline.tsx:362
 msgid "View the outline over the live camera to trace in AR."
 msgstr "Näytä ääriviivat live-kameran päällä ja jäljennä ne AR:ssä."
 
@@ -2617,15 +2654,15 @@ msgstr "Akvarelli"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Akvarelliväriä voidaan laimentaa vedellä, jotta siitä tulee läpikuultavampi"
 
-#: src/components/messages.ts:59
+#: src/components/messages.ts:60
 msgid "Watercolor Paint"
 msgstr "Akvarellimaali"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Watercolor Pencils"
 msgstr "Akvarellikynät"
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Wax Pastel"
 msgstr "Vahapastelli"
 
@@ -2646,8 +2683,8 @@ msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of thr
 msgstr "Kun valitset yhteensä enemmän kuin {maxColorsFor3} väriä, kolmen värin sekoituksia ei käytetä."
 
 #: src/components/image-editor/AdjustColorsControls.tsx:240
-#: src/components/image-editor/ExpandControls.tsx:215
-#: src/components/image-editor/RemoveBackgroundControls.tsx:105
+#: src/components/image-editor/ExpandControls.tsx:212
+#: src/components/image-editor/RemoveBackgroundControls.tsx:107
 msgid "White"
 msgstr "Valkoinen"
 
@@ -2655,7 +2692,7 @@ msgstr "Valkoinen"
 msgid "White balance"
 msgstr "Valkotasapaino"
 
-#: src/components/messages.ts:73
+#: src/components/messages.ts:74
 msgid "White paper or canvas"
 msgstr "Valkoinen paperi tai kangas"
 
@@ -2729,7 +2766,7 @@ msgid "Your image"
 msgstr "Oma kuvasi"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:335
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:303
 msgid "Your images are processed locally on your device and are never uploaded to any server"

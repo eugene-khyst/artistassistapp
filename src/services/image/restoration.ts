@@ -20,35 +20,13 @@ import type {Authentication} from '@/services/auth/types';
 import {tileCoreSize, transformImageInTiles} from '@/services/ml/tiled-image-transformer';
 import type {OnnxModel} from '@/services/ml/types';
 import type {FetchProgressCallback} from '@/utils/fetch';
-import {type ImageDimension, offscreenCanvasToBlob} from '@/utils/graphics';
+import {offscreenCanvasToBlob} from '@/utils/graphics';
 
-const UPSCALE_MODEL_SCALE = 4;
-const UPSCALE_TILE_HALO = 48;
-const UPSCALE_TILE_CORE_SIZE = 512;
+const RESTORATION_TILE_HALO = 64;
+const RESTORATION_TILE_CORE_SIZE = 768;
 
-const UPSCALE_FACTORS = [4, 2];
-
-export const MAX_UPSCALE_OUTPUT_PIXELS = 4000 * 4000;
-export const MAX_UPSCALE_OUTPUT_SIDE = 8192;
-
-export function upscaleFactor({width, height}: ImageDimension): number | null {
-  return (
-    UPSCALE_FACTORS.find(
-      factor =>
-        factor * factor * width * height <= MAX_UPSCALE_OUTPUT_PIXELS &&
-        factor * Math.max(width, height) <= MAX_UPSCALE_OUTPUT_SIDE
-    ) ?? null
-  );
-}
-
-export function upscaledSize(size: ImageDimension): ImageDimension | null {
-  const factor = upscaleFactor(size);
-  return factor ? {width: factor * size.width, height: factor * size.height} : null;
-}
-
-export async function createUpscaledImage({
+export async function createRestoredImage({
   image,
-  factor,
   transparent,
   model,
   auth,
@@ -56,20 +34,21 @@ export async function createUpscaledImage({
   signal,
 }: {
   image: ImageBitmap;
-  factor: number;
   transparent: boolean;
   model: OnnxModel;
   auth: Authentication | null;
   progressCallback: FetchProgressCallback;
   signal: AbortSignal;
 }): Promise<Blob> {
+  // Channel attention pools over the whole tile, so tiles must cross-fade rather than butt.
   const canvas = await transformImageInTiles({
     image,
     model,
-    modelScale: UPSCALE_MODEL_SCALE,
-    outputScale: factor,
-    coreSize: tileCoreSize(model, UPSCALE_TILE_CORE_SIZE, UPSCALE_TILE_HALO),
-    halo: UPSCALE_TILE_HALO,
+    modelScale: 1,
+    outputScale: 1,
+    coreSize: tileCoreSize(model, RESTORATION_TILE_CORE_SIZE, RESTORATION_TILE_HALO),
+    halo: RESTORATION_TILE_HALO,
+    feather: true,
     auth,
     progressCallback,
     signal,
@@ -77,7 +56,7 @@ export async function createUpscaledImage({
   if (transparent) {
     const ctx = canvas.getContext('2d')!;
     ctx.globalCompositeOperation = 'destination-in';
-    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(image, 0, 0);
   }
   return await offscreenCanvasToBlob(canvas, {
     type: 'image/webp',

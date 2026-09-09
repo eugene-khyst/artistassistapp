@@ -155,7 +155,7 @@ Pure business logic, no React.
   cache hit never re-encodes. `transformImage` returns an `OffscreenCanvas`, so resizing and
   encoding never copy it first. Skip the cache for an image-editor command: its result blob already
   lives in the undo history and `edit-image-slice` caches what it renders, which is why Colorize,
-  Upscale, Remove background and Remove objects are all uncached.
+  Upscale, Restore, Remove background and Remove objects are all uncached.
 - The cache key covers `PROCESSED_IMAGE_CACHE_VERSION`, a digest of the model's inference-affecting
   metadata, and every input image digest — the style image is an input, so it belongs in `digests`.
   `processedImageKey` strips only `priority` and `freeTier` by rest-destructuring, so a new field is
@@ -255,10 +255,19 @@ Keep Valibot confined to external JSON validation. Custom-brand JSON and cloud s
 - ONNX-derived image slices invalidate through their setters: changing model, style or input aborts
   and clears derived output; loaders no-op while already loading, commit only if their
   `AbortController` is still current, and close stale `ImageBitmap`s.
+- `tiled-image-transformer` tiles for both Upscale and Restore. Its `tileCoreSize` default must stay
+  the same budget `getModelInputDrawImageParamsSupplier` applies, or a model without `maxPixelCount`
+  gets its tiles resized behind the tiler and the source rectangles read the wrong region.
+- Pass a tile through `padTile` before inference and never let the model's own resize run: pad by
+  edge replication with smoothing off, so the core keeps landing on whole output pixels and no
+  invented border reaches the model.
 - Upscale tiles carry a 48px halo, wider than the model's 34px receptive field, so a tiled result
   matches an untiled one and needs no feathering. Keep the factors integer divisors of the model's
   4x, or core boundaries stop landing on whole output pixels and seams return. A model with a wider
   receptive field cannot be tiled at all.
+- Restore feathers instead, because channel attention pools over the whole tile and no halo makes a
+  tiled result match. Keep the ramp at twice the halo and draw the full padded tile: the ramp then
+  ends exactly where the previous tile's padding does. A wider halo is not a substitute.
 
 ## Web Workers
 

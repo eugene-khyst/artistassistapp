@@ -22,14 +22,18 @@ export const ORIGINAL_CROP_ASPECT_RATIO = 'original';
 
 export type CropAspectRatio = Fraction | typeof ORIGINAL_CROP_ASPECT_RATIO | null;
 
-const IMAGE_ASPECT_RATIOS: readonly Fraction[] = [
+export const IMAGE_ASPECT_RATIOS: readonly Fraction[] = [
   [1, 1],
   [4, 5],
   [5, 4],
   [3, 4],
   [4, 3],
+  [5, 7],
+  [7, 5],
   [2, 3],
   [3, 2],
+  [100, 148],
+  [148, 100],
   [9, 16],
   [16, 9],
   [1.91, 1],
@@ -46,8 +50,3 @@ const IMAGE_ASPECT_RATIOS_BY_LABEL = new Map<string, Fraction>(
 export function imageAspectRatio(label: string): Fraction | undefined {
   return IMAGE_ASPECT_RATIOS_BY_LABEL.get(label);
 }
-
-export const IMAGE_ASPECT_RATIO_OPTIONS = [...IMAGE_ASPECT_RATIOS_BY_LABEL.keys()].map(label => ({
-  value: label,
-  label,
-}));

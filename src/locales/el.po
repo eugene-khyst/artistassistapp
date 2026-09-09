@@ -114,6 +114,14 @@ msgstr "📢 Χωρίς διαφημίσεις"
 msgid "🧑‍🎨 Artistic styles from your own images"
 msgstr "🧑‍🎨 Καλλιτεχνικά στυλ από τις δικές σας εικόνες"
 
+#: src/components/image-editor/image-aspect-ratio-options.tsx:28
+msgid "100×148 mm photo paper"
+msgstr "Φωτογραφικό χαρτί 100×148 mm"
+
+#: src/components/image-editor/image-aspect-ratio-options.tsx:30
+msgid "148×100 mm photo paper"
+msgstr "Φωτογραφικό χαρτί 148×100 mm"
+
 #: src/components/messages.ts:38
 msgid "2-color gradient"
 msgstr "Διαβάθμιση 2 χρωμάτων"
@@ -134,19 +142,19 @@ msgstr "Μια νέα έκδοση της εφαρμογής είναι διαθ
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Μια τιμή μικρότερη από 100% κάνει την εικόνα να φαίνεται λιγότερο πολύχρωμη και μια τιμή μεγαλύτερη από 100% την κάνει να φαίνεται πολύ πολύχρωμη"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:93
+#: src/components/ml-model/OnnxModelSelect.tsx:94
 msgid "Accurate"
 msgstr "Ακριβές"
 
-#: src/components/messages.ts:69
+#: src/components/messages.ts:70
 msgid "Acrylic Gouache"
 msgstr "Ακρυλική γκουάς"
 
-#: src/components/messages.ts:68
+#: src/components/messages.ts:69
 msgid "Acrylic Markers"
 msgstr "Ακρυλικοί μαρκαδόροι"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Acrylic Paint"
 msgstr "Ακρυλικό χρώμα"
 
@@ -194,7 +202,7 @@ msgstr "Ρυθμίστε τις 4 γωνίες χειροκίνητα."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Όλα τα δεδομένα της εφαρμογής αποθηκεύονται στον χώρο αποθήκευσης του προγράμματος περιήγησης ιστού, ακόμη και μετά την εγκατάσταση. Η εκκαθάριση των δεδομένων του προγράμματος περιήγησης τα διαγράφει όλα."
 
-#: src/components/ImageEditor.tsx:309
+#: src/components/ImageEditor.tsx:312
 msgid "All edits will be lost"
 msgstr "Όλες οι τροποποιήσεις θα χαθούν"
 
@@ -239,8 +247,8 @@ msgstr "Εφαρμόστε λιγότερη πίεση για να γίνει η
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
 msgstr "Εφαρμόστε πινελιές αυτού του χρώματος και του χρώματος του υποστρώματος σε <0>αναλογία {ratioText}</0>"
 
-#: src/components/ImageOutline.tsx:307
-#: src/components/ImageOutline.tsx:359
+#: src/components/ImageOutline.tsx:309
+#: src/components/ImageOutline.tsx:361
 msgid "AR"
 msgstr "AR"
 
@@ -298,9 +306,9 @@ msgstr "Το ArtistAssistApp θα διαγράψει οριστικά την α�
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "Το ArtistAssistApp θα φορτωθεί ξανά μετά την κατάργηση των προσωρινών αρχείων της εφαρμογής.<0/>Η αποθηκευμένη εργασία σας και τα δεδομένα στο cloud δεν θα διαγραφούν."
 
-#: src/components/image-editor/CropControls.tsx:75
-#: src/components/image-editor/ExpandControls.tsx:101
-#: src/components/image-editor/ExpandControls.tsx:138
+#: src/components/image-editor/CropControls.tsx:76
+#: src/components/image-editor/ExpandControls.tsx:98
+#: src/components/image-editor/ExpandControls.tsx:135
 msgid "Aspect ratio"
 msgstr "Λόγος διαστάσεων"
 
@@ -340,8 +348,8 @@ msgstr "Βρείτε αυτόματα τα καλύτερα μείγματα χ�
 msgid "Average color of the white point area"
 msgstr "Μέσο χρώμα της περιοχής λευκού σημείου"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:96
-#: src/components/image-editor/RemoveBackgroundControls.tsx:102
+#: src/components/image-editor/RemoveBackgroundControls.tsx:98
+#: src/components/image-editor/RemoveBackgroundControls.tsx:104
 msgid "Background"
 msgstr "Φόντο"
 
@@ -373,21 +381,21 @@ msgstr "Κατά αριθμό χρωμάτων"
 msgid "By consistency"
 msgstr "Κατά πυκνότητα"
 
-#: src/components/messages.ts:83
+#: src/components/messages.ts:84
 msgid "By date"
 msgstr "Κατά ημερομηνία"
 
-#: src/components/messages.ts:78
-#: src/components/messages.ts:85
+#: src/components/messages.ts:79
+#: src/components/messages.ts:86
 msgid "By hue"
 msgstr "Κατά απόχρωση"
 
-#: src/components/messages.ts:77
+#: src/components/messages.ts:78
 msgid "By ID"
 msgstr "Κατά ID"
 
-#: src/components/messages.ts:79
-#: src/components/messages.ts:86
+#: src/components/messages.ts:80
+#: src/components/messages.ts:87
 msgid "By lightness"
 msgstr "Κατά φωτεινότητα"
 
@@ -395,11 +403,11 @@ msgstr "Κατά φωτεινότητα"
 msgid "By match"
 msgstr "Κατά αντιστοιχία"
 
-#: src/components/messages.ts:84
+#: src/components/messages.ts:85
 msgid "By name"
 msgstr "Κατά όνομα"
 
-#: src/components/ImageOutline.tsx:151
+#: src/components/ImageOutline.tsx:152
 msgid "Camera access is required for AR tracing"
 msgstr "Απαιτείται πρόσβαση στην κάμερα για ιχνογράφηση σε AR"
 
@@ -409,7 +417,7 @@ msgstr "Απαιτείται πρόσβαση στην κάμερα για ιχ�
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:311
+#: src/components/ImageEditor.tsx:314
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:50
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -434,9 +442,10 @@ msgstr "Έλεγχος για ενημερώσεις"
 
 #: src/components/ColorSetChooser.tsx:217
 #: src/components/image-editor/ColorizeControls.tsx:57
-#: src/components/image-editor/ExpandControls.tsx:85
+#: src/components/image-editor/ExpandControls.tsx:82
 #: src/components/image-editor/RemoveBackgroundControls.tsx:52
 #: src/components/image-editor/RemoveObjectsControls.tsx:59
+#: src/components/image-editor/RestoreControls.tsx:47
 #: src/components/image-editor/UpscaleControls.tsx:48
 #: src/components/ImageChooser.tsx:73
 #: src/components/ImageOutline.tsx:103
@@ -462,7 +471,7 @@ msgstr "Αστικό τοπίο"
 msgid "Clear"
 msgstr "Εκκαθάριση"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:118
+#: src/components/image-editor/RemoveBackgroundControls.tsx:120
 msgid "Clear background color"
 msgstr "Εκκαθάριση χρώματος φόντου"
 
@@ -562,9 +571,9 @@ msgstr "Απαιτείται κωδικός"
 
 #: src/components/ColorMixer.tsx:192
 #: src/components/CustomColorBrandCreator.tsx:476
-#: src/components/image-editor/ExpandControls.tsx:105
-#: src/components/image-editor/ExpandControls.tsx:212
-#: src/components/image-editor/ExpandControls.tsx:214
+#: src/components/image-editor/ExpandControls.tsx:102
+#: src/components/image-editor/ExpandControls.tsx:209
+#: src/components/image-editor/ExpandControls.tsx:211
 msgid "Color"
 msgstr "Χρώμα"
 
@@ -615,15 +624,15 @@ msgstr "Σετ χρωμάτων"
 msgid "Color swatch"
 msgstr "Δείγμα χρώματος"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Colored Pencils"
 msgstr "Χρωματιστά μολύβια"
 
-#: src/components/image-editor/ColorizeControls.tsx:115
+#: src/components/image-editor/ColorizeControls.tsx:117
 msgid "Colorize"
 msgstr "Χρωματισμός"
 
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Colorize black-and-white"
 msgstr "Χρωματισμός ασπρόμαυρης φωτογραφίας"
 
@@ -733,7 +742,7 @@ msgstr "Δημιουργήστε ένα νέο σετ χρωμάτων συγχ�
 msgid "Create new"
 msgstr "Δημιουργία νέου"
 
-#: src/components/image-editor/CropControls.tsx:97
+#: src/components/image-editor/CropControls.tsx:98
 #: src/components/messages.ts:49
 msgid "Crop"
 msgstr "Περικοπή"
@@ -749,6 +758,10 @@ msgstr "Προσαρμοσμένο σετ χρωμάτων"
 #: src/components/messages.ts:43
 msgid "Custom colors"
 msgstr "Προσαρμοσμένα χρώματα"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:140
+msgid "Deblur"
+msgstr "Αφαίρεση θολώματος"
 
 #: src/components/auth/DeleteAccountButton.tsx:67
 #: src/components/color/AddToPaletteButton.tsx:48
@@ -813,6 +826,10 @@ msgstr "Διαγραφή της πρόσφατης φωτογραφίας"
 #: src/components/ColorSetChooser.tsx:797
 msgid "Delete this color set"
 msgstr "Διαγραφή αυτού του σετ χρωμάτων"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:132
+msgid "Denoise"
+msgstr "Αφαίρεση θορύβου"
 
 #: src/components/color/ConsistencyDescription.tsx:51
 msgid "Dense layer"
@@ -898,7 +915,7 @@ msgstr "Αφήστε το αρχείο εδώ..."
 msgid "Drop the files here..."
 msgstr "Αφήστε τα αρχεία εδώ..."
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Dry Pastel"
 msgstr "Ξηρό παστέλ"
 
@@ -926,7 +943,7 @@ msgstr "Επεξεργασία από εδώ και πέρα"
 msgid "Edit image"
 msgstr "Επεξεργασία εικόνας"
 
-#: src/components/ImageEditor.tsx:321
+#: src/components/ImageEditor.tsx:324
 msgid "Edited"
 msgstr "Επεξεργασμένο"
 
@@ -950,11 +967,11 @@ msgstr "Εισαγάγετε ένα όνομα"
 msgid "Enter a valid email"
 msgstr "Εισαγάγετε ένα έγκυρο email"
 
-#: src/components/ImageOutline.tsx:288
+#: src/components/ImageOutline.tsx:290
 msgid "Enter lightbox mode to trace the outline through your paper"
 msgstr "Μπείτε στη λειτουργία lightbox για να ιχνογραφήσετε το περίγραμμα μέσα από το χαρτί σας"
 
-#: src/components/ImageOutline.tsx:351
+#: src/components/ImageOutline.tsx:353
 msgid "Enter lightbox mode to trace the outline through your paper."
 msgstr "Μπείτε στη λειτουργία lightbox για να ιχνογραφήσετε το περίγραμμα μέσα από το χαρτί σας."
 
@@ -982,17 +999,17 @@ msgstr "Εκτιμώμενη θερμοκρασία σε Kelvin της πηγή�
 msgid "Etching"
 msgstr "Χαλκογραφία"
 
-#: src/components/ImageOutline.tsx:307
-#: src/components/ImageOutline.tsx:359
+#: src/components/ImageOutline.tsx:309
+#: src/components/ImageOutline.tsx:361
 msgid "Exit AR"
 msgstr "Έξοδος από το AR"
 
-#: src/components/image-editor/ExpandControls.tsx:252
+#: src/components/image-editor/ExpandControls.tsx:249
 #: src/components/messages.ts:50
 msgid "Expand"
 msgstr "Επέκταση"
 
-#: src/components/image-editor/ExpandControls.tsx:118
+#: src/components/image-editor/ExpandControls.tsx:115
 msgid "Expand by"
 msgstr "Επέκταση κατά"
 
@@ -1004,11 +1021,11 @@ msgstr "Εξαγωγή σε αρχείο"
 msgid "Expressionism"
 msgstr "Εξπρεσιονισμός"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:101
+#: src/components/ml-model/OnnxModelSelect.tsx:102
 msgid "Fast"
 msgstr "Γρήγορο"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:109
+#: src/components/ml-model/OnnxModelSelect.tsx:110
 msgid "Fastest"
 msgstr "Ταχύτατο"
 
@@ -1016,7 +1033,7 @@ msgstr "Ταχύτατο"
 msgid "Fauvism"
 msgstr "Φωβισμός"
 
-#: src/components/image-editor/ExpandControls.tsx:196
+#: src/components/image-editor/ExpandControls.tsx:193
 msgid "Fill"
 msgstr "Γέμισμα"
 
@@ -1037,9 +1054,9 @@ msgstr "Φιλτράρισμα ανά ετικέτα"
 msgid "Fine detail"
 msgstr "Λεπτή λεπτομέρεια"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:57
-#: src/components/ml-model/OnnxModelSelect.tsx:85
-#: src/components/ml-model/OnnxModelSelect.tsx:117
+#: src/components/ml-model/OnnxModelSelect.tsx:58
+#: src/components/ml-model/OnnxModelSelect.tsx:86
+#: src/components/ml-model/OnnxModelSelect.tsx:118
 msgid "Finest"
 msgstr "Λεπτομερέστατο"
 
@@ -1051,7 +1068,7 @@ msgstr "Ολοκλήρωση επεξεργασίας"
 msgid "Focal point instructions"
 msgstr "Οδηγίες για το εστιακό σημείο"
 
-#: src/components/image-editor/CropControls.tsx:37
+#: src/components/image-editor/CropControls.tsx:38
 msgid "Free"
 msgstr "Ελεύθερη"
 
@@ -1087,12 +1104,12 @@ msgstr "Λαζούρα"
 msgid "Go to the {label} tab"
 msgstr "Μεταβείτε στην καρτέλα {label}"
 
-#: src/components/messages.ts:60
+#: src/components/messages.ts:61
 msgid "Gouache"
 msgstr "Γκουάς"
 
 #: src/components/grid/GridControls.tsx:130
-#: src/components/ImageOutline.tsx:326
+#: src/components/ImageOutline.tsx:328
 #: src/components/messages.ts:35
 msgid "Grid"
 msgstr "Πλέγμα"
@@ -1106,7 +1123,7 @@ msgstr "Ύψος"
 msgid "Help"
 msgstr "Βοήθεια"
 
-#: src/components/image-editor/ExpandControls.tsx:158
+#: src/components/image-editor/ExpandControls.tsx:155
 msgid "Horizontal"
 msgstr "Οριζόντια"
 
@@ -1158,7 +1175,7 @@ msgstr "Εγκατάσταση του ArtistAssistApp"
 msgid "Install update"
 msgstr "Εγκατάσταση ενημέρωσης"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:78
+#: src/components/ml-model/OnnxModelSelect.tsx:79
 msgid "Instant"
 msgstr "Άμεσο"
 
@@ -1231,11 +1248,11 @@ msgstr "Απομένουν για σύγκριση: {unfinishedGamesSize}"
 msgid "Less"
 msgstr "Λιγότερα"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:124
+#: src/components/ml-model/OnnxModelSelect.tsx:125
 msgid "Light"
 msgstr "Ελαφρύ"
 
-#: src/components/ImageOutline.tsx:350
+#: src/components/ImageOutline.tsx:352
 msgid "Light box"
 msgstr "Lightbox"
 
@@ -1244,7 +1261,7 @@ msgstr "Lightbox"
 msgid "Light tone"
 msgstr "Ανοιχτός τόνος"
 
-#: src/components/ImageOutline.tsx:296
+#: src/components/ImageOutline.tsx:298
 msgid "Lightbox"
 msgstr "Lightbox"
 
@@ -1290,7 +1307,7 @@ msgstr "Χαμηλή έξοδος και υψηλή έξοδος"
 msgid "Margin"
 msgstr "Περιθώριο"
 
-#: src/components/image-editor/ExpandControls.tsx:102
+#: src/components/image-editor/ExpandControls.tsx:99
 msgid "Margins"
 msgstr "Περιθώρια"
 
@@ -1358,9 +1375,10 @@ msgid "Mixture"
 msgstr "Μείγμα"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:107
-#: src/components/image-editor/ColorizeControls.tsx:79
-#: src/components/image-editor/RemoveBackgroundControls.tsx:68
-#: src/components/ImageOutline.tsx:267
+#: src/components/image-editor/ColorizeControls.tsx:80
+#: src/components/image-editor/RemoveBackgroundControls.tsx:69
+#: src/components/image-editor/RestoreControls.tsx:64
+#: src/components/ImageOutline.tsx:269
 msgid "Mode"
 msgstr "Λειτουργία"
 
@@ -1410,7 +1428,7 @@ msgstr "Νέο σετ χρωμάτων"
 msgid "New comparison"
 msgstr "Νέα σύγκριση"
 
-#: src/components/image-editor/ExpandControls.tsx:228
+#: src/components/image-editor/ExpandControls.tsx:225
 #: src/components/image-editor/UpscaleControls.tsx:66
 msgid "New size: {outputWidth} × {outputHeight}"
 msgstr "Νέο μέγεθος: {outputWidth} × {outputHeight}"
@@ -1456,11 +1474,11 @@ msgstr "Αριθμός κελιών στη μικρότερη πλευρά (κα
 msgid "Off"
 msgstr "Απενεργοποιημένο"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Oil Paint"
 msgstr "Ελαιόχρωμα"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Oil Pastel"
 msgstr "Λαδοπαστέλ"
 
@@ -1476,9 +1494,10 @@ msgstr "Στη διαγώνιο βρίσκονται τα καθαρά χρώμ�
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "Μόνο ένας περιορισμένος αριθμός μαρκών χρωμάτων είναι διαθέσιμος στη δωρεάν έκδοση"
 
-#: src/components/image-editor/ColorizeControls.tsx:90
-#: src/components/image-editor/RemoveBackgroundControls.tsx:79
-#: src/components/ImageOutline.tsx:259
+#: src/components/image-editor/ColorizeControls.tsx:92
+#: src/components/image-editor/RemoveBackgroundControls.tsx:81
+#: src/components/image-editor/RestoreControls.tsx:76
+#: src/components/ImageOutline.tsx:261
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Μόνο ένας περιορισμένος αριθμός λειτουργιών είναι διαθέσιμος στη δωρεάν έκδοση"
 
@@ -1515,7 +1534,7 @@ msgstr "Ή επιλέξτε από δείγματα φωτογραφιών"
 msgid "Or select from your recent photos"
 msgstr "Ή επιλέξτε από τις πρόσφατες φωτογραφίες σας"
 
-#: src/components/image-editor/CropControls.tsx:38
+#: src/components/image-editor/CropControls.tsx:39
 #: src/components/image/ImageViewSelector.tsx:45
 msgid "Original"
 msgstr "Αρχική"
@@ -1524,7 +1543,7 @@ msgstr "Αρχική"
 msgid "Original color temperature (K)"
 msgstr "Αρχική θερμοκρασία χρώματος (K)"
 
-#: src/components/ImageOutline.tsx:281
+#: src/components/ImageOutline.tsx:283
 #: src/components/messages.ts:34
 msgid "Outline"
 msgstr "Περίγραμμα"
@@ -1661,8 +1680,8 @@ msgstr "Πατήστε το κουμπί <0>Προσθήκη στην παλέτ
 #: src/components/ColorMixingChart.tsx:149
 #: src/components/ImageGrid.tsx:72
 #: src/components/ImageGrid.tsx:83
-#: src/components/ImageOutline.tsx:334
-#: src/components/ImageOutline.tsx:370
+#: src/components/ImageOutline.tsx:336
+#: src/components/ImageOutline.tsx:372
 #: src/components/ImagesCompare.tsx:181
 #: src/components/ImageTonalValues.tsx:158
 #: src/components/ImageTonalValues.tsx:169
@@ -1711,7 +1730,11 @@ msgstr "Αναλογία"
 msgid "Realism"
 msgstr "Ρεαλισμός"
 
-#: src/components/ImageEditor.tsx:306
+#: src/components/ml-model/OnnxModelSelect.tsx:143
+msgid "Recovers detail lost to camera shake or motion blur"
+msgstr "Ανακτά λεπτομέρειες που χάθηκαν λόγω κουνήματος της κάμερας ή θολώματος κίνησης"
+
+#: src/components/ImageEditor.tsx:309
 msgid "Redo"
 msgstr "Επανάληψη"
 
@@ -1749,7 +1772,7 @@ msgstr "Επαναφόρτωση"
 msgid "Remove and continue"
 msgstr "Αφαίρεση και συνέχεια"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:135
+#: src/components/image-editor/RemoveBackgroundControls.tsx:137
 #: src/components/messages.ts:52
 msgid "Remove background"
 msgstr "Αφαίρεση φόντου"
@@ -1758,6 +1781,10 @@ msgstr "Αφαίρεση φόντου"
 #: src/components/messages.ts:53
 msgid "Remove objects"
 msgstr "Αφαίρεση αντικειμένων"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:135
+msgid "Removes noise and grain from a scanned or high-ISO photo"
+msgstr "Αφαιρεί τον θόρυβο και τον κόκκο από σαρωμένη φωτογραφία ή φωτογραφία που τραβήχτηκε με υψηλό ISO"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:119
 msgid "Removing objects is available only to paid Patreon members"
@@ -1781,10 +1808,15 @@ msgstr "Απαιτείται macOS Sonoma ή νεότερη έκδοση."
 msgid "Resend code"
 msgstr "Επανάληψη αποστολής κωδικού"
 
-#: src/components/ImageEditor.tsx:310
-#: src/components/ImageEditor.tsx:315
+#: src/components/ImageEditor.tsx:313
+#: src/components/ImageEditor.tsx:318
 msgid "Reset"
 msgstr "Επαναφορά"
+
+#: src/components/image-editor/RestoreControls.tsx:101
+#: src/components/messages.ts:55
+msgid "Restore"
+msgstr "Αποκατάσταση"
 
 #: src/components/cloud/ImportFromZipFileSelect.tsx:78
 msgid "Restore backup"
@@ -1827,7 +1859,7 @@ msgstr "Κορεσμός (%)"
 #: src/components/image/ImageSaveButton.tsx:38
 #: src/components/ImageGrid.tsx:89
 #: src/components/ImageLimitedPalette.tsx:141
-#: src/components/ImageOutline.tsx:377
+#: src/components/ImageOutline.tsx:379
 #: src/components/ImageTonalValues.tsx:175
 msgid "Save"
 msgstr "Αποθήκευση"
@@ -1939,7 +1971,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Επιλέξτε από τα πρόσφατα σετ χρωμάτων σας ή δημιουργήστε ένα νέο."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:281
+#: src/components/ImageEditor.tsx:284
 msgid "Select image"
 msgstr "Επιλογή εικόνας"
 
@@ -1995,9 +2027,10 @@ msgstr "Επιλέξτε το εικαστικό μέσο, τις μάρκες �
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
 msgstr "Επιλέξτε το εικαστικό μέσο, τις μάρκες χρωμάτων και τα χρώματα με τα οποία θα ζωγραφίσετε και, στη συνέχεια, πατήστε <0>Αποθήκευση και συνέχεια</0>"
 
-#: src/components/image-editor/ColorizeControls.tsx:85
-#: src/components/image-editor/RemoveBackgroundControls.tsx:74
-#: src/components/ImageOutline.tsx:254
+#: src/components/image-editor/ColorizeControls.tsx:86
+#: src/components/image-editor/RemoveBackgroundControls.tsx:75
+#: src/components/image-editor/RestoreControls.tsx:70
+#: src/components/ImageOutline.tsx:255
 msgid "Selected mode is available only to paid Patreon members"
 msgstr "Η επιλεγμένη λειτουργία είναι διαθέσιμη μόνο σε μέλη Patreon επί πληρωμή"
 
@@ -2067,7 +2100,7 @@ msgstr "Κοινή χρήση αυτού του σετ χρωμάτων"
 msgid "Share your color set"
 msgstr "Κοινή χρήση του σετ χρωμάτων σας"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:64
+#: src/components/ml-model/OnnxModelSelect.tsx:65
 msgid "Sharp"
 msgstr "Ευκρινές"
 
@@ -2135,11 +2168,11 @@ msgstr "Αλληλεπικαλύψτε ελαφρώς περιοχές κηρο�
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Οι μικρότερες τιμές εκατοστημορίου αντιστοιχούν σε ισχυρότερη λεύκανση"
 
-#: src/components/image-editor/ExpandControls.tsx:106
+#: src/components/image-editor/ExpandControls.tsx:103
 msgid "Smart"
 msgstr "Έξυπνο"
 
-#: src/components/image-editor/ExpandControls.tsx:236
+#: src/components/image-editor/ExpandControls.tsx:233
 msgid "Smart expansion is available only to paid Patreon members"
 msgstr "Η έξυπνη επέκταση είναι διαθέσιμη μόνο σε επί πληρωμή μέλη Patreon"
 
@@ -2321,7 +2354,7 @@ msgstr "Το περιθώριο είναι πολύ μεγάλο"
 msgid "There is one common palette and a separate palette for each photo"
 msgstr "Υπάρχει μια κοινή παλέτα και μια ξεχωριστή παλέτα για κάθε φωτογραφία"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:71
+#: src/components/ml-model/OnnxModelSelect.tsx:72
 msgid "Thick"
 msgstr "Χοντρό"
 
@@ -2474,11 +2507,15 @@ msgstr "Δεν είναι δυνατή η φόρτωση του μοντέλου
 msgid "Unable to load the outline modes"
 msgstr "Δεν είναι δυνατή η φόρτωση των λειτουργιών περιγράμματος"
 
+#: src/components/image-editor/RestoreControls.tsx:46
+msgid "Unable to load the restoration modes"
+msgstr "Δεν είναι δυνατή η φόρτωση των λειτουργιών αποκατάστασης"
+
 #: src/components/ImageChooser.tsx:72
 msgid "Unable to load the sample photos"
 msgstr "Δεν είναι δυνατή η φόρτωση των δειγμάτων φωτογραφιών"
 
-#: src/components/image-editor/ExpandControls.tsx:84
+#: src/components/image-editor/ExpandControls.tsx:81
 msgid "Unable to load the smart expansion model"
 msgstr "Δεν είναι δυνατή η φόρτωση του μοντέλου έξυπνης επέκτασης"
 
@@ -2500,7 +2537,7 @@ msgstr "Δεν είναι δυνατή η επαναφορά του αποθηκ
 msgid "Underlayer"
 msgstr "Υπόστρωμα"
 
-#: src/components/ImageEditor.tsx:299
+#: src/components/ImageEditor.tsx:302
 msgid "Undo"
 msgstr "Αναίρεση"
 
@@ -2580,7 +2617,7 @@ msgstr "Σε χρήση"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Η χρήση περιορισμένης παλέτας βοηθά στην επίτευξη χρωματικής αρμονίας. Επιλέξτε 1–{MAX_COLORS} βασικά χρώματα."
 
-#: src/components/image-editor/ExpandControls.tsx:176
+#: src/components/image-editor/ExpandControls.tsx:173
 msgid "Vertical"
 msgstr "Κατακόρυφα"
 
@@ -2588,11 +2625,11 @@ msgstr "Κατακόρυφα"
 msgid "Vienna Secession"
 msgstr "Απόσχιση της Βιέννης"
 
-#: src/components/ImageOutline.tsx:299
+#: src/components/ImageOutline.tsx:301
 msgid "View the outline over the live camera to trace in AR"
 msgstr "Δείτε το περίγραμμα πάνω από τη ζωντανή κάμερα για να το ιχνογραφήσετε σε AR"
 
-#: src/components/ImageOutline.tsx:360
+#: src/components/ImageOutline.tsx:362
 msgid "View the outline over the live camera to trace in AR."
 msgstr "Δείτε το περίγραμμα πάνω από τη ζωντανή κάμερα για να το ιχνογραφήσετε σε AR."
 
@@ -2617,15 +2654,15 @@ msgstr "Ακουαρέλα"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Η ακουαρέλα μπορεί να αραιωθεί με νερό για να γίνει πιο διαφανής"
 
-#: src/components/messages.ts:59
+#: src/components/messages.ts:60
 msgid "Watercolor Paint"
 msgstr "Χρώμα ακουαρέλας"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Watercolor Pencils"
 msgstr "Μολύβια ακουαρέλας"
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Wax Pastel"
 msgstr "Κηροπαστέλ"
 
@@ -2646,8 +2683,8 @@ msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of thr
 msgstr "Όταν επιλέγετε περισσότερα από {maxColorsFor3} χρώματα συνολικά, δεν χρησιμοποιούνται μείγματα τριών χρωμάτων."
 
 #: src/components/image-editor/AdjustColorsControls.tsx:240
-#: src/components/image-editor/ExpandControls.tsx:215
-#: src/components/image-editor/RemoveBackgroundControls.tsx:105
+#: src/components/image-editor/ExpandControls.tsx:212
+#: src/components/image-editor/RemoveBackgroundControls.tsx:107
 msgid "White"
 msgstr "Λευκό"
 
@@ -2655,7 +2692,7 @@ msgstr "Λευκό"
 msgid "White balance"
 msgstr "Ισορροπία λευκού"
 
-#: src/components/messages.ts:73
+#: src/components/messages.ts:74
 msgid "White paper or canvas"
 msgstr "Λευκό χαρτί ή καμβάς"
 
@@ -2729,7 +2766,7 @@ msgid "Your image"
 msgstr "Η εικόνα σας"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:335
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:303
 msgid "Your images are processed locally on your device and are never uploaded to any server"

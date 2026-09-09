@@ -54,6 +54,7 @@ import {createOriginalImageSlice, type OriginalImageSlice} from './original-imag
 import {createOutlineImageSlice, type OutlineImageSlice} from './outline-image-slice';
 import {createPaletteSlice, type PaletteSlice} from './palette-slice';
 import {createRemoveBackgroundSlice, type RemoveBackgroundSlice} from './remove-background-slice';
+import {createRestoreSlice, type RestoreSlice} from './restore-slice';
 import {createSimplifyImageSlice, type SimplifyImageSlice} from './simplify-image-slice';
 import {createStorageSlice, type StorageSlice} from './storage-slice';
 import {createStraightenSlice, type StraightenSlice} from './straighten-slice';
@@ -88,6 +89,7 @@ export const useAppStore = create<
     RemoveBackgroundSlice &
     RemoveObjectsSlice &
     UpscaleSlice &
+    RestoreSlice &
     ColorizeSlice &
     EditImageSlice &
     TournamentSlice &
@@ -120,6 +122,7 @@ export const useAppStore = create<
     ...createRemoveBackgroundSlice(...a),
     ...createRemoveObjectsSlice(...a),
     ...createUpscaleSlice(...a),
+    ...createRestoreSlice(...a),
     ...createColorizeSlice(...a),
     ...createEditImageSlice(...a),
     ...createTournamentSlice(...a),

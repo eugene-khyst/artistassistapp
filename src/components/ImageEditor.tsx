@@ -41,6 +41,7 @@ import {CropControls} from '@/components/image-editor/CropControls';
 import {ExpandControls} from '@/components/image-editor/ExpandControls';
 import {RemoveBackgroundControls} from '@/components/image-editor/RemoveBackgroundControls';
 import {RemoveObjectsControls} from '@/components/image-editor/RemoveObjectsControls';
+import {RestoreControls} from '@/components/image-editor/RestoreControls';
 import {StraightenControls} from '@/components/image-editor/StraightenControls';
 import {UpscaleControls} from '@/components/image-editor/UpscaleControls';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
@@ -65,6 +66,7 @@ const IMAGE_EDITOR_MODE_TYPES: Record<ImageEditorKey, ImageEditorModeType> = {
   [ImageEditorKey.RemoveBackground]: ImageEditorModeType.RemoveBackground,
   [ImageEditorKey.RemoveObjects]: ImageEditorModeType.Polygon,
   [ImageEditorKey.Upscale]: ImageEditorModeType.Noop,
+  [ImageEditorKey.Restore]: ImageEditorModeType.Noop,
   [ImageEditorKey.Colorize]: ImageEditorModeType.Noop,
 };
 
@@ -129,6 +131,7 @@ const IMAGE_EDITOR_CONTROLS: Record<
     />
   ),
   [ImageEditorKey.Upscale]: () => <UpscaleControls />,
+  [ImageEditorKey.Restore]: () => <RestoreControls />,
   [ImageEditorKey.Colorize]: () => <ColorizeControls />,
 };
 

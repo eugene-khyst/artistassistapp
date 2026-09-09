@@ -63,6 +63,7 @@ const EDITOR_KEY_BY_COMMAND_TYPE: Record<EditImageCommandType, ImageEditorKey> =
   [EditImageCommandType.RemoveBackground]: ImageEditorKey.RemoveBackground,
   [EditImageCommandType.RemoveObjects]: ImageEditorKey.RemoveObjects,
   [EditImageCommandType.Upscale]: ImageEditorKey.Upscale,
+  [EditImageCommandType.Restore]: ImageEditorKey.Restore,
   [EditImageCommandType.Colorize]: ImageEditorKey.Colorize,
 };
 

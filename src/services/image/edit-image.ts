@@ -78,6 +78,7 @@ export async function applyEditImageCommand(
       break;
     // These replace the input instead of compositing onto it
     case EditImageCommandType.Upscale:
+    case EditImageCommandType.Restore:
     case EditImageCommandType.Colorize:
       result = await createImageBitmap(command.result);
       break;

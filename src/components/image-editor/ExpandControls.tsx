@@ -40,17 +40,14 @@ import {useErrorNotification} from '@/hooks/useErrorNotification';
 import {useOnnxModel} from '@/hooks/useOnnxModel';
 import {Access} from '@/services/auth/types';
 import type {ImageExpandingMode} from '@/services/canvas/mode/image-expanding-mode';
-import {
-  IMAGE_ASPECT_RATIO_OPTIONS,
-  imageAspectRatio,
-  imageAspectRatioLabel,
-} from '@/services/image/aspect-ratio';
+import {imageAspectRatio, imageAspectRatioLabel} from '@/services/image/aspect-ratio';
 import {getImageExpansion} from '@/services/image/expand-image';
 import {ExpandImageFillMode, ExpandImageSizeMode} from '@/services/image/expand-image-controls';
 import {INPAINTING_MODEL_ID, OnnxModelType, UPSCALING_MODEL_ID} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
 
 import styles from './ExpandControls.module.css';
+import {IMAGE_ASPECT_RATIO_OPTIONS} from './image-aspect-ratio-options';
 
 interface Props {
   expandingMode: ImageExpandingMode | null;
@@ -149,7 +146,7 @@ export function ExpandControls({expandingMode}: Readonly<Props>) {
               }
             }}
             popupMatchSelectWidth={false}
-            className="u-narrow-select"
+            className="u-w-auto"
           />
         </Form.Item>
       ) : (

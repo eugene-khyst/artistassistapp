@@ -268,7 +268,7 @@ export function ColorMixer() {
                 <ColorMixtureDescription
                   colorMixture={colorMixture}
                   showColors={isFullStrength(colorMixture)}
-                  showConsistency={!isFullStrength(colorMixture)}
+                  showConsistency={!!colorMixture.underlayerRgb}
                 />
                 <AddToPaletteButton
                   colorMixture={colorMixture}

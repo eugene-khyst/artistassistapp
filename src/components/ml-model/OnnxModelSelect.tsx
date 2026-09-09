@@ -50,7 +50,8 @@ const OPTIONS: Record<
   string,
   {
     label: ReactNode;
-    scores: Scores;
+    description?: ReactNode;
+    scores?: Scores;
   }
 > = {
   'informative-drawings': {
@@ -127,9 +128,26 @@ const OPTIONS: Record<
       speed: 3,
     },
   },
+  'nafnet-sidd-width32': {
+    label: <Trans>Denoise</Trans>,
+    description: (
+      <Typography.Text type="secondary">
+        <Trans>Removes noise and grain from a scanned or high-ISO photo</Trans>
+      </Typography.Text>
+    ),
+  },
+  'nafnet-gopro-width64': {
+    label: <Trans>Deblur</Trans>,
+    description: (
+      <Typography.Text type="secondary">
+        <Trans>Recovers detail lost to camera shake or motion blur</Trans>
+      </Typography.Text>
+    ),
+  },
 };
 
 interface SelectOptionType extends DefaultOptionType {
+  description?: ReactNode;
   scores?: Partial<Record<Feature, number>>;
 }
 
@@ -142,20 +160,26 @@ function getOnnxModelOptions(
   }
   return [...models.values()].sort(compareByPriority).map(model => {
     const {id} = model;
-    const {label, scores} = OPTIONS[id] ?? {label: id};
+    const {label, description, scores} = OPTIONS[id] ?? {label: id};
     return {
       value: id,
       label,
+      description,
       scores,
       disabled: !hasAccessTo(user, model),
     };
   });
 }
 
-function SelectOption({label, scores}: Readonly<Pick<SelectOptionType, 'label' | 'scores'>>) {
+function SelectOption({
+  label,
+  description,
+  scores,
+}: Readonly<Pick<SelectOptionType, 'label' | 'description' | 'scores'>>) {
   return (
     <Flex vertical>
       {label}
+      {description}
       {scores && (
         <ul className="u-list-unstyled u-m-0">
           {Object.entries(scores).map(([feature, score]) => (
@@ -171,8 +195,10 @@ function SelectOption({label, scores}: Readonly<Pick<SelectOptionType, 'label' |
   );
 }
 
-const renderOption = ({data: {label, scores}}: FlattenOptionData<SelectOptionType>): ReactNode => (
-  <SelectOption label={label} scores={scores} />
+const renderOption = ({
+  data: {label, description, scores},
+}: FlattenOptionData<SelectOptionType>): ReactNode => (
+  <SelectOption label={label} description={description} scores={scores} />
 );
 
 type Props = SelectProps & {

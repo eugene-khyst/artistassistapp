@@ -20,13 +20,18 @@ import {useCallback, useEffect, useMemo, useState} from 'react';
 
 import {useAccessTo} from '@/hooks/useAccessTo';
 import {type Access} from '@/services/auth/types';
+import {hasAccessTo} from '@/services/auth/utils';
 import {type CatalogItem, compareByPriority, getDefaultItem} from '@/services/catalog';
 import type {AppSettings} from '@/services/settings/types';
 import {useAppStore} from '@/stores/app-store';
 
 type SettingsKey = keyof Pick<
   AppSettings,
-  'outlineModel' | 'styleTransferImageId' | 'backgroundRemovalModel' | 'colorizeModel'
+  | 'outlineModel'
+  | 'styleTransferImageId'
+  | 'backgroundRemovalModel'
+  | 'colorizeModel'
+  | 'restoreModel'
 >;
 
 interface Options<T> {
@@ -38,6 +43,7 @@ interface Options<T> {
 
 interface SelectedItem<T> {
   sortedItems: T[];
+  hasPaidItems: boolean;
   defaultItem?: T;
   itemId?: string;
   item?: T;
@@ -65,6 +71,8 @@ export function useSelectedCatalogItem<T extends CatalogItem>({
     () => [...(items?.values() ?? [])].sort(compareByPriority),
     [items]
   );
+
+  const hasPaidItems = !hasAccessTo(null, sortedItems);
 
   const defaultItem = useMemo<T | undefined>(() => {
     if (isAuthLoading || !items?.size) {
@@ -95,6 +103,7 @@ export function useSelectedCatalogItem<T extends CatalogItem>({
 
   return {
     sortedItems,
+    hasPaidItems,
     defaultItem,
     itemId,
     item,
