@@ -134,7 +134,7 @@ msgstr "Uma cor misturada em cada mistura sugerida para deixar a paleta mais har
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "Uma nova versão do app está disponível e será instalada automaticamente."
 
-#: src/components/Help.tsx:145
+#: src/components/Help.tsx:157
 msgid "A new version of the application is available."
 msgstr "Uma nova versão do aplicativo está disponível."
 
@@ -186,7 +186,7 @@ msgstr "Adicione ou remova cores para corresponder ao seu conjunto de cores real
 msgid "Add to palette"
 msgstr "Adicionar à paleta"
 
-#: src/components/color/ColorMixtureDescription.tsx:94
+#: src/components/color/ColorMixtureDescription.tsx:95
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Adicionar branco em uma <0>proporção {whiteRatioText}</0>"
 
@@ -198,11 +198,11 @@ msgstr "Ajustar cores"
 msgid "Adjust the 4 corners manually."
 msgstr "Ajuste os 4 cantos manualmente."
 
-#: src/components/Help.tsx:201
+#: src/components/Help.tsx:229
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Todos os dados do app são armazenados no armazenamento do navegador web, mesmo após a instalação. Limpar os dados do navegador apaga tudo."
 
-#: src/components/ImageEditor.tsx:312
+#: src/components/ImageEditor.tsx:326
 msgid "All edits will be lost"
 msgstr "Todas as edições serão perdidas"
 
@@ -218,7 +218,7 @@ msgstr "Como alternativa, instale a versão mais recente do navegador Chrome, Ed
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "Há uma subcamada ou cor unificadora definida. A paleta automática aplicará essas configurações a toda a foto, não apenas à área para a qual foram escolhidas."
 
-#: src/components/Help.tsx:246
+#: src/components/Help.tsx:274
 msgid "Application build ID"
 msgstr "ID de compilação do aplicativo"
 
@@ -290,11 +290,11 @@ msgstr "O ArtistAssistApp não conseguiu confirmar que seus arquivos na nuvem fo
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "O ArtistAssistApp não recebeu o resultado do seu login no Patreon. Isso pode acontecer quando o login abre em outro navegador ou aplicativo. Por favor, tente fazer login novamente."
 
-#: src/components/Help.tsx:237
+#: src/components/Help.tsx:265
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp é desenvolvido por <0>Eugene Khyst</0>"
 
-#: src/components/Help.tsx:213
+#: src/components/Help.tsx:241
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "O ArtistAssistApp nunca armazena seu endereço de e-mail, apenas um código privado derivado dele que não pode revelar o endereço. Entrar pelo Patreon ou renovar a assinatura cria esse código novamente."
 
@@ -302,7 +302,7 @@ msgstr "O ArtistAssistApp nunca armazena seu endereço de e-mail, apenas um cód
 msgid "ArtistAssistApp will permanently delete your saved work and settings from this device and log you out.<0/>Data already synced to cloud storage will not be deleted."
 msgstr "ArtistAssistApp excluirá permanentemente seu trabalho e configurações salvos deste dispositivo e desconectará você.<0/>Os dados já sincronizados com o armazenamento em nuvem não serão excluídos."
 
-#: src/components/storage/ClearCacheButton.tsx:42
+#: src/components/storage/ClearCacheButton.tsx:44
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "O ArtistAssistApp será recarregado após remover os arquivos temporários do app.<0/>Seu trabalho salvo e os dados da nuvem não serão excluídos."
 
@@ -417,14 +417,14 @@ msgstr "É necessário acesso à câmera para decalcar em AR"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:314
+#: src/components/ImageEditor.tsx:328
 #: src/components/loading/LoadingIndicator.tsx:52
-#: src/components/storage/ClearCacheButton.tsx:50
+#: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: src/components/Help.tsx:106
+#: src/components/Help.tsx:118
 msgid "Cancel a paid membership"
 msgstr "Cancelar uma assinatura paga"
 
@@ -436,7 +436,7 @@ msgstr "Não é possível usar imagem copiada"
 msgid "Cells"
 msgstr "Células"
 
-#: src/components/Help.tsx:152
+#: src/components/Help.tsx:164
 msgid "Check for updates"
 msgstr "Verificar atualizações"
 
@@ -475,9 +475,9 @@ msgstr "Limpar"
 msgid "Clear background color"
 msgstr "Limpar cor de fundo"
 
-#: src/components/storage/ClearCacheButton.tsx:40
-#: src/components/storage/ClearCacheButton.tsx:49
-#: src/components/storage/ClearCacheButton.tsx:53
+#: src/components/storage/ClearCacheButton.tsx:42
+#: src/components/storage/ClearCacheButton.tsx:51
+#: src/components/storage/ClearCacheButton.tsx:55
 msgid "Clear cache"
 msgstr "Limpar cache"
 
@@ -602,7 +602,7 @@ msgstr "Misturador de cores"
 msgid "Color mixing chart"
 msgstr "Tabela de mistura de cores"
 
-#: src/components/color/ColorMixtureDescription.tsx:107
+#: src/components/color/ColorMixtureDescription.tsx:108
 msgid "Color mixture"
 msgstr "Mistura de cores"
 
@@ -677,7 +677,7 @@ msgstr "Considerar as cores mescladas sobre a subcamada quando corresponderem me
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "Considerar camadas transparentes sobre a superfície ou a subcamada quando corresponderem melhor à cor-alvo do que as misturas opacas"
 
-#: src/components/Help.tsx:96
+#: src/components/Help.tsx:108
 msgid "Contact"
 msgstr "Contato"
 
@@ -759,9 +759,13 @@ msgstr "Conjunto de cores personalizado"
 msgid "Custom colors"
 msgstr "Cores personalizadas"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:140
+#: src/components/ml-model/OnnxModelSelect.tsx:136
 msgid "Deblur"
 msgstr "Remover desfoque"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:140
+msgid "Deblur JPEG"
+msgstr "Remover desfoque em JPEG"
 
 #: src/components/auth/DeleteAccountButton.tsx:67
 #: src/components/color/AddToPaletteButton.tsx:48
@@ -943,7 +947,7 @@ msgstr "Editar daqui em diante"
 msgid "Edit image"
 msgstr "Editar imagem"
 
-#: src/components/ImageEditor.tsx:324
+#: src/components/ImageEditor.tsx:338
 msgid "Edited"
 msgstr "Editada"
 
@@ -1171,7 +1175,7 @@ msgstr "Instalar o aplicativo"
 msgid "Install ArtistAssistApp"
 msgstr "Instalar o ArtistAssistApp"
 
-#: src/components/Help.tsx:147
+#: src/components/Help.tsx:159
 msgid "Install update"
 msgstr "Instalar atualização"
 
@@ -1345,7 +1349,7 @@ msgstr "Tom médio"
 msgid "Midtones"
 msgstr "Tons médios"
 
-#: src/components/color/ColorMixtureDescription.tsx:69
+#: src/components/color/ColorMixtureDescription.tsx:70
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Misture cores em uma <0>proporção {partsRatioText}</0>"
 
@@ -1370,11 +1374,11 @@ msgstr "Misture esta cor em cada mistura."
 msgid "Mix your colors in any proportions so you don't waste real paints"
 msgstr "Misture suas cores em qualquer proporção para não desperdiçar tintas reais"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:93
+#: src/components/color/ReflectanceChartDrawer.tsx:99
 msgid "Mixture"
 msgstr "Mistura"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:107
+#: src/components/color/ReflectanceChartDrawer.tsx:113
 #: src/components/image-editor/ColorizeControls.tsx:80
 #: src/components/image-editor/RemoveBackgroundControls.tsx:69
 #: src/components/image-editor/RestoreControls.tsx:64
@@ -1552,7 +1556,7 @@ msgstr "Contorno"
 msgid "Output levels"
 msgstr "Níveis de saída"
 
-#: src/components/color/ColorMixtureDescription.tsx:132
+#: src/components/color/ColorMixtureDescription.tsx:133
 msgid "over"
 msgstr "sobre"
 
@@ -1589,7 +1593,7 @@ msgstr "Percentil"
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Percentil: balanço de branco automático a partir das áreas mais claras, bom para a maioria das fotos. Referência: balanço de branco manual usando a área branca selecionada."
 
-#: src/components/Help.tsx:159
+#: src/components/Help.tsx:187
 msgid "Persistent storage"
 msgstr "Armazenamento persistente"
 
@@ -1698,9 +1702,13 @@ msgstr "Imprimir uma imagem grande em várias páginas"
 msgid "Print preview"
 msgstr "Visualização de impressão"
 
-#: src/components/Help.tsx:118
+#: src/components/Help.tsx:130
 msgid "Privacy policy"
 msgstr "Política de privacidade"
+
+#: src/components/error/UnhandledRejectionHandler.tsx:42
+msgid "Processing with WebGPU failed. Try turning off WebGPU, then try again."
+msgstr "O processamento com WebGPU falhou. Tente desativar o WebGPU e tente novamente."
 
 #: src/components/loading/LoadingIndicator.tsx:48
 msgid "Processing..."
@@ -1710,7 +1718,7 @@ msgstr "Processando..."
 msgid "Processing... {percent}%"
 msgstr "Processando... {percent}%"
 
-#: src/components/Help.tsx:182
+#: src/components/Help.tsx:210
 msgid "Quota"
 msgstr "Cota"
 
@@ -1730,11 +1738,7 @@ msgstr "Proporção"
 msgid "Realism"
 msgstr "Realismo"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:143
-msgid "Recovers detail lost to camera shake or motion blur"
-msgstr "Recupera detalhes perdidos devido à trepidação da câmera ou ao desfoque de movimento"
-
-#: src/components/ImageEditor.tsx:309
+#: src/components/ImageEditor.tsx:323
 msgid "Redo"
 msgstr "Refazer"
 
@@ -1782,9 +1786,17 @@ msgstr "Remover fundo"
 msgid "Remove objects"
 msgstr "Remover objetos"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:135
-msgid "Removes noise and grain from a scanned or high-ISO photo"
-msgstr "Remove ruído e granulação de uma foto digitalizada ou tirada com ISO alto"
+#: src/components/ml-model/OnnxModelSelect.tsx:141
+msgid "Removes blur and JPEG artifacts"
+msgstr "Remove o desfoque e os artefatos de compressão JPEG"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:137
+msgid "Removes motion blur"
+msgstr "Remove o desfoque de movimento"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:133
+msgid "Removes noise and grain"
+msgstr "Remove o ruído e a granulação"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:119
 msgid "Removing objects is available only to paid Patreon members"
@@ -1808,8 +1820,8 @@ msgstr "Requer macOS Sonoma ou posterior."
 msgid "Resend code"
 msgstr "Reenviar código"
 
-#: src/components/ImageEditor.tsx:313
-#: src/components/ImageEditor.tsx:318
+#: src/components/ImageEditor.tsx:327
+#: src/components/ImageEditor.tsx:332
 msgid "Reset"
 msgstr "Redefinir"
 
@@ -1913,6 +1925,10 @@ msgstr "Selecione uma técnica artística"
 msgid "Select an image that contains a color chart"
 msgstr "Selecione uma imagem que contenha uma cartela de cores"
 
+#: src/components/ImageEditor.tsx:288
+msgid "Select an image to edit"
+msgstr "Selecione uma imagem para editar"
+
 #: src/components/color-set/ColorTypeSelect.tsx:37
 msgid "Select art medium"
 msgstr "Selecionar técnica artística"
@@ -1971,7 +1987,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Selecione um dos seus conjuntos de cores recentes ou crie um novo."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:284
+#: src/components/ImageEditor.tsx:292
 msgid "Select image"
 msgstr "Selecionar imagem"
 
@@ -2136,11 +2152,11 @@ msgstr "Mostra esta cor na foto de referência."
 msgid "Sign in required"
 msgstr "Login necessário"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:92
+#: src/components/color/ReflectanceChartDrawer.tsx:98
 msgid "Similarity"
 msgstr "Similaridade"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:109
+#: src/components/color/ReflectanceChartDrawer.tsx:115
 msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
 msgstr "O modo de similaridade compara as cores de destino e sugeridas. No modo Mistura, as partes da cor que compõem a mistura são exibidas."
 
@@ -2204,7 +2220,7 @@ msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "Ordenar pelo número de cores na mistura, do menor para o maior."
 
 #: src/components/color/ColorMatchCard.tsx:123
-#: src/components/color/ReflectanceChartDrawer.tsx:98
+#: src/components/color/ReflectanceChartDrawer.tsx:104
 #: src/components/ColorMixer.tsx:250
 msgid "Spectral reflectance curve"
 msgstr "Curva de refletância espectral"
@@ -2233,7 +2249,7 @@ msgstr "Natureza morta"
 msgid "Storage may fill up"
 msgstr "O armazenamento pode ficar cheio"
 
-#: src/components/Help.tsx:176
+#: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "Uso de armazenamento"
 
@@ -2297,7 +2313,7 @@ msgstr "Cor-alvo"
 msgid "Target print size"
 msgstr "Tamanho de impressão desejado"
 
-#: src/components/Help.tsx:128
+#: src/components/Help.tsx:140
 msgid "Terms of use"
 msgstr "Termos de uso"
 
@@ -2358,7 +2374,7 @@ msgstr "Existe uma paleta comum e uma paleta separada para cada foto"
 msgid "Thick"
 msgstr "Espesso"
 
-#: src/components/Help.tsx:138
+#: src/components/Help.tsx:150
 msgid "Third-party notices"
 msgstr "Avisos sobre software de terceiros"
 
@@ -2479,7 +2495,11 @@ msgstr "Experimente adicionar cores ou alterar a superfície ou a cor unificador
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "Experimente adicionar cores ou alterar a superfície, a subcamada ou a cor unificadora"
 
-#: src/components/Help.tsx:86
+#: src/components/error/UnhandledRejectionHandler.tsx:59
+msgid "Turn off WebGPU"
+msgstr "Desativar WebGPU"
+
+#: src/components/Help.tsx:98
 msgid "Tutorials and videos"
 msgstr "Tutoriais e vídeos"
 
@@ -2537,11 +2557,11 @@ msgstr "Não foi possível restaurar o conjunto de cores salvo"
 msgid "Underlayer"
 msgstr "Subcamada"
 
-#: src/components/ImageEditor.tsx:302
+#: src/components/ImageEditor.tsx:316
 msgid "Undo"
 msgstr "Desfazer"
 
-#: src/components/error/UnhandledRejectionHandler.tsx:32
+#: src/components/error/UnhandledRejectionHandler.tsx:38
 msgid "Unexpected error"
 msgstr "Erro inesperado"
 
@@ -2609,7 +2629,11 @@ msgstr "Use pressão total"
 msgid "Use reference photo"
 msgstr "Usar foto de referência"
 
-#: src/components/Help.tsx:179
+#: src/components/Help.tsx:178
+msgid "Use WebGPU"
+msgstr "Usar WebGPU"
+
+#: src/components/Help.tsx:207
 msgid "Used"
 msgstr "Usado"
 
@@ -2766,7 +2790,7 @@ msgid "Your image"
 msgstr "Sua imagem"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:335
+#: src/components/ImageEditor.tsx:303
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:303
 msgid "Your images are processed locally on your device and are never uploaded to any server"
@@ -2776,7 +2800,7 @@ msgstr "Suas imagens são processadas localmente no seu dispositivo e nunca são
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Suas credenciais de login não puderam ser verificadas. Faça login novamente."
 
-#: src/components/Help.tsx:220
+#: src/components/Help.tsx:248
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "Sua assinatura do Patreon e os dados deste dispositivo não são excluídos. <0>Cancele sua assinatura do Patreon</0> no próprio Patreon."
 

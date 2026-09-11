@@ -19,9 +19,11 @@
 import {transfer} from 'comlink';
 
 import type {Authentication} from '@/services/auth/types';
+import {getAppSettings} from '@/services/db/app-settings-db';
 import {type InferenceRunner} from '@/services/ml/inference';
 import {fetchOnnxModelBuffer} from '@/services/ml/models';
 import {type Float32Tensor, getFloat32TensorTransferables} from '@/services/ml/tensor';
+import {DEFAULT_APP_SETTINGS} from '@/services/settings/types';
 import {type FetchProgressCallback} from '@/utils/fetch';
 import {anySignal} from '@/utils/promise';
 import {WorkerManager} from '@/utils/worker-manager';
@@ -53,15 +55,18 @@ export async function withInferenceSession<T>(
   const controller = new AbortController();
   abortController = controller;
   const sessionSignal = anySignal([signal, controller.signal]);
+  let result: T;
   try {
     const modelBuffer = new Uint8Array(
       await fetchOnnxModelBuffer(modelUrl, auth, progressCallback, sessionSignal)
     );
+    const {webGpuEnabled} = {...DEFAULT_APP_SETTINGS, ...(await getAppSettings())};
     await inferenceWorker.run(
-      worker => worker.createInferenceSession(transfer(modelBuffer, [modelBuffer.buffer])),
+      worker =>
+        worker.createInferenceSession(transfer(modelBuffer, [modelBuffer.buffer]), webGpuEnabled),
       sessionSignal
     );
-    return await callback(async (inputTensors, outputName) => {
+    result = await callback(async (inputTensors, outputName) => {
       const {outputTensors} = await inferenceWorker.run(
         worker =>
           worker.runInference(
@@ -72,11 +77,23 @@ export async function withInferenceSession<T>(
       );
       return outputTensors;
     });
-  } finally {
-    if (abortController === controller) {
-      abortController = null;
-      await inferenceWorker.run(worker => worker.releaseInferenceSession());
+  } catch (error) {
+    try {
+      await releaseSession(controller);
+    } catch (releaseError) {
+      // The inference error must reach the user, for example to offer turning WebGPU off.
+      console.warn('Failed to release inference session', releaseError);
     }
+    throw error;
+  }
+  await releaseSession(controller);
+  return result;
+}
+
+async function releaseSession(controller: AbortController): Promise<void> {
+  if (abortController === controller) {
+    abortController = null;
+    await inferenceWorker.run(worker => worker.releaseInferenceSession());
   }
 }
 

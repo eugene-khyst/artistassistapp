@@ -134,7 +134,7 @@ msgstr "Цвят, смесен във всяка предложена смес, 
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "Нова версия на приложението е налична и ще бъде инсталирана автоматично."
 
-#: src/components/Help.tsx:145
+#: src/components/Help.tsx:157
 msgid "A new version of the application is available."
 msgstr "Налична е нова версия на приложението."
 
@@ -186,7 +186,7 @@ msgstr "Добавете или премахнете цветове, за да �
 msgid "Add to palette"
 msgstr "Добавяне към палитрата"
 
-#: src/components/color/ColorMixtureDescription.tsx:94
+#: src/components/color/ColorMixtureDescription.tsx:95
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Добавете бяло в <0>съотношение {whiteRatioText}</0>"
 
@@ -198,11 +198,11 @@ msgstr "Коригиране на цветовете"
 msgid "Adjust the 4 corners manually."
 msgstr "Регулирайте 4-те ъгъла ръчно."
 
-#: src/components/Help.tsx:201
+#: src/components/Help.tsx:229
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Всички данни от приложението се съхраняват в паметта на уеб браузъра, дори след инсталация. Изтриването на данните от браузъра изтрива всичко."
 
-#: src/components/ImageEditor.tsx:312
+#: src/components/ImageEditor.tsx:326
 msgid "All edits will be lost"
 msgstr "Всички редакции ще бъдат загубени"
 
@@ -218,7 +218,7 @@ msgstr "Друга възможност е да инсталирате най-н
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "Зададен е подслой или обединяващ цвят. Автоматичната палитра ще приложи тези настройки към цялата снимка, а не само към областта, за която са избрани."
 
-#: src/components/Help.tsx:246
+#: src/components/Help.tsx:274
 msgid "Application build ID"
 msgstr "ID на компилацията на приложението"
 
@@ -290,11 +290,11 @@ msgstr "ArtistAssistApp не можа да потвърди, че вашите �
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistApp не получи резултата от вашия Patreon вход. Това може да се случи, когато входът се отвори в друг браузър или приложение. Моля, опитайте да влезете отново."
 
-#: src/components/Help.tsx:237
+#: src/components/Help.tsx:265
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp е разработено от <0>Eugene Khyst</0>"
 
-#: src/components/Help.tsx:213
+#: src/components/Help.tsx:241
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "ArtistAssistApp никога не съхранява вашия имейл адрес, а само частен код, извлечен от него, който не може да разкрие адреса. Влизането в Patreon или подновяването на членството създава този код отново."
 
@@ -302,7 +302,7 @@ msgstr "ArtistAssistApp никога не съхранява вашия имей
 msgid "ArtistAssistApp will permanently delete your saved work and settings from this device and log you out.<0/>Data already synced to cloud storage will not be deleted."
 msgstr "ArtistAssistApp ще изтрие за постоянно вашата запазена работа и настройки от това устройство и ще ви излезе от системата.<0/>Данните, които вече са синхронизирани с облачно хранилище, няма да бъдат изтрити."
 
-#: src/components/storage/ClearCacheButton.tsx:42
+#: src/components/storage/ClearCacheButton.tsx:44
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "ArtistAssistApp ще се презареди след премахване на временните файлове на приложението.<0/>Вашата запазена работа и облачните ви данни няма да бъдат изтрити."
 
@@ -417,14 +417,14 @@ msgstr "За прекопиране в AR е необходим достъп д�
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:314
+#: src/components/ImageEditor.tsx:328
 #: src/components/loading/LoadingIndicator.tsx:52
-#: src/components/storage/ClearCacheButton.tsx:50
+#: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
 msgstr "Отказ"
 
-#: src/components/Help.tsx:106
+#: src/components/Help.tsx:118
 msgid "Cancel a paid membership"
 msgstr "Анулиране на платено членство"
 
@@ -436,7 +436,7 @@ msgstr "Копираното изображение не може да бъде 
 msgid "Cells"
 msgstr "Клетки"
 
-#: src/components/Help.tsx:152
+#: src/components/Help.tsx:164
 msgid "Check for updates"
 msgstr "Проверка за актуализации"
 
@@ -475,9 +475,9 @@ msgstr "Изчистване"
 msgid "Clear background color"
 msgstr "Изчистване на фоновия цвят"
 
-#: src/components/storage/ClearCacheButton.tsx:40
-#: src/components/storage/ClearCacheButton.tsx:49
-#: src/components/storage/ClearCacheButton.tsx:53
+#: src/components/storage/ClearCacheButton.tsx:42
+#: src/components/storage/ClearCacheButton.tsx:51
+#: src/components/storage/ClearCacheButton.tsx:55
 msgid "Clear cache"
 msgstr "Изчистване на кеша"
 
@@ -602,7 +602,7 @@ msgstr "Смесител на цветове"
 msgid "Color mixing chart"
 msgstr "Таблица за смесване на цветове"
 
-#: src/components/color/ColorMixtureDescription.tsx:107
+#: src/components/color/ColorMixtureDescription.tsx:108
 msgid "Color mixture"
 msgstr "Цветова смес"
 
@@ -677,7 +677,7 @@ msgstr "Вземайте предвид цветовете, разтрити в�
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "Вземайте предвид прозрачните слоеве върху повърхността или подслоя, когато съвпадат с целевия цвят по-добре от непрозрачните смеси"
 
-#: src/components/Help.tsx:96
+#: src/components/Help.tsx:108
 msgid "Contact"
 msgstr "Контакт"
 
@@ -759,9 +759,13 @@ msgstr "Персонализиран набор от цветове"
 msgid "Custom colors"
 msgstr "Персонализирани цветове"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:140
+#: src/components/ml-model/OnnxModelSelect.tsx:136
 msgid "Deblur"
 msgstr "Премахване на размазването"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:140
+msgid "Deblur JPEG"
+msgstr "Премахване на размазването в JPEG"
 
 #: src/components/auth/DeleteAccountButton.tsx:67
 #: src/components/color/AddToPaletteButton.tsx:48
@@ -943,7 +947,7 @@ msgstr "Редакция оттук нататък"
 msgid "Edit image"
 msgstr "Редактиране на изображението"
 
-#: src/components/ImageEditor.tsx:324
+#: src/components/ImageEditor.tsx:338
 msgid "Edited"
 msgstr "Редактирано"
 
@@ -1171,7 +1175,7 @@ msgstr "Инсталиране на приложение"
 msgid "Install ArtistAssistApp"
 msgstr "Инсталиране на ArtistAssistApp"
 
-#: src/components/Help.tsx:147
+#: src/components/Help.tsx:159
 msgid "Install update"
 msgstr "Инсталиране на актуализацията"
 
@@ -1345,7 +1349,7 @@ msgstr "Среден тон"
 msgid "Midtones"
 msgstr "Средни тонове"
 
-#: src/components/color/ColorMixtureDescription.tsx:69
+#: src/components/color/ColorMixtureDescription.tsx:70
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Смесете цветовете в <0>съотношение {partsRatioText}</0>"
 
@@ -1370,11 +1374,11 @@ msgstr "Смесвайте този цвят във всяка смес."
 msgid "Mix your colors in any proportions so you don't waste real paints"
 msgstr "Смесвайте цветовете си във всякакви пропорции, за да не хабите истински бои"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:93
+#: src/components/color/ReflectanceChartDrawer.tsx:99
 msgid "Mixture"
 msgstr "Смес"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:107
+#: src/components/color/ReflectanceChartDrawer.tsx:113
 #: src/components/image-editor/ColorizeControls.tsx:80
 #: src/components/image-editor/RemoveBackgroundControls.tsx:69
 #: src/components/image-editor/RestoreControls.tsx:64
@@ -1552,7 +1556,7 @@ msgstr "Контур"
 msgid "Output levels"
 msgstr "Изходни нива"
 
-#: src/components/color/ColorMixtureDescription.tsx:132
+#: src/components/color/ColorMixtureDescription.tsx:133
 msgid "over"
 msgstr "над"
 
@@ -1589,7 +1593,7 @@ msgstr "Процентил"
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Процентил: автоматичен баланс на бялото по най-ярките зони, подходящ за повечето снимки. Референция: ръчен баланс на бялото по избрана бяла област."
 
-#: src/components/Help.tsx:159
+#: src/components/Help.tsx:187
 msgid "Persistent storage"
 msgstr "Постоянно съхранение"
 
@@ -1698,9 +1702,13 @@ msgstr "Отпечатване на голямо изображение на н�
 msgid "Print preview"
 msgstr "Визуализация на печата"
 
-#: src/components/Help.tsx:118
+#: src/components/Help.tsx:130
 msgid "Privacy policy"
 msgstr "Политика за поверителност"
+
+#: src/components/error/UnhandledRejectionHandler.tsx:42
+msgid "Processing with WebGPU failed. Try turning off WebGPU, then try again."
+msgstr "Обработката с WebGPU беше неуспешна. Опитайте да изключите WebGPU и опитайте отново."
 
 #: src/components/loading/LoadingIndicator.tsx:48
 msgid "Processing..."
@@ -1710,7 +1718,7 @@ msgstr "Обработва се..."
 msgid "Processing... {percent}%"
 msgstr "Обработва се... {percent}%"
 
-#: src/components/Help.tsx:182
+#: src/components/Help.tsx:210
 msgid "Quota"
 msgstr "Квота"
 
@@ -1730,11 +1738,7 @@ msgstr "Съотношение"
 msgid "Realism"
 msgstr "Реализъм"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:143
-msgid "Recovers detail lost to camera shake or motion blur"
-msgstr "Възстановява детайли, загубени поради трептене на фотоапарата или размазване от движение"
-
-#: src/components/ImageEditor.tsx:309
+#: src/components/ImageEditor.tsx:323
 msgid "Redo"
 msgstr "Повтаряне"
 
@@ -1782,9 +1786,17 @@ msgstr "Премахване на фона"
 msgid "Remove objects"
 msgstr "Премахване на обекти"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:135
-msgid "Removes noise and grain from a scanned or high-ISO photo"
-msgstr "Премахва шума и зърнистостта от сканирана снимка или снимка, заснета с високо ISO"
+#: src/components/ml-model/OnnxModelSelect.tsx:141
+msgid "Removes blur and JPEG artifacts"
+msgstr "Премахва размазването и артефактите от JPEG компресията"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:137
+msgid "Removes motion blur"
+msgstr "Премахва размазването от движение"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:133
+msgid "Removes noise and grain"
+msgstr "Премахва шума и зърнистостта"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:119
 msgid "Removing objects is available only to paid Patreon members"
@@ -1808,8 +1820,8 @@ msgstr "Изисква macOS Sonoma или по-нова версия."
 msgid "Resend code"
 msgstr "Повторно изпращане на кода"
 
-#: src/components/ImageEditor.tsx:313
-#: src/components/ImageEditor.tsx:318
+#: src/components/ImageEditor.tsx:327
+#: src/components/ImageEditor.tsx:332
 msgid "Reset"
 msgstr "Нулиране"
 
@@ -1913,6 +1925,10 @@ msgstr "Изберете художествен материал"
 msgid "Select an image that contains a color chart"
 msgstr "Изберете изображение, което съдържа таблица с цветове"
 
+#: src/components/ImageEditor.tsx:288
+msgid "Select an image to edit"
+msgstr "Изберете изображение за редактиране"
+
 #: src/components/color-set/ColorTypeSelect.tsx:37
 msgid "Select art medium"
 msgstr "Изберете художествен материал"
@@ -1971,7 +1987,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Изберете от скорошните си набори от цветове или създайте нов."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:284
+#: src/components/ImageEditor.tsx:292
 msgid "Select image"
 msgstr "Изберете изображение"
 
@@ -2136,11 +2152,11 @@ msgstr "Покажете този цвят върху референтната �
 msgid "Sign in required"
 msgstr "Изисква се вход"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:92
+#: src/components/color/ReflectanceChartDrawer.tsx:98
 msgid "Similarity"
 msgstr "Прилика"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:109
+#: src/components/color/ReflectanceChartDrawer.tsx:115
 msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
 msgstr "Режимът Прилика сравнява целевия и предложения цвят. В режим Смес се показват частите на цвета, които съставляват сместа."
 
@@ -2204,7 +2220,7 @@ msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "Сортиране по броя на цветовете в сместа, от най-малко до най-много."
 
 #: src/components/color/ColorMatchCard.tsx:123
-#: src/components/color/ReflectanceChartDrawer.tsx:98
+#: src/components/color/ReflectanceChartDrawer.tsx:104
 #: src/components/ColorMixer.tsx:250
 msgid "Spectral reflectance curve"
 msgstr "Крива на спектралното отражение"
@@ -2233,7 +2249,7 @@ msgstr "Натюрморт"
 msgid "Storage may fill up"
 msgstr "Хранилището може да се напълни"
 
-#: src/components/Help.tsx:176
+#: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "Използване на хранилището"
 
@@ -2297,7 +2313,7 @@ msgstr "Целеви цвят"
 msgid "Target print size"
 msgstr "Целеви размер на печат"
 
-#: src/components/Help.tsx:128
+#: src/components/Help.tsx:140
 msgid "Terms of use"
 msgstr "Условия за ползване"
 
@@ -2358,7 +2374,7 @@ msgstr "Има една обща палитра и отделна палитра
 msgid "Thick"
 msgstr "Дебел"
 
-#: src/components/Help.tsx:138
+#: src/components/Help.tsx:150
 msgid "Third-party notices"
 msgstr "Бележки за трети страни"
 
@@ -2479,7 +2495,11 @@ msgstr "Опитайте да добавите цветове или да про
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "Опитайте да добавите цветове или да промените повърхността, подслоя или обединяващия цвят"
 
-#: src/components/Help.tsx:86
+#: src/components/error/UnhandledRejectionHandler.tsx:59
+msgid "Turn off WebGPU"
+msgstr "Изключване на WebGPU"
+
+#: src/components/Help.tsx:98
 msgid "Tutorials and videos"
 msgstr "Уроци и видеоклипове"
 
@@ -2537,11 +2557,11 @@ msgstr "Не може да се възстанови запазеният наб
 msgid "Underlayer"
 msgstr "Подслой"
 
-#: src/components/ImageEditor.tsx:302
+#: src/components/ImageEditor.tsx:316
 msgid "Undo"
 msgstr "Отмяна"
 
-#: src/components/error/UnhandledRejectionHandler.tsx:32
+#: src/components/error/UnhandledRejectionHandler.tsx:38
 msgid "Unexpected error"
 msgstr "Неочаквана грешка"
 
@@ -2609,7 +2629,11 @@ msgstr "Използвайте пълно налягане"
 msgid "Use reference photo"
 msgstr "Използване на референтната снимка"
 
-#: src/components/Help.tsx:179
+#: src/components/Help.tsx:178
+msgid "Use WebGPU"
+msgstr "Използване на WebGPU"
+
+#: src/components/Help.tsx:207
 msgid "Used"
 msgstr "Използвано"
 
@@ -2766,7 +2790,7 @@ msgid "Your image"
 msgstr "Вашето изображение"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:335
+#: src/components/ImageEditor.tsx:303
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:303
 msgid "Your images are processed locally on your device and are never uploaded to any server"
@@ -2776,7 +2800,7 @@ msgstr "Вашите изображения се обработват локал
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Вашите данни за вход не могат да бъдат потвърдени. Влезте отново."
 
-#: src/components/Help.tsx:220
+#: src/components/Help.tsx:248
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "Вашето членство в Patreon и данните на това устройство не се изтриват. <0>Отменете членството си в Patreon</0> в самия Patreon."
 

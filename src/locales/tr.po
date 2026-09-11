@@ -134,7 +134,7 @@ msgstr "Paletin daha uyumlu görünmesi için önerilen her karışıma katılan
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "Uygulamanın yeni bir sürümü mevcut ve otomatik olarak yüklenecek."
 
-#: src/components/Help.tsx:145
+#: src/components/Help.tsx:157
 msgid "A new version of the application is available."
 msgstr "Uygulamanın yeni bir sürümü mevcuttur."
 
@@ -186,7 +186,7 @@ msgstr "Gerçek renk setinize uyması için renk ekleyin veya kaldırın."
 msgid "Add to palette"
 msgstr "Palete ekle"
 
-#: src/components/color/ColorMixtureDescription.tsx:94
+#: src/components/color/ColorMixtureDescription.tsx:95
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "<0>{whiteRatioText} oranında</0> beyaz ekleyin"
 
@@ -198,11 +198,11 @@ msgstr "Renkleri ayarla"
 msgid "Adjust the 4 corners manually."
 msgstr "4 köşeyi manuel olarak ayarlayın."
 
-#: src/components/Help.tsx:201
+#: src/components/Help.tsx:229
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Tüm uygulama verileri, kurulumdan sonra bile web tarayıcısının depolama alanında saklanır. Tarayıcı verilerini temizlemek hepsini siler."
 
-#: src/components/ImageEditor.tsx:312
+#: src/components/ImageEditor.tsx:326
 msgid "All edits will be lost"
 msgstr "Tüm düzenlemeler kaybolacak"
 
@@ -218,7 +218,7 @@ msgstr "Alternatif olarak, Chrome, Edge veya Opera web tarayıcısının en son 
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "Bir alt katman veya birleştirici renk ayarlanmış. Otomatik palet, bu ayarları yalnızca seçildikleri alana değil fotoğrafın tamamına uygular."
 
-#: src/components/Help.tsx:246
+#: src/components/Help.tsx:274
 msgid "Application build ID"
 msgstr "Uygulama derleme ID'si"
 
@@ -290,11 +290,11 @@ msgstr "ArtistAssistApp bulut dosyalarınızın silindiğini doğrulayamadı. Ka
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistApp, Patreon girişinizin sonucunu almadı. Bu, başka bir tarayıcıda veya uygulamada giriş açıldığında gerçekleşebilir. Lütfen tekrar giriş yapmayı deneyin."
 
-#: src/components/Help.tsx:237
+#: src/components/Help.tsx:265
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp, <0>Eugene Khyst</0> tarafından geliştirilmiştir"
 
-#: src/components/Help.tsx:213
+#: src/components/Help.tsx:241
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "ArtistAssistApp e-posta adresinizi asla kaydetmez, sadece adresi ortaya çıkaramayan özel bir kod kaydeder. Patreon ile giriş yapmak veya üyelik yenilemesi o kodu tekrar yaratıyor."
 
@@ -302,7 +302,7 @@ msgstr "ArtistAssistApp e-posta adresinizi asla kaydetmez, sadece adresi ortaya 
 msgid "ArtistAssistApp will permanently delete your saved work and settings from this device and log you out.<0/>Data already synced to cloud storage will not be deleted."
 msgstr "ArtistAssistApp kayıtlı çalışmalarınızı ve ayarlarınızı bu cihazdan kalıcı olarak silecek ve oturumunuzu kapatacaktır.<0/>Halihazırda bulut depolama alanına senkronize edilmiş veriler silinmeyecektir."
 
-#: src/components/storage/ClearCacheButton.tsx:42
+#: src/components/storage/ClearCacheButton.tsx:44
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "ArtistAssistApp, geçici uygulama dosyalarını kaldırdıktan sonra yeniden yüklenecek.<0/>Kaydedilen çalışmalarınız ve bulut verileriniz silinmeyecek."
 
@@ -417,14 +417,14 @@ msgstr "AR'de kopyalamak için kamera erişimi gereklidir"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:314
+#: src/components/ImageEditor.tsx:328
 #: src/components/loading/LoadingIndicator.tsx:52
-#: src/components/storage/ClearCacheButton.tsx:50
+#: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
 msgstr "İptal et"
 
-#: src/components/Help.tsx:106
+#: src/components/Help.tsx:118
 msgid "Cancel a paid membership"
 msgstr "Ücretli üyeliği iptal et"
 
@@ -436,7 +436,7 @@ msgstr "Kopyalanmış görüntü kullanılamıyor"
 msgid "Cells"
 msgstr "Hücreler"
 
-#: src/components/Help.tsx:152
+#: src/components/Help.tsx:164
 msgid "Check for updates"
 msgstr "Güncellemeleri kontrol et"
 
@@ -475,9 +475,9 @@ msgstr "Temizle"
 msgid "Clear background color"
 msgstr "Arka plan rengini temizle"
 
-#: src/components/storage/ClearCacheButton.tsx:40
-#: src/components/storage/ClearCacheButton.tsx:49
-#: src/components/storage/ClearCacheButton.tsx:53
+#: src/components/storage/ClearCacheButton.tsx:42
+#: src/components/storage/ClearCacheButton.tsx:51
+#: src/components/storage/ClearCacheButton.tsx:55
 msgid "Clear cache"
 msgstr "Önbelleği temizle"
 
@@ -602,7 +602,7 @@ msgstr "Renk karıştırıcı"
 msgid "Color mixing chart"
 msgstr "Renk karıştırma tablosu"
 
-#: src/components/color/ColorMixtureDescription.tsx:107
+#: src/components/color/ColorMixtureDescription.tsx:108
 msgid "Color mixture"
 msgstr "Renk karışımı"
 
@@ -677,7 +677,7 @@ msgstr "Hedefe harmanlanmamış renklerden daha iyi uyduğunda, alt katman üzer
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "Hedefe opak karışımlardan daha iyi uyduğunda, yüzey veya alt katman üzerindeki şeffaf katmanları da dikkate al"
 
-#: src/components/Help.tsx:96
+#: src/components/Help.tsx:108
 msgid "Contact"
 msgstr "İletişim"
 
@@ -759,9 +759,13 @@ msgstr "Özel renk seti"
 msgid "Custom colors"
 msgstr "Özel renkler"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:140
+#: src/components/ml-model/OnnxModelSelect.tsx:136
 msgid "Deblur"
 msgstr "Bulanıklığı gider"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:140
+msgid "Deblur JPEG"
+msgstr "JPEG bulanıklığını gider"
 
 #: src/components/auth/DeleteAccountButton.tsx:67
 #: src/components/color/AddToPaletteButton.tsx:48
@@ -943,7 +947,7 @@ msgstr "Buradan itibaren düzenle"
 msgid "Edit image"
 msgstr "Resmi düzenle"
 
-#: src/components/ImageEditor.tsx:324
+#: src/components/ImageEditor.tsx:338
 msgid "Edited"
 msgstr "Düzenlendi"
 
@@ -1171,7 +1175,7 @@ msgstr "Uygulamayı yükle"
 msgid "Install ArtistAssistApp"
 msgstr "ArtistAssistApp'i yükle"
 
-#: src/components/Help.tsx:147
+#: src/components/Help.tsx:159
 msgid "Install update"
 msgstr "Güncellemeyi yükle"
 
@@ -1345,7 +1349,7 @@ msgstr "Orta ton"
 msgid "Midtones"
 msgstr "Orta Tonlar"
 
-#: src/components/color/ColorMixtureDescription.tsx:69
+#: src/components/color/ColorMixtureDescription.tsx:70
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Renkleri <0>{partsRatioText} oranında</0> karıştırın"
 
@@ -1370,11 +1374,11 @@ msgstr "Bu rengi her karışıma karıştırın."
 msgid "Mix your colors in any proportions so you don't waste real paints"
 msgstr "Gerçek boyaları israf etmemek için renklerinizi istediğiniz oranda karıştırın"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:93
+#: src/components/color/ReflectanceChartDrawer.tsx:99
 msgid "Mixture"
 msgstr "Karışım"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:107
+#: src/components/color/ReflectanceChartDrawer.tsx:113
 #: src/components/image-editor/ColorizeControls.tsx:80
 #: src/components/image-editor/RemoveBackgroundControls.tsx:69
 #: src/components/image-editor/RestoreControls.tsx:64
@@ -1552,7 +1556,7 @@ msgstr "Anahat"
 msgid "Output levels"
 msgstr "Çıkış seviyeleri"
 
-#: src/components/color/ColorMixtureDescription.tsx:132
+#: src/components/color/ColorMixtureDescription.tsx:133
 msgid "over"
 msgstr "üzerinde"
 
@@ -1589,7 +1593,7 @@ msgstr "Yüzdelik dilim"
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Yüzdelik dilim: en parlak alanlardan otomatik beyaz dengesi; çoğu fotoğraf için uygundur. Referans: seçilen beyaz alanı kullanarak manuel beyaz dengesi."
 
-#: src/components/Help.tsx:159
+#: src/components/Help.tsx:187
 msgid "Persistent storage"
 msgstr "Kalıcı depolama"
 
@@ -1698,9 +1702,13 @@ msgstr "Büyük bir görüntüyü birden çok sayfaya yazdırın"
 msgid "Print preview"
 msgstr "Baskı önizlemesi"
 
-#: src/components/Help.tsx:118
+#: src/components/Help.tsx:130
 msgid "Privacy policy"
 msgstr "Gizlilik Politikası"
+
+#: src/components/error/UnhandledRejectionHandler.tsx:42
+msgid "Processing with WebGPU failed. Try turning off WebGPU, then try again."
+msgstr "WebGPU ile işleme başarısız oldu. WebGPU'yu kapatıp tekrar deneyin."
 
 #: src/components/loading/LoadingIndicator.tsx:48
 msgid "Processing..."
@@ -1710,7 +1718,7 @@ msgstr "İşleniyor..."
 msgid "Processing... {percent}%"
 msgstr "İşleniyor... %{percent}"
 
-#: src/components/Help.tsx:182
+#: src/components/Help.tsx:210
 msgid "Quota"
 msgstr "Kota"
 
@@ -1730,11 +1738,7 @@ msgstr "Oran"
 msgid "Realism"
 msgstr "Gerçekçilik"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:143
-msgid "Recovers detail lost to camera shake or motion blur"
-msgstr "Kamera sarsıntısı veya hareket bulanıklığı nedeniyle kaybolan ayrıntıları geri kazandırır"
-
-#: src/components/ImageEditor.tsx:309
+#: src/components/ImageEditor.tsx:323
 msgid "Redo"
 msgstr "Yinele"
 
@@ -1782,9 +1786,17 @@ msgstr "Arka planı kaldır"
 msgid "Remove objects"
 msgstr "Nesneleri kaldır"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:135
-msgid "Removes noise and grain from a scanned or high-ISO photo"
-msgstr "Taranmış veya yüksek ISO ile çekilmiş bir fotoğraftaki gürültüyü ve grenleri giderir"
+#: src/components/ml-model/OnnxModelSelect.tsx:141
+msgid "Removes blur and JPEG artifacts"
+msgstr "Bulanıklığı ve JPEG sıkıştırma bozulmalarını giderir"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:137
+msgid "Removes motion blur"
+msgstr "Hareket bulanıklığını giderir"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:133
+msgid "Removes noise and grain"
+msgstr "Gürültüyü ve grenleri giderir"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:119
 msgid "Removing objects is available only to paid Patreon members"
@@ -1808,8 +1820,8 @@ msgstr "macOS Sonoma veya sonraki bir sürümü gerekir."
 msgid "Resend code"
 msgstr "Kodu yeniden gönder"
 
-#: src/components/ImageEditor.tsx:313
-#: src/components/ImageEditor.tsx:318
+#: src/components/ImageEditor.tsx:327
+#: src/components/ImageEditor.tsx:332
 msgid "Reset"
 msgstr "Sıfırla"
 
@@ -1913,6 +1925,10 @@ msgstr "Bir sanat tekniği seçin"
 msgid "Select an image that contains a color chart"
 msgstr "Renk kartelası içeren bir görsel seçin"
 
+#: src/components/ImageEditor.tsx:288
+msgid "Select an image to edit"
+msgstr "Düzenlemek için bir görsel seçin"
+
 #: src/components/color-set/ColorTypeSelect.tsx:37
 msgid "Select art medium"
 msgstr "Sanat tekniğini seçin"
@@ -1971,7 +1987,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "En son renk setlerinizden birini seçin veya yeni bir tane oluşturun."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:284
+#: src/components/ImageEditor.tsx:292
 msgid "Select image"
 msgstr "Resim seç"
 
@@ -2136,11 +2152,11 @@ msgstr "Bu rengi referans fotoğrafta gösterir."
 msgid "Sign in required"
 msgstr "Giriş gerekli"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:92
+#: src/components/color/ReflectanceChartDrawer.tsx:98
 msgid "Similarity"
 msgstr "Benzerlik"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:109
+#: src/components/color/ReflectanceChartDrawer.tsx:115
 msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
 msgstr "Benzerlik modu, hedef ve önerilen renkleri karşılaştırır. Karışım modunda, rengin karışımı oluşturan kısımları görüntülenir."
 
@@ -2204,7 +2220,7 @@ msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "Karışımdaki renk sayısına göre, en azdan en çoğa sırala."
 
 #: src/components/color/ColorMatchCard.tsx:123
-#: src/components/color/ReflectanceChartDrawer.tsx:98
+#: src/components/color/ReflectanceChartDrawer.tsx:104
 #: src/components/ColorMixer.tsx:250
 msgid "Spectral reflectance curve"
 msgstr "Spektral yansıma eğrisi"
@@ -2233,7 +2249,7 @@ msgstr "Natürmort"
 msgid "Storage may fill up"
 msgstr "Depolama alanı dolabilir"
 
-#: src/components/Help.tsx:176
+#: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "Depolama kullanımı"
 
@@ -2297,7 +2313,7 @@ msgstr "Hedef renk"
 msgid "Target print size"
 msgstr "Hedef baskı boyutu"
 
-#: src/components/Help.tsx:128
+#: src/components/Help.tsx:140
 msgid "Terms of use"
 msgstr "Kullanım şartları"
 
@@ -2358,7 +2374,7 @@ msgstr "Her fotoğraf için ortak bir palet ve ayrı bir palet vardır"
 msgid "Thick"
 msgstr "Kalın"
 
-#: src/components/Help.tsx:138
+#: src/components/Help.tsx:150
 msgid "Third-party notices"
 msgstr "Üçüncü taraf bildirimleri"
 
@@ -2479,7 +2495,11 @@ msgstr "Renk eklemeyi veya yüzeyi veya birleştirici rengi değiştirmeyi deney
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "Renk eklemeyi veya yüzeyi, alt katmanı veya birleştirici rengi değiştirmeyi deneyin"
 
-#: src/components/Help.tsx:86
+#: src/components/error/UnhandledRejectionHandler.tsx:59
+msgid "Turn off WebGPU"
+msgstr "WebGPU'yu kapat"
+
+#: src/components/Help.tsx:98
 msgid "Tutorials and videos"
 msgstr "Öğreticiler ve videolar"
 
@@ -2537,11 +2557,11 @@ msgstr "Kaydedilen renk seti geri yüklenemiyor"
 msgid "Underlayer"
 msgstr "Alt katman"
 
-#: src/components/ImageEditor.tsx:302
+#: src/components/ImageEditor.tsx:316
 msgid "Undo"
 msgstr "Geri al"
 
-#: src/components/error/UnhandledRejectionHandler.tsx:32
+#: src/components/error/UnhandledRejectionHandler.tsx:38
 msgid "Unexpected error"
 msgstr "Beklenmedik hata"
 
@@ -2609,7 +2629,11 @@ msgstr "Tam basınç kullanın"
 msgid "Use reference photo"
 msgstr "Referans fotoğrafı kullan"
 
-#: src/components/Help.tsx:179
+#: src/components/Help.tsx:178
+msgid "Use WebGPU"
+msgstr "WebGPU kullan"
+
+#: src/components/Help.tsx:207
 msgid "Used"
 msgstr "Kullanılan"
 
@@ -2766,7 +2790,7 @@ msgid "Your image"
 msgstr "Resminiz"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:335
+#: src/components/ImageEditor.tsx:303
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:303
 msgid "Your images are processed locally on your device and are never uploaded to any server"
@@ -2776,7 +2800,7 @@ msgstr "Görselleriniz cihazınızda yerel olarak işlenir ve hiçbir zaman herh
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Giriş bilgileriniz doğrulanamadı. Tekrar giriş yapın."
 
-#: src/components/Help.tsx:220
+#: src/components/Help.tsx:248
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "Patreon üyeliğiniz ve bu cihazdaki veriler silinmez. <0>Patreon üyeliğinizi iptal edin</0>, bunu doğrudan Patreon'da yapın."
 

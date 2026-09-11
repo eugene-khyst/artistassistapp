@@ -130,19 +130,15 @@ const OPTIONS: Record<
   },
   'nafnet-sidd-width32': {
     label: <Trans>Denoise</Trans>,
-    description: (
-      <Typography.Text type="secondary">
-        <Trans>Removes noise and grain from a scanned or high-ISO photo</Trans>
-      </Typography.Text>
-    ),
+    description: <Trans>Removes noise and grain</Trans>,
   },
   'nafnet-gopro-width64': {
     label: <Trans>Deblur</Trans>,
-    description: (
-      <Typography.Text type="secondary">
-        <Trans>Recovers detail lost to camera shake or motion blur</Trans>
-      </Typography.Text>
-    ),
+    description: <Trans>Removes motion blur</Trans>,
+  },
+  'nafnet-reds-width64': {
+    label: <Trans>Deblur JPEG</Trans>,
+    description: <Trans>Removes blur and JPEG artifacts</Trans>,
   },
 };
 
@@ -179,7 +175,7 @@ function SelectOption({
   return (
     <Flex vertical>
       {label}
-      {description}
+      {description && <Typography.Text type="secondary">{description}</Typography.Text>}
       {scores && (
         <ul className="u-list-unstyled u-m-0">
           {Object.entries(scores).map(([feature, score]) => (

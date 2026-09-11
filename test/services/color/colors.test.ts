@@ -19,7 +19,10 @@
 import {
   type ColorBrandDefinition,
   type ColorDefinition,
+  ColorMixer,
+  ColorOpacity,
   ColorType,
+  makeColorMixtures,
 } from '@eugene-khyst/artistassistapp-color-mixer';
 import {describe, expect, it} from 'vitest';
 
@@ -47,7 +50,53 @@ const ultramarine: ColorDefinition = {
   rho: new Array<number>(36).fill(0.2),
 };
 
+function colorSetWithOpacity(opacity?: ColorOpacity) {
+  const color = {...ultramarine, opacity};
+  const colorSet = toColorSet(
+    {id: 1, type: ColorType.WatercolorPaint, brands: [1], colors: {1: [color.id]}},
+    new Map([[1, BRAND]]),
+    new Map([['test-brand', new Map([[color.id, color]])]])
+  );
+  return {colorSet: colorSet!, color};
+}
+
 describe('toColorSet', () => {
+  it.each([0, -1, 1.5, 5, 100])(
+    'uses default opacity for legacy value %s without modifying the source color',
+    opacity => {
+      const {colorSet, color} = colorSetWithOpacity(opacity);
+      const {colorSet: defaultColorSet} = colorSetWithOpacity();
+
+      expect(color.opacity).toBe(opacity);
+      expect(colorSet.colors[0]?.opacity).toBeUndefined();
+      const mixer = new ColorMixer();
+      expect(() => {
+        mixer.setColorSet({colorSet});
+      }).not.toThrow();
+      const options = {
+        type: colorSet.type,
+        ratios: [[1]] as [[number]],
+        consistencies: [[1, 2]] as [[number, number]],
+        surfaceRgb: [30, 40, 50] as [number, number, number],
+      };
+      expect(makeColorMixtures({...options, colors: colorSet.colors})).toEqual(
+        makeColorMixtures({...options, colors: defaultColorSet.colors})
+      );
+    }
+  );
+
+  it.each([
+    undefined,
+    ColorOpacity.Transparent,
+    ColorOpacity.SemiTransparent,
+    ColorOpacity.SemiOpaque,
+    ColorOpacity.Opaque,
+  ])('preserves supported or unspecified opacity %s', opacity => {
+    const {colorSet} = colorSetWithOpacity(opacity);
+
+    expect(colorSet.colors[0]?.opacity).toBe(opacity);
+  });
+
   /**
    * The data pipeline marks whites by name, and the color mixer needs the flag to pull the white
    * out of the pigment list and mix tints with it. Dropping it here left gouache with no tints and

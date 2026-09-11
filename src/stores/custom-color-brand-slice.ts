@@ -25,6 +25,7 @@ import type {StateCreator} from 'zustand';
 
 import {fromCustomColorBrandSource, parseCustomColorBrandJson} from '@/services/cloud/cloud-state';
 import {type CustomColorBrandJson, FileExtension} from '@/services/cloud/types';
+import {normalizeColorOpacity} from '@/services/color/colors';
 import {
   deleteCustomColorBrand,
   getAllCustomColorBrands,
@@ -119,7 +120,17 @@ export const createCustomColorBrandSlice: StateCreator<
   },
 
   exportCustomColorBrandToJson: ({id: _, ...brand}: CustomColorBrandSource): void => {
-    const json: string = JSON.stringify(brand satisfies CustomColorBrandJson, null, 2);
+    const json: string = JSON.stringify(
+      {
+        ...brand,
+        colors: brand.colors?.map(color => ({
+          ...color,
+          opacity: normalizeColorOpacity(color.opacity),
+        })),
+      } satisfies CustomColorBrandJson,
+      null,
+      2
+    );
     saveAs(
       new Blob([json], {type: 'application/json'}),
       `${brand.name}${FileExtension.CustomColorBrand}`

@@ -21,6 +21,7 @@
 import {
   type ColorMixture,
   type ColorMixturePart,
+  isFullStrength,
   rgbToHex,
   toRatio,
 } from '@eugene-khyst/artistassistapp-color-mixer';
@@ -125,7 +126,7 @@ export const ColorMixtureDescription = memo(function ColorMixtureDescription({
             <Space>
               <ColorSquare
                 hex={rgbToHex(...tintRgb)}
-                text={formatFraction(consistency)}
+                text={isFullStrength({consistency}) ? undefined : formatFraction(consistency)}
                 size="large"
               />
               <Typography.Text>

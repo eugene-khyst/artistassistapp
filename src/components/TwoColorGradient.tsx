@@ -25,7 +25,7 @@ import {
   type Fraction,
   isFullStrength,
   isMixable,
-  isTransparentLayeringSupported,
+  isThinnedLayeringSupported,
   makeColorMixtures,
   MIXABLE_COLOR_TYPES,
   RATIOS_2,
@@ -194,7 +194,7 @@ export function TwoColorGradient() {
 
       {colorPairs.some(({color1, color2}: ColorPair) => color1 && color2) && (
         <Typography.Text type="secondary">
-          {isTransparentLayeringSupported(colorSet.type) ? (
+          {isThinnedLayeringSupported(colorSet.type) ? (
             <Trans>Each column is a mixing ratio, each row a consistency</Trans>
           ) : (
             <Trans>Each column is a mixing ratio</Trans>

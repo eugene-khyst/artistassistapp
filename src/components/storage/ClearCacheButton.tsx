@@ -21,6 +21,7 @@ import {Trans} from '@lingui/react/macro';
 import {Button, Popconfirm} from 'antd';
 import {useState} from 'react';
 
+import {clearProcessedImages} from '@/services/db/processed-image-db';
 import {clearCache} from '@/utils/storage';
 
 export function ClearCacheButton() {
@@ -29,6 +30,7 @@ export function ClearCacheButton() {
   const handleClearCache = async () => {
     try {
       setIsClearing(true);
+      await clearProcessedImages();
       await clearCache();
     } finally {
       setIsClearing(false);

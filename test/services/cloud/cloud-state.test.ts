@@ -16,7 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {type ColorMixture, ColorType} from '@eugene-khyst/artistassistapp-color-mixer';
+import {
+  type ColorMixture,
+  ColorOpacity,
+  ColorType,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 import {describe, expect, it} from 'vitest';
 
 import {
@@ -174,6 +178,53 @@ describe('external state validation', () => {
       name: 'Custom',
       colors: [{id: 1, name: 'Red', hex: '#ff0000'}],
     });
+  });
+
+  it.each([
+    ColorOpacity.Transparent,
+    ColorOpacity.SemiTransparent,
+    ColorOpacity.SemiOpaque,
+    ColorOpacity.Opaque,
+  ])('accepts supported custom-brand opacity %s', opacity => {
+    const source = {
+      name: 'Custom',
+      colors: [{id: 1, name: 'Red', hex: '#ff0000', opacity}],
+    };
+
+    expect(validateCustomColorBrandJson(source)).toEqual(source);
+  });
+
+  it.each([0, -1, 1.5, 5, 100])(
+    'accepts unsupported opacity %s in custom-brand imports, leaving the fallback to use',
+    opacity => {
+      const source = {
+        name: 'Custom',
+        colors: [{id: 1, name: 'Red', hex: '#ff0000', opacity}],
+      };
+
+      expect(validateCustomColorBrandJson(source)).toEqual(source);
+    }
+  );
+
+  it.each(['Opaque', null])('rejects non-numeric opacity %s in custom-brand imports', opacity => {
+    expect(
+      validateCustomColorBrandJson({
+        name: 'Custom',
+        colors: [{id: 1, name: 'Red', hex: '#ff0000', opacity}],
+      })
+    ).toBeUndefined();
+  });
+
+  it('preserves legacy cloud opacity values without changing the state hash', async () => {
+    const state = {
+      ...EMPTY_CLOUD_STATE,
+      customBrands: [{id: 1, colors: [{id: 1, name: 'Red', hex: '#ff0000', opacity: 0}]}],
+    };
+    const {json, hash} = await serializeAndHashCloudState(state);
+    const parsed = parseCloudState(json);
+
+    expect(parsed).toEqual(state);
+    expect((await serializeAndHashCloudState(parsed!)).hash).toBe(hash);
   });
 
   it('reconstructs derived reflectance without adding it to the cloud source', () => {

@@ -134,7 +134,7 @@ msgstr "제안된 모든 혼합에 섞여 팔레트를 더 조화롭게 만들�
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "앱의 새로운 버전이 제공되며 자동으로 설치될 예정입니다."
 
-#: src/components/Help.tsx:145
+#: src/components/Help.tsx:157
 msgid "A new version of the application is available."
 msgstr "애플리케이션의 새로운 버전이 제공됩니다."
 
@@ -186,7 +186,7 @@ msgstr "실제 색상 세트와 일치하도록 색상을 추가하거나 제거
 msgid "Add to palette"
 msgstr "팔레트에 추가"
 
-#: src/components/color/ColorMixtureDescription.tsx:94
+#: src/components/color/ColorMixtureDescription.tsx:95
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "<0>{whiteRatioText} 비율</0>로 흰색 추가"
 
@@ -198,11 +198,11 @@ msgstr "색상 조정"
 msgid "Adjust the 4 corners manually."
 msgstr "4개의 모서리를 수동으로 조정합니다."
 
-#: src/components/Help.tsx:201
+#: src/components/Help.tsx:229
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "모든 앱 데이터는 설치 후에도 웹 브라우저 저장소에 저장됩니다. 브라우저 데이터를 지우면 모든 데이터가 삭제됩니다."
 
-#: src/components/ImageEditor.tsx:312
+#: src/components/ImageEditor.tsx:326
 msgid "All edits will be lost"
 msgstr "모든 수정 사항이 손실됩니다"
 
@@ -218,7 +218,7 @@ msgstr "또는 최신 버전의 Chrome, Edge 또는 Opera 웹 브라우저를 �
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "언더레이어 또는 통합 색상이 설정되어 있습니다. 자동 팔레트는 이 설정을 선택한 영역뿐 아니라 사진 전체에 적용합니다."
 
-#: src/components/Help.tsx:246
+#: src/components/Help.tsx:274
 msgid "Application build ID"
 msgstr "애플리케이션 빌드 ID"
 
@@ -290,11 +290,11 @@ msgstr "ArtistAssistApp은 클라우드 파일이 삭제되었는지 확인하�
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistApp은 귀하의 Patreon 로그인 결과를 받지 못했습니다. 이런 현상은 다른 브라우저나 앱에서 로그인이 열릴 때 발생할 수 있습니다. 다시 로그인해 주세요."
 
-#: src/components/Help.tsx:237
+#: src/components/Help.tsx:265
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp은 <0>Eugene Khyst</0>가 개발했습니다"
 
-#: src/components/Help.tsx:213
+#: src/components/Help.tsx:241
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "ArtistAssistApp은 이메일 주소를 절대 저장하지 않으며, 그 주소에서 파생된 개인 코드만 저장하여 주소를 공개하지 않습니다. Patreon으로 로그인하거나 회원 갱신을 하면 그 코드가 다시 생성됩니다."
 
@@ -302,7 +302,7 @@ msgstr "ArtistAssistApp은 이메일 주소를 절대 저장하지 않으며, �
 msgid "ArtistAssistApp will permanently delete your saved work and settings from this device and log you out.<0/>Data already synced to cloud storage will not be deleted."
 msgstr "ArtistAssistApp이 이 기기에서 저장된 작업과 설정을 영구적으로 삭제하고 로그아웃합니다.<0/>이미 클라우드 저장소에 동기화된 데이터는 삭제되지 않습니다."
 
-#: src/components/storage/ClearCacheButton.tsx:42
+#: src/components/storage/ClearCacheButton.tsx:44
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "ArtistAssistApp은 임시 앱 파일을 제거하면 다시 로드됩니다.<0/>저장된 작업물과 클라우드 데이터는 삭제되지 않습니다."
 
@@ -417,14 +417,14 @@ msgstr "AR 트레이싱에는 카메라 액세스 권한이 필요합니다"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:314
+#: src/components/ImageEditor.tsx:328
 #: src/components/loading/LoadingIndicator.tsx:52
-#: src/components/storage/ClearCacheButton.tsx:50
+#: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
 msgstr "취소"
 
-#: src/components/Help.tsx:106
+#: src/components/Help.tsx:118
 msgid "Cancel a paid membership"
 msgstr "유료 멤버십 취소"
 
@@ -436,7 +436,7 @@ msgstr "복사된 이미지를 사용할 수 없습니다"
 msgid "Cells"
 msgstr "셀"
 
-#: src/components/Help.tsx:152
+#: src/components/Help.tsx:164
 msgid "Check for updates"
 msgstr "업데이트 확인"
 
@@ -475,9 +475,9 @@ msgstr "지우기"
 msgid "Clear background color"
 msgstr "배경색 지우기"
 
-#: src/components/storage/ClearCacheButton.tsx:40
-#: src/components/storage/ClearCacheButton.tsx:49
-#: src/components/storage/ClearCacheButton.tsx:53
+#: src/components/storage/ClearCacheButton.tsx:42
+#: src/components/storage/ClearCacheButton.tsx:51
+#: src/components/storage/ClearCacheButton.tsx:55
 msgid "Clear cache"
 msgstr "캐시 지우기"
 
@@ -602,7 +602,7 @@ msgstr "색상 믹서"
 msgid "Color mixing chart"
 msgstr "색상 혼합 차트"
 
-#: src/components/color/ColorMixtureDescription.tsx:107
+#: src/components/color/ColorMixtureDescription.tsx:108
 msgid "Color mixture"
 msgstr "색상 혼합"
 
@@ -677,7 +677,7 @@ msgstr "혼합하지 않은 색상보다 대상과 더 잘 맞을 때 언더레�
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "불투명 혼합보다 대상과 더 잘 맞을 때 표면이나 언더레이어 위의 투명 레이어도 고려"
 
-#: src/components/Help.tsx:96
+#: src/components/Help.tsx:108
 msgid "Contact"
 msgstr "문의"
 
@@ -759,9 +759,13 @@ msgstr "사용자 지정 색상 세트"
 msgid "Custom colors"
 msgstr "사용자 지정 색상"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:140
+#: src/components/ml-model/OnnxModelSelect.tsx:136
 msgid "Deblur"
 msgstr "흐림 제거"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:140
+msgid "Deblur JPEG"
+msgstr "JPEG 흐림 제거"
 
 #: src/components/auth/DeleteAccountButton.tsx:67
 #: src/components/color/AddToPaletteButton.tsx:48
@@ -943,7 +947,7 @@ msgstr "여기서부터 편집"
 msgid "Edit image"
 msgstr "이미지 편집"
 
-#: src/components/ImageEditor.tsx:324
+#: src/components/ImageEditor.tsx:338
 msgid "Edited"
 msgstr "편집됨"
 
@@ -1171,7 +1175,7 @@ msgstr "앱 설치"
 msgid "Install ArtistAssistApp"
 msgstr "ArtistAssistApp 설치"
 
-#: src/components/Help.tsx:147
+#: src/components/Help.tsx:159
 msgid "Install update"
 msgstr "업데이트 설치"
 
@@ -1345,7 +1349,7 @@ msgstr "중간 톤"
 msgid "Midtones"
 msgstr "미드톤"
 
-#: src/components/color/ColorMixtureDescription.tsx:69
+#: src/components/color/ColorMixtureDescription.tsx:70
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "<0>{partsRatioText} 비율</0>로 색상 혼합"
 
@@ -1370,11 +1374,11 @@ msgstr "이 색상을 모든 혼합에 섞습니다."
 msgid "Mix your colors in any proportions so you don't waste real paints"
 msgstr "실제 물감을 낭비하지 않도록 원하는 비율로 색상을 혼합하세요"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:93
+#: src/components/color/ReflectanceChartDrawer.tsx:99
 msgid "Mixture"
 msgstr "혼합"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:107
+#: src/components/color/ReflectanceChartDrawer.tsx:113
 #: src/components/image-editor/ColorizeControls.tsx:80
 #: src/components/image-editor/RemoveBackgroundControls.tsx:69
 #: src/components/image-editor/RestoreControls.tsx:64
@@ -1552,7 +1556,7 @@ msgstr "윤곽선"
 msgid "Output levels"
 msgstr "출력 수준"
 
-#: src/components/color/ColorMixtureDescription.tsx:132
+#: src/components/color/ColorMixtureDescription.tsx:133
 msgid "over"
 msgstr "위에"
 
@@ -1589,7 +1593,7 @@ msgstr "백분위수"
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "백분위수: 가장 밝은 영역을 기준으로 한 자동 화이트 밸런스로, 대부분의 사진에 적합합니다. 참조: 선택한 흰색 영역을 사용하는 수동 화이트 밸런스."
 
-#: src/components/Help.tsx:159
+#: src/components/Help.tsx:187
 msgid "Persistent storage"
 msgstr "영구 저장소"
 
@@ -1698,9 +1702,13 @@ msgstr "큰 이미지를 여러 페이지에 인쇄"
 msgid "Print preview"
 msgstr "인쇄 미리보기"
 
-#: src/components/Help.tsx:118
+#: src/components/Help.tsx:130
 msgid "Privacy policy"
 msgstr "개인정보처리방침"
+
+#: src/components/error/UnhandledRejectionHandler.tsx:42
+msgid "Processing with WebGPU failed. Try turning off WebGPU, then try again."
+msgstr "WebGPU 처리에 실패했습니다. WebGPU를 끈 후 다시 시도해 보세요."
 
 #: src/components/loading/LoadingIndicator.tsx:48
 msgid "Processing..."
@@ -1710,7 +1718,7 @@ msgstr "처리 중..."
 msgid "Processing... {percent}%"
 msgstr "처리 중... {percent}%"
 
-#: src/components/Help.tsx:182
+#: src/components/Help.tsx:210
 msgid "Quota"
 msgstr "할당량"
 
@@ -1730,11 +1738,7 @@ msgstr "비율"
 msgid "Realism"
 msgstr "사실주의"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:143
-msgid "Recovers detail lost to camera shake or motion blur"
-msgstr "카메라 흔들림이나 동작 흐림으로 손실된 세부 묘사를 복원합니다"
-
-#: src/components/ImageEditor.tsx:309
+#: src/components/ImageEditor.tsx:323
 msgid "Redo"
 msgstr "다시 실행"
 
@@ -1782,9 +1786,17 @@ msgstr "배경 제거"
 msgid "Remove objects"
 msgstr "개체 제거"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:135
-msgid "Removes noise and grain from a scanned or high-ISO photo"
-msgstr "스캔하거나 높은 ISO로 촬영한 사진에서 노이즈와 입자감을 제거합니다"
+#: src/components/ml-model/OnnxModelSelect.tsx:141
+msgid "Removes blur and JPEG artifacts"
+msgstr "흐림과 JPEG 압축으로 인한 왜곡을 제거합니다"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:137
+msgid "Removes motion blur"
+msgstr "움직임으로 인한 흐림을 제거합니다"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:133
+msgid "Removes noise and grain"
+msgstr "노이즈와 입자감을 제거합니다"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:119
 msgid "Removing objects is available only to paid Patreon members"
@@ -1808,8 +1820,8 @@ msgstr "macOS Sonoma 및 이후 버전이 필요합니다."
 msgid "Resend code"
 msgstr "코드 재전송"
 
-#: src/components/ImageEditor.tsx:313
-#: src/components/ImageEditor.tsx:318
+#: src/components/ImageEditor.tsx:327
+#: src/components/ImageEditor.tsx:332
 msgid "Reset"
 msgstr "재설정"
 
@@ -1913,6 +1925,10 @@ msgstr "미술 재료를 선택하세요"
 msgid "Select an image that contains a color chart"
 msgstr "색상 차트가 포함된 이미지를 선택합니다"
 
+#: src/components/ImageEditor.tsx:288
+msgid "Select an image to edit"
+msgstr "편집할 이미지를 선택하세요"
+
 #: src/components/color-set/ColorTypeSelect.tsx:37
 msgid "Select art medium"
 msgstr "미술 재료 선택"
@@ -1971,7 +1987,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "최근 색상 세트에서 선택하거나 새 색상 세트를 만듭니다."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:284
+#: src/components/ImageEditor.tsx:292
 msgid "Select image"
 msgstr "이미지 선택"
 
@@ -2136,11 +2152,11 @@ msgstr "참조 사진에 이 색상을 표시합니다."
 msgid "Sign in required"
 msgstr "로그인 필요"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:92
+#: src/components/color/ReflectanceChartDrawer.tsx:98
 msgid "Similarity"
 msgstr "유사성"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:109
+#: src/components/color/ReflectanceChartDrawer.tsx:115
 msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
 msgstr "유사성 모드는 대상 색상과 제안된 색상을 비교합니다. 혼합 모드에서는 혼합을 구성하는 색상의 비율이 표시됩니다."
 
@@ -2204,7 +2220,7 @@ msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "혼합에 들어간 색상 수 기준으로 적은 것부터 많은 것까지 정렬합니다."
 
 #: src/components/color/ColorMatchCard.tsx:123
-#: src/components/color/ReflectanceChartDrawer.tsx:98
+#: src/components/color/ReflectanceChartDrawer.tsx:104
 #: src/components/ColorMixer.tsx:250
 msgid "Spectral reflectance curve"
 msgstr "스펙트럼 반사율 곡선"
@@ -2233,7 +2249,7 @@ msgstr "정물화"
 msgid "Storage may fill up"
 msgstr "저장 공간이 가득 찰 수 있습니다"
 
-#: src/components/Help.tsx:176
+#: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "저장 공간 사용량"
 
@@ -2297,7 +2313,7 @@ msgstr "대상 색상"
 msgid "Target print size"
 msgstr "대상 인쇄 크기"
 
-#: src/components/Help.tsx:128
+#: src/components/Help.tsx:140
 msgid "Terms of use"
 msgstr "이용 약관"
 
@@ -2358,7 +2374,7 @@ msgstr "공통 팔레트 하나와 사진마다 별도의 팔레트가 있습니
 msgid "Thick"
 msgstr "굵음"
 
-#: src/components/Help.tsx:138
+#: src/components/Help.tsx:150
 msgid "Third-party notices"
 msgstr "제3자 고지사항"
 
@@ -2479,7 +2495,11 @@ msgstr "색상을 추가하거나 표면이나 통합 색상을 변경해 보세
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "색상을 추가하거나 표면, 언더레이어 또는 통합 색상을 변경해 보세요"
 
-#: src/components/Help.tsx:86
+#: src/components/error/UnhandledRejectionHandler.tsx:59
+msgid "Turn off WebGPU"
+msgstr "WebGPU 끄기"
+
+#: src/components/Help.tsx:98
 msgid "Tutorials and videos"
 msgstr "튜토리얼 및 동영상"
 
@@ -2537,11 +2557,11 @@ msgstr "저장된 색상 세트를 복원할 수 없습니다"
 msgid "Underlayer"
 msgstr "언더레이어"
 
-#: src/components/ImageEditor.tsx:302
+#: src/components/ImageEditor.tsx:316
 msgid "Undo"
 msgstr "실행 취소"
 
-#: src/components/error/UnhandledRejectionHandler.tsx:32
+#: src/components/error/UnhandledRejectionHandler.tsx:38
 msgid "Unexpected error"
 msgstr "예상치 못한 오류"
 
@@ -2609,7 +2629,11 @@ msgstr "최대 필압으로 사용"
 msgid "Use reference photo"
 msgstr "참조 사진 사용"
 
-#: src/components/Help.tsx:179
+#: src/components/Help.tsx:178
+msgid "Use WebGPU"
+msgstr "WebGPU 사용"
+
+#: src/components/Help.tsx:207
 msgid "Used"
 msgstr "사용량"
 
@@ -2766,7 +2790,7 @@ msgid "Your image"
 msgstr "내 이미지"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:335
+#: src/components/ImageEditor.tsx:303
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:303
 msgid "Your images are processed locally on your device and are never uploaded to any server"
@@ -2776,7 +2800,7 @@ msgstr "이미지는 기기에서 로컬로 처리되며 어떤 서버에도 업
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "로그인 자격 증명을 확인할 수 없습니다. 다시 로그인하세요."
 
-#: src/components/Help.tsx:220
+#: src/components/Help.tsx:248
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "Patreon 멤버십과 이 기기의 데이터는 삭제되지 않습니다. Patreon에서 직접 <0>Patreon 멤버십을 취소하세요</0>."
 

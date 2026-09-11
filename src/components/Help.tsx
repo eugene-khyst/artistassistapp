@@ -29,7 +29,17 @@ import {
   StopOutlined,
 } from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
-import {Button, Flex, Grid, Progress, type ProgressProps, Space, Tag, Typography} from 'antd';
+import {
+  Button,
+  Flex,
+  Grid,
+  Progress,
+  type ProgressProps,
+  Space,
+  Switch,
+  Tag,
+  Typography,
+} from 'antd';
 
 import {DeleteAccountButton} from '@/components/auth/DeleteAccountButton';
 import {LoadingButton} from '@/components/button/LoadingButton';
@@ -62,8 +72,10 @@ export function Help() {
   const storagePersisted = useAppStore(state => state.storagePersisted);
   const storageUsage = useAppStore(state => state.storageUsage);
   const serviceWorkerRegistration = useAppStore(state => state.serviceWorkerRegistration);
+  const webGpuEnabled = useAppStore(state => state.appSettings.webGpuEnabled);
 
   const updateServiceWorker = useAppStore(state => state.updateServiceWorker);
+  const saveAppSettings = useAppStore(state => state.saveAppSettings);
 
   return (
     <Flex vertical gap="medium" align="center" className="u-tab-content">
@@ -151,6 +163,22 @@ export function Help() {
         <LoadingButton icon={<CloudSyncOutlined />} run={handleUpdateClick}>
           <Trans>Check for updates</Trans>
         </LoadingButton>
+      )}
+
+      {'gpu' in navigator && (
+        <Flex vertical gap={0} align="center">
+          <Space>
+            <Switch
+              checked={webGpuEnabled}
+              onChange={(checked: boolean) => {
+                void saveAppSettings({webGpuEnabled: checked});
+              }}
+            />
+            <Typography.Text>
+              <Trans>Use WebGPU</Trans>
+            </Typography.Text>
+          </Space>
+        </Flex>
       )}
 
       <Flex vertical gap="small" align="center">

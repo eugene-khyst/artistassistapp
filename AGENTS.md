@@ -150,6 +150,12 @@ Pure business logic, no React.
   keyed by id, so they can be translated.
 - Keep ONNX Runtime WASM bundled locally from `onnxruntime-web`; never point it at a third-party
   CDN.
+- Inference uses the `onnxruntime-web/webgpu` bundle. It runs `['webgpu']` on a hardware adapter
+  unless the per-device `webGpuEnabled` setting (Help) is off, and falls back to `['wasm']` itself
+  when the session fails to create. Failed runs fail the job; users can turn WebGPU off in Help.
+  Never retain model bytes for a run-time fallback. Operations WebGPU cannot run use the CPU inside
+  the same session. Skip a software (`isFallbackAdapter`) adapter; it runs about 40 times slower
+  than WebAssembly.
 - Wrap inference in `withProcessedImageCache` (returns `ImageBitmap`) or
   `withProcessedImageBlobCache` (returns `Blob`) — pick whichever the slice already stores, so a
   cache hit never re-encodes. `transformImage` returns an `OffscreenCanvas`, so resizing and
@@ -157,15 +163,16 @@ Pure business logic, no React.
   lives in the undo history and `edit-image-slice` caches what it renders, which is why Colorize,
   Upscale, Restore, Remove background and Remove objects are all uncached.
 - The cache key covers `PROCESSED_IMAGE_CACHE_VERSION`, a digest of the model's inference-affecting
-  metadata, and every input image digest — the style image is an input, so it belongs in `digests`.
+  metadata, the `webGpuEnabled` setting, and every input image digest — the style image is an input,
+  so it belongs in `digests`. The setting is there so turning WebGPU off re-runs the model.
   `processedImageKey` strips only `priority` and `freeTier` by rest-destructuring, so a new field is
   part of the key by default: the worst case is a needless re-run, never a stale image.
 - Keep presentation fields out of the model JSON; renaming one there invalidates every cached image.
   Pre- and post-processing live in code, which the JSON cannot express, so bump
   `PROCESSED_IMAGE_CACHE_VERSION` when changing them.
-- The cache is derived data: keep it out of cloud sync, ZIP export and `store-changes`. Models
-  without a `url` are never cached. Callers pick the encode format (PNG for line art, the JPEG
-  default for photo-like output).
+- The cache is derived data: keep it out of cloud sync, ZIP export and `store-changes`, and the Help
+  "Clear cache" button empties it. Models without a `url` are never cached. Callers pick the encode
+  format (PNG for line art, the JPEG default for photo-like output).
 - One ONNX session exists at a time: `withInferenceSession` cancels the one in flight, so a nested
   call kills its own parent. Inside the callback use `transformImageInSession` with the supplied
   `run`, never `transformImage`.
@@ -267,7 +274,8 @@ Keep Valibot confined to external JSON validation. Custom-brand JSON and cloud s
   receptive field cannot be tiled at all.
 - Restore feathers instead, because channel attention pools over the whole tile and no halo makes a
   tiled result match. Keep the ramp at twice the halo and draw the full padded tile: the ramp then
-  ends exactly where the previous tile's padding does. A wider halo is not a substitute.
+  ends exactly where the previous tile's padding does. A wider halo is not a substitute. Every
+  Restore model keeps it: the deblur models leave a one-level step at butted tile edges.
 
 ## Web Workers
 

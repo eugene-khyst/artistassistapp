@@ -26,7 +26,7 @@ import {
   type ColorId,
   ColorSort,
   isMixable,
-  isTransparentLayeringSupported,
+  isThinnedLayeringSupported,
   MIXABLE_COLOR_TYPES,
   rgbToHex,
   toColorIds,
@@ -171,7 +171,7 @@ export function ColorMixingChart() {
           label={<Trans>Colors</Trans>}
           labelCol={{className: 'u-pb-0'}}
           tooltip={
-            isTransparentLayeringSupported(colorSet.type) ? (
+            isThinnedLayeringSupported(colorSet.type) ? (
               <Trans>
                 On the diagonal are the pure colors at full strength. Above the diagonal are thick
                 layers of each pair mixed in a 1:1 ratio. Below the diagonal are the same mixtures

@@ -67,7 +67,7 @@ export function ReflectanceChartDrawer({
     }
     reflectanceChart.removeAllSeries();
     if (colorMixture) {
-      const {layerRgb, layerRho, parts, white} = colorMixture;
+      const {layerRgb, layerRho, parts, white, underlayerRgb} = colorMixture;
       reflectanceChart.addReflectance(layerRho, layerRgb, 3);
       if (chartMode === 'mixture') {
         parts.forEach(({color: {rho, rgb}}: ColorMixturePart) => {
@@ -75,6 +75,12 @@ export function ReflectanceChartDrawer({
         });
         if (white) {
           reflectanceChart.addReflectance(white.rho, white.rgb);
+        }
+        if (underlayerRgb) {
+          reflectanceChart.addReflectance(
+            Reflectance.fromRgb(...underlayerRgb).toArray(),
+            underlayerRgb
+          );
         }
       }
     }

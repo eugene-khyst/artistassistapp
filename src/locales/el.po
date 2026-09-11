@@ -134,7 +134,7 @@ msgstr "Ένα χρώμα που αναμειγνύεται σε κάθε προ
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "Μια νέα έκδοση της εφαρμογής είναι διαθέσιμη και θα εγκατασταθεί αυτόματα."
 
-#: src/components/Help.tsx:145
+#: src/components/Help.tsx:157
 msgid "A new version of the application is available."
 msgstr "Μια νέα έκδοση της εφαρμογής είναι διαθέσιμη."
 
@@ -186,7 +186,7 @@ msgstr "Προσθέστε ή αφαιρέστε χρώματα ώστε να τ
 msgid "Add to palette"
 msgstr "Προσθήκη στην παλέτα"
 
-#: src/components/color/ColorMixtureDescription.tsx:94
+#: src/components/color/ColorMixtureDescription.tsx:95
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Προσθήκη λευκού σε <0>αναλογία {whiteRatioText}</0>"
 
@@ -198,11 +198,11 @@ msgstr "Προσαρμογή χρωμάτων"
 msgid "Adjust the 4 corners manually."
 msgstr "Ρυθμίστε τις 4 γωνίες χειροκίνητα."
 
-#: src/components/Help.tsx:201
+#: src/components/Help.tsx:229
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Όλα τα δεδομένα της εφαρμογής αποθηκεύονται στον χώρο αποθήκευσης του προγράμματος περιήγησης ιστού, ακόμη και μετά την εγκατάσταση. Η εκκαθάριση των δεδομένων του προγράμματος περιήγησης τα διαγράφει όλα."
 
-#: src/components/ImageEditor.tsx:312
+#: src/components/ImageEditor.tsx:326
 msgid "All edits will be lost"
 msgstr "Όλες οι τροποποιήσεις θα χαθούν"
 
@@ -218,7 +218,7 @@ msgstr "Εναλλακτικά, εγκαταστήστε την πιο πρόσ�
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "Ορίζεται ένα υπόστρωμα ή ένα ενοποιητικό χρώμα. Η αυτόματη παλέτα θα εφαρμόσει αυτές τις ρυθμίσεις σε ολόκληρη τη φωτογραφία, όχι μόνο στην περιοχή για την οποία επιλέχθηκαν."
 
-#: src/components/Help.tsx:246
+#: src/components/Help.tsx:274
 msgid "Application build ID"
 msgstr "Αναγνωριστικό έκδοσης εφαρμογής"
 
@@ -290,11 +290,11 @@ msgstr "Το ArtistAssistApp δεν μπόρεσε να επιβεβαιώσει
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "Το ArtistAssistApp δεν έλαβε το αποτέλεσμα της σύνδεσής σας στο Patreon. Αυτό μπορεί να συμβεί όταν ανοίγει η σύνδεση σε άλλο πρόγραμμα περιήγησης ή εφαρμογή. Δοκιμάστε να συνδεθείτε ξανά."
 
-#: src/components/Help.tsx:237
+#: src/components/Help.tsx:265
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "Το ArtistAssistApp αναπτύχθηκε από τον <0>Eugene Khyst</0>"
 
-#: src/components/Help.tsx:213
+#: src/components/Help.tsx:241
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "Το ArtistAssistApp δεν αποθηκεύει ποτέ τη διεύθυνση email σας, μόνο έναν ιδιωτικό κωδικό που προέρχεται από αυτήν και δεν μπορεί να την αποκαλύψει. Η σύνδεση μέσω Patreon ή η ανανέωση της συνδρομής δημιουργεί ξανά αυτόν τον κωδικό."
 
@@ -302,7 +302,7 @@ msgstr "Το ArtistAssistApp δεν αποθηκεύει ποτέ τη διεύ�
 msgid "ArtistAssistApp will permanently delete your saved work and settings from this device and log you out.<0/>Data already synced to cloud storage will not be deleted."
 msgstr "Το ArtistAssistApp θα διαγράψει οριστικά την αποθηκευμένη εργασία και τις ρυθμίσεις σας από αυτήν τη συσκευή και θα σας αποσυνδέσει.<0/>Τα δεδομένα που έχουν ήδη συγχρονιστεί με τον χώρο αποθήκευσης στο cloud δεν θα διαγραφούν."
 
-#: src/components/storage/ClearCacheButton.tsx:42
+#: src/components/storage/ClearCacheButton.tsx:44
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "Το ArtistAssistApp θα φορτωθεί ξανά μετά την κατάργηση των προσωρινών αρχείων της εφαρμογής.<0/>Η αποθηκευμένη εργασία σας και τα δεδομένα στο cloud δεν θα διαγραφούν."
 
@@ -417,14 +417,14 @@ msgstr "Απαιτείται πρόσβαση στην κάμερα για ιχ�
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:314
+#: src/components/ImageEditor.tsx:328
 #: src/components/loading/LoadingIndicator.tsx:52
-#: src/components/storage/ClearCacheButton.tsx:50
+#: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: src/components/Help.tsx:106
+#: src/components/Help.tsx:118
 msgid "Cancel a paid membership"
 msgstr "Ακύρωση συνδρομής επί πληρωμή"
 
@@ -436,7 +436,7 @@ msgstr "Δεν είναι δυνατή η χρήση αντιγραμμένης 
 msgid "Cells"
 msgstr "Κελιά"
 
-#: src/components/Help.tsx:152
+#: src/components/Help.tsx:164
 msgid "Check for updates"
 msgstr "Έλεγχος για ενημερώσεις"
 
@@ -475,9 +475,9 @@ msgstr "Εκκαθάριση"
 msgid "Clear background color"
 msgstr "Εκκαθάριση χρώματος φόντου"
 
-#: src/components/storage/ClearCacheButton.tsx:40
-#: src/components/storage/ClearCacheButton.tsx:49
-#: src/components/storage/ClearCacheButton.tsx:53
+#: src/components/storage/ClearCacheButton.tsx:42
+#: src/components/storage/ClearCacheButton.tsx:51
+#: src/components/storage/ClearCacheButton.tsx:55
 msgid "Clear cache"
 msgstr "Εκκαθάριση προσωρινής μνήμης"
 
@@ -602,7 +602,7 @@ msgstr "Αναμείκτης χρωμάτων"
 msgid "Color mixing chart"
 msgstr "Διάγραμμα ανάμειξης χρωμάτων"
 
-#: src/components/color/ColorMixtureDescription.tsx:107
+#: src/components/color/ColorMixtureDescription.tsx:108
 msgid "Color mixture"
 msgstr "Μείγμα χρωμάτων"
 
@@ -677,7 +677,7 @@ msgstr "Να λαμβάνονται υπόψη τα χρώματα που απα
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "Να λαμβάνονται υπόψη τα διαφανή στρώματα πάνω από την επιφάνεια ή το υπόστρωμα, όταν ταιριάζουν με τον στόχο καλύτερα από τα αδιαφανή μείγματα"
 
-#: src/components/Help.tsx:96
+#: src/components/Help.tsx:108
 msgid "Contact"
 msgstr "Επικοινωνία"
 
@@ -759,9 +759,13 @@ msgstr "Προσαρμοσμένο σετ χρωμάτων"
 msgid "Custom colors"
 msgstr "Προσαρμοσμένα χρώματα"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:140
+#: src/components/ml-model/OnnxModelSelect.tsx:136
 msgid "Deblur"
 msgstr "Αφαίρεση θολώματος"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:140
+msgid "Deblur JPEG"
+msgstr "Αφαίρεση θολώματος JPEG"
 
 #: src/components/auth/DeleteAccountButton.tsx:67
 #: src/components/color/AddToPaletteButton.tsx:48
@@ -943,7 +947,7 @@ msgstr "Επεξεργασία από εδώ και πέρα"
 msgid "Edit image"
 msgstr "Επεξεργασία εικόνας"
 
-#: src/components/ImageEditor.tsx:324
+#: src/components/ImageEditor.tsx:338
 msgid "Edited"
 msgstr "Επεξεργασμένο"
 
@@ -1171,7 +1175,7 @@ msgstr "Εγκατάσταση εφαρμογής"
 msgid "Install ArtistAssistApp"
 msgstr "Εγκατάσταση του ArtistAssistApp"
 
-#: src/components/Help.tsx:147
+#: src/components/Help.tsx:159
 msgid "Install update"
 msgstr "Εγκατάσταση ενημέρωσης"
 
@@ -1345,7 +1349,7 @@ msgstr "Μεσαίος τόνος"
 msgid "Midtones"
 msgstr "Μεσαίοι τόνοι"
 
-#: src/components/color/ColorMixtureDescription.tsx:69
+#: src/components/color/ColorMixtureDescription.tsx:70
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Αναμείξτε τα χρώματα σε <0>αναλογία {partsRatioText}</0>"
 
@@ -1370,11 +1374,11 @@ msgstr "Ανακατέψτε αυτό το χρώμα σε κάθε μείγμα
 msgid "Mix your colors in any proportions so you don't waste real paints"
 msgstr "Αναμείξτε τα χρώματά σας σε οποιαδήποτε αναλογία, ώστε να μην σπαταλάτε πραγματικά χρώματα"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:93
+#: src/components/color/ReflectanceChartDrawer.tsx:99
 msgid "Mixture"
 msgstr "Μείγμα"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:107
+#: src/components/color/ReflectanceChartDrawer.tsx:113
 #: src/components/image-editor/ColorizeControls.tsx:80
 #: src/components/image-editor/RemoveBackgroundControls.tsx:69
 #: src/components/image-editor/RestoreControls.tsx:64
@@ -1552,7 +1556,7 @@ msgstr "Περίγραμμα"
 msgid "Output levels"
 msgstr "Επίπεδα εξόδου"
 
-#: src/components/color/ColorMixtureDescription.tsx:132
+#: src/components/color/ColorMixtureDescription.tsx:133
 msgid "over"
 msgstr "πάνω σε"
 
@@ -1589,7 +1593,7 @@ msgstr "Εκατοστημόριο"
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Εκατοστημόριο: Αυτόματη ισορροπία λευκού από τις πιο φωτεινές περιοχές, καλή για τις περισσότερες φωτογραφίες. Αναφορά: Χειροκίνητη ισορροπία λευκού χρησιμοποιώντας επιλεγμένη περιοχή λευκού."
 
-#: src/components/Help.tsx:159
+#: src/components/Help.tsx:187
 msgid "Persistent storage"
 msgstr "Μόνιμος χώρος αποθήκευσης"
 
@@ -1698,9 +1702,13 @@ msgstr "Εκτύπωση μεγάλης εικόνας σε πολλές σελ�
 msgid "Print preview"
 msgstr "Προεπισκόπηση εκτύπωσης"
 
-#: src/components/Help.tsx:118
+#: src/components/Help.tsx:130
 msgid "Privacy policy"
 msgstr "Πολιτική απορρήτου"
+
+#: src/components/error/UnhandledRejectionHandler.tsx:42
+msgid "Processing with WebGPU failed. Try turning off WebGPU, then try again."
+msgstr "Η επεξεργασία με το WebGPU απέτυχε. Δοκιμάστε να απενεργοποιήσετε το WebGPU και προσπαθήστε ξανά."
 
 #: src/components/loading/LoadingIndicator.tsx:48
 msgid "Processing..."
@@ -1710,7 +1718,7 @@ msgstr "Επεξεργασία..."
 msgid "Processing... {percent}%"
 msgstr "Επεξεργασία... {percent}%"
 
-#: src/components/Help.tsx:182
+#: src/components/Help.tsx:210
 msgid "Quota"
 msgstr "Όριο"
 
@@ -1730,11 +1738,7 @@ msgstr "Αναλογία"
 msgid "Realism"
 msgstr "Ρεαλισμός"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:143
-msgid "Recovers detail lost to camera shake or motion blur"
-msgstr "Ανακτά λεπτομέρειες που χάθηκαν λόγω κουνήματος της κάμερας ή θολώματος κίνησης"
-
-#: src/components/ImageEditor.tsx:309
+#: src/components/ImageEditor.tsx:323
 msgid "Redo"
 msgstr "Επανάληψη"
 
@@ -1782,9 +1786,17 @@ msgstr "Αφαίρεση φόντου"
 msgid "Remove objects"
 msgstr "Αφαίρεση αντικειμένων"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:135
-msgid "Removes noise and grain from a scanned or high-ISO photo"
-msgstr "Αφαιρεί τον θόρυβο και τον κόκκο από σαρωμένη φωτογραφία ή φωτογραφία που τραβήχτηκε με υψηλό ISO"
+#: src/components/ml-model/OnnxModelSelect.tsx:141
+msgid "Removes blur and JPEG artifacts"
+msgstr "Αφαιρεί το θόλωμα και τα τεχνουργήματα συμπίεσης JPEG"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:137
+msgid "Removes motion blur"
+msgstr "Αφαιρεί το θόλωμα λόγω κίνησης"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:133
+msgid "Removes noise and grain"
+msgstr "Αφαιρεί τον θόρυβο και τον κόκκο"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:119
 msgid "Removing objects is available only to paid Patreon members"
@@ -1808,8 +1820,8 @@ msgstr "Απαιτείται macOS Sonoma ή νεότερη έκδοση."
 msgid "Resend code"
 msgstr "Επανάληψη αποστολής κωδικού"
 
-#: src/components/ImageEditor.tsx:313
-#: src/components/ImageEditor.tsx:318
+#: src/components/ImageEditor.tsx:327
+#: src/components/ImageEditor.tsx:332
 msgid "Reset"
 msgstr "Επαναφορά"
 
@@ -1913,6 +1925,10 @@ msgstr "Επιλέξτε ένα εικαστικό μέσο"
 msgid "Select an image that contains a color chart"
 msgstr "Επιλέξτε μια εικόνα που περιέχει ένα χρωματολόγιο"
 
+#: src/components/ImageEditor.tsx:288
+msgid "Select an image to edit"
+msgstr "Επιλέξτε μια εικόνα για επεξεργασία"
+
 #: src/components/color-set/ColorTypeSelect.tsx:37
 msgid "Select art medium"
 msgstr "Επιλογή εικαστικού μέσου"
@@ -1971,7 +1987,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Επιλέξτε από τα πρόσφατα σετ χρωμάτων σας ή δημιουργήστε ένα νέο."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:284
+#: src/components/ImageEditor.tsx:292
 msgid "Select image"
 msgstr "Επιλογή εικόνας"
 
@@ -2136,11 +2152,11 @@ msgstr "Εμφάνιση αυτού του χρώματος στη φωτογρ�
 msgid "Sign in required"
 msgstr "Απαιτείται είσοδος"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:92
+#: src/components/color/ReflectanceChartDrawer.tsx:98
 msgid "Similarity"
 msgstr "Ομοιότητα"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:109
+#: src/components/color/ReflectanceChartDrawer.tsx:115
 msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
 msgstr "Η λειτουργία ομοιότητας συγκρίνει τα χρώματα προορισμού και τα προτεινόμενα χρώματα. Στη λειτουργία ανάμειξης, εμφανίζονται τα μέρη του χρώματος που αποτελούν το μείγμα."
 
@@ -2204,7 +2220,7 @@ msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "Ταξινόμηση με βάση τον αριθμό των χρωμάτων στο μείγμα, από τα λιγότερα στα περισσότερα."
 
 #: src/components/color/ColorMatchCard.tsx:123
-#: src/components/color/ReflectanceChartDrawer.tsx:98
+#: src/components/color/ReflectanceChartDrawer.tsx:104
 #: src/components/ColorMixer.tsx:250
 msgid "Spectral reflectance curve"
 msgstr "Καμπύλη φασματικής ανάκλασης"
@@ -2233,7 +2249,7 @@ msgstr "Νεκρή φύση"
 msgid "Storage may fill up"
 msgstr "Ο αποθηκευτικός χώρος μπορεί να γεμίσει"
 
-#: src/components/Help.tsx:176
+#: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "Χρήση αποθηκευτικού χώρου"
 
@@ -2297,7 +2313,7 @@ msgstr "Χρώμα-στόχος"
 msgid "Target print size"
 msgstr "Επιθυμητό μέγεθος εκτύπωσης"
 
-#: src/components/Help.tsx:128
+#: src/components/Help.tsx:140
 msgid "Terms of use"
 msgstr "Όροι χρήσης"
 
@@ -2358,7 +2374,7 @@ msgstr "Υπάρχει μια κοινή παλέτα και μια ξεχωρι
 msgid "Thick"
 msgstr "Χοντρό"
 
-#: src/components/Help.tsx:138
+#: src/components/Help.tsx:150
 msgid "Third-party notices"
 msgstr "Ειδοποιήσεις τρίτων"
 
@@ -2479,7 +2495,11 @@ msgstr "Δοκιμάστε να προσθέσετε χρώματα ή να αλ
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "Δοκιμάστε να προσθέσετε χρώματα ή να αλλάξετε την επιφάνεια, το υπόστρωμα ή το ενοποιητικό χρώμα"
 
-#: src/components/Help.tsx:86
+#: src/components/error/UnhandledRejectionHandler.tsx:59
+msgid "Turn off WebGPU"
+msgstr "Απενεργοποίηση WebGPU"
+
+#: src/components/Help.tsx:98
 msgid "Tutorials and videos"
 msgstr "Οδηγοί και βίντεο"
 
@@ -2537,11 +2557,11 @@ msgstr "Δεν είναι δυνατή η επαναφορά του αποθηκ
 msgid "Underlayer"
 msgstr "Υπόστρωμα"
 
-#: src/components/ImageEditor.tsx:302
+#: src/components/ImageEditor.tsx:316
 msgid "Undo"
 msgstr "Αναίρεση"
 
-#: src/components/error/UnhandledRejectionHandler.tsx:32
+#: src/components/error/UnhandledRejectionHandler.tsx:38
 msgid "Unexpected error"
 msgstr "Απροσδόκητο σφάλμα"
 
@@ -2609,7 +2629,11 @@ msgstr "Χρήση πλήρους πίεσης"
 msgid "Use reference photo"
 msgstr "Χρήση φωτογραφίας αναφοράς"
 
-#: src/components/Help.tsx:179
+#: src/components/Help.tsx:178
+msgid "Use WebGPU"
+msgstr "Χρήση WebGPU"
+
+#: src/components/Help.tsx:207
 msgid "Used"
 msgstr "Σε χρήση"
 
@@ -2766,7 +2790,7 @@ msgid "Your image"
 msgstr "Η εικόνα σας"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:335
+#: src/components/ImageEditor.tsx:303
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:303
 msgid "Your images are processed locally on your device and are never uploaded to any server"
@@ -2776,7 +2800,7 @@ msgstr "Οι εικόνες σας επεξεργάζονται τοπικά σ�
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Δεν ήταν δυνατή η επαλήθευση των διαπιστευτηρίων σύνδεσής σας. Συνδεθείτε ξανά."
 
-#: src/components/Help.tsx:220
+#: src/components/Help.tsx:248
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "Η συνδρομή σας στο Patreon και τα δεδομένα σε αυτήν τη συσκευή δεν διαγράφονται. <0>Ακυρώστε τη συνδρομή σας στο Patreon</0> στο ίδιο το Patreon."
 

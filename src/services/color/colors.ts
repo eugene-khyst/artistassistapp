@@ -23,6 +23,7 @@ import {
   type ColorBrandDefinition,
   type ColorDefinition,
   type ColorIdFormat,
+  ColorOpacity,
   type ColorSet,
   type ColorSetDefinition,
   ColorType,
@@ -34,6 +35,14 @@ import {
 
 import {type User} from '@/services/auth/types';
 import {hasAccessTo} from '@/services/auth/utils';
+
+const COLOR_OPACITIES = new Set(
+  Object.values(ColorOpacity).filter(value => typeof value === 'number')
+);
+
+export function normalizeColorOpacity(opacity?: ColorOpacity): ColorOpacity | undefined {
+  return opacity !== undefined && COLOR_OPACITIES.has(opacity) ? opacity : undefined;
+}
 
 export const COLOR_TYPES: ColorType[] = [
   ColorType.WatercolorPaint,
@@ -132,7 +141,7 @@ export function toColorSet(
           name,
           rgb: hexToRgb(hex),
           rho,
-          opacity,
+          opacity: normalizeColorOpacity(opacity),
           warmth,
           isWhite,
         }));

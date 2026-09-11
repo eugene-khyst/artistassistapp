@@ -23,7 +23,6 @@ import type {FetchProgressCallback} from '@/utils/fetch';
 import {offscreenCanvasToBlob} from '@/utils/graphics';
 
 const RESTORATION_TILE_HALO = 64;
-const RESTORATION_TILE_CORE_SIZE = 768;
 
 export async function createRestoredImage({
   image,
@@ -40,13 +39,13 @@ export async function createRestoredImage({
   progressCallback: FetchProgressCallback;
   signal: AbortSignal;
 }): Promise<Blob> {
-  // Channel attention pools over the whole tile, so tiles must cross-fade rather than butt.
+  // The model output depends on the whole tile, so neighbouring tiles must blend smoothly.
   const canvas = await transformImageInTiles({
     image,
     model,
     modelScale: 1,
     outputScale: 1,
-    coreSize: tileCoreSize(model, RESTORATION_TILE_CORE_SIZE, RESTORATION_TILE_HALO),
+    coreSize: tileCoreSize(model, RESTORATION_TILE_HALO),
     halo: RESTORATION_TILE_HALO,
     feather: true,
     auth,

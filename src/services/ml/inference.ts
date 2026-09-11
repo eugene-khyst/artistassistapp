@@ -17,39 +17,74 @@
  */
 
 import {transfer} from 'comlink';
-import ortWasmUrl from 'onnxruntime-web/ort-wasm-simd-threaded.wasm?url';
-import {env, InferenceSession, Tensor} from 'onnxruntime-web/wasm';
+import ortWasmUrl from 'onnxruntime-web/ort-wasm-simd-threaded.asyncify.wasm?url';
+import {env, InferenceSession, Tensor} from 'onnxruntime-web/webgpu';
 
+import {WebGpuInferenceError} from '@/services/ml/errors';
 import {type Float32Tensor, getFloat32TensorTransferables} from '@/services/ml/tensor';
 
 env.wasm.proxy = false;
 env.wasm.wasmPaths = {wasm: new URL(ortWasmUrl, self.location.href).href};
 
+const SESSION_OPTIONS: InferenceSession.SessionOptions = {
+  graphOptimizationLevel: 'all',
+  extra: {
+    session: {
+      set_denormal_as_zero: '1',
+    },
+  },
+};
+
 interface Result {
   outputTensors: Float32Tensor[];
 }
 
+let webGpuUsable: boolean | undefined;
+
+// A software adapter runs inference about 40 times slower than WebAssembly.
+async function isWebGpuUsable(): Promise<boolean> {
+  if (webGpuUsable === undefined) {
+    try {
+      const adapter = 'gpu' in navigator ? await navigator.gpu.requestAdapter() : null;
+      webGpuUsable = !!adapter && !adapter.info.isFallbackAdapter;
+    } catch {
+      webGpuUsable = false;
+    }
+  }
+  return webGpuUsable;
+}
+
+async function createWasmSession(modelBuffer: Uint8Array): Promise<InferenceSession> {
+  return await InferenceSession.create(modelBuffer, {
+    ...SESSION_OPTIONS,
+    executionProviders: ['wasm'],
+    executionMode: 'parallel',
+  });
+}
+
 export class InferenceRunner {
   private session: InferenceSession | null = null;
+  private usesWebGpu = false;
 
-  async createInferenceSession(modelBuffer: Uint8Array): Promise<void> {
-    this.session = await InferenceSession.create(modelBuffer, {
-      executionProviders: ['wasm'],
-      graphOptimizationLevel: 'all',
-      executionMode: 'parallel',
-      extra: {
-        session: {
-          set_denormal_as_zero: '1',
-        },
-        optimization: {
-          enable_gelu_approximation: '1',
-        },
-      },
-    });
+  async createInferenceSession(modelBuffer: Uint8Array, webGpuEnabled: boolean): Promise<void> {
+    this.usesWebGpu = false;
+    if (webGpuEnabled && (await isWebGpuUsable())) {
+      try {
+        this.session = await InferenceSession.create(modelBuffer, {
+          ...SESSION_OPTIONS,
+          executionProviders: ['webgpu'],
+        });
+        this.usesWebGpu = true;
+        return;
+      } catch (error) {
+        console.warn('Failed to create WebGPU inference session, using WebAssembly', error);
+      }
+    }
+    this.session = await createWasmSession(modelBuffer);
   }
 
   async runInference(inputTensors: Float32Tensor[][], outputName?: string): Promise<Result> {
-    const {session} = this;
+    const {session, usesWebGpu} = this;
     if (!session) {
       throw new Error('Inference session is not created');
     }
@@ -61,7 +96,12 @@ export class InferenceRunner {
           new Tensor('float32', data, dims),
         ])
       );
-      const results = await session.run(feeds);
+      let results: InferenceSession.ReturnType;
+      try {
+        results = await session.run(feeds);
+      } catch (error) {
+        throw usesWebGpu ? new WebGpuInferenceError(error) : error;
+      }
       const outputTensor = results[outputName ?? session.outputNames[0]!];
       if (!outputTensor) {
         throw new Error('Output tensor is undefined');
@@ -81,6 +121,7 @@ export class InferenceRunner {
   async releaseInferenceSession(): Promise<void> {
     const {session} = this;
     this.session = null;
+    this.usesWebGpu = false;
     await session?.release();
   }
 }

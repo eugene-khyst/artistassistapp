@@ -277,8 +277,16 @@ export function ImageEditor() {
             <canvas ref={canvasRef} className={styles['previewCanvas']} />
           </Col>
         )}
-        <Col xs={24} sm={12} lg={8} className={styles['sidePanel']}>
+        <Col
+          xs={24}
+          sm={imageToEdit ? 12 : 24}
+          lg={imageToEdit ? 8 : 24}
+          className={styles['sidePanel']}
+        >
           <Flex vertical gap="small" className={styles['controls']}>
+            <Typography.Text strong>
+              <Trans>Select an image to edit</Trans>
+            </Typography.Text>
             <Space>
               <FileSelect onChange={handleFileChange} showUseReferencePhoto showUseCopiedImage>
                 <Trans>Select image</Trans>
@@ -291,6 +299,12 @@ export function ImageEditor() {
                 />
               )}
             </Space>
+            <Typography.Text type="secondary">
+              <Trans>
+                Your images are processed locally on your device and are never uploaded to any
+                server
+              </Trans>
+            </Typography.Text>
             {editedImage && (
               <>
                 <Space wrap>
@@ -331,12 +345,6 @@ export function ImageEditor() {
                   items={collapseItems}
                   onChange={handleCollapseChange}
                 />
-                <Typography.Text type="secondary">
-                  <Trans>
-                    Your images are processed locally on your device and are never uploaded to any
-                    server
-                  </Trans>
-                </Typography.Text>
               </>
             )}
           </Flex>

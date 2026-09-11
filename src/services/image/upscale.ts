@@ -68,7 +68,7 @@ export async function createUpscaledImage({
     model,
     modelScale: UPSCALE_MODEL_SCALE,
     outputScale: factor,
-    coreSize: tileCoreSize(model, UPSCALE_TILE_CORE_SIZE, UPSCALE_TILE_HALO),
+    coreSize: tileCoreSize(model, UPSCALE_TILE_HALO, UPSCALE_TILE_CORE_SIZE),
     halo: UPSCALE_TILE_HALO,
     auth,
     progressCallback,

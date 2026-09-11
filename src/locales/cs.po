@@ -134,7 +134,7 @@ msgstr "Barva přimíchaná do každé navržené směsi, aby paleta působila h
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "Nová verze aplikace je dostupná a bude automaticky nainstalována."
 
-#: src/components/Help.tsx:145
+#: src/components/Help.tsx:157
 msgid "A new version of the application is available."
 msgstr "Nová verze aplikace je dostupná."
 
@@ -186,7 +186,7 @@ msgstr "Přidejte nebo odstraňte barvy tak, aby odpovídaly vaší skutečné s
 msgid "Add to palette"
 msgstr "Přidat do palety"
 
-#: src/components/color/ColorMixtureDescription.tsx:94
+#: src/components/color/ColorMixtureDescription.tsx:95
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Přidejte bílou v <0>poměru {whiteRatioText}</0>"
 
@@ -198,11 +198,11 @@ msgstr "Upravit barvy"
 msgid "Adjust the 4 corners manually."
 msgstr "Ručně upravte 4 rohy."
 
-#: src/components/Help.tsx:201
+#: src/components/Help.tsx:229
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Všechna data aplikací jsou uložena v úložišti webového prohlížeče, i po instalaci. Vymazání dat v prohlížeči vše smaže."
 
-#: src/components/ImageEditor.tsx:312
+#: src/components/ImageEditor.tsx:326
 msgid "All edits will be lost"
 msgstr "Všechny úpravy budou ztraceny"
 
@@ -218,7 +218,7 @@ msgstr "Případně nainstalujte nejnovější verzi webového prohlížeče Chr
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "Je nastavena podkladová vrstva nebo sjednocující barva. Automatická paleta použije tato nastavení na celou fotografii, nejen na oblast, pro kterou byla vybrána."
 
-#: src/components/Help.tsx:246
+#: src/components/Help.tsx:274
 msgid "Application build ID"
 msgstr "ID sestavení aplikace"
 
@@ -290,11 +290,11 @@ msgstr "ArtistAssistApp nemohl potvrdit, že vaše cloudové soubory byly smazá
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistApp neobdržel výsledek vašeho přihlášení na Patreonu. To se může stát, když se přihlášení otevře v jiném prohlížeči nebo aplikaci. Zkuste se prosím přihlásit znovu."
 
-#: src/components/Help.tsx:237
+#: src/components/Help.tsx:265
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "Aplikaci ArtistAssistApp vyvinul <0>Eugene Khyst</0>"
 
-#: src/components/Help.tsx:213
+#: src/components/Help.tsx:241
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "ArtistAssistApp nikdy neukládá vaši e-mailovou adresu, pouze soukromý kód z ní odvozený, který adresu nemůže prozradit. Přihlášení přes Patreon nebo obnovení členství tento kód vytvoří znovu."
 
@@ -302,7 +302,7 @@ msgstr "ArtistAssistApp nikdy neukládá vaši e-mailovou adresu, pouze soukrom�
 msgid "ArtistAssistApp will permanently delete your saved work and settings from this device and log you out.<0/>Data already synced to cloud storage will not be deleted."
 msgstr "ArtistAssistApp trvale smaže vaši uloženou práci a nastavení z tohoto zařízení a odhlásí vás.<0/>Data již synchronizovaná do cloudového úložiště nebudou smazána."
 
-#: src/components/storage/ClearCacheButton.tsx:42
+#: src/components/storage/ClearCacheButton.tsx:44
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "ArtistAssistApp se po odstranění dočasných souborů aplikace znovu načtuje.<0/>Vaše uložená práce a cloudová data nebudou smazána."
 
@@ -417,14 +417,14 @@ msgstr "Pro obkreslování v AR je vyžadován přístup ke kameře"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:314
+#: src/components/ImageEditor.tsx:328
 #: src/components/loading/LoadingIndicator.tsx:52
-#: src/components/storage/ClearCacheButton.tsx:50
+#: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: src/components/Help.tsx:106
+#: src/components/Help.tsx:118
 msgid "Cancel a paid membership"
 msgstr "Zrušení placeného členství"
 
@@ -436,7 +436,7 @@ msgstr "Nelze použít zkopírovaný obrázek"
 msgid "Cells"
 msgstr "Buňky"
 
-#: src/components/Help.tsx:152
+#: src/components/Help.tsx:164
 msgid "Check for updates"
 msgstr "Zkontrolovat aktualizace"
 
@@ -475,9 +475,9 @@ msgstr "Vymazat"
 msgid "Clear background color"
 msgstr "Vymazat barvu pozadí"
 
-#: src/components/storage/ClearCacheButton.tsx:40
-#: src/components/storage/ClearCacheButton.tsx:49
-#: src/components/storage/ClearCacheButton.tsx:53
+#: src/components/storage/ClearCacheButton.tsx:42
+#: src/components/storage/ClearCacheButton.tsx:51
+#: src/components/storage/ClearCacheButton.tsx:55
 msgid "Clear cache"
 msgstr "Vymazat mezipaměť"
 
@@ -602,7 +602,7 @@ msgstr "Mixér barev"
 msgid "Color mixing chart"
 msgstr "Tabulka míchání barev"
 
-#: src/components/color/ColorMixtureDescription.tsx:107
+#: src/components/color/ColorMixtureDescription.tsx:108
 msgid "Color mixture"
 msgstr "Barevná směs"
 
@@ -677,7 +677,7 @@ msgstr "Zvažte barvy prolnuté přes podkladovou vrstvu, pokud odpovídají cí
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "Zvažte průhledné vrstvy na povrchu nebo na podkladové vrstvě, pokud odpovídají cílové barvě lépe než krycí směsi"
 
-#: src/components/Help.tsx:96
+#: src/components/Help.tsx:108
 msgid "Contact"
 msgstr "Kontakt"
 
@@ -759,9 +759,13 @@ msgstr "Vlastní sada barev"
 msgid "Custom colors"
 msgstr "Vlastní barvy"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:140
+#: src/components/ml-model/OnnxModelSelect.tsx:136
 msgid "Deblur"
 msgstr "Odstranit rozmazání"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:140
+msgid "Deblur JPEG"
+msgstr "Odstranit rozmazání JPEG"
 
 #: src/components/auth/DeleteAccountButton.tsx:67
 #: src/components/color/AddToPaletteButton.tsx:48
@@ -943,7 +947,7 @@ msgstr "Upravovat odsud dál"
 msgid "Edit image"
 msgstr "Upravit obrázek"
 
-#: src/components/ImageEditor.tsx:324
+#: src/components/ImageEditor.tsx:338
 msgid "Edited"
 msgstr "Upraveno"
 
@@ -1171,7 +1175,7 @@ msgstr "Nainstalovat aplikaci"
 msgid "Install ArtistAssistApp"
 msgstr "Nainstalovat ArtistAssistApp"
 
-#: src/components/Help.tsx:147
+#: src/components/Help.tsx:159
 msgid "Install update"
 msgstr "Nainstalovat aktualizaci"
 
@@ -1345,7 +1349,7 @@ msgstr "Střední tón"
 msgid "Midtones"
 msgstr "Střední tóny"
 
-#: src/components/color/ColorMixtureDescription.tsx:69
+#: src/components/color/ColorMixtureDescription.tsx:70
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Smíchejte barvy v <0>poměru {partsRatioText}</0>"
 
@@ -1370,11 +1374,11 @@ msgstr "Přimíchejte tuto barvu do každé směsi."
 msgid "Mix your colors in any proportions so you don't waste real paints"
 msgstr "Smíchejte barvy v libovolném poměru, abyste neplýtvali skutečnými barvami"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:93
+#: src/components/color/ReflectanceChartDrawer.tsx:99
 msgid "Mixture"
 msgstr "Směs"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:107
+#: src/components/color/ReflectanceChartDrawer.tsx:113
 #: src/components/image-editor/ColorizeControls.tsx:80
 #: src/components/image-editor/RemoveBackgroundControls.tsx:69
 #: src/components/image-editor/RestoreControls.tsx:64
@@ -1552,7 +1556,7 @@ msgstr "Obrys"
 msgid "Output levels"
 msgstr "Výstupní úrovně"
 
-#: src/components/color/ColorMixtureDescription.tsx:132
+#: src/components/color/ColorMixtureDescription.tsx:133
 msgid "over"
 msgstr "přes"
 
@@ -1589,7 +1593,7 @@ msgstr "Percentil"
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Percentil: automatické vyvážení bílé z nejjasnějších oblastí, vhodné pro většinu fotografií. Reference: ruční vyvážení bílé pomocí vybrané bílé oblasti."
 
-#: src/components/Help.tsx:159
+#: src/components/Help.tsx:187
 msgid "Persistent storage"
 msgstr "Trvalé úložiště"
 
@@ -1698,9 +1702,13 @@ msgstr "Tisk velkého obrázku na více stránek"
 msgid "Print preview"
 msgstr "Náhled tisku"
 
-#: src/components/Help.tsx:118
+#: src/components/Help.tsx:130
 msgid "Privacy policy"
 msgstr "Zásady ochrany osobních údajů"
+
+#: src/components/error/UnhandledRejectionHandler.tsx:42
+msgid "Processing with WebGPU failed. Try turning off WebGPU, then try again."
+msgstr "Zpracování pomocí WebGPU selhalo. Zkuste vypnout WebGPU a poté akci zopakujte."
 
 #: src/components/loading/LoadingIndicator.tsx:48
 msgid "Processing..."
@@ -1710,7 +1718,7 @@ msgstr "Zpracovává se..."
 msgid "Processing... {percent}%"
 msgstr "Zpracovává se... {percent} %"
 
-#: src/components/Help.tsx:182
+#: src/components/Help.tsx:210
 msgid "Quota"
 msgstr "Kvóta"
 
@@ -1730,11 +1738,7 @@ msgstr "Poměr"
 msgid "Realism"
 msgstr "Realismus"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:143
-msgid "Recovers detail lost to camera shake or motion blur"
-msgstr "Obnovuje detaily ztracené chvěním fotoaparátu nebo pohybovým rozmazáním"
-
-#: src/components/ImageEditor.tsx:309
+#: src/components/ImageEditor.tsx:323
 msgid "Redo"
 msgstr "Znovu"
 
@@ -1782,9 +1786,17 @@ msgstr "Odstranit pozadí"
 msgid "Remove objects"
 msgstr "Odstranit objekty"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:135
-msgid "Removes noise and grain from a scanned or high-ISO photo"
-msgstr "Odstraňuje šum a zrnitost z naskenované fotografie nebo fotografie pořízené s vysokým ISO"
+#: src/components/ml-model/OnnxModelSelect.tsx:141
+msgid "Removes blur and JPEG artifacts"
+msgstr "Odstraňuje rozmazání a artefakty komprese JPEG"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:137
+msgid "Removes motion blur"
+msgstr "Odstraňuje rozmazání způsobené pohybem"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:133
+msgid "Removes noise and grain"
+msgstr "Odstraňuje šum a zrnitost"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:119
 msgid "Removing objects is available only to paid Patreon members"
@@ -1808,8 +1820,8 @@ msgstr "Vyžaduje macOS Sonoma nebo novější."
 msgid "Resend code"
 msgstr "Odeslat kód znovu"
 
-#: src/components/ImageEditor.tsx:313
-#: src/components/ImageEditor.tsx:318
+#: src/components/ImageEditor.tsx:327
+#: src/components/ImageEditor.tsx:332
 msgid "Reset"
 msgstr "Resetovat"
 
@@ -1913,6 +1925,10 @@ msgstr "Vyberte výtvarné médium"
 msgid "Select an image that contains a color chart"
 msgstr "Vyberte obrázek, který obsahuje tabulku barev"
 
+#: src/components/ImageEditor.tsx:288
+msgid "Select an image to edit"
+msgstr "Vyberte obrázek k úpravě"
+
 #: src/components/color-set/ColorTypeSelect.tsx:37
 msgid "Select art medium"
 msgstr "Vybrat výtvarné médium"
@@ -1971,7 +1987,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Vyberte si z nedávných sad barev nebo vytvořte novou."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:284
+#: src/components/ImageEditor.tsx:292
 msgid "Select image"
 msgstr "Vybrat obrázek"
 
@@ -2136,11 +2152,11 @@ msgstr "Zobrazte tuto barvu na referenční fotografii."
 msgid "Sign in required"
 msgstr "Je vyžadováno přihlášení"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:92
+#: src/components/color/ReflectanceChartDrawer.tsx:98
 msgid "Similarity"
 msgstr "Podobnost"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:109
+#: src/components/color/ReflectanceChartDrawer.tsx:115
 msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
 msgstr "Režim podobnosti porovnává cílovou a navrženou barvu. V režimu směsi se zobrazují díly barev, které směs tvoří."
 
@@ -2204,7 +2220,7 @@ msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "Seřadit podle počtu barev ve směsi, od nejmenšího po největší."
 
 #: src/components/color/ColorMatchCard.tsx:123
-#: src/components/color/ReflectanceChartDrawer.tsx:98
+#: src/components/color/ReflectanceChartDrawer.tsx:104
 #: src/components/ColorMixer.tsx:250
 msgid "Spectral reflectance curve"
 msgstr "Křivka spektrální odrazivosti"
@@ -2233,7 +2249,7 @@ msgstr "Zátiší"
 msgid "Storage may fill up"
 msgstr "Úložiště se může zaplnit"
 
-#: src/components/Help.tsx:176
+#: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "Využití úložiště"
 
@@ -2297,7 +2313,7 @@ msgstr "Cílová barva"
 msgid "Target print size"
 msgstr "Cílová velikost tisku"
 
-#: src/components/Help.tsx:128
+#: src/components/Help.tsx:140
 msgid "Terms of use"
 msgstr "Podmínky použití"
 
@@ -2358,7 +2374,7 @@ msgstr "Existuje jedna společná paleta a samostatná paleta pro každou fotogr
 msgid "Thick"
 msgstr "Silný"
 
-#: src/components/Help.tsx:138
+#: src/components/Help.tsx:150
 msgid "Third-party notices"
 msgstr "Oznámení třetích stran"
 
@@ -2479,7 +2495,11 @@ msgstr "Zkuste přidat barvy nebo změnit povrch či sjednocující barvu"
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "Zkuste přidat barvy nebo změnit povrch, podkladovou vrstvu či sjednocující barvu"
 
-#: src/components/Help.tsx:86
+#: src/components/error/UnhandledRejectionHandler.tsx:59
+msgid "Turn off WebGPU"
+msgstr "Vypnout WebGPU"
+
+#: src/components/Help.tsx:98
 msgid "Tutorials and videos"
 msgstr "Návody a videa"
 
@@ -2537,11 +2557,11 @@ msgstr "Uloženou sadu barev nelze obnovit"
 msgid "Underlayer"
 msgstr "Podkladová vrstva"
 
-#: src/components/ImageEditor.tsx:302
+#: src/components/ImageEditor.tsx:316
 msgid "Undo"
 msgstr "Vrátit zpět"
 
-#: src/components/error/UnhandledRejectionHandler.tsx:32
+#: src/components/error/UnhandledRejectionHandler.tsx:38
 msgid "Unexpected error"
 msgstr "Neočekávaná chyba"
 
@@ -2609,7 +2629,11 @@ msgstr "Použijte plný tlak"
 msgid "Use reference photo"
 msgstr "Použít referenční fotografii"
 
-#: src/components/Help.tsx:179
+#: src/components/Help.tsx:178
+msgid "Use WebGPU"
+msgstr "Používat WebGPU"
+
+#: src/components/Help.tsx:207
 msgid "Used"
 msgstr "Využito"
 
@@ -2766,7 +2790,7 @@ msgid "Your image"
 msgstr "Váš obrázek"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:335
+#: src/components/ImageEditor.tsx:303
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:303
 msgid "Your images are processed locally on your device and are never uploaded to any server"
@@ -2776,7 +2800,7 @@ msgstr "Vaše obrázky se zpracovávají lokálně ve vašem zařízení a nikdy
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Vaše přihlašovací údaje nebylo možné ověřit. Přihlaste se znovu."
 
-#: src/components/Help.tsx:220
+#: src/components/Help.tsx:248
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "Vaše členství na Patreonu a data na tomto zařízení smazána nejsou. <0>Zrušte své členství na Patreonu</0> přímo na Patreonu."
 

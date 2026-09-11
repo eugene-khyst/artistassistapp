@@ -111,14 +111,16 @@ https://github.com/apple/ml-fastvit
 Restoration
 -----------
 
-NAFNet - models nafnet-sidd-width32 and nafnet-gopro-width64
+NAFNet - models nafnet-sidd-width32, nafnet-gopro-width64 and nafnet-reds-width64
 Copyright (c) 2022 megvii-model
 MIT License
 https://github.com/megvii-research/NAFNet
-Source checkpoints: NAFNet-SIDD-width32.pth and NAFNet-GoPro-width64.pth
+Source checkpoints: NAFNet-SIDD-width32.pth, NAFNet-GoPro-width64.pth and
+NAFNet-REDS-width64.pth
 https://drive.google.com/file/d/1lsByk21Xw-6aW7epCwOQxvm6HYCQZPHZ/view
 https://drive.google.com/file/d/1S0PVRbyTakYY9a82kujgZLbMihfNBLfC/view
-ArtistAssistApp exported both checkpoints with dynamic input sizes, removing the
+https://drive.google.com/file/d/14D4V4raNYIOhETfcuuLI3bGLB-OYIv6X/view
+ArtistAssistApp exported all three checkpoints with dynamic input sizes, removing the
 input size check and the matching output crop from the forward pass. The
 application resizes every input to a multiple of 16 instead.
 

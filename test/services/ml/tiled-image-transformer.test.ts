@@ -32,27 +32,34 @@ const model = (maxPixelCount?: number) => ({maxPixelCount}) as OnnxModel;
 
 describe('tile core size', () => {
   it('uses the given core size while the model budget allows it', () => {
-    expect(tileCoreSize(model(1280 * 720), CORE_SIZE, HALO)).toBe(CORE_SIZE);
-    expect(tileCoreSize(model(608 * 608), CORE_SIZE, HALO)).toBe(CORE_SIZE);
+    expect(tileCoreSize(model(1280 * 720), HALO, CORE_SIZE)).toBe(CORE_SIZE);
+    expect(tileCoreSize(model(608 * 608), HALO, CORE_SIZE)).toBe(CORE_SIZE);
+  });
+
+  it('takes the core from the model budget when no core size is given', () => {
+    expect(tileCoreSize(model(512 * 512), HALO)).toBe(512 - 2 * HALO);
+    expect(tileCoreSize(model(1280 * 720), HALO)).toBe(
+      Math.floor(Math.sqrt(1280 * 720)) - 2 * HALO
+    );
   });
 
   it('falls back to the budget the model input uses when the model sets none', () => {
-    expect((tileCoreSize(model(), CORE_SIZE, HALO) + 2 * HALO) ** 2).toBeLessThanOrEqual(
+    expect((tileCoreSize(model(), HALO, CORE_SIZE) + 2 * HALO) ** 2).toBeLessThanOrEqual(
       IMAGE_SIZE.SD
     );
   });
 
   it('shrinks the core so a padded tile never exceeds a smaller budget', () => {
-    expect(tileCoreSize(model(400 * 400), CORE_SIZE, HALO)).toBe(400 - 2 * HALO);
+    expect(tileCoreSize(model(400 * 400), HALO, CORE_SIZE)).toBe(400 - 2 * HALO);
     for (const budget of [250 * 250, 300 * 300, 400 * 400, 607 * 607]) {
-      expect((tileCoreSize(model(budget), CORE_SIZE, HALO) + 2 * HALO) ** 2).toBeLessThanOrEqual(
+      expect((tileCoreSize(model(budget), HALO, CORE_SIZE) + 2 * HALO) ** 2).toBeLessThanOrEqual(
         budget
       );
     }
   });
 
   it('stays positive for a budget smaller than the halo', () => {
-    expect(tileCoreSize(model(16), CORE_SIZE, HALO)).toBeGreaterThan(0);
+    expect(tileCoreSize(model(16), HALO, CORE_SIZE)).toBeGreaterThan(0);
   });
 });
 

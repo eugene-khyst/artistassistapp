@@ -19,6 +19,7 @@ ArtistAssistApp offers the following features:
 - Pick a color in your reference photo and find a matching color or paint mixture from your own set, with a match percentage
 - Mix colors from different brands in any proportions and preview the result before using real paint
 - Preview glazing over a dried layer or blending over an existing pastel layer
+- See how much of the layer below shows through each paint, based on the manufacturer's transparent-to-opaque rating
 - Add a unifying color to suggested mixtures for a more harmonious palette
 - Generate, save, and print a color mixing chart from any subset of your colors to plan mixes without wasting paint
 - Create two-color gradient charts to compare mixing ratios and consistencies for selected color pairs

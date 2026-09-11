@@ -99,21 +99,21 @@ const strokes = (fraction: Fraction) => {
 
 const DESCRIPTIONS: Partial<Record<ColorType, ConsistencyDescriptionConfig>> = {
   [ColorType.WatercolorPaint]: {
-    fullStrength: fullStrength,
+    fullStrength,
     transparent: {
       labelRender: dilutedInWater,
       tooltip: defineMessage`Watercolor can be diluted with water to make it more transparent`,
     },
   },
   [ColorType.OilPaint]: {
-    fullStrength: fullStrength,
+    fullStrength,
     transparent: {
       labelRender: layerThickness,
       tooltip: defineMessage`Mix the paint with a glazing medium, such as linseed oil, to apply a thinner, more transparent layer`,
     },
   },
   [ColorType.AcrylicPaint]: {
-    fullStrength: fullStrength,
+    fullStrength,
     transparent: {
       labelRender: layerThickness,
       tooltip: defineMessage`Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer`,

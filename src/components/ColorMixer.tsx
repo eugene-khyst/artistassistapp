@@ -31,7 +31,7 @@ import {
   hexToRgb,
   isFullStrength,
   isMixable,
-  isTransparentLayeringSupported,
+  isThinnedLayeringSupported,
   makeColorMixtures,
   MIXABLE_COLOR_TYPES,
   PAPER_WHITE_HEX,
@@ -166,7 +166,7 @@ export function ColorMixer() {
 
         <Space size="middle" align="start" wrap>
           <Space orientation="vertical" className={styles['inputColumn']}>
-            {isTransparentLayeringSupported(colorSet.type, true) && (
+            {isThinnedLayeringSupported(colorSet.type, true) && (
               <UnderlayerColorPicker
                 underlayerHex={underlayerHex}
                 setUnderlayerHex={setUnderlayerHex}

@@ -50,8 +50,8 @@ export function tileSpans(size: number, coreSize: number, halo: number): TileSpa
 // A tile over the model budget would be resized, so the default matches the model input default.
 export function tileCoreSize(
   {maxPixelCount = IMAGE_SIZE.SD}: OnnxModel,
-  maxCoreSize: number,
-  halo: number
+  halo: number,
+  maxCoreSize = Infinity
 ): number {
   return Math.max(1, Math.min(maxCoreSize, Math.floor(Math.sqrt(maxPixelCount)) - 2 * halo));
 }

@@ -30,6 +30,7 @@ const ColorDefinitionSchema = v.object({
   name: v.string(),
   hex: v.string(),
   rho: v.array(v.number()),
+  // Any number passes: toColorSet falls back to the default, and legacy cloud hashes stay unchanged.
   opacity: v.optional(v.number()),
   warmth: v.optional(v.number()),
 });

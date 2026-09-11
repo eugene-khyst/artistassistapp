@@ -134,7 +134,7 @@ msgstr "हर सुझाए गए मिश्रण में मिला�
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "ऐप का एक नया संस्करण उपलब्ध है और स्वचालित रूप से इंस्टॉल हो जाएगा।"
 
-#: src/components/Help.tsx:145
+#: src/components/Help.tsx:157
 msgid "A new version of the application is available."
 msgstr "एप्लिकेशन का एक नया संस्करण उपलब्ध है।"
 
@@ -186,7 +186,7 @@ msgstr "अपने वास्तविक रंग सेट से मे�
 msgid "Add to palette"
 msgstr "पैलेट में जोड़ें"
 
-#: src/components/color/ColorMixtureDescription.tsx:94
+#: src/components/color/ColorMixtureDescription.tsx:95
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "<0>{whiteRatioText} अनुपात</0> में सफ़ेद जोड़ें"
 
@@ -198,11 +198,11 @@ msgstr "रंग समायोजित करें"
 msgid "Adjust the 4 corners manually."
 msgstr "चारों कोनों को मैन्युअल रूप से समायोजित करें।"
 
-#: src/components/Help.tsx:201
+#: src/components/Help.tsx:229
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "सभी ऐप डेटा इंस्टॉल करने के बाद भी वेब ब्राउज़र स्टोरेज में संग्रहीत किया जाता है। ब्राउज़र डेटा साफ़ करने से यह सब मिट जाता है।"
 
-#: src/components/ImageEditor.tsx:312
+#: src/components/ImageEditor.tsx:326
 msgid "All edits will be lost"
 msgstr "सभी संपादन खो जाएंगे"
 
@@ -218,7 +218,7 @@ msgstr "वैकल्पिक रूप से, Chrome, Edge या Opera व
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "एक अंडरलेयर या एकीकृत रंग सेट किया गया है। ऑटो पैलेट इन सेटिंग्स को पूरी फ़ोटो पर लागू करेगा, न कि केवल उस क्षेत्र पर जिसके लिए उन्हें चुना गया था।"
 
-#: src/components/Help.tsx:246
+#: src/components/Help.tsx:274
 msgid "Application build ID"
 msgstr "एप्लिकेशन बिल्ड आईडी"
 
@@ -290,11 +290,11 @@ msgstr "ArtistAssistApp यह पुष्टि नहीं कर सका 
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistApp को आपके Patreon लॉगिन का परिणाम प्राप्त नहीं हुआ। ऐसा तब हो सकता है जब किसी अन्य ब्राउज़र या ऐप में लॉगिन खुलता है। कृपया पुन: लॉग इन करने का प्रयास करें।"
 
-#: src/components/Help.tsx:237
+#: src/components/Help.tsx:265
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp <0>Eugene Khyst</0> द्वारा विकसित किया गया है"
 
-#: src/components/Help.tsx:213
+#: src/components/Help.tsx:241
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "ArtistAssistApp कभी भी आपका ईमेल पता संग्रहीत नहीं करता है, केवल इससे प्राप्त एक निजी कोड जो पता प्रकट नहीं कर सकता है। Patreon या सदस्यता नवीनीकरण के साथ लॉग इन करने से वह कोड फिर से बन जाता है।"
 
@@ -302,7 +302,7 @@ msgstr "ArtistAssistApp कभी भी आपका ईमेल पता स
 msgid "ArtistAssistApp will permanently delete your saved work and settings from this device and log you out.<0/>Data already synced to cloud storage will not be deleted."
 msgstr "ArtistAssistApp इस डिवाइस से आपके सहेजे गए कार्य और सेटिंग्स को स्थायी रूप से हटा देगा और आपको लॉग आउट कर देगा।<0/>क्लाउड स्टोरेज पर पहले से सिंक किया गया डेटा हटाया नहीं जाएगा।"
 
-#: src/components/storage/ClearCacheButton.tsx:42
+#: src/components/storage/ClearCacheButton.tsx:44
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "ArtistAssistApp अस्थायी ऐप फ़ाइलों को हटाने के बाद पुनः लोड हो जाएगा।<0/>आपका सहेजा गया कार्य और क्लाउड डेटा हटाया नहीं जाएगा।"
 
@@ -417,14 +417,14 @@ msgstr "एआर ट्रेसिंग के लिए कैमरा ए�
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:314
+#: src/components/ImageEditor.tsx:328
 #: src/components/loading/LoadingIndicator.tsx:52
-#: src/components/storage/ClearCacheButton.tsx:50
+#: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
 msgstr "रद्द करें"
 
-#: src/components/Help.tsx:106
+#: src/components/Help.tsx:118
 msgid "Cancel a paid membership"
 msgstr "सशुल्क सदस्यता रद्द करें"
 
@@ -436,7 +436,7 @@ msgstr "कॉपी की गई छवि का उपयोग नहीं
 msgid "Cells"
 msgstr "कक्ष"
 
-#: src/components/Help.tsx:152
+#: src/components/Help.tsx:164
 msgid "Check for updates"
 msgstr "अपडेट के लिए जाँच करें"
 
@@ -475,9 +475,9 @@ msgstr "साफ़ करें"
 msgid "Clear background color"
 msgstr "पृष्ठभूमि का रंग साफ़ करें"
 
-#: src/components/storage/ClearCacheButton.tsx:40
-#: src/components/storage/ClearCacheButton.tsx:49
-#: src/components/storage/ClearCacheButton.tsx:53
+#: src/components/storage/ClearCacheButton.tsx:42
+#: src/components/storage/ClearCacheButton.tsx:51
+#: src/components/storage/ClearCacheButton.tsx:55
 msgid "Clear cache"
 msgstr "कैश साफ़ करें"
 
@@ -602,7 +602,7 @@ msgstr "रंग मिक्सर"
 msgid "Color mixing chart"
 msgstr "रंग मिश्रण चार्ट"
 
-#: src/components/color/ColorMixtureDescription.tsx:107
+#: src/components/color/ColorMixtureDescription.tsx:108
 msgid "Color mixture"
 msgstr "रंग मिश्रण"
 
@@ -677,7 +677,7 @@ msgstr "अंडरलेयर पर मिश्रित रंगों �
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "सतह या अंडरलेयर पर पारदर्शी परतों पर विचार करें जब वे अपारदर्शी मिश्रण की तुलना में लक्ष्य से बेहतर मेल खाती हों"
 
-#: src/components/Help.tsx:96
+#: src/components/Help.tsx:108
 msgid "Contact"
 msgstr "संपर्क"
 
@@ -759,9 +759,13 @@ msgstr "कस्टम रंग सेट"
 msgid "Custom colors"
 msgstr "कस्टम रंग"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:140
+#: src/components/ml-model/OnnxModelSelect.tsx:136
 msgid "Deblur"
 msgstr "धुंधलापन हटाएं"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:140
+msgid "Deblur JPEG"
+msgstr "JPEG का धुंधलापन हटाएं"
 
 #: src/components/auth/DeleteAccountButton.tsx:67
 #: src/components/color/AddToPaletteButton.tsx:48
@@ -943,7 +947,7 @@ msgstr "यहां से संपादित करें"
 msgid "Edit image"
 msgstr "छवि संपादित करें"
 
-#: src/components/ImageEditor.tsx:324
+#: src/components/ImageEditor.tsx:338
 msgid "Edited"
 msgstr "संपादित"
 
@@ -1171,7 +1175,7 @@ msgstr "ऐप इंस्टॉल करें"
 msgid "Install ArtistAssistApp"
 msgstr "ArtistAssistApp इंस्टॉल करें"
 
-#: src/components/Help.tsx:147
+#: src/components/Help.tsx:159
 msgid "Install update"
 msgstr "अपडेट इंस्टॉल करें"
 
@@ -1345,7 +1349,7 @@ msgstr "मध्यम टोन"
 msgid "Midtones"
 msgstr "मिडटोन"
 
-#: src/components/color/ColorMixtureDescription.tsx:69
+#: src/components/color/ColorMixtureDescription.tsx:70
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "रंगों को <0>{partsRatioText} अनुपात</0> में मिलाएं"
 
@@ -1370,11 +1374,11 @@ msgstr "इस रंग को हर मिश्रण में मिला
 msgid "Mix your colors in any proportions so you don't waste real paints"
 msgstr "अपने रंगों को किसी भी अनुपात में मिलाएं ताकि आप असली पेंट बर्बाद न करें"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:93
+#: src/components/color/ReflectanceChartDrawer.tsx:99
 msgid "Mixture"
 msgstr "मिश्रण"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:107
+#: src/components/color/ReflectanceChartDrawer.tsx:113
 #: src/components/image-editor/ColorizeControls.tsx:80
 #: src/components/image-editor/RemoveBackgroundControls.tsx:69
 #: src/components/image-editor/RestoreControls.tsx:64
@@ -1552,7 +1556,7 @@ msgstr "रूपरेखा"
 msgid "Output levels"
 msgstr "आउटपुट स्तर"
 
-#: src/components/color/ColorMixtureDescription.tsx:132
+#: src/components/color/ColorMixtureDescription.tsx:133
 msgid "over"
 msgstr "ऊपर"
 
@@ -1589,7 +1593,7 @@ msgstr "पर्सेंटाइल"
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "पर्सेंटाइल: सबसे चमकीले क्षेत्रों से स्वतः सफ़ेद संतुलन, अधिकांश फ़ोटो के लिए अच्छा। संदर्भ: चयनित सफ़ेद क्षेत्र का उपयोग करके मैनुअल सफ़ेद संतुलन।"
 
-#: src/components/Help.tsx:159
+#: src/components/Help.tsx:187
 msgid "Persistent storage"
 msgstr "स्थायी संग्रहण"
 
@@ -1698,9 +1702,13 @@ msgstr "एक बड़ी छवि को कई पृष्ठों पर
 msgid "Print preview"
 msgstr "प्रिंट पूर्वावलोकन"
 
-#: src/components/Help.tsx:118
+#: src/components/Help.tsx:130
 msgid "Privacy policy"
 msgstr "गोपनीयता नीति"
+
+#: src/components/error/UnhandledRejectionHandler.tsx:42
+msgid "Processing with WebGPU failed. Try turning off WebGPU, then try again."
+msgstr "WebGPU से प्रोसेसिंग विफल हुई। WebGPU बंद करके फिर से कोशिश करें।"
 
 #: src/components/loading/LoadingIndicator.tsx:48
 msgid "Processing..."
@@ -1710,7 +1718,7 @@ msgstr "प्रोसेस हो रहा है..."
 msgid "Processing... {percent}%"
 msgstr "प्रोसेस हो रहा है... {percent}%"
 
-#: src/components/Help.tsx:182
+#: src/components/Help.tsx:210
 msgid "Quota"
 msgstr "कोटा"
 
@@ -1730,11 +1738,7 @@ msgstr "अनुपात"
 msgid "Realism"
 msgstr "यथार्थवाद"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:143
-msgid "Recovers detail lost to camera shake or motion blur"
-msgstr "कैमरा हिलने या गति के कारण आए धुंधलेपन से खोए बारीक विवरण वापस लाता है"
-
-#: src/components/ImageEditor.tsx:309
+#: src/components/ImageEditor.tsx:323
 msgid "Redo"
 msgstr "फिर से करें"
 
@@ -1782,9 +1786,17 @@ msgstr "पृष्ठभूमि हटाएं"
 msgid "Remove objects"
 msgstr "वस्तुओं को हटाएँ"
 
-#: src/components/ml-model/OnnxModelSelect.tsx:135
-msgid "Removes noise and grain from a scanned or high-ISO photo"
-msgstr "स्कैन की गई या उच्च ISO पर ली गई फ़ोटो से नॉइज़ और दानेदारपन हटाता है"
+#: src/components/ml-model/OnnxModelSelect.tsx:141
+msgid "Removes blur and JPEG artifacts"
+msgstr "धुंधलापन और JPEG कंप्रेशन से आई विकृतियां हटाता है"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:137
+msgid "Removes motion blur"
+msgstr "गति के कारण आया धुंधलापन हटाता है"
+
+#: src/components/ml-model/OnnxModelSelect.tsx:133
+msgid "Removes noise and grain"
+msgstr "नॉइज़ और दानेदारपन हटाता है"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:119
 msgid "Removing objects is available only to paid Patreon members"
@@ -1808,8 +1820,8 @@ msgstr "macOS सोनोमा या बाद के संस्करण �
 msgid "Resend code"
 msgstr "कोड फिर से भेजें"
 
-#: src/components/ImageEditor.tsx:313
-#: src/components/ImageEditor.tsx:318
+#: src/components/ImageEditor.tsx:327
+#: src/components/ImageEditor.tsx:332
 msgid "Reset"
 msgstr "रीसेट"
 
@@ -1913,6 +1925,10 @@ msgstr "एक कला माध्यम चुनें"
 msgid "Select an image that contains a color chart"
 msgstr "उस छवि का चयन करें जिसमें रंग चार्ट हो"
 
+#: src/components/ImageEditor.tsx:288
+msgid "Select an image to edit"
+msgstr "संपादित करने के लिए छवि चुनें"
+
 #: src/components/color-set/ColorTypeSelect.tsx:37
 msgid "Select art medium"
 msgstr "कला माध्यम का चयन करें"
@@ -1971,7 +1987,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "अपने हाल के रंग सेट में से चुनें या एक नया बनाएं।"
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:284
+#: src/components/ImageEditor.tsx:292
 msgid "Select image"
 msgstr "छवि का चयन करें"
 
@@ -2136,11 +2152,11 @@ msgstr "इस रंग को संदर्भ फ़ोटो पर दि
 msgid "Sign in required"
 msgstr "साइन इन करना आवश्यक है"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:92
+#: src/components/color/ReflectanceChartDrawer.tsx:98
 msgid "Similarity"
 msgstr "समानता"
 
-#: src/components/color/ReflectanceChartDrawer.tsx:109
+#: src/components/color/ReflectanceChartDrawer.tsx:115
 msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
 msgstr "समानता मोड लक्ष्य और सुझाए गए रंगों की तुलना करता है। मिश्रण मोड में, मिश्रण बनाने वाले रंग के हिस्से प्रदर्शित होते हैं।"
 
@@ -2204,7 +2220,7 @@ msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "मिश्रण में रंगों की संख्या के आधार पर क्रमबद्ध करें, कम से कम से अधिक।"
 
 #: src/components/color/ColorMatchCard.tsx:123
-#: src/components/color/ReflectanceChartDrawer.tsx:98
+#: src/components/color/ReflectanceChartDrawer.tsx:104
 #: src/components/ColorMixer.tsx:250
 msgid "Spectral reflectance curve"
 msgstr "वर्णक्रमीय परावर्तन वक्र"
@@ -2233,7 +2249,7 @@ msgstr "स्थिर जीवन"
 msgid "Storage may fill up"
 msgstr "संग्रहण भर सकता है"
 
-#: src/components/Help.tsx:176
+#: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "संग्रहण उपयोग"
 
@@ -2297,7 +2313,7 @@ msgstr "लक्ष्य रंग"
 msgid "Target print size"
 msgstr "लक्ष्य प्रिंट आकार"
 
-#: src/components/Help.tsx:128
+#: src/components/Help.tsx:140
 msgid "Terms of use"
 msgstr "उपयोग की शर्तें"
 
@@ -2358,7 +2374,7 @@ msgstr "एक सामान्य पैलेट है और प्रत�
 msgid "Thick"
 msgstr "मोटा"
 
-#: src/components/Help.tsx:138
+#: src/components/Help.tsx:150
 msgid "Third-party notices"
 msgstr "तृतीय-पक्ष नोटिस"
 
@@ -2479,7 +2495,11 @@ msgstr "रंग जोड़ने या सतह या एकीकृत 
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "रंग जोड़ने या सतह, अंडरलेयर, या एकीकृत रंग बदलने का प्रयास करें"
 
-#: src/components/Help.tsx:86
+#: src/components/error/UnhandledRejectionHandler.tsx:59
+msgid "Turn off WebGPU"
+msgstr "WebGPU बंद करें"
+
+#: src/components/Help.tsx:98
 msgid "Tutorials and videos"
 msgstr "ट्यूटोरियल और वीडियो"
 
@@ -2537,11 +2557,11 @@ msgstr "सहेजे गए रंग सेट को पुनर्स्�
 msgid "Underlayer"
 msgstr "अंडरलेयर"
 
-#: src/components/ImageEditor.tsx:302
+#: src/components/ImageEditor.tsx:316
 msgid "Undo"
 msgstr "पूर्ववत करें"
 
-#: src/components/error/UnhandledRejectionHandler.tsx:32
+#: src/components/error/UnhandledRejectionHandler.tsx:38
 msgid "Unexpected error"
 msgstr "अप्रत्याशित त्रुटि"
 
@@ -2609,7 +2629,11 @@ msgstr "पूरे दबाव का उपयोग करें"
 msgid "Use reference photo"
 msgstr "संदर्भ फ़ोटो का उपयोग करें"
 
-#: src/components/Help.tsx:179
+#: src/components/Help.tsx:178
+msgid "Use WebGPU"
+msgstr "WebGPU का उपयोग करें"
+
+#: src/components/Help.tsx:207
 msgid "Used"
 msgstr "उपयोग"
 
@@ -2766,7 +2790,7 @@ msgid "Your image"
 msgstr "आपकी छवि"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:335
+#: src/components/ImageEditor.tsx:303
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:303
 msgid "Your images are processed locally on your device and are never uploaded to any server"
@@ -2776,7 +2800,7 @@ msgstr "आपकी छवियां आपके डिवाइस पर �
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "आपके लॉगिन क्रेडेंशियल सत्यापित नहीं किए जा सके। फिर से साइन इन करें।"
 
-#: src/components/Help.tsx:220
+#: src/components/Help.tsx:248
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "आपकी Patreon सदस्यता और इस डिवाइस का डेटा हटाया नहीं जाता। Patreon पर ही <0>अपनी Patreon सदस्यता रद्द करें</0>।"
 

@@ -19,10 +19,14 @@
 import {afterAll, beforeEach, describe, expect, it} from 'vitest';
 
 import type {AuthSession} from '@/services/auth/types';
-import {getAppSettings} from '@/services/db/app-settings-db';
+import {getAppSettings, updateStoredAppSettings} from '@/services/db/app-settings-db';
 import {getAuthSession, saveAuthSession, saveAuthSessionIfUnchanged} from '@/services/db/auth-db';
 import {dbPromise, deleteDatabase} from '@/services/db/db';
-import {getProcessedImage, saveProcessedImage} from '@/services/db/processed-image-db';
+import {
+  clearProcessedImages,
+  getProcessedImage,
+  saveProcessedImage,
+} from '@/services/db/processed-image-db';
 import type {StoreName} from '@/services/db/schema';
 import {discardStyleImage, readStyleImage, saveStyleImage} from '@/services/db/style-image-db';
 import {ImageUnreadableError} from '@/services/image/errors';
@@ -161,6 +165,27 @@ describe('processed image cache', () => {
       await getProcessedImage({...MODEL, resolution: 256}, ['first', 'second'])
     ).toBeUndefined();
     expect(await getProcessedImage(MODEL, ['second', 'first'])).toBeUndefined();
+  });
+
+  it('keys cached images by the WebGPU setting', async () => {
+    await saveProcessedImage(MODEL, ['input'], new Blob(['on webgpu']));
+    await updateStoredAppSettings(prev => ({...prev, webGpuEnabled: false}));
+
+    expect(await getProcessedImage(MODEL, ['input'])).toBeUndefined();
+
+    await saveProcessedImage(MODEL, ['input'], new Blob(['on wasm']));
+    await updateStoredAppSettings(prev => ({...prev, webGpuEnabled: true}));
+
+    expect(await (await getProcessedImage(MODEL, ['input']))?.text()).toBe('on webgpu');
+  });
+
+  it('clears every cached image', async () => {
+    await saveProcessedImage(MODEL, ['first'], new Blob(['first']));
+    await saveProcessedImage(MODEL, ['second'], new Blob(['second']));
+
+    await clearProcessedImages();
+
+    expect(await (await dbPromise).count('processed-images')).toBe(0);
   });
 
   it('evicts the oldest entries beyond the cache limit', async () => {

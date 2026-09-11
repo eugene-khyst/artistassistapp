@@ -20,7 +20,9 @@ import {Trans} from '@lingui/react/macro';
 import {App} from 'antd';
 import {type PropsWithChildren, useEffect, useEffectEvent} from 'react';
 
+import {LoadingButton} from '@/components/button/LoadingButton';
 import {ForceLogoutError} from '@/services/auth/errors';
+import {isWebGpuInferenceError} from '@/services/ml/errors';
 import {useAppStore} from '@/stores/app-store';
 import {getErrorMessage} from '@/utils/error';
 
@@ -28,12 +30,35 @@ export function UnhandledRejectionHandler({children}: Readonly<PropsWithChildren
   const {notification} = App.useApp();
 
   const showError = useEffectEvent((error: unknown) => {
+    const {appSettings, saveAppSettings} = useAppStore.getState();
+    const canDisableWebGpu = isWebGpuInferenceError(error) && appSettings.webGpuEnabled;
+    const key = crypto.randomUUID();
     notification.error({
+      key,
       title: <Trans>Unexpected error</Trans>,
-      description: getErrorMessage(error),
+      description: canDisableWebGpu ? (
+        <>
+          <p>
+            <Trans>Processing with WebGPU failed. Try turning off WebGPU, then try again.</Trans>
+          </p>
+          {getErrorMessage(error)}
+        </>
+      ) : (
+        getErrorMessage(error)
+      ),
       placement: 'top',
       duration: 10,
       showProgress: true,
+      actions: canDisableWebGpu ? (
+        <LoadingButton
+          run={async () => {
+            await saveAppSettings({webGpuEnabled: false});
+            notification.destroy(key);
+          }}
+        >
+          <Trans>Turn off WebGPU</Trans>
+        </LoadingButton>
+      ) : null,
     });
   });
 

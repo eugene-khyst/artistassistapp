@@ -17,9 +17,11 @@
  */
 
 import type {OnnxModel} from '@/services/ml/types';
+import {DEFAULT_APP_SETTINGS} from '@/services/settings/types';
 import {digestMessage} from '@/utils/digest';
 import {canonicalize} from '@/utils/json';
 
+import {getAppSettings} from './app-settings-db';
 import {dbPromise} from './db';
 
 const PROCESSED_IMAGE_CACHE_VERSION = 2;
@@ -35,7 +37,13 @@ export interface ProcessedImage {
 async function processedImageKey(model: OnnxModel, digests: string[]): Promise<string> {
   const {priority: _priority, freeTier: _freeTier, ...rest} = model;
   const modelDigest = await digestMessage(JSON.stringify(canonicalize(rest)));
-  return [PROCESSED_IMAGE_CACHE_VERSION, modelDigest, ...digests].join('|');
+  const {webGpuEnabled} = {...DEFAULT_APP_SETTINGS, ...(await getAppSettings())};
+  return [
+    PROCESSED_IMAGE_CACHE_VERSION,
+    modelDigest,
+    webGpuEnabled ? 'webgpu' : 'wasm',
+    ...digests,
+  ].join('|');
 }
 
 export async function getProcessedImage(
@@ -70,4 +78,9 @@ export async function saveProcessedImage(
     count--;
   }
   await tx.done;
+}
+
+export async function clearProcessedImages(): Promise<void> {
+  const db = await dbPromise;
+  await db.clear('processed-images');
 }
