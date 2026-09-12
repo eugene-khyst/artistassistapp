@@ -23,6 +23,7 @@ import {DEFAULT_TAB_KEY, TabKey} from '@/tabs';
 import {blurFocusedElementIn} from '@/utils/focus';
 
 import type {OutlineImageSlice} from './outline-image-slice';
+import type {PaintingImageSlice} from './painting-image-slice';
 import type {SimplifyImageSlice} from './simplify-image-slice';
 import type {StorageSlice} from './storage-slice';
 import type {StyleTransferSlice} from './style-transfer-slice';
@@ -35,6 +36,7 @@ const unsavedChangesCheckers = new Map<TabKey, Set<UnsavedChangesChecker>>();
 type TabSliceDependencies = Pick<AppSlice, 'saveAppSettings'> &
   Pick<TonalValuesSlice, 'loadTonalImages'> &
   Pick<SimplifyImageSlice, 'loadSimplifiedImages'> &
+  Pick<PaintingImageSlice, 'loadPaintingImage'> &
   Pick<OutlineImageSlice, 'loadOutlineImage'> &
   Pick<StyleTransferSlice, 'transferStyle'> &
   Pick<StorageSlice, 'loadStorageUsage'>;
@@ -90,6 +92,8 @@ export const createTabSlice: StateCreator<TabSlice & TabSliceDependencies, [], [
       get().loadTonalImages();
     } else if (activeTabKey === TabKey.Simplify) {
       void get().loadSimplifiedImages();
+    } else if (activeTabKey === TabKey.Painting) {
+      void get().loadPaintingImage();
     } else if (activeTabKey === TabKey.Outline) {
       void get().loadOutlineImage();
     } else if (activeTabKey === TabKey.StyleTransfer) {

@@ -425,3 +425,25 @@ export function ceilToMultiple(value: number, multiple?: number): number {
   }
   return value % multiple === 0 ? value : (Math.floor(value / multiple) + 1) * multiple;
 }
+
+export function padTile(tile: OffscreenCanvas, multiple: number | undefined): OffscreenCanvas {
+  const width = ceilToMultiple(tile.width, multiple);
+  const height = ceilToMultiple(tile.height, multiple);
+  if (width === tile.width && height === tile.height) {
+    return tile;
+  }
+  const canvas = new OffscreenCanvas(width, height);
+  const ctx = canvas.getContext('2d')!;
+  // With smoothing on, stretched edge pixels blend with the transparent pixels next to them.
+  ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(tile, 0, 0);
+  if (width > tile.width) {
+    const edge = tile.width - 1;
+    ctx.drawImage(tile, edge, 0, 1, tile.height, tile.width, 0, width - tile.width, tile.height);
+  }
+  if (height > tile.height) {
+    const edge = tile.height - 1;
+    ctx.drawImage(canvas, 0, edge, width, 1, 0, tile.height, width, height - tile.height);
+  }
+  return canvas;
+}

@@ -522,7 +522,9 @@ export function ColorSetChooser() {
                     <Trans>✏️ High-quality outlines, background removal, and colorization</Trans>
                   </li>
                   <li>
-                    <Trans>🧑‍🎨 Artistic styles from your own images</Trans>
+                    <Trans>
+                      🧑‍🎨 Artistic styles from your own images and loose brushstroke paintings
+                    </Trans>
                   </li>
                   <li>
                     <Trans>

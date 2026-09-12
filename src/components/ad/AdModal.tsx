@@ -18,7 +18,7 @@
 
 import {CloseOutlined} from '@ant-design/icons';
 import {Plural, Trans} from '@lingui/react/macro';
-import {Button, Modal} from 'antd';
+import {Button, Modal, Typography} from 'antd';
 
 import {Ad} from '@/components/ad/Ad';
 import {useAds} from '@/hooks/useAds';
@@ -67,19 +67,21 @@ export function AdModal() {
         vertical
         ads={ads}
         footer={
-          closeCounter > 0 ? (
-            <Button loading>
+          <Button
+            icon={<CloseOutlined />}
+            disabled={closeCounter > 0}
+            onClick={() => {
+              setOpen(false);
+            }}
+          >
+            <Trans>Close</Trans>
+          </Button>
+        }
+        note={
+          closeCounter > 0 && (
+            <Typography.Text type="secondary">
               <Plural value={closeCounter} one="Close in # second" other="Close in # seconds" />
-            </Button>
-          ) : (
-            <Button
-              icon={<CloseOutlined />}
-              onClick={() => {
-                setOpen(false);
-              }}
-            >
-              <Trans>Close</Trans>
-            </Button>
+            </Typography.Text>
           )
         }
         contentClassName="u-pb-0"

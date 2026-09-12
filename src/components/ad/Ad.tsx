@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Button, Flex, Grid, Space, Typography} from 'antd';
+import {Button, Flex, Grid, Typography} from 'antd';
 import {clsx} from 'clsx';
 import {type ReactNode, useEffect, useState} from 'react';
 import reactStringReplace from 'react-string-replace';
@@ -52,10 +52,11 @@ interface Props {
   ads?: AdDefinition[];
   vertical?: boolean;
   footer?: ReactNode;
+  note?: ReactNode;
   contentClassName?: string;
 }
 
-export function Ad({ads, vertical = false, footer, contentClassName}: Readonly<Props>) {
+export function Ad({ads, vertical = false, footer, note, contentClassName}: Readonly<Props>) {
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
 
   const screens = Grid.useBreakpoint();
@@ -87,8 +88,8 @@ export function Ad({ads, vertical = false, footer, contentClassName}: Readonly<P
       )}
       <Flex vertical align="flex-start" className={clsx(styles['content'], contentClassName)}>
         <div className={styles['text']}>{formatRichText(ad.text)}</div>
-        <div className="u-w-100 u-text-right">
-          <Space>
+        <Flex vertical gap="small" className="u-w-100 u-text-right">
+          <Flex wrap gap="small" justify="flex-end">
             {footer}
             {ad.linkUrl && (
               <Button type="primary" href={ad.linkUrl} target="_blank" rel="noopener">
@@ -100,8 +101,9 @@ export function Ad({ads, vertical = false, footer, contentClassName}: Readonly<P
                 {ad.linkText}
               </Button>
             )}
-          </Space>
-        </div>
+          </Flex>
+          {note && <div>{note}</div>}
+        </Flex>
       </Flex>
     </Flex>
   );

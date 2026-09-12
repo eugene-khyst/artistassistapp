@@ -34,6 +34,7 @@ ArtistAssistApp offers the following features:
 - Simplify a photo into a painting reference with fewer small details, gently near the focal point you choose and more strongly away from it
 - Preview a photo with a limited palette to check color harmony, then use that palette as your main color set
 - Apply built-in artistic styles or a style from your own image to a photo
+- Turn a photo into a loose brushstroke painting
 - Compare photos side by side and rank them in pairs to pick the best reference
 - Straighten a photo of your painting and correct its perspective, with automatic detection of the painting's corners
 - Adjust white balance, levels, gamma, saturation, and color temperature to make a photo of a painting match the original
@@ -70,7 +71,7 @@ For mediums that support physical mixing, such as watercolor, oil paint, acrylic
 
 Image processing is a multi-pass WebGL pipeline: Lanczos and bilinear resampling, Gaussian blur, Kuwahara and radial-mask simplification, Sobel edge detection with dilation and a perceived-lightness threshold, tonal color maps, perceptual color matching, white balance, levels, saturation, temperature, and homography for perspective correction. Otsu thresholding, color quantization with blue-noise ordered dithering, distance-transform sampling-point detection for automatic palettes and Elo ranking from pairwise comparisons run on the CPU.
 
-Neural models for background removal, line drawing, corner detection, style transfer, inpainting, colorization, denoising, deblurring and super-resolution run locally with ONNX Runtime Web on WebAssembly, downloaded on demand and cached; images are never uploaded to a server. Each model is a separate work under its own license; see [THIRD-PARTY-NOTICES.txt](public/THIRD-PARTY-NOTICES.txt).
+Neural models for background removal, line drawing, corner detection, style transfer, inpainting, colorization, denoising, deblurring and super-resolution run locally with ONNX Runtime Web on WebGPU or WebAssembly, downloaded on demand and cached; images leave the device only for cloud storage the user connects. Each model is a separate work under its own license; see [THIRD-PARTY-NOTICES.txt](public/THIRD-PARTY-NOTICES.txt).
 
 ArtistAssistApp uses Web Workers for parallel processing and Service Workers for offline access.
 

@@ -214,7 +214,7 @@ export function ColorMixingChart() {
               }}
               trigger={['click']}
             >
-              <Button icon={<DownOutlined />} />
+              <Button icon={<DownOutlined />} aria-label={t`More actions`} />
             </Dropdown>
           </Space.Compact>
         </Form.Item>

@@ -52,6 +52,7 @@ import {
 } from './limited-palette-image-slice';
 import {createOriginalImageSlice, type OriginalImageSlice} from './original-image-slice';
 import {createOutlineImageSlice, type OutlineImageSlice} from './outline-image-slice';
+import {createPaintingImageSlice, type PaintingImageSlice} from './painting-image-slice';
 import {createPaletteSlice, type PaletteSlice} from './palette-slice';
 import {createRemoveBackgroundSlice, type RemoveBackgroundSlice} from './remove-background-slice';
 import {createRestoreSlice, type RestoreSlice} from './restore-slice';
@@ -79,6 +80,7 @@ export const useAppStore = create<
     PaletteSlice &
     TonalValuesSlice &
     SimplifyImageSlice &
+    PaintingImageSlice &
     OutlineImageSlice &
     LimitedPaletteImageSlice &
     StyleTransferSlice &
@@ -112,6 +114,7 @@ export const useAppStore = create<
     ...createPaletteSlice(...a),
     ...createTonalValuesSlice(...a),
     ...createSimplifyImageSlice(...a),
+    ...createPaintingImageSlice(...a),
     ...createOutlineImageSlice(...a),
     ...createLimitedPaletteImageSlice(...a),
     ...createStyleTransferSlice(...a),

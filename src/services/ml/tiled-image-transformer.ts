@@ -24,7 +24,7 @@ import {transformImageInSession} from '@/services/ml/image-transformer';
 import type {OnnxModel} from '@/services/ml/types';
 import {withInferenceSession} from '@/services/ml/worker/inference-worker-manager';
 import {type FetchProgressCallback, PROCESSING_PROGRESS_KEY} from '@/utils/fetch';
-import {ceilToMultiple, DrawImage, drawImageToOffscreenCanvas, IMAGE_SIZE} from '@/utils/graphics';
+import {DrawImage, drawImageToOffscreenCanvas, IMAGE_SIZE, padTile} from '@/utils/graphics';
 
 export interface TileSpan {
   start: number;
@@ -56,37 +56,6 @@ export function tileCoreSize(
   return Math.max(1, Math.min(maxCoreSize, Math.floor(Math.sqrt(maxPixelCount)) - 2 * halo));
 }
 
-function tileRectangle(column: TileSpan, row: TileSpan): Rectangle {
-  return Rectangle.fromTopLeft(
-    new Vector(column.paddedStart, row.paddedStart),
-    column.paddedEnd - column.paddedStart,
-    row.paddedEnd - row.paddedStart
-  );
-}
-
-// Keeps the model's own resize a no-op, so the core lands on whole output pixels.
-export function padTile(tile: OffscreenCanvas, multiple: number | undefined): OffscreenCanvas {
-  const width = ceilToMultiple(tile.width, multiple);
-  const height = ceilToMultiple(tile.height, multiple);
-  if (width === tile.width && height === tile.height) {
-    return tile;
-  }
-  const canvas = new OffscreenCanvas(width, height);
-  const ctx = canvas.getContext('2d')!;
-  // Smoothing a one pixel strip samples the untouched rows past it, which are transparent.
-  ctx.imageSmoothingEnabled = false;
-  ctx.drawImage(tile, 0, 0);
-  if (width > tile.width) {
-    const edge = tile.width - 1;
-    ctx.drawImage(tile, edge, 0, 1, tile.height, tile.width, 0, width - tile.width, tile.height);
-  }
-  if (height > tile.height) {
-    const edge = tile.height - 1;
-    ctx.drawImage(canvas, 0, edge, width, 1, 0, tile.height, width, height - tile.height);
-  }
-  return canvas;
-}
-
 function scaleTile(
   tile: OffscreenCanvas,
   modelScale: number,
@@ -106,17 +75,19 @@ function scaleTile(
 function featherTile(tile: OffscreenCanvas, left: number, top: number): void {
   const ctx = tile.getContext('2d')!;
   ctx.globalCompositeOperation = 'destination-in';
-  for (const [x, y] of [
-    [left, 0],
-    [0, top],
-  ]) {
-    if (x || y) {
-      const gradient = ctx.createLinearGradient(0, 0, x!, y!);
-      gradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
-      gradient.addColorStop(1, 'rgb(0, 0, 0)');
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, tile.width, tile.height);
-    }
+  if (left) {
+    const gradient = ctx.createLinearGradient(0, 0, left, 0);
+    gradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
+    gradient.addColorStop(1, 'rgb(0, 0, 0)');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, tile.width, tile.height);
+  }
+  if (top) {
+    const gradient = ctx.createLinearGradient(0, 0, 0, top);
+    gradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
+    gradient.addColorStop(1, 'rgb(0, 0, 0)');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, tile.width, tile.height);
   }
 }
 
@@ -158,8 +129,15 @@ export async function transformImageInTiles({
         for (const column of columns) {
           progressCallback(PROCESSING_PROGRESS_KEY, (100 * tile++) / total);
           const [tileImage] = drawImageToOffscreenCanvas(image, {
-            drawImage: DrawImage.cropRectangle(tileRectangle(column, row)),
+            drawImage: DrawImage.cropRectangle(
+              Rectangle.fromTopLeft(
+                new Vector(column.paddedStart, row.paddedStart),
+                column.paddedEnd - column.paddedStart,
+                row.paddedEnd - row.paddedStart
+              )
+            ),
           });
+          // Pad the tile so the model never resizes it and the output stays on whole pixels.
           const transformedTile = await transformImageInSession({
             images: [padTile(tileImage, model.inputSizeMultiple)],
             model,
@@ -174,32 +152,24 @@ export async function transformImageInTiles({
               2 * outputScale * (column.start - column.paddedStart),
               2 * outputScale * (row.start - row.paddedStart)
             );
-            ctx.drawImage(
-              scaledTile,
-              0,
-              0,
-              outputScale * (column.paddedEnd - column.paddedStart),
-              outputScale * (row.paddedEnd - row.paddedStart),
-              outputScale * column.paddedStart,
-              outputScale * row.paddedStart,
-              outputScale * (column.paddedEnd - column.paddedStart),
-              outputScale * (row.paddedEnd - row.paddedStart)
-            );
-          } else {
-            const tileWidth = outputScale * (column.end - column.start);
-            const tileHeight = outputScale * (row.end - row.start);
-            ctx.drawImage(
-              scaledTile,
-              outputScale * (column.start - column.paddedStart),
-              outputScale * (row.start - row.paddedStart),
-              tileWidth,
-              tileHeight,
-              outputScale * column.start,
-              outputScale * row.start,
-              tileWidth,
-              tileHeight
-            );
           }
+          const [left, right] = feather
+            ? [column.paddedStart, column.paddedEnd]
+            : [column.start, column.end];
+          const [top, bottom] = feather ? [row.paddedStart, row.paddedEnd] : [row.start, row.end];
+          const tileWidth = outputScale * (right - left);
+          const tileHeight = outputScale * (bottom - top);
+          ctx.drawImage(
+            scaledTile,
+            outputScale * (left - column.paddedStart),
+            outputScale * (top - row.paddedStart),
+            tileWidth,
+            tileHeight,
+            outputScale * left,
+            outputScale * top,
+            tileWidth,
+            tileHeight
+          );
         }
       }
     },

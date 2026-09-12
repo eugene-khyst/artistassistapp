@@ -301,8 +301,8 @@ export function ImageEditor() {
             </Space>
             <Typography.Text type="secondary">
               <Trans>
-                Your images are processed locally on your device and are never uploaded to any
-                server
+                Your images are processed on your device and leave it only for cloud storage you
+                connect
               </Trans>
             </Typography.Text>
             {editedImage && (

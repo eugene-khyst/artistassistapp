@@ -7,9 +7,10 @@
 
 .content {
   padding: var(--ant-padding);
+  /* A wide button must not become the width the text reflows to. */
+  min-width: 0;
 }
 
 .text {
   margin-bottom: var(--ant-margin);
-  text-align: justify;
 }

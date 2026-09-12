@@ -1,13 +1,13 @@
 .canvasContainer {
   position: relative;
+  flex: 1;
+  min-height: 0;
 }
 
 .previewCanvas {
   display: block;
   width: 100%;
-  height: calc(
-    100dvh - var(--app-tab-bar-offset) - var(--ant-control-height) - var(--ant-margin-xs)
-  );
+  height: 100%;
 }
 
 .focalPointHint {

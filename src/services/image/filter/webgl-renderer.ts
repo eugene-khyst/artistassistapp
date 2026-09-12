@@ -56,6 +56,8 @@ interface RenderTarget {
 interface Options {
   floatRenderTargets?: boolean;
   premultiplyAlpha?: boolean;
+  /** Mip levels for the input image array, for shaders that sample it smaller than it is. */
+  mipmaps?: boolean;
   size?: ImageDimension;
 }
 
@@ -85,7 +87,7 @@ export class WebGLRenderer {
     fragmentShaderSources: string[],
     uniformNames: string[][],
     images: OffscreenCanvas | OffscreenCanvas[],
-    {floatRenderTargets = false, premultiplyAlpha = false, size}: Options = {}
+    {floatRenderTargets = false, premultiplyAlpha = false, mipmaps = false, size}: Options = {}
   ) {
     const imagesArr = [images].flat();
     const {width = 0, height = 0} = size ?? getBoundingSize(imagesArr) ?? {};
@@ -150,7 +152,7 @@ export class WebGLRenderer {
     );
 
     this.imageTexture = isTextureArray
-      ? this.createArrayTexture(imagesArr)
+      ? this.createArrayTexture(imagesArr, mipmaps)
       : this.createTexture(imagesArr[0]);
   }
 
@@ -245,17 +247,22 @@ export class WebGLRenderer {
     }
   }
 
-  private createArrayTexture(sources: OffscreenCanvas[]): WebGLTexture {
+  private createArrayTexture(sources: OffscreenCanvas[], mipmaps: boolean): WebGLTexture {
     const {gl} = this;
     const {width, height} = getBoundingSize(sources)!;
+    const levels = mipmaps ? 1 + Math.floor(Math.log2(Math.max(width, height))) : 1;
     const texture = gl.createTexture();
     this.textures.push(texture);
     gl.bindTexture(gl.TEXTURE_2D_ARRAY, texture);
     gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-    gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(
+      gl.TEXTURE_2D_ARRAY,
+      gl.TEXTURE_MIN_FILTER,
+      mipmaps ? gl.LINEAR_MIPMAP_LINEAR : gl.LINEAR
+    );
     gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    gl.texStorage3D(gl.TEXTURE_2D_ARRAY, 1, gl.RGBA8, width, height, sources.length);
+    gl.texStorage3D(gl.TEXTURE_2D_ARRAY, levels, gl.RGBA8, width, height, sources.length);
     sources.forEach((source, layer) => {
       gl.texSubImage3D(
         gl.TEXTURE_2D_ARRAY,
@@ -271,6 +278,17 @@ export class WebGLRenderer {
         source
       );
     });
+    if (mipmaps) {
+      const anisotropic = gl.getExtension('EXT_texture_filter_anisotropic');
+      if (anisotropic) {
+        gl.texParameterf(
+          gl.TEXTURE_2D_ARRAY,
+          anisotropic.TEXTURE_MAX_ANISOTROPY_EXT,
+          gl.getParameter(anisotropic.MAX_TEXTURE_MAX_ANISOTROPY_EXT) as number
+        );
+      }
+      gl.generateMipmap(gl.TEXTURE_2D_ARRAY);
+    }
     return texture;
   }
 

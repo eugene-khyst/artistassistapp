@@ -127,7 +127,7 @@ export function UnderlayerColorPicker({
           }}
         />
         <Dropdown trigger={['click']} popupRender={popupRender}>
-          <Button icon={<DownOutlined />} />
+          <Button icon={<DownOutlined />} aria-label={t`Surface color`} />
         </Dropdown>
       </Space.Compact>
     </Form.Item>

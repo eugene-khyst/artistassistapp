@@ -47,7 +47,7 @@ import {useSelectedCatalogItem} from '@/hooks/useSelectedCatalogItem';
 import {useStyleImages} from '@/hooks/useStyleImages';
 import {Access} from '@/services/auth/types';
 import {hasAccessTo} from '@/services/auth/utils';
-import {fileToImageFile} from '@/services/image/image-file';
+import {blobToImageFile, fileToImageFile} from '@/services/image/image-file';
 import {CUSTOM_STYLE_IMAGE_ID, type StyleImageDefinition} from '@/services/image/style-images';
 import {OnnxModelType} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
@@ -55,6 +55,8 @@ import {getFilename} from '@/utils/filename';
 import {splitUrl} from '@/utils/url';
 
 import styles from './ImageStyleTransfer.module.css';
+
+const FILENAME_SUFFIX = 'styled';
 
 const TAGS: Record<string, ReactNode> = {
   portrait: <Trans>Portrait</Trans>,
@@ -87,7 +89,7 @@ const showSearch = {filterOption: filterSelectOptions};
 
 export function ImageStyleTransfer() {
   const user = useAppStore(state => state.auth?.user);
-  const originalImageFile = useAppStore(state => state.selectedImageFile);
+  const selectedImageFile = useAppStore(state => state.selectedImageFile);
   const customStyleTransferImageDigest = useAppStore(
     state => state.appSettings.styleTransferImageDigest
   );
@@ -101,6 +103,7 @@ export function ImageStyleTransfer() {
   const saveCustomStyleImage = useAppStore(state => state.saveCustomStyleImage);
   const loadCustomStyleImage = useAppStore(state => state.loadCustomStyleImage);
   const abortStyleTransfer = useAppStore(state => state.abortStyleTransfer);
+  const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
 
   const {t} = useLingui();
 
@@ -165,7 +168,7 @@ export function ImageStyleTransfer() {
   const isLoading: boolean = isModelLoading || isStyleImagesLoading || isStyleTransferLoading;
   const isCancelable: boolean = isStyleTransferLoading;
 
-  const originalImageUrl: string | undefined = useCreateObjectUrl(originalImageFile?.blob);
+  const originalImageUrl: string | undefined = useCreateObjectUrl(selectedImageFile?.blob);
   const customStyleImageUrl: string | undefined = useCreateObjectUrl(customStyleImage?.blob);
   const styleTransferResultUrl: string | undefined = useCreateObjectUrl(styleTransferResultBlob);
 
@@ -190,8 +193,20 @@ export function ImageStyleTransfer() {
 
   const handleSaveClick = () => {
     if (styleTransferResultUrl) {
-      saveAs(styleTransferResultUrl, getFilename(originalImageFile, 'styled'));
+      saveAs(styleTransferResultUrl, getFilename(selectedImageFile, FILENAME_SUFFIX));
     }
+  };
+
+  const handleSetAsReferenceClick = async () => {
+    if (!styleTransferResultBlob) {
+      return;
+    }
+    void saveRecentImageFile(
+      await blobToImageFile(
+        styleTransferResultBlob,
+        getFilename(selectedImageFile, FILENAME_SUFFIX)
+      )
+    );
   };
 
   const handleCancelClick = () => {
@@ -301,8 +316,8 @@ export function ImageStyleTransfer() {
                     {isCustomStyleTransferImage && (
                       <Typography.Text type="secondary">
                         <Trans>
-                          Your images are processed locally on your device and are never uploaded to
-                          any server
+                          Your images are processed on your device and leave it only for cloud
+                          storage you connect
                         </Trans>
                       </Typography.Text>
                     )}
@@ -345,7 +360,7 @@ export function ImageStyleTransfer() {
     ]
   );
 
-  if (!originalImageFile) {
+  if (!selectedImageFile) {
     return <EmptyImage />;
   }
 
@@ -370,7 +385,11 @@ export function ImageStyleTransfer() {
             </Typography.Text>
 
             <Flex gap="small" className="u-w-100">
-              <ImageSaveButton onSave={handleSaveClick} disabled={!styleTransferResultUrl} />
+              <ImageSaveButton
+                onSave={handleSaveClick}
+                onSetAsReference={handleSetAsReferenceClick}
+                disabled={!styleTransferResultUrl}
+              />
 
               <Select
                 mode="multiple"

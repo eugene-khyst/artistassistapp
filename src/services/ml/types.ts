@@ -27,6 +27,7 @@ export enum OnnxModelType {
   Upscaling = 'upscaling',
   Colorization = 'colorization',
   Restoration = 'restoration',
+  Painting = 'painting',
 }
 
 export const SOBEL_EDGE_DETECTION_MODEL_ID = 'sobel-edge-detection';

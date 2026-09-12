@@ -30,6 +30,7 @@ import {
   Button,
   Divider,
   Dropdown,
+  Flex,
   Form,
   Grid,
   Popover,
@@ -79,7 +80,6 @@ export function ImageOutline() {
   const outlineDownloadTip = useAppStore(state => state.outlineDownloadTip);
   const outlineImage = useAppStore(state => state.outlineImage);
   const originalImage = useAppStore(state => state.originalImage);
-
   const activeTabKey = useAppStore(state => state.activeTabKey);
 
   const setOutlineModel = useAppStore(state => state.setOutlineModel);
@@ -247,10 +247,137 @@ export function ImageOutline() {
       tip={modelId ? outlineDownloadTip : null}
       onCancel={isCancelable && handleCancelClick}
     >
-      <Form.Item
-        className="u-tab-toolbar"
-        extra={
-          access === Access.Denied ? (
+      <div className="u-tab-view">
+        <Flex vertical className="u-tab-toolbar">
+          <Space wrap className="u-flex">
+            <Form.Item
+              label={screens.sm ? <Trans>Mode</Trans> : null}
+              labelCol={{className: 'u-pb-0'}}
+              className="u-mb-0"
+              validateStatus={access === Access.Denied ? 'warning' : undefined}
+            >
+              <OnnxModelSelect
+                aria-label={t`Mode`}
+                models={models}
+                value={modelId}
+                onChange={selectModel}
+                className="u-narrow-select"
+              />
+            </Form.Item>
+            <ImageViewSelector
+              isShowingOriginal={isShowingOriginal}
+              resultLabel={<Trans>Outline</Trans>}
+              onChange={setIsShowingOriginal}
+              disabled={!outlineImage}
+            />
+            {screens.sm && (
+              <>
+                <Tooltip
+                  title={<Trans>Enter lightbox mode to trace the outline through your paper</Trans>}
+                >
+                  <Button
+                    icon={<BulbOutlined />}
+                    onClick={() => {
+                      void handleLightboxClick();
+                    }}
+                  >
+                    <Trans>Lightbox</Trans>
+                  </Button>
+                </Tooltip>
+                <Tooltip
+                  title={<Trans>View the outline over the live camera to trace in AR</Trans>}
+                >
+                  <Button
+                    type={isArMode ? 'primary' : 'default'}
+                    icon={<VideoCameraOutlined />}
+                    onClick={() => {
+                      void handleArToggle();
+                    }}
+                  >
+                    {isArMode ? <Trans>Exit AR</Trans> : <Trans>AR</Trans>}
+                  </Button>
+                </Tooltip>
+                {screens.md && (
+                  <>
+                    <Popover
+                      trigger="click"
+                      forceRender
+                      content={
+                        <GridControls
+                          orientation="vertical"
+                          size="small"
+                          gridDrawingMode={gridDrawingMode}
+                          defaultGridSettings={defaultGridSettings}
+                          disableable
+                        />
+                      }
+                    >
+                      <Button icon={<TableOutlined />}>
+                        <Trans>Grid</Trans>
+                      </Button>
+                    </Popover>
+                    <Button
+                      icon={<PrinterOutlined />}
+                      onClick={handlePrintClick}
+                      disabled={isShowingOriginal}
+                    >
+                      <Trans>Print</Trans>
+                    </Button>
+                    <ImageSaveButton onSave={handleSaveClick} disabled={isShowingOriginal} />
+                  </>
+                )}
+              </>
+            )}
+            {!screens.md && (
+              <Dropdown
+                trigger={['click']}
+                menu={{
+                  items: [
+                    ...(!screens.sm
+                      ? [
+                          {
+                            key: 'lightbox',
+                            label: <Trans>Light box</Trans>,
+                            title: t`Enter lightbox mode to trace the outline through your paper.`,
+                            icon: <BulbOutlined />,
+                            onClick: () => {
+                              void handleLightboxClick();
+                            },
+                          },
+                          {
+                            key: 'ar',
+                            label: isArMode ? t`Exit AR` : t`AR`,
+                            title: t`View the outline over the live camera to trace in AR.`,
+                            icon: <VideoCameraOutlined />,
+                            onClick: () => {
+                              void handleArToggle();
+                            },
+                          },
+                        ]
+                      : []),
+                    {
+                      key: 'print',
+                      label: <Trans>Print</Trans>,
+                      icon: <PrinterOutlined />,
+                      onClick: handlePrintClick,
+                      disabled: isShowingOriginal,
+                    },
+                    {
+                      key: 'save',
+                      label: <Trans>Save</Trans>,
+                      icon: <DownloadOutlined />,
+                      onClick: handleSaveClick,
+                      disabled: isShowingOriginal,
+                    },
+                  ],
+                }}
+                popupRender={popupRender}
+              >
+                <Button icon={<MoreOutlined />} aria-label={t`More actions`} />
+              </Dropdown>
+            )}
+          </Space>
+          {access === Access.Denied ? (
             <Typography.Text type="warning">
               <Trans>Selected mode is available only to paid Patreon members</Trans>
             </Typography.Text>
@@ -261,160 +388,34 @@ export function ImageOutline() {
                 <Trans>Only a limited number of modes are available in the free version</Trans>
               </Typography.Text>
             )
-          )
-        }
-      >
-        <Space className={styles['actions']}>
-          <Form.Item
-            label={screens.sm ? <Trans>Mode</Trans> : null}
-            labelCol={{className: 'u-pb-0'}}
-            className="u-mb-0"
-            validateStatus={access === Access.Denied ? 'warning' : undefined}
-          >
-            <OnnxModelSelect
-              models={models}
-              value={modelId}
-              onChange={selectModel}
-              className="u-narrow-select"
-            />
-          </Form.Item>
-          <ImageViewSelector
-            isShowingOriginal={isShowingOriginal}
-            resultLabel={<Trans>Outline</Trans>}
-            onChange={setIsShowingOriginal}
-            disabled={!outlineImage}
-          />
-          {screens.sm && (
-            <>
-              <Tooltip
-                title={<Trans>Enter lightbox mode to trace the outline through your paper</Trans>}
-              >
-                <Button
-                  icon={<BulbOutlined />}
-                  onClick={() => {
-                    void handleLightboxClick();
-                  }}
-                >
-                  <Trans>Lightbox</Trans>
-                </Button>
-              </Tooltip>
-              <Tooltip title={<Trans>View the outline over the live camera to trace in AR</Trans>}>
-                <Button
-                  type={isArMode ? 'primary' : 'default'}
-                  icon={<VideoCameraOutlined />}
-                  onClick={() => {
-                    void handleArToggle();
-                  }}
-                >
-                  {isArMode ? <Trans>Exit AR</Trans> : <Trans>AR</Trans>}
-                </Button>
-              </Tooltip>
-              {screens.md && (
-                <>
-                  <Popover
-                    trigger="click"
-                    forceRender
-                    content={
-                      <GridControls
-                        orientation="vertical"
-                        size="small"
-                        gridDrawingMode={gridDrawingMode}
-                        defaultGridSettings={defaultGridSettings}
-                        disableable
-                      />
-                    }
-                  >
-                    <Button icon={<TableOutlined />}>
-                      <Trans>Grid</Trans>
-                    </Button>
-                  </Popover>
-                  <Button
-                    icon={<PrinterOutlined />}
-                    onClick={handlePrintClick}
-                    disabled={isShowingOriginal}
-                  >
-                    <Trans>Print</Trans>
-                  </Button>
-                  <ImageSaveButton onSave={handleSaveClick} disabled={isShowingOriginal} />
-                </>
-              )}
-            </>
           )}
-          {!screens.md && (
-            <Dropdown
-              trigger={['click']}
-              menu={{
-                items: [
-                  ...(!screens.sm
-                    ? [
-                        {
-                          key: 'lightbox',
-                          label: <Trans>Light box</Trans>,
-                          title: t`Enter lightbox mode to trace the outline through your paper.`,
-                          icon: <BulbOutlined />,
-                          onClick: () => {
-                            void handleLightboxClick();
-                          },
-                        },
-                        {
-                          key: 'ar',
-                          label: isArMode ? t`Exit AR` : t`AR`,
-                          title: t`View the outline over the live camera to trace in AR.`,
-                          icon: <VideoCameraOutlined />,
-                          onClick: () => {
-                            void handleArToggle();
-                          },
-                        },
-                      ]
-                    : []),
-                  {
-                    key: 'print',
-                    label: <Trans>Print</Trans>,
-                    icon: <PrinterOutlined />,
-                    onClick: handlePrintClick,
-                    disabled: isShowingOriginal,
-                  },
-                  {
-                    key: 'save',
-                    label: <Trans>Save</Trans>,
-                    icon: <DownloadOutlined />,
-                    onClick: handleSaveClick,
-                    disabled: isShowingOriginal,
-                  },
-                ],
+        </Flex>
+        <div
+          ref={lightboxContainerRef}
+          className={clsx(styles['lightboxContainer'], isLightbox && styles['lightboxBackground'])}
+        >
+          {isArMode && (
+            <video ref={videoRef} autoPlay muted playsInline className={styles['arVideo']} />
+          )}
+          <canvas
+            ref={canvasRef}
+            className={clsx(
+              styles['previewCanvas'],
+              isLightbox ? styles['canvasLightbox'] : styles['canvasNormal'],
+              isArMode &&
+                (isShowingOriginal || !outlineImage
+                  ? styles['canvasArOriginal']
+                  : styles['canvasArOutline'])
+            )}
+          />
+          {isLightbox && (
+            <LightboxOverlay
+              onUnlock={() => {
+                void closeLightbox();
               }}
-              popupRender={popupRender}
-            >
-              <Button icon={<MoreOutlined />} />
-            </Dropdown>
+            />
           )}
-        </Space>
-      </Form.Item>
-      <div
-        ref={lightboxContainerRef}
-        className={clsx(styles['lightboxContainer'], isLightbox && styles['lightboxBackground'])}
-      >
-        {isArMode && (
-          <video ref={videoRef} autoPlay muted playsInline className={styles['arVideo']} />
-        )}
-        <canvas
-          ref={canvasRef}
-          className={clsx(
-            styles['previewCanvas'],
-            isLightbox ? styles['canvasLightbox'] : styles['canvasNormal'],
-            isArMode &&
-              (isShowingOriginal || !outlineImage
-                ? styles['canvasArOriginal']
-                : styles['canvasArOutline'])
-          )}
-        />
-        {isLightbox && (
-          <LightboxOverlay
-            onUnlock={() => {
-              void closeLightbox();
-            }}
-          />
-        )}
+        </div>
       </div>
       <PrintImageDrawer
         image={outlineImage}

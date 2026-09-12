@@ -27,6 +27,7 @@ import {ColorMixingChart} from '@/components/ColorMixingChart';
 import {CustomColorBrandCreator} from '@/components/CustomColorBrandCreator';
 import {ImageEditor} from '@/components/ImageEditor';
 import {ImageOutline} from '@/components/ImageOutline';
+import {ImagePainting} from '@/components/ImagePainting';
 import {ImagesCompare} from '@/components/ImagesCompare';
 import {ImageStyleTransfer} from '@/components/ImageStyleTransfer';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
@@ -139,6 +140,10 @@ export function ArtistAssistApp() {
     {
       key: TabKey.Simplify,
       children: <ImageSimplifier />,
+    },
+    {
+      key: TabKey.Painting,
+      children: <ImagePainting />,
     },
     {
       key: TabKey.LimitedPalette,

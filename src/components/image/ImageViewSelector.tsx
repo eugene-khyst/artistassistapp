@@ -37,7 +37,7 @@ export function ImageViewSelector({
   resultLabel,
   onChange,
   disabled,
-}: ImageViewSelectorProps) {
+}: Readonly<ImageViewSelectorProps>) {
   return (
     <Segmented<ImageView>
       className="u-w-fit"

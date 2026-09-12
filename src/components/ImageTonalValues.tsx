@@ -16,35 +16,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {
-  Button,
-  type CheckboxOptionType,
-  Col,
-  Dropdown,
-  Flex,
-  Grid,
-  Radio,
-  type RadioChangeEvent,
-  Row,
-  Space,
-} from 'antd';
-import {saveAs} from 'file-saver';
+import {type CheckboxOptionType, Flex, Grid, Radio, type RadioChangeEvent, Space} from 'antd';
+import {clsx} from 'clsx';
 import {useEffect, useState} from 'react';
 
 import {ColorSquare} from '@/components/color/ColorSquare';
 import {GradientRect} from '@/components/color/GradientRect';
-import {ImageSaveButton} from '@/components/image/ImageSaveButton';
+import {ImageActions} from '@/components/image/ImageActions';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {useImageActions} from '@/hooks/useImageActions';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
 import {NOOP_CANVAS_MODE_SUPPLIER} from '@/services/canvas/mode/canvas-mode';
 import {COLOR_MAP_STOP_HEXES} from '@/services/image/filter/color-map-webgl';
 import {TONAL_VALUE_HEXES} from '@/services/image/tonal-values';
 import {printImages} from '@/services/print/print';
 import {useAppStore} from '@/stores/app-store';
-import {getFilename} from '@/utils/filename';
-import {imageToBlob} from '@/utils/graphics';
 
 import {EmptyImage} from './empty/EmptyImage';
 import styles from './ImageTonalValues.module.css';
@@ -82,16 +69,13 @@ export function ImageTonalValues() {
     setTonalImageIndex(e.target.value as number);
   };
 
+  const {save} = useImageActions({
+    image: tonalImages[tonalImageIndex],
+    filenameSuffix: 'tonal-values',
+  });
+
   const handlePrintClick = () => {
     void printImages(tonalImages);
-  };
-
-  const handleSaveClick = async () => {
-    const image: ImageBitmap | undefined = tonalImages[tonalImageIndex];
-    if (!image) {
-      return;
-    }
-    saveAs(await imageToBlob(image), getFilename(selectedImageFile, 'tonal-values'));
   };
 
   if (!originalImage) {
@@ -143,56 +127,24 @@ export function ImageTonalValues() {
 
   return (
     <LoadingIndicator loading={isLoading}>
-      <Space align="center" className="u-tab-toolbar">
-        <Radio.Group
-          options={toneOptions}
-          value={tonalImageIndex}
-          onChange={handleTonalValueChange}
-          optionType="button"
-          buttonStyle="solid"
-          className={screens.sm ? undefined : styles['toneRadioGroupCompact']}
-        />
-        {screens.sm ? (
-          <>
-            <Button icon={<PrinterOutlined />} onClick={handlePrintClick}>
-              <Trans>Print</Trans>
-            </Button>
-            <ImageSaveButton onSave={handleSaveClick} />
-          </>
-        ) : (
-          <Dropdown
-            trigger={['click']}
-            menu={{
-              items: [
-                {
-                  key: 'print',
-                  label: <Trans>Print</Trans>,
-                  icon: <PrinterOutlined />,
-                  onClick: handlePrintClick,
-                },
-                {
-                  key: 'save',
-                  label: <Trans>Save</Trans>,
-                  icon: <DownloadOutlined />,
-                  onClick: () => {
-                    void handleSaveClick();
-                  },
-                },
-              ],
-            }}
-          >
-            <Button icon={<MoreOutlined />} />
-          </Dropdown>
-        )}
-      </Space>
-      <Row>
-        <Col xs={24} sm={12}>
+      <div className="u-tab-view">
+        <Space align="center" className="u-tab-toolbar">
+          <Radio.Group
+            aria-label={t`Tonal values`}
+            options={toneOptions}
+            value={tonalImageIndex}
+            onChange={handleTonalValueChange}
+            optionType="button"
+            buttonStyle="solid"
+            className={screens.sm ? undefined : clsx('u-flex', styles['toneRadioGroupCompact'])}
+          />
+          <ImageActions collapseBelow="sm" onPrint={handlePrintClick} onSave={save} />
+        </Space>
+        <div className={styles['previews']}>
           <canvas ref={tonalValuesCanvasRef} className={styles['previewCanvas']} />
-        </Col>
-        <Col xs={24} sm={12}>
           <canvas ref={originalCanvasRef} className={styles['previewCanvas']} />
-        </Col>
-      </Row>
+        </div>
+      </div>
     </LoadingIndicator>
   );
 }

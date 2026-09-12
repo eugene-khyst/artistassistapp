@@ -19,12 +19,12 @@
 import {InfoCircleOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Grid, Popover, Space, Typography} from 'antd';
-import {saveAs} from 'file-saver';
 import {useEffect, useMemo, useRef, useState} from 'react';
 
-import {ImageSaveButton} from '@/components/image/ImageSaveButton';
+import {ImageActions} from '@/components/image/ImageActions';
 import {ImageViewSelector} from '@/components/image/ImageViewSelector';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {useImageActions} from '@/hooks/useImageActions';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
 import {
   type ClickOrTapEvent,
@@ -32,10 +32,7 @@ import {
   ZoomableImageEventType,
 } from '@/services/canvas/image/zoomable-image-canvas';
 import {NOOP_CANVAS_MODE_SUPPLIER} from '@/services/canvas/mode/canvas-mode';
-import {blobToImageFile} from '@/services/image/image-file';
 import {useAppStore} from '@/stores/app-store';
-import {getFilename} from '@/utils/filename';
-import {imageToBlob} from '@/utils/graphics';
 
 import {EmptyImage} from './empty/EmptyImage';
 import styles from './ImageSimplifier.module.css';
@@ -51,9 +48,9 @@ export function ImageSimplifier() {
   const isSimplifiedImagesLoading = useAppStore(state => state.isSimplifiedImagesLoading);
 
   const setSimplifyFocalPoint = useAppStore(state => state.setSimplifyFocalPoint);
-  const saveRecentImageFile = useAppStore(state => state.saveRecentImageFile);
 
   const screens = Grid.useBreakpoint();
+
   const {t} = useLingui();
 
   const [isShowingOriginal, setIsShowingOriginal] = useState<boolean>(false);
@@ -100,25 +97,11 @@ export function ImageSimplifier() {
     isShowingOriginalRef.current = isShowingOriginal;
   }, [isShowingOriginal]);
 
-  const handleSaveClick = async () => {
-    if (!simplifiedMaskedImage) {
-      return;
-    }
-    saveAs(
-      await imageToBlob(simplifiedMaskedImage),
-      getFilename(selectedImageFile, FILENAME_SUFFIX)
-    );
-  };
-
-  const handleSetAsReferenceClick = async () => {
-    if (!simplifiedMaskedImage) {
-      return;
-    }
-    const blob: Blob = await imageToBlob(simplifiedMaskedImage);
-    void saveRecentImageFile(
-      await blobToImageFile(blob, getFilename(selectedImageFile, FILENAME_SUFFIX))
-    );
-  };
+  const {print, save, setAsReference} = useImageActions({
+    canvas: zoomableImageCanvas,
+    image: simplifiedMaskedImage,
+    filenameSuffix: FILENAME_SUFFIX,
+  });
 
   if (!originalImage) {
     return <EmptyImage />;
@@ -128,42 +111,46 @@ export function ImageSimplifier() {
 
   return (
     <LoadingIndicator loading={isSimplifiedImagesLoading}>
-      <Space className="u-tab-toolbar">
-        <ImageViewSelector
-          isShowingOriginal={isShowingOriginal}
-          resultLabel={<Trans>Simplified</Trans>}
-          onChange={setIsShowingOriginal}
-          disabled={!simplifiedMaskedImage}
-        />
+      <div className="u-tab-view">
+        <Space className="u-tab-toolbar">
+          <ImageViewSelector
+            isShowingOriginal={isShowingOriginal}
+            resultLabel={<Trans>Simplified</Trans>}
+            onChange={setIsShowingOriginal}
+            disabled={!simplifiedMaskedImage}
+          />
 
-        <ImageSaveButton
-          onSave={handleSaveClick}
-          onSetAsReference={handleSetAsReferenceClick}
-          disabled={isShowingOriginal}
-        />
+          <ImageActions
+            collapseBelow="md"
+            disabled={!simplifiedMaskedImage || isShowingOriginal}
+            onPrint={print}
+            onSave={save}
+            onSetAsReference={setAsReference}
+          />
 
-        {!isShowingOriginal &&
-          (screens.md ? (
-            <Typography.Text>
-              <Trans>Click 🖱️ or tap 👆 anywhere in the photo to choose a focal point.</Trans>
+          {!isShowingOriginal &&
+            (screens.md ? (
+              <Typography.Text>
+                <Trans>Click 🖱️ or tap 👆 anywhere in the photo to choose a focal point.</Trans>
+              </Typography.Text>
+            ) : (
+              <Popover content={mobileFocalPointInstruction} trigger="click">
+                <Button
+                  type="text"
+                  icon={<InfoCircleOutlined />}
+                  aria-label={t`Focal point instructions`}
+                />
+              </Popover>
+            ))}
+        </Space>
+        <div className={styles['canvasContainer']}>
+          {!screens.md && !isShowingOriginal && !simplifyFocalPoint && (
+            <Typography.Text className={styles['focalPointHint']}>
+              {mobileFocalPointInstruction}
             </Typography.Text>
-          ) : (
-            <Popover content={mobileFocalPointInstruction} trigger="click">
-              <Button
-                type="text"
-                icon={<InfoCircleOutlined />}
-                aria-label={t`Focal point instructions`}
-              />
-            </Popover>
-          ))}
-      </Space>
-      <div className={styles['canvasContainer']}>
-        {!screens.md && !isShowingOriginal && !simplifyFocalPoint && (
-          <Typography.Text className={styles['focalPointHint']}>
-            {mobileFocalPointInstruction}
-          </Typography.Text>
-        )}
-        <canvas ref={canvasRef} className={styles['previewCanvas']} />
+          )}
+          <canvas ref={canvasRef} className={styles['previewCanvas']} />
+        </div>
       </div>
     </LoadingIndicator>
   );

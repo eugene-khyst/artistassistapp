@@ -96,6 +96,33 @@ Source checkpoint: checkpoints/BIPED/7/7_model.pth
 ArtistAssistApp exported the checkpoint with dynamic input sizes.
 
 
+Painting
+--------
+
+MambaPainter - model mamba-painter
+Copyright (c) 2024 Tomoya Sawada
+MIT License
+https://github.com/STomoya/MambaPainter
+Source checkpoint: last-model.pt
+https://huggingface.co/STomoya/MambaPainter
+ArtistAssistApp exported the stroke predictor with a fixed 128 x 128 RGB input
+and 100 ordered strokes per patch. The export replaces custom GPU kernels with
+portable operations, rewrites some operations to run faster, and preserves the
+checkpoint weights.
+
+VMamba, the image encoder architecture used by that model
+Copyright (c) 2024 MzeroMiko
+MIT License
+https://github.com/MzeroMiko/VMamba
+
+The portable Mamba2 implementation adapts code from state-spaces/mamba v2.2.2.
+Copyright (c) 2024 Tri Dao and Albert Gu
+Apache License 2.0
+https://github.com/state-spaces/mamba/tree/v2.2.2
+
+The application's WebGL brush renderer adapts MambaPainter's MIT renderer.
+
+
 Perspective correction
 ----------------------
 
@@ -179,8 +206,9 @@ MIT License
 
 Applies to BiRefNet (Copyright (c) 2024 ZhengPeng), DexiNed (Copyright (c) 2019
 Xavier Soria Poma), Informative Drawings (Copyright (c) 2022 Caroline Chan),
-NAFNet (Copyright (c) 2022 megvii-model) and TEED (Copyright (c) 2022 Xavier
-Soria Poma).
+MambaPainter (Copyright (c) 2024 Tomoya Sawada), NAFNet (Copyright (c) 2022
+megvii-model), TEED (Copyright (c) 2022 Xavier Soria Poma) and VMamba
+(Copyright (c) 2024 MzeroMiko).
 
 Copyright (c) 2022 Caroline Chan
 
@@ -292,7 +320,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 Apache License 2.0
 ------------------
 
-Applies to U-2-Net, LaMa, DDColor, DocAligner, CAST and BasicSR.
+Applies to U-2-Net, LaMa, DDColor, DocAligner, CAST, BasicSR and Mamba2.
 
 
                                  Apache License

@@ -1,12 +1,16 @@
-.previewCanvas {
-  width: 100%;
-  height: calc(
-    (100dvh - var(--app-tab-bar-offset) - var(--ant-control-height) - var(--ant-margin-xs)) / 2
-  );
+.previews {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
 }
 
-.toneRadioGroupCompact {
-  display: flex !important;
+.previewCanvas {
+  display: block;
+  width: 100%;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
 }
 
 .toneRadioGroupCompact :global(.ant-radio-button-wrapper) {
@@ -15,9 +19,7 @@
 }
 
 @media (min-width: 576px) {
-  .previewCanvas {
-    height: calc(
-      100dvh - var(--app-tab-bar-offset) - var(--ant-control-height) - var(--ant-margin-xs)
-    );
+  .previews {
+    flex-direction: row;
   }
 }

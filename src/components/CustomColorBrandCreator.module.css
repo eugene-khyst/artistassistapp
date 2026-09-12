@@ -24,10 +24,6 @@
   padding: 0 var(--ant-padding) var(--ant-padding);
 }
 
-.controlStack {
-  display: flex !important;
-}
-
 @media (max-width: 575px) {
   .previewCanvas {
     height: calc((100dvh - var(--app-tab-bar-offset)) / 2 - var(--ant-margin-xs));

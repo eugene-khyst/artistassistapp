@@ -17,7 +17,7 @@
  */
 
 import {DownloadOutlined, DownOutlined, PictureOutlined} from '@ant-design/icons';
-import {Trans} from '@lingui/react/macro';
+import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Dropdown, Space} from 'antd';
 
 interface Props {
@@ -27,6 +27,8 @@ interface Props {
 }
 
 export function ImageSaveButton({disabled, onSave, onSetAsReference}: Readonly<Props>) {
+  const {t} = useLingui();
+
   const saveButton = (
     <Button
       icon={<DownloadOutlined />}
@@ -61,7 +63,7 @@ export function ImageSaveButton({disabled, onSave, onSetAsReference}: Readonly<P
         }}
         trigger={['click']}
       >
-        <Button icon={<DownOutlined />} disabled={disabled} />
+        <Button icon={<DownOutlined />} aria-label={t`More actions`} disabled={disabled} />
       </Dropdown>
     </Space.Compact>
   );

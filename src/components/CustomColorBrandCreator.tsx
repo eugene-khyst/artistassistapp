@@ -436,7 +436,7 @@ export function CustomColorBrandCreator() {
           >
             <Row gutter={[32, 32]} className={styles['formGrid']}>
               <Col xs={24} lg={12}>
-                <Space orientation="vertical" className={styles['controlStack']}>
+                <Space orientation="vertical" className="u-flex">
                   <Typography.Text strong>
                     <Trans>Select an image that contains a color chart</Trans>
                   </Typography.Text>

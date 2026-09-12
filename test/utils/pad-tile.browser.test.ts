@@ -18,7 +18,7 @@
 
 import {describe, expect, it} from 'vitest';
 
-import {padTile} from '@/services/ml/tiled-image-transformer';
+import {padTile} from '@/utils/graphics';
 
 function opaqueCanvas(width: number, height: number, color: string): OffscreenCanvas {
   const canvas = new OffscreenCanvas(width, height);

@@ -28,6 +28,7 @@ export enum TabKey {
   Grid = 'grid',
   TonalValues = 'tonal-values',
   Simplify = 'simplify',
+  Painting = 'painting',
   LimitedPalette = 'limited-palette',
   StyleTransfer = 'style-transfer',
   EditImage = 'edit-image',

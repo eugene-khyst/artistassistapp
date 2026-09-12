@@ -22,6 +22,7 @@ import {createStore} from 'zustand/vanilla';
 import {type AppSettings, DEFAULT_APP_SETTINGS} from '@/services/settings/types';
 import type {AppSlice} from '@/stores/app-slice';
 import type {OutlineImageSlice} from '@/stores/outline-image-slice';
+import type {PaintingImageSlice} from '@/stores/painting-image-slice';
 import type {SimplifyImageSlice} from '@/stores/simplify-image-slice';
 import type {StorageSlice} from '@/stores/storage-slice';
 import type {StyleTransferSlice} from '@/stores/style-transfer-slice';
@@ -33,6 +34,7 @@ type TestStore = TabSlice &
   Pick<AppSlice, 'saveAppSettings'> &
   Pick<TonalValuesSlice, 'loadTonalImages'> &
   Pick<SimplifyImageSlice, 'loadSimplifiedImages'> &
+  Pick<PaintingImageSlice, 'loadPaintingImage'> &
   Pick<OutlineImageSlice, 'loadOutlineImage'> &
   Pick<StyleTransferSlice, 'transferStyle'> &
   Pick<StorageSlice, 'loadStorageUsage'>;
@@ -46,6 +48,7 @@ function createTestStore() {
     saveAppSettings,
     loadTonalImages: vi.fn(),
     loadSimplifiedImages: vi.fn(async (): Promise<void> => undefined),
+    loadPaintingImage: vi.fn(async (): Promise<void> => undefined),
     loadOutlineImage: vi.fn(async (): Promise<void> => undefined),
     transferStyle: vi.fn(async (): Promise<void> => undefined),
     loadStorageUsage: vi.fn(async (): Promise<void> => undefined),
@@ -73,6 +76,13 @@ afterEach(() => {
 });
 
 describe('tab slice', () => {
+  it('loads the painting when entering its tab', async () => {
+    const {saveAppSettings, store} = createTestStore();
+    await store.getState().setActiveTabKey(TabKey.Painting);
+    expect(saveAppSettings).toHaveBeenCalledWith({activeTabKey: TabKey.Painting});
+    expect(store.getState().loadPaintingImage).toHaveBeenCalledExactlyOnceWith();
+  });
+
   it('does nothing when the requested tab is already active', async () => {
     const {saveAppSettings, store} = createTestStore();
     const checker = vi.fn(async (): Promise<boolean> => false);

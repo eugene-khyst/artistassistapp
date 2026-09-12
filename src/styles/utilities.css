@@ -121,6 +121,12 @@
   width: 120px !important;
 }
 
+.u-tab-view {
+  display: flex;
+  flex-direction: column;
+  height: calc(100dvh - var(--app-tab-bar-offset));
+}
+
 .u-tab-content {
   padding: 0 var(--ant-padding) var(--ant-padding);
 }

@@ -2,16 +2,16 @@
   padding: var(--ant-padding-xs) var(--ant-padding);
 }
 
-.actions {
-  display: flex !important;
-}
-
 .lightboxContainer {
   position: relative;
+  flex: 1;
+  min-height: 0;
 }
 
 .lightboxBackground {
   background-color: var(--ant-color-bg-container);
+  /* Without the Fullscreen API the canvas is still 100dvh, so the view must not shorten it. */
+  flex: none;
 }
 
 .arVideo {
@@ -31,9 +31,7 @@
 }
 
 .canvasNormal {
-  height: calc(
-    100dvh - var(--app-tab-bar-offset) - var(--ant-control-height) - var(--ant-margin-xs)
-  );
+  height: 100%;
 }
 
 .canvasLightbox {

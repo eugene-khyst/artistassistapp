@@ -16,6 +16,7 @@ npm run test:browser # WebGL tests (Playwright Chromium + SwiftShader)
 npm run lingui:extract
 npm run translate
 npm run generate:blue-noise
+npm run generate:brushes
 ```
 
 Fix lint and formatting with `npm run lint:fix` and `npm run format:write` rather than by hand.
@@ -69,9 +70,9 @@ Slices compose into one Zustand store. Rules that are not visible from a slice o
   changes the latest color set without bumping the reload revision.
 - Bump a `*ReloadRevision` counter only inside the slice's IDB reload action, so external
   replacements re-prefill the form while in-form saves never clobber edits in progress.
-- `initApp` must always reset `isAppInitializing`. Bootstrap side effects go through `tryStep` and
-  queue failures with `addInitError` rather than blocking render; `UnhandledRejectionHandler` drains
-  that queue once on mount, so it is pre-mount-only.
+- `initApp` must always reset `isAppInitializing`. Bootstrap side effects go through
+  `runInitStepSafely` and queue failures with `addInitError` rather than blocking render;
+  `UnhandledRejectionHandler` drains that queue once on mount, so it is pre-mount-only.
 
 ### Image editing
 
@@ -82,8 +83,9 @@ Slices compose into one Zustand store. Rules that are not visible from a slice o
 - Keep `edit-image-command.ts` free of the WebGL applier in `edit-image.ts`, or every editor slice
   pulls it into its module graph.
 - Consecutive edits from one editor must not compose (saturation 120 then 130 would replay as 1.56).
-  That is what `replaceable` is for: the superseded command stays in the history for undo but is
-  never applied. Crop and Straighten are not replaceable, because two crops do compose.
+  Add such an edit with `preview`, which marks it replaceable: the superseded command stays in the
+  history for undo but is never applied. Use `execute` wherever two edits do compose, as they do for
+  Crop, Straighten and Expand.
 - Preserve the identity of `imageBeforeLastEdit` across successive edits from one editor — it keeps
   the percentile worker cache warm and is what the Adjust Colors white-point picker samples.
 - Adjust Colors previews on slider release (`onChangeComplete`), never while dragging, so nothing
@@ -143,6 +145,12 @@ Pure business logic, no React.
   binds as `sampler2D u_texture`; several same-sized images upload as one `TEXTURE_2D_ARRAY` and
   bind as `sampler2DArray u_textures`, because GLSL ES 3.00 forbids dynamic indexing of sampler
   arrays but allows any layer coord.
+- Keep the painting brushes premultiplied: alpha carries the outline and the gray stays zero outside
+  it. A brush without an alpha channel paints opaque black rectangles, and any color left under zero
+  alpha bleeds back as a dark fringe through the mip chain.
+- Keep the `uv` bounds test in `brush-stroke.glsl`. Mip levels average away the brush's transparent
+  margin, and GLES 3.0 has no `CLAMP_TO_BORDER`, so without it one small stroke washes its whole
+  patch.
 
 ### `ml/`
 
@@ -237,7 +245,7 @@ Keep Valibot confined to external JSON validation. Custom-brand JSON and cloud s
 
 - Fetchers consumed by hooks return plain arrays, never Maps, so RQ's `structuralSharing` (which
   only walks plain objects and arrays) preserves data refs across refetches. Rebuild Maps in
-  `select` with `indexById` / `indexBy`.
+  `select` with `indexById`.
 - `select` identity must be stable: pass the helper directly under `useQuery`; for `useQueries`,
   define a module-scope adapter (e.g. `indexColors` in `useColors.ts`), since TS cannot propagate
   the queryFn type to the per-query `select` generic. `combine` must be `useCallback`'d.
@@ -331,6 +339,9 @@ Keep Valibot confined to external JSON validation. Custom-brand JSON and cloud s
   always wins.
 - Pass dynamic values as CSS custom properties on `style`, typed via `CssVariables`, instead of
   computing pixel values in JS when the CSS can consume a variable.
+- Fill the rest of a tab with `flex: 1; min-height: 0` inside a `u-tab-view` column. Never subtract
+  a toolbar height from `100dvh`: a wrapped toolbar or a warning line then pushes the page past the
+  viewport.
 - CSS Modules use bracket access (`styles['fooBar']`); `styles.fooBar` errors with TS4111.
 
 ## Code Conventions

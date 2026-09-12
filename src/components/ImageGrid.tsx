@@ -16,18 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DownloadOutlined, MoreOutlined, PrinterOutlined} from '@ant-design/icons';
-import {Trans} from '@lingui/react/macro';
-import {Button, Dropdown, Grid, Space} from 'antd';
+import {Space} from 'antd';
 
 import {GridControls} from '@/components/grid/GridControls';
-import {ImageSaveButton} from '@/components/image/ImageSaveButton';
+import {ImageActions} from '@/components/image/ImageActions';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {useImageActions} from '@/hooks/useImageActions';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
 import {GridCanvasMode} from '@/services/canvas/mode/grid-canvas-mode';
-import {printImages} from '@/services/print/print';
 import {useAppStore} from '@/stores/app-store';
-import {getFilename} from '@/utils/filename';
 
 import {EmptyImage} from './empty/EmptyImage';
 import styles from './ImageGrid.module.css';
@@ -42,21 +39,13 @@ export function ImageGrid() {
 
   const isOriginalImageLoading = useAppStore(state => state.isOriginalImageLoading);
 
-  const screens = Grid.useBreakpoint();
-
   const {
     ref: canvasRef,
     zoomableImageCanvas,
     canvasMode: gridDrawingMode,
   } = useZoomableImageCanvas(gridDrawingModeSupplier, originalImage, selectedImageFile?.digest);
 
-  const handlePrintClick = () => {
-    void printImages(zoomableImageCanvas?.convertToOffscreenCanvas());
-  };
-
-  const handleSaveClick = () => {
-    void zoomableImageCanvas?.saveAsImage(getFilename(selectedImageFile, 'grid'));
-  };
+  const {print, save} = useImageActions({canvas: zoomableImageCanvas, filenameSuffix: 'grid'});
 
   if (!originalImage) {
     return <EmptyImage />;
@@ -64,40 +53,11 @@ export function ImageGrid() {
 
   return (
     <LoadingIndicator loading={isOriginalImageLoading}>
-      <Space className="u-tab-toolbar">
-        <GridControls gridDrawingMode={gridDrawingMode} />
-        {screens.sm ? (
-          <>
-            <Button icon={<PrinterOutlined />} onClick={handlePrintClick}>
-              <Trans>Print</Trans>
-            </Button>
-            <ImageSaveButton onSave={handleSaveClick} />
-          </>
-        ) : (
-          <Dropdown
-            trigger={['click']}
-            menu={{
-              items: [
-                {
-                  key: 'print',
-                  label: <Trans>Print</Trans>,
-                  icon: <PrinterOutlined />,
-                  onClick: handlePrintClick,
-                },
-                {
-                  key: 'save',
-                  label: <Trans>Save</Trans>,
-                  icon: <DownloadOutlined />,
-                  onClick: handleSaveClick,
-                },
-              ],
-            }}
-          >
-            <Button icon={<MoreOutlined />} />
-          </Dropdown>
-        )}
-      </Space>
-      <div>
+      <div className="u-tab-view">
+        <Space className="u-tab-toolbar">
+          <GridControls gridDrawingMode={gridDrawingMode} />
+          <ImageActions collapseBelow="sm" onPrint={print} onSave={save} />
+        </Space>
         <canvas ref={canvasRef} className={styles['previewCanvas']} />
       </div>
     </LoadingIndicator>
