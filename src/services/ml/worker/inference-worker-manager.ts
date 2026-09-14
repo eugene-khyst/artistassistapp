@@ -39,15 +39,24 @@ export type InferenceRun = (
 
 let abortController: AbortController | null = null;
 
+interface InferenceOptions {
+  modelUrl: string;
+  auth: Authentication | null;
+  progressCallback?: FetchProgressCallback;
+  signal?: AbortSignal;
+  allowWebGpu?: boolean;
+}
+
 // The shared worker holds one session, so a new call cancels the inference in flight.
 // A nested call cancels the outer session, so the callback must use its run.
-export async function withInferenceSession<T>(
-  modelUrl: string,
-  auth: Authentication | null,
-  callback: (run: InferenceRun) => Promise<T>,
-  progressCallback?: FetchProgressCallback,
-  signal?: AbortSignal
-): Promise<T> {
+export async function withInferenceSession<T>({
+  modelUrl,
+  auth,
+  callback,
+  progressCallback,
+  signal,
+  allowWebGpu = true,
+}: InferenceOptions & {callback: (run: InferenceRun) => Promise<T>}): Promise<T> {
   if (abortController) {
     abortController.abort();
     inferenceWorker.terminate();
@@ -63,7 +72,10 @@ export async function withInferenceSession<T>(
     const {webGpuEnabled} = {...DEFAULT_APP_SETTINGS, ...(await getAppSettings())};
     await inferenceWorker.run(
       worker =>
-        worker.createInferenceSession(transfer(modelBuffer, [modelBuffer.buffer]), webGpuEnabled),
+        worker.createInferenceSession(
+          transfer(modelBuffer, [modelBuffer.buffer]),
+          webGpuEnabled && allowWebGpu
+        ),
       sessionSignal
     );
     result = await callback(async (inputTensors, outputName) => {
@@ -97,19 +109,16 @@ async function releaseSession(controller: AbortController): Promise<void> {
   }
 }
 
-export async function runInferenceWorker(
-  modelUrl: string,
-  auth: Authentication | null,
-  inputTensors: Float32Tensor[][],
-  outputName?: string,
-  progressCallback?: FetchProgressCallback,
-  signal?: AbortSignal
-): Promise<Float32Tensor[]> {
-  return await withInferenceSession(
-    modelUrl,
-    auth,
-    run => run(inputTensors, outputName),
-    progressCallback,
-    signal
-  );
+export async function runInferenceWorker({
+  inputTensors,
+  outputName,
+  ...options
+}: InferenceOptions & {
+  inputTensors: Float32Tensor[][];
+  outputName?: string;
+}): Promise<Float32Tensor[]> {
+  return await withInferenceSession({
+    ...options,
+    callback: run => run(inputTensors, outputName),
+  });
 }

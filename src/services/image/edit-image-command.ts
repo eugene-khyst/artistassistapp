@@ -17,7 +17,8 @@
  */
 
 import type {AdjustColorsControls} from '@/services/image/adjust-colors-controls';
-import type {ExpandImageControls} from '@/services/image/expand-image-controls';
+import type {ExpandControls} from '@/services/image/expand-controls';
+import type {SharpenControls} from '@/services/image/sharpen-controls';
 import {Vector} from '@/services/math/geometry';
 
 interface EditImagePoint {
@@ -33,7 +34,7 @@ interface EditImageRectangle extends EditImagePoint {
 export enum EditImageCommandType {
   RotateClockwise = 'rotate-clockwise',
   Rotate = 'rotate',
-  Straighten = 'straighten',
+  CorrectPerspective = 'correct-perspective',
   Crop = 'crop',
   Expand = 'expand',
   AdjustColors = 'adjust-colors',
@@ -41,17 +42,18 @@ export enum EditImageCommandType {
   RemoveObjects = 'remove-objects',
   Upscale = 'upscale',
   Restore = 'restore',
+  Sharpen = 'sharpen',
   Colorize = 'colorize',
 }
 
 export type EditImageCommand =
   | {type: EditImageCommandType.RotateClockwise}
   | {type: EditImageCommandType.Rotate; angle: number}
-  | {type: EditImageCommandType.Straighten; vertices: EditImagePoint[]}
+  | {type: EditImageCommandType.CorrectPerspective; vertices: EditImagePoint[]}
   | {type: EditImageCommandType.Crop; rectangle: EditImageRectangle}
   | {
       type: EditImageCommandType.Expand;
-      controls: ExpandImageControls;
+      controls: ExpandControls;
       marginPatches?: Blob[];
     }
   | {
@@ -77,6 +79,10 @@ export type EditImageCommand =
   | {
       type: EditImageCommandType.Restore;
       result: Blob;
+    }
+  | {
+      type: EditImageCommandType.Sharpen;
+      controls: SharpenControls;
     }
   | {
       type: EditImageCommandType.Colorize;

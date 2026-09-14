@@ -18,6 +18,7 @@
 
 import type {Fraction} from '@eugene-khyst/artistassistapp-color-mixer';
 
+export const FREE_CROP_ASPECT_RATIO = 'free';
 export const ORIGINAL_CROP_ASPECT_RATIO = 'original';
 
 export type CropAspectRatio = Fraction | typeof ORIGINAL_CROP_ASPECT_RATIO | null;

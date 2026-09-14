@@ -31,7 +31,7 @@ import {Access} from '@/services/auth/types';
 import {OnnxModelType, UPSCALING_MODEL_ID} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
 
-export function ColorizeControls() {
+export function ColorizeEditorControls() {
   const user = useAppStore(state => state.auth?.user);
   const setColorizeModel = useAppStore(state => state.setColorizeModel);
   const setColorizeUpscaleModel = useAppStore(state => state.setColorizeUpscaleModel);
@@ -75,7 +75,7 @@ export function ColorizeControls() {
   }, [upscaleModel, setColorizeUpscaleModel]);
 
   return (
-    <Space orientation="vertical">
+    <Space orientation="vertical" className="u-w-100">
       <Form.Item
         label={<Trans>Mode</Trans>}
         labelCol={{className: 'u-pb-0'}}
@@ -101,7 +101,6 @@ export function ColorizeControls() {
           value={colorizeModelId}
           loading={isColorizeModelsLoading}
           onChange={selectColorizeModel}
-          className="u-narrow-select"
         />
       </Form.Item>
 

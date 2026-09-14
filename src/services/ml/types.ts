@@ -64,4 +64,5 @@ export interface OnnxModel extends CatalogItem {
   mean?: [number, number, number];
   outputName?: string;
   postProcessing?: PostProcessing[];
+  webGpu?: boolean;
 }

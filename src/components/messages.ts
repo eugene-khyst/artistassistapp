@@ -47,7 +47,7 @@ export const TAB_LABELS: Record<TabKey, MessageDescriptor> = {
 
 export const EDIT_IMAGE_LABELS: Record<ImageEditorKey, MessageDescriptor> = {
   [ImageEditorKey.Rotate]: defineMessage`Rotate`,
-  [ImageEditorKey.Straighten]: defineMessage`Correct perspective`,
+  [ImageEditorKey.CorrectPerspective]: defineMessage`Correct perspective`,
   [ImageEditorKey.Crop]: defineMessage`Crop`,
   [ImageEditorKey.Expand]: defineMessage`Expand`,
   [ImageEditorKey.AdjustColors]: defineMessage`Adjust colors`,
@@ -55,6 +55,7 @@ export const EDIT_IMAGE_LABELS: Record<ImageEditorKey, MessageDescriptor> = {
   [ImageEditorKey.RemoveObjects]: defineMessage`Remove objects`,
   [ImageEditorKey.Upscale]: defineMessage`Upscale`,
   [ImageEditorKey.Restore]: defineMessage`Restore`,
+  [ImageEditorKey.Sharpen]: defineMessage`Sharpen`,
   [ImageEditorKey.Colorize]: defineMessage`Colorize black-and-white`,
 };
 

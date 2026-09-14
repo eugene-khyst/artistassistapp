@@ -18,20 +18,21 @@
 
 import {adjustColors} from '@/services/image/adjust-colors';
 import {adjustmentParameters, whiteBalanceMaxValues} from '@/services/image/adjust-colors-controls';
+import {correctPerspective} from '@/services/image/correct-perspective';
 import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit-image-command';
+import {ExpandFillMode} from '@/services/image/expand-controls';
 import {drawExpandedImage, getImageExpansion} from '@/services/image/expand-image';
-import {ExpandImageFillMode} from '@/services/image/expand-image-controls';
 import {inpaintingPatchRectangle} from '@/services/image/inpainting-patch';
 import {removeBackground} from '@/services/image/remove-background';
-import {straightenImage} from '@/services/image/straighten';
+import {sharpen} from '@/services/image/sharpen';
 import {Rectangle, Vector} from '@/services/math/geometry';
 import {
   DrawImage,
   drawImageToOffscreenCanvas,
   fadeImage,
   fillOffscreenCanvasBackground,
-  rotateImageBitmap,
-  rotateImageBitmapClockwise,
+  rotateImage,
+  rotateImageClockwise,
 } from '@/utils/graphics';
 
 export async function applyEditImageCommand(
@@ -43,20 +44,20 @@ export async function applyEditImageCommand(
   let result: ImageBitmap;
   switch (command.type) {
     case EditImageCommandType.RotateClockwise:
-      result = rotateImageBitmapClockwise(image);
+      result = rotateImageClockwise(image).transferToImageBitmap();
       break;
     case EditImageCommandType.Rotate:
-      result = rotateImageBitmap(image, command.angle);
+      result = rotateImage(image, command.angle).transferToImageBitmap();
       break;
-    case EditImageCommandType.Straighten:
-      result = straightenImage(
+    case EditImageCommandType.CorrectPerspective:
+      result = correctPerspective(
         image,
         command.vertices.map(({x, y}) => new Vector(x, y))
       );
       break;
     case EditImageCommandType.Crop: {
       const {x, y, width, height} = command.rectangle;
-      const rectangle = new Rectangle(new Vector(x + width, y + height), new Vector(x, y));
+      const rectangle = Rectangle.fromTopLeft(new Vector(x, y), width, height);
       const [canvas] = drawImageToOffscreenCanvas(image, {
         drawImage: DrawImage.cropRectangle(rectangle),
         fillStyle: 'transparent',
@@ -72,7 +73,7 @@ export async function applyEditImageCommand(
         image,
         adjustmentParameters(command.controls),
         whiteBalanceMaxValues(command.controls, command.maxValues)
-      );
+      ).transferToImageBitmap();
       break;
     case EditImageCommandType.RemoveBackground:
       result = await applyRemoveBackgroundCommand(image, command, signal);
@@ -80,6 +81,11 @@ export async function applyEditImageCommand(
     case EditImageCommandType.RemoveObjects:
       result = await applyRemoveObjectsCommand(image, command, signal);
       break;
+    case EditImageCommandType.Sharpen: {
+      const {mode, strength} = command.controls;
+      result = sharpen(image, mode, strength).transferToImageBitmap();
+      break;
+    }
     // These replace the input instead of compositing onto it
     case EditImageCommandType.Upscale:
     case EditImageCommandType.Restore:
@@ -105,7 +111,7 @@ async function applyExpandImageCommand(
   const [canvas, ctx] = drawExpandedImage(
     image,
     expansion,
-    command.controls.fillMode === ExpandImageFillMode.Color ? command.controls.color : '#fff'
+    command.controls.fillMode === ExpandFillMode.Color ? command.controls.color : '#fff'
   );
   for (const [index, blob] of (command.marginPatches ?? []).entries()) {
     const margin = expansion.margins[index]!;

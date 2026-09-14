@@ -61,10 +61,10 @@ export async function paintImage(
   const columns = padded.width / patchSize;
   const rows = padded.height / patchSize;
   const strokes: Float32Tensor[] = [];
-  await withInferenceSession(
-    model.url,
+  await withInferenceSession({
+    modelUrl: model.url,
     auth,
-    async run => {
+    callback: async run => {
       for (let row = 0; row < rows; row++) {
         for (let column = 0; column < columns; column++) {
           signal?.throwIfAborted();
@@ -86,8 +86,9 @@ export async function paintImage(
       }
     },
     progressCallback,
-    signal
-  );
+    signal,
+    allowWebGpu: model.webGpu,
+  });
   const [vertical, horizontal] = await Promise.all([
     loadBrush(verticalBrushUrl, signal),
     loadBrush(horizontalBrushUrl, signal),

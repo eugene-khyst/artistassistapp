@@ -138,7 +138,7 @@ msgstr "Доступна нова версія додатку, яка буде �
 msgid "A new version of the application is available."
 msgstr "Доступна нова версія додатку."
 
-#: src/components/image-editor/AdjustColorsControls.tsx:256
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:245
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Значення менше 100% робить зображення менш кольоровим, а значення більше 100% робить його занадто кольоровим"
 
@@ -146,15 +146,15 @@ msgstr "Значення менше 100% робить зображення ме�
 msgid "Accurate"
 msgstr "Точний"
 
-#: src/components/messages.ts:72
+#: src/components/messages.ts:73
 msgid "Acrylic Gouache"
 msgstr "Акрилова гуаш"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "Acrylic Markers"
 msgstr "Акрилові маркери"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Acrylic Paint"
 msgstr "Акрилова фарба"
 
@@ -194,7 +194,7 @@ msgstr "Додайте білий колір у <0>співвідношенні 
 msgid "Adjust colors"
 msgstr "Скоригувати кольори"
 
-#: src/components/image-editor/StraightenControls.tsx:86
+#: src/components/image-editor/CorrectPerspectiveEditorControls.tsx:88
 msgid "Adjust the 4 corners manually."
 msgstr "Відрегулюйте 4 кути вручну."
 
@@ -202,7 +202,7 @@ msgstr "Відрегулюйте 4 кути вручну."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Усі дані додатку зберігаються у сховищі веб-браузера, навіть після встановлення. Очищення даних браузера видаляє все."
 
-#: src/components/ImageEditor.tsx:329
+#: src/components/ImageEditor.tsx:330
 msgid "All edits will be lost"
 msgstr "Усі зміни буде втрачено"
 
@@ -218,7 +218,7 @@ msgstr "Або встановіть останню версію веб-брау�
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "Встановлено нижній шар або об'єднуючий колір. Автоматична палітра застосує ці налаштування до всієї фотографії, а не лише до області, для якої їх було вибрано."
 
-#: src/components/image-editor/RotateControls.tsx:44
+#: src/components/image-editor/RotateEditorControls.tsx:44
 msgid "Angle"
 msgstr "Кут"
 
@@ -309,9 +309,9 @@ msgstr "ArtistAssistApp остаточно видалить вашу збере�
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "ArtistAssistApp перезавантажиться після видалення тимчасових файлів додатку.<0/>Ваші збережені роботи та хмарні дані не буде видалено."
 
-#: src/components/image-editor/CropControls.tsx:76
-#: src/components/image-editor/ExpandControls.tsx:98
-#: src/components/image-editor/ExpandControls.tsx:135
+#: src/components/image-editor/CropEditorControls.tsx:79
+#: src/components/image-editor/ExpandEditorControls.tsx:98
+#: src/components/image-editor/ExpandEditorControls.tsx:134
 msgid "Aspect ratio"
 msgstr "Співвідношення сторін"
 
@@ -331,15 +331,15 @@ msgstr "Не вдалося автентифікуватися"
 msgid "Auto palette"
 msgstr "Автопалітра"
 
-#: src/components/image-editor/StraightenControls.tsx:110
+#: src/components/image-editor/CorrectPerspectiveEditorControls.tsx:112
 msgid "Auto-detect"
 msgstr "Автоматичне визначення"
 
-#: src/components/image-editor/StraightenControls.tsx:118
+#: src/components/image-editor/CorrectPerspectiveEditorControls.tsx:120
 msgid "Auto-detect is available only to paid Patreon members"
 msgstr "Автоматичне визначення доступне лише для платних учасників Patreon"
 
-#: src/components/image-editor/StraightenControls.tsx:51
+#: src/components/image-editor/CorrectPerspectiveEditorControls.tsx:53
 msgid "Auto-detect is unavailable"
 msgstr "Автоматичне визначення недоступне"
 
@@ -347,12 +347,12 @@ msgstr "Автоматичне визначення недоступне"
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Автоматично знайти найкращі кольорові суміші для цього фото."
 
-#: src/components/image-editor/AdjustColorsControls.tsx:234
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
 msgid "Average color of the white point area"
 msgstr "Середній колір області білої точки"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:98
-#: src/components/image-editor/RemoveBackgroundControls.tsx:104
+#: src/components/image-editor/RemoveBackgroundEditorControls.tsx:97
+#: src/components/image-editor/RemoveBackgroundEditorControls.tsx:103
 msgid "Background"
 msgstr "Фон"
 
@@ -384,21 +384,21 @@ msgstr "За кількістю кольорів"
 msgid "By consistency"
 msgstr "За консистенцією"
 
-#: src/components/messages.ts:86
+#: src/components/messages.ts:87
 msgid "By date"
 msgstr "За датою"
 
-#: src/components/messages.ts:81
-#: src/components/messages.ts:88
+#: src/components/messages.ts:82
+#: src/components/messages.ts:89
 msgid "By hue"
 msgstr "За відтінком"
 
-#: src/components/messages.ts:80
+#: src/components/messages.ts:81
 msgid "By ID"
 msgstr "За ID"
 
-#: src/components/messages.ts:82
-#: src/components/messages.ts:89
+#: src/components/messages.ts:83
+#: src/components/messages.ts:90
 msgid "By lightness"
 msgstr "За світлістю"
 
@@ -406,7 +406,7 @@ msgstr "За світлістю"
 msgid "By match"
 msgstr "За відповідністю"
 
-#: src/components/messages.ts:87
+#: src/components/messages.ts:88
 msgid "By name"
 msgstr "За іменем"
 
@@ -420,7 +420,7 @@ msgstr "Для обведення в AR потрібен доступ до ка�
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:331
+#: src/components/ImageEditor.tsx:332
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -444,12 +444,12 @@ msgid "Check for updates"
 msgstr "Перевірити наявність оновлень"
 
 #: src/components/ColorSetChooser.tsx:217
-#: src/components/image-editor/ColorizeControls.tsx:57
-#: src/components/image-editor/ExpandControls.tsx:82
-#: src/components/image-editor/RemoveBackgroundControls.tsx:52
-#: src/components/image-editor/RemoveObjectsControls.tsx:59
-#: src/components/image-editor/RestoreControls.tsx:47
-#: src/components/image-editor/UpscaleControls.tsx:48
+#: src/components/image-editor/ColorizeEditorControls.tsx:57
+#: src/components/image-editor/ExpandEditorControls.tsx:82
+#: src/components/image-editor/RemoveBackgroundEditorControls.tsx:52
+#: src/components/image-editor/RemoveObjectsEditorControls.tsx:59
+#: src/components/image-editor/RestoreEditorControls.tsx:47
+#: src/components/image-editor/UpscaleEditorControls.tsx:48
 #: src/components/ImageChooser.tsx:73
 #: src/components/ImageOutline.tsx:103
 #: src/components/ImagePainting.tsx:79
@@ -457,7 +457,7 @@ msgstr "Перевірити наявність оновлень"
 msgid "Check your connection and try again."
 msgstr "Перевірте підключення та повторіть спробу."
 
-#: src/components/image-editor/StraightenControls.tsx:52
+#: src/components/image-editor/CorrectPerspectiveEditorControls.tsx:54
 msgid "Check your connection and try again. You can still adjust the 4 corners manually."
 msgstr "Перевірте підключення та повторіть спробу. Ви все ще можете налаштувати 4 кути вручну."
 
@@ -471,11 +471,11 @@ msgid "Cityscape"
 msgstr "Міський пейзаж"
 
 #: src/components/file/FileSelect.tsx:203
-#: src/components/image-editor/RemoveObjectsControls.tsx:108
+#: src/components/image-editor/RemoveObjectsEditorControls.tsx:108
 msgid "Clear"
 msgstr "Очистити"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:120
+#: src/components/image-editor/RemoveBackgroundEditorControls.tsx:119
 msgid "Clear background color"
 msgstr "Очистити колір фону"
 
@@ -493,7 +493,7 @@ msgstr "Очистити нижній шар"
 msgid "Clear unifying color"
 msgstr "Очистити об'єднуючий колір"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:229
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:218
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
 msgstr "Натисніть 🖱️ або торкніться 👆 будь-де на зображенні, щоб вибрати білу точку."
 
@@ -575,9 +575,9 @@ msgstr "Потрібен код"
 
 #: src/components/ColorMixer.tsx:192
 #: src/components/CustomColorBrandCreator.tsx:476
-#: src/components/image-editor/ExpandControls.tsx:102
-#: src/components/image-editor/ExpandControls.tsx:209
-#: src/components/image-editor/ExpandControls.tsx:211
+#: src/components/image-editor/ExpandEditorControls.tsx:102
+#: src/components/image-editor/ExpandEditorControls.tsx:206
+#: src/components/image-editor/ExpandEditorControls.tsx:208
 msgid "Color"
 msgstr "Колір"
 
@@ -628,15 +628,15 @@ msgstr "Набір кольорів"
 msgid "Color swatch"
 msgstr "Зразок кольору"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Colored Pencils"
 msgstr "Кольорові олівці"
 
-#: src/components/image-editor/ColorizeControls.tsx:117
+#: src/components/image-editor/ColorizeEditorControls.tsx:116
 msgid "Colorize"
 msgstr "Розфарбувати"
 
-#: src/components/messages.ts:58
+#: src/components/messages.ts:59
 msgid "Colorize black-and-white"
 msgstr "Розфарбувати чорно-біле"
 
@@ -714,16 +714,16 @@ msgstr "Скопіюйте підтримуване зображення в бу
 msgid "Copy and share this link"
 msgstr "Скопіюйте та поділіться цим посиланням"
 
-#: src/components/image-editor/StraightenControls.tsx:100
+#: src/components/image-editor/CorrectPerspectiveEditorControls.tsx:102
 #: src/components/messages.ts:50
 msgid "Correct perspective"
 msgstr "Виправити перспективу"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:378
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:367
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Скоригована оцінка температури джерела світла в кельвінах"
 
-#: src/components/image-editor/StraightenControls.tsx:85
+#: src/components/image-editor/CorrectPerspectiveEditorControls.tsx:87
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Не вдалося автоматично виявити папір чи полотно"
 
@@ -752,7 +752,7 @@ msgstr "Створити новий набір кольорів, об'єднав
 msgid "Create new"
 msgstr "Створити новий"
 
-#: src/components/image-editor/CropControls.tsx:98
+#: src/components/image-editor/CropEditorControls.tsx:100
 #: src/components/messages.ts:51
 msgid "Crop"
 msgstr "Обрізати"
@@ -929,7 +929,7 @@ msgstr "Перетягніть файл сюди..."
 msgid "Drop the files here..."
 msgstr "Перетягніть файли сюди..."
 
-#: src/components/messages.ts:68
+#: src/components/messages.ts:69
 msgid "Dry Pastel"
 msgstr "Суха пастель"
 
@@ -957,7 +957,7 @@ msgstr "Редагувати починаючи звідси"
 msgid "Edit image"
 msgstr "Редагувати зображення"
 
-#: src/components/ImageEditor.tsx:341
+#: src/components/ImageEditor.tsx:342
 msgid "Edited"
 msgstr "Відредаговано"
 
@@ -1005,7 +1005,7 @@ msgstr "Помилка"
 msgid "Error description"
 msgstr "Опис помилки"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:349
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:338
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Орієнтовна температура джерела світла в кельвінах, при якій було зроблено зображення"
 
@@ -1018,12 +1018,12 @@ msgstr "Офорт"
 msgid "Exit AR"
 msgstr "Вийти з AR"
 
-#: src/components/image-editor/ExpandControls.tsx:249
+#: src/components/image-editor/ExpandEditorControls.tsx:246
 #: src/components/messages.ts:52
 msgid "Expand"
 msgstr "Розширити"
 
-#: src/components/image-editor/ExpandControls.tsx:115
+#: src/components/image-editor/ExpandEditorControls.tsx:115
 msgid "Expand by"
 msgstr "Розширити на"
 
@@ -1051,7 +1051,7 @@ msgstr "Фовізм"
 msgid "Few"
 msgstr "Мало"
 
-#: src/components/image-editor/ExpandControls.tsx:193
+#: src/components/image-editor/ExpandEditorControls.tsx:191
 msgid "Fill"
 msgstr "Заповнити"
 
@@ -1086,7 +1086,7 @@ msgstr "Завершити редагування"
 msgid "Focal point instructions"
 msgstr "Інструкції щодо точки фокусу"
 
-#: src/components/image-editor/CropControls.tsx:38
+#: src/components/image-editor/CropEditorControls.tsx:37
 msgid "Free"
 msgstr "Довільне"
 
@@ -1098,7 +1098,7 @@ msgstr "Повний тиск"
 msgid "Full strength"
 msgstr "Повна сила"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:303
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:292
 msgid "Gamma"
 msgstr "Гамма"
 
@@ -1122,7 +1122,7 @@ msgstr "Лесирування"
 msgid "Go to the {label} tab"
 msgstr "Перейти на вкладку {label}"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Gouache"
 msgstr "Гуаш"
 
@@ -1141,7 +1141,11 @@ msgstr "Висота"
 msgid "Help"
 msgstr "Допомога"
 
-#: src/components/image-editor/ExpandControls.tsx:155
+#: src/components/image-editor/SharpenEditorControls.tsx:40
+msgid "High pass"
+msgstr "Високі частоти"
+
+#: src/components/image-editor/ExpandEditorControls.tsx:153
 msgid "Horizontal"
 msgstr "По горизонталі"
 
@@ -1197,7 +1201,7 @@ msgstr "Встановити оновлення"
 msgid "Instant"
 msgstr "Миттєвий"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:375
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:364
 msgid "Intended color temperature (K)"
 msgstr "Передбачувана колірна температура (K)"
 
@@ -1320,11 +1324,11 @@ msgstr "Вільний живопис"
 msgid "Loose painting is available only to paid Patreon members"
 msgstr "Вільний живопис доступний лише платним учасникам Patreon"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:279
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:268
 msgid "Low input and high input"
 msgstr "Низький і високий вхід"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:324
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:313
 msgid "Low output and high output"
 msgstr "Низький і високий вихід"
 
@@ -1337,23 +1341,23 @@ msgstr "Багато"
 msgid "Margin"
 msgstr "Поля"
 
-#: src/components/image-editor/ExpandControls.tsx:99
+#: src/components/image-editor/ExpandEditorControls.tsx:99
 msgid "Margins"
 msgstr "Поля"
 
-#: src/components/image-editor/RemoveObjectsControls.tsx:112
+#: src/components/image-editor/RemoveObjectsEditorControls.tsx:112
 msgid "Mark around the object you want to remove, then drag the vertices to adjust or tap to remove"
 msgstr "Позначте навколо об'єкта, який потрібно видалити, а потім перетягніть вершини, щоб налаштувати, або торкніться, щоб видалити"
 
-#: src/components/image-editor/RemoveObjectsControls.tsx:77
+#: src/components/image-editor/RemoveObjectsEditorControls.tsx:77
 msgid "Mark at least 3 points around the object you want to remove"
 msgstr "Позначте принаймні 3 точки навколо об'єкта, який ви хочете видалити"
 
-#: src/components/image-editor/StraightenControls.tsx:65
+#: src/components/image-editor/CorrectPerspectiveEditorControls.tsx:67
 msgid "Mark the 4 corners of your paper or canvas"
 msgstr "Позначте 4 кути паперу або полотна"
 
-#: src/components/image-editor/StraightenControls.tsx:114
+#: src/components/image-editor/CorrectPerspectiveEditorControls.tsx:116
 msgid "Mark the 4 corners of your paper or canvas, then drag the vertices to adjust"
 msgstr "Позначте 4 кути паперу або полотна, а потім перетягніть вершини, щоб налаштувати"
 
@@ -1375,7 +1379,7 @@ msgstr "Об'єднати набори кольорів"
 msgid "Mid tone"
 msgstr "Середній тон"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:301
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:290
 msgid "Midtones"
 msgstr "Напівтони"
 
@@ -1409,9 +1413,10 @@ msgid "Mixture"
 msgstr "Суміш"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:113
-#: src/components/image-editor/ColorizeControls.tsx:80
-#: src/components/image-editor/RemoveBackgroundControls.tsx:69
-#: src/components/image-editor/RestoreControls.tsx:64
+#: src/components/image-editor/ColorizeEditorControls.tsx:80
+#: src/components/image-editor/RemoveBackgroundEditorControls.tsx:69
+#: src/components/image-editor/RestoreEditorControls.tsx:64
+#: src/components/image-editor/SharpenEditorControls.tsx:62
 #: src/components/ImageOutline.tsx:254
 #: src/components/ImageOutline.tsx:260
 msgid "Mode"
@@ -1472,8 +1477,8 @@ msgstr "Новий набір кольорів"
 msgid "New comparison"
 msgstr "Нове порівняння"
 
-#: src/components/image-editor/ExpandControls.tsx:225
-#: src/components/image-editor/UpscaleControls.tsx:66
+#: src/components/image-editor/ExpandEditorControls.tsx:222
+#: src/components/image-editor/UpscaleEditorControls.tsx:66
 msgid "New size: {outputWidth} × {outputHeight}"
 msgstr "Новий розмір: {outputWidth} × {outputHeight}"
 
@@ -1518,15 +1523,15 @@ msgstr "Кількість мазків пензля на картині"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Кількість клітинок на меншій стороні (вертикальній або горизонтальній)"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:176
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:104
 msgid "Off"
 msgstr "Вимкнено"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Oil Paint"
 msgstr "Олійна фарба"
 
-#: src/components/messages.ts:69
+#: src/components/messages.ts:70
 msgid "Oil Pastel"
 msgstr "Олійна пастель"
 
@@ -1542,9 +1547,9 @@ msgstr "По діагоналі — чисті кольори на повну с
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "У безкоштовній версії доступна лише обмежена кількість колірних брендів"
 
-#: src/components/image-editor/ColorizeControls.tsx:92
-#: src/components/image-editor/RemoveBackgroundControls.tsx:81
-#: src/components/image-editor/RestoreControls.tsx:76
+#: src/components/image-editor/ColorizeEditorControls.tsx:92
+#: src/components/image-editor/RemoveBackgroundEditorControls.tsx:81
+#: src/components/image-editor/RestoreEditorControls.tsx:76
 #: src/components/ImageOutline.tsx:388
 msgid "Only a limited number of modes are available in the free version"
 msgstr "У безкоштовній версії доступна лише обмежена кількість режимів"
@@ -1582,12 +1587,12 @@ msgstr "Або виберіть зі зразків фотографій"
 msgid "Or select from your recent photos"
 msgstr "Або виберіть одну зі своїх останніх фотографій"
 
-#: src/components/image-editor/CropControls.tsx:39
+#: src/components/image-editor/CropEditorControls.tsx:38
 #: src/components/image/ImageViewSelector.tsx:45
 msgid "Original"
 msgstr "Оригінал"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:346
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:335
 msgid "Original color temperature (K)"
 msgstr "Оригінальна колірна температура (K)"
 
@@ -1596,7 +1601,7 @@ msgstr "Оригінальна колірна температура (K)"
 msgid "Outline"
 msgstr "Контур"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:322
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:311
 msgid "Output levels"
 msgstr "Вихідні рівні"
 
@@ -1637,12 +1642,12 @@ msgstr "Перевірка членства в Patreon не була успіш�
 msgid "Patron status"
 msgstr "Patron статус"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:174
-#: src/components/image-editor/AdjustColorsControls.tsx:208
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:102
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:197
 msgid "Percentile"
 msgstr "Перцентиль"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:185
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:174
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Перцентиль: автоматичний баланс білого за найяскравішими ділянками, підходить для більшості фотографій. Зразок: ручний баланс білого за вибраною білою ділянкою."
 
@@ -1790,7 +1795,7 @@ msgstr "Співвідношення"
 msgid "Realism"
 msgstr "Реалізм"
 
-#: src/components/ImageEditor.tsx:326
+#: src/components/ImageEditor.tsx:327
 msgid "Redo"
 msgstr "Повторити"
 
@@ -1807,7 +1812,7 @@ msgid "Reduce the number of colors in the photo."
 msgstr "Зменшити кількість кольорів на фото."
 
 #: src/components/color/ColorSwatchDrawer.tsx:92
-#: src/components/image-editor/AdjustColorsControls.tsx:175
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:103
 msgid "Reference"
 msgstr "Зразок"
 
@@ -1828,12 +1833,12 @@ msgstr "Перезавантажити"
 msgid "Remove and continue"
 msgstr "Видалити та продовжити"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:137
+#: src/components/image-editor/RemoveBackgroundEditorControls.tsx:136
 #: src/components/messages.ts:54
 msgid "Remove background"
 msgstr "Видалити фон"
 
-#: src/components/image-editor/RemoveObjectsControls.tsx:105
+#: src/components/image-editor/RemoveObjectsEditorControls.tsx:105
 #: src/components/messages.ts:55
 msgid "Remove objects"
 msgstr "Видалити об'єкти"
@@ -1850,7 +1855,7 @@ msgstr "Усуває розмиття від руху"
 msgid "Removes noise and grain"
 msgstr "Усуває шум і зернистість"
 
-#: src/components/image-editor/RemoveObjectsControls.tsx:119
+#: src/components/image-editor/RemoveObjectsEditorControls.tsx:119
 msgid "Removing objects is available only to paid Patreon members"
 msgstr "Видалення об'єктів доступне лише платним учасникам Patreon"
 
@@ -1872,12 +1877,12 @@ msgstr "Потрібна macOS Sonoma або пізнішої версії."
 msgid "Resend code"
 msgstr "Перенадіслати код"
 
-#: src/components/ImageEditor.tsx:330
-#: src/components/ImageEditor.tsx:335
+#: src/components/ImageEditor.tsx:331
+#: src/components/ImageEditor.tsx:336
 msgid "Reset"
 msgstr "Скинути"
 
-#: src/components/image-editor/RestoreControls.tsx:101
+#: src/components/image-editor/RestoreEditorControls.tsx:100
 #: src/components/messages.ts:57
 msgid "Restore"
 msgstr "Реставрувати"
@@ -1909,7 +1914,7 @@ msgstr "Повернутися до вкладки {tabLabel}"
 msgid "Rotate"
 msgstr "Повернути"
 
-#: src/components/image-editor/RotateControls.tsx:66
+#: src/components/image-editor/RotateEditorControls.tsx:66
 msgid "Rotate clockwise"
 msgstr "Повернути за годинниковою стрілкою"
 
@@ -1917,7 +1922,7 @@ msgstr "Повернути за годинниковою стрілкою"
 msgid "Sample size"
 msgstr "Розмір вибірки"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:253
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:242
 msgid "Saturation (%)"
 msgstr "Насиченість (%)"
 
@@ -1980,7 +1985,7 @@ msgstr "Виберіть художній засіб"
 msgid "Select an image that contains a color chart"
 msgstr "Виберіть зображення, яке містить таблицю кольорів"
 
-#: src/components/ImageEditor.tsx:291
+#: src/components/ImageEditor.tsx:292
 msgid "Select an image to edit"
 msgstr "Виберіть зображення для редагування"
 
@@ -2042,7 +2047,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Виберіть один із останніх наборів кольорів або створіть новий."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:295
+#: src/components/ImageEditor.tsx:296
 msgid "Select image"
 msgstr "Вибрати зображення"
 
@@ -2098,9 +2103,9 @@ msgstr "Виберіть художній засіб, колірні бренд�
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
 msgstr "Виберіть художній засіб, колірні бренди та кольори, якими ви будете малювати, а потім натисніть <0>Зберегти та продовжити</0>"
 
-#: src/components/image-editor/ColorizeControls.tsx:86
-#: src/components/image-editor/RemoveBackgroundControls.tsx:75
-#: src/components/image-editor/RestoreControls.tsx:70
+#: src/components/image-editor/ColorizeEditorControls.tsx:86
+#: src/components/image-editor/RemoveBackgroundEditorControls.tsx:75
+#: src/components/image-editor/RestoreEditorControls.tsx:70
 #: src/components/ImageOutline.tsx:382
 msgid "Selected mode is available only to paid Patreon members"
 msgstr "Вибраний режим доступний лише платним учасникам Patreon"
@@ -2156,7 +2161,7 @@ msgstr "Встановити як об'єднуючий колір"
 msgid "Shadow"
 msgstr "Тінь"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:277
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:266
 msgid "Shadows and highlights"
 msgstr "Тіні та світлі тони"
 
@@ -2176,6 +2181,11 @@ msgstr "Поділіться своїм набором кольорів"
 #: src/components/ml-model/OnnxModelSelect.tsx:65
 msgid "Sharp"
 msgstr "Чіткий"
+
+#: src/components/image-editor/SharpenEditorControls.tsx:95
+#: src/components/messages.ts:58
+msgid "Sharpen"
+msgstr "Підвищити різкість"
 
 #: src/components/ImageColorPicker.tsx:350
 msgid "Show areas on the photo that match this color."
@@ -2237,15 +2247,15 @@ msgstr "Злегка перекривайте пастельні ділянки 
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
 msgstr "Злегка перекривайте воскові пастельні ділянки різних кольорів і міцно змішуйте, щоб створити плавний перехід"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:210
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:199
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Менші значення перцентиля відповідають сильнішому відбілюванню"
 
-#: src/components/image-editor/ExpandControls.tsx:103
+#: src/components/image-editor/ExpandEditorControls.tsx:103
 msgid "Smart"
 msgstr "Розумний"
 
-#: src/components/image-editor/ExpandControls.tsx:233
+#: src/components/image-editor/ExpandEditorControls.tsx:230
 msgid "Smart expansion is available only to paid Patreon members"
 msgstr "Розумне розширення доступне лише платним учасникам Patreon"
 
@@ -2309,6 +2319,10 @@ msgstr "Сховище може заповнитися"
 #: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "Використання сховища"
+
+#: src/components/image-editor/SharpenEditorControls.tsx:73
+msgid "Strength"
+msgstr "Інтенсивність"
 
 #: src/components/ImagePainting.tsx:126
 #: src/components/ImagePainting.tsx:144
@@ -2464,7 +2478,7 @@ msgstr "На цьому пристрої є зміни, внесені, коли
 msgid "This device has local data and existing synced cloud data, but no sync history. Choose which one to keep."
 msgstr "На цьому пристрої є локальні дані та наявні синхронізовані хмарні дані, але немає історії синхронізації. Виберіть, що залишити."
 
-#: src/components/image-editor/UpscaleControls.tsx:72
+#: src/components/image-editor/UpscaleEditorControls.tsx:72
 msgid "This image is already too large to upscale"
 msgstr "Це зображення вже завелике для збільшення"
 
@@ -2566,7 +2580,7 @@ msgstr "Навчальні посібники та відео"
 msgid "Ukiyo-e"
 msgstr "Укійо-е"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:51
+#: src/components/image-editor/RemoveBackgroundEditorControls.tsx:51
 msgid "Unable to load the background removal modes"
 msgstr "Не вдалося завантажити режими видалення фону"
 
@@ -2574,11 +2588,11 @@ msgstr "Не вдалося завантажити режими видаленн
 msgid "Unable to load the color data"
 msgstr "Не вдалося завантажити дані кольору"
 
-#: src/components/image-editor/ColorizeControls.tsx:56
+#: src/components/image-editor/ColorizeEditorControls.tsx:56
 msgid "Unable to load the colorization modes"
 msgstr "Не вдалося завантажити режими розфарбовування"
 
-#: src/components/image-editor/RemoveObjectsControls.tsx:58
+#: src/components/image-editor/RemoveObjectsEditorControls.tsx:58
 msgid "Unable to load the object removal model"
 msgstr "Не вдалося завантажити модель видалення об'єкта"
 
@@ -2590,7 +2604,7 @@ msgstr "Не вдалося завантажити режими контуру"
 msgid "Unable to load the painting model"
 msgstr "Не вдалося завантажити модель малювання"
 
-#: src/components/image-editor/RestoreControls.tsx:46
+#: src/components/image-editor/RestoreEditorControls.tsx:46
 msgid "Unable to load the restoration modes"
 msgstr "Не вдалося завантажити режими реставрації"
 
@@ -2598,7 +2612,7 @@ msgstr "Не вдалося завантажити режими реставра
 msgid "Unable to load the sample photos"
 msgstr "Не вдалося завантажити зразки фотографій"
 
-#: src/components/image-editor/ExpandControls.tsx:81
+#: src/components/image-editor/ExpandEditorControls.tsx:81
 msgid "Unable to load the smart expansion model"
 msgstr "Не вдалося завантажити модель інтелектуального розширення"
 
@@ -2606,7 +2620,7 @@ msgstr "Не вдалося завантажити модель інтелект
 msgid "Unable to load the styles"
 msgstr "Не вдалося завантажити стилі"
 
-#: src/components/image-editor/UpscaleControls.tsx:47
+#: src/components/image-editor/UpscaleEditorControls.tsx:47
 msgid "Unable to load the upscaling model"
 msgstr "Не вдалося завантажити модель збільшення"
 
@@ -2620,7 +2634,7 @@ msgstr "Не вдалося відновити збережений набір �
 msgid "Underlayer"
 msgstr "Нижній шар"
 
-#: src/components/ImageEditor.tsx:319
+#: src/components/ImageEditor.tsx:320
 msgid "Undo"
 msgstr "Скасувати"
 
@@ -2635,6 +2649,10 @@ msgstr "Несподівана помилка: {errorMessage}"
 #: src/components/ImageColorPicker.tsx:403
 msgid "Unifying color"
 msgstr "Об'єднуючий колір"
+
+#: src/components/image-editor/SharpenEditorControls.tsx:37
+msgid "Unsharp mask"
+msgstr "Контурна різкість"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:131
 msgid "Unsynced changes on this device"
@@ -2667,7 +2685,7 @@ msgstr "Оновити зараз"
 msgid "Uploading image {index} / {count}"
 msgstr "Надсилання зображення {index} / {count}"
 
-#: src/components/image-editor/UpscaleControls.tsx:85
+#: src/components/image-editor/UpscaleEditorControls.tsx:85
 #: src/components/messages.ts:56
 msgid "Upscale"
 msgstr "Збільшити"
@@ -2704,7 +2722,7 @@ msgstr "Використано"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Використання обмеженої палітри допомагає досягти гармонії кольорів. Виберіть 1–{MAX_COLORS} основні кольори."
 
-#: src/components/image-editor/ExpandControls.tsx:173
+#: src/components/image-editor/ExpandEditorControls.tsx:171
 msgid "Vertical"
 msgstr "По вертикалі"
 
@@ -2741,15 +2759,15 @@ msgstr "Акварель"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Акварель можна розбавити водою, щоб зробити її більш прозорою"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Watercolor Paint"
 msgstr "Акварельні фарби"
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Watercolor Pencils"
 msgstr "Акварельні олівці"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:71
 msgid "Wax Pastel"
 msgstr "Воскова пастель"
 
@@ -2769,22 +2787,22 @@ msgstr "При виборі більше ніж {maxColorsFor2} кольорів
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "При виборі більше ніж {maxColorsFor3} кольорів всього суміші трьох кольорів не використовуються."
 
-#: src/components/image-editor/AdjustColorsControls.tsx:240
-#: src/components/image-editor/ExpandControls.tsx:212
-#: src/components/image-editor/RemoveBackgroundControls.tsx:107
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:229
+#: src/components/image-editor/ExpandEditorControls.tsx:209
+#: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "Білий"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:183
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:172
 msgid "White balance"
 msgstr "Баланс білого"
 
-#: src/components/messages.ts:76
+#: src/components/messages.ts:77
 msgid "White paper or canvas"
 msgstr "Білий папір або полотно"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:232
-#: src/components/image-editor/AdjustColorsControls.tsx:238
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:221
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:227
 msgid "White point"
 msgstr "Біла точка"
 
@@ -2853,7 +2871,7 @@ msgid "Your image"
 msgstr "Ваше зображення"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:306
+#: src/components/ImageEditor.tsx:307
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:318
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

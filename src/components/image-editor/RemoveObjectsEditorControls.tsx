@@ -33,7 +33,7 @@ interface Props {
   polygonDrawingMode: CanvasPolygonDrawingMode | null;
 }
 
-export function RemoveObjectsControls({polygonDrawingMode}: Readonly<Props>) {
+export function RemoveObjectsEditorControls({polygonDrawingMode}: Readonly<Props>) {
   const setRemoveObjectsModel = useAppStore(state => state.setRemoveObjectsModel);
   const setRemoveObjectsUpscaleModel = useAppStore(state => state.setRemoveObjectsUpscaleModel);
   const removeObjects = useAppStore(state => state.removeObjects);

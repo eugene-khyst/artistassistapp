@@ -74,7 +74,7 @@ describe('CanvasOverlayDrawingMode', () => {
 
   /**
    * The editor passes three images and displays one. Inverting all of them costs three WebGL
-   * contexts and three shader compiles on the main thread every time Straighten or Crop opens.
+   * contexts and three shader compiles on the main thread every time Correct perspective or Crop opens.
    */
   describe('inverted image used to tint the overlay', () => {
     const images = ['edited', 'beforeLastEdit', 'original'];

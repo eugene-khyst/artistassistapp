@@ -23,6 +23,7 @@ import {colorMapFilterWebGL} from '@/services/image/filter/color-map-webgl';
 import {colorMatchFilterWebGL} from '@/services/image/filter/color-match-webgl';
 import {dilationWebGL} from '@/services/image/filter/dilation-webgl';
 import {gaussianBlurWebGL} from '@/services/image/filter/gaussian-blur-webgl';
+import {highPassWebGL} from '@/services/image/filter/high-pass-webgl';
 import {interpolationWebGL} from '@/services/image/filter/interpolation-webgl';
 import {invertColorsWebGL} from '@/services/image/filter/invert-colors-webgl';
 import {kuwaharaFilterWebGL} from '@/services/image/filter/kuwahara-filter-webgl';
@@ -32,6 +33,7 @@ import {sobelEdgeDetectionWebGL} from '@/services/image/filter/sobel-edge-detect
 import {sobelGradientsXyWebGL} from '@/services/image/filter/sobel-gradients-xy-webgl';
 import {thresholdFilterWebGL} from '@/services/image/filter/threshold-webgl';
 import {Interpolation} from '@/services/image/filter/types';
+import {unsharpMaskWebGL} from '@/services/image/filter/unsharp-mask-webgl';
 import {Vector} from '@/services/math/geometry';
 import {IMAGE_SIZE} from '@/utils/graphics';
 
@@ -70,6 +72,8 @@ const SIZE_PRESERVING: [name: string, render: () => OffscreenCanvas][] = [
   ['kuwahara-filter', () => kuwaharaFilterWebGL(testImage(), [4])[0]!],
   ['sobel-operator', () => sobelEdgeDetectionWebGL(testImage())],
   ['gaussian-blur', () => gaussianBlurWebGL(testImage(), 5)],
+  ['high-pass', () => highPassWebGL(testImage(), 25, 4, 1)],
+  ['unsharp-mask', () => unsharpMaskWebGL(testImage(), 21, 3, 0.5, 0)],
   ['dilation', () => dilationWebGL(testImage(), 3)],
   [
     'multi-layer-radial-mask',
@@ -130,5 +134,79 @@ describe('WebGL filters', () => {
     const result = invertColorsWebGL(createImage(WIDTH, HEIGHT, () => [255, 0, 0, 255]));
 
     expect([result.width, result.height]).toEqual([WIDTH, HEIGHT]);
+  });
+
+  it('leaves a flat color unchanged when sharpening', () => {
+    const image = createImage(WIDTH, HEIGHT, () => [72, 128, 204, 255]);
+
+    const result = unsharpMaskWebGL(image, 21, 3, 0.5, 0);
+
+    expect(pixelAt(readImage(result), WIDTH >> 1, HEIGHT >> 1)).toEqual([72, 128, 204, 255]);
+  });
+
+  it('increases contrast across an edge when sharpening', () => {
+    const image = createImage(WIDTH, HEIGHT, x =>
+      x < WIDTH / 2 ? [80, 80, 80, 255] : [175, 175, 175, 255]
+    );
+
+    const result = readImage(unsharpMaskWebGL(image, 21, 3, 0.5, 0));
+
+    expect(pixelAt(result, WIDTH / 2 - 1, HEIGHT >> 1)[0]).toBeLessThan(80);
+    expect(pixelAt(result, WIDTH / 2, HEIGHT >> 1)[0]).toBeGreaterThan(175);
+  });
+
+  it('preserves color and alpha across a transparent edge when sharpening', () => {
+    const color = [180, 90, 60] as const;
+    const alphas = [255, 255, 255, 255, 255, 255, 192, 128, 64, 0, 0, 0];
+    const image = createImage(alphas.length, 1, x => [...color, alphas[x]!] as const);
+
+    const result = readImage(unsharpMaskWebGL(image, 21, 3, 0.5, 0));
+
+    for (let x = 5; x <= 8; x++) {
+      const pixel = pixelAt(result, x, 0);
+      expect(pixel[3]).toBe(alphas[x]);
+      for (let channel = 0; channel < 3; channel++) {
+        expect(Math.abs(pixel[channel]! - color[channel]!)).toBeLessThanOrEqual(2);
+      }
+    }
+  });
+
+  it('leaves a flat color unchanged when sharpening with high pass', () => {
+    const image = createImage(WIDTH, HEIGHT, () => [72, 128, 204, 255]);
+
+    const result = highPassWebGL(image, 25, 4, 1);
+
+    expect(pixelAt(readImage(result), WIDTH >> 1, HEIGHT >> 1)).toEqual([72, 128, 204, 255]);
+  });
+
+  it('increases contrast across an edge when sharpening with high pass', () => {
+    const image = createImage(WIDTH, HEIGHT, x =>
+      x < WIDTH / 2 ? [80, 80, 80, 255] : [175, 175, 175, 255]
+    );
+
+    const result = readImage(highPassWebGL(image, 25, 4, 1));
+
+    const darkSide = pixelAt(result, WIDTH / 2 - 1, HEIGHT >> 1)[0];
+    const lightSide = pixelAt(result, WIDTH / 2, HEIGHT >> 1)[0];
+    expect(darkSide).toBeLessThan(80);
+    expect(darkSide).toBeGreaterThan(60);
+    expect(lightSide).toBeGreaterThan(175);
+    expect(lightSide).toBeLessThan(195);
+  });
+
+  it('preserves color and alpha across a transparent edge when sharpening with high pass', () => {
+    const color = [180, 90, 60] as const;
+    const alphas = [255, 255, 255, 255, 255, 255, 192, 128, 64, 0, 0, 0];
+    const image = createImage(alphas.length, 1, x => [...color, alphas[x]!] as const);
+
+    const result = readImage(highPassWebGL(image, 25, 4, 1));
+
+    for (let x = 5; x <= 8; x++) {
+      const pixel = pixelAt(result, x, 0);
+      expect(pixel[3]).toBe(alphas[x]);
+      for (let channel = 0; channel < 3; channel++) {
+        expect(Math.abs(pixel[channel]! - color[channel]!)).toBeLessThanOrEqual(6);
+      }
+    }
   });
 });

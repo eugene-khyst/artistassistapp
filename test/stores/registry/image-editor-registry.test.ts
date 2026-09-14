@@ -23,6 +23,20 @@ import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit
 import {ImageEditorRegistry} from '@/stores/registry/image-editor-registry';
 
 describe('ImageEditorRegistry', () => {
+  it('opens only the given editor', async () => {
+    const openCrop = vi.fn();
+    const openAdjustColors = vi.fn();
+    const registry = new ImageEditorRegistry();
+    registry.register(ImageEditorKey.Crop, {open: openCrop});
+    registry.register(ImageEditorKey.AdjustColors, {open: openAdjustColors});
+
+    await registry.open(ImageEditorKey.Crop);
+    await registry.open(undefined);
+
+    expect(openCrop).toHaveBeenCalledOnce();
+    expect(openAdjustColors).not.toHaveBeenCalled();
+  });
+
   it('resets only the given editor', () => {
     const resetCrop = vi.fn();
     const resetAdjustColors = vi.fn();
@@ -57,9 +71,9 @@ describe('ImageEditorRegistry', () => {
     const command: EditImageCommand = {type: EditImageCommandType.RotateClockwise};
     const restore = vi.fn();
     const registry = new ImageEditorRegistry();
-    registry.register(ImageEditorKey.Straighten, {restore});
+    registry.register(ImageEditorKey.CorrectPerspective, {restore});
 
-    registry.restore(ImageEditorKey.Straighten, command);
+    registry.restore(ImageEditorKey.CorrectPerspective, command);
     registry.restore(ImageEditorKey.Crop, command);
 
     expect(restore).toHaveBeenCalledExactlyOnceWith(command);

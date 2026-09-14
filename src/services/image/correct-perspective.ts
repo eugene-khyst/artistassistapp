@@ -27,7 +27,7 @@ import type {FetchProgressCallback} from '@/utils/fetch';
 import {type DrawImageSource, toOffscreenCanvas} from '@/utils/graphics';
 import {isAbortError} from '@/utils/promise';
 
-export function straightenImage(image: DrawImageSource, vertices: Vector[]): ImageBitmap {
+export function correctPerspective(image: DrawImageSource, vertices: Vector[]): ImageBitmap {
   const perspectiveCorrectedImage: OffscreenCanvas = correctPerspectiveWebGL(
     toOffscreenCanvas(image),
     vertices

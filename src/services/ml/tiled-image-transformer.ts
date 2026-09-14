@@ -120,10 +120,10 @@ export async function transformImageInTiles({
   const total = columns.length * rows.length;
   const canvas = new OffscreenCanvas(outputScale * width, outputScale * height);
   const ctx = canvas.getContext('2d')!;
-  await withInferenceSession(
-    model.url,
+  await withInferenceSession({
+    modelUrl: model.url,
     auth,
-    async run => {
+    callback: async run => {
       let tile = 0;
       for (const row of rows) {
         for (const column of columns) {
@@ -174,7 +174,8 @@ export async function transformImageInTiles({
       }
     },
     progressCallback,
-    signal
-  );
+    signal,
+    allowWebGpu: model.webGpu,
+  });
   return canvas;
 }

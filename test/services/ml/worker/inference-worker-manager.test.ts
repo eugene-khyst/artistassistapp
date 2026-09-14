@@ -18,8 +18,13 @@
 
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 
+import {getAppSettings} from '@/services/db/app-settings-db';
 import {WebGpuInferenceError} from '@/services/ml/errors';
-import {withInferenceSession} from '@/services/ml/worker/inference-worker-manager';
+import {
+  runInferenceWorker,
+  withInferenceSession,
+} from '@/services/ml/worker/inference-worker-manager';
+import {DEFAULT_APP_SETTINGS} from '@/services/settings/types';
 
 const {remote} = vi.hoisted(() => ({
   remote: {
@@ -47,7 +52,7 @@ vi.mock('@/services/db/app-settings-db', () => ({
 const input = [[{data: new Float32Array([0, 0]), dims: [1, 2]}]];
 
 function runOnce() {
-  return withInferenceSession('/model.onnx', null, run => run(input));
+  return withInferenceSession({modelUrl: '/model.onnx', auth: null, callback: run => run(input)});
 }
 
 describe('inference session', () => {
@@ -80,6 +85,35 @@ describe('inference session', () => {
     await expect(runOnce()).rejects.toBe(inferenceError);
 
     expect(remote.releaseInferenceSession).toHaveBeenCalledOnce();
+  });
+
+  it.each([
+    {webGpuEnabled: true, allowWebGpu: undefined, expected: true},
+    {webGpuEnabled: false, allowWebGpu: undefined, expected: false},
+    {webGpuEnabled: true, allowWebGpu: false, expected: false},
+    {webGpuEnabled: false, allowWebGpu: true, expected: false},
+    {webGpuEnabled: true, allowWebGpu: true, expected: true},
+  ])('uses WebGPU only when both settings allow it: %j', async settings => {
+    vi.mocked(getAppSettings).mockResolvedValue({
+      ...DEFAULT_APP_SETTINGS,
+      webGpuEnabled: settings.webGpuEnabled,
+    });
+    const outputTensors = [{data: new Float32Array([1, 2]), dims: [1, 2]}];
+    remote.runInference.mockResolvedValue({outputTensors});
+
+    await expect(
+      runInferenceWorker({
+        modelUrl: '/model.onnx',
+        auth: null,
+        inputTensors: input,
+        allowWebGpu: settings.allowWebGpu,
+      })
+    ).resolves.toEqual(outputTensors);
+
+    expect(remote.createInferenceSession).toHaveBeenCalledWith(
+      new Uint8Array(4),
+      settings.expected
+    );
   });
 
   it('reports a release failure after a successful inference', async () => {

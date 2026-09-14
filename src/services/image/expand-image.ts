@@ -18,10 +18,7 @@
 
 import {clamp} from '@eugene-khyst/artistassistapp-color-mixer';
 
-import {
-  type ExpandImageControls,
-  ExpandImageSizeMode,
-} from '@/services/image/expand-image-controls';
+import {type ExpandControls, ExpandMode} from '@/services/image/expand-controls';
 import {Rectangle, Vector} from '@/services/math/geometry';
 import {
   aspectRatioSize,
@@ -38,12 +35,8 @@ export interface ImageExpansion {
 
 const MAX_EXPANDED_IMAGE_PIXELS = 4000 * 4000;
 
-function expandedSize(
-  width: number,
-  height: number,
-  controls: ExpandImageControls
-): ImageDimension {
-  if (controls.sizeMode === ExpandImageSizeMode.AspectRatio) {
+function expandedSize(width: number, height: number, controls: ExpandControls): ImageDimension {
+  if (controls.sizeMode === ExpandMode.AspectRatio) {
     return aspectRatioSize(width, height, controls.aspectRatio);
   }
   const marginX = Math.round((width * clamp(controls.marginX, 0, 100)) / 100);
@@ -57,7 +50,7 @@ function shrinkDimension(size: number, scale: number): number {
 
 export function getImageExpansion(
   {width, height}: Pick<DrawImageSource, 'width' | 'height'>,
-  controls: ExpandImageControls
+  controls: ExpandControls
 ): ImageExpansion {
   const {width: expandedWidth, height: expandedHeight} = expandedSize(width, height, controls);
 

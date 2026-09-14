@@ -213,14 +213,14 @@ export function fillOffscreenCanvasBackground(
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-export function rotateImageBitmapClockwise(image: ImageBitmap): ImageBitmap {
+export function rotateImageClockwise(image: DrawImageSource): OffscreenCanvas {
   const {width, height} = image;
   const canvas = new OffscreenCanvas(height, width);
   const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d')!;
   ctx.translate(height / 2, width / 2);
   ctx.rotate(Math.PI / 2);
   ctx.drawImage(image, -width / 2, -height / 2);
-  return canvas.transferToImageBitmap();
+  return canvas;
 }
 
 // The largest rectangle of the same aspect ratio inside the rotated image, so no corner is empty.
@@ -242,7 +242,7 @@ export function rotatedImageCropSize(
   };
 }
 
-export function rotateImageBitmap(image: ImageBitmap, angleDegrees: number): ImageBitmap {
+export function rotateImage(image: DrawImageSource, angleDegrees: number): OffscreenCanvas {
   const {width, height} = image;
   const size = rotatedImageCropSize(width, height, angleDegrees);
   const canvas = new OffscreenCanvas(size.width, size.height);
@@ -251,7 +251,7 @@ export function rotateImageBitmap(image: ImageBitmap, angleDegrees: number): Ima
   ctx.translate(size.width / 2, size.height / 2);
   ctx.rotate(radians(angleDegrees));
   ctx.drawImage(image, -width / 2, -height / 2);
-  return canvas.transferToImageBitmap();
+  return canvas;
 }
 
 export interface DrawImageOptions {

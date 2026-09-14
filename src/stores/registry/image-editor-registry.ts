@@ -20,6 +20,7 @@ import type {ImageEditorKey} from '@/image-editor';
 import type {EditImageCommand} from '@/services/image/edit-image-command';
 
 export interface ImageEditorControls {
+  open?: () => void | Promise<void>;
   reset?: () => void;
   clear?: () => void;
   restore?: (command: EditImageCommand) => void;
@@ -30,6 +31,12 @@ export class ImageEditorRegistry {
 
   register(imageEditorKey: ImageEditorKey, controls: ImageEditorControls): void {
     this.editors.set(imageEditorKey, controls);
+  }
+
+  async open(imageEditorKey: ImageEditorKey | undefined): Promise<void> {
+    if (imageEditorKey) {
+      await this.editors.get(imageEditorKey)?.open?.();
+    }
   }
 
   reset(imageEditorKey: ImageEditorKey | undefined): void {

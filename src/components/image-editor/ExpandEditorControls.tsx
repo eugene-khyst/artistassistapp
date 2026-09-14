@@ -41,24 +41,24 @@ import {useOnnxModel} from '@/hooks/useOnnxModel';
 import {Access} from '@/services/auth/types';
 import type {ImageExpandingMode} from '@/services/canvas/mode/image-expanding-mode';
 import {imageAspectRatio, imageAspectRatioLabel} from '@/services/image/aspect-ratio';
+import {ExpandFillMode, ExpandMode} from '@/services/image/expand-controls';
 import {getImageExpansion} from '@/services/image/expand-image';
-import {ExpandImageFillMode, ExpandImageSizeMode} from '@/services/image/expand-image-controls';
 import {INPAINTING_MODEL_ID, OnnxModelType, UPSCALING_MODEL_ID} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
 
-import styles from './ExpandControls.module.css';
+import styles from './ExpandEditorControls.module.css';
 import {IMAGE_ASPECT_RATIO_OPTIONS} from './image-aspect-ratio-options';
 
 interface Props {
   expandingMode: ImageExpandingMode | null;
 }
 
-export function ExpandControls({expandingMode}: Readonly<Props>) {
+export function ExpandEditorControls({expandingMode}: Readonly<Props>) {
   const editedImage = useAppStore(state => state.editedImage);
-  const controls = useAppStore(state => state.expandImageControls);
-  const setExpandImageControls = useAppStore(state => state.setExpandImageControls);
-  const setExpandImageModel = useAppStore(state => state.setExpandImageModel);
-  const setExpandImageUpscaleModel = useAppStore(state => state.setExpandImageUpscaleModel);
+  const expandControls = useAppStore(state => state.expandControls);
+  const setExpandControls = useAppStore(state => state.setExpandControls);
+  const setExpandModel = useAppStore(state => state.setExpandModel);
+  const setExpandUpscaleModel = useAppStore(state => state.setExpandUpscaleModel);
   const expandImage = useAppStore(state => state.expandImage);
 
   const {t} = useLingui();
@@ -83,34 +83,34 @@ export function ExpandControls({expandingMode}: Readonly<Props>) {
   );
 
   useEffect(() => {
-    setExpandImageModel(inpaintingModel);
-  }, [inpaintingModel, setExpandImageModel]);
+    setExpandModel(inpaintingModel);
+  }, [inpaintingModel, setExpandModel]);
 
   useEffect(() => {
-    setExpandImageUpscaleModel(upscaleModel);
-  }, [upscaleModel, setExpandImageUpscaleModel]);
+    setExpandUpscaleModel(upscaleModel);
+  }, [upscaleModel, setExpandUpscaleModel]);
 
   useEffect(() => {
-    expandingMode?.setControls(controls);
-  }, [controls, expandingMode]);
+    expandingMode?.setControls(expandControls);
+  }, [expandControls, expandingMode]);
 
-  const sizeModeOptions: CheckboxOptionType<ExpandImageSizeMode>[] = [
-    {value: ExpandImageSizeMode.AspectRatio, label: <Trans>Aspect ratio</Trans>},
-    {value: ExpandImageSizeMode.Margins, label: <Trans>Margins</Trans>},
+  const sizeModeOptions: CheckboxOptionType<ExpandMode>[] = [
+    {value: ExpandMode.AspectRatio, label: <Trans>Aspect ratio</Trans>},
+    {value: ExpandMode.Margins, label: <Trans>Margins</Trans>},
   ];
-  const fillModeOptions: CheckboxOptionType<ExpandImageFillMode>[] = [
-    {value: ExpandImageFillMode.Color, label: <Trans>Color</Trans>},
-    {value: ExpandImageFillMode.Smart, label: <Trans>Smart</Trans>},
+  const fillModeOptions: CheckboxOptionType<ExpandFillMode>[] = [
+    {value: ExpandFillMode.Color, label: <Trans>Color</Trans>},
+    {value: ExpandFillMode.Smart, label: <Trans>Smart</Trans>},
   ];
 
-  const expansion = editedImage ? getImageExpansion(editedImage, controls) : null;
+  const expansion = editedImage ? getImageExpansion(editedImage, expandControls) : null;
   const canExpand = !!expansion?.margins.length;
-  const isSmart = controls.fillMode === ExpandImageFillMode.Smart;
+  const isSmart = expandControls.fillMode === ExpandFillMode.Smart;
   const outputWidth = expansion?.bounds.width;
   const outputHeight = expansion?.bounds.height;
 
   return (
-    <Space orientation="vertical">
+    <Space orientation="vertical" className="u-w-100">
       <Form.Item
         label={<Trans>Expand by</Trans>}
         labelCol={{className: 'u-pb-0'}}
@@ -118,11 +118,10 @@ export function ExpandControls({expandingMode}: Readonly<Props>) {
       >
         <Radio.Group
           options={sizeModeOptions}
-          value={controls.sizeMode}
+          value={expandControls.sizeMode}
           onChange={(event: RadioChangeEvent) => {
-            setExpandImageControls({
-              ...controls,
-              sizeMode: event.target.value as ExpandImageSizeMode,
+            setExpandControls({
+              sizeMode: event.target.value as ExpandMode,
             });
           }}
           optionType="button"
@@ -130,23 +129,22 @@ export function ExpandControls({expandingMode}: Readonly<Props>) {
         />
       </Form.Item>
 
-      {controls.sizeMode === ExpandImageSizeMode.AspectRatio ? (
+      {expandControls.sizeMode === ExpandMode.AspectRatio ? (
         <Form.Item
           label={<Trans>Aspect ratio</Trans>}
           labelCol={{className: 'u-pb-0'}}
           className="u-mb-0"
         >
           <Select
-            value={imageAspectRatioLabel(controls.aspectRatio)}
+            value={imageAspectRatioLabel(expandControls.aspectRatio)}
             options={IMAGE_ASPECT_RATIO_OPTIONS}
             onChange={label => {
               const aspectRatio = imageAspectRatio(label);
               if (aspectRatio) {
-                setExpandImageControls({...controls, aspectRatio});
+                setExpandControls({aspectRatio});
               }
             }}
             popupMatchSelectWidth={false}
-            className="u-w-auto"
           />
         </Form.Item>
       ) : (
@@ -161,9 +159,9 @@ export function ExpandControls({expandingMode}: Readonly<Props>) {
                 min={0}
                 max={100}
                 className={styles['marginInput']}
-                value={controls.marginX}
+                value={expandControls.marginX}
                 onChange={marginX => {
-                  setExpandImageControls({...controls, marginX: marginX ?? 0});
+                  setExpandControls({marginX: marginX ?? 0});
                 }}
               />
               <Input placeholder="%" className={styles['unitInput']} disabled />
@@ -179,9 +177,9 @@ export function ExpandControls({expandingMode}: Readonly<Props>) {
                 min={0}
                 max={100}
                 className={styles['marginInput']}
-                value={controls.marginY}
+                value={expandControls.marginY}
                 onChange={marginY => {
-                  setExpandImageControls({...controls, marginY: marginY ?? 0});
+                  setExpandControls({marginY: marginY ?? 0});
                 }}
               />
               <Input placeholder="%" className={styles['unitInput']} disabled />
@@ -193,11 +191,10 @@ export function ExpandControls({expandingMode}: Readonly<Props>) {
       <Form.Item label={<Trans>Fill</Trans>} labelCol={{className: 'u-pb-0'}} className="u-mb-0">
         <Radio.Group
           options={fillModeOptions}
-          value={controls.fillMode}
+          value={expandControls.fillMode}
           onChange={(event: RadioChangeEvent) => {
-            setExpandImageControls({
-              ...controls,
-              fillMode: event.target.value as ExpandImageFillMode,
+            setExpandControls({
+              fillMode: event.target.value as ExpandFillMode,
             });
           }}
           optionType="button"
@@ -211,9 +208,9 @@ export function ExpandControls({expandingMode}: Readonly<Props>) {
             title={t`Color`}
             presets={[{label: <Trans>White</Trans>, colors: [WHITE_HEX]}]}
             disabledAlpha
-            value={controls.color}
+            value={expandControls.color}
             onChangeComplete={(color: AggregationColor) => {
-              setExpandImageControls({...controls, color: color.toHexString()});
+              setExpandControls({color: color.toHexString()});
             }}
             classNames={{popup: {root: 'color-picker-high-z-index'}}}
           />

@@ -18,7 +18,7 @@
 
 import type {Authentication} from '@/services/auth/types';
 import {tileCoreSize, transformImageInTiles} from '@/services/ml/tiled-image-transformer';
-import type {OnnxModel} from '@/services/ml/types';
+import {type OnnxModel} from '@/services/ml/types';
 import type {FetchProgressCallback} from '@/utils/fetch';
 import {offscreenCanvasToBlob} from '@/utils/graphics';
 

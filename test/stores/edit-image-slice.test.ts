@@ -26,6 +26,7 @@ import {
 } from '@/services/image/adjust-colors-controls';
 import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit-image-command';
 import {type AdjustColorsSlice, createAdjustColorsSlice} from '@/stores/adjust-colors-slice';
+import type {AppSlice} from '@/stores/app-slice';
 import type {AuthSlice} from '@/stores/auth-slice';
 import {createEditImageSlice, type EditImageSlice} from '@/stores/edit-image-slice';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
@@ -115,18 +116,25 @@ function registerTestImageEditorControls(): TestImageEditorControls {
   return controls;
 }
 
+type TestEditImageStore = EditImageSlice & Pick<AppSlice, 'waitForAppSettingsSave'>;
+
 function createEditImageStore() {
-  return createStore<EditImageSlice>()((...args) => createEditImageSlice(...args));
+  return createStore<TestEditImageStore>()((...args) => ({
+    waitForAppSettingsSave: vi.fn(async (): Promise<void> => undefined),
+    ...createEditImageSlice(...args),
+  }));
 }
 
 type IntegratedEditImageStore = AdjustColorsSlice &
   RemoveBackgroundSlice &
   EditImageSlice &
-  Pick<AuthSlice, 'auth'>;
+  Pick<AuthSlice, 'auth'> &
+  Pick<AppSlice, 'waitForAppSettingsSave'>;
 
 function createIntegratedEditImageStore() {
   return createStore<IntegratedEditImageStore>()((...args) => ({
     auth: null,
+    waitForAppSettingsSave: vi.fn(async (): Promise<void> => undefined),
     ...createAdjustColorsSlice(...args),
     ...createRemoveBackgroundSlice(...args),
     ...createEditImageSlice(...args),
@@ -151,10 +159,12 @@ function clearEditorResetActions(): void {
 }
 
 beforeEach(() => {
+  vi.spyOn(imageEditorControls, 'open').mockResolvedValue();
   editorControls = registerTestImageEditorControls();
 });
 
 afterEach(() => {
+  vi.restoreAllMocks();
   vi.clearAllMocks();
   vi.unstubAllGlobals();
   vi.useRealTimers();
@@ -208,14 +218,14 @@ describe('EditImageSlice', () => {
     clearEditorResetActions();
     const previewImage = createImage();
     commandService.apply.mockResolvedValueOnce(previewImage);
-    store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
     const command: EditImageCommand = adjustColorsCommand(50);
     await store.getState().editImageOperation.preview(command);
 
     expect(store.getState().editedImage).toBe(previewImage);
 
     clearEditorResetActions();
-    store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
 
     expect(store.getState()).toMatchObject({
       editedImage: previewImage,
@@ -227,10 +237,132 @@ describe('EditImageSlice', () => {
     expect(imageToEdit.close).not.toHaveBeenCalled();
   });
 
+  it('waits for settings to be saved before resetting controls', async () => {
+    const store = createEditImageStore();
+    await loadImage(store);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
+    clearEditorResetActions();
+
+    let finishSave!: () => void;
+    const save = new Promise<void>(resolve => {
+      finishSave = resolve;
+    });
+    const waitForAppSettingsSave = vi.fn(() => save);
+    store.setState({waitForAppSettingsSave});
+
+    const switchEditor = store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
+
+    expect(waitForAppSettingsSave).toHaveBeenCalledOnce();
+    expect(editorControls.resetAdjustColors).not.toHaveBeenCalled();
+    expect(store.getState().activeImageEditorKey).toBe(ImageEditorKey.AdjustColors);
+
+    finishSave();
+    await switchEditor;
+
+    expect(editorControls.resetAdjustColors).toHaveBeenCalledOnce();
+    expect(store.getState().activeImageEditorKey).toBe(ImageEditorKey.Crop);
+  });
+
+  it('opens only the latest editor requested while settings are being saved', async () => {
+    const store = createEditImageStore();
+    await loadImage(store);
+    vi.mocked(imageEditorControls.open).mockClear();
+
+    let finishSave!: () => void;
+    const save = new Promise<void>(resolve => {
+      finishSave = resolve;
+    });
+    store.setState({waitForAppSettingsSave: vi.fn(() => save)});
+
+    const openAdjustColors = store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
+    const openCrop = store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
+
+    finishSave();
+    await Promise.all([openAdjustColors, openCrop]);
+
+    expect(store.getState().activeImageEditorKey).toBe(ImageEditorKey.Crop);
+    expect(imageEditorControls.open).toHaveBeenCalledExactlyOnceWith(ImageEditorKey.Crop);
+  });
+
+  it('opens the editor only once after repeated requests while settings are being saved', async () => {
+    const store = createEditImageStore();
+    await loadImage(store);
+    vi.mocked(imageEditorControls.open).mockClear();
+
+    let finishSave!: () => void;
+    const save = new Promise<void>(resolve => {
+      finishSave = resolve;
+    });
+    const waitForAppSettingsSave = vi.fn(() => save);
+    store.setState({waitForAppSettingsSave});
+
+    const openAdjustColors = store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
+    const repeated = store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
+
+    finishSave();
+    await Promise.all([openAdjustColors, repeated]);
+
+    expect(store.getState().activeImageEditorKey).toBe(ImageEditorKey.AdjustColors);
+    expect(imageEditorControls.open).toHaveBeenCalledExactlyOnceWith(ImageEditorKey.AdjustColors);
+  });
+
+  it('does not open an editor request superseded by image replacement', async () => {
+    const store = createEditImageStore();
+    await loadImage(store);
+    vi.mocked(imageEditorControls.open).mockClear();
+
+    let finishSave!: () => void;
+    const save = new Promise<void>(resolve => {
+      finishSave = resolve;
+    });
+    store.setState({
+      waitForAppSettingsSave: vi.fn().mockReturnValueOnce(save).mockResolvedValue(undefined),
+    });
+    const openAdjustColors = store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
+    const replacementSource = createImage();
+    const replacementEdited = createImage();
+    vi.mocked(createImageBitmap)
+      .mockResolvedValueOnce(replacementSource)
+      .mockResolvedValueOnce(replacementEdited);
+
+    await store.getState().setImageFileToEdit(new Blob() as File);
+    finishSave();
+    await openAdjustColors;
+
+    expect(store.getState()).toMatchObject({
+      imageToEdit: replacementSource,
+      editedImage: replacementEdited,
+      activeImageEditorKey: undefined,
+    });
+    expect(imageEditorControls.open).not.toHaveBeenCalled();
+  });
+
+  it('does not open an editor request superseded by undo', async () => {
+    const store = createEditImageStore();
+    await loadImage(store);
+    commandService.apply.mockResolvedValueOnce(createImage());
+    await store.getState().editImageOperation.execute({type: EditImageCommandType.RotateClockwise});
+    vi.mocked(imageEditorControls.open).mockClear();
+
+    let finishSave!: () => void;
+    const save = new Promise<void>(resolve => {
+      finishSave = resolve;
+    });
+    store.setState({waitForAppSettingsSave: vi.fn(() => save)});
+
+    const openAdjustColors = store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
+    const undo = store.getState().undoEditImage();
+    finishSave();
+    await Promise.all([openAdjustColors, undo]);
+
+    expect(store.getState().activeImageEditorKey).toBe(ImageEditorKey.Rotate);
+    expect(imageEditorControls.open).not.toHaveBeenCalled();
+  });
+
   it('restores the editor controls when returning to it', async () => {
     const store = createIntegratedEditImageStore();
     await loadImage(store);
-    store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
     const controls: AdjustColorsControls = {
       ...defaultTestAdjustColorsControls(),
       whiteBalanceMethod: AdjustColorsWhiteBalanceMethod.None,
@@ -240,7 +372,7 @@ describe('EditImageSlice', () => {
     commandService.apply.mockResolvedValueOnce(createImage());
     await store.getState().previewAdjustColors();
 
-    store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
 
     // reset to defaults, but without the automatic white balance the history already applied
     expect(store.getState().adjustColorsControls).toEqual({
@@ -248,7 +380,7 @@ describe('EditImageSlice', () => {
       whiteBalanceMethod: AdjustColorsWhiteBalanceMethod.None,
     });
 
-    store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
 
     expect(store.getState().adjustColorsControls).toEqual(controls);
   });
@@ -258,8 +390,8 @@ describe('EditImageSlice', () => {
     await loadImage(store);
     clearEditorResetActions();
 
-    store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
-    store.getState().setActiveImageEditorKey(ImageEditorKey.RemoveBackground);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.RemoveBackground);
 
     expect(editorControls.resetCrop).not.toHaveBeenCalled();
   });
@@ -323,7 +455,7 @@ describe('EditImageSlice', () => {
     const firstCommand: EditImageCommand = adjustColorsCommand(120);
     const secondCommand: EditImageCommand = adjustColorsCommand(130);
 
-    store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
     await store.getState().editImageOperation.preview(firstCommand);
     await store.getState().editImageOperation.preview(secondCommand);
 
@@ -366,7 +498,7 @@ describe('EditImageSlice', () => {
       return command;
     };
 
-    store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
     await store.getState().editImageOperation.preview(previewSupplying(adjustColorsCommand(110)));
     await store.getState().editImageOperation.preview(previewSupplying(adjustColorsCommand(120)));
     await store.getState().editImageOperation.preview(previewSupplying(adjustColorsCommand(130)));
@@ -389,7 +521,7 @@ describe('EditImageSlice', () => {
     const rotate: EditImageCommand = {type: EditImageCommandType.RotateClockwise};
     const secondAdjust: EditImageCommand = adjustColorsCommand(130);
 
-    store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
     await store.getState().editImageOperation.preview(firstAdjust);
     await store.getState().editImageOperation.execute(rotate);
     await store.getState().editImageOperation.preview(secondAdjust);
@@ -418,14 +550,14 @@ describe('EditImageSlice', () => {
     const secondAdjustedImage = createImage();
     commandService.apply.mockResolvedValueOnce(adjustedImage).mockResolvedValueOnce(rotatedImage);
 
-    store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
     await store.getState().editImageOperation.preview(adjustColorsCommand(120));
     await store.getState().editImageOperation.execute({
       type: EditImageCommandType.RotateClockwise,
     });
     vi.mocked(createImageBitmap).mockResolvedValueOnce(replayedBase);
     await store.getState().undoEditImage();
-    store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
 
     const imageBeforeLastEdit = store.getState().imageBeforeLastEdit;
     expect(imageBeforeLastEdit).not.toBeNull();
@@ -454,7 +586,7 @@ describe('EditImageSlice', () => {
     commandService.apply.mockResolvedValueOnce(firstPreview).mockResolvedValueOnce(secondPreview);
     const secondCommand: EditImageCommand = adjustColorsCommand(130);
 
-    store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
     await store.getState().editImageOperation.preview(adjustColorsCommand(120));
     await store.getState().editImageOperation.preview(secondCommand);
 
@@ -472,15 +604,15 @@ describe('EditImageSlice', () => {
     clearEditorResetActions();
     vi.mocked(createImageBitmap).mockClear();
     const rotatedImage = createImage();
-    const straightenedPreview = createImage();
+    const correctedPerspectivePreview = createImage();
     const replayedBase = createImage();
     commandService.apply
       .mockResolvedValueOnce(rotatedImage)
-      .mockResolvedValueOnce(straightenedPreview);
+      .mockResolvedValueOnce(correctedPerspectivePreview);
 
     const rotateCommand: EditImageCommand = {type: EditImageCommandType.RotateClockwise};
-    const straightenCommand: EditImageCommand = {
-      type: EditImageCommandType.Straighten,
+    const correctPerspectiveCommand: EditImageCommand = {
+      type: EditImageCommandType.CorrectPerspective,
       vertices: [
         {x: 0, y: 0},
         {x: 1, y: 0},
@@ -488,15 +620,15 @@ describe('EditImageSlice', () => {
         {x: 0, y: 1},
       ],
     };
-    store.getState().setActiveImageEditorKey(ImageEditorKey.Straighten);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.CorrectPerspective);
     await store.getState().editImageOperation.execute(rotateCommand);
-    await store.getState().editImageOperation.preview(straightenCommand);
+    await store.getState().editImageOperation.preview(correctPerspectiveCommand);
 
     commandService.apply.mockClear();
     vi.mocked(createImageBitmap).mockClear();
     await store.getState().undoEditImage();
 
-    expect(straightenedPreview.close).toHaveBeenCalledOnce();
+    expect(correctedPerspectivePreview.close).toHaveBeenCalledOnce();
     // the kept command is not replaceable, so its prefix is never needed
     expect(commandService.apply).not.toHaveBeenCalled();
     expect(createImageBitmap).not.toHaveBeenCalled();
@@ -504,8 +636,8 @@ describe('EditImageSlice', () => {
     expect(store.getState()).toMatchObject({
       editedImage: rotatedImage,
       editImageHistory: [{command: rotateCommand, replaceable: false}],
-      undoneEditImageHistory: [{command: straightenCommand, replaceable: true}],
-      activeImageEditorKey: ImageEditorKey.Straighten,
+      undoneEditImageHistory: [{command: correctPerspectiveCommand, replaceable: true}],
+      activeImageEditorKey: ImageEditorKey.CorrectPerspective,
     });
 
     vi.mocked(createImageBitmap).mockResolvedValueOnce(replayedBase);
@@ -517,7 +649,7 @@ describe('EditImageSlice', () => {
       editedImage: replayedBase,
       editImageHistory: [],
       undoneEditImageHistory: [
-        {command: straightenCommand, replaceable: true},
+        {command: correctPerspectiveCommand, replaceable: true},
         {command: rotateCommand, replaceable: false},
       ],
       activeImageEditorKey: ImageEditorKey.Rotate,
@@ -612,7 +744,7 @@ describe('EditImageSlice', () => {
   it('redoes an Adjust Colors preview with the controls that produced it', async () => {
     const store = createIntegratedEditImageStore();
     await loadImage(store);
-    store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
     const appliedControls: AdjustColorsControls = {
       ...defaultTestAdjustColorsControls(),
       whiteBalanceMethod: AdjustColorsWhiteBalanceMethod.WhitePoint,
@@ -647,7 +779,7 @@ describe('EditImageSlice', () => {
   it('restores applied controls when an edit fails', async () => {
     const store = createIntegratedEditImageStore();
     await loadImage(store);
-    store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
     const appliedControls: AdjustColorsControls = {
       ...defaultTestAdjustColorsControls(),
       whiteBalanceMethod: AdjustColorsWhiteBalanceMethod.None,
@@ -668,7 +800,7 @@ describe('EditImageSlice', () => {
   it('keeps a composed value when an edit fails with nothing applied', async () => {
     const store = createIntegratedEditImageStore();
     await loadImage(store);
-    store.getState().setActiveImageEditorKey(ImageEditorKey.RemoveBackground);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.RemoveBackground);
     store.setState({removeBackgroundColor: '#ffffff'});
     commandService.apply.mockRejectedValueOnce(new Error('Remove background failed'));
 
@@ -686,7 +818,7 @@ describe('EditImageSlice', () => {
   it('keeps controls with nothing applied when canceling', async () => {
     const store = createIntegratedEditImageStore();
     await loadImage(store);
-    store.getState().setActiveImageEditorKey(ImageEditorKey.RemoveBackground);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.RemoveBackground);
     store.setState({removeBackgroundColor: '#ffffff'});
     let resolvePreview: (image: ImageBitmap) => void = () => undefined;
     commandService.apply.mockImplementationOnce(
@@ -711,7 +843,7 @@ describe('EditImageSlice', () => {
   it('restores applied Adjust Colors controls after canceling a newer preview', async () => {
     const store = createIntegratedEditImageStore();
     await loadImage(store);
-    store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
     const appliedControls: AdjustColorsControls = {
       ...defaultTestAdjustColorsControls(),
       whiteBalanceMethod: AdjustColorsWhiteBalanceMethod.None,
@@ -798,7 +930,7 @@ describe('EditImageSlice', () => {
     commandService.apply.mockResolvedValueOnce(rotatedImage);
     await store.getState().editImageOperation.execute(command);
     await store.getState().undoEditImage();
-    store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
     commandService.apply.mockRejectedValueOnce(new Error('Redo failed'));
 
     await expect(store.getState().redoEditImage()).rejects.toThrow('Redo failed');
@@ -810,6 +942,21 @@ describe('EditImageSlice', () => {
       activeImageEditorKey: ImageEditorKey.Crop,
     });
     expect(editedImage.close).not.toHaveBeenCalled();
+  });
+
+  it('can select the target editor after redo fails', async () => {
+    const store = createEditImageStore();
+    await loadImage(store);
+    commandService.apply.mockResolvedValueOnce(createImage());
+    await store.getState().editImageOperation.execute({type: EditImageCommandType.RotateClockwise});
+    await store.getState().undoEditImage();
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
+    commandService.apply.mockRejectedValueOnce(new Error('Redo failed'));
+
+    await expect(store.getState().redoEditImage()).rejects.toThrow('Redo failed');
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.Rotate);
+
+    expect(store.getState().activeImageEditorKey).toBe(ImageEditorKey.Rotate);
   });
 
   it('resets the image and clears the history', async () => {
@@ -851,7 +998,7 @@ describe('EditImageSlice', () => {
     commandService.apply.mockResolvedValueOnce(rotatedImage).mockResolvedValueOnce(croppedImage);
     await store.getState().editImageOperation.execute(rotate);
     await store.getState().editImageOperation.execute(crop);
-    store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
     clearEditorResetActions();
     vi.mocked(createImageBitmap).mockRejectedValueOnce(new Error('Reset failed'));
 
@@ -905,7 +1052,7 @@ describe('EditImageSlice', () => {
     const rotatedImage = createImage();
     commandService.apply.mockResolvedValueOnce(rotatedImage);
     await store.getState().editImageOperation.execute({type: EditImageCommandType.RotateClockwise});
-    store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
     const replacementSource = createImage();
     const replacementEdited = createImage();
     vi.mocked(createImageBitmap)
@@ -941,7 +1088,7 @@ describe('EditImageSlice', () => {
     await store.getState().editImageOperation.execute(rotateCommand);
     await store.getState().editImageOperation.execute(firstAdjustCommand);
     await store.getState().editImageOperation.execute(secondAdjustCommand);
-    store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
     const observedActiveImageEditorKeys: (ImageEditorKey | undefined)[] = [];
     const unsubscribe = store.subscribe(state => {
       observedActiveImageEditorKeys.push(state.activeImageEditorKey);
@@ -1003,7 +1150,7 @@ describe('EditImageSlice', () => {
     commandService.apply.mockResolvedValueOnce(rotatedImage).mockResolvedValueOnce(croppedImage);
     await store.getState().editImageOperation.execute(rotateCommand);
     await store.getState().editImageOperation.execute(cropCommand);
-    store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
     vi.mocked(createImageBitmap).mockRejectedValueOnce(new Error('Replay failed'));
 
     await expect(store.getState().resetEditImage()).rejects.toThrow('Replay failed');
@@ -1034,7 +1181,7 @@ describe('EditImageSlice', () => {
     commandService.apply.mockResolvedValueOnce(rotatedImage).mockResolvedValueOnce(croppedImage);
     await store.getState().editImageOperation.execute(rotateCommand);
     await store.getState().editImageOperation.execute(cropCommand);
-    store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
     let resolveReplay: (image: ImageBitmap) => void = () => undefined;
     vi.mocked(createImageBitmap).mockImplementationOnce(
       async () =>
@@ -1072,10 +1219,10 @@ describe('EditImageSlice', () => {
           resolvePreviewImage = resolve;
         })
     );
-    store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
     const update = store.getState().editImageOperation.preview(adjustColorsCommand());
 
-    store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.Crop);
     resolvePreviewImage(stalePreviewImage);
     await update;
 

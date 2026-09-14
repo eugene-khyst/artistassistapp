@@ -36,8 +36,12 @@ export function gaussianBlurWebGL(image: OffscreenCanvas, kernelSize: KernelSize
   return result;
 }
 
-export function gaussianBlurRenderPasses(kernelSize: KernelSize, programIndex = 0): RenderPass[] {
-  const kernel = createGaussianKernel(kernelSize);
+export function gaussianBlurRenderPasses(
+  kernelSize: KernelSize,
+  programIndex = 0,
+  standardDeviation?: number
+): RenderPass[] {
+  const kernel = createGaussianKernel(kernelSize, standardDeviation);
   return [
     {
       programIndex,
@@ -65,9 +69,9 @@ function setUniforms(
   gl.uniform2f(locations.get('u_direction')!, direction.x, direction.y);
 }
 
-function createGaussianKernel(size: KernelSize): Float32Array {
+function createGaussianKernel(size: KernelSize, standardDeviation?: number): Float32Array {
   const radius = (size - 1) / 2;
-  const sigma = 0.3 * (radius - 1) + 0.8;
+  const sigma = standardDeviation ?? 0.3 * (radius - 1) + 0.8;
   const kernel = new Float32Array(size);
   const twoSigmaSquare = 2 * sigma ** 2;
   let sum = 0;

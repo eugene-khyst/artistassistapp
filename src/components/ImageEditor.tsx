@@ -35,16 +35,17 @@ import {type ReactNode, useEffect, useMemo, useState} from 'react';
 import {FileSelect} from '@/components/file/FileSelect';
 import {ImageSaveButton} from '@/components/image/ImageSaveButton';
 import {ImageViewSelector} from '@/components/image/ImageViewSelector';
-import {AdjustColorsControls} from '@/components/image-editor/AdjustColorsControls';
-import {ColorizeControls} from '@/components/image-editor/ColorizeControls';
-import {CropControls} from '@/components/image-editor/CropControls';
-import {ExpandControls} from '@/components/image-editor/ExpandControls';
-import {RemoveBackgroundControls} from '@/components/image-editor/RemoveBackgroundControls';
-import {RemoveObjectsControls} from '@/components/image-editor/RemoveObjectsControls';
-import {RestoreControls} from '@/components/image-editor/RestoreControls';
-import {RotateControls} from '@/components/image-editor/RotateControls';
-import {StraightenControls} from '@/components/image-editor/StraightenControls';
-import {UpscaleControls} from '@/components/image-editor/UpscaleControls';
+import {AdjustColorsEditorControls} from '@/components/image-editor/AdjustColorsEditorControls';
+import {ColorizeEditorControls} from '@/components/image-editor/ColorizeEditorControls';
+import {CorrectPerspectiveEditorControls} from '@/components/image-editor/CorrectPerspectiveEditorControls';
+import {CropEditorControls} from '@/components/image-editor/CropEditorControls';
+import {ExpandEditorControls} from '@/components/image-editor/ExpandEditorControls';
+import {RemoveBackgroundEditorControls} from '@/components/image-editor/RemoveBackgroundEditorControls';
+import {RemoveObjectsEditorControls} from '@/components/image-editor/RemoveObjectsEditorControls';
+import {RestoreEditorControls} from '@/components/image-editor/RestoreEditorControls';
+import {RotateEditorControls} from '@/components/image-editor/RotateEditorControls';
+import {SharpenEditorControls} from '@/components/image-editor/SharpenEditorControls';
+import {UpscaleEditorControls} from '@/components/image-editor/UpscaleEditorControls';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {EDIT_IMAGE_LABELS} from '@/components/messages';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
@@ -61,7 +62,7 @@ import styles from './ImageEditor.module.css';
 
 const IMAGE_EDITOR_MODE_TYPES: Record<ImageEditorKey, ImageEditorModeType> = {
   [ImageEditorKey.Rotate]: ImageEditorModeType.Noop,
-  [ImageEditorKey.Straighten]: ImageEditorModeType.Quadrilateral,
+  [ImageEditorKey.CorrectPerspective]: ImageEditorModeType.Quadrilateral,
   [ImageEditorKey.Crop]: ImageEditorModeType.Crop,
   [ImageEditorKey.Expand]: ImageEditorModeType.Expand,
   [ImageEditorKey.AdjustColors]: ImageEditorModeType.ColorPicker,
@@ -69,6 +70,7 @@ const IMAGE_EDITOR_MODE_TYPES: Record<ImageEditorKey, ImageEditorModeType> = {
   [ImageEditorKey.RemoveObjects]: ImageEditorModeType.Polygon,
   [ImageEditorKey.Upscale]: ImageEditorModeType.Noop,
   [ImageEditorKey.Restore]: ImageEditorModeType.Noop,
+  [ImageEditorKey.Sharpen]: ImageEditorModeType.Noop,
   [ImageEditorKey.Colorize]: ImageEditorModeType.Noop,
 };
 
@@ -107,35 +109,38 @@ const IMAGE_EDITOR_CONTROLS: Record<
   ImageEditorKey,
   (context: ImageEditorControlsContext) => ReactNode
 > = {
-  [ImageEditorKey.Rotate]: () => <RotateControls />,
-  [ImageEditorKey.Straighten]: ({imageEditorMode}) => (
-    <StraightenControls
+  [ImageEditorKey.Rotate]: () => <RotateEditorControls />,
+  [ImageEditorKey.CorrectPerspective]: ({imageEditorMode}) => (
+    <CorrectPerspectiveEditorControls
       polygonDrawingMode={imageEditorMode?.delegates[ImageEditorModeType.Quadrilateral] ?? null}
     />
   ),
   [ImageEditorKey.Crop]: ({imageEditorMode}) => (
-    <CropControls croppingMode={imageEditorMode?.delegates[ImageEditorModeType.Crop] ?? null} />
+    <CropEditorControls
+      croppingMode={imageEditorMode?.delegates[ImageEditorModeType.Crop] ?? null}
+    />
   ),
   [ImageEditorKey.Expand]: ({imageEditorMode}) => (
-    <ExpandControls
+    <ExpandEditorControls
       expandingMode={imageEditorMode?.delegates[ImageEditorModeType.Expand] ?? null}
     />
   ),
   [ImageEditorKey.AdjustColors]: ({imageEditorMode, onColorPickerEnabledChange}) => (
-    <AdjustColorsControls
+    <AdjustColorsEditorControls
       colorPickerMode={imageEditorMode?.delegates[ImageEditorModeType.ColorPicker] ?? null}
       onColorPickerEnabledChange={onColorPickerEnabledChange}
     />
   ),
-  [ImageEditorKey.RemoveBackground]: () => <RemoveBackgroundControls />,
+  [ImageEditorKey.RemoveBackground]: () => <RemoveBackgroundEditorControls />,
   [ImageEditorKey.RemoveObjects]: ({imageEditorMode}) => (
-    <RemoveObjectsControls
+    <RemoveObjectsEditorControls
       polygonDrawingMode={imageEditorMode?.delegates[ImageEditorModeType.Polygon] ?? null}
     />
   ),
-  [ImageEditorKey.Upscale]: () => <UpscaleControls />,
-  [ImageEditorKey.Restore]: () => <RestoreControls />,
-  [ImageEditorKey.Colorize]: () => <ColorizeControls />,
+  [ImageEditorKey.Upscale]: () => <UpscaleEditorControls />,
+  [ImageEditorKey.Restore]: () => <RestoreEditorControls />,
+  [ImageEditorKey.Sharpen]: () => <SharpenEditorControls />,
+  [ImageEditorKey.Colorize]: () => <ColorizeEditorControls />,
 };
 
 export function ImageEditor() {
@@ -149,13 +154,12 @@ export function ImageEditor() {
   const editImageDownloadTip = useAppStore(state => state.editImageDownloadTip);
   const editImageProcessTip = useAppStore(state => state.editImageProcessTip);
   const activeImageEditorKey = useAppStore(state => state.activeImageEditorKey);
-  const straightenVertices = useAppStore(state => state.straightenVertices);
+  const correctPerspectiveVertices = useAppStore(state => state.correctPerspectiveVertices);
   const removeObjectsVertices = useAppStore(state => state.removeObjectsVertices);
   const cropRectangle = useAppStore(state => state.cropRectangle);
   const editImageOperation = useAppStore(state => state.editImageOperation);
   const setImageFileToEdit = useAppStore(state => state.setImageFileToEdit);
   const setActiveImageEditorKey = useAppStore(state => state.setActiveImageEditorKey);
-  const openAdjustColors = useAppStore(state => state.openAdjustColors);
   const undoEditImage = useAppStore(state => state.undoEditImage);
   const redoEditImage = useAppStore(state => state.redoEditImage);
   const resetEditImage = useAppStore(state => state.resetEditImage);
@@ -193,12 +197,12 @@ export function ImageEditor() {
 
   // Loading images and activating a mode both clear the selection, so restore it last.
   useEffect(() => {
-    if (straightenVertices) {
+    if (correctPerspectiveVertices) {
       imageEditorMode?.delegates[ImageEditorModeType.Quadrilateral]?.setVertices(
-        straightenVertices
+        correctPerspectiveVertices
       );
     }
-  }, [imageEditorMode, straightenVertices]);
+  }, [imageEditorMode, correctPerspectiveVertices]);
 
   useEffect(() => {
     if (removeObjectsVertices) {
@@ -262,10 +266,7 @@ export function ImageEditor() {
       setIsShowingOriginal(false);
     }
     const imageEditorKey = activeKey ? (activeKey as ImageEditorKey) : undefined;
-    setActiveImageEditorKey(imageEditorKey);
-    if (imageEditorKey === ImageEditorKey.AdjustColors) {
-      void openAdjustColors();
-    }
+    void setActiveImageEditorKey(imageEditorKey);
   };
 
   return (

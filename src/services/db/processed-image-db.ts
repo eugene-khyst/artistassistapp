@@ -35,13 +35,13 @@ export interface ProcessedImage {
 }
 
 async function processedImageKey(model: OnnxModel, digests: string[]): Promise<string> {
-  const {priority: _priority, freeTier: _freeTier, ...rest} = model;
+  const {priority: _priority, freeTier: _freeTier, webGpu = true, ...rest} = model;
   const modelDigest = await digestMessage(JSON.stringify(canonicalize(rest)));
   const {webGpuEnabled} = {...DEFAULT_APP_SETTINGS, ...(await getAppSettings())};
   return [
     PROCESSED_IMAGE_CACHE_VERSION,
     modelDigest,
-    webGpuEnabled ? 'webgpu' : 'wasm',
+    webGpuEnabled && webGpu ? 'webgpu' : 'wasm',
     ...digests,
   ].join('|');
 }

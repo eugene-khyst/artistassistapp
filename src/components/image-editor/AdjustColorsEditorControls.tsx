@@ -18,17 +18,10 @@
 
 import {kelvinToRgb, range, rgbToHex} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {
-  type CheckboxOptionType,
-  Form,
-  Radio,
-  type RadioChangeEvent,
-  Slider,
-  Space,
-  Typography,
-} from 'antd';
+import {Form, Radio, type RadioChangeEvent, Slider, Space, Typography} from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import type {SliderMarks} from 'antd/es/slider';
+import {type CheckboxOptionType} from 'antd/lib';
 import {useCallback, useEffect} from 'react';
 
 import {ColorPicker} from '@/components/color/ColorPicker';
@@ -47,13 +40,13 @@ import {useAppStore} from '@/stores/app-store';
 
 const PERCENTILE_MIN = 80;
 const PERCENTILE_MAX = 100;
-const SATURATION_MIN = 80;
-const SATURATION_MAX = 130;
+const SATURATION_MIN = 50;
+const SATURATION_MAX = 150;
 const RGB_MIN = 0;
 const RGB_MAX = 255;
 const GAMMA_MIN = 0;
 const GAMMA_MAX = 100;
-const GAMMA_VALUES = [0.5, 1, 2];
+const GAMMA_VALUES = [0.5, 0.7, 1, 1.5, 2];
 const COLOR_TEMP_MIN = 1500;
 const COLOR_TEMP_MAX = 12000;
 const COLOR_TEMP_STEP = 50;
@@ -64,7 +57,9 @@ const percentileSliderMarks: SliderMarks = Object.fromEntries(
 );
 
 const saturationSliderMarks: SliderMarks = Object.fromEntries(
-  range(SATURATION_MIN, SATURATION_MAX, 10).map((i: number) => [i, i])
+  range(SATURATION_MIN, SATURATION_MAX, Math.trunc((SATURATION_MAX - SATURATION_MIN) / 4)).map(
+    (i: number) => [i, i]
+  )
 );
 
 const rgbSliderMarks: SliderMarks = Object.fromEntries([0, 127, 255].map((i: number) => [i, i]));
@@ -105,24 +100,25 @@ function kelvinGradient(minKelvin: number, maxKelvin: number, steps = 10): strin
   return `linear-gradient(to right, ${stops.join(', ')})`;
 }
 
+const MODE_OPTIONS: CheckboxOptionType<number>[] = [
+  {value: AdjustColorsWhiteBalanceMethod.Percentile, label: <Trans>Percentile</Trans>},
+  {value: AdjustColorsWhiteBalanceMethod.WhitePoint, label: <Trans>Reference</Trans>},
+  {value: AdjustColorsWhiteBalanceMethod.None, label: <Trans>Off</Trans>},
+];
+
 interface Props {
   colorPickerMode: ImageColorPickerMode | null;
   onColorPickerEnabledChange: (enabled: boolean) => void;
 }
 
-export function AdjustColorsControls({
+export function AdjustColorsEditorControls({
   colorPickerMode,
   onColorPickerEnabledChange,
 }: Readonly<Props>) {
   const adjustColorsControls = useAppStore(state => state.adjustColorsControls);
   const setAdjustColorsControls = useAppStore(state => state.setAdjustColorsControls);
   const previewAdjustColors = useAppStore(state => state.previewAdjustColors);
-  const updateAdjustColorsControls = useCallback(
-    (controls: Partial<AdjustColorsControlsState>): void => {
-      setAdjustColorsControls(controls);
-    },
-    [setAdjustColorsControls]
-  );
+
   const applyAdjustColorsControls = useCallback(
     (controls: Partial<AdjustColorsControlsState>): void => {
       setAdjustColorsControls(controls);
@@ -130,9 +126,6 @@ export function AdjustColorsControls({
     },
     [previewAdjustColors, setAdjustColorsControls]
   );
-  const previewOnRelease = useCallback((): void => {
-    void previewAdjustColors();
-  }, [previewAdjustColors]);
 
   const {t} = useLingui();
 
@@ -170,11 +163,9 @@ export function AdjustColorsControls({
     };
   }, [whiteBalanceMethod, onColorPickerEnabledChange]);
 
-  const modeOptions: CheckboxOptionType<number>[] = [
-    {value: AdjustColorsWhiteBalanceMethod.Percentile, label: <Trans>Percentile</Trans>},
-    {value: AdjustColorsWhiteBalanceMethod.WhitePoint, label: <Trans>Reference</Trans>},
-    {value: AdjustColorsWhiteBalanceMethod.None, label: <Trans>Off</Trans>},
-  ];
+  const previewOnRelease = () => {
+    void previewAdjustColors();
+  };
 
   return (
     <Space orientation="vertical" className="u-w-100">
@@ -190,7 +181,7 @@ export function AdjustColorsControls({
         className="u-mb-0"
       >
         <Radio.Group
-          options={modeOptions}
+          options={MODE_OPTIONS}
           value={whiteBalanceMethod}
           onChange={(event: RadioChangeEvent) => {
             applyAdjustColorsControls({
@@ -213,7 +204,7 @@ export function AdjustColorsControls({
           <Slider
             value={percentile}
             onChange={value => {
-              updateAdjustColorsControls({percentile: value});
+              setAdjustColorsControls({percentile: value});
             }}
             onChangeComplete={previewOnRelease}
             min={PERCENTILE_MIN}
@@ -263,7 +254,7 @@ export function AdjustColorsControls({
         <Slider
           value={saturation}
           onChange={value => {
-            updateAdjustColorsControls({saturation: value});
+            setAdjustColorsControls({saturation: value});
           }}
           onChangeComplete={previewOnRelease}
           min={SATURATION_MIN}
@@ -283,7 +274,7 @@ export function AdjustColorsControls({
           range
           value={inputLevels}
           onChange={value => {
-            updateAdjustColorsControls({inputLevels: value});
+            setAdjustColorsControls({inputLevels: value});
           }}
           onChangeComplete={previewOnRelease}
           min={RGB_MIN}
@@ -306,13 +297,12 @@ export function AdjustColorsControls({
         <Slider
           value={gammaPercent}
           onChange={value => {
-            updateAdjustColorsControls({gammaPercent: value});
+            setAdjustColorsControls({gammaPercent: value});
           }}
           onChangeComplete={previewOnRelease}
           min={GAMMA_MIN}
           max={GAMMA_MAX}
           marks={gammaSliderMarks}
-          step={2}
           tooltip={{formatter: value => percentToGamma(value!).toFixed(2)}}
         />
       </Form.Item>
@@ -328,7 +318,7 @@ export function AdjustColorsControls({
           range
           value={outputLevels}
           onChange={value => {
-            updateAdjustColorsControls({outputLevels: value});
+            setAdjustColorsControls({outputLevels: value});
           }}
           onChangeComplete={previewOnRelease}
           min={RGB_MIN}
@@ -355,7 +345,7 @@ export function AdjustColorsControls({
         <Slider
           value={originalTemperature}
           onChange={value => {
-            updateAdjustColorsControls({originalTemperature: value});
+            setAdjustColorsControls({originalTemperature: value});
           }}
           onChangeComplete={previewOnRelease}
           min={COLOR_TEMP_MIN}
@@ -382,7 +372,7 @@ export function AdjustColorsControls({
         <Slider
           value={targetTemperature}
           onChange={value => {
-            updateAdjustColorsControls({targetTemperature: value});
+            setAdjustColorsControls({targetTemperature: value});
           }}
           onChangeComplete={previewOnRelease}
           min={COLOR_TEMP_MIN}

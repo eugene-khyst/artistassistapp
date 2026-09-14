@@ -30,8 +30,9 @@ import type {AuthSlice} from '@/stores/auth-slice';
 import type {CloudSlice} from '@/stores/cloud-slice';
 import type {CropSlice} from '@/stores/crop-slice';
 import type {CustomColorBrandSlice} from '@/stores/custom-color-brand-slice';
-import type {ExpandImageSlice} from '@/stores/expand-image-slice';
+import type {ExpandSlice} from '@/stores/expand-slice';
 import type {LocaleSlice} from '@/stores/locale-slice';
+import {type SharpenSlice} from '@/stores/sharpen-slice';
 import {reloadStores} from '@/stores/sync/store-reloads';
 import {initAuthAttemptWatcher} from '@/stores/watchers/auth-attempt-watcher';
 import {initAuthExpiryWatcher} from '@/stores/watchers/auth-expiry-watcher';
@@ -61,6 +62,7 @@ export interface AppSlice {
   resetInstallRequested: () => void;
   loadAppSettings: () => Promise<AppSettings>;
   saveAppSettings: (appSettings: Partial<AppSettings> | AppSettingsUpdater) => Promise<AppSettings>;
+  waitForAppSettingsSave: () => Promise<void>;
   loadStoreChangeTokens: () => Promise<StoreChangeTokens>;
   saveStoreChangeTokens: (tokens: StoreChangeTokens) => void;
   addInitError: (label: string, error: unknown) => void;
@@ -75,7 +77,8 @@ type AppSliceDependencies = Pick<LocaleSlice, 'setLocale'> &
   Pick<CloudSlice, 'loadCloudConnection' | 'handleCloudCallback' | 'syncCloudState'> &
   Pick<CustomColorBrandSlice, 'loadCustomColorBrands'> &
   Pick<CropSlice, 'loadCropSettings'> &
-  Pick<ExpandImageSlice, 'loadExpandImageSettings'> &
+  Pick<ExpandSlice, 'loadExpandSettings'> &
+  Pick<SharpenSlice, 'loadSharpenSettings'> &
   Pick<TabSlice, 'setActiveTabKey'> &
   Pick<ColorSetSlice, 'loadColorSets'> &
   Pick<OriginalImageSlice, 'loadRecentImages' | 'selectLatestImageFile'> &
@@ -85,6 +88,10 @@ export const createAppSlice: StateCreator<AppSlice & AppSliceDependencies, [], [
   set,
   get
 ) => {
+  let saveAppSettingsPromise: Promise<void> = Promise.resolve();
+  let finishSaveAppSettings: (() => void) | undefined;
+  let saveAppSettingsCount = 0;
+
   const runInitStepSafely = async (label: string, fn: () => unknown): Promise<void> => {
     try {
       await fn();
@@ -95,6 +102,34 @@ export const createAppSlice: StateCreator<AppSlice & AppSliceDependencies, [], [
       get().addInitError(label, error);
     }
   };
+
+  const saveAppSettings = async (
+    update: Partial<AppSettings> | AppSettingsUpdater
+  ): Promise<AppSettings> => {
+    if (saveAppSettingsCount === 0) {
+      saveAppSettingsPromise = new Promise(resolve => {
+        finishSaveAppSettings = resolve;
+      });
+    }
+    saveAppSettingsCount++;
+    try {
+      const appSettings = await updateStoredAppSettings(prev => ({
+        ...prev,
+        ...(typeof update === 'function' ? update(prev) : update),
+      }));
+      set({
+        appSettings,
+      });
+      return appSettings;
+    } finally {
+      saveAppSettingsCount--;
+      if (saveAppSettingsCount === 0) {
+        finishSaveAppSettings!();
+        finishSaveAppSettings = undefined;
+      }
+    }
+  };
+
   return {
     appInitialized: false,
     appSettings: {...DEFAULT_APP_SETTINGS},
@@ -222,21 +257,15 @@ export const createAppSlice: StateCreator<AppSlice & AppSliceDependencies, [], [
         appSettings,
       });
       get().loadCropSettings(appSettings);
-      get().loadExpandImageSettings(appSettings);
+      get().loadExpandSettings(appSettings);
+      get().loadSharpenSettings(appSettings);
       return appSettings;
     },
 
-    saveAppSettings: async (
-      update: Partial<AppSettings> | AppSettingsUpdater
-    ): Promise<AppSettings> => {
-      const appSettings = await updateStoredAppSettings(prev => ({
-        ...prev,
-        ...(typeof update === 'function' ? update(prev) : update),
-      }));
-      set({
-        appSettings,
-      });
-      return appSettings;
+    saveAppSettings,
+
+    waitForAppSettingsSave: async (): Promise<void> => {
+      await saveAppSettingsPromise;
     },
 
     loadStoreChangeTokens: async (): Promise<StoreChangeTokens> => {

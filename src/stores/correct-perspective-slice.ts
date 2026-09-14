@@ -21,69 +21,72 @@ import type {StateCreator} from 'zustand';
 import {formatFetchProgress} from '@/i18n';
 import {ImageEditorKey} from '@/image-editor';
 import {hasAccessTo} from '@/services/auth/utils';
+import {detectDocumentCorners} from '@/services/image/correct-perspective';
 import {commandVertices, EditImageCommandType} from '@/services/image/edit-image-command';
-import {detectDocumentCorners} from '@/services/image/straighten';
 import type {Vector} from '@/services/math/geometry';
 import type {OnnxModel} from '@/services/ml/types';
 import type {AuthSlice} from '@/stores/auth-slice';
 import type {EditImageSlice} from '@/stores/edit-image-slice';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
 
-export interface StraightenSlice {
-  perspectiveCorrectionModel?: OnnxModel;
+export interface CorrectPerspectiveSlice {
+  correctPerspectiveModel?: OnnxModel;
   // [] clears the corners, undefined leaves them alone.
-  straightenVertices?: Vector[];
+  correctPerspectiveVertices?: Vector[];
 
-  straightenImage: (vertices: Vector[]) => void;
-  setStraightenModel: (straightenModel: OnnxModel | undefined) => void;
-  autoDetectStraightenVertices: () => Promise<Vector[] | null | undefined>;
+  correctPerspectiveImage: (vertices: Vector[]) => void;
+  setCorrectPerspectiveModel: (correctPerspectiveModel: OnnxModel | undefined) => void;
+  autoDetectCorrectPerspectiveVertices: () => Promise<Vector[] | null | undefined>;
 }
 
-type StraightenSliceDependencies = Pick<AuthSlice, 'auth'> &
+type CorrectPerspectiveSliceDependencies = Pick<AuthSlice, 'auth'> &
   Pick<EditImageSlice, 'editImageOperation' | 'undoneEditImageHistory'>;
 
-export const createStraightenSlice: StateCreator<
-  StraightenSlice & StraightenSliceDependencies,
+export const createCorrectPerspectiveSlice: StateCreator<
+  CorrectPerspectiveSlice & CorrectPerspectiveSliceDependencies,
   [],
   [],
-  StraightenSlice
+  CorrectPerspectiveSlice
 > = (set, get) => {
   // Applying clears the corners, so only an undone edit can bring them back.
-  const undoneStraightenVertices = (): Vector[] | undefined =>
-    commandVertices(get().undoneEditImageHistory.at(-1)?.command, EditImageCommandType.Straighten);
+  const undoneCorrectPerspectiveVertices = (): Vector[] | undefined =>
+    commandVertices(
+      get().undoneEditImageHistory.at(-1)?.command,
+      EditImageCommandType.CorrectPerspective
+    );
 
-  imageEditorControls.register(ImageEditorKey.Straighten, {
+  imageEditorControls.register(ImageEditorKey.CorrectPerspective, {
     reset: () => {
       set({
-        straightenVertices: undoneStraightenVertices(),
+        correctPerspectiveVertices: undoneCorrectPerspectiveVertices(),
       });
     },
     restore: () => {
       set({
-        straightenVertices: undoneStraightenVertices() ?? [],
+        correctPerspectiveVertices: undoneCorrectPerspectiveVertices() ?? [],
       });
     },
   });
 
   return {
-    straightenImage: (vertices: Vector[]): void => {
+    correctPerspectiveImage: (vertices: Vector[]): void => {
       void get().editImageOperation.execute({
-        type: EditImageCommandType.Straighten,
+        type: EditImageCommandType.CorrectPerspective,
         vertices: vertices.map(({x, y}) => ({x, y})),
       });
     },
 
-    setStraightenModel: (perspectiveCorrectionModel: OnnxModel | undefined): void => {
-      if (get().perspectiveCorrectionModel === perspectiveCorrectionModel) {
+    setCorrectPerspectiveModel: (perspectiveCorrectionModel: OnnxModel | undefined): void => {
+      if (get().correctPerspectiveModel === perspectiveCorrectionModel) {
         return;
       }
       set({
-        perspectiveCorrectionModel,
+        correctPerspectiveModel: perspectiveCorrectionModel,
       });
     },
 
-    autoDetectStraightenVertices: async (): Promise<Vector[] | null | undefined> => {
-      const {perspectiveCorrectionModel, auth} = get();
+    autoDetectCorrectPerspectiveVertices: async (): Promise<Vector[] | null | undefined> => {
+      const {correctPerspectiveModel: perspectiveCorrectionModel, auth} = get();
       if (!perspectiveCorrectionModel || !hasAccessTo(auth?.user, perspectiveCorrectionModel)) {
         return null;
       }
@@ -101,7 +104,7 @@ export const createStraightenSlice: StateCreator<
               )
             : null
       );
-      return get().perspectiveCorrectionModel === perspectiveCorrectionModel ? vertices : undefined;
+      return get().correctPerspectiveModel === perspectiveCorrectionModel ? vertices : undefined;
     },
   };
 };

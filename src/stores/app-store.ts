@@ -31,7 +31,7 @@ import {
 } from '@/stores/color-mixing-chart-slice';
 import {type ColorizeSlice, createColorizeSlice} from '@/stores/colorize-slice';
 import {createEditImageSlice, type EditImageSlice} from '@/stores/edit-image-slice';
-import {createExpandImageSlice, type ExpandImageSlice} from '@/stores/expand-image-slice';
+import {createExpandSlice, type ExpandSlice} from '@/stores/expand-slice';
 import {createLocaleSlice, type LocaleSlice} from '@/stores/locale-slice';
 import {
   createPosterizedImageSlice,
@@ -39,11 +39,16 @@ import {
 } from '@/stores/posterized-image-slice';
 import {createPwaSlice, type PwaSlice} from '@/stores/pwa-slice';
 import {createRemoveObjectsSlice, type RemoveObjectsSlice} from '@/stores/remove-objects-slice';
+import {createSharpenSlice, type SharpenSlice} from '@/stores/sharpen-slice';
 
 import {type AdjustColorsSlice, createAdjustColorsSlice} from './adjust-colors-slice';
 import {type AppSlice, createAppSlice} from './app-slice';
 import {type ColorMixerSlice, createColorMixerSlice} from './color-mixer-slice';
 import {type ColorSetSlice, createColorSetSlice} from './color-set-slice';
+import {
+  type CorrectPerspectiveSlice,
+  createCorrectPerspectiveSlice,
+} from './correct-perspective-slice';
 import {createCropSlice, type CropSlice} from './crop-slice';
 import {createCustomColorBrandSlice, type CustomColorBrandSlice} from './custom-color-brand-slice';
 import {
@@ -59,7 +64,6 @@ import {createRestoreSlice, type RestoreSlice} from './restore-slice';
 import {createRotateSlice, type RotateSlice} from './rotate-slice';
 import {createSimplifyImageSlice, type SimplifyImageSlice} from './simplify-image-slice';
 import {createStorageSlice, type StorageSlice} from './storage-slice';
-import {createStraightenSlice, type StraightenSlice} from './straighten-slice';
 import {createStyleTransferSlice, type StyleTransferSlice} from './style-transfer-slice';
 import {createTabSlice, type TabSlice} from './tab-slice';
 import {createTonalValuesSlice, type TonalValuesSlice} from './tonal-values-slice';
@@ -86,14 +90,15 @@ export const useAppStore = create<
     LimitedPaletteImageSlice &
     StyleTransferSlice &
     RotateSlice &
-    StraightenSlice &
+    CorrectPerspectiveSlice &
     CropSlice &
-    ExpandImageSlice &
+    ExpandSlice &
     AdjustColorsSlice &
     RemoveBackgroundSlice &
     RemoveObjectsSlice &
     UpscaleSlice &
     RestoreSlice &
+    SharpenSlice &
     ColorizeSlice &
     EditImageSlice &
     TournamentSlice &
@@ -121,14 +126,15 @@ export const useAppStore = create<
     ...createLimitedPaletteImageSlice(...a),
     ...createStyleTransferSlice(...a),
     ...createRotateSlice(...a),
-    ...createStraightenSlice(...a),
+    ...createCorrectPerspectiveSlice(...a),
     ...createCropSlice(...a),
-    ...createExpandImageSlice(...a),
+    ...createExpandSlice(...a),
     ...createAdjustColorsSlice(...a),
     ...createRemoveBackgroundSlice(...a),
     ...createRemoveObjectsSlice(...a),
     ...createUpscaleSlice(...a),
     ...createRestoreSlice(...a),
+    ...createSharpenSlice(...a),
     ...createColorizeSlice(...a),
     ...createEditImageSlice(...a),
     ...createTournamentSlice(...a),

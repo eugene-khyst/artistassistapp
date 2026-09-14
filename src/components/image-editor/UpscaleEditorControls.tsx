@@ -29,7 +29,7 @@ import {upscaledSize} from '@/services/image/upscale';
 import {OnnxModelType, UPSCALING_MODEL_ID} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
 
-export function UpscaleControls() {
+export function UpscaleEditorControls() {
   const editedImage = useAppStore(state => state.editedImage);
   const setUpscaleModel = useAppStore(state => state.setUpscaleModel);
   const upscaleImage = useAppStore(state => state.upscaleImage);

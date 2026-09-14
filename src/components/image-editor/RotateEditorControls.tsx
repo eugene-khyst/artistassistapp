@@ -31,7 +31,7 @@ const rotationAngleSliderMarks: SliderMarks = Object.fromEntries(
   [ROTATION_ANGLE_MIN, 0, ROTATION_ANGLE_MAX].map((angle: number) => [angle, `${angle}°`])
 );
 
-export function RotateControls() {
+export function RotateEditorControls() {
   const rotateImageClockwise = useAppStore(state => state.rotateImageClockwise);
   const rotationAngle = useAppStore(state => state.rotationAngle);
   const setRotationAngle = useAppStore(state => state.setRotationAngle);

@@ -55,7 +55,15 @@ export async function transformImage({
     model,
     interpolation,
     run: (inputTensors, outputName) =>
-      runInferenceWorker(model.url, auth, inputTensors, outputName, progressCallback, signal),
+      runInferenceWorker({
+        modelUrl: model.url,
+        auth,
+        inputTensors,
+        outputName,
+        progressCallback,
+        signal,
+        allowWebGpu: model.webGpu,
+      }),
   });
 }
 

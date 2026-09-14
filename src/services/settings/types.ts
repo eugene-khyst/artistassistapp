@@ -56,9 +56,10 @@ export interface AppSettings {
   expandAspectRatio?: string;
   expandSizeMode?: string;
   expandFillMode?: string;
+  sharpenMode?: string;
   backgroundRemovalModel?: string;
-  colorizeModel?: string;
   restoreModel?: string;
+  colorizeModel?: string;
   webGpuEnabled: boolean;
 }
 

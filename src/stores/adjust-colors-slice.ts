@@ -37,7 +37,6 @@ export interface AdjustColorsSlice {
 
   setAdjustColorsControls: (controls: Partial<AdjustColorsControls>) => void;
   resetAdjustColors: () => void;
-  openAdjustColors: () => Promise<void>;
   previewAdjustColors: () => Promise<void>;
 }
 
@@ -115,7 +114,16 @@ export const createAdjustColorsSlice: StateCreator<
     });
   };
 
+  const openAdjustColors = async (): Promise<void> => {
+    if (!shouldPreviewInitialWhiteBalance || hasAdjustColorsEdit()) {
+      return;
+    }
+    shouldPreviewInitialWhiteBalance = false;
+    await get().editImageOperation.preview(adjustColorsPreview(get().adjustColorsControls));
+  };
+
   imageEditorControls.register(ImageEditorKey.AdjustColors, {
+    open: openAdjustColors,
     reset: resetAdjustColors,
     clear: clearAdjustColors,
     restore: command => {
@@ -133,19 +141,14 @@ export const createAdjustColorsSlice: StateCreator<
 
     setAdjustColorsControls: (controls: Partial<AdjustColorsControls>): void => {
       set({
-        adjustColorsControls: {...get().adjustColorsControls, ...controls},
+        adjustColorsControls: {
+          ...get().adjustColorsControls,
+          ...controls,
+        },
       });
     },
 
     resetAdjustColors,
-
-    openAdjustColors: async (): Promise<void> => {
-      if (!shouldPreviewInitialWhiteBalance || hasAdjustColorsEdit()) {
-        return;
-      }
-      shouldPreviewInitialWhiteBalance = false;
-      await get().editImageOperation.preview(adjustColorsPreview(get().adjustColorsControls));
-    },
 
     previewAdjustColors: async (): Promise<void> => {
       shouldPreviewInitialWhiteBalance = false;

@@ -138,7 +138,7 @@ msgstr "Er is een nieuwe versie van de app beschikbaar en zal automatisch worden
 msgid "A new version of the application is available."
 msgstr "Een nieuwe versie van de applicatie is beschikbaar."
 
-#: src/components/image-editor/AdjustColorsControls.tsx:256
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:245
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Een waarde van minder dan 100% zorgt ervoor dat de afbeelding er minder kleurrijk uitziet en een waarde van meer dan 100% zorgt ervoor dat deze er te kleurrijk uitziet"
 
@@ -146,15 +146,15 @@ msgstr "Een waarde van minder dan 100% zorgt ervoor dat de afbeelding er minder 
 msgid "Accurate"
 msgstr "Nauwkeurig"
 
-#: src/components/messages.ts:72
+#: src/components/messages.ts:73
 msgid "Acrylic Gouache"
 msgstr "Acrylgouache"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "Acrylic Markers"
 msgstr "Acrylmarkers"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Acrylic Paint"
 msgstr "Acrylverf"
 
@@ -194,7 +194,7 @@ msgstr "Voeg wit toe in een <0>{whiteRatioText} verhouding</0>"
 msgid "Adjust colors"
 msgstr "Kleuren aanpassen"
 
-#: src/components/image-editor/StraightenControls.tsx:86
+#: src/components/image-editor/CorrectPerspectiveEditorControls.tsx:88
 msgid "Adjust the 4 corners manually."
 msgstr "Pas de 4 hoeken handmatig aan."
 
@@ -202,7 +202,7 @@ msgstr "Pas de 4 hoeken handmatig aan."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Alle appgegevens worden opgeslagen in de opslag van de webbrowser, zelfs na installatie. Het wissen van de browsergegevens verwijdert alles."
 
-#: src/components/ImageEditor.tsx:329
+#: src/components/ImageEditor.tsx:330
 msgid "All edits will be lost"
 msgstr "Alle bewerkingen gaan verloren"
 
@@ -218,7 +218,7 @@ msgstr "Je kunt ook de nieuwste versie van de webbrowser Chrome, Edge of Opera i
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "Er is een onderlaag of verenigende kleur ingesteld. Het automatische palet past deze instellingen toe op de hele foto, niet alleen op het gebied waarvoor ze zijn gekozen."
 
-#: src/components/image-editor/RotateControls.tsx:44
+#: src/components/image-editor/RotateEditorControls.tsx:44
 msgid "Angle"
 msgstr "Hoek"
 
@@ -309,9 +309,9 @@ msgstr "ArtistAssistApp verwijdert je opgeslagen werk en instellingen definitief
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "ArtistAssistApp wordt opnieuw geladen na het verwijderen van tijdelijke app-bestanden.<0/>Je opgeslagen werk en clouddata worden niet verwijderd."
 
-#: src/components/image-editor/CropControls.tsx:76
-#: src/components/image-editor/ExpandControls.tsx:98
-#: src/components/image-editor/ExpandControls.tsx:135
+#: src/components/image-editor/CropEditorControls.tsx:79
+#: src/components/image-editor/ExpandEditorControls.tsx:98
+#: src/components/image-editor/ExpandEditorControls.tsx:134
 msgid "Aspect ratio"
 msgstr "Beeldverhouding"
 
@@ -331,15 +331,15 @@ msgstr "Authenticatie mislukt"
 msgid "Auto palette"
 msgstr "Automatisch palet"
 
-#: src/components/image-editor/StraightenControls.tsx:110
+#: src/components/image-editor/CorrectPerspectiveEditorControls.tsx:112
 msgid "Auto-detect"
 msgstr "Automatische detectie"
 
-#: src/components/image-editor/StraightenControls.tsx:118
+#: src/components/image-editor/CorrectPerspectiveEditorControls.tsx:120
 msgid "Auto-detect is available only to paid Patreon members"
 msgstr "Automatische detectie is alleen beschikbaar voor betalende Patreon-leden"
 
-#: src/components/image-editor/StraightenControls.tsx:51
+#: src/components/image-editor/CorrectPerspectiveEditorControls.tsx:53
 msgid "Auto-detect is unavailable"
 msgstr "Automatische detectie is niet beschikbaar"
 
@@ -347,12 +347,12 @@ msgstr "Automatische detectie is niet beschikbaar"
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Vind automatisch de beste kleurmengsels voor deze foto."
 
-#: src/components/image-editor/AdjustColorsControls.tsx:234
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
 msgid "Average color of the white point area"
 msgstr "Gemiddelde kleur van het witpuntgebied"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:98
-#: src/components/image-editor/RemoveBackgroundControls.tsx:104
+#: src/components/image-editor/RemoveBackgroundEditorControls.tsx:97
+#: src/components/image-editor/RemoveBackgroundEditorControls.tsx:103
 msgid "Background"
 msgstr "Achtergrond"
 
@@ -384,21 +384,21 @@ msgstr "Op aantal kleuren"
 msgid "By consistency"
 msgstr "Op consistentie"
 
-#: src/components/messages.ts:86
+#: src/components/messages.ts:87
 msgid "By date"
 msgstr "Op datum"
 
-#: src/components/messages.ts:81
-#: src/components/messages.ts:88
+#: src/components/messages.ts:82
+#: src/components/messages.ts:89
 msgid "By hue"
 msgstr "Op kleurtoon"
 
-#: src/components/messages.ts:80
+#: src/components/messages.ts:81
 msgid "By ID"
 msgstr "Op ID"
 
-#: src/components/messages.ts:82
-#: src/components/messages.ts:89
+#: src/components/messages.ts:83
+#: src/components/messages.ts:90
 msgid "By lightness"
 msgstr "Op lichtheid"
 
@@ -406,7 +406,7 @@ msgstr "Op lichtheid"
 msgid "By match"
 msgstr "Op overeenkomst"
 
-#: src/components/messages.ts:87
+#: src/components/messages.ts:88
 msgid "By name"
 msgstr "Op naam"
 
@@ -420,7 +420,7 @@ msgstr "Cameratoegang is vereist om over te trekken in AR"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:331
+#: src/components/ImageEditor.tsx:332
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -444,12 +444,12 @@ msgid "Check for updates"
 msgstr "Controleren op updates"
 
 #: src/components/ColorSetChooser.tsx:217
-#: src/components/image-editor/ColorizeControls.tsx:57
-#: src/components/image-editor/ExpandControls.tsx:82
-#: src/components/image-editor/RemoveBackgroundControls.tsx:52
-#: src/components/image-editor/RemoveObjectsControls.tsx:59
-#: src/components/image-editor/RestoreControls.tsx:47
-#: src/components/image-editor/UpscaleControls.tsx:48
+#: src/components/image-editor/ColorizeEditorControls.tsx:57
+#: src/components/image-editor/ExpandEditorControls.tsx:82
+#: src/components/image-editor/RemoveBackgroundEditorControls.tsx:52
+#: src/components/image-editor/RemoveObjectsEditorControls.tsx:59
+#: src/components/image-editor/RestoreEditorControls.tsx:47
+#: src/components/image-editor/UpscaleEditorControls.tsx:48
 #: src/components/ImageChooser.tsx:73
 #: src/components/ImageOutline.tsx:103
 #: src/components/ImagePainting.tsx:79
@@ -457,7 +457,7 @@ msgstr "Controleren op updates"
 msgid "Check your connection and try again."
 msgstr "Controleer je verbinding en probeer het opnieuw."
 
-#: src/components/image-editor/StraightenControls.tsx:52
+#: src/components/image-editor/CorrectPerspectiveEditorControls.tsx:54
 msgid "Check your connection and try again. You can still adjust the 4 corners manually."
 msgstr "Controleer je verbinding en probeer het opnieuw. Je kunt de 4 hoeken nog handmatig aanpassen."
 
@@ -471,11 +471,11 @@ msgid "Cityscape"
 msgstr "Stadsgezicht"
 
 #: src/components/file/FileSelect.tsx:203
-#: src/components/image-editor/RemoveObjectsControls.tsx:108
+#: src/components/image-editor/RemoveObjectsEditorControls.tsx:108
 msgid "Clear"
 msgstr "Wissen"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:120
+#: src/components/image-editor/RemoveBackgroundEditorControls.tsx:119
 msgid "Clear background color"
 msgstr "Achtergrondkleur wissen"
 
@@ -493,7 +493,7 @@ msgstr "Onderlaag wissen"
 msgid "Clear unifying color"
 msgstr "Verenigende kleur wissen"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:229
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:218
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
 msgstr "Klik 🖱️ of tik 👆 ergens in de afbeelding om een witpunt te kiezen."
 
@@ -575,9 +575,9 @@ msgstr "Code is vereist"
 
 #: src/components/ColorMixer.tsx:192
 #: src/components/CustomColorBrandCreator.tsx:476
-#: src/components/image-editor/ExpandControls.tsx:102
-#: src/components/image-editor/ExpandControls.tsx:209
-#: src/components/image-editor/ExpandControls.tsx:211
+#: src/components/image-editor/ExpandEditorControls.tsx:102
+#: src/components/image-editor/ExpandEditorControls.tsx:206
+#: src/components/image-editor/ExpandEditorControls.tsx:208
 msgid "Color"
 msgstr "Kleur"
 
@@ -628,15 +628,15 @@ msgstr "Kleurenset"
 msgid "Color swatch"
 msgstr "Kleurstaal"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Colored Pencils"
 msgstr "Kleurpotloden"
 
-#: src/components/image-editor/ColorizeControls.tsx:117
+#: src/components/image-editor/ColorizeEditorControls.tsx:116
 msgid "Colorize"
 msgstr "Inkleuren"
 
-#: src/components/messages.ts:58
+#: src/components/messages.ts:59
 msgid "Colorize black-and-white"
 msgstr "Zwart-wit inkleuren"
 
@@ -714,16 +714,16 @@ msgstr "Kopieer een ondersteunde afbeelding naar het klembord en probeer het opn
 msgid "Copy and share this link"
 msgstr "Kopieer en deel deze link"
 
-#: src/components/image-editor/StraightenControls.tsx:100
+#: src/components/image-editor/CorrectPerspectiveEditorControls.tsx:102
 #: src/components/messages.ts:50
 msgid "Correct perspective"
 msgstr "Perspectief corrigeren"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:378
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:367
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Gecorrigeerde schatting van de temperatuur van de lichtbron in Kelvin"
 
-#: src/components/image-editor/StraightenControls.tsx:85
+#: src/components/image-editor/CorrectPerspectiveEditorControls.tsx:87
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Kon het papier of canvas niet automatisch detecteren"
 
@@ -752,7 +752,7 @@ msgstr "Maak een nieuwe kleurenset door bestaande samen te voegen"
 msgid "Create new"
 msgstr "Nieuwe maken"
 
-#: src/components/image-editor/CropControls.tsx:98
+#: src/components/image-editor/CropEditorControls.tsx:100
 #: src/components/messages.ts:51
 msgid "Crop"
 msgstr "Bijsnijden"
@@ -929,7 +929,7 @@ msgstr "Sleep het bestand hierheen..."
 msgid "Drop the files here..."
 msgstr "Sleep de bestanden hierheen..."
 
-#: src/components/messages.ts:68
+#: src/components/messages.ts:69
 msgid "Dry Pastel"
 msgstr "Droog pastel"
 
@@ -957,7 +957,7 @@ msgstr "Vanaf hier bewerken"
 msgid "Edit image"
 msgstr "Afbeelding bewerken"
 
-#: src/components/ImageEditor.tsx:341
+#: src/components/ImageEditor.tsx:342
 msgid "Edited"
 msgstr "Bewerkt"
 
@@ -1005,7 +1005,7 @@ msgstr "Fout"
 msgid "Error description"
 msgstr "Foutbeschrijving"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:349
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:338
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Geschatte temperatuur van de lichtbron in Kelvin waarmee de foto is gemaakt"
 
@@ -1018,12 +1018,12 @@ msgstr "Etsen"
 msgid "Exit AR"
 msgstr "AR verlaten"
 
-#: src/components/image-editor/ExpandControls.tsx:249
+#: src/components/image-editor/ExpandEditorControls.tsx:246
 #: src/components/messages.ts:52
 msgid "Expand"
 msgstr "Uitbreiden"
 
-#: src/components/image-editor/ExpandControls.tsx:115
+#: src/components/image-editor/ExpandEditorControls.tsx:115
 msgid "Expand by"
 msgstr "Uitbreiden met"
 
@@ -1051,7 +1051,7 @@ msgstr "Fauvisme"
 msgid "Few"
 msgstr "Weinig"
 
-#: src/components/image-editor/ExpandControls.tsx:193
+#: src/components/image-editor/ExpandEditorControls.tsx:191
 msgid "Fill"
 msgstr "Vullen"
 
@@ -1086,7 +1086,7 @@ msgstr "Bewerken voltooien"
 msgid "Focal point instructions"
 msgstr "Instructies voor het focuspunt"
 
-#: src/components/image-editor/CropControls.tsx:38
+#: src/components/image-editor/CropEditorControls.tsx:37
 msgid "Free"
 msgstr "Vrij"
 
@@ -1098,7 +1098,7 @@ msgstr "Volle druk"
 msgid "Full strength"
 msgstr "Volle sterkte"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:303
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:292
 msgid "Gamma"
 msgstr "Gamma"
 
@@ -1122,7 +1122,7 @@ msgstr "Glaceren"
 msgid "Go to the {label} tab"
 msgstr "Ga naar het tabblad {label}"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Gouache"
 msgstr "Gouache"
 
@@ -1141,7 +1141,11 @@ msgstr "Hoogte"
 msgid "Help"
 msgstr "Help"
 
-#: src/components/image-editor/ExpandControls.tsx:155
+#: src/components/image-editor/SharpenEditorControls.tsx:40
+msgid "High pass"
+msgstr "Hoogdoorlaat"
+
+#: src/components/image-editor/ExpandEditorControls.tsx:153
 msgid "Horizontal"
 msgstr "Horizontaal"
 
@@ -1197,7 +1201,7 @@ msgstr "Update installeren"
 msgid "Instant"
 msgstr "Direct"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:375
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:364
 msgid "Intended color temperature (K)"
 msgstr "Beoogde kleurtemperatuur (K)"
 
@@ -1320,11 +1324,11 @@ msgstr "Losse schilderstijl"
 msgid "Loose painting is available only to paid Patreon members"
 msgstr "Losse schilderstijl is alleen beschikbaar voor betalende Patreon-leden"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:279
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:268
 msgid "Low input and high input"
 msgstr "Lage en hoge invoer"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:324
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:313
 msgid "Low output and high output"
 msgstr "Lage en hoge uitvoer"
 
@@ -1337,23 +1341,23 @@ msgstr "Veel"
 msgid "Margin"
 msgstr "Marge"
 
-#: src/components/image-editor/ExpandControls.tsx:99
+#: src/components/image-editor/ExpandEditorControls.tsx:99
 msgid "Margins"
 msgstr "Marges"
 
-#: src/components/image-editor/RemoveObjectsControls.tsx:112
+#: src/components/image-editor/RemoveObjectsEditorControls.tsx:112
 msgid "Mark around the object you want to remove, then drag the vertices to adjust or tap to remove"
 msgstr "Markeer rond het object dat je wilt verwijderen en sleep vervolgens de hoekpunten om aan te passen of tik om te verwijderen"
 
-#: src/components/image-editor/RemoveObjectsControls.tsx:77
+#: src/components/image-editor/RemoveObjectsEditorControls.tsx:77
 msgid "Mark at least 3 points around the object you want to remove"
 msgstr "Markeer minimaal 3 punten rond het object dat je wilt verwijderen"
 
-#: src/components/image-editor/StraightenControls.tsx:65
+#: src/components/image-editor/CorrectPerspectiveEditorControls.tsx:67
 msgid "Mark the 4 corners of your paper or canvas"
 msgstr "Markeer de 4 hoeken van je papier of doek"
 
-#: src/components/image-editor/StraightenControls.tsx:114
+#: src/components/image-editor/CorrectPerspectiveEditorControls.tsx:116
 msgid "Mark the 4 corners of your paper or canvas, then drag the vertices to adjust"
 msgstr "Markeer de 4 hoeken van je papier of doek en sleep vervolgens de hoekpunten om aan te passen"
 
@@ -1375,7 +1379,7 @@ msgstr "Kleurensets samenvoegen"
 msgid "Mid tone"
 msgstr "Middentoon"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:301
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:290
 msgid "Midtones"
 msgstr "Middentonen"
 
@@ -1409,9 +1413,10 @@ msgid "Mixture"
 msgstr "Mengsel"
 
 #: src/components/color/ReflectanceChartDrawer.tsx:113
-#: src/components/image-editor/ColorizeControls.tsx:80
-#: src/components/image-editor/RemoveBackgroundControls.tsx:69
-#: src/components/image-editor/RestoreControls.tsx:64
+#: src/components/image-editor/ColorizeEditorControls.tsx:80
+#: src/components/image-editor/RemoveBackgroundEditorControls.tsx:69
+#: src/components/image-editor/RestoreEditorControls.tsx:64
+#: src/components/image-editor/SharpenEditorControls.tsx:62
 #: src/components/ImageOutline.tsx:254
 #: src/components/ImageOutline.tsx:260
 msgid "Mode"
@@ -1472,8 +1477,8 @@ msgstr "Nieuwe kleurenset"
 msgid "New comparison"
 msgstr "Nieuwe vergelijking"
 
-#: src/components/image-editor/ExpandControls.tsx:225
-#: src/components/image-editor/UpscaleControls.tsx:66
+#: src/components/image-editor/ExpandEditorControls.tsx:222
+#: src/components/image-editor/UpscaleEditorControls.tsx:66
 msgid "New size: {outputWidth} × {outputHeight}"
 msgstr "Nieuw formaat: {outputWidth} × {outputHeight}"
 
@@ -1518,15 +1523,15 @@ msgstr "Aantal penseelstreken in het schilderij"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Aantal cellen aan de kleinere kant (verticaal of horizontaal)"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:176
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:104
 msgid "Off"
 msgstr "Uit"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Oil Paint"
 msgstr "Olieverf"
 
-#: src/components/messages.ts:69
+#: src/components/messages.ts:70
 msgid "Oil Pastel"
 msgstr "Oliepastel"
 
@@ -1542,9 +1547,9 @@ msgstr "Op de diagonaal staan de pure kleuren op volle sterkte. Buiten de diagon
 msgid "Only a limited number of color brands are available in the free version"
 msgstr "In de gratis versie is slechts een beperkt aantal kleurmerken beschikbaar"
 
-#: src/components/image-editor/ColorizeControls.tsx:92
-#: src/components/image-editor/RemoveBackgroundControls.tsx:81
-#: src/components/image-editor/RestoreControls.tsx:76
+#: src/components/image-editor/ColorizeEditorControls.tsx:92
+#: src/components/image-editor/RemoveBackgroundEditorControls.tsx:81
+#: src/components/image-editor/RestoreEditorControls.tsx:76
 #: src/components/ImageOutline.tsx:388
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Er is slechts een beperkt aantal modi beschikbaar in de gratis versie"
@@ -1582,12 +1587,12 @@ msgstr "Of maak een keuze uit voorbeeldfoto's"
 msgid "Or select from your recent photos"
 msgstr "Of maak een keuze uit je recente foto's"
 
-#: src/components/image-editor/CropControls.tsx:39
+#: src/components/image-editor/CropEditorControls.tsx:38
 #: src/components/image/ImageViewSelector.tsx:45
 msgid "Original"
 msgstr "Origineel"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:346
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:335
 msgid "Original color temperature (K)"
 msgstr "Originele kleurtemperatuur (K)"
 
@@ -1596,7 +1601,7 @@ msgstr "Originele kleurtemperatuur (K)"
 msgid "Outline"
 msgstr "Omtrek"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:322
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:311
 msgid "Output levels"
 msgstr "Uitvoerniveaus"
 
@@ -1637,12 +1642,12 @@ msgstr "Patreon-lidmaatschapsverificatie mislukt"
 msgid "Patron status"
 msgstr "Patron-status"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:174
-#: src/components/image-editor/AdjustColorsControls.tsx:208
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:102
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:197
 msgid "Percentile"
 msgstr "Percentiel"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:185
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:174
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Percentiel: automatische witbalans op basis van de helderste gebieden, goed voor de meeste foto's. Referentie: handmatige witbalans met het geselecteerde witte gebied."
 
@@ -1790,7 +1795,7 @@ msgstr "Verhouding"
 msgid "Realism"
 msgstr "Realisme"
 
-#: src/components/ImageEditor.tsx:326
+#: src/components/ImageEditor.tsx:327
 msgid "Redo"
 msgstr "Opnieuw uitvoeren"
 
@@ -1807,7 +1812,7 @@ msgid "Reduce the number of colors in the photo."
 msgstr "Vermindert het aantal kleuren op de foto."
 
 #: src/components/color/ColorSwatchDrawer.tsx:92
-#: src/components/image-editor/AdjustColorsControls.tsx:175
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:103
 msgid "Reference"
 msgstr "Referentie"
 
@@ -1828,12 +1833,12 @@ msgstr "Herladen"
 msgid "Remove and continue"
 msgstr "Verwijderen en doorgaan"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:137
+#: src/components/image-editor/RemoveBackgroundEditorControls.tsx:136
 #: src/components/messages.ts:54
 msgid "Remove background"
 msgstr "Achtergrond verwijderen"
 
-#: src/components/image-editor/RemoveObjectsControls.tsx:105
+#: src/components/image-editor/RemoveObjectsEditorControls.tsx:105
 #: src/components/messages.ts:55
 msgid "Remove objects"
 msgstr "Objecten verwijderen"
@@ -1850,7 +1855,7 @@ msgstr "Verwijdert bewegingsonscherpte"
 msgid "Removes noise and grain"
 msgstr "Verwijdert ruis en korrel"
 
-#: src/components/image-editor/RemoveObjectsControls.tsx:119
+#: src/components/image-editor/RemoveObjectsEditorControls.tsx:119
 msgid "Removing objects is available only to paid Patreon members"
 msgstr "Het verwijderen van objecten is alleen beschikbaar voor betalende Patreon-leden"
 
@@ -1872,12 +1877,12 @@ msgstr "Vereist macOS Sonoma of hoger."
 msgid "Resend code"
 msgstr "Code opnieuw verzenden"
 
-#: src/components/ImageEditor.tsx:330
-#: src/components/ImageEditor.tsx:335
+#: src/components/ImageEditor.tsx:331
+#: src/components/ImageEditor.tsx:336
 msgid "Reset"
 msgstr "Resetten"
 
-#: src/components/image-editor/RestoreControls.tsx:101
+#: src/components/image-editor/RestoreEditorControls.tsx:100
 #: src/components/messages.ts:57
 msgid "Restore"
 msgstr "Restaureren"
@@ -1909,7 +1914,7 @@ msgstr "Keer terug naar het tabblad {tabLabel}"
 msgid "Rotate"
 msgstr "Draaien"
 
-#: src/components/image-editor/RotateControls.tsx:66
+#: src/components/image-editor/RotateEditorControls.tsx:66
 msgid "Rotate clockwise"
 msgstr "Met de klok mee draaien"
 
@@ -1917,7 +1922,7 @@ msgstr "Met de klok mee draaien"
 msgid "Sample size"
 msgstr "Voorbeeldgrootte"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:253
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:242
 msgid "Saturation (%)"
 msgstr "Verzadiging (%)"
 
@@ -1980,7 +1985,7 @@ msgstr "Selecteer een kunstmedium"
 msgid "Select an image that contains a color chart"
 msgstr "Selecteer een afbeelding die een kleurenkaart bevat"
 
-#: src/components/ImageEditor.tsx:291
+#: src/components/ImageEditor.tsx:292
 msgid "Select an image to edit"
 msgstr "Selecteer een afbeelding om te bewerken"
 
@@ -2042,7 +2047,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Maak een keuze uit je recente kleurensets of maak een nieuwe."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:295
+#: src/components/ImageEditor.tsx:296
 msgid "Select image"
 msgstr "Selecteer afbeelding"
 
@@ -2098,9 +2103,9 @@ msgstr "Selecteer je kunstmedium, kleurmerken en kleuren"
 msgid "Select your art medium, color brands, and the colors you will paint with, then press <0>Save & continue</0>"
 msgstr "Selecteer je kunstmedium, kleurmerken en de kleuren waarmee je gaat schilderen en druk vervolgens op <0>Opslaan en doorgaan</0>"
 
-#: src/components/image-editor/ColorizeControls.tsx:86
-#: src/components/image-editor/RemoveBackgroundControls.tsx:75
-#: src/components/image-editor/RestoreControls.tsx:70
+#: src/components/image-editor/ColorizeEditorControls.tsx:86
+#: src/components/image-editor/RemoveBackgroundEditorControls.tsx:75
+#: src/components/image-editor/RestoreEditorControls.tsx:70
 #: src/components/ImageOutline.tsx:382
 msgid "Selected mode is available only to paid Patreon members"
 msgstr "De geselecteerde modus is alleen beschikbaar voor betalende Patreon-leden"
@@ -2156,7 +2161,7 @@ msgstr "Instellen als verenigende kleur"
 msgid "Shadow"
 msgstr "Schaduw"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:277
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:266
 msgid "Shadows and highlights"
 msgstr "Schaduwen en hooglichten"
 
@@ -2176,6 +2181,11 @@ msgstr "Deel je kleurenset"
 #: src/components/ml-model/OnnxModelSelect.tsx:65
 msgid "Sharp"
 msgstr "Scherp"
+
+#: src/components/image-editor/SharpenEditorControls.tsx:95
+#: src/components/messages.ts:58
+msgid "Sharpen"
+msgstr "Verscherpen"
 
 #: src/components/ImageColorPicker.tsx:350
 msgid "Show areas on the photo that match this color."
@@ -2237,15 +2247,15 @@ msgstr "Laat de pastelvlakken van verschillende kleuren lichtjes overlappen en d
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
 msgstr "Laat de waspastelvlakken van verschillende kleuren lichtjes overlappen en doezel ze stevig om een vloeiende overgang te maken"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:210
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:199
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Kleinere percentielwaarden komen overeen met sterkere bleking"
 
-#: src/components/image-editor/ExpandControls.tsx:103
+#: src/components/image-editor/ExpandEditorControls.tsx:103
 msgid "Smart"
 msgstr "Slim"
 
-#: src/components/image-editor/ExpandControls.tsx:233
+#: src/components/image-editor/ExpandEditorControls.tsx:230
 msgid "Smart expansion is available only to paid Patreon members"
 msgstr "Slimme uitbreiding is alleen beschikbaar voor betalende Patreon-leden"
 
@@ -2309,6 +2319,10 @@ msgstr "Opslag kan vol raken"
 #: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "Opslaggebruik"
+
+#: src/components/image-editor/SharpenEditorControls.tsx:73
+msgid "Strength"
+msgstr "Sterkte"
 
 #: src/components/ImagePainting.tsx:126
 #: src/components/ImagePainting.tsx:144
@@ -2464,7 +2478,7 @@ msgstr "Op dit apparaat zijn wijzigingen aangebracht terwijl een ander account a
 msgid "This device has local data and existing synced cloud data, but no sync history. Choose which one to keep."
 msgstr "Dit apparaat heeft lokale gegevens en bestaande gesynchroniseerde cloudgegevens, maar geen synchronisatiegeschiedenis. Kies welke je wilt behouden."
 
-#: src/components/image-editor/UpscaleControls.tsx:72
+#: src/components/image-editor/UpscaleEditorControls.tsx:72
 msgid "This image is already too large to upscale"
 msgstr "Deze afbeelding is al te groot om op te schalen"
 
@@ -2566,7 +2580,7 @@ msgstr "Tutorials en video's"
 msgid "Ukiyo-e"
 msgstr "Ukiyo-e"
 
-#: src/components/image-editor/RemoveBackgroundControls.tsx:51
+#: src/components/image-editor/RemoveBackgroundEditorControls.tsx:51
 msgid "Unable to load the background removal modes"
 msgstr "Kan de achtergrondverwijderingsmodi niet laden"
 
@@ -2574,11 +2588,11 @@ msgstr "Kan de achtergrondverwijderingsmodi niet laden"
 msgid "Unable to load the color data"
 msgstr "Kan de kleurgegevens niet laden"
 
-#: src/components/image-editor/ColorizeControls.tsx:56
+#: src/components/image-editor/ColorizeEditorControls.tsx:56
 msgid "Unable to load the colorization modes"
 msgstr "Kan de inkleuringsmodi niet laden"
 
-#: src/components/image-editor/RemoveObjectsControls.tsx:58
+#: src/components/image-editor/RemoveObjectsEditorControls.tsx:58
 msgid "Unable to load the object removal model"
 msgstr "Kan het objectverwijderingsmodel niet laden"
 
@@ -2590,7 +2604,7 @@ msgstr "Kan de omtrekmodi niet laden"
 msgid "Unable to load the painting model"
 msgstr "Kan het model voor schilderen niet laden"
 
-#: src/components/image-editor/RestoreControls.tsx:46
+#: src/components/image-editor/RestoreEditorControls.tsx:46
 msgid "Unable to load the restoration modes"
 msgstr "Kan de restauratiemodi niet laden"
 
@@ -2598,7 +2612,7 @@ msgstr "Kan de restauratiemodi niet laden"
 msgid "Unable to load the sample photos"
 msgstr "Kan de voorbeeldfoto's niet laden"
 
-#: src/components/image-editor/ExpandControls.tsx:81
+#: src/components/image-editor/ExpandEditorControls.tsx:81
 msgid "Unable to load the smart expansion model"
 msgstr "Kan het slimme uitbreidingsmodel niet laden"
 
@@ -2606,7 +2620,7 @@ msgstr "Kan het slimme uitbreidingsmodel niet laden"
 msgid "Unable to load the styles"
 msgstr "Kan de stijlen niet laden"
 
-#: src/components/image-editor/UpscaleControls.tsx:47
+#: src/components/image-editor/UpscaleEditorControls.tsx:47
 msgid "Unable to load the upscaling model"
 msgstr "Kan het opschalingsmodel niet laden"
 
@@ -2620,7 +2634,7 @@ msgstr "Kan de opgeslagen kleurenset niet herstellen"
 msgid "Underlayer"
 msgstr "Onderlaag"
 
-#: src/components/ImageEditor.tsx:319
+#: src/components/ImageEditor.tsx:320
 msgid "Undo"
 msgstr "Ongedaan maken"
 
@@ -2635,6 +2649,10 @@ msgstr "Onverwachte fout: {errorMessage}"
 #: src/components/ImageColorPicker.tsx:403
 msgid "Unifying color"
 msgstr "Verenigende kleur"
+
+#: src/components/image-editor/SharpenEditorControls.tsx:37
+msgid "Unsharp mask"
+msgstr "Onscherp masker"
 
 #: src/components/cloud/CloudFeedbackHandler.tsx:131
 msgid "Unsynced changes on this device"
@@ -2667,7 +2685,7 @@ msgstr "Nu bijwerken"
 msgid "Uploading image {index} / {count}"
 msgstr "Afbeelding uploaden {index} / {count}"
 
-#: src/components/image-editor/UpscaleControls.tsx:85
+#: src/components/image-editor/UpscaleEditorControls.tsx:85
 #: src/components/messages.ts:56
 msgid "Upscale"
 msgstr "Opschalen"
@@ -2704,7 +2722,7 @@ msgstr "Gebruikt"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Het gebruik van een beperkt palet helpt om kleurharmonie te bereiken. Selecteer 1–{MAX_COLORS} primaire kleuren."
 
-#: src/components/image-editor/ExpandControls.tsx:173
+#: src/components/image-editor/ExpandEditorControls.tsx:171
 msgid "Vertical"
 msgstr "Verticaal"
 
@@ -2741,15 +2759,15 @@ msgstr "Aquarel"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Aquarel kan met water worden verdund om deze transparanter te maken"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Watercolor Paint"
 msgstr "Aquarelverf"
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Watercolor Pencils"
 msgstr "Aquarelpotloden"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:71
 msgid "Wax Pastel"
 msgstr "Waspastel"
 
@@ -2769,22 +2787,22 @@ msgstr "Bij het selecteren van meer dan {maxColorsFor2} kleuren in totaal, worde
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Bij het selecteren van meer dan {maxColorsFor3} kleuren in totaal, worden geen mengsels van drie kleuren gebruikt."
 
-#: src/components/image-editor/AdjustColorsControls.tsx:240
-#: src/components/image-editor/ExpandControls.tsx:212
-#: src/components/image-editor/RemoveBackgroundControls.tsx:107
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:229
+#: src/components/image-editor/ExpandEditorControls.tsx:209
+#: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "Wit"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:183
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:172
 msgid "White balance"
 msgstr "Witbalans"
 
-#: src/components/messages.ts:76
+#: src/components/messages.ts:77
 msgid "White paper or canvas"
 msgstr "Wit papier of doek"
 
-#: src/components/image-editor/AdjustColorsControls.tsx:232
-#: src/components/image-editor/AdjustColorsControls.tsx:238
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:221
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:227
 msgid "White point"
 msgstr "Witpunt"
 
@@ -2853,7 +2871,7 @@ msgid "Your image"
 msgstr "Je afbeelding"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:306
+#: src/components/ImageEditor.tsx:307
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:318
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

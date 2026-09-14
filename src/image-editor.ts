@@ -18,7 +18,7 @@
 
 export enum ImageEditorKey {
   Rotate = 'rotate',
-  Straighten = 'straighten',
+  CorrectPerspective = 'correct-perspective',
   Crop = 'crop',
   Expand = 'expand',
   AdjustColors = 'adjust-colors',
@@ -26,5 +26,6 @@ export enum ImageEditorKey {
   RemoveObjects = 'remove-objects',
   Upscale = 'upscale',
   Restore = 'restore',
+  Sharpen = 'sharpen',
   Colorize = 'colorize',
 }

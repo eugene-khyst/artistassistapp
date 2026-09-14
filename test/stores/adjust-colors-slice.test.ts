@@ -196,7 +196,7 @@ describe('AdjustColorsSlice', () => {
     store.setState({editImageHistory: [{command, replaceable: true}]});
     imageEditorControls.restore(ImageEditorKey.AdjustColors, command);
 
-    await store.getState().openAdjustColors();
+    await imageEditorControls.open(ImageEditorKey.AdjustColors);
 
     expect(preview).not.toHaveBeenCalled();
     expect(store.getState().adjustColorsControls).toEqual(controls);
@@ -213,7 +213,7 @@ describe('AdjustColorsSlice', () => {
     imageOperations.calculatePercentiles.mockResolvedValue([0.9, 0.8, 0.7]);
     const {store, preview} = createTestStore(createImage());
 
-    await store.getState().openAdjustColors();
+    await imageEditorControls.open(ImageEditorKey.AdjustColors);
 
     expect(preview).toHaveBeenCalledOnce();
     expect(store.getState().adjustColorsControls.whiteBalanceMethod).toBe(
@@ -221,7 +221,7 @@ describe('AdjustColorsSlice', () => {
     );
 
     imageEditorControls.reset(ImageEditorKey.AdjustColors);
-    await store.getState().openAdjustColors();
+    await imageEditorControls.open(ImageEditorKey.AdjustColors);
 
     expect(store.getState().adjustColorsControls.whiteBalanceMethod).toBe(
       AdjustColorsWhiteBalanceMethod.None

@@ -19,12 +19,12 @@
 import type {Fraction} from '@eugene-khyst/artistassistapp-color-mixer';
 import {afterEach, describe, expect, it, vi} from 'vitest';
 
-import {createExpansionMask, getImageExpansion} from '@/services/image/expand-image';
 import {
-  DEFAULT_EXPAND_IMAGE_CONTROLS,
-  type ExpandImageControls,
-  ExpandImageSizeMode,
-} from '@/services/image/expand-image-controls';
+  DEFAULT_EXPAND_CONTROLS,
+  type ExpandControls,
+  ExpandMode,
+} from '@/services/image/expand-controls';
+import {createExpansionMask, getImageExpansion} from '@/services/image/expand-image';
 import {Rectangle, Vector} from '@/services/math/geometry';
 
 function mockOffscreenCanvas(): ReturnType<typeof vi.fn> {
@@ -54,8 +54,8 @@ const ASPECT_RATIOS: Fraction[] = [
 ];
 
 const marginsControls = {
-  ...DEFAULT_EXPAND_IMAGE_CONTROLS,
-  sizeMode: ExpandImageSizeMode.Margins,
+  ...DEFAULT_EXPAND_CONTROLS,
+  sizeMode: ExpandMode.Margins,
   marginX: 10,
   marginY: 20,
 };
@@ -69,7 +69,7 @@ describe('image expansion', () => {
   it('expands only the required axis to an aspect ratio', () => {
     const expansion = getImageExpansion(
       {width: 100, height: 100},
-      {...DEFAULT_EXPAND_IMAGE_CONTROLS, aspectRatio: [1.91, 1]}
+      {...DEFAULT_EXPAND_CONTROLS, aspectRatio: [1.91, 1]}
     );
 
     expect(expansion.bounds).toEqual(new Rectangle(new Vector(191, 100)));
@@ -81,8 +81,8 @@ describe('image expansion', () => {
   });
 
   it('does not expand again to correct a one-pixel aspect-ratio rounding difference', () => {
-    const controls: ExpandImageControls = {
-      ...DEFAULT_EXPAND_IMAGE_CONTROLS,
+    const controls: ExpandControls = {
+      ...DEFAULT_EXPAND_CONTROLS,
       aspectRatio: [16, 9],
     };
     const firstExpansion = getImageExpansion({width: 100, height: 100}, controls);
@@ -94,7 +94,7 @@ describe('image expansion', () => {
   });
 
   it('keeps the aspect ratio when the pixel cap scales the expansion down', () => {
-    const controls: ExpandImageControls = {...DEFAULT_EXPAND_IMAGE_CONTROLS, aspectRatio: [4, 5]};
+    const controls: ExpandControls = {...DEFAULT_EXPAND_CONTROLS, aspectRatio: [4, 5]};
     const firstExpansion = getImageExpansion({width: 3581, height: 500}, controls);
     const repeatedExpansion = getImageExpansion(firstExpansion.bounds, controls);
 
@@ -109,7 +109,7 @@ describe('image expansion', () => {
   ])('keeps a nonzero source rectangle for a $width x $height image', ({width, height}) => {
     const {sourceRectangle} = getImageExpansion(
       {width, height},
-      {...DEFAULT_EXPAND_IMAGE_CONTROLS, aspectRatio: [1, 1]}
+      {...DEFAULT_EXPAND_CONTROLS, aspectRatio: [1, 1]}
     );
 
     expect(sourceRectangle.width).toBeGreaterThan(0);
@@ -119,7 +119,7 @@ describe('image expansion', () => {
   it('settles after one expansion at every size, including past the pixel cap', () => {
     let cappedCount = 0;
     for (const aspectRatio of ASPECT_RATIOS) {
-      const controls: ExpandImageControls = {...DEFAULT_EXPAND_IMAGE_CONTROLS, aspectRatio};
+      const controls: ExpandControls = {...DEFAULT_EXPAND_CONTROLS, aspectRatio};
       for (let width = 500; width <= 4000; width += 61) {
         for (let height = 500; height <= 4000; height += 67) {
           const {bounds, sourceRectangle} = getImageExpansion({width, height}, controls);
@@ -142,8 +142,8 @@ describe('image expansion', () => {
     const expansion = getImageExpansion(
       {width: 200, height: 100},
       {
-        ...DEFAULT_EXPAND_IMAGE_CONTROLS,
-        sizeMode: ExpandImageSizeMode.Margins,
+        ...DEFAULT_EXPAND_CONTROLS,
+        sizeMode: ExpandMode.Margins,
         marginX: 10,
         marginY: 20,
       }
@@ -157,8 +157,8 @@ describe('image expansion', () => {
     const expansion = getImageExpansion(
       {width: 4000, height: 4000},
       {
-        ...DEFAULT_EXPAND_IMAGE_CONTROLS,
-        sizeMode: ExpandImageSizeMode.Margins,
+        ...DEFAULT_EXPAND_CONTROLS,
+        sizeMode: ExpandMode.Margins,
         marginX: 100,
         marginY: 100,
       }
@@ -179,7 +179,7 @@ describe('image expansion', () => {
   it('centers the image exactly at every size, including past the pixel cap', () => {
     let cappedCount = 0;
     for (const margin of [5, 10, 25, 50, 100]) {
-      const controls: ExpandImageControls = {
+      const controls: ExpandControls = {
         ...marginsControls,
         marginX: margin,
         marginY: margin,

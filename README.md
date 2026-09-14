@@ -43,6 +43,7 @@ ArtistAssistApp offers the following features:
 - Remove backgrounds from reference photos or photos of your paintings
 - Remove unwanted objects from a reference photo
 - Upscale a photo to two or four times its width and height, depending on its size
+- Sharpen a photo to enhance edges and details
 - Remove noise and grain from a scanned or high-ISO photo
 - Reduce camera shake and motion blur in a photo
 - Colorize black-and-white photos
@@ -69,7 +70,7 @@ Reflectance reconstruction uses an independent implementation of the LHTSS formu
 
 For mediums that support physical mixing, such as watercolor, oil paint, acrylic or gouache, ArtistAssistApp suggests a matching color mixture for any target color. For pastels and pencils it suggests the closest matching color from your set. Watercolor, acrylic, oil paint, colored pencils and watercolor pencils also support optical mixing.
 
-Image processing is a multi-pass WebGL pipeline: Lanczos and bilinear resampling, Gaussian blur, Kuwahara and radial-mask simplification, Sobel edge detection with dilation and a perceived-lightness threshold, tonal color maps, perceptual color matching, white balance, levels, saturation, temperature, and homography for perspective correction. Otsu thresholding, color quantization with blue-noise ordered dithering, distance-transform sampling-point detection for automatic palettes and Elo ranking from pairwise comparisons run on the CPU.
+Image processing is a multi-pass WebGL pipeline: Lanczos and bilinear resampling, Gaussian blur, unsharp masking and high-pass sharpening, Kuwahara and radial-mask simplification, Sobel edge detection with dilation and a perceived-lightness threshold, tonal color maps, perceptual color matching, white balance, levels, saturation, temperature, and homography for perspective correction. Otsu thresholding, color quantization with blue-noise ordered dithering, distance-transform sampling-point detection for automatic palettes and Elo ranking from pairwise comparisons run on the CPU.
 
 Neural models for background removal, line drawing, corner detection, style transfer, inpainting, colorization, denoising, deblurring and super-resolution run locally with ONNX Runtime Web on WebGPU or WebAssembly, downloaded on demand and cached; images leave the device only for cloud storage the user connects. Each model is a separate work under its own license; see [THIRD-PARTY-NOTICES.txt](public/THIRD-PARTY-NOTICES.txt).
 

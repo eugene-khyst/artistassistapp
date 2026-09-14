@@ -19,6 +19,7 @@
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import {createStore} from 'zustand/vanilla';
 
+import {SharpenMode} from '@/services/image/sharpen-controls';
 import {type AppSettings, DEFAULT_APP_SETTINGS} from '@/services/settings/types';
 import {type AppSlice, createAppSlice} from '@/stores/app-slice';
 import type {AuthSlice} from '@/stores/auth-slice';
@@ -26,10 +27,11 @@ import type {CloudSlice} from '@/stores/cloud-slice';
 import type {ColorSetSlice} from '@/stores/color-set-slice';
 import type {CropSlice} from '@/stores/crop-slice';
 import type {CustomColorBrandSlice} from '@/stores/custom-color-brand-slice';
-import type {ExpandImageSlice} from '@/stores/expand-image-slice';
+import type {ExpandSlice} from '@/stores/expand-slice';
 import type {LocaleSlice} from '@/stores/locale-slice';
 import type {OriginalImageSlice} from '@/stores/original-image-slice';
 import type {PaletteSlice} from '@/stores/palette-slice';
+import type {SharpenSlice} from '@/stores/sharpen-slice';
 import type {TabSlice} from '@/stores/tab-slice';
 import {DEFAULT_TAB_KEY, TabKey} from '@/tabs';
 
@@ -69,7 +71,8 @@ type TestStore = AppSlice &
   Pick<CloudSlice, 'loadCloudConnection' | 'handleCloudCallback' | 'syncCloudState'> &
   Pick<CustomColorBrandSlice, 'loadCustomColorBrands'> &
   Pick<CropSlice, 'loadCropSettings'> &
-  Pick<ExpandImageSlice, 'loadExpandImageSettings'> &
+  Pick<ExpandSlice, 'loadExpandSettings'> &
+  Pick<SharpenSlice, 'loadSharpenSettings'> &
   Pick<TabSlice, 'setActiveTabKey'> &
   Pick<ColorSetSlice, 'loadColorSets'> &
   Pick<OriginalImageSlice, 'loadRecentImages' | 'selectLatestImageFile'> &
@@ -77,7 +80,8 @@ type TestStore = AppSlice &
 
 function createTestStore(appSettings: AppSettings) {
   const loadCropSettings = vi.fn();
-  const loadExpandImageSettings = vi.fn();
+  const loadExpandSettings = vi.fn();
+  const loadSharpenSettings = vi.fn();
   const setActiveTabKey = vi.fn(
     async (
       _activeTabKey: TabKey,
@@ -96,7 +100,8 @@ function createTestStore(appSettings: AppSettings) {
     syncCloudState: vi.fn(async (): Promise<void> => undefined),
     loadCustomColorBrands: vi.fn(async (): Promise<void> => undefined),
     loadCropSettings,
-    loadExpandImageSettings,
+    loadExpandSettings,
+    loadSharpenSettings,
     setActiveTabKey,
     loadColorSets: vi.fn(async (): Promise<void> => undefined),
     loadRecentImages: vi.fn(async (): Promise<void> => undefined),
@@ -111,7 +116,8 @@ function createTestStore(appSettings: AppSettings) {
   });
   return {
     loadCropSettings,
-    loadExpandImageSettings,
+    loadExpandSettings,
+    loadSharpenSettings,
     loadStoredAppSettings,
     setActiveTabKey,
     store,
@@ -129,23 +135,92 @@ describe('app slice', () => {
     vi.unstubAllGlobals();
   });
 
-  it('loads stored image editor preferences', async () => {
+  it('loads stored image editor settings', async () => {
     const storedSettings: AppSettings = {
       ...DEFAULT_APP_SETTINGS,
       cropAspectRatio: '4:5',
       expandAspectRatio: '16:9',
       expandSizeMode: 'margins',
       expandFillMode: 'smart',
+      sharpenMode: SharpenMode.HighPass,
     };
     appSettingsDb.getAppSettings.mockResolvedValueOnce(storedSettings);
-    const {loadCropSettings, loadExpandImageSettings, loadStoredAppSettings, store} =
-      createTestStore(DEFAULT_APP_SETTINGS);
+    const {
+      loadCropSettings,
+      loadExpandSettings,
+      loadSharpenSettings,
+      loadStoredAppSettings,
+      store,
+    } = createTestStore(DEFAULT_APP_SETTINGS);
 
     await expect(loadStoredAppSettings()).resolves.toEqual(storedSettings);
 
     expect(store.getState().appSettings).toEqual(storedSettings);
     expect(loadCropSettings).toHaveBeenCalledExactlyOnceWith(storedSettings);
-    expect(loadExpandImageSettings).toHaveBeenCalledExactlyOnceWith(storedSettings);
+    expect(loadExpandSettings).toHaveBeenCalledExactlyOnceWith(storedSettings);
+    expect(loadSharpenSettings).toHaveBeenCalledExactlyOnceWith(storedSettings);
+  });
+
+  it('waits for the current settings save', async () => {
+    let resolveSave!: (appSettings: AppSettings) => void;
+    const savedSettings = {...DEFAULT_APP_SETTINGS, sharpenMode: SharpenMode.HighPass};
+    appSettingsDb.updateStoredAppSettings.mockReturnValueOnce(
+      new Promise<AppSettings>(resolve => {
+        resolveSave = resolve;
+      })
+    );
+    const {store} = createTestStore(DEFAULT_APP_SETTINGS);
+
+    const save = store.getState().saveAppSettings({sharpenMode: SharpenMode.HighPass});
+    const wait = store.getState().waitForAppSettingsSave();
+
+    expect(store.getState().appSettings).toEqual(DEFAULT_APP_SETTINGS);
+
+    resolveSave(savedSettings);
+    await wait;
+
+    expect(store.getState().appSettings).toEqual(savedSettings);
+    await expect(save).resolves.toEqual(savedSettings);
+  });
+
+  it('waits for a settings save started while already waiting', async () => {
+    let resolveFirstSave!: (appSettings: AppSettings) => void;
+    let resolveSecondSave!: (appSettings: AppSettings) => void;
+    const firstSettings = {...DEFAULT_APP_SETTINGS, cropAspectRatio: '4:5'};
+    const secondSettings = {...firstSettings, sharpenMode: SharpenMode.HighPass};
+    appSettingsDb.updateStoredAppSettings
+      .mockReturnValueOnce(
+        new Promise<AppSettings>(resolve => {
+          resolveFirstSave = resolve;
+        })
+      )
+      .mockReturnValueOnce(
+        new Promise<AppSettings>(resolve => {
+          resolveSecondSave = resolve;
+        })
+      );
+    const {store} = createTestStore(DEFAULT_APP_SETTINGS);
+
+    const firstSave = store.getState().saveAppSettings({cropAspectRatio: '4:5'});
+    const wait = store.getState().waitForAppSettingsSave();
+    const secondSave = store.getState().saveAppSettings({sharpenMode: SharpenMode.HighPass});
+    let waitFinished = false;
+    const observeWait = (async (): Promise<void> => {
+      await wait;
+      waitFinished = true;
+    })();
+
+    resolveFirstSave(firstSettings);
+    await firstSave;
+    await Promise.resolve();
+
+    expect(waitFinished).toBe(false);
+
+    resolveSecondSave(secondSettings);
+    await observeWait;
+
+    expect(store.getState().appSettings).toEqual(secondSettings);
+    await expect(secondSave).resolves.toEqual(secondSettings);
   });
 
   it('falls back to the default tab when the stored tab key is invalid', async () => {

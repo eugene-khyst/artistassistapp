@@ -21,10 +21,10 @@ import {describe, expect, it, vi} from 'vitest';
 import {type CanvasModeContext, DARKENED_AREA_COLOR} from '@/services/canvas/mode/canvas-mode';
 import {ImageExpandingMode} from '@/services/canvas/mode/image-expanding-mode';
 import {
-  DEFAULT_EXPAND_IMAGE_CONTROLS,
-  ExpandImageFillMode,
-  ExpandImageSizeMode,
-} from '@/services/image/expand-image-controls';
+  DEFAULT_EXPAND_CONTROLS,
+  ExpandFillMode,
+  ExpandMode,
+} from '@/services/image/expand-controls';
 import {Rectangle, Vector} from '@/services/math/geometry';
 
 function createModeEnvironment(dimension: Rectangle): CanvasModeContext {
@@ -49,8 +49,8 @@ describe('ImageExpandingMode', () => {
     const mode = new ImageExpandingMode();
     mode.activate(modeEnvironment);
     mode.setControls({
-      ...DEFAULT_EXPAND_IMAGE_CONTROLS,
-      sizeMode: ExpandImageSizeMode.Margins,
+      ...DEFAULT_EXPAND_CONTROLS,
+      sizeMode: ExpandMode.Margins,
       marginX: 10,
       marginY: 20,
     });
@@ -66,9 +66,9 @@ describe('ImageExpandingMode', () => {
     const modeEnvironment = createModeEnvironment(new Rectangle(new Vector(100, 100)));
     const mode = new ImageExpandingMode();
     mode.activate(modeEnvironment);
-    mode.setControls({...DEFAULT_EXPAND_IMAGE_CONTROLS, aspectRatio: [16, 9]});
+    mode.setControls({...DEFAULT_EXPAND_CONTROLS, aspectRatio: [16, 9]});
     mode.setControls({
-      ...DEFAULT_EXPAND_IMAGE_CONTROLS,
+      ...DEFAULT_EXPAND_CONTROLS,
       aspectRatio: [16, 9],
       color: '#ff0000',
     });
@@ -81,11 +81,11 @@ describe('ImageExpandingMode', () => {
     const mode = new ImageExpandingMode();
     mode.activate(createModeEnvironment(new Rectangle(new Vector(100, 100))));
     mode.setControls({
-      ...DEFAULT_EXPAND_IMAGE_CONTROLS,
-      sizeMode: ExpandImageSizeMode.Margins,
+      ...DEFAULT_EXPAND_CONTROLS,
+      sizeMode: ExpandMode.Margins,
       marginX: 10,
       marginY: 0,
-      fillMode: ExpandImageFillMode.Smart,
+      fillMode: ExpandFillMode.Smart,
       color: '#ff0000',
     });
     const ctx = {

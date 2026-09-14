@@ -21,6 +21,7 @@ import type {StateCreator} from 'zustand';
 import {ImageEditorKey} from '@/image-editor';
 import {applyEditImageCommand} from '@/services/image/edit-image';
 import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit-image-command';
+import type {AppSlice} from '@/stores/app-slice';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
 import {createAbortableOperation} from '@/utils/abortable-operation';
 import {getFilename} from '@/utils/filename';
@@ -57,7 +58,7 @@ export interface EditImageHistoryEntry {
 const EDITOR_KEY_BY_COMMAND_TYPE: Record<EditImageCommandType, ImageEditorKey> = {
   [EditImageCommandType.RotateClockwise]: ImageEditorKey.Rotate,
   [EditImageCommandType.Rotate]: ImageEditorKey.Rotate,
-  [EditImageCommandType.Straighten]: ImageEditorKey.Straighten,
+  [EditImageCommandType.CorrectPerspective]: ImageEditorKey.CorrectPerspective,
   [EditImageCommandType.Crop]: ImageEditorKey.Crop,
   [EditImageCommandType.Expand]: ImageEditorKey.Expand,
   [EditImageCommandType.AdjustColors]: ImageEditorKey.AdjustColors,
@@ -65,6 +66,7 @@ const EDITOR_KEY_BY_COMMAND_TYPE: Record<EditImageCommandType, ImageEditorKey> =
   [EditImageCommandType.RemoveObjects]: ImageEditorKey.RemoveObjects,
   [EditImageCommandType.Upscale]: ImageEditorKey.Upscale,
   [EditImageCommandType.Restore]: ImageEditorKey.Restore,
+  [EditImageCommandType.Sharpen]: ImageEditorKey.Sharpen,
   [EditImageCommandType.Colorize]: ImageEditorKey.Colorize,
 };
 
@@ -116,7 +118,7 @@ export interface EditImageSlice {
   activeImageEditorKey?: ImageEditorKey;
   editImageOperation: EditImageOperation;
 
-  setActiveImageEditorKey: (imageEditorKey: ImageEditorKey | undefined) => void;
+  setActiveImageEditorKey: (imageEditorKey: ImageEditorKey | undefined) => Promise<void>;
   setImageFileToEdit: (imageFileToEdit: File | null) => Promise<void>;
   hasEditedImageAlpha: () => boolean;
   exportEditedImage: () => Promise<EditedImageFile | undefined>;
@@ -137,17 +139,30 @@ interface AppliedEditImageHistory {
   rendered: RenderedHistory;
 }
 
-export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImageSlice> = (
-  set,
-  get
-) => {
+type EditImageSliceDependencies = Pick<AppSlice, 'waitForAppSettingsSave'>;
+
+interface ImageEditorTransitionOptions {
+  open?: boolean;
+}
+
+export const createEditImageSlice: StateCreator<
+  EditImageSlice & EditImageSliceDependencies,
+  [],
+  [],
+  EditImageSlice
+> = (set, get) => {
+  let imageEditorTransition: {id: number; key: ImageEditorKey | undefined} = {
+    id: 0,
+    key: undefined,
+  };
+
   // Reset only after the history changed, so a canceled edit does not clear what the user just set.
-  const showAppliedImageEditorControls = (reset = false): void => {
+  const syncActiveImageEditorControls = (resetIfNotApplied = false): void => {
     const {activeImageEditorKey, editImageHistory} = get();
     const {command} = editImageHistory.at(-1) ?? {};
     if (command && imageEditorKey(command) === activeImageEditorKey) {
       imageEditorControls.restore(activeImageEditorKey, command);
-    } else if (reset) {
+    } else if (resetIfNotApplied) {
       imageEditorControls.reset(activeImageEditorKey);
     }
   };
@@ -160,6 +175,45 @@ export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImag
         activeImageEditorKey,
       });
     }
+  };
+
+  const beginImageEditorTransition = (key: ImageEditorKey | undefined): number => {
+    imageEditorTransition = {id: imageEditorTransition.id + 1, key};
+    return imageEditorTransition.id;
+  };
+
+  const applyImageEditorTransition = (
+    transition: number,
+    activeImageEditorKey: ImageEditorKey | undefined
+  ): boolean => {
+    if (transition !== imageEditorTransition.id) {
+      return false;
+    }
+    activateImageEditor(activeImageEditorKey);
+    syncActiveImageEditorControls(true);
+    return true;
+  };
+
+  const applyImageEditorReset = (transition: number): void => {
+    imageEditorControls.resetAll();
+    if (transition === imageEditorTransition.id) {
+      set({activeImageEditorKey: undefined});
+    }
+  };
+
+  const commitImageEditorTransition = async (
+    transition: number,
+    activeImageEditorKey: ImageEditorKey | undefined,
+    {open = false}: ImageEditorTransitionOptions = {}
+  ): Promise<boolean> => {
+    await get().waitForAppSettingsSave();
+    if (!applyImageEditorTransition(transition, activeImageEditorKey)) {
+      return false;
+    }
+    if (open) {
+      await imageEditorControls.open(activeImageEditorKey);
+    }
+    return true;
   };
 
   const abortableOperation = createAbortableOperation({
@@ -372,7 +426,7 @@ export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImag
         };
       });
     } catch (error) {
-      showAppliedImageEditorControls();
+      syncActiveImageEditorControls();
       throw error;
     }
   };
@@ -397,7 +451,7 @@ export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImag
       const wasLoading = get().isEditedImageLoading;
       abortableOperation.abort();
       if (wasLoading) {
-        showAppliedImageEditorControls();
+        syncActiveImageEditorControls();
       }
     },
   };
@@ -415,16 +469,22 @@ export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImag
     activeImageEditorKey: undefined,
     editImageOperation,
 
-    setActiveImageEditorKey: (activeImageEditorKey: ImageEditorKey | undefined): void => {
-      if (get().activeImageEditorKey === activeImageEditorKey) {
+    setActiveImageEditorKey: async (
+      activeImageEditorKey: ImageEditorKey | undefined
+    ): Promise<void> => {
+      if (
+        get().activeImageEditorKey === activeImageEditorKey &&
+        imageEditorTransition.key === activeImageEditorKey
+      ) {
         return;
       }
+      const transition = beginImageEditorTransition(activeImageEditorKey);
       abortableOperation.abort();
-      activateImageEditor(activeImageEditorKey);
-      showAppliedImageEditorControls(true);
+      await commitImageEditorTransition(transition, activeImageEditorKey, {open: true});
     },
 
     setImageFileToEdit: async (imageFileToEdit: File | null): Promise<void> => {
+      const transition = beginImageEditorTransition(undefined);
       await abortableOperation.runAndCommit(
         async signal => {
           let imageToEdit: ImageBitmap | null = null;
@@ -435,6 +495,8 @@ export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImag
               signal.throwIfAborted();
               editedImage = await createImageBitmap(imageToEdit);
             }
+            await get().waitForAppSettingsSave();
+            signal.throwIfAborted();
             return {imageToEdit, editedImage};
           } catch (error) {
             imageToEdit?.close();
@@ -457,9 +519,8 @@ export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImag
             undoneEditImageHistory: [],
             editImageDownloadTip: null,
             editImageProcessTip: null,
-            activeImageEditorKey: undefined,
           });
-          imageEditorControls.resetAll();
+          applyImageEditorReset(transition);
           prevImageToEdit?.close();
           prevEditedImage?.close();
           prevImageBeforeLastEdit?.close();
@@ -498,13 +559,13 @@ export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImag
       if (!undone) {
         return;
       }
+      const transition = beginImageEditorTransition(imageEditorKey(undone.command));
       const applied = await applyEditImageHistory(editImageHistory.slice(0, -1), [
         ...undoneEditImageHistory,
         undone,
       ]);
       if (applied) {
-        activateImageEditor(imageEditorKey(undone.command));
-        showAppliedImageEditorControls(true);
+        await commitImageEditorTransition(transition, imageEditorKey(undone.command));
       }
     },
 
@@ -514,22 +575,21 @@ export const createEditImageSlice: StateCreator<EditImageSlice, [], [], EditImag
       if (!redone) {
         return;
       }
+      const transition = beginImageEditorTransition(imageEditorKey(redone.command));
       const applied = await applyEditImageHistory(
         [...editImageHistory, redone],
         undoneEditImageHistory.slice(0, -1)
       );
       if (applied) {
-        activateImageEditor(imageEditorKey(redone.command));
-        showAppliedImageEditorControls(true);
+        await commitImageEditorTransition(transition, imageEditorKey(redone.command));
       }
     },
 
     resetEditImage: async (): Promise<void> => {
+      const transition = beginImageEditorTransition(undefined);
       if (await applyEditImageHistory([], [])) {
-        set({
-          activeImageEditorKey: undefined,
-        });
-        imageEditorControls.resetAll();
+        await get().waitForAppSettingsSave();
+        applyImageEditorReset(transition);
       }
     },
   };

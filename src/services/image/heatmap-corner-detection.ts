@@ -53,14 +53,15 @@ export async function detectDocumentCornersHeatmap(
   const inputTensors = imageBitmapToImageData([image], model).map(imageData =>
     imageDataToFloat32Tensor(imageData, model)
   );
-  const [outputTensor] = await runInferenceWorker(
-    model.url,
+  const [outputTensor] = await runInferenceWorker({
+    modelUrl: model.url,
     auth,
-    [inputTensors],
-    model.outputName,
+    inputTensors: [inputTensors],
+    outputName: model.outputName,
     progressCallback,
-    signal
-  );
+    signal,
+    allowWebGpu: model.webGpu,
+  });
   const corners: Vector[] = heatmapTensorToCorners(outputTensor!, image.width, image.height).filter(
     (corner): corner is Vector => !!corner
   );

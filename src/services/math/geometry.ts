@@ -79,10 +79,6 @@ export class Rectangle {
     return new Rectangle(topLeft.add(new Vector(width, height)), topLeft);
   }
 
-  static fromSize(width: number, height: number): Rectangle {
-    return this.fromTopLeft(Vector.ZERO, width, height);
-  }
-
   contains({x, y}: Vector, shrinkBy = 0): boolean {
     return (
       x >= this.topLeft.x + shrinkBy &&

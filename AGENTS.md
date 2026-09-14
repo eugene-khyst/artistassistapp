@@ -3,13 +3,16 @@
 Rules for AI coding agents working in this repository. Read the code for how things work; read this
 for what you must not break.
 
+Keep this file limited to instructions, constraints and non-obvious invariants. Never use it to
+retell behavior, structure, types or implementation details that are already clear from the code.
+
 ## Commands
 
 ```bash
-npm run dev          # hot reload against .env.development (local services, no service worker)
+npm run dev          # local services, no service worker
 npm run build:dev    # production bundle against .env.development
-npm run preview      # serve the built bundle, with the service worker
-npm run test         # generated GLSL constants, type-check, lint, format, unit tests; no browser
+npm run preview      # the built bundle, with the service worker
+npm run test         # everything except the browser project
 npm run test:browser # WebGL tests (Playwright Chromium + SwiftShader)
 
 # Maintainer only. Never run these.
@@ -50,7 +53,7 @@ intentionally stale during iterative work; review the working tree.
 
 ## Stores
 
-Slices compose into one Zustand store. Rules that are not visible from a slice on its own:
+Rules that are not visible from a slice on its own:
 
 - Register every new durable store in `STORE_RELOADS` (`src/stores/sync/store-reloads.ts`). Its
   order encodes the custom-brands → color-sets dependency, and tokens advance only after a
@@ -58,6 +61,8 @@ Slices compose into one Zustand store. Rules that are not visible from a slice o
 - Cross-tab sync is wake-based (`visibilitychange`/`pageshow`), not broadcast. Persist a field for
   another tab to read only when another tab must react to it.
 - Route local changes to serialized state through `persistChange`, never a direct db write.
+- Let `saveAppSettings` own the settings write: never duplicate the update in memory, and never add
+  optimistic synchronization or versioning. An IDB write failure is fatal.
 - Image-derived slices register `{abort, clear}` with `registerOriginalImageDependency` instead of
   being enumerated by image selection. Editors register `{reset, clear, restore}` with
   `imageEditorControls`. Keep both inversions: `edit-image-slice` must not know an editor slice.
@@ -85,15 +90,20 @@ Slices compose into one Zustand store. Rules that are not visible from a slice o
 - Consecutive edits from one editor must not compose (saturation 120 then 130 would replay as 1.56).
   Add such an edit with `preview`, which marks it replaceable: the superseded command stays in the
   history for undo but is never applied. Use `execute` wherever two edits do compose, as they do for
-  Crop, Straighten and Expand.
+  Crop, Correct perspective and Expand.
 - Preserve the identity of `imageBeforeLastEdit` across successive edits from one editor — it keeps
   the percentile worker cache warm and is what the Adjust Colors white-point picker samples.
 - Adjust Colors previews on slider release (`onChangeComplete`), never while dragging, so nothing
   anywhere is debounced. One release is one history entry. Reopening the editor or undoing under an
   open one turns white balance off, so the automatic white balance always belongs to the first
   adjustment.
-- `showAppliedImageEditorControls` resets only when the history changed: a canceled edit must not
-  clear a value the user just set.
+- A failed or canceled edit may restore controls from the applied command, but must not reset an
+  unapplied value the user just set. Reset such controls only after a history change or an explicit
+  editor transition.
+- Before an editor transition resets controls backed by `appSettings`, await
+  `waitForAppSettingsSave`. Reserve its transition token before asynchronous work; only the latest
+  transition may select or open an editor, while successful whole-editor cleanup remains
+  unconditional.
 - `hasEditedImageAlpha` and `exportEditedImage` answer different questions and must not be merged:
   save preserves the source format, alpha detection covers every alpha-capable type.
 - A command's result blob is internal transport — `applyEditImageCommand` decodes it straight back
@@ -114,18 +124,16 @@ Pure business logic, no React.
   activates, so the delegate always has a context and the reset never sees a zero image dimension.
   Store-side editor controls reset on editor switch instead, except the crop aspect ratio, which
   shapes the rectangle and so resets only with the whole editor.
-- `setImages`/`setImageIndex` re-fit zoom and pan only when the image dimensions change. Pass a
-  stable `sourceImageKey` to `useZoomableImageCanvas`: change it when the underlying source image
-  changes, keep it stable while regenerating derived images so the user's viewport survives.
+- Pass a stable `sourceImageKey` to `useZoomableImageCanvas`: change it when the underlying source
+  image changes, keep it stable while regenerating derived images so the user's viewport survives.
 
 ### `image/filter/`
 
-- Filters take an `OffscreenCanvas` and return one. Convert to `ImageBitmap` only where something
-  takes ownership: slice state that later closes it, or a Comlink call (an `OffscreenCanvas` cannot
-  cross a worker boundary). Convert with `transferToImageBitmap()`, never
-  `createImageBitmap(canvas)`, which copies. A caller holding a bitmap converts it in with
-  `toOffscreenCanvas`, which passes a canvas straight through; a filter's own
-  `copyOffscreenCanvas(renderer.canvas)` must stay a real copy, because `cleanUp()` destroys the
+- Convert to `ImageBitmap` only where something takes ownership: slice state that later closes it,
+  or a Comlink call (an `OffscreenCanvas` cannot cross a worker boundary). Convert with
+  `transferToImageBitmap()`, never `createImageBitmap(canvas)`, which copies. A caller holding a
+  bitmap converts it in with `toOffscreenCanvas`, which passes a canvas straight through; a filter's
+  own `copyOffscreenCanvas(renderer.canvas)` must stay a real copy, because `cleanUp()` destroys the
   drawing buffer right after.
 - The input is a canvas because `UNPACK_PREMULTIPLY_ALPHA_WEBGL` is ignored for `ImageBitmap`
   sources, whose own creation-time alpha wins. Only a canvas source lets a filter declare the alpha
@@ -141,10 +149,9 @@ Pure business logic, no React.
   the GPU and the TypeScript conversions cannot disagree. Any entry shader including `oklab.glsl`,
   `xyz.glsl`, `lab.glsl` or `luminance.glsl` must include `color-constants.glsl` ahead of it —
   includes are flat and the plugin does not dedupe them, so a fragment cannot include it itself.
-- Texture unit 0 is reserved for the source image; bind render-pass textures from unit 1. One image
-  binds as `sampler2D u_texture`; several same-sized images upload as one `TEXTURE_2D_ARRAY` and
-  bind as `sampler2DArray u_textures`, because GLSL ES 3.00 forbids dynamic indexing of sampler
-  arrays but allows any layer coord.
+- Texture unit 0 is reserved for the source image; bind render-pass textures from unit 1. Several
+  same-sized images upload as one `TEXTURE_2D_ARRAY`, because GLSL ES 3.00 forbids dynamic indexing
+  of sampler arrays but allows any layer coord.
 - Keep the painting brushes premultiplied: alpha carries the outline and the gray stays zero outside
   it. A brush without an alpha channel paints opaque black rectangles, and any color left under zero
   alpha bleeds back as a dark fringe through the mip chain.
@@ -158,32 +165,25 @@ Pure business logic, no React.
   keyed by id, so they can be translated.
 - Keep ONNX Runtime WASM bundled locally from `onnxruntime-web`; never point it at a third-party
   CDN.
-- Inference uses the `onnxruntime-web/webgpu` bundle. It runs `['webgpu']` on a hardware adapter
-  unless the per-device `webGpuEnabled` setting (Help) is off, and falls back to `['wasm']` itself
-  when the session fails to create. Failed runs fail the job; users can turn WebGPU off in Help.
-  Never retain model bytes for a run-time fallback. Operations WebGPU cannot run use the CPU inside
-  the same session. Skip a software (`isFallbackAdapter`) adapter; it runs about 40 times slower
-  than WebAssembly.
-- Wrap inference in `withProcessedImageCache` (returns `ImageBitmap`) or
-  `withProcessedImageBlobCache` (returns `Blob`) — pick whichever the slice already stores, so a
-  cache hit never re-encodes. `transformImage` returns an `OffscreenCanvas`, so resizing and
-  encoding never copy it first. Skip the cache for an image-editor command: its result blob already
-  lives in the undo history and `edit-image-slice` caches what it renders, which is why Colorize,
-  Upscale, Restore, Remove background and Remove objects are all uncached.
-- The cache key covers `PROCESSED_IMAGE_CACHE_VERSION`, a digest of the model's inference-affecting
-  metadata, the `webGpuEnabled` setting, and every input image digest — the style image is an input,
-  so it belongs in `digests`. The setting is there so turning WebGPU off re-runs the model.
-  `processedImageKey` strips only `priority` and `freeTier` by rest-destructuring, so a new field is
-  part of the key by default: the worst case is a needless re-run, never a stale image.
+- Never retain model bytes for a run-time fallback, and never add one: a failed run fails the job,
+  and the user turns WebGPU off in Help. Operations WebGPU cannot run already use the CPU inside the
+  same session.
+- Pin a model off WebGPU with `webGpu: false` in the catalog JSON, never by branching on its id in
+  code.
+- Pick the cache wrapper that matches what the slice already stores, so a cache hit never
+  re-encodes. Skip the cache for an image-editor command: its result blob already lives in the undo
+  history and `edit-image-slice` caches what it renders.
+- Keep the cache key rest-destructured, so a new model field joins it by default and the worst case
+  is a needless re-run, never a stale image. Strip a field only when another segment of the key
+  already encodes it. The key records the provider that actually ran, so turning WebGPU off re-runs
+  the model. The style image is an input: its digest belongs in `digests`.
 - Keep presentation fields out of the model JSON; renaming one there invalidates every cached image.
   Pre- and post-processing live in code, which the JSON cannot express, so bump
   `PROCESSED_IMAGE_CACHE_VERSION` when changing them.
-- The cache is derived data: keep it out of cloud sync, ZIP export and `store-changes`, and the Help
-  "Clear cache" button empties it. Models without a `url` are never cached. Callers pick the encode
-  format (PNG for line art, the JPEG default for photo-like output).
-- One ONNX session exists at a time: `withInferenceSession` cancels the one in flight, so a nested
-  call kills its own parent. Inside the callback use `transformImageInSession` with the supplied
-  `run`, never `transformImage`.
+- The cache is derived data: keep it out of cloud sync, ZIP export and `store-changes`. Callers pick
+  the encode format (PNG for line art, the JPEG default for photo-like output).
+- One ONNX session exists at a time, so a nested `withInferenceSession` kills its own parent: inside
+  the callback use `transformImageInSession` with the supplied `run`, never `transformImage`.
 
 ### `cloud/`
 
@@ -230,10 +230,9 @@ Pure business logic, no React.
 
 ### `auth/`
 
-- The durable `auth-attempt` is the pending redirect state and supports standalone ↔ browser
-  handoff. Redirect completion exchanges its token using the stored PKCE verifier; email OTP and
-  redirect completion persist the same IDB session shape.
-- `resolveAuth()` owns verification and refresh, with refreshes serialized by `withAuthLock`.
+- Keep `auth-attempt` durable: a login that finishes in the browser has to reach the standalone
+  window. Email OTP and redirect completion must persist the same IDB session shape.
+- Verify and refresh only through `resolveAuth()`; refreshes serialize on `withAuthLock`.
 - Decryption failures throw `ForceLogoutError` and must route through `logout(error.type)`.
 
 ### `validation.ts`
@@ -251,9 +250,8 @@ Keep Valibot confined to external JSON validation. Custom-brand JSON and cloud s
   the queryFn type to the per-query `select` generic. `combine` must be `useCallback`'d.
 - Pass _stable_ collection props — see `selectedBrands` in `ColorSetChooser.tsx`. Antd's
   `Form.useWatch` already returns reference-stable values.
-- In `useSelectedCatalogItem`, `selectedItemId` is `null` for an explicit cancel and `undefined` for
-  "use the default"; `defaultPredicate` keeps an item selectable without letting it become the
-  default.
+- In `useSelectedCatalogItem`, `defaultPredicate` keeps an item selectable without letting it become
+  the default.
 - `fetchColorsBulk` is store-only, with no React Query, and keeps its `Map<string, Map<…>>` shape.
 
 ## Image pipeline
@@ -261,8 +259,8 @@ Keep Valibot confined to external JSON validation. Custom-brand JSON and cloud s
 - `src/utils/graphics.ts` is the shared surface: use `DrawImageSource` everywhere, and chain
   `DrawImage.*` suppliers through the `drawImage` option of `drawImageToOffscreenCanvas` and
   `imageToBlob` rather than computing crops at call sites.
-- `IMAGE_SIZE.SD/HD/2K` are the standard target pixel counts. `original-image-slice` downscales to
-  2K once at load; downstream slices resize to SD locally before invoking workers.
+- `original-image-slice` downscales to 2K once at load; downstream slices resize to SD locally
+  before invoking workers.
 - Only `Interpolation.Lanczos` scales its kernel with the reduction factor, so linear and bilinear
   alias when minifying and are upscale-only. `removeBackground` resamples its mask with
   `Interpolation.Bilinear`: a soft matte must not ring, and the mask is normally upscaled. That is
@@ -276,10 +274,10 @@ Keep Valibot confined to external JSON validation. Custom-brand JSON and cloud s
 - Pass a tile through `padTile` before inference and never let the model's own resize run: pad by
   edge replication with smoothing off, so the core keeps landing on whole output pixels and no
   invented border reaches the model.
-- Upscale tiles carry a 48px halo, wider than the model's 34px receptive field, so a tiled result
-  matches an untiled one and needs no feathering. Keep the factors integer divisors of the model's
-  4x, or core boundaries stop landing on whole output pixels and seams return. A model with a wider
-  receptive field cannot be tiled at all.
+- Keep `UPSCALE_TILE_HALO` wider than the model's 34px receptive field, so a tiled result matches an
+  untiled one and needs no feathering. Keep the factors integer divisors of the model's 4x, or core
+  boundaries stop landing on whole output pixels and seams return. A model with a wider receptive
+  field cannot be tiled at all.
 - Restore feathers instead, because channel attention pools over the whole tile and no halo makes a
   tiled result match. Keep the ramp at twice the halo and draw the full padded tile: the ramp then
   ends exactly where the previous tile's padding does. A wider halo is not a substitute. Every
@@ -287,10 +285,9 @@ Keep Valibot confined to external JSON validation. Custom-brand JSON and cloud s
 
 ## Web Workers
 
-- Worker managers live in `src/services/*/worker/*-worker-manager.ts` over the shared
-  `WorkerManager`. When the signal passed to `.run(operation, signal?)` aborts, the worker is
-  terminated and the next call creates a fresh one — so **a state-holding worker must not be passed
-  a signal** unless losing that state is the right answer to the abort, as it is for inference.
+- When the signal passed to `.run(operation, signal?)` aborts, the worker is terminated and the next
+  call creates a fresh one — so **a state-holding worker must not be passed a signal** unless losing
+  that state is the right answer to the abort, as it is for inference.
 - Pass an `ImageBitmap` in with Comlink's `transfer(image, [image])` so it moves instead of being
   cloned. The main-thread reference is neutered afterwards: do not `close()` it. The worker owns the
   bitmap and closes it once drawn.
@@ -326,9 +323,8 @@ Keep Valibot confined to external JSON validation. Custom-brand JSON and cloud s
 
 ## Styling
 
-- Three layers load from `src/index.css`: `styles/base.css` (resets), `styles/antd-overrides.css`
-  (`.ant-*` selectors), `styles/utilities.css` (global `u-*` classes). Per-component styles live in
-  co-located `*.module.css`.
+- Global styles belong in one of the three layers loaded from `src/index.css`: resets, `.ant-*`
+  overrides, `u-*` utilities. Per-component styles live in co-located `*.module.css`.
 - Prefer AntD design tokens as CSS variables (`--ant-padding`, `--ant-color-bg-elevated`) over
   hardcoded values or `theme.useToken()`.
 - **AntD 6 injects its CSS-in-JS into `<head>` at runtime, after bundled CSS, so an override at

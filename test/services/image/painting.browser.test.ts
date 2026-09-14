@@ -45,12 +45,13 @@ const model: OnnxModel = {
   url: '/onnx/painting/mamba-painter.onnx',
   resolution: 128,
   standardDeviation: [255, 255, 255],
+  webGpu: false,
 };
 
 beforeEach(() => {
   vi.clearAllMocks();
   mocks.session.mockImplementation(
-    async (_url: string, _auth: unknown, callback: (run: InferenceRun) => Promise<void>) => {
+    async ({callback}: {callback: (run: InferenceRun) => Promise<void>}) => {
       await callback(mocks.run);
     }
   );
@@ -94,11 +95,13 @@ describe('painting inference', () => {
     const output = await paintImage(image, model, null, 64, progress, controller.signal);
     expect([output.width, output.height]).toEqual([65, 33]);
     expect(mocks.session).toHaveBeenCalledExactlyOnceWith(
-      model.url,
-      null,
-      expect.any(Function),
-      progress,
-      controller.signal
+      expect.objectContaining({
+        modelUrl: model.url,
+        auth: null,
+        progressCallback: progress,
+        signal: controller.signal,
+        allowWebGpu: false,
+      })
     );
     expect(mocks.run).toHaveBeenCalledTimes(2);
     for (const [inputs, outputName] of mocks.run.mock.calls) {

@@ -18,7 +18,7 @@
 
 import {describe, expect, it} from 'vitest';
 
-import {rotateImageBitmap} from '@/utils/graphics';
+import {rotateImage} from '@/utils/graphics';
 
 function opaqueImage(width: number, height: number): ImageBitmap {
   const canvas = new OffscreenCanvas(width, height);
@@ -28,11 +28,9 @@ function opaqueImage(width: number, height: number): ImageBitmap {
   return canvas.transferToImageBitmap();
 }
 
-function minAlpha(image: ImageBitmap): number {
-  const canvas = new OffscreenCanvas(image.width, image.height);
+function minAlpha(canvas: OffscreenCanvas): number {
   const ctx = canvas.getContext('2d')!;
-  ctx.drawImage(image, 0, 0);
-  const {data} = ctx.getImageData(0, 0, image.width, image.height);
+  const {data} = ctx.getImageData(0, 0, canvas.width, canvas.height);
   let min = 255;
   for (let i = 3; i < data.length; i += 4) {
     min = Math.min(min, data[i]!);
@@ -52,12 +50,11 @@ describe('rotateImageBitmap', () => {
     const failures: string[] = [];
     for (const [width, height] of sizes) {
       for (const angle of angles) {
-        const rotated = rotateImageBitmap(opaqueImage(width, height), angle);
+        const rotated = rotateImage(opaqueImage(width, height), angle);
         const alpha = minAlpha(rotated);
         if (alpha < 255) {
           failures.push(`${width}x${height} at ${angle}°: alpha ${alpha}`);
         }
-        rotated.close();
       }
     }
     expect(failures).toEqual([]);

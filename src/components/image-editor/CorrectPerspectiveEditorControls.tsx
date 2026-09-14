@@ -33,10 +33,12 @@ interface Props {
   polygonDrawingMode: CanvasPolygonDrawingMode | null;
 }
 
-export function StraightenControls({polygonDrawingMode}: Readonly<Props>) {
-  const setStraightenModel = useAppStore(state => state.setStraightenModel);
-  const autoDetectStraightenVertices = useAppStore(state => state.autoDetectStraightenVertices);
-  const straightenImage = useAppStore(state => state.straightenImage);
+export function CorrectPerspectiveEditorControls({polygonDrawingMode}: Readonly<Props>) {
+  const setCorrectPerspectiveModel = useAppStore(state => state.setCorrectPerspectiveModel);
+  const autoDetectCorrectPerspectiveVertices = useAppStore(
+    state => state.autoDetectCorrectPerspectiveVertices
+  );
+  const correctPerspectiveImage = useAppStore(state => state.correctPerspectiveImage);
 
   const {notification} = App.useApp();
 
@@ -55,8 +57,8 @@ export function StraightenControls({polygonDrawingMode}: Readonly<Props>) {
   const access = useAccessTo(model);
 
   useEffect(() => {
-    setStraightenModel(model);
-  }, [model, setStraightenModel]);
+    setCorrectPerspectiveModel(model);
+  }, [model, setCorrectPerspectiveModel]);
 
   const handleApplyClick = () => {
     const vertices = polygonDrawingMode?.getVertices() ?? [];
@@ -69,14 +71,14 @@ export function StraightenControls({polygonDrawingMode}: Readonly<Props>) {
       });
       return;
     }
-    straightenImage(vertices);
+    correctPerspectiveImage(vertices);
   };
 
   const handleAutoDetectClick = async () => {
     if (!polygonDrawingMode) {
       return;
     }
-    const vertices = await autoDetectStraightenVertices();
+    const vertices = await autoDetectCorrectPerspectiveVertices();
     if (vertices === undefined) {
       return;
     }

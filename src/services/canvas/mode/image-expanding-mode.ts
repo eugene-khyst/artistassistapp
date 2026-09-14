@@ -18,12 +18,12 @@
 
 import {hexToRgb, rgbToHex} from '@eugene-khyst/artistassistapp-color-mixer';
 
-import {getImageExpansion, type ImageExpansion} from '@/services/image/expand-image';
 import {
-  DEFAULT_EXPAND_IMAGE_CONTROLS,
-  type ExpandImageControls,
-  ExpandImageFillMode,
-} from '@/services/image/expand-image-controls';
+  DEFAULT_EXPAND_CONTROLS,
+  type ExpandControls,
+  ExpandFillMode,
+} from '@/services/image/expand-controls';
+import {getImageExpansion, type ImageExpansion} from '@/services/image/expand-image';
 import {Rectangle} from '@/services/math/geometry';
 
 import {BaseCanvasMode, DARKENED_AREA_COLOR, type ImageCanvasRenderingContext} from './canvas-mode';
@@ -36,9 +36,9 @@ function invertColor(color: string): string {
 }
 
 export class ImageExpandingMode extends BaseCanvasMode {
-  private controls = DEFAULT_EXPAND_IMAGE_CONTROLS;
+  private controls = DEFAULT_EXPAND_CONTROLS;
 
-  setControls(controls: ExpandImageControls): void {
+  setControls(controls: ExpandControls): void {
     const prevBounds = this.bounds();
     this.controls = controls;
     if (this.bounds().sameSize(prevBounds)) {
@@ -69,7 +69,7 @@ export class ImageExpandingMode extends BaseCanvasMode {
   }
 
   private isSmartFill(): boolean {
-    return this.controls.fillMode === ExpandImageFillMode.Smart;
+    return this.controls.fillMode === ExpandFillMode.Smart;
   }
 
   onBeforeImageDrawn(ctx: ImageCanvasRenderingContext): void {

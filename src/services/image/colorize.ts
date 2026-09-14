@@ -71,14 +71,15 @@ export async function createColorizedImage({
     }
     return imageDataToFloat32Tensor(imageData, colorizeModel);
   });
-  const [outputTensor] = await runInferenceWorker(
-    colorizeModel.url,
+  const [outputTensor] = await runInferenceWorker({
+    modelUrl: colorizeModel.url,
     auth,
-    [inputTensors],
-    colorizeModel.outputName,
+    inputTensors: [inputTensors],
+    outputName: colorizeModel.outputName,
     progressCallback,
-    signal
-  );
+    signal,
+    allowWebGpu: colorizeModel.webGpu,
+  });
   const [, channels, outputHeight, outputWidth] = outputTensor!.dims;
   if (channels !== 2) {
     throw new Error(`Expected 2 output channels, got ${channels}`);

@@ -20,7 +20,7 @@ import {afterEach, describe, expect, it, vi} from 'vitest';
 import {createStore} from 'zustand/vanilla';
 
 import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit-image-command';
-import {ExpandImageFillMode, ExpandImageSizeMode} from '@/services/image/expand-image-controls';
+import {ExpandFillMode, ExpandMode} from '@/services/image/expand-controls';
 import {Interpolation} from '@/services/image/filter/types';
 import {DEFAULT_APP_SETTINGS} from '@/services/settings/types';
 import type {AppSlice} from '@/stores/app-slice';
@@ -30,7 +30,7 @@ import type {
   EditImageOperation,
   EditImageSlice,
 } from '@/stores/edit-image-slice';
-import {createExpandImageSlice, type ExpandImageSlice} from '@/stores/expand-image-slice';
+import {createExpandSlice, type ExpandSlice} from '@/stores/expand-slice';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
 import type {DrawImageParams, DrawImageParamsSupplier, DrawImageSource} from '@/utils/graphics';
 
@@ -57,13 +57,17 @@ vi.mock('@/utils/graphics', async importOriginal => ({
   ...graphicsMocks,
 }));
 
-type TestStore = ExpandImageSlice &
-  Pick<AppSlice, 'saveAppSettings'> &
+type TestStore = ExpandSlice &
+  Pick<AppSlice, 'appSettings' | 'saveAppSettings'> &
   Pick<AuthSlice, 'auth'> &
   Pick<EditImageSlice, 'editImageOperation' | 'undoneEditImageHistory'>;
 
 function createTestStore() {
-  const saveAppSettings = vi.fn(async () => DEFAULT_APP_SETTINGS);
+  const saveAppSettings = vi.fn(async (settings: Partial<AppSlice['appSettings']>) => {
+    const appSettings = {...store.getState().appSettings, ...settings};
+    store.setState({appSettings});
+    return appSettings;
+  });
   let suppliedCommand: EditImageCommand | null | undefined;
   const image = {width: 200, height: 100} as ImageBitmap;
   const execute = vi.fn(async (commandOrSupplier: EditImageCommand | EditImageCommandSupplier) => {
@@ -86,10 +90,11 @@ function createTestStore() {
   };
   const store = createStore<TestStore>()((...args) => ({
     auth: null,
+    appSettings: DEFAULT_APP_SETTINGS,
     saveAppSettings,
     editImageOperation,
     undoneEditImageHistory: [],
-    ...createExpandImageSlice(...args),
+    ...createExpandSlice(...args),
   }));
   return {store, suppliedCommand: () => suppliedCommand, saveAppSettings};
 }
@@ -123,46 +128,61 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-describe('expand-image-slice', () => {
-  it('loads and persists the preferred controls', () => {
+describe('expand-slice', () => {
+  it('does not store command-only controls', () => {
     const {store, saveAppSettings} = createTestStore();
-    store.getState().loadExpandImageSettings({
+
+    store.getState().setExpandControls({marginX: 25, marginY: 15, color: '#123456'});
+
+    expect(store.getState().expandControls).toMatchObject({
+      marginX: 25,
+      marginY: 15,
+      color: '#123456',
+    });
+    expect(saveAppSettings).not.toHaveBeenCalled();
+  });
+
+  it('loads and stores settings', () => {
+    const {store, saveAppSettings} = createTestStore();
+    const appSettings = {
       ...DEFAULT_APP_SETTINGS,
       expandAspectRatio: '16:9',
-      expandSizeMode: ExpandImageSizeMode.Margins,
-      expandFillMode: ExpandImageFillMode.Smart,
-    });
+      expandSizeMode: ExpandMode.Margins,
+      expandFillMode: ExpandFillMode.Smart,
+    };
+    store.setState({appSettings});
+    store.getState().loadExpandSettings(appSettings);
 
-    expect(store.getState().expandImageControls).toMatchObject({
+    expect(store.getState().expandControls).toMatchObject({
       aspectRatio: [16, 9],
-      sizeMode: ExpandImageSizeMode.Margins,
-      fillMode: ExpandImageFillMode.Smart,
+      sizeMode: ExpandMode.Margins,
+      fillMode: ExpandFillMode.Smart,
     });
     expect(saveAppSettings).not.toHaveBeenCalled();
 
-    store.getState().setExpandImageControls({
-      ...store.getState().expandImageControls,
+    store.getState().setExpandControls({
+      ...store.getState().expandControls,
       aspectRatio: [1.91, 1],
-      sizeMode: ExpandImageSizeMode.AspectRatio,
-      fillMode: ExpandImageFillMode.Color,
+      sizeMode: ExpandMode.AspectRatio,
+      fillMode: ExpandFillMode.Color,
       marginX: 25,
       color: '#123456',
     });
 
     expect(saveAppSettings).toHaveBeenCalledExactlyOnceWith({
       expandAspectRatio: '1.91:1',
-      expandSizeMode: ExpandImageSizeMode.AspectRatio,
-      expandFillMode: ExpandImageFillMode.Color,
+      expandSizeMode: ExpandMode.AspectRatio,
+      expandFillMode: ExpandFillMode.Color,
     });
 
     imageEditorControls.resetAll();
 
-    expect(store.getState().expandImageControls).toEqual({
+    expect(store.getState().expandControls).toEqual({
       aspectRatio: [1.91, 1],
-      sizeMode: ExpandImageSizeMode.AspectRatio,
+      sizeMode: ExpandMode.AspectRatio,
       marginX: 10,
       marginY: 10,
-      fillMode: ExpandImageFillMode.Color,
+      fillMode: ExpandFillMode.Color,
       color: '#fff',
     });
   });
@@ -170,14 +190,14 @@ describe('expand-image-slice', () => {
   it('executes color expansion from its controls', async () => {
     const {store, suppliedCommand} = createTestStore();
     const controls = {
-      ...store.getState().expandImageControls,
-      sizeMode: ExpandImageSizeMode.Margins,
+      ...store.getState().expandControls,
+      sizeMode: ExpandMode.Margins,
       marginX: 10,
       marginY: 20,
-      fillMode: ExpandImageFillMode.Color,
+      fillMode: ExpandFillMode.Color,
       color: '#123456',
     };
-    store.getState().setExpandImageControls(controls);
+    store.getState().setExpandControls(controls);
 
     await expect(store.getState().expandImage()).resolves.toBe(true);
 
@@ -185,13 +205,13 @@ describe('expand-image-slice', () => {
       type: EditImageCommandType.Expand,
       controls,
     });
-    expect(store.getState().expandImageControls).toEqual({...controls, marginX: 0, marginY: 0});
+    expect(store.getState().expandControls).toEqual({...controls, marginX: 0, marginY: 0});
   });
 
   it('does not execute a no-op expansion', async () => {
     const {store, suppliedCommand} = createTestStore();
-    store.getState().setExpandImageControls({
-      ...store.getState().expandImageControls,
+    store.getState().setExpandControls({
+      ...store.getState().expandControls,
       aspectRatio: [2, 1],
     });
 
@@ -231,16 +251,16 @@ describe('expand-image-slice', () => {
         return remainingPatches.shift();
       }
     );
-    store.getState().setExpandImageModel(model);
-    store.getState().setExpandImageUpscaleModel(upscaleModel);
+    store.getState().setExpandModel(model);
+    store.getState().setExpandUpscaleModel(upscaleModel);
     const controls = {
-      ...store.getState().expandImageControls,
-      sizeMode: ExpandImageSizeMode.Margins,
+      ...store.getState().expandControls,
+      sizeMode: ExpandMode.Margins,
       marginX: 10,
       marginY: 20,
-      fillMode: ExpandImageFillMode.Smart,
+      fillMode: ExpandFillMode.Smart,
     };
-    store.getState().setExpandImageControls(controls);
+    store.getState().setExpandControls(controls);
 
     await expect(store.getState().expandImage()).resolves.toBe(true);
 
@@ -287,14 +307,14 @@ describe('expand-image-slice', () => {
     transformerMocks.transformImage
       .mockResolvedValueOnce(inpaintedImage)
       .mockRejectedValueOnce(new Error('upscale failed'));
-    store.getState().setExpandImageModel({id: 'lama', freeTier: true, url: 'model.onnx'});
-    store.getState().setExpandImageUpscaleModel({id: 'esrgan', freeTier: true, url: 'up.onnx'});
-    store.getState().setExpandImageControls({
-      ...store.getState().expandImageControls,
-      sizeMode: ExpandImageSizeMode.Margins,
+    store.getState().setExpandModel({id: 'lama', freeTier: true, url: 'model.onnx'});
+    store.getState().setExpandUpscaleModel({id: 'esrgan', freeTier: true, url: 'up.onnx'});
+    store.getState().setExpandControls({
+      ...store.getState().expandControls,
+      sizeMode: ExpandMode.Margins,
       marginX: 10,
       marginY: 20,
-      fillMode: ExpandImageFillMode.Smart,
+      fillMode: ExpandFillMode.Smart,
     });
 
     await expect(store.getState().expandImage()).rejects.toThrow('upscale failed');
@@ -309,19 +329,19 @@ describe('expand-image-slice', () => {
     expansionMocks.drawExpandedImage.mockReturnValue([{width: 240, height: 140}]);
     expansionMocks.createExpansionMask.mockReturnValue({});
     transformerMocks.transformImage.mockImplementation(async () => {
-      store.getState().setExpandImageUpscaleModel({id: 'other', freeTier: true, url: 'o.onnx'});
+      store.getState().setExpandUpscaleModel({id: 'other', freeTier: true, url: 'o.onnx'});
       return {width: 240, height: 140};
     });
     interpolationMocks.interpolationWebGL.mockReturnValue({width: 240, height: 140});
     graphicsMocks.imageToBlob.mockResolvedValue(new Blob(['patch']));
-    store.getState().setExpandImageModel({id: 'lama', freeTier: true, url: 'model.onnx'});
-    store.getState().setExpandImageUpscaleModel({id: 'esrgan', freeTier: true, url: 'up.onnx'});
-    store.getState().setExpandImageControls({
-      ...store.getState().expandImageControls,
-      sizeMode: ExpandImageSizeMode.Margins,
+    store.getState().setExpandModel({id: 'lama', freeTier: true, url: 'model.onnx'});
+    store.getState().setExpandUpscaleModel({id: 'esrgan', freeTier: true, url: 'up.onnx'});
+    store.getState().setExpandControls({
+      ...store.getState().expandControls,
+      sizeMode: ExpandMode.Margins,
       marginX: 10,
       marginY: 20,
-      fillMode: ExpandImageFillMode.Smart,
+      fillMode: ExpandFillMode.Smart,
     });
 
     await expect(store.getState().expandImage()).rejects.toThrow();
@@ -329,13 +349,13 @@ describe('expand-image-slice', () => {
 
   it('does not run the Smart pipeline without an upscale model', async () => {
     const {store} = createTestStore();
-    store.getState().setExpandImageModel({id: 'lama', freeTier: true, url: 'model.onnx'});
-    store.getState().setExpandImageControls({
-      ...store.getState().expandImageControls,
-      sizeMode: ExpandImageSizeMode.Margins,
+    store.getState().setExpandModel({id: 'lama', freeTier: true, url: 'model.onnx'});
+    store.getState().setExpandControls({
+      ...store.getState().expandControls,
+      sizeMode: ExpandMode.Margins,
       marginX: 10,
       marginY: 20,
-      fillMode: ExpandImageFillMode.Smart,
+      fillMode: ExpandFillMode.Smart,
     });
 
     await expect(store.getState().expandImage()).resolves.toBe(false);

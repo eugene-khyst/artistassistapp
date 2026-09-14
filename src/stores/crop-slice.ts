@@ -19,34 +19,17 @@
 import type {StateCreator} from 'zustand';
 
 import {ImageEditorKey} from '@/image-editor';
+import {type CropAspectRatio} from '@/services/image/aspect-ratio';
 import {
-  type CropAspectRatio,
-  imageAspectRatio,
-  imageAspectRatioLabel,
-  ORIGINAL_CROP_ASPECT_RATIO,
-} from '@/services/image/aspect-ratio';
+  cropAspectRatioFromAppSettings,
+  cropAspectRatioToAppSettings,
+} from '@/services/image/crop-controls';
 import {EditImageCommandType} from '@/services/image/edit-image-command';
 import {Rectangle, Vector} from '@/services/math/geometry';
 import type {AppSettings} from '@/services/settings/types';
 import type {AppSlice} from '@/stores/app-slice';
 import type {EditImageSlice} from '@/stores/edit-image-slice';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
-
-const FREE_CROP_ASPECT_RATIO = 'free';
-
-function cropAspectRatioFromSettings(value: string | undefined): CropAspectRatio {
-  if (value === ORIGINAL_CROP_ASPECT_RATIO) {
-    return ORIGINAL_CROP_ASPECT_RATIO;
-  }
-  return imageAspectRatio(value ?? '') ?? null;
-}
-
-function cropAspectRatioSetting(aspectRatio: CropAspectRatio): string {
-  if (!aspectRatio) {
-    return FREE_CROP_ASPECT_RATIO;
-  }
-  return typeof aspectRatio === 'string' ? aspectRatio : imageAspectRatioLabel(aspectRatio);
-}
 
 export interface CropSlice {
   cropAspectRatio: CropAspectRatio;
@@ -59,25 +42,22 @@ export interface CropSlice {
   cropImage: (rectangle: Rectangle) => void;
 }
 
-type CropSliceDependencies = Pick<AppSlice, 'saveAppSettings'> &
+type CropSliceDependencies = Pick<AppSlice, 'appSettings' | 'saveAppSettings'> &
   Pick<EditImageSlice, 'editImageOperation' | 'undoneEditImageHistory'>;
 
 export const createCropSlice: StateCreator<CropSlice & CropSliceDependencies, [], [], CropSlice> = (
   set,
   get
 ) => {
-  let preferredCropAspectRatio: CropAspectRatio = null;
-
   const resetCrop = (): void => {
     set({
-      cropAspectRatio: preferredCropAspectRatio,
+      cropAspectRatio: cropAspectRatioFromAppSettings(get().appSettings),
     });
   };
 
   const loadCropSettings = (appSettings: AppSettings): void => {
-    preferredCropAspectRatio = cropAspectRatioFromSettings(appSettings.cropAspectRatio);
     set({
-      cropAspectRatio: preferredCropAspectRatio,
+      cropAspectRatio: cropAspectRatioFromAppSettings(appSettings),
     });
   };
 
@@ -111,15 +91,10 @@ export const createCropSlice: StateCreator<CropSlice & CropSliceDependencies, []
     loadCropSettings,
 
     setCropAspectRatio: (cropAspectRatio: CropAspectRatio): void => {
-      const setting = cropAspectRatioSetting(cropAspectRatio);
-      if (cropAspectRatioSetting(preferredCropAspectRatio) === setting) {
-        return;
-      }
-      preferredCropAspectRatio = cropAspectRatio;
       set({
         cropAspectRatio,
       });
-      void get().saveAppSettings({cropAspectRatio: setting});
+      void get().saveAppSettings(cropAspectRatioToAppSettings(cropAspectRatio));
     },
 
     resetCrop,

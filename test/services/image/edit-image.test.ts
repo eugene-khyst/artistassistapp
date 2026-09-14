@@ -20,14 +20,16 @@ import {afterEach, describe, expect, it, vi} from 'vitest';
 
 import {applyEditImageCommand} from '@/services/image/edit-image';
 import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit-image-command';
-import type {ImageExpansion} from '@/services/image/expand-image';
 import {
-  DEFAULT_EXPAND_IMAGE_CONTROLS,
-  ExpandImageFillMode,
-  ExpandImageSizeMode,
-} from '@/services/image/expand-image-controls';
+  DEFAULT_EXPAND_CONTROLS,
+  ExpandFillMode,
+  ExpandMode,
+} from '@/services/image/expand-controls';
+import type {ImageExpansion} from '@/services/image/expand-image';
+import {SharpenMode} from '@/services/image/sharpen-controls';
 
 const expansionMocks = vi.hoisted(() => ({drawExpandedImage: vi.fn()}));
+const sharpenMocks = vi.hoisted(() => ({sharpen: vi.fn()}));
 
 vi.mock('@/services/image/adjust-colors', () => ({adjustColors: vi.fn()}));
 vi.mock('@/services/image/expand-image', async importOriginal => ({
@@ -35,7 +37,8 @@ vi.mock('@/services/image/expand-image', async importOriginal => ({
   ...expansionMocks,
 }));
 vi.mock('@/services/image/remove-background', () => ({removeBackground: vi.fn()}));
-vi.mock('@/services/image/straighten', () => ({straightenImage: vi.fn()}));
+vi.mock('@/services/image/correct-perspective', () => ({correctPerspective: vi.fn()}));
+vi.mock('@/services/image/sharpen', () => sharpenMocks);
 
 interface ExpandedCanvasCall {
   context: {drawImage: ReturnType<typeof vi.fn>};
@@ -108,9 +111,9 @@ describe('applyEditImageCommand Expand', () => {
     const command: EditImageCommand = {
       type: EditImageCommandType.Expand,
       controls: {
-        ...DEFAULT_EXPAND_IMAGE_CONTROLS,
+        ...DEFAULT_EXPAND_CONTROLS,
         aspectRatio: [1.91, 1],
-        fillMode: ExpandImageFillMode.Smart,
+        fillMode: ExpandFillMode.Smart,
       },
       marginPatches,
     };
@@ -142,11 +145,11 @@ describe('applyEditImageCommand Expand', () => {
     const command: EditImageCommand = {
       type: EditImageCommandType.Expand,
       controls: {
-        ...DEFAULT_EXPAND_IMAGE_CONTROLS,
-        sizeMode: ExpandImageSizeMode.Margins,
+        ...DEFAULT_EXPAND_CONTROLS,
+        sizeMode: ExpandMode.Margins,
         marginX: 10,
         marginY: 20,
-        fillMode: ExpandImageFillMode.Smart,
+        fillMode: ExpandFillMode.Smart,
       },
       marginPatches: [
         new Blob(['top']),
@@ -174,5 +177,28 @@ describe('applyEditImageCommand Expand', () => {
     decodedPatches.forEach(patch => {
       expect(patch.close).toHaveBeenCalledOnce();
     });
+  });
+});
+
+describe('applyEditImageCommand Sharpen', () => {
+  it('applies the selected mode and strength', async () => {
+    const source = image(100, 80);
+    const result = image(100, 80);
+    const transferToImageBitmap = vi.fn(() => result);
+    sharpenMocks.sharpen.mockReturnValueOnce({transferToImageBitmap});
+
+    await expect(
+      applyEditImageCommand(
+        source,
+        {
+          type: EditImageCommandType.Sharpen,
+          controls: {mode: SharpenMode.HighPass, strength: 3},
+        },
+        new AbortController().signal
+      )
+    ).resolves.toBe(result);
+
+    expect(sharpenMocks.sharpen).toHaveBeenCalledExactlyOnceWith(source, SharpenMode.HighPass, 3);
+    expect(transferToImageBitmap).toHaveBeenCalledOnce();
   });
 });

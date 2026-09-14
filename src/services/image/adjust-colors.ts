@@ -34,11 +34,6 @@ export function adjustColors(
   image: DrawImageSource,
   params: AdjustmentParameters,
   maxValues?: number[]
-): ImageBitmap {
-  const colorAdjustedImage: ImageBitmap = adjustColorsWebGL(
-    toOffscreenCanvas(image),
-    params,
-    maxValues
-  ).transferToImageBitmap();
-  return colorAdjustedImage;
+): OffscreenCanvas {
+  return adjustColorsWebGL(toOffscreenCanvas(image), params, maxValues);
 }

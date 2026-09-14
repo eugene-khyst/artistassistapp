@@ -26,9 +26,9 @@ import {imageEditorControls} from '@/stores/registry/image-editor-registry';
 export interface RotateSlice {
   rotationAngle: number;
 
-  rotateImageClockwise: () => Promise<void>;
   setRotationAngle: (rotationAngle: number) => void;
   rotateImage: () => Promise<void>;
+  rotateImageClockwise: () => Promise<void>;
 }
 
 type RotateSliceDependencies = Pick<EditImageSlice, 'editImageOperation'>;
@@ -41,23 +41,24 @@ export const createRotateSlice: StateCreator<
 > = (set, get) => {
   imageEditorControls.register(ImageEditorKey.Rotate, {
     reset: () => {
-      set({rotationAngle: 0});
+      set({
+        rotationAngle: 0,
+      });
     },
     restore: command => {
-      set({rotationAngle: command.type === EditImageCommandType.Rotate ? command.angle : 0});
+      set({
+        rotationAngle: command.type === EditImageCommandType.Rotate ? command.angle : 0,
+      });
     },
   });
 
   return {
     rotationAngle: 0,
 
-    rotateImageClockwise: async (): Promise<void> => {
-      set({rotationAngle: 0});
-      await get().editImageOperation.execute({type: EditImageCommandType.RotateClockwise});
-    },
-
     setRotationAngle: (rotationAngle: number): void => {
-      set({rotationAngle});
+      set({
+        rotationAngle,
+      });
     },
 
     rotateImage: async (): Promise<void> => {
@@ -65,6 +66,13 @@ export const createRotateSlice: StateCreator<
         type: EditImageCommandType.Rotate,
         angle: get().rotationAngle,
       });
+    },
+
+    rotateImageClockwise: async (): Promise<void> => {
+      set({
+        rotationAngle: 0,
+      });
+      await get().editImageOperation.execute({type: EditImageCommandType.RotateClockwise});
     },
   };
 };

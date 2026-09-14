@@ -22,20 +22,21 @@ import {formatFetchProgress} from '@/i18n';
 import {ImageEditorKey} from '@/image-editor';
 import type {Authentication} from '@/services/auth/types';
 import {hasAccessTo} from '@/services/auth/utils';
-import {imageAspectRatio, imageAspectRatioLabel} from '@/services/image/aspect-ratio';
 import {EditImageCommandType} from '@/services/image/edit-image-command';
+import {
+  DEFAULT_EXPAND_CONTROLS,
+  type ExpandControls,
+  expandControlsFromAppSettings,
+  expandControlsToAppSettings,
+  ExpandFillMode,
+  ExpandMode,
+} from '@/services/image/expand-controls';
 import {
   createExpansionMask,
   drawExpandedImage,
   getImageExpansion,
   type ImageExpansion,
 } from '@/services/image/expand-image';
-import {
-  DEFAULT_EXPAND_IMAGE_CONTROLS,
-  type ExpandImageControls,
-  ExpandImageFillMode,
-  ExpandImageSizeMode,
-} from '@/services/image/expand-image-controls';
 import {inpaintImage} from '@/services/image/inpaint';
 import {inpaintingPatchRectangle} from '@/services/image/inpainting-patch';
 import type {OnnxModel} from '@/services/ml/types';
@@ -48,40 +49,16 @@ import type {FetchProgressCallback} from '@/utils/fetch';
 import {DrawImage, imageToBlob} from '@/utils/graphics';
 import {createAbortError} from '@/utils/promise';
 
-export interface ExpandImageSlice {
-  expandImageControls: ExpandImageControls;
-  expandImageModel?: OnnxModel;
-  expandImageUpscaleModel?: OnnxModel;
+export interface ExpandSlice {
+  expandControls: ExpandControls;
+  expandModel?: OnnxModel;
+  expandUpscaleModel?: OnnxModel;
 
-  loadExpandImageSettings: (appSettings: AppSettings) => void;
-  setExpandImageControls: (expandImageControls: ExpandImageControls) => void;
-  setExpandImageModel: (expandImageModel: OnnxModel | undefined) => void;
-  setExpandImageUpscaleModel: (expandImageUpscaleModel: OnnxModel | undefined) => void;
+  loadExpandSettings: (appSettings: AppSettings) => void;
+  setExpandControls: (controls: Partial<ExpandControls>) => void;
+  setExpandModel: (expandModel: OnnxModel | undefined) => void;
+  setExpandUpscaleModel: (expandUpscaleModel: OnnxModel | undefined) => void;
   expandImage: () => Promise<boolean>;
-}
-
-type ExpandImagePreferences = Pick<ExpandImageControls, 'sizeMode' | 'aspectRatio' | 'fillMode'>;
-
-function expandImageSizeMode(value: string | undefined): ExpandImageSizeMode {
-  return value === ExpandImageSizeMode.Margins
-    ? ExpandImageSizeMode.Margins
-    : ExpandImageSizeMode.AspectRatio;
-}
-
-function expandImageFillMode(value: string | undefined): ExpandImageFillMode {
-  return value === ExpandImageFillMode.Smart
-    ? ExpandImageFillMode.Smart
-    : ExpandImageFillMode.Color;
-}
-
-function expandImagePreferences(appSettings: AppSettings): ExpandImagePreferences {
-  return {
-    sizeMode: expandImageSizeMode(appSettings.expandSizeMode),
-    aspectRatio:
-      imageAspectRatio(appSettings.expandAspectRatio ?? '') ??
-      DEFAULT_EXPAND_IMAGE_CONTROLS.aspectRatio,
-    fillMode: expandImageFillMode(appSettings.expandFillMode),
-  };
 }
 
 async function prepareExpansionModelInput({
@@ -142,148 +119,125 @@ async function createExpansionMarginPatches({
   return marginPatches;
 }
 
-type ExpandImageSliceDependencies = Pick<AppSlice, 'saveAppSettings'> &
+type ExpandSliceDependencies = Pick<AppSlice, 'appSettings' | 'saveAppSettings'> &
   Pick<AuthSlice, 'auth'> &
   Pick<EditImageSlice, 'editImageOperation' | 'undoneEditImageHistory'>;
 
-export const createExpandImageSlice: StateCreator<
-  ExpandImageSlice & ExpandImageSliceDependencies,
+export const createExpandSlice: StateCreator<
+  ExpandSlice & ExpandSliceDependencies,
   [],
   [],
-  ExpandImageSlice
+  ExpandSlice
 > = (set, get) => {
-  let preferredControls: ExpandImagePreferences = {
-    sizeMode: DEFAULT_EXPAND_IMAGE_CONTROLS.sizeMode,
-    aspectRatio: DEFAULT_EXPAND_IMAGE_CONTROLS.aspectRatio,
-    fillMode: DEFAULT_EXPAND_IMAGE_CONTROLS.fillMode,
-  };
-
-  const loadExpandImageSettings = (appSettings: AppSettings): void => {
-    preferredControls = expandImagePreferences(appSettings);
-    set(({expandImageControls}) => ({
-      expandImageControls: {
-        ...expandImageControls,
-        ...preferredControls,
+  const loadExpandSettings = (appSettings: AppSettings): void => {
+    set(({expandControls}) => ({
+      expandControls: {
+        ...expandControls,
+        ...expandControlsFromAppSettings(appSettings),
       },
     }));
   };
 
-  const undoneExpandImageControls = (): ExpandImageControls | undefined => {
+  const undoneExpandControls = (): ExpandControls | undefined => {
     const command = get().undoneEditImageHistory.at(-1)?.command;
     return command?.type === EditImageCommandType.Expand ? command.controls : undefined;
   };
 
   // Applying consumes the margins, so only an undone edit can bring them back.
-  const appliedExpandImageControls = (controls: ExpandImageControls): ExpandImageControls =>
-    controls.sizeMode === ExpandImageSizeMode.Margins
-      ? {...controls, marginX: 0, marginY: 0}
-      : controls;
+  const appliedExpandControls = (controls: ExpandControls): ExpandControls =>
+    controls.sizeMode === ExpandMode.Margins ? {...controls, marginX: 0, marginY: 0} : controls;
 
   imageEditorControls.register(ImageEditorKey.Expand, {
     reset: () => {
-      const controls = undoneExpandImageControls();
+      const controls = undoneExpandControls();
       if (controls) {
         set({
-          expandImageControls: controls,
+          expandControls: controls,
         });
       }
     },
     clear: () => {
       set({
-        expandImageControls: {
-          ...DEFAULT_EXPAND_IMAGE_CONTROLS,
-          ...preferredControls,
+        expandControls: {
+          ...DEFAULT_EXPAND_CONTROLS,
+          ...expandControlsFromAppSettings(get().appSettings),
         },
       });
     },
     restore: command => {
       if (command.type === EditImageCommandType.Expand) {
         set({
-          expandImageControls:
-            undoneExpandImageControls() ?? appliedExpandImageControls(command.controls),
+          expandControls: undoneExpandControls() ?? appliedExpandControls(command.controls),
         });
       }
     },
   });
 
   return {
-    expandImageControls: DEFAULT_EXPAND_IMAGE_CONTROLS,
+    expandControls: DEFAULT_EXPAND_CONTROLS,
 
-    loadExpandImageSettings,
+    loadExpandSettings,
 
-    setExpandImageControls: (expandImageControls: ExpandImageControls): void => {
-      const settings: Partial<AppSettings> = {};
-      if (preferredControls.sizeMode !== expandImageControls.sizeMode) {
-        settings.expandSizeMode = expandImageControls.sizeMode;
-      }
-      if (
-        imageAspectRatioLabel(preferredControls.aspectRatio) !==
-        imageAspectRatioLabel(expandImageControls.aspectRatio)
-      ) {
-        settings.expandAspectRatio = imageAspectRatioLabel(expandImageControls.aspectRatio);
-      }
-      if (preferredControls.fillMode !== expandImageControls.fillMode) {
-        settings.expandFillMode = expandImageControls.fillMode;
-      }
-      preferredControls = {
-        sizeMode: expandImageControls.sizeMode,
-        aspectRatio: expandImageControls.aspectRatio,
-        fillMode: expandImageControls.fillMode,
+    setExpandControls: (controls: Partial<ExpandControls>): void => {
+      const expandControls = {
+        ...get().expandControls,
+        ...controls,
       };
       set({
-        expandImageControls,
+        expandControls,
       });
-      if (Object.keys(settings).length > 0) {
-        void get().saveAppSettings(settings);
+      const appSettings = expandControlsToAppSettings(controls);
+      if (Object.keys(appSettings).length > 0) {
+        void get().saveAppSettings(appSettings);
       }
     },
 
-    setExpandImageModel: (expandImageModel: OnnxModel | undefined): void => {
-      if (get().expandImageModel === expandImageModel) {
+    setExpandModel: (expandImageModel: OnnxModel | undefined): void => {
+      if (get().expandModel === expandImageModel) {
         return;
       }
       set({
-        expandImageModel,
+        expandModel: expandImageModel,
       });
     },
 
-    setExpandImageUpscaleModel: (expandImageUpscaleModel: OnnxModel | undefined): void => {
-      if (get().expandImageUpscaleModel === expandImageUpscaleModel) {
+    setExpandUpscaleModel: (expandImageUpscaleModel: OnnxModel | undefined): void => {
+      if (get().expandUpscaleModel === expandImageUpscaleModel) {
         return;
       }
       set({
-        expandImageUpscaleModel,
+        expandUpscaleModel: expandImageUpscaleModel,
       });
     },
 
     expandImage: async (): Promise<boolean> => {
-      const {expandImageControls, expandImageModel, expandImageUpscaleModel, auth} = get();
+      const {expandControls, expandModel, expandUpscaleModel, auth} = get();
       if (
-        expandImageControls.fillMode === ExpandImageFillMode.Smart &&
-        (!expandImageModel ||
-          !expandImageUpscaleModel ||
-          !hasAccessTo(auth?.user, [expandImageModel, expandImageUpscaleModel]))
+        expandControls.fillMode === ExpandFillMode.Smart &&
+        (!expandModel ||
+          !expandUpscaleModel ||
+          !hasAccessTo(auth?.user, [expandModel, expandUpscaleModel]))
       ) {
         return false;
       }
       const applied = await get().editImageOperation.execute(
         async ({image, setDownloadTip, signal}) => {
-          const expansion = getImageExpansion(image, expandImageControls);
+          const expansion = getImageExpansion(image, expandControls);
           if (expansion.margins.length === 0) {
             return null;
           }
-          if (expandImageControls.fillMode === ExpandImageFillMode.Color) {
+          if (expandControls.fillMode === ExpandFillMode.Color) {
             return {
               type: EditImageCommandType.Expand,
-              controls: expandImageControls,
+              controls: expandControls,
             };
           }
 
           const marginPatches = await createExpansionMarginPatches({
             image,
             expansion,
-            inpaintModel: expandImageModel!,
-            upscaleModel: expandImageUpscaleModel!,
+            inpaintModel: expandModel!,
+            upscaleModel: expandUpscaleModel!,
             auth,
             progressCallback: (key, progress) => {
               setDownloadTip(formatFetchProgress(key, progress));
@@ -291,21 +245,21 @@ export const createExpandImageSlice: StateCreator<
             signal,
           });
           if (
-            get().expandImageModel !== expandImageModel ||
-            get().expandImageUpscaleModel !== expandImageUpscaleModel
+            get().expandModel !== expandModel ||
+            get().expandUpscaleModel !== expandUpscaleModel
           ) {
             throw createAbortError();
           }
           return {
             type: EditImageCommandType.Expand,
-            controls: expandImageControls,
+            controls: expandControls,
             marginPatches,
           };
         }
       );
       if (applied) {
         set({
-          expandImageControls: appliedExpandImageControls(expandImageControls),
+          expandControls: appliedExpandControls(expandControls),
         });
       }
       return applied;
