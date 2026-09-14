@@ -79,6 +79,10 @@ export class Rectangle {
     return new Rectangle(topLeft.add(new Vector(width, height)), topLeft);
   }
 
+  static fromSize(width: number, height: number): Rectangle {
+    return this.fromTopLeft(Vector.ZERO, width, height);
+  }
+
   contains({x, y}: Vector, shrinkBy = 0): boolean {
     return (
       x >= this.topLeft.x + shrinkBy &&
@@ -86,6 +90,10 @@ export class Rectangle {
       x <= this.bottomRight.x - shrinkBy &&
       y <= this.bottomRight.y - shrinkBy
     );
+  }
+
+  sameSize({width, height}: Rectangle): boolean {
+    return this.width === width && this.height === height;
   }
 
   grow(padding: number): Rectangle {
@@ -98,10 +106,6 @@ export class Rectangle {
       new Vector(Math.ceil(this.bottomRight.x), Math.ceil(this.bottomRight.y)),
       new Vector(Math.floor(this.topLeft.x), Math.floor(this.topLeft.y))
     );
-  }
-
-  sameSize({width, height}: Rectangle): boolean {
-    return this.width === width && this.height === height;
   }
 
   intersect(other: Rectangle): Rectangle | null {

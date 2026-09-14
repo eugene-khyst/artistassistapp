@@ -19,7 +19,7 @@
 import type {Fraction} from '@eugene-khyst/artistassistapp-color-mixer';
 import {describe, expect, it} from 'vitest';
 
-import {aspectRatioSize} from '@/utils/graphics';
+import {aspectRatioSize, rotatedImageCropSize} from '@/utils/graphics';
 
 const ASPECT_RATIOS: Fraction[] = [
   [16, 9],
@@ -30,6 +30,37 @@ const ASPECT_RATIOS: Fraction[] = [
   [21, 9],
   [1.91, 1],
 ];
+
+describe('rotatedImageCropSize', () => {
+  it('keeps the size when the angle is zero', () => {
+    expect(rotatedImageCropSize(400, 300, 0)).toEqual({width: 400, height: 300});
+  });
+
+  it('crops a square rotated by 45 degrees to its inscribed square', () => {
+    expect(rotatedImageCropSize(100, 100, 45)).toEqual({width: 70, height: 70});
+    expect(rotatedImageCropSize(100, 100, -45)).toEqual({width: 70, height: 70});
+  });
+
+  it('keeps the aspect ratio and every corner inside the rotated image', () => {
+    const [width, height] = [400, 300];
+    for (let angle = -45; angle <= 45; angle += 0.5) {
+      const size = rotatedImageCropSize(width, height, angle);
+      expect(Math.abs(size.width / size.height - width / height)).toBeLessThan(0.01);
+      const radians = (angle * Math.PI) / 180;
+      for (const [sx, sy] of [
+        [1, 1],
+        [1, -1],
+      ] as const) {
+        const x = (sx * size.width) / 2;
+        const y = (sy * size.height) / 2;
+        const u = x * Math.cos(radians) + y * Math.sin(radians);
+        const v = -x * Math.sin(radians) + y * Math.cos(radians);
+        expect(Math.abs(u)).toBeLessThanOrEqual(width / 2 + 1e-9);
+        expect(Math.abs(v)).toBeLessThanOrEqual(height / 2 + 1e-9);
+      }
+    }
+  });
+});
 
 describe('aspectRatioSize', () => {
   it('keeps the size when no aspect ratio is given', () => {

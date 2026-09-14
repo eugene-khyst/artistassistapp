@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Fraction} from '@eugene-khyst/artistassistapp-color-mixer';
+import {type Fraction, radians} from '@eugene-khyst/artistassistapp-color-mixer';
 
-import type {Rectangle, Vector} from '@/services/math/geometry';
+import {type Rectangle, type Vector} from '@/services/math/geometry';
 import {identity} from '@/utils/function';
 
 export type DrawImageSource = ImageBitmap | OffscreenCanvas;
@@ -219,6 +219,37 @@ export function rotateImageBitmapClockwise(image: ImageBitmap): ImageBitmap {
   const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d')!;
   ctx.translate(height / 2, width / 2);
   ctx.rotate(Math.PI / 2);
+  ctx.drawImage(image, -width / 2, -height / 2);
+  return canvas.transferToImageBitmap();
+}
+
+// The largest rectangle of the same aspect ratio inside the rotated image, so no corner is empty.
+export function rotatedImageCropSize(
+  width: number,
+  height: number,
+  angleDegrees: number
+): {width: number; height: number} {
+  const angle = Math.abs(radians(angleDegrees));
+  const cos = Math.cos(angle);
+  const sin = Math.sin(angle);
+  const scale = Math.min(
+    width / (width * cos + height * sin),
+    height / (width * sin + height * cos)
+  );
+  return {
+    width: Math.max(1, Math.floor(width * scale)),
+    height: Math.max(1, Math.floor(height * scale)),
+  };
+}
+
+export function rotateImageBitmap(image: ImageBitmap, angleDegrees: number): ImageBitmap {
+  const {width, height} = image;
+  const size = rotatedImageCropSize(width, height, angleDegrees);
+  const canvas = new OffscreenCanvas(size.width, size.height);
+  const ctx: OffscreenCanvasRenderingContext2D = canvas.getContext('2d')!;
+  ctx.imageSmoothingQuality = 'high';
+  ctx.translate(size.width / 2, size.height / 2);
+  ctx.rotate(radians(angleDegrees));
   ctx.drawImage(image, -width / 2, -height / 2);
   return canvas.transferToImageBitmap();
 }

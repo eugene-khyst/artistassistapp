@@ -146,15 +146,15 @@ msgstr "Hodnota menšia ako 100 % spôsobí, že obrázok bude vyzerať menej fa
 msgid "Accurate"
 msgstr "Presné"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "Acrylic Gouache"
 msgstr "Akrylový kvaš"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:71
 msgid "Acrylic Markers"
 msgstr "Akrylové fixky"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Acrylic Paint"
 msgstr "Akrylová farba"
 
@@ -190,11 +190,11 @@ msgstr "Pridať do palety"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Pridajte bielu v <0>pomere {whiteRatioText}</0>"
 
-#: src/components/messages.ts:52
+#: src/components/messages.ts:53
 msgid "Adjust colors"
 msgstr "Upraviť farby"
 
-#: src/components/image-editor/StraightenControls.tsx:87
+#: src/components/image-editor/StraightenControls.tsx:86
 msgid "Adjust the 4 corners manually."
 msgstr "Ručne nastavte 4 rohy."
 
@@ -202,7 +202,7 @@ msgstr "Ručne nastavte 4 rohy."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Všetky údaje aplikácie sú uložené v úložisku webového prehliadača, aj po inštalácii. Vymazanie údajov prehliadača ich všetky odstráni."
 
-#: src/components/ImageEditor.tsx:326
+#: src/components/ImageEditor.tsx:329
 msgid "All edits will be lost"
 msgstr "Všetky úpravy sa stratia"
 
@@ -217,6 +217,10 @@ msgstr "Prípadne si nainštalujte najnovšiu verziu prehliadača Chrome, Edge a
 #: src/components/ImageColorPicker.tsx:259
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "Je nastavená podkladová vrstva alebo zjednocujúca farba. Automatická paleta použije tieto nastavenia na celú fotografiu, nielen na oblasť, pre ktorú boli vybraté."
+
+#: src/components/image-editor/RotateControls.tsx:44
+msgid "Angle"
+msgstr "Uhol"
 
 #: src/components/Help.tsx:274
 msgid "Application build ID"
@@ -327,15 +331,15 @@ msgstr "Autentifikácia zlyhala"
 msgid "Auto palette"
 msgstr "Automatická paleta"
 
-#: src/components/image-editor/StraightenControls.tsx:115
+#: src/components/image-editor/StraightenControls.tsx:110
 msgid "Auto-detect"
 msgstr "Automatická detekcia"
 
-#: src/components/image-editor/StraightenControls.tsx:126
+#: src/components/image-editor/StraightenControls.tsx:118
 msgid "Auto-detect is available only to paid Patreon members"
 msgstr "Automatická detekcia je dostupná len pre platených členov Patreonu"
 
-#: src/components/image-editor/StraightenControls.tsx:52
+#: src/components/image-editor/StraightenControls.tsx:51
 msgid "Auto-detect is unavailable"
 msgstr "Automatická detekcia nie je k dispozícii"
 
@@ -380,21 +384,21 @@ msgstr "Podľa počtu farieb"
 msgid "By consistency"
 msgstr "Podľa konzistencie"
 
-#: src/components/messages.ts:85
+#: src/components/messages.ts:86
 msgid "By date"
 msgstr "Podľa dátumu"
 
-#: src/components/messages.ts:80
-#: src/components/messages.ts:87
+#: src/components/messages.ts:81
+#: src/components/messages.ts:88
 msgid "By hue"
 msgstr "Podľa odtieňa"
 
-#: src/components/messages.ts:79
+#: src/components/messages.ts:80
 msgid "By ID"
 msgstr "Podľa ID"
 
-#: src/components/messages.ts:81
-#: src/components/messages.ts:88
+#: src/components/messages.ts:82
+#: src/components/messages.ts:89
 msgid "By lightness"
 msgstr "Podľa svetlosti"
 
@@ -402,7 +406,7 @@ msgstr "Podľa svetlosti"
 msgid "By match"
 msgstr "Podľa zhody"
 
-#: src/components/messages.ts:86
+#: src/components/messages.ts:87
 msgid "By name"
 msgstr "Podľa názvu"
 
@@ -416,7 +420,7 @@ msgstr "Na obkresľovanie v AR je potrebný prístup ku kamere"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:328
+#: src/components/ImageEditor.tsx:331
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -453,7 +457,7 @@ msgstr "Skontrolovať aktualizácie"
 msgid "Check your connection and try again."
 msgstr "Skontrolujte pripojenie a skúste to znova."
 
-#: src/components/image-editor/StraightenControls.tsx:53
+#: src/components/image-editor/StraightenControls.tsx:52
 msgid "Check your connection and try again. You can still adjust the 4 corners manually."
 msgstr "Skontrolujte pripojenie a skúste to znova. Stále môžete manuálne nastaviť 4 rohy."
 
@@ -624,7 +628,7 @@ msgstr "Farebná sada"
 msgid "Color swatch"
 msgstr "Vzorka farby"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Colored Pencils"
 msgstr "Farebné ceruzky"
 
@@ -632,7 +636,7 @@ msgstr "Farebné ceruzky"
 msgid "Colorize"
 msgstr "Zafarbiť"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Colorize black-and-white"
 msgstr "Vyfarbiť čiernobielu fotografiu"
 
@@ -710,11 +714,16 @@ msgstr "Skopírujte podporovaný obrázok do schránky a skúste to znova."
 msgid "Copy and share this link"
 msgstr "Skopírujte a zdieľajte tento odkaz"
 
+#: src/components/image-editor/StraightenControls.tsx:100
+#: src/components/messages.ts:50
+msgid "Correct perspective"
+msgstr "Upraviť perspektívu"
+
 #: src/components/image-editor/AdjustColorsControls.tsx:378
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Opravený odhad teploty svetelného zdroja v Kelvinoch"
 
-#: src/components/image-editor/StraightenControls.tsx:86
+#: src/components/image-editor/StraightenControls.tsx:85
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Papier ani plátno sa nepodarilo automaticky rozpoznať"
 
@@ -744,7 +753,7 @@ msgid "Create new"
 msgstr "Vytvoriť nové"
 
 #: src/components/image-editor/CropControls.tsx:98
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Crop"
 msgstr "Orezať"
 
@@ -920,7 +929,7 @@ msgstr "Sem presuňte súbor..."
 msgid "Drop the files here..."
 msgstr "Sem presuňte súbory..."
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Dry Pastel"
 msgstr "Suchý pastel"
 
@@ -948,7 +957,7 @@ msgstr "Upraviť odtiaľto ďalej"
 msgid "Edit image"
 msgstr "Upraviť obrázok"
 
-#: src/components/ImageEditor.tsx:338
+#: src/components/ImageEditor.tsx:341
 msgid "Edited"
 msgstr "Upravené"
 
@@ -1010,7 +1019,7 @@ msgid "Exit AR"
 msgstr "Ukončiť AR"
 
 #: src/components/image-editor/ExpandControls.tsx:249
-#: src/components/messages.ts:51
+#: src/components/messages.ts:52
 msgid "Expand"
 msgstr "Rozšíriť"
 
@@ -1113,7 +1122,7 @@ msgstr "Lazúrovanie"
 msgid "Go to the {label} tab"
 msgstr "Prejdite na kartu {label}"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Gouache"
 msgstr "Gvaš"
 
@@ -1340,11 +1349,11 @@ msgstr "Označte oblasť okolo objektu, ktorý chcete odstrániť, potom potiahn
 msgid "Mark at least 3 points around the object you want to remove"
 msgstr "Označte aspoň 3 body okolo objektu, ktorý chcete odstrániť"
 
-#: src/components/image-editor/StraightenControls.tsx:66
+#: src/components/image-editor/StraightenControls.tsx:65
 msgid "Mark the 4 corners of your paper or canvas"
 msgstr "Označte 4 rohy papiera alebo plátna"
 
-#: src/components/image-editor/StraightenControls.tsx:122
+#: src/components/image-editor/StraightenControls.tsx:114
 msgid "Mark the 4 corners of your paper or canvas, then drag the vertices to adjust"
 msgstr "Označte 4 rohy papiera alebo plátna a upravte ich ťahaním"
 
@@ -1513,11 +1522,11 @@ msgstr "Počet buniek na menšej strane (vertikálne alebo horizontálne)"
 msgid "Off"
 msgstr "Vypnuté"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Oil Paint"
 msgstr "Olejová farba"
 
-#: src/components/messages.ts:68
+#: src/components/messages.ts:69
 msgid "Oil Pastel"
 msgstr "Olejový pastel"
 
@@ -1781,7 +1790,7 @@ msgstr "Pomer"
 msgid "Realism"
 msgstr "Realizmus"
 
-#: src/components/ImageEditor.tsx:323
+#: src/components/ImageEditor.tsx:326
 msgid "Redo"
 msgstr "Znovu"
 
@@ -1820,12 +1829,12 @@ msgid "Remove and continue"
 msgstr "Odstrániť a pokračovať"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:137
-#: src/components/messages.ts:53
+#: src/components/messages.ts:54
 msgid "Remove background"
 msgstr "Odstrániť pozadie"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:105
-#: src/components/messages.ts:54
+#: src/components/messages.ts:55
 msgid "Remove objects"
 msgstr "Odstrániť objekty"
 
@@ -1863,13 +1872,13 @@ msgstr "Vyžaduje sa systém macOS Sonoma alebo novší."
 msgid "Resend code"
 msgstr "Znova odoslať kód"
 
-#: src/components/ImageEditor.tsx:327
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:335
 msgid "Reset"
 msgstr "Resetovať"
 
 #: src/components/image-editor/RestoreControls.tsx:101
-#: src/components/messages.ts:56
+#: src/components/messages.ts:57
 msgid "Restore"
 msgstr "Reštaurovať"
 
@@ -1896,9 +1905,13 @@ msgstr "Skúsiť znova"
 msgid "Return to the {tabLabel} tab"
 msgstr "Vrátiť sa na kartu {tabLabel}"
 
-#: src/components/image-editor/StraightenControls.tsx:118
+#: src/components/messages.ts:49
 msgid "Rotate"
 msgstr "Otočiť"
+
+#: src/components/image-editor/RotateControls.tsx:66
+msgid "Rotate clockwise"
+msgstr "Otočiť v smere hodinových ručičiek"
 
 #: src/components/ImageColorPicker.tsx:305
 msgid "Sample size"
@@ -1967,7 +1980,7 @@ msgstr "Vyberte výtvarnú techniku"
 msgid "Select an image that contains a color chart"
 msgstr "Vyberte obrázok, ktorý obsahuje farebnú tabuľku"
 
-#: src/components/ImageEditor.tsx:288
+#: src/components/ImageEditor.tsx:291
 msgid "Select an image to edit"
 msgstr "Vyberte obrázok na úpravu"
 
@@ -2029,7 +2042,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Vyberte si zo svojich nedávnych farebných sád alebo vytvorte novú."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:295
 msgid "Select image"
 msgstr "Vybrať obrázok"
 
@@ -2296,11 +2309,6 @@ msgstr "Úložisko sa môže zaplniť"
 #: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "Využitie úložiska"
-
-#: src/components/image-editor/StraightenControls.tsx:105
-#: src/components/messages.ts:49
-msgid "Straighten"
-msgstr "Narovnať"
 
 #: src/components/ImagePainting.tsx:126
 #: src/components/ImagePainting.tsx:144
@@ -2612,7 +2620,7 @@ msgstr "Nie je možné obnoviť uloženú farebnú sadu"
 msgid "Underlayer"
 msgstr "Podkladová vrstva"
 
-#: src/components/ImageEditor.tsx:316
+#: src/components/ImageEditor.tsx:319
 msgid "Undo"
 msgstr "Vrátiť späť"
 
@@ -2660,7 +2668,7 @@ msgid "Uploading image {index} / {count}"
 msgstr "Nahráva sa obrázok {index} / {count}"
 
 #: src/components/image-editor/UpscaleControls.tsx:85
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Upscale"
 msgstr "Zväčšiť"
 
@@ -2733,15 +2741,15 @@ msgstr "Akvarel"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Akvarel je možné riediť vodou, aby bol priehľadnejší"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Watercolor Paint"
 msgstr "Akvarelová farba"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Watercolor Pencils"
 msgstr "Akvarelové ceruzky"
 
-#: src/components/messages.ts:69
+#: src/components/messages.ts:70
 msgid "Wax Pastel"
 msgstr "Voskový pastel"
 
@@ -2771,7 +2779,7 @@ msgstr "Biela"
 msgid "White balance"
 msgstr "Vyváženie bielej"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "White paper or canvas"
 msgstr "Biely papier alebo plátno"
 
@@ -2845,7 +2853,7 @@ msgid "Your image"
 msgstr "Váš obrázok"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:303
+#: src/components/ImageEditor.tsx:306
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:318
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

@@ -146,15 +146,15 @@ msgstr "Μια τιμή μικρότερη από 100% κάνει την εικ�
 msgid "Accurate"
 msgstr "Ακριβές"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "Acrylic Gouache"
 msgstr "Ακρυλική γκουάς"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:71
 msgid "Acrylic Markers"
 msgstr "Ακρυλικοί μαρκαδόροι"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Acrylic Paint"
 msgstr "Ακρυλικό χρώμα"
 
@@ -190,11 +190,11 @@ msgstr "Προσθήκη στην παλέτα"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Προσθήκη λευκού σε <0>αναλογία {whiteRatioText}</0>"
 
-#: src/components/messages.ts:52
+#: src/components/messages.ts:53
 msgid "Adjust colors"
 msgstr "Προσαρμογή χρωμάτων"
 
-#: src/components/image-editor/StraightenControls.tsx:87
+#: src/components/image-editor/StraightenControls.tsx:86
 msgid "Adjust the 4 corners manually."
 msgstr "Ρυθμίστε τις 4 γωνίες χειροκίνητα."
 
@@ -202,7 +202,7 @@ msgstr "Ρυθμίστε τις 4 γωνίες χειροκίνητα."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Όλα τα δεδομένα της εφαρμογής αποθηκεύονται στον χώρο αποθήκευσης του προγράμματος περιήγησης ιστού, ακόμη και μετά την εγκατάσταση. Η εκκαθάριση των δεδομένων του προγράμματος περιήγησης τα διαγράφει όλα."
 
-#: src/components/ImageEditor.tsx:326
+#: src/components/ImageEditor.tsx:329
 msgid "All edits will be lost"
 msgstr "Όλες οι τροποποιήσεις θα χαθούν"
 
@@ -217,6 +217,10 @@ msgstr "Εναλλακτικά, εγκαταστήστε την πιο πρόσ�
 #: src/components/ImageColorPicker.tsx:259
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "Ορίζεται ένα υπόστρωμα ή ένα ενοποιητικό χρώμα. Η αυτόματη παλέτα θα εφαρμόσει αυτές τις ρυθμίσεις σε ολόκληρη τη φωτογραφία, όχι μόνο στην περιοχή για την οποία επιλέχθηκαν."
+
+#: src/components/image-editor/RotateControls.tsx:44
+msgid "Angle"
+msgstr "Γωνία"
 
 #: src/components/Help.tsx:274
 msgid "Application build ID"
@@ -327,15 +331,15 @@ msgstr "Ο έλεγχος ταυτότητας απέτυχε"
 msgid "Auto palette"
 msgstr "Αυτόματη παλέτα"
 
-#: src/components/image-editor/StraightenControls.tsx:115
+#: src/components/image-editor/StraightenControls.tsx:110
 msgid "Auto-detect"
 msgstr "Αυτόματος εντοπισμός"
 
-#: src/components/image-editor/StraightenControls.tsx:126
+#: src/components/image-editor/StraightenControls.tsx:118
 msgid "Auto-detect is available only to paid Patreon members"
 msgstr "Ο αυτόματος εντοπισμός είναι διαθέσιμος μόνο σε μέλη Patreon επί πληρωμή"
 
-#: src/components/image-editor/StraightenControls.tsx:52
+#: src/components/image-editor/StraightenControls.tsx:51
 msgid "Auto-detect is unavailable"
 msgstr "Ο αυτόματος εντοπισμός δεν είναι διαθέσιμος"
 
@@ -380,21 +384,21 @@ msgstr "Κατά αριθμό χρωμάτων"
 msgid "By consistency"
 msgstr "Κατά πυκνότητα"
 
-#: src/components/messages.ts:85
+#: src/components/messages.ts:86
 msgid "By date"
 msgstr "Κατά ημερομηνία"
 
-#: src/components/messages.ts:80
-#: src/components/messages.ts:87
+#: src/components/messages.ts:81
+#: src/components/messages.ts:88
 msgid "By hue"
 msgstr "Κατά απόχρωση"
 
-#: src/components/messages.ts:79
+#: src/components/messages.ts:80
 msgid "By ID"
 msgstr "Κατά ID"
 
-#: src/components/messages.ts:81
-#: src/components/messages.ts:88
+#: src/components/messages.ts:82
+#: src/components/messages.ts:89
 msgid "By lightness"
 msgstr "Κατά φωτεινότητα"
 
@@ -402,7 +406,7 @@ msgstr "Κατά φωτεινότητα"
 msgid "By match"
 msgstr "Κατά αντιστοιχία"
 
-#: src/components/messages.ts:86
+#: src/components/messages.ts:87
 msgid "By name"
 msgstr "Κατά όνομα"
 
@@ -416,7 +420,7 @@ msgstr "Απαιτείται πρόσβαση στην κάμερα για ιχ�
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:328
+#: src/components/ImageEditor.tsx:331
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -453,7 +457,7 @@ msgstr "Έλεγχος για ενημερώσεις"
 msgid "Check your connection and try again."
 msgstr "Ελέγξτε τη σύνδεσή σας και δοκιμάστε ξανά."
 
-#: src/components/image-editor/StraightenControls.tsx:53
+#: src/components/image-editor/StraightenControls.tsx:52
 msgid "Check your connection and try again. You can still adjust the 4 corners manually."
 msgstr "Ελέγξτε τη σύνδεσή σας και δοκιμάστε ξανά. Μπορείτε ακόμα να ρυθμίσετε τις 4 γωνίες χειροκίνητα."
 
@@ -624,7 +628,7 @@ msgstr "Σετ χρωμάτων"
 msgid "Color swatch"
 msgstr "Δείγμα χρώματος"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Colored Pencils"
 msgstr "Χρωματιστά μολύβια"
 
@@ -632,7 +636,7 @@ msgstr "Χρωματιστά μολύβια"
 msgid "Colorize"
 msgstr "Χρωματισμός"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Colorize black-and-white"
 msgstr "Χρωματισμός ασπρόμαυρης φωτογραφίας"
 
@@ -710,11 +714,16 @@ msgstr "Αντιγράψτε μια υποστηριζόμενη εικόνα σ
 msgid "Copy and share this link"
 msgstr "Αντιγράψτε και μοιραστείτε αυτόν τον σύνδεσμο"
 
+#: src/components/image-editor/StraightenControls.tsx:100
+#: src/components/messages.ts:50
+msgid "Correct perspective"
+msgstr "Διόρθωση προοπτικής"
+
 #: src/components/image-editor/AdjustColorsControls.tsx:378
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Διορθωμένη εκτίμηση της θερμοκρασίας της πηγής φωτός σε Kelvin"
 
-#: src/components/image-editor/StraightenControls.tsx:86
+#: src/components/image-editor/StraightenControls.tsx:85
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Δεν ήταν δυνατός ο αυτόματος εντοπισμός του χαρτιού ή του καμβά"
 
@@ -744,7 +753,7 @@ msgid "Create new"
 msgstr "Δημιουργία νέου"
 
 #: src/components/image-editor/CropControls.tsx:98
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Crop"
 msgstr "Περικοπή"
 
@@ -920,7 +929,7 @@ msgstr "Αφήστε το αρχείο εδώ..."
 msgid "Drop the files here..."
 msgstr "Αφήστε τα αρχεία εδώ..."
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Dry Pastel"
 msgstr "Ξηρό παστέλ"
 
@@ -948,7 +957,7 @@ msgstr "Επεξεργασία από εδώ και πέρα"
 msgid "Edit image"
 msgstr "Επεξεργασία εικόνας"
 
-#: src/components/ImageEditor.tsx:338
+#: src/components/ImageEditor.tsx:341
 msgid "Edited"
 msgstr "Επεξεργασμένο"
 
@@ -1010,7 +1019,7 @@ msgid "Exit AR"
 msgstr "Έξοδος από το AR"
 
 #: src/components/image-editor/ExpandControls.tsx:249
-#: src/components/messages.ts:51
+#: src/components/messages.ts:52
 msgid "Expand"
 msgstr "Επέκταση"
 
@@ -1113,7 +1122,7 @@ msgstr "Λαζούρα"
 msgid "Go to the {label} tab"
 msgstr "Μεταβείτε στην καρτέλα {label}"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Gouache"
 msgstr "Γκουάς"
 
@@ -1340,11 +1349,11 @@ msgstr "Σημειώστε γύρω από το αντικείμενο που θ
 msgid "Mark at least 3 points around the object you want to remove"
 msgstr "Σημειώστε τουλάχιστον 3 σημεία γύρω από το αντικείμενο που θέλετε να αφαιρέσετε"
 
-#: src/components/image-editor/StraightenControls.tsx:66
+#: src/components/image-editor/StraightenControls.tsx:65
 msgid "Mark the 4 corners of your paper or canvas"
 msgstr "Σημειώστε τις 4 γωνίες του χαρτιού ή του καμβά σας"
 
-#: src/components/image-editor/StraightenControls.tsx:122
+#: src/components/image-editor/StraightenControls.tsx:114
 msgid "Mark the 4 corners of your paper or canvas, then drag the vertices to adjust"
 msgstr "Σημειώστε τις 4 γωνίες του χαρτιού ή του καμβά σας και, στη συνέχεια, σύρετε τις κορυφές για προσαρμογή"
 
@@ -1513,11 +1522,11 @@ msgstr "Αριθμός κελιών στη μικρότερη πλευρά (κα
 msgid "Off"
 msgstr "Απενεργοποιημένο"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Oil Paint"
 msgstr "Ελαιόχρωμα"
 
-#: src/components/messages.ts:68
+#: src/components/messages.ts:69
 msgid "Oil Pastel"
 msgstr "Λαδοπαστέλ"
 
@@ -1781,7 +1790,7 @@ msgstr "Αναλογία"
 msgid "Realism"
 msgstr "Ρεαλισμός"
 
-#: src/components/ImageEditor.tsx:323
+#: src/components/ImageEditor.tsx:326
 msgid "Redo"
 msgstr "Επανάληψη"
 
@@ -1820,12 +1829,12 @@ msgid "Remove and continue"
 msgstr "Αφαίρεση και συνέχεια"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:137
-#: src/components/messages.ts:53
+#: src/components/messages.ts:54
 msgid "Remove background"
 msgstr "Αφαίρεση φόντου"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:105
-#: src/components/messages.ts:54
+#: src/components/messages.ts:55
 msgid "Remove objects"
 msgstr "Αφαίρεση αντικειμένων"
 
@@ -1863,13 +1872,13 @@ msgstr "Απαιτείται macOS Sonoma ή νεότερη έκδοση."
 msgid "Resend code"
 msgstr "Επανάληψη αποστολής κωδικού"
 
-#: src/components/ImageEditor.tsx:327
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:335
 msgid "Reset"
 msgstr "Επαναφορά"
 
 #: src/components/image-editor/RestoreControls.tsx:101
-#: src/components/messages.ts:56
+#: src/components/messages.ts:57
 msgid "Restore"
 msgstr "Αποκατάσταση"
 
@@ -1896,9 +1905,13 @@ msgstr "Δοκιμή ξανά"
 msgid "Return to the {tabLabel} tab"
 msgstr "Επιστρέψτε στην καρτέλα {tabLabel}"
 
-#: src/components/image-editor/StraightenControls.tsx:118
+#: src/components/messages.ts:49
 msgid "Rotate"
 msgstr "Περιστροφή"
+
+#: src/components/image-editor/RotateControls.tsx:66
+msgid "Rotate clockwise"
+msgstr "Περιστροφή δεξιόστροφα"
 
 #: src/components/ImageColorPicker.tsx:305
 msgid "Sample size"
@@ -1967,7 +1980,7 @@ msgstr "Επιλέξτε ένα εικαστικό μέσο"
 msgid "Select an image that contains a color chart"
 msgstr "Επιλέξτε μια εικόνα που περιέχει ένα χρωματολόγιο"
 
-#: src/components/ImageEditor.tsx:288
+#: src/components/ImageEditor.tsx:291
 msgid "Select an image to edit"
 msgstr "Επιλέξτε μια εικόνα για επεξεργασία"
 
@@ -2029,7 +2042,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Επιλέξτε από τα πρόσφατα σετ χρωμάτων σας ή δημιουργήστε ένα νέο."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:295
 msgid "Select image"
 msgstr "Επιλογή εικόνας"
 
@@ -2296,11 +2309,6 @@ msgstr "Ο αποθηκευτικός χώρος μπορεί να γεμίσε�
 #: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "Χρήση αποθηκευτικού χώρου"
-
-#: src/components/image-editor/StraightenControls.tsx:105
-#: src/components/messages.ts:49
-msgid "Straighten"
-msgstr "Ίσιωμα"
 
 #: src/components/ImagePainting.tsx:126
 #: src/components/ImagePainting.tsx:144
@@ -2612,7 +2620,7 @@ msgstr "Δεν είναι δυνατή η επαναφορά του αποθηκ
 msgid "Underlayer"
 msgstr "Υπόστρωμα"
 
-#: src/components/ImageEditor.tsx:316
+#: src/components/ImageEditor.tsx:319
 msgid "Undo"
 msgstr "Αναίρεση"
 
@@ -2660,7 +2668,7 @@ msgid "Uploading image {index} / {count}"
 msgstr "Μεταφόρτωση εικόνας {index} / {count}"
 
 #: src/components/image-editor/UpscaleControls.tsx:85
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Upscale"
 msgstr "Μεγέθυνση"
 
@@ -2733,15 +2741,15 @@ msgstr "Ακουαρέλα"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Η ακουαρέλα μπορεί να αραιωθεί με νερό για να γίνει πιο διαφανής"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Watercolor Paint"
 msgstr "Χρώμα ακουαρέλας"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Watercolor Pencils"
 msgstr "Μολύβια ακουαρέλας"
 
-#: src/components/messages.ts:69
+#: src/components/messages.ts:70
 msgid "Wax Pastel"
 msgstr "Κηροπαστέλ"
 
@@ -2771,7 +2779,7 @@ msgstr "Λευκό"
 msgid "White balance"
 msgstr "Ισορροπία λευκού"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "White paper or canvas"
 msgstr "Λευκό χαρτί ή καμβάς"
 
@@ -2845,7 +2853,7 @@ msgid "Your image"
 msgstr "Η εικόνα σας"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:303
+#: src/components/ImageEditor.tsx:306
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:318
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

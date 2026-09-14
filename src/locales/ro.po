@@ -146,15 +146,15 @@ msgstr "O valoare mai mică de 100% face ca imaginea să pară mai puțin colora
 msgid "Accurate"
 msgstr "Precis"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "Acrylic Gouache"
 msgstr "Guașă acrilică"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:71
 msgid "Acrylic Markers"
 msgstr "Markere acrilice"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Acrylic Paint"
 msgstr "Acril"
 
@@ -190,11 +190,11 @@ msgstr "Adăugați în paletă"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Adăugați alb într-un <0>raport {whiteRatioText}</0>"
 
-#: src/components/messages.ts:52
+#: src/components/messages.ts:53
 msgid "Adjust colors"
 msgstr "Ajustare culori"
 
-#: src/components/image-editor/StraightenControls.tsx:87
+#: src/components/image-editor/StraightenControls.tsx:86
 msgid "Adjust the 4 corners manually."
 msgstr "Reglați manual cele 4 colțuri."
 
@@ -202,7 +202,7 @@ msgstr "Reglați manual cele 4 colțuri."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Toate datele aplicației sunt stocate în spațiul de stocare al browserului web, chiar și după instalare. Ștergerea datelor din browser șterge totul."
 
-#: src/components/ImageEditor.tsx:326
+#: src/components/ImageEditor.tsx:329
 msgid "All edits will be lost"
 msgstr "Toate editările se vor pierde"
 
@@ -217,6 +217,10 @@ msgstr "Alternativ, instalați cea mai recentă versiune a browserului web Chrom
 #: src/components/ImageColorPicker.tsx:259
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "Este setat un strat de bază sau o culoare unificatoare. Paleta automată va aplica aceste setări întregii fotografii, nu doar zonei pentru care au fost alese."
+
+#: src/components/image-editor/RotateControls.tsx:44
+msgid "Angle"
+msgstr "Unghi"
 
 #: src/components/Help.tsx:274
 msgid "Application build ID"
@@ -327,15 +331,15 @@ msgstr "Autentificarea a eșuat"
 msgid "Auto palette"
 msgstr "Paletă automată"
 
-#: src/components/image-editor/StraightenControls.tsx:115
+#: src/components/image-editor/StraightenControls.tsx:110
 msgid "Auto-detect"
 msgstr "Detectare automată"
 
-#: src/components/image-editor/StraightenControls.tsx:126
+#: src/components/image-editor/StraightenControls.tsx:118
 msgid "Auto-detect is available only to paid Patreon members"
 msgstr "Detectarea automată este disponibilă numai pentru membrii Patreon plătitori"
 
-#: src/components/image-editor/StraightenControls.tsx:52
+#: src/components/image-editor/StraightenControls.tsx:51
 msgid "Auto-detect is unavailable"
 msgstr "Detectarea automată nu este disponibilă"
 
@@ -380,21 +384,21 @@ msgstr "După numărul de culori"
 msgid "By consistency"
 msgstr "După consistență"
 
-#: src/components/messages.ts:85
+#: src/components/messages.ts:86
 msgid "By date"
 msgstr "După dată"
 
-#: src/components/messages.ts:80
-#: src/components/messages.ts:87
+#: src/components/messages.ts:81
+#: src/components/messages.ts:88
 msgid "By hue"
 msgstr "După nuanță"
 
-#: src/components/messages.ts:79
+#: src/components/messages.ts:80
 msgid "By ID"
 msgstr "După ID"
 
-#: src/components/messages.ts:81
-#: src/components/messages.ts:88
+#: src/components/messages.ts:82
+#: src/components/messages.ts:89
 msgid "By lightness"
 msgstr "După luminozitate"
 
@@ -402,7 +406,7 @@ msgstr "După luminozitate"
 msgid "By match"
 msgstr "După potrivire"
 
-#: src/components/messages.ts:86
+#: src/components/messages.ts:87
 msgid "By name"
 msgstr "După nume"
 
@@ -416,7 +420,7 @@ msgstr "Accesul la cameră este necesar pentru trasarea AR"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:328
+#: src/components/ImageEditor.tsx:331
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -453,7 +457,7 @@ msgstr "Verificați dacă există actualizări"
 msgid "Check your connection and try again."
 msgstr "Verificați conexiunea și încercați din nou."
 
-#: src/components/image-editor/StraightenControls.tsx:53
+#: src/components/image-editor/StraightenControls.tsx:52
 msgid "Check your connection and try again. You can still adjust the 4 corners manually."
 msgstr "Verificați conexiunea și încercați din nou. Puteți regla în continuare cele 4 colțuri manual."
 
@@ -624,7 +628,7 @@ msgstr "Set de culori"
 msgid "Color swatch"
 msgstr "Mostră de culoare"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Colored Pencils"
 msgstr "Creioane colorate"
 
@@ -632,7 +636,7 @@ msgstr "Creioane colorate"
 msgid "Colorize"
 msgstr "Colorare"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Colorize black-and-white"
 msgstr "Colorare alb-negru"
 
@@ -710,11 +714,16 @@ msgstr "Copiați o imagine acceptată în clipboard, apoi încercați din nou."
 msgid "Copy and share this link"
 msgstr "Copiați și distribuiți acest link"
 
+#: src/components/image-editor/StraightenControls.tsx:100
+#: src/components/messages.ts:50
+msgid "Correct perspective"
+msgstr "Corectare perspectivă"
+
 #: src/components/image-editor/AdjustColorsControls.tsx:378
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Estimarea corectată a temperaturii sursei de lumină în Kelvin"
 
-#: src/components/image-editor/StraightenControls.tsx:86
+#: src/components/image-editor/StraightenControls.tsx:85
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Hârtia sau pânza nu au putut fi detectate automat"
 
@@ -744,7 +753,7 @@ msgid "Create new"
 msgstr "Creați unul nou"
 
 #: src/components/image-editor/CropControls.tsx:98
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Crop"
 msgstr "Decupare"
 
@@ -920,7 +929,7 @@ msgstr "Plasați fișierul aici..."
 msgid "Drop the files here..."
 msgstr "Plasați fișierele aici..."
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Dry Pastel"
 msgstr "Pastel uscat"
 
@@ -948,7 +957,7 @@ msgstr "Editare de aici înainte"
 msgid "Edit image"
 msgstr "Editare imagine"
 
-#: src/components/ImageEditor.tsx:338
+#: src/components/ImageEditor.tsx:341
 msgid "Edited"
 msgstr "Editat"
 
@@ -1010,7 +1019,7 @@ msgid "Exit AR"
 msgstr "Ieșiți din AR"
 
 #: src/components/image-editor/ExpandControls.tsx:249
-#: src/components/messages.ts:51
+#: src/components/messages.ts:52
 msgid "Expand"
 msgstr "Extindere"
 
@@ -1113,7 +1122,7 @@ msgstr "Glasare"
 msgid "Go to the {label} tab"
 msgstr "Accesați fila {label}"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Gouache"
 msgstr "Guașă"
 
@@ -1340,11 +1349,11 @@ msgstr "Marcați în jurul obiectului pe care doriți să-l eliminați, apoi tra
 msgid "Mark at least 3 points around the object you want to remove"
 msgstr "Marcați cel puțin 3 puncte în jurul obiectului pe care doriți să îl eliminați"
 
-#: src/components/image-editor/StraightenControls.tsx:66
+#: src/components/image-editor/StraightenControls.tsx:65
 msgid "Mark the 4 corners of your paper or canvas"
 msgstr "Marcați cele 4 colțuri ale hârtiei sau pânzei"
 
-#: src/components/image-editor/StraightenControls.tsx:122
+#: src/components/image-editor/StraightenControls.tsx:114
 msgid "Mark the 4 corners of your paper or canvas, then drag the vertices to adjust"
 msgstr "Marcați cele 4 colțuri ale hârtiei sau pânzei, apoi trageți vârfurile pentru a ajusta"
 
@@ -1513,11 +1522,11 @@ msgstr "Numărul de celule pe partea mai mică (verticală sau orizontală)"
 msgid "Off"
 msgstr "Oprit"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Oil Paint"
 msgstr "Vopsea în ulei"
 
-#: src/components/messages.ts:68
+#: src/components/messages.ts:69
 msgid "Oil Pastel"
 msgstr "Pastel în ulei"
 
@@ -1781,7 +1790,7 @@ msgstr "Raport"
 msgid "Realism"
 msgstr "Realism"
 
-#: src/components/ImageEditor.tsx:323
+#: src/components/ImageEditor.tsx:326
 msgid "Redo"
 msgstr "Refacere"
 
@@ -1820,12 +1829,12 @@ msgid "Remove and continue"
 msgstr "Eliminați și continuați"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:137
-#: src/components/messages.ts:53
+#: src/components/messages.ts:54
 msgid "Remove background"
 msgstr "Eliminare fundal"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:105
-#: src/components/messages.ts:54
+#: src/components/messages.ts:55
 msgid "Remove objects"
 msgstr "Eliminare obiecte"
 
@@ -1863,13 +1872,13 @@ msgstr "Necesită macOS Sonoma sau o versiune ulterioară."
 msgid "Resend code"
 msgstr "Retrimiteți codul"
 
-#: src/components/ImageEditor.tsx:327
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:335
 msgid "Reset"
 msgstr "Resetare"
 
 #: src/components/image-editor/RestoreControls.tsx:101
-#: src/components/messages.ts:56
+#: src/components/messages.ts:57
 msgid "Restore"
 msgstr "Restaurare"
 
@@ -1896,9 +1905,13 @@ msgstr "Reîncercați"
 msgid "Return to the {tabLabel} tab"
 msgstr "Reveniți la fila {tabLabel}"
 
-#: src/components/image-editor/StraightenControls.tsx:118
+#: src/components/messages.ts:49
 msgid "Rotate"
 msgstr "Rotire"
+
+#: src/components/image-editor/RotateControls.tsx:66
+msgid "Rotate clockwise"
+msgstr "Rotire în sens orar"
 
 #: src/components/ImageColorPicker.tsx:305
 msgid "Sample size"
@@ -1967,7 +1980,7 @@ msgstr "Selectați o tehnică artistică"
 msgid "Select an image that contains a color chart"
 msgstr "Selectați o imagine care conține o diagramă de culori"
 
-#: src/components/ImageEditor.tsx:288
+#: src/components/ImageEditor.tsx:291
 msgid "Select an image to edit"
 msgstr "Selectați o imagine de editat"
 
@@ -2029,7 +2042,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Selectați din seturile de culori recente sau creați unul nou."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:295
 msgid "Select image"
 msgstr "Selectați imaginea"
 
@@ -2296,11 +2309,6 @@ msgstr "Spațiul de stocare se poate umple"
 #: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "Utilizarea spațiului de stocare"
-
-#: src/components/image-editor/StraightenControls.tsx:105
-#: src/components/messages.ts:49
-msgid "Straighten"
-msgstr "Îndreptare"
 
 #: src/components/ImagePainting.tsx:126
 #: src/components/ImagePainting.tsx:144
@@ -2612,7 +2620,7 @@ msgstr "Nu se poate restabili setul de culori salvat"
 msgid "Underlayer"
 msgstr "Strat de bază"
 
-#: src/components/ImageEditor.tsx:316
+#: src/components/ImageEditor.tsx:319
 msgid "Undo"
 msgstr "Anulare"
 
@@ -2660,7 +2668,7 @@ msgid "Uploading image {index} / {count}"
 msgstr "Se încarcă imaginea {index} / {count}"
 
 #: src/components/image-editor/UpscaleControls.tsx:85
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Upscale"
 msgstr "Mărire"
 
@@ -2733,15 +2741,15 @@ msgstr "Acuarelă"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Acuarela poate fi diluată cu apă pentru a o face mai transparentă"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Watercolor Paint"
 msgstr "Vopsea acuarelă"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Watercolor Pencils"
 msgstr "Creioane acuarelă"
 
-#: src/components/messages.ts:69
+#: src/components/messages.ts:70
 msgid "Wax Pastel"
 msgstr "Pastel de ceară"
 
@@ -2771,7 +2779,7 @@ msgstr "Alb"
 msgid "White balance"
 msgstr "Balans de alb"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "White paper or canvas"
 msgstr "Hârtie sau pânză albă"
 
@@ -2845,7 +2853,7 @@ msgid "Your image"
 msgstr "Imaginea dvs."
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:303
+#: src/components/ImageEditor.tsx:306
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:318
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

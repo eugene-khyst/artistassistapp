@@ -146,15 +146,15 @@ msgstr "%100'den küçük bir değer görüntünün daha az renkli görünmesine
 msgid "Accurate"
 msgstr "Hassas"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "Acrylic Gouache"
 msgstr "Akrilik Guaj"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:71
 msgid "Acrylic Markers"
 msgstr "Akrilik Markörler"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Acrylic Paint"
 msgstr "Akrilik Boya"
 
@@ -190,11 +190,11 @@ msgstr "Palete ekle"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "<0>{whiteRatioText} oranında</0> beyaz ekleyin"
 
-#: src/components/messages.ts:52
+#: src/components/messages.ts:53
 msgid "Adjust colors"
 msgstr "Renkleri ayarla"
 
-#: src/components/image-editor/StraightenControls.tsx:87
+#: src/components/image-editor/StraightenControls.tsx:86
 msgid "Adjust the 4 corners manually."
 msgstr "4 köşeyi manuel olarak ayarlayın."
 
@@ -202,7 +202,7 @@ msgstr "4 köşeyi manuel olarak ayarlayın."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Tüm uygulama verileri, kurulumdan sonra bile web tarayıcısının depolama alanında saklanır. Tarayıcı verilerini temizlemek hepsini siler."
 
-#: src/components/ImageEditor.tsx:326
+#: src/components/ImageEditor.tsx:329
 msgid "All edits will be lost"
 msgstr "Tüm düzenlemeler kaybolacak"
 
@@ -217,6 +217,10 @@ msgstr "Alternatif olarak, Chrome, Edge veya Opera web tarayıcısının en son 
 #: src/components/ImageColorPicker.tsx:259
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "Bir alt katman veya birleştirici renk ayarlanmış. Otomatik palet, bu ayarları yalnızca seçildikleri alana değil fotoğrafın tamamına uygular."
+
+#: src/components/image-editor/RotateControls.tsx:44
+msgid "Angle"
+msgstr "Açı"
 
 #: src/components/Help.tsx:274
 msgid "Application build ID"
@@ -327,15 +331,15 @@ msgstr "Kimlik doğrulama başarısız oldu"
 msgid "Auto palette"
 msgstr "Otomatik palet"
 
-#: src/components/image-editor/StraightenControls.tsx:115
+#: src/components/image-editor/StraightenControls.tsx:110
 msgid "Auto-detect"
 msgstr "Otomatik algılama"
 
-#: src/components/image-editor/StraightenControls.tsx:126
+#: src/components/image-editor/StraightenControls.tsx:118
 msgid "Auto-detect is available only to paid Patreon members"
 msgstr "Otomatik algılama yalnızca ücretli Patreon üyelerinin kullanımına açıktır"
 
-#: src/components/image-editor/StraightenControls.tsx:52
+#: src/components/image-editor/StraightenControls.tsx:51
 msgid "Auto-detect is unavailable"
 msgstr "Otomatik algılama kullanılamıyor"
 
@@ -380,21 +384,21 @@ msgstr "Renk sayısına göre"
 msgid "By consistency"
 msgstr "Kıvama göre"
 
-#: src/components/messages.ts:85
+#: src/components/messages.ts:86
 msgid "By date"
 msgstr "Tarihe göre"
 
-#: src/components/messages.ts:80
-#: src/components/messages.ts:87
+#: src/components/messages.ts:81
+#: src/components/messages.ts:88
 msgid "By hue"
 msgstr "Renk tonuna göre"
 
-#: src/components/messages.ts:79
+#: src/components/messages.ts:80
 msgid "By ID"
 msgstr "Kimliğe göre"
 
-#: src/components/messages.ts:81
-#: src/components/messages.ts:88
+#: src/components/messages.ts:82
+#: src/components/messages.ts:89
 msgid "By lightness"
 msgstr "Açıklığa göre"
 
@@ -402,7 +406,7 @@ msgstr "Açıklığa göre"
 msgid "By match"
 msgstr "Eşleşmeye göre"
 
-#: src/components/messages.ts:86
+#: src/components/messages.ts:87
 msgid "By name"
 msgstr "Ada göre"
 
@@ -416,7 +420,7 @@ msgstr "AR'de kopyalamak için kamera erişimi gereklidir"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:328
+#: src/components/ImageEditor.tsx:331
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -453,7 +457,7 @@ msgstr "Güncellemeleri kontrol et"
 msgid "Check your connection and try again."
 msgstr "Bağlantınızı kontrol edip tekrar deneyin."
 
-#: src/components/image-editor/StraightenControls.tsx:53
+#: src/components/image-editor/StraightenControls.tsx:52
 msgid "Check your connection and try again. You can still adjust the 4 corners manually."
 msgstr "Bağlantınızı kontrol edip tekrar deneyin. Hala 4 köşeyi manuel olarak ayarlayabilirsiniz."
 
@@ -624,7 +628,7 @@ msgstr "Renk seti"
 msgid "Color swatch"
 msgstr "Renk örneği"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Colored Pencils"
 msgstr "Renkli Kalemler"
 
@@ -632,7 +636,7 @@ msgstr "Renkli Kalemler"
 msgid "Colorize"
 msgstr "Renklendir"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Colorize black-and-white"
 msgstr "Siyah beyazı renklendir"
 
@@ -710,11 +714,16 @@ msgstr "Desteklenen bir görseli panoya kopyalayın, sonra tekrar deneyin."
 msgid "Copy and share this link"
 msgstr "Bu bağlantıyı kopyalayın ve paylaşın"
 
+#: src/components/image-editor/StraightenControls.tsx:100
+#: src/components/messages.ts:50
+msgid "Correct perspective"
+msgstr "Perspektifi düzelt"
+
 #: src/components/image-editor/AdjustColorsControls.tsx:378
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Işık kaynağının sıcaklığının Kelvin cinsinden düzeltilmiş tahmini"
 
-#: src/components/image-editor/StraightenControls.tsx:86
+#: src/components/image-editor/StraightenControls.tsx:85
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Kağıt veya tuval otomatik olarak algılanamadı"
 
@@ -744,7 +753,7 @@ msgid "Create new"
 msgstr "Yeni oluştur"
 
 #: src/components/image-editor/CropControls.tsx:98
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Crop"
 msgstr "Kırp"
 
@@ -920,7 +929,7 @@ msgstr "Dosyayı buraya bırakın..."
 msgid "Drop the files here..."
 msgstr "Dosyaları buraya bırakın..."
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Dry Pastel"
 msgstr "Kuru Pastel"
 
@@ -948,7 +957,7 @@ msgstr "Buradan itibaren düzenle"
 msgid "Edit image"
 msgstr "Resmi düzenle"
 
-#: src/components/ImageEditor.tsx:338
+#: src/components/ImageEditor.tsx:341
 msgid "Edited"
 msgstr "Düzenlendi"
 
@@ -1010,7 +1019,7 @@ msgid "Exit AR"
 msgstr "AR'den çık"
 
 #: src/components/image-editor/ExpandControls.tsx:249
-#: src/components/messages.ts:51
+#: src/components/messages.ts:52
 msgid "Expand"
 msgstr "Genişlet"
 
@@ -1113,7 +1122,7 @@ msgstr "Glaze"
 msgid "Go to the {label} tab"
 msgstr "{label} sekmesine gidin"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Gouache"
 msgstr "Guaj"
 
@@ -1340,11 +1349,11 @@ msgstr "Kaldırmak istediğiniz nesnenin çevresini işaretleyin, ardından ayar
 msgid "Mark at least 3 points around the object you want to remove"
 msgstr "Kaldırmak istediğiniz nesnenin çevresinde en az 3 nokta işaretleyin"
 
-#: src/components/image-editor/StraightenControls.tsx:66
+#: src/components/image-editor/StraightenControls.tsx:65
 msgid "Mark the 4 corners of your paper or canvas"
 msgstr "Kağıdınızın veya tuvalinizin 4 köşesini işaretleyin"
 
-#: src/components/image-editor/StraightenControls.tsx:122
+#: src/components/image-editor/StraightenControls.tsx:114
 msgid "Mark the 4 corners of your paper or canvas, then drag the vertices to adjust"
 msgstr "Kağıdınızın veya tuvalinizin 4 köşesini işaretleyin, ardından ayarlamak için köşeleri sürükleyin"
 
@@ -1513,11 +1522,11 @@ msgstr "Kısa kenardaki hücre sayısı (dikey veya yatay)"
 msgid "Off"
 msgstr "Kapalı"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Oil Paint"
 msgstr "Yağlı Boya"
 
-#: src/components/messages.ts:68
+#: src/components/messages.ts:69
 msgid "Oil Pastel"
 msgstr "Yağlı Pastel"
 
@@ -1781,7 +1790,7 @@ msgstr "Oran"
 msgid "Realism"
 msgstr "Gerçekçilik"
 
-#: src/components/ImageEditor.tsx:323
+#: src/components/ImageEditor.tsx:326
 msgid "Redo"
 msgstr "Yinele"
 
@@ -1820,12 +1829,12 @@ msgid "Remove and continue"
 msgstr "Kaldır ve devam et"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:137
-#: src/components/messages.ts:53
+#: src/components/messages.ts:54
 msgid "Remove background"
 msgstr "Arka planı kaldır"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:105
-#: src/components/messages.ts:54
+#: src/components/messages.ts:55
 msgid "Remove objects"
 msgstr "Nesneleri kaldır"
 
@@ -1863,13 +1872,13 @@ msgstr "macOS Sonoma veya sonraki bir sürümü gerekir."
 msgid "Resend code"
 msgstr "Kodu yeniden gönder"
 
-#: src/components/ImageEditor.tsx:327
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:335
 msgid "Reset"
 msgstr "Sıfırla"
 
 #: src/components/image-editor/RestoreControls.tsx:101
-#: src/components/messages.ts:56
+#: src/components/messages.ts:57
 msgid "Restore"
 msgstr "Fotoğrafı onar"
 
@@ -1896,9 +1905,13 @@ msgstr "Yeniden dene"
 msgid "Return to the {tabLabel} tab"
 msgstr "{tabLabel} sekmesine dönün"
 
-#: src/components/image-editor/StraightenControls.tsx:118
+#: src/components/messages.ts:49
 msgid "Rotate"
 msgstr "Döndür"
+
+#: src/components/image-editor/RotateControls.tsx:66
+msgid "Rotate clockwise"
+msgstr "Saat yönünde döndür"
 
 #: src/components/ImageColorPicker.tsx:305
 msgid "Sample size"
@@ -1967,7 +1980,7 @@ msgstr "Bir sanat tekniği seçin"
 msgid "Select an image that contains a color chart"
 msgstr "Renk kartelası içeren bir görsel seçin"
 
-#: src/components/ImageEditor.tsx:288
+#: src/components/ImageEditor.tsx:291
 msgid "Select an image to edit"
 msgstr "Düzenlemek için bir görsel seçin"
 
@@ -2029,7 +2042,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "En son renk setlerinizden birini seçin veya yeni bir tane oluşturun."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:295
 msgid "Select image"
 msgstr "Resim seç"
 
@@ -2296,11 +2309,6 @@ msgstr "Depolama alanı dolabilir"
 #: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "Depolama kullanımı"
-
-#: src/components/image-editor/StraightenControls.tsx:105
-#: src/components/messages.ts:49
-msgid "Straighten"
-msgstr "Düzelt"
 
 #: src/components/ImagePainting.tsx:126
 #: src/components/ImagePainting.tsx:144
@@ -2612,7 +2620,7 @@ msgstr "Kaydedilen renk seti geri yüklenemiyor"
 msgid "Underlayer"
 msgstr "Alt katman"
 
-#: src/components/ImageEditor.tsx:316
+#: src/components/ImageEditor.tsx:319
 msgid "Undo"
 msgstr "Geri al"
 
@@ -2660,7 +2668,7 @@ msgid "Uploading image {index} / {count}"
 msgstr "{index} / {count} resmi yükleniyor"
 
 #: src/components/image-editor/UpscaleControls.tsx:85
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Upscale"
 msgstr "Büyüt"
 
@@ -2733,15 +2741,15 @@ msgstr "Suluboya"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Suluboya, daha şeffaf hale getirmek için suyla seyreltilebilir"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Watercolor Paint"
 msgstr "Suluboya"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Watercolor Pencils"
 msgstr "Suluboya Kalemleri"
 
-#: src/components/messages.ts:69
+#: src/components/messages.ts:70
 msgid "Wax Pastel"
 msgstr "Mumlu Pastel"
 
@@ -2771,7 +2779,7 @@ msgstr "Beyaz"
 msgid "White balance"
 msgstr "Beyaz dengesi"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "White paper or canvas"
 msgstr "Beyaz kağıt veya tuval"
 
@@ -2845,7 +2853,7 @@ msgid "Your image"
 msgstr "Resminiz"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:303
+#: src/components/ImageEditor.tsx:306
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:318
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

@@ -146,15 +146,15 @@ msgstr "Ett värde som är mindre än 100 % gör att bilden ser mindre färgglad
 msgid "Accurate"
 msgstr "Exakt"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "Acrylic Gouache"
 msgstr "Akrylgouache"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:71
 msgid "Acrylic Markers"
 msgstr "Akrylmarkörer"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Acrylic Paint"
 msgstr "Akrylfärg"
 
@@ -190,11 +190,11 @@ msgstr "Lägg till i paletten"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Lägg till vitt i ett <0>{whiteRatioText}-förhållande</0>"
 
-#: src/components/messages.ts:52
+#: src/components/messages.ts:53
 msgid "Adjust colors"
 msgstr "Justera färger"
 
-#: src/components/image-editor/StraightenControls.tsx:87
+#: src/components/image-editor/StraightenControls.tsx:86
 msgid "Adjust the 4 corners manually."
 msgstr "Justera de 4 hörnen manuellt."
 
@@ -202,7 +202,7 @@ msgstr "Justera de 4 hörnen manuellt."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "All appdata lagras i webbläsarens lagring, även efter installation. Att rensa webbläsardata raderar allt."
 
-#: src/components/ImageEditor.tsx:326
+#: src/components/ImageEditor.tsx:329
 msgid "All edits will be lost"
 msgstr "Alla redigeringar kommer att gå förlorade"
 
@@ -217,6 +217,10 @@ msgstr "Alternativt kan du installera den senaste versionen av webbläsaren Chro
 #: src/components/ImageColorPicker.tsx:259
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "Ett underskikt eller en sammanhållande färg är inställd. Den automatiska paletten tillämpar dessa inställningar på hela fotot, inte bara på det område de valdes för."
+
+#: src/components/image-editor/RotateControls.tsx:44
+msgid "Angle"
+msgstr "Vinkel"
 
 #: src/components/Help.tsx:274
 msgid "Application build ID"
@@ -327,15 +331,15 @@ msgstr "Autentiseringen misslyckades"
 msgid "Auto palette"
 msgstr "Automatisk palett"
 
-#: src/components/image-editor/StraightenControls.tsx:115
+#: src/components/image-editor/StraightenControls.tsx:110
 msgid "Auto-detect"
 msgstr "Automatisk identifiering"
 
-#: src/components/image-editor/StraightenControls.tsx:126
+#: src/components/image-editor/StraightenControls.tsx:118
 msgid "Auto-detect is available only to paid Patreon members"
 msgstr "Automatisk identifiering är endast tillgänglig för betalande Patreon-medlemmar"
 
-#: src/components/image-editor/StraightenControls.tsx:52
+#: src/components/image-editor/StraightenControls.tsx:51
 msgid "Auto-detect is unavailable"
 msgstr "Automatisk identifiering är inte tillgänglig"
 
@@ -380,21 +384,21 @@ msgstr "Efter antal färger"
 msgid "By consistency"
 msgstr "Efter konsistens"
 
-#: src/components/messages.ts:85
+#: src/components/messages.ts:86
 msgid "By date"
 msgstr "Efter datum"
 
-#: src/components/messages.ts:80
-#: src/components/messages.ts:87
+#: src/components/messages.ts:81
+#: src/components/messages.ts:88
 msgid "By hue"
 msgstr "Efter nyans"
 
-#: src/components/messages.ts:79
+#: src/components/messages.ts:80
 msgid "By ID"
 msgstr "Efter ID"
 
-#: src/components/messages.ts:81
-#: src/components/messages.ts:88
+#: src/components/messages.ts:82
+#: src/components/messages.ts:89
 msgid "By lightness"
 msgstr "Efter ljushet"
 
@@ -402,7 +406,7 @@ msgstr "Efter ljushet"
 msgid "By match"
 msgstr "Efter matchning"
 
-#: src/components/messages.ts:86
+#: src/components/messages.ts:87
 msgid "By name"
 msgstr "Efter namn"
 
@@ -416,7 +420,7 @@ msgstr "Kameraåtkomst krävs för att kalkera i AR"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:328
+#: src/components/ImageEditor.tsx:331
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -453,7 +457,7 @@ msgstr "Sök efter uppdateringar"
 msgid "Check your connection and try again."
 msgstr "Kontrollera din anslutning och försök igen."
 
-#: src/components/image-editor/StraightenControls.tsx:53
+#: src/components/image-editor/StraightenControls.tsx:52
 msgid "Check your connection and try again. You can still adjust the 4 corners manually."
 msgstr "Kontrollera din anslutning och försök igen. Du kan fortfarande justera de fyra hörnen manuellt."
 
@@ -624,7 +628,7 @@ msgstr "Färguppsättning"
 msgid "Color swatch"
 msgstr "Färgruta"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Colored Pencils"
 msgstr "Färgpennor"
 
@@ -632,7 +636,7 @@ msgstr "Färgpennor"
 msgid "Colorize"
 msgstr "Färglägg"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Colorize black-and-white"
 msgstr "Färglägg svart-vitt"
 
@@ -710,11 +714,16 @@ msgstr "Kopiera en stödd bild till urklippet och försök igen."
 msgid "Copy and share this link"
 msgstr "Kopiera och dela denna länk"
 
+#: src/components/image-editor/StraightenControls.tsx:100
+#: src/components/messages.ts:50
+msgid "Correct perspective"
+msgstr "Korrigera perspektiv"
+
 #: src/components/image-editor/AdjustColorsControls.tsx:378
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Korrigerad uppskattning av ljuskällans temperatur i Kelvin"
 
-#: src/components/image-editor/StraightenControls.tsx:86
+#: src/components/image-editor/StraightenControls.tsx:85
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Kunde inte automatiskt upptäcka pappret eller duken"
 
@@ -744,7 +753,7 @@ msgid "Create new"
 msgstr "Skapa ny"
 
 #: src/components/image-editor/CropControls.tsx:98
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Crop"
 msgstr "Beskära"
 
@@ -920,7 +929,7 @@ msgstr "Släpp filen här..."
 msgid "Drop the files here..."
 msgstr "Släpp filerna här..."
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Dry Pastel"
 msgstr "Torrpastell"
 
@@ -948,7 +957,7 @@ msgstr "Redigera härifrån"
 msgid "Edit image"
 msgstr "Redigera bild"
 
-#: src/components/ImageEditor.tsx:338
+#: src/components/ImageEditor.tsx:341
 msgid "Edited"
 msgstr "Redigerat"
 
@@ -1010,7 +1019,7 @@ msgid "Exit AR"
 msgstr "Avsluta AR"
 
 #: src/components/image-editor/ExpandControls.tsx:249
-#: src/components/messages.ts:51
+#: src/components/messages.ts:52
 msgid "Expand"
 msgstr "Utöka"
 
@@ -1113,7 +1122,7 @@ msgstr "Lasering"
 msgid "Go to the {label} tab"
 msgstr "Gå till fliken {label}"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Gouache"
 msgstr "Gouache"
 
@@ -1340,11 +1349,11 @@ msgstr "Markera runt objektet du vill ta bort och dra sedan hörnen för att jus
 msgid "Mark at least 3 points around the object you want to remove"
 msgstr "Markera minst 3 punkter runt objektet du vill ta bort"
 
-#: src/components/image-editor/StraightenControls.tsx:66
+#: src/components/image-editor/StraightenControls.tsx:65
 msgid "Mark the 4 corners of your paper or canvas"
 msgstr "Markera de fyra hörnen på ditt papper eller duk"
 
-#: src/components/image-editor/StraightenControls.tsx:122
+#: src/components/image-editor/StraightenControls.tsx:114
 msgid "Mark the 4 corners of your paper or canvas, then drag the vertices to adjust"
 msgstr "Markera de fyra hörnen på ditt papper eller duk och dra sedan hörnen för att justera"
 
@@ -1513,11 +1522,11 @@ msgstr "Antal rutor på den kortare sidan (vertikalt eller horisontellt)"
 msgid "Off"
 msgstr "Av"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Oil Paint"
 msgstr "Oljefärg"
 
-#: src/components/messages.ts:68
+#: src/components/messages.ts:69
 msgid "Oil Pastel"
 msgstr "Oljepastell"
 
@@ -1781,7 +1790,7 @@ msgstr "Förhållande"
 msgid "Realism"
 msgstr "Realism"
 
-#: src/components/ImageEditor.tsx:323
+#: src/components/ImageEditor.tsx:326
 msgid "Redo"
 msgstr "Gör om"
 
@@ -1820,12 +1829,12 @@ msgid "Remove and continue"
 msgstr "Ta bort och fortsätt"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:137
-#: src/components/messages.ts:53
+#: src/components/messages.ts:54
 msgid "Remove background"
 msgstr "Ta bort bakgrund"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:105
-#: src/components/messages.ts:54
+#: src/components/messages.ts:55
 msgid "Remove objects"
 msgstr "Ta bort objekt"
 
@@ -1863,13 +1872,13 @@ msgstr "Kräver macOS Sonoma eller senare."
 msgid "Resend code"
 msgstr "Skicka koden igen"
 
-#: src/components/ImageEditor.tsx:327
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:335
 msgid "Reset"
 msgstr "Återställ"
 
 #: src/components/image-editor/RestoreControls.tsx:101
-#: src/components/messages.ts:56
+#: src/components/messages.ts:57
 msgid "Restore"
 msgstr "Restaurera"
 
@@ -1896,9 +1905,13 @@ msgstr "Försök igen"
 msgid "Return to the {tabLabel} tab"
 msgstr "Återgå till fliken {tabLabel}"
 
-#: src/components/image-editor/StraightenControls.tsx:118
+#: src/components/messages.ts:49
 msgid "Rotate"
 msgstr "Rotera"
+
+#: src/components/image-editor/RotateControls.tsx:66
+msgid "Rotate clockwise"
+msgstr "Rotera medurs"
 
 #: src/components/ImageColorPicker.tsx:305
 msgid "Sample size"
@@ -1967,7 +1980,7 @@ msgstr "Välj en konstnärlig teknik"
 msgid "Select an image that contains a color chart"
 msgstr "Välj en bild som innehåller en färgkarta"
 
-#: src/components/ImageEditor.tsx:288
+#: src/components/ImageEditor.tsx:291
 msgid "Select an image to edit"
 msgstr "Välj en bild att redigera"
 
@@ -2029,7 +2042,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Välj bland dina senaste färguppsättningar eller skapa en ny."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:295
 msgid "Select image"
 msgstr "Välj bild"
 
@@ -2296,11 +2309,6 @@ msgstr "Lagringsutrymmet kan ta slut"
 #: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "Användning av lagringsutrymme"
-
-#: src/components/image-editor/StraightenControls.tsx:105
-#: src/components/messages.ts:49
-msgid "Straighten"
-msgstr "Räta ut"
 
 #: src/components/ImagePainting.tsx:126
 #: src/components/ImagePainting.tsx:144
@@ -2612,7 +2620,7 @@ msgstr "Det gick inte att återställa den sparade färguppsättningen"
 msgid "Underlayer"
 msgstr "Underskikt"
 
-#: src/components/ImageEditor.tsx:316
+#: src/components/ImageEditor.tsx:319
 msgid "Undo"
 msgstr "Ångra"
 
@@ -2660,7 +2668,7 @@ msgid "Uploading image {index} / {count}"
 msgstr "Laddar upp bild {index} / {count}"
 
 #: src/components/image-editor/UpscaleControls.tsx:85
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Upscale"
 msgstr "Skala upp"
 
@@ -2733,15 +2741,15 @@ msgstr "Akvarell"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Akvarell kan spädas ut med vatten för att göra den mer transparent"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Watercolor Paint"
 msgstr "Akvarellfärg"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Watercolor Pencils"
 msgstr "Akvarellpennor"
 
-#: src/components/messages.ts:69
+#: src/components/messages.ts:70
 msgid "Wax Pastel"
 msgstr "Vaxpastell"
 
@@ -2771,7 +2779,7 @@ msgstr "Vit"
 msgid "White balance"
 msgstr "Vitbalans"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "White paper or canvas"
 msgstr "Vitt papper eller duk"
 
@@ -2845,7 +2853,7 @@ msgid "Your image"
 msgstr "Din bild"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:303
+#: src/components/ImageEditor.tsx:306
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:318
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

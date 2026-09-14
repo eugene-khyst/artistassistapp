@@ -520,7 +520,7 @@ describe('EditImageSlice', () => {
         {command: straightenCommand, replaceable: true},
         {command: rotateCommand, replaceable: false},
       ],
-      activeImageEditorKey: ImageEditorKey.Straighten,
+      activeImageEditorKey: ImageEditorKey.Rotate,
     });
   });
 
@@ -554,7 +554,7 @@ describe('EditImageSlice', () => {
       editedImage: redoneImage,
       editImageHistory: [{command, replaceable: false}],
       undoneEditImageHistory: [],
-      activeImageEditorKey: ImageEditorKey.Straighten,
+      activeImageEditorKey: ImageEditorKey.Rotate,
     });
     expect(redoneImage.close).not.toHaveBeenCalled();
   });

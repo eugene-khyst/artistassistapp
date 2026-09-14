@@ -146,15 +146,15 @@ msgstr "A 100%-nál kisebb érték kevésbé színessé teszi a képet, a 100%-n
 msgid "Accurate"
 msgstr "Pontos"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "Acrylic Gouache"
 msgstr "Akril gouache"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:71
 msgid "Acrylic Markers"
 msgstr "Akril markerek"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Acrylic Paint"
 msgstr "Akril festék"
 
@@ -190,11 +190,11 @@ msgstr "Hozzáadás a palettához"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Fehér hozzáadása <0>{whiteRatioText} arányban</0>"
 
-#: src/components/messages.ts:52
+#: src/components/messages.ts:53
 msgid "Adjust colors"
 msgstr "Színek beállítása"
 
-#: src/components/image-editor/StraightenControls.tsx:87
+#: src/components/image-editor/StraightenControls.tsx:86
 msgid "Adjust the 4 corners manually."
 msgstr "Állítsa be kézzel a 4 sarkot."
 
@@ -202,7 +202,7 @@ msgstr "Állítsa be kézzel a 4 sarkot."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Minden alkalmazásadat a böngésző tárolójában van, még a telepítés után is. A böngésző adatainak törlése mindent töröl."
 
-#: src/components/ImageEditor.tsx:326
+#: src/components/ImageEditor.tsx:329
 msgid "All edits will be lost"
 msgstr "Minden szerkesztés elvész"
 
@@ -217,6 +217,10 @@ msgstr "Alternatív megoldásként telepítse a Chrome, az Edge vagy az Opera we
 #: src/components/ImageColorPicker.tsx:259
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "Alapréteg vagy egyesítő szín van beállítva. Az Automatikus paletta ezeket a beállításokat a teljes fényképre alkalmazza, nem csak arra a területre, amelyre kiválasztották."
+
+#: src/components/image-editor/RotateControls.tsx:44
+msgid "Angle"
+msgstr "Szög"
 
 #: src/components/Help.tsx:274
 msgid "Application build ID"
@@ -327,15 +331,15 @@ msgstr "Hitelesítés sikertelen"
 msgid "Auto palette"
 msgstr "Automatikus paletta"
 
-#: src/components/image-editor/StraightenControls.tsx:115
+#: src/components/image-editor/StraightenControls.tsx:110
 msgid "Auto-detect"
 msgstr "Automatikus felismerés"
 
-#: src/components/image-editor/StraightenControls.tsx:126
+#: src/components/image-editor/StraightenControls.tsx:118
 msgid "Auto-detect is available only to paid Patreon members"
 msgstr "Az automatikus felismerés csak a fizetős Patreon-tagok számára érhető el"
 
-#: src/components/image-editor/StraightenControls.tsx:52
+#: src/components/image-editor/StraightenControls.tsx:51
 msgid "Auto-detect is unavailable"
 msgstr "Az automatikus felismerés nem érhető el"
 
@@ -380,21 +384,21 @@ msgstr "Színszám szerint"
 msgid "By consistency"
 msgstr "Sűrűség szerint"
 
-#: src/components/messages.ts:85
+#: src/components/messages.ts:86
 msgid "By date"
 msgstr "Dátum szerint"
 
-#: src/components/messages.ts:80
-#: src/components/messages.ts:87
+#: src/components/messages.ts:81
+#: src/components/messages.ts:88
 msgid "By hue"
 msgstr "Színárnyalat szerint"
 
-#: src/components/messages.ts:79
+#: src/components/messages.ts:80
 msgid "By ID"
 msgstr "Azonosító szerint"
 
-#: src/components/messages.ts:81
-#: src/components/messages.ts:88
+#: src/components/messages.ts:82
+#: src/components/messages.ts:89
 msgid "By lightness"
 msgstr "Világosság szerint"
 
@@ -402,7 +406,7 @@ msgstr "Világosság szerint"
 msgid "By match"
 msgstr "Egyezés szerint"
 
-#: src/components/messages.ts:86
+#: src/components/messages.ts:87
 msgid "By name"
 msgstr "Név szerint"
 
@@ -416,7 +420,7 @@ msgstr "Az AR-ban való átrajzoláshoz kamerahozzáférés szükséges"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:328
+#: src/components/ImageEditor.tsx:331
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -453,7 +457,7 @@ msgstr "Frissítések keresése"
 msgid "Check your connection and try again."
 msgstr "Ellenőrizze a kapcsolatot, és próbálja újra."
 
-#: src/components/image-editor/StraightenControls.tsx:53
+#: src/components/image-editor/StraightenControls.tsx:52
 msgid "Check your connection and try again. You can still adjust the 4 corners manually."
 msgstr "Ellenőrizze a kapcsolatot, és próbálja újra. A 4 sarkot továbbra is manuálisan állíthatja be."
 
@@ -624,7 +628,7 @@ msgstr "Színkészlet"
 msgid "Color swatch"
 msgstr "Színminta"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Colored Pencils"
 msgstr "Színes ceruzák"
 
@@ -632,7 +636,7 @@ msgstr "Színes ceruzák"
 msgid "Colorize"
 msgstr "Színezés"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Colorize black-and-white"
 msgstr "Fekete-fehér kép színezése"
 
@@ -710,11 +714,16 @@ msgstr "Másoljon egy támogatott képet a vágólapra, majd próbálja újra."
 msgid "Copy and share this link"
 msgstr "Másolja és ossza meg ezt a linket"
 
+#: src/components/image-editor/StraightenControls.tsx:100
+#: src/components/messages.ts:50
+msgid "Correct perspective"
+msgstr "Perspektíva korrigálása"
+
 #: src/components/image-editor/AdjustColorsControls.tsx:378
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "A fényforrás hőmérsékletének korrigált becslése Kelvinben"
 
-#: src/components/image-editor/StraightenControls.tsx:86
+#: src/components/image-editor/StraightenControls.tsx:85
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Nem sikerült automatikusan felismerni a papírt vagy a vásznat"
 
@@ -744,7 +753,7 @@ msgid "Create new"
 msgstr "Új létrehozása"
 
 #: src/components/image-editor/CropControls.tsx:98
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Crop"
 msgstr "Vágás"
 
@@ -920,7 +929,7 @@ msgstr "Húzza ide a fájlt..."
 msgid "Drop the files here..."
 msgstr "Húzza ide a fájlokat..."
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Dry Pastel"
 msgstr "Száraz pasztell"
 
@@ -948,7 +957,7 @@ msgstr "Szerkesztés innentől"
 msgid "Edit image"
 msgstr "Kép szerkesztése"
 
-#: src/components/ImageEditor.tsx:338
+#: src/components/ImageEditor.tsx:341
 msgid "Edited"
 msgstr "Szerkesztve"
 
@@ -1010,7 +1019,7 @@ msgid "Exit AR"
 msgstr "Kilépés az AR-ból"
 
 #: src/components/image-editor/ExpandControls.tsx:249
-#: src/components/messages.ts:51
+#: src/components/messages.ts:52
 msgid "Expand"
 msgstr "Kiterjesztés"
 
@@ -1113,7 +1122,7 @@ msgstr "Lazúrozás"
 msgid "Go to the {label} tab"
 msgstr "Lépjen a {label} lapra"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Gouache"
 msgstr "Gouache"
 
@@ -1340,11 +1349,11 @@ msgstr "Jelölje körbe az eltávolítani kívánt objektumot, majd húzza a cs�
 msgid "Mark at least 3 points around the object you want to remove"
 msgstr "Jelöljön meg legalább 3 pontot az eltávolítani kívánt objektum körül"
 
-#: src/components/image-editor/StraightenControls.tsx:66
+#: src/components/image-editor/StraightenControls.tsx:65
 msgid "Mark the 4 corners of your paper or canvas"
 msgstr "Jelölje meg a papír vagy a vászon 4 sarkát"
 
-#: src/components/image-editor/StraightenControls.tsx:122
+#: src/components/image-editor/StraightenControls.tsx:114
 msgid "Mark the 4 corners of your paper or canvas, then drag the vertices to adjust"
 msgstr "Jelölje meg a papír vagy a vászon 4 sarkát, majd húzza a csúcsokat a beállításhoz"
 
@@ -1513,11 +1522,11 @@ msgstr "A kisebb oldalon lévő cellák száma (függőleges vagy vízszintes)"
 msgid "Off"
 msgstr "Ki"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Oil Paint"
 msgstr "Olajfesték"
 
-#: src/components/messages.ts:68
+#: src/components/messages.ts:69
 msgid "Oil Pastel"
 msgstr "Olajpasztell"
 
@@ -1781,7 +1790,7 @@ msgstr "Arány"
 msgid "Realism"
 msgstr "Realizmus"
 
-#: src/components/ImageEditor.tsx:323
+#: src/components/ImageEditor.tsx:326
 msgid "Redo"
 msgstr "Újra"
 
@@ -1820,12 +1829,12 @@ msgid "Remove and continue"
 msgstr "Eltávolítás és folytatás"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:137
-#: src/components/messages.ts:53
+#: src/components/messages.ts:54
 msgid "Remove background"
 msgstr "Háttér eltávolítása"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:105
-#: src/components/messages.ts:54
+#: src/components/messages.ts:55
 msgid "Remove objects"
 msgstr "Objektumok eltávolítása"
 
@@ -1863,13 +1872,13 @@ msgstr "macOS Sonoma vagy újabb rendszer szükséges hozzá."
 msgid "Resend code"
 msgstr "Kód újraküldése"
 
-#: src/components/ImageEditor.tsx:327
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:335
 msgid "Reset"
 msgstr "Visszaállítás"
 
 #: src/components/image-editor/RestoreControls.tsx:101
-#: src/components/messages.ts:56
+#: src/components/messages.ts:57
 msgid "Restore"
 msgstr "Restaurálás"
 
@@ -1896,9 +1905,13 @@ msgstr "Újrapróbálkozás"
 msgid "Return to the {tabLabel} tab"
 msgstr "Vissza a(z) {tabLabel} lapra"
 
-#: src/components/image-editor/StraightenControls.tsx:118
+#: src/components/messages.ts:49
 msgid "Rotate"
 msgstr "Forgatás"
+
+#: src/components/image-editor/RotateControls.tsx:66
+msgid "Rotate clockwise"
+msgstr "Forgatás az óramutató járásával megegyező irányba"
 
 #: src/components/ImageColorPicker.tsx:305
 msgid "Sample size"
@@ -1967,7 +1980,7 @@ msgstr "Válasszon képzőművészeti technikát"
 msgid "Select an image that contains a color chart"
 msgstr "Színdiagramot tartalmazó kép kiválasztása"
 
-#: src/components/ImageEditor.tsx:288
+#: src/components/ImageEditor.tsx:291
 msgid "Select an image to edit"
 msgstr "Válasszon egy képet szerkesztésre"
 
@@ -2029,7 +2042,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Válasszon a legutóbbi színkészletek közül, vagy hozzon létre egy újat."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:295
 msgid "Select image"
 msgstr "Kép kiválasztása"
 
@@ -2296,11 +2309,6 @@ msgstr "A tárhely megtelhet"
 #: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "Tárhelyhasználat"
-
-#: src/components/image-editor/StraightenControls.tsx:105
-#: src/components/messages.ts:49
-msgid "Straighten"
-msgstr "Kiegyenesítés"
 
 #: src/components/ImagePainting.tsx:126
 #: src/components/ImagePainting.tsx:144
@@ -2612,7 +2620,7 @@ msgstr "Nem sikerült visszaállítani a mentett színkészletet"
 msgid "Underlayer"
 msgstr "Alapréteg"
 
-#: src/components/ImageEditor.tsx:316
+#: src/components/ImageEditor.tsx:319
 msgid "Undo"
 msgstr "Visszavonás"
 
@@ -2660,7 +2668,7 @@ msgid "Uploading image {index} / {count}"
 msgstr "Kép feltöltése: {index} / {count}"
 
 #: src/components/image-editor/UpscaleControls.tsx:85
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Upscale"
 msgstr "Felskálázás"
 
@@ -2733,15 +2741,15 @@ msgstr "Akvarell"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Az akvarell vízzel hígítható, hogy átlátszóbb legyen"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Watercolor Paint"
 msgstr "Akvarellfesték"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Watercolor Pencils"
 msgstr "Akvarellceruzák"
 
-#: src/components/messages.ts:69
+#: src/components/messages.ts:70
 msgid "Wax Pastel"
 msgstr "Viaszpasztell"
 
@@ -2771,7 +2779,7 @@ msgstr "Fehér"
 msgid "White balance"
 msgstr "Fehéregyensúly"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "White paper or canvas"
 msgstr "Fehér papír vagy vászon"
 
@@ -2845,7 +2853,7 @@ msgid "Your image"
 msgstr "Az Ön képe"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:303
+#: src/components/ImageEditor.tsx:306
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:318
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

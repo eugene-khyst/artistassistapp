@@ -46,7 +46,8 @@ export const TAB_LABELS: Record<TabKey, MessageDescriptor> = {
 };
 
 export const EDIT_IMAGE_LABELS: Record<ImageEditorKey, MessageDescriptor> = {
-  [ImageEditorKey.Straighten]: defineMessage`Straighten`,
+  [ImageEditorKey.Rotate]: defineMessage`Rotate`,
+  [ImageEditorKey.Straighten]: defineMessage`Correct perspective`,
   [ImageEditorKey.Crop]: defineMessage`Crop`,
   [ImageEditorKey.Expand]: defineMessage`Expand`,
   [ImageEditorKey.AdjustColors]: defineMessage`Adjust colors`,

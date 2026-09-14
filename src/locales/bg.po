@@ -146,15 +146,15 @@ msgstr "Стойност, по-малка от 100%, прави изображе
 msgid "Accurate"
 msgstr "Точен"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "Acrylic Gouache"
 msgstr "Акрилен гваш"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:71
 msgid "Acrylic Markers"
 msgstr "Акрилни маркери"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Acrylic Paint"
 msgstr "Акрилна боя"
 
@@ -190,11 +190,11 @@ msgstr "Добавяне към палитрата"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Добавете бяло в <0>съотношение {whiteRatioText}</0>"
 
-#: src/components/messages.ts:52
+#: src/components/messages.ts:53
 msgid "Adjust colors"
 msgstr "Коригиране на цветовете"
 
-#: src/components/image-editor/StraightenControls.tsx:87
+#: src/components/image-editor/StraightenControls.tsx:86
 msgid "Adjust the 4 corners manually."
 msgstr "Регулирайте 4-те ъгъла ръчно."
 
@@ -202,7 +202,7 @@ msgstr "Регулирайте 4-те ъгъла ръчно."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Всички данни от приложението се съхраняват в паметта на уеб браузъра, дори след инсталация. Изтриването на данните от браузъра изтрива всичко."
 
-#: src/components/ImageEditor.tsx:326
+#: src/components/ImageEditor.tsx:329
 msgid "All edits will be lost"
 msgstr "Всички редакции ще бъдат загубени"
 
@@ -217,6 +217,10 @@ msgstr "Друга възможност е да инсталирате най-н
 #: src/components/ImageColorPicker.tsx:259
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "Зададен е подслой или обединяващ цвят. Автоматичната палитра ще приложи тези настройки към цялата снимка, а не само към областта, за която са избрани."
+
+#: src/components/image-editor/RotateControls.tsx:44
+msgid "Angle"
+msgstr "Ъгъл"
 
 #: src/components/Help.tsx:274
 msgid "Application build ID"
@@ -327,15 +331,15 @@ msgstr "Удостоверяването не успя"
 msgid "Auto palette"
 msgstr "Автоматична палитра"
 
-#: src/components/image-editor/StraightenControls.tsx:115
+#: src/components/image-editor/StraightenControls.tsx:110
 msgid "Auto-detect"
 msgstr "Автоматично откриване"
 
-#: src/components/image-editor/StraightenControls.tsx:126
+#: src/components/image-editor/StraightenControls.tsx:118
 msgid "Auto-detect is available only to paid Patreon members"
 msgstr "Автоматичното откриване е достъпно само за платещи членове на Patreon"
 
-#: src/components/image-editor/StraightenControls.tsx:52
+#: src/components/image-editor/StraightenControls.tsx:51
 msgid "Auto-detect is unavailable"
 msgstr "Автоматичното откриване не е налично"
 
@@ -380,21 +384,21 @@ msgstr "По брой цветове"
 msgid "By consistency"
 msgstr "По консистенция"
 
-#: src/components/messages.ts:85
+#: src/components/messages.ts:86
 msgid "By date"
 msgstr "По дата"
 
-#: src/components/messages.ts:80
-#: src/components/messages.ts:87
+#: src/components/messages.ts:81
+#: src/components/messages.ts:88
 msgid "By hue"
 msgstr "По оттенък"
 
-#: src/components/messages.ts:79
+#: src/components/messages.ts:80
 msgid "By ID"
 msgstr "По ID"
 
-#: src/components/messages.ts:81
-#: src/components/messages.ts:88
+#: src/components/messages.ts:82
+#: src/components/messages.ts:89
 msgid "By lightness"
 msgstr "По светлота"
 
@@ -402,7 +406,7 @@ msgstr "По светлота"
 msgid "By match"
 msgstr "По съвпадение"
 
-#: src/components/messages.ts:86
+#: src/components/messages.ts:87
 msgid "By name"
 msgstr "По име"
 
@@ -416,7 +420,7 @@ msgstr "За прекопиране в AR е необходим достъп д�
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:328
+#: src/components/ImageEditor.tsx:331
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -453,7 +457,7 @@ msgstr "Проверка за актуализации"
 msgid "Check your connection and try again."
 msgstr "Проверете връзката си и опитайте отново."
 
-#: src/components/image-editor/StraightenControls.tsx:53
+#: src/components/image-editor/StraightenControls.tsx:52
 msgid "Check your connection and try again. You can still adjust the 4 corners manually."
 msgstr "Проверете връзката си и опитайте отново. Все още можете да регулирате 4-те ъгъла ръчно."
 
@@ -624,7 +628,7 @@ msgstr "Набор от цветове"
 msgid "Color swatch"
 msgstr "Цветова мостра"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Colored Pencils"
 msgstr "Цветни моливи"
 
@@ -632,7 +636,7 @@ msgstr "Цветни моливи"
 msgid "Colorize"
 msgstr "Оцветяване"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Colorize black-and-white"
 msgstr "Оцветяване на черно-бели снимки"
 
@@ -710,11 +714,16 @@ msgstr "Копирайте поддържано изображение в кли
 msgid "Copy and share this link"
 msgstr "Копирайте и споделете тази връзка"
 
+#: src/components/image-editor/StraightenControls.tsx:100
+#: src/components/messages.ts:50
+msgid "Correct perspective"
+msgstr "Коригиране на перспективата"
+
 #: src/components/image-editor/AdjustColorsControls.tsx:378
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Коригирана оценка на температурата на светлинния източник в келвини"
 
-#: src/components/image-editor/StraightenControls.tsx:86
+#: src/components/image-editor/StraightenControls.tsx:85
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Хартията или платното не бяха разпознати автоматично"
 
@@ -744,7 +753,7 @@ msgid "Create new"
 msgstr "Създаване на нов"
 
 #: src/components/image-editor/CropControls.tsx:98
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Crop"
 msgstr "Изрязване"
 
@@ -920,7 +929,7 @@ msgstr "Пуснете файла тук..."
 msgid "Drop the files here..."
 msgstr "Пуснете файловете тук..."
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Dry Pastel"
 msgstr "Сух пастел"
 
@@ -948,7 +957,7 @@ msgstr "Редакция оттук нататък"
 msgid "Edit image"
 msgstr "Редактиране на изображението"
 
-#: src/components/ImageEditor.tsx:338
+#: src/components/ImageEditor.tsx:341
 msgid "Edited"
 msgstr "Редактирано"
 
@@ -1010,7 +1019,7 @@ msgid "Exit AR"
 msgstr "Изход от AR"
 
 #: src/components/image-editor/ExpandControls.tsx:249
-#: src/components/messages.ts:51
+#: src/components/messages.ts:52
 msgid "Expand"
 msgstr "Разширяване"
 
@@ -1113,7 +1122,7 @@ msgstr "Лесиране"
 msgid "Go to the {label} tab"
 msgstr "Отиване към раздела {label}"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Gouache"
 msgstr "Гваш"
 
@@ -1340,11 +1349,11 @@ msgstr "Маркирайте около обекта, който искате д
 msgid "Mark at least 3 points around the object you want to remove"
 msgstr "Маркирайте поне 3 точки около обекта, който искате да премахнете"
 
-#: src/components/image-editor/StraightenControls.tsx:66
+#: src/components/image-editor/StraightenControls.tsx:65
 msgid "Mark the 4 corners of your paper or canvas"
 msgstr "Маркирайте 4-те ъгъла на вашата хартия или платно"
 
-#: src/components/image-editor/StraightenControls.tsx:122
+#: src/components/image-editor/StraightenControls.tsx:114
 msgid "Mark the 4 corners of your paper or canvas, then drag the vertices to adjust"
 msgstr "Маркирайте 4-те ъгъла на вашата хартия или платно, след което плъзнете върховете, за да коригирате"
 
@@ -1513,11 +1522,11 @@ msgstr "Брой клетки от по-малката страна (верти�
 msgid "Off"
 msgstr "Изключено"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Oil Paint"
 msgstr "Маслена боя"
 
-#: src/components/messages.ts:68
+#: src/components/messages.ts:69
 msgid "Oil Pastel"
 msgstr "Маслен пастел"
 
@@ -1781,7 +1790,7 @@ msgstr "Съотношение"
 msgid "Realism"
 msgstr "Реализъм"
 
-#: src/components/ImageEditor.tsx:323
+#: src/components/ImageEditor.tsx:326
 msgid "Redo"
 msgstr "Повтаряне"
 
@@ -1820,12 +1829,12 @@ msgid "Remove and continue"
 msgstr "Премахване и продължаване"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:137
-#: src/components/messages.ts:53
+#: src/components/messages.ts:54
 msgid "Remove background"
 msgstr "Премахване на фона"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:105
-#: src/components/messages.ts:54
+#: src/components/messages.ts:55
 msgid "Remove objects"
 msgstr "Премахване на обекти"
 
@@ -1863,13 +1872,13 @@ msgstr "Изисква macOS Sonoma или по-нова версия."
 msgid "Resend code"
 msgstr "Повторно изпращане на кода"
 
-#: src/components/ImageEditor.tsx:327
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:335
 msgid "Reset"
 msgstr "Нулиране"
 
 #: src/components/image-editor/RestoreControls.tsx:101
-#: src/components/messages.ts:56
+#: src/components/messages.ts:57
 msgid "Restore"
 msgstr "Реставриране"
 
@@ -1896,9 +1905,13 @@ msgstr "Нов опит"
 msgid "Return to the {tabLabel} tab"
 msgstr "Връщане към раздела {tabLabel}"
 
-#: src/components/image-editor/StraightenControls.tsx:118
+#: src/components/messages.ts:49
 msgid "Rotate"
 msgstr "Завъртане"
+
+#: src/components/image-editor/RotateControls.tsx:66
+msgid "Rotate clockwise"
+msgstr "Завъртане по часовниковата стрелка"
 
 #: src/components/ImageColorPicker.tsx:305
 msgid "Sample size"
@@ -1967,7 +1980,7 @@ msgstr "Изберете художествен материал"
 msgid "Select an image that contains a color chart"
 msgstr "Изберете изображение, което съдържа таблица с цветове"
 
-#: src/components/ImageEditor.tsx:288
+#: src/components/ImageEditor.tsx:291
 msgid "Select an image to edit"
 msgstr "Изберете изображение за редактиране"
 
@@ -2029,7 +2042,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Изберете от скорошните си набори от цветове или създайте нов."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:295
 msgid "Select image"
 msgstr "Изберете изображение"
 
@@ -2296,11 +2309,6 @@ msgstr "Хранилището може да се напълни"
 #: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "Използване на хранилището"
-
-#: src/components/image-editor/StraightenControls.tsx:105
-#: src/components/messages.ts:49
-msgid "Straighten"
-msgstr "Изправяне"
 
 #: src/components/ImagePainting.tsx:126
 #: src/components/ImagePainting.tsx:144
@@ -2612,7 +2620,7 @@ msgstr "Не може да се възстанови запазеният наб
 msgid "Underlayer"
 msgstr "Подслой"
 
-#: src/components/ImageEditor.tsx:316
+#: src/components/ImageEditor.tsx:319
 msgid "Undo"
 msgstr "Отмяна"
 
@@ -2660,7 +2668,7 @@ msgid "Uploading image {index} / {count}"
 msgstr "Качване на изображение {index} / {count}"
 
 #: src/components/image-editor/UpscaleControls.tsx:85
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Upscale"
 msgstr "Увеличаване"
 
@@ -2733,15 +2741,15 @@ msgstr "Акварел"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Акварелът може да се разреди с вода, за да стане по-прозрачен"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Watercolor Paint"
 msgstr "Акварелна боя"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Watercolor Pencils"
 msgstr "Акварелни моливи"
 
-#: src/components/messages.ts:69
+#: src/components/messages.ts:70
 msgid "Wax Pastel"
 msgstr "Восъчен пастел"
 
@@ -2771,7 +2779,7 @@ msgstr "Бяло"
 msgid "White balance"
 msgstr "Баланс на бялото"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "White paper or canvas"
 msgstr "Бяла хартия или платно"
 
@@ -2845,7 +2853,7 @@ msgid "Your image"
 msgstr "Вашето изображение"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:303
+#: src/components/ImageEditor.tsx:306
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:318
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

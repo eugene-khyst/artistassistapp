@@ -17,6 +17,7 @@
  */
 
 export enum ImageEditorKey {
+  Rotate = 'rotate',
   Straighten = 'straighten',
   Crop = 'crop',
   Expand = 'expand',

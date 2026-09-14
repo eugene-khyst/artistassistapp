@@ -35,7 +35,6 @@ export interface StraightenSlice {
   straightenVertices?: Vector[];
 
   straightenImage: (vertices: Vector[]) => void;
-  rotateImageClockwise: () => Promise<void>;
   setStraightenModel: (straightenModel: OnnxModel | undefined) => void;
   autoDetectStraightenVertices: () => Promise<Vector[] | null | undefined>;
 }
@@ -72,10 +71,6 @@ export const createStraightenSlice: StateCreator<
         type: EditImageCommandType.Straighten,
         vertices: vertices.map(({x, y}) => ({x, y})),
       });
-    },
-
-    rotateImageClockwise: async (): Promise<void> => {
-      await get().editImageOperation.execute({type: EditImageCommandType.RotateClockwise});
     },
 
     setStraightenModel: (perspectiveCorrectionModel: OnnxModel | undefined): void => {

@@ -30,6 +30,7 @@ import {
   drawImageToOffscreenCanvas,
   fadeImage,
   fillOffscreenCanvasBackground,
+  rotateImageBitmap,
   rotateImageBitmapClockwise,
 } from '@/utils/graphics';
 
@@ -43,6 +44,9 @@ export async function applyEditImageCommand(
   switch (command.type) {
     case EditImageCommandType.RotateClockwise:
       result = rotateImageBitmapClockwise(image);
+      break;
+    case EditImageCommandType.Rotate:
+      result = rotateImageBitmap(image, command.angle);
       break;
     case EditImageCommandType.Straighten:
       result = straightenImage(

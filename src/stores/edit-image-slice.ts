@@ -55,7 +55,8 @@ export interface EditImageHistoryEntry {
 }
 
 const EDITOR_KEY_BY_COMMAND_TYPE: Record<EditImageCommandType, ImageEditorKey> = {
-  [EditImageCommandType.RotateClockwise]: ImageEditorKey.Straighten,
+  [EditImageCommandType.RotateClockwise]: ImageEditorKey.Rotate,
+  [EditImageCommandType.Rotate]: ImageEditorKey.Rotate,
   [EditImageCommandType.Straighten]: ImageEditorKey.Straighten,
   [EditImageCommandType.Crop]: ImageEditorKey.Crop,
   [EditImageCommandType.Expand]: ImageEditorKey.Expand,

@@ -146,15 +146,15 @@ msgstr "100% से कम मान छवि को कम रंगीन ब
 msgid "Accurate"
 msgstr "सटीक"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "Acrylic Gouache"
 msgstr "ऐक्रेलिक गौचे"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:71
 msgid "Acrylic Markers"
 msgstr "ऐक्रेलिक मार्कर"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Acrylic Paint"
 msgstr "ऐक्रेलिक पेंट"
 
@@ -190,11 +190,11 @@ msgstr "पैलेट में जोड़ें"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "<0>{whiteRatioText} अनुपात</0> में सफ़ेद जोड़ें"
 
-#: src/components/messages.ts:52
+#: src/components/messages.ts:53
 msgid "Adjust colors"
 msgstr "रंग समायोजित करें"
 
-#: src/components/image-editor/StraightenControls.tsx:87
+#: src/components/image-editor/StraightenControls.tsx:86
 msgid "Adjust the 4 corners manually."
 msgstr "चारों कोनों को मैन्युअल रूप से समायोजित करें।"
 
@@ -202,7 +202,7 @@ msgstr "चारों कोनों को मैन्युअल रू�
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "सभी ऐप डेटा इंस्टॉल करने के बाद भी वेब ब्राउज़र स्टोरेज में संग्रहीत किया जाता है। ब्राउज़र डेटा साफ़ करने से यह सब मिट जाता है।"
 
-#: src/components/ImageEditor.tsx:326
+#: src/components/ImageEditor.tsx:329
 msgid "All edits will be lost"
 msgstr "सभी संपादन खो जाएंगे"
 
@@ -217,6 +217,10 @@ msgstr "वैकल्पिक रूप से, Chrome, Edge या Opera व
 #: src/components/ImageColorPicker.tsx:259
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "एक अंडरलेयर या एकीकृत रंग सेट किया गया है। ऑटो पैलेट इन सेटिंग्स को पूरी फ़ोटो पर लागू करेगा, न कि केवल उस क्षेत्र पर जिसके लिए उन्हें चुना गया था।"
+
+#: src/components/image-editor/RotateControls.tsx:44
+msgid "Angle"
+msgstr "कोण"
 
 #: src/components/Help.tsx:274
 msgid "Application build ID"
@@ -327,15 +331,15 @@ msgstr "प्रमाणीकरण विफल रहा"
 msgid "Auto palette"
 msgstr "ऑटो पैलेट"
 
-#: src/components/image-editor/StraightenControls.tsx:115
+#: src/components/image-editor/StraightenControls.tsx:110
 msgid "Auto-detect"
 msgstr "स्वतः पहचानें"
 
-#: src/components/image-editor/StraightenControls.tsx:126
+#: src/components/image-editor/StraightenControls.tsx:118
 msgid "Auto-detect is available only to paid Patreon members"
 msgstr "स्वतः पहचान केवल सशुल्क Patreon सदस्यों के लिए उपलब्ध है"
 
-#: src/components/image-editor/StraightenControls.tsx:52
+#: src/components/image-editor/StraightenControls.tsx:51
 msgid "Auto-detect is unavailable"
 msgstr "स्वतः पहचान अनुपलब्ध है"
 
@@ -380,21 +384,21 @@ msgstr "रंगों की संख्या से"
 msgid "By consistency"
 msgstr "गाढ़ेपन से"
 
-#: src/components/messages.ts:85
+#: src/components/messages.ts:86
 msgid "By date"
 msgstr "तिथि से"
 
-#: src/components/messages.ts:80
-#: src/components/messages.ts:87
+#: src/components/messages.ts:81
+#: src/components/messages.ts:88
 msgid "By hue"
 msgstr "रंगत से"
 
-#: src/components/messages.ts:79
+#: src/components/messages.ts:80
 msgid "By ID"
 msgstr "आईडी से"
 
-#: src/components/messages.ts:81
-#: src/components/messages.ts:88
+#: src/components/messages.ts:82
+#: src/components/messages.ts:89
 msgid "By lightness"
 msgstr "हल्केपन से"
 
@@ -402,7 +406,7 @@ msgstr "हल्केपन से"
 msgid "By match"
 msgstr "मिलान से"
 
-#: src/components/messages.ts:86
+#: src/components/messages.ts:87
 msgid "By name"
 msgstr "नाम से"
 
@@ -416,7 +420,7 @@ msgstr "एआर ट्रेसिंग के लिए कैमरा ए�
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:328
+#: src/components/ImageEditor.tsx:331
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -453,7 +457,7 @@ msgstr "अपडेट के लिए जाँच करें"
 msgid "Check your connection and try again."
 msgstr "अपना कनेक्शन जांचें और पुनः प्रयास करें।"
 
-#: src/components/image-editor/StraightenControls.tsx:53
+#: src/components/image-editor/StraightenControls.tsx:52
 msgid "Check your connection and try again. You can still adjust the 4 corners manually."
 msgstr "अपना कनेक्शन जांचें और पुनः प्रयास करें। आप अभी भी चारों कोनों को मैन्युअल रूप से समायोजित कर सकते हैं।"
 
@@ -624,7 +628,7 @@ msgstr "रंग सेट"
 msgid "Color swatch"
 msgstr "रंग नमूना"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Colored Pencils"
 msgstr "रंगीन पेंसिल"
 
@@ -632,7 +636,7 @@ msgstr "रंगीन पेंसिल"
 msgid "Colorize"
 msgstr "रंगीन करें"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Colorize black-and-white"
 msgstr "श्वेत-श्याम को रंगीन करें"
 
@@ -710,11 +714,16 @@ msgstr "समर्थित छवि को क्लिपबोर्ड �
 msgid "Copy and share this link"
 msgstr "इस लिंक को कॉपी और शेयर करें"
 
+#: src/components/image-editor/StraightenControls.tsx:100
+#: src/components/messages.ts:50
+msgid "Correct perspective"
+msgstr "परिप्रेक्ष्य सुधारें"
+
 #: src/components/image-editor/AdjustColorsControls.tsx:378
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "केल्विन में प्रकाश स्रोत के तापमान का सही अनुमान"
 
-#: src/components/image-editor/StraightenControls.tsx:86
+#: src/components/image-editor/StraightenControls.tsx:85
 msgid "Could not detect the paper or canvas automatically"
 msgstr "स्वचालित रूप से कागज या कैनवास का पता नहीं लगा सका"
 
@@ -744,7 +753,7 @@ msgid "Create new"
 msgstr "नया बनाएं"
 
 #: src/components/image-editor/CropControls.tsx:98
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Crop"
 msgstr "काटें"
 
@@ -920,7 +929,7 @@ msgstr "यहाँ फ़ाइल छोड़ें..."
 msgid "Drop the files here..."
 msgstr "यहाँ फ़ाइलें छोड़ें..."
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Dry Pastel"
 msgstr "सूखा पेस्टल"
 
@@ -948,7 +957,7 @@ msgstr "यहां से संपादित करें"
 msgid "Edit image"
 msgstr "छवि संपादित करें"
 
-#: src/components/ImageEditor.tsx:338
+#: src/components/ImageEditor.tsx:341
 msgid "Edited"
 msgstr "संपादित"
 
@@ -1010,7 +1019,7 @@ msgid "Exit AR"
 msgstr "एआर से बाहर निकलें"
 
 #: src/components/image-editor/ExpandControls.tsx:249
-#: src/components/messages.ts:51
+#: src/components/messages.ts:52
 msgid "Expand"
 msgstr "विस्तार करें"
 
@@ -1113,7 +1122,7 @@ msgstr "ग्लेज़िंग"
 msgid "Go to the {label} tab"
 msgstr "{label} टैब पर जाएं"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Gouache"
 msgstr "गौचे"
 
@@ -1340,11 +1349,11 @@ msgstr "जिस ऑब्जेक्ट को आप हटाना चा�
 msgid "Mark at least 3 points around the object you want to remove"
 msgstr "जिस वस्तु को आप हटाना चाहते हैं उसके चारों ओर कम से कम 3 बिंदु अंकित करें"
 
-#: src/components/image-editor/StraightenControls.tsx:66
+#: src/components/image-editor/StraightenControls.tsx:65
 msgid "Mark the 4 corners of your paper or canvas"
 msgstr "अपने कागज़ या कैनवास के चारों कोनों को चिह्नित करें"
 
-#: src/components/image-editor/StraightenControls.tsx:122
+#: src/components/image-editor/StraightenControls.tsx:114
 msgid "Mark the 4 corners of your paper or canvas, then drag the vertices to adjust"
 msgstr "अपने कागज़ या कैनवास के चारों कोनों को चिह्नित करें, फिर समायोजित करने के लिए शीर्षों को खींचें"
 
@@ -1513,11 +1522,11 @@ msgstr "छोटी भुजा पर कक्षों की संख्�
 msgid "Off"
 msgstr "बंद"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Oil Paint"
 msgstr "ऑयल पेंट"
 
-#: src/components/messages.ts:68
+#: src/components/messages.ts:69
 msgid "Oil Pastel"
 msgstr "ऑयल पेस्टल"
 
@@ -1781,7 +1790,7 @@ msgstr "अनुपात"
 msgid "Realism"
 msgstr "यथार्थवाद"
 
-#: src/components/ImageEditor.tsx:323
+#: src/components/ImageEditor.tsx:326
 msgid "Redo"
 msgstr "फिर से करें"
 
@@ -1820,12 +1829,12 @@ msgid "Remove and continue"
 msgstr "हटाएँ और जारी रखें"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:137
-#: src/components/messages.ts:53
+#: src/components/messages.ts:54
 msgid "Remove background"
 msgstr "पृष्ठभूमि हटाएं"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:105
-#: src/components/messages.ts:54
+#: src/components/messages.ts:55
 msgid "Remove objects"
 msgstr "वस्तुओं को हटाएँ"
 
@@ -1863,13 +1872,13 @@ msgstr "macOS सोनोमा या बाद के संस्करण �
 msgid "Resend code"
 msgstr "कोड फिर से भेजें"
 
-#: src/components/ImageEditor.tsx:327
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:335
 msgid "Reset"
 msgstr "रीसेट"
 
 #: src/components/image-editor/RestoreControls.tsx:101
-#: src/components/messages.ts:56
+#: src/components/messages.ts:57
 msgid "Restore"
 msgstr "फ़ोटो सुधारें"
 
@@ -1896,9 +1905,13 @@ msgstr "पुन: प्रयास करें"
 msgid "Return to the {tabLabel} tab"
 msgstr "{tabLabel} टैब पर वापस लौटें"
 
-#: src/components/image-editor/StraightenControls.tsx:118
+#: src/components/messages.ts:49
 msgid "Rotate"
 msgstr "घुमाएं"
+
+#: src/components/image-editor/RotateControls.tsx:66
+msgid "Rotate clockwise"
+msgstr "घड़ी की दिशा में घुमाएं"
 
 #: src/components/ImageColorPicker.tsx:305
 msgid "Sample size"
@@ -1967,7 +1980,7 @@ msgstr "एक कला माध्यम चुनें"
 msgid "Select an image that contains a color chart"
 msgstr "उस छवि का चयन करें जिसमें रंग चार्ट हो"
 
-#: src/components/ImageEditor.tsx:288
+#: src/components/ImageEditor.tsx:291
 msgid "Select an image to edit"
 msgstr "संपादित करने के लिए छवि चुनें"
 
@@ -2029,7 +2042,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "अपने हाल के रंग सेट में से चुनें या एक नया बनाएं।"
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:295
 msgid "Select image"
 msgstr "छवि का चयन करें"
 
@@ -2296,11 +2309,6 @@ msgstr "संग्रहण भर सकता है"
 #: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "संग्रहण उपयोग"
-
-#: src/components/image-editor/StraightenControls.tsx:105
-#: src/components/messages.ts:49
-msgid "Straighten"
-msgstr "सीधा करें"
 
 #: src/components/ImagePainting.tsx:126
 #: src/components/ImagePainting.tsx:144
@@ -2612,7 +2620,7 @@ msgstr "सहेजे गए रंग सेट को पुनर्स्�
 msgid "Underlayer"
 msgstr "अंडरलेयर"
 
-#: src/components/ImageEditor.tsx:316
+#: src/components/ImageEditor.tsx:319
 msgid "Undo"
 msgstr "पूर्ववत करें"
 
@@ -2660,7 +2668,7 @@ msgid "Uploading image {index} / {count}"
 msgstr "छवि {index} / {count} अपलोड हो रही है"
 
 #: src/components/image-editor/UpscaleControls.tsx:85
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Upscale"
 msgstr "अपस्केल करें"
 
@@ -2733,15 +2741,15 @@ msgstr "वॉटरकलर"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "वॉटरकलर को अधिक पारदर्शी बनाने के लिए पानी से पतला किया जा सकता है"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Watercolor Paint"
 msgstr "वॉटरकलर पेंट"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Watercolor Pencils"
 msgstr "वॉटरकलर पेंसिल"
 
-#: src/components/messages.ts:69
+#: src/components/messages.ts:70
 msgid "Wax Pastel"
 msgstr "वैक्स पेस्टल"
 
@@ -2771,7 +2779,7 @@ msgstr "सफ़ेद"
 msgid "White balance"
 msgstr "सफ़ेद संतुलन"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "White paper or canvas"
 msgstr "सफ़ेद कागज़ या कैनवास"
 
@@ -2845,7 +2853,7 @@ msgid "Your image"
 msgstr "आपकी छवि"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:303
+#: src/components/ImageEditor.tsx:306
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:318
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

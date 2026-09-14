@@ -146,15 +146,15 @@ msgstr "값이 100%보다 작으면 이미지가 덜 화려하게 보이고 100%
 msgid "Accurate"
 msgstr "정확"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "Acrylic Gouache"
 msgstr "아크릴 구아슈"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:71
 msgid "Acrylic Markers"
 msgstr "아크릴 마커"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Acrylic Paint"
 msgstr "아크릴 물감"
 
@@ -190,11 +190,11 @@ msgstr "팔레트에 추가"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "<0>{whiteRatioText} 비율</0>로 흰색 추가"
 
-#: src/components/messages.ts:52
+#: src/components/messages.ts:53
 msgid "Adjust colors"
 msgstr "색상 조정"
 
-#: src/components/image-editor/StraightenControls.tsx:87
+#: src/components/image-editor/StraightenControls.tsx:86
 msgid "Adjust the 4 corners manually."
 msgstr "4개의 모서리를 수동으로 조정합니다."
 
@@ -202,7 +202,7 @@ msgstr "4개의 모서리를 수동으로 조정합니다."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "모든 앱 데이터는 설치 후에도 웹 브라우저 저장소에 저장됩니다. 브라우저 데이터를 지우면 모든 데이터가 삭제됩니다."
 
-#: src/components/ImageEditor.tsx:326
+#: src/components/ImageEditor.tsx:329
 msgid "All edits will be lost"
 msgstr "모든 수정 사항이 손실됩니다"
 
@@ -217,6 +217,10 @@ msgstr "또는 최신 버전의 Chrome, Edge 또는 Opera 웹 브라우저를 �
 #: src/components/ImageColorPicker.tsx:259
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "언더레이어 또는 통합 색상이 설정되어 있습니다. 자동 팔레트는 이 설정을 선택한 영역뿐 아니라 사진 전체에 적용합니다."
+
+#: src/components/image-editor/RotateControls.tsx:44
+msgid "Angle"
+msgstr "각도"
 
 #: src/components/Help.tsx:274
 msgid "Application build ID"
@@ -327,15 +331,15 @@ msgstr "인증 실패"
 msgid "Auto palette"
 msgstr "자동 팔레트"
 
-#: src/components/image-editor/StraightenControls.tsx:115
+#: src/components/image-editor/StraightenControls.tsx:110
 msgid "Auto-detect"
 msgstr "자동 감지"
 
-#: src/components/image-editor/StraightenControls.tsx:126
+#: src/components/image-editor/StraightenControls.tsx:118
 msgid "Auto-detect is available only to paid Patreon members"
 msgstr "자동 감지는 유료 Patreon 회원만 사용할 수 있습니다"
 
-#: src/components/image-editor/StraightenControls.tsx:52
+#: src/components/image-editor/StraightenControls.tsx:51
 msgid "Auto-detect is unavailable"
 msgstr "자동 감지를 사용할 수 없습니다"
 
@@ -380,21 +384,21 @@ msgstr "색상 수별"
 msgid "By consistency"
 msgstr "농도별"
 
-#: src/components/messages.ts:85
+#: src/components/messages.ts:86
 msgid "By date"
 msgstr "날짜별"
 
-#: src/components/messages.ts:80
-#: src/components/messages.ts:87
+#: src/components/messages.ts:81
+#: src/components/messages.ts:88
 msgid "By hue"
 msgstr "색조별"
 
-#: src/components/messages.ts:79
+#: src/components/messages.ts:80
 msgid "By ID"
 msgstr "ID별"
 
-#: src/components/messages.ts:81
-#: src/components/messages.ts:88
+#: src/components/messages.ts:82
+#: src/components/messages.ts:89
 msgid "By lightness"
 msgstr "명도별"
 
@@ -402,7 +406,7 @@ msgstr "명도별"
 msgid "By match"
 msgstr "일치도별"
 
-#: src/components/messages.ts:86
+#: src/components/messages.ts:87
 msgid "By name"
 msgstr "이름별"
 
@@ -416,7 +420,7 @@ msgstr "AR 트레이싱에는 카메라 액세스 권한이 필요합니다"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:328
+#: src/components/ImageEditor.tsx:331
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -453,7 +457,7 @@ msgstr "업데이트 확인"
 msgid "Check your connection and try again."
 msgstr "연결을 확인하고 다시 시도하세요."
 
-#: src/components/image-editor/StraightenControls.tsx:53
+#: src/components/image-editor/StraightenControls.tsx:52
 msgid "Check your connection and try again. You can still adjust the 4 corners manually."
 msgstr "연결을 확인하고 다시 시도하세요. 여전히 4개의 모서리를 수동으로 조정할 수 있습니다."
 
@@ -624,7 +628,7 @@ msgstr "색상 세트"
 msgid "Color swatch"
 msgstr "색상 견본"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Colored Pencils"
 msgstr "색연필"
 
@@ -632,7 +636,7 @@ msgstr "색연필"
 msgid "Colorize"
 msgstr "색 입히기"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Colorize black-and-white"
 msgstr "흑백 사진에 색 입히기"
 
@@ -710,11 +714,16 @@ msgstr "지원되는 이미지를 클립보드에 복사한 후 다시 시도하
 msgid "Copy and share this link"
 msgstr "이 링크 복사 및 공유"
 
+#: src/components/image-editor/StraightenControls.tsx:100
+#: src/components/messages.ts:50
+msgid "Correct perspective"
+msgstr "원근감 보정"
+
 #: src/components/image-editor/AdjustColorsControls.tsx:378
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "켈빈 단위로 보정된 광원 색온도 추정치"
 
-#: src/components/image-editor/StraightenControls.tsx:86
+#: src/components/image-editor/StraightenControls.tsx:85
 msgid "Could not detect the paper or canvas automatically"
 msgstr "종이나 캔버스를 자동으로 감지하지 못했습니다"
 
@@ -744,7 +753,7 @@ msgid "Create new"
 msgstr "새로 만들기"
 
 #: src/components/image-editor/CropControls.tsx:98
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Crop"
 msgstr "자르기"
 
@@ -920,7 +929,7 @@ msgstr "여기에 파일을 놓으세요..."
 msgid "Drop the files here..."
 msgstr "여기에 파일을 놓으세요..."
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Dry Pastel"
 msgstr "드라이 파스텔"
 
@@ -948,7 +957,7 @@ msgstr "여기서부터 편집"
 msgid "Edit image"
 msgstr "이미지 편집"
 
-#: src/components/ImageEditor.tsx:338
+#: src/components/ImageEditor.tsx:341
 msgid "Edited"
 msgstr "편집됨"
 
@@ -1010,7 +1019,7 @@ msgid "Exit AR"
 msgstr "AR 종료"
 
 #: src/components/image-editor/ExpandControls.tsx:249
-#: src/components/messages.ts:51
+#: src/components/messages.ts:52
 msgid "Expand"
 msgstr "확장"
 
@@ -1113,7 +1122,7 @@ msgstr "글레이징"
 msgid "Go to the {label} tab"
 msgstr "{label} 탭으로 이동"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Gouache"
 msgstr "구아슈"
 
@@ -1340,11 +1349,11 @@ msgstr "제거할 개체 주위를 표시한 다음 정점을 드래그해 조�
 msgid "Mark at least 3 points around the object you want to remove"
 msgstr "제거할 개체 주위에 점을 3개 이상 표시하세요"
 
-#: src/components/image-editor/StraightenControls.tsx:66
+#: src/components/image-editor/StraightenControls.tsx:65
 msgid "Mark the 4 corners of your paper or canvas"
 msgstr "종이나 캔버스의 네 모서리를 표시하세요"
 
-#: src/components/image-editor/StraightenControls.tsx:122
+#: src/components/image-editor/StraightenControls.tsx:114
 msgid "Mark the 4 corners of your paper or canvas, then drag the vertices to adjust"
 msgstr "종이나 캔버스의 네 모서리를 표시한 다음 정점을 드래그해 조정하세요"
 
@@ -1513,11 +1522,11 @@ msgstr "더 작은 쪽의 셀 수(수직 또는 수평)"
 msgid "Off"
 msgstr "꺼짐"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Oil Paint"
 msgstr "유화 물감"
 
-#: src/components/messages.ts:68
+#: src/components/messages.ts:69
 msgid "Oil Pastel"
 msgstr "오일 파스텔"
 
@@ -1781,7 +1790,7 @@ msgstr "비율"
 msgid "Realism"
 msgstr "사실주의"
 
-#: src/components/ImageEditor.tsx:323
+#: src/components/ImageEditor.tsx:326
 msgid "Redo"
 msgstr "다시 실행"
 
@@ -1820,12 +1829,12 @@ msgid "Remove and continue"
 msgstr "제거하고 계속하기"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:137
-#: src/components/messages.ts:53
+#: src/components/messages.ts:54
 msgid "Remove background"
 msgstr "배경 제거"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:105
-#: src/components/messages.ts:54
+#: src/components/messages.ts:55
 msgid "Remove objects"
 msgstr "개체 제거"
 
@@ -1863,13 +1872,13 @@ msgstr "macOS Sonoma 및 이후 버전이 필요합니다."
 msgid "Resend code"
 msgstr "코드 재전송"
 
-#: src/components/ImageEditor.tsx:327
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:335
 msgid "Reset"
 msgstr "재설정"
 
 #: src/components/image-editor/RestoreControls.tsx:101
-#: src/components/messages.ts:56
+#: src/components/messages.ts:57
 msgid "Restore"
 msgstr "사진 복원"
 
@@ -1896,9 +1905,13 @@ msgstr "다시 시도"
 msgid "Return to the {tabLabel} tab"
 msgstr "{tabLabel} 탭으로 돌아가기"
 
-#: src/components/image-editor/StraightenControls.tsx:118
+#: src/components/messages.ts:49
 msgid "Rotate"
 msgstr "회전"
+
+#: src/components/image-editor/RotateControls.tsx:66
+msgid "Rotate clockwise"
+msgstr "시계 방향으로 회전"
 
 #: src/components/ImageColorPicker.tsx:305
 msgid "Sample size"
@@ -1967,7 +1980,7 @@ msgstr "미술 재료를 선택하세요"
 msgid "Select an image that contains a color chart"
 msgstr "색상 차트가 포함된 이미지를 선택합니다"
 
-#: src/components/ImageEditor.tsx:288
+#: src/components/ImageEditor.tsx:291
 msgid "Select an image to edit"
 msgstr "편집할 이미지를 선택하세요"
 
@@ -2029,7 +2042,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "최근 색상 세트에서 선택하거나 새 색상 세트를 만듭니다."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:295
 msgid "Select image"
 msgstr "이미지 선택"
 
@@ -2296,11 +2309,6 @@ msgstr "저장 공간이 가득 찰 수 있습니다"
 #: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "저장 공간 사용량"
-
-#: src/components/image-editor/StraightenControls.tsx:105
-#: src/components/messages.ts:49
-msgid "Straighten"
-msgstr "기울기 보정"
 
 #: src/components/ImagePainting.tsx:126
 #: src/components/ImagePainting.tsx:144
@@ -2612,7 +2620,7 @@ msgstr "저장된 색상 세트를 복원할 수 없습니다"
 msgid "Underlayer"
 msgstr "언더레이어"
 
-#: src/components/ImageEditor.tsx:316
+#: src/components/ImageEditor.tsx:319
 msgid "Undo"
 msgstr "실행 취소"
 
@@ -2660,7 +2668,7 @@ msgid "Uploading image {index} / {count}"
 msgstr "이미지 업로드 중 {index} / {count}"
 
 #: src/components/image-editor/UpscaleControls.tsx:85
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Upscale"
 msgstr "업스케일"
 
@@ -2733,15 +2741,15 @@ msgstr "수채화"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "수채 물감은 물로 희석하면 더 투명해집니다"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Watercolor Paint"
 msgstr "수채 물감"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Watercolor Pencils"
 msgstr "수채 색연필"
 
-#: src/components/messages.ts:69
+#: src/components/messages.ts:70
 msgid "Wax Pastel"
 msgstr "왁스 파스텔"
 
@@ -2771,7 +2779,7 @@ msgstr "흰색"
 msgid "White balance"
 msgstr "화이트 밸런스"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "White paper or canvas"
 msgstr "흰 종이 또는 캔버스"
 
@@ -2845,7 +2853,7 @@ msgid "Your image"
 msgstr "내 이미지"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:303
+#: src/components/ImageEditor.tsx:306
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:318
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

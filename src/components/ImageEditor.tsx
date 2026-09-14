@@ -42,6 +42,7 @@ import {ExpandControls} from '@/components/image-editor/ExpandControls';
 import {RemoveBackgroundControls} from '@/components/image-editor/RemoveBackgroundControls';
 import {RemoveObjectsControls} from '@/components/image-editor/RemoveObjectsControls';
 import {RestoreControls} from '@/components/image-editor/RestoreControls';
+import {RotateControls} from '@/components/image-editor/RotateControls';
 import {StraightenControls} from '@/components/image-editor/StraightenControls';
 import {UpscaleControls} from '@/components/image-editor/UpscaleControls';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
@@ -59,6 +60,7 @@ import {useAppStore} from '@/stores/app-store';
 import styles from './ImageEditor.module.css';
 
 const IMAGE_EDITOR_MODE_TYPES: Record<ImageEditorKey, ImageEditorModeType> = {
+  [ImageEditorKey.Rotate]: ImageEditorModeType.Noop,
   [ImageEditorKey.Straighten]: ImageEditorModeType.Quadrilateral,
   [ImageEditorKey.Crop]: ImageEditorModeType.Crop,
   [ImageEditorKey.Expand]: ImageEditorModeType.Expand,
@@ -105,6 +107,7 @@ const IMAGE_EDITOR_CONTROLS: Record<
   ImageEditorKey,
   (context: ImageEditorControlsContext) => ReactNode
 > = {
+  [ImageEditorKey.Rotate]: () => <RotateControls />,
   [ImageEditorKey.Straighten]: ({imageEditorMode}) => (
     <StraightenControls
       polygonDrawingMode={imageEditorMode?.delegates[ImageEditorModeType.Quadrilateral] ?? null}

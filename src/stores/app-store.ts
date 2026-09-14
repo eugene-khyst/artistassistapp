@@ -56,6 +56,7 @@ import {createPaintingImageSlice, type PaintingImageSlice} from './painting-imag
 import {createPaletteSlice, type PaletteSlice} from './palette-slice';
 import {createRemoveBackgroundSlice, type RemoveBackgroundSlice} from './remove-background-slice';
 import {createRestoreSlice, type RestoreSlice} from './restore-slice';
+import {createRotateSlice, type RotateSlice} from './rotate-slice';
 import {createSimplifyImageSlice, type SimplifyImageSlice} from './simplify-image-slice';
 import {createStorageSlice, type StorageSlice} from './storage-slice';
 import {createStraightenSlice, type StraightenSlice} from './straighten-slice';
@@ -84,6 +85,7 @@ export const useAppStore = create<
     OutlineImageSlice &
     LimitedPaletteImageSlice &
     StyleTransferSlice &
+    RotateSlice &
     StraightenSlice &
     CropSlice &
     ExpandImageSlice &
@@ -118,6 +120,7 @@ export const useAppStore = create<
     ...createOutlineImageSlice(...a),
     ...createLimitedPaletteImageSlice(...a),
     ...createStyleTransferSlice(...a),
+    ...createRotateSlice(...a),
     ...createStraightenSlice(...a),
     ...createCropSlice(...a),
     ...createExpandImageSlice(...a),

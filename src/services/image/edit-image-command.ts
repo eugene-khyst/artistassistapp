@@ -32,6 +32,7 @@ interface EditImageRectangle extends EditImagePoint {
 
 export enum EditImageCommandType {
   RotateClockwise = 'rotate-clockwise',
+  Rotate = 'rotate',
   Straighten = 'straighten',
   Crop = 'crop',
   Expand = 'expand',
@@ -45,6 +46,7 @@ export enum EditImageCommandType {
 
 export type EditImageCommand =
   | {type: EditImageCommandType.RotateClockwise}
+  | {type: EditImageCommandType.Rotate; angle: number}
   | {type: EditImageCommandType.Straighten; vertices: EditImagePoint[]}
   | {type: EditImageCommandType.Crop; rectangle: EditImageRectangle}
   | {

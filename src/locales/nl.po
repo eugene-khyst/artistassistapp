@@ -146,15 +146,15 @@ msgstr "Een waarde van minder dan 100% zorgt ervoor dat de afbeelding er minder 
 msgid "Accurate"
 msgstr "Nauwkeurig"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "Acrylic Gouache"
 msgstr "Acrylgouache"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:71
 msgid "Acrylic Markers"
 msgstr "Acrylmarkers"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Acrylic Paint"
 msgstr "Acrylverf"
 
@@ -190,11 +190,11 @@ msgstr "Toevoegen aan palet"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Voeg wit toe in een <0>{whiteRatioText} verhouding</0>"
 
-#: src/components/messages.ts:52
+#: src/components/messages.ts:53
 msgid "Adjust colors"
 msgstr "Kleuren aanpassen"
 
-#: src/components/image-editor/StraightenControls.tsx:87
+#: src/components/image-editor/StraightenControls.tsx:86
 msgid "Adjust the 4 corners manually."
 msgstr "Pas de 4 hoeken handmatig aan."
 
@@ -202,7 +202,7 @@ msgstr "Pas de 4 hoeken handmatig aan."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Alle appgegevens worden opgeslagen in de opslag van de webbrowser, zelfs na installatie. Het wissen van de browsergegevens verwijdert alles."
 
-#: src/components/ImageEditor.tsx:326
+#: src/components/ImageEditor.tsx:329
 msgid "All edits will be lost"
 msgstr "Alle bewerkingen gaan verloren"
 
@@ -217,6 +217,10 @@ msgstr "Je kunt ook de nieuwste versie van de webbrowser Chrome, Edge of Opera i
 #: src/components/ImageColorPicker.tsx:259
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "Er is een onderlaag of verenigende kleur ingesteld. Het automatische palet past deze instellingen toe op de hele foto, niet alleen op het gebied waarvoor ze zijn gekozen."
+
+#: src/components/image-editor/RotateControls.tsx:44
+msgid "Angle"
+msgstr "Hoek"
 
 #: src/components/Help.tsx:274
 msgid "Application build ID"
@@ -327,15 +331,15 @@ msgstr "Authenticatie mislukt"
 msgid "Auto palette"
 msgstr "Automatisch palet"
 
-#: src/components/image-editor/StraightenControls.tsx:115
+#: src/components/image-editor/StraightenControls.tsx:110
 msgid "Auto-detect"
 msgstr "Automatische detectie"
 
-#: src/components/image-editor/StraightenControls.tsx:126
+#: src/components/image-editor/StraightenControls.tsx:118
 msgid "Auto-detect is available only to paid Patreon members"
 msgstr "Automatische detectie is alleen beschikbaar voor betalende Patreon-leden"
 
-#: src/components/image-editor/StraightenControls.tsx:52
+#: src/components/image-editor/StraightenControls.tsx:51
 msgid "Auto-detect is unavailable"
 msgstr "Automatische detectie is niet beschikbaar"
 
@@ -380,21 +384,21 @@ msgstr "Op aantal kleuren"
 msgid "By consistency"
 msgstr "Op consistentie"
 
-#: src/components/messages.ts:85
+#: src/components/messages.ts:86
 msgid "By date"
 msgstr "Op datum"
 
-#: src/components/messages.ts:80
-#: src/components/messages.ts:87
+#: src/components/messages.ts:81
+#: src/components/messages.ts:88
 msgid "By hue"
 msgstr "Op kleurtoon"
 
-#: src/components/messages.ts:79
+#: src/components/messages.ts:80
 msgid "By ID"
 msgstr "Op ID"
 
-#: src/components/messages.ts:81
-#: src/components/messages.ts:88
+#: src/components/messages.ts:82
+#: src/components/messages.ts:89
 msgid "By lightness"
 msgstr "Op lichtheid"
 
@@ -402,7 +406,7 @@ msgstr "Op lichtheid"
 msgid "By match"
 msgstr "Op overeenkomst"
 
-#: src/components/messages.ts:86
+#: src/components/messages.ts:87
 msgid "By name"
 msgstr "Op naam"
 
@@ -416,7 +420,7 @@ msgstr "Cameratoegang is vereist om over te trekken in AR"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:328
+#: src/components/ImageEditor.tsx:331
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -453,7 +457,7 @@ msgstr "Controleren op updates"
 msgid "Check your connection and try again."
 msgstr "Controleer je verbinding en probeer het opnieuw."
 
-#: src/components/image-editor/StraightenControls.tsx:53
+#: src/components/image-editor/StraightenControls.tsx:52
 msgid "Check your connection and try again. You can still adjust the 4 corners manually."
 msgstr "Controleer je verbinding en probeer het opnieuw. Je kunt de 4 hoeken nog handmatig aanpassen."
 
@@ -624,7 +628,7 @@ msgstr "Kleurenset"
 msgid "Color swatch"
 msgstr "Kleurstaal"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Colored Pencils"
 msgstr "Kleurpotloden"
 
@@ -632,7 +636,7 @@ msgstr "Kleurpotloden"
 msgid "Colorize"
 msgstr "Inkleuren"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Colorize black-and-white"
 msgstr "Zwart-wit inkleuren"
 
@@ -710,11 +714,16 @@ msgstr "Kopieer een ondersteunde afbeelding naar het klembord en probeer het opn
 msgid "Copy and share this link"
 msgstr "Kopieer en deel deze link"
 
+#: src/components/image-editor/StraightenControls.tsx:100
+#: src/components/messages.ts:50
+msgid "Correct perspective"
+msgstr "Perspectief corrigeren"
+
 #: src/components/image-editor/AdjustColorsControls.tsx:378
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Gecorrigeerde schatting van de temperatuur van de lichtbron in Kelvin"
 
-#: src/components/image-editor/StraightenControls.tsx:86
+#: src/components/image-editor/StraightenControls.tsx:85
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Kon het papier of canvas niet automatisch detecteren"
 
@@ -744,7 +753,7 @@ msgid "Create new"
 msgstr "Nieuwe maken"
 
 #: src/components/image-editor/CropControls.tsx:98
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Crop"
 msgstr "Bijsnijden"
 
@@ -920,7 +929,7 @@ msgstr "Sleep het bestand hierheen..."
 msgid "Drop the files here..."
 msgstr "Sleep de bestanden hierheen..."
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Dry Pastel"
 msgstr "Droog pastel"
 
@@ -948,7 +957,7 @@ msgstr "Vanaf hier bewerken"
 msgid "Edit image"
 msgstr "Afbeelding bewerken"
 
-#: src/components/ImageEditor.tsx:338
+#: src/components/ImageEditor.tsx:341
 msgid "Edited"
 msgstr "Bewerkt"
 
@@ -1010,7 +1019,7 @@ msgid "Exit AR"
 msgstr "AR verlaten"
 
 #: src/components/image-editor/ExpandControls.tsx:249
-#: src/components/messages.ts:51
+#: src/components/messages.ts:52
 msgid "Expand"
 msgstr "Uitbreiden"
 
@@ -1113,7 +1122,7 @@ msgstr "Glaceren"
 msgid "Go to the {label} tab"
 msgstr "Ga naar het tabblad {label}"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Gouache"
 msgstr "Gouache"
 
@@ -1340,11 +1349,11 @@ msgstr "Markeer rond het object dat je wilt verwijderen en sleep vervolgens de h
 msgid "Mark at least 3 points around the object you want to remove"
 msgstr "Markeer minimaal 3 punten rond het object dat je wilt verwijderen"
 
-#: src/components/image-editor/StraightenControls.tsx:66
+#: src/components/image-editor/StraightenControls.tsx:65
 msgid "Mark the 4 corners of your paper or canvas"
 msgstr "Markeer de 4 hoeken van je papier of doek"
 
-#: src/components/image-editor/StraightenControls.tsx:122
+#: src/components/image-editor/StraightenControls.tsx:114
 msgid "Mark the 4 corners of your paper or canvas, then drag the vertices to adjust"
 msgstr "Markeer de 4 hoeken van je papier of doek en sleep vervolgens de hoekpunten om aan te passen"
 
@@ -1513,11 +1522,11 @@ msgstr "Aantal cellen aan de kleinere kant (verticaal of horizontaal)"
 msgid "Off"
 msgstr "Uit"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Oil Paint"
 msgstr "Olieverf"
 
-#: src/components/messages.ts:68
+#: src/components/messages.ts:69
 msgid "Oil Pastel"
 msgstr "Oliepastel"
 
@@ -1781,7 +1790,7 @@ msgstr "Verhouding"
 msgid "Realism"
 msgstr "Realisme"
 
-#: src/components/ImageEditor.tsx:323
+#: src/components/ImageEditor.tsx:326
 msgid "Redo"
 msgstr "Opnieuw uitvoeren"
 
@@ -1820,12 +1829,12 @@ msgid "Remove and continue"
 msgstr "Verwijderen en doorgaan"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:137
-#: src/components/messages.ts:53
+#: src/components/messages.ts:54
 msgid "Remove background"
 msgstr "Achtergrond verwijderen"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:105
-#: src/components/messages.ts:54
+#: src/components/messages.ts:55
 msgid "Remove objects"
 msgstr "Objecten verwijderen"
 
@@ -1863,13 +1872,13 @@ msgstr "Vereist macOS Sonoma of hoger."
 msgid "Resend code"
 msgstr "Code opnieuw verzenden"
 
-#: src/components/ImageEditor.tsx:327
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:335
 msgid "Reset"
 msgstr "Resetten"
 
 #: src/components/image-editor/RestoreControls.tsx:101
-#: src/components/messages.ts:56
+#: src/components/messages.ts:57
 msgid "Restore"
 msgstr "Restaureren"
 
@@ -1896,9 +1905,13 @@ msgstr "Opnieuw proberen"
 msgid "Return to the {tabLabel} tab"
 msgstr "Keer terug naar het tabblad {tabLabel}"
 
-#: src/components/image-editor/StraightenControls.tsx:118
+#: src/components/messages.ts:49
 msgid "Rotate"
 msgstr "Draaien"
+
+#: src/components/image-editor/RotateControls.tsx:66
+msgid "Rotate clockwise"
+msgstr "Met de klok mee draaien"
 
 #: src/components/ImageColorPicker.tsx:305
 msgid "Sample size"
@@ -1967,7 +1980,7 @@ msgstr "Selecteer een kunstmedium"
 msgid "Select an image that contains a color chart"
 msgstr "Selecteer een afbeelding die een kleurenkaart bevat"
 
-#: src/components/ImageEditor.tsx:288
+#: src/components/ImageEditor.tsx:291
 msgid "Select an image to edit"
 msgstr "Selecteer een afbeelding om te bewerken"
 
@@ -2029,7 +2042,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Maak een keuze uit je recente kleurensets of maak een nieuwe."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:295
 msgid "Select image"
 msgstr "Selecteer afbeelding"
 
@@ -2296,11 +2309,6 @@ msgstr "Opslag kan vol raken"
 #: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "Opslaggebruik"
-
-#: src/components/image-editor/StraightenControls.tsx:105
-#: src/components/messages.ts:49
-msgid "Straighten"
-msgstr "Rechtzetten"
 
 #: src/components/ImagePainting.tsx:126
 #: src/components/ImagePainting.tsx:144
@@ -2612,7 +2620,7 @@ msgstr "Kan de opgeslagen kleurenset niet herstellen"
 msgid "Underlayer"
 msgstr "Onderlaag"
 
-#: src/components/ImageEditor.tsx:316
+#: src/components/ImageEditor.tsx:319
 msgid "Undo"
 msgstr "Ongedaan maken"
 
@@ -2660,7 +2668,7 @@ msgid "Uploading image {index} / {count}"
 msgstr "Afbeelding uploaden {index} / {count}"
 
 #: src/components/image-editor/UpscaleControls.tsx:85
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Upscale"
 msgstr "Opschalen"
 
@@ -2733,15 +2741,15 @@ msgstr "Aquarel"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Aquarel kan met water worden verdund om deze transparanter te maken"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Watercolor Paint"
 msgstr "Aquarelverf"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Watercolor Pencils"
 msgstr "Aquarelpotloden"
 
-#: src/components/messages.ts:69
+#: src/components/messages.ts:70
 msgid "Wax Pastel"
 msgstr "Waspastel"
 
@@ -2771,7 +2779,7 @@ msgstr "Wit"
 msgid "White balance"
 msgstr "Witbalans"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "White paper or canvas"
 msgstr "Wit papier of doek"
 
@@ -2845,7 +2853,7 @@ msgid "Your image"
 msgstr "Je afbeelding"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:303
+#: src/components/ImageEditor.tsx:306
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:318
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

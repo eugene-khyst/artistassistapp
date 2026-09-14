@@ -146,15 +146,15 @@ msgstr "100%未満の値では、画像のカラフルさが損なわれ、100%�
 msgid "Accurate"
 msgstr "正確"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "Acrylic Gouache"
 msgstr "アクリルガッシュ"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:71
 msgid "Acrylic Markers"
 msgstr "アクリルマーカー"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Acrylic Paint"
 msgstr "アクリル絵の具"
 
@@ -190,11 +190,11 @@ msgstr "パレットに追加"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "<0>{whiteRatioText} の比率</0>で白を追加します"
 
-#: src/components/messages.ts:52
+#: src/components/messages.ts:53
 msgid "Adjust colors"
 msgstr "色の調整"
 
-#: src/components/image-editor/StraightenControls.tsx:87
+#: src/components/image-editor/StraightenControls.tsx:86
 msgid "Adjust the 4 corners manually."
 msgstr "4隅を手動で調整します。"
 
@@ -202,7 +202,7 @@ msgstr "4隅を手動で調整します。"
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "インストール後も、すべてのアプリデータはウェブブラウザのストレージに保存されます。ブラウザのデータを消去するとすべてが消えます。"
 
-#: src/components/ImageEditor.tsx:326
+#: src/components/ImageEditor.tsx:329
 msgid "All edits will be lost"
 msgstr "すべての編集内容は失われます"
 
@@ -217,6 +217,10 @@ msgstr "または、Chrome、Edge、Operaの最新バージョンのWebブラウ
 #: src/components/ImageColorPicker.tsx:259
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "アンダーレイヤーまたは統一色が設定されています。自動パレットは、これらの設定を選んだ領域だけでなく写真全体に適用します。"
+
+#: src/components/image-editor/RotateControls.tsx:44
+msgid "Angle"
+msgstr "角度"
 
 #: src/components/Help.tsx:274
 msgid "Application build ID"
@@ -327,15 +331,15 @@ msgstr "認証失敗"
 msgid "Auto palette"
 msgstr "自動パレット"
 
-#: src/components/image-editor/StraightenControls.tsx:115
+#: src/components/image-editor/StraightenControls.tsx:110
 msgid "Auto-detect"
 msgstr "自動検出"
 
-#: src/components/image-editor/StraightenControls.tsx:126
+#: src/components/image-editor/StraightenControls.tsx:118
 msgid "Auto-detect is available only to paid Patreon members"
 msgstr "自動検出は有料の Patreon メンバーのみが利用できます"
 
-#: src/components/image-editor/StraightenControls.tsx:52
+#: src/components/image-editor/StraightenControls.tsx:51
 msgid "Auto-detect is unavailable"
 msgstr "自動検出は使用できません"
 
@@ -380,21 +384,21 @@ msgstr "色数順"
 msgid "By consistency"
 msgstr "濃度順"
 
-#: src/components/messages.ts:85
+#: src/components/messages.ts:86
 msgid "By date"
 msgstr "日付順"
 
-#: src/components/messages.ts:80
-#: src/components/messages.ts:87
+#: src/components/messages.ts:81
+#: src/components/messages.ts:88
 msgid "By hue"
 msgstr "色相順"
 
-#: src/components/messages.ts:79
+#: src/components/messages.ts:80
 msgid "By ID"
 msgstr "ID順"
 
-#: src/components/messages.ts:81
-#: src/components/messages.ts:88
+#: src/components/messages.ts:82
+#: src/components/messages.ts:89
 msgid "By lightness"
 msgstr "明度順"
 
@@ -402,7 +406,7 @@ msgstr "明度順"
 msgid "By match"
 msgstr "一致度順"
 
-#: src/components/messages.ts:86
+#: src/components/messages.ts:87
 msgid "By name"
 msgstr "名前順"
 
@@ -416,7 +420,7 @@ msgstr "ARトレーシングにはカメラアクセスが必要です"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:328
+#: src/components/ImageEditor.tsx:331
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -453,7 +457,7 @@ msgstr "アップデートの確認"
 msgid "Check your connection and try again."
 msgstr "接続を確認して、もう一度試してください。"
 
-#: src/components/image-editor/StraightenControls.tsx:53
+#: src/components/image-editor/StraightenControls.tsx:52
 msgid "Check your connection and try again. You can still adjust the 4 corners manually."
 msgstr "接続を確認して、もう一度試してください。4隅は手動でも調整できます。"
 
@@ -624,7 +628,7 @@ msgstr "カラーセット"
 msgid "Color swatch"
 msgstr "色見本"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Colored Pencils"
 msgstr "色鉛筆"
 
@@ -632,7 +636,7 @@ msgstr "色鉛筆"
 msgid "Colorize"
 msgstr "色付け"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Colorize black-and-white"
 msgstr "白黒写真をカラー化"
 
@@ -710,11 +714,16 @@ msgstr "対応画像をクリップボードにコピーしてから、もう一
 msgid "Copy and share this link"
 msgstr "このリンクをコピーして共有する"
 
+#: src/components/image-editor/StraightenControls.tsx:100
+#: src/components/messages.ts:50
+msgid "Correct perspective"
+msgstr "遠近感を補正"
+
 #: src/components/image-editor/AdjustColorsControls.tsx:378
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "補正後の光源の色温度の推定値(ケルビン)"
 
-#: src/components/image-editor/StraightenControls.tsx:86
+#: src/components/image-editor/StraightenControls.tsx:85
 msgid "Could not detect the paper or canvas automatically"
 msgstr "紙やキャンバスを自動で検出できませんでした"
 
@@ -744,7 +753,7 @@ msgid "Create new"
 msgstr "新規作成"
 
 #: src/components/image-editor/CropControls.tsx:98
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Crop"
 msgstr "切り抜き"
 
@@ -920,7 +929,7 @@ msgstr "ここにファイルをドロップ..."
 msgid "Drop the files here..."
 msgstr "ここにファイルをドロップ..."
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Dry Pastel"
 msgstr "ドライパステル"
 
@@ -948,7 +957,7 @@ msgstr "ここから先を編集"
 msgid "Edit image"
 msgstr "画像の編集"
 
-#: src/components/ImageEditor.tsx:338
+#: src/components/ImageEditor.tsx:341
 msgid "Edited"
 msgstr "編集済み"
 
@@ -1010,7 +1019,7 @@ msgid "Exit AR"
 msgstr "ARを終了"
 
 #: src/components/image-editor/ExpandControls.tsx:249
-#: src/components/messages.ts:51
+#: src/components/messages.ts:52
 msgid "Expand"
 msgstr "拡張"
 
@@ -1113,7 +1122,7 @@ msgstr "グレージング"
 msgid "Go to the {label} tab"
 msgstr "{label} タブに移動します"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Gouache"
 msgstr "ガッシュ"
 
@@ -1340,11 +1349,11 @@ msgstr "削除するオブジェクトの周囲にマークを付け、頂点を
 msgid "Mark at least 3 points around the object you want to remove"
 msgstr "削除したいオブジェクトの周囲に 3 点以上をマークします"
 
-#: src/components/image-editor/StraightenControls.tsx:66
+#: src/components/image-editor/StraightenControls.tsx:65
 msgid "Mark the 4 corners of your paper or canvas"
 msgstr "紙またはキャンバスの四隅に印を付けます"
 
-#: src/components/image-editor/StraightenControls.tsx:122
+#: src/components/image-editor/StraightenControls.tsx:114
 msgid "Mark the 4 corners of your paper or canvas, then drag the vertices to adjust"
 msgstr "紙またはキャンバスの 4 つの角をマークし、頂点をドラッグして調整します"
 
@@ -1513,11 +1522,11 @@ msgstr "小さい方の辺のセルの数 (垂直または水平)"
 msgid "Off"
 msgstr "オフ"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Oil Paint"
 msgstr "油絵の具"
 
-#: src/components/messages.ts:68
+#: src/components/messages.ts:69
 msgid "Oil Pastel"
 msgstr "オイルパステル"
 
@@ -1781,7 +1790,7 @@ msgstr "比率"
 msgid "Realism"
 msgstr "写実主義"
 
-#: src/components/ImageEditor.tsx:323
+#: src/components/ImageEditor.tsx:326
 msgid "Redo"
 msgstr "やり直し"
 
@@ -1820,12 +1829,12 @@ msgid "Remove and continue"
 msgstr "削除して続行"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:137
-#: src/components/messages.ts:53
+#: src/components/messages.ts:54
 msgid "Remove background"
 msgstr "背景を削除"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:105
-#: src/components/messages.ts:54
+#: src/components/messages.ts:55
 msgid "Remove objects"
 msgstr "オブジェクトを削除"
 
@@ -1863,13 +1872,13 @@ msgstr "macOS Sonoma以降が必要です。"
 msgid "Resend code"
 msgstr "コードを再送信"
 
-#: src/components/ImageEditor.tsx:327
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:335
 msgid "Reset"
 msgstr "リセット"
 
 #: src/components/image-editor/RestoreControls.tsx:101
-#: src/components/messages.ts:56
+#: src/components/messages.ts:57
 msgid "Restore"
 msgstr "写真を修復"
 
@@ -1896,9 +1905,13 @@ msgstr "再試行"
 msgid "Return to the {tabLabel} tab"
 msgstr "{tabLabel} タブに戻ります"
 
-#: src/components/image-editor/StraightenControls.tsx:118
+#: src/components/messages.ts:49
 msgid "Rotate"
 msgstr "回転"
+
+#: src/components/image-editor/RotateControls.tsx:66
+msgid "Rotate clockwise"
+msgstr "時計回りに回転"
 
 #: src/components/ImageColorPicker.tsx:305
 msgid "Sample size"
@@ -1967,7 +1980,7 @@ msgstr "画材を選択してください"
 msgid "Select an image that contains a color chart"
 msgstr "カラーチャートを含む画像を選択する"
 
-#: src/components/ImageEditor.tsx:288
+#: src/components/ImageEditor.tsx:291
 msgid "Select an image to edit"
 msgstr "編集する画像を選択"
 
@@ -2029,7 +2042,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "最近使用したカラーセットから選択するか、新しいカラーセットを作成します。"
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:295
 msgid "Select image"
 msgstr "画像を選択"
 
@@ -2296,11 +2309,6 @@ msgstr "ストレージがいっぱいになる可能性があります"
 #: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "ストレージ使用量"
-
-#: src/components/image-editor/StraightenControls.tsx:105
-#: src/components/messages.ts:49
-msgid "Straighten"
-msgstr "傾き補正"
 
 #: src/components/ImagePainting.tsx:126
 #: src/components/ImagePainting.tsx:144
@@ -2612,7 +2620,7 @@ msgstr "保存したカラーセットを復元できません"
 msgid "Underlayer"
 msgstr "アンダーレイヤー"
 
-#: src/components/ImageEditor.tsx:316
+#: src/components/ImageEditor.tsx:319
 msgid "Undo"
 msgstr "元に戻す"
 
@@ -2660,7 +2668,7 @@ msgid "Uploading image {index} / {count}"
 msgstr "画像 {index} / {count} をアップロードしています"
 
 #: src/components/image-editor/UpscaleControls.tsx:85
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Upscale"
 msgstr "アップスケール"
 
@@ -2733,15 +2741,15 @@ msgstr "水彩"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "水彩絵の具は水で薄めるとより透明になります"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Watercolor Paint"
 msgstr "水彩絵の具"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Watercolor Pencils"
 msgstr "水彩色鉛筆"
 
-#: src/components/messages.ts:69
+#: src/components/messages.ts:70
 msgid "Wax Pastel"
 msgstr "ワックスパステル"
 
@@ -2771,7 +2779,7 @@ msgstr "白"
 msgid "White balance"
 msgstr "ホワイトバランス"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "White paper or canvas"
 msgstr "白い紙またはキャンバス"
 
@@ -2845,7 +2853,7 @@ msgid "Your image"
 msgstr "自分の画像"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:303
+#: src/components/ImageEditor.tsx:306
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:318
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

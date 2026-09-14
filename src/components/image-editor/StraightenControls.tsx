@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {AimOutlined, CheckOutlined, RotateRightOutlined} from '@ant-design/icons';
+import {AimOutlined, CheckOutlined} from '@ant-design/icons';
 import {Trans} from '@lingui/react/macro';
 import {App, Button, Space, Typography} from 'antd';
 import {useEffect} from 'react';
@@ -37,7 +37,6 @@ export function StraightenControls({polygonDrawingMode}: Readonly<Props>) {
   const setStraightenModel = useAppStore(state => state.setStraightenModel);
   const autoDetectStraightenVertices = useAppStore(state => state.autoDetectStraightenVertices);
   const straightenImage = useAppStore(state => state.straightenImage);
-  const rotateImageClockwise = useAppStore(state => state.rotateImageClockwise);
 
   const {notification} = App.useApp();
 
@@ -94,15 +93,11 @@ export function StraightenControls({polygonDrawingMode}: Readonly<Props>) {
     polygonDrawingMode.setVertices(vertices);
   };
 
-  const handleRotateClick = () => {
-    void rotateImageClockwise();
-  };
-
   return (
     <Space orientation="vertical">
       <Space wrap>
         <Button type="primary" icon={<CheckOutlined />} onClick={handleApplyClick}>
-          <Trans>Straighten</Trans>
+          <Trans>Correct perspective</Trans>
         </Button>
         <Button
           icon={<AimOutlined />}
@@ -113,9 +108,6 @@ export function StraightenControls({polygonDrawingMode}: Readonly<Props>) {
           }}
         >
           <Trans>Auto-detect</Trans>
-        </Button>
-        <Button icon={<RotateRightOutlined />} onClick={handleRotateClick}>
-          <Trans>Rotate</Trans>
         </Button>
       </Space>
       <Typography.Text type="secondary">

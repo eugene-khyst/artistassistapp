@@ -146,15 +146,15 @@ msgstr "En verdi som er mindre enn 100 % får bildet til å se mindre fargerikt 
 msgid "Accurate"
 msgstr "Nøyaktig"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "Acrylic Gouache"
 msgstr "Akrylgouache"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:71
 msgid "Acrylic Markers"
 msgstr "Akrylmarkører"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Acrylic Paint"
 msgstr "Akrylmaling"
 
@@ -190,11 +190,11 @@ msgstr "Legg til i paletten"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Legg til hvitt i et <0>{whiteRatioText}-forhold</0>"
 
-#: src/components/messages.ts:52
+#: src/components/messages.ts:53
 msgid "Adjust colors"
 msgstr "Juster farger"
 
-#: src/components/image-editor/StraightenControls.tsx:87
+#: src/components/image-editor/StraightenControls.tsx:86
 msgid "Adjust the 4 corners manually."
 msgstr "Juster de 4 hjørnene manuelt."
 
@@ -202,7 +202,7 @@ msgstr "Juster de 4 hjørnene manuelt."
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "All appdata lagres i nettleserens lagring, selv etter installasjon. Å slette nettleserdataene sletter alt."
 
-#: src/components/ImageEditor.tsx:326
+#: src/components/ImageEditor.tsx:329
 msgid "All edits will be lost"
 msgstr "Alle redigeringer vil gå tapt"
 
@@ -217,6 +217,10 @@ msgstr "Alternativt kan du installere den nyeste versjonen av nettleseren Chrome
 #: src/components/ImageColorPicker.tsx:259
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "Et underlag eller en samlende farge er angitt. Den automatiske paletten bruker disse innstillingene på hele bildet, ikke bare på området de ble valgt for."
+
+#: src/components/image-editor/RotateControls.tsx:44
+msgid "Angle"
+msgstr "Vinkel"
 
 #: src/components/Help.tsx:274
 msgid "Application build ID"
@@ -327,15 +331,15 @@ msgstr "Autentiseringen mislyktes"
 msgid "Auto palette"
 msgstr "Automatisk palett"
 
-#: src/components/image-editor/StraightenControls.tsx:115
+#: src/components/image-editor/StraightenControls.tsx:110
 msgid "Auto-detect"
 msgstr "Automatisk gjenkjenning"
 
-#: src/components/image-editor/StraightenControls.tsx:126
+#: src/components/image-editor/StraightenControls.tsx:118
 msgid "Auto-detect is available only to paid Patreon members"
 msgstr "Automatisk gjenkjenning er kun tilgjengelig for betalende Patreon-medlemmer"
 
-#: src/components/image-editor/StraightenControls.tsx:52
+#: src/components/image-editor/StraightenControls.tsx:51
 msgid "Auto-detect is unavailable"
 msgstr "Automatisk gjenkjenning er ikke tilgjengelig"
 
@@ -380,21 +384,21 @@ msgstr "Etter antall farger"
 msgid "By consistency"
 msgstr "Etter konsistens"
 
-#: src/components/messages.ts:85
+#: src/components/messages.ts:86
 msgid "By date"
 msgstr "Etter dato"
 
-#: src/components/messages.ts:80
-#: src/components/messages.ts:87
+#: src/components/messages.ts:81
+#: src/components/messages.ts:88
 msgid "By hue"
 msgstr "Etter fargetone"
 
-#: src/components/messages.ts:79
+#: src/components/messages.ts:80
 msgid "By ID"
 msgstr "Etter ID"
 
-#: src/components/messages.ts:81
-#: src/components/messages.ts:88
+#: src/components/messages.ts:82
+#: src/components/messages.ts:89
 msgid "By lightness"
 msgstr "Etter lyshet"
 
@@ -402,7 +406,7 @@ msgstr "Etter lyshet"
 msgid "By match"
 msgstr "Etter samsvar"
 
-#: src/components/messages.ts:86
+#: src/components/messages.ts:87
 msgid "By name"
 msgstr "Etter navn"
 
@@ -416,7 +420,7 @@ msgstr "Kameratilgang er nødvendig for å kalkere i AR"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:328
+#: src/components/ImageEditor.tsx:331
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
@@ -453,7 +457,7 @@ msgstr "Se etter oppdateringer"
 msgid "Check your connection and try again."
 msgstr "Sjekk tilkoblingen og prøv igjen."
 
-#: src/components/image-editor/StraightenControls.tsx:53
+#: src/components/image-editor/StraightenControls.tsx:52
 msgid "Check your connection and try again. You can still adjust the 4 corners manually."
 msgstr "Sjekk tilkoblingen og prøv igjen. Du kan fortsatt justere de 4 hjørnene manuelt."
 
@@ -624,7 +628,7 @@ msgstr "Fargesett"
 msgid "Color swatch"
 msgstr "Fargeprøve"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Colored Pencils"
 msgstr "Fargeblyanter"
 
@@ -632,7 +636,7 @@ msgstr "Fargeblyanter"
 msgid "Colorize"
 msgstr "Fargelegg"
 
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Colorize black-and-white"
 msgstr "Fargelegg svart-hvitt"
 
@@ -710,11 +714,16 @@ msgstr "Kopier et støttet bilde til utklippstavlen, og prøv igjen."
 msgid "Copy and share this link"
 msgstr "Kopier og del denne lenken"
 
+#: src/components/image-editor/StraightenControls.tsx:100
+#: src/components/messages.ts:50
+msgid "Correct perspective"
+msgstr "Korriger perspektiv"
+
 #: src/components/image-editor/AdjustColorsControls.tsx:378
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Korrigert estimering av temperaturen på lyskilden i Kelvin"
 
-#: src/components/image-editor/StraightenControls.tsx:86
+#: src/components/image-editor/StraightenControls.tsx:85
 msgid "Could not detect the paper or canvas automatically"
 msgstr "Kunne ikke automatisk oppdage papiret eller lerretet"
 
@@ -744,7 +753,7 @@ msgid "Create new"
 msgstr "Opprett ny"
 
 #: src/components/image-editor/CropControls.tsx:98
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Crop"
 msgstr "Beskjær"
 
@@ -920,7 +929,7 @@ msgstr "Slipp filen her..."
 msgid "Drop the files here..."
 msgstr "Slipp filene her..."
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Dry Pastel"
 msgstr "Tørrpastell"
 
@@ -948,7 +957,7 @@ msgstr "Rediger herfra"
 msgid "Edit image"
 msgstr "Rediger bilde"
 
-#: src/components/ImageEditor.tsx:338
+#: src/components/ImageEditor.tsx:341
 msgid "Edited"
 msgstr "Redigert"
 
@@ -1010,7 +1019,7 @@ msgid "Exit AR"
 msgstr "Avslutt AR"
 
 #: src/components/image-editor/ExpandControls.tsx:249
-#: src/components/messages.ts:51
+#: src/components/messages.ts:52
 msgid "Expand"
 msgstr "Utvid"
 
@@ -1113,7 +1122,7 @@ msgstr "Lasering"
 msgid "Go to the {label} tab"
 msgstr "Gå til {label}-fanen"
 
-#: src/components/messages.ts:62
+#: src/components/messages.ts:63
 msgid "Gouache"
 msgstr "Gouache"
 
@@ -1340,11 +1349,11 @@ msgstr "Merk rundt objektet du vil fjerne, og dra deretter hjørnene for å just
 msgid "Mark at least 3 points around the object you want to remove"
 msgstr "Merk minst 3 punkter rundt objektet du vil fjerne"
 
-#: src/components/image-editor/StraightenControls.tsx:66
+#: src/components/image-editor/StraightenControls.tsx:65
 msgid "Mark the 4 corners of your paper or canvas"
 msgstr "Merk de 4 hjørnene på papiret eller lerretet"
 
-#: src/components/image-editor/StraightenControls.tsx:122
+#: src/components/image-editor/StraightenControls.tsx:114
 msgid "Mark the 4 corners of your paper or canvas, then drag the vertices to adjust"
 msgstr "Merk de fire hjørnene på papiret eller lerretet, og dra deretter hjørnene for å justere"
 
@@ -1513,11 +1522,11 @@ msgstr "Antall ruter på den korteste siden (loddrett eller vannrett)"
 msgid "Off"
 msgstr "Av"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Oil Paint"
 msgstr "Oljemaling"
 
-#: src/components/messages.ts:68
+#: src/components/messages.ts:69
 msgid "Oil Pastel"
 msgstr "Oljepastell"
 
@@ -1781,7 +1790,7 @@ msgstr "Forhold"
 msgid "Realism"
 msgstr "Realisme"
 
-#: src/components/ImageEditor.tsx:323
+#: src/components/ImageEditor.tsx:326
 msgid "Redo"
 msgstr "Gjør om"
 
@@ -1820,12 +1829,12 @@ msgid "Remove and continue"
 msgstr "Fjern og fortsett"
 
 #: src/components/image-editor/RemoveBackgroundControls.tsx:137
-#: src/components/messages.ts:53
+#: src/components/messages.ts:54
 msgid "Remove background"
 msgstr "Fjern bakgrunn"
 
 #: src/components/image-editor/RemoveObjectsControls.tsx:105
-#: src/components/messages.ts:54
+#: src/components/messages.ts:55
 msgid "Remove objects"
 msgstr "Fjern objekter"
 
@@ -1863,13 +1872,13 @@ msgstr "Krever macOS Sonoma eller nyere."
 msgid "Resend code"
 msgstr "Send koden på nytt"
 
-#: src/components/ImageEditor.tsx:327
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:335
 msgid "Reset"
 msgstr "Tilbakestill"
 
 #: src/components/image-editor/RestoreControls.tsx:101
-#: src/components/messages.ts:56
+#: src/components/messages.ts:57
 msgid "Restore"
 msgstr "Restaurer"
 
@@ -1896,9 +1905,13 @@ msgstr "Prøv på nytt"
 msgid "Return to the {tabLabel} tab"
 msgstr "Gå tilbake til fanen {tabLabel}"
 
-#: src/components/image-editor/StraightenControls.tsx:118
+#: src/components/messages.ts:49
 msgid "Rotate"
 msgstr "Roter"
+
+#: src/components/image-editor/RotateControls.tsx:66
+msgid "Rotate clockwise"
+msgstr "Roter med klokken"
 
 #: src/components/ImageColorPicker.tsx:305
 msgid "Sample size"
@@ -1967,7 +1980,7 @@ msgstr "Velg en kunstnerisk teknikk"
 msgid "Select an image that contains a color chart"
 msgstr "Velg et bilde som inneholder et fargekart"
 
-#: src/components/ImageEditor.tsx:288
+#: src/components/ImageEditor.tsx:291
 msgid "Select an image to edit"
 msgstr "Velg et bilde å redigere"
 
@@ -2029,7 +2042,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Velg blant de siste fargesettene dine, eller opprett et nytt."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:295
 msgid "Select image"
 msgstr "Velg bilde"
 
@@ -2296,11 +2309,6 @@ msgstr "Lagringsplassen kan bli full"
 #: src/components/Help.tsx:204
 msgid "Storage usage"
 msgstr "Lagringsbruk"
-
-#: src/components/image-editor/StraightenControls.tsx:105
-#: src/components/messages.ts:49
-msgid "Straighten"
-msgstr "Rett opp"
 
 #: src/components/ImagePainting.tsx:126
 #: src/components/ImagePainting.tsx:144
@@ -2612,7 +2620,7 @@ msgstr "Kan ikke gjenopprette det lagrede fargesettet"
 msgid "Underlayer"
 msgstr "Underlag"
 
-#: src/components/ImageEditor.tsx:316
+#: src/components/ImageEditor.tsx:319
 msgid "Undo"
 msgstr "Angre"
 
@@ -2660,7 +2668,7 @@ msgid "Uploading image {index} / {count}"
 msgstr "Laster opp bilde {index} / {count}"
 
 #: src/components/image-editor/UpscaleControls.tsx:85
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Upscale"
 msgstr "Skaler opp"
 
@@ -2733,15 +2741,15 @@ msgstr "Akvarell"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Akvarell kan fortynnes med vann for å gjøre den mer gjennomsiktig"
 
-#: src/components/messages.ts:61
+#: src/components/messages.ts:62
 msgid "Watercolor Paint"
 msgstr "Akvarellmaling"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Watercolor Pencils"
 msgstr "Akvarellblyanter"
 
-#: src/components/messages.ts:69
+#: src/components/messages.ts:70
 msgid "Wax Pastel"
 msgstr "Vokspastell"
 
@@ -2771,7 +2779,7 @@ msgstr "Hvit"
 msgid "White balance"
 msgstr "Hvitbalanse"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "White paper or canvas"
 msgstr "Hvitt papir eller lerret"
 
@@ -2845,7 +2853,7 @@ msgid "Your image"
 msgstr "Bildet ditt"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:303
+#: src/components/ImageEditor.tsx:306
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:318
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"
