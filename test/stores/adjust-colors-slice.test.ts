@@ -54,7 +54,7 @@ vi.mock('@/services/image/worker/rgb-channels-percentile-worker-manager', () => 
 
 vi.mock('@/utils/graphics', () => ({
   IMAGE_SIZE: {'2K': 2_000_000},
-  ResizeImage: {resizeToPixelCount: vi.fn()},
+  ResizeImage: {resizeToPixelCount: vi.fn((pixelCount: number) => pixelCount)},
   resizeImageBitmap: imageOperations.resizeImageBitmap,
 }));
 
@@ -83,14 +83,16 @@ function adjustColorsControls(overrides: Partial<AdjustColorsControls> = {}): Ad
 function createTestStore(initialImage: ImageBitmap) {
   let image = initialImage;
   let previewCommand: EditImageCommand | null = null;
+  let previewController = new AbortController();
   const applyPreview = async (
     commandOrSupplier: EditImageCommand | EditImageCommandSupplier
   ): Promise<boolean> => {
+    previewController = new AbortController();
     previewCommand =
       typeof commandOrSupplier === 'function'
         ? await commandOrSupplier({
             image,
-            signal: new AbortController().signal,
+            signal: previewController.signal,
             setDownloadTip: vi.fn(),
             setProcessTip: vi.fn(),
           } satisfies EditImageContext<ImageBitmap>)
@@ -113,6 +115,9 @@ function createTestStore(initialImage: ImageBitmap) {
     store,
     preview,
     getPreviewCommand: () => previewCommand,
+    abortPreview: () => {
+      previewController.abort();
+    },
     setImage: (updatedImage: ImageBitmap) => {
       image = updatedImage;
     },
@@ -120,7 +125,7 @@ function createTestStore(initialImage: ImageBitmap) {
 }
 
 afterEach(() => {
-  vi.clearAllMocks();
+  vi.resetAllMocks();
   vi.useRealTimers();
 });
 
@@ -266,9 +271,9 @@ describe('AdjustColorsSlice', () => {
     store.setState({adjustColorsControls: adjustColorsControls({saturation: 110})});
     await store.getState().previewAdjustColors();
 
-    expect(imageOperations.resizeImageBitmap).toHaveBeenCalledOnce();
-    expect(imageOperations.setImage).toHaveBeenCalledOnce();
-    expect(imageOperations.calculatePercentiles).toHaveBeenCalledOnce();
+    expect(imageOperations.resizeImageBitmap).toHaveBeenCalledExactlyOnceWith(image, 2_000_000);
+    expect(imageOperations.setImage).toHaveBeenCalledExactlyOnceWith(resizedImage);
+    expect(imageOperations.calculatePercentiles).toHaveBeenCalledExactlyOnceWith(0.98);
     expect(getPreviewCommand()).toMatchObject({
       type: EditImageCommandType.AdjustColors,
       controls: {saturation: 110},
@@ -276,23 +281,136 @@ describe('AdjustColorsSlice', () => {
     });
   });
 
-  it('prepares the percentile calculator again when the committed image changes', async () => {
-    const firstImage = createImage();
-    const secondImage = createImage();
-    imageOperations.resizeImageBitmap
-      .mockResolvedValueOnce(createImage())
-      .mockResolvedValueOnce(createImage());
+  it('clips both ends of every channel for Auto white balance', async () => {
+    const resizedImage = createImage();
+    imageOperations.resizeImageBitmap.mockResolvedValueOnce(resizedImage);
+    imageOperations.calculatePercentiles
+      .mockResolvedValueOnce([0.1, 0.09, 0.08])
+      .mockResolvedValueOnce([0.95, 0.97, 0.99]);
+    const {store, getPreviewCommand} = createTestStore(createImage());
+
+    store.setState({
+      adjustColorsControls: adjustColorsControls({
+        whiteBalanceMethod: AdjustColorsWhiteBalanceMethod.Auto,
+      }),
+    });
+    await store.getState().previewAdjustColors();
+    store.setState({
+      adjustColorsControls: adjustColorsControls({
+        whiteBalanceMethod: AdjustColorsWhiteBalanceMethod.Auto,
+        saturation: 110,
+      }),
+    });
+    await store.getState().previewAdjustColors();
+
+    expect(imageOperations.setImage).toHaveBeenCalledExactlyOnceWith(resizedImage);
+    expect(imageOperations.calculatePercentiles.mock.calls).toEqual([[0.006], [0.994]]);
+    expect(getPreviewCommand()).toEqual({
+      type: EditImageCommandType.AdjustColors,
+      controls: store.getState().adjustColorsControls,
+      minValues: [0.1, 0.09, 0.08],
+      maxValues: [0.95, 0.97, 0.99],
+    });
+  });
+
+  it('calculates the percentile again when its value changes', async () => {
+    imageOperations.resizeImageBitmap.mockResolvedValueOnce(createImage());
     imageOperations.calculatePercentiles
       .mockResolvedValueOnce([0.9, 0.8, 0.7])
       .mockResolvedValueOnce([0.6, 0.5, 0.4]);
-    const {store, setImage} = createTestStore(firstImage);
+    const {store, getPreviewCommand} = createTestStore(createImage());
+
+    await store.getState().previewAdjustColors();
+    store.getState().setAdjustColorsControls({percentile: 90});
+    await store.getState().previewAdjustColors();
+
+    expect(imageOperations.calculatePercentiles.mock.calls).toEqual([[0.98], [0.9]]);
+    expect(getPreviewCommand()).toMatchObject({maxValues: [0.6, 0.5, 0.4]});
+  });
+
+  it('keeps percentile values cached when switching between Percentile and Auto', async () => {
+    const resizedImage = createImage();
+    imageOperations.resizeImageBitmap.mockResolvedValueOnce(resizedImage);
+    imageOperations.calculatePercentiles
+      .mockResolvedValueOnce([0.9, 0.8, 0.7])
+      .mockResolvedValueOnce([0.1, 0.09, 0.08])
+      .mockResolvedValueOnce([0.95, 0.97, 0.99]);
+    const {store, getPreviewCommand} = createTestStore(createImage());
+
+    await store.getState().previewAdjustColors();
+    store.getState().setAdjustColorsControls({
+      whiteBalanceMethod: AdjustColorsWhiteBalanceMethod.Auto,
+    });
+    await store.getState().previewAdjustColors();
+    store.getState().setAdjustColorsControls({
+      whiteBalanceMethod: AdjustColorsWhiteBalanceMethod.Percentile,
+    });
+    await store.getState().previewAdjustColors();
+
+    expect(imageOperations.setImage).toHaveBeenCalledExactlyOnceWith(resizedImage);
+    expect(imageOperations.calculatePercentiles.mock.calls).toEqual([[0.98], [0.006], [0.994]]);
+    expect(getPreviewCommand()).toEqual({
+      type: EditImageCommandType.AdjustColors,
+      controls: store.getState().adjustColorsControls,
+      maxValues: [0.9, 0.8, 0.7],
+    });
+  });
+
+  it('prepares the percentile calculator again after a preview aborted while replacing its image', async () => {
+    const firstImage = createImage();
+    const firstResizedImage = createImage();
+    const abortedResizedImage = createImage();
+    const reloadedResizedImage = createImage();
+    imageOperations.resizeImageBitmap
+      .mockResolvedValueOnce(firstResizedImage)
+      .mockResolvedValueOnce(abortedResizedImage)
+      .mockResolvedValueOnce(reloadedResizedImage);
+    imageOperations.calculatePercentiles
+      .mockResolvedValueOnce([0.9, 0.8, 0.7])
+      .mockResolvedValueOnce([0.6, 0.5, 0.4]);
+    const {store, getPreviewCommand, abortPreview, setImage} = createTestStore(firstImage);
+
+    await store.getState().previewAdjustColors();
+    setImage(createImage());
+    imageOperations.setImage.mockImplementationOnce(abortPreview);
+    await expect(store.getState().previewAdjustColors()).rejects.toThrow();
+    setImage(firstImage);
+    await store.getState().previewAdjustColors();
+
+    expect(imageOperations.setImage.mock.calls).toEqual([
+      [firstResizedImage],
+      [abortedResizedImage],
+      [reloadedResizedImage],
+    ]);
+    expect(getPreviewCommand()).toMatchObject({maxValues: [0.6, 0.5, 0.4]});
+  });
+
+  it('prepares the percentile calculator again when the committed image changes', async () => {
+    const firstImage = createImage();
+    const secondImage = createImage();
+    const firstResizedImage = createImage();
+    const secondResizedImage = createImage();
+    imageOperations.resizeImageBitmap
+      .mockResolvedValueOnce(firstResizedImage)
+      .mockResolvedValueOnce(secondResizedImage);
+    imageOperations.calculatePercentiles
+      .mockResolvedValueOnce([0.9, 0.8, 0.7])
+      .mockResolvedValueOnce([0.6, 0.5, 0.4]);
+    const {store, getPreviewCommand, setImage} = createTestStore(firstImage);
 
     await store.getState().previewAdjustColors();
     setImage(secondImage);
     await store.getState().previewAdjustColors();
 
-    expect(imageOperations.resizeImageBitmap).toHaveBeenCalledTimes(2);
-    expect(imageOperations.setImage).toHaveBeenCalledTimes(2);
-    expect(imageOperations.calculatePercentiles).toHaveBeenCalledTimes(2);
+    expect(imageOperations.resizeImageBitmap.mock.calls).toEqual([
+      [firstImage, 2_000_000],
+      [secondImage, 2_000_000],
+    ]);
+    expect(imageOperations.setImage.mock.calls).toEqual([
+      [firstResizedImage],
+      [secondResizedImage],
+    ]);
+    expect(imageOperations.calculatePercentiles.mock.calls).toEqual([[0.98], [0.98]]);
+    expect(getPreviewCommand()).toMatchObject({maxValues: [0.6, 0.5, 0.4]});
   });
 });

@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {WhiteBalanceLevels} from '@/services/image/adjust-colors';
 import type {AdjustColorsControls} from '@/services/image/adjust-colors-controls';
 import type {ExpandControls} from '@/services/image/expand-controls';
 import type {SharpenControls} from '@/services/image/sharpen-controls';
@@ -56,11 +57,10 @@ export type EditImageCommand =
       controls: ExpandControls;
       marginPatches?: Blob[];
     }
-  | {
+  | ({
       type: EditImageCommandType.AdjustColors;
       controls: AdjustColorsControls;
-      maxValues?: number[];
-    }
+    } & WhiteBalanceLevels)
   | {
       type: EditImageCommandType.RemoveBackground;
       mask: Blob;

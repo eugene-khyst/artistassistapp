@@ -17,7 +17,7 @@
  */
 
 import {adjustColors} from '@/services/image/adjust-colors';
-import {adjustmentParameters, whiteBalanceMaxValues} from '@/services/image/adjust-colors-controls';
+import {adjustmentParameters, whiteBalanceLevels} from '@/services/image/adjust-colors-controls';
 import {correctPerspective} from '@/services/image/correct-perspective';
 import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit-image-command';
 import {ExpandFillMode} from '@/services/image/expand-controls';
@@ -72,7 +72,7 @@ export async function applyEditImageCommand(
       result = adjustColors(
         image,
         adjustmentParameters(command.controls),
-        whiteBalanceMaxValues(command.controls, command.maxValues)
+        whiteBalanceLevels(command.controls, command)
       ).transferToImageBitmap();
       break;
     case EditImageCommandType.RemoveBackground:

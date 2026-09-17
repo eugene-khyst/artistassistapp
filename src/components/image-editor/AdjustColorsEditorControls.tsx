@@ -103,6 +103,7 @@ function kelvinGradient(minKelvin: number, maxKelvin: number, steps = 10): strin
 const MODE_OPTIONS: CheckboxOptionType<number>[] = [
   {value: AdjustColorsWhiteBalanceMethod.Percentile, label: <Trans>Percentile</Trans>},
   {value: AdjustColorsWhiteBalanceMethod.WhitePoint, label: <Trans>Reference</Trans>},
+  {value: AdjustColorsWhiteBalanceMethod.Auto, label: <Trans>Auto</Trans>},
   {value: AdjustColorsWhiteBalanceMethod.None, label: <Trans>Off</Trans>},
 ];
 
@@ -174,13 +175,15 @@ export function AdjustColorsEditorControls({
         label={<Trans>White balance</Trans>}
         tooltip={
           <Trans>
-            Percentile: Auto white balance from brightest areas, good for most photos. Reference:
-            Manual white balance using selected white area.
+            Percentile: White balance from brightest areas, good for most photos. Reference: Manual
+            white balance using selected white area. Auto: Sets the black and white points of each
+            color channel, good for faded photos.
           </Trans>
         }
         className="u-mb-0"
       >
         <Radio.Group
+          size="small"
           options={MODE_OPTIONS}
           value={whiteBalanceMethod}
           onChange={(event: RadioChangeEvent) => {

@@ -30,10 +30,15 @@ export interface AdjustmentParameters {
   targetTemperature?: number;
 }
 
+export interface WhiteBalanceLevels {
+  minValues?: number[];
+  maxValues?: number[];
+}
+
 export function adjustColors(
   image: DrawImageSource,
   params: AdjustmentParameters,
-  maxValues?: number[]
+  levels?: WhiteBalanceLevels
 ): OffscreenCanvas {
-  return adjustColorsWebGL(toOffscreenCanvas(image), params, maxValues);
+  return adjustColorsWebGL(toOffscreenCanvas(image), params, levels);
 }

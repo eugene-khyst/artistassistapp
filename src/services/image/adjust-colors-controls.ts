@@ -18,12 +18,13 @@
 
 import {hexToRgb, linearizeRgbChannel, WHITE_HEX} from '@eugene-khyst/artistassistapp-color-mixer';
 
-import type {AdjustmentParameters} from '@/services/image/adjust-colors';
+import type {AdjustmentParameters, WhiteBalanceLevels} from '@/services/image/adjust-colors';
 
 export enum AdjustColorsWhiteBalanceMethod {
   None = 0,
   Percentile = 1,
   WhitePoint = 2,
+  Auto = 3,
 }
 
 export interface AdjustColorsControls {
@@ -90,16 +91,17 @@ export function adjustmentParameters({
   };
 }
 
-export function whiteBalanceMaxValues(
+export function whiteBalanceLevels(
   {whiteBalanceMethod, whitePoint}: AdjustColorsControls,
-  percentileMaxValues?: number[]
-): number[] | undefined {
+  {minValues, maxValues}: WhiteBalanceLevels
+): WhiteBalanceLevels {
   switch (whiteBalanceMethod) {
     case AdjustColorsWhiteBalanceMethod.Percentile:
-      return percentileMaxValues;
+    case AdjustColorsWhiteBalanceMethod.Auto:
+      return {minValues, maxValues};
     case AdjustColorsWhiteBalanceMethod.WhitePoint:
-      return hexToRgb(whitePoint).map(value => linearizeRgbChannel(value));
+      return {maxValues: hexToRgb(whitePoint).map(value => linearizeRgbChannel(value))};
     case AdjustColorsWhiteBalanceMethod.None:
-      return undefined;
+      return {};
   }
 }

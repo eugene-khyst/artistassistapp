@@ -32,6 +32,9 @@ import type {EditImageCommandSupplier, EditImageSlice} from '@/stores/edit-image
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
 import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
 
+// Auto White Balance ignores this share of pixels at each end of every channel.
+const AUTO_WHITE_BALANCE_CLIP = 0.006;
+
 export interface AdjustColorsSlice {
   adjustColorsControls: AdjustColorsControls;
 
@@ -52,17 +55,29 @@ export const createAdjustColorsSlice: StateCreator<
   AdjustColorsSlice
 > = (set, get) => {
   let percentileImage: ImageBitmap | null = null;
-  let calculatedPercentile: number | undefined;
-  let calculatedMaxValues: number[] | undefined;
+  const calculatedPercentiles = new Map<number, number[]>();
   let shouldPreviewInitialWhiteBalance = true;
+
+  const calculatePercentiles = async (percentile: number, signal: AbortSignal) => {
+    let values = calculatedPercentiles.get(percentile);
+    if (!values) {
+      values = await getRgbChannelsPercentileCalculator().calculatePercentiles(percentile);
+      signal.throwIfAborted();
+      calculatedPercentiles.set(percentile, values);
+    }
+    return [...values];
+  };
 
   const adjustColorsPreview = (
     controls: AdjustColorsControls
   ): EditImageCommand | EditImageCommandSupplier => {
-    if (controls.whiteBalanceMethod !== AdjustColorsWhiteBalanceMethod.Percentile) {
+    const {whiteBalanceMethod} = controls;
+    if (
+      whiteBalanceMethod !== AdjustColorsWhiteBalanceMethod.Percentile &&
+      whiteBalanceMethod !== AdjustColorsWhiteBalanceMethod.Auto
+    ) {
       return {type: EditImageCommandType.AdjustColors, controls};
     }
-    const percentile = controls.percentile / 100;
     return async ({image, signal}) => {
       if (percentileImage !== image) {
         const resizedImage = await resizeImageBitmap(
@@ -73,23 +88,24 @@ export const createAdjustColorsSlice: StateCreator<
           resizedImage.close();
           signal.throwIfAborted();
         }
+        percentileImage = null;
+        calculatedPercentiles.clear();
         await getRgbChannelsPercentileCalculator().setImage(transfer(resizedImage, [resizedImage]));
         signal.throwIfAborted();
         percentileImage = image;
-        calculatedPercentile = undefined;
-        calculatedMaxValues = undefined;
       }
-      if (calculatedPercentile !== percentile || !calculatedMaxValues) {
-        const maxValues =
-          await getRgbChannelsPercentileCalculator().calculatePercentiles(percentile);
-        signal.throwIfAborted();
-        calculatedPercentile = percentile;
-        calculatedMaxValues = [...maxValues];
+      if (whiteBalanceMethod === AdjustColorsWhiteBalanceMethod.Auto) {
+        return {
+          type: EditImageCommandType.AdjustColors,
+          controls,
+          minValues: await calculatePercentiles(AUTO_WHITE_BALANCE_CLIP, signal),
+          maxValues: await calculatePercentiles(1 - AUTO_WHITE_BALANCE_CLIP, signal),
+        };
       }
       return {
         type: EditImageCommandType.AdjustColors,
         controls,
-        maxValues: [...calculatedMaxValues],
+        maxValues: await calculatePercentiles(controls.percentile / 100, signal),
       };
     };
   };

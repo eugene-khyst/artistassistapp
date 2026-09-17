@@ -18,7 +18,7 @@
 
 import {kelvinToRgb} from '@eugene-khyst/artistassistapp-color-mixer';
 
-import type {AdjustmentParameters} from '@/services/image/adjust-colors';
+import type {AdjustmentParameters, WhiteBalanceLevels} from '@/services/image/adjust-colors';
 import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
 import {copyOffscreenCanvas} from '@/utils/graphics';
 
@@ -36,13 +36,18 @@ export function adjustColorsWebGL(
     origTemperature = 6500,
     targetTemperature = 6500,
   }: AdjustmentParameters = {},
-  maxValues: number[] = [1, 1, 1]
+  {minValues = [0, 0, 0], maxValues = [1, 1, 1]}: WhiteBalanceLevels = {}
 ): OffscreenCanvas {
+  const levels = maxValues.map((max, i) => {
+    const min = minValues[i]!;
+    return max > min ? {min, invRange: 1 / (max - min)} : {min: 0, invRange: 1};
+  });
   const renderer = new WebGLRenderer(
     [fragmentShaderSource],
     [
       [
-        'u_invMaxValues',
+        'u_minValues',
+        'u_invRanges',
         'u_saturation',
         'u_inputLow',
         'u_inputHigh',
@@ -60,8 +65,12 @@ export function adjustColorsWebGL(
     {
       setUniforms(gl, locations) {
         gl.uniform3fv(
-          locations.get('u_invMaxValues')!,
-          new Float32Array(maxValues.map(v => 1 / v))
+          locations.get('u_minValues')!,
+          levels.map(({min}) => min)
+        );
+        gl.uniform3fv(
+          locations.get('u_invRanges')!,
+          levels.map(({invRange}) => invRange)
         );
         gl.uniform1f(locations.get('u_saturation')!, saturation);
         gl.uniform1f(locations.get('u_inputLow')!, inputLow);

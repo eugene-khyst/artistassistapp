@@ -86,8 +86,7 @@ Rules that are not visible from a slice on its own:
 
 - An `EditImageCommand` carries the editor controls that produced it, never values derived from
   them, so a preview, an undo entry and a replayed step all restore the same controls. The one
-  exception is the percentile max values, which cost a worker round trip and are cached on the
-  command.
+  exception is the percentile values, which cost a worker round trip and are cached on the command.
 - Keep `edit-image-command.ts` free of the WebGL applier in `edit-image.ts`, or every editor slice
   pulls it into its module graph.
 - Consecutive edits from one editor must not compose (saturation 120 then 130 would replay as 1.56).
@@ -98,8 +97,8 @@ Rules that are not visible from a slice on its own:
   the percentile worker cache warm and is what the Adjust Colors white-point picker samples.
 - Adjust Colors previews on slider release (`onChangeComplete`), never while dragging, so nothing
   anywhere is debounced. One release is one history entry. Reopening the editor or undoing under an
-  open one turns white balance off, so the automatic white balance always belongs to the first
-  adjustment.
+  open one turns white balance off, so the white balance previewed on opening always belongs to the
+  first adjustment.
 - A failed or canceled edit may restore controls from the applied command, but must not reset an
   unapplied value the user just set. Reset such controls only after a history change or an explicit
   editor transition.

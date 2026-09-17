@@ -138,7 +138,7 @@ msgstr "ऐप का एक नया संस्करण उपलब्ध 
 msgid "A new version of the application is available."
 msgstr "एप्लिकेशन का एक नया संस्करण उपलब्ध है।"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:247
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:250
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "100% से कम मान छवि को कम रंगीन बनाता है, और 100% से अधिक मान इसे बहुत रंगीन बनाता है"
 
@@ -327,6 +327,10 @@ msgstr "प्रमाणीकरण त्रुटि"
 msgid "Authentication failed"
 msgstr "प्रमाणीकरण विफल रहा"
 
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:106
+msgid "Auto"
+msgstr "स्वचालित"
+
 #: src/components/ImageColorPicker.tsx:473
 msgid "Auto palette"
 msgstr "ऑटो पैलेट"
@@ -347,7 +351,7 @@ msgstr "स्वतः पहचान अनुपलब्ध है"
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "इस फ़ोटो के लिए स्वचालित रूप से सबसे अच्छा रंग मिश्रण ढूंढें।"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:225
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:228
 msgid "Average color of the white point area"
 msgstr "सफ़ेद बिंदु क्षेत्र का औसत रंग"
 
@@ -493,7 +497,7 @@ msgstr "अंडरलेयर साफ़ करें"
 msgid "Clear unifying color"
 msgstr "एकीकृत रंग साफ़ करें"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:220
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
 msgstr "सफ़ेद बिंदु चुनने के लिए छवि में कहीं भी 🖱️ क्लिक करें या 👆 टैप करें।"
 
@@ -719,7 +723,7 @@ msgstr "इस लिंक को कॉपी और शेयर करें
 msgid "Correct perspective"
 msgstr "परिप्रेक्ष्य सुधारें"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:368
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:371
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "केल्विन में प्रकाश स्रोत के तापमान का सही अनुमान"
 
@@ -1005,7 +1009,7 @@ msgstr "त्रुटि"
 msgid "Error description"
 msgstr "त्रुटि विवरण"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:339
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:342
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "जिस प्रकाश स्रोत में छवि ली गई थी उसका केल्विन में अनुमानित तापमान"
 
@@ -1098,7 +1102,7 @@ msgstr "पूरा दबाव"
 msgid "Full strength"
 msgstr "पूरी ताकत"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:294
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:297
 msgid "Gamma"
 msgstr "गामा"
 
@@ -1201,7 +1205,7 @@ msgstr "अपडेट इंस्टॉल करें"
 msgid "Instant"
 msgstr "तुरंत"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:365
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:368
 msgid "Intended color temperature (K)"
 msgstr "इच्छित रंग तापमान (K)"
 
@@ -1324,11 +1328,11 @@ msgstr "मुक्त शैली की पेंटिंग"
 msgid "Loose painting is available only to paid Patreon members"
 msgstr "मुक्त शैली की पेंटिंग केवल सशुल्क Patreon सदस्यों के लिए उपलब्ध है"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:270
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:273
 msgid "Low input and high input"
 msgstr "कम इनपुट और उच्च इनपुट"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:314
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:317
 msgid "Low output and high output"
 msgstr "कम आउटपुट और उच्च आउटपुट"
 
@@ -1379,7 +1383,7 @@ msgstr "रंग सेट मर्ज करें"
 msgid "Mid tone"
 msgstr "मध्यम टोन"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:292
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:295
 msgid "Midtones"
 msgstr "मिडटोन"
 
@@ -1527,7 +1531,7 @@ msgstr "पेंटिंग में ब्रश स्ट्रोक क�
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "छोटी भुजा पर कक्षों की संख्या (ऊर्ध्वाधर या क्षैतिज)"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:106
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:107
 msgid "Off"
 msgstr "बंद"
 
@@ -1596,7 +1600,7 @@ msgstr "या अपनी हाल की फ़ोटो में से �
 msgid "Original"
 msgstr "मूल"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:336
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:339
 msgid "Original color temperature (K)"
 msgstr "मूल रंग तापमान (K)"
 
@@ -1605,7 +1609,7 @@ msgstr "मूल रंग तापमान (K)"
 msgid "Outline"
 msgstr "रूपरेखा"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:312
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:315
 msgid "Output levels"
 msgstr "आउटपुट स्तर"
 
@@ -1647,13 +1651,13 @@ msgid "Patron status"
 msgstr "पैट्रन की स्थिति"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:104
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:199
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:202
 msgid "Percentile"
 msgstr "पर्सेंटाइल"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:176
-msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
-msgstr "पर्सेंटाइल: सबसे चमकीले क्षेत्रों से स्वतः सफ़ेद संतुलन, अधिकांश फ़ोटो के लिए अच्छा। संदर्भ: चयनित सफ़ेद क्षेत्र का उपयोग करके मैनुअल सफ़ेद संतुलन।"
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:177
+msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
+msgstr "पर्सेंटाइल: सबसे चमकीले क्षेत्रों के आधार पर श्वेत संतुलन, अधिकांश फ़ोटो के लिए उपयुक्त। संदर्भ: चुने गए सफ़ेद क्षेत्र का उपयोग करके मैन्युअल श्वेत संतुलन। स्वचालित: हर रंग चैनल के काले और सफ़ेद बिंदु सेट करता है, फीकी फ़ोटो के लिए उपयुक्त।"
 
 #: src/components/Help.tsx:187
 msgid "Persistent storage"
@@ -1926,7 +1930,7 @@ msgstr "घड़ी की दिशा में घुमाएं"
 msgid "Sample size"
 msgstr "नमूने का आकार"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:244
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:247
 msgid "Saturation (%)"
 msgstr "संतृप्ति (%)"
 
@@ -2165,7 +2169,7 @@ msgstr "एकीकृत रंग के रूप में सेट कर
 msgid "Shadow"
 msgstr "छाया"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:268
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:271
 msgid "Shadows and highlights"
 msgstr "छाया और हाइलाइट्स"
 
@@ -2251,7 +2255,7 @@ msgstr "विभिन्न रंगों के पेस्टल क्�
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
 msgstr "विभिन्न रंगों के वैक्स पेस्टल क्षेत्रों को थोड़ा ओवरलैप करें और सहज संक्रमण बनाने के लिए मजबूती से ब्लेंड करें"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:201
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:204
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "छोटे पर्सेंटाइल मान अधिक मजबूत सफ़ेदी के अनुरूप होते हैं"
 
@@ -2791,13 +2795,13 @@ msgstr "कुल मिलाकर {maxColorsFor2} से अधिक रं�
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "कुल मिलाकर {maxColorsFor3} से अधिक रंगों का चयन करते समय, तीन रंगों के मिश्रण का उपयोग नहीं किया जाता है।"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:231
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:234
 #: src/components/image-editor/ExpandEditorControls.tsx:209
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "सफ़ेद"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:174
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:175
 msgid "White balance"
 msgstr "सफ़ेद संतुलन"
 
@@ -2805,8 +2809,8 @@ msgstr "सफ़ेद संतुलन"
 msgid "White paper or canvas"
 msgstr "सफ़ेद कागज़ या कैनवास"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:229
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:226
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:232
 msgid "White point"
 msgstr "सफ़ेद बिंदु"
 

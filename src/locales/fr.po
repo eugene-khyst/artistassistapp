@@ -138,7 +138,7 @@ msgstr "Une nouvelle version de l’application est disponible et sera installé
 msgid "A new version of the application is available."
 msgstr "Une nouvelle version de l’application est disponible."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:247
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:250
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Une valeur inférieure à 100 % rend l’image moins colorée et une valeur supérieure à 100 % la rend trop colorée"
 
@@ -327,6 +327,10 @@ msgstr "Erreur d’authentification"
 msgid "Authentication failed"
 msgstr "Échec de l’authentification"
 
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:106
+msgid "Auto"
+msgstr "Automatique"
+
 #: src/components/ImageColorPicker.tsx:473
 msgid "Auto palette"
 msgstr "Palette automatique"
@@ -347,7 +351,7 @@ msgstr "La détection automatique n’est pas disponible"
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Trouvez automatiquement les meilleurs mélanges de couleurs pour cette photo."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:225
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:228
 msgid "Average color of the white point area"
 msgstr "Couleur moyenne de la zone du point blanc"
 
@@ -493,7 +497,7 @@ msgstr "Effacer la sous-couche"
 msgid "Clear unifying color"
 msgstr "Effacer la couleur unificatrice"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:220
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
 msgstr "Cliquez sur 🖱️ ou appuyez sur 👆 n’importe où dans l’image pour choisir un point blanc."
 
@@ -719,7 +723,7 @@ msgstr "Copiez et partagez ce lien"
 msgid "Correct perspective"
 msgstr "Corriger la perspective"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:368
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:371
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Estimation corrigée de la température de la source lumineuse en Kelvin"
 
@@ -1005,7 +1009,7 @@ msgstr "Erreur"
 msgid "Error description"
 msgstr "Description de l’erreur"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:339
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:342
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Température estimée de la source lumineuse en Kelvin avec laquelle l’image a été prise"
 
@@ -1098,7 +1102,7 @@ msgstr "Pleine pression"
 msgid "Full strength"
 msgstr "Pleine intensité"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:294
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:297
 msgid "Gamma"
 msgstr "Gamma"
 
@@ -1201,7 +1205,7 @@ msgstr "Installer la mise à jour"
 msgid "Instant"
 msgstr "Instantané"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:365
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:368
 msgid "Intended color temperature (K)"
 msgstr "Température de couleur prévue (K)"
 
@@ -1324,11 +1328,11 @@ msgstr "Peinture libre"
 msgid "Loose painting is available only to paid Patreon members"
 msgstr "La peinture libre est disponible uniquement pour les membres Patreon payants"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:270
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:273
 msgid "Low input and high input"
 msgstr "Entrées basse et haute"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:314
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:317
 msgid "Low output and high output"
 msgstr "Sorties basse et haute"
 
@@ -1379,7 +1383,7 @@ msgstr "Fusionner les jeux de couleurs"
 msgid "Mid tone"
 msgstr "Ton moyen"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:292
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:295
 msgid "Midtones"
 msgstr "Tons moyens"
 
@@ -1527,7 +1531,7 @@ msgstr "Nombre de coups de pinceau dans le tableau"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Nombre de cellules sur le côté le plus petit (vertical ou horizontal)"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:106
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:107
 msgid "Off"
 msgstr "Désactivé"
 
@@ -1596,7 +1600,7 @@ msgstr "Ou sélectionnez parmi vos photos récentes"
 msgid "Original"
 msgstr "Original"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:336
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:339
 msgid "Original color temperature (K)"
 msgstr "Température de couleur d’origine (K)"
 
@@ -1605,7 +1609,7 @@ msgstr "Température de couleur d’origine (K)"
 msgid "Outline"
 msgstr "Contour"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:312
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:315
 msgid "Output levels"
 msgstr "Niveaux de sortie"
 
@@ -1647,13 +1651,13 @@ msgid "Patron status"
 msgstr "Statut de mécène"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:104
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:199
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:202
 msgid "Percentile"
 msgstr "Percentile"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:176
-msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
-msgstr "Percentile : balance des blancs automatique à partir des zones les plus lumineuses, adaptée à la plupart des photos. Référence : balance des blancs manuelle à l’aide de la zone blanche sélectionnée."
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:177
+msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
+msgstr "Percentile : Balance des blancs à partir des zones les plus claires, adaptée à la plupart des photos. Référence : Balance des blancs manuelle à partir de la zone blanche sélectionnée. Automatique : Définit les points noir et blanc de chaque canal de couleur, adaptée aux photos délavées."
 
 #: src/components/Help.tsx:187
 msgid "Persistent storage"
@@ -1926,7 +1930,7 @@ msgstr "Pivoter dans le sens horaire"
 msgid "Sample size"
 msgstr "Zone d’échantillonnage"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:244
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:247
 msgid "Saturation (%)"
 msgstr "Saturation (%)"
 
@@ -2165,7 +2169,7 @@ msgstr "Définir comme couleur unificatrice"
 msgid "Shadow"
 msgstr "Ombre"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:268
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:271
 msgid "Shadows and highlights"
 msgstr "Ombres et reflets"
 
@@ -2251,7 +2255,7 @@ msgstr "Superposez légèrement les zones de pastel de différentes couleurs et 
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
 msgstr "Superposez légèrement les zones de pastel à la cire de différentes couleurs et fondez fermement pour créer une transition douce"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:201
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:204
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Des valeurs de percentiles plus faibles correspondent à un blanchiment plus fort"
 
@@ -2791,13 +2795,13 @@ msgstr "Lorsque vous sélectionnez plus de {maxColorsFor2} couleurs au total, le
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Lorsque vous sélectionnez plus de {maxColorsFor3} couleurs au total, les mélanges de trois couleurs ne sont pas utilisés."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:231
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:234
 #: src/components/image-editor/ExpandEditorControls.tsx:209
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "Blanc"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:174
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:175
 msgid "White balance"
 msgstr "Balance des blancs"
 
@@ -2805,8 +2809,8 @@ msgstr "Balance des blancs"
 msgid "White paper or canvas"
 msgstr "Papier blanc ou toile"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:229
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:226
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:232
 msgid "White point"
 msgstr "Point blanc"
 

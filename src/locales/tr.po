@@ -138,7 +138,7 @@ msgstr "Uygulamanın yeni bir sürümü mevcut ve otomatik olarak yüklenecek."
 msgid "A new version of the application is available."
 msgstr "Uygulamanın yeni bir sürümü mevcuttur."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:247
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:250
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "%100'den küçük bir değer görüntünün daha az renkli görünmesine neden olur ve %100'den büyük bir değer görüntünün çok renkli görünmesine neden olur"
 
@@ -327,6 +327,10 @@ msgstr "Kimlik doğrulama hatası"
 msgid "Authentication failed"
 msgstr "Kimlik doğrulama başarısız oldu"
 
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:106
+msgid "Auto"
+msgstr "Otomatik"
+
 #: src/components/ImageColorPicker.tsx:473
 msgid "Auto palette"
 msgstr "Otomatik palet"
@@ -347,7 +351,7 @@ msgstr "Otomatik algılama kullanılamıyor"
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Bu fotoğraf için otomatik olarak en iyi renk karışımlarını bulun."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:225
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:228
 msgid "Average color of the white point area"
 msgstr "Beyaz nokta alanının ortalama rengi"
 
@@ -493,7 +497,7 @@ msgstr "Alt katmanı temizle"
 msgid "Clear unifying color"
 msgstr "Birleştirici rengi temizle"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:220
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
 msgstr "Beyaz bir nokta seçmek için görselin herhangi bir yerinde 🖱️ öğesine tıklayın veya 👆 öğesine dokunun."
 
@@ -719,7 +723,7 @@ msgstr "Bu bağlantıyı kopyalayın ve paylaşın"
 msgid "Correct perspective"
 msgstr "Perspektifi düzelt"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:368
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:371
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Işık kaynağının sıcaklığının Kelvin cinsinden düzeltilmiş tahmini"
 
@@ -1005,7 +1009,7 @@ msgstr "Hata"
 msgid "Error description"
 msgstr "Hata açıklaması"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:339
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:342
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Görüntünün çekildiği ışık kaynağının Kelvin cinsinden tahmini sıcaklığı"
 
@@ -1098,7 +1102,7 @@ msgstr "Tam basınç"
 msgid "Full strength"
 msgstr "Tam güç"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:294
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:297
 msgid "Gamma"
 msgstr "Gama"
 
@@ -1201,7 +1205,7 @@ msgstr "Güncellemeyi yükle"
 msgid "Instant"
 msgstr "Anında"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:365
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:368
 msgid "Intended color temperature (K)"
 msgstr "Amaçlanan renk sıcaklığı (K)"
 
@@ -1324,11 +1328,11 @@ msgstr "Serbest resim"
 msgid "Loose painting is available only to paid Patreon members"
 msgstr "Serbest resim yalnızca ücretli Patreon üyeleri tarafından kullanılabilir"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:270
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:273
 msgid "Low input and high input"
 msgstr "Düşük giriş ve yüksek giriş"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:314
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:317
 msgid "Low output and high output"
 msgstr "Düşük çıkış ve yüksek çıkış"
 
@@ -1379,7 +1383,7 @@ msgstr "Renk setlerini birleştir"
 msgid "Mid tone"
 msgstr "Orta ton"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:292
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:295
 msgid "Midtones"
 msgstr "Orta Tonlar"
 
@@ -1527,7 +1531,7 @@ msgstr "Resimdeki fırça darbesi sayısı"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Kısa kenardaki hücre sayısı (dikey veya yatay)"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:106
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:107
 msgid "Off"
 msgstr "Kapalı"
 
@@ -1596,7 +1600,7 @@ msgstr "Veya en son fotoğraflarınız arasından seçim yapın"
 msgid "Original"
 msgstr "Orijinal"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:336
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:339
 msgid "Original color temperature (K)"
 msgstr "Orijinal renk sıcaklığı (K)"
 
@@ -1605,7 +1609,7 @@ msgstr "Orijinal renk sıcaklığı (K)"
 msgid "Outline"
 msgstr "Anahat"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:312
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:315
 msgid "Output levels"
 msgstr "Çıkış seviyeleri"
 
@@ -1647,13 +1651,13 @@ msgid "Patron status"
 msgstr "Patron durumu"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:104
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:199
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:202
 msgid "Percentile"
 msgstr "Yüzdelik dilim"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:176
-msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
-msgstr "Yüzdelik dilim: en parlak alanlardan otomatik beyaz dengesi; çoğu fotoğraf için uygundur. Referans: seçilen beyaz alanı kullanarak manuel beyaz dengesi."
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:177
+msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
+msgstr "Yüzdelik dilim: En parlak alanlara göre beyaz dengesi, çoğu fotoğraf için uygundur. Referans: Seçilen beyaz alan kullanılarak yapılan manuel beyaz dengesi. Otomatik: Her renk kanalının siyah ve beyaz noktalarını ayarlar, solmuş fotoğraflar için uygundur."
 
 #: src/components/Help.tsx:187
 msgid "Persistent storage"
@@ -1926,7 +1930,7 @@ msgstr "Saat yönünde döndür"
 msgid "Sample size"
 msgstr "Örnekleme alanı"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:244
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:247
 msgid "Saturation (%)"
 msgstr "Doygunluk (%)"
 
@@ -2165,7 +2169,7 @@ msgstr "Birleştirici renk olarak ayarla"
 msgid "Shadow"
 msgstr "Gölge"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:268
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:271
 msgid "Shadows and highlights"
 msgstr "Gölgeler ve vurgular"
 
@@ -2251,7 +2255,7 @@ msgstr "Farklı renkteki pastel alanları hafifçe üst üste getirin ve yumuşa
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
 msgstr "Farklı renkteki mumlu pastel alanları hafifçe üst üste getirin ve yumuşak bir geçiş oluşturmak için iyice harmanlayın"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:201
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:204
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Daha küçük yüzdelik dilim değerleri daha güçlü beyazlatmaya karşılık gelir"
 
@@ -2791,13 +2795,13 @@ msgstr "Toplamda {maxColorsFor2}'den fazla renk seçerken, iki rengin karışım
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Toplamda {maxColorsFor3}'ten fazla renk seçerken, üç rengin karışımları kullanılmaz."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:231
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:234
 #: src/components/image-editor/ExpandEditorControls.tsx:209
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "Beyaz"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:174
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:175
 msgid "White balance"
 msgstr "Beyaz dengesi"
 
@@ -2805,8 +2809,8 @@ msgstr "Beyaz dengesi"
 msgid "White paper or canvas"
 msgstr "Beyaz kağıt veya tuval"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:229
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:226
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:232
 msgid "White point"
 msgstr "Beyaz nokta"
 

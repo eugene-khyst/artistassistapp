@@ -3,7 +3,8 @@
 precision highp float;
 
 uniform sampler2D u_texture;
-uniform vec3 u_invMaxValues;
+uniform vec3 u_minValues;
+uniform vec3 u_invRanges;
 uniform float u_saturation;
 uniform float u_inputLow;
 uniform float u_inputHigh;
@@ -24,7 +25,7 @@ out vec4 fragColor;
 void main() {
   vec4 color = texture(u_texture, v_texCoord);
   vec3 linearRgb = srgbToLinear(color.rgb);
-  linearRgb = clamp(linearRgb * u_invMaxValues, 0.0, 1.0);
+  linearRgb = clamp((linearRgb - u_minValues) * u_invRanges, 0.0, 1.0);
   if (u_saturation != 1.0) {
     linearRgb = mix(linearRgb, vec3(getLuminance(linearRgb)), 1.0 - u_saturation);
   }

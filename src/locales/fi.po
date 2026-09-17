@@ -138,7 +138,7 @@ msgstr "Uusi sovellusversio on saatavilla ja asennetaan automaattisesti."
 msgid "A new version of the application is available."
 msgstr "Sovelluksesta on saatavilla uusi versio."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:247
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:250
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Alle 100 %:n arvo saa kuvan näyttämään vähemmän värikkäältä ja yli 100 %:n arvo saa sen näyttämään liian värikkäältä"
 
@@ -327,6 +327,10 @@ msgstr "Todennusvirhe"
 msgid "Authentication failed"
 msgstr "Todennus epäonnistui"
 
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:106
+msgid "Auto"
+msgstr "Automaattinen"
+
 #: src/components/ImageColorPicker.tsx:473
 msgid "Auto palette"
 msgstr "Automaattinen paletti"
@@ -347,7 +351,7 @@ msgstr "Automaattinen tunnistus ei ole käytettävissä"
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Löydä automaattisesti parhaat väriseokset tähän kuvaan."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:225
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:228
 msgid "Average color of the white point area"
 msgstr "Valkopistealueen keskimääräinen väri"
 
@@ -493,7 +497,7 @@ msgstr "Tyhjennä aluskerros"
 msgid "Clear unifying color"
 msgstr "Tyhjennä yhdistävä väri"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:220
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
 msgstr "Napsauta 🖱️ tai napauta 👆 missä tahansa kuvassa valitaksesi valkopisteen."
 
@@ -719,7 +723,7 @@ msgstr "Kopioi ja jaa tämä linkki"
 msgid "Correct perspective"
 msgstr "Korjaa perspektiivi"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:368
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:371
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Korjattu arvio valonlähteen lämpötilasta kelvineinä"
 
@@ -1005,7 +1009,7 @@ msgstr "Virhe"
 msgid "Error description"
 msgstr "Virhekuvaus"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:339
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:342
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Sen valonlähteen arvioitu lämpötila kelvineinä, jossa kuva on otettu"
 
@@ -1098,7 +1102,7 @@ msgstr "Täysi paine"
 msgid "Full strength"
 msgstr "Täysi vahvuus"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:294
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:297
 msgid "Gamma"
 msgstr "Gamma"
 
@@ -1201,7 +1205,7 @@ msgstr "Asenna päivitys"
 msgid "Instant"
 msgstr "Välitön"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:365
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:368
 msgid "Intended color temperature (K)"
 msgstr "Haluttu värilämpötila (K)"
 
@@ -1324,11 +1328,11 @@ msgstr "Vapaa maalaus"
 msgid "Loose painting is available only to paid Patreon members"
 msgstr "Vapaa maalaus on käytettävissä vain maksaville Patreon-jäsenille"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:270
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:273
 msgid "Low input and high input"
 msgstr "Matala tulo ja korkea tulo"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:314
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:317
 msgid "Low output and high output"
 msgstr "Matala lähtö ja korkea lähtö"
 
@@ -1379,7 +1383,7 @@ msgstr "Yhdistä värisarjat"
 msgid "Mid tone"
 msgstr "Keskisävy"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:292
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:295
 msgid "Midtones"
 msgstr "Keskisävyt"
 
@@ -1527,7 +1531,7 @@ msgstr "Siveltimenvetojen määrä maalauksessa"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Ruutujen lukumäärä pienemmällä sivulla (pysty- tai vaakasuunnassa)"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:106
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:107
 msgid "Off"
 msgstr "Pois"
 
@@ -1596,7 +1600,7 @@ msgstr "Tai valitse viimeisimmistä kuvistasi"
 msgid "Original"
 msgstr "Alkuperäinen"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:336
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:339
 msgid "Original color temperature (K)"
 msgstr "Alkuperäinen värilämpötila (K)"
 
@@ -1605,7 +1609,7 @@ msgstr "Alkuperäinen värilämpötila (K)"
 msgid "Outline"
 msgstr "Ääriviivat"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:312
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:315
 msgid "Output levels"
 msgstr "Lähtötasot"
 
@@ -1647,13 +1651,13 @@ msgid "Patron status"
 msgstr "Tukijan tila"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:104
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:199
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:202
 msgid "Percentile"
 msgstr "Prosenttipiste"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:176
-msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
-msgstr "Prosenttipiste: Automaattinen valkotasapaino kirkkaimmista alueista, sopii useimpiin valokuviin. Viite: Manuaalinen valkotasapaino valitulla valkoisella alueella."
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:177
+msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
+msgstr "Prosenttipiste: Valkotasapaino kuvan vaaleimpien alueiden perusteella, sopii useimpiin kuviin. Viite: Manuaalinen valkotasapaino valitun valkoisen alueen avulla. Automaattinen: Asettaa kunkin värikanavan mustan ja valkoisen pisteen, sopii haalistuneisiin kuviin."
 
 #: src/components/Help.tsx:187
 msgid "Persistent storage"
@@ -1926,7 +1930,7 @@ msgstr "Kierrä myötäpäivään"
 msgid "Sample size"
 msgstr "Otoskoko"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:244
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:247
 msgid "Saturation (%)"
 msgstr "Kylläisyys (%)"
 
@@ -2165,7 +2169,7 @@ msgstr "Aseta yhdistäväksi väriksi"
 msgid "Shadow"
 msgstr "Varjo"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:268
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:271
 msgid "Shadows and highlights"
 msgstr "Varjot ja valot"
 
@@ -2251,7 +2255,7 @@ msgstr "Aseta erivärisiä pastellialueita hieman päällekkäin ja häivytä va
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
 msgstr "Aseta erivärisiä vahapastellialueita hieman päällekkäin ja häivytä voimakkaasti, jotta saat pehmeän siirtymän"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:201
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:204
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Pienemmät prosenttipistearvot vastaavat vahvempaa valkaisua"
 
@@ -2791,13 +2795,13 @@ msgstr "Kun valitset yhteensä enemmän kuin {maxColorsFor2} väriä, kahden vä
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Kun valitset yhteensä enemmän kuin {maxColorsFor3} väriä, kolmen värin sekoituksia ei käytetä."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:231
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:234
 #: src/components/image-editor/ExpandEditorControls.tsx:209
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "Valkoinen"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:174
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:175
 msgid "White balance"
 msgstr "Valkotasapaino"
 
@@ -2805,8 +2809,8 @@ msgstr "Valkotasapaino"
 msgid "White paper or canvas"
 msgstr "Valkoinen paperi tai kangas"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:229
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:226
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:232
 msgid "White point"
 msgstr "Valkopiste"
 

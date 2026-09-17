@@ -18,6 +18,12 @@
 
 import {afterEach, describe, expect, it, vi} from 'vitest';
 
+import {adjustColors} from '@/services/image/adjust-colors';
+import {
+  AdjustColorsWhiteBalanceMethod,
+  adjustmentParameters,
+  defaultAdjustColorsControls,
+} from '@/services/image/adjust-colors-controls';
 import {applyEditImageCommand} from '@/services/image/edit-image';
 import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit-image-command';
 import {
@@ -92,7 +98,7 @@ function mockPatchCanvases(): number[][] {
 }
 
 afterEach(() => {
-  vi.clearAllMocks();
+  vi.resetAllMocks();
   vi.unstubAllGlobals();
 });
 
@@ -178,6 +184,52 @@ describe('applyEditImageCommand Expand', () => {
       expect(patch.close).toHaveBeenCalledOnce();
     });
   });
+});
+
+describe('applyEditImageCommand AdjustColors', () => {
+  function mockAdjustColors(): ImageBitmap {
+    const result = image(100, 80);
+    vi.mocked(adjustColors).mockReturnValueOnce({
+      transferToImageBitmap: () => result,
+    } as unknown as OffscreenCanvas);
+    return result;
+  }
+
+  it.each([
+    [
+      AdjustColorsWhiteBalanceMethod.Auto,
+      {minValues: [0.1, 0.09, 0.08], maxValues: [0.95, 0.97, 0.99]},
+      {minValues: [0.1, 0.09, 0.08], maxValues: [0.95, 0.97, 0.99]},
+    ],
+    [
+      AdjustColorsWhiteBalanceMethod.Percentile,
+      {maxValues: [0.9, 0.8, 0.7]},
+      {maxValues: [0.9, 0.8, 0.7]},
+    ],
+    [AdjustColorsWhiteBalanceMethod.WhitePoint, {}, {maxValues: [1, 1, 1]}],
+    [AdjustColorsWhiteBalanceMethod.None, {}, {}],
+  ])(
+    'applies the white balance levels of method %s',
+    async (whiteBalanceMethod, cachedValues, levels) => {
+      const source = image(100, 80);
+      const result = mockAdjustColors();
+      const controls = {...defaultAdjustColorsControls(), whiteBalanceMethod, saturation: 120};
+
+      await expect(
+        applyEditImageCommand(
+          source,
+          {type: EditImageCommandType.AdjustColors, controls, ...cachedValues},
+          new AbortController().signal
+        )
+      ).resolves.toBe(result);
+
+      expect(adjustColors).toHaveBeenCalledExactlyOnceWith(
+        source,
+        adjustmentParameters(controls),
+        levels
+      );
+    }
+  );
 });
 
 describe('applyEditImageCommand Sharpen', () => {
