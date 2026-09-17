@@ -138,7 +138,7 @@ msgstr "앱의 새로운 버전이 제공되며 자동으로 설치될 예정입
 msgid "A new version of the application is available."
 msgstr "애플리케이션의 새로운 버전이 제공됩니다."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:245
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:247
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "값이 100%보다 작으면 이미지가 덜 화려하게 보이고 100%보다 크면 이미지가 너무 화려하게 보입니다"
 
@@ -347,7 +347,7 @@ msgstr "자동 감지를 사용할 수 없습니다"
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "이 사진에 가장 적합한 색상 조합을 자동으로 찾아보세요."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:225
 msgid "Average color of the white point area"
 msgstr "화이트 포인트 영역의 평균 색상"
 
@@ -493,7 +493,7 @@ msgstr "언더레이어 지우기"
 msgid "Clear unifying color"
 msgstr "통합 색상 지우기"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:218
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:220
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
 msgstr "이미지의 아무 곳이나 🖱️ 클릭하거나 👆 탭하여 화이트 포인트를 선택하세요."
 
@@ -719,7 +719,7 @@ msgstr "이 링크 복사 및 공유"
 msgid "Correct perspective"
 msgstr "원근감 보정"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:367
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:368
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "켈빈 단위로 보정된 광원 색온도 추정치"
 
@@ -1005,7 +1005,7 @@ msgstr "오류"
 msgid "Error description"
 msgstr "오류 설명"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:338
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:339
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "이미지를 촬영한 광원의 예상 온도(켈빈)"
 
@@ -1098,7 +1098,7 @@ msgstr "최대 필압"
 msgid "Full strength"
 msgstr "희석 없음"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:292
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:294
 msgid "Gamma"
 msgstr "감마"
 
@@ -1201,7 +1201,7 @@ msgstr "업데이트 설치"
 msgid "Instant"
 msgstr "즉시"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:364
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:365
 msgid "Intended color temperature (K)"
 msgstr "의도된 색온도(K)"
 
@@ -1324,11 +1324,11 @@ msgstr "러프 페인팅"
 msgid "Loose painting is available only to paid Patreon members"
 msgstr "러프 페인팅은 유료 Patreon 회원만 사용할 수 있습니다"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:268
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:270
 msgid "Low input and high input"
 msgstr "낮은 입력과 높은 입력"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:313
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:314
 msgid "Low output and high output"
 msgstr "낮은 출력 및 높은 출력"
 
@@ -1379,7 +1379,7 @@ msgstr "색상 세트 병합"
 msgid "Mid tone"
 msgstr "중간 톤"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:290
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:292
 msgid "Midtones"
 msgstr "미드톤"
 
@@ -1486,9 +1486,13 @@ msgstr "새 크기: {outputWidth} × {outputHeight}"
 msgid "Next charge date"
 msgstr "다음 결제일"
 
-#: src/components/empty/EmptyColorMatches.tsx:43
-msgid "No matching color mixtures were found"
-msgstr "일치하는 색상 혼합을 찾을 수 없습니다"
+#: src/components/empty/EmptyColorMatches.tsx:31
+msgid "No color mixture improves on the bare surface"
+msgstr "어떤 색상 혼합도 그대로의 표면보다 낫지 않습니다"
+
+#: src/components/empty/EmptyColorMatches.tsx:29
+msgid "No color mixture improves on the bare underlayer"
+msgstr "어떤 색상 혼합도 그대로의 언더레이어보다 낫지 않습니다"
 
 #: src/components/ImageColorPicker.tsx:275
 msgid "No palette colors matched the current color set and settings"
@@ -1523,7 +1527,7 @@ msgstr "그림의 붓 터치 수"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "더 작은 쪽의 셀 수(수직 또는 수평)"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:104
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:106
 msgid "Off"
 msgstr "꺼짐"
 
@@ -1592,7 +1596,7 @@ msgstr "또는 최근 사진에서 선택"
 msgid "Original"
 msgstr "원본"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:335
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:336
 msgid "Original color temperature (K)"
 msgstr "원본 색온도(K)"
 
@@ -1601,7 +1605,7 @@ msgstr "원본 색온도(K)"
 msgid "Outline"
 msgstr "윤곽선"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:311
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:312
 msgid "Output levels"
 msgstr "출력 수준"
 
@@ -1642,12 +1646,12 @@ msgstr "Patreon 멤버십 확인 실패"
 msgid "Patron status"
 msgstr "후원자 상태"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:102
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:197
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:104
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:199
 msgid "Percentile"
 msgstr "백분위수"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:174
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:176
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "백분위수: 가장 밝은 영역을 기준으로 한 자동 화이트 밸런스로, 대부분의 사진에 적합합니다. 참조: 선택한 흰색 영역을 사용하는 수동 화이트 밸런스."
 
@@ -1812,7 +1816,7 @@ msgid "Reduce the number of colors in the photo."
 msgstr "사진 속 색상 수를 줄이세요."
 
 #: src/components/color/ColorSwatchDrawer.tsx:92
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:103
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:105
 msgid "Reference"
 msgstr "참조"
 
@@ -1922,7 +1926,7 @@ msgstr "시계 방향으로 회전"
 msgid "Sample size"
 msgstr "표본 크기"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:242
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:244
 msgid "Saturation (%)"
 msgstr "채도(%)"
 
@@ -2161,7 +2165,7 @@ msgstr "통합 색상으로 설정"
 msgid "Shadow"
 msgstr "그림자"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:266
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:268
 msgid "Shadows and highlights"
 msgstr "그림자와 하이라이트"
 
@@ -2247,7 +2251,7 @@ msgstr "서로 다른 색상의 파스텔 영역을 살짝 겹친 뒤 부드럽�
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
 msgstr "서로 다른 색상의 왁스 파스텔 영역을 살짝 겹친 뒤 단단하게 블렌딩해 자연스러운 전환을 만드세요"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:199
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:201
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "백분위수 값이 작을수록 흰색 보정이 강해집니다"
 
@@ -2552,19 +2556,19 @@ msgstr "내 이미지에서 스타일을 전송하는 기능은 유료 Patreon �
 msgid "Transparent"
 msgstr "투명"
 
-#: src/components/empty/EmptyColorMatches.tsx:37
+#: src/components/empty/EmptyColorMatches.tsx:42
 msgid "Try adding colors or changing the surface"
 msgstr "색상을 추가하거나 표면을 변경해 보세요"
 
-#: src/components/empty/EmptyColorMatches.tsx:32
+#: src/components/empty/EmptyColorMatches.tsx:37
 msgid "Try adding colors or changing the surface or the underlayer"
 msgstr "색상을 추가하거나 표면이나 언더레이어를 변경해 보세요"
 
-#: src/components/empty/EmptyColorMatches.tsx:35
+#: src/components/empty/EmptyColorMatches.tsx:40
 msgid "Try adding colors or changing the surface or the unifying color"
 msgstr "색상을 추가하거나 표면이나 통합 색상을 변경해 보세요"
 
-#: src/components/empty/EmptyColorMatches.tsx:30
+#: src/components/empty/EmptyColorMatches.tsx:35
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "색상을 추가하거나 표면, 언더레이어 또는 통합 색상을 변경해 보세요"
 
@@ -2787,13 +2791,13 @@ msgstr "총 {maxColorsFor2}개 이상의 색상을 선택하는 경우 두 색�
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "총 {maxColorsFor3}개 이상의 색상을 선택하는 경우 세 가지 색상의 혼합은 사용되지 않습니다."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:229
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:231
 #: src/components/image-editor/ExpandEditorControls.tsx:209
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "흰색"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:172
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:174
 msgid "White balance"
 msgstr "화이트 밸런스"
 
@@ -2801,8 +2805,8 @@ msgstr "화이트 밸런스"
 msgid "White paper or canvas"
 msgstr "흰 종이 또는 캔버스"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:221
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:227
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:229
 msgid "White point"
 msgstr "화이트 포인트"
 

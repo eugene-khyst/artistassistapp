@@ -138,7 +138,7 @@ msgstr "Нова версия на приложението е налична и
 msgid "A new version of the application is available."
 msgstr "Налична е нова версия на приложението."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:245
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:247
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Стойност, по-малка от 100%, прави изображението да изглежда по-малко цветно, а стойност, по-голяма от 100%, го прави да изглежда твърде цветно"
 
@@ -347,7 +347,7 @@ msgstr "Автоматичното откриване не е налично"
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Автоматично намерете най-добрите цветови смеси за тази снимка."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:225
 msgid "Average color of the white point area"
 msgstr "Среден цвят на областта на бялата точка"
 
@@ -493,7 +493,7 @@ msgstr "Изчистване на подслоя"
 msgid "Clear unifying color"
 msgstr "Изчистване на обединяващия цвят"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:218
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:220
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
 msgstr "Щракнете 🖱️ или докоснете 👆 навсякъде в изображението, за да изберете бяла точка."
 
@@ -719,7 +719,7 @@ msgstr "Копирайте и споделете тази връзка"
 msgid "Correct perspective"
 msgstr "Коригиране на перспективата"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:367
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:368
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Коригирана оценка на температурата на светлинния източник в келвини"
 
@@ -1005,7 +1005,7 @@ msgstr "Грешка"
 msgid "Error description"
 msgstr "Описание на грешката"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:338
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:339
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Приблизителна температура в келвини на светлинния източник, с който е направено изображението"
 
@@ -1098,7 +1098,7 @@ msgstr "Пълно налягане"
 msgid "Full strength"
 msgstr "Пълна сила"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:292
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:294
 msgid "Gamma"
 msgstr "Гама"
 
@@ -1201,7 +1201,7 @@ msgstr "Инсталиране на актуализацията"
 msgid "Instant"
 msgstr "Моментален"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:364
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:365
 msgid "Intended color temperature (K)"
 msgstr "Предвидена цветова температура (K)"
 
@@ -1324,11 +1324,11 @@ msgstr "Свободна живопис"
 msgid "Loose painting is available only to paid Patreon members"
 msgstr "Свободната живопис е достъпна само за платещи членове на Patreon"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:268
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:270
 msgid "Low input and high input"
 msgstr "Нисък и висок вход"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:313
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:314
 msgid "Low output and high output"
 msgstr "Нисък и висок изход"
 
@@ -1379,7 +1379,7 @@ msgstr "Сливане на набори от цветове"
 msgid "Mid tone"
 msgstr "Среден тон"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:290
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:292
 msgid "Midtones"
 msgstr "Средни тонове"
 
@@ -1486,9 +1486,13 @@ msgstr "Нов размер: {outputWidth} × {outputHeight}"
 msgid "Next charge date"
 msgstr "Дата на следващото плащане"
 
-#: src/components/empty/EmptyColorMatches.tsx:43
-msgid "No matching color mixtures were found"
-msgstr "Не са намерени съответстващи цветови смеси"
+#: src/components/empty/EmptyColorMatches.tsx:31
+msgid "No color mixture improves on the bare surface"
+msgstr "Никоя цветова смес не е по-добра от непокритата повърхност"
+
+#: src/components/empty/EmptyColorMatches.tsx:29
+msgid "No color mixture improves on the bare underlayer"
+msgstr "Никоя цветова смес не е по-добра от непокрития подслой"
 
 #: src/components/ImageColorPicker.tsx:275
 msgid "No palette colors matched the current color set and settings"
@@ -1523,7 +1527,7 @@ msgstr "Брой мазки с четка в картината"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Брой клетки от по-малката страна (вертикална или хоризонтална)"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:104
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:106
 msgid "Off"
 msgstr "Изключено"
 
@@ -1592,7 +1596,7 @@ msgstr "Или изберете от скорошните си снимки"
 msgid "Original"
 msgstr "Оригинал"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:335
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:336
 msgid "Original color temperature (K)"
 msgstr "Оригинална цветова температура (K)"
 
@@ -1601,7 +1605,7 @@ msgstr "Оригинална цветова температура (K)"
 msgid "Outline"
 msgstr "Контур"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:311
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:312
 msgid "Output levels"
 msgstr "Изходни нива"
 
@@ -1642,12 +1646,12 @@ msgstr "Проверката на членството в Patreon не успя"
 msgid "Patron status"
 msgstr "Статут на поддръжник"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:102
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:197
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:104
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:199
 msgid "Percentile"
 msgstr "Процентил"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:174
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:176
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Процентил: автоматичен баланс на бялото по най-ярките зони, подходящ за повечето снимки. Референция: ръчен баланс на бялото по избрана бяла област."
 
@@ -1812,7 +1816,7 @@ msgid "Reduce the number of colors in the photo."
 msgstr "Намалете броя на цветовете в снимката."
 
 #: src/components/color/ColorSwatchDrawer.tsx:92
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:103
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:105
 msgid "Reference"
 msgstr "Референция"
 
@@ -1922,7 +1926,7 @@ msgstr "Завъртане по часовниковата стрелка"
 msgid "Sample size"
 msgstr "Размер на извадката"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:242
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:244
 msgid "Saturation (%)"
 msgstr "Насищане (%)"
 
@@ -2161,7 +2165,7 @@ msgstr "Задаване като обединяващ цвят"
 msgid "Shadow"
 msgstr "Сянка"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:266
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:268
 msgid "Shadows and highlights"
 msgstr "Сенки и акценти"
 
@@ -2247,7 +2251,7 @@ msgstr "Леко припокривайте зоните от пастел с р
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
 msgstr "Леко припокривайте зоните от восъчен пастел с различни цветове и ги разтривайте силно, за да създадете плавен преход"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:199
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:201
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "По-малките стойности на процентила съответстват на по-силно избелване"
 
@@ -2552,19 +2556,19 @@ msgstr "Прехвърлянето на стила от собственото �
 msgid "Transparent"
 msgstr "Прозрачен"
 
-#: src/components/empty/EmptyColorMatches.tsx:37
+#: src/components/empty/EmptyColorMatches.tsx:42
 msgid "Try adding colors or changing the surface"
 msgstr "Опитайте да добавите цветове или да промените повърхността"
 
-#: src/components/empty/EmptyColorMatches.tsx:32
+#: src/components/empty/EmptyColorMatches.tsx:37
 msgid "Try adding colors or changing the surface or the underlayer"
 msgstr "Опитайте да добавите цветове или да промените повърхността или подслоя"
 
-#: src/components/empty/EmptyColorMatches.tsx:35
+#: src/components/empty/EmptyColorMatches.tsx:40
 msgid "Try adding colors or changing the surface or the unifying color"
 msgstr "Опитайте да добавите цветове или да промените повърхността или обединяващия цвят"
 
-#: src/components/empty/EmptyColorMatches.tsx:30
+#: src/components/empty/EmptyColorMatches.tsx:35
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "Опитайте да добавите цветове или да промените повърхността, подслоя или обединяващия цвят"
 
@@ -2787,13 +2791,13 @@ msgstr "При избиране на повече от {maxColorsFor2} цвет�
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "При избор на повече от {maxColorsFor3} цветове общо не се използват смеси от три цвята."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:229
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:231
 #: src/components/image-editor/ExpandEditorControls.tsx:209
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "Бяло"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:172
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:174
 msgid "White balance"
 msgstr "Баланс на бялото"
 
@@ -2801,8 +2805,8 @@ msgstr "Баланс на бялото"
 msgid "White paper or canvas"
 msgstr "Бяла хартия или платно"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:221
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:227
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:229
 msgid "White point"
 msgstr "Бяла точка"
 

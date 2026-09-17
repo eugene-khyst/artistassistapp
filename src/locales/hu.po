@@ -138,7 +138,7 @@ msgstr "Az alkalmazás új verziója elérhető, és automatikusan telepítésre
 msgid "A new version of the application is available."
 msgstr "Az alkalmazás új verziója elérhető."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:245
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:247
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "A 100%-nál kisebb érték kevésbé színessé teszi a képet, a 100%-nál nagyobb érték pedig túl színessé"
 
@@ -347,7 +347,7 @@ msgstr "Az automatikus felismerés nem érhető el"
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Automatikusan megkeresi a legjobb színkeverékeket ehhez a fényképhez."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:225
 msgid "Average color of the white point area"
 msgstr "A fehérpont-terület átlagos színe"
 
@@ -493,7 +493,7 @@ msgstr "Alapréteg törlése"
 msgid "Clear unifying color"
 msgstr "Egyesítő szín törlése"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:218
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:220
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
 msgstr "Kattintson a 🖱️ elemre, vagy koppintson a 👆 elemre a képen bárhol egy fehér pont kiválasztásához."
 
@@ -719,7 +719,7 @@ msgstr "Másolja és ossza meg ezt a linket"
 msgid "Correct perspective"
 msgstr "Perspektíva korrigálása"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:367
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:368
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "A fényforrás hőmérsékletének korrigált becslése Kelvinben"
 
@@ -1005,7 +1005,7 @@ msgstr "Hiba"
 msgid "Error description"
 msgstr "Hibaleírás"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:338
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:339
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Annak a fényforrásnak a becsült hőmérséklete kelvinben, amellyel a kép készült"
 
@@ -1098,7 +1098,7 @@ msgstr "Teljes nyomás"
 msgid "Full strength"
 msgstr "Hígítás nélkül"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:292
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:294
 msgid "Gamma"
 msgstr "Gamma"
 
@@ -1201,7 +1201,7 @@ msgstr "Frissítés telepítése"
 msgid "Instant"
 msgstr "Azonnali"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:364
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:365
 msgid "Intended color temperature (K)"
 msgstr "Tervezett színhőmérséklet (K)"
 
@@ -1324,11 +1324,11 @@ msgstr "Laza festés"
 msgid "Loose painting is available only to paid Patreon members"
 msgstr "A laza festés csak a fizetős Patreon-tagok számára érhető el"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:268
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:270
 msgid "Low input and high input"
 msgstr "Alacsony bemenet és magas bemenet"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:313
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:314
 msgid "Low output and high output"
 msgstr "Alacsony kimenet és magas kimenet"
 
@@ -1379,7 +1379,7 @@ msgstr "Színkészletek egyesítése"
 msgid "Mid tone"
 msgstr "Középtónus"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:290
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:292
 msgid "Midtones"
 msgstr "Középtónusok"
 
@@ -1486,9 +1486,13 @@ msgstr "Új méret: {outputWidth} × {outputHeight}"
 msgid "Next charge date"
 msgstr "Következő fizetés dátuma"
 
-#: src/components/empty/EmptyColorMatches.tsx:43
-msgid "No matching color mixtures were found"
-msgstr "Nem található megfelelő színkeverék"
+#: src/components/empty/EmptyColorMatches.tsx:31
+msgid "No color mixture improves on the bare surface"
+msgstr "Egyetlen színkeverék sem jobb a csupasz felületnél"
+
+#: src/components/empty/EmptyColorMatches.tsx:29
+msgid "No color mixture improves on the bare underlayer"
+msgstr "Egyetlen színkeverék sem jobb a csupasz alaprétegnél"
 
 #: src/components/ImageColorPicker.tsx:275
 msgid "No palette colors matched the current color set and settings"
@@ -1523,7 +1527,7 @@ msgstr "Ecsetvonások száma a festményen"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "A kisebb oldalon lévő cellák száma (függőleges vagy vízszintes)"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:104
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:106
 msgid "Off"
 msgstr "Ki"
 
@@ -1592,7 +1596,7 @@ msgstr "Vagy válasszon a legutóbbi fotói közül"
 msgid "Original"
 msgstr "Eredeti"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:335
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:336
 msgid "Original color temperature (K)"
 msgstr "Eredeti színhőmérséklet (K)"
 
@@ -1601,7 +1605,7 @@ msgstr "Eredeti színhőmérséklet (K)"
 msgid "Outline"
 msgstr "Körvonal"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:311
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:312
 msgid "Output levels"
 msgstr "Kimeneti szintek"
 
@@ -1642,12 +1646,12 @@ msgstr "A Patreon tagsági ellenőrzés sikertelen"
 msgid "Patron status"
 msgstr "Támogatói állapot"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:102
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:197
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:104
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:199
 msgid "Percentile"
 msgstr "Percentilis"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:174
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:176
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Percentilis: Automatikus fehéregyensúly a legvilágosabb területekről, a legtöbb fényképhez jó. Referencia: Kézi fehéregyensúly a kiválasztott fehér terület használatával."
 
@@ -1812,7 +1816,7 @@ msgid "Reduce the number of colors in the photo."
 msgstr "Csökkenti a fényképen lévő színek számát."
 
 #: src/components/color/ColorSwatchDrawer.tsx:92
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:103
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:105
 msgid "Reference"
 msgstr "Referencia"
 
@@ -1922,7 +1926,7 @@ msgstr "Forgatás az óramutató járásával megegyező irányba"
 msgid "Sample size"
 msgstr "Mintaméret"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:242
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:244
 msgid "Saturation (%)"
 msgstr "Telítettség (%)"
 
@@ -2161,7 +2165,7 @@ msgstr "Beállítás egyesítő színként"
 msgid "Shadow"
 msgstr "Árnyék"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:266
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:268
 msgid "Shadows and highlights"
 msgstr "Árnyékok és csúcsfények"
 
@@ -2247,7 +2251,7 @@ msgstr "Kissé fedje át az eltérő színű pasztell területeket, és finoman 
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
 msgstr "Kissé fedje át az eltérő színű viaszpasztell területeket, és erősen mossa el őket, hogy sima átmenetet hozzon létre"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:199
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:201
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "A kisebb percentilis értékek erősebb fehérítésnek felelnek meg"
 
@@ -2552,19 +2556,19 @@ msgstr "A stílus átvitele saját képéről csak fizetős Patreon-tagok szám�
 msgid "Transparent"
 msgstr "Átlátszó"
 
-#: src/components/empty/EmptyColorMatches.tsx:37
+#: src/components/empty/EmptyColorMatches.tsx:42
 msgid "Try adding colors or changing the surface"
 msgstr "Próbáljon színeket hozzáadni, vagy módosítsa a felületet"
 
-#: src/components/empty/EmptyColorMatches.tsx:32
+#: src/components/empty/EmptyColorMatches.tsx:37
 msgid "Try adding colors or changing the surface or the underlayer"
 msgstr "Próbáljon színeket hozzáadni, vagy módosítsa a felületet vagy az alapréteget"
 
-#: src/components/empty/EmptyColorMatches.tsx:35
+#: src/components/empty/EmptyColorMatches.tsx:40
 msgid "Try adding colors or changing the surface or the unifying color"
 msgstr "Próbáljon színeket hozzáadni, vagy módosítsa a felületet vagy az egyesítő színt"
 
-#: src/components/empty/EmptyColorMatches.tsx:30
+#: src/components/empty/EmptyColorMatches.tsx:35
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "Próbáljon színeket hozzáadni, vagy módosítsa a felületet, az alapréteget vagy az egyesítő színt"
 
@@ -2787,13 +2791,13 @@ msgstr "Ha összesen több mint {maxColorsFor2} színt jelöl ki, a program nem 
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Ha összesen több mint {maxColorsFor3} színt jelöl ki, a program nem használ három szín keverékét."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:229
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:231
 #: src/components/image-editor/ExpandEditorControls.tsx:209
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "Fehér"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:172
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:174
 msgid "White balance"
 msgstr "Fehéregyensúly"
 
@@ -2801,8 +2805,8 @@ msgstr "Fehéregyensúly"
 msgid "White paper or canvas"
 msgstr "Fehér papír vagy vászon"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:221
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:227
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:229
 msgid "White point"
 msgstr "Fehérpont"
 

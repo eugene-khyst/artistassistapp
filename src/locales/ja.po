@@ -138,7 +138,7 @@ msgstr "新しいバージョンのアプリが利用可能で、自動的にイ
 msgid "A new version of the application is available."
 msgstr "新しいバージョンのアプリケーションが利用可能です。"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:245
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:247
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "100%未満の値では、画像のカラフルさが損なわれ、100%を超えると、カラフルに見えすぎます"
 
@@ -347,7 +347,7 @@ msgstr "自動検出は使用できません"
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "この写真に最適な混色を自動的に見つけます。"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:225
 msgid "Average color of the white point area"
 msgstr "ホワイトポイント領域の平均色"
 
@@ -493,7 +493,7 @@ msgstr "アンダーレイヤーをクリア"
 msgid "Clear unifying color"
 msgstr "統一色をクリア"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:218
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:220
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
 msgstr "画像内の任意の場所を 🖱️ クリックまたは 👆 タップして、ホワイトポイントを選びます。"
 
@@ -719,7 +719,7 @@ msgstr "このリンクをコピーして共有する"
 msgid "Correct perspective"
 msgstr "遠近感を補正"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:367
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:368
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "補正後の光源の色温度の推定値(ケルビン)"
 
@@ -1005,7 +1005,7 @@ msgstr "エラー"
 msgid "Error description"
 msgstr "エラーの説明"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:338
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:339
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "画像を撮影したときの光源の推定色温度(ケルビン)"
 
@@ -1098,7 +1098,7 @@ msgstr "最大筆圧"
 msgid "Full strength"
 msgstr "希釈なし"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:292
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:294
 msgid "Gamma"
 msgstr "ガンマ"
 
@@ -1201,7 +1201,7 @@ msgstr "アップデートをインストール"
 msgid "Instant"
 msgstr "インスタント"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:364
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:365
 msgid "Intended color temperature (K)"
 msgstr "想定色温度(K)"
 
@@ -1324,11 +1324,11 @@ msgstr "ラフペインティング"
 msgid "Loose painting is available only to paid Patreon members"
 msgstr "ラフペインティングは有料の Patreon メンバーのみが利用できます"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:268
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:270
 msgid "Low input and high input"
 msgstr "低入力と高入力"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:313
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:314
 msgid "Low output and high output"
 msgstr "低出力と高出力"
 
@@ -1379,7 +1379,7 @@ msgstr "カラーセットを統合"
 msgid "Mid tone"
 msgstr "中間トーン"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:290
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:292
 msgid "Midtones"
 msgstr "ミッドトーン"
 
@@ -1486,9 +1486,13 @@ msgstr "新しいサイズ: {outputWidth} × {outputHeight}"
 msgid "Next charge date"
 msgstr "次回の請求日"
 
-#: src/components/empty/EmptyColorMatches.tsx:43
-msgid "No matching color mixtures were found"
-msgstr "一致する混色が見つかりませんでした"
+#: src/components/empty/EmptyColorMatches.tsx:31
+msgid "No color mixture improves on the bare surface"
+msgstr "どの混色も、そのままの表面より良くありません"
+
+#: src/components/empty/EmptyColorMatches.tsx:29
+msgid "No color mixture improves on the bare underlayer"
+msgstr "どの混色も、そのままのアンダーレイヤーより良くありません"
 
 #: src/components/ImageColorPicker.tsx:275
 msgid "No palette colors matched the current color set and settings"
@@ -1523,7 +1527,7 @@ msgstr "絵画のブラシストローク数"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "小さい方の辺のセルの数 (垂直または水平)"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:104
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:106
 msgid "Off"
 msgstr "オフ"
 
@@ -1592,7 +1596,7 @@ msgstr "または、最近の写真から選択します"
 msgid "Original"
 msgstr "元の比率"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:335
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:336
 msgid "Original color temperature (K)"
 msgstr "元の色温度(K)"
 
@@ -1601,7 +1605,7 @@ msgstr "元の色温度(K)"
 msgid "Outline"
 msgstr "輪郭"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:311
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:312
 msgid "Output levels"
 msgstr "出力レベル"
 
@@ -1642,12 +1646,12 @@ msgstr "Patreonメンバーシップの確認に失敗しました"
 msgid "Patron status"
 msgstr "支援者ステータス"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:102
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:197
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:104
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:199
 msgid "Percentile"
 msgstr "パーセンタイル"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:174
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:176
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "パーセンタイル:最も明るい領域から自動でホワイトバランスを取ります。ほとんどの写真に適しています。参照:選択した白い領域を使う手動のホワイトバランスです。"
 
@@ -1812,7 +1816,7 @@ msgid "Reduce the number of colors in the photo."
 msgstr "写真の色数を減らします。"
 
 #: src/components/color/ColorSwatchDrawer.tsx:92
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:103
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:105
 msgid "Reference"
 msgstr "参照"
 
@@ -1922,7 +1926,7 @@ msgstr "時計回りに回転"
 msgid "Sample size"
 msgstr "サンプルサイズ"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:242
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:244
 msgid "Saturation (%)"
 msgstr "彩度(%)"
 
@@ -2161,7 +2165,7 @@ msgstr "統一色として設定"
 msgid "Shadow"
 msgstr "影"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:266
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:268
 msgid "Shadows and highlights"
 msgstr "シャドウとハイライト"
 
@@ -2247,7 +2251,7 @@ msgstr "異なる色のパステルの領域を少し重ね、やさしくブレ
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
 msgstr "異なる色のワックスパステルの領域を少し重ね、しっかりブレンドしてなめらかなグラデーションを作ります"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:199
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:201
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "パーセンタイル値が小さいほど、白の補正が強くなります"
 
@@ -2552,19 +2556,19 @@ msgstr "自分の画像からスタイルを転送できるのは有料の Patre
 msgid "Transparent"
 msgstr "透明"
 
-#: src/components/empty/EmptyColorMatches.tsx:37
+#: src/components/empty/EmptyColorMatches.tsx:42
 msgid "Try adding colors or changing the surface"
 msgstr "色を追加するか、表面を変更してみてください"
 
-#: src/components/empty/EmptyColorMatches.tsx:32
+#: src/components/empty/EmptyColorMatches.tsx:37
 msgid "Try adding colors or changing the surface or the underlayer"
 msgstr "色を追加するか、表面またはアンダーレイヤーを変更してみてください"
 
-#: src/components/empty/EmptyColorMatches.tsx:35
+#: src/components/empty/EmptyColorMatches.tsx:40
 msgid "Try adding colors or changing the surface or the unifying color"
 msgstr "色を追加するか、表面または統一色を変更してみてください"
 
-#: src/components/empty/EmptyColorMatches.tsx:30
+#: src/components/empty/EmptyColorMatches.tsx:35
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "色を追加するか、表面、アンダーレイヤー、統一色を変更してみてください"
 
@@ -2787,13 +2791,13 @@ msgstr "合計で {maxColorsFor2} 色を超えて選択した場合、2色の混
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "合計で {maxColorsFor3} 色を超えて選択した場合、3色の混色は使用されません。"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:229
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:231
 #: src/components/image-editor/ExpandEditorControls.tsx:209
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "白"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:172
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:174
 msgid "White balance"
 msgstr "ホワイトバランス"
 
@@ -2801,8 +2805,8 @@ msgstr "ホワイトバランス"
 msgid "White paper or canvas"
 msgstr "白い紙またはキャンバス"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:221
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:227
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:229
 msgid "White point"
 msgstr "ホワイトポイント"
 

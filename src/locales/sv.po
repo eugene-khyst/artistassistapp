@@ -138,7 +138,7 @@ msgstr "En ny version av appen finns tillgänglig och kommer att installeras aut
 msgid "A new version of the application is available."
 msgstr "En ny version av applikationen finns tillgänglig."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:245
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:247
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Ett värde som är mindre än 100 % gör att bilden ser mindre färgglad ut, och ett värde som är större än 100 % gör att den ser för färgglad ut"
 
@@ -347,7 +347,7 @@ msgstr "Automatisk identifiering är inte tillgänglig"
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Hitta automatiskt de bästa färgblandningarna för detta foto."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:225
 msgid "Average color of the white point area"
 msgstr "Genomsnittlig färg på vitpunktsområdet"
 
@@ -493,7 +493,7 @@ msgstr "Rensa underskikt"
 msgid "Clear unifying color"
 msgstr "Rensa sammanhållande färg"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:218
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:220
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
 msgstr "Klicka på 🖱️ eller tryck 👆 var som helst i bilden för att välja en vit punkt."
 
@@ -719,7 +719,7 @@ msgstr "Kopiera och dela denna länk"
 msgid "Correct perspective"
 msgstr "Korrigera perspektiv"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:367
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:368
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Korrigerad uppskattning av ljuskällans temperatur i Kelvin"
 
@@ -1005,7 +1005,7 @@ msgstr "Fel"
 msgid "Error description"
 msgstr "Felbeskrivning"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:338
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:339
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Uppskattad temperatur på ljuskällan i Kelvin som bilden togs med"
 
@@ -1098,7 +1098,7 @@ msgstr "Fullt tryck"
 msgid "Full strength"
 msgstr "Full styrka"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:292
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:294
 msgid "Gamma"
 msgstr "Gamma"
 
@@ -1201,7 +1201,7 @@ msgstr "Installera uppdatering"
 msgid "Instant"
 msgstr "Omedelbar"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:364
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:365
 msgid "Intended color temperature (K)"
 msgstr "Avsedd färgtemperatur (K)"
 
@@ -1324,11 +1324,11 @@ msgstr "Fritt måleri"
 msgid "Loose painting is available only to paid Patreon members"
 msgstr "Fritt måleri är endast tillgängligt för betalande Patreon-medlemmar"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:268
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:270
 msgid "Low input and high input"
 msgstr "Låg och hög ingång"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:313
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:314
 msgid "Low output and high output"
 msgstr "Låg och hög utgång"
 
@@ -1379,7 +1379,7 @@ msgstr "Slå ihop färguppsättningar"
 msgid "Mid tone"
 msgstr "Mellanton"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:290
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:292
 msgid "Midtones"
 msgstr "Mellantoner"
 
@@ -1486,9 +1486,13 @@ msgstr "Ny storlek: {outputWidth} × {outputHeight}"
 msgid "Next charge date"
 msgstr "Nästa betalningsdatum"
 
-#: src/components/empty/EmptyColorMatches.tsx:43
-msgid "No matching color mixtures were found"
-msgstr "Inga matchande färgblandningar hittades"
+#: src/components/empty/EmptyColorMatches.tsx:31
+msgid "No color mixture improves on the bare surface"
+msgstr "Ingen färgblandning är bättre än den obelagda ytan"
+
+#: src/components/empty/EmptyColorMatches.tsx:29
+msgid "No color mixture improves on the bare underlayer"
+msgstr "Ingen färgblandning är bättre än det obelagda underskiktet"
 
 #: src/components/ImageColorPicker.tsx:275
 msgid "No palette colors matched the current color set and settings"
@@ -1523,7 +1527,7 @@ msgstr "Antal penseldrag i målningen"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Antal rutor på den kortare sidan (vertikalt eller horisontellt)"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:104
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:106
 msgid "Off"
 msgstr "Av"
 
@@ -1592,7 +1596,7 @@ msgstr "Eller välj bland dina senaste foton"
 msgid "Original"
 msgstr "Original"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:335
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:336
 msgid "Original color temperature (K)"
 msgstr "Ursprunglig färgtemperatur (K)"
 
@@ -1601,7 +1605,7 @@ msgstr "Ursprunglig färgtemperatur (K)"
 msgid "Outline"
 msgstr "Kontur"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:311
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:312
 msgid "Output levels"
 msgstr "Utgångsnivåer"
 
@@ -1642,12 +1646,12 @@ msgstr "Patreon-medlemskapsverifieringen misslyckades"
 msgid "Patron status"
 msgstr "Patron-status"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:102
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:197
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:104
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:199
 msgid "Percentile"
 msgstr "Percentil"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:174
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:176
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Percentil: automatisk vitbalans från de ljusaste områdena, bra för de flesta foton. Referens: manuell vitbalans med valt vitt område."
 
@@ -1812,7 +1816,7 @@ msgid "Reduce the number of colors in the photo."
 msgstr "Minskar antalet färger i fotot."
 
 #: src/components/color/ColorSwatchDrawer.tsx:92
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:103
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:105
 msgid "Reference"
 msgstr "Referens"
 
@@ -1922,7 +1926,7 @@ msgstr "Rotera medurs"
 msgid "Sample size"
 msgstr "Mätområde"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:242
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:244
 msgid "Saturation (%)"
 msgstr "Mättnad (%)"
 
@@ -2161,7 +2165,7 @@ msgstr "Ange som sammanhållande färg"
 msgid "Shadow"
 msgstr "Skugga"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:266
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:268
 msgid "Shadows and highlights"
 msgstr "Skuggor och högdagrar"
 
@@ -2247,7 +2251,7 @@ msgstr "Låt pastellområden i olika färger överlappa något och tona försikt
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
 msgstr "Låt vaxpastellområden i olika färger överlappa något och tona ordentligt för att skapa en mjuk övergång"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:199
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:201
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Lägre percentilvärden motsvarar starkare blekning"
 
@@ -2552,19 +2556,19 @@ msgstr "Att överföra stilen från din egen bild är endast tillgängligt för 
 msgid "Transparent"
 msgstr "Genomskinlig"
 
-#: src/components/empty/EmptyColorMatches.tsx:37
+#: src/components/empty/EmptyColorMatches.tsx:42
 msgid "Try adding colors or changing the surface"
 msgstr "Prova att lägga till färger eller ändra ytan"
 
-#: src/components/empty/EmptyColorMatches.tsx:32
+#: src/components/empty/EmptyColorMatches.tsx:37
 msgid "Try adding colors or changing the surface or the underlayer"
 msgstr "Prova att lägga till färger eller ändra ytan eller underskiktet"
 
-#: src/components/empty/EmptyColorMatches.tsx:35
+#: src/components/empty/EmptyColorMatches.tsx:40
 msgid "Try adding colors or changing the surface or the unifying color"
 msgstr "Prova att lägga till färger eller ändra ytan eller den sammanhållande färgen"
 
-#: src/components/empty/EmptyColorMatches.tsx:30
+#: src/components/empty/EmptyColorMatches.tsx:35
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "Prova att lägga till färger eller ändra ytan, underskiktet eller den sammanhållande färgen"
 
@@ -2787,13 +2791,13 @@ msgstr "När du väljer fler än {maxColorsFor2} färger totalt används inte bl
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "När du väljer fler än {maxColorsFor3} färger totalt används inte blandningar av tre färger."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:229
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:231
 #: src/components/image-editor/ExpandEditorControls.tsx:209
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "Vit"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:172
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:174
 msgid "White balance"
 msgstr "Vitbalans"
 
@@ -2801,8 +2805,8 @@ msgstr "Vitbalans"
 msgid "White paper or canvas"
 msgstr "Vitt papper eller duk"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:221
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:227
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:229
 msgid "White point"
 msgstr "Vit punkt"
 

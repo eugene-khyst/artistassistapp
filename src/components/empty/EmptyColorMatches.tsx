@@ -25,6 +25,11 @@ interface Props {
 }
 
 export function EmptyColorMatches({hasUnderlayer, hasUnifyingColor}: Readonly<Props>) {
+  const description = hasUnderlayer ? (
+    <Trans>No color mixture improves on the bare underlayer</Trans>
+  ) : (
+    <Trans>No color mixture improves on the bare surface</Trans>
+  );
   const hint = hasUnderlayer ? (
     hasUnifyingColor ? (
       <Trans>Try adding colors or changing the surface, underlayer, or unifying color</Trans>
@@ -38,10 +43,7 @@ export function EmptyColorMatches({hasUnderlayer, hasUnifyingColor}: Readonly<Pr
   );
 
   return (
-    <Empty
-      image={Empty.PRESENTED_IMAGE_SIMPLE}
-      description={<Trans>No matching color mixtures were found</Trans>}
-    >
+    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={description}>
       <Typography.Text type="secondary">{hint}</Typography.Text>
     </Empty>
   );

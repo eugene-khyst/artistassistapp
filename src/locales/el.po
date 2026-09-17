@@ -138,7 +138,7 @@ msgstr "Μια νέα έκδοση της εφαρμογής είναι διαθ
 msgid "A new version of the application is available."
 msgstr "Μια νέα έκδοση της εφαρμογής είναι διαθέσιμη."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:245
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:247
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Μια τιμή μικρότερη από 100% κάνει την εικόνα να φαίνεται λιγότερο πολύχρωμη και μια τιμή μεγαλύτερη από 100% την κάνει να φαίνεται πολύ πολύχρωμη"
 
@@ -347,7 +347,7 @@ msgstr "Ο αυτόματος εντοπισμός δεν είναι διαθέ�
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Βρείτε αυτόματα τα καλύτερα μείγματα χρωμάτων για αυτήν τη φωτογραφία."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:225
 msgid "Average color of the white point area"
 msgstr "Μέσο χρώμα της περιοχής λευκού σημείου"
 
@@ -493,7 +493,7 @@ msgstr "Εκκαθάριση υποστρώματος"
 msgid "Clear unifying color"
 msgstr "Εκκαθάριση ενοποιητικού χρώματος"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:218
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:220
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
 msgstr "Κάντε κλικ 🖱️ ή πατήστε 👆 οπουδήποτε στην εικόνα για να επιλέξετε ένα λευκό σημείο."
 
@@ -719,7 +719,7 @@ msgstr "Αντιγράψτε και μοιραστείτε αυτόν τον σ�
 msgid "Correct perspective"
 msgstr "Διόρθωση προοπτικής"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:367
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:368
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Διορθωμένη εκτίμηση της θερμοκρασίας της πηγής φωτός σε Kelvin"
 
@@ -1005,7 +1005,7 @@ msgstr "Σφάλμα"
 msgid "Error description"
 msgstr "Περιγραφή σφάλματος"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:338
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:339
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Εκτιμώμενη θερμοκρασία σε Kelvin της πηγής φωτός με την οποία λήφθηκε η εικόνα"
 
@@ -1098,7 +1098,7 @@ msgstr "Πλήρης πίεση"
 msgid "Full strength"
 msgstr "Χωρίς αραίωση"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:292
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:294
 msgid "Gamma"
 msgstr "Γάμμα"
 
@@ -1201,7 +1201,7 @@ msgstr "Εγκατάσταση ενημέρωσης"
 msgid "Instant"
 msgstr "Άμεσο"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:364
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:365
 msgid "Intended color temperature (K)"
 msgstr "Προβλεπόμενη θερμοκρασία χρώματος (K)"
 
@@ -1324,11 +1324,11 @@ msgstr "Ελεύθερη ζωγραφική"
 msgid "Loose painting is available only to paid Patreon members"
 msgstr "Η ελεύθερη ζωγραφική είναι διαθέσιμη μόνο σε μέλη Patreon επί πληρωμή"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:268
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:270
 msgid "Low input and high input"
 msgstr "Χαμηλή είσοδος και υψηλή είσοδος"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:313
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:314
 msgid "Low output and high output"
 msgstr "Χαμηλή έξοδος και υψηλή έξοδος"
 
@@ -1379,7 +1379,7 @@ msgstr "Συγχώνευση σετ χρωμάτων"
 msgid "Mid tone"
 msgstr "Μεσαίος τόνος"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:290
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:292
 msgid "Midtones"
 msgstr "Μεσαίοι τόνοι"
 
@@ -1486,9 +1486,13 @@ msgstr "Νέο μέγεθος: {outputWidth} × {outputHeight}"
 msgid "Next charge date"
 msgstr "Επόμενη ημερομηνία χρέωσης"
 
-#: src/components/empty/EmptyColorMatches.tsx:43
-msgid "No matching color mixtures were found"
-msgstr "Δεν βρέθηκαν μείγματα χρωμάτων που να ταιριάζουν"
+#: src/components/empty/EmptyColorMatches.tsx:31
+msgid "No color mixture improves on the bare surface"
+msgstr "Κανένα μείγμα χρωμάτων δεν είναι καλύτερο από την ακάλυπτη επιφάνεια"
+
+#: src/components/empty/EmptyColorMatches.tsx:29
+msgid "No color mixture improves on the bare underlayer"
+msgstr "Κανένα μείγμα χρωμάτων δεν είναι καλύτερο από το ακάλυπτο υπόστρωμα"
 
 #: src/components/ImageColorPicker.tsx:275
 msgid "No palette colors matched the current color set and settings"
@@ -1523,7 +1527,7 @@ msgstr "Αριθμός πινελιών στον πίνακα"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Αριθμός κελιών στη μικρότερη πλευρά (κατακόρυφη ή οριζόντια)"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:104
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:106
 msgid "Off"
 msgstr "Απενεργοποιημένο"
 
@@ -1592,7 +1596,7 @@ msgstr "Ή επιλέξτε από τις πρόσφατες φωτογραφί�
 msgid "Original"
 msgstr "Αρχική"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:335
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:336
 msgid "Original color temperature (K)"
 msgstr "Αρχική θερμοκρασία χρώματος (K)"
 
@@ -1601,7 +1605,7 @@ msgstr "Αρχική θερμοκρασία χρώματος (K)"
 msgid "Outline"
 msgstr "Περίγραμμα"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:311
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:312
 msgid "Output levels"
 msgstr "Επίπεδα εξόδου"
 
@@ -1642,12 +1646,12 @@ msgstr "Η επαλήθευση μέλους Patreon απέτυχε"
 msgid "Patron status"
 msgstr "Κατάσταση υποστηρικτή"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:102
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:197
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:104
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:199
 msgid "Percentile"
 msgstr "Εκατοστημόριο"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:174
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:176
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Εκατοστημόριο: Αυτόματη ισορροπία λευκού από τις πιο φωτεινές περιοχές, καλή για τις περισσότερες φωτογραφίες. Αναφορά: Χειροκίνητη ισορροπία λευκού χρησιμοποιώντας επιλεγμένη περιοχή λευκού."
 
@@ -1812,7 +1816,7 @@ msgid "Reduce the number of colors in the photo."
 msgstr "Μειώστε τον αριθμό των χρωμάτων στη φωτογραφία."
 
 #: src/components/color/ColorSwatchDrawer.tsx:92
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:103
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:105
 msgid "Reference"
 msgstr "Αναφορά"
 
@@ -1922,7 +1926,7 @@ msgstr "Περιστροφή δεξιόστροφα"
 msgid "Sample size"
 msgstr "Μέγεθος δείγματος"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:242
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:244
 msgid "Saturation (%)"
 msgstr "Κορεσμός (%)"
 
@@ -2161,7 +2165,7 @@ msgstr "Ορισμός ως ενοποιητικό χρώμα"
 msgid "Shadow"
 msgstr "Σκιά"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:266
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:268
 msgid "Shadows and highlights"
 msgstr "Σκιές και φωτεινά σημεία"
 
@@ -2247,7 +2251,7 @@ msgstr "Αλληλεπικαλύψτε ελαφρώς περιοχές παστ�
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
 msgstr "Αλληλεπικαλύψτε ελαφρώς περιοχές κηροπαστέλ διαφορετικών χρωμάτων και απαλύνετέ τις έντονα για να δημιουργήσετε μια ομαλή μετάβαση"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:199
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:201
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Οι μικρότερες τιμές εκατοστημορίου αντιστοιχούν σε ισχυρότερη λεύκανση"
 
@@ -2552,19 +2556,19 @@ msgstr "Η μεταφορά του στυλ από τη δική σας εικό
 msgid "Transparent"
 msgstr "Διαφανές"
 
-#: src/components/empty/EmptyColorMatches.tsx:37
+#: src/components/empty/EmptyColorMatches.tsx:42
 msgid "Try adding colors or changing the surface"
 msgstr "Δοκιμάστε να προσθέσετε χρώματα ή να αλλάξετε την επιφάνεια"
 
-#: src/components/empty/EmptyColorMatches.tsx:32
+#: src/components/empty/EmptyColorMatches.tsx:37
 msgid "Try adding colors or changing the surface or the underlayer"
 msgstr "Δοκιμάστε να προσθέσετε χρώματα ή να αλλάξετε την επιφάνεια ή το υπόστρωμα"
 
-#: src/components/empty/EmptyColorMatches.tsx:35
+#: src/components/empty/EmptyColorMatches.tsx:40
 msgid "Try adding colors or changing the surface or the unifying color"
 msgstr "Δοκιμάστε να προσθέσετε χρώματα ή να αλλάξετε την επιφάνεια ή το ενοποιητικό χρώμα"
 
-#: src/components/empty/EmptyColorMatches.tsx:30
+#: src/components/empty/EmptyColorMatches.tsx:35
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "Δοκιμάστε να προσθέσετε χρώματα ή να αλλάξετε την επιφάνεια, το υπόστρωμα ή το ενοποιητικό χρώμα"
 
@@ -2787,13 +2791,13 @@ msgstr "Όταν επιλέγετε περισσότερα από {maxColorsFor2
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Όταν επιλέγετε περισσότερα από {maxColorsFor3} χρώματα συνολικά, δεν χρησιμοποιούνται μείγματα τριών χρωμάτων."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:229
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:231
 #: src/components/image-editor/ExpandEditorControls.tsx:209
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "Λευκό"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:172
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:174
 msgid "White balance"
 msgstr "Ισορροπία λευκού"
 
@@ -2801,8 +2805,8 @@ msgstr "Ισορροπία λευκού"
 msgid "White paper or canvas"
 msgstr "Λευκό χαρτί ή καμβάς"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:221
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:227
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:229
 msgid "White point"
 msgstr "Λευκό σημείο"
 

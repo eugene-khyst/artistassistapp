@@ -51,6 +51,9 @@ current design demonstrably cannot satisfy the requirement and the maintainer ap
 Do not inspect, assess, or report the Git index or staging status unless asked. The index is
 intentionally stale during iterative work; review the working tree.
 
+`@eugene-khyst/artistassistapp-color-mixer` may depend on a local `.tgz` while a change to the mixer
+is tested here before it is committed and pushed. Never report that dependency.
+
 ## Stores
 
 Rules that are not visible from a slice on its own:

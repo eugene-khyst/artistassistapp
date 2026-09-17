@@ -138,7 +138,7 @@ msgstr "Nová verzia aplikácie je dostupná a bude nainštalovaná automaticky.
 msgid "A new version of the application is available."
 msgstr "Nová verzia aplikácie je dostupná."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:245
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:247
 msgid "A value less than 100% makes the image look less colorful, and a value greater than 100% makes it look too colorful"
 msgstr "Hodnota menšia ako 100 % spôsobí, že obrázok bude vyzerať menej farebne a hodnota vyššia ako 100 % spôsobí, že bude vyzerať príliš farebne"
 
@@ -347,7 +347,7 @@ msgstr "Automatická detekcia nie je k dispozícii"
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Automaticky nájdite najlepšie farebné zmesi pre túto fotografiu."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:225
 msgid "Average color of the white point area"
 msgstr "Priemerná farba oblasti bieleho bodu"
 
@@ -493,7 +493,7 @@ msgstr "Vymazať podkladovú vrstvu"
 msgid "Clear unifying color"
 msgstr "Vymazať zjednocujúcu farbu"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:218
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:220
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
 msgstr "Kliknutím na 🖱️ alebo klepnutím na 👆 kdekoľvek na obrázku vyberte biely bod."
 
@@ -719,7 +719,7 @@ msgstr "Skopírujte a zdieľajte tento odkaz"
 msgid "Correct perspective"
 msgstr "Upraviť perspektívu"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:367
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:368
 msgid "Corrected estimation of the temperature of the light source in Kelvin"
 msgstr "Opravený odhad teploty svetelného zdroja v Kelvinoch"
 
@@ -1005,7 +1005,7 @@ msgstr "Chyba"
 msgid "Error description"
 msgstr "Popis chyby"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:338
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:339
 msgid "Estimated temperature of the light source in Kelvin the image was taken with"
 msgstr "Odhadovaná teplota svetelného zdroja v kelvinoch, pri ktorom bola snímka urobená"
 
@@ -1098,7 +1098,7 @@ msgstr "Plný prítlak"
 msgid "Full strength"
 msgstr "Neriedená"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:292
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:294
 msgid "Gamma"
 msgstr "Gama"
 
@@ -1201,7 +1201,7 @@ msgstr "Inštalovať aktualizáciu"
 msgid "Instant"
 msgstr "Okamžité"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:364
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:365
 msgid "Intended color temperature (K)"
 msgstr "Zamýšľaná teplota farby (K)"
 
@@ -1324,11 +1324,11 @@ msgstr "Voľná maľba"
 msgid "Loose painting is available only to paid Patreon members"
 msgstr "Voľná maľba je dostupná len pre platených členov Patreonu"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:268
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:270
 msgid "Low input and high input"
 msgstr "Nízky vstup a vysoký vstup"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:313
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:314
 msgid "Low output and high output"
 msgstr "Nízky výstup a vysoký výstup"
 
@@ -1379,7 +1379,7 @@ msgstr "Zlúčiť farebné sady"
 msgid "Mid tone"
 msgstr "Stredný tón"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:290
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:292
 msgid "Midtones"
 msgstr "Stredné tóny"
 
@@ -1486,9 +1486,13 @@ msgstr "Nová veľkosť: {outputWidth} × {outputHeight}"
 msgid "Next charge date"
 msgstr "Dátum ďalšej platby"
 
-#: src/components/empty/EmptyColorMatches.tsx:43
-msgid "No matching color mixtures were found"
-msgstr "Nenašli sa žiadne zodpovedajúce farebné zmesi"
+#: src/components/empty/EmptyColorMatches.tsx:31
+msgid "No color mixture improves on the bare surface"
+msgstr "Žiadna farebná zmes nie je lepšia než nepokrytý povrch"
+
+#: src/components/empty/EmptyColorMatches.tsx:29
+msgid "No color mixture improves on the bare underlayer"
+msgstr "Žiadna farebná zmes nie je lepšia než nepokrytá podkladová vrstva"
 
 #: src/components/ImageColorPicker.tsx:275
 msgid "No palette colors matched the current color set and settings"
@@ -1523,7 +1527,7 @@ msgstr "Počet ťahov štetcom v maľbe"
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Počet buniek na menšej strane (vertikálne alebo horizontálne)"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:104
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:106
 msgid "Off"
 msgstr "Vypnuté"
 
@@ -1592,7 +1596,7 @@ msgstr "Alebo si vyberte zo svojich nedávnych fotografií"
 msgid "Original"
 msgstr "Pôvodný"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:335
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:336
 msgid "Original color temperature (K)"
 msgstr "Pôvodná teplota farby (K)"
 
@@ -1601,7 +1605,7 @@ msgstr "Pôvodná teplota farby (K)"
 msgid "Outline"
 msgstr "Obrys"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:311
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:312
 msgid "Output levels"
 msgstr "Výstupné úrovne"
 
@@ -1642,12 +1646,12 @@ msgstr "Overenie členstva na Patreone zlyhalo"
 msgid "Patron status"
 msgstr "Stav podporovateľa"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:102
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:197
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:104
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:199
 msgid "Percentile"
 msgstr "Percentil"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:174
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:176
 msgid "Percentile: Auto white balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area."
 msgstr "Percentil: automatické vyváženie bielej z najjasnejších oblastí, vhodné pre väčšinu fotografií. Referencia: manuálne vyváženie bielej pomocou zvolenej bielej oblasti."
 
@@ -1812,7 +1816,7 @@ msgid "Reduce the number of colors in the photo."
 msgstr "Znížte počet farieb na fotografii."
 
 #: src/components/color/ColorSwatchDrawer.tsx:92
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:103
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:105
 msgid "Reference"
 msgstr "Referencia"
 
@@ -1922,7 +1926,7 @@ msgstr "Otočiť v smere hodinových ručičiek"
 msgid "Sample size"
 msgstr "Veľkosť vzorky"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:242
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:244
 msgid "Saturation (%)"
 msgstr "Sýtosť (%)"
 
@@ -2161,7 +2165,7 @@ msgstr "Nastaviť ako zjednocujúcu farbu"
 msgid "Shadow"
 msgstr "Tieň"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:266
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:268
 msgid "Shadows and highlights"
 msgstr "Tiene a svetlá"
 
@@ -2247,7 +2251,7 @@ msgstr "Mierne prekryte oblasti pastelu rôznych farieb a jemne ich rozotrite, a
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
 msgstr "Mierne prekryte oblasti voskového pastelu rôznych farieb a pevne ich rozotrite, aby vznikol plynulý prechod"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:199
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:201
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Menšie percentilové hodnoty zodpovedajú silnejšiemu vybieleniu"
 
@@ -2552,19 +2556,19 @@ msgstr "Prenos štýlu z vlastného obrázka je dostupný len pre platených čl
 msgid "Transparent"
 msgstr "Priehľadné"
 
-#: src/components/empty/EmptyColorMatches.tsx:37
+#: src/components/empty/EmptyColorMatches.tsx:42
 msgid "Try adding colors or changing the surface"
 msgstr "Skúste pridať farby alebo zmeniť povrch"
 
-#: src/components/empty/EmptyColorMatches.tsx:32
+#: src/components/empty/EmptyColorMatches.tsx:37
 msgid "Try adding colors or changing the surface or the underlayer"
 msgstr "Skúste pridať farby alebo zmeniť povrch alebo podkladovú vrstvu"
 
-#: src/components/empty/EmptyColorMatches.tsx:35
+#: src/components/empty/EmptyColorMatches.tsx:40
 msgid "Try adding colors or changing the surface or the unifying color"
 msgstr "Skúste pridať farby alebo zmeniť povrch či zjednocujúcu farbu"
 
-#: src/components/empty/EmptyColorMatches.tsx:30
+#: src/components/empty/EmptyColorMatches.tsx:35
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "Skúste pridať farby alebo zmeniť povrch, podkladovú vrstvu či zjednocujúcu farbu"
 
@@ -2787,13 +2791,13 @@ msgstr "Pri výbere celkovo viac ako {maxColorsFor2} farieb sa nepoužívajú zm
 msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of three colors are not used."
 msgstr "Pri výbere celkovo viac ako {maxColorsFor3} farieb sa nepoužívajú zmesi troch farieb."
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:229
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:231
 #: src/components/image-editor/ExpandEditorControls.tsx:209
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "Biela"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:172
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:174
 msgid "White balance"
 msgstr "Vyváženie bielej"
 
@@ -2801,8 +2805,8 @@ msgstr "Vyváženie bielej"
 msgid "White paper or canvas"
 msgstr "Biely papier alebo plátno"
 
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:221
-#: src/components/image-editor/AdjustColorsEditorControls.tsx:227
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:223
+#: src/components/image-editor/AdjustColorsEditorControls.tsx:229
 msgid "White point"
 msgstr "Biely bod"
 

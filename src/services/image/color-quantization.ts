@@ -20,10 +20,8 @@ import {
   ColorMixer,
   type ColorSet,
   computeIfAbsentInMap,
-  deltaEOKr2,
   packRgb,
   PAPER_WHITE,
-  rgbToOklab,
   type RgbTuple,
 } from '@eugene-khyst/artistassistapp-color-mixer';
 import {transfer} from 'comlink';
@@ -73,19 +71,18 @@ export class ColorQuantization {
     colorMixer.setColorSet({colorSet});
     const imageData: ImageData = readImageData(image);
     const matchedColors = new Map<number, RgbTuple>();
-    const surfaceOklab = rgbToOklab(...PAPER_WHITE);
     quantizeColors(
       imageData,
       MAX_COLORS,
       true,
       rgbTransformInOklab((color: RgbTuple): RgbTuple =>
-        computeIfAbsentInMap(matchedColors, packRgb(...color), () => {
-          const match = colorMixer.findBestAvailableColorMatch(color, true);
-          const surfaceDeltaE = deltaEOKr2(...rgbToOklab(...color), ...surfaceOklab);
-          return match && match.deltaEOKr2 < surfaceDeltaE
-            ? match.colorMixture.layerRgb
-            : PAPER_WHITE;
-        })
+        computeIfAbsentInMap(
+          matchedColors,
+          packRgb(...color),
+          () =>
+            colorMixer.findBestAvailableColorMatch(color, true)?.colorMixture.layerRgb ??
+            PAPER_WHITE
+        )
       )
     );
     const quantizedImage: ImageBitmap = await createImageBitmap(imageData);
