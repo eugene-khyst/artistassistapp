@@ -21,10 +21,16 @@ import type {Fraction} from '@eugene-khyst/artistassistapp-color-mixer';
 import {imageAspectRatio, imageAspectRatioLabel} from '@/services/image/aspect-ratio';
 import type {AppSettings} from '@/services/settings/types';
 import {toEnumValue} from '@/utils/enum';
+import type {ImageDimension} from '@/utils/graphics';
 
 export enum ExpandMode {
   AspectRatio = 'aspect-ratio',
   Margins = 'margins',
+}
+
+export enum ExpandMarginUnit {
+  Percent = 'percent',
+  Pixel = 'pixel',
 }
 
 export enum ExpandFillMode {
@@ -35,6 +41,7 @@ export enum ExpandFillMode {
 export interface ExpandControls {
   sizeMode: ExpandMode;
   aspectRatio: Fraction;
+  marginUnit: ExpandMarginUnit;
   marginX: number;
   marginY: number;
   fillMode: ExpandFillMode;
@@ -44,6 +51,7 @@ export interface ExpandControls {
 export const DEFAULT_EXPAND_CONTROLS: ExpandControls = {
   sizeMode: ExpandMode.AspectRatio,
   aspectRatio: [1, 1],
+  marginUnit: ExpandMarginUnit.Percent,
   marginX: 10,
   marginY: 10,
   fillMode: ExpandFillMode.Color,
@@ -77,4 +85,40 @@ export function expandControlsToAppSettings(
     appSettings.expandFillMode = controls.fillMode;
   }
   return appSettings;
+}
+
+export function fullImageMargin(marginUnit: ExpandMarginUnit, size: number): number {
+  return marginUnit === ExpandMarginUnit.Pixel ? Math.max(1, size) : 100;
+}
+
+export function clampExpandMargins(
+  controls: ExpandControls,
+  {width, height}: ImageDimension
+): ExpandControls {
+  return {
+    ...controls,
+    marginX: Math.min(controls.marginX, fullImageMargin(controls.marginUnit, width)),
+    marginY: Math.min(controls.marginY, fullImageMargin(controls.marginUnit, height)),
+  };
+}
+
+export function convertExpandMargins(
+  {marginUnit, marginX, marginY}: ExpandControls,
+  targetUnit: ExpandMarginUnit,
+  {width, height}: ImageDimension
+): Pick<ExpandControls, 'marginUnit' | 'marginX' | 'marginY'> {
+  if (marginUnit === targetUnit) {
+    return {marginUnit, marginX, marginY};
+  }
+  const roundingFactor = targetUnit === ExpandMarginUnit.Pixel ? 1 : 100;
+  const convert = (margin: number, size: number): number =>
+    Math.round(
+      (roundingFactor * margin * fullImageMargin(targetUnit, size)) /
+        fullImageMargin(marginUnit, size)
+    ) / roundingFactor;
+  return {
+    marginUnit: targetUnit,
+    marginX: convert(marginX, width),
+    marginY: convert(marginY, height),
+  };
 }

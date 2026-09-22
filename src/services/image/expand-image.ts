@@ -18,7 +18,7 @@
 
 import {clamp} from '@eugene-khyst/artistassistapp-color-mixer';
 
-import {type ExpandControls, ExpandMode} from '@/services/image/expand-controls';
+import {type ExpandControls, ExpandMode, fullImageMargin} from '@/services/image/expand-controls';
 import {Rectangle, Vector} from '@/services/math/geometry';
 import {
   aspectRatioSize,
@@ -35,12 +35,19 @@ export interface ImageExpansion {
 
 const MAX_EXPANDED_IMAGE_PIXELS = 4000 * 4000;
 
-function expandedSize(width: number, height: number, controls: ExpandControls): ImageDimension {
+type FullMargins = [x: number, y: number];
+
+function expandedSize(
+  width: number,
+  height: number,
+  controls: ExpandControls,
+  [fullX, fullY]: FullMargins
+): ImageDimension {
   if (controls.sizeMode === ExpandMode.AspectRatio) {
     return aspectRatioSize(width, height, controls.aspectRatio);
   }
-  const marginX = Math.round((width * clamp(controls.marginX, 0, 100)) / 100);
-  const marginY = Math.round((height * clamp(controls.marginY, 0, 100)) / 100);
+  const marginX = Math.round((width * clamp(controls.marginX, 0, fullX)) / fullX);
+  const marginY = Math.round((height * clamp(controls.marginY, 0, fullY)) / fullY);
   return {width: width + 2 * marginX, height: height + 2 * marginY};
 }
 
@@ -52,7 +59,16 @@ export function getImageExpansion(
   {width, height}: Pick<DrawImageSource, 'width' | 'height'>,
   controls: ExpandControls
 ): ImageExpansion {
-  const {width: expandedWidth, height: expandedHeight} = expandedSize(width, height, controls);
+  const fullMargins: FullMargins = [
+    fullImageMargin(controls.marginUnit, width),
+    fullImageMargin(controls.marginUnit, height),
+  ];
+  const {width: expandedWidth, height: expandedHeight} = expandedSize(
+    width,
+    height,
+    controls,
+    fullMargins
+  );
 
   const scale = scaleToPixelCount(expandedWidth, expandedHeight, MAX_EXPANDED_IMAGE_PIXELS);
   let sourceWidth = Math.max(1, Math.round(scale * width));
@@ -61,7 +77,8 @@ export function getImageExpansion(
   let {width: targetWidth, height: targetHeight} = expandedSize(
     sourceWidth,
     sourceHeight,
-    controls
+    controls,
+    fullMargins
   );
   while (targetWidth * targetHeight > MAX_EXPANDED_IMAGE_PIXELS) {
     const shrink = scaleToPixelCount(targetWidth, targetHeight, MAX_EXPANDED_IMAGE_PIXELS);
@@ -70,7 +87,8 @@ export function getImageExpansion(
     ({width: targetWidth, height: targetHeight} = expandedSize(
       sourceWidth,
       sourceHeight,
-      controls
+      controls,
+      fullMargins
     ));
   }
 

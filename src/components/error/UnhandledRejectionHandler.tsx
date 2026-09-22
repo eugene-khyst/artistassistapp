@@ -30,8 +30,8 @@ export function UnhandledRejectionHandler({children}: Readonly<PropsWithChildren
   const {notification} = App.useApp();
 
   const showError = useEffectEvent((error: unknown) => {
-    const {appSettings, saveAppSettings} = useAppStore.getState();
-    const canDisableWebGpu = isWebGpuInferenceError(error) && appSettings.webGpuEnabled;
+    const {appSettings, saveAppSettings, loadActiveTab} = useAppStore.getState();
+    const canDisableWebGpu = isWebGpuInferenceError(error) && appSettings.webGpu;
     const key = crypto.randomUUID();
     notification.error({
       key,
@@ -52,8 +52,9 @@ export function UnhandledRejectionHandler({children}: Readonly<PropsWithChildren
       actions: canDisableWebGpu ? (
         <LoadingButton
           run={async () => {
-            await saveAppSettings({webGpuEnabled: false});
+            await saveAppSettings({webGpu: false});
             notification.destroy(key);
+            loadActiveTab();
           }}
         >
           <Trans>Turn off WebGPU</Trans>

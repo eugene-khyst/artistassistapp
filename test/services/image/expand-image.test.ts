@@ -22,6 +22,7 @@ import {afterEach, describe, expect, it, vi} from 'vitest';
 import {
   DEFAULT_EXPAND_CONTROLS,
   type ExpandControls,
+  ExpandMarginUnit,
   ExpandMode,
 } from '@/services/image/expand-controls';
 import {createExpansionMask, getImageExpansion} from '@/services/image/expand-image';
@@ -153,28 +154,57 @@ describe('image expansion', () => {
     expect(expansion.sourceRectangle).toEqual(Rectangle.fromTopLeft(new Vector(20, 20), 200, 100));
   });
 
-  it('scales the whole layout down to the supported output size', () => {
+  it('rounds a percentage margin from the exact pixel product', () => {
     const expansion = getImageExpansion(
-      {width: 4000, height: 4000},
-      {
-        ...DEFAULT_EXPAND_CONTROLS,
-        sizeMode: ExpandMode.Margins,
-        marginX: 100,
-        marginY: 100,
-      }
+      {width: 50, height: 90},
+      {...marginsControls, marginX: 29, marginY: 35}
     );
 
-    expect(expansion.bounds).toEqual(new Rectangle(new Vector(3999, 3999)));
-    expect(expansion.sourceRectangle).toEqual(
-      Rectangle.fromTopLeft(new Vector(1333, 1333), 1333, 1333)
-    );
-    expect(expansion.margins.map(({width, height}) => [width, height])).toEqual([
-      [3999, 1333],
-      [3999, 1333],
-      [1333, 1333],
-      [1333, 1333],
-    ]);
+    expect(expansion.bounds).toEqual(new Rectangle(new Vector(80, 154)));
   });
+
+  it('adds each pixel margin to both corresponding sides', () => {
+    const expansion = getImageExpansion(
+      {width: 200, height: 100},
+      {...marginsControls, marginUnit: ExpandMarginUnit.Pixel, marginX: 15, marginY: 5}
+    );
+
+    expect(expansion.bounds).toEqual(new Rectangle(new Vector(230, 110)));
+    expect(expansion.sourceRectangle).toEqual(Rectangle.fromTopLeft(new Vector(15, 5), 200, 100));
+  });
+
+  it('limits a pixel margin to the image size', () => {
+    const expansion = getImageExpansion(
+      {width: 200, height: 100},
+      {...marginsControls, marginUnit: ExpandMarginUnit.Pixel, marginX: 500, marginY: 500}
+    );
+
+    expect(expansion.bounds).toEqual(new Rectangle(new Vector(600, 300)));
+  });
+
+  it.each([
+    {marginUnit: ExpandMarginUnit.Percent, margin: 100},
+    {marginUnit: ExpandMarginUnit.Pixel, margin: 4000},
+  ])(
+    'scales the whole $marginUnit layout down to the supported output size',
+    ({marginUnit, margin}) => {
+      const expansion = getImageExpansion(
+        {width: 4000, height: 4000},
+        {...marginsControls, marginUnit, marginX: margin, marginY: margin}
+      );
+
+      expect(expansion.bounds).toEqual(new Rectangle(new Vector(3999, 3999)));
+      expect(expansion.sourceRectangle).toEqual(
+        Rectangle.fromTopLeft(new Vector(1333, 1333), 1333, 1333)
+      );
+      expect(expansion.margins.map(({width, height}) => [width, height])).toEqual([
+        [3999, 1333],
+        [3999, 1333],
+        [1333, 1333],
+        [1333, 1333],
+      ]);
+    }
+  );
 
   it('centers the image exactly at every size, including past the pixel cap', () => {
     let cappedCount = 0;

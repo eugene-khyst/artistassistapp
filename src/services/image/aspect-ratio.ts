@@ -33,8 +33,6 @@ export const IMAGE_ASPECT_RATIOS: readonly Fraction[] = [
   [7, 5],
   [2, 3],
   [3, 2],
-  [100, 148],
-  [148, 100],
   [9, 16],
   [16, 9],
   [1.91, 1],
@@ -43,6 +41,11 @@ export const IMAGE_ASPECT_RATIOS: readonly Fraction[] = [
 export function imageAspectRatioLabel(aspectRatio: Fraction): string {
   return aspectRatio.join(':');
 }
+
+export const IMAGE_ASPECT_RATIO_OPTIONS = IMAGE_ASPECT_RATIOS.map(aspectRatio => {
+  const label = imageAspectRatioLabel(aspectRatio);
+  return {value: label, label};
+});
 
 const IMAGE_ASPECT_RATIOS_BY_LABEL = new Map<string, Fraction>(
   IMAGE_ASPECT_RATIOS.map(aspectRatio => [imageAspectRatioLabel(aspectRatio), aspectRatio])

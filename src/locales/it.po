@@ -114,14 +114,6 @@ msgstr "📢 Niente pubblicità"
 msgid "🧑‍🎨 Artistic styles from your own images and loose brushstroke paintings"
 msgstr "🧑‍🎨 Stili artistici dalle tue immagini e dipinti con pennellate libere"
 
-#: src/components/image-editor/image-aspect-ratio-options.tsx:28
-msgid "100×148 mm photo paper"
-msgstr "Carta fotografica 100×148 mm"
-
-#: src/components/image-editor/image-aspect-ratio-options.tsx:30
-msgid "148×100 mm photo paper"
-msgstr "Carta fotografica 148×100 mm"
-
 #: src/components/messages.ts:39
 msgid "2-color gradient"
 msgstr "Gradiente a 2 colori"
@@ -309,9 +301,9 @@ msgstr "ArtistAssistApp eliminerà permanentemente il lavoro e le impostazioni s
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "ArtistAssistApp si ricaricherà dopo aver rimosso i file temporanei dell'app.<0/>Il tuo lavoro salvato e i dati cloud non verranno eliminati."
 
-#: src/components/image-editor/CropEditorControls.tsx:79
-#: src/components/image-editor/ExpandEditorControls.tsx:98
-#: src/components/image-editor/ExpandEditorControls.tsx:134
+#: src/components/image-editor/CropEditorControls.tsx:78
+#: src/components/image-editor/ExpandEditorControls.tsx:111
+#: src/components/image-editor/ExpandEditorControls.tsx:148
 msgid "Aspect ratio"
 msgstr "Proporzioni"
 
@@ -449,7 +441,7 @@ msgstr "Controlla gli aggiornamenti"
 
 #: src/components/ColorSetChooser.tsx:217
 #: src/components/image-editor/ColorizeEditorControls.tsx:57
-#: src/components/image-editor/ExpandEditorControls.tsx:82
+#: src/components/image-editor/ExpandEditorControls.tsx:95
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:52
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:59
 #: src/components/image-editor/RestoreEditorControls.tsx:47
@@ -579,9 +571,9 @@ msgstr "È necessario il codice"
 
 #: src/components/ColorMixer.tsx:192
 #: src/components/CustomColorBrandCreator.tsx:476
-#: src/components/image-editor/ExpandEditorControls.tsx:102
-#: src/components/image-editor/ExpandEditorControls.tsx:206
-#: src/components/image-editor/ExpandEditorControls.tsx:208
+#: src/components/image-editor/ExpandEditorControls.tsx:115
+#: src/components/image-editor/ExpandEditorControls.tsx:234
+#: src/components/image-editor/ExpandEditorControls.tsx:236
 msgid "Color"
 msgstr "Colore"
 
@@ -756,7 +748,7 @@ msgstr "Crea un nuovo set di colori unendo quelli esistenti"
 msgid "Create new"
 msgstr "Crea nuovo"
 
-#: src/components/image-editor/CropEditorControls.tsx:100
+#: src/components/image-editor/CropEditorControls.tsx:99
 #: src/components/messages.ts:51
 msgid "Crop"
 msgstr "Ritaglia"
@@ -1022,12 +1014,12 @@ msgstr "Acquaforte"
 msgid "Exit AR"
 msgstr "Esci dall'AR"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:246
+#: src/components/image-editor/ExpandEditorControls.tsx:274
 #: src/components/messages.ts:52
 msgid "Expand"
 msgstr "Espandi"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:115
+#: src/components/image-editor/ExpandEditorControls.tsx:129
 msgid "Expand by"
 msgstr "Espandi di"
 
@@ -1055,7 +1047,7 @@ msgstr "Fauvismo"
 msgid "Few"
 msgstr "Poche"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:191
+#: src/components/image-editor/ExpandEditorControls.tsx:219
 msgid "Fill"
 msgstr "Riempimento"
 
@@ -1090,7 +1082,7 @@ msgstr "Termina la modifica"
 msgid "Focal point instructions"
 msgstr "Istruzioni sul punto focale"
 
-#: src/components/image-editor/CropEditorControls.tsx:37
+#: src/components/image-editor/CropEditorControls.tsx:36
 msgid "Free"
 msgstr "Libero"
 
@@ -1149,7 +1141,7 @@ msgstr "Guida"
 msgid "High pass"
 msgstr "Accentua passaggio"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:153
+#: src/components/image-editor/ExpandEditorControls.tsx:167
 msgid "Horizontal"
 msgstr "Orizzontale"
 
@@ -1345,7 +1337,7 @@ msgstr "Molte"
 msgid "Margin"
 msgstr "Margine"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:99
+#: src/components/image-editor/ExpandEditorControls.tsx:112
 msgid "Margins"
 msgstr "Margini"
 
@@ -1481,7 +1473,7 @@ msgstr "Nuovo set di colori"
 msgid "New comparison"
 msgstr "Nuovo confronto"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:222
+#: src/components/image-editor/ExpandEditorControls.tsx:250
 #: src/components/image-editor/UpscaleEditorControls.tsx:66
 msgid "New size: {outputWidth} × {outputHeight}"
 msgstr "Nuova dimensione: {outputWidth} × {outputHeight}"
@@ -1595,7 +1587,7 @@ msgstr "Oppure seleziona da foto di esempio"
 msgid "Or select from your recent photos"
 msgstr "Oppure seleziona una delle tue foto recenti"
 
-#: src/components/image-editor/CropEditorControls.tsx:38
+#: src/components/image-editor/CropEditorControls.tsx:37
 #: src/components/image/ImageViewSelector.tsx:45
 msgid "Original"
 msgstr "Originale"
@@ -2259,11 +2251,11 @@ msgstr "Sovrapponi leggermente le aree pastello a cera di diversi colori e sfuma
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Valori di percentile più piccoli corrispondono a uno sbiancamento più forte"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:103
+#: src/components/image-editor/ExpandEditorControls.tsx:116
 msgid "Smart"
 msgstr "Intelligente"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:230
+#: src/components/image-editor/ExpandEditorControls.tsx:258
 msgid "Smart expansion is available only to paid Patreon members"
 msgstr "L'espansione intelligente è disponibile solo per i membri Patreon a pagamento"
 
@@ -2576,7 +2568,7 @@ msgstr "Prova ad aggiungere colori o cambiare la superficie o il colore unifican
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "Prova ad aggiungere colori o a cambiare la superficie, il sottostrato o il colore unificante"
 
-#: src/components/error/UnhandledRejectionHandler.tsx:59
+#: src/components/error/UnhandledRejectionHandler.tsx:60
 msgid "Turn off WebGPU"
 msgstr "Disattiva WebGPU"
 
@@ -2620,7 +2612,7 @@ msgstr "Impossibile caricare le modalità di restauro"
 msgid "Unable to load the sample photos"
 msgstr "Impossibile caricare le foto di esempio"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:81
+#: src/components/image-editor/ExpandEditorControls.tsx:94
 msgid "Unable to load the smart expansion model"
 msgstr "Impossibile caricare il modello di espansione intelligente"
 
@@ -2657,6 +2649,10 @@ msgstr "Errore inaspettato: {errorMessage}"
 #: src/components/ImageColorPicker.tsx:403
 msgid "Unifying color"
 msgstr "Colore unificante"
+
+#: src/components/image-editor/ExpandEditorControls.tsx:199
+msgid "Unit"
+msgstr "Unità"
 
 #: src/components/image-editor/SharpenEditorControls.tsx:37
 msgid "Unsharp mask"
@@ -2730,7 +2726,7 @@ msgstr "Utilizzato"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Usare una tavolozza limitata aiuta a ottenere armonia cromatica. Seleziona 1–{MAX_COLORS} colori primari."
 
-#: src/components/image-editor/ExpandEditorControls.tsx:171
+#: src/components/image-editor/ExpandEditorControls.tsx:183
 msgid "Vertical"
 msgstr "Verticale"
 
@@ -2796,7 +2792,7 @@ msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of thr
 msgstr "Quando si selezionano più di {maxColorsFor3} colori in totale, non vengono utilizzate miscele di tre colori."
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:234
-#: src/components/image-editor/ExpandEditorControls.tsx:209
+#: src/components/image-editor/ExpandEditorControls.tsx:237
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "Bianco"

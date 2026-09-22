@@ -156,13 +156,15 @@ export const createEditImageSlice: StateCreator<
     key: undefined,
   };
 
-  // Reset only after the history changed, so a canceled edit does not clear what the user just set.
-  const syncActiveImageEditorControls = (resetIfNotApplied = false): void => {
+  // Outside a transition, restore only a preview, so a failed edit keeps what the user just set.
+  const syncActiveImageEditorControls = (isTransition = false): void => {
     const {activeImageEditorKey, editImageHistory} = get();
-    const {command} = editImageHistory.at(-1) ?? {};
-    if (command && imageEditorKey(command) === activeImageEditorKey) {
-      imageEditorControls.restore(activeImageEditorKey, command);
-    } else if (resetIfNotApplied) {
+    const last = editImageHistory.at(-1);
+    if (last && imageEditorKey(last.command) === activeImageEditorKey) {
+      if (isTransition || last.replaceable) {
+        imageEditorControls.restore(activeImageEditorKey, last.command);
+      }
+    } else if (isTransition) {
       imageEditorControls.reset(activeImageEditorKey);
     }
   };

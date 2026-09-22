@@ -114,14 +114,6 @@ msgstr "📢 Fără reclame"
 msgid "🧑‍🎨 Artistic styles from your own images and loose brushstroke paintings"
 msgstr "🧑‍🎨 Stiluri artistice din propriile dvs. imagini și picturi cu tușe de pensulă libere"
 
-#: src/components/image-editor/image-aspect-ratio-options.tsx:28
-msgid "100×148 mm photo paper"
-msgstr "Hârtie foto 100×148 mm"
-
-#: src/components/image-editor/image-aspect-ratio-options.tsx:30
-msgid "148×100 mm photo paper"
-msgstr "Hârtie foto 148×100 mm"
-
 #: src/components/messages.ts:39
 msgid "2-color gradient"
 msgstr "Gradient de 2 culori"
@@ -309,9 +301,9 @@ msgstr "ArtistAssistApp va șterge definitiv lucrările și setările salvate de
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "ArtistAssistApp se va reîncărca după eliminarea fișierelor temporare ale aplicației.<0/>Lucrările salvate și datele din cloud nu vor fi șterse."
 
-#: src/components/image-editor/CropEditorControls.tsx:79
-#: src/components/image-editor/ExpandEditorControls.tsx:98
-#: src/components/image-editor/ExpandEditorControls.tsx:134
+#: src/components/image-editor/CropEditorControls.tsx:78
+#: src/components/image-editor/ExpandEditorControls.tsx:111
+#: src/components/image-editor/ExpandEditorControls.tsx:148
 msgid "Aspect ratio"
 msgstr "Raportul de aspect"
 
@@ -449,7 +441,7 @@ msgstr "Verificați dacă există actualizări"
 
 #: src/components/ColorSetChooser.tsx:217
 #: src/components/image-editor/ColorizeEditorControls.tsx:57
-#: src/components/image-editor/ExpandEditorControls.tsx:82
+#: src/components/image-editor/ExpandEditorControls.tsx:95
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:52
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:59
 #: src/components/image-editor/RestoreEditorControls.tsx:47
@@ -579,9 +571,9 @@ msgstr "Este necesar codul"
 
 #: src/components/ColorMixer.tsx:192
 #: src/components/CustomColorBrandCreator.tsx:476
-#: src/components/image-editor/ExpandEditorControls.tsx:102
-#: src/components/image-editor/ExpandEditorControls.tsx:206
-#: src/components/image-editor/ExpandEditorControls.tsx:208
+#: src/components/image-editor/ExpandEditorControls.tsx:115
+#: src/components/image-editor/ExpandEditorControls.tsx:234
+#: src/components/image-editor/ExpandEditorControls.tsx:236
 msgid "Color"
 msgstr "Culoare"
 
@@ -756,7 +748,7 @@ msgstr "Creați un set de culori nou prin unirea celor existente"
 msgid "Create new"
 msgstr "Creați unul nou"
 
-#: src/components/image-editor/CropEditorControls.tsx:100
+#: src/components/image-editor/CropEditorControls.tsx:99
 #: src/components/messages.ts:51
 msgid "Crop"
 msgstr "Decupare"
@@ -1022,12 +1014,12 @@ msgstr "Acvaforte"
 msgid "Exit AR"
 msgstr "Ieșiți din AR"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:246
+#: src/components/image-editor/ExpandEditorControls.tsx:274
 #: src/components/messages.ts:52
 msgid "Expand"
 msgstr "Extindere"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:115
+#: src/components/image-editor/ExpandEditorControls.tsx:129
 msgid "Expand by"
 msgstr "Extindere cu"
 
@@ -1055,7 +1047,7 @@ msgstr "Fauvism"
 msgid "Few"
 msgstr "Puține"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:191
+#: src/components/image-editor/ExpandEditorControls.tsx:219
 msgid "Fill"
 msgstr "Umplere"
 
@@ -1090,7 +1082,7 @@ msgstr "Finalizați editarea"
 msgid "Focal point instructions"
 msgstr "Instrucțiuni pentru punctul focal"
 
-#: src/components/image-editor/CropEditorControls.tsx:37
+#: src/components/image-editor/CropEditorControls.tsx:36
 msgid "Free"
 msgstr "Liber"
 
@@ -1149,7 +1141,7 @@ msgstr "Ajutor"
 msgid "High pass"
 msgstr "Filtru trece-sus"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:153
+#: src/components/image-editor/ExpandEditorControls.tsx:167
 msgid "Horizontal"
 msgstr "Orizontal"
 
@@ -1345,7 +1337,7 @@ msgstr "Multe"
 msgid "Margin"
 msgstr "Margine"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:99
+#: src/components/image-editor/ExpandEditorControls.tsx:112
 msgid "Margins"
 msgstr "Margini"
 
@@ -1481,7 +1473,7 @@ msgstr "Set de culori nou"
 msgid "New comparison"
 msgstr "Comparație nouă"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:222
+#: src/components/image-editor/ExpandEditorControls.tsx:250
 #: src/components/image-editor/UpscaleEditorControls.tsx:66
 msgid "New size: {outputWidth} × {outputHeight}"
 msgstr "Dimensiune nouă: {outputWidth} × {outputHeight}"
@@ -1595,7 +1587,7 @@ msgstr "Sau selectați dintre fotografiile mostră"
 msgid "Or select from your recent photos"
 msgstr "Sau selectați dintre fotografiile recente"
 
-#: src/components/image-editor/CropEditorControls.tsx:38
+#: src/components/image-editor/CropEditorControls.tsx:37
 #: src/components/image/ImageViewSelector.tsx:45
 msgid "Original"
 msgstr "Original"
@@ -2259,11 +2251,11 @@ msgstr "Suprapuneți ușor zonele de pastel de ceară de culori diferite și est
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Valorile percentilelor mai mici corespund unei albiri mai puternice"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:103
+#: src/components/image-editor/ExpandEditorControls.tsx:116
 msgid "Smart"
 msgstr "Inteligent"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:230
+#: src/components/image-editor/ExpandEditorControls.tsx:258
 msgid "Smart expansion is available only to paid Patreon members"
 msgstr "Extinderea inteligentă este disponibilă numai pentru membrii Patreon plătitori"
 
@@ -2576,7 +2568,7 @@ msgstr "Încercați să adăugați culori sau să schimbați suprafața sau culo
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "Încercați să adăugați culori sau să schimbați suprafața, stratul de bază ori culoarea unificatoare"
 
-#: src/components/error/UnhandledRejectionHandler.tsx:59
+#: src/components/error/UnhandledRejectionHandler.tsx:60
 msgid "Turn off WebGPU"
 msgstr "Dezactivați WebGPU"
 
@@ -2620,7 +2612,7 @@ msgstr "Nu se pot încărca modurile de restaurare"
 msgid "Unable to load the sample photos"
 msgstr "Nu se pot încărca fotografiile mostră"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:81
+#: src/components/image-editor/ExpandEditorControls.tsx:94
 msgid "Unable to load the smart expansion model"
 msgstr "Nu se poate încărca modelul de expansiune inteligentă"
 
@@ -2657,6 +2649,10 @@ msgstr "Eroare neașteptată: {errorMessage}"
 #: src/components/ImageColorPicker.tsx:403
 msgid "Unifying color"
 msgstr "Culoare unificatoare"
+
+#: src/components/image-editor/ExpandEditorControls.tsx:199
+msgid "Unit"
+msgstr "Unitate"
 
 #: src/components/image-editor/SharpenEditorControls.tsx:37
 msgid "Unsharp mask"
@@ -2730,7 +2726,7 @@ msgstr "Utilizat"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Folosirea unei palete limitate ajută la obținerea armoniei culorilor. Selectați 1–{MAX_COLORS} culori primare."
 
-#: src/components/image-editor/ExpandEditorControls.tsx:171
+#: src/components/image-editor/ExpandEditorControls.tsx:183
 msgid "Vertical"
 msgstr "Vertical"
 
@@ -2796,7 +2792,7 @@ msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of thr
 msgstr "Când selectați mai mult de {maxColorsFor3} culori în total, nu se utilizează amestecuri de trei culori."
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:234
-#: src/components/image-editor/ExpandEditorControls.tsx:209
+#: src/components/image-editor/ExpandEditorControls.tsx:237
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "Alb"

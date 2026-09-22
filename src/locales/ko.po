@@ -114,14 +114,6 @@ msgstr "📢 광고 없음"
 msgid "🧑‍🎨 Artistic styles from your own images and loose brushstroke paintings"
 msgstr "🧑‍🎨 내 이미지로 만드는 예술적 스타일과 자유로운 붓 터치의 그림"
 
-#: src/components/image-editor/image-aspect-ratio-options.tsx:28
-msgid "100×148 mm photo paper"
-msgstr "100×148 mm 인화지"
-
-#: src/components/image-editor/image-aspect-ratio-options.tsx:30
-msgid "148×100 mm photo paper"
-msgstr "148×100 mm 인화지"
-
 #: src/components/messages.ts:39
 msgid "2-color gradient"
 msgstr "2색 그라데이션"
@@ -309,9 +301,9 @@ msgstr "ArtistAssistApp이 이 기기에서 저장된 작업과 설정을 영구
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "ArtistAssistApp은 임시 앱 파일을 제거하면 다시 로드됩니다.<0/>저장된 작업물과 클라우드 데이터는 삭제되지 않습니다."
 
-#: src/components/image-editor/CropEditorControls.tsx:79
-#: src/components/image-editor/ExpandEditorControls.tsx:98
-#: src/components/image-editor/ExpandEditorControls.tsx:134
+#: src/components/image-editor/CropEditorControls.tsx:78
+#: src/components/image-editor/ExpandEditorControls.tsx:111
+#: src/components/image-editor/ExpandEditorControls.tsx:148
 msgid "Aspect ratio"
 msgstr "종횡비"
 
@@ -449,7 +441,7 @@ msgstr "업데이트 확인"
 
 #: src/components/ColorSetChooser.tsx:217
 #: src/components/image-editor/ColorizeEditorControls.tsx:57
-#: src/components/image-editor/ExpandEditorControls.tsx:82
+#: src/components/image-editor/ExpandEditorControls.tsx:95
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:52
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:59
 #: src/components/image-editor/RestoreEditorControls.tsx:47
@@ -579,9 +571,9 @@ msgstr "코드가 필요합니다"
 
 #: src/components/ColorMixer.tsx:192
 #: src/components/CustomColorBrandCreator.tsx:476
-#: src/components/image-editor/ExpandEditorControls.tsx:102
-#: src/components/image-editor/ExpandEditorControls.tsx:206
-#: src/components/image-editor/ExpandEditorControls.tsx:208
+#: src/components/image-editor/ExpandEditorControls.tsx:115
+#: src/components/image-editor/ExpandEditorControls.tsx:234
+#: src/components/image-editor/ExpandEditorControls.tsx:236
 msgid "Color"
 msgstr "색상"
 
@@ -756,7 +748,7 @@ msgstr "기존 색상 세트를 합쳐서 새로운 색상 세트를 만듭니�
 msgid "Create new"
 msgstr "새로 만들기"
 
-#: src/components/image-editor/CropEditorControls.tsx:100
+#: src/components/image-editor/CropEditorControls.tsx:99
 #: src/components/messages.ts:51
 msgid "Crop"
 msgstr "자르기"
@@ -1022,12 +1014,12 @@ msgstr "에칭"
 msgid "Exit AR"
 msgstr "AR 종료"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:246
+#: src/components/image-editor/ExpandEditorControls.tsx:274
 #: src/components/messages.ts:52
 msgid "Expand"
 msgstr "확장"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:115
+#: src/components/image-editor/ExpandEditorControls.tsx:129
 msgid "Expand by"
 msgstr "확장 크기"
 
@@ -1055,7 +1047,7 @@ msgstr "야수파"
 msgid "Few"
 msgstr "적음"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:191
+#: src/components/image-editor/ExpandEditorControls.tsx:219
 msgid "Fill"
 msgstr "채우기"
 
@@ -1090,7 +1082,7 @@ msgstr "편집 완료"
 msgid "Focal point instructions"
 msgstr "초점 안내"
 
-#: src/components/image-editor/CropEditorControls.tsx:37
+#: src/components/image-editor/CropEditorControls.tsx:36
 msgid "Free"
 msgstr "자유"
 
@@ -1149,7 +1141,7 @@ msgstr "도움말"
 msgid "High pass"
 msgstr "하이 패스"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:153
+#: src/components/image-editor/ExpandEditorControls.tsx:167
 msgid "Horizontal"
 msgstr "가로"
 
@@ -1345,7 +1337,7 @@ msgstr "많음"
 msgid "Margin"
 msgstr "여백"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:99
+#: src/components/image-editor/ExpandEditorControls.tsx:112
 msgid "Margins"
 msgstr "여백"
 
@@ -1481,7 +1473,7 @@ msgstr "새 색상 세트"
 msgid "New comparison"
 msgstr "새 비교"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:222
+#: src/components/image-editor/ExpandEditorControls.tsx:250
 #: src/components/image-editor/UpscaleEditorControls.tsx:66
 msgid "New size: {outputWidth} × {outputHeight}"
 msgstr "새 크기: {outputWidth} × {outputHeight}"
@@ -1595,7 +1587,7 @@ msgstr "또는 샘플 사진에서 선택"
 msgid "Or select from your recent photos"
 msgstr "또는 최근 사진에서 선택"
 
-#: src/components/image-editor/CropEditorControls.tsx:38
+#: src/components/image-editor/CropEditorControls.tsx:37
 #: src/components/image/ImageViewSelector.tsx:45
 msgid "Original"
 msgstr "원본"
@@ -2259,11 +2251,11 @@ msgstr "서로 다른 색상의 왁스 파스텔 영역을 살짝 겹친 뒤 단
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "백분위수 값이 작을수록 흰색 보정이 강해집니다"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:103
+#: src/components/image-editor/ExpandEditorControls.tsx:116
 msgid "Smart"
 msgstr "스마트"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:230
+#: src/components/image-editor/ExpandEditorControls.tsx:258
 msgid "Smart expansion is available only to paid Patreon members"
 msgstr "스마트 확장은 유료 Patreon 회원만 사용할 수 있습니다"
 
@@ -2576,7 +2568,7 @@ msgstr "색상을 추가하거나 표면이나 통합 색상을 변경해 보세
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "색상을 추가하거나 표면, 언더레이어 또는 통합 색상을 변경해 보세요"
 
-#: src/components/error/UnhandledRejectionHandler.tsx:59
+#: src/components/error/UnhandledRejectionHandler.tsx:60
 msgid "Turn off WebGPU"
 msgstr "WebGPU 끄기"
 
@@ -2620,7 +2612,7 @@ msgstr "사진 복원 모드를 로드할 수 없습니다"
 msgid "Unable to load the sample photos"
 msgstr "샘플 사진을 로드할 수 없습니다"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:81
+#: src/components/image-editor/ExpandEditorControls.tsx:94
 msgid "Unable to load the smart expansion model"
 msgstr "스마트 확장 모델을 로드할 수 없습니다"
 
@@ -2657,6 +2649,10 @@ msgstr "예상치 못한 오류: {errorMessage}"
 #: src/components/ImageColorPicker.tsx:403
 msgid "Unifying color"
 msgstr "통합 색상"
+
+#: src/components/image-editor/ExpandEditorControls.tsx:199
+msgid "Unit"
+msgstr "단위"
 
 #: src/components/image-editor/SharpenEditorControls.tsx:37
 msgid "Unsharp mask"
@@ -2730,7 +2726,7 @@ msgstr "사용량"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "제한 팔레트를 사용하면 색상 조화를 이루는 데 도움이 됩니다. 기본 색상 1–{MAX_COLORS}개를 선택하세요."
 
-#: src/components/image-editor/ExpandEditorControls.tsx:171
+#: src/components/image-editor/ExpandEditorControls.tsx:183
 msgid "Vertical"
 msgstr "세로"
 
@@ -2796,7 +2792,7 @@ msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of thr
 msgstr "총 {maxColorsFor3}개 이상의 색상을 선택하는 경우 세 가지 색상의 혼합은 사용되지 않습니다."
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:234
-#: src/components/image-editor/ExpandEditorControls.tsx:209
+#: src/components/image-editor/ExpandEditorControls.tsx:237
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "흰색"

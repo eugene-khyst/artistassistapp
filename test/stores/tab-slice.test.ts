@@ -83,6 +83,18 @@ describe('tab slice', () => {
     expect(store.getState().loadPaintingImage).toHaveBeenCalledExactlyOnceWith();
   });
 
+  it('reloads the active tab without changing it', async () => {
+    const {saveAppSettings, store} = createTestStore();
+    await store.getState().setActiveTabKey(TabKey.Outline);
+    vi.clearAllMocks();
+
+    store.getState().loadActiveTab();
+
+    expect(store.getState().loadOutlineImage).toHaveBeenCalledExactlyOnceWith();
+    expect(store.getState().loadPaintingImage).not.toHaveBeenCalled();
+    expect(saveAppSettings).not.toHaveBeenCalled();
+  });
+
   it('does nothing when the requested tab is already active', async () => {
     const {saveAppSettings, store} = createTestStore();
     const checker = vi.fn(async (): Promise<boolean> => false);

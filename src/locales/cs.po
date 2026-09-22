@@ -114,14 +114,6 @@ msgstr "📢 Žádné reklamy"
 msgid "🧑‍🎨 Artistic styles from your own images and loose brushstroke paintings"
 msgstr "🧑‍🎨 Umělecké styly z vašich vlastních obrázků a malby s volnými tahy štětcem"
 
-#: src/components/image-editor/image-aspect-ratio-options.tsx:28
-msgid "100×148 mm photo paper"
-msgstr "Fotopapír 100×148 mm"
-
-#: src/components/image-editor/image-aspect-ratio-options.tsx:30
-msgid "148×100 mm photo paper"
-msgstr "Fotopapír 148×100 mm"
-
 #: src/components/messages.ts:39
 msgid "2-color gradient"
 msgstr "2-barevný přechod"
@@ -309,9 +301,9 @@ msgstr "ArtistAssistApp trvale smaže vaši uloženou práci a nastavení z toho
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "ArtistAssistApp se po odstranění dočasných souborů aplikace znovu načtuje.<0/>Vaše uložená práce a cloudová data nebudou smazána."
 
-#: src/components/image-editor/CropEditorControls.tsx:79
-#: src/components/image-editor/ExpandEditorControls.tsx:98
-#: src/components/image-editor/ExpandEditorControls.tsx:134
+#: src/components/image-editor/CropEditorControls.tsx:78
+#: src/components/image-editor/ExpandEditorControls.tsx:111
+#: src/components/image-editor/ExpandEditorControls.tsx:148
 msgid "Aspect ratio"
 msgstr "Poměr stran"
 
@@ -449,7 +441,7 @@ msgstr "Zkontrolovat aktualizace"
 
 #: src/components/ColorSetChooser.tsx:217
 #: src/components/image-editor/ColorizeEditorControls.tsx:57
-#: src/components/image-editor/ExpandEditorControls.tsx:82
+#: src/components/image-editor/ExpandEditorControls.tsx:95
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:52
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:59
 #: src/components/image-editor/RestoreEditorControls.tsx:47
@@ -579,9 +571,9 @@ msgstr "Je vyžadován kód"
 
 #: src/components/ColorMixer.tsx:192
 #: src/components/CustomColorBrandCreator.tsx:476
-#: src/components/image-editor/ExpandEditorControls.tsx:102
-#: src/components/image-editor/ExpandEditorControls.tsx:206
-#: src/components/image-editor/ExpandEditorControls.tsx:208
+#: src/components/image-editor/ExpandEditorControls.tsx:115
+#: src/components/image-editor/ExpandEditorControls.tsx:234
+#: src/components/image-editor/ExpandEditorControls.tsx:236
 msgid "Color"
 msgstr "Barva"
 
@@ -756,7 +748,7 @@ msgstr "Vytvořte novou sadu barev sloučením stávajících"
 msgid "Create new"
 msgstr "Vytvořit nový"
 
-#: src/components/image-editor/CropEditorControls.tsx:100
+#: src/components/image-editor/CropEditorControls.tsx:99
 #: src/components/messages.ts:51
 msgid "Crop"
 msgstr "Oříznout"
@@ -1022,12 +1014,12 @@ msgstr "Lept"
 msgid "Exit AR"
 msgstr "Ukončit AR"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:246
+#: src/components/image-editor/ExpandEditorControls.tsx:274
 #: src/components/messages.ts:52
 msgid "Expand"
 msgstr "Rozšířit"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:115
+#: src/components/image-editor/ExpandEditorControls.tsx:129
 msgid "Expand by"
 msgstr "Rozšířit o"
 
@@ -1055,7 +1047,7 @@ msgstr "Fauvismus"
 msgid "Few"
 msgstr "Málo"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:191
+#: src/components/image-editor/ExpandEditorControls.tsx:219
 msgid "Fill"
 msgstr "Vyplnit"
 
@@ -1090,7 +1082,7 @@ msgstr "Dokončit úpravy"
 msgid "Focal point instructions"
 msgstr "Pokyny pro ohnisko zájmu"
 
-#: src/components/image-editor/CropEditorControls.tsx:37
+#: src/components/image-editor/CropEditorControls.tsx:36
 msgid "Free"
 msgstr "Volný"
 
@@ -1149,7 +1141,7 @@ msgstr "Nápověda"
 msgid "High pass"
 msgstr "Horní propust"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:153
+#: src/components/image-editor/ExpandEditorControls.tsx:167
 msgid "Horizontal"
 msgstr "Horizontální"
 
@@ -1345,7 +1337,7 @@ msgstr "Mnoho"
 msgid "Margin"
 msgstr "Okraj"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:99
+#: src/components/image-editor/ExpandEditorControls.tsx:112
 msgid "Margins"
 msgstr "Okraje"
 
@@ -1481,7 +1473,7 @@ msgstr "Nová sada barev"
 msgid "New comparison"
 msgstr "Nové porovnání"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:222
+#: src/components/image-editor/ExpandEditorControls.tsx:250
 #: src/components/image-editor/UpscaleEditorControls.tsx:66
 msgid "New size: {outputWidth} × {outputHeight}"
 msgstr "Nová velikost: {outputWidth} × {outputHeight}"
@@ -1595,7 +1587,7 @@ msgstr "Nebo si vyberte z ukázkových fotografií"
 msgid "Or select from your recent photos"
 msgstr "Nebo si vyberte z nedávných fotografií"
 
-#: src/components/image-editor/CropEditorControls.tsx:38
+#: src/components/image-editor/CropEditorControls.tsx:37
 #: src/components/image/ImageViewSelector.tsx:45
 msgid "Original"
 msgstr "Originál"
@@ -2259,11 +2251,11 @@ msgstr "Mírně překryjte oblasti voskového pastelu různých barev a pevně j
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Nižší hodnoty percentilu odpovídají silnějšímu bělení"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:103
+#: src/components/image-editor/ExpandEditorControls.tsx:116
 msgid "Smart"
 msgstr "Chytrý"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:230
+#: src/components/image-editor/ExpandEditorControls.tsx:258
 msgid "Smart expansion is available only to paid Patreon members"
 msgstr "Chytré rozšíření je dostupné pouze platícím členům Patreonu"
 
@@ -2576,7 +2568,7 @@ msgstr "Zkuste přidat barvy nebo změnit povrch či sjednocující barvu"
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "Zkuste přidat barvy nebo změnit povrch, podkladovou vrstvu či sjednocující barvu"
 
-#: src/components/error/UnhandledRejectionHandler.tsx:59
+#: src/components/error/UnhandledRejectionHandler.tsx:60
 msgid "Turn off WebGPU"
 msgstr "Vypnout WebGPU"
 
@@ -2620,7 +2612,7 @@ msgstr "Nelze načíst režimy restaurování"
 msgid "Unable to load the sample photos"
 msgstr "Nelze načíst ukázkové fotografie"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:81
+#: src/components/image-editor/ExpandEditorControls.tsx:94
 msgid "Unable to load the smart expansion model"
 msgstr "Model chytrého rozšíření nelze načíst"
 
@@ -2657,6 +2649,10 @@ msgstr "Neočekávaná chyba: {errorMessage}"
 #: src/components/ImageColorPicker.tsx:403
 msgid "Unifying color"
 msgstr "Sjednocující barva"
+
+#: src/components/image-editor/ExpandEditorControls.tsx:199
+msgid "Unit"
+msgstr "Jednotka"
 
 #: src/components/image-editor/SharpenEditorControls.tsx:37
 msgid "Unsharp mask"
@@ -2730,7 +2726,7 @@ msgstr "Využito"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Použití omezené palety pomáhá dosáhnout barevné harmonie. Vyberte 1–{MAX_COLORS} základních barev."
 
-#: src/components/image-editor/ExpandEditorControls.tsx:171
+#: src/components/image-editor/ExpandEditorControls.tsx:183
 msgid "Vertical"
 msgstr "Vertikální"
 
@@ -2796,7 +2792,7 @@ msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of thr
 msgstr "Při výběru více než {maxColorsFor3} barev celkem se nepoužijí směsi tří barev."
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:234
-#: src/components/image-editor/ExpandEditorControls.tsx:209
+#: src/components/image-editor/ExpandEditorControls.tsx:237
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "Bílá"

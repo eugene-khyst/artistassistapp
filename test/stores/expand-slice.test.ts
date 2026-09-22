@@ -19,8 +19,9 @@
 import {afterEach, describe, expect, it, vi} from 'vitest';
 import {createStore} from 'zustand/vanilla';
 
+import {ImageEditorKey} from '@/image-editor';
 import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit-image-command';
-import {ExpandFillMode, ExpandMode} from '@/services/image/expand-controls';
+import {ExpandFillMode, ExpandMarginUnit, ExpandMode} from '@/services/image/expand-controls';
 import {Interpolation} from '@/services/image/filter/types';
 import {DEFAULT_APP_SETTINGS} from '@/services/settings/types';
 import type {AppSlice} from '@/stores/app-slice';
@@ -60,7 +61,7 @@ vi.mock('@/utils/graphics', async importOriginal => ({
 type TestStore = ExpandSlice &
   Pick<AppSlice, 'appSettings' | 'saveAppSettings'> &
   Pick<AuthSlice, 'auth'> &
-  Pick<EditImageSlice, 'editImageOperation' | 'undoneEditImageHistory'>;
+  Pick<EditImageSlice, 'editImageOperation' | 'undoneEditImageHistory' | 'editedImage'>;
 
 function createTestStore() {
   const saveAppSettings = vi.fn(async (settings: Partial<AppSlice['appSettings']>) => {
@@ -94,6 +95,7 @@ function createTestStore() {
     saveAppSettings,
     editImageOperation,
     undoneEditImageHistory: [],
+    editedImage: image,
     ...createExpandSlice(...args),
   }));
   return {store, suppliedCommand: () => suppliedCommand, saveAppSettings};
@@ -142,6 +144,23 @@ describe('expand-slice', () => {
     expect(saveAppSettings).not.toHaveBeenCalled();
   });
 
+  it('limits pixel margins to the image when the editor opens', async () => {
+    const {store} = createTestStore();
+    store.getState().setExpandControls({
+      marginUnit: ExpandMarginUnit.Pixel,
+      marginX: 500,
+      marginY: 40,
+    });
+
+    await imageEditorControls.open(ImageEditorKey.Expand);
+
+    expect(store.getState().expandControls).toMatchObject({
+      marginUnit: ExpandMarginUnit.Pixel,
+      marginX: 200,
+      marginY: 40,
+    });
+  });
+
   it('loads and stores settings', () => {
     const {store, saveAppSettings} = createTestStore();
     const appSettings = {
@@ -164,6 +183,7 @@ describe('expand-slice', () => {
       ...store.getState().expandControls,
       aspectRatio: [1.91, 1],
       sizeMode: ExpandMode.AspectRatio,
+      marginUnit: ExpandMarginUnit.Pixel,
       fillMode: ExpandFillMode.Color,
       marginX: 25,
       color: '#123456',
@@ -180,6 +200,7 @@ describe('expand-slice', () => {
     expect(store.getState().expandControls).toEqual({
       aspectRatio: [1.91, 1],
       sizeMode: ExpandMode.AspectRatio,
+      marginUnit: ExpandMarginUnit.Percent,
       marginX: 10,
       marginY: 10,
       fillMode: ExpandFillMode.Color,

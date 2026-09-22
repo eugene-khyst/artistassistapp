@@ -69,12 +69,12 @@ export async function withInferenceSession<T>({
     const modelBuffer = new Uint8Array(
       await fetchOnnxModelBuffer(modelUrl, auth, progressCallback, sessionSignal)
     );
-    const {webGpuEnabled} = {...DEFAULT_APP_SETTINGS, ...(await getAppSettings())};
+    const {webGpu} = {...DEFAULT_APP_SETTINGS, ...(await getAppSettings())};
     await inferenceWorker.run(
       worker =>
         worker.createInferenceSession(
           transfer(modelBuffer, [modelBuffer.buffer]),
-          webGpuEnabled && allowWebGpu
+          webGpu && allowWebGpu
         ),
       sessionSignal
     );

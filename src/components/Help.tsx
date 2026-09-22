@@ -72,7 +72,7 @@ export function Help() {
   const storagePersisted = useAppStore(state => state.storagePersisted);
   const storageUsage = useAppStore(state => state.storageUsage);
   const serviceWorkerRegistration = useAppStore(state => state.serviceWorkerRegistration);
-  const webGpuEnabled = useAppStore(state => state.appSettings.webGpuEnabled);
+  const webGpu = useAppStore(state => state.appSettings.webGpu);
 
   const updateServiceWorker = useAppStore(state => state.updateServiceWorker);
   const saveAppSettings = useAppStore(state => state.saveAppSettings);
@@ -169,9 +169,9 @@ export function Help() {
         <Flex vertical gap={0} align="center">
           <Space>
             <Switch
-              checked={webGpuEnabled}
+              checked={webGpu}
               onChange={(checked: boolean) => {
-                void saveAppSettings({webGpuEnabled: checked});
+                void saveAppSettings({webGpu: checked});
               }}
             />
             <Typography.Text>

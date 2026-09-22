@@ -114,14 +114,6 @@ msgstr "📢 Χωρίς διαφημίσεις"
 msgid "🧑‍🎨 Artistic styles from your own images and loose brushstroke paintings"
 msgstr "🧑‍🎨 Καλλιτεχνικά στυλ από τις δικές σας εικόνες και πίνακες με ελεύθερες πινελιές"
 
-#: src/components/image-editor/image-aspect-ratio-options.tsx:28
-msgid "100×148 mm photo paper"
-msgstr "Φωτογραφικό χαρτί 100×148 mm"
-
-#: src/components/image-editor/image-aspect-ratio-options.tsx:30
-msgid "148×100 mm photo paper"
-msgstr "Φωτογραφικό χαρτί 148×100 mm"
-
 #: src/components/messages.ts:39
 msgid "2-color gradient"
 msgstr "Διαβάθμιση 2 χρωμάτων"
@@ -309,9 +301,9 @@ msgstr "Το ArtistAssistApp θα διαγράψει οριστικά την α�
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "Το ArtistAssistApp θα φορτωθεί ξανά μετά την κατάργηση των προσωρινών αρχείων της εφαρμογής.<0/>Η αποθηκευμένη εργασία σας και τα δεδομένα στο cloud δεν θα διαγραφούν."
 
-#: src/components/image-editor/CropEditorControls.tsx:79
-#: src/components/image-editor/ExpandEditorControls.tsx:98
-#: src/components/image-editor/ExpandEditorControls.tsx:134
+#: src/components/image-editor/CropEditorControls.tsx:78
+#: src/components/image-editor/ExpandEditorControls.tsx:111
+#: src/components/image-editor/ExpandEditorControls.tsx:148
 msgid "Aspect ratio"
 msgstr "Λόγος διαστάσεων"
 
@@ -449,7 +441,7 @@ msgstr "Έλεγχος για ενημερώσεις"
 
 #: src/components/ColorSetChooser.tsx:217
 #: src/components/image-editor/ColorizeEditorControls.tsx:57
-#: src/components/image-editor/ExpandEditorControls.tsx:82
+#: src/components/image-editor/ExpandEditorControls.tsx:95
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:52
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:59
 #: src/components/image-editor/RestoreEditorControls.tsx:47
@@ -579,9 +571,9 @@ msgstr "Απαιτείται κωδικός"
 
 #: src/components/ColorMixer.tsx:192
 #: src/components/CustomColorBrandCreator.tsx:476
-#: src/components/image-editor/ExpandEditorControls.tsx:102
-#: src/components/image-editor/ExpandEditorControls.tsx:206
-#: src/components/image-editor/ExpandEditorControls.tsx:208
+#: src/components/image-editor/ExpandEditorControls.tsx:115
+#: src/components/image-editor/ExpandEditorControls.tsx:234
+#: src/components/image-editor/ExpandEditorControls.tsx:236
 msgid "Color"
 msgstr "Χρώμα"
 
@@ -756,7 +748,7 @@ msgstr "Δημιουργήστε ένα νέο σετ χρωμάτων συγχ�
 msgid "Create new"
 msgstr "Δημιουργία νέου"
 
-#: src/components/image-editor/CropEditorControls.tsx:100
+#: src/components/image-editor/CropEditorControls.tsx:99
 #: src/components/messages.ts:51
 msgid "Crop"
 msgstr "Περικοπή"
@@ -1022,12 +1014,12 @@ msgstr "Χαλκογραφία"
 msgid "Exit AR"
 msgstr "Έξοδος από το AR"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:246
+#: src/components/image-editor/ExpandEditorControls.tsx:274
 #: src/components/messages.ts:52
 msgid "Expand"
 msgstr "Επέκταση"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:115
+#: src/components/image-editor/ExpandEditorControls.tsx:129
 msgid "Expand by"
 msgstr "Επέκταση κατά"
 
@@ -1055,7 +1047,7 @@ msgstr "Φωβισμός"
 msgid "Few"
 msgstr "Λίγες"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:191
+#: src/components/image-editor/ExpandEditorControls.tsx:219
 msgid "Fill"
 msgstr "Γέμισμα"
 
@@ -1090,7 +1082,7 @@ msgstr "Ολοκλήρωση επεξεργασίας"
 msgid "Focal point instructions"
 msgstr "Οδηγίες για το εστιακό σημείο"
 
-#: src/components/image-editor/CropEditorControls.tsx:37
+#: src/components/image-editor/CropEditorControls.tsx:36
 msgid "Free"
 msgstr "Ελεύθερη"
 
@@ -1149,7 +1141,7 @@ msgstr "Βοήθεια"
 msgid "High pass"
 msgstr "Υψιπερατό φίλτρο"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:153
+#: src/components/image-editor/ExpandEditorControls.tsx:167
 msgid "Horizontal"
 msgstr "Οριζόντια"
 
@@ -1345,7 +1337,7 @@ msgstr "Πολλές"
 msgid "Margin"
 msgstr "Περιθώριο"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:99
+#: src/components/image-editor/ExpandEditorControls.tsx:112
 msgid "Margins"
 msgstr "Περιθώρια"
 
@@ -1481,7 +1473,7 @@ msgstr "Νέο σετ χρωμάτων"
 msgid "New comparison"
 msgstr "Νέα σύγκριση"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:222
+#: src/components/image-editor/ExpandEditorControls.tsx:250
 #: src/components/image-editor/UpscaleEditorControls.tsx:66
 msgid "New size: {outputWidth} × {outputHeight}"
 msgstr "Νέο μέγεθος: {outputWidth} × {outputHeight}"
@@ -1595,7 +1587,7 @@ msgstr "Ή επιλέξτε από δείγματα φωτογραφιών"
 msgid "Or select from your recent photos"
 msgstr "Ή επιλέξτε από τις πρόσφατες φωτογραφίες σας"
 
-#: src/components/image-editor/CropEditorControls.tsx:38
+#: src/components/image-editor/CropEditorControls.tsx:37
 #: src/components/image/ImageViewSelector.tsx:45
 msgid "Original"
 msgstr "Αρχική"
@@ -2259,11 +2251,11 @@ msgstr "Αλληλεπικαλύψτε ελαφρώς περιοχές κηρο�
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Οι μικρότερες τιμές εκατοστημορίου αντιστοιχούν σε ισχυρότερη λεύκανση"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:103
+#: src/components/image-editor/ExpandEditorControls.tsx:116
 msgid "Smart"
 msgstr "Έξυπνο"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:230
+#: src/components/image-editor/ExpandEditorControls.tsx:258
 msgid "Smart expansion is available only to paid Patreon members"
 msgstr "Η έξυπνη επέκταση είναι διαθέσιμη μόνο σε επί πληρωμή μέλη Patreon"
 
@@ -2576,7 +2568,7 @@ msgstr "Δοκιμάστε να προσθέσετε χρώματα ή να αλ
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "Δοκιμάστε να προσθέσετε χρώματα ή να αλλάξετε την επιφάνεια, το υπόστρωμα ή το ενοποιητικό χρώμα"
 
-#: src/components/error/UnhandledRejectionHandler.tsx:59
+#: src/components/error/UnhandledRejectionHandler.tsx:60
 msgid "Turn off WebGPU"
 msgstr "Απενεργοποίηση WebGPU"
 
@@ -2620,7 +2612,7 @@ msgstr "Δεν είναι δυνατή η φόρτωση των λειτουργ
 msgid "Unable to load the sample photos"
 msgstr "Δεν είναι δυνατή η φόρτωση των δειγμάτων φωτογραφιών"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:81
+#: src/components/image-editor/ExpandEditorControls.tsx:94
 msgid "Unable to load the smart expansion model"
 msgstr "Δεν είναι δυνατή η φόρτωση του μοντέλου έξυπνης επέκτασης"
 
@@ -2657,6 +2649,10 @@ msgstr "Απροσδόκητο σφάλμα: {errorMessage}"
 #: src/components/ImageColorPicker.tsx:403
 msgid "Unifying color"
 msgstr "Ενοποιητικό χρώμα"
+
+#: src/components/image-editor/ExpandEditorControls.tsx:199
+msgid "Unit"
+msgstr "Μονάδα"
 
 #: src/components/image-editor/SharpenEditorControls.tsx:37
 msgid "Unsharp mask"
@@ -2730,7 +2726,7 @@ msgstr "Σε χρήση"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Η χρήση περιορισμένης παλέτας βοηθά στην επίτευξη χρωματικής αρμονίας. Επιλέξτε 1–{MAX_COLORS} βασικά χρώματα."
 
-#: src/components/image-editor/ExpandEditorControls.tsx:171
+#: src/components/image-editor/ExpandEditorControls.tsx:183
 msgid "Vertical"
 msgstr "Κατακόρυφα"
 
@@ -2796,7 +2792,7 @@ msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of thr
 msgstr "Όταν επιλέγετε περισσότερα από {maxColorsFor3} χρώματα συνολικά, δεν χρησιμοποιούνται μείγματα τριών χρωμάτων."
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:234
-#: src/components/image-editor/ExpandEditorControls.tsx:209
+#: src/components/image-editor/ExpandEditorControls.tsx:237
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "Λευκό"

@@ -114,14 +114,6 @@ msgstr "📢 広告はありません"
 msgid "🧑‍🎨 Artistic styles from your own images and loose brushstroke paintings"
 msgstr "🧑‍🎨 自分の画像から作るアートスタイルと、ラフなブラシストロークの絵画"
 
-#: src/components/image-editor/image-aspect-ratio-options.tsx:28
-msgid "100×148 mm photo paper"
-msgstr "100×148 mm 写真用紙"
-
-#: src/components/image-editor/image-aspect-ratio-options.tsx:30
-msgid "148×100 mm photo paper"
-msgstr "148×100 mm 写真用紙"
-
 #: src/components/messages.ts:39
 msgid "2-color gradient"
 msgstr "2色のグラデーション"
@@ -309,9 +301,9 @@ msgstr "ArtistAssistApp は、保存した作品と設定をこのデバイス�
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "ArtistAssistApp は一時ファイルを削除したあと再読み込みします。<0/>保存した作品とクラウドデータは削除されません。"
 
-#: src/components/image-editor/CropEditorControls.tsx:79
-#: src/components/image-editor/ExpandEditorControls.tsx:98
-#: src/components/image-editor/ExpandEditorControls.tsx:134
+#: src/components/image-editor/CropEditorControls.tsx:78
+#: src/components/image-editor/ExpandEditorControls.tsx:111
+#: src/components/image-editor/ExpandEditorControls.tsx:148
 msgid "Aspect ratio"
 msgstr "アスペクト比"
 
@@ -449,7 +441,7 @@ msgstr "アップデートの確認"
 
 #: src/components/ColorSetChooser.tsx:217
 #: src/components/image-editor/ColorizeEditorControls.tsx:57
-#: src/components/image-editor/ExpandEditorControls.tsx:82
+#: src/components/image-editor/ExpandEditorControls.tsx:95
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:52
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:59
 #: src/components/image-editor/RestoreEditorControls.tsx:47
@@ -579,9 +571,9 @@ msgstr "コードが必要です"
 
 #: src/components/ColorMixer.tsx:192
 #: src/components/CustomColorBrandCreator.tsx:476
-#: src/components/image-editor/ExpandEditorControls.tsx:102
-#: src/components/image-editor/ExpandEditorControls.tsx:206
-#: src/components/image-editor/ExpandEditorControls.tsx:208
+#: src/components/image-editor/ExpandEditorControls.tsx:115
+#: src/components/image-editor/ExpandEditorControls.tsx:234
+#: src/components/image-editor/ExpandEditorControls.tsx:236
 msgid "Color"
 msgstr "色"
 
@@ -756,7 +748,7 @@ msgstr "既存のカラーセットを統合して新しいカラーセットを
 msgid "Create new"
 msgstr "新規作成"
 
-#: src/components/image-editor/CropEditorControls.tsx:100
+#: src/components/image-editor/CropEditorControls.tsx:99
 #: src/components/messages.ts:51
 msgid "Crop"
 msgstr "切り抜き"
@@ -1022,12 +1014,12 @@ msgstr "エッチング"
 msgid "Exit AR"
 msgstr "ARを終了"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:246
+#: src/components/image-editor/ExpandEditorControls.tsx:274
 #: src/components/messages.ts:52
 msgid "Expand"
 msgstr "拡張"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:115
+#: src/components/image-editor/ExpandEditorControls.tsx:129
 msgid "Expand by"
 msgstr "拡張量"
 
@@ -1055,7 +1047,7 @@ msgstr "フォーヴィスム"
 msgid "Few"
 msgstr "少ない"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:191
+#: src/components/image-editor/ExpandEditorControls.tsx:219
 msgid "Fill"
 msgstr "塗りつぶし"
 
@@ -1090,7 +1082,7 @@ msgstr "編集を終了"
 msgid "Focal point instructions"
 msgstr "焦点の選び方"
 
-#: src/components/image-editor/CropEditorControls.tsx:37
+#: src/components/image-editor/CropEditorControls.tsx:36
 msgid "Free"
 msgstr "自由"
 
@@ -1149,7 +1141,7 @@ msgstr "ヘルプ"
 msgid "High pass"
 msgstr "ハイパス"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:153
+#: src/components/image-editor/ExpandEditorControls.tsx:167
 msgid "Horizontal"
 msgstr "水平"
 
@@ -1345,7 +1337,7 @@ msgstr "多い"
 msgid "Margin"
 msgstr "余白"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:99
+#: src/components/image-editor/ExpandEditorControls.tsx:112
 msgid "Margins"
 msgstr "余白"
 
@@ -1481,7 +1473,7 @@ msgstr "新しいカラーセット"
 msgid "New comparison"
 msgstr "新しい比較"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:222
+#: src/components/image-editor/ExpandEditorControls.tsx:250
 #: src/components/image-editor/UpscaleEditorControls.tsx:66
 msgid "New size: {outputWidth} × {outputHeight}"
 msgstr "新しいサイズ: {outputWidth} × {outputHeight}"
@@ -1595,7 +1587,7 @@ msgstr "またはサンプル写真から選択"
 msgid "Or select from your recent photos"
 msgstr "または、最近の写真から選択します"
 
-#: src/components/image-editor/CropEditorControls.tsx:38
+#: src/components/image-editor/CropEditorControls.tsx:37
 #: src/components/image/ImageViewSelector.tsx:45
 msgid "Original"
 msgstr "元の比率"
@@ -2259,11 +2251,11 @@ msgstr "異なる色のワックスパステルの領域を少し重ね、しっ
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "パーセンタイル値が小さいほど、白の補正が強くなります"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:103
+#: src/components/image-editor/ExpandEditorControls.tsx:116
 msgid "Smart"
 msgstr "スマート"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:230
+#: src/components/image-editor/ExpandEditorControls.tsx:258
 msgid "Smart expansion is available only to paid Patreon members"
 msgstr "スマート拡張は有料の Patreon メンバーのみが利用できます"
 
@@ -2576,7 +2568,7 @@ msgstr "色を追加するか、表面または統一色を変更してみてく
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "色を追加するか、表面、アンダーレイヤー、統一色を変更してみてください"
 
-#: src/components/error/UnhandledRejectionHandler.tsx:59
+#: src/components/error/UnhandledRejectionHandler.tsx:60
 msgid "Turn off WebGPU"
 msgstr "WebGPUをオフにする"
 
@@ -2620,7 +2612,7 @@ msgstr "修復モードを読み込めません"
 msgid "Unable to load the sample photos"
 msgstr "サンプル写真を読み込めません"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:81
+#: src/components/image-editor/ExpandEditorControls.tsx:94
 msgid "Unable to load the smart expansion model"
 msgstr "スマート拡張モデルを読み込めません"
 
@@ -2657,6 +2649,10 @@ msgstr "予期しないエラー: {errorMessage}"
 #: src/components/ImageColorPicker.tsx:403
 msgid "Unifying color"
 msgstr "統一色"
+
+#: src/components/image-editor/ExpandEditorControls.tsx:199
+msgid "Unit"
+msgstr "単位"
 
 #: src/components/image-editor/SharpenEditorControls.tsx:37
 msgid "Unsharp mask"
@@ -2730,7 +2726,7 @@ msgstr "使用量"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "限定パレットを使うと色の調和が得られます。原色を 1〜{MAX_COLORS} 色選んでください。"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:171
+#: src/components/image-editor/ExpandEditorControls.tsx:183
 msgid "Vertical"
 msgstr "垂直"
 
@@ -2796,7 +2792,7 @@ msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of thr
 msgstr "合計で {maxColorsFor3} 色を超えて選択した場合、3色の混色は使用されません。"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:234
-#: src/components/image-editor/ExpandEditorControls.tsx:209
+#: src/components/image-editor/ExpandEditorControls.tsx:237
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "白"

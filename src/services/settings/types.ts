@@ -60,12 +60,12 @@ export interface AppSettings {
   backgroundRemovalModel?: string;
   restoreModel?: string;
   colorizeModel?: string;
-  webGpuEnabled: boolean;
+  webGpu: boolean;
 }
 
 export const DEFAULT_APP_SETTINGS: AppSettings = {
   colorPickerSurfaceHex: PAPER_WHITE_HEX,
   colorPickerLayeringEnabled: true,
   colorPickerSort: ColorPickerSort.ByDeltaEOKr2,
-  webGpuEnabled: true,
+  webGpu: false,
 };

@@ -73,7 +73,10 @@ describe('inference session', () => {
 
     await expect(runOnce()).resolves.toEqual(outputTensors);
 
-    expect(remote.createInferenceSession).toHaveBeenCalledWith(expect.any(Uint8Array), true);
+    expect(remote.createInferenceSession).toHaveBeenCalledWith(
+      expect.any(Uint8Array),
+      DEFAULT_APP_SETTINGS.webGpu
+    );
     expect(remote.releaseInferenceSession).toHaveBeenCalledOnce();
   });
 
@@ -88,15 +91,15 @@ describe('inference session', () => {
   });
 
   it.each([
-    {webGpuEnabled: true, allowWebGpu: undefined, expected: true},
-    {webGpuEnabled: false, allowWebGpu: undefined, expected: false},
-    {webGpuEnabled: true, allowWebGpu: false, expected: false},
-    {webGpuEnabled: false, allowWebGpu: true, expected: false},
-    {webGpuEnabled: true, allowWebGpu: true, expected: true},
+    {webGpu: true, allowWebGpu: undefined, expected: true},
+    {webGpu: false, allowWebGpu: undefined, expected: false},
+    {webGpu: true, allowWebGpu: false, expected: false},
+    {webGpu: false, allowWebGpu: true, expected: false},
+    {webGpu: true, allowWebGpu: true, expected: true},
   ])('uses WebGPU only when both settings allow it: %j', async settings => {
     vi.mocked(getAppSettings).mockResolvedValue({
       ...DEFAULT_APP_SETTINGS,
-      webGpuEnabled: settings.webGpuEnabled,
+      webGpu: settings.webGpu,
     });
     const outputTensors = [{data: new Float32Array([1, 2]), dims: [1, 2]}];
     remote.runInference.mockResolvedValue({outputTensors});

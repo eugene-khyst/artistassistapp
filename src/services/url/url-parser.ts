@@ -48,16 +48,27 @@ const URL_PARAM_COLORS_PREFIX = 'c';
 const URL_PARAM_NAME = 'n';
 const URL_PARAM_RADIX = 36;
 const URL_PARAM_SEPARATOR = '_';
-const SKU_BASE = new Map<number, number>([
-  [3, 284600000], //daniel-smith-extra-fine
-  [14, 284600000], //daniel-smith-primatek
-  [44, 7000000], //golden-qor
-  [45, 6000000], //golden-williamsburg
-]);
+const SKU_BASE: Partial<Record<ColorType, Record<number, number>>> = {
+  [ColorType.WatercolorPaint]: {
+    3: 284600000, //daniel-smith-extra-fine
+    14: 284600000, //daniel-smith-primatek
+    44: 7000000, //golden-qor
+  },
+  [ColorType.Gouache]: {
+    3: 284860000, //daniel-smith-extra-fine
+  },
+  [ColorType.OilPaint]: {
+    45: 6000000, //golden-williamsburg
+  },
+};
 const URL_PARAM_ERROR = 'error';
 const COLOR_TYPE_VALUES = new Set<number>(
   Object.values(ColorType).filter((value): value is number => typeof value === 'number')
 );
+
+function isColorType(value: number): value is ColorType {
+  return COLOR_TYPE_VALUES.has(value);
+}
 
 export function colorSetToUrl({
   type,
@@ -77,7 +88,7 @@ export function colorSetToUrl({
   );
   Object.entries(colors).forEach(([brandIdStr, colorIds]: [string, number[]]) => {
     const brand = Number(brandIdStr);
-    const ids: number[] = colorIds.map((id: number) => id - (SKU_BASE.get(brand) ?? 0));
+    const ids: number[] = colorIds.map((id: number) => id - (SKU_BASE[type]?.[brand] ?? 0));
     searchParams.set(
       URL_PARAM_COLORS_PREFIX + brandIdStr,
       ids.map((id: number) => id.toString(URL_PARAM_RADIX)).join(URL_PARAM_SEPARATOR)
@@ -109,7 +120,7 @@ function parseColorSet(searchParams: URLSearchParams): UrlParsingResult | undefi
     return;
   }
   const type = parseUrlInteger(searchParams.get(URL_PARAM_COLOR_TYPE));
-  if (type === undefined || !COLOR_TYPE_VALUES.has(type)) {
+  if (type === undefined || !isColorType(type)) {
     return;
   }
   const parsedBrands = searchParams
@@ -132,7 +143,7 @@ function parseColorSet(searchParams: URLSearchParams): UrlParsingResult | undefi
         return;
       }
       const ids = parsedIds.filter((id): id is number => id !== undefined);
-      colors[brand] = ids.map(id => id + (SKU_BASE.get(brand) ?? 0));
+      colors[brand] = ids.map(id => id + (SKU_BASE[type]?.[brand] ?? 0));
     }
   }
   if (!Object.keys(colors).length) {

@@ -23,7 +23,6 @@ import {
   Button,
   type CheckboxOptionType,
   Form,
-  Input,
   InputNumber,
   Radio,
   type RadioChangeEvent,
@@ -32,6 +31,7 @@ import {
   Typography,
 } from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
+import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import {useEffect} from 'react';
 
 import {ColorPicker} from '@/components/color/ColorPicker';
@@ -40,14 +40,27 @@ import {useErrorNotification} from '@/hooks/useErrorNotification';
 import {useOnnxModel} from '@/hooks/useOnnxModel';
 import {Access} from '@/services/auth/types';
 import type {ImageExpandingMode} from '@/services/canvas/mode/image-expanding-mode';
-import {imageAspectRatio, imageAspectRatioLabel} from '@/services/image/aspect-ratio';
-import {ExpandFillMode, ExpandMode} from '@/services/image/expand-controls';
+import {
+  IMAGE_ASPECT_RATIO_OPTIONS,
+  imageAspectRatio,
+  imageAspectRatioLabel,
+} from '@/services/image/aspect-ratio';
+import {
+  convertExpandMargins,
+  ExpandFillMode,
+  ExpandMarginUnit,
+  ExpandMode,
+} from '@/services/image/expand-controls';
 import {getImageExpansion} from '@/services/image/expand-image';
 import {INPAINTING_MODEL_ID, OnnxModelType, UPSCALING_MODEL_ID} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
 
 import styles from './ExpandEditorControls.module.css';
-import {IMAGE_ASPECT_RATIO_OPTIONS} from './image-aspect-ratio-options';
+
+const MARGIN_UNIT_OPTIONS: SelectOptionType[] = [
+  {value: ExpandMarginUnit.Percent, label: '%'},
+  {value: ExpandMarginUnit.Pixel, label: 'px'},
+];
 
 interface Props {
   expandingMode: ImageExpandingMode | null;
@@ -108,6 +121,7 @@ export function ExpandEditorControls({expandingMode}: Readonly<Props>) {
   const isSmart = expandControls.fillMode === ExpandFillMode.Smart;
   const outputWidth = expansion?.bounds.width;
   const outputHeight = expansion?.bounds.height;
+  const isPixelMargin = expandControls.marginUnit === ExpandMarginUnit.Pixel;
 
   return (
     <Space orientation="vertical" className="u-w-100">
@@ -154,36 +168,50 @@ export function ExpandEditorControls({expandingMode}: Readonly<Props>) {
             labelCol={{className: 'u-pb-0'}}
             className="u-mb-0"
           >
-            <Space.Compact>
-              <InputNumber
-                min={0}
-                max={100}
-                className={styles['marginInput']}
-                value={expandControls.marginX}
-                onChange={marginX => {
-                  setExpandControls({marginX: marginX ?? 0});
-                }}
-              />
-              <Input placeholder="%" className={styles['unitInput']} disabled />
-            </Space.Compact>
+            <InputNumber
+              min={0}
+              max={isPixelMargin ? editedImage?.width : 100}
+              precision={isPixelMargin ? 0 : undefined}
+              className={styles['marginInput']}
+              value={expandControls.marginX}
+              onChange={marginX => {
+                setExpandControls({marginX: marginX ?? 0});
+              }}
+            />
           </Form.Item>
           <Form.Item
             label={<Trans>Vertical</Trans>}
             labelCol={{className: 'u-pb-0'}}
             className="u-mb-0"
           >
-            <Space.Compact>
-              <InputNumber
-                min={0}
-                max={100}
-                className={styles['marginInput']}
-                value={expandControls.marginY}
-                onChange={marginY => {
-                  setExpandControls({marginY: marginY ?? 0});
-                }}
-              />
-              <Input placeholder="%" className={styles['unitInput']} disabled />
-            </Space.Compact>
+            <InputNumber
+              min={0}
+              max={isPixelMargin ? editedImage?.height : 100}
+              precision={isPixelMargin ? 0 : undefined}
+              className={styles['marginInput']}
+              value={expandControls.marginY}
+              onChange={marginY => {
+                setExpandControls({marginY: marginY ?? 0});
+              }}
+            />
+          </Form.Item>
+          <Form.Item
+            label={<Trans>Unit</Trans>}
+            labelCol={{className: 'u-pb-0'}}
+            className="u-mb-0"
+          >
+            <Select
+              value={expandControls.marginUnit}
+              options={MARGIN_UNIT_OPTIONS}
+              onChange={(marginUnit: ExpandMarginUnit) => {
+                setExpandControls(
+                  editedImage
+                    ? convertExpandMargins(expandControls, marginUnit, editedImage)
+                    : {marginUnit}
+                );
+              }}
+              className={styles['unitSelect']}
+            />
           </Form.Item>
         </Space>
       )}

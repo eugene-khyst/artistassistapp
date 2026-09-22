@@ -24,6 +24,7 @@ import type {Authentication} from '@/services/auth/types';
 import {hasAccessTo} from '@/services/auth/utils';
 import {EditImageCommandType} from '@/services/image/edit-image-command';
 import {
+  clampExpandMargins,
   DEFAULT_EXPAND_CONTROLS,
   type ExpandControls,
   expandControlsFromAppSettings,
@@ -121,7 +122,7 @@ async function createExpansionMarginPatches({
 
 type ExpandSliceDependencies = Pick<AppSlice, 'appSettings' | 'saveAppSettings'> &
   Pick<AuthSlice, 'auth'> &
-  Pick<EditImageSlice, 'editImageOperation' | 'undoneEditImageHistory'>;
+  Pick<EditImageSlice, 'editImageOperation' | 'undoneEditImageHistory' | 'editedImage'>;
 
 export const createExpandSlice: StateCreator<
   ExpandSlice & ExpandSliceDependencies,
@@ -148,6 +149,15 @@ export const createExpandSlice: StateCreator<
     controls.sizeMode === ExpandMode.Margins ? {...controls, marginX: 0, marginY: 0} : controls;
 
   imageEditorControls.register(ImageEditorKey.Expand, {
+    // Pixel margins kept from a larger image must not exceed the current one.
+    open: () => {
+      const {expandControls, editedImage} = get();
+      if (editedImage) {
+        set({
+          expandControls: clampExpandMargins(expandControls, editedImage),
+        });
+      }
+    },
     reset: () => {
       const controls = undoneExpandControls();
       if (controls) {

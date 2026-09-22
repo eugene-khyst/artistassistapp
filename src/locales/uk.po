@@ -114,14 +114,6 @@ msgstr "📢 Без реклами"
 msgid "🧑‍🎨 Artistic styles from your own images and loose brushstroke paintings"
 msgstr "🧑‍🎨 Художні стилі з ваших власних зображень і картини з вільними мазками"
 
-#: src/components/image-editor/image-aspect-ratio-options.tsx:28
-msgid "100×148 mm photo paper"
-msgstr "Фотопапір 100×148 мм"
-
-#: src/components/image-editor/image-aspect-ratio-options.tsx:30
-msgid "148×100 mm photo paper"
-msgstr "Фотопапір 148×100 мм"
-
 #: src/components/messages.ts:39
 msgid "2-color gradient"
 msgstr "2-кольоровий градієнт"
@@ -309,9 +301,9 @@ msgstr "ArtistAssistApp остаточно видалить вашу збере�
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "ArtistAssistApp перезавантажиться після видалення тимчасових файлів додатку.<0/>Ваші збережені роботи та хмарні дані не буде видалено."
 
-#: src/components/image-editor/CropEditorControls.tsx:79
-#: src/components/image-editor/ExpandEditorControls.tsx:98
-#: src/components/image-editor/ExpandEditorControls.tsx:134
+#: src/components/image-editor/CropEditorControls.tsx:78
+#: src/components/image-editor/ExpandEditorControls.tsx:111
+#: src/components/image-editor/ExpandEditorControls.tsx:148
 msgid "Aspect ratio"
 msgstr "Співвідношення сторін"
 
@@ -449,7 +441,7 @@ msgstr "Перевірити наявність оновлень"
 
 #: src/components/ColorSetChooser.tsx:217
 #: src/components/image-editor/ColorizeEditorControls.tsx:57
-#: src/components/image-editor/ExpandEditorControls.tsx:82
+#: src/components/image-editor/ExpandEditorControls.tsx:95
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:52
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:59
 #: src/components/image-editor/RestoreEditorControls.tsx:47
@@ -579,9 +571,9 @@ msgstr "Потрібен код"
 
 #: src/components/ColorMixer.tsx:192
 #: src/components/CustomColorBrandCreator.tsx:476
-#: src/components/image-editor/ExpandEditorControls.tsx:102
-#: src/components/image-editor/ExpandEditorControls.tsx:206
-#: src/components/image-editor/ExpandEditorControls.tsx:208
+#: src/components/image-editor/ExpandEditorControls.tsx:115
+#: src/components/image-editor/ExpandEditorControls.tsx:234
+#: src/components/image-editor/ExpandEditorControls.tsx:236
 msgid "Color"
 msgstr "Колір"
 
@@ -756,7 +748,7 @@ msgstr "Створити новий набір кольорів, об'єднав
 msgid "Create new"
 msgstr "Створити новий"
 
-#: src/components/image-editor/CropEditorControls.tsx:100
+#: src/components/image-editor/CropEditorControls.tsx:99
 #: src/components/messages.ts:51
 msgid "Crop"
 msgstr "Обрізати"
@@ -1022,12 +1014,12 @@ msgstr "Офорт"
 msgid "Exit AR"
 msgstr "Вийти з AR"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:246
+#: src/components/image-editor/ExpandEditorControls.tsx:274
 #: src/components/messages.ts:52
 msgid "Expand"
 msgstr "Розширити"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:115
+#: src/components/image-editor/ExpandEditorControls.tsx:129
 msgid "Expand by"
 msgstr "Розширити на"
 
@@ -1055,7 +1047,7 @@ msgstr "Фовізм"
 msgid "Few"
 msgstr "Мало"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:191
+#: src/components/image-editor/ExpandEditorControls.tsx:219
 msgid "Fill"
 msgstr "Заповнити"
 
@@ -1090,7 +1082,7 @@ msgstr "Завершити редагування"
 msgid "Focal point instructions"
 msgstr "Інструкції щодо точки фокусу"
 
-#: src/components/image-editor/CropEditorControls.tsx:37
+#: src/components/image-editor/CropEditorControls.tsx:36
 msgid "Free"
 msgstr "Довільне"
 
@@ -1149,7 +1141,7 @@ msgstr "Допомога"
 msgid "High pass"
 msgstr "Високі частоти"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:153
+#: src/components/image-editor/ExpandEditorControls.tsx:167
 msgid "Horizontal"
 msgstr "По горизонталі"
 
@@ -1345,7 +1337,7 @@ msgstr "Багато"
 msgid "Margin"
 msgstr "Поля"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:99
+#: src/components/image-editor/ExpandEditorControls.tsx:112
 msgid "Margins"
 msgstr "Поля"
 
@@ -1481,7 +1473,7 @@ msgstr "Новий набір кольорів"
 msgid "New comparison"
 msgstr "Нове порівняння"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:222
+#: src/components/image-editor/ExpandEditorControls.tsx:250
 #: src/components/image-editor/UpscaleEditorControls.tsx:66
 msgid "New size: {outputWidth} × {outputHeight}"
 msgstr "Новий розмір: {outputWidth} × {outputHeight}"
@@ -1595,7 +1587,7 @@ msgstr "Або виберіть зі зразків фотографій"
 msgid "Or select from your recent photos"
 msgstr "Або виберіть одну зі своїх останніх фотографій"
 
-#: src/components/image-editor/CropEditorControls.tsx:38
+#: src/components/image-editor/CropEditorControls.tsx:37
 #: src/components/image/ImageViewSelector.tsx:45
 msgid "Original"
 msgstr "Оригінал"
@@ -2259,11 +2251,11 @@ msgstr "Злегка перекривайте воскові пастельні 
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "Менші значення перцентиля відповідають сильнішому відбілюванню"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:103
+#: src/components/image-editor/ExpandEditorControls.tsx:116
 msgid "Smart"
 msgstr "Розумний"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:230
+#: src/components/image-editor/ExpandEditorControls.tsx:258
 msgid "Smart expansion is available only to paid Patreon members"
 msgstr "Розумне розширення доступне лише платним учасникам Patreon"
 
@@ -2576,7 +2568,7 @@ msgstr "Спробуйте додати кольори або змінити п�
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "Спробуйте додати кольори або змінити поверхню, нижній шар чи об'єднуючий колір"
 
-#: src/components/error/UnhandledRejectionHandler.tsx:59
+#: src/components/error/UnhandledRejectionHandler.tsx:60
 msgid "Turn off WebGPU"
 msgstr "Вимкнути WebGPU"
 
@@ -2620,7 +2612,7 @@ msgstr "Не вдалося завантажити режими реставра
 msgid "Unable to load the sample photos"
 msgstr "Не вдалося завантажити зразки фотографій"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:81
+#: src/components/image-editor/ExpandEditorControls.tsx:94
 msgid "Unable to load the smart expansion model"
 msgstr "Не вдалося завантажити модель інтелектуального розширення"
 
@@ -2657,6 +2649,10 @@ msgstr "Несподівана помилка: {errorMessage}"
 #: src/components/ImageColorPicker.tsx:403
 msgid "Unifying color"
 msgstr "Об'єднуючий колір"
+
+#: src/components/image-editor/ExpandEditorControls.tsx:199
+msgid "Unit"
+msgstr "Одиниця виміру"
 
 #: src/components/image-editor/SharpenEditorControls.tsx:37
 msgid "Unsharp mask"
@@ -2730,7 +2726,7 @@ msgstr "Використано"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Використання обмеженої палітри допомагає досягти гармонії кольорів. Виберіть 1–{MAX_COLORS} основні кольори."
 
-#: src/components/image-editor/ExpandEditorControls.tsx:171
+#: src/components/image-editor/ExpandEditorControls.tsx:183
 msgid "Vertical"
 msgstr "По вертикалі"
 
@@ -2796,7 +2792,7 @@ msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of thr
 msgstr "При виборі більше ніж {maxColorsFor3} кольорів всього суміші трьох кольорів не використовуються."
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:234
-#: src/components/image-editor/ExpandEditorControls.tsx:209
+#: src/components/image-editor/ExpandEditorControls.tsx:237
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "Білий"

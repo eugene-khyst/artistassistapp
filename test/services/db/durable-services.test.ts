@@ -168,13 +168,14 @@ describe('processed image cache', () => {
   });
 
   it('keys cached images by the WebGPU setting', async () => {
+    await updateStoredAppSettings(prev => ({...prev, webGpu: true}));
     await saveProcessedImage(MODEL, ['input'], new Blob(['on webgpu']));
-    await updateStoredAppSettings(prev => ({...prev, webGpuEnabled: false}));
+    await updateStoredAppSettings(prev => ({...prev, webGpu: false}));
 
     expect(await getProcessedImage(MODEL, ['input'])).toBeUndefined();
 
     await saveProcessedImage(MODEL, ['input'], new Blob(['on wasm']));
-    await updateStoredAppSettings(prev => ({...prev, webGpuEnabled: true}));
+    await updateStoredAppSettings(prev => ({...prev, webGpu: true}));
 
     expect(await (await getProcessedImage(MODEL, ['input']))?.text()).toBe('on webgpu');
   });

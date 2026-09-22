@@ -25,6 +25,7 @@ import {
   AdjustColorsWhiteBalanceMethod,
 } from '@/services/image/adjust-colors-controls';
 import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit-image-command';
+import {DEFAULT_EXPAND_CONTROLS} from '@/services/image/expand-controls';
 import {type AdjustColorsSlice, createAdjustColorsSlice} from '@/stores/adjust-colors-slice';
 import type {AppSlice} from '@/stores/app-slice';
 import type {AuthSlice} from '@/stores/auth-slice';
@@ -98,6 +99,7 @@ interface TestImageEditorControls {
   resetAdjustColors: Mock<() => void>;
   resetCrop: Mock<() => void>;
   resetRemoveBackground: Mock<() => void>;
+  restoreExpand: Mock<(command: EditImageCommand) => void>;
 }
 
 let editorControls: TestImageEditorControls;
@@ -107,12 +109,14 @@ function registerTestImageEditorControls(): TestImageEditorControls {
     resetAdjustColors: vi.fn(),
     resetCrop: vi.fn(),
     resetRemoveBackground: vi.fn(),
+    restoreExpand: vi.fn(),
   };
   imageEditorControls.register(ImageEditorKey.AdjustColors, {reset: controls.resetAdjustColors});
   imageEditorControls.register(ImageEditorKey.Crop, {clear: controls.resetCrop});
   imageEditorControls.register(ImageEditorKey.RemoveBackground, {
     reset: controls.resetRemoveBackground,
   });
+  imageEditorControls.register(ImageEditorKey.Expand, {restore: controls.restoreExpand});
   return controls;
 }
 
@@ -795,6 +799,25 @@ describe('EditImageSlice', () => {
     await expect(store.getState().previewAdjustColors()).rejects.toThrow('Adjust failed');
 
     expect(store.getState().adjustColorsControls).toEqual(appliedControls);
+  });
+
+  it('keeps controls when a composing edit fails after one was applied', async () => {
+    const store = createEditImageStore();
+    await loadImage(store);
+    await store.getState().setActiveImageEditorKey(ImageEditorKey.Expand);
+    const command: EditImageCommand = {
+      type: EditImageCommandType.Expand,
+      controls: DEFAULT_EXPAND_CONTROLS,
+    };
+    commandService.apply.mockResolvedValueOnce(createImage());
+    await store.getState().editImageOperation.execute(command);
+    commandService.apply.mockRejectedValueOnce(new Error('Expand failed'));
+
+    await expect(store.getState().editImageOperation.execute(command)).rejects.toThrow(
+      'Expand failed'
+    );
+
+    expect(editorControls.restoreExpand).not.toHaveBeenCalled();
   });
 
   it('keeps a composed value when an edit fails with nothing applied', async () => {

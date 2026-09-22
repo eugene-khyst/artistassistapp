@@ -25,13 +25,12 @@ import {type ImageCroppingMode} from '@/services/canvas/mode/image-cropping-mode
 import {
   type CropAspectRatio,
   FREE_CROP_ASPECT_RATIO,
+  IMAGE_ASPECT_RATIO_OPTIONS,
   imageAspectRatio,
   imageAspectRatioLabel,
   ORIGINAL_CROP_ASPECT_RATIO,
 } from '@/services/image/aspect-ratio';
 import {useAppStore} from '@/stores/app-store';
-
-import {IMAGE_ASPECT_RATIO_OPTIONS} from './image-aspect-ratio-options';
 
 const CROP_ASPECT_RATIO_OPTIONS = [
   {value: FREE_CROP_ASPECT_RATIO, label: <Trans>Free</Trans>},

@@ -49,6 +49,7 @@ export interface TabSlice {
     activeTabKey: TabKey,
     options?: {skipUnsavedChangesCheck?: boolean}
   ) => Promise<boolean>;
+  loadActiveTab: () => void;
 }
 
 export const createTabSlice: StateCreator<TabSlice & TabSliceDependencies, [], [], TabSlice> = (
@@ -88,6 +89,12 @@ export const createTabSlice: StateCreator<TabSlice & TabSliceDependencies, [], [
     set({
       activeTabKey,
     });
+    get().loadActiveTab();
+    return true;
+  },
+
+  loadActiveTab: (): void => {
+    const {activeTabKey} = get();
     if (activeTabKey === TabKey.TonalValues) {
       get().loadTonalImages();
     } else if (activeTabKey === TabKey.Simplify) {
@@ -101,6 +108,5 @@ export const createTabSlice: StateCreator<TabSlice & TabSliceDependencies, [], [
     } else if (activeTabKey === TabKey.Help) {
       void get().loadStorageUsage();
     }
-    return true;
   },
 });

@@ -114,14 +114,6 @@ msgstr "📢 Без реклами"
 msgid "🧑‍🎨 Artistic styles from your own images and loose brushstroke paintings"
 msgstr "🧑‍🎨 Артистични стилове от вашите собствени изображения и картини със свободни мазки"
 
-#: src/components/image-editor/image-aspect-ratio-options.tsx:28
-msgid "100×148 mm photo paper"
-msgstr "Фотохартия 100×148 мм"
-
-#: src/components/image-editor/image-aspect-ratio-options.tsx:30
-msgid "148×100 mm photo paper"
-msgstr "Фотохартия 148×100 мм"
-
 #: src/components/messages.ts:39
 msgid "2-color gradient"
 msgstr "2-цветен градиент"
@@ -309,9 +301,9 @@ msgstr "ArtistAssistApp ще изтрие за постоянно вашата �
 msgid "ArtistAssistApp will reload after removing temporary app files.<0/>Your saved work and cloud data will not be deleted."
 msgstr "ArtistAssistApp ще се презареди след премахване на временните файлове на приложението.<0/>Вашата запазена работа и облачните ви данни няма да бъдат изтрити."
 
-#: src/components/image-editor/CropEditorControls.tsx:79
-#: src/components/image-editor/ExpandEditorControls.tsx:98
-#: src/components/image-editor/ExpandEditorControls.tsx:134
+#: src/components/image-editor/CropEditorControls.tsx:78
+#: src/components/image-editor/ExpandEditorControls.tsx:111
+#: src/components/image-editor/ExpandEditorControls.tsx:148
 msgid "Aspect ratio"
 msgstr "Съотношение на страните"
 
@@ -449,7 +441,7 @@ msgstr "Проверка за актуализации"
 
 #: src/components/ColorSetChooser.tsx:217
 #: src/components/image-editor/ColorizeEditorControls.tsx:57
-#: src/components/image-editor/ExpandEditorControls.tsx:82
+#: src/components/image-editor/ExpandEditorControls.tsx:95
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:52
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:59
 #: src/components/image-editor/RestoreEditorControls.tsx:47
@@ -579,9 +571,9 @@ msgstr "Изисква се код"
 
 #: src/components/ColorMixer.tsx:192
 #: src/components/CustomColorBrandCreator.tsx:476
-#: src/components/image-editor/ExpandEditorControls.tsx:102
-#: src/components/image-editor/ExpandEditorControls.tsx:206
-#: src/components/image-editor/ExpandEditorControls.tsx:208
+#: src/components/image-editor/ExpandEditorControls.tsx:115
+#: src/components/image-editor/ExpandEditorControls.tsx:234
+#: src/components/image-editor/ExpandEditorControls.tsx:236
 msgid "Color"
 msgstr "Цвят"
 
@@ -756,7 +748,7 @@ msgstr "Създайте нов набор от цветове чрез слив
 msgid "Create new"
 msgstr "Създаване на нов"
 
-#: src/components/image-editor/CropEditorControls.tsx:100
+#: src/components/image-editor/CropEditorControls.tsx:99
 #: src/components/messages.ts:51
 msgid "Crop"
 msgstr "Изрязване"
@@ -1022,12 +1014,12 @@ msgstr "Офорт"
 msgid "Exit AR"
 msgstr "Изход от AR"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:246
+#: src/components/image-editor/ExpandEditorControls.tsx:274
 #: src/components/messages.ts:52
 msgid "Expand"
 msgstr "Разширяване"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:115
+#: src/components/image-editor/ExpandEditorControls.tsx:129
 msgid "Expand by"
 msgstr "Разширяване с"
 
@@ -1055,7 +1047,7 @@ msgstr "Фовизъм"
 msgid "Few"
 msgstr "Малко"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:191
+#: src/components/image-editor/ExpandEditorControls.tsx:219
 msgid "Fill"
 msgstr "Запълване"
 
@@ -1090,7 +1082,7 @@ msgstr "Завършване на редактирането"
 msgid "Focal point instructions"
 msgstr "Инструкции за фокусна точка"
 
-#: src/components/image-editor/CropEditorControls.tsx:37
+#: src/components/image-editor/CropEditorControls.tsx:36
 msgid "Free"
 msgstr "Свободно"
 
@@ -1149,7 +1141,7 @@ msgstr "Помощ"
 msgid "High pass"
 msgstr "Високочестотен филтър"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:153
+#: src/components/image-editor/ExpandEditorControls.tsx:167
 msgid "Horizontal"
 msgstr "Хоризонтално"
 
@@ -1345,7 +1337,7 @@ msgstr "Много"
 msgid "Margin"
 msgstr "Поле"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:99
+#: src/components/image-editor/ExpandEditorControls.tsx:112
 msgid "Margins"
 msgstr "Полета"
 
@@ -1481,7 +1473,7 @@ msgstr "Нов набор от цветове"
 msgid "New comparison"
 msgstr "Ново сравнение"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:222
+#: src/components/image-editor/ExpandEditorControls.tsx:250
 #: src/components/image-editor/UpscaleEditorControls.tsx:66
 msgid "New size: {outputWidth} × {outputHeight}"
 msgstr "Нов размер: {outputWidth} × {outputHeight}"
@@ -1595,7 +1587,7 @@ msgstr "Или изберете от примерни снимки"
 msgid "Or select from your recent photos"
 msgstr "Или изберете от скорошните си снимки"
 
-#: src/components/image-editor/CropEditorControls.tsx:38
+#: src/components/image-editor/CropEditorControls.tsx:37
 #: src/components/image/ImageViewSelector.tsx:45
 msgid "Original"
 msgstr "Оригинал"
@@ -2259,11 +2251,11 @@ msgstr "Леко припокривайте зоните от восъчен п�
 msgid "Smaller percentile values correspond to stronger whitening"
 msgstr "По-малките стойности на процентила съответстват на по-силно избелване"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:103
+#: src/components/image-editor/ExpandEditorControls.tsx:116
 msgid "Smart"
 msgstr "Интелигентен"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:230
+#: src/components/image-editor/ExpandEditorControls.tsx:258
 msgid "Smart expansion is available only to paid Patreon members"
 msgstr "Интелигентното разширяване е достъпно само за платещи членове на Patreon"
 
@@ -2576,7 +2568,7 @@ msgstr "Опитайте да добавите цветове или да про
 msgid "Try adding colors or changing the surface, underlayer, or unifying color"
 msgstr "Опитайте да добавите цветове или да промените повърхността, подслоя или обединяващия цвят"
 
-#: src/components/error/UnhandledRejectionHandler.tsx:59
+#: src/components/error/UnhandledRejectionHandler.tsx:60
 msgid "Turn off WebGPU"
 msgstr "Изключване на WebGPU"
 
@@ -2620,7 +2612,7 @@ msgstr "Не могат да се заредят режимите за рест�
 msgid "Unable to load the sample photos"
 msgstr "Не могат да се заредят примерните снимки"
 
-#: src/components/image-editor/ExpandEditorControls.tsx:81
+#: src/components/image-editor/ExpandEditorControls.tsx:94
 msgid "Unable to load the smart expansion model"
 msgstr "Не може да се зареди моделът за интелигентно разширяване"
 
@@ -2657,6 +2649,10 @@ msgstr "Неочаквана грешка: {errorMessage}"
 #: src/components/ImageColorPicker.tsx:403
 msgid "Unifying color"
 msgstr "Обединяващ цвят"
+
+#: src/components/image-editor/ExpandEditorControls.tsx:199
+msgid "Unit"
+msgstr "Мерна единица"
 
 #: src/components/image-editor/SharpenEditorControls.tsx:37
 msgid "Unsharp mask"
@@ -2730,7 +2726,7 @@ msgstr "Използвано"
 msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
 msgstr "Използването на ограничена палитра помага за постигане на цветова хармония. Изберете 1–{MAX_COLORS} основни цветове."
 
-#: src/components/image-editor/ExpandEditorControls.tsx:171
+#: src/components/image-editor/ExpandEditorControls.tsx:183
 msgid "Vertical"
 msgstr "Вертикално"
 
@@ -2796,7 +2792,7 @@ msgid "When selecting more than {maxColorsFor3} colors in total, mixtures of thr
 msgstr "При избор на повече от {maxColorsFor3} цветове общо не се използват смеси от три цвята."
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:234
-#: src/components/image-editor/ExpandEditorControls.tsx:209
+#: src/components/image-editor/ExpandEditorControls.tsx:237
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:106
 msgid "White"
 msgstr "Бяло"
