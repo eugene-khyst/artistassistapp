@@ -83,7 +83,8 @@ export function GridControls({
   const updateSettings = (update: Partial<GridSettings>) => {
     startTransition(async () => {
       setOptimisticSettings(update);
-      await saveAppSettings((prev: AppSettings): Partial<AppSettings> => ({
+      await saveAppSettings((prev: AppSettings): AppSettings => ({
+        ...prev,
         grids: {
           ...prev.grids,
           [tab]: {...prev.grids?.[tab], ...update},

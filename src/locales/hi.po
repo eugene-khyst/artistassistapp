@@ -126,7 +126,7 @@ msgstr "हर सुझाए गए मिश्रण में मिला�
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "ऐप का एक नया संस्करण उपलब्ध है और स्वचालित रूप से इंस्टॉल हो जाएगा।"
 
-#: src/components/Help.tsx:157
+#: src/components/Help.tsx:158
 msgid "A new version of the application is available."
 msgstr "एप्लिकेशन का एक नया संस्करण उपलब्ध है।"
 
@@ -190,7 +190,7 @@ msgstr "रंग समायोजित करें"
 msgid "Adjust the 4 corners manually."
 msgstr "चारों कोनों को मैन्युअल रूप से समायोजित करें।"
 
-#: src/components/Help.tsx:229
+#: src/components/Help.tsx:231
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "सभी ऐप डेटा इंस्टॉल करने के बाद भी वेब ब्राउज़र स्टोरेज में संग्रहीत किया जाता है। ब्राउज़र डेटा साफ़ करने से यह सब मिट जाता है।"
 
@@ -214,7 +214,7 @@ msgstr "एक अंडरलेयर या एकीकृत रंग स�
 msgid "Angle"
 msgstr "कोण"
 
-#: src/components/Help.tsx:274
+#: src/components/Help.tsx:276
 msgid "Application build ID"
 msgstr "एप्लिकेशन बिल्ड आईडी"
 
@@ -285,11 +285,11 @@ msgstr "ArtistAssistApp यह पुष्टि नहीं कर सका 
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistApp को आपके Patreon लॉगिन का परिणाम प्राप्त नहीं हुआ। ऐसा तब हो सकता है जब किसी अन्य ब्राउज़र या ऐप में लॉगिन खुलता है। कृपया पुन: लॉग इन करने का प्रयास करें।"
 
-#: src/components/Help.tsx:265
+#: src/components/Help.tsx:267
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp <0>Eugene Khyst</0> द्वारा विकसित किया गया है"
 
-#: src/components/Help.tsx:241
+#: src/components/Help.tsx:243
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "ArtistAssistApp कभी भी आपका ईमेल पता संग्रहीत नहीं करता है, केवल इससे प्राप्त एक निजी कोड जो पता प्रकट नहीं कर सकता है। Patreon या सदस्यता नवीनीकरण के साथ लॉग इन करने से वह कोड फिर से बन जाता है।"
 
@@ -418,12 +418,13 @@ msgstr "एआर ट्रेसिंग के लिए कैमरा ए�
 #: src/components/ImageColorPicker.tsx:265
 #: src/components/ImageEditor.tsx:332
 #: src/components/loading/LoadingIndicator.tsx:52
+#: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
 msgstr "रद्द करें"
 
-#: src/components/Help.tsx:118
+#: src/components/Help.tsx:119
 msgid "Cancel a paid membership"
 msgstr "सशुल्क सदस्यता रद्द करें"
 
@@ -431,11 +432,11 @@ msgstr "सशुल्क सदस्यता रद्द करें"
 msgid "Cannot use copied image"
 msgstr "कॉपी की गई छवि का उपयोग नहीं किया जा सकता"
 
-#: src/components/grid/GridControls.tsx:143
+#: src/components/grid/GridControls.tsx:144
 msgid "Cells"
 msgstr "कक्ष"
 
-#: src/components/Help.tsx:164
+#: src/components/Help.tsx:165
 msgid "Check for updates"
 msgstr "अपडेट के लिए जाँच करें"
 
@@ -678,7 +679,7 @@ msgstr "अंडरलेयर पर मिश्रित रंगों �
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "सतह या अंडरलेयर पर पारदर्शी परतों पर विचार करें जब वे अपारदर्शी मिश्रण की तुलना में लक्ष्य से बेहतर मेल खाती हों"
 
-#: src/components/Help.tsx:108
+#: src/components/Help.tsx:109
 msgid "Contact"
 msgstr "संपर्क"
 
@@ -861,7 +862,7 @@ msgstr "जोड़ीवार तुलना द्वारा सर्व
 msgid "Diagnostics"
 msgstr "डायग्नोस्टिक्स"
 
-#: src/components/grid/GridControls.tsx:152
+#: src/components/grid/GridControls.tsx:153
 msgid "Diagonals"
 msgstr "विकर्ण"
 
@@ -1122,7 +1123,7 @@ msgstr "{label} टैब पर जाएं"
 msgid "Gouache"
 msgstr "गौचे"
 
-#: src/components/grid/GridControls.tsx:130
+#: src/components/grid/GridControls.tsx:131
 #: src/components/ImageOutline.tsx:316
 #: src/components/messages.ts:36
 msgid "Grid"
@@ -1189,7 +1190,7 @@ msgstr "ऐप इंस्टॉल करें"
 msgid "Install ArtistAssistApp"
 msgstr "ArtistAssistApp इंस्टॉल करें"
 
-#: src/components/Help.tsx:159
+#: src/components/Help.tsx:160
 msgid "Install update"
 msgstr "अपडेट इंस्टॉल करें"
 
@@ -1519,7 +1520,7 @@ msgstr "साझा करने के लिए कुछ भी नहीं
 msgid "Number of brush strokes in the painting"
 msgstr "पेंटिंग में ब्रश स्ट्रोक की संख्या"
 
-#: src/components/grid/GridControls.tsx:145
+#: src/components/grid/GridControls.tsx:146
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "छोटी भुजा पर कक्षों की संख्या (ऊर्ध्वाधर या क्षैतिज)"
 
@@ -1651,7 +1652,7 @@ msgstr "पर्सेंटाइल"
 msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
 msgstr "पर्सेंटाइल: सबसे चमकीले क्षेत्रों के आधार पर श्वेत संतुलन, अधिकांश फ़ोटो के लिए उपयुक्त। संदर्भ: चुने गए सफ़ेद क्षेत्र का उपयोग करके मैन्युअल श्वेत संतुलन। स्वचालित: हर रंग चैनल के काले और सफ़ेद बिंदु सेट करता है, फीकी फ़ोटो के लिए उपयुक्त।"
 
-#: src/components/Help.tsx:187
+#: src/components/Help.tsx:189
 msgid "Persistent storage"
 msgstr "स्थायी संग्रहण"
 
@@ -1759,7 +1760,7 @@ msgstr "एक बड़ी छवि को कई पृष्ठों पर
 msgid "Print preview"
 msgstr "प्रिंट पूर्वावलोकन"
 
-#: src/components/Help.tsx:130
+#: src/components/Help.tsx:131
 msgid "Privacy policy"
 msgstr "गोपनीयता नीति"
 
@@ -1775,7 +1776,7 @@ msgstr "प्रोसेस हो रहा है..."
 msgid "Processing... {percent}%"
 msgstr "प्रोसेस हो रहा है... {percent}%"
 
-#: src/components/Help.tsx:210
+#: src/components/Help.tsx:212
 msgid "Quota"
 msgstr "कोटा"
 
@@ -1879,8 +1880,14 @@ msgstr "कोड फिर से भेजें"
 
 #: src/components/ImageEditor.tsx:331
 #: src/components/ImageEditor.tsx:336
+#: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "रीसेट"
+
+#: src/components/settings/ResetSettingsButton.tsx:46
+#: src/components/settings/ResetSettingsButton.tsx:57
+msgid "Reset settings"
+msgstr "सेटिंग्स रीसेट करें"
 
 #: src/components/image-editor/RestoreEditorControls.tsx:100
 #: src/components/messages.ts:57
@@ -2191,7 +2198,7 @@ msgstr "शार्प करें"
 msgid "Show areas on the photo that match this color."
 msgstr "फ़ोटो पर उन क्षेत्रों को दिखाएँ जो इस रंग से मेल खाते हों।"
 
-#: src/components/grid/GridControls.tsx:122
+#: src/components/grid/GridControls.tsx:123
 msgid "Show grid"
 msgstr "ग्रिड दिखाएं"
 
@@ -2207,7 +2214,7 @@ msgstr "पुरानी फ़ोटो दिखाएं"
 msgid "Show on photo"
 msgstr "फ़ोटो पर दिखाएं"
 
-#: src/components/grid/GridControls.tsx:154
+#: src/components/grid/GridControls.tsx:155
 msgid "Show or hide diagonal lines"
 msgstr "विकर्ण रेखाएँ दिखाएं या छिपाएं"
 
@@ -2296,7 +2303,7 @@ msgstr "वर्णक्रमीय परावर्तन वक्र"
 msgid "Speed"
 msgstr "गति"
 
-#: src/components/grid/GridControls.tsx:112
+#: src/components/grid/GridControls.tsx:113
 msgid "Square cells"
 msgstr "वर्ग कक्ष"
 
@@ -2316,7 +2323,7 @@ msgstr "स्थिर जीवन"
 msgid "Storage may fill up"
 msgstr "संग्रहण भर सकता है"
 
-#: src/components/Help.tsx:204
+#: src/components/Help.tsx:206
 msgid "Storage usage"
 msgstr "संग्रहण उपयोग"
 
@@ -2385,7 +2392,7 @@ msgstr "लक्ष्य रंग"
 msgid "Target print size"
 msgstr "लक्ष्य प्रिंट आकार"
 
-#: src/components/Help.tsx:140
+#: src/components/Help.tsx:141
 msgid "Terms of use"
 msgstr "उपयोग की शर्तें"
 
@@ -2446,7 +2453,7 @@ msgstr "एक सामान्य पैलेट है और प्रत�
 msgid "Thick"
 msgstr "मोटा"
 
-#: src/components/Help.tsx:150
+#: src/components/Help.tsx:151
 msgid "Third-party notices"
 msgstr "तृतीय-पक्ष नोटिस"
 
@@ -2572,7 +2579,7 @@ msgstr "रंग जोड़ने या सतह, अंडरलेयर,
 msgid "Turn off WebGPU"
 msgstr "WebGPU बंद करें"
 
-#: src/components/Help.tsx:98
+#: src/components/Help.tsx:99
 msgid "Tutorials and videos"
 msgstr "ट्यूटोरियल और वीडियो"
 
@@ -2714,11 +2721,11 @@ msgstr "पूरे दबाव का उपयोग करें"
 msgid "Use reference photo"
 msgstr "संदर्भ फ़ोटो का उपयोग करें"
 
-#: src/components/Help.tsx:178
+#: src/components/Help.tsx:180
 msgid "Use WebGPU"
 msgstr "WebGPU का उपयोग करें"
 
-#: src/components/Help.tsx:207
+#: src/components/Help.tsx:209
 msgid "Used"
 msgstr "उपयोग"
 
@@ -2846,6 +2853,10 @@ msgstr "आपने ऐसे रंग ब्रांड चुने है�
 msgid "Your account details:"
 msgstr "आपके खाते का विवरण:"
 
+#: src/components/settings/ResetSettingsButton.tsx:48
+msgid "Your app settings will return to their defaults. Your saved work will remain."
+msgstr "ऐप की सेटिंग्स अपने डिफ़ॉल्ट मानों पर लौट आएंगी। आपका सहेजा गया कार्य सुरक्षित रहेगा।"
+
 #: src/components/file/FileSelect.tsx:165
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "आपका ब्राउज़र क्लिपबोर्ड से छवियों को पढ़ने का समर्थन नहीं करता है।"
@@ -2885,7 +2896,7 @@ msgstr "आपकी छवियाँ आपके डिवाइस पर �
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "आपके लॉगिन क्रेडेंशियल सत्यापित नहीं किए जा सके। फिर से साइन इन करें।"
 
-#: src/components/Help.tsx:248
+#: src/components/Help.tsx:250
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "आपकी Patreon सदस्यता और इस डिवाइस का डेटा हटाया नहीं जाता। Patreon पर ही <0>अपनी Patreon सदस्यता रद्द करें</0>।"
 

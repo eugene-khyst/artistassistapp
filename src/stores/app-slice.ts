@@ -46,7 +46,7 @@ import type {OriginalImageSlice} from './original-image-slice';
 import type {PaletteSlice} from './palette-slice';
 import type {TabSlice} from './tab-slice';
 
-type AppSettingsUpdater = (prev: AppSettings) => Partial<AppSettings>;
+type AppSettingsUpdater = (prev: AppSettings) => AppSettings;
 
 export interface AppSlice {
   appInitialized: boolean;
@@ -88,9 +88,30 @@ export const createAppSlice: StateCreator<AppSlice & AppSliceDependencies, [], [
   set,
   get
 ) => {
-  let saveAppSettingsPromise: Promise<void> = Promise.resolve();
-  let finishSaveAppSettings: (() => void) | undefined;
-  let saveAppSettingsCount = 0;
+  const pendingAppSettingsSaves = new Set<Promise<AppSettings>>();
+
+  const saveAppSettings = async (
+    update: Partial<AppSettings> | AppSettingsUpdater
+  ): Promise<AppSettings> => {
+    const save = updateStoredAppSettings(prev =>
+      typeof update === 'function'
+        ? update(prev)
+        : {
+            ...prev,
+            ...update,
+          }
+    );
+    pendingAppSettingsSaves.add(save);
+    try {
+      const appSettings = await save;
+      set({
+        appSettings,
+      });
+      return appSettings;
+    } finally {
+      pendingAppSettingsSaves.delete(save);
+    }
+  };
 
   const runInitStepSafely = async (label: string, fn: () => unknown): Promise<void> => {
     try {
@@ -100,33 +121,6 @@ export const createAppSlice: StateCreator<AppSlice & AppSliceDependencies, [], [
         throw error;
       }
       get().addInitError(label, error);
-    }
-  };
-
-  const saveAppSettings = async (
-    update: Partial<AppSettings> | AppSettingsUpdater
-  ): Promise<AppSettings> => {
-    if (saveAppSettingsCount === 0) {
-      saveAppSettingsPromise = new Promise(resolve => {
-        finishSaveAppSettings = resolve;
-      });
-    }
-    saveAppSettingsCount++;
-    try {
-      const appSettings = await updateStoredAppSettings(prev => ({
-        ...prev,
-        ...(typeof update === 'function' ? update(prev) : update),
-      }));
-      set({
-        appSettings,
-      });
-      return appSettings;
-    } finally {
-      saveAppSettingsCount--;
-      if (saveAppSettingsCount === 0) {
-        finishSaveAppSettings!();
-        finishSaveAppSettings = undefined;
-      }
     }
   };
 
@@ -265,7 +259,9 @@ export const createAppSlice: StateCreator<AppSlice & AppSliceDependencies, [], [
     saveAppSettings,
 
     waitForAppSettingsSave: async (): Promise<void> => {
-      await saveAppSettingsPromise;
+      while (pendingAppSettingsSaves.size > 0) {
+        await Promise.allSettled(pendingAppSettingsSaves);
+      }
     },
 
     loadStoreChangeTokens: async (): Promise<StoreChangeTokens> => {

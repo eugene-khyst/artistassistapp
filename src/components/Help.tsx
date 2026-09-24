@@ -43,6 +43,7 @@ import {
 
 import {DeleteAccountButton} from '@/components/auth/DeleteAccountButton';
 import {LoadingButton} from '@/components/button/LoadingButton';
+import {ResetSettingsButton} from '@/components/settings/ResetSettingsButton';
 import {ClearCacheButton} from '@/components/storage/ClearCacheButton';
 import {DeleteAppDataButton} from '@/components/storage/DeleteAppDataButton';
 import {BUILD_ID, WEBSITE_URL} from '@/config';
@@ -165,8 +166,9 @@ export function Help() {
         </LoadingButton>
       )}
 
-      {'gpu' in navigator && (
-        <Flex vertical gap={0} align="center">
+      <Flex vertical gap="small" align="center">
+        <ResetSettingsButton />
+        {'gpu' in navigator && (
           <Space>
             <Switch
               checked={webGpu}
@@ -178,8 +180,8 @@ export function Help() {
               <Trans>Use WebGPU</Trans>
             </Typography.Text>
           </Space>
-        </Flex>
-      )}
+        )}
+      </Flex>
 
       <Flex vertical gap="small" align="center">
         <Space>

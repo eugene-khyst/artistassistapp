@@ -126,7 +126,7 @@ msgstr "Farba zmiešaná do každej navrhovanej zmesi, aby paleta pôsobila harm
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "Nová verzia aplikácie je dostupná a bude nainštalovaná automaticky."
 
-#: src/components/Help.tsx:157
+#: src/components/Help.tsx:158
 msgid "A new version of the application is available."
 msgstr "Nová verzia aplikácie je dostupná."
 
@@ -190,7 +190,7 @@ msgstr "Upraviť farby"
 msgid "Adjust the 4 corners manually."
 msgstr "Ručne nastavte 4 rohy."
 
-#: src/components/Help.tsx:229
+#: src/components/Help.tsx:231
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Všetky údaje aplikácie sú uložené v úložisku webového prehliadača, aj po inštalácii. Vymazanie údajov prehliadača ich všetky odstráni."
 
@@ -214,7 +214,7 @@ msgstr "Je nastavená podkladová vrstva alebo zjednocujúca farba. Automatická
 msgid "Angle"
 msgstr "Uhol"
 
-#: src/components/Help.tsx:274
+#: src/components/Help.tsx:276
 msgid "Application build ID"
 msgstr "ID zostavenia aplikácie"
 
@@ -285,11 +285,11 @@ msgstr "ArtistAssistApp nedokázal potvrdiť, že vaše cloudové súbory boli v
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistApp nedostal výsledok vášho prihlásenia na Patreon. Môže sa to stať, keď sa prihlasovanie otvorí v inom prehliadači alebo aplikácii. Skúste sa, prosím, prihlásiť znova."
 
-#: src/components/Help.tsx:265
+#: src/components/Help.tsx:267
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp vyvinul <0>Eugene Khyst</0>"
 
-#: src/components/Help.tsx:241
+#: src/components/Help.tsx:243
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "ArtistAssistApp nikdy neukladá vašu e-mailovú adresu, iba súkromný kód z nej odvodený, ktorý adresu nedokáže odhaliť. Prihlásenie cez Patreon alebo obnovenie členstva tento kód vytvorí znova."
 
@@ -418,12 +418,13 @@ msgstr "Na obkresľovanie v AR je potrebný prístup ku kamere"
 #: src/components/ImageColorPicker.tsx:265
 #: src/components/ImageEditor.tsx:332
 #: src/components/loading/LoadingIndicator.tsx:52
+#: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
 msgstr "Zrušiť"
 
-#: src/components/Help.tsx:118
+#: src/components/Help.tsx:119
 msgid "Cancel a paid membership"
 msgstr "Zrušiť platené členstvo"
 
@@ -431,11 +432,11 @@ msgstr "Zrušiť platené členstvo"
 msgid "Cannot use copied image"
 msgstr "Nie je možné použiť skopírovaný obrázok"
 
-#: src/components/grid/GridControls.tsx:143
+#: src/components/grid/GridControls.tsx:144
 msgid "Cells"
 msgstr "Bunky"
 
-#: src/components/Help.tsx:164
+#: src/components/Help.tsx:165
 msgid "Check for updates"
 msgstr "Skontrolovať aktualizácie"
 
@@ -678,7 +679,7 @@ msgstr "Zvážiť farby rozotreté na podkladovej vrstve, keď sa s cieľom zhod
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "Zvážiť priehľadné vrstvy na povrchu alebo podkladovej vrstve, keď sa s cieľom zhodujú lepšie ako nepriehľadné zmesi"
 
-#: src/components/Help.tsx:108
+#: src/components/Help.tsx:109
 msgid "Contact"
 msgstr "Kontakt"
 
@@ -861,7 +862,7 @@ msgstr "Určte najlepší obrázok párovým porovnaním"
 msgid "Diagnostics"
 msgstr "Diagnostika"
 
-#: src/components/grid/GridControls.tsx:152
+#: src/components/grid/GridControls.tsx:153
 msgid "Diagonals"
 msgstr "Uhlopriečky"
 
@@ -1122,7 +1123,7 @@ msgstr "Prejdite na kartu {label}"
 msgid "Gouache"
 msgstr "Gvaš"
 
-#: src/components/grid/GridControls.tsx:130
+#: src/components/grid/GridControls.tsx:131
 #: src/components/ImageOutline.tsx:316
 #: src/components/messages.ts:36
 msgid "Grid"
@@ -1189,7 +1190,7 @@ msgstr "Inštalovať aplikáciu"
 msgid "Install ArtistAssistApp"
 msgstr "Nainštalovať ArtistAssistApp"
 
-#: src/components/Help.tsx:159
+#: src/components/Help.tsx:160
 msgid "Install update"
 msgstr "Inštalovať aktualizáciu"
 
@@ -1519,7 +1520,7 @@ msgstr "Nie je čo zdieľať"
 msgid "Number of brush strokes in the painting"
 msgstr "Počet ťahov štetcom v maľbe"
 
-#: src/components/grid/GridControls.tsx:145
+#: src/components/grid/GridControls.tsx:146
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Počet buniek na menšej strane (vertikálne alebo horizontálne)"
 
@@ -1651,7 +1652,7 @@ msgstr "Percentil"
 msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
 msgstr "Percentil: Vyváženie bielej podľa najsvetlejších oblastí, vhodné pre väčšinu fotografií. Referencia: Manuálne vyváženie bielej pomocou vybranej bielej oblasti. Automaticky: Nastaví čierny a biely bod každého farebného kanála, vhodné pre vyblednuté fotografie."
 
-#: src/components/Help.tsx:187
+#: src/components/Help.tsx:189
 msgid "Persistent storage"
 msgstr "Trvalé úložisko"
 
@@ -1759,7 +1760,7 @@ msgstr "Tlač veľkého obrázka na viacero strán"
 msgid "Print preview"
 msgstr "Ukážka tlače"
 
-#: src/components/Help.tsx:130
+#: src/components/Help.tsx:131
 msgid "Privacy policy"
 msgstr "Zásady ochrany osobných údajov"
 
@@ -1775,7 +1776,7 @@ msgstr "Spracúva sa..."
 msgid "Processing... {percent}%"
 msgstr "Spracúva sa... {percent} %"
 
-#: src/components/Help.tsx:210
+#: src/components/Help.tsx:212
 msgid "Quota"
 msgstr "Kvóta"
 
@@ -1879,8 +1880,14 @@ msgstr "Znova odoslať kód"
 
 #: src/components/ImageEditor.tsx:331
 #: src/components/ImageEditor.tsx:336
+#: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "Resetovať"
+
+#: src/components/settings/ResetSettingsButton.tsx:46
+#: src/components/settings/ResetSettingsButton.tsx:57
+msgid "Reset settings"
+msgstr "Resetovať nastavenia"
 
 #: src/components/image-editor/RestoreEditorControls.tsx:100
 #: src/components/messages.ts:57
@@ -2191,7 +2198,7 @@ msgstr "Zaostriť"
 msgid "Show areas on the photo that match this color."
 msgstr "Zobraziť oblasti na fotografii, ktoré zodpovedajú tejto farbe."
 
-#: src/components/grid/GridControls.tsx:122
+#: src/components/grid/GridControls.tsx:123
 msgid "Show grid"
 msgstr "Zobraziť mriežku"
 
@@ -2207,7 +2214,7 @@ msgstr "Zobraziť staršie fotografie"
 msgid "Show on photo"
 msgstr "Zobraziť na fotografii"
 
-#: src/components/grid/GridControls.tsx:154
+#: src/components/grid/GridControls.tsx:155
 msgid "Show or hide diagonal lines"
 msgstr "Zobraziť alebo skryť uhlopriečky"
 
@@ -2296,7 +2303,7 @@ msgstr "Krivka spektrálnej odrazivosti"
 msgid "Speed"
 msgstr "Rýchlosť"
 
-#: src/components/grid/GridControls.tsx:112
+#: src/components/grid/GridControls.tsx:113
 msgid "Square cells"
 msgstr "Štvorcové bunky"
 
@@ -2316,7 +2323,7 @@ msgstr "Zátišie"
 msgid "Storage may fill up"
 msgstr "Úložisko sa môže zaplniť"
 
-#: src/components/Help.tsx:204
+#: src/components/Help.tsx:206
 msgid "Storage usage"
 msgstr "Využitie úložiska"
 
@@ -2385,7 +2392,7 @@ msgstr "Cieľová farba"
 msgid "Target print size"
 msgstr "Cieľová veľkosť tlače"
 
-#: src/components/Help.tsx:140
+#: src/components/Help.tsx:141
 msgid "Terms of use"
 msgstr "Podmienky používania"
 
@@ -2446,7 +2453,7 @@ msgstr "Existuje jedna spoločná paleta a samostatná paleta pre každú fotogr
 msgid "Thick"
 msgstr "Hrubý"
 
-#: src/components/Help.tsx:150
+#: src/components/Help.tsx:151
 msgid "Third-party notices"
 msgstr "Oznámenia tretích strán"
 
@@ -2572,7 +2579,7 @@ msgstr "Skúste pridať farby alebo zmeniť povrch, podkladovú vrstvu či zjedn
 msgid "Turn off WebGPU"
 msgstr "Vypnúť WebGPU"
 
-#: src/components/Help.tsx:98
+#: src/components/Help.tsx:99
 msgid "Tutorials and videos"
 msgstr "Návody a videá"
 
@@ -2714,11 +2721,11 @@ msgstr "Použiť plný prítlak"
 msgid "Use reference photo"
 msgstr "Použiť referenčnú fotografiu"
 
-#: src/components/Help.tsx:178
+#: src/components/Help.tsx:180
 msgid "Use WebGPU"
 msgstr "Používať WebGPU"
 
-#: src/components/Help.tsx:207
+#: src/components/Help.tsx:209
 msgid "Used"
 msgstr "Použité"
 
@@ -2846,6 +2853,10 @@ msgstr "Vybrali ste farebné značky, ktoré sú dostupné iba plateným členom
 msgid "Your account details:"
 msgstr "Údaje o vašom účte:"
 
+#: src/components/settings/ResetSettingsButton.tsx:48
+msgid "Your app settings will return to their defaults. Your saved work will remain."
+msgstr "Nastavenia aplikácie sa vrátia na predvolené hodnoty. Vaša uložená práca zostane zachovaná."
+
 #: src/components/file/FileSelect.tsx:165
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "Váš prehliadač nepodporuje čítanie obrázkov zo schránky."
@@ -2885,7 +2896,7 @@ msgstr "Vaše obrázky sa spracúvajú vo vašom zariadení a odosielajú sa iba
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Vaše prihlasovacie údaje sa nepodarilo overiť. Prihláste sa znova."
 
-#: src/components/Help.tsx:248
+#: src/components/Help.tsx:250
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "Vaše členstvo na Patreone a údaje na tomto zariadení sa neodstránia. <0>Zrušte svoje členstvo na Patreone</0> priamo na Patreone."
 

@@ -126,7 +126,7 @@ msgstr "O culoare amestecată în fiecare amestec sugerat pentru ca paleta să p
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "O versiune nouă a aplicației este disponibilă și va fi instalată automat."
 
-#: src/components/Help.tsx:157
+#: src/components/Help.tsx:158
 msgid "A new version of the application is available."
 msgstr "O versiune nouă a aplicației este disponibilă."
 
@@ -190,7 +190,7 @@ msgstr "Ajustare culori"
 msgid "Adjust the 4 corners manually."
 msgstr "Reglați manual cele 4 colțuri."
 
-#: src/components/Help.tsx:229
+#: src/components/Help.tsx:231
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Toate datele aplicației sunt stocate în spațiul de stocare al browserului web, chiar și după instalare. Ștergerea datelor din browser șterge totul."
 
@@ -214,7 +214,7 @@ msgstr "Este setat un strat de bază sau o culoare unificatoare. Paleta automat�
 msgid "Angle"
 msgstr "Unghi"
 
-#: src/components/Help.tsx:274
+#: src/components/Help.tsx:276
 msgid "Application build ID"
 msgstr "ID-ul versiunii aplicației"
 
@@ -285,11 +285,11 @@ msgstr "ArtistAssistApp nu a putut confirma că fișierele dvs. din cloud au fos
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistApp nu a primit rezultatul autentificării dvs. pe Patreon. Acest lucru se poate întâmpla când autentificarea se deschide în alt browser sau în altă aplicație. Vă rugăm să încercați să vă conectați din nou."
 
-#: src/components/Help.tsx:265
+#: src/components/Help.tsx:267
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp este dezvoltat de <0>Eugene Khyst</0>"
 
-#: src/components/Help.tsx:241
+#: src/components/Help.tsx:243
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "ArtistAssistApp nu stochează niciodată adresa dvs. de e-mail, ci doar un cod privat derivat din ea, care nu poate dezvălui adresa. Autentificarea cu Patreon sau reînnoirea abonamentului creează din nou acel cod."
 
@@ -418,12 +418,13 @@ msgstr "Accesul la cameră este necesar pentru trasarea AR"
 #: src/components/ImageColorPicker.tsx:265
 #: src/components/ImageEditor.tsx:332
 #: src/components/loading/LoadingIndicator.tsx:52
+#: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
 msgstr "Anulează"
 
-#: src/components/Help.tsx:118
+#: src/components/Help.tsx:119
 msgid "Cancel a paid membership"
 msgstr "Anulați abonamentul plătit"
 
@@ -431,11 +432,11 @@ msgstr "Anulați abonamentul plătit"
 msgid "Cannot use copied image"
 msgstr "Nu se poate folosi imaginea copiată"
 
-#: src/components/grid/GridControls.tsx:143
+#: src/components/grid/GridControls.tsx:144
 msgid "Cells"
 msgstr "Celule"
 
-#: src/components/Help.tsx:164
+#: src/components/Help.tsx:165
 msgid "Check for updates"
 msgstr "Verificați dacă există actualizări"
 
@@ -678,7 +679,7 @@ msgstr "Luați în considerare culorile amestecate peste stratul de bază atunci
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "Luați în considerare straturile transparente peste suprafață sau peste stratul de bază atunci când se potrivesc mai bine cu ținta decât amestecurile opace"
 
-#: src/components/Help.tsx:108
+#: src/components/Help.tsx:109
 msgid "Contact"
 msgstr "Contact"
 
@@ -861,7 +862,7 @@ msgstr "Determinați cea mai bună imagine prin comparație în perechi"
 msgid "Diagnostics"
 msgstr "Diagnosticare"
 
-#: src/components/grid/GridControls.tsx:152
+#: src/components/grid/GridControls.tsx:153
 msgid "Diagonals"
 msgstr "Diagonale"
 
@@ -1122,7 +1123,7 @@ msgstr "Accesați fila {label}"
 msgid "Gouache"
 msgstr "Guașă"
 
-#: src/components/grid/GridControls.tsx:130
+#: src/components/grid/GridControls.tsx:131
 #: src/components/ImageOutline.tsx:316
 #: src/components/messages.ts:36
 msgid "Grid"
@@ -1189,7 +1190,7 @@ msgstr "Instalați aplicația"
 msgid "Install ArtistAssistApp"
 msgstr "Instalați ArtistAssistApp"
 
-#: src/components/Help.tsx:159
+#: src/components/Help.tsx:160
 msgid "Install update"
 msgstr "Instalați actualizarea"
 
@@ -1519,7 +1520,7 @@ msgstr "Nu există nimic de partajat"
 msgid "Number of brush strokes in the painting"
 msgstr "Numărul de tușe de pensulă din pictură"
 
-#: src/components/grid/GridControls.tsx:145
+#: src/components/grid/GridControls.tsx:146
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Numărul de celule pe partea mai mică (verticală sau orizontală)"
 
@@ -1651,7 +1652,7 @@ msgstr "Percentilă"
 msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
 msgstr "Percentilă: Echilibru de alb din zonele cele mai luminoase, potrivit pentru majoritatea fotografiilor. Referință: Echilibru de alb manual folosind zona albă selectată. Automat: Setează punctele de negru și alb ale fiecărui canal de culoare, potrivit pentru fotografiile decolorate."
 
-#: src/components/Help.tsx:187
+#: src/components/Help.tsx:189
 msgid "Persistent storage"
 msgstr "Stocare persistentă"
 
@@ -1759,7 +1760,7 @@ msgstr "Imprimați o imagine mare pe mai multe pagini"
 msgid "Print preview"
 msgstr "Previzualizare imprimare"
 
-#: src/components/Help.tsx:130
+#: src/components/Help.tsx:131
 msgid "Privacy policy"
 msgstr "Politica de confidențialitate"
 
@@ -1775,7 +1776,7 @@ msgstr "Se procesează..."
 msgid "Processing... {percent}%"
 msgstr "Se procesează... {percent}%"
 
-#: src/components/Help.tsx:210
+#: src/components/Help.tsx:212
 msgid "Quota"
 msgstr "Cotă"
 
@@ -1879,8 +1880,14 @@ msgstr "Retrimiteți codul"
 
 #: src/components/ImageEditor.tsx:331
 #: src/components/ImageEditor.tsx:336
+#: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "Resetare"
+
+#: src/components/settings/ResetSettingsButton.tsx:46
+#: src/components/settings/ResetSettingsButton.tsx:57
+msgid "Reset settings"
+msgstr "Resetați setările"
 
 #: src/components/image-editor/RestoreEditorControls.tsx:100
 #: src/components/messages.ts:57
@@ -2191,7 +2198,7 @@ msgstr "Ascuțire"
 msgid "Show areas on the photo that match this color."
 msgstr "Afișează zonele de pe fotografie care se potrivesc cu această culoare."
 
-#: src/components/grid/GridControls.tsx:122
+#: src/components/grid/GridControls.tsx:123
 msgid "Show grid"
 msgstr "Afișați grila"
 
@@ -2207,7 +2214,7 @@ msgstr "Afișați fotografiile mai vechi"
 msgid "Show on photo"
 msgstr "Afișați pe fotografie"
 
-#: src/components/grid/GridControls.tsx:154
+#: src/components/grid/GridControls.tsx:155
 msgid "Show or hide diagonal lines"
 msgstr "Afișați sau ascundeți liniile diagonale"
 
@@ -2296,7 +2303,7 @@ msgstr "Curba de reflectanță spectrală"
 msgid "Speed"
 msgstr "Viteză"
 
-#: src/components/grid/GridControls.tsx:112
+#: src/components/grid/GridControls.tsx:113
 msgid "Square cells"
 msgstr "Celule pătrate"
 
@@ -2316,7 +2323,7 @@ msgstr "Natură moartă"
 msgid "Storage may fill up"
 msgstr "Spațiul de stocare se poate umple"
 
-#: src/components/Help.tsx:204
+#: src/components/Help.tsx:206
 msgid "Storage usage"
 msgstr "Utilizarea spațiului de stocare"
 
@@ -2385,7 +2392,7 @@ msgstr "Culoarea țintă"
 msgid "Target print size"
 msgstr "Dimensiune țintă de imprimare"
 
-#: src/components/Help.tsx:140
+#: src/components/Help.tsx:141
 msgid "Terms of use"
 msgstr "Termeni de utilizare"
 
@@ -2446,7 +2453,7 @@ msgstr "Există o paletă comună și o paletă separată pentru fiecare fotogra
 msgid "Thick"
 msgstr "Gros"
 
-#: src/components/Help.tsx:150
+#: src/components/Help.tsx:151
 msgid "Third-party notices"
 msgstr "Notificări ale terților"
 
@@ -2572,7 +2579,7 @@ msgstr "Încercați să adăugați culori sau să schimbați suprafața, stratul
 msgid "Turn off WebGPU"
 msgstr "Dezactivați WebGPU"
 
-#: src/components/Help.tsx:98
+#: src/components/Help.tsx:99
 msgid "Tutorials and videos"
 msgstr "Tutoriale și videoclipuri"
 
@@ -2714,11 +2721,11 @@ msgstr "Folosiți presiunea maximă"
 msgid "Use reference photo"
 msgstr "Utilizați fotografia de referință"
 
-#: src/components/Help.tsx:178
+#: src/components/Help.tsx:180
 msgid "Use WebGPU"
 msgstr "Utilizați WebGPU"
 
-#: src/components/Help.tsx:207
+#: src/components/Help.tsx:209
 msgid "Used"
 msgstr "Utilizat"
 
@@ -2846,6 +2853,10 @@ msgstr "Ați selectat mărci de culori disponibile numai pentru membrii Patreon 
 msgid "Your account details:"
 msgstr "Detaliile contului dvs.:"
 
+#: src/components/settings/ResetSettingsButton.tsx:48
+msgid "Your app settings will return to their defaults. Your saved work will remain."
+msgstr "Setările aplicației vor reveni la valorile implicite. Lucrările salvate vor rămâne intacte."
+
 #: src/components/file/FileSelect.tsx:165
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "Browserul dvs. nu acceptă citirea imaginilor din clipboard."
@@ -2885,7 +2896,7 @@ msgstr "Imaginile dvs. sunt procesate pe dispozitivul dvs. și sunt trimise numa
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Datele dvs. de autentificare nu au putut fi verificate. Conectați-vă din nou."
 
-#: src/components/Help.tsx:248
+#: src/components/Help.tsx:250
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "Abonamentul dvs. Patreon și datele de pe acest dispozitiv nu sunt șterse. <0>Anulați-vă abonamentul Patreon</0> chiar pe Patreon."
 

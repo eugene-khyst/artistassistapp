@@ -17,6 +17,7 @@
  */
 
 import {deleteDatabase} from '@/services/db/db';
+import {reloadDelayed} from '@/utils/reload';
 
 export async function requestPersistentStorage(): Promise<boolean> {
   if (!(
@@ -40,14 +41,6 @@ export async function requestPersistentStorage(): Promise<boolean> {
   } catch (error) {
     console.error('Failed to request persistent storage:', error);
     return false;
-  }
-}
-
-function reloadDelayed(reload = true, delay = 500) {
-  if (reload) {
-    setTimeout(() => {
-      window.location.reload();
-    }, delay);
   }
 }
 

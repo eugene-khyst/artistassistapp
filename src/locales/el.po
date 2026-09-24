@@ -126,7 +126,7 @@ msgstr "Ένα χρώμα που αναμειγνύεται σε κάθε προ
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "Μια νέα έκδοση της εφαρμογής είναι διαθέσιμη και θα εγκατασταθεί αυτόματα."
 
-#: src/components/Help.tsx:157
+#: src/components/Help.tsx:158
 msgid "A new version of the application is available."
 msgstr "Μια νέα έκδοση της εφαρμογής είναι διαθέσιμη."
 
@@ -190,7 +190,7 @@ msgstr "Προσαρμογή χρωμάτων"
 msgid "Adjust the 4 corners manually."
 msgstr "Ρυθμίστε τις 4 γωνίες χειροκίνητα."
 
-#: src/components/Help.tsx:229
+#: src/components/Help.tsx:231
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Όλα τα δεδομένα της εφαρμογής αποθηκεύονται στον χώρο αποθήκευσης του προγράμματος περιήγησης ιστού, ακόμη και μετά την εγκατάσταση. Η εκκαθάριση των δεδομένων του προγράμματος περιήγησης τα διαγράφει όλα."
 
@@ -214,7 +214,7 @@ msgstr "Ορίζεται ένα υπόστρωμα ή ένα ενοποιητι�
 msgid "Angle"
 msgstr "Γωνία"
 
-#: src/components/Help.tsx:274
+#: src/components/Help.tsx:276
 msgid "Application build ID"
 msgstr "Αναγνωριστικό έκδοσης εφαρμογής"
 
@@ -285,11 +285,11 @@ msgstr "Το ArtistAssistApp δεν μπόρεσε να επιβεβαιώσει
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "Το ArtistAssistApp δεν έλαβε το αποτέλεσμα της σύνδεσής σας στο Patreon. Αυτό μπορεί να συμβεί όταν ανοίγει η σύνδεση σε άλλο πρόγραμμα περιήγησης ή εφαρμογή. Δοκιμάστε να συνδεθείτε ξανά."
 
-#: src/components/Help.tsx:265
+#: src/components/Help.tsx:267
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "Το ArtistAssistApp αναπτύχθηκε από τον <0>Eugene Khyst</0>"
 
-#: src/components/Help.tsx:241
+#: src/components/Help.tsx:243
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "Το ArtistAssistApp δεν αποθηκεύει ποτέ τη διεύθυνση email σας, μόνο έναν ιδιωτικό κωδικό που προέρχεται από αυτήν και δεν μπορεί να την αποκαλύψει. Η σύνδεση μέσω Patreon ή η ανανέωση της συνδρομής δημιουργεί ξανά αυτόν τον κωδικό."
 
@@ -418,12 +418,13 @@ msgstr "Απαιτείται πρόσβαση στην κάμερα για ιχ�
 #: src/components/ImageColorPicker.tsx:265
 #: src/components/ImageEditor.tsx:332
 #: src/components/loading/LoadingIndicator.tsx:52
+#: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: src/components/Help.tsx:118
+#: src/components/Help.tsx:119
 msgid "Cancel a paid membership"
 msgstr "Ακύρωση συνδρομής επί πληρωμή"
 
@@ -431,11 +432,11 @@ msgstr "Ακύρωση συνδρομής επί πληρωμή"
 msgid "Cannot use copied image"
 msgstr "Δεν είναι δυνατή η χρήση αντιγραμμένης εικόνας"
 
-#: src/components/grid/GridControls.tsx:143
+#: src/components/grid/GridControls.tsx:144
 msgid "Cells"
 msgstr "Κελιά"
 
-#: src/components/Help.tsx:164
+#: src/components/Help.tsx:165
 msgid "Check for updates"
 msgstr "Έλεγχος για ενημερώσεις"
 
@@ -678,7 +679,7 @@ msgstr "Να λαμβάνονται υπόψη τα χρώματα που απα
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "Να λαμβάνονται υπόψη τα διαφανή στρώματα πάνω από την επιφάνεια ή το υπόστρωμα, όταν ταιριάζουν με τον στόχο καλύτερα από τα αδιαφανή μείγματα"
 
-#: src/components/Help.tsx:108
+#: src/components/Help.tsx:109
 msgid "Contact"
 msgstr "Επικοινωνία"
 
@@ -861,7 +862,7 @@ msgstr "Προσδιορίστε την καλύτερη εικόνα με σύ�
 msgid "Diagnostics"
 msgstr "Διαγνωστικός έλεγχος"
 
-#: src/components/grid/GridControls.tsx:152
+#: src/components/grid/GridControls.tsx:153
 msgid "Diagonals"
 msgstr "Διαγώνιοι"
 
@@ -1122,7 +1123,7 @@ msgstr "Μεταβείτε στην καρτέλα {label}"
 msgid "Gouache"
 msgstr "Γκουάς"
 
-#: src/components/grid/GridControls.tsx:130
+#: src/components/grid/GridControls.tsx:131
 #: src/components/ImageOutline.tsx:316
 #: src/components/messages.ts:36
 msgid "Grid"
@@ -1189,7 +1190,7 @@ msgstr "Εγκατάσταση εφαρμογής"
 msgid "Install ArtistAssistApp"
 msgstr "Εγκατάσταση του ArtistAssistApp"
 
-#: src/components/Help.tsx:159
+#: src/components/Help.tsx:160
 msgid "Install update"
 msgstr "Εγκατάσταση ενημέρωσης"
 
@@ -1519,7 +1520,7 @@ msgstr "Τίποτα για κοινή χρήση"
 msgid "Number of brush strokes in the painting"
 msgstr "Αριθμός πινελιών στον πίνακα"
 
-#: src/components/grid/GridControls.tsx:145
+#: src/components/grid/GridControls.tsx:146
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Αριθμός κελιών στη μικρότερη πλευρά (κατακόρυφη ή οριζόντια)"
 
@@ -1651,7 +1652,7 @@ msgstr "Εκατοστημόριο"
 msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
 msgstr "Εκατοστημόριο: Ισορροπία λευκού από τις φωτεινότερες περιοχές, κατάλληλη για τις περισσότερες φωτογραφίες. Αναφορά: Χειροκίνητη ισορροπία λευκού με χρήση της επιλεγμένης λευκής περιοχής. Αυτόματο: Ορίζει το μαύρο και το λευκό σημείο κάθε χρωματικού καναλιού, κατάλληλο για ξεθωριασμένες φωτογραφίες."
 
-#: src/components/Help.tsx:187
+#: src/components/Help.tsx:189
 msgid "Persistent storage"
 msgstr "Μόνιμος χώρος αποθήκευσης"
 
@@ -1759,7 +1760,7 @@ msgstr "Εκτύπωση μεγάλης εικόνας σε πολλές σελ�
 msgid "Print preview"
 msgstr "Προεπισκόπηση εκτύπωσης"
 
-#: src/components/Help.tsx:130
+#: src/components/Help.tsx:131
 msgid "Privacy policy"
 msgstr "Πολιτική απορρήτου"
 
@@ -1775,7 +1776,7 @@ msgstr "Επεξεργασία..."
 msgid "Processing... {percent}%"
 msgstr "Επεξεργασία... {percent}%"
 
-#: src/components/Help.tsx:210
+#: src/components/Help.tsx:212
 msgid "Quota"
 msgstr "Όριο"
 
@@ -1879,8 +1880,14 @@ msgstr "Επανάληψη αποστολής κωδικού"
 
 #: src/components/ImageEditor.tsx:331
 #: src/components/ImageEditor.tsx:336
+#: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "Επαναφορά"
+
+#: src/components/settings/ResetSettingsButton.tsx:46
+#: src/components/settings/ResetSettingsButton.tsx:57
+msgid "Reset settings"
+msgstr "Επαναφορά ρυθμίσεων"
 
 #: src/components/image-editor/RestoreEditorControls.tsx:100
 #: src/components/messages.ts:57
@@ -2191,7 +2198,7 @@ msgstr "Όξυνση"
 msgid "Show areas on the photo that match this color."
 msgstr "Εμφάνιση περιοχών στη φωτογραφία που ταιριάζουν με αυτό το χρώμα."
 
-#: src/components/grid/GridControls.tsx:122
+#: src/components/grid/GridControls.tsx:123
 msgid "Show grid"
 msgstr "Εμφάνιση πλέγματος"
 
@@ -2207,7 +2214,7 @@ msgstr "Εμφάνιση παλαιότερων φωτογραφιών"
 msgid "Show on photo"
 msgstr "Εμφάνιση στη φωτογραφία"
 
-#: src/components/grid/GridControls.tsx:154
+#: src/components/grid/GridControls.tsx:155
 msgid "Show or hide diagonal lines"
 msgstr "Εμφάνιση ή απόκρυψη διαγώνιων γραμμών"
 
@@ -2296,7 +2303,7 @@ msgstr "Καμπύλη φασματικής ανάκλασης"
 msgid "Speed"
 msgstr "Ταχύτητα"
 
-#: src/components/grid/GridControls.tsx:112
+#: src/components/grid/GridControls.tsx:113
 msgid "Square cells"
 msgstr "Τετράγωνα κελιά"
 
@@ -2316,7 +2323,7 @@ msgstr "Νεκρή φύση"
 msgid "Storage may fill up"
 msgstr "Ο αποθηκευτικός χώρος μπορεί να γεμίσει"
 
-#: src/components/Help.tsx:204
+#: src/components/Help.tsx:206
 msgid "Storage usage"
 msgstr "Χρήση αποθηκευτικού χώρου"
 
@@ -2385,7 +2392,7 @@ msgstr "Χρώμα-στόχος"
 msgid "Target print size"
 msgstr "Επιθυμητό μέγεθος εκτύπωσης"
 
-#: src/components/Help.tsx:140
+#: src/components/Help.tsx:141
 msgid "Terms of use"
 msgstr "Όροι χρήσης"
 
@@ -2446,7 +2453,7 @@ msgstr "Υπάρχει μια κοινή παλέτα και μια ξεχωρι
 msgid "Thick"
 msgstr "Χοντρό"
 
-#: src/components/Help.tsx:150
+#: src/components/Help.tsx:151
 msgid "Third-party notices"
 msgstr "Ειδοποιήσεις τρίτων"
 
@@ -2572,7 +2579,7 @@ msgstr "Δοκιμάστε να προσθέσετε χρώματα ή να αλ
 msgid "Turn off WebGPU"
 msgstr "Απενεργοποίηση WebGPU"
 
-#: src/components/Help.tsx:98
+#: src/components/Help.tsx:99
 msgid "Tutorials and videos"
 msgstr "Οδηγοί και βίντεο"
 
@@ -2714,11 +2721,11 @@ msgstr "Χρήση πλήρους πίεσης"
 msgid "Use reference photo"
 msgstr "Χρήση φωτογραφίας αναφοράς"
 
-#: src/components/Help.tsx:178
+#: src/components/Help.tsx:180
 msgid "Use WebGPU"
 msgstr "Χρήση WebGPU"
 
-#: src/components/Help.tsx:207
+#: src/components/Help.tsx:209
 msgid "Used"
 msgstr "Σε χρήση"
 
@@ -2846,6 +2853,10 @@ msgstr "Έχετε επιλέξει μάρκες χρωμάτων που είν�
 msgid "Your account details:"
 msgstr "Τα στοιχεία του λογαριασμού σας:"
 
+#: src/components/settings/ResetSettingsButton.tsx:48
+msgid "Your app settings will return to their defaults. Your saved work will remain."
+msgstr "Οι ρυθμίσεις της εφαρμογής θα επανέλθουν στις προεπιλεγμένες τιμές. Η αποθηκευμένη εργασία σας θα διατηρηθεί."
+
 #: src/components/file/FileSelect.tsx:165
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "Το πρόγραμμα περιήγησής σας δεν υποστηρίζει την ανάγνωση εικόνων από το πρόχειρο."
@@ -2885,7 +2896,7 @@ msgstr "Οι εικόνες σας υποβάλλονται σε επεξεργ�
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Δεν ήταν δυνατή η επαλήθευση των διαπιστευτηρίων σύνδεσής σας. Συνδεθείτε ξανά."
 
-#: src/components/Help.tsx:248
+#: src/components/Help.tsx:250
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "Η συνδρομή σας στο Patreon και τα δεδομένα σε αυτήν τη συσκευή δεν διαγράφονται. <0>Ακυρώστε τη συνδρομή σας στο Patreon</0> στο ίδιο το Patreon."
 

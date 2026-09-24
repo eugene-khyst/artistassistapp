@@ -126,7 +126,7 @@ msgstr "Eine Farbe, die jeder vorgeschlagenen Mischung beigemischt wird, damit d
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "Eine neue Version der App ist verfügbar und wird automatisch installiert."
 
-#: src/components/Help.tsx:157
+#: src/components/Help.tsx:158
 msgid "A new version of the application is available."
 msgstr "Eine neue Version der Anwendung ist verfügbar."
 
@@ -190,7 +190,7 @@ msgstr "Farben anpassen"
 msgid "Adjust the 4 corners manually."
 msgstr "Passen Sie die 4 Ecken manuell an."
 
-#: src/components/Help.tsx:229
+#: src/components/Help.tsx:231
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Alle App-Daten werden auch nach der Installation im Speicher des Webbrowsers gespeichert. Das Löschen der Browserdaten löscht alles."
 
@@ -214,7 +214,7 @@ msgstr "Es ist eine Unterschicht oder eine vereinheitlichende Farbe festgelegt. 
 msgid "Angle"
 msgstr "Winkel"
 
-#: src/components/Help.tsx:274
+#: src/components/Help.tsx:276
 msgid "Application build ID"
 msgstr "Anwendungs-Build-ID"
 
@@ -285,11 +285,11 @@ msgstr "ArtistAssistApp konnte nicht bestätigen, dass Ihre Cloud-Dateien gelös
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistApp hat das Ergebnis Ihrer Patreon-Anmeldung nicht erhalten. Das kann passieren, wenn die Anmeldung in einem anderen Browser oder einer anderen App geöffnet wird. Bitte melden Sie sich erneut an."
 
-#: src/components/Help.tsx:265
+#: src/components/Help.tsx:267
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp wird von <0>Eugene Khyst</0> entwickelt"
 
-#: src/components/Help.tsx:241
+#: src/components/Help.tsx:243
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "ArtistAssistApp speichert niemals Ihre E-Mail-Adresse, sondern nur einen daraus abgeleiteten privaten Code, der die Adresse nicht preisgeben kann. Die Anmeldung mit Patreon oder eine Verlängerung der Mitgliedschaft erzeugt diesen Code erneut."
 
@@ -418,12 +418,13 @@ msgstr "Für das Nachzeichnen in AR ist Kamerazugriff erforderlich"
 #: src/components/ImageColorPicker.tsx:265
 #: src/components/ImageEditor.tsx:332
 #: src/components/loading/LoadingIndicator.tsx:52
+#: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: src/components/Help.tsx:118
+#: src/components/Help.tsx:119
 msgid "Cancel a paid membership"
 msgstr "Kostenpflichtige Mitgliedschaft kündigen"
 
@@ -431,11 +432,11 @@ msgstr "Kostenpflichtige Mitgliedschaft kündigen"
 msgid "Cannot use copied image"
 msgstr "Kopiertes Bild kann nicht verwendet werden"
 
-#: src/components/grid/GridControls.tsx:143
+#: src/components/grid/GridControls.tsx:144
 msgid "Cells"
 msgstr "Zellen"
 
-#: src/components/Help.tsx:164
+#: src/components/Help.tsx:165
 msgid "Check for updates"
 msgstr "Nach Updates suchen"
 
@@ -678,7 +679,7 @@ msgstr "Farben berücksichtigen, die über der Unterschicht verblendet sind, wen
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "Transparente Schichten über der Oberfläche oder der Unterschicht berücksichtigen, wenn sie dem Ziel besser entsprechen als deckende Mischungen"
 
-#: src/components/Help.tsx:108
+#: src/components/Help.tsx:109
 msgid "Contact"
 msgstr "Kontakt"
 
@@ -861,7 +862,7 @@ msgstr "Bestimmen Sie das beste Bild durch paarweisen Vergleich"
 msgid "Diagnostics"
 msgstr "Diagnose"
 
-#: src/components/grid/GridControls.tsx:152
+#: src/components/grid/GridControls.tsx:153
 msgid "Diagonals"
 msgstr "Diagonalen"
 
@@ -1122,7 +1123,7 @@ msgstr "Zur Registerkarte {label} wechseln"
 msgid "Gouache"
 msgstr "Gouache"
 
-#: src/components/grid/GridControls.tsx:130
+#: src/components/grid/GridControls.tsx:131
 #: src/components/ImageOutline.tsx:316
 #: src/components/messages.ts:36
 msgid "Grid"
@@ -1189,7 +1190,7 @@ msgstr "App installieren"
 msgid "Install ArtistAssistApp"
 msgstr "ArtistAssistApp installieren"
 
-#: src/components/Help.tsx:159
+#: src/components/Help.tsx:160
 msgid "Install update"
 msgstr "Update installieren"
 
@@ -1519,7 +1520,7 @@ msgstr "Nichts zu teilen"
 msgid "Number of brush strokes in the painting"
 msgstr "Anzahl der Pinselstriche im Gemälde"
 
-#: src/components/grid/GridControls.tsx:145
+#: src/components/grid/GridControls.tsx:146
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Anzahl der Zellen auf der kleineren Seite (vertikal oder horizontal)"
 
@@ -1651,7 +1652,7 @@ msgstr "Perzentil"
 msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
 msgstr "Perzentil: Weißabgleich anhand der hellsten Bereiche, gut für die meisten Fotos. Referenz: Manueller Weißabgleich mit einem ausgewählten weißen Bereich. Automatisch: Legt den Schwarz- und Weißpunkt jedes Farbkanals fest, gut für verblasste Fotos."
 
-#: src/components/Help.tsx:187
+#: src/components/Help.tsx:189
 msgid "Persistent storage"
 msgstr "Persistenter Speicher"
 
@@ -1759,7 +1760,7 @@ msgstr "Großes Bild auf mehrere Seiten drucken"
 msgid "Print preview"
 msgstr "Druckvorschau"
 
-#: src/components/Help.tsx:130
+#: src/components/Help.tsx:131
 msgid "Privacy policy"
 msgstr "Datenschutzrichtlinie"
 
@@ -1775,7 +1776,7 @@ msgstr "Wird verarbeitet..."
 msgid "Processing... {percent}%"
 msgstr "Wird verarbeitet... {percent}%"
 
-#: src/components/Help.tsx:210
+#: src/components/Help.tsx:212
 msgid "Quota"
 msgstr "Kontingent"
 
@@ -1879,8 +1880,14 @@ msgstr "Code erneut senden"
 
 #: src/components/ImageEditor.tsx:331
 #: src/components/ImageEditor.tsx:336
+#: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "Zurücksetzen"
+
+#: src/components/settings/ResetSettingsButton.tsx:46
+#: src/components/settings/ResetSettingsButton.tsx:57
+msgid "Reset settings"
+msgstr "Einstellungen zurücksetzen"
 
 #: src/components/image-editor/RestoreEditorControls.tsx:100
 #: src/components/messages.ts:57
@@ -2191,7 +2198,7 @@ msgstr "Schärfen"
 msgid "Show areas on the photo that match this color."
 msgstr "Zeigt Bereiche auf dem Foto, die dieser Farbe entsprechen."
 
-#: src/components/grid/GridControls.tsx:122
+#: src/components/grid/GridControls.tsx:123
 msgid "Show grid"
 msgstr "Raster anzeigen"
 
@@ -2207,7 +2214,7 @@ msgstr "Ältere Fotos anzeigen"
 msgid "Show on photo"
 msgstr "Auf dem Foto anzeigen"
 
-#: src/components/grid/GridControls.tsx:154
+#: src/components/grid/GridControls.tsx:155
 msgid "Show or hide diagonal lines"
 msgstr "Diagonale Linien ein- oder ausblenden"
 
@@ -2296,7 +2303,7 @@ msgstr "Spektrale Reflexionskurve"
 msgid "Speed"
 msgstr "Geschwindigkeit"
 
-#: src/components/grid/GridControls.tsx:112
+#: src/components/grid/GridControls.tsx:113
 msgid "Square cells"
 msgstr "Quadratische Zellen"
 
@@ -2316,7 +2323,7 @@ msgstr "Stillleben"
 msgid "Storage may fill up"
 msgstr "Der Speicher kann sich füllen"
 
-#: src/components/Help.tsx:204
+#: src/components/Help.tsx:206
 msgid "Storage usage"
 msgstr "Nutzung des Speichers"
 
@@ -2385,7 +2392,7 @@ msgstr "Zielfarbe"
 msgid "Target print size"
 msgstr "Ziel-Druckgröße"
 
-#: src/components/Help.tsx:140
+#: src/components/Help.tsx:141
 msgid "Terms of use"
 msgstr "Nutzungsbedingungen"
 
@@ -2446,7 +2453,7 @@ msgstr "Es gibt eine gemeinsame Palette und für jedes Foto eine eigene Palette"
 msgid "Thick"
 msgstr "Dick"
 
-#: src/components/Help.tsx:150
+#: src/components/Help.tsx:151
 msgid "Third-party notices"
 msgstr "Hinweise zu Software von Drittanbietern"
 
@@ -2572,7 +2579,7 @@ msgstr "Versuchen Sie, Farben hinzuzufügen oder die Oberfläche, die Unterschic
 msgid "Turn off WebGPU"
 msgstr "WebGPU deaktivieren"
 
-#: src/components/Help.tsx:98
+#: src/components/Help.tsx:99
 msgid "Tutorials and videos"
 msgstr "Tutorials und Videos"
 
@@ -2714,11 +2721,11 @@ msgstr "Vollen Druck ausüben"
 msgid "Use reference photo"
 msgstr "Referenzfoto verwenden"
 
-#: src/components/Help.tsx:178
+#: src/components/Help.tsx:180
 msgid "Use WebGPU"
 msgstr "WebGPU verwenden"
 
-#: src/components/Help.tsx:207
+#: src/components/Help.tsx:209
 msgid "Used"
 msgstr "Belegt"
 
@@ -2846,6 +2853,10 @@ msgstr "Sie haben Farbmarken ausgewählt, die nur für zahlende Patreon-Mitglied
 msgid "Your account details:"
 msgstr "Ihre Kontodaten:"
 
+#: src/components/settings/ResetSettingsButton.tsx:48
+msgid "Your app settings will return to their defaults. Your saved work will remain."
+msgstr "Ihre App-Einstellungen werden auf die Standardwerte zurückgesetzt. Ihre gespeicherten Arbeiten bleiben erhalten."
+
 #: src/components/file/FileSelect.tsx:165
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "Ihr Browser unterstützt das Lesen von Bildern aus der Zwischenablage nicht."
@@ -2885,7 +2896,7 @@ msgstr "Ihre Bilder werden auf Ihrem Gerät verarbeitet und nur an den Cloud-Spe
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Ihre Zugangsdaten konnten nicht überprüft werden. Melden Sie sich erneut an."
 
-#: src/components/Help.tsx:248
+#: src/components/Help.tsx:250
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "Ihre Patreon-Mitgliedschaft und die Daten auf diesem Gerät werden nicht gelöscht. <0>Kündigen Sie Ihre Patreon-Mitgliedschaft</0> direkt auf Patreon."
 

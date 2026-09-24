@@ -126,7 +126,7 @@ msgstr "提案されるすべての混色に混ぜられ、パレットの調和
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "新しいバージョンのアプリが利用可能で、自動的にインストールされます。"
 
-#: src/components/Help.tsx:157
+#: src/components/Help.tsx:158
 msgid "A new version of the application is available."
 msgstr "新しいバージョンのアプリケーションが利用可能です。"
 
@@ -190,7 +190,7 @@ msgstr "色の調整"
 msgid "Adjust the 4 corners manually."
 msgstr "4隅を手動で調整します。"
 
-#: src/components/Help.tsx:229
+#: src/components/Help.tsx:231
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "インストール後も、すべてのアプリデータはウェブブラウザのストレージに保存されます。ブラウザのデータを消去するとすべてが消えます。"
 
@@ -214,7 +214,7 @@ msgstr "アンダーレイヤーまたは統一色が設定されています。
 msgid "Angle"
 msgstr "角度"
 
-#: src/components/Help.tsx:274
+#: src/components/Help.tsx:276
 msgid "Application build ID"
 msgstr "アプリケーションビルドID"
 
@@ -285,11 +285,11 @@ msgstr "ArtistAssistAppはクラウドファイルが削除されたことを確
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistAppはあなたのPatreonログインの結果を受け取っていません。これは別のブラウザやアプリでログインを開いたときに起こります。もう一度ログインを試してください。"
 
-#: src/components/Help.tsx:265
+#: src/components/Help.tsx:267
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp は <0>Eugene Khyst</0> によって開発されました"
 
-#: src/components/Help.tsx:241
+#: src/components/Help.tsx:243
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "ArtistAssistAppはあなたのメールアドレスを保存せず、そこから派生したプライベートコードのみを保存し、アドレスを明かすことはできません。Patreonや会員更新でログインすると、そのコードが再び生成されます。"
 
@@ -418,12 +418,13 @@ msgstr "ARトレーシングにはカメラアクセスが必要です"
 #: src/components/ImageColorPicker.tsx:265
 #: src/components/ImageEditor.tsx:332
 #: src/components/loading/LoadingIndicator.tsx:52
+#: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: src/components/Help.tsx:118
+#: src/components/Help.tsx:119
 msgid "Cancel a paid membership"
 msgstr "有料メンバーシップの解約"
 
@@ -431,11 +432,11 @@ msgstr "有料メンバーシップの解約"
 msgid "Cannot use copied image"
 msgstr "コピー画像は使用できません"
 
-#: src/components/grid/GridControls.tsx:143
+#: src/components/grid/GridControls.tsx:144
 msgid "Cells"
 msgstr "セル"
 
-#: src/components/Help.tsx:164
+#: src/components/Help.tsx:165
 msgid "Check for updates"
 msgstr "アップデートの確認"
 
@@ -678,7 +679,7 @@ msgstr "ブレンドしない色よりもターゲットによく一致する場
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "不透明な混色よりもターゲットによく一致する場合は、表面やアンダーレイヤーの上の透明な層も考慮する"
 
-#: src/components/Help.tsx:108
+#: src/components/Help.tsx:109
 msgid "Contact"
 msgstr "お問い合わせ"
 
@@ -861,7 +862,7 @@ msgstr "ペアごとの比較によって最適な画像を決定します"
 msgid "Diagnostics"
 msgstr "診断"
 
-#: src/components/grid/GridControls.tsx:152
+#: src/components/grid/GridControls.tsx:153
 msgid "Diagonals"
 msgstr "対角線"
 
@@ -1122,7 +1123,7 @@ msgstr "{label} タブに移動します"
 msgid "Gouache"
 msgstr "ガッシュ"
 
-#: src/components/grid/GridControls.tsx:130
+#: src/components/grid/GridControls.tsx:131
 #: src/components/ImageOutline.tsx:316
 #: src/components/messages.ts:36
 msgid "Grid"
@@ -1189,7 +1190,7 @@ msgstr "アプリをインストール"
 msgid "Install ArtistAssistApp"
 msgstr "ArtistAssistAppをインストールする"
 
-#: src/components/Help.tsx:159
+#: src/components/Help.tsx:160
 msgid "Install update"
 msgstr "アップデートをインストール"
 
@@ -1519,7 +1520,7 @@ msgstr "共有するものはありません"
 msgid "Number of brush strokes in the painting"
 msgstr "絵画のブラシストローク数"
 
-#: src/components/grid/GridControls.tsx:145
+#: src/components/grid/GridControls.tsx:146
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "小さい方の辺のセルの数 (垂直または水平)"
 
@@ -1651,7 +1652,7 @@ msgstr "パーセンタイル"
 msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
 msgstr "パーセンタイル: 最も明るい領域を基にしたホワイトバランスで、ほとんどの写真に適しています。参照: 選択した白い領域を使った手動ホワイトバランス。自動: 各カラーチャンネルの黒点と白点を設定し、色あせた写真に適しています。"
 
-#: src/components/Help.tsx:187
+#: src/components/Help.tsx:189
 msgid "Persistent storage"
 msgstr "永続ストレージ"
 
@@ -1759,7 +1760,7 @@ msgstr "大きな画像を複数のページに印刷する"
 msgid "Print preview"
 msgstr "印刷プレビュー"
 
-#: src/components/Help.tsx:130
+#: src/components/Help.tsx:131
 msgid "Privacy policy"
 msgstr "プライバシーポリシー"
 
@@ -1775,7 +1776,7 @@ msgstr "処理中..."
 msgid "Processing... {percent}%"
 msgstr "処理中... {percent}%"
 
-#: src/components/Help.tsx:210
+#: src/components/Help.tsx:212
 msgid "Quota"
 msgstr "割り当て"
 
@@ -1879,8 +1880,14 @@ msgstr "コードを再送信"
 
 #: src/components/ImageEditor.tsx:331
 #: src/components/ImageEditor.tsx:336
+#: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "リセット"
+
+#: src/components/settings/ResetSettingsButton.tsx:46
+#: src/components/settings/ResetSettingsButton.tsx:57
+msgid "Reset settings"
+msgstr "設定をリセット"
 
 #: src/components/image-editor/RestoreEditorControls.tsx:100
 #: src/components/messages.ts:57
@@ -2191,7 +2198,7 @@ msgstr "シャープ"
 msgid "Show areas on the photo that match this color."
 msgstr "この色に一致する部分を写真上に表示します。"
 
-#: src/components/grid/GridControls.tsx:122
+#: src/components/grid/GridControls.tsx:123
 msgid "Show grid"
 msgstr "グリッドを表示"
 
@@ -2207,7 +2214,7 @@ msgstr "古い写真を表示"
 msgid "Show on photo"
 msgstr "写真に表示"
 
-#: src/components/grid/GridControls.tsx:154
+#: src/components/grid/GridControls.tsx:155
 msgid "Show or hide diagonal lines"
 msgstr "斜めの線を表示または非表示にする"
 
@@ -2296,7 +2303,7 @@ msgstr "分光反射率曲線"
 msgid "Speed"
 msgstr "速度"
 
-#: src/components/grid/GridControls.tsx:112
+#: src/components/grid/GridControls.tsx:113
 msgid "Square cells"
 msgstr "正方形のセル"
 
@@ -2316,7 +2323,7 @@ msgstr "静物画"
 msgid "Storage may fill up"
 msgstr "ストレージがいっぱいになる可能性があります"
 
-#: src/components/Help.tsx:204
+#: src/components/Help.tsx:206
 msgid "Storage usage"
 msgstr "ストレージ使用量"
 
@@ -2385,7 +2392,7 @@ msgstr "ターゲットカラー"
 msgid "Target print size"
 msgstr "目標印刷サイズ"
 
-#: src/components/Help.tsx:140
+#: src/components/Help.tsx:141
 msgid "Terms of use"
 msgstr "利用規約"
 
@@ -2446,7 +2453,7 @@ msgstr "共通のパレットが 1 つと、写真ごとに個別のパレット
 msgid "Thick"
 msgstr "太い"
 
-#: src/components/Help.tsx:150
+#: src/components/Help.tsx:151
 msgid "Third-party notices"
 msgstr "サードパーティライセンス"
 
@@ -2572,7 +2579,7 @@ msgstr "色を追加するか、表面、アンダーレイヤー、統一色を
 msgid "Turn off WebGPU"
 msgstr "WebGPUをオフにする"
 
-#: src/components/Help.tsx:98
+#: src/components/Help.tsx:99
 msgid "Tutorials and videos"
 msgstr "チュートリアルと動画"
 
@@ -2714,11 +2721,11 @@ msgstr "最大筆圧で描きます"
 msgid "Use reference photo"
 msgstr "参照写真を使用"
 
-#: src/components/Help.tsx:178
+#: src/components/Help.tsx:180
 msgid "Use WebGPU"
 msgstr "WebGPUを使用"
 
-#: src/components/Help.tsx:207
+#: src/components/Help.tsx:209
 msgid "Used"
 msgstr "使用量"
 
@@ -2846,6 +2853,10 @@ msgstr "有料の Patreon メンバーのみが利用できるカラーブラン
 msgid "Your account details:"
 msgstr "アカウント情報:"
 
+#: src/components/settings/ResetSettingsButton.tsx:48
+msgid "Your app settings will return to their defaults. Your saved work will remain."
+msgstr "アプリの設定は初期値に戻ります。保存した作品はそのまま残ります。"
+
 #: src/components/file/FileSelect.tsx:165
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "お使いのブラウザは、クリップボードからの画像読み込みに対応していません。"
@@ -2885,7 +2896,7 @@ msgstr "画像はお使いのデバイス上で処理され、接続したクラ
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "ログイン情報が確認できませんでした。もう一度サインインしてください。"
 
-#: src/components/Help.tsx:248
+#: src/components/Help.tsx:250
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "Patreon メンバーシップとこのデバイス上のデータは削除されません。Patreon 上で <0>Patreon メンバーシップを解約してください</0>。"
 

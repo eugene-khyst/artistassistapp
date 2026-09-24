@@ -126,7 +126,7 @@ msgstr "Egy szín, amelyet minden javasolt keverékhez hozzákeverünk, hogy a p
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "Az alkalmazás új verziója elérhető, és automatikusan telepítésre kerül."
 
-#: src/components/Help.tsx:157
+#: src/components/Help.tsx:158
 msgid "A new version of the application is available."
 msgstr "Az alkalmazás új verziója elérhető."
 
@@ -190,7 +190,7 @@ msgstr "Színek beállítása"
 msgid "Adjust the 4 corners manually."
 msgstr "Állítsa be kézzel a 4 sarkot."
 
-#: src/components/Help.tsx:229
+#: src/components/Help.tsx:231
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Minden alkalmazásadat a böngésző tárolójában van, még a telepítés után is. A böngésző adatainak törlése mindent töröl."
 
@@ -214,7 +214,7 @@ msgstr "Alapréteg vagy egyesítő szín van beállítva. Az Automatikus paletta
 msgid "Angle"
 msgstr "Szög"
 
-#: src/components/Help.tsx:274
+#: src/components/Help.tsx:276
 msgid "Application build ID"
 msgstr "Alkalmazás build azonosítója"
 
@@ -285,11 +285,11 @@ msgstr "Az ArtistAssistApp nem tudta megerősíteni, hogy a felhőben lévő fá
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "Az ArtistAssistApp nem kapta meg a Patreon-bejelentkezés eredményét. Ez akkor fordulhat elő, ha a bejelentkezés másik böngészőben vagy alkalmazásban nyílik meg. Kérjük, próbáljon meg újra bejelentkezni."
 
-#: src/components/Help.tsx:265
+#: src/components/Help.tsx:267
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "Az ArtistAssistApp-ot <0>Eugene Khyst</0> fejlesztette"
 
-#: src/components/Help.tsx:241
+#: src/components/Help.tsx:243
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "Az ArtistAssistApp soha nem tárolja az e-mail címét, csak egy abból származtatott privát kódot, amely nem tudja felfedni a címet. A Patreonnal való bejelentkezés vagy a tagság megújítása újra létrehozza ezt a kódot."
 
@@ -418,12 +418,13 @@ msgstr "Az AR-ban való átrajzoláshoz kamerahozzáférés szükséges"
 #: src/components/ImageColorPicker.tsx:265
 #: src/components/ImageEditor.tsx:332
 #: src/components/loading/LoadingIndicator.tsx:52
+#: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
 msgstr "Mégse"
 
-#: src/components/Help.tsx:118
+#: src/components/Help.tsx:119
 msgid "Cancel a paid membership"
 msgstr "Fizetős tagság lemondása"
 
@@ -431,11 +432,11 @@ msgstr "Fizetős tagság lemondása"
 msgid "Cannot use copied image"
 msgstr "Nem lehet másolt képet használni"
 
-#: src/components/grid/GridControls.tsx:143
+#: src/components/grid/GridControls.tsx:144
 msgid "Cells"
 msgstr "Cellák"
 
-#: src/components/Help.tsx:164
+#: src/components/Help.tsx:165
 msgid "Check for updates"
 msgstr "Frissítések keresése"
 
@@ -678,7 +679,7 @@ msgstr "Vegye figyelembe az alaprétegre elmosott színeket, ha azok jobban ille
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "Vegye figyelembe a felületen vagy az alaprétegen lévő átlátszó rétegeket, ha azok jobban illeszkednek a célhoz, mint az átlátszatlan keverékek"
 
-#: src/components/Help.tsx:108
+#: src/components/Help.tsx:109
 msgid "Contact"
 msgstr "Kapcsolat"
 
@@ -861,7 +862,7 @@ msgstr "Határozza meg a legjobb képet páronkénti összehasonlítással"
 msgid "Diagnostics"
 msgstr "Diagnosztika"
 
-#: src/components/grid/GridControls.tsx:152
+#: src/components/grid/GridControls.tsx:153
 msgid "Diagonals"
 msgstr "Átlók"
 
@@ -1122,7 +1123,7 @@ msgstr "Lépjen a {label} lapra"
 msgid "Gouache"
 msgstr "Gouache"
 
-#: src/components/grid/GridControls.tsx:130
+#: src/components/grid/GridControls.tsx:131
 #: src/components/ImageOutline.tsx:316
 #: src/components/messages.ts:36
 msgid "Grid"
@@ -1189,7 +1190,7 @@ msgstr "Alkalmazás telepítése"
 msgid "Install ArtistAssistApp"
 msgstr "Az ArtistAssistApp telepítése"
 
-#: src/components/Help.tsx:159
+#: src/components/Help.tsx:160
 msgid "Install update"
 msgstr "Frissítés telepítése"
 
@@ -1519,7 +1520,7 @@ msgstr "Nincs megosztani való"
 msgid "Number of brush strokes in the painting"
 msgstr "Ecsetvonások száma a festményen"
 
-#: src/components/grid/GridControls.tsx:145
+#: src/components/grid/GridControls.tsx:146
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "A kisebb oldalon lévő cellák száma (függőleges vagy vízszintes)"
 
@@ -1651,7 +1652,7 @@ msgstr "Percentilis"
 msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
 msgstr "Percentilis: Fehéregyensúly a legvilágosabb területek alapján, a legtöbb fényképhez megfelelő. Referencia: Manuális fehéregyensúly a kiválasztott fehér terület használatával. Automatikus: Beállítja az egyes színcsatornák fekete- és fehérpontját, fakó fényképekhez megfelelő."
 
-#: src/components/Help.tsx:187
+#: src/components/Help.tsx:189
 msgid "Persistent storage"
 msgstr "Állandó tárhely"
 
@@ -1759,7 +1760,7 @@ msgstr "Nagy kép nyomtatása több oldalra"
 msgid "Print preview"
 msgstr "Nyomtatási kép"
 
-#: src/components/Help.tsx:130
+#: src/components/Help.tsx:131
 msgid "Privacy policy"
 msgstr "Adatvédelmi irányelvek"
 
@@ -1775,7 +1776,7 @@ msgstr "Feldolgozás..."
 msgid "Processing... {percent}%"
 msgstr "Feldolgozás... {percent}%"
 
-#: src/components/Help.tsx:210
+#: src/components/Help.tsx:212
 msgid "Quota"
 msgstr "Kvóta"
 
@@ -1879,8 +1880,14 @@ msgstr "Kód újraküldése"
 
 #: src/components/ImageEditor.tsx:331
 #: src/components/ImageEditor.tsx:336
+#: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "Visszaállítás"
+
+#: src/components/settings/ResetSettingsButton.tsx:46
+#: src/components/settings/ResetSettingsButton.tsx:57
+msgid "Reset settings"
+msgstr "Beállítások visszaállítása"
 
 #: src/components/image-editor/RestoreEditorControls.tsx:100
 #: src/components/messages.ts:57
@@ -2191,7 +2198,7 @@ msgstr "Élesítés"
 msgid "Show areas on the photo that match this color."
 msgstr "Megjeleníti a fényképen azokat a területeket, amelyek megfelelnek ennek a színnek."
 
-#: src/components/grid/GridControls.tsx:122
+#: src/components/grid/GridControls.tsx:123
 msgid "Show grid"
 msgstr "Rács megjelenítése"
 
@@ -2207,7 +2214,7 @@ msgstr "Régebbi fotók megjelenítése"
 msgid "Show on photo"
 msgstr "Megjelenítés a fényképen"
 
-#: src/components/grid/GridControls.tsx:154
+#: src/components/grid/GridControls.tsx:155
 msgid "Show or hide diagonal lines"
 msgstr "Átlós vonalak megjelenítése vagy elrejtése"
 
@@ -2296,7 +2303,7 @@ msgstr "Spektrális reflektanciagörbe"
 msgid "Speed"
 msgstr "Sebesség"
 
-#: src/components/grid/GridControls.tsx:112
+#: src/components/grid/GridControls.tsx:113
 msgid "Square cells"
 msgstr "Négyzet alakú cellák"
 
@@ -2316,7 +2323,7 @@ msgstr "Csendélet"
 msgid "Storage may fill up"
 msgstr "A tárhely megtelhet"
 
-#: src/components/Help.tsx:204
+#: src/components/Help.tsx:206
 msgid "Storage usage"
 msgstr "Tárhelyhasználat"
 
@@ -2385,7 +2392,7 @@ msgstr "Célszín"
 msgid "Target print size"
 msgstr "Célzott nyomtatási méret"
 
-#: src/components/Help.tsx:140
+#: src/components/Help.tsx:141
 msgid "Terms of use"
 msgstr "Felhasználási feltételek"
 
@@ -2446,7 +2453,7 @@ msgstr "Van egy közös paletta, és minden fotóhoz egy külön paletta"
 msgid "Thick"
 msgstr "Vastag"
 
-#: src/components/Help.tsx:150
+#: src/components/Help.tsx:151
 msgid "Third-party notices"
 msgstr "Harmadik felek értesítései"
 
@@ -2572,7 +2579,7 @@ msgstr "Próbáljon színeket hozzáadni, vagy módosítsa a felületet, az alap
 msgid "Turn off WebGPU"
 msgstr "WebGPU kikapcsolása"
 
-#: src/components/Help.tsx:98
+#: src/components/Help.tsx:99
 msgid "Tutorials and videos"
 msgstr "Oktatóanyagok és videók"
 
@@ -2714,11 +2721,11 @@ msgstr "Teljes nyomás használata"
 msgid "Use reference photo"
 msgstr "Referenciafotó használata"
 
-#: src/components/Help.tsx:178
+#: src/components/Help.tsx:180
 msgid "Use WebGPU"
 msgstr "WebGPU használata"
 
-#: src/components/Help.tsx:207
+#: src/components/Help.tsx:209
 msgid "Used"
 msgstr "Felhasznált"
 
@@ -2846,6 +2853,10 @@ msgstr "Olyan színmárkákat választott, amelyek csak fizetős Patreon-tagok s
 msgid "Your account details:"
 msgstr "Fiókadatai:"
 
+#: src/components/settings/ResetSettingsButton.tsx:48
+msgid "Your app settings will return to their defaults. Your saved work will remain."
+msgstr "Az alkalmazás beállításai visszaállnak az alapértelmezett értékekre. A mentett munkái megmaradnak."
+
 #: src/components/file/FileSelect.tsx:165
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "A böngészője nem támogatja a képek olvasását a vágólapról."
@@ -2885,7 +2896,7 @@ msgstr "A képek feldolgozása az eszközén történik, és csak az Ön által 
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "A bejelentkezési adatait nem sikerült ellenőrizni. Jelentkezzen be újra."
 
-#: src/components/Help.tsx:248
+#: src/components/Help.tsx:250
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "A Patreon-tagsága és az ezen az eszközön lévő adatok nem törlődnek. <0>Mondja le a Patreon-tagságát</0> magán a Patreonon."
 

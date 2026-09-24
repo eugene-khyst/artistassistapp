@@ -126,7 +126,7 @@ msgstr "Цвят, смесен във всяка предложена смес, 
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "Нова версия на приложението е налична и ще бъде инсталирана автоматично."
 
-#: src/components/Help.tsx:157
+#: src/components/Help.tsx:158
 msgid "A new version of the application is available."
 msgstr "Налична е нова версия на приложението."
 
@@ -190,7 +190,7 @@ msgstr "Коригиране на цветовете"
 msgid "Adjust the 4 corners manually."
 msgstr "Регулирайте 4-те ъгъла ръчно."
 
-#: src/components/Help.tsx:229
+#: src/components/Help.tsx:231
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Всички данни от приложението се съхраняват в паметта на уеб браузъра, дори след инсталация. Изтриването на данните от браузъра изтрива всичко."
 
@@ -214,7 +214,7 @@ msgstr "Зададен е подслой или обединяващ цвят. �
 msgid "Angle"
 msgstr "Ъгъл"
 
-#: src/components/Help.tsx:274
+#: src/components/Help.tsx:276
 msgid "Application build ID"
 msgstr "ID на компилацията на приложението"
 
@@ -285,11 +285,11 @@ msgstr "ArtistAssistApp не можа да потвърди, че вашите �
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistApp не получи резултата от вашия Patreon вход. Това може да се случи, когато входът се отвори в друг браузър или приложение. Моля, опитайте да влезете отново."
 
-#: src/components/Help.tsx:265
+#: src/components/Help.tsx:267
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp е разработено от <0>Eugene Khyst</0>"
 
-#: src/components/Help.tsx:241
+#: src/components/Help.tsx:243
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "ArtistAssistApp никога не съхранява вашия имейл адрес, а само частен код, извлечен от него, който не може да разкрие адреса. Влизането в Patreon или подновяването на членството създава този код отново."
 
@@ -418,12 +418,13 @@ msgstr "За прекопиране в AR е необходим достъп д�
 #: src/components/ImageColorPicker.tsx:265
 #: src/components/ImageEditor.tsx:332
 #: src/components/loading/LoadingIndicator.tsx:52
+#: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
 msgstr "Отказ"
 
-#: src/components/Help.tsx:118
+#: src/components/Help.tsx:119
 msgid "Cancel a paid membership"
 msgstr "Анулиране на платено членство"
 
@@ -431,11 +432,11 @@ msgstr "Анулиране на платено членство"
 msgid "Cannot use copied image"
 msgstr "Копираното изображение не може да бъде използвано"
 
-#: src/components/grid/GridControls.tsx:143
+#: src/components/grid/GridControls.tsx:144
 msgid "Cells"
 msgstr "Клетки"
 
-#: src/components/Help.tsx:164
+#: src/components/Help.tsx:165
 msgid "Check for updates"
 msgstr "Проверка за актуализации"
 
@@ -678,7 +679,7 @@ msgstr "Вземайте предвид цветовете, разтрити в�
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "Вземайте предвид прозрачните слоеве върху повърхността или подслоя, когато съвпадат с целевия цвят по-добре от непрозрачните смеси"
 
-#: src/components/Help.tsx:108
+#: src/components/Help.tsx:109
 msgid "Contact"
 msgstr "Контакт"
 
@@ -861,7 +862,7 @@ msgstr "Определете най-доброто изображение чре
 msgid "Diagnostics"
 msgstr "Диагностика"
 
-#: src/components/grid/GridControls.tsx:152
+#: src/components/grid/GridControls.tsx:153
 msgid "Diagonals"
 msgstr "Диагонали"
 
@@ -1122,7 +1123,7 @@ msgstr "Отиване към раздела {label}"
 msgid "Gouache"
 msgstr "Гваш"
 
-#: src/components/grid/GridControls.tsx:130
+#: src/components/grid/GridControls.tsx:131
 #: src/components/ImageOutline.tsx:316
 #: src/components/messages.ts:36
 msgid "Grid"
@@ -1189,7 +1190,7 @@ msgstr "Инсталиране на приложение"
 msgid "Install ArtistAssistApp"
 msgstr "Инсталиране на ArtistAssistApp"
 
-#: src/components/Help.tsx:159
+#: src/components/Help.tsx:160
 msgid "Install update"
 msgstr "Инсталиране на актуализацията"
 
@@ -1519,7 +1520,7 @@ msgstr "Няма какво да се сподели"
 msgid "Number of brush strokes in the painting"
 msgstr "Брой мазки с четка в картината"
 
-#: src/components/grid/GridControls.tsx:145
+#: src/components/grid/GridControls.tsx:146
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Брой клетки от по-малката страна (вертикална или хоризонтална)"
 
@@ -1651,7 +1652,7 @@ msgstr "Процентил"
 msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
 msgstr "Процентил: Баланс на бялото от най-светлите области, подходящ за повечето снимки. Референция: Ръчен баланс на бялото чрез избрана бяла област. Автоматично: Задава черната и бялата точка на всеки цветови канал, подходящо за избледнели снимки."
 
-#: src/components/Help.tsx:187
+#: src/components/Help.tsx:189
 msgid "Persistent storage"
 msgstr "Постоянно съхранение"
 
@@ -1759,7 +1760,7 @@ msgstr "Отпечатване на голямо изображение на н�
 msgid "Print preview"
 msgstr "Визуализация на печата"
 
-#: src/components/Help.tsx:130
+#: src/components/Help.tsx:131
 msgid "Privacy policy"
 msgstr "Политика за поверителност"
 
@@ -1775,7 +1776,7 @@ msgstr "Обработва се..."
 msgid "Processing... {percent}%"
 msgstr "Обработва се... {percent}%"
 
-#: src/components/Help.tsx:210
+#: src/components/Help.tsx:212
 msgid "Quota"
 msgstr "Квота"
 
@@ -1879,8 +1880,14 @@ msgstr "Повторно изпращане на кода"
 
 #: src/components/ImageEditor.tsx:331
 #: src/components/ImageEditor.tsx:336
+#: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "Нулиране"
+
+#: src/components/settings/ResetSettingsButton.tsx:46
+#: src/components/settings/ResetSettingsButton.tsx:57
+msgid "Reset settings"
+msgstr "Нулиране на настройките"
 
 #: src/components/image-editor/RestoreEditorControls.tsx:100
 #: src/components/messages.ts:57
@@ -2191,7 +2198,7 @@ msgstr "Изостряне"
 msgid "Show areas on the photo that match this color."
 msgstr "Покажете зоните на снимката, които съвпадат с този цвят."
 
-#: src/components/grid/GridControls.tsx:122
+#: src/components/grid/GridControls.tsx:123
 msgid "Show grid"
 msgstr "Показване на мрежата"
 
@@ -2207,7 +2214,7 @@ msgstr "Показване на по-стари снимки"
 msgid "Show on photo"
 msgstr "Показване върху снимката"
 
-#: src/components/grid/GridControls.tsx:154
+#: src/components/grid/GridControls.tsx:155
 msgid "Show or hide diagonal lines"
 msgstr "Показване или скриване на диагонални линии"
 
@@ -2296,7 +2303,7 @@ msgstr "Крива на спектралното отражение"
 msgid "Speed"
 msgstr "Скорост"
 
-#: src/components/grid/GridControls.tsx:112
+#: src/components/grid/GridControls.tsx:113
 msgid "Square cells"
 msgstr "Квадратни клетки"
 
@@ -2316,7 +2323,7 @@ msgstr "Натюрморт"
 msgid "Storage may fill up"
 msgstr "Хранилището може да се напълни"
 
-#: src/components/Help.tsx:204
+#: src/components/Help.tsx:206
 msgid "Storage usage"
 msgstr "Използване на хранилището"
 
@@ -2385,7 +2392,7 @@ msgstr "Целеви цвят"
 msgid "Target print size"
 msgstr "Целеви размер на печат"
 
-#: src/components/Help.tsx:140
+#: src/components/Help.tsx:141
 msgid "Terms of use"
 msgstr "Условия за ползване"
 
@@ -2446,7 +2453,7 @@ msgstr "Има една обща палитра и отделна палитра
 msgid "Thick"
 msgstr "Дебел"
 
-#: src/components/Help.tsx:150
+#: src/components/Help.tsx:151
 msgid "Third-party notices"
 msgstr "Бележки за трети страни"
 
@@ -2572,7 +2579,7 @@ msgstr "Опитайте да добавите цветове или да про
 msgid "Turn off WebGPU"
 msgstr "Изключване на WebGPU"
 
-#: src/components/Help.tsx:98
+#: src/components/Help.tsx:99
 msgid "Tutorials and videos"
 msgstr "Уроци и видеоклипове"
 
@@ -2714,11 +2721,11 @@ msgstr "Използвайте пълно налягане"
 msgid "Use reference photo"
 msgstr "Използване на референтната снимка"
 
-#: src/components/Help.tsx:178
+#: src/components/Help.tsx:180
 msgid "Use WebGPU"
 msgstr "Използване на WebGPU"
 
-#: src/components/Help.tsx:207
+#: src/components/Help.tsx:209
 msgid "Used"
 msgstr "Използвано"
 
@@ -2846,6 +2853,10 @@ msgstr "Избрали сте марки цветове, които са дос�
 msgid "Your account details:"
 msgstr "Вашите данни за акаунта:"
 
+#: src/components/settings/ResetSettingsButton.tsx:48
+msgid "Your app settings will return to their defaults. Your saved work will remain."
+msgstr "Настройките на приложението ще се върнат към стойностите по подразбиране. Запазената ви работа ще остане."
+
 #: src/components/file/FileSelect.tsx:165
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "Вашият браузър не поддържа четене на изображения от клипборда."
@@ -2885,7 +2896,7 @@ msgstr "Вашите изображения се обработват на ус�
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Вашите данни за вход не могат да бъдат потвърдени. Влезте отново."
 
-#: src/components/Help.tsx:248
+#: src/components/Help.tsx:250
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "Вашето членство в Patreon и данните на това устройство не се изтриват. <0>Отменете членството си в Patreon</0> в самия Patreon."
 

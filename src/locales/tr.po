@@ -126,7 +126,7 @@ msgstr "Paletin daha uyumlu görünmesi için önerilen her karışıma katılan
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "Uygulamanın yeni bir sürümü mevcut ve otomatik olarak yüklenecek."
 
-#: src/components/Help.tsx:157
+#: src/components/Help.tsx:158
 msgid "A new version of the application is available."
 msgstr "Uygulamanın yeni bir sürümü mevcuttur."
 
@@ -190,7 +190,7 @@ msgstr "Renkleri ayarla"
 msgid "Adjust the 4 corners manually."
 msgstr "4 köşeyi manuel olarak ayarlayın."
 
-#: src/components/Help.tsx:229
+#: src/components/Help.tsx:231
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Tüm uygulama verileri, kurulumdan sonra bile web tarayıcısının depolama alanında saklanır. Tarayıcı verilerini temizlemek hepsini siler."
 
@@ -214,7 +214,7 @@ msgstr "Bir alt katman veya birleştirici renk ayarlanmış. Otomatik palet, bu 
 msgid "Angle"
 msgstr "Açı"
 
-#: src/components/Help.tsx:274
+#: src/components/Help.tsx:276
 msgid "Application build ID"
 msgstr "Uygulama derleme ID'si"
 
@@ -285,11 +285,11 @@ msgstr "ArtistAssistApp bulut dosyalarınızın silindiğini doğrulayamadı. Ka
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistApp, Patreon girişinizin sonucunu almadı. Bu, başka bir tarayıcıda veya uygulamada giriş açıldığında gerçekleşebilir. Lütfen tekrar giriş yapmayı deneyin."
 
-#: src/components/Help.tsx:265
+#: src/components/Help.tsx:267
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp, <0>Eugene Khyst</0> tarafından geliştirilmiştir"
 
-#: src/components/Help.tsx:241
+#: src/components/Help.tsx:243
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "ArtistAssistApp e-posta adresinizi asla kaydetmez, sadece adresi ortaya çıkaramayan özel bir kod kaydeder. Patreon ile giriş yapmak veya üyelik yenilemesi o kodu tekrar yaratıyor."
 
@@ -418,12 +418,13 @@ msgstr "AR'de kopyalamak için kamera erişimi gereklidir"
 #: src/components/ImageColorPicker.tsx:265
 #: src/components/ImageEditor.tsx:332
 #: src/components/loading/LoadingIndicator.tsx:52
+#: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
 msgstr "İptal et"
 
-#: src/components/Help.tsx:118
+#: src/components/Help.tsx:119
 msgid "Cancel a paid membership"
 msgstr "Ücretli üyeliği iptal et"
 
@@ -431,11 +432,11 @@ msgstr "Ücretli üyeliği iptal et"
 msgid "Cannot use copied image"
 msgstr "Kopyalanmış görüntü kullanılamıyor"
 
-#: src/components/grid/GridControls.tsx:143
+#: src/components/grid/GridControls.tsx:144
 msgid "Cells"
 msgstr "Hücreler"
 
-#: src/components/Help.tsx:164
+#: src/components/Help.tsx:165
 msgid "Check for updates"
 msgstr "Güncellemeleri kontrol et"
 
@@ -678,7 +679,7 @@ msgstr "Hedefe harmanlanmamış renklerden daha iyi uyduğunda, alt katman üzer
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "Hedefe opak karışımlardan daha iyi uyduğunda, yüzey veya alt katman üzerindeki şeffaf katmanları da dikkate al"
 
-#: src/components/Help.tsx:108
+#: src/components/Help.tsx:109
 msgid "Contact"
 msgstr "İletişim"
 
@@ -861,7 +862,7 @@ msgstr "İkili karşılaştırmayla en iyi görüntüyü belirleyin"
 msgid "Diagnostics"
 msgstr "Tanılama"
 
-#: src/components/grid/GridControls.tsx:152
+#: src/components/grid/GridControls.tsx:153
 msgid "Diagonals"
 msgstr "Çaprazlar"
 
@@ -1122,7 +1123,7 @@ msgstr "{label} sekmesine gidin"
 msgid "Gouache"
 msgstr "Guaj"
 
-#: src/components/grid/GridControls.tsx:130
+#: src/components/grid/GridControls.tsx:131
 #: src/components/ImageOutline.tsx:316
 #: src/components/messages.ts:36
 msgid "Grid"
@@ -1189,7 +1190,7 @@ msgstr "Uygulamayı yükle"
 msgid "Install ArtistAssistApp"
 msgstr "ArtistAssistApp'i yükle"
 
-#: src/components/Help.tsx:159
+#: src/components/Help.tsx:160
 msgid "Install update"
 msgstr "Güncellemeyi yükle"
 
@@ -1519,7 +1520,7 @@ msgstr "Paylaşacak bir şey yok"
 msgid "Number of brush strokes in the painting"
 msgstr "Resimdeki fırça darbesi sayısı"
 
-#: src/components/grid/GridControls.tsx:145
+#: src/components/grid/GridControls.tsx:146
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Kısa kenardaki hücre sayısı (dikey veya yatay)"
 
@@ -1651,7 +1652,7 @@ msgstr "Yüzdelik dilim"
 msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
 msgstr "Yüzdelik dilim: En parlak alanlara göre beyaz dengesi, çoğu fotoğraf için uygundur. Referans: Seçilen beyaz alan kullanılarak yapılan manuel beyaz dengesi. Otomatik: Her renk kanalının siyah ve beyaz noktalarını ayarlar, solmuş fotoğraflar için uygundur."
 
-#: src/components/Help.tsx:187
+#: src/components/Help.tsx:189
 msgid "Persistent storage"
 msgstr "Kalıcı depolama"
 
@@ -1759,7 +1760,7 @@ msgstr "Büyük bir görüntüyü birden çok sayfaya yazdırın"
 msgid "Print preview"
 msgstr "Baskı önizlemesi"
 
-#: src/components/Help.tsx:130
+#: src/components/Help.tsx:131
 msgid "Privacy policy"
 msgstr "Gizlilik Politikası"
 
@@ -1775,7 +1776,7 @@ msgstr "İşleniyor..."
 msgid "Processing... {percent}%"
 msgstr "İşleniyor... %{percent}"
 
-#: src/components/Help.tsx:210
+#: src/components/Help.tsx:212
 msgid "Quota"
 msgstr "Kota"
 
@@ -1879,8 +1880,14 @@ msgstr "Kodu yeniden gönder"
 
 #: src/components/ImageEditor.tsx:331
 #: src/components/ImageEditor.tsx:336
+#: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "Sıfırla"
+
+#: src/components/settings/ResetSettingsButton.tsx:46
+#: src/components/settings/ResetSettingsButton.tsx:57
+msgid "Reset settings"
+msgstr "Ayarları sıfırla"
 
 #: src/components/image-editor/RestoreEditorControls.tsx:100
 #: src/components/messages.ts:57
@@ -2191,7 +2198,7 @@ msgstr "Keskinleştir"
 msgid "Show areas on the photo that match this color."
 msgstr "Fotoğrafta bu renkle eşleşen alanları gösterir."
 
-#: src/components/grid/GridControls.tsx:122
+#: src/components/grid/GridControls.tsx:123
 msgid "Show grid"
 msgstr "Izgarayı göster"
 
@@ -2207,7 +2214,7 @@ msgstr "Eski fotoğrafları göster"
 msgid "Show on photo"
 msgstr "Fotoğrafta göster"
 
-#: src/components/grid/GridControls.tsx:154
+#: src/components/grid/GridControls.tsx:155
 msgid "Show or hide diagonal lines"
 msgstr "Çapraz çizgileri göster veya gizle"
 
@@ -2296,7 +2303,7 @@ msgstr "Spektral yansıma eğrisi"
 msgid "Speed"
 msgstr "Hız"
 
-#: src/components/grid/GridControls.tsx:112
+#: src/components/grid/GridControls.tsx:113
 msgid "Square cells"
 msgstr "Kare hücreler"
 
@@ -2316,7 +2323,7 @@ msgstr "Natürmort"
 msgid "Storage may fill up"
 msgstr "Depolama alanı dolabilir"
 
-#: src/components/Help.tsx:204
+#: src/components/Help.tsx:206
 msgid "Storage usage"
 msgstr "Depolama kullanımı"
 
@@ -2385,7 +2392,7 @@ msgstr "Hedef renk"
 msgid "Target print size"
 msgstr "Hedef baskı boyutu"
 
-#: src/components/Help.tsx:140
+#: src/components/Help.tsx:141
 msgid "Terms of use"
 msgstr "Kullanım şartları"
 
@@ -2446,7 +2453,7 @@ msgstr "Her fotoğraf için ortak bir palet ve ayrı bir palet vardır"
 msgid "Thick"
 msgstr "Kalın"
 
-#: src/components/Help.tsx:150
+#: src/components/Help.tsx:151
 msgid "Third-party notices"
 msgstr "Üçüncü taraf bildirimleri"
 
@@ -2572,7 +2579,7 @@ msgstr "Renk eklemeyi veya yüzeyi, alt katmanı veya birleştirici rengi deği�
 msgid "Turn off WebGPU"
 msgstr "WebGPU'yu kapat"
 
-#: src/components/Help.tsx:98
+#: src/components/Help.tsx:99
 msgid "Tutorials and videos"
 msgstr "Öğreticiler ve videolar"
 
@@ -2714,11 +2721,11 @@ msgstr "Tam basınç kullanın"
 msgid "Use reference photo"
 msgstr "Referans fotoğrafı kullan"
 
-#: src/components/Help.tsx:178
+#: src/components/Help.tsx:180
 msgid "Use WebGPU"
 msgstr "WebGPU kullan"
 
-#: src/components/Help.tsx:207
+#: src/components/Help.tsx:209
 msgid "Used"
 msgstr "Kullanılan"
 
@@ -2846,6 +2853,10 @@ msgstr "Yalnızca ücretli Patreon üyelerine açık olan renk markalarını se�
 msgid "Your account details:"
 msgstr "Hesap detaylarınız:"
 
+#: src/components/settings/ResetSettingsButton.tsx:48
+msgid "Your app settings will return to their defaults. Your saved work will remain."
+msgstr "Uygulama ayarları varsayılan değerlerine dönecek. Kaydedilen çalışmalarınız korunacak."
+
 #: src/components/file/FileSelect.tsx:165
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "Tarayıcınız panodan görüntüleri okumayı desteklemiyor."
@@ -2885,7 +2896,7 @@ msgstr "Görselleriniz cihazınızda işlenir ve yalnızca bağladığınız bul
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Giriş bilgileriniz doğrulanamadı. Tekrar giriş yapın."
 
-#: src/components/Help.tsx:248
+#: src/components/Help.tsx:250
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "Patreon üyeliğiniz ve bu cihazdaki veriler silinmez. <0>Patreon üyeliğinizi iptal edin</0>, bunu doğrudan Patreon'da yapın."
 

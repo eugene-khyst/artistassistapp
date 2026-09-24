@@ -126,7 +126,7 @@ msgstr "제안된 모든 혼합에 섞여 팔레트를 더 조화롭게 만들�
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "앱의 새로운 버전이 제공되며 자동으로 설치될 예정입니다."
 
-#: src/components/Help.tsx:157
+#: src/components/Help.tsx:158
 msgid "A new version of the application is available."
 msgstr "애플리케이션의 새로운 버전이 제공됩니다."
 
@@ -190,7 +190,7 @@ msgstr "색상 조정"
 msgid "Adjust the 4 corners manually."
 msgstr "4개의 모서리를 수동으로 조정합니다."
 
-#: src/components/Help.tsx:229
+#: src/components/Help.tsx:231
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "모든 앱 데이터는 설치 후에도 웹 브라우저 저장소에 저장됩니다. 브라우저 데이터를 지우면 모든 데이터가 삭제됩니다."
 
@@ -214,7 +214,7 @@ msgstr "언더레이어 또는 통합 색상이 설정되어 있습니다. 자�
 msgid "Angle"
 msgstr "각도"
 
-#: src/components/Help.tsx:274
+#: src/components/Help.tsx:276
 msgid "Application build ID"
 msgstr "애플리케이션 빌드 ID"
 
@@ -285,11 +285,11 @@ msgstr "ArtistAssistApp은 클라우드 파일이 삭제되었는지 확인하�
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistApp은 귀하의 Patreon 로그인 결과를 받지 못했습니다. 이런 현상은 다른 브라우저나 앱에서 로그인이 열릴 때 발생할 수 있습니다. 다시 로그인해 주세요."
 
-#: src/components/Help.tsx:265
+#: src/components/Help.tsx:267
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp은 <0>Eugene Khyst</0>가 개발했습니다"
 
-#: src/components/Help.tsx:241
+#: src/components/Help.tsx:243
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "ArtistAssistApp은 이메일 주소를 절대 저장하지 않으며, 그 주소에서 파생된 개인 코드만 저장하여 주소를 공개하지 않습니다. Patreon으로 로그인하거나 회원 갱신을 하면 그 코드가 다시 생성됩니다."
 
@@ -418,12 +418,13 @@ msgstr "AR 트레이싱에는 카메라 액세스 권한이 필요합니다"
 #: src/components/ImageColorPicker.tsx:265
 #: src/components/ImageEditor.tsx:332
 #: src/components/loading/LoadingIndicator.tsx:52
+#: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
 #: src/components/storage/DeleteAppDataButton.tsx:51
 msgid "Cancel"
 msgstr "취소"
 
-#: src/components/Help.tsx:118
+#: src/components/Help.tsx:119
 msgid "Cancel a paid membership"
 msgstr "유료 멤버십 취소"
 
@@ -431,11 +432,11 @@ msgstr "유료 멤버십 취소"
 msgid "Cannot use copied image"
 msgstr "복사된 이미지를 사용할 수 없습니다"
 
-#: src/components/grid/GridControls.tsx:143
+#: src/components/grid/GridControls.tsx:144
 msgid "Cells"
 msgstr "셀"
 
-#: src/components/Help.tsx:164
+#: src/components/Help.tsx:165
 msgid "Check for updates"
 msgstr "업데이트 확인"
 
@@ -678,7 +679,7 @@ msgstr "혼합하지 않은 색상보다 대상과 더 잘 맞을 때 언더레�
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "불투명 혼합보다 대상과 더 잘 맞을 때 표면이나 언더레이어 위의 투명 레이어도 고려"
 
-#: src/components/Help.tsx:108
+#: src/components/Help.tsx:109
 msgid "Contact"
 msgstr "문의"
 
@@ -861,7 +862,7 @@ msgstr "쌍별 비교를 통해 최상의 이미지 결정"
 msgid "Diagnostics"
 msgstr "진단"
 
-#: src/components/grid/GridControls.tsx:152
+#: src/components/grid/GridControls.tsx:153
 msgid "Diagonals"
 msgstr "대각선"
 
@@ -1122,7 +1123,7 @@ msgstr "{label} 탭으로 이동"
 msgid "Gouache"
 msgstr "구아슈"
 
-#: src/components/grid/GridControls.tsx:130
+#: src/components/grid/GridControls.tsx:131
 #: src/components/ImageOutline.tsx:316
 #: src/components/messages.ts:36
 msgid "Grid"
@@ -1189,7 +1190,7 @@ msgstr "앱 설치"
 msgid "Install ArtistAssistApp"
 msgstr "ArtistAssistApp 설치"
 
-#: src/components/Help.tsx:159
+#: src/components/Help.tsx:160
 msgid "Install update"
 msgstr "업데이트 설치"
 
@@ -1519,7 +1520,7 @@ msgstr "공유할 항목이 없습니다"
 msgid "Number of brush strokes in the painting"
 msgstr "그림의 붓 터치 수"
 
-#: src/components/grid/GridControls.tsx:145
+#: src/components/grid/GridControls.tsx:146
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "더 작은 쪽의 셀 수(수직 또는 수평)"
 
@@ -1651,7 +1652,7 @@ msgstr "백분위수"
 msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
 msgstr "백분위수: 가장 밝은 영역을 기준으로 화이트 밸런스를 조정하며, 대부분의 사진에 적합합니다. 참조: 선택한 흰색 영역을 사용해 화이트 밸런스를 수동으로 조정합니다. 자동: 각 색상 채널의 검은점과 흰점을 설정하며, 빛바랜 사진에 적합합니다."
 
-#: src/components/Help.tsx:187
+#: src/components/Help.tsx:189
 msgid "Persistent storage"
 msgstr "영구 저장소"
 
@@ -1759,7 +1760,7 @@ msgstr "큰 이미지를 여러 페이지에 인쇄"
 msgid "Print preview"
 msgstr "인쇄 미리보기"
 
-#: src/components/Help.tsx:130
+#: src/components/Help.tsx:131
 msgid "Privacy policy"
 msgstr "개인정보처리방침"
 
@@ -1775,7 +1776,7 @@ msgstr "처리 중..."
 msgid "Processing... {percent}%"
 msgstr "처리 중... {percent}%"
 
-#: src/components/Help.tsx:210
+#: src/components/Help.tsx:212
 msgid "Quota"
 msgstr "할당량"
 
@@ -1879,8 +1880,14 @@ msgstr "코드 재전송"
 
 #: src/components/ImageEditor.tsx:331
 #: src/components/ImageEditor.tsx:336
+#: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "재설정"
+
+#: src/components/settings/ResetSettingsButton.tsx:46
+#: src/components/settings/ResetSettingsButton.tsx:57
+msgid "Reset settings"
+msgstr "설정 재설정"
 
 #: src/components/image-editor/RestoreEditorControls.tsx:100
 #: src/components/messages.ts:57
@@ -2191,7 +2198,7 @@ msgstr "선명하게"
 msgid "Show areas on the photo that match this color."
 msgstr "사진에서 이 색상과 일치하는 영역을 표시합니다."
 
-#: src/components/grid/GridControls.tsx:122
+#: src/components/grid/GridControls.tsx:123
 msgid "Show grid"
 msgstr "그리드 표시"
 
@@ -2207,7 +2214,7 @@ msgstr "이전 사진 보기"
 msgid "Show on photo"
 msgstr "사진에 표시"
 
-#: src/components/grid/GridControls.tsx:154
+#: src/components/grid/GridControls.tsx:155
 msgid "Show or hide diagonal lines"
 msgstr "대각선 표시 또는 숨기기"
 
@@ -2296,7 +2303,7 @@ msgstr "스펙트럼 반사율 곡선"
 msgid "Speed"
 msgstr "속도"
 
-#: src/components/grid/GridControls.tsx:112
+#: src/components/grid/GridControls.tsx:113
 msgid "Square cells"
 msgstr "정사각형 셀"
 
@@ -2316,7 +2323,7 @@ msgstr "정물화"
 msgid "Storage may fill up"
 msgstr "저장 공간이 가득 찰 수 있습니다"
 
-#: src/components/Help.tsx:204
+#: src/components/Help.tsx:206
 msgid "Storage usage"
 msgstr "저장 공간 사용량"
 
@@ -2385,7 +2392,7 @@ msgstr "대상 색상"
 msgid "Target print size"
 msgstr "대상 인쇄 크기"
 
-#: src/components/Help.tsx:140
+#: src/components/Help.tsx:141
 msgid "Terms of use"
 msgstr "이용 약관"
 
@@ -2446,7 +2453,7 @@ msgstr "공통 팔레트 하나와 사진마다 별도의 팔레트가 있습니
 msgid "Thick"
 msgstr "굵음"
 
-#: src/components/Help.tsx:150
+#: src/components/Help.tsx:151
 msgid "Third-party notices"
 msgstr "제3자 고지사항"
 
@@ -2572,7 +2579,7 @@ msgstr "색상을 추가하거나 표면, 언더레이어 또는 통합 색상�
 msgid "Turn off WebGPU"
 msgstr "WebGPU 끄기"
 
-#: src/components/Help.tsx:98
+#: src/components/Help.tsx:99
 msgid "Tutorials and videos"
 msgstr "튜토리얼 및 동영상"
 
@@ -2714,11 +2721,11 @@ msgstr "최대 필압으로 사용"
 msgid "Use reference photo"
 msgstr "참조 사진 사용"
 
-#: src/components/Help.tsx:178
+#: src/components/Help.tsx:180
 msgid "Use WebGPU"
 msgstr "WebGPU 사용"
 
-#: src/components/Help.tsx:207
+#: src/components/Help.tsx:209
 msgid "Used"
 msgstr "사용량"
 
@@ -2846,6 +2853,10 @@ msgstr "유료 Patreon 회원만 사용할 수 있는 색상 브랜드를 선택
 msgid "Your account details:"
 msgstr "계정 정보:"
 
+#: src/components/settings/ResetSettingsButton.tsx:48
+msgid "Your app settings will return to their defaults. Your saved work will remain."
+msgstr "앱 설정이 기본값으로 돌아갑니다. 저장된 작업물은 그대로 유지됩니다."
+
 #: src/components/file/FileSelect.tsx:165
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "브라우저가 클립보드에서 이미지 읽기를 지원하지 않습니다."
@@ -2885,7 +2896,7 @@ msgstr "이미지는 기기에서 처리되며 연결한 클라우드 저장소�
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "로그인 자격 증명을 확인할 수 없습니다. 다시 로그인하세요."
 
-#: src/components/Help.tsx:248
+#: src/components/Help.tsx:250
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "Patreon 멤버십과 이 기기의 데이터는 삭제되지 않습니다. Patreon에서 직접 <0>Patreon 멤버십을 취소하세요</0>."
 
