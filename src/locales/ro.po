@@ -126,7 +126,7 @@ msgstr "O culoare amestecată în fiecare amestec sugerat pentru ca paleta să p
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "O versiune nouă a aplicației este disponibilă și va fi instalată automat."
 
-#: src/components/Help.tsx:158
+#: src/components/Help.tsx:160
 msgid "A new version of the application is available."
 msgstr "O versiune nouă a aplicației este disponibilă."
 
@@ -138,11 +138,11 @@ msgstr "O valoare mai mică de 100% face ca imaginea să pară mai puțin colora
 msgid "Accurate"
 msgstr "Precis"
 
-#: src/components/messages.ts:73
+#: src/components/messages.ts:75
 msgid "Acrylic Gouache"
 msgstr "Guașă acrilică"
 
-#: src/components/messages.ts:72
+#: src/components/messages.ts:74
 msgid "Acrylic Markers"
 msgstr "Markere acrilice"
 
@@ -190,7 +190,11 @@ msgstr "Ajustare culori"
 msgid "Adjust the 4 corners manually."
 msgstr "Reglați manual cele 4 colțuri."
 
-#: src/components/Help.tsx:231
+#: src/components/messages.ts:72
+msgid "Alcohol Markers"
+msgstr "Markere pe bază de alcool"
+
+#: src/components/Help.tsx:238
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Toate datele aplicației sunt stocate în spațiul de stocare al browserului web, chiar și după instalare. Ștergerea datelor din browser șterge totul."
 
@@ -214,7 +218,7 @@ msgstr "Este setat un strat de bază sau o culoare unificatoare. Paleta automat�
 msgid "Angle"
 msgstr "Unghi"
 
-#: src/components/Help.tsx:276
+#: src/components/Help.tsx:283
 msgid "Application build ID"
 msgstr "ID-ul versiunii aplicației"
 
@@ -222,7 +226,7 @@ msgstr "ID-ul versiunii aplicației"
 msgid "Apply"
 msgstr "Aplicare"
 
-#: src/components/color/ConsistencyDescription.tsx:70
+#: src/components/color/ConsistencyDescription.tsx:81
 msgid "Apply a layer at <0>{fractionText} of full thickness</0>"
 msgstr "Aplicați un strat la <0>{fractionText} din grosimea completă</0>"
 
@@ -230,15 +234,15 @@ msgstr "Aplicați un strat la <0>{fractionText} din grosimea completă</0>"
 msgid "Apply densely"
 msgstr "Aplicați dens"
 
-#: src/components/color/ConsistencyDescription.tsx:126
+#: src/components/color/ConsistencyDescription.tsx:137
 msgid "Apply less pressure to make the colored pencil layer more transparent"
 msgstr "Aplicați mai puțină presiune pentru a face stratul de creion colorat mai transparent"
 
-#: src/components/color/ConsistencyDescription.tsx:133
+#: src/components/color/ConsistencyDescription.tsx:144
 msgid "Apply less pressure to make the watercolor pencil layer more transparent"
 msgstr "Aplicați mai puțină presiune pentru a face stratul de creion acuarelă mai transparent"
 
-#: src/components/color/ConsistencyDescription.tsx:92
+#: src/components/color/ConsistencyDescription.tsx:103
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
 msgstr "Aplicați tușe de această culoare și de culoarea stratului de bază într-un <0>raport {ratioText}</0>"
 
@@ -285,11 +289,11 @@ msgstr "ArtistAssistApp nu a putut confirma că fișierele dvs. din cloud au fos
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistApp nu a primit rezultatul autentificării dvs. pe Patreon. Acest lucru se poate întâmpla când autentificarea se deschide în alt browser sau în altă aplicație. Vă rugăm să încercați să vă conectați din nou."
 
-#: src/components/Help.tsx:267
+#: src/components/Help.tsx:274
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp este dezvoltat de <0>Eugene Khyst</0>"
 
-#: src/components/Help.tsx:243
+#: src/components/Help.tsx:250
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "ArtistAssistApp nu stochează niciodată adresa dvs. de e-mail, ci doar un cod privat derivat din ea, care nu poate dezvălui adresa. Autentificarea cu Patreon sau reînnoirea abonamentului creează din nou acel cod."
 
@@ -380,21 +384,21 @@ msgstr "După numărul de culori"
 msgid "By consistency"
 msgstr "După consistență"
 
-#: src/components/messages.ts:87
+#: src/components/messages.ts:89
 msgid "By date"
 msgstr "După dată"
 
-#: src/components/messages.ts:82
-#: src/components/messages.ts:89
+#: src/components/messages.ts:84
+#: src/components/messages.ts:91
 msgid "By hue"
 msgstr "După nuanță"
 
-#: src/components/messages.ts:81
+#: src/components/messages.ts:83
 msgid "By ID"
 msgstr "După ID"
 
-#: src/components/messages.ts:83
-#: src/components/messages.ts:90
+#: src/components/messages.ts:85
+#: src/components/messages.ts:92
 msgid "By lightness"
 msgstr "După luminozitate"
 
@@ -402,7 +406,7 @@ msgstr "După luminozitate"
 msgid "By match"
 msgstr "După potrivire"
 
-#: src/components/messages.ts:88
+#: src/components/messages.ts:90
 msgid "By name"
 msgstr "După nume"
 
@@ -424,7 +428,7 @@ msgstr "Accesul la cameră este necesar pentru trasarea AR"
 msgid "Cancel"
 msgstr "Anulează"
 
-#: src/components/Help.tsx:119
+#: src/components/Help.tsx:121
 msgid "Cancel a paid membership"
 msgstr "Anulați abonamentul plătit"
 
@@ -436,7 +440,7 @@ msgstr "Nu se poate folosi imaginea copiată"
 msgid "Cells"
 msgstr "Celule"
 
-#: src/components/Help.tsx:165
+#: src/components/Help.tsx:167
 msgid "Check for updates"
 msgstr "Verificați dacă există actualizări"
 
@@ -679,7 +683,7 @@ msgstr "Luați în considerare culorile amestecate peste stratul de bază atunci
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "Luați în considerare straturile transparente peste suprafață sau peste stratul de bază atunci când se potrivesc mai bine cu ținta decât amestecurile opace"
 
-#: src/components/Help.tsx:109
+#: src/components/Help.tsx:111
 msgid "Contact"
 msgstr "Contact"
 
@@ -869,6 +873,10 @@ msgstr "Diagonale"
 #: src/components/CustomColorBrandCreator.tsx:458
 msgid "Diameter"
 msgstr "Diametru"
+
+#: src/components/color/ConsistencyDescription.tsx:151
+msgid "Dilute water-based marker ink with water to make it more transparent"
+msgstr "Diluați cu apă cerneala markerelor pe bază de apă pentru a o face mai transparentă"
 
 #: src/components/ColorSetChooser.tsx:236
 msgid "Discard changes"
@@ -1190,7 +1198,7 @@ msgstr "Instalați aplicația"
 msgid "Install ArtistAssistApp"
 msgstr "Instalați ArtistAssistApp"
 
-#: src/components/Help.tsx:160
+#: src/components/Help.tsx:162
 msgid "Install update"
 msgstr "Instalați actualizarea"
 
@@ -1384,15 +1392,19 @@ msgstr "Tonuri medii"
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Amestecați culorile într-un <0>raport {partsRatioText}</0>"
 
+#: src/components/color/ConsistencyDescription.tsx:70
+msgid "Mix ink and water in a <0>{ratioText} ratio</0>"
+msgstr "Amestecați cerneala și apa într-un <0>raport {ratioText}</0>"
+
 #: src/components/color/ConsistencyDescription.tsx:59
 msgid "Mix paint and water in a <0>{ratioText} ratio</0>"
 msgstr "Amestecați vopseaua și apa într-un <0>raport {ratioText}</0>"
 
-#: src/components/color/ConsistencyDescription.tsx:112
+#: src/components/color/ConsistencyDescription.tsx:123
 msgid "Mix the paint with a glazing medium, such as linseed oil, to apply a thinner, more transparent layer"
 msgstr "Amestecați vopseaua cu un mediu de glasare, cum ar fi uleiul de in, pentru a aplica un strat mai subțire și mai transparent"
 
-#: src/components/color/ConsistencyDescription.tsx:119
+#: src/components/color/ConsistencyDescription.tsx:130
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
 msgstr "Amestecați vopseaua cu un mediu acrilic de glasare pentru a aplica un strat mai subțire și mai transparent"
 
@@ -1652,7 +1664,7 @@ msgstr "Percentilă"
 msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
 msgstr "Percentilă: Echilibru de alb din zonele cele mai luminoase, potrivit pentru majoritatea fotografiilor. Referință: Echilibru de alb manual folosind zona albă selectată. Automat: Setează punctele de negru și alb ale fiecărui canal de culoare, potrivit pentru fotografiile decolorate."
 
-#: src/components/Help.tsx:189
+#: src/components/Help.tsx:191
 msgid "Persistent storage"
 msgstr "Stocare persistentă"
 
@@ -1760,7 +1772,7 @@ msgstr "Imprimați o imagine mare pe mai multe pagini"
 msgid "Print preview"
 msgstr "Previzualizare imprimare"
 
-#: src/components/Help.tsx:131
+#: src/components/Help.tsx:133
 msgid "Privacy policy"
 msgstr "Politica de confidențialitate"
 
@@ -1776,7 +1788,7 @@ msgstr "Se procesează..."
 msgid "Processing... {percent}%"
 msgstr "Se procesează... {percent}%"
 
-#: src/components/Help.tsx:212
+#: src/components/Help.tsx:214
 msgid "Quota"
 msgstr "Cotă"
 
@@ -2242,15 +2254,15 @@ msgstr "Simplificat"
 msgid "Simplify photo"
 msgstr "Simplificare fotografie"
 
-#: src/components/color/ConsistencyDescription.tsx:147
+#: src/components/color/ConsistencyDescription.tsx:165
 msgid "Slightly overlap oil pastel areas of different colors and blend gently to create a smooth transition"
 msgstr "Suprapuneți ușor zonele de pastel uleios de culori diferite și estompați-le ușor pentru a crea o tranziție lină"
 
-#: src/components/color/ConsistencyDescription.tsx:140
+#: src/components/color/ConsistencyDescription.tsx:158
 msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition"
 msgstr "Suprapuneți ușor zonele de pastel de culori diferite și estompați-le ușor pentru a crea o tranziție lină"
 
-#: src/components/color/ConsistencyDescription.tsx:154
+#: src/components/color/ConsistencyDescription.tsx:172
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
 msgstr "Suprapuneți ușor zonele de pastel de ceară de culori diferite și estompați-le ferm pentru a crea o tranziție lină"
 
@@ -2323,7 +2335,7 @@ msgstr "Natură moartă"
 msgid "Storage may fill up"
 msgstr "Spațiul de stocare se poate umple"
 
-#: src/components/Help.tsx:206
+#: src/components/Help.tsx:208
 msgid "Storage usage"
 msgstr "Utilizarea spațiului de stocare"
 
@@ -2392,7 +2404,7 @@ msgstr "Culoarea țintă"
 msgid "Target print size"
 msgstr "Dimensiune țintă de imprimare"
 
-#: src/components/Help.tsx:141
+#: src/components/Help.tsx:143
 msgid "Terms of use"
 msgstr "Termeni de utilizare"
 
@@ -2453,7 +2465,7 @@ msgstr "Există o paletă comună și o paletă separată pentru fiecare fotogra
 msgid "Thick"
 msgstr "Gros"
 
-#: src/components/Help.tsx:151
+#: src/components/Help.tsx:153
 msgid "Third-party notices"
 msgstr "Notificări ale terților"
 
@@ -2579,7 +2591,7 @@ msgstr "Încercați să adăugați culori sau să schimbați suprafața, stratul
 msgid "Turn off WebGPU"
 msgstr "Dezactivați WebGPU"
 
-#: src/components/Help.tsx:99
+#: src/components/Help.tsx:101
 msgid "Tutorials and videos"
 msgstr "Tutoriale și videoclipuri"
 
@@ -2701,7 +2713,7 @@ msgstr "Se încarcă imaginea {index} / {count}"
 msgid "Upscale"
 msgstr "Mărire"
 
-#: src/components/color/ConsistencyDescription.tsx:81
+#: src/components/color/ConsistencyDescription.tsx:92
 msgid "Use <0>{fractionText} of full pressure</0>"
 msgstr "Folosiți <0>{fractionText} din presiunea maximă</0>"
 
@@ -2721,11 +2733,11 @@ msgstr "Folosiți presiunea maximă"
 msgid "Use reference photo"
 msgstr "Utilizați fotografia de referință"
 
-#: src/components/Help.tsx:180
+#: src/components/Help.tsx:182
 msgid "Use WebGPU"
 msgstr "Utilizați WebGPU"
 
-#: src/components/Help.tsx:209
+#: src/components/Help.tsx:211
 msgid "Used"
 msgstr "Utilizat"
 
@@ -2762,11 +2774,15 @@ msgstr "Așteptați ca datele de culoare să se termine de încărcare."
 msgid "Warm — Algorithmic estimate; artistic perception may vary."
 msgstr "Cald — estimare algoritmică; percepția artistică poate varia."
 
+#: src/components/messages.ts:73
+msgid "Water-based Markers"
+msgstr "Markere pe bază de apă"
+
 #: src/components/ImageStyleTransfer.tsx:80
 msgid "Watercolor"
 msgstr "Acuarelă"
 
-#: src/components/color/ConsistencyDescription.tsx:105
+#: src/components/color/ConsistencyDescription.tsx:116
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Acuarela poate fi diluată cu apă pentru a o face mai transparentă"
 
@@ -2808,7 +2824,7 @@ msgstr "Alb"
 msgid "White balance"
 msgstr "Balans de alb"
 
-#: src/components/messages.ts:77
+#: src/components/messages.ts:79
 msgid "White paper or canvas"
 msgstr "Hârtie sau pânză albă"
 
@@ -2896,7 +2912,7 @@ msgstr "Imaginile dvs. sunt procesate pe dispozitivul dvs. și sunt trimise numa
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Datele dvs. de autentificare nu au putut fi verificate. Conectați-vă din nou."
 
-#: src/components/Help.tsx:250
+#: src/components/Help.tsx:257
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "Abonamentul dvs. Patreon și datele de pe acest dispozitiv nu sunt șterse. <0>Anulați-vă abonamentul Patreon</0> chiar pe Patreon."
 

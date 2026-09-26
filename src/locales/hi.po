@@ -126,7 +126,7 @@ msgstr "हर सुझाए गए मिश्रण में मिला�
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "ऐप का एक नया संस्करण उपलब्ध है और स्वचालित रूप से इंस्टॉल हो जाएगा।"
 
-#: src/components/Help.tsx:158
+#: src/components/Help.tsx:160
 msgid "A new version of the application is available."
 msgstr "एप्लिकेशन का एक नया संस्करण उपलब्ध है।"
 
@@ -138,11 +138,11 @@ msgstr "100% से कम मान छवि को कम रंगीन ब
 msgid "Accurate"
 msgstr "सटीक"
 
-#: src/components/messages.ts:73
+#: src/components/messages.ts:75
 msgid "Acrylic Gouache"
 msgstr "ऐक्रेलिक गौचे"
 
-#: src/components/messages.ts:72
+#: src/components/messages.ts:74
 msgid "Acrylic Markers"
 msgstr "ऐक्रेलिक मार्कर"
 
@@ -190,7 +190,11 @@ msgstr "रंग समायोजित करें"
 msgid "Adjust the 4 corners manually."
 msgstr "चारों कोनों को मैन्युअल रूप से समायोजित करें।"
 
-#: src/components/Help.tsx:231
+#: src/components/messages.ts:72
+msgid "Alcohol Markers"
+msgstr "अल्कोहल आधारित मार्कर"
+
+#: src/components/Help.tsx:238
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "सभी ऐप डेटा इंस्टॉल करने के बाद भी वेब ब्राउज़र स्टोरेज में संग्रहीत किया जाता है। ब्राउज़र डेटा साफ़ करने से यह सब मिट जाता है।"
 
@@ -214,7 +218,7 @@ msgstr "एक अंडरलेयर या एकीकृत रंग स�
 msgid "Angle"
 msgstr "कोण"
 
-#: src/components/Help.tsx:276
+#: src/components/Help.tsx:283
 msgid "Application build ID"
 msgstr "एप्लिकेशन बिल्ड आईडी"
 
@@ -222,7 +226,7 @@ msgstr "एप्लिकेशन बिल्ड आईडी"
 msgid "Apply"
 msgstr "लागू करें"
 
-#: src/components/color/ConsistencyDescription.tsx:70
+#: src/components/color/ConsistencyDescription.tsx:81
 msgid "Apply a layer at <0>{fractionText} of full thickness</0>"
 msgstr "<0>पूरी मोटाई के {fractionText}</0> पर एक परत लगाएं"
 
@@ -230,15 +234,15 @@ msgstr "<0>पूरी मोटाई के {fractionText}</0> पर एक 
 msgid "Apply densely"
 msgstr "सघन रूप से लगाएं"
 
-#: src/components/color/ConsistencyDescription.tsx:126
+#: src/components/color/ConsistencyDescription.tsx:137
 msgid "Apply less pressure to make the colored pencil layer more transparent"
 msgstr "रंगीन पेंसिल की परत को अधिक पारदर्शी बनाने के लिए कम दबाव डालें"
 
-#: src/components/color/ConsistencyDescription.tsx:133
+#: src/components/color/ConsistencyDescription.tsx:144
 msgid "Apply less pressure to make the watercolor pencil layer more transparent"
 msgstr "वॉटरकलर पेंसिल की परत को अधिक पारदर्शी बनाने के लिए कम दबाव डालें"
 
-#: src/components/color/ConsistencyDescription.tsx:92
+#: src/components/color/ConsistencyDescription.tsx:103
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
 msgstr "इस रंग और अंडरलेयर रंग के स्ट्रोक <0>{ratioText} अनुपात</0> में लगाएं"
 
@@ -285,11 +289,11 @@ msgstr "ArtistAssistApp यह पुष्टि नहीं कर सका 
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistApp को आपके Patreon लॉगिन का परिणाम प्राप्त नहीं हुआ। ऐसा तब हो सकता है जब किसी अन्य ब्राउज़र या ऐप में लॉगिन खुलता है। कृपया पुन: लॉग इन करने का प्रयास करें।"
 
-#: src/components/Help.tsx:267
+#: src/components/Help.tsx:274
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp <0>Eugene Khyst</0> द्वारा विकसित किया गया है"
 
-#: src/components/Help.tsx:243
+#: src/components/Help.tsx:250
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "ArtistAssistApp कभी भी आपका ईमेल पता संग्रहीत नहीं करता है, केवल इससे प्राप्त एक निजी कोड जो पता प्रकट नहीं कर सकता है। Patreon या सदस्यता नवीनीकरण के साथ लॉग इन करने से वह कोड फिर से बन जाता है।"
 
@@ -380,21 +384,21 @@ msgstr "रंगों की संख्या से"
 msgid "By consistency"
 msgstr "गाढ़ेपन से"
 
-#: src/components/messages.ts:87
+#: src/components/messages.ts:89
 msgid "By date"
 msgstr "तिथि से"
 
-#: src/components/messages.ts:82
-#: src/components/messages.ts:89
+#: src/components/messages.ts:84
+#: src/components/messages.ts:91
 msgid "By hue"
 msgstr "रंगत से"
 
-#: src/components/messages.ts:81
+#: src/components/messages.ts:83
 msgid "By ID"
 msgstr "आईडी से"
 
-#: src/components/messages.ts:83
-#: src/components/messages.ts:90
+#: src/components/messages.ts:85
+#: src/components/messages.ts:92
 msgid "By lightness"
 msgstr "हल्केपन से"
 
@@ -402,7 +406,7 @@ msgstr "हल्केपन से"
 msgid "By match"
 msgstr "मिलान से"
 
-#: src/components/messages.ts:88
+#: src/components/messages.ts:90
 msgid "By name"
 msgstr "नाम से"
 
@@ -424,7 +428,7 @@ msgstr "एआर ट्रेसिंग के लिए कैमरा ए�
 msgid "Cancel"
 msgstr "रद्द करें"
 
-#: src/components/Help.tsx:119
+#: src/components/Help.tsx:121
 msgid "Cancel a paid membership"
 msgstr "सशुल्क सदस्यता रद्द करें"
 
@@ -436,7 +440,7 @@ msgstr "कॉपी की गई छवि का उपयोग नहीं
 msgid "Cells"
 msgstr "कक्ष"
 
-#: src/components/Help.tsx:165
+#: src/components/Help.tsx:167
 msgid "Check for updates"
 msgstr "अपडेट के लिए जाँच करें"
 
@@ -679,7 +683,7 @@ msgstr "अंडरलेयर पर मिश्रित रंगों �
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "सतह या अंडरलेयर पर पारदर्शी परतों पर विचार करें जब वे अपारदर्शी मिश्रण की तुलना में लक्ष्य से बेहतर मेल खाती हों"
 
-#: src/components/Help.tsx:109
+#: src/components/Help.tsx:111
 msgid "Contact"
 msgstr "संपर्क"
 
@@ -869,6 +873,10 @@ msgstr "विकर्ण"
 #: src/components/CustomColorBrandCreator.tsx:458
 msgid "Diameter"
 msgstr "व्यास"
+
+#: src/components/color/ConsistencyDescription.tsx:151
+msgid "Dilute water-based marker ink with water to make it more transparent"
+msgstr "पानी आधारित मार्कर की स्याही को अधिक पारदर्शी बनाने के लिए पानी से पतला करें"
 
 #: src/components/ColorSetChooser.tsx:236
 msgid "Discard changes"
@@ -1190,7 +1198,7 @@ msgstr "ऐप इंस्टॉल करें"
 msgid "Install ArtistAssistApp"
 msgstr "ArtistAssistApp इंस्टॉल करें"
 
-#: src/components/Help.tsx:160
+#: src/components/Help.tsx:162
 msgid "Install update"
 msgstr "अपडेट इंस्टॉल करें"
 
@@ -1384,15 +1392,19 @@ msgstr "मिडटोन"
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "रंगों को <0>{partsRatioText} अनुपात</0> में मिलाएं"
 
+#: src/components/color/ConsistencyDescription.tsx:70
+msgid "Mix ink and water in a <0>{ratioText} ratio</0>"
+msgstr "स्याही और पानी को <0>{ratioText} अनुपात</0> में मिलाएं"
+
 #: src/components/color/ConsistencyDescription.tsx:59
 msgid "Mix paint and water in a <0>{ratioText} ratio</0>"
 msgstr "पेंट और पानी को <0>{ratioText} अनुपात</0> में मिलाएं"
 
-#: src/components/color/ConsistencyDescription.tsx:112
+#: src/components/color/ConsistencyDescription.tsx:123
 msgid "Mix the paint with a glazing medium, such as linseed oil, to apply a thinner, more transparent layer"
 msgstr "एक पतली, अधिक पारदर्शी परत लगाने के लिए पेंट को अलसी के तेल जैसे ग्लेज़िंग माध्यम के साथ मिलाएं"
 
-#: src/components/color/ConsistencyDescription.tsx:119
+#: src/components/color/ConsistencyDescription.tsx:130
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
 msgstr "एक पतली, अधिक पारदर्शी परत लगाने के लिए पेंट को ऐक्रेलिक ग्लेज़िंग माध्यम के साथ मिलाएं"
 
@@ -1652,7 +1664,7 @@ msgstr "पर्सेंटाइल"
 msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
 msgstr "पर्सेंटाइल: सबसे चमकीले क्षेत्रों के आधार पर श्वेत संतुलन, अधिकांश फ़ोटो के लिए उपयुक्त। संदर्भ: चुने गए सफ़ेद क्षेत्र का उपयोग करके मैन्युअल श्वेत संतुलन। स्वचालित: हर रंग चैनल के काले और सफ़ेद बिंदु सेट करता है, फीकी फ़ोटो के लिए उपयुक्त।"
 
-#: src/components/Help.tsx:189
+#: src/components/Help.tsx:191
 msgid "Persistent storage"
 msgstr "स्थायी संग्रहण"
 
@@ -1760,7 +1772,7 @@ msgstr "एक बड़ी छवि को कई पृष्ठों पर
 msgid "Print preview"
 msgstr "प्रिंट पूर्वावलोकन"
 
-#: src/components/Help.tsx:131
+#: src/components/Help.tsx:133
 msgid "Privacy policy"
 msgstr "गोपनीयता नीति"
 
@@ -1776,7 +1788,7 @@ msgstr "प्रोसेस हो रहा है..."
 msgid "Processing... {percent}%"
 msgstr "प्रोसेस हो रहा है... {percent}%"
 
-#: src/components/Help.tsx:212
+#: src/components/Help.tsx:214
 msgid "Quota"
 msgstr "कोटा"
 
@@ -2242,15 +2254,15 @@ msgstr "सरलीकृत"
 msgid "Simplify photo"
 msgstr "फ़ोटो को सरल बनाएं"
 
-#: src/components/color/ConsistencyDescription.tsx:147
+#: src/components/color/ConsistencyDescription.tsx:165
 msgid "Slightly overlap oil pastel areas of different colors and blend gently to create a smooth transition"
 msgstr "विभिन्न रंगों के ऑयल पेस्टल क्षेत्रों को थोड़ा ओवरलैप करें और सहज संक्रमण बनाने के लिए धीरे से ब्लेंड करें"
 
-#: src/components/color/ConsistencyDescription.tsx:140
+#: src/components/color/ConsistencyDescription.tsx:158
 msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition"
 msgstr "विभिन्न रंगों के पेस्टल क्षेत्रों को थोड़ा ओवरलैप करें और सहज संक्रमण बनाने के लिए धीरे से ब्लेंड करें"
 
-#: src/components/color/ConsistencyDescription.tsx:154
+#: src/components/color/ConsistencyDescription.tsx:172
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
 msgstr "विभिन्न रंगों के वैक्स पेस्टल क्षेत्रों को थोड़ा ओवरलैप करें और सहज संक्रमण बनाने के लिए मजबूती से ब्लेंड करें"
 
@@ -2323,7 +2335,7 @@ msgstr "स्थिर जीवन"
 msgid "Storage may fill up"
 msgstr "संग्रहण भर सकता है"
 
-#: src/components/Help.tsx:206
+#: src/components/Help.tsx:208
 msgid "Storage usage"
 msgstr "संग्रहण उपयोग"
 
@@ -2392,7 +2404,7 @@ msgstr "लक्ष्य रंग"
 msgid "Target print size"
 msgstr "लक्ष्य प्रिंट आकार"
 
-#: src/components/Help.tsx:141
+#: src/components/Help.tsx:143
 msgid "Terms of use"
 msgstr "उपयोग की शर्तें"
 
@@ -2453,7 +2465,7 @@ msgstr "एक सामान्य पैलेट है और प्रत�
 msgid "Thick"
 msgstr "मोटा"
 
-#: src/components/Help.tsx:151
+#: src/components/Help.tsx:153
 msgid "Third-party notices"
 msgstr "तृतीय-पक्ष नोटिस"
 
@@ -2579,7 +2591,7 @@ msgstr "रंग जोड़ने या सतह, अंडरलेयर,
 msgid "Turn off WebGPU"
 msgstr "WebGPU बंद करें"
 
-#: src/components/Help.tsx:99
+#: src/components/Help.tsx:101
 msgid "Tutorials and videos"
 msgstr "ट्यूटोरियल और वीडियो"
 
@@ -2701,7 +2713,7 @@ msgstr "छवि {index} / {count} अपलोड हो रही है"
 msgid "Upscale"
 msgstr "अपस्केल करें"
 
-#: src/components/color/ConsistencyDescription.tsx:81
+#: src/components/color/ConsistencyDescription.tsx:92
 msgid "Use <0>{fractionText} of full pressure</0>"
 msgstr "<0>पूरे दबाव के {fractionText}</0> का उपयोग करें"
 
@@ -2721,11 +2733,11 @@ msgstr "पूरे दबाव का उपयोग करें"
 msgid "Use reference photo"
 msgstr "संदर्भ फ़ोटो का उपयोग करें"
 
-#: src/components/Help.tsx:180
+#: src/components/Help.tsx:182
 msgid "Use WebGPU"
 msgstr "WebGPU का उपयोग करें"
 
-#: src/components/Help.tsx:209
+#: src/components/Help.tsx:211
 msgid "Used"
 msgstr "उपयोग"
 
@@ -2762,11 +2774,15 @@ msgstr "रंग डेटा लोड होने तक प्रतीक�
 msgid "Warm — Algorithmic estimate; artistic perception may vary."
 msgstr "गर्म — एल्गोरिथम अनुमान; कलात्मक धारणा भिन्न हो सकती है।"
 
+#: src/components/messages.ts:73
+msgid "Water-based Markers"
+msgstr "पानी आधारित मार्कर"
+
 #: src/components/ImageStyleTransfer.tsx:80
 msgid "Watercolor"
 msgstr "वॉटरकलर"
 
-#: src/components/color/ConsistencyDescription.tsx:105
+#: src/components/color/ConsistencyDescription.tsx:116
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "वॉटरकलर को अधिक पारदर्शी बनाने के लिए पानी से पतला किया जा सकता है"
 
@@ -2808,7 +2824,7 @@ msgstr "सफ़ेद"
 msgid "White balance"
 msgstr "सफ़ेद संतुलन"
 
-#: src/components/messages.ts:77
+#: src/components/messages.ts:79
 msgid "White paper or canvas"
 msgstr "सफ़ेद कागज़ या कैनवास"
 
@@ -2896,7 +2912,7 @@ msgstr "आपकी छवियाँ आपके डिवाइस पर �
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "आपके लॉगिन क्रेडेंशियल सत्यापित नहीं किए जा सके। फिर से साइन इन करें।"
 
-#: src/components/Help.tsx:250
+#: src/components/Help.tsx:257
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "आपकी Patreon सदस्यता और इस डिवाइस का डेटा हटाया नहीं जाता। Patreon पर ही <0>अपनी Patreon सदस्यता रद्द करें</0>।"
 

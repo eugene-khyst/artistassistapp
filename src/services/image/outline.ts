@@ -51,6 +51,8 @@ export async function extractOutline(
 function sobelEdgeDetection(image: DrawImageSource) {
   const sobelImage: OffscreenCanvas = sobelEdgeDetectionWebGL(toOffscreenCanvas(image));
   const threshold = computeOtsuThreshold(offscreenCanvasToImageData(sobelImage), true);
-  const [thresholdImage] = thresholdFilterWebGL(sobelImage, [threshold], [0], true);
+  const [thresholdImage] = thresholdFilterWebGL(sobelImage, [threshold], [0], {
+    grayscaleInput: true,
+  });
   return thresholdImage!;
 }

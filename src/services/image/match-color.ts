@@ -40,7 +40,9 @@ export function matchColor(image: DrawImageSource, color: RgbTuple): ImageBitmap
   );
   const sobelImage: OffscreenCanvas = sobelEdgeDetectionWebGL(canvas);
   const threshold = computeOtsuThreshold(offscreenCanvasToImageData(sobelImage), true);
-  const [thresholdImage] = thresholdFilterWebGL(sobelImage, [threshold], [0.5], true);
+  const [thresholdImage] = thresholdFilterWebGL(sobelImage, [threshold], [0.5], {
+    grayscaleInput: true,
+  });
   mergeImages(thresholdImage!, colorMatchImage);
   return thresholdImage!.transferToImageBitmap();
 }

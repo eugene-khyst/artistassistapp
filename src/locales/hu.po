@@ -126,7 +126,7 @@ msgstr "Egy szín, amelyet minden javasolt keverékhez hozzákeverünk, hogy a p
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "Az alkalmazás új verziója elérhető, és automatikusan telepítésre kerül."
 
-#: src/components/Help.tsx:158
+#: src/components/Help.tsx:160
 msgid "A new version of the application is available."
 msgstr "Az alkalmazás új verziója elérhető."
 
@@ -138,11 +138,11 @@ msgstr "A 100%-nál kisebb érték kevésbé színessé teszi a képet, a 100%-n
 msgid "Accurate"
 msgstr "Pontos"
 
-#: src/components/messages.ts:73
+#: src/components/messages.ts:75
 msgid "Acrylic Gouache"
 msgstr "Akril gouache"
 
-#: src/components/messages.ts:72
+#: src/components/messages.ts:74
 msgid "Acrylic Markers"
 msgstr "Akril markerek"
 
@@ -190,7 +190,11 @@ msgstr "Színek beállítása"
 msgid "Adjust the 4 corners manually."
 msgstr "Állítsa be kézzel a 4 sarkot."
 
-#: src/components/Help.tsx:231
+#: src/components/messages.ts:72
+msgid "Alcohol Markers"
+msgstr "Alkoholos markerek"
+
+#: src/components/Help.tsx:238
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Minden alkalmazásadat a böngésző tárolójában van, még a telepítés után is. A böngésző adatainak törlése mindent töröl."
 
@@ -214,7 +218,7 @@ msgstr "Alapréteg vagy egyesítő szín van beállítva. Az Automatikus paletta
 msgid "Angle"
 msgstr "Szög"
 
-#: src/components/Help.tsx:276
+#: src/components/Help.tsx:283
 msgid "Application build ID"
 msgstr "Alkalmazás build azonosítója"
 
@@ -222,7 +226,7 @@ msgstr "Alkalmazás build azonosítója"
 msgid "Apply"
 msgstr "Alkalmazás"
 
-#: src/components/color/ConsistencyDescription.tsx:70
+#: src/components/color/ConsistencyDescription.tsx:81
 msgid "Apply a layer at <0>{fractionText} of full thickness</0>"
 msgstr "Vigyen fel egy réteget <0>{fractionText} teljes vastagságban</0>"
 
@@ -230,15 +234,15 @@ msgstr "Vigyen fel egy réteget <0>{fractionText} teljes vastagságban</0>"
 msgid "Apply densely"
 msgstr "Vigye fel sűrűn"
 
-#: src/components/color/ConsistencyDescription.tsx:126
+#: src/components/color/ConsistencyDescription.tsx:137
 msgid "Apply less pressure to make the colored pencil layer more transparent"
 msgstr "Alkalmazzon kisebb nyomást, hogy a színes ceruzaréteg átlátszóbb legyen"
 
-#: src/components/color/ConsistencyDescription.tsx:133
+#: src/components/color/ConsistencyDescription.tsx:144
 msgid "Apply less pressure to make the watercolor pencil layer more transparent"
 msgstr "Alkalmazzon kisebb nyomást, hogy átlátszóbb legyen az akvarell ceruzaréteg"
 
-#: src/components/color/ConsistencyDescription.tsx:92
+#: src/components/color/ConsistencyDescription.tsx:103
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
 msgstr "Vigye fel ennek a színnek és az alapréteg színének ecsetvonásait <0>{ratioText} arányban</0>"
 
@@ -285,11 +289,11 @@ msgstr "Az ArtistAssistApp nem tudta megerősíteni, hogy a felhőben lévő fá
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "Az ArtistAssistApp nem kapta meg a Patreon-bejelentkezés eredményét. Ez akkor fordulhat elő, ha a bejelentkezés másik böngészőben vagy alkalmazásban nyílik meg. Kérjük, próbáljon meg újra bejelentkezni."
 
-#: src/components/Help.tsx:267
+#: src/components/Help.tsx:274
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "Az ArtistAssistApp-ot <0>Eugene Khyst</0> fejlesztette"
 
-#: src/components/Help.tsx:243
+#: src/components/Help.tsx:250
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "Az ArtistAssistApp soha nem tárolja az e-mail címét, csak egy abból származtatott privát kódot, amely nem tudja felfedni a címet. A Patreonnal való bejelentkezés vagy a tagság megújítása újra létrehozza ezt a kódot."
 
@@ -380,21 +384,21 @@ msgstr "Színszám szerint"
 msgid "By consistency"
 msgstr "Sűrűség szerint"
 
-#: src/components/messages.ts:87
+#: src/components/messages.ts:89
 msgid "By date"
 msgstr "Dátum szerint"
 
-#: src/components/messages.ts:82
-#: src/components/messages.ts:89
+#: src/components/messages.ts:84
+#: src/components/messages.ts:91
 msgid "By hue"
 msgstr "Színárnyalat szerint"
 
-#: src/components/messages.ts:81
+#: src/components/messages.ts:83
 msgid "By ID"
 msgstr "Azonosító szerint"
 
-#: src/components/messages.ts:83
-#: src/components/messages.ts:90
+#: src/components/messages.ts:85
+#: src/components/messages.ts:92
 msgid "By lightness"
 msgstr "Világosság szerint"
 
@@ -402,7 +406,7 @@ msgstr "Világosság szerint"
 msgid "By match"
 msgstr "Egyezés szerint"
 
-#: src/components/messages.ts:88
+#: src/components/messages.ts:90
 msgid "By name"
 msgstr "Név szerint"
 
@@ -424,7 +428,7 @@ msgstr "Az AR-ban való átrajzoláshoz kamerahozzáférés szükséges"
 msgid "Cancel"
 msgstr "Mégse"
 
-#: src/components/Help.tsx:119
+#: src/components/Help.tsx:121
 msgid "Cancel a paid membership"
 msgstr "Fizetős tagság lemondása"
 
@@ -436,7 +440,7 @@ msgstr "Nem lehet másolt képet használni"
 msgid "Cells"
 msgstr "Cellák"
 
-#: src/components/Help.tsx:165
+#: src/components/Help.tsx:167
 msgid "Check for updates"
 msgstr "Frissítések keresése"
 
@@ -679,7 +683,7 @@ msgstr "Vegye figyelembe az alaprétegre elmosott színeket, ha azok jobban ille
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "Vegye figyelembe a felületen vagy az alaprétegen lévő átlátszó rétegeket, ha azok jobban illeszkednek a célhoz, mint az átlátszatlan keverékek"
 
-#: src/components/Help.tsx:109
+#: src/components/Help.tsx:111
 msgid "Contact"
 msgstr "Kapcsolat"
 
@@ -869,6 +873,10 @@ msgstr "Átlók"
 #: src/components/CustomColorBrandCreator.tsx:458
 msgid "Diameter"
 msgstr "Átmérő"
+
+#: src/components/color/ConsistencyDescription.tsx:151
+msgid "Dilute water-based marker ink with water to make it more transparent"
+msgstr "Hígítsa vízzel a vízbázisú markerek tintáját, hogy átlátszóbb legyen"
 
 #: src/components/ColorSetChooser.tsx:236
 msgid "Discard changes"
@@ -1190,7 +1198,7 @@ msgstr "Alkalmazás telepítése"
 msgid "Install ArtistAssistApp"
 msgstr "Az ArtistAssistApp telepítése"
 
-#: src/components/Help.tsx:160
+#: src/components/Help.tsx:162
 msgid "Install update"
 msgstr "Frissítés telepítése"
 
@@ -1384,15 +1392,19 @@ msgstr "Középtónusok"
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Keverje össze a színeket <0>{partsRatioText} arányban</0>"
 
+#: src/components/color/ConsistencyDescription.tsx:70
+msgid "Mix ink and water in a <0>{ratioText} ratio</0>"
+msgstr "Keverje össze a tintát és a vizet <0>{ratioText} arányban</0>"
+
 #: src/components/color/ConsistencyDescription.tsx:59
 msgid "Mix paint and water in a <0>{ratioText} ratio</0>"
 msgstr "Keverje össze a festéket és a vizet <0>{ratioText} arányban</0>"
 
-#: src/components/color/ConsistencyDescription.tsx:112
+#: src/components/color/ConsistencyDescription.tsx:123
 msgid "Mix the paint with a glazing medium, such as linseed oil, to apply a thinner, more transparent layer"
 msgstr "Keverje össze a festéket lazúrozó médiummal, például lenolajjal, hogy vékonyabb, átlátszóbb réteget vigyen fel"
 
-#: src/components/color/ConsistencyDescription.tsx:119
+#: src/components/color/ConsistencyDescription.tsx:130
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
 msgstr "Keverje össze a festéket akril lazúrozó médiummal, hogy vékonyabb, átlátszóbb réteget vigyen fel"
 
@@ -1652,7 +1664,7 @@ msgstr "Percentilis"
 msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
 msgstr "Percentilis: Fehéregyensúly a legvilágosabb területek alapján, a legtöbb fényképhez megfelelő. Referencia: Manuális fehéregyensúly a kiválasztott fehér terület használatával. Automatikus: Beállítja az egyes színcsatornák fekete- és fehérpontját, fakó fényképekhez megfelelő."
 
-#: src/components/Help.tsx:189
+#: src/components/Help.tsx:191
 msgid "Persistent storage"
 msgstr "Állandó tárhely"
 
@@ -1760,7 +1772,7 @@ msgstr "Nagy kép nyomtatása több oldalra"
 msgid "Print preview"
 msgstr "Nyomtatási kép"
 
-#: src/components/Help.tsx:131
+#: src/components/Help.tsx:133
 msgid "Privacy policy"
 msgstr "Adatvédelmi irányelvek"
 
@@ -1776,7 +1788,7 @@ msgstr "Feldolgozás..."
 msgid "Processing... {percent}%"
 msgstr "Feldolgozás... {percent}%"
 
-#: src/components/Help.tsx:212
+#: src/components/Help.tsx:214
 msgid "Quota"
 msgstr "Kvóta"
 
@@ -2242,15 +2254,15 @@ msgstr "Egyszerűsített"
 msgid "Simplify photo"
 msgstr "Fénykép egyszerűsítése"
 
-#: src/components/color/ConsistencyDescription.tsx:147
+#: src/components/color/ConsistencyDescription.tsx:165
 msgid "Slightly overlap oil pastel areas of different colors and blend gently to create a smooth transition"
 msgstr "Kissé fedje át az eltérő színű olajpasztell területeket, és finoman mossa el őket, hogy sima átmenetet hozzon létre"
 
-#: src/components/color/ConsistencyDescription.tsx:140
+#: src/components/color/ConsistencyDescription.tsx:158
 msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition"
 msgstr "Kissé fedje át az eltérő színű pasztell területeket, és finoman mossa el őket, hogy sima átmenetet hozzon létre"
 
-#: src/components/color/ConsistencyDescription.tsx:154
+#: src/components/color/ConsistencyDescription.tsx:172
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
 msgstr "Kissé fedje át az eltérő színű viaszpasztell területeket, és erősen mossa el őket, hogy sima átmenetet hozzon létre"
 
@@ -2323,7 +2335,7 @@ msgstr "Csendélet"
 msgid "Storage may fill up"
 msgstr "A tárhely megtelhet"
 
-#: src/components/Help.tsx:206
+#: src/components/Help.tsx:208
 msgid "Storage usage"
 msgstr "Tárhelyhasználat"
 
@@ -2392,7 +2404,7 @@ msgstr "Célszín"
 msgid "Target print size"
 msgstr "Célzott nyomtatási méret"
 
-#: src/components/Help.tsx:141
+#: src/components/Help.tsx:143
 msgid "Terms of use"
 msgstr "Felhasználási feltételek"
 
@@ -2453,7 +2465,7 @@ msgstr "Van egy közös paletta, és minden fotóhoz egy külön paletta"
 msgid "Thick"
 msgstr "Vastag"
 
-#: src/components/Help.tsx:151
+#: src/components/Help.tsx:153
 msgid "Third-party notices"
 msgstr "Harmadik felek értesítései"
 
@@ -2579,7 +2591,7 @@ msgstr "Próbáljon színeket hozzáadni, vagy módosítsa a felületet, az alap
 msgid "Turn off WebGPU"
 msgstr "WebGPU kikapcsolása"
 
-#: src/components/Help.tsx:99
+#: src/components/Help.tsx:101
 msgid "Tutorials and videos"
 msgstr "Oktatóanyagok és videók"
 
@@ -2701,7 +2713,7 @@ msgstr "Kép feltöltése: {index} / {count}"
 msgid "Upscale"
 msgstr "Felskálázás"
 
-#: src/components/color/ConsistencyDescription.tsx:81
+#: src/components/color/ConsistencyDescription.tsx:92
 msgid "Use <0>{fractionText} of full pressure</0>"
 msgstr "Használja a <0>teljes nyomás {fractionText} részét</0>"
 
@@ -2721,11 +2733,11 @@ msgstr "Teljes nyomás használata"
 msgid "Use reference photo"
 msgstr "Referenciafotó használata"
 
-#: src/components/Help.tsx:180
+#: src/components/Help.tsx:182
 msgid "Use WebGPU"
 msgstr "WebGPU használata"
 
-#: src/components/Help.tsx:209
+#: src/components/Help.tsx:211
 msgid "Used"
 msgstr "Felhasznált"
 
@@ -2762,11 +2774,15 @@ msgstr "Várja meg, amíg a színadatok betöltése befejeződik."
 msgid "Warm — Algorithmic estimate; artistic perception may vary."
 msgstr "Meleg — algoritmikus becslés; a művészi felfogás eltérhet."
 
+#: src/components/messages.ts:73
+msgid "Water-based Markers"
+msgstr "Vízbázisú markerek"
+
 #: src/components/ImageStyleTransfer.tsx:80
 msgid "Watercolor"
 msgstr "Akvarell"
 
-#: src/components/color/ConsistencyDescription.tsx:105
+#: src/components/color/ConsistencyDescription.tsx:116
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Az akvarell vízzel hígítható, hogy átlátszóbb legyen"
 
@@ -2808,7 +2824,7 @@ msgstr "Fehér"
 msgid "White balance"
 msgstr "Fehéregyensúly"
 
-#: src/components/messages.ts:77
+#: src/components/messages.ts:79
 msgid "White paper or canvas"
 msgstr "Fehér papír vagy vászon"
 
@@ -2896,7 +2912,7 @@ msgstr "A képek feldolgozása az eszközén történik, és csak az Ön által 
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "A bejelentkezési adatait nem sikerült ellenőrizni. Jelentkezzen be újra."
 
-#: src/components/Help.tsx:250
+#: src/components/Help.tsx:257
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "A Patreon-tagsága és az ezen az eszközön lévő adatok nem törlődnek. <0>Mondja le a Patreon-tagságát</0> magán a Patreonon."
 

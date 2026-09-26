@@ -53,7 +53,7 @@ interface ColorPair {
 }
 
 const RATIOS = [[1, 0], ...[...RATIOS_2].reverse(), [0, 1]] as const;
-const THICKNESSES = [
+const CONSISTENCIES = [
   [1, 2],
   [1, 4],
 ] as const satisfies readonly Fraction[];
@@ -78,7 +78,7 @@ function ColorPairGradient({
       type: colorSet.type,
       colors,
       ratios: RATIOS,
-      consistencies: THICKNESSES,
+      consistencies: CONSISTENCIES,
     });
   }, [colorSet, color1, color2]);
 

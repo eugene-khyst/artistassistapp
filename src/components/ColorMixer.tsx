@@ -63,7 +63,7 @@ interface ColorMixerForm {
 
 const MAX_COLORS = 4;
 
-const THICKNESSES = [
+const CONSISTENCIES = [
   [1, 2],
   [1, 4],
 ] as const satisfies readonly Fraction[];
@@ -123,7 +123,7 @@ export function ColorMixer() {
       ratios: [ratio],
       underlayerRgb: underlayerHex ? hexToRgb(underlayerHex) : null,
       surfaceRgb: hexToRgb(surfaceHex),
-      consistencies: THICKNESSES,
+      consistencies: CONSISTENCIES,
     });
     return mixtures;
   }, [colorSet, colors, ratio, underlayerHex, surfaceHex]);

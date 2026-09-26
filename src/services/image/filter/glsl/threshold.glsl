@@ -5,19 +5,13 @@ uniform sampler2D u_texture;
 uniform float u_thresholds[3];
 uniform float u_values[3];
 uniform int u_tone;
-uniform bool u_grayscale;
 
 in vec2 v_texCoord;
 out vec4 fragColor;
 
-#include color-constants.glsl
-#include linear-rgb.glsl
-#include oklab.glsl
-
 void main() {
-  vec4 color = texture(u_texture, v_texCoord);
-  float l = u_grayscale ? color.r : rgbToOklab(color.rgb).x;
-  float w = fwidth(l);
+  float l = texture(u_texture, v_texCoord).r;
+  float w = max(fwidth(l), 1e-5);
 
   vec3 toneColor = vec3(1.0);
 

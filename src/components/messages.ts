@@ -69,6 +69,8 @@ export const COLOR_TYPE_LABELS: Record<ColorType, MessageDescriptor> = {
   [ColorType.DryPastel]: defineMessage`Dry Pastel`,
   [ColorType.OilPastel]: defineMessage`Oil Pastel`,
   [ColorType.WaxPastel]: defineMessage`Wax Pastel`,
+  [ColorType.AlcoholMarkers]: defineMessage`Alcohol Markers`,
+  [ColorType.WaterBasedMarkers]: defineMessage`Water-based Markers`,
   [ColorType.AcrylicMarkers]: defineMessage`Acrylic Markers`,
   [ColorType.AcrylicGouache]: defineMessage`Acrylic Gouache`,
 };

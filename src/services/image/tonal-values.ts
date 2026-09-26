@@ -40,9 +40,9 @@ const COLOR_MAP_LEGEND_MAX_HEIGHT = 40;
 
 export function extractTonalValues(image: DrawImageSource): ImageBitmap[] {
   const canvas = toOffscreenCanvas(image);
-  const tonalValues: ImageBitmap[] = thresholdFilterWebGL(canvas, THRESHOLDS, TONAL_VALUES).map(
-    tonalValue => tonalValue.transferToImageBitmap()
-  );
+  const tonalValues: ImageBitmap[] = thresholdFilterWebGL(canvas, THRESHOLDS, TONAL_VALUES, {
+    gaussianBlurKernelSize: 5,
+  }).map(tonalValue => tonalValue.transferToImageBitmap());
   const [colorMap, colorMapLegend] = colorMapFilterWebGL(canvas);
   addColorMapLegend(colorMap, colorMapLegend);
   return [...tonalValues, colorMap.transferToImageBitmap()];

@@ -126,7 +126,7 @@ msgstr "Een kleur die in elke voorgestelde mix wordt gemengd om het palet harmon
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "Er is een nieuwe versie van de app beschikbaar en zal automatisch worden geïnstalleerd."
 
-#: src/components/Help.tsx:158
+#: src/components/Help.tsx:160
 msgid "A new version of the application is available."
 msgstr "Een nieuwe versie van de applicatie is beschikbaar."
 
@@ -138,11 +138,11 @@ msgstr "Een waarde van minder dan 100% zorgt ervoor dat de afbeelding er minder 
 msgid "Accurate"
 msgstr "Nauwkeurig"
 
-#: src/components/messages.ts:73
+#: src/components/messages.ts:75
 msgid "Acrylic Gouache"
 msgstr "Acrylgouache"
 
-#: src/components/messages.ts:72
+#: src/components/messages.ts:74
 msgid "Acrylic Markers"
 msgstr "Acrylmarkers"
 
@@ -190,7 +190,11 @@ msgstr "Kleuren aanpassen"
 msgid "Adjust the 4 corners manually."
 msgstr "Pas de 4 hoeken handmatig aan."
 
-#: src/components/Help.tsx:231
+#: src/components/messages.ts:72
+msgid "Alcohol Markers"
+msgstr "Alcoholmarkers"
+
+#: src/components/Help.tsx:238
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Alle appgegevens worden opgeslagen in de opslag van de webbrowser, zelfs na installatie. Het wissen van de browsergegevens verwijdert alles."
 
@@ -214,7 +218,7 @@ msgstr "Er is een onderlaag of verenigende kleur ingesteld. Het automatische pal
 msgid "Angle"
 msgstr "Hoek"
 
-#: src/components/Help.tsx:276
+#: src/components/Help.tsx:283
 msgid "Application build ID"
 msgstr "Applicatie-build ID"
 
@@ -222,7 +226,7 @@ msgstr "Applicatie-build ID"
 msgid "Apply"
 msgstr "Toepassen"
 
-#: src/components/color/ConsistencyDescription.tsx:70
+#: src/components/color/ConsistencyDescription.tsx:81
 msgid "Apply a layer at <0>{fractionText} of full thickness</0>"
 msgstr "Breng een laag aan met <0>{fractionText} van de volledige dikte</0>"
 
@@ -230,15 +234,15 @@ msgstr "Breng een laag aan met <0>{fractionText} van de volledige dikte</0>"
 msgid "Apply densely"
 msgstr "Dicht aanbrengen"
 
-#: src/components/color/ConsistencyDescription.tsx:126
+#: src/components/color/ConsistencyDescription.tsx:137
 msgid "Apply less pressure to make the colored pencil layer more transparent"
 msgstr "Oefen minder druk uit om de kleurpotloodlaag transparanter te maken"
 
-#: src/components/color/ConsistencyDescription.tsx:133
+#: src/components/color/ConsistencyDescription.tsx:144
 msgid "Apply less pressure to make the watercolor pencil layer more transparent"
 msgstr "Oefen minder druk uit om de aquarelpotloodlaag transparanter te maken"
 
-#: src/components/color/ConsistencyDescription.tsx:92
+#: src/components/color/ConsistencyDescription.tsx:103
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
 msgstr "Breng streken van deze kleur en de kleur van de onderlaag aan in een <0>{ratioText} verhouding</0>"
 
@@ -285,11 +289,11 @@ msgstr "ArtistAssistApp kon niet bevestigen dat je cloudbestanden waren verwijde
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistApp heeft het resultaat van je Patreon-login niet ontvangen. Dit kan gebeuren wanneer login opengaat in een andere browser of app. Probeer alsjeblieft opnieuw in te loggen."
 
-#: src/components/Help.tsx:267
+#: src/components/Help.tsx:274
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp is ontwikkeld door <0>Eugene Khyst</0>"
 
-#: src/components/Help.tsx:243
+#: src/components/Help.tsx:250
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "ArtistAssistApp slaat je e-mailadres nooit op, alleen een privécode die ervan is afgeleid en het adres niet kan onthullen. Inloggen met Patreon of een lidmaatschapsverlenging maakt die code opnieuw aan."
 
@@ -380,21 +384,21 @@ msgstr "Op aantal kleuren"
 msgid "By consistency"
 msgstr "Op consistentie"
 
-#: src/components/messages.ts:87
+#: src/components/messages.ts:89
 msgid "By date"
 msgstr "Op datum"
 
-#: src/components/messages.ts:82
-#: src/components/messages.ts:89
+#: src/components/messages.ts:84
+#: src/components/messages.ts:91
 msgid "By hue"
 msgstr "Op kleurtoon"
 
-#: src/components/messages.ts:81
+#: src/components/messages.ts:83
 msgid "By ID"
 msgstr "Op ID"
 
-#: src/components/messages.ts:83
-#: src/components/messages.ts:90
+#: src/components/messages.ts:85
+#: src/components/messages.ts:92
 msgid "By lightness"
 msgstr "Op lichtheid"
 
@@ -402,7 +406,7 @@ msgstr "Op lichtheid"
 msgid "By match"
 msgstr "Op overeenkomst"
 
-#: src/components/messages.ts:88
+#: src/components/messages.ts:90
 msgid "By name"
 msgstr "Op naam"
 
@@ -424,7 +428,7 @@ msgstr "Cameratoegang is vereist om over te trekken in AR"
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: src/components/Help.tsx:119
+#: src/components/Help.tsx:121
 msgid "Cancel a paid membership"
 msgstr "Een betaald lidmaatschap opzeggen"
 
@@ -436,7 +440,7 @@ msgstr "Kan de gekopieerde afbeelding niet gebruiken"
 msgid "Cells"
 msgstr "Cellen"
 
-#: src/components/Help.tsx:165
+#: src/components/Help.tsx:167
 msgid "Check for updates"
 msgstr "Controleren op updates"
 
@@ -679,7 +683,7 @@ msgstr "Houd rekening met kleuren die over de onderlaag zijn gedoezeld als ze be
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "Houd rekening met transparante lagen over het oppervlak of de onderlaag als ze beter bij het doel passen dan dekkende mengsels"
 
-#: src/components/Help.tsx:109
+#: src/components/Help.tsx:111
 msgid "Contact"
 msgstr "Contact"
 
@@ -869,6 +873,10 @@ msgstr "Diagonalen"
 #: src/components/CustomColorBrandCreator.tsx:458
 msgid "Diameter"
 msgstr "Diameter"
+
+#: src/components/color/ConsistencyDescription.tsx:151
+msgid "Dilute water-based marker ink with water to make it more transparent"
+msgstr "Verdun de inkt van markers op waterbasis met water om deze transparanter te maken"
 
 #: src/components/ColorSetChooser.tsx:236
 msgid "Discard changes"
@@ -1190,7 +1198,7 @@ msgstr "App installeren"
 msgid "Install ArtistAssistApp"
 msgstr "ArtistAssistApp installeren"
 
-#: src/components/Help.tsx:160
+#: src/components/Help.tsx:162
 msgid "Install update"
 msgstr "Update installeren"
 
@@ -1384,15 +1392,19 @@ msgstr "Middentonen"
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Meng kleuren in een <0>{partsRatioText} verhouding</0>"
 
+#: src/components/color/ConsistencyDescription.tsx:70
+msgid "Mix ink and water in a <0>{ratioText} ratio</0>"
+msgstr "Meng inkt en water in een <0>verhouding van {ratioText}</0>"
+
 #: src/components/color/ConsistencyDescription.tsx:59
 msgid "Mix paint and water in a <0>{ratioText} ratio</0>"
 msgstr "Meng verf en water in een <0>{ratioText} verhouding</0>"
 
-#: src/components/color/ConsistencyDescription.tsx:112
+#: src/components/color/ConsistencyDescription.tsx:123
 msgid "Mix the paint with a glazing medium, such as linseed oil, to apply a thinner, more transparent layer"
 msgstr "Meng de verf met een glaceermedium, zoals lijnolie, om een dunnere, transparantere laag aan te brengen"
 
-#: src/components/color/ConsistencyDescription.tsx:119
+#: src/components/color/ConsistencyDescription.tsx:130
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
 msgstr "Meng de verf met een acryl-glaceermedium om een dunnere, transparantere laag aan te brengen"
 
@@ -1652,7 +1664,7 @@ msgstr "Percentiel"
 msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
 msgstr "Percentiel: Witbalans op basis van de lichtste delen, geschikt voor de meeste foto's. Referentie: Handmatige witbalans met het geselecteerde witte gebied. Automatisch: Stelt het zwarte en witte punt van elk kleurkanaal in, geschikt voor verbleekte foto's."
 
-#: src/components/Help.tsx:189
+#: src/components/Help.tsx:191
 msgid "Persistent storage"
 msgstr "Permanente opslag"
 
@@ -1760,7 +1772,7 @@ msgstr "Een grote afbeelding afdrukken op meerdere pagina's"
 msgid "Print preview"
 msgstr "Afdrukvoorbeeld"
 
-#: src/components/Help.tsx:131
+#: src/components/Help.tsx:133
 msgid "Privacy policy"
 msgstr "Privacybeleid"
 
@@ -1776,7 +1788,7 @@ msgstr "Verwerken..."
 msgid "Processing... {percent}%"
 msgstr "Verwerken... {percent}%"
 
-#: src/components/Help.tsx:212
+#: src/components/Help.tsx:214
 msgid "Quota"
 msgstr "Quotum"
 
@@ -2242,15 +2254,15 @@ msgstr "Vereenvoudigd"
 msgid "Simplify photo"
 msgstr "Foto vereenvoudigen"
 
-#: src/components/color/ConsistencyDescription.tsx:147
+#: src/components/color/ConsistencyDescription.tsx:165
 msgid "Slightly overlap oil pastel areas of different colors and blend gently to create a smooth transition"
 msgstr "Laat de oliepastelvlakken van verschillende kleuren lichtjes overlappen en doezel ze voorzichtig om een vloeiende overgang te maken"
 
-#: src/components/color/ConsistencyDescription.tsx:140
+#: src/components/color/ConsistencyDescription.tsx:158
 msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition"
 msgstr "Laat de pastelvlakken van verschillende kleuren lichtjes overlappen en doezel ze voorzichtig om een vloeiende overgang te maken"
 
-#: src/components/color/ConsistencyDescription.tsx:154
+#: src/components/color/ConsistencyDescription.tsx:172
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
 msgstr "Laat de waspastelvlakken van verschillende kleuren lichtjes overlappen en doezel ze stevig om een vloeiende overgang te maken"
 
@@ -2323,7 +2335,7 @@ msgstr "Stilleven"
 msgid "Storage may fill up"
 msgstr "Opslag kan vol raken"
 
-#: src/components/Help.tsx:206
+#: src/components/Help.tsx:208
 msgid "Storage usage"
 msgstr "Opslaggebruik"
 
@@ -2392,7 +2404,7 @@ msgstr "Doelkleur"
 msgid "Target print size"
 msgstr "Doelafdrukformaat"
 
-#: src/components/Help.tsx:141
+#: src/components/Help.tsx:143
 msgid "Terms of use"
 msgstr "Gebruiksvoorwaarden"
 
@@ -2453,7 +2465,7 @@ msgstr "Er is één gemeenschappelijk palet en een apart palet voor elke foto"
 msgid "Thick"
 msgstr "Dik"
 
-#: src/components/Help.tsx:151
+#: src/components/Help.tsx:153
 msgid "Third-party notices"
 msgstr "Kennisgevingen over software van derden"
 
@@ -2579,7 +2591,7 @@ msgstr "Probeer kleuren toe te voegen of het oppervlak, de onderlaag of de veren
 msgid "Turn off WebGPU"
 msgstr "WebGPU uitschakelen"
 
-#: src/components/Help.tsx:99
+#: src/components/Help.tsx:101
 msgid "Tutorials and videos"
 msgstr "Tutorials en video's"
 
@@ -2701,7 +2713,7 @@ msgstr "Afbeelding uploaden {index} / {count}"
 msgid "Upscale"
 msgstr "Opschalen"
 
-#: src/components/color/ConsistencyDescription.tsx:81
+#: src/components/color/ConsistencyDescription.tsx:92
 msgid "Use <0>{fractionText} of full pressure</0>"
 msgstr "Gebruik <0>{fractionText} van volledige druk</0>"
 
@@ -2721,11 +2733,11 @@ msgstr "Gebruik volledige druk"
 msgid "Use reference photo"
 msgstr "Referentiefoto gebruiken"
 
-#: src/components/Help.tsx:180
+#: src/components/Help.tsx:182
 msgid "Use WebGPU"
 msgstr "WebGPU gebruiken"
 
-#: src/components/Help.tsx:209
+#: src/components/Help.tsx:211
 msgid "Used"
 msgstr "Gebruikt"
 
@@ -2762,11 +2774,15 @@ msgstr "Wacht tot de kleurgegevens zijn geladen."
 msgid "Warm — Algorithmic estimate; artistic perception may vary."
 msgstr "Warm — algoritmische schatting; artistieke perceptie kan variëren."
 
+#: src/components/messages.ts:73
+msgid "Water-based Markers"
+msgstr "Markers op waterbasis"
+
 #: src/components/ImageStyleTransfer.tsx:80
 msgid "Watercolor"
 msgstr "Aquarel"
 
-#: src/components/color/ConsistencyDescription.tsx:105
+#: src/components/color/ConsistencyDescription.tsx:116
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Aquarel kan met water worden verdund om deze transparanter te maken"
 
@@ -2808,7 +2824,7 @@ msgstr "Wit"
 msgid "White balance"
 msgstr "Witbalans"
 
-#: src/components/messages.ts:77
+#: src/components/messages.ts:79
 msgid "White paper or canvas"
 msgstr "Wit papier of doek"
 
@@ -2896,7 +2912,7 @@ msgstr "Je afbeeldingen worden op je apparaat verwerkt en alleen verzonden naar 
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Je inloggegevens konden niet worden geverifieerd. Log opnieuw in."
 
-#: src/components/Help.tsx:250
+#: src/components/Help.tsx:257
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "Je Patreon-lidmaatschap en de gegevens op dit apparaat worden niet verwijderd. <0>Zeg je Patreon-lidmaatschap op</0> op Patreon zelf."
 

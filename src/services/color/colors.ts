@@ -55,6 +55,8 @@ export const COLOR_TYPES: ColorType[] = [
   ColorType.WaxPastel,
   ColorType.ColoredPencils,
   ColorType.WatercolorPencils,
+  ColorType.AlcoholMarkers,
+  ColorType.WaterBasedMarkers,
   ColorType.AcrylicMarkers,
 ];
 

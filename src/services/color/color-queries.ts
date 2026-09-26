@@ -42,6 +42,8 @@ const COLOR_TYPE_ALIASES: Record<ColorType, string> = {
   [ColorType.DryPastel]: 'pastel',
   [ColorType.OilPastel]: 'oil-pastel',
   [ColorType.WaxPastel]: 'wax-pastel',
+  [ColorType.AlcoholMarkers]: 'alcohol-markers',
+  [ColorType.WaterBasedMarkers]: 'water-based-markers',
   [ColorType.AcrylicMarkers]: 'acrylic-markers',
   [ColorType.AcrylicGouache]: 'acrylic-gouache',
 };

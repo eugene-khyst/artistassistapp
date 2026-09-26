@@ -94,6 +94,38 @@ describe('WebGL filters', () => {
     expect(readImage(result).data.some(value => value !== 0)).toBe(true);
   });
 
+  it.each([0, 128, 255])('blends flat gray %d equally at its threshold', gray => {
+    const image = createImage(WIDTH, HEIGHT, () => [gray, gray, gray, 255]);
+
+    const result = readImage(
+      thresholdFilterWebGL(image, [gray / 255], [0], {grayscaleInput: true})[0]!
+    );
+
+    for (let y = 0; y < HEIGHT; y++) {
+      for (let x = 0; x < WIDTH; x++) {
+        const [r, g, b, alpha] = pixelAt(result, x, y);
+        expect(Math.abs(r - 128)).toBeLessThanOrEqual(1);
+        expect([g, b, alpha]).toEqual([r, r, 255]);
+      }
+    }
+  });
+
+  it.each([
+    [0, [170, 85, 0]],
+    [85, [170, 85, 85]],
+    [170, [170, 170, 170]],
+    [255, [255, 255, 255]],
+  ] as const)('preserves the tonal threshold bands for flat gray %d', (gray, expected) => {
+    const image = createImage(WIDTH, HEIGHT, () => [gray, gray, gray, 255]);
+
+    const results = thresholdFilterWebGL(image, [0.825, 0.6, 0.35], [2 / 3, 1 / 3, 0]);
+
+    results.forEach((result, i) => {
+      const value = expected[i]!;
+      expect(pixelAt(readImage(result), WIDTH / 2, HEIGHT / 2)).toEqual([value, value, value, 255]);
+    });
+  });
+
   it('renders perspective-correction into the corrected quad', () => {
     const result = correctPerspectiveWebGL(testImage(), [
       new Vector(1, 1),

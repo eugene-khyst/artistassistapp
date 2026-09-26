@@ -126,7 +126,7 @@ msgstr "Barva přimíchaná do každé navržené směsi, aby paleta působila h
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "Nová verze aplikace je dostupná a bude automaticky nainstalována."
 
-#: src/components/Help.tsx:158
+#: src/components/Help.tsx:160
 msgid "A new version of the application is available."
 msgstr "Nová verze aplikace je dostupná."
 
@@ -138,11 +138,11 @@ msgstr "Hodnota menší než 100 % způsobí, že obraz bude vypadat méně bare
 msgid "Accurate"
 msgstr "Přesný"
 
-#: src/components/messages.ts:73
+#: src/components/messages.ts:75
 msgid "Acrylic Gouache"
 msgstr "Akrylový kvaš"
 
-#: src/components/messages.ts:72
+#: src/components/messages.ts:74
 msgid "Acrylic Markers"
 msgstr "Akrylové popisovače"
 
@@ -190,7 +190,11 @@ msgstr "Upravit barvy"
 msgid "Adjust the 4 corners manually."
 msgstr "Ručně upravte 4 rohy."
 
-#: src/components/Help.tsx:231
+#: src/components/messages.ts:72
+msgid "Alcohol Markers"
+msgstr "Alkoholové popisovače"
+
+#: src/components/Help.tsx:238
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Všechna data aplikací jsou uložena v úložišti webového prohlížeče, i po instalaci. Vymazání dat v prohlížeči vše smaže."
 
@@ -214,7 +218,7 @@ msgstr "Je nastavena podkladová vrstva nebo sjednocující barva. Automatická 
 msgid "Angle"
 msgstr "Úhel"
 
-#: src/components/Help.tsx:276
+#: src/components/Help.tsx:283
 msgid "Application build ID"
 msgstr "ID sestavení aplikace"
 
@@ -222,7 +226,7 @@ msgstr "ID sestavení aplikace"
 msgid "Apply"
 msgstr "Použít"
 
-#: src/components/color/ConsistencyDescription.tsx:70
+#: src/components/color/ConsistencyDescription.tsx:81
 msgid "Apply a layer at <0>{fractionText} of full thickness</0>"
 msgstr "Naneste vrstvu v <0>{fractionText} plné tloušťky</0>"
 
@@ -230,15 +234,15 @@ msgstr "Naneste vrstvu v <0>{fractionText} plné tloušťky</0>"
 msgid "Apply densely"
 msgstr "Naneste hustě"
 
-#: src/components/color/ConsistencyDescription.tsx:126
+#: src/components/color/ConsistencyDescription.tsx:137
 msgid "Apply less pressure to make the colored pencil layer more transparent"
 msgstr "Použijte menší tlak, aby byla vrstva barevné tužky průhlednější"
 
-#: src/components/color/ConsistencyDescription.tsx:133
+#: src/components/color/ConsistencyDescription.tsx:144
 msgid "Apply less pressure to make the watercolor pencil layer more transparent"
 msgstr "Použijte menší tlak, aby byla vrstva akvarelové tužky průhlednější"
 
-#: src/components/color/ConsistencyDescription.tsx:92
+#: src/components/color/ConsistencyDescription.tsx:103
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
 msgstr "Naneste tahy této barvy a barvy podkladové vrstvy v <0>poměru {ratioText}</0>"
 
@@ -285,11 +289,11 @@ msgstr "ArtistAssistApp nemohl potvrdit, že vaše cloudové soubory byly smazá
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistApp neobdržel výsledek vašeho přihlášení na Patreonu. To se může stát, když se přihlášení otevře v jiném prohlížeči nebo aplikaci. Zkuste se prosím přihlásit znovu."
 
-#: src/components/Help.tsx:267
+#: src/components/Help.tsx:274
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "Aplikaci ArtistAssistApp vyvinul <0>Eugene Khyst</0>"
 
-#: src/components/Help.tsx:243
+#: src/components/Help.tsx:250
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "ArtistAssistApp nikdy neukládá vaši e-mailovou adresu, pouze soukromý kód z ní odvozený, který adresu nemůže prozradit. Přihlášení přes Patreon nebo obnovení členství tento kód vytvoří znovu."
 
@@ -380,21 +384,21 @@ msgstr "Podle počtu barev"
 msgid "By consistency"
 msgstr "Podle konzistence"
 
-#: src/components/messages.ts:87
+#: src/components/messages.ts:89
 msgid "By date"
 msgstr "Podle data"
 
-#: src/components/messages.ts:82
-#: src/components/messages.ts:89
+#: src/components/messages.ts:84
+#: src/components/messages.ts:91
 msgid "By hue"
 msgstr "Podle odstínu"
 
-#: src/components/messages.ts:81
+#: src/components/messages.ts:83
 msgid "By ID"
 msgstr "Podle ID"
 
-#: src/components/messages.ts:83
-#: src/components/messages.ts:90
+#: src/components/messages.ts:85
+#: src/components/messages.ts:92
 msgid "By lightness"
 msgstr "Podle světlosti"
 
@@ -402,7 +406,7 @@ msgstr "Podle světlosti"
 msgid "By match"
 msgstr "Podle shody"
 
-#: src/components/messages.ts:88
+#: src/components/messages.ts:90
 msgid "By name"
 msgstr "Podle názvu"
 
@@ -424,7 +428,7 @@ msgstr "Pro obkreslování v AR je vyžadován přístup ke kameře"
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: src/components/Help.tsx:119
+#: src/components/Help.tsx:121
 msgid "Cancel a paid membership"
 msgstr "Zrušení placeného členství"
 
@@ -436,7 +440,7 @@ msgstr "Nelze použít zkopírovaný obrázek"
 msgid "Cells"
 msgstr "Buňky"
 
-#: src/components/Help.tsx:165
+#: src/components/Help.tsx:167
 msgid "Check for updates"
 msgstr "Zkontrolovat aktualizace"
 
@@ -679,7 +683,7 @@ msgstr "Zvažte barvy prolnuté přes podkladovou vrstvu, pokud odpovídají cí
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "Zvažte průhledné vrstvy na povrchu nebo na podkladové vrstvě, pokud odpovídají cílové barvě lépe než krycí směsi"
 
-#: src/components/Help.tsx:109
+#: src/components/Help.tsx:111
 msgid "Contact"
 msgstr "Kontakt"
 
@@ -869,6 +873,10 @@ msgstr "Úhlopříčky"
 #: src/components/CustomColorBrandCreator.tsx:458
 msgid "Diameter"
 msgstr "Průměr"
+
+#: src/components/color/ConsistencyDescription.tsx:151
+msgid "Dilute water-based marker ink with water to make it more transparent"
+msgstr "Inkoust popisovačů na vodní bázi zřeďte vodou, aby byl průhlednější"
 
 #: src/components/ColorSetChooser.tsx:236
 msgid "Discard changes"
@@ -1190,7 +1198,7 @@ msgstr "Nainstalovat aplikaci"
 msgid "Install ArtistAssistApp"
 msgstr "Nainstalovat ArtistAssistApp"
 
-#: src/components/Help.tsx:160
+#: src/components/Help.tsx:162
 msgid "Install update"
 msgstr "Nainstalovat aktualizaci"
 
@@ -1384,15 +1392,19 @@ msgstr "Střední tóny"
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Smíchejte barvy v <0>poměru {partsRatioText}</0>"
 
+#: src/components/color/ConsistencyDescription.tsx:70
+msgid "Mix ink and water in a <0>{ratioText} ratio</0>"
+msgstr "Smíchejte inkoust a vodu v <0>poměru {ratioText}</0>"
+
 #: src/components/color/ConsistencyDescription.tsx:59
 msgid "Mix paint and water in a <0>{ratioText} ratio</0>"
 msgstr "Smíchejte barvu a vodu v <0>poměru {ratioText}</0>"
 
-#: src/components/color/ConsistencyDescription.tsx:112
+#: src/components/color/ConsistencyDescription.tsx:123
 msgid "Mix the paint with a glazing medium, such as linseed oil, to apply a thinner, more transparent layer"
 msgstr "Smíchejte barvu s lazurovacím médiem, například se lněným olejem, abyste nanesli tenčí, průhlednější vrstvu"
 
-#: src/components/color/ConsistencyDescription.tsx:119
+#: src/components/color/ConsistencyDescription.tsx:130
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
 msgstr "Smíchejte barvu s akrylovým lazurovacím médiem, abyste nanesli tenčí, průhlednější vrstvu"
 
@@ -1652,7 +1664,7 @@ msgstr "Percentil"
 msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
 msgstr "Percentil: Vyvážení bílé podle nejsvětlejších oblastí, vhodné pro většinu fotografií. Reference: Ruční vyvážení bílé pomocí vybrané bílé oblasti. Automaticky: Nastaví černý a bílý bod každého barevného kanálu, vhodné pro vybledlé fotografie."
 
-#: src/components/Help.tsx:189
+#: src/components/Help.tsx:191
 msgid "Persistent storage"
 msgstr "Trvalé úložiště"
 
@@ -1760,7 +1772,7 @@ msgstr "Tisk velkého obrázku na více stránek"
 msgid "Print preview"
 msgstr "Náhled tisku"
 
-#: src/components/Help.tsx:131
+#: src/components/Help.tsx:133
 msgid "Privacy policy"
 msgstr "Zásady ochrany osobních údajů"
 
@@ -1776,7 +1788,7 @@ msgstr "Zpracovává se..."
 msgid "Processing... {percent}%"
 msgstr "Zpracovává se... {percent} %"
 
-#: src/components/Help.tsx:212
+#: src/components/Help.tsx:214
 msgid "Quota"
 msgstr "Kvóta"
 
@@ -2242,15 +2254,15 @@ msgstr "Zjednodušený"
 msgid "Simplify photo"
 msgstr "Zjednodušit fotografii"
 
-#: src/components/color/ConsistencyDescription.tsx:147
+#: src/components/color/ConsistencyDescription.tsx:165
 msgid "Slightly overlap oil pastel areas of different colors and blend gently to create a smooth transition"
 msgstr "Mírně překryjte oblasti olejového pastelu různých barev a jemně je prolněte, abyste vytvořili hladký přechod"
 
-#: src/components/color/ConsistencyDescription.tsx:140
+#: src/components/color/ConsistencyDescription.tsx:158
 msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition"
 msgstr "Mírně překryjte oblasti pastelu různých barev a jemně je prolněte, abyste vytvořili hladký přechod"
 
-#: src/components/color/ConsistencyDescription.tsx:154
+#: src/components/color/ConsistencyDescription.tsx:172
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
 msgstr "Mírně překryjte oblasti voskového pastelu různých barev a pevně je prolněte, abyste vytvořili hladký přechod"
 
@@ -2323,7 +2335,7 @@ msgstr "Zátiší"
 msgid "Storage may fill up"
 msgstr "Úložiště se může zaplnit"
 
-#: src/components/Help.tsx:206
+#: src/components/Help.tsx:208
 msgid "Storage usage"
 msgstr "Využití úložiště"
 
@@ -2392,7 +2404,7 @@ msgstr "Cílová barva"
 msgid "Target print size"
 msgstr "Cílová velikost tisku"
 
-#: src/components/Help.tsx:141
+#: src/components/Help.tsx:143
 msgid "Terms of use"
 msgstr "Podmínky použití"
 
@@ -2453,7 +2465,7 @@ msgstr "Existuje jedna společná paleta a samostatná paleta pro každou fotogr
 msgid "Thick"
 msgstr "Silný"
 
-#: src/components/Help.tsx:151
+#: src/components/Help.tsx:153
 msgid "Third-party notices"
 msgstr "Oznámení třetích stran"
 
@@ -2579,7 +2591,7 @@ msgstr "Zkuste přidat barvy nebo změnit povrch, podkladovou vrstvu či sjednoc
 msgid "Turn off WebGPU"
 msgstr "Vypnout WebGPU"
 
-#: src/components/Help.tsx:99
+#: src/components/Help.tsx:101
 msgid "Tutorials and videos"
 msgstr "Návody a videa"
 
@@ -2701,7 +2713,7 @@ msgstr "Nahrávání obrázku {index} / {count}"
 msgid "Upscale"
 msgstr "Zvětšit"
 
-#: src/components/color/ConsistencyDescription.tsx:81
+#: src/components/color/ConsistencyDescription.tsx:92
 msgid "Use <0>{fractionText} of full pressure</0>"
 msgstr "Použijte <0>{fractionText} plného tlaku</0>"
 
@@ -2721,11 +2733,11 @@ msgstr "Použijte plný tlak"
 msgid "Use reference photo"
 msgstr "Použít referenční fotografii"
 
-#: src/components/Help.tsx:180
+#: src/components/Help.tsx:182
 msgid "Use WebGPU"
 msgstr "Používat WebGPU"
 
-#: src/components/Help.tsx:209
+#: src/components/Help.tsx:211
 msgid "Used"
 msgstr "Využito"
 
@@ -2762,11 +2774,15 @@ msgstr "Počkejte na dokončení načítání dat barev."
 msgid "Warm — Algorithmic estimate; artistic perception may vary."
 msgstr "Teplá – algoritmický odhad; umělecké vnímání se může lišit."
 
+#: src/components/messages.ts:73
+msgid "Water-based Markers"
+msgstr "Popisovače na vodní bázi"
+
 #: src/components/ImageStyleTransfer.tsx:80
 msgid "Watercolor"
 msgstr "Akvarel"
 
-#: src/components/color/ConsistencyDescription.tsx:105
+#: src/components/color/ConsistencyDescription.tsx:116
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Akvarel lze ředit vodou, aby byl průhlednější"
 
@@ -2808,7 +2824,7 @@ msgstr "Bílá"
 msgid "White balance"
 msgstr "Vyvážení bílé"
 
-#: src/components/messages.ts:77
+#: src/components/messages.ts:79
 msgid "White paper or canvas"
 msgstr "Bílý papír nebo plátno"
 
@@ -2896,7 +2912,7 @@ msgstr "Vaše obrázky se zpracovávají ve vašem zařízení a odesílají se 
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Vaše přihlašovací údaje nebylo možné ověřit. Přihlaste se znovu."
 
-#: src/components/Help.tsx:250
+#: src/components/Help.tsx:257
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "Vaše členství na Patreonu a data na tomto zařízení smazána nejsou. <0>Zrušte své členství na Patreonu</0> přímo na Patreonu."
 

@@ -126,7 +126,7 @@ msgstr "提案されるすべての混色に混ぜられ、パレットの調和
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "新しいバージョンのアプリが利用可能で、自動的にインストールされます。"
 
-#: src/components/Help.tsx:158
+#: src/components/Help.tsx:160
 msgid "A new version of the application is available."
 msgstr "新しいバージョンのアプリケーションが利用可能です。"
 
@@ -138,11 +138,11 @@ msgstr "100%未満の値では、画像のカラフルさが損なわれ、100%�
 msgid "Accurate"
 msgstr "正確"
 
-#: src/components/messages.ts:73
+#: src/components/messages.ts:75
 msgid "Acrylic Gouache"
 msgstr "アクリルガッシュ"
 
-#: src/components/messages.ts:72
+#: src/components/messages.ts:74
 msgid "Acrylic Markers"
 msgstr "アクリルマーカー"
 
@@ -190,7 +190,11 @@ msgstr "色の調整"
 msgid "Adjust the 4 corners manually."
 msgstr "4隅を手動で調整します。"
 
-#: src/components/Help.tsx:231
+#: src/components/messages.ts:72
+msgid "Alcohol Markers"
+msgstr "アルコールマーカー"
+
+#: src/components/Help.tsx:238
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "インストール後も、すべてのアプリデータはウェブブラウザのストレージに保存されます。ブラウザのデータを消去するとすべてが消えます。"
 
@@ -214,7 +218,7 @@ msgstr "アンダーレイヤーまたは統一色が設定されています。
 msgid "Angle"
 msgstr "角度"
 
-#: src/components/Help.tsx:276
+#: src/components/Help.tsx:283
 msgid "Application build ID"
 msgstr "アプリケーションビルドID"
 
@@ -222,7 +226,7 @@ msgstr "アプリケーションビルドID"
 msgid "Apply"
 msgstr "適用"
 
-#: src/components/color/ConsistencyDescription.tsx:70
+#: src/components/color/ConsistencyDescription.tsx:81
 msgid "Apply a layer at <0>{fractionText} of full thickness</0>"
 msgstr "<0>全体の厚さの {fractionText}</0> でレイヤーを塗ります"
 
@@ -230,15 +234,15 @@ msgstr "<0>全体の厚さの {fractionText}</0> でレイヤーを塗ります"
 msgid "Apply densely"
 msgstr "密に塗る"
 
-#: src/components/color/ConsistencyDescription.tsx:126
+#: src/components/color/ConsistencyDescription.tsx:137
 msgid "Apply less pressure to make the colored pencil layer more transparent"
 msgstr "筆圧を弱めると、色鉛筆の層がより透明になります"
 
-#: src/components/color/ConsistencyDescription.tsx:133
+#: src/components/color/ConsistencyDescription.tsx:144
 msgid "Apply less pressure to make the watercolor pencil layer more transparent"
 msgstr "筆圧を弱めると、水彩色鉛筆の層がより透明になります"
 
-#: src/components/color/ConsistencyDescription.tsx:92
+#: src/components/color/ConsistencyDescription.tsx:103
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
 msgstr "この色とアンダーレイヤーの色のストロークを <0>{ratioText} の比率</0>で塗ります"
 
@@ -285,11 +289,11 @@ msgstr "ArtistAssistAppはクラウドファイルが削除されたことを確
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistAppはあなたのPatreonログインの結果を受け取っていません。これは別のブラウザやアプリでログインを開いたときに起こります。もう一度ログインを試してください。"
 
-#: src/components/Help.tsx:267
+#: src/components/Help.tsx:274
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp は <0>Eugene Khyst</0> によって開発されました"
 
-#: src/components/Help.tsx:243
+#: src/components/Help.tsx:250
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "ArtistAssistAppはあなたのメールアドレスを保存せず、そこから派生したプライベートコードのみを保存し、アドレスを明かすことはできません。Patreonや会員更新でログインすると、そのコードが再び生成されます。"
 
@@ -380,21 +384,21 @@ msgstr "色数順"
 msgid "By consistency"
 msgstr "濃度順"
 
-#: src/components/messages.ts:87
+#: src/components/messages.ts:89
 msgid "By date"
 msgstr "日付順"
 
-#: src/components/messages.ts:82
-#: src/components/messages.ts:89
+#: src/components/messages.ts:84
+#: src/components/messages.ts:91
 msgid "By hue"
 msgstr "色相順"
 
-#: src/components/messages.ts:81
+#: src/components/messages.ts:83
 msgid "By ID"
 msgstr "ID順"
 
-#: src/components/messages.ts:83
-#: src/components/messages.ts:90
+#: src/components/messages.ts:85
+#: src/components/messages.ts:92
 msgid "By lightness"
 msgstr "明度順"
 
@@ -402,7 +406,7 @@ msgstr "明度順"
 msgid "By match"
 msgstr "一致度順"
 
-#: src/components/messages.ts:88
+#: src/components/messages.ts:90
 msgid "By name"
 msgstr "名前順"
 
@@ -424,7 +428,7 @@ msgstr "ARトレーシングにはカメラアクセスが必要です"
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: src/components/Help.tsx:119
+#: src/components/Help.tsx:121
 msgid "Cancel a paid membership"
 msgstr "有料メンバーシップの解約"
 
@@ -436,7 +440,7 @@ msgstr "コピー画像は使用できません"
 msgid "Cells"
 msgstr "セル"
 
-#: src/components/Help.tsx:165
+#: src/components/Help.tsx:167
 msgid "Check for updates"
 msgstr "アップデートの確認"
 
@@ -679,7 +683,7 @@ msgstr "ブレンドしない色よりもターゲットによく一致する場
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "不透明な混色よりもターゲットによく一致する場合は、表面やアンダーレイヤーの上の透明な層も考慮する"
 
-#: src/components/Help.tsx:109
+#: src/components/Help.tsx:111
 msgid "Contact"
 msgstr "お問い合わせ"
 
@@ -869,6 +873,10 @@ msgstr "対角線"
 #: src/components/CustomColorBrandCreator.tsx:458
 msgid "Diameter"
 msgstr "直径"
+
+#: src/components/color/ConsistencyDescription.tsx:151
+msgid "Dilute water-based marker ink with water to make it more transparent"
+msgstr "水性マーカーのインクを水で薄めて、透明度を高めます"
 
 #: src/components/ColorSetChooser.tsx:236
 msgid "Discard changes"
@@ -1190,7 +1198,7 @@ msgstr "アプリをインストール"
 msgid "Install ArtistAssistApp"
 msgstr "ArtistAssistAppをインストールする"
 
-#: src/components/Help.tsx:160
+#: src/components/Help.tsx:162
 msgid "Install update"
 msgstr "アップデートをインストール"
 
@@ -1384,15 +1392,19 @@ msgstr "ミッドトーン"
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "<0>{partsRatioText} の比率</0>で色を混ぜる"
 
+#: src/components/color/ConsistencyDescription.tsx:70
+msgid "Mix ink and water in a <0>{ratioText} ratio</0>"
+msgstr "インクと水を <0>{ratioText} の比率</0>で混ぜます"
+
 #: src/components/color/ConsistencyDescription.tsx:59
 msgid "Mix paint and water in a <0>{ratioText} ratio</0>"
 msgstr "絵の具と水を <0>{ratioText} の比率</0>で混ぜます"
 
-#: src/components/color/ConsistencyDescription.tsx:112
+#: src/components/color/ConsistencyDescription.tsx:123
 msgid "Mix the paint with a glazing medium, such as linseed oil, to apply a thinner, more transparent layer"
 msgstr "亜麻仁油などのグレージングメディウムと絵の具を混ぜて、より薄く透明な層を塗ります"
 
-#: src/components/color/ConsistencyDescription.tsx:119
+#: src/components/color/ConsistencyDescription.tsx:130
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
 msgstr "アクリル用グレージングメディウムと絵の具を混ぜて、より薄く透明な層を塗ります"
 
@@ -1652,7 +1664,7 @@ msgstr "パーセンタイル"
 msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
 msgstr "パーセンタイル: 最も明るい領域を基にしたホワイトバランスで、ほとんどの写真に適しています。参照: 選択した白い領域を使った手動ホワイトバランス。自動: 各カラーチャンネルの黒点と白点を設定し、色あせた写真に適しています。"
 
-#: src/components/Help.tsx:189
+#: src/components/Help.tsx:191
 msgid "Persistent storage"
 msgstr "永続ストレージ"
 
@@ -1760,7 +1772,7 @@ msgstr "大きな画像を複数のページに印刷する"
 msgid "Print preview"
 msgstr "印刷プレビュー"
 
-#: src/components/Help.tsx:131
+#: src/components/Help.tsx:133
 msgid "Privacy policy"
 msgstr "プライバシーポリシー"
 
@@ -1776,7 +1788,7 @@ msgstr "処理中..."
 msgid "Processing... {percent}%"
 msgstr "処理中... {percent}%"
 
-#: src/components/Help.tsx:212
+#: src/components/Help.tsx:214
 msgid "Quota"
 msgstr "割り当て"
 
@@ -2242,15 +2254,15 @@ msgstr "単純化済み"
 msgid "Simplify photo"
 msgstr "写真を単純化"
 
-#: src/components/color/ConsistencyDescription.tsx:147
+#: src/components/color/ConsistencyDescription.tsx:165
 msgid "Slightly overlap oil pastel areas of different colors and blend gently to create a smooth transition"
 msgstr "異なる色のオイルパステルの領域を少し重ね、やさしくブレンドしてなめらかなグラデーションを作ります"
 
-#: src/components/color/ConsistencyDescription.tsx:140
+#: src/components/color/ConsistencyDescription.tsx:158
 msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition"
 msgstr "異なる色のパステルの領域を少し重ね、やさしくブレンドしてなめらかなグラデーションを作ります"
 
-#: src/components/color/ConsistencyDescription.tsx:154
+#: src/components/color/ConsistencyDescription.tsx:172
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
 msgstr "異なる色のワックスパステルの領域を少し重ね、しっかりブレンドしてなめらかなグラデーションを作ります"
 
@@ -2323,7 +2335,7 @@ msgstr "静物画"
 msgid "Storage may fill up"
 msgstr "ストレージがいっぱいになる可能性があります"
 
-#: src/components/Help.tsx:206
+#: src/components/Help.tsx:208
 msgid "Storage usage"
 msgstr "ストレージ使用量"
 
@@ -2392,7 +2404,7 @@ msgstr "ターゲットカラー"
 msgid "Target print size"
 msgstr "目標印刷サイズ"
 
-#: src/components/Help.tsx:141
+#: src/components/Help.tsx:143
 msgid "Terms of use"
 msgstr "利用規約"
 
@@ -2453,7 +2465,7 @@ msgstr "共通のパレットが 1 つと、写真ごとに個別のパレット
 msgid "Thick"
 msgstr "太い"
 
-#: src/components/Help.tsx:151
+#: src/components/Help.tsx:153
 msgid "Third-party notices"
 msgstr "サードパーティライセンス"
 
@@ -2579,7 +2591,7 @@ msgstr "色を追加するか、表面、アンダーレイヤー、統一色を
 msgid "Turn off WebGPU"
 msgstr "WebGPUをオフにする"
 
-#: src/components/Help.tsx:99
+#: src/components/Help.tsx:101
 msgid "Tutorials and videos"
 msgstr "チュートリアルと動画"
 
@@ -2701,7 +2713,7 @@ msgstr "画像 {index} / {count} をアップロードしています"
 msgid "Upscale"
 msgstr "アップスケール"
 
-#: src/components/color/ConsistencyDescription.tsx:81
+#: src/components/color/ConsistencyDescription.tsx:92
 msgid "Use <0>{fractionText} of full pressure</0>"
 msgstr "<0>最大筆圧の {fractionText}</0> で描きます"
 
@@ -2721,11 +2733,11 @@ msgstr "最大筆圧で描きます"
 msgid "Use reference photo"
 msgstr "参照写真を使用"
 
-#: src/components/Help.tsx:180
+#: src/components/Help.tsx:182
 msgid "Use WebGPU"
 msgstr "WebGPUを使用"
 
-#: src/components/Help.tsx:209
+#: src/components/Help.tsx:211
 msgid "Used"
 msgstr "使用量"
 
@@ -2762,11 +2774,15 @@ msgstr "カラーデータの読み込みが完了するまで待ちます。"
 msgid "Warm — Algorithmic estimate; artistic perception may vary."
 msgstr "暖色 — アルゴリズムによる推定。芸術的な認識は異なる場合があります。"
 
+#: src/components/messages.ts:73
+msgid "Water-based Markers"
+msgstr "水性マーカー"
+
 #: src/components/ImageStyleTransfer.tsx:80
 msgid "Watercolor"
 msgstr "水彩"
 
-#: src/components/color/ConsistencyDescription.tsx:105
+#: src/components/color/ConsistencyDescription.tsx:116
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "水彩絵の具は水で薄めるとより透明になります"
 
@@ -2808,7 +2824,7 @@ msgstr "白"
 msgid "White balance"
 msgstr "ホワイトバランス"
 
-#: src/components/messages.ts:77
+#: src/components/messages.ts:79
 msgid "White paper or canvas"
 msgstr "白い紙またはキャンバス"
 
@@ -2896,7 +2912,7 @@ msgstr "画像はお使いのデバイス上で処理され、接続したクラ
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "ログイン情報が確認できませんでした。もう一度サインインしてください。"
 
-#: src/components/Help.tsx:250
+#: src/components/Help.tsx:257
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "Patreon メンバーシップとこのデバイス上のデータは削除されません。Patreon 上で <0>Patreon メンバーシップを解約してください</0>。"
 

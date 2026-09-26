@@ -126,7 +126,7 @@ msgstr "En färg blandad i varje föreslagen blandning för att hjälpa paletten
 msgid "A new version of the app is available and will be installed automatically."
 msgstr "En ny version av appen finns tillgänglig och kommer att installeras automatiskt."
 
-#: src/components/Help.tsx:158
+#: src/components/Help.tsx:160
 msgid "A new version of the application is available."
 msgstr "En ny version av applikationen finns tillgänglig."
 
@@ -138,11 +138,11 @@ msgstr "Ett värde som är mindre än 100 % gör att bilden ser mindre färgglad
 msgid "Accurate"
 msgstr "Exakt"
 
-#: src/components/messages.ts:73
+#: src/components/messages.ts:75
 msgid "Acrylic Gouache"
 msgstr "Akrylgouache"
 
-#: src/components/messages.ts:72
+#: src/components/messages.ts:74
 msgid "Acrylic Markers"
 msgstr "Akrylmarkörer"
 
@@ -190,7 +190,11 @@ msgstr "Justera färger"
 msgid "Adjust the 4 corners manually."
 msgstr "Justera de 4 hörnen manuellt."
 
-#: src/components/Help.tsx:231
+#: src/components/messages.ts:72
+msgid "Alcohol Markers"
+msgstr "Alkoholbaserade markörer"
+
+#: src/components/Help.tsx:238
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "All appdata lagras i webbläsarens lagring, även efter installation. Att rensa webbläsardata raderar allt."
 
@@ -214,7 +218,7 @@ msgstr "Ett underskikt eller en sammanhållande färg är inställd. Den automat
 msgid "Angle"
 msgstr "Vinkel"
 
-#: src/components/Help.tsx:276
+#: src/components/Help.tsx:283
 msgid "Application build ID"
 msgstr "Applikationens build-ID"
 
@@ -222,7 +226,7 @@ msgstr "Applikationens build-ID"
 msgid "Apply"
 msgstr "Använd"
 
-#: src/components/color/ConsistencyDescription.tsx:70
+#: src/components/color/ConsistencyDescription.tsx:81
 msgid "Apply a layer at <0>{fractionText} of full thickness</0>"
 msgstr "Applicera ett lager med <0>{fractionText} av full tjocklek</0>"
 
@@ -230,15 +234,15 @@ msgstr "Applicera ett lager med <0>{fractionText} av full tjocklek</0>"
 msgid "Apply densely"
 msgstr "Applicera tätt"
 
-#: src/components/color/ConsistencyDescription.tsx:126
+#: src/components/color/ConsistencyDescription.tsx:137
 msgid "Apply less pressure to make the colored pencil layer more transparent"
 msgstr "Applicera mindre tryck för att göra färgpennslagret mer transparent"
 
-#: src/components/color/ConsistencyDescription.tsx:133
+#: src/components/color/ConsistencyDescription.tsx:144
 msgid "Apply less pressure to make the watercolor pencil layer more transparent"
 msgstr "Applicera mindre tryck för att göra akvarellpennslagret mer transparent"
 
-#: src/components/color/ConsistencyDescription.tsx:92
+#: src/components/color/ConsistencyDescription.tsx:103
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
 msgstr "Applicera streck av denna färg och underskiktsfärgen i ett <0>{ratioText}-förhållande</0>"
 
@@ -285,11 +289,11 @@ msgstr "ArtistAssistApp kunde inte bekräfta att dina molnfiler hade raderats. T
 msgid "ArtistAssistApp did not receive the result of your Patreon login. This can happen when login opens in another browser or app. Please try logging in again."
 msgstr "ArtistAssistApp fick inte resultatet av din Patreon-inloggning. Detta kan hända när inloggning öppnas i en annan webbläsare eller app. Försök logga in igen."
 
-#: src/components/Help.tsx:267
+#: src/components/Help.tsx:274
 msgid "ArtistAssistApp is developed by <0>Eugene Khyst</0>"
 msgstr "ArtistAssistApp är utvecklat av <0>Eugene Khyst</0>"
 
-#: src/components/Help.tsx:243
+#: src/components/Help.tsx:250
 msgid "ArtistAssistApp never stores your email address, only a private code derived from it that cannot reveal the address. Logging in with Patreon or a membership renewal creates that code again."
 msgstr "ArtistAssistApp lagrar aldrig din e-postadress, bara en privat kod härledd från den som inte kan avslöja adressen. Att logga in med Patreon eller en medlemsförnyelse skapar den koden igen."
 
@@ -380,21 +384,21 @@ msgstr "Efter antal färger"
 msgid "By consistency"
 msgstr "Efter konsistens"
 
-#: src/components/messages.ts:87
+#: src/components/messages.ts:89
 msgid "By date"
 msgstr "Efter datum"
 
-#: src/components/messages.ts:82
-#: src/components/messages.ts:89
+#: src/components/messages.ts:84
+#: src/components/messages.ts:91
 msgid "By hue"
 msgstr "Efter nyans"
 
-#: src/components/messages.ts:81
+#: src/components/messages.ts:83
 msgid "By ID"
 msgstr "Efter ID"
 
-#: src/components/messages.ts:83
-#: src/components/messages.ts:90
+#: src/components/messages.ts:85
+#: src/components/messages.ts:92
 msgid "By lightness"
 msgstr "Efter ljushet"
 
@@ -402,7 +406,7 @@ msgstr "Efter ljushet"
 msgid "By match"
 msgstr "Efter matchning"
 
-#: src/components/messages.ts:88
+#: src/components/messages.ts:90
 msgid "By name"
 msgstr "Efter namn"
 
@@ -424,7 +428,7 @@ msgstr "Kameraåtkomst krävs för att kalkera i AR"
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: src/components/Help.tsx:119
+#: src/components/Help.tsx:121
 msgid "Cancel a paid membership"
 msgstr "Avsluta ett betalt medlemskap"
 
@@ -436,7 +440,7 @@ msgstr "Kan inte använda kopierad bild"
 msgid "Cells"
 msgstr "Rutor"
 
-#: src/components/Help.tsx:165
+#: src/components/Help.tsx:167
 msgid "Check for updates"
 msgstr "Sök efter uppdateringar"
 
@@ -679,7 +683,7 @@ msgstr "Ta hänsyn till färger som tonas över underskiktet när de matchar må
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "Ta hänsyn till genomskinliga lager över ytan eller underskiktet när de matchar målet bättre än täckande blandningar"
 
-#: src/components/Help.tsx:109
+#: src/components/Help.tsx:111
 msgid "Contact"
 msgstr "Kontakt"
 
@@ -869,6 +873,10 @@ msgstr "Diagonaler"
 #: src/components/CustomColorBrandCreator.tsx:458
 msgid "Diameter"
 msgstr "Diameter"
+
+#: src/components/color/ConsistencyDescription.tsx:151
+msgid "Dilute water-based marker ink with water to make it more transparent"
+msgstr "Späd ut bläcket från vattenbaserade markörer med vatten för att göra det mer transparent"
 
 #: src/components/ColorSetChooser.tsx:236
 msgid "Discard changes"
@@ -1190,7 +1198,7 @@ msgstr "Installera app"
 msgid "Install ArtistAssistApp"
 msgstr "Installera ArtistAssistApp"
 
-#: src/components/Help.tsx:160
+#: src/components/Help.tsx:162
 msgid "Install update"
 msgstr "Installera uppdatering"
 
@@ -1384,15 +1392,19 @@ msgstr "Mellantoner"
 msgid "Mix colors in a <0>{partsRatioText} ratio</0>"
 msgstr "Blanda färger i ett <0>{partsRatioText}-förhållande</0>"
 
+#: src/components/color/ConsistencyDescription.tsx:70
+msgid "Mix ink and water in a <0>{ratioText} ratio</0>"
+msgstr "Blanda bläck och vatten i ett <0>{ratioText}-förhållande</0>"
+
 #: src/components/color/ConsistencyDescription.tsx:59
 msgid "Mix paint and water in a <0>{ratioText} ratio</0>"
 msgstr "Blanda färg och vatten i ett <0>{ratioText}-förhållande</0>"
 
-#: src/components/color/ConsistencyDescription.tsx:112
+#: src/components/color/ConsistencyDescription.tsx:123
 msgid "Mix the paint with a glazing medium, such as linseed oil, to apply a thinner, more transparent layer"
 msgstr "Blanda färgen med ett laseringsmedium, till exempel linolja, för att lägga på ett tunnare och mer transparent lager"
 
-#: src/components/color/ConsistencyDescription.tsx:119
+#: src/components/color/ConsistencyDescription.tsx:130
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
 msgstr "Blanda färgen med ett akryllaseringsmedium för att lägga på ett tunnare och mer transparent lager"
 
@@ -1652,7 +1664,7 @@ msgstr "Percentil"
 msgid "Percentile: White balance from brightest areas, good for most photos. Reference: Manual white balance using selected white area. Auto: Sets the black and white points of each color channel, good for faded photos."
 msgstr "Percentil: Vitbalans från de ljusaste områdena, lämplig för de flesta foton. Referens: Manuell vitbalans med det valda vita området. Automatisk: Ställer in svart- och vitpunkten för varje färgkanal, lämplig för blekta foton."
 
-#: src/components/Help.tsx:189
+#: src/components/Help.tsx:191
 msgid "Persistent storage"
 msgstr "Beständig lagring"
 
@@ -1760,7 +1772,7 @@ msgstr "Skriv ut en stor bild på flera sidor"
 msgid "Print preview"
 msgstr "Förhandsgranskning av utskrift"
 
-#: src/components/Help.tsx:131
+#: src/components/Help.tsx:133
 msgid "Privacy policy"
 msgstr "Integritetspolicy"
 
@@ -1776,7 +1788,7 @@ msgstr "Bearbetar..."
 msgid "Processing... {percent}%"
 msgstr "Bearbetar... {percent} %"
 
-#: src/components/Help.tsx:212
+#: src/components/Help.tsx:214
 msgid "Quota"
 msgstr "Kvot"
 
@@ -2242,15 +2254,15 @@ msgstr "Förenklat"
 msgid "Simplify photo"
 msgstr "Förenkla foto"
 
-#: src/components/color/ConsistencyDescription.tsx:147
+#: src/components/color/ConsistencyDescription.tsx:165
 msgid "Slightly overlap oil pastel areas of different colors and blend gently to create a smooth transition"
 msgstr "Låt oljepastellområden i olika färger överlappa något och tona försiktigt för att skapa en mjuk övergång"
 
-#: src/components/color/ConsistencyDescription.tsx:140
+#: src/components/color/ConsistencyDescription.tsx:158
 msgid "Slightly overlap pastel areas of different colors and blend gently to create a smooth transition"
 msgstr "Låt pastellområden i olika färger överlappa något och tona försiktigt för att skapa en mjuk övergång"
 
-#: src/components/color/ConsistencyDescription.tsx:154
+#: src/components/color/ConsistencyDescription.tsx:172
 msgid "Slightly overlap wax pastel areas of different colors and blend firmly to create a smooth transition"
 msgstr "Låt vaxpastellområden i olika färger överlappa något och tona ordentligt för att skapa en mjuk övergång"
 
@@ -2323,7 +2335,7 @@ msgstr "Stilleben"
 msgid "Storage may fill up"
 msgstr "Lagringsutrymmet kan ta slut"
 
-#: src/components/Help.tsx:206
+#: src/components/Help.tsx:208
 msgid "Storage usage"
 msgstr "Användning av lagringsutrymme"
 
@@ -2392,7 +2404,7 @@ msgstr "Målfärg"
 msgid "Target print size"
 msgstr "Önskad utskriftsstorlek"
 
-#: src/components/Help.tsx:141
+#: src/components/Help.tsx:143
 msgid "Terms of use"
 msgstr "Villkor för användning"
 
@@ -2453,7 +2465,7 @@ msgstr "Det finns en gemensam palett och en separat palett för varje foto"
 msgid "Thick"
 msgstr "Tjock"
 
-#: src/components/Help.tsx:151
+#: src/components/Help.tsx:153
 msgid "Third-party notices"
 msgstr "Meddelanden om programvara från tredje part"
 
@@ -2579,7 +2591,7 @@ msgstr "Prova att lägga till färger eller ändra ytan, underskiktet eller den 
 msgid "Turn off WebGPU"
 msgstr "Stäng av WebGPU"
 
-#: src/components/Help.tsx:99
+#: src/components/Help.tsx:101
 msgid "Tutorials and videos"
 msgstr "Handledningar och videor"
 
@@ -2701,7 +2713,7 @@ msgstr "Laddar upp bild {index} / {count}"
 msgid "Upscale"
 msgstr "Skala upp"
 
-#: src/components/color/ConsistencyDescription.tsx:81
+#: src/components/color/ConsistencyDescription.tsx:92
 msgid "Use <0>{fractionText} of full pressure</0>"
 msgstr "Använd <0>{fractionText} av fullt tryck</0>"
 
@@ -2721,11 +2733,11 @@ msgstr "Använd fullt tryck"
 msgid "Use reference photo"
 msgstr "Använd referensfoto"
 
-#: src/components/Help.tsx:180
+#: src/components/Help.tsx:182
 msgid "Use WebGPU"
 msgstr "Använd WebGPU"
 
-#: src/components/Help.tsx:209
+#: src/components/Help.tsx:211
 msgid "Used"
 msgstr "Använt"
 
@@ -2762,11 +2774,15 @@ msgstr "Vänta tills färgdatan har laddats klart."
 msgid "Warm — Algorithmic estimate; artistic perception may vary."
 msgstr "Varm — algoritmisk uppskattning; konstnärlig uppfattning kan variera."
 
+#: src/components/messages.ts:73
+msgid "Water-based Markers"
+msgstr "Vattenbaserade markörer"
+
 #: src/components/ImageStyleTransfer.tsx:80
 msgid "Watercolor"
 msgstr "Akvarell"
 
-#: src/components/color/ConsistencyDescription.tsx:105
+#: src/components/color/ConsistencyDescription.tsx:116
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Akvarell kan spädas ut med vatten för att göra den mer transparent"
 
@@ -2808,7 +2824,7 @@ msgstr "Vit"
 msgid "White balance"
 msgstr "Vitbalans"
 
-#: src/components/messages.ts:77
+#: src/components/messages.ts:79
 msgid "White paper or canvas"
 msgstr "Vitt papper eller duk"
 
@@ -2896,7 +2912,7 @@ msgstr "Dina bilder behandlas på din enhet och skickas endast till molnlagring 
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Dina inloggningsuppgifter kunde inte verifieras. Logga in igen."
 
-#: src/components/Help.tsx:250
+#: src/components/Help.tsx:257
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."
 msgstr "Ditt Patreon-medlemskap och data på den här enheten raderas inte. <0>Avsluta ditt Patreon-medlemskap</0> på Patreon."
 

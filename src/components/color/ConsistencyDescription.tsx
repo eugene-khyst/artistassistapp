@@ -63,6 +63,17 @@ const dilutedInWater = (fraction: Fraction) => {
   );
 };
 
+const dilutedInkInWater = (fraction: Fraction) => {
+  const ratioText = formatRatio(fraction);
+  return (
+    <Typography.Text>
+      <Trans>
+        Mix ink and water in a <Typography.Text strong>{ratioText} ratio</Typography.Text>
+      </Trans>
+    </Typography.Text>
+  );
+};
+
 const layerThickness = (fraction: Fraction) => {
   const fractionText: string = formatFraction(fraction);
   return (
@@ -131,6 +142,13 @@ const DESCRIPTIONS: Partial<Record<ColorType, ConsistencyDescriptionConfig>> = {
     transparent: {
       labelRender: pressure,
       tooltip: defineMessage`Apply less pressure to make the watercolor pencil layer more transparent`,
+    },
+  },
+  [ColorType.WaterBasedMarkers]: {
+    fullStrength,
+    transparent: {
+      labelRender: dilutedInkInWater,
+      tooltip: defineMessage`Dilute water-based marker ink with water to make it more transparent`,
     },
   },
   [ColorType.DryPastel]: {

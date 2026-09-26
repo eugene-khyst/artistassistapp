@@ -16,10 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {WebGLRenderer} from '@/services/image/filter/webgl-renderer';
+import {gaussianBlurRenderPasses} from '@/services/image/filter/gaussian-blur-webgl';
+import type {KernelSize} from '@/services/image/filter/types';
+import {type RenderPass, WebGLRenderer} from '@/services/image/filter/webgl-renderer';
 import {copyOffscreenCanvas} from '@/utils/graphics';
 
-import fragmentShaderSource from './glsl/threshold.glsl';
+import gaussianBlurFragmentShaderSource from './glsl/gaussian-blur.glsl';
+import grayscaleFragmentShaderSource from './glsl/grayscale-oklab-lightness.glsl';
+import thresholdFragmentShaderSource from './glsl/threshold.glsl';
+
+export interface ThresholdParams {
+  grayscaleInput?: boolean;
+  gaussianBlurKernelSize?: KernelSize;
+}
 
 const desc = (a: number, b: number) => b - a;
 
@@ -27,29 +36,47 @@ export function thresholdFilterWebGL(
   image: OffscreenCanvas,
   thresholds: number[],
   values: number[],
-  grayscaleInput = false
+  {grayscaleInput = false, gaussianBlurKernelSize}: ThresholdParams = {}
 ): OffscreenCanvas[] {
-  const renderer = new WebGLRenderer(
-    [fragmentShaderSource],
-    [['u_thresholds', 'u_values', 'u_tone', 'u_grayscale']],
-    image
-  );
+  const fragmentShaderSources: string[] = [];
+  const uniformNames: string[][] = [];
+  const renderPasses: RenderPass[] = [];
+  let i = 0;
+  if (!grayscaleInput) {
+    renderPasses.push({programIndex: i++});
+    fragmentShaderSources.push(grayscaleFragmentShaderSource);
+    uniformNames.push([]);
+  }
+  if (gaussianBlurKernelSize !== undefined) {
+    renderPasses.push(...gaussianBlurRenderPasses(gaussianBlurKernelSize, i++));
+    fragmentShaderSources.push(gaussianBlurFragmentShaderSource);
+    uniformNames.push(['u_kernel', 'u_kernelSize', 'u_direction']);
+  }
+  fragmentShaderSources.push(thresholdFragmentShaderSource);
+  uniformNames.push(['u_thresholds', 'u_values', 'u_tone']);
+  const renderer = new WebGLRenderer(fragmentShaderSources, uniformNames, image, {
+    // Reduce lightness rounding between passes so pixels near a threshold stay in the correct band.
+    floatRenderTargets: renderPasses.length > 0,
+  });
   thresholds = [...thresholds].sort(desc);
   values = [...values].sort(desc);
-  const results: OffscreenCanvas[] = thresholds.map((_, i) => {
-    renderer.clear();
-    renderer.render([
-      {
-        setUniforms(gl, locations) {
-          gl.uniform1fv(locations.get('u_thresholds')!, new Float32Array(thresholds));
-          gl.uniform1fv(locations.get('u_values')!, new Float32Array(values));
-          gl.uniform1i(locations.get('u_tone')!, i);
-          gl.uniform1i(locations.get('u_grayscale')!, grayscaleInput ? 1 : 0);
+  try {
+    return thresholds.map((_, toneIndex) => {
+      renderer.clear();
+      renderer.render([
+        ...renderPasses,
+        {
+          programIndex: i,
+          setUniforms(gl, locations) {
+            gl.uniform1fv(locations.get('u_thresholds')!, new Float32Array(thresholds));
+            gl.uniform1fv(locations.get('u_values')!, new Float32Array(values));
+            gl.uniform1i(locations.get('u_tone')!, toneIndex);
+          },
         },
-      },
-    ]);
-    return copyOffscreenCanvas(renderer.canvas);
-  });
-  renderer.cleanUp();
-  return results;
+      ]);
+      return copyOffscreenCanvas(renderer.canvas);
+    });
+  } finally {
+    renderer.cleanUp();
+  }
 }
