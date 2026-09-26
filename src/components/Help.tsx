@@ -43,6 +43,8 @@ import {
 
 import {DeleteAccountButton} from '@/components/auth/DeleteAccountButton';
 import {LoadingButton} from '@/components/button/LoadingButton';
+import {ExportToZipButton} from '@/components/cloud/ExportToZipButton';
+import {ImportFromZipFileSelect} from '@/components/cloud/ImportFromZipFileSelect';
 import {ResetSettingsButton} from '@/components/settings/ResetSettingsButton';
 import {ClearCacheButton} from '@/components/storage/ClearCacheButton';
 import {DeleteAppDataButton} from '@/components/storage/DeleteAppDataButton';
@@ -224,6 +226,11 @@ export function Help() {
       </Flex>
 
       <ClearCacheButton />
+
+      <Space>
+        <ExportToZipButton />
+        <ImportFromZipFileSelect />
+      </Space>
 
       <Flex vertical gap={0} align="center">
         <DeleteAppDataButton />
