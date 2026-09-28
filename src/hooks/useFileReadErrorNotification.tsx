@@ -20,21 +20,36 @@ import {Trans} from '@lingui/react/macro';
 import {App} from 'antd';
 import {useCallback} from 'react';
 
-export function useFileReadErrorNotification(): () => void {
+import {getErrorMessage} from '@/utils/error';
+
+const FILE_READ_ERROR_NOTIFICATION_KEY = 'file-read-error';
+
+export function useFileReadErrorNotification(): (error: unknown) => void {
   const {notification} = App.useApp();
 
-  return useCallback(() => {
-    notification.error({
-      title: <Trans>Could not read the file</Trans>,
-      description: (
-        <Trans>
-          The file might have been moved or deleted, or it could be stored in the cloud and not
-          downloaded to this device. Download it to this device, then select it again.
-        </Trans>
-      ),
-      placement: 'top',
-      duration: 10,
-      showProgress: true,
-    });
-  }, [notification]);
+  return useCallback(
+    (error: unknown) => {
+      const details =
+        error instanceof Error || error instanceof DOMException
+          ? `${error.name}: ${error.message}`
+          : getErrorMessage(error);
+      notification.error({
+        key: FILE_READ_ERROR_NOTIFICATION_KEY,
+        title: <Trans>Could not read the file</Trans>,
+        description: (
+          <>
+            <Trans>
+              The file could not be read. Select a copy from Files on this device. If it is in cloud
+              storage, download it first.
+            </Trans>
+            {details && <div>{details}</div>}
+          </>
+        ),
+        placement: 'top',
+        duration: 10,
+        showProgress: true,
+      });
+    },
+    [notification]
+  );
 }

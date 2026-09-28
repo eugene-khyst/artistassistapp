@@ -82,7 +82,7 @@ export function ImageChooser() {
       imageFile = await fileToImageFile(file);
     } catch (error) {
       console.error(error);
-      showFileReadErrorNotification();
+      showFileReadErrorNotification(error);
       return;
     }
     if (!(await hasImageFile(imageFile.digest)) && (await countImageFiles()) >= MAX_IMAGE_FILES) {
@@ -106,7 +106,7 @@ export function ImageChooser() {
       }
     }
     const granted = await requestPersistentStorage();
-    void saveRecentImageFile(imageFile);
+    await saveRecentImageFile(imageFile);
     showStorageNotification(granted);
   };
 

@@ -47,7 +47,7 @@ import {useSelectedCatalogItem} from '@/hooks/useSelectedCatalogItem';
 import {useStyleImages} from '@/hooks/useStyleImages';
 import {Access} from '@/services/auth/types';
 import {hasAccessTo} from '@/services/auth/utils';
-import {blobToImageFile, fileToImageFile} from '@/services/image/image-file';
+import {blobToImageFile, fileToImageFile, type ImageFile} from '@/services/image/image-file';
 import {CUSTOM_STYLE_IMAGE_ID, type StyleImageDefinition} from '@/services/image/style-images';
 import {OnnxModelType} from '@/services/ml/types';
 import {useAppStore} from '@/stores/app-store';
@@ -281,13 +281,15 @@ export function ImageStyleTransfer() {
                             if (!file) {
                               return;
                             }
+                            let imageFile: ImageFile;
                             try {
-                              await saveCustomStyleImage(await fileToImageFile(file));
+                              imageFile = await fileToImageFile(file);
                             } catch (error) {
                               console.error(error);
-                              showFileReadErrorNotification();
+                              showFileReadErrorNotification(error);
                               return;
                             }
+                            await saveCustomStyleImage(imageFile);
                             selectStyleImage(CUSTOM_STYLE_IMAGE_ID);
                           }}
                           onClear={() => {

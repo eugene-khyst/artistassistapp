@@ -1065,11 +1065,11 @@ msgstr "Γέμισμα"
 msgid "Fill in the required fields"
 msgstr "Συμπληρώστε τα απαιτούμενα πεδία"
 
-#: src/components/ImageStyleTransfer.tsx:399
+#: src/components/ImageStyleTransfer.tsx:401
 msgid "Filter by artist"
 msgstr "Φιλτράρισμα ανά καλλιτέχνη"
 
-#: src/components/ImageStyleTransfer.tsx:412
+#: src/components/ImageStyleTransfer.tsx:414
 msgid "Filter by tag"
 msgstr "Φιλτράρισμα ανά ετικέτα"
 
@@ -1829,7 +1829,7 @@ msgstr "Μειώστε τον αριθμό των χρωμάτων στη φωτ
 msgid "Reference"
 msgstr "Αναφορά"
 
-#: src/components/ImageStyleTransfer.tsx:377
+#: src/components/ImageStyleTransfer.tsx:379
 msgid "Reference photo"
 msgstr "Φωτογραφία αναφοράς"
 
@@ -1991,7 +1991,7 @@ msgstr "Επιλέξτε από τη συσκευή σας μια φωτογρα
 msgid "Select a standard or custom color set"
 msgstr "Επιλέξτε ένα τυπικό ή προσαρμοσμένο σετ χρωμάτων"
 
-#: src/components/ImageStyleTransfer.tsx:384
+#: src/components/ImageStyleTransfer.tsx:386
 msgid "Select a style to transfer to your reference photo"
 msgstr "Επιλέξτε ένα στυλ για μεταφορά στη φωτογραφία αναφοράς σας"
 
@@ -2094,7 +2094,7 @@ msgstr "Επιλογή φωτογραφίας"
 msgid "Select set"
 msgstr "Επιλογή σετ"
 
-#: src/components/ImageStyleTransfer.tsx:298
+#: src/components/ImageStyleTransfer.tsx:300
 msgid "Select style image"
 msgstr "Επιλογή εικόνας στυλ"
 
@@ -2348,11 +2348,11 @@ msgstr "Ένταση"
 msgid "Strokes"
 msgstr "Πινελιές"
 
-#: src/components/ImageStyleTransfer.tsx:422
+#: src/components/ImageStyleTransfer.tsx:424
 msgid "Style transfer is available only to paid Patreon members"
 msgstr "Η μεταφορά στυλ είναι διαθέσιμη μόνο σε μέλη Patreon επί πληρωμή"
 
-#: src/components/ImageStyleTransfer.tsx:377
+#: src/components/ImageStyleTransfer.tsx:379
 msgid "Styled reference photo"
 msgstr "Στυλιζαρισμένη φωτογραφία αναφοράς"
 
@@ -2450,8 +2450,8 @@ msgid "The existing pastel layer you want to blend over."
 msgstr "Η υπάρχουσα στρώση παστέλ πάνω στην οποία θέλετε να απαλύνετε."
 
 #: src/hooks/useFileReadErrorNotification.tsx:30
-msgid "The file might have been moved or deleted, or it could be stored in the cloud and not downloaded to this device. Download it to this device, then select it again."
-msgstr "Το αρχείο μπορεί να έχει μετακινηθεί ή διαγραφεί ή μπορεί να έχει αποθηκευτεί στο cloud και να μην έχει ληφθεί σε αυτήν τη συσκευή. Κατεβάστε το σε αυτήν τη συσκευή και, στη συνέχεια, επιλέξτε το ξανά."
+msgid "The file could not be read right now. Try selecting it again. If it is in cloud storage, download it to this device first."
+msgstr "Δεν ήταν δυνατή η ανάγνωση του αρχείου αυτήν τη στιγμή. Δοκιμάστε να το επιλέξετε ξανά. Αν βρίσκεται σε χώρο αποθήκευσης στο cloud, κατεβάστε το πρώτα σε αυτήν τη συσκευή."
 
 #: src/components/print/PrintImageDrawer.tsx:258
 msgid "The margin is too large"
@@ -2521,7 +2521,7 @@ msgstr "Αυτό το μέγεθος εκτύπωσης δεν υποστηρί�
 msgid "This step is optional"
 msgstr "Αυτό το βήμα είναι προαιρετικό"
 
-#: src/components/ImageStyleTransfer.tsx:332
+#: src/components/ImageStyleTransfer.tsx:334
 msgid "This style is available only to paid Patreon members"
 msgstr "Αυτό το στυλ είναι διαθέσιμο μόνο σε μέλη Patreon επί πληρωμή"
 
@@ -2559,11 +2559,11 @@ msgstr "Πάρα πολλοί λανθασμένοι κωδικοί"
 msgid "Too many requests"
 msgstr "Πάρα πολλά αιτήματα"
 
-#: src/components/ImageStyleTransfer.tsx:311
+#: src/components/ImageStyleTransfer.tsx:313
 msgid "Transfer the artistic style from your own image"
 msgstr "Μεταφέρετε το καλλιτεχνικό στυλ από τη δική σας εικόνα"
 
-#: src/components/ImageStyleTransfer.tsx:327
+#: src/components/ImageStyleTransfer.tsx:329
 msgid "Transferring the style from your own image is available to paid Patreon members only"
 msgstr "Η μεταφορά του στυλ από τη δική σας εικόνα είναι διαθέσιμη μόνο στα επί πληρωμή μέλη Patreon"
 
@@ -2897,14 +2897,14 @@ msgstr "Τα σετ χρωμάτων, οι φωτογραφίες αναφορά
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "Τα δεδομένα σας ενδέχεται να μην αποθηκευτούν αξιόπιστα εάν το πρόγραμμα περιήγησης είναι κλειστό. Για να το διορθώσετε, εγκαταστήστε την εφαρμογή."
 
-#: src/components/ImageStyleTransfer.tsx:306
+#: src/components/ImageStyleTransfer.tsx:308
 msgid "Your image"
 msgstr "Η εικόνα σας"
 
 #: src/components/ImageChooser.tsx:128
 #: src/components/ImageEditor.tsx:307
 #: src/components/ImagesCompare.tsx:128
-#: src/components/ImageStyleTransfer.tsx:318
+#: src/components/ImageStyleTransfer.tsx:320
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"
 msgstr "Οι εικόνες σας υποβάλλονται σε επεξεργασία στη συσκευή σας και αποστέλλονται μόνο σε χώρο αποθήκευσης στο cloud που συνδέετε"
 

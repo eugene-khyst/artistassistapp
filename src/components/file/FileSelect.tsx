@@ -39,6 +39,7 @@ import {type Accept, type FileRejection, useDropzone} from 'react-dropzone';
 
 import {imageFileToFile} from '@/services/image/image-file';
 import {useAppStore} from '@/stores/app-store';
+import {getOS, OS} from '@/utils/environment';
 import {findAcceptedMimeType} from '@/utils/mime';
 
 type Props = PropsWithChildren<
@@ -111,17 +112,22 @@ export function FileSelect({
 
   const busy = !!(disabled || loading || isLoading);
 
-  const {getRootProps, getInputProps, inputRef, isDragActive} = useDropzone({
+  const {getRootProps, getInputProps, open, isDragActive} = useDropzone({
     noClick: true,
     accept,
     multiple: multiple ?? false,
     onDrop,
     disabled: busy,
   });
-
-  const handleClick = () => {
-    inputRef.current.click();
-  };
+  const inputProps = getInputProps();
+  const acceptedTypes = Object.keys(accept);
+  // A fake type bypasses the Android photo picker that can return unreadable files.
+  const inputAccept =
+    getOS() === OS.ANDROID &&
+    acceptedTypes.length > 0 &&
+    acceptedTypes.every(type => type.startsWith('image/') || type.startsWith('video/'))
+      ? `${inputProps.accept},application/x-artistassistapp-image`
+      : inputProps.accept;
 
   const handleClipboardImageClick = (): Promise<void> =>
     withLoading(async () => {
@@ -209,7 +215,7 @@ export function FileSelect({
 
   return (
     <div {...getRootProps()}>
-      <input {...getInputProps()} />
+      <input {...inputProps} accept={inputAccept} />
 
       {isDragActive ? (
         <Button color="primary" variant="dashed" icon={screens.sm ? <InboxOutlined /> : null}>
@@ -220,7 +226,7 @@ export function FileSelect({
           <Button
             type={type}
             icon={screens.sm ? <UploadOutlined /> : null}
-            onClick={handleClick}
+            onClick={open}
             disabled={disabled}
             loading={loading || isLoading}
           >

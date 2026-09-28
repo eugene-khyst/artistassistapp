@@ -1065,11 +1065,11 @@ msgstr "भराव"
 msgid "Fill in the required fields"
 msgstr "आवश्यक फ़ील्ड भरें"
 
-#: src/components/ImageStyleTransfer.tsx:399
+#: src/components/ImageStyleTransfer.tsx:401
 msgid "Filter by artist"
 msgstr "कलाकार द्वारा फ़िल्टर करें"
 
-#: src/components/ImageStyleTransfer.tsx:412
+#: src/components/ImageStyleTransfer.tsx:414
 msgid "Filter by tag"
 msgstr "टैग द्वारा फ़िल्टर करें"
 
@@ -1829,7 +1829,7 @@ msgstr "फ़ोटो में रंगों की संख्या क�
 msgid "Reference"
 msgstr "संदर्भ"
 
-#: src/components/ImageStyleTransfer.tsx:377
+#: src/components/ImageStyleTransfer.tsx:379
 msgid "Reference photo"
 msgstr "संदर्भ फ़ोटो"
 
@@ -1991,7 +1991,7 @@ msgstr "पेंट करने के लिए अपने डिवाइ�
 msgid "Select a standard or custom color set"
 msgstr "एक मानक या कस्टम रंग सेट चुनें"
 
-#: src/components/ImageStyleTransfer.tsx:384
+#: src/components/ImageStyleTransfer.tsx:386
 msgid "Select a style to transfer to your reference photo"
 msgstr "अपनी संदर्भ फ़ोटो में स्थानांतरित करने के लिए एक शैली का चयन करें"
 
@@ -2094,7 +2094,7 @@ msgstr "फ़ोटो का चयन करें"
 msgid "Select set"
 msgstr "सेट का चयन करें"
 
-#: src/components/ImageStyleTransfer.tsx:298
+#: src/components/ImageStyleTransfer.tsx:300
 msgid "Select style image"
 msgstr "शैली छवि का चयन करें"
 
@@ -2348,11 +2348,11 @@ msgstr "तीव्रता"
 msgid "Strokes"
 msgstr "ब्रश स्ट्रोक"
 
-#: src/components/ImageStyleTransfer.tsx:422
+#: src/components/ImageStyleTransfer.tsx:424
 msgid "Style transfer is available only to paid Patreon members"
 msgstr "स्टाइल ट्रांसफर केवल सशुल्क Patreon सदस्यों के लिए उपलब्ध है"
 
-#: src/components/ImageStyleTransfer.tsx:377
+#: src/components/ImageStyleTransfer.tsx:379
 msgid "Styled reference photo"
 msgstr "स्टाइल किया गया संदर्भ फ़ोटो"
 
@@ -2450,8 +2450,8 @@ msgid "The existing pastel layer you want to blend over."
 msgstr "मौजूदा पेस्टल परत जिस पर आप ब्लेंड करना चाहते हैं।"
 
 #: src/hooks/useFileReadErrorNotification.tsx:30
-msgid "The file might have been moved or deleted, or it could be stored in the cloud and not downloaded to this device. Download it to this device, then select it again."
-msgstr "हो सकता है कि फ़ाइल को स्थानांतरित या हटा दिया गया हो, या इसे क्लाउड में संग्रहीत किया जा सकता है और इस डिवाइस पर डाउनलोड नहीं किया जा सकता है। इसे इस डिवाइस पर डाउनलोड करें, फिर इसे फिर से चुनें।"
+msgid "The file could not be read right now. Try selecting it again. If it is in cloud storage, download it to this device first."
+msgstr "फ़ाइल अभी पढ़ी नहीं जा सकी। इसे फिर से चुनने का प्रयास करें। अगर यह क्लाउड स्टोरेज में है, तो पहले इसे इस डिवाइस पर डाउनलोड करें।"
 
 #: src/components/print/PrintImageDrawer.tsx:258
 msgid "The margin is too large"
@@ -2521,7 +2521,7 @@ msgstr "यह मुद्रण आकार समर्थित नही�
 msgid "This step is optional"
 msgstr "यह चरण वैकल्पिक है"
 
-#: src/components/ImageStyleTransfer.tsx:332
+#: src/components/ImageStyleTransfer.tsx:334
 msgid "This style is available only to paid Patreon members"
 msgstr "यह शैली केवल सशुल्क Patreon सदस्यों के लिए उपलब्ध है"
 
@@ -2559,11 +2559,11 @@ msgstr "बहुत सारे गलत कोड"
 msgid "Too many requests"
 msgstr "बहुत सारे अनुरोध"
 
-#: src/components/ImageStyleTransfer.tsx:311
+#: src/components/ImageStyleTransfer.tsx:313
 msgid "Transfer the artistic style from your own image"
 msgstr "कलात्मक शैली को अपनी छवि से स्थानांतरित करें"
 
-#: src/components/ImageStyleTransfer.tsx:327
+#: src/components/ImageStyleTransfer.tsx:329
 msgid "Transferring the style from your own image is available to paid Patreon members only"
 msgstr "अपनी स्वयं की छवि से शैली स्थानांतरित करना केवल सशुल्क Patreon सदस्यों के लिए उपलब्ध है"
 
@@ -2897,14 +2897,14 @@ msgstr "आपके रंग सेट, संदर्भ फ़ोटो, �
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "यदि ब्राउज़र बंद है तो आपका डेटा विश्वसनीय रूप से सहेजा नहीं जा सकता है। इसे ठीक करने के लिए, ऐप इंस्टॉल करें।"
 
-#: src/components/ImageStyleTransfer.tsx:306
+#: src/components/ImageStyleTransfer.tsx:308
 msgid "Your image"
 msgstr "आपकी छवि"
 
 #: src/components/ImageChooser.tsx:128
 #: src/components/ImageEditor.tsx:307
 #: src/components/ImagesCompare.tsx:128
-#: src/components/ImageStyleTransfer.tsx:318
+#: src/components/ImageStyleTransfer.tsx:320
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"
 msgstr "आपकी छवियाँ आपके डिवाइस पर प्रोसेस की जाती हैं और केवल आपके द्वारा कनेक्ट किए गए क्लाउड स्टोरेज पर भेजी जाती हैं"
 

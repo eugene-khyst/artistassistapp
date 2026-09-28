@@ -1065,11 +1065,11 @@ msgstr "Kitöltés"
 msgid "Fill in the required fields"
 msgstr "Töltse ki a szükséges mezőket"
 
-#: src/components/ImageStyleTransfer.tsx:399
+#: src/components/ImageStyleTransfer.tsx:401
 msgid "Filter by artist"
 msgstr "Szűrés művész szerint"
 
-#: src/components/ImageStyleTransfer.tsx:412
+#: src/components/ImageStyleTransfer.tsx:414
 msgid "Filter by tag"
 msgstr "Szűrés címke szerint"
 
@@ -1829,7 +1829,7 @@ msgstr "Csökkenti a fényképen lévő színek számát."
 msgid "Reference"
 msgstr "Referencia"
 
-#: src/components/ImageStyleTransfer.tsx:377
+#: src/components/ImageStyleTransfer.tsx:379
 msgid "Reference photo"
 msgstr "Referenciafotó"
 
@@ -1991,7 +1991,7 @@ msgstr "Válasszon ki egy referenciafotót az eszközről a festéshez"
 msgid "Select a standard or custom color set"
 msgstr "Válasszon szabványos vagy egyedi színkészletet"
 
-#: src/components/ImageStyleTransfer.tsx:384
+#: src/components/ImageStyleTransfer.tsx:386
 msgid "Select a style to transfer to your reference photo"
 msgstr "Válassza ki a referenciafotóra átvinni kívánt stílust"
 
@@ -2094,7 +2094,7 @@ msgstr "Fénykép kiválasztása"
 msgid "Select set"
 msgstr "Készlet kiválasztása"
 
-#: src/components/ImageStyleTransfer.tsx:298
+#: src/components/ImageStyleTransfer.tsx:300
 msgid "Select style image"
 msgstr "Stíluskép kiválasztása"
 
@@ -2348,11 +2348,11 @@ msgstr "Erősség"
 msgid "Strokes"
 msgstr "Ecsetvonások"
 
-#: src/components/ImageStyleTransfer.tsx:422
+#: src/components/ImageStyleTransfer.tsx:424
 msgid "Style transfer is available only to paid Patreon members"
 msgstr "A stílusátvitel csak a fizetős Patreon-tagok számára érhető el"
 
-#: src/components/ImageStyleTransfer.tsx:377
+#: src/components/ImageStyleTransfer.tsx:379
 msgid "Styled reference photo"
 msgstr "Stílussal ellátott referenciafotó"
 
@@ -2450,8 +2450,8 @@ msgid "The existing pastel layer you want to blend over."
 msgstr "A meglévő pasztellréteg, amelyre elmosni szeretne."
 
 #: src/hooks/useFileReadErrorNotification.tsx:30
-msgid "The file might have been moved or deleted, or it could be stored in the cloud and not downloaded to this device. Download it to this device, then select it again."
-msgstr "Lehet, hogy a fájlt áthelyezték vagy törölték, vagy a felhőben tárolták, és nem töltötték le erre az eszközre. Töltse le erre az eszközre, majd válassza ki újra."
+msgid "The file could not be read right now. Try selecting it again. If it is in cloud storage, download it to this device first."
+msgstr "A fájlt jelenleg nem sikerült beolvasni. Próbálja meg újra kiválasztani. Ha felhőalapú tárhelyen van, először töltse le erre az eszközre."
 
 #: src/components/print/PrintImageDrawer.tsx:258
 msgid "The margin is too large"
@@ -2521,7 +2521,7 @@ msgstr "Ez a nyomtatási méret nem támogatott"
 msgid "This step is optional"
 msgstr "Ez a lépés nem kötelező"
 
-#: src/components/ImageStyleTransfer.tsx:332
+#: src/components/ImageStyleTransfer.tsx:334
 msgid "This style is available only to paid Patreon members"
 msgstr "Ez a stílus csak fizetős Patreon-tagok számára érhető el"
 
@@ -2559,11 +2559,11 @@ msgstr "Túl sok hibás kód"
 msgid "Too many requests"
 msgstr "Túl sok kérés"
 
-#: src/components/ImageStyleTransfer.tsx:311
+#: src/components/ImageStyleTransfer.tsx:313
 msgid "Transfer the artistic style from your own image"
 msgstr "Művészi stílus átvitele saját képéről"
 
-#: src/components/ImageStyleTransfer.tsx:327
+#: src/components/ImageStyleTransfer.tsx:329
 msgid "Transferring the style from your own image is available to paid Patreon members only"
 msgstr "A stílus átvitele saját képéről csak fizetős Patreon-tagok számára érhető el"
 
@@ -2897,14 +2897,14 @@ msgstr "Színkészleteit, referenciafotóit, keverékeit és egyéni színmárk�
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "Az adatai nem biztos, hogy megbízhatóan mentődnek, ha a böngésző be van zárva. Ennek elhárításához telepítse az alkalmazást."
 
-#: src/components/ImageStyleTransfer.tsx:306
+#: src/components/ImageStyleTransfer.tsx:308
 msgid "Your image"
 msgstr "Az Ön képe"
 
 #: src/components/ImageChooser.tsx:128
 #: src/components/ImageEditor.tsx:307
 #: src/components/ImagesCompare.tsx:128
-#: src/components/ImageStyleTransfer.tsx:318
+#: src/components/ImageStyleTransfer.tsx:320
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"
 msgstr "A képek feldolgozása az eszközén történik, és csak az Ön által csatlakoztatott felhőtárhelyre kerülnek"
 

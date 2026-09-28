@@ -1065,11 +1065,11 @@ msgstr "塗りつぶし"
 msgid "Fill in the required fields"
 msgstr "必須項目を入力してください"
 
-#: src/components/ImageStyleTransfer.tsx:399
+#: src/components/ImageStyleTransfer.tsx:401
 msgid "Filter by artist"
 msgstr "アーティストで絞り込む"
 
-#: src/components/ImageStyleTransfer.tsx:412
+#: src/components/ImageStyleTransfer.tsx:414
 msgid "Filter by tag"
 msgstr "タグで絞り込む"
 
@@ -1829,7 +1829,7 @@ msgstr "写真の色数を減らします。"
 msgid "Reference"
 msgstr "参照"
 
-#: src/components/ImageStyleTransfer.tsx:377
+#: src/components/ImageStyleTransfer.tsx:379
 msgid "Reference photo"
 msgstr "参照写真"
 
@@ -1991,7 +1991,7 @@ msgstr "絵を描くための参照写真をデバイスから選択します"
 msgid "Select a standard or custom color set"
 msgstr "標準またはカスタムのカラーセットを選択します"
 
-#: src/components/ImageStyleTransfer.tsx:384
+#: src/components/ImageStyleTransfer.tsx:386
 msgid "Select a style to transfer to your reference photo"
 msgstr "参照写真に転送するスタイルを選択します"
 
@@ -2094,7 +2094,7 @@ msgstr "写真を選択"
 msgid "Select set"
 msgstr "セットを選択"
 
-#: src/components/ImageStyleTransfer.tsx:298
+#: src/components/ImageStyleTransfer.tsx:300
 msgid "Select style image"
 msgstr "スタイル画像を選択"
 
@@ -2348,11 +2348,11 @@ msgstr "強度"
 msgid "Strokes"
 msgstr "ブラシストローク"
 
-#: src/components/ImageStyleTransfer.tsx:422
+#: src/components/ImageStyleTransfer.tsx:424
 msgid "Style transfer is available only to paid Patreon members"
 msgstr "スタイル転送はPatreonの有料会員のみが利用できます"
 
-#: src/components/ImageStyleTransfer.tsx:377
+#: src/components/ImageStyleTransfer.tsx:379
 msgid "Styled reference photo"
 msgstr "スタイルを適用した参照写真"
 
@@ -2450,8 +2450,8 @@ msgid "The existing pastel layer you want to blend over."
 msgstr "ブレンドを重ねたい、既存のパステルの層です。"
 
 #: src/hooks/useFileReadErrorNotification.tsx:30
-msgid "The file might have been moved or deleted, or it could be stored in the cloud and not downloaded to this device. Download it to this device, then select it again."
-msgstr "ファイルが移動されたり削除されたりしているか、クラウドに保存されていてこのデバイスにダウンロードされていない可能性もあります。このデバイスにダウンロードしてから、再度選択してください。"
+msgid "The file could not be read right now. Try selecting it again. If it is in cloud storage, download it to this device first."
+msgstr "現在、ファイルを読み取れません。もう一度選択してください。クラウドストレージにある場合は、先にこのデバイスにダウンロードしてください。"
 
 #: src/components/print/PrintImageDrawer.tsx:258
 msgid "The margin is too large"
@@ -2521,7 +2521,7 @@ msgstr "この印刷サイズはサポートされていません"
 msgid "This step is optional"
 msgstr "このステップはオプションです"
 
-#: src/components/ImageStyleTransfer.tsx:332
+#: src/components/ImageStyleTransfer.tsx:334
 msgid "This style is available only to paid Patreon members"
 msgstr "このスタイルは有料の Patreon メンバーのみが利用できます"
 
@@ -2559,11 +2559,11 @@ msgstr "誤ったコードが多すぎます"
 msgid "Too many requests"
 msgstr "リクエストが多すぎます"
 
-#: src/components/ImageStyleTransfer.tsx:311
+#: src/components/ImageStyleTransfer.tsx:313
 msgid "Transfer the artistic style from your own image"
 msgstr "自分の画像から芸術的なスタイルを転送"
 
-#: src/components/ImageStyleTransfer.tsx:327
+#: src/components/ImageStyleTransfer.tsx:329
 msgid "Transferring the style from your own image is available to paid Patreon members only"
 msgstr "自分の画像からスタイルを転送できるのは有料の Patreon メンバーのみです"
 
@@ -2897,14 +2897,14 @@ msgstr "カラーセット、参照写真、混色、カスタムカラーブラ
 msgid "Your data may not be saved reliably if the browser is closed. To fix this, install the app."
 msgstr "ブラウザを閉じると、データが確実に保存されない可能性があります。解決するには、アプリをインストールしてください。"
 
-#: src/components/ImageStyleTransfer.tsx:306
+#: src/components/ImageStyleTransfer.tsx:308
 msgid "Your image"
 msgstr "自分の画像"
 
 #: src/components/ImageChooser.tsx:128
 #: src/components/ImageEditor.tsx:307
 #: src/components/ImagesCompare.tsx:128
-#: src/components/ImageStyleTransfer.tsx:318
+#: src/components/ImageStyleTransfer.tsx:320
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"
 msgstr "画像はお使いのデバイス上で処理され、接続したクラウドストレージにのみ送信されます"
 

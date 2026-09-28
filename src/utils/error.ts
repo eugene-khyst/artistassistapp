@@ -32,7 +32,7 @@ export function getErrorMessage(error: unknown): string {
   if (!error) {
     return '';
   }
-  if (error instanceof Error) {
+  if (error instanceof Error || error instanceof DOMException) {
     return error.message;
   } else if (typeof error === 'string') {
     return error;
