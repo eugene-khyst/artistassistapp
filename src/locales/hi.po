@@ -198,11 +198,11 @@ msgstr "अल्कोहल आधारित मार्कर"
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "सभी ऐप डेटा इंस्टॉल करने के बाद भी वेब ब्राउज़र स्टोरेज में संग्रहीत किया जाता है। ब्राउज़र डेटा साफ़ करने से यह सब मिट जाता है।"
 
-#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:336
 msgid "All edits will be lost"
 msgstr "सभी संपादन खो जाएंगे"
 
-#: src/components/file/FileSelect.tsx:155
+#: src/components/file/FileSelect.tsx:161
 msgid "Allow clipboard access, then try again."
 msgstr "क्लिपबोर्ड पहुँच की अनुमति दें, फिर पुनः प्रयास करें।"
 
@@ -420,7 +420,7 @@ msgstr "एआर ट्रेसिंग के लिए कैमरा ए�
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:338
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
@@ -432,7 +432,7 @@ msgstr "रद्द करें"
 msgid "Cancel a paid membership"
 msgstr "सशुल्क सदस्यता रद्द करें"
 
-#: src/components/file/FileSelect.tsx:170
+#: src/components/file/FileSelect.tsx:176
 msgid "Cannot use copied image"
 msgstr "कॉपी की गई छवि का उपयोग नहीं किया जा सकता"
 
@@ -471,7 +471,7 @@ msgstr "एक संदर्भ फ़ोटो चुनें"
 msgid "Cityscape"
 msgstr "नगर-दृश्य"
 
-#: src/components/file/FileSelect.tsx:203
+#: src/components/file/FileSelect.tsx:209
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:108
 msgid "Clear"
 msgstr "साफ़ करें"
@@ -594,8 +594,8 @@ msgstr "रंग ब्रांड"
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "रंग डेटा वर्तमान में अनुपलब्ध है। अपना कनेक्शन जांचें और पुनः प्रयास करें।"
 
-#: src/components/ImageTonalValues.tsx:121
-#: src/components/ImageTonalValues.tsx:124
+#: src/components/ImageTonalValues.tsx:141
+#: src/components/ImageTonalValues.tsx:144
 msgid "Color map"
 msgstr "रंग मानचित्र"
 
@@ -707,7 +707,7 @@ msgstr "ठंडा — एल्गोरिथम अनुमान; कल�
 msgid "Copy"
 msgstr "कॉपी करें"
 
-#: src/components/file/FileSelect.tsx:132
+#: src/components/file/FileSelect.tsx:138
 msgid "Copy a supported image to the clipboard, then try again."
 msgstr "समर्थित छवि को क्लिपबोर्ड पर कॉपी करें, फिर पुनः प्रयास करें।"
 
@@ -736,7 +736,7 @@ msgstr "बैकअप निर्यात नहीं किया जा �
 msgid "Could not import backup"
 msgstr "बैकअप आयात नहीं किया जा सका"
 
-#: src/hooks/useFileReadErrorNotification.tsx:28
+#: src/hooks/useFileReadErrorNotification.tsx:38
 msgid "Could not read the file"
 msgstr "फ़ाइल पढ़ी नहीं जा सकी"
 
@@ -886,6 +886,14 @@ msgstr "परिवर्तनों को निरस्त करें"
 msgid "Discard changes to the color set?"
 msgstr "रंग सेट में परिवर्तन त्यागें?"
 
+#: src/hooks/useConfirmDiscardImageEdits.tsx:37
+msgid "Discard edits"
+msgstr "संपादन त्यागें"
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:33
+msgid "Discard your image edits?"
+msgstr "क्या आप छवि में किए गए संपादन त्यागना चाहते हैं?"
+
 #: src/components/cloud/DisconnectCloudButton.tsx:64
 msgid "Disconnect"
 msgstr "डिस्कनेक्ट करें"
@@ -926,11 +934,11 @@ msgstr "छवि {index} / {count} डाउनलोड हो रही ह�
 msgid "Downloading... {percent}% ({key})"
 msgstr "डाउनलोड हो रहा है... {percent}% ({key})"
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the file here..."
 msgstr "यहाँ फ़ाइल छोड़ें..."
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the files here..."
 msgstr "यहाँ फ़ाइलें छोड़ें..."
 
@@ -962,7 +970,7 @@ msgstr "यहां से संपादित करें"
 msgid "Edit image"
 msgstr "छवि संपादित करें"
 
-#: src/components/ImageEditor.tsx:342
+#: src/components/ImageEditor.tsx:348
 msgid "Edited"
 msgstr "संपादित"
 
@@ -1244,6 +1252,7 @@ msgid "Keep cloud data"
 msgstr "क्लाउड डेटा रखें"
 
 #: src/components/ColorSetChooser.tsx:237
+#: src/hooks/useConfirmDiscardImageEdits.tsx:38
 msgid "Keep editing"
 msgstr "संपादन करते रहें"
 
@@ -1283,8 +1292,8 @@ msgstr "हल्का"
 msgid "Light box"
 msgstr "लाइटबॉक्स"
 
-#: src/components/ImageTonalValues.tsx:91
-#: src/components/ImageTonalValues.tsx:94
+#: src/components/ImageTonalValues.tsx:111
+#: src/components/ImageTonalValues.tsx:114
 msgid "Light tone"
 msgstr "हल्का टोन"
 
@@ -1379,8 +1388,8 @@ msgstr "मर्ज करें"
 msgid "Merge color sets"
 msgstr "रंग सेट मर्ज करें"
 
-#: src/components/ImageTonalValues.tsx:101
-#: src/components/ImageTonalValues.tsx:104
+#: src/components/ImageTonalValues.tsx:121
+#: src/components/ImageTonalValues.tsx:124
 msgid "Mid tone"
 msgstr "मध्यम टोन"
 
@@ -1436,7 +1445,7 @@ msgid "More"
 msgstr "अधिक"
 
 #: src/components/ColorMixingChart.tsx:217
-#: src/components/image/ImageActions.tsx:93
+#: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
 #: src/components/ImageColorPicker.tsx:358
 #: src/components/ImageLimitedPalette.tsx:183
@@ -1753,8 +1762,8 @@ msgstr "अपने पसंदीदा रंग मिश्रण के �
 
 #: src/components/color/ColorSwatchDrawer.tsx:80
 #: src/components/ColorMixingChart.tsx:149
-#: src/components/image/ImageActions.tsx:49
-#: src/components/image/ImageActions.tsx:63
+#: src/components/image/ImageActions.tsx:64
+#: src/components/image/ImageActions.tsx:85
 #: src/components/ImageLimitedPalette.tsx:148
 #: src/components/ImageOutline.tsx:324
 #: src/components/ImageOutline.tsx:360
@@ -1808,7 +1817,7 @@ msgstr "अनुपात"
 msgid "Realism"
 msgstr "यथार्थवाद"
 
-#: src/components/ImageEditor.tsx:327
+#: src/components/ImageEditor.tsx:333
 msgid "Redo"
 msgstr "फिर से करें"
 
@@ -1890,8 +1899,8 @@ msgstr "macOS सोनोमा या बाद के संस्करण �
 msgid "Resend code"
 msgstr "कोड फिर से भेजें"
 
-#: src/components/ImageEditor.tsx:331
-#: src/components/ImageEditor.tsx:336
+#: src/components/ImageEditor.tsx:337
+#: src/components/ImageEditor.tsx:342
 #: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "रीसेट"
@@ -1948,7 +1957,7 @@ msgstr "संतृप्ति (%)"
 #: src/components/ColorMixingChart.tsx:158
 #: src/components/ColorSetChooser.tsx:250
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/ImageActions.tsx:70
+#: src/components/image/ImageActions.tsx:92
 #: src/components/image/ImageSaveButton.tsx:40
 #: src/components/ImageLimitedPalette.tsx:155
 #: src/components/ImageOutline.tsx:367
@@ -2004,7 +2013,7 @@ msgstr "एक कला माध्यम चुनें"
 msgid "Select an image that contains a color chart"
 msgstr "उस छवि का चयन करें जिसमें रंग चार्ट हो"
 
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:298
 msgid "Select an image to edit"
 msgstr "संपादित करने के लिए छवि चुनें"
 
@@ -2066,7 +2075,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "अपने हाल के रंग सेट में से चुनें या एक नया बनाएं।"
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:296
+#: src/components/ImageEditor.tsx:302
 msgid "Select image"
 msgstr "छवि का चयन करें"
 
@@ -2149,7 +2158,7 @@ msgstr "सत्र की समय सीमा समाप्त हो ग
 msgid "Set as main color set"
 msgstr "मुख्य रंग सेट के रूप में सेट करें"
 
-#: src/components/image/ImageActions.tsx:81
+#: src/components/image/ImageActions.tsx:103
 #: src/components/image/ImageSaveButton.tsx:56
 #: src/components/ImageLimitedPalette.tsx:164
 msgid "Set as reference"
@@ -2175,8 +2184,8 @@ msgstr "ग्लेज़िंग के लिए अंडरलेयर �
 msgid "Set as unifying color"
 msgstr "एकीकृत रंग के रूप में सेट करें"
 
-#: src/components/ImageTonalValues.tsx:111
-#: src/components/ImageTonalValues.tsx:114
+#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageTonalValues.tsx:134
 msgid "Shadow"
 msgstr "छाया"
 
@@ -2449,9 +2458,13 @@ msgstr "सूखी परत जिस पर आप ग्लेज़ कर
 msgid "The existing pastel layer you want to blend over."
 msgstr "मौजूदा पेस्टल परत जिस पर आप ब्लेंड करना चाहते हैं।"
 
-#: src/hooks/useFileReadErrorNotification.tsx:30
-msgid "The file could not be read right now. Try selecting it again. If it is in cloud storage, download it to this device first."
-msgstr "फ़ाइल अभी पढ़ी नहीं जा सकी। इसे फिर से चुनने का प्रयास करें। अगर यह क्लाउड स्टोरेज में है, तो पहले इसे इस डिवाइस पर डाउनलोड करें।"
+#: src/hooks/useFileReadErrorNotification.tsx:41
+msgid "The file could not be read. Select a copy from Files on this device. If it is in cloud storage, download it first."
+msgstr "फ़ाइल पढ़ी नहीं जा सकी। इस डिवाइस पर फ़ाइलें ऐप से इसकी एक कॉपी चुनें। अगर यह क्लाउड स्टोरेज में है, तो पहले इसे डाउनलोड करें।"
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:35
+msgid "The image you are editing will be replaced, and your edits will be lost."
+msgstr "आप जिस छवि को संपादित कर रहे हैं, उसे बदल दिया जाएगा और आपके संपादन खो जाएँगे।"
 
 #: src/components/print/PrintImageDrawer.tsx:258
 msgid "The margin is too large"
@@ -2545,7 +2558,7 @@ msgstr "{tabLabel} सुविधा का उपयोग करने के
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
 msgstr "{tabLabel} सुविधा का उपयोग करने के लिए, समर्थित कला माध्यम और पेंट करने के लिए रंगों का चयन करें"
 
-#: src/components/ImageTonalValues.tsx:133
+#: src/components/ImageTonalValues.tsx:153
 #: src/components/messages.ts:32
 msgid "Tonal values"
 msgstr "टोनल वैल्यू"
@@ -2653,7 +2666,7 @@ msgstr "सहेजे गए रंग सेट को पुनर्स्�
 msgid "Underlayer"
 msgstr "अंडरलेयर"
 
-#: src/components/ImageEditor.tsx:320
+#: src/components/ImageEditor.tsx:326
 msgid "Undo"
 msgstr "पूर्ववत करें"
 
@@ -2721,7 +2734,7 @@ msgstr "<0>पूरे दबाव के {fractionText}</0> का उपय�
 msgid "Use at full strength"
 msgstr "पूरी ताकत से उपयोग करें"
 
-#: src/components/file/FileSelect.tsx:193
+#: src/components/file/FileSelect.tsx:199
 msgid "Use copied image"
 msgstr "कॉपी की गई छवि का उपयोग करें"
 
@@ -2729,7 +2742,7 @@ msgstr "कॉपी की गई छवि का उपयोग करें
 msgid "Use full pressure"
 msgstr "पूरे दबाव का उपयोग करें"
 
-#: src/components/file/FileSelect.tsx:182
+#: src/components/file/FileSelect.tsx:188
 msgid "Use reference photo"
 msgstr "संदर्भ फ़ोटो का उपयोग करें"
 
@@ -2821,6 +2834,7 @@ msgid "White"
 msgstr "सफ़ेद"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:175
+#: src/components/ImageTonalValues.tsx:170
 msgid "White balance"
 msgstr "सफ़ेद संतुलन"
 
@@ -2873,7 +2887,7 @@ msgstr "आपके खाते का विवरण:"
 msgid "Your app settings will return to their defaults. Your saved work will remain."
 msgstr "ऐप की सेटिंग्स अपने डिफ़ॉल्ट मानों पर लौट आएंगी। आपका सहेजा गया कार्य सुरक्षित रहेगा।"
 
-#: src/components/file/FileSelect.tsx:165
+#: src/components/file/FileSelect.tsx:171
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "आपका ब्राउज़र क्लिपबोर्ड से छवियों को पढ़ने का समर्थन नहीं करता है।"
 
@@ -2902,7 +2916,7 @@ msgid "Your image"
 msgstr "आपकी छवि"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:307
+#: src/components/ImageEditor.tsx:313
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:320
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

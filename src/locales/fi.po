@@ -198,11 +198,11 @@ msgstr "Alkoholipohjaiset tussit"
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Kaikki sovelluksen tiedot tallennetaan verkkoselaimen tallennustilaan, jopa asennuksen jälkeen. Selaimen tietojen tyhjentäminen poistaa kaiken."
 
-#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:336
 msgid "All edits will be lost"
 msgstr "Kaikki muokkaukset menetetään"
 
-#: src/components/file/FileSelect.tsx:155
+#: src/components/file/FileSelect.tsx:161
 msgid "Allow clipboard access, then try again."
 msgstr "Salli leikepöydän käyttö ja yritä uudelleen."
 
@@ -420,7 +420,7 @@ msgstr "AR-jäljentäminen vaatii kameran käyttöoikeuden"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:338
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
@@ -432,7 +432,7 @@ msgstr "Peruuta"
 msgid "Cancel a paid membership"
 msgstr "Peruuta maksullinen jäsenyys"
 
-#: src/components/file/FileSelect.tsx:170
+#: src/components/file/FileSelect.tsx:176
 msgid "Cannot use copied image"
 msgstr "Ei voi käyttää kopioitua kuvaa"
 
@@ -471,7 +471,7 @@ msgstr "Valitse viitekuva"
 msgid "Cityscape"
 msgstr "Kaupunkikuva"
 
-#: src/components/file/FileSelect.tsx:203
+#: src/components/file/FileSelect.tsx:209
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:108
 msgid "Clear"
 msgstr "Tyhjennä"
@@ -594,8 +594,8 @@ msgstr "Värimerkit"
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "Väritiedot eivät ole tällä hetkellä saatavilla. Tarkista yhteys ja yritä uudelleen."
 
-#: src/components/ImageTonalValues.tsx:121
-#: src/components/ImageTonalValues.tsx:124
+#: src/components/ImageTonalValues.tsx:141
+#: src/components/ImageTonalValues.tsx:144
 msgid "Color map"
 msgstr "Värikartta"
 
@@ -707,7 +707,7 @@ msgstr "Kylmä — algoritminen arvio; taiteellinen käsitys voi vaihdella."
 msgid "Copy"
 msgstr "Kopioi"
 
-#: src/components/file/FileSelect.tsx:132
+#: src/components/file/FileSelect.tsx:138
 msgid "Copy a supported image to the clipboard, then try again."
 msgstr "Kopioi tuettu kuva leikepöydälle ja yritä uudelleen."
 
@@ -736,7 +736,7 @@ msgstr "Varmuuskopion vienti epäonnistui"
 msgid "Could not import backup"
 msgstr "Varmuuskopion tuonti epäonnistui"
 
-#: src/hooks/useFileReadErrorNotification.tsx:28
+#: src/hooks/useFileReadErrorNotification.tsx:38
 msgid "Could not read the file"
 msgstr "Tiedostoa ei voitu lukea"
 
@@ -886,6 +886,14 @@ msgstr "Hylkää muutokset"
 msgid "Discard changes to the color set?"
 msgstr "Hylätäänkö värisarjan muutokset?"
 
+#: src/hooks/useConfirmDiscardImageEdits.tsx:37
+msgid "Discard edits"
+msgstr "Hylkää muokkaukset"
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:33
+msgid "Discard your image edits?"
+msgstr "Hylätäänkö kuvaan tekemäsi muokkaukset?"
+
 #: src/components/cloud/DisconnectCloudButton.tsx:64
 msgid "Disconnect"
 msgstr "Katkaise yhteys"
@@ -926,11 +934,11 @@ msgstr "Ladataan kuvaa {index} / {count}"
 msgid "Downloading... {percent}% ({key})"
 msgstr "Ladataan... {percent}% ({key})"
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the file here..."
 msgstr "Pudota tiedosto tähän..."
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the files here..."
 msgstr "Pudota tiedostot tähän..."
 
@@ -962,7 +970,7 @@ msgstr "Muokkaa tästä eteenpäin"
 msgid "Edit image"
 msgstr "Muokkaa kuvaa"
 
-#: src/components/ImageEditor.tsx:342
+#: src/components/ImageEditor.tsx:348
 msgid "Edited"
 msgstr "Muokattu"
 
@@ -1244,6 +1252,7 @@ msgid "Keep cloud data"
 msgstr "Säilytä pilvitiedot"
 
 #: src/components/ColorSetChooser.tsx:237
+#: src/hooks/useConfirmDiscardImageEdits.tsx:38
 msgid "Keep editing"
 msgstr "Jatka muokkaamista"
 
@@ -1283,8 +1292,8 @@ msgstr "Kevyt"
 msgid "Light box"
 msgstr "Valopöytä"
 
-#: src/components/ImageTonalValues.tsx:91
-#: src/components/ImageTonalValues.tsx:94
+#: src/components/ImageTonalValues.tsx:111
+#: src/components/ImageTonalValues.tsx:114
 msgid "Light tone"
 msgstr "Vaalea sävy"
 
@@ -1379,8 +1388,8 @@ msgstr "Yhdistä"
 msgid "Merge color sets"
 msgstr "Yhdistä värisarjat"
 
-#: src/components/ImageTonalValues.tsx:101
-#: src/components/ImageTonalValues.tsx:104
+#: src/components/ImageTonalValues.tsx:121
+#: src/components/ImageTonalValues.tsx:124
 msgid "Mid tone"
 msgstr "Keskisävy"
 
@@ -1436,7 +1445,7 @@ msgid "More"
 msgstr "Lisää"
 
 #: src/components/ColorMixingChart.tsx:217
-#: src/components/image/ImageActions.tsx:93
+#: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
 #: src/components/ImageColorPicker.tsx:358
 #: src/components/ImageLimitedPalette.tsx:183
@@ -1753,8 +1762,8 @@ msgstr "Paina <0>Lisää palettiin</0> -painiketta haluamasi väriseoksen vieres
 
 #: src/components/color/ColorSwatchDrawer.tsx:80
 #: src/components/ColorMixingChart.tsx:149
-#: src/components/image/ImageActions.tsx:49
-#: src/components/image/ImageActions.tsx:63
+#: src/components/image/ImageActions.tsx:64
+#: src/components/image/ImageActions.tsx:85
 #: src/components/ImageLimitedPalette.tsx:148
 #: src/components/ImageOutline.tsx:324
 #: src/components/ImageOutline.tsx:360
@@ -1808,7 +1817,7 @@ msgstr "Suhde"
 msgid "Realism"
 msgstr "Realismi"
 
-#: src/components/ImageEditor.tsx:327
+#: src/components/ImageEditor.tsx:333
 msgid "Redo"
 msgstr "Tee uudelleen"
 
@@ -1890,8 +1899,8 @@ msgstr "Vaatii macOS Sonoman tai uudemman."
 msgid "Resend code"
 msgstr "Lähetä koodi uudelleen"
 
-#: src/components/ImageEditor.tsx:331
-#: src/components/ImageEditor.tsx:336
+#: src/components/ImageEditor.tsx:337
+#: src/components/ImageEditor.tsx:342
 #: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "Nollaa"
@@ -1948,7 +1957,7 @@ msgstr "Kylläisyys (%)"
 #: src/components/ColorMixingChart.tsx:158
 #: src/components/ColorSetChooser.tsx:250
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/ImageActions.tsx:70
+#: src/components/image/ImageActions.tsx:92
 #: src/components/image/ImageSaveButton.tsx:40
 #: src/components/ImageLimitedPalette.tsx:155
 #: src/components/ImageOutline.tsx:367
@@ -2004,7 +2013,7 @@ msgstr "Valitse taidemateriaali"
 msgid "Select an image that contains a color chart"
 msgstr "Valitse kuva, joka sisältää värikartan"
 
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:298
 msgid "Select an image to edit"
 msgstr "Valitse muokattava kuva"
 
@@ -2066,7 +2075,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Valitse viimeisimmistä värisarjoistasi tai luo uusi."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:296
+#: src/components/ImageEditor.tsx:302
 msgid "Select image"
 msgstr "Valitse kuva"
 
@@ -2149,7 +2158,7 @@ msgstr "Istunto vanhentui"
 msgid "Set as main color set"
 msgstr "Aseta päävärisarjaksi"
 
-#: src/components/image/ImageActions.tsx:81
+#: src/components/image/ImageActions.tsx:103
 #: src/components/image/ImageSaveButton.tsx:56
 #: src/components/ImageLimitedPalette.tsx:164
 msgid "Set as reference"
@@ -2175,8 +2184,8 @@ msgstr "Aseta aluskerrokseksi lasyyria varten."
 msgid "Set as unifying color"
 msgstr "Aseta yhdistäväksi väriksi"
 
-#: src/components/ImageTonalValues.tsx:111
-#: src/components/ImageTonalValues.tsx:114
+#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageTonalValues.tsx:134
 msgid "Shadow"
 msgstr "Varjo"
 
@@ -2449,9 +2458,13 @@ msgstr "Kuivunut kerros, jonka päälle haluat lasyyrata."
 msgid "The existing pastel layer you want to blend over."
 msgstr "Olemassa oleva pastellikerros, jonka päälle haluat häivyttää."
 
-#: src/hooks/useFileReadErrorNotification.tsx:30
-msgid "The file could not be read right now. Try selecting it again. If it is in cloud storage, download it to this device first."
-msgstr "Tiedostoa ei voitu lukea juuri nyt. Yritä valita se uudelleen. Jos se on pilvitallennustilassa, lataa se ensin tälle laitteelle."
+#: src/hooks/useFileReadErrorNotification.tsx:41
+msgid "The file could not be read. Select a copy from Files on this device. If it is in cloud storage, download it first."
+msgstr "Tiedostoa ei voitu lukea. Valitse tämän laitteen Tiedostot-sovelluksesta paikallinen kopio. Jos tiedosto on pilvitallennustilassa, lataa se ensin."
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:35
+msgid "The image you are editing will be replaced, and your edits will be lost."
+msgstr "Muokkaamasi kuva korvataan ja tekemäsi muokkaukset menetetään."
 
 #: src/components/print/PrintImageDrawer.tsx:258
 msgid "The margin is too large"
@@ -2545,7 +2558,7 @@ msgstr "Voit käyttää {tabLabel}-ominaisuutta valitsemalla viitekuvan"
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
 msgstr "Voit käyttää {tabLabel}-ominaisuutta valitsemalla tuetut taidemateriaalit ja värit, joilla maalaat"
 
-#: src/components/ImageTonalValues.tsx:133
+#: src/components/ImageTonalValues.tsx:153
 #: src/components/messages.ts:32
 msgid "Tonal values"
 msgstr "Sävyarvot"
@@ -2653,7 +2666,7 @@ msgstr "Tallennettua värisarjaa ei voi palauttaa"
 msgid "Underlayer"
 msgstr "Aluskerros"
 
-#: src/components/ImageEditor.tsx:320
+#: src/components/ImageEditor.tsx:326
 msgid "Undo"
 msgstr "Kumoa"
 
@@ -2721,7 +2734,7 @@ msgstr "Käytä <0>{fractionText} täydestä paineesta</0>"
 msgid "Use at full strength"
 msgstr "Käytä täydellä vahvuudella"
 
-#: src/components/file/FileSelect.tsx:193
+#: src/components/file/FileSelect.tsx:199
 msgid "Use copied image"
 msgstr "Käytä kopioitua kuvaa"
 
@@ -2729,7 +2742,7 @@ msgstr "Käytä kopioitua kuvaa"
 msgid "Use full pressure"
 msgstr "Käytä täyttä painetta"
 
-#: src/components/file/FileSelect.tsx:182
+#: src/components/file/FileSelect.tsx:188
 msgid "Use reference photo"
 msgstr "Käytä viitekuvaa"
 
@@ -2821,6 +2834,7 @@ msgid "White"
 msgstr "Valkoinen"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:175
+#: src/components/ImageTonalValues.tsx:170
 msgid "White balance"
 msgstr "Valkotasapaino"
 
@@ -2873,7 +2887,7 @@ msgstr "Tilisi tiedot:"
 msgid "Your app settings will return to their defaults. Your saved work will remain."
 msgstr "Sovelluksen asetukset palautetaan oletusarvoihin. Tallennetut työsi säilyvät."
 
-#: src/components/file/FileSelect.tsx:165
+#: src/components/file/FileSelect.tsx:171
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "Selaimesi ei tue kuvien lukemista leikepöydältä."
 
@@ -2902,7 +2916,7 @@ msgid "Your image"
 msgstr "Oma kuvasi"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:307
+#: src/components/ImageEditor.tsx:313
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:320
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

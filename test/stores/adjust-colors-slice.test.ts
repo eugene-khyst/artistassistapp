@@ -59,7 +59,10 @@ vi.mock('@/utils/graphics', () => ({
 }));
 
 type TestStore = AdjustColorsSlice &
-  Pick<EditImageSlice, 'editImageHistory' | 'editImageOperation'>;
+  Pick<
+    EditImageSlice,
+    'editImageHistory' | 'editImageOperation' | 'setImageFileToEdit' | 'setActiveImageEditorKey'
+  >;
 
 function createImage(): ImageBitmap {
   return {close: vi.fn()} as unknown as ImageBitmap;
@@ -106,14 +109,26 @@ function createTestStore(initialImage: ImageBitmap) {
     execute: vi.fn(),
     abort: vi.fn(),
   };
+  const setImageFileToEdit = vi.fn(() => {
+    imageEditorControls.resetAll();
+    return Promise.resolve(true);
+  });
+  const setActiveImageEditorKey = vi.fn(async (key: ImageEditorKey | undefined) => {
+    imageEditorControls.reset(key);
+    await imageEditorControls.open(key);
+  });
   const store = createStore<TestStore>()((...args) => ({
     editImageHistory: [],
     editImageOperation,
+    setImageFileToEdit,
+    setActiveImageEditorKey,
     ...createAdjustColorsSlice(...args),
   }));
   return {
     store,
     preview,
+    setImageFileToEdit,
+    setActiveImageEditorKey,
     getPreviewCommand: () => previewCommand,
     abortPreview: () => {
       previewController.abort();
@@ -245,6 +260,44 @@ describe('AdjustColorsSlice', () => {
     expect(store.getState().adjustColorsControls.whiteBalanceMethod).toBe(
       AdjustColorsWhiteBalanceMethod.Percentile
     );
+  });
+
+  it('opens a new image with Auto white balance as the initial adjustment', async () => {
+    imageOperations.resizeImageBitmap.mockResolvedValue(createImage());
+    imageOperations.calculatePercentiles
+      .mockResolvedValueOnce([0.1, 0.2, 0.3])
+      .mockResolvedValueOnce([0.9, 0.8, 0.7]);
+    const {store, setImageFileToEdit, setActiveImageEditorKey, getPreviewCommand} =
+      createTestStore(createImage());
+    const file = new Blob() as File;
+
+    await store.getState().editImageWithAutoWhiteBalance(file);
+
+    expect(setImageFileToEdit).toHaveBeenCalledWith(file);
+    expect(setActiveImageEditorKey).toHaveBeenCalledWith(ImageEditorKey.AdjustColors);
+    expect(getPreviewCommand()).toEqual({
+      type: EditImageCommandType.AdjustColors,
+      controls: adjustColorsControls({whiteBalanceMethod: AdjustColorsWhiteBalanceMethod.Auto}),
+      minValues: [0.1, 0.2, 0.3],
+      maxValues: [0.9, 0.8, 0.7],
+    });
+
+    imageEditorControls.resetAll();
+
+    expect(store.getState().adjustColorsControls.whiteBalanceMethod).toBe(
+      AdjustColorsWhiteBalanceMethod.Percentile
+    );
+  });
+
+  it('does not open Adjust Colors when the new image is not loaded', async () => {
+    const {store, preview, setImageFileToEdit, setActiveImageEditorKey} =
+      createTestStore(createImage());
+    setImageFileToEdit.mockResolvedValueOnce(false);
+
+    await store.getState().editImageWithAutoWhiteBalance(new Blob() as File);
+
+    expect(setActiveImageEditorKey).not.toHaveBeenCalled();
+    expect(preview).not.toHaveBeenCalled();
   });
 
   it('waits for non-percentile previews', async () => {

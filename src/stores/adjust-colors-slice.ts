@@ -41,11 +41,12 @@ export interface AdjustColorsSlice {
   setAdjustColorsControls: (controls: Partial<AdjustColorsControls>) => void;
   resetAdjustColors: () => void;
   previewAdjustColors: () => Promise<void>;
+  editImageWithAutoWhiteBalance: (imageFileToEdit: File) => Promise<void>;
 }
 
 type AdjustColorsSliceDependencies = Pick<
   EditImageSlice,
-  'editImageOperation' | 'editImageHistory'
+  'editImageOperation' | 'editImageHistory' | 'setImageFileToEdit' | 'setActiveImageEditorKey'
 >;
 
 export const createAdjustColorsSlice: StateCreator<
@@ -56,7 +57,8 @@ export const createAdjustColorsSlice: StateCreator<
 > = (set, get) => {
   let percentileImage: ImageBitmap | null = null;
   const calculatedPercentiles = new Map<number, number[]>();
-  let shouldPreviewInitialWhiteBalance = true;
+  let initialWhiteBalanceMethod: AdjustColorsWhiteBalanceMethod | null =
+    defaultAdjustColorsControls().whiteBalanceMethod;
 
   const calculatePercentiles = async (percentile: number, signal: AbortSignal) => {
     let values = calculatedPercentiles.get(percentile);
@@ -115,26 +117,27 @@ export const createAdjustColorsSlice: StateCreator<
 
   const resetAdjustColors = (): void => {
     const adjustColorsControls = defaultAdjustColorsControls();
-    if (!shouldPreviewInitialWhiteBalance || hasAdjustColorsEdit()) {
-      adjustColorsControls.whiteBalanceMethod = AdjustColorsWhiteBalanceMethod.None;
-    }
+    adjustColorsControls.whiteBalanceMethod = hasAdjustColorsEdit()
+      ? AdjustColorsWhiteBalanceMethod.None
+      : (initialWhiteBalanceMethod ?? AdjustColorsWhiteBalanceMethod.None);
     set({
       adjustColorsControls,
     });
   };
 
   const clearAdjustColors = (): void => {
-    shouldPreviewInitialWhiteBalance = true;
+    const adjustColorsControls = defaultAdjustColorsControls();
+    initialWhiteBalanceMethod = adjustColorsControls.whiteBalanceMethod;
     set({
-      adjustColorsControls: defaultAdjustColorsControls(),
+      adjustColorsControls,
     });
   };
 
   const openAdjustColors = async (): Promise<void> => {
-    if (!shouldPreviewInitialWhiteBalance || hasAdjustColorsEdit()) {
+    if (initialWhiteBalanceMethod === null || hasAdjustColorsEdit()) {
       return;
     }
-    shouldPreviewInitialWhiteBalance = false;
+    initialWhiteBalanceMethod = null;
     await get().editImageOperation.preview(adjustColorsPreview(get().adjustColorsControls));
   };
 
@@ -144,7 +147,7 @@ export const createAdjustColorsSlice: StateCreator<
     clear: clearAdjustColors,
     restore: command => {
       if (command.type === EditImageCommandType.AdjustColors) {
-        shouldPreviewInitialWhiteBalance = false;
+        initialWhiteBalanceMethod = null;
         set({
           adjustColorsControls: copyAdjustColorsControls(command.controls),
         });
@@ -167,8 +170,16 @@ export const createAdjustColorsSlice: StateCreator<
     resetAdjustColors,
 
     previewAdjustColors: async (): Promise<void> => {
-      shouldPreviewInitialWhiteBalance = false;
+      initialWhiteBalanceMethod = null;
       await get().editImageOperation.preview(adjustColorsPreview(get().adjustColorsControls));
+    },
+
+    editImageWithAutoWhiteBalance: async (imageFileToEdit: File): Promise<void> => {
+      if (!(await get().setImageFileToEdit(imageFileToEdit))) {
+        return;
+      }
+      initialWhiteBalanceMethod = AdjustColorsWhiteBalanceMethod.Auto;
+      await get().setActiveImageEditorKey(ImageEditorKey.AdjustColors);
     },
   };
 };

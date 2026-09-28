@@ -198,11 +198,11 @@ msgstr "Alkol Bazlı Markörler"
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Tüm uygulama verileri, kurulumdan sonra bile web tarayıcısının depolama alanında saklanır. Tarayıcı verilerini temizlemek hepsini siler."
 
-#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:336
 msgid "All edits will be lost"
 msgstr "Tüm düzenlemeler kaybolacak"
 
-#: src/components/file/FileSelect.tsx:155
+#: src/components/file/FileSelect.tsx:161
 msgid "Allow clipboard access, then try again."
 msgstr "Panoya erişim izni verin, sonra tekrar deneyin."
 
@@ -420,7 +420,7 @@ msgstr "AR'de kopyalamak için kamera erişimi gereklidir"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:338
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
@@ -432,7 +432,7 @@ msgstr "İptal et"
 msgid "Cancel a paid membership"
 msgstr "Ücretli üyeliği iptal et"
 
-#: src/components/file/FileSelect.tsx:170
+#: src/components/file/FileSelect.tsx:176
 msgid "Cannot use copied image"
 msgstr "Kopyalanmış görüntü kullanılamıyor"
 
@@ -471,7 +471,7 @@ msgstr "Bir referans fotoğrafı seçin"
 msgid "Cityscape"
 msgstr "Şehir manzarası"
 
-#: src/components/file/FileSelect.tsx:203
+#: src/components/file/FileSelect.tsx:209
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:108
 msgid "Clear"
 msgstr "Temizle"
@@ -594,8 +594,8 @@ msgstr "Renk markaları"
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "Renk verileri şu anda kullanılamıyor. Bağlantınızı kontrol edip tekrar deneyin."
 
-#: src/components/ImageTonalValues.tsx:121
-#: src/components/ImageTonalValues.tsx:124
+#: src/components/ImageTonalValues.tsx:141
+#: src/components/ImageTonalValues.tsx:144
 msgid "Color map"
 msgstr "Renk haritası"
 
@@ -707,7 +707,7 @@ msgstr "Soğuk — algoritmik tahmin; sanatsal algı değişebilir."
 msgid "Copy"
 msgstr "Kopyala"
 
-#: src/components/file/FileSelect.tsx:132
+#: src/components/file/FileSelect.tsx:138
 msgid "Copy a supported image to the clipboard, then try again."
 msgstr "Desteklenen bir görseli panoya kopyalayın, sonra tekrar deneyin."
 
@@ -736,7 +736,7 @@ msgstr "Yedek dışa aktarılamadı"
 msgid "Could not import backup"
 msgstr "Yedek aktarılamadı"
 
-#: src/hooks/useFileReadErrorNotification.tsx:28
+#: src/hooks/useFileReadErrorNotification.tsx:38
 msgid "Could not read the file"
 msgstr "Dosya okunamadı"
 
@@ -886,6 +886,14 @@ msgstr "Değişiklikleri yoksay"
 msgid "Discard changes to the color set?"
 msgstr "Renk setindeki değişiklikler yoksayılsın mı?"
 
+#: src/hooks/useConfirmDiscardImageEdits.tsx:37
+msgid "Discard edits"
+msgstr "Düzenlemelerden vazgeç"
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:33
+msgid "Discard your image edits?"
+msgstr "Görseldeki düzenlemelerinizden vazgeçmek istiyor musunuz?"
+
 #: src/components/cloud/DisconnectCloudButton.tsx:64
 msgid "Disconnect"
 msgstr "Bağlantıyı kes"
@@ -926,11 +934,11 @@ msgstr "{index} / {count} resmi indiriliyor"
 msgid "Downloading... {percent}% ({key})"
 msgstr "İndiriliyor... %{percent} ({key})"
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the file here..."
 msgstr "Dosyayı buraya bırakın..."
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the files here..."
 msgstr "Dosyaları buraya bırakın..."
 
@@ -962,7 +970,7 @@ msgstr "Buradan itibaren düzenle"
 msgid "Edit image"
 msgstr "Resmi düzenle"
 
-#: src/components/ImageEditor.tsx:342
+#: src/components/ImageEditor.tsx:348
 msgid "Edited"
 msgstr "Düzenlendi"
 
@@ -1244,6 +1252,7 @@ msgid "Keep cloud data"
 msgstr "Bulut verilerini sakla"
 
 #: src/components/ColorSetChooser.tsx:237
+#: src/hooks/useConfirmDiscardImageEdits.tsx:38
 msgid "Keep editing"
 msgstr "Düzenlemeye devam et"
 
@@ -1283,8 +1292,8 @@ msgstr "Hafif"
 msgid "Light box"
 msgstr "Işık masası"
 
-#: src/components/ImageTonalValues.tsx:91
-#: src/components/ImageTonalValues.tsx:94
+#: src/components/ImageTonalValues.tsx:111
+#: src/components/ImageTonalValues.tsx:114
 msgid "Light tone"
 msgstr "Açık ton"
 
@@ -1379,8 +1388,8 @@ msgstr "Birleştir"
 msgid "Merge color sets"
 msgstr "Renk setlerini birleştir"
 
-#: src/components/ImageTonalValues.tsx:101
-#: src/components/ImageTonalValues.tsx:104
+#: src/components/ImageTonalValues.tsx:121
+#: src/components/ImageTonalValues.tsx:124
 msgid "Mid tone"
 msgstr "Orta ton"
 
@@ -1436,7 +1445,7 @@ msgid "More"
 msgstr "Daha fazlası"
 
 #: src/components/ColorMixingChart.tsx:217
-#: src/components/image/ImageActions.tsx:93
+#: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
 #: src/components/ImageColorPicker.tsx:358
 #: src/components/ImageLimitedPalette.tsx:183
@@ -1753,8 +1762,8 @@ msgstr "Beğendiğiniz renk karışımının yanındaki <0>Palete ekle</0> düğ
 
 #: src/components/color/ColorSwatchDrawer.tsx:80
 #: src/components/ColorMixingChart.tsx:149
-#: src/components/image/ImageActions.tsx:49
-#: src/components/image/ImageActions.tsx:63
+#: src/components/image/ImageActions.tsx:64
+#: src/components/image/ImageActions.tsx:85
 #: src/components/ImageLimitedPalette.tsx:148
 #: src/components/ImageOutline.tsx:324
 #: src/components/ImageOutline.tsx:360
@@ -1808,7 +1817,7 @@ msgstr "Oran"
 msgid "Realism"
 msgstr "Gerçekçilik"
 
-#: src/components/ImageEditor.tsx:327
+#: src/components/ImageEditor.tsx:333
 msgid "Redo"
 msgstr "Yinele"
 
@@ -1890,8 +1899,8 @@ msgstr "macOS Sonoma veya sonraki bir sürümü gerekir."
 msgid "Resend code"
 msgstr "Kodu yeniden gönder"
 
-#: src/components/ImageEditor.tsx:331
-#: src/components/ImageEditor.tsx:336
+#: src/components/ImageEditor.tsx:337
+#: src/components/ImageEditor.tsx:342
 #: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "Sıfırla"
@@ -1948,7 +1957,7 @@ msgstr "Doygunluk (%)"
 #: src/components/ColorMixingChart.tsx:158
 #: src/components/ColorSetChooser.tsx:250
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/ImageActions.tsx:70
+#: src/components/image/ImageActions.tsx:92
 #: src/components/image/ImageSaveButton.tsx:40
 #: src/components/ImageLimitedPalette.tsx:155
 #: src/components/ImageOutline.tsx:367
@@ -2004,7 +2013,7 @@ msgstr "Bir sanat tekniği seçin"
 msgid "Select an image that contains a color chart"
 msgstr "Renk kartelası içeren bir görsel seçin"
 
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:298
 msgid "Select an image to edit"
 msgstr "Düzenlemek için bir görsel seçin"
 
@@ -2066,7 +2075,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "En son renk setlerinizden birini seçin veya yeni bir tane oluşturun."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:296
+#: src/components/ImageEditor.tsx:302
 msgid "Select image"
 msgstr "Resim seç"
 
@@ -2149,7 +2158,7 @@ msgstr "Oturumun süresi doldu"
 msgid "Set as main color set"
 msgstr "Ana renk seti olarak ayarla"
 
-#: src/components/image/ImageActions.tsx:81
+#: src/components/image/ImageActions.tsx:103
 #: src/components/image/ImageSaveButton.tsx:56
 #: src/components/ImageLimitedPalette.tsx:164
 msgid "Set as reference"
@@ -2175,8 +2184,8 @@ msgstr "Glaze için alt katman olarak ayarla."
 msgid "Set as unifying color"
 msgstr "Birleştirici renk olarak ayarla"
 
-#: src/components/ImageTonalValues.tsx:111
-#: src/components/ImageTonalValues.tsx:114
+#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageTonalValues.tsx:134
 msgid "Shadow"
 msgstr "Gölge"
 
@@ -2449,9 +2458,13 @@ msgstr "Üzerine glaze uygulamak istediğiniz kurumuş katman."
 msgid "The existing pastel layer you want to blend over."
 msgstr "Üzerine harmanlama yapmak istediğiniz mevcut pastel katman."
 
-#: src/hooks/useFileReadErrorNotification.tsx:30
-msgid "The file could not be read right now. Try selecting it again. If it is in cloud storage, download it to this device first."
-msgstr "Dosya şu anda okunamadı. Dosyayı yeniden seçmeyi deneyin. Bulut depolama alanındaysa önce bu cihaza indirin."
+#: src/hooks/useFileReadErrorNotification.tsx:41
+msgid "The file could not be read. Select a copy from Files on this device. If it is in cloud storage, download it first."
+msgstr "Dosya okunamadı. Bu cihazdaki Dosyalar uygulamasından bir kopya seçin. Bulut depolama alanındaysa önce indirin."
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:35
+msgid "The image you are editing will be replaced, and your edits will be lost."
+msgstr "Düzenlemekte olduğunuz görsel değiştirilecek ve düzenlemeleriniz kaybolacak."
 
 #: src/components/print/PrintImageDrawer.tsx:258
 msgid "The margin is too large"
@@ -2545,7 +2558,7 @@ msgstr "{tabLabel} özelliğini kullanmak için bir referans fotoğraf seçin"
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
 msgstr "{tabLabel} özelliğini kullanmak için desteklenen bir sanat tekniğini ve boyama yapılacak renkleri seçin"
 
-#: src/components/ImageTonalValues.tsx:133
+#: src/components/ImageTonalValues.tsx:153
 #: src/components/messages.ts:32
 msgid "Tonal values"
 msgstr "Ton değerleri"
@@ -2653,7 +2666,7 @@ msgstr "Kaydedilen renk seti geri yüklenemiyor"
 msgid "Underlayer"
 msgstr "Alt katman"
 
-#: src/components/ImageEditor.tsx:320
+#: src/components/ImageEditor.tsx:326
 msgid "Undo"
 msgstr "Geri al"
 
@@ -2721,7 +2734,7 @@ msgstr "Tam basıncın <0>{fractionText} kadarını</0> kullanın"
 msgid "Use at full strength"
 msgstr "Tam güçte kullanın"
 
-#: src/components/file/FileSelect.tsx:193
+#: src/components/file/FileSelect.tsx:199
 msgid "Use copied image"
 msgstr "Kopyalanan görseli kullan"
 
@@ -2729,7 +2742,7 @@ msgstr "Kopyalanan görseli kullan"
 msgid "Use full pressure"
 msgstr "Tam basınç kullanın"
 
-#: src/components/file/FileSelect.tsx:182
+#: src/components/file/FileSelect.tsx:188
 msgid "Use reference photo"
 msgstr "Referans fotoğrafı kullan"
 
@@ -2821,6 +2834,7 @@ msgid "White"
 msgstr "Beyaz"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:175
+#: src/components/ImageTonalValues.tsx:170
 msgid "White balance"
 msgstr "Beyaz dengesi"
 
@@ -2873,7 +2887,7 @@ msgstr "Hesap detaylarınız:"
 msgid "Your app settings will return to their defaults. Your saved work will remain."
 msgstr "Uygulama ayarları varsayılan değerlerine dönecek. Kaydedilen çalışmalarınız korunacak."
 
-#: src/components/file/FileSelect.tsx:165
+#: src/components/file/FileSelect.tsx:171
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "Tarayıcınız panodan görüntüleri okumayı desteklemiyor."
 
@@ -2902,7 +2916,7 @@ msgid "Your image"
 msgstr "Resminiz"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:307
+#: src/components/ImageEditor.tsx:313
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:320
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

@@ -198,11 +198,11 @@ msgstr "Маркери на спиртна основа"
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Всички данни от приложението се съхраняват в паметта на уеб браузъра, дори след инсталация. Изтриването на данните от браузъра изтрива всичко."
 
-#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:336
 msgid "All edits will be lost"
 msgstr "Всички редакции ще бъдат загубени"
 
-#: src/components/file/FileSelect.tsx:155
+#: src/components/file/FileSelect.tsx:161
 msgid "Allow clipboard access, then try again."
 msgstr "Позволете достъп до клипборда, после опитайте отново."
 
@@ -420,7 +420,7 @@ msgstr "За прекопиране в AR е необходим достъп д�
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:338
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
@@ -432,7 +432,7 @@ msgstr "Отказ"
 msgid "Cancel a paid membership"
 msgstr "Анулиране на платено членство"
 
-#: src/components/file/FileSelect.tsx:170
+#: src/components/file/FileSelect.tsx:176
 msgid "Cannot use copied image"
 msgstr "Копираното изображение не може да бъде използвано"
 
@@ -471,7 +471,7 @@ msgstr "Изберете референтна снимка"
 msgid "Cityscape"
 msgstr "Градски пейзаж"
 
-#: src/components/file/FileSelect.tsx:203
+#: src/components/file/FileSelect.tsx:209
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:108
 msgid "Clear"
 msgstr "Изчистване"
@@ -594,8 +594,8 @@ msgstr "Марки цветове"
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "В момента няма налични цветови данни. Проверете връзката си и опитайте отново."
 
-#: src/components/ImageTonalValues.tsx:121
-#: src/components/ImageTonalValues.tsx:124
+#: src/components/ImageTonalValues.tsx:141
+#: src/components/ImageTonalValues.tsx:144
 msgid "Color map"
 msgstr "Цветова карта"
 
@@ -707,7 +707,7 @@ msgstr "Студена — алгоритмична оценка; художес
 msgid "Copy"
 msgstr "Копиране"
 
-#: src/components/file/FileSelect.tsx:132
+#: src/components/file/FileSelect.tsx:138
 msgid "Copy a supported image to the clipboard, then try again."
 msgstr "Копирайте поддържано изображение в клипборда и опитайте отново."
 
@@ -736,7 +736,7 @@ msgstr "Резервното копие не можа да бъде експор
 msgid "Could not import backup"
 msgstr "Резервното копие не можа да бъде импортирано"
 
-#: src/hooks/useFileReadErrorNotification.tsx:28
+#: src/hooks/useFileReadErrorNotification.tsx:38
 msgid "Could not read the file"
 msgstr "Файлът не можа да бъде прочетен"
 
@@ -886,6 +886,14 @@ msgstr "Отхвърляне на промените"
 msgid "Discard changes to the color set?"
 msgstr "Да се отхвърлят ли промените в набора от цветове?"
 
+#: src/hooks/useConfirmDiscardImageEdits.tsx:37
+msgid "Discard edits"
+msgstr "Отхвърляне на редакциите"
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:33
+msgid "Discard your image edits?"
+msgstr "Да се отхвърлят ли редакциите на изображението?"
+
 #: src/components/cloud/DisconnectCloudButton.tsx:64
 msgid "Disconnect"
 msgstr "Прекъсване на връзката"
@@ -926,11 +934,11 @@ msgstr "Изтегляне на изображение {index} / {count}"
 msgid "Downloading... {percent}% ({key})"
 msgstr "Изтегляне... {percent}% ({key})"
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the file here..."
 msgstr "Пуснете файла тук..."
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the files here..."
 msgstr "Пуснете файловете тук..."
 
@@ -962,7 +970,7 @@ msgstr "Редакция оттук нататък"
 msgid "Edit image"
 msgstr "Редактиране на изображението"
 
-#: src/components/ImageEditor.tsx:342
+#: src/components/ImageEditor.tsx:348
 msgid "Edited"
 msgstr "Редактирано"
 
@@ -1244,6 +1252,7 @@ msgid "Keep cloud data"
 msgstr "Запазване на облачните данни"
 
 #: src/components/ColorSetChooser.tsx:237
+#: src/hooks/useConfirmDiscardImageEdits.tsx:38
 msgid "Keep editing"
 msgstr "Продължаване на редактирането"
 
@@ -1283,8 +1292,8 @@ msgstr "Лек"
 msgid "Light box"
 msgstr "Лайтбокс"
 
-#: src/components/ImageTonalValues.tsx:91
-#: src/components/ImageTonalValues.tsx:94
+#: src/components/ImageTonalValues.tsx:111
+#: src/components/ImageTonalValues.tsx:114
 msgid "Light tone"
 msgstr "Светъл тон"
 
@@ -1379,8 +1388,8 @@ msgstr "Сливане"
 msgid "Merge color sets"
 msgstr "Сливане на набори от цветове"
 
-#: src/components/ImageTonalValues.tsx:101
-#: src/components/ImageTonalValues.tsx:104
+#: src/components/ImageTonalValues.tsx:121
+#: src/components/ImageTonalValues.tsx:124
 msgid "Mid tone"
 msgstr "Среден тон"
 
@@ -1436,7 +1445,7 @@ msgid "More"
 msgstr "Още"
 
 #: src/components/ColorMixingChart.tsx:217
-#: src/components/image/ImageActions.tsx:93
+#: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
 #: src/components/ImageColorPicker.tsx:358
 #: src/components/ImageLimitedPalette.tsx:183
@@ -1753,8 +1762,8 @@ msgstr "Натиснете бутона <0>Добавяне към палитр�
 
 #: src/components/color/ColorSwatchDrawer.tsx:80
 #: src/components/ColorMixingChart.tsx:149
-#: src/components/image/ImageActions.tsx:49
-#: src/components/image/ImageActions.tsx:63
+#: src/components/image/ImageActions.tsx:64
+#: src/components/image/ImageActions.tsx:85
 #: src/components/ImageLimitedPalette.tsx:148
 #: src/components/ImageOutline.tsx:324
 #: src/components/ImageOutline.tsx:360
@@ -1808,7 +1817,7 @@ msgstr "Съотношение"
 msgid "Realism"
 msgstr "Реализъм"
 
-#: src/components/ImageEditor.tsx:327
+#: src/components/ImageEditor.tsx:333
 msgid "Redo"
 msgstr "Повтаряне"
 
@@ -1890,8 +1899,8 @@ msgstr "Изисква macOS Sonoma или по-нова версия."
 msgid "Resend code"
 msgstr "Повторно изпращане на кода"
 
-#: src/components/ImageEditor.tsx:331
-#: src/components/ImageEditor.tsx:336
+#: src/components/ImageEditor.tsx:337
+#: src/components/ImageEditor.tsx:342
 #: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "Нулиране"
@@ -1948,7 +1957,7 @@ msgstr "Насищане (%)"
 #: src/components/ColorMixingChart.tsx:158
 #: src/components/ColorSetChooser.tsx:250
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/ImageActions.tsx:70
+#: src/components/image/ImageActions.tsx:92
 #: src/components/image/ImageSaveButton.tsx:40
 #: src/components/ImageLimitedPalette.tsx:155
 #: src/components/ImageOutline.tsx:367
@@ -2004,7 +2013,7 @@ msgstr "Изберете художествен материал"
 msgid "Select an image that contains a color chart"
 msgstr "Изберете изображение, което съдържа таблица с цветове"
 
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:298
 msgid "Select an image to edit"
 msgstr "Изберете изображение за редактиране"
 
@@ -2066,7 +2075,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Изберете от скорошните си набори от цветове или създайте нов."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:296
+#: src/components/ImageEditor.tsx:302
 msgid "Select image"
 msgstr "Изберете изображение"
 
@@ -2149,7 +2158,7 @@ msgstr "Сесията изтече"
 msgid "Set as main color set"
 msgstr "Задаване като основен набор от цветове"
 
-#: src/components/image/ImageActions.tsx:81
+#: src/components/image/ImageActions.tsx:103
 #: src/components/image/ImageSaveButton.tsx:56
 #: src/components/ImageLimitedPalette.tsx:164
 msgid "Set as reference"
@@ -2175,8 +2184,8 @@ msgstr "Задайте като подслой за лесиране."
 msgid "Set as unifying color"
 msgstr "Задаване като обединяващ цвят"
 
-#: src/components/ImageTonalValues.tsx:111
-#: src/components/ImageTonalValues.tsx:114
+#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageTonalValues.tsx:134
 msgid "Shadow"
 msgstr "Сянка"
 
@@ -2449,9 +2458,13 @@ msgstr "Изсъхналият слой, който искате да лесир
 msgid "The existing pastel layer you want to blend over."
 msgstr "Съществуващият пастелен слой, върху който искате да разтривате."
 
-#: src/hooks/useFileReadErrorNotification.tsx:30
-msgid "The file could not be read right now. Try selecting it again. If it is in cloud storage, download it to this device first."
-msgstr "Файлът не можа да бъде прочетен в момента. Опитайте да го изберете отново. Ако е в облачно хранилище, първо го изтеглете на това устройство."
+#: src/hooks/useFileReadErrorNotification.tsx:41
+msgid "The file could not be read. Select a copy from Files on this device. If it is in cloud storage, download it first."
+msgstr "Файлът не можа да бъде прочетен. Изберете копие от приложението „Файлове“ на това устройство. Ако е в облачно хранилище, първо го изтеглете."
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:35
+msgid "The image you are editing will be replaced, and your edits will be lost."
+msgstr "Изображението, което редактирате, ще бъде заменено и редакциите ви ще бъдат загубени."
 
 #: src/components/print/PrintImageDrawer.tsx:258
 msgid "The margin is too large"
@@ -2545,7 +2558,7 @@ msgstr "За да използвате функцията {tabLabel}, избер
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
 msgstr "За да използвате функцията {tabLabel}, изберете поддържан художествен материал и цветове, с които да рисувате"
 
-#: src/components/ImageTonalValues.tsx:133
+#: src/components/ImageTonalValues.tsx:153
 #: src/components/messages.ts:32
 msgid "Tonal values"
 msgstr "Тонални стойности"
@@ -2653,7 +2666,7 @@ msgstr "Не може да се възстанови запазеният наб
 msgid "Underlayer"
 msgstr "Подслой"
 
-#: src/components/ImageEditor.tsx:320
+#: src/components/ImageEditor.tsx:326
 msgid "Undo"
 msgstr "Отмяна"
 
@@ -2721,7 +2734,7 @@ msgstr "Използвайте <0>{fractionText} от пълното наляг�
 msgid "Use at full strength"
 msgstr "Използвайте с пълна сила"
 
-#: src/components/file/FileSelect.tsx:193
+#: src/components/file/FileSelect.tsx:199
 msgid "Use copied image"
 msgstr "Използване на копираното изображение"
 
@@ -2729,7 +2742,7 @@ msgstr "Използване на копираното изображение"
 msgid "Use full pressure"
 msgstr "Използвайте пълно налягане"
 
-#: src/components/file/FileSelect.tsx:182
+#: src/components/file/FileSelect.tsx:188
 msgid "Use reference photo"
 msgstr "Използване на референтната снимка"
 
@@ -2821,6 +2834,7 @@ msgid "White"
 msgstr "Бяло"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:175
+#: src/components/ImageTonalValues.tsx:170
 msgid "White balance"
 msgstr "Баланс на бялото"
 
@@ -2873,7 +2887,7 @@ msgstr "Вашите данни за акаунта:"
 msgid "Your app settings will return to their defaults. Your saved work will remain."
 msgstr "Настройките на приложението ще се върнат към стойностите по подразбиране. Запазената ви работа ще остане."
 
-#: src/components/file/FileSelect.tsx:165
+#: src/components/file/FileSelect.tsx:171
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "Вашият браузър не поддържа четене на изображения от клипборда."
 
@@ -2902,7 +2916,7 @@ msgid "Your image"
 msgstr "Вашето изображение"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:307
+#: src/components/ImageEditor.tsx:313
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:320
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

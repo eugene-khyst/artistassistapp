@@ -198,11 +198,11 @@ msgstr "Alkoholové fixky"
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Všetky údaje aplikácie sú uložené v úložisku webového prehliadača, aj po inštalácii. Vymazanie údajov prehliadača ich všetky odstráni."
 
-#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:336
 msgid "All edits will be lost"
 msgstr "Všetky úpravy sa stratia"
 
-#: src/components/file/FileSelect.tsx:155
+#: src/components/file/FileSelect.tsx:161
 msgid "Allow clipboard access, then try again."
 msgstr "Povoľte prístup do schránky a skúste to znova."
 
@@ -420,7 +420,7 @@ msgstr "Na obkresľovanie v AR je potrebný prístup ku kamere"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:338
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
@@ -432,7 +432,7 @@ msgstr "Zrušiť"
 msgid "Cancel a paid membership"
 msgstr "Zrušiť platené členstvo"
 
-#: src/components/file/FileSelect.tsx:170
+#: src/components/file/FileSelect.tsx:176
 msgid "Cannot use copied image"
 msgstr "Nie je možné použiť skopírovaný obrázok"
 
@@ -471,7 +471,7 @@ msgstr "Vyberte referenčnú fotografiu"
 msgid "Cityscape"
 msgstr "Mestská krajina"
 
-#: src/components/file/FileSelect.tsx:203
+#: src/components/file/FileSelect.tsx:209
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:108
 msgid "Clear"
 msgstr "Vymazať"
@@ -594,8 +594,8 @@ msgstr "Farebné značky"
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "Údaje o farbách momentálne nie sú k dispozícii. Skontrolujte pripojenie a skúste to znova."
 
-#: src/components/ImageTonalValues.tsx:121
-#: src/components/ImageTonalValues.tsx:124
+#: src/components/ImageTonalValues.tsx:141
+#: src/components/ImageTonalValues.tsx:144
 msgid "Color map"
 msgstr "Farebná mapa"
 
@@ -707,7 +707,7 @@ msgstr "Studená — algoritmický odhad; umelecké vnímanie sa môže líšiť
 msgid "Copy"
 msgstr "Kopírovať"
 
-#: src/components/file/FileSelect.tsx:132
+#: src/components/file/FileSelect.tsx:138
 msgid "Copy a supported image to the clipboard, then try again."
 msgstr "Skopírujte podporovaný obrázok do schránky a skúste to znova."
 
@@ -736,7 +736,7 @@ msgstr "Zálohu sa nepodarilo exportovať"
 msgid "Could not import backup"
 msgstr "Zálohu sa nepodarilo importovať"
 
-#: src/hooks/useFileReadErrorNotification.tsx:28
+#: src/hooks/useFileReadErrorNotification.tsx:38
 msgid "Could not read the file"
 msgstr "Súbor sa nepodarilo prečítať"
 
@@ -886,6 +886,14 @@ msgstr "Zahodiť zmeny"
 msgid "Discard changes to the color set?"
 msgstr "Zahodiť zmeny vo farebnej sade?"
 
+#: src/hooks/useConfirmDiscardImageEdits.tsx:37
+msgid "Discard edits"
+msgstr "Zahodiť úpravy"
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:33
+msgid "Discard your image edits?"
+msgstr "Zahodiť úpravy obrázka?"
+
 #: src/components/cloud/DisconnectCloudButton.tsx:64
 msgid "Disconnect"
 msgstr "Odpojiť"
@@ -926,11 +934,11 @@ msgstr "Sťahuje sa obrázok {index} / {count}"
 msgid "Downloading... {percent}% ({key})"
 msgstr "Sťahovanie... {percent}% ({key})"
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the file here..."
 msgstr "Sem presuňte súbor..."
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the files here..."
 msgstr "Sem presuňte súbory..."
 
@@ -962,7 +970,7 @@ msgstr "Upraviť odtiaľto ďalej"
 msgid "Edit image"
 msgstr "Upraviť obrázok"
 
-#: src/components/ImageEditor.tsx:342
+#: src/components/ImageEditor.tsx:348
 msgid "Edited"
 msgstr "Upravené"
 
@@ -1244,6 +1252,7 @@ msgid "Keep cloud data"
 msgstr "Ponechať cloudové údaje"
 
 #: src/components/ColorSetChooser.tsx:237
+#: src/hooks/useConfirmDiscardImageEdits.tsx:38
 msgid "Keep editing"
 msgstr "Pokračovať v úpravách"
 
@@ -1283,8 +1292,8 @@ msgstr "Ľahký"
 msgid "Light box"
 msgstr "Lightbox"
 
-#: src/components/ImageTonalValues.tsx:91
-#: src/components/ImageTonalValues.tsx:94
+#: src/components/ImageTonalValues.tsx:111
+#: src/components/ImageTonalValues.tsx:114
 msgid "Light tone"
 msgstr "Svetlý tón"
 
@@ -1379,8 +1388,8 @@ msgstr "Zlúčiť"
 msgid "Merge color sets"
 msgstr "Zlúčiť farebné sady"
 
-#: src/components/ImageTonalValues.tsx:101
-#: src/components/ImageTonalValues.tsx:104
+#: src/components/ImageTonalValues.tsx:121
+#: src/components/ImageTonalValues.tsx:124
 msgid "Mid tone"
 msgstr "Stredný tón"
 
@@ -1436,7 +1445,7 @@ msgid "More"
 msgstr "Viac"
 
 #: src/components/ColorMixingChart.tsx:217
-#: src/components/image/ImageActions.tsx:93
+#: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
 #: src/components/ImageColorPicker.tsx:358
 #: src/components/ImageLimitedPalette.tsx:183
@@ -1753,8 +1762,8 @@ msgstr "Stlačte tlačidlo <0>Pridať do palety</0> vedľa farebnej zmesi, ktor�
 
 #: src/components/color/ColorSwatchDrawer.tsx:80
 #: src/components/ColorMixingChart.tsx:149
-#: src/components/image/ImageActions.tsx:49
-#: src/components/image/ImageActions.tsx:63
+#: src/components/image/ImageActions.tsx:64
+#: src/components/image/ImageActions.tsx:85
 #: src/components/ImageLimitedPalette.tsx:148
 #: src/components/ImageOutline.tsx:324
 #: src/components/ImageOutline.tsx:360
@@ -1808,7 +1817,7 @@ msgstr "Pomer"
 msgid "Realism"
 msgstr "Realizmus"
 
-#: src/components/ImageEditor.tsx:327
+#: src/components/ImageEditor.tsx:333
 msgid "Redo"
 msgstr "Znovu"
 
@@ -1890,8 +1899,8 @@ msgstr "Vyžaduje sa systém macOS Sonoma alebo novší."
 msgid "Resend code"
 msgstr "Znova odoslať kód"
 
-#: src/components/ImageEditor.tsx:331
-#: src/components/ImageEditor.tsx:336
+#: src/components/ImageEditor.tsx:337
+#: src/components/ImageEditor.tsx:342
 #: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "Resetovať"
@@ -1948,7 +1957,7 @@ msgstr "Sýtosť (%)"
 #: src/components/ColorMixingChart.tsx:158
 #: src/components/ColorSetChooser.tsx:250
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/ImageActions.tsx:70
+#: src/components/image/ImageActions.tsx:92
 #: src/components/image/ImageSaveButton.tsx:40
 #: src/components/ImageLimitedPalette.tsx:155
 #: src/components/ImageOutline.tsx:367
@@ -2004,7 +2013,7 @@ msgstr "Vyberte výtvarnú techniku"
 msgid "Select an image that contains a color chart"
 msgstr "Vyberte obrázok, ktorý obsahuje farebnú tabuľku"
 
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:298
 msgid "Select an image to edit"
 msgstr "Vyberte obrázok na úpravu"
 
@@ -2066,7 +2075,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Vyberte si zo svojich nedávnych farebných sád alebo vytvorte novú."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:296
+#: src/components/ImageEditor.tsx:302
 msgid "Select image"
 msgstr "Vybrať obrázok"
 
@@ -2149,7 +2158,7 @@ msgstr "Relácia vypršala"
 msgid "Set as main color set"
 msgstr "Nastaviť ako hlavnú farebnú sadu"
 
-#: src/components/image/ImageActions.tsx:81
+#: src/components/image/ImageActions.tsx:103
 #: src/components/image/ImageSaveButton.tsx:56
 #: src/components/ImageLimitedPalette.tsx:164
 msgid "Set as reference"
@@ -2175,8 +2184,8 @@ msgstr "Nastaviť ako podkladovú vrstvu na lazúrovanie."
 msgid "Set as unifying color"
 msgstr "Nastaviť ako zjednocujúcu farbu"
 
-#: src/components/ImageTonalValues.tsx:111
-#: src/components/ImageTonalValues.tsx:114
+#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageTonalValues.tsx:134
 msgid "Shadow"
 msgstr "Tieň"
 
@@ -2449,9 +2458,13 @@ msgstr "Zaschnutá vrstva, cez ktorú chcete lazúrovať."
 msgid "The existing pastel layer you want to blend over."
 msgstr "Existujúca pastelová vrstva, na ktorej chcete rozotierať."
 
-#: src/hooks/useFileReadErrorNotification.tsx:30
-msgid "The file could not be read right now. Try selecting it again. If it is in cloud storage, download it to this device first."
-msgstr "Súbor sa teraz nepodarilo prečítať. Skúste ho vybrať znova. Ak je v cloudovom úložisku, najprv ho stiahnite do tohto zariadenia."
+#: src/hooks/useFileReadErrorNotification.tsx:41
+msgid "The file could not be read. Select a copy from Files on this device. If it is in cloud storage, download it first."
+msgstr "Súbor sa nepodarilo prečítať. Vyberte kópiu z aplikácie Súbory v tomto zariadení. Ak je v cloudovom úložisku, najprv ho stiahnite."
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:35
+msgid "The image you are editing will be replaced, and your edits will be lost."
+msgstr "Obrázok, ktorý upravujete, sa nahradí a vaše úpravy sa stratia."
 
 #: src/components/print/PrintImageDrawer.tsx:258
 msgid "The margin is too large"
@@ -2545,7 +2558,7 @@ msgstr "Ak chcete použiť funkciu {tabLabel}, vyberte referenčnú fotografiu"
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
 msgstr "Ak chcete použiť funkciu {tabLabel}, vyberte podporovanú výtvarnú techniku a farby na maľovanie"
 
-#: src/components/ImageTonalValues.tsx:133
+#: src/components/ImageTonalValues.tsx:153
 #: src/components/messages.ts:32
 msgid "Tonal values"
 msgstr "Tonálne hodnoty"
@@ -2653,7 +2666,7 @@ msgstr "Nie je možné obnoviť uloženú farebnú sadu"
 msgid "Underlayer"
 msgstr "Podkladová vrstva"
 
-#: src/components/ImageEditor.tsx:320
+#: src/components/ImageEditor.tsx:326
 msgid "Undo"
 msgstr "Vrátiť späť"
 
@@ -2721,7 +2734,7 @@ msgstr "Použite <0>{fractionText} plného prítlaku</0>"
 msgid "Use at full strength"
 msgstr "Použiť neriedenú"
 
-#: src/components/file/FileSelect.tsx:193
+#: src/components/file/FileSelect.tsx:199
 msgid "Use copied image"
 msgstr "Použiť skopírovaný obrázok"
 
@@ -2729,7 +2742,7 @@ msgstr "Použiť skopírovaný obrázok"
 msgid "Use full pressure"
 msgstr "Použiť plný prítlak"
 
-#: src/components/file/FileSelect.tsx:182
+#: src/components/file/FileSelect.tsx:188
 msgid "Use reference photo"
 msgstr "Použiť referenčnú fotografiu"
 
@@ -2821,6 +2834,7 @@ msgid "White"
 msgstr "Biela"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:175
+#: src/components/ImageTonalValues.tsx:170
 msgid "White balance"
 msgstr "Vyváženie bielej"
 
@@ -2873,7 +2887,7 @@ msgstr "Údaje o vašom účte:"
 msgid "Your app settings will return to their defaults. Your saved work will remain."
 msgstr "Nastavenia aplikácie sa vrátia na predvolené hodnoty. Vaša uložená práca zostane zachovaná."
 
-#: src/components/file/FileSelect.tsx:165
+#: src/components/file/FileSelect.tsx:171
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "Váš prehliadač nepodporuje čítanie obrázkov zo schránky."
 
@@ -2902,7 +2916,7 @@ msgid "Your image"
 msgstr "Váš obrázok"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:307
+#: src/components/ImageEditor.tsx:313
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:320
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

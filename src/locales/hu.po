@@ -198,11 +198,11 @@ msgstr "Alkoholos markerek"
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Minden alkalmazásadat a böngésző tárolójában van, még a telepítés után is. A böngésző adatainak törlése mindent töröl."
 
-#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:336
 msgid "All edits will be lost"
 msgstr "Minden szerkesztés elvész"
 
-#: src/components/file/FileSelect.tsx:155
+#: src/components/file/FileSelect.tsx:161
 msgid "Allow clipboard access, then try again."
 msgstr "Engedélyezze a vágólap elérését, majd próbálja újra."
 
@@ -420,7 +420,7 @@ msgstr "Az AR-ban való átrajzoláshoz kamerahozzáférés szükséges"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:338
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
@@ -432,7 +432,7 @@ msgstr "Mégse"
 msgid "Cancel a paid membership"
 msgstr "Fizetős tagság lemondása"
 
-#: src/components/file/FileSelect.tsx:170
+#: src/components/file/FileSelect.tsx:176
 msgid "Cannot use copied image"
 msgstr "Nem lehet másolt képet használni"
 
@@ -471,7 +471,7 @@ msgstr "Válasszon referenciafotót"
 msgid "Cityscape"
 msgstr "Városkép"
 
-#: src/components/file/FileSelect.tsx:203
+#: src/components/file/FileSelect.tsx:209
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:108
 msgid "Clear"
 msgstr "Törlés"
@@ -594,8 +594,8 @@ msgstr "Színmárkák"
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "A színadatok jelenleg nem érhetők el. Ellenőrizze a kapcsolatot, és próbálja újra."
 
-#: src/components/ImageTonalValues.tsx:121
-#: src/components/ImageTonalValues.tsx:124
+#: src/components/ImageTonalValues.tsx:141
+#: src/components/ImageTonalValues.tsx:144
 msgid "Color map"
 msgstr "Színtérkép"
 
@@ -707,7 +707,7 @@ msgstr "Hideg — algoritmikus becslés; a művészi felfogás eltérhet."
 msgid "Copy"
 msgstr "Másolás"
 
-#: src/components/file/FileSelect.tsx:132
+#: src/components/file/FileSelect.tsx:138
 msgid "Copy a supported image to the clipboard, then try again."
 msgstr "Másoljon egy támogatott képet a vágólapra, majd próbálja újra."
 
@@ -736,7 +736,7 @@ msgstr "A biztonsági másolat exportálása nem sikerült"
 msgid "Could not import backup"
 msgstr "A biztonsági másolat importálása nem sikerült"
 
-#: src/hooks/useFileReadErrorNotification.tsx:28
+#: src/hooks/useFileReadErrorNotification.tsx:38
 msgid "Could not read the file"
 msgstr "A fájl nem olvasható"
 
@@ -886,6 +886,14 @@ msgstr "Változtatások elvetése"
 msgid "Discard changes to the color set?"
 msgstr "Elveti a színkészlet módosításait?"
 
+#: src/hooks/useConfirmDiscardImageEdits.tsx:37
+msgid "Discard edits"
+msgstr "Szerkesztések elvetése"
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:33
+msgid "Discard your image edits?"
+msgstr "Elveti a kép szerkesztéseit?"
+
 #: src/components/cloud/DisconnectCloudButton.tsx:64
 msgid "Disconnect"
 msgstr "Leválasztás"
@@ -926,11 +934,11 @@ msgstr "Kép letöltése: {index} / {count}"
 msgid "Downloading... {percent}% ({key})"
 msgstr "Letöltés... {percent}% ({key})"
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the file here..."
 msgstr "Húzza ide a fájlt..."
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the files here..."
 msgstr "Húzza ide a fájlokat..."
 
@@ -962,7 +970,7 @@ msgstr "Szerkesztés innentől"
 msgid "Edit image"
 msgstr "Kép szerkesztése"
 
-#: src/components/ImageEditor.tsx:342
+#: src/components/ImageEditor.tsx:348
 msgid "Edited"
 msgstr "Szerkesztve"
 
@@ -1244,6 +1252,7 @@ msgid "Keep cloud data"
 msgstr "Felhőadatok megtartása"
 
 #: src/components/ColorSetChooser.tsx:237
+#: src/hooks/useConfirmDiscardImageEdits.tsx:38
 msgid "Keep editing"
 msgstr "Szerkesztés folytatása"
 
@@ -1283,8 +1292,8 @@ msgstr "Könnyű"
 msgid "Light box"
 msgstr "Világítódoboz"
 
-#: src/components/ImageTonalValues.tsx:91
-#: src/components/ImageTonalValues.tsx:94
+#: src/components/ImageTonalValues.tsx:111
+#: src/components/ImageTonalValues.tsx:114
 msgid "Light tone"
 msgstr "Világos tónus"
 
@@ -1379,8 +1388,8 @@ msgstr "Egyesítés"
 msgid "Merge color sets"
 msgstr "Színkészletek egyesítése"
 
-#: src/components/ImageTonalValues.tsx:101
-#: src/components/ImageTonalValues.tsx:104
+#: src/components/ImageTonalValues.tsx:121
+#: src/components/ImageTonalValues.tsx:124
 msgid "Mid tone"
 msgstr "Középtónus"
 
@@ -1436,7 +1445,7 @@ msgid "More"
 msgstr "Több"
 
 #: src/components/ColorMixingChart.tsx:217
-#: src/components/image/ImageActions.tsx:93
+#: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
 #: src/components/ImageColorPicker.tsx:358
 #: src/components/ImageLimitedPalette.tsx:183
@@ -1753,8 +1762,8 @@ msgstr "Nyomja meg a <0>Hozzáadás a palettához</0> gombot a kívánt színkev
 
 #: src/components/color/ColorSwatchDrawer.tsx:80
 #: src/components/ColorMixingChart.tsx:149
-#: src/components/image/ImageActions.tsx:49
-#: src/components/image/ImageActions.tsx:63
+#: src/components/image/ImageActions.tsx:64
+#: src/components/image/ImageActions.tsx:85
 #: src/components/ImageLimitedPalette.tsx:148
 #: src/components/ImageOutline.tsx:324
 #: src/components/ImageOutline.tsx:360
@@ -1808,7 +1817,7 @@ msgstr "Arány"
 msgid "Realism"
 msgstr "Realizmus"
 
-#: src/components/ImageEditor.tsx:327
+#: src/components/ImageEditor.tsx:333
 msgid "Redo"
 msgstr "Újra"
 
@@ -1890,8 +1899,8 @@ msgstr "macOS Sonoma vagy újabb rendszer szükséges hozzá."
 msgid "Resend code"
 msgstr "Kód újraküldése"
 
-#: src/components/ImageEditor.tsx:331
-#: src/components/ImageEditor.tsx:336
+#: src/components/ImageEditor.tsx:337
+#: src/components/ImageEditor.tsx:342
 #: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "Visszaállítás"
@@ -1948,7 +1957,7 @@ msgstr "Telítettség (%)"
 #: src/components/ColorMixingChart.tsx:158
 #: src/components/ColorSetChooser.tsx:250
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/ImageActions.tsx:70
+#: src/components/image/ImageActions.tsx:92
 #: src/components/image/ImageSaveButton.tsx:40
 #: src/components/ImageLimitedPalette.tsx:155
 #: src/components/ImageOutline.tsx:367
@@ -2004,7 +2013,7 @@ msgstr "Válasszon képzőművészeti technikát"
 msgid "Select an image that contains a color chart"
 msgstr "Színdiagramot tartalmazó kép kiválasztása"
 
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:298
 msgid "Select an image to edit"
 msgstr "Válasszon egy képet szerkesztésre"
 
@@ -2066,7 +2075,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Válasszon a legutóbbi színkészletek közül, vagy hozzon létre egy újat."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:296
+#: src/components/ImageEditor.tsx:302
 msgid "Select image"
 msgstr "Kép kiválasztása"
 
@@ -2149,7 +2158,7 @@ msgstr "A munkamenet lejárt"
 msgid "Set as main color set"
 msgstr "Beállítás fő színkészletként"
 
-#: src/components/image/ImageActions.tsx:81
+#: src/components/image/ImageActions.tsx:103
 #: src/components/image/ImageSaveButton.tsx:56
 #: src/components/ImageLimitedPalette.tsx:164
 msgid "Set as reference"
@@ -2175,8 +2184,8 @@ msgstr "Beállítás alaprétegként a lazúrozáshoz."
 msgid "Set as unifying color"
 msgstr "Beállítás egyesítő színként"
 
-#: src/components/ImageTonalValues.tsx:111
-#: src/components/ImageTonalValues.tsx:114
+#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageTonalValues.tsx:134
 msgid "Shadow"
 msgstr "Árnyék"
 
@@ -2449,9 +2458,13 @@ msgstr "A megszáradt réteg, amelyre lazúrozni szeretne."
 msgid "The existing pastel layer you want to blend over."
 msgstr "A meglévő pasztellréteg, amelyre elmosni szeretne."
 
-#: src/hooks/useFileReadErrorNotification.tsx:30
-msgid "The file could not be read right now. Try selecting it again. If it is in cloud storage, download it to this device first."
-msgstr "A fájlt jelenleg nem sikerült beolvasni. Próbálja meg újra kiválasztani. Ha felhőalapú tárhelyen van, először töltse le erre az eszközre."
+#: src/hooks/useFileReadErrorNotification.tsx:41
+msgid "The file could not be read. Select a copy from Files on this device. If it is in cloud storage, download it first."
+msgstr "A fájl nem olvasható. Válasszon egy másolatot az eszköz Fájlok alkalmazásából. Ha a fájl felhőalapú tárhelyen van, előbb töltse le."
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:35
+msgid "The image you are editing will be replaced, and your edits will be lost."
+msgstr "A szerkesztett képet egy másik kép váltja fel, és a módosításai elvesznek."
 
 #: src/components/print/PrintImageDrawer.tsx:258
 msgid "The margin is too large"
@@ -2545,7 +2558,7 @@ msgstr "A {tabLabel} funkció használatához válasszon referenciafotót"
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
 msgstr "A {tabLabel} funkció használatához válassza ki a támogatott képzőművészeti technikát és a festéshez használt színeket"
 
-#: src/components/ImageTonalValues.tsx:133
+#: src/components/ImageTonalValues.tsx:153
 #: src/components/messages.ts:32
 msgid "Tonal values"
 msgstr "Tónusértékek"
@@ -2653,7 +2666,7 @@ msgstr "Nem sikerült visszaállítani a mentett színkészletet"
 msgid "Underlayer"
 msgstr "Alapréteg"
 
-#: src/components/ImageEditor.tsx:320
+#: src/components/ImageEditor.tsx:326
 msgid "Undo"
 msgstr "Visszavonás"
 
@@ -2721,7 +2734,7 @@ msgstr "Használja a <0>teljes nyomás {fractionText} részét</0>"
 msgid "Use at full strength"
 msgstr "Használja hígítás nélkül"
 
-#: src/components/file/FileSelect.tsx:193
+#: src/components/file/FileSelect.tsx:199
 msgid "Use copied image"
 msgstr "Másolt kép használata"
 
@@ -2729,7 +2742,7 @@ msgstr "Másolt kép használata"
 msgid "Use full pressure"
 msgstr "Teljes nyomás használata"
 
-#: src/components/file/FileSelect.tsx:182
+#: src/components/file/FileSelect.tsx:188
 msgid "Use reference photo"
 msgstr "Referenciafotó használata"
 
@@ -2821,6 +2834,7 @@ msgid "White"
 msgstr "Fehér"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:175
+#: src/components/ImageTonalValues.tsx:170
 msgid "White balance"
 msgstr "Fehéregyensúly"
 
@@ -2873,7 +2887,7 @@ msgstr "Fiókadatai:"
 msgid "Your app settings will return to their defaults. Your saved work will remain."
 msgstr "Az alkalmazás beállításai visszaállnak az alapértelmezett értékekre. A mentett munkái megmaradnak."
 
-#: src/components/file/FileSelect.tsx:165
+#: src/components/file/FileSelect.tsx:171
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "A böngészője nem támogatja a képek olvasását a vágólapról."
 
@@ -2902,7 +2916,7 @@ msgid "Your image"
 msgstr "Az Ön képe"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:307
+#: src/components/ImageEditor.tsx:313
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:320
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

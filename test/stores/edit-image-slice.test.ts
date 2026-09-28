@@ -341,6 +341,28 @@ describe('EditImageSlice', () => {
     expect(imageEditorControls.open).not.toHaveBeenCalled();
   });
 
+  it('reports whether a new image to edit was committed', async () => {
+    const store = createEditImageStore();
+    let finishSave!: () => void;
+    const save = new Promise<void>(resolve => {
+      finishSave = resolve;
+    });
+    store.setState({
+      waitForAppSettingsSave: vi.fn().mockReturnValueOnce(save).mockResolvedValue(undefined),
+    });
+    vi.stubGlobal(
+      'createImageBitmap',
+      vi.fn(() => Promise.resolve(createImage()))
+    );
+
+    const superseded = store.getState().setImageFileToEdit(new Blob() as File);
+    const replacement = store.getState().setImageFileToEdit(new Blob() as File);
+    finishSave();
+
+    await expect(superseded).resolves.toBe(false);
+    await expect(replacement).resolves.toBe(true);
+  });
+
   it('does not open an editor request superseded by undo', async () => {
     const store = createEditImageStore();
     await loadImage(store);

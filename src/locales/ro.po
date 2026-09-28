@@ -198,11 +198,11 @@ msgstr "Markere pe bază de alcool"
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Toate datele aplicației sunt stocate în spațiul de stocare al browserului web, chiar și după instalare. Ștergerea datelor din browser șterge totul."
 
-#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:336
 msgid "All edits will be lost"
 msgstr "Toate editările se vor pierde"
 
-#: src/components/file/FileSelect.tsx:155
+#: src/components/file/FileSelect.tsx:161
 msgid "Allow clipboard access, then try again."
 msgstr "Permiteți accesul la clipboard, apoi încercați din nou."
 
@@ -420,7 +420,7 @@ msgstr "Accesul la cameră este necesar pentru trasarea AR"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:338
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
@@ -432,7 +432,7 @@ msgstr "Anulează"
 msgid "Cancel a paid membership"
 msgstr "Anulați abonamentul plătit"
 
-#: src/components/file/FileSelect.tsx:170
+#: src/components/file/FileSelect.tsx:176
 msgid "Cannot use copied image"
 msgstr "Nu se poate folosi imaginea copiată"
 
@@ -471,7 +471,7 @@ msgstr "Alegeți o fotografie de referință"
 msgid "Cityscape"
 msgstr "Peisaj urban"
 
-#: src/components/file/FileSelect.tsx:203
+#: src/components/file/FileSelect.tsx:209
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:108
 msgid "Clear"
 msgstr "Ștergere"
@@ -594,8 +594,8 @@ msgstr "Mărci de culori"
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "Datele de culoare sunt momentan indisponibile. Verificați conexiunea și încercați din nou."
 
-#: src/components/ImageTonalValues.tsx:121
-#: src/components/ImageTonalValues.tsx:124
+#: src/components/ImageTonalValues.tsx:141
+#: src/components/ImageTonalValues.tsx:144
 msgid "Color map"
 msgstr "Hartă de culori"
 
@@ -707,7 +707,7 @@ msgstr "Rece — estimare algoritmică; percepția artistică poate varia."
 msgid "Copy"
 msgstr "Copiere"
 
-#: src/components/file/FileSelect.tsx:132
+#: src/components/file/FileSelect.tsx:138
 msgid "Copy a supported image to the clipboard, then try again."
 msgstr "Copiați o imagine acceptată în clipboard, apoi încercați din nou."
 
@@ -736,7 +736,7 @@ msgstr "Nu s-a putut exporta copia de rezervă"
 msgid "Could not import backup"
 msgstr "Nu s-a putut importa copia de rezervă"
 
-#: src/hooks/useFileReadErrorNotification.tsx:28
+#: src/hooks/useFileReadErrorNotification.tsx:38
 msgid "Could not read the file"
 msgstr "Fișierul nu a putut fi citit"
 
@@ -886,6 +886,14 @@ msgstr "Renunțați la modificări"
 msgid "Discard changes to the color set?"
 msgstr "Renunțați la modificările aduse setului de culori?"
 
+#: src/hooks/useConfirmDiscardImageEdits.tsx:37
+msgid "Discard edits"
+msgstr "Renunțați la modificări"
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:33
+msgid "Discard your image edits?"
+msgstr "Renunțați la modificările imaginii?"
+
 #: src/components/cloud/DisconnectCloudButton.tsx:64
 msgid "Disconnect"
 msgstr "Deconectare"
@@ -926,11 +934,11 @@ msgstr "Se descarcă imaginea {index} / {count}"
 msgid "Downloading... {percent}% ({key})"
 msgstr "Descărcare... {percent}% ({key})"
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the file here..."
 msgstr "Plasați fișierul aici..."
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the files here..."
 msgstr "Plasați fișierele aici..."
 
@@ -962,7 +970,7 @@ msgstr "Editare de aici înainte"
 msgid "Edit image"
 msgstr "Editare imagine"
 
-#: src/components/ImageEditor.tsx:342
+#: src/components/ImageEditor.tsx:348
 msgid "Edited"
 msgstr "Editat"
 
@@ -1244,6 +1252,7 @@ msgid "Keep cloud data"
 msgstr "Păstrați datele din cloud"
 
 #: src/components/ColorSetChooser.tsx:237
+#: src/hooks/useConfirmDiscardImageEdits.tsx:38
 msgid "Keep editing"
 msgstr "Continuați editarea"
 
@@ -1283,8 +1292,8 @@ msgstr "Ușor"
 msgid "Light box"
 msgstr "Lightbox"
 
-#: src/components/ImageTonalValues.tsx:91
-#: src/components/ImageTonalValues.tsx:94
+#: src/components/ImageTonalValues.tsx:111
+#: src/components/ImageTonalValues.tsx:114
 msgid "Light tone"
 msgstr "Ton deschis"
 
@@ -1379,8 +1388,8 @@ msgstr "Unire"
 msgid "Merge color sets"
 msgstr "Unire seturi de culori"
 
-#: src/components/ImageTonalValues.tsx:101
-#: src/components/ImageTonalValues.tsx:104
+#: src/components/ImageTonalValues.tsx:121
+#: src/components/ImageTonalValues.tsx:124
 msgid "Mid tone"
 msgstr "Ton mediu"
 
@@ -1436,7 +1445,7 @@ msgid "More"
 msgstr "Mai multe"
 
 #: src/components/ColorMixingChart.tsx:217
-#: src/components/image/ImageActions.tsx:93
+#: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
 #: src/components/ImageColorPicker.tsx:358
 #: src/components/ImageLimitedPalette.tsx:183
@@ -1753,8 +1762,8 @@ msgstr "Apăsați butonul <0>Adăugați la paletă</0> de lângă amestecul de c
 
 #: src/components/color/ColorSwatchDrawer.tsx:80
 #: src/components/ColorMixingChart.tsx:149
-#: src/components/image/ImageActions.tsx:49
-#: src/components/image/ImageActions.tsx:63
+#: src/components/image/ImageActions.tsx:64
+#: src/components/image/ImageActions.tsx:85
 #: src/components/ImageLimitedPalette.tsx:148
 #: src/components/ImageOutline.tsx:324
 #: src/components/ImageOutline.tsx:360
@@ -1808,7 +1817,7 @@ msgstr "Raport"
 msgid "Realism"
 msgstr "Realism"
 
-#: src/components/ImageEditor.tsx:327
+#: src/components/ImageEditor.tsx:333
 msgid "Redo"
 msgstr "Refacere"
 
@@ -1890,8 +1899,8 @@ msgstr "Necesită macOS Sonoma sau o versiune ulterioară."
 msgid "Resend code"
 msgstr "Retrimiteți codul"
 
-#: src/components/ImageEditor.tsx:331
-#: src/components/ImageEditor.tsx:336
+#: src/components/ImageEditor.tsx:337
+#: src/components/ImageEditor.tsx:342
 #: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "Resetare"
@@ -1948,7 +1957,7 @@ msgstr "Saturație (%)"
 #: src/components/ColorMixingChart.tsx:158
 #: src/components/ColorSetChooser.tsx:250
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/ImageActions.tsx:70
+#: src/components/image/ImageActions.tsx:92
 #: src/components/image/ImageSaveButton.tsx:40
 #: src/components/ImageLimitedPalette.tsx:155
 #: src/components/ImageOutline.tsx:367
@@ -2004,7 +2013,7 @@ msgstr "Selectați o tehnică artistică"
 msgid "Select an image that contains a color chart"
 msgstr "Selectați o imagine care conține o diagramă de culori"
 
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:298
 msgid "Select an image to edit"
 msgstr "Selectați o imagine de editat"
 
@@ -2066,7 +2075,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Selectați din seturile de culori recente sau creați unul nou."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:296
+#: src/components/ImageEditor.tsx:302
 msgid "Select image"
 msgstr "Selectați imaginea"
 
@@ -2149,7 +2158,7 @@ msgstr "Sesiunea a expirat"
 msgid "Set as main color set"
 msgstr "Setați ca set principal de culori"
 
-#: src/components/image/ImageActions.tsx:81
+#: src/components/image/ImageActions.tsx:103
 #: src/components/image/ImageSaveButton.tsx:56
 #: src/components/ImageLimitedPalette.tsx:164
 msgid "Set as reference"
@@ -2175,8 +2184,8 @@ msgstr "Setați ca strat de bază pentru glasare."
 msgid "Set as unifying color"
 msgstr "Setați ca culoare unificatoare"
 
-#: src/components/ImageTonalValues.tsx:111
-#: src/components/ImageTonalValues.tsx:114
+#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageTonalValues.tsx:134
 msgid "Shadow"
 msgstr "Umbră"
 
@@ -2449,9 +2458,13 @@ msgstr "Stratul uscat peste care doriți să aplicați glasarea."
 msgid "The existing pastel layer you want to blend over."
 msgstr "Stratul de pastel existent peste care doriți să estompați."
 
-#: src/hooks/useFileReadErrorNotification.tsx:30
-msgid "The file could not be read right now. Try selecting it again. If it is in cloud storage, download it to this device first."
-msgstr "Fișierul nu a putut fi citit acum. Încercați să îl selectați din nou. Dacă se află în stocarea în cloud, descărcați-l mai întâi pe acest dispozitiv."
+#: src/hooks/useFileReadErrorNotification.tsx:41
+msgid "The file could not be read. Select a copy from Files on this device. If it is in cloud storage, download it first."
+msgstr "Fișierul nu a putut fi citit. Selectați o copie din aplicația Fișiere de pe acest dispozitiv. Dacă se află în spațiul de stocare în cloud, descărcați-l mai întâi."
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:35
+msgid "The image you are editing will be replaced, and your edits will be lost."
+msgstr "Imaginea pe care o editați va fi înlocuită, iar modificările dvs. vor fi pierdute."
 
 #: src/components/print/PrintImageDrawer.tsx:258
 msgid "The margin is too large"
@@ -2545,7 +2558,7 @@ msgstr "Pentru a utiliza funcția {tabLabel}, selectați o fotografie de referin
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
 msgstr "Pentru a utiliza funcția {tabLabel}, selectați tehnica artistică acceptată și culorile cu care să pictați"
 
-#: src/components/ImageTonalValues.tsx:133
+#: src/components/ImageTonalValues.tsx:153
 #: src/components/messages.ts:32
 msgid "Tonal values"
 msgstr "Valori tonale"
@@ -2653,7 +2666,7 @@ msgstr "Nu se poate restabili setul de culori salvat"
 msgid "Underlayer"
 msgstr "Strat de bază"
 
-#: src/components/ImageEditor.tsx:320
+#: src/components/ImageEditor.tsx:326
 msgid "Undo"
 msgstr "Anulare"
 
@@ -2721,7 +2734,7 @@ msgstr "Folosiți <0>{fractionText} din presiunea maximă</0>"
 msgid "Use at full strength"
 msgstr "Utilizați nediluat"
 
-#: src/components/file/FileSelect.tsx:193
+#: src/components/file/FileSelect.tsx:199
 msgid "Use copied image"
 msgstr "Folosiți imaginea copiată"
 
@@ -2729,7 +2742,7 @@ msgstr "Folosiți imaginea copiată"
 msgid "Use full pressure"
 msgstr "Folosiți presiunea maximă"
 
-#: src/components/file/FileSelect.tsx:182
+#: src/components/file/FileSelect.tsx:188
 msgid "Use reference photo"
 msgstr "Utilizați fotografia de referință"
 
@@ -2821,6 +2834,7 @@ msgid "White"
 msgstr "Alb"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:175
+#: src/components/ImageTonalValues.tsx:170
 msgid "White balance"
 msgstr "Balans de alb"
 
@@ -2873,7 +2887,7 @@ msgstr "Detaliile contului dvs.:"
 msgid "Your app settings will return to their defaults. Your saved work will remain."
 msgstr "Setările aplicației vor reveni la valorile implicite. Lucrările salvate vor rămâne intacte."
 
-#: src/components/file/FileSelect.tsx:165
+#: src/components/file/FileSelect.tsx:171
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "Browserul dvs. nu acceptă citirea imaginilor din clipboard."
 
@@ -2902,7 +2916,7 @@ msgid "Your image"
 msgstr "Imaginea dvs."
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:307
+#: src/components/ImageEditor.tsx:313
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:320
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

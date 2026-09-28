@@ -198,11 +198,11 @@ msgstr "Rotuladores de alcohol"
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Todos los datos de la aplicación se almacenan en el almacenamiento del navegador web, incluso después de la instalación. Borrar los datos del navegador lo elimina todo."
 
-#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:336
 msgid "All edits will be lost"
 msgstr "Se perderán todas las ediciones"
 
-#: src/components/file/FileSelect.tsx:155
+#: src/components/file/FileSelect.tsx:161
 msgid "Allow clipboard access, then try again."
 msgstr "Permite el acceso al portapapeles y vuelve a intentarlo."
 
@@ -420,7 +420,7 @@ msgstr "Se necesita acceso a la cámara para calcar en AR"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:338
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
@@ -432,7 +432,7 @@ msgstr "Cancelar"
 msgid "Cancel a paid membership"
 msgstr "Cancelar una membresía de pago"
 
-#: src/components/file/FileSelect.tsx:170
+#: src/components/file/FileSelect.tsx:176
 msgid "Cannot use copied image"
 msgstr "No se puede usar la imagen copiada"
 
@@ -471,7 +471,7 @@ msgstr "Elige una foto de referencia"
 msgid "Cityscape"
 msgstr "Paisaje urbano"
 
-#: src/components/file/FileSelect.tsx:203
+#: src/components/file/FileSelect.tsx:209
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:108
 msgid "Clear"
 msgstr "Borrar"
@@ -594,8 +594,8 @@ msgstr "Marcas de color"
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "Los datos de color no están disponibles actualmente. Comprueba tu conexión y vuelve a intentarlo."
 
-#: src/components/ImageTonalValues.tsx:121
-#: src/components/ImageTonalValues.tsx:124
+#: src/components/ImageTonalValues.tsx:141
+#: src/components/ImageTonalValues.tsx:144
 msgid "Color map"
 msgstr "Mapa de colores"
 
@@ -707,7 +707,7 @@ msgstr "Frío — estimación algorítmica; la percepción artística puede vari
 msgid "Copy"
 msgstr "Copiar"
 
-#: src/components/file/FileSelect.tsx:132
+#: src/components/file/FileSelect.tsx:138
 msgid "Copy a supported image to the clipboard, then try again."
 msgstr "Copia una imagen compatible al portapapeles y vuelve a intentarlo."
 
@@ -736,7 +736,7 @@ msgstr "No se pudo exportar la copia de seguridad"
 msgid "Could not import backup"
 msgstr "No se pudo importar la copia de seguridad"
 
-#: src/hooks/useFileReadErrorNotification.tsx:28
+#: src/hooks/useFileReadErrorNotification.tsx:38
 msgid "Could not read the file"
 msgstr "No se pudo leer el archivo"
 
@@ -886,6 +886,14 @@ msgstr "Descartar cambios"
 msgid "Discard changes to the color set?"
 msgstr "¿Descartar cambios en el conjunto de colores?"
 
+#: src/hooks/useConfirmDiscardImageEdits.tsx:37
+msgid "Discard edits"
+msgstr "Descartar ediciones"
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:33
+msgid "Discard your image edits?"
+msgstr "¿Descartar las ediciones de la imagen?"
+
 #: src/components/cloud/DisconnectCloudButton.tsx:64
 msgid "Disconnect"
 msgstr "Desconectar"
@@ -926,11 +934,11 @@ msgstr "Descargando imagen {index} / {count}"
 msgid "Downloading... {percent}% ({key})"
 msgstr "Descargando... {percent}% ({key})"
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the file here..."
 msgstr "Suelta el archivo aquí..."
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the files here..."
 msgstr "Suelta los archivos aquí..."
 
@@ -962,7 +970,7 @@ msgstr "Editar a partir de aquí"
 msgid "Edit image"
 msgstr "Editar imagen"
 
-#: src/components/ImageEditor.tsx:342
+#: src/components/ImageEditor.tsx:348
 msgid "Edited"
 msgstr "Editada"
 
@@ -1244,6 +1252,7 @@ msgid "Keep cloud data"
 msgstr "Conservar datos en la nube"
 
 #: src/components/ColorSetChooser.tsx:237
+#: src/hooks/useConfirmDiscardImageEdits.tsx:38
 msgid "Keep editing"
 msgstr "Seguir editando"
 
@@ -1283,8 +1292,8 @@ msgstr "Ligero"
 msgid "Light box"
 msgstr "Caja de luz"
 
-#: src/components/ImageTonalValues.tsx:91
-#: src/components/ImageTonalValues.tsx:94
+#: src/components/ImageTonalValues.tsx:111
+#: src/components/ImageTonalValues.tsx:114
 msgid "Light tone"
 msgstr "Tono claro"
 
@@ -1379,8 +1388,8 @@ msgstr "Fusionar"
 msgid "Merge color sets"
 msgstr "Fusionar conjuntos de colores"
 
-#: src/components/ImageTonalValues.tsx:101
-#: src/components/ImageTonalValues.tsx:104
+#: src/components/ImageTonalValues.tsx:121
+#: src/components/ImageTonalValues.tsx:124
 msgid "Mid tone"
 msgstr "Tono medio"
 
@@ -1436,7 +1445,7 @@ msgid "More"
 msgstr "Más"
 
 #: src/components/ColorMixingChart.tsx:217
-#: src/components/image/ImageActions.tsx:93
+#: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
 #: src/components/ImageColorPicker.tsx:358
 #: src/components/ImageLimitedPalette.tsx:183
@@ -1753,8 +1762,8 @@ msgstr "Pulsa el botón <0>Añadir a la paleta</0> junto a la mezcla de colores 
 
 #: src/components/color/ColorSwatchDrawer.tsx:80
 #: src/components/ColorMixingChart.tsx:149
-#: src/components/image/ImageActions.tsx:49
-#: src/components/image/ImageActions.tsx:63
+#: src/components/image/ImageActions.tsx:64
+#: src/components/image/ImageActions.tsx:85
 #: src/components/ImageLimitedPalette.tsx:148
 #: src/components/ImageOutline.tsx:324
 #: src/components/ImageOutline.tsx:360
@@ -1808,7 +1817,7 @@ msgstr "Proporción"
 msgid "Realism"
 msgstr "Realismo"
 
-#: src/components/ImageEditor.tsx:327
+#: src/components/ImageEditor.tsx:333
 msgid "Redo"
 msgstr "Rehacer"
 
@@ -1890,8 +1899,8 @@ msgstr "Requiere macOS Sonoma o posterior."
 msgid "Resend code"
 msgstr "Reenviar código"
 
-#: src/components/ImageEditor.tsx:331
-#: src/components/ImageEditor.tsx:336
+#: src/components/ImageEditor.tsx:337
+#: src/components/ImageEditor.tsx:342
 #: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "Restablecer"
@@ -1948,7 +1957,7 @@ msgstr "Saturación (%)"
 #: src/components/ColorMixingChart.tsx:158
 #: src/components/ColorSetChooser.tsx:250
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/ImageActions.tsx:70
+#: src/components/image/ImageActions.tsx:92
 #: src/components/image/ImageSaveButton.tsx:40
 #: src/components/ImageLimitedPalette.tsx:155
 #: src/components/ImageOutline.tsx:367
@@ -2004,7 +2013,7 @@ msgstr "Selecciona un medio artístico"
 msgid "Select an image that contains a color chart"
 msgstr "Selecciona una imagen que contenga una carta de colores"
 
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:298
 msgid "Select an image to edit"
 msgstr "Selecciona una imagen para editar"
 
@@ -2066,7 +2075,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Selecciona uno de tus conjuntos de colores recientes o crea uno nuevo."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:296
+#: src/components/ImageEditor.tsx:302
 msgid "Select image"
 msgstr "Seleccionar imagen"
 
@@ -2149,7 +2158,7 @@ msgstr "Sesión caducada"
 msgid "Set as main color set"
 msgstr "Establecer como conjunto de colores principal"
 
-#: src/components/image/ImageActions.tsx:81
+#: src/components/image/ImageActions.tsx:103
 #: src/components/image/ImageSaveButton.tsx:56
 #: src/components/ImageLimitedPalette.tsx:164
 msgid "Set as reference"
@@ -2175,8 +2184,8 @@ msgstr "Establecer como capa inferior para veladuras."
 msgid "Set as unifying color"
 msgstr "Establecer como color unificador"
 
-#: src/components/ImageTonalValues.tsx:111
-#: src/components/ImageTonalValues.tsx:114
+#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageTonalValues.tsx:134
 msgid "Shadow"
 msgstr "Sombra"
 
@@ -2449,9 +2458,13 @@ msgstr "La capa seca sobre la que quieres aplicar la veladura."
 msgid "The existing pastel layer you want to blend over."
 msgstr "La capa de pastel existente sobre la que quieres difuminar."
 
-#: src/hooks/useFileReadErrorNotification.tsx:30
-msgid "The file could not be read right now. Try selecting it again. If it is in cloud storage, download it to this device first."
-msgstr "No se pudo leer el archivo en este momento. Intente seleccionarlo de nuevo. Si está en el almacenamiento en la nube, descárguelo primero en este dispositivo."
+#: src/hooks/useFileReadErrorNotification.tsx:41
+msgid "The file could not be read. Select a copy from Files on this device. If it is in cloud storage, download it first."
+msgstr "No se pudo leer el archivo. Selecciona una copia desde Archivos en este dispositivo. Si está en el almacenamiento en la nube, descárgalo primero."
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:35
+msgid "The image you are editing will be replaced, and your edits will be lost."
+msgstr "Se reemplazará la imagen que estás editando y perderás tus ediciones."
 
 #: src/components/print/PrintImageDrawer.tsx:258
 msgid "The margin is too large"
@@ -2545,7 +2558,7 @@ msgstr "Para usar la función {tabLabel}, selecciona una foto de referencia"
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
 msgstr "Para usar la función {tabLabel}, selecciona un medio artístico compatible y los colores con los que pintar"
 
-#: src/components/ImageTonalValues.tsx:133
+#: src/components/ImageTonalValues.tsx:153
 #: src/components/messages.ts:32
 msgid "Tonal values"
 msgstr "Valores tonales"
@@ -2653,7 +2666,7 @@ msgstr "No se puede restaurar el conjunto de colores guardado"
 msgid "Underlayer"
 msgstr "Capa inferior"
 
-#: src/components/ImageEditor.tsx:320
+#: src/components/ImageEditor.tsx:326
 msgid "Undo"
 msgstr "Deshacer"
 
@@ -2721,7 +2734,7 @@ msgstr "Usa <0>{fractionText} de la presión máxima</0>"
 msgid "Use at full strength"
 msgstr "Usa la concentración máxima"
 
-#: src/components/file/FileSelect.tsx:193
+#: src/components/file/FileSelect.tsx:199
 msgid "Use copied image"
 msgstr "Usar imagen copiada"
 
@@ -2729,7 +2742,7 @@ msgstr "Usar imagen copiada"
 msgid "Use full pressure"
 msgstr "Usa la presión máxima"
 
-#: src/components/file/FileSelect.tsx:182
+#: src/components/file/FileSelect.tsx:188
 msgid "Use reference photo"
 msgstr "Usar foto de referencia"
 
@@ -2821,6 +2834,7 @@ msgid "White"
 msgstr "Blanco"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:175
+#: src/components/ImageTonalValues.tsx:170
 msgid "White balance"
 msgstr "Balance de blancos"
 
@@ -2873,7 +2887,7 @@ msgstr "Detalles de tu cuenta:"
 msgid "Your app settings will return to their defaults. Your saved work will remain."
 msgstr "Los ajustes de la aplicación volverán a sus valores predeterminados. Tu trabajo guardado se conservará."
 
-#: src/components/file/FileSelect.tsx:165
+#: src/components/file/FileSelect.tsx:171
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "Tu navegador no permite leer imágenes del portapapeles."
 
@@ -2902,7 +2916,7 @@ msgid "Your image"
 msgstr "Tu imagen"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:307
+#: src/components/ImageEditor.tsx:313
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:320
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

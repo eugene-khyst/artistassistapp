@@ -48,6 +48,7 @@ import {SharpenEditorControls} from '@/components/image-editor/SharpenEditorCont
 import {UpscaleEditorControls} from '@/components/image-editor/UpscaleEditorControls';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {EDIT_IMAGE_LABELS} from '@/components/messages';
+import {useConfirmDiscardImageEdits} from '@/hooks/useConfirmDiscardImageEdits';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
 import {ImageEditorKey} from '@/image-editor';
 import {CanvasPolygonDrawingMode} from '@/services/canvas/mode/canvas-polygon-drawing-mode';
@@ -168,6 +169,8 @@ export function ImageEditor() {
 
   const {t} = useLingui();
 
+  const confirmDiscardImageEdits = useConfirmDiscardImageEdits();
+
   const [isShowingOriginal, setIsShowingOriginal] = useState(false);
   const [isColorPickerEnabled, setIsColorPickerEnabled] = useState(false);
   const hasEditImageChanges = editImageHistory.length > 0;
@@ -216,8 +219,11 @@ export function ImageEditor() {
     }
   }, [cropRectangle, imageEditorMode]);
 
-  const handleFileChange = ([file]: File[]) => {
-    void setImageFileToEdit(file ?? null);
+  const handleFileChange = async ([file]: File[]) => {
+    if (!(await confirmDiscardImageEdits())) {
+      return;
+    }
+    await setImageFileToEdit(file ?? null);
   };
 
   const handleSaveClick = async () => {

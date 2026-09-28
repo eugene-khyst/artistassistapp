@@ -198,11 +198,11 @@ msgstr "Alcohol Markers"
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 
-#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:336
 msgid "All edits will be lost"
 msgstr "All edits will be lost"
 
-#: src/components/file/FileSelect.tsx:155
+#: src/components/file/FileSelect.tsx:161
 msgid "Allow clipboard access, then try again."
 msgstr "Allow clipboard access, then try again."
 
@@ -420,7 +420,7 @@ msgstr "Camera access is required for AR tracing"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:338
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
@@ -432,7 +432,7 @@ msgstr "Cancel"
 msgid "Cancel a paid membership"
 msgstr "Cancel a paid membership"
 
-#: src/components/file/FileSelect.tsx:170
+#: src/components/file/FileSelect.tsx:176
 msgid "Cannot use copied image"
 msgstr "Cannot use copied image"
 
@@ -471,7 +471,7 @@ msgstr "Choose a reference photo"
 msgid "Cityscape"
 msgstr "Cityscape"
 
-#: src/components/file/FileSelect.tsx:203
+#: src/components/file/FileSelect.tsx:209
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:108
 msgid "Clear"
 msgstr "Clear"
@@ -594,8 +594,8 @@ msgstr "Color brands"
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "Color data is currently unavailable. Check your connection and try again."
 
-#: src/components/ImageTonalValues.tsx:121
-#: src/components/ImageTonalValues.tsx:124
+#: src/components/ImageTonalValues.tsx:141
+#: src/components/ImageTonalValues.tsx:144
 msgid "Color map"
 msgstr "Color map"
 
@@ -707,7 +707,7 @@ msgstr "Cool — Algorithmic estimate; artistic perception may vary."
 msgid "Copy"
 msgstr "Copy"
 
-#: src/components/file/FileSelect.tsx:132
+#: src/components/file/FileSelect.tsx:138
 msgid "Copy a supported image to the clipboard, then try again."
 msgstr "Copy a supported image to the clipboard, then try again."
 
@@ -736,7 +736,7 @@ msgstr "Could not export backup"
 msgid "Could not import backup"
 msgstr "Could not import backup"
 
-#: src/hooks/useFileReadErrorNotification.tsx:28
+#: src/hooks/useFileReadErrorNotification.tsx:38
 msgid "Could not read the file"
 msgstr "Could not read the file"
 
@@ -886,6 +886,14 @@ msgstr "Discard changes"
 msgid "Discard changes to the color set?"
 msgstr "Discard changes to the color set?"
 
+#: src/hooks/useConfirmDiscardImageEdits.tsx:37
+msgid "Discard edits"
+msgstr "Discard edits"
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:33
+msgid "Discard your image edits?"
+msgstr "Discard your image edits?"
+
 #: src/components/cloud/DisconnectCloudButton.tsx:64
 msgid "Disconnect"
 msgstr "Disconnect"
@@ -926,11 +934,11 @@ msgstr "Downloading image {index} / {count}"
 msgid "Downloading... {percent}% ({key})"
 msgstr "Downloading... {percent}% ({key})"
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the file here..."
 msgstr "Drop the file here..."
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the files here..."
 msgstr "Drop the files here..."
 
@@ -962,7 +970,7 @@ msgstr "Edit from here on"
 msgid "Edit image"
 msgstr "Edit image"
 
-#: src/components/ImageEditor.tsx:342
+#: src/components/ImageEditor.tsx:348
 msgid "Edited"
 msgstr "Edited"
 
@@ -1244,6 +1252,7 @@ msgid "Keep cloud data"
 msgstr "Keep cloud data"
 
 #: src/components/ColorSetChooser.tsx:237
+#: src/hooks/useConfirmDiscardImageEdits.tsx:38
 msgid "Keep editing"
 msgstr "Keep editing"
 
@@ -1283,8 +1292,8 @@ msgstr "Light"
 msgid "Light box"
 msgstr "Light box"
 
-#: src/components/ImageTonalValues.tsx:91
-#: src/components/ImageTonalValues.tsx:94
+#: src/components/ImageTonalValues.tsx:111
+#: src/components/ImageTonalValues.tsx:114
 msgid "Light tone"
 msgstr "Light tone"
 
@@ -1379,8 +1388,8 @@ msgstr "Merge"
 msgid "Merge color sets"
 msgstr "Merge color sets"
 
-#: src/components/ImageTonalValues.tsx:101
-#: src/components/ImageTonalValues.tsx:104
+#: src/components/ImageTonalValues.tsx:121
+#: src/components/ImageTonalValues.tsx:124
 msgid "Mid tone"
 msgstr "Mid tone"
 
@@ -1436,7 +1445,7 @@ msgid "More"
 msgstr "More"
 
 #: src/components/ColorMixingChart.tsx:217
-#: src/components/image/ImageActions.tsx:93
+#: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
 #: src/components/ImageColorPicker.tsx:358
 #: src/components/ImageLimitedPalette.tsx:183
@@ -1753,8 +1762,8 @@ msgstr "Press the <0>Add to palette</0> button next to the color mixture you lik
 
 #: src/components/color/ColorSwatchDrawer.tsx:80
 #: src/components/ColorMixingChart.tsx:149
-#: src/components/image/ImageActions.tsx:49
-#: src/components/image/ImageActions.tsx:63
+#: src/components/image/ImageActions.tsx:64
+#: src/components/image/ImageActions.tsx:85
 #: src/components/ImageLimitedPalette.tsx:148
 #: src/components/ImageOutline.tsx:324
 #: src/components/ImageOutline.tsx:360
@@ -1808,7 +1817,7 @@ msgstr "Ratio"
 msgid "Realism"
 msgstr "Realism"
 
-#: src/components/ImageEditor.tsx:327
+#: src/components/ImageEditor.tsx:333
 msgid "Redo"
 msgstr "Redo"
 
@@ -1890,8 +1899,8 @@ msgstr "Requires macOS Sonoma or later."
 msgid "Resend code"
 msgstr "Resend code"
 
-#: src/components/ImageEditor.tsx:331
-#: src/components/ImageEditor.tsx:336
+#: src/components/ImageEditor.tsx:337
+#: src/components/ImageEditor.tsx:342
 #: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "Reset"
@@ -1948,7 +1957,7 @@ msgstr "Saturation (%)"
 #: src/components/ColorMixingChart.tsx:158
 #: src/components/ColorSetChooser.tsx:250
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/ImageActions.tsx:70
+#: src/components/image/ImageActions.tsx:92
 #: src/components/image/ImageSaveButton.tsx:40
 #: src/components/ImageLimitedPalette.tsx:155
 #: src/components/ImageOutline.tsx:367
@@ -2004,7 +2013,7 @@ msgstr "Select an art medium"
 msgid "Select an image that contains a color chart"
 msgstr "Select an image that contains a color chart"
 
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:298
 msgid "Select an image to edit"
 msgstr "Select an image to edit"
 
@@ -2066,7 +2075,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Select from your recent color sets or create a new one."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:296
+#: src/components/ImageEditor.tsx:302
 msgid "Select image"
 msgstr "Select image"
 
@@ -2149,7 +2158,7 @@ msgstr "Session expired"
 msgid "Set as main color set"
 msgstr "Set as main color set"
 
-#: src/components/image/ImageActions.tsx:81
+#: src/components/image/ImageActions.tsx:103
 #: src/components/image/ImageSaveButton.tsx:56
 #: src/components/ImageLimitedPalette.tsx:164
 msgid "Set as reference"
@@ -2175,8 +2184,8 @@ msgstr "Set as underlayer for glazing."
 msgid "Set as unifying color"
 msgstr "Set as unifying color"
 
-#: src/components/ImageTonalValues.tsx:111
-#: src/components/ImageTonalValues.tsx:114
+#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageTonalValues.tsx:134
 msgid "Shadow"
 msgstr "Shadow"
 
@@ -2449,9 +2458,13 @@ msgstr "The dried layer you want to glaze over."
 msgid "The existing pastel layer you want to blend over."
 msgstr "The existing pastel layer you want to blend over."
 
-#: src/hooks/useFileReadErrorNotification.tsx:30
-msgid "The file could not be read right now. Try selecting it again. If it is in cloud storage, download it to this device first."
-msgstr "The file could not be read right now. Try selecting it again. If it is in cloud storage, download it to this device first."
+#: src/hooks/useFileReadErrorNotification.tsx:41
+msgid "The file could not be read. Select a copy from Files on this device. If it is in cloud storage, download it first."
+msgstr "The file could not be read. Select a copy from Files on this device. If it is in cloud storage, download it first."
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:35
+msgid "The image you are editing will be replaced, and your edits will be lost."
+msgstr "The image you are editing will be replaced, and your edits will be lost."
 
 #: src/components/print/PrintImageDrawer.tsx:258
 msgid "The margin is too large"
@@ -2545,7 +2558,7 @@ msgstr "To use the {tabLabel} feature, select a reference photo"
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
 msgstr "To use the {tabLabel} feature, select supported art medium and colors to paint with"
 
-#: src/components/ImageTonalValues.tsx:133
+#: src/components/ImageTonalValues.tsx:153
 #: src/components/messages.ts:32
 msgid "Tonal values"
 msgstr "Tonal values"
@@ -2653,7 +2666,7 @@ msgstr "Unable to restore the saved color set"
 msgid "Underlayer"
 msgstr "Underlayer"
 
-#: src/components/ImageEditor.tsx:320
+#: src/components/ImageEditor.tsx:326
 msgid "Undo"
 msgstr "Undo"
 
@@ -2721,7 +2734,7 @@ msgstr "Use <0>{fractionText} of full pressure</0>"
 msgid "Use at full strength"
 msgstr "Use at full strength"
 
-#: src/components/file/FileSelect.tsx:193
+#: src/components/file/FileSelect.tsx:199
 msgid "Use copied image"
 msgstr "Use copied image"
 
@@ -2729,7 +2742,7 @@ msgstr "Use copied image"
 msgid "Use full pressure"
 msgstr "Use full pressure"
 
-#: src/components/file/FileSelect.tsx:182
+#: src/components/file/FileSelect.tsx:188
 msgid "Use reference photo"
 msgstr "Use reference photo"
 
@@ -2821,6 +2834,7 @@ msgid "White"
 msgstr "White"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:175
+#: src/components/ImageTonalValues.tsx:170
 msgid "White balance"
 msgstr "White balance"
 
@@ -2873,7 +2887,7 @@ msgstr "Your account details:"
 msgid "Your app settings will return to their defaults. Your saved work will remain."
 msgstr "Your app settings will return to their defaults. Your saved work will remain."
 
-#: src/components/file/FileSelect.tsx:165
+#: src/components/file/FileSelect.tsx:171
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "Your browser does not support reading images from the clipboard."
 
@@ -2902,7 +2916,7 @@ msgid "Your image"
 msgstr "Your image"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:307
+#: src/components/ImageEditor.tsx:313
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:320
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

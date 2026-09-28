@@ -1,0 +1,43 @@
+/**
+ * ArtistAssistApp
+ * Copyright (C) 2023-2026  Eugene Khyst
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+import {Trans} from '@lingui/react/macro';
+import {App} from 'antd';
+import {useCallback} from 'react';
+
+import {useAppStore} from '@/stores/app-store';
+
+export function useConfirmDiscardImageEdits(): () => Promise<boolean> {
+  const {modal} = App.useApp();
+
+  return useCallback(async (): Promise<boolean> => {
+    if (useAppStore.getState().editImageHistory.length === 0) {
+      return true;
+    }
+    return await modal.confirm({
+      title: <Trans>Discard your image edits?</Trans>,
+      content: (
+        <Trans>The image you are editing will be replaced, and your edits will be lost.</Trans>
+      ),
+      okText: <Trans>Discard edits</Trans>,
+      cancelText: <Trans>Keep editing</Trans>,
+      okButtonProps: {danger: true},
+      focusTriggerAfterClose: false,
+    });
+  }, [modal]);
+}

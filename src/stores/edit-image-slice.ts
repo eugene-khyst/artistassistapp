@@ -119,7 +119,7 @@ export interface EditImageSlice {
   editImageOperation: EditImageOperation;
 
   setActiveImageEditorKey: (imageEditorKey: ImageEditorKey | undefined) => Promise<void>;
-  setImageFileToEdit: (imageFileToEdit: File | null) => Promise<void>;
+  setImageFileToEdit: (imageFileToEdit: File | null) => Promise<boolean>;
   hasEditedImageAlpha: () => boolean;
   exportEditedImage: () => Promise<EditedImageFile | undefined>;
   undoEditImage: () => Promise<void>;
@@ -485,9 +485,9 @@ export const createEditImageSlice: StateCreator<
       await commitImageEditorTransition(transition, activeImageEditorKey, {open: true});
     },
 
-    setImageFileToEdit: async (imageFileToEdit: File | null): Promise<void> => {
+    setImageFileToEdit: async (imageFileToEdit: File | null): Promise<boolean> => {
       const transition = beginImageEditorTransition(undefined);
-      await abortableOperation.runAndCommit(
+      const applied = await abortableOperation.runAndCommit(
         async signal => {
           let imageToEdit: ImageBitmap | null = null;
           let editedImage: ImageBitmap | null = null;
@@ -526,12 +526,14 @@ export const createEditImageSlice: StateCreator<
           prevImageToEdit?.close();
           prevEditedImage?.close();
           prevImageBeforeLastEdit?.close();
+          return true;
         },
         ({imageToEdit, editedImage}) => {
           imageToEdit?.close();
           editedImage?.close();
         }
       );
+      return applied ?? false;
     },
 
     hasEditedImageAlpha: (): boolean => {

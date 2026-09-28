@@ -198,11 +198,11 @@ msgstr "알코올 마커"
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "모든 앱 데이터는 설치 후에도 웹 브라우저 저장소에 저장됩니다. 브라우저 데이터를 지우면 모든 데이터가 삭제됩니다."
 
-#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:336
 msgid "All edits will be lost"
 msgstr "모든 수정 사항이 손실됩니다"
 
-#: src/components/file/FileSelect.tsx:155
+#: src/components/file/FileSelect.tsx:161
 msgid "Allow clipboard access, then try again."
 msgstr "클립보드 액세스 권한을 허용한 후 다시 시도하세요."
 
@@ -420,7 +420,7 @@ msgstr "AR 트레이싱에는 카메라 액세스 권한이 필요합니다"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:338
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
@@ -432,7 +432,7 @@ msgstr "취소"
 msgid "Cancel a paid membership"
 msgstr "유료 멤버십 취소"
 
-#: src/components/file/FileSelect.tsx:170
+#: src/components/file/FileSelect.tsx:176
 msgid "Cannot use copied image"
 msgstr "복사된 이미지를 사용할 수 없습니다"
 
@@ -471,7 +471,7 @@ msgstr "참조 사진 선택"
 msgid "Cityscape"
 msgstr "도시 풍경"
 
-#: src/components/file/FileSelect.tsx:203
+#: src/components/file/FileSelect.tsx:209
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:108
 msgid "Clear"
 msgstr "지우기"
@@ -594,8 +594,8 @@ msgstr "색상 브랜드"
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "현재 색상 데이터를 사용할 수 없습니다. 연결을 확인하고 다시 시도하세요."
 
-#: src/components/ImageTonalValues.tsx:121
-#: src/components/ImageTonalValues.tsx:124
+#: src/components/ImageTonalValues.tsx:141
+#: src/components/ImageTonalValues.tsx:144
 msgid "Color map"
 msgstr "색상 맵"
 
@@ -707,7 +707,7 @@ msgstr "차가움 — 알고리즘 추정치이며, 예술적 인식은 다를 �
 msgid "Copy"
 msgstr "복사"
 
-#: src/components/file/FileSelect.tsx:132
+#: src/components/file/FileSelect.tsx:138
 msgid "Copy a supported image to the clipboard, then try again."
 msgstr "지원되는 이미지를 클립보드에 복사한 후 다시 시도하세요."
 
@@ -736,7 +736,7 @@ msgstr "백업을 내보낼 수 없습니다"
 msgid "Could not import backup"
 msgstr "백업을 가져올 수 없습니다"
 
-#: src/hooks/useFileReadErrorNotification.tsx:28
+#: src/hooks/useFileReadErrorNotification.tsx:38
 msgid "Could not read the file"
 msgstr "파일을 읽을 수 없습니다"
 
@@ -886,6 +886,14 @@ msgstr "변경 사항 취소"
 msgid "Discard changes to the color set?"
 msgstr "색상 세트의 변경 사항을 취소하시겠습니까?"
 
+#: src/hooks/useConfirmDiscardImageEdits.tsx:37
+msgid "Discard edits"
+msgstr "편집 내용 버리기"
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:33
+msgid "Discard your image edits?"
+msgstr "이미지 편집 내용을 버리시겠습니까?"
+
 #: src/components/cloud/DisconnectCloudButton.tsx:64
 msgid "Disconnect"
 msgstr "연결 해제"
@@ -926,11 +934,11 @@ msgstr "이미지 다운로드 중 {index} / {count}"
 msgid "Downloading... {percent}% ({key})"
 msgstr "다운로드 중... {percent}% ({key})"
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the file here..."
 msgstr "여기에 파일을 놓으세요..."
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the files here..."
 msgstr "여기에 파일을 놓으세요..."
 
@@ -962,7 +970,7 @@ msgstr "여기서부터 편집"
 msgid "Edit image"
 msgstr "이미지 편집"
 
-#: src/components/ImageEditor.tsx:342
+#: src/components/ImageEditor.tsx:348
 msgid "Edited"
 msgstr "편집됨"
 
@@ -1244,6 +1252,7 @@ msgid "Keep cloud data"
 msgstr "클라우드 데이터 유지"
 
 #: src/components/ColorSetChooser.tsx:237
+#: src/hooks/useConfirmDiscardImageEdits.tsx:38
 msgid "Keep editing"
 msgstr "계속 편집"
 
@@ -1283,8 +1292,8 @@ msgstr "경량"
 msgid "Light box"
 msgstr "라이트박스"
 
-#: src/components/ImageTonalValues.tsx:91
-#: src/components/ImageTonalValues.tsx:94
+#: src/components/ImageTonalValues.tsx:111
+#: src/components/ImageTonalValues.tsx:114
 msgid "Light tone"
 msgstr "밝은 톤"
 
@@ -1379,8 +1388,8 @@ msgstr "병합"
 msgid "Merge color sets"
 msgstr "색상 세트 병합"
 
-#: src/components/ImageTonalValues.tsx:101
-#: src/components/ImageTonalValues.tsx:104
+#: src/components/ImageTonalValues.tsx:121
+#: src/components/ImageTonalValues.tsx:124
 msgid "Mid tone"
 msgstr "중간 톤"
 
@@ -1436,7 +1445,7 @@ msgid "More"
 msgstr "더 보기"
 
 #: src/components/ColorMixingChart.tsx:217
-#: src/components/image/ImageActions.tsx:93
+#: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
 #: src/components/ImageColorPicker.tsx:358
 #: src/components/ImageLimitedPalette.tsx:183
@@ -1753,8 +1762,8 @@ msgstr "마음에 드는 색상 혼합 옆의 <0>팔레트에 추가</0> 버튼�
 
 #: src/components/color/ColorSwatchDrawer.tsx:80
 #: src/components/ColorMixingChart.tsx:149
-#: src/components/image/ImageActions.tsx:49
-#: src/components/image/ImageActions.tsx:63
+#: src/components/image/ImageActions.tsx:64
+#: src/components/image/ImageActions.tsx:85
 #: src/components/ImageLimitedPalette.tsx:148
 #: src/components/ImageOutline.tsx:324
 #: src/components/ImageOutline.tsx:360
@@ -1808,7 +1817,7 @@ msgstr "비율"
 msgid "Realism"
 msgstr "사실주의"
 
-#: src/components/ImageEditor.tsx:327
+#: src/components/ImageEditor.tsx:333
 msgid "Redo"
 msgstr "다시 실행"
 
@@ -1890,8 +1899,8 @@ msgstr "macOS Sonoma 및 이후 버전이 필요합니다."
 msgid "Resend code"
 msgstr "코드 재전송"
 
-#: src/components/ImageEditor.tsx:331
-#: src/components/ImageEditor.tsx:336
+#: src/components/ImageEditor.tsx:337
+#: src/components/ImageEditor.tsx:342
 #: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "재설정"
@@ -1948,7 +1957,7 @@ msgstr "채도(%)"
 #: src/components/ColorMixingChart.tsx:158
 #: src/components/ColorSetChooser.tsx:250
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/ImageActions.tsx:70
+#: src/components/image/ImageActions.tsx:92
 #: src/components/image/ImageSaveButton.tsx:40
 #: src/components/ImageLimitedPalette.tsx:155
 #: src/components/ImageOutline.tsx:367
@@ -2004,7 +2013,7 @@ msgstr "미술 재료를 선택하세요"
 msgid "Select an image that contains a color chart"
 msgstr "색상 차트가 포함된 이미지를 선택합니다"
 
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:298
 msgid "Select an image to edit"
 msgstr "편집할 이미지를 선택하세요"
 
@@ -2066,7 +2075,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "최근 색상 세트에서 선택하거나 새 색상 세트를 만듭니다."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:296
+#: src/components/ImageEditor.tsx:302
 msgid "Select image"
 msgstr "이미지 선택"
 
@@ -2149,7 +2158,7 @@ msgstr "세션 만료됨"
 msgid "Set as main color set"
 msgstr "기본 색상 세트로 설정"
 
-#: src/components/image/ImageActions.tsx:81
+#: src/components/image/ImageActions.tsx:103
 #: src/components/image/ImageSaveButton.tsx:56
 #: src/components/ImageLimitedPalette.tsx:164
 msgid "Set as reference"
@@ -2175,8 +2184,8 @@ msgstr "글레이징용 언더레이어로 설정합니다."
 msgid "Set as unifying color"
 msgstr "통합 색상으로 설정"
 
-#: src/components/ImageTonalValues.tsx:111
-#: src/components/ImageTonalValues.tsx:114
+#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageTonalValues.tsx:134
 msgid "Shadow"
 msgstr "그림자"
 
@@ -2449,9 +2458,13 @@ msgstr "글레이징할 마른 레이어입니다."
 msgid "The existing pastel layer you want to blend over."
 msgstr "그 위에 블렌딩하고 싶은 기존 파스텔 레이어입니다."
 
-#: src/hooks/useFileReadErrorNotification.tsx:30
-msgid "The file could not be read right now. Try selecting it again. If it is in cloud storage, download it to this device first."
-msgstr "지금은 파일을 읽을 수 없습니다. 파일을 다시 선택해 보세요. 클라우드 저장소에 있다면 먼저 이 기기에 다운로드하세요."
+#: src/hooks/useFileReadErrorNotification.tsx:41
+msgid "The file could not be read. Select a copy from Files on this device. If it is in cloud storage, download it first."
+msgstr "파일을 읽을 수 없습니다. 이 기기의 파일 앱에서 사본을 선택하세요. 클라우드 저장소에 있다면 먼저 다운로드하세요."
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:35
+msgid "The image you are editing will be replaced, and your edits will be lost."
+msgstr "편집 중인 이미지가 교체되며, 편집한 내용은 모두 사라집니다."
 
 #: src/components/print/PrintImageDrawer.tsx:258
 msgid "The margin is too large"
@@ -2545,7 +2558,7 @@ msgstr "{tabLabel} 기능을 사용하려면 참조 사진을 선택하세요"
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
 msgstr "{tabLabel} 기능을 사용하려면 지원되는 미술 재료와 그림에 사용할 색상을 선택하세요"
 
-#: src/components/ImageTonalValues.tsx:133
+#: src/components/ImageTonalValues.tsx:153
 #: src/components/messages.ts:32
 msgid "Tonal values"
 msgstr "명암 단계"
@@ -2653,7 +2666,7 @@ msgstr "저장된 색상 세트를 복원할 수 없습니다"
 msgid "Underlayer"
 msgstr "언더레이어"
 
-#: src/components/ImageEditor.tsx:320
+#: src/components/ImageEditor.tsx:326
 msgid "Undo"
 msgstr "실행 취소"
 
@@ -2721,7 +2734,7 @@ msgstr "<0>최대 필압의 {fractionText}</0>로 사용"
 msgid "Use at full strength"
 msgstr "희석하지 않고 사용"
 
-#: src/components/file/FileSelect.tsx:193
+#: src/components/file/FileSelect.tsx:199
 msgid "Use copied image"
 msgstr "복사된 이미지 사용"
 
@@ -2729,7 +2742,7 @@ msgstr "복사된 이미지 사용"
 msgid "Use full pressure"
 msgstr "최대 필압으로 사용"
 
-#: src/components/file/FileSelect.tsx:182
+#: src/components/file/FileSelect.tsx:188
 msgid "Use reference photo"
 msgstr "참조 사진 사용"
 
@@ -2821,6 +2834,7 @@ msgid "White"
 msgstr "흰색"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:175
+#: src/components/ImageTonalValues.tsx:170
 msgid "White balance"
 msgstr "화이트 밸런스"
 
@@ -2873,7 +2887,7 @@ msgstr "계정 정보:"
 msgid "Your app settings will return to their defaults. Your saved work will remain."
 msgstr "앱 설정이 기본값으로 돌아갑니다. 저장된 작업물은 그대로 유지됩니다."
 
-#: src/components/file/FileSelect.tsx:165
+#: src/components/file/FileSelect.tsx:171
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "브라우저가 클립보드에서 이미지 읽기를 지원하지 않습니다."
 
@@ -2902,7 +2916,7 @@ msgid "Your image"
 msgstr "내 이미지"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:307
+#: src/components/ImageEditor.tsx:313
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:320
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

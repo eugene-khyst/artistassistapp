@@ -25,13 +25,16 @@ import {ColorSquare} from '@/components/color/ColorSquare';
 import {GradientRect} from '@/components/color/GradientRect';
 import {ImageActions} from '@/components/image/ImageActions';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {useConfirmDiscardImageEdits} from '@/hooks/useConfirmDiscardImageEdits';
 import {useImageActions} from '@/hooks/useImageActions';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
 import {NOOP_CANVAS_MODE_SUPPLIER} from '@/services/canvas/mode/canvas-mode';
 import {COLOR_MAP_STOP_HEXES} from '@/services/image/filter/color-map-webgl';
+import {imageFileToFile} from '@/services/image/image-file';
 import {TONAL_VALUE_HEXES} from '@/services/image/tonal-values';
 import {printImages} from '@/services/print/print';
 import {useAppStore} from '@/stores/app-store';
+import {TabKey} from '@/tabs';
 
 import {EmptyImage} from './empty/EmptyImage';
 import styles from './ImageTonalValues.module.css';
@@ -43,6 +46,10 @@ export function ImageTonalValues() {
 
   const isOriginalImageLoading = useAppStore(state => state.isOriginalImageLoading);
   const isTonalImagesLoading = useAppStore(state => state.isTonalImagesLoading);
+  const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
+  const editImageWithAutoWhiteBalance = useAppStore(state => state.editImageWithAutoWhiteBalance);
+
+  const confirmDiscardImageEdits = useConfirmDiscardImageEdits();
 
   const screens = Grid.useBreakpoint();
 
@@ -78,9 +85,22 @@ export function ImageTonalValues() {
     void printImages(tonalImages);
   };
 
+  const handleWhiteBalanceClick = async () => {
+    if (
+      !selectedImageFile ||
+      !(await confirmDiscardImageEdits()) ||
+      !(await setActiveTabKey(TabKey.EditImage))
+    ) {
+      return;
+    }
+    await editImageWithAutoWhiteBalance(imageFileToFile(selectedImageFile));
+  };
+
   if (!originalImage) {
     return <EmptyImage />;
   }
+
+  const collapseBelow = 'md';
 
   const toneOptions: CheckboxOptionType[] = [
     {
@@ -88,40 +108,40 @@ export function ImageTonalValues() {
       label: (
         <Flex align="center" gap="small">
           <ColorSquare size="small" hex={TONAL_VALUE_HEXES[0]!} />
-          {screens.sm && <Trans>Light tone</Trans>}
+          {screens[collapseBelow] && <Trans>Light tone</Trans>}
         </Flex>
       ),
-      title: screens.sm ? undefined : t`Light tone`,
+      title: screens[collapseBelow] ? undefined : t`Light tone`,
     },
     {
       value: 1,
       label: (
         <Flex align="center" gap="small">
           <ColorSquare size="small" hex={TONAL_VALUE_HEXES[1]!} />
-          {screens.sm && <Trans>Mid tone</Trans>}
+          {screens[collapseBelow] && <Trans>Mid tone</Trans>}
         </Flex>
       ),
-      title: screens.sm ? undefined : t`Mid tone`,
+      title: screens[collapseBelow] ? undefined : t`Mid tone`,
     },
     {
       value: 2,
       label: (
         <Flex align="center" gap="small">
           <ColorSquare size="small" hex={TONAL_VALUE_HEXES[2]!} />
-          {screens.sm && <Trans>Shadow</Trans>}
+          {screens[collapseBelow] && <Trans>Shadow</Trans>}
         </Flex>
       ),
-      title: screens.sm ? undefined : t`Shadow`,
+      title: screens[collapseBelow] ? undefined : t`Shadow`,
     },
     {
       value: 3,
       label: (
         <Flex align="center" gap="small">
           <GradientRect hexes={COLOR_MAP_STOP_HEXES} />
-          {screens.sm && <Trans>Color map</Trans>}
+          {screens[collapseBelow] && <Trans>Color map</Trans>}
         </Flex>
       ),
-      title: screens.sm ? undefined : t`Color map`,
+      title: screens[collapseBelow] ? undefined : t`Color map`,
     },
   ];
 
@@ -136,9 +156,24 @@ export function ImageTonalValues() {
             onChange={handleTonalValueChange}
             optionType="button"
             buttonStyle="solid"
-            className={screens.sm ? undefined : clsx('u-flex', styles['toneRadioGroupCompact'])}
+            className={
+              screens[collapseBelow] ? undefined : clsx('u-flex', styles['toneRadioGroupCompact'])
+            }
           />
-          <ImageActions collapseBelow="sm" onPrint={handlePrintClick} onSave={save} />
+          <ImageActions
+            collapseBelow="sm"
+            onPrint={handlePrintClick}
+            onSave={save}
+            extraActions={[
+              {
+                key: 'white-balance',
+                label: <Trans>White balance</Trans>,
+                onClick: () => {
+                  void handleWhiteBalanceClick();
+                },
+              },
+            ]}
+          />
         </Space>
         <div className={styles['previews']}>
           <canvas ref={tonalValuesCanvasRef} className={styles['previewCanvas']} />

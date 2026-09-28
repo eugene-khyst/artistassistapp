@@ -19,8 +19,17 @@
 import {DownloadOutlined, MoreOutlined, PictureOutlined, PrinterOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Dropdown, Grid, Space} from 'antd';
+import {type ReactNode} from 'react';
 
 import {ImageSaveButton} from '@/components/image/ImageSaveButton';
+
+interface ActionItem {
+  key: string;
+  label: ReactNode;
+  icon?: ReactNode;
+  onClick: () => void;
+  disabled?: boolean;
+}
 
 interface Props {
   collapseBelow: 'sm' | 'md';
@@ -28,6 +37,7 @@ interface Props {
   onPrint: () => void;
   onSave: () => Promise<void> | void;
   onSetAsReference?: () => Promise<void> | void;
+  extraActions?: ActionItem[];
 }
 
 export function ImageActions({
@@ -36,15 +46,20 @@ export function ImageActions({
   onPrint,
   onSave,
   onSetAsReference,
+  extraActions = [],
 }: Readonly<Props>) {
   const screens = Grid.useBreakpoint();
 
   const {t} = useLingui();
 
   if (screens[collapseBelow]) {
-    // A component is one child of the surrounding Space, so the buttons need their own spacing.
     return (
       <Space>
+        {extraActions.map(({key, label, icon, onClick, disabled: actionDisabled}) => (
+          <Button key={key} icon={icon} onClick={onClick} disabled={disabled || actionDisabled}>
+            {label}
+          </Button>
+        ))}
         <Button icon={<PrinterOutlined />} onClick={onPrint} disabled={disabled}>
           <Trans>Print</Trans>
         </Button>
@@ -58,6 +73,13 @@ export function ImageActions({
       trigger={['click']}
       menu={{
         items: [
+          ...extraActions.map(({key, label, icon, onClick, disabled: actionDisabled}) => ({
+            key,
+            label,
+            icon,
+            onClick,
+            disabled: disabled || actionDisabled,
+          })),
           {
             key: 'print',
             label: <Trans>Print</Trans>,

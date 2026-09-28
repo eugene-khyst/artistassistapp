@@ -198,11 +198,11 @@ msgstr "Alkoholbaserede markere"
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Alle appdata gemmes i webbrowserens lager, selv efter installation. Når browserens data slettes, sletter du det hele."
 
-#: src/components/ImageEditor.tsx:330
+#: src/components/ImageEditor.tsx:336
 msgid "All edits will be lost"
 msgstr "Alle redigeringer vil gå tabt"
 
-#: src/components/file/FileSelect.tsx:155
+#: src/components/file/FileSelect.tsx:161
 msgid "Allow clipboard access, then try again."
 msgstr "Tillad adgang til udklipsholderen, og prøv så igen."
 
@@ -420,7 +420,7 @@ msgstr "Kameraadgang er påkrævet for at aftegne i AR"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:265
-#: src/components/ImageEditor.tsx:332
+#: src/components/ImageEditor.tsx:338
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
@@ -432,7 +432,7 @@ msgstr "Annuller"
 msgid "Cancel a paid membership"
 msgstr "Opsig et betalende medlemskab"
 
-#: src/components/file/FileSelect.tsx:170
+#: src/components/file/FileSelect.tsx:176
 msgid "Cannot use copied image"
 msgstr "Kan ikke bruge kopieret billede"
 
@@ -471,7 +471,7 @@ msgstr "Vælg et referencebillede"
 msgid "Cityscape"
 msgstr "Bybillede"
 
-#: src/components/file/FileSelect.tsx:203
+#: src/components/file/FileSelect.tsx:209
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:108
 msgid "Clear"
 msgstr "Ryd"
@@ -594,8 +594,8 @@ msgstr "Farvemærker"
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "Farvedata er i øjeblikket ikke tilgængelige. Tjek din forbindelse, og prøv igen."
 
-#: src/components/ImageTonalValues.tsx:121
-#: src/components/ImageTonalValues.tsx:124
+#: src/components/ImageTonalValues.tsx:141
+#: src/components/ImageTonalValues.tsx:144
 msgid "Color map"
 msgstr "Farvekort"
 
@@ -707,7 +707,7 @@ msgstr "Kold — algoritmisk skøn; kunstnerisk opfattelse kan variere."
 msgid "Copy"
 msgstr "Kopiér"
 
-#: src/components/file/FileSelect.tsx:132
+#: src/components/file/FileSelect.tsx:138
 msgid "Copy a supported image to the clipboard, then try again."
 msgstr "Kopier et understøttet billede til udklipsholderen, og prøv igen."
 
@@ -736,7 +736,7 @@ msgstr "Kunne ikke eksportere sikkerhedskopien"
 msgid "Could not import backup"
 msgstr "Kunne ikke importere sikkerhedskopien"
 
-#: src/hooks/useFileReadErrorNotification.tsx:28
+#: src/hooks/useFileReadErrorNotification.tsx:38
 msgid "Could not read the file"
 msgstr "Kunne ikke læse filen"
 
@@ -886,6 +886,14 @@ msgstr "Kassér ændringer"
 msgid "Discard changes to the color set?"
 msgstr "Vil du kassere ændringer i farvesættet?"
 
+#: src/hooks/useConfirmDiscardImageEdits.tsx:37
+msgid "Discard edits"
+msgstr "Kassér redigeringer"
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:33
+msgid "Discard your image edits?"
+msgstr "Vil du kassere dine billedredigeringer?"
+
 #: src/components/cloud/DisconnectCloudButton.tsx:64
 msgid "Disconnect"
 msgstr "Afbryd"
@@ -926,11 +934,11 @@ msgstr "Downloader billede {index} / {count}"
 msgid "Downloading... {percent}% ({key})"
 msgstr "Downloader... {percent}% ({key})"
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the file here..."
 msgstr "Slip filen her..."
 
-#: src/components/file/FileSelect.tsx:216
+#: src/components/file/FileSelect.tsx:222
 msgid "Drop the files here..."
 msgstr "Slip filerne her..."
 
@@ -962,7 +970,7 @@ msgstr "Rediger herfra og frem"
 msgid "Edit image"
 msgstr "Rediger billede"
 
-#: src/components/ImageEditor.tsx:342
+#: src/components/ImageEditor.tsx:348
 msgid "Edited"
 msgstr "Redigeret"
 
@@ -1244,6 +1252,7 @@ msgid "Keep cloud data"
 msgstr "Behold cloud-data"
 
 #: src/components/ColorSetChooser.tsx:237
+#: src/hooks/useConfirmDiscardImageEdits.tsx:38
 msgid "Keep editing"
 msgstr "Fortsæt redigering"
 
@@ -1283,8 +1292,8 @@ msgstr "Let"
 msgid "Light box"
 msgstr "Lightbox"
 
-#: src/components/ImageTonalValues.tsx:91
-#: src/components/ImageTonalValues.tsx:94
+#: src/components/ImageTonalValues.tsx:111
+#: src/components/ImageTonalValues.tsx:114
 msgid "Light tone"
 msgstr "Lys tone"
 
@@ -1379,8 +1388,8 @@ msgstr "Sammenflet"
 msgid "Merge color sets"
 msgstr "Sammenflet farvesæt"
 
-#: src/components/ImageTonalValues.tsx:101
-#: src/components/ImageTonalValues.tsx:104
+#: src/components/ImageTonalValues.tsx:121
+#: src/components/ImageTonalValues.tsx:124
 msgid "Mid tone"
 msgstr "Mellemtone"
 
@@ -1436,7 +1445,7 @@ msgid "More"
 msgstr "Mere"
 
 #: src/components/ColorMixingChart.tsx:217
-#: src/components/image/ImageActions.tsx:93
+#: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
 #: src/components/ImageColorPicker.tsx:358
 #: src/components/ImageLimitedPalette.tsx:183
@@ -1753,8 +1762,8 @@ msgstr "Tryk på knappen <0>Tilføj til palet</0> ved siden af den farveblanding
 
 #: src/components/color/ColorSwatchDrawer.tsx:80
 #: src/components/ColorMixingChart.tsx:149
-#: src/components/image/ImageActions.tsx:49
-#: src/components/image/ImageActions.tsx:63
+#: src/components/image/ImageActions.tsx:64
+#: src/components/image/ImageActions.tsx:85
 #: src/components/ImageLimitedPalette.tsx:148
 #: src/components/ImageOutline.tsx:324
 #: src/components/ImageOutline.tsx:360
@@ -1808,7 +1817,7 @@ msgstr "Forhold"
 msgid "Realism"
 msgstr "Realisme"
 
-#: src/components/ImageEditor.tsx:327
+#: src/components/ImageEditor.tsx:333
 msgid "Redo"
 msgstr "Gentag"
 
@@ -1890,8 +1899,8 @@ msgstr "Kræver macOS Sonoma eller nyere."
 msgid "Resend code"
 msgstr "Send koden igen"
 
-#: src/components/ImageEditor.tsx:331
-#: src/components/ImageEditor.tsx:336
+#: src/components/ImageEditor.tsx:337
+#: src/components/ImageEditor.tsx:342
 #: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "Nulstil"
@@ -1948,7 +1957,7 @@ msgstr "Mætning (%)"
 #: src/components/ColorMixingChart.tsx:158
 #: src/components/ColorSetChooser.tsx:250
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/ImageActions.tsx:70
+#: src/components/image/ImageActions.tsx:92
 #: src/components/image/ImageSaveButton.tsx:40
 #: src/components/ImageLimitedPalette.tsx:155
 #: src/components/ImageOutline.tsx:367
@@ -2004,7 +2013,7 @@ msgstr "Vælg et kunstmedie"
 msgid "Select an image that contains a color chart"
 msgstr "Vælg et billede, der indeholder et farvekort"
 
-#: src/components/ImageEditor.tsx:292
+#: src/components/ImageEditor.tsx:298
 msgid "Select an image to edit"
 msgstr "Vælg et billede at redigere"
 
@@ -2066,7 +2075,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Vælg mellem dine seneste farvesæt, eller opret et nyt."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:296
+#: src/components/ImageEditor.tsx:302
 msgid "Select image"
 msgstr "Vælg billede"
 
@@ -2149,7 +2158,7 @@ msgstr "Sessionen er udløbet"
 msgid "Set as main color set"
 msgstr "Indstil som hovedfarvesæt"
 
-#: src/components/image/ImageActions.tsx:81
+#: src/components/image/ImageActions.tsx:103
 #: src/components/image/ImageSaveButton.tsx:56
 #: src/components/ImageLimitedPalette.tsx:164
 msgid "Set as reference"
@@ -2175,8 +2184,8 @@ msgstr "Sæt som underlag til lasering."
 msgid "Set as unifying color"
 msgstr "Sæt som samlende farve"
 
-#: src/components/ImageTonalValues.tsx:111
-#: src/components/ImageTonalValues.tsx:114
+#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageTonalValues.tsx:134
 msgid "Shadow"
 msgstr "Skygge"
 
@@ -2449,9 +2458,13 @@ msgstr "Det tørre lag, du vil lasere hen over."
 msgid "The existing pastel layer you want to blend over."
 msgstr "Det eksisterende pastellag, du vil udtvære hen over."
 
-#: src/hooks/useFileReadErrorNotification.tsx:30
-msgid "The file could not be read right now. Try selecting it again. If it is in cloud storage, download it to this device first."
-msgstr "Filen kunne ikke læses lige nu. Prøv at vælge den igen. Hvis den ligger i cloudlageret, skal du først downloade den til denne enhed."
+#: src/hooks/useFileReadErrorNotification.tsx:41
+msgid "The file could not be read. Select a copy from Files on this device. If it is in cloud storage, download it first."
+msgstr "Filen kunne ikke læses. Vælg en kopi fra Filer på denne enhed. Hvis den ligger i skylageret, skal du downloade den først."
+
+#: src/hooks/useConfirmDiscardImageEdits.tsx:35
+msgid "The image you are editing will be replaced, and your edits will be lost."
+msgstr "Billedet, du redigerer, bliver erstattet, og dine redigeringer går tabt."
 
 #: src/components/print/PrintImageDrawer.tsx:258
 msgid "The margin is too large"
@@ -2545,7 +2558,7 @@ msgstr "For at bruge funktionen {tabLabel} skal du vælge et referencebillede"
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
 msgstr "For at bruge funktionen {tabLabel} skal du vælge understøttet kunstmedie og farver til at male med"
 
-#: src/components/ImageTonalValues.tsx:133
+#: src/components/ImageTonalValues.tsx:153
 #: src/components/messages.ts:32
 msgid "Tonal values"
 msgstr "Toneværdier"
@@ -2653,7 +2666,7 @@ msgstr "Kan ikke gendanne det gemte farvesæt"
 msgid "Underlayer"
 msgstr "Underlag"
 
-#: src/components/ImageEditor.tsx:320
+#: src/components/ImageEditor.tsx:326
 msgid "Undo"
 msgstr "Fortryd"
 
@@ -2721,7 +2734,7 @@ msgstr "Brug <0>{fractionText} af fuldt tryk</0>"
 msgid "Use at full strength"
 msgstr "Brug med fuld styrke"
 
-#: src/components/file/FileSelect.tsx:193
+#: src/components/file/FileSelect.tsx:199
 msgid "Use copied image"
 msgstr "Brug kopieret billede"
 
@@ -2729,7 +2742,7 @@ msgstr "Brug kopieret billede"
 msgid "Use full pressure"
 msgstr "Brug fuldt tryk"
 
-#: src/components/file/FileSelect.tsx:182
+#: src/components/file/FileSelect.tsx:188
 msgid "Use reference photo"
 msgstr "Brug referencefoto"
 
@@ -2821,6 +2834,7 @@ msgid "White"
 msgstr "Hvid"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:175
+#: src/components/ImageTonalValues.tsx:170
 msgid "White balance"
 msgstr "Hvidbalance"
 
@@ -2873,7 +2887,7 @@ msgstr "Dine kontooplysninger:"
 msgid "Your app settings will return to their defaults. Your saved work will remain."
 msgstr "Dine appindstillinger bliver nulstillet til standardværdierne. Dit gemte arbejde bevares."
 
-#: src/components/file/FileSelect.tsx:165
+#: src/components/file/FileSelect.tsx:171
 msgid "Your browser does not support reading images from the clipboard."
 msgstr "Din browser understøtter ikke læsning af billeder fra udklipsholderen."
 
@@ -2902,7 +2916,7 @@ msgid "Your image"
 msgstr "Dit billede"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:307
+#: src/components/ImageEditor.tsx:313
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:320
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"
