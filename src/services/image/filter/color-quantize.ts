@@ -17,19 +17,32 @@
  */
 
 import {
-  deltaEOK,
+  deltaEOKr2,
   oklabToRgb,
   type OklabTuple,
+  packRgb,
   rgbToOklab,
   type RgbTuple,
   writeOklabToRgb,
   writeRgbToOklab,
 } from '@eugene-khyst/artistassistapp-color-mixer';
 
+import {createNearestColorFinder} from '@/services/color/color-distance';
+import {getTonalValue, TONAL_VALUES} from '@/services/color/tonal-value';
 import {ditherOrdered} from '@/services/image/filter/dither';
 import {quickselect} from '@/utils/quickselect';
 
 const OVER_QUANTIZE_FACTOR = 3;
+const MIN_CANDIDATES_PER_TONAL_VALUE = 4;
+
+type QuantizationOptions =
+  {groupByTonalValue: true; dither: false} | {groupByTonalValue: false; dither: boolean};
+
+interface PaletteGroup {
+  start: number;
+  end: number;
+  maxColors: number;
+}
 
 interface Bucket {
   start: number;
@@ -41,7 +54,6 @@ interface Bucket {
 interface Cluster {
   oklab: OklabTuple;
   count: number;
-  ranges: {start: number; end: number}[];
 }
 
 export function rgbTransformInOklab(
@@ -56,8 +68,30 @@ export function quantizeColors(
   dither = false,
   transformColor: (color: OklabTuple) => OklabTuple = color => color
 ): void {
+  quantizeImageColors(imageData, maxColors, transformColor, {groupByTonalValue: false, dither});
+}
+
+export function quantizeColorsByTonalValue(imageData: ImageData, maxColors: number): void {
+  quantizeImageColors(imageData, maxColors, color => color, {
+    groupByTonalValue: true,
+    dither: false,
+  });
+}
+
+function quantizeImageColors(
+  imageData: ImageData,
+  maxColors: number,
+  transformColor: (color: OklabTuple) => OklabTuple,
+  {groupByTonalValue, dither}: QuantizationOptions
+): void {
+  if (!Number.isInteger(maxColors) || maxColors < 1) {
+    throw new RangeError('maxColors must be a positive integer');
+  }
   const {data, width, height} = imageData;
   const pixelCount = Math.floor(data.length / 4);
+  if (pixelCount === 0) {
+    return;
+  }
 
   const dataOklab = new Float32Array(pixelCount * 3);
   const indices = new Uint32Array(pixelCount);
@@ -66,34 +100,39 @@ export function quantizeColors(
     indices[i] = i;
   }
 
-  // Pass 1: Over-quantize
-  const buckets = splitBuckets(dataOklab, indices, 0, pixelCount, maxColors * OVER_QUANTIZE_FACTOR);
+  const groups = groupByTonalValue
+    ? createTonalValueGroups(imageData, dataOklab, indices, maxColors)
+    : [{start: 0, end: pixelCount, maxColors}];
 
-  // Pass 2: Build clusters from bucket representatives
-  const clusters = buildClusters(dataOklab, indices, buckets, transformColor);
+  for (const group of groups) {
+    const buckets = splitBuckets(
+      dataOklab,
+      indices,
+      group.start,
+      group.end,
+      group.maxColors * OVER_QUANTIZE_FACTOR
+    );
+    const clusters = mergeClusters(
+      buildClusters(dataOklab, indices, buckets, transformColor),
+      group.maxColors
+    );
+    const paletteByRgb = new Map<number, OklabTuple>();
+    for (const {oklab} of clusters) {
+      paletteByRgb.set(packRgb(...oklabToRgb(...oklab)), oklab);
+    }
+    const palette: OklabTuple[] = [...paletteByRgb.values()];
 
-  // Pass 3: Merge closest pairs until maxColors
-  mergeClusters(clusters, maxColors);
-
-  // Extract palette
-  const palette: OklabTuple[] = clusters.map(({oklab}) => oklab);
-
-  if (dither && palette.length > 1) {
-    // Blue noise ordered dithering on original pixel data
-    ditherOrdered(dataOklab, width, height, palette);
-  } else {
-    // Flat quantization: write cluster colors to pixel data
-    for (const {
-      oklab: [l, a, b],
-      ranges,
-    } of clusters) {
-      for (const {start, end} of ranges) {
-        for (let i = start; i < end; i++) {
-          const io = indices[i]! * 3;
-          dataOklab[io] = l;
-          dataOklab[io + 1] = a;
-          dataOklab[io + 2] = b;
-        }
+    if (dither && palette.length > 1) {
+      ditherOrdered(dataOklab, width, height, palette);
+    } else {
+      const findNearestColor = createNearestColorFinder(palette);
+      for (let i = group.start; i < group.end; i++) {
+        const o = indices[i]! * 3;
+        const nearest =
+          palette[findNearestColor(dataOklab[o]!, dataOklab[o + 1]!, dataOklab[o + 2]!)]!;
+        dataOklab[o] = nearest[0];
+        dataOklab[o + 1] = nearest[1];
+        dataOklab[o + 2] = nearest[2];
       }
     }
   }
@@ -104,6 +143,70 @@ export function quantizeColors(
   }
 }
 
+function createTonalValueGroups(
+  {data}: ImageData,
+  dataOklab: Float32Array,
+  indices: Uint32Array,
+  maxColors: number
+): PaletteGroup[] {
+  const counts = TONAL_VALUES.map(() => 0);
+  const colors = TONAL_VALUES.map(() => new Set<number>());
+  const pixelTonalValues = new Uint8Array(indices.length);
+  for (let i = 0; i < indices.length; i++) {
+    const value = getTonalValue(dataOklab[i * 3]!);
+    pixelTonalValues[i] = value;
+    counts[value] = counts[value]! + 1;
+    const groupColors = colors[value]!;
+    if (groupColors.size < maxColors) {
+      groupColors.add(packRgb(data[i * 4]!, data[i * 4 + 1]!, data[i * 4 + 2]!));
+    }
+  }
+
+  let start = 0;
+  const groups = TONAL_VALUES.map(value => {
+    const group = {start, end: start + counts[value]!, maxColors: 0, capacity: colors[value]!.size};
+    start = group.end;
+    return group;
+  });
+  const populatedGroups = groups.filter(group => group.capacity > 0);
+  if (maxColors < populatedGroups.length) {
+    return [{start: 0, end: indices.length, maxColors}];
+  }
+
+  const offsets = groups.map(group => group.start);
+  for (let i = 0; i < indices.length; i++) {
+    const value = pixelTonalValues[i]!;
+    indices[offsets[value]!] = i;
+    offsets[value] = offsets[value]! + 1;
+  }
+  const minimum = Math.min(
+    MIN_CANDIDATES_PER_TONAL_VALUE,
+    Math.floor(maxColors / populatedGroups.length)
+  );
+  let remaining = maxColors;
+  for (const group of populatedGroups) {
+    group.maxColors = Math.min(minimum, group.capacity);
+    remaining -= group.maxColors;
+  }
+  while (remaining > 0) {
+    let bestGroup: (typeof populatedGroups)[number] | undefined;
+    let bestWeight = -1;
+    for (const group of populatedGroups) {
+      const weight = (group.end - group.start) / (group.maxColors + 1);
+      if (group.maxColors < group.capacity && weight > bestWeight) {
+        bestGroup = group;
+        bestWeight = weight;
+      }
+    }
+    if (!bestGroup) {
+      break;
+    }
+    bestGroup.maxColors++;
+    remaining--;
+  }
+  return populatedGroups;
+}
+
 function buildClusters(
   dataOklab: Float32Array,
   indices: Uint32Array,
@@ -112,37 +215,87 @@ function buildClusters(
 ): Cluster[] {
   return buckets.map(({start, end}) => {
     const count = end - start;
-    const o = indices[start + Math.floor(count / 2)]! * 3;
-    const oklab = transformColor([dataOklab[o]!, dataOklab[o + 1]!, dataOklab[o + 2]!]);
-    return {oklab, count, ranges: [{start, end}]};
+    const center: [number, number, number] = [0, 0, 0];
+    for (let i = start; i < end; i++) {
+      const o = indices[i]! * 3;
+      center[0] += dataOklab[o]!;
+      center[1] += dataOklab[o + 1]!;
+      center[2] += dataOklab[o + 2]!;
+    }
+    center[0] /= count;
+    center[1] /= count;
+    center[2] /= count;
+    let nearest: OklabTuple = [Number.POSITIVE_INFINITY, 0, 0];
+    let minDistance = Number.POSITIVE_INFINITY;
+    for (let i = start; i < end; i++) {
+      const o = indices[i]! * 3;
+      const l1 = dataOklab[o]!;
+      const a1 = dataOklab[o + 1]!;
+      const b1 = dataOklab[o + 2]!;
+      const [l2, a2, b2] = nearest;
+      const distance = deltaEOKr2(l1, a1, b1, ...center);
+      if (
+        distance < minDistance ||
+        (distance === minDistance && compareOklab({l1, a1, b1}, {l2, a2, b2}) < 0)
+      ) {
+        nearest = [l1, a1, b1];
+        minDistance = distance;
+      }
+    }
+    const oklab = transformColor(nearest);
+    return {oklab, count};
   });
 }
 
-function mergeClusters(clusters: Cluster[], maxColors: number): void {
-  while (clusters.length > maxColors) {
-    let minDist = Number.POSITIVE_INFINITY;
+function compareOklab(
+  {l1, a1, b1}: {l1: number; a1: number; b1: number},
+  {l2, a2, b2}: {l2: number; a2: number; b2: number}
+): number {
+  return l1 - l2 || a1 - a2 || b1 - b2;
+}
+
+function mergeClusters(clusters: Cluster[], maxColors: number): Cluster[] {
+  const count = clusters.length;
+  if (count <= maxColors) {
+    return clusters;
+  }
+  const active = clusters.map((cluster, distanceIndex) => ({cluster, distanceIndex}));
+  const squaredDistances = new Float64Array(count * count);
+  for (let i = 0; i < count; i++) {
+    for (let j = i + 1; j < count; j++) {
+      const distance = deltaEOKr2(...clusters[i]!.oklab, ...clusters[j]!.oklab);
+      squaredDistances[i * count + j] = squaredDistances[j * count + i] = distance ** 2;
+    }
+  }
+  while (active.length > maxColors) {
+    let minError = Number.POSITIVE_INFINITY;
     let mergeI = 0;
     let mergeJ = 1;
-    for (let i = 0; i < clusters.length; i++) {
-      for (let j = i + 1; j < clusters.length; j++) {
-        const dist = deltaEOK(...clusters[i]!.oklab, ...clusters[j]!.oklab);
-        if (dist < minDist) {
-          minDist = dist;
+    for (let i = 0; i < active.length; i++) {
+      for (let j = i + 1; j < active.length; j++) {
+        const left = active[i]!;
+        const right = active[j]!;
+        const error =
+          Math.min(left.cluster.count, right.cluster.count) *
+          squaredDistances[left.distanceIndex * count + right.distanceIndex]!;
+        if (error < minError) {
+          minError = error;
           mergeI = i;
           mergeJ = j;
         }
       }
     }
 
-    // Keep the larger cluster's color (preserves real image colors)
     const [keepIdx, removeIdx] =
-      clusters[mergeI]!.count >= clusters[mergeJ]!.count ? [mergeI, mergeJ] : [mergeJ, mergeI];
-    const keep = clusters[keepIdx]!;
-    const remove = clusters[removeIdx]!;
+      active[mergeI]!.cluster.count >= active[mergeJ]!.cluster.count
+        ? [mergeI, mergeJ]
+        : [mergeJ, mergeI];
+    const keep = active[keepIdx]!.cluster;
+    const remove = active[removeIdx]!.cluster;
     keep.count += remove.count;
-    keep.ranges.push(...remove.ranges);
-    clusters.splice(removeIdx, 1);
+    active.splice(removeIdx, 1);
   }
+  return active.map(({cluster}) => cluster);
 }
 
 function splitBuckets(
@@ -169,7 +322,7 @@ function splitBuckets(
     }
 
     const count = bucket.end - bucket.start;
-    const mid = bucket.start + Math.floor(count / 2);
+    let mid = bucket.start + Math.floor(count / 2);
 
     quickselect(
       bucket.start,
@@ -182,6 +335,30 @@ function splitBuckets(
         indices[b] = tmp;
       }
     );
+
+    // Equal channel values must stay together so identical colors cannot occupy several buckets.
+    const pivot = dataOklab[indices[mid]! * 3 + bucket.maxChannel]!;
+    let equalStart = bucket.start;
+    let equalEnd = bucket.end;
+    let i = bucket.start;
+    while (i < equalEnd) {
+      const value = dataOklab[indices[i]! * 3 + bucket.maxChannel]!;
+      if (value < pivot) {
+        const tmp = indices[equalStart]!;
+        indices[equalStart++] = indices[i]!;
+        indices[i++] = tmp;
+      } else if (value > pivot) {
+        const tmp = indices[--equalEnd]!;
+        indices[equalEnd] = indices[i]!;
+        indices[i] = tmp;
+      } else {
+        i++;
+      }
+    }
+    mid =
+      equalStart > bucket.start && (equalEnd === bucket.end || mid - equalStart <= equalEnd - mid)
+        ? equalStart
+        : equalEnd;
 
     const [leftRange, leftChannel] = computeBucketRange(dataOklab, indices, bucket.start, mid);
     const [rightRange, rightChannel] = computeBucketRange(dataOklab, indices, mid, bucket.end);

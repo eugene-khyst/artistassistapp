@@ -16,7 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {type Fraction, radians} from '@eugene-khyst/artistassistapp-color-mixer';
+import {
+  type Fraction,
+  linearizeRgbChannel,
+  radians,
+  type RgbTuple,
+  unlinearizeRgbChannel,
+  WHITE,
+} from '@eugene-khyst/artistassistapp-color-mixer';
 
 import {type Rectangle, type Vector} from '@/services/math/geometry';
 import {identity} from '@/utils/function';
@@ -399,6 +406,37 @@ export function getRgbaForCoord(
   }
   const i = getIndexForCoord(x, y, width, 0);
   return data.subarray(i, i + 4);
+}
+
+export function getAverageColor({data, width, height}: ImageData): RgbTuple {
+  if (data.length <= 4) {
+    return [data[0]!, data[1]!, data[2]!];
+  }
+  const diameter = Math.trunc(Math.min(width, height));
+  const radius = Math.trunc(diameter / 2);
+  const radiusSquare = radius ** 2;
+  const total = [0, 0, 0];
+  let count = 0;
+  for (let y = 0; y < diameter; y++) {
+    for (let x = 0; x < diameter; x++) {
+      if ((x - radius) ** 2 + (y - radius) ** 2 <= radiusSquare) {
+        const color = getRgbaForCoord(data, x, y, width);
+        for (let channel = 0; channel < 3; channel++) {
+          total[channel]! += linearizeRgbChannel(color[channel]!);
+        }
+        count++;
+      }
+    }
+  }
+  if (count === 0) {
+    return WHITE;
+  }
+  const [totalR, totalG, totalB] = total;
+  return [
+    unlinearizeRgbChannel(totalR! / count),
+    unlinearizeRgbChannel(totalG! / count),
+    unlinearizeRgbChannel(totalB! / count),
+  ];
 }
 
 export function aspectRatioSize(

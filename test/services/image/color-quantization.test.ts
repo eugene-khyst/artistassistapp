@@ -91,3 +91,30 @@ describe.each([ColorType.WatercolorPaint, ColorType.Gouache])('limited palette (
     expect(await limitedPalettePixels([BLUE, [33, 65, 161]], type)).toEqual([BLUE, BLUE]);
   });
 });
+
+describe('sampling points', () => {
+  it('uses the requested candidate budget and releases the transferred image', () => {
+    const width = 8;
+    const data = new Uint8ClampedArray(
+      Array.from({length: width}, (_, i) => [i * 30, 100, 150, 255]).flat()
+    );
+    graphicsMocks.offscreenCanvasToImageData.mockReturnValue({data, width, height: 1});
+    const image = {width, height: 1, close: vi.fn()};
+
+    const points = new ColorQuantization().getSamplingPoints(image, 3);
+
+    expect(points).toHaveLength(3);
+    expect(points.reduce((count, point) => count + point.pixelCount, 0)).toBe(width);
+    expect(image.close).toHaveBeenCalledOnce();
+  });
+
+  it('releases the transferred image when reading fails', () => {
+    graphicsMocks.offscreenCanvasToImageData.mockImplementationOnce(() => {
+      throw new Error('Unreadable image');
+    });
+    const image = {width: 1, height: 1, close: vi.fn()};
+
+    expect(() => new ColorQuantization().getSamplingPoints(image, 24)).toThrow('Unreadable image');
+    expect(image.close).toHaveBeenCalledOnce();
+  });
+});

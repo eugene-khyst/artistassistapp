@@ -5,6 +5,7 @@
 
 .diameterSlider {
   margin-block: 4px 22px !important;
+  margin-inline: var(--ant-margin-xs) !important;
 }
 
 .cascaderGrow {
@@ -40,4 +41,23 @@
   .sidePanel {
     max-height: calc((100dvh - var(--app-tab-bar-offset)) / 2 - var(--ant-margin-xs));
   }
+}
+
+.expandable {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--ant-motion-duration-mid) var(--ant-motion-ease-in-out);
+}
+
+.expandable.expanded {
+  grid-template-rows: 1fr;
+}
+
+.expandable > div {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.expandableContent {
+  padding-top: var(--ant-margin-xs);
 }

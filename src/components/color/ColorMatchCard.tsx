@@ -32,6 +32,7 @@ import {memo} from 'react';
 
 import {AddToPaletteButton} from '@/components/color/AddToPaletteButton';
 import {ColorSquare} from '@/components/color/ColorSquare';
+import {TonalValueTag} from '@/components/tonal-value/TonalValueTag';
 import {useAppStore} from '@/stores/app-store';
 
 import {ColorMixtureDescription} from './ColorMixtureDescription';
@@ -86,16 +87,19 @@ export const ColorMatchCard = memo(function ColorMatchCard({
   return (
     <Card size="small">
       <Flex vertical gap="small" className="u-w-100">
-        <Flex gap="small">
-          <Space size={4}>
-            <ColorSquare size="small" hex={targetColor} />
-            <ColorSquare size="small" hex={rgbToHex(...colorMixture.layerRgb)} />
-          </Space>
-          <Typography.Text>
-            <Trans>
-              <Typography.Text strong>{matchScoreText}%</Typography.Text> match
-            </Trans>
-          </Typography.Text>
+        <Flex align="center" justify="space-between" gap="small">
+          <Flex gap="small" align="center" className="u-min-w-0">
+            <Space size={4}>
+              <ColorSquare size="small" hex={targetColor} />
+              <ColorSquare size="small" hex={rgbToHex(...colorMixture.layerRgb)} />
+            </Space>
+            <Typography.Text>
+              <Trans>
+                <Typography.Text strong>{matchScoreText}%</Typography.Text> match
+              </Trans>
+            </Typography.Text>
+          </Flex>
+          <TonalValueTag rgb={colorMixture.layerRgb} />
         </Flex>
         <ColorMixtureDescription colorMixture={colorMixture} />
         {paletteColorMixture && (

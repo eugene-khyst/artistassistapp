@@ -23,7 +23,6 @@ import {
   type Comparator,
   compareByDeltaEOKr2,
   compareColorMatchesByColorMixturePartLength,
-  compareColorMatchesByConsistency,
 } from '@eugene-khyst/artistassistapp-color-mixer';
 import {Flex} from 'antd';
 import {useMemo} from 'react';
@@ -32,6 +31,7 @@ import {ColorMatchCard} from '@/components/color/ColorMatchCard';
 import {PaletteColorMixtureCard} from '@/components/color/PaletteColorMixtureCard';
 import {EmptyColorMatches} from '@/components/empty/EmptyColorMatches';
 import {EmptyTargetColor} from '@/components/empty/EmptyTargetColor';
+import {matchesTonalValue} from '@/services/color/tonal-value';
 import {ColorPickerSort} from '@/services/settings/types';
 import {useAppStore} from '@/stores/app-store';
 
@@ -40,7 +40,6 @@ import styles from './ColorMatchesList.module.css';
 const COLOR_MATCH_COMPARATORS: Record<ColorPickerSort, Comparator<ColorMatch>> = {
   [ColorPickerSort.ByDeltaEOKr2]: compareByDeltaEOKr2,
   [ColorPickerSort.ByNumberOfColors]: compareColorMatchesByColorMixturePartLength,
-  [ColorPickerSort.ByConsistency]: compareColorMatchesByConsistency,
 };
 
 interface Props {
@@ -56,6 +55,15 @@ export function ColorMatchesList({sort, onReflectanceChartClick}: Readonly<Props
   const colorMatches = useAppStore(state => state.colorMatches);
   const isColorMatchesLoading = useAppStore(state => state.isColorMatchesLoading);
   const selectedPaletteColorMixtures = useAppStore(state => state.selectedPaletteColorMixtures);
+  const selectedTonalValue = useAppStore(state => state.selectedTonalValue);
+
+  const savedColorMixtures = useMemo(
+    () =>
+      [...selectedPaletteColorMixtures.values()].filter(({layerRgb}) =>
+        matchesTonalValue(layerRgb, selectedTonalValue)
+      ),
+    [selectedPaletteColorMixtures, selectedTonalValue]
+  );
 
   const {mixing = false} = colorType ? COLOR_MIXING[colorType] : {};
 
@@ -70,7 +78,7 @@ export function ColorMatchesList({sort, onReflectanceChartClick}: Readonly<Props
   }
   return (
     <Flex vertical gap="small" className="u-w-100">
-      {[...selectedPaletteColorMixtures.values()].map(colorMixture => (
+      {savedColorMixtures.map(colorMixture => (
         <PaletteColorMixtureCard
           key={`selected-${colorMixture.key}`}
           colorMixture={colorMixture}

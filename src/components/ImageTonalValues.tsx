@@ -25,13 +25,15 @@ import {ColorSquare} from '@/components/color/ColorSquare';
 import {GradientRect} from '@/components/color/GradientRect';
 import {ImageActions} from '@/components/image/ImageActions';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {TONAL_VALUE_LABELS} from '@/components/messages';
 import {useConfirmDiscardImageEdits} from '@/hooks/useConfirmDiscardImageEdits';
 import {useImageActions} from '@/hooks/useImageActions';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
 import {NOOP_CANVAS_MODE_SUPPLIER} from '@/services/canvas/mode/canvas-mode';
+import {TonalValue} from '@/services/color/tonal-value';
 import {COLOR_MAP_STOP_HEXES} from '@/services/image/filter/color-map-webgl';
 import {imageFileToFile} from '@/services/image/image-file';
-import {TONAL_VALUE_HEXES} from '@/services/image/tonal-values';
+import {TONAL_IMAGE_VALUES, TONAL_VALUE_HEXES} from '@/services/image/tonal-values';
 import {printImages} from '@/services/print/print';
 import {useAppStore} from '@/stores/app-store';
 import {TabKey} from '@/tabs';
@@ -64,7 +66,9 @@ export function ImageTonalValues() {
     selectedImageFile?.digest
   );
 
-  const [tonalImageIndex, setTonalImageIndex] = useState<number>(2);
+  const [tonalImageIndex, setTonalImageIndex] = useState<number>(() =>
+    TONAL_IMAGE_VALUES.indexOf(TonalValue.Shadows)
+  );
 
   useEffect(() => {
     tonalValuesCanvas?.setImageIndex(tonalImageIndex);
@@ -103,38 +107,18 @@ export function ImageTonalValues() {
   const collapseBelow = 'md';
 
   const toneOptions: CheckboxOptionType[] = [
-    {
-      value: 0,
+    ...TONAL_IMAGE_VALUES.map((tonalValue, index) => ({
+      value: index,
       label: (
         <Flex align="center" gap="small">
-          <ColorSquare size="small" hex={TONAL_VALUE_HEXES[0]!} />
-          {screens[collapseBelow] && <Trans>Light tone</Trans>}
+          <ColorSquare size="small" hex={TONAL_VALUE_HEXES[tonalValue]} />
+          {screens[collapseBelow] && t(TONAL_VALUE_LABELS[tonalValue])}
         </Flex>
       ),
-      title: screens[collapseBelow] ? undefined : t`Light tone`,
-    },
+      title: screens[collapseBelow] ? undefined : t(TONAL_VALUE_LABELS[tonalValue]),
+    })),
     {
-      value: 1,
-      label: (
-        <Flex align="center" gap="small">
-          <ColorSquare size="small" hex={TONAL_VALUE_HEXES[1]!} />
-          {screens[collapseBelow] && <Trans>Mid tone</Trans>}
-        </Flex>
-      ),
-      title: screens[collapseBelow] ? undefined : t`Mid tone`,
-    },
-    {
-      value: 2,
-      label: (
-        <Flex align="center" gap="small">
-          <ColorSquare size="small" hex={TONAL_VALUE_HEXES[2]!} />
-          {screens[collapseBelow] && <Trans>Shadow</Trans>}
-        </Flex>
-      ),
-      title: screens[collapseBelow] ? undefined : t`Shadow`,
-    },
-    {
-      value: 3,
+      value: TONAL_IMAGE_VALUES.length,
       label: (
         <Flex align="center" gap="small">
           <GradientRect hexes={COLOR_MAP_STOP_HEXES} />

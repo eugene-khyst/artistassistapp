@@ -24,6 +24,7 @@ import {
 } from '@eugene-khyst/artistassistapp-color-mixer';
 import type {StateCreator} from 'zustand';
 
+import type {TonalValue} from '@/services/color/tonal-value';
 import {
   deleteColorMixture,
   getColorMixturesByDigest,
@@ -60,6 +61,7 @@ function computeColorMixturesByType(
 export interface PaletteSlice {
   paletteColorMixtures: Map<ColorType, Map<string, ColorMixture>>;
   selectedPaletteColorMixtures: Map<string, ColorMixture>;
+  selectedTonalValue: TonalValue | null;
   isPaletteLoading: boolean;
 
   loadPaletteColorMixtures: (options?: {signal?: AbortSignal}) => Promise<void>;
@@ -68,6 +70,7 @@ export interface PaletteSlice {
   deleteFromPalette: (colorMixture: ColorMixture) => Promise<void>;
   deleteAllFromPalette: (type: ColorType) => Promise<void>;
   selectPaletteColorMixtures: (keys: string[]) => void;
+  setSelectedTonalValue: (tonalValue: TonalValue | null) => void;
 }
 
 type PaletteSliceDependencies = Pick<ColorMixerSlice, 'colorSet' | 'samplingArea'> &
@@ -83,7 +86,14 @@ export const createPaletteSlice: StateCreator<
 > = (set, get) => ({
   paletteColorMixtures: new Map(),
   selectedPaletteColorMixtures: new Map(),
+  selectedTonalValue: null,
   isPaletteLoading: false,
+
+  setSelectedTonalValue: (selectedTonalValue): void => {
+    set({
+      selectedTonalValue,
+    });
+  },
 
   loadPaletteColorMixtures: async ({signal} = {}): Promise<void> => {
     signal?.throwIfAborted();

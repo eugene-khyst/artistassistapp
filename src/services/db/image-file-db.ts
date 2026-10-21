@@ -27,6 +27,7 @@ import {
   type RecentImage,
   toImageBlob,
   toImageMetadata,
+  withFocalPoint,
 } from '@/services/image/image-file';
 
 import {dbPromise} from './db';
@@ -102,6 +103,11 @@ export async function getReadableImageDigests(
   return readableDigests;
 }
 
+export async function getImageMetadata(digest: string): Promise<ImageMetadata | undefined> {
+  const db = await dbPromise;
+  return await db.get('image-metadata', digest);
+}
+
 export async function hasImageFile(digest: string): Promise<boolean> {
   const db = await dbPromise;
   return (await db.count('image-metadata', digest)) > 0;
@@ -126,6 +132,9 @@ export async function saveNewImageFiles(
     const existingImageMetadata = await imageMetadataStore.get(imageFile.digest);
     // A restore rewrites the photo but keeps the local "last used" date.
     imageFile.date = preserveDate ? (existingImageMetadata?.date ?? imageFile.date) : new Date();
+    if (!preserveDate) {
+      imageFile.focalPoint ??= existingImageMetadata?.focalPoint;
+    }
     await imageBlobsStore.put(toImageBlob(imageFile));
     await imageMetadataStore.put(toImageMetadata(imageFile));
   }
@@ -173,6 +182,25 @@ export async function touchImage(digest: string, date: Date): Promise<StoreChang
     throw new Error(`Local image is missing: ${digest}`);
   }
   await imageMetadataStore.put({...imageMetadata, date});
+  const tokens: StoreChangeTokens = {
+    images: await markStoreChanged(tx, 'images'),
+  };
+  await tx.done;
+  return tokens;
+}
+
+export async function saveImageFocalPoint(
+  digest: string,
+  focalPoint: ImageMetadata['focalPoint'] | null
+): Promise<StoreChangeTokens> {
+  const db = await dbPromise;
+  const tx = db.transaction(['image-metadata', 'store-changes'], 'readwrite');
+  const imageMetadataStore = tx.objectStore('image-metadata');
+  const imageMetadata = await imageMetadataStore.get(digest);
+  if (!imageMetadata) {
+    throw new Error(`Local image is missing: ${digest}`);
+  }
+  await imageMetadataStore.put(withFocalPoint(imageMetadata, focalPoint));
   const tokens: StoreChangeTokens = {
     images: await markStoreChanged(tx, 'images'),
   };

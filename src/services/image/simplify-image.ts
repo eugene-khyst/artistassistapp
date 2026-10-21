@@ -36,12 +36,12 @@ export function simplifyImage(image: DrawImageSource): ImageBitmap[] {
 
 export function applyFocalPointToSimplifiedImage(
   simplifiedImages: ImageBitmap[],
-  focalPoint?: Vector
+  focalPoint: Vector | null
 ): ImageBitmap {
   const simplifiedMaskedImage = multiLayerRadialMaskWebGL(
     simplifiedImages.map(image => toOffscreenCanvas(image)),
     [0.3, 0.6, 1],
-    focalPoint
+    focalPoint ?? undefined
   ).transferToImageBitmap();
   return simplifiedMaskedImage;
 }

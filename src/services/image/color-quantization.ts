@@ -29,9 +29,13 @@ import {transfer} from 'comlink';
 import {computeSamplingPoints, type SamplingPoint} from '@/services/image/sampling-point';
 import {drawImageToOffscreenCanvas, offscreenCanvasToImageData} from '@/utils/graphics';
 
-import {quantizeColors, rgbTransformInOklab} from './filter/color-quantize';
+import {
+  quantizeColors,
+  quantizeColorsByTonalValue,
+  rgbTransformInOklab,
+} from './filter/color-quantize';
 
-const MAX_COLORS = 60;
+const MAX_LIMITED_PALETTE_COLORS = 60;
 
 interface Result {
   quantizedImage: ImageBitmap;
@@ -59,9 +63,9 @@ export class ColorQuantization {
     return transfer({quantizedImage}, [quantizedImage]);
   }
 
-  getSamplingPoints(image: ImageBitmap): SamplingPoint[] {
+  getSamplingPoints(image: ImageBitmap, maxColors: number): SamplingPoint[] {
     const imageData: ImageData = readImageData(image);
-    quantizeColors(imageData, MAX_COLORS);
+    quantizeColorsByTonalValue(imageData, maxColors);
     const samplingPoints: SamplingPoint[] = computeSamplingPoints(imageData);
     return samplingPoints;
   }
@@ -73,7 +77,7 @@ export class ColorQuantization {
     const matchedColors = new Map<number, RgbTuple>();
     quantizeColors(
       imageData,
-      MAX_COLORS,
+      MAX_LIMITED_PALETTE_COLORS,
       true,
       rgbTransformInOklab((color: RgbTuple): RgbTuple =>
         computeIfAbsentInMap(

@@ -39,15 +39,18 @@ import {
   type CheckboxChangeEvent,
   Col,
   Dropdown,
+  Flex,
   Form,
   Grid,
   Row,
   Slider,
   Space,
+  Typography,
 } from 'antd';
 import type {AggregationColor} from 'antd/es/color-picker/color';
 import type {SliderMarks} from 'antd/es/slider';
 import type {MenuProps} from 'antd/lib';
+import {clsx} from 'clsx';
 import {type ReactNode, useCallback, useEffect, useState} from 'react';
 
 import {AdCard} from '@/components/ad/AdCard';
@@ -58,6 +61,7 @@ import {UnderlayerColorPicker} from '@/components/color/UnderlayerColorPicker';
 import {ColorCascader} from '@/components/color-set/ColorCascader';
 import {ColorSetName} from '@/components/color-set/ColorSetName';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
+import {TonalValueFilter} from '@/components/tonal-value/TonalValueFilter';
 import {useDebounce} from '@/hooks/useDebounce';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
 import {
@@ -67,6 +71,7 @@ import {
   MIN_COLOR_PICKER_DIAMETER,
   type PipettePointSetEvent,
 } from '@/services/canvas/mode/image-color-picker-mode';
+import {matchesTonalValue} from '@/services/color/tonal-value';
 import {Vector} from '@/services/math/geometry';
 import {ColorPickerSort} from '@/services/settings/types';
 import {useAppStore} from '@/stores/app-store';
@@ -99,6 +104,7 @@ export function ImageColorPicker() {
   const targetColorHex = useAppStore(state => state.targetColorHex);
   const colorPickerPipette = useAppStore(state => state.colorPickerPipette);
   const paletteColorMixtures = useAppStore(state => state.paletteColorMixtures);
+  const selectedTonalValue = useAppStore(state => state.selectedTonalValue);
 
   const isColorMixerLoading = useAppStore(state => state.isColorMixerLoading);
   const isOriginalImageLoading = useAppStore(state => state.isOriginalImageLoading);
@@ -211,11 +217,12 @@ export function ImageColorPicker() {
                 key,
                 imageCenteredPoint: new Vector(samplingArea.x, samplingArea.y),
                 rgb: layerRgb,
+                opacity: matchesTonalValue(layerRgb, selectedTonalValue) ? 1 : 0.3,
               }
             : []
       )
     );
-  }, [colorPickerMode, paletteColorMixtures, colorSet]);
+  }, [colorPickerMode, paletteColorMixtures, colorSet, selectedTonalValue]);
 
   useEffect(() => {
     colorPickerMode?.setOverlayImage(colorMatchImage);
@@ -251,7 +258,7 @@ export function ImageColorPicker() {
     abortBuildPalette();
   };
 
-  const handleAutoPaletteClick = async () => {
+  const handleAutoPaletteClick = async (maxColors: number) => {
     if (underlayerHex || motherColorId) {
       const confirmed: boolean = await modal.confirm({
         title: <Trans>Continue with Auto palette?</Trans>,
@@ -269,7 +276,7 @@ export function ImageColorPicker() {
         return;
       }
     }
-    const paletteEntryCount = await buildPalette();
+    const paletteEntryCount = await buildPalette(maxColors);
     if (paletteEntryCount === 0) {
       void message.info(
         <Trans>No palette colors matched the current color set and settings</Trans>
@@ -283,22 +290,11 @@ export function ImageColorPicker() {
 
   const pastel: boolean = isPastel(colorSet.type);
   const {mixing, layering} = COLOR_MIXING[colorSet.type];
+  const hasSavedMixtures = !!paletteColorMixtures.get(colorSet.type)?.size;
   const sort =
-    colorPickerSort === ColorPickerSort.ByConsistency && !(layering && colorPickerLayeringEnabled)
-      ? ColorPickerSort.ByDeltaEOKr2
-      : colorPickerSort;
-
-  const colorSetName = (
-    <Form.Item
-      label={<Trans>Color set</Trans>}
-      labelCol={{
-        className: styles['colorSetLabel'],
-      }}
-      className="u-mb-0"
-    >
-      {colorSet.name || <ColorSetName brandColorCounts={colorSetToBrandColorCounts(colorSet)} />}
-    </Form.Item>
-  );
+    colorPickerSort === ColorPickerSort.ByNumberOfColors
+      ? ColorPickerSort.ByNumberOfColors
+      : ColorPickerSort.ByDeltaEOKr2;
 
   const diameterSlider = (
     <Form.Item
@@ -464,14 +460,32 @@ export function ImageColorPicker() {
   );
 
   const autoPaletteButton = (
-    <Button
-      title={t`Automatically find the best color mixtures for this photo.`}
-      onClick={() => {
-        void handleAutoPaletteClick();
+    <Dropdown
+      trigger={['click']}
+      menu={{
+        items: [
+          {
+            type: 'group',
+            label: <Trans>Create a palette with up to</Trans>,
+            children: [12, 24, 36, 48].map(colorCount => ({
+              key: String(colorCount),
+              label: <Plural value={colorCount} one="# color" other="# colors" />,
+              onClick: () => {
+                void handleAutoPaletteClick(colorCount);
+              },
+            })),
+          },
+        ],
       }}
     >
-      <Trans>Auto palette</Trans>
-    </Button>
+      <Button
+        icon={<DownOutlined />}
+        iconPlacement="end"
+        title={t`Automatically find the best color mixtures for this photo.`}
+      >
+        <Trans>Auto palette</Trans>
+      </Button>
+    </Dropdown>
   );
 
   const sortItems: MenuProps['items'] = (
@@ -486,40 +500,15 @@ export function ImageColorPicker() {
         label: <Trans>By color count</Trans>,
         title: t`Sort by the number of colors in the mixture, from fewest to most.`,
       },
-      layering && colorPickerLayeringEnabled
-        ? {
-            sort: ColorPickerSort.ByConsistency,
-            label: <Trans>By consistency</Trans>,
-            title: t`Sort by paint consistency, from full strength to most thinned.`,
-          }
-        : null,
-    ] as (SortOption | null)[]
-  )
-    .filter((o): o is SortOption => !!o)
-    .map(({sort, label, title}) => ({
-      key: String(sort),
-      label,
-      title,
-      onClick: () => {
-        handleSortChange(sort);
-      },
-    }));
-
-  const sortButton = mixing && (
-    <Form.Item className="u-mb-0">
-      <Dropdown
-        trigger={['click']}
-        menu={{
-          items: sortItems,
-          selectedKeys: [String(sort)],
-        }}
-      >
-        <Button icon={<SortAscendingOutlined />}>
-          <Trans>Sort</Trans>
-        </Button>
-      </Dropdown>
-    </Form.Item>
-  );
+    ] satisfies SortOption[]
+  ).map(({sort, label, title}) => ({
+    key: String(sort),
+    label,
+    title,
+    onClick: () => {
+      handleSortChange(sort);
+    },
+  }));
 
   return (
     <>
@@ -533,7 +522,6 @@ export function ImageColorPicker() {
               <Space orientation="vertical" className="u-w-100">
                 {screens.md ? (
                   <>
-                    {colorSetName}
                     {diameterSlider}
                     {targetColorPicker}
                     <Space size="middle">
@@ -544,15 +532,12 @@ export function ImageColorPicker() {
                     <Space>
                       {originalImage && availableMaxColors.length > 0 && reduceColorsDropdown}
                       {originalImage && autoPaletteButton}
-                      {sortButton}
                     </Space>
                   </>
                 ) : (
-                  <>
-                    {diameterSlider}
-                    <Space>
+                  <div>
+                    <Flex wrap gap="small" align="center" justify="space-between">
                       {targetColorPicker}
-                      {sortButton}
                       <Button
                         icon={isExpandedControls ? <UpOutlined /> : <DownOutlined />}
                         iconPlacement="end"
@@ -562,24 +547,76 @@ export function ImageColorPicker() {
                       >
                         {isExpandedControls ? <Trans>Less</Trans> : <Trans>More</Trans>}
                       </Button>
-                    </Space>
-                    {isExpandedControls && (
-                      <Space orientation="vertical" className="u-w-100">
-                        {colorSetName}
-                        <Space size="middle">
-                          {underlayerColorPicker}
-                          {layering !== Layering.None && glazingCheckbox}
+                    </Flex>
+                    <div
+                      className={clsx(
+                        styles['expandable'],
+                        isExpandedControls && styles['expanded']
+                      )}
+                      inert={!isExpandedControls}
+                    >
+                      <div>
+                        <Space
+                          orientation="vertical"
+                          className={clsx('u-w-100', styles['expandableContent'])}
+                        >
+                          {diameterSlider}
+                          <Space size="middle">
+                            {underlayerColorPicker}
+                            {layering !== Layering.None && glazingCheckbox}
+                          </Space>
+                          {mixing && motherColorCascader}
+                          <Space>
+                            {originalImage && availableMaxColors.length > 0 && reduceColorsDropdown}
+                            {originalImage && autoPaletteButton}
+                          </Space>
                         </Space>
-                        {mixing && motherColorCascader}
-                        <Space>
-                          {originalImage && availableMaxColors.length > 0 && reduceColorsDropdown}
-                          {originalImage && autoPaletteButton}
-                        </Space>
-                      </Space>
-                    )}
-                  </>
+                      </div>
+                    </div>
+                  </div>
                 )}
               </Space>
+
+              {(mixing || hasSavedMixtures) && (
+                <Space>
+                  {mixing && (
+                    <Form.Item className="u-mb-0">
+                      <Dropdown
+                        trigger={['click']}
+                        menu={{
+                          items: sortItems,
+                          selectedKeys: [String(sort)],
+                        }}
+                      >
+                        <Button icon={<SortAscendingOutlined />}>
+                          <Trans>Sort</Trans>
+                        </Button>
+                      </Dropdown>
+                    </Form.Item>
+                  )}
+
+                  {hasSavedMixtures && (
+                    <Form.Item className="u-mb-0">
+                      <TonalValueFilter />
+                    </Form.Item>
+                  )}
+                </Space>
+              )}
+
+              <Form.Item
+                layout="horizontal"
+                label={<Trans>Color set</Trans>}
+                labelCol={{
+                  className: clsx('u-pb-0', styles['colorSetLabel']),
+                }}
+                className="u-mb-0"
+              >
+                <Typography.Text ellipsis={{tooltip: true}} className="u-w-100">
+                  {colorSet.name || (
+                    <ColorSetName brandColorCounts={colorSetToBrandColorCounts(colorSet)} />
+                  )}
+                </Typography.Text>
+              </Form.Item>
 
               <ColorMatchesList sort={sort} onReflectanceChartClick={handleReflectanceChartClick} />
 

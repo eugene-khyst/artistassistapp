@@ -79,6 +79,10 @@ export const createPosterizedImageSlice: StateCreator<
           originalImage,
           ResizeImage.resizeToPixelCount(IMAGE_SIZE.SD)
         );
+        if (signal.aborted) {
+          resizedImage.close();
+          signal.throwIfAborted();
+        }
         const {quantizedImage} = await colorQuantizationWorker.run(
           worker => worker.getPosterizedImage(transfer(resizedImage, [resizedImage]), maxColors),
           signal

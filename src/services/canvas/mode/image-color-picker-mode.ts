@@ -19,16 +19,14 @@
 import {
   clamp,
   isRgbDark,
-  linearizeRgbChannel,
   rgbToHex,
   type RgbTuple,
-  unlinearizeRgbChannel,
   WHITE,
 } from '@eugene-khyst/artistassistapp-color-mixer';
 
 import {EventManager} from '@/services/event/event-manager';
 import {Rectangle, Vector} from '@/services/math/geometry';
-import {type DrawImageSource, drawImageToOffscreenCanvas, getRgbaForCoord} from '@/utils/graphics';
+import {type DrawImageSource, drawImageToOffscreenCanvas, getAverageColor} from '@/utils/graphics';
 
 import {BaseCanvasMode, type CanvasPointer, type ImageCanvasRenderingContext} from './canvas-mode';
 
@@ -50,6 +48,7 @@ export interface ColorPickerSample {
   key: string;
   imageCenteredPoint: Vector;
   rgb: RgbTuple;
+  opacity?: number;
 }
 
 export interface ImageColorPickerModeProps {
@@ -172,7 +171,9 @@ export class ImageColorPickerMode extends BaseCanvasMode {
 
   private drawSamples(ctx: ImageCanvasRenderingContext): void {
     const zoom = this.context?.getZoom() ?? 1;
-    for (const {imageCenteredPoint, rgb} of this.samples) {
+    for (const {imageCenteredPoint, rgb, opacity = 1} of this.samples) {
+      ctx.save();
+      ctx.globalAlpha *= opacity;
       ctx.lineWidth = this.lineWidth / zoom;
       const isDark = isRgbDark(...rgb);
       ctx.strokeStyle = isDark ? '#fff' : '#000';
@@ -180,6 +181,7 @@ export class ImageColorPickerMode extends BaseCanvasMode {
       this.drawCircle(ctx, imageCenteredPoint, this.sampleRadius / zoom);
       ctx.fill();
       ctx.stroke();
+      ctx.restore();
     }
   }
 
@@ -233,12 +235,12 @@ export class ImageColorPickerMode extends BaseCanvasMode {
     }
     this.pipetteImageCenteredPoint = imageCenteredPoint;
     this.lastPipetteDiameter = this.pipetteDiameter;
-    this.pipetteRgb = this.getAverageColor(imagePoint) ?? WHITE;
+    this.pipetteRgb = this.getPipetteColor(imagePoint) ?? WHITE;
     this.context?.requestRedraw();
     return true;
   }
 
-  private getAverageColor({x, y}: Vector): RgbTuple | null {
+  private getPipetteColor({x, y}: Vector): RgbTuple | null {
     const diameter = Math.round(this.pipetteDiameter);
     const radius = diameter / 2;
     const canvas = this.getOffscreenCanvas();
@@ -248,38 +250,7 @@ export class ImageColorPickerMode extends BaseCanvasMode {
     const imageData = canvas
       .getContext('2d')!
       .getImageData(Math.round(x - radius), Math.round(y - radius), diameter, diameter);
-    return this.getAverageColorFromImageData(imageData);
-  }
-
-  private getAverageColorFromImageData({data, width, height}: ImageData): RgbTuple {
-    if (data.length <= 4) {
-      return [data[0]!, data[1]!, data[2]!];
-    }
-    const diameter = Math.trunc(Math.min(width, height));
-    const radius = Math.trunc(diameter / 2);
-    const radiusSquare = radius ** 2;
-    const total = [0, 0, 0];
-    let count = 0;
-    for (let y = 0; y < diameter; y++) {
-      for (let x = 0; x < diameter; x++) {
-        if ((x - radius) ** 2 + (y - radius) ** 2 <= radiusSquare) {
-          const color = getRgbaForCoord(data, x, y, width);
-          for (let channel = 0; channel < 3; channel++) {
-            total[channel]! += linearizeRgbChannel(color[channel]!);
-          }
-          count++;
-        }
-      }
-    }
-    if (count === 0) {
-      return WHITE;
-    }
-    const [totalR, totalG, totalB] = total;
-    return [
-      unlinearizeRgbChannel(totalR! / count),
-      unlinearizeRgbChannel(totalG! / count),
-      unlinearizeRgbChannel(totalB! / count),
-    ];
+    return getAverageColor(imageData);
   }
 
   getSamples(): ColorPickerSample[] {

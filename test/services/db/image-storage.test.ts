@@ -34,6 +34,7 @@ import {
   deleteImageFileAndColorMixturesByDigest,
   getRecentImages,
   readImageBytes,
+  saveImageFocalPoint,
   saveNewImageFiles,
   saveRepairedImageBytes,
 } from '@/services/db/image-file-db';
@@ -341,6 +342,70 @@ describe('local image storage', () => {
     const hashAfter = (await serializeAndHashCloudState(createCloudState(await getLocalState())))
       .hash;
     expect(hashAfter).toBe(hashBefore);
+  });
+
+  it('saves and clears a focal point without touching the bytes or the date', async () => {
+    const photo = await imageFile('focal photo', 'focal.png');
+    await saveNewImageFiles([photo.image]);
+    const db = await dbPromise;
+    const metadataBefore = await db.get('image-metadata', photo.image.digest);
+    const tokensBefore = await getStoreChangeTokens();
+
+    const tokens = await saveImageFocalPoint(photo.image.digest, {x: 0.25, y: 0.5});
+
+    expect(await db.get('image-metadata', photo.image.digest)).toEqual({
+      ...metadataBefore,
+      focalPoint: {x: 0.25, y: 0.5},
+    });
+    expect(new Uint8Array(await readImageBytes(photo.image))).toEqual(new Uint8Array(photo.bytes));
+    expect(tokens.images).not.toBe(tokensBefore.images);
+
+    await saveImageFocalPoint(photo.image.digest, null);
+
+    expect(await db.get('image-metadata', photo.image.digest)).toEqual(metadataBefore);
+  });
+
+  it('keeps a saved focal point when the same photo is added again', async () => {
+    const photo = await imageFile('focal photo', 'focal.png');
+    await saveNewImageFiles([photo.image]);
+    await saveImageFocalPoint(photo.image.digest, {x: 0.25, y: 0.5});
+    const reopened = await imageFile('focal photo', 'focal.png');
+
+    await saveNewImageFiles([reopened.image]);
+
+    const db = await dbPromise;
+    expect((await db.get('image-metadata', photo.image.digest))?.focalPoint).toEqual({
+      x: 0.25,
+      y: 0.5,
+    });
+    expect(reopened.image.focalPoint).toEqual({x: 0.25, y: 0.5});
+  });
+
+  it('does not copy a local focal point into a restored photo', async () => {
+    const photo = await imageFile('focal photo', 'focal.png');
+    await saveNewImageFiles([photo.image]);
+    await saveImageFocalPoint(photo.image.digest, {x: 0.25, y: 0.5});
+    const restored = await imageFile('focal photo', 'focal.png');
+
+    await saveNewImageFiles([restored.image], {preserveDate: true});
+
+    expect(restored.image.focalPoint).toBeUndefined();
+  });
+
+  it('lets a replacement state remove a saved focal point', async () => {
+    const photo = await imageFile('focal photo', 'focal.png');
+    await saveNewImageFiles([photo.image]);
+    await saveImageFocalPoint(photo.image.digest, {x: 0.25, y: 0.5});
+    const replacement = await imageFile('focal photo', 'focal.png');
+
+    await replaceLocalStateFromZip(
+      cloudState([replacement.image]),
+      [replacement.image],
+      await getStoreChangeTokens()
+    );
+
+    const db = await dbPromise;
+    expect((await db.get('image-metadata', photo.image.digest))?.focalPoint).toBeUndefined();
   });
 
   it('does not overwrite an orphan blob when its metadata was deleted', async () => {

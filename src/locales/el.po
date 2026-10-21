@@ -24,7 +24,8 @@ msgstr "{closeCounter, plural, one {Κλείσιμο σε # δευτερόλεπ
 #: src/components/color-set/ColorBrandSelect.tsx:72
 #: src/components/color-set/ColorSetName.tsx:33
 #: src/components/color-set/StandardColorSetCascader.tsx:62
-#: src/components/ImageColorPicker.tsx:445
+#: src/components/ImageColorPicker.tsx:441
+#: src/components/ImageColorPicker.tsx:472
 #: src/components/Palette.tsx:75
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# χρώμα} other {# χρώματα}}"
@@ -66,7 +67,7 @@ msgstr "<0/> Tablet και <1/> κινητό"
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows και <1/> Linux"
 
-#: src/components/color/ColorMatchCard.tsx:95
+#: src/components/color/ColorMatchCard.tsx:97
 msgid "<0>{matchScoreText}%</0> match"
 msgstr "<0>{matchScoreText}%</0> αντιστοιχία"
 
@@ -103,8 +104,8 @@ msgid "✏️ High-quality outlines, background removal, and colorization"
 msgstr "✏️ Υψηλής ποιότητας περιγράμματα, αφαίρεση φόντου και χρωματισμός"
 
 #: src/components/ColorSetChooser.tsx:519
-msgid "🎨 250+ color brands"
-msgstr "🎨 250+ μάρκες χρωμάτων"
+msgid "🎨 500+ color brands from 100+ companies"
+msgstr "🎨 500+ μάρκες χρωμάτων από 100+ εταιρείες"
 
 #: src/components/ColorSetChooser.tsx:536
 msgid "📢 No ads"
@@ -114,11 +115,11 @@ msgstr "📢 Χωρίς διαφημίσεις"
 msgid "🧑‍🎨 Artistic styles from your own images and loose brushstroke paintings"
 msgstr "🧑‍🎨 Καλλιτεχνικά στυλ από τις δικές σας εικόνες και πίνακες με ελεύθερες πινελιές"
 
-#: src/components/messages.ts:39
+#: src/components/messages.ts:40
 msgid "2-color gradient"
 msgstr "Διαβάθμιση 2 χρωμάτων"
 
-#: src/components/ImageColorPicker.tsx:406
+#: src/components/ImageColorPicker.tsx:402
 msgid "A color mixed into every suggested mixture to help the palette feel more harmonious. Also known as a mother color."
 msgstr "Ένα χρώμα που αναμειγνύεται σε κάθε προτεινόμενο μείγμα ώστε η παλέτα να δείχνει πιο αρμονική. Γνωστό και ως μητρικό χρώμα."
 
@@ -138,15 +139,15 @@ msgstr "Μια τιμή μικρότερη από 100% κάνει την εικ�
 msgid "Accurate"
 msgstr "Ακριβές"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "Acrylic Gouache"
 msgstr "Ακρυλική γκουάς"
 
-#: src/components/messages.ts:74
+#: src/components/messages.ts:75
 msgid "Acrylic Markers"
 msgstr "Ακρυλικοί μαρκαδόροι"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Acrylic Paint"
 msgstr "Ακρυλικό χρώμα"
 
@@ -182,7 +183,7 @@ msgstr "Προσθήκη στην παλέτα"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Προσθήκη λευκού σε <0>αναλογία {whiteRatioText}</0>"
 
-#: src/components/messages.ts:53
+#: src/components/messages.ts:54
 msgid "Adjust colors"
 msgstr "Προσαρμογή χρωμάτων"
 
@@ -190,9 +191,13 @@ msgstr "Προσαρμογή χρωμάτων"
 msgid "Adjust the 4 corners manually."
 msgstr "Ρυθμίστε τις 4 γωνίες χειροκίνητα."
 
-#: src/components/messages.ts:72
+#: src/components/messages.ts:73
 msgid "Alcohol Markers"
 msgstr "Μαρκαδόροι οινοπνεύματος"
+
+#: src/components/tonal-value/TonalValueFilter.tsx:41
+msgid "All"
+msgstr "Όλες"
 
 #: src/components/Help.tsx:238
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
@@ -210,7 +215,7 @@ msgstr "Επιτρέψτε την πρόσβαση στο πρόχειρο κα�
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
 msgstr "Εναλλακτικά, εγκαταστήστε την πιο πρόσφατη έκδοση του προγράμματος περιήγησης ιστού Chrome, Edge ή Opera και κάντε κλικ στο κουμπί <0>Εγκατάσταση</0>. Σε παλαιότερες εκδόσεις του macOS, αυτή είναι η μόνη επιλογή."
 
-#: src/components/ImageColorPicker.tsx:259
+#: src/components/ImageColorPicker.tsx:266
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "Ορίζεται ένα υπόστρωμα ή ένα ενοποιητικό χρώμα. Η αυτόματη παλέτα θα εφαρμόσει αυτές τις ρυθμίσεις σε ολόκληρη τη φωτογραφία, όχι μόνο στην περιοχή για την οποία επιλέχθηκαν."
 
@@ -251,12 +256,8 @@ msgstr "Εφαρμόστε πινελιές αυτού του χρώματος �
 msgid "AR"
 msgstr "AR"
 
-#: src/components/palette/PaletteGrid.tsx:119
-msgid "Are you sure you want to delete all color mixtures?"
-msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε όλα τα μείγματα χρωμάτων;"
-
 #: src/components/color/AddToPaletteButton.tsx:46
-#: src/components/color/PaletteColorMixtureCard.tsx:126
+#: src/components/color/PaletteColorMixtureCard.tsx:131
 msgid "Are you sure you want to delete this color mixture?"
 msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό το μείγμα χρωμάτων;"
 
@@ -327,7 +328,7 @@ msgstr "Ο έλεγχος ταυτότητας απέτυχε"
 msgid "Auto"
 msgstr "Αυτόματο"
 
-#: src/components/ImageColorPicker.tsx:473
+#: src/components/ImageColorPicker.tsx:486
 msgid "Auto palette"
 msgstr "Αυτόματη παλέτα"
 
@@ -343,7 +344,7 @@ msgstr "Ο αυτόματος εντοπισμός είναι διαθέσιμο
 msgid "Auto-detect is unavailable"
 msgstr "Ο αυτόματος εντοπισμός δεν είναι διαθέσιμος"
 
-#: src/components/ImageColorPicker.tsx:468
+#: src/components/ImageColorPicker.tsx:484
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Βρείτε αυτόματα τα καλύτερα μείγματα χρωμάτων για αυτήν τη φωτογραφία."
 
@@ -372,41 +373,37 @@ msgstr "Σχολή Barbizon"
 msgid "Become a paid member"
 msgstr "Γίνετε μέλος επί πληρωμή"
 
-#: src/components/ImageColorPicker.tsx:375
+#: src/components/ImageColorPicker.tsx:371
 msgid "Blending"
 msgstr "Απάλυνση"
 
-#: src/components/ImageColorPicker.tsx:486
+#: src/components/ImageColorPicker.tsx:500
 msgid "By color count"
 msgstr "Κατά αριθμό χρωμάτων"
 
-#: src/components/ImageColorPicker.tsx:492
-msgid "By consistency"
-msgstr "Κατά πυκνότητα"
-
-#: src/components/messages.ts:89
+#: src/components/messages.ts:97
 msgid "By date"
 msgstr "Κατά ημερομηνία"
 
-#: src/components/messages.ts:84
-#: src/components/messages.ts:91
+#: src/components/messages.ts:92
+#: src/components/messages.ts:99
 msgid "By hue"
 msgstr "Κατά απόχρωση"
 
-#: src/components/messages.ts:83
+#: src/components/messages.ts:91
 msgid "By ID"
 msgstr "Κατά ID"
 
-#: src/components/messages.ts:85
-#: src/components/messages.ts:92
+#: src/components/messages.ts:93
+#: src/components/messages.ts:100
 msgid "By lightness"
 msgstr "Κατά φωτεινότητα"
 
-#: src/components/ImageColorPicker.tsx:481
+#: src/components/ImageColorPicker.tsx:495
 msgid "By match"
 msgstr "Κατά αντιστοιχία"
 
-#: src/components/messages.ts:90
+#: src/components/messages.ts:98
 msgid "By name"
 msgstr "Κατά όνομα"
 
@@ -419,7 +416,7 @@ msgstr "Απαιτείται πρόσβαση στην κάμερα για ιχ�
 #: src/components/cloud/DisconnectCloudButton.tsx:65
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
-#: src/components/ImageColorPicker.tsx:265
+#: src/components/ImageColorPicker.tsx:272
 #: src/components/ImageEditor.tsx:338
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/settings/ResetSettingsButton.tsx:54
@@ -490,7 +487,7 @@ msgstr "Εκκαθάριση προσωρινής μνήμης"
 msgid "Clear underlayer"
 msgstr "Εκκαθάριση υποστρώματος"
 
-#: src/components/ImageColorPicker.tsx:423
+#: src/components/ImageColorPicker.tsx:419
 msgid "Clear unifying color"
 msgstr "Εκκαθάριση ενοποιητικού χρώματος"
 
@@ -594,16 +591,16 @@ msgstr "Μάρκες χρωμάτων"
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "Τα δεδομένα χρώματος δεν είναι διαθέσιμα αυτήν τη στιγμή. Ελέγξτε τη σύνδεσή σας και δοκιμάστε ξανά."
 
-#: src/components/ImageTonalValues.tsx:141
-#: src/components/ImageTonalValues.tsx:144
+#: src/components/ImageTonalValues.tsx:125
+#: src/components/ImageTonalValues.tsx:128
 msgid "Color map"
 msgstr "Χάρτης χρωμάτων"
 
-#: src/components/messages.ts:37
+#: src/components/messages.ts:38
 msgid "Color mixer"
 msgstr "Αναμείκτης χρωμάτων"
 
-#: src/components/messages.ts:38
+#: src/components/messages.ts:39
 msgid "Color mixing chart"
 msgstr "Διάγραμμα ανάμειξης χρωμάτων"
 
@@ -611,7 +608,7 @@ msgstr "Διάγραμμα ανάμειξης χρωμάτων"
 msgid "Color mixture"
 msgstr "Μείγμα χρωμάτων"
 
-#: src/components/messages.ts:30
+#: src/components/messages.ts:31
 msgid "Color picker"
 msgstr "Επιλογέας χρώματος"
 
@@ -620,16 +617,16 @@ msgid "Color realism"
 msgstr "Ρεαλισμός χρωμάτων"
 
 #: src/components/ColorSetChooser.tsx:615
-#: src/components/ImageColorPicker.tsx:293
-#: src/components/messages.ts:28
+#: src/components/ImageColorPicker.tsx:608
+#: src/components/messages.ts:29
 msgid "Color set"
 msgstr "Σετ χρωμάτων"
 
-#: src/components/palette/PaletteGrid.tsx:112
+#: src/components/palette/PaletteGrid.tsx:126
 msgid "Color swatch"
 msgstr "Δείγμα χρώματος"
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Colored Pencils"
 msgstr "Χρωματιστά μολύβια"
 
@@ -637,7 +634,7 @@ msgstr "Χρωματιστά μολύβια"
 msgid "Colorize"
 msgstr "Χρωματισμός"
 
-#: src/components/messages.ts:59
+#: src/components/messages.ts:60
 msgid "Colorize black-and-white"
 msgstr "Χρωματισμός ασπρόμαυρης φωτογραφίας"
 
@@ -647,7 +644,15 @@ msgstr "Χρωματισμός ασπρόμαυρης φωτογραφίας"
 msgid "Colors"
 msgstr "Χρώματα"
 
-#: src/components/messages.ts:43
+#: src/components/palette/PaletteGrid.tsx:135
+msgid "Colors needed"
+msgstr "Απαραίτητα χρώματα"
+
+#: src/components/palette/PaletteColorsDrawer.tsx:98
+msgid "Colors needed for this palette"
+msgstr "Χρώματα που χρειάζονται για αυτή την παλέτα"
+
+#: src/components/messages.ts:44
 msgid "Compare images"
 msgstr "Σύγκριση εικόνων"
 
@@ -675,11 +680,11 @@ msgstr "Συνδέστε το χώρο αποθήκευσης στο cloud γι�
 msgid "Connect cloud storage to sync your data across devices"
 msgstr "Συνδέστε το χώρο αποθήκευσης cloud για να συγχρονίσετε τα δεδομένα σας σε όλες τις συσκευές"
 
-#: src/components/ImageColorPicker.tsx:379
+#: src/components/ImageColorPicker.tsx:375
 msgid "Consider colors blended over the underlayer when they match the target better than unblended colors"
 msgstr "Να λαμβάνονται υπόψη τα χρώματα που απαλύνονται πάνω στο υπόστρωμα, όταν ταιριάζουν με τον στόχο καλύτερα από τα μη απαλυμμένα χρώματα"
 
-#: src/components/ImageColorPicker.tsx:384
+#: src/components/ImageColorPicker.tsx:380
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "Να λαμβάνονται υπόψη τα διαφανή στρώματα πάνω από την επιφάνεια ή το υπόστρωμα, όταν ταιριάζουν με τον στόχο καλύτερα από τα αδιαφανή μείγματα"
 
@@ -687,15 +692,15 @@ msgstr "Να λαμβάνονται υπόψη τα διαφανή στρώμα�
 msgid "Contact"
 msgstr "Επικοινωνία"
 
-#: src/components/ImageColorPicker.tsx:264
+#: src/components/ImageColorPicker.tsx:271
 msgid "Continue"
 msgstr "Συνέχεια"
 
-#: src/components/ImageColorPicker.tsx:257
+#: src/components/ImageColorPicker.tsx:264
 msgid "Continue with Auto palette?"
 msgstr "Συνέχεια με την Αυτόματη παλέτα;"
 
-#: src/components/ImageColorPicker.tsx:308
+#: src/components/ImageColorPicker.tsx:304
 msgid "Controls how large an area is averaged when you pick a color from the photo."
 msgstr "Καθορίζει πόσο μεγάλη περιοχή λαμβάνεται υπόψη για τον μέσο όρο όταν επιλέγετε χρώμα από τη φωτογραφία."
 
@@ -716,7 +721,7 @@ msgid "Copy and share this link"
 msgstr "Αντιγράψτε και μοιραστείτε αυτόν τον σύνδεσμο"
 
 #: src/components/image-editor/CorrectPerspectiveEditorControls.tsx:102
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Correct perspective"
 msgstr "Διόρθωση προοπτικής"
 
@@ -748,13 +753,17 @@ msgstr "Δημιουργήστε ένα αντίγραφο αυτού του σ�
 msgid "Create a new color set by merging existing ones"
 msgstr "Δημιουργήστε ένα νέο σετ χρωμάτων συγχωνεύοντας τα υπάρχοντα"
 
+#: src/components/ImageColorPicker.tsx:469
+msgid "Create a palette with up to"
+msgstr "Δημιουργία παλέτας με έως"
+
 #: src/components/color-set/ColorSetSelect.tsx:97
 #: src/components/color-set/CustomColorBrandSelect.tsx:87
 msgid "Create new"
 msgstr "Δημιουργία νέου"
 
 #: src/components/image-editor/CropEditorControls.tsx:99
-#: src/components/messages.ts:51
+#: src/components/messages.ts:52
 msgid "Crop"
 msgstr "Περικοπή"
 
@@ -766,7 +775,7 @@ msgstr "Κυβισμός"
 msgid "Custom color set"
 msgstr "Προσαρμοσμένο σετ χρωμάτων"
 
-#: src/components/messages.ts:44
+#: src/components/messages.ts:45
 msgid "Custom colors"
 msgstr "Προσαρμοσμένα χρώματα"
 
@@ -780,7 +789,7 @@ msgstr "Αφαίρεση θολώματος JPEG"
 
 #: src/components/auth/DeleteAccountButton.tsx:67
 #: src/components/color/AddToPaletteButton.tsx:48
-#: src/components/color/PaletteColorMixtureCard.tsx:128
+#: src/components/color/PaletteColorMixtureCard.tsx:133
 #: src/components/ColorSetChooser.tsx:794
 #: src/components/ColorSetChooser.tsx:804
 #: src/components/CustomColorBrandCreator.tsx:531
@@ -791,14 +800,22 @@ msgstr "Αφαίρεση θολώματος JPEG"
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: src/components/palette/PaletteGrid.tsx:121
-#: src/components/palette/PaletteGrid.tsx:125
+#: src/components/palette/PaletteGrid.tsx:156
+#: src/components/palette/PaletteGrid.tsx:160
 msgid "Delete all"
 msgstr "Διαγραφή όλων"
 
-#: src/components/palette/PaletteGrid.tsx:118
+#: src/components/palette/PaletteGrid.tsx:145
 msgid "Delete all color mixtures"
 msgstr "Διαγραφή όλων των μειγμάτων χρωμάτων"
+
+#: src/components/palette/PaletteGrid.tsx:148
+msgid "Delete all color mixtures in this palette, including those hidden by the filter?"
+msgstr "Να διαγραφούν όλα τα μείγματα χρωμάτων αυτής της παλέτας, συμπεριλαμβανομένων όσων κρύβονται από το φίλτρο;"
+
+#: src/components/palette/PaletteGrid.tsx:152
+msgid "Delete all color mixtures in this palette?"
+msgstr "Να διαγραφούν όλα τα μείγματα χρωμάτων αυτής της παλέτας;"
 
 #: src/components/auth/DeleteAccountButton.tsx:59
 #: src/components/auth/DeleteAccountButton.tsx:71
@@ -811,7 +828,7 @@ msgid "Delete data on this device"
 msgstr "Διαγραφή δεδομένων σε αυτήν τη συσκευή"
 
 #: src/components/color/AddToPaletteButton.tsx:52
-#: src/components/color/PaletteColorMixtureCard.tsx:132
+#: src/components/color/PaletteColorMixtureCard.tsx:137
 msgid "Delete from palette"
 msgstr "Διαγραφή από την παλέτα"
 
@@ -820,7 +837,7 @@ msgid "Delete oldest"
 msgstr "Διαγραφή της παλαιότερης"
 
 #: src/components/color/AddToPaletteButton.tsx:45
-#: src/components/color/PaletteColorMixtureCard.tsx:125
+#: src/components/color/PaletteColorMixtureCard.tsx:130
 msgid "Delete the color mixture"
 msgstr "Διαγραφή του μείγματος χρωμάτων"
 
@@ -942,7 +959,7 @@ msgstr "Αφήστε το αρχείο εδώ..."
 msgid "Drop the files here..."
 msgstr "Αφήστε τα αρχεία εδώ..."
 
-#: src/components/messages.ts:69
+#: src/components/messages.ts:70
 msgid "Dry Pastel"
 msgstr "Ξηρό παστέλ"
 
@@ -966,7 +983,7 @@ msgstr "Κάθε στήλη είναι μια αναλογία ανάμειξη�
 msgid "Edit from here on"
 msgstr "Επεξεργασία από εδώ και πέρα"
 
-#: src/components/messages.ts:42
+#: src/components/messages.ts:43
 msgid "Edit image"
 msgstr "Επεξεργασία εικόνας"
 
@@ -1032,7 +1049,7 @@ msgid "Exit AR"
 msgstr "Έξοδος από το AR"
 
 #: src/components/image-editor/ExpandEditorControls.tsx:274
-#: src/components/messages.ts:52
+#: src/components/messages.ts:53
 msgid "Expand"
 msgstr "Επέκταση"
 
@@ -1073,6 +1090,10 @@ msgstr "Γέμισμα"
 msgid "Fill in the required fields"
 msgstr "Συμπληρώστε τα απαιτούμενα πεδία"
 
+#: src/components/tonal-value/TonalValueFilter.tsx:61
+msgid "Filter"
+msgstr "Φιλτράρισμα"
+
 #: src/components/ImageStyleTransfer.tsx:401
 msgid "Filter by artist"
 msgstr "Φιλτράρισμα ανά καλλιτέχνη"
@@ -1080,6 +1101,10 @@ msgstr "Φιλτράρισμα ανά καλλιτέχνη"
 #: src/components/ImageStyleTransfer.tsx:414
 msgid "Filter by tag"
 msgstr "Φιλτράρισμα ανά ετικέτα"
+
+#: src/components/tonal-value/TonalValueFilter.tsx:59
+msgid "Filter saved mixtures by tonal value"
+msgstr "Φιλτράρισμα αποθηκευμένων μειγμάτων ανά τονική τιμή"
 
 #: src/components/ml-model/OnnxModelSelect.tsx:43
 msgid "Fine detail"
@@ -1127,21 +1152,22 @@ msgstr "Δωρισμένη συνδρομή"
 msgid "Give your color set a name for easy access."
 msgstr "Δώστε ένα όνομα στο σετ χρωμάτων σας για εύκολη πρόσβαση."
 
-#: src/components/ImageColorPicker.tsx:375
+#: src/components/ImageColorPicker.tsx:371
 msgid "Glazing"
 msgstr "Λαζούρα"
 
 #: src/components/button/GoToTabButton.tsx:38
+#: src/components/tonal-value/TonalValueTag.tsx:52
 msgid "Go to the {label} tab"
 msgstr "Μεταβείτε στην καρτέλα {label}"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Gouache"
 msgstr "Γκουάς"
 
 #: src/components/grid/GridControls.tsx:131
 #: src/components/ImageOutline.tsx:316
-#: src/components/messages.ts:36
+#: src/components/messages.ts:37
 msgid "Grid"
 msgstr "Πλέγμα"
 
@@ -1150,13 +1176,17 @@ msgid "Height"
 msgstr "Ύψος"
 
 #: src/components/ColorSetChooser.tsx:472
-#: src/components/messages.ts:45
+#: src/components/messages.ts:46
 msgid "Help"
 msgstr "Βοήθεια"
 
 #: src/components/image-editor/SharpenEditorControls.tsx:40
 msgid "High pass"
 msgstr "Υψιπερατό φίλτρο"
+
+#: src/components/messages.ts:87
+msgid "Highlights"
+msgstr "Φωτεινά σημεία"
 
 #: src/components/image-editor/ExpandEditorControls.tsx:167
 msgid "Horizontal"
@@ -1190,7 +1220,7 @@ msgstr "Η εισαγωγή αυτού του αντιγράφου ασφαλε�
 msgid "Impressionism"
 msgstr "Ιμπρεσιονισμός"
 
-#: src/components/messages.ts:41
+#: src/components/messages.ts:42
 msgid "Inspiration"
 msgstr "Έμπνευση"
 
@@ -1235,11 +1265,11 @@ msgid "It can be difficult to choose between multiple images. Comparing each ima
 msgstr "Μπορεί να είναι δύσκολο να επιλέξετε ανάμεσα σε πολλές εικόνες. Η σύγκριση κάθε εικόνας με άλλες σε ζευγάρια απλοποιεί την επιλογή και βοηθά στον εντοπισμό της προτιμότερης."
 
 #: src/components/color/AddToPaletteButton.tsx:49
-#: src/components/color/PaletteColorMixtureCard.tsx:129
+#: src/components/color/PaletteColorMixtureCard.tsx:134
 #: src/components/ColorSetChooser.tsx:795
 #: src/components/CustomColorBrandCreator.tsx:532
 #: src/components/image/RecentImageCard.tsx:125
-#: src/components/palette/PaletteGrid.tsx:122
+#: src/components/palette/PaletteGrid.tsx:157
 msgid "Keep"
 msgstr "Διατήρηση"
 
@@ -1280,7 +1310,7 @@ msgstr "Τελευταία χρήση: {dateText}"
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "Απομένουν για σύγκριση: {unfinishedGamesSize}"
 
-#: src/components/ImageColorPicker.tsx:563
+#: src/components/ImageColorPicker.tsx:548
 msgid "Less"
 msgstr "Λιγότερα"
 
@@ -1292,16 +1322,15 @@ msgstr "Ελαφρύ"
 msgid "Light box"
 msgstr "Lightbox"
 
-#: src/components/ImageTonalValues.tsx:111
-#: src/components/ImageTonalValues.tsx:114
-msgid "Light tone"
-msgstr "Ανοιχτός τόνος"
+#: src/components/messages.ts:86
+msgid "Light tones"
+msgstr "Ανοιχτοί τόνοι"
 
 #: src/components/ImageOutline.tsx:284
 msgid "Lightbox"
 msgstr "Lightbox"
 
-#: src/components/messages.ts:40
+#: src/components/messages.ts:41
 msgid "Limited palette"
 msgstr "Περιορισμένη παλέτα"
 
@@ -1330,7 +1359,7 @@ msgstr "Αποσύνδεση"
 msgid "Login result not received"
 msgstr "Το αποτέλεσμα σύνδεσης δεν ελήφθη"
 
-#: src/components/messages.ts:34
+#: src/components/messages.ts:35
 msgid "Loose painting"
 msgstr "Ελεύθερη ζωγραφική"
 
@@ -1388,12 +1417,8 @@ msgstr "Συγχώνευση"
 msgid "Merge color sets"
 msgstr "Συγχώνευση σετ χρωμάτων"
 
-#: src/components/ImageTonalValues.tsx:121
-#: src/components/ImageTonalValues.tsx:124
-msgid "Mid tone"
-msgstr "Μεσαίος τόνος"
-
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:295
+#: src/components/messages.ts:85
 msgid "Midtones"
 msgstr "Μεσαίοι τόνοι"
 
@@ -1417,8 +1442,8 @@ msgstr "Αναμείξτε το χρώμα με ένα μέσο λαζούρας
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
 msgstr "Αναμείξτε το χρώμα με ένα ακρυλικό μέσο λαζούρας για να εφαρμόσετε ένα λεπτότερο, πιο διαφανές στρώμα"
 
-#: src/components/color/ColorMatchCard.tsx:153
-#: src/components/color/PaletteColorMixtureCard.tsx:158
+#: src/components/color/ColorMatchCard.tsx:157
+#: src/components/color/PaletteColorMixtureCard.tsx:163
 msgid "Mix this color into every mixture."
 msgstr "Ανακατέψτε αυτό το χρώμα σε κάθε μείγμα."
 
@@ -1440,14 +1465,14 @@ msgstr "Μείγμα"
 msgid "Mode"
 msgstr "Λειτουργία"
 
-#: src/components/ImageColorPicker.tsx:563
+#: src/components/ImageColorPicker.tsx:548
 msgid "More"
 msgstr "Περισσότερα"
 
 #: src/components/ColorMixingChart.tsx:217
 #: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
-#: src/components/ImageColorPicker.tsx:358
+#: src/components/ImageColorPicker.tsx:354
 #: src/components/ImageLimitedPalette.tsx:183
 #: src/components/ImageOutline.tsx:376
 msgid "More actions"
@@ -1512,7 +1537,12 @@ msgstr "Κανένα μείγμα χρωμάτων δεν είναι καλύτ�
 msgid "No color mixture improves on the bare underlayer"
 msgstr "Κανένα μείγμα χρωμάτων δεν είναι καλύτερο από το ακάλυπτο υπόστρωμα"
 
-#: src/components/ImageColorPicker.tsx:275
+#: src/components/palette/PaletteColorsDrawer.tsx:105
+#: src/components/palette/PaletteGrid.tsx:183
+msgid "No color mixtures match the filter"
+msgstr "Κανένα μείγμα χρωμάτων δεν ταιριάζει με το φίλτρο"
+
+#: src/components/ImageColorPicker.tsx:282
 msgid "No palette colors matched the current color set and settings"
 msgstr "Κανένα χρώμα της παλέτας δεν ταίριαξε με το τρέχον σετ χρωμάτων και τις ρυθμίσεις"
 
@@ -1549,11 +1579,11 @@ msgstr "Αριθμός κελιών στη μικρότερη πλευρά (κα
 msgid "Off"
 msgstr "Απενεργοποιημένο"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Oil Paint"
 msgstr "Ελαιόχρωμα"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:71
 msgid "Oil Pastel"
 msgstr "Λαδοπαστέλ"
 
@@ -1619,7 +1649,7 @@ msgid "Original color temperature (K)"
 msgstr "Αρχική θερμοκρασία χρώματος (K)"
 
 #: src/components/ImageOutline.tsx:269
-#: src/components/messages.ts:35
+#: src/components/messages.ts:36
 msgid "Outline"
 msgstr "Περίγραμμα"
 
@@ -1640,7 +1670,7 @@ msgstr "Ζωγράφισε"
 msgid "Painting"
 msgstr "Πίνακας"
 
-#: src/components/messages.ts:31
+#: src/components/messages.ts:32
 msgid "Palette"
 msgstr "Παλέτα"
 
@@ -1681,7 +1711,7 @@ msgstr "Μόνιμος χώρος αποθήκευσης"
 msgid "Persistent storage is not enabled"
 msgstr "Ο μόνιμος χώρος αποθήκευσης δεν είναι ενεργοποιημένος"
 
-#: src/components/messages.ts:29
+#: src/components/messages.ts:30
 msgid "Photo"
 msgstr "Φωτογραφία"
 
@@ -1768,7 +1798,7 @@ msgstr "Πατήστε το κουμπί <0>Προσθήκη στην παλέτ
 #: src/components/ImageOutline.tsx:324
 #: src/components/ImageOutline.tsx:360
 #: src/components/ImagesCompare.tsx:181
-#: src/components/palette/PaletteGrid.tsx:115
+#: src/components/palette/PaletteGrid.tsx:142
 #: src/components/print/PrintImageDrawer.tsx:183
 msgid "Print"
 msgstr "Εκτύπωση"
@@ -1821,15 +1851,15 @@ msgstr "Ρεαλισμός"
 msgid "Redo"
 msgstr "Επανάληψη"
 
-#: src/components/ImageColorPicker.tsx:442
+#: src/components/ImageColorPicker.tsx:438
 msgid "Reduce color palette to"
 msgstr "Μείωση παλέτας χρωμάτων σε"
 
-#: src/components/ImageColorPicker.tsx:461
+#: src/components/ImageColorPicker.tsx:457
 msgid "Reduce colors"
 msgstr "Μείωση χρωμάτων"
 
-#: src/components/ImageColorPicker.tsx:459
+#: src/components/ImageColorPicker.tsx:455
 msgid "Reduce the number of colors in the photo."
 msgstr "Μειώστε τον αριθμό των χρωμάτων στη φωτογραφία."
 
@@ -1842,7 +1872,7 @@ msgstr "Αναφορά"
 msgid "Reference photo"
 msgstr "Φωτογραφία αναφοράς"
 
-#: src/components/color/ColorMatchCard.tsx:128
+#: src/components/color/ColorMatchCard.tsx:132
 #: src/components/ColorMixer.tsx:256
 msgid "Reflectance"
 msgstr "Ανακλαστικότητα"
@@ -1856,12 +1886,12 @@ msgid "Remove and continue"
 msgstr "Αφαίρεση και συνέχεια"
 
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:136
-#: src/components/messages.ts:54
+#: src/components/messages.ts:55
 msgid "Remove background"
 msgstr "Αφαίρεση φόντου"
 
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:105
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Remove objects"
 msgstr "Αφαίρεση αντικειμένων"
 
@@ -1911,7 +1941,7 @@ msgid "Reset settings"
 msgstr "Επαναφορά ρυθμίσεων"
 
 #: src/components/image-editor/RestoreEditorControls.tsx:100
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Restore"
 msgstr "Αποκατάσταση"
 
@@ -1938,7 +1968,7 @@ msgstr "Δοκιμή ξανά"
 msgid "Return to the {tabLabel} tab"
 msgstr "Επιστρέψτε στην καρτέλα {tabLabel}"
 
-#: src/components/messages.ts:49
+#: src/components/messages.ts:50
 msgid "Rotate"
 msgstr "Περιστροφή"
 
@@ -1946,7 +1976,7 @@ msgstr "Περιστροφή"
 msgid "Rotate clockwise"
 msgstr "Περιστροφή δεξιόστροφα"
 
-#: src/components/ImageColorPicker.tsx:305
+#: src/components/ImageColorPicker.tsx:301
 msgid "Sample size"
 msgstr "Μέγεθος δείγματος"
 
@@ -2164,30 +2194,29 @@ msgstr "Ορισμός ως κύριο σετ χρωμάτων"
 msgid "Set as reference"
 msgstr "Ορισμός ως αναφοράς"
 
-#: src/components/color/ColorMatchCard.tsx:144
-#: src/components/color/PaletteColorMixtureCard.tsx:149
+#: src/components/color/ColorMatchCard.tsx:148
+#: src/components/color/PaletteColorMixtureCard.tsx:154
 msgid "Set as underlayer"
 msgstr "Ορισμός ως υπόστρωμα"
 
-#: src/components/color/ColorMatchCard.tsx:140
-#: src/components/color/PaletteColorMixtureCard.tsx:145
+#: src/components/color/ColorMatchCard.tsx:144
+#: src/components/color/PaletteColorMixtureCard.tsx:150
 msgid "Set as underlayer for blending."
 msgstr "Ορισμός ως υπόστρωμα για απάλυνση."
 
-#: src/components/color/ColorMatchCard.tsx:140
-#: src/components/color/PaletteColorMixtureCard.tsx:145
+#: src/components/color/ColorMatchCard.tsx:144
+#: src/components/color/PaletteColorMixtureCard.tsx:150
 msgid "Set as underlayer for glazing."
 msgstr "Ορισμός ως υπόστρωμα για λαζούρα."
 
-#: src/components/color/ColorMatchCard.tsx:156
-#: src/components/color/PaletteColorMixtureCard.tsx:161
+#: src/components/color/ColorMatchCard.tsx:160
+#: src/components/color/PaletteColorMixtureCard.tsx:166
 msgid "Set as unifying color"
 msgstr "Ορισμός ως ενοποιητικό χρώμα"
 
-#: src/components/ImageTonalValues.tsx:131
-#: src/components/ImageTonalValues.tsx:134
-msgid "Shadow"
-msgstr "Σκιά"
+#: src/components/messages.ts:84
+msgid "Shadows"
+msgstr "Σκιές"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:271
 msgid "Shadows and highlights"
@@ -2211,11 +2240,15 @@ msgid "Sharp"
 msgstr "Ευκρινές"
 
 #: src/components/image-editor/SharpenEditorControls.tsx:95
-#: src/components/messages.ts:58
+#: src/components/messages.ts:59
 msgid "Sharpen"
 msgstr "Όξυνση"
 
-#: src/components/ImageColorPicker.tsx:350
+#: src/components/palette/PaletteGrid.tsx:190
+msgid "Show all"
+msgstr "Εμφάνιση όλων"
+
+#: src/components/ImageColorPicker.tsx:346
 msgid "Show areas on the photo that match this color."
 msgstr "Εμφάνιση περιοχών στη φωτογραφία που ταιριάζουν με αυτό το χρώμα."
 
@@ -2223,7 +2256,7 @@ msgstr "Εμφάνιση περιοχών στη φωτογραφία που τ�
 msgid "Show grid"
 msgstr "Εμφάνιση πλέγματος"
 
-#: src/components/ImageColorPicker.tsx:349
+#: src/components/ImageColorPicker.tsx:345
 msgid "Show matching areas"
 msgstr "Εμφάνιση περιοχών που ταιριάζουν"
 
@@ -2231,7 +2264,7 @@ msgstr "Εμφάνιση περιοχών που ταιριάζουν"
 msgid "Show older photos"
 msgstr "Εμφάνιση παλαιότερων φωτογραφιών"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:119
+#: src/components/color/PaletteColorMixtureCard.tsx:124
 msgid "Show on photo"
 msgstr "Εμφάνιση στη φωτογραφία"
 
@@ -2239,7 +2272,7 @@ msgstr "Εμφάνιση στη φωτογραφία"
 msgid "Show or hide diagonal lines"
 msgstr "Εμφάνιση ή απόκρυψη διαγώνιων γραμμών"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:113
+#: src/components/color/PaletteColorMixtureCard.tsx:118
 msgid "Show this color on the reference photo."
 msgstr "Εμφάνιση αυτού του χρώματος στη φωτογραφία αναφοράς."
 
@@ -2259,7 +2292,7 @@ msgstr "Η λειτουργία ομοιότητας συγκρίνει τα χ�
 msgid "Simplified"
 msgstr "Απλοποιημένο"
 
-#: src/components/messages.ts:33
+#: src/components/messages.ts:34
 msgid "Simplify photo"
 msgstr "Απλοποίηση φωτογραφίας"
 
@@ -2297,24 +2330,20 @@ msgstr "Κάτι πήγε στραβά"
 
 #: src/components/color-set/ColorSelect.tsx:122
 #: src/components/ColorMixingChart.tsx:122
-#: src/components/ImageColorPicker.tsx:518
-#: src/components/palette/PaletteGrid.tsx:137
+#: src/components/ImageColorPicker.tsx:592
+#: src/components/palette/PaletteGrid.tsx:172
 msgid "Sort"
 msgstr "Ταξινόμηση"
 
-#: src/components/ImageColorPicker.tsx:482
+#: src/components/ImageColorPicker.tsx:496
 msgid "Sort by match, from highest to lowest."
 msgstr "Ταξινόμηση κατά αντιστοιχία, από την υψηλότερη στη χαμηλότερη."
 
-#: src/components/ImageColorPicker.tsx:493
-msgid "Sort by paint consistency, from full strength to most thinned."
-msgstr "Ταξινόμηση κατά πυκνότητα χρώματος, από το αδιάλυτο έως το πιο αραιωμένο."
-
-#: src/components/ImageColorPicker.tsx:487
+#: src/components/ImageColorPicker.tsx:501
 msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "Ταξινόμηση με βάση τον αριθμό των χρωμάτων στο μείγμα, από τα λιγότερα στα περισσότερα."
 
-#: src/components/color/ColorMatchCard.tsx:123
+#: src/components/color/ColorMatchCard.tsx:127
 #: src/components/color/ReflectanceChartDrawer.tsx:104
 #: src/components/ColorMixer.tsx:250
 msgid "Spectral reflectance curve"
@@ -2404,8 +2433,8 @@ msgstr "Πατήστε 👆 οπουδήποτε στη φωτογραφία γ�
 msgid "Taped margin width around the painting area"
 msgstr "Πλάτος του περιθωρίου με ταινία γύρω από την περιοχή ζωγραφικής"
 
-#: src/components/ImageColorPicker.tsx:325
-#: src/components/ImageColorPicker.tsx:337
+#: src/components/ImageColorPicker.tsx:321
+#: src/components/ImageColorPicker.tsx:333
 msgid "Target color"
 msgstr "Χρώμα-στόχος"
 
@@ -2442,7 +2471,7 @@ msgstr "Το σετ χρωμάτων δεν μπορεί να αποθηκευτ
 msgid "The color set can't be saved because the color data failed to load."
 msgstr "Το σετ χρωμάτων δεν μπορεί να αποθηκευτεί, επειδή απέτυχε η φόρτωση των δεδομένων χρώματος."
 
-#: src/components/ImageColorPicker.tsx:328
+#: src/components/ImageColorPicker.tsx:324
 msgid "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
 msgstr "Το χρώμα που θα αναμιχθεί από το σετ χρωμάτων σας. Επιλέξτε ένα χρώμα κάνοντας κλικ σε ένα σημείο στην εικόνα ή χρησιμοποιήστε το αναδυόμενο παράθυρο επιλογής χρώματος."
 
@@ -2486,7 +2515,7 @@ msgstr "Ειδοποιήσεις τρίτων"
 msgid "This color brand is available only to paid Patreon members"
 msgstr "Αυτή η μάρκα χρωμάτων είναι διαθέσιμη μόνο σε μέλη Patreon επί πληρωμή"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:114
+#: src/components/color/PaletteColorMixtureCard.tsx:119
 msgid "This color was not sampled from a photo."
 msgstr "Αυτό το χρώμα δεν ελήφθη από φωτογραφία."
 
@@ -2558,8 +2587,8 @@ msgstr "Για να χρησιμοποιήσετε τη λειτουργία {ta
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
 msgstr "Για να χρησιμοποιήσετε τη λειτουργία {tabLabel}, επιλέξτε υποστηριζόμενο εικαστικό μέσο και χρώματα για να ζωγραφίσετε"
 
-#: src/components/ImageTonalValues.tsx:153
-#: src/components/messages.ts:32
+#: src/components/ImageTonalValues.tsx:137
+#: src/components/messages.ts:33
 msgid "Tonal values"
 msgstr "Τονικές τιμές"
 
@@ -2678,13 +2707,17 @@ msgstr "Απροσδόκητο σφάλμα"
 msgid "Unexpected error: {errorMessage}"
 msgstr "Απροσδόκητο σφάλμα: {errorMessage}"
 
-#: src/components/ImageColorPicker.tsx:403
+#: src/components/ImageColorPicker.tsx:399
 msgid "Unifying color"
 msgstr "Ενοποιητικό χρώμα"
 
 #: src/components/image-editor/ExpandEditorControls.tsx:199
 msgid "Unit"
 msgstr "Μονάδα"
+
+#: src/components/palette/PaletteColorsDrawer.tsx:119
+msgid "Unknown brand"
+msgstr "Άγνωστη μάρκα"
 
 #: src/components/image-editor/SharpenEditorControls.tsx:37
 msgid "Unsharp mask"
@@ -2694,10 +2727,10 @@ msgstr "Μάσκα όξυνσης"
 msgid "Unsynced changes on this device"
 msgstr "Μη συγχρονισμένες αλλαγές σε αυτήν τη συσκευή"
 
-#: src/components/color/ColorMatchCard.tsx:110
+#: src/components/color/ColorMatchCard.tsx:114
 #: src/components/color/ColorSwatchDrawer.tsx:112
-#: src/components/color/PaletteColorMixtureCard.tsx:99
-#: src/components/palette/PaletteGrid.tsx:159
+#: src/components/color/PaletteColorMixtureCard.tsx:102
+#: src/components/palette/PaletteGrid.tsx:214
 msgid "Untitled mixture"
 msgstr "Άτιτλο μείγμα"
 
@@ -2722,7 +2755,7 @@ msgid "Uploading image {index} / {count}"
 msgstr "Μεταφόρτωση εικόνας {index} / {count}"
 
 #: src/components/image-editor/UpscaleEditorControls.tsx:85
-#: src/components/messages.ts:56
+#: src/components/messages.ts:57
 msgid "Upscale"
 msgstr "Μεγέθυνση"
 
@@ -2787,7 +2820,7 @@ msgstr "Περιμένετε να ολοκληρωθεί η φόρτωση τω�
 msgid "Warm — Algorithmic estimate; artistic perception may vary."
 msgstr "Θερμό — Αλγοριθμική εκτίμηση. Η καλλιτεχνική αντίληψη μπορεί να διαφέρει."
 
-#: src/components/messages.ts:73
+#: src/components/messages.ts:74
 msgid "Water-based Markers"
 msgstr "Μαρκαδόροι με βάση το νερό"
 
@@ -2799,15 +2832,15 @@ msgstr "Ακουαρέλα"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Η ακουαρέλα μπορεί να αραιωθεί με νερό για να γίνει πιο διαφανής"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Watercolor Paint"
 msgstr "Χρώμα ακουαρέλας"
 
-#: src/components/messages.ts:68
+#: src/components/messages.ts:69
 msgid "Watercolor Pencils"
 msgstr "Μολύβια ακουαρέλας"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "Wax Pastel"
 msgstr "Κηροπαστέλ"
 
@@ -2834,11 +2867,11 @@ msgid "White"
 msgstr "Λευκό"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:175
-#: src/components/ImageTonalValues.tsx:170
+#: src/components/ImageTonalValues.tsx:154
 msgid "White balance"
 msgstr "Ισορροπία λευκού"
 
-#: src/components/messages.ts:79
+#: src/components/messages.ts:80
 msgid "White paper or canvas"
 msgstr "Λευκό χαρτί ή καμβάς"
 

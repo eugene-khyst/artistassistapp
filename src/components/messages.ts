@@ -22,6 +22,7 @@ import {defineMessage} from '@lingui/core/macro';
 
 import {ImageEditorKey} from '@/image-editor';
 import {CloudProvider} from '@/services/cloud/types';
+import {TonalValue} from '@/services/color/tonal-value';
 import {TabKey} from '@/tabs';
 
 export const TAB_LABELS: Record<TabKey, MessageDescriptor> = {
@@ -77,6 +78,13 @@ export const COLOR_TYPE_LABELS: Record<ColorType, MessageDescriptor> = {
 
 export const COLOR_PICKER_PRESET_LABELS = {
   PAPER_WHITE: defineMessage`White paper or canvas`,
+};
+
+export const TONAL_VALUE_LABELS: Record<TonalValue, MessageDescriptor> = {
+  [TonalValue.Shadows]: defineMessage`Shadows`,
+  [TonalValue.Midtones]: defineMessage`Midtones`,
+  [TonalValue.LightTones]: defineMessage`Light tones`,
+  [TonalValue.Highlights]: defineMessage`Highlights`,
 };
 
 export const COLOR_SORT_LABELS: Record<ColorSort, MessageDescriptor> = {

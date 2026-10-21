@@ -24,7 +24,6 @@ import type {TabKey} from '@/tabs';
 export enum ColorPickerSort {
   ByDeltaEOKr2 = 1,
   ByNumberOfColors = 2,
-  ByConsistency = 3,
 }
 
 export enum GridMode {

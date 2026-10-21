@@ -18,6 +18,7 @@
 
 import {clamp, rgbToHex} from '@eugene-khyst/artistassistapp-color-mixer';
 
+import {TONAL_VALUE_THRESHOLDS, TONAL_VALUES, TonalValue} from '@/services/color/tonal-value';
 import {colorMapFilterWebGL} from '@/services/image/filter/color-map-webgl';
 import {interpolationWebGL} from '@/services/image/filter/interpolation-webgl';
 import {thresholdFilterWebGL} from '@/services/image/filter/threshold-webgl';
@@ -28,11 +29,25 @@ import {
   toOffscreenCanvas,
 } from '@/utils/graphics';
 
-const THRESHOLDS = [0.825, 0.6, 0.35];
-const TONAL_VALUES: number[] = [2 / 3, 1 / 3, 0];
-export const TONAL_VALUE_HEXES: string[] = TONAL_VALUES.map(v => 255 * v).map(v =>
-  rgbToHex(v, v, v)
-);
+const GRAY_LEVELS: Record<TonalValue, number> = {
+  [TonalValue.Shadows]: 0,
+  [TonalValue.Midtones]: 1 / 3,
+  [TonalValue.LightTones]: 2 / 3,
+  [TonalValue.Highlights]: 1,
+};
+
+export const TONAL_IMAGE_VALUES = [
+  TonalValue.LightTones,
+  TonalValue.Midtones,
+  TonalValue.Shadows,
+].sort((a, b) => GRAY_LEVELS[b] - GRAY_LEVELS[a]);
+
+export const TONAL_VALUE_HEXES = Object.fromEntries(
+  TONAL_VALUES.map((tonalValue: TonalValue): [TonalValue, string] => [
+    tonalValue,
+    grayLevelToHex(GRAY_LEVELS[tonalValue]),
+  ])
+) as Record<TonalValue, string>;
 
 const COLOR_MAP_LEGEND_HEIGHT_RATIO = 0.015;
 const COLOR_MAP_LEGEND_MIN_HEIGHT = 12;
@@ -40,12 +55,22 @@ const COLOR_MAP_LEGEND_MAX_HEIGHT = 40;
 
 export function extractTonalValues(image: DrawImageSource): ImageBitmap[] {
   const canvas = toOffscreenCanvas(image);
-  const tonalValues: ImageBitmap[] = thresholdFilterWebGL(canvas, THRESHOLDS, TONAL_VALUES, {
-    gaussianBlurKernelSize: 5,
-  }).map(tonalValue => tonalValue.transferToImageBitmap());
+  const tonalValues: ImageBitmap[] = thresholdFilterWebGL(
+    canvas,
+    TONAL_VALUE_THRESHOLDS,
+    TONAL_IMAGE_VALUES.map(tonalValue => GRAY_LEVELS[tonalValue]),
+    {
+      gaussianBlurKernelSize: 5,
+    }
+  ).map(tonalValue => tonalValue.transferToImageBitmap());
   const [colorMap, colorMapLegend] = colorMapFilterWebGL(canvas);
   addColorMapLegend(colorMap, colorMapLegend);
   return [...tonalValues, colorMap.transferToImageBitmap()];
+}
+
+function grayLevelToHex(grayLevel: number): string {
+  const value = 255 * grayLevel;
+  return rgbToHex(value, value, value);
 }
 
 function addColorMapLegend(colorMap: OffscreenCanvas, colorMapLegend: ImageData): void {

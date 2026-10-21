@@ -30,6 +30,7 @@ export interface ImageMetadata {
   name?: string;
   digest: string;
   maxColors?: number;
+  focalPoint?: {x: number; y: number};
   date: Date;
 }
 
@@ -58,14 +59,29 @@ export async function readStoredImageBytes(
   }
 }
 
-export function toImageMetadata({digest, type, name, maxColors, date}: ImageFile): ImageMetadata {
+export function toImageMetadata({
+  digest,
+  type,
+  name,
+  maxColors,
+  focalPoint,
+  date,
+}: ImageFile): ImageMetadata {
   return {
     digest,
     type,
     ...(name === undefined ? {} : {name}),
     ...(maxColors === undefined ? {} : {maxColors}),
+    ...(focalPoint === undefined ? {} : {focalPoint}),
     date,
   };
+}
+
+export function withFocalPoint<T extends ImageMetadata>(
+  {focalPoint: _, ...rest}: T,
+  focalPoint: ImageMetadata['focalPoint'] | null
+): T {
+  return {...rest, ...(focalPoint ? {focalPoint} : {})} as T;
 }
 
 // Keep metadata separate because WebKit corrupts rewritten blobs (240216).

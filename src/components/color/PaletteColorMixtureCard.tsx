@@ -31,6 +31,7 @@ import type {CardProps} from 'antd/lib';
 import {memo} from 'react';
 
 import {ColorMixtureDescription} from '@/components/color/ColorMixtureDescription';
+import {TonalValueTag} from '@/components/tonal-value/TonalValueTag';
 import {useAppStore} from '@/stores/app-store';
 import {TabKey} from '@/tabs';
 
@@ -88,16 +89,20 @@ export const PaletteColorMixtureCard = memo(function PaletteColorMixtureCard({
   return (
     <Card size="small" {...props}>
       <Flex vertical gap="small" className="u-w-100">
-        <Typography.Text
-          editable={{
-            text: colorMixture.name ?? '',
-            onChange: handleTitleEdited,
-            autoSize: false,
-          }}
-          className="u-w-100 u-font-bold"
-        >
-          {colorMixture.name || <Trans>Untitled mixture</Trans>}
-        </Typography.Text>
+        <Flex align="center" justify="space-between" gap="small" className="u-min-w-0">
+          <Typography.Text
+            editable={{
+              text: colorMixture.name ?? '',
+              onChange: handleTitleEdited,
+              autoSize: false,
+            }}
+            ellipsis={{tooltip: true}}
+            className="u-w-100 u-min-w-0 u-font-bold"
+          >
+            {colorMixture.name || <Trans>Untitled mixture</Trans>}
+          </Typography.Text>
+          <TonalValueTag rgb={colorMixture.layerRgb} />
+        </Flex>
 
         <ColorMixtureDescription colorMixture={colorMixture} />
 

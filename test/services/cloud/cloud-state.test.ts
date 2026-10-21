@@ -133,6 +133,22 @@ describe('cloud state', () => {
 
     expect(parseCloudState(serializeCloudState(state))).toEqual(state);
   });
+
+  it('round-trips a focal point and hashes a photo without one as before', async () => {
+    const date = new Date('2025-01-01T00:00:00.000Z');
+    const withoutFocalPoint = stateFromImages([image(FIRST_DIGEST, 'first.png', date)]);
+    const withFocalPoint = stateFromImages([
+      {...image(FIRST_DIGEST, 'first.png', date), focalPoint: {x: 0.25, y: 0.75}},
+    ]);
+
+    expect(parseCloudState(serializeCloudState(withFocalPoint))).toEqual(withFocalPoint);
+    expect(serializeCloudState(withoutFocalPoint)).toBe(
+      `{"colorMixtures":[],"colorSets":[],"customBrands":[],"images":[{"digest":"${FIRST_DIGEST}","name":"first.png","type":"image/png"}]}`
+    );
+    expect((await serializeAndHashCloudState(withFocalPoint)).hash).not.toBe(
+      (await serializeAndHashCloudState(withoutFocalPoint)).hash
+    );
+  });
 });
 
 describe('external state validation', () => {
@@ -158,6 +174,12 @@ describe('external state validation', () => {
       validateCloudState({
         ...EMPTY_CLOUD_STATE,
         images: [{digest: FIRST_DIGEST, type: ''}],
+      })
+    ).toBeUndefined();
+    expect(
+      validateCloudState({
+        ...EMPTY_CLOUD_STATE,
+        images: [{digest: FIRST_DIGEST, type: 'image/png', focalPoint: {x: 1.5, y: 0}}],
       })
     ).toBeUndefined();
     expect(

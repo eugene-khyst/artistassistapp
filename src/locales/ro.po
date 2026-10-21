@@ -24,7 +24,8 @@ msgstr "{closeCounter, plural, one {Se închide în # secundă} few {Se închide
 #: src/components/color-set/ColorBrandSelect.tsx:72
 #: src/components/color-set/ColorSetName.tsx:33
 #: src/components/color-set/StandardColorSetCascader.tsx:62
-#: src/components/ImageColorPicker.tsx:445
+#: src/components/ImageColorPicker.tsx:441
+#: src/components/ImageColorPicker.tsx:472
 #: src/components/Palette.tsx:75
 msgid "{colorCount, plural, one {# color} other {# colors}}"
 msgstr "{colorCount, plural, one {# culoare} few {# culori} other {# de culori}}"
@@ -66,7 +67,7 @@ msgstr "<0/> Tabletă și <1/> mobil"
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows și <1/> Linux"
 
-#: src/components/color/ColorMatchCard.tsx:95
+#: src/components/color/ColorMatchCard.tsx:97
 msgid "<0>{matchScoreText}%</0> match"
 msgstr "<0>{matchScoreText}%</0> potrivire"
 
@@ -103,8 +104,8 @@ msgid "✏️ High-quality outlines, background removal, and colorization"
 msgstr "✏️ Contururi de înaltă calitate, îndepărtarea fundalului și colorare"
 
 #: src/components/ColorSetChooser.tsx:519
-msgid "🎨 250+ color brands"
-msgstr "🎨 250+ mărci de culori"
+msgid "🎨 500+ color brands from 100+ companies"
+msgstr "🎨 Peste 500 de mărci de culori de la peste 100 de companii"
 
 #: src/components/ColorSetChooser.tsx:536
 msgid "📢 No ads"
@@ -114,11 +115,11 @@ msgstr "📢 Fără reclame"
 msgid "🧑‍🎨 Artistic styles from your own images and loose brushstroke paintings"
 msgstr "🧑‍🎨 Stiluri artistice din propriile dvs. imagini și picturi cu tușe de pensulă libere"
 
-#: src/components/messages.ts:39
+#: src/components/messages.ts:40
 msgid "2-color gradient"
 msgstr "Gradient de 2 culori"
 
-#: src/components/ImageColorPicker.tsx:406
+#: src/components/ImageColorPicker.tsx:402
 msgid "A color mixed into every suggested mixture to help the palette feel more harmonious. Also known as a mother color."
 msgstr "O culoare amestecată în fiecare amestec sugerat pentru ca paleta să pară mai armonioasă. Cunoscută și sub numele de culoare-mamă."
 
@@ -138,15 +139,15 @@ msgstr "O valoare mai mică de 100% face ca imaginea să pară mai puțin colora
 msgid "Accurate"
 msgstr "Precis"
 
-#: src/components/messages.ts:75
+#: src/components/messages.ts:76
 msgid "Acrylic Gouache"
 msgstr "Guașă acrilică"
 
-#: src/components/messages.ts:74
+#: src/components/messages.ts:75
 msgid "Acrylic Markers"
 msgstr "Markere acrilice"
 
-#: src/components/messages.ts:65
+#: src/components/messages.ts:66
 msgid "Acrylic Paint"
 msgstr "Acril"
 
@@ -182,7 +183,7 @@ msgstr "Adăugați în paletă"
 msgid "Add white in a <0>{whiteRatioText} ratio</0>"
 msgstr "Adăugați alb într-un <0>raport {whiteRatioText}</0>"
 
-#: src/components/messages.ts:53
+#: src/components/messages.ts:54
 msgid "Adjust colors"
 msgstr "Ajustare culori"
 
@@ -190,9 +191,13 @@ msgstr "Ajustare culori"
 msgid "Adjust the 4 corners manually."
 msgstr "Reglați manual cele 4 colțuri."
 
-#: src/components/messages.ts:72
+#: src/components/messages.ts:73
 msgid "Alcohol Markers"
 msgstr "Markere pe bază de alcool"
+
+#: src/components/tonal-value/TonalValueFilter.tsx:41
+msgid "All"
+msgstr "Toate"
 
 #: src/components/Help.tsx:238
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
@@ -210,7 +215,7 @@ msgstr "Permiteți accesul la clipboard, apoi încercați din nou."
 msgid "Alternatively, install the latest version of Chrome, Edge or Opera web browser and click the <0>Install</0> button. In older versions of macOS, this is the only option."
 msgstr "Alternativ, instalați cea mai recentă versiune a browserului web Chrome, Edge sau Opera și faceți clic pe butonul <0>Instalare</0>. În versiunile mai vechi de macOS, aceasta este singura opțiune."
 
-#: src/components/ImageColorPicker.tsx:259
+#: src/components/ImageColorPicker.tsx:266
 msgid "An underlayer or unifying color is set. Auto palette will apply these settings to the whole photo, not just the area they were chosen for."
 msgstr "Este setat un strat de bază sau o culoare unificatoare. Paleta automată va aplica aceste setări întregii fotografii, nu doar zonei pentru care au fost alese."
 
@@ -251,12 +256,8 @@ msgstr "Aplicați tușe de această culoare și de culoarea stratului de bază �
 msgid "AR"
 msgstr "AR"
 
-#: src/components/palette/PaletteGrid.tsx:119
-msgid "Are you sure you want to delete all color mixtures?"
-msgstr "Sigur doriți să ștergeți toate amestecurile de culori?"
-
 #: src/components/color/AddToPaletteButton.tsx:46
-#: src/components/color/PaletteColorMixtureCard.tsx:126
+#: src/components/color/PaletteColorMixtureCard.tsx:131
 msgid "Are you sure you want to delete this color mixture?"
 msgstr "Sigur doriți să ștergeți acest amestec de culori?"
 
@@ -327,7 +328,7 @@ msgstr "Autentificarea a eșuat"
 msgid "Auto"
 msgstr "Automat"
 
-#: src/components/ImageColorPicker.tsx:473
+#: src/components/ImageColorPicker.tsx:486
 msgid "Auto palette"
 msgstr "Paletă automată"
 
@@ -343,7 +344,7 @@ msgstr "Detectarea automată este disponibilă numai pentru membrii Patreon plă
 msgid "Auto-detect is unavailable"
 msgstr "Detectarea automată nu este disponibilă"
 
-#: src/components/ImageColorPicker.tsx:468
+#: src/components/ImageColorPicker.tsx:484
 msgid "Automatically find the best color mixtures for this photo."
 msgstr "Găsește automat cele mai bune amestecuri de culori pentru această fotografie."
 
@@ -372,41 +373,37 @@ msgstr "Școala de la Barbizon"
 msgid "Become a paid member"
 msgstr "Deveniți membru plătitor"
 
-#: src/components/ImageColorPicker.tsx:375
+#: src/components/ImageColorPicker.tsx:371
 msgid "Blending"
 msgstr "Estompare"
 
-#: src/components/ImageColorPicker.tsx:486
+#: src/components/ImageColorPicker.tsx:500
 msgid "By color count"
 msgstr "După numărul de culori"
 
-#: src/components/ImageColorPicker.tsx:492
-msgid "By consistency"
-msgstr "După consistență"
-
-#: src/components/messages.ts:89
+#: src/components/messages.ts:97
 msgid "By date"
 msgstr "După dată"
 
-#: src/components/messages.ts:84
-#: src/components/messages.ts:91
+#: src/components/messages.ts:92
+#: src/components/messages.ts:99
 msgid "By hue"
 msgstr "După nuanță"
 
-#: src/components/messages.ts:83
+#: src/components/messages.ts:91
 msgid "By ID"
 msgstr "După ID"
 
-#: src/components/messages.ts:85
-#: src/components/messages.ts:92
+#: src/components/messages.ts:93
+#: src/components/messages.ts:100
 msgid "By lightness"
 msgstr "După luminozitate"
 
-#: src/components/ImageColorPicker.tsx:481
+#: src/components/ImageColorPicker.tsx:495
 msgid "By match"
 msgstr "După potrivire"
 
-#: src/components/messages.ts:90
+#: src/components/messages.ts:98
 msgid "By name"
 msgstr "După nume"
 
@@ -419,7 +416,7 @@ msgstr "Accesul la cameră este necesar pentru trasarea AR"
 #: src/components/cloud/DisconnectCloudButton.tsx:65
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
-#: src/components/ImageColorPicker.tsx:265
+#: src/components/ImageColorPicker.tsx:272
 #: src/components/ImageEditor.tsx:338
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/settings/ResetSettingsButton.tsx:54
@@ -490,7 +487,7 @@ msgstr "Ștergeți memoria cache"
 msgid "Clear underlayer"
 msgstr "Ștergeți stratul de bază"
 
-#: src/components/ImageColorPicker.tsx:423
+#: src/components/ImageColorPicker.tsx:419
 msgid "Clear unifying color"
 msgstr "Ștergeți culoarea unificatoare"
 
@@ -594,16 +591,16 @@ msgstr "Mărci de culori"
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "Datele de culoare sunt momentan indisponibile. Verificați conexiunea și încercați din nou."
 
-#: src/components/ImageTonalValues.tsx:141
-#: src/components/ImageTonalValues.tsx:144
+#: src/components/ImageTonalValues.tsx:125
+#: src/components/ImageTonalValues.tsx:128
 msgid "Color map"
 msgstr "Hartă de culori"
 
-#: src/components/messages.ts:37
+#: src/components/messages.ts:38
 msgid "Color mixer"
 msgstr "Mixer de culori"
 
-#: src/components/messages.ts:38
+#: src/components/messages.ts:39
 msgid "Color mixing chart"
 msgstr "Diagramă de amestecare a culorilor"
 
@@ -611,7 +608,7 @@ msgstr "Diagramă de amestecare a culorilor"
 msgid "Color mixture"
 msgstr "Amestec de culori"
 
-#: src/components/messages.ts:30
+#: src/components/messages.ts:31
 msgid "Color picker"
 msgstr "Selector de culori"
 
@@ -620,16 +617,16 @@ msgid "Color realism"
 msgstr "Realismul culorilor"
 
 #: src/components/ColorSetChooser.tsx:615
-#: src/components/ImageColorPicker.tsx:293
-#: src/components/messages.ts:28
+#: src/components/ImageColorPicker.tsx:608
+#: src/components/messages.ts:29
 msgid "Color set"
 msgstr "Set de culori"
 
-#: src/components/palette/PaletteGrid.tsx:112
+#: src/components/palette/PaletteGrid.tsx:126
 msgid "Color swatch"
 msgstr "Mostră de culoare"
 
-#: src/components/messages.ts:67
+#: src/components/messages.ts:68
 msgid "Colored Pencils"
 msgstr "Creioane colorate"
 
@@ -637,7 +634,7 @@ msgstr "Creioane colorate"
 msgid "Colorize"
 msgstr "Colorare"
 
-#: src/components/messages.ts:59
+#: src/components/messages.ts:60
 msgid "Colorize black-and-white"
 msgstr "Colorare alb-negru"
 
@@ -647,7 +644,15 @@ msgstr "Colorare alb-negru"
 msgid "Colors"
 msgstr "Culori"
 
-#: src/components/messages.ts:43
+#: src/components/palette/PaletteGrid.tsx:135
+msgid "Colors needed"
+msgstr "Culori necesare"
+
+#: src/components/palette/PaletteColorsDrawer.tsx:98
+msgid "Colors needed for this palette"
+msgstr "Culori necesare pentru această paletă"
+
+#: src/components/messages.ts:44
 msgid "Compare images"
 msgstr "Comparare imagini"
 
@@ -675,11 +680,11 @@ msgstr "Conectați spațiul de stocare în cloud pentru a păstra o copie sincro
 msgid "Connect cloud storage to sync your data across devices"
 msgstr "Conectați stocarea în cloud pentru a vă sincroniza datele pe dispozitive"
 
-#: src/components/ImageColorPicker.tsx:379
+#: src/components/ImageColorPicker.tsx:375
 msgid "Consider colors blended over the underlayer when they match the target better than unblended colors"
 msgstr "Luați în considerare culorile amestecate peste stratul de bază atunci când se potrivesc mai bine cu ținta decât culorile neamestecate"
 
-#: src/components/ImageColorPicker.tsx:384
+#: src/components/ImageColorPicker.tsx:380
 msgid "Consider transparent layers over the surface or underlayer when they match the target better than opaque mixtures"
 msgstr "Luați în considerare straturile transparente peste suprafață sau peste stratul de bază atunci când se potrivesc mai bine cu ținta decât amestecurile opace"
 
@@ -687,15 +692,15 @@ msgstr "Luați în considerare straturile transparente peste suprafață sau pes
 msgid "Contact"
 msgstr "Contact"
 
-#: src/components/ImageColorPicker.tsx:264
+#: src/components/ImageColorPicker.tsx:271
 msgid "Continue"
 msgstr "Continuare"
 
-#: src/components/ImageColorPicker.tsx:257
+#: src/components/ImageColorPicker.tsx:264
 msgid "Continue with Auto palette?"
 msgstr "Continuați cu paleta automată?"
 
-#: src/components/ImageColorPicker.tsx:308
+#: src/components/ImageColorPicker.tsx:304
 msgid "Controls how large an area is averaged when you pick a color from the photo."
 msgstr "Controlează cât de mare este zona pe care se face media atunci când alegeți o culoare din fotografie."
 
@@ -716,7 +721,7 @@ msgid "Copy and share this link"
 msgstr "Copiați și distribuiți acest link"
 
 #: src/components/image-editor/CorrectPerspectiveEditorControls.tsx:102
-#: src/components/messages.ts:50
+#: src/components/messages.ts:51
 msgid "Correct perspective"
 msgstr "Corectare perspectivă"
 
@@ -748,13 +753,17 @@ msgstr "Creați un duplicat al acestui set de culori pentru modificări ulterioa
 msgid "Create a new color set by merging existing ones"
 msgstr "Creați un set de culori nou prin unirea celor existente"
 
+#: src/components/ImageColorPicker.tsx:469
+msgid "Create a palette with up to"
+msgstr "Creați o paletă cu până la"
+
 #: src/components/color-set/ColorSetSelect.tsx:97
 #: src/components/color-set/CustomColorBrandSelect.tsx:87
 msgid "Create new"
 msgstr "Creați unul nou"
 
 #: src/components/image-editor/CropEditorControls.tsx:99
-#: src/components/messages.ts:51
+#: src/components/messages.ts:52
 msgid "Crop"
 msgstr "Decupare"
 
@@ -766,7 +775,7 @@ msgstr "Cubism"
 msgid "Custom color set"
 msgstr "Set de culori personalizat"
 
-#: src/components/messages.ts:44
+#: src/components/messages.ts:45
 msgid "Custom colors"
 msgstr "Culori personalizate"
 
@@ -780,7 +789,7 @@ msgstr "Eliminare neclaritate JPEG"
 
 #: src/components/auth/DeleteAccountButton.tsx:67
 #: src/components/color/AddToPaletteButton.tsx:48
-#: src/components/color/PaletteColorMixtureCard.tsx:128
+#: src/components/color/PaletteColorMixtureCard.tsx:133
 #: src/components/ColorSetChooser.tsx:794
 #: src/components/ColorSetChooser.tsx:804
 #: src/components/CustomColorBrandCreator.tsx:531
@@ -791,14 +800,22 @@ msgstr "Eliminare neclaritate JPEG"
 msgid "Delete"
 msgstr "Ștergere"
 
-#: src/components/palette/PaletteGrid.tsx:121
-#: src/components/palette/PaletteGrid.tsx:125
+#: src/components/palette/PaletteGrid.tsx:156
+#: src/components/palette/PaletteGrid.tsx:160
 msgid "Delete all"
 msgstr "Ștergeți tot"
 
-#: src/components/palette/PaletteGrid.tsx:118
+#: src/components/palette/PaletteGrid.tsx:145
 msgid "Delete all color mixtures"
 msgstr "Ștergeți toate amestecurile de culori"
+
+#: src/components/palette/PaletteGrid.tsx:148
+msgid "Delete all color mixtures in this palette, including those hidden by the filter?"
+msgstr "Doriți să ștergeți toate amestecurile de culori din această paletă, inclusiv pe cele ascunse de filtru?"
+
+#: src/components/palette/PaletteGrid.tsx:152
+msgid "Delete all color mixtures in this palette?"
+msgstr "Doriți să ștergeți toate amestecurile de culori din această paletă?"
 
 #: src/components/auth/DeleteAccountButton.tsx:59
 #: src/components/auth/DeleteAccountButton.tsx:71
@@ -811,7 +828,7 @@ msgid "Delete data on this device"
 msgstr "Ștergeți datele de pe acest dispozitiv"
 
 #: src/components/color/AddToPaletteButton.tsx:52
-#: src/components/color/PaletteColorMixtureCard.tsx:132
+#: src/components/color/PaletteColorMixtureCard.tsx:137
 msgid "Delete from palette"
 msgstr "Ștergeți din paletă"
 
@@ -820,7 +837,7 @@ msgid "Delete oldest"
 msgstr "Ștergeți cea mai veche"
 
 #: src/components/color/AddToPaletteButton.tsx:45
-#: src/components/color/PaletteColorMixtureCard.tsx:125
+#: src/components/color/PaletteColorMixtureCard.tsx:130
 msgid "Delete the color mixture"
 msgstr "Ștergeți amestecul de culori"
 
@@ -942,7 +959,7 @@ msgstr "Plasați fișierul aici..."
 msgid "Drop the files here..."
 msgstr "Plasați fișierele aici..."
 
-#: src/components/messages.ts:69
+#: src/components/messages.ts:70
 msgid "Dry Pastel"
 msgstr "Pastel uscat"
 
@@ -966,7 +983,7 @@ msgstr "Fiecare coloană este un raport de amestecare, fiecare rând o consisten
 msgid "Edit from here on"
 msgstr "Editare de aici înainte"
 
-#: src/components/messages.ts:42
+#: src/components/messages.ts:43
 msgid "Edit image"
 msgstr "Editare imagine"
 
@@ -1032,7 +1049,7 @@ msgid "Exit AR"
 msgstr "Ieșiți din AR"
 
 #: src/components/image-editor/ExpandEditorControls.tsx:274
-#: src/components/messages.ts:52
+#: src/components/messages.ts:53
 msgid "Expand"
 msgstr "Extindere"
 
@@ -1073,6 +1090,10 @@ msgstr "Umplere"
 msgid "Fill in the required fields"
 msgstr "Completați câmpurile obligatorii"
 
+#: src/components/tonal-value/TonalValueFilter.tsx:61
+msgid "Filter"
+msgstr "Filtrare"
+
 #: src/components/ImageStyleTransfer.tsx:401
 msgid "Filter by artist"
 msgstr "Filtrați după artist"
@@ -1080,6 +1101,10 @@ msgstr "Filtrați după artist"
 #: src/components/ImageStyleTransfer.tsx:414
 msgid "Filter by tag"
 msgstr "Filtrați după etichetă"
+
+#: src/components/tonal-value/TonalValueFilter.tsx:59
+msgid "Filter saved mixtures by tonal value"
+msgstr "Filtrați amestecurile salvate după valoarea tonală"
 
 #: src/components/ml-model/OnnxModelSelect.tsx:43
 msgid "Fine detail"
@@ -1127,21 +1152,22 @@ msgstr "Abonament primit cadou"
 msgid "Give your color set a name for easy access."
 msgstr "Dați un nume setului de culori pentru un acces ușor."
 
-#: src/components/ImageColorPicker.tsx:375
+#: src/components/ImageColorPicker.tsx:371
 msgid "Glazing"
 msgstr "Glasare"
 
 #: src/components/button/GoToTabButton.tsx:38
+#: src/components/tonal-value/TonalValueTag.tsx:52
 msgid "Go to the {label} tab"
 msgstr "Accesați fila {label}"
 
-#: src/components/messages.ts:64
+#: src/components/messages.ts:65
 msgid "Gouache"
 msgstr "Guașă"
 
 #: src/components/grid/GridControls.tsx:131
 #: src/components/ImageOutline.tsx:316
-#: src/components/messages.ts:36
+#: src/components/messages.ts:37
 msgid "Grid"
 msgstr "Grilă"
 
@@ -1150,13 +1176,17 @@ msgid "Height"
 msgstr "Înălțime"
 
 #: src/components/ColorSetChooser.tsx:472
-#: src/components/messages.ts:45
+#: src/components/messages.ts:46
 msgid "Help"
 msgstr "Ajutor"
 
 #: src/components/image-editor/SharpenEditorControls.tsx:40
 msgid "High pass"
 msgstr "Filtru trece-sus"
+
+#: src/components/messages.ts:87
+msgid "Highlights"
+msgstr "Lumini"
 
 #: src/components/image-editor/ExpandEditorControls.tsx:167
 msgid "Horizontal"
@@ -1190,7 +1220,7 @@ msgstr "Importarea acestei copii de rezervă va înlocui seturile de culori loca
 msgid "Impressionism"
 msgstr "Impresionism"
 
-#: src/components/messages.ts:41
+#: src/components/messages.ts:42
 msgid "Inspiration"
 msgstr "Inspirație"
 
@@ -1235,11 +1265,11 @@ msgid "It can be difficult to choose between multiple images. Comparing each ima
 msgstr "Poate fi dificil să alegeți între mai multe imagini. Compararea fiecărei imagini cu altele, în perechi, simplifică alegerea și ajută la identificarea celei preferate."
 
 #: src/components/color/AddToPaletteButton.tsx:49
-#: src/components/color/PaletteColorMixtureCard.tsx:129
+#: src/components/color/PaletteColorMixtureCard.tsx:134
 #: src/components/ColorSetChooser.tsx:795
 #: src/components/CustomColorBrandCreator.tsx:532
 #: src/components/image/RecentImageCard.tsx:125
-#: src/components/palette/PaletteGrid.tsx:122
+#: src/components/palette/PaletteGrid.tsx:157
 msgid "Keep"
 msgstr "Păstrare"
 
@@ -1280,7 +1310,7 @@ msgstr "Ultima utilizare: {dateText}"
 msgid "Left to compare: {unfinishedGamesSize}"
 msgstr "Rămase de comparat: {unfinishedGamesSize}"
 
-#: src/components/ImageColorPicker.tsx:563
+#: src/components/ImageColorPicker.tsx:548
 msgid "Less"
 msgstr "Mai puțin"
 
@@ -1292,16 +1322,15 @@ msgstr "Ușor"
 msgid "Light box"
 msgstr "Lightbox"
 
-#: src/components/ImageTonalValues.tsx:111
-#: src/components/ImageTonalValues.tsx:114
-msgid "Light tone"
-msgstr "Ton deschis"
+#: src/components/messages.ts:86
+msgid "Light tones"
+msgstr "Tonuri deschise"
 
 #: src/components/ImageOutline.tsx:284
 msgid "Lightbox"
 msgstr "Lightbox"
 
-#: src/components/messages.ts:40
+#: src/components/messages.ts:41
 msgid "Limited palette"
 msgstr "Paletă limitată"
 
@@ -1330,7 +1359,7 @@ msgstr "Deconectare"
 msgid "Login result not received"
 msgstr "Rezultatul autentificării nu a fost primit"
 
-#: src/components/messages.ts:34
+#: src/components/messages.ts:35
 msgid "Loose painting"
 msgstr "Pictură liberă"
 
@@ -1388,12 +1417,8 @@ msgstr "Unire"
 msgid "Merge color sets"
 msgstr "Unire seturi de culori"
 
-#: src/components/ImageTonalValues.tsx:121
-#: src/components/ImageTonalValues.tsx:124
-msgid "Mid tone"
-msgstr "Ton mediu"
-
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:295
+#: src/components/messages.ts:85
 msgid "Midtones"
 msgstr "Tonuri medii"
 
@@ -1417,8 +1442,8 @@ msgstr "Amestecați vopseaua cu un mediu de glasare, cum ar fi uleiul de in, pen
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
 msgstr "Amestecați vopseaua cu un mediu acrilic de glasare pentru a aplica un strat mai subțire și mai transparent"
 
-#: src/components/color/ColorMatchCard.tsx:153
-#: src/components/color/PaletteColorMixtureCard.tsx:158
+#: src/components/color/ColorMatchCard.tsx:157
+#: src/components/color/PaletteColorMixtureCard.tsx:163
 msgid "Mix this color into every mixture."
 msgstr "Amestecați această culoare în fiecare amestec."
 
@@ -1440,14 +1465,14 @@ msgstr "Amestec"
 msgid "Mode"
 msgstr "Mod"
 
-#: src/components/ImageColorPicker.tsx:563
+#: src/components/ImageColorPicker.tsx:548
 msgid "More"
 msgstr "Mai multe"
 
 #: src/components/ColorMixingChart.tsx:217
 #: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
-#: src/components/ImageColorPicker.tsx:358
+#: src/components/ImageColorPicker.tsx:354
 #: src/components/ImageLimitedPalette.tsx:183
 #: src/components/ImageOutline.tsx:376
 msgid "More actions"
@@ -1512,7 +1537,12 @@ msgstr "Niciun amestec de culori nu este mai bun decât suprafața neacoperită"
 msgid "No color mixture improves on the bare underlayer"
 msgstr "Niciun amestec de culori nu este mai bun decât stratul de bază neacoperit"
 
-#: src/components/ImageColorPicker.tsx:275
+#: src/components/palette/PaletteColorsDrawer.tsx:105
+#: src/components/palette/PaletteGrid.tsx:183
+msgid "No color mixtures match the filter"
+msgstr "Niciun amestec de culori nu corespunde filtrului"
+
+#: src/components/ImageColorPicker.tsx:282
 msgid "No palette colors matched the current color set and settings"
 msgstr "Nicio culoare din paletă nu s-a potrivit cu setul de culori și setările curente"
 
@@ -1549,11 +1579,11 @@ msgstr "Numărul de celule pe partea mai mică (verticală sau orizontală)"
 msgid "Off"
 msgstr "Oprit"
 
-#: src/components/messages.ts:66
+#: src/components/messages.ts:67
 msgid "Oil Paint"
 msgstr "Vopsea în ulei"
 
-#: src/components/messages.ts:70
+#: src/components/messages.ts:71
 msgid "Oil Pastel"
 msgstr "Pastel în ulei"
 
@@ -1619,7 +1649,7 @@ msgid "Original color temperature (K)"
 msgstr "Temperatura de culoare originală (K)"
 
 #: src/components/ImageOutline.tsx:269
-#: src/components/messages.ts:35
+#: src/components/messages.ts:36
 msgid "Outline"
 msgstr "Contur"
 
@@ -1640,7 +1670,7 @@ msgstr "Pictare"
 msgid "Painting"
 msgstr "Pictură"
 
-#: src/components/messages.ts:31
+#: src/components/messages.ts:32
 msgid "Palette"
 msgstr "Paletă"
 
@@ -1681,7 +1711,7 @@ msgstr "Stocare persistentă"
 msgid "Persistent storage is not enabled"
 msgstr "Stocarea persistentă nu este activată"
 
-#: src/components/messages.ts:29
+#: src/components/messages.ts:30
 msgid "Photo"
 msgstr "Fotografie"
 
@@ -1768,7 +1798,7 @@ msgstr "Apăsați butonul <0>Adăugați la paletă</0> de lângă amestecul de c
 #: src/components/ImageOutline.tsx:324
 #: src/components/ImageOutline.tsx:360
 #: src/components/ImagesCompare.tsx:181
-#: src/components/palette/PaletteGrid.tsx:115
+#: src/components/palette/PaletteGrid.tsx:142
 #: src/components/print/PrintImageDrawer.tsx:183
 msgid "Print"
 msgstr "Imprimare"
@@ -1821,15 +1851,15 @@ msgstr "Realism"
 msgid "Redo"
 msgstr "Refacere"
 
-#: src/components/ImageColorPicker.tsx:442
+#: src/components/ImageColorPicker.tsx:438
 msgid "Reduce color palette to"
 msgstr "Reduceți paleta de culori la"
 
-#: src/components/ImageColorPicker.tsx:461
+#: src/components/ImageColorPicker.tsx:457
 msgid "Reduce colors"
 msgstr "Reduceți culorile"
 
-#: src/components/ImageColorPicker.tsx:459
+#: src/components/ImageColorPicker.tsx:455
 msgid "Reduce the number of colors in the photo."
 msgstr "Reduce numărul de culori din fotografie."
 
@@ -1842,7 +1872,7 @@ msgstr "Referință"
 msgid "Reference photo"
 msgstr "Fotografie de referință"
 
-#: src/components/color/ColorMatchCard.tsx:128
+#: src/components/color/ColorMatchCard.tsx:132
 #: src/components/ColorMixer.tsx:256
 msgid "Reflectance"
 msgstr "Reflectanță"
@@ -1856,12 +1886,12 @@ msgid "Remove and continue"
 msgstr "Eliminați și continuați"
 
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:136
-#: src/components/messages.ts:54
+#: src/components/messages.ts:55
 msgid "Remove background"
 msgstr "Eliminare fundal"
 
 #: src/components/image-editor/RemoveObjectsEditorControls.tsx:105
-#: src/components/messages.ts:55
+#: src/components/messages.ts:56
 msgid "Remove objects"
 msgstr "Eliminare obiecte"
 
@@ -1911,7 +1941,7 @@ msgid "Reset settings"
 msgstr "Resetați setările"
 
 #: src/components/image-editor/RestoreEditorControls.tsx:100
-#: src/components/messages.ts:57
+#: src/components/messages.ts:58
 msgid "Restore"
 msgstr "Restaurare"
 
@@ -1938,7 +1968,7 @@ msgstr "Reîncercați"
 msgid "Return to the {tabLabel} tab"
 msgstr "Reveniți la fila {tabLabel}"
 
-#: src/components/messages.ts:49
+#: src/components/messages.ts:50
 msgid "Rotate"
 msgstr "Rotire"
 
@@ -1946,7 +1976,7 @@ msgstr "Rotire"
 msgid "Rotate clockwise"
 msgstr "Rotire în sens orar"
 
-#: src/components/ImageColorPicker.tsx:305
+#: src/components/ImageColorPicker.tsx:301
 msgid "Sample size"
 msgstr "Dimensiunea eșantionului"
 
@@ -2164,30 +2194,29 @@ msgstr "Setați ca set principal de culori"
 msgid "Set as reference"
 msgstr "Setați ca referință"
 
-#: src/components/color/ColorMatchCard.tsx:144
-#: src/components/color/PaletteColorMixtureCard.tsx:149
+#: src/components/color/ColorMatchCard.tsx:148
+#: src/components/color/PaletteColorMixtureCard.tsx:154
 msgid "Set as underlayer"
 msgstr "Setați ca strat de bază"
 
-#: src/components/color/ColorMatchCard.tsx:140
-#: src/components/color/PaletteColorMixtureCard.tsx:145
+#: src/components/color/ColorMatchCard.tsx:144
+#: src/components/color/PaletteColorMixtureCard.tsx:150
 msgid "Set as underlayer for blending."
 msgstr "Setați ca strat de bază pentru estompare."
 
-#: src/components/color/ColorMatchCard.tsx:140
-#: src/components/color/PaletteColorMixtureCard.tsx:145
+#: src/components/color/ColorMatchCard.tsx:144
+#: src/components/color/PaletteColorMixtureCard.tsx:150
 msgid "Set as underlayer for glazing."
 msgstr "Setați ca strat de bază pentru glasare."
 
-#: src/components/color/ColorMatchCard.tsx:156
-#: src/components/color/PaletteColorMixtureCard.tsx:161
+#: src/components/color/ColorMatchCard.tsx:160
+#: src/components/color/PaletteColorMixtureCard.tsx:166
 msgid "Set as unifying color"
 msgstr "Setați ca culoare unificatoare"
 
-#: src/components/ImageTonalValues.tsx:131
-#: src/components/ImageTonalValues.tsx:134
-msgid "Shadow"
-msgstr "Umbră"
+#: src/components/messages.ts:84
+msgid "Shadows"
+msgstr "Umbre"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:271
 msgid "Shadows and highlights"
@@ -2211,11 +2240,15 @@ msgid "Sharp"
 msgstr "Clar"
 
 #: src/components/image-editor/SharpenEditorControls.tsx:95
-#: src/components/messages.ts:58
+#: src/components/messages.ts:59
 msgid "Sharpen"
 msgstr "Ascuțire"
 
-#: src/components/ImageColorPicker.tsx:350
+#: src/components/palette/PaletteGrid.tsx:190
+msgid "Show all"
+msgstr "Afișați toate"
+
+#: src/components/ImageColorPicker.tsx:346
 msgid "Show areas on the photo that match this color."
 msgstr "Afișează zonele de pe fotografie care se potrivesc cu această culoare."
 
@@ -2223,7 +2256,7 @@ msgstr "Afișează zonele de pe fotografie care se potrivesc cu această culoare
 msgid "Show grid"
 msgstr "Afișați grila"
 
-#: src/components/ImageColorPicker.tsx:349
+#: src/components/ImageColorPicker.tsx:345
 msgid "Show matching areas"
 msgstr "Afișați zonele care se potrivesc"
 
@@ -2231,7 +2264,7 @@ msgstr "Afișați zonele care se potrivesc"
 msgid "Show older photos"
 msgstr "Afișați fotografiile mai vechi"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:119
+#: src/components/color/PaletteColorMixtureCard.tsx:124
 msgid "Show on photo"
 msgstr "Afișați pe fotografie"
 
@@ -2239,7 +2272,7 @@ msgstr "Afișați pe fotografie"
 msgid "Show or hide diagonal lines"
 msgstr "Afișați sau ascundeți liniile diagonale"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:113
+#: src/components/color/PaletteColorMixtureCard.tsx:118
 msgid "Show this color on the reference photo."
 msgstr "Afișează această culoare pe fotografia de referință."
 
@@ -2259,7 +2292,7 @@ msgstr "Modul de similitudine compară culorile țintă și sugerate. În modul 
 msgid "Simplified"
 msgstr "Simplificat"
 
-#: src/components/messages.ts:33
+#: src/components/messages.ts:34
 msgid "Simplify photo"
 msgstr "Simplificare fotografie"
 
@@ -2297,24 +2330,20 @@ msgstr "Ceva a mers prost"
 
 #: src/components/color-set/ColorSelect.tsx:122
 #: src/components/ColorMixingChart.tsx:122
-#: src/components/ImageColorPicker.tsx:518
-#: src/components/palette/PaletteGrid.tsx:137
+#: src/components/ImageColorPicker.tsx:592
+#: src/components/palette/PaletteGrid.tsx:172
 msgid "Sort"
 msgstr "Sortare"
 
-#: src/components/ImageColorPicker.tsx:482
+#: src/components/ImageColorPicker.tsx:496
 msgid "Sort by match, from highest to lowest."
 msgstr "Sortați după potrivire, de la cel mai mare la cel mai mic."
 
-#: src/components/ImageColorPicker.tsx:493
-msgid "Sort by paint consistency, from full strength to most thinned."
-msgstr "Sortați după consistența vopselei, de la nediluată la cea mai diluată."
-
-#: src/components/ImageColorPicker.tsx:487
+#: src/components/ImageColorPicker.tsx:501
 msgid "Sort by the number of colors in the mixture, from fewest to most."
 msgstr "Sortați după numărul de culori din amestec, de la cele mai puține la cele mai multe."
 
-#: src/components/color/ColorMatchCard.tsx:123
+#: src/components/color/ColorMatchCard.tsx:127
 #: src/components/color/ReflectanceChartDrawer.tsx:104
 #: src/components/ColorMixer.tsx:250
 msgid "Spectral reflectance curve"
@@ -2404,8 +2433,8 @@ msgstr "Atingeți 👆 oriunde în fotografie pentru a alege un punct focal."
 msgid "Taped margin width around the painting area"
 msgstr "Lățimea marginii lipite în jurul zonei de pictură"
 
-#: src/components/ImageColorPicker.tsx:325
-#: src/components/ImageColorPicker.tsx:337
+#: src/components/ImageColorPicker.tsx:321
+#: src/components/ImageColorPicker.tsx:333
 msgid "Target color"
 msgstr "Culoarea țintă"
 
@@ -2442,7 +2471,7 @@ msgstr "Setul de culori nu poate fi salvat pentru că nu toate câmpurile necesa
 msgid "The color set can't be saved because the color data failed to load."
 msgstr "Setul de culori nu poate fi salvat deoarece datele de culoare nu s-au încărcat."
 
-#: src/components/ImageColorPicker.tsx:328
+#: src/components/ImageColorPicker.tsx:324
 msgid "The color to be mixed from your color set. Select a color by clicking a point on the image, or use the color picker popup."
 msgstr "Culoarea care urmează să fie amestecată din setul de culori. Selectați o culoare făcând clic pe un punct de pe imagine sau utilizați fereastra pop-up de selectare a culorilor."
 
@@ -2486,7 +2515,7 @@ msgstr "Notificări ale terților"
 msgid "This color brand is available only to paid Patreon members"
 msgstr "Această marcă de culori este disponibilă numai pentru membrii Patreon plătitori"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:114
+#: src/components/color/PaletteColorMixtureCard.tsx:119
 msgid "This color was not sampled from a photo."
 msgstr "Această culoare nu a fost preluată dintr-o fotografie."
 
@@ -2558,8 +2587,8 @@ msgstr "Pentru a utiliza funcția {tabLabel}, selectați o fotografie de referin
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
 msgstr "Pentru a utiliza funcția {tabLabel}, selectați tehnica artistică acceptată și culorile cu care să pictați"
 
-#: src/components/ImageTonalValues.tsx:153
-#: src/components/messages.ts:32
+#: src/components/ImageTonalValues.tsx:137
+#: src/components/messages.ts:33
 msgid "Tonal values"
 msgstr "Valori tonale"
 
@@ -2678,13 +2707,17 @@ msgstr "Eroare neașteptată"
 msgid "Unexpected error: {errorMessage}"
 msgstr "Eroare neașteptată: {errorMessage}"
 
-#: src/components/ImageColorPicker.tsx:403
+#: src/components/ImageColorPicker.tsx:399
 msgid "Unifying color"
 msgstr "Culoare unificatoare"
 
 #: src/components/image-editor/ExpandEditorControls.tsx:199
 msgid "Unit"
 msgstr "Unitate"
+
+#: src/components/palette/PaletteColorsDrawer.tsx:119
+msgid "Unknown brand"
+msgstr "Marcă necunoscută"
 
 #: src/components/image-editor/SharpenEditorControls.tsx:37
 msgid "Unsharp mask"
@@ -2694,10 +2727,10 @@ msgstr "Mască neclară"
 msgid "Unsynced changes on this device"
 msgstr "Modificări nesincronizate pe acest dispozitiv"
 
-#: src/components/color/ColorMatchCard.tsx:110
+#: src/components/color/ColorMatchCard.tsx:114
 #: src/components/color/ColorSwatchDrawer.tsx:112
-#: src/components/color/PaletteColorMixtureCard.tsx:99
-#: src/components/palette/PaletteGrid.tsx:159
+#: src/components/color/PaletteColorMixtureCard.tsx:102
+#: src/components/palette/PaletteGrid.tsx:214
 msgid "Untitled mixture"
 msgstr "Amestec fără titlu"
 
@@ -2722,7 +2755,7 @@ msgid "Uploading image {index} / {count}"
 msgstr "Se încarcă imaginea {index} / {count}"
 
 #: src/components/image-editor/UpscaleEditorControls.tsx:85
-#: src/components/messages.ts:56
+#: src/components/messages.ts:57
 msgid "Upscale"
 msgstr "Mărire"
 
@@ -2787,7 +2820,7 @@ msgstr "Așteptați ca datele de culoare să se termine de încărcare."
 msgid "Warm — Algorithmic estimate; artistic perception may vary."
 msgstr "Cald — estimare algoritmică; percepția artistică poate varia."
 
-#: src/components/messages.ts:73
+#: src/components/messages.ts:74
 msgid "Water-based Markers"
 msgstr "Markere pe bază de apă"
 
@@ -2799,15 +2832,15 @@ msgstr "Acuarelă"
 msgid "Watercolor can be diluted with water to make it more transparent"
 msgstr "Acuarela poate fi diluată cu apă pentru a o face mai transparentă"
 
-#: src/components/messages.ts:63
+#: src/components/messages.ts:64
 msgid "Watercolor Paint"
 msgstr "Vopsea acuarelă"
 
-#: src/components/messages.ts:68
+#: src/components/messages.ts:69
 msgid "Watercolor Pencils"
 msgstr "Creioane acuarelă"
 
-#: src/components/messages.ts:71
+#: src/components/messages.ts:72
 msgid "Wax Pastel"
 msgstr "Pastel de ceară"
 
@@ -2834,11 +2867,11 @@ msgid "White"
 msgstr "Alb"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:175
-#: src/components/ImageTonalValues.tsx:170
+#: src/components/ImageTonalValues.tsx:154
 msgid "White balance"
 msgstr "Balans de alb"
 
-#: src/components/messages.ts:79
+#: src/components/messages.ts:80
 msgid "White paper or canvas"
 msgstr "Hârtie sau pânză albă"
 

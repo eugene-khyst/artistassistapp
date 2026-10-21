@@ -52,13 +52,19 @@ const SKU_BASE: Partial<Record<ColorType, Record<number, number>>> = {
   [ColorType.WatercolorPaint]: {
     3: 284600000, //daniel-smith-extra-fine
     14: 284600000, //daniel-smith-primatek
+    23: 2300000, //derwent-inktense
+    24: 2300000, //derwent-watercolour
     44: 7000000, //golden-qor
+    236: 2300000, //derwent-pastel-shades
   },
   [ColorType.Gouache]: {
     3: 284860000, //daniel-smith-extra-fine
   },
   [ColorType.OilPaint]: {
     45: 6000000, //golden-williamsburg
+  },
+  [ColorType.ColoredPencils]: {
+    21: 2300000, // derwent-lightfast
   },
 };
 const URL_PARAM_ERROR = 'error';

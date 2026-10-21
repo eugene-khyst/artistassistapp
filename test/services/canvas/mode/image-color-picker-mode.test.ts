@@ -18,7 +18,11 @@
 
 import {describe, expect, it, vi} from 'vitest';
 
-import type {CanvasModeContext, CanvasPointer} from '@/services/canvas/mode/canvas-mode';
+import type {
+  CanvasModeContext,
+  CanvasPointer,
+  ImageCanvasRenderingContext,
+} from '@/services/canvas/mode/canvas-mode';
 import {
   ImageColorPickerEventType,
   ImageColorPickerMode,
@@ -27,6 +31,34 @@ import {
 import {Rectangle, Vector} from '@/services/math/geometry';
 
 describe('ImageColorPickerMode', () => {
+  it('dims markers without changing their hit areas or the opacity of later drawing', () => {
+    const mode = new ImageColorPickerMode();
+    const dimmedPoint = new Vector(20, 20);
+    mode.setSamples([
+      {key: 'dimmed', imageCenteredPoint: dimmedPoint, rgb: [0, 0, 0], opacity: 0.5},
+      {key: 'normal', imageCenteredPoint: new Vector(40, 40), rgb: [255, 255, 255]},
+    ]);
+    const opacities: number[] = [];
+    const saved: number[] = [];
+    const ctx = {
+      globalAlpha: 1,
+      save: () => saved.push(ctx.globalAlpha),
+      restore: () => {
+        ctx.globalAlpha = saved.pop()!;
+      },
+      beginPath: vi.fn(),
+      arc: vi.fn(),
+      fill: () => opacities.push(ctx.globalAlpha),
+      stroke: vi.fn(),
+    };
+
+    mode.onImageDrawn(ctx as unknown as ImageCanvasRenderingContext);
+
+    expect(opacities).toEqual([0.5, 1]);
+    expect(ctx.globalAlpha).toBe(1);
+    expect(mode.getSamplesNearby(dimmedPoint).map(({key}) => key)).toEqual(['dimmed']);
+  });
+
   it('emits a complete pointer when the pipette point is set programmatically', () => {
     const imageCenteredPoint = new Vector(1, 2);
     const pointer: CanvasPointer = {

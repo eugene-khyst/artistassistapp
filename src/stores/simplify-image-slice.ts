@@ -19,7 +19,7 @@
 import type {StateCreator} from 'zustand';
 
 import {applyFocalPointToSimplifiedImage, simplifyImage} from '@/services/image/simplify-image';
-import type {Vector} from '@/services/math/geometry';
+import {Vector} from '@/services/math/geometry';
 import {createAbortableOperation} from '@/utils/abortable-operation';
 
 import {type OriginalImageSlice, registerOriginalImageDependency} from './original-image-slice';
@@ -31,11 +31,14 @@ export interface SimplifyImageSlice {
   isSimplifiedImagesLoading: boolean;
 
   loadSimplifiedImages: () => Promise<void>;
-  setSimplifyFocalPoint: (simplifyFocalPoint?: Vector) => Promise<void>;
+  setSimplifyFocalPoint: (simplifyFocalPoint: Vector | null) => Promise<void>;
   abortSimplifiedImages: () => void;
 }
 
-type SimplifyImageSliceDependencies = Pick<OriginalImageSlice, 'originalImage'>;
+type SimplifyImageSliceDependencies = Pick<
+  OriginalImageSlice,
+  'originalImage' | 'selectedImageFile' | 'saveImageFocalPoint'
+>;
 
 export const createSimplifyImageSlice: StateCreator<
   SimplifyImageSlice & SimplifyImageSliceDependencies,
@@ -56,6 +59,35 @@ export const createSimplifyImageSlice: StateCreator<
     },
   });
 
+  const toSimplifyFocalPoint = ({width, height}: ImageBitmap): Vector | null => {
+    const focalPoint = get().selectedImageFile?.focalPoint;
+    return focalPoint ? new Vector(focalPoint.x * width, focalPoint.y * height) : null;
+  };
+
+  const applyFocalPoint = async (simplifyFocalPoint: Vector | null): Promise<boolean> => {
+    const {simplifiedImages, simplifiedMaskedImage: prev} = get();
+    if (!simplifiedImages.length) {
+      return false;
+    }
+    const isApplied = await simplifyImageOperation.run(signal => {
+      const simplifiedMaskedImage = applyFocalPointToSimplifiedImage(
+        simplifiedImages,
+        simplifyFocalPoint
+      );
+      if (signal.aborted) {
+        simplifiedMaskedImage.close();
+      }
+      signal.throwIfAborted();
+      set({
+        simplifyFocalPoint,
+        simplifiedMaskedImage,
+      });
+      prev?.close();
+      return true;
+    });
+    return !!isApplied;
+  };
+
   registerOriginalImageDependency({
     abort: () => {
       simplifyImageOperation.abort();
@@ -72,6 +104,12 @@ export const createSimplifyImageSlice: StateCreator<
       });
       simplifiedMaskedImage?.close();
     },
+    onMetadataChange: () => {
+      const [simplifiedImage] = get().simplifiedImages;
+      if (simplifiedImage) {
+        void applyFocalPoint(toSimplifyFocalPoint(simplifiedImage));
+      }
+    },
   });
 
   return {
@@ -87,7 +125,11 @@ export const createSimplifyImageSlice: StateCreator<
       }
       await simplifyImageOperation.run(signal => {
         const simplifiedImages = simplifyImage(originalImage);
-        const simplifiedMaskedImage = applyFocalPointToSimplifiedImage(simplifiedImages);
+        const simplifyFocalPoint = toSimplifyFocalPoint(simplifiedImages[0]!);
+        const simplifiedMaskedImage = applyFocalPointToSimplifiedImage(
+          simplifiedImages,
+          simplifyFocalPoint
+        );
         if (signal.aborted) {
           simplifiedImages.forEach(image => {
             image.close();
@@ -97,31 +139,25 @@ export const createSimplifyImageSlice: StateCreator<
         signal.throwIfAborted();
         set({
           simplifiedImages,
+          simplifyFocalPoint,
           simplifiedMaskedImage,
         });
       });
     },
 
-    setSimplifyFocalPoint: async (simplifyFocalPoint?: Vector): Promise<void> => {
-      const {simplifiedImages, simplifiedMaskedImage: prev} = get();
-      if (!simplifiedImages.length) {
+    setSimplifyFocalPoint: async (simplifyFocalPoint: Vector | null): Promise<void> => {
+      const {
+        selectedImageFile,
+        simplifiedImages: [simplifiedImage],
+      } = get();
+      if (!selectedImageFile || !simplifiedImage || !(await applyFocalPoint(simplifyFocalPoint))) {
         return;
       }
-      await simplifyImageOperation.run(signal => {
-        const simplifiedMaskedImage = applyFocalPointToSimplifiedImage(
-          simplifiedImages,
-          simplifyFocalPoint
-        );
-        if (signal.aborted) {
-          simplifiedMaskedImage.close();
-        }
-        signal.throwIfAborted();
-        set({
-          simplifyFocalPoint,
-          simplifiedMaskedImage,
-        });
-        prev?.close();
-      });
+      const {width, height} = simplifiedImage;
+      await get().saveImageFocalPoint(
+        selectedImageFile.digest,
+        simplifyFocalPoint && {x: simplifyFocalPoint.x / width, y: simplifyFocalPoint.y / height}
+      );
     },
 
     abortSimplifiedImages: (): void => {

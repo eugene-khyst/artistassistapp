@@ -19,6 +19,7 @@
 export interface ImageDependency {
   abort?: () => void;
   clear?: () => void;
+  onMetadataChange?: () => void;
 }
 
 export class ImageDependencyRegistry {
@@ -37,6 +38,12 @@ export class ImageDependencyRegistry {
   clear(): void {
     for (const {clear} of this.dependencies) {
       clear?.();
+    }
+  }
+
+  metadataChanged(): void {
+    for (const {onMetadataChange} of this.dependencies) {
+      onMetadataChange?.();
     }
   }
 

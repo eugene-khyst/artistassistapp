@@ -21,6 +21,7 @@ import {
   DeleteOutlined,
   PrinterOutlined,
   SortAscendingOutlined,
+  UnorderedListOutlined,
 } from '@ant-design/icons';
 import {
   COLOR_MIXTURES_COMPARATORS,
@@ -30,15 +31,19 @@ import {
   decorateSortUndecorate,
 } from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Button, Card, Col, Dropdown, Popconfirm, Row, Space, Typography} from 'antd';
+import {Button, Card, Col, Dropdown, Empty, Flex, Popconfirm, Row, Space, Typography} from 'antd';
 import type {MenuProps} from 'antd/lib';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useMemo, useRef, useState} from 'react';
 import {useReactToPrint} from 'react-to-print';
 
 import {AdCard} from '@/components/ad/AdCard';
 import {ColorMixtureDescription} from '@/components/color/ColorMixtureDescription';
 import {PaletteColorMixtureCard} from '@/components/color/PaletteColorMixtureCard';
 import {COLOR_MIXTURE_SORT_LABELS} from '@/components/messages';
+import {PaletteColorsDrawer} from '@/components/palette/PaletteColorsDrawer';
+import {TonalValueFilter} from '@/components/tonal-value/TonalValueFilter';
+import {TonalValueTag} from '@/components/tonal-value/TonalValueTag';
+import {matchesTonalValue} from '@/services/color/tonal-value';
 import {useAppStore} from '@/stores/app-store';
 
 interface Props {
@@ -47,14 +52,17 @@ interface Props {
 }
 
 export function PaletteGrid({colorType, showColorSwatch}: Readonly<Props>) {
-  const colorMixtures = useAppStore(state => state.paletteColorMixtures.get(colorType));
+  const colorMixtures = useAppStore(state => state.paletteColorMixtures.get(colorType)!);
+  const selectedTonalValue = useAppStore(state => state.selectedTonalValue);
 
   const deleteAllFromPalette = useAppStore(state => state.deleteAllFromPalette);
+  const setSelectedTonalValue = useAppStore(state => state.setSelectedTonalValue);
 
   const {t} = useLingui();
 
   const [sort, setSort] = useState<ColorMixtureSort>(ColorMixtureSort.ByDate);
   const [isPrintContentVisible, setIsPrintContentVisible] = useState(false);
+  const [isColorsDrawerOpen, setIsColorsDrawerOpen] = useState(false);
 
   const printRef = useRef<HTMLDivElement>(null);
   const resolvePrintRef = useRef<(() => void) | null>(null);
@@ -94,16 +102,22 @@ export function PaletteGrid({colorType, showColorSwatch}: Readonly<Props>) {
     },
   }));
 
-  const sortedColorMixtures = decorateSortUndecorate(
-    colorMixtures?.values(),
-    COLOR_MIXTURES_COMPARATORS[sort]
+  const sortedColorMixtures = useMemo(
+    () =>
+      decorateSortUndecorate(
+        [...colorMixtures.values()].filter(({layerRgb}) =>
+          matchesTonalValue(layerRgb, selectedTonalValue)
+        ),
+        COLOR_MIXTURES_COMPARATORS[sort]
+      ),
+    [colorMixtures, selectedTonalValue, sort]
   );
 
-  return sortedColorMixtures ? (
+  return (
     <div className="u-tab-content">
       <Space align="center" wrap className="u-mb">
         <Button
-          type="primary"
+          disabled={!sortedColorMixtures.length}
           icon={<DatabaseOutlined />}
           onClick={() => {
             showColorSwatch(sortedColorMixtures);
@@ -111,12 +125,33 @@ export function PaletteGrid({colorType, showColorSwatch}: Readonly<Props>) {
         >
           <Trans>Color swatch</Trans>
         </Button>
-        <Button icon={<PrinterOutlined />} disabled={isPrintContentVisible} onClick={handlePrint}>
+        <Button
+          icon={<UnorderedListOutlined />}
+          disabled={!sortedColorMixtures.length}
+          onClick={() => {
+            setIsColorsDrawerOpen(true);
+          }}
+        >
+          <Trans>Colors needed</Trans>
+        </Button>
+        <Button
+          icon={<PrinterOutlined />}
+          disabled={isPrintContentVisible || !sortedColorMixtures.length}
+          onClick={handlePrint}
+        >
           <Trans>Print</Trans>
         </Button>
         <Popconfirm
           title={<Trans>Delete all color mixtures</Trans>}
-          description={<Trans>Are you sure you want to delete all color mixtures?</Trans>}
+          description={
+            sortedColorMixtures.length < colorMixtures.size ? (
+              <Trans>
+                Delete all color mixtures in this palette, including those hidden by the filter?
+              </Trans>
+            ) : (
+              <Trans>Delete all color mixtures in this palette?</Trans>
+            )
+          }
           onConfirm={() => void deleteAllFromPalette(colorType)}
           okText={<Trans>Delete all</Trans>}
           cancelText={<Trans>Keep</Trans>}
@@ -137,13 +172,32 @@ export function PaletteGrid({colorType, showColorSwatch}: Readonly<Props>) {
             <Trans>Sort</Trans>
           </Button>
         </Dropdown>
+
+        <TonalValueFilter />
       </Space>
       <Row gutter={[16, 16]} justify="start">
-        {sortedColorMixtures.map((colorMixture: ColorMixture) => (
-          <Col key={colorMixture.key} xs={24} md={12} lg={8}>
-            <PaletteColorMixtureCard colorMixture={colorMixture} />
+        {!sortedColorMixtures.length ? (
+          <Col span={24}>
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description={<Trans>No color mixtures match the filter</Trans>}
+            >
+              <Button
+                onClick={() => {
+                  setSelectedTonalValue(null);
+                }}
+              >
+                <Trans>Show all</Trans>
+              </Button>
+            </Empty>
           </Col>
-        ))}
+        ) : (
+          sortedColorMixtures.map((colorMixture: ColorMixture) => (
+            <Col key={colorMixture.key} xs={24} md={12} lg={8}>
+              <PaletteColorMixtureCard colorMixture={colorMixture} />
+            </Col>
+          ))
+        )}
         <Col xs={24} md={12} lg={8}>
           <AdCard vertical />
         </Col>
@@ -154,10 +208,13 @@ export function PaletteGrid({colorType, showColorSwatch}: Readonly<Props>) {
             {sortedColorMixtures.map((colorMixture: ColorMixture) => (
               <Col key={colorMixture.key} xs={24} sm={12} md={8}>
                 <Card size="small">
-                  <Space orientation="vertical">
-                    <Typography.Text strong>
-                      {colorMixture.name || t`Untitled mixture`}
-                    </Typography.Text>
+                  <Space orientation="vertical" className="u-w-100">
+                    <Flex align="center" justify="space-between" gap="small">
+                      <Typography.Text strong ellipsis className="u-min-w-0">
+                        {colorMixture.name || t`Untitled mixture`}
+                      </Typography.Text>
+                      <TonalValueTag rgb={colorMixture.layerRgb} interactive={false} />
+                    </Flex>
                     <ColorMixtureDescription colorMixture={colorMixture} showTooltips={false} />
                   </Space>
                 </Card>
@@ -166,6 +223,14 @@ export function PaletteGrid({colorType, showColorSwatch}: Readonly<Props>) {
           </Row>
         </div>
       )}
+      <PaletteColorsDrawer
+        colorType={colorType}
+        colorMixtures={sortedColorMixtures}
+        open={isColorsDrawerOpen}
+        onClose={() => {
+          setIsColorsDrawerOpen(false);
+        }}
+      />
     </div>
-  ) : null;
+  );
 }

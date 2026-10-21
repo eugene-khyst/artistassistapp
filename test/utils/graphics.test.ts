@@ -19,7 +19,7 @@
 import type {Fraction} from '@eugene-khyst/artistassistapp-color-mixer';
 import {describe, expect, it} from 'vitest';
 
-import {aspectRatioSize, rotatedImageCropSize} from '@/utils/graphics';
+import {aspectRatioSize, getAverageColor, rotatedImageCropSize} from '@/utils/graphics';
 
 const ASPECT_RATIOS: Fraction[] = [
   [16, 9],
@@ -81,5 +81,26 @@ describe('aspectRatioSize', () => {
         }
       }
     }
+  });
+});
+
+describe('getAverageColor', () => {
+  it('ignores the corners outside the inscribed circle', () => {
+    const size = 5;
+    const data = new Uint8ClampedArray(size * size * 4);
+    for (let y = 0; y < size; y++) {
+      for (let x = 0; x < size; x++) {
+        const isCorner = (x - 2) ** 2 + (y - 2) ** 2 > 4;
+        data.set(isCorner ? [0, 0, 0, 255] : [200, 100, 50, 255], 4 * (y * size + x));
+      }
+    }
+
+    expect(getAverageColor({data, width: size, height: size} as ImageData)).toEqual([200, 100, 50]);
+  });
+
+  it('returns a single pixel unchanged', () => {
+    const data = new Uint8ClampedArray([10, 20, 30, 255]);
+
+    expect(getAverageColor({data, width: 1, height: 1} as ImageData)).toEqual([10, 20, 30]);
   });
 });

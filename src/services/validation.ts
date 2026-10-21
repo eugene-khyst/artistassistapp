@@ -60,6 +60,12 @@ const ImageMetadataSchema = v.object({
   name: v.optional(v.string()),
   digest: v.pipe(v.string(), v.regex(/^[\da-f]{64}$/)),
   maxColors: v.optional(v.number()),
+  focalPoint: v.optional(
+    v.object({
+      x: v.pipe(v.number(), v.minValue(0), v.maxValue(1)),
+      y: v.pipe(v.number(), v.minValue(0), v.maxValue(1)),
+    })
+  ),
 });
 
 const ColorSchema = v.object({

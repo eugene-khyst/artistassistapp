@@ -516,7 +516,7 @@ export function ColorSetChooser() {
                 </Typography.Text>
                 <ul className={styles['memberBenefits']}>
                   <li>
-                    <Trans>🎨 250+ color brands</Trans>
+                    <Trans>🎨 500+ color brands from 100+ companies</Trans>
                   </li>
                   <li>
                     <Trans>✏️ High-quality outlines, background removal, and colorization</Trans>

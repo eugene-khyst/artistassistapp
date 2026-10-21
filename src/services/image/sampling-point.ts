@@ -17,115 +17,105 @@
  */
 
 import {
-  byNumber,
+  clamp,
   deltaEOKr2,
   packRgb,
-  reverseOrder,
   rgbToOklab,
   type RgbTuple,
   unpackRgb,
 } from '@eugene-khyst/artistassistapp-color-mixer';
 
-const MERGE_DELTA_E_OKR2 = 0.08;
+import {getRgbTonalValue, TONAL_VALUES, type TonalValue} from '@/services/color/tonal-value';
+import {type DrawImageSource, drawImageToOffscreenCanvas, getAverageColor} from '@/utils/graphics';
+
+import {chamferDistanceTransform} from './chamfer-distance-transform';
+
+export const SAMPLING_DIAMETER = 5;
+const MIN_MIXTURES_PER_TONAL_VALUE = 2;
 
 export interface SamplingPoint {
   rgb: RgbTuple;
   x: number;
   y: number;
+  pixelCount: number;
 }
 
-/**
- * For each color in a quantized image, find the pixel deepest inside the
- * thickest region of that color (Chamfer 3-4 distance transform).
- */
+export function sampleOriginalImagePixels(
+  image: DrawImageSource,
+  points: SamplingPoint[],
+  sampledWidth: number,
+  sampledHeight: number
+): SamplingPoint[] {
+  const {width, height} = image;
+  const [, ctx] = drawImageToOffscreenCanvas(image, {
+    willReadFrequently: true,
+    fillStyle: '#fff',
+  });
+  const diameter = Math.min(SAMPLING_DIAMETER, width, height);
+  const radius = Math.trunc(diameter / 2);
+  return points.map(({x, y, pixelCount}) => {
+    const left = clamp(
+      Math.floor(((x + 0.5) * width) / sampledWidth) - radius,
+      0,
+      width - diameter
+    );
+    const top = clamp(
+      Math.floor(((y + 0.5) * height) / sampledHeight) - radius,
+      0,
+      height - diameter
+    );
+    return {
+      x: left + diameter / 2,
+      y: top + diameter / 2,
+      rgb: getAverageColor(ctx.getImageData(left, top, diameter, diameter)),
+      pixelCount,
+    };
+  });
+}
+
 export function computeSamplingPoints(imageData: ImageData): SamplingPoint[] {
   const {data, width, height} = imageData;
   const pixelCount = width * height;
 
   const colorKeys = new Uint32Array(pixelCount);
+  const centers = new Map<number, {x: number; y: number; count: number}>();
 
   for (let i = 0; i < pixelCount; i++) {
     const di = i << 2;
-    colorKeys[i] = packRgb(data[di]!, data[di + 1]!, data[di + 2]!);
+    const key = packRgb(data[di]!, data[di + 1]!, data[di + 2]!);
+    colorKeys[i] = key;
+    const center = centers.get(key) ?? {x: 0, y: 0, count: 0};
+    center.x += i % width;
+    center.y += Math.floor(i / width);
+    center.count++;
+    centers.set(key, center);
+  }
+  for (const center of centers.values()) {
+    center.x /= center.count;
+    center.y /= center.count;
   }
 
-  // Distance field: boundary pixels → 0, all others → INF (not yet measured).
-  const dist = new Uint16Array(pixelCount);
-  const INF = 0xffff;
+  const dist = chamferDistanceTransform(colorKeys, width, height);
 
-  for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
-      const i = y * width + x;
-      if (x === 0 || x === width - 1 || y === 0 || y === height - 1) {
-        dist[i] = 0;
-        continue;
-      }
-      const key = colorKeys[i]!;
-      if (
-        colorKeys[i - width] !== key ||
-        colorKeys[i + width] !== key ||
-        colorKeys[i - 1] !== key ||
-        colorKeys[i + 1] !== key
-      ) {
-        dist[i] = 0;
-      } else {
-        dist[i] = INF;
-      }
-    }
-  }
-
-  // Forward pass: weights 3 (orthogonal) / 4 (diagonal)
-  for (let y = 1; y <= height - 2; y++) {
-    for (let x = 1; x <= width - 2; x++) {
-      const i = y * width + x;
-      if (dist[i] === 0) {
-        continue;
-      }
-      const d = Math.min(
-        dist[i - width - 1]! + 4,
-        dist[i - width]! + 3,
-        dist[i - width + 1]! + 4,
-        dist[i - 1]! + 3
-      );
-      if (d < dist[i]!) {
-        dist[i] = d;
-      }
-    }
-  }
-
-  // Backward pass
-  for (let y = height - 2; y >= 1; y--) {
-    for (let x = width - 2; x >= 1; x--) {
-      const i = y * width + x;
-      if (dist[i] === 0) {
-        continue;
-      }
-      const d = Math.min(
-        dist[i + width + 1]! + 4,
-        dist[i + width]! + 3,
-        dist[i + width - 1]! + 4,
-        dist[i + 1]! + 3
-      );
-      if (d < dist[i]!) {
-        dist[i] = d;
-      }
-    }
-  }
-
-  // Per-color maximum distance → sampling point
-  const bestPixels = new Map<number, {x: number; y: number; dist: number}>();
+  const bestPixels = new Map<
+    number,
+    {x: number; y: number; dist: number; centerDistance: number}
+  >();
 
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const i = y * width + x;
       const key = colorKeys[i]!;
       const d = dist[i]!;
+      const center = centers.get(key)!;
+      const centerDistance = (x - center.x) ** 2 + (y - center.y) ** 2;
       const best = bestPixels.get(key);
-      if (!best || d > best.dist) {
+      if (!best || d > best.dist || (d === best.dist && centerDistance < best.centerDistance)) {
         bestPixels.set(key, {
           x,
           y,
           dist: d,
+          centerDistance,
         });
       }
     }
@@ -137,43 +127,105 @@ export function computeSamplingPoints(imageData: ImageData): SamplingPoint[] {
       rgb: unpackRgb(key),
       x,
       y,
+      pixelCount: centers.get(key)!.count,
     });
   }
 
   return result;
 }
 
-export function mergeSimilarSamplingPoints<T extends SamplingPoint>(
+export function selectSamplingPoints<T extends SamplingPoint>(
   points: T[],
-  threshold = MERGE_DELTA_E_OKR2
+  maxColors: number,
+  getPaletteRgb: (point: T) => RgbTuple = point => point.rgb
 ): T[] {
-  if (points.length <= 1) {
-    return points;
+  const paintColors = new Map<number, T>();
+  for (const point of points) {
+    const key = packRgb(...getPaletteRgb(point));
+    const existing = paintColors.get(key);
+    if (!existing || point.pixelCount > existing.pixelCount) {
+      paintColors.set(key, point);
+    }
   }
-
-  const pointsWithOklab = points.map(p => {
-    const [l, a, b] = rgbToOklab(...p.rgb);
-    return {
-      point: p,
-      l,
-      a,
-      b,
-      chroma: Math.hypot(a, b),
-    };
-  });
-
-  pointsWithOklab.sort(reverseOrder(byNumber(({chroma}) => chroma)));
-
-  const result: typeof pointsWithOklab = [];
-
-  for (const point of pointsWithOklab) {
-    const isSimilar: boolean = result.some(
-      ({l, a, b}) => deltaEOKr2(point.l, point.a, point.b, l, a, b) <= threshold
-    );
-    if (!isSimilar) {
-      result.push(point);
+  const candidates = [...paintColors.values()];
+  const candidateTonalValues = candidates.map(point => getRgbTonalValue(getPaletteRgb(point)));
+  const reservations = TONAL_VALUES.map(tonalValue => ({
+    tonalValue,
+    count: candidateTonalValues.filter(value => value === tonalValue).length,
+  })).filter(({count}) => count > 0);
+  const targets = points.map(point => ({
+    pixelCount: point.pixelCount,
+    oklab: rgbToOklab(...point.rgb),
+    tonalValue: getRgbTonalValue(getPaletteRgb(point)),
+  }));
+  const count = candidates.length;
+  const targetCount = targets.length;
+  const squaredDistances = new Float64Array(count * targetCount);
+  for (const [i, point] of candidates.entries()) {
+    const color = rgbToOklab(...getPaletteRgb(point));
+    for (let j = 0; j < targetCount; j++) {
+      const distance = deltaEOKr2(...color, ...targets[j]!.oklab);
+      squaredDistances[i * targetCount + j] = distance ** 2;
     }
   }
 
-  return result.map(({point}) => point);
+  const selected = new Uint8Array(count);
+  const selectedTonalValues = new Set<TonalValue>();
+  const nearestSquaredDistances = new Float64Array(targetCount).fill(Number.POSITIVE_INFINITY);
+  const result: T[] = [];
+  const selectNext = (tonalValue?: TonalValue): boolean => {
+    let bestIndex = -1;
+    let minError = Number.POSITIVE_INFINITY;
+    for (let i = 0; i < count; i++) {
+      if (
+        selected[i] ||
+        (tonalValue !== undefined && candidateTonalValues[i] !== tonalValue) ||
+        (maxColors < reservations.length && selectedTonalValues.has(candidateTonalValues[i]!))
+      ) {
+        continue;
+      }
+      let error = 0;
+      for (let j = 0; j < targetCount; j++) {
+        if (tonalValue !== undefined && targets[j]!.tonalValue !== tonalValue) {
+          continue;
+        }
+        error +=
+          targets[j]!.pixelCount *
+          Math.min(nearestSquaredDistances[j]!, squaredDistances[i * targetCount + j]!);
+      }
+      if (error < minError) {
+        minError = error;
+        bestIndex = i;
+      }
+    }
+    if (bestIndex < 0) {
+      return false;
+    }
+    selected[bestIndex] = 1;
+    selectedTonalValues.add(candidateTonalValues[bestIndex]!);
+    result.push(candidates[bestIndex]!);
+    for (let i = 0; i < targetCount; i++) {
+      nearestSquaredDistances[i] = Math.min(
+        nearestSquaredDistances[i]!,
+        squaredDistances[bestIndex * targetCount + i]!
+      );
+    }
+    return true;
+  };
+
+  const minimum = Math.min(
+    MIN_MIXTURES_PER_TONAL_VALUE,
+    Math.floor(maxColors / reservations.length)
+  );
+  for (const {tonalValue, count} of reservations) {
+    for (let i = 0; i < Math.min(minimum, count); i++) {
+      selectNext(tonalValue);
+    }
+  }
+  while (result.length < maxColors) {
+    if (!selectNext()) {
+      break;
+    }
+  }
+  return result;
 }

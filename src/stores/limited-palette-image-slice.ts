@@ -62,9 +62,9 @@ export const createLimitedPaletteImageSlice: StateCreator<
 > = (set, get) => {
   const limitedPaletteOperation = createAbortableOperation({
     onStart: () => {
+      get().clearLimitedPaletteImage();
       set({
         limitedColorSet: null,
-        limitedPaletteImage: null,
         isLimitedPaletteImageLoading: true,
       });
     },
@@ -91,7 +91,7 @@ export const createLimitedPaletteImageSlice: StateCreator<
 
     setLimitedColorSet: async (colorIds: ColorId[]): Promise<void> => {
       get().abortLimitedPalette();
-      const {originalImage, colorSet, limitedPaletteImage: prev} = get();
+      const {originalImage, colorSet} = get();
       if (!originalImage) {
         return;
       }
@@ -104,6 +104,10 @@ export const createLimitedPaletteImageSlice: StateCreator<
           originalImage,
           ResizeImage.resizeToPixelCount(IMAGE_SIZE.SD)
         );
+        if (signal.aborted) {
+          resizedImage.close();
+          signal.throwIfAborted();
+        }
         const {quantizedImage} = await colorQuantizationWorker.run(
           worker =>
             worker.getLimitedPaletteImage(transfer(resizedImage, [resizedImage]), limitedColorSet),
@@ -117,7 +121,6 @@ export const createLimitedPaletteImageSlice: StateCreator<
           limitedColorSet,
           limitedPaletteImage: quantizedImage,
         });
-        prev?.close();
       });
     },
 

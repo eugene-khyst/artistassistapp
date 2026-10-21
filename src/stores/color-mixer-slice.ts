@@ -17,7 +17,6 @@
  */
 
 import {
-  clamp,
   type ColorId,
   type ColorMatch,
   type ColorSet,
@@ -32,7 +31,12 @@ import type {StateCreator} from 'zustand';
 
 import {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
 import {colorMixer} from '@/services/color/worker/color-mixer-worker-manager';
-import {mergeSimilarSamplingPoints, type SamplingPoint} from '@/services/image/sampling-point';
+import {
+  sampleOriginalImagePixels,
+  SAMPLING_DIAMETER,
+  type SamplingPoint,
+  selectSamplingPoints,
+} from '@/services/image/sampling-point';
 import {colorQuantizationWorker} from '@/services/image/worker/color-quantization-worker-manager';
 import {Vector} from '@/services/math/geometry';
 import type {AppSlice} from '@/stores/app-slice';
@@ -84,7 +88,7 @@ export interface ColorMixerSlice {
     samplingArea: SamplingArea | null
   ) => Promise<void>;
   setColorPickerPipette: (colorPickerPipette: SamplingArea | null) => void;
-  buildPalette: () => Promise<number | undefined>;
+  buildPalette: (maxColors: number) => Promise<number | undefined>;
   abortBuildPalette: () => void;
 }
 
@@ -151,6 +155,7 @@ export const createColorMixerSlice: StateCreator<
         const activeTabKey = selectedImageFile ? TabKey.ColorPicker : TabKey.Photo;
         await get().setActiveTabKey(activeTabKey, {skipUnsavedChangesCheck: true});
       }
+      get().abortBuildPalette();
       const {colorSet: prevColorSet, colorMixingChartSet, limitedColorSet} = get();
       if (!isColorSetEqual(prevColorSet, colorSet)) {
         // Derived colors stay valid while the new color set still contains them.
@@ -182,6 +187,7 @@ export const createColorMixerSlice: StateCreator<
     },
 
     setUnderlayer: async (underlayerHex: string | null): Promise<void> => {
+      get().abortBuildPalette();
       const {
         targetColorHex,
         motherColorId,
@@ -218,6 +224,7 @@ export const createColorMixerSlice: StateCreator<
       if (persist) {
         await get().saveAppSettings({colorPickerSurfaceHex: surfaceHex});
       }
+      get().abortBuildPalette();
       const {
         targetColorHex,
         motherColorId,
@@ -253,6 +260,7 @@ export const createColorMixerSlice: StateCreator<
       if (persist) {
         await get().saveAppSettings({colorPickerLayeringEnabled: layeringEnabled});
       }
+      get().abortBuildPalette();
       const {targetColorHex, motherColorId} = get();
       set({
         colorMatches: [],
@@ -271,6 +279,7 @@ export const createColorMixerSlice: StateCreator<
     },
 
     setMotherColor: async (motherColorId: ColorId | null): Promise<void> => {
+      get().abortBuildPalette();
       const {
         targetColorHex,
         appSettings: {colorPickerLayeringEnabled},
@@ -334,7 +343,7 @@ export const createColorMixerSlice: StateCreator<
       });
     },
 
-    buildPalette: async (): Promise<number | undefined> => {
+    buildPalette: async (maxColors: number): Promise<number | undefined> => {
       get().abortBuildPalette();
       const {
         originalImage,
@@ -349,18 +358,22 @@ export const createColorMixerSlice: StateCreator<
           originalImage,
           ResizeImage.resizeToPixelCount(IMAGE_SIZE.SD)
         );
+        if (signal.aborted) {
+          resizedImage.close();
+          signal.throwIfAborted();
+        }
         const {width: resizeWidth, height: resizeHeight} = resizedImage;
-        const {width: origWidth, height: origHeight} = originalImage;
-        const originalImageSamplingPoints: SamplingPoint[] = (
-          await colorQuantizationWorker.run(
-            worker => worker.getSamplingPoints(transfer(resizedImage, [resizedImage])),
-            signal
-          )
-        ).map(({x, y, ...rest}) => ({
-          x: clamp(Math.round(x / (resizeWidth / origWidth)), 0, origWidth - 1),
-          y: clamp(Math.round(y / (resizeHeight / origHeight)), 0, origHeight - 1),
-          ...rest,
-        }));
+        const samplingPoints = await colorQuantizationWorker.run(
+          worker => worker.getSamplingPoints(transfer(resizedImage, [resizedImage]), maxColors * 2),
+          signal
+        );
+        signal.throwIfAborted();
+        const originalImageSamplingPoints = sampleOriginalImagePixels(
+          originalImage,
+          samplingPoints,
+          resizeWidth,
+          resizeHeight
+        );
 
         const targetColors: RgbTuple[] = originalImageSamplingPoints.map(({rgb}) => rgb);
         const colorMatches: (ColorMatch | undefined)[] = await abortablePromise(
@@ -368,7 +381,6 @@ export const createColorMixerSlice: StateCreator<
           signal
         );
 
-        // Replace image RGB with matched paint RGB for perceptual merging.
         const paintPoints: SamplingPointWithColorMatch[] = [];
         for (const [index, samplingPoint] of originalImageSamplingPoints.entries()) {
           const colorMatch = colorMatches[index];
@@ -377,13 +389,16 @@ export const createColorMixerSlice: StateCreator<
           }
           const paintPoint: SamplingPointWithColorMatch = {
             ...samplingPoint,
-            rgb: colorMatch.colorMixture.layerRgb,
             colorMatch,
           };
           paintPoints.push(paintPoint);
         }
 
-        const mergedPoints: SamplingPointWithColorMatch[] = mergeSimilarSamplingPoints(paintPoints);
+        const selectedPoints: SamplingPointWithColorMatch[] = selectSamplingPoints(
+          paintPoints,
+          maxColors,
+          point => point.colorMatch.colorMixture.layerRgb
+        );
 
         const imageDimension = ZoomableImageCanvas.imageDimension(originalImage);
         const paletteEntries: SaveToPaletteEntry[] = [];
@@ -391,7 +406,7 @@ export const createColorMixerSlice: StateCreator<
           x,
           y,
           colorMatch: {colorMixture},
-        } of mergedPoints) {
+        } of selectedPoints) {
           signal.throwIfAborted();
           const imagePoint = new Vector(x, y);
           const imageCenteredPoint = imagePoint.subtract(imageDimension.center);
@@ -400,7 +415,7 @@ export const createColorMixerSlice: StateCreator<
             samplingArea: {
               x: imageCenteredPoint.x,
               y: imageCenteredPoint.y,
-              diameter: 1,
+              diameter: SAMPLING_DIAMETER,
             },
           });
         }

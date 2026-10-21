@@ -20,12 +20,19 @@ import type {StateCreator} from 'zustand';
 
 import {
   deleteImageFileAndColorMixturesByDigest,
+  getImageMetadata,
   getRecentImages,
-  hasImageFile,
+  saveImageFocalPoint,
   saveNewImageFiles,
   touchImage,
 } from '@/services/db/image-file-db';
-import {type ImageFile, imageFileToFile, type RecentImage} from '@/services/image/image-file';
+import {
+  type ImageFile,
+  imageFileToFile,
+  type ImageMetadata,
+  type RecentImage,
+  withFocalPoint,
+} from '@/services/image/image-file';
 import {fetchSampleImageFile, type SampleImageDefinition} from '@/services/image/sample-images';
 import type {AppSlice} from '@/stores/app-slice';
 import type {CloudSlice} from '@/stores/cloud-slice';
@@ -58,6 +65,13 @@ export function registerOriginalImageDependency(dependency: ImageDependency): vo
   originalImageDependencies.register(dependency);
 }
 
+function isFocalPointEqual(
+  a: ImageMetadata['focalPoint'],
+  b: ImageMetadata['focalPoint']
+): boolean {
+  return a?.x === b?.x && a?.y === b?.y;
+}
+
 function toImageFile(image: RecentImage): ImageFile | null {
   const {blob} = image;
   return blob ? {...image, blob} : null;
@@ -85,6 +99,10 @@ export interface OriginalImageSlice {
   loadMoreRecentImages: () => Promise<void>;
   selectLatestImageFile: () => Promise<void>;
   saveRecentImageFile: (imageFile: ImageFile) => Promise<void>;
+  saveImageFocalPoint: (
+    digest: string,
+    focalPoint: ImageMetadata['focalPoint'] | null
+  ) => Promise<void>;
   deleteRecentImage: (digest: string, options?: {scheduleCloudPush?: boolean}) => Promise<void>;
   loadSampleImage: (sampleImage: SampleImageDefinition) => Promise<void>;
 }
@@ -93,7 +111,10 @@ type OriginalImageSliceDependencies = Pick<TabSlice, 'setActiveTabKey'> &
   Pick<ColorMixerSlice, 'colorSet' | 'setTargetColor' | 'setUnderlayer'> &
   Pick<
     PaletteSlice,
-    'paletteColorMixtures' | 'selectedPaletteColorMixtures' | 'loadPaletteColorMixtures'
+    | 'paletteColorMixtures'
+    | 'selectedPaletteColorMixtures'
+    | 'selectedTonalValue'
+    | 'loadPaletteColorMixtures'
   > &
   Pick<AppSlice, 'saveStoreChangeTokens'> &
   Pick<CloudSlice, 'pushCloudState'>;
@@ -116,6 +137,8 @@ export const createOriginalImageSlice: StateCreator<
       });
     },
   });
+
+  let pendingFocalPointSaves = 0;
 
   const replaceRecentImages = async (limit: number): Promise<void> => {
     const {images, hasMore} = await getRecentImages(0, limit);
@@ -167,12 +190,23 @@ export const createOriginalImageSlice: StateCreator<
         });
       }
       const {selectedImageFile} = get();
-      if (
-        selectedImageFile &&
-        !(await hasImageFile(selectedImageFile.digest)) &&
-        get().selectedImageFile === selectedImageFile
-      ) {
+      if (!selectedImageFile) {
+        return;
+      }
+      const imageMetadata = await getImageMetadata(selectedImageFile.digest);
+      if (get().selectedImageFile !== selectedImageFile) {
+        return;
+      }
+      if (!imageMetadata) {
         await get().selectImageFile(null, {setActiveTabKey: false});
+      } else if (
+        !pendingFocalPointSaves &&
+        !isFocalPointEqual(imageMetadata.focalPoint, selectedImageFile.focalPoint)
+      ) {
+        set({
+          selectedImageFile: withFocalPoint(selectedImageFile, imageMetadata.focalPoint ?? null),
+        });
+        originalImageDependencies.metadataChanged();
       }
     },
 
@@ -293,6 +327,7 @@ export const createOriginalImageSlice: StateCreator<
               originalImage,
               paletteColorMixtures: new Map(),
               selectedPaletteColorMixtures: new Map(),
+              selectedTonalValue: null,
             });
             prevImage?.close();
           } catch (error) {
@@ -334,6 +369,26 @@ export const createOriginalImageSlice: StateCreator<
         });
       }
       await get().selectImageFile(imageFile);
+    },
+
+    saveImageFocalPoint: async (
+      digest: string,
+      focalPoint: ImageMetadata['focalPoint'] | null
+    ): Promise<void> => {
+      pendingFocalPointSaves++;
+      try {
+        await persistChange(get, () => saveImageFocalPoint(digest, focalPoint));
+      } finally {
+        pendingFocalPointSaves--;
+      }
+      set(({recentImages, selectedImageFile}) => ({
+        recentImages: recentImages.map(image =>
+          image.digest === digest ? withFocalPoint(image, focalPoint) : image
+        ),
+        ...(selectedImageFile?.digest === digest
+          ? {selectedImageFile: withFocalPoint(selectedImageFile, focalPoint)}
+          : {}),
+      }));
     },
 
     deleteRecentImage: async (

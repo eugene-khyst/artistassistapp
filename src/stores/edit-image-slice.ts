@@ -199,7 +199,9 @@ export const createEditImageSlice: StateCreator<
   const applyImageEditorReset = (transition: number): void => {
     imageEditorControls.resetAll();
     if (transition === imageEditorTransition.id) {
-      set({activeImageEditorKey: undefined});
+      set({
+        activeImageEditorKey: undefined,
+      });
     }
   };
 
