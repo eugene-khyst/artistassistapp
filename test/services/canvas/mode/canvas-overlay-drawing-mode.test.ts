@@ -16,6 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Rectangle, Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
+import type * as graphics from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
+import {IMAGE_SIZE} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 import {beforeEach, describe, expect, it, vi} from 'vitest';
 
 import type {
@@ -23,16 +26,16 @@ import type {
   ImageCanvasRenderingContext,
 } from '@/services/canvas/mode/canvas-mode';
 import {CanvasOverlayDrawingMode} from '@/services/canvas/mode/canvas-overlay-drawing-mode';
-import {Rectangle, Vector} from '@/services/math/geometry';
-import type * as graphics from '@/utils/graphics';
-import {IMAGE_SIZE} from '@/utils/graphics';
 
 const invertMocks = vi.hoisted(() => ({invertColorsWebGL: vi.fn()}));
 
-vi.mock('@/services/image/filter/invert-colors-webgl', () => invertMocks);
+vi.mock(
+  '@eugene-khyst/artistassistapp-image-processing/filter/invert-colors-webgl',
+  () => invertMocks
+);
 
 // The production helper returns a canvas unchanged, which is all these images need to be.
-vi.mock('@/utils/graphics', async importOriginal => ({
+vi.mock('@eugene-khyst/artistassistapp-image-processing/utils/graphics', async importOriginal => ({
   ...(await importOriginal<typeof graphics>()),
   toOffscreenCanvas: (image: unknown) => image,
 }));

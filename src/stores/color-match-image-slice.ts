@@ -17,9 +17,9 @@
  */
 
 import type {RgbTuple} from '@eugene-khyst/artistassistapp-color-mixer';
+import {matchColor} from '@eugene-khyst/artistassistapp-image-processing/match-color';
 import type {StateCreator} from 'zustand';
 
-import {matchColor} from '@/services/image/match-color';
 import {
   type OriginalImageSlice,
   registerOriginalImageDependency,

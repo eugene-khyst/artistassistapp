@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {TonalValue} from '@eugene-khyst/artistassistapp-image-processing/color/tonal-value';
 import {expect, it, vi} from 'vitest';
 import {createStore} from 'zustand/vanilla';
 
-import {TonalValue} from '@/services/color/tonal-value';
 import {createPaletteSlice} from '@/stores/palette-slice';
 
 type TestStore = ReturnType<Parameters<typeof createPaletteSlice>[1]>;

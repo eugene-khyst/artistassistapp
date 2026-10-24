@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {adjustColors} from '@eugene-khyst/artistassistapp-image-processing/adjust-colors';
 import {afterEach, describe, expect, it, vi} from 'vitest';
 
-import {adjustColors} from '@/services/image/adjust-colors';
 import {
   AdjustColorsWhiteBalanceMethod,
   adjustmentParameters,
@@ -37,7 +37,9 @@ import {SharpenMode} from '@/services/image/sharpen-controls';
 const expansionMocks = vi.hoisted(() => ({drawExpandedImage: vi.fn()}));
 const sharpenMocks = vi.hoisted(() => ({sharpen: vi.fn()}));
 
-vi.mock('@/services/image/adjust-colors', () => ({adjustColors: vi.fn()}));
+vi.mock('@eugene-khyst/artistassistapp-image-processing/adjust-colors', () => ({
+  adjustColors: vi.fn(),
+}));
 vi.mock('@/services/image/expand-image', async importOriginal => ({
   ...(await importOriginal<Record<string, unknown>>()),
   ...expansionMocks,

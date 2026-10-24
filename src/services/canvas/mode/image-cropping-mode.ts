@@ -17,9 +17,9 @@
  */
 
 import {clamp} from '@eugene-khyst/artistassistapp-color-mixer';
+import {Rectangle, Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
 
 import {type CropAspectRatio, ORIGINAL_CROP_ASPECT_RATIO} from '@/services/image/aspect-ratio';
-import {Rectangle, Vector} from '@/services/math/geometry';
 
 export {type CropAspectRatio, ORIGINAL_CROP_ASPECT_RATIO} from '@/services/image/aspect-ratio';
 

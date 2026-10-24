@@ -17,15 +17,15 @@
  */
 
 import {clamp} from '@eugene-khyst/artistassistapp-color-mixer';
-
-import {type ExpandControls, ExpandMode, fullImageMargin} from '@/services/image/expand-controls';
-import {Rectangle, Vector} from '@/services/math/geometry';
+import {Rectangle, Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
 import {
   aspectRatioSize,
   type DrawImageSource,
   type ImageDimension,
   scaleToPixelCount,
-} from '@/utils/graphics';
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
+
+import {type ExpandControls, ExpandMode, fullImageMargin} from '@/services/image/expand-controls';
 
 export interface ImageExpansion {
   bounds: Rectangle;

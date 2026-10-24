@@ -1,7 +1,6 @@
 import {fileURLToPath} from 'node:url';
 
 import {playwright} from '@vitest/browser-playwright';
-import glsl from 'vite-plugin-glsl';
 import {defineConfig} from 'vitest/config';
 
 const alias = {'@': fileURLToPath(new URL('./src', import.meta.url))};
@@ -22,10 +21,10 @@ export default defineConfig({
           include: ['./test/**/*.test.ts'],
           exclude: ['./test/**/*.browser.test.ts'],
           setupFiles: ['./test/setup.ts'],
+          server: {deps: {inline: ['@eugene-khyst/artistassistapp-image-processing']}},
         },
       },
       {
-        plugins: [glsl({minify: true})],
         resolve: {alias},
         test: {
           name: 'browser',

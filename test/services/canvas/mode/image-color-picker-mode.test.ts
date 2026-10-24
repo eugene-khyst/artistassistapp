@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Rectangle, Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
 import {describe, expect, it, vi} from 'vitest';
 
 import type {
@@ -28,7 +29,6 @@ import {
   ImageColorPickerMode,
   type PipettePointSetEvent,
 } from '@/services/canvas/mode/image-color-picker-mode';
-import {Rectangle, Vector} from '@/services/math/geometry';
 
 describe('ImageColorPickerMode', () => {
   it('dims markers without changing their hit areas or the opacity of later drawing', () => {

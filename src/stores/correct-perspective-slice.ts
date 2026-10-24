@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
 import type {StateCreator} from 'zustand';
 
 import {formatFetchProgress} from '@/i18n';
@@ -23,7 +24,6 @@ import {ImageEditorKey} from '@/image-editor';
 import {hasAccessTo} from '@/services/auth/utils';
 import {detectDocumentCorners} from '@/services/image/correct-perspective';
 import {commandVertices, EditImageCommandType} from '@/services/image/edit-image-command';
-import type {Vector} from '@/services/math/geometry';
 import type {OnnxModel} from '@/services/ml/types';
 import type {AuthSlice} from '@/stores/auth-slice';
 import type {EditImageSlice} from '@/stores/edit-image-slice';

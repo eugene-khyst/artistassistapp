@@ -30,6 +30,7 @@ import {
   type ColorType,
   decorateSortUndecorate,
 } from '@eugene-khyst/artistassistapp-color-mixer';
+import {matchesTonalValue} from '@eugene-khyst/artistassistapp-image-processing/color/tonal-value';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Card, Col, Dropdown, Empty, Flex, Popconfirm, Row, Space, Typography} from 'antd';
 import type {MenuProps} from 'antd/lib';
@@ -43,7 +44,6 @@ import {COLOR_MIXTURE_SORT_LABELS} from '@/components/messages';
 import {PaletteColorsDrawer} from '@/components/palette/PaletteColorsDrawer';
 import {TonalValueFilter} from '@/components/tonal-value/TonalValueFilter';
 import {TonalValueTag} from '@/components/tonal-value/TonalValueTag';
-import {matchesTonalValue} from '@/services/color/tonal-value';
 import {useAppStore} from '@/stores/app-store';
 
 interface Props {

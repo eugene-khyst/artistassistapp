@@ -16,6 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {inpaintingPatchRectangle} from '@eugene-khyst/artistassistapp-image-processing/inpainting-patch';
+import {
+  DrawImage,
+  imageToBlob,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 import type {StateCreator} from 'zustand';
 
 import {formatFetchProgress} from '@/i18n';
@@ -39,7 +44,6 @@ import {
   type ImageExpansion,
 } from '@/services/image/expand-image';
 import {inpaintImage} from '@/services/image/inpaint';
-import {inpaintingPatchRectangle} from '@/services/image/inpainting-patch';
 import type {OnnxModel} from '@/services/ml/types';
 import type {AppSettings} from '@/services/settings/types';
 import type {AppSlice} from '@/stores/app-slice';
@@ -47,7 +51,6 @@ import type {AuthSlice} from '@/stores/auth-slice';
 import type {EditImageSlice} from '@/stores/edit-image-slice';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
 import type {FetchProgressCallback} from '@/utils/fetch';
-import {DrawImage, imageToBlob} from '@/utils/graphics';
 import {createAbortError} from '@/utils/promise';
 
 export interface ExpandSlice {

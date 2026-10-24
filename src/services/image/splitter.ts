@@ -16,9 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {IMAGE_SIZE} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
+
 import {PAPER_SIZES} from '@/services/print/print';
 import {PageOrientation, type PaperDimension, type PaperSize} from '@/services/print/types';
-import {IMAGE_SIZE} from '@/utils/graphics';
 
 const MAX_CANVAS_SIZE = 8192;
 

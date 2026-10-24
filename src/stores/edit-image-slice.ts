@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {imageToBlob} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 import type {StateCreator} from 'zustand';
 
 import {ImageEditorKey} from '@/image-editor';
@@ -25,7 +26,6 @@ import type {AppSlice} from '@/stores/app-slice';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
 import {createAbortableOperation} from '@/utils/abortable-operation';
 import {getFilename} from '@/utils/filename';
-import {imageToBlob} from '@/utils/graphics';
 import {isAlphaMimeType} from '@/utils/mime';
 
 const FILENAME_SUFFIX = 'edited';

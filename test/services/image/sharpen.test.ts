@@ -27,13 +27,15 @@ const mocks = vi.hoisted(() => ({
   unsharpMaskWebGL: vi.fn(),
 }));
 
-vi.mock('@/services/image/filter/high-pass-webgl', () => ({
+vi.mock('@eugene-khyst/artistassistapp-image-processing/filter/high-pass-webgl', () => ({
   highPassWebGL: mocks.highPassWebGL,
 }));
-vi.mock('@/services/image/filter/unsharp-mask-webgl', () => ({
+vi.mock('@eugene-khyst/artistassistapp-image-processing/filter/unsharp-mask-webgl', () => ({
   unsharpMaskWebGL: mocks.unsharpMaskWebGL,
 }));
-vi.mock('@/utils/graphics', () => ({toOffscreenCanvas: mocks.toOffscreenCanvas}));
+vi.mock('@eugene-khyst/artistassistapp-image-processing/utils/graphics', () => ({
+  toOffscreenCanvas: mocks.toOffscreenCanvas,
+}));
 
 afterEach(() => {
   vi.clearAllMocks();

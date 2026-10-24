@@ -17,9 +17,13 @@
  */
 
 import {unlinearizeRgbChannel, writeRgbToXyz} from '@eugene-khyst/artistassistapp-color-mixer';
+import {colorizeWebGL} from '@eugene-khyst/artistassistapp-image-processing/filter/colorize-webgl';
+import {
+  drawImageToOffscreenCanvas,
+  offscreenCanvasToBlob,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 
 import {type Authentication} from '@/services/auth/types';
-import {colorizeWebGL} from '@/services/image/filter/colorize-webgl';
 import {
   getModelInputDrawImageParamsSupplier,
   imageBitmapToImageData,
@@ -29,7 +33,6 @@ import {imageDataToFloat32Tensor} from '@/services/ml/tensor';
 import {type OnnxModel} from '@/services/ml/types';
 import {runInferenceWorker} from '@/services/ml/worker/inference-worker-manager';
 import {type FetchProgressCallback} from '@/utils/fetch';
-import {drawImageToOffscreenCanvas, offscreenCanvasToBlob} from '@/utils/graphics';
 
 export async function createColorizedImage({
   image,

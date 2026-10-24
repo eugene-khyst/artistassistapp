@@ -22,9 +22,9 @@ import {
   computeIfAbsentInMap,
   type SamplingArea,
 } from '@eugene-khyst/artistassistapp-color-mixer';
+import type {TonalValue} from '@eugene-khyst/artistassistapp-image-processing/color/tonal-value';
 import type {StateCreator} from 'zustand';
 
-import type {TonalValue} from '@/services/color/tonal-value';
 import {
   deleteColorMixture,
   getColorMixturesByDigest,

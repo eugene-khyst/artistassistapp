@@ -31,6 +31,8 @@ import {
   Layering,
   rgbToHex,
 } from '@eugene-khyst/artistassistapp-color-mixer';
+import {matchesTonalValue} from '@eugene-khyst/artistassistapp-image-processing/color/tonal-value';
+import {Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
 import {Plural, Trans, useLingui} from '@lingui/react/macro';
 import {
   App,
@@ -71,8 +73,6 @@ import {
   MIN_COLOR_PICKER_DIAMETER,
   type PipettePointSetEvent,
 } from '@/services/canvas/mode/image-color-picker-mode';
-import {matchesTonalValue} from '@/services/color/tonal-value';
-import {Vector} from '@/services/math/geometry';
 import {ColorPickerSort} from '@/services/settings/types';
 import {useAppStore} from '@/stores/app-store';
 

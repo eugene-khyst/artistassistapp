@@ -16,9 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {RgbChannelsPercentileCalculator} from '@eugene-khyst/artistassistapp-image-processing/rgb-channels-percentile';
 import {type Remote, wrap} from 'comlink';
-
-import type {RgbChannelsPercentileCalculator} from '@/services/image/rgb-channels-percentile';
 
 let calculator: Remote<RgbChannelsPercentileCalculator> | null = null;
 

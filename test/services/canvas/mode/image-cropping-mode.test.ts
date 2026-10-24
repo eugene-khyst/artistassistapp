@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Rectangle, Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
 import {describe, expect, it, vi} from 'vitest';
 
 import type {CanvasModeContext, CanvasPointer} from '@/services/canvas/mode/canvas-mode';
@@ -23,9 +24,8 @@ import {
   ImageCroppingMode,
   ORIGINAL_CROP_ASPECT_RATIO,
 } from '@/services/canvas/mode/image-cropping-mode';
-import {Rectangle, Vector} from '@/services/math/geometry';
 
-vi.mock('@/services/image/filter/invert-colors-webgl', () => ({
+vi.mock('@eugene-khyst/artistassistapp-image-processing/filter/invert-colors-webgl', () => ({
   invertColorsWebGL: vi.fn(),
 }));
 

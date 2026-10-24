@@ -16,6 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  createImageBitmapAndResize,
+  IMAGE_SIZE,
+  ResizeImage,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 import type {StateCreator} from 'zustand';
 
 import {
@@ -44,7 +49,6 @@ import {persistChange} from '@/stores/sync/persist-change';
 import {TabKey} from '@/tabs';
 import {createAbortableOperation} from '@/utils/abortable-operation';
 import {containsSequence} from '@/utils/array';
-import {createImageBitmapAndResize, IMAGE_SIZE, ResizeImage} from '@/utils/graphics';
 import {isAbortError} from '@/utils/promise';
 
 import type {ColorMixerSlice} from './color-mixer-slice';

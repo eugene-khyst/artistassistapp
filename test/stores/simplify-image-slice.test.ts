@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import {createStore} from 'zustand/vanilla';
 
 import type {ImageFile} from '@/services/image/image-file';
-import {Vector} from '@/services/math/geometry';
 import type {ImageDependency} from '@/stores/registry/image-dependency-registry';
 import {createSimplifyImageSlice} from '@/stores/simplify-image-slice';
 
@@ -30,7 +30,7 @@ const operations = vi.hoisted(() => ({
   registerOriginalImageDependency: vi.fn(),
 }));
 
-vi.mock('@/services/image/simplify-image', () => ({
+vi.mock('@eugene-khyst/artistassistapp-image-processing/simplify-image', () => ({
   simplifyImage: operations.simplifyImage,
   applyFocalPointToSimplifiedImage: operations.applyFocalPointToSimplifiedImage,
 }));

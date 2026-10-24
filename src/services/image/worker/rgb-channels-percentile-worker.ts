@@ -18,8 +18,7 @@
 
 /// <reference lib="WebWorker" />
 
+import {RgbChannelsPercentileCalculator} from '@eugene-khyst/artistassistapp-image-processing/rgb-channels-percentile';
 import * as Comlink from 'comlink';
-
-import {RgbChannelsPercentileCalculator} from '@/services/image/rgb-channels-percentile';
 
 Comlink.expose(new RgbChannelsPercentileCalculator());

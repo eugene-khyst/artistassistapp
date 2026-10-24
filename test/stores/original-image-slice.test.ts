@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {TonalValue} from '@eugene-khyst/artistassistapp-image-processing/color/tonal-value';
 import {afterEach, describe, expect, it, vi} from 'vitest';
 import {createStore} from 'zustand/vanilla';
 
-import {TonalValue} from '@/services/color/tonal-value';
 import type {ImageFile, RecentImage} from '@/services/image/image-file';
 import type {AppSlice} from '@/stores/app-slice';
 import type {CloudSlice} from '@/stores/cloud-slice';

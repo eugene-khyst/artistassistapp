@@ -16,15 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {interpolationWebGL} from '@eugene-khyst/artistassistapp-image-processing/filter/interpolation-webgl';
+import {Interpolation} from '@eugene-khyst/artistassistapp-image-processing/filter/types';
+import {Rectangle, Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
+import {
+  DrawImage,
+  drawImageToOffscreenCanvas,
+  IMAGE_SIZE,
+  padTile,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
+
 import type {Authentication} from '@/services/auth/types';
-import {interpolationWebGL} from '@/services/image/filter/interpolation-webgl';
-import {Interpolation} from '@/services/image/filter/types';
-import {Rectangle, Vector} from '@/services/math/geometry';
 import {transformImageInSession} from '@/services/ml/image-transformer';
 import type {OnnxModel} from '@/services/ml/types';
 import {withInferenceSession} from '@/services/ml/worker/inference-worker-manager';
 import {type FetchProgressCallback, PROCESSING_PROGRESS_KEY} from '@/utils/fetch';
-import {DrawImage, drawImageToOffscreenCanvas, IMAGE_SIZE, padTile} from '@/utils/graphics';
 
 export interface TileSpan {
   start: number;

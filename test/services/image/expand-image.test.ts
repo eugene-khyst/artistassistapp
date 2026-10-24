@@ -17,6 +17,7 @@
  */
 
 import type {Fraction} from '@eugene-khyst/artistassistapp-color-mixer';
+import {Rectangle, Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
 import {afterEach, describe, expect, it, vi} from 'vitest';
 
 import {
@@ -26,7 +27,6 @@ import {
   ExpandMode,
 } from '@/services/image/expand-controls';
 import {createExpansionMask, getImageExpansion} from '@/services/image/expand-image';
-import {Rectangle, Vector} from '@/services/math/geometry';
 
 function mockOffscreenCanvas(): ReturnType<typeof vi.fn> {
   const fillRect = vi.fn();

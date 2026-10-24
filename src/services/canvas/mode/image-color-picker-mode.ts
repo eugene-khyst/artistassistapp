@@ -23,10 +23,14 @@ import {
   type RgbTuple,
   WHITE,
 } from '@eugene-khyst/artistassistapp-color-mixer';
+import {Rectangle, Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
+import {
+  type DrawImageSource,
+  drawImageToOffscreenCanvas,
+  getAverageColor,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 
 import {EventManager} from '@/services/event/event-manager';
-import {Rectangle, Vector} from '@/services/math/geometry';
-import {type DrawImageSource, drawImageToOffscreenCanvas, getAverageColor} from '@/utils/graphics';
 
 import {BaseCanvasMode, type CanvasPointer, type ImageCanvasRenderingContext} from './canvas-mode';
 

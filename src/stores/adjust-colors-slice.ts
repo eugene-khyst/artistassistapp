@@ -16,6 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  IMAGE_SIZE,
+  ResizeImage,
+  resizeImageBitmap,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 import {transfer} from 'comlink';
 import type {StateCreator} from 'zustand';
 
@@ -30,7 +35,6 @@ import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit
 import {getRgbChannelsPercentileCalculator} from '@/services/image/worker/rgb-channels-percentile-worker-manager';
 import type {EditImageCommandSupplier, EditImageSlice} from '@/stores/edit-image-slice';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
-import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
 
 // Auto White Balance ignores this share of pixels at each end of every channel.
 const AUTO_WHITE_BALANCE_CLIP = 0.006;

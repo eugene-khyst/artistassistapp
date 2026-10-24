@@ -17,6 +17,8 @@
  */
 
 import {PrinterOutlined} from '@ant-design/icons';
+import {LENGTH_UNITS} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
+import {LengthUnit} from '@eugene-khyst/artistassistapp-image-processing/math/types';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Drawer, Form, Input, InputNumber, Radio, Select, Space} from 'antd';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
@@ -32,8 +34,6 @@ import {
   splitImageIntoPagesPreview,
   TargetSizeError,
 } from '@/services/image/splitter';
-import {LENGTH_UNITS} from '@/services/math/geometry';
-import {LengthUnit} from '@/services/math/types';
 import {PAPER_SIZES, printImages} from '@/services/print/print';
 import {PaperSize} from '@/services/print/types';
 

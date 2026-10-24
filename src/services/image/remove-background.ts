@@ -16,13 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {interpolationWebGL} from '@eugene-khyst/artistassistapp-image-processing/filter/interpolation-webgl';
+import {Interpolation} from '@eugene-khyst/artistassistapp-image-processing/filter/types';
+import {
+  applyMask,
+  type DrawImageSource,
+  toOffscreenCanvas,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
+
 import type {Authentication} from '@/services/auth/types';
-import {interpolationWebGL} from '@/services/image/filter/interpolation-webgl';
-import {Interpolation} from '@/services/image/filter/types';
 import {transformImage} from '@/services/ml/image-transformer';
 import type {OnnxModel} from '@/services/ml/types';
 import type {FetchProgressCallback} from '@/utils/fetch';
-import {applyMask, type DrawImageSource, toOffscreenCanvas} from '@/utils/graphics';
 
 export async function createBackgroundMask(
   image: ImageBitmap,

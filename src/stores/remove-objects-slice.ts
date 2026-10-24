@@ -16,6 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  inpaintingWindowSquare,
+  polygonPatchRectangle,
+} from '@eugene-khyst/artistassistapp-image-processing/inpainting-patch';
+import {Rectangle, Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
+import {
+  createPolygonMask,
+  DrawImage,
+  drawImageToOffscreenCanvas,
+  imageToBlob,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 import type {StateCreator} from 'zustand';
 
 import {formatFetchProgress} from '@/i18n';
@@ -24,19 +35,11 @@ import type {Authentication} from '@/services/auth/types';
 import {hasAccessTo} from '@/services/auth/utils';
 import {commandVertices, EditImageCommandType} from '@/services/image/edit-image-command';
 import {inpaintImage} from '@/services/image/inpaint';
-import {inpaintingWindowSquare, polygonPatchRectangle} from '@/services/image/inpainting-patch';
-import {Rectangle, Vector} from '@/services/math/geometry';
 import type {OnnxModel} from '@/services/ml/types';
 import type {AuthSlice} from '@/stores/auth-slice';
 import type {EditImageSlice} from '@/stores/edit-image-slice';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
 import type {FetchProgressCallback} from '@/utils/fetch';
-import {
-  createPolygonMask,
-  DrawImage,
-  drawImageToOffscreenCanvas,
-  imageToBlob,
-} from '@/utils/graphics';
 import {createAbortError} from '@/utils/promise';
 
 const INPAINTING_WINDOW_PATCH_SCALE = 2;

@@ -17,11 +17,11 @@
  */
 
 import type {RgbTuple} from '@eugene-khyst/artistassistapp-color-mixer';
+import {getRgbTonalValue} from '@eugene-khyst/artistassistapp-image-processing/color/tonal-value';
 import {useLingui} from '@lingui/react/macro';
 import {Tag} from 'antd';
 
 import {TAB_LABELS, TONAL_VALUE_LABELS} from '@/components/messages';
-import {getRgbTonalValue} from '@/services/color/tonal-value';
 import {useAppStore} from '@/stores/app-store';
 import {TabKey} from '@/tabs';
 

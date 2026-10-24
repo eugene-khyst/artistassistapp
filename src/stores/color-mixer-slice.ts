@@ -26,26 +26,30 @@ import {
   type RgbTuple,
   type SamplingArea,
 } from '@eugene-khyst/artistassistapp-color-mixer';
-import {transfer} from 'comlink';
-import type {StateCreator} from 'zustand';
-
-import {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
-import {colorMixer} from '@/services/color/worker/color-mixer-worker-manager';
+import {Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
 import {
   sampleOriginalImagePixels,
   SAMPLING_DIAMETER,
   type SamplingPoint,
   selectSamplingPoints,
-} from '@/services/image/sampling-point';
+} from '@eugene-khyst/artistassistapp-image-processing/sampling-point';
+import {
+  IMAGE_SIZE,
+  ResizeImage,
+  resizeImageBitmap,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
+import {transfer} from 'comlink';
+import type {StateCreator} from 'zustand';
+
+import {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
+import {colorMixer} from '@/services/color/worker/color-mixer-worker-manager';
 import {colorQuantizationWorker} from '@/services/image/worker/color-quantization-worker-manager';
-import {Vector} from '@/services/math/geometry';
 import type {AppSlice} from '@/stores/app-slice';
 import type {ColorMixingChartSlice} from '@/stores/color-mixing-chart-slice';
 import type {LimitedPaletteImageSlice} from '@/stores/limited-palette-image-slice';
 import type {PaletteSlice, SaveToPaletteEntry} from '@/stores/palette-slice';
 import {TabKey} from '@/tabs';
 import {createAbortableOperation} from '@/utils/abortable-operation';
-import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
 import {abortablePromise} from '@/utils/promise';
 
 import {type OriginalImageSlice, registerOriginalImageDependency} from './original-image-slice';

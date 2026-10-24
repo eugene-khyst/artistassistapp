@@ -34,6 +34,7 @@ import {
   rgbToHex,
   WHITE_HEX,
 } from '@eugene-khyst/artistassistapp-color-mixer';
+import {noop} from '@eugene-khyst/artistassistapp-image-processing/utils/function';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {useQueryClient} from '@tanstack/react-query';
 import {
@@ -76,7 +77,6 @@ import {toCustomColorBrandSource} from '@/services/cloud/cloud-state';
 import {FileExtension} from '@/services/cloud/types';
 import {useAppStore} from '@/stores/app-store';
 import {maxOf} from '@/utils/array';
-import {noop} from '@/utils/function';
 
 import styles from './CustomColorBrandCreator.module.css';
 

@@ -16,15 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Authentication} from '@/services/auth/types';
-import horizontalBrushUrl from '@/services/image/brushes/horizontal.png?url';
-import verticalBrushUrl from '@/services/image/brushes/vertical.png?url';
-import {renderBrushStrokesWebGL} from '@/services/image/filter/brush-stroke-webgl';
-import {imageBitmapToImageData} from '@/services/ml/image-transformer';
-import {type Float32Tensor, imageDataToFloat32Tensor} from '@/services/ml/tensor';
-import type {OnnxModel} from '@/services/ml/types';
-import {withInferenceSession} from '@/services/ml/worker/inference-worker-manager';
-import {type FetchProgressCallback, PROCESSING_PROGRESS_KEY} from '@/utils/fetch';
+import horizontalBrushUrl from '@eugene-khyst/artistassistapp-image-processing/brushes/horizontal.png?url';
+import verticalBrushUrl from '@eugene-khyst/artistassistapp-image-processing/brushes/vertical.png?url';
+import {renderBrushStrokesWebGL} from '@eugene-khyst/artistassistapp-image-processing/filter/brush-stroke-webgl';
 import {
   DrawImage,
   type DrawImageSource,
@@ -34,7 +28,14 @@ import {
   offscreenCanvasToImageData,
   padTile,
   toOffscreenCanvas,
-} from '@/utils/graphics';
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
+
+import type {Authentication} from '@/services/auth/types';
+import {imageBitmapToImageData} from '@/services/ml/image-transformer';
+import {imageDataToFloat32Tensor} from '@/services/ml/tensor';
+import type {OnnxModel} from '@/services/ml/types';
+import {withInferenceSession} from '@/services/ml/worker/inference-worker-manager';
+import {type FetchProgressCallback, PROCESSING_PROGRESS_KEY} from '@/utils/fetch';
 
 export const PAINTING_PATCH_SIZES = {small: 128, medium: 96, large: 64} as const;
 export type PaintingPatchSize = (typeof PAINTING_PATCH_SIZES)[keyof typeof PAINTING_PATCH_SIZES];
@@ -60,7 +61,7 @@ export async function paintImage(
   const source = offscreenCanvasToImageData(padded);
   const columns = padded.width / patchSize;
   const rows = padded.height / patchSize;
-  const strokes: Float32Tensor[] = [];
+  const strokes: Float32Array[] = [];
   await withInferenceSession({
     modelUrl: model.url,
     auth,
@@ -81,7 +82,12 @@ export async function paintImage(
           if (!output) {
             throw new Error('Painting model returned no strokes');
           }
-          strokes.push(output);
+          if (output.dims.join() !== '1,100,8') {
+            throw new Error(
+              `Painting expects strokes shaped [1, 100, 8], got [${output.dims.join(', ')}]`
+            );
+          }
+          strokes.push(output.data);
         }
       }
     },

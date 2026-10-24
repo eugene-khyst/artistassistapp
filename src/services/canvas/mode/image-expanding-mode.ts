@@ -17,6 +17,7 @@
  */
 
 import {hexToRgb, rgbToHex} from '@eugene-khyst/artistassistapp-color-mixer';
+import {Rectangle} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
 
 import {
   DEFAULT_EXPAND_CONTROLS,
@@ -24,7 +25,6 @@ import {
   ExpandFillMode,
 } from '@/services/image/expand-controls';
 import {getImageExpansion, type ImageExpansion} from '@/services/image/expand-image';
-import {Rectangle} from '@/services/math/geometry';
 
 import {BaseCanvasMode, DARKENED_AREA_COLOR, type ImageCanvasRenderingContext} from './canvas-mode';
 

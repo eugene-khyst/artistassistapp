@@ -16,13 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
+import {
+  createPolygonMask,
+  offscreenCanvasToImageData,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 import {afterEach, expect, it, vi} from 'vitest';
 
 import {inpaintImage} from '@/services/image/inpaint';
-import {Vector} from '@/services/math/geometry';
 import {PreProcessing} from '@/services/ml/types';
 import {runInferenceWorker} from '@/services/ml/worker/inference-worker-manager';
-import {createPolygonMask, offscreenCanvasToImageData} from '@/utils/graphics';
 
 vi.mock('@/services/ml/worker/inference-worker-manager', () => ({
   runInferenceWorker: vi.fn(),

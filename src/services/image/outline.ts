@@ -16,18 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Authentication} from '@/services/auth/types';
-import {computeOtsuThreshold} from '@/services/image/filter/otsu-threshold';
-import {sobelEdgeDetectionWebGL} from '@/services/image/filter/sobel-edge-detection-webgl';
-import {thresholdFilterWebGL} from '@/services/image/filter/threshold-webgl';
-import {transformImage} from '@/services/ml/image-transformer';
-import {type OnnxModel, SOBEL_EDGE_DETECTION_MODEL_ID} from '@/services/ml/types';
-import type {FetchProgressCallback} from '@/utils/fetch';
+import {computeOtsuThreshold} from '@eugene-khyst/artistassistapp-image-processing/filter/otsu-threshold';
+import {sobelEdgeDetectionWebGL} from '@eugene-khyst/artistassistapp-image-processing/filter/sobel-edge-detection-webgl';
+import {thresholdFilterWebGL} from '@eugene-khyst/artistassistapp-image-processing/filter/threshold-webgl';
 import {
   type DrawImageSource,
   offscreenCanvasToImageData,
   toOffscreenCanvas,
-} from '@/utils/graphics';
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
+
+import type {Authentication} from '@/services/auth/types';
+import {transformImage} from '@/services/ml/image-transformer';
+import {type OnnxModel, SOBEL_EDGE_DETECTION_MODEL_ID} from '@/services/ml/types';
+import type {FetchProgressCallback} from '@/utils/fetch';
 
 export async function extractOutline(
   image: DrawImageSource,

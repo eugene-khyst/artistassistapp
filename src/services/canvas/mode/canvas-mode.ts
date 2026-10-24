@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Rectangle, type Vector} from '@/services/math/geometry';
-import type {DrawImageSource} from '@/utils/graphics';
+import {Rectangle, type Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
+import type {DrawImageSource} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 
 export type ImageCanvasRenderingContext =
   CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;

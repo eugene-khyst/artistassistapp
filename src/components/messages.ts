@@ -17,12 +17,12 @@
  */
 
 import {ColorMixtureSort, ColorSort, ColorType} from '@eugene-khyst/artistassistapp-color-mixer';
+import {TonalValue} from '@eugene-khyst/artistassistapp-image-processing/color/tonal-value';
 import type {MessageDescriptor} from '@lingui/core';
 import {defineMessage} from '@lingui/core/macro';
 
 import {ImageEditorKey} from '@/image-editor';
 import {CloudProvider} from '@/services/cloud/types';
-import {TonalValue} from '@/services/color/tonal-value';
 import {TabKey} from '@/tabs';
 
 export const TAB_LABELS: Record<TabKey, MessageDescriptor> = {

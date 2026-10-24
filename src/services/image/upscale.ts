@@ -16,11 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  type ImageDimension,
+  offscreenCanvasToBlob,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
+
 import type {Authentication} from '@/services/auth/types';
 import {tileCoreSize, transformImageInTiles} from '@/services/ml/tiled-image-transformer';
 import type {OnnxModel} from '@/services/ml/types';
 import type {FetchProgressCallback} from '@/utils/fetch';
-import {type ImageDimension, offscreenCanvasToBlob} from '@/utils/graphics';
 
 const UPSCALE_MODEL_SCALE = 4;
 const UPSCALE_TILE_HALO = 48;

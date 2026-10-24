@@ -16,16 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {adjustColors} from '@/services/image/adjust-colors';
-import {adjustmentParameters, whiteBalanceLevels} from '@/services/image/adjust-colors-controls';
-import {correctPerspective} from '@/services/image/correct-perspective';
-import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit-image-command';
-import {ExpandFillMode} from '@/services/image/expand-controls';
-import {drawExpandedImage, getImageExpansion} from '@/services/image/expand-image';
-import {inpaintingPatchRectangle} from '@/services/image/inpainting-patch';
-import {removeBackground} from '@/services/image/remove-background';
-import {sharpen} from '@/services/image/sharpen';
-import {Rectangle, Vector} from '@/services/math/geometry';
+import {adjustColors} from '@eugene-khyst/artistassistapp-image-processing/adjust-colors';
+import {inpaintingPatchRectangle} from '@eugene-khyst/artistassistapp-image-processing/inpainting-patch';
+import {Rectangle, Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
 import {
   DrawImage,
   drawImageToOffscreenCanvas,
@@ -33,7 +26,15 @@ import {
   fillOffscreenCanvasBackground,
   rotateImage,
   rotateImageClockwise,
-} from '@/utils/graphics';
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
+
+import {adjustmentParameters, whiteBalanceLevels} from '@/services/image/adjust-colors-controls';
+import {correctPerspective} from '@/services/image/correct-perspective';
+import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit-image-command';
+import {ExpandFillMode} from '@/services/image/expand-controls';
+import {drawExpandedImage, getImageExpansion} from '@/services/image/expand-image';
+import {removeBackground} from '@/services/image/remove-background';
+import {sharpen} from '@/services/image/sharpen';
 
 export async function applyEditImageCommand(
   image: ImageBitmap,

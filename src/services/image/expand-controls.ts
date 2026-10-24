@@ -17,11 +17,11 @@
  */
 
 import type {Fraction} from '@eugene-khyst/artistassistapp-color-mixer';
+import type {ImageDimension} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 
 import {imageAspectRatio, imageAspectRatioLabel} from '@/services/image/aspect-ratio';
 import type {AppSettings} from '@/services/settings/types';
 import {toEnumValue} from '@/utils/enum';
-import type {ImageDimension} from '@/utils/graphics';
 
 export enum ExpandMode {
   AspectRatio = 'aspect-ratio',

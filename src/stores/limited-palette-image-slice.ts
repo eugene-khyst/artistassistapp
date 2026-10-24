@@ -24,6 +24,11 @@ import {
   filterColorSet,
   NEW_COLOR_SET,
 } from '@eugene-khyst/artistassistapp-color-mixer';
+import {
+  IMAGE_SIZE,
+  ResizeImage,
+  resizeImageBitmap,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 import {transfer} from 'comlink';
 import type {StateCreator} from 'zustand';
 
@@ -33,7 +38,6 @@ import type {ColorSetSlice} from '@/stores/color-set-slice';
 import type {TabSlice} from '@/stores/tab-slice';
 import {TabKey} from '@/tabs';
 import {createAbortableOperation} from '@/utils/abortable-operation';
-import {IMAGE_SIZE, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
 
 import {type OriginalImageSlice, registerOriginalImageDependency} from './original-image-slice';
 

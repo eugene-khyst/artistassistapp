@@ -17,8 +17,10 @@
  */
 
 import {hexToRgb, linearizeRgbChannel, WHITE_HEX} from '@eugene-khyst/artistassistapp-color-mixer';
-
-import type {AdjustmentParameters, WhiteBalanceLevels} from '@/services/image/adjust-colors';
+import type {
+  AdjustmentParameters,
+  WhiteBalanceLevels,
+} from '@eugene-khyst/artistassistapp-image-processing/adjust-colors';
 
 export enum AdjustColorsWhiteBalanceMethod {
   None = 0,

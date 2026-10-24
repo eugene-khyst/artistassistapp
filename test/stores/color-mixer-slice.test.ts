@@ -22,14 +22,14 @@ import {
   ColorType,
   type RgbTuple,
 } from '@eugene-khyst/artistassistapp-color-mixer';
+import type {SamplingPoint} from '@eugene-khyst/artistassistapp-image-processing/sampling-point';
+import type * as graphics from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import {createStore} from 'zustand/vanilla';
 
 import {type ColorQuantization} from '@/services/image/color-quantization';
-import type {SamplingPoint} from '@/services/image/sampling-point';
 import {DEFAULT_APP_SETTINGS} from '@/services/settings/types';
 import {createColorMixerSlice} from '@/stores/color-mixer-slice';
-import type * as graphics from '@/utils/graphics';
 
 const operations = vi.hoisted(() => ({
   getSamplingPoints: vi.fn(),
@@ -56,7 +56,7 @@ vi.mock('@/services/image/worker/color-quantization-worker-manager', () => ({
   },
 }));
 vi.mock('@/stores/original-image-slice', () => ({registerOriginalImageDependency: vi.fn()}));
-vi.mock('@/utils/graphics', async importOriginal => ({
+vi.mock('@eugene-khyst/artistassistapp-image-processing/utils/graphics', async importOriginal => ({
   ...(await importOriginal<typeof graphics>()),
   resizeImageBitmap: operations.resizeImageBitmap,
   drawImageToOffscreenCanvas: () => [null, {getImageData: operations.getImageData}],

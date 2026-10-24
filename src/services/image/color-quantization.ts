@@ -24,16 +24,20 @@ import {
   PAPER_WHITE,
   type RgbTuple,
 } from '@eugene-khyst/artistassistapp-color-mixer';
-import {transfer} from 'comlink';
-
-import {computeSamplingPoints, type SamplingPoint} from '@/services/image/sampling-point';
-import {drawImageToOffscreenCanvas, offscreenCanvasToImageData} from '@/utils/graphics';
-
 import {
   quantizeColors,
   quantizeColorsByTonalValue,
   rgbTransformInOklab,
-} from './filter/color-quantize';
+} from '@eugene-khyst/artistassistapp-image-processing/filter/color-quantize';
+import {
+  computeSamplingPoints,
+  type SamplingPoint,
+} from '@eugene-khyst/artistassistapp-image-processing/sampling-point';
+import {
+  drawImageToOffscreenCanvas,
+  offscreenCanvasToImageData,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
+import {transfer} from 'comlink';
 
 const MAX_LIMITED_PALETTE_COLORS = 60;
 
@@ -78,7 +82,6 @@ export class ColorQuantization {
     quantizeColors(
       imageData,
       MAX_LIMITED_PALETTE_COLORS,
-      true,
       rgbTransformInOklab((color: RgbTuple): RgbTuple =>
         computeIfAbsentInMap(
           matchedColors,

@@ -17,6 +17,12 @@
  */
 
 import {clamp} from '@eugene-khyst/artistassistapp-color-mixer';
+import {Rectangle, Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
+import {
+  type DrawImageSource,
+  fillOffscreenCanvasBackground,
+  offscreenCanvasToBlob,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 import {saveAs} from 'file-saver';
 
 import {Canvas} from '@/services/canvas/canvas';
@@ -27,12 +33,6 @@ import type {
   CanvasPointer,
 } from '@/services/canvas/mode/canvas-mode';
 import {EventManager} from '@/services/event/event-manager';
-import {Rectangle, Vector} from '@/services/math/geometry';
-import {
-  type DrawImageSource,
-  fillOffscreenCanvasBackground,
-  offscreenCanvasToBlob,
-} from '@/utils/graphics';
 
 const MIN_IMAGE_SIDE = 200;
 

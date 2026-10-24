@@ -18,8 +18,6 @@ npm run test:browser # WebGL tests (Playwright Chromium + SwiftShader)
 # Maintainer only. Never run these.
 npm run lingui:extract
 npm run translate
-npm run generate:blue-noise
-npm run generate:brushes
 ```
 
 Fix lint and formatting with `npm run lint:fix` and `npm run format:write` rather than by hand.
@@ -31,10 +29,6 @@ services, then return to `dev` without logging in again.
 Put tests in the root `test/` directory, mirroring `src/`; never under `src/`. Name a test
 `*.browser.test.ts` to run it against real WebGL2. `npm run test` deliberately omits the browser
 project, because the deploy environment cannot install Chromium; the pre-commit hook runs both.
-Shaders can only be tested there — the node project mocks every `.glsl` import, and a shader does
-not exist until the Vite GLSL plugin has resolved its `#include`s and minified it. Test a shader by
-its properties (an identity resample, a flat color, a preserved symmetry, a suppressed frequency),
-never against a second implementation of the same math in the test.
 
 Never assert on console output; silence it with a spy where a test exercises a logged failure. Mock
 at the boundary a unit talks to, and assert the value a mock was called with rather than only that
@@ -51,8 +45,9 @@ current design demonstrably cannot satisfy the requirement and the maintainer ap
 Do not inspect, assess, or report the Git index or staging status unless asked. The index is
 intentionally stale during iterative work; review the working tree.
 
-`@eugene-khyst/artistassistapp-color-mixer` may depend on a local `.tgz` while a change to the mixer
-is tested here before it is committed and pushed. Never report that dependency.
+`@eugene-khyst/artistassistapp-color-mixer` and `@eugene-khyst/artistassistapp-image-processing` may
+depend on a local `.tgz` while a change to the package is tested here before it is committed and
+pushed. Never report that dependency.
 
 ## Stores
 
@@ -129,37 +124,15 @@ Pure business logic, no React.
 - Pass a stable `sourceImageKey` to `useZoomableImageCanvas`: change it when the underlying source
   image changes, keep it stable while regenerating derived images so the user's viewport survives.
 
-### `image/filter/`
+### `image/`
 
-- Convert to `ImageBitmap` only where something takes ownership: slice state that later closes it,
-  or a Comlink call (an `OffscreenCanvas` cannot cross a worker boundary). Convert with
-  `transferToImageBitmap()`, never `createImageBitmap(canvas)`, which copies. A caller holding a
-  bitmap converts it in with `toOffscreenCanvas`, which passes a canvas straight through; a filter's
-  own `copyOffscreenCanvas(renderer.canvas)` must stay a real copy, because `cleanUp()` destroys the
-  drawing buffer right after.
-- The input is a canvas because `UNPACK_PREMULTIPLY_ALPHA_WEBGL` is ignored for `ImageBitmap`
-  sources, whose own creation-time alpha wins. Only a canvas source lets a filter declare the alpha
-  its math needs. `WebGLRenderer`'s `premultiplyAlpha` sets that declaration at both ends of the
-  pass, the upload flag and the context's `premultipliedAlpha`. Pass `true` from a filter that is
-  linear in the pixels — resample, blur, layer mix, perspective warp — and leave it off wherever the
-  shader does non-linear color work (levels, gamma, saturation, Oklab, ΔE, threshold, variance),
-  which is only correct on straight alpha. Getting this backwards is invisible on opaque images and
-  darkens the soft fringe of a cut-out subject.
-- `glsl/color-constants.glsl` is **generated** from `@eugene-khyst/artistassistapp-color-mixer` by
-  `npm run generate:glsl-constants`, and `npm run test` fails when it is stale. Never edit it, and
-  never write a color matrix, white point or luminance triple into a shader: take it from there, so
-  the GPU and the TypeScript conversions cannot disagree. Any entry shader including `oklab.glsl`,
-  `xyz.glsl`, `lab.glsl` or `luminance.glsl` must include `color-constants.glsl` ahead of it —
-  includes are flat and the plugin does not dedupe them, so a fragment cannot include it itself.
-- Texture unit 0 is reserved for the source image; bind render-pass textures from unit 1. Several
-  same-sized images upload as one `TEXTURE_2D_ARRAY`, because GLSL ES 3.00 forbids dynamic indexing
-  of sampler arrays but allows any layer coord.
-- Keep the painting brushes premultiplied: alpha carries the outline and the gray stays zero outside
-  it. A brush without an alpha channel paints opaque black rectangles, and any color left under zero
-  alpha bleeds back as a dark fringe through the mip chain.
-- Keep the `uv` bounds test in `brush-stroke.glsl`. Mip levels average away the brush's transparent
-  margin, and GLES 3.0 has no `CLAMP_TO_BORDER`, so without it one small stroke washes its whole
-  patch.
+- Filters, shaders, color quantization, sampling and `graphics` live in
+  `@eugene-khyst/artistassistapp-image-processing`; its `AGENTS.md` holds their rules. Change them
+  there, never by copying a module back into the app. Import each module by subpath.
+- Check the painting model's output shape here before passing strokes to `renderBrushStrokesWebGL`.
+- Convert a filter's canvas to `ImageBitmap` only where something takes ownership: slice state that
+  later closes it, or a Comlink call (an `OffscreenCanvas` cannot cross a worker boundary). Convert
+  with `transferToImageBitmap()`, never `createImageBitmap(canvas)`, which copies.
 
 ### `ml/`
 
@@ -258,7 +231,7 @@ Keep Valibot confined to external JSON validation. Custom-brand JSON and cloud s
 
 ## Image pipeline
 
-- `src/utils/graphics.ts` is the shared surface: use `DrawImageSource` everywhere, and chain
+- The package's `utils/graphics` is the shared surface: use `DrawImageSource` everywhere, and chain
   `DrawImage.*` suppliers through the `drawImage` option of `drawImageToOffscreenCanvas` and
   `imageToBlob` rather than computing crops at call sites.
 - `original-image-slice` downscales to 2K once at load; downstream slices resize to SD locally

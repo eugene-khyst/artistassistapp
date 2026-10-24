@@ -33,7 +33,7 @@ const graphicsMocks = vi.hoisted(() => ({
   offscreenCanvasToImageData: vi.fn(),
 }));
 
-vi.mock('@/utils/graphics', () => graphicsMocks);
+vi.mock('@eugene-khyst/artistassistapp-image-processing/utils/graphics', () => graphicsMocks);
 
 const BLUE: RgbTuple = [32, 64, 160];
 const colors: ColorSet['colors'] = [

@@ -16,6 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {TonalValue} from '@eugene-khyst/artistassistapp-image-processing/color/tonal-value';
+import {COLOR_MAP_STOP_HEXES} from '@eugene-khyst/artistassistapp-image-processing/filter/color-map-webgl';
+import {
+  TONAL_IMAGE_VALUES,
+  TONAL_VALUE_HEXES,
+} from '@eugene-khyst/artistassistapp-image-processing/tonal-values';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {type CheckboxOptionType, Flex, Grid, Radio, type RadioChangeEvent, Space} from 'antd';
 import {clsx} from 'clsx';
@@ -30,10 +36,7 @@ import {useConfirmDiscardImageEdits} from '@/hooks/useConfirmDiscardImageEdits';
 import {useImageActions} from '@/hooks/useImageActions';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
 import {NOOP_CANVAS_MODE_SUPPLIER} from '@/services/canvas/mode/canvas-mode';
-import {TonalValue} from '@/services/color/tonal-value';
-import {COLOR_MAP_STOP_HEXES} from '@/services/image/filter/color-map-webgl';
 import {imageFileToFile} from '@/services/image/image-file';
-import {TONAL_IMAGE_VALUES, TONAL_VALUE_HEXES} from '@/services/image/tonal-values';
 import {printImages} from '@/services/print/print';
 import {useAppStore} from '@/stores/app-store';
 import {TabKey} from '@/tabs';

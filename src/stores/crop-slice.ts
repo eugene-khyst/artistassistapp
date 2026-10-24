@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Rectangle, Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
 import type {StateCreator} from 'zustand';
 
 import {ImageEditorKey} from '@/image-editor';
@@ -25,7 +26,6 @@ import {
   cropAspectRatioToAppSettings,
 } from '@/services/image/crop-controls';
 import {EditImageCommandType} from '@/services/image/edit-image-command';
-import {Rectangle, Vector} from '@/services/math/geometry';
 import type {AppSettings} from '@/services/settings/types';
 import type {AppSlice} from '@/stores/app-slice';
 import type {EditImageSlice} from '@/stores/edit-image-slice';

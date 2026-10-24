@@ -16,11 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {WhiteBalanceLevels} from '@/services/image/adjust-colors';
+import type {WhiteBalanceLevels} from '@eugene-khyst/artistassistapp-image-processing/adjust-colors';
+import {Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
+
 import type {AdjustColorsControls} from '@/services/image/adjust-colors-controls';
 import type {ExpandControls} from '@/services/image/expand-controls';
 import type {SharpenControls} from '@/services/image/sharpen-controls';
-import {Vector} from '@/services/math/geometry';
 
 interface EditImagePoint {
   x: number;

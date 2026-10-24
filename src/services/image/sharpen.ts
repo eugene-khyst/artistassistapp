@@ -16,11 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {highPassWebGL} from '@/services/image/filter/high-pass-webgl';
-import type {KernelSize} from '@/services/image/filter/types';
-import {unsharpMaskWebGL} from '@/services/image/filter/unsharp-mask-webgl';
+import {highPassWebGL} from '@eugene-khyst/artistassistapp-image-processing/filter/high-pass-webgl';
+import type {KernelSize} from '@eugene-khyst/artistassistapp-image-processing/filter/types';
+import {unsharpMaskWebGL} from '@eugene-khyst/artistassistapp-image-processing/filter/unsharp-mask-webgl';
+import {
+  type DrawImageSource,
+  toOffscreenCanvas,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
+
 import {SharpenMode} from '@/services/image/sharpen-controls';
-import {type DrawImageSource, toOffscreenCanvas} from '@/utils/graphics';
 
 type SharpenStrategy = (image: DrawImageSource, strength?: number) => OffscreenCanvas;
 

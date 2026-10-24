@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Rectangle} from '@/services/math/geometry';
-import type {DrawImageSource} from '@/utils/graphics';
+import type {Rectangle} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
+import type {DrawImageSource} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 
 import type {
   CanvasDrag,

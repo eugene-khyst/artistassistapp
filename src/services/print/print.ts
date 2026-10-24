@@ -16,10 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  imageToBlob,
+  offscreenCanvasToBlob,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 import printJS from 'print-js';
 
 import {type PageOrientation, PaperSize, type PaperSizeDefinition} from '@/services/print/types';
-import {imageToBlob, offscreenCanvasToBlob} from '@/utils/graphics';
 
 export const PAPER_SIZES = new Map<PaperSize, PaperSizeDefinition>([
   [

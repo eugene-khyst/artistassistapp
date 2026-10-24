@@ -16,12 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Interpolation} from '@eugene-khyst/artistassistapp-image-processing/filter/types';
+import {Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
+import type {
+  DrawImageParams,
+  DrawImageParamsSupplier,
+  DrawImageSource,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 import {afterEach, describe, expect, it, vi} from 'vitest';
 import {createStore} from 'zustand/vanilla';
 
 import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit-image-command';
-import {Interpolation} from '@/services/image/filter/types';
-import {Vector} from '@/services/math/geometry';
 import type {AuthSlice} from '@/stores/auth-slice';
 import type {
   EditImageCommandSupplier,
@@ -29,7 +34,6 @@ import type {
   EditImageSlice,
 } from '@/stores/edit-image-slice';
 import {createRemoveObjectsSlice, type RemoveObjectsSlice} from '@/stores/remove-objects-slice';
-import type {DrawImageParams, DrawImageParamsSupplier, DrawImageSource} from '@/utils/graphics';
 
 const transformerMocks = vi.hoisted(() => ({transformImage: vi.fn()}));
 const interpolationMocks = vi.hoisted(() => ({interpolationWebGL: vi.fn()}));
@@ -42,8 +46,11 @@ const graphicsMocks = vi.hoisted(() => ({
 
 vi.mock('@/i18n', () => ({formatFetchProgress: vi.fn()}));
 vi.mock('@/services/ml/image-transformer', () => transformerMocks);
-vi.mock('@/services/image/filter/interpolation-webgl', () => interpolationMocks);
-vi.mock('@/utils/graphics', async importOriginal => ({
+vi.mock(
+  '@eugene-khyst/artistassistapp-image-processing/filter/interpolation-webgl',
+  () => interpolationMocks
+);
+vi.mock('@eugene-khyst/artistassistapp-image-processing/utils/graphics', async importOriginal => ({
   ...(await importOriginal<Record<string, unknown>>()),
   ...graphicsMocks,
 }));

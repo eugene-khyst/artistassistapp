@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {Rectangle} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
 import {type RefCallback, useCallback, useEffect, useRef, useState} from 'react';
 
 import {
@@ -23,7 +24,6 @@ import {
   type ZoomableImageCanvasProps,
 } from '@/services/canvas/image/zoomable-image-canvas';
 import type {CanvasMode} from '@/services/canvas/mode/canvas-mode';
-import type {Rectangle} from '@/services/math/geometry';
 import {debounce} from '@/utils/debounce';
 
 interface CanvasInstance<T extends CanvasMode | null> {

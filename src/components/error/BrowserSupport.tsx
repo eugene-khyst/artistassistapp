@@ -26,11 +26,10 @@ import {
   TabletOutlined,
   WindowsOutlined,
 } from '@ant-design/icons';
+import {isWebGl2Supported} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 import {Trans} from '@lingui/react/macro';
 import {Alert, Col, Row, Typography} from 'antd';
 import type {PropsWithChildren} from 'react';
-
-import {isWebGl2Supported} from '@/utils/graphics';
 
 const BROWSER_FEATURES: Record<string, boolean> = {
   Worker: typeof Worker !== 'undefined',

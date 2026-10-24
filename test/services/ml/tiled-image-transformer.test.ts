@@ -16,13 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {IMAGE_SIZE} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 import {describe, expect, it, vi} from 'vitest';
 
 import {tileCoreSize, tileSpans} from '@/services/ml/tiled-image-transformer';
 import type {OnnxModel} from '@/services/ml/types';
-import {IMAGE_SIZE} from '@/utils/graphics';
 
-vi.mock('@/services/image/filter/interpolation-webgl', () => ({interpolationWebGL: vi.fn()}));
+vi.mock('@eugene-khyst/artistassistapp-image-processing/filter/interpolation-webgl', () => ({
+  interpolationWebGL: vi.fn(),
+}));
 vi.mock('@/services/ml/image-transformer', () => ({transformImageInSession: vi.fn()}));
 
 const CORE_SIZE = 512;

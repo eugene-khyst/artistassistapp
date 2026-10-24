@@ -16,9 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {invertColorsWebGL} from '@/services/image/filter/invert-colors-webgl';
-import type {Vector} from '@/services/math/geometry';
-import {IMAGE_SIZE, toOffscreenCanvas} from '@/utils/graphics';
+import {invertColorsWebGL} from '@eugene-khyst/artistassistapp-image-processing/filter/invert-colors-webgl';
+import type {Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
+import {
+  IMAGE_SIZE,
+  toOffscreenCanvas,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 
 import {BaseCanvasMode, type ImageCanvasRenderingContext} from './canvas-mode';
 

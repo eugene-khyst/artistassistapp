@@ -28,7 +28,7 @@ const operations = vi.hoisted(() => ({
   getLimitedPaletteImage: vi.fn(),
 }));
 
-vi.mock('@/utils/graphics', () => ({
+vi.mock('@eugene-khyst/artistassistapp-image-processing/utils/graphics', () => ({
   IMAGE_SIZE: {SD: 345600},
   ResizeImage: {resizeToPixelCount: vi.fn()},
   resizeImageBitmap: operations.resizeImageBitmap,

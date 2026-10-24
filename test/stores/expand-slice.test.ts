@@ -16,13 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Interpolation} from '@eugene-khyst/artistassistapp-image-processing/filter/types';
+import type {
+  DrawImageParams,
+  DrawImageParamsSupplier,
+  DrawImageSource,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 import {afterEach, describe, expect, it, vi} from 'vitest';
 import {createStore} from 'zustand/vanilla';
 
 import {ImageEditorKey} from '@/image-editor';
 import {type EditImageCommand, EditImageCommandType} from '@/services/image/edit-image-command';
 import {ExpandFillMode, ExpandMarginUnit, ExpandMode} from '@/services/image/expand-controls';
-import {Interpolation} from '@/services/image/filter/types';
 import {DEFAULT_APP_SETTINGS} from '@/services/settings/types';
 import type {AppSlice} from '@/stores/app-slice';
 import type {AuthSlice} from '@/stores/auth-slice';
@@ -33,7 +38,6 @@ import type {
 } from '@/stores/edit-image-slice';
 import {createExpandSlice, type ExpandSlice} from '@/stores/expand-slice';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
-import type {DrawImageParams, DrawImageParamsSupplier, DrawImageSource} from '@/utils/graphics';
 
 const expansionMocks = vi.hoisted(() => ({
   createExpansionMask: vi.fn(),
@@ -52,8 +56,11 @@ vi.mock('@/services/image/expand-image', async importOriginal => ({
   ...expansionMocks,
 }));
 vi.mock('@/services/ml/image-transformer', () => transformerMocks);
-vi.mock('@/services/image/filter/interpolation-webgl', () => interpolationMocks);
-vi.mock('@/utils/graphics', async importOriginal => ({
+vi.mock(
+  '@eugene-khyst/artistassistapp-image-processing/filter/interpolation-webgl',
+  () => interpolationMocks
+);
+vi.mock('@eugene-khyst/artistassistapp-image-processing/utils/graphics', async importOriginal => ({
   ...(await importOriginal<Record<string, unknown>>()),
   ...graphicsMocks,
 }));

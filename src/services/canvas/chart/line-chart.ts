@@ -17,9 +17,9 @@
  */
 
 import {rgbToHex, type RgbTuple} from '@eugene-khyst/artistassistapp-color-mixer';
+import {Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
 
 import {Canvas} from '@/services/canvas/canvas';
-import {Vector} from '@/services/math/geometry';
 import {countFractionDigits} from '@/utils/format';
 
 const SPACING = 3;

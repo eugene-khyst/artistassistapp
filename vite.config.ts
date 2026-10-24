@@ -3,16 +3,11 @@ import path from 'node:path';
 
 import {lingui} from '@lingui/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
-import {defineConfig, type PluginOption} from 'vite';
-import glsl from 'vite-plugin-glsl';
+import {defineConfig} from 'vite';
 import {VitePWA} from 'vite-plugin-pwa';
 import svgr from 'vite-plugin-svgr';
 
 const maxFileSize = 2 * 1024 * 1024;
-
-const glslPlugin: PluginOption = glsl({
-  minify: true,
-});
 
 function parseHeaders(): Record<string, string> {
   const content = fs.readFileSync(path.resolve(import.meta.dirname, 'public/_headers'), 'utf-8');
@@ -38,7 +33,6 @@ const globalHeaders = parseHeaders();
 
 export default defineConfig(({mode}) => ({
   plugins: [
-    glslPlugin,
     react({
       plugins: [['@lingui/swc-plugin', {}]],
     }),
@@ -53,16 +47,9 @@ export default defineConfig(({mode}) => ({
       injectManifest: {
         maximumFileSizeToCacheInBytes: maxFileSize,
         globIgnores: ['**/node_modules/**/*', '**/404.html', '**/cleanup.html', '**/*.wasm'],
-        buildPlugins: {
-          vite: [glslPlugin],
-        },
       },
     }),
   ],
-
-  worker: {
-    plugins: () => [glslPlugin],
-  },
 
   resolve: {
     alias: [{find: /^@\//, replacement: '/src/'}],
@@ -93,7 +80,7 @@ export default defineConfig(({mode}) => ({
             },
             {
               name: 'vendor',
-              test: /node_modules/,
+              test: /node_modules[\\/](?!@eugene-khyst[\\/]artistassistapp-image-processing)/,
               priority: 10,
             },
           ],

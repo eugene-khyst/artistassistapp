@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Vector} from '@/services/math/geometry';
+import {Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
 
 export abstract class Canvas {
   protected context: CanvasRenderingContext2D;

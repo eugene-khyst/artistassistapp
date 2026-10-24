@@ -16,14 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type {Authentication} from '@/services/auth/types';
-import {getProcessedImage, saveProcessedImage} from '@/services/db/processed-image-db';
-import {interpolationWebGL} from '@/services/image/filter/interpolation-webgl';
-import {Interpolation} from '@/services/image/filter/types';
-import {float32TensorToImageData, imageDataToFloat32Tensor} from '@/services/ml/tensor';
-import type {OnnxModel} from '@/services/ml/types';
-import {type InferenceRun, runInferenceWorker} from '@/services/ml/worker/inference-worker-manager';
-import type {FetchProgressCallback} from '@/utils/fetch';
+import {interpolationWebGL} from '@eugene-khyst/artistassistapp-image-processing/filter/interpolation-webgl';
+import {Interpolation} from '@eugene-khyst/artistassistapp-image-processing/filter/types';
 import {
   DrawImage,
   type DrawImageParamsSupplier,
@@ -33,7 +27,14 @@ import {
   imageDataToOffscreenCanvas,
   imageToBlob,
   offscreenCanvasToImageData,
-} from '@/utils/graphics';
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
+
+import type {Authentication} from '@/services/auth/types';
+import {getProcessedImage, saveProcessedImage} from '@/services/db/processed-image-db';
+import {float32TensorToImageData, imageDataToFloat32Tensor} from '@/services/ml/tensor';
+import type {OnnxModel} from '@/services/ml/types';
+import {type InferenceRun, runInferenceWorker} from '@/services/ml/worker/inference-worker-manager';
+import type {FetchProgressCallback} from '@/utils/fetch';
 
 export async function transformImage({
   images,

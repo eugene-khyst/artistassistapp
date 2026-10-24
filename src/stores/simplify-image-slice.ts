@@ -16,10 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
+import {
+  applyFocalPointToSimplifiedImage,
+  simplifyImage,
+} from '@eugene-khyst/artistassistapp-image-processing/simplify-image';
 import type {StateCreator} from 'zustand';
 
-import {applyFocalPointToSimplifiedImage, simplifyImage} from '@/services/image/simplify-image';
-import {Vector} from '@/services/math/geometry';
 import {createAbortableOperation} from '@/utils/abortable-operation';
 
 import {type OriginalImageSlice, registerOriginalImageDependency} from './original-image-slice';

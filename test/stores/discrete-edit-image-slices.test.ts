@@ -16,12 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Rectangle, Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
 import {afterEach, describe, expect, it, vi} from 'vitest';
 import {createStore} from 'zustand/vanilla';
 
 import {FREE_CROP_ASPECT_RATIO, ORIGINAL_CROP_ASPECT_RATIO} from '@/services/image/aspect-ratio';
 import {EditImageCommandType} from '@/services/image/edit-image-command';
-import {Rectangle, Vector} from '@/services/math/geometry';
 import type {OnnxModel} from '@/services/ml/types';
 import {DEFAULT_APP_SETTINGS} from '@/services/settings/types';
 import type {AppSlice} from '@/stores/app-slice';

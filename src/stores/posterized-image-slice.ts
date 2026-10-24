@@ -16,6 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  IMAGE_SIZE,
+  imageToBlob,
+  ResizeImage,
+  resizeImageBitmap,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 import {transfer} from 'comlink';
 import type {StateCreator} from 'zustand';
 
@@ -26,7 +32,6 @@ import {
   registerOriginalImageDependency,
 } from '@/stores/original-image-slice';
 import {createAbortableOperation} from '@/utils/abortable-operation';
-import {IMAGE_SIZE, imageToBlob, ResizeImage, resizeImageBitmap} from '@/utils/graphics';
 
 export interface PosterizedImageSlice {
   isPosterizedImageLoading: boolean;

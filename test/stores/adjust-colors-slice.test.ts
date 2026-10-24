@@ -52,7 +52,7 @@ vi.mock('@/services/image/worker/rgb-channels-percentile-worker-manager', () => 
   }),
 }));
 
-vi.mock('@/utils/graphics', () => ({
+vi.mock('@eugene-khyst/artistassistapp-image-processing/utils/graphics', () => ({
   IMAGE_SIZE: {'2K': 2_000_000},
   ResizeImage: {resizeToPixelCount: vi.fn((pixelCount: number) => pixelCount)},
   resizeImageBitmap: imageOperations.resizeImageBitmap,

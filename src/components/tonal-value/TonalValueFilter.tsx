@@ -17,11 +17,11 @@
  */
 
 import {FilterOutlined} from '@ant-design/icons';
+import {TONAL_VALUES} from '@eugene-khyst/artistassistapp-image-processing/color/tonal-value';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Dropdown} from 'antd';
 
 import {TONAL_VALUE_LABELS} from '@/components/messages';
-import {TONAL_VALUES} from '@/services/color/tonal-value';
 import {useAppStore} from '@/stores/app-store';
 
 export function TonalValueFilter() {

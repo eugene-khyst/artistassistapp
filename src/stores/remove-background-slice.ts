@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {imageToBlob} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 import type {StateCreator} from 'zustand';
 
 import {formatFetchProgress} from '@/i18n';
@@ -27,7 +28,6 @@ import type {OnnxModel} from '@/services/ml/types';
 import type {AuthSlice} from '@/stores/auth-slice';
 import type {EditImageHistoryEntry, EditImageSlice} from '@/stores/edit-image-slice';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
-import {imageToBlob} from '@/utils/graphics';
 import {createAbortError} from '@/utils/promise';
 
 export interface RemoveBackgroundSlice {

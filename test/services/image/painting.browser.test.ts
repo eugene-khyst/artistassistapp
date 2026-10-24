@@ -16,16 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {renderBrushStrokesWebGL} from '@eugene-khyst/artistassistapp-image-processing/filter/brush-stroke-webgl';
 import {beforeEach, describe, expect, it, vi} from 'vitest';
 
-import type {renderBrushStrokesWebGL} from '@/services/image/filter/brush-stroke-webgl';
 import {paintImage, PAINTING_PATCH_SIZES, type PaintingPatchSize} from '@/services/image/painting';
-import type {Float32Tensor} from '@/services/ml/tensor';
 import type {OnnxModel} from '@/services/ml/types';
 import type {InferenceRun} from '@/services/ml/worker/inference-worker-manager';
 import {PROCESSING_PROGRESS_KEY} from '@/utils/fetch';
-
-import {createImage} from './filter/fixtures';
 
 const mocks = vi.hoisted(() => ({
   run: vi.fn<InferenceRun>(),
@@ -36,9 +33,21 @@ vi.mock('@/services/ml/worker/inference-worker-manager', () => ({
   withInferenceSession: mocks.session,
   runInferenceWorker: vi.fn(),
 }));
-vi.mock('@/services/image/filter/brush-stroke-webgl', () => ({
+vi.mock('@eugene-khyst/artistassistapp-image-processing/filter/brush-stroke-webgl', () => ({
   renderBrushStrokesWebGL: mocks.render,
 }));
+
+function createImage(
+  width: number,
+  height: number,
+  [r, g, b, a]: readonly [number, number, number, number]
+): OffscreenCanvas {
+  const canvas = new OffscreenCanvas(width, height);
+  const ctx = canvas.getContext('2d')!;
+  ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${a / 255})`;
+  ctx.fillRect(0, 0, width, height);
+  return canvas;
+}
 
 const model: OnnxModel = {
   id: 'mamba-painter',
@@ -62,7 +71,7 @@ beforeEach(() => {
     },
   ]);
   mocks.render.mockImplementation(
-    (_strokes: Float32Tensor[], _brushes: unknown, size: {width: number; height: number}) =>
+    (_strokes: Float32Array[], _brushes: unknown, size: {width: number; height: number}) =>
       new OffscreenCanvas(size.width, size.height)
   );
 });
@@ -75,7 +84,7 @@ describe('painting inference', () => {
   ] as const)(
     'downscales to 512 px and uses patch size %i for %i complete predictions',
     async (patchSize: PaintingPatchSize, count) => {
-      const image = createImage(1024, 640, () => [96, 128, 192, 255]);
+      const image = createImage(1024, 640, [96, 128, 192, 255]);
       await paintImage(image, model, null, patchSize);
       expect(mocks.run).toHaveBeenCalledTimes(count);
       const [strokes, , size, geometry] = mocks.render.mock.calls[0]!;
@@ -89,7 +98,7 @@ describe('painting inference', () => {
   );
 
   it('runs padded patches in one session with RGB values normalized to [0, 1]', async () => {
-    const image = createImage(65, 33, () => [255, 128, 64, 255]);
+    const image = createImage(65, 33, [255, 128, 64, 255]);
     const progress = vi.fn();
     const controller = new AbortController();
     const output = await paintImage(image, model, null, 64, progress, controller.signal);
@@ -123,17 +132,14 @@ describe('painting inference', () => {
     expect(progress).toHaveBeenNthCalledWith(2, PROCESSING_PROGRESS_KEY, 50);
     expect(mocks.render).toHaveBeenCalledOnce();
     const [strokes, {vertical, horizontal}, size, geometry] = mocks.render.mock.calls[0]!;
-    expect(strokes.map(({dims}) => dims)).toEqual([
-      [1, 100, 8],
-      [1, 100, 8],
-    ]);
+    expect(strokes.map(({length}) => length)).toEqual([800, 800]);
     expect([vertical.width, horizontal.width]).toEqual([394, 394]);
     expect([size.width, size.height]).toEqual([65, 33]);
     expect(geometry).toEqual({patchSize: 64, overlap: 32, strokeScale: 0.75});
   });
 
   it('composites transparent source pixels onto white before inference', async () => {
-    const image = createImage(32, 32, () => [0, 0, 0, 0]);
+    const image = createImage(32, 32, [0, 0, 0, 0]);
     await paintImage(image, model, null);
     const tensor = mocks.run.mock.calls[0]![0][0]![0]!;
     expect([...tensor.data].every(value => value === 1)).toBe(true);
@@ -147,7 +153,7 @@ describe('painting inference', () => {
     });
     await expect(
       paintImage(
-        createImage(128, 64, () => [0, 0, 0, 255]),
+        createImage(128, 64, [0, 0, 0, 255]),
         model,
         null,
         64,
@@ -159,15 +165,19 @@ describe('painting inference', () => {
     expect(mocks.render).not.toHaveBeenCalled();
   });
 
+  it('rejects strokes of the wrong shape', async () => {
+    mocks.run.mockResolvedValue([{data: new Float32Array(792), dims: [1, 99, 8]}]);
+    await expect(paintImage(createImage(64, 64, [0, 0, 0, 255]), model, null)).rejects.toThrow(
+      'got [1, 99, 8]'
+    );
+    expect(mocks.render).not.toHaveBeenCalled();
+  });
+
   it('rejects missing stroke output', async () => {
     mocks.run.mockResolvedValue([]);
-    await expect(
-      paintImage(
-        createImage(64, 64, () => [0, 0, 0, 255]),
-        model,
-        null
-      )
-    ).rejects.toThrow('no strokes');
+    await expect(paintImage(createImage(64, 64, [0, 0, 0, 255]), model, null)).rejects.toThrow(
+      'no strokes'
+    );
     expect(mocks.render).not.toHaveBeenCalled();
   });
 });

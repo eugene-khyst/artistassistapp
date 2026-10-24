@@ -17,11 +17,14 @@
  */
 
 import {clamp} from '@eugene-khyst/artistassistapp-color-mixer';
+import {bilinearInterpolation} from '@eugene-khyst/artistassistapp-image-processing/filter/bilinear-interpolation';
+import {computeOtsuThresholdFromHistogram} from '@eugene-khyst/artistassistapp-image-processing/filter/otsu-threshold';
+import {
+  orderCornersClockwise,
+  Vector,
+} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
 
 import type {Authentication} from '@/services/auth/types';
-import {bilinearInterpolation} from '@/services/image/filter/bilinear-interpolation';
-import {computeOtsuThresholdFromHistogram} from '@/services/image/filter/otsu-threshold';
-import {orderCornersClockwise, Vector} from '@/services/math/geometry';
 import {imageBitmapToImageData} from '@/services/ml/image-transformer';
 import {type Float32Tensor, imageDataToFloat32Tensor} from '@/services/ml/tensor';
 import type {OnnxModel} from '@/services/ml/types';

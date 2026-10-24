@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Polygon, Vector} from '@/services/math/geometry';
+import {Polygon, Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
 
 import type {CanvasDrag, CanvasPointer, ImageCanvasRenderingContext} from './canvas-mode';
 import {

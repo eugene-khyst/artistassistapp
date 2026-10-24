@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Interpolation} from '@eugene-khyst/artistassistapp-image-processing/filter/types';
 import {afterEach, describe, expect, it, vi} from 'vitest';
 
-import {Interpolation} from '@/services/image/filter/types';
 import {
   inpaintImage,
   INPAINTING_UPSCALE_MIN_SCALE_FACTOR,
@@ -29,7 +29,10 @@ import type {OnnxModel} from '@/services/ml/types';
 const interpolationMocks = vi.hoisted(() => ({interpolationWebGL: vi.fn()}));
 const transformerMocks = vi.hoisted(() => ({transformImage: vi.fn()}));
 
-vi.mock('@/services/image/filter/interpolation-webgl', () => interpolationMocks);
+vi.mock(
+  '@eugene-khyst/artistassistapp-image-processing/filter/interpolation-webgl',
+  () => interpolationMocks
+);
 vi.mock('@/services/ml/image-transformer', () => transformerMocks);
 
 afterEach(() => {

@@ -46,7 +46,7 @@ vi.mock('@/services/image/remove-background', () => ({
   createBackgroundMask: imageOperations.createBackgroundMask,
 }));
 
-vi.mock('@/utils/graphics', () => ({
+vi.mock('@eugene-khyst/artistassistapp-image-processing/utils/graphics', () => ({
   imageToBlob: imageOperations.imageToBlob,
 }));
 

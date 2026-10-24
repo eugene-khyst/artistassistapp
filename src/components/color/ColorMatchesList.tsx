@@ -24,6 +24,7 @@ import {
   compareByDeltaEOKr2,
   compareColorMatchesByColorMixturePartLength,
 } from '@eugene-khyst/artistassistapp-color-mixer';
+import {matchesTonalValue} from '@eugene-khyst/artistassistapp-image-processing/color/tonal-value';
 import {Flex} from 'antd';
 import {useMemo} from 'react';
 
@@ -31,7 +32,6 @@ import {ColorMatchCard} from '@/components/color/ColorMatchCard';
 import {PaletteColorMixtureCard} from '@/components/color/PaletteColorMixtureCard';
 import {EmptyColorMatches} from '@/components/empty/EmptyColorMatches';
 import {EmptyTargetColor} from '@/components/empty/EmptyTargetColor';
-import {matchesTonalValue} from '@/services/color/tonal-value';
 import {ColorPickerSort} from '@/services/settings/types';
 import {useAppStore} from '@/stores/app-store';
 

@@ -16,6 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {
+  type DrawImageSource,
+  imageToBlob,
+} from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 import {saveAs} from 'file-saver';
 
 import type {ZoomableImageCanvas} from '@/services/canvas/image/zoomable-image-canvas';
@@ -23,7 +27,6 @@ import {blobToImageFile} from '@/services/image/image-file';
 import {printImages} from '@/services/print/print';
 import {useAppStore} from '@/stores/app-store';
 import {getFilename} from '@/utils/filename';
-import {type DrawImageSource, imageToBlob} from '@/utils/graphics';
 
 interface Props {
   canvas?: ZoomableImageCanvas | null;
