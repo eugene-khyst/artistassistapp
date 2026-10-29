@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {DeleteOutlined, PictureOutlined} from '@ant-design/icons';
+import {CameraOutlined, DeleteOutlined, PictureOutlined} from '@ant-design/icons';
 import {
   COLOR_MIXING,
   type ColorMixture,
@@ -28,12 +28,14 @@ import {
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Card, Col, Flex, Popconfirm, Row, Typography} from 'antd';
 import type {CardProps} from 'antd/lib';
-import {memo} from 'react';
+import {memo, useState} from 'react';
 
 import {ColorMixtureDescription} from '@/components/color/ColorMixtureDescription';
 import {TonalValueTag} from '@/components/tonal-value/TonalValueTag';
 import {useAppStore} from '@/stores/app-store';
 import {TabKey} from '@/tabs';
+
+import {CompareMixtureDrawer} from './CompareMixtureDrawer';
 
 type Props = {
   colorMixture: ColorMixture;
@@ -53,9 +55,11 @@ export const PaletteColorMixtureCard = memo(function PaletteColorMixtureCard({
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
 
   const {t} = useLingui();
+  const [compareOpen, setCompareOpen] = useState(false);
 
   const {type} = colorMixture;
   const {mixing, layering} = COLOR_MIXING[type];
+  const canCompareMix = mixing && (colorMixture.parts.length >= 2 || !!colorMixture.white);
   const pastel: boolean = isPastel(type);
 
   const handleTitleEdited = (value: string) => {
@@ -106,7 +110,7 @@ export const PaletteColorMixtureCard = memo(function PaletteColorMixtureCard({
 
         <ColorMixtureDescription colorMixture={colorMixture} />
 
-        <Row gutter={8}>
+        <Row gutter={[8, 8]}>
           {showOnPhoto && (
             <Col xs={12}>
               <Button
@@ -138,9 +142,6 @@ export const PaletteColorMixtureCard = memo(function PaletteColorMixtureCard({
               </Button>
             </Popconfirm>
           </Col>
-        </Row>
-
-        <Row gutter={8}>
           {layering !== Layering.None && (
             <Col xs={12}>
               <Button
@@ -167,7 +168,29 @@ export const PaletteColorMixtureCard = memo(function PaletteColorMixtureCard({
               </Button>
             </Col>
           )}
+          {canCompareMix && (
+            <Col xs={12}>
+              <Button
+                block
+                size="small"
+                icon={<CameraOutlined />}
+                onClick={() => {
+                  setCompareOpen(true);
+                }}
+              >
+                <Trans>Compare your mix</Trans>
+              </Button>
+            </Col>
+          )}
         </Row>
+        {canCompareMix && compareOpen && (
+          <CompareMixtureDrawer
+            colorMixture={colorMixture}
+            onClose={() => {
+              setCompareOpen(false);
+            }}
+          />
+        )}
       </Flex>
     </Card>
   );

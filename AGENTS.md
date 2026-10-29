@@ -47,7 +47,8 @@ intentionally stale during iterative work; review the working tree.
 
 `@eugene-khyst/artistassistapp-color-mixer` and `@eugene-khyst/artistassistapp-image-processing` may
 depend on a local `.tgz` while a change to the package is tested here before it is committed and
-pushed. Never report that dependency.
+pushed. Never report that dependency. To switch back to the published package, run
+`npm i <package>@<version>`: a bare `npm i` keeps a locked `.tgz` whose version fits the range.
 
 ## Stores
 

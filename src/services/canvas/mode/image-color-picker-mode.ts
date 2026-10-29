@@ -23,11 +23,11 @@ import {
   type RgbTuple,
   WHITE,
 } from '@eugene-khyst/artistassistapp-color-mixer';
+import {getAverageColorInCircle} from '@eugene-khyst/artistassistapp-image-processing/color/average-color';
 import {Rectangle, Vector} from '@eugene-khyst/artistassistapp-image-processing/math/geometry';
 import {
   type DrawImageSource,
   drawImageToOffscreenCanvas,
-  getAverageColor,
 } from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 
 import {EventManager} from '@/services/event/event-manager';
@@ -254,7 +254,7 @@ export class ImageColorPickerMode extends BaseCanvasMode {
     const imageData = canvas
       .getContext('2d')!
       .getImageData(Math.round(x - radius), Math.round(y - radius), diameter, diameter);
-    return getAverageColor(imageData);
+    return getAverageColorInCircle(imageData);
   }
 
   getSamples(): ColorPickerSample[] {

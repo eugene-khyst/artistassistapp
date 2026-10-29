@@ -115,7 +115,7 @@ export const ColorMatchCard = memo(function ColorMatchCard({
           </Typography.Text>
         )}
 
-        <Row gutter={8}>
+        <Row gutter={[8, 8]}>
           <Col xs={12}>
             <AddToPaletteButton block size="small" colorMixture={colorMixture} />
           </Col>
@@ -132,9 +132,6 @@ export const ColorMatchCard = memo(function ColorMatchCard({
               <Trans>Reflectance</Trans>
             </Button>
           </Col>
-        </Row>
-
-        <Row gutter={8}>
           {layering !== Layering.None && (
             <Col xs={12}>
               <Button

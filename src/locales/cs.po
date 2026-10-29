@@ -68,6 +68,7 @@ msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows a <1/> Linux"
 
 #: src/components/color/ColorMatchCard.tsx:97
+#: src/components/color/CompareMixtureDrawer.tsx:224
 msgid "<0>{matchScoreText}%</0> match"
 msgstr "<0>{matchScoreText} %</0> shoda"
 
@@ -154,6 +155,10 @@ msgstr "Akrylová barva"
 #: src/components/empty/EmptyPalette.tsx:53
 msgid "Add a color mixture to the palette"
 msgstr "Přidejte barevnou směs do palety"
+
+#: src/components/color/CompareMixtureDrawer.tsx:246
+msgid "Add a little more:"
+msgstr "Přidejte ještě trochu:"
 
 #: src/components/ColorMixer.tsx:246
 msgid "Add color"
@@ -257,7 +262,7 @@ msgid "AR"
 msgstr "AR"
 
 #: src/components/color/AddToPaletteButton.tsx:46
-#: src/components/color/PaletteColorMixtureCard.tsx:131
+#: src/components/color/PaletteColorMixtureCard.tsx:135
 msgid "Are you sure you want to delete this color mixture?"
 msgstr "Opravdu chcete smazat tuto barevnou směs?"
 
@@ -440,6 +445,10 @@ msgstr "Buňky"
 #: src/components/Help.tsx:167
 msgid "Check for updates"
 msgstr "Zkontrolovat aktualizace"
+
+#: src/components/color/CompareMixtureDrawer.tsx:201
+msgid "Check that one square, the white point, is on the white paper or canvas and the other is on your mix. Drag a square to move it."
+msgstr "Zkontrolujte, zda je jeden čtverec, bílý bod, na bílém papíře nebo plátně a druhý na vaší směsi. Čtverec přesunete přetažením."
 
 #: src/components/ColorSetChooser.tsx:217
 #: src/components/image-editor/ColorizeEditorControls.tsx:57
@@ -656,6 +665,11 @@ msgstr "Barvy potřebné pro tuto paletu"
 msgid "Compare images"
 msgstr "Porovnat obrázky"
 
+#: src/components/color/CompareMixtureDrawer.tsx:152
+#: src/components/color/PaletteColorMixtureCard.tsx:181
+msgid "Compare your mix"
+msgstr "Porovnat vaši směs"
+
 #: src/components/cloud/ConnectCloudButton.tsx:70
 msgid "Connect"
 msgstr "Připojit"
@@ -741,6 +755,10 @@ msgstr "Nepodařilo se exportovat zálohu"
 msgid "Could not import backup"
 msgstr "Nepodařilo se importovat zálohu"
 
+#: src/components/color/CompareMixtureDrawer.tsx:186
+msgid "Could not open this photo. Choose another one."
+msgstr "Tuto fotografii se nepodařilo otevřít. Vyberte jinou."
+
 #: src/hooks/useFileReadErrorNotification.tsx:38
 msgid "Could not read the file"
 msgstr "Soubor se nepodařilo přečíst"
@@ -789,7 +807,7 @@ msgstr "Odstranit rozmazání JPEG"
 
 #: src/components/auth/DeleteAccountButton.tsx:67
 #: src/components/color/AddToPaletteButton.tsx:48
-#: src/components/color/PaletteColorMixtureCard.tsx:133
+#: src/components/color/PaletteColorMixtureCard.tsx:137
 #: src/components/ColorSetChooser.tsx:794
 #: src/components/ColorSetChooser.tsx:804
 #: src/components/CustomColorBrandCreator.tsx:531
@@ -828,7 +846,7 @@ msgid "Delete data on this device"
 msgstr "Smazat data na tomto zařízení"
 
 #: src/components/color/AddToPaletteButton.tsx:52
-#: src/components/color/PaletteColorMixtureCard.tsx:137
+#: src/components/color/PaletteColorMixtureCard.tsx:141
 msgid "Delete from palette"
 msgstr "Smazat z palety"
 
@@ -837,7 +855,7 @@ msgid "Delete oldest"
 msgstr "Smazat nejstarší"
 
 #: src/components/color/AddToPaletteButton.tsx:45
-#: src/components/color/PaletteColorMixtureCard.tsx:130
+#: src/components/color/PaletteColorMixtureCard.tsx:134
 msgid "Delete the color mixture"
 msgstr "Smazat barevnou směs"
 
@@ -1196,6 +1214,10 @@ msgstr "Horizontální"
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Pokud změny neuložíte, mohou být v sadě barev ztraceny."
 
+#: src/components/color/CompareMixtureDrawer.tsx:168
+msgid "If your paint changes color as it dries, wait until the swatch is dry. Take the photo in even light, with some of the white paper or canvas showing and no shadows or glare."
+msgstr "Pokud vaše barva při schnutí mění odstín, počkejte, až vzorek zaschne. Fotografujte při rovnoměrném osvětlení tak, aby byla vidět i část bílého papíru nebo plátna, bez stínů a odlesků."
+
 #: src/components/ImagesCompare.tsx:173
 msgid "Image ranking"
 msgstr "Řazení obrázků"
@@ -1265,7 +1287,7 @@ msgid "It can be difficult to choose between multiple images. Comparing each ima
 msgstr "Může být obtížné vybrat si mezi více obrázky. Porovnání každého obrázku s ostatními ve dvojicích zjednodušuje výběr a pomáhá identifikovat ten nejvíce preferovaný."
 
 #: src/components/color/AddToPaletteButton.tsx:49
-#: src/components/color/PaletteColorMixtureCard.tsx:134
+#: src/components/color/PaletteColorMixtureCard.tsx:138
 #: src/components/ColorSetChooser.tsx:795
 #: src/components/CustomColorBrandCreator.tsx:532
 #: src/components/image/RecentImageCard.tsx:125
@@ -1442,10 +1464,14 @@ msgstr "Smíchejte barvu s lazurovacím médiem, například se lněným olejem,
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
 msgstr "Smíchejte barvu s akrylovým lazurovacím médiem, abyste nanesli tenčí, průhlednější vrstvu"
 
-#: src/components/color/ColorMatchCard.tsx:157
-#: src/components/color/PaletteColorMixtureCard.tsx:163
+#: src/components/color/ColorMatchCard.tsx:154
+#: src/components/color/PaletteColorMixtureCard.tsx:164
 msgid "Mix this color into every mixture."
 msgstr "Přimíchejte tuto barvu do každé směsi."
+
+#: src/components/color/CompareMixtureDrawer.tsx:256
+msgid "Mix well and take a new photo"
+msgstr "Dobře promíchejte a pořiďte novou fotografii"
 
 #: src/components/ColorMixer.tsx:164
 msgid "Mix your colors in any proportions so you don't waste real paints"
@@ -1481,6 +1507,14 @@ msgstr "Další akce"
 #: src/components/ImageStyleTransfer.tsx:84
 msgid "Mosaic"
 msgstr "Mozaika"
+
+#: src/components/color/CompareMixtureDrawer.tsx:138
+msgid "Move the squares so they do not overlap"
+msgstr "Přesuňte čtverce tak, aby se nepřekrývaly"
+
+#: src/components/color/CompareMixtureDrawer.tsx:136
+msgid "Move the white point to the white paper or canvas, away from shadows and glare"
+msgstr "Přesuňte bílý bod na bílý papír nebo plátno, mimo stíny a odlesky"
 
 #: src/components/ColorSetChooser.tsx:631
 #: src/components/CustomColorBrandCreator.tsx:196
@@ -1528,6 +1562,10 @@ msgstr "Nová velikost: {outputWidth} × {outputHeight}"
 #: src/components/auth/AuthFeedbackHandler.tsx:41
 msgid "Next charge date"
 msgstr "Datum další platby"
+
+#: src/components/color/CompareMixtureDrawer.tsx:264
+msgid "No better match found. Check the swatch and lighting."
+msgstr "Lepší shoda nebyla nalezena. Zkontrolujte vzorek a osvětlení."
 
 #: src/components/empty/EmptyColorMatches.tsx:31
 msgid "No color mixture improves on the bare surface"
@@ -1666,6 +1704,10 @@ msgstr "přes"
 msgid "Paint"
 msgstr "Malovat"
 
+#: src/components/color/CompareMixtureDrawer.tsx:162
+msgid "Paint a swatch of your mix at full strength on white paper or canvas. For a wash or thin layer, test the mix before you thin it."
+msgstr "Namalujte vzorek své neředěné směsi na bílý papír nebo bílé plátno. Pro lavírování nebo tenkou vrstvu směs otestujte ještě před naředěním."
+
 #: src/components/ImagePainting.tsx:168
 msgid "Painting"
 msgstr "Malba"
@@ -1730,6 +1772,10 @@ msgstr "Fotografie není k dispozici. Obnovte ji z cloudového úložiště nebo
 #: src/components/image/RecentImageCard.tsx:96
 msgid "Photo unavailable. Select the original again to repair it."
 msgstr "Fotografie není k dispozici. Znovu vyberte originál a opravte ji."
+
+#: src/components/color/CompareMixtureDrawer.tsx:197
+msgid "Photo with squares on the white point and your mix"
+msgstr "Fotografie se čtverci na bílém bodě a vaší směsi"
 
 #: src/components/empty/EmptyPalette.tsx:44
 msgid "Pick a target color"
@@ -2125,6 +2171,7 @@ msgstr "Vybrat jazyk"
 msgid "Select part"
 msgstr "Vyberte počet dílů"
 
+#: src/components/color/CompareMixtureDrawer.tsx:179
 #: src/components/ImageChooser.tsx:123
 msgid "Select photo"
 msgstr "Vybrat fotografii"
@@ -2194,23 +2241,23 @@ msgstr "Nastavit jako hlavní sadu barev"
 msgid "Set as reference"
 msgstr "Nastavit jako referenci"
 
-#: src/components/color/ColorMatchCard.tsx:148
-#: src/components/color/PaletteColorMixtureCard.tsx:154
+#: src/components/color/ColorMatchCard.tsx:145
+#: src/components/color/PaletteColorMixtureCard.tsx:155
 msgid "Set as underlayer"
 msgstr "Nastavit jako podkladovou vrstvu"
 
-#: src/components/color/ColorMatchCard.tsx:144
-#: src/components/color/PaletteColorMixtureCard.tsx:150
+#: src/components/color/ColorMatchCard.tsx:141
+#: src/components/color/PaletteColorMixtureCard.tsx:151
 msgid "Set as underlayer for blending."
 msgstr "Nastavte jako podkladovou vrstvu pro prolínání."
 
-#: src/components/color/ColorMatchCard.tsx:144
-#: src/components/color/PaletteColorMixtureCard.tsx:150
+#: src/components/color/ColorMatchCard.tsx:141
+#: src/components/color/PaletteColorMixtureCard.tsx:151
 msgid "Set as underlayer for glazing."
 msgstr "Nastavte jako podkladovou vrstvu pro lazurování."
 
-#: src/components/color/ColorMatchCard.tsx:160
-#: src/components/color/PaletteColorMixtureCard.tsx:166
+#: src/components/color/ColorMatchCard.tsx:157
+#: src/components/color/PaletteColorMixtureCard.tsx:167
 msgid "Set as unifying color"
 msgstr "Nastavit jako sjednocující barvu"
 
@@ -2264,7 +2311,7 @@ msgstr "Zobrazit odpovídající oblasti"
 msgid "Show older photos"
 msgstr "Zobrazit starší fotografie"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:124
+#: src/components/color/PaletteColorMixtureCard.tsx:128
 msgid "Show on photo"
 msgstr "Zobrazit na fotografii"
 
@@ -2272,7 +2319,7 @@ msgstr "Zobrazit na fotografii"
 msgid "Show or hide diagonal lines"
 msgstr "Zobrazit nebo skrýt úhlopříčky"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:118
+#: src/components/color/PaletteColorMixtureCard.tsx:122
 msgid "Show this color on the reference photo."
 msgstr "Zobrazte tuto barvu na referenční fotografii."
 
@@ -2425,6 +2472,10 @@ msgstr "Synchronizace se zastavila, protože fotografie {context} není k dispoz
 msgid "Sync with {label}"
 msgstr "Synchronizace s {label}"
 
+#: src/components/file/TakePhoto.tsx:61
+msgid "Take a photo"
+msgstr "Pořídit fotografii"
+
 #: src/components/ImageSimplifier.tsx:110
 msgid "Tap 👆 anywhere in the photo to choose a focal point."
 msgstr "Klepněte 👆 kdekoli na fotografii a vyberte ohnisko zájmu."
@@ -2433,6 +2484,7 @@ msgstr "Klepněte 👆 kdekoli na fotografii a vyberte ohnisko zájmu."
 msgid "Taped margin width around the painting area"
 msgstr "Šířka okraje přelepeného páskou kolem malované oblasti"
 
+#: src/components/color/CompareMixtureDrawer.tsx:145
 #: src/components/ImageColorPicker.tsx:321
 #: src/components/ImageColorPicker.tsx:333
 msgid "Target color"
@@ -2515,7 +2567,7 @@ msgstr "Oznámení třetích stran"
 msgid "This color brand is available only to paid Patreon members"
 msgstr "Tato značka barev je dostupná pouze platícím členům Patreonu"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:119
+#: src/components/color/PaletteColorMixtureCard.tsx:123
 msgid "This color was not sampled from a photo."
 msgstr "Tato barva nebyla vzorkována z fotografie."
 
@@ -2729,7 +2781,7 @@ msgstr "Nesynchronizované změny na tomto zařízení"
 
 #: src/components/color/ColorMatchCard.tsx:114
 #: src/components/color/ColorSwatchDrawer.tsx:112
-#: src/components/color/PaletteColorMixtureCard.tsx:102
+#: src/components/color/PaletteColorMixtureCard.tsx:106
 #: src/components/palette/PaletteGrid.tsx:214
 msgid "Untitled mixture"
 msgstr "Směs bez názvu"
@@ -2875,6 +2927,7 @@ msgstr "Vyvážení bílé"
 msgid "White paper or canvas"
 msgstr "Bílý papír nebo plátno"
 
+#: src/components/color/CompareMixtureDrawer.tsx:237
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:226
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:232
 msgid "White point"
@@ -2958,6 +3011,14 @@ msgstr "Vaše obrázky se zpracovávají ve vašem zařízení a odesílají se 
 #: src/components/auth/AuthFeedbackHandler.tsx:141
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Vaše přihlašovací údaje nebylo možné ověřit. Přihlaste se znovu."
+
+#: src/components/color/CompareMixtureDrawer.tsx:220
+msgid "Your mix"
+msgstr "Vaše směs"
+
+#: src/components/color/CompareMixtureDrawer.tsx:262
+msgid "Your mix is close to the target"
+msgstr "Vaše směs se blíží cílové barvě"
 
 #: src/components/Help.tsx:257
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."

@@ -68,6 +68,7 @@ msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows és <1/> Linux"
 
 #: src/components/color/ColorMatchCard.tsx:97
+#: src/components/color/CompareMixtureDrawer.tsx:224
 msgid "<0>{matchScoreText}%</0> match"
 msgstr "<0>{matchScoreText}%</0> egyezés"
 
@@ -154,6 +155,10 @@ msgstr "Akril festék"
 #: src/components/empty/EmptyPalette.tsx:53
 msgid "Add a color mixture to the palette"
 msgstr "Adjon hozzá színkeveréket a palettához"
+
+#: src/components/color/CompareMixtureDrawer.tsx:246
+msgid "Add a little more:"
+msgstr "Adjon hozzá még egy keveset:"
 
 #: src/components/ColorMixer.tsx:246
 msgid "Add color"
@@ -257,7 +262,7 @@ msgid "AR"
 msgstr "AR"
 
 #: src/components/color/AddToPaletteButton.tsx:46
-#: src/components/color/PaletteColorMixtureCard.tsx:131
+#: src/components/color/PaletteColorMixtureCard.tsx:135
 msgid "Are you sure you want to delete this color mixture?"
 msgstr "Biztosan törölni szeretné ezt a színkeveréket?"
 
@@ -440,6 +445,10 @@ msgstr "Cellák"
 #: src/components/Help.tsx:167
 msgid "Check for updates"
 msgstr "Frissítések keresése"
+
+#: src/components/color/CompareMixtureDrawer.tsx:201
+msgid "Check that one square, the white point, is on the white paper or canvas and the other is on your mix. Drag a square to move it."
+msgstr "Ellenőrizze, hogy az egyik négyzet, a fehérpont, a fehér papíron vagy vásznon van-e, a másik pedig a keverékén. A négyzetet húzással mozgathatja."
 
 #: src/components/ColorSetChooser.tsx:217
 #: src/components/image-editor/ColorizeEditorControls.tsx:57
@@ -656,6 +665,11 @@ msgstr "Ehhez a palettához szükséges színek"
 msgid "Compare images"
 msgstr "Képek összehasonlítása"
 
+#: src/components/color/CompareMixtureDrawer.tsx:152
+#: src/components/color/PaletteColorMixtureCard.tsx:181
+msgid "Compare your mix"
+msgstr "A keverék összehasonlítása"
+
 #: src/components/cloud/ConnectCloudButton.tsx:70
 msgid "Connect"
 msgstr "Csatlakoztatás"
@@ -741,6 +755,10 @@ msgstr "A biztonsági másolat exportálása nem sikerült"
 msgid "Could not import backup"
 msgstr "A biztonsági másolat importálása nem sikerült"
 
+#: src/components/color/CompareMixtureDrawer.tsx:186
+msgid "Could not open this photo. Choose another one."
+msgstr "Nem sikerült megnyitni ezt a fényképet. Válasszon másikat."
+
 #: src/hooks/useFileReadErrorNotification.tsx:38
 msgid "Could not read the file"
 msgstr "A fájl nem olvasható"
@@ -789,7 +807,7 @@ msgstr "JPEG elmosódásának eltávolítása"
 
 #: src/components/auth/DeleteAccountButton.tsx:67
 #: src/components/color/AddToPaletteButton.tsx:48
-#: src/components/color/PaletteColorMixtureCard.tsx:133
+#: src/components/color/PaletteColorMixtureCard.tsx:137
 #: src/components/ColorSetChooser.tsx:794
 #: src/components/ColorSetChooser.tsx:804
 #: src/components/CustomColorBrandCreator.tsx:531
@@ -828,7 +846,7 @@ msgid "Delete data on this device"
 msgstr "Adatok törlése ezen az eszközön"
 
 #: src/components/color/AddToPaletteButton.tsx:52
-#: src/components/color/PaletteColorMixtureCard.tsx:137
+#: src/components/color/PaletteColorMixtureCard.tsx:141
 msgid "Delete from palette"
 msgstr "Törlés a palettából"
 
@@ -837,7 +855,7 @@ msgid "Delete oldest"
 msgstr "Legrégebbi törlése"
 
 #: src/components/color/AddToPaletteButton.tsx:45
-#: src/components/color/PaletteColorMixtureCard.tsx:130
+#: src/components/color/PaletteColorMixtureCard.tsx:134
 msgid "Delete the color mixture"
 msgstr "Színkeverék törlése"
 
@@ -1196,6 +1214,10 @@ msgstr "Vízszintes"
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Ha nem menti, a színkészlet módosításai elveszhetnek."
 
+#: src/components/color/CompareMixtureDrawer.tsx:168
+msgid "If your paint changes color as it dries, wait until the swatch is dry. Take the photo in even light, with some of the white paper or canvas showing and no shadows or glare."
+msgstr "Ha a festék száradás közben megváltoztatja a színét, várja meg, amíg a színminta megszárad. Egyenletes megvilágításban fényképezzen úgy, hogy a fehér papír vagy vászon egy része is látszódjon, árnyékok és tükröződések nélkül."
+
 #: src/components/ImagesCompare.tsx:173
 msgid "Image ranking"
 msgstr "Képek rangsorolása"
@@ -1265,7 +1287,7 @@ msgid "It can be difficult to choose between multiple images. Comparing each ima
 msgstr "Nehéz lehet több kép közül választani. Az egyes képek páros összehasonlítása leegyszerűsíti a választást, és segít a leginkább preferált kép azonosításában."
 
 #: src/components/color/AddToPaletteButton.tsx:49
-#: src/components/color/PaletteColorMixtureCard.tsx:134
+#: src/components/color/PaletteColorMixtureCard.tsx:138
 #: src/components/ColorSetChooser.tsx:795
 #: src/components/CustomColorBrandCreator.tsx:532
 #: src/components/image/RecentImageCard.tsx:125
@@ -1442,10 +1464,14 @@ msgstr "Keverje össze a festéket lazúrozó médiummal, például lenolajjal, 
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
 msgstr "Keverje össze a festéket akril lazúrozó médiummal, hogy vékonyabb, átlátszóbb réteget vigyen fel"
 
-#: src/components/color/ColorMatchCard.tsx:157
-#: src/components/color/PaletteColorMixtureCard.tsx:163
+#: src/components/color/ColorMatchCard.tsx:154
+#: src/components/color/PaletteColorMixtureCard.tsx:164
 msgid "Mix this color into every mixture."
 msgstr "Ezt a színt minden keverékhez hozzákeveri."
+
+#: src/components/color/CompareMixtureDrawer.tsx:256
+msgid "Mix well and take a new photo"
+msgstr "Keverje el alaposan, és készítsen új fényképet"
 
 #: src/components/ColorMixer.tsx:164
 msgid "Mix your colors in any proportions so you don't waste real paints"
@@ -1481,6 +1507,14 @@ msgstr "További műveletek"
 #: src/components/ImageStyleTransfer.tsx:84
 msgid "Mosaic"
 msgstr "Mozaik"
+
+#: src/components/color/CompareMixtureDrawer.tsx:138
+msgid "Move the squares so they do not overlap"
+msgstr "Mozgassa el a négyzeteket úgy, hogy ne fedjék egymást"
+
+#: src/components/color/CompareMixtureDrawer.tsx:136
+msgid "Move the white point to the white paper or canvas, away from shadows and glare"
+msgstr "Mozgassa a fehérpontot a fehér papírra vagy vászonra, az árnyékoktól és tükröződésektől távol"
 
 #: src/components/ColorSetChooser.tsx:631
 #: src/components/CustomColorBrandCreator.tsx:196
@@ -1528,6 +1562,10 @@ msgstr "Új méret: {outputWidth} × {outputHeight}"
 #: src/components/auth/AuthFeedbackHandler.tsx:41
 msgid "Next charge date"
 msgstr "Következő fizetés dátuma"
+
+#: src/components/color/CompareMixtureDrawer.tsx:264
+msgid "No better match found. Check the swatch and lighting."
+msgstr "Nem található jobb egyezés. Ellenőrizze a színmintát és a megvilágítást."
 
 #: src/components/empty/EmptyColorMatches.tsx:31
 msgid "No color mixture improves on the bare surface"
@@ -1666,6 +1704,10 @@ msgstr "fölött"
 msgid "Paint"
 msgstr "Festés"
 
+#: src/components/color/CompareMixtureDrawer.tsx:162
+msgid "Paint a swatch of your mix at full strength on white paper or canvas. For a wash or thin layer, test the mix before you thin it."
+msgstr "Fessen színmintát a hígítatlan keverékéből fehér papírra vagy vászonra. Lavírozáshoz vagy vékony réteghez még hígítás előtt tesztelje a keveréket."
+
 #: src/components/ImagePainting.tsx:168
 msgid "Painting"
 msgstr "Festmény"
@@ -1730,6 +1772,10 @@ msgstr "A fénykép nem érhető el. Állítsa vissza felhőtárhelyéről, vagy
 #: src/components/image/RecentImageCard.tsx:96
 msgid "Photo unavailable. Select the original again to repair it."
 msgstr "A fénykép nem érhető el. A javításhoz válassza ki újra az eredetit."
+
+#: src/components/color/CompareMixtureDrawer.tsx:197
+msgid "Photo with squares on the white point and your mix"
+msgstr "Fénykép a fehérpontot és a keveréket jelölő négyzetekkel"
 
 #: src/components/empty/EmptyPalette.tsx:44
 msgid "Pick a target color"
@@ -2125,6 +2171,7 @@ msgstr "Nyelv kiválasztása"
 msgid "Select part"
 msgstr "Arány kiválasztása"
 
+#: src/components/color/CompareMixtureDrawer.tsx:179
 #: src/components/ImageChooser.tsx:123
 msgid "Select photo"
 msgstr "Fénykép kiválasztása"
@@ -2194,23 +2241,23 @@ msgstr "Beállítás fő színkészletként"
 msgid "Set as reference"
 msgstr "Beállítás referenciaként"
 
-#: src/components/color/ColorMatchCard.tsx:148
-#: src/components/color/PaletteColorMixtureCard.tsx:154
+#: src/components/color/ColorMatchCard.tsx:145
+#: src/components/color/PaletteColorMixtureCard.tsx:155
 msgid "Set as underlayer"
 msgstr "Beállítás alaprétegként"
 
-#: src/components/color/ColorMatchCard.tsx:144
-#: src/components/color/PaletteColorMixtureCard.tsx:150
+#: src/components/color/ColorMatchCard.tsx:141
+#: src/components/color/PaletteColorMixtureCard.tsx:151
 msgid "Set as underlayer for blending."
 msgstr "Beállítás alaprétegként az elmosáshoz."
 
-#: src/components/color/ColorMatchCard.tsx:144
-#: src/components/color/PaletteColorMixtureCard.tsx:150
+#: src/components/color/ColorMatchCard.tsx:141
+#: src/components/color/PaletteColorMixtureCard.tsx:151
 msgid "Set as underlayer for glazing."
 msgstr "Beállítás alaprétegként a lazúrozáshoz."
 
-#: src/components/color/ColorMatchCard.tsx:160
-#: src/components/color/PaletteColorMixtureCard.tsx:166
+#: src/components/color/ColorMatchCard.tsx:157
+#: src/components/color/PaletteColorMixtureCard.tsx:167
 msgid "Set as unifying color"
 msgstr "Beállítás egyesítő színként"
 
@@ -2264,7 +2311,7 @@ msgstr "Egyező területek megjelenítése"
 msgid "Show older photos"
 msgstr "Régebbi fotók megjelenítése"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:124
+#: src/components/color/PaletteColorMixtureCard.tsx:128
 msgid "Show on photo"
 msgstr "Megjelenítés a fényképen"
 
@@ -2272,7 +2319,7 @@ msgstr "Megjelenítés a fényképen"
 msgid "Show or hide diagonal lines"
 msgstr "Átlós vonalak megjelenítése vagy elrejtése"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:118
+#: src/components/color/PaletteColorMixtureCard.tsx:122
 msgid "Show this color on the reference photo."
 msgstr "Megjeleníti ezt a színt a referenciafotón."
 
@@ -2425,6 +2472,10 @@ msgstr "A szinkronizálás leállt, mert a(z) {context} fotó nem érhető el, �
 msgid "Sync with {label}"
 msgstr "Szinkronizálás ezzel: {label}"
 
+#: src/components/file/TakePhoto.tsx:61
+msgid "Take a photo"
+msgstr "Fénykép készítése"
+
 #: src/components/ImageSimplifier.tsx:110
 msgid "Tap 👆 anywhere in the photo to choose a focal point."
 msgstr "A fókuszpont kiválasztásához koppintson a 👆 elemre a fényképen bárhol."
@@ -2433,6 +2484,7 @@ msgstr "A fókuszpont kiválasztásához koppintson a 👆 elemre a fényképen 
 msgid "Taped margin width around the painting area"
 msgstr "A festési terület körüli leragasztott margó szélessége"
 
+#: src/components/color/CompareMixtureDrawer.tsx:145
 #: src/components/ImageColorPicker.tsx:321
 #: src/components/ImageColorPicker.tsx:333
 msgid "Target color"
@@ -2515,7 +2567,7 @@ msgstr "Harmadik felek értesítései"
 msgid "This color brand is available only to paid Patreon members"
 msgstr "Ez a színmárka csak fizetős Patreon-tagok számára érhető el"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:119
+#: src/components/color/PaletteColorMixtureCard.tsx:123
 msgid "This color was not sampled from a photo."
 msgstr "Ezt a színt nem fotóról mintázták."
 
@@ -2729,7 +2781,7 @@ msgstr "Szinkronizálatlan változások ezen az eszközön"
 
 #: src/components/color/ColorMatchCard.tsx:114
 #: src/components/color/ColorSwatchDrawer.tsx:112
-#: src/components/color/PaletteColorMixtureCard.tsx:102
+#: src/components/color/PaletteColorMixtureCard.tsx:106
 #: src/components/palette/PaletteGrid.tsx:214
 msgid "Untitled mixture"
 msgstr "Cím nélküli keverék"
@@ -2875,6 +2927,7 @@ msgstr "Fehéregyensúly"
 msgid "White paper or canvas"
 msgstr "Fehér papír vagy vászon"
 
+#: src/components/color/CompareMixtureDrawer.tsx:237
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:226
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:232
 msgid "White point"
@@ -2958,6 +3011,14 @@ msgstr "A képek feldolgozása az eszközén történik, és csak az Ön által 
 #: src/components/auth/AuthFeedbackHandler.tsx:141
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "A bejelentkezési adatait nem sikerült ellenőrizni. Jelentkezzen be újra."
+
+#: src/components/color/CompareMixtureDrawer.tsx:220
+msgid "Your mix"
+msgstr "Az Ön keveréke"
+
+#: src/components/color/CompareMixtureDrawer.tsx:262
+msgid "Your mix is close to the target"
+msgstr "A keveréke közel áll a célszínhez"
 
 #: src/components/Help.tsx:257
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."

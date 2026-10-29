@@ -1,0 +1,11 @@
+.canvasContainer {
+  height: clamp(220px, 42dvh, 440px);
+  min-width: 0;
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}

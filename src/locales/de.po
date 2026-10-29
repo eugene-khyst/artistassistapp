@@ -68,6 +68,7 @@ msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows und <1/> Linux"
 
 #: src/components/color/ColorMatchCard.tsx:97
+#: src/components/color/CompareMixtureDrawer.tsx:224
 msgid "<0>{matchScoreText}%</0> match"
 msgstr "<0>{matchScoreText}%</0> Übereinstimmung"
 
@@ -154,6 +155,10 @@ msgstr "Acrylfarbe"
 #: src/components/empty/EmptyPalette.tsx:53
 msgid "Add a color mixture to the palette"
 msgstr "Fügen Sie der Palette eine Farbmischung hinzu"
+
+#: src/components/color/CompareMixtureDrawer.tsx:246
+msgid "Add a little more:"
+msgstr "Etwas mehr hinzufügen:"
 
 #: src/components/ColorMixer.tsx:246
 msgid "Add color"
@@ -257,7 +262,7 @@ msgid "AR"
 msgstr "AR"
 
 #: src/components/color/AddToPaletteButton.tsx:46
-#: src/components/color/PaletteColorMixtureCard.tsx:131
+#: src/components/color/PaletteColorMixtureCard.tsx:135
 msgid "Are you sure you want to delete this color mixture?"
 msgstr "Sind Sie sicher, dass Sie diese Farbmischung löschen möchten?"
 
@@ -440,6 +445,10 @@ msgstr "Zellen"
 #: src/components/Help.tsx:167
 msgid "Check for updates"
 msgstr "Nach Updates suchen"
+
+#: src/components/color/CompareMixtureDrawer.tsx:201
+msgid "Check that one square, the white point, is on the white paper or canvas and the other is on your mix. Drag a square to move it."
+msgstr "Prüfen Sie, ob ein Quadrat, der Weißpunkt, auf dem weißen Papier oder der weißen Leinwand liegt und das andere auf Ihrer Mischung. Ziehen Sie ein Quadrat, um es zu verschieben."
 
 #: src/components/ColorSetChooser.tsx:217
 #: src/components/image-editor/ColorizeEditorControls.tsx:57
@@ -656,6 +665,11 @@ msgstr "Benötigte Farben für diese Palette"
 msgid "Compare images"
 msgstr "Bilder vergleichen"
 
+#: src/components/color/CompareMixtureDrawer.tsx:152
+#: src/components/color/PaletteColorMixtureCard.tsx:181
+msgid "Compare your mix"
+msgstr "Ihre Mischung vergleichen"
+
 #: src/components/cloud/ConnectCloudButton.tsx:70
 msgid "Connect"
 msgstr "Verbinden"
@@ -741,6 +755,10 @@ msgstr "Backup konnte nicht exportiert werden"
 msgid "Could not import backup"
 msgstr "Backup konnte nicht importiert werden"
 
+#: src/components/color/CompareMixtureDrawer.tsx:186
+msgid "Could not open this photo. Choose another one."
+msgstr "Dieses Foto konnte nicht geöffnet werden. Wählen Sie ein anderes."
+
 #: src/hooks/useFileReadErrorNotification.tsx:38
 msgid "Could not read the file"
 msgstr "Die Datei konnte nicht gelesen werden"
@@ -789,7 +807,7 @@ msgstr "Unschärfe in JPEG entfernen"
 
 #: src/components/auth/DeleteAccountButton.tsx:67
 #: src/components/color/AddToPaletteButton.tsx:48
-#: src/components/color/PaletteColorMixtureCard.tsx:133
+#: src/components/color/PaletteColorMixtureCard.tsx:137
 #: src/components/ColorSetChooser.tsx:794
 #: src/components/ColorSetChooser.tsx:804
 #: src/components/CustomColorBrandCreator.tsx:531
@@ -828,7 +846,7 @@ msgid "Delete data on this device"
 msgstr "Daten auf diesem Gerät löschen"
 
 #: src/components/color/AddToPaletteButton.tsx:52
-#: src/components/color/PaletteColorMixtureCard.tsx:137
+#: src/components/color/PaletteColorMixtureCard.tsx:141
 msgid "Delete from palette"
 msgstr "Aus der Palette löschen"
 
@@ -837,7 +855,7 @@ msgid "Delete oldest"
 msgstr "Älteste löschen"
 
 #: src/components/color/AddToPaletteButton.tsx:45
-#: src/components/color/PaletteColorMixtureCard.tsx:130
+#: src/components/color/PaletteColorMixtureCard.tsx:134
 msgid "Delete the color mixture"
 msgstr "Farbmischung löschen"
 
@@ -1196,6 +1214,10 @@ msgstr "Horizontal"
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Wenn Sie nicht speichern, können Änderungen am Farbset verloren gehen."
 
+#: src/components/color/CompareMixtureDrawer.tsx:168
+msgid "If your paint changes color as it dries, wait until the swatch is dry. Take the photo in even light, with some of the white paper or canvas showing and no shadows or glare."
+msgstr "Wenn Ihre Farbe beim Trocknen den Farbton ändert, warten Sie, bis das Farbmuster trocken ist. Nehmen Sie das Foto bei gleichmäßiger Beleuchtung auf, sodass ein Teil des weißen Papiers oder der weißen Leinwand sichtbar ist, ohne Schatten oder Spiegelungen."
+
 #: src/components/ImagesCompare.tsx:173
 msgid "Image ranking"
 msgstr "Bildranking"
@@ -1265,7 +1287,7 @@ msgid "It can be difficult to choose between multiple images. Comparing each ima
 msgstr "Es kann schwierig sein, zwischen mehreren Bildern zu wählen. Der paarweise Vergleich jedes Bildes mit anderen vereinfacht die Auswahl und hilft dabei, das am meisten bevorzugte Bild zu ermitteln."
 
 #: src/components/color/AddToPaletteButton.tsx:49
-#: src/components/color/PaletteColorMixtureCard.tsx:134
+#: src/components/color/PaletteColorMixtureCard.tsx:138
 #: src/components/ColorSetChooser.tsx:795
 #: src/components/CustomColorBrandCreator.tsx:532
 #: src/components/image/RecentImageCard.tsx:125
@@ -1442,10 +1464,14 @@ msgstr "Mischen Sie die Farbe mit einem Lasurmittel wie Leinöl, um eine dünner
 msgid "Mix the paint with an acrylic glazing medium to apply a thinner, more transparent layer"
 msgstr "Mischen Sie die Farbe mit einem Acryl-Lasurmittel, um eine dünnere, transparentere Schicht aufzutragen"
 
-#: src/components/color/ColorMatchCard.tsx:157
-#: src/components/color/PaletteColorMixtureCard.tsx:163
+#: src/components/color/ColorMatchCard.tsx:154
+#: src/components/color/PaletteColorMixtureCard.tsx:164
 msgid "Mix this color into every mixture."
 msgstr "Diese Farbe jeder Mischung beimischen."
+
+#: src/components/color/CompareMixtureDrawer.tsx:256
+msgid "Mix well and take a new photo"
+msgstr "Gut mischen und ein neues Foto aufnehmen"
 
 #: src/components/ColorMixer.tsx:164
 msgid "Mix your colors in any proportions so you don't waste real paints"
@@ -1481,6 +1507,14 @@ msgstr "Weitere Aktionen"
 #: src/components/ImageStyleTransfer.tsx:84
 msgid "Mosaic"
 msgstr "Mosaik"
+
+#: src/components/color/CompareMixtureDrawer.tsx:138
+msgid "Move the squares so they do not overlap"
+msgstr "Verschieben Sie die Quadrate so, dass sie sich nicht überlappen"
+
+#: src/components/color/CompareMixtureDrawer.tsx:136
+msgid "Move the white point to the white paper or canvas, away from shadows and glare"
+msgstr "Verschieben Sie den Weißpunkt auf das weiße Papier oder die weiße Leinwand, außerhalb von Schatten und Spiegelungen"
 
 #: src/components/ColorSetChooser.tsx:631
 #: src/components/CustomColorBrandCreator.tsx:196
@@ -1528,6 +1562,10 @@ msgstr "Neue Größe: {outputWidth} × {outputHeight}"
 #: src/components/auth/AuthFeedbackHandler.tsx:41
 msgid "Next charge date"
 msgstr "Nächster Abrechnungstermin"
+
+#: src/components/color/CompareMixtureDrawer.tsx:264
+msgid "No better match found. Check the swatch and lighting."
+msgstr "Keine bessere Übereinstimmung gefunden. Prüfen Sie das Farbmuster und die Beleuchtung."
 
 #: src/components/empty/EmptyColorMatches.tsx:31
 msgid "No color mixture improves on the bare surface"
@@ -1666,6 +1704,10 @@ msgstr "über"
 msgid "Paint"
 msgstr "Malen"
 
+#: src/components/color/CompareMixtureDrawer.tsx:162
+msgid "Paint a swatch of your mix at full strength on white paper or canvas. For a wash or thin layer, test the mix before you thin it."
+msgstr "Malen Sie ein Farbmuster Ihrer unverdünnten Mischung auf weißes Papier oder weiße Leinwand. Für eine Lavierung oder eine dünne Schicht testen Sie die Mischung vor dem Verdünnen."
+
 #: src/components/ImagePainting.tsx:168
 msgid "Painting"
 msgstr "Gemälde"
@@ -1730,6 +1772,10 @@ msgstr "Foto nicht verfügbar. Stellen Sie es aus Ihrem Cloud-Speicher wieder he
 #: src/components/image/RecentImageCard.tsx:96
 msgid "Photo unavailable. Select the original again to repair it."
 msgstr "Foto nicht verfügbar. Wählen Sie das Original erneut aus, um es zu reparieren."
+
+#: src/components/color/CompareMixtureDrawer.tsx:197
+msgid "Photo with squares on the white point and your mix"
+msgstr "Foto mit Quadraten auf dem Weißpunkt und Ihrer Mischung"
 
 #: src/components/empty/EmptyPalette.tsx:44
 msgid "Pick a target color"
@@ -2125,6 +2171,7 @@ msgstr "Sprache auswählen"
 msgid "Select part"
 msgstr "Teil auswählen"
 
+#: src/components/color/CompareMixtureDrawer.tsx:179
 #: src/components/ImageChooser.tsx:123
 msgid "Select photo"
 msgstr "Foto auswählen"
@@ -2194,23 +2241,23 @@ msgstr "Als Haupt-Farbset festlegen"
 msgid "Set as reference"
 msgstr "Als Referenz festlegen"
 
-#: src/components/color/ColorMatchCard.tsx:148
-#: src/components/color/PaletteColorMixtureCard.tsx:154
+#: src/components/color/ColorMatchCard.tsx:145
+#: src/components/color/PaletteColorMixtureCard.tsx:155
 msgid "Set as underlayer"
 msgstr "Als Unterschicht festlegen"
 
-#: src/components/color/ColorMatchCard.tsx:144
-#: src/components/color/PaletteColorMixtureCard.tsx:150
+#: src/components/color/ColorMatchCard.tsx:141
+#: src/components/color/PaletteColorMixtureCard.tsx:151
 msgid "Set as underlayer for blending."
 msgstr "Als Unterschicht zum Verblenden festlegen."
 
-#: src/components/color/ColorMatchCard.tsx:144
-#: src/components/color/PaletteColorMixtureCard.tsx:150
+#: src/components/color/ColorMatchCard.tsx:141
+#: src/components/color/PaletteColorMixtureCard.tsx:151
 msgid "Set as underlayer for glazing."
 msgstr "Als Unterschicht zum Lasieren festlegen."
 
-#: src/components/color/ColorMatchCard.tsx:160
-#: src/components/color/PaletteColorMixtureCard.tsx:166
+#: src/components/color/ColorMatchCard.tsx:157
+#: src/components/color/PaletteColorMixtureCard.tsx:167
 msgid "Set as unifying color"
 msgstr "Als vereinheitlichende Farbe festlegen"
 
@@ -2264,7 +2311,7 @@ msgstr "Übereinstimmende Bereiche anzeigen"
 msgid "Show older photos"
 msgstr "Ältere Fotos anzeigen"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:124
+#: src/components/color/PaletteColorMixtureCard.tsx:128
 msgid "Show on photo"
 msgstr "Auf dem Foto anzeigen"
 
@@ -2272,7 +2319,7 @@ msgstr "Auf dem Foto anzeigen"
 msgid "Show or hide diagonal lines"
 msgstr "Diagonale Linien ein- oder ausblenden"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:118
+#: src/components/color/PaletteColorMixtureCard.tsx:122
 msgid "Show this color on the reference photo."
 msgstr "Zeigt diese Farbe auf dem Referenzfoto."
 
@@ -2425,6 +2472,10 @@ msgstr "Die Synchronisierung wurde gestoppt, da das Foto {context} nicht verfüg
 msgid "Sync with {label}"
 msgstr "Synchronisieren mit {label}"
 
+#: src/components/file/TakePhoto.tsx:61
+msgid "Take a photo"
+msgstr "Foto aufnehmen"
+
 #: src/components/ImageSimplifier.tsx:110
 msgid "Tap 👆 anywhere in the photo to choose a focal point."
 msgstr "Tippen Sie 👆 an einer beliebigen Stelle im Foto, um einen Fokuspunkt auszuwählen."
@@ -2433,6 +2484,7 @@ msgstr "Tippen Sie 👆 an einer beliebigen Stelle im Foto, um einen Fokuspunkt 
 msgid "Taped margin width around the painting area"
 msgstr "Geklebte Randbreite um den Malbereich"
 
+#: src/components/color/CompareMixtureDrawer.tsx:145
 #: src/components/ImageColorPicker.tsx:321
 #: src/components/ImageColorPicker.tsx:333
 msgid "Target color"
@@ -2515,7 +2567,7 @@ msgstr "Hinweise zu Software von Drittanbietern"
 msgid "This color brand is available only to paid Patreon members"
 msgstr "Diese Farbmarke ist nur für zahlende Patreon-Mitglieder verfügbar"
 
-#: src/components/color/PaletteColorMixtureCard.tsx:119
+#: src/components/color/PaletteColorMixtureCard.tsx:123
 msgid "This color was not sampled from a photo."
 msgstr "Diese Farbe wurde nicht aus einem Foto entnommen."
 
@@ -2729,7 +2781,7 @@ msgstr "Unsynchronisierte Änderungen auf diesem Gerät"
 
 #: src/components/color/ColorMatchCard.tsx:114
 #: src/components/color/ColorSwatchDrawer.tsx:112
-#: src/components/color/PaletteColorMixtureCard.tsx:102
+#: src/components/color/PaletteColorMixtureCard.tsx:106
 #: src/components/palette/PaletteGrid.tsx:214
 msgid "Untitled mixture"
 msgstr "Unbenannte Mischung"
@@ -2875,6 +2927,7 @@ msgstr "Weißabgleich"
 msgid "White paper or canvas"
 msgstr "Weißes Papier oder Leinwand"
 
+#: src/components/color/CompareMixtureDrawer.tsx:237
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:226
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:232
 msgid "White point"
@@ -2958,6 +3011,14 @@ msgstr "Ihre Bilder werden auf Ihrem Gerät verarbeitet und nur an den Cloud-Spe
 #: src/components/auth/AuthFeedbackHandler.tsx:141
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Ihre Zugangsdaten konnten nicht überprüft werden. Melden Sie sich erneut an."
+
+#: src/components/color/CompareMixtureDrawer.tsx:220
+msgid "Your mix"
+msgstr "Ihre Mischung"
+
+#: src/components/color/CompareMixtureDrawer.tsx:262
+msgid "Your mix is close to the target"
+msgstr "Ihre Mischung kommt der Zielfarbe nahe"
 
 #: src/components/Help.tsx:257
 msgid "Your Patreon membership and the data on this device are not deleted. <0>Cancel your Patreon membership</0> on Patreon itself."

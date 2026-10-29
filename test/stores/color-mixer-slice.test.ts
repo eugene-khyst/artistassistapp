@@ -96,7 +96,11 @@ beforeEach(() => {
   operations.getSamplingPoints.mockReturnValue([
     {rgb: [100, 100, 100], x: 20, y: 15, pixelCount: 100},
   ]);
-  operations.getImageData.mockReturnValue({data: new Uint8ClampedArray([220, 30, 80, 255])});
+  operations.getImageData.mockReturnValue({
+    data: new Uint8ClampedArray([220, 30, 80, 255]),
+    width: 1,
+    height: 1,
+  });
   operations.findBestColorMatches.mockResolvedValue([match([200, 40, 90])]);
 });
 
@@ -131,6 +135,8 @@ describe('auto palette', () => {
     for (const gray of [0, 0, 255, 255]) {
       operations.getImageData.mockReturnValueOnce({
         data: new Uint8ClampedArray([gray, gray, gray, 255]),
+        width: 1,
+        height: 1,
       });
     }
     operations.findBestColorMatches.mockImplementationOnce(async (colors: RgbTuple[]) =>
@@ -270,8 +276,12 @@ describe('auto palette', () => {
       match([207, 193, 163]),
     ]);
     operations.getImageData
-      .mockReturnValueOnce({data: new Uint8ClampedArray([155, 102, 35, 255])})
-      .mockReturnValueOnce({data: new Uint8ClampedArray([207, 193, 163, 255])});
+      .mockReturnValueOnce({data: new Uint8ClampedArray([155, 102, 35, 255]), width: 1, height: 1})
+      .mockReturnValueOnce({
+        data: new Uint8ClampedArray([207, 193, 163, 255]),
+        width: 1,
+        height: 1,
+      });
 
     await expect(store.getState().buildPalette(1)).resolves.toBe(1);
 
@@ -293,8 +303,12 @@ describe('auto palette', () => {
       {rgb: [160, 160, 160], x: 20, y: 15, pixelCount: 100},
     ]);
     operations.getImageData
-      .mockReturnValueOnce({data: new Uint8ClampedArray([149, 149, 149, 255])})
-      .mockReturnValueOnce({data: new Uint8ClampedArray([160, 160, 160, 255])});
+      .mockReturnValueOnce({data: new Uint8ClampedArray([149, 149, 149, 255]), width: 1, height: 1})
+      .mockReturnValueOnce({
+        data: new Uint8ClampedArray([160, 160, 160, 255]),
+        width: 1,
+        height: 1,
+      });
     operations.findBestColorMatches.mockResolvedValue([
       match([100, 100, 100]),
       match([160, 160, 160]),
