@@ -270,7 +270,7 @@ export function ImageColorPicker() {
         ),
         okText: <Trans>Continue</Trans>,
         cancelText: <Trans>Cancel</Trans>,
-        focusTriggerAfterClose: false,
+        focusable: {focusTriggerAfterClose: false},
       });
       if (!confirmed) {
         return;

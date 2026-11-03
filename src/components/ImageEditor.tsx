@@ -50,7 +50,7 @@ import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {EDIT_IMAGE_LABELS} from '@/components/messages';
 import {useConfirmDiscardImageEdits} from '@/hooks/useConfirmDiscardImageEdits';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
-import {ImageEditorKey} from '@/image-editor';
+import {ImageEditorKey, isImageEditorKey} from '@/image-editor';
 import {CanvasPolygonDrawingMode} from '@/services/canvas/mode/canvas-polygon-drawing-mode';
 import {ImageColorPickerMode} from '@/services/canvas/mode/image-color-picker-mode';
 import {ImageCroppingMode} from '@/services/canvas/mode/image-cropping-mode';
@@ -271,8 +271,7 @@ export function ImageEditor() {
     if (activeKey) {
       setIsShowingOriginal(false);
     }
-    const imageEditorKey = activeKey ? (activeKey as ImageEditorKey) : undefined;
-    void setActiveImageEditorKey(imageEditorKey);
+    void setActiveImageEditorKey(isImageEditorKey(activeKey) ? activeKey : undefined);
   };
 
   return (

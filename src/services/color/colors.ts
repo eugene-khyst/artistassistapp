@@ -27,6 +27,7 @@ import {
   type ColorSet,
   type ColorSetDefinition,
   ColorType,
+  ColorWarmth,
   type Comparator,
   compare,
   hexToRgb,
@@ -36,12 +37,28 @@ import {
 import {type User} from '@/services/auth/types';
 import {hasAccessTo} from '@/services/auth/utils';
 
-const COLOR_OPACITIES = new Set(
+const COLOR_OPACITIES = new Set<number>(
   Object.values(ColorOpacity).filter(value => typeof value === 'number')
 );
 
-export function normalizeColorOpacity(opacity?: ColorOpacity): ColorOpacity | undefined {
-  return opacity !== undefined && COLOR_OPACITIES.has(opacity) ? opacity : undefined;
+const COLOR_WARMTHS = new Set<number>(
+  Object.values(ColorWarmth).filter(value => typeof value === 'number')
+);
+
+function isColorOpacity(value: unknown): value is ColorOpacity {
+  return typeof value === 'number' && COLOR_OPACITIES.has(value);
+}
+
+function isColorWarmth(value: unknown): value is ColorWarmth {
+  return typeof value === 'number' && COLOR_WARMTHS.has(value);
+}
+
+export function normalizeColorOpacity(opacity?: number): ColorOpacity | undefined {
+  return isColorOpacity(opacity) ? opacity : undefined;
+}
+
+export function normalizeColorWarmth(warmth?: number): ColorWarmth | undefined {
+  return isColorWarmth(warmth) ? warmth : undefined;
 }
 
 export const COLOR_TYPES: ColorType[] = [
@@ -144,7 +161,7 @@ export function toColorSet(
           rgb: hexToRgb(hex),
           rho,
           opacity: normalizeColorOpacity(opacity),
-          warmth,
+          warmth: normalizeColorWarmth(warmth),
           isWhite,
         }));
     }),

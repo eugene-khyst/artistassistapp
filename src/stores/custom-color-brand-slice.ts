@@ -123,9 +123,9 @@ export const createCustomColorBrandSlice: StateCreator<
     const json: string = JSON.stringify(
       {
         ...brand,
-        colors: brand.colors?.map(color => ({
+        colors: brand.colors?.map(({opacity, ...color}) => ({
           ...color,
-          opacity: normalizeColorOpacity(color.opacity),
+          opacity: normalizeColorOpacity(opacity),
         })),
       } satisfies CustomColorBrandJson,
       null,

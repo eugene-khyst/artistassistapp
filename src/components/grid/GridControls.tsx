@@ -97,7 +97,7 @@ export function GridControls({
     updateSettings({enabled: e.target.checked});
   };
 
-  const handleModeChange = (value: number) => {
+  const handleModeChange = (value: GridMode) => {
     updateSettings({mode: value});
   };
 

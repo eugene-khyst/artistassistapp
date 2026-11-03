@@ -50,7 +50,7 @@ const ultramarine: ColorDefinition = {
   rho: new Array<number>(36).fill(0.2),
 };
 
-function colorSetWithOpacity(opacity?: ColorOpacity) {
+function colorSetWithOpacity(opacity?: number) {
   const color = {...ultramarine, opacity};
   const colorSet = toColorSet(
     {id: 1, type: ColorType.WatercolorPaint, brands: [1], colors: {1: [color.id]}},

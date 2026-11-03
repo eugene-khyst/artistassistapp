@@ -208,7 +208,7 @@ msgstr "Todos"
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Todos os dados do app são armazenados no armazenamento do navegador web, mesmo após a instalação. Limpar os dados do navegador apaga tudo."
 
-#: src/components/ImageEditor.tsx:336
+#: src/components/ImageEditor.tsx:335
 msgid "All edits will be lost"
 msgstr "Todas as edições serão perdidas"
 
@@ -422,7 +422,7 @@ msgstr "É necessário acesso à câmera para decalcar em AR"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:272
-#: src/components/ImageEditor.tsx:338
+#: src/components/ImageEditor.tsx:337
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
@@ -648,8 +648,8 @@ msgid "Colorize black-and-white"
 msgstr "Colorir preto e branco"
 
 #: src/components/ColorMixingChart.tsx:171
-#: src/components/ImageLimitedPalette.tsx:110
-#: src/components/ImageLimitedPalette.tsx:128
+#: src/components/ImageLimitedPalette.tsx:108
+#: src/components/ImageLimitedPalette.tsx:126
 msgid "Colors"
 msgstr "Cores"
 
@@ -1005,7 +1005,7 @@ msgstr "Editar daqui em diante"
 msgid "Edit image"
 msgstr "Editar imagem"
 
-#: src/components/ImageEditor.tsx:348
+#: src/components/ImageEditor.tsx:347
 msgid "Edited"
 msgstr "Editada"
 
@@ -1499,7 +1499,7 @@ msgstr "Mais"
 #: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
 #: src/components/ImageColorPicker.tsx:354
-#: src/components/ImageLimitedPalette.tsx:183
+#: src/components/ImageLimitedPalette.tsx:181
 #: src/components/ImageOutline.tsx:376
 msgid "More actions"
 msgstr "Mais ações"
@@ -1699,7 +1699,7 @@ msgstr "Níveis de saída"
 msgid "over"
 msgstr "sobre"
 
-#: src/components/ImageLimitedPalette.tsx:140
+#: src/components/ImageLimitedPalette.tsx:138
 #: src/components/ImagePainting.tsx:163
 msgid "Paint"
 msgstr "Pintar"
@@ -1840,7 +1840,7 @@ msgstr "Pressione o botão <0>Adicionar à paleta</0> ao lado da mistura de core
 #: src/components/ColorMixingChart.tsx:149
 #: src/components/image/ImageActions.tsx:64
 #: src/components/image/ImageActions.tsx:85
-#: src/components/ImageLimitedPalette.tsx:148
+#: src/components/ImageLimitedPalette.tsx:146
 #: src/components/ImageOutline.tsx:324
 #: src/components/ImageOutline.tsx:360
 #: src/components/ImagesCompare.tsx:181
@@ -1893,7 +1893,7 @@ msgstr "Proporção"
 msgid "Realism"
 msgstr "Realismo"
 
-#: src/components/ImageEditor.tsx:333
+#: src/components/ImageEditor.tsx:332
 msgid "Redo"
 msgstr "Refazer"
 
@@ -1975,8 +1975,8 @@ msgstr "Requer macOS Sonoma ou posterior."
 msgid "Resend code"
 msgstr "Reenviar código"
 
-#: src/components/ImageEditor.tsx:337
-#: src/components/ImageEditor.tsx:342
+#: src/components/ImageEditor.tsx:336
+#: src/components/ImageEditor.tsx:341
 #: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "Redefinir"
@@ -2035,7 +2035,7 @@ msgstr "Saturação (%)"
 #: src/components/CustomColorBrandCreator.tsx:518
 #: src/components/image/ImageActions.tsx:92
 #: src/components/image/ImageSaveButton.tsx:40
-#: src/components/ImageLimitedPalette.tsx:155
+#: src/components/ImageLimitedPalette.tsx:153
 #: src/components/ImageOutline.tsx:367
 msgid "Save"
 msgstr "Salvar"
@@ -2089,7 +2089,7 @@ msgstr "Selecione uma técnica artística"
 msgid "Select an image that contains a color chart"
 msgstr "Selecione uma imagem que contenha uma cartela de cores"
 
-#: src/components/ImageEditor.tsx:298
+#: src/components/ImageEditor.tsx:297
 msgid "Select an image to edit"
 msgstr "Selecione uma imagem para editar"
 
@@ -2134,9 +2134,9 @@ msgstr "Selecionar cores"
 msgid "Select colors to build a mixing chart"
 msgstr "Selecione cores para montar uma tabela de mistura"
 
-#: src/components/ImageLimitedPalette.tsx:121
-msgid "Select from 1 to {MAX_COLORS} colors"
-msgstr "Selecione de 1 a {MAX_COLORS} cores"
+#: src/components/ImageLimitedPalette.tsx:119
+msgid "Select from 1 to {maxColors} colors"
+msgstr "Selecione de 1 a {maxColors} cores"
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:82
 msgid "Select from your recent brands"
@@ -2151,7 +2151,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Selecione um dos seus conjuntos de cores recentes ou crie um novo."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:302
+#: src/components/ImageEditor.tsx:301
 msgid "Select image"
 msgstr "Selecionar imagem"
 
@@ -2231,13 +2231,13 @@ msgstr "Enviado para <0>{email}</0>"
 msgid "Session expired"
 msgstr "Sessão expirada"
 
-#: src/components/ImageLimitedPalette.tsx:173
+#: src/components/ImageLimitedPalette.tsx:171
 msgid "Set as main color set"
 msgstr "Definir como conjunto de cores principal"
 
 #: src/components/image/ImageActions.tsx:103
 #: src/components/image/ImageSaveButton.tsx:56
-#: src/components/ImageLimitedPalette.tsx:164
+#: src/components/ImageLimitedPalette.tsx:162
 msgid "Set as reference"
 msgstr "Definir como referência"
 
@@ -2747,7 +2747,7 @@ msgstr "Não foi possível restaurar o conjunto de cores salvo"
 msgid "Underlayer"
 msgstr "Subcamada"
 
-#: src/components/ImageEditor.tsx:326
+#: src/components/ImageEditor.tsx:325
 msgid "Undo"
 msgstr "Desfazer"
 
@@ -2839,9 +2839,9 @@ msgstr "Usar WebGPU"
 msgid "Used"
 msgstr "Usado"
 
-#: src/components/ImageLimitedPalette.tsx:113
-msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
-msgstr "Usar uma paleta limitada ajuda a alcançar a harmonia das cores. Selecione de 1 a {MAX_COLORS} cores primárias."
+#: src/components/ImageLimitedPalette.tsx:111
+msgid "Using a limited palette helps achieve color harmony. Select 1–{maxColors} primary colors."
+msgstr "Usar uma paleta limitada ajuda a alcançar a harmonia das cores. Selecione de 1 a {maxColors} cores primárias."
 
 #: src/components/image-editor/ExpandEditorControls.tsx:183
 msgid "Vertical"
@@ -3002,7 +3002,7 @@ msgid "Your image"
 msgstr "Sua imagem"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:313
+#: src/components/ImageEditor.tsx:312
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:320
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

@@ -28,7 +28,11 @@ import type {CSSProperties} from 'react';
 import {ColorSquare} from '@/components/color/ColorSquare';
 import {OpacityIcon} from '@/components/color/OpacityIcon';
 import {WarmthIcon} from '@/components/color/WarmthIcon';
-import {formatColorLabel} from '@/services/color/colors';
+import {
+  formatColorLabel,
+  normalizeColorOpacity,
+  normalizeColorWarmth,
+} from '@/services/color/colors';
 
 interface Props {
   color: ColorDefinition | Color;
@@ -63,8 +67,8 @@ export function ColorLabel({
         <Typography.Text ellipsis className="u-min-w-0">
           {label}
         </Typography.Text>
-        {showOpacity && <OpacityIcon opacity={opacity} />}
-        {showWarmth && <WarmthIcon warmth={warmth} />}
+        {showOpacity && <OpacityIcon opacity={normalizeColorOpacity(opacity)} />}
+        {showWarmth && <WarmthIcon warmth={normalizeColorWarmth(warmth)} />}
       </Flex>
     </Flex>
   );

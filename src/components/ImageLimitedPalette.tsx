@@ -23,12 +23,7 @@ import {
   PrinterOutlined,
   SwapOutlined,
 } from '@ant-design/icons';
-import {
-  type ColorId,
-  isMixable,
-  MIXABLE_COLOR_TYPES,
-  toColorIds,
-} from '@eugene-khyst/artistassistapp-color-mixer';
+import {type ColorId, isMixable, toColorIds} from '@eugene-khyst/artistassistapp-color-mixer';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {Button, Dropdown, Form, Grid, Space, Typography} from 'antd';
 import {useState} from 'react';
@@ -44,7 +39,8 @@ import {ColorCascader} from './color-set/ColorCascader';
 import {EmptyColorSet} from './empty/EmptyColorSet';
 import styles from './ImageLimitedPalette.module.css';
 
-const MAX_COLORS = 7;
+const MAX_MIXABLE_COLORS = 7;
+const MAX_NON_MIXABLE_COLORS = 12;
 const FILENAME_SUFFIX = 'limited-palette';
 
 export function ImageLimitedPalette() {
@@ -98,9 +94,11 @@ export function ImageLimitedPalette() {
     filenameSuffix: FILENAME_SUFFIX,
   });
 
-  if (!colorSet || !originalImage || !isMixable(colorSet.type)) {
-    return <EmptyColorSet supportedColorTypes={MIXABLE_COLOR_TYPES} imageMandatory />;
+  if (!colorSet || !originalImage) {
+    return <EmptyColorSet imageMandatory />;
   }
+
+  const maxColors: number = isMixable(colorSet.type) ? MAX_MIXABLE_COLORS : MAX_NON_MIXABLE_COLORS;
 
   return (
     <LoadingIndicator loading={isLoading} onCancel={isCancelable && abortLimitedPalette}>
@@ -111,17 +109,17 @@ export function ImageLimitedPalette() {
             labelCol={{className: 'u-pb-0'}}
             tooltip={
               <Trans>
-                Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary
+                Using a limited palette helps achieve color harmony. Select 1–{maxColors} primary
                 colors.
               </Trans>
             }
             className={styles['colorsFormItem']}
             extra={
-              <Typography.Text type={colorIds.length > MAX_COLORS ? 'danger' : 'secondary'}>
-                <Trans>Select from 1 to {MAX_COLORS} colors</Trans>
+              <Typography.Text type={colorIds.length > maxColors ? 'danger' : 'secondary'}>
+                <Trans>Select from 1 to {maxColors} colors</Trans>
               </Typography.Text>
             }
-            validateStatus={colorIds.length > MAX_COLORS ? 'error' : undefined}
+            validateStatus={colorIds.length > maxColors ? 'error' : undefined}
           >
             <Space.Compact block>
               <ColorCascader
@@ -135,7 +133,7 @@ export function ImageLimitedPalette() {
               <Button
                 type="primary"
                 onClick={handlePaintClick}
-                disabled={!colorIds.length || colorIds.length > MAX_COLORS}
+                disabled={!colorIds.length || colorIds.length > maxColors}
               >
                 <Trans>Paint</Trans>
               </Button>

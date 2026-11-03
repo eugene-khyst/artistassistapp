@@ -51,7 +51,7 @@ import {ImageSimplifier} from './components/ImageSimplifier';
 import {ImageTonalValues} from './components/ImageTonalValues';
 import {Palette} from './components/Palette';
 import {WATERMARK_TEXT} from './config';
-import {TabKey} from './tabs';
+import {isTabKey, TabKey} from './tabs';
 
 const tabMore: TabsProps['more'] = {trigger: ['click']};
 
@@ -93,7 +93,9 @@ export function ArtistAssistApp() {
   }, [installRequested, install, resetInstallRequested]);
 
   const handleTabChange = (activeKey: string) => {
-    void setActiveTabKey(activeKey as TabKey);
+    if (isTabKey(activeKey)) {
+      void setActiveTabKey(activeKey);
+    }
   };
 
   const items: TabsProps['items'] = [

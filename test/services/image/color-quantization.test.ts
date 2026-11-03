@@ -17,8 +17,11 @@
  */
 
 import {
-  type ColorSet,
+  type Color,
   ColorType,
+  createColorMixer,
+  findBestAvailableLayerRgb,
+  makeColorMixtures,
   PAPER_WHITE,
   Reflectance,
   type RgbTuple,
@@ -36,15 +39,14 @@ const graphicsMocks = vi.hoisted(() => ({
 vi.mock('@eugene-khyst/artistassistapp-image-processing/utils/graphics', () => graphicsMocks);
 
 const BLUE: RgbTuple = [32, 64, 160];
-const colors: ColorSet['colors'] = [
-  {
-    brand: 1,
-    id: 1,
-    name: 'Blue',
-    rgb: BLUE,
-    rho: Array.from(Reflectance.fromRgb(...BLUE).toArray()),
-  },
-];
+const YELLOW: RgbTuple = [240, 200, 40];
+
+function makeColor(id: number, name: string, rgb: RgbTuple): Color {
+  return {brand: 1, id, name, rgb, rho: Array.from(Reflectance.fromRgb(...rgb).toArray())};
+}
+
+const blue: Color = makeColor(1, 'Blue', BLUE);
+const yellow: Color = makeColor(2, 'Yellow', YELLOW);
 
 beforeEach(() => {
   vi.stubGlobal('createImageBitmap', vi.fn().mockResolvedValue({}));
@@ -55,7 +57,11 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-async function limitedPalettePixels(pixels: RgbTuple[], type: ColorType): Promise<number[][]> {
+async function limitedPalettePixels(
+  pixels: RgbTuple[],
+  type: ColorType,
+  colors: Color[] = [blue]
+): Promise<number[][]> {
   const data = new Uint8ClampedArray(pixels.flatMap(rgb => [...rgb, 255]));
   const imageData = {data, width: pixels.length, height: 1} as ImageData;
   const image = {width: pixels.length, height: 1, close: vi.fn()} as unknown as ImageBitmap;
@@ -67,7 +73,15 @@ async function limitedPalettePixels(pixels: RgbTuple[], type: ColorType): Promis
   return pixels.map((_, i) => Array.from(data.slice(i * 4, i * 4 + 3)));
 }
 
-describe.each([ColorType.WatercolorPaint, ColorType.Gouache])('limited palette (%s)', type => {
+describe.each([
+  ColorType.WatercolorPaint,
+  ColorType.Gouache,
+  ColorType.ColoredPencils,
+  ColorType.DryPastel,
+  ColorType.AlcoholMarkers,
+  ColorType.WaterBasedMarkers,
+  ColorType.AcrylicMarkers,
+])('limited palette (%s)', type => {
   it('leaves white and near-white areas as bare paper while retaining paint colors', async () => {
     const pixels = [BLUE, WHITE, [250, 250, 250], BLUE] satisfies RgbTuple[];
 
@@ -90,6 +104,41 @@ describe.each([ColorType.WatercolorPaint, ColorType.Gouache])('limited palette (
   it('still renders the paint when there are no white areas', async () => {
     expect(await limitedPalettePixels([BLUE, [33, 65, 161]], type)).toEqual([BLUE, BLUE]);
   });
+});
+
+function glazeRgb(type: ColorType, glaze: Color, underlayer: Color): RgbTuple {
+  const [[{layerRgb: underlayerRgb}]] = makeColorMixtures({
+    type,
+    colors: [underlayer],
+    ratios: [[1]],
+  });
+  const [[{layerRgb}]] = makeColorMixtures({type, colors: [glaze], ratios: [[1]], underlayerRgb});
+  return layerRgb;
+}
+
+describe('limited palette second layer', () => {
+  it.each([
+    ColorType.ColoredPencils,
+    ColorType.DryPastel,
+    ColorType.AlcoholMarkers,
+    ColorType.WaterBasedMarkers,
+  ])('glazes a second layer for media that layer but do not mix (%s)', async type => {
+    const green: RgbTuple = glazeRgb(type, blue, yellow);
+
+    expect(await limitedPalettePixels([green], type, [blue, yellow])).toEqual([green]);
+  });
+
+  it.each([ColorType.WatercolorPaint, ColorType.OilPaint])(
+    'mixes instead of glazing for media that mix (%s)',
+    async type => {
+      const green: RgbTuple = glazeRgb(type, blue, yellow);
+      const colorMixer = createColorMixer({type, brands: new Map(), colors: [blue, yellow]});
+      const mixedRgb: RgbTuple = findBestAvailableLayerRgb([colorMixer], green);
+
+      expect(mixedRgb).not.toEqual(green);
+      expect(await limitedPalettePixels([green], type, [blue, yellow])).toEqual([mixedRgb]);
+    }
+  );
 });
 
 describe('sampling points', () => {

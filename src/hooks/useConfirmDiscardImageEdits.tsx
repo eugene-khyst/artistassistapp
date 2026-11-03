@@ -37,7 +37,7 @@ export function useConfirmDiscardImageEdits(): () => Promise<boolean> {
       okText: <Trans>Discard edits</Trans>,
       cancelText: <Trans>Keep editing</Trans>,
       okButtonProps: {danger: true},
-      focusTriggerAfterClose: false,
+      focusable: {focusTriggerAfterClose: false},
     });
   }, [modal]);
 }

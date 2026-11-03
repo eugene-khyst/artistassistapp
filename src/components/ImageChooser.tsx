@@ -96,7 +96,7 @@ export function ImageChooser() {
         ),
         okText: <Trans>Delete oldest</Trans>,
         cancelText: <Trans>Keep all</Trans>,
-        focusTriggerAfterClose: false,
+        focusable: {focusTriggerAfterClose: false},
       });
       if (confirmed) {
         const oldestImageDigest = await getOldestImageDigest();

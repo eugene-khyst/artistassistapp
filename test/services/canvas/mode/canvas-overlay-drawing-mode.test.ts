@@ -41,12 +41,14 @@ vi.mock('@eugene-khyst/artistassistapp-image-processing/utils/graphics', async i
 }));
 
 class TestOverlayDrawingMode extends CanvasOverlayDrawingMode {
+  readonly overlayContexts: ImageCanvasRenderingContext[] = [];
+
   getEffectiveLineWidth(): number {
     return this.getLineWidth();
   }
 
   protected override drawOverlay(ctx: ImageCanvasRenderingContext): void {
-    void ctx;
+    this.overlayContexts.push(ctx);
   }
 }
 

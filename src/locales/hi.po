@@ -208,7 +208,7 @@ msgstr "सभी"
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "सभी ऐप डेटा इंस्टॉल करने के बाद भी वेब ब्राउज़र स्टोरेज में संग्रहीत किया जाता है। ब्राउज़र डेटा साफ़ करने से यह सब मिट जाता है।"
 
-#: src/components/ImageEditor.tsx:336
+#: src/components/ImageEditor.tsx:335
 msgid "All edits will be lost"
 msgstr "सभी संपादन खो जाएंगे"
 
@@ -422,7 +422,7 @@ msgstr "एआर ट्रेसिंग के लिए कैमरा ए�
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:272
-#: src/components/ImageEditor.tsx:338
+#: src/components/ImageEditor.tsx:337
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
@@ -648,8 +648,8 @@ msgid "Colorize black-and-white"
 msgstr "श्वेत-श्याम को रंगीन करें"
 
 #: src/components/ColorMixingChart.tsx:171
-#: src/components/ImageLimitedPalette.tsx:110
-#: src/components/ImageLimitedPalette.tsx:128
+#: src/components/ImageLimitedPalette.tsx:108
+#: src/components/ImageLimitedPalette.tsx:126
 msgid "Colors"
 msgstr "रंग"
 
@@ -1005,7 +1005,7 @@ msgstr "यहां से संपादित करें"
 msgid "Edit image"
 msgstr "छवि संपादित करें"
 
-#: src/components/ImageEditor.tsx:348
+#: src/components/ImageEditor.tsx:347
 msgid "Edited"
 msgstr "संपादित"
 
@@ -1499,7 +1499,7 @@ msgstr "अधिक"
 #: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
 #: src/components/ImageColorPicker.tsx:354
-#: src/components/ImageLimitedPalette.tsx:183
+#: src/components/ImageLimitedPalette.tsx:181
 #: src/components/ImageOutline.tsx:376
 msgid "More actions"
 msgstr "अधिक कार्रवाइयाँ"
@@ -1699,7 +1699,7 @@ msgstr "आउटपुट स्तर"
 msgid "over"
 msgstr "ऊपर"
 
-#: src/components/ImageLimitedPalette.tsx:140
+#: src/components/ImageLimitedPalette.tsx:138
 #: src/components/ImagePainting.tsx:163
 msgid "Paint"
 msgstr "पेंट करें"
@@ -1840,7 +1840,7 @@ msgstr "अपने पसंदीदा रंग मिश्रण के �
 #: src/components/ColorMixingChart.tsx:149
 #: src/components/image/ImageActions.tsx:64
 #: src/components/image/ImageActions.tsx:85
-#: src/components/ImageLimitedPalette.tsx:148
+#: src/components/ImageLimitedPalette.tsx:146
 #: src/components/ImageOutline.tsx:324
 #: src/components/ImageOutline.tsx:360
 #: src/components/ImagesCompare.tsx:181
@@ -1893,7 +1893,7 @@ msgstr "अनुपात"
 msgid "Realism"
 msgstr "यथार्थवाद"
 
-#: src/components/ImageEditor.tsx:333
+#: src/components/ImageEditor.tsx:332
 msgid "Redo"
 msgstr "फिर से करें"
 
@@ -1975,8 +1975,8 @@ msgstr "macOS सोनोमा या बाद के संस्करण �
 msgid "Resend code"
 msgstr "कोड फिर से भेजें"
 
-#: src/components/ImageEditor.tsx:337
-#: src/components/ImageEditor.tsx:342
+#: src/components/ImageEditor.tsx:336
+#: src/components/ImageEditor.tsx:341
 #: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "रीसेट"
@@ -2035,7 +2035,7 @@ msgstr "संतृप्ति (%)"
 #: src/components/CustomColorBrandCreator.tsx:518
 #: src/components/image/ImageActions.tsx:92
 #: src/components/image/ImageSaveButton.tsx:40
-#: src/components/ImageLimitedPalette.tsx:155
+#: src/components/ImageLimitedPalette.tsx:153
 #: src/components/ImageOutline.tsx:367
 msgid "Save"
 msgstr "सहेजें"
@@ -2089,7 +2089,7 @@ msgstr "एक कला माध्यम चुनें"
 msgid "Select an image that contains a color chart"
 msgstr "उस छवि का चयन करें जिसमें रंग चार्ट हो"
 
-#: src/components/ImageEditor.tsx:298
+#: src/components/ImageEditor.tsx:297
 msgid "Select an image to edit"
 msgstr "संपादित करने के लिए छवि चुनें"
 
@@ -2134,9 +2134,9 @@ msgstr "रंगों का चयन करें"
 msgid "Select colors to build a mixing chart"
 msgstr "मिक्सिंग चार्ट बनाने के लिए रंगों का चयन करें"
 
-#: src/components/ImageLimitedPalette.tsx:121
-msgid "Select from 1 to {MAX_COLORS} colors"
-msgstr "1 से {MAX_COLORS} रंगों में से चयन करें"
+#: src/components/ImageLimitedPalette.tsx:119
+msgid "Select from 1 to {maxColors} colors"
+msgstr "1 से {maxColors} रंगों में से चयन करें"
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:82
 msgid "Select from your recent brands"
@@ -2151,7 +2151,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "अपने हाल के रंग सेट में से चुनें या एक नया बनाएं।"
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:302
+#: src/components/ImageEditor.tsx:301
 msgid "Select image"
 msgstr "छवि का चयन करें"
 
@@ -2231,13 +2231,13 @@ msgstr "<0>{email}</0> पर भेजा गया"
 msgid "Session expired"
 msgstr "सत्र की समय सीमा समाप्त हो गई"
 
-#: src/components/ImageLimitedPalette.tsx:173
+#: src/components/ImageLimitedPalette.tsx:171
 msgid "Set as main color set"
 msgstr "मुख्य रंग सेट के रूप में सेट करें"
 
 #: src/components/image/ImageActions.tsx:103
 #: src/components/image/ImageSaveButton.tsx:56
-#: src/components/ImageLimitedPalette.tsx:164
+#: src/components/ImageLimitedPalette.tsx:162
 msgid "Set as reference"
 msgstr "संदर्भ के रूप में सेट करें"
 
@@ -2747,7 +2747,7 @@ msgstr "सहेजे गए रंग सेट को पुनर्स्�
 msgid "Underlayer"
 msgstr "अंडरलेयर"
 
-#: src/components/ImageEditor.tsx:326
+#: src/components/ImageEditor.tsx:325
 msgid "Undo"
 msgstr "पूर्ववत करें"
 
@@ -2839,9 +2839,9 @@ msgstr "WebGPU का उपयोग करें"
 msgid "Used"
 msgstr "उपयोग"
 
-#: src/components/ImageLimitedPalette.tsx:113
-msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
-msgstr "सीमित पैलेट का उपयोग करने से रंग सामंजस्य प्राप्त करने में मदद मिलती है। 1–{MAX_COLORS} प्राथमिक रंग चुनें।"
+#: src/components/ImageLimitedPalette.tsx:111
+msgid "Using a limited palette helps achieve color harmony. Select 1–{maxColors} primary colors."
+msgstr "सीमित पैलेट का उपयोग करने से रंग सामंजस्य प्राप्त करने में मदद मिलती है। 1–{maxColors} प्राथमिक रंग चुनें।"
 
 #: src/components/image-editor/ExpandEditorControls.tsx:183
 msgid "Vertical"
@@ -3002,7 +3002,7 @@ msgid "Your image"
 msgstr "आपकी छवि"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:313
+#: src/components/ImageEditor.tsx:312
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:320
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

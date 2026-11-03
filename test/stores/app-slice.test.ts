@@ -227,7 +227,7 @@ describe('app slice', () => {
     const {setActiveTabKey, store} = createTestStore({
       ...DEFAULT_APP_SETTINGS,
       locale: 'en',
-      activeTabKey: 'perspective-correction' as TabKey,
+      activeTabKey: 'perspective-correction' as unknown as TabKey,
     });
 
     await store.getState().initApp();

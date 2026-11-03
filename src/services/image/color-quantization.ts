@@ -17,11 +17,14 @@
  */
 
 import {
-  ColorMixer,
+  type ColorMixer,
   type ColorSet,
   computeIfAbsentInMap,
+  createColorMixer,
+  createTwoLayerColorMixers,
+  findBestAvailableLayerRgb,
+  isMixable,
   packRgb,
-  PAPER_WHITE,
   type RgbTuple,
 } from '@eugene-khyst/artistassistapp-color-mixer';
 import {
@@ -75,20 +78,17 @@ export class ColorQuantization {
   }
 
   async getLimitedPaletteImage(image: ImageBitmap, colorSet: ColorSet): Promise<Result> {
-    const colorMixer = new ColorMixer();
-    colorMixer.setColorSet({colorSet});
     const imageData: ImageData = readImageData(image);
+    const colorMixers: ColorMixer[] = isMixable(colorSet.type)
+      ? [createColorMixer(colorSet)]
+      : createTwoLayerColorMixers(colorSet);
     const matchedColors = new Map<number, RgbTuple>();
     quantizeColors(
       imageData,
       MAX_LIMITED_PALETTE_COLORS,
       rgbTransformInOklab((color: RgbTuple): RgbTuple =>
-        computeIfAbsentInMap(
-          matchedColors,
-          packRgb(...color),
-          () =>
-            colorMixer.findBestAvailableColorMatch(color, true)?.colorMixture.layerRgb ??
-            PAPER_WHITE
+        computeIfAbsentInMap(matchedColors, packRgb(...color), () =>
+          findBestAvailableLayerRgb(colorMixers, color)
         )
       )
     );

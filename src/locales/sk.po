@@ -208,7 +208,7 @@ msgstr "Všetky"
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Všetky údaje aplikácie sú uložené v úložisku webového prehliadača, aj po inštalácii. Vymazanie údajov prehliadača ich všetky odstráni."
 
-#: src/components/ImageEditor.tsx:336
+#: src/components/ImageEditor.tsx:335
 msgid "All edits will be lost"
 msgstr "Všetky úpravy sa stratia"
 
@@ -422,7 +422,7 @@ msgstr "Na obkresľovanie v AR je potrebný prístup ku kamere"
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:272
-#: src/components/ImageEditor.tsx:338
+#: src/components/ImageEditor.tsx:337
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
@@ -648,8 +648,8 @@ msgid "Colorize black-and-white"
 msgstr "Vyfarbiť čiernobielu fotografiu"
 
 #: src/components/ColorMixingChart.tsx:171
-#: src/components/ImageLimitedPalette.tsx:110
-#: src/components/ImageLimitedPalette.tsx:128
+#: src/components/ImageLimitedPalette.tsx:108
+#: src/components/ImageLimitedPalette.tsx:126
 msgid "Colors"
 msgstr "Farby"
 
@@ -1005,7 +1005,7 @@ msgstr "Upraviť odtiaľto ďalej"
 msgid "Edit image"
 msgstr "Upraviť obrázok"
 
-#: src/components/ImageEditor.tsx:348
+#: src/components/ImageEditor.tsx:347
 msgid "Edited"
 msgstr "Upravené"
 
@@ -1499,7 +1499,7 @@ msgstr "Viac"
 #: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
 #: src/components/ImageColorPicker.tsx:354
-#: src/components/ImageLimitedPalette.tsx:183
+#: src/components/ImageLimitedPalette.tsx:181
 #: src/components/ImageOutline.tsx:376
 msgid "More actions"
 msgstr "Ďalšie akcie"
@@ -1699,7 +1699,7 @@ msgstr "Výstupné úrovne"
 msgid "over"
 msgstr "nad"
 
-#: src/components/ImageLimitedPalette.tsx:140
+#: src/components/ImageLimitedPalette.tsx:138
 #: src/components/ImagePainting.tsx:163
 msgid "Paint"
 msgstr "Maľovať"
@@ -1840,7 +1840,7 @@ msgstr "Stlačte tlačidlo <0>Pridať do palety</0> vedľa farebnej zmesi, ktor�
 #: src/components/ColorMixingChart.tsx:149
 #: src/components/image/ImageActions.tsx:64
 #: src/components/image/ImageActions.tsx:85
-#: src/components/ImageLimitedPalette.tsx:148
+#: src/components/ImageLimitedPalette.tsx:146
 #: src/components/ImageOutline.tsx:324
 #: src/components/ImageOutline.tsx:360
 #: src/components/ImagesCompare.tsx:181
@@ -1893,7 +1893,7 @@ msgstr "Pomer"
 msgid "Realism"
 msgstr "Realizmus"
 
-#: src/components/ImageEditor.tsx:333
+#: src/components/ImageEditor.tsx:332
 msgid "Redo"
 msgstr "Znovu"
 
@@ -1975,8 +1975,8 @@ msgstr "Vyžaduje sa systém macOS Sonoma alebo novší."
 msgid "Resend code"
 msgstr "Znova odoslať kód"
 
-#: src/components/ImageEditor.tsx:337
-#: src/components/ImageEditor.tsx:342
+#: src/components/ImageEditor.tsx:336
+#: src/components/ImageEditor.tsx:341
 #: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "Resetovať"
@@ -2035,7 +2035,7 @@ msgstr "Sýtosť (%)"
 #: src/components/CustomColorBrandCreator.tsx:518
 #: src/components/image/ImageActions.tsx:92
 #: src/components/image/ImageSaveButton.tsx:40
-#: src/components/ImageLimitedPalette.tsx:155
+#: src/components/ImageLimitedPalette.tsx:153
 #: src/components/ImageOutline.tsx:367
 msgid "Save"
 msgstr "Uložiť"
@@ -2089,7 +2089,7 @@ msgstr "Vyberte výtvarnú techniku"
 msgid "Select an image that contains a color chart"
 msgstr "Vyberte obrázok, ktorý obsahuje farebnú tabuľku"
 
-#: src/components/ImageEditor.tsx:298
+#: src/components/ImageEditor.tsx:297
 msgid "Select an image to edit"
 msgstr "Vyberte obrázok na úpravu"
 
@@ -2134,9 +2134,9 @@ msgstr "Vyberte farby"
 msgid "Select colors to build a mixing chart"
 msgstr "Vyberte farby na vytvorenie tabuľky miešania"
 
-#: src/components/ImageLimitedPalette.tsx:121
-msgid "Select from 1 to {MAX_COLORS} colors"
-msgstr "Vyberte si od 1 do {MAX_COLORS} farieb"
+#: src/components/ImageLimitedPalette.tsx:119
+msgid "Select from 1 to {maxColors} colors"
+msgstr "Vyberte si od 1 do {maxColors} farieb"
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:82
 msgid "Select from your recent brands"
@@ -2151,7 +2151,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Vyberte si zo svojich nedávnych farebných sád alebo vytvorte novú."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:302
+#: src/components/ImageEditor.tsx:301
 msgid "Select image"
 msgstr "Vybrať obrázok"
 
@@ -2231,13 +2231,13 @@ msgstr "Odoslané na <0>{email}</0>"
 msgid "Session expired"
 msgstr "Relácia vypršala"
 
-#: src/components/ImageLimitedPalette.tsx:173
+#: src/components/ImageLimitedPalette.tsx:171
 msgid "Set as main color set"
 msgstr "Nastaviť ako hlavnú farebnú sadu"
 
 #: src/components/image/ImageActions.tsx:103
 #: src/components/image/ImageSaveButton.tsx:56
-#: src/components/ImageLimitedPalette.tsx:164
+#: src/components/ImageLimitedPalette.tsx:162
 msgid "Set as reference"
 msgstr "Nastaviť ako referenciu"
 
@@ -2747,7 +2747,7 @@ msgstr "Nie je možné obnoviť uloženú farebnú sadu"
 msgid "Underlayer"
 msgstr "Podkladová vrstva"
 
-#: src/components/ImageEditor.tsx:326
+#: src/components/ImageEditor.tsx:325
 msgid "Undo"
 msgstr "Vrátiť späť"
 
@@ -2839,9 +2839,9 @@ msgstr "Používať WebGPU"
 msgid "Used"
 msgstr "Použité"
 
-#: src/components/ImageLimitedPalette.tsx:113
-msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
-msgstr "Použitie obmedzenej palety pomáha dosiahnuť farebnú harmóniu. Vyberte 1 – {MAX_COLORS} základných farieb."
+#: src/components/ImageLimitedPalette.tsx:111
+msgid "Using a limited palette helps achieve color harmony. Select 1–{maxColors} primary colors."
+msgstr "Použitie obmedzenej palety pomáha dosiahnuť farebnú harmóniu. Vyberte 1 – {maxColors} základných farieb."
 
 #: src/components/image-editor/ExpandEditorControls.tsx:183
 msgid "Vertical"
@@ -3002,7 +3002,7 @@ msgid "Your image"
 msgstr "Váš obrázok"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:313
+#: src/components/ImageEditor.tsx:312
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:320
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

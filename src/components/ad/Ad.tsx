@@ -24,7 +24,7 @@ import reactStringReplace from 'react-string-replace';
 import {DATA_URL} from '@/config';
 import type {AdDefinition} from '@/services/ads/types';
 import {useAppStore} from '@/stores/app-store';
-import {TabKey} from '@/tabs';
+import {isTabKey} from '@/tabs';
 import {randomInt} from '@/utils/random';
 
 import styles from './Ad.module.css';
@@ -76,6 +76,7 @@ export function Ad({ads, vertical = false, footer, note, contentClassName}: Read
     return null;
   }
   const ad: AdDefinition | null = ads[adIndex % ads.length]!;
+  const linkTab = isTabKey(ad.linkTab) ? ad.linkTab : null;
   return (
     <Flex vertical={vertical || !screens.md} align="center">
       {ad.image && (
@@ -96,8 +97,8 @@ export function Ad({ads, vertical = false, footer, note, contentClassName}: Read
                 {ad.linkText}
               </Button>
             )}
-            {ad.linkTab && Object.values(TabKey).includes(ad.linkTab as TabKey) && (
-              <Button type="primary" onClick={() => void setActiveTabKey(ad.linkTab as TabKey)}>
+            {linkTab && (
+              <Button type="primary" onClick={() => void setActiveTabKey(linkTab)}>
                 {ad.linkText}
               </Button>
             )}

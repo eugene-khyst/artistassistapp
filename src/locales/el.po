@@ -208,7 +208,7 @@ msgstr "Όλες"
 msgid "All app data is stored in the web browser storage, even after installation. Clearing the browser data deletes it all."
 msgstr "Όλα τα δεδομένα της εφαρμογής αποθηκεύονται στον χώρο αποθήκευσης του προγράμματος περιήγησης ιστού, ακόμη και μετά την εγκατάσταση. Η εκκαθάριση των δεδομένων του προγράμματος περιήγησης τα διαγράφει όλα."
 
-#: src/components/ImageEditor.tsx:336
+#: src/components/ImageEditor.tsx:335
 msgid "All edits will be lost"
 msgstr "Όλες οι τροποποιήσεις θα χαθούν"
 
@@ -422,7 +422,7 @@ msgstr "Απαιτείται πρόσβαση στην κάμερα για ιχ�
 #: src/components/cloud/ImportFromZipFileSelect.tsx:47
 #: src/components/color-set/MergeColorSetsDrawer.tsx:99
 #: src/components/ImageColorPicker.tsx:272
-#: src/components/ImageEditor.tsx:338
+#: src/components/ImageEditor.tsx:337
 #: src/components/loading/LoadingIndicator.tsx:52
 #: src/components/settings/ResetSettingsButton.tsx:54
 #: src/components/storage/ClearCacheButton.tsx:52
@@ -648,8 +648,8 @@ msgid "Colorize black-and-white"
 msgstr "Χρωματισμός ασπρόμαυρης φωτογραφίας"
 
 #: src/components/ColorMixingChart.tsx:171
-#: src/components/ImageLimitedPalette.tsx:110
-#: src/components/ImageLimitedPalette.tsx:128
+#: src/components/ImageLimitedPalette.tsx:108
+#: src/components/ImageLimitedPalette.tsx:126
 msgid "Colors"
 msgstr "Χρώματα"
 
@@ -1005,7 +1005,7 @@ msgstr "Επεξεργασία από εδώ και πέρα"
 msgid "Edit image"
 msgstr "Επεξεργασία εικόνας"
 
-#: src/components/ImageEditor.tsx:348
+#: src/components/ImageEditor.tsx:347
 msgid "Edited"
 msgstr "Επεξεργασμένο"
 
@@ -1499,7 +1499,7 @@ msgstr "Περισσότερα"
 #: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
 #: src/components/ImageColorPicker.tsx:354
-#: src/components/ImageLimitedPalette.tsx:183
+#: src/components/ImageLimitedPalette.tsx:181
 #: src/components/ImageOutline.tsx:376
 msgid "More actions"
 msgstr "Περισσότερες ενέργειες"
@@ -1699,7 +1699,7 @@ msgstr "Επίπεδα εξόδου"
 msgid "over"
 msgstr "πάνω σε"
 
-#: src/components/ImageLimitedPalette.tsx:140
+#: src/components/ImageLimitedPalette.tsx:138
 #: src/components/ImagePainting.tsx:163
 msgid "Paint"
 msgstr "Ζωγράφισε"
@@ -1840,7 +1840,7 @@ msgstr "Πατήστε το κουμπί <0>Προσθήκη στην παλέτ
 #: src/components/ColorMixingChart.tsx:149
 #: src/components/image/ImageActions.tsx:64
 #: src/components/image/ImageActions.tsx:85
-#: src/components/ImageLimitedPalette.tsx:148
+#: src/components/ImageLimitedPalette.tsx:146
 #: src/components/ImageOutline.tsx:324
 #: src/components/ImageOutline.tsx:360
 #: src/components/ImagesCompare.tsx:181
@@ -1893,7 +1893,7 @@ msgstr "Αναλογία"
 msgid "Realism"
 msgstr "Ρεαλισμός"
 
-#: src/components/ImageEditor.tsx:333
+#: src/components/ImageEditor.tsx:332
 msgid "Redo"
 msgstr "Επανάληψη"
 
@@ -1975,8 +1975,8 @@ msgstr "Απαιτείται macOS Sonoma ή νεότερη έκδοση."
 msgid "Resend code"
 msgstr "Επανάληψη αποστολής κωδικού"
 
-#: src/components/ImageEditor.tsx:337
-#: src/components/ImageEditor.tsx:342
+#: src/components/ImageEditor.tsx:336
+#: src/components/ImageEditor.tsx:341
 #: src/components/settings/ResetSettingsButton.tsx:53
 msgid "Reset"
 msgstr "Επαναφορά"
@@ -2035,7 +2035,7 @@ msgstr "Κορεσμός (%)"
 #: src/components/CustomColorBrandCreator.tsx:518
 #: src/components/image/ImageActions.tsx:92
 #: src/components/image/ImageSaveButton.tsx:40
-#: src/components/ImageLimitedPalette.tsx:155
+#: src/components/ImageLimitedPalette.tsx:153
 #: src/components/ImageOutline.tsx:367
 msgid "Save"
 msgstr "Αποθήκευση"
@@ -2089,7 +2089,7 @@ msgstr "Επιλέξτε ένα εικαστικό μέσο"
 msgid "Select an image that contains a color chart"
 msgstr "Επιλέξτε μια εικόνα που περιέχει ένα χρωματολόγιο"
 
-#: src/components/ImageEditor.tsx:298
+#: src/components/ImageEditor.tsx:297
 msgid "Select an image to edit"
 msgstr "Επιλέξτε μια εικόνα για επεξεργασία"
 
@@ -2134,9 +2134,9 @@ msgstr "Επιλογή χρωμάτων"
 msgid "Select colors to build a mixing chart"
 msgstr "Επιλέξτε χρώματα για να δημιουργήσετε ένα διάγραμμα ανάμειξης"
 
-#: src/components/ImageLimitedPalette.tsx:121
-msgid "Select from 1 to {MAX_COLORS} colors"
-msgstr "Επιλέξτε από 1 έως {MAX_COLORS} χρώματα"
+#: src/components/ImageLimitedPalette.tsx:119
+msgid "Select from 1 to {maxColors} colors"
+msgstr "Επιλέξτε από 1 έως {maxColors} χρώματα"
 
 #: src/components/color-set/CustomColorBrandSelect.tsx:82
 msgid "Select from your recent brands"
@@ -2151,7 +2151,7 @@ msgid "Select from your recent color sets or create a new one."
 msgstr "Επιλέξτε από τα πρόσφατα σετ χρωμάτων σας ή δημιουργήστε ένα νέο."
 
 #: src/components/CustomColorBrandCreator.tsx:446
-#: src/components/ImageEditor.tsx:302
+#: src/components/ImageEditor.tsx:301
 msgid "Select image"
 msgstr "Επιλογή εικόνας"
 
@@ -2231,13 +2231,13 @@ msgstr "Στάλθηκε σε <0>{email}</0>"
 msgid "Session expired"
 msgstr "Η συνεδρία έληξε"
 
-#: src/components/ImageLimitedPalette.tsx:173
+#: src/components/ImageLimitedPalette.tsx:171
 msgid "Set as main color set"
 msgstr "Ορισμός ως κύριο σετ χρωμάτων"
 
 #: src/components/image/ImageActions.tsx:103
 #: src/components/image/ImageSaveButton.tsx:56
-#: src/components/ImageLimitedPalette.tsx:164
+#: src/components/ImageLimitedPalette.tsx:162
 msgid "Set as reference"
 msgstr "Ορισμός ως αναφοράς"
 
@@ -2747,7 +2747,7 @@ msgstr "Δεν είναι δυνατή η επαναφορά του αποθηκ
 msgid "Underlayer"
 msgstr "Υπόστρωμα"
 
-#: src/components/ImageEditor.tsx:326
+#: src/components/ImageEditor.tsx:325
 msgid "Undo"
 msgstr "Αναίρεση"
 
@@ -2839,9 +2839,9 @@ msgstr "Χρήση WebGPU"
 msgid "Used"
 msgstr "Σε χρήση"
 
-#: src/components/ImageLimitedPalette.tsx:113
-msgid "Using a limited palette helps achieve color harmony. Select 1–{MAX_COLORS} primary colors."
-msgstr "Η χρήση περιορισμένης παλέτας βοηθά στην επίτευξη χρωματικής αρμονίας. Επιλέξτε 1–{MAX_COLORS} βασικά χρώματα."
+#: src/components/ImageLimitedPalette.tsx:111
+msgid "Using a limited palette helps achieve color harmony. Select 1–{maxColors} primary colors."
+msgstr "Η χρήση περιορισμένης παλέτας βοηθά στην επίτευξη χρωματικής αρμονίας. Επιλέξτε 1–{maxColors} βασικά χρώματα."
 
 #: src/components/image-editor/ExpandEditorControls.tsx:183
 msgid "Vertical"
@@ -3002,7 +3002,7 @@ msgid "Your image"
 msgstr "Η εικόνα σας"
 
 #: src/components/ImageChooser.tsx:128
-#: src/components/ImageEditor.tsx:313
+#: src/components/ImageEditor.tsx:312
 #: src/components/ImagesCompare.tsx:128
 #: src/components/ImageStyleTransfer.tsx:320
 msgid "Your images are processed on your device and leave it only for cloud storage you connect"

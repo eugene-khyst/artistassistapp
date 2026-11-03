@@ -29,3 +29,9 @@ export enum ImageEditorKey {
   Sharpen = 'sharpen',
   Colorize = 'colorize',
 }
+
+const IMAGE_EDITOR_KEYS = new Set<string>(Object.values(ImageEditorKey));
+
+export function isImageEditorKey(value: unknown): value is ImageEditorKey {
+  return typeof value === 'string' && IMAGE_EDITOR_KEYS.has(value);
+}

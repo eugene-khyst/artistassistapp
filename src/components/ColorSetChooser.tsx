@@ -236,7 +236,7 @@ export function ColorSetChooser() {
           okText: <Trans>Discard changes</Trans>,
           cancelText: <Trans>Keep editing</Trans>,
           okButtonProps: {danger: true},
-          focusTriggerAfterClose: false,
+          focusable: {focusTriggerAfterClose: false},
         });
         if (!confirmed) {
           return false;
@@ -249,7 +249,7 @@ export function ColorSetChooser() {
         content: <Trans>If you don&apos;t save, changes to the color set may be lost.</Trans>,
         okText: <Trans>Save</Trans>,
         cancelText: <Trans>Don&apos;t save</Trans>,
-        focusTriggerAfterClose: false,
+        focusable: {focusTriggerAfterClose: false},
       });
       if (confirmed) {
         if (isColorDataUnavailable) {

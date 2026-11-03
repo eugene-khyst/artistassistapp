@@ -45,7 +45,7 @@ export function ImportFromZipFileSelect() {
       ),
       okText: <Trans>Import backup</Trans>,
       cancelText: <Trans>Cancel</Trans>,
-      focusTriggerAfterClose: false,
+      focusable: {focusTriggerAfterClose: false},
     });
     if (!confirmed) {
       return;
